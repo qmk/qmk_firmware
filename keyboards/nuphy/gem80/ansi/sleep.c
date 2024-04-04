@@ -39,13 +39,17 @@ void clear_report_buffer(void);
  * @note This is Nuphy's "open sourced" sleep logic. It's not deep sleep.
  */
 void enter_light_sleep(void) {
+#if (WORK_MODE == THREE_MODE)
     if (dev_info.rf_state == RF_CONNECT)
         uart_send_cmd(CMD_SET_CONFIG, 5, 5);
     else
         uart_send_cmd(CMD_SLEEP, 5, 5);
 
-    led_pwr_sleep_handle();
     clear_report_buffer();
+#endif
+
+    // wired-only & 3-mode versions
+    led_pwr_sleep_handle();
 }
 
 /**
@@ -59,15 +63,18 @@ void exit_light_sleep(void) {
 
     led_pwr_wake_handle();
 
+#if (WORK_MODE == THREE_MODE)
     uart_send_cmd(CMD_HAND, 0, 1);
-
+#endif
     if (dev_info.link_mode == LINK_USB) {
         usb_lld_wakeup_host(&USB_DRIVER);
         restart_usb_driver(&USB_DRIVER);
     }
 
+#if (WORK_MODE == THREE_MODE)
     // flag for RF wakeup workload.
     dev_info.rf_state = RF_WAKE;
+#endif
 }
 
 /**
@@ -76,7 +83,9 @@ void exit_light_sleep(void) {
 void sleep_handle(void) {
     static uint32_t delay_step_timer     = 0;
     static uint8_t  usb_suspend_debounce = 0;
-    static uint32_t rf_disconnect_time   = 0;
+#if (WORK_MODE == THREE_MODE)
+    static uint32_t rf_disconnect_time = 0;
+#endif
 
     /* 50ms interval */
     if (timer_elapsed32(delay_step_timer) < 50) return;
@@ -89,9 +98,11 @@ void sleep_handle(void) {
 
     if (f_goto_sleep) {
         // reset all counters
-        f_goto_sleep       = 0;
-        rf_linking_time    = 0;
+        f_goto_sleep    = 0;
+        rf_linking_time = 0;
+#if (WORK_MODE == THREE_MODE)
         rf_disconnect_time = 0;
+#endif
 
         // light sleep if charging? Charging event might keep waking MCU. To be confirmed...
         // or if it's in USB mode but USB state is suspended
@@ -117,7 +128,9 @@ void sleep_handle(void) {
                 f_goto_sleep = 0;
             }
         }
-    } else if (no_act_time >= sleep_time_delay) {
+    }
+#if (WORK_MODE == THREE_MODE)
+    else if (no_act_time >= sleep_time_delay) {
         f_goto_sleep = 1;
     } else if (rf_linking_time >= user_config.rf_link_timeout) {
         rf_linking_time = 0;
@@ -130,4 +143,5 @@ void sleep_handle(void) {
     } else if (dev_info.rf_state == RF_CONNECT) {
         rf_disconnect_time = 0;
     }
+#endif
 }

@@ -79,7 +79,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
 
-#ifdef CONSOLE_ENABLE
+#if CONSOLE_ENABLE
     uint8_t row     = record->event.key.row;
     uint8_t col     = record->event.key.col;
     uint8_t led_idx = get_led_index(row, col);
@@ -87,13 +87,14 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 #endif
 
     switch (keycode) {
+#if (WORK_MODE == THREE_MODE)
         case RF_DFU:
             if (record->event.pressed) {
                 if (dev_info.link_mode != LINK_USB) return false;
                 uart_send_cmd(CMD_RF_DFU, 10, 20);
             }
             return false;
-
+#endif
         case LNK_USB:
             if (record->event.pressed) {
                 break_all_key();
@@ -103,6 +104,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
 
+#if (WORK_MODE == THREE_MODE)
         case LNK_RF:
             if (record->event.pressed) {
                 if (dev_info.link_mode != LINK_USB) {
@@ -178,6 +180,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
+#endif
         case MAC_TASK:
             if (record->event.pressed) {
                 host_consumer_send(0x029F);
@@ -407,10 +410,12 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 /* qmk keyboard post init */
 void keyboard_post_init_kb(void) {
     gpio_init();
+
+#if (WORK_MODE == THREE_MODE)
     rf_uart_init();
     wait_ms(500);
     rf_device_init();
-
+#endif
     break_all_key();
     dial_sw_fast_scan();
     load_eeprom_data();

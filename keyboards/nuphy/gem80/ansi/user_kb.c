@@ -43,8 +43,8 @@ bool f_bat_num_show       = 0;
 bool f_debounce_show      = 0;
 bool f_sleep_timeout_show = 0;
 // sleep control for leds
-bool side_led_powered_off = 0;
-bool rgb_led_powered_off  = 0;
+bool        side_led_powered_off = 0;
+bool        rgb_led_powered_off  = 0;
 static bool rgb_led_on           = 0;
 static bool side_led_on          = 0;
 
@@ -114,6 +114,7 @@ void long_press_key(void) {
 
     // Open a new RF device
     if (f_rf_sw_press) {
+#if (WORK_MODE == THREE_MODE)
         rf_sw_press_delay++;
         if (rf_sw_press_delay >= RF_LONG_PRESS_DELAY) {
             f_rf_sw_press = 0;
@@ -130,6 +131,7 @@ void long_press_key(void) {
                 if (f_rf_new_adv_ok) break;
             }
         }
+#endif
     } else {
         rf_sw_press_delay = 0;
     }

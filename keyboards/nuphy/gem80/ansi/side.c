@@ -1025,12 +1025,11 @@ void side_led_show(void) {
 
 #if (WORK_MODE == THREE_MODE)
     bat_led_show();
-
+    rf_led_show();
 #endif
     sys_led_show();
     sys_sw_led_show();
     sleep_sw_led_show();
-    rf_led_show();
 
     m_logo_led_show();
 
