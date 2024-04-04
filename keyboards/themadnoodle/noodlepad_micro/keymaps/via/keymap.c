@@ -8,7 +8,7 @@ enum custom_keycodes {
     L_IND = QK_KB_0, // Toggle the Layer Indicators Modes
     L_CYC            // Cycle through the layers
 #else // If you are not using VIA, you can use your own keycodes
-    L_IND = SAFE_RANGE,
+    L_IND = QK_USER,
     L_CYC
 #endif
 };
