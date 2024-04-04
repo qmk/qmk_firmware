@@ -147,6 +147,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
                 tap_code16(tap_hold->tap);
             }
+        case UP_DIR:
+            if (record->event.pressed) {
+                SEND_STRING("../");
+            }
+            break;
+        case BRACES_PAIR:
+            if (record->event.pressed) {
+                SEND_STRING("{}" SS_TAP(X_LEFT));
+            }
+            break;
+        case BRACKETS_PAIR:
+            if (record->event.pressed) {
+                SEND_STRING("[]" SS_TAP(X_LEFT));
+            }
+            break;
+        case PARENS_PAIR:
+            if (record->event.pressed) {
+                SEND_STRING("()" SS_TAP(X_LEFT));
+            }
+            break;
+        case LT_GT_PAIR:
+            if (record->event.pressed) {
+                SEND_STRING("<>" SS_TAP(X_LEFT));
+            }
+            break;
+
     }
     return true;
 }
@@ -162,8 +188,17 @@ tap_dance_action_t tap_dance_actions[] = {
 };
 
 const uint16_t PROGMEM dot_slash[] = {KC_DOT, KC_SLASH, COMBO_END};
+const uint16_t PROGMEM braces_pair[] = {KC_LCBR, KC_RCBR, COMBO_END};
+const uint16_t PROGMEM brackets_pair[] = {KC_LBRC, KC_RBRC, COMBO_END};
+const uint16_t PROGMEM parens_pair[] = {KC_LEFT_PAREN, KC_RIGHT_PAREN, COMBO_END};
+const uint16_t PROGMEM lt_gt_pair[] = {KC_LT, KC_GT, COMBO_END};
+
 combo_t key_combos[] = {
-    // COMBO(dot_slash, UP_DIR)
+    COMBO(dot_slash, UP_DIR),
+    COMBO(braces_pair, BRACES_PAIR),
+    COMBO(brackets_pair, BRACKETS_PAIR),
+    COMBO(parens_pair, PARENS_PAIR),
+    COMBO(lt_gt_pair, LT_GT_PAIR),
 };
 
 

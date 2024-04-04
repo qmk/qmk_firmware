@@ -58,11 +58,18 @@
 #define WMGMT_RIGHT_66 LSFT(LALT(LCTL(KC_8)))
 #define WMGMT_CENTER LALT(LGUI(LCTL(KC_C)))
 
-// Tap dance enums
-enum tapdance {
+enum tapdances {
     TMUX_SCROLL,
     WIN_TAPDANCE,
     ALT_TAPDANCE,
     AUTOTAB,
+};
+
+enum macros {
+    UP_DIR = SAFE_RANGE,
+    BRACES_PAIR,
+    BRACKETS_PAIR,
+    PARENS_PAIR,
+    LT_GT_PAIR,
 };
 
