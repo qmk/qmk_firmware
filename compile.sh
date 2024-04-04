@@ -5,7 +5,7 @@ set -e
 
 TAG=$(git describe --tags --abbrev=0)
 echo "=============================="
-echo "= Version tag: $TAG   ="
+echo "      Version tag: $TAG       "
 echo "=============================="
 
 
