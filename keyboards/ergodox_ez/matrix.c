@@ -193,7 +193,7 @@ static void select_row(uint8_t row) {
             // set other rows hi-Z : 1
             uint8_t data;
             data = 0xFF & ~(1 << row);
-            mcp23018_status = i2c_writeReg(I2C_ADDR, GPIOA, &data, 1, ERGODOX_EZ_I2C_TIMEOUT);
+            mcp23018_status = i2c_write_register(I2C_ADDR, GPIOA, &data, 1, ERGODOX_EZ_I2C_TIMEOUT);
         }
     } else {
         // select on teensy

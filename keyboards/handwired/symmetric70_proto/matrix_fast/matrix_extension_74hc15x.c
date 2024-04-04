@@ -16,6 +16,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 // clang-format off
 
+#include "atomic_util.h"
+#include "gpio.h"
+#include "wait.h"
+
 #if defined(MATRIX_EXTENSION_74HC157)
 #    define MATRIX_DEVICES MCU_GPIOa, MCU_GPIOb
 #    define IS_74HC15x(dev) ((dev)==MCU_GPIOa || (dev)==MCU_GPIOb)

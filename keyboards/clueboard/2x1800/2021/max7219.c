@@ -40,6 +40,10 @@
  */
 
 #include "max7219.h"
+#include "spi_master.h"
+#include "debug.h"
+#include "gpio.h"
+#include "wait.h"
 #include "font.h"
 
 // Datastructures

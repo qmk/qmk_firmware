@@ -1,6 +1,7 @@
 // Copyright 2023 David Hoelscher (@customMK)
 // SPDX-License-Identifier: GPL-2.0-or-later
-#include "quantum.h"
+#include "matrix.h"
+#include <string.h>
 
 // Pin definitions
 static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;

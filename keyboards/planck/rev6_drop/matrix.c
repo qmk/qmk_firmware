@@ -15,7 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
+#include "matrix.h"
+#include "wait.h"
 
 /* matrix state(1:on, 0:off) */
 static pin_t matrix_row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;

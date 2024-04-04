@@ -14,15 +14,12 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <stdint.h>
-#include <stdbool.h>
-#include "util.h"
 #include "matrix.h"
-#include "debounce.h"
-#include "quantum.h"
+#include "atomic_util.h"
 #include "split_util.h"
-#include "config.h"
 #include "transport.h"
+#include "debounce.h"
+#include "wait.h"
 
 #define ERROR_DISCONNECT_COUNT 5
 

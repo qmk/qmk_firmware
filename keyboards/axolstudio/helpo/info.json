@@ -8,6 +8,11 @@
         "pid": "0xC89F",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true
+    },
     "matrix_pins": {
         "cols": ["A1", "B4", "B3", "B2", "B1"],
         "rows": ["A2", "A3", "A4", "A5"]

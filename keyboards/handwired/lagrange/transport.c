@@ -14,9 +14,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <spi_master.h>
-
-#include "quantum.h"
+#include "spi_master.h"
 #include "split_util.h"
 #include "transport.h"
 #include "timer.h"

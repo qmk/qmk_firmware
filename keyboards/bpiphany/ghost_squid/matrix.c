@@ -17,7 +17,6 @@
 */
 
 #include "matrix.h"
-#include "quantum.h"
 
 matrix_row_t read_rows(void) {
     return

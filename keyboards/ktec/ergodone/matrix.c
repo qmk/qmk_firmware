@@ -49,7 +49,7 @@ static matrix_row_t expander_read_row(void) {
     }
 
     uint8_t ret = 0xFF;
-    mcp23018_errors += !mcp23018_readPins(I2C_ADDR, mcp23018_PORTA, &ret);
+    mcp23018_errors += !mcp23018_read_pins(I2C_ADDR, mcp23018_PORTA, &ret);
 
     ret = bitrev(~ret);
     ret = ((ret & 0b11111000) >> 1) | (ret & 0b00000011);

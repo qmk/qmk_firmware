@@ -23,7 +23,8 @@ SOFTWARE.
 
 #include "matrix.h"
 #include "i2c_master.h"
-#include "quantum.h"
+#include "print.h"
+#include <string.h>
 
 #define VIBRATE_LENGTH 50 //Defines number of interrupts motor will vibrate for, must be bigger than 8 for correct operation
 volatile uint8_t vibrate = 0; //Trigger vibration in interrupt
@@ -276,16 +277,16 @@ matrix_row_t matrix_get_row(uint8_t row) {
 }
 
 void matrix_print(void) {
-    printf("\nr/c 01234567\n");
+    xprintf("\nr/c 01234567\n");
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        printf("%X0: ", row);
+        xprintf("%X0: ", row);
         matrix_row_t data = matrix_get_row(row);
         for (int col = 0; col < MATRIX_COLS; col++) {
             if (data & (1<<col))
-                printf("1");
+                xprintf("1");
             else
-                printf("0");
+                xprintf("0");
         }
-        printf("\n");
+        xprintf("\n");
     }
 }

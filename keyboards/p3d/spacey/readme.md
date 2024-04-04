@@ -6,7 +6,7 @@ Spacey, designed by Vanilla Keyboards is a 45/65% keyboard with a little persona
 
 * Keyboard Maintainer: [vanilla](https://github.com/vanillakeyboards)
 * Hardware Supported: Elite C, Spacey PCB plates and acrylic drop_in case
-* Hardware Availability: [P3D Store](https://p3dstore.com/collections/ended-group-buys/products/spacey?variant=37742593147064)
+* Hardware Availability: [~~P3D Store~~](https://p3dstore.com/collections/ended-group-buys/products/spacey?variant=37742593147064) (no longer available)
 
 Make example for this keyboard (after setting up your build environment):
 
