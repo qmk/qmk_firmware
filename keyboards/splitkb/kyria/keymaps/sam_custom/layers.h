@@ -7,7 +7,7 @@ enum layers {
     _QWERTY = 0,
     _NUMPAD,
     _SYMBOL,
-    _SHIFT,
+    _SHIFT_MEDIA,
     _MAGIC,
     _WINDOW,
 };

@@ -41,8 +41,8 @@ bool oled_task_user(void) {
             case _WINDOW:
                 oled_write_P(PSTR("Window\n"), false);
                 break;
-            case _SHIFT:
-                oled_write_P(PSTR("Shift\n"), false);
+            case _SHIFT_MEDIA:
+                oled_write_P(PSTR("Shift/Media\n"), false);
                 break;
             default:
                 oled_write_P(PSTR("Undefined\n"), false);
