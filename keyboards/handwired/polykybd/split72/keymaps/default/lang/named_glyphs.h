@@ -272,6 +272,7 @@
 #define TECHNICAL_ALTERNATIVE       	u"\x2387"
 #define TECHNICAL_CONTROL           	u"\x2388"
 #define TECHNICAL_ESCAPE            	u"\x238B"
+#define PRINT_SCREEN                	u"\x2399"
 #define BOX_WITH_CHECK_MARK         	u"\x2611"
 #define CLIPBOARD_CUT               	u"\x2702"
 #define DINGBAT_BLACK_DIA_X         	u"\x2756"
