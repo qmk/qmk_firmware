@@ -6,6 +6,14 @@
         "pid": "0xAA83",
         "device_version": "1.0.0"
     },
+    "features": {
+        "bootmagic": true,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgb_matrix": true
+    },
     "ws2812": {
         "pin": "B5",
         "driver": "pwm"

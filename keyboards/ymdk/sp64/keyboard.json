@@ -8,6 +8,12 @@
         "pid": "0x5364",
         "device_version": "2.0.0"
     },
+    "features": {
+        "bootmagic": true,
+        "command": true,
+        "extrakey": true,
+        "rgblight": true
+    },
     "indicators": {
         "caps_lock": "D1",
         "num_lock": "D0",
