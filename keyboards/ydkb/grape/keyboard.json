@@ -8,6 +8,13 @@
         "pid": "0x6772",
         "device_version": "0.0.1"
     },
+    "features": {
+        "backlight": true,
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
     "backlight": {
         "pin": "B7",
         "breathing": true

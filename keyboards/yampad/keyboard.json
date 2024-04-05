@@ -8,6 +8,12 @@
         "pid": "0x8369",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": true,
+        "nkro": true,
+        "oled": true,
+        "rgblight": true
+    },
     "rgblight": {
         "led_count": 9,
         "animations": {
@@ -27,6 +33,7 @@
         "pin": "F4"
     },
     "build": {
+        "lto": true,
         "debounce_type": "sym_eager_pk"
     },
     "matrix_pins": {

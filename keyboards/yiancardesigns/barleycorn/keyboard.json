@@ -8,6 +8,11 @@
       "device_version": "0.0.1",
       "max_power": 100
     },
+    "features": {
+      "bootmagic": true,
+      "extrakey": true,
+      "mousekey": true
+    },
     "processor": "atmega328p",
     "bootloader": "usbasploader",
     "layouts": {

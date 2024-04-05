@@ -6,6 +6,13 @@
         "pid": "0xAA88",
         "device_version": "1.0.0"
     },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgblight": true
+    },
     "rgblight": {
         "led_count": 1,
         "animations": {
