@@ -8,6 +8,9 @@
         "pid": "0x1960",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": true
+    },
     "matrix_pins": {
         "cols": ["D6", "D7", "B4", "B6", "B5", "B7", "F7", "F6", "F5", "F4", "F1", "F0", "E6", "B0"],
         "rows": ["E2", "C7", "B3", "B2", "B1"]
