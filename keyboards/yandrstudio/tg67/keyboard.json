@@ -6,6 +6,13 @@
         "pid": "0xAA8D",
         "device_version": "1.0.0"
     },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgb_matrix": true
+    },
     "ws2812": {
         "pin": "A7",
         "driver": "pwm"
