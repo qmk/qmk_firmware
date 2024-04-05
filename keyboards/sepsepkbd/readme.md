@@ -4,7 +4,7 @@
 
 *A short description of the keyboard/project*
 
-* Keyboard Maintainer: [takahiro](https://github.com/nagmeal)
+* Keyboard Maintainer: [nagmeal](https://github.com/nagmeal)
 * Hardware Supported: *The PCBs, controllers supported*
 * Hardware Availability: *Links to where you can find this hardware*
 

@@ -1,4 +1,4 @@
-// Copyright 2024 takahiro (@nagmeal)
+// Copyright 2024 nagmeal (@nagmeal)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
@@ -18,3 +18,5 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
+
+#define MASTER_LEFT
