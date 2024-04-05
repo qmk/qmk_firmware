@@ -8,6 +8,12 @@
         "pid": "0x0002",
         "device_version": "0.0.1"
     },
+    "build": {
+        "lto": true
+    },
+    "features": {
+        "extrakey": true
+    },
     "processor": "atmega32u4",
     "bootloader": "caterina",
     "matrix_pins": {
