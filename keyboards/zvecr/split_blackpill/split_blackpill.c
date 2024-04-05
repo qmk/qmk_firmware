@@ -5,9 +5,9 @@
 
 void keyboard_pre_init_kb(void) {
     // Workaround for reversible pcb/mcu
-    palSetLineMode(C13, PAL_MODE_OUTPUT_OPENDRAIN);
-    palSetLineMode(B9, PAL_MODE_OUTPUT_OPENDRAIN);
-    palSetLineMode(B8, PAL_MODE_OUTPUT_OPENDRAIN);
+    gpio_set_pin_output_open_drain(C13);
+    gpio_set_pin_output_open_drain(B9);
+    gpio_set_pin_output_open_drain(B8);
 
     keyboard_pre_init_user();
 }
