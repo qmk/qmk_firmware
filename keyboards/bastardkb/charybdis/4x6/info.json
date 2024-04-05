@@ -8,6 +8,11 @@
     "rgb_matrix": {
         "split_count": [29, 29]
     },
+    "split": {
+        "bootmagic": {
+            "matrix": [5, 0]
+        }
+    },
     "layout_aliases": {
         "LAYOUT_charybdis_4x6": "LAYOUT"
     },

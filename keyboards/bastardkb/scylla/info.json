@@ -17,6 +17,9 @@
             "sync": {
                 "matrix_state": true
             }
+        },
+        "bootmagic": {
+            "matrix": [5, 0]
         }
     },
     "layouts": {
