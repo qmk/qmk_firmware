@@ -1,5 +1,6 @@
 #include "action.h"
 #include "left.h"
+#include "print.h"
 #include "wait.h"
 
 bool i2c_initialized = false;

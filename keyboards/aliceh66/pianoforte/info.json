@@ -8,6 +8,21 @@
         "pid": "0x7066",
         "vid": "0x6168"
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": false,
+        "extrakey": true,
+        "nkro": true
+    },
+    "build": {
+        "lto": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "matrix_pins": {
         "cols": ["D4", "D6", "D7", "B4", "B5", "F1", "F0", "E6", "B6"],
         "rows": ["D1", "D0", "D3", "D2", "D5", "B0", "C6", "C7", "F6", "F7", "F5", "F4"]
