@@ -159,7 +159,7 @@ void led_matrix_set_value_all(uint8_t value) {
 #endif
 }
 
-void process_led_matrix(uint8_t row, uint8_t col, bool pressed) {
+void led_matrix_handle_key_event(uint8_t row, uint8_t col, bool pressed) {
 #ifndef LED_MATRIX_SPLIT
     if (!is_keyboard_master()) return;
 #endif
