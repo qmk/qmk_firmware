@@ -6,6 +6,20 @@
     "pid": "0x5368",
     "device_version": "0.0.1"
   },
+  "features": {
+    "bootmagic": true,
+    "mousekey": true,
+    "extrakey": true,
+    "console": true,
+    "command": true,
+    "encoder": true
+  },
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  },
   "matrix_pins": {
     "cols": ["B1", "B12", "A1", "A7", "A5", "A4", "A3", "A2", "A0", "C15", "C14", "C13"],
     "rows": ["B4", "A15", "B10", "B2"]

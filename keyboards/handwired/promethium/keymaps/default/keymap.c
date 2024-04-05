@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #include "eeconfig.h"
 #include "process_unicode.h"
-#include "quantum.h"
 #ifdef RGBSPS_ENABLE
 #include "rgbsps.h"
 #include "rgbtheme.h"
