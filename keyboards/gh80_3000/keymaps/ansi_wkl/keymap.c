@@ -14,27 +14,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool led_update_user(led_t led_state) {
     if (led_state.num_lock) {
-        DDRB |= (1 << 5);
-        PORTB &= ~(1 << 5);
+        gpio_set_pin_output(B5);
+        gpio_write_pin_low(B5);
     } else {
-        DDRB &= ~(1 << 5);
-        PORTB &= ~(1 << 5);
+        gpio_set_pin_input(B5);
     }
 
     if (led_state.caps_lock) {
-        DDRB |= (1 << 6);
-        PORTB &= ~(1 << 6);
+        gpio_set_pin_output(B6);
+        gpio_write_pin_low(B6);
     } else {
-        DDRB &= ~(1 << 6);
-        PORTB &= ~(1 << 6);
+        gpio_set_pin_input(B6);
     }
 
     if (led_state.scroll_lock) {
-        DDRB |= (1 << 7);
-        PORTB &= ~(1 << 7);
+        gpio_set_pin_output(B7);
+        gpio_write_pin_low(B7);
     } else {
-        DDRB &= ~(1 << 7);
-        PORTB &= ~(1 << 7);
+        gpio_set_pin_input(B7);
     }
     return false;
 }
