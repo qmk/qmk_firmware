@@ -1,7 +1,5 @@
-#include <avr/io.h>
 #include <avr/wdt.h>
 #include <avr/power.h>
-#include <util/delay.h>
 
 // LUFA
 #include "lufa.h"
@@ -9,6 +7,8 @@
 #include "sendchar.h"
 #include "debug.h"
 #include "keyboard.h"
+#include "gpio.h"
+#include "wait.h"
 #include "led.h"
 
 /* LED ping configuration */

@@ -4,13 +4,11 @@ extern inline void frenchdev_board_led_on(void);
 extern inline void frenchdev_led_1_on(void);
 extern inline void frenchdev_led_2_on(void);
 extern inline void frenchdev_led_3_on(void);
-extern inline void frenchdev_led_on(uint8_t led);
 
 extern inline void frenchdev_board_led_off(void);
 extern inline void frenchdev_led_1_off(void);
 extern inline void frenchdev_led_2_off(void);
 extern inline void frenchdev_led_3_off(void);
-extern inline void frenchdev_led_off(uint8_t led);
 
 extern inline void frenchdev_led_all_on(void);
 extern inline void frenchdev_led_all_off(void);
