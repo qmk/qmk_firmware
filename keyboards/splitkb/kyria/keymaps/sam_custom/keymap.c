@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 //    ┌─────┬───┬───┬─────┬─────┬───┐                       ┌──────┬──────┬─────┬──────┬───┬─────┐
-//    │  `  │ ~ │ { │  }  │  @  │ * │                       │  !   │  :   │  (  │  )   │ ; │     │
+//    │  ~  │ ` │ { │  }  │  @  │ * │                       │  !   │  :   │  (  │  )   │ ; │     │
 //    ├─────┼───┼───┼─────┼─────┼───┤                       ├──────┼──────┼─────┼──────┼───┼─────┤
 //    │  0  │ ^ │ = │  #  │  $  │ _ │                       │ left │ down │ up  │ rght │ ~ │     │
 //    ├─────┼───┼───┼─────┼─────┼───┼─────┬─────┬─────┬─────┼──────┼──────┼─────┼──────┼───┼─────┤
@@ -60,14 +60,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                  │     │     │ \ │  :  │  %  │     │     │      │      │     │
 //                  └─────┴─────┴───┴─────┴─────┴─────┴─────┴──────┴──────┴─────┘
 [_SYMBOL] = LAYOUT(
-  KC_GRV  , KC_TILDE      , KC_LCBR  , KC_RCBR , KC_AT   , KC_ASTR       ,                                             KC_EXCLAIM , KC_COLON , KC_LEFT_PAREN , KC_RIGHT_PAREN , KC_SCLN  , _______,
-  KC_0    , KC_CIRCUMFLEX , KC_EQUAL , KC_HASH , KC_DLR  , KC_UNDERSCORE ,                                             KC_LEFT    , KC_DOWN  , KC_UP         , KC_RIGHT       , KC_TILDE , _______,
-  _______ , KC_MINUS      , KC_LT    , KC_GT   , KC_PIPE , KC_AMPR       , _______  , _______    , _______ , _______ , KC_PERCENT , KC_PLUS  , KC_LBRC       , KC_RBRC        , KC_SLSH  , _______,
-                                       _______ , _______ , KC_BACKSLASH  , KC_COLON , KC_PERCENT , _______ , _______ , _______    , _______  , _______
+  KC_TILDE , KC_GRV        , KC_LCBR  , KC_RCBR , KC_AT   , KC_ASTR       ,                                             KC_EXCLAIM , KC_COLON , KC_LEFT_PAREN , KC_RIGHT_PAREN , KC_SCLN  , _______,
+  KC_0     , KC_CIRCUMFLEX , KC_EQUAL , KC_HASH , KC_DLR  , KC_UNDERSCORE ,                                             KC_LEFT    , KC_DOWN  , KC_UP         , KC_RIGHT       , KC_TILDE , _______,
+  _______  , KC_MINUS      , KC_LT    , KC_GT   , KC_PIPE , KC_AMPR       , _______  , _______    , _______ , _______ , KC_PERCENT , KC_PLUS  , KC_LBRC       , KC_RBRC        , KC_SLSH  , _______,
+                                        _______ , _______ , KC_BACKSLASH  , KC_COLON , KC_PERCENT , _______ , _______ , _______    , _______  , _______
 ),
 
 //    ┌─────┬─────┬─────┬─────┬─────┬─────┐                       ┌──────┬──────┬──────┬──────┬─────────────┬─────┐
-//    │  `  │  !  │  @  │  #  │  $  │  %  │                       │  ^   │  &   │  *   │  (   │      )      │  \  │
+//    │ esc │  !  │  @  │  #  │  $  │  %  │                       │  ^   │  &   │  *   │  (   │      )      │  \  │
 //    ├─────┼─────┼─────┼─────┼─────┼─────┤                       ├──────┼──────┼──────┼──────┼─────────────┼─────┤
 //    │     │     │     │     │     │     │                       │      │      │      │      │             │     │
 //    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┬─────┬─────┬─────┼──────┼──────┼──────┼──────┼─────────────┼─────┤
@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                      │     │     │     │     │     │     │     │      │      │      │
 //                      └─────┴─────┴─────┴─────┴─────┴─────┴─────┴──────┴──────┴──────┘
 [_SHIFT_MEDIA] = LAYOUT(
-  KC_GRV  , KC_EXCLAIM , KC_AT   , KC_HASH , KC_DLR  , KC_PERCENT ,                                         KC_CIRCUMFLEX       , KC_AMPR , KC_ASTR , KC_LEFT_PAREN , KC_RIGHT_PAREN , KC_BACKSLASH,
+  KC_ESC  , KC_EXCLAIM , KC_AT   , KC_HASH , KC_DLR  , KC_PERCENT ,                                         KC_CIRCUMFLEX       , KC_AMPR , KC_ASTR , KC_LEFT_PAREN , KC_RIGHT_PAREN , KC_BACKSLASH,
   _______ , _______    , _______ , _______ , _______ , _______    ,                                         _______             , _______ , _______ , _______       , _______        , _______     ,
   _______ , _______    , _______ , _______ , _______ , _______    , _______ , _______ , _______ , _______ , KC_MEDIA_PLAY_PAUSE , KC_MUTE , KC_VOLD , KC_VOLU       , SOUNDSWITCH    , _______     ,
                                    _______ , _______ , _______    , _______ , _______ , _______ , _______ , _______             , _______ , _______
