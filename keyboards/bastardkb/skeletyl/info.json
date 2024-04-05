@@ -17,6 +17,9 @@
             "sync": {
                 "matrix_state": true
             }
+        },
+        "bootmagic": {
+            "matrix": [4, 0]
         }
     },
     "community_layouts": ["split_3x5_3"],
