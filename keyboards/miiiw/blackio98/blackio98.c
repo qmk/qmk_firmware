@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "blackio98.h"
+#include "quantum.h"
 #include "usb_main.h"
 #include "usb_util.h"
 
@@ -39,9 +39,6 @@ static void POWER_EnterSleep(void) {
     SCB->SCR &= ~SCB_SCR_SLEEPDEEP_Msk;
     NVIC_SystemReset();
 }
-
-extern void ws2812_poweron(void);
-extern void ws2812_poweroff(void);
 
 static bool p_setup = false;
 static bool s_init = false;
