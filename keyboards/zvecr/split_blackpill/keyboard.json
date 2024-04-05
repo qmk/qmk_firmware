@@ -8,6 +8,13 @@
         "pid": "0x0001",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgblight": true
+    },
     "matrix_pins": {
         "cols": ["B11", "B10", "B1", "B0", "A7", "A6"],
         "rows": ["B15", "B14", "B13", "B12"],
@@ -15,6 +22,10 @@
     },
     "diode_direction": "COL2ROW",
     "split": {
+        "enabled": true,
+        "handedness": {
+            "pin": "B3"
+        },
         "soft_serial_pin": "B6",
         "bootmagic": {
             "matrix": [4, 0]
