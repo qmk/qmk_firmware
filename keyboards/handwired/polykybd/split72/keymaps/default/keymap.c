@@ -186,6 +186,7 @@ typedef struct _poly_sync_t {
     layer_state_t default_ls;
     uint16_t last_latin_kc;
     uint32_t crc32;
+    uint8_t unicode_mode;
 } poly_sync_t;
 
 #define SYNC_ACK 0b11001010
@@ -936,12 +937,18 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case LBL_TEXT: return u"Text:";
     case KC_TOGMODS: return (g_local.flags&MODS_AS_TEXT)==0 ? u"Mods\r\v" ICON_SWITCH_OFF : u"Mods\r\v" ICON_SWITCH_ON;
     case KC_TOGTEXT: return (g_local.flags&MORE_TEXT)==0 ? u"Cmds\r\v" ICON_SWITCH_OFF : u"Cmds\r\v" ICON_SWITCH_ON;
-    case QK_UNICODE_MODE_MACOS: return u"Mac";
-    case QK_UNICODE_MODE_LINUX: return u"Lnx";
-    case QK_UNICODE_MODE_WINDOWS: return u"Win";
-    case QK_UNICODE_MODE_BSD: return u"BSD";
-    case QK_UNICODE_MODE_WINCOMPOSE: return u"WinC";
-    case QK_UNICODE_MODE_EMACS: return u"Emcs";
+    case QK_UNICODE_MODE_MACOS:
+        return g_local.unicode_mode==UNICODE_MODE_MACOS ? u"Mac\r\v" ICON_SWITCH_ON : u"Mac\r\v" ICON_SWITCH_OFF;
+    case QK_UNICODE_MODE_LINUX:
+        return g_local.unicode_mode==UNICODE_MODE_LINUX ? u"Lnx\r\v" ICON_SWITCH_ON : u"Lnx\r\v" ICON_SWITCH_OFF;
+    case QK_UNICODE_MODE_WINDOWS:
+        return g_local.unicode_mode==UNICODE_MODE_WINDOWS ? u"Win\r\v" ICON_SWITCH_ON : u"Win\r\v" ICON_SWITCH_OFF;
+    case QK_UNICODE_MODE_BSD:
+        return g_local.unicode_mode==UNICODE_MODE_BSD ? u"BSD\r\v" ICON_SWITCH_ON : u"BSD\r\v" ICON_SWITCH_OFF;
+    case QK_UNICODE_MODE_WINCOMPOSE:
+        return g_local.unicode_mode==UNICODE_MODE_WINCOMPOSE ? u"WinC\r\v" ICON_SWITCH_ON : u"WinC\r\v" ICON_SWITCH_OFF;
+    case QK_UNICODE_MODE_EMACS:
+        return g_local.unicode_mode==UNICODE_MODE_EMACS ? u"Emcs\r\v" ICON_SWITCH_ON : u"Emcs\r\v" ICON_SWITCH_OFF;
     case QK_LEAD:
         return u"Lead";
     case KC_HYPR:
@@ -1708,6 +1715,10 @@ bool display_wakeup(keyrecord_t* record) {
     return accept_keypress;
 }
 
+void unicode_input_mode_set_user(uint8_t unicode_mode) {
+    g_local.unicode_mode = unicode_mode;
+}
+
 void keyboard_post_init_user(void) {
     // Customise these values to desired behaviour
     debug_enable = true;
@@ -1719,6 +1730,7 @@ void keyboard_post_init_user(void) {
     pointing_device_set_cpi(650);
     //pimoroni_trackball_set_rgbw(0,0,255,100);
     g_local.default_ls = persistent_default_layer_get();
+    g_local.unicode_mode = get_unicode_input_mode();
     layer_clear();
     layer_on(g_local.default_ls);
 
