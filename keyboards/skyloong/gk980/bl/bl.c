@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "quantum.h"
 
-_Bool en_breath = 0;
+bool dis_breath = 0;
 uint8_t breath_level = 0;
 
 void suspend_power_down_kb() {
@@ -42,21 +42,25 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
      case BL_TOGG:
       if (record->event.pressed) {
-        if (is_backlight_breathing()){
-           breath_level = get_backlight_level();
-            en_breath = 1;
+        if (is_backlight_breathing() && get_backlight_level()){
+           dis_breath = 1;
            backlight_disable_breathing();
-           backlight_level(0);
-            return false;
-        } else if (en_breath){
-            backlight_level(breath_level);
+           backlight_enable();
+
+        } else if (dis_breath && !is_backlight_enabled()){
             backlight_enable_breathing();
-            en_breath = 0;
+            dis_breath = 0;
+        }
+        return true;
+      }
+
+     case BL_BRTG:
+      if (record->event.pressed) {
+        if (dis_breath || !is_backlight_enabled()){
             return false;
-        } else {
+        }
             return true;
         }
-      }
 
      case TO(0):
       if (record->event.pressed) {
@@ -80,4 +84,11 @@ void board_init(void) {
     AFIO->MAPR = (AFIO->MAPR & ~AFIO_MAPR_SWJ_CFG_Msk) | AFIO_MAPR_SWJ_CFG_DISABLE;
     gpio_set_pin_output(MAC_PIN);
     gpio_write_pin_high(MAC_PIN);
+    /*
+     if (is_backlight_breathing()){
+           backlight_disable_breathing();
+           dis_breath = 1;
+           backlight_enable();
+        }
+    */
 }
