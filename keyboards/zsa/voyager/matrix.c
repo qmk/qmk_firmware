@@ -81,22 +81,22 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         // strobe row
         switch (row) {
             case 0:
-                writePinHigh(B10);
+                gpio_write_pin_high(B10);
                 break;
             case 1:
-                writePinHigh(B11);
+                gpio_write_pin_high(B11);
                 break;
             case 2:
-                writePinHigh(B12);
+                gpio_write_pin_high(B12);
                 break;
             case 3:
-                writePinHigh(B13);
+                gpio_write_pin_high(B13);
                 break;
             case 4:
-                writePinHigh(B14);
+                gpio_write_pin_high(B14);
                 break;
             case 5:
-                writePinHigh(B15);
+                gpio_write_pin_high(B15);
                 break;
             case 6:
                 break; // Left hand has 6 rows
@@ -120,22 +120,22 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
             // unstrobe  row
             switch (row) {
                 case 0:
-                    writePinLow(B10);
+                    gpio_write_pin_low(B10);
                     break;
                 case 1:
-                    writePinLow(B11);
+                    gpio_write_pin_low(B11);
                     break;
                 case 2:
-                    writePinLow(B12);
+                    gpio_write_pin_low(B12);
                     break;
                 case 3:
-                    writePinLow(B13);
+                    gpio_write_pin_low(B13);
                     break;
                 case 4:
-                    writePinLow(B14);
+                    gpio_write_pin_low(B14);
                     break;
                 case 5:
-                    writePinLow(B15);
+                    gpio_write_pin_low(B15);
                     break;
                 case 6:
                     break;

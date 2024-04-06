@@ -69,17 +69,17 @@ static THD_FUNCTION(LEDThread, arg) {
 
 void keyboard_pre_init_kb(void) {
     // Initialize Reset pins
-    setPinInput(A8);
-    setPinOutput(A9);
-    writePinLow(A9);
+    gpio_set_pin_input(A8);
+    gpio_set_pin_output(A9);
+    gpio_write_pin_low(A9);
 
-    setPinOutput(B5);
-    setPinOutput(B4);
-    setPinOutput(B3);
+    gpio_set_pin_output(B5);
+    gpio_set_pin_output(B4);
+    gpio_set_pin_output(B3);
 
-    writePinLow(B5);
-    writePinLow(B4);
-    writePinLow(B3);
+    gpio_write_pin_low(B5);
+    gpio_write_pin_low(B4);
+    gpio_write_pin_low(B3);
 
     chThdCreateStatic(waLEDThread, sizeof(waLEDThread), NORMALPRIO - 16, LEDThread, NULL);
     keyboard_pre_init_user();
@@ -280,22 +280,22 @@ __attribute__((weak)) void bootloader_jump(void) {
     // Setting both A8 and A9 high will charge the capacitor quickly.
     // Setting A9 low before reset will cause the capacitor to discharge
     // thus making the bootloder unlikely to trigger twice between power cycles.
-    setPinOutputPushPull(A9);
-    setPinOutputPushPull(A8);
-    writePinHigh(A9);
-    writePinHigh(A8);
+    gpio_set_pin_output_push_pull(A9);
+    gpio_set_pin_output_push_pull(A8);
+    gpio_write_pin_high(A9);
+    gpio_write_pin_high(A8);
     wait_ms(500);
-    writePinLow(A9);
+    gpio_write_pin_low(A9);
 
     NVIC_SystemReset();
 }
 
 
 __attribute__((weak)) void mcu_reset(void) {
-    setPinOutputPushPull(A9);
-    setPinOutputPushPull(A8);
-    writePinLow(A8);
-    writePinLow(A9);
+    gpio_set_pin_output_push_pull(A9);
+    gpio_set_pin_output_push_pull(A8);
+    gpio_write_pin_low(A8);
+    gpio_write_pin_low(A9);
 
     NVIC_SystemReset();
 }
