@@ -52,8 +52,8 @@ void matrix_init_custom(void) {
     gpio_set_pin_input_low(B0);
 
     mcp23018_init(MCP23018_DEFAULT_ADDRESS);
-    mcp23018_errors += !mcp23018_set_config(MCP23018_DEFAULT_ADDRESS, mcp23018_PORTA, 0b10000000);
-    mcp23018_errors += !mcp23018_set_config(MCP23018_DEFAULT_ADDRESS, mcp23018_PORTB, 0b11111111);
+    mcp23018_errors += !mcp23018_set_config(MCP23018_DEFAULT_ADDRESS, mcp23018_PORTA, 0b00000000);
+    mcp23018_errors += !mcp23018_set_config(MCP23018_DEFAULT_ADDRESS, mcp23018_PORTB, 0b00111111);
 
     if (!mcp23018_errors) {
         is_launching = true;
