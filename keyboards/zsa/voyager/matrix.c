@@ -64,7 +64,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     bool changed = false;
     // Attempt to reset the mcp23018 if it's not initialized
     if (mcp23018_errors) {
-        if (++mcp23018_reset_loop > 0x7FFF) {
+        if (++mcp23018_reset_loop > 0x1FFF) {
             if (io_expander_ready()) {
                 // If we managed to initialize the mcp23018 - we need to reinitialize the matrix / layer state. During an electric discharge the i2c peripherals might be in a weird state. Giving a delay and resetting the MCU allows to recover from this.
                 wait_ms(200);
