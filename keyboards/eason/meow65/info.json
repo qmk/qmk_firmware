@@ -38,8 +38,7 @@
         "driver": "spi"
     },
     "indicators": {
-        "caps_lock": "C13",
-        "on_state": 1
+        "caps_lock": "C13"
     },
     "matrix_pins": {
         "rows": [ "A15", "B3", "B4", "B5", "B6"],
