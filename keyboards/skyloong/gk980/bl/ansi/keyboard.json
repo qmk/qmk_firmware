@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "GK980 Backlight ANSI_1.0.0",
+    "keyboard_name": "GK980 Backlight ANSI_1.0.1",
 
     "usb": {
-        "device_version": "1.0.0",
+        "device_version": "1.0.1",
         "pid": "0x6A98"
     },
     "layouts": {
