@@ -119,11 +119,11 @@ void keyboard_pre_init_user(void) {
   // Call the keyboard pre init code.
 
   // Set our LED pins as output
-  setPinOutput(B0);
-  setPinOutput(B1);
-  setPinOutput(B2);
-  setPinOutput(B3);
-  setPinOutput(B4);
+  gpio_set_pin_output(B0);
+  gpio_set_pin_output(B1);
+  gpio_set_pin_output(B2);
+  gpio_set_pin_output(B3);
+  gpio_set_pin_output(B4);
 }
 ```
 
@@ -282,6 +282,65 @@ void suspend_wakeup_init_user(void) {
 
 * Keyboard/Revision: `void suspend_power_down_kb(void)` and `void suspend_wakeup_init_user(void)`
 * Keymap: `void suspend_power_down_kb(void)` and `void suspend_wakeup_init_user(void)`
+
+
+# Keyboard Shutdown/Reboot Code :id=keyboard-shutdown-reboot-code
+
+This function gets called whenever the firmware is reset, whether it's a soft reset or reset to the bootloader.  This is the spot to use for any sort of cleanup, as this happens right before the actual reset.  And it can be useful for turning off different systems (such as RGB, onboard screens, etc).
+
+Additionally, it differentiates between the soft reset (eg, rebooting back into the firmware) or jumping to the bootloader.
+
+Certain tasks are performed during shutdown too.  The keyboard is cleared, music and midi is stopped (if enabled), the shutdown chime is triggered (if audio is enabled), and haptic is stopped.
+
+If `jump_to_bootloader` is set to `true`, this indicates that the board will be entering the bootloader for a new firmware flash, whereas `false` indicates that this is happening for a soft reset and will load the firmware agaim immediately (such as when using `QK_REBOOT` or `QK_CLEAR_EEPROM`).
+
+As there is a keyboard and user level function, returning `false` for the user function will disable the keyboard level function, allowing for customization.
+
+?> Bootmagic does not trigger `shutdown_*()` as it happens before most of the initialization process.
+
+### Example `shutdown_kb()` Implementation
+
+```c
+bool shutdown_kb(bool jump_to_bootloader) {
+    if (!shutdown_user(jump_to_bootloader)) {
+        return false;
+    }
+    
+    if (jump_to_bootloader) {
+        // red for bootloader
+        rgb_matrix_set_color_all(RGB_OFF);
+    } else {
+        // off for soft reset
+        rgb_matrix_set_color_all(RGB_GREEN);
+    }
+    // force flushing -- otherwise will never happen
+    rgb_matrix_update_pwm_buffers();
+    return true;
+}
+```
+
+### Example `shutdown_user()` Implementation
+
+```c
+bool shutdown_user(bool jump_to_bootloader) {
+    if (jump_to_bootloader) {
+        // red for bootloader
+        rgb_matrix_set_color_all(RGB_RED);
+    } else {
+        // off for soft reset
+        rgb_matrix_set_color_all(RGB_OFF);
+    }
+    // force flushing -- otherwise will never happen
+    rgb_matrix_update_pwm_buffers();
+    // false to not process kb level
+    return false;
+}
+```
+
+### Keyboard shutdown/reboot Function Documentation
+
+* Keyboard/Revision: `bool shutdown_kb(bool jump_to_bootloader)`
+* Keymap: `bool shutdown_user(bool jump_to_bootloader)`
 
 # Deferred Execution :id=deferred-execution
 

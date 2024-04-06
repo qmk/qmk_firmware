@@ -1,4 +1,7 @@
 {
+    "eeprom": {
+        "driver": "i2c"
+    },
     "backlight": {
         "pin": "A6",
         "levels": 20,
@@ -17,6 +20,9 @@
             "rgb_test": true,
             "alternating": true,
             "twinkle": true
+        },
+        "default": {
+            "val": 0
         }
     },
     "ws2812": {

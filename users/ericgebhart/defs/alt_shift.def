@@ -1,6 +1,0 @@
-// alt shift. Give an existing key code,
-// and maybe an alternate shift keycode.
-
-ALT_SHIFT(US_EXLM, US_PERC)
-SHIFT_FOR_2(US_AT)
-SHIFT_FOR_3(US_DLR)

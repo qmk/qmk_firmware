@@ -8,9 +8,6 @@
         "pid": "0x0335",
         "device_version": "1.0.0"
     },
-    "rgb_matrix": {
-        "driver": "ckled2001"
-    },
     "encoder": {
         "rotary": [
             {"pin_a": "A10", "pin_b": "A8"}
