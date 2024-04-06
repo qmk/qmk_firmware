@@ -2,82 +2,69 @@
 // Copyright 2023 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+#include <stdint.h>
 #include "voyager.h"
-#include "i2c_master.h"
+#include "mcp23018.h"
+
+#pragma GCC push_options
+#pragma GCC optimize("-O3")
 
 extern matrix_row_t matrix[MATRIX_ROWS];     // debounced values
 extern matrix_row_t raw_matrix[MATRIX_ROWS]; // raw values
 static matrix_row_t raw_matrix_right[MATRIX_COLS];
 
-#define ROWS_PER_HAND (MATRIX_ROWS / 2)
+#define MCP_ROWS_PER_HAND (MATRIX_ROWS / 2)
 #ifndef VOYAGER_I2C_TIMEOUT
 #    define VOYAGER_I2C_TIMEOUT 100
+#endif
+// Delay between each i2c io expander ops (in MCU cycles)
+#ifndef IO_EXPANDER_OP_DELAY
+#    define IO_EXPANDER_OP_DELAY 500
 #endif
 
 extern bool mcp23018_leds[2];
 extern bool is_launching;
 
-bool mcp23018_initd = false;
-static uint8_t mcp23018_reset_loop;
-
-uint8_t mcp23018_tx[3];
-uint8_t mcp23018_rx[1];
-
-void mcp23018_init(void) {
-    i2c_init();
-
-    mcp23018_tx[0] = 0x00;       // IODIRA
-    mcp23018_tx[1] = 0b00000000; // A is output
-    mcp23018_tx[2] = 0b00111111; // B is inputs
-
-    if (MSG_OK == i2c_transmit(MCP23018_DEFAULT_ADDRESS << 1, mcp23018_tx, 3, VOYAGER_I2C_TIMEOUT)) {
-        mcp23018_tx[0] = 0x0C;       // GPPUA
-        mcp23018_tx[1] = 0b10000000; // A is not pulled-up
-        mcp23018_tx[2] = 0b11111111; // B is pulled-up
-        wait_ms(5);
-
-        if (MSG_OK == i2c_transmit(MCP23018_DEFAULT_ADDRESS << 1, mcp23018_tx, 3, VOYAGER_I2C_TIMEOUT)) {
-            wait_ms(5);
-            mcp23018_initd = is_launching = true;
-        }
-    }
-}
+static uint16_t mcp23018_reset_loop;
+uint8_t         mcp23018_errors;
 
 bool io_expander_ready(void) {
-    uint8_t tx[1] = {0x13};
-    if (MSG_OK == i2c_readReg(MCP23018_DEFAULT_ADDRESS << 1, tx[0], &tx[0], 1, VOYAGER_I2C_TIMEOUT)) {
-        return true;
-    }
-    return false;
+    uint8_t tx;
+    return mcp23018_readPins(MCP23018_DEFAULT_ADDRESS, mcp23018_PORTA, &tx);
 }
 
 void matrix_init_custom(void) {
     // outputs
-    setPinOutput(B10);
-    setPinOutput(B11);
-    setPinOutput(B12);
-    setPinOutput(B13);
-    setPinOutput(B14);
-    setPinOutput(B15);
+    gpio_set_pin_output(B10);
+    gpio_set_pin_output(B11);
+    gpio_set_pin_output(B12);
+    gpio_set_pin_output(B13);
+    gpio_set_pin_output(B14);
+    gpio_set_pin_output(B15);
 
     // inputs
-    setPinInputLow(A0);
-    setPinInputLow(A1);
-    setPinInputLow(A2);
-    setPinInputLow(A3);
-    setPinInputLow(A6);
-    setPinInputLow(A7);
-    setPinInputLow(B0);
+    gpio_set_pin_input_low(A0);
+    gpio_set_pin_input_low(A1);
+    gpio_set_pin_input_low(A2);
+    gpio_set_pin_input_low(A3);
+    gpio_set_pin_input_low(A6);
+    gpio_set_pin_input_low(A7);
+    gpio_set_pin_input_low(B0);
 
-    mcp23018_init();
+    mcp23018_init(MCP23018_DEFAULT_ADDRESS);
+    mcp23018_errors += !mcp23018_set_config(MCP23018_DEFAULT_ADDRESS, mcp23018_PORTA, 0b10000000);
+    mcp23018_errors += !mcp23018_set_config(MCP23018_DEFAULT_ADDRESS, mcp23018_PORTB, 0b11111111);
+
+    if (!mcp23018_errors) {
+        is_launching = true;
+    }
 }
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     bool changed = false;
     // Attempt to reset the mcp23018 if it's not initialized
-    if (!mcp23018_initd) {
-        if (++mcp23018_reset_loop == 0) {
-            // Since mcp23018_reset_loop is 8 bit - we'll try to reset once in 255 matrix scans. This will be approx bit more frequent than once per second.
+    if (mcp23018_errors) {
+        if (++mcp23018_reset_loop > 0x7FFF) {
             if (io_expander_ready()) {
                 // If we managed to initialize the mcp23018 - we need to reinitialize the matrix / layer state. During an electric discharge the i2c peripherals might be in a weird state. Giving a delay and resetting the MCU allows to recover from this.
                 wait_ms(200);
@@ -90,7 +77,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     // Left side is scanned by reading the gpio pins directly, right side is scanned by reading the mcp23018 registers.
 
     matrix_row_t data = 0;
-    for (uint8_t row = 0; row <= ROWS_PER_HAND; row++) {
+    for (uint8_t row = 0; row <= MCP_ROWS_PER_HAND; row++) {
         // strobe row
         switch (row) {
             case 0:
@@ -116,20 +103,15 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         }
 
         // Selecting the row on the right side of the keyboard.
-        if (mcp23018_initd) {
+        if (!mcp23018_errors) {
             // select row
-            mcp23018_tx[0] = 0x12;                                                                  // GPIOA
-            mcp23018_tx[1] = (0b01111111 & ~(1 << (row)));      // activate row
-            mcp23018_tx[2] = ((uint8_t)!mcp23018_leds[1] << 6) | ((uint8_t)!mcp23018_leds[0] << 7); // activate row
-
-            if (MSG_OK != i2c_transmit(MCP23018_DEFAULT_ADDRESS << 1, mcp23018_tx, 3, VOYAGER_I2C_TIMEOUT)) {
-                mcp23018_initd = false;
-            }
+            mcp23018_errors += !mcp23018_set_output(MCP23018_DEFAULT_ADDRESS, mcp23018_PORTA, 0b01111111 & ~(1 << (row)));
+            mcp23018_errors += !mcp23018_set_output(MCP23018_DEFAULT_ADDRESS, mcp23018_PORTB, ((uint8_t)!mcp23018_leds[1] << 6) | ((uint8_t)!mcp23018_leds[0] << 7));
         }
         // Reading the left side of the keyboard.
-        if (row < ROWS_PER_HAND) {
+        if (row < MCP_ROWS_PER_HAND) {
             // i2c comm incur enough wait time
-            if (!mcp23018_initd) {
+            if (mcp23018_errors) {
                 // need wait to settle pin state
                 matrix_io_delay();
             }
@@ -166,16 +148,13 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         }
 
         // Reading the right side of the keyboard.
-        if (mcp23018_initd) {
+        if (!mcp23018_errors) {
             for (uint16_t i = 0; i < IO_EXPANDER_OP_DELAY; i++) {
                 __asm__("nop");
             }
-
-            mcp23018_tx[0] = 0x13; // GPIOB
-            if (MSG_OK != i2c_readReg(MCP23018_DEFAULT_ADDRESS << 1, mcp23018_tx[0], &mcp23018_rx[0], 1, VOYAGER_I2C_TIMEOUT)) {
-                mcp23018_initd = false;
-            }
-            data = ~(mcp23018_rx[0] & 0b00111111);
+            uint8_t rx;
+            mcp23018_errors += !mcp23018_readPins(MCP23018_DEFAULT_ADDRESS, mcp23018_PORTB, &rx);
+            data = ~(rx & 0b00111111);
             for (uint16_t i = 0; i < IO_EXPANDER_OP_DELAY; i++) {
                 __asm__("nop");
             }
@@ -189,7 +168,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         }
     }
 
-    for (uint8_t row = 0; row < ROWS_PER_HAND; row++) {
+    for (uint8_t row = 0; row < MCP_ROWS_PER_HAND; row++) {
         current_matrix[11 - row] = 0;
         for (uint8_t col = 0; col < MATRIX_COLS; col++) {
             current_matrix[11 - row] |= ((raw_matrix_right[6 - col] & (1 << row) ? 1 : 0) << col);
@@ -220,5 +199,6 @@ void matrix_power_up(void) {
 }
 
 bool is_transport_connected(void) {
-    return mcp23018_initd;
+    return (bool)(mcp23018_errors == 0);
 }
+#pragma GCC pop_options
