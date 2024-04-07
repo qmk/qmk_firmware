@@ -13,38 +13,21 @@
  * You should have received a copy of the GNU General Public License 
  * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
  */
-#include <ch.h>
-#include <hal.h>
-#include "util.h"
 #include "quantum.h"
 
-#ifdef BOARD_STM32_F103_STM32DUINO
-
-// this is fairly unnecessary
-#define RED_LED_OFF()    do { palClearPad(GPIOA, 0) ;} while (0) // GPIOA1 is right green LED
-#define RED_LED_ON()   do { palSetPad(GPIOA, 0); } while (0)
-#define RED_LED_TGL()   do { palTogglePad(GPIOA, 0); } while (0)
-
-#define GREEN_LED_OFF()    do { palClearPad(GPIOA, 1) ;} while (0) // GPIOA1 is right green LED
-#define GREEN_LED_ON()   do { palSetPad(GPIOA, 1); } while (0)
-#define GREEN_LED_TGL()   do { palTogglePad(GPIOA, 1); } while (0)
-
-#else
-#define LED_ON()
-#define LED_OFF()
-#define LED_TGL()
-#endif
-
-void keyboard_pre_init_user(void){
+void keyboard_pre_init_kb(void){
     // Initialize LED pins to correct setting
-    palSetPadMode(GPIOA, 0, PAL_MODE_OUTPUT_PUSHPULL); // 6U correct
-    palSetPadMode(GPIOA, 1, PAL_MODE_OUTPUT_PUSHPULL); // 6U correct
-
+    gpio_set_pin_output_push_pull(A0);
+    gpio_set_pin_output_push_pull(A1);
+    
+    keyboard_pre_init_user();
 }
 
 void matrix_init_kb(void){
-    RED_LED_ON();
-    GREEN_LED_ON();
+    gpio_write_pin_high(A0);
+    gpio_write_pin_high(A1);
     wait_ms(500);
-    RED_LED_OFF();
+    gpio_write_pin_low(A0);
+    
+    matrix_init_user();
 }

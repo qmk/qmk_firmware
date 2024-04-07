@@ -7,9 +7,7 @@
         "bootmagic": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
-        "command": true,
-        "console": true,
+        "nkro": true
     },
     "combo": {
         "term": 35
@@ -19,9 +17,6 @@
         "enabled": true,
         "protocol": "geminipr"
     },
-    "tapping": {
-        "term": 200
-    },
     "url": "",
     "usb": {
         "device_version": "1.0.0",
@@ -29,8 +24,6 @@
         "vid": "0xFEED",
         "force_nkro": true
     },
-
-    "debounce": 5,
     "diode_direction": "COL2ROW",
     "matrix_pins": {
         "rows": ["B8", "B7", "A7", "A6"],

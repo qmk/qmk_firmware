@@ -68,32 +68,32 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         case (STENO):
           //green LED on
           // red LED off
-          palSetPad(GPIOA, 1);
-          palClearPad(GPIOA, 0);
+          gpio_write_pin_high(A1);
+          gpio_write_pin_low(A0);
           break;
         case (QWERTY):
           // red LED on
           // green LED off
-          palSetPad(GPIOA, 0);
-          palClearPad(GPIOA, 1);
+          gpio_write_pin_high(A0);
+          gpio_write_pin_low(A1);
           break;
         case (QWERTY_CAPS):
           // same as QWERTY
-          palSetPad(GPIOA,0);
-          palClearPad(GPIOA,1);
+          gpio_write_pin_high(A0);
+          gpio_write_pin_low(A1);
           break;
         case (NKRO): 
-          palClearPad(GPIOA, 1);
-          palClearPad(GPIOA, 0);
+          gpio_write_pin_low(A0);
+          gpio_write_pin_low(A1);
           break;
         case (SYMBOL):
           // both LEDs on for Symbol
-          palSetPad(GPIOA, 1);
-          palSetPad(GPIOA, 0);
+          gpio_write_pin_high(A0);
+          gpio_write_pin_high(A1);
           break;
         default:
-          palClearPad(GPIOA, 1);
-          palClearPad(GPIOA, 0);
+          gpio_write_pin_low(A0);
+          gpio_write_pin_low(A1);
           break;
     }
 
