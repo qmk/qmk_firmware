@@ -16,20 +16,7 @@
 
 #pragma once
 
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-
-/* Dip Switch */
 #define POWER_SWITCH_PIN B0
-#define DIP_SWITCH_PINS { B0, B1, B8, B12 }
 
 /* 16 with dummy columns for shift registers */
 #define SHR_SERIES_NUM 2
@@ -49,9 +36,6 @@
 
 /* RGB Matrix config */
 #define RGB_EN_PIN A8
-#define RGBLED_NUM 83
-#define RGB_MATRIX_LED_COUNT 83
-#define RGB_MATRIX_CENTER { 62, 42 }
 
 // PWM RGB Underglow Defines
 #define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_GRB

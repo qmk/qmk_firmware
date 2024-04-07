@@ -94,7 +94,6 @@
             "matrix": [5, 0]
         },
         "soft_serial_pin": "D2",
-        "main": "matrix_grid",
         "matrix_pins": {
             "right": {
                 "rows": ["F4", "D4", "B3", "B2", "B6"],
@@ -106,6 +105,11 @@
                 "rotary": [
                     {"pin_a": "F7", "pin_b": "F6"}
                 ]
+            }
+        },
+        "transport": {
+            "sync": {
+                "matrix_state": true
             }
         }
     },
@@ -188,7 +192,9 @@
             {"flags": 4, "matrix": [9, 5], "x": 137, "y": 64}, // R SW29
             {"flags": 4, "matrix": [9, 4], "x": 159, "y": 64}, // R SW28
             {"flags": 4, "matrix": [9, 3], "x": 173, "y": 62}, // R SW27
-            {"flags": 4, "matrix": [9, 2], "x": 188, "y": 62}, // R SW26
-        ]
+            {"flags": 4, "matrix": [9, 2], "x": 188, "y": 62}  // R SW26
+        ],
+        "max_brightness": 128,
+        "split_count": [34, 34]
     }
 }

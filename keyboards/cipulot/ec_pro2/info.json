@@ -1,6 +1,6 @@
 {
     "manufacturer": "Cipulot",
-    "keyboard_name": "EC Pro2",
+    "keyboard_name": "EC Pro 2",
     "maintainer": "Cipulot",
     "bootloader": "stm32-dfu",
     "build": {
@@ -8,18 +8,12 @@
     },
     "diode_direction": "COL2ROW",
     "features": {
-        "audio": false,
-        "backlight": false,
-        "bootmagic": true,
-        "command": false,
+        "bootmagic": false,
         "console": true,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
         "rgblight": true
-    },
-    "mouse_key": {
-        "enabled": true
     },
     "processor": "STM32F401",
     "rgblight": {
@@ -40,7 +34,6 @@
     "ws2812": {
         "pin": "B14"
     },
-    "url": "https://www.github.com/Cipulot/EC-Pro-2",
     "usb": {
         "device_version": "0.0.1",
         "pid": "0x6B8E",

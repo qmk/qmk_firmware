@@ -169,11 +169,11 @@ The `post_rules.mk` file can interpret `features` of a keyboard-level before `co
 
   ifeq ($(strip $(RGBLED_OPTION_TYPE)),backlight)
     RGBLIGHT_ENABLE = yes
-    OPT_DEFS += -DRGBLED_NUM=30
+    OPT_DEFS += -DRGBLIGHT_LED_COUNT=30
   endif
   ifeq ($(strip $(RGBLED_OPTION_TYPE)),underglow)
     RGBLIGHT_ENABLE = yes
-    OPT_DEFS += -DRGBLED_NUM=6
+    OPT_DEFS += -DRGBLIGHT_LED_COUNT=6
   endif
   ```
 
