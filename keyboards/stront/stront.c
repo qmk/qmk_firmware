@@ -7,6 +7,17 @@
 static bool display_enabled;
 
 /* public function to be used in keymaps */
+bool is_display_side(void) {
+#ifdef STRONT_DISPLAY_RIGHT
+    return !is_keyboard_left();
+#endif
+#ifdef STRONT_DISPLAY_LEFT
+    return is_keyboard_left();
+#endif
+    return false;
+}
+
+/* public function to be used in keymaps */
 bool is_display_enabled(void) {
     return display_enabled;
 }
@@ -53,7 +64,7 @@ void housekeeping_task_kb(void) {
 void keyboard_post_init_kb(void) {
     display_enabled = false;
 
-    if (is_keyboard_left()) {
+    if (is_display_side()) {
         display_enabled = display_init_kb();
     }
 

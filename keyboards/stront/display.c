@@ -24,22 +24,17 @@ static lv_obj_t *label_caps;
 void init_styles(void) {
     lv_style_init(&style_screen);
     lv_style_set_bg_color(&style_screen, lv_color_black());
+    lv_style_set_pad_all(&style_screen, 10);
 
     lv_style_init(&style_container);
-    lv_style_set_pad_top(&style_container, 0);
-    lv_style_set_pad_bottom(&style_container, 0);
-    lv_style_set_pad_left(&style_container, 0);
-    lv_style_set_pad_right(&style_container, 0);
+    lv_style_set_pad_all(&style_container, 0);
     lv_style_set_bg_opa(&style_container, 0);
     lv_style_set_border_width(&style_container, 0);
     lv_style_set_width(&style_container, lv_pct(100));
     lv_style_set_height(&style_container, LV_SIZE_CONTENT);
 
     lv_style_init(&style_button);
-    lv_style_set_pad_top(&style_button, 4);
-    lv_style_set_pad_bottom(&style_button, 4);
-    lv_style_set_pad_left(&style_button, 4);
-    lv_style_set_pad_right(&style_button, 4);
+    lv_style_set_pad_all(&style_button, 4);
     lv_style_set_radius(&style_button, 6);
     lv_style_set_text_color(&style_button, lv_palette_main(LV_PALETTE_AMBER));
 
@@ -52,21 +47,22 @@ void init_styles(void) {
 void init_screen_home(void) {
     screen_home = lv_scr_act();
 
-    lv_obj_add_style(screen_home, &style_screen, 0);
+    lv_obj_add_style(screen_home, &style_screen, LV_PART_MAIN);
     use_flex_column(screen_home);
 
     lv_obj_t *mods = lv_obj_create(screen_home);
-    lv_obj_add_style(mods, &style_container, 0);
+    lv_obj_add_style(mods, &style_container, LV_PART_MAIN);
+    lv_obj_set_style_pad_hor(mods, 20, LV_PART_MAIN);
     use_flex_column(mods);
 
     lv_obj_t *mods_row1 = lv_obj_create(mods);
-    lv_obj_add_style(mods_row1, &style_container, 0);
+    lv_obj_add_style(mods_row1, &style_container, LV_PART_MAIN);
     use_flex_row(mods_row1);
     label_gui = create_button(mods_row1, "GUI", &style_button, &style_button_active);
     label_alt = create_button(mods_row1, "ALT", &style_button, &style_button_active);
 
     lv_obj_t *mods_row2 = lv_obj_create(mods);
-    lv_obj_add_style(mods_row2, &style_container, 0);
+    lv_obj_add_style(mods_row2, &style_container, LV_PART_MAIN);
     use_flex_row(mods_row2);
     label_ctrl  = create_button(mods_row2, "CTL", &style_button, &style_button_active);
     label_shift = create_button(mods_row2, "SFT", &style_button, &style_button_active);
@@ -85,10 +81,14 @@ bool display_init_kb(void) {
 
     backlight_enable();
 
-    painter_device_t display = qp_st7789_make_spi_device(240, 300, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, 16, 3);
-    qp_set_viewport_offsets(display, 0, 20);
+#ifdef QUANTUM_PAINTER_ST7789_SPI_ENABLE
+    painter_device_t display = qp_st7789_make_spi_device(STRONT_DISPLAY_WIDTH, STRONT_DISPLAY_HEIGHT, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, 16, 3);
+    qp_set_viewport_offsets(display, STRONT_DISPLAY_OFFSET_X, STRONT_DISPLAY_OFFSET_Y);
+#elif QUANTUM_PAINTER_GC9A01_SPI_ENABLE
+    painter_device_t display = qp_gc9a01_make_spi_device(240, 240, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, 16, 3);
+#endif
 
-    if (!qp_init(display, QP_ROTATION_180) || !qp_power(display, true) || !qp_lvgl_attach(display)) return false;
+    if (!qp_init(display, STRONT_DISPLAY_ROTATION) || !qp_power(display, true) || !qp_lvgl_attach(display)) return false;
 
     dprint("display_init_kb - initialised\n");
 
