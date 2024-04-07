@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
  */
 
-#include "keymap_steno.h"
 #include QMK_KEYBOARD_H
 
 enum layers{
