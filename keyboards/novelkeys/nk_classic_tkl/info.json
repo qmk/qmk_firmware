@@ -159,7 +159,6 @@
             {"matrix": [5, 1], "x": 19, "y": 64, "flags": 1},
             {"matrix": [5, 0], "x": 3, "y": 64, "flags": 1}
         ],
-        "led_count": 92,
         "max_brightness": 120,
         "sleep": true
     },
