@@ -352,7 +352,7 @@
             "label": "° (dead)",
         }
         "A(CZ_ACUT)": {
-            "key": "CZ_HAT",
+            "key": "CZ_DCIR",
             "label": "^ (dead)",
         }
         "A(CZ_W)": {
@@ -505,7 +505,7 @@
             "label": "™",
         }
         "S(A(CZ_Z))": {
-            "key": "CZ_ZDOT",
+            "key": "CZ_CZDT",
             "label": "Ż",
         }
         "S(A(CZ_UACU))": {
@@ -521,7 +521,7 @@
             "label": "\" (dead)",
         }
         "S(A(CZ_A))": {
-            "key": "CZ_UAOG",
+            "key": "CZ_CAOG",
             "label": "Ą",
         }
         "S(A(CZ_S))": {

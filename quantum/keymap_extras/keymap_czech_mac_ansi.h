@@ -106,7 +106,7 @@
 #define CZ_LCBR A(CZ_IACU) // {
 #define CZ_RCBR A(CZ_EACU) // }
 #define CZ_RNGA A(CZ_EQL)  // ° (dead)
-#define CZ_HAT  A(CZ_ACUT) // ^ (dead)
+#define CZ_DCIR A(CZ_ACUT) // ^ (dead)
 #define CZ_LEDT A(CZ_W)    // ė
 #define CZ_LEOG A(CZ_E)    // ę
 #define CZ_EURO A(CZ_R)    // €
@@ -141,11 +141,11 @@
 #define CZ_CEOG S(A(CZ_E))    // Ę
 #define CZ_REGD S(A(CZ_R))    // ®
 #define CZ_TM   S(A(CZ_T))    // ™
-#define CZ_ZDOT S(A(CZ_Z))    // Ż
+#define CZ_CZDT S(A(CZ_Z))    // Ż
 #define CZ_LSAQ S(A(CZ_UACU)) // ‹
 #define CZ_RSAQ S(A(CZ_RPRN)) // ›
 #define CZ_DDQT S(A(CZ_DIAE)) // " (dead)
-#define CZ_UAOG S(A(CZ_A))    // Ą
+#define CZ_CAOG S(A(CZ_A))    // Ą
 #define CZ_NARS S(A(CZ_S))    // ∑
 #define CZ_INCR S(A(CZ_D))    // ∆
 #define CZ_LDQU S(A(CZ_H))    // “
