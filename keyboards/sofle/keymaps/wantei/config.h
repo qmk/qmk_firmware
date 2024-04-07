@@ -53,3 +53,5 @@ for more options. */
 #        define RGBLIGHT_VAL_STEP 17
 #    endif
 #endif
+
+#define DYNAMIC_KEYMAP_LAYER_COUNT 5
