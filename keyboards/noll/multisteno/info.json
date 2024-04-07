@@ -3,16 +3,16 @@
     "keyboard_name": "Nolltronics Multisteno",
     "maintainer": "Noll Electronics LLC",
     "bootloader": "stm32duino",
-    "bootmagic": {
-        "enabled": false
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "command": true,
+        "console": true,
     },
     "combo": {
         "term": 35
-    },
-    "debounce": 5,
-    "diode_direction": "COL2ROW",
-    "mouse_key": {
-        "enabled": false
     },
     "processor": "STM32F103",
     "stenography": {
@@ -20,16 +20,24 @@
         "protocol": "geminipr"
     },
     "tapping": {
-        "term": 137
+        "term": 200
     },
     "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x3622",
-        "vid": "0xFEED"
+        "vid": "0xFEED",
+        "force_nkro": true
+    },
+
+    "debounce": 5,
+    "diode_direction": "COL2ROW",
+    "matrix_pins": {
+        "rows": ["B8", "B7", "A7", "A6"],
+        "cols": ["B15", "B14", "B13", "B12", "B1", "B0", "B9", "B6", "B5", "B4", "B3", "A15"]
     },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_3x6_3": {
             "layout": [
                 {"label": "K00 (B0,B5)", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "K01 (B0,B6)", "matrix": [0, 1], "x": 1, "y": 0},
