@@ -3,7 +3,7 @@
 This is a TKL PCB. It supports VIA and full per-key RGB.
 
 * Keyboard Maintainer: [Yiancar](https://yiancar-designs.com/) and on [GitHub](https://github.com/yiancar)
-* Hardware Supported: A 65% with macro keys keyboard with STM32F072CB or APM compatible
+* Hardware Supported: A TKL keyboard with STM32F072CB or APM compatible
 * Hardware Availability: https://novelkeys.com/ 
 
 ## Instructions
