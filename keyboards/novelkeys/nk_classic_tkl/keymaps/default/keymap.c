@@ -16,7 +16,7 @@
 #include QMK_KEYBOARD_H
 
 enum my_keycodes {
-  RETRO_RGB = QK_KB_0
+  RETRO_RGB = QK_USER_0
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
