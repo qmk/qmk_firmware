@@ -45,6 +45,14 @@
     },
     "processor": "atmega32u4",
     "bootloader": "qmk-dfu",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true,
+        "rgblight": true,
+        "encoder": true
+    },
     "layouts": {
         "LAYOUT_ortho_5x4": {
             "layout": [

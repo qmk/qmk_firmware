@@ -36,12 +36,20 @@
     "diode_direction": "ROW2COL",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true,
+        "rgblight": true
+    },
     "layout_aliases": {
         "LAYOUT_default": "LAYOUT_all",
         "LAYOUT_hhkb": "LAYOUT_60_hhkb",
         "LAYOUT_iso": "LAYOUT_60_iso_split_bs_rshift",
         "LAYOUT_tsangan": "LAYOUT_60_tsangan_hhkb"
     },
+    "community_layouts": ["60_ansi", "60_ansi_split_bs_rshift", "60_hhkb", "60_iso", "60_tsangan_hhkb"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
