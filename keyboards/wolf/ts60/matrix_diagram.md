@@ -1,4 +1,4 @@
-# Matrix Diagram for Wolf Ts60
+# Matrix Diagram for Wolf TS60
 
 ```
                                                     ┌───────┐

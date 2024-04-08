@@ -1,4 +1,4 @@
-# panc60
+# Panc60
 
 ![panc60](https://i.imgur.com/ULL9X2zh.jpeg)
 

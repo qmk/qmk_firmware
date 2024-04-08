@@ -1,4 +1,4 @@
-# Matrix Diagram for Xiudi Xd60
+# Matrix Diagram for Xiudi XD60
 
 ```
                                                     ┌───────┐

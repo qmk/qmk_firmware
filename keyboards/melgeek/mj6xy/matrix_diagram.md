@@ -1,4 +1,4 @@
-# Matrix Diagram for Meelgeek Mj64xy
+# Matrix Diagram for Melgeek MJ6XY
 
 ```
                                                     ┌───────┐
