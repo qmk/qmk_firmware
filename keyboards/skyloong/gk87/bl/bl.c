@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "quantum.h"
 
-bool DIS_BRETH = 0;
+bool dis_breath = 0;
 
 void suspend_power_down_kb() {
     writePinHigh(MAC_PIN);
@@ -36,33 +36,34 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
          return false;
 
        case BL_TOGG:
-           if (record->event.pressed){
-               if(is_backlight_breathing()) {
-                    backlight_disable_breathing();
-                    DIS_BRETH = 1;
+         if (record->event.pressed) {
+            if (is_backlight_breathing() && get_backlight_level()){
+               dis_breath = 1;
+               backlight_disable_breathing();
+               backlight_enable();
 
-                }else if(DIS_BRETH && !(is_backlight_enabled())){
-                    backlight_enable_breathing();
-                    DIS_BRETH = 0;
-                }
+            } else if (dis_breath && !is_backlight_enabled()){
+                backlight_enable_breathing();
+                dis_breath = 0;
+              }
+            return true;
            }
-         return true;
 
-       case BL_BRTG:
-           if (record->event.pressed){
-               if(DIS_BRETH || !(is_backlight_enabled())) {
-                 return false;
-                }
-           }
-         return true;
+      case BL_BRTG:
+        if (record->event.pressed) {
+          if (dis_breath || !is_backlight_enabled()){
+              return false;
+            }
+             return true;
+        }
 
        case BL_UP:
-           DIS_BRETH = 0;
+           dis_breath = 0;
          return true;
 
        case BL_DOWN:
            if (record->event.pressed){
-               if(DIS_BRETH || !(is_backlight_enabled())) {
+               if(dis_breath || !(is_backlight_enabled())) {
                  return false;
                 }
            }
