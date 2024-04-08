@@ -394,7 +394,13 @@ void quantum_init(void) {
 #endif
 
     /* read here just incase bootmagic process changed its value */
+#if defined(DEFAULT_LAYER_BITMASK_ENABLE)
+    /* stored as 8-bit-wide bitmask, so write the value directly to default_layer */
     layer_state_t default_layer = (layer_state_t)eeconfig_read_default_layer();
+#else
+    /* stored as a layer number, so left shift 1 by the stored value */
+    layer_state_t default_layer = (layer_state_t)(1UL << eeconfig_read_default_layer());
+#endif
     default_layer_set(default_layer);
 
     /* Also initialize layer state to trigger callback functions for layer_state */
