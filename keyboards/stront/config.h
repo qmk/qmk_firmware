@@ -37,7 +37,7 @@
 #define I2C1_SCL_PIN GP11
 
 /* common touchpad config */
-#define POINTING_DEVICE_RIGHT
+#define POINTING_DEVICE_RIGHT // touchpad is right by default
 #define POINTING_DEVICE_CS_PIN GP9
 #ifdef POINTING_DEVICE_DRIVER_azoteq_iqs5xx
 #    define AZOTEQ_IQS5XX_TPS43
