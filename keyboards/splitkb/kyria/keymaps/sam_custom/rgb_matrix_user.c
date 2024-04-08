@@ -63,6 +63,60 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                 }
             }
             break;
+        case _WINDOW:
+            for (uint8_t i = led_min; i < led_max; i++) {
+                // add 6 to account for the 6 underglow LEDs per half that we aren't using
+                uint16_t keycode = keymap_key_to_keycode(current_layer, led_index_key_position[i+6]);
+                switch (keycode) {
+                    case WMGMT_MONITOR_1:
+                    case WMGMT_MONITOR_2:
+                    case WMGMT_MONITOR_3:
+                    case WMGMT_MONITOR_4:
+                        rgb_matrix_set_color(i, RGB_RED);
+                        break;
+                    case WMGMT_LEFT_50:
+                    case WMGMT_DOWN_50:
+                    case WMGMT_UP_50:
+                    case WMGMT_RIGHT_50:
+                        rgb_matrix_set_color(i, RGB_ORANGE);
+                        break;
+                    case WMGMT_TOPLEFT:
+                    case WMGMT_TOPRIGHT:
+                    case WMGMT_BOTTOMLEFT:
+                    case WMGMT_BOTTOMRIGHT:
+                        rgb_matrix_set_color(i, RGB_YELLOW);
+                        break;
+                    case WMGMT_LEFT_33:
+                    case WMGMT_HCENTER_33:
+                    case WMGMT_RIGHT_33:
+                        rgb_matrix_set_color(i, RGB_CYAN);
+                        break;
+                    case WMGMT_TOP_33:
+                    case WMGMT_VCENTER_33:
+                    case WMGMT_BOTTOM_33:
+                        rgb_matrix_set_color(i, RGB_BLUE);
+                        break;
+                    case WMGMT_LEFT_66:
+                    case WMGMT_RIGHT_66:
+                        rgb_matrix_set_color(i, RGB_MAGENTA);
+                        break;
+                    case WMGMT_FULLSCREEN:
+                        rgb_matrix_set_color(i, RGB_ORANGE);
+                        break;
+                    case WMGMT_CENTER:
+                    case WMGMT_NEXT_WALLPAPER:
+                        rgb_matrix_set_color(i, RGB_GREEN);
+                        break;
+                    case WMGMT_NEXT_MONITOR:
+                    case WMGMT_PREV_MONITOR:
+                        rgb_matrix_set_color(i, RGB_TURQUOISE);
+                        break;
+                    default:
+                        rgb_matrix_set_color(i, RGB_OFF);
+                        break;
+                }
+            }
+            break;
         default:
             break;
     }
