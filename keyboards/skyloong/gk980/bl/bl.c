@@ -84,11 +84,4 @@ void board_init(void) {
     AFIO->MAPR = (AFIO->MAPR & ~AFIO_MAPR_SWJ_CFG_Msk) | AFIO_MAPR_SWJ_CFG_DISABLE;
     gpio_set_pin_output(MAC_PIN);
     gpio_write_pin_high(MAC_PIN);
-    /*
-     if (is_backlight_breathing()){
-           backlight_disable_breathing();
-           dis_breath = 1;
-           backlight_enable();
-        }
-    */
 }
