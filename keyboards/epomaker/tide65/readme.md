@@ -7,6 +7,10 @@
 Make example for this keyboard (after setting up your build environment):
 
     make epomaker/tide_65:default
+        
+Flashing example for this keyboard:
+
+    make epomaker/tide65:default:flash
 
 To reset the board into bootloader mode, do one of the following:
 
