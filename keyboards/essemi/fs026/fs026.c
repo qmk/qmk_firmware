@@ -1,5 +1,13 @@
 
 #include "quantum.h"
+#include "board.h"
+
+void board_init(void) {
+    /*Using USB_SOF to calibrate the internal clock*/
+    md_rcu_enable_csu(RCU);
+    CSU->CON |= CSU_CON_AUTOEN_MSK;
+    CSU->CON |= CSU_CON_CNTEN_MSK;
+}
 
 #ifdef RGB_MATRIX_ENABLE
 
