@@ -19,8 +19,6 @@
 #include "moonlander.h"
 #include "i2c_master.h"
 
-#pragma GCC push_options
-#pragma GCC optimize("-O3")
 /*
 #define MATRIX_ROW_PINS { B10, B11, B12, B13, B14, B15 } outputs
 #define MATRIX_COL_PINS { A0, A1, A2, A3, A6, A7, B0 }   inputs
@@ -233,6 +231,3 @@ void matrix_power_up(void) {
 bool is_transport_connected(void) {
     return mcp23018_initd;
 }
-
-
-#pragma GCC pop_options
