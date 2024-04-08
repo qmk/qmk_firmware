@@ -18,20 +18,20 @@
 #include "tapdance.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-//    ┌─────────────┬───┬───┬──────────────────┬──────────────────┬─────┐                                                               ┌─────┬───┬───┬───┬───┬────────────────────┐
-//    │ TD(AUTOTAB) │ q │ w │        e         │        r         │  t  │                                                               │  y  │ u │ i │ o │ p │         -          │
-//    ├─────────────┼───┼───┼──────────────────┼──────────────────┼─────┤                                                               ├─────┼───┼───┼───┼───┼────────────────────┤
-//    │   CTL_ESC   │ a │ s │        d         │        f         │  g  │                                                               │  h  │ j │ k │ l │ ; │         '          │
-//    ├─────────────┼───┼───┼──────────────────┼──────────────────┼─────┼─────────────────┬─────────────┬─────────────┬─────────────────┼─────┼───┼───┼───┼───┼────────────────────┤
-//    │    lsft     │ z │ x │        c         │        v         │  b  │ TD(TMUX_SCROLL) │  CLOSE_TAB  │ REOPEN_TAB  │ TD(TMUX_SCROLL) │  n  │ m │ , │ . │ / │ LT(SHIFT_MEDIA, \) │
-//    └─────────────┴───┴───┼──────────────────┼──────────────────┼─────┼─────────────────┼─────────────┼─────────────┼─────────────────┼─────┼───┼───┼───┴───┴────────────────────┘
-//                          │ TD(WIN_TAPDANCE) │ TD(ALT_TAPDANCE) │ ent │  OSM(MOD_LSFT)  │ OSL(NUMPAD) │ OSL(SYMBOL) │      bspc       │ spc │ [ │ ] │
-//                          └──────────────────┴──────────────────┴─────┴─────────────────┴─────────────┴─────────────┴─────────────────┴─────┴───┴───┘
+//    ┌─────────────┬───┬───┬──────────────────┬──────────────────┬─────┐                                                               ┌─────┬─────┬────────────────────┬───┬───┬────────────────────┐
+//    │ TD(AUTOTAB) │ q │ w │        e         │        r         │  t  │                                                               │  y  │  u  │         i          │ o │ p │         -          │
+//    ├─────────────┼───┼───┼──────────────────┼──────────────────┼─────┤                                                               ├─────┼─────┼────────────────────┼───┼───┼────────────────────┤
+//    │   CTL_ESC   │ a │ s │        d         │        f         │  g  │                                                               │  h  │  j  │         k          │ l │ ; │         '          │
+//    ├─────────────┼───┼───┼──────────────────┼──────────────────┼─────┼─────────────────┬─────────────┬─────────────┬─────────────────┼─────┼─────┼────────────────────┼───┼───┼────────────────────┤
+//    │    lsft     │ z │ x │        c         │        v         │  b  │ TD(TMUX_SCROLL) │  CLOSE_TAB  │ REOPEN_TAB  │ TD(TMUX_SCROLL) │  n  │  m  │         ,          │ . │ / │ LT(SHIFT_MEDIA, \) │
+//    └─────────────┴───┴───┼──────────────────┼──────────────────┼─────┼─────────────────┼─────────────┼─────────────┼─────────────────┼─────┼─────┼────────────────────┼───┴───┴────────────────────┘
+//                          │ TD(WIN_TAPDANCE) │ TD(ALT_TAPDANCE) │ ent │  OSM(MOD_LSFT)  │ OSL(NUMPAD) │ OSL(SYMBOL) │      bspc       │ spc │     │ TD(PLAYPAUSE_MUTE) │
+//                          └──────────────────┴──────────────────┴─────┴─────────────────┴─────────────┴─────────────┴─────────────────┴─────┴─────┴────────────────────┘
 [_QWERTY] = LAYOUT(
-  TD(AUTOTAB) , KC_Q , KC_W , KC_E             , KC_R             , KC_T   ,                                                                 KC_Y   , KC_U    , KC_I    , KC_O   , KC_P    , KC_MINUS                     ,
-  CTL_ESC     , KC_A , KC_S , KC_D             , KC_F             , KC_G   ,                                                                 KC_H   , KC_J    , KC_K    , KC_L   , KC_SCLN , KC_QUOTE                     ,
-  KC_LSFT     , KC_Z , KC_X , KC_C             , KC_V             , KC_B   , TD(TMUX_SCROLL) , CLOSE_TAB   , REOPEN_TAB  , TD(TMUX_SCROLL) , KC_N   , KC_M    , KC_COMM , KC_DOT , KC_SLSH , LT(SHIFT_MEDIA, KC_BACKSLASH),
-                              TD(WIN_TAPDANCE) , TD(ALT_TAPDANCE) , KC_ENT , OSM(MOD_LSFT)   , OSL(NUMPAD) , OSL(SYMBOL) , KC_BSPC         , KC_SPC , KC_LBRC , KC_RBRC
+  TD(AUTOTAB) , KC_Q , KC_W , KC_E             , KC_R             , KC_T   ,                                                                 KC_Y   , KC_U    , KC_I               , KC_O   , KC_P    , KC_MINUS                     ,
+  CTL_ESC     , KC_A , KC_S , KC_D             , KC_F             , KC_G   ,                                                                 KC_H   , KC_J    , KC_K               , KC_L   , KC_SCLN , KC_QUOTE                     ,
+  KC_LSFT     , KC_Z , KC_X , KC_C             , KC_V             , KC_B   , TD(TMUX_SCROLL) , CLOSE_TAB   , REOPEN_TAB  , TD(TMUX_SCROLL) , KC_N   , KC_M    , KC_COMM            , KC_DOT , KC_SLSH , LT(SHIFT_MEDIA, KC_BACKSLASH),
+                              TD(WIN_TAPDANCE) , TD(ALT_TAPDANCE) , KC_ENT , OSM(MOD_LSFT)   , OSL(NUMPAD) , OSL(SYMBOL) , KC_BSPC         , KC_SPC , _______ , TD(PLAYPAUSE_MUTE)
 ),
 
 //    ┌─────┬─────┬─────┬────────────┬─────────────┬────────┐                         ┌─────┬──────┬──────┬───┬──────┬────────┐
@@ -118,20 +118,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {
 
-    if (index == 0) {
-        // Volume control
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-    } else if (index == 1) {
-        // Page up/Page down
-        if (clockwise) {
-            tap_code(KC_PGDN);
-        } else {
-            tap_code(KC_PGUP);
-        }
+    if (clockwise) {
+        tap_code(KC_VOLU);
+    } else {
+        tap_code(KC_VOLD);
     }
     return false;
 }
@@ -141,7 +131,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     tap_dance_action_t *action;
 
     switch (keycode) {
+        // tap-hold macros
         case TD(AUTOTAB):
+        case TD(PLAYPAUSE_MUTE):
             action = &tap_dance_actions[QK_TAP_DANCE_GET_INDEX(keycode)];
             if (!record->event.pressed && action->state.count && !action->state.finished) {
                 tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
@@ -216,11 +208,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #define ACTION_TAP_DANCE_TAP_HOLD(tap, hold) \
     { .fn = {NULL, tap_dance_tap_hold_finished, tap_dance_tap_hold_reset}, .user_data = (void *)&((tap_dance_tap_hold_t){tap, hold, 0}), }
 
+// update the array size in tapdance.h when adding to or removing from this
 tap_dance_action_t tap_dance_actions[] = {
     [TMUX_SCROLL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tmux_finished, tmux_reset),
     [WIN_TAPDANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, win_finished, win_reset),
     [ALT_TAPDANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, alt_finished, alt_reset),
     [AUTOTAB] = ACTION_TAP_DANCE_TAP_HOLD(KC_TAB, LALT(LCTL(KC_TAB))),
+    [PLAYPAUSE_MUTE] = ACTION_TAP_DANCE_TAP_HOLD(KC_MUTE, KC_MEDIA_PLAY_PAUSE),
 };
 
 const uint16_t PROGMEM combo_dot_slash[] = {KC_DOT, KC_SLASH, COMBO_END};

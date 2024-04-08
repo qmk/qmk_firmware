@@ -64,6 +64,7 @@ enum tap_dance_codes {
     WIN_TAPDANCE,
     ALT_TAPDANCE,
     AUTOTAB,
+    PLAYPAUSE_MUTE,
 };
 
 enum macro_codes {
