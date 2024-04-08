@@ -1,13 +1,13 @@
-# Charybdis (6x4, 5x3 "Nano")
+# Charybdis (4x6, 3x6 "Mini", 3x5 "Nano")
 
 An ergonomic keyboard with integrated trackball.
 
 Engineered to be a full mouse replacement solution with high-quality, custom-developed components.
 
-There are 6x4 and 5x3 "Nano" versions.
+There are 4x6, 3x6 "Mini" and 3x5 "Nano" versions.
 
 -   Keyboard Maintainer: [Bastard Keyboards](https://github.com/Bastardkb)
--   Hardware Supported: elite-C V4
+-   Hardware Supported: Splinky v3, Splinktegrated
 -   Hardware Availability: [Bastard Keyboards](https://bastardkb.com)
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
@@ -18,12 +18,10 @@ Check out the [keyboard build guides](https://docs.bastardkb.com) for the Charyb
 
 ## Building the firmware
 
-**You must specify the shield version when compiling/flashing the firmware.**
-
 The template is:
 
 ```shell
-qmk compile -kb bastardkb/charybdis/{LAYOUT}/{VERSION}/elitec -km {KEYMAP}
+qmk compile -kb bastardkb/charybdis/{LAYOUT} -km {KEYMAP}
 ```
 
 See below for populated commands per layout
@@ -34,17 +32,25 @@ Check out the `via` layout if you're looking for VIA support.
 
 ### Charybdis (4x6)
 
-| Shield Version | default                                                         | via                                                         |
-| -------------- | --------------------------------------------------------------- | ----------------------------------------------------------- |
-| v1             | `qmk compile -kb bastardkb/charybdis/4x6/v1/elitec -km default` | `qmk compile -kb bastardkb/charybdis/4x6/v1/elitec -km via` |
-| v2             | `qmk compile -kb bastardkb/charybdis/4x6/v2/elitec -km default` | `qmk compile -kb bastardkb/charybdis/4x6/v2/elitec -km via` |
+| default                                               | via                                               |
+| ----------------------------------------------------- | ------------------------------------------------- |
+| `qmk compile -kb bastardkb/charybdis/4x6 -km default` | `qmk compile -kb bastardkb/charybdis/4x6 -km via` |
+
+### Charybdis (3x6)
+
+| default                                               | via                                               |
+| ----------------------------------------------------- | ------------------------------------------------- |
+| `qmk compile -kb bastardkb/charybdis/3x6 -km default` | `qmk compile -kb bastardkb/charybdis/3x6 -km via` |
 
 ### Charybdis (3x5)
 
-| Shield Version | default                                                         | via                                                         |
-| -------------- | --------------------------------------------------------------- | ----------------------------------------------------------- |
-| v1             | `qmk compile -kb bastardkb/charybdis/3x5/v1/elitec -km default` | `qmk compile -kb bastardkb/charybdis/3x5/v1/elitec -km via` |
-| v2             | `qmk compile -kb bastardkb/charybdis/3x5/v2/elitec -km default` | `qmk compile -kb bastardkb/charybdis/3x5/v2/elitec -km via` |
+| default                                               | via                                               |
+| ----------------------------------------------------- | ------------------------------------------------- |
+| `qmk compile -kb bastardkb/charybdis/3x5 -km default` | `qmk compile -kb bastardkb/charybdis/3x5 -km via` |
+
+### Legacy hardware
+
+For older configurations, including `blackpill`, `v1` shield versions, `elitec` and `splinky_2` support, please see the archived tree at commit [`f0ffdc3b6d`](https://github.com/Bastardkb/bastardkb-qmk/tree/f0ffdc3b6d34b1d0e72474bc2d2296399871d5b9/keyboards/bastardkb/charybdis).
 
 ## Customizing the firmware
 
