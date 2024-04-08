@@ -1,14 +1,18 @@
 SRC += oled.c
 SRC += capsword.c
 SRC += tapdance.c
+SRC += rgb_matrix_user.c
 
 # LEDs
 OLED_ENABLE = yes
 RGBLIGHT_ENABLE = no      # Enable keyboard RGB underglow
 RGB_MATRIX_ENABLE = yes     # Disable keyboard RGB matrix, as it is enabled by default on rev3
+RGB_MATRIX_CUSTOM_KB = yes     # Enable custom user animations
+
+# Debug
+CONSOLE_ENABLE = yes
 
 # Disable some stuff we don't need
-CONSOLE_ENABLE = no
 MOUSEKEY_ENABLE = no
 SPACE_CADET_ENABLE = no
 GRAVE_ESC_ENABLE = no

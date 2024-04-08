@@ -16,6 +16,7 @@
 #include QMK_KEYBOARD_H
 #include "keymap.h"
 #include "tapdance.h"
+#include "rgb_matrix_user.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //    ┌─────────────┬───┬───┬──────┬──────────────────┬─────┐                                                               ┌─────┬─────────────┬────────────────────┬───┬───┬──────────────┐
@@ -82,17 +83,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    _______ , _______ , _______    , _______ , _______ , _______ , _______ , _______       , _______ , _______
 ),
 
-//    ┌─────┬─────────┬─────────┬─────────┬────────────┬──────────────────┐                       ┌─────┬─────┬─────┬─────┬─────┬─────┐
-//    │     │         │         │         │            │     RGB_TOG      │                       │     │     │     │     │     │     │
-//    ├─────┼─────────┼─────────┼─────────┼────────────┼──────────────────┤                       ├─────┼─────┼─────┼─────┼─────┼─────┤
-//    │     │ RGB_SPI │ RGB_HUI │ RGB_SAI │  RGB_VAI   │ RGB_MODE_FORWARD │                       │     │     │     │     │     │     │
-//    ├─────┼─────────┼─────────┼─────────┼────────────┼──────────────────┼─────┬─────┬─────┬─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-//    │     │ RGB_SPD │ RGB_HUD │ RGB_SAD │  RGB_VAD   │ RGB_MODE_REVERSE │     │     │     │     │     │     │     │     │     │     │
-//    └─────┴─────────┴─────────┼─────────┼────────────┼──────────────────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┴─────┴─────┘
-//                              │         │ TG(_MAGIC) │                  │     │     │     │     │     │     │     │
-//                              └─────────┴────────────┴──────────────────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
+//    ┌─────────┬─────────┬─────────┬─────────┬────────────┬──────────────────┐                       ┌─────┬─────┬─────┬─────┬─────┬─────┐
+//    │ DB_TOGG │         │         │         │            │     RGB_TOG      │                       │     │     │     │     │     │     │
+//    ├─────────┼─────────┼─────────┼─────────┼────────────┼──────────────────┤                       ├─────┼─────┼─────┼─────┼─────┼─────┤
+//    │         │ RGB_SPI │ RGB_HUI │ RGB_SAI │  RGB_VAI   │ RGB_MODE_FORWARD │                       │     │     │     │     │     │     │
+//    ├─────────┼─────────┼─────────┼─────────┼────────────┼──────────────────┼─────┬─────┬─────┬─────┼─────┼─────┼─────┼─────┼─────┼─────┤
+//    │         │ RGB_SPD │ RGB_HUD │ RGB_SAD │  RGB_VAD   │ RGB_MODE_REVERSE │     │     │     │     │     │     │     │     │     │     │
+//    └─────────┴─────────┴─────────┼─────────┼────────────┼──────────────────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┴─────┴─────┘
+//                                  │         │ TG(_MAGIC) │                  │     │     │     │     │     │     │     │
+//                                  └─────────┴────────────┴──────────────────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
 [_MAGIC] = LAYOUT(
-  _______ , _______ , _______ , _______ , _______    , RGB_TOG          ,                                         _______ , _______ , _______ , _______ , _______ , _______,
+  DB_TOGG , _______ , _______ , _______ , _______    , RGB_TOG          ,                                         _______ , _______ , _______ , _______ , _______ , _______,
   _______ , RGB_SPI , RGB_HUI , RGB_SAI , RGB_VAI    , RGB_MODE_FORWARD ,                                         _______ , _______ , _______ , _______ , _______ , _______,
   _______ , RGB_SPD , RGB_HUD , RGB_SAD , RGB_VAD    , RGB_MODE_REVERSE , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______,
                                 _______ , TG(_MAGIC) , _______          , _______ , _______ , _______ , _______ , _______ , _______ , _______
@@ -127,8 +128,16 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 #endif
 
+void matrix_init_user(void) {
+    rgb_matrix_init_user();
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     tap_dance_action_t *action;
+
+    #ifdef CONSOLE_ENABLE
+        uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %u, time: %5u, int: %u, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
+    #endif
 
     switch (keycode) {
         // tap-hold macros
@@ -237,6 +246,8 @@ combo_t key_combos[] = {
     [COMBO_HELM_SINGLE_LINE_COMMENT] = COMBO(combo_helm_single_line_comment, MACRO_HELM_SINGLE_LINE_COMMENT),
     [COMBO_HELM_MULTI_LINE_COMMENT] = COMBO(combo_helm_multi_line_comment, MACRO_HELM_MULTI_LINE_COMMENT),
 };
+
+
 
 /* layer_state_t layer_state_set_user(layer_state_t state) {
     state = update_tri_layer_state(state, _NUMPAD, _SYMBOL, _WINDOW);

@@ -2,6 +2,12 @@
 #include "keymap.h"
 #include "tapdance.h"
 
+static td_tap_t tmuxtap_state = { .is_press_action = true, .state = TD_NONE };
+static td_tap_t wintap_state = { .is_press_action = true, .state = TD_NONE };
+static td_tap_t alttap_state = { .is_press_action = true, .state = TD_NONE };
+static td_tap_t encodertap_state = { .is_press_action = true, .state = TD_NONE };
+
+// simple tap-hold
 void tap_dance_tap_hold_finished(tap_dance_state_t *state, void *user_data) {
     tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)user_data;
 
@@ -24,6 +30,7 @@ void tap_dance_tap_hold_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
+// multi-state
 td_state_t cur_dance(tap_dance_state_t *state) {
     if (state->count == 1) {
         if (state->interrupted || !state->pressed) return TD_SINGLE_TAP;
@@ -41,10 +48,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     return TD_UNKNOWN;
 }
 
-static td_tap_t tmuxtap_state = {
-    .is_press_action = true,
-    .state = TD_NONE
-};
+// send tmux leader on tap, tmux scroll on double tap
 void tmux_finished(tap_dance_state_t *state, void *user_data) {
     tmuxtap_state.state = cur_dance(state);
     switch (tmuxtap_state.state) {
@@ -62,10 +66,7 @@ void tmux_reset(tap_dance_state_t *state, void *user_data) {
     tmuxtap_state.state = TD_NONE;
 }
 
-static td_tap_t wintap_state = {
-    .is_press_action = true,
-    .state = TD_NONE
-};
+// send LGUI on single tap, toggle window layer on double tap
 void win_finished(tap_dance_state_t *state, void *user_data) {
     wintap_state.state = cur_dance(state);
     switch (wintap_state.state) {
@@ -83,10 +84,7 @@ void win_reset(tap_dance_state_t *state, void *user_data) {
     wintap_state.state = TD_NONE;
 }
 
-static td_tap_t alttap_state = {
-    .is_press_action = true,
-    .state = TD_NONE
-};
+// send LALT on single tap, toggle magic layer on double tap
 void alt_finished(tap_dance_state_t *state, void *user_data) {
     alttap_state.state = cur_dance(state);
     switch (alttap_state.state) {
@@ -104,10 +102,7 @@ void alt_reset(tap_dance_state_t *state, void *user_data) {
     alttap_state.state = TD_NONE;
 }
 
-static td_tap_t encodertap_state = {
-    .is_press_action = true,
-    .state = TD_NONE
-};
+// sned mute on single tap, play/pause on hold, switch inputs on double tap
 void encoder_finished(tap_dance_state_t *state, void *user_data) {
     encodertap_state.state = cur_dance(state);
     switch (encodertap_state.state) {
@@ -126,5 +121,3 @@ void encoder_reset(tap_dance_state_t *state, void *user_data) {
     }
     encodertap_state.state = TD_NONE;
 }
-
-
