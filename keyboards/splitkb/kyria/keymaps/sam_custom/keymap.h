@@ -29,7 +29,7 @@
 
 // General Windows
 #define TASK_MANAGER LCTL(LSFT(KC_ESC))
-#define SOUNDSWITCH LALT(LCTL(LSFT(KC_DOT)))
+#define SOUNDSWITCH LALT(LSFT(LGUI(KC_DOT)))
 
 // Window Management
 #define WMGMT_BASE LSFT(LALT(LCTL(KC_0)))

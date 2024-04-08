@@ -103,3 +103,28 @@ void alt_reset(tap_dance_state_t *state, void *user_data) {
     }
     alttap_state.state = TD_NONE;
 }
+
+static td_tap_t encodertap_state = {
+    .is_press_action = true,
+    .state = TD_NONE
+};
+void encoder_finished(tap_dance_state_t *state, void *user_data) {
+    encodertap_state.state = cur_dance(state);
+    switch (encodertap_state.state) {
+        case TD_SINGLE_TAP: register_code(KC_MUTE); break;
+        case TD_SINGLE_HOLD: register_code(KC_MEDIA_PLAY_PAUSE); break;
+        case TD_DOUBLE_TAP: register_code16(SOUNDSWITCH); break;
+        default: break;
+    }
+}
+void encoder_reset(tap_dance_state_t *state, void *user_data) {
+    switch (encodertap_state.state) {
+        case TD_SINGLE_TAP: unregister_code(KC_MUTE); break;
+        case TD_SINGLE_HOLD: unregister_code(KC_MEDIA_PLAY_PAUSE); break;
+        case TD_DOUBLE_TAP: unregister_code16(SOUNDSWITCH); break;
+        default: break;
+    }
+    encodertap_state.state = TD_NONE;
+}
+
+

@@ -35,3 +35,5 @@ void win_finished(tap_dance_state_t *state, void *user_data);
 void win_reset(tap_dance_state_t *state, void *user_data);
 void alt_finished(tap_dance_state_t *state, void *user_data);
 void alt_reset(tap_dance_state_t *state, void *user_data);
+void encoder_finished(tap_dance_state_t *state, void *user_data);
+void encoder_reset(tap_dance_state_t *state, void *user_data);
