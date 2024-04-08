@@ -6,7 +6,7 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make epomaker/epomaker_tide_65:default
+    make epomaker/tide_65:default
 
 To reset the board into bootloader mode, do one of the following:
 
