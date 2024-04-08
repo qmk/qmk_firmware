@@ -9,7 +9,7 @@
 #define NUMPAD   MO(_NUMPAD)
 #define MAGIC    MO(_MAGIC)
 #define WINDOW   MO(_WINDOW)
-#define SHIFT_MEDIA    MO(_SHIFT_MEDIA)
+#define SHIFT    MO(_SHIFT)
 
 #define CTL_ESC  MT(MOD_LCTL, KC_ESC)
 #define CTL_QUOT MT(MOD_RCTL, KC_QUOTE)
