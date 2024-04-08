@@ -106,7 +106,7 @@
       }
     },
     "rgb_matrix": {
-        "driver": "WS2812",
+        "driver": "ws2812",
         "max_brightness": 100,
         "val_steps": 25,
         "speed_steps": 51,
