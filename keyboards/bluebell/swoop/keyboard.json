@@ -8,6 +8,12 @@
     "pid": "0x3046",
     "device_version": "1.0.0"
   },
+  "features": {
+    "bootmagic": true,
+    "mousekey": true,
+    "extrakey": true,
+    "rgblight": true
+  },
   "ws2812": {
     "pin": "D3"
   },
@@ -35,6 +41,7 @@
     ]
   },
   "split": {
+    "enabled": true,
     "soft_serial_pin": "D2",
     "encoder": {
       "right": {

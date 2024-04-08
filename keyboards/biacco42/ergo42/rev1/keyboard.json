@@ -8,6 +8,18 @@
     "pid": "0x0042",
     "device_version": "1.0.0"
   },
+  "features": {
+    "bootmagic": false,
+    "mousekey": true,
+    "extrakey": true,
+    "command": true
+  },
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  },
   "rgblight": {
     "led_count": 12
   },
@@ -20,6 +32,7 @@
   },
   "diode_direction": "COL2ROW",
   "split": {
+        "enabled": true,
         "soft_serial_pin": "D0"
     },
   "processor": "atmega32u4",

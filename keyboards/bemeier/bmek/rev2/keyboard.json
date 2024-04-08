@@ -2,6 +2,17 @@
     "usb": {
         "device_version": "0.0.2"
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": false,
+        "extrakey": true,
+        "sleep_led": true,
+        "nkro": true,
+        "rgblight": true
+    },
+    "build": {
+        "lto": true
+    },
     "rgblight": {
         "saturation_steps": 8,
         "brightness_steps": 8,
