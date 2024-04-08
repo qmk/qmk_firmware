@@ -108,6 +108,7 @@ float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
 #endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);
