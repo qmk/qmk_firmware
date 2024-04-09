@@ -101,7 +101,7 @@ bool led_update_user(led_t led_state)
     if (led_state.caps_lock) {
         // output high
         gpio_set_pin_output(D6);
-        gpio_write_pin_high(C7);
+        gpio_write_pin_high(D6);
     } else {
         // Hi-Z
         gpio_set_pin_input(D6);

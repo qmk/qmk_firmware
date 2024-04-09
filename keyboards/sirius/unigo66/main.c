@@ -23,8 +23,8 @@
 #elif defined(LEONARDO_LED)
 // For Leonardo(TX LED)
 #define LED_TX_INIT    gpio_set_pin_output(D5)
-#define LED_TX_ON      gpio_write_pin_high(D5)
-#define LED_TX_OFF     gpio_write_pin_low(D5)
+#define LED_TX_ON      gpio_write_pin_low(D5)
+#define LED_TX_OFF     gpio_write_pin_high(D5)
 #define LED_TX_TOGGLE  gpio_toggle_pin(D5)
 #else
 #define LED_TX_INIT
