@@ -84,9 +84,15 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
         roundedDivisor <<= 1;
     }
 
+#if defined(AT32F415)
+    if (roundedDivisor < 2 || roundedDivisor > 1024) {
+        return false;
+    }
+#else
     if (roundedDivisor < 2 || roundedDivisor > 256) {
         return false;
     }
+#endif
 #endif
 
 #if defined(K20x) || defined(KL2x)
@@ -219,6 +225,59 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
         case 3:
             spiConfig.SSPCR0 |= SPI_SSPCR0_SPO; // Clock polarity: high
             spiConfig.SSPCR0 |= SPI_SSPCR0_SPH; // Clock phase: sample on second edge transition
+            break;
+    }
+#elif defined(AT32F415)
+    spiConfig.ctrl1 = 0;
+
+    if (lsbFirst) {
+        spiConfig.ctrl1 |= SPI_CTRL1_LTF;
+    }
+
+    switch (mode) {
+        case 0:
+            break;
+        case 1:
+            spiConfig.ctrl1 |= SPI_CTRL1_CLKPHA;
+            break;
+        case 2:
+            spiConfig.ctrl1 |= SPI_CTRL1_CLKPOL;
+            break;
+        case 3:
+            spiConfig.ctrl1 |= SPI_CTRL1_CLKPHA | SPI_CTRL1_CLKPOL;
+            break;
+    }
+
+    switch (roundedDivisor) {
+        case 2:
+            break;
+        case 4:
+            spiConfig.ctrl1 |= SPI_CTRL1_MDIV_0;
+            break;
+        case 8:
+            spiConfig.ctrl1 |= SPI_CTRL1_MDIV_1;
+            break;
+        case 16:
+            spiConfig.ctrl1 |= SPI_CTRL1_MDIV_1 | SPI_CTRL1_MDIV_0;
+            break;
+        case 32:
+            spiConfig.ctrl1 |= SPI_CTRL1_MDIV_2;
+            break;
+        case 64:
+            spiConfig.ctrl1 |= SPI_CTRL1_MDIV_2 | SPI_CTRL1_MDIV_0;
+            break;
+        case 128:
+            spiConfig.ctrl1 |= SPI_CTRL1_MDIV_2 | SPI_CTRL1_MDIV_1;
+            break;
+        case 256:
+            spiConfig.ctrl1 |= SPI_CTRL1_MDIV_2 | SPI_CTRL1_MDIV_1 | SPI_CTRL1_MDIV_0;
+            break;
+        case 512:
+            spiConfig.ctrl2 |= SPI_CTRL1_MDIV_3;
+            break;
+        case 1024:
+            spiConfig.ctrl2 |= SPI_CTRL1_MDIV_3;
+            spiConfig.ctrl1 |= SPI_CTRL1_MDIV_0;
             break;
     }
 #else
