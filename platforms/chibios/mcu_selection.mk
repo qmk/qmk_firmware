@@ -844,4 +844,4 @@ ifneq ($(findstring GD32VF103, $(MCU)),)
   BOARD ?= SIPEED_LONGAN_NANO
 
   USE_FPU ?= no
-endif
+endif 
