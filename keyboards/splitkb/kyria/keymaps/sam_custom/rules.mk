@@ -3,6 +3,9 @@ SRC += capsword.c
 SRC += tapdance.c
 SRC += rgb_matrix_user.c
 
+# Combo dictionary
+VPATH += keyboards/gboards
+
 # LEDs
 OLED_ENABLE = yes
 RGBLIGHT_ENABLE = no      # Enable keyboard RGB underglow

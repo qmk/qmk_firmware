@@ -1,0 +1,9 @@
+// name                             result                          chord keys
+COMB(COMBO_UP_DIR,                  MACRO_UP_DIR,                   KC_DOT, KC_SLASH)
+COMB(COMBO_BRACES_PAIR,             MACRO_BRACES_PAIR,              KC_LCBR, KC_RCBR)
+COMB(COMBO_BRACKETS_PAIR,           MACRO_BRACKETS_PAIR,            KC_LBRC, KC_RBRC)
+COMB(COMBO_PARENS_PAIR,             MACRO_PARENS_PAIR,              KC_LEFT_PAREN, KC_RIGHT_PAREN)
+COMB(COMBO_LT_GT_PAIR,              MACRO_LT_GT_PAIR,               KC_LT, KC_GT)
+COMB(COMBO_HELM_FUNC,               MACRO_HELM_FUNC,                KC_H, KC_L, KC_F)
+COMB(COMBO_HELM_SINGLE_LINE_COMMENT,MACRO_HELM_SINGLE_LINE_COMMENT, KC_H, KC_L, KC_S)
+COMB(COMBO_HELM_MULTI_LINE_COMMENT, MACRO_HELM_MULTI_LINE_COMMENT,  KC_H, KC_L, KC_C)

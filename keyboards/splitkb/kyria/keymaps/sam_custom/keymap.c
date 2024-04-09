@@ -17,6 +17,7 @@
 #include "keymap.h"
 #include "tapdance.h"
 #include "rgb_matrix_user.h"
+#include "g/keymap_combo.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //    ┌─────────────┬───┬───┬──────┬──────────────────┬─────┐                                                               ┌─────┬─────────────┬────────────────────┬───┬───┬──────────────┐
@@ -24,14 +25,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //    ├─────────────┼───┼───┼──────┼──────────────────┼─────┤                                                               ├─────┼─────────────┼────────────────────┼───┼───┼──────────────┤
 //    │   CTL_ESC   │ a │ s │  d   │        f         │  g  │                                                               │  h  │      j      │         k          │ l │ ; │      '       │
 //    ├─────────────┼───┼───┼──────┼──────────────────┼─────┼─────────────────┬─────────────┬─────────────┬─────────────────┼─────┼─────────────┼────────────────────┼───┼───┼──────────────┤
-//    │    lsft     │ z │ x │  c   │        v         │  b  │ TD(TMUX_SCROLL) │  CLOSE_TAB  │ REOPEN_TAB  │ TD(TMUX_SCROLL) │  n  │      m      │         ,          │ . │ / │ LT(SHIFT, \) │
+//    │    lsft     │ z │ x │  c   │        v         │  b  │ TD(TMUX_SCROLL) │  CLOSE_TAB  │ REOPEN_TAB  │ TD(TMUX_SCROLL) │  n  │      m      │         ,          │ . │ / │ LT(SHIFT, =) │
 //    └─────────────┴───┴───┼──────┼──────────────────┼─────┼─────────────────┼─────────────┼─────────────┼─────────────────┼─────┼─────────────┼────────────────────┼───┴───┴──────────────┘
 //                          │ lgui │ TD(ALT_TAPDANCE) │ ent │  OSM(MOD_LSFT)  │ OSL(NUMPAD) │ OSL(SYMBOL) │      bspc       │ spc │ OSL(WINDOW) │ TD(PLAYPAUSE_MUTE) │
 //                          └──────┴──────────────────┴─────┴─────────────────┴─────────────┴─────────────┴─────────────────┴─────┴─────────────┴────────────────────┘
 [_QWERTY] = LAYOUT(
-  TD(AUTOTAB) , KC_Q , KC_W , KC_E    , KC_R             , KC_T   ,                                                                 KC_Y   , KC_U        , KC_I               , KC_O   , KC_P    , KC_MINUS               ,
-  CTL_ESC     , KC_A , KC_S , KC_D    , KC_F             , KC_G   ,                                                                 KC_H   , KC_J        , KC_K               , KC_L   , KC_SCLN , KC_QUOTE               ,
-  KC_LSFT     , KC_Z , KC_X , KC_C    , KC_V             , KC_B   , TD(TMUX_SCROLL) , CLOSE_TAB   , REOPEN_TAB  , TD(TMUX_SCROLL) , KC_N   , KC_M        , KC_COMM            , KC_DOT , KC_SLSH , LT(SHIFT, KC_BACKSLASH),
+  TD(AUTOTAB) , KC_Q , KC_W , KC_E    , KC_R             , KC_T   ,                                                                 KC_Y   , KC_U        , KC_I               , KC_O   , KC_P    , KC_MINUS           ,
+  CTL_ESC     , KC_A , KC_S , KC_D    , KC_F             , KC_G   ,                                                                 KC_H   , KC_J        , KC_K               , KC_L   , KC_SCLN , KC_QUOTE           ,
+  KC_LSFT     , KC_Z , KC_X , KC_C    , KC_V             , KC_B   , TD(TMUX_SCROLL) , CLOSE_TAB   , REOPEN_TAB  , TD(TMUX_SCROLL) , KC_N   , KC_M        , KC_COMM            , KC_DOT , KC_SLSH , LT(SHIFT, KC_EQUAL),
                               KC_LGUI , TD(ALT_TAPDANCE) , KC_ENT , OSM(MOD_LSFT)   , OSL(NUMPAD) , OSL(SYMBOL) , KC_BSPC         , KC_SPC , OSL(WINDOW) , TD(PLAYPAUSE_MUTE)
 ),
 
@@ -56,15 +57,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //    ├─────┼───┼───┼─────┼─────┼───┤                       ├──────┼──────┼─────┼──────┼───┼─────┤
 //    │  0  │ ^ │ = │  #  │  $  │ _ │                       │ left │ down │ up  │ rght │ ~ │     │
 //    ├─────┼───┼───┼─────┼─────┼───┼─────┬─────┬─────┬─────┼──────┼──────┼─────┼──────┼───┼─────┤
-//    │     │ - │ < │  >  │  |  │ & │     │     │     │     │  %   │  +   │  [  │  ]   │ / │     │
+//    │     │ - │ < │  >  │  |  │ % │     │     │     │     │  +   │  &   │  [  │  ]   │ / │     │
 //    └─────┴───┴───┼─────┼─────┼───┼─────┼─────┼─────┼─────┼──────┼──────┼─────┼──────┴───┴─────┘
-//                  │     │     │ \ │  :  │  %  │     │     │      │      │     │
+//                  │     │     │ \ │  :  │     │     │     │      │      │     │
 //                  └─────┴─────┴───┴─────┴─────┴─────┴─────┴──────┴──────┴─────┘
 [_SYMBOL] = LAYOUT(
-  KC_TILDE , KC_GRV        , KC_LCBR  , KC_RCBR , KC_AT   , KC_ASTR       ,                                             KC_EXCLAIM , KC_COLON , KC_LEFT_PAREN , KC_RIGHT_PAREN , KC_SCLN  , _______,
-  KC_0     , KC_CIRCUMFLEX , KC_EQUAL , KC_HASH , KC_DLR  , KC_UNDERSCORE ,                                             KC_LEFT    , KC_DOWN  , KC_UP         , KC_RIGHT       , KC_TILDE , _______,
-  _______  , KC_MINUS      , KC_LT    , KC_GT   , KC_PIPE , KC_AMPR       , _______  , _______    , _______ , _______ , KC_PERCENT , KC_PLUS  , KC_LBRC       , KC_RBRC        , KC_SLSH  , _______,
-                                        _______ , _______ , KC_BACKSLASH  , KC_COLON , KC_PERCENT , _______ , _______ , _______    , _______  , _______
+  KC_TILDE , KC_GRV        , KC_LCBR  , KC_RCBR , KC_AT   , KC_ASTR       ,                                          KC_EXCLAIM , KC_COLON , KC_LEFT_PAREN , KC_RIGHT_PAREN , KC_SCLN  , _______,
+  KC_0     , KC_CIRCUMFLEX , KC_EQUAL , KC_HASH , KC_DLR  , KC_UNDERSCORE ,                                          KC_LEFT    , KC_DOWN  , KC_UP         , KC_RIGHT       , KC_TILDE , _______,
+  _______  , KC_MINUS      , KC_LT    , KC_GT   , KC_PIPE , KC_PERCENT    , _______  , _______ , _______ , _______ , KC_PLUS    , KC_AMPR  , KC_LBRC       , KC_RBRC        , KC_SLSH  , _______,
+                                        _______ , _______ , KC_BACKSLASH  , KC_COLON , _______ , _______ , _______ , _______    , _______  , _______
 ),
 
 //    ┌─────┬─────┬─────┬─────┬─────┬─────┐                       ┌─────┬─────┬─────┬─────┬─────┬─────┐
@@ -226,28 +227,6 @@ tap_dance_action_t tap_dance_actions[] = {
     [PLAYPAUSE_MUTE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, encoder_finished, encoder_reset),
     // [PLAYPAUSE_MUTE] = ACTION_TAP_DANCE_TAP_HOLD(KC_MUTE, KC_MEDIA_PLAY_PAUSE),
 };
-
-const uint16_t PROGMEM combo_dot_slash[] = {KC_DOT, KC_SLASH, COMBO_END};
-const uint16_t PROGMEM combo_braces_pair[] = {KC_LCBR, KC_RCBR, COMBO_END};
-const uint16_t PROGMEM combo_brackets_pair[] = {KC_LBRC, KC_RBRC, COMBO_END};
-const uint16_t PROGMEM combo_parens_pair[] = {KC_LEFT_PAREN, KC_RIGHT_PAREN, COMBO_END};
-const uint16_t PROGMEM combo_lt_gt_pair[] = {KC_LT, KC_GT, COMBO_END};
-const uint16_t PROGMEM combo_helm_func[] = {KC_H, KC_L, KC_F, COMBO_END};
-const uint16_t PROGMEM combo_helm_single_line_comment[] = {KC_H, KC_L, KC_S, COMBO_END};
-const uint16_t PROGMEM combo_helm_multi_line_comment[] = {KC_H, KC_L, KC_C, COMBO_END};
-
-combo_t key_combos[] = {
-    [COMBO_UP_DIR] = COMBO(combo_dot_slash, MACRO_UP_DIR),
-    [COMBO_BRACES_PAIR] = COMBO(combo_braces_pair, MACRO_BRACES_PAIR),
-    [COMBO_BRACKETS_PAIR] = COMBO(combo_brackets_pair, MACRO_BRACKETS_PAIR),
-    [COMBO_PARENS_PAIR] = COMBO(combo_parens_pair, MACRO_PARENS_PAIR),
-    [COMBO_LT_GT_PAIR] = COMBO(combo_lt_gt_pair, MACRO_LT_GT_PAIR),
-    [COMBO_HELM_FUNC] = COMBO(combo_helm_func, MACRO_HELM_FUNC),
-    [COMBO_HELM_SINGLE_LINE_COMMENT] = COMBO(combo_helm_single_line_comment, MACRO_HELM_SINGLE_LINE_COMMENT),
-    [COMBO_HELM_MULTI_LINE_COMMENT] = COMBO(combo_helm_multi_line_comment, MACRO_HELM_MULTI_LINE_COMMENT),
-};
-
-
 
 /* layer_state_t layer_state_set_user(layer_state_t state) {
     state = update_tri_layer_state(state, _NUMPAD, _SYMBOL, _WINDOW);
