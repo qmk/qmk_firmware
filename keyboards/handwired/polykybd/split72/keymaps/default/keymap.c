@@ -186,7 +186,12 @@ typedef struct _poly_sync_t {
     layer_state_t default_ls;
     uint16_t last_latin_kc;
     uint8_t unicode_mode;
+    // crc32 needs to be at the end. the check
+    // is generated on the packed binary
+    // representation of all the elements before
+    // it in the struct.
     uint32_t crc32;
+    // don't add any elements here
 } poly_sync_t;
 
 #define SYNC_ACK 0b11001010
