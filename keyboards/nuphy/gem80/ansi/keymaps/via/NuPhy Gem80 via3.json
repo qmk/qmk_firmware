@@ -417,16 +417,16 @@
             "title": "Toggle Caps Lock Indicator"
         },
         {
-            "name": "DEBOUNCE\nINCREASE",
-            "title": "Increase Debounce"
+            "name": "DEBOUNCE\nPRESS\nINCREASE",
+            "title": "Increase Press Debounce"
         },
         {
-            "name": "DEBOUNCE\nDECREASE",
-            "title": "Decrease Debounce"
+            "name": "DEBOUNCE\nPRESS\nDECREASE",
+            "title": "Decrease Press Debounce"
         },
         {
-            "name": "DEBOUNCE\nSHOW VAL",
-            "title": "Show Debounce Value"
+            "name": "DEBOUNCE\nPRESS\nSHOW",
+            "title": "Show Press Debounce Value"
         },
         {
             "name": "SLP TIME\nINCREASE",
@@ -443,6 +443,18 @@
         {
             "name": "Mac\nGlobe",
             "title": "Mac Globe"
+        },
+        {
+            "name": "DEBOUNCE\nRELEASE\nINCREASE",
+            "title": "Increase Release Debounce"
+        },
+        {
+            "name": "DEBOUNCE\nRELEASE\nDECREASE",
+            "title": "Decrease Release Debounce"
+        },
+        {
+            "name": "DEBOUNCE\nRELEASE\nSHOW",
+            "title": "Show Release Debounce Value"
         }
     ]
 }

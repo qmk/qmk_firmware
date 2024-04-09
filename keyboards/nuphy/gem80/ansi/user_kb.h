@@ -47,6 +47,12 @@ typedef enum {
     CAPS_INDICATOR_OFF,
 } CAPS_LOCK_INDICATION;
 
+
+typedef enum {
+    DEBOUNCE_PRESS = 0,
+    DEBOUNCE_RELEASE
+} DEBOUNCE_EVENT;
+
 #define RF_IDLE 0
 #define RF_PAIRING 1
 #define RF_LINKING 2
@@ -157,7 +163,8 @@ typedef struct {
     uint16_t sleep_timeout;
     uint16_t rf_link_timeout;
     uint8_t  caps_indication_type;
-    uint8_t  debounce_ms;
+    uint8_t  debounce_press_ms;
+    uint8_t  debounce_release_ms;
     uint8_t  retain1;
     uint8_t  retain2;
 } user_config_t;
@@ -202,7 +209,7 @@ void toggle_usb_sleep(void);
 
 uint8_t  two_digit_decimals_led(uint8_t value);
 uint8_t  two_digit_ones_led(uint8_t value);
-void     adjust_debounce(uint8_t dir);
+void     adjust_debounce(uint8_t dir, DEBOUNCE_EVENT debounce_event);
 uint32_t get_sleep_timeout(void);
 void     adjust_sleep_timeout(uint8_t dir);
 

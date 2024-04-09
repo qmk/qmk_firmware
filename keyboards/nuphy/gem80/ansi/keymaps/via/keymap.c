@@ -1,8 +1,8 @@
 #include "ansi.h"
 #include QMK_KEYBOARD_H
 
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    // clang-format off
 // layer Mac
 [0] = LAYOUT(
 	KC_ESC, 	KC_BRID,  	KC_BRIU,  	MAC_TASK, 	MAC_SEARCH, MAC_VOICE,  MAC_DND,  	KC_MPRV,  	KC_MPLY,  	KC_MNXT, 	KC_MUTE, 	KC_VOLD, 	KC_VOLU, 	KC_PAUSE, 	KC_SCRL,	MAC_PRTA,	KC_NO,
@@ -15,16 +15,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #if(WORK_MODE == THREE_MODE)
 [1] = LAYOUT(
 	_______, 	KC_F1,  	KC_F2,  	KC_F3, 		KC_F4,  	KC_F5,  	KC_F6,  	KC_F7,  	KC_F8,  	KC_F9, 		KC_F10, 	KC_F11, 	KC_F12, 	KC_F13,	    _______,	MAC_PRT,	_______,
-	_______, 	LNK_BLE1,  	LNK_BLE2,  	LNK_BLE3,  	LNK_RF,   	_______,   	_______,   	_______,   	_______,   	_______,  	_______,   	_______,	_______, 	TOG_USB_SLP,	SLEEP_TIMEOUT_INC,	DEBOUNCE_SHOW,	DEBOUNCE_INC,
-	_______, 	_______,   	_______,   	_______,   	_______,   	_______,   	_______,   	_______,   	_______,   	_______,  	_______,   	DEV_RESET,	SLEEP_MODE, BAT_SHOW,	SLEEP_TIMEOUT_DEC,	SLEEP_TIMEOUT_SHOW,	DEBOUNCE_DEC,
+	_______, 	LNK_BLE1,  	LNK_BLE2,  	LNK_BLE3,  	LNK_RF,   	_______,   	_______,   	_______,   	_______,   	_______,  	_______,   	_______,	_______, 	TOG_USB_SLP,	SLEEP_TIMEOUT_INC,	DEBOUNCE_PRESS_SHOW,	DEBOUNCE_PRESS_INC,
+	_______, 	_______,   	_______,   	_______,   	_______,   	_______,   	_______,   	_______,   	_______,   	_______,  	_______,   	DEV_RESET,	SLEEP_MODE, BAT_SHOW,	SLEEP_TIMEOUT_DEC,	SLEEP_TIMEOUT_SHOW,	DEBOUNCE_PRESS_DEC,
 	TOG_CAPS_IND,	_______,   	_______,   	_______,  	_______,   	_______,   	_______,	_______,   	_______,   	_______,  	_______,	_______, 	 			_______,
 	_______,				_______,   	_______,   	_______,  	_______,    _______,   	MO(5),		MO(4), 		RGB_SPD,	RGB_SPI,	_______,				_______,				RGB_VAI,
 	_______,	_______,	_______,										_______, 							_______,	_______,   	MO(1),		_______,				RGB_MOD,    RGB_VAD,	RGB_HUI),
 #else
 [1] = LAYOUT(
 	_______, 	KC_F1,  	KC_F2,  	KC_F3, 		KC_F4,  	KC_F5,  	KC_F6,  	KC_F7,  	KC_F8,  	KC_F9, 		KC_F10, 	KC_F11, 	KC_F12, 	KC_F13,	    _______,	MAC_PRT,	_______,
-	_______, 	_______,  	_______,  	_______,  	_______,   	_______,   	_______,   	_______,   	_______,   	_______,  	_______,   	_______,	_______, 	TOG_USB_SLP,	SLEEP_TIMEOUT_INC,	DEBOUNCE_SHOW,	DEBOUNCE_INC,
-	_______, 	_______,   	_______,   	_______,   	_______,   	_______,   	_______,   	_______,   	_______,   	_______,  	_______,   	DEV_RESET,	_______,    _______,	SLEEP_TIMEOUT_DEC,	SLEEP_TIMEOUT_SHOW,	DEBOUNCE_DEC,
+	_______, 	_______,  	_______,  	_______,  	_______,   	_______,   	_______,   	_______,   	_______,   	_______,  	_______,   	_______,	_______, 	TOG_USB_SLP,	SLEEP_TIMEOUT_INC,	DEBOUNCE_PRESS_SHOW,	DEBOUNCE_PRESS_INC,
+	_______, 	_______,   	_______,   	_______,   	_______,   	_______,   	_______,   	_______,   	_______,   	_______,  	_______,   	DEV_RESET,	_______,    _______,	SLEEP_TIMEOUT_DEC,	SLEEP_TIMEOUT_SHOW,	DEBOUNCE_PRESS_DEC,
 	_______,	_______,   	_______,   	_______,  	_______,   	_______,   	_______,	_______,   	_______,   	_______,  	_______,	_______, 	 			_______,
 	_______,				_______,   	_______,   	_______,  	_______,    _______,   	MO(5),		MO(4), 		RGB_SPD,	RGB_SPI,	_______,				_______,				RGB_VAI,
 	_______,	_______,	_______,										_______, 							_______,	_______,   	MO(1),		_______,				RGB_MOD,    RGB_VAD,	RGB_HUI),
@@ -41,16 +41,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #if(WORK_MODE == THREE_MODE)
 [3] = LAYOUT(
 	_______, 	KC_BRID,  	KC_BRIU,  	_______, 	_______,  	_______,  	_______,  	KC_MPRV,  	KC_MPLY,  	KC_MNXT, 	KC_MUTE, 	KC_VOLD, 	KC_VOLU, 	KC_NO,	    _______,	KC_PSCR,	KC_NO,
-	_______, 	LNK_BLE1,  	LNK_BLE2,  	LNK_BLE3,  	LNK_RF,   	_______,   	_______,   	_______,   	_______,   	_______,  	_______,   	_______,	_______, 	TOG_USB_SLP,	SLEEP_TIMEOUT_INC,	DEBOUNCE_SHOW,	DEBOUNCE_INC,
-	_______,	_______,   	_______,   	_______,  	_______,   	_______,   	_______,   	_______,   	_______,   	_______,  	_______,   	DEV_RESET,	SLEEP_MODE, BAT_SHOW,	SLEEP_TIMEOUT_DEC,	SLEEP_TIMEOUT_SHOW,	DEBOUNCE_DEC,
+	_______, 	LNK_BLE1,  	LNK_BLE2,  	LNK_BLE3,  	LNK_RF,   	_______,   	_______,   	_______,   	_______,   	_______,  	_______,   	_______,	_______, 	TOG_USB_SLP,	SLEEP_TIMEOUT_INC,	DEBOUNCE_PRESS_SHOW,	DEBOUNCE_PRESS_INC,
+	_______,	_______,   	_______,   	_______,  	_______,   	_______,   	_______,   	_______,   	_______,   	_______,  	_______,   	DEV_RESET,	SLEEP_MODE, BAT_SHOW,	SLEEP_TIMEOUT_DEC,	SLEEP_TIMEOUT_SHOW,	DEBOUNCE_PRESS_DEC,
 	TOG_CAPS_IND,	_______,   	_______,   	_______,  	_______,   	_______,   	_______,	_______,   	_______,   	_______,  	_______,	_______, 	 			_______,
 	_______,				_______,   	_______,   	_______,  	_______,   	_______,   	MO(5),		MO(4), 		RGB_SPD,	RGB_SPI,	_______,				_______,				RGB_VAI,
 	_______,	_______,	_______,										_______, 							_______,	_______,   	MO(3),		_______,				RGB_MOD,    RGB_VAD,	RGB_HUI),
 #else
 [3] = LAYOUT(
 	_______, 	KC_BRID,  	KC_BRIU,  	_______, 	_______,  	_______,  	_______,  	KC_MPRV,  	KC_MPLY,  	KC_MNXT, 	KC_MUTE, 	KC_VOLD, 	KC_VOLU, 	KC_NO,	    _______,	KC_PSCR,	KC_NO,
-	_______, 	_______,  	_______,  	_______,  	_______,   	_______,   	_______,   	_______,   	_______,   	_______,  	_______,   	_______,	_______, 	TOG_USB_SLP,	SLEEP_TIMEOUT_INC,	DEBOUNCE_SHOW,	DEBOUNCE_INC,
-	_______, 	_______,   	_______,   	_______,   	_______,   	_______,   	_______,   	_______,   	_______,   	_______,  	_______,   	DEV_RESET,	_______,    _______,	SLEEP_TIMEOUT_DEC,	SLEEP_TIMEOUT_SHOW,	DEBOUNCE_DEC,
+	_______, 	_______,  	_______,  	_______,  	_______,   	_______,   	_______,   	_______,   	_______,   	_______,  	_______,   	_______,	_______, 	TOG_USB_SLP,	SLEEP_TIMEOUT_INC,	DEBOUNCE_PRESS_SHOW,	DEBOUNCE_PRESS_INC,
+	_______, 	_______,   	_______,   	_______,   	_______,   	_______,   	_______,   	_______,   	_______,   	_______,  	_______,   	DEV_RESET,	_______,    _______,	SLEEP_TIMEOUT_DEC,	SLEEP_TIMEOUT_SHOW,	DEBOUNCE_PRESS_DEC,
 	_______,	_______,   	_______,   	_______,  	_______,   	_______,   	_______,	_______,   	_______,   	_______,  	_______,	_______, 	 			_______,
 	_______,				_______,   	_______,   	_______,  	_______,   	_______,   	MO(5),		MO(4), 		RGB_SPD,	RGB_SPI,	_______,				_______,				RGB_VAI,
 	_______,	_______,	_______,										_______, 							_______,	_______,   	MO(3),		_______,				RGB_MOD,    RGB_VAD,	RGB_HUI),

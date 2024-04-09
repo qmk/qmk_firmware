@@ -30,18 +30,19 @@ DEV_INFO_STRUCT dev_info = {
     .link_mode  = LINK_USB,
     .rf_state   = RF_IDLE,
 };
-bool f_bat_hold           = 0;
-bool f_sys_show           = 0;
-bool f_sleep_show         = 0;
-bool f_usb_sleep_show     = 0;
-bool f_send_channel       = 0;
-bool f_dial_sw_init_ok    = 0;
-bool f_rf_sw_press        = 0;
-bool f_dev_reset_press    = 0;
-bool f_rgb_test_press     = 0;
-bool f_bat_num_show       = 0;
-bool f_debounce_show      = 0;
-bool f_sleep_timeout_show = 0;
+bool f_bat_hold              = 0;
+bool f_sys_show              = 0;
+bool f_sleep_show            = 0;
+bool f_usb_sleep_show        = 0;
+bool f_send_channel          = 0;
+bool f_dial_sw_init_ok       = 0;
+bool f_rf_sw_press           = 0;
+bool f_dev_reset_press       = 0;
+bool f_rgb_test_press        = 0;
+bool f_bat_num_show          = 0;
+bool f_debounce_press_show   = 0;
+bool f_debounce_release_show = 0;
+bool f_sleep_timeout_show    = 0;
 // sleep control for leds
 bool        side_led_powered_off = 0;
 bool        rgb_led_powered_off  = 0;
@@ -461,7 +462,8 @@ void user_config_reset(void) {
     user_config.ee_logo_colour          = logo_colour;
     user_config.usb_sleep_toggle        = true;
     user_config.caps_indication_type    = CAPS_INDICATOR_SIDE;
-    user_config.debounce_ms             = DEBOUNCE;
+    user_config.debounce_press_ms       = DEBOUNCE;
+    user_config.debounce_release_ms     = DEBOUNCE;
     user_config.sleep_timeout           = 5;
 
     eeconfig_update_kb_datablock(&user_config);
@@ -642,15 +644,22 @@ uint8_t two_digit_ones_led(uint8_t value) {
     return ones_led_idx;
 }
 
-void adjust_debounce(uint8_t dir) {
+void adjust_debounce(uint8_t dir, DEBOUNCE_EVENT debounce_event) {
 #if DEBOUNCE > 0
-    if (dir && user_config.debounce_ms < 99) {
-        user_config.debounce_ms += DEBOUNCE_STEP;
-        eeconfig_update_kb_datablock(&user_config);
-    } else if (!dir && user_config.debounce_ms > 0) {
-        user_config.debounce_ms -= DEBOUNCE_STEP;
-        eeconfig_update_kb_datablock(&user_config);
+    if (dir) {
+        if (debounce_event == DEBOUNCE_PRESS && user_config.debounce_press_ms < 99) {
+            user_config.debounce_press_ms += DEBOUNCE_STEP;
+        } else if (debounce_event == DEBOUNCE_RELEASE && user_config.debounce_release_ms < 99) {
+            user_config.debounce_release_ms += DEBOUNCE_STEP;
+        }
+    } else if (!dir) {
+        if (debounce_event == DEBOUNCE_PRESS && user_config.debounce_press_ms > 0) {
+            user_config.debounce_press_ms -= DEBOUNCE_STEP;
+        } else if (debounce_event == DEBOUNCE_RELEASE && user_config.debounce_release_ms > 0) {
+            user_config.debounce_release_ms -= DEBOUNCE_STEP;
+        }
     }
+    eeconfig_update_kb_datablock(&user_config);
 #endif
 }
 
