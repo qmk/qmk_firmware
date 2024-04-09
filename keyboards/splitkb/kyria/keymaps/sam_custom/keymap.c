@@ -57,15 +57,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //    ├─────┼───┼───┼─────┼─────┼───┤                       ├──────┼──────┼─────┼──────┼───┼─────┤
 //    │  0  │ ^ │ = │  #  │  $  │ _ │                       │ left │ down │ up  │ rght │ ~ │     │
 //    ├─────┼───┼───┼─────┼─────┼───┼─────┬─────┬─────┬─────┼──────┼──────┼─────┼──────┼───┼─────┤
-//    │     │ - │ < │  >  │  |  │ % │     │     │     │     │  +   │  &   │  [  │  ]   │ / │     │
+//    │     │ - │ < │  >  │  %  │ | │     │     │     │     │  &   │  +   │  [  │  ]   │ / │     │
 //    └─────┴───┴───┼─────┼─────┼───┼─────┼─────┼─────┼─────┼──────┼──────┼─────┼──────┴───┴─────┘
 //                  │     │     │ \ │  :  │     │     │     │      │      │     │
 //                  └─────┴─────┴───┴─────┴─────┴─────┴─────┴──────┴──────┴─────┘
 [_SYMBOL] = LAYOUT(
-  KC_TILDE , KC_GRV        , KC_LCBR  , KC_RCBR , KC_AT   , KC_ASTR       ,                                          KC_EXCLAIM , KC_COLON , KC_LEFT_PAREN , KC_RIGHT_PAREN , KC_SCLN  , _______,
-  KC_0     , KC_CIRCUMFLEX , KC_EQUAL , KC_HASH , KC_DLR  , KC_UNDERSCORE ,                                          KC_LEFT    , KC_DOWN  , KC_UP         , KC_RIGHT       , KC_TILDE , _______,
-  _______  , KC_MINUS      , KC_LT    , KC_GT   , KC_PIPE , KC_PERCENT    , _______  , _______ , _______ , _______ , KC_PLUS    , KC_AMPR  , KC_LBRC       , KC_RBRC        , KC_SLSH  , _______,
-                                        _______ , _______ , KC_BACKSLASH  , KC_COLON , _______ , _______ , _______ , _______    , _______  , _______
+  KC_TILDE , KC_GRV        , KC_LCBR  , KC_RCBR , KC_AT      , KC_ASTR       ,                                          KC_EXCLAIM , KC_COLON , KC_LEFT_PAREN , KC_RIGHT_PAREN , KC_SCLN  , _______,
+  KC_0     , KC_CIRCUMFLEX , KC_EQUAL , KC_HASH , KC_DLR     , KC_UNDERSCORE ,                                          KC_LEFT    , KC_DOWN  , KC_UP         , KC_RIGHT       , KC_TILDE , _______,
+  _______  , KC_MINUS      , KC_LT    , KC_GT   , KC_PERCENT , KC_PIPE       , _______  , _______ , _______ , _______ , KC_AMPR    , KC_PLUS  , KC_LBRC       , KC_RBRC        , KC_SLSH  , _______,
+                                        _______ , _______    , KC_BACKSLASH  , KC_COLON , _______ , _______ , _______ , _______    , _______  , _______
 ),
 
 //    ┌─────┬─────┬─────┬─────┬─────┬─────┐                       ┌─────┬─────┬─────┬─────┬─────┬─────┐
@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                                  │         │ TG(_MAGIC) │                  │     │     │     │     │     │     │     │
 //                                  └─────────┴────────────┴──────────────────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
 [_MAGIC] = LAYOUT(
-  DB_TOGG , _______ , _______ , _______ , _______    , RGB_TOG          ,                                         _______ , _______ , _______ , _______ , _______ , _______,
+  DB_TOGG , _______ , _______ , _______ , _______    , RGB_TOG          ,                                         _______ , _______ , _______ , _______ , _______ , QK_CLEAR_EEPROM,
   _______ , RGB_SPI , RGB_HUI , RGB_SAI , RGB_VAI    , RGB_MODE_FORWARD ,                                         _______ , _______ , _______ , _______ , _______ , _______,
   _______ , RGB_SPD , RGB_HUD , RGB_SAD , RGB_VAD    , RGB_MODE_REVERSE , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______,
                                 _______ , TG(_MAGIC) , _______          , _______ , _______ , _______ , _______ , _______ , _______ , _______

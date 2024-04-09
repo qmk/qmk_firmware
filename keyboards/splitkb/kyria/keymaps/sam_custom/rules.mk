@@ -23,6 +23,7 @@ MAGIC_ENABLE = no
 MUSIC_ENABLE = no
 
 # Hardware
+SPLIT_KEYBOARD = yes
 ENCODER_ENABLE = yes       # Enables the use of one or more encoders
 
 # Behaviors

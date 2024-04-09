@@ -1,5 +1,6 @@
 #include "layers.h"
 #include "keymap.h"
+#include "rgb_matrix_user.h"
 
 void caps_word_set_user(bool active) {
     oled_write_P(active ? PSTR("CAPSWORD ") : PSTR("         "), false);

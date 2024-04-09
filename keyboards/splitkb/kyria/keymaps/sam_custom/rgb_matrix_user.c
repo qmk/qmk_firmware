@@ -1,14 +1,16 @@
 #include QMK_KEYBOARD_H
 #include "rgb_matrix_user.h"
 #include "keymap.h"
+#include "capsword.h"
+#include "transactions.h"
 #include "print.h"
 
-// 62 - 12 underglow (unused), 50 per-key
+// 62 - 12 underglow (unused), 50 keys
 keypos_t led_index_key_position[RGB_MATRIX_LED_COUNT];
 
 // https://github.com/LooLzzz/qmk_firmware/blob/8c28582b37aa9d0d74cacc2dc3a6b8643679170f/keyboards/keychron/q3/ansi_encoder/keymaps/loolzzz/rgb_matrix/rgb_matrix_user.c
 // Initialize RGB matrix; invert the mapping of g_led_config.matrix_co,
-// so instead of a mapping from key position to led index, we now createa
+// so instead of a mapping from key position to led index, we now create
 // led index to key position.
 void rgb_matrix_init_user() {
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
@@ -41,6 +43,18 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     uint8_t current_layer = get_highest_layer(layer_state);
 
     switch (current_layer) {
+        case _QWERTY:
+            for (uint8_t i = led_min; i < led_max; i++) {
+                // add 6 to account for the 6 underglow LEDs per half that we aren't using
+                uint16_t keycode = keymap_key_to_keycode(current_layer, led_index_key_position[i+6]);
+                if (is_caps_word_on()) {
+                    if (keycode == OSM(MOD_LSFT)) {
+                        rgb_matrix_set_color(i, RGB_ORANGE);
+                    }
+                };
+
+            };
+            break;
         case _SYMBOL:
             break;
         case _NUMPAD:
