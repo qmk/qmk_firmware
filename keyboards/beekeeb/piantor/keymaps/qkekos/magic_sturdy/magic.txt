@@ -471,10 +471,9 @@ led★          ⇒ ledge
 
 ⎵li★          ⇒ list
 ⎵li★d         ⇒ listed
+⎵lm(f)?a★     ⇒ lm\1ao
 ⎵li★r         ⇒ listener
 ⎵li★g         ⇒ listening
-
-
 
 // ------------------------------------M---------------------------------------
 
