@@ -271,8 +271,10 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
         case CM_CTRL_B_ALT:
         case CM_KP_123_ALTB:
         case CM_KP_456_SWAP:
-        case CM_KP_3_F5_MUTE:
             return highest_layer == GAME;
+
+        case CM_I_DT_MUTE:
+            return true;
     }
 
     return highest_layer != GAME;
