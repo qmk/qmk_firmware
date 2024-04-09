@@ -47,7 +47,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             for (uint8_t i = led_min; i < led_max; i++) {
                 // add 6 to account for the 6 underglow LEDs per half that we aren't using
                 uint16_t keycode = keymap_key_to_keycode(current_layer, led_index_key_position[i+6]);
-                if (is_caps_word_on()) {
+                if (is_capsword_enabled) {
                     if (keycode == OSM(MOD_LSFT)) {
                         rgb_matrix_set_color(i, RGB_ORANGE);
                     }

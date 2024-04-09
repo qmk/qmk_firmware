@@ -112,3 +112,4 @@
 
 // Data synchronization
 #define SPLIT_LAYER_STATE_ENABLE
+#define SPLIT_TRANSACTION_IDS_KB RPC_CAPSWORD_SYNC

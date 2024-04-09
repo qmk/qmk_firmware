@@ -14,8 +14,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include "capsword.h"
 #include "keymap.h"
 #include "tapdance.h"
+#include "transactions.h"
 #include "rgb_matrix_user.h"
 #include "g/keymap_combo.h"
 
@@ -213,6 +215,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
     }
     return true;
+}
+
+void housekeeping_task_user(void) {
+    if (is_keyboard_master()) {
+        bool needs_sync = false;
+        static uint16_t last_sync = false;
+        static bool last_state = false;
+
+        if (memcmp(&is_capsword_enabled, &last_state, sizeof(last_state))) {
+            needs_sync = true;
+            memcpy(&last_state, &is_capsword_enabled, sizeof(last_state));
+        }
+
+        if (timer_elapsed32(last_sync) > 250) {
+            needs_sync = true;
+        }
+
+        if (needs_sync) {
+            if (transaction_rpc_send(RPC_CAPSWORD_SYNC, sizeof(is_capsword_enabled), &is_capsword_enabled)) {
+                last_sync = timer_read32();
+            }
+        }
+    }
 }
 
 #define ACTION_TAP_DANCE_TAP_HOLD(tap, hold) \
