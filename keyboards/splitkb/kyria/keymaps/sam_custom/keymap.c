@@ -217,6 +217,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+void keyboard_post_init_user(void) {
+    transaction_register_rpc(RPC_CAPSWORD_SYNC, capsword_sync_handler);
+}
+
 void housekeeping_task_user(void) {
     if (is_keyboard_master()) {
         bool needs_sync = false;

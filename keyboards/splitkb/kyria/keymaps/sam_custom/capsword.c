@@ -9,10 +9,6 @@ void capsword_sync_handler(uint8_t in_buflen, const void* in_data, uint8_t out_b
     memcpy(&is_capsword_enabled, in_data, in_buflen);
 }
 
-void keyboard_post_init_user(void) {
-    transaction_register_rpc(RPC_CAPSWORD_SYNC, capsword_sync_handler);
-}
-
 void caps_word_set_user(bool active) {
     oled_write_P(active ? PSTR("CAPSWORD ") : PSTR("         "), false);
     is_capsword_enabled = active ? true : false;
