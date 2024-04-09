@@ -11,11 +11,11 @@ It's designed for a modular keyboard mount using an FSO26.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make essemi\fs026:default
+    make essemi/fs026:default
 
 Flashing example:
 
-    make essemi\fs026:default:flash(msc device or qmk_toolbox)
+    make essemi/fs026:default:flash
 
 ## Bootloader
 
