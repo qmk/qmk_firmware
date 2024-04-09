@@ -185,8 +185,8 @@ typedef struct _poly_sync_t {
     uint8_t flags;
     layer_state_t default_ls;
     uint16_t last_latin_kc;
-    uint32_t crc32;
     uint8_t unicode_mode;
+    uint32_t crc32;
 } poly_sync_t;
 
 #define SYNC_ACK 0b11001010
