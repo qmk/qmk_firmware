@@ -36,7 +36,7 @@
         "vid": "0x4552"
     },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_all": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 2], "x": 2.25, "y": 0},
