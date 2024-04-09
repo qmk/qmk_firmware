@@ -35,6 +35,7 @@
         "pid": "0x0007",
         "vid": "0x4552"
     },
+    "community_layouts": ["tkl_ansi", "tkl_ansi_tsangan", "tkl_iso", "tkl_iso_tsangan"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
