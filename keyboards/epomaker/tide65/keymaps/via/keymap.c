@@ -30,8 +30,4 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 };
 #endif
 
-void keyboard_pre_init_user(void) {
-    setPinOutput(A5);
-    writePinHigh(A5);
-}
 // clang-format on
