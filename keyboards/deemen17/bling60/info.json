@@ -5,7 +5,7 @@
     "maintainer": "Deemen17",
     "usb": {
         "vid": "0xDE17",
-        "pid": "0x60A1",
+        "pid": "0x60B1",
         "device_version": "2.0.1"
     },
     "features": {
