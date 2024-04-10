@@ -474,6 +474,54 @@ TEST_P(OneShotLayerParametrizedTestFixture, OSLWithActionAndAdditionalKeypress) 
 
 INSTANTIATE_TEST_CASE_P(OneShotLayerTests, OneShotLayerParametrizedTestFixture, ::testing::Values(TG(2), TO(2)));
 
+TEST_F(OneShot, OSLWithDFAndAdditionalKeypress) {
+    TestDriver driver;
+    InSequence s;
+    KeymapKey  osl_key     = KeymapKey{0, 0, 0, OSL(1)};
+    KeymapKey  df_key      = KeymapKey{1, 1, 0, DF(2)};
+    KeymapKey  regular_key = KeymapKey{2, 1, 1, KC_A};
+
+    set_keymap({osl_key, df_key, regular_key});
+
+    layer_state_t default_layer_state_bak = default_layer_state;
+
+    /* Tap OSL key */
+    EXPECT_NO_REPORT(driver);
+    tap_key(osl_key);
+    run_one_scan_loop();
+    EXPECT_TRUE(layer_state_is(1));
+    VERIFY_AND_CLEAR(driver);
+
+    /* Press DF key */
+    EXPECT_NO_REPORT(driver);
+    df_key.press();
+    run_one_scan_loop();
+    EXPECT_EQ(default_layer_state, 0b001);
+
+    VERIFY_AND_CLEAR(driver);
+
+    /* Release DF key */
+    EXPECT_NO_REPORT(driver);
+    df_key.release();
+    run_one_scan_loop();
+    EXPECT_EQ(default_layer_state, 0b100);
+    VERIFY_AND_CLEAR(driver);
+
+    /* Press regular key */
+    EXPECT_REPORT(driver, (regular_key.report_code)).Times(1);
+    regular_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    /* Release regular key */
+    EXPECT_EMPTY_REPORT(driver);
+    regular_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    default_layer_state = default_layer_state_bak;
+}
+
 TEST_F(OneShot, OSLChainingTwoOSLsAndAdditionalKeypress) {
     TestDriver driver;
     InSequence s;
