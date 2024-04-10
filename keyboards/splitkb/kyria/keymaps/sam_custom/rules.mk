@@ -10,7 +10,7 @@ VPATH += keyboards/gboards
 OLED_ENABLE = yes
 RGBLIGHT_ENABLE = no      # Enable keyboard RGB underglow
 RGB_MATRIX_ENABLE = yes     # Disable keyboard RGB matrix, as it is enabled by default on rev3
-RGB_MATRIX_CUSTOM_KB = yes     # Enable custom user animations
+RGB_MATRIX_CUSTOM_USER = yes     # Enable custom user animations
 
 # Debug
 CONSOLE_ENABLE = no

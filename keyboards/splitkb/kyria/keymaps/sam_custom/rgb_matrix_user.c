@@ -61,7 +61,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                 uint16_t keycode = keymap_key_to_keycode(current_layer, led_index_key_position[i+6]);
                 switch (keycode) {
                     case TO(0):
-                        rgb_matrix_set_color(i, RGB_PURPLE);
+                        rgb_matrix_set_color(i, RGB_GREEN);
                         break;
                     default:
                         rgb_matrix_set_color(i, RGB_OFF);
