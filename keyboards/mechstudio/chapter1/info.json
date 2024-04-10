@@ -14,7 +14,8 @@
         "console": true,
         "caps_word": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "encoder": true
     },
     "bootmagic": {
         "matrix": [1, 0]
