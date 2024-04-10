@@ -49,13 +49,38 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                 uint16_t keycode = keymap_key_to_keycode(current_layer, led_index_key_position[i+6]);
                 if (is_capsword_enabled) {
                     if (keycode == OSM(MOD_LSFT)) {
-                        rgb_matrix_set_color(i, RGB_ORANGE);
+                        rgb_matrix_set_color(i, 169, 32, 0); // burnt orange
                     }
                 };
 
             };
             break;
         case _SYMBOL:
+            for (uint8_t i = led_min; i < led_max; i++) {
+                // add 6 to account for the 6 underglow LEDs per half that we aren't using
+                uint16_t keycode = keymap_key_to_keycode(current_layer, led_index_key_position[i+6]);
+                switch (i) {
+                    case 1:
+                    case 3:
+                    case 5:
+                    case 7:
+                    case 9:
+                    case 11:
+                        rgb_matrix_set_color(i, RGB_PURPLE);
+                        break;
+                    default:
+                        rgb_matrix_set_color(i, RGB_OFF);
+                        break;
+                }
+                switch (keycode) {
+                    case TO(0):
+                        rgb_matrix_set_color(i, RGB_PURPLE);
+                        break;
+                    default:
+                        rgb_matrix_set_color(i, RGB_OFF);
+                        break;
+                }
+            }
             break;
         case _NUMPAD:
             for (uint8_t i = led_min; i < led_max; i++) {
