@@ -11,7 +11,6 @@
     "features": {
         "extrakey": true,
         "bootmagic": true,
-        "console": true,
         "caps_word": true,
         "mousekey": true,
         "nkro": true,
