@@ -3,6 +3,9 @@
 #include "transactions.h"
 #include "rgb_matrix_user.h"
 
+// Idea from:
+// https://www.reddit.com/r/olkb/comments/1033bz0/competely_disabling_oleds_with_a_custom_key_in_qmk/
+// The sync handler takes care of synchronizing the capsword state across halves
 bool is_capsword_enabled = false;
 
 void capsword_sync_handler(uint8_t in_buflen, const void* in_data, uint8_t out_buflen, void* out_data) {

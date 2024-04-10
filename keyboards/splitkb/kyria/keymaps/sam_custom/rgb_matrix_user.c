@@ -72,25 +72,13 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                     case KC_8:
                     case KC_9:
                     case KC_0:
-                        rgb_matrix_set_color(i, RGB_ORANGE);
+                        rgb_matrix_set_color(i, 169, 32, 0); // burnt orange
                         break;
-                    case KC_ENTER:
-                    case KC_DOT:
-                         rgb_matrix_set_color(i, RGB_RED);
-                        break;
-                    case KC_BSPC:
-                    case KC_ASTERISK:
-                    case KC_MINUS:
-                    case KC_PLUS:
-                    case KC_SLASH:
-                        rgb_matrix_set_color(i, RGB_CYAN);
+                    case TO(0):
+                        rgb_matrix_set_color(i, RGB_PURPLE);
                         break;
                     case KC_PSCR:
-                        rgb_matrix_set_color(i, RGB_MAGENTA);
-                        break;
-                    case LINUX_COPY:
-                    case LINUX_PASTE:
-                        rgb_matrix_set_color(i, RGB_BLUE);
+                        rgb_matrix_set_color(i, RGB_GREEN);
                         break;
                     default:
                         rgb_matrix_set_color(i, RGB_OFF);
