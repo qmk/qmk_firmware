@@ -25,8 +25,9 @@
         "rows": ["F1", "F0", "E6", "B1", "B2"]
     },
     "encoder": {
-        "enabled": true,
-        "rotary": [{ "pin_a": "F6", "pin_b": "F7" }]
+        "rotary": [
+            { "pin_a": "F6", "pin_b": "F7" }
+        ]
     },
     "diode_direction": "COL2ROW",
     "qmk_lufa_bootloader": {
