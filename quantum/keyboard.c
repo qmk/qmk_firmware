@@ -500,10 +500,10 @@ void keyboard_init(void) {
  */
 void switch_events(uint8_t row, uint8_t col, bool pressed) {
 #if defined(LED_MATRIX_ENABLE)
-    process_led_matrix(row, col, pressed);
+    led_matrix_handle_key_event(row, col, pressed);
 #endif
 #if defined(RGB_MATRIX_ENABLE)
-    process_rgb_matrix(row, col, pressed);
+    rgb_matrix_handle_key_event(row, col, pressed);
 #endif
 }
 
@@ -689,7 +689,7 @@ void keyboard_task(void) {
 #endif
 
 #ifdef ENCODER_ENABLE
-    if (encoder_read()) {
+    if (encoder_task()) {
         last_encoder_activity_trigger();
         activity_has_occurred = true;
     }

@@ -16,24 +16,32 @@
 
 #include "os_detection.h"
 
-#ifdef OS_DETECTION_ENABLE
+#include <string.h>
+#include "timer.h"
+#ifdef OS_DETECTION_KEYBOARD_RESET
+#    include "quantum.h"
+#endif
 
-#    include <string.h>
-#    include "timer.h"
-#    ifdef OS_DETECTION_KEYBOARD_RESET
-#        include "quantum.h"
-#    endif
+#ifdef OS_DETECTION_DEBUG_ENABLE
+#    include "eeconfig.h"
+#    include "eeprom.h"
+#    include "print.h"
 
-#    ifdef OS_DETECTION_DEBUG_ENABLE
-#        include "eeconfig.h"
-#        include "eeprom.h"
-#        include "print.h"
-
-#        define STORED_USB_SETUPS 50
-#        define EEPROM_USER_OFFSET (uint8_t*)EECONFIG_SIZE
+#    define STORED_USB_SETUPS 50
+#    define EEPROM_USER_OFFSET (uint8_t*)EECONFIG_SIZE
 
 static uint16_t usb_setups[STORED_USB_SETUPS];
-#    endif
+#endif
+
+#ifndef OS_DETECTION_DEBOUNCE
+#    define OS_DETECTION_DEBOUNCE 200
+#endif
+
+// 2s should always be more than enough (otherwise, you may have other issues)
+#if OS_DETECTION_DEBOUNCE > 2000
+#    undef OS_DETECTION_DEBOUNCE
+#    define OS_DETECTION_DEBOUNCE 2000
+#endif
 
 struct setups_data_t {
     uint8_t  count;
@@ -49,18 +57,6 @@ struct setups_data_t setups_data = {
     .cnt_04 = 0,
     .cnt_ff = 0,
 };
-
-#    ifndef OS_DETECTION_DEBOUNCE
-#        define OS_DETECTION_DEBOUNCE 200
-#    endif
-
-// 2s should always be more than enough (otherwise, you may have other issues)
-#    if OS_DETECTION_DEBOUNCE > 2000
-#        undef OS_DETECTION_DEBOUNCE
-#        define OS_DETECTION_DEBOUNCE 2000
-#    endif
-
-typedef uint16_t debouncing_t;
 
 static volatile os_variant_t detected_os = OS_UNSURE;
 static os_variant_t          reported_os = OS_UNSURE;
@@ -89,13 +85,13 @@ void os_detection_task(void) {
             }
         }
     }
-#    ifdef OS_DETECTION_KEYBOARD_RESET
+#ifdef OS_DETECTION_KEYBOARD_RESET
     // resetting the keyboard on the USB device state change callback results in instability, so delegate that to this task
     // only take action if it's been stable at least once, to avoid issues with some KVMs
     else if (current_usb_device_state == USB_DEVICE_STATE_INIT && reported_usb_device_state != USB_DEVICE_STATE_INIT) {
         soft_reset_keyboard();
     }
-#    endif
+#endif
 }
 
 __attribute__((weak)) bool process_detected_host_os_kb(os_variant_t detected_os) {
@@ -108,9 +104,9 @@ __attribute__((weak)) bool process_detected_host_os_user(os_variant_t detected_o
 
 // Some collected sequences of wLength can be found in tests.
 void process_wlength(const uint16_t w_length) {
-#    ifdef OS_DETECTION_DEBUG_ENABLE
+#ifdef OS_DETECTION_DEBUG_ENABLE
     usb_setups[setups_data.count] = w_length;
-#    endif
+#endif
     setups_data.count++;
     setups_data.last_wlength = w_length;
     if (w_length == 0x2) {
@@ -174,23 +170,23 @@ void os_detection_notify_usb_device_state_change(enum usb_device_state usb_devic
     debouncing               = true;
 }
 
-#    if defined(SPLIT_KEYBOARD) && defined(SPLIT_DETECTED_OS_ENABLE)
+#if defined(SPLIT_KEYBOARD) && defined(SPLIT_DETECTED_OS_ENABLE)
 void slave_update_detected_host_os(os_variant_t os) {
     detected_os = os;
     last_time   = timer_read_fast();
     debouncing  = true;
 }
-#    endif
+#endif
 
-#    ifdef OS_DETECTION_DEBUG_ENABLE
+#ifdef OS_DETECTION_DEBUG_ENABLE
 void print_stored_setups(void) {
-#        ifdef CONSOLE_ENABLE
+#    ifdef CONSOLE_ENABLE
     uint8_t cnt = eeprom_read_byte(EEPROM_USER_OFFSET);
     for (uint16_t i = 0; i < cnt; ++i) {
         uint16_t* addr = (uint16_t*)EEPROM_USER_OFFSET + i * sizeof(uint16_t) + sizeof(uint8_t);
         xprintf("i: %d, wLength: 0x%02X\n", i, eeprom_read_word(addr));
     }
-#        endif
+#    endif
 }
 
 void store_setups_in_eeprom(void) {
@@ -201,6 +197,4 @@ void store_setups_in_eeprom(void) {
     }
 }
 
-#    endif // OS_DETECTION_DEBUG_ENABLE
-
-#endif
+#endif // OS_DETECTION_DEBUG_ENABLE

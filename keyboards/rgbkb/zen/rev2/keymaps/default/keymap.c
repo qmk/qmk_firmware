@@ -10,11 +10,6 @@ enum layer_number {
     _NAV
 };
 
-enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  NAV
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Qwerty
@@ -83,25 +78,6 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
   }
     return true;
 }
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(1UL<<_QWERTY);
-      }
-      return false;
-      break;
-    //case COLEMAK:
-      //if (record->event.pressed) {
-        //set_single_persistent_default_layer(1UL<<_COLEMAK);
-      //}
-      //return false;
-      //break;
-  }
-  return true;
-}
-
 
 #if OLED_ENABLE
 const char* layer_name_user(uint32_t layer) {
