@@ -13,7 +13,7 @@ RGB_MATRIX_ENABLE = yes     # Disable keyboard RGB matrix, as it is enabled by d
 RGB_MATRIX_CUSTOM_KB = yes     # Enable custom user animations
 
 # Debug
-CONSOLE_ENABLE = yes
+CONSOLE_ENABLE = no
 
 # Disable some stuff we don't need
 MOUSEKEY_ENABLE = no

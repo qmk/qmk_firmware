@@ -78,7 +78,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                         rgb_matrix_set_color(i, RGB_PURPLE);
                         break;
                     case KC_PSCR:
-                        rgb_matrix_set_color(i, RGB_GREEN);
+                        rgb_matrix_set_color(i, RGB_RED);
                         break;
                     default:
                         rgb_matrix_set_color(i, RGB_OFF);
