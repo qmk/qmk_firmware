@@ -111,8 +111,6 @@ __attribute__((weak)) bool display_init_user(void) {
 }
 
 __attribute__((weak)) void display_housekeeping_task(void) {
-    dprint("display_housekeeping_task_kb\n");
-
     toggle_state(label_shift, LV_STATE_PRESSED, MODS_SHIFT);
     toggle_state(label_ctrl, LV_STATE_PRESSED, MODS_CTRL);
     toggle_state(label_alt, LV_STATE_PRESSED, MODS_ALT);

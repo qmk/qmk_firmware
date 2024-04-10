@@ -8,17 +8,23 @@ Split modular keyboard with 38 or 40 keys, LCD display and Cirque/Azoteq touchpa
 -   Hardware Supported: Stront PCBs, Waveshare RP2040 Zero
 -   Hardware Availability: [GitHub](https://github.com/zzeneg/stront)
 
-Make example for this keyboard (after setting up your build environment):
+Make examples for this keyboard (after setting up your build environment):
 
-    make stront:default
+    make stront/38keys:default
+    make stront/40keys:default
 
-Flashing example for this keyboard:
+Flashing examples for this keyboard:
 
-    make stront:default:flash
+    make stront/38keys:default:flash
+    make stront/40keys:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
-## Hardware configuration
+## Hardware versions
+
+There are two versions - `stront/38keys` (default) and `stront/40keys`. Make sure to use the correct version for your hardware.
+
+## Module configuration
 
 **stront** is a modular keyboard with a lot of supported modules out of the box and potentially any VIK module. It's not possible to pre-compile a firmware for any possible hardware permutation, so it's the responsibility of the end user to configure it properly. Please see main `config.h` and `rules.mk` for available options and comments. You can easily set up your own pointing device and display.
 
@@ -29,13 +35,13 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Keymaps have [EE_HANDS](https://docs.qmk.fm/#/feature_split_keyboard?id=handedness-by-eeprom) enabled, so any side can be master (though using side with touchpad as master is recommended). You have to specify left/right side by flashing with different commands:
 
-`qmk flash -kb stront -km default -bl uf2-split-left`
+`qmk flash -kb stront/38keys -km default -bl uf2-split-left` or `qmk flash -kb stront/40keys -km default -bl uf2-split-left`
 
-or
+and
 
-`qmk flash -kb stront -km default -bl uf2-split-right`
+`qmk flash -kb stront/38keys -km default -bl uf2-split-right` or `qmk flash -kb stront/40keys -km default -bl uf2-split-right`
 
-If your keyboard is flashed already, you can do it by pressing key combinations - hold inner thumb key, then hold outer thumb key to activate SYSTEM layer. Now press outer bottom pinky key for left side or inner bottom index key for right side. See [keymap](./keymaps/default/keymap.c) for better understanding. Reconnect the keyboard to apply changes.
+If your keyboard is flashed already (or you use WSL), you can specify the correct side by pressing key combinations - hold inner thumb key, then hold outer thumb key to activate SYSTEM layer. Now press outer bottom pinky key for left side or inner bottom index key for right side. See [keymap](./keymaps/default/keymap.c) or build guide for better understanding. Reconnect the keyboard to apply changes.
 
 ## Bootloader
 
