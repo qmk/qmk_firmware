@@ -8,6 +8,20 @@
         "pid": "0x6074",
         "device_version": "0.0.2"
     },
+    "features": {
+        "bootmagic": false,
+        "mousekey": true,
+        "extrakey": true,
+        "console": true,
+        "nkro": true,
+        "rgblight": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "rgblight": {
         "led_count": 16,
         "animations": {

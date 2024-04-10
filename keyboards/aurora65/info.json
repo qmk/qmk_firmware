@@ -8,6 +8,13 @@
         "pid": "0x4136",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true,
+        "rgblight": true
+    },
     "rgblight": {
         "saturation_steps": 8,
         "brightness_steps": 8,

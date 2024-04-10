@@ -8,6 +8,20 @@
         "pid": "0x6050",
         "device_version": "1.0.4"
     },
+    "features": {
+        "bootmagic": false,
+        "mousekey": true,
+        "extrakey": true,
+        "console": true,
+        "command": true,
+        "backlight": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "backlight": {
         "pin": "B6",
         "breathing": true
