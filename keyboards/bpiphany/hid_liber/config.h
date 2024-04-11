@@ -24,11 +24,6 @@
 
 // HID Liberation Device uses custom matrix code to accomodate a 74HC238 3 to 8 decoder on pins B1, B2 and B3.
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
