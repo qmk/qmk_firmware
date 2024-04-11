@@ -16,7 +16,7 @@
 
 #include "quantum.h"
 
-#if defined(BACKLIGHT_ENABLE) || defined(LED_MATRIX_ENABLE)
+#ifdef BACKLIGHT_ENABLE
 #    include "process_backlight.h"
 #endif
 
@@ -38,6 +38,10 @@
 
 #ifdef LEADER_ENABLE
 #    include "process_leader.h"
+#endif
+
+#ifdef LED_MATRIX_ENABLE
+#    include "process_led_matrix.h"
 #endif
 
 #ifdef MAGIC_ENABLE
@@ -333,8 +337,11 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef AUDIO_ENABLE
             process_audio(keycode, record) &&
 #endif
-#if defined(BACKLIGHT_ENABLE) || defined(LED_MATRIX_ENABLE)
+#if defined(BACKLIGHT_ENABLE)
             process_backlight(keycode, record) &&
+#endif
+#if defined(LED_MATRIX_ENABLE)
+            process_led_matrix(keycode, record) &&
 #endif
 #ifdef STENO_ENABLE
             process_steno(keycode, record) &&
