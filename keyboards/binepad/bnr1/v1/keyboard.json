@@ -6,6 +6,9 @@
         "pid": "0x4231",
         "device_version": "1.0.0"
     },
+    "build": {
+        "lto": true
+    },
     "matrix_pins": {
         "cols": ["B0"],
         "rows": ["E6"]
