@@ -21,6 +21,12 @@
         "nkro": false,
         "rgb_matrix": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "ws2812": {
         "pin": "GP6",
         "driver": "vendor"

@@ -50,26 +50,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 
 };
-
-void keyboard_pre_init_user(void) {
-  // Call the keyboard pre init code.
-
-  // Set our LED pins as output
-  setPinOutput(D5);
-  setPinOutput(B0);
-}
-
-bool led_update_user(led_t led_state) {
-  if (led_state.num_lock) {
-    writePinLow(D5);
-  } else {
-    writePinHigh(D5);
-  }
-
-  if (led_state.caps_lock) {
-    writePinLow(B0);
-  } else {
-    writePinHigh(B0);
-  }
-  return false;
-}

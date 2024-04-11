@@ -39,15 +39,17 @@
     },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
-    "community_layouts": [
-        "60_ansi",
-        "60_ansi_split_bs_rshift",
-        "60_ansi_tsangan",
-        "60_tsangan_hhkb",
-        "60_ansi_wkl",
-        "60_ansi_wkl_split_bs_rshift",
-        "60_hhkb"
-    ],
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "console": true,
+        "command": true,
+        "nkro": true,
+        "backlight": true,
+        "rgblight": true
+    },
+    "community_layouts": ["60_ansi", "60_ansi_split_bs_rshift", "60_ansi_tsangan", "60_tsangan_hhkb", "60_ansi_wkl", "60_ansi_wkl_split_bs_rshift", "60_hhkb"],
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [
