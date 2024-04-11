@@ -19,6 +19,14 @@
     },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "console": true,
+        "command": true,
+        "nkro": true
+    },
     "layout_aliases": {
         "LAYOUT_default": "LAYOUT_65_ansi_rwkl"
     },
