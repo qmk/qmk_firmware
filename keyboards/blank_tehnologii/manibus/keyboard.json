@@ -9,12 +9,21 @@
         "pid": "0x4D4E",
         "device_version": "1.0.0"
     },
+    "features": {
+        "bootmagic": false,
+        "mousekey": true,
+        "extrakey": true,
+        "console": true,
+        "command": true,
+        "nkro": true
+    },
     "matrix_pins": {
         "cols": ["D7", "B4", "B5", "B6", "F0", "D4", "D6"],
         "rows": ["F4", "F5", "F6", "D3", "C6"]
     },
     "diode_direction": "COL2ROW",
     "split": {
+        "enabled": true,
         "soft_serial_pin": "D0",
         "matrix_pins": {
             "right": {
