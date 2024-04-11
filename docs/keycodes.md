@@ -398,6 +398,22 @@ See also: [Leader Key](feature_leader_key.md)
 |---------|------------------------|
 |`QK_LEAD`|Begins a leader sequence|
 
+## LED Matrix :id=led-matrix
+
+See also: [LED Matrix](feature_led_matrix.md)
+
+|Key                            |Aliases  |Description                        |
+|-------------------------------|---------|-----------------------------------|
+|`QK_LED_MATRIX_ON`             |`LM_ON`  |Turn on LED Matrix                 |
+|`QK_LED_MATRIX_OFF`            |`LM_OFF` |Turn off LED Matrix                |
+|`QK_LED_MATRIX_TOGGLE`         |`LM_TOGG`|Toggle LED Matrix on or off        |
+|`QK_LED_MATRIX_MODE_NEXT`      |`LM_NEXT`|Cycle through animations           |
+|`QK_LED_MATRIX_MODE_PREVIOUS`  |`LM_PREV`|Cycle through animations in reverse|
+|`QK_LED_MATRIX_BRIGHTNESS_UP`  |`LM_BRIU`|Increase the brightness level      |
+|`QK_LED_MATRIX_BRIGHTNESS_DOWN`|`LM_BRID`|Decrease the brightness level      |
+|`QK_LED_MATRIX_SPEED_UP`       |`LM_SPDU`|Increase the animation speed       |
+|`QK_LED_MATRIX_SPEED_DOWN`     |`LM_SPDD`|Decrease the animation speed       |
+
 ## Magic Keycodes :id=magic-keycodes
 
 See also: [Magic Keycodes](keycodes_magic.md)
