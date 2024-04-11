@@ -47,6 +47,9 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "build": {
+        "lto": true
+    },
     "features": {
         "bootmagic": true,
         "mousekey": true,
