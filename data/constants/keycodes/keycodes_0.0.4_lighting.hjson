@@ -1,0 +1,67 @@
+{
+    "keycodes": {
+        "0x7810": {
+            "group": "led_matrix",
+            "key": "QK_LED_MATRIX_ON",
+            "aliases": [
+                "LM_ON"
+            ]
+        },
+        "0x7811": {
+            "group": "led_matrix",
+            "key": "QK_LED_MATRIX_OFF",
+            "aliases": [
+                "LM_OFF"
+            ]
+        },
+        "0x7812": {
+            "group": "led_matrix",
+            "key": "QK_LED_MATRIX_TOGGLE",
+            "aliases": [
+                "LM_TOGG"
+            ]
+        },
+        "0x7813": {
+            "group": "led_matrix",
+            "key": "QK_LED_MATRIX_MODE_NEXT",
+            "aliases": [
+                "LM_NEXT"
+            ]
+        },
+        "0x7814": {
+            "group": "led_matrix",
+            "key": "QK_LED_MATRIX_MODE_PREVIOUS",
+            "aliases": [
+                "LM_PREV"
+            ]
+        },
+        "0x7815": {
+            "group": "led_matrix",
+            "key": "QK_LED_MATRIX_BRIGHTNESS_UP",
+            "aliases": [
+                "LM_BRIU"
+            ]
+        },
+        "0x7816": {
+            "group": "led_matrix",
+            "key": "QK_LED_MATRIX_BRIGHTNESS_DOWN",
+            "aliases": [
+                "LM_BRID"
+            ]
+        },
+        "0x7817": {
+            "group": "led_matrix",
+            "key": "QK_LED_MATRIX_SPEED_UP",
+            "aliases": [
+                "LM_SPDU"
+            ]
+        },
+        "0x7818": {
+            "group": "led_matrix",
+            "key": "QK_LED_MATRIX_SPEED_DOWN",
+            "aliases": [
+                "LM_SPDD"
+            ]
+        }
+    }
+}
