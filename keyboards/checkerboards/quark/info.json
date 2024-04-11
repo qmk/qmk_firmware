@@ -41,6 +41,16 @@
     },
     "processor": "atmega32u2",
     "bootloader": "atmel-dfu",
+    "features": {
+        "bootmagic": true,
+        "mousekey": false,
+        "extrakey": true,
+        "command": true,
+        "nkro": true,
+        "rgblight": true,
+        "unicode": true,
+        "encoder": true
+    },
     "community_layouts": ["ortho_4x12", "planck_mit"],
     "layouts": {
         "LAYOUT_ortho_5x12_2x225u": {

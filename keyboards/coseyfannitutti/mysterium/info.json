@@ -15,6 +15,11 @@
     "diode_direction": "COL2ROW",
     "processor": "atmega32a",
     "bootloader": "usbasploader",
+    "features": {
+        "bootmagic": true,
+        "mousekey": false,
+        "extrakey": true
+    },
     "community_layouts": ["tkl_ansi"],
     "layouts": {
         "LAYOUT_tkl_ansi": {

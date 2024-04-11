@@ -8,6 +8,12 @@
         "pid": "0x414C",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true
+    },
     "indicators": {
         "caps_lock": "B6",
         "on_state": 0
@@ -19,6 +25,7 @@
     "diode_direction": "COL2ROW",
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
+    "community_layouts": ["60_ansi", "60_ansi_split_bs_rshift", "60_ansi_tsangan", "60_iso", "60_iso_split_bs_rshift", "60_iso_tsangan", "60_tsangan_hhkb"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
