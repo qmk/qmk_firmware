@@ -19,9 +19,6 @@
 #include "matrix.h"
 //#include "debug.h"  // needed for debugging
 
-#define RESET_PT 55
-#define ACTUATION_PT 65
-
 // console debugging for pad values
 /*void keyboard_post_init_kb() {
     debug_enable = true;
@@ -29,7 +26,7 @@
 }*/
 
 void matrix_init_custom(void) {
-    ec_config_t ec_config = {.reset_pt = RESET_PT, .actuation_pt = ACTUATION_PT};
+    ec_config_t ec_config = {.reset_pt = DEFAULT_RESET_PT, .actuation_pt = DEFAULT_ACTUATION_PT};
 
     ec_init(&ec_config);
 }

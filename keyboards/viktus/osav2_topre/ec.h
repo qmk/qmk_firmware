@@ -14,10 +14,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <stdio.h>
+#include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>
 
 #include "matrix.h"
+
+#define DEFAULT_RESET_PT 45
+#define DEFAULT_ACTUATION_PT 52
 
 typedef struct {
     uint16_t reset_pt;
