@@ -16,6 +16,9 @@
     "nkro": true,
     "rgblight": true
   },
+  "build": {
+    "lto": true
+  },
   "indicators": {
     "caps_lock": "B4"
   },
