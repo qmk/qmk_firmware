@@ -14,23 +14,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// ec.h
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>
 
 #include "matrix.h"
+#include "ec_types.h"
 
-#define DEFAULT_RESET_PT 45
-#define DEFAULT_ACTUATION_PT 52
+#define DEFAULT_RESET_PT 50
+#define DEFAULT_ACTUATION_PT 60
 
-typedef struct {
-    uint16_t reset_pt;
-    uint16_t actuation_pt;
-} ec_config_t;
-
-void     ec_init(ec_config_t const* const ec_config);
-bool     ec_matrix_scan(matrix_row_t current_matrix[]);
-//void     ec_dprint_matrix(void);  // needed for debugging
+void ec_init(ec_config_t const* const ec_config);
+bool ec_matrix_scan(matrix_row_t current_matrix[]);
+// void ec_dprint_matrix(void);  // needed for debugging
 uint16_t ec_readkey_raw(uint8_t col, uint8_t row);
 bool     ec_update_key(matrix_row_t* current_row, matrix_row_t col, uint16_t sw_value, uint16_t reset_pt, uint16_t actuation_pt);

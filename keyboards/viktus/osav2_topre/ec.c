@@ -18,6 +18,8 @@
 #include "ec.h"
 #include "analog.h"
 //#include "debug.h"  // needed for debugging
+#include "ec.h"
+#include "key_positions.h"
 
 // sensing channel definitions
 #define A0 0
@@ -139,43 +141,23 @@ bool ec_update_key(matrix_row_t* current_row, matrix_row_t col, uint16_t sw_valu
     return false;
 }
 
-// Define a struct to hold row and column values
-typedef struct {
-    uint8_t row;
-    uint8_t col;
-} KeyPosition;
-
-// Define specific key positions
-const KeyPosition SPLIT_BACKSPACE_LEFT_1U = {0, 14};
-const KeyPosition BACKSPACE_2U            = {0, 15};
-const KeyPosition RIGHT_SHIFT_1_75U       = {3, 14};
-const KeyPosition LEFT_SPACE_COL3         = {4, 3};
-const KeyPosition LEFT_SPACE_COL4         = {4, 4};
-const KeyPosition LEFT_SPACE_COL5         = {4, 5};
-const KeyPosition LEFT_SPACE_COL6         = {4, 6};
-const KeyPosition RIGHT_SHIFT_2_75U       = {4, 14};
-
-// Custom actuation point adjustments
-void adjust_actuation_points(uint16_t* reset_pt, uint16_t* actuation_pt, KeyPosition key_pos) {
-    // Check if the key is one of the specific keys that need adjustment
-    if ((key_pos.row == SPLIT_BACKSPACE_LEFT_1U.row && key_pos.col == SPLIT_BACKSPACE_LEFT_1U.col) || (key_pos.row == BACKSPACE_2U.row && key_pos.col == BACKSPACE_2U.col) || (key_pos.row == RIGHT_SHIFT_1_75U.row && key_pos.col == RIGHT_SHIFT_1_75U.col) || (key_pos.row == RIGHT_SHIFT_2_75U.row && key_pos.col == RIGHT_SHIFT_2_75U.col)) {
-        *reset_pt     = 48;
-        *actuation_pt = 53;
-    } else if ((key_pos.row == LEFT_SPACE_COL3.row && key_pos.col == LEFT_SPACE_COL3.col) || (key_pos.row == LEFT_SPACE_COL4.row && key_pos.col == LEFT_SPACE_COL4.col)) {
-        *reset_pt     = 50;
-        *actuation_pt = 60;
-    } else if ((key_pos.row == LEFT_SPACE_COL5.row && key_pos.col == LEFT_SPACE_COL5.col) || (key_pos.row == LEFT_SPACE_COL6.row && key_pos.col == LEFT_SPACE_COL6.col)) {
-        *reset_pt     = 48;
-        *actuation_pt = 58;
-    }
-
-    // Fail-safe mechanism: Check if reset_pt and actuation_pt are within 5 points of each other for the current key
-    if (*actuation_pt - *reset_pt < 5) {
-        // Handle the error: print an error message and halt the firmware
-        fprintf(stderr, "Error: reset_pt and actuation_pt must have a difference of at least 5 points for each key\n");
-        exit(EXIT_FAILURE);
-    }
-}
+const KeyConfig key_level_configs[] = {
+    {&KEY_00_KC_DEL, {55, 65}}, // Default levels for (DEL)
+    {&KEY_01_KC_ESC, {55, 65}}, // Default levels for (ESC)
+    {&KEY_02_KC_1, {55, 65}},   // Default levels for (1)
+    // ...
+    {&KEY_12_KC_Q, {48, 53}}, // Custom levels for (Q)
+    {&KEY_22_KC_A, {48, 53}}, // Custom levels for (A)
+    {&KEY_32_KC_Z, {48, 53}}, // Custom levels for (Z)
+    // ...
+    {&KEY_014_KC_BSLS, {48, 53}}, // Custom levels for (SPLIT_BACKSPACE_LEFT_1U)
+    {&KEY_015_KC_GRV, {48, 53}},  // Custom levels for (BACKSPACE_2U)
+    {&KEY_314_KC_RSFT, {48, 53}}, // Custom levels for (RIGHT_SHIFT_1_75U)
+    {&KEY_44_KC_SPC, {50, 60}},   // Custom levels for (LEFT_SPACE_COL4)
+    {&KEY_46_MO_1_2, {48, 58}},   // Custom levels for (LEFT_SPACE_COL6)
+    {&KEY_49_KC_SPC_2, {50, 60}}, // Custom levels for (LEFT_SPACE_COL3)
+    {&KEY_411_KC_RALT, {48, 53}}  // Custom levels for (RIGHT_SHIFT_2_75U)
+};
 
 bool ec_matrix_scan(matrix_row_t current_matrix[]) {
     bool updated = false;
@@ -188,8 +170,19 @@ bool ec_matrix_scan(matrix_row_t current_matrix[]) {
             // Create a KeyPosition struct for the current key
             KeyPosition key_pos = {row, col};
 
-            // Apply custom actuation point adjustments
-            adjust_actuation_points(&reset_pt, &actuation_pt, key_pos);
+            // Check if the current key position matches any of the configured key positions
+            for (int i = 0; i < sizeof(key_level_configs) / sizeof(KeyConfig); i++) {
+                if (key_pos.row == key_level_configs[i].key_position->row && key_pos.col == key_level_configs[i].key_position->col) {
+                    reset_pt     = key_level_configs[i].key_level.reset_pt;
+                    actuation_pt = key_level_configs[i].key_level.actuation_pt;
+                    break;
+                }
+            }
+
+            // Fail-safe mechanism: Check if reset_pt and actuation_pt are within 5 points of each other for the current key
+            // if (actuation_pt - reset_pt < 5) {
+            // _Static_assert(false, "reset_pt and actuation_pt must have a difference of at least 5 points for each key");
+            // }
 
             ec_sw_value[col][row] = ec_readkey_raw(col, row);
             updated |= ec_update_key(&current_matrix[row], col, ec_sw_value[col][row], reset_pt, actuation_pt);
