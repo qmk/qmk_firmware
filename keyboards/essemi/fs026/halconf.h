@@ -5,6 +5,4 @@
 
 #define HAL_USE_PWM TRUE
 
-#define ES32_PWM_USE_GP16C4T2 TRUE
-
 #include_next <halconf.h>
