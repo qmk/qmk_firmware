@@ -8,6 +8,12 @@
         "pid": "0x4238",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true
+    },
     "matrix_pins": {
         "cols": ["A1", "B9", "A3", "A4", "A5", "A6", "A7", "B0", "B1", "B2", "B10", "B11", "B12", "B13", "B14", "B15", "A8"],
         "rows": ["A2", "A14", "A15", "B3", "B4", "B5"]
@@ -20,6 +26,7 @@
     },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
+    "community_layouts": ["tkl_ansi", "tkl_ansi_tsangan", "tkl_ansi_split_bs_rshift", "tkl_ansi_tsangan_split_bs_rshift", "tkl_iso", "tkl_iso_split_bs_rshift", "tkl_iso_tsangan", "tkl_iso_tsangan_split_bs_rshift"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -8,6 +8,24 @@
         "pid": "0x6080",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "command": true,
+        "backlight": true,
+        "rgblight": true,
+        "bluetooth": true
+    },
+    "build": {
+        "lto": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "matrix_pins": {
         "cols": ["F6", "F7", "B3", "C7", "C6", "B6", "B5", "D5", "B4", "D7", "D6", "D4", "D1", "D0"],
         "rows": ["E6", "B0", "F1", "F5", "F4"]
