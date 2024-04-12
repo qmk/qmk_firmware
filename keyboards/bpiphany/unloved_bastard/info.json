@@ -7,6 +7,20 @@
     "pid": "0x1337",
     "device_version": "0.0.1"
   },
+  "features": {
+    "bootmagic": true,
+    "mousekey": true,
+    "extrakey": true,
+    "console": true,
+    "command": true,
+    "sleep_led": true
+  },
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  },
   "indicators": {
     "caps_lock": "C5",
     "num_lock": "B7",

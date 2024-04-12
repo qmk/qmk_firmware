@@ -14,8 +14,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "matrix.h"
 #include "pca9555.h"
-#include "quantum.h"
+#include "timer.h"
 
 // PCA9555 i2c address, 0x20: A0 = 0, A1 = 0, A2 = 0
 #define IC1 0x20
@@ -55,7 +56,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
             pca9555_setup();
         }
         // Read the entire port into this byte, 1 = not pressed, 0 = pressed
-        bool ret = pca9555_readPins(IC1, PCA9555_PORT0, &pin_states);
+        bool ret = pca9555_read_pins(IC1, PCA9555_PORT0, &pin_states);
 
         // Update state
         if (ret) {

@@ -9,6 +9,12 @@
         "device_version": "0.0.1",
         "max_power": 100
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "encoder": true
+    },
     "matrix_pins": {
         "cols": ["A0", "A1", "A2", "A3", "A4", "B0", "B1", "B2", "D5", "D6", "C5", "C4", "C3", "C2", "C1"],
         "rows": ["A6", "C6", "C7", "A7", "A5"]
@@ -20,7 +26,11 @@
         ]
     },
     "qmk": {
-        "tap_keycode_delay": 10
+        "tap_keycode_delay": 10,
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     },
     "processor": "atmega32a",
     "bootloader": "usbasploader",
