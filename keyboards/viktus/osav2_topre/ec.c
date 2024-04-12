@@ -141,14 +141,6 @@ bool ec_update_key(matrix_row_t* current_row, matrix_row_t col, uint16_t sw_valu
 }
 
 const KeyConfig key_level_configs[] = {
-    {&KEY_00_KC_DEL, {55, 65}}, // Default levels for (DEL)
-    {&KEY_01_KC_ESC, {55, 65}}, // Default levels for (ESC)
-    {&KEY_02_KC_1, {55, 65}},   // Default levels for (1)
-    // ...
-    {&KEY_12_KC_Q, {48, 53}}, // Custom levels for (Q)
-    {&KEY_22_KC_A, {48, 53}}, // Custom levels for (A)
-    {&KEY_32_KC_Z, {48, 53}}, // Custom levels for (Z)
-    // ...
     {&KEY_014_KC_BSLS, {48, 53}}, // Custom levels for (SPLIT_BACKSPACE_LEFT_1U)
     {&KEY_015_KC_GRV, {48, 53}},  // Custom levels for (BACKSPACE_2U)
     {&KEY_314_KC_RSFT, {48, 53}}, // Custom levels for (RIGHT_SHIFT_1_75U)
@@ -156,6 +148,9 @@ const KeyConfig key_level_configs[] = {
     {&KEY_46_MO_1_2, {48, 58}},   // Custom levels for (LEFT_SPACE_COL6)
     {&KEY_49_KC_SPC_2, {50, 60}}, // Custom levels for (LEFT_SPACE_COL3)
     {&KEY_411_KC_RALT, {48, 53}}  // Custom levels for (RIGHT_SHIFT_2_75U)
+
+    // ...
+    // Add additional configurations here!
 };
 
 bool ec_matrix_scan(matrix_row_t current_matrix[]) {

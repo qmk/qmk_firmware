@@ -23,8 +23,8 @@
 #include "matrix.h"
 #include "ec_types.h"
 
-#define DEFAULT_RESET_PT 50
-#define DEFAULT_ACTUATION_PT 60
+#define DEFAULT_RESET_PT 55
+#define DEFAULT_ACTUATION_PT 65
 
 void ec_init(ec_config_t const* const ec_config);
 bool ec_matrix_scan(matrix_row_t current_matrix[]);
