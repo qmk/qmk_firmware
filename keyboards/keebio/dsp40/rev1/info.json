@@ -51,6 +51,7 @@
     "layout_aliases": {
         "LAYOUT_40_staggered": "LAYOUT"
     },
+    "community_layouts": ["ortho_4x12"],
     "layouts": {
         "LAYOUT": {
             "layout": [
