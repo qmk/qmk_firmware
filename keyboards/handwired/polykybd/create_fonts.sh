@@ -45,7 +45,7 @@ fontconvert -f~/repos/Noto_Emoji/static/NotoEmoji-Medium.ttf "-s12" -r50 -v _Not
 fontconvert -f~/repos/Noto_Emoji/static/NotoEmoji-Medium.ttf "-s20" -r50 -v _Emojis0_ -n0x10000 0x1f600 0x1f64f > "base/fonts/generated/6NotoEmoji_Medium_Emoji0_20pt.h"
 fontconvert -f~/repos/Noto_Emoji/static/NotoEmoji-Medium.ttf "-s20" -r50 -v _Emojis1_ -n0xfd00 0x1f440 0x1f453 0x1f47b 0x1f496 0x1f4a1 0x1f4b1 > "base/fonts/generated/7NotoEmoji_Medium_Emoji1 _20pt.h"
 fontconvert -f~/repos/Noto_Emoji/static/NotoEmoji-Medium.ttf "-s20" -r50 -v _Emojis2_ -n0x10100 0x1F912 0x1F919 > "base/fonts/generated/7NotoEmoji_Medium_Emoji2_20pt.h"
-fontconvert -f~/repos/Noto_Sans_Symbols/static/NotoSansSymbols-Regular.ttf "-s20" -r50 -v _Technical_ 0x2387 0x2388 0x238b 0x238b > "base/fonts/generated/3NotoSansSymbols_Regular_Technical_20pt.h"
+fontconvert -f~/repos/Noto_Sans_Symbols/static/NotoSansSymbols-Regular.ttf "-s20" -r50 -v _Technical_ 0x2387 0x2388 0x238b 0x238b 0x2399 0x2399 > "base/fonts/generated/3NotoSansSymbols_Regular_Technical_20pt.h"
 fontconvert -f~/repos/Noto_Sans_Symbols_2/NotoSansSymbols2-Regular.ttf "-s20" -r50 -v _Technical2_ 0x2318 0x2318 0x2325 0x2326 0x232B 0x232B > "base/fonts/generated/3NotoSansSymbols2_Regular_Technical_20pt.h"
 fontconvert -f~/repos/Noto_Sans_Symbols_2/NotoSansSymbols2-Regular.ttf "-s20" -r50 -v _Checkmark_ 0x2611 0x2611 > "base/fonts/generated/3NotoSansSymbols2_Regular_Checkmark_20pt.h"
 fontconvert -f~/repos/Noto_Sans_Symbols_2/NotoSansSymbols2-Regular.ttf "-s20" -r50 -v _Box_ 0x2611 0x2611 > "base/fonts/generated/4NotoSansSymbols2_Regular_Box_20pt.h"
