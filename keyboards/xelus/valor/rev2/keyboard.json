@@ -8,6 +8,16 @@
         "pid": "0x5653",
         "device_version": "0.0.1"
     },
+    "build": {
+        "lto": true
+    },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgb_matrix": true
+    },
     "ws2812": {
         "pin": "A9",
         "driver": "pwm"

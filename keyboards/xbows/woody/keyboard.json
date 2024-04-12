@@ -8,6 +8,13 @@
         "pid": "0x1224",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgb_matrix": true
+    },
     "rgb_matrix": {
         "animations": {
             "alphas_mods": true,
