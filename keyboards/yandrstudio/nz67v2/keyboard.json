@@ -81,6 +81,7 @@
     "qmk": {
         "tap_keycode_delay": 15
     },
+    "community_layouts": ["65_ansi_blocker"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
