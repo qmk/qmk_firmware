@@ -1,6 +1,14 @@
 {
     "usb": {
-        "device_version": "0.0.2"
+        "device_version": "0.0.2",
+        "no_startup_check": true
+    },
+    "features": {
+        "bootmagic": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false,
+        "unicode": true
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

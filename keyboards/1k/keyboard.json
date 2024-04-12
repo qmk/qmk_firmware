@@ -8,6 +8,16 @@
     "pid": "0x0001",
     "device_version": "0.0.1"
   },
+  "processor": "attiny85",
+  "bootloader": "custom",
+  "build": {
+    "lto": true
+  },
+  "features": {
+    "grave_esc": false,
+    "magic": false,
+    "space_cadet": false
+  },
   "rgblight": {
     "led_count": 1
   },

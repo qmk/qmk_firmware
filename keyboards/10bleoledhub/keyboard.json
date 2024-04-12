@@ -8,6 +8,15 @@
         "pid": "0x7C99",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bluetooth": true,
+        "bootmagic": true,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false,
+        "oled": true
+    },
     "bluetooth": {
         "driver": "bluefruit_le"
     },
