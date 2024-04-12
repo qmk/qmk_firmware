@@ -24,6 +24,7 @@
         "vid": "0xFEED"
     },
     "split": {
+        "enabled": true,
         "soft_serial_pin": "D2"
     },
     "layouts": {

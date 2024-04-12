@@ -36,5 +36,15 @@
         "driver": "spi"
     },
     "processor": "STM32F072",
-    "bootloader": "stm32-dfu"
+    "bootloader": "stm32-dfu",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "console": true,
+        "command": true,
+        "nkro": true,
+        "backlight": true,
+        "rgblight": true
+    }
 }

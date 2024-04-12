@@ -6,5 +6,11 @@
     "usb": {
         "vid": "0x5845",
         "pid": "0x5253"
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     }
 }
