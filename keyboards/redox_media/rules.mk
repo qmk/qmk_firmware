@@ -11,7 +11,6 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = yes
-SPLIT_KEYBOARD = yes
 
 # Disable unsupported hardware
 AUDIO_SUPPORTED = no
