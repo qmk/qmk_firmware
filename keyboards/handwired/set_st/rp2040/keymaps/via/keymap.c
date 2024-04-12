@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+
 #include QMK_KEYBOARD_H
 
 enum keycodes {
@@ -66,3 +67,5 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
   [LIGHT] = { ENCODER_CCW_CW(_______, _______) }
 };
 #endif
+
+#include "extra.h"

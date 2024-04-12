@@ -15,7 +15,6 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "keymap.c"
 
 #ifdef OLED_ENABLE
 
