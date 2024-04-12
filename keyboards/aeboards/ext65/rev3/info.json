@@ -7,6 +7,15 @@
         "pid": "0xA653",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true
+    },
+    "build": {
+        "lto": true
+    },
     "indicators": {
         "caps_lock": "F4",
         "num_lock": "F5",

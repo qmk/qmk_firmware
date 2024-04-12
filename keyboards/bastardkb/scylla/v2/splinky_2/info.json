@@ -12,6 +12,7 @@
     },
     "diode_direction": "ROW2COL",
     "split": {
+        "enabled": true,
         "soft_serial_pin": "GP1"
     },
     "ws2812": {

@@ -102,6 +102,7 @@
         "tap_keycode_delay": 5
     },
     "split": {
+        "enabled": true,
         "soft_serial_pin": "A9",
         "transport": {
             "sync": {

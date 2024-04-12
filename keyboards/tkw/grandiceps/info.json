@@ -39,6 +39,7 @@
         ]
     },
     "split": {
+        "enabled": true,
         "soft_serial_pin": "A15",
         "matrix_pins": {
             "right": {

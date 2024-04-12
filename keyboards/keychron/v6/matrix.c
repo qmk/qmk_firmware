@@ -15,7 +15,8 @@
  */
 
 #include "matrix.h"
-#include "quantum.h"
+#include "atomic_util.h"
+#include <string.h>
 
 #ifndef PIN_USED_74HC595
 #    define PIN_USED_74HC595 8

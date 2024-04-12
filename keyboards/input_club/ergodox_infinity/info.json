@@ -38,6 +38,9 @@
         "rows": ["B2", "B3", "B18", "B19", "C0", "C9", "C10", "C11", "D0"]
     },
     "diode_direction": "ROW2COL",
+    "split": {
+        "enabled": true
+    },
     "processor": "MK20DX256",
     "bootloader": "kiibohd",
     "board": "IC_TEENSY_3_1",
