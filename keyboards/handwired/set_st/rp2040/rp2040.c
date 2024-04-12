@@ -14,17 +14,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
 #include QMK_KEYBOARD_H
+#include "keymap.c"
 
 #ifdef OLED_ENABLE
-
-enum layers{
-  BASE,
-  FN,
-  MEDIA,
-  LIGHT
-};
 
 bool oled_task_user(void) {
     // Set cursor position
