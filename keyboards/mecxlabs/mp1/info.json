@@ -28,6 +28,7 @@
             ["A5", "A4", "A3"]
         ]
     },
+    "community_layouts": ["ortho_3x3"],
     "layouts": {
         "LAYOUT_ortho_3x3": {
             "layout": [
