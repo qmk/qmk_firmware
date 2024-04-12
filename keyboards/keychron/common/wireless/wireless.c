@@ -31,10 +31,6 @@ extern report_buffer_t kb_rpt;
 extern uint32_t        retry_time_buffer;
 extern uint8_t         retry;
 
-#ifdef NKRO_ENABLE
-extern nkro_t nkro;
-#endif
-
 static uint8_t host_index = 0;
 static uint8_t led_state  = 0;
 
@@ -105,13 +101,6 @@ void wireless_init(void) {
     lpm_init();
 #if HAL_USE_RTC
     rtc_timer_init();
-#endif
-#ifdef NKRO_ENABLE
-    keymap_config.raw = eeconfig_read_keymap();
-    nkro.usb          = keymap_config.nkro;
-#    ifdef WIRELESS_NKRO_ENABLE
-    nkro.bluetooth = keymap_config.nkro;
-#    endif
 #endif
 }
 
@@ -233,9 +222,7 @@ static void wireless_enter_connected(uint8_t host_idx) {
     clear_keyboard();
 
     /* Enable NKRO since it may be disabled in pin code entry */
-#if defined(NKRO_ENABLE) && defined(WIRELESS_NKRO_ENABLE)
-    keymap_config.nkro = nkro.bluetooth;
-#else
+#if defined(NKRO_ENABLE) && !defined(WIRELESS_NKRO_ENABLE)
     keymap_config.nkro = false;
 #endif
 
@@ -291,8 +278,8 @@ static void wireless_enter_bluetooth_pin_code_entry(void) {
 
 /* Exit pin code entry state. */
 static void wireless_exit_bluetooth_pin_code_entry(void) {
-#if defined(NKRO_ENABLE)
-    keymap_config.nkro = true;
+#if defined(NKRO_ENABLE) || defined(WIRELESS_NKRO_ENABLE)
+    keymap_config.raw = eeconfig_read_keymap();
 #endif
     pincodeEntry = false;
     wireless_exit_bluetooth_pin_code_entry_kb();
