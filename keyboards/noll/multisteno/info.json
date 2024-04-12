@@ -10,9 +10,6 @@
         "nkro": true,
         "stenography": true
     },
-    "combo": {
-        "term": 35
-    },
     "processor": "STM32F103",
     "stenography": {
         "protocol": "geminipr"
