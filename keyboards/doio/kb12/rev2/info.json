@@ -1,16 +1,16 @@
 {
     "keyboard_name": "KB12-02",
-    "usb": {
-        "vid": "0xD010",
-        "pid": "0x1202",
-        "device_version": "0.0.1"
-    },
     "encoder": {
         "rotary": [
             {"pin_a": "B6", "pin_b": "B5"},
             {"pin_a": "A1", "pin_b": "A2"},
             {"pin_a": "A3", "pin_b": "A4"}
         ]
+    },
+    "usb": {
+        "device_version": "0.0.1",
+        "pid": "0x1202",
+        "vid": "0xD010"
     },
     "layouts": {
         "LAYOUT": {
@@ -19,21 +19,16 @@
                 {"matrix": [0, 1], "x": 1, "y": 0},
                 {"matrix": [0, 2], "x": 2, "y": 0},
                 {"matrix": [0, 3], "x": 3, "y": 0},
-
                 {"matrix": [0, 4], "x": 4.75, "y": 0},
-
                 {"matrix": [1, 0], "x": 0, "y": 1},
                 {"matrix": [1, 1], "x": 1, "y": 1},
                 {"matrix": [1, 2], "x": 2, "y": 1},
                 {"matrix": [1, 3], "x": 3, "y": 1},
-
                 {"matrix": [1, 4], "x": 6, "y": 0},
-
                 {"matrix": [2, 0], "x": 0, "y": 2},
                 {"matrix": [2, 1], "x": 1, "y": 2},
                 {"matrix": [2, 2], "x": 2, "y": 2},
                 {"matrix": [2, 3], "x": 3, "y": 2},
-
                 {"matrix": [2, 4], "x": 5.375, "y": 2.5}
             ]
         }
