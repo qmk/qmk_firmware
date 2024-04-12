@@ -1,4 +1,10 @@
 {
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": false,
+        "nkro": true
+    },
     "ws2812": {
         "pin": "F0"
     },

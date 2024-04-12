@@ -8,6 +8,8 @@
         "pid": "0x0B91",
         "device_version": "0.0.1"
     },
+    "processor": "STM32F072",
+    "bootloader": "custom",
     "matrix_pins": {
         "cols": ["B13", "B14", "B15", "A15", "B3", "B4", "B5", "B6", "B7", "B8", "B9", "C14", "C15", "B11", "A1", "A2", "B12"],
         "rows": ["A3", "A4", "A5", "A6", "A7", "B0"]

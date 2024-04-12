@@ -8,6 +8,18 @@
       "pid": "0x6060",
       "device_version": "0.0.1"
     },
+    "features": {
+      "bootmagic": true,
+      "extrakey": false,
+      "haptic": true,
+      "mousekey": false,
+      "nkro": true
+    },
+    "qmk": {
+      "locking": {
+          "enabled": true
+      }
+    },
     "matrix_pins": {
       "cols": ["F0", "F1", "E6", "C7", "C6", "B6", "D4", "B1", "B7", "B5", "B4", "D7", "D6", "B3"],
       "rows": ["D0", "D1", "D2", "D3", "D5"]
