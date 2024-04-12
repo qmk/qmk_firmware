@@ -6,6 +6,7 @@
     },
     "diode_direction": "COL2ROW",
     "split": {
+        "enabled": true,
         "soft_serial_pin": "A9"
     },
     "processor": "STM32F303",
