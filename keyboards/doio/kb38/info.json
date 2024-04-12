@@ -12,8 +12,7 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgb_matrix": true,
-        "rgblight": false
+        "rgb_matrix": true
     },
     "matrix_pins": {
         "cols": ["F5", "F4", "F1", "F0", "B7", "B6", "B5", "B4"],
@@ -22,8 +21,8 @@
     "processor": "atmega32u4",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x0000",
-        "vid": "0xFEED"
+        "pid": "0x3801",
+        "vid": "0xD010"
     },
     "encoder": {
         "rotary": [

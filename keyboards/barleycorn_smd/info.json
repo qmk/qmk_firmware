@@ -8,6 +8,18 @@
         "device_version": "0.0.1",
         "max_power": 400
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "rgblight": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "indicators": {
         "caps_lock": "B2",
         "num_lock": "B3"

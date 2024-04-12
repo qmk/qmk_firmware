@@ -17,9 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define LOCKING_SUPPORT_ENABLE
-#define LOCKING_RESYNC_ENABLE
-
 #define BACKLIGHT_PWM_DRIVER    PWMD3
 #define BACKLIGHT_PWM_CHANNEL   1
 
@@ -27,8 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define WS2812_PWM_DRIVER PWMD1
 #define WS2812_PWM_CHANNEL 3
 #define WS2812_PWM_PAL_MODE 1
-#define WS2812_DMA_STREAM STM32_DMA2_STREAM5
-#define WS2812_DMA_CHANNEL 6
+#define WS2812_PWM_DMA_STREAM STM32_DMA2_STREAM5
+#define WS2812_PWM_DMA_CHANNEL 6
 
 // If this is defined, the caps lock LED will turn on and off according to the state of caps lock. If not, the LED will shine like all other LEDs despite the caps lock state.
 #define CAPSLOCK_INDICATOR

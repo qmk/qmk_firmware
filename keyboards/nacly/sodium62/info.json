@@ -4,8 +4,8 @@
     "url": "https://nacly.net",
     "maintainer": "nacly",
     "usb": {
-        "vid": "0xBEEF",
-        "pid": "0xFED0",
+        "vid": "0x6E61",
+        "pid": "0x636C",
         "device_version": "0.0.1"
     },
     "matrix_pins": {
@@ -14,6 +14,7 @@
     },
     "diode_direction": "COL2ROW",
     "split": {
+        "enabled": true,
         "soft_serial_pin": "D3"
     },
     "processor": "atmega32u4",

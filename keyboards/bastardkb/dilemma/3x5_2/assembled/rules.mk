@@ -20,5 +20,3 @@ SERIAL_DRIVER = vendor
 
 POINTING_DEVICE_ENABLE = yes
 POINTING_DEVICE_DRIVER = cirque_pinnacle_spi # Assembled version uses SPI.
-
-SPLIT_KEYBOARD = yes

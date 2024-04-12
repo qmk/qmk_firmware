@@ -10,6 +10,9 @@
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",
+    "split": {
+        "enabled": true
+    },
     "diode_direction": "ROW2COL",
     "layouts": {
         "LAYOUT_split_4x6_5": {

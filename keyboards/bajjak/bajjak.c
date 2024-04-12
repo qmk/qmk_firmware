@@ -138,14 +138,14 @@ uint8_t init_mcp23018(void) {
     // - input   : input  : 1
     // - driving : output : 0
     uint8_t data[] = {0b00000000, 0b00111111};
-    mcp23018_status = i2c_writeReg(I2C_ADDR, IODIRA, data, 2, BAJJAK_EZ_I2C_TIMEOUT);
+    mcp23018_status = i2c_write_register(I2C_ADDR, IODIRA, data, 2, BAJJAK_EZ_I2C_TIMEOUT);
 
     if (!mcp23018_status) {
         // set pull-up
         // - unused  : on  : 1
         // - input   : on  : 1
         // - driving : off : 0
-        mcp23018_status = i2c_writeReg(I2C_ADDR, IODIRA, data, 2, BAJJAK_EZ_I2C_TIMEOUT);
+        mcp23018_status = i2c_write_register(I2C_ADDR, IODIRA, data, 2, BAJJAK_EZ_I2C_TIMEOUT);
     }
 
 #ifdef LEFT_LEDS
@@ -172,7 +172,7 @@ uint8_t bajjak_left_leds_update(void) {
     uint8_t data[2];
     data[0] = 0b11111111 & ~(bajjak_left_led_1<<LEFT_LED_1_SHIFT);
     data[1] = 0b11111111 & ~(bajjak_left_led_2<<LEFT_LED_2_SHIFT);
-    mcp23018_status = i2c_writeReg(I2C_ADDR, OLATA, data, 2, BAJJAK_EZ_I2C_TIMEOUT);
+    mcp23018_status = i2c_write_register(I2C_ADDR, OLATA, data, 2, BAJJAK_EZ_I2C_TIMEOUT);
 
     return mcp23018_status;
 }

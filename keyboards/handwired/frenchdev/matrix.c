@@ -224,7 +224,7 @@ static matrix_row_t read_cols(uint8_t row)
             return 0;
         } else {
             uint8_t data = 0;
-            mcp23018_status = i2c_readReg(I2C_ADDR, GPIOB, &data, 1, I2C_TIMEOUT);
+            mcp23018_status = i2c_read_register(I2C_ADDR, GPIOB, &data, 1, I2C_TIMEOUT);
 
             return ~data;
         }
@@ -259,7 +259,7 @@ static void unselect_rows(void)
         // set all rows hi-Z : 1
         uint8_t data;
         data = 0xFF & ~(0<<8);
-        mcp23018_status = i2c_writeReg(I2C_ADDR, GPIOA, &data, 1, I2C_TIMEOUT);
+        mcp23018_status = i2c_write_register(I2C_ADDR, GPIOA, &data, 1, I2C_TIMEOUT);
 
     }
 
@@ -283,7 +283,7 @@ static void select_row(uint8_t row)
             // set active row low  : 0
             // set other rows hi-Z : 1
             uint8_t data = 0xFF & ~(1<<row) & ~(0<<8);
-            mcp23018_status = i2c_writeReg(I2C_ADDR, GPIOA, &data, 1, I2C_TIMEOUT);
+            mcp23018_status = i2c_write_register(I2C_ADDR, GPIOA, &data, 1, I2C_TIMEOUT);
         }
     } else {
         // select on teensy

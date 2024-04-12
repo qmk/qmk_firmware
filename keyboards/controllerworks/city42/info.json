@@ -14,7 +14,8 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgb_matrix": true
+        "rgb_matrix": true,
+        "pointing_device": true
     },
     "matrix_pins": {
         "cols": ["GP28", "GP27", "GP26", "GP25", "GP24", "GP23", "GP0", "GP1", "GP2", "GP3", "GP4", "GP5"],
@@ -23,7 +24,6 @@
     "processor": "RP2040",
     "rgb_matrix": {
         "animations": {
-            "solid_color": true,
             "alphas_mods": true,
             "gradient_up_down": true,
             "gradient_left_right": true,

@@ -8,6 +8,20 @@
         "pid": "0xBD66",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "console": true,
+        "command": true,
+        "backlight": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "matrix_pins": {
         "cols": ["F0", "B3", "B2", "B1", "B0", "B7", "D0", "D1", "D2", "D3", "D5", "D6", "D7", "B4", "B5", "B6"],
         "rows": ["F7", "F6", "F5", "F4", "F1"]

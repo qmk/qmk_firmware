@@ -25,7 +25,6 @@
         "driver": "ws2812",
         "max_brightness": 120,
         "animations": {
-            "solid_color": true,
             "alphas_mods": true,
             "gradient_up_down": true,
             "gradient_left_right": true,

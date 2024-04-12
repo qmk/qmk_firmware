@@ -30,6 +30,7 @@
     },
     "diode_direction": "ROW2COL",
     "split": {
+        "enabled": true,
         "soft_serial_pin": "D0"
     },
     "processor": "atmega32u4",
