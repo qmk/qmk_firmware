@@ -24,8 +24,6 @@ Enter the bootloader in 3 ways:
 * **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
 
-Here are the instructions to add to the README on how users can modify the actuation levels of each key:
-
 ## Modifying Key Actuation Levels
 
 The actuation level of each key on the OSAv2 Topre keyboard is determined by two values: `DEFAULT_RESET_PT` and `DEFAULT_ACTUATION_PT`. These values are specified in the `ec.h` file.
