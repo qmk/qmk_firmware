@@ -55,7 +55,6 @@
             "rainbow_moving_chevron": true,
             "rainbow_pinwheels": true,
             "raindrops": true,
-            "solid_color": true,
             "solid_multisplash": true,
             "solid_reactive": true,
             "solid_reactive_cross": true,
@@ -154,7 +153,7 @@
         "pin": "B15"
     },
     "layouts": {
-        "LAYOUT_ortho_5x15": {
+        "LAYOUT": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
