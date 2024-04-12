@@ -38,6 +38,7 @@
         "driver": "ws2812",
         "max_brightness": 240,
         "val_steps": 12,
+        "sleep": true,
         "animations": {
             "breathing": true,
             "cycle_all": true,

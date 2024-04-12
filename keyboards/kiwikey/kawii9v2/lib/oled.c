@@ -245,7 +245,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     }
     render_matrix();
     key_timer = timer_read32();
-    return true;
+    return process_record_user(keycode, record);
 }
 
 #endif // defined(OLED_ENABLE)
