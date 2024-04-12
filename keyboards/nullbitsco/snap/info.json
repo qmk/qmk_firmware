@@ -31,6 +31,7 @@
         }
     },
     "split": {
+        "enabled": true,
         "encoder": {
             "right": {
                 "rotary": [
