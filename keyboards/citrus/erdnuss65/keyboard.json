@@ -27,8 +27,12 @@
     "ws2812": {
         "pin": "A15"
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_65_ansi_blocker_tsangan"
+    },
+    "community_layouts": ["65_ansi_blocker_tsangan"],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_65_ansi_blocker_tsangan": {
             "layout": [
                 {"label": "ESC K00 (B10,B12)", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "1 K01 (B10,B14)", "matrix": [0, 1], "x": 1, "y": 0},
