@@ -15,6 +15,7 @@
         "rows": ["A3", "A4", "A5", "A6", "A7", "B0"]
     },
     "diode_direction": "ROW2COL",
+    "community_layouts": ["tkl_ansi"],
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [
