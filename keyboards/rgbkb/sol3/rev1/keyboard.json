@@ -103,6 +103,7 @@
         ]
     },
     "split": {
+        "enabled": true,
         "dip_switch": {
             "right": {
                 "pins": ["A14", "B0"]
