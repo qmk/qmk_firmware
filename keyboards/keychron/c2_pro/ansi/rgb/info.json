@@ -6,8 +6,12 @@
     "features": {
         "rgb_matrix": true
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_fullsize_ansi"
+    },
+    "community_layouts": ["fullsize_ansi"],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_fullsize_ansi": {
             "layout": [
                 {"matrix":[0, 0], "x":0, "y":0},
                 {"matrix":[0, 1], "x":2, "y":0},

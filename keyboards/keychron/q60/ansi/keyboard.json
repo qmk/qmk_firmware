@@ -25,8 +25,9 @@
     "diode_direction": "ROW2COL",
     "processor": "STM32L432",
     "bootloader": "stm32-dfu",
+    "community_layouts": ["60_hhkb"],
     "layouts": {
-        "LAYOUT_ansi_60": {
+        "LAYOUT_60_hhkb": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
