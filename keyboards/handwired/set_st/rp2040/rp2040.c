@@ -18,6 +18,13 @@
 
 #ifdef OLED_ENABLE
 
+enum layers{
+  BASE,
+  FN,
+  MEDIA,
+  LIGHT
+};
+
 bool oled_task_user(void) {
     // Set cursor position
     oled_set_cursor(0, 0);
