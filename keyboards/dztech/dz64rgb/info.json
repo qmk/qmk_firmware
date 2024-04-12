@@ -50,7 +50,6 @@
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "lufa-ms",
-    "community_layouts": ["64_ansi"],
     "layouts": {
         "LAYOUT_64_ansi": {
             "layout": [
