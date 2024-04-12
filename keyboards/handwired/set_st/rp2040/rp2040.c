@@ -15,6 +15,7 @@
  */
 
 #include "quantum.h"
+#include QMK_KEYBOARD_H
 
 #ifdef OLED_ENABLE
 
