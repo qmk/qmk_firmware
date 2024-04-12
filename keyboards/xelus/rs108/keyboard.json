@@ -7,7 +7,23 @@
         "vid": "0x5845",
         "pid": "0x5208",
         "device_version": "0.0.2",
-        "force_nkro": true
+        "force_nkro": true,
+        "shared_endpoint": {
+            "keyboard": true
+        }
+    },
+    "features": {
+        "bootmagic": true,
+        "console": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     },
     "matrix_pins": {
         "cols": ["A10", "A8", "B15", "B14", "B13", "B12", "B1", "B10", "B4", "B3", "A15"],

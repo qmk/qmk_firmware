@@ -1,4 +1,15 @@
 {
+    "build": {
+        "lto": true
+    },
+    "features": {
+        "bootmagic": true,
+        "console": true,
+        "extrakey": true,
+        "mousekey": false,
+        "nkro": true,
+        "rgb_matrix": true
+    },
     "ws2812": {
         "pin": "F0"
     },
