@@ -8,6 +8,11 @@
         "pid": "0x6050",
         "device_version": "1.0.4"
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true
+    },
     "indicators": {
         "caps_lock": "C6",
         "num_lock": "C5",
