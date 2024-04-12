@@ -46,8 +46,12 @@
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "caterina",
-   "layouts": {
-        "LAYOUT": {
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_split_3x5_2"
+    },
+    "community_layouts": ["split_3x5_2"],
+    "layouts": {
+        "LAYOUT_split_3x5_2": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0.5},
                 {"matrix": [0, 1], "x": 1, "y": 0},
