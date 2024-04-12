@@ -26,9 +26,13 @@
         "pid": "0x3031",
         "vid": "0x4D76"
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_ortho_3x3"
+    },
+    "community_layouts": ["ortho_3x3"],
     "layouts": {
-        "LAYOUT": {
-        "layout": [
+        "LAYOUT_ortho_3x3": {
+            "layout": [
                 {"label": "D0", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "D1", "matrix": [0, 1], "x": 1, "y": 0},
                 {"label": "D4", "matrix": [0, 2], "x": 2, "y": 0},

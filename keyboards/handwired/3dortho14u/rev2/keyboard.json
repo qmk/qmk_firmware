@@ -26,8 +26,12 @@
       "pid": "0x3D14",
       "device_version": "0.0.1"
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_ortho_5x14"
+    },
+    "community_layouts": ["ortho_5x14"],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_ortho_5x14": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},

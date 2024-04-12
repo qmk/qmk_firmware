@@ -31,47 +31,47 @@ enum layer_names {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-        [_BASE] = LAYOUT(
+        [_BASE] = LAYOUT_ortho_2x3(
                 KC_A,    KC_B,    KC_C,
                 KC_D,    KC_E,    KC_F 
         ),
 
-        [_EMPTY1] = LAYOUT(
+        [_EMPTY1] = LAYOUT_ortho_2x3(
                 KC_TRNS,    KC_TRNS,    KC_TRNS,
                 KC_TRNS,    KC_TRNS,    KC_TRNS
         ),
 
-        [_EMPTY2] = LAYOUT(
+        [_EMPTY2] = LAYOUT_ortho_2x3(
                 KC_TRNS,    KC_TRNS,    KC_TRNS,
                 KC_TRNS,    KC_TRNS,    KC_TRNS
         ),
 
-        [_EMPTY3] = LAYOUT(
+        [_EMPTY3] = LAYOUT_ortho_2x3(
                 KC_TRNS,    KC_TRNS,    KC_TRNS,
                 KC_TRNS,    KC_TRNS,    KC_TRNS
         ),
 
-        [_EMPTY4] = LAYOUT(
+        [_EMPTY4] = LAYOUT_ortho_2x3(
                 KC_TRNS,    KC_TRNS,    KC_TRNS,
                 KC_TRNS,    KC_TRNS,    KC_TRNS
         ),
 
-        [_EMPTY5] = LAYOUT(
+        [_EMPTY5] = LAYOUT_ortho_2x3(
                 KC_TRNS,    KC_TRNS,    KC_TRNS,
                 KC_TRNS,    KC_TRNS,    KC_TRNS
         ),
 
-        [_EMPTY6] = LAYOUT(
+        [_EMPTY6] = LAYOUT_ortho_2x3(
                 KC_TRNS,    KC_TRNS,    KC_TRNS,
                 KC_TRNS,    KC_TRNS,    KC_TRNS
         ),
 
-        [_EMPTY7] = LAYOUT(
+        [_EMPTY7] = LAYOUT_ortho_2x3(
                 KC_TRNS,    KC_TRNS,    KC_TRNS,
                 KC_TRNS,    KC_TRNS,    KC_TRNS
         ),
 
-        [_EMPTY8] = LAYOUT(
+        [_EMPTY8] = LAYOUT_ortho_2x3(
                 KC_TRNS,    KC_TRNS,    KC_TRNS,
                 KC_TRNS,    KC_TRNS,    KC_TRNS
         )
