@@ -8,7 +8,7 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "stenography": true
+        "steno": true
     },
     "processor": "STM32F103",
     "stenography": {

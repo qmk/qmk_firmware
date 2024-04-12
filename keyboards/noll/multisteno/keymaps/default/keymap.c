@@ -83,7 +83,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         gpio_write_pin_low(A1);
         break;
       case (NKRO): 
-            gpio_write_pin_low(A0);
+        gpio_write_pin_low(A0);
         gpio_write_pin_low(A1);
         break;
       case (SYMBOL):
@@ -94,7 +94,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       default:
         gpio_write_pin_low(A0);
         gpio_write_pin_low(A1);
-        break;
 	    }
 
     return state;
