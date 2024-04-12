@@ -62,6 +62,98 @@
             "aliases": [
                 "LM_SPDD"
             ]
+        },
+
+        "0x7840": {
+            "group": "rgb_matrix",
+            "key": "QK_RGB_MATRIX_ON",
+            "aliases": [
+                "RM_ON"
+            ]
+        },
+        "0x7841": {
+            "group": "rgb_matrix",
+            "key": "QK_RGB_MATRIX_OFF",
+            "aliases": [
+                "RM_OFF"
+            ]
+        },
+        "0x7842": {
+            "group": "rgb_matrix",
+            "key": "QK_RGB_MATRIX_TOGGLE",
+            "aliases": [
+                "RM_TOGG"
+            ]
+        },
+        "0x7843": {
+            "group": "rgb_matrix",
+            "key": "QK_RGB_MATRIX_MODE_NEXT",
+            "aliases": [
+                "RM_NEXT"
+            ]
+        },
+        "0x7844": {
+            "group": "rgb_matrix",
+            "key": "QK_RGB_MATRIX_MODE_PREVIOUS",
+            "aliases": [
+                "RM_PREV"
+            ]
+        },
+        "0x7845": {
+            "group": "rgb_matrix",
+            "key": "QK_RGB_MATRIX_HUE_UP",
+            "aliases": [
+                "RM_HUEU"
+            ]
+        },
+        "0x7846": {
+            "group": "rgb_matrix",
+            "key": "QK_RGB_MATRIX_HUE_DOWN",
+            "aliases": [
+                "RM_HUED"
+            ]
+        },
+        "0x7847": {
+            "group": "rgb_matrix",
+            "key": "QK_RGB_MATRIX_SATURATION_UP",
+            "aliases": [
+                "RM_SATU"
+            ]
+        },
+        "0x7848": {
+            "group": "rgb_matrix",
+            "key": "QK_RGB_MATRIX_SATURATION_DOWN",
+            "aliases": [
+                "RM_SATD"
+            ]
+        },
+        "0x7849": {
+            "group": "rgb_matrix",
+            "key": "QK_RGB_MATRIX_VALUE_UP",
+            "aliases": [
+                "RM_VALU"
+            ]
+        },
+        "0x784A": {
+            "group": "rgb_matrix",
+            "key": "QK_RGB_MATRIX_VALUE_DOWN",
+            "aliases": [
+                "RM_VALD"
+            ]
+        },
+        "0x784B": {
+            "group": "rgb_matrix",
+            "key": "QK_RGB_MATRIX_SPEED_UP",
+            "aliases": [
+                "RM_SPDU"
+            ]
+        },
+        "0x784C": {
+            "group": "rgb_matrix",
+            "key": "QK_RGB_MATRIX_SPEED_DOWN",
+            "aliases": [
+                "RM_SPDD"
+            ]
         }
     }
 }
