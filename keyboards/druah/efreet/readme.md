@@ -1,4 +1,4 @@
-# efreet (as4x)
+# efreet (as4x) Redux
 
 ![efreet](https://i.imgur.com/Kcw8HEh.png)
 ![PCB](https://i.imgur.com/jShRK6M.png)
@@ -6,7 +6,7 @@
 A remake of a PCB for a Polish 40% keyboard with 19 mm switch grid spacing
 
 * Keyboard Maintainer: [Druah](https://github.com/Druah)
-* Hardware Supported: efreet
+* Hardware Supported: efreet Redux
 * Hardware Availability: Private buy
 
 Make example for this keyboard (after setting up your build environment):
