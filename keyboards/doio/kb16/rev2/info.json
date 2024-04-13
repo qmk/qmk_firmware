@@ -17,5 +17,14 @@
         "pin": "A10"
     },
     "processor": "STM32F103",
-    "bootloader": "stm32duino"
+    "bootloader": "stm32duino",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true,
+        "oled": true,
+        "rgb_matrix": true,
+        "encoder": true
+    }
 }
