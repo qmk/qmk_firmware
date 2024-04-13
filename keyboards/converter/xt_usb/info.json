@@ -10,6 +10,14 @@
     },
     "processor": "atmega32u4",
     "bootloader": "halfkay",
+    "features": {
+        "bootmagic": false,
+        "mousekey": true,
+        "extrakey": true,
+        "console": true,
+        "command": true,
+        "nkro": true
+    },
     "layouts": {
         "LAYOUT_xt": {
             "layout": [

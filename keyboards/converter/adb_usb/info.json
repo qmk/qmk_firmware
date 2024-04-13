@@ -8,6 +8,11 @@
     "pid": "0x0ADB",
     "device_version": "1.0.1"
   },
+  "features": {
+    "bootmagic": false,
+    "mousekey": false,
+    "extrakey": true
+  },
   "layouts": {
     "LAYOUT_ext_ansi": {
       "layout": [
