@@ -1,5 +1,5 @@
 {
-    "keyboard": "technicpad",
+    "keyboard": "handwired/technicpad",
     "keymap": "via",
     "config": {
         "features": {

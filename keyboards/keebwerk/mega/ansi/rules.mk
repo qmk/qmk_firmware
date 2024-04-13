@@ -15,7 +15,6 @@ NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
-NO_USB_STARTUP_CHECK = no   # Disable initialization only when usb is plugged in
 
 CIE1931_CURVE = yes
 
