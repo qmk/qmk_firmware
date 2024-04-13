@@ -1,16 +1,13 @@
 {
-    "keyboard_name": "ErgoDox EZ Shine",
+    "keyboard_name": "ErgoDox EZ Glow",
     "usb": {
-        "pid": "0x4975"
-    },
-    "rgblight": {
-        "driver": "custom"
+        "pid": "0x4976"
     },
     "features": {
         "bootmagic": false,
         "mousekey": true,
         "extrakey": true,
         "nkro": true,
-        "rgblight": true
+        "rgb_matrix": true
     }
 }

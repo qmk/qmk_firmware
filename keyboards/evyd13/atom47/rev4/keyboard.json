@@ -1,52 +1,40 @@
 {
-    "keyboard_name": "Atom47 rev3",
+    "keyboard_name": "Atom47 rev4",
     "manufacturer": "Evyd13",
     "url": "",
     "maintainer": "evyd13",
     "usb": {
         "vid": "0x4705",
-        "pid": "0x0E6D",
+        "pid": "0x8446",
         "device_version": "0.0.1"
     },
     "matrix_pins": {
-        "cols": ["B7", "F0", "F1", "F4", "F6", "D4", "D6", "D7", "B4", "B5", "C6", "C7", "F7"],
-        "rows": ["B3", "B2", "B1", "B0"]
+        "cols": ["C4", "C7", "B7", "B6", "B5", "B2", "B1", "B0", "D6", "D5", "D4", "D3", "D2"],
+        "rows": ["D0", "C2", "C5", "C6"]
     },
     "diode_direction": "COL2ROW",
-    "backlight": {
-        "pin": "B6",
-        "levels": 5,
-        "breathing": true
-    },
-    "rgblight": {
-        "led_count": 6,
-        "animations": {
-            "breathing": true,
-            "rainbow_mood": true,
-            "rainbow_swirl": true,
-            "snake": true,
-            "knight": true,
-            "christmas": true,
-            "static_gradient": true,
-            "rgb_test": true,
-            "alternating": true,
-            "twinkle": true
-        }
-    },
-    "ws2812": {
-        "pin": "F5"
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B3", "pin_b": "B4"}
+        ]
     },
     "qmk_lufa_bootloader": {
-        "esc_input": "B0",
-        "esc_output": "B7",
-        "led": "E6"
+        "esc_input": "C6",
+        "esc_output": "C4",
+        "led": "D1"
     },
     "indicators": {
-        "caps_lock": "E6",
+        "caps_lock": "D1",
         "on_state": 0
     },
-    "processor": "atmega32u4",
+    "processor": "atmega32u2",
     "bootloader": "qmk-dfu",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "encoder": true
+    },
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_split_space"
     },
