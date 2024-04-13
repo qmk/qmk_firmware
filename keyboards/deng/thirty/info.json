@@ -78,6 +78,14 @@
     },
     "processor": "STM32F103",
     "bootloader": "stm32duino",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true,
+        "backlight": true,
+        "rgb_matrix": true
+    },
     "layouts": {
         "LAYOUT_ortho_3x10": {
             "layout": [
