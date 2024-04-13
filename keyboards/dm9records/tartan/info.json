@@ -15,6 +15,11 @@
   "diode_direction": "COL2ROW",
   "processor": "atmega328p",
   "bootloader": "usbasploader",
+  "features": {
+    "bootmagic": false,
+    "mousekey": true,
+    "extrakey": true
+  },
   "community_layouts": ["60_ansi", "60_ansi_split_bs_rshift", "60_iso", "60_iso_split_bs_rshift"],
   "layout_aliases": {
     "LAYOUT_all": "LAYOUT_60_iso_split_bs_rshift"
