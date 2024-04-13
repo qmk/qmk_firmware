@@ -49,6 +49,12 @@
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "qmk-dfu",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "rgb_matrix": true
+    },
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_split_space"
     },

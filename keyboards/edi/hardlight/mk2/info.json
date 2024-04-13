@@ -32,6 +32,17 @@
     "diode_direction": "COL2ROW",
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
+    "features": {
+        "bootmagic": true,
+        "mousekey": false,
+        "extrakey": true,
+        "console": true,
+        "command": true,
+        "nkro": true,
+        "rgblight": true,
+        "velocikey": true,
+        "key_lock": true
+    },
     "community_layouts": ["ortho_4x16"],
     "layouts": {
         "LAYOUT_ortho_4x16": {

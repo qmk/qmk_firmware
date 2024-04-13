@@ -4,6 +4,14 @@
     "maintainer": "schwarzer-geiger",
     "bootloader": "atmel-dfu",
     "processor": "atmega32u4",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true,
+        "rgblight": true,
+        "pointing_device": true
+    },
     "url": "https://github.com/schwarzer-geiger/Edinburgh41",
     "usb": {
         "device_version": "1.0.0",

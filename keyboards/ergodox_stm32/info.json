@@ -8,6 +8,13 @@
         "pid": "0x1308",
         "device_version": "1.0.1"
     },
+    "features": {
+        "bootmagic": false,
+        "mousekey": false,
+        "extrakey": true,
+        "nkro": true,
+        "unicode": true
+    },
 "layouts": {
         "LAYOUT_ergodox": {
             "layout": [
