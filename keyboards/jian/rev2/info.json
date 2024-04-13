@@ -38,6 +38,7 @@
         "esc_output": "D3"
     },
     "split": {
+        "enabled": true,
         "soft_serial_pin": "D1"
     },
     "processor": "atmega32u4",

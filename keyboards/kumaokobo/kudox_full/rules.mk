@@ -13,6 +13,4 @@ AUDIO_ENABLE = no           # Audio output
 UNICODE_ENABLE = yes        # Unicode
 LTO_ENABLE = yes
 
-SPLIT_KEYBOARD = yes
-
 DEFAULT_FOLDER = kumaokobo/kudox_full/rev1

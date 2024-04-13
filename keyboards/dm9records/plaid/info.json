@@ -16,6 +16,11 @@
   "diode_direction": "COL2ROW",
   "processor": "atmega328p",
   "bootloader": "usbasploader",
+  "features": {
+    "bootmagic": false,
+    "mousekey": true,
+    "extrakey": true
+  },
   "community_layouts": ["ortho_4x12", "planck_mit"],
   "layout_aliases": {
     "LAYOUT": "LAYOUT_ortho_4x12",
