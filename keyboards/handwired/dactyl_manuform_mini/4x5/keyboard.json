@@ -16,15 +16,16 @@
         "mousekey": true,
         "nkro": true
     },
+    "development_board": "promicro",
     "matrix_pins": {
         "cols": ["D4", "C6", "D7", "E6", "F6"],
         "rows": ["F7", "B1", "B3", "B2", "B4"]
     },
     "diode_direction": "COL2ROW",
     "split": {
+        "enabled": true,   
         "soft_serial_pin": "D0"
     },
-    "development_board": "promicro",
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -1,4 +1,5 @@
 {
+    "development_board": "blackpill_f411",
     "matrix_pins": {
         "cols": ["B1", "B0", "A7", "A6", "A5", "A4"],
         "rows": ["B12", "B13", "B14", "B15", "A8", "A9", "A10"]
@@ -9,6 +10,5 @@
         "bootmagic": {
             "matrix": [7, 0]
         }
-    },
-    "development_board": "blackpill_f411"
+    }
 }
