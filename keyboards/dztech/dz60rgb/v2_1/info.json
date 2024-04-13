@@ -43,5 +43,17 @@
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "lufa-ms",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true,
+        "rgb_matrix": true,
+        "space_cadet": false,
+        "grave_esc": false
+    },
+    "build": {
+        "lto": true
+    },
     "debounce": 3
 }
