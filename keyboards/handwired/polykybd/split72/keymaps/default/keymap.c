@@ -44,7 +44,7 @@
 #define FADE_OUT_TIME 60000
 //20 min
 //#define TURN_OFF_TIME 1200000
-#define TURN_OFF_TIME 120000
+#define TURN_OFF_TIME 600000
 
 /*[[[cog
 import cog
@@ -103,10 +103,13 @@ enum my_keycodes {
     KC_TOGMODS,
     KC_TOGTEXT,
     /*[[[cog
-      for lang in languages:
-          cog.out(f"KC_{lang}, ")
+        for lang in languages:
+            if lang == "LANG_EN":
+                cog.out(f"KC_LANG_EN = SAFE_RANGE, ")
+            else:
+                cog.out(f"KC_{lang}, ")
     ]]]*/
-    KC_LANG_EN, KC_LANG_DE, KC_LANG_FR, KC_LANG_ES, KC_LANG_PT, KC_LANG_IT, KC_LANG_TR, KC_LANG_KO, KC_LANG_JA, KC_LANG_AR, KC_LANG_GR,
+    KC_LANG_EN = SAFE_RANGE, KC_LANG_DE, KC_LANG_FR, KC_LANG_ES, KC_LANG_PT, KC_LANG_IT, KC_LANG_TR, KC_LANG_KO, KC_LANG_JA, KC_LANG_AR, KC_LANG_GR,
     //[[[end]]]
     /*[[[cog
       for idx in range(10):
@@ -1223,6 +1226,7 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
         bool add_lang = get_highest_layer(layer_state)==_ADDLANG1;
         bool alt = ((get_mods() & MOD_MASK_ALT) != 0);
         if(keycode>=KC_A && keycode<=KC_Z && add_lang) {
+            //display the previously selected latin variation of the letter
             const uint8_t offset = (shift || state.caps_lock) ? 0 : 26;
             uint8_t variation = (shift || state.caps_lock) ? latin_ex[keycode-KC_A]>>4 : latin_ex[keycode-KC_A]&0xf;
 
@@ -1230,9 +1234,14 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
             return (def_variation!=NULL) ? latin_ex_map[offset+keycode-KC_A][variation] : NULL;
         }
 
-        if(keycode>=KC_LAT0 && keycode<=KC_LAT9 && add_lang && alt && g_local.last_latin_kc!=0) {
-            const uint8_t offset = (shift || state.caps_lock) ? 0 : 26;
-            return latin_ex_map[offset+g_local.last_latin_kc-KC_A][keycode-KC_LAT0];
+        if(keycode>=KC_LAT0 && keycode<=KC_LAT9) {
+            if(add_lang && alt && g_local.last_latin_kc!=0) {
+                //show all available alternatives for selected latin letter
+                const uint8_t offset = (shift || state.caps_lock) ? 0 : 26;
+                return latin_ex_map[offset+g_local.last_latin_kc-KC_A][keycode-KC_LAT0];
+            } else {
+                return NULL; //show nothing
+            }
         }
 
         const uint16_t* text = translate_keycode(g_local.lang, keycode, shift, state.caps_lock);
