@@ -3,6 +3,9 @@
     "usb": {
         "device_version": "1.0.0"
     },
+    "split": {
+        "enabled": true
+    },
     "matrix_pins": {
         "cols": ["F4", "F5", "F6", "F7", "B1", "B3", "B2"],
         "rows": ["D3", "D2", "E6", "B4"]

@@ -8,6 +8,12 @@
         "pid": "0x0004",
         "device_version": "0.0.1"
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
