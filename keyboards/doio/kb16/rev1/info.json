@@ -3,6 +3,13 @@
         "device_version": "0.0.1"
     },
     "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true,
+        "oled": true,
+        "rgb_matrix": true,
+        "encoder": true,
         "grave_esc": false,
         "space_cadet": false,
         "magic": false
