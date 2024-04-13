@@ -15,6 +15,13 @@
     "dip_switch": {
         "matrix_grid": [ [0,14], [1,14], [2,14], [3,14] ]
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true,
+        "dip_switch": true
+    },
     "layout_aliases": {
         "LAYOUT_iso": "LAYOUT_60_iso"
     },
