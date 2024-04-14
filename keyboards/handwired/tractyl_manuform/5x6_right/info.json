@@ -5,6 +5,7 @@
         "device_version": "0.0.1"
     },
     "split": {
+        "enabled": true,
         "bootmagic": {
             "matrix": [6, 5]
         }

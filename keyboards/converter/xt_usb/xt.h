@@ -38,7 +38,8 @@ POSSIBILITY OF SUCH DAMAGE.
 
 #pragma once
 
-#include "quantum.h"
+#include <stdint.h>
+#include "gpio.h"
 
 #define XT_DATA_IN()               \
     do {                           \

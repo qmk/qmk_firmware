@@ -2,6 +2,9 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "specialk.h"
+#include "keycodes.h"
+#include "action_layer.h"
+#include "action_util.h"
 
 bool delkey_registered = false;
 uint32_t __keycode_raised = 0;

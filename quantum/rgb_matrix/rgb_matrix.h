@@ -78,6 +78,10 @@
 #    define RGB_MATRIX_DEFAULT_SPD UINT8_MAX / 2
 #endif
 
+#ifndef RGB_MATRIX_DEFAULT_FLAGS
+#    define RGB_MATRIX_DEFAULT_FLAGS LED_FLAG_ALL
+#endif
+
 #ifndef RGB_MATRIX_LED_FLUSH_LIMIT
 #    define RGB_MATRIX_LED_FLUSH_LIMIT 16
 #endif
@@ -144,7 +148,7 @@ uint8_t rgb_matrix_map_row_column_to_led(uint8_t row, uint8_t column, uint8_t *l
 void rgb_matrix_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
 void rgb_matrix_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
 
-void process_rgb_matrix(uint8_t row, uint8_t col, bool pressed);
+void rgb_matrix_handle_key_event(uint8_t row, uint8_t col, bool pressed);
 
 void rgb_matrix_task(void);
 

@@ -5,5 +5,12 @@
     },
     "rgblight": {
         "driver": "custom"
+    },
+    "features": {
+        "bootmagic": false,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true,
+        "rgblight": true
     }
 }

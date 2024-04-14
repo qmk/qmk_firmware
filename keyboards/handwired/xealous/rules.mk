@@ -10,7 +10,6 @@ NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 AUDIO_ENABLE = yes          # Audio output
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
-SPLIT_KEYBOARD = yes        # Use shared split_common code
 
 SRC += matrix.c
 

@@ -98,7 +98,7 @@ void eeconfig_update_led_matrix_default(void) {
     led_matrix_eeconfig.mode   = LED_MATRIX_DEFAULT_MODE;
     led_matrix_eeconfig.val    = LED_MATRIX_DEFAULT_VAL;
     led_matrix_eeconfig.speed  = LED_MATRIX_DEFAULT_SPD;
-    led_matrix_eeconfig.flags  = LED_FLAG_ALL;
+    led_matrix_eeconfig.flags  = LED_MATRIX_DEFAULT_FLAGS;
     eeconfig_flush_led_matrix(true);
 }
 
@@ -159,7 +159,7 @@ void led_matrix_set_value_all(uint8_t value) {
 #endif
 }
 
-void process_led_matrix(uint8_t row, uint8_t col, bool pressed) {
+void led_matrix_handle_key_event(uint8_t row, uint8_t col, bool pressed) {
 #ifndef LED_MATRIX_SPLIT
     if (!is_keyboard_master()) return;
 #endif

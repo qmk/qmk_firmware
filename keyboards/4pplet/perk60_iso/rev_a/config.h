@@ -23,5 +23,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define IS31FL3733_I2C_ADDRESS_1 IS31FL3733_I2C_ADDRESS_GND_GND
 #define IS31FL3733_PWM_FREQUENCY IS31FL3733_PWM_FREQUENCY_26K7_HZ
-
-#define RGB_MATRIX_LED_COUNT 62

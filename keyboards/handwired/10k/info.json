@@ -8,15 +8,15 @@
     "rows": ["B6"]
   },
   "features": {
-    "audio": false,
-    "backlight": false,
     "bootmagic": false,
     "command": false,
     "console": false,
     "extrakey": false,
     "mousekey": false,
-    "nkro": false,
-    "rgblight": false
+    "nkro": false
+  },
+  "split": {
+    "enabled": true
   },
   "usb": {
     "vid": "0x6869",

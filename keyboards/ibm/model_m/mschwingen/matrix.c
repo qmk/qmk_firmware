@@ -14,12 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <stdint.h>
-#include <stdbool.h>
 #include "util.h"
 #include "matrix.h"
 #include "debounce.h"
-#include "quantum.h"
 #include "spi_master.h"
 #include "print.h"
 #include "mschwingen.h"
@@ -60,8 +57,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
     row_data = spi_read() << 8;
     row_data |= spi_read();
 
-    debug_hex8(~row_data);
-    dprint(" ");
+    dprintf("%02X ", ~row_data);
 
     // For each row...
     for (uint8_t row_index = 0; row_index < MATRIX_ROWS; row_index++) {

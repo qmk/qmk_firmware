@@ -32,6 +32,13 @@
     },
     "processor": "atmega32u4",
     "bootloader": "qmk-dfu",
+    "features": {
+        "bootmagic": true,
+        "mousekey": false,
+        "extrakey": true,
+        "nkro": true,
+        "backlight": true
+    },
     "community_layouts": ["fullsize_ansi", "fullsize_iso", "tkl_ansi", "tkl_iso"],
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_fullsize_iso"

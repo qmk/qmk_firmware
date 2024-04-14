@@ -10,7 +10,6 @@
     "features": {
         "audio": true,
         "extrakey": true,
-        "lto": true,
         "oled": true,
         "rgb_matrix": true
     },

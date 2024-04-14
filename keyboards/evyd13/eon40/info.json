@@ -26,6 +26,14 @@
   },
   "processor": "atmega32u4",
   "bootloader": "qmk-dfu",
+  "features": {
+    "bootmagic": true,
+    "mousekey": false,
+    "extrakey": true,
+    "console": true,
+    "command": true,
+    "encoder": true
+  },
   "community_layouts": ["ortho_4x12", "planck_mit"],
   "layouts": {
     "LAYOUT_ortho_4x12": {
