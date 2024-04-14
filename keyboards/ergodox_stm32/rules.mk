@@ -1,10 +1,6 @@
-# MCU name
-MCU = STM32F103
+# custom bootloader
 MCU_LDSCRIPT = stm32f103_bootloader
 BOARD = ST_NUCLEO64_F103RB
-
-# Bootloader selection
-BOOTLOADER = custom
 
 CUSTOM_MATRIX = yes
 
