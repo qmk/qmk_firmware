@@ -84,11 +84,17 @@ enum via_indicator_value {
     id_caps_indicator_type = 4,
     id_sleep_toggle        = 5,
 
-
     // side light controls
     id_side_light_mode = 10,
     id_side_light_speed = 11,
     id_side_light_color = 12,
+    id_side_light_brightness = 13,
+
+    // logo light controls
+    id_logo_light_mode = 20,
+    id_logo_light_speed = 21,
+    id_logo_light_color = 22,
+    id_logo_light_brightness = 23,
 };
 
 // struct to save configs
@@ -101,10 +107,16 @@ typedef struct {
     CAPS_LOCK_INDICATION caps_indication_type;
     // (top) side light config
     uint8_t side_mode;
-    uint8_t side_light;
+    uint8_t side_brightness;
     uint8_t side_speed;
     uint8_t side_rgb;
     uint8_t side_color;
+    // logo light config
+    uint8_t  logo_mode;
+    uint8_t  logo_brightness;
+    uint8_t  logo_speed;
+    uint8_t  logo_rgb;
+    uint8_t  logo_color;
 } via_config;
 
 // function declaration

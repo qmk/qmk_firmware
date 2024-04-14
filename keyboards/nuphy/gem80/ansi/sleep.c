@@ -26,10 +26,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 extern bool side_led_powered_off;
 extern bool rgb_led_powered_off;
 
-extern user_config_t   user_config;
 extern DEV_INFO_STRUCT dev_info;
 extern uint16_t        rf_linking_time;
-extern uint16_t        rf_link_timeout;
 extern uint32_t        no_act_time;
 extern bool            f_goto_sleep;
 
@@ -133,7 +131,7 @@ void sleep_handle(void) {
 #if (WORK_MODE == THREE_MODE)
     else if (no_act_time >= sleep_time_delay) {
         f_goto_sleep = 1;
-    } else if (rf_linking_time >= user_config.rf_link_timeout) {
+    } else if (rf_linking_time >= LINK_TIMEOUT_ALT) {
         rf_linking_time = 0;
         f_goto_sleep    = 1;
     } else if (dev_info.rf_state == RF_DISCONNECT) {

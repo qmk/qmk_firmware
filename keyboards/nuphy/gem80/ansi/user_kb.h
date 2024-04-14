@@ -142,17 +142,6 @@ typedef struct {
     uint8_t sys_sw_state;
 } DEV_INFO_STRUCT;
 
-typedef struct {
-    uint8_t  default_brightness_flag;
-    uint8_t  ee_logo_mode;
-    uint8_t  ee_logo_light;
-    uint8_t  ee_logo_speed;
-    uint8_t  ee_logo_rgb;
-    uint8_t  ee_logo_colour;
-    uint16_t rf_link_timeout;
-} user_config_t;
-
-extern user_config_t user_config;
 extern bool          f_wakeup_prepare;
 extern bool          f_sleep_show;
 extern bool          f_usb_sleep_show;

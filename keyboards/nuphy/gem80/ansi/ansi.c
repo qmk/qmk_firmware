@@ -37,7 +37,6 @@ extern uint32_t        no_act_time;
 extern uint8_t         rf_sw_temp;
 extern uint16_t        rf_sw_press_delay;
 extern uint16_t        rf_linking_time;
-extern user_config_t   user_config;
 extern DEV_INFO_STRUCT dev_info;
 extern uint8_t         rf_blink_cnt;
 uint8_t                win_lock_led    = 16;
@@ -508,10 +507,10 @@ via_config g_config = {
     .sleep_timeout        = 5,
     .sleep_enable         = true,
 
-    .side_rgb    = 1,
-    .side_mode   = 0,
-    .side_speed  = 2,
-    .side_light  = 3,
+    .side_rgb   = 1,
+    .side_mode  = 0,
+    .side_speed = 2,
+    .side_brightness = 3,
     .side_color = 0,
 };
 
@@ -571,6 +570,22 @@ void via_config_set_value(uint8_t *data)
         case id_side_light_color:
             g_config.side_color = *value_data;
             break;
+        case id_side_light_brightness:
+            g_config.side_brightness = *value_data;
+            break;
+
+        case id_logo_light_mode:
+            g_config.logo_mode = *value_data;
+            break;
+        case id_logo_light_speed:
+            g_config.logo_speed = *value_data;
+            break;
+        case id_logo_light_color:
+            g_config.logo_color = *value_data;
+            break;
+        case id_logo_light_brightness:
+            g_config.logo_brightness = *value_data;
+            break;
     }
 #if CONSOLE_ENABLE
     xprintf("[SET]VALUE_ID: %u DATA: %u", *value_id, *value_data);
@@ -609,6 +624,20 @@ void via_config_get_value(uint8_t *data) {
         case id_side_light_color:
             *value_data = g_config.side_color;
             break;
+        case id_side_light_brightness:
+            *value_data = g_config.side_brightness;
+
+        case id_logo_light_mode:
+            *value_data = g_config.logo_mode;
+            break;
+        case id_logo_light_speed:
+            *value_data = g_config.logo_speed;
+            break;
+        case id_logo_light_color:
+            *value_data = g_config.logo_color;
+            break;
+        case id_logo_light_brightness:
+            *value_data = g_config.logo_brightness;
     }
 #if CONSOLE_ENABLE
     xprintf("[GET]VALUE_ID: %u DATA: %u", *value_id, *value_data);

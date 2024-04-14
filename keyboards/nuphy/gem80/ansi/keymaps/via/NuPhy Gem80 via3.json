@@ -341,6 +341,93 @@
                                 "Purple",
                                 "Light-Purple"
                             ]
+                        },
+                        {
+                            "label": "Brightness",
+                            "showIf": "{id_side_light_mode} != 5",
+                            "type": "range",
+                            "content": [
+                                "id_side_light_brightness",
+                                0,
+                                13
+                            ],
+                            "options": [
+                                0,
+                                5
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "label": "Logo Light",
+                    "content": [
+                        {
+                            "label": "Mode",
+                            "type": "dropdown",
+                            "content": [
+                                "id_logo_light_mode",
+                                0,
+                                20
+                            ],
+                            "options": [
+                                "Wawe 1",
+                                "Wawe 2",
+                                "Mix",
+                                "Static",
+                                "Breath",
+                                "Off"
+                            ]
+                        },
+                        {
+                            "label": "Speed (higher is slower)",
+                            "showIf": "{id_logo_light_mode} != 5 && {id_logo_light_mode} != 3",
+                            "type": "dropdown",
+                            "content": [
+                                "id_logo_light_speed",
+                                0,
+                                21
+                            ],
+                            "options": [
+                                "1",
+                                "2",
+                                "3",
+                                "4",
+                                "5"
+                            ]
+                        },
+                        {
+                            "label": "Color",
+                            "showIf": "{id_logo_light_mode} != 5",
+                            "type": "dropdown",
+                            "content": [
+                                "id_logo_light_color",
+                                0,
+                                22
+                            ],
+                            "options": [
+                                "Red",
+                                "Orange",
+                                "Yellow",
+                                "Green",
+                                "Cyan",
+                                "Blue",
+                                "Purple",
+                                "Light-Purple"
+                            ]
+                        },
+                        {
+                            "label": "Brightness",
+                            "showIf": "{id_logo_light_mode} != 5",
+                            "type": "range",
+                            "content": [
+                                "id_logo_light_brightness",
+                                0,
+                                23
+                            ],
+                            "options": [
+                                0,
+                                5
+                            ]
                         }
                     ]
                 }
