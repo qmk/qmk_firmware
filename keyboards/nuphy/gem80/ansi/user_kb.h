@@ -144,20 +144,12 @@ typedef struct {
 
 typedef struct {
     uint8_t  default_brightness_flag;
-    uint8_t  ee_side_mode;
-    uint8_t  ee_side_light;
-    uint8_t  ee_side_speed;
-    uint8_t  ee_side_rgb;
-    uint8_t  ee_side_colour;
     uint8_t  ee_logo_mode;
     uint8_t  ee_logo_light;
     uint8_t  ee_logo_speed;
     uint8_t  ee_logo_rgb;
     uint8_t  ee_logo_colour;
-    uint8_t  sleep_enable;
     uint16_t rf_link_timeout;
-    uint8_t  retain1;
-    uint8_t  retain2;
 } user_config_t;
 
 extern user_config_t user_config;

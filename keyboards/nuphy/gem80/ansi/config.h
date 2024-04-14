@@ -50,7 +50,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SD1_RX_PIN B7
 #define SD1_RX_PAL_MODE 0
 
-#define EECONFIG_KB_DATA_SIZE 16 // sizeof user_config_t
+#define EECONFIG_KB_DATA_SIZE 8 // sizeof user_config_t
 #define RGB_MATRIX_LED_COUNT 101 // 93  // RGB总灯数 (88轴灯+5侧灯)
 
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CUSTOM_position_mode

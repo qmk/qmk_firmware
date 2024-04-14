@@ -67,11 +67,6 @@ extern bool               f_rf_new_adv_ok;
 extern report_keyboard_t *keyboard_report;
 extern report_nkro_t     *nkro_report;
 extern host_driver_t      rf_host_driver;
-extern uint8_t            side_mode;
-extern uint8_t            side_light;
-extern uint8_t            side_speed;
-extern uint8_t            side_rgb;
-extern uint8_t            side_colour;
 extern uint8_t            logo_mode;
 extern uint8_t            logo_light;
 extern uint8_t            logo_speed;
@@ -414,11 +409,6 @@ void load_eeprom_data(void) {
     if (user_config.default_brightness_flag != 0xA5) {
         user_config_reset();
     } else {
-        side_mode   = user_config.ee_side_mode;
-        side_light  = user_config.ee_side_light;
-        side_speed  = user_config.ee_side_speed;
-        side_rgb    = user_config.ee_side_rgb;
-        side_colour = user_config.ee_side_colour;
         logo_mode   = user_config.ee_logo_mode;
         logo_light  = user_config.ee_logo_light;
         logo_speed  = user_config.ee_logo_speed;
@@ -431,11 +421,6 @@ void load_eeprom_data(void) {
  * @brief User config to default setting.
  */
 void user_config_reset(void) {
-    side_mode   = 0;
-    side_light  = 3;
-    side_speed  = 2;
-    side_rgb    = 1;
-    side_colour = 0;
     logo_mode   = 0;
     logo_light  = 3;
     logo_speed  = 2;
@@ -448,12 +433,6 @@ void user_config_reset(void) {
     rgb_matrix_sethsv(RGB_DEFAULT_COLOUR, 255, RGB_MATRIX_MAXIMUM_BRIGHTNESS - RGB_MATRIX_VAL_STEP * 2);
 
     user_config.default_brightness_flag = 0xA5;
-    user_config.ee_side_mode            = side_mode;
-    user_config.ee_side_light           = side_light;
-    user_config.ee_side_speed           = side_speed;
-    user_config.ee_side_rgb             = side_rgb;
-    user_config.ee_side_colour          = side_colour;
-    user_config.sleep_enable            = true;
     user_config.rf_link_timeout         = LINK_TIMEOUT_ALT;
     user_config.ee_logo_mode            = logo_mode;
     user_config.ee_logo_light           = logo_light;
@@ -462,12 +441,28 @@ void user_config_reset(void) {
     user_config.ee_logo_colour          = logo_colour;
 
     eeconfig_update_kb_datablock(&user_config);
+
+    // reset config in via to default too
+    g_config.sleep_enable         = true;
+    g_config.usb_sleep_toggle     = true;
+    g_config.sleep_timeout        = 5;
+    g_config.debounce_press_ms    = DEBOUNCE;
+    g_config.debounce_release_ms  = DEBOUNCE;
+    g_config.caps_indication_type = CAPS_INDICATOR_SIDE;
+    // (top) side LED
+    g_config.side_mode            = 0;
+    g_config.side_light           = 3;
+    g_config.side_speed           = 2;
+    g_config.side_rgb             = 1;
+    g_config.side_color          = 0;
+
+    via_save_values();
 }
 /**
  * @brief toggle usb sleep on/off
  */
 void toggle_usb_sleep(void) {
-    f_usb_sleep_show             = 1;
+    f_usb_sleep_show          = 1;
     g_config.usb_sleep_toggle = !g_config.usb_sleep_toggle;
     via_save_values();
 }
@@ -547,7 +542,7 @@ void led_power_handle(void) {
     }
 
     if (side_led_last_act > 100) { // 10ms intervals
-        if (side_light == 0) {
+        if (g_config.side_light == 0) {
             pwr_side_led_off();
         } else {
             pwr_side_led_on();
@@ -659,7 +654,7 @@ void adjust_debounce(uint8_t dir, DEBOUNCE_EVENT debounce_event) {
 }
 
 void adjust_sleep_timeout(uint8_t dir) {
-    if (user_config.sleep_enable) {
+    if (g_config.sleep_enable) {
         if (g_config.sleep_timeout > 1 && !dir) {
             g_config.sleep_timeout -= SLEEP_TIMEOUT_STEP;
         } else if (g_config.sleep_timeout < 60 && dir) {
@@ -670,7 +665,7 @@ void adjust_sleep_timeout(uint8_t dir) {
 }
 
 uint32_t get_sleep_timeout(void) {
-    if (!user_config.sleep_enable) return 0;
+    if (!g_config.sleep_enable) return 0;
     return g_config.sleep_timeout * 60 * 1000 / TIMER_STEP;
 }
 

@@ -93,7 +93,7 @@ void sleep_handle(void) {
     delay_step_timer = timer_read32();
 
     // sleep process;
-    if (!user_config.sleep_enable) return;
+    if (!g_config.sleep_enable) return;
     // get sleep_time_delay from eeprom
     uint32_t sleep_time_delay = get_sleep_timeout();
 

@@ -64,7 +64,7 @@ bool pre_process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
 #endif
         f_wakeup_prepare = 0;
-        if (user_config.sleep_enable) exit_light_sleep();
+        if (g_config.sleep_enable) exit_light_sleep();
     }
 
     if (!pre_process_record_user(keycode, record)) {
@@ -313,9 +313,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
         case SLEEP_MODE:
             if (record->event.pressed) {
-                user_config.sleep_enable = !user_config.sleep_enable;
-                f_sleep_show             = 1;
-                eeconfig_update_kb_datablock(&user_config);
+                g_config.sleep_enable = !g_config.sleep_enable;
+                f_sleep_show          = 1;
+                via_save_values();
             }
             return false;
 
@@ -498,7 +498,22 @@ void housekeeping_task_kb(void) {
 
     sleep_handle();
 }
-via_config g_config = {.usb_sleep_toggle = true, .caps_indication_type = CAPS_INDICATOR_SIDE, .debounce_press_ms = DEBOUNCE, .debounce_release_ms = DEBOUNCE, .sleep_timeout = 5};
+
+via_config g_config = {
+    .usb_sleep_toggle = true,
+
+    .caps_indication_type = CAPS_INDICATOR_SIDE,
+    .debounce_press_ms    = DEBOUNCE,
+    .debounce_release_ms  = DEBOUNCE,
+    .sleep_timeout        = 5,
+    .sleep_enable         = true,
+
+    .side_rgb    = 1,
+    .side_mode   = 0,
+    .side_speed  = 2,
+    .side_light  = 3,
+    .side_color = 0,
+};
 
 void via_load_values(void) {
     eeprom_read_block(&g_config, ((void *)VIA_EEPROM_CUSTOM_CONFIG_ADDR), sizeof(g_config));
@@ -543,6 +558,19 @@ void via_config_set_value(uint8_t *data)
         case id_caps_indicator_type:
             g_config.caps_indication_type = *value_data;
             break;
+        case id_sleep_toggle:
+            g_config.sleep_enable = *value_data;
+            break;
+
+        case id_side_light_mode:
+            g_config.side_mode = *value_data;
+            break;
+        case id_side_light_speed:
+            g_config.side_speed = *value_data;
+            break;
+        case id_side_light_color:
+            g_config.side_color = *value_data;
+            break;
     }
 #if CONSOLE_ENABLE
     xprintf("[SET]VALUE_ID: %u DATA: %u", *value_id, *value_data);
@@ -567,6 +595,19 @@ void via_config_get_value(uint8_t *data) {
             break;
         case id_caps_indicator_type:
             *value_data = g_config.caps_indication_type;
+            break;
+        case id_sleep_toggle:
+            *value_data = g_config.sleep_enable;
+            break;
+
+        case id_side_light_mode:
+            *value_data = g_config.side_mode;
+            break;
+        case id_side_light_speed:
+            *value_data = g_config.side_speed;
+            break;
+        case id_side_light_color:
+            *value_data = g_config.side_color;
             break;
     }
 #if CONSOLE_ENABLE

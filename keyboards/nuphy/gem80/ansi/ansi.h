@@ -77,20 +77,34 @@ enum via_indicator_value {
     id_usb_sleep_toggle = 0,
 
     id_debounce_press   = 1,
-    id_debounce_release    = 2,
+    id_debounce_release = 2,
 
-    id_sleep_timeout       = 3,
+    id_sleep_timeout = 3,
 
-    id_caps_indicator_type = 4
+    id_caps_indicator_type = 4,
+    id_sleep_toggle        = 5,
+
+
+    // side light controls
+    id_side_light_mode = 10,
+    id_side_light_speed = 11,
+    id_side_light_color = 12,
 };
 
 // struct to save configs
 typedef struct {
     bool                 usb_sleep_toggle : 1;
+    bool                 sleep_enable : 1;
     uint8_t              debounce_press_ms;
     uint8_t              debounce_release_ms;
     uint8_t              sleep_timeout;
     CAPS_LOCK_INDICATION caps_indication_type;
+    // (top) side light config
+    uint8_t side_mode;
+    uint8_t side_light;
+    uint8_t side_speed;
+    uint8_t side_rgb;
+    uint8_t side_color;
 } via_config;
 
 // function declaration

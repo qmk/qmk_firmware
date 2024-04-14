@@ -284,6 +284,65 @@
                             ]
                         }
                     ]
+                },
+                {
+                    "label": "Side Light",
+                    "content": [
+                        {
+                            "label": "Mode",
+                            "type": "dropdown",
+                            "content": [
+                                "id_side_light_mode",
+                                0,
+                                10
+                            ],
+                            "options": [
+                                "Wawe 1",
+                                "Wawe 2",
+                                "Mix",
+                                "Static",
+                                "Breath",
+                                "Off"
+                            ]
+                        },
+                        {
+                            "label": "Speed (higher is slower)",
+                            "showIf": "{id_side_light_mode} != 5 && {id_side_light_mode} != 3",
+                            "type": "dropdown",
+                            "content": [
+                                "id_side_light_speed",
+                                0,
+                                11
+                            ],
+                            "options": [
+                                "1",
+                                "2",
+                                "3",
+                                "4",
+                                "5"
+                            ]
+                        },
+                        {
+                            "label": "Color",
+                            "showIf": "{id_side_light_mode} != 5",
+                            "type": "dropdown",
+                            "content": [
+                                "id_side_light_color",
+                                0,
+                                12
+                            ],
+                            "options": [
+                                "Red",
+                                "Orange",
+                                "Yellow",
+                                "Green",
+                                "Cyan",
+                                "Blue",
+                                "Purple",
+                                "Light-Purple"
+                            ]
+                        }
+                    ]
                 }
             ]
         },
@@ -383,7 +442,17 @@
                     "label": "Sleep",
                     "content": [
                         {
+                            "label": "Sleep Enable",
+                            "type": "toggle",
+                            "content": [
+                                "id_sleep_toggle",
+                                0,
+                                5
+                            ]
+                        },
+                        {
                             "label": "USB Sleep Enable",
+                            "showIf": "{id_sleep_toggle} == 1",
                             "type": "toggle",
                             "content": [
                                 "id_usb_sleep_toggle",
@@ -393,6 +462,7 @@
                         },
                         {
                             "label": "Sleep Timeout",
+                            "showIf": "{id_sleep_toggle} == 1",
                             "type": "dropdown",
                             "options": [
                                 "1m",
