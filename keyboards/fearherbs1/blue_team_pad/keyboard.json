@@ -17,7 +17,8 @@
         "extrakey": true,
         "console": true,
         "command": false,
-        "nkro": true
+        "nkro": true,
+        "oled": true
     },
     "diode_direction": "COL2ROW",
     "matrix_pins": {

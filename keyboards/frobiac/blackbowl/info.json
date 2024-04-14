@@ -13,7 +13,9 @@
         "dynamic_macro": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": false
+        "nkro": false,
+        "ps2": true,
+        "ps2_mouse": true
     },
     "build": {
         "lto": true
