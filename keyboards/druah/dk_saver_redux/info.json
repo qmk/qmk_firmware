@@ -37,7 +37,7 @@
     "url": "https://druah.moe",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x0002",
+        "pid": "0x444B",
         "vid": "0x444E"
     },
     "community_layouts": ["tkl_f13_ansi", "tkl_f13_ansi_tsangan"],
