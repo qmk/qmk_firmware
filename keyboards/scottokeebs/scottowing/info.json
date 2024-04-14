@@ -14,18 +14,7 @@
     },
     "matrix_pins": {
         "cols": [
-            "GP2",
-            "GP3",
-            "GP4",
-            "GP5",
-            "GP6",
-            "GP7",
-            "GP20",
-            "GP22",
-            "GP26",
-            "GP27",
-            "GP28",
-            "GP29"
+            "GP2", "GP3", "GP4", "GP5", "GP6", "GP7", "GP20", "GP22", "GP26", "GP27", "GP28", "GP29"
         ],
         "rows": ["GP8", "GP9", "GP23", "GP21"]
     },
