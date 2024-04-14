@@ -25,11 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define WS2812_SPI_SCK_PIN A5
 #define WS2812_SPI_SCK_PAL_MODE 0
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
 /* Indicator leds */
 #define LOCK_LIGHTS     TRUE
 #define DISPLAY_LAYERS  TRUE

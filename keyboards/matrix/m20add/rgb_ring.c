@@ -18,9 +18,13 @@
 
 #include "rgb_ring.h"
 
+#include <stdint.h>
+#include <stdbool.h>
 #include <string.h>
 #include "quantum.h"
 #include "rgblight.h"
+#include "timer.h"
+#include "action.h"
 #include "drivers/led/issi/is31fl3731.h"
 #include "i2c_master.h"
 

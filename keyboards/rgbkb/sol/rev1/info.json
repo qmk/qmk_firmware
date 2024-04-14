@@ -82,6 +82,7 @@
         ]
     },
     "split": {
+        "enabled": true,
         "soft_serial_pin": "D3"
     },
     "tapping": {

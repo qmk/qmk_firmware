@@ -32,6 +32,14 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "features": {
+        "bootmagic": true,
+        "mousekey": false,
+        "extrakey": true,
+        "command": true,
+        "nkro": true,
+        "rgblight": true
+    },
     "community_layouts": ["alice", "alice_split_bs"],
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_alice_split_bs",

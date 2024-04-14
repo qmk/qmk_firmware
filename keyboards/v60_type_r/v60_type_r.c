@@ -15,8 +15,6 @@
  */
 #include "v60_type_r.h"
 
-#include "quantum.h"
-
 // if we've got an RGB underglow!
 #ifdef RGBLIGHT_ENABLE
 

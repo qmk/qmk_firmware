@@ -15,8 +15,7 @@
  */
 
 #include "ec_switch_matrix.h"
-
-#include "quantum.h"
+#include <avr/interrupt.h>
 #include "analog.h"
 #include "print.h"
 
