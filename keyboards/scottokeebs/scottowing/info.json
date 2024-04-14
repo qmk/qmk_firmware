@@ -4,7 +4,6 @@
     "maintainer": "joe-scotto",
     "bootloader": "rp2040",
     "bootmagic": {
-        "enabled": true,
         "matrix": [0, 1]
     },
     "diode_direction": "COL2ROW",
