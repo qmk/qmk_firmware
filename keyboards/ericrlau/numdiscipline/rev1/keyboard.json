@@ -21,6 +21,12 @@
         "mousekey": true,
         "extrakey": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

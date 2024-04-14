@@ -43,6 +43,12 @@
         "velocikey": true,
         "key_lock": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "community_layouts": ["ortho_4x16"],
     "layouts": {
         "LAYOUT_ortho_4x16": {
