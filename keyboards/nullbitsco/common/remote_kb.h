@@ -15,7 +15,8 @@
  */
 #pragma once
 
-#include "quantum.h"
+#include <stdint.h>
+#include "action.h"
 
 #define SERIAL_UART_BAUD 76800 //low error rate for 32u4 @ 16MHz
 
