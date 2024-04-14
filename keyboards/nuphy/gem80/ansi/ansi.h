@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-
+#include "user_kb.h"
 #include "quantum_keycodes.h"
 
 enum custom_keycodes {
@@ -70,3 +70,32 @@ enum custom_keycodes {
 #define MAC_PRT G(S(KC_3))
 #define MAC_PRTA G(S(KC_4))
 #define WIN_PRTA G(S(KC_S))
+
+#ifdef VIA_ENABLE
+
+enum via_indicator_value {
+    id_usb_sleep_toggle = 0,
+
+    id_debounce_press   = 1,
+    id_debounce_release    = 2,
+
+    id_sleep_timeout       = 3,
+
+    id_caps_indicator_type = 4
+};
+
+// struct to save configs
+typedef struct {
+    bool                 usb_sleep_toggle : 1;
+    uint8_t              debounce_press_ms;
+    uint8_t              debounce_release_ms;
+    uint8_t              sleep_timeout;
+    CAPS_LOCK_INDICATION caps_indication_type;
+} via_config;
+
+// function declaration
+void indicator_config_set_value(uint8_t *data);
+void indicator_config_get_value(uint8_t *data);
+#endif
+extern via_config g_config;
+void              via_save_values(void);

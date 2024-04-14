@@ -6,3 +6,4 @@ DEBOUNCE_TYPE = custom
 
 LTO_ENABLE = yes
 CONSOLE_ENABLE = no
+# CONSOLE_ENABLE = yes

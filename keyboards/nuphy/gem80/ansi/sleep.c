@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "ansi.h"
 #include "user_kb.h"
 #include "hal_usb.h"
 #include "usb_main.h"
@@ -122,7 +123,7 @@ void sleep_handle(void) {
             }
         } else {
             usb_suspend_debounce = 0;
-            if (user_config.usb_sleep_toggle && no_act_time >= sleep_time_delay) {
+            if (g_config.usb_sleep_toggle && no_act_time >= sleep_time_delay) {
                 f_goto_sleep = 1;
             } else {
                 f_goto_sleep = 0;

@@ -41,17 +41,13 @@ typedef enum {
 } TYPE_RX_STATE;
 
 typedef enum {
-    CAPS_INDICATOR_SIDE,
+    CAPS_INDICATOR_SIDE = 0,
     CAPS_INDICATOR_UNDER_KEY,
     CAPS_INDICATOR_BOTH,
     CAPS_INDICATOR_OFF,
 } CAPS_LOCK_INDICATION;
 
-
-typedef enum {
-    DEBOUNCE_PRESS = 0,
-    DEBOUNCE_RELEASE
-} DEBOUNCE_EVENT;
+typedef enum { DEBOUNCE_PRESS = 0, DEBOUNCE_RELEASE } DEBOUNCE_EVENT;
 
 #define RF_IDLE 0
 #define RF_PAIRING 1
@@ -159,12 +155,7 @@ typedef struct {
     uint8_t  ee_logo_rgb;
     uint8_t  ee_logo_colour;
     uint8_t  sleep_enable;
-    uint8_t  usb_sleep_toggle;
-    uint16_t sleep_timeout;
     uint16_t rf_link_timeout;
-    uint8_t  caps_indication_type;
-    uint8_t  debounce_press_ms;
-    uint8_t  debounce_release_ms;
     uint8_t  retain1;
     uint8_t  retain2;
 } user_config_t;

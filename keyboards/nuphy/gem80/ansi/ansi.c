@@ -16,10 +16,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "action.h"
+#include "config.h"
 #include "keycodes.h"
 #include "rgb_matrix.h"
 #include "user_kb.h"
 #include "ansi.h"
+#include "eeprom.h"
+#include "via.h"
 
 extern bool            f_rf_sw_press;
 extern bool            f_sleep_show;
@@ -458,17 +461,17 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     }
 
     if (f_debounce_press_show) { // green numbers - press debounce
-        rgb_matrix_set_color(two_digit_decimals_led(user_config.debounce_press_ms), 0x00, 0x80, 0x00);
-        rgb_matrix_set_color(two_digit_ones_led(user_config.debounce_press_ms), 0x00, 0x80, 0x00);
+        rgb_matrix_set_color(two_digit_decimals_led(g_config.debounce_press_ms), 0x00, 0x80, 0x00);
+        rgb_matrix_set_color(two_digit_ones_led(g_config.debounce_press_ms), 0x00, 0x80, 0x00);
     }
     if (f_debounce_release_show) { // red numbers - release deboucne
-        rgb_matrix_set_color(two_digit_decimals_led(user_config.debounce_release_ms), 0x80, 0x00, 0x00);
-        rgb_matrix_set_color(two_digit_ones_led(user_config.debounce_release_ms), 0x80, 0x00, 0x00);
+        rgb_matrix_set_color(two_digit_decimals_led(g_config.debounce_release_ms), 0x80, 0x00, 0x00);
+        rgb_matrix_set_color(two_digit_ones_led(g_config.debounce_release_ms), 0x80, 0x00, 0x00);
     }
 
     if (f_sleep_timeout_show) { // cyan numbers - sleep timeout
-        rgb_matrix_set_color(two_digit_decimals_led(user_config.sleep_timeout), 0x00, 0x80, 0x80);
-        rgb_matrix_set_color(two_digit_ones_led(user_config.sleep_timeout), 0x00, 0x80, 0x80);
+        rgb_matrix_set_color(two_digit_decimals_led(g_config.sleep_timeout), 0x00, 0x80, 0x80);
+        rgb_matrix_set_color(two_digit_ones_led(g_config.sleep_timeout), 0x00, 0x80, 0x80);
     }
 
     rgb_matrix_set_color(RGB_MATRIX_LED_COUNT - 1, 0, 0, 0);
@@ -494,4 +497,117 @@ void housekeeping_task_kb(void) {
     side_led_show();
 
     sleep_handle();
+}
+via_config g_config = {.usb_sleep_toggle = true, .caps_indication_type = CAPS_INDICATOR_SIDE, .debounce_press_ms = DEBOUNCE, .debounce_release_ms = DEBOUNCE, .sleep_timeout = 5};
+
+void via_load_values(void) {
+    eeprom_read_block(&g_config, ((void *)VIA_EEPROM_CUSTOM_CONFIG_ADDR), sizeof(g_config));
+}
+
+void via_save_values(void) {
+    eeprom_update_block(&g_config, ((void *)VIA_EEPROM_CUSTOM_CONFIG_ADDR), sizeof(g_config));
+}
+
+void via_init_kb(void) {
+    // If the EEPROM has the magic, the data is good.
+    // OK to load from EEPROM
+    if (via_eeprom_is_valid()) {
+        via_load_values();
+    } else {
+        via_save_values();
+        // DO NOT set EEPROM valid here, let caller do this
+    }
+}
+
+void via_config_set_value(uint8_t *data)
+
+{
+    // data = [ value_id, value_data ]
+
+    uint8_t *value_id   = &(data[0]);
+    uint8_t *value_data = &(data[1]);
+
+    switch (*value_id) {
+        case id_usb_sleep_toggle:
+            g_config.usb_sleep_toggle = *value_data;
+            break;
+        case id_debounce_press:
+            g_config.debounce_press_ms = *value_data;
+            break;
+        case id_debounce_release:
+            g_config.debounce_release_ms = *value_data;
+            break;
+        case id_sleep_timeout:
+            g_config.sleep_timeout = *value_data + 1;
+            break;
+        case id_caps_indicator_type:
+            g_config.caps_indication_type = *value_data;
+            break;
+    }
+#if CONSOLE_ENABLE
+    xprintf("[SET]VALUE_ID: %u DATA: %u", *value_id, *value_data);
+#endif
+}
+
+void via_config_get_value(uint8_t *data) {
+    uint8_t *value_id   = &(data[0]);
+    uint8_t *value_data = &(data[1]);
+    switch (*value_id) {
+        case id_usb_sleep_toggle:
+            *value_data = g_config.usb_sleep_toggle;
+            break;
+        case id_debounce_press:
+            *value_data = g_config.debounce_press_ms;
+            break;
+        case id_debounce_release:
+            *value_data = g_config.debounce_release_ms;
+            break;
+        case id_sleep_timeout:
+            *value_data = g_config.sleep_timeout - 1;
+            break;
+        case id_caps_indicator_type:
+            *value_data = g_config.caps_indication_type;
+            break;
+    }
+#if CONSOLE_ENABLE
+    xprintf("[GET]VALUE_ID: %u DATA: %u", *value_id, *value_data);
+#endif
+}
+
+void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
+    // data = [ command_id, channel_id, value_id, value_data ]
+    uint8_t *command_id = &(data[0]);
+    uint8_t *channel_id = &(data[1]);
+
+    uint8_t *value_id_and_data = &(data[2]);
+
+    if (*channel_id == id_custom_channel) {
+        switch (*command_id)
+
+        {
+            case id_custom_set_value: {
+                via_config_set_value(value_id_and_data);
+                break;
+            }
+            case id_custom_get_value: {
+                via_config_get_value(value_id_and_data);
+                break;
+            }
+            case id_custom_save: {
+                via_save_values();
+                break;
+            }
+            default: {
+                // Unhandled message.
+                *command_id = id_unhandled;
+                break;
+            }
+        }
+        return;
+    }
+
+    // Return the unhandled state
+    *command_id = id_unhandled;
+
+    // DO NOT call raw_hid_send(data,length) here, let caller do this
 }

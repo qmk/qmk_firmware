@@ -9,7 +9,7 @@ releasing a key, that state is pushed after no changes occur for DEBOUNCE millis
 #    include "debounce.h"
 #    include "timer.h"
 #    include <stdlib.h>
-#    include "user_kb.h"
+#    include "ansi.h"
 
 #    ifdef PROTOCOL_CHIBIOS
 #        if CH_CFG_USE_MEMCORE == FALSE
@@ -126,16 +126,16 @@ static void transfer_matrix_values(matrix_row_t raw[], matrix_row_t cooked[], ui
             if (delta & col_mask) {
                 if (debounce_pointer->time == DEBOUNCE_ELAPSED) {
                     debounce_pointer->pressed = (raw[row] & col_mask);
-                    // debounce_pointer->time    = user_config.debounce_press_ms; // FIXME: original place of debounce
+                    // debounce_pointer->time    = g_config.debounce_press_ms; // FIXME: original place of debounce
                     counters_need_update = true;
 
                     if (debounce_pointer->pressed) {
                         // key-down: eager
                         cooked[row] ^= col_mask;
                         cooked_changed         = true;
-                        debounce_pointer->time = user_config.debounce_press_ms;
+                        debounce_pointer->time = g_config.debounce_press_ms;
                     } else {
-                        debounce_pointer->time = user_config.debounce_release_ms;
+                        debounce_pointer->time = g_config.debounce_release_ms;
                     }
                 }
             } else if (debounce_pointer->time != DEBOUNCE_ELAPSED) {
@@ -252,7 +252,7 @@ static void transfer_matrix_values(matrix_row_t raw[], matrix_row_t cooked[], ui
             matrix_row_t col_mask = (ROW_SHIFTER << col);
             if (delta & col_mask) {
                 if (*debounce_pointer == DEBOUNCE_ELAPSED) {
-                    *debounce_pointer    = user_config.debounce_ms;
+                    *debounce_pointer    = g_config.debounce_ms;
                     counters_need_update = true;
                     existing_row ^= col_mask; // flip the bit.
                     cooked_changed = true;

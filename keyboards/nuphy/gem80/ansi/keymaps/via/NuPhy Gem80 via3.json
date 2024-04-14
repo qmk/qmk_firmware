@@ -286,6 +286,205 @@
                     ]
                 }
             ]
+        },
+        {
+            "label": "Custom Configs",
+            "content": [
+                {
+                    "label": "Debounce",
+                    "content": [
+                        {
+                            "label": "Debounce Press (ms)",
+                            "type": "dropdown",
+                            "options": [
+                                "0ms",
+                                "1ms",
+                                "2ms",
+                                "3ms",
+                                "4ms",
+                                "5ms",
+                                "6ms",
+                                "7ms",
+                                "8ms",
+                                "9ms",
+                                "10ms",
+                                "11ms",
+                                "12ms",
+                                "13ms",
+                                "14ms",
+                                "15ms",
+                                "16ms",
+                                "17ms",
+                                "18ms",
+                                "19ms",
+                                "20ms",
+                                "21ms",
+                                "22ms",
+                                "23ms",
+                                "24ms",
+                                "25ms",
+                                "26ms",
+                                "27ms",
+                                "28ms",
+                                "29ms",
+                                "30ms"
+                            ],
+                            "content": [
+                                "id_debounce_press",
+                                0,
+                                1
+                            ]
+                        },
+                        {
+                            "label": "Debounce Release (ms)",
+                            "type": "dropdown",
+                            "options": [
+                                "0ms",
+                                "1ms",
+                                "2ms",
+                                "3ms",
+                                "4ms",
+                                "5ms",
+                                "6ms",
+                                "7ms",
+                                "8ms",
+                                "9ms",
+                                "10ms",
+                                "11ms",
+                                "12ms",
+                                "13ms",
+                                "14ms",
+                                "15ms",
+                                "16ms",
+                                "17ms",
+                                "18ms",
+                                "19ms",
+                                "20ms",
+                                "21ms",
+                                "22ms",
+                                "23ms",
+                                "24ms",
+                                "25ms",
+                                "26ms",
+                                "27ms",
+                                "28ms",
+                                "29ms",
+                                "30ms"
+                            ],
+                            "content": [
+                                "id_debounce_release",
+                                0,
+                                2
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "label": "Sleep",
+                    "content": [
+                        {
+                            "label": "USB Sleep Enable",
+                            "type": "toggle",
+                            "content": [
+                                "id_usb_sleep_toggle",
+                                0,
+                                0
+                            ]
+                        },
+                        {
+                            "label": "Sleep Timeout",
+                            "type": "dropdown",
+                            "options": [
+                                "1m",
+                                "2m",
+                                "3m",
+                                "4m",
+                                "5m",
+                                "6m",
+                                "7m",
+                                "8m",
+                                "9m",
+                                "10m",
+                                "11m",
+                                "12m",
+                                "13m",
+                                "14m",
+                                "15m",
+                                "16m",
+                                "17m",
+                                "18m",
+                                "19m",
+                                "20m",
+                                "21m",
+                                "22m",
+                                "23m",
+                                "24m",
+                                "25m",
+                                "26m",
+                                "27m",
+                                "28m",
+                                "29m",
+                                "30m",
+                                "31m",
+                                "32m",
+                                "33m",
+                                "34m",
+                                "35m",
+                                "36m",
+                                "37m",
+                                "38m",
+                                "39m",
+                                "40m",
+                                "41m",
+                                "42m",
+                                "43m",
+                                "44m",
+                                "45m",
+                                "46m",
+                                "47m",
+                                "48m",
+                                "49m",
+                                "50m",
+                                "51m",
+                                "52m",
+                                "53m",
+                                "54m",
+                                "55m",
+                                "56m",
+                                "57m",
+                                "58m",
+                                "59m",
+                                "60m"
+                            ],
+                            "content": [
+                                "id_sleep_timeout",
+                                0,
+                                3
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "label": "Indicators",
+                    "content": [
+                        {
+                            "label": "Caps Lock Indicator",
+                            "type": "dropdown",
+                            "content": [
+                                "id_caps_indicator_type",
+                                0,
+                                4
+                            ],
+                            "options": [
+                                "Side",
+                                "Under Key",
+                                "Side & Under Key",
+                                "Off"
+                            ]
+                        }
+                    ]
+                }
+            ]
         }
     ],
     "keycodes": [

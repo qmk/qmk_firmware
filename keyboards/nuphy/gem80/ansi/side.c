@@ -1,6 +1,7 @@
 // Copyright 2023 Persama (@Persama)
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include <stdint.h>
+#include "ansi.h"
 #include "rgb_matrix.h"
 #include "timer.h"
 #include "user_kb.h"
@@ -306,7 +307,7 @@ void sleep_sw_led_show(void)
             sleep_show_flag = false;
         }
     } else if (usb_sleep_show_flag) {
-        if (user_config.usb_sleep_toggle) {
+        if (g_config.usb_sleep_toggle) {
             r_temp = 0x00;
             g_temp = 0x80;
             b_temp = 0x00;
@@ -339,7 +340,7 @@ void sys_led_show(void) {
         showIndicator = dev_info.rf_led & 0x02;
     }
     if (showIndicator) {
-        switch (user_config.caps_indication_type) {
+        switch (g_config.caps_indication_type) {
             case CAPS_INDICATOR_SIDE:
                 set_side_rgb(0X00, 0x80, 0x80); // highlight top-left side led to indicate caps lock enabled state
 

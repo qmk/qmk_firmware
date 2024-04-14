@@ -18,11 +18,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "user_kb.h"
 #include <stdbool.h>
 #include <stdint.h>
+#include "ansi.h"
 #include "config.h"
 #include "eeconfig.h"
 #include "color.h"
 #include "host.h"
-#include "print.h"
 
 user_config_t   user_config;
 DEV_INFO_STRUCT dev_info = {
@@ -460,11 +460,6 @@ void user_config_reset(void) {
     user_config.ee_logo_speed           = logo_speed;
     user_config.ee_logo_rgb             = logo_rgb;
     user_config.ee_logo_colour          = logo_colour;
-    user_config.usb_sleep_toggle        = true;
-    user_config.caps_indication_type    = CAPS_INDICATOR_SIDE;
-    user_config.debounce_press_ms       = DEBOUNCE;
-    user_config.debounce_release_ms     = DEBOUNCE;
-    user_config.sleep_timeout           = 5;
 
     eeconfig_update_kb_datablock(&user_config);
 }
@@ -473,21 +468,21 @@ void user_config_reset(void) {
  */
 void toggle_usb_sleep(void) {
     f_usb_sleep_show             = 1;
-    user_config.usb_sleep_toggle = !user_config.usb_sleep_toggle;
-    eeconfig_update_kb_datablock(&user_config);
+    g_config.usb_sleep_toggle = !g_config.usb_sleep_toggle;
+    via_save_values();
 }
 
 /**
  * @brief Toggle caps indication between side led / under key / off
  */
 void toggle_caps_indication(void) {
-    if (user_config.caps_indication_type == CAPS_INDICATOR_OFF) {
-        user_config.caps_indication_type = CAPS_INDICATOR_SIDE; // set to initial state, when last state reached
+    if (g_config.caps_indication_type == CAPS_INDICATOR_OFF) {
+        g_config.caps_indication_type = CAPS_INDICATOR_SIDE; // set to initial state, when last state reached
     } else {
-        user_config.caps_indication_type += 1;
+        g_config.caps_indication_type += 1;
     }
 
-    eeconfig_update_kb_datablock(&user_config);
+    via_save_values();
 }
 
 /**
@@ -647,37 +642,36 @@ uint8_t two_digit_ones_led(uint8_t value) {
 void adjust_debounce(uint8_t dir, DEBOUNCE_EVENT debounce_event) {
 #if DEBOUNCE > 0
     if (dir) {
-        if (debounce_event == DEBOUNCE_PRESS && user_config.debounce_press_ms < 99) {
-            user_config.debounce_press_ms += DEBOUNCE_STEP;
-        } else if (debounce_event == DEBOUNCE_RELEASE && user_config.debounce_release_ms < 99) {
-            user_config.debounce_release_ms += DEBOUNCE_STEP;
+        if (debounce_event == DEBOUNCE_PRESS && g_config.debounce_press_ms < 99) {
+            g_config.debounce_press_ms += DEBOUNCE_STEP;
+        } else if (debounce_event == DEBOUNCE_RELEASE && g_config.debounce_release_ms < 99) {
+            g_config.debounce_release_ms += DEBOUNCE_STEP;
         }
     } else if (!dir) {
-        if (debounce_event == DEBOUNCE_PRESS && user_config.debounce_press_ms > 0) {
-            user_config.debounce_press_ms -= DEBOUNCE_STEP;
-        } else if (debounce_event == DEBOUNCE_RELEASE && user_config.debounce_release_ms > 0) {
-            user_config.debounce_release_ms -= DEBOUNCE_STEP;
+        if (debounce_event == DEBOUNCE_PRESS && g_config.debounce_press_ms > 0) {
+            g_config.debounce_press_ms -= DEBOUNCE_STEP;
+        } else if (debounce_event == DEBOUNCE_RELEASE && g_config.debounce_release_ms > 0) {
+            g_config.debounce_release_ms -= DEBOUNCE_STEP;
         }
     }
-    eeconfig_update_kb_datablock(&user_config);
+    via_save_values();
 #endif
 }
 
 void adjust_sleep_timeout(uint8_t dir) {
     if (user_config.sleep_enable) {
-        if (user_config.sleep_timeout > 1 && !dir) {
-            user_config.sleep_timeout -= SLEEP_TIMEOUT_STEP;
-            eeconfig_update_kb_datablock(&user_config);
-        } else if (user_config.sleep_timeout < 60 && dir) {
-            user_config.sleep_timeout += SLEEP_TIMEOUT_STEP;
-            eeconfig_update_kb_datablock(&user_config);
+        if (g_config.sleep_timeout > 1 && !dir) {
+            g_config.sleep_timeout -= SLEEP_TIMEOUT_STEP;
+        } else if (g_config.sleep_timeout < 60 && dir) {
+            g_config.sleep_timeout += SLEEP_TIMEOUT_STEP;
         }
+        via_save_values();
     }
 }
 
 uint32_t get_sleep_timeout(void) {
     if (!user_config.sleep_enable) return 0;
-    return user_config.sleep_timeout * 60 * 1000 / TIMER_STEP;
+    return g_config.sleep_timeout * 60 * 1000 / TIMER_STEP;
 }
 
 // power control for LEDs
