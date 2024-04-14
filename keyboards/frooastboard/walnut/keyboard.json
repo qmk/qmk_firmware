@@ -12,7 +12,8 @@
         "console": false,
         "extrakey": false,
         "mousekey": false,
-        "nkro": true
+        "nkro": true,
+        "rgb_matrix": true
     },
     "rgb_matrix": {
         "animations": {
