@@ -78,8 +78,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENABLE_RGB_MATRIX_PIXEL_FLOW
 #define ENABLE_RGB_MATRIX_PIXEL_RAIN
 
-#define RGB_MATRIX_HUE_STEP 4
-#define RGB_MATRIX_SAT_STEP 4
-#define RGB_MATRIX_VAL_STEP 4
-#define RGB_MATRIX_SPD_STEP 2
+#define RGB_MATRIX_HUE_STEP 2
+#define RGB_MATRIX_SAT_STEP 2
+#define RGB_MATRIX_VAL_STEP 1
+#define RGB_MATRIX_SPD_STEP 1
 

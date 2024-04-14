@@ -168,9 +168,9 @@ typedef struct _poly_eeconf_t {
     uint16_t unused;
     uint8_t latin_ex[26];
 } poly_eeconf_t;
-static uint8_t latin_ex[26];
 
-_Static_assert(sizeof(poly_eeconf_t) == EECONFIG_USER_DATA_SIZE, "Mismatch in keyboard EECONFIG stored data");
+
+static_assert(sizeof(poly_eeconf_t) == EECONFIG_USER_DATA_SIZE, "Mismatch in keyboard EECONFIG stored data");
 
 enum flags {
     STATUS_DISP_ON      = 1 << 0,
@@ -196,6 +196,19 @@ typedef struct _poly_sync_t {
     uint32_t crc32;
     // don't add any elements here
 } poly_sync_t;
+
+typedef struct _latin_sync_t {
+    uint8_t ex[26];
+    // crc32 needs to be at the end. the check
+    // is generated on the packed binary
+    // representation of all the elements before
+    // it in the struct.
+    uint32_t crc32;
+    // don't add any elements here
+} latin_sync_t;
+static latin_sync_t g_lat;
+
+static_assert(sizeof(poly_sync_t)!=sizeof(latin_sync_t), "We use the size to distinguish the messages so they have to have different sizes");
 
 #define SYNC_ACK 0b11001010
 typedef struct _poly_sync_reply_t {
@@ -235,7 +248,7 @@ void save_user_eeconf(void) {
     ee.lang = g_local.lang;
     ee.brightness = ~g_local.contrast;
     ee.unused = 0;
-    memcpy(ee.latin_ex, latin_ex, sizeof(latin_ex));
+    memcpy(ee.latin_ex, g_lat.ex, sizeof(g_lat.ex));
     eeconfig_update_user_datablock(&ee);
 }
 
@@ -312,14 +325,38 @@ void user_sync_poly_data_handler(uint8_t in_len, const void* in_data, uint8_t ou
             memcpy(&g_local, in_data, sizeof(poly_sync_t));
             ((poly_sync_reply_t*)out_data)->ack = SYNC_ACK;
         }
-    } else if(in_len == sizeof(latin_ex)) {
-        memcpy(latin_ex, in_data, sizeof(latin_ex)); //no check sum for now
-        save_user_eeconf();
-        request_disp_refresh();
+    } else if (in_len == sizeof(g_lat) && in_data != NULL && out_len == sizeof(poly_sync_reply_t) && out_data!= NULL) {
+        uint32_t crc32 = crc32_1byte(in_data, sizeof(g_lat)-sizeof(g_lat.crc32), 0);
+        if(crc32 == ((const latin_sync_t *)in_data)->crc32) {
+            memcpy(&g_lat, in_data, sizeof(latin_sync_t));
+            ((poly_sync_reply_t*)out_data)->ack = SYNC_ACK;
+            request_disp_refresh();
+        }
     }
 }
 
 void oled_on_off(bool on);
+
+void send_to_bridge(void* buffer_with4crc_bytes, const uint8_t num_bytes, const uint8_t retries) {
+    poly_sync_reply_t reply;
+    bool sync_success = false;
+    uint8_t retry = 0;
+    *(&((uint32_t *)buffer_with4crc_bytes)[num_bytes/4-1]) = crc32_1byte(buffer_with4crc_bytes, num_bytes-4, 0);
+    for(; retry<retries; ++retry) {
+        sync_success = transaction_rpc_exec(USER_SYNC_POLY_DATA, num_bytes, buffer_with4crc_bytes, sizeof(poly_sync_reply_t), &reply);
+        if(sync_success && reply.ack == SYNC_ACK) {
+            break;
+        }
+        sync_success = false;
+        printf("Bridge sync retry %d (success: %d, ack: %d, bytes: %d)\n", retry, sync_success, reply.ack == SYNC_ACK, num_bytes);
+    }
+    if(retry>0) {
+        if(sync_success)
+            printf("Success on retry %d (success: %d, ack: %d, bytes: %d)\n", retry, sync_success, reply.ack == SYNC_ACK, num_bytes);
+        else
+            printf("Failed to sync %d bytes!\n", num_bytes);
+    }
+}
 
 void sync_and_refresh_displays(void) {
     bool sync_success = true;
@@ -340,31 +377,14 @@ void sync_and_refresh_displays(void) {
         if (back_from_idle_transition) {
             poly_eeconf_t ee   = load_user_eeconf();
             g_local.contrast = ee.brightness;
-            //request_disp_refresh();
         }
 
         //master syncs data
         if ( memcmp(&g_local, &g_state.s, sizeof(poly_sync_t))!=0 ) {
-            poly_sync_reply_t reply;
-            g_local.crc32 = crc32_1byte((const void *)&g_local, sizeof(g_local)-sizeof(g_local.crc32), 0);
-            uint8_t retry = 0;
-            for(; retry<10; ++retry) {
-                sync_success = transaction_rpc_exec(USER_SYNC_POLY_DATA, sizeof(poly_sync_t), &g_local, sizeof(poly_sync_reply_t), &reply);
-                if(sync_success && reply.ack == SYNC_ACK) {
-                    break;
-                }
-                sync_success = false;
-                printf("Bridge sync retry %d (success: %d, ack: %d)\n", retry, sync_success, reply.ack == SYNC_ACK);
-            }
-            if(retry>0) {
-                if(sync_success)
-                    printf("Success on retry %d (success: %d, ack: %d)\n", retry, sync_success, reply.ack == SYNC_ACK);
-                else
-                    printf("Failed sync!\n");
-            }
+            send_to_bridge((void *)&g_local, sizeof(g_local), 10);
         }
     }
-    if(sync_success) {
+    if(sync_success || (!is_usb_host_side() && g_refresh == DONE_ALL)) {
         const bool status_disp_turned_off    = (g_local.flags & STATUS_DISP_ON) == 0 && (g_state.s.flags & DISP_IDLE) != 0;
         const bool idle_changed              = (g_local.flags & DISP_IDLE) != (g_state.s.flags & DISP_IDLE);
         const bool in_idle_mode              = (g_local.flags & DISP_IDLE) != 0;
@@ -381,18 +401,20 @@ void sync_and_refresh_displays(void) {
         const led_t led_state = host_keyboard_led_state();
         const uint8_t mod_state = get_mods();
 
-        if (led_state.raw != g_state.led_state.raw ||
-            mod_state != g_state.mod_state ||
-            layer_state != g_state.layer_state ||
-            g_state.s.lang != g_local.lang ||
-            g_state.s.default_ls != g_local.default_ls ||
-            g_state.s.last_latin_kc != g_local.last_latin_kc) {
-            //memcmp(&g_local, &g_state.s, sizeof(poly_sync_t))!=0 //no!
+        if (        led_state.raw != g_state.led_state.raw ||
+                    mod_state != g_state.mod_state ||
+                    layer_state != g_state.layer_state) {
+            // memcmp(&g_local, &g_state.s, sizeof(poly_sync_t))!=0 //no!
 
-            g_state.led_state = led_state;
-            g_state.mod_state = mod_state;
+            g_state.led_state   = led_state;
+            g_state.mod_state   = mod_state;
             g_state.layer_state = layer_state;
 
+            request_disp_refresh();
+        } else if ( g_state.s.lang != g_local.lang ||
+                    g_state.s.default_ls != g_local.default_ls ||
+                    g_state.s.last_latin_kc != g_local.last_latin_kc ||
+                    g_state.s.unicode_mode != g_local.unicode_mode) {
             request_disp_refresh();
         }
 
@@ -1228,7 +1250,7 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
         if(keycode>=KC_A && keycode<=KC_Z && add_lang) {
             //display the previously selected latin variation of the letter
             const uint8_t offset = (shift || state.caps_lock) ? 0 : 26;
-            uint8_t variation = (shift || state.caps_lock) ? latin_ex[keycode-KC_A]>>4 : latin_ex[keycode-KC_A]&0xf;
+            uint8_t variation = (shift || state.caps_lock) ? g_lat.ex[keycode-KC_A]>>4 : g_lat.ex[keycode-KC_A]&0xf;
 
             const uint16_t* def_variation = latin_ex_map[offset+keycode-KC_A][0];
             return (def_variation!=NULL) ? latin_ex_map[offset+keycode-KC_A][variation] : NULL;
@@ -1484,7 +1506,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
                     const bool upper_case = lshift || rshift || g_state.led_state.caps_lock;
                     const uint8_t offset = upper_case ? 0 : 26;
                     if(latin_ex_map[offset+keycode-KC_A][0]) {
-                        uint8_t variation = upper_case ? latin_ex[keycode-KC_A]>>4 : latin_ex[keycode-KC_A]&0xf;
+                        uint8_t variation = upper_case ? g_lat.ex[keycode-KC_A]>>4 : g_lat.ex[keycode-KC_A]&0xf;
 
                         //this is a work-around (at least for I-Bus on Linux we need to remove the shift, otherwise the Unicode sequence will not be recognized!)
                         if(lshift) unregister_code16(KC_LEFT_SHIFT);
@@ -1504,16 +1526,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
             switch(keycode) {
                 case KC_LAT0 ... KC_LAT9:
                     if( g_local.last_latin_kc!=0) {
-                        uint8_t current = latin_ex[g_local.last_latin_kc-KC_A];
+                        uint8_t current = g_lat.ex[g_local.last_latin_kc-KC_A];
                         if((get_mods() & MOD_MASK_SHIFT) || g_state.led_state.caps_lock) {
-                            latin_ex[g_local.last_latin_kc-KC_A] = ((keycode-KC_LAT0)<<4) | (current&0xf);
+                            g_lat.ex[g_local.last_latin_kc-KC_A] = ((keycode-KC_LAT0)<<4) | (current&0xf);
                         } else {
-                            latin_ex[g_local.last_latin_kc-KC_A] = (keycode-KC_LAT0) | (current&0xf0);
+                            g_lat.ex[g_local.last_latin_kc-KC_A] = (keycode-KC_LAT0) | (current&0xf0);
                         }
-                        bool sync_success = false;
-                        for(uint8_t retry = 0; retry<3 && !sync_success; ++retry) {
-                            sync_success = transaction_rpc_send(USER_SYNC_POLY_DATA, sizeof(latin_ex), latin_ex);
-                        }
+                        send_to_bridge((void*)&g_lat, sizeof(g_lat), 10);
+                        // bool sync_success = false;
+                        // for(uint8_t retry = 0; retry<3 && !sync_success; ++retry) {
+                        //     sync_success = transaction_rpc_send(USER_SYNC_POLY_DATA, sizeof(latin_ex), latin_ex);
+                        // }
                         save_user_eeconf();
                         request_disp_refresh();
                     }
@@ -1731,6 +1754,7 @@ bool display_wakeup(keyrecord_t* record) {
 
 void unicode_input_mode_set_user(uint8_t unicode_mode) {
     g_local.unicode_mode = unicode_mode;
+    request_disp_refresh();
 }
 
 void keyboard_post_init_user(void) {
@@ -1781,7 +1805,7 @@ void keyboard_pre_init_user(void) {
     g_local.default_ls = 0;
     g_local.contrast = ee.brightness;
     g_local.flags = STATUS_DISP_ON;
-    memcpy(latin_ex, ee.latin_ex, sizeof(latin_ex));
+    memcpy(g_lat.ex, ee.latin_ex, sizeof(g_lat.ex));
 
     set_displays(g_local.contrast, false);
     g_local.last_latin_kc = 0;
