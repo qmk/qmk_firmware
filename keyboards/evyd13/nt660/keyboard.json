@@ -28,6 +28,12 @@
         "mousekey": false,
         "extrakey": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "community_layouts": ["66_ansi", "66_iso"],
     "layouts": {
         "LAYOUT_all": {

@@ -15,7 +15,9 @@
         "nkro": true,
         "unicode": true
     },
-"layouts": {
+    "processor": "STM32F103",
+    "bootloader": "custom",
+    "layouts": {
         "LAYOUT_ergodox": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0.375, "w": 1.5},
