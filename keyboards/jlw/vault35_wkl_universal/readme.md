@@ -1,6 +1,6 @@
 # Vault 35 WKL Universal
 
-![Vault 35 WKL Universal]()
+![Vault 35 WKL Universal](https://i.imgur.com/gtJwgiv.png)
 
 A drop in replacement PCB for the Vault 35 WKL case, originally designed by ProjectCain Mechvault.
 
