@@ -74,31 +74,27 @@ enum custom_keycodes {
 #ifdef VIA_ENABLE
 
 enum via_indicator_value {
-    id_usb_sleep_toggle = 0,
-
-    id_debounce_press   = 1,
-    id_debounce_release = 2,
-
-    id_sleep_timeout = 3,
-
+    id_usb_sleep_toggle    = 0,
+    id_debounce_press      = 1,
+    id_debounce_release    = 2,
+    id_sleep_timeout       = 3,
     id_caps_indicator_type = 4,
     id_sleep_toggle        = 5,
-
     // side light controls
-    id_side_light_mode = 10,
-    id_side_light_speed = 11,
-    id_side_light_color = 12,
+    id_side_light_mode       = 10,
+    id_side_light_speed      = 11,
+    id_side_light_color      = 12,
     id_side_light_brightness = 13,
-
     // logo light controls
-    id_logo_light_mode = 20,
-    id_logo_light_speed = 21,
-    id_logo_light_color = 22,
+    id_logo_light_mode       = 20,
+    id_logo_light_speed      = 21,
+    id_logo_light_color      = 22,
     id_logo_light_brightness = 23,
 };
 
 // struct to save configs
 typedef struct {
+    uint8_t been_initiated;
     bool                 usb_sleep_toggle : 1;
     bool                 sleep_enable : 1;
     uint8_t              debounce_press_ms;
@@ -112,11 +108,11 @@ typedef struct {
     uint8_t side_rgb;
     uint8_t side_color;
     // logo light config
-    uint8_t  logo_mode;
-    uint8_t  logo_brightness;
-    uint8_t  logo_speed;
-    uint8_t  logo_rgb;
-    uint8_t  logo_color;
+    uint8_t logo_mode;
+    uint8_t logo_brightness;
+    uint8_t logo_speed;
+    uint8_t logo_rgb;
+    uint8_t logo_color;
 } via_config;
 
 // function declaration

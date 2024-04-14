@@ -401,43 +401,45 @@ void timer_pro(void) {
 }
 
 /**
- * @brief  load eeprom data.
- */
-void load_eeprom_data(void) {
-    user_config_reset();
-}
-
-/**
  * @brief User config to default setting.
  */
 void user_config_reset(void) {
-    rgb_matrix_enable();
-    rgb_matrix_mode(RGB_MATRIX_DEFAULT_MODE);
-    rgb_matrix_set_speed(255 - RGB_MATRIX_SPD_STEP * 2);
-    rgb_matrix_sethsv(RGB_DEFAULT_COLOUR, 255, RGB_MATRIX_MAXIMUM_BRIGHTNESS - RGB_MATRIX_VAL_STEP * 2);
+        rgb_matrix_enable();
+        rgb_matrix_mode(RGB_MATRIX_DEFAULT_MODE);
+        rgb_matrix_set_speed(255 - RGB_MATRIX_SPD_STEP * 2);
+        rgb_matrix_sethsv(RGB_DEFAULT_COLOUR, 255, RGB_MATRIX_MAXIMUM_BRIGHTNESS - RGB_MATRIX_VAL_STEP * 2);
 
-    // reset config in via to default too
-    g_config.sleep_enable         = true;
-    g_config.usb_sleep_toggle     = true;
-    g_config.sleep_timeout        = 5;
-    g_config.debounce_press_ms    = DEBOUNCE;
-    g_config.debounce_release_ms  = DEBOUNCE;
-    g_config.caps_indication_type = CAPS_INDICATOR_SIDE;
-    // (top) side LED
-    g_config.side_mode       = 0;
-    g_config.side_brightness = 3;
-    g_config.side_speed      = 2;
-    g_config.side_rgb        = 1;
-    g_config.side_color      = 0;
-    // logo LED
+        // reset config in via to default too
+        g_config.sleep_enable         = true;
+        g_config.usb_sleep_toggle     = true;
+        g_config.sleep_timeout        = 5;
+        g_config.debounce_press_ms    = DEBOUNCE;
+        g_config.debounce_release_ms  = DEBOUNCE;
+        g_config.caps_indication_type = CAPS_INDICATOR_SIDE;
+        // (top) side LED
+        g_config.side_mode       = 0;
+        g_config.side_brightness = 3;
+        g_config.side_speed      = 2;
+        g_config.side_rgb        = 1;
+        g_config.side_color      = 0;
+        // logo LED
 
-    g_config.logo_mode       = 0;
-    g_config.logo_brightness = 3;
-    g_config.logo_speed      = 2;
-    g_config.logo_rgb        = 1;
-    g_config.logo_color      = 0;
+        g_config.logo_mode       = 0;
+        g_config.logo_brightness = 3;
+        g_config.logo_speed      = 2;
+        g_config.logo_rgb        = 1;
+        g_config.logo_color      = 0;
+        // mark config as initiated
+        g_config.been_initiated = 0x45;
 
-    via_save_values();
+        via_save_values();
+}
+
+void load_eeprom_data(void) {
+    if (g_config.been_initiated != 0x45) {
+        user_config_reset();
+        return;
+    }
 }
 /**
  * @brief toggle usb sleep on/off

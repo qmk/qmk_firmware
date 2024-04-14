@@ -512,6 +512,12 @@ via_config g_config = {
     .side_speed = 2,
     .side_brightness = 3,
     .side_color = 0,
+
+    .logo_mode = 0,
+    .logo_brightness = 3,
+    .logo_speed = 2,
+    .logo_rgb = 1,
+    .logo_color = 0,
 };
 
 void via_load_values(void) {
