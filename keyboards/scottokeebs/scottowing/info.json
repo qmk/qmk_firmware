@@ -12,6 +12,10 @@
         "mousekey": true,
         "nkro": true
     },
+    "bootmagic": {
+        "enabled": true,
+        "matrix": [0,1]
+    },
     "matrix_pins": {
         "cols": [
             "GP2", "GP3", "GP4", "GP5", "GP6", "GP7", "GP20", "GP22", "GP26", "GP27", "GP28", "GP29"
