@@ -55,11 +55,11 @@ static uint16_t auto_pointer_layer_timer = 0;
 #define LT_W LT(LAYER_POINTER, KC_W)
 #define LT_G LT(LAYER_NUM, KC_G)
 #define LT_D LT(LAYER_NAV, KC_D)
-#define LT_F LT(LAYER_DEV, KC_F)
+#define LT_R LT(LAYER_DEV, KC_R)
 
 #define LT_H LT(LAYER_NUM, KC_H)
 #define LT_O LT(LAYER_POINTER, KC_O)
-#define LT_J LT(LAYER_DEV, KC_J)
+#define LT_U LT(LAYER_DEV, KC_U)
 #define LT_K LT(LAYER_NAV, KC_K)
 
 #define MC_LOCK LCTL(LGUI(KC_Q))
@@ -105,9 +105,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ╭──────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────╮
        _______, _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______, _______,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       _______, _______,    LT_W, _______, _______, _______,    _______, _______, _______,    LT_O, _______, _______,
+       _______, _______,    LT_W, _______,    LT_R, _______,    _______,    LT_U, _______,    LT_O, _______, _______,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       _______, _______, _______,    LT_D,    LT_F,    LT_G,       LT_H,    LT_J,    LT_K, _______, _______, _______,
+       _______, _______, _______,    LT_D, _______,    LT_G,       LT_H, _______,    LT_K, _______, _______, _______,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        _______, _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______, DF_BASE,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
@@ -135,11 +135,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ╭──────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────╮
        MC_LOCK, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, NV_PTAB, NV_NTAB, XXXXXXX, KC_MPRV, KC_VOLU,
+       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, NV_PTAB, NV_NTAB, XXXXXXX, KC_MPRV, KC_MUTE,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       _______, KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, KC_MNXT, KC_VOLD,
+       _______, KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, KC_MPLY, KC_VOLD,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       _______, KC_LCTL, KC_LALT, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, NV_BACK, NV_FRWD, XXXXXXX, KC_MPLY, KC_MUTE,
+       _______, KC_LCTL, KC_LALT, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, NV_BACK, NV_FRWD, XXXXXXX, KC_MNXT, KC_VOLU,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
                                   _______, _______, _______,    _______, _______,
                                            _______, _______,    _______
@@ -225,12 +225,12 @@ bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
         case LT_W:
         case LT_G:
         case LT_D:
-        case LT_F:
+        case LT_R:
             return true;
         case LT_H:
         case LT_O:
         case LT_K:
-        case LT_J:
+        case LT_U:
             return true;
         default:
             return false;
