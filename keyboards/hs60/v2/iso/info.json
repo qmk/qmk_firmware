@@ -15,6 +15,12 @@
   "diode_direction": "COL2ROW",
   "processor": "STM32F303",
   "bootloader": "stm32-dfu",
+  "features": {
+    "bootmagic": true,
+    "mousekey": true,
+    "extrakey": true,
+    "nkro": true
+  },
   "board": "QMK_PROTON_C",
   "community_layouts": ["60_iso"],
   "layouts": {

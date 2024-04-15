@@ -27,5 +27,13 @@
         "pin": "D4"
     },
     "processor": "atmega32u4",
-    "bootloader": "halfkay"
+    "bootloader": "halfkay",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true,
+        "rgblight": true,
+        "oled": true
+    }
 }
