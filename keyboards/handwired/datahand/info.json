@@ -11,6 +11,14 @@
     },
     "processor": "at90usb1286",
     "bootloader": "halfkay",
+    "features": {
+        "bootmagic": false,
+        "mousekey": true,
+        "extrakey": true,
+        "console": true,
+        "command": true,
+        "nkro": true
+    },
     "debounce": 0,
     "layouts": {
         "LAYOUT": {
