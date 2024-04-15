@@ -7,6 +7,9 @@
     "cols": ["C6", "D7", "E6", "B4", "B5"],
     "rows": ["B6"]
   },
+  "build": {
+    "lto": true
+  },
   "features": {
     "bootmagic": false,
     "command": false,

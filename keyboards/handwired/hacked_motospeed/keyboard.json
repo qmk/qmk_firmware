@@ -6,7 +6,8 @@
   "usb": {
     "vid": "0xFEED",
     "pid": "0x0690",
-    "device_version": "0.0.1"
+    "device_version": "0.0.1",
+    "no_startup_check": true
   },
   "bluetooth": {
     "driver": "rn42"
@@ -21,6 +22,15 @@
   },
   "processor": "at90usb1286",
   "bootloader": "halfkay",
+  "features": {
+    "bootmagic": false,
+    "mousekey": false,
+    "extrakey": true,
+    "console": true,
+    "command": true,
+    "backlight": true,
+    "bluetooth": true
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

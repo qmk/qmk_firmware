@@ -44,6 +44,18 @@
     },
     "processor": "STM32F303",
     "bootloader": "stm32-dfu",
+    "features": {
+        "bootmagic": false,
+        "mousekey": false,
+        "extrakey": true,
+        "console": true,
+        "nkro": true,
+        "audio": true,
+        "rgblight": true,
+        "encoder": true,
+        "oled": true,
+        "unicode": true
+    },
     "board": "QMK_PROTON_C",
     "layouts": {
         "LAYOUT": {
