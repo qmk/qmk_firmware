@@ -6,7 +6,8 @@
     "usb": {
         "vid": "0xFEED",
         "pid": "0x6060",
-        "device_version": "1.0.0"
+        "device_version": "1.0.0",
+        "no_startup_check": true
     },
     "matrix_pins": {
         "cols": ["B6", "B2", "B3", "B1", "F6", "F7", "F5"],
@@ -24,6 +25,13 @@
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",
+    "features": {
+        "bootmagic": false,
+        "mousekey": false,
+        "extrakey": true,
+        "nkro": true,
+        "oled": true
+    },
     "debounce": 0,
     "layouts": {
         "LAYOUT": {
