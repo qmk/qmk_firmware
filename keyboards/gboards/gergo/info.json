@@ -16,6 +16,13 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "features": {
+        "bootmagic": true,
+        "mousekey": false,
+        "extrakey": true,
+        "console": true,
+        "command": true
+    },
     "tapping": {
         "toggle": 1
     },
