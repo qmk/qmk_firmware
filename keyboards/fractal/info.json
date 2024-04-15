@@ -15,6 +15,12 @@
   "diode_direction": "COL2ROW",
   "processor": "atmega32u4",
   "bootloader": "caterina",
+  "features": {
+    "bootmagic": true,
+    "mousekey": true,
+    "extrakey": true,
+    "nkro": true
+  },
   "community_layouts": ["ortho_5x12"],
   "layouts": {
     "LAYOUT_ortho_5x12": {

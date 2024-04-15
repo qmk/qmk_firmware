@@ -50,5 +50,8 @@
             "solid_multisplash": true
         },
         "driver": "is31fl3731"
+    },
+    "features": {
+        "rgb_matrix": true
     }
 }

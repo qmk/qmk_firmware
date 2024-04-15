@@ -10,6 +10,14 @@
   },
   "processor": "atmega32u4",
   "bootloader": "halfkay",
+  "features": {
+    "bootmagic": false,
+    "mousekey": false,
+    "extrakey": true,
+    "nkro": true,
+    "unicode": true,
+    "swap_hands": true
+  },
   "debounce": 15,
   "tapping": {
     "toggle": 1
