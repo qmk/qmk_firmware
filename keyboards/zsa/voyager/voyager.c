@@ -53,7 +53,7 @@ void voyager_led_task(void) {
         STATUS_LED_3(true);
         wait_ms(100);
         STATUS_LED_3(false);
-        wait_ms(155);
+        wait_ms(55);
     }
 #endif
 }
@@ -64,6 +64,7 @@ static THD_FUNCTION(LEDThread, arg) {
     chRegSetThreadName("LEDThread");
     while (true) {
         voyager_led_task();
+        chThdSleepMilliseconds(100);
     }
 }
 
