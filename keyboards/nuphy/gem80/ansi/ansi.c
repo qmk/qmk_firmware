@@ -497,29 +497,29 @@ void housekeeping_task_kb(void) {
 
     sleep_handle();
 }
+via_config g_config;
 
-via_config g_config = {
-    .usb_sleep_toggle = true,
+void init_g_config(void) {
+    g_config.usb_sleep_toggle = true;
 
-    .caps_indication_type = CAPS_INDICATOR_SIDE,
-    .debounce_press_ms    = DEBOUNCE,
-    .debounce_release_ms  = DEBOUNCE,
-    .sleep_timeout        = 5,
-    .sleep_enable         = true,
+    g_config.caps_indication_type = CAPS_INDICATOR_SIDE;
+    g_config.debounce_press_ms    = DEBOUNCE;
+    g_config.debounce_release_ms  = DEBOUNCE;
+    g_config.sleep_timeout        = 5;
+    g_config.sleep_enable         = true;
 
-    .side_rgb   = 1,
-    .side_mode  = 0,
-    .side_speed = 2,
-    .side_brightness = 3,
-    .side_color = 0,
+    g_config.side_rgb        = 1;
+    g_config.side_mode       = 0;
+    g_config.side_speed      = 2;
+    g_config.side_brightness = 3;
+    g_config.side_color      = 0;
 
-    .logo_mode = 0,
-    .logo_brightness = 3,
-    .logo_speed = 2,
-    .logo_rgb = 1,
-    .logo_color = 0,
-};
-
+    g_config.logo_mode       = 0;
+    g_config.logo_brightness = 3;
+    g_config.logo_speed      = 2;
+    g_config.logo_rgb        = 1;
+    g_config.logo_color      = 0;
+}
 void via_load_values(void) {
     eeprom_read_block(&g_config, ((void *)VIA_EEPROM_CUSTOM_CONFIG_ADDR), sizeof(g_config));
 }
@@ -529,6 +529,7 @@ void via_save_values(void) {
 }
 
 void via_init_kb(void) {
+    init_g_config();
     // If the EEPROM has the magic, the data is good.
     // OK to load from EEPROM
     if (via_eeprom_is_valid()) {

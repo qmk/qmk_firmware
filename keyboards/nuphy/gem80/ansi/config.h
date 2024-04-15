@@ -51,6 +51,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SD1_RX_PAL_MODE 0
 
 #define EECONFIG_KB_DATA_SIZE 0 // sizeof user_config_t
+#define VIA_EEPROM_CUSTOM_CONFIG_SIZE 17 // sizeof via_config
 #define RGB_MATRIX_LED_COUNT 101 // 93  // RGB总灯数 (88轴灯+5侧灯)
 
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CUSTOM_position_mode

@@ -94,7 +94,7 @@ enum via_indicator_value {
 
 // struct to save configs
 typedef struct {
-    uint8_t been_initiated;
+    uint8_t              been_initiated;
     bool                 usb_sleep_toggle : 1;
     bool                 sleep_enable : 1;
     uint8_t              debounce_press_ms;
