@@ -233,8 +233,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_DOWN, KC_KP_4, KC_KP_5,  KC_KP_6,  KC_KP_MINUS, KC_KP_ENTER,
        KC_NO,KC_AMPR,KC_KP_1, KC_KP_2,  KC_KP_3,   KC_KP_PLUS, KC_NO,
                          KC_TRNS,KC_DOT,  KC_0,    KC_KP_EQUAL,  KC_NO,
-       BL_OFF, KC_TRNS,
-       BL_ON,
+       LM_OFF, KC_TRNS,
+       LM_ON,
        KC_NO, KC_NO, LT(HALFSYMB, KC_ENT)
 ),
 /* Keymap 6: Mirrored Symbol Layer

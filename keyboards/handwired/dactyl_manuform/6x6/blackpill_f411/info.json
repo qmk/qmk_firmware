@@ -12,5 +12,12 @@
     },
     "processor": "STM32F411",
     "bootloader": "stm32-dfu",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "console": true,
+        "command": true
+    },
     "board": "BLACKPILL_STM32_F411"
 }

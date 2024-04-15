@@ -8,6 +8,14 @@
         "pid": "0x7811",
         "device_version": "0.0.2"
     },
+    "features": {
+        "bootmagic": true,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgblight": true
+    },
     "ws2812": {
         "pin": "B1",
         "driver": "pwm"
