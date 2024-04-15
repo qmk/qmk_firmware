@@ -103,7 +103,6 @@ void light_level_control(uint8_t brighten) {
         } else
             g_config.side_brightness--;
     }
-    g_config.side_brightness = g_config.side_brightness;
     via_save_values();
 }
 
