@@ -14,6 +14,7 @@
         ]
     },
     "split": {
+        "enabled": true,
         "soft_serial_pin": "D2"
     },
     "rgblight": {
@@ -28,6 +29,11 @@
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",
+    "features": {
+        "bootmagic": false,
+        "mousekey": false,
+        "extrakey": false
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

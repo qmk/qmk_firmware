@@ -1,4 +1,9 @@
 {
+    "usb": {
+        "shared_endpoint": {
+            "keyboard": true
+        }
+    },
     "matrix_pins": {
         "cols": ["B12", "B13", "B14", "B15", "A8", "A10"],
         "rows": ["A15", "B3", "B4", "B5", "B7"]
@@ -7,5 +12,13 @@
     "ws2812": {
         "driver": "pwm"
     },
-    "development_board": "blackpill_f411"
+    "development_board": "blackpill_f411",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true,
+        "rgblight": true,
+        "audio": true
+    }
 }

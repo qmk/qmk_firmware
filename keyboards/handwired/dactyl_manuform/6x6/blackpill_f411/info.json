@@ -5,9 +5,17 @@
     },
     "diode_direction": "COL2ROW",
     "split": {
+        "enabled": true,
         "bootmagic": {
             "matrix": [7, 0]
         }
     },
-    "development_board": "blackpill_f411"
+    "development_board": "blackpill_f411",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "console": true,
+        "command": true
+    }
 }

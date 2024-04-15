@@ -16,12 +16,16 @@
             {"pin_a": "F5", "pin_b": "F4"}
         ]
     },
+    "build": {
+        "lto": true
+    },
     "features": {
         "encoder": true,
         "extrakey": true,
         "rgblight": true
     },
     "split": {
+        "enabled": true,
         "soft_serial_pin": "D2",
         "encoder": {
             "right": {

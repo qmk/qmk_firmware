@@ -43,6 +43,18 @@
         "tap_keycode_delay": 10
     },
     "development_board": "proton_c",
+    "features": {
+        "bootmagic": false,
+        "mousekey": false,
+        "extrakey": true,
+        "console": true,
+        "nkro": true,
+        "audio": true,
+        "rgblight": true,
+        "encoder": true,
+        "oled": true,
+        "unicode": true
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -11,6 +11,4 @@ BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 
-SPLIT_KEYBOARD = yes
-
 DEFAULT_FOLDER = keebio/levinson/rev2

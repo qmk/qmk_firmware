@@ -25,5 +25,11 @@
         "sleep": true
     },
     "development_board": "blackpill_f411",
+    "features": {
+        "bootmagic": false,
+        "mousekey": true,
+        "extrakey": true,
+        "rgb_matrix": true
+    },
     "debounce": 0
 }
