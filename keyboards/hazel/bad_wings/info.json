@@ -18,7 +18,10 @@
   "features": {
     "bootmagic": true,
     "deferred_exec": true,
-    "nkro": false
+    "nkro": false,
+    "pointing_device": true,
+    "tri_layer": true,
+    "caps_word": true
   },
   "community_layouts": ["split_3x5_3"],
   "layouts": {
