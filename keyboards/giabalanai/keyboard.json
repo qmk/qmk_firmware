@@ -36,7 +36,13 @@
         "bootmagic": false,
         "console": false,
         "mousekey": false,
-        "nkro": false
+        "nkro": false,
+        "command": false,
+        "backlight": false,
+        "rgb_matrix": false
+    },
+    "build": {
+        "lto": true
     },
     "encoder": {
         "rotary": []
