@@ -7,7 +7,8 @@
         "vid": "0x0007",
         "pid": "0x0007",
         "device_version": "0.0.1",
-        "force_nkro": true
+        "force_nkro": true,
+        "no_startup_check": true
     },
     "ws2812": {
         "pin": "E2"
@@ -64,6 +65,17 @@
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "features": {
+        "bootmagic": true,
+        "mousekey": false,
+        "extrakey": true,
+        "nkro": true,
+        "rgb_matrix": true,
+        "oled": true
+    },
+    "build": {
+        "lto": true
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
