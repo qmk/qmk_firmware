@@ -8,8 +8,7 @@
         "vid": "0x5644",
         "pid": "0x5458"
     },
-    "bootloader": "caterina",
-    "processor": "atmega32u4",
+    "development_board": "promicro",
     "features": {
         "bootmagic": true,
         "nkro": true
