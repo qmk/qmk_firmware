@@ -22,9 +22,7 @@
 #define AUDIO_PIN_ALT A13
 #undef AUDIO_VOICES
 
-#define AUDIO_DAC_SAMPLE_MAX 4095U
 
-#ifdef AUDIO_ENABLE
 #define DEFAULT_LAYER_SONGS { \
                               SONG(CAPS_LOCK_ON_SOUND), \
                               SONG(CAPS_LOCK_OFF_SOUND), \
@@ -33,4 +31,3 @@
                               SONG(SCROLL_LOCK_ON_SOUND), \
                               SONG(SCROLL_LOCK_OFF_SOUND) \
                             }
-#endif
