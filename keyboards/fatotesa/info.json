@@ -12,7 +12,6 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "encoder": true,
         "caps_word": true
     },
     "encoder": {
