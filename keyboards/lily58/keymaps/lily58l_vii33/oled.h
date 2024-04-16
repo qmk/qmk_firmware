@@ -1,6 +1,10 @@
 /*
+Header file for OLED code
+
 Copyright 2012 Jun Wako <wakojun@gmail.com>
 Copyright 2015 Jack Humbert
+Copyright 2020 Ben Roesner (keycapsss.com)
+Copyright 2022 Vii33 (https://github.com/vii33/mecha-keyboard-lily58l)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -16,16 +20,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+
 #pragma once
 
-#include "config_common.h"
+#include QMK_KEYBOARD_H
 
-#ifndef SOFT_SERIAL_PIN
-#define SOFT_SERIAL_PIN D2
-#define SERIAL_USE_MULTI_TRANSACTION
-#endif
-
-#define DIODE_DIRECTION COL2ROW
-
-// Use the lily version to get the Lily58 logo instead of the qmk logo
-#define OLED_FONT_H "lib/glcdfont_lily.c"
+void render_luna(int LUNA_X, int LUNA_Y);
+void render_logo(void);
+void render_right_oled(void);
