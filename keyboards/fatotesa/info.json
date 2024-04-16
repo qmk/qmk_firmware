@@ -12,9 +12,16 @@
         "mousekey": true,
         "nkro": true
     },
+    "encoder": {
+        "rotary": []
+    },
     "split": {
         "enabled": true,
         "soft_serial_pin": "D2",
+        "usb_detect": {
+            "enabled": true,
+            "timeout": 2500
+        },
         "matrix_pins": {
             "right": {
                 "cols": ["F4", "F5", "F6", "C6", "F7", "B1", "B3", "B2"],

@@ -18,9 +18,3 @@
 // #define NO_ACTION_LAYER
 // #define NO_ACTION_TAPPING
 // #define NO_ACTION_ONESHOT
-
-#define SPLIT_USB_DETECT
-#define SPLIT_USB_TIMEOUT 2500
-
-#define ENCODERS_PAD_A { }
-#define ENCODERS_PAD_B { }
