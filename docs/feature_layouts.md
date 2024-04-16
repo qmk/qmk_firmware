@@ -2,7 +2,8 @@
 
 This feature allows a keymap to be defined outside of the `keyboards/` directory, that can be compiled for keyboards with a common, community-established physical layout. 
 
-Example: You have a QMK powered, TKL ANSI physical layout keyboard with a keymap configured to your new experimental functional layout. Your friend/"partner in keyboard layout crime" also has a QMK powered, TKL ANSI physical layout keyboard but it's a different model to yours and therefore it would require your friend to redefine your keymap exclusively for their keyboard.
+#### Example
+You have a QMK powered, TKL ANSI physical layout keyboard with a keymap configured to your new experimental functional layout. Your friend/"partner in keyboard layout crime" also has a QMK powered, TKL ANSI physical layout keyboard but it's a different model to yours and therefore it would require your friend to redefine your keymap exclusively for their keyboard.
 In this example, although the keyboards both have an identical physical layout, this same keymap has been defined twice; once for each keyboard. By placing this experimental keymap under the respective `tkl_ansi` Community Layout directory, the keymap in question has been defined once and then can be compiled for every QMK compatible keyboard with `tkl_ansi` Community Layout support.
 
 [Miryoku](https://github.com/manna-harbour/miryoku) functional layout is a prominent utiliser of this feature.
@@ -10,7 +11,7 @@ In this example, although the keyboards both have an identical physical layout, 
 ?> Community Layouts also function in conjunction with the [Userspace](./feature_userspace.md) feature.
 
 ## Directory Structure
-The `layouts/` directory acts as the "master" directory for this feature.
+The `layouts/` directory acts as the parent directory for this feature.
 The `layouts/default/` and `layouts/community/` sub-directories are two examples of Community Layout "repositories":
 - `default/` contains all information regarding each Community Layout, which includes a default keymap named `default_<community_layout>`, and is used for reference.  
 - `community/` is where local (GitHub Repository) keymaps and community/user shared keymaps (e.g. Miryoku) for each Community Layout are located.
@@ -32,7 +33,7 @@ layouts/
 **<community_layout>**: As well as sub-directory name, this serves as Community Layout name  
 **<community_layout_keymap>**: As well as sub-directory name, this serves as keymap name of *<community_layout>*
 
-## Add Community Layout to keyboard
+## Add Community Layout support to keyboard
 
 For a keyboard to support one or more Community Layouts, the keyboard's `info.json`/`keyboard.json` file must include:
 1. A `"community_layouts"` array containing the name(s) of the respective Community Layout(s) the keyboard in question supports. Name(s) must be identical to *<community_layout>*.
