@@ -16,6 +16,9 @@
             {"pin_a": "F5", "pin_b": "F4"}
         ]
     },
+    "build": {
+        "lto": true
+    },
     "features": {
         "encoder": true,
         "extrakey": true,
