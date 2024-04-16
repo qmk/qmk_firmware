@@ -4,7 +4,7 @@
 *Pair of Dactyl ManuForm 4x6*
 
 Forked from the [Dactyl](/keyboards/handwired/dactyl), the *Dactyl ManuForm* is a parameterized, handwired, split bodied, tented, concave key-well design that incorporates the thumb cluster from the [ManuForm](https://geekhack.org/index.php?topic=46015.0).  
-The *Dactyl ManuForm* requires two development boards, one per half, which differs from the *Dactyl's* original implementation of a developemnt board and an I/O expander. 
+The *Dactyl ManuForm* requires two development boards, one per half, which differs from the *Dactyl's* original implementation of a development board and an I/O expander. 
 
 * Keyboard Maintainer: [Tom Short](https://github.com/tshort)
 * Hardware Supported: Pro Micro development board
