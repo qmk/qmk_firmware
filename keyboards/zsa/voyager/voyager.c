@@ -9,66 +9,72 @@ keyboard_config_t keyboard_config;
 bool mcp23018_leds[2] = {0, 0};
 bool is_launching     = false;
 
-#ifdef DYNAMIC_MACRO_ENABLE
-static bool is_dynamic_recording = false;
+#if defined(DEFERRED_EXEC_ENABLE)
+#    if defined(DYNAMIC_MACRO_ENABLE)
+deferred_token dynamic_macro_token = INVALID_DEFERRED_TOKEN;
+
+static uint32_t dynamic_macro_led(uint32_t trigger_time, void *cb_arg) {
+    static bool led_state = true;
+    ;
+    led_state = !led_state;
+    STATUS_LED_3(led_state);
+    return 100;
+}
 
 void dynamic_macro_record_start_user(void) {
-    is_dynamic_recording = true;
+    if (my_token == INVALID_DEFERRED_TOKEN) {
+        STATUS_LED_3(true);
+        dynamic_macro_token = defer_exec(100, dynamic_macro_led, NULL);
+    }
 }
 
 void dynamic_macro_record_end_user(int8_t direction) {
-    is_dynamic_recording = false;
-    STATUS_LED_3(false);
+    if (cancel_deferred_exec(dynamic_macro_token)) {
+        dynamic_macro_token = INVALID_DEFERRED_TOKEN;
+        STATUS_LED_3(false);
+    }
+}
+#    endif
+
+static uint32_t startup_exec(uint32_t trigger_time, void *cb_arg) {
+    static uint8_t startup_loop = 0;
+
+    switch (startup_loop++) {
+        case 0:
+            STATUS_LED_1(true);
+            STATUS_LED_2(false);
+            STATUS_LED_3(false);
+            STATUS_LED_4(false);
+            break;
+        case 1:
+            STATUS_LED_2(true);
+            break;
+        case 2:
+            STATUS_LED_3(true);
+            break;
+        case 3:
+            STATUS_LED_4(true);
+            break;
+        case 4:
+            STATUS_LED_1(false);
+            break;
+        case 5:
+            STATUS_LED_2(false);
+            break;
+        case 6:
+            STATUS_LED_3(false);
+            break;
+        case 7:
+            STATUS_LED_4(false);
+            break;
+        case 8:
+            is_launching = false;
+            layer_state_set_kb(layer_state);
+            return 0;
+    }
+    return 250;
 }
 #endif
-
-void voyager_led_task(void) {
-    if (is_launching) {
-        STATUS_LED_1(false);
-        STATUS_LED_2(false);
-        STATUS_LED_3(false);
-        STATUS_LED_4(false);
-
-        STATUS_LED_1(true);
-        wait_ms(250);
-        STATUS_LED_2(true);
-        wait_ms(250);
-        STATUS_LED_3(true);
-        wait_ms(250);
-        STATUS_LED_4(true);
-        wait_ms(250);
-        STATUS_LED_1(false);
-        wait_ms(250);
-        STATUS_LED_2(false);
-        wait_ms(250);
-        STATUS_LED_3(false);
-        wait_ms(250);
-        STATUS_LED_4(false);
-        wait_ms(250);
-        is_launching = false;
-        layer_state_set_kb(layer_state);
-    }
-#ifdef DYNAMIC_MACRO_ENABLE
-    else if (is_dynamic_recording) {
-        STATUS_LED_3(true);
-        wait_ms(100);
-        STATUS_LED_3(false);
-        wait_ms(55);
-    }
-#endif
-    else {
-        wait_ms(100);
-    }
-}
-
-static THD_WORKING_AREA(waLEDThread, 128);
-static THD_FUNCTION(LEDThread, arg) {
-    (void)arg;
-    chRegSetThreadName("LEDThread");
-    while (true) {
-        voyager_led_task();
-    }
-}
 
 void keyboard_pre_init_kb(void) {
     // Initialize Reset pins
@@ -84,7 +90,6 @@ void keyboard_pre_init_kb(void) {
     gpio_write_pin_low(B4);
     gpio_write_pin_low(B3);
 
-    chThdCreateStatic(waLEDThread, sizeof(waLEDThread), NORMALPRIO - 16, LEDThread, NULL);
     keyboard_pre_init_user();
 }
 
@@ -95,12 +100,12 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 
     uint8_t layer = get_highest_layer(state);
 
-    STATUS_LED_1(layer & (1<<0));
-    STATUS_LED_2(layer & (1<<1));
-    STATUS_LED_3(layer & (1<<2));
+    STATUS_LED_1(layer & (1 << 0));
+    STATUS_LED_2(layer & (1 << 1));
+    STATUS_LED_3(layer & (1 << 2));
 
 #    if !defined(CAPS_LOCK_STATUS)
-    STATUS_LED_4(layer & (1<<3));
+    STATUS_LED_4(layer & (1 << 3));
 #    endif
     return state;
 }
@@ -174,11 +179,6 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     {1, C8_13,  C7_13,  C9_13},
 };
 // clang-format on
-
-void keyboard_post_init_kb(void) {
-    rgb_matrix_enable_noeeprom();
-    keyboard_post_init_user();
-}
 #endif
 
 #ifdef SWAP_HANDS_ENABLE
@@ -259,7 +259,11 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void matrix_init_kb(void) {
+void keyboard_post_init_kb(void) {
+#ifdef RGB_MATRIX_ENABLE
+    rgb_matrix_enable_noeeprom();
+#endif
+
     keyboard_config.raw = eeconfig_read_kb();
 
     if (!keyboard_config.led_level && !keyboard_config.led_level_res) {
@@ -267,7 +271,10 @@ void matrix_init_kb(void) {
         keyboard_config.led_level_res = 0b11;
         eeconfig_update_kb(keyboard_config.raw);
     }
-    matrix_init_user();
+#if defined(DEFERRED_EXEC_ENABLE)
+    defer_exec(500, startup_exec, NULL);
+#endif
+    keyboard_post_init_user();
 }
 
 void eeconfig_init_kb(void) { // EEPROM is getting reset!
@@ -292,7 +299,6 @@ __attribute__((weak)) void bootloader_jump(void) {
 
     NVIC_SystemReset();
 }
-
 
 __attribute__((weak)) void mcu_reset(void) {
     gpio_set_pin_output_push_pull(A9);
