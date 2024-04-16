@@ -14,9 +14,6 @@
     },
     "split": {
         "enabled": true,
-        "transport": {
-            "protocol": "serial"
-        },
         "soft_serial_pin": "D2",
         "matrix_pins": {
             "right": {
