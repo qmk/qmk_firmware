@@ -10,7 +10,8 @@
         "extrakey": true,
         "console": false,
         "command": false,
-        "nkro": true
+        "nkro": true,
+        "rgb_matrix": true
     },
     "ws2812": {
         "pin": "B3"

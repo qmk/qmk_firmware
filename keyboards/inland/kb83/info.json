@@ -34,6 +34,15 @@
     },
     "processor": "WB32FQ95",
     "bootloader": "wb32-dfu",
+    "features": {
+        "bootmagic": true,
+        "mousekey": false,
+        "extrakey": true,
+        "nkro": true,
+        "rgb_matrix": true,
+        "dip_switch": true,
+        "encoder": true
+    },
     "matrix_pins": {
         "cols": ["C1", "C2", "C3", "A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "C4", "C5", "B0", "B1", "B2"],
         "rows": ["B15", "C6", "C7", "C8", "C9", "A8"]

@@ -1,6 +1,6 @@
 {
     "manufacturer": "IDOBAO",
-    "keyboard_name": "ID61",
+    "keyboard_name": "ID63",
     "maintainer": "vinorodrigues",
     "bootloader": "atmel-dfu",
     "diode_direction": "COL2ROW",
@@ -10,10 +10,11 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "rgb_matrix": true
     },
     "ws2812": {
-        "pin": "F0"
+        "pin": "B7"
     },
     "rgb_matrix": {
         "animations": {
@@ -57,23 +58,26 @@
             "solid_multisplash": true
         },
         "driver": "ws2812",
-        "max_brightness": 170,
+        "max_brightness": 180,
         "sleep": true
     },
     "matrix_pins": {
-        "cols": ["C7", "F6", "F5", "F4", "F1", "B7", "D5", "D1", "D2", "D3", "D4", "D0", "D6", "D7"],
-        "rows": ["B0", "B1", "B2", "B3", "F7"]
+        "cols": ["C7", "F6", "F5", "F4", "F1", "B3", "D0", "D1", "D2", "D3", "D4", "D5", "D6", "D7"],
+        "rows": ["B0", "B1", "B2", "E6", "F7"]
     },
     "processor": "atmega32u4",
-    "url": "https://idobao.net/search?type=product&q=id61*",
+    "url": "https://idobao.net/search?type=product&q=id63*",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x0061",
+        "pid": "0x0063",
         "vid": "0x6964"
     },
-    "community_layouts": ["60_ansi"],
+    "layout_aliases": {
+        "LAYOUT_63_ansi": "LAYOUT_60_ansi_arrow"
+    },
+    "community_layouts": ["60_ansi_arrow"],
     "layouts": {
-        "LAYOUT_60_ansi": {
+        "LAYOUT_60_ansi_arrow": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "1!", "matrix": [0, 1], "x": 1, "y": 0},
@@ -105,7 +109,7 @@
                 {"label": "]}", "matrix": [1, 12], "x": 12.5, "y": 1},
                 {"label": "\\|", "matrix": [1, 13], "x": 13.5, "y": 1, "w": 1.5},
 
-                {"label": "Caps Lock", "matrix": [2, 0], "x": 0, "y": 2, "w": 1.75},
+                {"label": "Caps Lock", "matrix": [2, 0], "w": 1.75, "x": 0, "y": 2},
                 {"label": "A", "matrix": [2, 1], "x": 1.75, "y": 2},
                 {"label": "S", "matrix": [2, 2], "x": 2.75, "y": 2},
                 {"label": "D", "matrix": [2, 3], "x": 3.75, "y": 2},
@@ -117,7 +121,7 @@
                 {"label": "L", "matrix": [2, 9], "x": 9.75, "y": 2},
                 {"label": ";:", "matrix": [2, 10], "x": 10.75, "y": 2},
                 {"label": "'\"", "matrix": [2, 11], "x": 11.75, "y": 2},
-                {"label": "Enter", "matrix": [2, 12], "x": 12.75, "y": 2, "w": 2.25},
+                {"label": "Enter", "matrix": [2, 13], "x": 12.75, "y": 2, "w": 2.25},
 
                 {"label": "Shift", "matrix": [3, 0], "x": 0, "y": 3, "w": 2.25},
                 {"label": "Z", "matrix": [3, 2], "x": 2.25, "y": 3},
@@ -129,17 +133,19 @@
                 {"label": "M", "matrix": [3, 8], "x": 8.25, "y": 3},
                 {"label": ",<", "matrix": [3, 9], "x": 9.25, "y": 3},
                 {"label": ".>", "matrix": [3, 10], "x": 10.25, "y": 3},
-                {"label": "/?", "matrix": [3, 11], "x": 11.25, "y": 3},
-                {"label": "Shift", "matrix": [3, 12], "x": 12.25, "y": 3, "w": 2.75},
+                {"label": "Shift", "matrix": [3, 11], "x": 11.25, "y": 3, "w": 1.75},
+                {"label": "\u2191", "matrix": [3, 12], "x": 13, "y": 3},
+                {"label": "/?", "matrix": [3, 13], "x": 14, "y": 3},
 
                 {"label": "Ctrl", "matrix": [4, 0], "x": 0, "y": 4, "w": 1.25},
                 {"label": "GUI", "matrix": [4, 1], "x": 1.25, "y": 4, "w": 1.25},
-                {"label": "Alt", "matrix": [4, 2], "x": 2.5, "y": 4, "w": 1.25},
+                {"label": "Alt", "matrix": [4, 3], "x": 2.5, "y": 4, "w": 1.25},
                 {"label": "Space", "matrix": [4, 6], "x": 3.75, "y": 4, "w": 6.25},
-                {"label": "Fn", "matrix": [4, 10], "x": 10, "y": 4, "w": 1.25},
-                {"label": "Alt", "matrix": [4, 11], "x": 11.25, "y": 4, "w": 1.25},
-                {"label": "Menu", "matrix": [4, 12], "x": 12.5, "y": 4, "w": 1.25},
-                {"label": "Ctrl", "matrix": [4, 13], "x": 13.75, "y": 4, "w": 1.25}
+                {"label": "Fn", "matrix": [4, 9], "x": 10, "y": 4},
+                {"label": "Menu", "matrix": [4, 10], "x": 11, "y": 4},
+                {"label": "\u2190", "matrix": [4, 11], "x": 12, "y": 4},
+                {"label": "\u2193", "matrix": [4, 12], "x": 13, "y": 4},
+                {"label": "\u2192", "matrix": [4, 13], "x": 14, "y": 4}
             ]
         }
     }
