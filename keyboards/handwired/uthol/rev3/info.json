@@ -39,5 +39,14 @@
     },
     "processor": "STM32F401",
     "bootloader": "stm32-dfu",
+    "features": {
+        "bootmagic": true,
+        "nkro": true,
+        "oled": true,
+        "wpm": true,
+        "extrakey": true,
+        "encoder": true,
+        "rgblight": true
+    },
     "board": "BLACKPILL_STM32_F401"
 }

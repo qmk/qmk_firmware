@@ -1,28 +1,33 @@
 {
-    "keyboard_name": "Handwired F401",
+    "keyboard_name": "Handwired F411",
     "manufacturer": "Riblee",
     "url": "",
     "maintainer": "riblee",
     "usb": {
         "vid": "0xFEED",
-        "pid": "0x002A",
-        "device_version": "0.0.1"
+        "pid": "0x002B",
+        "device_version": "0.0.1",
+        "shared_endpoint": {
+             "keyboard": true
+        }
     },
     "tapping": {
         "term": 175
     },
     "matrix_pins": {
-        "cols": ["B10", "B1", "B0", "B15", "A8", "B3", "B4", "B5", "B6", "B7", "B8", "B9"],
+        "cols": ["B10", "B1", "B0", "B15", "A8", "B3", "B4", "B5", "B14", "A0", "B8", "B9"],
         "rows": ["A6", "A5", "A4", "A3", "A2"]
     },
     "diode_direction": "COL2ROW",
-    "backlight": {
-        "pin": "A0",
-        "levels": 5
-    },
-    "processor": "STM32F401",
+    "processor": "STM32F411",
     "bootloader": "stm32-dfu",
-    "board": "BLACKPILL_STM32_F401",
+    "features": {
+        "bootmagic": false,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true
+    },
+    "board": "BLACKPILL_STM32_F411",
     "community_layouts": ["ortho_5x12"],
     "layouts": {
         "LAYOUT_ortho_5x12": {

@@ -15,6 +15,15 @@
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "halfkay",
+    "features": {
+        "bootmagic": false,
+        "mousekey": true,
+        "extrakey": true,
+        "console": true,
+        "command": true,
+        "ps2": true,
+        "ps2_mouse": true
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

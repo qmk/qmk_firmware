@@ -10,7 +10,8 @@
         "console": true,
         "extrakey": false,
         "mousekey": false,
-        "nkro": false
+        "nkro": false,
+        "bluetooth": true
     },
     "bluetooth": {
         "driver": "bluefruit_le"

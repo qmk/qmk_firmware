@@ -22,5 +22,8 @@
         "split_count": [10, 10]
     },
     "processor": "atmega32u4",
-    "bootloader": "atmel-dfu"
+    "bootloader": "atmel-dfu",
+    "build": {
+        "lto": true
+    }
 }

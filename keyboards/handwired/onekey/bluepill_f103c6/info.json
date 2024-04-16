@@ -15,5 +15,8 @@
     "apa102": {
         "data_pin": "A1",
         "clock_pin": "A2"
+    },
+    "build": {
+        "lto": true
     }
 }

@@ -8,5 +8,8 @@
     "ws2812": {
         "pin": "GP17",
         "driver": "vendor"
+    },
+    "features": {
+        "oled": true
     }
 }
