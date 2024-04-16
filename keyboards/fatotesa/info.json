@@ -10,7 +10,9 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "encoder": true,
+        "caps_word": true
     },
     "encoder": {
         "rotary": []
