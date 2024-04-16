@@ -1,6 +1,6 @@
 # fatotesa
 
-![fatotesa](https://fatotesa.se/assets/images/Fatotesa.png)
+![fatotesa](https://imgur.com/LbxQcU2)
 
 This is the QMK firmware for the [fat-o-tesa](https://github.com/stefangluszek/fat-o-tesa) keyboard.
 
