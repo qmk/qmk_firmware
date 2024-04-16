@@ -36,6 +36,7 @@
   "diode_direction": "COL2ROW",
   "processor": "atmega32u4",
   "bootloader": "atmel-dfu",
+  "pin_compatible": "elite_c",
   "features": {
     "bootmagic": false,
     "mousekey": true,
