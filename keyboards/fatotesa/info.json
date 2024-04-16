@@ -32,16 +32,6 @@
                 "rows": ["B6", "E6", "D4", "D7", "B4", "B5"]
             }
         },
-        "encoder": {
-            "right": {
-                "rotary": [
-                    {
-                        "pin_a": "D1",
-                        "pin_b": "D0"
-                    }
-                ]
-            }
-        },
         "bootmagic": {
             "matrix": [2, 1]
         }
