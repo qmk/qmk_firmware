@@ -48,6 +48,15 @@
             "backing_size": 2048
         }
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": false,
+        "extrakey": true,
+        "nkro": true,
+        "rgb_matrix": true,
+        "oled": true,
+        "wpm": true
+    },
     "community_layouts": ["tkl_ansi"],
     "layouts": {
         "LAYOUT_tkl_ansi": {

@@ -10,6 +10,12 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "features": {
+        "bootmagic": false,
+        "mousekey": true,
+        "extrakey": false,
+        "pointing_device": true
+    },
     "matrix_pins": {
         "direct": [
             [null]
