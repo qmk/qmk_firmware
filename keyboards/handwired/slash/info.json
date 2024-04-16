@@ -18,6 +18,12 @@
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "caterina",
+    "features": {
+        "bootmagic": false,
+        "mousekey": true,
+        "extrakey": true,
+        "bluetooth": true
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

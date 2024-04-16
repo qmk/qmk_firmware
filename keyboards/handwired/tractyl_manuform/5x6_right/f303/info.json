@@ -22,5 +22,8 @@
         ]
     },
     "processor": "STM32F303",
-    "bootloader": "stm32-dfu"
+    "bootloader": "stm32-dfu",
+    "features": {
+        "console": true
+    }
 }

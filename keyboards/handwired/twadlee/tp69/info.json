@@ -15,6 +15,13 @@
     "diode_direction": "COL2ROW",
     "processor": "MKL26Z64",
     "bootloader": "halfkay",
+    "features": {
+        "bootmagic": false,
+        "mousekey": true,
+        "extrakey": true,
+        "console": true,
+        "command": true
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
