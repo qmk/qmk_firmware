@@ -12,6 +12,10 @@ enum poly_flag {
     RGB_ON              = 1 << 7
 };
 
+enum overlay_flag {
+    DISPLAY_OVERLAYS      = 1 << 0,
+};
+
 bool test_flag(uint8_t flags, uint8_t f) ;
 
 uint8_t flag_on(uint8_t flags, uint8_t f) ;

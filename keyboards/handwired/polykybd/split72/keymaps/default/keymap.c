@@ -189,6 +189,7 @@ typedef struct _poly_sync_t {
     uint8_t lang;
     uint8_t contrast;
     uint8_t flags;
+    uint8_t overlay_flags;
     uint8_t unicode_mode;
 } poly_sync_t;
 static poly_sync_t l_state;
@@ -214,16 +215,21 @@ typedef struct _poly_sync_reply_t {
 } poly_sync_reply_t;
 
 
-
-
 static int32_t last_update = 0;
 
 #define NUM_SEGMENTS_PER_OVERLAY 15
 #define BYTES_PER_SEGMENT 24
 #define NUM_OVERLAYS 90
 #define NUM_VARIATIONS 4 // Normal(0), Ctrl(1), Shift(2), Alt(4)
-static bool use_overlay[NUM_OVERLAYS*NUM_VARIATIONS];
+static uint8_t use_overlay[NUM_OVERLAYS*NUM_VARIATIONS];
 static uint8_t overlays [NUM_OVERLAYS*NUM_VARIATIONS][72*40/8]; // ResX*ResY/PixelPerByte
+
+typedef struct _overlay_sync_t {
+    uint32_t crc32;
+    uint16_t adj_idx;
+    uint8_t segment;
+    uint8_t overlay[BYTES_PER_SEGMENT];
+} overlay_sync_t;
 
 
 bool display_wakeup(keyrecord_t* record);
@@ -367,6 +373,21 @@ void user_sync_layer_data_handler(uint8_t in_len, const void* in_data, uint8_t o
     }
 }
 
+void user_sync_overlay_data_handler(uint8_t in_len, const void* in_data, uint8_t out_len, void* out_data) {
+    if (in_len == sizeof(overlay_sync_t) && in_data != NULL && out_len == sizeof(poly_sync_reply_t) && out_data!= NULL) {
+        uint32_t crc32 = crc32_1byte(&((uint8_t *)in_data)[4], in_len-4, 0);
+        const overlay_sync_t* ov = ((const overlay_sync_t *)in_data);
+        if(crc32 == ov->crc32) {
+            memcpy(overlays[ov->adj_idx] + ov->segment*BYTES_PER_SEGMENT, ov->overlay, BYTES_PER_SEGMENT);
+            if(ov->segment==NUM_SEGMENTS_PER_OVERLAY-1) {
+                use_overlay[ov->adj_idx] = true;
+                request_disp_refresh();
+            }
+            ((poly_sync_reply_t*)out_data)->ack = SYNC_ACK;
+        }
+    }
+}
+
 //void oled_on_off(bool on);
 
 const char* tid_to_str(int8_t tid) {
@@ -499,7 +520,8 @@ void sync_and_refresh_displays(void) {
             }
         }
 
-        if(has_flag_changed(l_state.flags, g_state.flags, DBG_ON)) {
+        if( has_flag_changed(l_state.flags, g_state.flags, DBG_ON) ||
+            has_flag_changed(l_state.overlay_flags, g_state.overlay_flags, DISPLAY_OVERLAYS)) {
             request_disp_refresh();
         }
 
@@ -1441,6 +1463,7 @@ void update_displays(enum refresh_mode mode) {
     const led_t state = l_layer.led_state;
     const uint8_t mods = l_layer.mods;
     const bool capital_case = ((mods & MOD_MASK_SHIFT) != 0) || state.caps_lock;
+    const bool display_overlays = test_flag(l_state.overlay_flags, DISPLAY_OVERLAYS);
     //the left side has an offset of 0, the right side an offset of MATRIX_ROWS_PER_SIDE
     const uint8_t offset = is_left_side() ? 0 : MATRIX_ROWS_PER_SIDE;
     uint8_t start_row = 0;
@@ -1486,7 +1509,11 @@ void update_displays(enum refresh_mode mode) {
                         } else {
                             kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 28, 23, text);
                         }
-                        if(!copy_overlay_to_buffer(keycode, mods)) {
+                        if(display_overlays) {
+                            if(!copy_overlay_to_buffer(keycode, mods)) {
+                                text = keycode_to_disp_overlay(keycode, state); //fallback to hardcoded
+                            }
+                        } else {
                             text = keycode_to_disp_overlay(keycode, state);
                         }
                         if(text!=NULL) {
@@ -1872,6 +1899,8 @@ void keyboard_post_init_user(void) {
     transaction_register_rpc(USER_SYNC_LAYER_DATA,      user_sync_layer_data_handler);
     transaction_register_rpc(USER_SYNC_LASTKEY_DATA,    user_sync_lastkey_data_handler);
     transaction_register_rpc(USER_SYNC_LATIN_EX_DATA,   user_sync_latin_ex_data_handler);
+    transaction_register_rpc(USER_SYNC_OVERLAY_DATA,    user_sync_overlay_data_handler);
+
 }
 
 void keyboard_pre_init_user(void) {
@@ -2169,28 +2198,39 @@ void fill_overlay_buffer(uint8_t keycode, uint8_t mods, uint8_t segment_0_to_14,
     }
     idx = adjust_overlay_idx_to_mod(idx, mods);
     memcpy(overlays[idx] + segment_0_to_14*BYTES_PER_SEGMENT, buffer_24bytes, BYTES_PER_SEGMENT);
+
+    //send buffer to bridge
+    {
+        overlay_sync_t transfer;
+        transfer.segment = segment_0_to_14;
+        transfer.adj_idx = idx;
+        memcpy(&transfer.overlay, buffer_24bytes, BYTES_PER_SEGMENT);
+        send_to_bridge(USER_SYNC_OVERLAY_DATA, (void*)&transfer, sizeof(transfer), 10);
+    }
+
     byte_counter += BYTES_PER_SEGMENT;
     if(segment_0_to_14==NUM_SEGMENTS_PER_OVERLAY-1) {
         use_overlay[idx] = true;
         uprintf("Received overlay for keycode 0x%x (modifiers: 0x%x): %d bytes, index %d.\n", keycode, mods, byte_counter, idx);
         byte_counter = 0;
+        send_to_bridge(USER_SYNC_OVERLAY_DATA, (void*)&g_latin, sizeof(g_latin), 10);
     }
 }
 
-void disable_overlays(void) {
+void clear_overlays(void) {
     memset(&use_overlay, 0, sizeof(use_overlay));
 }
 
 void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
     const char * name = "P0.PolyKybd Split72";
 
-    if(debug_enable && length < 33)
-    {
-        //char cmdstring[33];
-        //memcpy(cmdstring, data, length);
-        //cmdstring[length] = 0; // Make sure string ends with 0
-        dprintf("DEBUG: custom hid or via command, length=%d cmd=%c\n", length, data[1]);
-    }
+    // if(debug_enable && length < 33)
+    // {
+    //     //char cmdstring[33];
+    //     //memcpy(cmdstring, data, length);
+    //     //cmdstring[length] = 0; // Make sure string ends with 0
+    //     dprintf("DEBUG: custom hid or via command, length=%d cmd=%c\n", length, data[1]);
+    // }
 
     if(length>1 && (data[0] == /*via_command_id::*/id_custom_save || data[0] == 'P')) {
         switch(data[1]) {
@@ -2249,6 +2289,7 @@ void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
             case '3': //change language
                 if(data[3]< NUM_LANG) {
                     l_state.lang = data[3];
+                    uprintf("Setting lang to %d.\n", data[3]);
                     update_performed();
                     memcpy(data, "P3.", 3);
                 } else {
@@ -2275,11 +2316,16 @@ void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
                 }
                 break;
             case '5': //disable overlays
-                disable_overlays();
+                clear_overlays();
                 update_performed();
                 request_disp_refresh();
                 memcpy(data, "P5.", 3);
                 uprint("Overlays cleared.\n");
+                break;
+            case '6': //toggle overlay visibility
+                l_state.overlay_flags = set_flag(l_state.overlay_flags, DISPLAY_OVERLAYS, data[3]!=0);
+                uprintf("Overlays visible: %d.\n", data[3]);
+                memcpy(data, "P6.", 3);
                 break;
             default:
                 break;
