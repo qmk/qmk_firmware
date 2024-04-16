@@ -15,7 +15,9 @@
         "caps_word": true
     },
     "encoder": {
-        "rotary": []
+        "rotary": [
+            { "pin_a": "D1", "pin_b": "D0" }
+        ]
     },
     "split": {
         "enabled": true,
