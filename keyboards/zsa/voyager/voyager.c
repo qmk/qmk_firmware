@@ -15,9 +15,10 @@ deferred_token dynamic_macro_token = INVALID_DEFERRED_TOKEN;
 
 static uint32_t dynamic_macro_led(uint32_t trigger_time, void *cb_arg) {
     static bool led_state = true;
-    ;
-    led_state = !led_state;
-    STATUS_LED_3(led_state);
+    if (!is_launching) {
+        led_state = !led_state;
+        STATUS_LED_3(led_state);
+    }
     return 100;
 }
 
@@ -272,6 +273,7 @@ void keyboard_post_init_kb(void) {
         eeconfig_update_kb(keyboard_config.raw);
     }
 #if defined(DEFERRED_EXEC_ENABLE)
+    is_launching = true;
     defer_exec(500, startup_exec, NULL);
 #endif
     keyboard_post_init_user();
