@@ -33,7 +33,7 @@
             }
         },
         "bootmagic": {
-            "matrix": [2, 1]
+            "matrix": [4, 1]
         }
     },
     "matrix_pins": {
