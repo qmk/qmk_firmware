@@ -16,7 +16,7 @@
     "features": {
         "bootmagic": true,
         "caps_word": true,
-        "defered_exec": true,
+        "deferred_exec": true,
         "mousekey": true,
         "extrakey": true,
         "nkro": true,
