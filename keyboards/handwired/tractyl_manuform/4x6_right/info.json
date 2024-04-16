@@ -29,6 +29,13 @@
     },
     "processor": "at90usb1286",
     "bootloader": "atmel-dfu",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true,
+        "pointing_device": true
+    },
     "layouts": {
         "LAYOUT_4x6_right": {
             "layout": [

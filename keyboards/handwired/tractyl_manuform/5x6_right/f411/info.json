@@ -26,5 +26,8 @@
     },
     "processor": "STM32F411",
     "bootloader": "stm32-dfu",
+    "features": {
+        "console": true
+    },
     "board": "BLACKPILL_STM32_F411"
 }

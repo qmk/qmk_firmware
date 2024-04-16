@@ -10,7 +10,8 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "rgb_matrix": true
     },
     "rgb_matrix": {
         "center_point": [40, 30],

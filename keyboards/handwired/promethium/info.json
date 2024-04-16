@@ -16,6 +16,18 @@
   },
   "processor": "atmega32u4",
   "bootloader": "caterina",
+  "features": {
+    "bootmagic": false,
+    "mousekey": false,
+    "extrakey": true,
+    "nkro": true,
+    "ps2_mouse": true,
+    "ps2": true,
+    "bluetooth": true
+  },
+  "build": {
+    "lto": true
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [
