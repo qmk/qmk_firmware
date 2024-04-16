@@ -63,7 +63,7 @@
                 {"matrix": [6, 4], "label":"end", "x":13.25, "y":0},
                 {"matrix": [6, 5], "label":"ins", "x":14.25, "y":0},
                 {"matrix": [6, 6], "label":"del", "x":15.25, "y":0},
-                {"matrix": [6, 7], "label":"<i class='fa fa-repeat'></i>", "x":16.5, "y":0, "encoder": 0},
+                {"matrix": [6, 7], "label":"enc", "x":16.5, "y":0, "encoder": 0},
 
 
                 {"matrix": [1, 0], "label":"`", "x":0, "y":1},
