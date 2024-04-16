@@ -16,7 +16,7 @@
     },
     "encoder": {
         "rotary": [
-            { "pin_a": "D1", "pin_b": "D0" }
+            { "pin_a": "D1", "pin_b": "D0" , "resolution": 2}
         ]
     },
     "split": {
