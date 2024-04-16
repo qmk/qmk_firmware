@@ -56,6 +56,9 @@ void voyager_led_task(void) {
         wait_ms(55);
     }
 #endif
+    else {
+        wait_ms(100);
+    }
 }
 
 static THD_WORKING_AREA(waLEDThread, 128);
@@ -64,7 +67,6 @@ static THD_FUNCTION(LEDThread, arg) {
     chRegSetThreadName("LEDThread");
     while (true) {
         voyager_led_task();
-        chThdSleepMilliseconds(100);
     }
 }
 
