@@ -24,6 +24,3 @@
 
 #define ENCODERS_PAD_A { }
 #define ENCODERS_PAD_B { }
-
-#define BOOTMAGIC_ROW 1
-#define BOOTMAGIC_COLUMN 0
