@@ -4,6 +4,7 @@
 #include "split72/split72.h"
 #include "split72/keymaps/default/uni.h"
 
+#include "base/com.h"
 #include "base/disp_array.h"
 #include "base/helpers.h"
 #include "base/spi_helper.h"
@@ -44,7 +45,7 @@
 #define FADE_OUT_TIME 60000
 //20 min
 //#define TURN_OFF_TIME 1200000
-#define TURN_OFF_TIME 600000
+#define TURN_OFF_TIME 240000
 
 /*[[[cog
 import cog
@@ -102,6 +103,7 @@ enum my_keycodes {
     KC_DEADKEY,
     KC_TOGMODS,
     KC_TOGTEXT,
+    KC_RGB_TOG,
     /*[[[cog
         for lang in languages:
             if lang == "LANG_EN":
@@ -172,58 +174,47 @@ typedef struct _poly_eeconf_t {
 
 static_assert(sizeof(poly_eeconf_t) == EECONFIG_USER_DATA_SIZE, "Mismatch in keyboard EECONFIG stored data");
 
-enum flags {
-    STATUS_DISP_ON      = 1 << 0,
-    IDLE_TRANSITION     = 1 << 1,
-    DISP_IDLE           = 1 << 2,
-    DEAD_KEY_ON_WAKEUP  = 1 << 3,
-    DBG_ON              = 1 << 4,
-    MODS_AS_TEXT        = 1 << 5,
-    MORE_TEXT           = 1 << 6
-    };
+typedef struct _poly_layer_t {
+    uint32_t crc32;
+    layer_state_t layer;
+    layer_state_t def_layer;
+    led_t led_state;
+    uint8_t mods;
+} poly_layer_t;
+static poly_layer_t l_layer;
+static poly_layer_t g_layer;
 
 typedef struct _poly_sync_t {
+    uint32_t crc32;
     uint8_t lang;
     uint8_t contrast;
     uint8_t flags;
-    layer_state_t default_ls;
-    uint16_t last_latin_kc;
     uint8_t unicode_mode;
-    // crc32 needs to be at the end. the check
-    // is generated on the packed binary
-    // representation of all the elements before
-    // it in the struct.
-    uint32_t crc32;
-    // don't add any elements here
 } poly_sync_t;
+static poly_sync_t l_state;
+static poly_sync_t g_state;
+
+typedef struct _poly_last_t {
+    uint32_t crc32;
+    uint16_t latin_kc;
+} poly_last_t;
+static poly_last_t l_last;
+static poly_last_t g_last;
 
 typedef struct _latin_sync_t {
-    uint8_t ex[26];
-    // crc32 needs to be at the end. the check
-    // is generated on the packed binary
-    // representation of all the elements before
-    // it in the struct.
     uint32_t crc32;
-    // don't add any elements here
+    uint8_t ex[26];
 } latin_sync_t;
-static latin_sync_t g_lat;
 
-static_assert(sizeof(poly_sync_t)!=sizeof(latin_sync_t), "We use the size to distinguish the messages so they have to have different sizes");
+static latin_sync_t g_latin;
 
 #define SYNC_ACK 0b11001010
 typedef struct _poly_sync_reply_t {
     uint8_t ack;
 } poly_sync_reply_t;
 
-typedef struct _poly_state_t {
-    led_t led_state;
-    uint8_t mod_state;
-    layer_state_t layer_state;
-    poly_sync_t s;
-} poly_state_t;
 
-static poly_state_t g_state;
-static poly_sync_t g_local;
+
 
 static int32_t last_update = 0;
 
@@ -245,10 +236,10 @@ void poly_suspend(void);
 
 void save_user_eeconf(void) {
     poly_eeconf_t ee;
-    ee.lang = g_local.lang;
-    ee.brightness = ~g_local.contrast;
+    ee.lang = l_state.lang;
+    ee.brightness = ~l_state.contrast;
     ee.unused = 0;
-    memcpy(ee.latin_ex, g_lat.ex, sizeof(g_lat.ex));
+    memcpy(ee.latin_ex, g_latin.ex, sizeof(g_latin.ex));
     eeconfig_update_user_datablock(&ee);
 }
 
@@ -263,21 +254,21 @@ poly_eeconf_t load_user_eeconf(void) {
 }
 
 void inc_brightness(void) {
-    if (g_local.contrast < FULL_BRIGHT) {
-        g_local.contrast += BRIGHT_STEP;
+    if (l_state.contrast < FULL_BRIGHT) {
+        l_state.contrast += BRIGHT_STEP;
     }
-    if (g_local.contrast > FULL_BRIGHT) {
-        g_local.contrast = FULL_BRIGHT;
+    if (l_state.contrast > FULL_BRIGHT) {
+        l_state.contrast = FULL_BRIGHT;
     }
 
     save_user_eeconf();
 }
 
 void dec_brightness(void) {
-    if (g_local.contrast > (MIN_BRIGHT+BRIGHT_STEP)) {
-        g_local.contrast -= BRIGHT_STEP;
+    if (l_state.contrast > (MIN_BRIGHT+BRIGHT_STEP)) {
+        l_state.contrast -= BRIGHT_STEP;
     } else {
-        g_local.contrast = MIN_BRIGHT;
+        l_state.contrast = MIN_BRIGHT;
     }
 
     save_user_eeconf();
@@ -318,132 +309,228 @@ void request_disp_refresh(void) {
     // g_refresh = START_FIRST_HALF;
 }
 
+//
+// __/\\\\\\\\\\\\______________________________________________________________/\\\\\\\\\\\_____________________________________________
+//  _\/\\\////////\\\__________________________________________________________/\\\/////////\\\___________________________________________
+//   _\/\\\______\//\\\____________________/\\\________________________________\//\\\______\///_____/\\\__/\\\_____________________________
+//    _\/\\\_______\/\\\__/\\\\\\\\\_____/\\\\\\\\\\\__/\\\\\\\\\________________\////\\\___________\//\\\/\\\___/\\/\\\\\\_______/\\\\\\\\_
+//     _\/\\\_______\/\\\_\////////\\\___\////\\\////__\////////\\\__________________\////\\\_________\//\\\\\___\/\\\////\\\____/\\\//////__
+//      _\/\\\_______\/\\\___/\\\\\\\\\\_____\/\\\________/\\\\\\\\\\____________________\////\\\_______\//\\\____\/\\\__\//\\\__/\\\_________
+//       _\/\\\_______/\\\___/\\\/////\\\_____\/\\\_/\\___/\\\/////\\\_____________/\\\______\//\\\___/\\_/\\\_____\/\\\___\/\\\_\//\\\________
+//        _\/\\\\\\\\\\\\/___\//\\\\\\\\/\\____\//\\\\\___\//\\\\\\\\/\\___________\///\\\\\\\\\\\/___\//\\\\/______\/\\\___\/\\\__\///\\\\\\\\_
+//         _\////////////______\////////\//______\/////_____\////////\//______________\///////////______\////________\///____\///_____\////////__
+//
+
 void user_sync_poly_data_handler(uint8_t in_len, const void* in_data, uint8_t out_len, void* out_data) {
     if (in_len == sizeof(poly_sync_t) && in_data != NULL && out_len == sizeof(poly_sync_reply_t) && out_data!= NULL) {
-        uint32_t crc32 = crc32_1byte(in_data, sizeof(g_local)-sizeof(g_local.crc32), 0);
+        uint32_t crc32 = crc32_1byte(&((uint8_t *)in_data)[4], in_len-4, 0);
         if(crc32 == ((const poly_sync_t *)in_data)->crc32) {
-            memcpy(&g_local, in_data, sizeof(poly_sync_t));
+            memcpy(&l_state, in_data, sizeof(poly_sync_t));
             ((poly_sync_reply_t*)out_data)->ack = SYNC_ACK;
+            //request_disp_refresh();
         }
-    } else if (in_len == sizeof(g_lat) && in_data != NULL && out_len == sizeof(poly_sync_reply_t) && out_data!= NULL) {
-        uint32_t crc32 = crc32_1byte(in_data, sizeof(g_lat)-sizeof(g_lat.crc32), 0);
+    }
+}
+
+void user_sync_latin_ex_data_handler(uint8_t in_len, const void* in_data, uint8_t out_len, void* out_data) {
+    if (in_len == sizeof(latin_sync_t) && in_data != NULL && out_len == sizeof(poly_sync_reply_t) && out_data!= NULL) {
+        uint32_t crc32 = crc32_1byte(&((uint8_t *)in_data)[4], in_len-4, 0);
         if(crc32 == ((const latin_sync_t *)in_data)->crc32) {
-            memcpy(&g_lat, in_data, sizeof(latin_sync_t));
+            memcpy(&g_latin, in_data, sizeof(latin_sync_t));
+            ((poly_sync_reply_t*)out_data)->ack = SYNC_ACK;
+            save_user_eeconf();
+            request_disp_refresh();
+        }
+    }
+}
+
+void user_sync_lastkey_data_handler(uint8_t in_len, const void* in_data, uint8_t out_len, void* out_data) {
+    if (in_len == sizeof(poly_last_t) && in_data != NULL && out_len == sizeof(poly_sync_reply_t) && out_data!= NULL) {
+        uint32_t crc32 = crc32_1byte(&((uint8_t *)in_data)[4], in_len-4, 0);
+        if(crc32 == ((const poly_last_t *)in_data)->crc32) {
+            memcpy(&l_last, in_data, sizeof(poly_last_t));
+            memcpy(&g_last, in_data, sizeof(poly_last_t));
             ((poly_sync_reply_t*)out_data)->ack = SYNC_ACK;
             request_disp_refresh();
         }
     }
 }
 
-void oled_on_off(bool on);
+void user_sync_layer_data_handler(uint8_t in_len, const void* in_data, uint8_t out_len, void* out_data) {
+    if (in_len == sizeof(poly_layer_t) && in_data != NULL && out_len == sizeof(poly_sync_reply_t) && out_data!= NULL) {
+        uint32_t crc32 = crc32_1byte(&((uint8_t *)in_data)[4], in_len-4, 0);
+        if(crc32 == ((const poly_layer_t *)in_data)->crc32) {
+            memcpy(&l_layer, in_data, sizeof(poly_layer_t));
+            ((poly_sync_reply_t*)out_data)->ack = SYNC_ACK;
+            //request_disp_refresh();
+        }
+    }
+}
 
-void send_to_bridge(void* buffer_with4crc_bytes, const uint8_t num_bytes, const uint8_t retries) {
+//void oled_on_off(bool on);
+
+const char* tid_to_str(int8_t tid) {
+    switch (tid)
+    {
+    case USER_SYNC_LAYER_DATA: return "UserLayer";
+    case USER_SYNC_POLY_DATA:  return "UserPoly";
+    case USER_SYNC_LASTKEY_DATA: return "UserLastKey";
+    case USER_SYNC_LATIN_EX_DATA: return "UserLatinEx";
+
+    default: return "";
+    }
+}
+
+bool send_to_bridge(int8_t tid, void* buffer_with4crc_bytes, const uint8_t num_bytes, const uint8_t retries) {
     poly_sync_reply_t reply;
     bool sync_success = false;
     uint8_t retry = 0;
-    *(&((uint32_t *)buffer_with4crc_bytes)[num_bytes/4-1]) = crc32_1byte(buffer_with4crc_bytes, num_bytes-4, 0);
+    *((uint32_t *)buffer_with4crc_bytes) = crc32_1byte(&((uint8_t *)buffer_with4crc_bytes)[4], num_bytes-4, 0);
     for(; retry<retries; ++retry) {
-        sync_success = transaction_rpc_exec(USER_SYNC_POLY_DATA, num_bytes, buffer_with4crc_bytes, sizeof(poly_sync_reply_t), &reply);
+        sync_success = transaction_rpc_exec(tid, num_bytes, buffer_with4crc_bytes, sizeof(poly_sync_reply_t), &reply);
         if(sync_success && reply.ack == SYNC_ACK) {
             break;
         }
         sync_success = false;
-        printf("Bridge sync retry %d (success: %d, ack: %d, bytes: %d)\n", retry, sync_success, reply.ack == SYNC_ACK, num_bytes);
+        if(debug_enable) {
+            uprintf("Bridge sync retry %d (tid: %s, success: %d, ack: %d, bytes: %d)\n", retry, tid_to_str(tid), sync_success, reply.ack == SYNC_ACK, num_bytes);
+        }
     }
-    if(retry>0) {
+    if(debug_enable && retry>0) {
         if(sync_success)
-            printf("Success on retry %d (success: %d, ack: %d, bytes: %d)\n", retry, sync_success, reply.ack == SYNC_ACK, num_bytes);
+            uprintf("Success on retry %d (tid: %s, success: %d, ack: %d, bytes: %d)\n", retry, tid_to_str(tid), sync_success, reply.ack == SYNC_ACK, num_bytes);
         else
-            printf("Failed to sync %d bytes!\n", num_bytes);
+            uprintf("Failed to sync %d bytes for transaction %s!\n", num_bytes, tid_to_str(tid));
     }
+
+    return sync_success;
 }
 
+bool differ(const void* b1, const void* b2, uint8_t byte_count) {
+    return memcmp(&((const uint8_t *)b1)[4], &((const uint8_t *)b2)[4], byte_count - 4) != 0; // start after crc32
+}
+
+#define BYTE_TO_BINARY_PATTERN "|%s%s%s%s%s%s%s%s"
+#define BYTE_TO_BINARY(byte)  \
+  ((byte) & 0x80 ? " RGB |" : " --- |"), \
+  ((byte) & 0x40 ? "Txt2 |" : " --- |"), \
+  ((byte) & 0x20 ? "Txt1 |" : " --- |"), \
+  ((byte) & 0x10 ? " Dbg |" : " --- |"), \
+  ((byte) & 0x08 ? "DeadK|" : " --- |"), \
+  ((byte) & 0x04 ? "Idle |" : " --- |"), \
+  ((byte) & 0x02 ? "Trans|" : " --- |"), \
+  ((byte) & 0x01 ? "StatD|" : " --- |")
+
+static uint8_t flags = 0;
 void sync_and_refresh_displays(void) {
-    bool sync_success = true;
+    bool layer_diff = false;
+    bool state_diff = false;
 
     if (is_usb_host_side()) {
-        if(debug_enable && (g_local.flags & DBG_ON) == 0) {
-            g_local.flags |= DBG_ON;
-
-            printf("DEBUG: enable=%u, keyboard=%u, matrix=%u\n", debug_enable, debug_keyboard, debug_matrix);
-            print(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE "\n");
-        } else if(!debug_enable && (g_local.flags & DBG_ON) != 0) {
-            g_local.flags &= ~((uint8_t)DBG_ON);
-
-            printf("DEBUG: enable=%u, keyboard=%u, matrix=%u\n", debug_enable, debug_keyboard, debug_matrix);
-            print(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE "\n");
-        }
-        const bool back_from_idle_transition = (g_local.flags & IDLE_TRANSITION) == 0 && (g_state.s.flags & IDLE_TRANSITION) != 0;
+        const bool back_from_idle_transition = flag_turned_on(l_state.flags, g_state.flags, IDLE_TRANSITION);
         if (back_from_idle_transition) {
             poly_eeconf_t ee   = load_user_eeconf();
-            g_local.contrast = ee.brightness;
+            l_state.contrast = ee.brightness;
         }
 
-        //master syncs data
-        if ( memcmp(&g_local, &g_state.s, sizeof(poly_sync_t))!=0 ) {
-            send_to_bridge((void *)&g_local, sizeof(g_local), 10);
+        if(flags!=l_state.flags) {
+            uprintf("Poly State Flags: 0x%02x " BYTE_TO_BINARY_PATTERN "\n", l_state.flags, BYTE_TO_BINARY(l_state.flags));
+            flags=l_state.flags;
         }
+
+        l_state.flags = set_flag(l_state.flags, DBG_ON, debug_enable);
+        state_diff = differ(&l_state, &g_state, sizeof(poly_sync_t));
+        if ( state_diff ) {
+            send_to_bridge(USER_SYNC_POLY_DATA, (void *)&l_state, sizeof(l_state), 10);
+        }
+
+        l_layer.led_state = host_keyboard_led_state();
+        l_layer.mods = get_mods();
+        layer_diff = differ(&l_layer, &g_layer, sizeof(poly_layer_t));
+        if ( layer_diff ) {
+            send_to_bridge(USER_SYNC_LAYER_DATA, (void *)&l_layer, sizeof(l_layer), 10);
+        }
+        if ( differ(&l_last, &g_last, sizeof(poly_last_t)) ) {
+             send_to_bridge(USER_SYNC_LASTKEY_DATA, (void *)&l_last, sizeof(l_last), 5);
+             memcpy(&g_last, &l_last, sizeof(l_last));
+        }
+    } else {
+        layer_diff = differ(&l_layer, &g_layer, sizeof(poly_layer_t));
+        state_diff = differ(&l_state, &g_state, sizeof(poly_sync_t));
     }
-    if(sync_success || (!is_usb_host_side() && g_refresh == DONE_ALL)) {
-        const bool status_disp_turned_off    = (g_local.flags & STATUS_DISP_ON) == 0 && (g_state.s.flags & DISP_IDLE) != 0;
-        const bool idle_changed              = (g_local.flags & DISP_IDLE) != (g_state.s.flags & DISP_IDLE);
-        const bool in_idle_mode              = (g_local.flags & DISP_IDLE) != 0;
-        const bool displays_turned_on        = (g_state.s.contrast <= DISP_OFF && g_local.contrast > DISP_OFF);
-        const bool dbg_changed               = (g_local.flags & DBG_ON) != (g_state.s.flags & DBG_ON);
+
+    const bool in_idle_mode = (l_state.flags & DISP_IDLE) != 0;
+
+    if(state_diff) {
+        const bool idle_changed                 = has_flag_changed(l_state.flags, g_state.flags, DISP_IDLE);
+        const bool contrast_changed             = g_state.contrast != l_state.contrast;
+        const bool status_disp_changed          = has_flag_changed(l_state.flags, g_state.flags, STATUS_DISP_ON);
+        const bool status_disp_on               = test_flag(l_state.flags, STATUS_DISP_ON);
+
         if(idle_changed) {
             if(in_idle_mode) {
                 oled_set_brightness(0);
-            } else {
-                oled_set_brightness(OLED_BRIGHTNESS);
             }
         }
 
-        const led_t led_state = host_keyboard_led_state();
-        const uint8_t mod_state = get_mods();
-
-        if (        led_state.raw != g_state.led_state.raw ||
-                    mod_state != g_state.mod_state ||
-                    layer_state != g_state.layer_state) {
-            // memcmp(&g_local, &g_state.s, sizeof(poly_sync_t))!=0 //no!
-
-            g_state.led_state   = led_state;
-            g_state.mod_state   = mod_state;
-            g_state.layer_state = layer_state;
-
-            request_disp_refresh();
-        } else if ( g_state.s.lang != g_local.lang ||
-                    g_state.s.default_ls != g_local.default_ls ||
-                    g_state.s.last_latin_kc != g_local.last_latin_kc ||
-                    g_state.s.unicode_mode != g_local.unicode_mode) {
-            request_disp_refresh();
-        }
-
-        //split the update cycle
-        if (g_refresh == START_FIRST_HALF) {
-            update_displays(START_FIRST_HALF);
-            g_refresh = START_SECOND_HALF;
-        }
-        else if (g_refresh == START_SECOND_HALF || g_refresh == ALL_AT_ONCE) {
-            update_displays(g_refresh);
-            g_refresh = DONE_ALL;
-        } else if (g_state.s.contrast != g_local.contrast || idle_changed) {
-            set_displays(g_local.contrast, in_idle_mode);
-        }
-
-        // sync rgb matrix
-        if (status_disp_turned_off) {
-            rgb_matrix_disable_noeeprom();
-        } else if(displays_turned_on) {
+        bool restored = false;
+        if(status_disp_changed && status_disp_on) {
             rgb_matrix_reload_from_eeprom();
+            if(rgb_matrix_is_enabled()) {
+                l_state.flags = flag_on(l_state.flags, RGB_ON);
+                restored = true;
+            }
+            oled_set_brightness(OLED_BRIGHTNESS);
         }
 
-        memcpy(&g_state.s, &g_local, sizeof(g_local));
+        if(has_flag_changed(l_state.flags, g_state.flags, RGB_ON)) {
+            if (test_flag(l_state.flags, RGB_ON)) {
+                if(restored) {
+                    rgb_matrix_enable_noeeprom();
+                } else {
+                    rgb_matrix_enable();
+                }
+            } else {
+                 if(!status_disp_on) {
+                    rgb_matrix_disable_noeeprom();
+                } else {
+                    rgb_matrix_disable();
+                }
+            }
+        }
 
-        if(dbg_changed) {
+        if(has_flag_changed(l_state.flags, g_state.flags, DBG_ON)) {
             request_disp_refresh();
         }
+
+        if (contrast_changed || idle_changed) {
+            set_displays(l_state.contrast, in_idle_mode);
+        }
+
+        memcpy(&g_state, &l_state, sizeof(l_state));
+    }
+
+    if(layer_diff) {
+        memcpy(&g_layer, &l_layer, sizeof(l_layer));
+        request_disp_refresh();
+    }
+
+
+    if (g_refresh == START_FIRST_HALF) {
+        update_displays(START_FIRST_HALF);
+        g_refresh = START_SECOND_HALF;
+    }
+    else if (g_refresh == START_SECOND_HALF || g_refresh == ALL_AT_ONCE) {
+        update_displays(g_refresh);
+        g_refresh = DONE_ALL;
     }
 }
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    l_layer.layer = state;
+    return state;
+}
+
 
 void housekeeping_task_user(void) {
     sync_and_refresh_displays();
@@ -453,31 +540,34 @@ void housekeeping_task_user(void) {
         uint32_t elapsed_time_since_update = timer_elapsed32(last_update);
 
         if (is_usb_host_side()) {
-            g_local.flags |= STATUS_DISP_ON;
-            g_local.flags &= ~((uint8_t)IDLE_TRANSITION);
+            l_state.flags |= STATUS_DISP_ON;
+            l_state.flags &= ~((uint8_t)IDLE_TRANSITION);
 
-            if(elapsed_time_since_update > FADE_OUT_TIME && g_local.contrast >= MIN_BRIGHT && (g_local.flags & DISP_IDLE)==0) {
+            if(elapsed_time_since_update > FADE_OUT_TIME && l_state.contrast >= MIN_BRIGHT && (l_state.flags & DISP_IDLE)==0) {
                 poly_eeconf_t ee = load_user_eeconf();
                 int32_t time_after = elapsed_time_since_update - FADE_OUT_TIME;
                 int16_t brightness = ((FADE_TRANSITION_TIME - time_after) * ee.brightness) / FADE_TRANSITION_TIME;
 
                 //transition to pulsing mode
                 if(brightness<=MIN_BRIGHT) {
-                    g_local.contrast = DISP_OFF;
-                    g_local.flags |= DISP_IDLE;
+                    l_state.contrast = DISP_OFF;
+                    l_state.flags |= DISP_IDLE;
+                    uprint("Transition to pulsing\n");
                 } else if(brightness>FULL_BRIGHT) {
-                    g_local.contrast = FULL_BRIGHT;
+                    l_state.contrast = FULL_BRIGHT;
+                    uprint("Limiting brightness\n");
                 } else{
-                    g_local.contrast = brightness;
+                    l_state.contrast = brightness;
                 }
-                g_local.flags |= IDLE_TRANSITION;
+                l_state.flags |= IDLE_TRANSITION;
             } else if(elapsed_time_since_update > TURN_OFF_TIME) {
+                uprint("Turning off\n");
                 poly_suspend();
-            } else if((g_local.flags & DISP_IDLE)!=0) {
+            } else if((l_state.flags & DISP_IDLE)!=0) {
                 int32_t time_after = PK_MAX(elapsed_time_since_update - FADE_OUT_TIME - FADE_TRANSITION_TIME, 0)/300;
-                g_local.contrast = time_after%50;
+                l_state.contrast = time_after%50;
             } else {
-                g_local.flags &= ~((uint8_t)DISP_IDLE);
+                l_state.flags &= ~((uint8_t)DISP_IDLE);
             }
         }
     }
@@ -696,7 +786,7 @@ uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_BASE,    LBL_TEXT,   KC_TOGMODS, KC_TOGTEXT,             KC_NO,      QK_MAKE,    QK_BOOT,
 
 
-                    RGB_RMOD,   RGB_M_SW,   RGB_M_R,    RGB_TOG,    RGB_M_P,    RGB_M_B,    RGB_MOD,
+                    RGB_RMOD,   RGB_M_SW,   RGB_M_R,    KC_RGB_TOG, RGB_M_P,    RGB_M_B,    RGB_MOD,
                     KC_NO,      RGB_SPD,    RGB_SPI,    KC_NO,      RGB_HUD,    RGB_HUI,    KC_NO,
         _______,    KC_NO,      RGB_VAD,    RGB_VAI,    KC_NO,      RGB_SAD,    RGB_SAI,    KC_NO,
         EE_CLR,     KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
@@ -963,28 +1053,28 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     //[[[end]]]
     case TO(_EMJ0): return u" " PRIVATE_EMOJI_1F600 u"\v" ICON_LAYER;
     case TO(_EMJ1): return u" " PRIVATE_EMOJI_1F440 u"\v" ICON_LAYER;
-    case KC_DEADKEY: return (g_local.flags&DEAD_KEY_ON_WAKEUP)==0 ? u"WakeX\r\v" ICON_SWITCH_OFF : u"WakeX\r\v" ICON_SWITCH_ON;
+    case KC_DEADKEY: return (l_state.flags&DEAD_KEY_ON_WAKEUP)==0 ? u"WakeX\r\v" ICON_SWITCH_OFF : u"WakeX\r\v" ICON_SWITCH_ON;
     case LBL_TEXT: return u"Text:";
-    case KC_TOGMODS: return (g_local.flags&MODS_AS_TEXT)==0 ? u"Mods\r\v" ICON_SWITCH_OFF : u"Mods\r\v" ICON_SWITCH_ON;
-    case KC_TOGTEXT: return (g_local.flags&MORE_TEXT)==0 ? u"Cmds\r\v" ICON_SWITCH_OFF : u"Cmds\r\v" ICON_SWITCH_ON;
+    case KC_TOGMODS: return (l_state.flags&MODS_AS_TEXT)==0 ? u"Mods\r\v" ICON_SWITCH_OFF : u"Mods\r\v" ICON_SWITCH_ON;
+    case KC_TOGTEXT: return (l_state.flags&MORE_TEXT)==0 ? u"Cmds\r\v" ICON_SWITCH_OFF : u"Cmds\r\v" ICON_SWITCH_ON;
     case QK_UNICODE_MODE_MACOS:
-        return g_local.unicode_mode==UNICODE_MODE_MACOS ? u"Mac\r\v" ICON_SWITCH_ON : u"Mac\r\v" ICON_SWITCH_OFF;
+        return l_state.unicode_mode==UNICODE_MODE_MACOS ? u"Mac\r\v" ICON_SWITCH_ON : u"Mac\r\v" ICON_SWITCH_OFF;
     case QK_UNICODE_MODE_LINUX:
-        return g_local.unicode_mode==UNICODE_MODE_LINUX ? u"Lnx\r\v" ICON_SWITCH_ON : u"Lnx\r\v" ICON_SWITCH_OFF;
+        return l_state.unicode_mode==UNICODE_MODE_LINUX ? u"Lnx\r\v" ICON_SWITCH_ON : u"Lnx\r\v" ICON_SWITCH_OFF;
     case QK_UNICODE_MODE_WINDOWS:
-        return g_local.unicode_mode==UNICODE_MODE_WINDOWS ? u"Win\r\v" ICON_SWITCH_ON : u"Win\r\v" ICON_SWITCH_OFF;
+        return l_state.unicode_mode==UNICODE_MODE_WINDOWS ? u"Win\r\v" ICON_SWITCH_ON : u"Win\r\v" ICON_SWITCH_OFF;
     case QK_UNICODE_MODE_BSD:
-        return g_local.unicode_mode==UNICODE_MODE_BSD ? u"BSD\r\v" ICON_SWITCH_ON : u"BSD\r\v" ICON_SWITCH_OFF;
+        return l_state.unicode_mode==UNICODE_MODE_BSD ? u"BSD\r\v" ICON_SWITCH_ON : u"BSD\r\v" ICON_SWITCH_OFF;
     case QK_UNICODE_MODE_WINCOMPOSE:
-        return g_local.unicode_mode==UNICODE_MODE_WINCOMPOSE ? u"WinC\r\v" ICON_SWITCH_ON : u"WinC\r\v" ICON_SWITCH_OFF;
+        return l_state.unicode_mode==UNICODE_MODE_WINCOMPOSE ? u"WinC\r\v" ICON_SWITCH_ON : u"WinC\r\v" ICON_SWITCH_OFF;
     case QK_UNICODE_MODE_EMACS:
-        return g_local.unicode_mode==UNICODE_MODE_EMACS ? u"Emcs\r\v" ICON_SWITCH_ON : u"Emcs\r\v" ICON_SWITCH_OFF;
+        return l_state.unicode_mode==UNICODE_MODE_EMACS ? u"Emcs\r\v" ICON_SWITCH_ON : u"Emcs\r\v" ICON_SWITCH_OFF;
     case QK_LEAD:
         return u"Lead";
     case KC_HYPR:
-        return (g_local.flags&MORE_TEXT)!=0 ? u"Hypr" : u" " PRIVATE_HYPER;
+        return (l_state.flags&MORE_TEXT)!=0 ? u"Hypr" : u" " PRIVATE_HYPER;
     case KC_MEH:
-        return (g_local.flags&MORE_TEXT)!=0 ? u"Meh" : u" " PRIVATE_MEH;
+        return (l_state.flags&MORE_TEXT)!=0 ? u"Meh" : u" " PRIVATE_MEH;
     case KC_EXEC:
         return u"Exec";
     case KC_NUM_LOCK:
@@ -1027,10 +1117,10 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case QK_BOOTLOADER:
         return u"Boot";
     case QK_DEBUG_TOGGLE:
-        return ((g_local.flags & DBG_ON) == 0) ? u"Dbg\r\v" ICON_SWITCH_OFF : u"Dbg\r\v" ICON_SWITCH_ON;
+        return ((l_state.flags & DBG_ON) == 0) ? u"Dbg\r\v" ICON_SWITCH_OFF : u"Dbg\r\v" ICON_SWITCH_ON;
     case RGB_RMOD:
         return u" " ICON_LEFT PRIVATE_LIGHT;
-    case RGB_TOG:
+    case KC_RGB_TOG:
         return u"  I/O";
     case RGB_MOD:
         return PRIVATE_LIGHT ICON_RIGHT;
@@ -1109,7 +1199,7 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case KC_PAGE_DOWN:
         return u"  " ARROWS_DOWNSTOP;
     case KC_DELETE:
-        return (g_local.flags&MORE_TEXT)!=0 ? u"Del" : TECHNICAL_ERASERIGHT;
+        return (l_state.flags&MORE_TEXT)!=0 ? u"Del" : TECHNICAL_ERASERIGHT;
     case KC_MYCM:
         return u"  " PRIVATE_PC;
     case TO(_SL):
@@ -1124,15 +1214,15 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case KC_BASE:
         return u"Base\r\v\t" ICON_LAYER;
     case KC_L0:
-        return g_local.default_ls==_L0 ? u"Qwty\r\v" ICON_SWITCH_ON : u"Qwty\r\v" ICON_SWITCH_OFF;
+        return l_layer.def_layer==_L0 ? u"Qwty\r\v" ICON_SWITCH_ON : u"Qwty\r\v" ICON_SWITCH_OFF;
     case KC_L1:
-        return g_local.default_ls==_L1 ? u"Qwty!\r\v" ICON_SWITCH_ON : u"Qwty!\r\v" ICON_SWITCH_OFF;
+        return l_layer.def_layer==_L1 ? u"Qwty!\r\v" ICON_SWITCH_ON : u"Qwty!\r\v" ICON_SWITCH_OFF;
     case KC_L2:
-        return g_local.default_ls==_L2 ? u"Clmk\r\v" ICON_SWITCH_ON : u"Clmk\r\v" ICON_SWITCH_OFF;
+        return l_layer.def_layer==_L2 ? u"Clmk\r\v" ICON_SWITCH_ON : u"Clmk\r\v" ICON_SWITCH_OFF;
     case KC_L3:
-        return g_local.default_ls==_L3 ? u"Neo\r\v" ICON_SWITCH_ON : u"Neo\r\v" ICON_SWITCH_OFF;
+        return l_layer.def_layer==_L3 ? u"Neo\r\v" ICON_SWITCH_ON : u"Neo\r\v" ICON_SWITCH_OFF;
     case KC_L4:
-        return g_local.default_ls==_L4 ? u"Wkm\r\v" ICON_SWITCH_ON : u"Wkm\r\v" ICON_SWITCH_OFF;
+        return l_layer.def_layer==_L4 ? u"Wkm\r\v" ICON_SWITCH_ON : u"Wkm\r\v" ICON_SWITCH_OFF;
     case OSL(_UL):
         return u"Util*\r\v\t" ICON_LAYER;
     case TO(_UL):
@@ -1165,14 +1255,14 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case KC_F24:return u" F24";
     case KC_LEFT_CTRL:
     case KC_RIGHT_CTRL:
-        return (g_local.flags&MODS_AS_TEXT)!=0 ? u"Ctrl" : TECHNICAL_CONTROL;
+        return (l_state.flags&MODS_AS_TEXT)!=0 ? u"Ctrl" : TECHNICAL_CONTROL;
     case KC_LEFT_ALT:
-        return (g_local.flags&MODS_AS_TEXT)!=0 ? u"Alt" : TECHNICAL_OPTION;
+        return (l_state.flags&MODS_AS_TEXT)!=0 ? u"Alt" : TECHNICAL_OPTION;
     case KC_RIGHT_ALT:
-        return (g_local.flags&MODS_AS_TEXT)!=0 ? ( g_local.lang == KC_LANG_EN ? u"Alt" : u"Alt\nGr") : TECHNICAL_OPTION;
+        return (l_state.flags&MODS_AS_TEXT)!=0 ? ( l_state.lang == KC_LANG_EN ? u"Alt" : u"Alt\nGr") : TECHNICAL_OPTION;
     case KC_LGUI:
     case KC_RGUI:
-        return (g_local.flags&MODS_AS_TEXT)!=0 ? u"GUI" : DINGBAT_BLACK_DIA_X;
+        return (l_state.flags&MODS_AS_TEXT)!=0 ? u"GUI" : DINGBAT_BLACK_DIA_X;
     case KC_LEFT:
         return u"  " ICON_LEFT;
     case KC_RIGHT:
@@ -1185,7 +1275,7 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
         return state.caps_lock ? u"Cap" ICON_CAPSLOCK_ON : u"Cap" ICON_CAPSLOCK_OFF;
     case KC_LSFT:
     case KC_RSFT:
-        return (g_local.flags&MODS_AS_TEXT)!=0 ? u"Shft" : u" " ICON_SHIFT;
+        return (l_state.flags&MODS_AS_TEXT)!=0 ? u"Shft" : u" " ICON_SHIFT;
     case KC_NO:
         return u"";
     case KC_DDIM:
@@ -1203,7 +1293,7 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case KC_DMAX:
         return u"  " PRIVATE_DISP_BRIGHT;
     case KC_LANG:
-        return (g_local.flags&MORE_TEXT)!=0 ? u"Lang" : PRIVATE_WORLD;
+        return (l_state.flags&MORE_TEXT)!=0 ? u"Lang" : PRIVATE_WORLD;
     case SH_TOGG:
         return u"SwpH";
     case QK_MAKE:
@@ -1221,52 +1311,52 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     /*[[[cog
         for lang in languages:
             short = lang.split("_")[1]
-            cog.outl(f'case KC_{lang}: return g_local.lang == {lang} ? u"[{short}]" : u" {short}";')
+            cog.outl(f'case KC_{lang}: return l_state.lang == {lang} ? u"[{short}]" : u" {short}";')
     ]]]*/
-    case KC_LANG_EN: return g_local.lang == LANG_EN ? u"[EN]" : u" EN";
-    case KC_LANG_DE: return g_local.lang == LANG_DE ? u"[DE]" : u" DE";
-    case KC_LANG_FR: return g_local.lang == LANG_FR ? u"[FR]" : u" FR";
-    case KC_LANG_ES: return g_local.lang == LANG_ES ? u"[ES]" : u" ES";
-    case KC_LANG_PT: return g_local.lang == LANG_PT ? u"[PT]" : u" PT";
-    case KC_LANG_IT: return g_local.lang == LANG_IT ? u"[IT]" : u" IT";
-    case KC_LANG_TR: return g_local.lang == LANG_TR ? u"[TR]" : u" TR";
-    case KC_LANG_KO: return g_local.lang == LANG_KO ? u"[KO]" : u" KO";
-    case KC_LANG_JA: return g_local.lang == LANG_JA ? u"[JA]" : u" JA";
-    case KC_LANG_AR: return g_local.lang == LANG_AR ? u"[AR]" : u" AR";
-    case KC_LANG_GR: return g_local.lang == LANG_GR ? u"[GR]" : u" GR";
+    case KC_LANG_EN: return l_state.lang == LANG_EN ? u"[EN]" : u" EN";
+    case KC_LANG_DE: return l_state.lang == LANG_DE ? u"[DE]" : u" DE";
+    case KC_LANG_FR: return l_state.lang == LANG_FR ? u"[FR]" : u" FR";
+    case KC_LANG_ES: return l_state.lang == LANG_ES ? u"[ES]" : u" ES";
+    case KC_LANG_PT: return l_state.lang == LANG_PT ? u"[PT]" : u" PT";
+    case KC_LANG_IT: return l_state.lang == LANG_IT ? u"[IT]" : u" IT";
+    case KC_LANG_TR: return l_state.lang == LANG_TR ? u"[TR]" : u" TR";
+    case KC_LANG_KO: return l_state.lang == LANG_KO ? u"[KO]" : u" KO";
+    case KC_LANG_JA: return l_state.lang == LANG_JA ? u"[JA]" : u" JA";
+    case KC_LANG_AR: return l_state.lang == LANG_AR ? u"[AR]" : u" AR";
+    case KC_LANG_GR: return l_state.lang == LANG_GR ? u"[GR]" : u" GR";
     //[[[end]]]
     //The following entries will over-rule language specific enties in the follow langauge lookup table,
     //however with this we can control them by flags and so far those wehere not lanuage specific anyway.
-    case KC_ENTER:      return (g_local.flags&MORE_TEXT)!=0 ? u"Enter"    : ARROWS_RETURN;
-    case KC_ESCAPE:	    return (g_local.flags&MORE_TEXT)!=0 ? u"Esc"      : TECHNICAL_ESCAPE;
-    case KC_BACKSPACE:  return (g_local.flags&MORE_TEXT)!=0 ? u"Bksp"     : TECHNICAL_ERASELEFT;
-    case KC_TAB:        return (g_local.flags&MORE_TEXT)!=0 ? u"Tab"      : ARROWS_TAB;
-    case KC_SPACE:      return (g_local.flags&MORE_TEXT)!=0 ? u"Space"    : ICON_SPACE;
+    case KC_ENTER:      return (l_state.flags&MORE_TEXT)!=0 ? u"Enter"    : ARROWS_RETURN;
+    case KC_ESCAPE:	    return (l_state.flags&MORE_TEXT)!=0 ? u"Esc"      : TECHNICAL_ESCAPE;
+    case KC_BACKSPACE:  return (l_state.flags&MORE_TEXT)!=0 ? u"Bksp"     : TECHNICAL_ERASELEFT;
+    case KC_TAB:        return (l_state.flags&MORE_TEXT)!=0 ? u"Tab"      : ARROWS_TAB;
+    case KC_SPACE:      return (l_state.flags&MORE_TEXT)!=0 ? u"Space"    : ICON_SPACE;
     default:
     {
-        bool shift = ((get_mods() & MOD_MASK_SHIFT) != 0);
-        bool add_lang = get_highest_layer(layer_state)==_ADDLANG1;
-        bool alt = ((get_mods() & MOD_MASK_ALT) != 0);
+        bool shift = ((l_layer.mods & MOD_MASK_SHIFT) != 0);
+        bool add_lang = get_highest_layer(l_layer.layer)==_ADDLANG1;
+        bool alt = ((l_layer.mods & MOD_MASK_ALT) != 0);
         if(keycode>=KC_A && keycode<=KC_Z && add_lang) {
             //display the previously selected latin variation of the letter
             const uint8_t offset = (shift || state.caps_lock) ? 0 : 26;
-            uint8_t variation = (shift || state.caps_lock) ? g_lat.ex[keycode-KC_A]>>4 : g_lat.ex[keycode-KC_A]&0xf;
+            uint8_t variation = (shift || state.caps_lock) ? g_latin.ex[keycode-KC_A]>>4 : g_latin.ex[keycode-KC_A]&0xf;
 
             const uint16_t* def_variation = latin_ex_map[offset+keycode-KC_A][0];
             return (def_variation!=NULL) ? latin_ex_map[offset+keycode-KC_A][variation] : NULL;
         }
 
         if(keycode>=KC_LAT0 && keycode<=KC_LAT9) {
-            if(add_lang && alt && g_local.last_latin_kc!=0) {
+            if(add_lang && alt && l_last.latin_kc!=0) {
                 //show all available alternatives for selected latin letter
                 const uint8_t offset = (shift || state.caps_lock) ? 0 : 26;
-                return latin_ex_map[offset+g_local.last_latin_kc-KC_A][keycode-KC_LAT0];
+                return latin_ex_map[offset+l_last.latin_kc-KC_A][keycode-KC_LAT0];
             } else {
                 return NULL; //show nothing
             }
         }
 
-        const uint16_t* text = translate_keycode(g_local.lang, keycode, shift, state.caps_lock);
+        const uint16_t* text = translate_keycode(l_state.lang, keycode, shift, state.caps_lock);
         if (text != NULL) {
             return text;
         }
@@ -1284,7 +1374,7 @@ const uint16_t* keycode_to_disp_overlay(uint16_t keycode, led_t state) {
         default: break;
     }
 
-    if( (get_mods() & MOD_MASK_CTRL) != 0) {
+    if( (l_layer.mods & MOD_MASK_CTRL) != 0) {
         switch(keycode) {
             case KC_A: return u"      " BOX_WITH_CHECK_MARK;
             case KC_C: return u"     " CLIPBOARD_COPY;
@@ -1299,7 +1389,7 @@ const uint16_t* keycode_to_disp_overlay(uint16_t keycode, led_t state) {
             case KC_Y: return u"      " ARROWS_REDO;
             default: break;
         }
-    } else if((get_mods() & MOD_MASK_GUI) != 0) {
+    } else if((l_layer.mods & MOD_MASK_GUI) != 0) {
         switch(keycode) {
             case KC_D:      return u"    " PRIVATE_PC;
             case KC_L:      return u"    " PRIVATE_LOCK;
@@ -1342,14 +1432,14 @@ bool copy_overlay_to_buffer(uint16_t keycode, uint8_t mods) {
 }
 
 void update_displays(enum refresh_mode mode) {
-    if(g_local.contrast<=DISP_OFF || (g_local.flags&DISP_IDLE)!=0) {
+    if(l_state.contrast<=DISP_OFF || (l_state.flags&DISP_IDLE)!=0) {
         return;
     }
 
     //uint8_t layer = get_highest_layer(layer_state);
 
-    const led_t state = host_keyboard_led_state();
-    const uint8_t mods = get_mods();
+    const led_t state = l_layer.led_state;
+    const uint8_t mods = l_layer.mods;
     const bool capital_case = ((mods & MOD_MASK_SHIFT) != 0) || state.caps_lock;
     //the left side has an offset of 0, the right side an offset of MATRIX_ROWS_PER_SIDE
     const uint8_t offset = is_left_side() ? 0 : MATRIX_ROWS_PER_SIDE;
@@ -1379,12 +1469,12 @@ void update_displays(enum refresh_mode mode) {
             }
             else {
                 if (disp_idx != 255) {
-                    uint8_t layer = get_highest_layer(layer_state);
+                    uint8_t layer = get_highest_layer(l_layer.layer);
                     uint16_t highest_kc = keymaps[layer][r + offset][c];
                     //if we encounter a transparent key go down one layer (but only one!)
-                    keycode = (highest_kc == KC_TRNS) ? keymaps[get_highest_layer(layer_state&~(1<<layer))][r + offset][c] : highest_kc;
-                    kdisp_enable(true);//(g_local.flags&STATUS_DISP_ON) != 0);
-                    kdisp_set_contrast(g_local.contrast-1);
+                    keycode = (highest_kc == KC_TRNS) ? keymaps[get_highest_layer(l_layer.layer&~(1<<layer))][r + offset][c] : highest_kc;
+                    kdisp_enable(true);//(l_state.flags&STATUS_DISP_ON) != 0);
+                    kdisp_set_contrast(l_state.contrast-1);
                     if(keycode!=KC_TRNS) {
                         const uint16_t* text = keycode_to_disp_text(keycode, state);
                         kdisp_set_buffer(0x00);
@@ -1489,7 +1579,7 @@ void display_message(uint8_t row, uint8_t col, const uint16_t* message, const GF
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
-    const bool addlang = get_highest_layer(layer_state)==_ADDLANG1;
+    const bool addlang = get_highest_layer(l_layer.layer)==_ADDLANG1;
     if (record->event.pressed) {
         switch (keycode) {
             case QK_BOOTLOADER:
@@ -1499,14 +1589,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
                 display_message(3, 0, u"LOADER!", &FreeSansBold24pt7b);
                 return true;
             case KC_A ... KC_Z:
-                g_local.last_latin_kc = keycode;
+                l_last.latin_kc = keycode;
                 if((get_mods() & MOD_MASK_ALT) == 0 && addlang) {
                     const bool lshift = get_mods() == MOD_BIT(KC_LEFT_SHIFT);
                     const bool rshift = get_mods() == MOD_BIT(KC_RIGHT_SHIFT);
-                    const bool upper_case = lshift || rshift || g_state.led_state.caps_lock;
+                    const bool upper_case = lshift || rshift || g_layer.led_state.caps_lock;
                     const uint8_t offset = upper_case ? 0 : 26;
                     if(latin_ex_map[offset+keycode-KC_A][0]) {
-                        uint8_t variation = upper_case ? g_lat.ex[keycode-KC_A]>>4 : g_lat.ex[keycode-KC_A]&0xf;
+                        uint8_t variation = upper_case ? g_latin.ex[keycode-KC_A]>>4 : g_latin.ex[keycode-KC_A]&0xf;
 
                         //this is a work-around (at least for I-Bus on Linux we need to remove the shift, otherwise the Unicode sequence will not be recognized!)
                         if(lshift) unregister_code16(KC_LEFT_SHIFT);
@@ -1525,18 +1615,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         if((get_mods() & MOD_MASK_ALT) != 0 && addlang) {
             switch(keycode) {
                 case KC_LAT0 ... KC_LAT9:
-                    if( g_local.last_latin_kc!=0) {
-                        uint8_t current = g_lat.ex[g_local.last_latin_kc-KC_A];
-                        if((get_mods() & MOD_MASK_SHIFT) || g_state.led_state.caps_lock) {
-                            g_lat.ex[g_local.last_latin_kc-KC_A] = ((keycode-KC_LAT0)<<4) | (current&0xf);
+                    if( l_last.latin_kc!=0) {
+                        uint8_t current = g_latin.ex[l_last.latin_kc-KC_A];
+                        if((get_mods() & MOD_MASK_SHIFT) || g_layer.led_state.caps_lock) {
+                            g_latin.ex[l_last.latin_kc-KC_A] = ((keycode-KC_LAT0)<<4) | (current&0xf);
                         } else {
-                            g_lat.ex[g_local.last_latin_kc-KC_A] = (keycode-KC_LAT0) | (current&0xf0);
+                            g_latin.ex[l_last.latin_kc-KC_A] = (keycode-KC_LAT0) | (current&0xf0);
                         }
-                        send_to_bridge((void*)&g_lat, sizeof(g_lat), 10);
-                        // bool sync_success = false;
-                        // for(uint8_t retry = 0; retry<3 && !sync_success; ++retry) {
-                        //     sync_success = transaction_rpc_send(USER_SYNC_POLY_DATA, sizeof(latin_ex), latin_ex);
-                        // }
+                        send_to_bridge(USER_SYNC_LATIN_EX_DATA, (void*)&g_latin, sizeof(g_latin), 10);
+
                         save_user_eeconf();
                         request_disp_refresh();
                     }
@@ -1550,7 +1637,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
             return false;
         } else {
-            g_local.last_latin_kc = 0;
+            l_last.latin_kc = 0;
         }
     }
     return display_wakeup(record);
@@ -1563,81 +1650,77 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
 
     if (!record->event.pressed) {
         switch (keycode) {
+        case KC_RGB_TOG:
+            l_state.flags = toggle_flag(l_state.flags, RGB_ON);
+            // if(test_flag(l_state.flags, RGB_ON)) {
+            //     rgb_matrix_enable();
+            // } else {
+            //     rgb_matrix_disable();
+            // }
+            break;
         case KC_DEADKEY:
-            if((g_local.flags&DEAD_KEY_ON_WAKEUP)==0) {
-                g_local.flags |= DEAD_KEY_ON_WAKEUP;
-            } else {
-                g_local.flags &= ~((uint8_t)DEAD_KEY_ON_WAKEUP);
-            }
+            l_state.flags = toggle_flag(l_state.flags, DEAD_KEY_ON_WAKEUP);
             request_disp_refresh();
             break;
         case KC_TOGMODS:
-            if((g_local.flags&MODS_AS_TEXT)==0) {
-                g_local.flags |= MODS_AS_TEXT;
-            } else {
-                g_local.flags &= ~((uint8_t)MODS_AS_TEXT);
-            }
+            l_state.flags = toggle_flag(l_state.flags, MODS_AS_TEXT);
             request_disp_refresh();
             break;
         case KC_TOGTEXT:
-            if((g_local.flags&MORE_TEXT)==0) {
-                g_local.flags |= MORE_TEXT;
-            } else {
-                g_local.flags &= ~((uint8_t)MORE_TEXT);
-            }
+            l_state.flags = toggle_flag(l_state.flags, MORE_TEXT);
             request_disp_refresh();
             break;
         case KC_L0:
-            g_local.default_ls = _L0;
-            persistent_default_layer_set(g_local.default_ls);
+            l_layer.def_layer = _L0;
+            persistent_default_layer_set(l_layer.def_layer);
             request_disp_refresh();
             break;
         case KC_L1:
-            g_local.default_ls = _L1;
-            persistent_default_layer_set(g_local.default_ls);
+            l_layer.def_layer = _L1;
+            persistent_default_layer_set(l_layer.def_layer);
             request_disp_refresh();
             break;
         case KC_L2:
-            g_local.default_ls = _L2;
-            persistent_default_layer_set(g_local.default_ls);
+            l_layer.def_layer = _L2;
+            persistent_default_layer_set(l_layer.def_layer);
             request_disp_refresh();
             break;
         case KC_L3:
-            g_local.default_ls = _L3;
-            persistent_default_layer_set(g_local.default_ls);
+            l_layer.def_layer = _L3;
+            persistent_default_layer_set(l_layer.def_layer);
             request_disp_refresh();
             break;
         case KC_L4:
-            g_local.default_ls = _L4;
-            persistent_default_layer_set(g_local.default_ls);
+            l_layer.def_layer = _L4;
+            persistent_default_layer_set(l_layer.def_layer);
             request_disp_refresh();
             break;
         case KC_BASE:
             layer_clear();
-            layer_on(g_local.default_ls);
+            layer_on(l_layer.def_layer);
             break;
         case KC_RIGHT_SHIFT:
         case KC_LEFT_SHIFT:
             request_disp_refresh();
             break;
         case KC_D1Q:
-            g_local.contrast = FULL_BRIGHT/4;
+            l_state.contrast = FULL_BRIGHT/4;
             save_user_eeconf();
             break;
         case KC_D3Q:
-            g_local.contrast = (FULL_BRIGHT/4)*3;
+            l_state.contrast = (FULL_BRIGHT/4)*3;
             save_user_eeconf();
             break;
         case KC_DHLF:
-            g_local.contrast = FULL_BRIGHT/2;
+            l_state.contrast = FULL_BRIGHT/2;
             save_user_eeconf();
             break;
         case KC_DMAX:
-            g_local.contrast = FULL_BRIGHT;
+            l_state.contrast = FULL_BRIGHT;
             save_user_eeconf();
             break;
         case KC_DMIN:
-            g_local.contrast = 2;
+            l_state.contrast = 2;
             save_user_eeconf();
             break;
         case KC_DDIM:
@@ -1648,19 +1731,19 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
             break;
         /*[[[cog
             for lang in languages:
-                cog.outl(f'case KC_{lang}: g_local.lang = {lang}; save_user_eeconf(); layer_off(_LL); break;')
+                cog.outl(f'case KC_{lang}: l_state.lang = {lang}; save_user_eeconf(); layer_off(_LL); break;')
             ]]]*/
-        case KC_LANG_EN: g_local.lang = LANG_EN; save_user_eeconf(); layer_off(_LL); break;
-        case KC_LANG_DE: g_local.lang = LANG_DE; save_user_eeconf(); layer_off(_LL); break;
-        case KC_LANG_FR: g_local.lang = LANG_FR; save_user_eeconf(); layer_off(_LL); break;
-        case KC_LANG_ES: g_local.lang = LANG_ES; save_user_eeconf(); layer_off(_LL); break;
-        case KC_LANG_PT: g_local.lang = LANG_PT; save_user_eeconf(); layer_off(_LL); break;
-        case KC_LANG_IT: g_local.lang = LANG_IT; save_user_eeconf(); layer_off(_LL); break;
-        case KC_LANG_TR: g_local.lang = LANG_TR; save_user_eeconf(); layer_off(_LL); break;
-        case KC_LANG_KO: g_local.lang = LANG_KO; save_user_eeconf(); layer_off(_LL); break;
-        case KC_LANG_JA: g_local.lang = LANG_JA; save_user_eeconf(); layer_off(_LL); break;
-        case KC_LANG_AR: g_local.lang = LANG_AR; save_user_eeconf(); layer_off(_LL); break;
-        case KC_LANG_GR: g_local.lang = LANG_GR; save_user_eeconf(); layer_off(_LL); break;
+        case KC_LANG_EN: l_state.lang = LANG_EN; save_user_eeconf(); layer_off(_LL); break;
+        case KC_LANG_DE: l_state.lang = LANG_DE; save_user_eeconf(); layer_off(_LL); break;
+        case KC_LANG_FR: l_state.lang = LANG_FR; save_user_eeconf(); layer_off(_LL); break;
+        case KC_LANG_ES: l_state.lang = LANG_ES; save_user_eeconf(); layer_off(_LL); break;
+        case KC_LANG_PT: l_state.lang = LANG_PT; save_user_eeconf(); layer_off(_LL); break;
+        case KC_LANG_IT: l_state.lang = LANG_IT; save_user_eeconf(); layer_off(_LL); break;
+        case KC_LANG_TR: l_state.lang = LANG_TR; save_user_eeconf(); layer_off(_LL); break;
+        case KC_LANG_KO: l_state.lang = LANG_KO; save_user_eeconf(); layer_off(_LL); break;
+        case KC_LANG_JA: l_state.lang = LANG_JA; save_user_eeconf(); layer_off(_LL); break;
+        case KC_LANG_AR: l_state.lang = LANG_AR; save_user_eeconf(); layer_off(_LL); break;
+        case KC_LANG_GR: l_state.lang = LANG_GR; save_user_eeconf(); layer_off(_LL); break;
         //[[[end]]]
         case KC_F1:case KC_F2:case KC_F3:case KC_F4:case KC_F5:case KC_F6:
         case KC_F7:case KC_F8:case KC_F9:case KC_F10:case KC_F11:case KC_F12:
@@ -1679,7 +1762,7 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
             break;
         case KC_LANG:
             if (IS_LAYER_ON(_LL)) {
-                g_local.lang = (g_local.lang + 1) % NUM_LANG;
+                l_state.lang = (l_state.lang + 1) % NUM_LANG;
                 save_user_eeconf();
                 layer_off(_LL);
             }
@@ -1709,14 +1792,14 @@ void show_splash_screen(void) {
     display_message(2, 1, u"KYBD", &FreeSansBold24pt7b);
 }
 
-void oled_on_off(bool on) {
-    if (!on) {
-        oled_off();
-    } else {
-        oled_on();
-        uprintf("oled_on %s\n", is_usb_host_side() ? "Host" : "Bridge");
-    }
-}
+// void oled_on_off(bool on) {
+//     if (!on) {
+//         oled_off();
+//     } else {
+//         oled_on();
+//         uprintf("oled_on %s\n", is_usb_host_side() ? "Host" : "Bridge");
+//     }
+// }
 
 void set_displays(uint8_t contrast, bool idle) {
     if(idle) {
@@ -1737,14 +1820,14 @@ void set_displays(uint8_t contrast, bool idle) {
 //disable first keypress if the displays are turned off
 bool display_wakeup(keyrecord_t* record) {
     bool accept_keypress = true;
-    if ((g_local.contrast==DISP_OFF || (g_local.flags & DISP_IDLE)!=0) && record->event.pressed) {
-        if(g_local.contrast==DISP_OFF && (g_local.flags&DEAD_KEY_ON_WAKEUP)!=0) {
+    if ((l_state.contrast==DISP_OFF || (l_state.flags & DISP_IDLE)!=0) && record->event.pressed) {
+        if(l_state.contrast==DISP_OFF && (l_state.flags&DEAD_KEY_ON_WAKEUP)!=0) {
             accept_keypress = timer_elapsed32(last_update) <= TURN_OFF_TIME;
         }
         poly_eeconf_t ee = load_user_eeconf();
-        g_local.contrast = ee.brightness;
-        g_local.flags &= ~((uint8_t)DISP_IDLE);
-        g_local.flags |= STATUS_DISP_ON;
+        l_state.contrast = ee.brightness;
+        l_state.flags &= ~((uint8_t)DISP_IDLE);
+        l_state.flags |= STATUS_DISP_ON;
         update_performed();
         request_disp_refresh();
     }
@@ -1753,7 +1836,7 @@ bool display_wakeup(keyrecord_t* record) {
 }
 
 void unicode_input_mode_set_user(uint8_t unicode_mode) {
-    g_local.unicode_mode = unicode_mode;
+    l_state.unicode_mode = unicode_mode;
     request_disp_refresh();
 }
 
@@ -1767,10 +1850,10 @@ void keyboard_post_init_user(void) {
     //pointing_device_set_cpi(20000);
     pointing_device_set_cpi(650);
     //pimoroni_trackball_set_rgbw(0,0,255,100);
-    g_local.default_ls = persistent_default_layer_get();
-    g_local.unicode_mode = get_unicode_input_mode();
+    l_layer.def_layer = persistent_default_layer_get();
+    l_state.unicode_mode = get_unicode_input_mode();
     layer_clear();
-    layer_on(g_local.default_ls);
+    layer_on(l_layer.def_layer);
 
     //set these values, they will never change
     com = is_keyboard_master() ? USB_HOST : BRIDGE;
@@ -1785,7 +1868,10 @@ void keyboard_post_init_user(void) {
     memset(&g_state, 0, sizeof(g_state));
     memset(&use_overlay, 0, sizeof(use_overlay));
 
-    transaction_register_rpc(USER_SYNC_POLY_DATA, user_sync_poly_data_handler);
+    transaction_register_rpc(USER_SYNC_POLY_DATA,       user_sync_poly_data_handler);
+    transaction_register_rpc(USER_SYNC_LAYER_DATA,      user_sync_layer_data_handler);
+    transaction_register_rpc(USER_SYNC_LASTKEY_DATA,    user_sync_lastkey_data_handler);
+    transaction_register_rpc(USER_SYNC_LATIN_EX_DATA,   user_sync_latin_ex_data_handler);
 }
 
 void keyboard_pre_init_user(void) {
@@ -1801,14 +1887,21 @@ void keyboard_pre_init_user(void) {
 
     poly_eeconf_t ee = load_user_eeconf();
 
-    g_local.lang = ee.lang;
-    g_local.default_ls = 0;
-    g_local.contrast = ee.brightness;
-    g_local.flags = STATUS_DISP_ON;
-    memcpy(g_lat.ex, ee.latin_ex, sizeof(g_lat.ex));
+    memset(&l_layer, 0, sizeof(l_layer));
+    memset(&g_layer, 0, sizeof(g_layer));
+    memset(&l_state, 0, sizeof(l_state));
+    memset(&g_state, 0, sizeof(g_state));
 
-    set_displays(g_local.contrast, false);
-    g_local.last_latin_kc = 0;
+    l_state.lang = ee.lang;
+    l_state.contrast = ee.brightness;
+    l_state.flags = set_flag(STATUS_DISP_ON, RGB_ON, rgb_matrix_is_enabled());
+
+
+    memset(ee.latin_ex, 0, sizeof(ee.latin_ex));
+    memcpy(g_latin.ex, ee.latin_ex, sizeof(g_latin.ex));
+
+    set_displays(l_state.contrast, false);
+    l_last.latin_kc = 0;
     show_splash_screen();
 
     setPinInputHigh(I2C1_SDA_PIN);
@@ -1870,7 +1963,7 @@ void oled_update_buffer(void) {
     const GFXfont* displayFont[] = { &NotoSans_Regular11pt7b };
     const GFXfont* smallFont[] = { &NotoSans_Medium8pt7b };
     kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 0, 14, ICON_LAYER);
-    hex_to_u16_string((char*) buffer, sizeof(buffer), get_highest_layer(layer_state));
+    hex_to_u16_string((char*) buffer, sizeof(buffer), get_highest_layer(g_layer.layer));
     kdisp_write_gfx_text(displayFont, 1, 20, 14, buffer);
     if(side==UNDECIDED) {
         kdisp_write_gfx_text(displayFont, 1, 50, 14, u"Uknw");
@@ -1878,9 +1971,9 @@ void oled_update_buffer(void) {
         kdisp_write_gfx_text(displayFont, 1, 38, 14, is_left_side() ? u"LEFT" : u"RIGHT");
     }
 
-    kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 108, 16, g_state.led_state.num_lock ? ICON_NUMLOCK_ON : ICON_NUMLOCK_OFF);
-    kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 108, 38, g_state.led_state.caps_lock ? ICON_CAPSLOCK_ON : ICON_CAPSLOCK_OFF);
-    if(g_state.led_state.scroll_lock) {
+    kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 108, 16, g_layer.led_state.num_lock ? ICON_NUMLOCK_ON : ICON_NUMLOCK_OFF);
+    kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 108, 38, g_layer.led_state.caps_lock ? ICON_CAPSLOCK_ON : ICON_CAPSLOCK_OFF);
+    if(g_layer.led_state.scroll_lock) {
         kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 112, 54, ARROWS_DOWNSTOP);
     } else {
         kdisp_write_gfx_text(smallFont, 1, 112, 56, is_usb_host_side() ? u"H" : u"B");
@@ -1909,7 +2002,7 @@ void oled_update_buffer(void) {
             kdisp_write_gfx_text(smallFont, 1, 58, 58, buffer);
         }
     } else {
-        switch(g_local.default_ls) {
+        switch(l_layer.def_layer) {
             case 0: kdisp_write_gfx_text(smallFont, 1, 0, 30, u"Qwerty"); break;
             case 1: kdisp_write_gfx_text(smallFont, 1, 0, 30, u"Qwerty Stag!"); break;
             case 2: kdisp_write_gfx_text(smallFont, 1, 0, 30, u"Colemak DH"); break;
@@ -1918,10 +2011,10 @@ void oled_update_buffer(void) {
             default: kdisp_write_gfx_text(smallFont, 1, 0, 30, u"Unknown"); break;
         }
         kdisp_write_gfx_text(smallFont, 1, 0, 44, u"Dsp*");
-        num_to_u16_string((char*) buffer, sizeof(buffer), g_local.contrast);
+        num_to_u16_string((char*) buffer, sizeof(buffer), l_state.contrast);
         kdisp_write_gfx_text(smallFont, 1, 42, 44, buffer);
         uint8_t i=0;
-        for(;i<(g_local.contrast/5);++i) {
+        for(;i<(l_state.contrast/5);++i) {
             buffer[i] = 'l';
         }
         buffer[i] = 0;
@@ -1933,16 +2026,16 @@ void oled_update_buffer(void) {
         kdisp_write_gfx_text(smallFont, 1, 44, 58, buffer);
 
         kdisp_write_gfx_text(smallFont, 1, 68, 58, u"L");
-        num_to_u16_string((char*) buffer, sizeof(buffer), g_local.lang);
+        num_to_u16_string((char*) buffer, sizeof(buffer), l_state.lang);
         kdisp_write_gfx_text(smallFont, 1, 84, 58, buffer);
     }
 }
 
 void oled_status_screen(void) {
-     if( (g_local.flags&STATUS_DISP_ON) == 0) {
+     if( (l_state.flags&STATUS_DISP_ON) == 0) {
         oled_off();
         return;
-    } else if( (g_local.flags&STATUS_DISP_ON) != 0) {
+    } else if( (l_state.flags&STATUS_DISP_ON) != 0) {
         oled_on();
     }
 
@@ -1961,7 +2054,7 @@ void oled_render_logos(void) {
     }
 }
 bool oled_task_user(void) {
-    if((g_local.flags&DISP_IDLE) != 0) {
+    if((l_state.flags&DISP_IDLE) != 0) {
         oled_render_logos();
     } else {
         oled_scroll_off();
@@ -2036,9 +2129,8 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation){
 }
 
 void poly_suspend(void) {
-    g_local.flags &= ~((uint8_t)STATUS_DISP_ON);
-    g_local.flags &= ~((uint8_t)DISP_IDLE);
-    g_local.contrast = DISP_OFF;
+    l_state.flags &= ~((uint8_t)STATUS_DISP_ON) & ~((uint8_t)DISP_IDLE) & ~((uint8_t)RGB_ON);
+    l_state.contrast = DISP_OFF;
     last_update = -1;
 }
 
@@ -2051,10 +2143,10 @@ void suspend_power_down_kb(void) {
 
 
 void suspend_wakeup_init_kb(void) {
-    g_local.flags |= STATUS_DISP_ON;
-    g_local.flags &= ~((uint8_t)DISP_IDLE);
+    l_state.flags |= STATUS_DISP_ON;
+    l_state.flags &= ~((uint8_t)DISP_IDLE);
     poly_eeconf_t ee = load_user_eeconf();
-    g_local.contrast = ee.brightness;
+    l_state.contrast = ee.brightness;
     last_update = 0;
 
     rgb_matrix_reload_from_eeprom();
@@ -2111,7 +2203,7 @@ void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
                 break;
             case '1': //lang
                 memset(data, 0, length);
-                switch(g_local.lang) {
+                switch(l_state.lang) {
                     /*[[[cog
                     for lang in languages:
                         cog.outl(f'case {lang}: memcpy(data, "P1.{lang[5:]}", 5); break;')
@@ -2156,7 +2248,7 @@ void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
                 break;
             case '3': //change language
                 if(data[3]< NUM_LANG) {
-                    g_local.lang = data[3];
+                    l_state.lang = data[3];
                     update_performed();
                     memcpy(data, "P3.", 3);
                 } else {
