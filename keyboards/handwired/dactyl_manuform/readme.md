@@ -4,17 +4,17 @@
 *Pair of Dactyl ManuForm 4x6*
 
 Forked from the [Dactyl](/keyboards/handwired/dactyl), the *Dactyl ManuForm* is a parameterized, handwired, split bodied, tented, concave key-well design that incorporates the thumb cluster from the [ManuForm](https://geekhack.org/index.php?topic=46015.0).  
-The *Dactyl ManuForm* requires two micro controller boards, one per half, which differs from the *Dactyl's* original implementation of a micro controller and an I/O expander. 
+The *Dactyl ManuForm* requires two development boards, one per half, which differs from the *Dactyl's* original implementation of a developemnt board and an I/O expander. 
 
 * Keyboard Maintainer: [Tom Short](https://github.com/tshort)
-* Hardware Supported: Pro Micro, or clone of
+* Hardware Supported: Pro Micro development board
 * Hardware Availability: [Github](https://github.com/tshort/dactyl-keyboard)
 
 ## Variants
 
-*Dactyl ManuForms* are built in variations that cater for different row and column counts.  
+*Dactyl ManuForms* are built in variations that cater for different row and column counts; there is no default.  
 
-As standard, per half: 
+Standard key layout (per half): 
 - The finger keywell bottom row has 2 keys, 1 each in ring and middle columns
 - The thumb cluster has 6 keys, arranged in a staggered 2 columns by 3 rows 
 
@@ -41,7 +41,7 @@ Variants are denoted as `RowCount`*x*`ColumnCount`*(_`Alteration`)*
 | eic | **E**xtended **I**nner **C**olumn: Each half gains an additional inner column though the bottom key of said column is ommitted | ![eic](https://i.imgur.com/stuHtsXh.png) |
 | exic | *ex* and *eic* combined | ![exic](https://i.imgur.com/t37nF0uh.png) |
 
-### Legacy 5x7 variant
+### Legacy "5x7" variant
 
 Is the [5x6_exic](./5x6_exic/) variant.
  

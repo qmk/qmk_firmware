@@ -6,14 +6,14 @@
 Forked from the [Dactyl ManuForm](/keyboards/handwired/dactyl_manuform), the *Dactyl ManuForm Tight* replaces the former's thumb key cluster with a 3 key thumb cluster.
 
 * Keyboard Maintainer: [Joshua Shreve](https://github.com/joshreve)
-* Hardware Supported: Pro Micro, or clone of
+* Hardware Supported: Pro Micro development board
 * Hardware Availability: [Github](https://github.com/joshreve/dactyl-keyboard)
 
 ## Variants
 
-*Dactyl ManuForm Tights* are built in variations that cater for different row and column counts.  
+*Dactyl ManuForm Tights* are built in variations that cater for different row and column counts; there is no default. 
 
-As standard, per half: 
+Standard key layout (per half): 
 - The finger keywell bottom row has 2 keys, 1 each in ring and middle columns
 - The thumb cluster has 3 keys, arranged in 1 row. 
 
@@ -40,7 +40,7 @@ Variants are denoted as `RowCount`*x*`ColumnCount`*(_`Alteration`)*
 | eic | **E**xtended **I**nner **C**olumn: Each half gains an additional inner column though the bottom key of said column is ommitted | ![eic](https://i.imgur.com/stuHtsXh.png) |
 | exic | *ex* and *eic* combined | ![exic](https://i.imgur.com/t37nF0uh.png) |
 
-### Legacy 5x7 variant
+### Legacy "5x7" variant
 
 Is the [5x6_exic](./5x6_exic/) variant.
  
