@@ -10,7 +10,8 @@
         "extrakey": true,
         "console": false,
         "command": false,
-        "nkro": true
+        "nkro": true,
+        "rgb_matrix": true
     },
     "rgb_matrix": {
         "animations": {

@@ -15,6 +15,11 @@
     "diode_direction": "ROW2COL",
     "processor": "at90usb1286",
     "bootloader": "halfkay",
+    "features": {
+        "bootmagic": false,
+        "mousekey": false,
+        "extrakey": false
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -6,10 +6,20 @@
     "usb": {
         "vid": "0xB33F",
         "pid": "0x58E4",
-        "device_version": "0.0.1"
+        "device_version": "0.0.1",
+        "no_startup_check": true
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "features": {
+        "bootmagic": false,
+        "mousekey": true,
+        "extrakey": true,
+        "unicode": true
+    },
+    "build": {
+        "lto": true
+    },
     "community_layouts": ["split_3x5_3", "split_3x6_3"],
     "layouts": {
         "LAYOUT_split_3x6_3": {
