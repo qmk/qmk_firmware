@@ -1,50 +1,32 @@
-/*
- * Copyright 2021 Quentin LEBASTARD <qlebastard@gmail.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
 
-#include "quantum.h"
+#include "blacktyl.h"
 
- void keyboard_post_init_user(void) {
-     // Customise these values to desired behaviour
-  //debug_enable=true;
-  //debug_matrix=true;
-  //debug_keyboard=true;
-  //debug_mouse=true;
+void keyboard_post_init_user(void) {
+    // rgblight_enable();
+    // rgblight_sethsv_cyan();
+    // rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL);
+    // debug_config.enable = true;
+    // debug_config.matrix = true;
+    // debug_config.keyboard = true;
+    // debug_config.mouse    = true;
 
-     if (is_keyboard_left()) {
-         dprintln("I'm left!");
-     } else {
-         dprintln("I'm right!");
-     }
- }
+    if (is_keyboard_left()) {
+        dprintln("I'm left!");
+    } else {
+        dprintln("I'm right!");
+    }
+}
 
-/**
- * LEDs index.
- *
- * ╭────────────────────╮                 ╭────────────────────╮
- *    2   3   8   9  12                     30  27  26  21  20
- * ├────────────────────┤                 ├────────────────────┤
- *    1   4   7  10  13                     31  28  25  22  19
- * ├────────────────────┤                 ├────────────────────┤
- *    0   5   6  11  14                     32  29  24  23  18
- * ╰────────────────────╯                 ╰────────────────────╯
- *                   15  16  17     35  34  33
- *                 ╰────────────╯ ╰────────────╯
- */
-// clang-format off
+void housekeeping_task_user(void) {
+    static uint16_t start = 0;
+    if (timer_elapsed(start) > 1000) {
+        start = timer_read();
+        dprintf("Fresh into eeprom %d\n", (uint8_t)start);
+        eeconfig_update_debug((uint8_t)start);
+        dprintf("Fresh from eeprom %d\n", (uint8_t)eeconfig_read_debug());
+    }
+}
+
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {
     /* Key Matrix to LED index. */
@@ -92,4 +74,3 @@ led_config_t g_led_config = { {
     /* index=33 */ LED_FLAG_MODIFIER, LED_FLAG_MODIFIER, LED_FLAG_MODIFIER, // Thumb cluster
 } };
 #endif
-// clang-format on

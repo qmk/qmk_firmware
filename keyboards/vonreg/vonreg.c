@@ -1,6 +1,4 @@
-/**
- * Copyright 2020 Nick Brassel (tzarc)
- * Copyright 2022 Charly Delay <charly@codesink.dev> (@0xcharly)
+/* Copyright 2021 Harshit Goel
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,14 +14,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "vonreg.h"
 
-#define HAL_USE_PWM TRUE
-#define HAL_USE_SERIAL TRUE
-//#define HAL_USE_I2C     TRUE
-//#define HAL_USE_SPI TRUE
-//#define SPI_USE_WAIT TRUE
-//#define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
-//#define HAL_USE_GPT TRUE
+char _down;
 
-#include_next <halconf.h>
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+        writePinHigh(C13);
+        _down++;
+    } else {
+        _down--;
+        if (_down == 0) {
+            writePinLow(C13);
+        }      
+    }
+    //process_record_user(keycode, record);
+    return true;
+}
+
+void keyboard_post_init_kb(void) { 
+    setPinOutput(C13);
+    //keyboard_post_init_user();
+}
