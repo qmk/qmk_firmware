@@ -1,5 +1,9 @@
 {
     "keyboard_name": "Blacktyl",
+    "usb": {                                                                                                                   
+         "pid": "0x1830",
+         "device_version": "1.0.0"
+     },
     "url": "https://www.bastardkb.com",
     "maintainer": "Quentin Lebastard",
     "layouts": {

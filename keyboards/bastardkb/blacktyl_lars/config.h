@@ -1,13 +1,6 @@
 #pragma once
 
-#include "config_common.h"
-
 /* USB DEVICE DESCRIPTOR */
-#define PRODUCT The Bastard Keyboards Blackpill
-#define MANUFACTURER Bastard Keyboards x KarlK90
-#define VENDOR_ID 0xA8F8
-#define PRODUCT_ID 0x1828
-#define DEVICE_VER 0x0001
 
 /* MATRIX CONFIG */
 #define MATRIX_COLS 5
@@ -23,8 +16,8 @@
 
 
 /* RGB CONFIG - WS2812 DRIVER */
-#define RGB_DI_PIN A1
-#define RGBLED_NUM 36
+#define WS2812_DI_PIN A1
+#define RGBLIGHT_LED_COUNT 36
 #define RGBLED_SPLIT \
      { 18, 18 }
 #define WS2812_EXTERNAL_PULLUP
