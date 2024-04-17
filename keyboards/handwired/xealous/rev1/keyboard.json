@@ -22,6 +22,15 @@
   },
   "processor": "atmega32u4",
   "bootloader": "caterina",
+  "features": {
+    "bootmagic": false,
+    "mousekey": false,
+    "extrakey": true,
+    "console": true,
+    "command": true,
+    "nkro": true,
+    "audio": true
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [
