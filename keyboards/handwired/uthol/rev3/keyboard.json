@@ -6,15 +6,6 @@
             "keyboard": true
         }
     },
-    "features": {
-        "bootmagic": true,
-        "encoder": true,
-        "extrakey": true,
-        "nkro": true,
-        "oled": true,
-        "rgblight": true,
-        "wpm": true
-    },
     "rgblight": {
         "led_count": 39,
         "animations": {
