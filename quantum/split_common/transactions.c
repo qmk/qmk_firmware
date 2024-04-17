@@ -710,9 +710,9 @@ static bool pointing_handlers_master(matrix_row_t master_matrix[], matrix_row_t 
         return true;
     }
 #    endif
-    static uint32_t last_update = 0;
+    static uint32_t last_update     = 0;
     static uint32_t last_cpi_update = 0;
-    static uint16_t last_cpi    = 0;
+    static uint16_t last_cpi        = 0;
     report_mouse_t  temp_state;
     uint16_t        temp_cpi;
     bool            okay = read_if_checksum_mismatch(GET_POINTING_CHECKSUM, GET_POINTING_DATA, &last_update, &temp_state, &split_shmem->pointing.report, sizeof(temp_state));
