@@ -1,7 +1,10 @@
 {
     "keyboard_name": "UtholThree",
     "usb": {
-        "device_version": "0.0.3"
+        "device_version": "0.0.3",
+        "shared_endpoint": {
+            "keyboard": true
+        }
     },
     "rgblight": {
         "led_count": 39,

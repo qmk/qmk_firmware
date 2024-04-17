@@ -1,7 +1,12 @@
 {
-    "keyboard_name": "Onekey Blackpill STM32F401 TinyUF2",
-    "development_board": "blackpill_f401",
+    "keyboard_name": "Onekey Blackpill STM32F411 TinyUF2",
+    "development_board": "blackpill_f411",
     "bootloader": "tinyuf2",
+    "usb": {
+        "shared_endpoint": {
+            "keyboard": true
+        }
+    },
     "matrix_pins": {
         "cols": ["B0"],
         "rows": ["A7"]
