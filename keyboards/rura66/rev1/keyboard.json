@@ -8,6 +8,9 @@
         "pid": "0x0200",
         "device_version": "0.0.1"
     },
+    "build": {
+        "lto": true
+    },
     "features": {
         "bootmagic": false,
         "extrakey": true,
