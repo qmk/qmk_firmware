@@ -4,5 +4,11 @@
         "rows": ["B10"]
     },
     "diode_direction": "COL2ROW",
-    "development_board": "bluepill"
+    "development_board": "bluepill",
+    "features": {
+        "bootmagic": false,
+        "mousekey": false,
+        "extrakey": false,
+        "console": true
+    }
 }
