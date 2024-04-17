@@ -10,13 +10,6 @@ enum layer_number {
     _NAV
 };
 
-
-enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  NAV,
-
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Qwerty
@@ -67,32 +60,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
 float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
 #endif
-
-void persistant_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_qwerty);
-        #endif
-        persistant_default_layer_set(1UL<<_QWERTY);
-      }
-      return false;
-      break;
-    //case COLEMAK:
-      //if (record->event.pressed) {
-        //#ifdef AUDIO_ENABLE
-          //PLAY_SONG(tone_colemak);
-        //#endif
-        //persistant_default_layer_set(1UL<<_COLEMAK);
-      //}
-      //return false;
-      //break;
-  }
-  return true;
-}

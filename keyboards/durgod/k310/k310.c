@@ -55,7 +55,7 @@ void led_init_ports(void) {
 #ifndef WINLOCK_DISABLED
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case GUI_TOG:
+        case GU_TOGG:
             if (record->event.pressed) {
                 // Toggle LED on key press
                 togglePin(LED_WIN_LOCK_PIN);

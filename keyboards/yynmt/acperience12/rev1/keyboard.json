@@ -8,6 +8,11 @@
         "pid": "0xEA51",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true
+    },
     "processor": "atmega32u2",
     "bootloader": "atmel-dfu",
     "matrix_pins": {

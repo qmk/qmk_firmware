@@ -1,0 +1,29 @@
+{
+    "keyboard_name": "Tractyl Manuform (5x6) Elite-C",
+    "matrix_pins": {
+        "cols": ["D4", "D7", "E6", "B4", "B5", "B7"],
+        "rows": ["F7", "F6", "F5", "F4", "F1", "F0"]
+    },
+    "diode_direction": "COL2ROW",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D5", "pin_b": "C7"}
+        ]
+    },
+    "split": {
+        "soft_serial_pin": "D2"
+    },
+    "ws2812": {
+        "pin": "D3"
+    },
+    "rgblight": {
+        "led_count": 20,
+        "max_brightness": 80,
+        "split_count": [10, 10]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "build": {
+        "lto": true
+    }
+}

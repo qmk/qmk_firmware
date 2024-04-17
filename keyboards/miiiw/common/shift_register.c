@@ -14,8 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
 #include "shift_register.h"
+#include <string.h>
 
 static void shift_out(void);
 

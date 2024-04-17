@@ -419,6 +419,10 @@ static bool mods_handlers_master(matrix_row_t master_matrix[], matrix_row_t slav
     if (!mods_need_sync && new_mods.oneshot_mods != split_shmem->mods.oneshot_mods) {
         mods_need_sync = true;
     }
+    new_mods.oneshot_locked_mods = get_oneshot_locked_mods();
+    if (!mods_need_sync && new_mods.oneshot_locked_mods != split_shmem->mods.oneshot_locked_mods) {
+        mods_need_sync = true;
+    }
 #    endif // NO_ACTION_ONESHOT
 
     bool okay = true;
@@ -442,6 +446,7 @@ static void mods_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave
     set_weak_mods(mods.weak_mods);
 #    ifndef NO_ACTION_ONESHOT
     set_oneshot_mods(mods.oneshot_mods);
+    set_oneshot_locked_mods(mods.oneshot_locked_mods);
 #    endif
 }
 
