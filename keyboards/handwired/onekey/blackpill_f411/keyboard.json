@@ -1,6 +1,11 @@
 {
     "keyboard_name": "Onekey Blackpill STM32F411",
     "development_board": "blackpill_f411",
+    "usb": {
+        "shared_endpoint": {
+            "keyboard": true
+        }
+    },
     "matrix_pins": {
         "cols": ["B0"],
         "rows": ["A7"]

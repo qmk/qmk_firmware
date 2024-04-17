@@ -1,7 +1,19 @@
 {
     "keyboard_name": "UtholThree",
     "usb": {
-        "device_version": "0.0.3"
+        "device_version": "0.0.3",
+        "shared_endpoint": {
+            "keyboard": true
+        }
+    },
+    "features": {
+        "bootmagic": true,
+        "encoder": true,
+        "extrakey": true,
+        "nkro": true,
+        "oled": true,
+        "rgblight": true,
+        "wpm": true
     },
     "rgblight": {
         "led_count": 39,

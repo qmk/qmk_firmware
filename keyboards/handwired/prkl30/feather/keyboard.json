@@ -1,4 +1,14 @@
 {
+    "features": {
+        "bluetooth": true,
+        "bootmagic": true,
+        "command": true,
+        "console": true,
+        "encoder": true,
+        "extrakey": false,
+        "mousekey": false,
+        "nkro": true
+    },
     "rgblight": {
         "saturation_steps": 8,
         "brightness_steps": 8,
