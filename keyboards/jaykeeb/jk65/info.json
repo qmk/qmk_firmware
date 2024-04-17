@@ -27,12 +27,7 @@
         "pid": "0x7765",
         "vid": "0x414C"
     },
-    "layout_aliases": {
-        "LAYOUT_65_ansi_blocker": "LAYOUT_ansi_blocker",
-        "LAYOUT_65_ansi_blocker_split_bs": "LAYOUT_ansi_blocker_split_bs",
-        "LAYOUT_65_ansi_blocker_tsangan": "LAYOUT_ansi_blocker_tsangan",
-        "LAYOUT_65_ansi_blocker_tsangan_split_bs": "LAYOUT_ansi_blocker_tsangan_split_bs"
-    },
+    "community_layouts": ["65_ansi_blocker", "65_ansi_blocker_split_bs", "65_ansi_blocker_tsangan", "65_ansi_blocker_tsangan_split_bs"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -111,7 +106,7 @@
                 {"label": "\u2192", "matrix": [4, 14], "x": 15, "y": 4}
             ]
         },
-        "LAYOUT_ansi_blocker": {
+        "LAYOUT_65_ansi_blocker": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "1", "matrix": [0, 1], "x": 1, "y": 0},
@@ -186,7 +181,7 @@
                 {"label": "\u2192", "matrix": [4, 14], "x": 15, "y": 4}
             ]
         },
-        "LAYOUT_ansi_blocker_split_bs": {
+        "LAYOUT_65_ansi_blocker_split_bs": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "1", "matrix": [0, 1], "x": 1, "y": 0},
@@ -262,7 +257,7 @@
                 {"label": "\u2192", "matrix": [4, 14], "x": 15, "y": 4}
             ]
         },
-        "LAYOUT_ansi_blocker_tsangan": {
+        "LAYOUT_65_ansi_blocker_tsangan": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "1", "matrix": [0, 1], "x": 1, "y": 0},
@@ -336,7 +331,7 @@
                 {"label": "\u2192", "matrix": [4, 14], "x": 15, "y": 4}
             ]
         },
-        "LAYOUT_ansi_blocker_tsangan_split_bs": {
+        "LAYOUT_65_ansi_blocker_tsangan_split_bs": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "1", "matrix": [0, 1], "x": 1, "y": 0},
