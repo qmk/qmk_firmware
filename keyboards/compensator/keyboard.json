@@ -28,8 +28,7 @@
         "layer_count": 3
     },
     "indicators": {
-        "caps_lock": "E6",
-        "on_state": 0
+        "caps_lock": "E6"
     },
     "layouts": {
         "LAYOUT": {

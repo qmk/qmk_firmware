@@ -11,5 +11,11 @@
         "pin": "D3"
     },
     "processor": "atmega32u4",
-    "bootloader": "halfkay"
+    "bootloader": "halfkay",
+    "features": {
+        "bootmagic": false,
+        "mousekey": false,
+        "extrakey": false,
+        "console": true
+    }
 }
