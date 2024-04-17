@@ -42,6 +42,7 @@ QMK は十分な容量のフラッシュメモリを備えた USB 対応 AVR ま
 * [STM32L422](https://www.st.com/en/microcontrollers-microprocessors/stm32l4x2.html)
 * [STM32L433](https://www.st.com/en/microcontrollers-microprocessors/stm32l4x3.html)
 * [STM32L443](https://www.st.com/en/microcontrollers-microprocessors/stm32l4x3.html)
+* [STM32WB55](https://www.st.com/en/microcontrollers-microprocessors/stm32wbx5.html)
 
 ### NXP (Kinetis)
 
