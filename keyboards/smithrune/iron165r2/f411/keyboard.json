@@ -1,0 +1,46 @@
+{
+    "build": {
+        "lto": false
+    },
+    "features": {
+        "backlight": true,
+        "bootmagic": true,
+        "command": true,
+        "extrakey": true,
+        "mousekey": false,
+        "nkro": true,
+        "rgblight": true
+    },
+    "eeprom": {
+        "driver": "i2c"
+    },
+    "backlight": {
+        "pin": "A6",
+        "levels": 20,
+        "breathing": true
+    },
+    "rgblight": {
+        "led_count": 22,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        },
+        "default": {
+            "val": 0
+        }
+    },
+    "ws2812": {
+        "pin": "B15",
+        "driver": "pwm"
+    },
+    "processor": "STM32F411",
+    "bootloader": "stm32-dfu"
+}
