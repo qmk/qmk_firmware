@@ -18,12 +18,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
-    [0] = LAYOUT(KC_TRNS),
-
-    [1] = LAYOUT(KC_TRNS),
-
-    [2] = LAYOUT(KC_TRNS),
-
-    [3] = LAYOUT(KC_TRNS)
+    [0] = LAYOUT(LALT(LGUI(KC_KB_POWER))) // OSX Sleep
 };

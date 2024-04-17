@@ -13,8 +13,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "matrix.h"
 #include "mcp23018.h"
-#include "quantum.h"
+#include "print.h"
+#include "wait.h"
 
 // Optimize scanning code for speed as a slight mitigation for the port expander
 #pragma GCC push_options

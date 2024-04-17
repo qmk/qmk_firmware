@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #include "eeconfig.h"
 #include "process_unicode.h"
-#include "quantum.h"
 #ifdef RGBSPS_ENABLE
 #include "rgbsps.h"
 #include "rgbtheme.h"
@@ -941,9 +940,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
+void persistent_default_layer_set(uint8_t default_layer) {
+  set_single_persistent_default_layer(default_layer);
 #ifdef RGBSPS_ENABLE
   led_set_default_layer_indicator();
 #endif
@@ -1120,14 +1118,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // layout switchers
     case QWERTY:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_QWERTY);
+        persistent_default_layer_set(_QWERTY);
       }
       return false;
       break;
 #ifdef LAYOUT_DVORAK
     case DVORAK:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_DVORAK);
+        persistent_default_layer_set(_DVORAK);
       }
       return false;
       break;
@@ -1135,7 +1133,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef LAYOUT_COLEMAK
     case COLEMAK:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_COLEMAK);
+        persistent_default_layer_set(_COLEMAK);
       }
       return false;
       break;
@@ -1143,7 +1141,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef LAYOUT_WORKMAN
     case WORKMAN:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_WORKMAN);
+        persistent_default_layer_set(_WORKMAN);
       }
       return false;
       break;
@@ -1151,7 +1149,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef LAYOUT_NORMAN
     case NORMAN:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_NORMAN);
+        persistent_default_layer_set(_NORMAN);
       }
       return false;
       break;

@@ -1,1 +1,0 @@
-DEFAULT_FOLDER = bt66tech/bt66tech60

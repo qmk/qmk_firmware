@@ -13,13 +13,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <stdint.h>
-#include <stdbool.h>
-#include <string.h>
-#include "util.h"
 #include "matrix.h"
+#include <string.h>
 #include "split_util.h"
-#include "quantum.h"
+#include "wait.h"
 
 #define VIRT_COLS_PER_HAND 1
 #define PHYS_COLS_PER_HAND (MATRIX_COLS - VIRT_COLS_PER_HAND)
