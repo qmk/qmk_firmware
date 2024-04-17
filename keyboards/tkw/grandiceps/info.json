@@ -4,7 +4,19 @@
     "maintainer": "vattern",
     "usb": {
         "vid": "0xFEED",
-        "pid": "0x7812"
+        "pid": "0x7812",
+        "shared_endpoint": {
+            "keyboard": true
+        }
+    },
+    "features": {
+        "bootmagic": true,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "oled": true,
+        "rgblight": true
     },
     "ws2812": {
         "pin": "B1",
