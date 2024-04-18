@@ -1,1 +1,1 @@
-# This file intentionally left blank
+DEFAULT_FOLDER = plywrks/ply8x/solder
