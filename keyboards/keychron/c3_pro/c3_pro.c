@@ -21,10 +21,10 @@ static uint8_t  os_switch_indicate_count = 0;
 static uint8_t  led_toggle_count         = 5;
 
 void keyboard_post_init_kb(void) {
-    setPinOutputPushPull(LED_MAC_OS_PIN);
-    setPinOutputPushPull(LED_WIN_OS_PIN);
-    writePin(LED_MAC_OS_PIN, !LED_OS_PIN_ON_STATE);
-    writePin(LED_WIN_OS_PIN, !LED_OS_PIN_ON_STATE);
+    gpio_set_pin_output(LED_MAC_OS_PIN);
+    gpio_set_pin_output(LED_WIN_OS_PIN);
+    gpio_write_pin(LED_MAC_OS_PIN, !LED_OS_PIN_ON_STATE);
+    gpio_write_pin(LED_WIN_OS_PIN, !LED_OS_PIN_ON_STATE);
 
     layer_state_t last_layer = eeconfig_read_default_layer();
     if (last_layer) {
