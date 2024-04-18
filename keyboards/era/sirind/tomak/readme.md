@@ -1,6 +1,6 @@
 # Tomak
 
-![Tomak](https://i.imgur.com/CmVR0G1h.jpeg)
+![Tomak](https://i.imgur.com/CmVR0G1.jpeg)
 
 Ergonomics Split Keyboard powered by RP2040.
 
