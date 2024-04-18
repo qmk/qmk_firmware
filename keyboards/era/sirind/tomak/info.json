@@ -203,10 +203,10 @@
     },
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_split_tkl_ansi_split_rshift_bs_rspace",
-        "LAYOUT_tomak_ansi": "LAYOUT_split_tkl_ansi",
-        "LAYOUT_tomak_ansi_split_bs": "LAYOUT_split_tkl_ansi_split_bs",
-        "LAYOUT_tomak_ansi_split_rshift": "LAYOUT_split_tkl_ansi_split_rshift",
-        "LAYOUT_tomak_ansi_split_rshift_bs": "LAYOUT_split_tkl_ansi_split_rshift_bs"
+        "LAYOUT_ansi": "LAYOUT_split_tkl_ansi",
+        "LAYOUT_ansi_split_bs": "LAYOUT_split_tkl_ansi_split_bs",
+        "LAYOUT_ansi_split_rshift": "LAYOUT_split_tkl_ansi_split_rshift",
+        "LAYOUT_ansi_split_rshift_bs": "LAYOUT_split_tkl_ansi_split_rshift_bs"
     },
     "layouts": {
         "LAYOUT_split_tkl_ansi": {
