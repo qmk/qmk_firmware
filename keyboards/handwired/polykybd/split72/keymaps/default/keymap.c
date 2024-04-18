@@ -224,6 +224,10 @@ static int32_t last_update = 0;
 static uint8_t use_overlay[NUM_OVERLAYS*NUM_VARIATIONS];
 static uint8_t overlays [NUM_OVERLAYS*NUM_VARIATIONS][72*40/8]; // ResX*ResY/PixelPerByte
 
+void reset_overlay_buffers(void) {
+    memset(&use_overlay, 0, sizeof(use_overlay));
+}
+
 typedef struct _overlay_sync_t {
     uint32_t crc32;
     uint16_t adj_idx;
@@ -432,7 +436,7 @@ bool differ(const void* b1, const void* b2, uint8_t byte_count) {
 }
 
 #define BYTE_TO_BINARY_PATTERN "|%s%s%s%s%s%s%s%s"
-#define BYTE_TO_BINARY(byte)  \
+#define BYTE_TO_FLAGS(byte)  \
   ((byte) & 0x80 ? " RGB |" : " --- |"), \
   ((byte) & 0x40 ? "Txt2 |" : " --- |"), \
   ((byte) & 0x20 ? "Txt1 |" : " --- |"), \
@@ -442,7 +446,20 @@ bool differ(const void* b1, const void* b2, uint8_t byte_count) {
   ((byte) & 0x02 ? "Trans|" : " --- |"), \
   ((byte) & 0x01 ? "StatD|" : " --- |")
 
+  #define BYTE_TO_OVERLAY_FLAGS(byte)  \
+  ((byte) & 0x80 ? "  1  |" : " --- |"), \
+  ((byte) & 0x40 ? "  1  |" : " --- |"), \
+  ((byte) & 0x20 ? "Reset|" : " --- |"), \
+  ((byte) & 0x10 ? "ClrRB|" : " --- |"), \
+  ((byte) & 0x08 ? "ClrRT|" : " --- |"), \
+  ((byte) & 0x04 ? "ClrLB|" : " --- |"), \
+  ((byte) & 0x02 ? "ClrLT|" : " --- |"), \
+  ((byte) & 0x01 ? "Disp |" : " --- |")
+
+//helpers
 static uint8_t flags = 0;
+static uint8_t overlay_flags = 0;
+
 void sync_and_refresh_displays(void) {
     bool layer_diff = false;
     bool state_diff = false;
@@ -455,8 +472,12 @@ void sync_and_refresh_displays(void) {
         }
 
         if(flags!=l_state.flags) {
-            uprintf("Poly State Flags: 0x%02x " BYTE_TO_BINARY_PATTERN "\n", l_state.flags, BYTE_TO_BINARY(l_state.flags));
+            uprintf("Poly State Flags: 0x%02x " BYTE_TO_BINARY_PATTERN "\n", l_state.flags, BYTE_TO_FLAGS(l_state.flags));
             flags=l_state.flags;
+        }
+        if(overlay_flags!=l_state.overlay_flags) {
+            uprintf("Poly Ovrly Flags: 0x%02x " BYTE_TO_BINARY_PATTERN "\n", l_state.overlay_flags, BYTE_TO_OVERLAY_FLAGS(l_state.overlay_flags));
+            overlay_flags=l_state.overlay_flags;
         }
 
         l_state.flags = set_flag(l_state.flags, DBG_ON, debug_enable);
@@ -483,10 +504,13 @@ void sync_and_refresh_displays(void) {
     const bool in_idle_mode = (l_state.flags & DISP_IDLE) != 0;
 
     if(state_diff) {
-        const bool idle_changed                 = has_flag_changed(l_state.flags, g_state.flags, DISP_IDLE);
-        const bool contrast_changed             = g_state.contrast != l_state.contrast;
-        const bool status_disp_changed          = has_flag_changed(l_state.flags, g_state.flags, STATUS_DISP_ON);
-        const bool status_disp_on               = test_flag(l_state.flags, STATUS_DISP_ON);
+        const bool idle_changed         = has_flag_changed(l_state.flags, g_state.flags, DISP_IDLE);
+        const bool contrast_changed     = g_state.contrast != l_state.contrast;
+        const bool status_disp_changed  = has_flag_changed(l_state.flags, g_state.flags, STATUS_DISP_ON);
+        const bool status_disp_on       = test_flag(l_state.flags, STATUS_DISP_ON);
+        const bool overlays_changed     = has_flag_changed(l_state.overlay_flags, g_state.overlay_flags, DISPLAY_OVERLAYS);
+        const bool reset_overlays       = test_flag(l_state.overlay_flags, RESET_BUFFERS);
+        const bool debug_changed        = has_flag_changed(l_state.flags, g_state.flags, DBG_ON);
 
         if(idle_changed) {
             if(in_idle_mode) {
@@ -520,9 +544,14 @@ void sync_and_refresh_displays(void) {
             }
         }
 
-        if( has_flag_changed(l_state.flags, g_state.flags, DBG_ON) ||
-            has_flag_changed(l_state.overlay_flags, g_state.overlay_flags, DISPLAY_OVERLAYS)) {
+        if(reset_overlays) {
+            reset_overlay_buffers();
+            l_state.overlay_flags = flag_off(l_state.overlay_flags, RESET_BUFFERS);
+        }
+
+        if( debug_changed || overlays_changed || reset_overlays) {
             request_disp_refresh();
+            update_performed();
         }
 
         if (contrast_changed || idle_changed) {
@@ -536,7 +565,6 @@ void sync_and_refresh_displays(void) {
         memcpy(&g_layer, &l_layer, sizeof(l_layer));
         request_disp_refresh();
     }
-
 
     if (g_refresh == START_FIRST_HALF) {
         update_displays(START_FIRST_HALF);
@@ -552,7 +580,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     l_layer.layer = state;
     return state;
 }
-
 
 void housekeeping_task_user(void) {
     sync_and_refresh_displays();
@@ -2217,10 +2244,6 @@ void fill_overlay_buffer(uint8_t keycode, uint8_t mods, uint8_t segment_0_to_14,
     }
 }
 
-void clear_overlays(void) {
-    memset(&use_overlay, 0, sizeof(use_overlay));
-}
-
 void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
     const char * name = "P0.PolyKybd Split72";
 
@@ -2315,17 +2338,22 @@ void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
                     }
                 }
                 break;
-            case '5': //disable overlays
-                clear_overlays();
-                update_performed();
-                request_disp_refresh();
+            case '5': //reset overlays buffers
+                l_state.overlay_flags = flag_on(l_state.overlay_flags, RESET_BUFFERS);
                 memcpy(data, "P5.", 3);
-                uprint("Overlays cleared.\n");
+                uprint("Overlay buffer reset.\n");
                 break;
             case '6': //toggle overlay visibility
-                l_state.overlay_flags = set_flag(l_state.overlay_flags, DISPLAY_OVERLAYS, data[3]!=0);
-                uprintf("Overlays visible: %d.\n", data[3]);
-                memcpy(data, "P6.", 3);
+                {
+                    const bool vis_changed =  test_flag(l_state.overlay_flags, DISPLAY_OVERLAYS) != (data[3]!=0);
+                    l_state.overlay_flags = set_flag(l_state.overlay_flags, DISPLAY_OVERLAYS, data[3]!=0);
+                    uprintf("Overlays visible: %d.\n", data[3]);
+                    memcpy(data, "P6.", 3);
+                    if(vis_changed) {
+                        //run houskeeping task to make sure the overlays chage before receiving further HID commands
+                        housekeeping_task_user();
+                    }
+                }
                 break;
             default:
                 break;

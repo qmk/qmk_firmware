@@ -13,7 +13,12 @@ enum poly_flag {
 };
 
 enum overlay_flag {
-    DISPLAY_OVERLAYS      = 1 << 0,
+    DISPLAY_OVERLAYS    = 1 << 0,
+    CLEAR_LEFT_TOP      = 1 << 1,
+    CLEAR_LEFT_BOTTOM   = 1 << 2,
+    CLEAR_RIGHT_TOP     = 1 << 3,
+    CLEAR_RIGHT_BOTTOM  = 1 << 4,
+    RESET_BUFFERS       = 1 << 5,
 };
 
 bool test_flag(uint8_t flags, uint8_t f) ;

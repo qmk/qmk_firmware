@@ -27,5 +27,10 @@ ENCODER_ENABLE = yes
 POINTING_DEVICE_ENABLE = yes
 POINTING_DEVICE_DRIVER = cirque_pinnacle_i2c #POINTING_DEVICE_DRIVER = pimoroni_trackball
 
+#Allow raw hid communication (for bi-directional data transfer)
 RAW_ENABLE = yes
+
+#collect words per minute data
 WPM_ENABLE = yes
+
+#DEBUG_MATRIX_SCAN_RATE  = yes
