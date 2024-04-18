@@ -5,6 +5,16 @@
     "maintainer": "qmk",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "backlight": true,
+        "rgblight": true
+    },
+    "build": {
+        "lto": true
+    },
     "usb": {
         "vid": "0xA13B",
         "pid": "0x000A",

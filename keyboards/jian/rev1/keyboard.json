@@ -44,6 +44,11 @@
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",
+    "features": {
+        "backlight": true,
+        "rgblight": true,
+        "dip_switch": true
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
