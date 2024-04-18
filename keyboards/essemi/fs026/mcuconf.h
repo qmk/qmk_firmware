@@ -17,6 +17,16 @@
 #ifndef MCUCONF_H
 #define MCUCONF_H
 
+#define ES32_FS026_MCUCONF
+
+/*
+ * HAL driver system settings.
+ */
+//Temporarily not supported.
+//System_clock = 72M
+//Peripheral_clock1(TIMER,SPI,I2C...) = 72M
+//Peripheral_clock2(USB) = 48M
+
 /*
  * PWM driver system settings.
  */
