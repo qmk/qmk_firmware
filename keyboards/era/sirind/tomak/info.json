@@ -172,15 +172,15 @@
         "split_count": [40, 59]
     },
     "split": {
+        "bootmagic": {
+            "matrix": [6, 0]
+        },
         "enabled": true,
         "matrix_pins": {
             "right": {
                 "cols": ["GP2", "GP3", "GP4", "GP5", "GP6", "GP7", "GP8", "GP9", "GP27", "GP17", "GP13"],
                 "rows": ["GP10", "GP11", "GP12", "GP28", "GP19", "GP16"]
             }
-        },
-        "bootmagic": {
-            "matrix": [6, 0]
         },
         "transport": {
             "protocol": "serial_usart",
