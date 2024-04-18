@@ -50,12 +50,12 @@ void eeconfig_init_kb(void) {
 
 void housekeeping_task_kb(void) {
     if (default_layer_state == (1U << 0)) {
-        writePin(LED_MAC_OS_PIN, LED_OS_PIN_ON_STATE);
-        writePin(LED_WIN_OS_PIN, !LED_OS_PIN_ON_STATE);
+        gpio_write_pin(LED_MAC_OS_PIN, LED_OS_PIN_ON_STATE);
+        gpio_write_pin(LED_WIN_OS_PIN, !LED_OS_PIN_ON_STATE);
     }
     if (default_layer_state == (1U << 2)) {
-        writePin(LED_MAC_OS_PIN, !LED_OS_PIN_ON_STATE);
-        writePin(LED_WIN_OS_PIN, LED_OS_PIN_ON_STATE);
+        gpio_write_pin(LED_MAC_OS_PIN, !LED_OS_PIN_ON_STATE);
+        gpio_write_pin(LED_WIN_OS_PIN, LED_OS_PIN_ON_STATE);
     }
 
     if (os_switch_timer_buffer && timer_elapsed32(os_switch_timer_buffer) > 300) {
