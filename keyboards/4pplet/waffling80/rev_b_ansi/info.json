@@ -9,6 +9,13 @@
         "brightness_steps": 8,
         "led_count": 2
     },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgblight": true
+    }
     "ws2812": {
         "pin": "A8"
     },
