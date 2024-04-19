@@ -59,12 +59,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define USB_SLEEP_ENABLED true
 
-#define DEBOUNCE 5
 // #define DEBUG_MATRIX_SCAN_RATE
-
-// configurations for CAPS_WORD feature
-// #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
-// #define CAPS_WORD_INVERT_ON_SHIFT
 
 // NOTE: uncomment if you want to have random colors in Reactive RGB effects
 // #define RGB_MATRIX_SOLID_REACTIVE_GRADIENT_MODE
