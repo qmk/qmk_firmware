@@ -3,9 +3,6 @@
     "keyboard_name": "EPOMAKER TIDE 75",
     "maintainer": "sdk66",
     "bootloader": "wb32-dfu",
-    "bootmagic": {
-        "matrix": [0, 0]
-    },
     "diode_direction": "ROW2COL",
     "encoder": {
         "rotary": [
