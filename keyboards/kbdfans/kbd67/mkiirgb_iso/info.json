@@ -54,6 +54,13 @@
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "lufa-ms",
+    "features": {
+        "bootmagic": true,
+        "mousekey": false,
+        "extrakey": true,
+        "nkro": true,
+        "rgb_matrix": true
+    },
     "community_layouts": ["65_iso_blocker"],
     "layouts": {
         "LAYOUT_65_iso_blocker": {
