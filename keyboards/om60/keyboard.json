@@ -8,6 +8,14 @@
       "pid": "0x0001",
       "device_version": "1.0.0"
   },
+  "features": {
+    "bootmagic": true,
+    "encoder": true,
+    "extrakey": true,
+    "mousekey": true,
+    "nkro": false,
+    "rgblight": true
+  },
   "encoder": {
     "rotary": [
       {"pin_a": "B4", "pin_b": "B5"}
