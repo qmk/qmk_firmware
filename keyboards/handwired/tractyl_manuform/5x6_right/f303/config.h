@@ -26,8 +26,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define WS2812_PWM_CHANNEL  1      // default: 2
 #define WS2812_PWM_PAL_MODE 2      // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 2
 //#define WS2812_PWM_COMPLEMENTARY_OUTPUT // Define for a complementary timer output (TIMx_CHyN); omit for a normal timer output (TIMx_CHy).
-// #define WS2812_DMA_STREAM   STM32_DMA1_STREAM3  // DMA Stream for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
-#define WS2812_DMA_CHANNEL  3  // DMA Channel for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
+// #define WS2812_PWM_DMA_STREAM   STM32_DMA1_STREAM3  // DMA Stream for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
+#define WS2812_PWM_DMA_CHANNEL  3  // DMA Channel for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
 
 #define DEBUG_LED_PIN C13
 

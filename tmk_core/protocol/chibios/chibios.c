@@ -70,17 +70,6 @@ host_driver_t chibios_driver = {keyboard_leds, send_keyboard, send_nkro, send_mo
 void virtser_task(void);
 #endif
 
-#ifdef RAW_ENABLE
-void raw_hid_task(void);
-#endif
-
-#ifdef CONSOLE_ENABLE
-void console_task(void);
-#endif
-#ifdef MIDI_ENABLE
-void midi_ep_task(void);
-#endif
-
 /* TESTING
  * Amber LED blinker thread, times are in milliseconds.
  */
@@ -192,30 +181,25 @@ void protocol_pre_task(void) {
             /* Remote wakeup */
             if ((USB_DRIVER.status & USB_GETSTATUS_REMOTE_WAKEUP_ENABLED) && suspend_wakeup_condition()) {
                 usbWakeupHost(&USB_DRIVER);
-                restart_usb_driver(&USB_DRIVER);
+#    if USB_SUSPEND_WAKEUP_DELAY > 0
+                // Some hubs, kvm switches, and monitors do
+                // weird things, with USB device state bouncing
+                // around wildly on wakeup, yielding race
+                // conditions that can corrupt the keyboard state.
+                //
+                // Pause for a while to let things settle...
+                wait_ms(USB_SUSPEND_WAKEUP_DELAY);
+#    endif
             }
         }
         /* Woken up */
-        // variables has been already cleared by the wakeup hook
-        send_keyboard_report();
-#    ifdef MOUSEKEY_ENABLE
-        mousekey_send();
-#    endif /* MOUSEKEY_ENABLE */
     }
 #endif
 }
 
 void protocol_post_task(void) {
-#ifdef CONSOLE_ENABLE
-    console_task();
-#endif
-#ifdef MIDI_ENABLE
-    midi_ep_task();
-#endif
 #ifdef VIRTSER_ENABLE
     virtser_task();
 #endif
-#ifdef RAW_ENABLE
-    raw_hid_task();
-#endif
+    usb_idle_task();
 }

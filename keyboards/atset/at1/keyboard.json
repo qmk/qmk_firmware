@@ -1,0 +1,38 @@
+{
+  "keyboard_name": "AT1",
+  "manufacturer": "Atset",
+  "maintainer": "atset",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x6060",
+    "device_version": "0.0.1"
+  },
+  "features": {
+    "bootmagic": true,
+    "command": true,
+    "console": true,
+    "extrakey": true,
+    "mousekey": true,
+    "nkro": true
+  },
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  },
+  "matrix_pins": {
+    "cols": ["B6"],
+    "rows": ["D2"]
+  },
+  "diode_direction": "COL2ROW",
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
+  "layouts": {
+    "LAYOUT": {
+      "layout": [
+        {"x": 0, "y": 0, "matrix": [0, 0]}
+      ]
+    }
+  }
+}
