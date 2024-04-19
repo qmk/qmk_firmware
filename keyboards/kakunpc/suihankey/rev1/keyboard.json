@@ -1,4 +1,13 @@
 {
+    "keyboard_name": "Suihankey",
+    "manufacturer": "kakunpc",
+    "url": "https://kakunpc.booth.pm/",
+    "maintainer": "kakunpc",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
     "rgblight": {
         "saturation_steps": 8,
         "brightness_steps": 8,
@@ -25,11 +34,17 @@
         "rows": ["D4", "C6", "D7", "E6", "B4"]
     },
     "diode_direction": "COL2ROW",
-    "layout_aliases": {
-        "LAYOUT": "LAYOUT_split_3x5_3"
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "features": {
+        "bootmagic": true,
+        "mousekey": false,
+        "extrakey": false,
+        "rgblight": true,
+        "oled": true
     },
     "layouts": {
-        "LAYOUT_split_3x5_3": {
+        "LAYOUT": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0.375},
                 {"matrix": [1, 0], "x": 1, "y": 0.125},
@@ -37,23 +52,11 @@
                 {"matrix": [3, 0], "x": 3, "y": 0.125},
                 {"matrix": [4, 0], "x": 4, "y": 0.25},
 
-                {"matrix": [9, 0], "x": 8.2, "y": 0.25},
-                {"matrix": [8, 0], "x": 9.2, "y": 0.125},
-                {"matrix": [7, 0], "x": 10.2, "y": 0},
-                {"matrix": [6, 0], "x": 11.2, "y": 0.125},
-                {"matrix": [5, 0], "x": 12.2, "y": 0.375},
-
                 {"matrix": [0, 1], "x": 0, "y": 1.375},
                 {"matrix": [1, 1], "x": 1, "y": 1.125},
                 {"matrix": [2, 1], "x": 2, "y": 1},
                 {"matrix": [3, 1], "x": 3, "y": 1.125},
                 {"matrix": [4, 1], "x": 4, "y": 1.25},
-
-                {"matrix": [9, 1], "x": 8.2, "y": 1.25},
-                {"matrix": [8, 1], "x": 9.2, "y": 1.125},
-                {"matrix": [7, 1], "x": 10.2, "y": 1},
-                {"matrix": [6, 1], "x": 11.2, "y": 1.125},
-                {"matrix": [5, 1], "x": 12.2, "y": 1.375},
 
                 {"matrix": [0, 2], "x": 0, "y": 2.375},
                 {"matrix": [1, 2], "x": 1, "y": 2.125},
@@ -61,19 +64,9 @@
                 {"matrix": [3, 2], "x": 3, "y": 2.125},
                 {"matrix": [4, 2], "x": 4, "y": 2.25},
 
-                {"matrix": [9, 2], "x": 8.2, "y": 2.25},
-                {"matrix": [8, 2], "x": 9.2, "y": 2.125},
-                {"matrix": [7, 2], "x": 10.2, "y": 2},
-                {"matrix": [6, 2], "x": 11.2, "y": 2.125},
-                {"matrix": [5, 2], "x": 12.2, "y": 2.375},
-
                 {"matrix": [0, 3], "x": 3.4, "y": 3.25},
                 {"matrix": [1, 3], "x": 4.4, "y": 3.55},
-                {"matrix": [2, 3], "x": 5.4, "y": 3.85},
-
-                {"matrix": [7, 3], "x": 6.8, "y": 3.85},
-                {"matrix": [6, 3], "x": 7.8, "y": 3.55},
-                {"matrix": [5, 3], "x": 8.8, "y": 3.25}
+                {"matrix": [2, 3], "x": 5.4, "y": 3.85}
             ]
         }
     }
