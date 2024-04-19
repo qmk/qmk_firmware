@@ -3,10 +3,10 @@
 
 #include "hid_display.h"
 #include "display.h"
-#include "raw_hid.h"
 #include "lvgl_helpers.h"
 
 uint16_t home_screen_timer = 0;
+uint16_t volume_timer      = 0;
 
 /* screens */
 static lv_obj_t *screen_home;
@@ -150,10 +150,16 @@ void display_process_raw_hid_data(uint8_t *data, uint8_t length) {
 
         case _VOLUME:
             dprintf("volume %d\n", data[1]);
-            lv_label_set_text_fmt(label_volume_home, "Vol: %02d%%", data[1]);
-            lv_label_set_text_fmt(label_volume_arc, "%02d", data[1]);
-            lv_arc_set_value(arc_volume, data[1]);
-            lv_scr_load(screen_volume);
+            if (lv_scr_act() != screen_volume) {
+                lv_scr_load(screen_volume);
+            }
+            lv_label_set_text_fmt(label_volume_home, "Vol: %d%%", data[1]);
+            lv_label_set_text_fmt(label_volume_arc, "%d", data[1]);
+            if (timer_elapsed(volume_timer) > 100) {
+                // arc rendering is slow, add delay to overcome issues with fast changing volume
+                volume_timer = timer_read();
+                lv_arc_set_value(arc_volume, data[1]);
+            }
             start_home_screen_timer();
             break;
 
@@ -166,7 +172,9 @@ void display_process_raw_hid_data(uint8_t *data, uint8_t length) {
             read_string(data, string_data);
             dprintf("media artist %s\n", string_data);
             lv_label_set_text(label_media_artist, string_data);
-            lv_scr_load(screen_media);
+            if (lv_scr_act() != screen_media) {
+                lv_scr_load(screen_media);
+            }
             start_home_screen_timer();
             break;
 
@@ -174,7 +182,9 @@ void display_process_raw_hid_data(uint8_t *data, uint8_t length) {
             read_string(data, string_data);
             dprintf("media title %s\n", string_data);
             lv_label_set_text(label_media_title, string_data);
-            lv_scr_load(screen_media);
+            if (lv_scr_act() != screen_media) {
+                lv_scr_load(screen_media);
+            }
             start_home_screen_timer();
             break;
     }
