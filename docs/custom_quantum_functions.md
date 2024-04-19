@@ -119,11 +119,11 @@ void keyboard_pre_init_user(void) {
   // Call the keyboard pre init code.
 
   // Set our LED pins as output
-  setPinOutput(B0);
-  setPinOutput(B1);
-  setPinOutput(B2);
-  setPinOutput(B3);
-  setPinOutput(B4);
+  gpio_set_pin_output(B0);
+  gpio_set_pin_output(B1);
+  gpio_set_pin_output(B2);
+  gpio_set_pin_output(B3);
+  gpio_set_pin_output(B4);
 }
 ```
 
@@ -202,6 +202,62 @@ This function gets called at the end of all QMK processing, before starting the 
 
 Similar to `matrix_scan_*`, these are called as often as the MCU can handle. To keep your board responsive, it's suggested to do as little as possible during these function calls, potentially throtting their behaviour if you do indeed require implementing something special.
 
+### Example `void housekeeping_task_user(void)` implementation
+
+This example will show you how to use `void housekeeping_task_user(void)` to turn off [RGB Light](feature_rgblight.md). For RGB Matrix, the [builtin](https://docs.qmk.fm/#/feature_rgb_matrix?id=additional-configh-options) `RGB_MATRIX_TIMEOUT` should be used.
+
+First, add the following lines to your keymap's `config.h`:
+
+```c
+#define RGBLIGHT_SLEEP  // enable rgblight_suspend() and rgblight_wakeup() in keymap.c
+#define RGBLIGHT_TIMEOUT 900000  // ms to wait until rgblight time out, 900K ms is 15min.
+```
+
+Next, add the following code to your `keymap.c`:
+
+```c
+static uint32_t key_timer;           // timer for last keyboard activity, use 32bit value and function to make longer idle time possible
+static void refresh_rgb(void);       // refreshes the activity timer and RGB, invoke whenever any activity happens
+static void check_rgb_timeout(void); // checks if enough time has passed for RGB to timeout
+bool is_rgb_timeout = false;         // store if RGB has timed out or not in a boolean
+
+void refresh_rgb(void) {
+    key_timer = timer_read32(); // store time of last refresh
+    if (is_rgb_timeout)
+    {
+        is_rgb_timeout = false;
+        rgblight_wakeup();
+    }
+}
+void check_rgb_timeout(void) {
+    if (!is_rgb_timeout && timer_elapsed32(key_timer) > RGBLIGHT_TIMEOUT) // check if RGB has already timeout and if enough time has passed
+    {
+        rgblight_suspend();
+        is_rgb_timeout = true;
+    }
+}
+/* Then, call the above functions from QMK's built in post processing functions like so */
+/* Runs at the end of each scan loop, check if RGB timeout has occured or not */
+void housekeeping_task_user(void) {
+#ifdef RGBLIGHT_TIMEOUT
+    check_rgb_timeout();
+#endif
+}
+/* Runs after each key press, check if activity occurred */
+void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+#ifdef RGBLIGHT_TIMEOUT
+    if (record->event.pressed)
+        refresh_rgb();
+#endif
+}
+/* Runs after each encoder tick, check if activity occurred */
+void post_encoder_update_user(uint8_t index, bool clockwise) {
+#ifdef RGBLIGHT_TIMEOUT
+    refresh_rgb();
+#endif
+}
+```
+
 # Keyboard Idling/Wake Code
 
 If the board supports it, it can be "idled", by stopping a number of functions.  A good example of this is RGB lights or backlights.   This can save on power consumption, or may be better behavior for your keyboard.
@@ -209,7 +265,7 @@ If the board supports it, it can be "idled", by stopping a number of functions. 
 This is controlled by two functions: `suspend_power_down_*` and `suspend_wakeup_init_*`, which are called when the system board is idled and when it wakes up, respectively.
 
 
-### Example suspend_power_down_user() and suspend_wakeup_init_user() Implementation
+### Example `suspend_power_down_user()` and `suspend_wakeup_init_user()` Implementation
 
 
 ```c
@@ -226,6 +282,65 @@ void suspend_wakeup_init_user(void) {
 
 * Keyboard/Revision: `void suspend_power_down_kb(void)` and `void suspend_wakeup_init_user(void)`
 * Keymap: `void suspend_power_down_kb(void)` and `void suspend_wakeup_init_user(void)`
+
+
+# Keyboard Shutdown/Reboot Code :id=keyboard-shutdown-reboot-code
+
+This function gets called whenever the firmware is reset, whether it's a soft reset or reset to the bootloader.  This is the spot to use for any sort of cleanup, as this happens right before the actual reset.  And it can be useful for turning off different systems (such as RGB, onboard screens, etc).
+
+Additionally, it differentiates between the soft reset (eg, rebooting back into the firmware) or jumping to the bootloader.
+
+Certain tasks are performed during shutdown too.  The keyboard is cleared, music and midi is stopped (if enabled), the shutdown chime is triggered (if audio is enabled), and haptic is stopped.
+
+If `jump_to_bootloader` is set to `true`, this indicates that the board will be entering the bootloader for a new firmware flash, whereas `false` indicates that this is happening for a soft reset and will load the firmware agaim immediately (such as when using `QK_REBOOT` or `QK_CLEAR_EEPROM`).
+
+As there is a keyboard and user level function, returning `false` for the user function will disable the keyboard level function, allowing for customization.
+
+?> Bootmagic does not trigger `shutdown_*()` as it happens before most of the initialization process.
+
+### Example `shutdown_kb()` Implementation
+
+```c
+bool shutdown_kb(bool jump_to_bootloader) {
+    if (!shutdown_user(jump_to_bootloader)) {
+        return false;
+    }
+    
+    if (jump_to_bootloader) {
+        // red for bootloader
+        rgb_matrix_set_color_all(RGB_OFF);
+    } else {
+        // off for soft reset
+        rgb_matrix_set_color_all(RGB_GREEN);
+    }
+    // force flushing -- otherwise will never happen
+    rgb_matrix_update_pwm_buffers();
+    return true;
+}
+```
+
+### Example `shutdown_user()` Implementation
+
+```c
+bool shutdown_user(bool jump_to_bootloader) {
+    if (jump_to_bootloader) {
+        // red for bootloader
+        rgb_matrix_set_color_all(RGB_RED);
+    } else {
+        // off for soft reset
+        rgb_matrix_set_color_all(RGB_OFF);
+    }
+    // force flushing -- otherwise will never happen
+    rgb_matrix_update_pwm_buffers();
+    // false to not process kb level
+    return false;
+}
+```
+
+### Keyboard shutdown/reboot Function Documentation
+
+* Keyboard/Revision: `bool shutdown_kb(bool jump_to_bootloader)`
+* Keymap: `bool shutdown_user(bool jump_to_bootloader)`
 
 # Deferred Execution :id=deferred-execution
 

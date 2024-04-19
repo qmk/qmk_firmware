@@ -349,7 +349,7 @@ qmk_dict = {
     ":": "S(KC_SCLN)", "'": "KC_QUOT", "\"": "S(KC_QUOT)", "`": "KC_GRV",
     "~": "S(KC_GRV)", ",": "KC_COMM", "<": "S(KC_COMM)", ".": "KC_DOT",
     ">": "S(KC_DOT)", "/": "KC_SLSH", "?": "S(KC_SLSH)", "Caps": "KC_CAPS",
-    "Pr Scr": "KC_PSCR", "Scr Lck": "KC_SLCK", "Pause": "KC_BRK", "Insert": "KC_INS", "SInsert": "LSFT(KC_INS)",
+    "Pr Scr": "KC_PSCR", "Scr Lck": "KC_SCRL", "Pause": "KC_BRK", "Insert": "KC_INS", "SInsert": "LSFT(KC_INS)",
     "Home": "KC_HOME", "Pg Up": "KC_PGUP", "Del": "KC_DEL", "End": "KC_END",
     "Pg Down": "KC_PGDN", "> Arrow": "KC_RGHT", "< Arrow": "KC_LEFT",
     "v Arrow": "KC_DOWN", "^ Arrow": "KC_UP",
@@ -359,7 +359,7 @@ qmk_dict = {
     # Basic Keycodes missing from Print Screen onwards, included as fallback
     # random Keycodes
     "RGui": "KC_RGUI", "LGui": "KC_LGUI", "LAlt": "KC_LALT", "RLAlt": "LALT_T(KC_RALT)", "RAlt": "KC_RALT", "LShift": "KC_LSFT", "LCtrl": "KC_LCTL", "LCtTBsp": "LCTL_T(KC_BSPC)", "LCtTEsc": "LCTL_T(KC_ESC)", "RCtrl": "KC_RCTL",
-    "LShift(": "KC_LSPO", "RShift)": "KC_RSPC",
+    "LShift(": "SC_LSPO", "RShift)": "SC_RSPC",
     # "LShift(": "LSFT_T(KC_9)", "RShift)": "RSFT_T(RSFT(KC_0))",
     "LCtrl[": "LCTL_T(KC_LBRC)", "RCtrl]": "RCTL_T(KC_RBRC)",
     "L1_ENT": "LT(1, KC_ENT)", "LT2_BSP":  "LT(2,KC_BSPC)", "LT4_DEL":  "LT(4,KC_DEL)", "LT4_ENT":  "LT(4,KC_ENT)", "LT6_SPC": "LT(6,KC_SPC)",
@@ -370,13 +370,13 @@ qmk_dict = {
     ">>|": "KC_MNXT", "|<<": "KC_MPRV", "play/ps": "KC_MPLY",
     "Bri +": "KC_BRIU", "Bri -": "KC_BRID",
     # Quantum Keycodes
-    "_reset": "QK_BOOT", "_debug": "DEBUG", "_eep_re": "EEP_RST",
+    "_reset": "QK_BOOT", "_debug": "DB_TOGG", "_eep_re": "EE_CLR",
     # Audio Keys missing
     # Backlighting
-    "Led 0": "BL_TOGG", "Led +": "BL_INC", "Led -": "BL_DEC", "Led ~": "BL_BRTG",
+    "Led 0": "BL_TOGG", "Led +": "BL_UP", "Led -": "BL_DOWN", "Led ~": "BL_BRTG",
     # Bootmagic missing
     # Bluetooth
-    "OUT_AUTO": "OUT_AUTO", "OUT_USB": "OUT_USB", "OUT_BT": "OUT_BT",
+    "OU_AUTO": "OU_AUTO", "OU_USB": "OU_USB", "OU_BT": "OU_BT",
     # Layer Switching missing, Lx -> MO(x), Tx -> TG(x)
     "qwertz": "DF(0)", "neo": "DF(2)",
     # Mouse Keys
@@ -388,7 +388,7 @@ qmk_dict = {
     "acc2": "KC_ACL2",
     # Modifiers missinng, add entry for each specific application
     # Mod-Tap Keys missing, add entry for each specific application
-    "_Sh_swp": "LSFT_T(SH_TG)",
+    "_Sh_swp": "LSFT_T(SH_TOGG)",
     # RGB Lighting missing
     # RGB Matrix Lighting missing
     # Thermal Printer missing
@@ -396,9 +396,9 @@ qmk_dict = {
     # One Shot Keys missing
     # Swap Hands
     "_sp_swp": "SHT(KC_SPC)",
-    # Unicode support (via X()) included implicitly
+    # Unicode support included implicitly
     # Switching Unicode Input Modes
-    "UC_win": "UC_M_WC", "UC_lnx": "UC_M_LN", "UC_mac": "UC_M_MA",
+    "UC_win": "UC_WINC", "UC_lnx": "UC_LINX", "UC_mac": "UC_MAC",
 
     # custom keys
     "altF4": "LALT(KC_F4)",

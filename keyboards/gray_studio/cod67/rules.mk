@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = lufa-ms
-
 # This board uses the older unsafe 6k version of lufa-ms
 BOOTLOADER_SIZE = 6144
 

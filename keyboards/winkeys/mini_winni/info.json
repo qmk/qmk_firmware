@@ -1,15 +1,54 @@
 {
     "keyboard_name": "Mini Winni",
     "manufacturer": "WinKeys",
-    "maintainer": "Matthew Dias",
+    "maintainer": "matthewdias",
     "usb": {
         "vid": "0x574B",
         "pid": "0x7770",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "matrix_pins": {
+        "direct": [
+            ["F4", "F5", "B4", "D7"],
+            ["F6", "F7", "B6", "B5"]
+        ]
+    },
+    "rgblight": {
+        "led_count": 4,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "ws2812": {
+        "pin": "E6"
+    },
+    "layout_aliases": {
+        "LAYOUT_all": "LAYOUT_ortho_2x4"
+    },
     "layouts": {
-        "LAYOUT_all": {
-            "layout": [{"x":0, "y":0}, {"x":1, "y":0}, {"x":2, "y":0}, {"x":3, "y":0}, {"x":0, "y":1}, {"x":1, "y":1}, {"x":2, "y":1}, {"x":3, "y":1}]
+        "LAYOUT_ortho_2x4": {
+            "layout": [
+                {"label": "F1", "x": 0, "y": 0, "matrix": [0, 0]},
+                {"label": "F2", "x": 1, "y": 0, "matrix": [0, 1]},
+                {"label": "F3", "x": 2, "y": 0, "matrix": [0, 2]},
+                {"label": "F4", "x": 3, "y": 0, "matrix": [0, 3]},
+
+                {"label": "F5", "x": 0, "y": 1, "matrix": [1, 0]},
+                {"label": "F6", "x": 1, "y": 1, "matrix": [1, 1]},
+                {"label": "F7", "x": 2, "y": 1, "matrix": [1, 2]},
+                {"label": "F8", "x": 3, "y": 1, "matrix": [1, 3]}
+            ]
         }
     }
 }

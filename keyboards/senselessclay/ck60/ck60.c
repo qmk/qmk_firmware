@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "ck60.h"
+#include "quantum.h"
 
 #define __ NO_LED
 

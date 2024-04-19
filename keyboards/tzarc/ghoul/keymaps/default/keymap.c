@@ -30,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,            RGB_MOD,            KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
         HOME_A,  HOME_S,  HOME_D,  HOME_F,  KC_G,                                KC_H,    HOME_J,  HOME_K,  HOME_L,  HOME_SCLN,
         KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                                KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,
-        SFT_ESC, KC_LCTL, KC_LGUI, KC_SPC,  LOWER,                               RAISE,   KC_SPC,  KC_LALT, KC_BSPC, KC_SFTENT
+        SFT_ESC, KC_LCTL, KC_LGUI, KC_SPC,  LOWER,                               RAISE,   KC_SPC,  KC_LALT, KC_BSPC, SC_SENT
     ),
     [_LOWER] = LAYOUT(
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,         RGB_MOD,            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                             KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     ),
     [_ADJUST] = LAYOUT(
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,         RGB_MOD,            KC_TRNS, KC_TRNS, DEBUG,   EEP_RST, QK_BOOT,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,         RGB_MOD,            KC_TRNS, KC_TRNS, DB_TOGG, EE_CLR,  QK_BOOT,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                             KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                             KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                             KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_QWERTY] = {ENCODER_CCW_CW(RGB_HUI, RGB_HUD)},
     [_LOWER]  = {ENCODER_CCW_CW(RGB_HUI, RGB_HUD)},
     [_RAISE]  = {ENCODER_CCW_CW(RGB_HUI, RGB_HUD)},

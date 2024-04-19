@@ -23,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       //,-----------------------------------|
 LT(_ADJUST,KC_ESC),  KC_F2,  KC_EQL,  KC_DEL,
       //|--------+--------+--------+--------|
-          KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS,
+          KC_NUM,  KC_PSLS, KC_PAST, KC_PMNS,
       //|--------+--------+--------+--------|
             KC_P7,   KC_P8,   KC_P9,         
       //|--------+--------+--------+--------|

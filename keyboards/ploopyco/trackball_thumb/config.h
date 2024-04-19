@@ -18,11 +18,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST
-
 /* disable action features */
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
@@ -36,3 +31,6 @@
 
 /* PMW3360 Settings */
 #define POINTING_DEVICE_CS_PIN B0
+
+/* Custom encoder needs to specify just how many encoders we have */
+#define NUM_ENCODERS 1

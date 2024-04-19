@@ -38,7 +38,7 @@ uint32_t qp_stream_write_impl(const void *input_buf, uint32_t member_size, uint3
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Memory streams
 
-int16_t mem_get(qp_stream_t *stream) {
+static inline int16_t mem_get(qp_stream_t *stream) {
     qp_memory_stream_t *s = (qp_memory_stream_t *)stream;
     if (s->position >= s->length) {
         s->is_eof = true;
@@ -47,7 +47,7 @@ int16_t mem_get(qp_stream_t *stream) {
     return s->buffer[s->position++];
 }
 
-bool mem_put(qp_stream_t *stream, uint8_t c) {
+static inline bool mem_put(qp_stream_t *stream, uint8_t c) {
     qp_memory_stream_t *s = (qp_memory_stream_t *)stream;
     if (s->position >= s->length) {
         s->is_eof = true;
@@ -57,7 +57,7 @@ bool mem_put(qp_stream_t *stream, uint8_t c) {
     return true;
 }
 
-int mem_seek(qp_stream_t *stream, int32_t offset, int origin) {
+static inline int mem_seek(qp_stream_t *stream, int32_t offset, int origin) {
     qp_memory_stream_t *s = (qp_memory_stream_t *)stream;
 
     // Handle as per fseek
@@ -95,26 +95,23 @@ int mem_seek(qp_stream_t *stream, int32_t offset, int origin) {
     return 0;
 }
 
-int32_t mem_tell(qp_stream_t *stream) {
+static inline int32_t mem_tell(qp_stream_t *stream) {
     qp_memory_stream_t *s = (qp_memory_stream_t *)stream;
     return s->position;
 }
 
-bool mem_is_eof(qp_stream_t *stream) {
+static inline bool mem_is_eof(qp_stream_t *stream) {
     qp_memory_stream_t *s = (qp_memory_stream_t *)stream;
     return s->is_eof;
 }
 
+static inline void mem_close(qp_stream_t *stream) {
+    // No-op.
+}
+
 qp_memory_stream_t qp_make_memory_stream(void *buffer, int32_t length) {
     qp_memory_stream_t stream = {
-        .base =
-            {
-                .get    = mem_get,
-                .put    = mem_put,
-                .seek   = mem_seek,
-                .tell   = mem_tell,
-                .is_eof = mem_is_eof,
-            },
+        .base     = {.get = mem_get, .put = mem_put, .seek = mem_seek, .tell = mem_tell, .is_eof = mem_is_eof, .close = mem_close},
         .buffer   = (uint8_t *)buffer,
         .length   = length,
         .position = 0,
@@ -127,43 +124,41 @@ qp_memory_stream_t qp_make_memory_stream(void *buffer, int32_t length) {
 
 #ifdef QP_STREAM_HAS_FILE_IO
 
-int16_t file_get(qp_stream_t *stream) {
+static inline int16_t file_get(qp_stream_t *stream) {
     qp_file_stream_t *s = (qp_file_stream_t *)stream;
     int               c = fgetc(s->file);
     if (c < 0 || feof(s->file)) return STREAM_EOF;
     return (uint16_t)c;
 }
 
-bool file_put(qp_stream_t *stream, uint8_t c) {
+static inline bool file_put(qp_stream_t *stream, uint8_t c) {
     qp_file_stream_t *s = (qp_file_stream_t *)stream;
     return fputc(c, s->file) == c;
 }
 
-int file_seek(qp_stream_t *stream, int32_t offset, int origin) {
+static inline int file_seek(qp_stream_t *stream, int32_t offset, int origin) {
     qp_file_stream_t *s = (qp_file_stream_t *)stream;
     return fseek(s->file, offset, origin);
 }
 
-int32_t file_tell(qp_stream_t *stream) {
+static inline int32_t file_tell(qp_stream_t *stream) {
     qp_file_stream_t *s = (qp_file_stream_t *)stream;
     return (int32_t)ftell(s->file);
 }
 
-bool file_is_eof(qp_stream_t *stream) {
+static inline bool file_is_eof(qp_stream_t *stream) {
     qp_file_stream_t *s = (qp_file_stream_t *)stream;
     return (bool)feof(s->file);
 }
 
+static inline void file_close(qp_stream_t *stream) {
+    qp_file_stream_t *s = (qp_file_stream_t *)stream;
+    fclose(s->file);
+}
+
 qp_file_stream_t qp_make_file_stream(FILE *f) {
     qp_file_stream_t stream = {
-        .base =
-            {
-                .get    = file_get,
-                .put    = file_put,
-                .seek   = file_seek,
-                .tell   = file_tell,
-                .is_eof = file_is_eof,
-            },
+        .base = {.get = file_get, .put = file_put, .seek = file_seek, .tell = file_tell, .is_eof = file_is_eof, .close = file_close},
         .file = f,
     };
     return stream;

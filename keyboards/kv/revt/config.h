@@ -15,16 +15,5 @@
  */
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 21
-#define MATRIX_ROW_PINS { A6, B13, B8, A0, A1, A2 }
-#define MATRIX_COL_PINS { B7, B6, B5, B4, B3, B2, B14, B1, B15, B0, B9, B10, B11, B12, A14, A13, A4, A5, A7, A8, A15 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

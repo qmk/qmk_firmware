@@ -79,6 +79,16 @@ If you're using a custom transport (communication method), then you will also ne
 SPLIT_TRANSPORT = custom
 ```
 
+### Layout Macro
+
+Configuring your layout in a split keyboard works slightly differently to a non-split keyboard. Take for example the following layout. The top left numbers refer to the matrix row and column, and the bottom right are the order of the keys in the layout:
+
+![Physical layout](https://i.imgur.com/QeY6kMQ.png)
+
+Since the matrix scanning procedure operates on entire rows, it first populates the left half's rows, then the right half's. Thus, the matrix as QMK views it has double the rows instead of double the columns:
+
+![Matrix](https://i.imgur.com/4wjJzBU.png)
+
 ### Setting Handedness
 
 By default, the firmware does not know which side is which; it needs some help to determine that. There are several ways to do this, listed in order of precedence.
@@ -109,12 +119,12 @@ You can configure the firmware to read key matrix pins on the controller to dete
 
 The first pin is the output pin and the second is the input pin.
 
-Some keyboards have unused intersections in the key matrix. This setting uses one of these unused intersections to determine the handness.
+Some keyboards have unused intersections in the key matrix. This setting uses one of these unused intersections to determine the handedness.
 
-Normally, when a diode is connected to an intersection, it is judged to be left. If you add the following definition, it will be judged to be right.
+Normally, when a diode is connected to an intersection, it is judged to be right. If you add the following definition, it will be judged to be left.
 
 ```c
-#define SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
+#define SPLIT_HAND_MATRIX_GRID_LOW_IS_LEFT
 ```
 
 Note that adding a diode at a previously unused intersection will effectively tell the firmware that there is a key held down at that point. You can instruct qmk to ignore that intersection by defining `MATRIX_MASKED` and then defining a `matrix_row_t matrix_mask[MATRIX_ROWS]` array in your keyboard config. Each bit of a single value (starting form the least-significant bit) is used to tell qmk whether or not to pay attention to key presses at that intersection.
@@ -132,50 +142,48 @@ To enable this method, add the following to your `config.h` file:
 #define EE_HANDS
 ```
 
-Next, you will have to flash the EEPROM files once for the correct hand to the controller on each halve. You can do this manually with the following bootloader targets while flashing the firmware:
+Next, you will have to flash the correct handedness option to the controller on each halve. You can do this manually with the following bootloader targets using `qmk flash -kb <keyboard> -km <keymap> -bl <bootloader>` command to flash:
 
-* AVR controllers with the Caterina bootloader (e.g. Pro Micro):
-  * `:avrdude-split-left`
-  * `:avrdude-split-right`
-* AVR controllers with the stock Amtel DFU or DFU compatible bootloader (e.g. Elite-C):
-  * `:dfu-split-left`
-  * `:dfu-split-right`
-* ARM controllers with a DFU compatible bootloader (e.g. Proton-C):
-  * `:dfu-util-split-left`
-  * `:dfu-util-split-right`
-* ARM controllers with a UF2 compatible bootloader:
-  * `:uf2-split-left`
-  * `:uf2-split-right`
+|Microcontroller Type|Bootloader Parameter|
+|--------------------|--------------------|
+|AVR controllers with Caterina bootloader<br>(e.g. Pro Micro)|`avrdude-split-left`<br>`avrdude-split-right`|
+|AVR controllers with the stock Amtel DFU or DFU compatible bootloader<br>(e.g. Elite-C)|`dfu-split-left`<br>`dfu-split-right`|
+|ARM controllers with a DFU compatible bootloader<br>(e.g. Proton-C)|`dfu-util-split-left`<br>`dfu-util-split-right`|
+|ARM controllers with a UF2 compatible bootloader<br>(e.g. RP2040)|`uf2-split-left`<br>`uf2-split-right`|
 
-Example:
-
+Example for `crkbd/rev1` keyboard with normal AVR Pro Micro MCUs, reset the left controller and run:
 ```
-make crkbd:default:avrdude-split-left
+qmk flash -kb crkbd/rev1 -km default -bl avrdude-split-left
+```
+Reset the right controller and run:
+```
+qmk flash -kb crkbd/rev1 -km default -bl avrdude-split-right
 ```
 
-?> ARM controllers using `dfu-util` will require an EEPROM reset after setting handedness. This can be done using the `EEP_RST` keycode or [Bootmagic Lite](feature_bootmagic.md). Controllers using emulated EEPROM will always require handedness parameter when flashing the firmware.
+?> Some controllers (e.g. Blackpill with DFU compatible bootloader) will need to be flashed with handedness bootloader parameter every time because it is not retained between flashes.
 
 ?> [QMK Toolbox]() can also be used to flash EEPROM handedness files. Place the controller in bootloader mode and select menu option Tools -> EEPROM -> Set Left/Right Hand
 
-This setting is not changed when re-initializing the EEPROM using the `EEP_RST` key, or using the `eeconfig_init()` function.  However, if you reset the EEPROM outside of the firmware's built in options (such as flashing a file that overwrites the `EEPROM`, like how the [QMK Toolbox]()'s "Reset EEPROM" button works), you'll need to re-flash the controller with the `EEPROM` files. 
+This setting is not changed when re-initializing the EEPROM using the `EE_CLR` key, or using the `eeconfig_init()` function.  However, if you reset the EEPROM outside of the firmware's built in options (such as flashing a file that overwrites the `EEPROM`, like how the [QMK Toolbox]()'s "Reset EEPROM" button works), you'll need to re-flash the controller with the `EEPROM` files. 
 
 You can find the `EEPROM` files in the QMK firmware repo, [here](https://github.com/qmk/qmk_firmware/tree/master/quantum/split_common).
 
+
 #### Handedness by `#define`
 
-You can set the handedness at compile time.  This is done by adding the following to your `config.h` file:
+You can use this option when USB cable is always connected to just one side of the split keyboard.
 
+If the USB cable is always connected to the right side, add the following to your `config.h` file and flash both sides with this option:
 ```c
 #define MASTER_RIGHT
 ```
 
-or 
-
+If the USB cable is always connected to the left side, add the following to your `config.h` file and flash both sides with this option:
 ```c
 #define MASTER_LEFT
 ```
 
-If neither are defined, the handedness defaults to `MASTER_LEFT`.
+?> If neither options are defined, the handedness defaults to `MASTER_LEFT`.
 
 
 ### Communication Options
@@ -197,7 +205,7 @@ This sets the pin to be used for serial communication. If you're not using seria
 However, if you are using serial and I<sup>2</sup>C on the board, you will need to set this, and to something other than D0 and D1 (as these are used for I<sup>2</sup>C communication).
 
 ```c
-#define SELECT_SOFT_SERIAL_SPEED {#}`
+#define SELECT_SOFT_SERIAL_SPEED {#}
 ```
 
 If you're having issues with serial communication, you can change this value, as it controls the communication speed for serial.  The default is 1, and the possible values are:
@@ -285,6 +293,18 @@ This enables transmitting the current ST7565 on/off status to the slave side of 
 This enables transmitting the pointing device status to the master side of the split keyboard. The purpose of this feature is to enable use pointing devices on the slave side. 
 
 !> There is additional required configuration for `SPLIT_POINTING_ENABLE` outlined in the [pointing device documentation](feature_pointing_device.md?id=split-keyboard-configuration).
+
+```c
+#define SPLIT_HAPTIC_ENABLE
+```
+
+This enables the triggering of haptic feedback on the slave side of the split keyboard. This will send information to the slave side such as the mode, dwell, and whether buzz is enabled.
+
+```c
+#define SPLIT_ACTIVITY_ENABLE
+```
+
+This synchronizes the activity timestamps between sides of the split keyboard, allowing for activity timeouts to occur.
 
 ### Custom data sync between sides :id=custom-data-sync
 
@@ -421,6 +441,17 @@ This sets the maximum timeout when detecting master/slave when using `SPLIT_USB_
 #define SPLIT_USB_TIMEOUT_POLL 10
 ```
 This sets the poll frequency when detecting master/slave when using `SPLIT_USB_DETECT`
+
+```c
+#define SPLIT_WATCHDOG_ENABLE
+```
+
+This will enable a software watchdog on any side delegated as slave and will reboot the keyboard if no successful communication occurs within `SPLIT_WATCHDOG_TIMEOUT`. This can be particularly helpful when `SPLIT_USB_DETECT` delegates both sides as slave in some circumstances.
+
+```c
+#define SPLIT_WATCHDOG_TIMEOUT 3000
+```
+This set the maximum slave timeout when waiting for communication from master when using `SPLIT_WATCHDOG_ENABLE`
 
 ## Hardware Considerations and Mods
 

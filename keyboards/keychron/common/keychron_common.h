@@ -14,13 +14,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "stdint.h"
+#pragma once
+
+#include <stdint.h>
+#include <stdbool.h>
+#include "action.h"
+
+#ifdef VIA_ENABLE
+#    include "via.h"
+#endif
+
 #include "quantum_keycodes.h"
 
 enum custom_keycodes {
-    KC_MISSION_CONTROL = SAFE_RANGE,
-    KC_LAUNCHPAD,
-    KC_LOPTN,
+    KC_LOPTN = QK_KB_2, // TECH DEBT: Starts at QK_KB_2 to maintain ordering with VIA definitions. See #19884. Revert to QK_KB_0 when VIA catches up with QMK.
     KC_ROPTN,
     KC_LCMMD,
     KC_RCMMD,
@@ -31,8 +38,6 @@ enum custom_keycodes {
     KC_CORTANA
 };
 
-#define KC_MCTL KC_MISSION_CONTROL
-#define KC_LPAD KC_LAUNCHPAD
 #define KC_TASK KC_TASK_VIEW
 #define KC_FLXP KC_FILE_EXPLORER
 #define KC_SNAP KC_SCREEN_SHOT

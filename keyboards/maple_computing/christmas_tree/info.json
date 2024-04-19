@@ -7,9 +7,29 @@
     "vid": "0xFEED",
     "pid": "0x3070"
   },
+  "matrix_pins": {
+    "cols": ["D1"],
+    "rows": ["D3", "F4", "D0", "F6", "F5", "D4"]
+  },
+  "diode_direction": "COL2ROW",
+  "backlight": {
+    "driver": "timer",
+    "pin": "D2"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
   "layouts": {
     "LAYOUT": {
-      "layout": [{"x":1, "y":0}, {"x":0.5, "y":1}, {"x":1.5, "y":1}, {"x":0, "y":2}, {"x":1, "y":2}, {"x":2, "y":2}]
+      "layout": [
+        {"matrix": [0, 0], "x": 1, "y": 0},
+
+        {"matrix": [1, 0], "x": 0.5, "y": 1},
+        {"matrix": [2, 0], "x": 1.5, "y": 1},
+
+        {"matrix": [3, 0], "x": 0, "y": 2},
+        {"matrix": [4, 0], "x": 1, "y": 2},
+        {"matrix": [5, 0], "x": 2, "y": 2}
+      ]
     }
   }
 }

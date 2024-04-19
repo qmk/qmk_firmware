@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = atmel-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -25,4 +19,4 @@ SRC += matrix.c \
        common/bitc_led.c \
        big_led.c \
        common/remote_kb.c
-QUANTUM_LIB_SRC += uart.c
+UART_DRIVER_REQUIRED = yes

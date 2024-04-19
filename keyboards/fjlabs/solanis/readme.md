@@ -1,7 +1,8 @@
 # Solanis H87C/H88C Replacement PCBs by FJLaboratories
 
 The following is the QMK Firmware for the Solanis by [FJLaboratories](https://www.fjlaboratories.com/).
-* Keyboard Maintainer: FJLaboratories
+
+* Keyboard Maintainer: [mrnoisytiger (FJLaboratories)](https://github.com/mrnoisytiger)
 * Hardware Supported: Solanis
 
 Make example for this keyboard (after setting up your build environment):

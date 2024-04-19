@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = caterina
-
 # Build Options
 #   change yes to no to disable
 #
@@ -19,4 +13,4 @@ AUDIO_ENABLE = no           # Audio output
 # custom matrix setup
 CUSTOM_MATRIX = yes
 SRC += matrix.c
-QUANTUM_LIB_SRC += uart.c
+UART_DRIVER_REQUIRED = yes

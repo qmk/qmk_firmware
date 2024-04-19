@@ -1,10 +1,3 @@
-# MCU name
-MCU = STM32F103
-
-# Bootloader selection
-BOOTLOADER = stm32duino
-
-
 # Build Options
 #   change yes to no to disable
 #
@@ -17,4 +10,3 @@ NKRO_ENABLE = no            # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
-WS2812_DRIVER = spi

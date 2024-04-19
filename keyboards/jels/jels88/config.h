@@ -16,48 +16,7 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* Define Matrix size */
-#define MATRIX_ROWS 12
-#define MATRIX_COLS 9
-
-/*Define Matrix Pins */
-#define MATRIX_ROW_PINS \
-    { B3, B2, D1, D0, E6, B0, F0, F1, B5, B4, D7, D6 }
-#define MATRIX_COL_PINS \
-    { C7, C6, F7, F6, F5, F4, B1, D2, D3 }
-
-/* ws2812b RGB LEDs */
-#define RGB_DI_PIN B6
-
-#ifdef RGBLIGHT_ENABLE
-#define RGBLED_NUM 20  // Number of LEDs
-#define RGBLIGHT_SLEEP
-#define RGBLIGHT_EFFECT_BREATHING
-#define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#define RGBLIGHT_EFFECT_SNAKE
-#define RGBLIGHT_EFFECT_KNIGHT
-#define RGBLIGHT_EFFECT_CHRISTMAS
-#define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#define RGBLIGHT_EFFECT_RGB_TEST
-#define RGBLIGHT_EFFECT_ALTERNATING
-#define RGBLIGHT_EFFECT_TWINKLE
-#define RGBLIGHT_DEFAULT_VAL 0  // start off
-#define RGBLIGHT_LIMIT_VAL 225  // keep PCB under 500mA
-#endif
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-#define BOOTMAGIC_LITE_ROW 1
-#define BOOTMAGIC_LITE_COLUMN 0
