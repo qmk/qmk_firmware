@@ -15,7 +15,7 @@
  */
 
 /* Protokeeb v1.0
- * Keymap: Default
+ * Keymap: MIDI
  */
 
 #include QMK_KEYBOARD_H
@@ -30,14 +30,14 @@ enum protokeeb_keymap_layers {
 #define LOWER MO(LAYER_LOWER)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-	[LAYER_BASE] = LAYOUT( /* Base */
-	KC_KP_7, KC_KP_8, KC_KP_9, KC_KP_SLASH,
-	KC_KP_4, KC_KP_5, KC_KP_6, KC_KP_ASTERISK,
-	KC_KP_1, KC_KP_2, KC_KP_3, KC_KP_MINUS,
-	LOWER, KC_KP_0, KC_KP_PLUS, KC_KP_ENTER
+	[LAYER_BASE] = LAYOUT( /* MIDI Control */
+	MI_C, MI_Cs, MI_D, MI_Ds,
+	MI_E, MI_F, MI_Fs, MI_G,
+	MI_Gs, MI_A, MI_As, MI_B,
+	LOWER, MI_C1, MI_Cs1, MI_D1
 	),
 
-	[LAYER_LOWER] = LAYOUT( /* RGB Control */
+  [LAYER_LOWER] = LAYOUT( /* RGB Control */
 	RGB_MODE_PLAIN, RGB_MODE_FORWARD, RGB_MODE_REVERSE, RGB_TOG,
 	RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD,
 	RGB_VAI, RGB_VAD, RGB_SPI, RGB_SPD,
@@ -51,12 +51,3 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [LAYER_LOWER] = { ENCODER_CCW_CW(KC_BRIGHTNESS_DOWN, KC_BRIGHTNESS_UP) },
 };
 #endif
-
-/*
-#if defined(DIP_SWITCH_MAP_ENABLE)
-const uint16_t PROGMEM dip_switch_map[NUM_DIP_SWITCHES][NUM_DIP_STATES] = {
-    DIP_SWITCH_OFF_ON(DF(0), DF(1)),
-    DIP_SWITCH_OFF_ON(KC_MUTE, KC_MUTE)
-};
-#endif
-*/

@@ -14,17 +14,5 @@
  * If not, see <https://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-#pragma once
+#include QMK_KEYBOARD_H
 
-/* Enable RP2040 I2C Interface */
-#undef HAL_USE_I2C
-#define HAL_USE_I2C FALSE
-
-/* Enable RP2040 SPI Interface */
-#undef HAL_USE_SPI
-#define HAL_USE_SPI FALSE
-#define SPI_USE_WAIT FALSE
-#define SPI_SELECT_MODE SPI_SELECT_MODE_NONE
-// #define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
-
-#include_next <halconf.h>

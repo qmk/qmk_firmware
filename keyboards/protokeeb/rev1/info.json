@@ -1,43 +1,248 @@
 {
     "keyboard_name": "Protokeeb",
-    "manufacturer": "A-Tech Officials",
-    "url": "https://atechofficials.com/protokeeb",
-    "maintainer": "A-Tech Officials",
     "usb": {
-        "vid": "0x419A",
         "pid": "0x1717",
-        "device_version": "1.0.0"
+        "device_version": "1.0.0",
+        "force_nkro": false,
+        "max_power": 500,
+        "no_startup_check": false,
+        "polling_interval": 1,
+        "shared_endpoint": {
+            "keyboard": true,
+            "mouse": false
+        },
+        "suspend_wakeup_delay": 0,
+        "wait_for": false
     },
-    "encoder": {
-        "rotary": [{ "pin_a": "GP12", "pin_b": "GP13" }]
-    },
-    "processor": "RP2040",
-    "development_board": "promicro_rp2040",
+    "board": "GENERIC_RP_RP2040",
     "bootloader": "rp2040",
-    "debounce": 20,
-    "bootmagic": {
-        "matrix": [0, 0]
+    "processor": "RP2040",
+    "build": {
+        "debounce_type": "sym_defer_g",
+        "firmware_format": "uf2",
+        "lto": false
     },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "rgblight": true,
+        "extrakey": true,
+        "mousekey": false,
+        "nkro": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": false,
+            "resync": false
+        },
+        "tap_capslock_delay": 80,
+        "tap_keycode_delay": 0
+    },
+    "matrix_pins": {
+        "cols": ["GP6", "GP7", "GP8", "GP9"],
+        "rows": ["GP2", "GP3", "GP4", "GP5"]
+    },
+    "diode_direction": "COL2ROW",
+    "debounce": 20,
     "layouts": {
         "LAYOUT": {
             "layout": [
-                { "label": "7", "x": 0, "y": 0 },
-                { "label": "8", "x": 1, "y": 1 },
-                { "label": "9", "x": 2, "y": 2 },
-                { "label": "/", "x": 3, "y": 3 },
-                { "label": "4", "x": 0, "y": 0 },
-                { "label": "5", "x": 1, "y": 1 },
-                { "label": "6", "x": 2, "y": 2 },
-                { "label": "*", "x": 3, "y": 3 },
-                { "label": "1", "x": 0, "y": 0 },
-                { "label": "2", "x": 1, "y": 1 },
-                { "label": "3", "x": 2, "y": 2 },
-                { "label": "-", "x": 3, "y": 3 },
-                { "label": "MO(1)", "x": 0, "y": 0 },
-                { "label": "0", "x": 1, "y": 1 },
-                { "label": "+", "x": 2, "y": 2 },
-                { "label": "N.ENT", "x": 3, "y": 3 }
+                {
+                    "label": "7",
+                    "matrix": [0, 0],
+                    "x": 0,
+                    "y": 0,
+                    "w": 1,
+                    "h": 1
+                },
+                {
+                    "label": "8",
+                    "matrix": [0, 1],
+                    "x": 1,
+                    "y": 0,
+                    "w": 1,
+                    "h": 1
+                },
+                {
+                    "label": "9",
+                    "matrix": [0, 2],
+                    "x": 2,
+                    "y": 0,
+                    "w": 1,
+                    "h": 1
+                },
+                {
+                    "label": "/",
+                    "matrix": [0, 3],
+                    "x": 3,
+                    "y": 0,
+                    "w": 1,
+                    "h": 1
+                },
+                {
+                    "label": "4",
+                    "matrix": [1, 0],
+                    "x": 0,
+                    "y": 1,
+                    "w": 1,
+                    "h": 1
+                },
+                {
+                    "label": "5",
+                    "matrix": [1, 1],
+                    "x": 1,
+                    "y": 1,
+                    "w": 1,
+                    "h": 1
+                },
+                {
+                    "label": "6",
+                    "matrix": [1, 2],
+                    "x": 2,
+                    "y": 1,
+                    "w": 1,
+                    "h": 1
+                },
+                {
+                    "label": "*",
+                    "matrix": [1, 3],
+                    "x": 3,
+                    "y": 1,
+                    "w": 1,
+                    "h": 1
+                },
+                {
+                    "label": "1",
+                    "matrix": [2, 0],
+                    "x": 0,
+                    "y": 2,
+                    "w": 1,
+                    "h": 1
+                },
+                {
+                    "label": "2",
+                    "matrix": [2, 1],
+                    "x": 1,
+                    "y": 2,
+                    "w": 1,
+                    "h": 1
+                },
+                {
+                    "label": "3",
+                    "matrix": [2, 2],
+                    "x": 2,
+                    "y": 2,
+                    "w": 1,
+                    "h": 1
+                },
+                {
+                    "label": "-",
+                    "matrix": [2, 3],
+                    "x": 3,
+                    "y": 2,
+                    "w": 1,
+                    "h": 1
+                },
+                {
+                    "label": "MO(1)",
+                    "matrix": [3, 0],
+                    "x": 0,
+                    "y": 3,
+                    "w": 1,
+                    "h": 1
+                },
+                {
+                    "label": "0",
+                    "matrix": [3, 1],
+                    "x": 1,
+                    "y": 3,
+                    "w": 1,
+                    "h": 1
+                },
+                {
+                    "label": "+",
+                    "matrix": [3, 2],
+                    "x": 2,
+                    "y": 3,
+                    "w": 1,
+                    "h": 1
+                },
+                {
+                    "label": "N.ENT",
+                    "matrix": [3, 3],
+                    "x": 3,
+                    "y": 3,
+                    "w": 1,
+                    "h": 1
+                }
             ]
         }
+    },
+    "audio": {
+        "default": {
+            "on": false,
+            "clicky": false
+        },
+        "macro_beep": false,
+        "pins": ["GP22"],
+        "voices": false
+    },
+    "bootmagic": {
+        "enabled": true,
+        "matrix": [0, 0]
+    },
+    "dip_switch": {
+        "enabled": true,
+        "pins": ["GP14"]
+    },
+    "encoder": {
+        "rotary": [
+            {
+                "pin_a": "GP12",
+                "pin_b": "GP13",
+                "resolution": 2
+            }
+        ]
+    },
+    "rgblight": {
+        "led_count": 4,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        },
+        "hue_steps": 15,
+        "saturation_steps": 15,
+        "brightness_steps": 15,
+        "default": {
+            "animation": "static_light",
+            "on": true,
+            "hue": 0,
+            "sat": 255,
+            "val": 50,
+            "speed": 0
+        },
+        "driver": "ws2812",
+        "layers": {
+            "blink": false,
+            "enabled": false,
+            "max": 8
+        },
+        "max_brightness": 127,
+        "rgbw": false,
+        "sleep": true,
+        "split": false
+    },
+    "ws2812": {
+        "driver": "vendor",
+        "pin": "GP10"
     }
 }

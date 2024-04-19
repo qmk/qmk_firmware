@@ -15,3 +15,26 @@
  */
 
 #include "rev1.h"
+
+#if defined(DIP_SWITCH_ENABLE)
+bool dip_switch_update_kb(uint8_t index, bool active) { 
+    if(!dip_switch_update_user(index, active))
+		{
+			return false;
+		}
+		switch (index) {
+        case 0:
+						// Encode Push Button Pressed
+            if(active) {
+							// Toggle Host Mute
+							tap_code(KC_MUTE);
+						}
+						// Encoder Push Button Released
+						else {
+							// Do Nothing
+						}
+            break;
+		}
+		return true;
+}
+#endif
