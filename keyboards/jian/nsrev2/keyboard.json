@@ -40,6 +40,9 @@
     },
     "processor": "atmega32u4",
     "bootloader": "qmk-dfu",
+    "features": {
+        "backlight": true
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
