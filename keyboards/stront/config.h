@@ -51,14 +51,6 @@
 #endif
 
 /* common LCD config */
-#define LCD_DC_PIN GP12
 #define LCD_CS_PIN GP9
-#define LCD_RST_PIN GP13
-#define BACKLIGHT_PWM_DRIVER PWMD7
 #define BACKLIGHT_PWM_CHANNEL RP2040_PWM_CHANNEL_A
 #define QUANTUM_PAINTER_DISPLAY_TIMEOUT 0
-
-/* RGB config */
-#ifdef RGB_MATRIX_ENABLE
-#    define SPLIT_TRANSPORT_MIRROR
-#endif

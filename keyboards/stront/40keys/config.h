@@ -3,12 +3,8 @@
 
 #pragma once
 
-/* 40keys overrides */
-#undef LCD_DC_PIN
 #define LCD_DC_PIN GP27
-#undef LCD_RST_PIN
 #define LCD_RST_PIN GP12
-#undef BACKLIGHT_PWM_DRIVER
 #define BACKLIGHT_PWM_DRIVER PWMD6
 
 /* Bootmagic on top outer pinky key */

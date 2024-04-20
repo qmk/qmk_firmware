@@ -64,7 +64,6 @@
         "split_count": [20, 20]
     },
     "rgb_matrix": {
-        "led_count": 40,
         "split_count": [20, 20],
         "layout": [
             { "flags": 4, "matrix": [0, 4], "x": 71, "y": 6 },
