@@ -9,6 +9,14 @@
         "device_version": "13.3.7",
         "force_nkro": true
     },
+    "features": {
+        "bootmagic": true,
+        "command": true,
+        "console": true,
+        "extrakey": true,
+        "mousekey": false,
+        "nkro": true
+    },
     "indicators": {
         "caps_lock": "E1",
         "num_lock": "E0",

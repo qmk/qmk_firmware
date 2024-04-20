@@ -8,6 +8,13 @@
         "pid": "0x4155",
         "device_version": "1.0.0"
     },
+    "features": {
+        "backlight": true,
+        "bootmagic": false,
+        "extrakey": true,
+        "mousekey": false,
+        "rgblight": true
+    },
     "backlight": {
         "pin": "D4"
     },
