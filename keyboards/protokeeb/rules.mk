@@ -35,15 +35,16 @@ OS_DETECTION_ENABLE = yes
 
 # Rotary Encoder support
 ENCODER_ENABLE = yes
-# Rotary Encoder Keymap support
-ENCODER_MAP_ENABLE = yes
 
 # DIP Switch support
 # Note: Here using for Encoder Push Button Functionality
 #DIP_SWITCH_ENABLE = yes
-# DIP Switch Keymap support
-DIP_SWITCH_MAP_ENABLE = no
 
 # Refer: USB Endpoint Limitations
 #KEYBOARD_SHARED_EP = yes
 #MOUSE_SHARED_EP = no
+
+# To reduce firmware size, consider turning on link time optimization
+# Note: This may have unexpected side effects on keyboards 
+# using ARM processors, so test thoroughly with it enabled and disabled.
+# LTO_ENABLE = yes

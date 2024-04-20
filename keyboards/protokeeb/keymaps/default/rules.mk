@@ -1,7 +1,5 @@
-# Build Options
-# Change yes to no to diable feature
-
-MIDI_ENABLE = yes
+# Build Options Protokeeb rev1
+# Change yes to no to diable features
 
 # Rotary Encoder Keymap support
 ENCODER_MAP_ENABLE = yes

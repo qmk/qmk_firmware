@@ -15,5 +15,7 @@
  */
 
 #pragma once
-#define DYNAMIC_KEYMAP_LAYER_COUNT 2
-// #define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 1 // default value
+
+#define DYNAMIC_KEYMAP_LAYER_COUNT 4 // default value 4-layers
+// #define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 1 // default value 1-byte
+// #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 0 // default value 0-bytes
