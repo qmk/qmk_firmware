@@ -11,6 +11,11 @@
     },
     "processor": "atmega328p",
     "bootloader": "usbasploader",
+    "features": {
+        "bootmagic": false,
+        "mousekey": false,
+        "extrakey": true
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
