@@ -1,6 +1,7 @@
 # Copyright 2023 Nick Brassel (@tzarc)
 # SPDX-License-Identifier: GPL-2.0-or-later
 import re
+import os
 from pathlib import Path
 from milc import cli
 from qmk.constants import LICENSE_TEXTS
@@ -79,6 +80,12 @@ def _detect_license_from_file_contents(filename, absolute=False):
 @cli.argument('-e', '--extension', arg_only=True, action='append', default=[], help='Override list of extensions. Can be specified multiple times for multiple extensions.')
 @cli.subcommand('File license check.', hidden=False if cli.config.user.developer else True)
 def license_check(cli):
+    # Fixup inputs if they're not absolute, CLI's working directory is qmk_firmware so relative paths aren't going to be
+    # found unless they're qmk_firmware-local.
+    for i in range(len(cli.args.inputs)):
+        if not cli.args.inputs[i].is_absolute():
+            cli.args.inputs[i] = Path(os.environ.get('ORIG_CWD', os.getcwd())) / cli.args.inputs[i]
+
     def _default_suffix_condition(s):
         return s in SUFFIXES
 
