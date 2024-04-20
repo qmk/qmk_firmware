@@ -1,6 +1,6 @@
 # stront
 
-![stront](https://i.imgur.com/FOPnWhch.jpg)
+![stront](https://i.imgur.com/Tu0XLeeh.jpg)
 
 Split modular keyboard with 38 or 40 keys, LCD display and Cirque/Azoteq touchpads.
 
