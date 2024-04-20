@@ -17,7 +17,7 @@
         "rows": ["B13", "B15", "B14", "A8"]
     },
 	"indicators": {
-		"caps_lock": "B10",
+        "caps_lock": "B10",
         "num_lock": "B11"
     }
     "processor": "STM32F072",
