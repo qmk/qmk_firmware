@@ -6,7 +6,8 @@
     "usb": {
         "vid": "0x4B57",
         "pid": "0x0303",
-        "device_version": "0.0.2"
+        "device_version": "0.0.2",
+        "no_startup_check": true
     },
     "rgblight": {
         "saturation_steps": 8,
@@ -35,6 +36,12 @@
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "rgblight": true
+    },
     "layouts": {
         "LAYOUT_ortho_3x3": {
             "layout": [

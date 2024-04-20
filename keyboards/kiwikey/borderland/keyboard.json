@@ -6,7 +6,8 @@
     "usb": {
         "vid": "0x4B57",
         "pid": "0x424C",
-        "device_version": "0.0.1"
+        "device_version": "0.0.1",
+        "no_startup_check": true
     },
     "matrix_pins": {
         "cols": ["F0", "F1", "E6", "C7", "C6", "B6", "D4", "B1", "B0", "B7", "B5", "B4", "D7", "D6", "B3"],
@@ -43,6 +44,13 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "rgblight": true,
+        "encoder": true
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
