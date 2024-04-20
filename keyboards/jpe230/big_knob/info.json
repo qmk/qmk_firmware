@@ -16,7 +16,8 @@
         "extrakey": true,
         "mousekey": true,
         "encoder": true,
-        "backlight": true
+        "backlight": true,
+        "quantum_painter": true
     },
     "matrix_pins": {
         "direct": [
