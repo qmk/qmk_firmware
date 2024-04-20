@@ -3,6 +3,6 @@
 
 #pragma once
 
-#define LCD_DC_PIN GP27
-#define LCD_RST_PIN GP12
-#define BACKLIGHT_PWM_DRIVER PWMD6
+#define LCD_DC_PIN GP12
+#define LCD_RST_PIN GP13
+#define BACKLIGHT_PWM_DRIVER PWMD7

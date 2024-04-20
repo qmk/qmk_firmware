@@ -55,6 +55,14 @@
         "cols": ["GP2", "GP3", "GP4", "GP5", "GP6"],
         "rows": ["GP26", "GP15", "GP14", "GP13"]
     },
+    "bootmagic": {
+        "matrix": [3, 0]
+    },
+    "split":{
+        "bootmagic": {
+            "matrix": [7, 0]
+        }
+    },
     "backlight": {
         "pin": "GP28"
     },
