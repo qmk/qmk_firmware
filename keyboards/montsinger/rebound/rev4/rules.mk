@@ -13,6 +13,5 @@ AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = yes
 
 # Disable unsupported hardware
-RGBLIGHT_SUPPORTED = yes
 AUDIO_SUPPORTED = no
 BACKLIGHT_SUPPORTED = no

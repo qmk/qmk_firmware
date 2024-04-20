@@ -8,6 +8,13 @@
         "pid": "0xCA49",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": false,
+        "extrakey": true,
+        "mousekey": false,
+        "nkro": false,
+        "pointing_device": true
+    },
     "split": {
         "enabled": true
     },
