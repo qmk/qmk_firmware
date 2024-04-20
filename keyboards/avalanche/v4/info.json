@@ -25,7 +25,22 @@
         "pin": "D3"
     },
     "rgblight": {
-        "max_brightness": 100
+        "hue_steps": 10,
+        "led_count": 64,
+        "max_brightness": 100,
+        "led_map": [28, 30, 31, 29, 24, 25, 26, 27, 22, 21, 20, 19, 23, 18, 14, 15, 16, 17, 12, 11, 10, 9, 13, 5, 6, 7, 8, 4, 3, 2, 1, 0, 34, 32, 33, 35, 37, 38, 39, 40, 45, 44, 43, 42, 36, 41, 47, 48, 49, 50, 54, 53, 52, 51, 46, 55, 56, 57, 58, 62, 61, 60, 59, 63],
+        "split_count": [32, 32],
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true
+        }
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",

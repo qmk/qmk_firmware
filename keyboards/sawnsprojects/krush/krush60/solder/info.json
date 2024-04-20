@@ -1,8 +1,13 @@
 {
     "keyboard_name": "Krush60 - Solder",
     "manufacturer": "SawnsProjects",
-    "url": "",
     "maintainer": "MaiTheSan",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "rgblight": true
+    },
     "usb": {
         "vid": "0x5350",
         "pid": "0x6B32",
@@ -21,7 +26,21 @@
         "pin": "F1"
     },
     "rgblight": {
-        "max_brightness": 200
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 20,
+        "max_brightness": 200,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "twinkle": true
+        }
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

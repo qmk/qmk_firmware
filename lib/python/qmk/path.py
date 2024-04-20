@@ -5,29 +5,69 @@ import os
 import argparse
 from pathlib import Path
 
-from qmk.constants import MAX_KEYBOARD_SUBFOLDERS, QMK_FIRMWARE
+from qmk.constants import MAX_KEYBOARD_SUBFOLDERS, QMK_FIRMWARE, QMK_USERSPACE, HAS_QMK_USERSPACE
 from qmk.errors import NoSuchKeyboardError
 
 
 def is_keyboard(keyboard_name):
     """Returns True if `keyboard_name` is a keyboard we can compile.
     """
-    if keyboard_name:
-        keyboard_path = QMK_FIRMWARE / 'keyboards' / keyboard_name
-        rules_mk = keyboard_path / 'rules.mk'
+    if not keyboard_name:
+        return False
 
-        return rules_mk.exists()
+    # keyboard_name values of 'c:/something' or '/something' trigger append issues
+    # due to "If the argument is an absolute path, the previous path is ignored"
+    # however it should always be a folder located under qmk_firmware/keyboards
+    if Path(keyboard_name).is_absolute():
+        return False
+
+    keyboard_path = QMK_FIRMWARE / 'keyboards' / keyboard_name
+    rules_mk = keyboard_path / 'rules.mk'
+
+    return rules_mk.exists()
 
 
-def under_qmk_firmware():
+def under_qmk_firmware(path=Path(os.environ['ORIG_CWD'])):
     """Returns a Path object representing the relative path under qmk_firmware, or None.
     """
-    cwd = Path(os.environ['ORIG_CWD'])
-
     try:
-        return cwd.relative_to(QMK_FIRMWARE)
+        return path.relative_to(QMK_FIRMWARE)
     except ValueError:
         return None
+
+
+def under_qmk_userspace(path=Path(os.environ['ORIG_CWD'])):
+    """Returns a Path object representing the relative path under $QMK_USERSPACE, or None.
+    """
+    try:
+        if HAS_QMK_USERSPACE:
+            return path.relative_to(QMK_USERSPACE)
+    except ValueError:
+        pass
+    return None
+
+
+def is_under_qmk_firmware(path=Path(os.environ['ORIG_CWD'])):
+    """Returns a boolean if the input path is a child under qmk_firmware.
+    """
+    if path is None:
+        return False
+    try:
+        return Path(os.path.commonpath([Path(path), QMK_FIRMWARE])) == QMK_FIRMWARE
+    except ValueError:
+        return False
+
+
+def is_under_qmk_userspace(path=Path(os.environ['ORIG_CWD'])):
+    """Returns a boolean if the input path is a child under $QMK_USERSPACE.
+    """
+    if path is None:
+        return False
+    try:
+        if HAS_QMK_USERSPACE:
+            return Path(os.path.commonpath([Path(path), QMK_USERSPACE])) == QMK_USERSPACE
+    except ValueError:
+        return False
 
 
 def keyboard(keyboard_name):
@@ -47,11 +87,28 @@ def keymaps(keyboard_name):
     keyboard_folder = keyboard(keyboard_name)
     found_dirs = []
 
-    for _ in range(MAX_KEYBOARD_SUBFOLDERS):
-        if (keyboard_folder / 'keymaps').exists():
-            found_dirs.append((keyboard_folder / 'keymaps').resolve())
+    if HAS_QMK_USERSPACE:
+        this_keyboard_folder = Path(QMK_USERSPACE) / keyboard_folder
+        for _ in range(MAX_KEYBOARD_SUBFOLDERS):
+            if (this_keyboard_folder / 'keymaps').exists():
+                found_dirs.append((this_keyboard_folder / 'keymaps').resolve())
 
-        keyboard_folder = keyboard_folder.parent
+            this_keyboard_folder = this_keyboard_folder.parent
+            if this_keyboard_folder.resolve() == QMK_USERSPACE.resolve():
+                break
+
+        # We don't have any relevant keymap directories in userspace, so we'll use the fully-qualified path instead.
+        if len(found_dirs) == 0:
+            found_dirs.append((QMK_USERSPACE / keyboard_folder / 'keymaps').resolve())
+
+    this_keyboard_folder = QMK_FIRMWARE / keyboard_folder
+    for _ in range(MAX_KEYBOARD_SUBFOLDERS):
+        if (this_keyboard_folder / 'keymaps').exists():
+            found_dirs.append((this_keyboard_folder / 'keymaps').resolve())
+
+        this_keyboard_folder = this_keyboard_folder.parent
+        if this_keyboard_folder.resolve() == QMK_FIRMWARE.resolve():
+            break
 
     if len(found_dirs) > 0:
         return found_dirs

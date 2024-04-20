@@ -13,6 +13,10 @@
 // limitations under the License.
 
 #include "process_repeat_key.h"
+#include "repeat_key.h"
+#include "keycodes.h"
+#include "quantum_keycodes.h"
+#include "action_util.h"
 
 // Default implementation of remember_last_key_user().
 __attribute__((weak)) bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* remembered_mods) {

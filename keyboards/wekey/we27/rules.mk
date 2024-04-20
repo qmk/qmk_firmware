@@ -13,7 +13,4 @@ AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = yes
 RGB_MATRIX_ENABLE = yes     # Use RGB matrix
 
-DEBOUNCE_TYPE	  = sym_defer_pk
 RGB_MATRIX_CUSTOM_KB = yes
-
-SRC += encoder_actions.c

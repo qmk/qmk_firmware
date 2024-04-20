@@ -10,6 +10,19 @@
         "pin": "B6"
     },
     "rgblight": {
-        "max_brightness": 185
+        "led_count": 24,
+        "max_brightness": 185,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
     }
 }

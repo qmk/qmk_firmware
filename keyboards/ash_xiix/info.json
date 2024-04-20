@@ -8,6 +8,12 @@
         "pid": "0x14BC",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "F0",
+        "num_lock": "E6",
+        "scroll_lock": "F7",
+        "on_state": 0
+    },
     "matrix_pins": {
         "cols": ["F1", "F4", "F5", "F6", "B0", "B2", "B1", "B3", "B7", "C7"],
         "rows": ["C6", "B6", "B5", "B4", "D7", "D0", "D1", "D2", "D3", "D5", "D4", "D6"]

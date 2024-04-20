@@ -12,6 +12,12 @@
         "pin": "B7",
         "breathing": true
     },
+    "dynamic_keymap": {
+        "layer_count": 3
+    },
+    "rgblight": {
+        "led_count": 4
+    },
     "ws2812": {
         "pin": "E6"
     },

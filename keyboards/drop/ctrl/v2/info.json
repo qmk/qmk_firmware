@@ -124,7 +124,9 @@
         }
     },
     "rgb_matrix": {
-        "driver": "IS31FL3733",
+        "driver": "is31fl3733",
+        "max_brightness": 191,
+        "sleep": true,
         "animations": {
             "alphas_mods": true,
             "gradient_up_down": true,

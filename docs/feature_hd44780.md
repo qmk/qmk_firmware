@@ -1,6 +1,6 @@
-# HD44780 LCD Driver
+# HD44780 LCD Driver :id=hd44780-lcd-driver
 
-## Supported Hardware
+## Supported Hardware :id=supported-hardware
 
 LCD modules using [HD44780U](https://www.sparkfun.com/datasheets/LCD/HD44780.pdf) IC or equivalent, communicating in 4-bit mode.
 
@@ -11,7 +11,7 @@ LCD modules using [HD44780U](https://www.sparkfun.com/datasheets/LCD/HD44780.pdf
 
 To run these modules at 3.3V, an additional MAX660 voltage converter IC must be soldered on, along with two 10µF capacitors. See [this page](https://www.codrey.com/electronic-circuits/hack-your-16x2-lcd/) for more details.
 
-## Usage
+## Usage :id=usage
 
 Add the following to your `rules.mk`:
 
@@ -19,7 +19,7 @@ Add the following to your `rules.mk`:
 HD44780_ENABLE = yes
 ```
 
-## Basic Configuration
+## Basic Configuration :id=basic-configuration
 
 Add the following to your `config.h`:
 
@@ -33,9 +33,9 @@ Add the following to your `config.h`:
 |`HD44780_DISPLAY_LINES`|`2`           |The number of visible lines on the display                                                           |
 |`HD44780_WRAP_LINES`   |*Not defined* |If defined, input characters will wrap to the next line                                              |
 
-## Examples
+## Examples :id=examples
 
-### Hello World
+### Hello World :id=example-hello-world
 
 Add the following to your `keymap.c`:
 
@@ -46,7 +46,7 @@ void keyboard_post_init_user(void) {
 }
 ```
 
-### Custom Character Definition
+### Custom Character Definition :id=example-custom-character
 
 Up to eight custom characters can be defined. This data is stored in the Character Generator RAM (CGRAM), and is not persistent across power cycles.
 
@@ -77,15 +77,15 @@ void keyboard_post_init_user(void) {
 }
 ```
 
-## API
+## API :id=api
 
-### `void hd44780_init(bool cursor, bool blink)`
+### `void hd44780_init(bool cursor, bool blink)` :id=api-hd44780-init
 
 Initialize the display.
 
 This function should be called only once, before any of the other functions can be called.
 
-#### Arguments
+#### Arguments :id=api-hd44780-init-arguments
 
  - `bool cursor`  
    Whether to show the cursor.
@@ -94,7 +94,7 @@ This function should be called only once, before any of the other functions can 
 
 ---
 
-### `void hd44780_clear(void)`
+### `void hd44780_clear(void)` :id=api-hd44780-clear
 
 Clear the display.
 
@@ -102,7 +102,7 @@ This function is called on init.
 
 ---
 
-### `void hd44780_home(void)`
+### `void hd44780_home(void)` :id=api-hd44780-home
 
 Move the cursor to the home position.
 
@@ -110,13 +110,13 @@ This function is called on init.
 
 ---
 
-### `void hd44780_on(bool cursor, bool blink)`
+### `void hd44780_on(bool cursor, bool blink)` :id=api-hd44780-on
 
 Turn the display on, and/or set the cursor properties.
 
 This function is called on init.
 
-#### Arguments
+#### Arguments :id=api-hd44780-on-arguments
 
  - `bool cursor`  
    Whether to show the cursor.
@@ -125,17 +125,17 @@ This function is called on init.
 
 ---
 
-### `void hd44780_off(void)`
+### `void hd44780_off(void)` :id=api-hd44780-off
 
 Turn the display off.
 
 ---
 
-### `void hd44780_set_cursor(uint8_t col, uint8_t line)`
+### `void hd44780_set_cursor(uint8_t col, uint8_t line)` :id=api-hd44780-set-cursor
 
 Move the cursor to the specified position on the display.
 
-#### Arguments
+#### Arguments :id=api-hd44780-set-cursor-arguments
 
  - `uint8_t col`  
    The column number to move to, from 0 to 15 on 16x2 displays.
@@ -144,48 +144,48 @@ Move the cursor to the specified position on the display.
 
 ---
 
-### `void hd44780_putc(char c)`
+### `void hd44780_putc(char c)` :id=api-hd44780-putc
 
 Print a character to the display. The newline character `\n` will move the cursor to the start of the next line.
 
 The exact character shown may depend on the ROM code of your particular display - refer to the datasheet for the full character set.
 
-#### Arguments
+#### Arguments :id=api-hd44780-putc-arguments
 
  - `char c`  
    The character to print.
 
 ---
 
-### `void hd44780_puts(const char *s)`
+### `void hd44780_puts(const char *s)` :id=api-hd44780-puts
 
 Print a string of characters to the display.
 
-#### Arguments
+#### Arguments :id=api-hd44780-puts-arguments
 
  - `const char *s`  
    The string to print.
 
 ---
 
-### `void hd44780_puts_P(const char *s)`
+### `void hd44780_puts_P(const char *s)` :id=api-hd44780-puts-p
 
 Print a string of characters from PROGMEM to the display.
 
 On ARM devices, this function is simply an alias of `hd44780_puts()`.
 
-#### Arguments
+#### Arguments :id=api-hd44780-puts-p-arguments
 
  - `const char *s`  
    The PROGMEM string to print (ie. `PSTR("Hello")`).
 
 ---
 
-### `void hd44780_define_char(uint8_t index, uint8_t *data)`
+### `void hd44780_define_char(uint8_t index, uint8_t *data)` :id=api-hd44780-define-char
 
 Define a custom character.
 
-#### Arguments
+#### Arguments :id=api-hd44780-define-char-arguments
 
  - `uint8_t index`  
    The index of the custom character to define, from 0 to 7.
@@ -194,13 +194,13 @@ Define a custom character.
 
 ---
 
-### `void hd44780_define_char_P(uint8_t index, const uint8_t *data)`
+### `void hd44780_define_char_P(uint8_t index, const uint8_t *data)` :id=api-hd44780-define-char-p
 
 Define a custom character from PROGMEM.
 
 On ARM devices, this function is simply an alias of `hd44780_define_char()`.
 
-#### Arguments
+#### Arguments :id=api-hd44780-define-char-p-arguments
 
  - `uint8_t index`  
    The index of the custom character to define, from 0 to 7.
@@ -209,21 +209,21 @@ On ARM devices, this function is simply an alias of `hd44780_define_char()`.
 
 ---
 
-### `bool hd44780_busy(void)`
+### `bool hd44780_busy(void)` :id=api-hd44780-busy
 
 Indicates whether the display is currently processing, and cannot accept instructions.
 
-#### Return Value
+#### Return Value :id=api-hd44780-busy-arguments
 
 `true` if the display is busy.
 
 ---
 
-### `void hd44780_write(uint8_t data, bool isData)`
+### `void hd44780_write(uint8_t data, bool isData)` :id=api-hd44780-write
 
 Write a byte to the display.
 
-#### Arguments
+#### Arguments :id=api-hd44780-write-arguments
 
  - `uint8_t data`  
    The byte to send to the display.
@@ -232,67 +232,67 @@ Write a byte to the display.
 
 ---
 
-### `uint8_t hd44780_read(bool isData)`
+### `uint8_t hd44780_read(bool isData)` :id=api-hd44780-read
 
 Read a byte from the display.
 
-#### Arguments
+#### Arguments :id=api-hd44780-read-arguments
 
  - `bool isData`  
    Whether to read the current cursor position, or the character at the cursor.
 
-#### Return Value
+#### Return Value :id=api-hd44780-read-return
 
 If `isData` is `true`, the returned byte will be the character at the current DDRAM address. Otherwise, it will be the current DDRAM address and the busy flag.
 
 ---
 
-### `void hd44780_command(uint8_t command)`
+### `void hd44780_command(uint8_t command)` :id=api-hd44780-command
 
 Send a command to the display. Refer to the datasheet and `hd44780.h` for the valid commands and defines.
 
 This function waits for the display to clear the busy flag before sending the command.
 
-#### Arguments
+#### Arguments :id=api-hd44780-command-arguments
 
  - `uint8_t command`  
    The command to send.
 
 ---
 
-### `void hd44780_data(uint8_t data)`
+### `void hd44780_data(uint8_t data)` :id=api-hd44780-data
 
 Send a byte of data to the display.
 
 This function waits for the display to clear the busy flag before sending the data.
 
-#### Arguments
+#### Arguments :id=api-hd44780-data-arguments
 
  - `uint8_t data`  
    The byte of data to send.
 
 ---
 
-### `void hd44780_set_cgram_address(uint8_t address)`
+### `void hd44780_set_cgram_address(uint8_t address)` :id=api-hd44780-set-cgram-address
 
 Set the CGRAM address.
 
 This function is used when defining custom characters.
 
-#### Arguments
+#### Arguments :id=api-hd44780-set-cgram-address-arguments
 
  - `uint8_t address`  
    The CGRAM address to move to, from `0x00` to `0x3F`.
 
 ---
 
-### `void hd44780_set_ddram_address(uint8_t address)`
+### `void hd44780_set_ddram_address(uint8_t address)` :id=api-hd44780-set-ddram-address
 
 Set the DDRAM address.
 
 This function is used when printing characters to the display, and setting the cursor.
 
-#### Arguments
+#### Arguments :id=api-hd44780-set-ddram-address-arguments
 
  - `uint8_t address`  
    The DDRAM address to move to, from `0x00` to `0x7F`.

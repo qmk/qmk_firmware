@@ -13,6 +13,22 @@
     "rows": ["D4", "C6"]
   },
   "diode_direction": "COL2ROW",
+  "rgblight": {
+    "hue_steps": 5,
+    "led_count": 6,
+    "animations": {
+      "breathing": true,
+      "rainbow_mood": true,
+      "rainbow_swirl": true,
+      "snake": true,
+      "knight": true,
+      "christmas": true,
+      "static_gradient": true,
+      "rgb_test": true,
+      "alternating": true,
+      "twinkle": true
+    }
+  },
   "ws2812": {
     "pin": "D3"
   },

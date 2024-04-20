@@ -14,7 +14,5 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 6
-
 /* Longer delay on tap codes, so shifted ones work. */
 #define TAP_CODE_DELAY 100

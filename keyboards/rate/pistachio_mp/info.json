@@ -9,6 +9,10 @@
         "device_version": "0.0.1",
         "force_nkro": true
     },
+    "rgblight": {
+        "hue_steps": 10,
+        "led_count": 3
+    },
     "ws2812": {
         "pin": "D2"
     },

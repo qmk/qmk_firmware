@@ -22,17 +22,3 @@
   #define OLED_DISPLAY_128X32
   #define OLED_TIMEOUT 30000
 #endif
-
-// RGB underglow and per key
-  #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-  #define RGBLIGHT_EFFECT_RAINBOW_MOOD
-  #define RGBLIGHT_EFFECT_STATIC_GRADIENT
-  #define RGBLIGHT_EFFECT_BREATHING
-  #define RGBLED_NUM 36
-  #define RGBLED_SPLIT \
-        { 18, 18 }
-  #define RGBLIGHT_SPLIT
-  #define RGBLIGHT_HUE_STEP 10
-  #define RGBLIGHT_SAT_STEP 17
-  #define RGBLIGHT_VAL_STEP 17
-  #define RGBLIGHT_SLEEP

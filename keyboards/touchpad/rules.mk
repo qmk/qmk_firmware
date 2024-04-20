@@ -12,4 +12,5 @@ AUDIO_ENABLE = no           # Audio output
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 CUSTOM_MATRIX = yes
 
-SRC += matrix.c i2c_master.c
+SRC += matrix.c
+I2C_DRIVER_REQUIRED = yes

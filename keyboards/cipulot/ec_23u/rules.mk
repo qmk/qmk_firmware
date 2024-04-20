@@ -1,3 +1,4 @@
 CUSTOM_MATRIX = lite
-QUANTUM_LIB_SRC += analog.c 
-SRC += matrix.c ec_switch_matrix.c
+ANALOG_DRIVER_REQUIRED = yes
+SRC += keyboards/cipulot/common/matrix.c keyboards/cipulot/common/ec_board.c keyboards/cipulot/common/ec_switch_matrix.c
+OPT = 2

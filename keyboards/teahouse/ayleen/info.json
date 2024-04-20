@@ -19,6 +19,12 @@
       "rows": ["F0", "F1", "F4", "F5", "D4", "B0", "B1", "B2", "F7", "D5", "D3"],
       "cols": ["F6", "D0", "D1", "D2", "D6", "D7", "B4", "B5", "B6"]
     },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 2,
+        "sleep": true
+    },
     "ws2812": {
         "pin": "C7"
     },

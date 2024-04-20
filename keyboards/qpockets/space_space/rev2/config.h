@@ -17,8 +17,3 @@
 #pragma once
 
 #define LOCKING_SUPPORT_ENABLE
-
-#define RGBLED_NUM 4
-
-#define RGB_MATRIX_LED_COUNT RGBLED_NUM
-#define RGBLIGHT_DEFAULT_HUE 130

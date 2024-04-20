@@ -18,6 +18,9 @@
   },
   "processor": "atmega32u4",
   "bootloader": "caterina",
+  "tapping": {
+    "toggle": 1
+  },
   "layouts": {
     "LAYOUT_6x6": {
       "layout": [

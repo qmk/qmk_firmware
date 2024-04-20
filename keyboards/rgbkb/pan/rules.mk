@@ -11,7 +11,6 @@ AUDIO_ENABLE = no           # Audio output
 RGB_MATRIX_ENABLE = yes
 ENCODER_ENABLE = yes
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306
 
 # RGB layout selection
 RGB_ENCODERS = yes # For RGB encoders, solder on both WS2811 chips

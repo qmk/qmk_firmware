@@ -39,7 +39,9 @@
         "pin": "D3"
     },
     "rgblight": {
-        "max_brightness": 120
+        "led_count": 70,
+        "max_brightness": 120,
+        "split_count": [35, 35]
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",

@@ -8,6 +8,9 @@
         "pid": "0xE881",
         "device_version": "0.0.1"
     },
+    "rgblight": {
+        "led_count": 3
+    },
     "ws2812": {
         "pin": "E6"
     },

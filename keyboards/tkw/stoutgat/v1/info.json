@@ -19,6 +19,9 @@
             {"pin_a": "B0", "pin_b": "B1"}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "processor": "atmega32a",
     "bootloader": "usbasploader",
     "community_layouts": ["65_iso", "65_ansi"],

@@ -22,8 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define TAPPING_TERM 200
-
 #define I2C_DRIVER I2CD1
 #define I2C_SCL_PIN B6
 #define I2C_SDA_PIN B7
@@ -34,9 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2
 
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
-
-#define RGBLED_NUM 4
-#define RGBLIGHT_DEFAULT_VAL 0
 
 #define WS2812_PWM_COMPLEMENTARY_OUTPUT
 #define WS2812_PWM_DRIVER PWMD1

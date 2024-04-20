@@ -12,6 +12,9 @@
         "mousekey": false,
         "nkro": false
     },
+    "bluetooth": {
+        "driver": "bluefruit_le"
+    },
     "matrix_pins": {
         "cols": ["D3", "D2", "F0", "F1", "F4", "F5", "F6", "F7"],
         "rows": ["D0", "B7", "B5", "C6", "D1", "B6", "D7", "D6"]

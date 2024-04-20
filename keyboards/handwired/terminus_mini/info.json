@@ -8,6 +8,10 @@
     "pid": "0x6060",
     "device_version": "0.0.1"
   },
+  "tapping": {
+    "term": 150,
+    "toggle": 1
+  },
   "matrix_pins": {
     "cols": ["B0", "D0", "D5", "B6", "D4", "C7", "F7", "F6", "F5", "F4", "F1", "F0"],
     "rows": ["B5", "B4", "D7", "D6"]

@@ -9,6 +9,9 @@
     "device_version": "0.0.1",
     "force_nkro": true
   },
+  "build": {
+    "debounce_type": "sym_eager_pk"
+  },
   "matrix_pins": {
     "cols": ["B6", "B2", "B3", "B1", "F7", "F6", "F5", "F4"],
     "rows": ["B5", "B4", "E6", "D7", "D4"]
