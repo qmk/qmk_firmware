@@ -1,0 +1,102 @@
+{
+    "manufacturer": "Ungodly Design",
+    "keyboard_name": "priya50",
+    "maintainer": "luis-godinez",
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "board": "GENERIC_RP_RP2040",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x5544",
+        "vid": "0x3530" 
+    },
+    "diode_direction": "COL2ROW",
+    "dynamic_keymap": {
+        "layer_count": 4
+    },
+    "features": {
+        "audio": false,
+        "backlight": false,
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false,
+        "rgb_matrix": false,
+        "rgblight": true,
+        "oled": true
+    },
+    "matrix_pins": {
+        "cols": ["GP4","GP6","GP7","GP8","GP9","GP13","GP5","GP3","GP2","GP11","GP14","GP15","GP22"],
+        "rows": ["GP0","GP1","GP10","GP18"]
+    },
+    "encoder": {
+        "enabled": true,
+        "rotary": [
+            {"pin_a": "GP24", "pin_b": "GP23"}
+        ]
+    },
+    "mouse_key": {
+        "enabled": true
+    },
+    "layouts": {
+        "LAYOUT_50_ansi": {
+            "layout": [
+                {"label":"Esc", "matrix":[0,0], "x":0, "y":0},
+                {"label":"Q", "matrix":[0,1], "x":1, "y":0}, 
+                {"label":"W", "matrix":[0,2], "x":2, "y":0}, 
+                {"label":"E", "matrix":[0,3], "x":3, "y":0}, 
+                {"label":"R", "matrix":[0,4], "x":4, "y":0}, 
+                {"label":"T", "matrix":[0,5], "x":5, "y":0}, 
+                {"label":"Y", "matrix":[0,6], "x":6, "y":0}, 
+                {"label":"U", "matrix":[0,7], "x":7, "y":0}, 
+                {"label":"I", "matrix":[0,8], "x":8, "y":0}, 
+                {"label":"O", "matrix":[0,9], "x":9, "y":0}, 
+                {"label":"P", "matrix":[0,10], "x":10, "y":0}, 
+                {"label":"[", "matrix":[0,11], "x":11, "y":0}, 
+                {"label":"]", "matrix":[0,12], "x":12, "y":0}, 
+                {"label":"Tab", "matrix":[1,0], "x":0, "y":1}, 
+                {"label":"A", "matrix":[1,1], "x":1, "y":1}, 
+                {"label":"S", "matrix":[1,2], "x":2, "y":1}, 
+                {"label":"D", "matrix":[1,3], "x":3, "y":1}, 
+                {"label":"F", "matrix":[1,4], "x":4, "y":1}, 
+                {"label":"G", "matrix":[1,5], "x":5, "y":1},
+                 {"label":"H", "matrix":[1,6], "x":6, "y":1}, 
+                 {"label":"J", "matrix":[1,7], "x":7, "y":1}, 
+                 {"label":"K", "matrix":[1,8], "x":8, "y":1}, 
+                 {"label":"L", "matrix":[1,9], "x":9, "y":1}, 
+                 {"label":":", "matrix":[1,10], "x":10, "y":1}, 
+                 {"label":"Back", "matrix":[1,12], "x":11, "y":1}, 
+                 {"label":"Shift", "matrix":[2,0], "x":0, "y":2}, 
+                 {"label":"Z", "matrix":[2,1], "x":1, "y":2}, 
+                 {"label":"X", "matrix":[2,2], "x":2, "y":2}, 
+                 {"label":"C", "matrix":[2,3], "x":3, "y":2}, 
+                 {"label":"V", "matrix":[2,4], "x":4, "y":2}, 
+                 {"label":"B", "matrix":[2,5], "x":5, "y":2}, 
+                 {"label":"N", "matrix":[2,6], "x":6, "y":2}, 
+                 {"label":"M", "matrix":[2,7], "x":7, "y":2}, 
+                 {"label":"<", "matrix":[2,8], "x":8, "y":2}, 
+                 {"label":">", "matrix":[2,9], "x":9, "y":2}, 
+                 {"label":"?", "matrix":[2,10], "x":10, "y":2}, 
+                 {"label":"Enter", "matrix":[2,12], "x":12, "y":2}, 
+                 {"label":"Ctrl", "matrix":[3,0], "x":0, "y":3}, 
+                 {"label":"Alt", "matrix":[3,1], "x":1, "y":3}, 
+                 {"label":"Cmd", "matrix":[3,2], "x":2, "y":3}, 
+                 {"label":"Fn1", "matrix":[3,4], "x":4, "y":3}, 
+                 {"label":"Fn2", "matrix":[3,5], "x":5, "y":3}, 
+                 {"label":"Space", "matrix":[3,6], "x":6, "y":3}, 
+                 {"label":"Space", "matrix":[3,7], "x":7, "y":3}
+                 {"label":"Cmd", "matrix":[3,9], "x":9, "y":3}, 
+                 {"label":"Alt", "matrix":[3,10], "x":10, "y":3}, 
+                 {"label":"Ctrl", "matrix":[3,11], "x":11, "y":3}
+                 {"label":"Fn", "matrix":[3,12], "x":12, "y":3}
+                ]
+        }
+    },
+    "ws2812": {
+        "pin": "GP12",
+        "driver": "vendor"
+    }
+}
