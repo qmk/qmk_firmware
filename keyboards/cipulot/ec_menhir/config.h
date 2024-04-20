@@ -35,7 +35,7 @@
     { 12 }
 
 #define AMUX_0_COL_CHANNELS \
-    { 5, 4, 3, 2, 1, 15, 14, 13, 12, 11, 10 }
+    { 5, 4, 3, 2, 1, 0, 15, 14, 13, 12, 11, 10 }
 
 #define AMUX_COL_CHANNELS AMUX_0_COL_CHANNELS
 
