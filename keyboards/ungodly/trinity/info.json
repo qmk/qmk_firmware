@@ -24,7 +24,7 @@
     },
     "community_layouts": ["tkl_ansi", "tkl_ansi_split_bs_rshift", "tkl_ansi_tsangan", "tkl_ansi_tsangan_split_bs_rshift", "tkl_iso", "tkl_iso_split_bs_rshift", "tkl_iso_tsangan", "tkl_iso_tsangan_split_bs_rshift"]
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_all": {
             "layout": [
                 { "label": "ESC", "matrix": [0, 0], "x": 0, "y": 0 },
                 { "label": "F1", "matrix": [0, 2], "x": 2, "y": 0 },
