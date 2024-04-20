@@ -23,6 +23,15 @@
     "ws2812": {
         "pin": "D3"
     },
+    "features": {
+        "bootmagic": false,
+        "mousekey": true,
+        "extrakey": true,
+        "backlight": true
+    },
+    "build": {
+        "lto": true
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_ortho_5x14"
     },
