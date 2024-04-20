@@ -1,10 +1,9 @@
 # Copyright 2023 Nick Brassel (@tzarc)
 # SPDX-License-Identifier: GPL-2.0-or-later
 import re
-import os
-from pathlib import Path
 from milc import cli
 from qmk.constants import LICENSE_TEXTS
+from qmk.path import normpath
 
 L_PAREN = re.compile(r'\(\[\{\<')
 R_PAREN = re.compile(r'\)\]\}\>')
@@ -33,15 +32,6 @@ def _preformat_license_texts():
     for _, long_licenses in LICENSE_TEXTS:
         for i in range(len(long_licenses)):
             long_licenses[i] = _simplify_text(long_licenses[i])
-
-
-def _fixup_relative_paths(inputs):
-    # Fixup inputs if they're not absolute, CLI's working directory is qmk_firmware so relative paths aren't going to be
-    # found unless they're qmk_firmware-local.
-    for i in range(len(inputs)):
-        if not inputs[i].is_absolute():
-            inputs[i] = Path(os.environ.get('ORIG_CWD', os.getcwd())) / inputs[i]
-    return list(sorted(set(inputs)))
 
 
 def _determine_suffix_condition(extensions):
@@ -121,7 +111,7 @@ def _detect_license_from_file_contents(filename, absolute=False, short=False):
     return False
 
 
-@cli.argument('inputs', nargs='*', arg_only=True, type=Path, help='List of input files or directories.')
+@cli.argument('inputs', nargs='*', arg_only=True, type=normpath, help='List of input files or directories.')
 @cli.argument('-s', '--short', action='store_true', help='Short output.')
 @cli.argument('-a', '--absolute', action='store_true', help='Print absolute paths.')
 @cli.argument('-e', '--extension', arg_only=True, action='append', default=[], help='Override list of extensions. Can be specified multiple times for multiple extensions.')
@@ -129,9 +119,8 @@ def _detect_license_from_file_contents(filename, absolute=False, short=False):
 def license_check(cli):
     _preformat_license_texts()
 
-    inputs = _fixup_relative_paths(cli.args.inputs)
     conditional = _determine_suffix_condition(cli.args.extension)
-    check_list = _determine_file_list(inputs, conditional)
+    check_list = _determine_file_list(cli.args.inputs, conditional)
 
     failed = False
     for filename in sorted(check_list):
