@@ -66,6 +66,16 @@
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true,
+        "rgb_matrix": true
+    },
+    "build": {
+        "lto": true
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
