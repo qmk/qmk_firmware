@@ -13,9 +13,11 @@
         "bootmagic": true,
         "command": false,
         "console": false,
+        "encoder": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "rgblight": true
     },
     "diode_direction": "COL2ROW",
     "matrix_pins": {
@@ -23,7 +25,6 @@
         "cols": ["GP4", "GP6", "GP7", "GP8", "GP9", "GP13", "GP5", "GP3", "GP2", "GP11", "GP14", "GP15", "GP22"]
     },
         "encoder": {
-        "enabled": true,
         "rotary": [
             {"pin_a": "GP24", "pin_b": "GP23"}
         ]
