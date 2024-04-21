@@ -1,6 +1,6 @@
 # BB65
 
-![bb65](https://i.imgur.com/0PrDjuSh.png)
+![bb65](https://i.imgur.com/0PrDjuS.png)
 
 BB65 is a completely normal BlackPill-powered 65% DIY kit. It’s got all the letters, a number row, and arrow keys. Basic as it can be.
 
