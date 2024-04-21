@@ -3,4 +3,3 @@ SRC += side.c side_driver.c side_logo.c
 SRC += debounce.c
 
 UART_DRIVER_REQUIRED = yes
-LTO_ENABLE = yes
