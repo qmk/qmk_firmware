@@ -26,12 +26,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	)
 };
 
-void matrix_init_user(void) {
-    setPinOutput(B2);
-//    writePinLow(B2);
-    writePinHigh(B2);
-}
-
 //layer_state_t layer_state_set_user(layer_state_t state) {
 //    switch (get_highest_layer(state)) {
 //        case 1:
