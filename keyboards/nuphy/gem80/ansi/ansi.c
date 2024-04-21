@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 extern bool            f_rf_sw_press;
 extern bool            f_sleep_show;
 extern bool            f_dev_reset_press;
-extern bool            f_bat_num_show;
 extern bool            f_rgb_test_press;
 extern bool            f_bat_hold;
 extern bool            f_debounce_press_show;

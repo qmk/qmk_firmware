@@ -38,7 +38,6 @@ bool f_dial_sw_init_ok       = 0;
 bool f_rf_sw_press           = 0;
 bool f_dev_reset_press       = 0;
 bool f_rgb_test_press        = 0;
-bool f_bat_num_show          = 0;
 bool f_debounce_press_show   = 0;
 bool f_debounce_release_show = 0;
 bool f_sleep_timeout_show    = 0;
