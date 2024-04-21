@@ -2,6 +2,8 @@
 
 A 50% hotswap pcb powered by the RP2040, with underglow lighting, encoder and oled display support.
 
+Note: This firmware does not include OLED support at this time as functionality has not yet been tested on the hardware.
+
 PCB Front
 ![Numpad](https://i.imgur.com/zPTsGhh.png)
 
