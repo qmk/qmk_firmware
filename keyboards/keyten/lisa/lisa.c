@@ -3,26 +3,8 @@
 
 #include "quantum.h"
 
-void matrix_init_user(void) {
-    setPinOutput(B2);
-//    writePinLow(B2);
-    writePinHigh(B2);
+void matrix_init_kb(void) {
+    gpio_set_pin_output(B2);
+    gpio_write_pin_high(B2);
+    matrix_init_user();
 }
-
-//layer_state_t layer_state_set_user(layer_state_t state) {
-//    switch (get_highest_layer(state)) {
-//        case 1:
-//		    writePinHigh(B2);
-//		    break;	
-//        case 2:
-//		    writePinHigh(B2);
-//		    break;
-//        case 3:
-//		    writePinHigh(B2);
-//		    break;	
-//        default:
-//		    writePinLow(B2);
-//        break;
-//    }
-//    return state;
-//}
