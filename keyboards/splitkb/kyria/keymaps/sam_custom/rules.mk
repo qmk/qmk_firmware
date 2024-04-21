@@ -30,6 +30,7 @@ ENCODER_ENABLE = yes       # Enables the use of one or more encoders
 CAPS_WORD_ENABLE = yes
 TAP_DANCE_ENABLE = yes
 COMBO_ENABLE = yes
+TRI_LAYER_ENABLE = yes
 
 # Space saving
 LTO_ENABLE = yes

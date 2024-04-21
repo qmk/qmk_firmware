@@ -8,6 +8,6 @@ enum layers {
     _NUMPAD,
     _SYMBOL,
     _SHIFT,
-    _MAGIC,
     _WINDOW,
+    _MAGIC,
 };
