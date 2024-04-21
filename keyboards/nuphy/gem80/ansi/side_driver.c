@@ -50,7 +50,7 @@
         }                                           \
     } while (0)
 
-void side_sendByte(uint8_t byte)
+void side_send_byte(uint8_t byte)
 {
     // WS2812 protocol wants most significant bits first
     for (unsigned char bit = 0; bit < 8; bit++) {
@@ -80,9 +80,9 @@ void side_ws2812_setleds(rgb_led_t *ledarray, uint16_t leds)
 
     for (uint8_t i = 0; i < leds; i++) {
         // WS2812 protocol dictates grb order
-        side_sendByte(ledarray[i].g);
-        side_sendByte(ledarray[i].r);
-        side_sendByte(ledarray[i].b);
+        side_send_byte(ledarray[i].g);
+        side_send_byte(ledarray[i].r);
+        side_send_byte(ledarray[i].b);
     }
 
  //   wait_ns(WS2812_RES);

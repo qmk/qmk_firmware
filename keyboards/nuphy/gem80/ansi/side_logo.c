@@ -182,6 +182,7 @@ static void logo_wave_mode_show_1(void) {
         side_rgb_set_color(logo_led_index_tab[i], r_temp >> 1, g_temp >> 1, b_temp >> 1);
     }
 }
+
 static void logo_wave_mode_show_2(void) {
     uint8_t play_index;
 
@@ -318,7 +319,7 @@ static void logo_off_mode_show(void) {
     }
 }
 
-void m_logo_led_show(void) {
+void logo_led_loop(void) {
     logo_play_cnt += timer_elapsed32(logo_play_timer);
     logo_play_timer = timer_read32();
 

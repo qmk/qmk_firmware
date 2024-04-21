@@ -652,8 +652,7 @@ uint32_t get_sleep_timeout(void) {
     return g_config.sleep_timeout * 60 * 1000 / TIMER_STEP;
 }
 
-// power control for LEDs
-
+// power OFF control for LEDs
 void pwr_rgb_led_off(void) {
     if (!rgb_led_on) return;
     // LED power supply off
@@ -663,6 +662,7 @@ void pwr_rgb_led_off(void) {
     rgb_led_on = 0;
 }
 
+// power ON control for LEDs
 void pwr_rgb_led_on(void) {
     if (rgb_led_on) return;
     // LED power supply on

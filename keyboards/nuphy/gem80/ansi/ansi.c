@@ -442,7 +442,7 @@ void keyboard_post_init_kb(void) {
     keyboard_post_init_user();
 }
 
-bool rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_kb(void) {
     if (rf_blink_cnt && dev_info.link_mode >= LINK_BT_1 && dev_info.link_mode <= LINK_BT_3) {
         user_set_rgb_color(33 - dev_info.link_mode, 0, 0, 0x80);
     }
@@ -450,7 +450,7 @@ bool rgb_matrix_indicators_user(void) {
     return true;
 }
 
-bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     if (keymap_config.no_gui) {
         rgb_matrix_set_color(win_lock_led, 0x00, 0x80, 0x00);
     }
@@ -520,6 +520,7 @@ void init_g_config(void) {
     g_config.logo_rgb        = 1;
     g_config.logo_color      = 0;
 }
+
 void via_load_values(void) {
     eeprom_read_block(&g_config, ((void *)VIA_EEPROM_CUSTOM_CONFIG_ADDR), sizeof(g_config));
 }

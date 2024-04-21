@@ -62,7 +62,7 @@ extern uint32_t logo_play_timer;
 RGB  side_leds[SIDE_LED_NUM] = {0};
 void side_ws2812_setleds(RGB *ledarray, uint16_t leds);
 void rgb_matrix_update_pwm_buffers(void);
-void m_logo_led_show(void);
+void logo_led_loop(void);
 void set_logo_rgb(uint8_t r, uint8_t g, uint8_t b);
 
 /**
@@ -423,6 +423,7 @@ static void side_wave_mode_show_1(void) {
         side_rgb_set_color(side_led_index_tab[i], r_temp >> 2, g_temp >> 2, b_temp >> 2);
     }
 }
+
 static void side_wave_mode_show_2(void) {
     uint8_t        play_index;
     static uint8_t breathe = 0;
@@ -1016,7 +1017,7 @@ void side_led_show(void) {
     sys_sw_led_show();
     sleep_sw_led_show();
 
-    m_logo_led_show();
+    logo_led_loop();
 
     if (timer_elapsed32(side_refresh_time) > 50) {
         side_refresh_time = timer_read32();
