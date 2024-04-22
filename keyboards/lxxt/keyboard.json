@@ -52,7 +52,8 @@
         "console": false,
         "command": false,
         "nkro": true,
-        "rgblight": true
+        "rgblight": true,
+        "encoder": true
     },
     "layouts": {
         "LAYOUT": {

@@ -1,14 +1,15 @@
 {
-    "keyboard_name": "Lily58GlowEnc",
-    "manufacturer": "ORVISEVANS+",
+    "keyboard_name": "Lily58L",
+    "manufacturer": "Keycapsss",
     "url": "https://keycapsss.com",
     "maintainer": "BenRoe",
     "usb": {
-        "vid": "0xFC51",
-        "pid": "0x0059",
+        "vid": "0x7983",
+        "pid": "0x4C4C",
         "device_version": "1.0.0"
     },
     "features": {
+        "bootmagic": true,
         "encoder": true,
         "oled": true,
         "rgblight": true
@@ -20,7 +21,7 @@
     "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
-            {"pin_a": "F5", "pin_b": "D4"}
+            {"pin_a": "F4", "pin_b": "F5"}
         ]
     },
     "split": {
@@ -29,21 +30,24 @@
         "encoder": {
             "right": {
                 "rotary": [
-                    {"pin_a": "D4", "pin_b": "F5"}
+                    {"pin_a": "F5", "pin_b": "F4"}
                 ]
             }
         }
     },
     "ws2812": {
-        "pin": "F4"
+        "pin": "D3"
     },
     "rgblight": {
-        "led_count": 72,
+        "led_count": 70,
         "max_brightness": 120,
-        "split_count": [36, 36]
+        "split_count": [35, 35]
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",
+    "build": {
+        "lto": true
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
