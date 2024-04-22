@@ -18,6 +18,11 @@
   },
   "processor": "atmega32a",
   "bootloader": "usbasploader",
+  "features": {
+    "bootmagic": true,
+    "mousekey": false,
+    "extrakey": true
+  },
   "community_layouts": ["alice", "alice_split_bs"],
   "layout_aliases": {
     "LAYOUT": "LAYOUT_alice",
