@@ -31,6 +31,10 @@
             "matrix": [5, 0]
         }
     },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+    }
     "ws2812": {
         "pin": "GP0",
         "driver": "vendor"
