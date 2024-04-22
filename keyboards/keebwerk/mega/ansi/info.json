@@ -15,6 +15,12 @@
     "diode_direction": "COL2ROW",
     "processor": "STM32F303",
     "bootloader": "stm32-dfu",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true
+    },
     "community_layouts": ["65_ansi"],
     "layouts": {
         "LAYOUT_65_ansi": {

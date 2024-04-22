@@ -6,7 +6,8 @@
     "usb": {
         "vid": "0x458F",
         "pid": "0x14E2",
-        "device_version": "1.0.0"
+        "device_version": "1.0.0",
+        "no_startup_check": true
     },
     "ws2812": {
         "pin": "F4"
@@ -30,6 +31,15 @@
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "caterina",
+    "features": {
+        "bootmagic": false,
+        "mousekey": false,
+        "extrakey": true
+    },
+    "build": {
+        "lto": true
+    },
+    "community_layouts": ["ortho_4x10"],
     "layouts": {
         "LAYOUT_ortho_4x10": {
             "layout": [

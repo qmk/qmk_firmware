@@ -19,6 +19,11 @@
         "rows": ["D4", "D7", "E6", "B4", "B5"]
     },
     "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": false,
+        "mousekey": true,
+        "extrakey": true
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_ortho_5x14"
     },

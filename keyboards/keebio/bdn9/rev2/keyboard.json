@@ -85,6 +85,15 @@
     },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "console": true,
+        "command": true,
+        "encoder": true,
+        "rgb_matrix": true
+    },
     "matrix_pins": {
         "direct": [
             ["B12", "B5", "B6"],
