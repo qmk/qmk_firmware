@@ -5,5 +5,11 @@
     },
     "diode_direction": "COL2ROW",
     "processor": "STM32F103",
-    "bootloader": "stm32duino"
+    "bootloader": "stm32duino",
+    "features": {
+        "bootmagic": false,
+        "mousekey": false,
+        "extrakey": false,
+        "console": true
+    }
 }

@@ -15,6 +15,11 @@
     "diode_direction": "COL2ROW",
     "processor": "atmega328p",
     "bootloader": "usbasploader",
+    "features": {
+        "bootmagic": true,
+        "mousekey": false,
+        "extrakey": true
+    },
     "community_layouts": ["numpad_6x4"],
     "layouts": {
         "LAYOUT_numpad_6x4": {

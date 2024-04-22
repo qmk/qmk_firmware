@@ -29,6 +29,12 @@
     "ws2812": {
         "pin": "D7"
     },
+    "features": {
+        "bootmagic": false,
+        "mousekey": true,
+        "extrakey": true,
+        "backlight": true
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_ortho_4x12"
     },

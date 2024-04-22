@@ -22,6 +22,7 @@
         "pin": "B5"
     },
     "split": {
+        "enabled": true,
         "soft_serial_pin": "D0"
     },
     "rgblight": {
@@ -46,6 +47,17 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "features": {
+        "bootmagic": true,
+        "mousekey": false,
+        "extrakey": true,
+        "backlight": true,
+        "rgblight": true,
+        "encoder": true
+    },
+    "build": {
+        "lto": true
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
