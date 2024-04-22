@@ -30,6 +30,12 @@
     },
     "processor": "atmega328p",
     "bootloader": "usbasploader",
+    "features": {
+        "bootmagic": true,
+        "mousekey": false,
+        "extrakey": true,
+        "rgblight": true
+    },
     "matrix_pins": {
         "direct": [
             ["B0"]

@@ -14,6 +14,7 @@
     },
     "diode_direction": "COL2ROW",
     "split": {
+        "enabled": true,
         "soft_serial_pin": "D0"
     },
     "rgblight": {
@@ -38,6 +39,13 @@
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",
+    "features": {
+        "bootmagic": false,
+        "mousekey": true,
+        "extrakey": true,
+        "command": true,
+        "rgblight": true
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
