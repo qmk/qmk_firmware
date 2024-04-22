@@ -153,7 +153,7 @@ Wireless-capable boards:
     - Historically, vendors have done this in bad faith in order to get downstream VIA compatibility
     - QMK's license, the GPL2+, requires full source disclosure for any distributed binary -- including full sources for any keyboard shipped by vendors containing QMK and/or firmware-side VIA code
     - If a vendor's wireless-capable keyboard PR submission is lacking wireless capability, then the PR will be left on-hold and unmergeable until wireless bindings are provided
-    - If a vendor's wireless-capable keyboard is merged into QMK before it's known that the board is wireless, then all future PRs from the same manufacturer will be put on hold until wireless bindings for the original PR are provided
+    - If a vendor's wireless-capable keyboard is merged into QMK before it's known that the board is wireless, then all existing and future PRs from the same vendor will be put on hold until wireless bindings for the offending keyboard are provided
 
 Also, specific to ChibiOS:
 - **strong** preference to using existing ChibiOS board definitions.
