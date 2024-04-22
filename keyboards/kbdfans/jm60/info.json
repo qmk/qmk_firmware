@@ -13,6 +13,12 @@
         "rows": ["B11", "B10", "B2", "B1", "B0"]
     },
     "diode_direction": "ROW2COL",
+    "features": {
+        "bootmagic": true,
+        "mousekey": false,
+        "extrakey": true,
+        "nkro": true
+    },
     "community_layouts": ["60_ansi"],
     "layouts": {
         "LAYOUT_60_ansi": {

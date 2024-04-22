@@ -15,6 +15,11 @@
     "diode_direction": "ROW2COL",
     "processor": "atmega328p",
     "bootloader": "usbasploader",
+    "features": {
+        "bootmagic": false,
+        "mousekey": true,
+        "extrakey": true
+    },
     "community_layouts": ["60_hhkb"],
     "layouts": {
         "LAYOUT_all": {
