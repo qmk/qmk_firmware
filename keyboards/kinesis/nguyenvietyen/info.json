@@ -12,7 +12,8 @@
         "command": true,
         "mousekey": true,
         "extrakey": true,
-        "nkro": true
+        "nkro": true,
+        "sleep_led": true
     },
     "indicators": {
         "caps_lock": "E6",
