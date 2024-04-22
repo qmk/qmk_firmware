@@ -1,6 +1,6 @@
 # Bling60
 
-![Bling60](https://i.imgur.com/7hpYaoXh.jpg)
+![Bling60](https://i.imgur.com/C4Cyb36.png)
 
 A GH60 form factor PCB for 60% keyboards. Uses a Left USB Type C connector or 4 JST SH positions for daughter board.
 
