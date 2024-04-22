@@ -43,9 +43,8 @@
 #EEPROM_DRIVER = transient
 
 DIP_SWITCH_ENABLE = yes
-ENCODER_MAP_ENABLE = yes
+
 ENCODER_ENABLE = yes
-#KEYBOARD_SHARED_EP = yes
-#SRC += analog.c \
-#     rgblight_custom.c
+
+
 
