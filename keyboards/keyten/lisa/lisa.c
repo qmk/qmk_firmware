@@ -3,8 +3,10 @@
 
 #include "quantum.h"
 
+#define LED_INDICATOR_PIN B2
+
 void matrix_init_kb(void) {
-    gpio_set_pin_output(B2);
-    gpio_write_pin_high(B2);
+    gpio_set_pin_output(LED_INDICATOR_PIN);
+    gpio_write_pin_high(LED_INDICATOR_PIN);
     matrix_init_user();
 }
