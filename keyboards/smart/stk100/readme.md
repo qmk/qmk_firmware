@@ -1,4 +1,4 @@
-# theone
+# STK100
 
  *stk100 is a 100 key keyboard.*
 
