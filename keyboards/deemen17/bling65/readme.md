@@ -1,6 +1,6 @@
 # Bling65
 
-![Bling65](https://i.imgur.com/7hpYaoXh.jpg)
+![Bling65](https://i.imgur.com/qhlkSde.png)
 
 65% Keyboard PCB
 
