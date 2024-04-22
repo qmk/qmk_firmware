@@ -1,0 +1,23 @@
+#define SPI_DRIVER SPID1
+
+#define AW20216S_CS_PIN_1 C11
+#define AW20216S_CS_PIN_2 C10
+
+#define AW20216S_EN_PIN_1 A15
+#define AW20216S_EN_PIN_2 A15
+
+#define DRIVER_1_LED_TOTAL 50
+#define DRIVER_2_LED_TOTAL 51
+#define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
+
+#define SPI_SCK_PIN A5
+#define SPI_MOSI_PIN A6
+#define SPI_MISO_PIN A7
+
+/* Disable DIP switch in matrix data */
+#define MATRIX_MASKED
+
+/* DIP switch */
+#define DIP_SWITCH_MATRIX_GRID  { {6,0},{6,1} }
+
+#define TRANSIENT_EEPROM_SIZE 2048
