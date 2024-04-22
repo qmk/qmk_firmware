@@ -15,7 +15,42 @@ from qmk.keyboard import list_keyboards, keyboard_folder
 from qmk.keymap import list_keymaps, locate_keymap
 from qmk.build_targets import KeyboardKeymapBuildTarget, BuildTarget
 
-TargetInfo = Tuple[str, str, dict]
+
+@functools.total_ordering
+class KeyboardKeymapDesc:
+    def __init__(self, keyboard: str, keymap: str, data: dict = None, orig_keyboard: str = None, orig_keymap: str = None):
+        self.keyboard = keyboard
+        self.keymap = keymap
+        self.data = data.to_dict() if isinstance(data, Dotty) else data
+        self.orig_keyboard = orig_keyboard if orig_keyboard is not None else keyboard
+        self.orig_keymap = orig_keymap if orig_keymap is not None else keymap
+
+    def __repr__(self):
+        return f'{self.keyboard}:{self.keymap}'
+
+    def __eq__(self, other):
+        return self.keyboard == other.keyboard and self.keymap == other.keymap and self.orig_keyboard == other.orig_keyboard and self.orig_keymap == other.orig_keymap
+
+    def __lt__(self, other):
+        return (self.keyboard, self.keymap, self.orig_keyboard, self.orig_keymap) < (other.keyboard, other.keymap, other.orig_keyboard, other.orig_keymap)
+
+    def __hash__(self):
+        return hash((self.keyboard, self.keymap, self.orig_keyboard, self.orig_keymap))
+
+    def load_data(self):
+        data = keymap_json(self.keyboard, self.keymap)
+        self.data = data.to_dict() if isinstance(data, Dotty) else data
+
+    @property
+    def dotty(self):
+        return dotty(self.data) if self.data is not None else None
+
+    @property
+    def json(self):
+        return self.data
+
+    def to_build_target(self):
+        return KeyboardKeymapBuildTarget(keyboard=self.keyboard, keymap=self.keymap, json=self.json)
 
 
 # by using a class for filters, we dont need to worry about capturing values
@@ -36,7 +71,7 @@ class FilterFunction:
     value: Optional[str]
 
     func_name: str
-    apply: Callable[[TargetInfo], bool]
+    apply: Callable[[KeyboardKeymapDesc], bool]
 
     def __init__(self, key, value):
         self.key = key
@@ -46,33 +81,29 @@ class FilterFunction:
 class Exists(FilterFunction):
     func_name = "exists"
 
-    def apply(self, target_info: TargetInfo) -> bool:
-        _kb, _km, info = target_info
-        return self.key in info
+    def apply(self, target_info: KeyboardKeymapDesc) -> bool:
+        return self.key in target_info.data
 
 
 class Absent(FilterFunction):
     func_name = "absent"
 
-    def apply(self, target_info: TargetInfo) -> bool:
-        _kb, _km, info = target_info
-        return self.key not in info
+    def apply(self, target_info: KeyboardKeymapDesc) -> bool:
+        return self.key not in target_info.data
 
 
 class Length(FilterFunction):
     func_name = "length"
 
-    def apply(self, target_info: TargetInfo) -> bool:
-        _kb, _km, info = target_info
-        return (self.key in info and len(info[self.key]) == int(self.value))
+    def apply(self, target_info: KeyboardKeymapDesc) -> bool:
+        return (self.key in target_info.data and len(target_info.data[self.key]) == int(self.value))
 
 
 class Contains(FilterFunction):
     func_name = "contains"
 
-    def apply(self, target_info: TargetInfo) -> bool:
-        _kb, _km, info = target_info
-        return (self.key in info and self.value in info[self.key])
+    def apply(self, target_info: KeyboardKeymapDesc) -> bool:
+        return (self.key in target_info.data and self.value in target_info.data[self.key])
 
 
 def _get_filter_class(func_name: str, key: str, value: str) -> Optional[FilterFunction]:
@@ -109,12 +140,12 @@ def ignore_logging():
     _set_log_level(old)
 
 
-def _all_keymaps(keyboard):
-    """Returns a list of tuples of (keyboard, keymap) for all keymaps for the given keyboard.
+def _all_keymaps(keyboard) -> List[KeyboardKeymapDesc]:
+    """Returns a list of KeyboardKeymapDesc for all keymaps for the given keyboard.
     """
     with ignore_logging():
         keyboard = keyboard_folder(keyboard)
-        return [(keyboard, keymap) for keymap in list_keymaps(keyboard)]
+        return [KeyboardKeymapDesc(keyboard, keymap) for keymap in list_keymaps(keyboard)]
 
 
 def _keymap_exists(keyboard, keymap):
@@ -124,16 +155,16 @@ def _keymap_exists(keyboard, keymap):
         return keyboard if locate_keymap(keyboard, keymap) is not None else None
 
 
-def _load_keymap_info(target: Tuple[str, str]) -> TargetInfo:
-    """Returns a tuple of (keyboard, keymap, info.json) for the given keyboard/keymap combination.
+def _load_keymap_info(target: KeyboardKeymapDesc) -> KeyboardKeymapDesc:
+    """Ensures a KeyboardKeymapDesc has its data loaded.
     """
-    kb, km = target
     with ignore_logging():
-        return (kb, km, keymap_json(kb, km))
+        target.load_data()  # Ensure we load the data first
+        return target
 
 
-def expand_make_targets(targets: List[str]) -> List[Tuple[str, str]]:
-    """Expand a list of make targets into a list of (keyboard, keymap) tuples.
+def expand_make_targets(targets: List[str]) -> List[KeyboardKeymapDesc]:
+    """Expand a list of make targets into a list of KeyboardKeymapDesc.
 
     Caters for 'all' in either keyboard or keymap, or both.
     """
@@ -143,66 +174,62 @@ def expand_make_targets(targets: List[str]) -> List[Tuple[str, str]]:
         if len(split_target) != 2:
             cli.log.error(f"Invalid build target: {target}")
             return []
-        split_targets.append((split_target[0], split_target[1]))
+        split_targets.append(KeyboardKeymapDesc(split_target[0], split_target[1]))
     return expand_keymap_targets(split_targets)
 
 
-def _expand_keymap_target(keyboard: str, keymap: str, all_keyboards: List[str] = None) -> List[Tuple[str, str]]:
-    """Expand a keyboard input and keymap input into a list of (keyboard, keymap) tuples.
+def _expand_keymap_target(target: KeyboardKeymapDesc, all_keyboards: List[str] = None) -> List[KeyboardKeymapDesc]:
+    """Expand a keyboard input and keymap input into a list of KeyboardKeymapDesc.
 
     Caters for 'all' in either keyboard or keymap, or both.
     """
     if all_keyboards is None:
         all_keyboards = list_keyboards()
 
-    if keyboard == 'all':
-        if keymap == 'all':
+    if target.keyboard == 'all':
+        if target.keymap == 'all':
             cli.log.info('Retrieving list of all keyboards and keymaps...')
             targets = []
             for kb in parallel_map(_all_keymaps, all_keyboards):
                 targets.extend(kb)
             return targets
         else:
-            cli.log.info(f'Retrieving list of keyboards with keymap "{keymap}"...')
-            keyboard_filter = functools.partial(_keymap_exists, keymap=keymap)
-            return [(kb, keymap) for kb in filter(lambda e: e is not None, parallel_map(keyboard_filter, all_keyboards))]
+            cli.log.info(f'Retrieving list of keyboards with keymap "{target.keymap}"...')
+            keyboard_filter = functools.partial(_keymap_exists, keymap=target.keymap)
+            return [KeyboardKeymapDesc(kb, target.keymap) for kb in filter(lambda e: e is not None, parallel_map(keyboard_filter, all_keyboards))]
     else:
-        if keymap == 'all':
-            cli.log.info(f'Retrieving list of keymaps for keyboard "{keyboard}"...')
-            return _all_keymaps(keyboard)
+        if target.keymap == 'all':
+            cli.log.info(f'Retrieving list of keymaps for keyboard "{target.keyboard}"...')
+            return _all_keymaps(target.keyboard)
         else:
-            return [(keyboard, keymap)]
+            return [target]
 
 
-def expand_keymap_targets(targets: List[Tuple[str, str]]) -> List[Tuple[str, str]]:
-    """Expand a list of (keyboard, keymap) tuples inclusive of 'all', into a list of explicit (keyboard, keymap) tuples.
+def expand_keymap_targets(targets: List[KeyboardKeymapDesc]) -> List[KeyboardKeymapDesc]:
+    """Expand a list of KeyboardKeymapDesc inclusive of 'all', into a list of explicit KeyboardKeymapDesc.
     """
     overall_targets = []
     all_keyboards = list_keyboards()
     for target in targets:
-        overall_targets.extend(_expand_keymap_target(target[0], target[1], all_keyboards))
+        overall_targets.extend(_expand_keymap_target(target, all_keyboards))
     return list(sorted(set(overall_targets)))
 
 
-def _construct_build_target_kb_km(e):
-    return KeyboardKeymapBuildTarget(keyboard=e[0], keymap=e[1])
+def _construct_build_target(e: KeyboardKeymapDesc):
+    return e.to_build_target()
 
 
-def _construct_build_target_kb_km_json(e):
-    return KeyboardKeymapBuildTarget(keyboard=e[0], keymap=e[1], json=e[2])
-
-
-def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str] = []) -> List[BuildTarget]:
-    """Filter a list of (keyboard, keymap) tuples based on the supplied filters.
+def _filter_keymap_targets(target_list: List[KeyboardKeymapDesc], filters: List[str] = []) -> List[KeyboardKeymapDesc]:
+    """Filter a list of KeyboardKeymapDesc based on the supplied filters.
 
     Optionally includes the values of the queried info.json keys.
     """
     if len(filters) == 0:
         cli.log.info('Preparing target list...')
-        targets = list(set(parallel_map(_construct_build_target_kb_km, target_list)))
+        targets = target_list
     else:
         cli.log.info('Parsing data for all matching keyboard/keymap combinations...')
-        valid_keymaps = [(e[0], e[1], dotty(e[2])) for e in parallel_map(_load_keymap_info, target_list)]
+        valid_targets = parallel_map(_load_keymap_info, target_list)
 
         function_re = re.compile(r'^(?P<function>[a-zA-Z]+)\((?P<key>[a-zA-Z0-9_\.]+)(,\s*(?P<value>[^#]+))?\)$')
         equals_re = re.compile(r'^(?P<key>[a-zA-Z0-9_\.]+)\s*=\s*(?P<value>[^#]+)$')
@@ -220,7 +247,7 @@ def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str
                 if filter_class is None:
                     cli.log.warning(f'Unrecognized filter expression: {function_match.group(0)}')
                     continue
-                valid_keymaps = filter(filter_class.apply, valid_keymaps)
+                valid_targets = filter(filter_class.apply, valid_targets)
 
                 value_str = f", {{fg_cyan}}{value}{{fg_reset}})" if value is not None else ""
                 cli.log.info(f'Filtering on condition: {{fg_green}}{func_name}{{fg_reset}}({{fg_cyan}}{key}{{fg_reset}}{value_str}...')
@@ -241,14 +268,13 @@ def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str
 
                     return f
 
-                valid_keymaps = filter(_make_filter(key, value), valid_keymaps)
+                valid_targets = filter(_make_filter(key, value), valid_targets)
             else:
                 cli.log.warning(f'Unrecognized filter expression: {filter_expr}')
                 continue
 
         cli.log.info('Preparing target list...')
-        valid_keymaps = [(e[0], e[1], e[2].to_dict() if isinstance(e[2], Dotty) else e[2]) for e in valid_keymaps]  # need to convert dotty_dict back to dict because it doesn't survive parallelisation
-        targets = list(set(parallel_map(_construct_build_target_kb_km_json, list(valid_keymaps))))
+        valid_targets = [(e[0], e[1], e[2].to_dict() if isinstance(e[2], Dotty) else e[2]) for e in valid_targets]  # need to convert dotty_dict back to dict because it doesn't survive parallelisation
 
     return targets
 
@@ -256,10 +282,15 @@ def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str
 def search_keymap_targets(targets: List[Tuple[str, str]] = [('all', 'default')], filters: List[str] = []) -> List[BuildTarget]:
     """Search for build targets matching the supplied criteria.
     """
-    return _filter_keymap_targets(expand_keymap_targets(targets), filters)
+    targets = [KeyboardKeymapDesc(k, m) for k, m in targets]
+    targets = _filter_keymap_targets(expand_keymap_targets(targets), filters)
+    targets = list(set(parallel_map(_construct_build_target, list(targets))))
+    return targets
 
 
 def search_make_targets(targets: List[str], filters: List[str] = []) -> List[BuildTarget]:
     """Search for build targets matching the supplied criteria.
     """
-    return _filter_keymap_targets(expand_make_targets(targets), filters)
+    targets = _filter_keymap_targets(expand_make_targets(targets), filters)
+    targets = list(set(parallel_map(_construct_build_target, list(targets))))
+    return targets
