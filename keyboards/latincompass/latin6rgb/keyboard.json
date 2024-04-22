@@ -49,6 +49,12 @@
   "diode_direction": "ROW2COL",
   "processor": "atmega32u4",
   "bootloader": "atmel-dfu",
+  "features": {
+    "bootmagic": true,
+    "mousekey": true,
+    "extrakey": true,
+    "rgb_matrix": true
+  },
   "debounce": 3,
   "layouts": {
     "LAYOUT_numpad_2x3": {
