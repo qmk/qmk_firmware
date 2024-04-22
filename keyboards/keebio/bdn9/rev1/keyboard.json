@@ -38,6 +38,16 @@
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",
+    "features": {
+        "bootmagic": false,
+        "mousekey": false,
+        "extrakey": true,
+        "console": true,
+        "command": true,
+        "backlight": true,
+        "rgblight": true,
+        "encoder": true
+    },
     "matrix_pins": {
         "direct": [
             ["D2", "D4", "F4"],
