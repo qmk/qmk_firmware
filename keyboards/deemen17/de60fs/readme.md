@@ -1,6 +1,6 @@
 # De60fs
 
-![De60fs](https://i.imgur.com/7hpYaoXh.jpg)
+![De60fs](https://i.imgur.com/7hpYaoX.jpg)
 
 A GH60 form factor PCB for 60% keyboards. Uses a Left USB Type C connector or 5 JST SH positions for daughter board.
 
