@@ -19,6 +19,8 @@
         "extrakey": true,
         "nkro": true
     },
+    "bootloader": "custom",
+    "processor": "STM32F103",
     "community_layouts": ["60_ansi"],
     "layouts": {
         "LAYOUT_60_ansi": {
