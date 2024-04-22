@@ -8,6 +8,15 @@
         "pid": "0x0000",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bluetooth": true,
+        "bootmagic": false,
+        "command": true,
+        "console": true,
+        "extrakey": true,
+        "mousekey": false,
+        "nkro": false
+    },
     "bluetooth": {
         "driver": "bluefruit_le"
     },

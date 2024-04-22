@@ -8,6 +8,12 @@
         "pid": "0x4E4C",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
     "matrix_pins": {
         "cols": ["A13", "A10", "A9", "A14", "A15", "B8", "B9", "B2", "B0", "A6", "A0", "A1", "A2", "A3", "A5", "B1", "B10"],
         "rows": ["A7", "B3", "B4", "B5", "A8", "A4"]
