@@ -8,6 +8,13 @@
         "pid": "0x4E50",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgb_matrix": true
+    },
     "ws2812": {
         "pin": "B0",
         "driver": "pwm"

@@ -24,10 +24,10 @@
             {"pin_a": "A13", "pin_b": "A14"}
         ]
     },
+    "development_board": "blackpill_f411",
     "processor": "STM32F411",
     "bootloader": "stm32-dfu",
     "features": {
         "console": true
-    },
-    "board": "BLACKPILL_STM32_F411"
+    }
 }
