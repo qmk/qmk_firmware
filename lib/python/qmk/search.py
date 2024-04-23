@@ -29,7 +29,7 @@ class KeyboardKeymapDesc:
         return f'{self.keyboard}:{self.keymap}'
 
     def __eq__(self, other):
-        return self.keyboard == other.keyboard and self.keymap == other.keymap and self.orig_keyboard == other.orig_keyboard and self.orig_keymap == other.orig_keymap
+        return (self.keyboard, self.keymap, self.orig_keyboard, self.orig_keymap) == (other.keyboard, other.keymap, other.orig_keyboard, other.orig_keymap)
 
     def __lt__(self, other):
         return (self.keyboard, self.keymap, self.orig_keyboard, self.orig_keymap) < (other.keyboard, other.keymap, other.orig_keyboard, other.orig_keymap)
@@ -262,7 +262,7 @@ def _filter_keymap_targets(target_list: List[KeyboardKeymapDesc], filters: List[
                     rule = re.compile(f'^{expr}$', re.IGNORECASE)
 
                     def f(e):
-                        lhs = e[2].get(k)
+                        lhs = e.dotty.get(k)
                         lhs = str(False if lhs is None else lhs)
                         return rule.search(lhs) is not None
 
@@ -274,7 +274,7 @@ def _filter_keymap_targets(target_list: List[KeyboardKeymapDesc], filters: List[
                 continue
 
         cli.log.info('Preparing target list...')
-        valid_targets = [(e[0], e[1], e[2].to_dict() if isinstance(e[2], Dotty) else e[2]) for e in valid_targets]  # need to convert dotty_dict back to dict because it doesn't survive parallelisation
+        targets = list(sorted(set(valid_targets)))
 
     return targets
 
