@@ -1,5 +1,5 @@
 {
-    "keyboard_name": "Dactyl ManuForm Carbonfet 6x7 ex",
+    "keyboard_name": "Dactyl ManuForm Carbonfet 6x7 EX",
     "manufacturer": "carbonfet",
     "url": "https://github.com/carbonfet/dactyl-manuform",
     "maintainer": "dunk2k",
@@ -14,10 +14,19 @@
     },
     "diode_direction": "COL2ROW",
     "split": {
+        "enabled": true,
         "soft_serial_pin": "D0"
     },
     "ws2812": {
         "pin": "D3"
+    },
+    "features": {
+        "bootmagic": true,
+        "console": false,
+        "command": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
     },
     "development_board": "promicro",
     "layouts": {

@@ -1,12 +1,12 @@
 # Dactyl ManuForm Carbonfet
 
-![GlamShot](https://i.imgur.com/0ugz1C9h.jpg)  
+![TopView](https://i.imgur.com/0ugz1C9h.jpg)  
 *Dactyl Manuform Carbonfet 5x6*
 
 Forked from the [Dactyl ManuForm](/keyboards/handwired/dactyl_manuform), the *Dactyl ManuForm Carbonfet* reshapes the former's thumb key cluster from a 3 row, 2 column arrangement to a 2 row, 3 column arrangement.
 
 * Keyboard Maintainer: [Carbonfet](https://github.com/carbonfet)
-* Hardware Supported: Pro Micro, or clone of
+* Hardware Supported: Pro Micro development board
 * Hardware Availability: [Github](https://github.com/carbonfet/dactyl-manuform)
 
 ## Variants

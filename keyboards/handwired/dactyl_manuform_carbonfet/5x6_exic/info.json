@@ -1,5 +1,5 @@
 {
-    "keyboard_name": "Dactyl ManuForm Carbonfet 5x6 exic",
+    "keyboard_name": "Dactyl ManuForm Carbonfet 5x6 EXIC",
     "manufacturer": "carbonfet",
     "url": "https://github.com/carbonfet/dactyl-manuform",
     "maintainer": "dunk2k",
@@ -17,7 +17,16 @@
     },
     "diode_direction": "COL2ROW",
     "split": {
+        "enabled": true,
         "soft_serial_pin": "D0"
+    },
+    "features": {
+        "bootmagic": true,
+        "console": false,
+        "command": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
     },
     "development_board": "promicro",
     "layouts": {
