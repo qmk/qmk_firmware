@@ -5,7 +5,7 @@ import functools
 import fnmatch
 import logging
 import re
-from typing import Callable, List, Optional, Tuple
+from typing import Callable, List, Optional, Tuple, Union
 from dotty_dict import dotty, Dotty
 from milc import cli
 
@@ -18,24 +18,23 @@ from qmk.build_targets import KeyboardKeymapBuildTarget, BuildTarget
 
 @functools.total_ordering
 class KeyboardKeymapDesc:
-    def __init__(self, keyboard: str, keymap: str, data: dict = None, orig_keyboard: str = None, orig_keymap: str = None):
+    def __init__(self, keyboard: str, keymap: str, data: dict = None, construction_callback: Callable[[BuildTarget], None] = None):
         self.keyboard = keyboard
         self.keymap = keymap
         self.data = data.to_dict() if isinstance(data, Dotty) else data
-        self.orig_keyboard = orig_keyboard if orig_keyboard is not None else keyboard
-        self.orig_keymap = orig_keymap if orig_keymap is not None else keymap
+        self.construction_callback = construction_callback
 
     def __repr__(self):
         return f'{self.keyboard}:{self.keymap}'
 
     def __eq__(self, other):
-        return (self.keyboard, self.keymap, self.orig_keyboard, self.orig_keymap) == (other.keyboard, other.keymap, other.orig_keyboard, other.orig_keymap)
+        return (self.keyboard, self.keymap) == (other.keyboard, other.keymap)
 
     def __lt__(self, other):
-        return (self.keyboard, self.keymap, self.orig_keyboard, self.orig_keymap) < (other.keyboard, other.keymap, other.orig_keyboard, other.orig_keymap)
+        return (self.keyboard, self.keymap) < (other.keyboard, other.keymap)
 
     def __hash__(self):
-        return hash((self.keyboard, self.keymap, self.orig_keyboard, self.orig_keymap))
+        return hash((self.keyboard, self.keymap))
 
     def load_data(self):
         data = keymap_json(self.keyboard, self.keymap)
@@ -50,7 +49,10 @@ class KeyboardKeymapDesc:
         return self.data
 
     def to_build_target(self):
-        return KeyboardKeymapBuildTarget(keyboard=self.keyboard, keymap=self.keymap, json=self.json, orig_keyboard=self.orig_keyboard, orig_keymap=self.orig_keymap)
+        target = KeyboardKeymapBuildTarget(keyboard=self.keyboard, keymap=self.keymap, json=self.json)
+        if self.construction_callback is not None:
+            self.construction_callback(target)
+        return target
 
 
 # by using a class for filters, we dont need to worry about capturing values
@@ -163,18 +165,23 @@ def _load_keymap_info(target: KeyboardKeymapDesc) -> KeyboardKeymapDesc:
         return target
 
 
-def expand_make_targets(targets: List[str]) -> List[KeyboardKeymapDesc]:
+def expand_make_targets(targets: List[Union[str, Tuple[str, Callable[[BuildTarget], None]]]]) -> List[KeyboardKeymapDesc]:
     """Expand a list of make targets into a list of KeyboardKeymapDesc.
 
     Caters for 'all' in either keyboard or keymap, or both.
     """
     split_targets = []
     for target in targets:
-        split_target = target.split(':')
+        construction_callback = None
+        if isinstance(target, tuple):
+            split_target = target[0].split(':')
+            construction_callback = target[1]
+        else:
+            split_target = target.split(':')
         if len(split_target) != 2:
             cli.log.error(f"Invalid build target: {target}")
             return []
-        split_targets.append(KeyboardKeymapDesc(split_target[0], split_target[1]))
+        split_targets.append(KeyboardKeymapDesc(split_target[0], split_target[1], construction_callback=construction_callback))
     return expand_keymap_targets(split_targets)
 
 
@@ -193,20 +200,18 @@ def _expand_keymap_target(target: KeyboardKeymapDesc, all_keyboards: List[str] =
             for kb in parallel_map(_all_keymaps, all_keyboards):
                 targets.extend(kb)
             for t in targets:
-                t.orig_keyboard = target.keyboard
-                t.orig_keymap = target.keymap
+                t.construction_callback = target.construction_callback
             return targets
         else:
             cli.log.info(f'Retrieving list of keyboards with keymap "{target.keymap}"...')
             keyboard_filter = functools.partial(_keymap_exists, keymap=target.keymap)
-            return [KeyboardKeymapDesc(kb, target.keymap, orig_keyboard=target.keyboard, orig_keymap=target.keymap) for kb in filter(lambda e: e is not None, parallel_map(keyboard_filter, all_keyboards))]
+            return [KeyboardKeymapDesc(kb, target.keymap, construction_callback=target.construction_callback) for kb in filter(lambda e: e is not None, parallel_map(keyboard_filter, all_keyboards))]
     else:
         if target.keymap == 'all':
             cli.log.info(f'Retrieving list of keymaps for keyboard "{target.keyboard}"...')
             targets = _all_keymaps(target.keyboard)
             for t in targets:
-                t.orig_keyboard = target.keyboard
-                t.orig_keymap = target.keymap
+                t.construction_callback = target.construction_callback
         else:
             return [target]
 
@@ -288,10 +293,16 @@ def _filter_keymap_targets(target_list: List[KeyboardKeymapDesc], filters: List[
     return targets
 
 
-def search_keymap_targets(targets: List[Tuple[str, str]] = [('all', 'default')], filters: List[str] = []) -> List[BuildTarget]:
+def search_keymap_targets(targets: List[Union[Tuple[str, str], Tuple[str, str, Callable[[BuildTarget], None]]]] = [('all', 'default')], filters: List[str] = []) -> List[BuildTarget]:
     """Search for build targets matching the supplied criteria.
     """
-    targets = [KeyboardKeymapDesc(k, m) for k, m in targets]
+    def _make_desc(e):
+        if len(e) == 3:
+            return KeyboardKeymapDesc(keyboard=e[0], keymap=e[1], construction_callback=e[2])
+        else:
+            return KeyboardKeymapDesc(keyboard=e[0], keymap=e[1])
+
+    targets = map(_make_desc, targets)
     targets = _filter_keymap_targets(expand_keymap_targets(targets), filters)
     map_func = parallel_map
     if len(targets) == 1:
@@ -300,7 +311,7 @@ def search_keymap_targets(targets: List[Tuple[str, str]] = [('all', 'default')],
     return targets
 
 
-def search_make_targets(targets: List[str], filters: List[str] = []) -> List[BuildTarget]:
+def search_make_targets(targets: List[Union[str, Tuple[str, Callable[[BuildTarget], None]]]], filters: List[str] = []) -> List[BuildTarget]:
     """Search for build targets matching the supplied criteria.
     """
     targets = _filter_keymap_targets(expand_make_targets(targets), filters)

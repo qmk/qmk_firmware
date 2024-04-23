@@ -1,5 +1,6 @@
 # Copyright 2023-2024 Nick Brassel (@tzarc)
 # SPDX-License-Identifier: GPL-2.0-or-later
+from functools import partial
 from pathlib import Path
 from dotty_dict import Dotty
 from milc import cli
@@ -10,6 +11,10 @@ from qmk.build_targets import BuildTarget
 from qmk.keyboard import is_all_keyboards, keyboard_folder
 from qmk.keymap import is_keymap_target
 from qmk.search import search_keymap_targets
+
+
+def _extra_arg_setter(target, extra_args):
+    target.extra_args = extra_args
 
 
 @cli.argument('-e', '--expand', arg_only=True, action='store_true', help="Expands any use of `all` for either keyboard or keymap.")
@@ -23,16 +28,15 @@ def userspace_list(cli):
 
     if cli.args.expand:
         build_targets = []
+        keyboard_keymap_targets = []
         for e in userspace.build_targets:
             if isinstance(e, Path):
                 build_targets.append(e)
             elif isinstance(e, dict) or isinstance(e, Dotty):
-                this_build_targets = search_keymap_targets([(e['keyboard'], e['keymap'])])
-                if len(this_build_targets) > 0:
-                    if 'env' in e:
-                        for t in this_build_targets:
-                            t.extra_args = e.get('env')
-                    build_targets.extend(this_build_targets)
+                f = partial(_extra_arg_setter, extra_args=e['env']) if 'env' in e else None
+                keyboard_keymap_targets.append((e['keyboard'], e['keymap'], f))
+        if len(keyboard_keymap_targets) > 0:
+            build_targets.extend(search_keymap_targets(keyboard_keymap_targets))
     else:
         build_targets = userspace.build_targets
 

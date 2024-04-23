@@ -18,7 +18,7 @@ TARGET_FILENAME_MODIFIERS = ['FORCE_LAYOUT', 'CONVERT_TO']
 
 
 class BuildTarget:
-    def __init__(self, keyboard: str, keymap: str, json: Union[dict, Dotty] = None, orig_keyboard: str = None, orig_keymap: str = None):
+    def __init__(self, keyboard: str, keymap: str, json: Union[dict, Dotty] = None):
         self._keyboard = keyboard_folder(keyboard)
         self._keyboard_safe = self._keyboard.replace('/', '_')
         self._keymap = keymap
@@ -27,8 +27,6 @@ class BuildTarget:
         self._compiledb = False
         self._extra_args = {}
         self._json = json.to_dict() if isinstance(json, Dotty) else json
-        self._orig_keyboard = orig_keyboard if orig_keyboard is not None else keyboard
-        self._orig_keymap = orig_keymap if orig_keymap is not None else keymap
 
     def __str__(self):
         return f'{self.keyboard}:{self.keymap}'
@@ -64,14 +62,6 @@ class BuildTarget:
     @property
     def keymap(self) -> str:
         return self._keymap
-
-    @property
-    def orig_keyboard(self) -> str:
-        return self._orig_keyboard
-
-    @property
-    def orig_keymap(self) -> str:
-        return self._orig_keymap
 
     @property
     def json(self) -> dict:
@@ -189,8 +179,8 @@ class BuildTarget:
 
 
 class KeyboardKeymapBuildTarget(BuildTarget):
-    def __init__(self, keyboard: str, keymap: str, json: dict = None, orig_keyboard: str = None, orig_keymap: str = None):
-        super().__init__(keyboard=keyboard, keymap=keymap, json=json, orig_keyboard=orig_keyboard, orig_keymap=orig_keymap)
+    def __init__(self, keyboard: str, keymap: str, json: dict = None):
+        super().__init__(keyboard=keyboard, keymap=keymap, json=json)
 
     def __repr__(self):
         if len(self._extra_args.items()) > 0:

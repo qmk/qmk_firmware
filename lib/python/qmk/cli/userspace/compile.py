@@ -1,6 +1,7 @@
 # Copyright 2023-2024 Nick Brassel (@tzarc)
 # SPDX-License-Identifier: GPL-2.0-or-later
 from pathlib import Path
+from functools import partial
 from milc import cli
 
 from qmk.constants import QMK_USERSPACE, HAS_QMK_USERSPACE
@@ -9,6 +10,10 @@ from qmk.userspace import UserspaceDefs
 from qmk.build_targets import JsonKeymapBuildTarget
 from qmk.search import search_keymap_targets
 from qmk.cli.mass_compile import mass_compile_targets
+
+
+def _extra_arg_setter(target, extra_args):
+    target.extra_args = extra_args
 
 
 @cli.argument('-t', '--no-temp', arg_only=True, action='store_true', help="Remove temporary files during build.")
@@ -25,15 +30,14 @@ def userspace_compile(cli):
     userspace = UserspaceDefs(QMK_USERSPACE / 'qmk.json')
 
     build_targets = []
+    keyboard_keymap_targets = []
     for e in userspace.build_targets:
         if isinstance(e, Path):
             build_targets.append(JsonKeymapBuildTarget(e))
         elif isinstance(e, dict):
-            this_build_targets = search_keymap_targets([(e['keyboard'], e['keymap'])])
-            if len(this_build_targets) > 0:
-                if 'env' in e:
-                    for t in this_build_targets:
-                        t.extra_args = e['env']
-                build_targets.extend(this_build_targets)
+            f = partial(_extra_arg_setter, extra_args=e['env']) if 'env' in e else None
+            keyboard_keymap_targets.append((e['keyboard'], e['keymap'], f))
+    if len(keyboard_keymap_targets) > 0:
+        build_targets.extend(search_keymap_targets(keyboard_keymap_targets))
 
     mass_compile_targets(list(set(build_targets)), cli.args.clean, cli.args.dry_run, cli.config.userspace_compile.no_temp, cli.config.userspace_compile.parallel, **build_environment(cli.args.env))
