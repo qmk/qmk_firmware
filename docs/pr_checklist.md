@@ -149,8 +149,8 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
   - Code that needs to be used by multiple boards is a candidate for core code changes, and should be separated out.
 
 Wireless-capable boards:
-- Given license abuse from vendors, QMK does not accept any vendor PRs for wireless- or Bluetooth-capable keyboards without wireless and/or Bluetooth code.
-    - Historically, vendors have done this in bad faith in order to get downstream VIA compatibility
+- Given license abuse from vendors, QMK does not accept any vendor PRs for wireless- or Bluetooth-capable keyboards without wireless and/or Bluetooth code
+    - Historically, vendors have done this in bad faith in order to attain downstream VIA compatibility with no intention of releasing wireless sources
     - QMK's license, the GPL2+, requires full source disclosure for any distributed binary -- including full sources for any keyboard shipped by vendors containing QMK and/or firmware-side VIA code
     - If a vendor's wireless-capable keyboard PR submission is lacking wireless capability, then the PR will be left on-hold and unmergeable until wireless bindings are provided
     - If a vendor's wireless-capable keyboard is merged into QMK before it's known that the board is wireless, then all existing and future PRs from the same vendor will be put on hold until wireless bindings for the offending keyboard are provided
