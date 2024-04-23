@@ -1,0 +1,27 @@
+{
+    "keyboard_name": "Unicomp Classic / Ultra Classic (pre-2013)",
+    "manufacturer": "Unicomp/Purdea Andrei",
+    "url": "https://github.com/purdeaandrei/overnumpad_controller_1xb",
+    "maintainer": "purdeaandrei",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "haptic": true,
+        "mousekey": true,
+        "nkro": false
+    },
+    "indicators": {
+        "caps_lock": "C11",
+        "num_lock": "C12",
+        "scroll_lock": "C10"
+    },
+    "processor": "STM32F446", // RET6
+    "bootloader": "stm32-dfu",
+    "diode_direction": "ROW2COL",
+    "matrix_pins": {
+        // The controller to membrane interface has pads left-to-right, as seen on the keyboard, matching
+        // the order listed below: all columns followed by all rows, (also followed by unused gpio "A10"):
+        "cols": ["C3", "C2", "C1", "C0", "A3", "A4", "A5", "A6", "A7", "C4", "C5", "B0", "B1", "B10", "B12", "B13"],
+        "rows": ["B14", "B15", "C6", "C7", "C8", "C9", "A8", "A9"]
+    }
+}
