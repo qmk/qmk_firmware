@@ -1,6 +1,6 @@
 # 3x3macropad
 
-![3x3macropad](https://i.imgur.com/OTb3CUq.png)
+![3x3macropad](https://i.imgur.com/LMkcKOw.jpg)
 
 The 3x3macropad is a small macropad with a cool OLED screen and rotary encoder.
 It was inspired by stacked FR4 keyboards like the Discipline65.

@@ -96,12 +96,14 @@ static void render_bongo2(void) {
 /* This code switches the shown image on the oled on every 350th call of this function */
 bool showBongo1 = true;
 int calls = 0;
-bool oled_task_user(void) {
+bool oled_task_kb(void) {
+    if (!oled_task_user()) { 
+		return false; 
+	}
 	if(calls++ > 350) {
 		showBongo1 = !showBongo1;
 		calls = 0;
 	}
-	
 	if(showBongo1) {
 		render_bongo1();	
 	} else {
