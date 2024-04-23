@@ -9,8 +9,7 @@
         "enabled": true,
         "soft_serial_pin": "A9"
     },
-    "processor": "STM32F303",
-    "bootloader": "stm32-dfu",
+    "development_board": "proton_c",
     "features": {
         "bootmagic": false,
         "mousekey": false,
@@ -18,7 +17,6 @@
         "audio": true,
         "oled": true
     },
-    "board": "QMK_PROTON_C",
     "layouts": {
         "LAYOUT": {
             "layout": [
