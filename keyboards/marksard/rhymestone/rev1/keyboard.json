@@ -22,6 +22,7 @@
     },
     "diode_direction": "COL2ROW",
     "split": {
+        "enabled": true,
         "soft_serial_pin": "D2"
     },
     "ws2812": {
@@ -43,6 +44,12 @@
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",
+    "features": {
+        "bootmagic": false,
+        "mousekey": false,
+        "extrakey": false,
+        "nkro": true
+    },
     "community_layouts": ["ortho_4x10"],
     "layouts": {
         "LAYOUT_ortho_4x10": {

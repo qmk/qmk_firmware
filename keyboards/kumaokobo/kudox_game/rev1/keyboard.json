@@ -27,6 +27,14 @@
         "rows": ["D4", "D7", "E6", "B4", "B5"]
     },
     "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": false,
+        "command": true,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
