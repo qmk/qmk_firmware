@@ -31,6 +31,13 @@
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "caterina",
+    "features": {
+        "bootmagic": false,
+        "mousekey": true,
+        "extrakey": false,
+        "rgblight": true,
+        "oled": true
+    },
     "layout_aliases": {
         "LAYOUT_full": "LAYOUT_base"
     },
