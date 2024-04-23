@@ -192,15 +192,21 @@ def _expand_keymap_target(target: KeyboardKeymapDesc, all_keyboards: List[str] =
             targets = []
             for kb in parallel_map(_all_keymaps, all_keyboards):
                 targets.extend(kb)
+            for t in targets:
+                t.orig_keyboard = target.keyboard
+                t.orig_keymap = target.keymap
             return targets
         else:
             cli.log.info(f'Retrieving list of keyboards with keymap "{target.keymap}"...')
             keyboard_filter = functools.partial(_keymap_exists, keymap=target.keymap)
-            return [KeyboardKeymapDesc(kb, target.keymap) for kb in filter(lambda e: e is not None, parallel_map(keyboard_filter, all_keyboards))]
+            return [KeyboardKeymapDesc(kb, target.keymap, orig_keyboard=target.keyboard, orig_keymap=target.keymap) for kb in filter(lambda e: e is not None, parallel_map(keyboard_filter, all_keyboards))]
     else:
         if target.keymap == 'all':
             cli.log.info(f'Retrieving list of keymaps for keyboard "{target.keyboard}"...')
-            return _all_keymaps(target.keyboard)
+            targets = _all_keymaps(target.keyboard)
+            for t in targets:
+                t.orig_keyboard = target.keyboard
+                t.orig_keymap = target.keymap
         else:
             return [target]
 
