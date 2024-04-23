@@ -15,14 +15,12 @@
     },
     "features": {
         "bootmagic": true,
-        "combo": false,
         "encoder": true,
         "extrakey": true,
         "key_override": false,
         "nkro": true,
         "oled": true,
-        "rgblight": true,
-        "tap_dance": false
+        "rgblight": true
     },
     "matrix_pins": {
         "cols": ["D7", "B3", "B2"],
