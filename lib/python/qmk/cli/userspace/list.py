@@ -33,7 +33,7 @@ def userspace_list(cli):
             if isinstance(e, Path):
                 build_targets.append(e)
             elif isinstance(e, dict) or isinstance(e, Dotty):
-                f = partial(_extra_arg_setter, extra_args=e['env']) if 'env' in e else None
+                f = None if 'env' not in e else partial(_extra_arg_setter, extra_args=e['env'])
                 keyboard_keymap_targets.append((e['keyboard'], e['keymap'], f))
         if len(keyboard_keymap_targets) > 0:
             build_targets.extend(search_keymap_targets(keyboard_keymap_targets))
