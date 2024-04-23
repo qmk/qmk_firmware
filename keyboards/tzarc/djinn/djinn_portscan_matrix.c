@@ -1,8 +1,5 @@
 // Copyright 2018-2022 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
-#include <ch.h>
-#include <hal.h>
-#include "quantum.h"
 #include "djinn.h"
 
 #define GPIOB_BITMASK (1 << 13 | 1 << 14 | 1 << 15) // B13, B14, B15

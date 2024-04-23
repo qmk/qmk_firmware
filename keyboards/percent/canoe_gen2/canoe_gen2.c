@@ -20,6 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 void keyboard_pre_init_kb(void) {
   gpio_set_pin_output(E6);
   gpio_write_pin_high(E6);
+  
+  keyboard_pre_init_user();
 }
 
 bool led_update_kb(led_t led_state) {

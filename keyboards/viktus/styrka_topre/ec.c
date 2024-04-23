@@ -15,8 +15,8 @@
  */
 
 #include "ec.h"
+#include <avr/interrupt.h>
 
-#include "quantum.h"
 #include "analog.h"
 //#include "debug.h"
 

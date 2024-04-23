@@ -15,7 +15,6 @@
  */
 
 #include "solderable.h"
-#include "quantum.h"
 
 #define noLed {255,255}
 
