@@ -25,7 +25,6 @@
         "cols": ["D7", "B3", "B2"],
         "rows": ["F7", "B5", "B6"]
     },
-    "processor": "atmega32u4",
     "rgblight": {
         "animations": {
             "alternating": true,
