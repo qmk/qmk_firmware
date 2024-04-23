@@ -40,6 +40,14 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true,
+        "backlight": true,
+        "rgblight": true
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -1,9 +1,7 @@
 #pragma once
 
-#include "quantum.h"
 #include <stdint.h>
 #include "i2c_master.h"
-#include <util/delay.h>
 
 #define MCP23017
 #define MCP23017_A0 0
@@ -42,8 +40,6 @@ void left_scan(void);
 
 uint8_t left_read_cols(void);
 uint8_t left_get_col(uint8_t col);
-
-matrix_row_t left_read_row(void);
 
 void left_unselect_rows(void);
 void left_select_row(uint8_t row);
