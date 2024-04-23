@@ -44,3 +44,7 @@ Enter the bootloader in one way:
 ## Notes
 
 * Since the version 1.1.0.2 the keyboard uses asyncronous debounce algorithm. To control debounce values for press and release events you can use VIA (usevia.app) or using binds on the keyboard. Press deounbe default binds can be found in PDF or MD file with binds. Default binds for release debounce aren't set, so you have to configure them to your preference.
+
+## Keybinds guide
+
+Here is a [list](gem80-guide.md) of keybinds that you can use to control your keyboard.
