@@ -7,6 +7,17 @@
         "pid": "0x6064",
         "device_version": "0.0.1"
     },
+    "build": {
+        "lto": true
+    },
+    "features": {
+        "bootmagic": false,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false,
+        "rgblight": true
+    },
     "rgblight": {
         "led_count": 8,
         "animations": {
