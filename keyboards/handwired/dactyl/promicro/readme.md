@@ -1,9 +1,8 @@
 # Dactyl (Pro Micro)
 
-The modernised Dactyl uses two Arduino Pro Micro controllers.
-Wiring of the rows to each micro controller is identical approach to the Dactyl ManuForm, in that:
-- Left Half: Row pins are wired to controller in sequence as specified (in [info.json](./info.json)).
-- Right Half: Row pins are wired to controller in reverse order.
+The modernised Dactyl uses two Pro Micro development boards, one per half. The method of wiring matrix rows is identical to the Dactyl ManuForm, in that:
+- Left Half: Row pins are wired to controller in sequence as specified in [keyboard.json](./keyboard.json).
+- Right Half: Row pins are wired to controller in reverse order of Left Half.
 
 | Row# | Left | Right | 
 | :---: | :---: | :---: |
