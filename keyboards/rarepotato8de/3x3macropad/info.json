@@ -2,7 +2,7 @@
     "manufacturer": "RarePotato8DE",
     "keyboard_name": "3x3macropad",
     "maintainer": "RarePotato8DE",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "build": {
         "lto": true
     },
