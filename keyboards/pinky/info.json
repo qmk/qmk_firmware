@@ -1,4 +1,10 @@
 {
+    "features": {
+        "bootmagic": false,
+        "extrakey": false,
+        "mousekey": false,
+        "nkro": false
+    },
     "split": {
         "enabled": true
     }
