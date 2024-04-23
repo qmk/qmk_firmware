@@ -41,6 +41,13 @@
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "rgblight": true,
+        "bluetooth": true
+    },
     "community_layouts": ["planck_mit"],
     "layouts": {
         "LAYOUT_planck_mit": {

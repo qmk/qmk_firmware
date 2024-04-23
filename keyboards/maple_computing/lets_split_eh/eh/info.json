@@ -36,10 +36,19 @@
         "pin": "B2"
     },
     "split": {
+        "enabled": true,
         "soft_serial_pin": "D0"
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "features": {
+        "bootmagic": false,
+        "mousekey": false,
+        "extrakey": true,
+        "nkro": true,
+        "backlight": true,
+        "rgblight": true
+    },
     "community_layouts": ["ortho_4x12"],
     "layout_aliases": {
         "LAYOUT": "LAYOUT_ortho_4x12"
