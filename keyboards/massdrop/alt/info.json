@@ -17,6 +17,13 @@
     },
     "diode_direction": "COL2ROW",
     "community_layouts": ["65_ansi_blocker"],
+    "features": {
+        "bootmagic": false,
+        "mousekey": false,
+        "extrakey": true,
+        "nkro": true,
+        "rgb_matrix": true
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_65_ansi_blocker"
     },

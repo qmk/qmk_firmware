@@ -20,6 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 void keyboard_pre_init_kb(void) {
   setPinOutput(E6);
   writePinHigh(E6);
+
+  keyboard_pre_init_user();
 }
 
 bool led_update_kb(led_t led_state) {
