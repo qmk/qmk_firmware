@@ -387,6 +387,15 @@
                 }
             }
         },
+        "haptic": {
+            "type": "object",
+            "properties": {
+                "driver": {
+                    "type": "string",
+                    "enum": ["drv2605l", "solenoid"]
+                }
+            }
+        },
         "leader_key": {
             "type": "object",
             "properties": {
