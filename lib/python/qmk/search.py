@@ -236,8 +236,7 @@ def _filter_keymap_targets(target_list: List[KeyboardKeymapDesc], filters: List[
     Optionally includes the values of the queried info.json keys.
     """
     if len(filters) == 0:
-        if len(target_list) > 1:
-            cli.log.info('Preparing target list...')
+        cli.log.info('Preparing target list...')
         targets = target_list
     else:
         cli.log.info('Parsing data for all matching keyboard/keymap combinations...')
@@ -285,10 +284,8 @@ def _filter_keymap_targets(target_list: List[KeyboardKeymapDesc], filters: List[
                 cli.log.warning(f'Unrecognized filter expression: {filter_expr}')
                 continue
 
-        valid_targets = set(valid_targets)
-        if len(valid_targets) > 1:
-            cli.log.info('Preparing target list...')
-        targets = list(sorted(valid_targets))
+        cli.log.info('Preparing target list...')
+        targets = list(sorted(set(valid_targets)))
 
     return targets
 
@@ -304,10 +301,7 @@ def search_keymap_targets(targets: List[Union[Tuple[str, str], Tuple[str, str, C
 
     targets = map(_make_desc, targets)
     targets = _filter_keymap_targets(expand_keymap_targets(targets), filters)
-    map_func = parallel_map
-    if len(targets) == 1:
-        map_func = map
-    targets = list(set(map_func(_construct_build_target, list(targets))))
+    targets = list(set(parallel_map(_construct_build_target, list(targets))))
     return targets
 
 
@@ -315,8 +309,5 @@ def search_make_targets(targets: List[Union[str, Tuple[str, Callable[[BuildTarge
     """Search for build targets matching the supplied criteria.
     """
     targets = _filter_keymap_targets(expand_make_targets(targets), filters)
-    map_func = parallel_map
-    if len(targets) == 1:
-        map_func = map
-    targets = list(set(map_func(_construct_build_target, list(targets))))
+    targets = list(set(parallel_map(_construct_build_target, list(targets))))
     return targets
