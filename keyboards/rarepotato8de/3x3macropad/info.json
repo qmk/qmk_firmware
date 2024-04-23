@@ -46,7 +46,6 @@
     },
     "layouts": {
         "LAYOUT": {
-            "c_macro": true,
             "layout": [
                 {"label": "k00", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "k01", "matrix": [0, 1], "x": 1, "y": 0},
