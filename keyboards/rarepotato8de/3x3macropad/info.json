@@ -16,7 +16,6 @@
         "bootmagic": true,
         "encoder": true,
         "extrakey": true,
-        "key_override": false,
         "nkro": true,
         "oled": true,
         "rgblight": true
