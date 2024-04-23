@@ -31,7 +31,7 @@ Variants are denoted as `RowCount`*x*`ColumnCount`*(_`Alteration`)*
 | :---: | :---: |
 | 5 | A column for each finger with additional column for first finger |  
 | 6 | As *5 column* with additional pinky finger column |
-| 7 | As *6 column* with additional pinky column |  
+| 7 | As *6 column* with additional pinky finger column |  
 
 ### Alteration
 | Code | Description | Diagram </br> *(4x6 example)* |
