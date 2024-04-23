@@ -212,6 +212,7 @@ def _expand_keymap_target(target: KeyboardKeymapDesc, all_keyboards: List[str] =
             targets = _all_keymaps(target.keyboard)
             for t in targets:
                 t.construction_callback = target.construction_callback
+            return targets
         else:
             return [target]
 
