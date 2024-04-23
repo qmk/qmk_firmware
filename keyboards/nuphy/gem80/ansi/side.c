@@ -132,7 +132,7 @@ void light_speed_contol(uint8_t fast) {
 void side_colour_control(uint8_t dir) {
     if ((g_config.side_mode != SIDE_WAVE_1) && (g_config.side_mode != SIDE_WAVE_2)) {
         if (g_config.side_rgb) {
-            g_config.side_rgb    = 0;
+            g_config.side_rgb   = 0;
             g_config.side_color = 0;
         }
     }
@@ -146,19 +146,19 @@ void side_colour_control(uint8_t dir) {
         } else {
             g_config.side_color++;
             if (g_config.side_color >= LIGHT_COLOUR_MAX) {
-                g_config.side_rgb    = 1;
+                g_config.side_rgb   = 1;
                 g_config.side_color = 0;
             }
         }
     } else {
         if (g_config.side_rgb) {
-            g_config.side_rgb    = 0;
+            g_config.side_rgb   = 0;
             g_config.side_color = LIGHT_COLOUR_MAX - 1;
 
         } else {
             g_config.side_color--;
             if (g_config.side_color >= LIGHT_COLOUR_MAX) {
-                g_config.side_rgb    = 1;
+                g_config.side_rgb   = 1;
                 g_config.side_color = 0;
             }
         }
@@ -186,7 +186,7 @@ void side_mode_control(uint8_t dir) {
         }
     }
 
-    side_play_point          = 0;
+    side_play_point = 0;
     via_save_values();
 }
 
@@ -342,6 +342,10 @@ void sys_led_show(void) {
             default:
                 break;
         }
+    }
+
+    if (host_keyboard_led_state().num_lock) {
+        set_logo_rgb(0x80, 0x80, 0x80);
     }
 }
 
