@@ -1,4 +1,11 @@
 {
+    "features": {
+        "bootmagic": false,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "GP24", "pin_b": "GP25"}

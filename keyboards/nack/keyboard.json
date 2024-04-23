@@ -8,6 +8,15 @@
         "pid": "0x6060",
         "device_version": "0.0.1"
     },
+    "features": {
+        "audio": true,
+        "bootmagic": false,
+        "extrakey": false,
+        "mousekey": false,
+        "nkro": true,
+        "rgb_matrix": true,
+        "unicode": true
+    },
     "ws2812": {
         "pin": "B5",
         "driver": "spi"

@@ -7,6 +7,18 @@
         "pid": "0x6063",
         "device_version": "0.0.1"
     },
+    "build": {
+        "lto": true
+    },
+    "features": {
+        "bootmagic": false,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": false,
+        "nkro": false,
+        "rgblight": true,
+        "space_cadet": false
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "B3", "pin_b": "B1"}
