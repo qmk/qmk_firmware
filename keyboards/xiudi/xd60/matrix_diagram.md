@@ -39,3 +39,4 @@ Bottom Row:
 │40   │41 │42   │45                         │4B │48 │4D │4E │ Tsangan Arrow
 └─────┴───┴─────┴───────────────────────────┴───┴───┴───┴───┘
 ```
+*Note: 5th/bottom row layout options incomplete* 
