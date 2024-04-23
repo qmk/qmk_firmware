@@ -50,7 +50,7 @@ class KeyboardKeymapDesc:
         return self.data
 
     def to_build_target(self):
-        return KeyboardKeymapBuildTarget(keyboard=self.keyboard, keymap=self.keymap, json=self.json)
+        return KeyboardKeymapBuildTarget(keyboard=self.keyboard, keymap=self.keymap, json=self.json, orig_keyboard=self.orig_keyboard, orig_keymap=self.orig_keymap)
 
 
 # by using a class for filters, we dont need to worry about capturing values
