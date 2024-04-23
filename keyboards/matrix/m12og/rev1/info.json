@@ -31,6 +31,15 @@
     "ws2812": {
         "pin": "B8"
     },
+    "features": {
+        "bootmagic": false,
+        "mousekey": false,
+        "extrakey": true,
+        "rgblight": true
+    },
+    "build": {
+        "lto": true
+    },
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_tkl_ansi_tsangan"
     },
