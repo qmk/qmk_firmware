@@ -1,4 +1,11 @@
 {
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "console": true,
+        "command": true
+    },
     "development_board": "blackpill_f411",
     "matrix_pins": {
         "cols": ["B1", "B0", "A7", "A6", "A5", "A4"],
