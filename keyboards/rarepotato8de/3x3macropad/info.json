@@ -2,11 +2,10 @@
     "manufacturer": "RarePotato8DE",
     "keyboard_name": "3x3macropad",
     "maintainer": "RarePotato8DE",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "build": {
         "lto": true
     },
-    "debounce": 5,
     "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
@@ -17,7 +16,6 @@
         "bootmagic": true,
         "encoder": true,
         "extrakey": true,
-        "key_override": false,
         "nkro": true,
         "oled": true,
         "rgblight": true
@@ -26,7 +24,6 @@
         "cols": ["D7", "B3", "B2"],
         "rows": ["F7", "B5", "B6"]
     },
-    "processor": "atmega32u4",
     "rgblight": {
         "animations": {
             "alternating": true,
