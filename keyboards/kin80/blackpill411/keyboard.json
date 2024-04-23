@@ -1,6 +1,9 @@
 {
     "usb": {
-        "device_version": "0.0.3"
+        "device_version": "0.0.3",
+        "shared_endpoint": {
+            "keyboard": true
+        }
     },
     "matrix_pins": {
         "cols": ["C14", "C15", "A0", "A1", "A2", "A3", "A5", "A6", "A7", "B0", "B1", "B10"],

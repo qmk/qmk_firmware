@@ -1,4 +1,4 @@
-## chip/board settings
+#
 # - the next two should match the directories in
 #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
 MCU_FAMILY = STM32
@@ -27,20 +27,6 @@ USE_FPU = yes
 
 # Bootloader selection
 BOOTLOADER = custom
-
-# Build Options
-#   change yes to no to disable
-#
-BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
-MOUSEKEY_ENABLE = yes       # Mouse keys
-EXTRAKEY_ENABLE = yes       # Audio control and System control
-CONSOLE_ENABLE = no         # Console for debug
-COMMAND_ENABLE = no         # Commands for debug and configuration
-NKRO_ENABLE = no            # Enable N-Key Rollover
-BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
-RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
-AUDIO_ENABLE = no           # Audio output
-NO_USB_STARTUP_CHECK = yes  # Disable initialization only when usb is plugged in
 
 CUSTOM_MATRIX = lite
 # project specific files
