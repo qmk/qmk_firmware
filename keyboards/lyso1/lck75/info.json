@@ -20,6 +20,15 @@
     },
     "processor": "atmega32a",
     "bootloader": "usbasploader",
+    "features": {
+        "bootmagic": true,
+        "mousekey": false,
+        "extrakey": true,
+        "unicode": true,
+        "oled": true,
+        "encoder": true,
+        "wpm": true
+    },
     "layouts": {
         "LAYOUT_default": {
             "layout": [
