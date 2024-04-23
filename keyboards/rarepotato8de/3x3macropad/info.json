@@ -33,8 +33,7 @@
             "snake": true,
             "static_gradient": true
         },
-        "led_count": 6,
-        "pin": "E6"
+        "led_count": 6
     },
     "url": "https://github.com/rarepotato8de/3x3macropad",
     "usb": {
