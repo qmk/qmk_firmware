@@ -6,7 +6,6 @@
     "build": {
         "lto": true
     },
-    "debounce": 5,
     "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
