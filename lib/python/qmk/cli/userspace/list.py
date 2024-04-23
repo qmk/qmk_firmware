@@ -57,7 +57,7 @@ def userspace_list(cli):
             extra_args = e.extra_args
 
         extra_args_str = ''
-        if len(extra_args) > 0:
+        if extra_args is not None and len(extra_args) > 0:
             extra_args_str = ', '.join([f'{{fg_cyan}}{k}={v}{{fg_reset}}' for k, v in extra_args.items()])
             extra_args_str = f' ({{fg_cyan}}{extra_args_str}{{fg_reset}})'
 
