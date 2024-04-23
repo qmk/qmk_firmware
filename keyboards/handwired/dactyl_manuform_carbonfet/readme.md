@@ -11,7 +11,7 @@ Forked from the [Dactyl ManuForm](/keyboards/handwired/dactyl_manuform), the *Da
 
 ## Variants
 
-*Dactyl ManuForm Carbonfets* are built in variations that cater for different row and column counts.  
+*Dactyl ManuForm Carbonfets* are built in variations that cater for different row and column counts, i.e. there is no default.
 
 As standard, per half: 
 - The finger keywell bottom row has 2 keys, 1 each in ring and middle columns
