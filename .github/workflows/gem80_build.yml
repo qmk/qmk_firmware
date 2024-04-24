@@ -5,8 +5,9 @@ permissions:
 
 on:
   # Trigger the workflow on tag creation/push, when tag starts with "ryo-"
-  # tags:
-    # - 'ryo-*'
+  push:
+    tags:
+      - 'ryo-*'
   # push:
   #   branches: [gem80]
   workflow_dispatch:
@@ -66,3 +67,14 @@ jobs:
         path: |
           *threemode*.bin
 
+    - name: Create draft release
+      uses: softprops/action-gh-release@v2
+      if: startsWith(github.ref, 'refs/tags/ryo-')
+      with:
+        files: |
+          *wired*.bin
+          *threemode*.bin
+        tag_name: ${{ github.ref }}
+        draft: true
+        prerelease: true
+        # token: ${{ secrets.GITHUB_TOKEN }}
