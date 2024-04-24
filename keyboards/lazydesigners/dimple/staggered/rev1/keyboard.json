@@ -1,4 +1,15 @@
 {
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgblight": true
+    },
+    "indicators": {
+        "caps_lock": "E6",
+        "on_state": 0
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
