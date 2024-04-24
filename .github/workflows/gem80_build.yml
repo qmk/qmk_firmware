@@ -77,4 +77,4 @@ jobs:
         tag_name: ${{ github.ref }}
         draft: true
         prerelease: true
-        # token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.CUSTOM_TOKEN }}
