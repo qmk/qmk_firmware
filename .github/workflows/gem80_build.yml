@@ -74,7 +74,7 @@ jobs:
         files: |
           *wired*.bin
           *threemode*.bin
-        tag_name: ${{ github.ref }}
+        tag_name: ${{ github.ref_name }}
         draft: true
         prerelease: true
         token: ${{ secrets.CUSTOM_TOKEN }}
