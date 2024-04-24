@@ -8,6 +8,12 @@
         "pid": "0x0000",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "pointing_device": true
+    },
     "matrix_pins": {
         "cols": ["D3", "D2", "D1", "D0", "D4", "C6", "D7", "E6", "B4", "B5"],
         "rows": ["F4", "F5", "F6", "B6"]

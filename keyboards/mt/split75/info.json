@@ -8,6 +8,13 @@
         "pid": "0x0001",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": false,
+        "mousekey": false,
+        "extrakey": true,
+        "backlight": true,
+        "rgblight": true
+    },
     "backlight": {
         "pin": "D4"
     },
