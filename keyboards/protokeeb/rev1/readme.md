@@ -1,6 +1,6 @@
 # Protokeeb
 
-![Protokeeb](https://github.com/atechofficials/protokeeb/blob/master/Images/Assembly/Protokeeb_AS_41.jpg)
+![Protokeeb](https://i.imgur.com/RsSBoJg.jpg)
 
 A 16-key (4 x 4) Numpad/Macropad/Midi device designed by A-Tech Officials for easily getting started in the field of custom keyboards.
 Learn, build, modify easily as the Protokeeb is an open-source hardware project.
@@ -11,9 +11,9 @@ For more info visit https://github.com/atechofficials/protokeeb
 
 -   Keyboard Maintainer: [A-Tech Officials](https://github.com/atechofficials)
 -   Hardware Supported: _Protokeeb Keyboard PCB v1.x, Raspberry Pi Pico, Raspberry Pi Pico W, Waveshare RP2040-Plus_
--   Hardware Availability: [atechofficials](https://atechofficials.com/protokeeb)
+-   Hardware Availability: [atechofficials](https://github.com/atechofficials/protokeeb)
 
-![Protokeeb Layout Image](https://github.com/atechofficials/protokeeb/blob/master/Images/KB_Images/protokeeb_via_layout.png)
+![Protokeeb Layout Image](https://i.imgur.com/e0RlllX.png)
 
 ## Default Protokeeb Layout
 
