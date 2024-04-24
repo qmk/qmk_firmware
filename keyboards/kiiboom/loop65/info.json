@@ -145,7 +145,7 @@
     "usb": {
         "device_version": "0.0.1",
         "force_nkro": true,
-        "pid": "0xE463",
+        "pid": "0xE473",
         "suspend_wakeup_delay": 1000,
         "vid": "0x342D"
     },
