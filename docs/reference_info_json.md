@@ -833,7 +833,7 @@ Configures the [Stenography](feature_stenography.md) feature.
     * `suspend_wakeup_delay`
         * The amount of time to wait after sending a wakeup packet, in milliseconds.
         * Default: `0` (disabled)
-    * `wait_for`
+    * `wait_for_enumeration`
         * Force the keyboard to wait for USB enumeration before starting up.
         * Default: `false`
 

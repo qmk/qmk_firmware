@@ -894,7 +894,7 @@
                     }
                 },
                 "suspend_wakeup_delay": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                "wait_for": {"type": "boolean"}
+                "wait_for_enumeration": {"type": "boolean"}
             }
         },
         "qmk": {
