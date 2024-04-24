@@ -1,8 +1,8 @@
 # Masonry
 
-![Masonry](https://i.imgur.com/b6lKmW0h.jpg)
+![Masonry](https://i.imgur.com/gqx2FZW.jpg)
 
-40% ergo keyboard with irregular keycaps sizes and placements.
+Masonry is a 40% ergoish columnar keyboard projected on a rectangular keyboard shape.
 
 * Keyboard Maintainer: [dcpedit](https://github.com/dcpedit)
 * Hardware Supported: STM32F072
