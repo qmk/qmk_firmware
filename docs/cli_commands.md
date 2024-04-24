@@ -325,7 +325,13 @@ qmk c2json -km KEYMAP -kb KEYBOARD [-q] [--no-cpp] [-o OUTPUT] filename
 **Examples**:
 
 ```
-qmk c2json -km default -kb handwired/dactyl_promicro /home/my_user/qmk_firmware/keyboards/handwired/dactyl_promicro/keymaps/my_user/keymap.c
+qmk c2json -km default -kb handwired/dactyl_promicro
+```
+
+or with filename:
+
+```
+qmk c2json keyboards/handwired/dactyl_promicro/keymaps/default/keymap.c
 ```
 
 ## `qmk lint`
