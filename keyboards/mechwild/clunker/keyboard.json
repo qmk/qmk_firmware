@@ -17,6 +17,9 @@
         "mousekey": true,
         "nkro": true
     },
+    "haptic": {
+        "driver": "solenoid"
+    },
     "matrix_pins": {
         "cols": ["D1", "D0", "D4", "C6", "D7", "E6", "B4", "B5"],
         "rows": ["F5", "F6", "B3", "F7", "B2", "B1", "B6"]
