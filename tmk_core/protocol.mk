@@ -66,6 +66,10 @@ ifeq ($(strip $(NO_USB_STARTUP_CHECK)), yes)
     OPT_DEFS += -DNO_USB_STARTUP_CHECK
 endif
 
+ifeq ($(strip $(WAIT_FOR_USB)), yes)
+    OPT_DEFS += -DWAIT_FOR_USB
+endif
+
 ifeq ($(strip $(JOYSTICK_SHARED_EP)), yes)
     OPT_DEFS += -DJOYSTICK_SHARED_EP
     SHARED_EP_ENABLE = yes
