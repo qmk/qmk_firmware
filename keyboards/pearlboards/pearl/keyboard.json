@@ -31,6 +31,9 @@
         "scroll_lock": "B2",
         "on_state": 0
     },
+    "haptic": {
+        "driver": "drv2605l"
+    },
     "rgblight": {
         "saturation_steps": 8,
         "brightness_steps": 8,
