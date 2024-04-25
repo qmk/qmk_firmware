@@ -12,8 +12,7 @@
     "ws2812": {
         "driver": "pwm"
     },
-    "processor": "STM32F411",
-    "bootloader": "stm32-dfu",
+    "development_board": "blackpill_f411",
     "features": {
         "bootmagic": true,
         "mousekey": true,
@@ -21,6 +20,5 @@
         "nkro": true,
         "rgblight": true,
         "audio": true
-    },
-    "board": "BLACKPILL_STM32_F411"
+    }
 }

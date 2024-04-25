@@ -40,6 +40,8 @@
     "build": {
         "lto": true
     },
+    "bootloader": "custom",
+    "processor": "STM32F103",
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_tkl_ansi_tsangan"
     },
