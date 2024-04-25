@@ -1,5 +1,5 @@
 {
-    "keyboard_name": "Lemokey L3",
+    "keyboard_name": "Lemokey L1",
     "manufacturer": "Lemokey",
     "url": "https://github.com/Keychron",
     "maintainer": "lokher",
@@ -21,7 +21,7 @@
     },
     "matrix_pins": {
         "rows": ["C12", "D2", "B3", "B4", "B5", "B6"],
-        "cols": ["A3", "C6", "C7", "C8", "A14", "A15", "C10", "C11", "C13", "C14", "C15", "C0", "C1", "C2", "C3", "A0", "A1", "A2"],
+        "cols": ["A1", "C6", "C7", "C8", "A14", "A15", "C10", "C11", "C13", "C14", "C15", "C0", "C1", "C2", "C3", "A0"],
     },
     "diode_direction": "ROW2COL",
     "encoder": {
@@ -72,6 +72,6 @@
     },
     "debounce": 20,
     "bootmagic": {
-        "matrix": [0,2]
+        "matrix": [0,1]
     }
 }

@@ -17,6 +17,8 @@
 #include QMK_KEYBOARD_H
 #include "lemokey_common.h"
 
+// clang-format off
+
 enum layer_names {
     BASE = 0,
     FN,
@@ -39,6 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,            _______,  _______,  _______,  _______,  BAT_LVL,  NK_TOGG,  _______,  _______,  _______,  _______,              _______,            _______,
         _______,  _______,  GUI_TOG,  _______,                                _______,                                _______,  _______,  _______,    _______,  _______,  _______,  _______),
 };
+
 // clang-format on
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][1][2] = {
