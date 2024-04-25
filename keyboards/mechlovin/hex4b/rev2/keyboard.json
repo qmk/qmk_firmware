@@ -3,6 +3,15 @@
     "usb": {
         "device_version": "0.0.2"
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "console": true,
+        "command": true,
+        "nkro": true,
+        "backlight": true
+    },
     "matrix_pins": {
         "cols": ["B11", "B10", "B2", "B1", "B0", "A7", "A6", "A5", "A3", "C13", "B7", "B6", "B5", "B4", "B3"],
         "rows": ["A4", "B12", "B13", "B14", "B15", "A1"]
