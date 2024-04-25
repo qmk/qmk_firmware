@@ -15,6 +15,9 @@
         "num_lock": "C12",
         "scroll_lock": "C10"
     },
+    "haptic": {
+        "driver": "solenoid"
+    },
     "processor": "STM32F446",
     "bootloader": "stm32-dfu",
     "diode_direction": "ROW2COL",
