@@ -3,6 +3,16 @@
     "usb": {
         "pid": "0xAD04"
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "console": false,
+        "command": false,
+        "nkro": true,
+        "backlight": true,
+        "rgblight": true
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "D3", "pin_b": "D2"},
