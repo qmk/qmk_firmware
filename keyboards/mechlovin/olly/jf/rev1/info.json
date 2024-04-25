@@ -5,7 +5,11 @@
         "device_version": "0.0.1"
     },
     "features": {
-        "backlight": true
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "backlight": true,
+        "rgblight": true
     },
     "matrix_pins": {
         "cols": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
