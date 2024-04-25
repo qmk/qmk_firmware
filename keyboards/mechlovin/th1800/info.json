@@ -8,6 +8,11 @@
         "pid": "0x1800",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true
+    },
     "matrix_pins": {
         "cols": ["A3", "D7", "C0", "C1", "C2", "C3", "C4", "C5", "C6", "C7", "A7", "A6", "A5", "A4", "B3", "B2", "B0", "B1"],
         "rows": ["B6", "B7", "D0", "D1", "D5", "D6"]
