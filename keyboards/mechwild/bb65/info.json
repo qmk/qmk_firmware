@@ -1,7 +1,6 @@
 {
     "manufacturer": "MechWild",
     "keyboard_name": "BB65",
-    "bootloader": "stm32-dfu",
     "bootloader_instructions": "Hold down the BOOT button, then tap the NRST button on the BlackPill. Avoid touching the A11 and A12 pins.",
     "diode_direction": "COL2ROW",
     "encoder": {
