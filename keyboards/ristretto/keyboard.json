@@ -6,7 +6,8 @@
     "usb": {
         "vid": "0x666B",
         "pid": "0x7273",
-        "device_version": "0.0.1"
+        "device_version": "0.0.1",
+        "wait_for_enumeration": true
     },
     "features": {
         "bootmagic": false,
