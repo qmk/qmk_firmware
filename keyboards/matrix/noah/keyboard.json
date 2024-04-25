@@ -83,6 +83,8 @@
     "rgblight": true,
     "rgb_matrix": true
   },
+  "processor": "STM32F411",
+  "bootloader": "custom",
   "community_layouts": ["65_iso_blocker"],
   "layouts": {
     "LAYOUT_default": {
