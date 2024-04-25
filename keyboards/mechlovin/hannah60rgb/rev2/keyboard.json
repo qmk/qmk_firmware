@@ -1,12 +1,39 @@
 {
-    "keyboard_name": "Hannah60 RGB",
+    "keyboard_name": "Hannah60 RGB Rev.2",
     "manufacturer": "Team.Mechlovin",
     "url": "",
     "maintainer": "mechlovin",
     "usb": {
         "vid": "0x4D4C",
-        "pid": "0x6001",
+        "pid": "0x6002",
         "device_version": "0.0.1"
+    },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "console": true,
+        "command": true,
+        "nkro": true,
+        "rgblight": true,
+        "rgb_matrix": true
+    },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 18,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
     },
     "ws2812": {
         "pin": "A15"
@@ -60,7 +87,7 @@
         "default": {
             "animation": "cycle_pinwheel"
         },
-        "driver": "ws2812",
+        "driver": "is31fl3731",
         "react_on_keyup": true
     },
     "matrix_pins": {
@@ -138,9 +165,7 @@
                 {"matrix": [4, 0], "x": 0, "y": 4, "w": 1.25},
                 {"matrix": [4, 1], "x": 1.25, "y": 4, "w": 1.25},
                 {"matrix": [4, 2], "x": 2.5, "y": 4, "w": 1.25},
-                {"matrix": [4, 4], "x": 3.75, "y": 4, "w": 2.75},
-                {"matrix": [4, 6], "x": 6.5, "y": 4, "w": 1.25},
-                {"matrix": [4, 8], "x": 7.75, "y": 4, "w": 2.25},
+                {"matrix": [4, 6], "x": 3.75, "y": 4, "w": 6.25},
                 {"matrix": [4, 10], "x": 10, "y": 4, "w": 1.25},
                 {"matrix": [4, 11], "x": 11.25, "y": 4, "w": 1.25},
                 {"matrix": [4, 12], "x": 12.5, "y": 4, "w": 1.25},
