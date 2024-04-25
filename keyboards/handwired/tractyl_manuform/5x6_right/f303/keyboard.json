@@ -21,8 +21,7 @@
             {"pin_a": "A7", "pin_b": "A8"}
         ]
     },
-    "processor": "STM32F303",
-    "bootloader": "stm32-dfu",
+    "development_board": "proton_c",
     "features": {
         "console": true
     }

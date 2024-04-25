@@ -1,4 +1,11 @@
 {
+    "features": {
+        "backlight": true,
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
     "backlight": {
         "pin": "B7"
     },
