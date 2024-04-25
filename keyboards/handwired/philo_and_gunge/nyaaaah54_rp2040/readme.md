@@ -1,12 +1,12 @@
 # nyaaaah54_rp2040
 
-![nyaaaah54_rp2040](https://imgur.com/a/vgqw9SO)
+![nyaaaah54_rp2040](https://i.imgur.com/Kig3OeG.jpeg)
 
-A trashy, handwired hotswap-ish monoblock ergo. Made from salvaged & upcycled parts and materials from the all-knowing trash heap in the back alleyway.
+A handwired hotswap monoblock ergo. Made from salvaged & upcycled parts and materials from various junk drawers throughout my home and trash heaps in my back alleyway.
 
 * Keyboard Maintainer: [jkaunert](https://github.com/jkaunert)
-* Hardware Supported: Handwired, rp_2040W(support for more boards, BLE in future revisions), gateron hot-swap sockets
-* Hardware Availability: [Build log/data coming soon](https://philoandgunge.com/handwired/builds/nyaaaah54_rp2040)
+* Hardware Supported: Handwired, rp_2040W(support for LED, BLE in future revisions), Gateron hot-swap(because i had them in a drawer) or ![HSSv4.4 3D printed sockets](https://github.com/stingray127/handwirehotswap) which is preferred.
+* Hardware Availability: [Build log coming soon](https://philoandgunge.com/handwired/builds/nyaaaah54_rp2040)
 
 Make example for this keyboard (after setting up your build environment):
 
