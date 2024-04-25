@@ -10,6 +10,9 @@
         "mousekey": true,
         "nkro": false
     },
+    "haptic": {
+        "driver": "solenoid"
+    },
     "indicators": {
         "caps_lock": "C12"
     },
