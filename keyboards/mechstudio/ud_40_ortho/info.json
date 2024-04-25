@@ -8,6 +8,12 @@
     "pid": "0x0002",
     "device_version": "0.0.2"
   },
+  "features": {
+    "bootmagic": true,
+    "mousekey": true,
+    "extrakey": true,
+    "rgblight": true
+  },
   "matrix_pins": {
     "cols": ["C5", "D0", "B3", "B2", "B1", "B0", "D6", "D5", "D4", "D3", "D2", "D1"],
     "rows": ["C2", "B4", "B5", "B6"]
