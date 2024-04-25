@@ -8,6 +8,13 @@
         "pid": "0xD181",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "backlight": true,
+        "rgblight": true
+    },
     "backlight": {
         "pin": "D4",
         "breathing": true
