@@ -1,7 +1,7 @@
 {
     "keyboard_name": "waffling80 Rev B ANSI HS",
     "usb": {
-        "pid": "0x0010",
+        "pid": "0x0017",
         "device_version": "0.0.1"
     },
     "rgblight": {
