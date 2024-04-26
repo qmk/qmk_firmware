@@ -24,31 +24,34 @@ class KeyboardKeymapDesc:
         self.data = data.to_dict() if isinstance(data, Dotty) else data
         self.construction_callback = construction_callback
 
-    def __repr__(self):
+    def __str__(self):
         return f'{self.keyboard}:{self.keymap}'
 
-    def __eq__(self, other):
-        return (self.keyboard, self.keymap) == (other.keyboard, other.keymap)
+    def __repr__(self):
+        return f'KeyboardKeymapDesc(keyboard={self.keyboard}, keymap={self.keymap})'
+
+    def __eq__(self, other: object):
+        return self.__repr__() == other.__repr__()
 
     def __lt__(self, other):
-        return (self.keyboard, self.keymap) < (other.keyboard, other.keymap)
+        return self.__repr__() < other.__repr__()
 
     def __hash__(self):
-        return hash((self.keyboard, self.keymap))
+        return self.__repr__().__hash__()
 
     def load_data(self):
         data = keymap_json(self.keyboard, self.keymap)
         self.data = data.to_dict() if isinstance(data, Dotty) else data
 
     @property
-    def dotty(self):
+    def dotty(self) -> Dotty:
         return dotty(self.data) if self.data is not None else None
 
     @property
-    def json(self):
+    def json(self) -> dict:
         return self.data
 
-    def to_build_target(self):
+    def to_build_target(self) -> KeyboardKeymapBuildTarget:
         target = KeyboardKeymapBuildTarget(keyboard=self.keyboard, keymap=self.keymap, json=self.json)
         if self.construction_callback is not None:
             self.construction_callback(target)

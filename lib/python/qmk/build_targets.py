@@ -41,9 +41,6 @@ class BuildTarget:
             return False
         return self.__repr__() == __value.__repr__()
 
-    def __ne__(self, __value: object) -> bool:
-        return not self.__eq__(__value)
-
     def __hash__(self) -> int:
         return self.__repr__().__hash__()
 
