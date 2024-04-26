@@ -15,6 +15,9 @@
     "build": {
         "debounce_type": "asym_eager_defer_pk"
     },
+    "audio": {
+        "driver": "pwm_hardware"
+    },
     "ws2812": {
         "pin": "A1",
         "driver": "pwm"
