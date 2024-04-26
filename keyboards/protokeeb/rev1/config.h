@@ -1,4 +1,4 @@
-/* Protokeeb Copyright 2024 A-Tech Officials 
+/* Protokeeb Copyright 2024 A-Tech Officials (@atechofficials)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -155,10 +155,10 @@
 //#define RP2040_FLASH_GENERIC_03H
 
 /* Mechanical lcoking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
+//#define LOCKING_SUPPORT_ENABLE
 
 /* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
+//#define LOCKING_RESYNC_ENABLE
 
 #if defined (ENCODER_ENABLE)
 //#define ENCODER_PAD_A { GP12 }

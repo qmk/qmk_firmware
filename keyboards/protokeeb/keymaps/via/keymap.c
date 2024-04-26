@@ -14,6 +14,10 @@
  * If not, see <https://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
+/* Protokeeb v1.0
+ * Keymap: Via
+ */
+
 #include QMK_KEYBOARD_H
 #include "quantum.h"
 
@@ -25,20 +29,6 @@ enum protokeeb_keymap_layers {
 };
 
 #define LOWER MO(LAYER_LOWER)
-
-/*
-#define LAYOUT( \
-    K00, K01, K02, K03, \
-    K10, K11, K12, K13, \
-    K20, K21, K22, K23, \
-    K30, K31, K32, K33, \
-) { \
-    { k00, k01, k02, k03, }, \
-    { k10, k11, k12, k13, }, \
-    { k20, k21, k22, k23, }, \
-    { k30, k31, k32, k33, }  \
-}
-*/
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[LAYER_BASE] = LAYOUT( /* Base */
@@ -55,14 +45,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_TRNS, RGB_MODE_SWIRL, QK_DEBUG_TOGGLE, QK_BOOT
 	),
 
-    [DYNAMIC_LAYER1] = LAYOUT( /* Empty for dynamic keymaps */
+  [DYNAMIC_LAYER1] = LAYOUT( /* Empty for dynamic keymaps */
 	KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 	KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 	KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 	KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 	),
 
-    [DYNAMIC_LAYER2] = LAYOUT( /* Empty for dynamic keymaps */
+  [DYNAMIC_LAYER2] = LAYOUT( /* Empty for dynamic keymaps */
 	KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 	KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 	KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
