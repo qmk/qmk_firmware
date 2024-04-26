@@ -1,8 +1,16 @@
 matrix scanning:
 
     scan values
-    put values in SMA filter
-    get value out, update sensor boundaries if sma initialized
+    put values in SMA filter:
+        for each key, there is a sma filter instance
+        the filter takes in a 2^4=16 values in a circular buffer
+        3 variables: 4 -> 2^4 -> uint16_t[2^4]
+        state variable: is filter initialized for this key?
+        pointer: where in the circular buffer are we?
+        sum: sum of values in the circular buffer, so that we don't have to access the whole buffer, just 2 elements.
+
+
+    get value out, update sensor boundaries only if sma initialized
 
     calebrate key if this is first pass
 
@@ -10,8 +18,21 @@ matrix scanning:
     run algos on the key:
         regular(look at the methods already implemented)
         rapid trigger:
-            default boundaries are hysteresis values
-                if continuous rapid trigger,
+        1.
+            default boundaries are hysteresis values, reset state once reached
+            (if continuous rapid trigger, reset state only if fully released)
+        2.
+            when rapid trigger state is false
+            if value is in rapid trigger zone, press and set rapid trigger state
+            if state is false && lower than lower hysteresis, press key and set rapid trigger state
+        3.
+            when rapid trigger state is true
+            if pressed && left rt zone or value is 'sensitivity' above peak, release
+            if not pressed and key is in trigger zone and value is sensitivity below peak, press
+
+        4. if a new peak is observed, update it in the key structure
+            peak here is a up or down, since keeping track of both doesn't make sense
+
 
 
 

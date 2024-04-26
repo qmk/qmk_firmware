@@ -10,11 +10,18 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 #include "lut.h"
 #include "scanfunctions.h"
 #include "debounce.c"
+#include "sma.c"
 // #include "matrix_helpers.c"
 
 #ifndef MATRIX_INPUT_PRESSED_STATE
 #    define MATRIX_INPUT_PRESSED_STATE 0
 #endif
+
+
+// //configuration for the SMA filter, default is 4 for 2^4 = 16 samples
+// #ifndef SMA_FILTER_SAMPLE_EXPONENT
+// #    define SMA_FILTER_SAMPLE_EXPONENT 4
+// #endif
 
 pin_t matrix_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
 
@@ -56,6 +63,8 @@ void matrix_init_custom(void) {
 
     for (uint8_t i = 0; i < MATRIX_COLS; i++) {
         keys[1][i].is_analog = true;
+        //should really be done at compile time
+        initialize_SMA_filter(keys[1][i], SMA_FILTER_SAMPLE_EXPONENT);
     }
 
     // for (uint8_t row = 0; row < MATRIX_ROWS; row++) {

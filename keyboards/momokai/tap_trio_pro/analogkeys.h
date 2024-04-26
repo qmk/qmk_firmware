@@ -1,4 +1,4 @@
-/* Copyright 2023 RephlexZero (@RephlexZero)
+/* Copyright 2023 RephlexZero (@RephlexZero) 2024 peepeetee (@peepeetee) 2024 minisbett (@minisbett)
 SPDX-License-Identifier: GPL-2.0-or-later */
 
 #pragma once
@@ -26,5 +26,11 @@ typedef struct {
     int16_t offset;
     bool    is_analog;
     bool    dynamic_actuation_bool;
+    // uint16_t SMA_buffer[1<<(SMA_FILTER_SAMPLE_EXPONENT)];
+    uint8_t SMA_samplesExponent;
+    uint8_t SMA_samples;
+    uint16_t *SMA_buffer;
+    uint32_t SMA_sum;
+    uint8_t  SMA_index;
 } hybrid_key_t;
 extern hybrid_key_t keys[MATRIX_ROWS][MATRIX_COLS];

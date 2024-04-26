@@ -15,3 +15,6 @@
 #define CALIBRATION_RANGE 255
 
 #define DEBOUNCE 16
+
+//this configuration for the SMA filter, default is 4 for 2^4 = 16 samples
+#define SMA_FILTER_SAMPLE_EXPONENT 4
