@@ -11,10 +11,7 @@
 // ↻ - repeat token
 // ⎵ - wordbreak token
 
-// Magic rules
-
 ☆             ⇒ ↻
-★★            ⇒ ★n
 
 //REGEX_START
 
@@ -57,6 +54,7 @@
 ⎵theyl        ⇒ they'll
 ⎵theres       ⇒ there's
 
+⎵isnt         ⇒ isn't
 ⎵youv         ⇒ you've
 ⎵havent       ⇒ haven't
 
@@ -71,6 +69,9 @@ a☆            ⇒ and
 ⎵av★          ⇒ average
 ⎵av★g         ⇒ averaging
 
+⎵af✤          ⇒ after
+⎵af✤d         ⇒ afterwards
+
 ⎵al★          ⇒ alr
 ⎵al★d         ⇒ already
 ⎵al★g         ⇒ alright
@@ -79,11 +80,16 @@ a☆            ⇒ and
 ⎵a☆t          ⇒ accurate
 ⎵a☆ty         ⇒ accurately
 
-⎵adj☆         ⇒ adjust
-⎵adj☆d        ⇒ adjusted
-⎵adj☆g        ⇒ adjusting
-⎵adj☆t        ⇒ adjustment
-⎵adj☆l        ⇒ adjustable
+⎵as✪          ⇒ ascend
+⎵as✪e         ⇒ ascended
+⎵as✪o         ⇒ ascendion
+⎵as✪n         ⇒ ascending
+
+⎵adj★         ⇒ adjust
+⎵adj★d        ⇒ adjusted
+⎵adj★g        ⇒ adjusting
+⎵adj★t        ⇒ adjustment
+⎵adj★l        ⇒ adjustable
 
 ⎵any☆         ⇒ anyway
 ⎵any✤         ⇒ anyone
@@ -94,12 +100,12 @@ a☆            ⇒ and
 ⎵anyt         ⇒ anything
 
 ⎵a★v          ⇒ above
-⎵af✤          ⇒ after
 ⎵ab✤          ⇒ about
 ⎵assg         ⇒ assign
 ⎵askg         ⇒ asking
 ⎵ar★          ⇒ around
 ⎵alm★         ⇒ almost
+⎵as✪☆         ⇒ asleep
 ⎵an✤          ⇒ another
 ⎵awk☆         ⇒ awkward
 ⎵alt★         ⇒ although
@@ -142,6 +148,7 @@ a☆            ⇒ and
 ⎵bc☆          ⇒ bunch
 ⎵by✤          ⇒ bypass
 ⎵bud★         ⇒ budget
+⎵bac★✪        ⇒ backspace
 
 // ------------------------------------C---------------------------------------
 
@@ -263,6 +270,7 @@ da★           ⇒ day
 ⎵d☆r          ⇒ during
 ⎵d☆i          ⇒ decide
 ⎵d☆a          ⇒ doable
+⎵dred★        ⇒ dredge
 ⎵de★          ⇒ default
 ⎵d☆ig         ⇒ deciding
 ⎵del☆         ⇒ deflation
@@ -273,7 +281,7 @@ da★           ⇒ day
 // ------------------------------------E---------------------------------------
 
 e★            ⇒ eu
-⎵e☆           ⇒ ex
+⎵e☆           ⇒ ee
 
 ⎵enc☆         ⇒ encrypt
 ⎵enc☆t        ⇒ encryption
@@ -286,6 +294,9 @@ e★            ⇒ eu
 
 ⎵ea✪          ⇒ early
 ⎵ea✪☆         ⇒ earlier
+
+⎵e☆pt         ⇒ expert
+⎵e☆pt★        ⇒ expertise
 
 ⎵e☆tr         ⇒ extreme
 ⎵e☆tra        ⇒ extremal
@@ -307,13 +318,18 @@ e★            ⇒ eu
 ⎵e☆ld         ⇒ explained
 ⎵e☆lg         ⇒ explaining
 
-⎵e☆pr         ⇒ explore
-⎵e☆prn        ⇒ exploring
-⎵e☆pro        ⇒ exploration
+⎵e☆pl         ⇒ explore
+⎵e☆pln        ⇒ exploring
+⎵e☆plo        ⇒ exploration
 
 ⎵e☆n          ⇒ experience
 ⎵e☆ng         ⇒ experiencing
 ⎵e☆nl         ⇒ experiential
+
+⎵e☆pr         ⇒ express
+⎵e☆pre        ⇒ expressed
+⎵e☆pro        ⇒ expression
+⎵e☆prn        ⇒ expressing
 
 ⎵e☆c          ⇒ except
 ⎵e☆cn         ⇒ exception
@@ -330,7 +346,7 @@ e★            ⇒ eu
 ⎵e☆pn         ⇒ expecting
 ⎵e☆pv         ⇒ expensive
 ⎵e☆p★         ⇒ unexpected
-⎵e☆p✪         ⇒ expectation
+⎵e☆po         ⇒ expectation
 
 ⎵ey★          ⇒ eye
 ⎵ed★          ⇒ edge
@@ -361,10 +377,13 @@ e★            ⇒ eu
 ⎵fu☆tg        ⇒ functioning
 ⎵fu☆ty        ⇒ functionality
 
-⎵fe✤           ⇒ frequent
-⎵fe✤c          ⇒ frequency
-⎵fe✤y          ⇒ frequently
-⎵fe✤s          ⇒ frequentcies
+⎵fu☆m         ⇒ fundament
+⎵fu☆ml        ⇒ fundamentally
+
+⎵fe✤          ⇒ frequent
+⎵fe✤c         ⇒ frequency
+⎵fe✤y         ⇒ frequently
+⎵fe✤s         ⇒ frequentcies
 
 ⎵fr☆          ⇒ from
 ⎵fd✪          ⇒ find
@@ -377,6 +396,9 @@ g★            ⇒ gy
 
 ⎵gov★         ⇒ govern
 ⎵gov★☆        ⇒ government
+
+⎵gn✤          ⇒ genuine
+⎵gn✤e         ⇒ genuinely
 
 ⎵gen✤         ⇒ general
 ⎵gen✤y        ⇒ generally
@@ -417,6 +439,12 @@ ion★          ⇒ ional
 ⎵i☆pe         ⇒ implemented
 ⎵i☆pn         ⇒ implementing
 ⎵i☆pt         ⇒ implementation
+
+⎵im✪          ⇒ import
+⎵im✪n         ⇒ importing
+⎵im✪a         ⇒ important
+⎵im✪e         ⇒ importance
+⎵im✪☆         ⇒ importantly
 
 ⎵i★           ⇒ info
 ⎵i★r          ⇒ inform
@@ -479,6 +507,7 @@ led★          ⇒ ledge
 
 mp★           ⇒ mpl
 m★            ⇒ ment
+m★☆           ⇒ mental
 
 ⎵mu★          ⇒ must
 ⎵mu☆          ⇒ music
@@ -507,6 +536,9 @@ m★            ⇒ ment
 ⎵n☆           ⇒ nn
 ⎵n✤           ⇒ nice
 
+⎵nec☆         ⇒ necessary
+⎵nec☆l        ⇒ necessarily
+
 ⎵n☆d          ⇒ need
 ⎵n☆v          ⇒ never
 ⎵n☆t          ⇒ nation
@@ -515,7 +547,8 @@ m★            ⇒ ment
 ⎵n☆g          ⇒ nothing
 ⎵n☆r          ⇒ neither
 
-nat☆          ⇒ nation
+⎵n✤☆          ⇒ nicer
+nat☆           ⇒ nation
 ⎵nev★l        ⇒ nevertheless
 
 // ------------------------------------O---------------------------------------
@@ -573,6 +606,12 @@ pl★           ⇒ ply
 ⎵ps★o☆        ⇒ psychology
 ⎵ps★a         ⇒ psychological
 
+⎵pro★         ⇒ project
+⎵pro★☆        ⇒ projected
+⎵pro★t        ⇒ projection
+⎵pro★l        ⇒ projectile
+⎵pro★✤        ⇒ projecting 
+
 ⎵pr☆          ⇒ prob
 ⎵pr☆a         ⇒ program
 ⎵pr☆e         ⇒ problem
@@ -597,15 +636,16 @@ q[aoei]★      ⇒ q\1
 ⎵equaly       ⇒ equally
 ⎵equalt       ⇒ equality
 
-⎵qua☆         ⇒ quali
+⎵qa☆          ⇒ quali
 ⎵qa☆y         ⇒ qualify
 ⎵qa☆t         ⇒ quality
 ⎵qa☆ye        ⇒ qualified
 ⎵qa☆ts        ⇒ qualities
 ⎵qa☆yn        ⇒ qualification
 
+⎵que☆         ⇒ queue
 ⎵(en|de)✤     ⇒ \1que
-⎵(en|de)✤☆    ⇒ \1queue
+⎵(en|de)✤e    ⇒ \1queue
 
 ⎵de✤n         ⇒ dequeuing
 ⎵(en)?queg    ⇒ \1queuing
@@ -679,6 +719,9 @@ st☆           ⇒ sts
 
 ⎵s★l          ⇒ simple
 ⎵s★l☆         ⇒ simply
+
+⎵s★r          ⇒ strict
+⎵s★ry         ⇒ strictly
 
 ⎵si★          ⇒ simultaneous
 ⎵si★l         ⇒ simultaneously
@@ -756,6 +799,11 @@ tio☆          ⇒ tional
 ⎵★☆t          ⇒ theorethical
 ⎵★☆tl         ⇒ theorethically
 
+⎵tp☆          ⇒ tempo
+⎵tp☆a         ⇒ temporal
+⎵tp☆★         ⇒ temporary
+⎵tp☆i         ⇒ temporarily
+
 ⎵tr☆          ⇒ transform
 ⎵tr☆d         ⇒ transformed
 ⎵tr☆g         ⇒ transforming
@@ -768,11 +816,12 @@ tio☆          ⇒ tional
 ⎵te★ly        ⇒ technically
 ⎵te★g☆        ⇒ technologies
 
-⎵ti★          ⇒ time
+⎵(life)?ti★   ⇒ \1time
 ⎵ty★☆         ⇒ typing
 ⎵thr☆         ⇒ through
 ⎵tal★g        ⇒ talking
 ⎵★ro          ⇒ therefore
+⎵monkey★      ⇒ monkeytype
 
 // ------------------------------------U---------------------------------------
 
@@ -794,6 +843,10 @@ u★            ⇒ ue
 ⎵u★           ⇒ under
 ⎵u★t          ⇒ understand
 ⎵u★td         ⇒ understood
+⎵u★☆          ⇒ underneath
+⎵u★l          ⇒ underlying
+⎵u★g          ⇒ underground
+⎵u★✤          ⇒ underestimate
 ⎵u★w          ⇒ underwhelming
 ⎵u★tg         ⇒ understanding
 ⎵u★tl         ⇒ understandable
