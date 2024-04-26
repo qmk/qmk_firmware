@@ -3,6 +3,14 @@
         "pid": "0x6362",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true,
+        "rgblight": true,
+        "encoder": true
+    },
     "matrix_pins": {
         "cols": ["B14", "A10", "A15", "B3", "B4", "B5"],
         "rows": ["B0", "A6", "A7", "B1", "A5"]
