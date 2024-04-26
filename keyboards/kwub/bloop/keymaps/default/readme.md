@@ -1,1 +1,0 @@
-# Default keymap for the Bloop65

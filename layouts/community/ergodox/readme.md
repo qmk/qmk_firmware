@@ -1,3 +1,0 @@
-# ergodox
-
-    LAYOUT_ergodox

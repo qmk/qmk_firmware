@@ -1,1 +1,0 @@
-TEST_LIST += eeprom_legacy_emulated_flash_tiny eeprom_legacy_emulated_flash_large

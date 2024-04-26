@@ -1,3 +1,0 @@
-# alice
-
-    LAYOUT_alice
