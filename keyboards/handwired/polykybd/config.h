@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #define DEBOUNCE    5
+#define PICO_FLASH_SIZE_BYTES (8 * 1024 * 1024)
 
 #define OLED_DISPLAY_128X64
 #define OLED_FONT_START	32

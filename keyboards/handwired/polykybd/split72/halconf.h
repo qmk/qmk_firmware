@@ -41,5 +41,6 @@
 //5	19200 baud
 #define SELECT_SOFT_SERIAL_SPEED 0
 
+#define PICO_FLASH_SIZE_BYTES (8 * 1024 * 1024)
 //for split keyboard setup
 //#define PAL_USE_CALLBACKS TRUE

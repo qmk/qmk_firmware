@@ -29,8 +29,14 @@
 
 
 #include <transactions.h>
+#include <hardware/flash.h>
 
 #include "lang/lang_lut.h"
+
+
+#define FLASH_TARGET_OFFSET (4 * 1024 * 1024) //we start at 4MB and use the remaining 4MB for resource data
+const uint8_t *flash_target_contents = (const uint8_t *) (XIP_BASE + FLASH_TARGET_OFFSET);
+static_assert(FLASH_PAGE_SIZE==256, "Flash page size changed");
 
 #define FULL_BRIGHT 50
 #define MIN_BRIGHT 1
@@ -133,7 +139,7 @@ struct display_info {
 #define BITMASK4(x) .bitmask = {~0, (uint8_t)(~(1<<x)), ~0, ~0, ~0}
 #define BITMASK5(x) .bitmask = {(uint8_t)(~(1<<x)), ~0, ~0, ~0, ~0}
 
-struct display_info key_display[] = {
+const struct display_info key_display[] = {
         {BITMASK1(0)}, {BITMASK1(1)}, {BITMASK1(2)}, {BITMASK1(3)}, {BITMASK1(4)}, {BITMASK1(5)}, {BITMASK1(6)}, {BITMASK1(7)},
         {BITMASK2(0)}, {BITMASK2(1)}, {BITMASK2(2)}, {BITMASK2(3)}, {BITMASK2(4)}, {BITMASK2(5)}, {BITMASK2(6)}, {BITMASK2(7)},
         {BITMASK3(0)}, {BITMASK3(1)}, {BITMASK3(2)}, {BITMASK3(3)}, {BITMASK3(4)}, {BITMASK3(5)}, {BITMASK3(6)}, {BITMASK3(7)},
@@ -141,8 +147,8 @@ struct display_info key_display[] = {
         {BITMASK5(0)}, {BITMASK5(1)}, {BITMASK5(2)}, {BITMASK5(3)}, {BITMASK5(4)}, {BITMASK5(5)}, {BITMASK5(6)}, {BITMASK5(7)}
 };
 
-struct display_info disp_row_0 = { BITMASK1(0) };
-struct display_info disp_row_3 = { BITMASK4(0) };
+const struct display_info disp_row_0 = { BITMASK1(0) };
+const struct display_info disp_row_3 = { BITMASK4(0) };
 
 enum refresh_mode { START_FIRST_HALF, START_SECOND_HALF, DONE_ALL, ALL_AT_ONCE };
 static enum refresh_mode g_refresh = DONE_ALL;
@@ -220,7 +226,7 @@ static int32_t last_update = 0;
 #define NUM_SEGMENTS_PER_OVERLAY 15
 #define BYTES_PER_SEGMENT 24
 #define NUM_OVERLAYS 90
-#define NUM_VARIATIONS 4 // Normal(0), Ctrl(1), Shift(2), Alt(4)
+#define NUM_VARIATIONS 7 // NO_MOD(0), CTRL(1), SHIFT(2), CTRL_SHIFT(3), ALT(4), CTRL_ALT(5), ALT_SHIFT(6), Not supported: CTRL_ALT_SHIFT(7) GUI_KEY(8)
 static uint8_t use_overlay[NUM_OVERLAYS*NUM_VARIATIONS];
 static uint8_t overlays [NUM_OVERLAYS*NUM_VARIATIONS][72*40/8]; // ResX*ResY/PixelPerByte
 
@@ -622,7 +628,7 @@ void housekeeping_task_user(void) {
     }
 }
 
-uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //Base Layers
 /*
                                                               ┌────────────────┐
@@ -1451,17 +1457,17 @@ const uint16_t* keycode_to_disp_overlay(uint16_t keycode, led_t state) {
     return NULL;
 }
 
+// NO_MOD(0), CTRL(1), SHIFT(2), CTRL_SHIFT(3), ALT(4), CTRL_ALT(5),
+// ALT_SHIFT(6), {Not supported: CTRL_ALT_SHIFT(7) and GUI_KEY(8)}
 uint16_t adjust_overlay_idx_to_mod(uint16_t idx, uint8_t mods) {
-    //GUI as modifier not supported at the moment
-    switch(mods) {
-        case MOD_RALT:
-        case MOD_LALT: return idx + NUM_OVERLAYS*3; //ALT
-        case MOD_RSFT:
-        case MOD_LSFT: return idx + NUM_OVERLAYS*2; //SHIFT
-        case MOD_RCTL:
-        case MOD_LCTL: return idx + NUM_OVERLAYS;   //CTRL
-        default:return idx;
-    }
+    //no differencce between r&l mods:
+    mods |= mods>>4;
+    mods &= 0x7;
+    // if(mods>7) {  //no CTRL_ALT_SHIFT and no combo with GUI, so 7 == GUI
+    //     return idx + NUM_OVERLAYS*7;
+    // }
+
+    return mods == 7 ? idx : idx + NUM_OVERLAYS * mods;
 }
 
 bool copy_overlay_to_buffer(uint16_t keycode, uint8_t mods) {
@@ -2035,8 +2041,6 @@ void oled_update_buffer(void) {
         kdisp_write_gfx_text(smallFont, 1, 112, 56, is_usb_host_side() ? u"H" : u"B");
     }
 
-
-
     if(is_right_side()) {
         kdisp_write_gfx_text(smallFont, 1, 0, 30, u"RGB");
 
@@ -2109,6 +2113,7 @@ void oled_render_logos(void) {
         oled_scroll_left();
     }
 }
+
 bool oled_task_user(void) {
     if((l_state.flags&DISP_IDLE) != 0) {
         oled_render_logos();
@@ -2240,20 +2245,11 @@ void fill_overlay_buffer(uint8_t keycode, uint8_t mods, uint8_t segment_0_to_14,
         use_overlay[idx] = true;
         uprintf("Received overlay for keycode 0x%x (modifiers: 0x%x): %d bytes, index %d.\n", keycode, mods, byte_counter, idx);
         byte_counter = 0;
-        send_to_bridge(USER_SYNC_OVERLAY_DATA, (void*)&g_latin, sizeof(g_latin), 10);
     }
 }
 
 void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
     const char * name = "P0.PolyKybd Split72";
-
-    // if(debug_enable && length < 33)
-    // {
-    //     //char cmdstring[33];
-    //     //memcpy(cmdstring, data, length);
-    //     //cmdstring[length] = 0; // Make sure string ends with 0
-    //     dprintf("DEBUG: custom hid or via command, length=%d cmd=%c\n", length, data[1]);
-    // }
 
     if(length>1 && (data[0] == /*via_command_id::*/id_custom_save || data[0] == 'P')) {
         switch(data[1]) {
@@ -2326,10 +2322,12 @@ void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
                     uint8_t segment = data[5];
                     if(keycode>=KC_A && keycode<=KC_RIGHT_GUI && segment<NUM_SEGMENTS_PER_OVERLAY) {
                         uint8_t mods = data[4];
-                        fill_overlay_buffer(keycode, mods,segment, &data[6]);
-                        if(segment==NUM_SEGMENTS_PER_OVERLAY-1) {
-                            update_performed();
-                            request_disp_refresh();
+                        if((mods & MOD_MASK_GUI)==0) { //for now we filter out the gui key
+                            fill_overlay_buffer(keycode, mods,segment, &data[6]);
+                            if(segment==NUM_SEGMENTS_PER_OVERLAY-1) {
+                                update_performed();
+                                request_disp_refresh();
+                            }
                         }
                         memcpy(data, "P4.", 3);
                     } else {
