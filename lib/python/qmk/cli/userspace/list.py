@@ -1,6 +1,5 @@
 # Copyright 2023-2024 Nick Brassel (@tzarc)
 # SPDX-License-Identifier: GPL-2.0-or-later
-from functools import partial
 from pathlib import Path
 from dotty_dict import Dotty
 from milc import cli

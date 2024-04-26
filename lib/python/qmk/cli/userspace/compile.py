@@ -1,7 +1,6 @@
 # Copyright 2023-2024 Nick Brassel (@tzarc)
 # SPDX-License-Identifier: GPL-2.0-or-later
 from pathlib import Path
-from functools import partial
 from milc import cli
 
 from qmk.constants import QMK_USERSPACE, HAS_QMK_USERSPACE

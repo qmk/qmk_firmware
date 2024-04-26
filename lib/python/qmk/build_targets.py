@@ -33,7 +33,7 @@ class BuildTarget:
 
     def __repr__(self):
         if len(self._extra_args.items()) > 0:
-            return f'BuildTarget(keyboard={self.keyboard}, keymap={self.keymap}, extra_args={self._extra_args})'
+            return f'BuildTarget(keyboard={self.keyboard}, keymap={self.keymap}, extra_args={json.dumps(self._extra_args, sort_keys=True)})'
         return f'BuildTarget(keyboard={self.keyboard}, keymap={self.keymap})'
 
     def __lt__(self, __value: object) -> bool:
