@@ -44,15 +44,17 @@ def mass_compile_targets(targets: List[BuildTarget], clean: bool, dry_run: bool,
                 extra_args = '_'.join([f"{k}_{v}" for k, v in target.extra_args.items()])
                 build_log = f"{QMK_FIRMWARE}/.build/build.log.{os.getpid()}.{keyboard_safe}.{keymap_name}"
                 failed_log = f"{QMK_FIRMWARE}/.build/failed.log.{os.getpid()}.{keyboard_safe}.{keymap_name}"
+                target_suffix = ''
                 if len(extra_args) > 0:
                     build_log += f".{extra_args}"
                     failed_log += f".{extra_args}"
+                    target_suffix = f"_{extra_args}"
                 # yapf: disable
                 f.write(
                     f"""\
-.PHONY: {target_filename}_binary
-all: {target_filename}_binary
-{target_filename}_binary:
+.PHONY: {target_filename}{target_suffix}_binary
+all: {target_filename}{target_suffix}_binary
+{target_filename}{target_suffix}_binary:
 	@rm -f "{build_log}" || true
 	@echo "Compiling QMK Firmware for target: '{keyboard_name}:{keymap_name}'..." >>"{build_log}"
 	{' '.join(command)} \\

@@ -35,7 +35,7 @@ def userspace_compile(cli):
         if isinstance(e, Path):
             build_targets.append(JsonKeymapBuildTarget(e))
         elif isinstance(e, dict):
-            f = None if 'env' not in e else partial(_extra_arg_setter, extra_args=e['env'])
+            f = e['env'] if 'env' in e else None
             keyboard_keymap_targets.append((e['keyboard'], e['keymap'], f))
     if len(keyboard_keymap_targets) > 0:
         build_targets.extend(search_keymap_targets(keyboard_keymap_targets))

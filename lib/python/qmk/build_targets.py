@@ -36,6 +36,9 @@ class BuildTarget:
             return f'BuildTarget(keyboard={self.keyboard}, keymap={self.keymap}, extra_args={self._extra_args})'
         return f'BuildTarget(keyboard={self.keyboard}, keymap={self.keymap})'
 
+    def __lt__(self, __value: object) -> bool:
+        return self.__repr__() < __value.__repr__()
+
     def __eq__(self, __value: object) -> bool:
         if not isinstance(__value, BuildTarget):
             return False
