@@ -1,31 +1,8 @@
 {
-    "manufacturer": "Jaykeeb Studio",
     "keyboard_name": "Aumz Work Soldered Version",
-    "maintainer": "Alabahuy",
-    "bootloader": "rp2040",
-    "diode_direction": "COL2ROW",
-    "features": {
-        "bootmagic": true,
-        "command": false,
-        "console": false,
-        "extrakey": true,
-        "mousekey": true,
-        "nkro": true
-    },
-    "matrix_pins": {
-        "cols": ["GP24", "GP14", "GP13", "GP12", "GP11", "GP10", "GP9", "GP8", "GP7", "GP6", "GP5", "GP4", "GP3", "GP2", "GP1"],
-        "rows": ["GP29", "GP0", "GP15", "GP26", "GP27"]
-    },
-    "indicators": {
-        "caps_lock": "GP25",
-        "on_state": 0
-    },
-    "processor": "RP2040",
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x0772",
-        "vid": "0x414C"
+        "pid": "0x0772"
     },
     "community_layouts": [
         "65_ansi_blocker",
