@@ -75,6 +75,9 @@
     "rows": ["A10", "A9", "A8", "B15", "C13", "C14", "C15", "A2"]
   },
   "diode_direction": "COL2ROW",
+  "audio": {
+    "driver": "dac_additive"
+  },
   "encoder": {
     "rotary": [
       {"pin_a": "B12", "pin_b": "B13"}

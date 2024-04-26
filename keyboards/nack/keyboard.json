@@ -17,6 +17,9 @@
         "rgb_matrix": true,
         "unicode": true
     },
+    "audio": {
+        "driver": "dac_basic"
+    },
     "ws2812": {
         "pin": "B5",
         "driver": "spi"
