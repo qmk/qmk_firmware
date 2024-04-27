@@ -67,7 +67,7 @@ const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 }
 ```
 
-Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3731.pdf) and the header file `drivers/led/issi/is31fl3731.h`. The `driver` is the index of the driver you defined in your `config.h` (`0`, `1`, `2`, or `3`).
+Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3731_DS.pdf) and the header file `drivers/led/issi/is31fl3731.h`. The `driver` is the index of the driver you defined in your `config.h` (`0`, `1`, `2`, or `3`).
 
 ---
 ### IS31FL3733 :id=is31fl3733
@@ -151,7 +151,7 @@ const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT] = {
 }
 ```
 
-Where `SWx_CSy` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3733.pdf) and the header file `drivers/led/issi/is31fl3733.h`. The `driver` is the index of the driver you defined in your `config.h` (`0`, `1`, `2`, or `3` for now).
+Where `SWx_CSy` is the location of the LED in the matrix defined by [the datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3733_DS.pdf) and the header file `drivers/led/issi/is31fl3733.h`. The `driver` is the index of the driver you defined in your `config.h` (`0`, `1`, `2`, or `3` for now).
 
 ---
 ### IS31FL3736 :id=is31fl3736
@@ -304,7 +304,85 @@ const is31fl3737_led_t PROGMEM g_is31fl3737_leds[IS31FL3737_LED_COUNT] = {
 }
 ```
 
-Where `SWx_CSy` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3737.pdf) and the header file `drivers/led/issi/is31fl3737.h`. The `driver` is the index of the driver you defined in your `config.h` (Only `0`, `1`, `2`, or `3` for now).
+Where `SWx_CSy` is the location of the LED in the matrix defined by [the datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3737_DS.pdf) and the header file `drivers/led/issi/is31fl3737.h`. The `driver` is the index of the driver you defined in your `config.h` (Only `0`, `1`, `2`, or `3` for now).
+
+---
+### IS31FL3741 :id=is31fl3741
+
+There is basic support for addressable RGB matrix lighting with the I2C IS31FL3741 RGB controller. To enable it, add this to your `rules.mk`:
+
+```make
+RGB_MATRIX_ENABLE = yes
+RGB_MATRIX_DRIVER = is31fl3741
+```
+You can use between 1 and 4 IS31FL3741 IC's. Do not specify `DRIVER_ADDR_<N>` defines for IC's that are not present on your keyboard.
+
+Configure the hardware via your `config.h`:
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `IS31FL3741_I2C_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
+| `IS31FL3741_I2C_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
+| `IS31FL3741_PWM_FREQUENCY` | (Optional) PWM Frequency Setting | 0 |
+| `IS31FL3741_GLOBALCURRENT` | (Optional) Configuration for the Global Current Register | 0xFF |
+| `IS31FL3741_SWPULLUP` | (Optional) Set the value of the SWx lines on-chip de-ghosting resistors | PUR_32K |
+| `IS31FL3741_CSPULLUP` | (Optional) Set the value of the CSx lines on-chip de-ghosting resistors | PUR_32K |
+| `RGB_MATRIX_LED_COUNT` | (Required) How many RGB lights are present across all drivers | |
+| `IS31FL3741_I2C_ADDRESS_1` | (Required) Address for the first RGB driver | |
+| `IS31FL3741_I2C_ADDRESS_2` | (Optional) Address for the second RGB driver | |
+| `IS31FL3741_I2C_ADDRESS_3` | (Optional) Address for the third RGB driver | |
+| `IS31FL3741_I2C_ADDRESS_4` | (Optional) Address for the fourth RGB driver | |
+
+The IS31FL3741 IC's have on-chip resistors that can be enabled to allow for de-ghosting of the RGB matrix. By default these resistors are not enabled (`IS31FL3741_SWPULLUP`/`IS31FL3741_CSPULLUP` are given the value of `IS31FL3741_PUR_0R`), the values that can be set to enable de-ghosting are as follows:
+
+| `IS31FL3741_SWPULLUP/IS31FL3741_CSPULLUP` | Description |
+|----------------------|-------------|
+| `IS31FL3741_PUR_0R` | Do not use the on-chip resistors/enable de-ghosting |
+| `IS31FL3741_PUR_05KR` | The 0.5k Ohm resistor used during blanking period (t_NOL) |
+| `IS31FL3741_PUR_1KR` | The 1k Ohm resistor used during blanking period (t_NOL) |
+| `IS31FL3741_PUR_2KR` | The 2k Ohm resistor used during blanking period (t_NOL) |
+| `IS31FL3741_PUR_4KR` | The 4k Ohm resistor used during blanking period (t_NOL) |
+| `IS31FL3741_PUR_8KR` | The 8k Ohm resistor during blanking period (t_NOL) |
+| `IS31FL3741_PUR_16KR` | The 16k Ohm resistor during blanking period (t_NOL) |
+| `IS31FL3741_PUR_32KR` | (default) The 32k Ohm resistor used during blanking period (t_NOL) |
+
+Here is an example using 2 drivers.
+
+```c
+// This is a 7-bit address, that gets left-shifted and bit 0
+// set to 0 for write, 1 for read (as per I2C protocol)
+// The address will vary depending on your wiring:
+// 0000 ADDR <-> GND
+// 0101 ADDR <-> SCL
+// 1010 ADDR <-> SDA
+// 1111 ADDR <-> VCC
+// ADDR represents A3:A0 of the 7-bit address.
+// The result is: 0b101(ADDR)
+#define IS31FL3741_I2C_ADDRESS_1 IS31FL3741_I2C_ADDRESS_GND
+#define IS31FL3741_I2C_ADDRESS_2 IS31FL3741_I2C_ADDRESS_SCL
+
+#define DRIVER_1_LED_TOTAL 30
+#define DRIVER_2_LED_TOTAL 36
+#define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
+```
+!> Note the parentheses, this is so when `RGB_MATRIX_LED_COUNT` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)` will give very different results than `rand() % DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL`.
+
+Define these arrays listing all the LEDs in your `<keyboard>.c`:
+
+```c
+const is31fl3741_led_t PROGMEM g_is31fl3741_leds[IS31FL3741_LED_COUNT] = {
+/* Refer to IS31 manual for these locations
+ *   driver
+ *   |  R location
+ *   |  |        G location
+ *   |  |        |        B location
+ *   |  |        |        | */
+    {0, SW1_CS1, SW1_CS2, SW1_CS3},
+    ....
+}
+```
+
+Where `SWx_CSy` is the location of the LED in the matrix defined by [the datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3741A_DS.pdf) and the header file `drivers/led/issi/is31fl3741.h`. The `driver` is the index of the driver you defined in your `config.h` (Only `0`, `1`, `2`, or `3` for now).
 
 ---
 ### IS31FLCOMMON :id=is31flcommon
