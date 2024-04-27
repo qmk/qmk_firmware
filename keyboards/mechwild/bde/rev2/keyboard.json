@@ -4,6 +4,15 @@
         "pid": "0x170A",
         "device_version": "1.0.1"
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true,
+        "rgblight": true,
+        "encoder": true,
+        "oled": true
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "D2", "pin_b": "D3"}

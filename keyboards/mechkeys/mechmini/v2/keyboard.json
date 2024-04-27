@@ -8,6 +8,14 @@
     "pid": "0xCA40",
     "device_version": "0.0.2"
   },
+  "features": {
+    "bootmagic": true,
+    "mousekey": false,
+    "extrakey": true,
+    "nkro": true,
+    "backlight": true,
+    "rgblight": true
+  },
   "matrix_pins": {
     "cols": ["F0", "F1", "F4", "F5", "F6", "F7", "B3", "B1", "B0", "D5", "B7", "C7"],
     "rows": ["D0", "D1", "D2", "D3"]
