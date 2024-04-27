@@ -74,6 +74,7 @@ jobs:
         files: |
           *wired*.bin
           *threemode*.bin
+          keyboards/nuphy/gem80/ansi/keymaps/via/*via3.json
         tag_name: ${{ github.ref_name }}
         draft: true
         prerelease: true
