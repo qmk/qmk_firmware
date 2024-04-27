@@ -661,7 +661,10 @@
                     "$ref": "qmk.definitions.v1#/mcu_pin",
                     "$comment": "Deprecated: use ws2812.pin instead"
                 },
-                "rgbw": {"type": "boolean"},
+                "rgbw": {
+                    "type": "boolean",
+                    "$comment": "Deprecated: use ws2812.rgbw instead"
+                },
                 "saturation_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "sleep": {"type": "boolean"},
                 "split": {"type": "boolean"},
@@ -937,6 +940,7 @@
                     "enum": ["bitbang", "custom", "i2c", "pwm", "spi", "vendor"]
                 },
                 "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "rgbw": {"type": "boolean"},
                 "i2c_address": {"$ref": "qmk.definitions.v1#/hex_number_2d"},
                 "i2c_timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"}
             }
