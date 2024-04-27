@@ -1,1 +1,0 @@
-RGBLIGHT_SPLIT = yes

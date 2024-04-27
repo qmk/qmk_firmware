@@ -13,6 +13,9 @@
     "indicators": {
         "caps_lock": "C12"
     },
+    "haptic": {
+        "driver": "solenoid"
+    },
     "processor": "STM32F446", // RET6
     "bootloader": "stm32-dfu",
     "diode_direction": "ROW2COL",

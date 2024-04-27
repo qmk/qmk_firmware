@@ -3,6 +3,12 @@
     "usb": {
         "device_version": "1.0.0"
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "rgb_matrix": true
+    },
     "ws2812": {
         "pin": "D2"
     },

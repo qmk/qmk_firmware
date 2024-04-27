@@ -8,6 +8,8 @@ void matrix_init_user(void) {
 	gpio_set_pin_output(C6);
 	gpio_set_pin_output(B2);
 	gpio_set_pin_output(B1);
+  
+  matrix_init_user();
 }
 
 bool led_update_kb(led_t led_state) {

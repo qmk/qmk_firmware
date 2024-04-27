@@ -8,6 +8,14 @@
         "pid": "0x0870",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true,
+        "backlight": true,
+        "rgblight": true
+    },
     "backlight": {
         "pin": "B6",
         "breathing": true

@@ -8,6 +8,15 @@
     "pid": "0x6060",
     "device_version": "0.0.1"
   },
+  "features": {
+    "bootmagic": false,
+    "mousekey": true,
+    "extrakey": true,
+    "console": true,
+    "command": true,
+    "nkro": true,
+    "unicode": true
+  },
   "processor": "atmega32u4",
   "bootloader": "caterina",
   "layouts": {
