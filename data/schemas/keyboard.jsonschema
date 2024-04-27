@@ -133,6 +133,10 @@
                         "clicky": {"type": "boolean"}
                     }
                 },
+                "driver": {
+                    "type": "string",
+                    "enum": ["dac_additive", "dac_basic", "pwm_software", "pwm_hardware"]
+                },
                 "macro_beep": {"type": "boolean"},
                 "pins": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
                 "power_control": {

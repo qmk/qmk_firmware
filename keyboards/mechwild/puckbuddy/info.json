@@ -8,6 +8,17 @@
         "pid": "0x170F",
         "device_version": "1.0.0"
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "rgblight": true,
+        "encoder": true,
+        "oled": true,
+        "dip_switch": true,
+        "pointing_device": true,
+        "dynamic_tapping_term": true
+    },
     "matrix_pins": {
         "cols": ["B10", "A8", "B4", "B5"],
         "rows": ["B12", "B13", "B14", "B15"]

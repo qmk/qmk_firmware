@@ -118,6 +118,8 @@ Configures the [Audio](feature_audio.md) feature.
         * `clicky`
             * The default audio clicky enabled state.
             * Default: `true`
+    * `driver`
+        * The driver to use. Must be one of `dac_additive`, `dac_basic`, `pwm_software`, `pwm_hardware`.
     * `macro_beep`
         * Play a short beep for `\a` (ASCII `BEL`) characters in Send String macros.
         * Default: `false`
