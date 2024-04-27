@@ -5,7 +5,7 @@
   <img src="https://live.staticflickr.com/65535/53682442119_1fcea26fef_o.jpg">
 </div>
 
-A meeky 34 keys choc-spaced keyboard.
+A meek 34 keys choc-spaced keyboard.
 
 - Keyboard Maintainer: [Florent Linguenheld](https://github.com/flinguenheld/)
 - Visit the repository to get the last release: [Chew](https://github.com/flinguenheld/chew)
@@ -29,6 +29,17 @@ Optional:
 - 2x Back PCB + screws and bolts
 - 2x [Tenting pucks](https://splitkb.com/collections/keyboard-parts/products/tenting-puck)
 - 2x [Tripods](https://www.manfrotto.com/us-en/pocket-support-large-black-mp3-bk/)
+
+### Bootloader
+
+The controller has two buttons, so you can enter the bootloader in 2 ways:
+
+- Maintain the **boot** button and plug the usb cable in.
+- Press twice the **reset** button.
+
+<div align="center" style="margin: 30px;">
+  <img src="https://github.com/flinguenheld/chew/blob/main/images/hazelnuts.png?raw=true">
+</div>
 
 <div align="center">
   <img src="https://live.staticflickr.com/65535/53682442124_677ffa6cb5_o.jpg">
