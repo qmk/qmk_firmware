@@ -2,8 +2,6 @@
     "manufacturer": "florent@linguenheld.fr",
     "keyboard_name": "chew",
     "maintainer": "florent@linguenheld.fr",
-
-    "processor": "RP2040",
     "bootloader": "rp2040",
     "features": {
         "bootmagic": false,
@@ -13,13 +11,6 @@
         "mousekey": true,
         "nkro": true
     },
-
-    "usb": {
-        "device_version": "1.0.0",
-        "pid": "0x0000",
-        "vid": "0xFEED"
-    },
-    
     "matrix_pins": {
         "direct": [
             ["GP4", "GP3", "GP2", "GP1", "GP0"],
@@ -28,15 +19,9 @@
             ["GP7", "GP6", "GP5", "NO_PIN", "NO_PIN"]
         ]
     },
+    "processor": "RP2040",
     "split": {
         "enabled": true,
-          "transport": {
-            "protocol": "serial_usart",
-            "sync" :{
-                "matrix_state": true
-            }
-        },
-    
         "matrix_pins": {
             "right": {
                 "direct": [
@@ -46,11 +31,21 @@
                     ["GP5", "GP6", "GP7", "NO_PIN", "NO_PIN"]
                 ]
             }
+        },
+        "transport": {
+            "protocol": "serial_usart",
+            "sync": {
+                "matrix_state": true
+            }
         }
     },
-
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0000",
+        "vid": "0xFEED"
+    },
     "layouts": {
-        "LAYOUT_split_5_5_4_3": {
+        "LAYOUT": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0.25},
                 {"matrix": [0, 1], "x": 1, "y": 0.125},
@@ -62,7 +57,6 @@
                 {"matrix": [4, 2], "x": 9, "y": 0},
                 {"matrix": [4, 3], "x": 10, "y": 0.125},
                 {"matrix": [4, 4], "x": 11, "y": 0.25},
-
                 {"matrix": [1, 0], "x": 0, "y": 1.25},
                 {"matrix": [1, 1], "x": 1, "y": 1.125},
                 {"matrix": [1, 2], "x": 2, "y": 1},
@@ -73,7 +67,6 @@
                 {"matrix": [5, 2], "x": 9, "y": 1},
                 {"matrix": [5, 3], "x": 10, "y": 1.125},
                 {"matrix": [5, 4], "x": 11, "y": 1.25},
-                
                 {"matrix": [2, 0], "x": 0, "y": 2.25},
                 {"matrix": [2, 1], "x": 1, "y": 2.125},
                 {"matrix": [2, 2], "x": 2, "y": 2},
@@ -82,11 +75,9 @@
                 {"matrix": [6, 1], "x": 9, "y": 2},
                 {"matrix": [6, 2], "x": 10, "y": 2.125},
                 {"matrix": [6, 3], "x": 11, "y": 2.25},
-
                 {"matrix": [3, 0], "x": 2.5, "y": 3.25},
                 {"matrix": [3, 1], "x": 3.5, "y": 3.5},
                 {"matrix": [3, 2], "x": 4.5, "y": 3.75},
-
                 {"matrix": [7, 0], "x": 6.5, "y": 3.75},
                 {"matrix": [7, 1], "x": 7.5, "y": 3.5},
                 {"matrix": [7, 2], "x": 8.5, "y": 3.25}

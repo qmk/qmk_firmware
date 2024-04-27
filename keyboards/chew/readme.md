@@ -1,9 +1,7 @@
 ## Chew
 
-<div align="center">
-  <img src="https://live.staticflickr.com/65535/53681212617_90e4eebaf9_o.jpg">
-  <img src="https://live.staticflickr.com/65535/53682442119_1fcea26fef_o.jpg">
-</div>
+![Chew front photo](https://live.staticflickr.com/65535/53681212617_90e4eebaf9_o.jpg)
+![Chew front photo](https://live.staticflickr.com/65535/53682442119_1fcea26fef_o.jpg)
 
 A meek 34 keys choc-spaced keyboard.
 
@@ -11,14 +9,13 @@ A meek 34 keys choc-spaced keyboard.
 - Visit the repository to get the last release: [Chew](https://github.com/flinguenheld/chew)
 - Read the wiki to have some help or information: [Chew wiki](https://github.com/flinguenheld/chew/wiki)
 
-<div align="center">
-  <img width="200px" src="https://github.com/flinguenheld/chew/blob/main/images/squirrel_brown.png?raw=true">
-</div>
+
+![squirrel](https://github.com/flinguenheld/chew/blob/main/images/squirrel_brown.png?raw=true)
 
 ### Requirements
 
 - 2x PCB
-- 2x MCU board [RP2040-Zéro](https://www.waveshare.com/wiki/RP2040-Zero)
+- 2x MCU board [RP2040-Zero](https://www.waveshare.com/wiki/RP2040-Zero)
 - 2x TRRS jack
 - 34 switches Choc V1 **only**
 - 34 keycaps Choc V1
@@ -37,10 +34,5 @@ The controller has two buttons, so you can enter the bootloader in 2 ways:
 - Maintain the **boot** button and plug the usb cable in.
 - Press twice the **reset** button.
 
-<div align="center" style="margin: 30px;">
-  <img src="https://github.com/flinguenheld/chew/blob/main/images/hazelnuts.png?raw=true">
-</div>
-
-<div align="center">
-  <img src="https://live.staticflickr.com/65535/53682442124_677ffa6cb5_o.jpg">
-</div>
+![hazelnuts](https://github.com/flinguenheld/chew/blob/main/images/hazelnuts.png?raw=true)
+![Chew back photo](https://live.staticflickr.com/65535/53682442124_677ffa6cb5_o.jpg)
