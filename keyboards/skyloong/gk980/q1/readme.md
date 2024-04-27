@@ -1,6 +1,6 @@
 # GK980 Q1 Keyboard
 
-![GK980 Q1](https://i.imgur.com/hjVObZKh.jpg)
+![GK980 Q1](https://i.imgur.com/uUVIMBOh.jpeg)
 
 ## The PCB features:
 * QMK & VIA compatibility
