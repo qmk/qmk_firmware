@@ -72,3 +72,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // sleep timeout change step (minutes)
 #define SLEEP_TIMEOUT_STEP 1
 
+#define OS_DETECTION_KEYBOARD_RESET
