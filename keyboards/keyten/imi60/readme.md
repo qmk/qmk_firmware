@@ -2,6 +2,8 @@
 
 imi60 - 60% PCB compatible with keyboards by La-Versa: Animi, Mirimi and Otsukimi
 
+![imi60](https://i.imgur.com/s37K4wY.png)
+
 * Keyboard Maintainer: [keyten](https://github.com/key10iq)
 * Hardware Supported: keyten imi60
 * Hardware Availability: private GB
