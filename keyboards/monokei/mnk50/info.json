@@ -8,6 +8,12 @@
         "pid": "0x4D35",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true
+    },
     "matrix_pins": {
         "cols": ["B14", "B15", "A8", "A9", "A13", "A14", "A15", "B3", "B4", "B5", "B6", "B7", "B8", "B9"],
         "rows": ["B12", "B13", "A10", "A6"]

@@ -1,7 +1,17 @@
 {
     "keyboard_name": "Charybdis Nano (3x5) Blackpill",
     "usb": {
-        "device_version": "1.0.0"
+        "device_version": "1.0.0",
+        "shared_endpoint": {
+            "keyboard": true
+        }
+    },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "rgb_matrix": true,
+        "pointing_device": true
     },
     "eeprom": {
         "driver": "spi"
@@ -24,7 +34,5 @@
         "rows": ["A2", "B8", "A8", "B9"]
     },
     "diode_direction": "ROW2COL",
-    "processor": "STM32F411",
-    "bootloader": "stm32-dfu",
-    "board": "BLACKPILL_STM32_F411"
+    "development_board": "blackpill_f411"
 }

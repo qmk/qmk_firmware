@@ -8,6 +8,13 @@
         "pid": "0x6BF6",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "rgblight": true,
+        "encoder": true
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "F6", "pin_b": "F5"}

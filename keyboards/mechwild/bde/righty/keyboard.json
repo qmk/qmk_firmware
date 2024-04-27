@@ -4,6 +4,13 @@
         "pid": "0x1702",
         "device_version": "2.0.3"
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true,
+        "rgblight": true
+    },
     "matrix_pins": {
         "rows": ["D1", "D7", "D3"],
         "cols": ["B4", "B5", "E6", "C6", "D4", "D0", "F4", "F5", "F6", "B3", "B2", "B6", "B1", "F7"]

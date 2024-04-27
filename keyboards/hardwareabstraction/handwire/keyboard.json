@@ -15,6 +15,9 @@
         "oled": true,
         "wpm": true
     },
+    "haptic": {
+        "driver": "solenoid"
+    },
     "build": {
         "lto": true
     },
