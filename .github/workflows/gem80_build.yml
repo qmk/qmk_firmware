@@ -36,27 +36,9 @@ jobs:
 
     - uses: actions/checkout@v4
       with:
+        submodules: recursive
         ref: ${{ github.event.inputs.branch || github.ref }}
         fetch-depth: 0
-    - name: Cache Submodules
-      id: cache-submodule
-      uses: actions/cache@v3
-      with:
-        path: |
-          lib/chibios
-          lib/chibios-contrib
-          lib/googletest
-          lib/lufa
-          lib/vusb
-          lib/printf
-          lib/pico-sdk
-          lib/lvgl
-        key: ${{ runner.os }}-submodules
-    - name: Update git submodules
-      if: steps.cache-submodule.outputs.cache-hit != 'true'
-      uses: actions/checkout@v3
-      with:
-        submodules: recursive
 
     - name: Install dependencies
       run: pip3 install -r requirements.txt
@@ -67,6 +49,7 @@ jobs:
         ./compile.sh
 
         [ ! -f .failed ] || exit 1
+
     - name: Upload wired version
       uses: actions/upload-artifact@v4
       if: always()
