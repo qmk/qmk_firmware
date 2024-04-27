@@ -3,6 +3,13 @@
     "usb": {
         "device_version": "2.0.0"
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": false,
+        "extrakey": true,
+        "rgb_matrix": true,
+        "pointing_device": true
+    },
     "rgb_matrix": {
         "driver": "ws2812"
     },

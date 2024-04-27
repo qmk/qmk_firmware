@@ -8,6 +8,12 @@
         "pid": "0x3138",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true
+    },
     "matrix_pins": {
         "cols": ["B10", "B2", "B1", "B0", "B14", "B15", "A8", "A9", "A10", "B9", "B8", "B7", "B6", "B5", "B4", "B3", "A15", "A14"],
         "rows": ["B13", "B12", "A7", "A6", "A5"]

@@ -10,6 +10,9 @@
     },
     "diode_direction": "COL2ROW",
     "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
         "backlight": true
     },
     "backlight": {
