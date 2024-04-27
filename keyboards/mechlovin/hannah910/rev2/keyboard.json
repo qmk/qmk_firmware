@@ -2,11 +2,18 @@
     "keyboard_name": "Hannah910",
     "manufacturer": "Mechlovin",
     "url": "",
-    "maintainer": "Mechlovin'",
+    "maintainer": "Team Mechlovin'",
     "usb": {
         "vid": "0x4D4C",
-        "pid": "0x9101",
-        "device_version": "0.0.1"
+        "pid": "0x9102",
+        "device_version": "0.0.2"
+    },
+    "features": {
+        "bootmagic": true,
+        "mousekey": false,
+        "extrakey": true,
+        "backlight": true,
+        "rgblight": true
     },
     "matrix_pins": {
         "cols": ["E6", "B1", "B3", "F0", "F1", "F4", "F5", "F6", "F7", "D5", "D4", "B4", "D6", "D7", "B0"],
@@ -18,7 +25,7 @@
         "breathing": true
     },
     "rgblight": {
-        "led_count": 9,
+        "led_count": 28,
         "animations": {
             "breathing": true,
             "rainbow_mood": true,
@@ -37,6 +44,11 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "community_layouts": ["65_ansi_blocker", "65_iso_blocker_split_bs"],
+    "layout_aliases": {
+        "LAYOUT_ansi": "LAYOUT_65_ansi_blocker",
+        "LAYOUT_iso": "LAYOUT_65_iso_blocker_split_bs"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -55,6 +67,7 @@
                 {"matrix": [0, 12], "x": 12, "y": 0},
                 {"matrix": [0, 13], "x": 13, "y": 0},
                 {"matrix": [0, 14], "x": 14, "y": 0},
+                {"matrix": [4, 9], "x": 15, "y": 0},
 
                 {"matrix": [1, 0], "x": 0, "y": 1, "w": 1.5},
                 {"matrix": [1, 1], "x": 1.5, "y": 1},
@@ -112,13 +125,12 @@
                 {"matrix": [4, 8], "x": 7.75, "y": 4, "w": 2.25},
                 {"matrix": [4, 10], "x": 10, "y": 4, "w": 1.25},
                 {"matrix": [4, 11], "x": 11.25, "y": 4, "w": 1.25},
-
                 {"matrix": [4, 12], "x": 13, "y": 4},
                 {"matrix": [4, 13], "x": 14, "y": 4},
                 {"matrix": [4, 14], "x": 15, "y": 4}
             ]
         },
-        "LAYOUT_iso": {
+        "LAYOUT_65_iso_blocker_split_bs": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
@@ -135,6 +147,7 @@
                 {"matrix": [0, 12], "x": 12, "y": 0},
                 {"matrix": [0, 13], "x": 13, "y": 0},
                 {"matrix": [0, 14], "x": 14, "y": 0},
+                {"matrix": [4, 9], "x": 15, "y": 0},
 
                 {"matrix": [1, 0], "x": 0, "y": 1, "w": 1.5},
                 {"matrix": [1, 1], "x": 1.5, "y": 1},
@@ -189,13 +202,12 @@
                 {"matrix": [4, 6], "x": 3.75, "y": 4, "w": 6.25},
                 {"matrix": [4, 10], "x": 10, "y": 4, "w": 1.25},
                 {"matrix": [4, 11], "x": 11.25, "y": 4, "w": 1.25},
-
                 {"matrix": [4, 12], "x": 13, "y": 4},
                 {"matrix": [4, 13], "x": 14, "y": 4},
                 {"matrix": [4, 14], "x": 15, "y": 4}
             ]
         },
-        "LAYOUT_ansi": {
+        "LAYOUT_65_ansi_blocker": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
@@ -211,6 +223,7 @@
                 {"matrix": [0, 11], "x": 11, "y": 0},
                 {"matrix": [0, 12], "x": 12, "y": 0},
                 {"matrix": [0, 13], "x": 13, "y": 0, "w": 2},
+                {"matrix": [4, 9], "x": 15, "y": 0},
 
                 {"matrix": [1, 0], "x": 0, "y": 1, "w": 1.5},
                 {"matrix": [1, 1], "x": 1.5, "y": 1},
@@ -264,11 +277,11 @@
                 {"matrix": [4, 6], "x": 3.75, "y": 4, "w": 6.25},
                 {"matrix": [4, 10], "x": 10, "y": 4, "w": 1.25},
                 {"matrix": [4, 11], "x": 11.25, "y": 4, "w": 1.25},
-
                 {"matrix": [4, 12], "x": 13, "y": 4},
                 {"matrix": [4, 13], "x": 14, "y": 4},
                 {"matrix": [4, 14], "x": 15, "y": 4}
             ]
         }
     }
+    ,"meta": "https://noroadsleft.github.io/kbf_qmk_converter/"
 }

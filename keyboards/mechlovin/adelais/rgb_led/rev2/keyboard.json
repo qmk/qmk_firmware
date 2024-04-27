@@ -3,6 +3,17 @@
     "usb": {
         "pid": "0xAEC2"
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "console": true,
+        "command": true,
+        "nkro": true,
+        "rgblight": true,
+        "rgb_matrix": true,
+        "encoder": true
+    },
     "rgb_matrix": {
         "animations": {
             "alphas_mods": true,
