@@ -9,6 +9,8 @@ matrix scanning:
         pointer: where in the circular buffer are we?
         sum: sum of values in the circular buffer, so that we don't have to access the whole buffer, just 2 elements.
 
+    special case: initialization
+    return unfiltered value if the buffer is not filled yet
 
     get value out, update sensor boundaries only if sma initialized
 
