@@ -38,6 +38,7 @@
         "mousekey": true,
         "nkro": true,
         "rgb_matrix": true,
+        "pointing_device": true,
         "caps_word": true,
         "tri_layer": true
     },

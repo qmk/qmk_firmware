@@ -1,7 +1,17 @@
 {
     "keyboard_name": "Charybdis (4x6) Blackpill",
     "usb": {
-        "device_version": "1.0.0"
+        "device_version": "1.0.0",
+        "shared_endpoint": {
+            "keyboard": true
+        }
+    },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "rgb_matrix": true,
+        "pointing_device": true
     },
     "eeprom": {
         "driver": "spi"

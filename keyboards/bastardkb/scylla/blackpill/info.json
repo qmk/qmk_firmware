@@ -1,7 +1,16 @@
 {
     "keyboard_name": "Scylla Blackpill",
     "usb": {
-        "device_version": "1.0.0"
+        "device_version": "1.0.0",
+        "shared_endpoint": {
+            "keyboard": true
+        }
+    },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "rgb_matrix": true
     },
     "eeprom": {
         "driver": "spi"
