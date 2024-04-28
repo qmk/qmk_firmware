@@ -588,9 +588,6 @@ Configures the [RGB Lighting](feature_rgblight.md) feature.
     * `max_brightness`
         * The maximum value which the HSV "V" component is scaled to, from 0 to 255.
         * Default: `255`
-    * `rgbw`
-        * Enable RGBW LEDs.
-        * Default: `false`
     * `saturation_steps`
         * The number of saturation adjustment steps.
         * Default: `17`
@@ -855,3 +852,6 @@ Configures the [WS2812](ws2812_driver.md) driver.
     * `i2c_timeout`
         * The I²C timeout in milliseconds (`i2c` driver only).
         * Default: `100` (100 ms)
+    * `rgbw`
+        * Enable RGBW LEDs.
+        * Default: `false`

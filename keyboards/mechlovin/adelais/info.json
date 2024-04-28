@@ -2,14 +2,6 @@
     "manufacturer": "Team.Mechlovin",
     "url": "",
     "maintainer": "mechlovin",
-    "features": {
-        "bootmagic": true,
-        "command": true,
-        "console": true,
-        "extrakey": true,
-        "mousekey": true,
-        "nkro": true
-    },
     "usb": {
         "vid": "0x4D4C",
         "device_version": "0.0.1"
