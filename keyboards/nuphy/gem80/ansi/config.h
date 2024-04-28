@@ -50,14 +50,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SD1_RX_PIN B7
 #define SD1_RX_PAL_MODE 0
 
-#define EECONFIG_KB_DATA_SIZE 0 // sizeof user_config_t
+#define EECONFIG_KB_DATA_SIZE 0          // sizeof user_config_t
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 17 // sizeof via_config
-#define RGB_MATRIX_LED_COUNT 101 // 93  // RGB总灯数 (88轴灯+5侧灯)
+#ifdef RGB_MATRIX_LED_COUNT
+#    undef RGB_MATRIX_LED_COUNT
+#endif
+#define RGB_MATRIX_LED_COUNT 101 // 93  // RGB总灯数 (88轴灯+5侧灯) 88 + 5 + 8
 
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CUSTOM_position_mode
 #define RGB_DEFAULT_COLOUR 168
 
 #define USB_SLEEP_ENABLED true
+#define RGB_MATRIX_SLEEP
 
 // #define DEBUG_MATRIX_SCAN_RATE
 
@@ -67,9 +71,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEBOUNCE_STEP 1
 
 // USB sleep workaround :D
-#define USB_SUSPEND_WAKEUP_DELAY 250
+#ifdef USB_SUSPEND_WAKEUP_DELAY
+#    undef USB_SUSPEND_WAKEUP_DELAY
+#endif
+#define USB_SUSPEND_WAKEUP_DELAY 50
 
 // sleep timeout change step (minutes)
 #define SLEEP_TIMEOUT_STEP 1
-
-#define OS_DETECTION_KEYBOARD_RESET
