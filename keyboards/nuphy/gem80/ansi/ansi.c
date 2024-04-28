@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "action.h"
 #include "config.h"
+#include "host.h"
 #include "keycodes.h"
 #include "rgb_matrix.h"
 #include "user_kb.h"
@@ -40,6 +41,7 @@ extern DEV_INFO_STRUCT dev_info;
 extern uint8_t         rf_blink_cnt;
 uint8_t                win_lock_led    = 16;
 uint8_t                scroll_lock_led = 255;
+uint8_t                num_lock_led    = 255;
 
 extern void light_speed_contol(uint8_t fast);
 extern void light_level_control(uint8_t brighten);
@@ -358,6 +360,15 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
             return false;
 
+        case KC_NUM:
+            if (record->event.pressed) {
+                num_lock_led = get_led_index(record->event.key.row, record->event.key.col);
+                register_code(KC_NUM);
+            } else {
+                unregister_code(KC_NUM);
+            }
+
+            return false;
         case KC_SCRL:
             if (record->event.pressed) {
                 scroll_lock_led = get_led_index(record->event.key.row, record->event.key.col);
@@ -452,6 +463,10 @@ bool rgb_matrix_indicators_kb(void) {
 bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     if (keymap_config.no_gui) {
         rgb_matrix_set_color(win_lock_led, 0x00, 0x80, 0x00);
+    }
+
+    if (host_keyboard_led_state().num_lock) {
+        rgb_matrix_set_color(num_lock_led, 0x00, 0x80, 0x00);
     }
 
     if (host_keyboard_led_state().scroll_lock) {

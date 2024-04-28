@@ -336,10 +336,6 @@ void sys_led_show(void) {
                 break;
         }
     }
-
-    if (host_keyboard_led_state().num_lock) {
-        set_logo_rgb(0x80, 0x80, 0x80);
-    }
 }
 
 /**
