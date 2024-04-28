@@ -563,3 +563,157 @@ TEST_F(OneShot, OSLChainingTwoOSLsAndAdditionalKeypress) {
     EXPECT_TRUE(layer_state_is(0));
     VERIFY_AND_CLEAR(driver);
 }
+
+TEST_F(OneShot, OSLWithShortLT) {
+    TestDriver driver;
+    InSequence s;
+    KeymapKey  osl_key = KeymapKey{0, 0, 0, OSL(1)};
+    KeymapKey  lt_key  = KeymapKey(1, 1, 0, LT(2, KC_A));
+
+    set_keymap({osl_key, lt_key});
+
+    /* Tap OSL key */
+    EXPECT_NO_REPORT(driver);
+    tap_key(osl_key);
+    run_one_scan_loop();
+    EXPECT_TRUE(layer_state_is(1));
+    VERIFY_AND_CLEAR(driver);
+
+    /* Tap LT key. */
+    EXPECT_REPORT(driver, (lt_key.report_code)).Times(1);
+    EXPECT_EMPTY_REPORT(driver);
+    tap_key(lt_key);
+    run_one_scan_loop();
+    EXPECT_TRUE(layer_state_is(0));
+    VERIFY_AND_CLEAR(driver);
+}
+
+TEST_F(OneShot, OSLWithLongLTAndRegularKey) {
+    TestDriver driver;
+    InSequence s;
+    KeymapKey  osl_key     = KeymapKey{0, 0, 0, OSL(1)};
+    KeymapKey  lt_key      = KeymapKey(1, 1, 0, LT(2, KC_A));
+    KeymapKey  regular_key = KeymapKey(2, 1, 1, KC_B);
+
+    set_keymap({osl_key, lt_key, regular_key});
+
+    /* Tap OSL key */
+    EXPECT_NO_REPORT(driver);
+    tap_key(osl_key);
+    run_one_scan_loop();
+    EXPECT_TRUE(layer_state_is(1));
+    VERIFY_AND_CLEAR(driver);
+
+    /* Press LT key. */
+    EXPECT_NO_REPORT(driver);
+    lt_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    /* Idle for tapping term of mod tap hold key. */
+    EXPECT_NO_REPORT(driver);
+    idle_for(TAPPING_TERM + 1);
+    VERIFY_AND_CLEAR(driver);
+    EXPECT_TRUE(layer_state_is(2));
+
+    /* Press regular key. */
+    EXPECT_REPORT(driver, (regular_key.report_code)).Times(1);
+    regular_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    /* Release regular key. */
+    EXPECT_EMPTY_REPORT(driver);
+    regular_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
+
+TEST_F(OneShot, OSLWithShortModTapKeyAndRegularKey) {
+    TestDriver driver;
+    InSequence s;
+    KeymapKey  osl_key          = KeymapKey{0, 0, 0, OSL(1)};
+    KeymapKey  mod_tap_hold_key = KeymapKey(1, 1, 0, SFT_T(KC_P));
+    KeymapKey  regular_key      = KeymapKey(0, 2, 0, KC_A);
+
+    set_keymap({osl_key, mod_tap_hold_key, regular_key});
+
+    /* Tap OSL key */
+    EXPECT_NO_REPORT(driver);
+    tap_key(osl_key);
+    run_one_scan_loop();
+    EXPECT_TRUE(layer_state_is(1));
+    VERIFY_AND_CLEAR(driver);
+
+    /* Press mod-tap-hold key. */
+    EXPECT_NO_REPORT(driver);
+    mod_tap_hold_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    /* Release mod-tap-hold key. */
+    EXPECT_REPORT(driver, (KC_P));
+    EXPECT_EMPTY_REPORT(driver);
+    mod_tap_hold_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    /* Press regular key. */
+    EXPECT_REPORT(driver, (regular_key.report_code));
+    regular_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    /* Release regular key. */
+    EXPECT_EMPTY_REPORT(driver);
+    regular_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
+
+TEST_F(OneShot, OSLWithLongModTapKeyAndRegularKey) {
+    TestDriver driver;
+    InSequence s;
+    KeymapKey  osl_key          = KeymapKey{0, 0, 0, OSL(1)};
+    KeymapKey  mod_tap_hold_key = KeymapKey(1, 1, 0, SFT_T(KC_P));
+    KeymapKey  regular_key      = KeymapKey(1, 2, 0, KC_A);
+
+    set_keymap({osl_key, mod_tap_hold_key, regular_key});
+
+    /* Tap OSL key */
+    EXPECT_NO_REPORT(driver);
+    tap_key(osl_key);
+    run_one_scan_loop();
+    EXPECT_TRUE(layer_state_is(1));
+    VERIFY_AND_CLEAR(driver);
+
+    /* Press mod-tap-hold key. */
+    EXPECT_NO_REPORT(driver);
+    mod_tap_hold_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    /* Idle for tapping term of mod tap hold key. */
+    EXPECT_REPORT(driver, (KC_LSFT));
+    idle_for(TAPPING_TERM + 1);
+    VERIFY_AND_CLEAR(driver);
+
+    /* Release mod-tap-hold key. */
+    EXPECT_EMPTY_REPORT(driver);
+    mod_tap_hold_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    /* Press regular key. */
+    EXPECT_REPORT(driver, (regular_key.report_code)).Times(1);
+    EXPECT_EMPTY_REPORT(driver);
+    regular_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    /* Release regular key. */
+    EXPECT_NO_REPORT(driver);
+    regular_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
