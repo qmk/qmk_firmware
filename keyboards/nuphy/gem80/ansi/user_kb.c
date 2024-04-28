@@ -80,21 +80,37 @@ void gpio_init(void) {
     pwr_side_led_on();
 
     /* set side led pin output low */
-    gpio_set_pin_output(DRIVER_SIDE_PIN);
-    gpio_write_pin_low(DRIVER_SIDE_PIN);
+    setPinOutput(DRIVER_SIDE_PIN);
+    writePinLow(DRIVER_SIDE_PIN);
+
+#if (WORK_MODE == THREE_MODE)
     /* config RF module pin */
-    gpio_set_pin_output(NRF_WAKEUP_PIN);
-    gpio_write_pin_high(NRF_WAKEUP_PIN);
-    gpio_set_pin_input_high(NRF_TEST_PIN);
+    setPinOutput(NRF_WAKEUP_PIN);
+    writePinHigh(NRF_WAKEUP_PIN);
+
+    setPinInputHigh(NRF_TEST_PIN);
 
     /* reset RF module */
-    gpio_set_pin_output(NRF_RESET_PIN);
-    gpio_write_pin_low(NRF_RESET_PIN);
+    setPinOutput(NRF_RESET_PIN);
+    writePinLow(NRF_RESET_PIN);
     wait_ms(50);
-    gpio_write_pin_high(NRF_RESET_PIN);
-    /* config dial switch pin */
-    gpio_set_pin_input_high(DEV_MODE_PIN);
-    gpio_set_pin_input_high(SYS_MODE_PIN);
+    writePinHigh(NRF_RESET_PIN);
+
+    /* connection mode switch pin */
+    setPinInputHigh(DEV_MODE_PIN);
+#endif
+    /* config keyboard OS switch pin */
+    setPinInputHigh(SYS_MODE_PIN);
+
+    // open power
+    setPinOutput(DC_BOOST_PIN);
+    writePinHigh(DC_BOOST_PIN);
+
+    setPinOutput(DRIVER_LED_CS_PIN);
+    writePinLow(DRIVER_LED_CS_PIN);
+
+    setPinOutput(DRIVER_SIDE_CS_PIN);
+    writePinLow(DRIVER_SIDE_CS_PIN);
 }
 
 /**
@@ -249,18 +265,20 @@ void dial_sw_scan(void) {
     }
     dial_scan_timer = timer_read32();
 
-    gpio_set_pin_input_high(DEV_MODE_PIN);
-    gpio_set_pin_input_high(SYS_MODE_PIN);
-
-    if (gpio_read_pin(DEV_MODE_PIN)) dial_scan |= 0X01;
-    if (gpio_read_pin(SYS_MODE_PIN)) dial_scan |= 0X02;
+#if (WORK_MODE == THREE_MODE)
+    setPinInputHigh(DEV_MODE_PIN);
+#endif
+    setPinInputHigh(SYS_MODE_PIN);
+#if (WORK_MODE == THREE_MODE)
+    if (readPin(DEV_MODE_PIN)) dial_scan |= 0X01;
+#endif
+    if (readPin(SYS_MODE_PIN)) dial_scan |= 0X02;
 
     if (dial_save != dial_scan) {
         break_all_key();
 
-        no_act_time     = 0;
-        rf_linking_time = 0;
-
+        no_act_time       = 0;
+        rf_linking_time   = 0;
         dial_save         = dial_scan;
         debounce          = 25;
         f_dial_sw_init_ok = 0;
@@ -270,6 +288,7 @@ void dial_sw_scan(void) {
         return;
     }
 
+#if (WORK_MODE == THREE_MODE)
     if (dial_scan & 0x01) {
         if (dev_info.link_mode != LINK_USB) {
             switch_dev_link(LINK_USB);
@@ -279,6 +298,7 @@ void dial_sw_scan(void) {
             switch_dev_link(dev_info.rf_channel);
         }
     }
+#endif
 
     if (dial_scan & 0x02) {
         if (dev_info.sys_sw_state != SYS_SW_MAC) {
@@ -302,9 +322,11 @@ void dial_sw_scan(void) {
         f_dial_sw_init_ok = 1;
         f_first           = false;
 
+#if (WORK_MODE == THREE_MODE)
         if (dev_info.link_mode != LINK_USB) {
             host_set_driver(&rf_host_driver);
         }
+#endif
     }
 }
 
@@ -317,19 +339,22 @@ void dial_sw_fast_scan(void) {
     uint8_t dial_check_dev = 0;
     uint8_t dial_check_sys = 0;
     uint8_t debounce       = 0;
-
-    gpio_set_pin_input_high(DEV_MODE_PIN);
-    gpio_set_pin_input_high(SYS_MODE_PIN);
+#if (WORK_MODE == THREE_MODE)
+    setPinInputHigh(DEV_MODE_PIN);
+#endif
+    setPinInputHigh(SYS_MODE_PIN);
 
     // Debounce to get a stable state
     for (debounce = 0; debounce < 10; debounce++) {
         dial_scan_dev = 0;
         dial_scan_sys = 0;
-        if (gpio_read_pin(DEV_MODE_PIN))
+#if (WORK_MODE == THREE_MODE)
+        if (readPin(DEV_MODE_PIN))
             dial_scan_dev = 0x01;
         else
             dial_scan_dev = 0;
-        if (gpio_read_pin(SYS_MODE_PIN))
+#endif
+        if (readPin(SYS_MODE_PIN))
             dial_scan_sys = 0x01;
         else
             dial_scan_sys = 0;
@@ -341,6 +366,7 @@ void dial_sw_fast_scan(void) {
         wait_ms(1);
     }
 
+#if (WORK_MODE == THREE_MODE)
     // RF link mode
     if (dial_scan_dev) {
         if (dev_info.link_mode != LINK_USB) {
@@ -351,7 +377,7 @@ void dial_sw_fast_scan(void) {
             switch_dev_link(dev_info.rf_channel);
         }
     }
-
+#endif
     // Win or Mac
     if (dial_scan_sys) {
         if (dev_info.sys_sw_state != SYS_SW_MAC) {
@@ -391,9 +417,9 @@ void timer_pro(void) {
     if (rf_link_show_time < RF_LINK_SHOW_TIME) rf_link_show_time++;
 
     if (no_act_time < 0xffffffff) no_act_time++;
-
+#if (WORK_MODE == THREE_MODE)
     if (rf_linking_time < 0xffff) rf_linking_time++;
-
+#endif
     if (rgb_led_last_act < 0xffff) rgb_led_last_act++;
 
     if (side_led_last_act < 0xffff) side_led_last_act++;
@@ -403,35 +429,35 @@ void timer_pro(void) {
  * @brief User config to default setting.
  */
 void user_config_reset(void) {
-        rgb_matrix_enable();
-        rgb_matrix_mode(RGB_MATRIX_DEFAULT_MODE);
-        rgb_matrix_set_speed(255 - RGB_MATRIX_SPD_STEP * 2);
-        rgb_matrix_sethsv(RGB_DEFAULT_COLOUR, 255, RGB_MATRIX_MAXIMUM_BRIGHTNESS - RGB_MATRIX_VAL_STEP * 2);
+    rgb_matrix_enable();
+    rgb_matrix_mode(RGB_MATRIX_DEFAULT_MODE);
+    rgb_matrix_set_speed(255 - RGB_MATRIX_SPD_STEP * 2);
+    rgb_matrix_sethsv(RGB_DEFAULT_COLOUR, 255, RGB_MATRIX_MAXIMUM_BRIGHTNESS - RGB_MATRIX_VAL_STEP * 2);
 
-        // reset config in via to default too
-        g_config.sleep_enable         = true;
-        g_config.usb_sleep_toggle     = true;
-        g_config.sleep_timeout        = 5;
-        g_config.debounce_press_ms    = DEBOUNCE;
-        g_config.debounce_release_ms  = DEBOUNCE;
-        g_config.caps_indication_type = CAPS_INDICATOR_SIDE;
-        // (top) side LED
-        g_config.side_mode       = 0;
-        g_config.side_brightness = 3;
-        g_config.side_speed      = 2;
-        g_config.side_rgb        = 1;
-        g_config.side_color      = 0;
-        // logo LED
+    // reset config in via to default too
+    g_config.sleep_enable         = true;
+    g_config.usb_sleep_toggle     = true;
+    g_config.sleep_timeout        = 5;
+    g_config.debounce_press_ms    = DEBOUNCE;
+    g_config.debounce_release_ms  = DEBOUNCE;
+    g_config.caps_indication_type = CAPS_INDICATOR_SIDE;
+    // (top) side LED
+    g_config.side_mode       = 0;
+    g_config.side_brightness = 3;
+    g_config.side_speed      = 2;
+    g_config.side_rgb        = 1;
+    g_config.side_color      = 0;
+    // logo LED
 
-        g_config.logo_mode       = 0;
-        g_config.logo_brightness = 3;
-        g_config.logo_speed      = 2;
-        g_config.logo_rgb        = 1;
-        g_config.logo_color      = 0;
-        // mark config as initiated
-        g_config.been_initiated = 0x45;
+    g_config.logo_mode       = 0;
+    g_config.logo_brightness = 3;
+    g_config.logo_speed      = 2;
+    g_config.logo_rgb        = 1;
+    g_config.logo_color      = 0;
+    // mark config as initiated
+    g_config.been_initiated = 0x45;
 
-        via_save_values();
+    via_save_values();
 }
 
 void load_eeprom_data(void) {
