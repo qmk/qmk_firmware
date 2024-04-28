@@ -28,6 +28,11 @@ extern "C" {
 extern report_keyboard_t *keyboard_report;
 #ifdef NKRO_ENABLE
 extern report_nkro_t *nkro_report;
+#    ifdef APDAPTIVE_NKRO_ENABLE
+extern uint8_t kb_report_changed;
+extern uint8_t kb_keys_count;
+extern uint8_t nkro_bit_count;
+#    endif
 #endif
 
 void send_keyboard_report(void);

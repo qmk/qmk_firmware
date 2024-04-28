@@ -36,6 +36,15 @@ enum hid_report_ids {
     REPORT_ID_DIGITIZER
 };
 
+#ifdef APDAPTIVE_NKRO_ENABLE
+/* Keyboard report type */
+#define KB_RPT_MASK(n) (1 << (n))
+enum kb_reports {
+    KB_RPT_STD = KB_RPT_MASK(0),
+    KB_RPT_NKRO = KB_RPT_MASK(1)
+};
+#endif
+
 /* Mouse buttons */
 #define MOUSE_BTN_MASK(n) (1 << (n))
 enum mouse_buttons {
@@ -321,7 +330,7 @@ void add_key_byte(report_keyboard_t* keyboard_report, uint8_t code);
 void del_key_byte(report_keyboard_t* keyboard_report, uint8_t code);
 #ifdef NKRO_ENABLE
 void add_key_bit(report_nkro_t* nkro_report, uint8_t code);
-void del_key_bit(report_nkro_t* nkro_report, uint8_t code);
+bool del_key_bit(report_nkro_t* nkro_report, uint8_t code);
 #endif
 
 void add_key_to_report(uint8_t key);
