@@ -316,14 +316,7 @@ void sleep_sw_led_show(void)
  */
 void sys_led_show(void) {
     uint8_t caps_key_led_idx = get_led_index(3, 0);
-    bool    showIndicator    = false;
-
-    if (dev_info.link_mode == LINK_USB) {
-        showIndicator = host_keyboard_led_state().caps_lock;
-    } else {
-        showIndicator = dev_info.rf_led & 0x02;
-    }
-    if (showIndicator) {
+    if (host_keyboard_led_state().caps_lock) {
         switch (g_config.caps_indication_type) {
             case CAPS_INDICATOR_SIDE:
                 set_side_rgb(0X00, 0x80, 0x80); // highlight top-left side led to indicate caps lock enabled state
