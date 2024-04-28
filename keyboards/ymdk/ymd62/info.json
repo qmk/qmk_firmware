@@ -4,7 +4,7 @@
     "maintainer": "richdawe",
     "url": "https://ymdkey.com/products/ymd62-iso-rgb-hot-swap-pcb-fully-programmable-support-via-vial",
 
-    "development_board": "bluepill",
+    "processor": "STM32F103",
     "bootloader": "uf2boot",
 
     "usb": {
@@ -25,7 +25,7 @@
     },
 
     "features": {
-        "console": true,
+        "bootmagic": true,
         "nkro": true,
         "extrakey": true,
         "mousekey": true,
