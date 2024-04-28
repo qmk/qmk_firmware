@@ -244,7 +244,8 @@ static void wireless_enter_disconnected(uint8_t host_idx) {
 
     uint8_t previous_state = wireless_state;
     led_state              = 0;
-    led_update_kb((led_t)led_state);
+    if (get_transport() & TRANSPORT_WIRELESS)
+        led_update_kb((led_t)led_state);
 
     wireless_state = WT_DISCONNECTED;
 
