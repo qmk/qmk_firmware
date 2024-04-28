@@ -14,7 +14,6 @@ CONSOLE_ENABLE = no        # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = yes           # Enable N-Key Rollover
 AUDIO_ENABLE = yes          # Audio output
-AUDIO_DRIVER = dac_additive
 
 DYNAMIC_MACRO_ENABLE = yes
 DIP_SWITCH_ENABLE = yes
@@ -26,7 +25,6 @@ OLED_ENABLE = yes
 
 ENCODER_ENABLE = yes
 
-SPLIT_KEYBOARD = yes
 SERIAL_DRIVER = usart
 LTO_ENABLE = yes
 OPT = 3

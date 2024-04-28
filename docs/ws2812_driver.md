@@ -33,6 +33,7 @@ Add the following to your `config.h`:
 |`WS2812_T0H`       |`350`                  |The length of a "0" bit's high phase in nanoseconds                                             |
 |`WS2812_TRST_US`   |`280`                  |The length of the reset phase in microseconds                                                   |
 |`WS2812_BYTE_ORDER`|`WS2812_BYTE_ORDER_GRB`|The byte order of the RGB data                                                                  |
+|`WS2812_RGBW`      |*Not defined*          |Enables RGBW support (except `i2c` driver)                                                      |
 
 ### Timing Adjustment :id=timing-adjustment
 
@@ -57,6 +58,27 @@ Where the byte order may be one of:
 |`GRB`     |Most WS2812s, SK6812, SK6805|
 |`RGB`     |WS2812B-2020                |
 |`BGR`     |TM1812                      |
+
+### RGBW Support :id=rgbw-support
+
+Rendering the color white with RGB LEDs is typically inconsistent due to inherent variations between each individual LED die. However, some WS2812 variants (such as SK6812RGBW) also possess a white LED along with the red, green, and blue channels, which allows for a more accurate white to be displayed.
+
+QMK can automatically convert the RGB data to be sent to the LEDs to mix in the white channel:
+
+```
+w = min(r, g, b)
+r -= w
+g -= w
+b -= w
+```
+
+Thus, an RGB triplet of `255,255,255` will simply turn on the white LED fully (`0,0,0,255`).
+
+To enable RGBW conversion, add the following to your `config.h`:
+
+```c
+#define WS2812_RGBW
+```
 
 ## Driver Configuration :id=driver-configuration
 

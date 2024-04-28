@@ -24,6 +24,9 @@
             "twinkle": true
         }
     },
+    "audio": {
+        "driver": "dac_additive"
+    },
     "ws2812": {
         "pin": "B5",
         "driver": "pwm"
@@ -103,6 +106,7 @@
         ]
     },
     "split": {
+        "enabled": true,
         "dip_switch": {
             "right": {
                 "pins": ["A14", "B0"]

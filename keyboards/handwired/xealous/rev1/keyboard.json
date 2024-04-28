@@ -17,8 +17,20 @@
     "rows": ["B5", "B4", "E6", "D7", "D4"]
   },
   "diode_direction": "COL2ROW",
+  "split": {
+    "enabled": true
+  },
   "processor": "atmega32u4",
   "bootloader": "caterina",
+  "features": {
+    "bootmagic": false,
+    "mousekey": false,
+    "extrakey": true,
+    "console": true,
+    "command": true,
+    "nkro": true,
+    "audio": true
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [
