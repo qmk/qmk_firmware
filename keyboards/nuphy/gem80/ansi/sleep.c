@@ -110,6 +110,8 @@ void sleep_handle(void) {
         f_wakeup_prepare = 1; // only if light sleep.
     }
 
+    // NOTE: wakeup logic moved to early keypress detection in ansi.c -> pre_process_record_kb
+
     // sleep check, won't reach here on deep sleep.
     if (f_goto_sleep || f_wakeup_prepare) return;
 
