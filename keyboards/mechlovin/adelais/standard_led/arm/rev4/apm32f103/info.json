@@ -1,4 +1,0 @@
-{
-    "processor": "STM32F103",
-    "bootloader": "stm32duino"
-}

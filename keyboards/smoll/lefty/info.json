@@ -3,6 +3,18 @@
     "manufacturer": "SmollChungus",
     "url": "https://github.com/smollchungus",
     "maintainer": "smollchungus",
+    "build": {
+        "lto": true
+    },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": false,
+        "nkro": false,
+        "oled": true
+    },
     "usb": {
         "vid": "0x5363",
         "pid": "0x0001",

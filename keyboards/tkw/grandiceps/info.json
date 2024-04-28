@@ -4,7 +4,19 @@
     "maintainer": "vattern",
     "usb": {
         "vid": "0xFEED",
-        "pid": "0x7812"
+        "pid": "0x7812",
+        "shared_endpoint": {
+            "keyboard": true
+        }
+    },
+    "features": {
+        "bootmagic": true,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "oled": true,
+        "rgblight": true
     },
     "ws2812": {
         "pin": "B1",
@@ -39,6 +51,7 @@
         ]
     },
     "split": {
+        "enabled": true,
         "soft_serial_pin": "A15",
         "matrix_pins": {
             "right": {
@@ -50,9 +63,7 @@
     "qmk": {
         "tap_keycode_delay": 10
     },
-    "processor": "STM32F411",
-    "bootloader": "stm32-dfu",
-    "board": "BLACKPILL_STM32_F411",
+    "development_board": "blackpill_f411",
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -67,6 +67,11 @@
 #    include "raw_hid.h"
 #endif
 
+#ifdef WAIT_FOR_USB
+// TODO: Remove backwards compatibility with old define
+#    define USB_WAIT_FOR_ENUMERATION
+#endif
+
 uint8_t keyboard_idle = 0;
 /* 0: Boot Protocol, 1: Report Protocol(default) */
 uint8_t        keyboard_protocol  = 1;
@@ -151,7 +156,7 @@ __attribute__((weak)) void raw_hid_receive(uint8_t *data, uint8_t length) {
  *
  * FIXME: Needs doc
  */
-static void raw_hid_task(void) {
+void raw_hid_task(void) {
     // Create a temporary buffer to hold the read in data from the host
     uint8_t data[RAW_EPSIZE];
     bool    data_read = false;
@@ -807,7 +812,7 @@ void protocol_pre_init(void) {
 
     /* wait for USB startup & debug output */
 
-#ifdef WAIT_FOR_USB
+#ifdef USB_WAIT_FOR_ENUMERATION
     while (USB_DeviceState != DEVICE_STATE_Configured) {
 #    if defined(INTERRUPT_CONTROL_ENDPOINT)
         ;
@@ -863,10 +868,6 @@ void protocol_post_task(void) {
 #ifdef VIRTSER_ENABLE
     virtser_task();
     CDC_Device_USBTask(&cdc_device);
-#endif
-
-#ifdef RAW_ENABLE
-    raw_hid_task();
 #endif
 
 #if !defined(INTERRUPT_CONTROL_ENDPOINT)
