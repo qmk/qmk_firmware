@@ -1,18 +1,27 @@
 {
+    "keyboard_name": "Scylla Splinky",
     "url": "https://bastardkb.com/scylla",
     "usb": {
+        "device_version": "2.0.0",
         "pid": "0x1829"
     },
     "rgb_matrix": {
+        "driver": "ws2812"
         "max_brightness": 50,
         "sleep": true,
         "split_count": [29, 29]
     },
+    "matrix_pins": {
+        "cols": ["GP27", "GP28", "GP21", "GP6", "GP7", "GP8"],
+        "rows": ["GP29", "GP26", "GP5", "GP4", "GP9"]
+    },
+    "diode_direction": "ROW2COL",
     "rgblight": {
         "led_count": 58,
         "split_count": [29, 29]
     },
     "split": {
+        "soft_serial_pin": "GP1"
         "transport": {
             "sync": {
                 "matrix_state": true
@@ -22,6 +31,12 @@
             "matrix": [5, 0]
         }
     },
+    "ws2812": {
+        "pin": "GP0",
+        "driver": "vendor"
+    },
+    "processor": "RP2040",
+    "bootloader": "rp2040",
     "layouts": {
         "LAYOUT_split_4x6_5": {
             "layout": [
