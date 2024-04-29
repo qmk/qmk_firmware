@@ -78,3 +78,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // sleep timeout change step (minutes)
 #define SLEEP_TIMEOUT_STEP 1
+// #define LED_HITS_TO_REMEMBER 16
+#define WS2812_SPI_USE_CIRCULAR_BUFFER
