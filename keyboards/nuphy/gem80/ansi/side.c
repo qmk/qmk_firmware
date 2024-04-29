@@ -197,7 +197,6 @@ void side_mode_control(uint8_t dir) {
  */
 void set_side_rgb(uint8_t r, uint8_t g, uint8_t b) {
     for (int i = 0; i < SIDE_LINE; i++)
-
         side_rgb_set_color(i, r >> 2, g >> 2, b >> 2);
 }
 
@@ -205,7 +204,6 @@ void set_side_rgb(uint8_t r, uint8_t g, uint8_t b) {
  * @brief  set left side leds.
  */
 void sys_sw_led_show(void)
-
 {
     static uint32_t sys_show_timer = 0;
     static bool     sys_show_flag  = false;
@@ -635,22 +633,22 @@ void bat_charging_design(uint8_t init, uint8_t r, uint8_t g, uint8_t b) {
 void rf_show_blink(void) {
     extern uint8_t  rf_blink_cnt;
     static uint32_t interval_timer = 0;
-    uint16_t        show_priod;
+    uint16_t        show_period;
 
     if (rf_blink_cnt) {
         if (dev_info.rf_state == RF_PAIRING)
-            show_priod = 250;
+            show_period = 250;
 
         else
-            show_priod = 500;
+            show_period = 500;
 
-        if (timer_elapsed32(interval_timer) > (show_priod >> 1)) {
+        if (timer_elapsed32(interval_timer) > (show_period >> 1)) {
             r_temp = 0x00;
             g_temp = 0x00;
             b_temp = 0x00;
         }
 
-        if (timer_elapsed32(interval_timer) >= show_priod) {
+        if (timer_elapsed32(interval_timer) >= show_period) {
             rf_blink_cnt--;
             interval_timer = timer_read32();
         }
