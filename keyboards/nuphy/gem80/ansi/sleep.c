@@ -1,3 +1,4 @@
+
 /*
 Copyright 2023 @ Nuphy <https://nuphy.com/>
 
@@ -15,65 +16,36 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <stdint.h>
-#include <stdbool.h>
-#include "ansi.h"
 #include "user_kb.h"
+#include "ansi.h"
 #include "hal_usb.h"
 #include "usb_main.h"
-
-// sleep control for leds
-extern bool side_led_powered_off;
-extern bool rgb_led_powered_off;
+#include "mcu_pwr.h"
 
 extern DEV_INFO_STRUCT dev_info;
 extern uint16_t        rf_linking_time;
+extern uint16_t        rf_link_timeout;
 extern uint32_t        no_act_time;
 extern bool            f_goto_sleep;
+extern bool            f_wakeup_prepare;
 
-void clear_report_buffer(void);
+void set_side_rgb(uint8_t r, uint8_t g, uint8_t b);
+void set_logo_rgb(uint8_t r, uint8_t g, uint8_t b);
+void deep_sleep_handle(void) {
+    // Visual cue for deep sleep on side LED.
+    pwr_side_led_on();
+    wait_ms(50); // give some time to ensure LED powers on.
+    set_side_rgb(0x99, 0x00, 0x00);
+    set_logo_rgb(0x99, 0x00, 0x00);
+    wait_ms(500);
 
-/**
- * @brief  Light sleep by powering off LEDs.
- * @note This is Nuphy's "open sourced" sleep logic. It's not deep sleep.
- */
-void enter_light_sleep(void) {
-#if (WORK_MODE == THREE_MODE)
-    if (dev_info.rf_state == RF_CONNECT)
-        uart_send_cmd(CMD_SET_CONFIG, 5, 5);
-    else
-        uart_send_cmd(CMD_SLEEP, 5, 5);
+    // Sync again before sleeping. Without this, the wake keystroke is more likely to be lost.
+    dev_sts_sync();
 
-    clear_report_buffer();
-#endif
+    enter_deep_sleep(); // puts the board in WFI mode and pauses the MCU
+    exit_deep_sleep();  // This gets called when there is an interrupt (wake) event.
 
-    // wired-only & 3-mode versions
-    led_pwr_sleep_handle();
-}
-
-/**
- * @brief  Power back up LEDs on exiting light sleep.
- * @note This is Nuphy's "open sourced" wake logic. It's not deep sleep.
- */
-void exit_light_sleep(void) {
-    // NOTE: hack to force enable all leds
-    rgb_led_powered_off  = 1;
-    side_led_powered_off = 1;
-
-    led_pwr_wake_handle();
-
-#if (WORK_MODE == THREE_MODE)
-    uart_send_cmd(CMD_HAND, 0, 1);
-#endif
-    if (dev_info.link_mode == LINK_USB) {
-        usb_lld_wakeup_host(&USB_DRIVER);
-        restart_usb_driver(&USB_DRIVER);
-    }
-
-#if (WORK_MODE == THREE_MODE)
-    // flag for RF wakeup workload.
-    dev_info.rf_state = RF_WAKE;
-#endif
+    no_act_time = 0; // required to not cause an immediate sleep on first wake
 }
 
 /**
@@ -90,23 +62,33 @@ void sleep_handle(void) {
     if (timer_elapsed32(delay_step_timer) < 50) return;
     delay_step_timer = timer_read32();
 
-    // sleep process;
     if (!g_config.sleep_enable) return;
-    // get sleep_time_delay from eeprom
     uint32_t sleep_time_delay = get_sleep_timeout();
-
+    // sleep process;
     if (f_goto_sleep) {
         // reset all counters
-        f_goto_sleep    = 0;
-        rf_linking_time = 0;
+        f_goto_sleep         = 0;
+        rf_linking_time      = 0;
+        usb_suspend_debounce = 0;
 #if (WORK_MODE == THREE_MODE)
         rf_disconnect_time = 0;
 #endif
 
-        // light sleep if charging? Charging event might keep waking MCU. To be confirmed...
-        // or if it's in USB mode but USB state is suspended
-        break_all_key();
-        enter_light_sleep();
+        // don't deep sleep if charging on wireless, charging interrupts and wakes the MCU
+        if (dev_info.link_mode != LINK_USB && dev_info.rf_charge & 0x01) {
+            break_all_key();
+            enter_light_sleep();
+            // Don't deep sleep if in USB mode. Board may have issues waking as reported by others. I assume it's being
+            // powered if USB port is on, or otherwise it's disconnected at the hardware level if USB port is off..
+        } else if (g_config.usb_sleep_toggle && dev_info.link_mode == LINK_USB) {
+            break_all_key();
+            enter_light_sleep();
+        } else if (g_config.sleep_enable) {
+            break_all_key(); // reset keys before sleeping for new QMK lifecycle to handle on wake.
+            deep_sleep_handle();
+            return; // don't need to do anything else
+        }
+
         f_wakeup_prepare = 1; // only if light sleep.
     }
 
