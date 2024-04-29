@@ -3,6 +3,8 @@
     "keyboard_name": "DK Saver",
     "maintainer": "Druah",
     "backlight": {
+        "breathing": true,
+        "levels": 10,
         "pin": "B7"
     },
     "bootloader": "atmel-dfu",
