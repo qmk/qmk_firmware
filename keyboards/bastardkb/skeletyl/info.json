@@ -1,18 +1,27 @@
 {
+    "keyboard_name": "Skeletyl Splinky",
     "url": "https://www.bastardkb.com/skeletyl",
     "usb": {
+        "device_version": "2.0.0",
         "pid": "0x1830"
     },
     "rgb_matrix": {
+        "driver": "ws2812",
         "max_brightness": 50,
         "sleep": true,
         "split_count": [18, 18]
     },
+    "matrix_pins": {
+        "cols": ["GP28", "GP21", "GP6", "GP7", "GP8"],
+        "rows": ["GP26", "GP5", "GP4", "GP9"]
+    },
+    "diode_direction": "ROW2COL",
     "rgblight": {
         "led_count": 36,
         "split_count": [18, 18]
     },
     "split": {
+        "soft_serial_pin": "GP1",
         "transport": {
             "sync": {
                 "matrix_state": true
@@ -22,6 +31,12 @@
             "matrix": [4, 0]
         }
     },
+    "ws2812": {
+        "pin": "GP0",
+        "driver": "vendor"
+    },
+    "processor": "RP2040",
+    "bootloader": "rp2040",
     "community_layouts": ["split_3x5_3"],
     "layouts": {
         "LAYOUT_split_3x5_3": {
