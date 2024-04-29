@@ -72,12 +72,12 @@ static uint8_t get_repeat_interval(void) {
     uint8_t interval = MAX(report_buff_a.repeat, report_buff_b.repeat);
     if (interval == 0) {
         return 50;
-    } else if (interval <= 3) {
-        return 3;
-    } else if (interval <= 6) {
-        return 5;
-    } else if (interval <= 9) {
-        return 7;
+    } else if (interval <= 4) {
+        return 8;
+    } else if (interval <= 7) {
+        return 12;
+    } else if (interval <= 10) {
+        return 14;
     }
     return 25;
 }
@@ -262,9 +262,6 @@ void rf_protocol_receive(void) {
                 f_rf_read_data_ok = 1;
                 break;
             }
-            default:
-                Usart_Mgr.RXDState = RX_CMD_ERR;
-                return;
         }
 
         Usart_Mgr.RXDLen      = 0;
@@ -280,7 +277,6 @@ void rf_protocol_receive(void) {
  * @param  delayms: delay before sending.
  */
 uint8_t uart_send_cmd(uint8_t cmd, uint8_t wait_ack, uint8_t delayms) {
-    uint8_t i;
     wait_ms(delayms);
 
     memset(&Usart_Mgr.TXDBuf[0], 0, UART_MAX_LEN);
@@ -290,18 +286,18 @@ uint8_t uart_send_cmd(uint8_t cmd, uint8_t wait_ack, uint8_t delayms) {
     Usart_Mgr.TXDBuf[2] = 0x00;
 
     switch (cmd) {
-        case CMD_POWER_UP: {
-            Usart_Mgr.TXDBuf[3] = 1;
-            Usart_Mgr.TXDBuf[4] = 0;
-            Usart_Mgr.TXDBuf[5] = 0;
-            break;
-        }
-        case CMD_SNIF: {
-            Usart_Mgr.TXDBuf[3] = 1;
-            Usart_Mgr.TXDBuf[4] = 0;
-            Usart_Mgr.TXDBuf[5] = 0;
-            break;
-        }
+        // case CMD_POWER_UP: {
+        //     Usart_Mgr.TXDBuf[3] = 1;
+        //     Usart_Mgr.TXDBuf[4] = 0;
+        //     Usart_Mgr.TXDBuf[5] = 0;
+        //     break;
+        // }
+        // case CMD_SNIF: {
+        //     Usart_Mgr.TXDBuf[3] = 1;
+        //     Usart_Mgr.TXDBuf[4] = 0;
+        //     Usart_Mgr.TXDBuf[5] = 0;
+        //     break;
+        // }
         case CMD_SLEEP: {
             Usart_Mgr.TXDBuf[3] = 1;
             Usart_Mgr.TXDBuf[4] = 0;
@@ -415,23 +411,23 @@ uint8_t uart_send_cmd(uint8_t cmd, uint8_t wait_ack, uint8_t delayms) {
             break;
         }
 
-        case CMD_WRITE_DATA: {
-            func_tab[4] = dev_info.link_mode;
-            func_tab[5] = dev_info.rf_channel;
-            func_tab[6] = dev_info.ble_channel;
-
-            Usart_Mgr.TXDBuf[3] = FUNC_VALID_LEN + 2;
-            Usart_Mgr.TXDBuf[4] = 0;
-            Usart_Mgr.TXDBuf[5] = FUNC_VALID_LEN;
-
-            for (i = 0; i < FUNC_VALID_LEN; i++) {
-                Usart_Mgr.TXDBuf[6 + i] = func_tab[i];
-            }
-            Usart_Mgr.TXDBuf[6 + i] = get_checksum(func_tab, FUNC_VALID_LEN);
-            Usart_Mgr.TXDBuf[6 + i] += 0;
-            Usart_Mgr.TXDBuf[6 + i] += FUNC_VALID_LEN;
-            break;
-        }
+        // case CMD_WRITE_DATA: {
+        //     func_tab[4] = dev_info.link_mode;
+        //     func_tab[5] = dev_info.rf_channel;
+        //     func_tab[6] = dev_info.ble_channel;
+        //
+        //     Usart_Mgr.TXDBuf[3] = FUNC_VALID_LEN + 2;
+        //     Usart_Mgr.TXDBuf[4] = 0;
+        //     Usart_Mgr.TXDBuf[5] = FUNC_VALID_LEN;
+        //
+        //     for (i = 0; i < FUNC_VALID_LEN; i++) {
+        //         Usart_Mgr.TXDBuf[6 + i] = func_tab[i];
+        //     }
+        //     Usart_Mgr.TXDBuf[6 + i] = get_checksum(func_tab, FUNC_VALID_LEN);
+        //     Usart_Mgr.TXDBuf[6 + i] += 0;
+        //     Usart_Mgr.TXDBuf[6 + i] += FUNC_VALID_LEN;
+        //     break;
+        // }
 
         case CMD_RF_DFU: {
             Usart_Mgr.TXDBuf[3] = 1;
@@ -485,8 +481,8 @@ void dev_sts_sync(void) {
     if (dev_info.link_mode == LINK_USB) {
         if (host_mode != HOST_USB_TYPE) {
             host_mode = HOST_USB_TYPE;
-            host_set_driver(m_host_driver);
             break_all_key();
+            host_set_driver(m_host_driver);
         }
         rf_blink_cnt = 0;
     } else {
@@ -511,9 +507,9 @@ void dev_sts_sync(void) {
 
             if (link_state_temp != RF_CONNECT) {
                 link_state_temp = RF_CONNECT;
-                if (dev_info.link_mode == LINK_RF_24) {
-                    uart_send_cmd(CMD_SET_24G_NAME, 10, 30);
-                }
+                // if (dev_info.link_mode == LINK_RF_24) {
+                //     uart_send_cmd(CMD_SET_24G_NAME, 10, 30);
+                // }
                 rf_link_show_time = 0;
             }
         }
@@ -660,7 +656,7 @@ void rf_device_init(void) {
         uart_send_cmd(CMD_HAND, 0, 20);
         wait_ms(5);
         uart_receive_pro();
-        uart_receive_pro();
+        // uart_receive_pro();
         if (f_rf_hand_ok) break;
     }
 
@@ -670,7 +666,7 @@ void rf_device_init(void) {
         uart_send_cmd(CMD_READ_DATA, 0, 20);
         wait_ms(5);
         uart_receive_pro();
-        uart_receive_pro();
+        // uart_receive_pro();
         if (f_rf_read_data_ok) break;
     }
 
@@ -680,7 +676,7 @@ void rf_device_init(void) {
         uart_send_cmd(CMD_RF_STS_SYSC, 0, 20);
         wait_ms(5);
         uart_receive_pro();
-        uart_receive_pro();
+        // uart_receive_pro();
         if (f_rf_sts_sysc_ok) break;
     }
 
