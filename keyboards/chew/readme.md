@@ -3,7 +3,7 @@
 ![Chew front photo](https://live.staticflickr.com/65535/53681212617_90e4eebaf9_o.jpg)
 ![Chew front photo](https://live.staticflickr.com/65535/53682442119_1fcea26fef_o.jpg)
 
-A meek 34 keys choc-spaced keyboard.
+A humble 34 key choc-spaced keyboard.
 
 - Keyboard Maintainer: [Florent Linguenheld](https://github.com/flinguenheld/)
 - Visit the repository to get the last release: [Chew](https://github.com/flinguenheld/chew)
