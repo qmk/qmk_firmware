@@ -9,7 +9,10 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 void initialize_SMA_filter(hybrid_key_t key, uint8_t samplesExponent) {
     key.SMA_samplesExponent = samplesExponent;
     key.SMA_samples = 1 << samplesExponent;
-    key.SMA_buffer = malloc(key.SMA_samples*sizeof(uint16_t));
+    key.SMA_buffer = malloc((key.SMA_samples)*sizeof(uint16_t));
+    for (int i = 0; i < key.SMA_samples; i++) {
+        key.SMA_buffer[i] = 0;
+    }
     printf("%s\n", "SMA_buffer test print");
     key.SMA_sum = 0;
     key.SMA_index = 0;
@@ -19,6 +22,12 @@ uint16_t SMA_filter(hybrid_key_t key, uint16_t value) {
     key.SMA_sum = key.SMA_sum - key.SMA_buffer[key.SMA_index] + value;
     key.SMA_buffer[key.SMA_index] = value;
     key.SMA_index = (key.SMA_index + 1) % key.SMA_samples;
+    if (!key.SMA_filled) {
+        if (key.SMA_index == 0) {
+            key.SMA_filled = true;
+        }
+    }
+
     printf("%s\n", "SMA_filter test print");
     printf("%s\n", "SMA_sum and SMA_index:");
     printf("%lu\n", key.SMA_sum);

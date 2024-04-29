@@ -16,6 +16,7 @@ typedef struct {
     uint8_t press_hysteresis;
     uint8_t release_hysteresis;
 } analog_config; /* 6 bytes */
+//size defined in config.h
 _Static_assert(sizeof(analog_config) == EECONFIG_KB_DATA_SIZE, "Size mismatch");
 extern analog_config g_config;
 
@@ -32,5 +33,6 @@ typedef struct {
     uint16_t *SMA_buffer;
     uint32_t SMA_sum;
     uint8_t  SMA_index;
+    bool SMA_filled;
 } hybrid_key_t;
 extern hybrid_key_t keys[MATRIX_ROWS][MATRIX_COLS];

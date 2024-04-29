@@ -1,4 +1,4 @@
-/* Copyright 2023 RephlexZero (@RephlexZero)
+/* Copyright 2023 RephlexZero (@RephlexZero) 2024 peepeetee (@peepeetee)
 SPDX-License-Identifier: GPL-2.0-or-later */
 #include "quantum.h"
 #include "analog.h"
@@ -7,6 +7,7 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 extern pin_t matrix_pins[MATRIX_ROWS][MATRIX_COLS];
 
 
+//detects sensor offsets when the key is not pressed
 void         get_sensor_offsets(void) {
     uint16_t rest_adc_value = distance_to_adc(0);
     for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
