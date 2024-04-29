@@ -1,16 +1,31 @@
 {
+    "keyboard_name": "Charybdis Mini (3x6) Splinky",
     "url": "https://bastardkb.com",
     "usb": {
+        "device_version": "2.0.0",
         "pid": "0x1834"
     },
     "rgb_matrix": {
+        "driver": "ws2812",
         "split_count": [21, 21]
     },
+    "matrix_pins": {
+        "cols": ["GP27", "GP28", "GP21", "GP6", "GP7", "GP8"],
+        "rows": ["GP26", "GP5", "GP4", "GP9"]
+    },
+    "diode_direction": "ROW2COL",
     "split": {
+        "soft_serial_pin": "GP1",
         "bootmagic": {
             "matrix": [4, 0]
         }
     },
+    "ws2812": {
+        "pin": "GP0",
+        "driver": "vendor"
+    },
+    "processor": "RP2040",
+    "bootloader": "rp2040",
     "layout_aliases": {
         "LAYOUT_charybdis_3x6": "LAYOUT"
     },
