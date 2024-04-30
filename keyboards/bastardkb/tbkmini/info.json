@@ -33,7 +33,9 @@
     },
     "features": {
         "bootmagic": true,
+        "mousekey": false,
         "extrakey": true,
+        "rgb_matrix": true
     }
     "ws2812": {
         "pin": "GP0",
