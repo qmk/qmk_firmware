@@ -43,8 +43,5 @@
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP17
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 500U
 
-/* RGB matrix support. */
-#define SPLIT_TRANSPORT_MIRROR
-
 // Reduce soft serial speed: Work around rp2040 issues
 #define SELECT_SOFT_SERIAL_SPEED 4
