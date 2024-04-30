@@ -8,4 +8,3 @@
 #define CAPS_LOCK_INDEX 30
 #define WIN_MOD_INDEX 17
 #define MAC_MOD_INDEX 18
-#define SDB B5
