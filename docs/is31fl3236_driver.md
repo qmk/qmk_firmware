@@ -26,6 +26,10 @@ Add the following to your `config.h`:
 |`IS31FL3236_SDB_PIN`        |*Not defined*|The GPIO pin connected to the drivers' shutdown pins|
 |`IS31FL3236_I2C_TIMEOUT`    |`100`        |The I²C timeout in milliseconds                     |
 |`IS31FL3236_I2C_PERSISTENCE`|`0`          |The number of times to retry I²C transmissions      |
+|`IS31FL3236_I2C_ADDRESS_1`  |*Not defined*|The I²C address of driver 0                         |
+|`IS31FL3236_I2C_ADDRESS_2`  |*Not defined*|The I²C address of driver 1                         |
+|`IS31FL3236_I2C_ADDRESS_3`  |*Not defined*|The I²C address of driver 2                         |
+|`IS31FL3236_I2C_ADDRESS_4`  |*Not defined*|The I²C address of driver 3                         |
 
 ### I²C Addressing :id=i2c-addressing
 
