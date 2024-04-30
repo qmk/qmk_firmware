@@ -3,7 +3,7 @@
 ![ISO](https://i.imgur.com/4WDIMm0.png)
 
 * Keyboard Maintainer: [JoyLee](https://github.com/itarze)
-* Hardware Supported: SHARKOON SKILLER SGK50 S4 PCB
+* Hardware Supported: [SHARKOON SKILLER SGK50 S4 PCB](http://www.sharkoon.com/)
 
 Make example for this keyboard (after setting up your build environment):
 
