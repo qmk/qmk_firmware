@@ -194,8 +194,6 @@ void exit_deep_sleep(void) {
     gpio_set_pin_output(DRIVER_SIDE_CS_PIN);
     gpio_write_pin_low(DRIVER_SIDE_CS_PIN);
 
-
-
     /* Wake RF module? Not sure if this works... */
     gpio_set_pin_output(NRF_WAKEUP_PIN);
 
@@ -228,13 +226,14 @@ void exit_deep_sleep(void) {
  * @note This is Nuphy's "open sourced" sleep logic. It's not deep sleep.
  */
 void enter_light_sleep(void) {
+#if (WORK_MODE == THREE_MODE)
     if (dev_info.rf_state == RF_CONNECT)
         uart_send_cmd(CMD_SET_CONFIG, 5, 5);
     else
         uart_send_cmd(CMD_SLEEP, 5, 5);
-
-    led_pwr_sleep_handle();
     clear_report_buffer_and_queue();
+#endif
+    led_pwr_sleep_handle();
     sleeping = true;
 }
 

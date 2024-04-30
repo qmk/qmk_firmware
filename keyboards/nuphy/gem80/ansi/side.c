@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include <stdint.h>
 #include "ansi.h"
+#include "host.h"
 #include "rgb_matrix.h"
 #include "timer.h"
 #include "user_kb.h"
@@ -298,8 +299,16 @@ void sleep_sw_led_show(void)
  * @brief  sys_led_show.
  */
 void sys_led_show(void) {
+    // TODO: debug rf_led to know how to detect num_lock
     uint8_t caps_key_led_idx = get_led_index(3, 0);
-    if (host_keyboard_led_state().caps_lock) {
+    bool showCapsLock = false;
+    if (dev_info.link_mode == LINK_USB) {
+        showCapsLock = host_keyboard_led_state().caps_lock;
+    } else {
+        showCapsLock = dev_info.rf_led & 0x02;
+    }
+
+    if (showCapsLock) {
         switch (g_config.caps_indication_type) {
             case CAPS_INDICATOR_SIDE:
                 set_side_rgb(0X00, 0x80, 0x80); // highlight top-left side led to indicate caps lock enabled state

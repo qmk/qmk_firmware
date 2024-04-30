@@ -122,7 +122,7 @@ void uart_send_repeat_from_queue(void) {
 
     if (report_buff.repeat == 0 || (do_repeat && timer_elapsed32(repeat_timer) > 3)) {
         uart_send_report(report_buff.cmd, report_buff.buffer, report_buff.length);
-        report_buff.repeat++;
+        // report_buff.repeat++; // FIXME: probably cause of non sleeping on conn timeout
         repeat_timer = timer_read32();
     }
 }
@@ -262,6 +262,9 @@ void rf_protocol_receive(void) {
                 f_rf_read_data_ok = 1;
                 break;
             }
+            default:
+                Usart_Mgr.RXDState = RX_CMD_ERR;
+                return;
         }
 
         Usart_Mgr.RXDLen      = 0;
@@ -277,6 +280,7 @@ void rf_protocol_receive(void) {
  * @param  delayms: delay before sending.
  */
 uint8_t uart_send_cmd(uint8_t cmd, uint8_t wait_ack, uint8_t delayms) {
+    uint8_t i;
     wait_ms(delayms);
 
     memset(&Usart_Mgr.TXDBuf[0], 0, UART_MAX_LEN);
@@ -286,18 +290,18 @@ uint8_t uart_send_cmd(uint8_t cmd, uint8_t wait_ack, uint8_t delayms) {
     Usart_Mgr.TXDBuf[2] = 0x00;
 
     switch (cmd) {
-        // case CMD_POWER_UP: {
-        //     Usart_Mgr.TXDBuf[3] = 1;
-        //     Usart_Mgr.TXDBuf[4] = 0;
-        //     Usart_Mgr.TXDBuf[5] = 0;
-        //     break;
-        // }
-        // case CMD_SNIF: {
-        //     Usart_Mgr.TXDBuf[3] = 1;
-        //     Usart_Mgr.TXDBuf[4] = 0;
-        //     Usart_Mgr.TXDBuf[5] = 0;
-        //     break;
-        // }
+        case CMD_POWER_UP: {
+            Usart_Mgr.TXDBuf[3] = 1;
+            Usart_Mgr.TXDBuf[4] = 0;
+            Usart_Mgr.TXDBuf[5] = 0;
+            break;
+        }
+        case CMD_SNIF: {
+            Usart_Mgr.TXDBuf[3] = 1;
+            Usart_Mgr.TXDBuf[4] = 0;
+            Usart_Mgr.TXDBuf[5] = 0;
+            break;
+        }
         case CMD_SLEEP: {
             Usart_Mgr.TXDBuf[3] = 1;
             Usart_Mgr.TXDBuf[4] = 0;
@@ -411,23 +415,23 @@ uint8_t uart_send_cmd(uint8_t cmd, uint8_t wait_ack, uint8_t delayms) {
             break;
         }
 
-        // case CMD_WRITE_DATA: {
-        //     func_tab[4] = dev_info.link_mode;
-        //     func_tab[5] = dev_info.rf_channel;
-        //     func_tab[6] = dev_info.ble_channel;
-        //
-        //     Usart_Mgr.TXDBuf[3] = FUNC_VALID_LEN + 2;
-        //     Usart_Mgr.TXDBuf[4] = 0;
-        //     Usart_Mgr.TXDBuf[5] = FUNC_VALID_LEN;
-        //
-        //     for (i = 0; i < FUNC_VALID_LEN; i++) {
-        //         Usart_Mgr.TXDBuf[6 + i] = func_tab[i];
-        //     }
-        //     Usart_Mgr.TXDBuf[6 + i] = get_checksum(func_tab, FUNC_VALID_LEN);
-        //     Usart_Mgr.TXDBuf[6 + i] += 0;
-        //     Usart_Mgr.TXDBuf[6 + i] += FUNC_VALID_LEN;
-        //     break;
-        // }
+        case CMD_WRITE_DATA: {
+            func_tab[4] = dev_info.link_mode;
+            func_tab[5] = dev_info.rf_channel;
+            func_tab[6] = dev_info.ble_channel;
+
+            Usart_Mgr.TXDBuf[3] = FUNC_VALID_LEN + 2;
+            Usart_Mgr.TXDBuf[4] = 0;
+            Usart_Mgr.TXDBuf[5] = FUNC_VALID_LEN;
+
+            for (i = 0; i < FUNC_VALID_LEN; i++) {
+                Usart_Mgr.TXDBuf[6 + i] = func_tab[i];
+            }
+            Usart_Mgr.TXDBuf[6 + i] = get_checksum(func_tab, FUNC_VALID_LEN);
+            Usart_Mgr.TXDBuf[6 + i] += 0;
+            Usart_Mgr.TXDBuf[6 + i] += FUNC_VALID_LEN;
+            break;
+        }
 
         case CMD_RF_DFU: {
             Usart_Mgr.TXDBuf[3] = 1;
@@ -506,10 +510,7 @@ void dev_sts_sync(void) {
             rf_blink_cnt     = 0;
 
             if (link_state_temp != RF_CONNECT) {
-                link_state_temp = RF_CONNECT;
-                // if (dev_info.link_mode == LINK_RF_24) {
-                //     uart_send_cmd(CMD_SET_24G_NAME, 10, 30);
-                // }
+                link_state_temp   = RF_CONNECT;
                 rf_link_show_time = 0;
             }
         }

@@ -68,9 +68,9 @@ void sleep_handle(void) {
     if (f_goto_sleep) {
         // reset all counters
         f_goto_sleep         = 0;
-        rf_linking_time      = 0;
         usb_suspend_debounce = 0;
 #if (WORK_MODE == THREE_MODE)
+        rf_linking_time      = 0;
         rf_disconnect_time = 0;
 #endif
 
