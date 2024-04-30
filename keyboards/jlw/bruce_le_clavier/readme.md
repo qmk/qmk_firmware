@@ -4,6 +4,8 @@ Please note that Bruce le Clavier is a keyboard, not a human, and is also not Br
 
 Bruce the Keyboard is a column staggered unibody split 35-key board created by [jlw](github.com/josh-l-wang), with the option to replace the middle key for an EC11 rotary encoder (with or without switch function).
 
+This keyboard has RGB, 3.3V, and GND pins broken out if you wish to add an LED strip.
+
 ![Bruce le Clavier](https://i.imgur.com/qL9WHW4.jpg)
 
 * Keyboard Maintainer: [jlw](https://github.com/josh-l-wang)
