@@ -1958,8 +1958,6 @@ void keyboard_pre_init_user(void) {
     l_state.contrast = ee.brightness;
     l_state.flags = set_flag(STATUS_DISP_ON, RGB_ON, rgb_matrix_is_enabled());
 
-
-    memset(ee.latin_ex, 0, sizeof(ee.latin_ex));
     memcpy(g_latin.ex, ee.latin_ex, sizeof(g_latin.ex));
 
     set_displays(l_state.contrast, false);
@@ -2308,7 +2306,7 @@ void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
             case '3': //change language
                 if(data[3]< NUM_LANG) {
                     l_state.lang = data[3];
-                    uprintf("Setting lang to %d.\n", data[3]);
+                    uprintf("Setting lang to %u.\n", data[3]);
                     update_performed();
                     memcpy(data, "P3.", 3);
                 } else {
@@ -2345,12 +2343,39 @@ void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
                 {
                     const bool vis_changed =  test_flag(l_state.overlay_flags, DISPLAY_OVERLAYS) != (data[3]!=0);
                     l_state.overlay_flags = set_flag(l_state.overlay_flags, DISPLAY_OVERLAYS, data[3]!=0);
-                    uprintf("Overlays visible: %d.\n", data[3]);
+                    uprintf("Overlays visible: %u.\n", data[3]);
                     memcpy(data, "P6.", 3);
                     if(vis_changed) {
                         //run houskeeping task to make sure the overlays chage before receiving further HID commands
                         housekeeping_task_user();
                     }
+                }
+                break;
+            case '7': //set brightness
+                if ( data[3] <= FULL_BRIGHT) {
+                    l_state.contrast = data[3];
+                    save_user_eeconf();
+                    memcpy(data, "P7.", 3);
+                    uprintf("Set brightness to: %u.\n", data[3]);
+                } else {
+                    memcpy(data, "P7!", 3);
+                    uprintf("Refused to set brightness to: %u.\n", data[3]);
+                }
+                break;
+            case '8': //key press
+                {
+                    uint16_t keycode = ((uint16_t)data[3])<<8 | data[4];
+                    register_code(keycode);
+                    memcpy(data, "P8.", 3);
+                    printf("Registered keycode: %u.\n", keycode);
+                }
+                break;
+            case '9': //key release
+                {
+                    uint16_t keycode = ((uint16_t)data[3])<<8 | data[4];
+                    unregister_code(keycode);
+                    memcpy(data, "P9.", 3);
+                    printf("Unregistered keycode: %u.\n", keycode);
                 }
                 break;
             default:
