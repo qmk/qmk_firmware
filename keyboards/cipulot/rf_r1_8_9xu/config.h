@@ -63,9 +63,3 @@
 // #define DEBUG_MATRIX_SCAN_RATE
 #define DYNAMIC_KEYMAP_LAYER_COUNT 3
 #define EECONFIG_KB_DATA_SIZE 201
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE

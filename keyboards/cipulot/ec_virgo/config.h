@@ -16,33 +16,33 @@
 
 #pragma once
 
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
+#define MATRIX_ROWS 6
+#define MATRIX_COLS 18
 
 #define MATRIX_ROW_PINS \
-    { B15, A8, B0, A7, B1 }
+    { B6, B7, B5, B4, B3, A15 }
 
 #define AMUX_COUNT 2
-#define AMUX_MAX_COLS_COUNT 8
+#define AMUX_MAX_COLS_COUNT 16
 
 #define AMUX_EN_PINS \
-    { B7, B3 }
+    { A9, A8 }
 
 #define AMUX_SEL_PINS \
-    { B6, B5, B4 }
+    { B12, B13, B15, B14 }
 
 #define AMUX_COL_CHANNELS_SIZES \
-    { 8, 7 }
+    { 7, 11 }
 
 #define AMUX_0_COL_CHANNELS \
-    { 0, 3, 1, 2, 5, 7, 6, 4 }
+    { 2, 1, 0, 3, 5, 4, 7 }
 
 #define AMUX_1_COL_CHANNELS \
-    { 0, 3, 1, 2, 5, 7, 6 }
+    { 2, 1, 0, 15, 14, 13, 12, 8, 11, 10, 9 }
 
 #define AMUX_COL_CHANNELS AMUX_0_COL_CHANNELS, AMUX_1_COL_CHANNELS
 
-#define DISCHARGE_PIN A6
+#define DISCHARGE_PIN A4
 #define ANALOG_PORT A3
 
 #define DEFAULT_ACTUATION_MODE 0
@@ -54,7 +54,7 @@
 #define DEFAULT_EXTREMUM 1023
 #define EXPECTED_NOISE_FLOOR 0
 #define NOISE_FLOOR_THRESHOLD 50
-#define BOTTOMING_CALIBRATION_THRESHOLD 100
+#define BOTTOMING_CALIBRATION_THRESHOLD 50
 #define DEFAULT_NOISE_FLOOR_SAMPLING_COUNT 30
 #define DEFAULT_BOTTOMING_READING 1023
 #define DEFAULT_CALIBRATION_STARTER true
@@ -63,4 +63,4 @@
 
 // #define DEBUG_MATRIX_SCAN_RATE
 
-#define EECONFIG_KB_DATA_SIZE 159
+#define EECONFIG_KB_DATA_SIZE 225
