@@ -5,7 +5,7 @@
     "maintainer": "jlw",
     "usb": {
         "vid": "0x1209",
-        "pid": "0xA459",
+        "pid": "0xA460",
         "device_version": "0.0.1"
     },
     "processor": "STM32F072",
