@@ -58,17 +58,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 
 layer_state_t default_layer_state_set_user(layer_state_t state) {
 
-  switch (get_highest_layer(state)) {
-    case 0:
-        gpio_write_pin_low(MAC_PIN);
-        break;
-    case 1:
-        gpio_write_pin_high(MAC_PIN);
-        break;
-    default:
-        gpio_write_pin_low(MAC_PIN);
-
-    }
+    gpio_write_pin(MAC_PIN, layer_state_cmp(state, 1));
 
   return state;
 }
