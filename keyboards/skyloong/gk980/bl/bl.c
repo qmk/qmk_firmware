@@ -11,14 +11,7 @@ void suspend_power_down_kb() {
 }
 
 void suspend_wakeup_init_kb(void) {
-    switch (get_highest_layer(layer_state)) {
-    case 0:
-        gpio_write_pin_low(MAC_PIN);
-        break;
-    case 1:
-        gpio_write_pin_high(MAC_PIN);
-        break;
-    }
+    default_layer_state_set_user(layer_state);
     suspend_wakeup_init_user();
 }
 
@@ -34,6 +27,12 @@ bool shutdown_kb(bool jump_to_bootloader) {
     }
     return true;
 }
+
+layer_state_t default_layer_state_set_kb(layer_state_t state) {
+    default_layer_state_set_user(state);
+  return state;
+}
+
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_user(keycode, record)) {

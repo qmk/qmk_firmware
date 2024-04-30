@@ -57,9 +57,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 #endif
 
 layer_state_t default_layer_state_set_user(layer_state_t state) {
-
     gpio_write_pin(MAC_PIN, layer_state_cmp(state, 1));
-
   return state;
 }
 
