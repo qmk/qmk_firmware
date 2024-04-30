@@ -59,3 +59,32 @@ Wireless: NRF52832 [description](https://www.nordicsemi.com/Products/nRF52832)
 
 Fun fact: wireless MCU is almost 2x times better (more performant) than main MCU :smile:
 
+
+
+# Latency tests
+
+I've tested official 1.1.4 three-mode version, mine 1.1.0.2 with stock settings and mine 1.1.0.2 with adjusted debounce 3-3
+
+These are average latencies (per 100 measured clicks)
+3-3 in last column mean 3ms press and 3ms release debounce
+```
+FIRMWARE    Official 1.1.4     Ryo  1.1.0.2 fresh    Ryo  1.1.0.2 (3-3)
+AVERAGE         9.3465             8.7253               8.7253
+MEDIAN          10.275             7.74                 7.74
+PERCENT(AVG)    100.00%            -6.65%               -6.65%
+PERCENT(MEDIAN) 100.00%            -24.67%              -24.67%
+
+```
+
+Below you can see chart with all measures over 100 samples
+![https://i.imgur.com/V2tIK5P.png](https://i.imgur.com/V2tIK5P.png)
+
+
+And as I placed official as 100% reference, my firmware has 6.65% less latency :slight_smile:
+As expected, debounce settings haven't affected input latency. Ofc, situation would be different, if I'd use debounce above 30-40ms. But this can be felt even without any measures.
+
+
+All measure were made with [latency tester](https://github.com/joelspadin/keyboard-latency-tester)
+
+
+Maybe at some point [this pr](https://github.com/joelspadin/keyboard-latency-tester/pull/1) would be merged and results would be part of the original repo :D
