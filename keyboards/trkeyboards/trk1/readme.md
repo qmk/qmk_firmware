@@ -5,8 +5,11 @@
 Custom keyboard designed by Tvrd Rad Keyboards aka TRK1
 
 * Keyboard Maintainer: [Tvrd Rad Keyboards](https://www.trkeyboards.com)
-* Hardware Supported: Teensy 2.0
+* Hardware Supported: TRK1 PCB
 * Hardware Availability: https://www.trkeyboards.com/en/keyboards/1-trk1/
+
+Getting the board into bootloader mode:
+To be able to flash firmware onto this board and put keyboard into bootloader mode, you need to press the "Fn" and "Esc" keys on the keyboard at the same time. 
 
 Make example for this keyboard (after setting up your build environment):
 
