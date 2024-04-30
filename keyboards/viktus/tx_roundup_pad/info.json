@@ -23,8 +23,9 @@
         "pid": "0x5458",
         "vid": "0x5644"
     },
+    "community_layouts": [ "numpad_6x4" ],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_numpad_6x4": {
             "layout": [
                 {"label": "K00", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "K01", "matrix": [0, 1], "x": 1, "y": 0},
