@@ -127,7 +127,7 @@ const aw20216s_led_t PROGMEM g_aw20216s_leds[AW20216S_LED_COUNT] = {
 
 void suspend_power_down_kb() {
 #    ifdef RGB_MATRIX_ENABLE
-    writePinLow(SDB);
+    writePinLow(AW20216S_EN_PIN_1);
 #    endif
     writePinLow(MAC_PIN);
     suspend_power_down_user();
@@ -135,13 +135,13 @@ void suspend_power_down_kb() {
 
 void suspend_wakeup_init_kb() {
 #    ifdef RGB_MATRIX_ENABLE
-    writePinHigh(SDB);
+    writePinHigh(AW20216S_EN_PIN_1);
 #    endif
     suspend_wakeup_init_user();
 }
 
 bool shutdown_kb(bool jump_to_bootloader) {
-    writePinLow(SDB);
+    writePinLow(AW20216S_EN_PIN_1);
     return shutdown_user(jump_to_bootloader);
 }
 
@@ -162,8 +162,8 @@ void board_init(void) {
     // JTAG-DP Disabled and SW-DP Disabled
     AFIO->MAPR = (AFIO->MAPR & ~AFIO_MAPR_SWJ_CFG_Msk) | AFIO_MAPR_SWJ_CFG_DISABLE;
 #   ifdef RGB_MATRIX_ENABLE
-    setPinOutput(SDB);
-    writePinHigh(SDB);
+    setPinOutput(AW20216S_EN_PIN_1);
+    writePinHigh(AW20216S_EN_PIN_1);
 #   endif
     setPinOutput(MAC_PIN);
     writePinHigh(MAC_PIN);

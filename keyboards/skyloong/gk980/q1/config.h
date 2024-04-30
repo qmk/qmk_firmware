@@ -22,7 +22,6 @@
 #    define MAC_MOD_INDEX 24
 #    define WIN_LOCK_INDEX 75
 #    define SCR_LOCK_INDEX 14
-#    define SDB B5
 #    define RGB_MATRIX_KEYPRESSES
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #endif // RGB_MATRIX_ENABLE
