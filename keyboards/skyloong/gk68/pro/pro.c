@@ -106,16 +106,16 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 
 
 void suspend_power_down_kb(void) {
-    gpio_write_pin_low(SDB);
+    gpio_write_pin_low(AW20216S_EN_PIN_1);
     suspend_power_down_user();
 }
 
 void suspend_wakeup_init_kb(void) {
-    gpio_write_pin_high(SDB);
+    gpio_write_pin_high(AW20216S_EN_PIN_1);
     suspend_wakeup_init_user();
 }
 bool shutdown_kb(bool jump_to_bootloader) {
-    gpio_write_pin_low(SDB);
+    gpio_write_pin_low(AW20216S_EN_PIN_1);
     return true;
 }
 #endif
@@ -173,7 +173,7 @@ void board_init(void) {
     // JTAG-DP Disabled and SW-DP Disabled
     AFIO->MAPR = (AFIO->MAPR & ~AFIO_MAPR_SWJ_CFG_Msk) | AFIO_MAPR_SWJ_CFG_DISABLE;
 #    ifdef RGB_MATRIX_ENABLE
-    gpio_set_pin_output(SDB);
-    gpio_write_pin_high(SDB);
+    gpio_set_pin_output(AW20216S_EN_PIN_1);
+    gpio_write_pin_high(AW20216S_EN_PIN_1);
 #   endif
 }
