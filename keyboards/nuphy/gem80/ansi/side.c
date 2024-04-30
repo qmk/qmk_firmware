@@ -6,30 +6,15 @@
 #include "timer.h"
 #include "user_kb.h"
 #include "side_table.h"
+#include "side_table.h"
 
-#define SIDE_WAVE_1 0
-#define SIDE_WAVE_2 1
-#define SIDE_MIX 2
-#define SIDE_STATIC 3
-
-#define SIDE_BREATH 4
-#define SIDE_OFF 5
-#define LIGHT_COLOUR_MAX 8
-#define SIDE_COLOUR_MAX 8
-#define LIGHT_SPEED_MAX 4
-#define RF_LED_LINK_PERIOD 500
-#define RF_LED_PAIR_PERIOD 250
-#define SIDE_LINE 5
-#define CHARGING_SHIFT 1
-#define RFLINK_SHIFT 0
-#define CHARGING_BREATHE 1
-
-#define RFLINK_BLINK 1
-#define LOW_BAT_BLINK_PRIOD 500
-#define SIDE_LED_NUM 12
-
+// clang-format off
 const uint8_t side_speed_table[6][5] = {
-    [SIDE_WAVE_1] = {24, 30, 36, 42, 50}, [SIDE_WAVE_2] = {24, 30, 36, 42, 50}, [SIDE_MIX] = {14, 20, 28, 36, 50}, [SIDE_STATIC] = {50, 50, 50, 50, 50}, [SIDE_BREATH] = {14, 20, 28, 36, 50}, [SIDE_OFF] = {50, 50, 50, 50, 50},
+    [SIDE_WAVE] = {24, 30, 36, 42, 50},
+    [SIDE_MIX] = {14, 20, 28, 36, 50},
+    [SIDE_STATIC] = {50, 50, 50, 50, 50},
+    [SIDE_BREATH] = {14, 20, 28, 36, 50},
+    [SIDE_OFF] = {50, 50, 50, 50, 50},
 };
 
 const uint8_t side_light_table[6] = {
@@ -39,6 +24,8 @@ const uint8_t side_light_table[6] = {
 const uint8_t side_led_index_tab[SIDE_LINE] = {
     0, 1, 2, 3, 4,
 };
+
+// clang-format on
 
 bool f_charging = 1;
 
@@ -116,9 +103,9 @@ void light_speed_contol(uint8_t fast) {
     if ((g_config.side_speed) > LIGHT_SPEED_MAX) (g_config.side_speed) = LIGHT_SPEED_MAX / 2;
 
     if (fast) {
-        if ((g_config.side_speed)) g_config.side_speed--;
+        if (g_config.side_speed) g_config.side_speed--;
     } else {
-        if ((g_config.side_speed) < LIGHT_SPEED_MAX) g_config.side_speed++;
+        if (g_config.side_speed < LIGHT_SPEED_MAX) g_config.side_speed++;
     }
     via_save_values();
 }
@@ -130,7 +117,7 @@ void light_speed_contol(uint8_t fast) {
  */
 
 void side_colour_control(uint8_t dir) {
-    if ((g_config.side_mode != SIDE_WAVE_1) && (g_config.side_mode != SIDE_WAVE_2)) {
+    if (g_config.side_mode != SIDE_WAVE) {
         if (g_config.side_rgb) {
             g_config.side_rgb   = 0;
             g_config.side_color = 0;
@@ -180,7 +167,6 @@ void side_mode_control(uint8_t dir) {
     } else {
         if (g_config.side_mode > 0) {
             g_config.side_mode--;
-
         } else {
             g_config.side_mode = SIDE_OFF;
         }
@@ -203,8 +189,7 @@ void set_side_rgb(uint8_t r, uint8_t g, uint8_t b) {
 /**
  * @brief  set left side leds.
  */
-void sys_sw_led_show(void)
-{
+void sys_sw_led_show(void) {
     static uint32_t sys_show_timer = 0;
     static bool     sys_show_flag  = false;
     extern bool     f_sys_show;
@@ -375,7 +360,7 @@ static void count_rgb_light(uint8_t light_temp) {
 /**
  * @brief  side_wave_mode_show.
  */
-static void side_wave_mode_show_1(void) {
+static void side_wave_mode_show(void) {
     uint8_t play_index;
 
     //------------------------------
@@ -412,57 +397,6 @@ static void side_wave_mode_show_1(void) {
         count_rgb_light(side_light_table[g_config.side_brightness]);
 
         side_rgb_set_color(side_led_index_tab[i], r_temp >> 2, g_temp >> 2, b_temp >> 2);
-    }
-}
-
-static void side_wave_mode_show_2(void) {
-    uint8_t        play_index;
-    static uint8_t breathe = 0;
-
-    uint8_t breath_temp;
-
-    //------------------------------
-    if (side_play_cnt <= (side_speed_table[g_config.side_mode][g_config.side_speed]))
-
-        return;
-    else
-        side_play_cnt -= side_speed_table[g_config.side_mode][g_config.side_speed];
-    if (side_play_cnt > 20) side_play_cnt = 0;
-
-    //------------------------------
-    if (g_config.side_rgb) {
-        light_point_playing(0, 1, FLOW_COLOUR_TAB_LEN, &side_play_point);
-        light_point_playing(0, 1, SIDE_WAVE_TAB_LEN, &breathe);
-    } else
-        light_point_playing(0, 1, SIDE_WAVE_TAB_LEN, &side_play_point);
-
-    breath_temp = breathe;
-    play_index  = side_play_point;
-
-    for (int i = 0; i < SIDE_LINE; i++) {
-        if (g_config.side_rgb) {
-            r_temp = flow_rainbow_colour_tab[play_index][0];
-            g_temp = flow_rainbow_colour_tab[play_index][1];
-            b_temp = flow_rainbow_colour_tab[play_index][2];
-
-            light_point_playing(1, 16, FLOW_COLOUR_TAB_LEN, &play_index);
-
-            light_point_playing(1, 32, SIDE_WAVE_TAB_LEN, &breath_temp);
-            count_rgb_light(side_wave_data_tab[breath_temp]);
-
-        } else {
-            r_temp = colour_lib[g_config.side_color][0];
-
-            g_temp = colour_lib[g_config.side_color][1];
-            b_temp = colour_lib[g_config.side_color][2];
-
-            light_point_playing(1, 24, SIDE_WAVE_TAB_LEN, &play_index);
-
-            count_rgb_light(side_wave_data_tab[play_index]);
-        }
-
-        count_rgb_light(side_light_table[g_config.side_brightness]);
-        side_rgb_set_color(side_led_index_tab[i], r_temp, g_temp, b_temp);
     }
 }
 
@@ -980,11 +914,8 @@ void side_led_show(void) {
     side_play_timer = timer_read32();
 
     switch (g_config.side_mode) {
-        case SIDE_WAVE_1:
-            side_wave_mode_show_1();
-            break;
-        case SIDE_WAVE_2:
-            side_wave_mode_show_2();
+        case SIDE_WAVE:
+            side_wave_mode_show();
             break;
         case SIDE_MIX:
             side_spectrum_mode_show();

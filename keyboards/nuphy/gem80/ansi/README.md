@@ -48,3 +48,14 @@ Enter the bootloader in one way:
 ## Keybinds guide
 
 Here is a [list](gem80-guide.md) of keybinds that you can use to control your keyboard.
+
+
+
+## MCUs used
+
+
+Main: STM32F072RBT6 [description](https://www.st.com/en/microcontrollers-microprocessors/stm32f072rb.html)
+Wireless: NRF52832 [description](https://www.nordicsemi.com/Products/nRF52832)
+
+Fun fact: wireless MCU is almost 2x times better (more performant) than main MCU :smile:
+

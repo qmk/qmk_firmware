@@ -297,8 +297,7 @@
                                 10
                             ],
                             "options": [
-                                "Wawe 1",
-                                "Wawe 2",
+                                "Wawe",
                                 "Mix",
                                 "Static",
                                 "Breath",
@@ -307,7 +306,7 @@
                         },
                         {
                             "label": "Speed (higher is slower)",
-                            "showIf": "{id_side_light_mode} != 5 && {id_side_light_mode} != 3",
+                            "showIf": "{id_side_light_mode} != 4 && {id_side_light_mode} != 2",
                             "type": "dropdown",
                             "content": [
                                 "id_side_light_speed",
@@ -324,7 +323,7 @@
                         },
                         {
                             "label": "Color",
-                            "showIf": "{id_side_light_mode} != 5",
+                            "showIf": "{id_side_light_mode} != 4",
                             "type": "dropdown",
                             "content": [
                                 "id_side_light_color",
@@ -344,7 +343,7 @@
                         },
                         {
                             "label": "Brightness",
-                            "showIf": "{id_side_light_mode} != 5",
+                            "showIf": "{id_side_light_mode} != 4",
                             "type": "range",
                             "content": [
                                 "id_side_light_brightness",
@@ -370,8 +369,7 @@
                                 20
                             ],
                             "options": [
-                                "Wawe 1",
-                                "Wawe 2",
+                                "Wawe",
                                 "Mix",
                                 "Static",
                                 "Breath",
@@ -380,7 +378,7 @@
                         },
                         {
                             "label": "Speed (higher is slower)",
-                            "showIf": "{id_logo_light_mode} != 5 && {id_logo_light_mode} != 3",
+                            "showIf": "{id_logo_light_mode} != 4 && {id_logo_light_mode} != 2",
                             "type": "dropdown",
                             "content": [
                                 "id_logo_light_speed",
@@ -397,7 +395,7 @@
                         },
                         {
                             "label": "Color",
-                            "showIf": "{id_logo_light_mode} != 5",
+                            "showIf": "{id_logo_light_mode} != 4",
                             "type": "dropdown",
                             "content": [
                                 "id_logo_light_color",
@@ -417,7 +415,7 @@
                         },
                         {
                             "label": "Brightness",
-                            "showIf": "{id_logo_light_mode} != 5",
+                            "showIf": "{id_logo_light_mode} != 4",
                             "type": "range",
                             "content": [
                                 "id_logo_light_brightness",
