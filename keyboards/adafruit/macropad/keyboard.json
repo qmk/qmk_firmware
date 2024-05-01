@@ -19,6 +19,7 @@
         "oled": true
     },
     "audio": {
+        "driver": "pwm_hardware",
         "power_control": {
             "pin": "GP14"
         }

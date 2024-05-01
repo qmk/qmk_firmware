@@ -8,6 +8,12 @@
         "pid": "0x8704",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": false,
+        "mousekey": false,
+        "extrakey": false,
+        "backlight": true
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

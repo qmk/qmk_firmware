@@ -73,8 +73,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* fix space cadet rollover issue */
 #define DISABLE_SPACE_CADET_ROLLOVER
 
-#define RGBW
-
 /*
  * The debounce filtering reports a key/switch change directly,
  * without any extra delay. After that the debounce logic will filter
