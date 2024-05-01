@@ -14,16 +14,8 @@ To be able to flash firmware onto this board and put keyboard into bootloader mo
 Make example for this keyboard (after setting up your build environment):
 
     make trkeyboards/trk1:default
-    
-    Or, if you'd like a VIA-enabled keymap:
-    
-    make trkeyboards/trk1:via
 
 Flashing example for this keyboard:
-
-    make trkeyboards/trk1:default:flash
-    
-    Or, if you'd like a VIA-enabled keymap:
     
     make trkeyboards/trk1:via:flash
 
