@@ -4,10 +4,12 @@
 
 #include "quantum.h"
 
-void matrix_init_user(void) {
+void matrix_init_kb(void) {
 	setPinOutput(C6);
 	setPinOutput(B2);
 	setPinOutput(B1);
+
+    matrix_init_user();
 }
 
 bool led_update_kb(led_t led_state) {

@@ -2,9 +2,7 @@
     "manufacturer": "Zach White",
     "keyboard_name": "DirectPins Proton C",
     "maintainer": "skullydazed",
-    "processor": "STM32F303",
-    "board": "QMK_PROTON_C",
-    "bootloader": "stm32-dfu",
+    "development_board": "proton_c",
     "features": {
         "bootmagic": true,
         "extrakey": true,
