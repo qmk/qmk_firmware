@@ -76,7 +76,7 @@
     "build": {
         "lto": true
     },
-    "community_layouts": ["tkl_ansi_tsangan", "tkl_iso_tsangan"],
+    "community_layouts": ["tkl_ansi_tsangan", "tkl_ansi_wkl", "tkl_iso_tsangan", "tkl_iso_wkl"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
