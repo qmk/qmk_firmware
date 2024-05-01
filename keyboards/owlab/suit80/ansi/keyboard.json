@@ -27,7 +27,7 @@
     "layout_aliases": {
         "LAYOUT_ansi": "LAYOUT_tkl_f13_ansi_tsangan"
     },
-    "community_layouts": ["tkl_f13_ansi_tsangan"],
+    "community_layouts": ["tkl_f13_ansi_tsangan", "tkl_f13_ansi_wkl"],
     "layouts": {
         "LAYOUT_tkl_f13_ansi_tsangan": {
             "layout": [
