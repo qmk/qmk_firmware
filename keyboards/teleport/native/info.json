@@ -38,7 +38,8 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "rgb_matrix": true
     },
     "diode_direction": "ROW2COL",
     "matrix_pins": {

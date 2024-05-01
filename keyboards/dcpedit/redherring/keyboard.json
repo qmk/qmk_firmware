@@ -31,6 +31,9 @@
     "qmk": {
         "tap_keycode_delay": 10
     },
+    "haptic": {
+        "driver": "solenoid"
+    },
     "url": "https://github.com/dcpedit/redherring",
     "usb": {
         "device_version": "1.0.0",
