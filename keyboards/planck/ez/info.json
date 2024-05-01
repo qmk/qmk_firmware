@@ -4,7 +4,20 @@
   "maintainer": "jackhumbert",
   "usb": {
     "vid": "0x3297",
-    "device_version": "0.0.1"
+    "device_version": "0.0.1",
+    "shared_endpoint": {
+      "mouse": false
+    }
+  },
+  "features": {
+    "audio": true,
+    "bootmagic": true,
+    "command": true,
+    "console": true,
+    "encoder": true,
+    "extrakey": true,
+    "mousekey": true,
+    "nkro": true
   },
   "rgb_matrix": {
     "animations": {
@@ -62,6 +75,9 @@
     "rows": ["A10", "A9", "A8", "B15", "C13", "C14", "C15", "A2"]
   },
   "diode_direction": "COL2ROW",
+  "audio": {
+    "driver": "dac_additive"
+  },
   "encoder": {
     "rotary": [
       {"pin_a": "B12", "pin_b": "B13"}

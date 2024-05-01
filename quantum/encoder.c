@@ -83,7 +83,7 @@ bool encoder_task(void) {
 }
 
 bool encoder_queue_full_advanced(encoder_events_t *events) {
-    return events->head == (events->tail - 1) % MAX_QUEUED_ENCODER_EVENTS;
+    return events->tail == (events->head + 1) % MAX_QUEUED_ENCODER_EVENTS;
 }
 
 bool encoder_queue_full(void) {

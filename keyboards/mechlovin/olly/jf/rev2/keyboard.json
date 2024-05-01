@@ -7,10 +7,14 @@
         }
     },
     "features": {
-        "command": true,
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
         "console": true,
+        "command": true,
+        "nkro": true,
         "led_matrix": true,
-        "nkro": true
+        "rgblight": true
     },
     "led_matrix": {
         "animations": {
