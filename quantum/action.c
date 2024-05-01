@@ -540,7 +540,7 @@ void process_action(keyrecord_t *record, action_t action) {
 #    if defined(RETRO_TAPPING) && defined(DUMMY_MOD_NEUTRALIZER_KEYCODE)
                             // Send a dummy keycode to neutralize flashing modifiers
                             // if the key was held and then released with no interruptions.
-                            if (retro_should_tap && retro_last_key == get_event_keycode(event, false)) {
+                            if (retro_should_tap) {
                                 neutralize_flashing_modifiers(get_mods());
                             }
 #    endif

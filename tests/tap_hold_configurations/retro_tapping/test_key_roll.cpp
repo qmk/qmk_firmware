@@ -34,7 +34,6 @@ TEST_F(RetroTapKeyRoll, retro_tap_key_roll_normal_to_left_shift) {
 
     set_keymap({mod_tap_hold_key, regular_key});
 
-
     EXPECT_REPORT(driver, (KC_A));
     regular_key.press();
     run_one_scan_loop();
@@ -99,12 +98,11 @@ TEST_F(RetroTapKeyRoll, retro_tap_key_roll_normal_to_left_gui) {
     VERIFY_AND_CLEAR(driver);
 }
 
-
 TEST_F(RetroTapKeyRoll, retro_tap_key_roll_left_shift_to_left_gui) {
     TestDriver driver;
     InSequence s;
-    auto       mod_tap_hold_gui = KeymapKey(0, 1, 0, LGUI_T(KC_P));
-    auto       mod_tap_hold_lshft      = KeymapKey(0, 2, 0, SFT_T(KC_A));
+    auto       mod_tap_hold_gui   = KeymapKey(0, 1, 0, LGUI_T(KC_P));
+    auto       mod_tap_hold_lshft = KeymapKey(0, 2, 0, SFT_T(KC_A));
 
     set_keymap({mod_tap_hold_gui, mod_tap_hold_lshft});
 
@@ -113,7 +111,6 @@ TEST_F(RetroTapKeyRoll, retro_tap_key_roll_left_shift_to_left_gui) {
     idle_for(TAPPING_TERM);
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
-
 
     EXPECT_REPORT(driver, (KC_LEFT_SHIFT, KC_LEFT_GUI));
     mod_tap_hold_gui.press();
@@ -135,4 +132,3 @@ TEST_F(RetroTapKeyRoll, retro_tap_key_roll_left_shift_to_left_gui) {
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 }
-
