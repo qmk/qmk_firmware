@@ -56,7 +56,7 @@
         "LAYOUT_ansi_standard": "LAYOUT_tkl_f13_ansi",
         "LAYOUT_ansi_tsangan": "LAYOUT_tkl_f13_ansi_tsangan"
     },
-    "community_layouts": ["tkl_f13_ansi", "tkl_f13_ansi_tsangan"],
+    "community_layouts": ["tkl_f13_ansi", "tkl_f13_ansi_tsangan", "tkl_f13_ansi_wkl"],
     "layouts": {
         "LAYOUT_tkl_f13_ansi": {
             "layout": [
