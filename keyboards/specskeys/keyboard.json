@@ -39,7 +39,7 @@
     "layout_aliases": {
         "LAYOUT": "LAYOUT_tkl_iso_tsangan"
     },
-    "community_layouts": ["tkl_iso_tsangan"],
+    "community_layouts": ["tkl_iso_tsangan", "tkl_iso_wkl"],
     "layouts": {
         "LAYOUT_tkl_iso_tsangan": {
             "layout": [

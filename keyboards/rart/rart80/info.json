@@ -43,8 +43,12 @@
     "community_layouts": [
         "tkl_ansi_tsangan",
         "tkl_ansi_tsangan_split_bs_rshift",
+        "tkl_ansi_wkl",
+        "tkl_ansi_wkl_split_bs_rshift",
         "tkl_f13_ansi_tsangan",
-        "tkl_f13_ansi_tsangan_split_bs_rshift"
+        "tkl_f13_ansi_tsangan_split_bs_rshift",
+        "tkl_f13_ansi_wkl",
+        "tkl_f13_ansi_wkl_split_bs_rshift"
     ],
     "layouts": {
         "LAYOUT_all": {
