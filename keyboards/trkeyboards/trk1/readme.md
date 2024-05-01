@@ -1,6 +1,6 @@
 # Tvrd Rad Keyboards TRK1
 
-![TRK1](https://www.trkeyboards.com/upload/products/gallery/1663968347286_raaw8387.jpg)
+![TRK1](https://i.imgur.com/dbxoTah.jpg)
 
 Custom keyboard designed by Tvrd Rad Keyboards aka TRK1
 
@@ -15,7 +15,7 @@ Make example for this keyboard (after setting up your build environment):
 
     make trkeyboards/trk1:default
     
-    # or, if you'd like a VIA-enabled keymap:
+    Or, if you'd like a VIA-enabled keymap:
     
     make trkeyboards/trk1:via
 
@@ -23,7 +23,7 @@ Flashing example for this keyboard:
 
     make trkeyboards/trk1:default:flash
     
-    # or, if you'd like a VIA-enabled keymap:
+    Or, if you'd like a VIA-enabled keymap:
     
     make trkeyboards/trk1:via:flash
 
