@@ -20,7 +20,7 @@
 #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
 
 // Maximum time between taps of tap dances
-#define TAPPING_TERM 175
+#define TAPPING_TERM 300
 
 // Max time between taps to prevent hold function and hold auto-repeat
 #define QUICK_TAP_TERM 100
