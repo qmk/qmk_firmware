@@ -6,8 +6,8 @@ void matrix_init_kb(void) {
     // runs once when the firmware starts up
 
     // Disable status LED on KB, enable status LED on Teensy (KB_STATUS = !TEENSY_STATUS)
-    DDRD |= (1<<6);
-    PORTD |= (1<<6);
+    gpio_set_pin_output(D6);
+    gpio_write_pin_high(D6);
 
     matrix_init_user();
 };
