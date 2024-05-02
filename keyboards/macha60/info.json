@@ -4,7 +4,7 @@
     "maintainer": "CMM.Studio Freather",
 
     "usb": {
-          "vid": "0x5348", //SH
+          "vid": "0x5348",
           "pid": "0x3630",
           "device_version": "1.0.0"
       },
