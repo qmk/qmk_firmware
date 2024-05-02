@@ -21,6 +21,7 @@
         "split_count": [29, 29]
     },
     "split": {
+        "enabled": true,
         "soft_serial_pin": "GP1"
         "transport": {
             "sync": {
