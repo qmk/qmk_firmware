@@ -4,3 +4,4 @@ RGB_MATRIX_ENABLE = no     # Disable keyboard RGB matrix, as it is enabled by de
 RGBLIGHT_ENABLE = no       # Enable keyboard RGB underglow
 POINTING_DEVICE_DRIVER = cirque_pinnacle_i2c
 POINTING_DEVICE_ENABLE = yes
+WPM_ENABLE = yes
