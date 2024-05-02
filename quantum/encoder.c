@@ -15,34 +15,39 @@ __attribute__((weak)) bool should_process_encoder(void) {
 }
 
 static encoder_events_t encoder_events;
+static bool             signal_queue_drain = false;
 
 void encoder_init(void) {
     memset(&encoder_events, 0, sizeof(encoder_events));
     encoder_driver_init();
 }
 
-static bool encoder_handle_queue(void) {
-    bool changed = false;
-    while (encoder_events.tail != encoder_events.head) {
-        encoder_event_t event = encoder_events.queue[encoder_events.tail];
-        encoder_events.tail   = (encoder_events.tail + 1) % MAX_QUEUED_ENCODER_EVENTS;
+static void encoder_queue_drain(void) {
+    encoder_events.tail     = encoder_events.head;
+    encoder_events.dequeued = encoder_events.enqueued;
+}
 
+static bool encoder_handle_queue(void) {
+    bool    changed = false;
+    uint8_t index;
+    bool    clockwise;
+    while (encoder_dequeue_event(&index, &clockwise)) {
 #ifdef ENCODER_MAP_ENABLE
 
         // The delays below cater for Windows and its wonderful requirements.
-        action_exec(event.clockwise ? MAKE_ENCODER_CW_EVENT(event.index, true) : MAKE_ENCODER_CCW_EVENT(event.index, true));
+        action_exec(clockwise ? MAKE_ENCODER_CW_EVENT(index, true) : MAKE_ENCODER_CCW_EVENT(index, true));
 #    if ENCODER_MAP_KEY_DELAY > 0
         wait_ms(ENCODER_MAP_KEY_DELAY);
 #    endif // ENCODER_MAP_KEY_DELAY > 0
 
-        action_exec(event.clockwise ? MAKE_ENCODER_CW_EVENT(event.index, false) : MAKE_ENCODER_CCW_EVENT(event.index, false));
+        action_exec(clockwise ? MAKE_ENCODER_CW_EVENT(index, false) : MAKE_ENCODER_CCW_EVENT(index, false));
 #    if ENCODER_MAP_KEY_DELAY > 0
         wait_ms(ENCODER_MAP_KEY_DELAY);
 #    endif // ENCODER_MAP_KEY_DELAY > 0
 
 #else // ENCODER_MAP_ENABLE
 
-        encoder_update_kb(event.index, event.clockwise ? true : false);
+        encoder_update_kb(index, clockwise);
 
 #endif // ENCODER_MAP_ENABLE
 
@@ -61,6 +66,11 @@ bool encoder_task(void) {
     }
 #endif // SPLIT_KEYBOARD
 
+    if (signal_queue_drain) {
+        signal_queue_drain = false;
+        encoder_queue_drain();
+    }
+
     // Let the encoder driver produce events
     encoder_driver_task();
 
@@ -72,39 +82,71 @@ bool encoder_task(void) {
     return changed;
 }
 
-bool encoder_queue_event(uint8_t index, bool clockwise) {
+bool encoder_queue_full_advanced(encoder_events_t *events) {
+    return events->tail == (events->head + 1) % MAX_QUEUED_ENCODER_EVENTS;
+}
+
+bool encoder_queue_full(void) {
+    return encoder_queue_full_advanced(&encoder_events);
+}
+
+bool encoder_queue_empty_advanced(encoder_events_t *events) {
+    return events->head == events->tail;
+}
+
+bool encoder_queue_empty(void) {
+    return encoder_queue_empty_advanced(&encoder_events);
+}
+
+bool encoder_queue_event_advanced(encoder_events_t *events, uint8_t index, bool clockwise) {
     // Drop out if we're full
-    if ((encoder_events.head + 1) % MAX_QUEUED_ENCODER_EVENTS == encoder_events.tail) {
+    if (encoder_queue_full_advanced(events)) {
         return false;
     }
 
     // Append the event
-    encoder_event_t new_event                 = {.index = index, .clockwise = clockwise ? 1 : 0};
-    encoder_events.queue[encoder_events.head] = new_event;
+    encoder_event_t new_event   = {.index = index, .clockwise = clockwise ? 1 : 0};
+    events->queue[events->head] = new_event;
 
     // Increment the head index
-    encoder_events.head = (encoder_events.head + 1) % MAX_QUEUED_ENCODER_EVENTS;
+    events->head = (events->head + 1) % MAX_QUEUED_ENCODER_EVENTS;
+    events->enqueued++;
 
     return true;
+}
+
+bool encoder_dequeue_event_advanced(encoder_events_t *events, uint8_t *index, bool *clockwise) {
+    if (encoder_queue_empty_advanced(events)) {
+        return false;
+    }
+
+    // Retrieve the event
+    encoder_event_t event = events->queue[events->tail];
+    *index                = event.index;
+    *clockwise            = event.clockwise;
+
+    // Increment the tail index
+    events->tail = (events->tail + 1) % MAX_QUEUED_ENCODER_EVENTS;
+    events->dequeued++;
+
+    return true;
+}
+
+bool encoder_queue_event(uint8_t index, bool clockwise) {
+    return encoder_queue_event_advanced(&encoder_events, index, clockwise);
+}
+
+bool encoder_dequeue_event(uint8_t *index, bool *clockwise) {
+    return encoder_dequeue_event_advanced(&encoder_events, index, clockwise);
 }
 
 void encoder_retrieve_events(encoder_events_t *events) {
     memcpy(events, &encoder_events, sizeof(encoder_events));
 }
 
-#ifdef SPLIT_KEYBOARD
-void encoder_set_tail_index(uint8_t tail_index) {
-    encoder_events.tail = tail_index;
+void encoder_signal_queue_drain(void) {
+    signal_queue_drain = true;
 }
-
-void encoder_handle_slave_events(encoder_events_t *events) {
-    while (events->tail != events->head) {
-        encoder_event_t event = events->queue[events->tail];
-        events->tail          = (events->tail + 1) % MAX_QUEUED_ENCODER_EVENTS;
-        encoder_queue_event(event.index, event.clockwise ? true : false);
-    }
-}
-#endif // SPLIT_KEYBOARD
 
 __attribute__((weak)) bool encoder_update_user(uint8_t index, bool clockwise) {
     return true;
