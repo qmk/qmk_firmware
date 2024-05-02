@@ -4,39 +4,39 @@
 root = true
 
 [*]
+end_of_line = lf
 indent_style = space
 indent_size = 4
-
-# We recommend you to keep these unchanged
 charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
 
+[{*.yaml,*.yml}] # To match GitHub Actions formatting
+indent_size = 2
+
 [*.md]
 trim_trailing_whitespace = false
-indent_size = 4
 
-[{qmk,*.py}]
-charset = utf-8
-max_line_length = 200
-
-# Make these match what we have in .gitattributes
-[*.mk]
-end_of_line = lf
+[{Makefile,*.mk}]
 indent_style = tab
 
-[Makefile]
-end_of_line = lf
-indent_style = tab
-
-[*.sh]
-end_of_line = lf
-
-# The gitattributes file will handle the line endings conversion properly according to the operating system settings for other files
-
-
-# We don't have gitattributes properly for these
-# So if the user have for example core.autocrlf set to true
-# the line endings would be wrong.
+# Don't override anything in `lib/`...
 [lib/**]
+indent_style = unset
+indent_size = unset
+tab_width = unset
 end_of_line = unset
+charset = unset
+spelling_language = unset
+trim_trailing_whitespace = unset
+insert_final_newline = unset
+
+# ...except QMK's `lib/python`.
+[{*.py,lib/python/**.py}]
+end_of_line = lf
+indent_style = space
+indent_size = 4
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+max_line_length = 200
