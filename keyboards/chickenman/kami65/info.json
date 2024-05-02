@@ -7,7 +7,6 @@
         "vid": "0xC41C",
         "pid": "0x00A1",
         "device_version": "1.0.0",
-        "force_nkro": true
     },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
