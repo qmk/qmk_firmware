@@ -11,27 +11,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_RALT, KC_RGUI, KC_APP,  KC_RCTL,     KC_LEFT, KC_DOWN, KC_RGHT,     KC_P0,            KC_PDOT
   )
 };
-
-bool led_update_user(led_t led_state) {
-    if (led_state.num_lock) {
-        gpio_set_pin_output(B5);
-        gpio_write_pin_low(B5);
-    } else {
-        gpio_set_pin_input(B5);
-    }
-
-    if (led_state.caps_lock) {
-        gpio_set_pin_output(B6);
-        gpio_write_pin_low(B6);
-    } else {
-        gpio_set_pin_input(B6);
-    }
-
-    if (led_state.scroll_lock) {
-        gpio_set_pin_output(B7);
-        gpio_write_pin_low(B7);
-    } else {
-        gpio_set_pin_input(B7);
-    }
-    return false;
-}
