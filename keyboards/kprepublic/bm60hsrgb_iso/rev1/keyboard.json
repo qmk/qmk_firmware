@@ -82,6 +82,7 @@
     "layout_aliases": {
         "LAYOUT": "LAYOUT_60_iso_arrow"
     },
+    "community_layouts": ["60_iso_arrow"],
     "layouts": {
         "LAYOUT_60_iso_arrow": {
             "layout": [
