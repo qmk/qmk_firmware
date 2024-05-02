@@ -1,0 +1,632 @@
+{
+    "aliases": {
+/*
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+ * │   │ ۱ │ ۲ │ ۳ │ ۴ │ ۵ │ ۶ │ ۷ │ ۸ │ ۹ │ ۰ │ - │ = │       │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+ * │     │ ض │ ص │ ث │ ق │ ف │ غ │ ع │ ه │ خ │ ح │ ج │ چ │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │      │ ش │ س │ ی │ ب │ ل │ ا │ ت │ ن │ م │ ک │ گ │ \ │    │
+ * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
+ * │    │ < │ ظ │ ط │ ز │ ر │ ذ │ د │ پ │ و │ . │ / │          │
+ * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
+ * │    │    │    │                        │    │    │    │    │
+ * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
+ */
+        "KC_GRV": {
+            "key": "FA_JSPC",
+            "label": "‍",
+        }
+        "KC_1": {
+            "key": "FA_1",
+            "label": "۱",
+        }
+        "KC_2": {
+            "key": "FA_2",
+            "label": "۲",
+        }
+        "KC_3": {
+            "key": "FA_3",
+            "label": "۳",
+        }
+        "KC_4": {
+            "key": "FA_4",
+            "label": "۴",
+        }
+        "KC_5": {
+            "key": "FA_5",
+            "label": "۵",
+        }
+        "KC_6": {
+            "key": "FA_6",
+            "label": "۶",
+        }
+        "KC_7": {
+            "key": "FA_7",
+            "label": "۷",
+        }
+        "KC_8": {
+            "key": "FA_8",
+            "label": "۸",
+        }
+        "KC_9": {
+            "key": "FA_9",
+            "label": "۹",
+        }
+        "KC_0": {
+            "key": "FA_0",
+            "label": "۰",
+        }
+        "KC_MINS": {
+            "key": "FA_MINS",
+            "label": "-",
+        }
+        "KC_EQL": {
+            "key": "FA_EQL",
+            "label": "=",
+        }
+        "KC_Q": {
+            "key": "FA_ZAD",
+            "label": "ض",
+        }
+        "KC_W": {
+            "key": "FA_SAD",
+            "label": "ص",
+        }
+        "KC_E": {
+            "key": "FA_SE",
+            "label": "ث",
+        }
+        "KC_R": {
+            "key": "FA_QAF",
+            "label": "ق",
+        }
+        "KC_T": {
+            "key": "FA_FE",
+            "label": "ف",
+        }
+        "KC_Y": {
+            "key": "FA_GHYN",
+            "label": "غ",
+        }
+        "KC_U": {
+            "key": "FA_EYN",
+            "label": "ع",
+        }
+        "KC_I": {
+            "key": "FA_HE",
+            "label": "ه",
+        }
+        "KC_O": {
+            "key": "FA_KHE",
+            "label": "خ",
+        }
+        "KC_P": {
+            "key": "FA_HEJ",
+            "label": "ح",
+        }
+        "KC_LBRC": {
+            "key": "FA_JIM",
+            "label": "ج",
+        }
+        "KC_RBRC": {
+            "key": "FA_CHE",
+            "label": "چ",
+        }
+        "KC_A": {
+            "key": "FA_SHIN",
+            "label": "ش",
+        }
+        "KC_S": {
+            "key": "FA_SIN",
+            "label": "س",
+        }
+        "KC_D": {
+            "key": "FA_YE",
+            "label": "ی",
+        }
+        "KC_F": {
+            "key": "FA_BE",
+            "label": "ب",
+        }
+        "KC_G": {
+            "key": "FA_LAM",
+            "label": "ل",
+        }
+        "KC_H": {
+            "key": "FA_ALEF",
+            "label": "ا",
+        }
+        "KC_J": {
+            "key": "FA_TE",
+            "label": "ت",
+        }
+        "KC_K": {
+            "key": "FA_NOON",
+            "label": "ن",
+        }
+        "KC_L": {
+            "key": "FA_MIM",
+            "label": "م",
+        }
+        "KC_SCLN": {
+            "key": "FA_KAF",
+            "label": "ک",
+        }
+        "KC_QUOT": {
+            "key": "FA_GAF",
+            "label": "گ",
+        }
+        "KC_BSLS": {
+            "key": "FA_BSLS",
+            "label": "\\",
+        }
+        "KC_LT": {
+            "key": "FA_LT",
+            "label": "<",
+        }
+        "KC_Z": {
+            "key": "FA_ZA",
+            "label": "ظ",
+        }
+        "KC_X": {
+            "key": "FA_TA",
+            "label": "ط",
+        }
+        "KC_C": {
+            "key": "FA_ZE",
+            "label": "ز",
+        }
+        "KC_V": {
+            "key": "FA_RE",
+            "label": "ر",
+        }
+        "KC_B": {
+            "key": "FA_ZAL",
+            "label": "ذ",
+        }
+        "KC_N": {
+            "key": "FA_DAL",
+            "label": "د",
+        }
+        "KC_M": {
+            "key": "FA_PE",
+            "label": "پ",
+        }
+        "KC_COMM": {
+            "key": "FA_VAV",
+            "label": "و",
+        }
+        "KC_DOT": {
+            "key": "FA_DOT",
+            "label": ".",
+        }
+        "KC_SLSH": {
+            "key": "FA_SLSH",
+            "label": "/",
+        }
+        "KC_SPC": {
+            "key": "FA_SPC",
+            "label": " ",
+        }
+/* Shifted symbols
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+ * │ ÷ │ ! │ ٬ │ ٫ │ ﷼ │ ٪ │ × │ ، │ * │ ) │ ( │ ـ │ + │       │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+ * │     │  ْ │  ٌ │  ٍ │  ً │  ُ │  ِ │  َ │  ّ │ ] │ [ │ } │ { │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │      │ ؤ │ ئ │ ي │ إ │ أ │ آ │ ة │ » │ « │ : │ ؛ │ | │    │
+ * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
+ * │    │ > │ ك │  ٓ │ ژ │ ٰ │ ‌  │  ٔ │ ء │ > │ < │ ؟ │          │
+ * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
+ * │    │    │    │           ‌             │    │    │    │    │
+ * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
+ */
+        "S(FA_JSPC)": {
+            "key": "FA_TAGH",
+            "label": "÷",
+        }
+        "S(FA_1)": {
+            "key": "FA_EXLM",
+            "label": "!",
+        }
+        "S(FA_2)": {
+            "key": "FA_THS",
+            "label": "٬",
+        }
+        "S(FA_3)": {
+            "key": "FA_DECS",
+            "label": "٫",
+        }
+        "S(FA_4)": {
+            "key": "FA_RIAL",
+            "label": "﷼",
+        }
+        "S(FA_5)": {
+            "key": "FA_PERC",
+            "label": "٪",
+        }
+        "S(FA_6)": {
+            "key": "FA_MUL",
+            "label": "×",
+        }
+        "S(FA_7)": {
+            "key": "FA_COMM",
+            "label": "،",
+        }
+        "S(FA_8)": {
+            "key": "FA_ASTR",
+            "label": "*",
+        }
+        "S(FA_9)": {
+            "key": "FA_LPRN",
+            "label": ")",
+        }
+        "S(FA_0)": {
+            "key": "FA_RPRN",
+            "label": "(",
+        }
+        "S(FA_MINS)": {
+            "key": "FA_TATW",
+            "label": "ـ",
+        }
+        "S(FA_EQL)": {
+            "key": "FA_PLUS",
+            "label": "+",
+        }
+        "S(FA_ZAD)": {
+            "key": "FA_SUK",
+            "label": "ْ",
+        }
+        "S(FA_SAD)": {
+            "key": "FA_DMTN",
+            "label": "ٌ",
+        }
+        "S(FA_SE)": {
+            "key": "FA_KSTN",
+            "label": "ٍ",
+        }
+        "S(FA_QAF)": {
+            "key": "FA_FTHN",
+            "label": "ً",
+        }
+        "S(FA_FE)": {
+            "key": "FA_DMM",
+            "label": "ُ",
+        }
+        "S(FA_GHYN)": {
+            "key": "FA_KAS",
+            "label": "ِ",
+        }
+        "S(FA_EYN)": {
+            "key": "FA_FAT",
+            "label": "َ",
+        }
+        "S(FA_HE)": {
+            "key": "FA_TSDD",
+            "label": "ّ",
+        }
+        "S(FA_KHE)": {
+            "key": "FA_LBRC",
+            "label": "]",
+        }
+        "S(FA_HEJ)": {
+            "key": "FA_RBRC",
+            "label": "[",
+        }
+        "S(FA_JIM)": {
+            "key": "FA_LCBR",
+            "label": "}",
+        }
+        "S(FA_CHE)": {
+            "key": "FA_RCBR",
+            "label": "{",
+        }
+        "S(FA_SHIN)": {
+            "key": "FA_HMZV",
+            "label": "ؤ",
+        }
+        "S(FA_SIN)": {
+            "key": "FA_HMZY",
+            "label": "ئ",
+        }
+        "S(FA_YE)": {
+            "key": "FA_AYE",
+            "label": "ي",
+        }
+        "S(FA_BE)": {
+            "key": "FA_HMZU",
+            "label": "إ",
+        }
+        "S(FA_LAM)": {
+            "key": "FA_HMZO",
+            "label": "أ",
+        }
+        "S(FA_ALEF)": {
+            "key": "FA_MALF",
+            "label": "آ",
+        }
+        "S(FA_TE)": {
+            "key": "FA_TEHM",
+            "label": "ة",
+        }
+        "S(FA_NOON)": {
+            "key": "FA_LQOT",
+            "label": "»",
+        }
+        "S(FA_MIM)": {
+            "key": "FA_RQOT",
+            "label": "«",
+        }
+        "S(FA_KAF)": {
+            "key": "FA_COLN",
+            "label": ":",
+        }
+        "S(FA_GAF)": {
+            "key": "FA_SCLN",
+            "label": "؛",
+        }
+        "S(FA_LT)": {
+            "key": "FA_GT",
+            "label": ">",
+        }
+        "S(FA_ZA)": {
+            "key": "FA_AKAF",
+            "label": "ك",
+        }
+        "S(FA_TA)": {
+            "key": "FA_MADO",
+            "label": "ٓ",
+        }
+        "S(FA_ZE)": {
+            "key": "FA_ZHE",
+            "label": "ژ",
+        }
+        "S(FA_RE)": {
+            "key": "FA_SUPA",
+            "label": "ٰ",
+        }
+        "S(FA_ZAL)": {
+            "key": "FA_NSPC",
+            "label": "‌",
+        }
+        "S(FA_DAL)": {
+            "key": "FA_HMZA",
+            "label": "ٔ",
+        }
+        "S(FA_PE)": {
+            "key": "FA_HMZ",
+            "label": "ء",
+        }
+        "S(FA_VAV)": {
+            "key": "FA_GTA",
+            "label": ">",
+        }
+        "S(FA_DOT)": {
+            "key": "FA_LTA",
+            "label": "<",
+        }
+        "S(FA_SLSH)": {
+            "key": "FA_QUES",
+            "label": "؟",
+        }
+        "S(FA_SPC)": {
+            "key": "FA_NSPA",
+            "label": "‌",
+        }
+/* AltGr symbols
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+ * │ ~ │ ` │ @ │ # │ $ │ % │ ^ │ & │ • │ ‎ │ ‏ │ _ │ − │       │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+ * │     │ ° │   │ € │   │   │   │   │ ‭ │ ‮ │ ‬ │ ‪ │ ‫ │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │      │   │   │ ى │   │   │ ٱ │   │ ﴾ │ ﴿ │ ; │ " │ ‐ │    │
+ * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
+ * │    │ | │   │   │   │  ٖ │  ‍ │  ٕ │ … │ , │ ' │ ? │          │
+ * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
+ * │    │    │    │                        │    │    │    │    │
+ * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
+ */
+        "ALGR(FA_JSPC)": {
+            "key": "FA_TILD",
+            "label": "~",
+        }
+        "ALGR(FA_1)": {
+            "key": "FA_GRV",
+            "label": "`",
+        }
+        "ALGR(FA_2)": {
+            "key": "FA_AT",
+            "label": "@",
+        }
+        "ALGR(FA_3)": {
+            "key": "FA_HASH",
+            "label": "#",
+        }
+        "ALGR(FA_4)": {
+            "key": "FA_DLR",
+            "label": "$",
+        }
+        "ALGR(FA_5)": {
+            "key": "FA_EPRC",
+            "label": "%",
+        }
+        "ALGR(FA_6)": {
+            "key": "FA_CIRC",
+            "label": "^",
+        }
+        "ALGR(FA_7)": {
+            "key": "FA_AMPR",
+            "label": "&",
+        }
+        "ALGR(FA_8)": {
+            "key": "FA_BSC",
+            "label": "•",
+        }
+        "ALGR(FA_9)": {
+            "key": "FA_LTRM",
+            "label": "‎",
+        }
+        "ALGR(FA_0)": {
+            "key": "FA_RTLM",
+            "label": "‏",
+        }
+        "ALGR(FA_MINS)": {
+            "key": "FA_UNDS",
+            "label": "_",
+        }
+        "ALGR(FA_EQL)": {
+            "key": "FA_MMNS",
+            "label": "−",
+        }
+        "ALGR(FA_ZAD)": {
+            "key": "FA_DEG",
+            "label": "°",
+        }
+        "ALGR(FA_SE)": {
+            "key": "FA_EURO",
+            "label": "€",
+        }
+        "ALGR(FA_HE)": {
+            "key": "FA_LTRO",
+            "label": "‭",
+        }
+        "ALGR(FA_KHE)": {
+            "key": "FA_RTLO",
+            "label": "‮",
+        }
+        "ALGR(FA_HEJ)": {
+            "key": "FA_PDIR",
+            "label": "‬",
+        }
+        "ALGR(FA_JIM)": {
+            "key": "FA_LTRE",
+            "label": "‪",
+        }
+        "ALGR(FA_CHE)": {
+            "key": "FA_RTLE",
+            "label": "‫",
+        }
+        "ALGR(FA_YE)": {
+            "key": "FA_ALFM",
+            "label": "ى",
+        }
+        "ALGR(FA_ALEF)": {
+            "key": "FA_ALFW",
+            "label": "ٱ",
+        }
+        "ALGR(FA_NOON)": {
+            "key": "FA_LORP",
+            "label": "﴾",
+        }
+        "ALGR(FA_MIM)": {
+            "key": "FA_RORP",
+            "label": "﴿",
+        }
+        "ALGR(FA_KAF)": {
+            "key": "FA_ESCN",
+            "label": ";",
+        }
+        "ALGR(FA_GAF)": {
+            "key": "FA_DQT",
+            "label": "\"",
+        }
+        "ALGR(FA_BSLS)": {
+            "key": "FA_MNSA",
+            "label": "-",
+        }
+        "ALGR(FA_ZA)": {
+            "key": "FA_PIPE",
+            "label": "|",
+        }
+        "ALGR(FA_RA)": {
+            "key": "FA_SUBA",
+            "label": "ٖ",
+        }
+        "ALGR(FA_ZAL)": {
+            "key": "FA_JSPA",
+            "label": "‍",
+        }
+        "ALGR(FA_DAL)": {
+            "key": "FA_HMZB",
+            "label": "ء",
+        }
+        "ALGR(FA_PE)": {
+            "key": "FA_ELLP",
+            "label": "…",
+        }
+        "ALGR(FA_VAV)": {
+            "key": "FA_ECOM",
+            "label": ",",
+        }
+        "ALGR(FA_DOT)": {
+            "key": "FA_EQOT",
+            "label": "'",
+        }
+        "ALGR(FA_SLSH)": {
+            "key": "FA_EQUS",
+            "label": "?",
+        }
+/* Shift+AltGr symbols
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+ * │   │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │   │   │       │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+ * │     │   │   │   │   │   │   │   │   │   │   │   │   │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │      │   │   │   │   │   │   │   │   │   │   │   │   │    │
+ * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
+ * │    │ ¦ │   │   │   │   │   │   │   │   │   │   │          │
+ * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
+ * │    │    │    │                        │    │    │    │    │
+ * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
+ */
+        "S(ALGR(FA_1))": {
+            "key": "FA_1E",
+            "label": "1",
+        }
+        "S(ALGR(FA_2))": {
+            "key": "FA_2E",
+            "label": "2",
+        }
+        "S(ALGR(FA_3))": {
+            "key": "FA_3E",
+            "label": "3",
+        }
+        "S(ALGR(FA_4))": {
+            "key": "FA_4E",
+            "label": "4",
+        }
+        "S(ALGR(FA_5))": {
+            "key": "FA_5E",
+            "label": "5",
+        }
+        "S(ALGR(FA_6))": {
+            "key": "FA_6E",
+            "label": "6",
+        }
+        "S(ALGR(FA_7))": {
+            "key": "FA_7E",
+            "label": "7",
+        }
+        "S(ALGR(FA_8))": {
+            "key": "FA_8E",
+            "label": "8",
+        }
+        "S(ALGR(FA_9))": {
+            "key": "FA_9E",
+            "label": "9",
+        }
+        "S(ALGR(FA_0))": {
+            "key": "FA_0E",
+            "label": "0",
+        }
+        "S(ALGR(FA_LT))": {
+            "key": "FA_BRKP",
+            "label": "¦",
+        }
+        "S(ALGR(FA_SPC))": {
+            "key": "FA_NNBS",
+            "label": " ",
+        }
+    }
+}
