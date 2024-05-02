@@ -65,8 +65,8 @@ void matrix_init(void)
 #endif
 
     // 85 REST
-    DDRD |= _BV(PD7);
-    PORTD |= _BV(PD7);
+    gpio_set_pin_output(D7);
+    gpio_write_pin_high(D7);
 
     // initialize row and col
     init_rows();
@@ -143,36 +143,35 @@ static void  init_cols(void)
     DDRD &= 0b00011100;
     PORTD |= 0b11100011;
 
-    DDRB &= ~(_BV(PB6) | _BV(PB7)| _BV(PB0));
-    PORTB |= (_BV(PB6) | _BV(PB7)| _BV(PB0));
+    gpio_set_pin_input_high(B0);
+    gpio_set_pin_input_high(B6);
+    gpio_set_pin_input_high(B7);
 
-    DDRE &= ~_BV(PE6);
-    PORTE |= _BV(PE6);
+    gpio_set_pin_input_high(E6);
 
-    DDRC &= ~_BV(PC7);
-    PORTC |= _BV(PC7);
+    gpio_set_pin_input_high(C7);
 
 }
 
 static matrix_row_t read_cols(void)
 {
 
-    return (PINF&_BV(PF7) ? 0 : (1<<0)) |
-           (PINF&_BV(PF6) ? 0 : (1<<1)) |
-           (PINF&_BV(PF5) ? 0 : (1<<2)) |
-           (PINF&_BV(PF4) ? 0 : (1<<3)) |
-           (PINF&_BV(PF1) ? 0 : (1<<4)) |
-           (PINF&_BV(PF0) ? 0 : (1<<5)) |
-           (PINE&_BV(PE6) ? 0 : (1<<6)) |
-           (PIND&_BV(PD7) ? 0 : (1<<7)) |
-           (PIND&_BV(PD6) ? 0 : (1<<8)) |
-           (PIND&_BV(PD5) ? 0 : (1<<9)) |
-           (PIND&_BV(PD1) ? 0 : (1<<10)) |
-           (PIND&_BV(PD0) ? 0 : (1<<11)) |
-           (PINB&_BV(PB7) ? 0 : (1<<12)) |
-           (PINB&_BV(PB6) ? 0 : (1<<13)) |
-           (PINB&_BV(PB0) ? 0 : (1<<14)) |
-           (PINC&_BV(PC7) ? 0 : (1<<15));
+    return (gpio_read_pin(F7) ? 0 : (1<<0)) |
+           (gpio_read_pin(F6) ? 0 : (1<<1)) |
+           (gpio_read_pin(F5) ? 0 : (1<<2)) |
+           (gpio_read_pin(F4) ? 0 : (1<<3)) |
+           (gpio_read_pin(F1) ? 0 : (1<<4)) |
+           (gpio_read_pin(F0) ? 0 : (1<<5)) |
+           (gpio_read_pin(E6) ? 0 : (1<<6)) |
+           (gpio_read_pin(D7) ? 0 : (1<<7)) |
+           (gpio_read_pin(D6) ? 0 : (1<<8)) |
+           (gpio_read_pin(D5) ? 0 : (1<<9)) |
+           (gpio_read_pin(D1) ? 0 : (1<<10)) |
+           (gpio_read_pin(D0) ? 0 : (1<<11)) |
+           (gpio_read_pin(B7) ? 0 : (1<<12)) |
+           (gpio_read_pin(B6) ? 0 : (1<<13)) |
+           (gpio_read_pin(B0) ? 0 : (1<<14)) |
+           (gpio_read_pin(C7) ? 0 : (1<<15));
 }
 
 /* Row pin configuration
@@ -184,21 +183,23 @@ static matrix_row_t read_cols(void)
 
 static void init_rows(void)
 {
-     DDRB  |= (1<<PB1 | 1<<PB2 | 1<<PB3);
+    gpio_set_pin_input(B1);
+    gpio_set_pin_input(B2);
+    gpio_set_pin_input(B3);
 }
 
 static void unselect_rows(void)
 {
     // Hi-Z(DDR:0, PORT:0) to unselect
-    PORTB |= (1<<PB1);
-    PORTB |= (1<<PB2);
-    PORTB |= (1<<PB3);
+    gpio_write_pin_high(B1);
+    gpio_write_pin_high(B2);
+    gpio_write_pin_high(B3);
 }
 
 static void select_row(uint8_t row)
 {
     // Output low(DDR:1, PORT:0) to select
-    (row & (1<<0)) ? (PORTB |= (1<<PB3)) : (PORTB &= ~(1<<PB3));
-    (row & (1<<1)) ? (PORTB |= (1<<PB2)) : (PORTB &= ~(1<<PB2));
-    (row & (1<<2)) ? (PORTB |= (1<<PB1)) : (PORTB &= ~(1<<PB1));
+    gpio_write_pin(B3, row & (1<<0));
+    gpio_write_pin(B2, row & (1<<1));
+    gpio_write_pin(B1, row & (1<<2));
 }

@@ -65,12 +65,11 @@ static void set_color_all(uint8_t r, uint8_t g, uint8_t b) {
 
 static void init(void) {
   // Enable high current pathway to LEDs - this does violate the USB spec though! (1.6 amps...)
-  DDRE |= _BV(6);
-  PORTE &= ~_BV(6);
+  gpio_set_pin_output(E6);
+  gpio_write_pin_low(E6);
 
   // Overcurrent check input
-  DDRB &= ~_BV(4);
-  PORTB &= ~_BV(4);
+  gpio_set_pin_input(B4);
 }
 
 static void flush(void) {

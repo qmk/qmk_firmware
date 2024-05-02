@@ -69,8 +69,8 @@ static int i2c_set_keyscan_interval(int hand, int delay) {
 
 void matrix_init(void) {
   /* Ensure scanner power is on - else right hand will not work */
-  DDRC |= _BV(7);
-  PORTC |= _BV(7);
+  gpio_set_pin_output(C7);
+  gpio_write_pin_high(C7);
 
   i2c_init();
   i2c_set_keyscan_interval(LEFT, 2);
