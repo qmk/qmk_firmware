@@ -563,6 +563,10 @@ __attribute__((weak)) void suspend_wakeup_init_quantum(void) {
     backlight_init();
 #endif
 
+#ifdef AUTOCORRECT_ENABLE
+    // refresh autocorrect bank
+    autocorrect_init_dict();
+
     // Restore LED indicators
     led_wakeup();
 
