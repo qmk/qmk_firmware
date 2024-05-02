@@ -26,7 +26,11 @@
           "rgblight": true,
           "audio": false,
           "key_lock": false
-      },
+    },
+    "indicators": {
+        "caps_lock": "D5",
+        "on_state": 0
+    },
       "rgblight": {
           "led_count": 1,
           "hue_steps": 8,
