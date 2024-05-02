@@ -19,13 +19,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // home row mod
 #define HO_A MT(MOD_LCTL, KC_A)
-#define HO_S MT(MOD_LSFT, KC_S)
-#define HO_D MT(MOD_LALT, KC_D)
-#define HO_F MT(MOD_LGUI, KC_F)
-#define HO_J MT(MOD_RGUI, KC_J)
-#define HO_K MT(MOD_RALT, KC_K)
-#define HO_L MT(MOD_RSFT, KC_L)
-#define HO_SCLN MT(MOD_RCTL, KC_SCLN)
+#define HO_R MT(MOD_LSFT, KC_R)
+#define HO_S MT(MOD_LALT, KC_S)
+#define HO_T MT(MOD_LGUI, KC_T)
+#define HO_N MT(MOD_LGUI, KC_N)
+#define HO_E MT(MOD_LALT, KC_E)
+#define HO_I MT(MOD_LSFT, KC_I)
+#define HO_O MT(MOD_LCTL, KC_O)
 
 // thumb
 #define TH_NAV LT(NAV, KC_TAB)
@@ -68,9 +68,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * BASE
   */
   [_BASE] = LAYOUT(
-    KC_Q, KC_W, KC_E  , KC_R  , KC_T  ,      KC_Y  , KC_U         , KC_I   , KC_O  , KC_P,
-    HO_A, HO_S, HO_D  , HO_F  , KC_G  ,      KC_H  , HO_J         , HO_K   , HO_L  , HO_SCLN,
-    KC_Z, KC_X, KC_C  , KC_V  , KC_B  ,      KC_N  , LT(FUN, KC_M), KC_COMM, KC_DOT, KC_SLSH,
+    KC_Q, KC_W, KC_F  , KC_P  , KC_B  ,      KC_J  , KC_L         , KC_U   , KC_Y  , HO_SCLN,
+    HO_A, HO_R, HO_S  , HO_T  , KC_G  ,      KC_M  , HO_N         , HO_E   , HO_I  , HO_O   ,
+    KC_X, KC_C, KC_D  , KC_V  , KC_Z  ,      KC_K  , LT(FUN, KC_H), KC_COMM, KC_DOT, KC_SLSH,
                 TH_MED, TH_NAV, TH_MOU,      TH_SYM, TH_NUM       , TH_FUN
   ),
 
