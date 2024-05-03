@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______,TG(WIN_W),_______, _______, _______, _______, _______, KC_INS,  DF(MAC_B),KC_PSCR,_______, _______, _______,           KC_HOME,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_TOG, RGB_SPD, RGB_SPI, _______, RGB_HUI,           KC_END,
         _______, _______, _______, _______, KC_CALC, _______, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______,  RGB_VAI,
-        _______,                   _______, _______,          , _______,                  _______, _______,           RGB_SAD,  RGB_VAD, RGB_SAI),
+        _______,                   _______, _______,          GU_TOGG, _______,                  _______, _______,           RGB_SAD,  RGB_VAD, RGB_SAI),
 
     [MAC_B] = LAYOUT( /* Base */
         KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,KC_EQL,   KC_BSPC,          KC_DEL,
