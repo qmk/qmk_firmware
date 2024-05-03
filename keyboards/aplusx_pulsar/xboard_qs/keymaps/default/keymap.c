@@ -20,7 +20,6 @@ enum _layer { WIN_BASE = 0, WIN_FN, MAC_BASE, MAC_FN };
 
 enum pulsar_keycodes {
 KC_TGUI = SAFE_RANGE,   // Toggle between GUI Lock or Unlock
-NEW_SAFE_RANGE
 };
 
 #define KC_TASK LGUI(KC_TAB)
