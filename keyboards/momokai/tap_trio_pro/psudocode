@@ -14,6 +14,19 @@ matrix scanning:
 
     get value out, update sensor boundaries only if sma initialized
 
+    on minipad, TRAVEL_DISTANCE_IN_0_01MM is set to 400, which is the range of motion switches have.
+    i.e. at rest - bottomed out = 4mm
+
+    sensor calibration logic:
+        on rephlex, the sensors are updated only when they are at their highest, at the start and in a maintaince task that runs periodically:
+
+
+        on minipad, the sensors are updated dynamically when they are actuated on an ougoing basis:
+            There is an up deadzone and a down deadzone
+
+
+
+
     calebrate key if this is first pass
 
 
