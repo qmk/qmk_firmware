@@ -49,7 +49,16 @@
     "LAYOUT_tkl_ansi": "LAYOUT_tkl_ansi_tsangan",
     "LAYOUT_tkl_iso": "LAYOUT_tkl_iso_tsangan"
   },
-  "community_layouts": ["tkl_ansi_tsangan", "tkl_ansi_tsangan_split_bs_rshift", "tkl_iso_tsangan", "tkl_iso_tsangan_split_bs_rshift"],
+  "community_layouts": [
+    "tkl_ansi_tsangan",
+    "tkl_ansi_tsangan_split_bs_rshift",
+    "tkl_ansi_wkl",
+    "tkl_ansi_wkl_split_bs_rshift",
+    "tkl_iso_tsangan",
+    "tkl_iso_tsangan_split_bs_rshift",
+    "tkl_iso_wkl",
+    "tkl_iso_wkl_split_bs_rshift"
+  ],
   "layouts": {
     "LAYOUT_all": {
       "layout": [

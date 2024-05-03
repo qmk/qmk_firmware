@@ -36,7 +36,7 @@
   },
   "processor": "STM32F411",
   "bootloader": "custom",
-  "community_layouts": ["tkl_ansi", "tkl_ansi_tsangan", "tkl_iso", "tkl_iso_tsangan"],
+  "community_layouts": ["tkl_ansi", "tkl_ansi_tsangan", "tkl_ansi_wkl", "tkl_iso", "tkl_iso_tsangan", "tkl_iso_wkl"],
   "layouts": {
     "LAYOUT_tkl_ansi": {
       "layout": [
