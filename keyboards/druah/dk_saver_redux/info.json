@@ -42,7 +42,7 @@
         "pid": "0x0002",
         "vid": "0x444E"
     },
-    "community_layouts": ["tkl_f13_ansi", "tkl_f13_ansi_tsangan"],
+    "community_layouts": ["tkl_f13_ansi", "tkl_f13_ansi_tsangan", "tkl_f13_ansi_wkl"],
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_tkl_f13_ansi"
     },
