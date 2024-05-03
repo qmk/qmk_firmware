@@ -172,6 +172,5 @@
                 {"label": "K46 (D7,F1)", "matrix": [4, 6], "x": 4, "y": 4.25, "w": 7}
            ]
         }
-      },
-      "meta": "https://noroadsleft.github.io/kbf_qmk_converter/"
+      }
   }
