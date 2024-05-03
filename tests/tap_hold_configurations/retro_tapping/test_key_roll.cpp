@@ -102,9 +102,8 @@ TEST_F(RetroTapKeyRoll, retro_tap_key_roll_left_shift_to_left_gui) {
     InSequence s;
     auto       mod_tap_hold_gui   = KeymapKey(0, 1, 0, LGUI_T(KC_P));
     auto       mod_tap_hold_lshft = KeymapKey(0, 2, 0, SFT_T(KC_A));
-    auto       regular_key        = KeymapKey(0, 3, 0, KC_B);
 
-    set_keymap({mod_tap_hold_gui, mod_tap_hold_lshft, regular_key});
+    set_keymap({mod_tap_hold_gui, mod_tap_hold_lshft});
 
     EXPECT_NO_REPORT(driver);
     mod_tap_hold_lshft.press();
@@ -133,17 +132,8 @@ TEST_F(RetroTapKeyRoll, retro_tap_key_roll_left_shift_to_left_gui) {
     EXPECT_REPORT(driver, (KC_LEFT_GUI));
     EXPECT_EMPTY_REPORT(driver);
     EXPECT_REPORT(driver, (KC_P, KC_LEFT_SHIFT));
-    EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
-    mod_tap_hold_gui.release();
-    run_one_scan_loop();
-    VERIFY_AND_CLEAR(driver);
-
-    // press a regular key so the test ends with an empty report
-    EXPECT_REPORT(driver, (KC_B));
     EXPECT_EMPTY_REPORT(driver);
-    regular_key.press();
-    run_one_scan_loop();
-    regular_key.release();
+    mod_tap_hold_gui.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 }
