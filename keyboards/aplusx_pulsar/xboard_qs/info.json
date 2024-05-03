@@ -49,7 +49,6 @@
         "speed_steps": 10,
         "val_steps": 8,
         "animations": {
-            "solid_color": true,
             "alphas_mods": true,
             "gradient_up_down": true,
             "gradient_left_right": true,
