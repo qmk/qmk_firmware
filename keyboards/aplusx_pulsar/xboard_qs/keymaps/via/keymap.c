@@ -68,9 +68,6 @@ user_config_t user_config;
 #define KC_WINM KC_WIN_MODE
 #define KC_MACM KC_MAC_MODE
 
-#define KC_MCTL KC_MISSION_CONTROL
-#define KC_LPAD KC_LAUNCHPAD
-
 #define KC_SPLT KC_SPOTLIGHT
 #define KC_SIRI KC_DICTATION
 #define KC_DOND KC_DO_NOT_DISTURB
@@ -126,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, KC_BTN1, KC_MS_U, KC_BTN2, KC_WH_U, _______, _______, _______, _______, _______, _______, _______, _______, _______,          RGB_SAD, RGB_HUD, RGB_RMOD,
         _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, _______, _______, _______, _______, _______, _______, QK_BOOT,          _______,
         _______,      KC_BTN4, KC_BTN3, KC_BTN5, _______, KC_S_LED, _______, _______,  _______, _______, _______,            _______,                   RGB_VAI,
-        _______, KC_TGUI, _______,                             _______,                            _______,_______, _______,  KC_TPC,          RGB_SPD, RGB_VAD, RGB_SPI),
+        _______, GU_TOGG, _______,                             _______,                            _______,_______, _______,  KC_TPC,          RGB_SPD, RGB_VAD, RGB_SPI),
 
     [MAC_BASE] = LAYOUT( /* Layer 2 ; MAC Base Layer */
                                                                                                                                 KC_PC1, KC_PC2, KC_MUTE,
@@ -159,7 +156,6 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 #define HCS(report) host_consumer_send(record->event.pressed ? report : 0); return false
 #define HSS(report) host_system_send(record->event.pressed ? report : 0); return false
 
-static bool win_key_locked = false;
 static uint8_t mac_keycode[4] = {KC_LOPT, KC_ROPT, KC_LCMD, KC_RCMD};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -176,25 +172,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
             break;
-
-        case KC_TGUI:
-            if (record->event.pressed) {                // Toggle GUI lock on key press
-                win_key_locked = !win_key_locked;
-            }
-            break;
-
-        case KC_LGUI:
-            if (win_key_locked) { return false; }
-            else{ return true; }
-
-        case KC_MISSION_CONTROL:
-            if (record->event.pressed) host_consumer_send(0x29F);
-            else  host_consumer_send(0);
-            return false; // Skip all further processing of this key
-        case KC_LAUNCHPAD:
-            if (record->event.pressed)  host_consumer_send(0x2A0);
-            else   host_consumer_send(0);
-            return false; // Skip all further processing of this key
 
         case KC_SPOTLIGHT:
             HCS(0x221);
@@ -362,13 +339,8 @@ bool rgb_matrix_indicators_user(void)  {
         rgb_matrix_set_color_all(0xff, 0, 0);
     }
 
-    if (win_key_locked){                // WIN key Lock
-            if (isMacMode) {
-                win_key_locked = false;
-            }
-            else  {
+    if (keymap_config.no_gui){                // WIN key Lock
                 rgb_matrix_set_color(99, Status_LED_Bright_value, Status_LED_Bright_value, Status_LED_Bright_value);
-            }
     }
 
     if (isRecordingLedOn) {             // Dynamic Macro Recording LED Blink

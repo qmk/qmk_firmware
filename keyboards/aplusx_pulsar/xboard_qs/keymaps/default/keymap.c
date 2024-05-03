@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, KC_BTN1, KC_MS_U, KC_BTN2, KC_WH_U, _______, _______, _______, _______, _______, _______, _______, _______, _______,          RGB_SAD, RGB_HUD, RGB_RMOD,
         _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, _______, _______, _______, _______, _______, _______, QK_BOOT,          _______,
         _______,      KC_BTN4, KC_BTN3, KC_BTN5, _______, _______, _______, _______,  _______, _______, _______,            _______,                   RGB_VAI,
-        _______, KC_TGUI, _______,                             _______,                            _______,_______, _______, _______,          RGB_SPD, RGB_VAD, RGB_SPI),
+        _______, GU_TOGG, _______,                             _______,                            _______,_______, _______, _______,          RGB_SPD, RGB_VAD, RGB_SPI),
 
     [MAC_BASE] = LAYOUT( /* Layer 2 ; MAC Base Layer */
                                                                                                                                 KC_VOLD, KC_VOLU, KC_MUTE,
@@ -74,28 +74,6 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 };
 #endif // ENCODER_MAP_ENABLE
 
-static bool win_key_locked = false;
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
-    switch (keycode) {
-
-        case KC_TGUI:
-            if (record->event.pressed) {                // Toggle GUI lock on key press
-                win_key_locked = !win_key_locked;
-            }
-            break;
-
-        case KC_LGUI:
-            if (win_key_locked) { return false; }
-            else{ return true;}
-
-        default:
-            return true;   // Process all other keycodes normally
-    }
-    return true;
-}
-
 //-----------------------------------------------------------------------------
 
 #ifdef RGB_MATRIX_ENABLE
@@ -110,8 +88,8 @@ bool rgb_matrix_indicators_user(void)  {
         rgb_matrix_set_color(22, 50, 50, 50);
     }
 
-    if (win_key_locked){                // WIN key Lock
-                rgb_matrix_set_color(99, 50, 50, 50);
+    if (keymap_config.no_gui){     
+        rgb_matrix_set_color(99, 50, 50, 50);
     }
     return TRUE;
 }
