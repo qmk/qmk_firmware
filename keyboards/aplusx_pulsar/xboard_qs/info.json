@@ -39,7 +39,6 @@
     },
     "rgb_matrix": {
         "driver": "ws2812",
-        "led_count": 111,
         "default":{
             "val": 60
           },
