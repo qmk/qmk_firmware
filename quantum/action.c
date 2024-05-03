@@ -47,10 +47,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 int tp_buttons;
 
 #if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY) || (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
-bool     retro_should_tap = false;
-uint16_t retro_last_key   = 0;
-uint8_t  retro_curr_mods  = 0;
-uint8_t  retro_next_mods  = 0;
+static struct {
+    bool     primed : 1;
+    uint16_t curr_key;
+    uint8_t  curr_mods;
+    uint8_t  next_mods;
+} retro_tap = {0, 0, 0, 0};
 #endif
 
 #if defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT) && !defined(NO_ACTION_TAPPING)
@@ -82,10 +84,10 @@ void action_exec(keyevent_t event) {
 #if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY) || (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
         uint16_t event_keycode = get_event_keycode(event, false);
         if (event.pressed) {
-            retro_should_tap = false;
-            retro_last_key   = event_keycode;
-        } else if (retro_last_key == event_keycode) {
-            retro_should_tap = true;
+            retro_tap.primed = false;
+            retro_tap.curr_key = event_keycode;
+        } else if (retro_tap.curr_key == event_keycode) {
+            retro_tap.primed = true;
         }
 #endif
     }
@@ -540,7 +542,8 @@ void process_action(keyrecord_t *record, action_t action) {
 #    if defined(RETRO_TAPPING) && defined(DUMMY_MOD_NEUTRALIZER_KEYCODE)
                             // Send a dummy keycode to neutralize flashing modifiers
                             // if the key was held and then released with no interruptions.
-                            if (retro_should_tap && retro_last_key == get_event_keycode(event, false)) {
+                            uint16_t ev_kc = get_event_keycode(event, false);
+                            if (retro_tap.primed && retro_tap.curr_key == ev_kc) {
                                 neutralize_flashing_modifiers(get_mods());
                             }
 #    endif
@@ -836,37 +839,37 @@ void process_action(keyrecord_t *record, action_t action) {
 
 #ifndef NO_ACTION_TAPPING
 #    if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY) || (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
-    uint16_t event_keycode = get_event_keycode(event, false);
-
     if (is_tap_action(action)) {
         if (event.pressed) {
             if (tap_count > 0) {
-                retro_should_tap = false;
+                retro_tap.primed = false;
             } else {
-                retro_curr_mods = retro_next_mods;
-                retro_next_mods = get_mods();
+                retro_tap.curr_mods = retro_tap.next_mods;
+                retro_tap.next_mods = get_mods();
             }
         } else {
+            uint16_t event_keycode = get_event_keycode(event, false);
             uint8_t curr_mods = get_mods();
             if (tap_count > 0) {
-                retro_should_tap = false;
-            } else if (retro_last_key == event_keycode) {
+                retro_tap.primed = false;
+            } else if (retro_tap.curr_key == event_keycode) {
                 if (
 #        ifdef RETRO_TAPPING_PER_KEY
                     get_retro_tapping(event_keycode, record) &&
 #        endif
-                    retro_should_tap) {
+                    retro_tap.primed) {
+
 #        if defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)
                     process_auto_shift(action.layer_tap.code, record);
 #        else
-                    set_mods(retro_curr_mods);
+                    set_mods(retro_tap.curr_mods);
                     tap_code(action.layer_tap.code);
                     set_mods(curr_mods);
 #        endif
                 }
-                retro_should_tap = false;
+                retro_tap.primed = false;
             }
-            retro_next_mods = curr_mods;
+            retro_tap.next_mods = curr_mods;
         }
     }
 #    endif
