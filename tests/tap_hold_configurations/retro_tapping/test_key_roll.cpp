@@ -102,7 +102,7 @@ TEST_F(RetroTapKeyRoll, retro_tap_key_roll_left_shift_to_left_gui) {
     InSequence s;
     auto       mod_tap_hold_gui   = KeymapKey(0, 1, 0, LGUI_T(KC_P));
     auto       mod_tap_hold_lshft = KeymapKey(0, 2, 0, SFT_T(KC_A));
-    auto       regular_key      = KeymapKey(0, 3, 0, KC_B);
+    auto       regular_key        = KeymapKey(0, 3, 0, KC_B);
 
     set_keymap({mod_tap_hold_gui, mod_tap_hold_lshft, regular_key});
 

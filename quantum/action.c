@@ -84,7 +84,7 @@ void action_exec(keyevent_t event) {
 #if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY) || (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
         uint16_t event_keycode = get_event_keycode(event, false);
         if (event.pressed) {
-            retro_tap.primed = false;
+            retro_tap.primed   = false;
             retro_tap.curr_key = event_keycode;
         } else if (retro_tap.curr_key == event_keycode) {
             retro_tap.primed = true;
@@ -849,7 +849,7 @@ void process_action(keyrecord_t *record, action_t action) {
             }
         } else {
             uint16_t event_keycode = get_event_keycode(event, false);
-            uint8_t curr_mods = get_mods();
+            uint8_t curr_mods      = get_mods();
             if (tap_count > 0) {
                 retro_tap.primed = false;
             } else if (retro_tap.curr_key == event_keycode) {
