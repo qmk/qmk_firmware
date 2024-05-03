@@ -18,8 +18,8 @@
 
 bool led_update_kb(led_t led_state) {
     if (led_update_user(led_state)) {
-        writePin(B6, led_state.caps_lock);
-        writePin(B7, led_state.scroll_lock);
+        gpio_write_pin(B6, led_state.caps_lock);
+        gpio_write_pin(B7, led_state.scroll_lock);
     }
     return true;
 }

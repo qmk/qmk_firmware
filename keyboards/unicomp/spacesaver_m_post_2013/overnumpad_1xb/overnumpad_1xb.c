@@ -20,19 +20,19 @@ void keyboard_post_init_kb(void)
 {
     // Led pins:
     // C12 is the left-most led, normally Num Lock, but on Spacesaver M it's Caps Lock. Configured in info.json
-    setPinOutput(C11); // middle led, always off on Spacesaver M
-    writePin(C11, 0);
-    setPinOutput(C10); // right-most led, normally Scroll Lock, but on Spacesaver M indicates function layer
+    gpio_set_pin_output(C11); // middle led, always off on Spacesaver M
+    gpio_write_pin(C11, 0);
+    gpio_set_pin_output(C10); // right-most led, normally Scroll Lock, but on Spacesaver M indicates function layer
 }
 
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
     switch (get_highest_layer(state)) {
         case 0:
-            writePin(C10, 0);
+            gpio_write_pin(C10, 0);
             break;
         default:
-            writePin(C10, 1);
+            gpio_write_pin(C10, 1);
             break;
     }
      return layer_state_set_user(state);

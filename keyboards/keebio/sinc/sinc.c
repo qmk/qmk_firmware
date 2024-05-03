@@ -22,7 +22,7 @@ bool led_update_kb(led_t led_state) {
     if (!led_update_user(led_state)) { return false; }
     // Only update if left half
     if (isLeftHand && led_update_user(led_state)) {
-        writePin(LED_CAPS_LOCK_PIN, !led_state.caps_lock);
+        gpio_write_pin(LED_CAPS_LOCK_PIN, !led_state.caps_lock);
     }
     return true;
 }

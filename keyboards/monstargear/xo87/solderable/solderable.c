@@ -23,28 +23,28 @@
 #define ledCapSP (80+8)
 
 void backlight_init_ports(void) {
-    setPinOutput(Lseg0);
-    setPinOutput(Lseg1);
-    setPinOutput(Lseg2);
-    setPinOutput(Lseg3);
-    setPinOutput(Lseg4);
-    setPinOutput(Lseg5);
-    setPinOutput(Lcom0);
-    setPinOutput(Lcom1);
-    setPinOutput(Lcom2);
-    setPinOutput(Lcom3);
-    setPinOutput(Lcom4);
-    setPinOutput(Lcom5);
-    setPinOutput(Lcom6);
-    setPinOutput(Lcom7);
-    setPinOutput(Lcom8);
-    setPinOutput(Lcom9);
-    setPinOutput(Lcom10);
-    setPinOutput(Lcom11);
-    setPinOutput(Lcom12);
-    setPinOutput(Lcom13);
-    setPinOutput(Lcom14);
-    setPinOutput(Lcom15);
+    gpio_set_pin_output(Lseg0);
+    gpio_set_pin_output(Lseg1);
+    gpio_set_pin_output(Lseg2);
+    gpio_set_pin_output(Lseg3);
+    gpio_set_pin_output(Lseg4);
+    gpio_set_pin_output(Lseg5);
+    gpio_set_pin_output(Lcom0);
+    gpio_set_pin_output(Lcom1);
+    gpio_set_pin_output(Lcom2);
+    gpio_set_pin_output(Lcom3);
+    gpio_set_pin_output(Lcom4);
+    gpio_set_pin_output(Lcom5);
+    gpio_set_pin_output(Lcom6);
+    gpio_set_pin_output(Lcom7);
+    gpio_set_pin_output(Lcom8);
+    gpio_set_pin_output(Lcom9);
+    gpio_set_pin_output(Lcom10);
+    gpio_set_pin_output(Lcom11);
+    gpio_set_pin_output(Lcom12);
+    gpio_set_pin_output(Lcom13);
+    gpio_set_pin_output(Lcom14);
+    gpio_set_pin_output(Lcom15);
 }
 
 void backlight_set(uint8_t level) {
@@ -54,22 +54,22 @@ void backlight_task(void) {
     // This is a temporary workaround to get the status LEDs working until we can figure out the LED matrix
     led_t host_leds = host_keyboard_led_state();
     if (host_leds.scroll_lock) {
-    writePinHigh(Lcom3);
-    writePinHigh(Lseg5);
+    gpio_write_pin_high(Lcom3);
+    gpio_write_pin_high(Lseg5);
     } else {
-    writePinLow(Lcom3);
+    gpio_write_pin_low(Lcom3);
     }
     if (host_leds.num_lock) {
-    writePinHigh(Lcom7);
-    writePinHigh(Lseg5);
+    gpio_write_pin_high(Lcom7);
+    gpio_write_pin_high(Lseg5);
     } else {
-    writePinLow(Lcom7);
+    gpio_write_pin_low(Lcom7);
     }
     if (host_leds.caps_lock) {
-    writePinHigh(Lcom8);
-    writePinHigh(Lseg5);
+    gpio_write_pin_high(Lcom8);
+    gpio_write_pin_high(Lseg5);
     } else {
-    writePinLow(Lcom8);
+    gpio_write_pin_low(Lcom8);
     }
 }
 

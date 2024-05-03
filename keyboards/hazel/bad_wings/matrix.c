@@ -48,11 +48,11 @@ bool sr_74hc595_spi_start(void) {
 
 bool sr_74hc595_spi_send_byte(uint8_t data) {
     sr_74hc595_spi_start();
-    writePinLow(SHIFTREG_MATRIX_COL_CS);
+    gpio_write_pin_low(SHIFTREG_MATRIX_COL_CS);
     matrix_io_delay();
     spi_write(data);
     matrix_io_delay();
-    writePinHigh(SHIFTREG_MATRIX_COL_CS);
+    gpio_write_pin_high(SHIFTREG_MATRIX_COL_CS);
     sr_74hc595_spi_stop();
     return true;
 }
@@ -82,12 +82,12 @@ void matrix_init_custom(void) {
     // Set up the initial states for all the row pins
     for (int r = 0; r < SHIFTREG_ROWS; r++) {
         // Note: This needs to use the internal pull down resistors, and atmegas do *not* support that
-        setPinInputLow(rowPinsSR[r]);
+        gpio_set_pin_input_low(rowPinsSR[r]);
     }
 
     // Set the CS to low by default, and specify as an output pin
-    writePinHigh(SHIFTREG_MATRIX_COL_CS); // should be high when using SPI?
-    setPinOutput(SHIFTREG_MATRIX_COL_CS);
+    gpio_write_pin_high(SHIFTREG_MATRIX_COL_CS); // should be high when using SPI?
+    gpio_set_pin_output(SHIFTREG_MATRIX_COL_CS);
 
     // Since it's the init, deactivate all the columns. We'll activate once we get to the matrix scan
     clearColumns();
@@ -116,7 +116,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         matrix_io_delay();
 
         for (int r = 0; r < SHIFTREG_ROWS; r++) {
-            current_matrix[r] |= ((readPin(rowPinsSR[r]) ? 1 : 0) << c);
+            current_matrix[r] |= ((gpio_read_pin(rowPinsSR[r]) ? 1 : 0) << c);
         }
     }
 
