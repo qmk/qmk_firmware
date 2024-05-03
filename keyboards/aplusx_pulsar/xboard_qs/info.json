@@ -32,6 +32,11 @@
     "bootmagic": {
         "matrix": [2, 7]
     },
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096
+        }
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "C13", "pin_b": "C14"}
