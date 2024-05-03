@@ -33,6 +33,7 @@
 
 #include "lang/lang_lut.h"
 
+#define FW_VERSION "0.5.2"
 
 #define FLASH_TARGET_OFFSET (4 * 1024 * 1024) //we start at 4MB and use the remaining 4MB for resource data
 const uint8_t *flash_target_contents = (const uint8_t *) (XIP_BASE + FLASH_TARGET_OFFSET);
@@ -2247,23 +2248,22 @@ void fill_overlay_buffer(uint8_t keycode, uint8_t mods, uint8_t segment_0_to_14,
 }
 
 void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
-    const char * name = "P0.PolyKybd Split72";
+    const char * name = "P\x06.Split72 " FW_VERSION " HW" STR(DEVICE_VER) " ";
 
     if(length>1 && (data[0] == /*via_command_id::*/id_custom_save || data[0] == 'P')) {
         switch(data[1]) {
-            case /*via_channel_id::*/id_qmk_backlight_channel ... /*via_channel_id::*/id_qmk_led_matrix_channel:
-                //used by VIA, so that will never occuer if used together with VIA
-                //without VIA, lets handle it like '0'
-            case '0': //id
+            case id_custom_channel...id_qmk_led_matrix_channel: //unusable :(
+                break;
+            case 6: //id
                 memset(data, 0, length);
                 memcpy(data, name, strlen(name));
                 break;
-            case '1': //lang
+            case 7: //lang
                 memset(data, 0, length);
                 switch(l_state.lang) {
                     /*[[[cog
                     for lang in languages:
-                        cog.outl(f'case {lang}: memcpy(data, "P1.{lang[5:]}", 5); break;')
+                        cog.outl(f'case {lang}: memcpy(data, "P\\x07.{lang[5:]}", 5); break;')
                     ]]]*/
                     case LANG_EN: memcpy(data, "P1.EN", 5); break;
                     case LANG_DE: memcpy(data, "P1.DE", 5); break;
@@ -2278,43 +2278,45 @@ void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
                     case LANG_GR: memcpy(data, "P1.GR", 5); break;
                     //[[[end]]]
                     default:
-                        memcpy(data, "P1!", 3);
+                        memcpy(data, "P\x07!", 3);
                         break;
                 }
                 break;
-            case '2': //lang list
+            case 8: //lang list
                 memset(data, 0, length);
                 /*[[[cog
-                lang_list = "P2."
+                lang_list = "P\\x08."
                 for lang in languages:
                     lang_list += lang[5:]
                     if len(lang_list)>=(32-3-1):
                         cog.outl(f'memcpy(data, "{lang_list}", {len(lang_list)});')
                         cog.outl(f'raw_hid_send(data, length);')
                         cog.outl(f'memset(data, 0, length);')
-                        lang_list = "P2."
+                        lang_list = "P8."
                     elif lang != languages[-1]:
                         lang_list += ","
                 cog.outl(f'memcpy(data, "{lang_list}", {len(lang_list)});')
                 ]]]*/
-                memcpy(data, "P2.EN,DE,FR,ES,PT,IT,TR,KO,JA", 29);
+                memcpy(data, "P\x08.EN,DE,FR,ES,PT,IT,TR,KO,JA", 29);
                 raw_hid_send(data, length);
                 memset(data, 0, length);
-                memcpy(data, "P2.AR,GR", 8);
+                memcpy(data, "P\x08.AR,GR", 8);
                 //[[[end]]]
                 break;
-            case '3': //change language
+            case 9: //change language
                 if(data[3]< NUM_LANG) {
                     l_state.lang = data[3];
                     uprintf("Setting lang to %u.\n", data[3]);
+                    request_disp_refresh();
                     update_performed();
-                    memcpy(data, "P3.", 3);
+                    memcpy(data, "P\x09.", 3);
                 } else {
+                    uprintf("Invalid language index %u.\n", data[3]);
                     memset(data, 0, length);
-                    memcpy(data, "P3!", 3);
+                    memcpy(data, "P\x09!", 3);
                 }
                 break;
-            case '4': //receive overlay e.g. P4:\4\4
+            case 10: //receive overlay e.g. P4:\4\4
                 {
                     uint8_t keycode = data[3];
                     uint8_t segment = data[5];
@@ -2327,58 +2329,83 @@ void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
                                 request_disp_refresh();
                             }
                         }
-                        memcpy(data, "P4.", 3);
+                        memcpy(data, "P\x0a.", 3);
                     } else {
                         memset(data, 0, length);
-                        memcpy(data, "P4!", 3);
+                        memcpy(data, "P\x0a!", 3);
                     }
                 }
                 break;
-            case '5': //reset overlays buffers
-                l_state.overlay_flags = flag_on(l_state.overlay_flags, RESET_BUFFERS);
-                memcpy(data, "P5.", 3);
-                uprint("Overlay buffer reset.\n");
-                break;
-            case '6': //toggle overlay visibility
+            case 11: //overlays flags on
                 {
-                    const bool vis_changed =  test_flag(l_state.overlay_flags, DISPLAY_OVERLAYS) != (data[3]!=0);
-                    l_state.overlay_flags = set_flag(l_state.overlay_flags, DISPLAY_OVERLAYS, data[3]!=0);
-                    uprintf("Overlays visible: %u.\n", data[3]);
-                    memcpy(data, "P6.", 3);
+                    const bool vis_changed = test_flag(data[3]^l_state.overlay_flags, DISPLAY_OVERLAYS);
+                    l_state.overlay_flags = flag_on(l_state.overlay_flags, data[3]);
                     if(vis_changed) {
-                        //run houskeeping task to make sure the overlays chage before receiving further HID commands
                         housekeeping_task_user();
                     }
+                    memcpy(data, "P\x0b.", 3);
+                    uprintf("Overlay flags 0x%x set.\n", data[3]);
                 }
                 break;
-            case '7': //set brightness
+
+            case 12: //overlays flags off
+                {
+                    const bool vis_changed = test_flag(data[3]^l_state.overlay_flags, DISPLAY_OVERLAYS);
+                    l_state.overlay_flags = flag_off(l_state.overlay_flags, data[3]);
+                    if(vis_changed) {
+                        housekeeping_task_user();
+                    }
+                    memcpy(data, "P\x0c.", 3);
+                    uprintf("Overlay flags 0x%x cleared.\n", data[3]);
+                }
+                break;
+            case 13: //set brightness
                 if ( data[3] <= FULL_BRIGHT) {
                     l_state.contrast = data[3];
                     save_user_eeconf();
-                    memcpy(data, "P7.", 3);
+                    memcpy(data, "P\x0d.", 3);
                     uprintf("Set brightness to: %u.\n", data[3]);
                 } else {
-                    memcpy(data, "P7!", 3);
+                    memcpy(data, "P\x0d!", 3);
                     uprintf("Refused to set brightness to: %u.\n", data[3]);
                 }
                 break;
-            case '8': //key press
+            case 14: //key press
                 {
                     uint16_t keycode = ((uint16_t)data[3])<<8 | data[4];
-                    register_code(keycode);
-                    memcpy(data, "P8.", 3);
-                    printf("Registered keycode: %u.\n", keycode);
+                    if(data[5]==0) {
+                        register_code(keycode);
+                        printf("Registered keycode: %u.\n", keycode);
+                    } else {
+                        unregister_code(keycode);
+                        printf("Unregistered keycode: %u.\n", keycode);
+                    }
+                    memcpy(data, "P\x0e.", 3);
                 }
                 break;
-            case '9': //key release
-                {
-                    uint16_t keycode = ((uint16_t)data[3])<<8 | data[4];
-                    unregister_code(keycode);
-                    memcpy(data, "P9.", 3);
-                    printf("Unregistered keycode: %u.\n", keycode);
+            case 15: //start/stop idle
+                if(data[3]==0) {
+                    if((l_state.flags & (STATUS_DISP_ON|DISP_IDLE|RGB_ON))==0) {
+                        suspend_wakeup_init_kb();
+                    } else {
+                        l_state.flags &= ~((uint8_t)DISP_IDLE);
+                        request_disp_refresh();
+                        update_performed();
+                    }
+                    uprint("Stop idle.\n");
+                } else {
+                    last_update = timer_read32() - FADE_OUT_TIME;
+                    if(last_update<0) {
+                        uprintf("Starting idle in %ld msec .\n", -last_update);
+                        last_update=0;
+                    } else {
+                        uprint("Start idle.\n");
+                    }
                 }
+                memcpy(data, "P\x0f.", 3);
                 break;
             default:
+                printf("Unknown command: %u.\n", data[1]);
                 break;
         }
         #ifndef VIA_ENABLE
