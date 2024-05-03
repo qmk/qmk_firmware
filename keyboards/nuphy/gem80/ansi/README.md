@@ -88,3 +88,10 @@ All measure were made with [latency tester](https://github.com/joelspadin/keyboa
 
 
 Maybe at some point [this pr](https://github.com/joelspadin/keyboard-latency-tester/pull/1) would be merged and results would be part of the original repo :D
+
+
+
+
+# Links
+
+1. Patch to use tap-dance (1 tap - caps lock, 2 taps - cmd + space - to change language in majority of OS - useful if you use caps lock in macOS to change language to keep similar behavior in Windows/Linux): [link](https://gist.github.com/ryodeushii/2587f877cbe81e9d9c666a2d8066e416)
