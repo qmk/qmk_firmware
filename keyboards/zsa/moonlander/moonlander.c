@@ -95,13 +95,13 @@ static THD_FUNCTION(LEDThread, arg) {
 }
 
 void keyboard_pre_init_kb(void) {
-    setPinOutput(B5);
-    setPinOutput(B4);
-    setPinOutput(B3);
+    gpio_set_pin_output(B5);
+    gpio_set_pin_output(B4);
+    gpio_set_pin_output(B3);
 
-    writePinLow(B5);
-    writePinLow(B4);
-    writePinLow(B3);
+    gpio_write_pin_low(B5);
+    gpio_write_pin_low(B4);
+    gpio_write_pin_low(B3);
 
     chThdCreateStatic(waLEDThread, sizeof(waLEDThread), NORMALPRIO - 16, LEDThread, NULL);
 

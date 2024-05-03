@@ -18,9 +18,9 @@
 #include "selene.h"
 
 void matrix_init_kb(void){
-    setPinOutput(NUM_LOCK_PIN);
-    setPinOutput(CAPS_LOCK_PIN);
-    setPinOutput(SCROLL_LOCK_PIN);
+    gpio_set_pin_output(NUM_LOCK_PIN);
+    gpio_set_pin_output(CAPS_LOCK_PIN);
+    gpio_set_pin_output(SCROLL_LOCK_PIN);
 }
 
 void keyboard_post_init_user(void) {
@@ -30,9 +30,9 @@ void keyboard_post_init_user(void) {
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if(res) {
-        writePin(NUM_LOCK_PIN, led_state.num_lock);
-        writePin(CAPS_LOCK_PIN, led_state.caps_lock);
-        writePin(SCROLL_LOCK_PIN, led_state.scroll_lock);
+        gpio_write_pin(NUM_LOCK_PIN, led_state.num_lock);
+        gpio_write_pin(CAPS_LOCK_PIN, led_state.caps_lock);
+        gpio_write_pin(SCROLL_LOCK_PIN, led_state.scroll_lock);
     }
     return res;
 }

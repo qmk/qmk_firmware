@@ -48,9 +48,9 @@ led_config_t g_led_config = {{// Key Matrix to LED Index
 
 void keyboard_pre_init_kb(void) {
     // Set LED IO as outputs
-    setPinOutput(LED_00);
-    setPinOutput(LED_01);
-    setPinOutput(LED_02);
+    gpio_set_pin_output(LED_00);
+    gpio_set_pin_output(LED_01);
+    gpio_set_pin_output(LED_02);
     keyboard_pre_init_user();
 }
 
@@ -59,17 +59,17 @@ bool shutdown_kb(bool jump_to_bootloader) {
         return false;
     }
     // Shutdown LEDs
-    writePinLow(LED_00);
-    writePinLow(LED_01);
-    writePinLow(LED_02);
+    gpio_write_pin_low(LED_00);
+    gpio_write_pin_low(LED_01);
+    gpio_write_pin_low(LED_02);
     return true;
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
     // Layer LEDs act as binary indication of current layer
     uint8_t layer = get_highest_layer(state);
-    writePin(LED_00, layer & 0b1);
-    writePin(LED_01, (layer >> 1) & 0b1);
+    gpio_write_pin(LED_00, layer & 0b1);
+    gpio_write_pin(LED_01, (layer >> 1) & 0b1);
     uprintf("%d string", layer);
     return layer_state_set_user(state);
 }
@@ -83,13 +83,13 @@ void matrix_init_kb(void) {
     // runs once when the firmware starts up
     uint8_t led_delay_ms = 80;
     for (int i = 0; i < 2; i++) {
-        writePinHigh(LED_00);
-        writePinHigh(LED_01);
-        writePinHigh(LED_02);
+        gpio_write_pin_high(LED_00);
+        gpio_write_pin_high(LED_01);
+        gpio_write_pin_high(LED_02);
         wait_ms(led_delay_ms);
-        writePinLow(LED_00);
-        writePinLow(LED_01);
-        writePinLow(LED_02);
+        gpio_write_pin_low(LED_00);
+        gpio_write_pin_low(LED_01);
+        gpio_write_pin_low(LED_02);
         if (i < 1) {
             wait_ms(led_delay_ms);
         }
@@ -101,6 +101,6 @@ void matrix_init_kb(void) {
 bool led_update_kb(led_t led_state) {
     if (!led_update_user(led_state)) return false;
     // put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
-    writePin(LED_02, !led_state.num_lock);
+    gpio_write_pin(LED_02, !led_state.num_lock);
     return true;
 }

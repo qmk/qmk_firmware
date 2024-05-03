@@ -23,16 +23,16 @@
 #define SCROLL_LED D4
 
 void keyboard_pre_init_kb(void) {
-    setPinOutput(CAPS_LED);
-    setPinOutput(SCROLL_LED);
+    gpio_set_pin_output(CAPS_LED);
+    gpio_set_pin_output(SCROLL_LED);
     keyboard_pre_init_user();
 }
 
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if (res) {
-        writePin(CAPS_LED, led_state.caps_lock);
-        writePin(SCROLL_LED, led_state.scroll_lock);
+        gpio_write_pin(CAPS_LED, led_state.caps_lock);
+        gpio_write_pin(SCROLL_LED, led_state.scroll_lock);
     }
     return res;
 }

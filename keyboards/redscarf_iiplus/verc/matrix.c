@@ -114,7 +114,7 @@ static void init_pins(void) {
     for (int col = 0; col < MATRIX_COLS; col++) {
       pin_t pin = direct_pins[row][col];
       if (pin != NO_PIN) {
-        setPinInputHigh(pin);
+        gpio_set_pin_input_high(pin);
       }
     }
   }
@@ -127,7 +127,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
   for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
     pin_t pin = direct_pins[current_row][col_index];
     if (pin != NO_PIN) {
-      current_matrix[current_row] |= readPin(pin) ? 0 : (ROW_SHIFTER << col_index);
+      current_matrix[current_row] |= gpio_read_pin(pin) ? 0 : (ROW_SHIFTER << col_index);
     }
   }
 
@@ -150,27 +150,27 @@ static void select_row(uint8_t col)
 {
     switch (col) {
         case 0:
-            writePinLow(B0);
-            writePinLow(B1);
-            writePinLow(B2);
+            gpio_write_pin_low(B0);
+            gpio_write_pin_low(B1);
+            gpio_write_pin_low(B2);
             break;
         case 1:
-            writePinLow(B0);
-            writePinLow(B1);
+            gpio_write_pin_low(B0);
+            gpio_write_pin_low(B1);
             break;
         case 2:
-            writePinLow(B0);
-            writePinLow(B2);
+            gpio_write_pin_low(B0);
+            gpio_write_pin_low(B2);
             break;
         case 3:
-            writePinLow(B0);
+            gpio_write_pin_low(B0);
             break;
         case 4:
-            writePinLow(B1);
-            writePinLow(B2);
+            gpio_write_pin_low(B1);
+            gpio_write_pin_low(B2);
             break;
         case 5:
-            writePinLow(B1);
+            gpio_write_pin_low(B1);
             break;
     }
 }
@@ -179,46 +179,46 @@ static void unselect_row(uint8_t col)
 {
     switch (col) {
         case 0:
-            writePinHigh(B0);
-            writePinHigh(B1);
-            writePinHigh(B2);
+            gpio_write_pin_high(B0);
+            gpio_write_pin_high(B1);
+            gpio_write_pin_high(B2);
             break;
         case 1:
-            writePinHigh(B0);
-            writePinHigh(B1);
+            gpio_write_pin_high(B0);
+            gpio_write_pin_high(B1);
             break;
         case 2:
-            writePinHigh(B0);
-            writePinHigh(B2);
+            gpio_write_pin_high(B0);
+            gpio_write_pin_high(B2);
             break;
         case 3:
-            writePinHigh(B0);
+            gpio_write_pin_high(B0);
             break;
         case 4:
-            writePinHigh(B1);
-            writePinHigh(B2);
+            gpio_write_pin_high(B1);
+            gpio_write_pin_high(B2);
             break;
         case 5:
-            writePinHigh(B1);
+            gpio_write_pin_high(B1);
             break;
     }
 }
 
 static void unselect_rows(void)
 {
-    setPinOutput(B0);
-    setPinOutput(B1);
-    setPinOutput(B2);
+    gpio_set_pin_output(B0);
+    gpio_set_pin_output(B1);
+    gpio_set_pin_output(B2);
 	// make all pins high to select Y7, nothing is connected to that (otherwise the first row will act weird)
-    writePinHigh(B0);
-    writePinHigh(B1);
-    writePinHigh(B2);
+    gpio_write_pin_high(B0);
+    gpio_write_pin_high(B1);
+    gpio_write_pin_high(B2);
 }
 
 static void init_pins(void) {
   unselect_rows();
   for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-    setPinInputHigh(col_pins[x]);
+    gpio_set_pin_input_high(col_pins[x]);
   }
 }
 
@@ -238,7 +238,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     for(uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
 
         // Select the col pin to read (active low)
-        uint8_t pin_state = readPin(col_pins[col_index]);
+        uint8_t pin_state = gpio_read_pin(col_pins[col_index]);
 
         // Populate the matrix row with the state of the col pin
         current_matrix[current_row] |=  pin_state ? 0 : (ROW_SHIFTER << col_index);
@@ -254,26 +254,26 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 
 static void select_col(uint8_t col)
 {
-    setPinOutput(col_pins[col]);
-    writePinLow(col_pins[col]);
+    gpio_set_pin_output(col_pins[col]);
+    gpio_write_pin_low(col_pins[col]);
 }
 
 static void unselect_col(uint8_t col)
 {
-    setPinInputHigh(col_pins[col]);
+    gpio_set_pin_input_high(col_pins[col]);
 }
 
 static void unselect_cols(void)
 {
     for(uint8_t x = 0; x < MATRIX_COLS; x++) {
-        setPinInputHigh(col_pins[x]);
+        gpio_set_pin_input_high(col_pins[x]);
     }
 }
 
 static void init_pins(void) {
   unselect_cols();
   for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
-    setPinInputHigh(row_pins[x]);
+    gpio_set_pin_input_high(row_pins[x]);
   }
 }
 
@@ -293,7 +293,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
         matrix_row_t last_row_value = current_matrix[row_index];
 
         // Check row pin state
-        if (readPin(row_pins[row_index]) == 0)
+        if (gpio_read_pin(row_pins[row_index]) == 0)
         {
             // Pin LO, set col bit
             current_matrix[row_index] |= (ROW_SHIFTER << current_col);

@@ -18,15 +18,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "wireless.h"
 
 void led_init(void) {
-    setPinOutput(D0);
-    setPinOutput(D1);
-    setPinOutput(F4);
-    setPinOutput(F5);
+    gpio_set_pin_output(D0);
+    gpio_set_pin_output(D1);
+    gpio_set_pin_output(F4);
+    gpio_set_pin_output(F5);
     
-    writePinHigh(D0);
-    writePinHigh(D1);
-    writePinHigh(F4);
-    writePinHigh(F5);
+    gpio_write_pin_high(D0);
+    gpio_write_pin_high(D1);
+    gpio_write_pin_high(F4);
+    gpio_write_pin_high(F5);
 }
 
 
