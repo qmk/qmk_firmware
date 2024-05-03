@@ -18,9 +18,6 @@
 
 #define WAIT_US_TIMER           GPTD3       //  Encoder 및 RGB ANI가 부드러워짐
 
-// Dynamic EEPROM
-#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR  4095
-
 /* USB Hub Control pins  */
 #define GPIO_KM_PWEN        C1      // Hub Device Power on/off
 #define GPIO_KM_OE          C2      // Hub Host Connection on/off
