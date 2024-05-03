@@ -1471,7 +1471,7 @@ uint16_t adjust_overlay_idx_to_mod(uint16_t idx, uint8_t mods) {
     return mods == 7 ? idx : idx + NUM_OVERLAYS * mods;
 }
 
-bool copy_overlay_to_buffer(uint16_t keycode, uint8_t mods) {
+bool copy_overlay_to_buffer(uint16_t keycode, uint8_t mods, bool combine) {
     if(keycode>KC_RGUI) {
         return false;
     }
@@ -1482,6 +1482,9 @@ bool copy_overlay_to_buffer(uint16_t keycode, uint8_t mods) {
     idx = adjust_overlay_idx_to_mod(idx, mods);
     if(!use_overlay[idx]) {
         return false;
+    }
+    if(combine) {
+        combine_with_mask();
     }
     kdisp_draw_bitmap(28, 0, overlays[idx], 72, 40); //don't understnad why we start at offset 28... need to think about it
     return true;
@@ -1513,6 +1516,12 @@ void update_displays(enum refresh_mode mode) {
 
     const uint8_t max_rows = mode == START_FIRST_HALF ? 3 : MATRIX_ROWS_PER_SIDE;
 
+    const bool overlay_only = test_flag( l_state.overlay_flags, CLEAR_LEFT_TOP|CLEAR_LEFT_BOTTOM|CLEAR_RIGHT_TOP|CLEAR_RIGHT_BOTTOM);
+    const bool combine = !overlay_only && (l_state.overlay_flags & (CLEAR_LEFT_TOP|CLEAR_LEFT_BOTTOM|CLEAR_RIGHT_TOP|CLEAR_RIGHT_BOTTOM))!=0;
+    if(combine ) {
+        prepare_mask_buffer(l_state.overlay_flags);
+    }
+
     uint8_t skip = 0;
     for (uint8_t r = start_row; r < max_rows; ++r) {
         for (uint8_t c = 0; c < MATRIX_COLS; ++c) {
@@ -1535,23 +1544,25 @@ void update_displays(enum refresh_mode mode) {
                     if(keycode!=KC_TRNS) {
                         const uint16_t* text = keycode_to_disp_text(keycode, state);
                         kdisp_set_buffer(0x00);
-                        if(text==NULL){
-                            if((keycode&QK_UNICODEMAP_PAIR)!=0){
-                                uint16_t chr = capital_case ? QK_UNICODEMAP_PAIR_GET_SHIFTED_INDEX(keycode) : QK_UNICODEMAP_PAIR_GET_UNSHIFTED_INDEX(keycode);
-                                kdisp_write_gfx_char(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 28, 23, unicode_map[chr]);
+                        if(!overlay_only) {
+                            if(text==NULL){
+                                if((keycode&QK_UNICODEMAP_PAIR)!=0){
+                                    uint16_t chr = capital_case ? QK_UNICODEMAP_PAIR_GET_SHIFTED_INDEX(keycode) : QK_UNICODEMAP_PAIR_GET_UNSHIFTED_INDEX(keycode);
+                                    kdisp_write_gfx_char(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 28, 23, unicode_map[chr]);
+                                }
+                            } else {
+                                kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 28, 23, text);
                             }
-                        } else {
-                            kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 28, 23, text);
                         }
                         if(display_overlays) {
-                            if(!copy_overlay_to_buffer(keycode, mods)) {
+                            if(!copy_overlay_to_buffer(keycode, mods, combine)) {
                                 text = keycode_to_disp_overlay(keycode, state); //fallback to hardcoded
                             }
                         } else {
-                            text = keycode_to_disp_overlay(keycode, state);
-                        }
-                        if(text!=NULL) {
-                            kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 28, 23, text);
+                            text = keycode_to_disp_overlay(keycode, state); //this should maybe go away - or setting?
+                            if(text) {
+                                kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 28, 23, text);
+                            }
                         }
                         kdisp_send_buffer();
                     }

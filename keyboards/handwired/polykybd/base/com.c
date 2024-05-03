@@ -1,7 +1,7 @@
 #include "com.h"
 
 bool test_flag(uint8_t flags, uint8_t f) {
-    return (flags & f) != 0;
+    return (flags & f) == f;
 }
 
 uint8_t flag_on(uint8_t flags, uint8_t f) {

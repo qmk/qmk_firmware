@@ -12,6 +12,12 @@ void kdisp_draw_bitmap(int8_t x, int8_t y, const uint8_t pgm_bmp[], int8_t bmp_w
 
 void kdisp_set_buffer(uint8_t vertical_pixel_row_of_8_pixels);
 
+void kdisp_set_mask(uint8_t vertical_pixel_row_of_8_pixels);
+
+void combine_with_mask(void);
+
+void prepare_mask_buffer(uint8_t oflags);
+
 void kdisp_send_buffer(void);
 
 void kdisp_invert(bool invert);

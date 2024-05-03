@@ -1,6 +1,6 @@
 {
-    "keyboard_name": "PolyKybd Split72 v3.1.0",
-    "manufacturer": "thpoll",
+    "keyboard_name": "PolyKybd Split72",
+    "manufacturer": "PolyFabriq",
     "url": "https://ko-fi.com/polykb",
     "maintainer": "[thpoll]",
     "bootloader": "rp2040",
