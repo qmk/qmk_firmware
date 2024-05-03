@@ -63,7 +63,6 @@ user_config_t user_config;
         KC_TPC,             // KM Switch PC1<-->PC2 Toggle
         INIT_3S,            // EE_CLR(EEPROM CLear)(공장초기화)를 3초이상 눌러야 동작
         KC_S_LED,            // Change Status LED Brightness
-        NEW_SAFE_RANGE = SAFE_RANGE
     };
 
 #define KC_WINM KC_WIN_MODE
