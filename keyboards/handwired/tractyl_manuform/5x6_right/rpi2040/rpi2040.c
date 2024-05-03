@@ -24,11 +24,11 @@ void matrix_scan_sub_kb(void) {
     static uint8_t  tap_counter  = 0;
     static uint16_t reset_timer  = 0;
     static uint16_t debounce_timer = 0;
-    bool            reset_pin_fe = readPin(RESET_PIN) < last_state && timer_elapsed(debounce_timer) > 50;
+    bool            reset_pin_fe = gpio_read_pin(RESET_PIN) < last_state && timer_elapsed(debounce_timer) > 50;
 
     // switch pin on
-    setPinOutput(RESET_PIN);
-    writePinHigh(RESET_PIN);
+    gpio_set_pin_output(RESET_PIN);
+    gpio_write_pin_high(RESET_PIN);
 
     if (reset_pin_fe) {
         if (tap_counter == 0) {
@@ -48,6 +48,6 @@ void matrix_scan_sub_kb(void) {
         }
     }
     // update last state
-    last_state = readPin(RESET_PIN);
+    last_state = gpio_read_pin(RESET_PIN);
 }
 #endif
