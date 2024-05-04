@@ -21,8 +21,6 @@ f103_flash_size = 128k;
 
 MEMORY
 {
-    /*Here we give 22K flash to bootloader*/
-    /*0x08005800 : the application bin start address*/
     flash0  : org = 0x08006000, len = f103_flash_size - 0x6000
     flash1  : org = 0x00000000, len = 0
     flash2  : org = 0x00000000, len = 0
