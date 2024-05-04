@@ -23,6 +23,7 @@
     },
     "diode_direction": "COL2ROW",
     "backlight": {
+        "driver": "timer",
         "pin": "F5",
         "levels": 6,
         "on_state": 0
