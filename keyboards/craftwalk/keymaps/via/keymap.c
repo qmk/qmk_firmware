@@ -19,8 +19,7 @@
 enum layer_names {
     _BASE,
     _NUM,
-    _ADJUST,
-    _EXTRA
+    _ADJUST
 };
 
 #define MO_NUM MO(_NUM)
@@ -44,11 +43,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  RGB_HUI, RGB_SAI, RGB_VAI,
         QK_BOOT, RGB_HUD, RGB_SAD, RGB_VAD,
         RGB_M_T, KC_TRNS, RGB_MOD, RGB_RMOD,RGB_TOG, KC_TRNS, KC_TRNS
-    ),
-    /* Extra */
-    [_EXTRA] = LAYOUT(
-                 _______, _______, _______,
-        _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______
     )
 };
