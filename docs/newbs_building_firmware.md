@@ -30,11 +30,11 @@ Look at the output from that command, you should see something like this:
 
     Ψ Created a new keymap called <github_username> in: /home/me/qmk_firmware/keyboards/clueboard/66/rev3/keymaps/<github_username>.
 
-This is the location of your new `keymap.c` file.
+This is the location of your new `keymap.json` file.
 
-## Open `keymap.c` In Your Favorite Text Editor
+## Open `keymap.json` In Your Favorite Text Editor
 
-Open your `keymap.c` file in your text editor. Inside this file you'll find the structure that controls how your keyboard behaves. At the top of `keymap.c` there may be some defines and enums that make the keymap easier to read. Farther down you'll find a line that looks like this:
+Open your `keymap.json` file in your text editor. Inside this file you'll find the structure that controls how your keyboard behaves. At the top of `keymap.c` there may be some defines and enums that make the keymap easier to read. Farther down you'll find a line that looks like this:
 
     const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
