@@ -10,11 +10,22 @@
 #include "qp_surface.h"
 #include "qp_surface_internal.h"
 
+typedef void (*ld7032_driver_comms_send_command_and_data_func)(painter_device_t device, uint8_t cmd, uint8_t data);
+typedef uint32_t (*ld7032_driver_comms_send_command_and_databuf_func)(painter_device_t device, uint8_t cmd, const void *data, uint32_t byte_count);
+
+typedef struct ld7032_comms_with_command_vtable_t {
+    painter_comms_vtable_t                            base; // must be first, so this object can be cast from the painter_comms_vtable_t* type
+    painter_driver_comms_send_command_func            send_command;
+    painter_driver_comms_bulk_command_sequence        bulk_command_sequence;
+    ld7032_driver_comms_send_command_and_data_func    send_command_data;
+    ld7032_driver_comms_send_command_and_databuf_func send_command_databuf;
+} ld7032_comms_with_command_vtable_t;
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // LD7032 Internal API
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void ld7032_comms_i2c_send_command(painter_device_t device, uint8_t cmd, uint8_t data) {
+void ld7032_comms_i2c_send_command_and_data(painter_device_t device, uint8_t cmd, uint8_t data) {
     uint8_t buf[2] = {cmd, data};
     qp_comms_i2c_send_data(device, buf, 2);
 }
@@ -35,16 +46,20 @@ void ld7032_comms_i2c_bulk_command_sequence(painter_device_t device, const uint8
     }
 }
 
+uint32_t ld7032_comms_i2c_send_command_and_databuf(painter_device_t device, uint8_t cmd, const void *data, uint32_t byte_count) {
+    uint8_t buf[byte_count + 1];
+    memset(buf, 0, sizeof(buf));
+    buf[0] = cmd;
+    memcpy(&buf[1], data, byte_count);
+    return qp_comms_send(device, buf, byte_count + 1);
+}
+
 // Power control
 bool qp_ld7032_power(painter_device_t device, bool power_on) {
-    painter_driver_t *                   driver       = (painter_driver_t *)device;
-    painter_comms_with_command_vtable_t *comms_vtable = (painter_comms_with_command_vtable_t *)driver->comms_vtable;
+    painter_driver_t                   *driver       = (painter_driver_t *)device;
+    ld7032_comms_with_command_vtable_t *comms_vtable = (ld7032_comms_with_command_vtable_t *)driver->comms_vtable;
 
-    if (comms_vtable->send_command) {
-        qp_comms_command_databyte(device, LD7032_DISP_ON_OFF, power_on ? 0x01 : 0x00);
-    } else {
-        ld7032_comms_i2c_send_command(device, LD7032_DISP_ON_OFF, power_on ? 0x01 : 0x00);
-    }
+    comms_vtable->send_command_data(device, LD7032_DISP_ON_OFF, power_on ? 0x01 : 0x00);
 
     return true;
 }
@@ -62,8 +77,8 @@ bool qp_ld7032_clear(painter_device_t device) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void ld7032_flush_rot0(painter_device_t device, surface_dirty_data_t *dirty, const uint8_t *framebuffer) {
-    painter_driver_t *                   driver       = (painter_driver_t *)device;
-    painter_comms_with_command_vtable_t *comms_vtable = (painter_comms_with_command_vtable_t *)driver->comms_vtable;
+    painter_driver_t                   *driver       = (painter_driver_t *)device;
+    ld7032_comms_with_command_vtable_t *comms_vtable = (ld7032_comms_with_command_vtable_t *)driver->comms_vtable;
 
     int     x_start       = dirty->l >> 3;
     int     x_end         = dirty->r >> 3;
@@ -74,34 +89,25 @@ void ld7032_flush_rot0(painter_device_t device, surface_dirty_data_t *dirty, con
     uint8_t y_view_offset = driver->offset_y;
 
     for (int y_pos = y_start; y_pos <= y_end; y_pos++) {
-        uint8_t packet[x_length + 1];
+        uint8_t packet[x_length];
         memset(packet, 0, sizeof(packet));
-        packet[0] = LD7032_DATA_RW;
-        memcpy(&packet[1], &framebuffer[(y_pos * (driver->panel_width >> 3)) + x_start], x_length);
+        memcpy(packet, &framebuffer[(y_pos * (driver->panel_width >> 3)) + x_start], x_length);
         uint8_t x_write_start = MIN(x_start + x_view_offset, (128 >> 3));
         uint8_t x_write_end   = MIN(x_end + x_view_offset, (128 >> 3));
         uint8_t y_write_start = MIN(y_pos + y_view_offset, 39);
         uint8_t y_write_end   = MIN(y_pos + y_view_offset, 39);
 
-        if (comms_vtable->send_command) {
-            qp_comms_command_databyte(device, LD7032_X_BOX_ADR_START, x_write_start);
-            qp_comms_command_databyte(device, LD7032_X_BOX_ADR_END, x_write_end);
-            qp_comms_command_databyte(device, LD7032_Y_BOX_ADR_START, y_write_start);
-            qp_comms_command_databyte(device, LD7032_Y_BOX_ADR_END, y_write_end);
-            qp_comms_command_databuf(device, LD7032_DATA_RW, &packet[1], x_length);
-        } else {
-            ld7032_comms_i2c_send_command(device, LD7032_X_BOX_ADR_START, x_write_start);
-            ld7032_comms_i2c_send_command(device, LD7032_X_BOX_ADR_END, x_write_end);
-            ld7032_comms_i2c_send_command(device, LD7032_Y_BOX_ADR_START, y_write_start);
-            ld7032_comms_i2c_send_command(device, LD7032_Y_BOX_ADR_END, y_write_end);
-            qp_comms_send(device, &packet, sizeof(packet));
-        }
+        comms_vtable->send_command_data(device, LD7032_X_BOX_ADR_START, x_write_start);
+        comms_vtable->send_command_data(device, LD7032_X_BOX_ADR_END, x_write_end);
+        comms_vtable->send_command_data(device, LD7032_Y_BOX_ADR_START, y_write_start);
+        comms_vtable->send_command_data(device, LD7032_Y_BOX_ADR_END, y_write_end);
+        comms_vtable->send_command_databuf(device, LD7032_DATA_RW, packet, x_length);
     }
 }
 
 void ld7032_flush_rot90(painter_device_t device, surface_dirty_data_t *dirty, const uint8_t *framebuffer) {
-    painter_driver_t *                   driver       = (painter_driver_t *)device;
-    painter_comms_with_command_vtable_t *comms_vtable = (painter_comms_with_command_vtable_t *)driver->comms_vtable;
+    painter_driver_t                   *driver       = (painter_driver_t *)device;
+    ld7032_comms_with_command_vtable_t *comms_vtable = (ld7032_comms_with_command_vtable_t *)driver->comms_vtable;
 
     int     x_start       = dirty->t >> 3;
     int     x_end         = dirty->b >> 3;
@@ -112,10 +118,9 @@ void ld7032_flush_rot90(painter_device_t device, surface_dirty_data_t *dirty, co
     uint8_t y_view_offset = driver->offset_y;
 
     for (int y_pos = y_start; y_pos <= y_end; y_pos++) {
-        uint8_t packet[x_length + 1];
+        uint8_t packet[x_length];
         memset(packet, 0, sizeof(packet));
-        packet[0] = LD7032_DATA_RW;
-        int count = 1;
+        int count = 0;
         for (int x_pos = x_start; x_pos <= x_end; x_pos++) {
             for (int x = 0; x < 8; ++x) {
                 uint32_t pixel_num   = (((x_pos << 3) + x) * driver->panel_height) + y_pos;
@@ -131,25 +136,17 @@ void ld7032_flush_rot90(painter_device_t device, surface_dirty_data_t *dirty, co
         uint8_t y_write_start = MIN(y_pos + y_view_offset, 39);
         uint8_t y_write_end   = MIN(y_pos + y_view_offset, 39);
 
-        if (comms_vtable->send_command) {
-            qp_comms_command_databyte(device, LD7032_X_BOX_ADR_START, x_write_start);
-            qp_comms_command_databyte(device, LD7032_X_BOX_ADR_END, x_write_end);
-            qp_comms_command_databyte(device, LD7032_Y_BOX_ADR_START, y_write_start);
-            qp_comms_command_databyte(device, LD7032_Y_BOX_ADR_END, y_write_end);
-            qp_comms_command_databuf(device, LD7032_DATA_RW, &packet[1], x_length);
-        } else {
-            ld7032_comms_i2c_send_command(device, LD7032_X_BOX_ADR_START, x_write_start);
-            ld7032_comms_i2c_send_command(device, LD7032_X_BOX_ADR_END, x_write_end);
-            ld7032_comms_i2c_send_command(device, LD7032_Y_BOX_ADR_START, y_write_start);
-            ld7032_comms_i2c_send_command(device, LD7032_Y_BOX_ADR_END, y_write_end);
-            qp_comms_send(device, &packet, sizeof(packet));
-        }
+        comms_vtable->send_command_data(device, LD7032_X_BOX_ADR_START, x_write_start);
+        comms_vtable->send_command_data(device, LD7032_X_BOX_ADR_END, x_write_end);
+        comms_vtable->send_command_data(device, LD7032_Y_BOX_ADR_START, y_write_start);
+        comms_vtable->send_command_data(device, LD7032_Y_BOX_ADR_END, y_write_end);
+        comms_vtable->send_command_databuf(device, LD7032_DATA_RW, packet, x_length);
     }
 }
 
 void ld7032_flush_rot180(painter_device_t device, surface_dirty_data_t *dirty, const uint8_t *framebuffer) {
-    painter_driver_t *                   driver       = (painter_driver_t *)device;
-    painter_comms_with_command_vtable_t *comms_vtable = (painter_comms_with_command_vtable_t *)driver->comms_vtable;
+    painter_driver_t                   *driver       = (painter_driver_t *)device;
+    ld7032_comms_with_command_vtable_t *comms_vtable = (ld7032_comms_with_command_vtable_t *)driver->comms_vtable;
 
     int     x_start       = dirty->l >> 3;
     int     x_end         = dirty->r >> 3;
@@ -160,10 +157,9 @@ void ld7032_flush_rot180(painter_device_t device, surface_dirty_data_t *dirty, c
     uint8_t y_view_offset = driver->offset_y;
 
     for (int y_pos = y_end; y_pos >= y_start; y_pos--) {
-        uint8_t packet[x_length + 1];
+        uint8_t packet[x_length];
         memset(packet, 0, sizeof(packet));
-        packet[0] = LD7032_DATA_RW;
-        memcpy(&packet[1], &framebuffer[((y_pos) * (driver->panel_width >> 3)) + x_start], x_length);
+        memcpy(packet, &framebuffer[((y_pos) * (driver->panel_width >> 3)) + x_start], x_length);
         uint8_t y_offset      = (driver->panel_height - 1) - y_pos;
         uint8_t x_offset      = (driver->panel_width >> 3) - 1 - x_start;
         uint8_t x_write_start = MAX((int)x_offset - x_length - x_view_offset, 0);
@@ -171,25 +167,17 @@ void ld7032_flush_rot180(painter_device_t device, surface_dirty_data_t *dirty, c
         uint8_t y_write_start = MAX((int)y_offset - y_view_offset, 0);
         uint8_t y_write_end   = MAX((int)y_offset - y_view_offset, 0);
 
-        if (comms_vtable->send_command) {
-            qp_comms_command_databyte(device, LD7032_X_BOX_ADR_START, x_write_start);
-            qp_comms_command_databyte(device, LD7032_X_BOX_ADR_END, x_write_end);
-            qp_comms_command_databyte(device, LD7032_Y_BOX_ADR_START, y_write_start);
-            qp_comms_command_databyte(device, LD7032_Y_BOX_ADR_END, y_write_end);
-            qp_comms_command_databuf(device, LD7032_DATA_RW, &packet[1], x_length);
-        } else {
-            ld7032_comms_i2c_send_command(device, LD7032_X_BOX_ADR_START, x_write_start);
-            ld7032_comms_i2c_send_command(device, LD7032_X_BOX_ADR_END, x_write_end);
-            ld7032_comms_i2c_send_command(device, LD7032_Y_BOX_ADR_START, y_write_start);
-            ld7032_comms_i2c_send_command(device, LD7032_Y_BOX_ADR_END, y_write_end);
-            qp_comms_send(device, &packet, sizeof(packet));
-        }
+        comms_vtable->send_command_data(device, LD7032_X_BOX_ADR_START, x_write_start);
+        comms_vtable->send_command_data(device, LD7032_X_BOX_ADR_END, x_write_end);
+        comms_vtable->send_command_data(device, LD7032_Y_BOX_ADR_START, y_write_start);
+        comms_vtable->send_command_data(device, LD7032_Y_BOX_ADR_END, y_write_end);
+        comms_vtable->send_command_databuf(device, LD7032_DATA_RW, packet, sizeof(packet));
     }
 }
 
 void ld7032_flush_rot270(painter_device_t device, surface_dirty_data_t *dirty, const uint8_t *framebuffer) {
-    painter_driver_t *                   driver       = (painter_driver_t *)device;
-    painter_comms_with_command_vtable_t *comms_vtable = (painter_comms_with_command_vtable_t *)driver->comms_vtable;
+    painter_driver_t                   *driver       = (painter_driver_t *)device;
+    ld7032_comms_with_command_vtable_t *comms_vtable = (ld7032_comms_with_command_vtable_t *)driver->comms_vtable;
 
     int     x_start       = dirty->t >> 3;
     int     x_end         = dirty->b >> 3;
@@ -200,10 +188,9 @@ void ld7032_flush_rot270(painter_device_t device, surface_dirty_data_t *dirty, c
     uint8_t y_view_offset = driver->offset_y;
 
     for (int y_pos = y_start; y_pos <= y_end; y_pos++) {
-        uint8_t packet[x_length + 1];
+        uint8_t packet[x_length];
         memset(packet, 0, sizeof(packet));
-        packet[0] = LD7032_DATA_RW;
-        int count = 1;
+        int count = 0;
         for (int x_pos = x_start; x_pos <= x_end; x_pos++) {
             for (int x = 0; x < 8; ++x) {
                 uint32_t pixel_num   = ((((x_end - x_pos) << 3) + x) * driver->panel_height) + (y_pos);
@@ -219,19 +206,11 @@ void ld7032_flush_rot270(painter_device_t device, surface_dirty_data_t *dirty, c
         uint8_t y_write_start = MAX((int)y_width - y_pos - y_view_offset, 0);
         uint8_t y_write_end   = MAX((int)y_width - y_pos - y_view_offset, 0);
 
-        if (comms_vtable->send_command) {
-            qp_comms_command_databyte(device, LD7032_X_BOX_ADR_START, x_write_start);
-            qp_comms_command_databyte(device, LD7032_X_BOX_ADR_END, x_write_end);
-            qp_comms_command_databyte(device, LD7032_Y_BOX_ADR_START, y_write_start);
-            qp_comms_command_databyte(device, LD7032_Y_BOX_ADR_END, y_write_end);
-            qp_comms_command_databuf(device, LD7032_DATA_RW, &packet[1], x_length);
-        } else {
-            ld7032_comms_i2c_send_command(device, LD7032_X_BOX_ADR_START, x_write_start);
-            ld7032_comms_i2c_send_command(device, LD7032_X_BOX_ADR_END, x_write_end);
-            ld7032_comms_i2c_send_command(device, LD7032_Y_BOX_ADR_START, y_write_start);
-            ld7032_comms_i2c_send_command(device, LD7032_Y_BOX_ADR_END, y_write_end);
-            qp_comms_send(device, &packet, sizeof(packet));
-        }
+        comms_vtable->send_command_data(device, LD7032_X_BOX_ADR_START, x_write_start);
+        comms_vtable->send_command_data(device, LD7032_X_BOX_ADR_END, x_write_end);
+        comms_vtable->send_command_data(device, LD7032_Y_BOX_ADR_START, y_write_start);
+        comms_vtable->send_command_data(device, LD7032_Y_BOX_ADR_END, y_write_end);
+        comms_vtable->send_command_databuf(device, LD7032_DATA_RW, packet, x_length);
     }
 }
 
@@ -246,18 +225,6 @@ typedef struct ld7032_device_t {
 } ld7032_device_t;
 
 static ld7032_device_t ld7032_drivers[LD7032_NUM_DEVICES] = {0};
-
-const painter_comms_with_command_vtable_t ld7032_i2c_comms_vtable = {
-    .base =
-        {
-            .comms_init  = qp_comms_i2c_init,
-            .comms_start = qp_comms_i2c_start,
-            .comms_send  = qp_comms_i2c_send_data,
-            .comms_stop  = qp_comms_i2c_stop,
-        },
-    .send_command          = NULL,
-    .bulk_command_sequence = ld7032_comms_i2c_bulk_command_sequence,
-};
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Quantum Painter API implementations
@@ -333,13 +300,10 @@ __attribute__((weak)) bool qp_ld7032_init(painter_device_t device, painter_rotat
             break;
     }
 
-    painter_driver_t *                   pdriver      = (painter_driver_t *)device;
-    painter_comms_with_command_vtable_t *comms_vtable = (painter_comms_with_command_vtable_t *)pdriver->comms_vtable;
-    if (comms_vtable->send_command) {
-        qp_comms_command_databyte(device, LD7032_WRITE_DIRECTION, write_direction);
-    } else {
-        ld7032_comms_i2c_send_command(device, LD7032_WRITE_DIRECTION, write_direction);
-    }
+    painter_driver_t                   *pdriver      = (painter_driver_t *)device;
+    ld7032_comms_with_command_vtable_t *comms_vtable = (ld7032_comms_with_command_vtable_t *)pdriver->comms_vtable;
+
+    comms_vtable->send_command_data(device, LD7032_WRITE_DIRECTION, write_direction);
 
     qp_ld7032_power(device, true);
 
@@ -393,6 +357,21 @@ const painter_driver_vtable_t ld7032_driver_vtable = {
 };
 
 #ifdef QUANTUM_PAINTER_LD7032_SPI_ENABLE
+
+const ld7032_comms_with_command_vtable_t ld7032_spi_comms_vtable = {
+    .base =
+        {
+            .comms_init  = qp_comms_spi_dc_reset_init,
+            .comms_start = qp_comms_spi_start,
+            .comms_send  = qp_comms_spi_dc_reset_send_data,
+            .comms_stop  = qp_comms_spi_stop,
+        },
+    .send_command          = qp_comms_spi_dc_reset_send_command,
+    .send_command_data     = qp_comms_command_databyte,
+    .send_command_databuf  = qp_comms_command_databuf,
+    .bulk_command_sequence = qp_comms_spi_dc_reset_bulk_command_sequence,
+};
+
 // Factory function for creating a handle to the LD7032 device
 painter_device_t qp_ld7032_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode) {
     for (uint32_t i = 0; i < LD7032_NUM_DEVICES; ++i) {
@@ -405,7 +384,7 @@ painter_device_t qp_ld7032_make_spi_device(uint16_t panel_width, uint16_t panel_
 
             // Setup the OLED device
             driver->oled.base.driver_vtable         = (const painter_driver_vtable_t *)&ld7032_driver_vtable;
-            driver->oled.base.comms_vtable          = (const painter_comms_vtable_t *)&spi_comms_with_dc_vtable;
+            driver->oled.base.comms_vtable          = (const painter_comms_vtable_t *)&ld7032_spi_comms_vtable;
             driver->oled.base.native_bits_per_pixel = 1; // 1bpp mono
             driver->oled.base.panel_width           = panel_width;
             driver->oled.base.panel_height          = panel_height;
@@ -437,6 +416,21 @@ painter_device_t qp_ld7032_make_spi_device(uint16_t panel_width, uint16_t panel_
 #endif // QUANTUM_PAINTER_LD7032_SPI_ENABLE
 
 #ifdef QUANTUM_PAINTER_LD7032_I2C_ENABLE
+
+const ld7032_comms_with_command_vtable_t ld7032_i2c_comms_vtable = {
+    .base =
+        {
+            .comms_init  = qp_comms_i2c_init,
+            .comms_start = qp_comms_i2c_start,
+            .comms_send  = qp_comms_i2c_send_data,
+            .comms_stop  = qp_comms_i2c_stop,
+        },
+    .send_command          = NULL,
+    .send_command_data     = ld7032_comms_i2c_send_command_and_data,
+    .send_command_databuf  = ld7032_comms_i2c_send_command_and_databuf,
+    .bulk_command_sequence = ld7032_comms_i2c_bulk_command_sequence,
+};
+
 // Factory function for creating a handle to the LD7032 device
 painter_device_t qp_ld7032_make_i2c_device(uint16_t panel_width, uint16_t panel_height, uint8_t i2c_address) {
     for (uint32_t i = 0; i < LD7032_NUM_DEVICES; ++i) {
