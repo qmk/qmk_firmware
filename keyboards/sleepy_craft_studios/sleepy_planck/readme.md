@@ -1,6 +1,6 @@
 # sleepy_planck
 
-![sleepy_planck](https://bucket.sleepycraftstudios.com/images/sleepy_planck_complete_blue_silver_silk-rotated-270.webp)
+![sleepy_planck](https://i.imgur.com/y3cessF.jpeg)
 
 The Sleepy Planck is a hand-wired keyboard based on the 4x12 Planck layout. The Sleepy Planck integrates hot-swap socket and diode holders into the plate for easier building.
 
