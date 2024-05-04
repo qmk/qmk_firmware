@@ -95,3 +95,11 @@ Maybe at some point [this pr](https://github.com/joelspadin/keyboard-latency-tes
 # Links
 
 1. Patch to use tap-dance (1 tap - caps lock, 2 taps - cmd + space - to change language in majority of OS - useful if you use caps lock in macOS to change language to keep similar behavior in Windows/Linux): [link](https://gist.github.com/ryodeushii/2587f877cbe81e9d9c666a2d8066e416)
+
+
+
+# TODO
+
+- [ ] Store configs in keyboard data section of eeprom i+ proper eeprom init (instead of VIA_EEPROM and if VIA is enabled, use VIA_EEPROM)?? questionable
+- [ ] Add default layout without VIA and with all custom binds available and update the manual ?? depends on one above
+- [ ] Refactor structure to contain VIA layout, wired_via, wireless_via, wired_default, wireless_default
