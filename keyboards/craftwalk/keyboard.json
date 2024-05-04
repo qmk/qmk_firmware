@@ -4,7 +4,7 @@
     "url": "https://github.com/sotoba/craftwalk",
     "maintainer": "sotoba",
     "usb": {
-      "vid": "0x0E44",
+      "vid": "0x7364",
       "pid": "0x2E8F",
       "device_version": "0.0.1"
     },
