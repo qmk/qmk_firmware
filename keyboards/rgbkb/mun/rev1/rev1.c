@@ -8,6 +8,9 @@
  */
 
 #include "rev1.h"
+#include "touch_encoder.h"
+#include "common_oled.h"
+#include "transactions.h"
 
 #define NUMBER_OF_TOUCH_ENCODERS 2
 #define TOUCH_ENCODER_OPTIONS TOUCH_SEGMENTS + 2
@@ -85,3 +88,15 @@ led_config_t g_led_config = { {
 } };
 // clang-format on
 #endif
+
+void keyboard_post_init_kb(void) {
+    touch_encoder_init();
+    transaction_register_rpc(TOUCH_ENCODER_SYNC, touch_encoder_slave_sync);
+    transaction_register_rpc(RGB_MENU_SYNC, rgb_menu_slave_sync);
+    keyboard_post_init_user();
+}
+
+void housekeeping_task_kb(void) {
+    touch_encoder_update(TOUCH_ENCODER_SYNC);
+    rgb_menu_update(RGB_MENU_SYNC);
+}
