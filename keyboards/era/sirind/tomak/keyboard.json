@@ -183,7 +183,6 @@
             }
         },
         "transport": {
-            "protocol": "serial_usart",
             "sync": {
                 "indicators": true,
                 "layer_state": true,
