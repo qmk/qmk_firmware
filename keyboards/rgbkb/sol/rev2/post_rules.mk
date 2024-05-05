@@ -1,5 +1,3 @@
-# As long as the users rules.mk has include $(KEYBOARD)/post_rules.mk this will be run after to properly setup any keyboard features and defines
-
 IOS_DEVICE_ENABLE ?= no              # Limit max brightness to connect to IOS device (iPad,iPhone)
 RGBLIGHT_FULL_POWER ?= no            # Allow maximum RGB brightness for RGBLIGHT or RGB_MATRIX. Otherwise, limited to a safe level for a normal USB-A port
 RGB_MATRIX_KEYPRESSES ?= no          # Enable reactive per-key effects.

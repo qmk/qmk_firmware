@@ -1,5 +1,3 @@
-# As long as the users rules.mk has include $(KEYBOARD)/post_rules.mk this will be run after to properly setup any keyboard features and defines
-
 RGB_MATRIX_KEYPRESSES ?= no          # Enable reactive per-key effects.
 RGB_MATRIX_FRAMEBUFFER_EFFECTS ?= no # Enable frame buffer effects like the typing heatmap.
 
