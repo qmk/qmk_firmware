@@ -8,6 +8,19 @@
         "pid": "0x3060",
         "device_version": "0.0.2"
     },
+    "build": {
+        "lto": true
+    },
+    "features": {
+        "bootmagic": false,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": false,
+        "nkro": false,
+        "oled": false,
+        "rgb_matrix": true,
+        "rgblight": false
+    },
     "rgb_matrix": {
         "animations": {
             "alphas_mods": true,
