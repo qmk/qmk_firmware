@@ -53,7 +53,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef VIA_ENABLE
 #    define VIA_EEPROM_CUSTOM_CONFIG_SIZE 17 // sizeof via_config
 #else
-#    define EECONFIG_KB_DATA_SIZE 17 // sizeof user_config_t
+#    define EECONFIG_KB_DATA_SIZE 16 // sizeof user_config_t
 #endif
 #ifdef RGB_MATRIX_LED_COUNT
 #    undef RGB_MATRIX_LED_COUNT
@@ -83,3 +83,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SLEEP_TIMEOUT_STEP 1
 // #define LED_HITS_TO_REMEMBER 16
 #define WS2812_SPI_USE_CIRCULAR_BUFFER
+
+// debounce override - for clangd compliance - info_json.h - doesn't work most of the times
+#define DEBOUNCE 5

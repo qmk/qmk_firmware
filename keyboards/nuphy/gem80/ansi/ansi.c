@@ -322,11 +322,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             return false;
         case WIN_LOCK:
             if (record->event.pressed) {
-                uint8_t pos = get_led_index(record->event.key.row, record->event.key.col);
-                if (g_config.win_lock_pos != pos) {
-                    g_config.win_lock_pos = pos;
-                    save_config_to_eeprom();
-                }
                 keymap_config.no_gui = !keymap_config.no_gui;
                 eeconfig_update_keymap(keymap_config.raw);
                 break_all_key();
@@ -444,7 +439,8 @@ bool rgb_matrix_indicators_kb(void) {
 
 bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     if (keymap_config.no_gui) {
-        rgb_matrix_set_color(g_config.win_lock_pos, 0x00, 0x80, 0x00);
+        // fixed position in top right corner, key position in matrix is (0,16), led index is (16)
+        rgb_matrix_set_color(16, 0x00, 0x80, 0x00);
     }
 
     if (f_debounce_press_show) { // green numbers - press debounce
