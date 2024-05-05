@@ -1,11 +1,11 @@
-# sleepy_planck
+# Sleepy Planck
 
 ![sleepy_planck](https://i.imgur.com/y3cessF.jpeg)
 
 The Sleepy Planck is a hand-wired keyboard based on the 4x12 Planck layout. The Sleepy Planck integrates hot-swap socket and diode holders into the plate for easier building.
 
 - Keyboard Maintainer: [Sleepy Craft Studios](https://github.com/sleepy-craft-studios)
-- Hardware Supported: Pro-Micro and clones, Elite-C
+- Pro Micro development board (and clones/adapations of)
 - Hardware Availability: [Sleepy Craft Studios Shop](https://sleepycraftstudios.com/shop) for kits and full builds, [Sleepy Craft Studios Downloads](https://sleepycraftstudios.com/downloads) for CC-BY-SA-NC licensed stl files for 3D printing.
 
 Make example for this keyboard (after setting up your build environment):
