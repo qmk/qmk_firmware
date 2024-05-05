@@ -8,6 +8,22 @@
         "pid": "0x3510",
         "device_version": "0.0.1"
     },
+    "build": {
+        "lto": true
+    },
+    "features": {
+        "audio": true,
+        "bootmagic": true,
+        "dip_switch": true,
+        "dynamic_macro": true,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "oled": true,
+        "rgb_matrix": true,
+        "rgblight": false
+    },
     "rgblight": {
         "led_count": 156,
         "split_count": [78, 78],
@@ -25,6 +41,9 @@
         }
     },
     "audio": {
+        "default": {
+            "clicky": false
+        },
         "driver": "dac_additive"
     },
     "ws2812": {
