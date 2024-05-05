@@ -61,3 +61,38 @@ When LVGL is running, your keyboard's responsiveness may decrease, causing missi
 ```c
 #define QP_LVGL_TASK_PERIOD 40
 ```
+
+## Adding Custom Fonts with LVGL :id=lvgl-fonts
+
+[LVGL Custom Fonts Documentation](https://docs.lvgl.io/master/overview/font.html#add-a-new-font)
+
+If you are using LVGL in your project, you want to avoid using Quantum Painter drawing operations for custom fonts. To add custom fonts to LVGL you can follow these steps:
+
+
+1. Use the [LVGL Online Font Converter](https://lvgl.io/tools/fontconverter) or [LVGL Offline Font Converter](https://github.com/lvgl/lv_font_conv) to convert a .ttf or .woff font to a C file that you can include in your project.
+> A good naming convention for your font is `my_font_name_12` to indicate the font name and size when referencing it in your code.
+
+!> **Note:** You will need to generate a new C file for each font size you want to use in your project. In order to reduce your firmware size, it is highly recommended to specify the exact set of characters you will use.
+
+2. Create a new folder in `/keyboards/<keyboard>/fonts` and copy your generated C font files to the folder. You can also place it in your root keyboard folder if you want to share the font with multiple keyboards.
+
+3. Open the .c font file and modify the include `lvgl.h` to point to the `lvgl.h` file in the firmware. If you selected the option to use a fallback font, you may also need to include it.
+```c
+...
+//#include "lvgl/lvgl.h" // replace this
+#include "../../lvgl.h" // pointing to qmk firmware lvgl.h
+...
+```
+Alternatively, you can define `#define LV_LVGL_H_INCLUDE_SIMPLE` in your `config.h` file file
+
+4. Include the .c font file in your `rules.mk`:
+```
+SRC += fonts/my_font_name_12.c \
+       fonts/my_font_name_14.c
+```
+
+5. To use the font in your code:
+```c
+LV_FONT_DECLARE(my_font_name_12);
+lv_obj_set_style_text_font(text_label, &my_font_name_12, LV_PART_MAIN);
+```
