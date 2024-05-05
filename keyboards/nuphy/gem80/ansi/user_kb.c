@@ -451,6 +451,8 @@ void kb_config_reset(void) {
     g_config.logo_color      = 0;
     // mark config as initiated
     g_config.been_initiated = 0x45;
+    // default position of win lock key. Would be changed on win lock press, if key was remapped to other position
+    g_config.win_lock_pos = 16;
 
     save_config_to_eeprom();
 }
@@ -673,4 +675,3 @@ uint32_t get_sleep_timeout(void) {
     if (!g_config.sleep_enable) return 0;
     return g_config.sleep_timeout * 60 * 1000 / TIMER_STEP;
 }
-

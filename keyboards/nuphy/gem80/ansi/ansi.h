@@ -92,6 +92,8 @@ typedef struct {
     uint8_t logo_speed;
     uint8_t logo_rgb;
     uint8_t logo_color;
+    // indicators positions
+    uint8_t win_lock_pos;
 } kb_config_t;
 #ifdef VIA_ENABLE
 

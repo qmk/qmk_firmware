@@ -42,9 +42,6 @@ extern uint16_t        rf_sw_press_delay;
 extern uint16_t        rf_linking_time;
 extern DEV_INFO_STRUCT dev_info;
 extern uint8_t         rf_blink_cnt;
-uint8_t                win_lock_led    = 16;
-uint8_t                scroll_lock_led = 15;
-uint8_t                num_lock_led    = 14;
 
 extern void light_speed_contol(uint8_t fast);
 extern void light_level_control(uint8_t brighten);
@@ -325,7 +322,11 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             return false;
         case WIN_LOCK:
             if (record->event.pressed) {
-                win_lock_led         = get_led_index(record->event.key.row, record->event.key.col);
+                uint8_t pos = get_led_index(record->event.key.row, record->event.key.col);
+                if (g_config.win_lock_pos != pos) {
+                    g_config.win_lock_pos = pos;
+                    save_config_to_eeprom();
+                }
                 keymap_config.no_gui = !keymap_config.no_gui;
                 eeconfig_update_keymap(keymap_config.raw);
                 break_all_key();
@@ -359,24 +360,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
             return false;
 
-        case KC_NUM:
-            if (record->event.pressed) {
-                num_lock_led = get_led_index(record->event.key.row, record->event.key.col);
-                register_code(KC_NUM);
-            } else {
-                unregister_code(KC_NUM);
-            }
-
-            return false;
-        case KC_SCRL:
-            if (record->event.pressed) {
-                scroll_lock_led = get_led_index(record->event.key.row, record->event.key.col);
-                register_code(KC_SCRL);
-            } else {
-                unregister_code(KC_SCRL);
-            }
-
-            return false;
         case DEBOUNCE_PRESS_SHOW:
             if (record->event.pressed) {
                 f_debounce_press_show = !f_debounce_press_show;
@@ -461,15 +444,7 @@ bool rgb_matrix_indicators_kb(void) {
 
 bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     if (keymap_config.no_gui) {
-        rgb_matrix_set_color(win_lock_led, 0x00, 0x80, 0x00);
-    }
-
-    if (host_keyboard_led_state().num_lock) {
-        rgb_matrix_set_color(num_lock_led, 0x00, 0x80, 0x00);
-    }
-
-    if (host_keyboard_led_state().scroll_lock) {
-        rgb_matrix_set_color(scroll_lock_led, 0x00, 0x80, 0x00);
+        rgb_matrix_set_color(g_config.win_lock_pos, 0x00, 0x80, 0x00);
     }
 
     if (f_debounce_press_show) { // green numbers - press debounce
