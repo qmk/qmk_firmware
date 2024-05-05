@@ -41,7 +41,6 @@
     "url": "",
     "usb": {
         "device_version": "1.0.0",
-        "force_nkro": true,
         "pid": "0x00A1",
         "vid": "0xC41C"
     },
