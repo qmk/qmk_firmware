@@ -99,6 +99,7 @@ Maybe at some point [this pr](https://github.com/joelspadin/keyboard-latency-tes
 
 
 # TODO
+- [ ] Refactor NUM_LOCK, SCROLL_LOCK indicators to store LED position in eeprom - and update it only if it changes!!! - to avoid weird issues with board
 - [x] Fix num-lock & scroll lock under key LEDs indication causing random issues with board
 - [x] Store configs in keyboard data section of eeprom + proper eeprom init (instead of VIA_EEPROM and if VIA is enabled, use VIA_EEPROM)?? questionable
 - [x] Add default layout without VIA
