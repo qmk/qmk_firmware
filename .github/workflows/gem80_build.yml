@@ -73,8 +73,10 @@ jobs:
       if: startsWith(github.ref, 'refs/tags/ryo-')
       with:
         files: |
-          *wired*.bin
-          *threemode*.bin
+          *wired_via*.bin
+          *threemode_via*.bin
+          *wired_default*.bin
+          *threemode_default*.bin
           keyboards/nuphy/gem80/ansi/keymaps/via/*via3.json
         tag_name: ${{ github.ref_name }}
         draft: true
