@@ -1,46 +1,28 @@
 {
-    "keyboard_name": "Kami65",
     "manufacturer": "Chickenman",
-    "url": "",
+    "keyboard_name": "Kami65",
     "maintainer": "MaiTheSan",
-    "usb": {
-        "vid": "0xC41C",
-        "pid": "0x00A1",
-        "device_version": "1.0.0",
-        "force_nkro": true
-    },
-    "processor": "STM32F072",
     "bootloader": "stm32-dfu",
+    "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "mousekey": true,
-        "extrakey": true,
-        "console": true,
         "command": false,
+        "console": true,
+        "extrakey": true,
+        "mousekey": true,
         "nkro": true,
         "rgblight": true
     },
-    "community_layouts": [
-        "65_ansi_blocker",
-        "65_ansi_blocker_split_bs",
-        "65_ansi_blocker_tsangan",
-        "65_ansi_blocker_tsangan_split_bs"
-    ],
-    "matrix_pins": {
-        "cols": ["A10", "A0", "A9", "C13", "A1", "A2", "B11", "B10", "B1", "B0", "A7", "A6", "A5", "A4","C14"],
-        "rows": ["B4", "A15", "A3", "A8", "B14"]
-    },
-    "diode_direction": "COL2ROW",
     "indicators": {
         "caps_lock": "B12",
         "on_state": 0
     },
-    "ws2812": {
-        "pin": "B15"
+    "matrix_pins": {
+        "cols": ["A10", "A0", "A9", "C13", "A1", "A2", "B11", "B10", "B1", "B0", "A7", "A6", "A5", "A4", "C14"],
+        "rows": ["B4", "A15", "A3", "A8", "B14"]
     },
-        "rgblight": {
-        "led_count": 24,
-        "sleep": true,
+    "processor": "STM32F072",
+    "rgblight": {
         "animations": {
             "alternating": true,
             "breathing": true,
@@ -52,8 +34,21 @@
             "snake": true,
             "static_gradient": true,
             "twinkle": true
-        }
+        },
+        "led_count": 24,
+        "sleep": true
     },
+    "url": "",
+    "usb": {
+        "device_version": "1.0.0",
+        "force_nkro": true,
+        "pid": "0x00A1",
+        "vid": "0xC41C"
+    },
+    "ws2812": {
+        "pin": "B15"
+    },
+    "community_layouts": ["65_ansi_blocker", "65_ansi_blocker_split_bs", "65_ansi_blocker_tsangan", "65_ansi_blocker_tsangan_split_bs"],
     "layouts": {
         "LAYOUT_65_ansi_blocker": {
             "layout": [
@@ -72,7 +67,6 @@
                 {"label": "K0C", "matrix": [0, 12], "x": 12, "y": 0},
                 {"label": "K0D", "matrix": [0, 13], "x": 13, "y": 0, "w": 2},
                 {"label": "K0E", "matrix": [0, 14], "x": 15, "y": 0},
-
                 {"label": "K10", "matrix": [1, 0], "x": 0, "y": 1, "w": 1.5},
                 {"label": "K11", "matrix": [1, 1], "x": 1.5, "y": 1},
                 {"label": "K12", "matrix": [1, 2], "x": 2.5, "y": 1},
@@ -88,7 +82,6 @@
                 {"label": "K1C", "matrix": [1, 12], "x": 12.5, "y": 1},
                 {"label": "K1D", "matrix": [1, 13], "x": 13.5, "y": 1, "w": 1.5},
                 {"label": "K1E", "matrix": [1, 14], "x": 15, "y": 1},
-
                 {"label": "K20", "matrix": [2, 0], "x": 0, "y": 2, "w": 1.75},
                 {"label": "K21", "matrix": [2, 1], "x": 1.75, "y": 2},
                 {"label": "K22", "matrix": [2, 2], "x": 2.75, "y": 2},
@@ -103,7 +96,6 @@
                 {"label": "K2B", "matrix": [2, 11], "x": 11.75, "y": 2},
                 {"label": "K2C", "matrix": [2, 12], "x": 12.75, "y": 2, "w": 2.25},
                 {"label": "K2E", "matrix": [2, 14], "x": 15, "y": 2},
-
                 {"label": "K30", "matrix": [3, 0], "x": 0, "y": 3, "w": 2.25},
                 {"label": "K32", "matrix": [3, 2], "x": 2.25, "y": 3},
                 {"label": "K33", "matrix": [3, 3], "x": 3.25, "y": 3},
@@ -118,7 +110,6 @@
                 {"label": "K3C", "matrix": [3, 12], "x": 12.25, "y": 3, "w": 1.75},
                 {"label": "K3D", "matrix": [3, 13], "x": 14, "y": 3},
                 {"label": "K3E", "matrix": [3, 14], "x": 15, "y": 3},
-
                 {"label": "K40", "matrix": [4, 0], "x": 0, "y": 4, "w": 1.25},
                 {"label": "K41", "matrix": [4, 1], "x": 1.25, "y": 4, "w": 1.25},
                 {"label": "K42", "matrix": [4, 2], "x": 2.5, "y": 4, "w": 1.25},
@@ -128,7 +119,7 @@
                 {"label": "K4C", "matrix": [4, 12], "x": 13, "y": 4},
                 {"label": "K4D", "matrix": [4, 13], "x": 14, "y": 4},
                 {"label": "K4E", "matrix": [4, 14], "x": 15, "y": 4}
-           ]
+            ]
         },
         "LAYOUT_65_ansi_blocker_split_bs": {
             "layout": [
@@ -148,7 +139,6 @@
                 {"label": "K0D", "matrix": [0, 13], "x": 13, "y": 0},
                 {"label": "K2D", "matrix": [2, 13], "x": 14, "y": 0},
                 {"label": "K0E", "matrix": [0, 14], "x": 15, "y": 0},
-
                 {"label": "K10", "matrix": [1, 0], "x": 0, "y": 1, "w": 1.5},
                 {"label": "K11", "matrix": [1, 1], "x": 1.5, "y": 1},
                 {"label": "K12", "matrix": [1, 2], "x": 2.5, "y": 1},
@@ -164,7 +154,6 @@
                 {"label": "K1C", "matrix": [1, 12], "x": 12.5, "y": 1},
                 {"label": "K1D", "matrix": [1, 13], "x": 13.5, "y": 1, "w": 1.5},
                 {"label": "K1E", "matrix": [1, 14], "x": 15, "y": 1},
-
                 {"label": "K20", "matrix": [2, 0], "x": 0, "y": 2, "w": 1.75},
                 {"label": "K21", "matrix": [2, 1], "x": 1.75, "y": 2},
                 {"label": "K22", "matrix": [2, 2], "x": 2.75, "y": 2},
@@ -179,7 +168,6 @@
                 {"label": "K2B", "matrix": [2, 11], "x": 11.75, "y": 2},
                 {"label": "K2C", "matrix": [2, 12], "x": 12.75, "y": 2, "w": 2.25},
                 {"label": "K2E", "matrix": [2, 14], "x": 15, "y": 2},
-
                 {"label": "K30", "matrix": [3, 0], "x": 0, "y": 3, "w": 2.25},
                 {"label": "K32", "matrix": [3, 2], "x": 2.25, "y": 3},
                 {"label": "K33", "matrix": [3, 3], "x": 3.25, "y": 3},
@@ -194,7 +182,6 @@
                 {"label": "K3C", "matrix": [3, 12], "x": 12.25, "y": 3, "w": 1.75},
                 {"label": "K3D", "matrix": [3, 13], "x": 14, "y": 3},
                 {"label": "K3E", "matrix": [3, 14], "x": 15, "y": 3},
-
                 {"label": "K40", "matrix": [4, 0], "x": 0, "y": 4, "w": 1.25},
                 {"label": "K41", "matrix": [4, 1], "x": 1.25, "y": 4, "w": 1.25},
                 {"label": "K42", "matrix": [4, 2], "x": 2.5, "y": 4, "w": 1.25},
@@ -204,7 +191,7 @@
                 {"label": "K4C", "matrix": [4, 12], "x": 13, "y": 4},
                 {"label": "K4D", "matrix": [4, 13], "x": 14, "y": 4},
                 {"label": "K4E", "matrix": [4, 14], "x": 15, "y": 4}
-           ]
+            ]
         },
         "LAYOUT_65_ansi_blocker_tsangan": {
             "layout": [
@@ -223,7 +210,6 @@
                 {"label": "K0C", "matrix": [0, 12], "x": 12, "y": 0},
                 {"label": "K0D", "matrix": [0, 13], "x": 13, "y": 0, "w": 2},
                 {"label": "K0E", "matrix": [0, 14], "x": 15, "y": 0},
-
                 {"label": "K10", "matrix": [1, 0], "x": 0, "y": 1, "w": 1.5},
                 {"label": "K11", "matrix": [1, 1], "x": 1.5, "y": 1},
                 {"label": "K12", "matrix": [1, 2], "x": 2.5, "y": 1},
@@ -239,7 +225,6 @@
                 {"label": "K1C", "matrix": [1, 12], "x": 12.5, "y": 1},
                 {"label": "K1D", "matrix": [1, 13], "x": 13.5, "y": 1, "w": 1.5},
                 {"label": "K1E", "matrix": [1, 14], "x": 15, "y": 1},
-
                 {"label": "K20", "matrix": [2, 0], "x": 0, "y": 2, "w": 1.75},
                 {"label": "K21", "matrix": [2, 1], "x": 1.75, "y": 2},
                 {"label": "K22", "matrix": [2, 2], "x": 2.75, "y": 2},
@@ -254,7 +239,6 @@
                 {"label": "K2B", "matrix": [2, 11], "x": 11.75, "y": 2},
                 {"label": "K2C", "matrix": [2, 12], "x": 12.75, "y": 2, "w": 2.25},
                 {"label": "K2E", "matrix": [2, 14], "x": 15, "y": 2},
-
                 {"label": "K30", "matrix": [3, 0], "x": 0, "y": 3, "w": 2.25},
                 {"label": "K32", "matrix": [3, 2], "x": 2.25, "y": 3},
                 {"label": "K33", "matrix": [3, 3], "x": 3.25, "y": 3},
@@ -269,7 +253,6 @@
                 {"label": "K3C", "matrix": [3, 12], "x": 12.25, "y": 3, "w": 1.75},
                 {"label": "K3D", "matrix": [3, 13], "x": 14, "y": 3},
                 {"label": "K3E", "matrix": [3, 14], "x": 15, "y": 3},
-
                 {"label": "K40", "matrix": [4, 0], "x": 0, "y": 4, "w": 1.5},
                 {"label": "K41", "matrix": [4, 1], "x": 1.5, "y": 4},
                 {"label": "K42", "matrix": [4, 2], "x": 2.5, "y": 4, "w": 1.5},
@@ -278,7 +261,7 @@
                 {"label": "K4C", "matrix": [4, 12], "x": 13, "y": 4},
                 {"label": "K4D", "matrix": [4, 13], "x": 14, "y": 4},
                 {"label": "K4E", "matrix": [4, 14], "x": 15, "y": 4}
-           ]
+            ]
         },
         "LAYOUT_65_ansi_blocker_tsangan_split_bs": {
             "layout": [
@@ -298,7 +281,6 @@
                 {"label": "K0D", "matrix": [0, 13], "x": 13, "y": 0},
                 {"label": "K0D", "matrix": [2, 13], "x": 14, "y": 0},
                 {"label": "K0E", "matrix": [0, 14], "x": 15, "y": 0},
-
                 {"label": "K10", "matrix": [1, 0], "x": 0, "y": 1, "w": 1.5},
                 {"label": "K11", "matrix": [1, 1], "x": 1.5, "y": 1},
                 {"label": "K12", "matrix": [1, 2], "x": 2.5, "y": 1},
@@ -314,7 +296,6 @@
                 {"label": "K1C", "matrix": [1, 12], "x": 12.5, "y": 1},
                 {"label": "K1D", "matrix": [1, 13], "x": 13.5, "y": 1, "w": 1.5},
                 {"label": "K1E", "matrix": [1, 14], "x": 15, "y": 1},
-
                 {"label": "K20", "matrix": [2, 0], "x": 0, "y": 2, "w": 1.75},
                 {"label": "K21", "matrix": [2, 1], "x": 1.75, "y": 2},
                 {"label": "K22", "matrix": [2, 2], "x": 2.75, "y": 2},
@@ -329,7 +310,6 @@
                 {"label": "K2B", "matrix": [2, 11], "x": 11.75, "y": 2},
                 {"label": "K2C", "matrix": [2, 12], "x": 12.75, "y": 2, "w": 2.25},
                 {"label": "K2E", "matrix": [2, 14], "x": 15, "y": 2},
-
                 {"label": "K30", "matrix": [3, 0], "x": 0, "y": 3, "w": 2.25},
                 {"label": "K32", "matrix": [3, 2], "x": 2.25, "y": 3},
                 {"label": "K33", "matrix": [3, 3], "x": 3.25, "y": 3},
@@ -344,7 +324,6 @@
                 {"label": "K3C", "matrix": [3, 12], "x": 12.25, "y": 3, "w": 1.75},
                 {"label": "K3D", "matrix": [3, 13], "x": 14, "y": 3},
                 {"label": "K3E", "matrix": [3, 14], "x": 15, "y": 3},
-
                 {"label": "K40", "matrix": [4, 0], "x": 0, "y": 4, "w": 1.5},
                 {"label": "K41", "matrix": [4, 1], "x": 1.5, "y": 4},
                 {"label": "K42", "matrix": [4, 2], "x": 2.5, "y": 4, "w": 1.5},
@@ -353,7 +332,7 @@
                 {"label": "K4C", "matrix": [4, 12], "x": 13, "y": 4},
                 {"label": "K4D", "matrix": [4, 13], "x": 14, "y": 4},
                 {"label": "K4E", "matrix": [4, 14], "x": 15, "y": 4}
-           ]
+            ]
         }
     }
 }
