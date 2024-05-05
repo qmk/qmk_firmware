@@ -423,7 +423,7 @@ void timer_pro(void) {
 /**
  * @brief User config to default setting.
  */
-void user_config_reset(void) {
+void kb_config_reset(void) {
     rgb_matrix_enable();
     rgb_matrix_mode(RGB_MATRIX_DEFAULT_MODE);
     rgb_matrix_set_speed(255 - RGB_MATRIX_SPD_STEP * 2);
@@ -452,12 +452,14 @@ void user_config_reset(void) {
     // mark config as initiated
     g_config.been_initiated = 0x45;
 
-    via_save_values();
+    save_config_to_eeprom();
 }
 
 void load_eeprom_data(void) {
+    load_config_from_eeprom();
+
     if (g_config.been_initiated != 0x45) {
-        user_config_reset();
+        kb_config_reset();
         return;
     }
 }
@@ -467,7 +469,7 @@ void load_eeprom_data(void) {
 void toggle_usb_sleep(void) {
     f_usb_sleep_show          = 1;
     g_config.usb_sleep_toggle = !g_config.usb_sleep_toggle;
-    via_save_values();
+    save_config_to_eeprom();
 }
 
 /**
@@ -480,7 +482,7 @@ void toggle_caps_indication(void) {
         g_config.caps_indication_type += 1;
     }
 
-    via_save_values();
+    save_config_to_eeprom();
 }
 
 /**
@@ -652,7 +654,7 @@ void adjust_debounce(uint8_t dir, DEBOUNCE_EVENT debounce_event) {
             g_config.debounce_release_ms -= DEBOUNCE_STEP;
         }
     }
-    via_save_values();
+    save_config_to_eeprom();
 #endif
 }
 
@@ -663,7 +665,7 @@ void adjust_sleep_timeout(uint8_t dir) {
         } else if (g_config.sleep_timeout < 60 && dir) {
             g_config.sleep_timeout += SLEEP_TIMEOUT_STEP;
         }
-        via_save_values();
+        save_config_to_eeprom();
     }
 }
 

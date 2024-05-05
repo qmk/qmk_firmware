@@ -91,7 +91,7 @@ void light_level_control(uint8_t brighten) {
         } else
             g_config.side_brightness--;
     }
-    via_save_values();
+    save_config_to_eeprom();
 }
 
 /**
@@ -108,7 +108,7 @@ void light_speed_contol(uint8_t fast) {
     } else {
         if (g_config.side_speed < LIGHT_SPEED_MAX) g_config.side_speed++;
     }
-    via_save_values();
+    save_config_to_eeprom();
 }
 
 /**
@@ -151,7 +151,7 @@ void side_colour_control(uint8_t dir) {
             }
         }
     }
-    via_save_values();
+    save_config_to_eeprom();
 }
 
 /**
@@ -174,7 +174,7 @@ void side_mode_control(uint8_t dir) {
     }
 
     side_play_point = 0;
-    via_save_values();
+    save_config_to_eeprom();
 }
 
 /**
@@ -878,7 +878,7 @@ void device_reset_init(void) {
 
     f_bat_hold = false;
 
-    user_config_reset();
+    kb_config_reset();
 }
 
 void rgb_test_show(void) {

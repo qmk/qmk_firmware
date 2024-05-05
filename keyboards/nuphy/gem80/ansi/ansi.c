@@ -22,8 +22,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "rgb_matrix.h"
 #include "user_kb.h"
 #include "ansi.h"
-#include "eeprom.h"
-#include "via.h"
+
+#ifdef VIA_ENABLE
+#    include "eeprom.h"
+#    include "via.h"
+#endif
 
 extern bool            f_rf_sw_press;
 extern bool            f_sleep_show;
@@ -40,8 +43,8 @@ extern uint16_t        rf_linking_time;
 extern DEV_INFO_STRUCT dev_info;
 extern uint8_t         rf_blink_cnt;
 uint8_t                win_lock_led    = 16;
-uint8_t                scroll_lock_led = 255;
-uint8_t                num_lock_led    = 255;
+uint8_t                scroll_lock_led = 15;
+uint8_t                num_lock_led    = 14;
 
 extern void light_speed_contol(uint8_t fast);
 extern void light_level_control(uint8_t brighten);
@@ -311,7 +314,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 g_config.sleep_enable = !g_config.sleep_enable;
                 f_sleep_show          = 1;
-                via_save_values();
+                save_config_to_eeprom();
             }
             return false;
 
@@ -508,7 +511,8 @@ void housekeeping_task_kb(void) {
 
     sleep_handle();
 }
-via_config g_config;
+
+kb_config_t g_config;
 
 void init_g_config(void) {
     g_config.usb_sleep_toggle = true;
@@ -532,22 +536,31 @@ void init_g_config(void) {
     g_config.logo_color      = 0;
 }
 
-void via_load_values(void) {
+void load_config_from_eeprom(void) {
+#ifdef VIA_ENABLE
     eeprom_read_block(&g_config, ((void *)VIA_EEPROM_CUSTOM_CONFIG_ADDR), sizeof(g_config));
+#else
+    eeconfig_read_kb_datablock(&g_config);
+#endif
 }
 
-void via_save_values(void) {
+void save_config_to_eeprom(void) {
+#ifdef VIA_ENABLE
     eeprom_update_block(&g_config, ((void *)VIA_EEPROM_CUSTOM_CONFIG_ADDR), sizeof(g_config));
+#else
+    eeconfig_update_kb_datablock(&g_config);
+#endif
 }
 
+#ifdef VIA_ENABLE
 void via_init_kb(void) {
     init_g_config();
     // If the EEPROM has the magic, the data is good.
     // OK to load from EEPROM
     if (via_eeprom_is_valid()) {
-        via_load_values();
+        load_config_from_eeprom();
     } else {
-        via_save_values();
+        save_config_to_eeprom();
         // DO NOT set EEPROM valid here, let caller do this
     }
 }
@@ -606,9 +619,9 @@ void via_config_set_value(uint8_t *data)
             g_config.logo_brightness = *value_data;
             break;
     }
-#if CONSOLE_ENABLE
+#    if CONSOLE_ENABLE
     xprintf("[SET]VALUE_ID: %u DATA: %u", *value_id, *value_data);
-#endif
+#    endif
 }
 
 void via_config_get_value(uint8_t *data) {
@@ -658,9 +671,9 @@ void via_config_get_value(uint8_t *data) {
         case id_logo_light_brightness:
             *value_data = g_config.logo_brightness;
     }
-#if CONSOLE_ENABLE
+#    if CONSOLE_ENABLE
     xprintf("[GET]VALUE_ID: %u DATA: %u", *value_id, *value_data);
-#endif
+#    endif
 }
 
 void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
@@ -683,7 +696,7 @@ void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
                 break;
             }
             case id_custom_save: {
-                via_save_values();
+                save_config_to_eeprom();
                 break;
             }
             default: {
@@ -700,3 +713,4 @@ void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
 
     // DO NOT call raw_hid_send(data,length) here, let caller do this
 }
+#endif

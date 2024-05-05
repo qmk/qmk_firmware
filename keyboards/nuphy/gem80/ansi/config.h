@@ -50,8 +50,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SD1_RX_PIN B7
 #define SD1_RX_PAL_MODE 0
 
-#define EECONFIG_KB_DATA_SIZE 0          // sizeof user_config_t
-#define VIA_EEPROM_CUSTOM_CONFIG_SIZE 17 // sizeof via_config
+#ifdef VIA_ENABLE
+#    define VIA_EEPROM_CUSTOM_CONFIG_SIZE 17 // sizeof via_config
+#else
+#    define EECONFIG_KB_DATA_SIZE 16 // sizeof user_config_t
+#endif
 #ifdef RGB_MATRIX_LED_COUNT
 #    undef RGB_MATRIX_LED_COUNT
 #endif

@@ -71,6 +71,28 @@ enum custom_keycodes {
 #define MAC_PRTA G(S(KC_4))
 #define WIN_PRTA G(S(KC_S))
 
+// struct to save configs
+typedef struct {
+    uint8_t been_initiated;
+    uint8_t usb_sleep_toggle : 1;
+    uint8_t sleep_enable : 1;
+    uint8_t debounce_press_ms;
+    uint8_t debounce_release_ms;
+    uint8_t sleep_timeout;
+    uint8_t caps_indication_type;
+    // (top) side light config
+    uint8_t side_mode;
+    uint8_t side_brightness;
+    uint8_t side_speed;
+    uint8_t side_rgb;
+    uint8_t side_color;
+    // logo light config
+    uint8_t logo_mode;
+    uint8_t logo_brightness;
+    uint8_t logo_speed;
+    uint8_t logo_rgb;
+    uint8_t logo_color;
+} kb_config_t;
 #ifdef VIA_ENABLE
 
 enum via_indicator_value {
@@ -92,32 +114,11 @@ enum via_indicator_value {
     id_logo_light_brightness = 23,
 };
 
-// struct to save configs
-typedef struct {
-    uint8_t              been_initiated;
-    bool                 usb_sleep_toggle : 1;
-    bool                 sleep_enable : 1;
-    uint8_t              debounce_press_ms;
-    uint8_t              debounce_release_ms;
-    uint8_t              sleep_timeout;
-    CAPS_LOCK_INDICATION caps_indication_type;
-    // (top) side light config
-    uint8_t side_mode;
-    uint8_t side_brightness;
-    uint8_t side_speed;
-    uint8_t side_rgb;
-    uint8_t side_color;
-    // logo light config
-    uint8_t logo_mode;
-    uint8_t logo_brightness;
-    uint8_t logo_speed;
-    uint8_t logo_rgb;
-    uint8_t logo_color;
-} via_config;
-
 // function declaration
 void indicator_config_set_value(uint8_t *data);
 void indicator_config_get_value(uint8_t *data);
 #endif
-extern via_config g_config;
-void              via_save_values(void);
+extern kb_config_t g_config;
+
+void save_config_to_eeprom(void);
+void load_config_from_eeprom(void);

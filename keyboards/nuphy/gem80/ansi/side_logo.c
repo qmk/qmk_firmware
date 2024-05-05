@@ -33,7 +33,7 @@ void logo_light_level_control(uint8_t brighten) {
         } else
             g_config.logo_brightness--;
     }
-    via_save_values();
+    save_config_to_eeprom();
 }
 
 void logo_light_speed_contol(uint8_t fast) {
@@ -44,7 +44,7 @@ void logo_light_speed_contol(uint8_t fast) {
     } else {
         if ((g_config.logo_speed) < LIGHT_SPEED_MAX) g_config.logo_speed++;
     }
-    via_save_values();
+    save_config_to_eeprom();
 }
 
 void logo_side_colour_control(uint8_t dir) {
@@ -78,7 +78,7 @@ void logo_side_colour_control(uint8_t dir) {
             }
         }
     }
-    via_save_values();
+    save_config_to_eeprom();
 }
 
 void logo_side_mode_control(uint8_t dir) {
@@ -95,7 +95,7 @@ void logo_side_mode_control(uint8_t dir) {
         }
     }
     logo_play_point = 0;
-    via_save_values();
+    save_config_to_eeprom();
 }
 
 void set_logo_rgb(uint8_t r, uint8_t g, uint8_t b) {

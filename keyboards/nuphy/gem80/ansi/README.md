@@ -99,7 +99,9 @@ Maybe at some point [this pr](https://github.com/joelspadin/keyboard-latency-tes
 
 
 # TODO
-
-- [ ] Store configs in keyboard data section of eeprom i+ proper eeprom init (instead of VIA_EEPROM and if VIA is enabled, use VIA_EEPROM)?? questionable
-- [ ] Add default layout without VIA and with all custom binds available and update the manual ?? depends on one above
-- [ ] Refactor structure to contain VIA layout, wired_via, wireless_via, wired_default, wireless_default
+- [x] Fix num-lock & scroll lock under key LEDs indication causing random issues with board
+- [x] Store configs in keyboard data section of eeprom + proper eeprom init (instead of VIA_EEPROM and if VIA is enabled, use VIA_EEPROM)?? questionable
+- [x] Add default layout without VIA
+    - [ ] with all custom binds assigned
+    - [ ] update the manual ?? depends on one above
+- [x] Refactor structure to contain VIA layout, default layout
