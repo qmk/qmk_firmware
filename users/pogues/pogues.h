@@ -6,12 +6,13 @@
 
 enum userspace_layers {
     LCMK = 0,
-    LSYM = 1,
-    LNUM = 2,
-    LFUN = 3,
-    LMOV = 4,
+    LSYM,
+    LNUM,
+    LFUN,
+    LMOV,
+    LGME,
 #ifdef MOUSEKEY_ENABLE
-    LMSE = 5,
+    LMSE,
 #endif
 };
 
