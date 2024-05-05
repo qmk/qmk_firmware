@@ -26,6 +26,4 @@ SERIAL_DRIVER = usart
 LTO_ENABLE = yes
 OPT = 3
 
-OPT_DEFS += -DOLED_FONT_H=\"keyboards/rgbkb/common/glcdfont.c\"
-
 DEFAULT_FOLDER = rgbkb/mun/rev1

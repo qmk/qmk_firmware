@@ -51,6 +51,7 @@
 
 #define TOUCH_UPDATE_INTERVAL 33
 #define OLED_UPDATE_INTERVAL 33
+#define OLED_FONT_H "keyboards/rgbkb/common/glcdfont.c"
 
 /* Audio Configuration */
 #define AUDIO_PIN A4
