@@ -52,13 +52,13 @@ void matrix_print(void) {}
 
 static inline void setPinOutput_writeLow(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
-        setPinOutput(pin);
-        writePinLow(pin);
+        gpio_set_pin_output(pin);
+        gpio_write_pin_low(pin);
     }
 }
 
 static inline void setPinInputHigh_atomic(pin_t pin) {
-    ATOMIC_BLOCK_FORCEON { setPinInputHigh(pin); }
+    ATOMIC_BLOCK_FORCEON { gpio_set_pin_input_high(pin); }
 }
 
 // matrix code
@@ -83,7 +83,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     // For each col...
     for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
         // Select the col pin to read (active low)
-        uint8_t pin_state = readPin(col_pins[col_index]);
+        uint8_t pin_state = gpio_read_pin(col_pins[col_index]);
 
         // Populate the matrix row with the state of the col pin
         current_row_value |= pin_state ? 0 : (MATRIX_ROW_SHIFTER << col_index);
@@ -138,7 +138,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
         matrix_row_t current_row_value = last_row_value;
 
         // Check row pin state
-        if (readPin(row_pins[row_index]) == 0) {
+        if (gpio_read_pin(row_pins[row_index]) == 0) {
             // Pin LO, set col bit
             current_row_value |= (MATRIX_ROW_SHIFTER << current_col);
         } else {

@@ -34,7 +34,7 @@ static pin_t dip_switch_pad[] = DIP_SWITCH_PINS;
 
 void matrix_init_custom(void) {
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        setPinInputLow(row_pins[row]);
+        gpio_set_pin_input_low(row_pins[row]);
     }
     
     shift_init();
@@ -65,12 +65,12 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
 void matrix_power_up(void) {
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         palDisableLineEvent(row_pins[row]);
-        setPinInputLow(row_pins[row]);
+        gpio_set_pin_input_low(row_pins[row]);
     }
     init_cols();
 #ifdef DIP_SWITCH_PINS
     for (uint8_t i = 1; i < NUMBER_OF_DIP_SWITCHES; i++) {
-        setPinInputHigh(dip_switch_pad[i]);
+        gpio_set_pin_input_high(dip_switch_pad[i]);
     }
 #endif
 }
@@ -78,12 +78,12 @@ void matrix_power_up(void) {
 void matrix_power_down(void) {
     unselect_cols();
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        setPinInputLow(row_pins[row]);
+        gpio_set_pin_input_low(row_pins[row]);
         palEnableLineEvent(row_pins[row], PAL_EVENT_MODE_RISING_EDGE);
     }
 #ifdef DIP_SWITCH_PINS
     for (uint8_t i = 1; i < NUMBER_OF_DIP_SWITCHES; i++) {
-        setPinInputLow(dip_switch_pad[i]);
+        gpio_set_pin_input_low(dip_switch_pad[i]);
     }
 #endif
 }
@@ -91,7 +91,7 @@ void matrix_power_down(void) {
 static uint8_t read_rows(void) {
     uint8_t row_value = 0;
     for(uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        row_value |= (readPin(row_pins[row]) << row);
+        row_value |= (gpio_read_pin(row_pins[row]) << row);
     }
     return row_value;
 }
@@ -100,15 +100,15 @@ static void init_cols(void) {
     shift_writeAll(0);
     for(uint8_t col = 0; col < MATRIX_COLS; col++) {
         if(col_pins[col] < H0) {
-            setPinOutput(col_pins[col]);
-            writePinLow(col_pins[col]);
+            gpio_set_pin_output(col_pins[col]);
+            gpio_write_pin_low(col_pins[col]);
         }
     }
 }
 
 static void select_col(uint8_t col) {
     if(col_pins[col] < H0){
-        writePinHigh(col_pins[col]);
+        gpio_write_pin_high(col_pins[col]);
         waitInputPinDelay();
         waitInputPinDelay();
         waitInputPinDelay();
@@ -122,7 +122,7 @@ static void select_col(uint8_t col) {
 
 static void unselect_col(uint8_t col) {
     if(col_pins[col] < H0){
-        writePinLow(col_pins[col]);
+        gpio_write_pin_low(col_pins[col]);
     }else{
         shift_writePin(col_pins[col], 0);
     }
@@ -132,8 +132,8 @@ static void unselect_cols(void) {
     shift_writeAll(1);
     for(uint8_t col = 0; col < MATRIX_COLS; col++) {
         if(col_pins[col] < H0) {
-            setPinOutput(col_pins[col]);
-            writePinHigh(col_pins[col]);
+            gpio_set_pin_output(col_pins[col]);
+            gpio_write_pin_high(col_pins[col]);
         }
     }
 }

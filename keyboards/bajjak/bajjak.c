@@ -54,15 +54,13 @@ void matrix_init_kb(void) {
     TCCR1B = 0b00001001;  // set and configure fast PWM
 
     // (tied to Vcc for hardware convenience)
-    DDRB  &= ~(1<<4);  // set B(4) as input
-    PORTB &= ~(1<<4);  // set B(4) internal pull-up disabled
+    gpio_set_pin_input(B4); // set B(4) as input, internal pull-up disabled
 
     // unused pins - D4, D5, E6
     // set as input with internal pull-up enabled
-    DDRD  &= ~(1<<5 | 1<<4);
-    DDRE  &= ~(1<<6);
-    PORTD |=  (1<<5 | 1<<4);
-    PORTE |=  (1<<6);
+    gpio_set_pin_input_high(D4);
+    gpio_set_pin_input_high(D5);
+    gpio_set_pin_input_high(E6);
 
     keyboard_config.raw = eeconfig_read_kb();
     bajjak_led_all_set((uint8_t)keyboard_config.led_level * 255 / 4 );

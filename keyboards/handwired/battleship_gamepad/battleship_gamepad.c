@@ -24,5 +24,5 @@ joystick_config_t joystick_axes[JOYSTICK_AXIS_COUNT] = {
 
 /* joystick button code (thumbstick pressed) */
 void keyboard_pre_init_kb(void) {
-	setPinInputHigh(F6);
+	gpio_set_pin_input_high(F6);
 }

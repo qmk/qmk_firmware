@@ -15,53 +15,53 @@
   */
 #include QMK_KEYBOARD_H
 enum my_keycodes {
-    RM_TOGG = SAFE_RANGE,
-    RM_MOD,
-    RM_HUI,
-    RM_HUD,
-    RM_SAI,
-    RM_SAD,
-    RM_VAI,
-    RM_VAD
+    RMT = SAFE_RANGE,
+    RMS,
+    RMIH,
+    RMDH,
+    RMIS,
+    RMDS,
+    RMIV,
+    RMDV
 };
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case RM_TOGG:
+    case RMT:
       if (record->event.pressed)
       {rgb_matrix_toggle();
       }
       return false;
-    case RM_MOD:
+    case RMS:
       if (record->event.pressed)
       {rgb_matrix_step();
       }
       return false;
-      case RM_HUI:
+      case RMIH:
       if (record->event.pressed)
       {rgb_matrix_increase_hue();
       }
       return false;
-      case RM_HUD:
+      case RMDH:
       if (record->event.pressed)
       {rgb_matrix_decrease_hue();
       }
       return false;
-      case RM_SAI:
+      case RMIS:
       if (record->event.pressed)
       {rgb_matrix_increase_sat();
       }
       return false;
-      case RM_SAD:
+      case RMDS:
       if (record->event.pressed)
       {rgb_matrix_decrease_sat();
       }
       return false;
-      case RM_VAI:
+      case RMIV:
       if (record->event.pressed)
       {rgb_matrix_increase_val();
       }
       return false;
-      case RM_VAD:
+      case RMDV:
       if (record->event.pressed)
       {rgb_matrix_decrease_val();
       }
@@ -82,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [1] = LAYOUT_65_ansi(
         QK_GESC,        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  QK_BOOT,
         _______,        RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, RGB_SPI, RGB_SPD, _______, _______, _______, _______,
-        KC_CAPS,        RM_TOGG, RM_MOD,  RM_HUI,  RM_HUD,  RM_SAI,  RM_SAD,  RM_VAI,  RM_VAD,  _______, _______,  _______,         _______, _______,
+        KC_CAPS,        RMT,     RMS,     RMIH,    RMDH,    RMIS,    RMDS,    RMIV,    RMDV,    _______, _______,  _______,         _______, _______,
         _______,                 _______, _______, _______, _______, _______, NK_TOGG, _______, _______, _______, _______, _______, KC_VOLU, _______,
         _______,        _______, _______,                            _______,                   _______, _______, _______, _______, KC_VOLD, _______
     ),

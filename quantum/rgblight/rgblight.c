@@ -149,7 +149,7 @@ void setrgb(uint8_t r, uint8_t g, uint8_t b, rgb_led_t *led1) {
     led1->r = r;
     led1->g = g;
     led1->b = b;
-#ifdef RGBW
+#ifdef WS2812_RGBW
     led1->w = 0;
 #endif
 }
@@ -652,7 +652,7 @@ void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b) {
         led[i].r = r;
         led[i].g = g;
         led[i].b = b;
-#ifdef RGBW
+#ifdef WS2812_RGBW
         led[i].w = 0;
 #endif
     }
@@ -667,7 +667,7 @@ void rgblight_setrgb_at(uint8_t r, uint8_t g, uint8_t b, uint8_t index) {
     led[index].r = r;
     led[index].g = g;
     led[index].b = b;
-#ifdef RGBW
+#ifdef WS2812_RGBW
     led[index].w = 0;
 #endif
     rgblight_set();
@@ -704,7 +704,7 @@ void rgblight_setrgb_range(uint8_t r, uint8_t g, uint8_t b, uint8_t start, uint8
         led[i].r = r;
         led[i].g = g;
         led[i].b = b;
-#ifdef RGBW
+#ifdef WS2812_RGBW
         led[i].w = 0;
 #endif
     }
@@ -905,7 +905,7 @@ void rgblight_set(void) {
             led[i].r = 0;
             led[i].g = 0;
             led[i].b = 0;
-#ifdef RGBW
+#ifdef WS2812_RGBW
             led[i].w = 0;
 #endif
         }
@@ -933,7 +933,7 @@ void rgblight_set(void) {
     start_led = led + rgblight_ranges.clipping_start_pos;
 #endif
 
-#ifdef RGBW
+#ifdef WS2812_RGBW
     for (uint8_t i = 0; i < num_leds; i++) {
         convert_rgb_to_rgbw(&start_led[i]);
     }
@@ -1263,7 +1263,7 @@ void rgblight_effect_snake(animation_status_t *anim) {
         ledp->r         = 0;
         ledp->g         = 0;
         ledp->b         = 0;
-#    ifdef RGBW
+#    ifdef WS2812_RGBW
         ledp->w = 0;
 #    endif
         for (j = 0; j < RGBLIGHT_EFFECT_SNAKE_LENGTH; j++) {
@@ -1323,7 +1323,7 @@ void rgblight_effect_knight(animation_status_t *anim) {
         led[i].r = 0;
         led[i].g = 0;
         led[i].b = 0;
-#    ifdef RGBW
+#    ifdef WS2812_RGBW
         led[i].w = 0;
 #    endif
     }
@@ -1337,7 +1337,7 @@ void rgblight_effect_knight(animation_status_t *anim) {
             led[cur].r = 0;
             led[cur].g = 0;
             led[cur].b = 0;
-#    ifdef RGBW
+#    ifdef WS2812_RGBW
             led[cur].w = 0;
 #    endif
         }

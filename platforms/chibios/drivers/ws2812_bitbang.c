@@ -101,7 +101,7 @@ void ws2812_setleds(rgb_led_t *ledarray, uint16_t leds) {
         sendByte(ledarray[i].r);
 #endif
 
-#ifdef RGBW
+#ifdef WS2812_RGBW
         sendByte(ledarray[i].w);
 #endif
     }

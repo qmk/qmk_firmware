@@ -1,4 +1,10 @@
 {
     "processor": "atmega32u2",
-    "bootloader": "atmel-dfu"
+    "bootloader": "atmel-dfu",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false
+    }
 }
