@@ -81,16 +81,40 @@ void fix_ghosting_column(
 // These are observed ghosts(following a pattern). TODO: need to fix this for v3
 // Might need to add 2 diodes(one in each direction) for every row, to increase voltage drop.
 void fix_ghosting(matrix_row_t matrix[]) {
-    fix_ghosting_column(matrix, rev(0B0110000000000000), rev(0B1010000000000000), rev(0B1000000000000000));
-    fix_ghosting_column(matrix, rev(0B0110000000000000), rev(0B0101000000000000), rev(0B0001000000000000));
+    fix_ghosting_column(matrix,
+                        rev(0B0110000000000000),
+                        rev(0B1010000000000000),
+                        rev(0B0010000000000000));
+    fix_ghosting_column(matrix,
+                        rev(0B0110000000000000),
+                        rev(0B0101000000000000),
+                        rev(0B0100000000000000));
 
-    fix_ghosting_column(matrix, rev(0B0001100000000000), rev(0B0010100000000000), rev(0B0010000000000000));
-    fix_ghosting_column(matrix, rev(0B0001100000000000), rev(0B0001010000000000), rev(0B0000010000000000));
+    fix_ghosting_column(matrix,
+                        rev(0B0001100000000000),
+                        rev(0B0010100000000000),
+                        rev(0B0000100000000000));
+    fix_ghosting_column(matrix,
+                        rev(0B0001100000000000),
+                        rev(0B0001010000000000),
+                        rev(0B0001000000000000));
 
-    fix_ghosting_column(matrix, rev(0B1000010000000000), rev(0B1000100000000000), rev(0B1000000000000000));
-    fix_ghosting_column(matrix, rev(0B1000010000000000), rev(0B0100010000000000), rev(0B0000010000000000));
+    fix_ghosting_column(matrix,
+                        rev(0B1000010000000000),
+                        rev(0B1000100000000000),
+                        rev(0B1000000000000000));
+    fix_ghosting_column(matrix,
+                        rev(0B1000010000000000),
+                        rev(0B0100010000000000),
+                        rev(0B0000010000000000));
 
-    fix_ghosting_column(matrix, rev(0B1001000000000000), rev(0B0101000000000000), rev(0B0001000000000000));
+    fix_ghosting_column(matrix,
+                        rev(0B1001000000000000),
+                        rev(0B0101000000000000),
+                        rev(0B0001000000000000));
 
-    fix_ghosting_column(matrix, rev(0B0100100000000000), rev(0B0100010000000000), rev(0B0100000000000000));
+    fix_ghosting_column(matrix,
+                        rev(0B0100100000000000),
+                        rev(0B0100010000000000),
+                        rev(0B0100000000000000));
 }
