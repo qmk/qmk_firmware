@@ -26,7 +26,7 @@ static const uint8_t col_pins[MATRIX_MUX_COLS] = MATRIX_COL_MUX_PINS;
 static void init_pins(void) {
     // Set cols to outputs, low
     for (uint8_t pin = 0; pin < MATRIX_MUX_COLS; pin++) {
-        setPinOutput(col_pins[pin]);
+        gpio_set_pin_output(col_pins[pin]);
     }
 
     // Unselect cols
