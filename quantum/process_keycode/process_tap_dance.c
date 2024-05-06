@@ -133,7 +133,7 @@ bool preprocess_tap_dance(uint16_t keycode, keyrecord_t *record) {
 
     if (!active_td || keycode == active_td) return false;
 
-    action                             = &tap_dance_actions[TD_INDEX(active_td)];
+    action                             = &tap_dance_actions[QK_TAP_DANCE_GET_INDEX(active_td)];
     action->state.interrupted          = true;
     action->state.interrupting_keycode = keycode;
     process_tap_dance_action_on_dance_finished(action);
@@ -154,7 +154,7 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
 
     switch (keycode) {
         case QK_TAP_DANCE ... QK_TAP_DANCE_MAX:
-            action = &tap_dance_actions[TD_INDEX(keycode)];
+            action = &tap_dance_actions[QK_TAP_DANCE_GET_INDEX(keycode)];
 
             action->state.pressed = record->event.pressed;
             if (record->event.pressed) {
@@ -182,7 +182,7 @@ void tap_dance_task(void) {
 
     if (!active_td || timer_elapsed(last_tap_time) <= GET_TAPPING_TERM(active_td, &(keyrecord_t){})) return;
 
-    action = &tap_dance_actions[TD_INDEX(active_td)];
+    action = &tap_dance_actions[QK_TAP_DANCE_GET_INDEX(active_td)];
     if (!action->state.interrupted) {
         process_tap_dance_action_on_dance_finished(action);
     }

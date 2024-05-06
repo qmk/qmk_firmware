@@ -1,3 +1,7 @@
+// Copyright 2019 MechMerlin
+// Copyright 2020 @ben_roe (keycapsss.com)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include "progmem.h"
 
 // Corne 8x6 font

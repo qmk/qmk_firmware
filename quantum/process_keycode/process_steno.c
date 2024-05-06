@@ -16,7 +16,6 @@
 #include "process_steno.h"
 #include "quantum_keycodes.h"
 #include "eeconfig.h"
-#include "keymap_steno.h"
 #include <string.h>
 #ifdef VIRTSER_ENABLE
 #    include "virtser.h"
@@ -129,9 +128,6 @@ static const uint16_t combinedmap_second[] PROGMEM = {STN_S2, STN_KL, STN_WL, ST
 
 #ifdef STENO_ENABLE_ALL
 void steno_init(void) {
-    if (!eeconfig_is_enabled()) {
-        eeconfig_init();
-    }
     mode = eeprom_read_byte(EECONFIG_STENOMODE);
 }
 

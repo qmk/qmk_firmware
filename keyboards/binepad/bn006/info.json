@@ -24,10 +24,27 @@
         "pid": "0x426E",
         "device_version": "1.0.0"
     },
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096
+        }
+    },
     "ws2812": {
         "pin": "B15"
     },
     "rgb_matrix": {
+        "animations": {
+            "gradient_up_down": true,
+            "gradient_left_right": true,
+            "breathing": true,
+            "solid_reactive_simple": true,
+            "solid_reactive": true,
+            "splash": true,
+            "solid_splash": true
+        },
+        "default": {
+            "animation": "breathing"
+        },
         "driver": "ws2812",
         "layout": [
             {"flags": 4, "matrix": [0, 0], "x": 0, "y": 0},
@@ -36,7 +53,9 @@
             {"flags": 4, "matrix": [1, 0], "x": 0, "y": 64},
             {"flags": 4, "matrix": [1, 1], "x": 112, "y": 64},
             {"flags": 4, "matrix": [1, 2], "x": 224, "y": 64}
-        ]
+        ],
+        "max_brightness": 200,
+        "sleep": true
     },
     "community_layouts": ["ortho_2x3"],
     "layouts": {

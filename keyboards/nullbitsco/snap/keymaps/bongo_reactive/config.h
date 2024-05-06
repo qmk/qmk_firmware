@@ -28,6 +28,10 @@
 // Selectively undefine to save space
 // VIA support won't fit otherwise
 #ifdef RGBLIGHT_ENABLE
+#undef RGBLIGHT_EFFECT_ALTERNATING
+#undef RGBLIGHT_EFFECT_CHRISTMAS
+#undef RGBLIGHT_EFFECT_RGB_TEST
+#undef RGBLIGHT_EFFECT_SNAKE
 #undef RGBLIGHT_EFFECT_TWINKLE
 #endif //RGB LIGHT_ENABLE
 

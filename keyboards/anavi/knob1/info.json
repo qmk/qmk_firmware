@@ -17,9 +17,6 @@
     "rgblight": {
         "led_count": 1,
         "hue_steps": 10,
-        "saturation_steps": 17,
-        "brightness_steps": 17,
-        "max_brightness": 255,
         "animations": {
             "alternating": true,
             "breathing": true,
@@ -31,6 +28,9 @@
             "snake": true,
             "static_gradient": true,
             "twinkle": true
+        },
+        "default": {
+            "animation": "rainbow_swirl"
         }
     },
     "ws2812": {
