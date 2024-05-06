@@ -1,920 +1,988 @@
 
-// ★☆✪✤
-// ↻⎵
+// $ - an alias for q
+// # - an alias for l
 
-// ✪ - an alias for l
-// ✤ - an alias for q
-
-// ★ - magic key (upper right index)
-// ☆ - repeat key(home  right thumb)
+// * - magic key (upper right index)
+// @ - repeat key(home  right thumb)
 
 // ↻ - repeat token
-// ⎵ - wordbreak token
+// _ - wordbreak token
 
-☆             ⇒ ↻
+@             -> ↻
 
 //REGEX_START
 
 // ------------------------------------'---------------------------------------
 
-⎵aint         ⇒ ain't
-⎵arent        ⇒ aren't
+_aint         -> ain't
+_arent        -> aren't
 
-⎵shoulde      ⇒ should've
-⎵shouldt      ⇒ shouldn't
+_shoulde      -> should've
+_shouldt      -> shouldn't
 
-⎵wouldt       ⇒ wouldn't
-⎵wouldv       ⇒ would've
+_wouldt       -> wouldn't
+_wouldv       -> would've
 
-⎵cant         ⇒ can't
-⎵co★t         ⇒ couldn't
-⎵co★v         ⇒ could've
+_cant         -> can't
+_co*t         -> couldn't
+_co*v         -> could've
 
-⎵dont         ⇒ don't
-⎵didnt        ⇒ didn't
-⎵doesnt       ⇒ doesn't
+_dont         -> don't
+_didnt        -> didn't
+_doesnt       -> doesn't
 
-⎵i☆m          ⇒ I'm
-⎵i☆d          ⇒ I'd
-⎵i☆l          ⇒ I'll
-⎵i☆v          ⇒ I've
+_i@m          -> I'm
+_i@d          -> I'd
+_i@l          -> I'll
+_i@v          -> I've
 
-⎵w☆d          ⇒ we'd
-⎵w☆l          ⇒ we'll
-⎵w☆v          ⇒ we've
+_w@d          -> we'd
+_w@l          -> we'll
+_w@v          -> we've
 
-⎵wont         ⇒ won't
-⎵whats        ⇒ what's
-⎵wasnt        ⇒ wasn't
-⎵werent       ⇒ weren't
+_wont         -> won't
+_whats        -> what's
+_wasnt        -> wasn't
+_werent       -> weren't
 
-⎵thats        ⇒ that's
-⎵thatd        ⇒ that'd
-⎵theyr        ⇒ they're
-⎵theyl        ⇒ they'll
-⎵theres       ⇒ there's
+_thats        -> that's
+_thatd        -> that'd
+_theyr        -> they're
+_theyl        -> they'll
+_theres       -> there's
 
-⎵isnt         ⇒ isn't
-⎵youv         ⇒ you've
-⎵havent       ⇒ haven't
+_isnt         -> isn't
+_youv         -> you've
+_havent       -> haven't
 
 // ------------------------------------A---------------------------------------
 
-a★            ⇒ ab
-a☆            ⇒ and
+a*            -> ab
+a@            -> and
 
-⎵ag★          ⇒ again
-⎵ag★s         ⇒ against
+_ag*          -> again
+_ag*s         -> against
 
-⎵av★          ⇒ average
-⎵av★g         ⇒ averaging
+_av*          -> average
+_av*g         -> averaging
 
-⎵af✤          ⇒ after
-⎵af✤d         ⇒ afterwards
+_af$          -> after
+_af$d         -> afterwards
 
-⎵al★          ⇒ alr
-⎵al★d         ⇒ already
-⎵al★g         ⇒ alright
+_al*          -> alr
+_al*d         -> already
+_al*g         -> alright
 
-⎵a☆c          ⇒ accuracy
-⎵a☆t          ⇒ accurate
-⎵a☆ty         ⇒ accurately
+_a@c          -> accuracy
+_a@t          -> accurate
+_a@ty         -> accurately
 
-⎵as✪          ⇒ ascend
-⎵as✪e         ⇒ ascended
-⎵as✪o         ⇒ ascendion
-⎵as✪n         ⇒ ascending
+_as#          -> ascend
+_as#e         -> ascended
+_as#o         -> ascendion
+_as#n         -> ascending
 
-⎵adj★         ⇒ adjust
-⎵adj★d        ⇒ adjusted
-⎵adj★g        ⇒ adjusting
-⎵adj★t        ⇒ adjustment
-⎵adj★l        ⇒ adjustable
+_adj*         -> adjust
+_adj*d        -> adjusted
+_adj*g        -> adjusting
+_adj*t        -> adjustment
+_adj*l        -> adjustable
 
-⎵any☆         ⇒ anyway
-⎵any✤         ⇒ anyone
-⎵anym         ⇒ anymore
-⎵anyo         ⇒ anybody
-⎵any✪         ⇒ anytime
-⎵anyr         ⇒ anywhere
-⎵anyt         ⇒ anything
+_any@         -> anyway
+_any$         -> anyone
+_anym         -> anymore
+_anyo         -> anybody
+_any#         -> anytime
+_anyr         -> anywhere
+_anyt         -> anything
 
-⎵a★v          ⇒ above
-⎵ab✤          ⇒ about
-⎵assg         ⇒ assign
-⎵askg         ⇒ asking
-⎵ar★          ⇒ around
-⎵alm★         ⇒ almost
-⎵as✪☆         ⇒ asleep
-⎵an✤          ⇒ another
-⎵awk☆         ⇒ awkward
-⎵alt★         ⇒ although
-⎵alg★         ⇒ algorithm
-⎵ab☆          ⇒ abbreviation
+_a*v          -> above
+_ab$          -> about
+_assg         -> assign
+_askg         -> asking
+_am*          -> amount
+_ar*          -> around
+_alm*         -> almost
+_as#@         -> asleep
+_an$          -> another
+_awk@         -> awkward
+_alt*         -> although
+_alg*         -> algorithm
+_ab@          -> abbreviation
 
 // ------------------------------------B---------------------------------------
 
-⎵b☆           ⇒ bz
+_b@           -> bz
 
-⎵b✤           ⇒ basic
-⎵b✤y          ⇒ basically
+_b*           -> basic
+_b*l          -> basically
 
-⎵bt☆          ⇒ bother
-⎵bt☆d         ⇒ bothered
-⎵bt☆g         ⇒ bothering
-⎵bt☆r         ⇒ bothersome
+_bt@          -> bother
+_bt@d         -> bothered
+_bt@g         -> bothering
+_bt@r         -> bothersome
 
-⎵b☆g          ⇒ begin
-⎵b☆ga         ⇒ began
-⎵b☆✤          ⇒ being
-⎵beg✤         ⇒ begging
-⎵b☆g✤         ⇒ beginning
+_b@g          -> begin
+_b@ga         -> began
+_b@$          -> being
+_beg$         -> begging
+_b@g$         -> beginning
 
-⎵b☆e          ⇒ been
-⎵b☆k          ⇒ back
-⎵b☆o          ⇒ both
-⎵b☆m          ⇒ become
-⎵b☆mc         ⇒ became
-⎵b☆r          ⇒ before
-⎵b☆u          ⇒ buffer
-⎵b☆p          ⇒ bypass
-⎵b☆t          ⇒ better
-⎵b☆c          ⇒ because
-⎵b☆l          ⇒ believe
-⎵b☆w          ⇒ between
-⎵b☆v          ⇒ behavior
-⎵b☆ps         ⇒ bypassing
+_b$           -> back
+_b$u          -> backup
+_b$d          -> backed
+_b$g          -> backing
+_b$e          -> backend
+_b$o          -> backdoor
+_b$w          -> backwards
+_b$s          -> backspace
+_b$@          -> background
 
-⎵bc☆          ⇒ bunch
-⎵by✤          ⇒ bypass
-⎵bud★         ⇒ budget
-⎵bac★✪        ⇒ backspace
+_b@e          -> been
+_b@k          -> back
+_b@o          -> both
+_b@m          -> become
+_b@mc         -> became
+_b@r          -> before
+_b@u          -> buffer
+_b@p          -> bypass
+_b@t          -> better
+_b@c          -> because
+_b@l          -> believe
+_b@w          -> between
+_b@v          -> behavior
+_b@ps         -> bypassing
+
+_bc@          -> bunch
+_by$          -> bypass
+_bud*         -> budget
 
 // ------------------------------------C---------------------------------------
 
-[oauei]c★     ⇒ \1ck
+[oauei]c*     -> \1ck
 
-c★            ⇒ cy
-⎵c☆           ⇒ con
+c*            -> cy
+_c@           -> con
 
-⎵p☆           ⇒ copy
-⎵p☆n          ⇒ copying
+_p@           -> copy
+_p@n          -> copying
 
-⎵cr★          ⇒ cry
-⎵cry☆         ⇒ crying
+_cr*          -> cry
+_cry@         -> crying
 
-⎵ch☆          ⇒ change
-⎵ch☆i         ⇒ changing
+_ch@          -> change
+_ch@i         -> changing
 
-⎵c☆l          ⇒ conflict
-⎵c☆ln         ⇒ conflicting
+_c@l          -> conflict
+_c@ln         -> conflicting
 
-⎵c☆n          ⇒ consider
-⎵c☆ne         ⇒ considered
-⎵c☆ni         ⇒ considering
+_c@*          -> consider
+_c@*e         -> considered
+_c@*i         -> considering
 
-⎵c☆m         ⇒ confirm
-⎵c☆md        ⇒ confirmed
-⎵c☆mg        ⇒ confirming
+_c@m         -> confirm
+_c@md        -> confirmed
+_c@mg        -> confirming
 
-⎵c☆s★         ⇒ consistent
-⎵c☆s★c        ⇒ consistency
-⎵c☆s★l        ⇒ consistently
+_c@s*         -> consistent
+_c@s*c        -> consistency
+_c@s*l        -> consistently
 
-⎵cf✪          ⇒ confident
-⎵cf✪e         ⇒ confidence
-⎵cf✪☆         ⇒ confidently
+_cf#          -> confident
+_cf#e         -> confidence
+_cf#@         -> confidently
 
-⎵c★m          ⇒ comfort
-⎵c★me         ⇒ comfortable
-⎵c★ma         ⇒ comfortably
+_c*m          -> comfort
+_c*me         -> comfortable
+_c*ma         -> comfortably
 
-⎵c☆f          ⇒ config
-⎵c☆fr         ⇒ configure
-⎵c☆fi         ⇒ configuring
-⎵c☆ft         ⇒ configuration
+_c@$          -> const
+_c@$a         -> constantly
 
-⎵c☆e          ⇒ confuse
-⎵c☆e★         ⇒ confused
-⎵c☆en         ⇒ confusing
-⎵c☆eo         ⇒ confusion
+_c@$u         -> constsruct
+_c@$uo        -> constsructor
+_c@$ud        -> constsructed
+_c@$u*        -> constsruction
 
-⎵c☆★          ⇒ connect
-⎵c☆★e         ⇒ connected
-⎵c☆★o         ⇒ connection
-⎵c☆★i         ⇒ connecting
+_c@$e         -> constitute
+_c@$en        -> constitutional
 
-⎵c☆t★         ⇒ contain
-⎵c☆t★d        ⇒ contained
-⎵c☆t★e        ⇒ container
-⎵c☆t★i        ⇒ containing
+_c@$*         -> conquer
+_c@$*s        -> conquest
+_c@$i         -> constrain
 
-⎵c☆v★         ⇒ convert
-⎵c☆v★e        ⇒ converted
-⎵c☆v★o        ⇒ conversion
-⎵c☆v★t        ⇒ convenient
-⎵c☆v★a        ⇒ conversation
+_c@f          -> config
+_c@fr         -> configure
+_c@fi         -> configuring
+_c@ft         -> configuration
 
-⎵co★          ⇒ could
-⎵cop★         ⇒ coping
-⎵col★         ⇒ column
-⎵cri★         ⇒ cringe
-⎵cou✪         ⇒ course
-⎵com★         ⇒ comment
-⎵ca☆          ⇒ capable
-⎵cov★d        ⇒ covered
-⎵c☆vn         ⇒ convince
-⎵cu☆          ⇒ curious
-⎵c☆r★         ⇒ congratulations
+_c@e          -> confuse
+_c@e*         -> confused
+_c@en         -> confusing
+_c@eo         -> confusion
+
+_c@n          -> connect
+_c@ne         -> connected
+_c@no         -> connection
+_c@ni         -> connecting
+
+_c@t*         -> contain
+_c@t*d        -> contained
+_c@t*e        -> container
+_c@t*i        -> containing
+
+_c@v*         -> convert
+_c@v*e        -> converted
+_c@v*o        -> conversion
+_c@v*t        -> convenient
+_c@v*a        -> conversation
+
+_co*          -> could
+_cop*         -> coping
+_col*         -> column
+_cri*         -> cringe
+_cou#         -> course
+_com*         -> comment
+_ca@          -> capable
+_cov*d        -> covered
+_c@vn         -> convince
+_cu@          -> curious
+_c@r*         -> congratulations
 
 // ------------------------------------D---------------------------------------
 
-d★            ⇒ dy
-⎵d☆           ⇒ dd
+d*            -> dy
+_d@           -> dd
 
-d★☆           ⇒ dynamic
-d★☆l          ⇒ dynamically
+d*@           -> dynamic
+d*@l          -> dynamically
 
-⎵di★          ⇒ dictionary
-⎵di★s         ⇒ dictionaries
+_di*          -> dictionary
+_di*s         -> dictionaries
 
-⎵d☆o          ⇒ doub
-⎵d☆ol         ⇒ double
+_d@o          -> doub
+_d@ol         -> double
 
-⎵des★         ⇒ describe
-⎵des★☆        ⇒ describing
+_des*         -> describe
+_des*@        -> describing
 
-⎵des☆         ⇒ descript
-⎵des☆n        ⇒ description
-⎵des☆★        ⇒ descriptive
+_des@         -> descript
+_des@n        -> description
+_des@*        -> descriptive
 
-⎵d☆★          ⇒ differ
-⎵d☆★t         ⇒ different
-⎵d☆★r         ⇒ difference
-⎵d☆★l         ⇒ differently
+_d@*          -> differ
+_d@*t         -> different
+_d@*r         -> difference
+_d@*l         -> differently
 
-⎵df✪          ⇒ define
-⎵df✪e         ⇒ definite
-⎵df✪o         ⇒ defintion
-⎵df✪i         ⇒ definitive
-⎵df✪☆         ⇒ definitely
+_d@t          -> disappoint
+_d@te         -> disappointed
+_d@tn         -> disappointing
+_d@t*         -> disappointment
 
-⎵dev☆         ⇒ develop
-⎵dev☆d        ⇒ developed
-⎵dev☆r        ⇒ developer
-⎵dev☆n        ⇒ developing
-⎵dev☆m        ⇒ development
+_df#          -> define
+_df#e         -> definite
+_df#o         -> definition
+_df#i         -> definitive
+_df#@         -> definitely
 
-da★           ⇒ day
-⎵d☆n          ⇒ down
-⎵d☆r          ⇒ during
-⎵d☆i          ⇒ decide
-⎵d☆a          ⇒ doable
-⎵dred★        ⇒ dredge
-⎵de★          ⇒ default
-⎵d☆ig         ⇒ deciding
-⎵del☆         ⇒ deflation
-⎵d☆u          ⇒ difficult
-⎵demo★        ⇒ democracy
-⎵disf         ⇒ discomfort
+_dev@         -> develop
+_dev@d        -> developed
+_dev@r        -> developer
+_dev@n        -> developing
+_dev@m        -> development
+
+da*           -> day
+_d@n          -> down
+_d@r          -> during
+_d@i          -> decide
+_d@a          -> doable
+_dred*        -> dredge
+_de*          -> default
+_d@ig         -> deciding
+_del@         -> deflation
+_d@u          -> difficult
+_demo*        -> democracy
+_disf         -> discomfort
+_des$         -> destination
 
 // ------------------------------------E---------------------------------------
 
-e★            ⇒ eu
-⎵e☆           ⇒ ee
+e*            -> eu
+_e@           -> ee
 
-⎵enc☆         ⇒ encrypt
-⎵enc☆t        ⇒ encryption
+_enc@         -> encrypt
+_enc@t        -> encryption
 
-⎵edit★        ⇒ edition
-⎵edit☆        ⇒ editing
+_edit*        -> edition
+_edit@        -> editing
 
-⎵e☆s          ⇒ essential
-⎵e☆sl         ⇒ essentially
+_e@s          -> essential
+_e@sl         -> essentially
 
-⎵ea✪          ⇒ early
-⎵ea✪☆         ⇒ earlier
+_ea#          -> early
+_ea#@         -> earlier
 
-⎵e☆pt         ⇒ expert
-⎵e☆pt★        ⇒ expertise
+_e@pt         -> expert
+_e@pt*        -> expertise
 
-⎵e☆tr         ⇒ extreme
-⎵e☆tra        ⇒ extremal
-⎵e☆try        ⇒ extremely
+_e@tr         -> extreme
+_e@tra        -> extremal
+_e@try        -> extremely
 
-⎵es☆          ⇒ ess
-⎵es☆t         ⇒ essential
-⎵es☆tl        ⇒ essentially
+_es@          -> ess
+_es@t         -> essential
+_es@tl        -> essentially
 
-⎵ev★☆         ⇒ everyone
-⎵ev★t         ⇒ everything
-⎵ev★r         ⇒ everywhere
+_ev*@         -> everyone
+_ev*r         -> everything
+_ev*w         -> everywhere
 
-⎵e☆t          ⇒ exact
-⎵e☆ta         ⇒ extra
-⎵e☆ty         ⇒ exactly
+_e@t          -> exact
+_e@ta         -> extra
+_e@ty         -> exactly
 
-⎵e☆l          ⇒ explain
-⎵e☆ld         ⇒ explained
-⎵e☆lg         ⇒ explaining
+_e@l          -> explain
+_e@ld         -> explained
+_e@lg         -> explaining
 
-⎵e☆pl         ⇒ explore
-⎵e☆pln        ⇒ exploring
-⎵e☆plo        ⇒ exploration
+_e@pl         -> explore
+_e@pln        -> exploring
+_e@plo        -> exploration
 
-⎵e☆n          ⇒ experience
-⎵e☆ng         ⇒ experiencing
-⎵e☆nl         ⇒ experiential
+_e@n          -> experience
+_e@ng         -> experiencing
+_e@nl         -> experiential
 
-⎵e☆pr         ⇒ express
-⎵e☆pre        ⇒ expressed
-⎵e☆pro        ⇒ expression
-⎵e☆prn        ⇒ expressing
+_e@pr         -> express
+_e@pre        -> expressed
+_e@pro        -> expression
+_e@prn        -> expressing
 
-⎵e☆c          ⇒ except
-⎵e☆cn         ⇒ exception
-⎵e☆cl         ⇒ exceptional
-⎵e☆c★         ⇒ exceptionally
+_e@c          -> except
+_e@cn         -> exception
+_e@cl         -> exceptional
+_e@c*         -> exceptionally
 
-⎵e☆ce         ⇒ excel
-⎵e☆ced        ⇒ excelled
-⎵e☆cet        ⇒ excellent
-⎵e☆cec        ⇒ excellence
+_e@ce         -> excel
+_e@ced        -> excelled
+_e@cet        -> excellent
+_e@cec        -> excellence
 
-⎵e☆p          ⇒ expect
-⎵e☆pe         ⇒ expected
-⎵e☆pn         ⇒ expecting
-⎵e☆pv         ⇒ expensive
-⎵e☆p★         ⇒ unexpected
-⎵e☆po         ⇒ expectation
+_en@          -> enjoy
+_en@d         -> enjoyed
+_en@g         -> enjoying
+_en@l         -> enjoyable
+_en@m         -> enjoyment
 
-⎵ey★          ⇒ eye
-⎵ed★          ⇒ edge
-⎵e☆r          ⇒ either
-⎵e☆g          ⇒ enough
-⎵e☆✤          ⇒ example
-⎵evn☆         ⇒ eventually
-⎵e☆y          ⇒ especially
-⎵env☆         ⇒ environment
+_e@p          -> expect
+_e@pe         -> expected
+_e@pn         -> expecting
+_e@pv         -> expensive
+_e@p*         -> unexpected
+_e@po         -> expectation
+
+_e@t#         -> extend
+_e@t$         -> extent
+_e@t#*        -> extends
+_e@t#d        -> extended
+_e@t#o        -> extension
+_e@t#n        -> extending
+_e@t#i        -> extensive
+_e@t#iy       -> extensively
+
+_ey*          -> eye
+_ed*          -> edge
+_e@r          -> either
+_e@g          -> enough
+_e@$          -> example
+_evn@         -> eventually
+_e@y          -> especially
+_env#         -> environment
 
 // ------------------------------------F---------------------------------------
 
-⎵☆            ⇒ for
+_@            -> for
 
-⎵f✤           ⇒ fine
-⎵f☆           ⇒ first
+_f$           -> fine
+_f@           -> first
 
-⎵☆b           ⇒ forbid
-⎵☆bd          ⇒ forbidden
+_@b           -> forbid
+_@bd          -> forbidden
 
-⎵☆★           ⇒ follow
-⎵☆★d          ⇒ followed
-⎵☆★g          ⇒ following
+_@*           -> follow
+_@*d          -> followed
+_@*g          -> following
 
-⎵fu☆          ⇒ fun
-⎵fu☆t         ⇒ function
-⎵fu☆tl        ⇒ functional
-⎵fu☆tg        ⇒ functioning
-⎵fu☆ty        ⇒ functionality
+_fu@          -> fun
+_fu@t         -> function
+_fu@tl        -> functional
+_fu@tg        -> functioning
+_fu@ty        -> functionality
 
-⎵fu☆m         ⇒ fundament
-⎵fu☆ml        ⇒ fundamentally
+_fu@m         -> fundament
+_fu@ml        -> fundamentally
 
-⎵fe✤          ⇒ frequent
-⎵fe✤c         ⇒ frequency
-⎵fe✤y         ⇒ frequently
-⎵fe✤s         ⇒ frequentcies
+_fe$          -> frequent
+_fe$c         -> frequency
+_fe$y         -> frequently
+_fe$s         -> frequentcies
 
-⎵fr☆          ⇒ from
-⎵fd✪          ⇒ find
-⎵fc✪          ⇒ fancy
-⎵fg✤          ⇒ finger
+_fr@          -> from
+_fd#          -> find
+_fc#          -> fancy
+_fg$          -> finger
 
 // ------------------------------------G---------------------------------------
 
-g★            ⇒ gy
+g*            -> gy
 
-⎵gov★         ⇒ govern
-⎵gov★☆        ⇒ government
+_gov*         -> govern
+_gov*@        -> government
 
-⎵gn✤          ⇒ genuine
-⎵gn✤e         ⇒ genuinely
+_gn$          -> genuine
+_gn$e         -> genuinely
 
-⎵gen✤         ⇒ general
-⎵gen✤y        ⇒ generally
+_gen$         -> general
+_gen$y        -> generally
 
-⎵gi★          ⇒ ginger
+_gi*          -> ginger
 
 // ------------------------------------H---------------------------------------
 
-⎵h☆           ⇒ hand
+_h@           -> hand
 
-⎵hs☆          ⇒ honest
-⎵hs☆l         ⇒ honestly
+_hs@          -> honest
+_hs@l         -> honestly
 
-⎵he✤          ⇒ health
-⎵how☆         ⇒ however
-⎵ht☆          ⇒ https://
-⎵hi✤          ⇒ hilarious
-⎵hope☆        ⇒ hopefully
+_ha$          -> happy
+_ha$y         -> happily
+_ha$e         -> happier
+_ha$s         -> happiest
+_ha$n         -> happiness
+
+_ha$@         -> happen
+_ha$@d        -> happened
+_ha$@g        -> happenning
+
+_he$          -> health
+_how@         -> however
+_ht@          -> https://
+_hi$          -> hilarious
+_hope@        -> hopefully
 
 // ------------------------------------I---------------------------------------
 
-i☆            ⇒ ing
-i★            ⇒ ion
-ion★          ⇒ ional
+i@            -> ing
+i*            -> ion
+ion*          -> ional
 
-⎵i☆s          ⇒ instead
-⎵i☆c          ⇒ incapable
+_i@s          -> instead
+_i@c          -> incapable
 
-⎵i☆t          ⇒ interest
-⎵i☆td         ⇒ interested
-⎵i☆tg         ⇒ interesting
+_i@t          -> interest
+_i@td         -> interested
+_i@tg         -> interesting
 
-⎵i☆r          ⇒ increase
-⎵i☆rd         ⇒ increased
-⎵i☆rg         ⇒ increasing
+_i@r          -> increase
+_i@rd         -> increased
+_i@rg         -> increasing
 
-⎵i☆p          ⇒ implement
-⎵i☆pe         ⇒ implemented
-⎵i☆pn         ⇒ implementing
-⎵i☆pt         ⇒ implementation
+_i@p          -> implement
+_i@pe         -> implemented
+_i@pn         -> implementing
+_i@pt         -> implementation
 
-⎵im✪          ⇒ import
-⎵im✪n         ⇒ importing
-⎵im✪a         ⇒ important
-⎵im✪e         ⇒ importance
-⎵im✪☆         ⇒ importantly
+_im#          -> import
+_im#n         -> importing
+_im#a         -> important
+_im#e         -> importance
+_im#@         -> importantly
 
-⎵i★           ⇒ info
-⎵i★r          ⇒ inform
-⎵i★rd         ⇒ informed
-⎵i★rt         ⇒ information
+_i*           -> info
+_i*r          -> inform
+_i*rd         -> informed
+_i*rt         -> information
 
-⎵i☆           ⇒ I
-⎵is★          ⇒ issue
-⎵imp☆         ⇒ impossible
+_i@           -> I
+_is*          -> issue
+_imp@         -> impossible
 
 // ------------------------------------J---------------------------------------
 
-⎵jd★          ⇒ judge
-⎵jd★☆         ⇒ judging
-⎵jd★m         ⇒ judgment
+_jd*          -> judge
+_jd*@         -> judging
+_jd*m         -> judgment
 
-⎵j☆           ⇒ join
-⎵j☆d          ⇒ joined
-⎵j☆g          ⇒ joining
+_j@           -> join
+_j@d          -> joined
+_j@g          -> joining
 
-⎵j★           ⇒ just
-⎵j★c          ⇒ justice
-⎵j★y          ⇒ justify
-⎵j★d          ⇒ justified
-⎵j★g          ⇒ justifying
+_j*           -> just
+_j*c          -> justice
+_j*y          -> justify
+_j*d          -> justified
+_j*g          -> justifying
 
 // ------------------------------------K---------------------------------------
 
-k★            ⇒ ks
+k*            -> ks
 
-⎵kn☆          ⇒ know
-⎵kn☆g         ⇒ knowledge
-⎵akn☆         ⇒ aknowledge
-⎵kn☆ge        ⇒ knowledgeable
+_kn@          -> know
+_kn@g         -> knowledge
+_akn@         -> aknowledge
+_kn@ge        -> knowledgeable
 
-⎵ke★          ⇒ key
-⎵ke★p         ⇒ keycap
-⎵ke★w         ⇒ keyword
-⎵ke★☆         ⇒ keycode
-⎵ke★r         ⇒ keyboard
+_ke*          -> key
+_ke*p         -> keycap
+_ke*w         -> keyword
+_ke*@         -> keycode
+_ke*r         -> keyboard
 
 // ------------------------------------L---------------------------------------
 
-l★            ⇒ lk
-led★          ⇒ ledge
+l*            -> lk
+led*          -> ledge
 
-⎵la★          ⇒ large
-⎵la☆          ⇒ last
+_leg*         -> legit
+_leg*t        -> legitimate
+_leg*m        -> legitimately
 
-⎵lega★        ⇒ legacy
-⎵len☆         ⇒ length
+_la*          -> large
+_la@          -> last
 
-⎵li★          ⇒ list
-⎵li★d         ⇒ listed
-⎵lm(f)?a★     ⇒ lm\1ao
-⎵li★r         ⇒ listener
-⎵li★g         ⇒ listening
+_lega*        -> legacy
+_len@         -> length
+
+_li*          -> list
+_li*d         -> listed
+_lm(f)?a*     -> lm\1ao
+_li*r         -> listener
+_li*g         -> listening
 
 // ------------------------------------M---------------------------------------
 
-mp★           ⇒ mpl
-m★            ⇒ ment
-m★☆           ⇒ mental
+mp*           -> mpl
+m*            -> ment
+m*@           -> mental
 
-⎵mu★          ⇒ must
-⎵mu☆          ⇒ music
+_mu*          -> must
+_mu@          -> music
 
-⎵m★o         ⇒ mention
-⎵m★l         ⇒ menthol
+_m*o         -> mention
+_m*l         -> menthol
 
-⎵mo★          ⇒ most
-⎵mo★l         ⇒ mostly
+_mo*          -> most
+_mo*l         -> mostly
 
-⎵ma☆          ⇒ make
-⎵ma☆g         ⇒ making
+_ma@          -> make
+_ma@g         -> making
 
-⎵my☆          ⇒ myth
-⎵my☆a         ⇒ mythical
-⎵my☆o         ⇒ mythology
+_my@          -> myth
+_my@a         -> mythical
+_my@o         -> mythology
 
-⎵men✪         ⇒ menu
-⎵may★         ⇒ maybe
-⎵min☆         ⇒ minute
+_men#         -> menu
+_may*         -> maybe
+_min@         -> minute
 
 // ------------------------------------N---------------------------------------
 
-[oaui]n✤      ⇒ \1nion
+[oaui]n$      -> \1nion
 
-⎵n☆           ⇒ nn
-⎵n✤           ⇒ nice
+_n@           -> nn
+_n$           -> nice
 
-⎵nec☆         ⇒ necessary
-⎵nec☆l        ⇒ necessarily
+_nec@         -> necessary
+_nec@l        -> necessarily
 
-⎵n☆d          ⇒ need
-⎵n☆v          ⇒ never
-⎵n☆t          ⇒ nation
-⎵n☆m          ⇒ number
-⎵n☆w          ⇒ nowhere
-⎵n☆g          ⇒ nothing
-⎵n☆r          ⇒ neither
+_n@d          -> need
+_n@v          -> never
+_n@t          -> nation
+_n@m          -> number
+_n@w          -> nowhere
+_n@g          -> nothing
+_n@r          -> neither
 
-⎵n✤☆          ⇒ nicer
-nat☆           ⇒ nation
-⎵nev★l        ⇒ nevertheless
+_n$@          -> nicer
+nat@           -> nation
+_nev*l        -> nevertheless
 
 // ------------------------------------O---------------------------------------
 
-o★            ⇒ oa
-ous☆          ⇒ ously
+o*            -> oa
+ous@          -> ously
 
-⎵or★         ⇒ order
-⎵or★d        ⇒ ordered
+_or*         -> order
+_or*d        -> ordered
 
-⎵ot★          ⇒ other
-⎵ot★☆         ⇒ otherwise
+_ot*          -> other
+_ot*@         -> otherwise
 
-⎵ov☆          ⇒ obvious
-⎵ov☆l         ⇒ obviously
+_o*v          -> obvious
+_o*vl         -> obviously
 
-⎵oj★          ⇒ object
-⎵oj★t         ⇒ objection
-⎵oj★☆         ⇒ objective
-⎵oj★y         ⇒ objectively
+_oj*          -> object
+_oj*t         -> objection
+_oj*@         -> objective
+_oj*y         -> objectively
 
-⎵ov★p         ⇒ overlap
-⎵ov★☆         ⇒ overall
-⎵ov★f         ⇒ overflow
-⎵ov★l         ⇒ overload
-⎵ov★r         ⇒ override
-⎵ov★o         ⇒ overlook
-⎵ov★k         ⇒ overkill
-⎵ov★m         ⇒ overtime
-⎵ov★t         ⇒ overrated
-⎵ov★w         ⇒ overwhelm
-⎵ov★ld        ⇒ overloaded
-⎵ov★od        ⇒ overlooked
-⎵ov★lg        ⇒ overloading
-⎵ov★we        ⇒ overwhelmed
-⎵ov★p☆        ⇒ overlapping
-⎵ov★wn        ⇒ overwhelming
+_ov*p         -> overlap
+_ov*@         -> overall
+_ov*f         -> overflow
+_ov*l         -> overload
+_ov*r         -> override
+_ov*o         -> overlook
+_ov*k         -> overkill
+_ov*m         -> overtime
+_ov*t         -> overrated
+_ov*w         -> overwhelm
+_ov*ld        -> overloaded
+_ov*od        -> overlooked
+_ov*lg        -> overloading
+_ov*we        -> overwhelmed
+_ov*p@        -> overlapping
+_ov*wn        -> overwhelming
 
 // ------------------------------------P---------------------------------------
 
-p★            ⇒ py
-pl★           ⇒ ply
+p*            -> py
+pl*           -> ply
 
-⎵pol★         ⇒ policy
-⎵pha★         ⇒ pharmacy
+_pol*         -> policy
+_pha*         -> pharmacy
 
-⎵pr★          ⇒ previous
-⎵pr★o         ⇒ previously
+_pr*          -> previous
+_pr*o         -> previously
 
-⎵pri★         ⇒ priva
-⎵pri★t        ⇒ private
-⎵pri★☆        ⇒ privacy
+_pri*         -> priva
+_pri*t        -> private
+_pri*@        -> privacy
 
-⎵ps★          ⇒ psych
-⎵ps★o☆        ⇒ psychology
-⎵ps★a         ⇒ psychological
+_ps*          -> psych
+_ps*o@        -> psychology
+_ps*a         -> psychological
 
-⎵pro★         ⇒ project
-⎵pro★☆        ⇒ projected
-⎵pro★t        ⇒ projection
-⎵pro★l        ⇒ projectile
-⎵pro★✤        ⇒ projecting 
+_pro*         -> project
+_pro*@        -> projected
+_pro*t        -> projection
+_pro*l        -> projectile
+_pro*$        -> projecting
 
-⎵pr☆          ⇒ prob
-⎵pr☆a         ⇒ program
-⎵pr☆e         ⇒ problem
-⎵pr☆o         ⇒ probably
-⎵pr☆ot        ⇒ probability
+_pr@          -> prob
+_pr@a         -> program
+_pr@e         -> problem
+_pr@o         -> probably
+_pr@ot        -> probability
 
-⎵pa★          ⇒ page
-⎵po★          ⇒ point
-⎵pay★         ⇒ paypal
-⎵pu★          ⇒ public
-⎵pe★          ⇒ people
-⎵p★☆          ⇒ python
-⎵poss✪        ⇒ possible
-⎵pos★         ⇒ position
+_pa*          -> page
+_po*          -> point
+_pay*         -> paypal
+_pu*          -> public
+_pe*          -> people
+_p*@          -> python
+_poss#        -> possible
+_pos*         -> position
 
 // ------------------------------------Q---------------------------------------
 
-q[aoei]       ⇒ qu\1
-q[aoei]★      ⇒ q\1
+q[aoei]       -> qu\1
+q[aoi]*       -> q\1
 
-⎵equa☆        ⇒ equal
-⎵equaly       ⇒ equally
-⎵equalt       ⇒ equality
+_equa@        -> equal
+_equaly       -> equally
+_equalt       -> equality
 
-⎵qa☆          ⇒ quali
-⎵qa☆y         ⇒ qualify
-⎵qa☆t         ⇒ quality
-⎵qa☆ye        ⇒ qualified
-⎵qa☆ts        ⇒ qualities
-⎵qa☆yn        ⇒ qualification
+_qe@          -> quest
+_qe@n         -> question
+_qe@nd        -> questioned
+_qe@ng        -> questioning
+_qe@n$        -> questionable
 
-⎵que☆         ⇒ queue
-⎵(en|de)✤     ⇒ \1que
-⎵(en|de)✤e    ⇒ \1queue
+_qa@          -> quali
+_qa@y         -> qualify
+_qa@t         -> quality
+_qa@ye        -> qualified
+_qa@ts        -> qualities
+_qa@yn        -> qualification
 
-⎵de✤n         ⇒ dequeuing
-⎵(en)?queg    ⇒ \1queuing
+_qe*          -> queue
+_qe*g          -> queuing
 
-⎵q★           ⇒ qmk
-⎵quin✤        ⇒ quintessential
+_(en|de)$     -> \1que
+_(en|de)$e    -> \1queue
+
+_de$n         -> dequeuing
+_en$g         -> enqueuing
+
+_q*           -> qmk
+_quin$        -> quintessential
 
 // ------------------------------------R---------------------------------------
 
-r★            ⇒ rl
-rs☆           ⇒ rst
-rid★          ⇒ ridge
+r*            -> rl
+rs@           -> rst
+rid*          -> ridge
 
-⎵rec★         ⇒ recycle
-⎵rec★☆        ⇒ recycling
+_rec*         -> recycle
+_rec*@        -> recycling
 
-⎵reqi         ⇒ require
-⎵reqim        ⇒ requirement
+_reqi         -> require
+_reqim        -> requirement
 
-⎵rf☆          ⇒ refuse
-⎵rf☆g         ⇒ refusing
+_rf@          -> refuse
+_rf@g         -> refusing
 
-⎵ra☆m         ⇒ random
-⎵ra☆my        ⇒ randomly
+_ra@m         -> random
+_ra@my        -> randomly
 
-⎵req★         ⇒ request
-⎵req★d        ⇒ requested
-⎵req★g        ⇒ requesting
+_req*         -> request
+_req*d        -> requested
+_req*g        -> requesting
 
-⎵rev☆         ⇒ reverse
-⎵rev☆a        ⇒ reversal
-⎵rev☆g        ⇒ reversing
-⎵rev☆l        ⇒ reversible
+_rev@         -> reverse
+_rev@a        -> reversal
+_rev@g        -> reversing
+_rev@l        -> reversible
 
-⎵res☆         ⇒ restrict
-⎵res☆e        ⇒ restricted
-⎵res☆g        ⇒ restricting
-⎵res☆n        ⇒ restriction
+_res@         -> restrict
+_res@e        -> restricted
+_res@g        -> restricting
+_res@n        -> restriction
 
-⎵re★          ⇒ reason
-⎵re★g         ⇒ reasoning
-⎵re★y         ⇒ reasonably
-⎵re★l         ⇒ reasonable
+_re*          -> reason
+_re*g         -> reasoning
+_re*y         -> reasonably
+_re*l         -> reasonable
 
-⎵res★         ⇒ response
-⎵res★e        ⇒ responsive
-⎵res★l        ⇒ responsible
-⎵res★☆        ⇒ responsibility
-⎵res★☆s       ⇒ responsibilities
+_res*         -> response
+_res*e        -> responsive
+_res*l        -> responsible
+_res*@        -> responsibility
+_res*@s       -> responsibilities
 
-⎵re☆          ⇒ review
-⎵rat★         ⇒ rather
-⎵reo★         ⇒ reorder
-⎵rest★        ⇒ restart
+_re@          -> review
+_rat*         -> rather
+_reo*         -> reorder
+_rest*        -> restart
 
 // ------------------------------------S---------------------------------------
 
-s★            ⇒ sk
-s☆            ⇒ ss
-st☆           ⇒ sts
-⎵s☆           ⇒ some
+s*            -> sk
+s@            -> ss
+st@           -> sts
 
-⎵sy★          ⇒ system
-⎵sy☆          ⇒ symbol
+_sy*          -> system
+_sy@          -> symbol
 
-⎵str★         ⇒ straight
-⎵str★☆        ⇒ straightforward
+_str*         -> straight
+_str*@        -> straightforward
 
-⎵sp☆          ⇒ specific
-⎵sp☆a         ⇒ specifically
+_sp@          -> specific
+_sp@a         -> specifically
 
-⎵s★l          ⇒ simple
-⎵s★l☆         ⇒ simply
+_s*l          -> simple
+_s*l@         -> simply
 
-⎵s★r          ⇒ strict
-⎵s★ry         ⇒ strictly
+_s*r          -> strict
+_s*ry         -> strictly
 
-⎵si★          ⇒ simultaneous
-⎵si★l         ⇒ simultaneously
+_si*          -> simultaneous
+_si*l         -> simultaneously
 
-⎵sit★         ⇒ situation
-⎵sit★☆        ⇒ situational
+_sit*         -> situation
+_sit*@        -> situational
 
-⎵st★          ⇒ start
-⎵st★d         ⇒ started
-⎵st★g         ⇒ starting
+_st*          -> start
+_st*d         -> started
+_st*g         -> starting
 
-⎵so★          ⇒ sort
-⎵so★d         ⇒ sorted
-⎵so★g         ⇒ sorting
+_so*          -> sort
+_so*d         -> sorted
+_so*g         -> sorting
 
-⎵s☆o          ⇒ someone
-⎵s☆h          ⇒ somehow
-⎵s☆d          ⇒ someday
-⎵s☆w          ⇒ somewhat
-⎵s☆m          ⇒ sometime
-⎵s☆r          ⇒ somewhere
-⎵s☆t          ⇒ something
-⎵s☆m★         ⇒ sometimes
+_so@           -> some
+_so@#          -> someone
+_so@h          -> somehow
+_so@d          -> someday
+_so@w          -> somewhat
+_so@m          -> sometime
+_so@r          -> somewhere
+_so@t          -> something
+_so@m*         -> sometimes
 
-⎵st☆          ⇒ stat
-⎵st☆a         ⇒ stats
-⎵st☆o         ⇒ station
-⎵st☆u         ⇒ status
-⎵st☆d         ⇒ stated
-⎵st☆c         ⇒ statistic
-⎵st☆★         ⇒ statement
-⎵st☆c★        ⇒ statistics
-⎵st☆ca        ⇒ statistically
+_st@          -> stat
+_st@a         -> stats
+_st@o         -> station
+_st@u         -> status
+_st@d         -> stated
+_st@c         -> statistic
+_st@*         -> statement
+_st@c*        -> statistics
+_st@ca        -> statistically
 
-⎵sn☆          ⇒ seen
-⎵sk☆          ⇒ skill
-⎵sti☆         ⇒ still
-⎵sc☆          ⇒ school
-⎵sh☆          ⇒ should
-⎵si☆r         ⇒ singer
-⎵si☆l         ⇒ single
-⎵str☆         ⇒ string
-⎵spe★         ⇒ special
-⎵ser★         ⇒ serious
-⎵sup★         ⇒ supremacy
-⎵(con)?se★     ⇒ \1sequence
+_sn@          -> seen
+_sk@          -> skill
+_sti@         -> still
+_sc@          -> school
+_sh@          -> should
+_si@r         -> singer
+_si@l         -> single
+_str@         -> string
+_spe*         -> special
+_ser*         -> serious
+_sup*         -> supremacy
+_(con)?se*     -> \1sequence
 
 // ------------------------------------T---------------------------------------
 
-⎵★            ⇒ the
-⎵ty★          ⇒ typ
-t★            ⇒ tment
-te★           ⇒ tement
-tio☆          ⇒ tional
+_*            -> the
+_ty*          -> typ
+t*            -> tment
+te*           -> tement
+tio@          -> tional
 
-⎵ta☆          ⇒ take
-⎵ta☆g         ⇒ taking
+_ta@          -> take
+_ta@g         -> taking
 
-⎵tg☆          ⇒ though
-⎵tg☆★         ⇒ thought
+_tg@          -> though
+_tg@*         -> thought
 
-⎵t☆           ⇒ than
-⎵t★           ⇒ that
-⎵th☆          ⇒ those
-⎵t☆✤          ⇒ thank
-⎵t☆★          ⇒ think
-⎵t☆✤★         ⇒ thanks
+_t@           -> than
+_(t*|*t)      -> that
+_th@          -> those
+_t@$          -> thank
+_t@*          -> think
+_t@$*         -> thanks
 
-⎵★s           ⇒ this
-⎵★g           ⇒ thing
-⎵★✤           ⇒ these
+_*s           -> this
+_*g           -> thing
+_*$           -> these
 
-⎵★☆           ⇒ theory
-⎵★☆s          ⇒ theories
-⎵★☆t          ⇒ theorethical
-⎵★☆tl         ⇒ theorethically
+_*@           -> theory
+_*@s          -> theories
+_*@t          -> theorethical
+_*@tl         -> theorethically
 
-⎵tp☆          ⇒ tempo
-⎵tp☆a         ⇒ temporal
-⎵tp☆★         ⇒ temporary
-⎵tp☆i         ⇒ temporarily
+_tp@          -> tempo
+_tp@a         -> temporal
+_tp@*         -> temporary
+_tp@i         -> temporarily
 
-⎵tr☆          ⇒ transform
-⎵tr☆d         ⇒ transformed
-⎵tr☆g         ⇒ transforming
-⎵tr☆a         ⇒ transformation
+_tr@          -> transform
+_tr@d         -> transformed
+_tr@g         -> transforming
+_tr@a         -> transformation
 
-⎵te★          ⇒ tech
-⎵te★l         ⇒ technical
-⎵te★☆         ⇒ technique
-⎵te★g         ⇒ technology
-⎵te★ly        ⇒ technically
-⎵te★g☆        ⇒ technologies
+_te*          -> tech
+_te*l         -> technical
+_te*@         -> technique
+_te*g         -> technology
+_te*ly        -> technically
+_te*g@        -> technologies
 
-⎵(life)?ti★   ⇒ \1time
-⎵ty★☆         ⇒ typing
-⎵thr☆         ⇒ through
-⎵tal★g        ⇒ talking
-⎵★ro          ⇒ therefore
-⎵monkey★      ⇒ monkeytype
+_(life)?ti*   -> \1time
+_ty*@         -> typing
+_thr@         -> through
+_tal*g        -> talking
+_*ro          -> therefore
+_monkey*      -> monkeytype
 
 // ------------------------------------U---------------------------------------
 
-u★            ⇒ ue
+u*            -> ue
 
-⎵uf✤          ⇒ unfortunate
-⎵uf✤y         ⇒ unfortunately
+_uf$          -> unfortunate
+_uf$y         -> unfortunately
 
-⎵up★          ⇒ update
-⎵ug★          ⇒ upgrade
-⎵up★☆         ⇒ updated
-⎵ug★☆         ⇒ upgraded
+_up*          -> update
+_ug*          -> upgrade
+_up*@         -> updated
+_ug*@         -> upgraded
 
-⎵unr☆         ⇒ unreal
-⎵unr☆d        ⇒ unrelated
-⎵unr☆t        ⇒ unrealistic
-⎵unr☆s        ⇒ unreasonable
+_unr@         -> unreal
+_unr@d        -> unrelated
+_unr@t        -> unrealistic
+_unr@s        -> unreasonable
 
-⎵u★           ⇒ under
-⎵u★t          ⇒ understand
-⎵u★td         ⇒ understood
-⎵u★☆          ⇒ underneath
-⎵u★l          ⇒ underlying
-⎵u★g          ⇒ underground
-⎵u★✤          ⇒ underestimate
-⎵u★w          ⇒ underwhelming
-⎵u★tg         ⇒ understanding
-⎵u★tl         ⇒ understandable
+_u@           -> use
+_u@g          -> using
+_u@$          -> useful
+_u@l          -> useless
+_u@*          -> unusable
+_u@c          -> unironically
 
-⎵u☆           ⇒ use
-⎵u☆g          ⇒ using
-⎵u☆✤          ⇒ useful
-⎵u☆l          ⇒ useless
-⎵und☆         ⇒ undoable
-⎵u☆★          ⇒ unusable
-⎵uni☆         ⇒ university
-⎵unn✤         ⇒ unnecessary
-⎵unc☆         ⇒ uncomfortable
+_u*           -> under
+_u*t          -> understand
+_u*td         -> understood
+_u*@          -> underneath
+_u*l          -> underlying
+_u*g          -> underground
+_u*$          -> underestimate
+_u*w          -> underwhelming
+_u*tg         -> understanding
+_u*tl         -> understandable
+_u*$g         -> underestimating
+
+_und@         -> undoable
+_uni@         -> university
+_unn$         -> unnecessary
+_unc@         -> uncomfortable
 
 // ------------------------------------V--------------------------------------
 
-v★            ⇒ ver
+v*            -> ver
 
-⎵v★l          ⇒ versatile
-⎵v★l☆         ⇒ versatility
+_v*l          -> versatile
+_v*l@         -> versatility
 
-⎵ve☆          ⇒ view
-⎵vi★          ⇒ vision
-⎵v★o          ⇒ version
+_ve@          -> view
+_vi*          -> vision
+_v*o          -> version
 
-⎵v☆           ⇒ var
-⎵v☆o          ⇒ various
-⎵v☆l          ⇒ variable
+_v@           -> var
+_v@o          -> various
+_v@l          -> variable
 
-⎵va☆          ⇒ value
+_va@          -> value
 
 // ------------------------------------W---------------------------------------
 
-⎵w☆           ⇒ ww
+_w@           -> ww
 
-⎵(a)?wa★      ⇒ \1way
-⎵work☆        ⇒ working
+_(a)?wa*      -> \1way
+_work@        -> working
 
-⎵w☆o          ⇒ who
-⎵w☆★          ⇒ why
-⎵w☆n          ⇒ when
-⎵w☆a          ⇒ what
-⎵w☆k          ⇒ work
-⎵w☆u          ⇒ would
-⎵w☆i          ⇒ which
-⎵w☆h          ⇒ while
-⎵w☆e          ⇒ where
-⎵w☆t          ⇒ whether
-⎵w☆ar         ⇒ whatever
-⎵w☆nr         ⇒ whenever
+_w@o          -> who
+_w@*          -> why
+_w@n          -> when
+_w@a          -> what
+_w@k          -> work
+_w@u          -> would
+_w@i          -> which
+_w@h          -> while
+_w@e          -> where
+_w@t          -> whether
+_w@ar         -> whatever
+_w@nr         -> whenever
 
-⎵we★          ⇒ web
-⎵wit☆         ⇒ without
+_we*          -> web
+_wit@         -> without
 
 // ------------------------------------X---------------------------------------
 
-x★            ⇒ xt
-x☆            ⇒ xes
+x*            -> xt
+x@            -> xes
 
 // ------------------------------------Y---------------------------------------
 
-y☆            ⇒ you
-y★            ⇒ ying
+y@            -> you
+y*            -> ying
 
-y☆rf           ⇒ yourself
+y@rf           -> yourself
 
 // ------------------------------------Z---------------------------------------
 
-⎵z☆           ⇒ zone
+_z@           -> zone
 
 //REGEX_END
