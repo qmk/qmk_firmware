@@ -69,6 +69,7 @@ jobs:
       branch: ${{ inputs.branch || github.ref_name }}
       keymap: ${{ matrix.keymap }}
       slice_length: ${{ needs.determine_concurrency.outputs.slice_length }}
+    secrets: inherit
 
   rollup_tasks:
     name: "Housekeeping"
