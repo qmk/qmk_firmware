@@ -35,3 +35,5 @@
 
 
 #define MAX_DEFERRED_EXECUTORS 32
+
+// #define DEBUG_MATRIX_SCAN_RATE
