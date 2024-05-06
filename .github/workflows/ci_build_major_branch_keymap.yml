@@ -165,7 +165,7 @@ jobs:
           truncate --size='<960K' $GITHUB_STEP_SUMMARY || true
 
       - name: Delete temporary build artifacts
-        uses: geekyeggo/delete-artifact@v4
+        uses: geekyeggo/delete-artifact@v5
         with:
           name: |
             firmware-${{ inputs.keymap }}-*
