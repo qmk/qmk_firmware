@@ -294,7 +294,7 @@ void tap_random_base64(void) {
 
 #if defined(__AVR__)
 void send_string_P(const char *string) {
-    send_string_with_delay_P(string, 0);
+    send_string_with_delay_P(string, TAP_CODE_DELAY);
 }
 
 void send_string_with_delay_P(const char *string, uint8_t interval) {
@@ -303,6 +303,7 @@ void send_string_with_delay_P(const char *string, uint8_t interval) {
         if (!ascii_code) break;
         if (ascii_code == SS_QMK_PREFIX) {
             ascii_code = pgm_read_byte(++string);
+
             if (ascii_code == SS_TAP_CODE) {
                 // tap
                 uint8_t keycode = pgm_read_byte(++string);
@@ -319,24 +320,19 @@ void send_string_with_delay_P(const char *string, uint8_t interval) {
                 // delay
                 int     ms      = 0;
                 uint8_t keycode = pgm_read_byte(++string);
+
                 while (isdigit(keycode)) {
                     ms *= 10;
                     ms += keycode - '0';
                     keycode = pgm_read_byte(++string);
                 }
-                while (ms--)
-                    wait_ms(1);
+                wait_ms(ms);
             }
         } else {
-            send_char(ascii_code);
+            send_char_with_delay(ascii_code, interval);
         }
+
         ++string;
-        // interval
-        {
-            uint8_t ms = interval;
-            while (ms--)
-                wait_ms(1);
-        }
     }
 }
 #endif
