@@ -18,15 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-// WS2812 RGB LED strip input and number of LEDs
-#define RGB_MATRIX_LED_COUNT 62
-#define RGB_MATRIX_SPLIT { 32, 30 }
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
-#define RGB_MATRIX_KEYPRESSES
-// #define RGB_MATRIX_KEYRELEASES
-#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 80
-
 #define SPLIT_TRANSPORT_MIRROR
 #define SPLIT_HAND_PIN A6
 
