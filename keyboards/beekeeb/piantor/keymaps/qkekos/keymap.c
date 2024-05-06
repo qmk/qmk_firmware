@@ -274,6 +274,7 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
             return highest_layer == GAME;
 
         case CM_I_DT_MUTE:
+        case CM_SCL_SR_GAME:
             return true;
     }
 

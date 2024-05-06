@@ -1,18 +1,18 @@
 {
     "rules_file_name": "./magic_sturdy/magic.txt",
     "sequence_token_symbols": {
-        "★": "*",
-        "☆": "@"
+        "*": "*",
+        "@": "@"
     },
     "wordbreak_symbol": {
-        "⎵": "^"
+        "_": "^"
     },
     "token_aliases": {
-        "✤": "q",
-        "✪": "l"
+        "$": "q",
+        "#": "l"
     },
     "output_func_symbols": "↻⇑",
     "comment_str": "//",
-    "separator_str": "⇒",
+    "separator_str": "->",
     "implicit_transform_leading_wordbreak": true
 }
