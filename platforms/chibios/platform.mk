@@ -277,7 +277,8 @@ PLATFORM_SRC = \
         $(CHIBIOS)/os/various/syscalls.c \
         $(PLATFORM_COMMON_DIR)/syscall-fallbacks.c \
         $(PLATFORM_COMMON_DIR)/wait.c \
-        $(PLATFORM_COMMON_DIR)/synchronization_util.c
+        $(PLATFORM_COMMON_DIR)/synchronization_util.c \
+        $(PLATFORM_COMMON_DIR)/interrupt_handlers.c
 
 # Ensure the ASM files are not subjected to LTO -- it'll strip out interrupt handlers otherwise.
 QUANTUM_LIB_SRC += $(STARTUPASM) $(PORTASM) $(OSALASM) $(PLATFORMASM)
@@ -401,6 +402,17 @@ ifeq ($(strip $(MCU)), risc-v)
                -mabi=$(MCU_ABI) \
                -mcmodel=$(MCU_CMODEL) \
                -mstrict-align
+
+    # Deal with different arch revisions and gcc renaming them
+    ifneq ($(shell echo 'int main() { asm("csrc 0x300,8"); return 0; }' | $(TOOLCHAIN)gcc $(MCUFLAGS) $(TOOLCHAIN_CFLAGS) -x c -o /dev/null - 2>/dev/null >/dev/null; echo $$?),0)
+        MCUFLAGS = -march=$(MCU_ARCH)_zicsr \
+                   -mabi=$(MCU_ABI) \
+                   -mcmodel=$(MCU_CMODEL) \
+                   -mstrict-align
+        ifneq ($(shell echo 'int main() { asm("csrc 0x300,8"); return 0; }' | $(TOOLCHAIN)gcc $(MCUFLAGS) $(TOOLCHAIN_CFLAGS) -x c -o /dev/null - 2>/dev/null >/dev/null; echo $$?),0)
+            $(call CATASTROPHIC_ERROR,Incompatible toolchain,No compatible RISC-V toolchain found. Can't work out correct architecture.)
+        endif
+    endif
 else
     # ARM toolchain specific configuration
     TOOLCHAIN ?= arm-none-eabi-
@@ -475,6 +487,11 @@ NM      = $(TOOLCHAIN)nm
 HEX     = $(OBJCOPY) -O $(FORMAT)
 EEP     =
 BIN     = $(OBJCOPY) -O binary
+
+# disable warning about RWX triggered by ChibiOS linker scripts
+ifeq ("$(shell echo "int main(){}" | $(CC) -shared -Wl,--no-warn-rwx-segments -x c - -o /dev/null 2>&1)", "")
+	SHARED_LDFLAGS += -Wl,--no-warn-rwx-segments
+endif
 
 ##############################################################################
 # Make targets

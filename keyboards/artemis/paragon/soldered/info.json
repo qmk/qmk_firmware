@@ -3,6 +3,11 @@
         "cols": ["E6", "F0", "F1", "F4", "F5", "F6", "F7", "B0", "B1", "B3", "D0", "D1", "D2", "D3", "D7", "D5"],
         "rows": ["B2", "C7", "C6", "B6", "B5", "B4"]
     },
+    "encoder": {
+        "rotary": [
+            { "pin_a": "D4", "pin_b": "D6", "resolution": 2 }
+        ]
+    },
     "layouts": {
         "LAYOUT_ansi_rwkl": {
             "layout": [

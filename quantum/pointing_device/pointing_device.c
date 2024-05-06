@@ -19,6 +19,8 @@
 #include "pointing_device.h"
 #include <string.h>
 #include "timer.h"
+#include "gpio.h"
+
 #ifdef MOUSEKEY_ENABLE
 #    include "mousekey.h"
 #endif
@@ -147,9 +149,9 @@ __attribute__((weak)) void pointing_device_init(void) {
         pointing_device_driver.init();
 #ifdef POINTING_DEVICE_MOTION_PIN
 #    ifdef POINTING_DEVICE_MOTION_PIN_ACTIVE_LOW
-        setPinInputHigh(POINTING_DEVICE_MOTION_PIN);
+        gpio_set_pin_input_high(POINTING_DEVICE_MOTION_PIN);
 #    else
-        setPinInput(POINTING_DEVICE_MOTION_PIN);
+        gpio_set_pin_input(POINTING_DEVICE_MOTION_PIN);
 #    endif
 #endif
     }
@@ -245,18 +247,19 @@ __attribute__((weak)) bool pointing_device_task(void) {
 #        error POINTING_DEVICE_MOTION_PIN not supported when sharing the pointing device report between sides.
 #    endif
 #    ifdef POINTING_DEVICE_MOTION_PIN_ACTIVE_LOW
-    if (!readPin(POINTING_DEVICE_MOTION_PIN))
+    if (!gpio_read_pin(POINTING_DEVICE_MOTION_PIN))
 #    else
-    if (readPin(POINTING_DEVICE_MOTION_PIN))
+    if (gpio_read_pin(POINTING_DEVICE_MOTION_PIN))
 #    endif
+    {
 #endif
 
 #if defined(SPLIT_POINTING_ENABLE)
 #    if defined(POINTING_DEVICE_COMBINED)
         static uint8_t old_buttons = 0;
-    local_mouse_report.buttons = old_buttons;
-    local_mouse_report         = pointing_device_driver.get_report(local_mouse_report);
-    old_buttons                = local_mouse_report.buttons;
+        local_mouse_report.buttons = old_buttons;
+        local_mouse_report         = pointing_device_driver.get_report(local_mouse_report);
+        old_buttons                = local_mouse_report.buttons;
 #    elif defined(POINTING_DEVICE_LEFT) || defined(POINTING_DEVICE_RIGHT)
         local_mouse_report = POINTING_DEVICE_THIS_SIDE ? pointing_device_driver.get_report(local_mouse_report) : shared_mouse_report;
 #    else
@@ -265,6 +268,10 @@ __attribute__((weak)) bool pointing_device_task(void) {
 #else
     local_mouse_report = pointing_device_driver.get_report(local_mouse_report);
 #endif // defined(SPLIT_POINTING_ENABLE)
+
+#ifdef POINTING_DEVICE_MOTION_PIN
+    }
+#endif
 
     // allow kb to intercept and modify report
 #if defined(SPLIT_POINTING_ENABLE) && defined(POINTING_DEVICE_COMBINED)
@@ -361,7 +368,7 @@ void pointing_device_set_cpi(uint16_t cpi) {
  * @param[in] cpi uint16_t value.
  */
 void pointing_device_set_cpi_on_side(bool left, uint16_t cpi) {
-    bool local = (is_keyboard_left() & left) ? true : false;
+    bool local = (is_keyboard_left() == left);
     if (local) {
         pointing_device_driver.set_cpi(cpi);
     } else {

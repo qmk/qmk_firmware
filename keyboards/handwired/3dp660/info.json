@@ -18,6 +18,7 @@
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "halfkay",
+    "community_layouts": ["66_ansi"],
     "layouts": {
         "LAYOUT_66_ansi": {
             "layout": [

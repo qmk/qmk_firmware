@@ -333,28 +333,26 @@ will give the _NAV layer as a reference to it's self. All other layers
 will have the default for their combo reference layer. If the default
 is not set, all other layers will reference themselves.
 
-    ```c
-    #define COMBO_REF_DEFAULT _MY_COMBO_LAYER
-    ...
+```c
+#define COMBO_REF_DEFAULT _MY_COMBO_LAYER
 
-    uint8_t combo_ref_from_layer(uint8_t layer){
-        switch (get_highest_layer(layer_state)){
-            case _DVORAK: return _QWERTY;
-            case _NAV: return _NAV;
-            default: return _MY_COMBO_LAYER;
-        }
-        return layer;  // important if default is not in case.
+uint8_t combo_ref_from_layer(uint8_t layer){
+    switch (get_highest_layer(layer_state)){
+        case _DVORAK: return _QWERTY;
+        case _NAV: return _NAV;
+        default: return _MY_COMBO_LAYER;
     }
+    return layer;  // important if default is not in case.
+}
+```
 
-    ```
-    
-    The equivalent definition using the combo macros is this: 
+The equivalent definition using the combo macros is this:
 
-    ```c
-    COMBO_REF_LAYER(_DVORAK, _QWERTY)
-    COMBO_REF_LAYER(_NAV, _NAV)
-    DEFAULT_REF_LAYER(_MY_COMBO_LAYER).
-    ```
+```c
+COMBO_REF_LAYER(_DVORAK, _QWERTY)
+COMBO_REF_LAYER(_NAV, _NAV)
+DEFAULT_REF_LAYER(_MY_COMBO_LAYER).
+```
     
 
 ## User callbacks

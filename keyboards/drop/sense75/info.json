@@ -44,7 +44,7 @@
                 {"matrix": [0, 11], "label": "F11", "x": 11.75, "y": 0},
                 {"matrix": [0, 12], "label": "F12", "x": 12.75, "y": 0},
                 {"matrix": [0, 13], "label": "PrtSc", "x": 14, "y": 0},
-                {"matrix": [0, 14], "label": "Mute", "x": 15.25, "y": 0},
+                {"matrix": [0, 14], "encoder":0, "label": "Mute", "x": 15.25, "y": 0},
                 {"matrix": [1, 0], "label": "~", "x": 0, "y": 1.25},
                 {"matrix": [1, 1], "label": "!", "x": 1, "y": 1.25},
                 {"matrix": [1, 2], "label": "@", "x": 2, "y": 1.25},
@@ -117,6 +117,7 @@
     },
     "rgb_matrix": {
         "driver": "is31fl3733",
+        "sleep": true,
         "animations": {
             "alphas_mods": true,
             "gradient_up_down": true,

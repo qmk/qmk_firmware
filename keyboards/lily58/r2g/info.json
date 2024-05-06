@@ -22,7 +22,12 @@
     },
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D2"
+        "soft_serial_pin": "D2",
+        "transport": {
+            "sync": {
+                "matrix_state": true
+            }
+        }
     },
     "ws2812": {
         "pin": "D3"
@@ -104,6 +109,17 @@
         }
     },
     "rgb_matrix": {
+        "animations": {
+            "gradient_up_down": true,
+            "gradient_left_right": true,
+            "alphas_mods": true,
+            "breathing": true,
+            "hue_wave": true,
+            "rainbow_moving_chevron": true,
+            "rainbow_beacon": true,
+            "solid_reactive_simple": true,
+            "solid_reactive": true
+        },
         "driver": "ws2812",
         "split_count": [37, 37],
         "layout": [
@@ -181,6 +197,9 @@
             {"flags": 2, "x": 150, "y": 0},                    // R RGB6
             {"flags": 2, "x": 140, "y": 0},                    // R RGB7
             {"flags": 2, "x": 128, "y": 32}                    // R RGB8
-        ]
+        ],
+        "max_brightness": 120,
+        "react_on_keyup": true,
+        "sleep": true
     }
 }
