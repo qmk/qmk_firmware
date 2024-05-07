@@ -112,9 +112,17 @@ void fix_ghosting(matrix_row_t matrix[]) {
                         rev(0B1001000000000000),
                         rev(0B0101000000000000),
                         rev(0B0001000000000000));
+    fix_ghosting_column(matrix,
+                        rev(0B1001000000000000),
+                        rev(0B1010000000000000),
+                        rev(0B1000000000000000));
 
     fix_ghosting_column(matrix,
                         rev(0B0100100000000000),
                         rev(0B0100010000000000),
                         rev(0B0100000000000000));
+    fix_ghosting_column(matrix,
+                        rev(0B0100100000000000),
+                        rev(0B1000100000000000),
+                        rev(0B0000100000000000));
 }
