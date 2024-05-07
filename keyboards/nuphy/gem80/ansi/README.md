@@ -48,11 +48,10 @@ Here is a [list](gem80-guide.md) of keybinds that you can use to control your ke
 
 ## Default layout for functional layer (for both VIA and non-VIA versions of keyboard)
 
-![default layout](keymaps/default/keyboard-layout.png)
+![default layout](https://i.imgur.com/pCUatpG.png)
 
 
 ## MCUs used
-
 
 Main: STM32F072RBT6 [description](https://www.st.com/en/microcontrollers-microprocessors/stm32f072rb.html)
 Wireless: NRF52832 [description](https://www.nordicsemi.com/Products/nRF52832)
