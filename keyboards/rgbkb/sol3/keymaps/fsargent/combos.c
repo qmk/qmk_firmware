@@ -15,7 +15,7 @@ const uint16_t PROGMEM xc_combo[]		= {KC_X, KC_C, COMBO_END};
 const uint16_t PROGMEM cv_combo[]		= {KC_C, KC_V, COMBO_END};
 const uint16_t PROGMEM qr_combo[]		= {KC_Q, KC_R, COMBO_END};
 const uint16_t PROGMEM df_combo[]		= {LGUI_T(KC_D),	LSFT_T(KC_F), COMBO_END};
-const uint16_t PROGMEM gravminus_combo[]	= {KC_GRV, KC_MINS, COMBO_END};
+const uint16_t PROGMEM gravminus_combo[]	= {KC_GRV, KC_DEL, COMBO_END};
 
 const uint16_t PROGMEM xcv_combo[]		= {KC_X, KC_C, KC_V, COMBO_END};
 
