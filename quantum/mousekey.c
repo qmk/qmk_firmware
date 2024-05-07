@@ -288,16 +288,18 @@ static int8_t calc_inertia(int8_t direction, int8_t velocity) {
     // simulate acceleration and deceleration
 
     // deceleration
-    if (velocity != 0)
+    if (velocity != 0) {
         velocity = velocity * (256 - MOUSEKEY_FRICTION) / 256;
+    }
 
     // acceleration
-    if ((direction > 0) && (velocity < mk_time_to_max))
+    if ((direction > 0) && (velocity < mk_time_to_max)) {
         velocity++;
-    else if ((direction < 0) && (velocity > -mk_time_to_max))
+    } else if ((direction < 0) && (velocity > -mk_time_to_max)) {
         velocity--;
-    else if (velocity <= MOUSEKEY_STOP_SPEED && velocity >= -MOUSEKEY_STOP_SPEED)
+    } else if (velocity <= MOUSEKEY_STOP_SPEED && velocity >= -MOUSEKEY_STOP_SPEED) {
         velocity = 0;
+    }
 
     return velocity;
 }
