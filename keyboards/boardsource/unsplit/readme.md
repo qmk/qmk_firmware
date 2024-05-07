@@ -1,7 +1,5 @@
 # Unsplit
 
-![boardsource/unsplit](imgur.com image replace me!)
-
 * Keyboard Maintainer: [waffle87](https://github.com/waffle87)
 * Hardware Supported: Unsplit PCB w/ Pro Micro style microcontroller
 * Hardware Availability: [boardsource.xyz](https://boardsource.xyz)

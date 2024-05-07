@@ -8,11 +8,7 @@ bool oled_task_kb(void) {
     if (!oled_task_user()) {
         return false;
     }
-    if (is_keyboard_master()) {
-        render_layer_state();
-    } else {
-        oled_write_raw_P(bs_logo_img, sizeof(bs_logo_img));
-    }
+    render_layer_state();
     return false;
 }
 #endif
