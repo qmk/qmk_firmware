@@ -48,9 +48,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY
     ),
     [_ADJUST] = LAYOUT(
-        _______, QK_BOOT, _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DEL,  R_M_TOG,
-        _______, _______, MU_NEXT, R_M_TOG, R_M_MOD, _______, _______, _______, _______, R_M_SAI, R_M_HUI, R_M_MOD,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, R_M_SAD, R_M_HUD, R_M_RMOD,
+        _______, QK_BOOT, _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DEL,  RM_TOGG,
+        _______, _______, MU_NEXT, RM_TOGG, RM_NEXT, _______, _______, _______, _______, RM_SATU, RM_HUEU, RM_NEXT,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, RM_SATD, RM_HUED, RM_PREV,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     )
 };
@@ -60,8 +60,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_QWERTY] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [_LOWER]  = { ENCODER_CCW_CW(KC_PGDN, KC_PGUP) },
-    [_RAISE]  = { ENCODER_CCW_CW(R_M_RMOD, R_M_MOD) },
-    [_ADJUST] = { ENCODER_CCW_CW(R_M_HUI, R_M_HUD) },
+    [_RAISE]  = { ENCODER_CCW_CW(RM_PREV, RM_NEXT) },
+    [_ADJUST] = { ENCODER_CCW_CW(RM_HUEU, RM_HUED) },
 };
 #endif
 // clang-format on

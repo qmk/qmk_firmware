@@ -15,20 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-enum my_keycodes {
-  BL_TOG = QK_KB_0,
-  BL_EFFECT,
-  BL_ISPD,
-  BL_DSPD,
-  BL_IHUE,
-  BL_DHUE,
-  BL_ISAT,
-  BL_DSAT,
-  BL_IVAL,
-  BL_DVAL
-};
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_all(
      KC_SPC, KC_ESC,  KC_1, KC_2,    KC_3, KC_4,   KC_5, KC_6,            KC_7, KC_8,   KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_DEL,
@@ -43,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
               KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
               KC_TRNS,          KC_TRNS,          KC_TRNS,          KC_TRNS,                  KC_TRNS,          KC_TRNS,                            KC_TRNS ),
     [2] = LAYOUT_all(
-     QK_BOOT, KC_TRNS, BL_TOG, BL_EFFECT, BL_ISPD, BL_DSPD, BL_IHUE, BL_DHUE,         BL_ISAT, BL_DSAT, BL_IVAL, BL_DVAL, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+     QK_BOOT, KC_TRNS, RM_TOGG, RM_NEXT, RM_SPDU, RM_SPDD, RM_HUEU, RM_HUED,         RM_SATU, RM_SATD, RM_VALU, RM_VALD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
      KC_TRNS, KC_TRNS, KC_TRNS,   KC_P7,   KC_P8,   KC_P9, KC_PSLS,                  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
      KC_TRNS, KC_TRNS, KC_TRNS,   KC_P4,   KC_P5,   KC_P6, KC_PAST,                  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
               KC_TRNS,          KC_TRNS,   KC_P1,   KC_P2,   KC_P3, KC_PPLS,         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -82,45 +68,3 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 
 #endif
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-        switch (keycode) {
-#ifdef RGB_MATRIX_ENABLE
-            case BL_TOG: // toggle rgb matrix
-                rgb_matrix_toggle();
-                return false;
-            case BL_EFFECT:
-                rgb_matrix_step();
-                return false;
-            case BL_ISPD:
-                rgb_matrix_increase_speed();
-                return false;
-            case BL_DSPD:
-                rgb_matrix_decrease_speed();
-                return false;
-            case BL_IHUE:
-                rgb_matrix_increase_hue();
-                return false;
-            case BL_DHUE:
-                rgb_matrix_decrease_hue();
-                return false;
-            case BL_ISAT:
-                rgb_matrix_increase_sat();
-                return false;
-            case BL_DSAT:
-                rgb_matrix_decrease_sat();
-                return false;
-            case BL_IVAL:
-                rgb_matrix_increase_val();
-                return false;
-            case BL_DVAL:
-                rgb_matrix_decrease_val();
-                return false;
-#endif
-            default:
-                break;
-        }
-    }
-    return true;
-}

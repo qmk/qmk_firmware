@@ -18,7 +18,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #define IS31FL3741_I2C_ADDRESS_1 IS31FL3741_I2C_ADDRESS_GND
-
-#ifdef RGB_MATRIX_ENABLE
-#    define RGB_MATRIX_DISABLE_KEYCODES
-#endif

@@ -17,8 +17,6 @@
 
 #pragma once
 
-#define RGB_MATRIX_DISABLE_KEYCODES // Disables control of rgb matrix by keycodes (must use code functions to control the feature)
-
 // Mechanical locking support; use KC_LCAP, KC_LNUM, or KC_LSCR instead in keymap
 #define LOCKING_SUPPORT_ENABLE
 
