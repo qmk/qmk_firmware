@@ -98,7 +98,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                 if (param[0] == 0) {
                     layer_off(param[1]);
                 } else {
-                    layer_on(param[1]);
+                    layer_move(param[1]);
                 }
             }
             break;
