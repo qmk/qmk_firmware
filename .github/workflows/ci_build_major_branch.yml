@@ -72,7 +72,7 @@ jobs:
     secrets: inherit
 
   rollup_tasks:
-    name: "Housekeeping"
+    name: "Consolidation"
     needs: build_targets
     runs-on: ubuntu-latest
 
