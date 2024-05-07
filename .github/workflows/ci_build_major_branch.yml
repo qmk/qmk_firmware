@@ -72,7 +72,7 @@ jobs:
     secrets: inherit
 
   rollup_tasks:
-    name: "Housekeeping"
+    name: "Consolidation"
     needs: build_targets
     runs-on: ubuntu-latest
 
@@ -89,11 +89,11 @@ jobs:
         with:
           args: --acl public-read --follow-symlinks --delete
         env:
-          AWS_S3_BUCKET: qmk-ci
+          AWS_S3_BUCKET: ${{ vars.CI_QMK_FM_SPACES_BUCKET }}
           AWS_ACCESS_KEY_ID: ${{ secrets.CI_QMK_FM_SPACES_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.CI_QMK_FM_SPACES_SECRET }}
-          AWS_REGION: nyc3
-          AWS_S3_ENDPOINT: nyc3.digitaloceanspaces.com
+          AWS_REGION: ${{ vars.CI_QMK_FM_SPACES_REGION }}
+          AWS_S3_ENDPOINT: ${{ vars.CI_QMK_FM_SPACES_ENDPOINT }}
           SOURCE_DIR: firmwares
           DEST_DIR: ${{ inputs.branch || github.ref_name }}/${{ github.sha }}
 
@@ -102,11 +102,11 @@ jobs:
         with:
           args: --acl public-read --follow-symlinks --delete
         env:
-          AWS_S3_BUCKET: qmk-ci
+          AWS_S3_BUCKET: ${{ vars.CI_QMK_FM_SPACES_BUCKET }}
           AWS_ACCESS_KEY_ID: ${{ secrets.CI_QMK_FM_SPACES_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.CI_QMK_FM_SPACES_SECRET }}
-          AWS_REGION: nyc3
-          AWS_S3_ENDPOINT: nyc3.digitaloceanspaces.com
+          AWS_REGION: ${{ vars.CI_QMK_FM_SPACES_REGION }}
+          AWS_S3_ENDPOINT: ${{ vars.CI_QMK_FM_SPACES_ENDPOINT }}
           SOURCE_DIR: firmwares
           DEST_DIR: ${{ inputs.branch || github.ref_name }}/latest
 
