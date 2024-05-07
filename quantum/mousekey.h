@@ -69,6 +69,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #            define MOUSEKEY_MAX_SPEED 10
 #        endif
 #    endif
+#    ifndef MOUSEKEY_STOP_SPEED
+#        define MOUSEKEY_STOP_SPEED 1
+#    endif
 #    ifndef MOUSEKEY_TIME_TO_MAX
 #        if defined(MOUSEKEY_INERTIA)
 #            define MOUSEKEY_TIME_TO_MAX 32

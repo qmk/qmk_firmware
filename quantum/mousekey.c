@@ -296,6 +296,8 @@ static int8_t calc_inertia(int8_t direction, int8_t velocity) {
         velocity++;
     else if ((direction < 0) && (velocity > -mk_time_to_max))
         velocity--;
+    else if (velocity <= MOUSEKEY_STOP_SPEED && velocity >= -MOUSEKEY_STOP_SPEED)
+        velocity = 0;
 
     return velocity;
 }
