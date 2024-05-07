@@ -722,23 +722,25 @@ See also: [RGB Lighting](feature_rgblight.md)
 |`RGB_MODE_GRADIENT`|`RGB_M_G` |Static gradient animation mode                                      |
 |`RGB_MODE_RGBTEST` |`RGB_M_T` |Red,Green,Blue test animation mode                                  |
 
-## RGB Matrix Lighting :id=rgb-matrix-lighting
+## RGB Matrix :id=rgb-matrix
 
-See also: [RGB Matrix Lighting](feature_rgb_matrix.md)
+See also: [RGB Matrix](feature_rgb_matrix.md)
 
-|Key                |Aliases   |Description                                                                           |
-|-------------------|----------|--------------------------------------------------------------------------------------|
-|`RGB_TOG`          |          |Toggle RGB lighting on or off                                                         |
-|`RGB_MODE_FORWARD` |`RGB_MOD` |Cycle through modes, reverse direction when Shift is held                             |
-|`RGB_MODE_REVERSE` |`RGB_RMOD`|Cycle through modes in reverse, forward direction when Shift is held                  |
-|`RGB_HUI`          |          |Increase hue, decrease hue when Shift is held                                         |
-|`RGB_HUD`          |          |Decrease hue, increase hue when Shift is held                                         |
-|`RGB_SAI`          |          |Increase saturation, decrease saturation when Shift is held                           |
-|`RGB_SAD`          |          |Decrease saturation, increase saturation when Shift is held                           |
-|`RGB_VAI`          |          |Increase value (brightness), decrease value when Shift is held                        |
-|`RGB_VAD`          |          |Decrease value (brightness), increase value when Shift is held                        |
-|`RGB_SPI`          |          |Increase effect speed (does not support eeprom yet), decrease speed when Shift is held|
-|`RGB_SPD`          |          |Decrease effect speed (does not support eeprom yet), increase speed when Shift is held|
+|Key                            |Aliases  |Description                        |
+|-------------------------------|---------|-----------------------------------|
+|`QK_RGB_MATRIX_ON`             |`RM_ON`  |Turn on RGB Matrix                 |
+|`QK_RGB_MATRIX_OFF`            |`RM_OFF` |Turn off RGB Matrix                |
+|`QK_RGB_MATRIX_TOGGLE`         |`RM_TOGG`|Toggle RGB Matrix on or off        |
+|`QK_RGB_MATRIX_MODE_NEXT`      |`RM_NEXT`|Cycle through animations           |
+|`QK_RGB_MATRIX_MODE_PREVIOUS`  |`RM_PREV`|Cycle through animations in reverse|
+|`QK_RGB_MATRIX_HUE_UP`         |`RM_HUEU`|Cycle through hue                  |
+|`QK_RGB_MATRIX_HUE_DOWN`       |`RM_HUED`|Cycle through hue in reverse       |
+|`QK_RGB_MATRIX_SATURATION_UP`  |`RM_SATU`|Increase the saturation            |
+|`QK_RGB_MATRIX_SATURATION_DOWN`|`RM_SATD`|Decrease the saturation            |
+|`QK_RGB_MATRIX_VALUE_UP`       |`RM_VALU`|Increase the brightness level      |
+|`QK_RGB_MATRIX_VALUE_DOWN`     |`RM_VALD`|Decrease the brightness level      |
+|`QK_RGB_MATRIX_SPEED_UP`       |`RM_SPDU`|Increase the animation speed       |
+|`QK_RGB_MATRIX_SPEED_DOWN`     |`RM_SPDD`|Decrease the animation speed       |
 
 ## US ANSI Shifted Symbols :id=us-ansi-shifted-symbols
 
