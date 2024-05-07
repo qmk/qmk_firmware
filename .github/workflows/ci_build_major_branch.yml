@@ -117,7 +117,7 @@ jobs:
           files: firmwares/.failed
 
       - name: Fail build if needed
-        if: steps.check_failure_marker.outputs.exists == 'true'
+        if: steps.check_failure_marker.outputs.files_exists == 'true'
         run: |
           # Exit with failure if the compilation stage failed
           exit 1
