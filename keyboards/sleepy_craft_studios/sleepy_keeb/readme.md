@@ -1,8 +1,8 @@
-# Sleepy Planck
+# Sleepy Keeb
 
-![sleepy_planck](https://i.imgur.com/y3cessF.jpeg)
+![sleepy_keeb](https://i.imgur.com/y3cessF.jpeg)
 
-The Sleepy Planck is a hand-wired keyboard based on the 4x12 Planck layout. The Sleepy Planck integrates hot-swap socket and diode holders into the plate for easier building.
+The Sleepy Keeb is a hand-wired keyboard based on the 4x12 Planck layout. The Sleepy Keeb integrates hot-swap socket and diode holders into the plate for easier building.
 
 - Keyboard Maintainer: [Sleepy Craft Studios](https://github.com/sleepy-craft-studios)
 - Hardware Supported: Pro Micro development board (and clones/adapations of)
@@ -10,11 +10,11 @@ The Sleepy Planck is a hand-wired keyboard based on the 4x12 Planck layout. The 
 
 Make example for this keyboard (after setting up your build environment):
 
-    make sleepy_planck:default
+    make sleepy_keeb:default
 
 Flashing example for this keyboard:
 
-    make sleepy_planck:default:flash
+    make sleepy_keeb:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 

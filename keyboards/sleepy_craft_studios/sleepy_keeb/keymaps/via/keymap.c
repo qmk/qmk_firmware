@@ -3,7 +3,7 @@
 
 #include QMK_KEYBOARD_H
 
-enum planck_layers {
+enum keeb_layers {
     _BASE,
     _RAISE,
     _FN
