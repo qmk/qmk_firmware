@@ -1,7 +1,7 @@
 {
     "keyboard_name": "NuPhy Gem80",
     "manufacturer": "NuPhy",
-    "usb":{
+    "usb": {
         "vid": "0x19F5",
         "pid": "0x3275",
         "device_version": "1.0.0",
@@ -9,12 +9,12 @@
     },
     "features": {
         "bootmagic": true,
-        "mousekey": true,
+        "mousekey": false,
         "extrakey": true,
         "console": false,
         "command": false,
         "nkro": true,
-        "key_lock": true,
+        "key_lock": false,
         "rgb_matrix": true
     },
     "processor": "STM32F072",
@@ -36,11 +36,13 @@
         "driver": "pwm"
     },
     "rgb_matrix": {
-      "driver": "ws2812",
-      "center_point": [88, 32],
-      "max_brightness": 190,
-      "val_steps": 38,
-      "speed_steps": 52,
+        "driver": "ws2812",
+        "center_point": [88, 32],
+        "max_brightness": 190,
+        "val_steps": 38,
+        "led_process_limit": 4,
+        "led_flush_limit": 26,
+        "speed_steps": 52,
         "animations": {
             "gradient_up_down": true,
             "gradient_left_right": true,
@@ -279,5 +281,3 @@
         }
     }
 }
-
-

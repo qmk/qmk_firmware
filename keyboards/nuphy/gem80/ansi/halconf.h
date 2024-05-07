@@ -22,6 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef HAL_USE_PWM
 #define HAL_USE_PWM TRUE
 
-
 #undef HAL_USE_SERIAL
 #define HAL_USE_SERIAL TRUE
+// force enable timer usage for wait_us
+#undef HAL_USE_GPT
+#define HAL_USE_GPT TRUE
