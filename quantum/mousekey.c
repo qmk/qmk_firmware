@@ -288,9 +288,7 @@ static int8_t calc_inertia(int8_t direction, int8_t velocity) {
     // simulate acceleration and deceleration
 
     // deceleration
-    if ((direction > -1) && (velocity < 0))
-        velocity = (velocity + 1) * (256 - MOUSEKEY_FRICTION) / 256;
-    else if ((direction < 1) && (velocity > 0))
+    if (velocity != 0)
         velocity = velocity * (256 - MOUSEKEY_FRICTION) / 256;
 
     // acceleration
