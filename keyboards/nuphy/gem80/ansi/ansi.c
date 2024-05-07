@@ -60,7 +60,7 @@ bool pre_process_record_kb(uint16_t keycode, keyrecord_t *record) {
     // wakeup check for light sleep/no sleep - fire this immediately to not lose wake keys.
     if (f_wakeup_prepare) {
 #if CONSOLE_ENABLE
-        xprintf("Early wake with keycode |  %u | and record pressed? ( %u )", keycode, record->event.pressed);
+        xprintf("Early wake with keycode |  %u | and record pressed? ( %u )\n", keycode, record->event.pressed);
 
 #endif
         f_wakeup_prepare = 0;
@@ -591,7 +591,7 @@ void via_config_set_value(uint8_t *data)
             break;
     }
 #    if CONSOLE_ENABLE
-    xprintf("[SET]VALUE_ID: %u DATA: %u", *value_id, *value_data);
+    xprintf("[SET]VALUE_ID: %u DATA: %u\n", *value_id, *value_data);
 #    endif
 }
 
@@ -643,7 +643,7 @@ void via_config_get_value(uint8_t *data) {
             *value_data = g_config.logo_brightness;
     }
 #    if CONSOLE_ENABLE
-    xprintf("[GET]VALUE_ID: %u DATA: %u", *value_id, *value_data);
+    xprintf("[GET]VALUE_ID: %u DATA: %u\n", *value_id, *value_data);
 #    endif
 }
 
