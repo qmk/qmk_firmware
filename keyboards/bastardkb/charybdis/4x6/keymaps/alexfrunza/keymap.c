@@ -41,7 +41,9 @@ static uint16_t auto_pointer_layer_timer = 0;
 #    endif // CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_THRESHOLD
 #endif     // CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
 
+#define RS_ENT LT(LAYER_RAISE, KC_ENT)
 #define RAISE MO(LAYER_RAISE)
+
 #define PT_Z LT(LAYER_POINTER, KC_Z)
 #define PT_SLSH LT(LAYER_POINTER, KC_SLSH)
 
@@ -74,8 +76,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        KC_LCTL,    PT_Z,    KC_X,    KC_C,    KC_D,    KC_V,       KC_K,    KC_H, KC_COMM,  KC_DOT, PT_SLSH, KC_LALT,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
-                                   KC_CAPS, KC_SPC,   RAISE,      RAISE,  KC_ENT,
-                                           KC_BSPC, KC_RALT,     KC_RSFT
+                                  KC_CAPS,  KC_SPC,   RAISE,     RS_ENT, KC_BSPC,
+                                           XXXXXXX, KC_RALT,     KC_RSFT
   //                            ╰───────────────────────────╯ ╰──────────────────╯
   ),
 
