@@ -28,7 +28,6 @@ Enter the bootloader in one way:
 * **Hardware reset**: Remove the capslock keycap, hold the little button beneath and plug in the keyboard.
 
 
-
 ## Battery indication (level to color mapping)
 
 ```
@@ -39,8 +38,6 @@ Enter the bootloader in one way:
 80-100 green
 ```
 
-
-
 ## Notes
 
 * Since the version 1.1.0.2 the keyboard uses asyncronous debounce algorithm. To control debounce values for press and release events you can use VIA (usevia.app) or using binds on the keyboard. Press deounbe default binds can be found in PDF or MD file with binds. Default binds for release debounce aren't set, so you have to configure them to your preference.
@@ -49,6 +46,9 @@ Enter the bootloader in one way:
 
 Here is a [list](gem80-guide.md) of keybinds that you can use to control your keyboard.
 
+## Default layout for functional layer (for both VIA and non-VIA versions of keyboard)
+
+![default layout](keymaps/default/keyboard-layout.png)
 
 
 ## MCUs used
@@ -99,10 +99,11 @@ Maybe at some point [this pr](https://github.com/joelspadin/keyboard-latency-tes
 
 
 # TODO
-- [ ] Refactor NUM_LOCK, SCROLL_LOCK indicators to store LED position in eeprom - and update it only if it changes!!! - to avoid weird issues with board
+- [x] ~~Refactor NUM_LOCK, SCROLL_LOCK indicators to store LED position in eeprom - and update it only if it changes!!! - to avoid weird issues with board~~ remove unnecessary indicators (num, scroll)
 - [x] Fix num-lock & scroll lock under key LEDs indication causing random issues with board
 - [x] Store configs in keyboard data section of eeprom + proper eeprom init (instead of VIA_EEPROM and if VIA is enabled, use VIA_EEPROM)?? questionable
 - [x] Add default layout without VIA
-    - [ ] with all custom binds assigned
-    - [ ] update the manual ?? depends on one above
+    - [x] with all custom binds assigned
+    - [ ] update the manual
 - [x] Refactor structure to contain VIA layout, default layout
+
