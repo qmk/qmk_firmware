@@ -30,7 +30,30 @@
         "pin": "A7"
     },
     "led_matrix": {
-        "driver": "is31fl3731"
+        "animations":{
+            "alphas_mods": true,
+            "breathing": true,
+            "band": true,
+            "band_pinwheel": true,
+            "band_spiral": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "cycle_out_in": true,
+            "dual_beacon": true,
+            "solid_reactive_simple": true,
+            "solid_reactive_wide": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_cross": true,
+            "solid_reactive_multicross": true,
+            "solid_reactive_nexus": true,
+            "solid_reactive_multinexus": true,
+            "splash": true,
+            "multisplash": true,
+            "wave_left_right": true,
+            "wave_up_down": true
+        },
+        "driver": "is31fl3731",
+        "react_on_keyup": true
     },
     "matrix_pins": {
         "cols": ["A10", "A9", "A8", "B15", "B14", "B13", "B2", "B1", "A15", "B3", "B9", "B8", "B7", "B6", "B5", "B4"],

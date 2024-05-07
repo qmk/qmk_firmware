@@ -38,5 +38,5 @@
 #ifdef RGBLIGHT_ENABLE
   #define WS2812_DI_PIN D0
   #define RGBLIGHT_TIMER
-  #define RGBLED_NUM 3
+  #define RGBLIGHT_LED_COUNT 3
 #endif

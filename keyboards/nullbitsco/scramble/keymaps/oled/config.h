@@ -18,5 +18,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 // Alternate boot pins for accessing the bootloader,
 // since the boot switch is blocked by the OLED.
-#define BOOTMAGIC_LITE_ROW 1
-#define BOOTMAGIC_LITE_COLUMN 2
+#define BOOTMAGIC_ROW 1
+#define BOOTMAGIC_COLUMN 2

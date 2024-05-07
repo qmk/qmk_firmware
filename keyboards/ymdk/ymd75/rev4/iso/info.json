@@ -179,7 +179,8 @@
             { "flags": 2, "x": 38, "y": 60 },
             { "flags": 2, "x": 1, "y": 60 },
             { "flags": 2, "x": 1, "y": 32 }
-        ]
+        ],
+        "sleep": true
     },
     "community_layouts": ["75_iso"],
     "layouts": {

@@ -18,6 +18,8 @@
 
 /* Select hand configuration */
 #define SPLIT_HAND_MATRIX_GRID B0,B7
+#define SPLIT_HAND_MATRIX_GRID_LOW_IS_LEFT
+
 #define MATRIX_MASKED
 #define SPLIT_USB_DETECT
 

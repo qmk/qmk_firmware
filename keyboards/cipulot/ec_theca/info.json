@@ -6,9 +6,15 @@
     "build": {
         "lto": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "diode_direction": "COL2ROW",
     "features": {
-        "bootmagic": true,
+        "bootmagic": false,
         "console": true,
         "extrakey": true,
         "mousekey": true,
@@ -27,10 +33,6 @@
         "LAYOUT_all": "LAYOUT_tkl_ansi",
         "LAYOUT_tkl_ansi_tsangan_wkl": "LAYOUT_tkl_ansi_wkl"
     },
-    "community_layouts": [
-        "tkl_ansi",
-        "tkl_ansi_tsangan"
-    ],
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [

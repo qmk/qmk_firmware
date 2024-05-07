@@ -9,10 +9,19 @@
     "device_version": "99.9.9"
   },
   "rgb_matrix": {
+    "animations": {
+      "gradient_left_right": true,
+      "cycle_pinwheel": true
+    },
+    "default": {
+      "animation": "cycle_pinwheel"
+    },
     "driver": "ws2812",
+    "max_brightness": 150,
     "sat_steps": 8,
     "val_steps": 8,
-    "speed_steps": 10
+    "speed_steps": 10,
+    "sleep": true
   },
   "matrix_pins": {
     "cols": ["B0", "B1", "B2", "B3"],

@@ -9,6 +9,13 @@
         "device_version": "0.0.1"
     },
     "rgb_matrix": {
+        "animations": {
+            "breathing": true,
+            "cycle_all": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_multinexus": true,
+            "solid_multisplash": true
+        },
         "driver": "ws2812"
     },
     "matrix_pins": {

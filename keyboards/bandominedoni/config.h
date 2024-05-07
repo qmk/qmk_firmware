@@ -19,23 +19,16 @@
 #ifndef MASTER_RIGHT
 //  SPLIT_HAND_MATRIX_GRID was initially designed to use with left hand side diode D35 mounted and not pressing K7 on the right hand side during boot. However when a USB cable is reconnected immediately, it fails. Decided to use "MASTER_RIGHT" to make it more reliable.
 #   define SPLIT_HAND_MATRIX_GRID B5, D0
+#   define SPLIT_HAND_MATRIX_GRID_LOW_IS_LEFT
 #endif
 
 #define SPLIT_USB_DETECT
 
 #ifdef RGB_MATRIX_ENABLE
-
-/* ws2812 RGB MATRIX */
-#   define RGB_MATRIX_LED_COUNT 76
-
- // reacts to keypresses
-#   define RGB_MATRIX_KEYPRESSES
-
 //  for all fingers used at once.
 #   define LED_HITS_TO_REMEMBER 10
 
-#   define RGB_MATRIX_MAXIMUM_BRIGHTNESS 50
-// the above brighness setting has no effect on rgb_matrix_set_color().
+// the max brightness setting has no effect on rgb_matrix_set_color().
 // Use darker colors instead.
 /*              RGB darker COLORS             */
 #   define RGB_DARKWHITE 0x33, 0x33, 0x33
@@ -58,8 +51,6 @@
 #   define RGB_DARKPINK 0x33, 0x19, 0x26
 
 //  https://docs.qmk.fm/#/feature_rgb_matrix
-//  Enable suspend mode.
-#   define RGB_DISABLE_WHEN_USB_SUSPENDED true
 
 #   ifdef CONSOLE_ENABLE
 #       define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
@@ -84,7 +75,7 @@
 //  RAINDROPS don't match well with layer LED indicator (oc) using rgb_matrix_set_color().
 // #define ENABLE_RGB_MATRIX_RAINDROPS
 // #define ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
-//  Recommendend not to use these.
+//  Recommended not to use these.
 #       ifndef VIA_ENABLE
 #           define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
 #           define ENABLE_RGB_MATRIX_BAND_VAL

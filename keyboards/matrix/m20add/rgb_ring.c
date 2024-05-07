@@ -357,7 +357,7 @@ static void custom_effects(void)
     effect_funcs[rgb_ring.effect]();
 }
 
-void rgblight_call_driver(rgb_led_t *start_led, uint8_t num_leds)
+void setleds_custom(rgb_led_t *start_led, uint16_t num_leds)
 {
     if (rgb_ring.state != RING_STATE_QMK) {
         return;
@@ -367,6 +367,10 @@ void rgblight_call_driver(rgb_led_t *start_led, uint8_t num_leds)
         is31fl3731_set_color(i, start_led[i].r, start_led[i].g, start_led[i].b);
     }
 }
+
+const rgblight_driver_t rgblight_driver = {
+    .setleds = setleds_custom,
+};
 
 
 void rgb_ring_init(void)

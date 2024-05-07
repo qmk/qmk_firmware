@@ -13,7 +13,28 @@
         "pin": "C14"
     },
     "rgb_matrix": {
-        "driver": "ws2812"
+        "animations": {
+            "gradient_up_down": true,
+            "gradient_left_right": true,
+            "breathing": true,
+            "band_val": true,
+            "band_pinwheel_val": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "cycle_out_in": true,
+            "cycle_pinwheel": true,
+            "dual_beacon": true,
+            "rainbow_beacon": true,
+            "raindrops": true,
+            "jellybean_raindrops": true,
+            "hue_breathing": true,
+            "hue_pendulum": true,
+            "hue_wave": true,
+            "pixel_rain": true
+        },
+        "driver": "ws2812",
+        "max_brightness": 200
     },
     "matrix_pins": {
         "cols": ["B15", "C6", "C7", "A3", "A1", "C3", "C1", "B14", "B13", "A9", "B3", "B4", "A0", "C11", "C4", "C0", "C2"],

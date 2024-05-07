@@ -216,12 +216,12 @@ void channel_2_stop(void) {
 void audio_driver_initialize(void) {
 #ifdef AUDIO1_PIN_SET
     channel_1_stop();
-    setPinOutput(AUDIO1_PIN);
+    gpio_set_pin_output(AUDIO1_PIN);
 #endif
 
 #ifdef AUDIO2_PIN_SET
     channel_2_stop();
-    setPinOutput(AUDIO2_PIN);
+    gpio_set_pin_output(AUDIO2_PIN);
 #endif
 
     // TCCR3A / TCCR3B: Timer/Counter #3 Control Registers TCCR3A/TCCR3B, TCCR1A/TCCR1B

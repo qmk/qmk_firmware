@@ -102,7 +102,9 @@
             {"matrix": [5, 0], "x": 0, "y": 52, "flags": 1},
             {"matrix": [5, 1], "x": 14, "y": 52, "flags": 1},
             {"matrix": [5, 2], "x": 28, "y": 52, "flags": 1},
+            {"x": 74, "y": 52, "flags": 4},
             {"matrix": [5, 5], "x": 74, "y": 52, "flags": 4},
+            {"x": 74, "y": 52, "flags": 4},
             {"matrix": [5, 9], "x": 122, "y": 52, "flags": 1},
             {"matrix": [5, 10], "x": 148, "y": 52, "flags": 1},
             {"matrix": [5, 12], "x": 158, "y": 52, "flags": 1},
@@ -112,7 +114,6 @@
             {"matrix": [5, 17], "x": 212, "y": 52, "flags": 4}
         ],
         "animations": {
-            "solid_color": true,
             "alphas_mods": true,
             "gradient_up_down": true,
             "gradient_left_right": true,
@@ -156,7 +157,13 @@
             "multisplash": true,
             "solid_splash": true,
             "solid_multisplash": true
-        }
+        },
+        "default": {
+            "val": 128
+        },
+        "led_process_limit": 4,
+        "led_flush_limit": 26,
+        "sleep": true
     },
     "layouts": {
         "LAYOUT": {

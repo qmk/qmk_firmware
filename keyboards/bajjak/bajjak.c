@@ -137,23 +137,16 @@ uint8_t init_mcp23018(void) {
     // - unused  : input  : 1
     // - input   : input  : 1
     // - driving : output : 0
-    mcp23018_status = i2c_start(I2C_ADDR_WRITE, BAJJAK_EZ_I2C_TIMEOUT);    if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(IODIRA, BAJJAK_EZ_I2C_TIMEOUT);            if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(0b00000000, BAJJAK_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(0b00111111, BAJJAK_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
-    i2c_stop();
+    uint8_t data[] = {0b00000000, 0b00111111};
+    mcp23018_status = i2c_writeReg(I2C_ADDR, IODIRA, data, 2, BAJJAK_EZ_I2C_TIMEOUT);
 
-    // set pull-up
-    // - unused  : on  : 1
-    // - input   : on  : 1
-    // - driving : off : 0
-    mcp23018_status = i2c_start(I2C_ADDR_WRITE, BAJJAK_EZ_I2C_TIMEOUT);    if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(GPPUA, BAJJAK_EZ_I2C_TIMEOUT);             if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(0b00000000, BAJJAK_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(0b01111111, BAJJAK_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
-
-out:
-    i2c_stop();
+    if (!mcp23018_status) {
+        // set pull-up
+        // - unused  : on  : 1
+        // - input   : on  : 1
+        // - driving : off : 0
+        mcp23018_status = i2c_writeReg(I2C_ADDR, IODIRA, data, 2, BAJJAK_EZ_I2C_TIMEOUT);
+    }
 
 #ifdef LEFT_LEDS
     if (!mcp23018_status) mcp23018_status = bajjak_left_leds_update();
@@ -176,21 +169,11 @@ uint8_t bajjak_left_leds_update(void) {
     // - unused  : hi-Z : 1
     // - input   : hi-Z : 1
     // - driving : hi-Z : 1
-    mcp23018_status = i2c_start(I2C_ADDR_WRITE, BAJJAK_EZ_I2C_TIMEOUT);
-    if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(OLATA, BAJJAK_EZ_I2C_TIMEOUT);
-    if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(0b11111111
-                                & ~(bajjak_left_led_1<<LEFT_LED_1_SHIFT),
-                                BAJJAK_EZ_I2C_TIMEOUT);
-    if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(0b11111111
-                                & ~(bajjak_left_led_2<<LEFT_LED_2_SHIFT),
-                                BAJJAK_EZ_I2C_TIMEOUT);
-    if (mcp23018_status) goto out;
+    uint8_t data[2];
+    data[0] = 0b11111111 & ~(bajjak_left_led_1<<LEFT_LED_1_SHIFT);
+    data[1] = 0b11111111 & ~(bajjak_left_led_2<<LEFT_LED_2_SHIFT);
+    mcp23018_status = i2c_writeReg(I2C_ADDR, OLATA, data, 2, BAJJAK_EZ_I2C_TIMEOUT);
 
- out:
-    i2c_stop();
     return mcp23018_status;
 }
 #endif

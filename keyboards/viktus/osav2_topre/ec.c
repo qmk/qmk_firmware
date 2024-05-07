@@ -151,16 +151,16 @@ bool ec_matrix_scan(matrix_row_t current_matrix[]) {
             switch(row) {
                 case 0:
                     switch(col) {
-                        case 14: // lower threshold for split backspace: left 1U( rest,  btm)
-                        case 15: // lower threshold for 2U backspace: 2U(38 rest, 60 btm)
-                            reset_pt = 44;
-                            actuation_pt = 48;
+                        case 14: // lower threshold for split backspace: left 1U
+                        case 15: // lower threshold for 2U backspace: 2U
+                            reset_pt = 48;
+                            actuation_pt = 53;
                             break;
                     }
                     break;
                 case 3:
                     switch(col) {
-                        case 14: // Lower threshold for right shift: 1.75U(40 rest, 70 btm)
+                        case 14: // Lower threshold for right shift: 1.75U
                             reset_pt = 48;
                             actuation_pt = 53;
                             break;
@@ -168,17 +168,17 @@ bool ec_matrix_scan(matrix_row_t current_matrix[]) {
                     break;
                 case 4:
                     switch(col) {
-                        case 3: // Lower threshold for left space: col3( rest,  btm)
-                        case 4: // Lower threshold for left space: col4(38 rest, 88 btm)
+                        case 3: // Lower threshold for left space: col3
+                        case 4: // Lower threshold for left space: col4
                             reset_pt = 50;
                             actuation_pt = 60;
                             break;
-                        case 5: // Lower threshold for left space: col5( rest,  btm)
-                        case 6: // Lower threshold for left space: col6(40 rest, 80 btm)
+                        case 5: // Lower threshold for left space: col5
+                        case 6: // Lower threshold for left space: col6
                             reset_pt = 48;
                             actuation_pt = 58;
                             break;
-                        case 14: // Lower threshold for right shift: 2.75U( rest,  btm)
+                        case 14: // Lower threshold for right shift: 2.75U
                             reset_pt = 48;
                             actuation_pt = 53;
                             break;

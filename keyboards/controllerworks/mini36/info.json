@@ -111,7 +111,8 @@
             {"flags": 4, "matrix": [6, 4], "x": 217, "y": 41},
             {"flags": 4, "matrix": [5, 4], "x": 217, "y": 24},
             {"flags": 4, "matrix": [4, 4], "x": 217, "y": 7}
-          ]
+        ],
+        "split_count": [24, 24]
     },
     "community_layouts": ["split_3x5_3"],
     "layouts": {

@@ -6,20 +6,20 @@
     "build": {
         "lto": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "diode_direction": "COL2ROW",
     "features": {
-        "audio": false,
-        "backlight": false,
-        "bootmagic": true,
-        "command": false,
+        "bootmagic": false,
         "console": true,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
         "rgblight": true
-    },
-    "mouse_key": {
-        "enabled": true
     },
     "indicators": {
         "num_lock": "B14"

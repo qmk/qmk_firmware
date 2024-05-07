@@ -9,7 +9,20 @@
         "device_version": "0.0.1"
     },
     "rgb_matrix": {
-        "driver": "custom"
+        "animations": {
+            "typing_heatmap": true,
+            "solid_reactive_simple": true,
+            "solid_reactive": true,
+            "solid_reactive_wide": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_cross": true,
+            "solid_reactive_multicross": true,
+            "solid_reactive_nexus": true,
+            "solid_reactive_multinexus": true
+        },
+        "driver": "custom",
+        "led_flush_limit": 100,
+        "sleep": true
     },
     "processor": "STM32F411",
     "bootloader": "stm32-dfu",

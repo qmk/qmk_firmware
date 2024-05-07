@@ -51,6 +51,11 @@
 extern keymap_config_t keymap_config;
 #endif
 
+#if defined(CONSOLE_ENABLE)
+#    define RBUF_SIZE 256
+#    include "ring_buffer.h"
+#endif
+
 /* ---------------------------------------------------------
  *       Global interface variables and declarations
  * ---------------------------------------------------------
@@ -217,6 +222,24 @@ static const USBEndpointConfig digitizer_ep_config = {
 };
 #endif
 
+#ifdef CONSOLE_ENABLE
+/* Console endpoint state structure */
+static USBInEndpointState console_ep_state;
+
+/* Console endpoint initialization structure (IN) - see USBEndpointConfig comment at top of file */
+static const USBEndpointConfig console_ep_config = {
+    USB_EP_MODE_TYPE_INTR,  /* Interrupt EP */
+    NULL,                   /* SETUP packet notification callback */
+    dummy_usb_cb,           /* IN notification callback */
+    NULL,                   /* OUT notification callback */
+    CONSOLE_EPSIZE,         /* IN maximum packet size */
+    0,                      /* OUT maximum packet size */
+    &console_ep_state,      /* IN Endpoint state */
+    NULL,                   /* OUT endpoint state */
+    usb_lld_endpoint_fields /* USB driver specific endpoint fields */
+};
+#endif
+
 #ifdef USB_ENDPOINTS_ARE_REORDERABLE
 typedef struct {
     size_t              queue_capacity_in;
@@ -347,9 +370,6 @@ typedef struct {
 typedef struct {
     union {
         struct {
-#ifdef CONSOLE_ENABLE
-            usb_driver_config_t console_driver;
-#endif
 #ifdef RAW_ENABLE
             usb_driver_config_t raw_driver;
 #endif
@@ -365,13 +385,6 @@ typedef struct {
 } usb_driver_configs_t;
 
 static usb_driver_configs_t drivers = {
-#ifdef CONSOLE_ENABLE
-#    define CONSOLE_IN_CAPACITY 4
-#    define CONSOLE_OUT_CAPACITY 4
-#    define CONSOLE_IN_MODE USB_EP_MODE_TYPE_INTR
-#    define CONSOLE_OUT_MODE USB_EP_MODE_TYPE_INTR
-    .console_driver = QMK_USB_DRIVER_CONFIG(CONSOLE, 0, true),
-#endif
 #ifdef RAW_ENABLE
 #    ifndef RAW_IN_CAPACITY
 #        define RAW_IN_CAPACITY 4
@@ -509,6 +522,9 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
 #endif
 #if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
             usbInitEndpointI(usbp, DIGITIZER_IN_EPNUM, &digitizer_ep_config);
+#endif
+#ifdef CONSOLE_ENABLE
+            usbInitEndpointI(usbp, CONSOLE_IN_EPNUM, &console_ep_config);
 #endif
             for (int i = 0; i < NUM_USB_DRIVERS; i++) {
 #ifdef USB_ENDPOINTS_ARE_REORDERABLE
@@ -915,50 +931,35 @@ void send_digitizer(report_digitizer_t *report) {
 #ifdef CONSOLE_ENABLE
 
 int8_t sendchar(uint8_t c) {
-    static bool timed_out = false;
-    /* The `timed_out` state is an approximation of the ideal `is_listener_disconnected?` state.
-     *
-     * When a 5ms timeout write has timed out, hid_listen is most likely not running, or not
-     * listening to this keyboard, so we go into the timed_out state. In this state we assume
-     * that hid_listen is most likely not gonna be connected to us any time soon, so it would
-     * be wasteful to write follow-up characters with a 5ms timeout, it would all add up and
-     * unncecessarily slow down the firmware. However instead of just dropping the characters,
-     * we write them with a TIME_IMMEDIATE timeout, which is a zero timeout,
-     * and this will succeed only if hid_listen gets connected again. When a write with
-     * TIME_IMMEDIATE timeout succeeds, we know that hid_listen is listening to us again, and
-     * we can go back to the timed_out = false state, and following writes will be executed
-     * with a 5ms timeout. The reason we don't just send all characters with the TIME_IMMEDIATE
-     * timeout is that this could cause bytes to be lost even if hid_listen is running, if there
-     * is a lot of data being sent over the console.
-     *
-     * This logic will work correctly as long as hid_listen is able to receive at least 200
-     * bytes per second. On a heavily overloaded machine that's so overloaded that it's
-     * unusable, and constantly swapping, hid_listen might have trouble receiving 200 bytes per
-     * second, so some bytes might be lost on the console.
-     */
-
-    const sysinterval_t timeout = timed_out ? TIME_IMMEDIATE : TIME_MS2I(5);
-    const size_t        result  = chnWriteTimeout(&drivers.console_driver.driver, &c, 1, timeout);
-    timed_out                   = (result == 0);
-    return result;
-}
-
-// Just a dummy function for now, this could be exposed as a weak function
-// Or connected to the actual QMK console
-static void console_receive(uint8_t *data, uint8_t length) {
-    (void)data;
-    (void)length;
+    rbuf_enqueue(c);
+    return 0;
 }
 
 void console_task(void) {
-    uint8_t buffer[CONSOLE_EPSIZE];
-    size_t  size = 0;
-    do {
-        size = chnReadTimeout(&drivers.console_driver.driver, buffer, sizeof(buffer), TIME_IMMEDIATE);
-        if (size > 0) {
-            console_receive(buffer, size);
-        }
-    } while (size > 0);
+    if (!rbuf_has_data()) {
+        return;
+    }
+
+    osalSysLock();
+    if (usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
+        osalSysUnlock();
+        return;
+    }
+
+    if (usbGetTransmitStatusI(&USB_DRIVER, CONSOLE_IN_EPNUM)) {
+        osalSysUnlock();
+        return;
+    }
+
+    // Send in chunks - padded with zeros to 32
+    char    send_buf[CONSOLE_EPSIZE] = {0};
+    uint8_t send_buf_count           = 0;
+    while (rbuf_has_data() && send_buf_count < CONSOLE_EPSIZE) {
+        send_buf[send_buf_count++] = rbuf_dequeue();
+    }
+
+    usbStartTransmitI(&USB_DRIVER, CONSOLE_IN_EPNUM, (const uint8_t *)send_buf, CONSOLE_EPSIZE);
+    osalSysUnlock();
 }
 
 #endif /* CONSOLE_ENABLE */

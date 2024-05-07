@@ -35,6 +35,9 @@
             "snake": true,
             "static_gradient": true,
             "twinkle": true
+        },
+        "default": {
+            "animation": "rainbow_mood"
         }
     },
     "ws2812": {

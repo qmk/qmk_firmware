@@ -23,6 +23,7 @@
         "saturation_steps": 8,
         "brightness_steps": 8,
         "led_count": 65,
+        "driver": "custom",
         "max_brightness": 192,
         "animations": {
             "breathing": true,

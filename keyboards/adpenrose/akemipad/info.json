@@ -11,7 +11,14 @@
         "pin": "F4"
     },
     "rgb_matrix": {
-        "driver": "ws2812"
+        "animations": {
+            "cycle_left_right": true,
+            "cycle_up_down": true
+        },
+        "center_point": [60, 77],
+        "driver": "ws2812",
+        "max_brightness": 175,
+        "sleep": true
     },
     "matrix_pins": {
         "cols": ["D3", "D2", "F5", "F6", "B2"],

@@ -9,7 +9,6 @@
         "command": false,
         "console": false,
         "extrakey": true,
-        "lto": true,
         "mousekey": true,
         "nkro": true,
         "rgb_matrix": true
@@ -23,6 +22,43 @@
     },
     "processor": "atmega32u4",
     "rgb_matrix": {
+        "animations": {
+            "gradient_up_down": true,
+            "gradient_left_right": true,
+            "breathing": true,
+            "band_sat": true,
+            "band_pinwheel_sat": true,
+            "band_spiral_sat": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "rainbow_moving_chevron": true,
+            "cycle_pinwheel": true,
+            "cycle_spiral": true,
+            "dual_beacon": true,
+            "rainbow_beacon": true,
+            "rainbow_pinwheels": true,
+            "raindrops": true,
+            "jellybean_raindrops": true,
+            "hue_breathing": true,
+            "hue_pendulum": true,
+            "hue_wave": true,
+            "pixel_rain": true,
+            "pixel_flow": true,
+            "pixel_fractal": true,
+            "typing_heatmap": true,
+            "digital_rain": true,
+            "solid_reactive": true,
+            "solid_reactive_wide": true,
+            "solid_reactive_cross": true,
+            "solid_reactive_nexus": true,
+            "splash": true,
+            "multisplash": true,
+            "solid_splash": true
+        },
+        "default": {
+            "animation": "cycle_all"
+        },
         "driver": "ws2812",
         "layout": [
             {"flags": 4, "matrix": [0, 0], "x": 0, "y": 0},
@@ -47,7 +83,8 @@
             {"flags": 4, "matrix": [5, 2], "x": 150, "y": 64},
             {"flags": 4, "matrix": [5, 0], "x": 37.5, "y": 64}
         ],
-        "max_brightness": 128
+        "max_brightness": 128,
+        "sleep": true
     },
     "ws2812": {
         "pin": "F5"

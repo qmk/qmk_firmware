@@ -10,6 +10,9 @@
   },
   "processor": "atmega32u2",
   "bootloader": "atmel-dfu",
+  "dynamic_keymap": {
+    "layer_count": 3
+  },
   "community_layouts": ["tkl_ansi"],
   "layouts": {
     "LAYOUT": {

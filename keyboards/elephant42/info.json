@@ -12,7 +12,9 @@
         "driver": "ws2812",
         "sat_steps": 8,
         "val_steps": 8,
-        "speed_steps": 8
+        "speed_steps": 8,
+        "max_brightness": 170,
+        "split_count": [27, 27]
     },
     "rgblight": {
         "saturation_steps": 8,
@@ -39,7 +41,12 @@
     },
     "diode_direction": "COL2ROW",
     "split": {
-        "soft_serial_pin": "D2"
+        "soft_serial_pin": "D2",
+        "transport": {
+            "sync": {
+                "matrix_state": true
+            }
+        }
     },
     "ws2812": {
         "pin": "D3"

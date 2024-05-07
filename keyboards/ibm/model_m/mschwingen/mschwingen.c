@@ -36,10 +36,10 @@ static bool     blink_state = false;
 static uint8_t  isRecording = 0;
 
 #ifdef KEYBOARD_ibm_model_m_mschwingen_led_ws2812
-#    if RGBLED_NUM < 3
+#    if RGBLIGHT_LED_COUNT < 3
 #        error we need at least 3 RGB LEDs!
 #    endif
-static rgb_led_t led[RGBLED_NUM] = {{255, 255, 255}, {255, 255, 255}, {255, 255, 255}};
+static rgb_led_t led[RGBLIGHT_LED_COUNT] = {{255, 255, 255}, {255, 255, 255}, {255, 255, 255}};
 
 #    define BRIGHT 32
 #    define DIM 6
@@ -84,13 +84,13 @@ void sleep_led_enable(void) {
     led[0] = black;
     led[1] = black;
     led[2] = black;
-    ws2812_setleds(led, RGBLED_NUM);
+    ws2812_setleds(led, RGBLIGHT_LED_COUNT);
 #endif
 }
 
 void keyboard_pre_init_kb(void) {
 #ifdef KEYBOARD_ibm_model_m_mschwingen_led_ws2812
-    ws2812_setleds(led, RGBLED_NUM);
+    ws2812_setleds(led, RGBLIGHT_LED_COUNT);
 #else
     /* Set status LEDs pins to output and Low (on) */
     setPinOutput(MODELM_LED_CAPSLOCK);
@@ -146,7 +146,7 @@ static void led_update_rgb(void) {
             break;
     }
     if (!suspend_active) {
-	ws2812_setleds(led, RGBLED_NUM);
+	ws2812_setleds(led, RGBLIGHT_LED_COUNT);
     }
 }
 

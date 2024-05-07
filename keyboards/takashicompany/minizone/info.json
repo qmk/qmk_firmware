@@ -3,10 +3,30 @@
     "manufacturer": "takashicompany",
     "url": "https://github.com/takashicompany/minizone",
     "maintainer": "takashicompany",
+    "development_board": "promicro",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "rgblight": true,
+        "oled": true
+    },
+    "build": {
+        "lto": true
+    },
     "usb": {
         "vid": "0x7463",
         "pid": "0x0021",
         "device_version": "0.0.1"
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
+    "dynamic_keymap": {
+        "layer_count": 10
     },
     "rgblight": {
         "saturation_steps": 8,
@@ -31,8 +51,6 @@
         "rows": ["D4", "C6", "D7", "E6", "B4", "B5"]
     },
     "diode_direction": "COL2ROW",
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [
