@@ -1519,8 +1519,14 @@
     "ymdk/melody96": {
         "target": "ymdk/melody96/soldered"
     },
+    "kprepublic/jj40": {
+        "target": "kprepublic/jj40/rev1"
+    },
+    "kprepublic/jj50": {
+        "target": "kprepublic/jj50/rev1"
+    },
     // Moved during 2024 Q2 cycle
      "dnworks/sbl": {
         "target": "dnworks/60percent"
-    }   
+    }
 }
