@@ -1,5 +1,5 @@
 // Copyright 2024  Evgeny Kapusta (@ryodeushii)
-// SPDX-License-Identifier: GPL-2.0-or-later#include "ansi.h"
+// SPDX-License-Identifier: GPL-2.0-or-later
 #include "ansi.h"
 #include QMK_KEYBOARD_H
 
