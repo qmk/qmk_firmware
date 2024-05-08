@@ -1,4 +1,3 @@
-
 RGB_MATRIX_EFFECT(game_mode)
 RGB_MATRIX_EFFECT(position_mode)
 

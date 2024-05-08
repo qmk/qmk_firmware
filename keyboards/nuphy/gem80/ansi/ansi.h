@@ -16,7 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-#include "user_kb.h"
 #include "quantum_keycodes.h"
 
 enum custom_keycodes {
@@ -118,6 +117,7 @@ enum via_indicator_value {
 void indicator_config_set_value(uint8_t *data);
 void indicator_config_get_value(uint8_t *data);
 #endif
+
 extern kb_config_t g_config;
 
 void save_config_to_eeprom(void);

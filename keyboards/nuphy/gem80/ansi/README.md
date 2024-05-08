@@ -1,8 +1,8 @@
 # NuPhy Gem80
 
 
-* Keyboard Maintainer: [nuphy](https://github.com/nuphy-src)
-* Hardware Supported: NuPhy Gem 80 Tri-Mode
+* Keyboard Maintainer: [ryodeushii](https://github.com/ryodeushii)
+* Hardware Supported: NuPhy Gem 80 (Tri-Mode and Wired only, depends on `WORK_MODE` parameter in `config.h`)
 * Hardware Availability: Private
 
 Make example for this keyboard (after setting up your build environment):
