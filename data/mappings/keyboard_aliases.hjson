@@ -1525,5 +1525,8 @@
     },
     "kprepublic/jj50": {
         "target": "kprepublic/jj50/rev1"
+    },
+    "dnworks/sbl": {
+        "target": "dnworks/60percent"
     }
 }
