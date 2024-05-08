@@ -1,4 +1,4 @@
-# Matrix Diagram for dnworks SBL
+# Matrix Diagram for dnworks 60%
 
 ```
                                                     ┌───────┐
