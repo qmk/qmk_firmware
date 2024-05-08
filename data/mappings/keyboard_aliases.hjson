@@ -1518,5 +1518,9 @@
     // Moved during 2023 Q4 cycle
     "ymdk/melody96": {
         "target": "ymdk/melody96/soldered"
-    }
+    },
+    // Moved during 2024 Q2 cycle
+     "dnworks/sbl": {
+        "target": "dnworks/60percent"
+    }   
 }
