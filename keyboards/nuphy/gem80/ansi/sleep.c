@@ -69,7 +69,7 @@ void sleep_handle(void) {
         f_goto_sleep         = 0;
         usb_suspend_debounce = 0;
 #if (WORK_MODE == THREE_MODE)
-        rf_linking_time      = 0;
+        rf_linking_time    = 0;
         rf_disconnect_time = 0;
 #endif
 
@@ -79,7 +79,7 @@ void sleep_handle(void) {
             enter_light_sleep();
             // Don't deep sleep if in USB mode. Board may have issues waking as reported by others. I assume it's being
             // powered if USB port is on, or otherwise it's disconnected at the hardware level if USB port is off..
-        } else if (g_config.usb_sleep_toggle && dev_info.link_mode == LINK_USB) {
+        } else if (dev_info.link_mode == LINK_USB && (g_config.usb_sleep_toggle || USB_DRIVER.state == USB_SUSPENDED)) {
             break_all_key();
             enter_light_sleep();
         } else if (g_config.sleep_enable) {
