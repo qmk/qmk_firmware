@@ -59,14 +59,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //    ├─────┼───┼───┼─────┼─────┼───┤                         ├──────┼──────┼─────┼──────┼───┼─────┤
 //    │     │ ^ │ = │  #  │  $  │ _ │                         │ left │ down │ up  │ rght │ ~ │     │
 //    ├─────┼───┼───┼─────┼─────┼───┼─────┬─────┬───────┬─────┼──────┼──────┼─────┼──────┼───┼─────┤
-//    │     │ - │ < │  >  │  %  │ | │     │     │       │     │  &   │  +   │  [  │  ]   │ / │     │
+//    │     │ - │ < │  >  │  %  │ | │     │     │       │     │  &   │  +   │  [  │  ]   │ \ │     │
 //    └─────┴───┴───┼─────┼─────┼───┼─────┼─────┼───────┼─────┼──────┼──────┼─────┼──────┴───┴─────┘
 //                  │     │     │ \ │  :  │     │ TO(0) │     │      │      │     │
 //                  └─────┴─────┴───┴─────┴─────┴───────┴─────┴──────┴──────┴─────┘
 [_SYMBOL] = LAYOUT(
-  KC_GRV  , KC_0          , KC_LCBR  , KC_RCBR , KC_AT      , KC_ASTR       ,                                          KC_EXCLAIM , KC_COLON , KC_LEFT_PAREN , KC_RIGHT_PAREN , KC_SCLN  , _______,
-  _______ , KC_CIRCUMFLEX , KC_EQUAL , KC_HASH , KC_DLR     , KC_UNDERSCORE ,                                          KC_LEFT    , KC_DOWN  , KC_UP         , KC_RIGHT       , KC_TILDE , _______,
-  _______ , KC_MINUS      , KC_LT    , KC_GT   , KC_PERCENT , KC_PIPE       , _______  , _______ , _______ , _______ , KC_AMPR    , KC_PLUS  , KC_LBRC       , KC_RBRC        , KC_SLSH  , _______,
+  KC_GRV  , KC_0          , KC_LCBR  , KC_RCBR , KC_AT      , KC_ASTR       ,                                          KC_EXCLAIM , KC_COLON , KC_LEFT_PAREN , KC_RIGHT_PAREN , KC_SCLN      , _______,
+  _______ , KC_CIRCUMFLEX , KC_EQUAL , KC_HASH , KC_DLR     , KC_UNDERSCORE ,                                          KC_LEFT    , KC_DOWN  , KC_UP         , KC_RIGHT       , KC_TILDE     , _______,
+  _______ , KC_MINUS      , KC_LT    , KC_GT   , KC_PERCENT , KC_PIPE       , _______  , _______ , _______ , _______ , KC_AMPR    , KC_PLUS  , KC_LBRC       , KC_RBRC        , KC_BACKSLASH , _______,
                                        _______ , _______    , KC_BACKSLASH  , KC_COLON , _______ , TO(0)   , _______ , _______    , _______  , _______
 ),
 
@@ -189,9 +189,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case MACRO_HELM_SINGLE_LINE_COMMENT:
             if (record->event.pressed) {
-                    SEND_STRING("{{- /*  */ -}}" \
-                        SS_TAP(X_LEFT) \
-                        SS_TAP(X_LEFT) \
+                    SEND_STRING("{{/*  */}}" \
                         SS_TAP(X_LEFT) \
                         SS_TAP(X_LEFT) \
                         SS_TAP(X_LEFT) \
@@ -202,11 +200,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case MACRO_HELM_MULTI_LINE_COMMENT:
             if (record->event.pressed) {
-                    SEND_STRING("{{/*" \
+                    SEND_STRING("{{- /*" \
                         SS_TAP(X_ENT) \
                         SS_TAP(X_ENT) \
                     );
-                    SEND_STRING("*/}}" \
+                    SEND_STRING("*/ -}}" \
                         SS_TAP(X_UP) \
                     );
             }
