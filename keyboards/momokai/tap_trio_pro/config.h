@@ -10,7 +10,8 @@
 #define DEBUG_ENABLE
 // #define DEBUG_MATRIX_SCAN_RATE
 
-#define ADC_RESOLUTION 8
+#define ADC_RESOLUTION      12
+#define ADC_RESOLUTION_MAX  1 << 12
 
 #define CALIBRATION_RANGE 255
 
@@ -18,3 +19,8 @@
 
 //this configuration for the SMA filter, default is 4 for 2^4 = 16 samples
 #define SMA_FILTER_SAMPLE_EXPONENT 4
+
+#define I2C1_SCL_PIN GP19
+#define I2C1_SDA_PIN GP18
+#define OLED_BRIGHTNESS 128
+#define OLED_UPDATE_INTERVAL 1000
