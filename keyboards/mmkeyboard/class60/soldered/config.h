@@ -3,8 +3,6 @@
 
 #pragma once
 
-#define MATRIX_HAS_GHOST
-
 #define SOLENOID_PIN B3
 #define HAPTIC_ENABLE_PIN A15
 #define SOLENOID_DEFAULT_DWELL 4
@@ -20,9 +18,6 @@
 #define AUDIO_STATE_TIMER GPTD4
 #define AUDIO_PIN_ALT_AS_NEGATIVE
 #define AUDIO_PIN_ALT A13
-#undef AUDIO_VOICES
-
-
 #define DEFAULT_LAYER_SONGS { \
                               SONG(CAPS_LOCK_ON_SOUND), \
                               SONG(CAPS_LOCK_OFF_SOUND), \
