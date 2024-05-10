@@ -313,9 +313,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (__TAPPED__ && __PRESSED__) {
                 tap_code16(KC_CAPS);
             } else if (__PRESSED__) {
-                register_code(KC_BTN4);
+                register_code(KC_LGUI);
             } else {
-                unregister_code(KC_BTN4);
+                unregister_code(KC_LGUI);
             }
             return false;
             break;
@@ -378,7 +378,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 tap_code16(LCA(KC_H));
             }
             break;
-
         case ALT_TAB:
             if (record->event.pressed) {
                 if (!is_alt_tab_active) {
@@ -401,7 +400,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case GUIT_Z:
-            return TAPPING_TERM + 500;
+            return TAPPING_TERM + 200;
         case THUMB_L2:
         case SFTT_A:
             return TAPPING_TERM - 170;
