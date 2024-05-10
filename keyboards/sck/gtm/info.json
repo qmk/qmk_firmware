@@ -8,6 +8,29 @@
         "pid": "0x6090",
         "device_version": "0.0.2"
     },
+    "rgblight": {
+        "led_count": 4,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "ws2812": {
+        "pin": "B0"
+    },
+    "matrix_pins": {
+        "cols": ["B4", "B5", "B6", "B7", "C7", "D0"],
+        "rows": ["C4", "C5", "D1"]
+    },
+    "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
             {"pin_a": "D2", "pin_b": "D3", "resolution": 1}
@@ -18,18 +41,19 @@
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"label":"K00", "x":0, "y":0},
-                {"label":"K01", "x":1, "y":0},
-                {"label":"K02", "x":2, "y":0},
-                {"label":"K03", "x":3, "y":0},
-                {"label":"K15", "x":4, "y":0},
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+                {"matrix": [0, 4], "x": 4, "y": 0},
 
-                {"label":"K10", "x":0, "y":1},
-                {"label":"K11", "x":1, "y":1},
-                {"label":"K12", "x":2, "y":1},
-                {"label":"K13", "x":3, "y":1},
-                {"label":"K14", "x":4, "y":1},
-                {"label":"K16", "x":5.5, "y":0.5}
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [1, 3], "x": 3, "y": 1},
+                {"matrix": [1, 4], "x": 4, "y": 1},
+
+                {"matrix": [2, 5], "x": 5.5, "y": 0.5}
             ]
         }
     }

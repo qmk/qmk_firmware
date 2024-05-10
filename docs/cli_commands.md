@@ -165,16 +165,31 @@ qmk find -f 'processor=STM32F411'
 qmk find -f 'processor=STM32F411' -f 'features.rgb_matrix=true'
 ```
 
+The following filter expressions are also supported:
+
+ - `exists(key)`: Match targets where `key` is present.
+ - `absent(key)`: Match targets where `key` is not present.
+ - `contains(key, value)`: Match targets where `key` contains `value`. Can be used for strings, arrays and object keys.
+ - `length(key, value)`: Match targets where the length of `key` is `value`. Can be used for strings, arrays and objects.
+
+You can also list arbitrary values for each matched target with `--print`:
+
+```
+qmk find -f 'processor=STM32F411' -p 'keyboard_name' -p 'features.rgb_matrix'
+```
+
 **Usage**:
 
 ```
-qmk find [-h] [-km KEYMAP] [-f FILTER]
+qmk find [-h] [-km KEYMAP] [-p PRINT] [-f FILTER]
 
 options:
   -km KEYMAP, --keymap KEYMAP
                         The keymap name to build. Default is 'default'.
+  -p PRINT, --print PRINT
+                        For each matched target, print the value of the supplied info.json key. May be passed multiple times.
   -f FILTER, --filter FILTER
-                        Filter the list of keyboards based on the supplied value in rules.mk. Matches info.json structure, and accepts the formats 'features.rgblight=true' or 'exists(matrix_pins.direct)'. May be passed multiple times, all filters need to match. Value may include wildcards such as '*' and '?'.
+                        Filter the list of keyboards based on their info.json data. Accepts the formats key=value, function(key), or function(key,value), eg. 'features.rgblight=true'. Valid functions are 'absent', 'contains', 'exists' and 'length'. May be passed multiple times; all filters need to match. Value may include wildcards such as '*' and '?'.
 ```
 
 ## `qmk console`
@@ -307,6 +322,18 @@ Creates a keymap.json from a keymap.c.
 qmk c2json -km KEYMAP -kb KEYBOARD [-q] [--no-cpp] [-o OUTPUT] filename
 ```
 
+**Examples**:
+
+```
+qmk c2json -km default -kb handwired/dactyl_promicro
+```
+
+or with filename:
+
+```
+qmk c2json keyboards/handwired/dactyl_promicro/keymaps/default/keymap.c
+```
+
 ## `qmk lint`
 
 Checks over a keyboard and/or keymap and highlights common errors, problems, and anti-patterns.
@@ -345,6 +372,16 @@ This command is directory aware. It will automatically fill in KEYBOARD if you a
 
 ```
 qmk list-keymaps -kb planck/ez
+```
+
+## `qmk migrate`
+
+This command searches for legacy code that can be converted to the new `info.json` format and adds it to the specified keyboard's `info.json`.
+
+**Usage**:
+
+```
+qmk migrate [-h] -kb KEYBOARD [-f FILTER]
 ```
 
 ## `qmk new-keyboard`
@@ -463,6 +500,131 @@ $ qmk import-kbfirmware ~/Downloads/gh62.json
 Ψ To start working on things, `cd` into keyboards/gh62,
 Ψ or open the directory in your preferred text editor.
 Ψ And build with qmk compile -kb gh62 -km default.
+```
+
+---
+
+# External Userspace Commands
+
+## `qmk userspace-add`
+
+This command adds a keyboard/keymap to the External Userspace build targets.
+
+**Usage**:
+
+```
+qmk userspace-add [-h] [-km KEYMAP] [-kb KEYBOARD] [builds ...]
+
+positional arguments:
+  builds                List of builds in form <keyboard>:<keymap>, or path to a keymap JSON file.
+
+options:
+  -h, --help            show this help message and exit
+  -km KEYMAP, --keymap KEYMAP
+                        The keymap to build a firmware for. Ignored when a configurator export is supplied.
+  -kb KEYBOARD, --keyboard KEYBOARD
+                        The keyboard to build a firmware for. Ignored when a configurator export is supplied.
+```
+
+**Example**:
+
+```
+$ qmk userspace-add -kb planck/rev6 -km default
+Ψ Added planck/rev6:default to userspace build targets
+Ψ Saved userspace file to /home/you/qmk_userspace/qmk.json
+```
+
+## `qmk userspace-remove`
+
+This command removes a keyboard/keymap from the External Userspace build targets.
+
+**Usage**:
+
+```
+qmk userspace-remove [-h] [-km KEYMAP] [-kb KEYBOARD] [builds ...]
+
+positional arguments:
+  builds                List of builds in form <keyboard>:<keymap>, or path to a keymap JSON file.
+
+options:
+  -h, --help            show this help message and exit
+  -km KEYMAP, --keymap KEYMAP
+                        The keymap to build a firmware for. Ignored when a configurator export is supplied.
+  -kb KEYBOARD, --keyboard KEYBOARD
+                        The keyboard to build a firmware for. Ignored when a configurator export is supplied.
+```
+
+**Example**:
+
+```
+$ qmk userspace-remove -kb planck/rev6 -km default
+Ψ Removed planck/rev6:default from userspace build targets
+Ψ Saved userspace file to /home/you/qmk_userspace/qmk.json
+```
+
+## `qmk userspace-list`
+
+This command lists the External Userspace build targets.
+
+**Usage**:
+
+```
+qmk userspace-list [-h] [-e]
+
+options:
+  -h, --help    show this help message and exit
+  -e, --expand  Expands any use of `all` for either keyboard or keymap.
+```
+
+**Example**:
+
+```
+$ qmk userspace-list
+Ψ Current userspace build targets:
+Ψ Keyboard: planck/rev6, keymap: you
+Ψ Keyboard: clueboard/66/rev3, keymap: you
+```
+
+## `qmk userspace-compile`
+
+This command compiles all the External Userspace build targets.
+
+**Usage**:
+
+```
+qmk userspace-compile [-h] [-e ENV] [-n] [-c] [-j PARALLEL] [-t]
+
+options:
+  -h, --help            show this help message and exit
+  -e ENV, --env ENV     Set a variable to be passed to make. May be passed multiple times.
+  -n, --dry-run         Don't actually build, just show the commands to be run.
+  -c, --clean           Remove object files before compiling.
+  -j PARALLEL, --parallel PARALLEL
+                        Set the number of parallel make jobs; 0 means unlimited.
+  -t, --no-temp         Remove temporary files during build.
+```
+
+**Example**:
+
+```
+$ qmk userspace-compile
+Ψ Preparing target list...
+Build planck/rev6:you                                                  [OK]
+Build clueboard/66/rev3:you                                            [OK]
+```
+
+## `qmk userspace-doctor`
+
+This command examines your environment and alerts you to potential problems related to External Userspace.
+
+**Example**:
+
+```
+% qmk userspace-doctor
+Ψ QMK home: /home/you/qmk_userspace/qmk_firmware
+Ψ Testing userspace candidate: /home/you/qmk_userspace -- Valid `qmk.json`
+Ψ QMK userspace: /home/you/qmk_userspace
+Ψ Userspace enabled: True
 ```
 
 ---

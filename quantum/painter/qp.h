@@ -1,4 +1,4 @@
-// Copyright 2021 Nick Brassel (@tzarc)
+// Copyright 2021-2023 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
@@ -10,6 +10,22 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Quantum Painter global configurables (add to your keyboard's config.h)
+
+#ifndef QUANTUM_PAINTER_DISPLAY_TIMEOUT
+/**
+ * @def This controls the amount of time (in milliseconds) that all displays will remain on after the last user input.
+ *      If set to 0, the display will remain on indefinitely.
+ */
+#    define QUANTUM_PAINTER_DISPLAY_TIMEOUT 30000
+#endif // QUANTUM_PAINTER_DISPLAY_TIMEOUT
+
+#ifndef QUANTUM_PAINTER_TASK_THROTTLE
+/**
+ * @def This controls the amount of time (in milliseconds) that the Quantum Painter internal task will wait between
+ *      each execution.
+ */
+#    define QUANTUM_PAINTER_TASK_THROTTLE 1
+#endif // QUANTUM_PAINTER_TASK_THROTTLE
 
 #ifndef QUANTUM_PAINTER_NUM_IMAGES
 /**
@@ -53,7 +69,7 @@
  * @def This controls the maximum size of the pixel data buffer used for single blocks of transmission. Larger buffers
  *      means more data is processed at one time, with less frequent transmissions, at the cost of RAM.
  */
-#    define QUANTUM_PAINTER_PIXDATA_BUFFER_SIZE 32
+#    define QUANTUM_PAINTER_PIXDATA_BUFFER_SIZE 1024
 #endif
 
 #ifndef QUANTUM_PAINTER_SUPPORTS_256_PALETTE
@@ -158,6 +174,41 @@ bool qp_clear(painter_device_t device);
  * @return false if flushing changes to the screen failed
  */
 bool qp_flush(painter_device_t device);
+
+/**
+ * Retrieves the width of the display.
+ *
+ * @param device[in] the handle of the device to control
+ */
+uint16_t qp_get_width(painter_device_t device);
+
+/**
+ * Retrieves the height of the display.
+ *
+ * @param device[in] the handle of the device to control
+ */
+uint16_t qp_get_height(painter_device_t device);
+
+/**
+ * Retrieves the rotation of the display.
+ *
+ * @param device[in] the handle of the device to control
+ */
+painter_rotation_t qp_get_rotation(painter_device_t device);
+
+/**
+ * Retrieves the x-offset of the display.
+ *
+ * @param device[in] the handle of the device to control
+ */
+uint16_t qp_get_offset_x(painter_device_t device);
+
+/**
+ * Retrieves the y-offset of the display.
+ *
+ * @param device[in] the handle of the device to control
+ */
+uint16_t qp_get_offset_y(painter_device_t device);
 
 /**
  * Retrieves the size, rotation, and offsets for the display.
@@ -442,35 +493,63 @@ int16_t qp_drawtext_recolor(painter_device_t device, uint16_t x, uint16_t y, pai
 
 #ifdef QUANTUM_PAINTER_RGB565_SURFACE_ENABLE
 #    include "qp_rgb565_surface.h"
+#else // QUANTUM_PAINTER_RGB565_SURFACE_ENABLE
+#    define RGB565_SURFACE_NUM_DEVICES 0
 #endif // QUANTUM_PAINTER_RGB565_SURFACE_ENABLE
 
 #ifdef QUANTUM_PAINTER_ILI9163_ENABLE
 #    include "qp_ili9163.h"
+#else // QUANTUM_PAINTER_ILI9163_ENABLE
+#    define ILI9163_NUM_DEVICES 0
 #endif // QUANTUM_PAINTER_ILI9163_ENABLE
 
 #ifdef QUANTUM_PAINTER_ILI9341_ENABLE
 #    include "qp_ili9341.h"
+#else // QUANTUM_PAINTER_ILI9341_ENABLE
+#    define ILI9341_NUM_DEVICES 0
 #endif // QUANTUM_PAINTER_ILI9341_ENABLE
+
+#ifdef QUANTUM_PAINTER_ILI9486_ENABLE
+#    include "qp_ili9486.h"
+#else // QUANTUM_PAINTER_ILI9486_ENABLE
+#    define ILI9486_NUM_DEVICES 0
+#endif // QUANTUM_PAINTER_ILI9486_ENABLE
 
 #ifdef QUANTUM_PAINTER_ILI9488_ENABLE
 #    include "qp_ili9488.h"
+#else // QUANTUM_PAINTER_ILI9488_ENABLE
+#    define ILI9488_NUM_DEVICES 0
 #endif // QUANTUM_PAINTER_ILI9488_ENABLE
 
 #ifdef QUANTUM_PAINTER_ST7789_ENABLE
 #    include "qp_st7789.h"
+#else // QUANTUM_PAINTER_ST7789_ENABLE
+#    define ST7789_NUM_DEVICES 0
 #endif // QUANTUM_PAINTER_ST7789_ENABLE
 
 #ifdef QUANTUM_PAINTER_ST7735_ENABLE
 #    include "qp_st7735.h"
+#else // QUANTUM_PAINTER_ST7735_ENABLE
+#    define ST7735_NUM_DEVICES 0
 #endif // QUANTUM_PAINTER_ST7735_ENABLE
 
 #ifdef QUANTUM_PAINTER_GC9A01_ENABLE
 #    include "qp_gc9a01.h"
+#else // QUANTUM_PAINTER_GC9A01_ENABLE
+#    define GC9A01_NUM_DEVICES 0
 #endif // QUANTUM_PAINTER_GC9A01_ENABLE
 
 #ifdef QUANTUM_PAINTER_SSD1351_ENABLE
 #    include "qp_ssd1351.h"
+#else // QUANTUM_PAINTER_SSD1351_ENABLE
+#    define SSD1351_NUM_DEVICES 0
 #endif // QUANTUM_PAINTER_SSD1351_ENABLE
+
+#ifdef QUANTUM_PAINTER_SH1106_ENABLE
+#    include "qp_sh1106.h"
+#else // QUANTUM_PAINTER_SH1106_ENABLE
+#    define SH1106_NUM_DEVICES 0
+#endif // QUANTUM_PAINTER_SH1106_ENABLE
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Quantum Painter Extras

@@ -8,11 +8,20 @@
         "pid": "0x998F",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "F0",
+        "on_state": 0
+    },
+    "matrix_pins": {
+        "cols": ["D6", "D7", "B4", "B5", "B6", "C6", "C7", "E2", "F7", "F6", "F5", "F4", "B0", "B1", "B2", "B3"],
+        "rows": ["D0", "D1", "D2", "D3", "D5", "D4"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
-          "layout":  [
+          "layout": [
               {"label": "K00 (D0,D6)", "matrix": [0, 0], "x": 0, "y": 0},
               {"label": "K01 (D0,D7)", "matrix": [0, 1], "x": 1.25, "y": 0},
               {"label": "K02 (D0,B4)", "matrix": [0, 2], "x": 2.25, "y": 0},

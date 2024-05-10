@@ -24,21 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
-#define MATRIX_ROW_PINS { F6, F7, B1, B3, B2 }
-
-// wiring of each half
-#define MATRIX_COL_PINS { B4, E6, D7, C6, D4, F5, F4 }
-
-/* COL2ROW, ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/* ws2812 RGB LED */
-#define RGB_DI_PIN B6
-
-#define RGBLED_NUM 7
-
 #ifndef IOS_DEVICE_ENABLE
-  #if RGBLED_NUM <= 7
+  #if RGBLIGHT_LED_COUNT <= 7
     #define RGBLIGHT_LIMIT_VAL 255
     #define RGBLIGHT_VAL_STEP 17
   #endif
@@ -46,9 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define RGBLIGHT_LIMIT_VAL 90
   #define RGBLIGHT_VAL_STEP 4
 #endif
-
-#define RGBLIGHT_HUE_STEP 10
-#define RGBLIGHT_SAT_STEP 17
 
 #if defined(RGBLIGHT_ENABLE) && !defined(IOS_DEVICE_ENABLE)
   #define USB_MAX_POWER_CONSUMPTION 500

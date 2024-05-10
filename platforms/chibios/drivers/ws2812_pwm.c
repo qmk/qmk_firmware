@@ -1,6 +1,6 @@
 #include "ws2812.h"
-#include "quantum.h"
-#include <hal.h>
+#include "gpio.h"
+#include "chibios_config.h"
 
 /* Adapted from https://github.com/joewa/WS2812-LED-Driver_ChibiOS/ */
 
@@ -48,9 +48,6 @@
 #ifndef WS2812_PWM_COMPLEMENTARY_OUTPUT
 #    define WS2812_PWM_OUTPUT_MODE PWM_OUTPUT_ACTIVE_HIGH
 #else
-#    if !STM32_PWM_USE_ADVANCED
-#        error "WS2812_PWM_COMPLEMENTARY_OUTPUT requires STM32_PWM_USE_ADVANCED == TRUE"
-#    endif
 #    define WS2812_PWM_OUTPUT_MODE PWM_COMPLEMENTARY_OUTPUT_ACTIVE_HIGH
 #endif
 
@@ -308,7 +305,7 @@ void ws2812_init(void) {
     for (i = 0; i < WS2812_RESET_BIT_N; i++)
         ws2812_frame_buffer[i + WS2812_COLOR_BIT_N] = 0; // All reset bits are zero
 
-    palSetLineMode(RGB_DI_PIN, WS2812_OUTPUT_MODE);
+    palSetLineMode(WS2812_DI_PIN, WS2812_OUTPUT_MODE);
 
     // PWM Configuration
     //#pragma GCC diagnostic ignored "-Woverride-init"  // Turn off override-init warning for this struct. We use the overriding ability to set a "default" channel config
@@ -379,7 +376,7 @@ void ws2812_write_led_rgbw(uint16_t led_number, uint8_t r, uint8_t g, uint8_t b,
 }
 
 // Setleds for standard RGB
-void ws2812_setleds(LED_TYPE* ledarray, uint16_t leds) {
+void ws2812_setleds(rgb_led_t* ledarray, uint16_t leds) {
     static bool s_init = false;
     if (!s_init) {
         ws2812_init();

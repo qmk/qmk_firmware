@@ -17,8 +17,9 @@
 #pragma once
 
 #include <stdint.h>
+#include <stdbool.h>
+#include "usb_device_state.h"
 
-#ifdef OS_DETECTION_ENABLE
 typedef enum {
     OS_UNSURE,
     OS_LINUX,
@@ -30,6 +31,15 @@ typedef enum {
 void         process_wlength(const uint16_t w_length);
 os_variant_t detected_host_os(void);
 void         erase_wlength_data(void);
+void         os_detection_notify_usb_device_state_change(enum usb_device_state usb_device_state);
+
+void os_detection_task(void);
+
+bool process_detected_host_os_kb(os_variant_t os);
+bool process_detected_host_os_user(os_variant_t os);
+
+#if defined(SPLIT_KEYBOARD) && defined(SPLIT_DETECTED_OS_ENABLE)
+void slave_update_detected_host_os(os_variant_t os);
 #endif
 
 #ifdef OS_DETECTION_DEBUG_ENABLE

@@ -24,8 +24,6 @@
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
 
-#define USB_MAX_POWER_CONSUMPTION 100
-
 // If board has a debug LED, you can enable it by defining this
 // #define DEBUG_LED_PIN F7
 
@@ -34,3 +32,6 @@
 #define ADNS5050_CS_PIN           B4
 
 #define POINTING_DEVICE_ROTATION_270
+
+/* Custom encoder needs to specify just how many encoders we have */
+#define NUM_ENCODERS 1

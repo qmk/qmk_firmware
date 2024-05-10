@@ -15,12 +15,6 @@
  */
 #pragma once
 
-#define MATRIX_ROW_PINS { B15, B14, B12, B1, B0 }
-#define MATRIX_COL_PINS { B13, A7, A6, A5, A4, A3, A2, B7, B6, B5, B4, B3, A15, A14 }
-
-// COL2ROW or ROW2COL
-#define DIODE_DIRECTION COL2ROW
-
 // Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap
 #define LOCKING_SUPPORT_ENABLE
 
@@ -36,20 +30,10 @@
 #define I2C1_DUTY_CYCLE     FAST_DUTY_CYCLE_2
 
 // EEPROM config
-// 24LC32
-#define EXTERNAL_EEPROM_BYTE_COUNT 4096
-#define EXTERNAL_EEPROM_PAGE_SIZE 32
-#define EXTERNAL_EEPROM_ADDRESS_SIZE 2
-#define EXTERNAL_EEPROM_WRITE_TIME 5
-
-// More EEPROM for layers
-#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 4095
+#define EEPROM_I2C_24LC32A
 
 // Hardware Defines
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
 
 // HSE CLK
 #define STM32_HSECLK 16000000
-
-//Force NKRO
-#define FORCE_NKRO

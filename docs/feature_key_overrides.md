@@ -21,7 +21,7 @@ Then, in your `keymap.c` file, you'll need to define the array `key_overrides`, 
 The `key_override_t` struct has many options that allow you to precisely tune your overrides. The full reference is shown below. Instead of manually creating a `key_override_t` value, it is recommended to use these dedicated initializers:
 
 #### `ko_make_basic(modifiers, key, replacement)`
-Returns a `key_override_t`, which sends `replacement` (can be a key-modifer combination), when `key` and `modifiers` are all pressed down. This override still activates if any additional modifiers not specified in `modifiers` are also pressed down. See `ko_make_with_layers_and_negmods` to customize this behavior.
+Returns a `key_override_t`, which sends `replacement` (can be a key-modifier combination), when `key` and `modifiers` are all pressed down. This override still activates if any additional modifiers not specified in `modifiers` are also pressed down. See `ko_make_with_layers_and_negmods` to customize this behavior.
 
 #### `ko_make_with_layers(modifiers, key, replacement, layers)`
 Additionally takes a bitmask `layers` that defines on which layers the override is used.
@@ -224,4 +224,31 @@ The duration of the key repeat delay is controlled with the `KEY_OVERRIDE_REPEAT
 
 ## Difference to Combos :id=difference-to-combos
 
-Note that key overrides are very different from [combos](https://docs.qmk.fm/#/feature_combo). Combos require that you press down several keys almost _at the same time_ and can work with any combination of non-modifier keys. Key overrides work like keyboard shortcuts (e.g. `ctrl` + `z`): They take combinations of _multiple_ modifiers and _one_ non-modifier key to then perform some custom action. Key overrides are implemented with much care to behave just like normal keyboard shortcuts would in regards to the order of pressed keys, timing, and interacton with other pressed keys. There are a number of optional settings that can be used to really fine-tune the behavior of each key override as well. Using key overrides also does not delay key input for regular key presses, which inherently happens in combos and may be undesirable.
+Note that key overrides are very different from [combos](https://docs.qmk.fm/#/feature_combo). Combos require that you press down several keys almost _at the same time_ and can work with any combination of non-modifier keys. Key overrides work like keyboard shortcuts (e.g. `ctrl` + `z`): They take combinations of _multiple_ modifiers and _one_ non-modifier key to then perform some custom action. Key overrides are implemented with much care to behave just like normal keyboard shortcuts would in regards to the order of pressed keys, timing, and interaction with other pressed keys. There are a number of optional settings that can be used to really fine-tune the behavior of each key override as well. Using key overrides also does not delay key input for regular key presses, which inherently happens in combos and may be undesirable.
+
+## Solution to the problem of flashing modifiers :id=neutralize-flashing-modifiers
+
+If the programs you use bind an action to taps of modifier keys (e.g. tapping left GUI to bring up the applications menu or tapping left Alt to focus the menu bar), you may find that using key overrides with suppressed mods falsely triggers those actions. To counteract this, you can define a `DUMMY_MOD_NEUTRALIZER_KEYCODE` in `config.h` that will get sent in between the register and unregister events of a suppressed modifier. That way, the programs on your computer will no longer interpret the mod suppression induced by key overrides as a lone tap of a modifier key and will thus not falsely trigger the undesired action.
+
+Naturally, for this technique to be effective, you must choose a `DUMMY_MOD_NEUTRALIZER_KEYCODE` for which no keyboard shortcuts are bound to. Recommended values are: `KC_RIGHT_CTRL` or `KC_F18`. 
+Please note that `DUMMY_MOD_NEUTRALIZER_KEYCODE` must be a basic, unmodified, HID keycode so values like `KC_NO`, `KC_TRANSPARENT` or `KC_PIPE` aka `S(KC_BACKSLASH)` are not permitted.
+
+By default, only left Alt and left GUI are neutralized. If you want to change the list of applicable modifier masks, use the following in your `config.h`:
+
+```c
+#define MODS_TO_NEUTRALIZE { <mod_mask_1>, <mod_mask_2>, ... }
+```
+
+Examples:
+
+```c
+#define DUMMY_MOD_NEUTRALIZER_KEYCODE KC_RIGHT_CTRL
+
+// Neutralize left alt and left GUI (Default value)
+#define MODS_TO_NEUTRALIZE { MOD_BIT(KC_LEFT_ALT), MOD_BIT(KC_LEFT_GUI) }
+
+// Neutralize left alt, left GUI, right GUI and left Control+Shift
+#define MODS_TO_NEUTRALIZE { MOD_BIT(KC_LEFT_ALT), MOD_BIT(KC_LEFT_GUI), MOD_BIT(KC_RIGHT_GUI), MOD_BIT(KC_LEFT_CTRL)|MOD_BIT(KC_LEFT_SHIFT) }
+```
+
+!> Do not use `MOD_xxx` constants like `MOD_LSFT` or `MOD_RALT`, since they're 5-bit packed bit-arrays while `MODS_TO_NEUTRALIZE` expects a list of 8-bit packed bit-arrays. Use `MOD_BIT(<kc>)` or `MOD_MASK_xxx` instead.

@@ -43,11 +43,17 @@
 #include "usb_device_state.h"
 #include "usb_descriptor.h"
 #include "usb_driver.h"
+#include "usb_types.h"
 
 #ifdef NKRO_ENABLE
 #    include "keycode_config.h"
 
 extern keymap_config_t keymap_config;
+#endif
+
+#if defined(CONSOLE_ENABLE)
+#    define RBUF_SIZE 256
+#    include "ring_buffer.h"
 #endif
 
 /* ---------------------------------------------------------
@@ -71,7 +77,7 @@ static virtual_timer_t keyboard_idle_timer;
 
 static void keyboard_idle_timer_cb(struct ch_virtual_timer *, void *arg);
 
-report_keyboard_t keyboard_report_sent = {{0}};
+report_keyboard_t keyboard_report_sent = {0};
 report_mouse_t    mouse_report_sent    = {0};
 
 union {
@@ -103,30 +109,18 @@ union {
             NULL, /* SETUP buffer (not a SETUP endpoint) */
 #endif
 
-/* HID specific constants */
-#define HID_GET_REPORT 0x01
-#define HID_GET_IDLE 0x02
-#define HID_GET_PROTOCOL 0x03
-#define HID_SET_REPORT 0x09
-#define HID_SET_IDLE 0x0A
-#define HID_SET_PROTOCOL 0x0B
-
-/*
- * Handles the GET_DESCRIPTOR callback
- *
- * Returns the proper descriptor
- */
 static const USBDescriptor *usb_get_descriptor_cb(USBDriver *usbp, uint8_t dtype, uint8_t dindex, uint16_t wIndex) {
-    (void)usbp;
-    static USBDescriptor desc;
-    uint16_t             wValue  = ((uint16_t)dtype << 8) | dindex;
-    uint16_t             wLength = ((uint16_t)usbp->setup[7] << 8) | usbp->setup[6];
-    desc.ud_string               = NULL;
-    desc.ud_size                 = get_usb_descriptor(wValue, wIndex, wLength, (const void **const) & desc.ud_string);
-    if (desc.ud_string == NULL)
+    usb_control_request_t *setup = (usb_control_request_t *)usbp->setup;
+
+    static USBDescriptor descriptor;
+    descriptor.ud_string = NULL;
+    descriptor.ud_size   = get_usb_descriptor(setup->wValue.word, setup->wIndex, setup->wLength, (const void **const) & descriptor.ud_string);
+
+    if (descriptor.ud_string == NULL) {
         return NULL;
-    else
-        return &desc;
+    }
+
+    return &descriptor;
 }
 
 /*
@@ -223,6 +217,24 @@ static const USBEndpointConfig digitizer_ep_config = {
     DIGITIZER_EPSIZE,       /* IN maximum packet size */
     0,                      /* OUT maximum packet size */
     &digitizer_ep_state,    /* IN Endpoint state */
+    NULL,                   /* OUT endpoint state */
+    usb_lld_endpoint_fields /* USB driver specific endpoint fields */
+};
+#endif
+
+#ifdef CONSOLE_ENABLE
+/* Console endpoint state structure */
+static USBInEndpointState console_ep_state;
+
+/* Console endpoint initialization structure (IN) - see USBEndpointConfig comment at top of file */
+static const USBEndpointConfig console_ep_config = {
+    USB_EP_MODE_TYPE_INTR,  /* Interrupt EP */
+    NULL,                   /* SETUP packet notification callback */
+    dummy_usb_cb,           /* IN notification callback */
+    NULL,                   /* OUT notification callback */
+    CONSOLE_EPSIZE,         /* IN maximum packet size */
+    0,                      /* OUT maximum packet size */
+    &console_ep_state,      /* IN Endpoint state */
     NULL,                   /* OUT endpoint state */
     usb_lld_endpoint_fields /* USB driver specific endpoint fields */
 };
@@ -358,9 +370,6 @@ typedef struct {
 typedef struct {
     union {
         struct {
-#ifdef CONSOLE_ENABLE
-            usb_driver_config_t console_driver;
-#endif
 #ifdef RAW_ENABLE
             usb_driver_config_t raw_driver;
 #endif
@@ -376,13 +385,6 @@ typedef struct {
 } usb_driver_configs_t;
 
 static usb_driver_configs_t drivers = {
-#ifdef CONSOLE_ENABLE
-#    define CONSOLE_IN_CAPACITY 4
-#    define CONSOLE_OUT_CAPACITY 4
-#    define CONSOLE_IN_MODE USB_EP_MODE_TYPE_INTR
-#    define CONSOLE_OUT_MODE USB_EP_MODE_TYPE_INTR
-    .console_driver = QMK_USB_DRIVER_CONFIG(CONSOLE, 0, true),
-#endif
 #ifdef RAW_ENABLE
 #    ifndef RAW_IN_CAPACITY
 #        define RAW_IN_CAPACITY 4
@@ -497,8 +499,7 @@ void usb_event_queue_task(void) {
     }
 }
 
-/* Handles the USB driver global events
- * TODO: maybe disable some things when connection is lost? */
+/* Handles the USB driver global events. */
 static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
     switch (event) {
         case USB_EVENT_ADDRESS:
@@ -521,6 +522,9 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
 #endif
 #if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
             usbInitEndpointI(usbp, DIGITIZER_IN_EPNUM, &digitizer_ep_config);
+#endif
+#ifdef CONSOLE_ENABLE
+            usbInitEndpointI(usbp, CONSOLE_IN_EPNUM, &console_ep_config);
 #endif
             for (int i = 0; i < NUM_USB_DRIVERS; i++) {
 #ifdef USB_ENDPOINTS_ARE_REORDERABLE
@@ -570,16 +574,6 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
     }
 }
 
-/* Function used locally in os/hal/src/usb.c for getting descriptors
- * need it here for HID descriptor */
-static uint16_t get_hword(uint8_t *p) {
-    uint16_t hw;
-
-    hw = (uint16_t)*p++;
-    hw |= (uint16_t)*p << 8U;
-    return hw;
-}
-
 /*
  * Appendix G: HID Request Support Requirements
  *
@@ -596,7 +590,9 @@ static uint16_t get_hword(uint8_t *p) {
 static uint8_t set_report_buf[2] __attribute__((aligned(4)));
 
 static void set_led_transfer_cb(USBDriver *usbp) {
-    if (usbp->setup[6] == 2) { /* LSB(wLength) */
+    usb_control_request_t *setup = (usb_control_request_t *)usbp->setup;
+
+    if (setup->wLength == 2) {
         uint8_t report_id = set_report_buf[0];
         if ((report_id == REPORT_ID_KEYBOARD) || (report_id == REPORT_ID_NKRO)) {
             keyboard_led_state = set_report_buf[1];
@@ -606,24 +602,16 @@ static void set_led_transfer_cb(USBDriver *usbp) {
     }
 }
 
-/* Callback for SETUP request on the endpoint 0 (control) */
-static bool usb_request_hook_cb(USBDriver *usbp) {
-    const USBDescriptor *dp;
-
-    /* usbp->setup fields:
-     *  0:   bmRequestType (bitmask)
-     *  1:   bRequest
-     *  2,3: (LSB,MSB) wValue
-     *  4,5: (LSB,MSB) wIndex
-     *  6,7: (LSB,MSB) wLength (number of bytes to transfer if there is a data phase) */
+static bool usb_requests_hook_cb(USBDriver *usbp) {
+    usb_control_request_t *setup = (usb_control_request_t *)usbp->setup;
 
     /* Handle HID class specific requests */
-    if (((usbp->setup[0] & USB_RTYPE_TYPE_MASK) == USB_RTYPE_TYPE_CLASS) && ((usbp->setup[0] & USB_RTYPE_RECIPIENT_MASK) == USB_RTYPE_RECIPIENT_INTERFACE)) {
-        switch (usbp->setup[0] & USB_RTYPE_DIR_MASK) {
+    if ((setup->bmRequestType & (USB_RTYPE_TYPE_MASK | USB_RTYPE_RECIPIENT_MASK)) == (USB_RTYPE_TYPE_CLASS | USB_RTYPE_RECIPIENT_INTERFACE)) {
+        switch (setup->bmRequestType & USB_RTYPE_DIR_MASK) {
             case USB_RTYPE_DIR_DEV2HOST:
-                switch (usbp->setup[1]) { /* bRequest */
-                    case HID_GET_REPORT:
-                        switch (usbp->setup[4]) { /* LSB(wIndex) (check MSB==0?) */
+                switch (setup->bRequest) {
+                    case HID_REQ_GetReport:
+                        switch (setup->wIndex) {
 #ifndef KEYBOARD_SHARED_EP
                             case KEYBOARD_INTERFACE:
                                 usbSetupTransfer(usbp, (uint8_t *)&keyboard_report_sent, KEYBOARD_REPORT_SIZE, NULL);
@@ -639,59 +627,54 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
 #ifdef SHARED_EP_ENABLE
                             case SHARED_INTERFACE:
 #    ifdef KEYBOARD_SHARED_EP
-                                if (usbp->setup[2] == REPORT_ID_KEYBOARD) {
+                                if (setup->wValue.lbyte == REPORT_ID_KEYBOARD) {
                                     usbSetupTransfer(usbp, (uint8_t *)&keyboard_report_sent, KEYBOARD_REPORT_SIZE, NULL);
-                                    return TRUE;
-                                    break;
+                                    return true;
                                 }
 #    endif
 #    ifdef MOUSE_SHARED_EP
-                                if (usbp->setup[2] == REPORT_ID_MOUSE) {
+                                if (setup->wValue.lbyte == REPORT_ID_MOUSE) {
                                     usbSetupTransfer(usbp, (uint8_t *)&mouse_report_sent, sizeof(mouse_report_sent), NULL);
-                                    return TRUE;
-                                    break;
+                                    return true;
                                 }
 #    endif
 #endif /* SHARED_EP_ENABLE */
                             default:
-                                universal_report_blank.report_id = usbp->setup[2];
-                                usbSetupTransfer(usbp, (uint8_t *)&universal_report_blank, usbp->setup[6], NULL);
-                                return TRUE;
-                                break;
+                                universal_report_blank.report_id = setup->wValue.lbyte;
+                                usbSetupTransfer(usbp, (uint8_t *)&universal_report_blank, setup->wLength, NULL);
+                                return true;
                         }
                         break;
 
-                    case HID_GET_PROTOCOL:
-                        if ((usbp->setup[4] == KEYBOARD_INTERFACE) && (usbp->setup[5] == 0)) { /* wIndex */
-                            usbSetupTransfer(usbp, &keyboard_protocol, 1, NULL);
-                            return TRUE;
+                    case HID_REQ_GetProtocol:
+                        if (setup->wIndex == KEYBOARD_INTERFACE) {
+                            usbSetupTransfer(usbp, &keyboard_protocol, sizeof(uint8_t), NULL);
+                            return true;
                         }
                         break;
 
-                    case HID_GET_IDLE:
-                        usbSetupTransfer(usbp, &keyboard_idle, 1, NULL);
-                        return TRUE;
-                        break;
+                    case HID_REQ_GetIdle:
+                        usbSetupTransfer(usbp, &keyboard_idle, sizeof(uint8_t), NULL);
+                        return true;
                 }
                 break;
 
             case USB_RTYPE_DIR_HOST2DEV:
-                switch (usbp->setup[1]) { /* bRequest */
-                    case HID_SET_REPORT:
-                        switch (usbp->setup[4]) { /* LSB(wIndex) (check MSB==0?) */
+                switch (setup->bRequest) {
+                    case HID_REQ_SetReport:
+                        switch (setup->wIndex) {
                             case KEYBOARD_INTERFACE:
 #if defined(SHARED_EP_ENABLE) && !defined(KEYBOARD_SHARED_EP)
                             case SHARED_INTERFACE:
 #endif
                                 usbSetupTransfer(usbp, set_report_buf, sizeof(set_report_buf), set_led_transfer_cb);
-                                return TRUE;
-                                break;
+                                return true;
                         }
                         break;
 
-                    case HID_SET_PROTOCOL:
-                        if ((usbp->setup[4] == KEYBOARD_INTERFACE) && (usbp->setup[5] == 0)) { /* wIndex */
-                            keyboard_protocol = ((usbp->setup[2]) != 0x00);                    /* LSB(wValue) */
+                    case HID_REQ_SetProtocol:
+                        if (setup->wIndex == KEYBOARD_INTERFACE) {
+                            keyboard_protocol = setup->wValue.word;
 #ifdef NKRO_ENABLE
                             if (!keyboard_protocol && keyboard_idle) {
 #else  /* NKRO_ENABLE */
@@ -704,12 +687,11 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
                             }
                         }
                         usbSetupTransfer(usbp, NULL, 0, NULL);
-                        return TRUE;
-                        break;
+                        return true;
 
-                    case HID_SET_IDLE:
-                        keyboard_idle = usbp->setup[3]; /* MSB(wValue) */
-                                                        /* arm the timer */
+                    case HID_REQ_SetIdle:
+                        keyboard_idle = setup->wValue.hbyte;
+                        /* arm the timer */
 #ifdef NKRO_ENABLE
                         if (!keymap_config.nkro && keyboard_idle) {
 #else  /* NKRO_ENABLE */
@@ -720,19 +702,21 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
                             osalSysUnlockFromISR();
                         }
                         usbSetupTransfer(usbp, NULL, 0, NULL);
-                        return TRUE;
-                        break;
+                        return true;
                 }
                 break;
         }
     }
 
-    /* Handle the Get_Descriptor Request for HID class (not handled by the default hook) */
-    if ((usbp->setup[0] == 0x81) && (usbp->setup[1] == USB_REQ_GET_DESCRIPTOR)) {
-        dp = usbp->config->get_descriptor_cb(usbp, usbp->setup[3], usbp->setup[2], get_hword(&usbp->setup[4]));
-        if (dp == NULL) return FALSE;
-        usbSetupTransfer(usbp, (uint8_t *)dp->ud_string, dp->ud_size, NULL);
-        return TRUE;
+    /* Handle the Get_Descriptor Request for HID class, which is not handled by
+     * the ChibiOS USB driver */
+    if (((setup->bmRequestType & (USB_RTYPE_DIR_MASK | USB_RTYPE_RECIPIENT_MASK)) == (USB_RTYPE_DIR_DEV2HOST | USB_RTYPE_RECIPIENT_INTERFACE)) && (setup->bRequest == USB_REQ_GET_DESCRIPTOR)) {
+        const USBDescriptor *descriptor = usbp->config->get_descriptor_cb(usbp, setup->wValue.lbyte, setup->wValue.hbyte, setup->wIndex);
+        if (descriptor == NULL) {
+            return false;
+        }
+        usbSetupTransfer(usbp, (uint8_t *)descriptor->ud_string, descriptor->ud_size, NULL);
+        return true;
     }
 
     for (int i = 0; i < NUM_USB_DRIVERS; i++) {
@@ -742,10 +726,9 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
         }
     }
 
-    return FALSE;
+    return false;
 }
 
-/* Start-of-frame callback */
 static void usb_sof_cb(USBDriver *usbp) {
     osalSysLockFromISR();
     for (int i = 0; i < NUM_USB_DRIVERS; i++) {
@@ -758,7 +741,7 @@ static void usb_sof_cb(USBDriver *usbp) {
 static const USBConfig usbcfg = {
     usb_event_cb,          /* USB events callback */
     usb_get_descriptor_cb, /* Device GET_DESCRIPTOR request callback */
-    usb_request_hook_cb,   /* Requests hook callback */
+    usb_requests_hook_cb,  /* Requests hook callback */
     usb_sof_cb             /* Start Of Frame callback */
 };
 
@@ -883,24 +866,20 @@ void send_report(uint8_t endpoint, void *report, size_t size) {
 /* prepare and start sending a report IN
  * not callable from ISR or locked state */
 void send_keyboard(report_keyboard_t *report) {
-    uint8_t ep   = KEYBOARD_IN_EPNUM;
-    size_t  size = KEYBOARD_REPORT_SIZE;
-
     /* If we're in Boot Protocol, don't send any report ID or other funky fields */
     if (!keyboard_protocol) {
-        send_report(ep, &report->mods, 8);
+        send_report(KEYBOARD_IN_EPNUM, &report->mods, 8);
     } else {
-#ifdef NKRO_ENABLE
-        if (keymap_config.nkro) {
-            ep   = SHARED_IN_EPNUM;
-            size = sizeof(struct nkro_report);
-        }
-#endif
-
-        send_report(ep, report, size);
+        send_report(KEYBOARD_IN_EPNUM, report, KEYBOARD_REPORT_SIZE);
     }
 
     keyboard_report_sent = *report;
+}
+
+void send_nkro(report_nkro_t *report) {
+#ifdef NKRO_ENABLE
+    send_report(SHARED_IN_EPNUM, report, sizeof(report_nkro_t));
+#endif
 }
 
 /* ---------------------------------------------------------
@@ -952,50 +931,35 @@ void send_digitizer(report_digitizer_t *report) {
 #ifdef CONSOLE_ENABLE
 
 int8_t sendchar(uint8_t c) {
-    static bool timed_out = false;
-    /* The `timed_out` state is an approximation of the ideal `is_listener_disconnected?` state.
-     *
-     * When a 5ms timeout write has timed out, hid_listen is most likely not running, or not
-     * listening to this keyboard, so we go into the timed_out state. In this state we assume
-     * that hid_listen is most likely not gonna be connected to us any time soon, so it would
-     * be wasteful to write follow-up characters with a 5ms timeout, it would all add up and
-     * unncecessarily slow down the firmware. However instead of just dropping the characters,
-     * we write them with a TIME_IMMEDIATE timeout, which is a zero timeout,
-     * and this will succeed only if hid_listen gets connected again. When a write with
-     * TIME_IMMEDIATE timeout succeeds, we know that hid_listen is listening to us again, and
-     * we can go back to the timed_out = false state, and following writes will be executed
-     * with a 5ms timeout. The reason we don't just send all characters with the TIME_IMMEDIATE
-     * timeout is that this could cause bytes to be lost even if hid_listen is running, if there
-     * is a lot of data being sent over the console.
-     *
-     * This logic will work correctly as long as hid_listen is able to receive at least 200
-     * bytes per second. On a heavily overloaded machine that's so overloaded that it's
-     * unusable, and constantly swapping, hid_listen might have trouble receiving 200 bytes per
-     * second, so some bytes might be lost on the console.
-     */
-
-    const sysinterval_t timeout = timed_out ? TIME_IMMEDIATE : TIME_MS2I(5);
-    const size_t        result  = chnWriteTimeout(&drivers.console_driver.driver, &c, 1, timeout);
-    timed_out                   = (result == 0);
-    return result;
-}
-
-// Just a dummy function for now, this could be exposed as a weak function
-// Or connected to the actual QMK console
-static void console_receive(uint8_t *data, uint8_t length) {
-    (void)data;
-    (void)length;
+    rbuf_enqueue(c);
+    return 0;
 }
 
 void console_task(void) {
-    uint8_t buffer[CONSOLE_EPSIZE];
-    size_t  size = 0;
-    do {
-        size = chnReadTimeout(&drivers.console_driver.driver, buffer, sizeof(buffer), TIME_IMMEDIATE);
-        if (size > 0) {
-            console_receive(buffer, size);
-        }
-    } while (size > 0);
+    if (!rbuf_has_data()) {
+        return;
+    }
+
+    osalSysLock();
+    if (usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
+        osalSysUnlock();
+        return;
+    }
+
+    if (usbGetTransmitStatusI(&USB_DRIVER, CONSOLE_IN_EPNUM)) {
+        osalSysUnlock();
+        return;
+    }
+
+    // Send in chunks - padded with zeros to 32
+    char    send_buf[CONSOLE_EPSIZE] = {0};
+    uint8_t send_buf_count           = 0;
+    while (rbuf_has_data() && send_buf_count < CONSOLE_EPSIZE) {
+        send_buf[send_buf_count++] = rbuf_dequeue();
+    }
+
+    usbStartTransmitI(&USB_DRIVER, CONSOLE_IN_EPNUM, (const uint8_t *)send_buf, CONSOLE_EPSIZE);
+    osalSysUnlock();
 }
 
 #endif /* CONSOLE_ENABLE */

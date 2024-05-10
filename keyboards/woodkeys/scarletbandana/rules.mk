@@ -9,5 +9,5 @@ COMMAND_ENABLE = no        # Commands for debug and configuration
 NKRO_ENABLE = no            # Enable N-Key Rollover
 AUDIO_ENABLE = yes          # Audio output
 RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
-BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality, also set ISSI_ENABLE below for Miera
+BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 LTO_ENABLE = yes

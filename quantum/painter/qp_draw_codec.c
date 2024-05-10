@@ -1,4 +1,5 @@
 // Copyright 2021 Nick Brassel (@tzarc)
+// Copyright 2023 Pablo Martinez (@elpekenin) <elpekenin@elpekenin.dev>
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "qp_internal.h"
@@ -54,8 +55,8 @@ bool qp_internal_decode_grayscale(painter_device_t device, uint32_t pixel_count,
 }
 
 bool qp_internal_decode_recolor(painter_device_t device, uint32_t pixel_count, uint8_t bits_per_pixel, qp_internal_byte_input_callback input_callback, void* input_arg, qp_pixel_t fg_hsv888, qp_pixel_t bg_hsv888, qp_internal_pixel_output_callback output_callback, void* output_arg) {
-    struct painter_driver_t* driver = (struct painter_driver_t*)device;
-    int16_t                  steps  = 1 << bits_per_pixel; // number of items we need to interpolate
+    painter_driver_t* driver = (painter_driver_t*)device;
+    int16_t           steps  = 1 << bits_per_pixel; // number of items we need to interpolate
     if (qp_internal_interpolate_palette(fg_hsv888, bg_hsv888, steps)) {
         if (!driver->driver_vtable->palette_convert(device, steps, qp_internal_global_pixel_lookup_table)) {
             return false;
@@ -84,13 +85,13 @@ bool qp_internal_send_bytes(painter_device_t device, uint32_t byte_count, qp_int
 // Progressive pull of bytes, push of pixels
 
 static inline int16_t qp_drawimage_byte_uncompressed_decoder(void* cb_arg) {
-    struct qp_internal_byte_input_state* state = (struct qp_internal_byte_input_state*)cb_arg;
-    state->curr                                = qp_stream_get(state->src_stream);
+    qp_internal_byte_input_state_t* state = (qp_internal_byte_input_state_t*)cb_arg;
+    state->curr                           = qp_stream_get(state->src_stream);
     return state->curr;
 }
 
 static inline int16_t qp_drawimage_byte_rle_decoder(void* cb_arg) {
-    struct qp_internal_byte_input_state* state = (struct qp_internal_byte_input_state*)cb_arg;
+    qp_internal_byte_input_state_t* state = (qp_internal_byte_input_state_t*)cb_arg;
 
     // Work out if we're parsing the initial marker byte
     if (state->rle.mode == MARKER_BYTE) {
@@ -126,8 +127,8 @@ static inline int16_t qp_drawimage_byte_rle_decoder(void* cb_arg) {
 }
 
 bool qp_internal_pixel_appender(qp_pixel_t* palette, uint8_t index, void* cb_arg) {
-    struct qp_internal_pixel_output_state* state  = (struct qp_internal_pixel_output_state*)cb_arg;
-    struct painter_driver_t*               driver = (struct painter_driver_t*)state->device;
+    qp_internal_pixel_output_state_t* state  = (qp_internal_pixel_output_state_t*)cb_arg;
+    painter_driver_t*                 driver = (painter_driver_t*)state->device;
 
     if (!driver->driver_vtable->append_pixels(state->device, qp_internal_global_pixdata_buffer, palette, state->pixel_write_pos++, 1, &index)) {
         return false;
@@ -145,8 +146,8 @@ bool qp_internal_pixel_appender(qp_pixel_t* palette, uint8_t index, void* cb_arg
 }
 
 bool qp_internal_byte_appender(uint8_t byteval, void* cb_arg) {
-    struct qp_internal_byte_output_state* state  = (struct qp_internal_byte_output_state*)cb_arg;
-    struct painter_driver_t*              driver = (struct painter_driver_t*)state->device;
+    qp_internal_byte_output_state_t* state  = (qp_internal_byte_output_state_t*)cb_arg;
+    painter_driver_t*                driver = (painter_driver_t*)state->device;
 
     if (!driver->driver_vtable->append_pixdata(state->device, qp_internal_global_pixdata_buffer, state->byte_write_pos++, byteval)) {
         return false;
@@ -154,7 +155,7 @@ bool qp_internal_byte_appender(uint8_t byteval, void* cb_arg) {
 
     // If we've hit the transmit limit, send out the entire buffer and reset the write position
     if (state->byte_write_pos == state->max_bytes) {
-        struct painter_driver_t* driver = (struct painter_driver_t*)state->device;
+        painter_driver_t* driver = (painter_driver_t*)state->device;
         if (!driver->driver_vtable->pixdata(state->device, qp_internal_global_pixdata_buffer, state->byte_write_pos * 8 / driver->native_bits_per_pixel)) {
             return false;
         }
@@ -164,7 +165,46 @@ bool qp_internal_byte_appender(uint8_t byteval, void* cb_arg) {
     return true;
 }
 
-qp_internal_byte_input_callback qp_internal_prepare_input_state(struct qp_internal_byte_input_state* input_state, painter_compression_t compression) {
+// Helper shared between image and font rendering -- uses either (qp_internal_decode_palette + qp_internal_pixel_appender) or (qp_internal_send_bytes) to send data data to the display based on the asset's native-ness
+bool qp_internal_appender(painter_device_t device, uint8_t bpp, uint32_t pixel_count, qp_internal_byte_input_callback input_callback, void* input_state) {
+    painter_driver_t* driver = (painter_driver_t*)device;
+
+    bool ret = false;
+
+    // Non-native pixel format
+    if (bpp <= 8) {
+        // Set up the output state
+        qp_internal_pixel_output_state_t output_state = {.device = device, .pixel_write_pos = 0, .max_pixels = qp_internal_num_pixels_in_buffer(device)};
+
+        // Decode the pixel data and stream to the display
+        ret = qp_internal_decode_palette(device, pixel_count, bpp, input_callback, input_state, qp_internal_global_pixel_lookup_table, qp_internal_pixel_appender, &output_state);
+        // Any leftovers need transmission as well.
+        if (ret && output_state.pixel_write_pos > 0) {
+            ret &= driver->driver_vtable->pixdata(device, qp_internal_global_pixdata_buffer, output_state.pixel_write_pos);
+        }
+    }
+
+    // Native pixel format
+    else if (bpp != driver->native_bits_per_pixel) {
+        qp_dprintf("Asset's bpp (%d) doesn't match the target display's native_bits_per_pixel (%d)\n", bpp, driver->native_bits_per_pixel);
+        return false;
+    } else {
+        // Set up the output state
+        qp_internal_byte_output_state_t output_state = {.device = device, .byte_write_pos = 0, .max_bytes = qp_internal_num_pixels_in_buffer(device) * driver->native_bits_per_pixel / 8};
+
+        // Stream the raw pixel data to the display
+        uint32_t byte_count = pixel_count * bpp / 8;
+        ret                 = qp_internal_send_bytes(device, byte_count, input_callback, input_state, qp_internal_byte_appender, &output_state);
+        // Any leftovers need transmission as well.
+        if (ret && output_state.byte_write_pos > 0) {
+            ret &= driver->driver_vtable->pixdata(device, qp_internal_global_pixdata_buffer, output_state.byte_write_pos * 8 / driver->native_bits_per_pixel);
+        }
+    }
+
+    return ret;
+}
+
+qp_internal_byte_input_callback qp_internal_prepare_input_state(qp_internal_byte_input_state_t* input_state, painter_compression_t compression) {
     switch (compression) {
         case IMAGE_UNCOMPRESSED:
             return qp_drawimage_byte_uncompressed_decoder;

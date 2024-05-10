@@ -16,11 +16,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include <stdint.h>
-#include "quantum.h"
 #include "keyboard.h"
+#include "keycode_config.h"
 #include "matrix.h"
-#include "keymap.h"
-#include "magic.h"
+#include "keymap_introspection.h"
 #include "host.h"
 #include "led.h"
 #include "keycode.h"
@@ -33,6 +32,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "sendchar.h"
 #include "eeconfig.h"
 #include "action_layer.h"
+#ifdef BOOTMAGIC_ENABLE
+#    include "bootmagic.h"
+#endif
+#ifdef AUDIO_ENABLE
+#    include "audio.h"
+#endif
+#if defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
+#    include "process_music.h"
+#endif
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
 #endif
@@ -54,8 +62,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef ENCODER_ENABLE
 #    include "encoder.h"
 #endif
+#ifdef HAPTIC_ENABLE
+#    include "haptic.h"
+#endif
+#ifdef AUTO_SHIFT_ENABLE
+#    include "process_auto_shift.h"
+#endif
+#ifdef COMBO_ENABLE
+#    include "process_combo.h"
+#endif
+#ifdef TAP_DANCE_ENABLE
+#    include "process_tap_dance.h"
+#endif
 #ifdef STENO_ENABLE
 #    include "process_steno.h"
+#endif
+#ifdef KEY_OVERRIDE_ENABLE
+#    include "process_key_override.h"
+#endif
+#ifdef SECURE_ENABLE
+#    include "secure.h"
 #endif
 #ifdef POINTING_DEVICE_ENABLE
 #    include "pointing_device.h"
@@ -64,7 +90,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "process_midi.h"
 #endif
 #ifdef JOYSTICK_ENABLE
-#    include "process_joystick.h"
+#    include "joystick.h"
 #endif
 #ifdef HD44780_ENABLE
 #    include "hd44780.h"
@@ -74,9 +100,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #ifdef ST7565_ENABLE
 #    include "st7565.h"
-#endif
-#ifdef VELOCIKEY_ENABLE
-#    include "velocikey.h"
 #endif
 #ifdef VIA_ENABLE
 #    include "via.h"
@@ -108,13 +131,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef LEADER_ENABLE
 #    include "leader.h"
 #endif
+#ifdef UNICODE_COMMON_ENABLE
+#    include "unicode.h"
+#endif
+#ifdef WPM_ENABLE
+#    include "wpm.h"
+#endif
+#ifdef OS_DETECTION_ENABLE
+#    include "os_detection.h"
+#endif
 
 static uint32_t last_input_modification_time = 0;
 uint32_t        last_input_activity_time(void) {
     return last_input_modification_time;
 }
 uint32_t last_input_activity_elapsed(void) {
-    return timer_elapsed32(last_input_modification_time);
+    return sync_timer_elapsed32(last_input_modification_time);
 }
 
 static uint32_t last_matrix_modification_time = 0;
@@ -122,10 +154,10 @@ uint32_t        last_matrix_activity_time(void) {
     return last_matrix_modification_time;
 }
 uint32_t last_matrix_activity_elapsed(void) {
-    return timer_elapsed32(last_matrix_modification_time);
+    return sync_timer_elapsed32(last_matrix_modification_time);
 }
 void last_matrix_activity_trigger(void) {
-    last_matrix_modification_time = last_input_modification_time = timer_read32();
+    last_matrix_modification_time = last_input_modification_time = sync_timer_read32();
 }
 
 static uint32_t last_encoder_modification_time = 0;
@@ -133,10 +165,28 @@ uint32_t        last_encoder_activity_time(void) {
     return last_encoder_modification_time;
 }
 uint32_t last_encoder_activity_elapsed(void) {
-    return timer_elapsed32(last_encoder_modification_time);
+    return sync_timer_elapsed32(last_encoder_modification_time);
 }
 void last_encoder_activity_trigger(void) {
-    last_encoder_modification_time = last_input_modification_time = timer_read32();
+    last_encoder_modification_time = last_input_modification_time = sync_timer_read32();
+}
+
+static uint32_t last_pointing_device_modification_time = 0;
+uint32_t        last_pointing_device_activity_time(void) {
+    return last_pointing_device_modification_time;
+}
+uint32_t last_pointing_device_activity_elapsed(void) {
+    return sync_timer_elapsed32(last_pointing_device_modification_time);
+}
+void last_pointing_device_activity_trigger(void) {
+    last_pointing_device_modification_time = last_input_modification_time = sync_timer_read32();
+}
+
+void set_activity_timestamps(uint32_t matrix_timestamp, uint32_t encoder_timestamp, uint32_t pointing_device_timestamp) {
+    last_matrix_modification_time          = matrix_timestamp;
+    last_encoder_modification_time         = encoder_timestamp;
+    last_pointing_device_modification_time = pointing_device_timestamp;
+    last_input_modification_time           = MAX(matrix_timestamp, MAX(encoder_timestamp, pointing_device_timestamp));
 }
 
 // Only enable this if console is enabled to print to
@@ -325,31 +375,30 @@ void housekeeping_task(void) {
     housekeeping_task_user();
 }
 
-/** \brief Init tasks previously located in matrix_init_quantum
+/** \brief quantum_init
  *
- * TODO: rationalise against keyboard_init and current split role
+ * Init global state
  */
 void quantum_init(void) {
-    magic();
-    led_init_ports();
-#ifdef BACKLIGHT_ENABLE
-    backlight_init_ports();
+    /* check signature */
+    if (!eeconfig_is_enabled()) {
+        eeconfig_init();
+    }
+
+    /* init globals */
+    debug_config.raw  = eeconfig_read_debug();
+    keymap_config.raw = eeconfig_read_keymap();
+
+#ifdef BOOTMAGIC_ENABLE
+    bootmagic();
 #endif
-#ifdef AUDIO_ENABLE
-    audio_init();
-#endif
-#ifdef LED_MATRIX_ENABLE
-    led_matrix_init();
-#endif
-#ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_init();
-#endif
-#if defined(UNICODE_COMMON_ENABLE)
-    unicode_input_mode_init();
-#endif
-#ifdef HAPTIC_ENABLE
-    haptic_init();
-#endif
+
+    /* read here just incase bootmagic process changed its value */
+    layer_state_t default_layer = (layer_state_t)eeconfig_read_default_layer();
+    default_layer_set(default_layer);
+
+    /* Also initialize layer state to trigger callback functions for layer_state */
+    layer_state_set_kb((layer_state_t)layer_state);
 }
 
 /** \brief keyboard_init
@@ -370,6 +419,22 @@ void keyboard_init(void) {
 #endif
     matrix_init();
     quantum_init();
+    led_init_ports();
+#ifdef BACKLIGHT_ENABLE
+    backlight_init_ports();
+#endif
+#ifdef AUDIO_ENABLE
+    audio_init();
+#endif
+#ifdef LED_MATRIX_ENABLE
+    led_matrix_init();
+#endif
+#ifdef RGB_MATRIX_ENABLE
+    rgb_matrix_init();
+#endif
+#if defined(UNICODE_COMMON_ENABLE)
+    unicode_input_mode_init();
+#endif
 #if defined(CRC_ENABLE)
     crc_init();
 #endif
@@ -398,6 +463,9 @@ void keyboard_init(void) {
 #ifdef DIP_SWITCH_ENABLE
     dip_switch_init();
 #endif
+#ifdef JOYSTICK_ENABLE
+    joystick_init();
+#endif
 #ifdef SLEEP_LED_ENABLE
     sleep_led_init();
 #endif
@@ -413,6 +481,9 @@ void keyboard_init(void) {
 #endif
 #ifdef BLUETOOTH_ENABLE
     bluetooth_init();
+#endif
+#ifdef HAPTIC_ENABLE
+    haptic_init();
 #endif
 
 #if defined(DEBUG_MATRIX_SCAN_RATE) && defined(CONSOLE_ENABLE)
@@ -444,7 +515,7 @@ static inline void generate_tick_event(void) {
     static uint16_t last_tick = 0;
     const uint16_t  now       = timer_read();
     if (TIMER_DIFF_16(now, last_tick) != 0) {
-        action_exec(TICK_EVENT);
+        action_exec(MAKE_TICK_EVENT);
         last_tick = now;
     }
 }
@@ -569,12 +640,8 @@ void quantum_task(void) {
     decay_wpm();
 #endif
 
-#ifdef HAPTIC_ENABLE
-    haptic_task();
-#endif
-
 #ifdef DIP_SWITCH_ENABLE
-    dip_switch_read(false);
+    dip_switch_task();
 #endif
 
 #ifdef AUTO_SHIFT_ENABLE
@@ -592,9 +659,10 @@ void quantum_task(void) {
 
 /** \brief Main task that is repeatedly called as fast as possible. */
 void keyboard_task(void) {
-    const bool matrix_changed = matrix_task();
-    if (matrix_changed) {
+    __attribute__((unused)) bool activity_has_occurred = false;
+    if (matrix_task()) {
         last_matrix_activity_trigger();
+        activity_has_occurred = true;
     }
 
     quantum_task();
@@ -621,9 +689,16 @@ void keyboard_task(void) {
 #endif
 
 #ifdef ENCODER_ENABLE
-    const bool encoders_changed = encoder_read();
-    if (encoders_changed) {
+    if (encoder_task()) {
         last_encoder_activity_trigger();
+        activity_has_occurred = true;
+    }
+#endif
+
+#ifdef POINTING_DEVICE_ENABLE
+    if (pointing_device_task()) {
+        last_pointing_device_activity_trigger();
+        activity_has_occurred = true;
     }
 #endif
 
@@ -631,11 +706,7 @@ void keyboard_task(void) {
     oled_task();
 #    if OLED_TIMEOUT > 0
     // Wake up oled if user is using those fabulous keys or spinning those encoders!
-#        ifdef ENCODER_ENABLE
-    if (matrix_changed || encoders_changed) oled_on();
-#        else
-    if (matrix_changed) oled_on();
-#        endif
+    if (activity_has_occurred) oled_on();
 #    endif
 #endif
 
@@ -643,11 +714,7 @@ void keyboard_task(void) {
     st7565_task();
 #    if ST7565_TIMEOUT > 0
     // Wake up display if user is using those fabulous keys or spinning those encoders!
-#        ifdef ENCODER_ENABLE
-    if (matrix_changed || encoders_changed) st7565_on();
-#        else
-    if (matrix_changed) st7565_on();
-#        endif
+    if (activity_has_occurred) st7565_on();
 #    endif
 #endif
 
@@ -660,18 +727,8 @@ void keyboard_task(void) {
     ps2_mouse_task();
 #endif
 
-#ifdef POINTING_DEVICE_ENABLE
-    pointing_device_task();
-#endif
-
 #ifdef MIDI_ENABLE
     midi_task();
-#endif
-
-#ifdef VELOCIKEY_ENABLE
-    if (velocikey_enabled()) {
-        velocikey_decelerate();
-    }
 #endif
 
 #ifdef JOYSTICK_ENABLE
@@ -682,5 +739,13 @@ void keyboard_task(void) {
     bluetooth_task();
 #endif
 
+#ifdef HAPTIC_ENABLE
+    haptic_task();
+#endif
+
     led_task();
+
+#ifdef OS_DETECTION_ENABLE
+    os_detection_task();
+#endif
 }

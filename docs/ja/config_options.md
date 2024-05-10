@@ -159,9 +159,6 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
   * 詳細は [Permissive Hold](ja/tap_hold.md#permissive-hold) を見てください
 * `#define PERMISSIVE_HOLD_PER_KEY`
   * キーごとの `PERMISSIVE_HOLD` 設定の処理を有効にします
-* `#define IGNORE_MOD_TAP_INTERRUPT`
-  * 両方のキーに `TAPPING_TERM` を適用することで、ホールド時に他のキーに変換するキーを使ってローリングコンボ (zx) をすることができるようにします
-  * 詳細は [Ignore Mod Tap Interrupt](ja/tap_hold.md#ignore-mod-tap-interrupt) を見てください
 * `#define TAPPING_FORCE_HOLD`
   * タップされた直後に、デュアルロールキーを修飾子として使用できるようにします
   * [Tapping Force Hold](ja/tap_hold.md#tapping-force-hold)を見てください
@@ -179,8 +176,6 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
   * ワンショットがタイムアウトするまでの時間
 * `#define ONESHOT_TAP_TOGGLE 2`
   * ワンショットトグルが引き起こされるまでのタップ数
-* `#define COMBO_COUNT 2`
-  * [コンボ](ja/feature_combo.md)機能で使っているコンボの数にこれを設定します。
 * `#define COMBO_TERM 200`
   * コンボキーが検出されるまでの時間。定義されていない場合は、デフォルトは `TAPPING_TERM` です。
 * `#define TAP_CODE_DELAY 100`
@@ -253,7 +248,7 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
   * high/low ピンを使って左右を決定します。low = 右手、high = 左手。`B7` を使っているピンに置き換えます。これはオプションで、`SPLIT_HAND_PIN` が未定義のままである場合、EE_HANDS メソッドまたは標準の Let's Splitが使っている MASTER_LEFT / MASTER_RIGHT 定義をまだ使うことができます。
 
 * `#define SPLIT_HAND_MATRIX_GRID <out_pin>,<in_pin>`
-  * 左右はキーマトリックスのキースイッチが存在しない交点を使って決定されます。通常、この交点が短絡している(ローレベル)のときに左側と見なされます。もし `#define SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT` が定義されている場合は、ローレベルの時に右側と決定されます。
+  * 左右はキーマトリックスのキースイッチが存在しない交点を使って決定されます。通常、この交点が短絡している(ローレベル)のときに右側と見なされます。もし `#define SPLIT_HAND_MATRIX_GRID_LOW_IS_LEFT` が定義されている場合は、ローレベルの時に左側と決定されます。
 
 * `#define EE_HANDS` (`SPLIT_HAND_PIN` と `SPLIT_HAND_MATRIX_GRID` が定義されていない場合のみ動作します)
   * `eeprom-lefthand.eep`/`eeprom-righthand.eep` がそれぞれの半分に書き込まれた後で、EEPROM 内に格納されている左右の設定の値を読み込みます。

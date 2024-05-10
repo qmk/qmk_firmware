@@ -1,5 +1,5 @@
-SRC = matrix.c \
-      i2c_master.c
+SRC = matrix.c
+I2C_DRIVER_REQUIRED = yes
 
 # Build Options
 #   change yes to no to disable

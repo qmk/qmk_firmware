@@ -6,21 +6,50 @@
       "rows": ["B7", "B6", "B5", "B4"],
       "cols": ["D4", "D3", "D2", "D1"]
     },
+    "ws2812": {
+        "pin": "C7"
+    },
+    "rgb_matrix": {
+        "animations": {
+            "breathing": true,
+            "band_sat": true,
+            "band_val": true,
+            "band_spiral_sat": true,
+            "band_spiral_val": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "cycle_out_in": true,
+            "cycle_spiral": true,
+            "hue_breathing": true,
+            "hue_wave": true,
+            "solid_reactive_simple": true,
+            "solid_reactive_wide": true,
+            "typing_heatmap": true,
+            "solid_reactive": true,
+            "splash": true
+        },
+        "center_point": [112, 63],
+        "driver": "ws2812"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"x":1, "y":0},
-                {"x":2, "y":0},
-                {"x":0.5, "y":1},
-                {"x":1.5, "y":1},
-                {"x":2.5, "y":1},
-                {"x":0, "y":2},
-                {"x":1, "y":2},
-                {"x":2, "y":2},
-                {"x":3, "y":2},
-                {"x":0.5, "y":3},
-                {"x":1.5, "y":3},
-                {"x":2.5, "y":3}
+                {"matrix": [0, 0], "x": 1, "y": 0},
+                {"matrix": [0, 1], "x": 2, "y": 0},
+
+                {"matrix": [1, 0], "x": 0.5, "y": 1},
+                {"matrix": [1, 1], "x": 1.5, "y": 1},
+                {"matrix": [1, 2], "x": 2.5, "y": 1},
+
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2},
+                {"matrix": [2, 3], "x": 3, "y": 2},
+
+                {"matrix": [3, 1], "x": 0.5, "y": 3},
+                {"matrix": [3, 2], "x": 1.5, "y": 3},
+                {"matrix": [3, 3], "x": 2.5, "y": 3}
             ]
         }
     },

@@ -1,0 +1,35 @@
+{
+    "keyboard_name": "Ploopy Adept Trackball",
+    "url": "www.ploopy.co",
+    "maintainer": "ploopyco",
+    "manufacturer": "Ploopy Corporation",
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "usb": {
+        "vid": "0x5043",
+        "pid": "0x5C47",
+        "max_power": 100
+    },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "pointing_device": true,
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 1], "label":"Top Left Left", "x":0, "y":0, "h":2},
+                {"matrix": [0, 2], "label":"Top Left", "x":1.25, "y":0, "h":1.25},
+                {"matrix": [0, 3], "label":"Top Right", "x":2.5, "y":0, "h":1.25},
+                {"matrix": [0, 4], "label":"Top Right Right", "x":3.75, "y":0, "h":2},
+                {"matrix": [0, 0], "label":"Bottom Left", "x":0, "y":2.25, "w":1.75, "h":2},
+                {"matrix": [0, 5], "label":"Bottom Right", "x":3, "y":2.25, "w":1.75, "h":2}
+            ]
+        }
+    },
+    "dynamic_keymap": {
+        "layer_count": 8
+    },
+}

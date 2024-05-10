@@ -11,8 +11,7 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 CUSTOM_MATRIX = lite
-OLED_DRIVER = SSD1306
 
 # project specific files
 SRC += matrix.c
-QUANTUM_LIB_SRC += uart.c
+UART_DRIVER_REQUIRED = yes

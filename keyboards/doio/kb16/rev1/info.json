@@ -1,12 +1,15 @@
 {
-    "keyboard_name": "KB16-01",
-    "manufacturer": "DOIO",
-    "url": "",
-    "maintainer": "HorrorTroll",
     "usb": {
-        "vid": "0xD010",
-        "pid": "0x1601",
         "device_version": "0.0.1"
+    },
+    "features": {
+        "grave_esc": false,
+        "space_cadet": false,
+        "magic": false
+    },
+    "matrix_pins": {
+        "cols": ["F5", "F4", "F1", "F0", "B7"],
+        "rows": ["D5", "D4", "D3", "D2"]
     },
     "encoder": {
         "rotary": [
@@ -15,37 +18,9 @@
             {"pin_a": "D7", "pin_b": "D6"}
         ]
     },
+    "ws2812": {
+        "pin": "F6"
+    },
     "processor": "atmega32u4",
-    "bootloader": "atmel-dfu",
-    "layouts": {
-        "LAYOUT": {
-            "layout": [
-                {"label":"1!", "x":0, "y":0},
-                {"label":"2@", "x":1, "y":0},
-                {"label":"3#", "x":2, "y":0},
-                {"label":"4$", "x":3, "y":0},
-
-                {"label":"Encoder 1", "x":4.75, "y":0},
-
-                {"label":"5%", "x":0, "y":1},
-                {"label":"6^", "x":1, "y":1},
-                {"label":"7&", "x":2, "y":1},
-                {"label":"8*", "x":3, "y":1},
-
-                {"label":"Encoder 2", "x":6, "y":0},
-
-                {"label":"9(", "x":0, "y":2},
-                {"label":"0)", "x":1, "y":2},
-                {"label":"\u2191", "x":2, "y":2},
-                {"label":"Enter", "x":3, "y":2},
-
-                {"label":"Encoder 3", "x":5.375, "y":2.5},
-
-                {"label":"Fn", "x":0, "y":3},
-                {"label":"\u2190", "x":1, "y":3},
-                {"label":"\u2193", "x":2, "y":3},
-                {"label":"\u2192", "x":3, "y":3}
-            ]
-        }
-    }
+    "bootloader": "atmel-dfu"
 }

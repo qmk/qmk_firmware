@@ -13,10 +13,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 #pragma once
 
 #define RGBLIGHT_DEFAULT_MODE (RGBLIGHT_EFFECT_RAINBOW_MOOD + 6)
-#define RGBLIGHT_DEFAULT_SPD 15
 
 #define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 2

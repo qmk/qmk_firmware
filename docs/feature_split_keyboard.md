@@ -119,12 +119,12 @@ You can configure the firmware to read key matrix pins on the controller to dete
 
 The first pin is the output pin and the second is the input pin.
 
-Some keyboards have unused intersections in the key matrix. This setting uses one of these unused intersections to determine the handness.
+Some keyboards have unused intersections in the key matrix. This setting uses one of these unused intersections to determine the handedness.
 
-Normally, when a diode is connected to an intersection, it is judged to be left. If you add the following definition, it will be judged to be right.
+Normally, when a diode is connected to an intersection, it is judged to be right. If you add the following definition, it will be judged to be left.
 
 ```c
-#define SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
+#define SPLIT_HAND_MATRIX_GRID_LOW_IS_LEFT
 ```
 
 Note that adding a diode at a previously unused intersection will effectively tell the firmware that there is a key held down at that point. You can instruct qmk to ignore that intersection by defining `MATRIX_MASKED` and then defining a `matrix_row_t matrix_mask[MATRIX_ROWS]` array in your keyboard config. Each bit of a single value (starting form the least-significant bit) is used to tell qmk whether or not to pay attention to key presses at that intersection.
@@ -205,7 +205,7 @@ This sets the pin to be used for serial communication. If you're not using seria
 However, if you are using serial and I<sup>2</sup>C on the board, you will need to set this, and to something other than D0 and D1 (as these are used for I<sup>2</sup>C communication).
 
 ```c
-#define SELECT_SOFT_SERIAL_SPEED {#}`
+#define SELECT_SOFT_SERIAL_SPEED {#}
 ```
 
 If you're having issues with serial communication, you can change this value, as it controls the communication speed for serial.  The default is 1, and the possible values are:
@@ -298,7 +298,13 @@ This enables transmitting the pointing device status to the master side of the s
 #define SPLIT_HAPTIC_ENABLE
 ```
 
-This enables triggering of haptic feedback on the slave side of the split keyboard. For DRV2605L this will send the mode, but for solenoids it is expected that the desired mode is already set up on the slave.
+This enables the triggering of haptic feedback on the slave side of the split keyboard. This will send information to the slave side such as the mode, dwell, and whether buzz is enabled.
+
+```c
+#define SPLIT_ACTIVITY_ENABLE
+```
+
+This synchronizes the activity timestamps between sides of the split keyboard, allowing for activity timeouts to occur.
 
 ### Custom data sync between sides :id=custom-data-sync
 

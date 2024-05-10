@@ -17,14 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-#define MATRIX_ROW_PINS { B11, B10, B2,  B1,  B0, A7, A6,  A5,  A4,  A3,  A2, A0 }
-#define MATRIX_COL_PINS { B12, B13, B14, B15, A8, A9, A10, A13, A14, A15, B3     }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
 #define BACKLIGHT_PWM_DRIVER PWMD2
 #define BACKLIGHT_PWM_CHANNEL 2
-#define BACKLIGHT_PAL_MODE 2
 #define BACKLIGHT_PWM_OUTPUT_FREQUENCY 1000 // Increases backlight PWM freq if compiled with an unmerged PR. Does no harm without it.

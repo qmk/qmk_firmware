@@ -16,19 +16,8 @@
 
 #pragma once
 
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS     { B2, B3, B1, D4, B4, D1, E6, B0, F0, F1, F4, F5 }
-#define MATRIX_COL_PINS     { D0, D2, D3, D5, B5, D7, F6, F7, C7, B6 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION     COL2ROW
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* Reducing layer count to 3 for via support */
-#define DYNAMIC_KEYMAP_LAYER_COUNT  3

@@ -1,13 +1,10 @@
-#include <stdint.h>
-#include <stdbool.h>
+#include "matrix.h"
 #include <string.h>
-#include <hal.h>
 #include "timer.h"
 #include "wait.h"
-#include "print.h"
-#include "matrix.h"
+#include "debug.h"
 #include "i2c_master.h"
-#include QMK_KEYBOARD_H
+#include "ergodox_stm32.h"
 
 #ifndef DEBOUNCE
 #define DEBOUNCE 10
@@ -137,7 +134,7 @@ static matrix_row_t read_cols(uint8_t row) {
     uint8_t data = 0xFF;
     if (!mcp23017_status) {
       uint8_t regAddr = I2C_GPIOB;
-      mcp23017_status = i2c_readReg(I2C_ADDR, regAddr, &data, 1, 10);
+      mcp23017_status = i2c_read_register(I2C_ADDR, regAddr, &data, 1, 10);
     }
     if (mcp23017_status) {
       return 0;
@@ -177,7 +174,7 @@ static void select_row(uint8_t row) {
   if (row < MATRIX_ROWS_PER_SIDE) {
     if (!mcp23017_status) {
       uint8_t data = (0xFF & ~(1 << row));
-      mcp23017_status = i2c_writeReg(I2C_ADDR, I2C_GPIOA, &data, 1, 10);
+      mcp23017_status = i2c_write_register(I2C_ADDR, I2C_GPIOA, &data, 1, 10);
     }
   } else {
     GPIOB->BRR = 0x1 << (row+1);

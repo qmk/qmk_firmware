@@ -23,8 +23,6 @@
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
 
-#define USB_MAX_POWER_CONSUMPTION 100
-
 #define ROTATIONAL_TRANSFORM_ANGLE 20
 
 // If board has a debug LED, you can enable it by defining this
@@ -33,3 +31,6 @@
 /* PMW33XX Settings */
 #define PMW33XX_CS_PIN             B0
 #define POINTING_DEVICE_INVERT_Y
+
+/* Custom encoder needs to specify just how many encoders we have */
+#define NUM_ENCODERS 1

@@ -15,10 +15,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "whitefox.h"
+#include "quantum.h"
 
 #ifdef LED_MATRIX_ENABLE
-const is31_led PROGMEM g_is31_leds[LED_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 // The numbers in the comments are the led numbers DXX on the PCB
 /* Refer to IS31 manual for these locations
  *  driver
@@ -65,15 +65,6 @@ led_config_t g_led_config = {
 };
 #endif
 
-void keyboard_pre_init_kb(void) {
-#ifdef LED_MATRIX_ENABLE
-    // Turn on LED controller
-    setPinOutput(B16);
-    writePinHigh(B16);
-#endif
-    keyboard_pre_init_user();
-}
-
 void matrix_init_kb(void) {
     // put your keyboard start-up code here
     // runs once when the firmware starts up
@@ -83,9 +74,6 @@ void matrix_init_kb(void) {
      * Since K20x is stuck with a 32 byte EEPROM (see tmk_core/common/chibios/eeprom_teensy.c),
      * and neither led_matrix_eeconfig.speed or .flags fit in this boundary, just force their values to default on boot.
      */
-#    if !defined(LED_MATRIX_DEFAULT_SPD)
-#        define LED_MATRIX_DEFAULT_SPD UINT8_MAX / 2
-#    endif
     led_matrix_set_speed(LED_MATRIX_DEFAULT_SPD),
     led_matrix_set_flags(LED_FLAG_ALL);
 #endif

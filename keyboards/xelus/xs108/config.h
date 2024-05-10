@@ -16,11 +16,6 @@
 
 #pragma once
 
-#define MATRIX_ROW_PINS { C14, C13, A10, A3, A1, A0 }
-#define MATRIX_COL_PINS { A9, A8, B15, B14, B13, B12, B11, B10, B2, B1, B0, A7, A6, A5, A4, B6, B5, B4, B3, A15, A14 }
-
-#define DIODE_DIRECTION COL2ROW
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
@@ -39,6 +34,3 @@
 
 // I2C EEPROM
 #define EEPROM_I2C_24LC64
-
-// More EEPROM for layers
-#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 8191

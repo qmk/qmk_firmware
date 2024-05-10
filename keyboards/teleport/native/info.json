@@ -5,10 +5,32 @@
     "url": "https://nvil.gg",
     "bootloader": "stm32-dfu",
     "processor": "STM32F411",
-    "board": "GENERIC_STM32_F411XE",
     "usb": {
         "vid": "0x7470",
-        "device_version": "1.0.0"
+        "device_version": "1.0.0",
+        "force_nkro": true
+    },
+    "rgb_matrix": {
+        "animations": {
+            "alphas_mods": true,
+            "breathing": true,
+            "cycle_all": true,
+            "cycle_up_down": true,
+            "cycle_spiral": true,
+            "typing_heatmap": true,
+            "solid_reactive": true,
+            "solid_reactive_multiwide": true
+        },
+        "default": {
+            "speed": 40,
+            "val": 220
+        },
+        "driver": "is31fl3733",
+        "led_flush_limit": 32,
+        "sleep": true
+    },
+    "build": {
+        "lto": true
     },
     "features": {
         "bootmagic": true,
@@ -20,8 +42,7 @@
     },
     "diode_direction": "ROW2COL",
     "matrix_pins": {
-        "cols": [ "A5", "A4", "B12", "B14", "B8", "B3", "B4", "B5" ],
-        "rows": [ "C14", "C15", "C13", "A1", "A15", "A14", "A13", "B13", "B15", "A8", "A2", "A3" ]
+        "cols": ["A5", "A4", "B12", "B14", "B8", "B3", "B4", "B5"],
+        "rows": ["C14", "C15", "C13", "A1", "A15", "A14", "A13", "B13", "B15", "A8", "A2", "A3"]
     }
 }
-

@@ -22,27 +22,12 @@ EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = no            # Enable N-Key Rollover
-BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
-RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
-AUDIO_ENABLE = no           # Audio output
-
-# Wear-levelling driver
-EEPROM_DRIVER = wear_leveling
-WEAR_LEVELING_DRIVER = spi_flash
 
 # Custom RGB matrix handling
 RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = custom
 
 # Keys
 CUSTOM_MATRIX = lite
-KEY_LOCK_ENABLE = no
-
-# Other features
-RAW_ENABLE = no
-MIDI_ENABLE = no
-VIRTSER_ENABLE = no
-COMBO_ENABLE = no
 
 # Anne Pro 2
 SRC = \
@@ -51,4 +36,3 @@ SRC = \
 	ap2_led.c \
 	protocol.c \
 	rgb_driver.c \
-	config_led.c

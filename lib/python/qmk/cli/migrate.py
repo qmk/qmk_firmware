@@ -47,9 +47,12 @@ def migrate(cli):
     files = _candidate_files(cli.args.keyboard)
 
     # Filter down keys if requested
-    keys = info_map.keys()
+    keys = list(filter(lambda key: info_map[key].get("to_json", True), info_map.keys()))
     if cli.args.filter:
         keys = list(set(keys) & set(cli.args.filter))
+        rejected = set(cli.args.filter) - set(keys)
+        for key in rejected:
+            cli.log.info(f'{{fg_yellow}}Skipping {key} as migration not possible...')
 
     cli.log.info(f'{{fg_green}}Migrating keyboard {{fg_cyan}}{cli.args.keyboard}{{fg_green}}.{{fg_reset}}')
 
@@ -75,7 +78,7 @@ def migrate(cli):
 
     # Finally write out updated info.json
     cli.log.info(f'  Updating {target_info}')
-    target_info.write_text(json.dumps(info_data.to_dict(), cls=InfoJSONEncoder))
+    target_info.write_text(json.dumps(info_data.to_dict(), cls=InfoJSONEncoder, sort_keys=True))
 
     cli.log.info(f'{{fg_green}}Migration of keyboard {{fg_cyan}}{cli.args.keyboard}{{fg_green}} complete!{{fg_reset}}')
     cli.log.info(f"Verify build with {{fg_yellow}}qmk compile -kb {cli.args.keyboard} -km default{{fg_reset}}.")

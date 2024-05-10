@@ -7,7 +7,7 @@ from dotty_dict import dotty
 
 from milc import cli
 
-from qmk.constants import CHIBIOS_PROCESSORS, LUFA_PROCESSORS, VUSB_PROCESSORS
+from qmk.constants import COL_LETTERS, ROW_LETTERS, CHIBIOS_PROCESSORS, LUFA_PROCESSORS, VUSB_PROCESSORS
 from qmk.c_parse import find_layouts, parse_config_h_file, find_led_config
 from qmk.json_schema import deep_update, json_load, validate
 from qmk.keyboard import config_h, rules_mk
@@ -50,18 +50,39 @@ def _valid_community_layout(layout):
     return (Path('layouts/default') / layout).exists()
 
 
-def _validate(keyboard, info_data):
-    """Perform various validation on the provided info.json data
+def _get_key_left_position(key):
+    # Special case for ISO enter
+    return key['x'] - 0.25 if key.get('h', 1) == 2 and key.get('w', 1) == 1.25 else key['x']
+
+
+def _find_invalid_encoder_index(info_data):
+    """Perform additional validation of encoders
     """
-    # First validate against the jsonschema
-    try:
-        validate(info_data, 'qmk.api.keyboard.v1')
+    enc_count = len(info_data.get('encoder', {}).get('rotary', []))
+    enc_count += len(info_data.get('split', {}).get('encoder', {}).get('right', {}).get('rotary', []))
 
-    except jsonschema.ValidationError as e:
-        json_path = '.'.join([str(p) for p in e.absolute_path])
-        cli.log.error('Invalid API data: %s: %s: %s', keyboard, json_path, e.message)
-        exit(1)
+    ret = []
+    layouts = info_data.get('layouts', {})
+    for layout_name, layout_data in layouts.items():
+        found = set()
+        for key in layout_data['layout']:
+            if 'encoder' in key:
+                if enc_count == 0:
+                    ret.append((layout_name, key['encoder'], 'non-configured'))
+                elif key['encoder'] >= enc_count:
+                    ret.append((layout_name, key['encoder'], 'out of bounds'))
+                elif key['encoder'] in found:
+                    ret.append((layout_name, key['encoder'], 'duplicate'))
+                found.add(key['encoder'])
 
+    return ret
+
+
+def _validate_layouts(keyboard, info_data):  # noqa C901
+    """Non schema checks
+    """
+    col_num = info_data.get('matrix_size', {}).get('cols', 0)
+    row_num = info_data.get('matrix_size', {}).get('rows', 0)
     layouts = info_data.get('layouts', {})
     layout_aliases = info_data.get('layout_aliases', {})
     community_layouts = info_data.get('community_layouts', [])
@@ -71,9 +92,24 @@ def _validate(keyboard, info_data):
     if len(layouts) == 0 or all(not layout.get('json_layout', False) for layout in layouts.values()):
         _log_error(info_data, 'No LAYOUTs defined! Need at least one layout defined in info.json.')
 
+    # Make sure all layouts are DD
+    for layout_name, layout_data in layouts.items():
+        if layout_data.get('c_macro', False):
+            _log_error(info_data, f'{layout_name}: Layout macro should not be defined within ".h" files.')
+
+    # Make sure all matrix values are in bounds
+    for layout_name, layout_data in layouts.items():
+        for index, key_data in enumerate(layout_data['layout']):
+            row, col = key_data['matrix']
+            key_name = key_data.get('label', f'k{ROW_LETTERS[row]}{COL_LETTERS[col]}')
+            if row >= row_num:
+                _log_error(info_data, f'{layout_name}: Matrix row for key {index} ({key_name}) is {row} but must be less than {row_num}')
+            if col >= col_num:
+                _log_error(info_data, f'{layout_name}: Matrix column for key {index} ({key_name}) is {col} but must be less than {col_num}')
+
     # Warn if physical positions are offset (at least one key should be at x=0, and at least one key at y=0)
     for layout_name, layout_data in layouts.items():
-        offset_x = min([k['x'] for k in layout_data['layout']])
+        offset_x = min([_get_key_left_position(k) for k in layout_data['layout']])
         if offset_x > 0:
             _log_warning(info_data, f'Layout "{layout_name}" is offset on X axis by {offset_x}')
 
@@ -102,6 +138,43 @@ def _validate(keyboard, info_data):
     for layout_name in community_layouts_names:
         if layout_name not in layouts and layout_name not in layout_aliases:
             _log_error(info_data, 'Claims to support community layout %s but no %s() macro found' % (layout, layout_name))
+
+
+def _validate_keycodes(keyboard, info_data):
+    """Non schema checks
+    """
+    # keycodes with length > 7 must have short forms for visualisation purposes
+    for decl in info_data.get('keycodes', []):
+        if len(decl["key"]) > 7:
+            if not decl.get("aliases", []):
+                _log_error(info_data, f'Keycode {decl["key"]} has no short form alias')
+
+
+def _validate_encoders(keyboard, info_data):
+    """Non schema checks
+    """
+    # encoder IDs in layouts must be in range and not duplicated
+    found = _find_invalid_encoder_index(info_data)
+    for layout_name, encoder_index, reason in found:
+        _log_error(info_data, f'Layout "{layout_name}" contains {reason} encoder index {encoder_index}.')
+
+
+def _validate(keyboard, info_data):
+    """Perform various validation on the provided info.json data
+    """
+    # First validate against the jsonschema
+    try:
+        validate(info_data, 'qmk.api.keyboard.v1')
+
+        # Additional validation
+        _validate_layouts(keyboard, info_data)
+        _validate_keycodes(keyboard, info_data)
+        _validate_encoders(keyboard, info_data)
+
+    except jsonschema.ValidationError as e:
+        json_path = '.'.join([str(p) for p in e.absolute_path])
+        cli.log.error('Invalid API data: %s: %s: %s', keyboard, json_path, e.message)
+        exit(1)
 
 
 def info_json(keyboard):
@@ -164,6 +237,9 @@ def _extract_features(info_data, rules):
         if key.endswith('_ENABLE'):
             key = '_'.join(key.split('_')[:-1]).lower()
             value = True if value.lower() in true_values else False if value.lower() in false_values else value
+
+            if key in ['lto']:
+                continue
 
             if 'config_h_features' not in info_data:
                 info_data['config_h_features'] = {}
@@ -335,55 +411,12 @@ def _extract_secure_unlock(info_data, config_c):
         info_data['secure']['unlock_sequence'] = unlock_array
 
 
-def _extract_split_main(info_data, config_c):
-    """Populate data about the split configuration
-    """
-    # Figure out how the main half is determined
-    if config_c.get('SPLIT_HAND_PIN') is True:
-        if 'split' not in info_data:
-            info_data['split'] = {}
-
-        if 'main' in info_data['split']:
-            _log_warning(info_data, 'Split main hand is specified in both config.h (SPLIT_HAND_PIN) and info.json (split.main) (Value: %s), the config.h value wins.' % info_data['split']['main'])
-
-        info_data['split']['main'] = 'pin'
-
-    if config_c.get('SPLIT_HAND_MATRIX_GRID'):
-        if 'split' not in info_data:
-            info_data['split'] = {}
-
-        if 'main' in info_data['split']:
-            _log_warning(info_data, 'Split main hand is specified in both config.h (SPLIT_HAND_MATRIX_GRID) and info.json (split.main) (Value: %s), the config.h value wins.' % info_data['split']['main'])
-
-        info_data['split']['main'] = 'matrix_grid'
-        info_data['split']['matrix_grid'] = _extract_pins(config_c['SPLIT_HAND_MATRIX_GRID'])
-
-    if config_c.get('EE_HANDS') is True:
-        if 'split' not in info_data:
-            info_data['split'] = {}
-
-        if 'main' in info_data['split']:
-            _log_warning(info_data, 'Split main hand is specified in both config.h (EE_HANDS) and info.json (split.main) (Value: %s), the config.h value wins.' % info_data['split']['main'])
-
-        info_data['split']['main'] = 'eeprom'
-
-    if config_c.get('MASTER_RIGHT') is True:
-        if 'split' not in info_data:
-            info_data['split'] = {}
-
-        if 'main' in info_data['split']:
-            _log_warning(info_data, 'Split main hand is specified in both config.h (MASTER_RIGHT) and info.json (split.main) (Value: %s), the config.h value wins.' % info_data['split']['main'])
-
-        info_data['split']['main'] = 'right'
-
-    if config_c.get('MASTER_LEFT') is True:
-        if 'split' not in info_data:
-            info_data['split'] = {}
-
-        if 'main' in info_data['split']:
-            _log_warning(info_data, 'Split main hand is specified in both config.h (MASTER_LEFT) and info.json (split.main) (Value: %s), the config.h value wins.' % info_data['split']['main'])
-
-        info_data['split']['main'] = 'left'
+def _extract_split_handedness(info_data, config_c):
+    # Migrate
+    split = info_data.get('split', {})
+    if 'matrix_grid' in split:
+        split['handedness'] = split.get('handedness', {})
+        split['handedness']['matrix_grid'] = split.pop('matrix_grid')
 
 
 def _extract_split_transport(info_data, config_c):
@@ -410,6 +443,15 @@ def _extract_split_transport(info_data, config_c):
 
         if 'protocol' not in info_data['split']['transport']:
             info_data['split']['transport']['protocol'] = 'serial'
+
+    # Migrate
+    transport = info_data.get('split', {}).get('transport', {})
+    if 'sync_matrix_state' in transport:
+        transport['sync'] = transport.get('sync', {})
+        transport['sync']['matrix_state'] = transport.pop('sync_matrix_state')
+    if 'sync_modifiers' in transport:
+        transport['sync'] = transport.get('sync', {})
+        transport['sync']['modifiers'] = transport.pop('sync_modifiers')
 
 
 def _extract_split_right_pins(info_data, config_c):
@@ -490,6 +532,9 @@ def _config_to_json(key_type, config_value):
     """Convert config value using spec
     """
     if key_type.startswith('array'):
+        if key_type.count('.') > 1:
+            raise Exception(f"Conversion of {key_type} not possible")
+
         if '.' in key_type:
             key_type, array_type = key_type.split('.', 1)
         else:
@@ -502,7 +547,9 @@ def _config_to_json(key_type, config_value):
         else:
             return list(map(str.strip, config_value.split(',')))
 
-    elif key_type == 'bool':
+    elif key_type in ['bool', 'flag']:
+        if isinstance(config_value, bool):
+            return config_value
         return config_value in true_values
 
     elif key_type == 'hex':
@@ -566,7 +613,7 @@ def _extract_config_h(info_data, config_c):
     _extract_matrix_info(info_data, config_c)
     _extract_audio(info_data, config_c)
     _extract_secure_unlock(info_data, config_c)
-    _extract_split_main(info_data, config_c)
+    _extract_split_handedness(info_data, config_c)
     _extract_split_transport(info_data, config_c)
     _extract_split_right_pins(info_data, config_c)
     _extract_encoders(info_data, config_c)
@@ -670,24 +717,23 @@ def _extract_led_config(info_data, keyboard):
     cols = info_data['matrix_size']['cols']
     rows = info_data['matrix_size']['rows']
 
-    # Determine what feature owns g_led_config
-    features = info_data.get("features", {})
-    feature = None
-    if features.get("rgb_matrix", False):
-        feature = "rgb_matrix"
-    elif features.get("led_matrix", False):
-        feature = "led_matrix"
+    for feature in ['rgb_matrix', 'led_matrix']:
+        if info_data.get('features', {}).get(feature, False) or feature in info_data:
 
-    if feature:
-        # Process
-        for file in find_keyboard_c(keyboard):
-            try:
-                ret = find_led_config(file, cols, rows)
-                if ret:
-                    info_data[feature] = info_data.get(feature, {})
-                    info_data[feature]["layout"] = ret
-            except Exception as e:
-                _log_warning(info_data, f'led_config: {file.name}: {e}')
+            # Only attempt search if dd led config is missing
+            if 'layout' not in info_data.get(feature, {}):
+                # Process
+                for file in find_keyboard_c(keyboard):
+                    try:
+                        ret = find_led_config(file, cols, rows)
+                        if ret:
+                            info_data[feature] = info_data.get(feature, {})
+                            info_data[feature]['layout'] = ret
+                    except Exception as e:
+                        _log_warning(info_data, f'led_config: {file.name}: {e}')
+
+            if info_data[feature].get('layout', None) and not info_data[feature].get('led_count', None):
+                info_data[feature]['led_count'] = len(info_data[feature]['layout'])
 
     return info_data
 
@@ -727,6 +773,9 @@ def _check_matrix(info_data):
         elif 'cols' in info_data['matrix_pins'] and 'rows' in info_data['matrix_pins']:
             col_count = len(info_data['matrix_pins']['cols'])
             row_count = len(info_data['matrix_pins']['rows'])
+        elif 'cols' not in info_data['matrix_pins'] and 'rows' not in info_data['matrix_pins']:
+            # This case caters for custom matrix implementations where normal rows/cols are specified
+            return
 
         if col_count != actual_col_count and col_count != (actual_col_count / 2):
             # FIXME: once we can we should detect if split is enabled to do the actual_col_count/2 check.

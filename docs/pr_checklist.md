@@ -9,9 +9,9 @@ If there are any inconsistencies with these recommendations, you're best off [cr
 - PR should be submitted using a non-`master` branch on the source repository
     - this does not mean you target a different branch for your PR, rather that you're not working out of your own master branch
     - if submitter _does_ use their own `master` branch, they'll be given a link to the ["how to git"](newbs_git_using_your_master_branch.md) page after merging -- (end of this document will contain the contents of the message)
+    - Note, frequently merging upstream with your branch is not needed and is discouraged. Valid reason for updating your branch may be resolving merge conflicts and pulling in new changes relevant to your PR.
 - PRs should contain the smallest amount of modifications required for a single change to the codebase
     - multiple keyboards at the same time is not acceptable
-        - exception: keymaps for a single user targeting multiple keyboards and/or userspace is acceptable
     - **the smaller the PR, the higher likelihood of a quicker review, higher likelihood of quicker merge, and less chance of conflicts**
 - newly-added directories and filenames must be lowercase
     - the lowercase requirement may be relaxed if upstream sources originally had uppercase characters (e.g. LUFA, ChibiOS, or imported files from other repositories etc.)
@@ -40,11 +40,14 @@ If there are any inconsistencies with these recommendations, you're best off [cr
 
 ## Keymap PRs
 
+!> Note that personal keymap submissions will no longer be accepted. This section applies to manufacturer-supported keymaps. Please see this [issue](https://github.com/qmk/qmk_firmware/issues/22724) for more information.
+
+- PRs for vendor specific keymaps will be permitted. The naming convention for these should be `default_${vendor}`, `via_${vendor}` i.e. `via_clueboard`.
+    - vendor specific keymaps do not necessarily need to be "vanilla" and can be more richly featured than `default` or `via` stock keymaps.
 - `#include QMK_KEYBOARD_H` preferred to including specific board files
-- prefer layer `enum`s to `#define`s
-- require custom keycode `enum`s to `#define`s, first entry must have ` = SAFE_RANGE`
-- terminating backslash (`\`) in lines of LAYOUT macro parameters is superfluous and should be removed
-- some care with spacing (e.g., alignment on commas or first char of keycodes) makes for a much nicer-looking keymap
+- prefer layer enums to #defines
+- custom keycode enums must have first entry = `QK_USER`
+- some care with spacing (e.g., alignment on commas or first char of keycodes) makes for a much nicer-looking keymap. Spaces are preferred to tabs
 
 ## Keyboard PRs
 
@@ -62,7 +65,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
         - valid maintainer
         - valid USB VID/PID and device version
         - displays correctly in Configurator (press Ctrl+Shift+I to preview local file, turn on fast input to verify ordering)
-        - `layout` definitions should include matrix positions, so that `LAYOUT` macros can be generated at build time
+        - `layout` definitions must include matrix positions, so that `LAYOUT` macros can be generated at build time
             - should use standard definitions if applicable
             - use the Community Layout macro names where they apply (preferred above `LAYOUT`/`LAYOUT_all`)
             - If the keyboard only has a single electrical/switch layout:
@@ -79,6 +82,9 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
       - Encoder Configuration
       - Bootmagic Configuration
       - LED Indicator Configuration
+      - RGB Light Configuration
+      - RGB Matrix Configuration
+    - Run `qmk format-json` on this file before submitting your PR. Be sure to append the `-i` flag to directly modify the file, or paste the outputted code into the file. 
 - `readme.md`
     - must follow the [template](https://github.com/qmk/qmk_firmware/blob/master/data/templates/keyboard/readme.md)
     - flash command is present, and has `:flash` at end
@@ -87,8 +93,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - a picture about the keyboard and preferably about the PCB, too
         - images are not to be placed in the `qmk_firmware` repository
         - images should be uploaded to an external image hosting service, such as [imgur](https://imgur.com/).
-        - if imgur is used, images should be resized appropriately: append "h" to the image url i.e. [https://i.imgur.com/vqgE7Ok.jpg](https://i.imgur.com/vqgE7Ok.jpg) becomes [https://i.imgur.com/vqgE7Ok**h**.jpg](https://i.imgur.com/vqgE7Okh.jpg)
-        - image links should link directly to the image, not a "preview" -- i.e. [https://imgur.com/vqgE7Ok](https://imgur.com/vqgE7Ok) should be [https://i.imgur.com/vqgE7Okh.jpg](https://i.imgur.com/vqgE7Okh.jpg) when using imgur
+        - image links should link directly to the image, not a "preview" -- i.e. [https://imgur.com/vqgE7Ok](https://imgur.com/vqgE7Ok) should be [https://i.imgur.com/vqgE7Ok.jpg](https://i.imgur.com/vqgE7Ok.jpg) when using imgur
 - `rules.mk`
     - removed `MIDI_ENABLE`, `FAUXCLICKY_ENABLE` and `HD44780_ENABLE`
     - modified `# Enable Bluetooth with the Adafruit EZ-Key HID` -> `# Enable Bluetooth`
@@ -101,7 +106,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
 - keyboard `config.h`
     - no `#define DESCRIPTION`
     - no Magic Key Options, MIDI Options or HD44780 configuration
-    - user preference configurable `#define`s need to be moved to keymap `config.h`
+    - user preference configurable `#define`s should not be placed at the keyboard level
     - default values should not be redefined, such as `DEBOUNCE`, RGB related settings, etc.
       - feature specific documentation contains most default values
       - `grep` or alternative tool can be used to search for default values in core directories (e.g. `grep -r "define DEBOUNCE" quantum`)
@@ -115,8 +120,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
         - mirroring existing functionality of a commercial board (like custom keycodes and special animations etc.) should be handled through non-`default` keymaps
     - Vial-related files or changes will not be accepted, as they are not used by QMK firmware (no Vial-specific core code has been submitted or merged)
 - `<keyboard>.c`
-    - empty `xxxx_xxxx_kb()` or other weak-defined default implemented functions removed
-    - empty `xxxx_xxxx_user()` or other user-level functions are disallowed at the keyboard level and must be moved to keymaps
+    - empty `xxxx_xxxx_kb()`, `xxxx_xxxx_user()`, or other weak-defined default implemented functions removed
     - commented-out functions removed too
     - `matrix_init_board()` etc. migrated to `keyboard_pre_init_kb()`, see: [keyboard_pre_init*](custom_quantum_functions.md?id=keyboard_pre_init_-function-documentation)
     - prefer `CUSTOM_MATRIX = lite` if custom matrix used, allows for standard debounce, see [custom matrix 'lite'](custom_matrix.md?id=lite)
@@ -124,7 +128,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - hardware that's enabled at the keyboard level and requires configuration such as OLED displays or encoders should have basic functionality implemented here
 - `<keyboard>.h`
     - `#include "quantum.h"` appears at the top
-    - `LAYOUT` macros should be moved to `info.json`
+    - `LAYOUT` macros are no longer accepted and should instead be moved to `info.json`
 - keymap `config.h`
     - no duplication of `rules.mk` or `config.h` from keyboard
 - `keymaps/default/keymap.c`
@@ -132,16 +136,24 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - if using `MO(1)` and `MO(2)` keycodes together to access a third layer, the [Tri Layer](https://docs.qmk.fm/#/feature_tri_layer) feature should be used, rather than manually implementing this using `layer_on/off()` and `update_tri_layer()` functions in the keymap's `process_record_user()`.
 - default (and via) keymaps should be "pristine"
     - bare minimum to be used as a "clean slate" for another user to develop their own user-specific keymap
+    - what does pristine mean? no custom keycodes. no advanced features like tap dance or macros. basic mod taps and home row mods would be acceptable where their use is necessary
     - standard layouts preferred in these keymaps, if possible
     - should use [encoder map feature](https://docs.qmk.fm/#/feature_encoders?id=encoder-map), rather than `encoder_update_user()`
     - default keymap should not enable VIA -- the VIA integration documentation requires a keymap called `via`
-- submitters can have a personal (or bells-and-whistles) keymap showcasing capabilities in the same PR but it shouldn't be embedded in the 'default' keymap
+- submitters can add an example (or bells-and-whistles) keymap showcasing capabilities in the same PR but it shouldn't be embedded in the 'default' keymap
 - submitters can also have a "manufacturer-matching" keymap that mirrors existing functionality of the commercial product, if porting an existing board
 - Do not include VIA json files in the PR. These do not belong in the QMK repository as they are not used by QMK firmware -- they belong in the [VIA Keyboard Repo](https://github.com/the-via/keyboards)
 - Do not include KLE json files in the PR. These have no use within QMK.
 - Do not include source files from another keyboard or vendors keyboard folder. Including core files is fine.
   - For instance, only `wilba_tech` boards shall include `keyboards/wilba_tech/wt_main.c` and  `keyboards/wilba_tech/wt_rgb_backlight.c`. But including `drivers/sensors/pmw3360.c` is absolutely fine for any and all boards that require it.
   - Code that needs to be used by multiple boards is a candidate for core code changes, and should be separated out.
+
+Wireless-capable boards:
+- Given license abuse from vendors, QMK does not accept any vendor PRs for wireless- or Bluetooth-capable keyboards without wireless and/or Bluetooth code
+    - Historically, vendors have done this in bad faith in order to attain downstream VIA compatibility with no intention of releasing wireless sources
+    - QMK's license, the GPL2+, requires full source disclosure for any distributed binary -- including full sources for any keyboard shipped by vendors containing QMK and/or firmware-side VIA code
+    - If a vendor's wireless-capable keyboard PR submission is lacking wireless capability, then the PR will be left on-hold and unmergeable until wireless bindings are provided
+    - If a vendor's wireless-capable keyboard is merged into QMK before it's known that the board is wireless, then all existing and future PRs from the same vendor will be put on hold until wireless bindings for the offending keyboard are provided
 
 Also, specific to ChibiOS:
 - **strong** preference to using existing ChibiOS board definitions.
@@ -201,7 +213,7 @@ Additionally, PR reviews are something that is done in our free time. We are not
 ## Example GPLv2 Header
 
 ```
-/* Copyright 2021 Your Name (@yourgithub)
+/* Copyright 2024 Your Name (@yourgithub)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -221,6 +233,6 @@ Additionally, PR reviews are something that is done in our free time. We are not
 Or, optionally, using [SPDX identifier](https://spdx.org/licenses/) instead:
 
 ```
-// Copyright 2021 Your Name (@yourgithub)
+// Copyright 2024 Your Name (@yourgithub)
 // SPDX-License-Identifier: GPL-2.0-or-later
 ```

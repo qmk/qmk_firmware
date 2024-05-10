@@ -17,15 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-// wiring
-#define MATRIX_ROW_PINS \
-    { B4, E6, D7, D4 }
-#define MATRIX_COL_PINS \
-    { B6, B2, B3, B1, F7, F6, F5, F4 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
@@ -38,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define SERIAL_USART_TX_PIN      D3
 #    define SERIAL_USART_RX_PIN      D2
 
-#    define RGB_DI_PIN               PAL_LINE(GPIOA, 3)
+#    define WS2812_DI_PIN            PAL_LINE(GPIOA, 3)
 #    define WS2812_PWM_DRIVER        PWMD2                  // default: PWMD2
 #    define WS2812_PWM_CHANNEL       4                      // default: 2
 #    define WS2812_PWM_PAL_MODE      1                      // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 2
@@ -46,24 +37,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define WS2812_DMA_CHANNEL       2                      // DMA Channel for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
 #    define WS2812_DMAMUX_ID         STM32_DMAMUX1_TIM2_UP  // DMAMUX configuration for TIMx_UP -- only required if your MCU has a DMAMUX peripheral, see the respective reference manual for the appropriate values for your MCU.
 #else
-#    define RGB_DI_PIN D3
+#    define WS2812_DI_PIN D3
 #    define SOFT_SERIAL_PIN D2
 #endif
-
-#define RGBLED_SPLIT \
-    { 10, 10 }
-#define RGBLED_NUM 20
 
 #ifdef OLED_ENABLE
 #    define OLED_DISPLAY_128X64
 #    define SPLIT_OLED_ENABLE
-#endif
-
-/* RGB matrix support */
-#ifdef RGB_MATRIX_ENABLE
-#    define SPLIT_TRANSPORT_MIRROR
-#    define RGB_MATRIX_LED_COUNT RGBLED_NUM // Number of LEDs
-#    define RGB_MATRIX_SPLIT { 10, 10 }
-#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 170
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED
 #endif

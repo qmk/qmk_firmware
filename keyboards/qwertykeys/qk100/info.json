@@ -1,0 +1,50 @@
+{
+    "manufacturer": "Qwertykeys",
+    "url": "",
+    "maintainer": "Qwertykeys",
+    "usb": {
+        "vid": "0x4F53"
+    },
+    "matrix_pins": {
+        "cols": ["A7", "B0", "B1", "B2", "B10", "B11", "B12", "B13", "B14", "B15", "A8", "A9", "A10", "A15", "B4", "B5", "B8", "B9", "C13" ],
+        "rows": ["A1", "A2", "A3", "A5", "A4", "A6" ]
+    },
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "rgblight": true,
+        "nkro": true
+    },
+    "processor": "STM32F103",
+    "bootloader": "stm32duino",
+    "ws2812": {
+        "pin": "B3"
+    },
+    "rgblight": {
+        "animations": {
+            "breathing": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "static_gradient": true
+        },
+        "brightness_steps": 10,
+        "saturation_steps": 8,
+        "led_count": 6,
+        "max_brightness": 120,
+        "default": {
+            "val": 10
+        },
+        "layers": {
+            "enabled": true,
+            "override_rgb": true
+        },
+        "sleep": true
+    },
+    "dynamic_keymap": {
+        "layer_count": 2
+    }
+}

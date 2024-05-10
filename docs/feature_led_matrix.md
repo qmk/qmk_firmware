@@ -12,21 +12,20 @@ There is basic support for addressable LED matrix lighting with the I2C IS31FL37
 
 ```make
 LED_MATRIX_ENABLE = yes
-LED_MATRIX_DRIVER = IS31FL3731
+LED_MATRIX_DRIVER = is31fl3731
 ```
 
 You can use between 1 and 4 IS31FL3731 IC's. Do not specify `LED_DRIVER_ADDR_<N>` defines for IC's that are not present on your keyboard. You can define the following items in `config.h`:
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `ISSI_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
-| `ISSI_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
-| `LED_DRIVER_COUNT` | (Required) How many LED driver IC's are present | |
+| `IS31FL3731_I2C_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
+| `IS31FL3731_I2C_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
 | `LED_MATRIX_LED_COUNT` | (Required) How many LED lights are present across all drivers | |
-| `LED_DRIVER_ADDR_1` | (Required) Address for the first LED driver | |
-| `LED_DRIVER_ADDR_2` | (Optional) Address for the second LED driver | |
-| `LED_DRIVER_ADDR_3` | (Optional) Address for the third LED driver | |
-| `LED_DRIVER_ADDR_4` | (Optional) Address for the fourth LED driver | |
+| `IS31FL3731_I2C_ADDRESS_1` | (Required) Address for the first LED driver | |
+| `IS31FL3731_I2C_ADDRESS_2` | (Optional) Address for the second LED driver | |
+| `IS31FL3731_I2C_ADDRESS_3` | (Optional) Address for the third LED driver | |
+| `IS31FL3731_I2C_ADDRESS_4` | (Optional) Address for the fourth LED driver | |
 
 Here is an example using 2 drivers.
 
@@ -34,14 +33,15 @@ Here is an example using 2 drivers.
 // This is a 7-bit address, that gets left-shifted and bit 0
 // set to 0 for write, 1 for read (as per I2C protocol)
 // The address will vary depending on your wiring:
-// 0b1110100 AD <-> GND
-// 0b1110111 AD <-> VCC
-// 0b1110101 AD <-> SCL
-// 0b1110110 AD <-> SDA
-#define LED_DRIVER_ADDR_1 0b1110100
-#define LED_DRIVER_ADDR_2 0b1110110
+// 00 AD <-> GND
+// 01 AD <-> SCL
+// 10 AD <-> SDA
+// 11 AD <-> VCC
+// ADDR represents A1:A0 of the 7-bit address.
+// The result is: 0b11101(ADDR)
+#define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
+#define IS31FL3731_I2C_ADDRESS_2 IS31FL3731_I2C_ADDRESS_SDA
 
-#define LED_DRIVER_COUNT 2
 #define LED_DRIVER_1_LED_TOTAL 25
 #define LED_DRIVER_2_LED_TOTAL 24
 #define LED_MATRIX_LED_COUNT (LED_DRIVER_1_LED_TOTAL + LED_DRIVER_2_LED_TOTAL)
@@ -49,12 +49,12 @@ Here is an example using 2 drivers.
 
 !> Note the parentheses, this is so when `LED_MATRIX_LED_COUNT` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (LED_DRIVER_1_LED_TOTAL + LED_DRIVER_2_LED_TOTAL)` will give very different results than `rand() % LED_DRIVER_1_LED_TOTAL + LED_DRIVER_2_LED_TOTAL`.
 
-For split keyboards using `LED_MATRIX_SPLIT` with an LED driver, you can either have the same driver address or different driver addresses. If using different addresses, use `DRIVER_ADDR_1` for one and `DRIVER_ADDR_2` for the other one. Then, in `g_is31_leds`, fill out the correct driver index (0 or 1). If using one address, use `DRIVER_ADDR_1` for both, and use index 0 for `g_is31_leds`.
+For split keyboards using `LED_MATRIX_SPLIT` with an LED driver, you can either have the same driver address or different driver addresses. If using different addresses, use `IS31FL3731_I2C_ADDRESS_1` for one and `IS31FL3731_I2C_ADDRESS_2` for the other one. Then, in `g_is31fl3731_leds`, fill out the correct driver index (0 or 1). If using one address, use `IS31FL3731_I2C_ADDRESS_1` for both, and use index 0 for `g_is31fl3731_leds`.
 
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const is31_led PROGMEM g_is31_leds[LED_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *    driver
  *    |  LED address
@@ -65,7 +65,7 @@ const is31_led PROGMEM g_is31_leds[LED_MATRIX_LED_COUNT] = {
 }
 ```
 
-Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3731.pdf) and the header file `drivers/led/issi/is31fl3731-simple.h`. The `driver` is the index of the driver you defined in your `config.h` (`0`, `1`, `2`, or `3` ).
+Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3731.pdf) and the header file `drivers/led/issi/is31fl3731-mono.h`. The `driver` is the index of the driver you defined in your `config.h` (`0`, `1`, `2`, or `3` ).
 
 ---
 ### IS31FLCOMMON :id=is31flcommon
@@ -94,7 +94,6 @@ Configure the hardware via your `config.h`:
 |----------|-------------|---------|
 | `ISSI_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
 | `ISSI_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
-| `DRIVER_COUNT` | (Required) How many LED driver IC's are present | |
 | `LED_MATRIX_LED_COUNT` | (Required) How many LED lights are present across all drivers | |
 | `DRIVER_ADDR_1` | (Optional) Address for the first LED driver | |
 | `DRIVER_ADDR_<N>` | (Required) Address for the additional LED drivers | |
@@ -127,7 +126,6 @@ Here is an example using 2 drivers.
 ```c
 #define DRIVER_ADDR_2 0b0100001
 
-#define DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 66
 #define DRIVER_2_LED_TOTAL 42
 #define LED_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
@@ -139,13 +137,13 @@ Currently only 4 drivers are supported, but it would be trivial to support for m
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const is31_led __flash g_is31_leds[LED_MATRIX_LED_COUNT] = {
+const is31_led PROGMEM g_is31_leds[LED_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *    driver
  *    |  LED address
  *    |  | */
-    { 0, CS1_SW1 },
-    { 0, CS2_SW1 },
+    { 0, SW1_CS1 },
+    { 0, SW1_CS2 },
     // ...
 }
 ```
@@ -158,8 +156,8 @@ Eg `#define ISSI_MANUAL_SCALING 3`
 Then Define the array listing all the LEDs you want to override in your `<keyboard>.c`:
 
 ```c
-const is31_led __flash g_is31_scaling[ISSI_MANUAL_SCALING] = {
- *   LED Index
+const is31_led PROGMEM g_is31_scaling[ISSI_MANUAL_SCALING] = {
+/*   LED Index
  *   |  Scaling
  *   |  | */
     {5, 120},
@@ -247,19 +245,17 @@ enum led_matrix_effects {
     LED_MATRIX_CYCLE_UP_DOWN,       // Full gradient scrolling top to bottom
     LED_MATRIX_CYCLE_OUT_IN,        // Full gradient scrolling out to in
     LED_MATRIX_DUAL_BEACON,         // Full gradient spinning around center of keyboard
-#if defined(LED_MATRIX_KEYPRESSES) || defined(LED_MATRIX_KEYRELEASES)
     LED_MATRIX_SOLID_REACTIVE_SIMPLE,   // Pulses keys hit then fades out
-    LED_MATRIX_SOLID_REACTIVE_WIDE       // Value pulses near a single key hit then fades out
-    LED_MATRIX_SOLID_REACTIVE_MULTIWIDE  // Value pulses near multiple key hits then fades out
-    LED_MATRIX_SOLID_REACTIVE_CROSS      // Value pulses the same column and row of a single key hit then fades out
-    LED_MATRIX_SOLID_REACTIVE_MULTICROSS // Value pulses the same column and row of multiple key hits then fades out
-    LED_MATRIX_SOLID_REACTIVE_NEXUS      // Value pulses away on the same column and row of a single key hit then fades out
-    LED_MATRIX_SOLID_REACTIVE_MULTINEXUS // Value pulses away on the same column and row of multiple key hits then fades out
+    LED_MATRIX_SOLID_REACTIVE_WIDE,       // Value pulses near a single key hit then fades out
+    LED_MATRIX_SOLID_REACTIVE_MULTIWIDE,  // Value pulses near multiple key hits then fades out
+    LED_MATRIX_SOLID_REACTIVE_CROSS,      // Value pulses the same column and row of a single key hit then fades out
+    LED_MATRIX_SOLID_REACTIVE_MULTICROSS, // Value pulses the same column and row of multiple key hits then fades out
+    LED_MATRIX_SOLID_REACTIVE_NEXUS,      // Value pulses away on the same column and row of a single key hit then fades out
+    LED_MATRIX_SOLID_REACTIVE_MULTINEXUS, // Value pulses away on the same column and row of multiple key hits then fades out
     LED_MATRIX_SOLID_SPLASH,             // Value pulses away from a single key hit then fades out
     LED_MATRIX_SOLID_MULTISPLASH,        // Value pulses away from multiple key hits then fades out
-#endif
-    LED_MATRIX_WAVE_LEFT_RIGHT           // Sine wave scrolling from left to right
-    LED_MATRIX_WAVE_UP_DOWN              // Sine wave scrolling from up to down
+    LED_MATRIX_WAVE_LEFT_RIGHT,           // Sine wave scrolling from left to right
+    LED_MATRIX_WAVE_UP_DOWN,              // Sine wave scrolling from up to down
     LED_MATRIX_EFFECT_MAX
 };
 ```
@@ -281,8 +277,6 @@ You can enable a single effect by defining `ENABLE_[EFFECT_NAME]` in your `confi
 |`#define ENABLE_LED_MATRIX_WAVE_LEFT_RIGHT`            |Enables `LED_MATRIX_WAVE_LEFT_RIGHT`          |
 |`#define ENABLE_LED_MATRIX_WAVE_UP_DOWN`               |Enables `LED_MATRIX_WAVE_UP_DOWN`             |
 
-?> These modes don't require any additional defines.
-
 |Reactive Defines                                       |Description                                   |
 |-------------------------------------------------------|----------------------------------------------|
 |`#define ENABLE_LED_MATRIX_SOLID_REACTIVE_SIMPLE`      |Enables `LED_MATRIX_SOLID_REACTIVE_SIMPLE`    |
@@ -295,7 +289,7 @@ You can enable a single effect by defining `ENABLE_[EFFECT_NAME]` in your `confi
 |`#define ENABLE_LED_MATRIX_SOLID_SPLASH`               |Enables `LED_MATRIX_SOLID_SPLASH`             |
 |`#define ENABLE_LED_MATRIX_SOLID_MULTISPLASH`          |Enables `LED_MATRIX_SOLID_MULTISPLASH`        |
 
-?> These modes also require the `LED_MATRIX_KEYPRESSES` or `LED_MATRIX_KEYRELEASES` define to be available.
+?> These modes introduce additional logic that can increase firmware size.
 
 ## Custom LED Matrix Effects :id=custom-led-matrix-effects
 
@@ -361,30 +355,24 @@ For inspiration and examples, check out the built-in effects under `quantum/led_
 ## Additional `config.h` Options :id=additional-configh-options
 
 ```c
-#define LED_MATRIX_KEYPRESSES // reacts to keypresses
-#define LED_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
-#define LED_MATRIX_FRAMEBUFFER_EFFECTS // enable framebuffer effects
+#define LED_MATRIX_KEYRELEASES // reactive effects respond to keyreleases (instead of keypresses)
 #define LED_MATRIX_TIMEOUT 0 // number of milliseconds to wait until led automatically turns off
-#define LED_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
+#define LED_MATRIX_SLEEP // turn off effects when suspended
 #define LED_MATRIX_LED_PROCESS_LIMIT (LED_MATRIX_LED_COUNT + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
 #define LED_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
 #define LED_MATRIX_MAXIMUM_BRIGHTNESS 255 // limits maximum brightness of LEDs
+#define LED_MATRIX_DEFAULT_ON true // Sets the default enabled state, if none has been set
 #define LED_MATRIX_DEFAULT_MODE LED_MATRIX_SOLID // Sets the default mode, if none has been set
 #define LED_MATRIX_DEFAULT_VAL LED_MATRIX_MAXIMUM_BRIGHTNESS // Sets the default brightness value, if none has been set
 #define LED_MATRIX_DEFAULT_SPD 127 // Sets the default animation speed, if none has been set
+#define LED_MATRIX_DEFAULT_FLAGS LED_FLAG_ALL // Sets the default LED flags, if none has been set
 #define LED_MATRIX_SPLIT { X, Y }   // (Optional) For split keyboards, the number of LEDs connected on each half. X = left, Y = Right.
-                                    // If LED_MATRIX_KEYPRESSES or LED_MATRIX_KEYRELEASES is enabled, you also will want to enable SPLIT_TRANSPORT_MIRROR
+                                    // If reactive effects are enabled, you also will want to enable SPLIT_TRANSPORT_MIRROR
 ```
 
 ## EEPROM storage :id=eeprom-storage
 
-The EEPROM for it is currently shared with the RGB Matrix system (it's generally assumed only one feature would be used at a time), but could be configured to use its own 32bit address with:
-
-```c
-#define EECONFIG_LED_MATRIX (uint32_t *)28
-```
-
-Where `28` is an unused index from `eeconfig.h`.
+The EEPROM for it is currently shared with the RGB Matrix system (it's generally assumed only one feature would be used at a time).
 
 ### Direct Operation :id=direct-operation
 |Function                                    |Description  |
@@ -439,7 +427,7 @@ Where `28` is an unused index from `eeconfig.h`.
 
 ### Indicators :id=indicators
 
-If you want to set custom indicators, such as an LED for Caps Lock, or layer indication, you can use the `led_matrix_indicators_kb` or `led_matrix_indicators_user` function for that:
+If you want to set custom indicators, such as an LED for Caps Lock, or layer indication, then you can use the `led_matrix_indicators_kb` function on the keyboard level source file, or `led_matrix_indicators_user` function in the user `keymap.c`.
 ```c
 bool led_matrix_indicators_kb(void) {
     if (!led_matrix_indicators_user()) {

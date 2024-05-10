@@ -24,7 +24,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * to repeating that information all over the place.
  */
 
-#include QMK_KEYBOARD_H
+#include "matrix.h"
+#include "debug.h"
+#include "wait.h"
 #include "i2c_master.h"
 
 extern i2c_status_t tca9555_status;
@@ -68,7 +70,7 @@ uint8_t init_tca9555(void) {
         // This means: we will write on pins 0 to 3 on port 1. read rest
         0b11110000,
     };
-    tca9555_status = i2c_writeReg(I2C_ADDR, IODIRA, conf, 2, I2C_TIMEOUT);
+    tca9555_status = i2c_write_register(I2C_ADDR, IODIRA, conf, 2, I2C_TIMEOUT);
 
     return tca9555_status;
 }
@@ -187,7 +189,7 @@ static matrix_row_t read_cols(uint8_t row) {
         } else {
             uint8_t data    = 0;
             uint8_t port0   = 0;
-            tca9555_status  = i2c_readReg(I2C_ADDR, IREGP0, &port0, 1, I2C_TIMEOUT);
+            tca9555_status  = i2c_read_register(I2C_ADDR, IREGP0, &port0, 1, I2C_TIMEOUT);
             if (tca9555_status) {  // if there was an error
                 // do nothing
                 return 0;
@@ -248,7 +250,7 @@ static void select_row(uint8_t row) {
                 default:                    break;
             }
 
-            tca9555_status = i2c_writeReg(I2C_ADDR, OREGP1, &port1, 1, I2C_TIMEOUT);
+            tca9555_status = i2c_write_register(I2C_ADDR, OREGP1, &port1, 1, I2C_TIMEOUT);
             // Select the desired row by writing a byte for the entire GPIOB bus where only the bit representing the row we want to select is a zero (write instruction) and every other bit is a one.
             // Note that the row - MATRIX_ROWS_PER_SIDE reflects the fact that being on the right hand, the columns are numbered from MATRIX_ROWS_PER_SIDE to MATRIX_ROWS, but the pins we want to write to are indexed from zero up on the GPIOB bus.
         }

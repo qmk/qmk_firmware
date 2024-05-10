@@ -3,9 +3,23 @@
     "usb": {
         "device_version": "2.0.0"
     },
-    "split": {
-        "soft_serial_pin": "D2"
+    "rgb_matrix": {
+        "driver": "ws2812"
     },
-    "processor": "STM32F411",
-    "bootloader": "stm32-dfu"
+    "ws2812": {
+        "pin": "A2",
+        "driver": "pwm"
+    },
+    "build": {
+        "debounce_type": "asym_eager_defer_pk"
+    },
+    "matrix_pins": {
+        "cols": ["B1", "B2", "A4", "B4", "B5", "B8"],
+        "rows": ["B0", "B3", "A15", "B9"]
+    },
+    "diode_direction": "ROW2COL",
+    "split": {
+        "soft_serial_pin": "A3"
+    },
+    "development_board": "stemcell"
 }

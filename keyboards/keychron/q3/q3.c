@@ -14,21 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "q3.h"
+#include "quantum.h"
 #include "rgb_matrix.h"
-
-// clang-format off
-
-const matrix_row_t matrix_mask[] = {
-    0b1111111111111111,
-    0b1111111111111111,
-    0b1111111111111111,
-    0b1111111111111111,
-    0b1111111111111111,
-    0b1111111111101111,
-};
-
-// clang-format on
 
 #ifdef DIP_SWITCH_ENABLE
 

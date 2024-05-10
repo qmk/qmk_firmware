@@ -32,7 +32,7 @@
 #    endif
 #endif
 
-#ifdef WS2812_DRIVER_PWM
+#ifdef WS2812_PWM
 #    ifndef HAL_USE_PWM
 #        define HAL_USE_PWM TRUE
 #    endif

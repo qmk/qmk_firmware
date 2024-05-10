@@ -150,7 +150,7 @@ If you define these options you will enable the associated feature, which may in
 * `#define TAPPING_TERM_PER_KEY`
   * enables handling for per key `TAPPING_TERM` settings
 * `#define RETRO_TAPPING`
-  * tap anyway, even after TAPPING_TERM, if there was no other key interruption between press and release
+  * tap anyway, even after `TAPPING_TERM`, if there was no other key interruption between press and release
   * See [Retro Tapping](tap_hold.md#retro-tapping) for details
 * `#define RETRO_TAPPING_PER_KEY`
   * enables handling for per key `RETRO_TAPPING` settings
@@ -161,9 +161,6 @@ If you define these options you will enable the associated feature, which may in
   * See [Permissive Hold](tap_hold.md#permissive-hold) for details
 * `#define PERMISSIVE_HOLD_PER_KEY`
   * enabled handling for per key `PERMISSIVE_HOLD` settings
-* `#define IGNORE_MOD_TAP_INTERRUPT`
-  * makes it possible to do rolling combos (zx) with keys that convert to other keys on hold, by enforcing the `TAPPING_TERM` for both keys.
-  * See [Ignore Mod Tap Interrupt](tap_hold.md#ignore-mod-tap-interrupt) for details
 * `#define QUICK_TAP_TERM 100`
   * tap-then-hold timing to use a dual role key to repeat keycode
   * See [Quick Tap Term](tap_hold.md#quick-tap-term)
@@ -189,8 +186,6 @@ If you define these options you will enable the associated feature, which may in
   * how long before oneshot times out
 * `#define ONESHOT_TAP_TOGGLE 2`
   * how many taps before oneshot toggle is triggered
-* `#define COMBO_COUNT 2`
-  * Set this to the number of combos that you're using in the [Combo](feature_combo.md) feature. Or leave it undefined and programmatically set the count.
 * `#define COMBO_TERM 200`
   * how long for the Combo keys to be detected. Defaults to `TAPPING_TERM` if not defined.
 * `#define COMBO_MUST_HOLD_MODS`
@@ -217,7 +212,7 @@ If you define these options you will enable the associated feature, which may in
 
 ## RGB Light Configuration
 
-* `#define RGB_DI_PIN D7`
+* `#define WS2812_DI_PIN D7`
   * pin the DI on the WS2812 is hooked-up to
 * `#define RGBLIGHT_LAYERS`
   * Lets you define [lighting layers](feature_rgblight.md?id=lighting-layers) that can be toggled on or off. Great for showing the current keyboard layer or caps lock state.
@@ -228,12 +223,12 @@ If you define these options you will enable the associated feature, which may in
   * Adds ability to [blink](feature_rgblight.md?id=lighting-layer-blink) a lighting layer for a specified number of milliseconds (e.g. to acknowledge an action).
 * `#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF`
   * If defined, then [lighting layers](feature_rgblight?id=overriding-rgb-lighting-onoff-status) will be shown even if RGB Light is off.
-* `#define RGBLED_NUM 12`
+* `#define RGBLIGHT_LED_COUNT 12`
   * number of LEDs
 * `#define RGBLIGHT_SPLIT`
   * Needed if both halves of the board have RGB LEDs wired directly to the RGB output pin on the controllers instead of passing the output of the left half to the input of the right half
 * `#define RGBLED_SPLIT { 6, 6 }`
-  * number of LEDs connected that are directly wired to `RGB_DI_PIN` on each half of a split keyboard
+  * number of LEDs connected that are directly wired to the RGB pin on each half of a split keyboard
   * First value indicates number of LEDs for left half, second value is for the right half
   * When RGBLED_SPLIT is defined, RGBLIGHT_SPLIT is implicitly defined.
 * `#define RGBLIGHT_HUE_STEP 12`
@@ -280,7 +275,7 @@ There are a few different ways to set handedness for split keyboards (listed in 
   * For using high/low pin to determine handedness, low = right hand, high = left hand. Replace `B7` with the pin you are using. This is optional, and if you leave `SPLIT_HAND_PIN` undefined, then you can still use the EE_HANDS method or MASTER_LEFT / MASTER_RIGHT defines like the stock Let's Split uses.
 
 * `#define SPLIT_HAND_MATRIX_GRID <out_pin>,<in_pin>`
-  * The handedness is determined by using the intersection of the keyswitches in the key matrix, which does not exist. Normally, when this intersection is shorted (level low), it is considered left. If you define `#define SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT`, it is determined to be right when the level is low.
+  * The handedness is determined by using the intersection of the keyswitches in the key matrix, which does not exist. Normally, when this intersection is shorted (level low), it is considered right. If you define `#define SPLIT_HAND_MATRIX_GRID_LOW_IS_LEFT`, it is determined to be left when the level is low.
 
 * `#define EE_HANDS` (only works if `SPLIT_HAND_PIN` and `SPLIT_HAND_MATRIX_GRID` are not defined)
   * Reads the handedness value stored in the EEPROM after `eeprom-lefthand.eep`/`eeprom-righthand.eep` has been flashed to their respective halves.
@@ -444,7 +439,7 @@ Use these to enable or disable building certain features. The more you have enab
 * `UNICODE_ENABLE`
   * Unicode
 * `BLUETOOTH_ENABLE`
-  * Current options are BluefruitLE, RN42
+  * Current options are bluefruit_le, rn42
 * `SPLIT_KEYBOARD`
   * Enables split keyboard support (dual MCU like the let's split and bakingpy's boards) and includes all necessary files located at quantum/split_common
 * `CUSTOM_MATRIX`

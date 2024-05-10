@@ -13,6 +13,10 @@
         "nkro": true,
         "rgb_matrix": true
     },
+    "ws2812": {
+        "pin": "B9",
+        "driver": "pwm"
+    },
     "matrix_pins": {
         "cols": ["B1", "A3", "B0", "B4"],
         "rows": ["A8", "A9", "B5", "B3"]
@@ -51,7 +55,7 @@
     },
     "community_layouts": ["ortho_4x4"],
     "rgb_matrix": {
-        "driver": "WS2812",
+        "driver": "ws2812",
         "animations": {
             "alphas_mods": true,
             "gradient_up_down": true,
@@ -114,7 +118,7 @@
             {"matrix": [3, 0], "x": 0, "y": 64, "flags": 4},
             {"matrix": [3, 1], "x": 75, "y": 64, "flags": 4},
             {"matrix": [3, 2], "x": 149, "y": 64, "flags": 4},
-            {"matrix": [3, 3], "x": 224, "y": 64, "flags": 4},
+            {"matrix": [3, 3], "x": 224, "y": 64, "flags": 4}
         ]
     }
 }
