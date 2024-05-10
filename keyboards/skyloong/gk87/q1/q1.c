@@ -174,7 +174,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
           if (!WIN_LOCK) {
              IND = IND & (~WINLK_ON);   //Close win lock display
              s_serial_to_parallel(IND);
-             writePinHigh(WIN_LOCK_PIN);
+             gpio_write_pin_high(WIN_LOCK_PIN);
              return false; //windows key locked do nothing
             }
           s_serial_to_parallel(IND);
@@ -182,7 +182,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
       if (WIN_LOCK) {
              IND = IND | WINLK_ON;   //Open win lock display
              s_serial_to_parallel(IND);
-             writePinLow(WIN_LOCK_PIN);
+             gpio_write_pin_low(WIN_LOCK_PIN);
              return false; //windows key locked do nothing
             }
       return true;  // continue all further processing of this key
@@ -202,7 +202,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 }
 
 void suspend_power_down_kb() {
-    writePinHigh(WIN_LOCK_PIN);
+    gpio_write_pin_high(WIN_LOCK_PIN);
     s_serial_to_parallel(0);
     suspend_power_down_user();
 }
@@ -213,7 +213,7 @@ void suspend_wakeup_init_kb() {
 }
 
 bool shutdown_kb(bool jump_to_bootloader) {
-    writePinHigh(WIN_LOCK_PIN);
+    gpio_write_pin_high(WIN_LOCK_PIN);
     s_serial_to_parallel(0);
     return true;
 }
@@ -286,8 +286,8 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 void board_init(void) {
     // JTAG-DP Disabled and SW-DP Disabled
     AFIO->MAPR = (AFIO->MAPR & ~AFIO_MAPR_SWJ_CFG_Msk) | AFIO_MAPR_SWJ_CFG_DISABLE;
-    setPinOutput(WIN_LOCK_PIN);
-    writePinHigh(WIN_LOCK_PIN);
+    gpio_set_pin_output(WIN_LOCK_PIN);
+    gpio_write_pin_high(WIN_LOCK_PIN);
     s_serial_to_parallel(0xFF);
     IND = SKYLOONG;
 }

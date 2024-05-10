@@ -29,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_WIN_INDEX] =  LAYOUT_all(
-        _______,             KC_F14,   KC_F15, G(KC_TAB),  KC_WSCH, G(C(KC_S)),   KC_SLEP,   KC_MPRV,  KC_MPLY,   KC_MNXT,   KC_MUTE,  KC_VOLD,     KC_VOLU,    KC_PSCR,
+        _______,             KC_F14,   KC_F15, G(KC_TAB),  KC_WSCH, G(C(KC_S)),   KC_SLEP,   KC_MPRV,  KC_MPLY,    KC_MNXT,   KC_MUTE,  KC_VOLD,     KC_VOLU,    RGB_TOG,
         _______,  _______,  _______,  _______,  _______,  _______,    TO(_WIN),  TO(_MAC),   _______,  _______,    RGB_TOG,  RGB_RMOD,  RGB_MOD,      KC_DEL,     KC_INS,  KC_HOME,   KC_PGUP,
         _______,  _______,  _______,  _______,  _______,  _______,     _______,   _______,   _______,  _______,    _______,   _______,  _______,     _______,     KC_DEL,   KC_END,   KC_PGDN,
         _______,  _______,  _______,  _______,  _______,  _______,     _______,   _______,   _______,  _______,    _______,   _______,               _______,
@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_MAC_INDEX] = LAYOUT_all(
-        _______,              KC_F1,    KC_F2,    KC_F3,    KC_F4,       KC_F5,     KC_F6,     KC_F7,    KC_F8,      KC_F9,       KC_F10,   KC_F11,   KC_F12,    KC_PSCR,
+        _______,              KC_F1,    KC_F2,    KC_F3,    KC_F4,       KC_F5,     KC_F6,     KC_F7,    KC_F8,      KC_F9,       KC_F10,   KC_F11,   KC_F12,    RGB_TOG,
         _______,  _______,  _______,  _______,  _______,  _______,    TO(_WIN),  TO(_MAC),   _______,  _______,    RGB_TOG,     RGB_RMOD,  RGB_MOD,   KC_DEL,     KC_INS,  KC_HOME,   KC_PGUP,
         _______,  _______,  _______,  _______,  _______,  _______,     _______,   _______,   _______,  _______,    _______,      _______,  _______,  _______,     KC_DEL,   KC_END,   KC_PGDN,
         _______,  _______,  _______,  _______,  _______,  _______,     _______,   _______,   _______,  _______,    _______,      _______,            _______,
@@ -51,8 +51,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_WIN] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
     [_MAC] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
-    [_WIN_INDEX] = { ENCODER_CCW_CW(RGB_HUD, RGB_HUI)},
-    [_MAC_INDEX] = { ENCODER_CCW_CW(RGB_HUD, RGB_HUI)}
+    [_WIN_INDEX] = { ENCODER_CCW_CW(RGB_VAD, RGB_VAI)},
+    [_MAC_INDEX] = { ENCODER_CCW_CW(RGB_VAD, RGB_VAI)}
 };
 #endif
 
