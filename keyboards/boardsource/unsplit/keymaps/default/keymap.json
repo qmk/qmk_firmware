@@ -1,7 +1,7 @@
 {
     "keyboard": "boardsource/unsplit",
     "keymap": "default",
-    "layout": "LAYOUT",
+    "layout": "LAYOUT_split_3x6_3",
     "layers": [
         [
             "KC_TAB",  "KC_Q",    "KC_W",    "KC_E",    "KC_R",    "KC_T",          "KC_Y",    "KC_U",    "KC_I",    "KC_O",    "KC_P",    "KC_BSPC",
