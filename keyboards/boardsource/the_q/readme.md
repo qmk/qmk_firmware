@@ -1,16 +1,16 @@
-# Unsplit
+# The Q
 
 * Keyboard Maintainer: [waffle87](https://github.com/waffle87)
-* Hardware Supported: Unsplit PCB w/ Pro Micro style microcontroller
+* Hardware Supported: the_q PCB w/ Pro Micro style microcontroller
 * Hardware Availability: [boardsource.xyz](https://boardsource.xyz)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make boardsource/unsplit:default
+    make boardsource/the_q:default
 
 Flashing example for this keyboard:
 
-    make boardsource/unsplit:default:flash
+    mke boardsource/the_q:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
