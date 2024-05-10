@@ -27,7 +27,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case RGBWINGS:
         if (record->event.pressed) {
             /* Blackout these RGB components */
-            tap_code16(RGB_MODE_PLAIN);
+            rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
             rgblight_setrgb_at(0, 0, 0, 0);
             rgblight_setrgb_at(0, 0, 0, 1);
             rgblight_setrgb_at(0, 0, 0, 4);
