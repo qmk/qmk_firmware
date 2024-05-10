@@ -35,12 +35,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MC_5,   KC_P0,             KC_PDOT),
 
     [FUNC] = LAYOUT_numpad_6x5(
-        RGB_TOG,   _______,  KC_MUTE, KC_VOLD,  KC_VOLU,
-        MC_1,   RGB_MOD,  RGB_VAI, RGB_HUI,  KC_DEL,
-        MC_2,   RGB_RMOD, RGB_VAD, RGB_HUD,  _______,
-        MC_3,   RGB_SAI,  RGB_SPI, KC_MPRV,
-        MC_4,   RGB_SAD,  RGB_SPD, KC_MPLY,  _______,
-        MC_5,   RGB_TOG,           KC_MNXT),
+        RM_TOGG,   _______,  KC_MUTE, KC_VOLD,  KC_VOLU,
+        MC_1,   RM_NEXT,  RM_VALU, RM_HUEU,  KC_DEL,
+        MC_2,   RM_PREV,  RM_VALD, RM_HUED,  _______,
+        MC_3,   RM_SATU,  RM_SPDU, KC_MPRV,
+        MC_4,   RM_SATD,  RM_SPDD, KC_MPLY,  _______,
+        MC_5,   RM_TOGG,           KC_MNXT),
 
     [L2] = LAYOUT_numpad_6x5(
         _______, _______,  _______, _______,  _______,
@@ -62,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [BASE]      = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [FUNC]       = { ENCODER_CCW_CW(RGB_VAD, RGB_VAI) },
+    [FUNC]       = { ENCODER_CCW_CW(RM_VALD, RM_VALU) },
     [L2] = { ENCODER_CCW_CW(_______, _______) },
     [L3] = { ENCODER_CCW_CW(_______, _______) }
 };

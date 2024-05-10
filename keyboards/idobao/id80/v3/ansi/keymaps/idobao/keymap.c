@@ -86,9 +86,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_FN1] = LAYOUT_80_ansi(
         QK_BOOT, _______, _______, _______, _______,  _______, _______, _______, _______, _______, KC_PSCR, KC_SCRL, KC_PAUS, _______, KC_MUTE,
         _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_VOLU,
-        _______, RGB_TOG, _______, RGB_MOD, RGB_HUI,  RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, RGB_SPI, RGB_SPD, _______, _______, KC_VOLD,
+        _______, RM_TOGG, _______, RM_NEXT, RM_HUEU,  RM_HUED, RM_SATU, RM_SATD, RM_VALU, RM_VALD, RM_SPDU, RM_SPDD, _______, _______, KC_VOLD,
         _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______,          _______,
-        _______,          _______, _______, RGB_RMOD, KB_VRSN, _______, NK_TOGG, _______, _______, _______, _______, _______, KC_PGUP,
+        _______,          _______, _______, RM_PREV,  KB_VRSN, _______, NK_TOGG, _______, _______, _______, _______, _______, KC_PGUP,
         _______, _______, _______,                    _______,                   _______, _______,                   KC_HOME, KC_PGDN, KC_END
     ),
 
@@ -230,7 +230,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return true;
 
-        case RGB_TOG:
+        case QK_RGB_MATRIX_TOGGLE:
             /* roll through the LED modes
              * |    Level   | Per-key | Underglow |
              * |------------|---------|-----------|

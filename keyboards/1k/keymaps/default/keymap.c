@@ -6,13 +6,13 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_ortho_1x1(
-    RGB_HUI
+    UG_HUEU
   )
 };
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     switch (keycode) {
-      case RGB_HUI:
+      case QK_UNDERGLOW_HUE_UP:
         rgblite_increase_hue();
         break;
     }

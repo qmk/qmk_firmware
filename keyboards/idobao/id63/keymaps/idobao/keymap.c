@@ -91,14 +91,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_FN1] = LAYOUT_60_ansi_arrow(
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,  KC_F12,  KC_DEL,
-        _______, _______, KC_UP,   _______, _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, KC_PSCR,  KC_SCRL, KC_PAUS, KC_INS,
-        _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, _______,  _______,          _______,
+        _______, _______, KC_UP,   _______, _______, RM_TOGG, RM_HUEU, RM_SATU, RM_VALU, RM_SPDU, KC_PSCR,  KC_SCRL, KC_PAUS, KC_INS,
+        _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, RM_NEXT, RM_HUED, RM_SATD, RM_VALD, RM_SPDD, _______,  _______,          _______,
         _______,          _______, _______, _______, KB_VRSN, QK_BOOT, NK_TOGG, _______, _______, _______,  _______, KC_PGUP, _______,
         _______, _______,          _______,                    _______,                   _______, MO(_FN3), KC_HOME, KC_PGDN, KC_END
     ),
 
     [_FN2] = LAYOUT_60_ansi_arrow(
-        KC_ESC,  KC_BRID, KC_BRIU, KC_MCTL, KC_LPAD, RGB_VAD, RGB_VAI, KC_MPRV, KC_MPLY, KC_MNXT,  KC_MUTE, KC_VOLD, KC_VOLU, KC_PWR,
+        KC_ESC,  KC_BRID, KC_BRIU, KC_MCTL, KC_LPAD, RM_VALD, RM_VALU, KC_MPRV, KC_MPLY, KC_MNXT,  KC_MUTE, KC_VOLD, KC_VOLU, KC_PWR,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,          _______,
         _______,          _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______,
@@ -117,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 uint8_t mod_state;
 bool delkey_registered;
 
-#ifdef RGB_MATRIX_ENABLE
+#ifdef RM_MATRIX_ENABLE
 
 /*
  * RGB Stuff
@@ -232,7 +232,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return true;
 
-        case RGB_TOG:
+        case QK_RGB_MATRIX_TOGGLE:
             /* roll through the LED modes
              * |    Level    | Per-key | Underglow |
              * |-------------|---------|-----------|

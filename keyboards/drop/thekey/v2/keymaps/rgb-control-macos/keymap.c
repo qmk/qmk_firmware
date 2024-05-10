@@ -26,16 +26,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(LAYER_SWITCH, G(KC_C), G(KC_V)),
 
     /* RGB Toggle + Mode Change */
-    [1] = LAYOUT(LAYER_SWITCH, RGB_TOG, RGB_MOD),
+    [1] = LAYOUT(LAYER_SWITCH, UG_TOGG, UG_NEXT),
 
     /* RGB Brightness */
-    [2] = LAYOUT(LAYER_SWITCH, RGB_VAD, RGB_VAI),
+    [2] = LAYOUT(LAYER_SWITCH, UG_VALD, UG_VALU),
 
     /* RGB Hue */
-    [3] = LAYOUT(LAYER_SWITCH, RGB_HUD, RGB_HUI),
+    [3] = LAYOUT(LAYER_SWITCH, UG_HUED, UG_HUEU),
 
     /* RGB Saturation */
-    [4] = LAYOUT(LAYER_SWITCH, RGB_SAD, RGB_SAI),
+    [4] = LAYOUT(LAYER_SWITCH, UG_SATD, UG_SATU),
 
 };
 
