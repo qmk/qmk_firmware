@@ -117,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 uint8_t mod_state;
 bool delkey_registered;
 
-#ifdef RM_MATRIX_ENABLE
+#ifdef RGB_MATRIX_ENABLE
 
 /*
  * RGB Stuff
