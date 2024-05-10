@@ -147,6 +147,8 @@ layer_state_t default_layer_state_set_kb(layer_state_t state) {
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if(res) {
+      gpio_write_pin(C15, !led_state.caps_lock);
+      gpio_write_pin(C14, !led_state.scroll_lock);
        //caps lock display
       if (led_state.caps_lock) {
         IND = IND | CAPS_ON;
@@ -167,7 +169,7 @@ bool led_update_kb(led_t led_state) {
       }
     }
     s_serial_to_parallel(IND);
-    return true;
+    return res;
 }
 
 
