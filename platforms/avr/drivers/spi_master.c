@@ -36,12 +36,12 @@
 #    define SPI_TIMEOUT 100
 #endif
 
-static pin_t                currentSlavePin       = NO_PIN;
-static spi_cs_select_mode_t current_cs_active_low = true;
-static uint8_t              currentSlaveConfig    = 0;
-static bool                 currentSlave2X        = false;
+static pin_t   currentSlavePin       = NO_PIN;
+static bool    current_cs_active_low = true;
+static uint8_t currentSlaveConfig    = 0;
+static bool    currentSlave2X        = false;
 
-static inline spi_select(void) {
+static inline void spi_select(void) {
     gpio_write_pin(currentSlavePin, current_cs_active_low ? 0 : 1);
 }
 
