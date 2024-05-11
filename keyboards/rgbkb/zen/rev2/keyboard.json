@@ -8,6 +8,15 @@
       "pid": "0x3061",
       "device_version": "0.0.2"
     },
+    "features": {
+      "bootmagic": false,
+      "command": true,
+      "encoder": true,
+      "extrakey": true,
+      "mousekey": true,
+      "nkro": false,
+      "rgblight": true
+    },
     "matrix_pins": {
       "cols": ["F4", "F5", "F6", "F7", "B3", "B1", "B2"],
       "rows": ["C6", "E6", "B5", "D7", "B4"]
@@ -19,6 +28,7 @@
       ]
     },
     "split": {
+      "enabled": true,
       "soft_serial_pin": "D3"
     },
     "rgblight": {
