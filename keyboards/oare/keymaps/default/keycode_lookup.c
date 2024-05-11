@@ -3,15 +3,11 @@
 
 #include "keycode_lookup.h"
 #include "keymap_introspection.h"
-#include "print.h"
 
 // Now we implement a custom "semi-transparent" keycode using KC_ENC:
 // We fall through to layer 0 to get the actual keycode, then modify it according to what's in key_offsets
 uint16_t keycode_at_keymap_location(uint8_t layer_num, uint8_t row, uint8_t column) {
     uint16_t code = keycode_at_keymap_location_raw(layer_num, row, column);
-    if (code > 3) {
-        uprintf("got code %d for row %d col %d\n", code, row, column);
-    }
     if (code == KC_ENC) {
         // don't return this, we need to fall through but then modify
         // Could make it more generic to fall to the next active layer instead of straight to 0, but I don't care that much.
@@ -25,9 +21,6 @@ uint16_t keycode_at_keymap_location(uint8_t layer_num, uint8_t row, uint8_t colu
                 code -= KEY_OFFSET_SIZE;
             }
         }
-    }
-    if (code > 3) {
-        uprintf("returning code %d for row %d col %d\n", code, row, column);
     }
     return code;
 }
