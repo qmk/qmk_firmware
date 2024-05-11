@@ -739,7 +739,7 @@ Configures the [Split Keyboard](feature_split_keyboard.md) feature.
         * Default: `1`
     * `transport`
         * `protocol`
-            * The split transport protocol to use. Must be one of `custom`, `i2c`, `serial`, `serial_usart`.
+            * The split transport protocol to use. Must be one of `custom`, `i2c`, `serial`.
         * `sync`
             * `activity`
                 * Mirror the activity timestamps to the secondary half.
