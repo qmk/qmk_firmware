@@ -18,45 +18,32 @@
 
 #include "timer.h"
 
-static bool  spiStarted      = false;
-static pin_t currentSlavePin = NO_PIN;
+static bool spiStarted = false;
+#if SPI_SELECT_MODE == SPI_SELECT_MODE_NONE
+static pin_t currentSlavePin       = NO_PIN;
+static bool  current_cs_active_low = true;
+#endif
 
 static SPIConfig spiConfig;
 
-static inline void spi_select(pin_t slavePin, spi_cs_select_mode_t cs_mode) {
-    switch (cs_mode) {
-        case SPI_CS_SELECT_MODE_NONE:
-            if (slavePin != NO_PIN) {
-                gpio_write_pin_low(slavePin);
-            }
-            break;
-        case SPI_CS_SELECT_MODE_INVERTED:
-            if (slavePin != NO_PIN) {
-                gpio_write_pin_high(slavePin);
-            }
-            break;
-        default:
-            spiSelect(&SPI_DRIVER);
-            break;
+static inline void spi_select(void) {
+    spiSelect(&SPI_DRIVER);
+
+#if SPI_SELECT_MODE == SPI_SELECT_MODE_NONE
+    if (currentSlavePin != NO_PIN) {
+        gpio_write_pin(currentSlavePin, current_cs_active_low ? 0 : 1);
     }
+#endif
 }
 
-static inline void spi_unselect(pin_t slavePin, spi_cs_select_mode_t cs_mode) {
-    switch (cs_mode) {
-        case SPI_CS_SELECT_MODE_NONE:
-            if (slavePin != NO_PIN) {
-                gpio_write_pin_high(slavePin);
-            }
-            break;
-        case SPI_CS_SELECT_MODE_INVERTED:
-            if (slavePin != NO_PIN) {
-                gpio_write_pin_low(slavePin);
-            }
-            break;
-        default:
-            spiUnselect(&SPI_DRIVER);
-            break;
+static inline void spi_unselect(void) {
+#if SPI_SELECT_MODE == SPI_SELECT_MODE_NONE
+    if (currentSlavePin != NO_PIN) {
+        gpio_write_pin(currentSlavePin, current_cs_active_low ? 1 : 0);
     }
+#endif
+
+    spiUnselect(&SPI_DRIVER);
 }
 
 __attribute__((weak)) void spi_init(void) {
@@ -96,14 +83,15 @@ __attribute__((weak)) void spi_init(void) {
     }
 }
 
-bool spi_start_extended(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor, spi_cs_select_mode_t cs_mode) {
+bool spi_start_extended(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor, bool cs_active_low) {
     if (spiStarted) {
         return false;
     }
-
-    if (cs_mode == SPI_CS_SELECT_MODE_PAD && slavePin == NO_PIN) {
+#if SPI_SELECT_MODE != SPI_SELECT_MODE_NONE
+    if (slavePin == NO_PIN) {
         return false;
     }
+#endif
 
 #if !(defined(WB32F3G71xx) || defined(WB32FQ95xx))
     uint16_t roundedDivisor = 2;
@@ -297,35 +285,30 @@ bool spi_start_extended(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t di
 #endif
 
     spiStarted = true;
-
-    switch (cs_mode) {
-        case SPI_CS_SELECT_MODE_PAD:
-            spiConfig.ssport = PAL_PORT(slavePin);
-            spiConfig.sspad  = PAL_PAD(slavePin);
-            gpio_set_pin_output(slavePin);
-            break;
-        default:
-            currentSlavePin = slavePin;
-            if (slavePin != NO_PIN) {
-                gpio_set_pin_output(slavePin);
-            }
-            break;
+#if SPI_SELECT_MODE == SPI_SELECT_MODE_NONE
+    currentSlavePin       = slavePin;
+    current_cs_active_low = cs_active_low;
+#endif
+#if SPI_SELECT_MODE == SPI_SELECT_MODE_PAD
+    spiConfig.ssport = PAL_PORT(slavePin);
+    spiConfig.sspad  = PAL_PAD(slavePin);
+    gpio_set_pin_output(slavePin);
+#elif SPI_SELECT_MODE == SPI_SELECT_MODE_NONE
+    if (slavePin != NO_PIN) {
+        gpio_set_pin_output(slavePin);
     }
+#else
+#    error "Unsupported SPI_SELECT_MODE"
+#endif
 
     spiStart(&SPI_DRIVER, &spiConfig);
-    spi_select(slavePin, cs_mode);
+    spi_select();
 
     return true;
 }
 
 bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
-#if SPI_SELECT_MODE == SPI_SELECT_MODE_NONE
-    return spi_start_extended(slavePin, lsbFirst, mode, divisor, SPI_CS_SELECT_MODE_NONE);
-#elif SPI_SELECT_MODE == SPI_SELECT_MODE_PAD
-    return spi_start_extended(slavePin, lsbFirst, mode, divisor, SPI_CS_SELECT_MODE_PAD);
-#else
-#    error "Unsupported SPI_SELECT_MODE"
-#endif
+    return spi_start_extended(slavePin, lsbFirst, mode, divisor, true);
 }
 
 spi_status_t spi_write(uint8_t data) {
@@ -352,20 +335,10 @@ spi_status_t spi_receive(uint8_t *data, uint16_t length) {
     return SPI_STATUS_SUCCESS;
 }
 
-void spi_stop_extended(pin_t slavePin, spi_cs_select_mode_t cs_mode) {
+void spi_stop(void) {
     if (spiStarted) {
-        spi_unselect(slavePin, cs_mode);
+        spi_unselect();
         spiStop(&SPI_DRIVER);
         spiStarted = false;
     }
-}
-
-void spi_stop(void) {
-#if SPI_SELECT_MODE == SPI_SELECT_MODE_NONE
-    spi_stop_extended(currentSlavePin, SPI_CS_SELECT_MODE_NONE);
-#elif SPI_SELECT_MODE == SPI_SELECT_MODE_PAD
-    spi_stop_extended(NO_PIN, SPI_CS_SELECT_MODE_PAD);
-#else
-#    error "Unsupported SPI_SELECT_MODE"
-#endif
 }
