@@ -1,5 +1,7 @@
-#ifndef KEYCODE_LOOKUP
-    #define KEYCODE_LOOKUP
+// Copyright 2024 Snipeye (@Snipeye)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+#pragma once
 
 #include "quantum_keycodes.h"
 #include "info_config.h"
@@ -10,5 +12,3 @@ extern uint8_t key_positions[MATRIX_ROWS][MATRIX_COLS];
 enum my_keycodes {
   KC_ENC = SAFE_RANGE
 };
-
-#endif // KEYCODE_LOOKUP

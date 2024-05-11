@@ -1,3 +1,6 @@
+// Copyright 2024 Snipeye (@Snipeye)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include "keycode_lookup.h"
 #include "keymap_introspection.h"
 #include "print.h"

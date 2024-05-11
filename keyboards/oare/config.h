@@ -1,4 +1,4 @@
-// Copyright 2024 Joshua Broekhuijsen (@Snipeye)
+// Copyright 2024 Snipeye (@Snipeye)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
