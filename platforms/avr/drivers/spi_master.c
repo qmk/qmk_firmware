@@ -120,7 +120,7 @@ bool spi_start_extended(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t di
     currentSlavePin       = slavePin;
     current_cs_active_low = cs_active_low;
     gpio_set_pin_output(currentSlavePin);
-    spi_select(currentSlavePin, current_cs_active_low);
+    spi_select();
 
     return true;
 }
@@ -184,7 +184,7 @@ spi_status_t spi_receive(uint8_t *data, uint16_t length) {
 void spi_stop(void) {
     if (currentSlavePin != NO_PIN) {
         gpio_set_pin_output(currentSlavePin);
-        spi_unselect(currentSlavePin, current_cs_active_low);
+        spi_unselect();
         currentSlavePin = NO_PIN;
         SPSR &= ~(_BV(SPI2X));
         SPCR &= ~(currentSlaveConfig);
