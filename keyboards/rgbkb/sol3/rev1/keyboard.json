@@ -24,6 +24,9 @@
             "twinkle": true
         }
     },
+    "audio": {
+        "driver": "dac_additive"
+    },
     "ws2812": {
         "pin": "B5",
         "driver": "pwm"

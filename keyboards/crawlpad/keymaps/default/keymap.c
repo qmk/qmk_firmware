@@ -40,32 +40,16 @@ void set_led(int idx, bool enable) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case BL1:
-    if (record->event.pressed) {
-      PORTB |= (1 << 4);
-    } else {
-      PORTB &= ~(1 << 4);
-    }
+    gpio_write_pin(B4, record->event.pressed);
     return false;
   case BL2:
-    if (record->event.pressed) {
-      PORTB |= (1 << 5);
-    } else {
-      PORTB &= ~(1 << 5);
-    }
+    gpio_write_pin(B5, record->event.pressed);
     return false;
   case BL3:
-    if (record->event.pressed) {
-      PORTB |= (1 << 6);
-    } else {
-      PORTB &= ~(1 << 6);
-    }
+    gpio_write_pin(B6, record->event.pressed);
     return false;
   case BL4:
-    if (record->event.pressed) {
-      PORTB |= (1 << 7);
-    } else {
-      PORTB &= ~(1 << 7);
-    }
+    gpio_write_pin(B7, record->event.pressed);
     return false;
   }
   return true;
@@ -73,6 +57,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void matrix_init_user(void) {
   /* set LED row pins to output and low */
-  DDRB |= (1 << 4) | (1 << 5) | (1 << 6) | (1 << 7);
-  PORTB &= ~(1 << 4) & ~(1 << 5) & ~(1 << 6) & ~(1 << 7);
+  gpio_set_pin_output(B4);
+  gpio_set_pin_output(B5);
+  gpio_set_pin_output(B6);
+  gpio_set_pin_output(B7);
+
+  gpio_write_pin_low(B4);
+  gpio_write_pin_low(B5);
+  gpio_write_pin_low(B6);
+  gpio_write_pin_low(B7);
 }

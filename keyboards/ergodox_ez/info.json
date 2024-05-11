@@ -27,7 +27,8 @@
         "debounce_type": "sym_eager_pr"
     },
     "ws2812": {
-        "pin": "D7"
+        "pin": "D7",
+        "rgbw": true
     },
     "rgb_matrix": {
         "animations": {

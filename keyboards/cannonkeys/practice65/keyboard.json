@@ -48,9 +48,8 @@
         "pin": "B15",
         "driver": "spi"
     },
-    "processor": "STM32F103",
-    "bootloader": "stm32duino",
-   "layouts": {
+    "development_board": "bluepill",
+    "layouts": {
         "LAYOUT_default": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},

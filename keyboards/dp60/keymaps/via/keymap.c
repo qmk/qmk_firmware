@@ -44,3 +44,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, _______,       _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
       _______,_______,_______,                        _______,                        _______,_______,_______,_______)
 };
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (record->event.pressed) {
+    switch(keycode) {
+    #ifdef RGBLIGHT_ENABLE
+        #ifdef RGB_MATRIX_ENABLE
+        case KC_F13: // toggle rgb matrix
+            rgb_matrix_toggle();
+            return false;
+        case KC_F14:
+            rgb_matrix_step();
+            return false;
+        #endif
+    #endif
+        default:
+        break;
+    }
+  }
+  return true;
+}

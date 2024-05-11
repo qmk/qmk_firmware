@@ -19,15 +19,13 @@
         "rows": ["A6", "A5", "A4", "A3", "A2"]
     },
     "diode_direction": "COL2ROW",
-    "processor": "STM32F411",
-    "bootloader": "stm32-dfu",
+    "development_board": "blackpill_f411",
     "features": {
         "bootmagic": false,
         "mousekey": true,
         "extrakey": true,
         "nkro": true
     },
-    "board": "BLACKPILL_STM32_F411",
     "community_layouts": ["ortho_5x12"],
     "layouts": {
         "LAYOUT_ortho_5x12": {

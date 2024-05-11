@@ -17,6 +17,9 @@
         "mousekey": true,
         "rgb_matrix": true
     },
+    "audio": {
+        "driver": "pwm_hardware"
+    },
     "matrix_pins": {
         "cols": ["GP8", "GP9", "GP10", "GP11", "GP12", "GP13", "GP14", "GP15", "GP16"],
         "rows": ["GP22", "GP21", "GP20", "GP19", "GP18", "GP17"]

@@ -185,7 +185,7 @@ static inline void setled(int i, uint8_t r, uint8_t g, uint8_t b) {
     rgb_matrix_ws2812_array[i].r = r;
     rgb_matrix_ws2812_array[i].g = g;
     rgb_matrix_ws2812_array[i].b = b;
-#    ifdef RGBW
+#    ifdef WS2812_RGBW
     convert_rgb_to_rgbw(&rgb_matrix_ws2812_array[i]);
 #    endif
 }
