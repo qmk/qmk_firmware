@@ -38,12 +38,18 @@ typedef int16_t spi_status_t;
 #define SPI_TIMEOUT_IMMEDIATE (0)
 #define SPI_TIMEOUT_INFINITE (0xFFFF)
 
+typedef enum spi_cs_select_mode_t {
+    SPI_CS_SELECT_MODE_DEFAULT,
+    SPI_CS_SELECT_MODE_INVERTED,
+} spi_cs_select_mode_t;
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 void spi_init(void);
 
 bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor);
+bool spi_start_extended(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor, spi_cs_select_mode_t cs_mode);
 
 spi_status_t spi_write(uint8_t data);
 
@@ -54,6 +60,7 @@ spi_status_t spi_transmit(const uint8_t *data, uint16_t length);
 spi_status_t spi_receive(uint8_t *data, uint16_t length);
 
 void spi_stop(void);
+void spi_stop_extended(pin_t slavePin, spi_cs_select_mode_t cs_mode);
 #ifdef __cplusplus
 }
 #endif
