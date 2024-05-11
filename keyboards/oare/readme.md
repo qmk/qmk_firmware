@@ -1,12 +1,12 @@
 # oare
 
-![oare](imgur.com image replace me!)
+![oare](https://imgur.com/a/yFKNxBH)
 
-*A short description of the keyboard/project*
+*Why use mx or choc or alps when you can use encoders?  This demonstrates how to place encoders in the key matrix, though I suspect the debouncing for the matrix is doing weird things.*
 
-* Keyboard Maintainer: [Joshua Broekhuijsen](https://github.com/Snipeye)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [Snipeye](https://github.com/Snipeye)
+* Hardware Supported: *RP2040, custom PCB*
+* Hardware Availability: *https://imgur.com/a/yFKNxBH*
 
 Make example for this keyboard (after setting up your build environment):
 
