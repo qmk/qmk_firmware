@@ -28,9 +28,14 @@ AUDIO_ENABLE = no          # Enable audio support, `yes` or `no`
 
 ## Software features
 
+# Debounce algorithm https://docs.qmk.fm/#/feature_debounce_type
+DEBOUNCE_TYPE = sym_eager_pk # Eager, per-key
+
 # Supported keycodes
 MOUSEKEY_ENABLE = yes      # Mouse movement using keys
 EXTRAKEY_ENABLE = yes      # Audio and system control
 
 # N-key rollover instead of 6-key rollover
 NKRO_ENABLE = yes          # Enable N-Key Rollover
+
+

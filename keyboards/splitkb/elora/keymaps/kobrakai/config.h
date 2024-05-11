@@ -20,8 +20,13 @@
 #define MYRIAD_ENABLE
 
 // Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed
-#define DEBOUNCE 5
+#define DEBOUNCE 2
 
+// Sets USB Polling interval
+#define USB_POLLING_INTERVAL_MS 1
+
+// 5Encoder Resolution 
+// defined in splitkb/elora/rev1/config.h
 
 // RGB Animations
 // Sleep when computer turned off
@@ -36,6 +41,7 @@
 #define RGBLIGHT_DEFAULT_ON true
 // Enable animations
 #define RGBLIGHT_EFFECT_BREATHING
+#define BREATHING_PERIOD 10
 #define RGBLIGHT_EFFECT_KNIGHT
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
