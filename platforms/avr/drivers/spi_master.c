@@ -36,38 +36,17 @@
 #    define SPI_TIMEOUT 100
 #endif
 
-static pin_t   currentSlavePin    = NO_PIN;
-static uint8_t currentSlaveConfig = 0;
-static bool    currentSlave2X     = false;
+static pin_t                currentSlavePin       = NO_PIN;
+static spi_cs_select_mode_t current_cs_active_low = true;
+static uint8_t              currentSlaveConfig    = 0;
+static bool                 currentSlave2X        = false;
 
-static inline spi_select(pin_t slavePin, spi_cs_select_mode_t cs_mode) {
-    switch (cs_mode) {
-        case SPI_CS_SELECT_MODE_INVERTED:
-            if (slavePin != NO_PIN) {
-                gpio_write_pin_high(slavePin);
-            }
-            break;
-        default:
-            if (slavePin != NO_PIN) {
-                gpio_write_pin_low(slavePin);
-            }
-            break;
-    }
+static inline spi_select(void) {
+    gpio_write_pin(currentSlavePin, current_cs_active_low ? 0 : 1);
 }
 
-static inline void spi_unselect(pin_t slavePin, spi_cs_select_mode_t cs_mode) {
-    switch (cs_mode) {
-        case SPI_CS_SELECT_MODE_INVERTED:
-            if (slavePin != NO_PIN) {
-                gpio_write_pin_low(slavePin);
-            }
-            break;
-        default:
-            if (slavePin != NO_PIN) {
-                gpio_write_pin_high(slavePin);
-            }
-            break;
-    }
+static inline void spi_unselect(void) {
+    gpio_write_pin(currentSlavePin, current_cs_active_low ? 1 : 0);
 }
 
 void spi_init(void) {
@@ -80,10 +59,10 @@ void spi_init(void) {
 }
 
 bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
-    return spi_start_extended(slavePin, lsbFirst, mode, divisor, SPI_CS_SELECT_MODE_DEFAULT);
+    return spi_start_extended(slavePin, lsbFirst, mode, divisor, true);
 }
 
-bool spi_start_extended(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor, spi_cs_select_mode_t cs_mode) {
+bool spi_start_extended(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor, bool cs_active_low) {
     if (currentSlavePin != NO_PIN || slavePin == NO_PIN) {
         return false;
     }
@@ -138,11 +117,12 @@ bool spi_start_extended(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t di
     if (currentSlave2X) {
         SPSR |= _BV(SPI2X);
     }
-    currentSlavePin = slavePin;
+    currentSlavePin       = slavePin;
+    current_cs_active_low = cs_active_low;
     gpio_set_pin_output(currentSlavePin);
-    spi_select(currentSlavePin, cs_mode)
+    spi_select(currentSlavePin, current_cs_active_low);
 
-        return true;
+    return true;
 }
 
 spi_status_t spi_write(uint8_t data) {
@@ -202,13 +182,9 @@ spi_status_t spi_receive(uint8_t *data, uint16_t length) {
 }
 
 void spi_stop(void) {
-    spi_stop_extended(currentSlavePin, SPI_CS_SELECT_MODE_DEFAULT);
-}
-
-void spi_stop_extended(pin_t slavePin, spi_cs_select_mode_t cs_mode) {
-    if (slavePin != NO_PIN) {
-        gpio_set_pin_output(slavePin);
-        spi_unselect(slavePin, cs_mode);
+    if (currentSlavePin != NO_PIN) {
+        gpio_set_pin_output(currentSlavePin);
+        spi_unselect(currentSlavePin, current_cs_active_low);
         currentSlavePin = NO_PIN;
         SPSR &= ~(_BV(SPI2X));
         SPCR &= ~(currentSlaveConfig);
