@@ -94,6 +94,7 @@ Maybe at some point [this pr](https://github.com/joelspadin/keyboard-latency-tes
 # Links
 
 1. Patch to use tap-dance (1 tap - caps lock, 2 taps - cmd + space - to change language in majority of OS - useful if you use caps lock in macOS to change language to keep similar behavior in Windows/Linux): [link](https://gist.github.com/ryodeushii/2587f877cbe81e9d9c666a2d8066e416)
+2. Patch to apply small perf tweak (to reduce latency by 0.1-0.18ms) can be found [here](https://gist.github.com/ryodeushii/4cffcb6a6f427c023a0d0007d173ff2b)
 
 
 
