@@ -703,9 +703,6 @@ void low_bat_show(void) {
  * @brief  bat_percent_led.
  */
 void bat_percent_led(uint8_t bat_percent) {
-#ifdef CONSOLE_ENABLE
-    xprintf("BATTERY LEVEL: %u percents\n", bat_percent);
-#endif
     uint8_t i;
     uint8_t bat_end_led = 0;
     uint8_t bat_r, bat_g, bat_b;

@@ -476,6 +476,10 @@ void toggle_usb_sleep(void) {
  * @brief Toggle caps indication between side led / under key / off
  */
 void toggle_caps_indication(void) {
+#if CONSOLE_ENABLE
+        xprintf("CPU_CLOCK %u \n", CPU_CLOCK);
+#endif
+
     if (g_config.caps_indication_type == CAPS_INDICATOR_OFF) {
         g_config.caps_indication_type = CAPS_INDICATOR_SIDE; // set to initial state, when last state reached
     } else {
