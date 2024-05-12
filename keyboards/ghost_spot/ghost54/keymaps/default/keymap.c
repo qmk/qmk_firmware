@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [2] = LAYOUT(
   KC_ESC,    _______,   _______,_______, _______, _______,               _______,   _______,    _______,    _______,      _______,   KC_PSCR,
   KC_TAB,    _______,   _______,PT_LDAQ, PT_BSLS, PT_LBRC,               PT_RBRC,PT_SLSH,    S(PT_LDAQ), ALGR(PT_PLUS),_______,   _______,
-  KC_LSFT,   LGUI_T(PT_HASH),   LALT_T(PT_AT),  LCTL_T(PT_LABK), LSFT_T(PT_EXLM), S(PT_8),               S(PT_9),LSFT_T(PT_QUES),LCTL_T(PT_RABK),LALT_T(PT_EQL),LGUI_T(PT_PIPE),_______,
+  KC_LSFT,   PT_HASH,   PT_AT,  PT_LABK, PT_EXLM, S(PT_8),               S(PT_9),PT_QUES,PT_RABK,PT_EQL,PT_PIPE,_______,
   KC_LCTL,   _______,   _______,PT_MINS, S(PT_2), ALGR(PT_7),            ALGR(PT_0),PT_QUOT,    S(PT_MINS), _______,      _______,   _______,
                      KC_ENT,  LT(3,KC_SPC),    TO(1),   LGUI(KC_TAB),          KC_MPLY,   TO(0),      LT(3,KC_BSPC),    KC_DEL
 ),
@@ -144,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,  _______,   KC_F7,  KC_F8,  KC_F9, _______,              _______, KC_F19, KC_F20, KC_F21, _______, _______,
   KC_LSFT, LGUI_T(_______),   LALT_T(KC_F4),  LCTL_T(KC_F5),  LSFT_T(KC_F6), _______,              _______, RSFT_T(KC_F16), LCTL_T(KC_F17), LALT_T(KC_F18), LGUI_T(_______), _______,
   KC_LCTL, _______,   KC_F1,  KC_F2,  KC_F3, _______,              _______, KC_F13, KC_F14, KC_F15, _______, _______,
-                      KC_ENT,  ____, TO(1),  LGUI(KC_TAB),        KC_MPLY, TO(0),  ____,KC_DEL
+                      KC_ENT,  _______, TO(1),  LGUI(KC_TAB),        KC_MPLY, TO(0),  _______,KC_DEL
 )
 };
 
@@ -535,22 +535,3 @@ bool oled_task_user(void) {
 }
 
 #endif
-
-dfssdfsdlkj
-
-
-s sd
-sd
-fsd sdf sd
-sd sd
-sd fileoffset_tsd sd
-sd
-sd sd
-sd
-fsd sd  d sdaasd as
-
-as
-das
-fsa
-
-asd
