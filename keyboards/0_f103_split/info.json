@@ -13,10 +13,16 @@
         "nkro": true
     },
     "matrix_pins": {
-        "cols": ["B12", "B13", "B14", "B15"],
+        "cols": [
+            "B15",
+            "B14",
+            "B13",
+            "B12"
+            ],
         "rows": ["A8", "A9", "A10", "A11"]
     },
     "processor": "STM32F103",
+    "tags": ["split"],
     "url": "",
     "usb": {
         "device_version": "1.0.0",
@@ -24,7 +30,7 @@
         "vid": "0xFEED"
     },
     "layouts": {
-        "LAYOUT_ortho_4x4": {
+        "LAYOUT": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},

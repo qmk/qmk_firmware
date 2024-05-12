@@ -21,22 +21,19 @@
 
 #define SPLIT_CONNECTION_CHECK_TIMEOUT 500
 
-#define SERIAL_USART_FULL_DUPLEX   // Enable full duplex operation mode.
-
+#define SERIAL_USART_FULL_DUPLEX   
+#define SERIAL_USART_TX_PIN B6
 #define SERIAL_USART_RX_PIN B7
 
-// #define SERIAL_USART_PIN_SWAP      // Swap TX and RX pins if keyboard is master halve. (Only available on some MCUs)
-// #define USART1_REMAP               // Remap USART TX and RX pins on STM32F103 MCUs, see table below.
-// #define SERIAL_USART_TX_PAL_MODE 7
+#define USART1_REMAP               
+#define SERIAL_USART_TX_PAL_MODE 7
 
 #define HAL_USE_SERIAL TRUE
 
-#include_next <mcuconf.h>
+#include_next <mcuconf.h> //do not remove
 
-#undef STM32_SERIAL_USE_USART3
-#define STM32_SERIAL_USE_USART3 TRUE
+#undef STM32_SERIAL_USE_USART1
+#define STM32_SERIAL_USE_USART1 TRUE
+#define SERIAL_USART_DRIVER SD1
 
-#define SERIAL_USART_DRIVER SD3
-
-//#define EE_HANDS
-#define MASTER_RIGHT
+#define EE_HANDS
