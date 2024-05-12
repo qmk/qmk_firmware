@@ -25,9 +25,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                 KC_P0,      KC_PDOT,        KC_PENT),
    [1] = LAYOUT_numpad_5x4(
         KC_TRNS,                KC_CALCULATOR,          KC_BSPC,    KC_TRNS,
-        RGB_MODE_FORWARD,       RGB_VAI,                RGB_HUI,
+        RGB_MOD,       RGB_VAI,                RGB_HUI,
         RGB_SPD,                RGB_TOG,                RGB_SPI,    QK_BOOTLOADER,
-        RGB_MODE_REVERSE,       RGB_VAD,                RGB_HUD,
+        RGB_RMOD,       RGB_VAD,                RGB_HUD,
                                 KC_TRNS,                KC_TRNS,    QK_CLEAR_EEPROM),
 };
 
