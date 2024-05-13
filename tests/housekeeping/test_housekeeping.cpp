@@ -48,15 +48,15 @@ std::unique_ptr<HousekeepingMock> Housekeeping::_housekeepingMock;
 
 extern "C" {
 void housekeeping_task_kb(void) {
-  if (Housekeeping::_housekeepingMock) {
-      Housekeeping::_housekeepingMock->housekeeping_task_kb();
-  }
+    if (Housekeeping::_housekeepingMock) {
+        Housekeeping::_housekeepingMock->housekeeping_task_kb();
+    }
 }
 
 void housekeeping_task_user(void) {
-  if (Housekeeping::_housekeepingMock) {
-      Housekeeping::_housekeepingMock->housekeeping_task_user();
-  }
+    if (Housekeeping::_housekeepingMock) {
+        Housekeeping::_housekeepingMock->housekeeping_task_user();
+    }
 }
 }
 
