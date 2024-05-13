@@ -20,7 +20,7 @@
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if (res) {
-        led_state.caps_lock ? sethsv( HSV_RED, (rgb_led_t *)&led[0]) : sethsv( HSV_BLACK, (rgb_led_t *)&led[0]);
+        led_state.caps_lock? rgblight_setrgb_at(RGB_RED, 0) : rgblight_setrgb_at(RGB_OFF, 0);
     }
     return res;
 }
@@ -29,14 +29,14 @@ bool led_update_kb(led_t led_state) {
 layer_state_t layer_state_set_kb(layer_state_t state) {
     switch(get_highest_layer(state)) {
         case 1:   
-            sethsv(HSV_GREEN, (rgb_led_t *)&led[1]);
+            rgblight_setrgb_at(RGB_GREEN, 1);
             break;
         case 2:   
-            sethsv(HSV_BLUE, (rgb_led_t *)&led[2]);
+            rgblight_setrgb_at(RGB_BLUE, 2);
             break;
         default:
-            sethsv(HSV_BLACK, (rgb_led_t *)&led[1]);
-            sethsv(HSV_BLACK, (rgb_led_t *)&led[2]);
+            rgblight_setrgb_at(RGB_OFF, 1);
+            rgblight_setrgb_at(RGB_OFF, 2);
             break;
     }
     return state;
