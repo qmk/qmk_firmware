@@ -61,10 +61,24 @@ class Absent(FilterFunction):
 
 class Length(FilterFunction):
     func_name = "length"
+    funcMap = [
+        (">=", int.__ge__),
+        ("<=", int.__le__),
+        (">", int.__gt__),
+        ("<", int.__lt__),
+    ]
 
     def apply(self, target_info: TargetInfo) -> bool:
         _kb, _km, info = target_info
-        return (self.key in info and len(info[self.key]) == int(self.value))
+
+        val = int(''.join(c for c in self.value if c.isdigit()))
+        comp = int.__eq__
+        for (start, func) in self.funcMap:
+            if (self.value.startswith(start)):
+                comp = func
+                break
+        
+        return (self.key in info and comp(len(info[self.key]), val))
 
 
 class Contains(FilterFunction):
