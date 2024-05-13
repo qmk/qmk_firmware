@@ -21,7 +21,6 @@
 #include "test_keymap_key.hpp"
 
 using testing::_;
-using testing::InSequence;
 
 class HousekeepingMock {
    public:

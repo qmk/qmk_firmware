@@ -58,7 +58,7 @@ void TestFixture::TearDownTestCase() {}
 TestFixture::TestFixture() {
     m_this = this;
     timer_clear();
-    keyrecord_t empty_keyrecord = {};
+    keyrecord_t empty_keyrecord = {0};
     test_logger.info() << "tapping term is " << +GET_TAPPING_TERM(KC_TRANSPARENT, &empty_keyrecord) << "ms" << std::endl;
 }
 
