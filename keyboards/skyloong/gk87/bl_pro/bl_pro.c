@@ -11,6 +11,7 @@ uint8_t IND = 0;  //buffer of LED Display
 int FN_ON = 0;
 bool WIN_LOCK = 0;
 bool DIS_BRETH = 0;
+bool SLEEP = 0;
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_user(keycode, record)) {
@@ -110,19 +111,21 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 }
 
 void suspend_power_down_kb() {
-    gpio_write_pin_high(WIN_LOCK_PIN);
-    s_serial_to_parallel(0);
+    SLEEP = 1;
     suspend_power_down_user();
 }
 
 void suspend_wakeup_init_kb() {
+    SLEEP = 0;
+    gpio_write_pin(LED_CAPS_LOCK_PIN, !host_keyboard_led_state().caps_lock);
+    gpio_write_pin(LED_SCROLL_LOCK_PIN, !host_keyboard_led_state().scroll_lock);
+    gpio_write_pin(WIN_LOCK_PIN, !WIN_LOCK);
     s_serial_to_parallel(IND);
     suspend_wakeup_init_user();
 }
 
 bool shutdown_kb(bool jump_to_bootloader) {
-    gpio_write_pin_high(WIN_LOCK_PIN);
-    s_serial_to_parallel(0);
+    SLEEP = 1;
     return true;
 }
 
@@ -143,17 +146,23 @@ layer_state_t default_layer_state_set_kb(layer_state_t state) {
   return state;
 }
 
-
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
+    if(SLEEP){
+        gpio_write_pin_high(LED_CAPS_LOCK_PIN);
+        gpio_write_pin_high(LED_SCROLL_LOCK_PIN);
+        gpio_write_pin_high(WIN_LOCK_PIN);
+        s_serial_to_parallel(0);
+        return false;
+        }
     if(res) {
-      gpio_write_pin(C15, !led_state.caps_lock);
-      gpio_write_pin(C14, !led_state.scroll_lock);
        //caps lock display
       if (led_state.caps_lock) {
         IND = IND | CAPS_ON;
+        gpio_write_pin_low(LED_CAPS_LOCK_PIN);
       } else {
         IND = IND & (~CAPS_ON);
+        gpio_write_pin_high(LED_CAPS_LOCK_PIN);
       }
        //number lock display
       if (led_state.num_lock) {
@@ -164,14 +173,15 @@ bool led_update_kb(led_t led_state) {
        //scroll lock display
       if (led_state.scroll_lock) {
         IND = IND | SCR_ON;
+        gpio_write_pin_low(LED_SCROLL_LOCK_PIN);
       } else {
         IND = IND & (~SCR_ON);
+        gpio_write_pin_high(LED_SCROLL_LOCK_PIN);
       }
     }
     s_serial_to_parallel(IND);
     return res;
 }
-
 
 void board_init(void) {
     // JTAG-DP Disabled and SW-DP Disabled
@@ -180,5 +190,6 @@ void board_init(void) {
     gpio_write_pin_high(WIN_LOCK_PIN);
     s_serial_to_parallel(0xFF);
     IND = SKYLOONG;
+    SLEEP = 0;
 }
 
