@@ -15,7 +15,6 @@
  */
 
 #include "quantum.h"
-#include "print.h"
 
 // This function gets called when caps, num, scroll change
 bool led_update_kb(led_t led_state) {
