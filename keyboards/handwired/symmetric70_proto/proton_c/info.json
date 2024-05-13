@@ -1,4 +1,9 @@
 {
     "keyboard_name": "Symmetric70 prototype proton-c",
-    "development_board": "proton_c"
+    "development_board": "proton_c",
+    "features": {
+        "bootmagic": true,
+        "mousekey": false,
+        "extrakey": false
+    }
 }
