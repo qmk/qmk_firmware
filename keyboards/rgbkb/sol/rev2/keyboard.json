@@ -18,8 +18,7 @@
         "mousekey": false,
         "nkro": false,
         "oled": false,
-        "rgb_matrix": true,
-        "rgblight": false
+        "rgb_matrix": true
     },
     "rgb_matrix": {
         "animations": {
