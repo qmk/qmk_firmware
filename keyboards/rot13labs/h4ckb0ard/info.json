@@ -21,7 +21,8 @@
     "usb": {
         "pid": "0xBABE",
         "vid": "0xBEEF",
-        "device_version": "13.3.7"
+        "device_version": "13.3.7",
+        "no_startup_check": true
     }, 
     "ws2812": {
         "pin": "B4"
