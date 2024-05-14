@@ -100,7 +100,7 @@
             {"flags": 4, "matrix": [3, 10], "x": 10.5, "y": 3},
             {"flags": 4, "matrix": [3, 11], "x": 11.5, "y": 3}
         ],
-        "max_brightness": 120
+        "max_brightness": 100
         
     },
     "layouts": {
