@@ -1,7 +1,6 @@
-# GK104 Q1 Digital Indicator Keyboard
+# GK87 Q1 Digital Indicator Keyboard
 
-![GK104 Q1 PCBAS](https://i.imgur.com/EPuSVUAh.jpeg)
-![GK104 Q1 keyboard](https://i.imgur.com/fuswwLph.png)
+![GK87 Q1 PCBAS](https://i.imgur.com/ckupRBGh.jpeg)
 
 ## The PCB features:
 * QMK & VIA compatibility
@@ -9,19 +8,19 @@
 * Mechanical switches Keyboard with LED display.
 
 
-The following is the QMK Firmware for the Destop 100% keylayout -  designed by Dongguan Jizhi Electronic Technology Co., Ltd
+The following is the QMK Firmware for the Destop 87% keylayout -  designed by Dongguan Jizhi Electronic Technology Co., Ltd
 
 * Keyboard Maintainer: [NaturalZh](https://github.com/NaturalZh)
-* Hardware Supported: DestopPCB for Skyloong keylayout 100%, STM32F103C8T6
+* Hardware Supported: DestopPCB for Skyloong keylayout 87%, STM32F103C8T6
 * Hardware Availability: http://www.skyloong.com.cn  https://skyloong.vip
 
 Make example for this keyboard (after setting up your build environment):
 
-    make skyloong/gk104/q1/ansi:default
+    make skyloong/gk87/q1/ansi:default
 
 Flashing example for this keyboard:
 
-    make skyloong/gk104/q1/ansi:default:flash
+    make skyloong/gk87/q1/ansi:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
