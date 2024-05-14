@@ -98,7 +98,9 @@
             {"flags": 1, "matrix": [3, 9], "x": 9.5, "y": 3},
             {"flags": 1, "matrix": [3, 10], "x": 10.5, "y": 3},
             {"flags": 1, "matrix": [3, 11], "x": 11.5, "y": 3}
-        ]
+        ],
+        "max_brightness": 120
+        
     },
     "layouts": {
         "LAYOUT": {
