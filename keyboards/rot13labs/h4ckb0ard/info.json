@@ -48,6 +48,9 @@
             "solid_reactive_cross": true
         },
         "driver": "ws2812",
+        "default": {
+            "animation": "cycle_up_down"
+        },
         "layout": [
             {"flags": 1, "matrix": [0, 11], "x": 0, "y": 0},
             {"flags": 1, "matrix": [0, 10], "x": 1, "y": 0},
