@@ -202,12 +202,15 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 }
 
 void suspend_power_down_kb() {
+    gpio_write_pin_low(AW20216S_EN_PIN);
     gpio_write_pin_high(WIN_LOCK_PIN);
     s_serial_to_parallel(0);
     suspend_power_down_user();
 }
 
 void suspend_wakeup_init_kb() {
+    gpio_write_pin_high(AW20216S_EN_PIN);
+    gpio_write_pin(WIN_LOCK_PIN,!WIN_LOCK);
     s_serial_to_parallel(IND);
     suspend_wakeup_init_user();
 }
@@ -235,7 +238,6 @@ layer_state_t default_layer_state_set_kb(layer_state_t state) {
   return state;
 }
 
-
 bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) {
         return false;
@@ -246,11 +248,7 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
        // RGB_MATRIX_INDICATOR_SET_COLOR(CAPS_LOCK_INDEX, 255, 255, 255);
         IND = IND | CAPS_ON;
     } else {
-        /*
-        if (!rgb_matrix_get_flags()) {
-            RGB_MATRIX_INDICATOR_SET_COLOR(CAPS_LOCK_INDEX, 0, 0, 0);
-        }
-        */
+
         IND = IND & (~CAPS_ON);
     }
     //number lock display
@@ -258,11 +256,7 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
        // RGB_MATRIX_INDICATOR_SET_COLOR(NUM_LOCK_INDEX, 255, 255, 255);
         IND = IND | NUM_ON;
     } else {
-        /*
-        if (!rgb_matrix_get_flags()) {
-            RGB_MATRIX_INDICATOR_SET_COLOR(NUM_LOCK_INDEX, 0, 0, 0);
-        }
-        */
+
         IND = IND & (~NUM_ON);
     }
     //scroll lock display
@@ -270,18 +264,13 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
        // RGB_MATRIX_INDICATOR_SET_COLOR(SCR_LOCK_INDEX, 255, 255, 255);
         IND = IND | SCR_ON;
     } else {
-        /*
-        if (!rgb_matrix_get_flags()) {
-            RGB_MATRIX_INDICATOR_SET_COLOR(SCR_LOCK_INDEX, 0, 0, 0);
-        }
-        */
+
         IND = IND & (~SCR_ON);
     }
 
     s_serial_to_parallel(IND);
     return true;
 }
-
 
 void board_init(void) {
     // JTAG-DP Disabled and SW-DP Disabled
