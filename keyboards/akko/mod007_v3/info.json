@@ -16,7 +16,7 @@
     },
     "encoder": {
         "rotary": [
-            {"pin_a": "B14", "pin_b": "B13"}
+            {"pin_a": "B13", "pin_b": "B14"}
         ]
     },
     "features": {
