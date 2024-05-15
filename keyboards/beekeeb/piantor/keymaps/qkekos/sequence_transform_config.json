@@ -9,7 +9,9 @@
     },
     "token_aliases": {
         "$": "q",
-        "#": "l"
+        "#": "l",
+        "!": "k",
+        "%": "j"
     },
     "output_func_symbols": "↻⇑",
     "comment_str": "//",

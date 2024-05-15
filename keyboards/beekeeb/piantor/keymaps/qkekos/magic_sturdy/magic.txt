@@ -1,6 +1,8 @@
 
 // $ - an alias for q
 // # - an alias for l
+// ! - an alias for k
+// % - an alias for j
 
 // * - magic key (upper right index)
 // @ - repeat key(home  right thumb)
@@ -134,12 +136,12 @@ _b@g$         -> beginning
 _b$           -> back
 _b$u          -> backup
 _b$d          -> backed
-_b$g          -> backing
+_b$@          -> backing
 _b$e          -> backend
 _b$o          -> backdoor
 _b$w          -> backwards
 _b$s          -> backspace
-_b$@          -> background
+_b$g          -> background
 
 _b@e          -> been
 _b@k          -> back
@@ -154,6 +156,7 @@ _b@c          -> because
 _b@l          -> believe
 _b@w          -> between
 _b@v          -> behavior
+_b@mg         -> becoming
 _b@ps         -> bypassing
 
 _bc@          -> bunch
@@ -167,14 +170,14 @@ _bud*         -> budget
 c*            -> cy
 _c@           -> con
 
-_p@           -> copy
-_p@n          -> copying
+_co$          -> copy
+_co$@         -> copying
+
+_col*         -> column
+_col*@        -> columnar
 
 _cr*          -> cry
 _cry@         -> crying
-
-_ch@          -> change
-_ch@i         -> changing
 
 _c@l          -> conflict
 _c@ln         -> conflicting
@@ -222,6 +225,7 @@ _c@$i         -> constrain
 _c@f          -> config
 _c@fr         -> configure
 _c@fi         -> configuring
+_c@f#         -> configurable
 _c@ft         -> configuration
 
 _c@e          -> confuse
@@ -245,9 +249,18 @@ _c@v*o        -> conversion
 _c@v*t        -> convenient
 _c@v*a        -> conversation
 
+_c%*          -> c%
+_c%           -> change
+_c%n          -> chance
+_c%r          -> charge
+_c%l          -> channel
+_c%@          -> changing
+_c%r@         -> charging
+_c%r*         -> character
+_c%l@         -> channelling
+
 _co*          -> could
 _cop*         -> coping
-_col*         -> column
 _cri*         -> cringe
 _cou#         -> course
 _com*         -> comment
@@ -464,14 +477,18 @@ _gi*          -> ginger
 
 _h@           -> hand
 
+_hs@          -> honest
+_hs@l         -> honestly
+
+_ha$@         -> happen
+_ha$@d        -> happened
+_ha$@g        -> happenning
+
 _h@l          -> handle
 _h@r          -> handler
 _h@ld         -> handled
 _h@ls         -> handles
 _h@lg         -> handling
-
-_hs@          -> honest
-_hs@l         -> honestly
 
 _ha$          -> happy
 _ha$y         -> happily
@@ -479,10 +496,7 @@ _ha$e         -> happier
 _ha$s         -> happiest
 _ha$n         -> happiness
 
-_ha$@         -> happen
-_ha$@d        -> happened
-_ha$@g        -> happenning
-
+_hy@          -> hype
 _he$          -> health
 _how@         -> however
 _ht@          -> https://
@@ -497,6 +511,15 @@ ion*          -> ional
 
 _i@s          -> instead
 _i@c          -> incapable
+
+_i@$          -> instant
+_i@$c         -> instance
+_i@$y         -> instantly
+
+_i@!          -> intention
+_i@!a         -> intentional
+_u@!          -> unintentional
+_i@!ay        -> intentionally
 
 _i@t          -> interest
 _i@td         -> interested
@@ -583,6 +606,7 @@ _li*g         -> listening
 mp*           -> mpl
 m*            -> ment
 m*@           -> mental
+m*@y          -> mentally
 
 _mu*          -> must
 _mu@          -> music
@@ -603,6 +627,8 @@ _my@o         -> mythology
 _men#         -> menu
 _may*         -> maybe
 _min@         -> minute
+_mov*         -> movement
+_meanl        -> meanwhile
 
 // ------------------------------------N---------------------------------------
 
@@ -869,8 +895,9 @@ tio@          -> tional
 _ta@          -> take
 _ta@g         -> taking
 
-_tg@          -> though
-_tg@*         -> thought
+_t%           -> though
+_t%@          -> thought
+_tr%          -> through
 
 _t@           -> than
 _(t*|*t)      -> that
@@ -898,10 +925,10 @@ _tr@d         -> transformed
 _tr@g         -> transforming
 _tr@a         -> transformation
 
-_t$           -> trouble
-_t$o          -> troublesome
-_t$h          -> troubleshoot
-_t$h@         -> troubleshooting
+_tr*          -> trouble
+_tr*o         -> troublesome
+_tr*@         -> troubleshoot
+_tr*g         -> troubleshooting
 
 _te*          -> tech
 _te*l         -> technical
@@ -912,7 +939,6 @@ _te*g@        -> technologies
 
 _(life)?ti*   -> \1time
 _ty*@         -> typing
-_thr@         -> through
 _tal*g        -> talking
 _*ro          -> therefore
 _monkey*      -> monkeytype
@@ -958,7 +984,7 @@ _uni@         -> university
 _unn$         -> unnecessary
 _unc@         -> uncomfortable
 
-// ------------------------------------V--------------------------------------
+// ------------------------------------V---------------------------------------
 
 v*            -> ver
 
