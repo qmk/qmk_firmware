@@ -190,11 +190,11 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
                 }
                 keymap_config.no_gui = 0;
             } else {
-                if (default_layer_state & (1<<MAC_W)) {
-                    set_single_persistent_default_layer(WIN_W);
+                if (layer_state_cmp(default_layer_state, MAC_W)) {
+                    default_layer_set((layer_state_t)1 << WIN_W);
                     layer_on(WIN_B);
                 } else {
-                    set_single_persistent_default_layer(WIN_B);
+                    default_layer_set((layer_state_t)1 << WIN_B);
                     layer_off(MAC_W);
                 }
             }
