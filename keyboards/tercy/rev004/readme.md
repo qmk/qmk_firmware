@@ -1,20 +1,28 @@
-# tercy
+# Tercy/rev004
 
-![tercy](imgur.com image replace me!)
+![Tercy/rev004](https://etlife.info/wp-content/uploads/2024/05/Tercy_rev004_keyboard.jpg)
 
-*A short description of the keyboard/project*
+Tercy_rev004 is a 44-key keyboard. The default key map is follows.
 
-* Keyboard Maintainer: [tercy](https://github.com/tercy)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Layer 0 : ![Layer0](https://etlife.info/wp-content/uploads/2024/05/Tercy_rev004_layer_0.png)
+
+* Layer 1, 2 (Tri Layer Lower, Upper) ![Layer1,2](https://etlife.info/wp-content/uploads/2024/05/Tercy_rev004_layer_1-2.png)
+
+* Layer 3 (Tri Layer Adjust) ![Layer3](https://etlife.info/wp-content/uploads/2024/05/Tercy_rev004_layer_3.png)
+
+* Keyboard Maintainer: [TercyKB](https://github.com/TercyKB)
+* Hardware Supported: Tercy_rev004 PCB, Pro Micro.
+* Hardware Availability: The PCB is not for sale for now (May 2024). But you can download kicad project of the PCB from https://etlife.info/wp-content/uploads/2024/05/Keyboard_004.kicad_pro.zip. Pro Micro embedded on the PCB is [OSOYOO Type C version Pro Micro board](https://amzn.asia/d/95Ze0f2). The simplest schematic diagram for Tercy_rev004 is follows.
+
+![Tercy/rev004_schematic](https://etlife.info/wp-content/uploads/2024/05/Tercy_rev004_simplest_schematic_diagram.png)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make tercy:default
+    make Tercy/rev004:default
 
 Flashing example for this keyboard:
 
-    make tercy:default:flash
+    make Tercy/rev004:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
@@ -23,5 +31,5 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 Enter the bootloader in 3 ways:
 
 * **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
+* **Physical reset**: Short RST and GND on ProMicro board
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
