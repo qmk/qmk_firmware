@@ -3,7 +3,7 @@
 
 #include "quantum.h"
 // clang-format off
-#ifdef RGSW2_MATRIX_ENABLE
+#ifdef RGB_MATRIX_ENABLE
 const snled27351_led_t PROGMEM g_snled27351_leds[SNLED27351_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
