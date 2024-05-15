@@ -181,11 +181,11 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
     switch (index) {
         case 0:
             if (active) {
-                if (default_layer_state & (1<<MAC_W)) {
-                    set_single_persistent_default_layer(MAC_W);
+                if (layer_state_cmp(default_layer_state, MAC_W)) {
+                    default_layer_set((layer_state_t)1 << MAC_W);
                     layer_on(MAC_B);
                 } else {
-                    set_single_persistent_default_layer(MAC_B);
+                    default_layer_set((layer_state_t)1 << MAC_B);
                     layer_off(WIN_W);
                 }
                 keymap_config.no_gui = 0;
