@@ -67,11 +67,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [WIN_B] = { ENCODER_CCW_CW(KC_VOLU, KC_VOLD) },
-    [WIN_W] = { ENCODER_CCW_CW(KC_VOLU, KC_VOLD) },
-    [WIN_FN] = { ENCODER_CCW_CW(KC_VOLU, KC_VOLD) },
-    [MAC_B] = { ENCODER_CCW_CW(KC_VOLU, KC_VOLD) },
-    [MAC_W] = { ENCODER_CCW_CW(KC_VOLU, KC_VOLD) },
-    [MAC_FN] = { ENCODER_CCW_CW(KC_VOLU, KC_VOLD) }
+    [WIN_B] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [WIN_W] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [WIN_FN] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [MAC_B] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [MAC_W] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [MAC_FN] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) }
+
 };
 #endif
