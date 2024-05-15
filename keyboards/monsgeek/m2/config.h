@@ -35,8 +35,4 @@
 #define I2C1_OPMODE OPMODE_I2C
 #define I2C1_CLOCK_SPEED 400000 /* 400000 */
 
-#define RGB_TRIGGER_ON_KEYDOWN
-#define RGB_MATRIX_SLEEP // turn off effects when suspended
-#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#define RGB_MATRIX_KEYPRESSES
 
