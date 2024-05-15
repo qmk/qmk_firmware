@@ -5,8 +5,8 @@
   "version": 1,
   "config": {
     "features": {
-        "via": true,
-       "encoder_map": true
+      "via": true,
+      "encoder_map": true
     }
   },
   "encoders": [
