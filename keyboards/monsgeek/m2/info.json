@@ -153,7 +153,9 @@
             {"matrix": [5, 19], "x": 210, "y": 64, "flags": 4}
         ],
         "max_brightness": 200,
-        "val_steps": 20
+        "val_steps": 20,
+        "sleep": true,
+        
     },
     "usb": {
         "device_version": "1.0.4",
