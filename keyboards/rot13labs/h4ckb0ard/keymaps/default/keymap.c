@@ -41,5 +41,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_ESC,  KC_Q,    RGB_M_SW, KC_E,  RGB_M_R, KC_T,    KC_Y,   RGB_SPD, RGB_SPI,  RGB_RMOD, RGB_MOD, KC_DEL,
       KC_TAB,  KC_A,    RGB_M_P,  KC_D,  KC_F,    KC_G,    KC_H,   RGB_SAD, RGB_SAI,  RGB_TOG,           KC_ENT,
       KC_LSFT, KC_Z,    KC_X,     KC_C,  KC_V,    RGB_M_B, KC_N,   KC_M,    KC_RCTL,            RGB_VAI, DF(0),
-      KC_LCTL, KC_LGUI, KC_LALT,         KC_SPC,           KC_SPC,          MO(1),    RGB_HUD,  RGB_VAD, RGB_HUI),
+      KC_LCTL, KC_LGUI, KC_LALT,         KC_SPC,           KC_SPC,          _______,    RGB_HUD,  RGB_VAD, RGB_HUI),
 };
