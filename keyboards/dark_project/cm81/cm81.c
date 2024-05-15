@@ -126,7 +126,7 @@ void matrix_init_kb(void){
     matrix_init_user();
 }
 void matrix_scan_kb(void) {
-    writePin(LED_MAC_OS_PIN, ((get_highest_layer(default_layer_state | layer_state) == 2) || (get_highest_layer(default_layer_state | layer_state) == 3)));
-    writePin(LED_WIN_LOCK_PIN, keymap_config.no_gui);
+    gpio_write_pin(LED_MAC_OS_PIN, ((get_highest_layer(default_layer_state | layer_state) == 2) || (get_highest_layer(default_layer_state | layer_state) == 3)));
+    gpio_write_pin(LED_WIN_LOCK_PIN, keymap_config.no_gui);
     matrix_scan_user();
 }
