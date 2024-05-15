@@ -6,7 +6,8 @@
   "layout": "LAYOUT_stag",
   "config": {
     "features": {
-       "encoder_map": true
+      "via": true,
+      "encoder_map": true
     }
   },
   "encoders": [
