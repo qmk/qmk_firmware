@@ -23,6 +23,7 @@
 
 #define USE_I2C
 #define SPLIT_HAND_PIN D2
+#define POINTING_DEVICE_ROTATION_270
 
 #define LAYOUT_macro(\
     l0A, l1A, l2A, l3A, l4A, l5A,\
