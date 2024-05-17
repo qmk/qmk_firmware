@@ -683,7 +683,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,     KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       KC_GRAVE,
         MO(_FL1),   KC_A,       KC_S,       KC_D,       KC_F,       KC_G,       KC_QUOTE,   KC_MS_BTN1,
         KC_LSFT,    TO(_EMJ0),   KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       MO(_NL),
-        KC_LCTL,    KC_LWIN,    KC_LALT,    MO(_ADDLANG1),          KC_SPACE,   KC_DEL,     KC_INS,
+        KC_LCTL,    KC_LWIN,    KC_LALT,    MO(_ADDLANG1),          KC_SPACE,   KC_DEL,     KC_ENTER,
 
                     KC_7,       KC_8,       KC_9,       KC_0,       KC_MINUS,   KC_EQUAL,   KC_HYPR,
                     KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,       KC_LBRC,    KC_NUBS,
@@ -789,7 +789,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,      KC_F11,    KC_F12,
                     KC_BTN3,    KC_BTN2,    _______,    _______,    _______,    _______,    TO(_SL),
         _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
-        TO(_NL),    KC_RALT,    _______,    _______,    _______,    _______,    _______,    _______,
+        TO(_NL),    KC_RALT,    _______,    _______,    _______,    _______,    _______,    KC_INS,
         KC_BTN1,    KC_RWIN,    KC_RCTL,                KC_HOME,    KC_PGUP,    KC_PGDN,    KC_END
         ),
     [_FL1] = LAYOUT_left_right_stacked(
@@ -797,7 +797,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,    _______,    _______,    _______,    _______,    _______,    _______,
         _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
         _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
-        _______,    _______,    _______,    _______,             _______,    _______,    _______,
+        _______,    _______,    _______,    _______,                _______,    _______,    KC_INS,
 
                     KC_F7,      KC_F8,      KC_F9,      KC_F10,      KC_F11,     KC_F12,    TO(_UL),
                     KC_BTN3,    KC_BTN2,    _______,    _______,    _______,    _______,    TO(_SL),
@@ -1554,15 +1554,16 @@ void update_displays(enum refresh_mode mode) {
                                 kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 28, 23, text);
                             }
                         }
+                        text = NULL;
                         if(display_overlays) {
                             if(!copy_overlay_to_buffer(keycode, mods, combine)) {
                                 text = keycode_to_disp_overlay(keycode, state); //fallback to hardcoded
                             }
                         } else {
                             text = keycode_to_disp_overlay(keycode, state); //this should maybe go away - or setting?
-                            if(text) {
-                                kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 28, 23, text);
-                            }
+                        }
+                        if(text) {
+                            kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 28, 23, text);
                         }
                         kdisp_send_buffer();
                     }
