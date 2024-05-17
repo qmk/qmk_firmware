@@ -104,6 +104,6 @@ Maybe at some point [this pr](https://github.com/joelspadin/keyboard-latency-tes
 - [x] Store configs in keyboard data section of eeprom + proper eeprom init (instead of VIA_EEPROM and if VIA is enabled, use VIA_EEPROM)?? questionable
 - [x] Add default layout without VIA
     - [x] with all custom binds assigned
-    - [ ] update the manual
+    - [x] update the manual
 - [x] Refactor structure to contain VIA layout, default layout
 
