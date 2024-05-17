@@ -214,8 +214,8 @@ const key_override_t *clear_active_override(const bool allow_reregister) {
     }
 
 #ifdef DUMMY_MOD_NEUTRALIZER_KEYCODE
-	// Tap dummy mod neutralizer again after reregistering mod key
-	neutralize_flashing_modifiers(active_override->trigger_mods);
+    // Tap dummy mod neutralizer again after reregistering mod key
+    neutralize_flashing_modifiers(active_override->trigger_mods);
 #endif
 
     send_keyboard_report();
