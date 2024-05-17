@@ -2,9 +2,9 @@
 
 An ergonomic gamepad based off of the Iris and sold by Keebio. [More info at Keebio](https://keeb.io).
 
-Keyboard Maintainer: [Bakingpy/nooges](https://github.com/nooges)  
-Hardware Supported: RP2040 
-Hardware Availability: [Keebio](https://keeb.io)  
+* Keyboard Maintainer: [Bakingpy/nooges](https://github.com/nooges)
+* Hardware Supported: RP2040
+* Hardware Availability: [Keebio](https://keeb.io)
 
 Make example for this keyboard (after setting up your build environment):
 
