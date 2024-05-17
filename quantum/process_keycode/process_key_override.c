@@ -333,7 +333,7 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
         // If the replacement is a modded keycode, the activation of those mods
         // will happen in the same keyboard report as the deactivation of the
         // suppressed mods, so there is no “flashing modifiers” problem.
-        if (!QK_MODS_GET_MODS(override->replacement)) {
+        if (!(IS_QK_MODS(override->replacement) && QK_MODS_GET_MODS(override->replacement))) {
             // Send a dummy keycode before unregistering the modifier(s)
             // so that suppressing the modifier(s) doesn't falsely get interpreted
             // by the host OS as a tap of a modifier key.
