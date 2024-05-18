@@ -1,20 +1,20 @@
 # Tercy/rev004
 
-![Tercy/rev004](https://etlife.info/wp-content/uploads/2024/05/Tercy_rev004_keyboard.jpg)
+![Tercy/rev004](https://imgur.com/qRwZ9uX.png)
 
 Tercy_rev004 is a 44-key keyboard. The default key map is follows.
 
-* Layer 0 : ![Layer0](https://etlife.info/wp-content/uploads/2024/05/Tercy_rev004_layer_0.png)
+* Layer 0 : ![Layer0](https://imgur.com/Is4nQgY.png)
 
-* Layer 1, 2 (Tri Layer Lower, Upper) ![Layer1,2](https://etlife.info/wp-content/uploads/2024/05/Tercy_rev004_layer_1-2.png)
+* Layer 1, 2 (Tri Layer Lower, Upper) ![Layer1,2](https://imgur.com/xV5cnSK.png)
 
-* Layer 3 (Tri Layer Adjust) ![Layer3](https://etlife.info/wp-content/uploads/2024/05/Tercy_rev004_layer_3.png)
+* Layer 3 (Tri Layer Adjust) ![Layer3](https://imgur.com/r9GMytI.png)
 
 * Keyboard Maintainer: [TercyKB](https://github.com/TercyKB)
 * Hardware Supported: Tercy_rev004 PCB, Pro Micro.
 * Hardware Availability: The PCB is not for sale for now (May 2024). But you can download kicad project of the PCB from https://etlife.info/wp-content/uploads/2024/05/Keyboard_004.kicad_pro.zip. Pro Micro embedded on the PCB is [OSOYOO Type C version Pro Micro board](https://amzn.asia/d/95Ze0f2). The simplest schematic diagram for Tercy_rev004 is follows.
 
-![Tercy/rev004_schematic](https://etlife.info/wp-content/uploads/2024/05/Tercy_rev004_simplest_schematic_diagram.png)
+![Tercy/rev004_schematic](https://imgur.com/pDtgFxh.png)
 
 Make example for this keyboard (after setting up your build environment):
 
