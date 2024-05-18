@@ -7,7 +7,7 @@
 enum layers {
     BASE,
     SYMB,
-    MDIA
+    MDIA,
 };
 
 #define ONE_GRV LT(SYMB, KC_GRAVE)

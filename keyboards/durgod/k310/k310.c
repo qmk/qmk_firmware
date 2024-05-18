@@ -22,33 +22,33 @@
 /* Private Functions */
 void off_all_leds(void) {
 #ifdef LED_NUM_LOCK_PIN
-    writePinHigh(LED_NUM_LOCK_PIN);
+    gpio_write_pin_high(LED_NUM_LOCK_PIN);
 #endif
-    writePinHigh(LED_CAPS_LOCK_PIN);
-    writePinHigh(LED_SCROLL_LOCK_PIN);
-    writePinHigh(LED_WIN_LOCK_PIN);
-    writePinHigh(LED_MR_LOCK_PIN);
+    gpio_write_pin_high(LED_CAPS_LOCK_PIN);
+    gpio_write_pin_high(LED_SCROLL_LOCK_PIN);
+    gpio_write_pin_high(LED_WIN_LOCK_PIN);
+    gpio_write_pin_high(LED_MR_LOCK_PIN);
 }
 
 void on_all_leds(void) {
 #ifdef LED_NUM_LOCK_PIN
-    writePinLow(LED_NUM_LOCK_PIN);
+    gpio_write_pin_low(LED_NUM_LOCK_PIN);
 #endif
-    writePinLow(LED_CAPS_LOCK_PIN);
-    writePinLow(LED_SCROLL_LOCK_PIN);
-    writePinLow(LED_WIN_LOCK_PIN);
-    writePinLow(LED_MR_LOCK_PIN);
+    gpio_write_pin_low(LED_CAPS_LOCK_PIN);
+    gpio_write_pin_low(LED_SCROLL_LOCK_PIN);
+    gpio_write_pin_low(LED_WIN_LOCK_PIN);
+    gpio_write_pin_low(LED_MR_LOCK_PIN);
 }
 
 /* WinLock and MR LEDs are non-standard. Need to override led init */
 void led_init_ports(void) {
 #ifdef LED_NUM_LOCK_PIN
-    setPinOutput(LED_NUM_LOCK_PIN);
+    gpio_set_pin_output(LED_NUM_LOCK_PIN);
 #endif
-    setPinOutput(LED_CAPS_LOCK_PIN);
-    setPinOutput(LED_SCROLL_LOCK_PIN);
-    setPinOutput(LED_WIN_LOCK_PIN);
-    setPinOutput(LED_MR_LOCK_PIN);
+    gpio_set_pin_output(LED_CAPS_LOCK_PIN);
+    gpio_set_pin_output(LED_SCROLL_LOCK_PIN);
+    gpio_set_pin_output(LED_WIN_LOCK_PIN);
+    gpio_set_pin_output(LED_MR_LOCK_PIN);
     off_all_leds();
 }
 
@@ -58,7 +58,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         case GU_TOGG:
             if (record->event.pressed) {
                 // Toggle LED on key press
-                togglePin(LED_WIN_LOCK_PIN);
+                gpio_toggle_pin(LED_WIN_LOCK_PIN);
             }
             break;
     }
@@ -75,7 +75,7 @@ static void hardware_reset_cb(void *arg) {
 #endif
 
 void keyboard_pre_init_kb(void) {
-    setPinInputHigh(HARDWARE_RESET_PIN);
+    gpio_set_pin_input_high(HARDWARE_RESET_PIN);
 
 #ifndef HW_RESET_PIN_DISABLED
     /* Jump to bootloader when the hardware reset button is pressed */
@@ -83,7 +83,7 @@ void keyboard_pre_init_kb(void) {
     palSetPadCallback(PAL_PORT(HARDWARE_RESET_PIN), PAL_PAD(HARDWARE_RESET_PIN), hardware_reset_cb, NULL);
 
     /* The interrupt is edge-triggered so check that it's not already pressed */
-    if (!readPin(HARDWARE_RESET_PIN)) {
+    if (!gpio_read_pin(HARDWARE_RESET_PIN)) {
         bootloader_jump();
     }
 #endif
