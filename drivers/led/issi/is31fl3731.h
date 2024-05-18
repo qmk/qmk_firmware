@@ -83,17 +83,48 @@
 #define IS31FL3731_I2C_ADDRESS_VCC 0x77
 
 #if defined(RGB_MATRIX_IS31FL3731)
+#    if defined(RGB_MATRIX_SPLIT)
+#        define RGB_MATRIX_LED_COUNT_SPLIT(left, right) ((left) + (right))
+#        define RGB_MATRIX_LED_COUNT_LEFT(left, right) (left)
+#        define RGB_MATRIX_LED_COUNT_RIGHT(left, right) (right)
+#        define IS31FL3731_LED_COUNT RGB_MATRIX_LED_COUNT_SPLIT(RGB_MATRIX_SPLIT)
+#        define IS31FL3731_LED_COUNT_LEFT RGB_MATRIX_LED_COUNT_LEFT(RGB_MATRIX_SPLIT)
+#        define IS31FL3731_LED_COUNT_RIGHT RGB_MATRIX_LED_COUNT_RIGHT(RGB_MATRIX_SPLIT)
+#    else
 #    define IS31FL3731_LED_COUNT RGB_MATRIX_LED_COUNT
 #endif
+#endif
 
-#if defined(IS31FL3731_I2C_ADDRESS_4)
-#    define IS31FL3731_DRIVER_COUNT 4
-#elif defined(IS31FL3731_I2C_ADDRESS_3)
-#    define IS31FL3731_DRIVER_COUNT 3
-#elif defined(IS31FL3731_I2C_ADDRESS_2)
-#    define IS31FL3731_DRIVER_COUNT 2
-#elif defined(IS31FL3731_I2C_ADDRESS_1)
-#    define IS31FL3731_DRIVER_COUNT 1
+#if defined(RGB_MATRIX_SPLIT)
+#    if defined(IS31FL3731_I2C_ADDRESS_LEFT_4)
+#        define IS31FL3731_DRIVER_COUNT_LEFT 4
+#    elif defined(IS31FL3731_I2C_ADDRESS_LEFT_3)
+#        define IS31FL3731_DRIVER_COUNT_LEFT 3
+#    elif defined(IS31FL3731_I2C_ADDRESS_LEFT_2)
+#        define IS31FL3731_DRIVER_COUNT_LEFT 2
+#    elif defined(IS31FL3731_I2C_ADDRESS_LEFT_1)
+#        define IS31FL3731_DRIVER_COUNT_LEFT 1
+#    endif
+#    if defined(IS31FL3731_I2C_ADDRESS_RIGHT_4)
+#        define IS31FL3731_DRIVER_COUNT_RIGHT 4
+#    elif defined(IS31FL3731_I2C_ADDRESS_RIGHT_3)
+#        define IS31FL3731_DRIVER_COUNT_RIGHT 3
+#    elif defined(IS31FL3731_I2C_ADDRESS_RIGHT_2)
+#        define IS31FL3731_DRIVER_COUNT_RIGHT 2
+#    elif defined(IS31FL3731_I2C_ADDRESS_RIGHT_1)
+#        define IS31FL3731_DRIVER_COUNT_RIGHT 1
+#    endif
+#    define IS31FL3731_DRIVER_COUNT (IS31FL3731_DRIVER_COUNT_LEFT + IS31FL3731_DRIVER_COUNT_RIGHT)
+#else
+#    if defined(IS31FL3731_I2C_ADDRESS_4)
+#        define IS31FL3731_DRIVER_COUNT 4
+#    elif defined(IS31FL3731_I2C_ADDRESS_3)
+#        define IS31FL3731_DRIVER_COUNT 3
+#    elif defined(IS31FL3731_I2C_ADDRESS_2)
+#        define IS31FL3731_DRIVER_COUNT 2
+#    elif defined(IS31FL3731_I2C_ADDRESS_1)
+#        define IS31FL3731_DRIVER_COUNT 1
+#    endif
 #endif
 
 typedef struct is31fl3731_led_t {
@@ -103,7 +134,12 @@ typedef struct is31fl3731_led_t {
     uint8_t b;
 } PACKED is31fl3731_led_t;
 
+#    if defined(RGB_MATRIX_SPLIT)
+extern const is31fl3731_led_t PROGMEM g_is31fl3731_leds_left[IS31FL3731_LED_COUNT_LEFT];
+extern const is31fl3731_led_t PROGMEM g_is31fl3731_leds_right[IS31FL3731_DRIVER_COUNT_RIGHT];
+#    else
 extern const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT];
+#    endif
 
 void is31fl3731_init_drivers(void);
 void is31fl3731_init(uint8_t index);
