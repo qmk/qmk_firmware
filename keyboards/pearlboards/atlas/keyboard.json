@@ -31,6 +31,9 @@
             {"pin_a": "E0", "pin_b": "D7", "resolution": 1}
         ]
     },
+    "haptic": {
+        "driver": "drv2605l"
+    },
     "indicators": {
         "caps_lock": "F4",
         "num_lock": "F5",

@@ -9,6 +9,9 @@
         "rows": ["A15", "B3", "B4", "B5", "B7"]
     },
     "diode_direction": "COL2ROW",
+    "audio": {
+        "driver": "pwm_hardware"
+    },
     "ws2812": {
         "driver": "pwm"
     },
