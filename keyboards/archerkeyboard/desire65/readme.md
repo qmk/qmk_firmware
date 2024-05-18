@@ -3,7 +3,7 @@
 A desirable 65% keyboard
 
 * Keyboard Maintainer: [ArcherKeyboard](https://github.com/akyp)
-* Hardware Supported: *Desire65 PCB*
+* Hardware Supported: Desire65 PCB
 * Hardware Availability: [Open source on GitHub](https://github.com/akyp/desire65-pcb)
 
 Make example for this keyboard (after setting up your build environment):
