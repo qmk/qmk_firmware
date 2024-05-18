@@ -322,6 +322,18 @@ Creates a keymap.json from a keymap.c.
 qmk c2json -km KEYMAP -kb KEYBOARD [-q] [--no-cpp] [-o OUTPUT] filename
 ```
 
+**Examples**:
+
+```
+qmk c2json -km default -kb handwired/dactyl_promicro
+```
+
+or with filename:
+
+```
+qmk c2json keyboards/handwired/dactyl_promicro/keymaps/default/keymap.c
+```
+
 ## `qmk lint`
 
 Checks over a keyboard and/or keymap and highlights common errors, problems, and anti-patterns.

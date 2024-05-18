@@ -31,6 +31,9 @@
     "rows": ["B13", "B14", "B15", "C6", "C7", "C8"],
     "cols": ["C0", "C1", "C2", "C3", "A0", "A1", "A2"]
   },
+  "audio": {
+    "driver": "pwm_software"
+  },
   "backlight": {
     "pin": "A7",
     "levels": 4

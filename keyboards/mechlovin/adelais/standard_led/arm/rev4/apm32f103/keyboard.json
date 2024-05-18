@@ -1,4 +1,15 @@
 {
     "processor": "STM32F103",
-    "bootloader": "stm32duino"
+    "bootloader": "stm32duino",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "console": true,
+        "command": true,
+        "nkro": true,
+        "backlight": true,
+        "rgblight": true,
+        "encoder": true
+    }
 }
