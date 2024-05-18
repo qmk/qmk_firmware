@@ -47,9 +47,9 @@ bool bit_pattern_set(uint16_t number, uint16_t bitPattern) {
 
 void fix_ghosting_instance(
         matrix_row_t current_matrix[],
-        ushort row_num_with_possible_error_cause,
+        unsigned short row_num_with_possible_error_cause,
         uint16_t possible_error_cause,
-        ushort row_num_with_possible_error,
+        unsigned short row_num_with_possible_error,
         uint16_t possible_error,
         uint16_t error_fix) {
     if (bit_pattern_set(current_matrix[row_num_with_possible_error_cause], possible_error_cause)) {
