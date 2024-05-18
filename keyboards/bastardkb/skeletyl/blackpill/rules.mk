@@ -1,6 +1,4 @@
 # MCU name
-MCU = STM32F401
-BOARD = BLACKPILL_STM32_F401
 
 # Bootloader selection
 BOOTLOADER = stm32-dfu
@@ -29,6 +27,4 @@ SPLIT_KEYBOARD = yes
 MOUSE_SHARED_EP = no # Unify multiple HID interfaces into a single Endpoint
 KEYBOARD_SHARED_EP = yes
 
-#EEPROM_DRIVER = spi
-WS2812_DRIVER = pwm
 SERIAL_DRIVER = usart

@@ -35,8 +35,8 @@ void eeconfig_init_kb(void) {
     eeprom_ec_config.mode_0_actuation_threshold     = DEFAULT_MODE_0_ACTUATION_LEVEL;
     eeprom_ec_config.mode_0_release_threshold       = DEFAULT_MODE_0_RELEASE_LEVEL;
     eeprom_ec_config.mode_1_initial_deadzone_offset = DEFAULT_MODE_1_INITIAL_DEADZONE_OFFSET;
-    eeprom_ec_config.mode_1_actuation_offset   = DEFAULT_MODE_1_ACTUATION_OFFSET;
-    eeprom_ec_config.mode_1_release_offset     = DEFAULT_MODE_1_RELEASE_OFFSET;
+    eeprom_ec_config.mode_1_actuation_offset        = DEFAULT_MODE_1_ACTUATION_OFFSET;
+    eeprom_ec_config.mode_1_release_offset          = DEFAULT_MODE_1_RELEASE_OFFSET;
 
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         for (uint8_t col = 0; col < MATRIX_COLS; col++) {
@@ -59,8 +59,8 @@ void keyboard_post_init_kb(void) {
     ec_config.mode_0_actuation_threshold     = eeprom_ec_config.mode_0_actuation_threshold;
     ec_config.mode_0_release_threshold       = eeprom_ec_config.mode_0_release_threshold;
     ec_config.mode_1_initial_deadzone_offset = eeprom_ec_config.mode_1_initial_deadzone_offset;
-    ec_config.mode_1_actuation_offset   = eeprom_ec_config.mode_1_actuation_offset;
-    ec_config.mode_1_release_offset     = eeprom_ec_config.mode_1_release_offset;
+    ec_config.mode_1_actuation_offset        = eeprom_ec_config.mode_1_actuation_offset;
+    ec_config.mode_1_release_offset          = eeprom_ec_config.mode_1_release_offset;
     ec_config.bottoming_calibration          = false;
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         for (uint8_t col = 0; col < MATRIX_COLS; col++) {
@@ -115,5 +115,6 @@ bool indicators_callback(void) {
     else
         sethsv(0, 0, 0, (rgb_led_t *)&led[SCROLL_INDICATOR_INDEX]);
 
+    rgblight_set();
     return true;
 }

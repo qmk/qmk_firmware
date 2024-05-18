@@ -2,9 +2,9 @@
 #include "blacktyl_lars.h"
 
 void keyboard_post_init_user(void) {
-    debug_config.enable = true;
-    debug_config.matrix = true;
-    debug_config.keyboard = true;
+    //debug_config.enable = true;
+    //debug_config.matrix = true;
+    //debug_config.keyboard = true;
     // debug_config.mouse    = true;
 
     if (is_keyboard_left()) {
@@ -12,7 +12,7 @@ void keyboard_post_init_user(void) {
     } else {
         dprintln("I'm right!");
     }
-    rgblight_set();
+    //rgblight_set();
 }
 
 /*

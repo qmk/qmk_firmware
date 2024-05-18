@@ -1,6 +1,27 @@
 {
     "keyboard_name": "Blacktyl",
+    "usb": {                                                                                                                   
+         "pid": "0x1830",
+         "device_version": "1.0.0"
+     },
     "url": "https://www.bastardkb.com",
+   "rgb_matrix": {
+         "driver": "ws2812",
+          "max_brightness": 50,
+          "sleep": true,
+          "split_count": [18, 18]
+     },
+     "ws2812": {
+         "driver": "pwm",
+         "pin": "A1"
+     },
+     "split": {
+          "transport": {
+              "sync": {
+                  "matrix_state": true
+              }
+          }
+      },
     "maintainer": "Quentin Lebastard",
     "layouts": {
          "LAYOUT_split_3x5_3": {
