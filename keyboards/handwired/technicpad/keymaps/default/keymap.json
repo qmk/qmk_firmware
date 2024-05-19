@@ -1,0 +1,8 @@
+{
+    "keyboard": "technicpad",
+    "keymap": "default",
+    "layers": [
+        ["KC_A", "KC_B", "KC_C", "KC_D"]
+    ],
+    "layout": "LAYOUT"
+}

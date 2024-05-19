@@ -72,7 +72,8 @@
             {"flags": 2, "x": 45, "y": 0},
             {"flags": 2, "x": 0, "y": 0},
             {"flags": 2, "x": 32, "y": 32}
-        ]
+        ],
+        "sleep": true
     },
     "usb": {
         "device_version": "2.0.0",

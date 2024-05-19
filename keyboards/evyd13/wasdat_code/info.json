@@ -13,6 +13,9 @@
         "levels": 5,
         "breathing": true
     },
+    "dynamic_keymap": {
+        "layer_count": 3
+    },
     "qmk_lufa_bootloader": {
         "esc_input": "F0",
         "esc_output": "E6",

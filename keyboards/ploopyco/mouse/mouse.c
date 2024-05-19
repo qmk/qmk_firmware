@@ -66,8 +66,6 @@ uint8_t  OptLowPin         = OPT_ENC1;
 bool     debug_encoder     = false;
 bool     is_drag_scroll    = false;
 
-__attribute__((weak)) bool encoder_update_user(uint8_t index, bool clockwise) { return true; }
-
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) {
         return false;
@@ -83,7 +81,14 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     return true;
 }
 
-void process_wheel(void) {
+void encoder_driver_init(void) {
+    setPinInput(OPT_ENC1);
+    setPinInput(OPT_ENC2);
+
+    opt_encoder_init();
+}
+
+void encoder_driver_task(void) {
     // Lovingly ripped from the Ploopy Source
 
     // If the mouse wheel was just released, do not scroll.
@@ -111,12 +116,10 @@ void process_wheel(void) {
     int dir = opt_encoder_handler(p1, p2);
 
     if (dir == 0) return;
-    encoder_update_kb(0, dir > 0);
+    encoder_queue_event(0, dir == 1);
 }
 
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
-    process_wheel();
-
     if (is_drag_scroll) {
         mouse_report.h = mouse_report.x;
 #ifdef PLOOPY_DRAGSCROLL_INVERT
@@ -177,9 +180,6 @@ void keyboard_pre_init_kb(void) {
     // debug_mouse   = true;
     // debug_encoder = true;
 
-    setPinInput(OPT_ENC1);
-    setPinInput(OPT_ENC2);
-
     /* Ground all output pins connected to ground. This provides additional
      * pathways to ground. If you're messing with this, know this: driving ANY
      * of these pins high will cause a short. On the MCU. Ka-blooey.
@@ -204,8 +204,6 @@ void keyboard_pre_init_kb(void) {
 
 void pointing_device_init_kb(void) {
     pointing_device_set_cpi(dpi_array[keyboard_config.dpi_config]);
-    // initialize the scroll wheel's optical encoder
-    opt_encoder_init();
 }
 
 void eeconfig_init_kb(void) {

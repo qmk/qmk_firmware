@@ -1,0 +1,121 @@
+{
+    "manufacturer": "customMK",
+    "keyboard_name": "CMK11",
+    "maintainer": "customMK",
+    "bootloader": "stm32-dfu",
+    "diode_direction": "ROW2COL",
+    "dynamic_keymap": {
+        "layer_count": 32
+    },
+    "eeprom": {
+        "driver": "spi"
+    },
+    "features": {
+        "audio": true,
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgb_matrix": true
+    },
+    "matrix_pins": {
+        "cols": ["B0", "A1", "A2", "A3", "A6", "B10"],
+        "rows": ["A5", "A4"]
+    },
+    "processor": "STM32F411",
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
+    "rgb_matrix": {
+        "animations": {
+            "alphas_mods": true,
+            "band_pinwheel_sat": true,
+            "band_pinwheel_val": true,
+            "band_sat": true,
+            "band_spiral_sat": true,
+            "band_spiral_val": true,
+            "band_val": true,
+            "breathing": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_out_in": true,
+            "cycle_out_in_dual": true,
+            "cycle_pinwheel": true,
+            "cycle_spiral": true,
+            "cycle_up_down": true,
+            "digital_rain": true,
+            "dual_beacon": true,
+            "gradient_left_right": true,
+            "gradient_up_down": true,
+            "hue_breathing": true,
+            "hue_pendulum": true,
+            "hue_wave": true,
+            "jellybean_raindrops": true,
+            "multisplash": true,
+            "pixel_flow": true,
+            "pixel_fractal": true,
+            "pixel_rain": true,
+            "rainbow_beacon": true,
+            "rainbow_moving_chevron": true,
+            "rainbow_pinwheels": true,
+            "raindrops": true,
+            "solid_multisplash": true,
+            "solid_reactive": true,
+            "solid_reactive_cross": true,
+            "solid_reactive_multicross": true,
+            "solid_reactive_multinexus": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_nexus": true,
+            "solid_reactive_simple": true,
+            "solid_reactive_wide": true,
+            "solid_splash": true,
+            "splash": true,
+            "typing_heatmap": true
+        },
+        "driver": "ws2812",
+        "layout": [
+            {"matrix": [0, 0], "x": 0, "y": 0, "flags": 4},
+            {"matrix": [0, 1], "x": 45, "y": 0, "flags": 4},
+            {"matrix": [0, 2], "x": 90, "y": 0, "flags": 4},
+            {"matrix": [0, 3], "x": 134, "y": 0, "flags": 4},
+            {"matrix": [0, 4], "x": 179, "y": 0, "flags": 4},
+            {"matrix": [0, 5], "x": 224, "y": 0, "flags": 4},
+            {"matrix": [1, 0], "x": 23, "y": 64, "flags": 4},
+            {"matrix": [1, 1], "x": 68, "y": 64, "flags": 4},
+            {"matrix": [1, 2], "x": 112, "y": 64, "flags": 4},
+            {"matrix": [1, 3], "x": 157, "y": 64, "flags": 4},
+            {"matrix": [1, 4], "x": 202, "y": 64, "flags": 4}
+        ],
+        "max_brightness": 120,
+        "sat_steps": 8,
+        "speed_steps": 10,
+        "val_steps": 8
+    },
+    "url": "https://shop.custommk.com/collections/cmk11/products/ckm11",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0xFABA",
+        "vid": "0xF35B"
+    },
+    "ws2812": {
+        "driver": "pwm",
+        "pin": "A10"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+                {"matrix": [0, 4], "x": 4, "y": 0},
+                {"matrix": [0, 5], "x": 5, "y": 0},
+                {"matrix": [1, 0], "x": 0.5, "y": 1},
+                {"matrix": [1, 1], "x": 1.5, "y": 1},
+                {"matrix": [1, 2], "x": 2.5, "y": 1},
+                {"matrix": [1, 3], "x": 3.5, "y": 1},
+                {"matrix": [1, 4], "x": 4.5, "y": 1}
+            ]
+        }
+    }
+}

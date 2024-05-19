@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <stdint.h>
 #include <string.h>
 #include <stddef.h>
 
@@ -80,8 +81,12 @@
     { 0, 0, sizeof_member(split_shared_memory_t, member), offsetof(split_shared_memory_t, member), cb }
 #define trans_target2initiator_initializer(member) trans_target2initiator_initializer_cb(member, NULL)
 
+#define trans_initiator2target_cb(cb) \
+    { 0, 0, 0, 0, cb }
+
 #define transport_write(id, data, length) transport_execute_transaction(id, data, length, NULL, 0)
 #define transport_read(id, data, length) transport_execute_transaction(id, NULL, 0, data, length)
+#define transport_exec(id) transport_execute_transaction(id, NULL, 0, NULL, 0)
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
 // Forward-declare the RPC callback handlers
@@ -234,21 +239,39 @@ static void master_matrix_handlers_slave(matrix_row_t master_matrix[], matrix_ro
 #ifdef ENCODER_ENABLE
 
 static bool encoder_handlers_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
-    static uint32_t last_update = 0;
-    uint8_t         temp_state[NUM_ENCODERS_MAX_PER_SIDE];
+    static uint32_t  last_update   = 0;
+    static uint8_t   last_checksum = 0;
+    encoder_events_t temp_events;
 
-    bool okay = read_if_checksum_mismatch(GET_ENCODERS_CHECKSUM, GET_ENCODERS_DATA, &last_update, temp_state, split_shmem->encoders.state, sizeof(temp_state));
-    if (okay) encoder_update_raw(temp_state);
+    bool okay = read_if_checksum_mismatch(GET_ENCODERS_CHECKSUM, GET_ENCODERS_DATA, &last_update, &temp_events, &split_shmem->encoders.events, sizeof(temp_events));
+    if (okay) {
+        if (last_checksum != split_shmem->encoders.checksum) {
+            bool    actioned = false;
+            uint8_t index;
+            bool    clockwise;
+            while (okay && encoder_dequeue_event_advanced(&split_shmem->encoders.events, &index, &clockwise)) {
+                okay &= encoder_queue_event(index, clockwise);
+                actioned = true;
+            }
+
+            if (actioned) {
+                okay &= transport_exec(CMD_ENCODER_DRAIN);
+            }
+            last_checksum = split_shmem->encoders.checksum;
+        }
+    }
     return okay;
 }
 
 static void encoder_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
-    uint8_t encoder_state[NUM_ENCODERS_MAX_PER_SIDE];
-    encoder_state_raw(encoder_state);
     // Always prepare the encoder state for read.
-    memcpy(split_shmem->encoders.state, encoder_state, sizeof(encoder_state));
+    encoder_retrieve_events(&split_shmem->encoders.events);
     // Now update the checksum given that the encoders has been written to
-    split_shmem->encoders.checksum = crc8(encoder_state, sizeof(encoder_state));
+    split_shmem->encoders.checksum = crc8(&split_shmem->encoders.events, sizeof(split_shmem->encoders.events));
+}
+
+static void encoder_handlers_slave_drain(uint8_t initiator2target_buffer_size, const void *initiator2target_buffer, uint8_t target2initiator_buffer_size, void *target2initiator_buffer) {
+    encoder_signal_queue_drain();
 }
 
 // clang-format off
@@ -256,7 +279,8 @@ static void encoder_handlers_slave(matrix_row_t master_matrix[], matrix_row_t sl
 #    define TRANSACTIONS_ENCODERS_SLAVE() TRANSACTION_HANDLER_SLAVE_AUTOLOCK(encoder)
 #    define TRANSACTIONS_ENCODERS_REGISTRATIONS \
     [GET_ENCODERS_CHECKSUM] = trans_target2initiator_initializer(encoders.checksum), \
-    [GET_ENCODERS_DATA]     = trans_target2initiator_initializer(encoders.state),
+    [GET_ENCODERS_DATA]     = trans_target2initiator_initializer(encoders.events), \
+    [CMD_ENCODER_DRAIN]     = trans_initiator2target_cb(encoder_handlers_slave_drain),
 // clang-format on
 
 #else // ENCODER_ENABLE

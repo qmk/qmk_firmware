@@ -59,7 +59,9 @@
             "solid_reactive_cross": true,
             "solid_reactive_nexus": true,
             "splash": true
-        }
+        },
+        "max_brightness": 200,
+        "react_on_keyup": true
     },
     "layouts": {
         "LAYOUT": {

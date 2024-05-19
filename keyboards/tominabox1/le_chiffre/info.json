@@ -73,7 +73,8 @@
         "max_brightness": 150,
         "sat_steps": 8,
         "speed_steps": 10,
-        "val_steps": 8
+        "val_steps": 8,
+        "sleep": true
     },
     "usb": {
         "vid": "0x7431",

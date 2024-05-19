@@ -127,7 +127,8 @@
             {"x": 182, "y": 1, "flags": 2},
             {"x": 154, "y": 1, "flags": 2},
             {"x": 126, "y": 1, "flags": 2}
-        ]
+        ],
+        "sleep": true
     },
     "usb": {
         "device_version": "1.0.0",

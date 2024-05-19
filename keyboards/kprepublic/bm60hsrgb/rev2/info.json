@@ -12,7 +12,48 @@
         "pin": "F0"
     },
     "rgb_matrix": {
-        "driver": "custom"
+        "animations":{
+            "alphas_mods": true,
+            "gradient_left_right": true,
+            "breathing": true,
+            "band_val": true,
+            "band_pinwheel_val": true,
+            "band_spiral_val": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "rainbow_moving_chevron": true,
+            "cycle_out_in": true,
+            "cycle_out_in_dual": true,
+            "cycle_pinwheel": true,
+            "cycle_spiral": true,
+            "dual_beacon": true,
+            "rainbow_beacon": true,
+            "rainbow_pinwheels": true,
+            "hue_breathing": true,
+            "hue_pendulum": true,
+            "hue_wave": true,
+            "pixel_rain": true,
+            "pixel_flow": true,
+            "pixel_fractal": true,
+            "typing_heatmap": true,
+            "digital_rain": true,
+            "solid_reactive_simple": true,
+            "solid_reactive": true,
+            "solid_reactive_wide": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_cross": true,
+            "solid_reactive_multicross": true,
+            "solid_reactive_nexus": true,
+            "solid_reactive_multinexus": true,
+            "splash": true,
+            "multisplash": true,
+            "solid_splash": true,
+            "solid_multisplash": true
+        },
+        "driver": "custom",
+        "max_brightness": 120,
+        "sleep": true
     },
     "rgblight": {
         "saturation_steps": 8,
@@ -30,6 +71,9 @@
             "rgb_test": true,
             "alternating": true,
             "twinkle": true
+        },
+        "default": {
+            "animation": "rainbow_mood"
         }
     },
     "matrix_pins": {

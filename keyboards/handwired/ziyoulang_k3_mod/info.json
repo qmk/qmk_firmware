@@ -2,7 +2,7 @@
     "keyboard_name": "ziyoulang k3 mod",
     "development_board": "bluepill",
     "usb": {
-        "device_version": "1.0.0",
+        "device_version": "1.2.0",
         "pid": "0xE002",
         "vid": "0x5006"
     },
@@ -11,10 +11,14 @@
         "command": false,
         "console": false,
         "extrakey": true,
-        "mousekey": true,
-        "nkro": false
+        "mousekey": false,
+        "nkro": false,
+        "oled": true
     },
-    "diode_direction": "COL2ROW",
+    "build": {
+        "lto": true
+    },
+    "diode_direction": "ROW2COL",
     "dynamic_keymap": {
         "layer_count": 3
     },
@@ -78,7 +82,7 @@
                 {"label":"P", "x":10.5, "y":2.25, "matrix": [2, 10]},
                 {"label":"{", "x":11.5, "y":2.25, "matrix": [2, 11]},
                 {"label":"}", "x":12.5, "y":2.25, "matrix": [2, 12]},
-                {"label":"|", "x":13.5, "y":2.25, "w":1.5, "matrix": [2, 13]},
+                {"label":"|", "x":13.5, "y":2.25, "w":1.5, "matrix": [3, 13]},
                 {"label":"7", "x":15.5, "y":2.25, "matrix": [2, 17]},
                 {"label":"8", "x":16.5, "y":2.25, "matrix": [2, 18]},
                 {"label":"9", "x":17.5, "y":2.25, "matrix": [2, 19]},
@@ -96,7 +100,7 @@
                 {"label":"L", "x":9.75, "y":3.25, "matrix": [3, 10]},
                 {"label":":", "x":10.75, "y":3.25, "matrix": [3, 11]},
                 {"label":"\"", "x":11.75, "y":3.25, "matrix": [3, 12]},
-                {"label":"Enter", "x":12.75, "y":3.25, "w":2.25, "matrix": [3, 13]},
+                {"label":"Enter", "x":12.75, "y":3.25, "w":2.25, "matrix": [2, 13]},
                 {"label":"4", "x":15.5, "y":3.25, "matrix": [3, 17]},
                 {"label":"5", "x":16.5, "y":3.25, "matrix": [3, 18]},
                 {"label":"6", "x":17.5, "y":3.25, "matrix": [3, 19]},

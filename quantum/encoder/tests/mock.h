@@ -24,11 +24,11 @@ typedef uint8_t pin_t;
 extern bool pins[];
 extern bool pinIsInputHigh[];
 
-#define setPinInputHigh(pin) (mockSetPinInputHigh(pin))
-#define readPin(pin) (mockReadPin(pin))
+#define gpio_set_pin_input_high(pin) (mock_set_pin_input_high(pin))
+#define gpio_read_pin(pin) (mock_read_pin(pin))
 
-uint8_t mockSetPinInputHigh(pin_t pin);
+uint8_t mock_set_pin_input_high(pin_t pin);
 
-bool mockReadPin(pin_t pin);
+bool mock_read_pin(pin_t pin);
 
 bool setPin(pin_t pin, bool val);

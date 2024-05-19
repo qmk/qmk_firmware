@@ -31,6 +31,9 @@
             "rgb_test": true,
             "alternating": true,
             "twinkle": true
+        },
+        "default": {
+            "animation": "rainbow_swirl"
         }
     },
     "ws2812": {

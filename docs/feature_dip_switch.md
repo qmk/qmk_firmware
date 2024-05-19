@@ -20,6 +20,27 @@ or
 #define DIP_SWITCH_MATRIX_GRID { {0,6}, {1,6}, {2,6} } // List of row and col pairs
 ```
 
+## DIP Switch map :id=dip-switch-map
+
+DIP Switch mapping may be added to your `keymap.c`, which replicates the normal keyswitch functionality, but with dip switches. Add this to your keymap's `rules.mk`:
+
+```make
+DIP_SWITCH_MAP_ENABLE = yes
+```
+
+Your `keymap.c` will then need a dip switch mapping defined (for two dip switches):
+
+```c
+#if defined(DIP_SWITCH_MAP_ENABLE)
+const uint16_t PROGMEM dip_switch_map[NUM_DIP_SWITCHES][NUM_DIP_STATES] = {
+    DIP_SWITCH_OFF_ON(DF(0), DF(1)),
+    DIP_SWITCH_OFF_ON(EC_NORM, EC_SWAP)
+};
+#endif
+```
+
+?> This should only be enabled at the keymap level.
+
 ## Callbacks
 
 The callback functions can be inserted into your `<keyboard>.c`:

@@ -8,9 +8,6 @@
         "pid": "0x03A1",
         "device_version": "1.0.0"
     },
-    "rgb_matrix": {
-        "driver": "snled27351"
-    },
     "encoder": {
         "rotary": [
             {"pin_a": "A10", "pin_b": "A8"}

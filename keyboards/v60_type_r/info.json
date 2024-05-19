@@ -18,22 +18,6 @@
     "pin": "F7",
     "on_state": 0
   },
-  "rgblight": {
-    "driver": "custom",
-    "led_count": 1,
-    "animations": {
-      "breathing": true,
-      "rainbow_mood": true,
-      "rainbow_swirl": true,
-      "snake": true,
-      "knight": true,
-      "christmas": true,
-      "static_gradient": true,
-      "rgb_test": true,
-      "alternating": true,
-      "twinkle": true
-    }
-  },
   "processor": "atmega32u4",
   "bootloader": "atmel-dfu",
   "community_layouts": ["60_ansi", "60_iso"],

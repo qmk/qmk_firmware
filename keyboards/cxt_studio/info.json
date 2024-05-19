@@ -31,21 +31,40 @@
     },
     "processor": "atmega32u4",
     "rgb_matrix": {
-       "driver": "ws2812",
-       "layout": [
-         {"flags": 4, "matrix": [0, 3], "x": 3, "y": 0},
-         {"flags": 4, "matrix": [0, 2], "x": 2, "y": 0},
-         {"flags": 4, "matrix": [0, 1], "x": 1, "y": 0},
-         {"flags": 4, "matrix": [0, 0], "x": 0, "y": 0},
-         {"flags": 4, "matrix": [1, 0], "x": 0, "y": 1},
-         {"flags": 4, "matrix": [1, 1], "x": 1, "y": 1},
-         {"flags": 4, "matrix": [1, 2], "x": 2, "y": 1},
-         {"flags": 4, "matrix": [1, 3], "x": 3, "y": 1},
-         {"flags": 4, "matrix": [2, 3], "x": 3, "y": 2},
-         {"flags": 4, "matrix": [2, 2], "x": 2, "y": 2},
-         {"flags": 4, "matrix": [2, 1], "x": 1, "y": 2},
-         {"flags": 4, "matrix": [2, 0], "x": 0, "y": 2}
-       ]
+        "animations": {
+            "typing_heatmap": true,
+            "digital_rain": true,
+            "solid_reactive_simple": true,
+            "solid_reactive": true,
+            "solid_reactive_wide": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_cross": true,
+            "solid_reactive_multicross": true,
+            "solid_reactive_nexus": true,
+            "solid_reactive_multinexus": true,
+            "splash": true,
+            "multisplash": true,
+            "solid_splash": true,
+            "solid_multisplash": true
+        },
+        "default": {
+            "animation": "typing_heatmap"
+        },
+        "driver": "ws2812",
+        "layout": [
+            {"flags": 4, "matrix": [0, 3], "x": 3, "y": 0},
+            {"flags": 4, "matrix": [0, 2], "x": 2, "y": 0},
+            {"flags": 4, "matrix": [0, 1], "x": 1, "y": 0},
+            {"flags": 4, "matrix": [0, 0], "x": 0, "y": 0},
+            {"flags": 4, "matrix": [1, 0], "x": 0, "y": 1},
+            {"flags": 4, "matrix": [1, 1], "x": 1, "y": 1},
+            {"flags": 4, "matrix": [1, 2], "x": 2, "y": 1},
+            {"flags": 4, "matrix": [1, 3], "x": 3, "y": 1},
+            {"flags": 4, "matrix": [2, 3], "x": 3, "y": 2},
+            {"flags": 4, "matrix": [2, 2], "x": 2, "y": 2},
+            {"flags": 4, "matrix": [2, 1], "x": 1, "y": 2},
+            {"flags": 4, "matrix": [2, 0], "x": 0, "y": 2}
+        ]
     },
     "url": "",
     "usb": {

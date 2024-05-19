@@ -29,13 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define AUDIO_DAC_SAMPLE_MAX 4095U
 #endif
 
-#ifdef RGB_MATRIX_ENABLE
-#    define RGB_MATRIX_LED_COUNT              38
-#    define RGB_MATRIX_LED_FLUSH_LIMIT    16
-#    define RGB_MATRIX_DEFAULT_VAL        150
-#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
-#endif
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
