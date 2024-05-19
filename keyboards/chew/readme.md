@@ -35,4 +35,4 @@ The controller has two buttons, so you can enter the bootloader in 2 ways:
 - Press twice the **reset** button.
 
 ![hazelnuts](https://github.com/flinguenheld/chew/blob/main/images/hazelnuts.png?raw=true)
-![Chew back photo](https://live.staticflickr.com/65535/53682442124_677ffa6cb5_o.jpg)
+![Chew back photo](https://live.staticflickr.com/65535/53730609287_f43368ee4b_o.png)
