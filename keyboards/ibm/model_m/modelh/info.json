@@ -25,7 +25,7 @@
     "processor": "STM32F103",
     "url": "modelh.club",
     "usb": {
-        "device_version": "1.0.0",
+        "device_version": "1.0.1",
         "max_power": 100,
         "pid": "0xB155",
         "vid": "0xFEED"
