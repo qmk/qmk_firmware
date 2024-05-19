@@ -4,9 +4,12 @@
     "url": "https://github.com/sotoba/craftwalk",
     "maintainer": "sotoba",
     "usb": {
-      "vid": "0xFEED",
+      "vid": "0x7364",
       "pid": "0x2E8F",
       "device_version": "0.0.1"
+    },
+    "bootmagic": {
+      "matrix": [1, 0]
     },
     "rgblight": {
         "saturation_steps": 8,
@@ -40,8 +43,7 @@
       "rows": ["F6", "B3", "B5"]
     },
     "diode_direction": "COL2ROW",
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "layouts": {
         "LAYOUT": {
             "layout": [
