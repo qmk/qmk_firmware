@@ -27,6 +27,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
+/* define if matrix has ghost */
+#define MATRIX_HAS_GHOST
+
 
 /*
  * Feature disable options
