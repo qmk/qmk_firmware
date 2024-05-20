@@ -742,6 +742,7 @@ void scape_finished(tap_dance_state_t *state, void *user_data) {
 		case TD_SINGLE_HOLD:
 			
 			register_code16(KC_LCTL);
+            layer_on(_QWERTY2);
 			
 			break;
 
@@ -767,6 +768,8 @@ void scape_reset(tap_dance_state_t *state, void *user_data) {
 		
 		unregister_code16(KC_LCTL);
 		unregister_code16(KC_ESC);
+        layer_off(_QWERTY2);
+        layer_clear();
 		numpad_tap_state.state = TD_NONE;
 		
 }
