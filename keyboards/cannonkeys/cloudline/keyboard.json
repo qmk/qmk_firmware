@@ -54,6 +54,12 @@
         "backlight": true,
         "rgblight": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "community_layouts": [
         "tkl_f13_ansi_tsangan",
         "tkl_f13_ansi_tsangan_split_bs_rshift",
