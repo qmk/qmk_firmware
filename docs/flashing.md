@@ -236,7 +236,7 @@ Flashing sequence:
 
 ## STM32/APM32 DFU
 
-All STM32 and APM32 MCUs, except for F103 (see the [STM32duino section](#stm32duino)) come preloaded with a factory bootloader that cannot be modified nor deleted.
+All USB-capable STM32 and APM32 MCUs, except for a small handful (such as STM32F103 -- see the [STM32duino section](#stm32duino)) come preloaded with a factory bootloader that cannot be modified nor deleted.
 
 To ensure compatibility with the STM32-DFU bootloader, make sure this block is present in your `rules.mk` (optionally with `apm32-dfu` instead):
 
