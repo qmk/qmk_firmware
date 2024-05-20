@@ -14,47 +14,47 @@
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
         "KC_GRV": {
-            "key": "FA_JSPC",
+            "key": "FA_ZWJ",
             "label": "‍",
         }
         "KC_1": {
-            "key": "FA_1",
+            "key": "FA_1A",
             "label": "۱",
         }
         "KC_2": {
-            "key": "FA_2",
+            "key": "FA_2A",
             "label": "۲",
         }
         "KC_3": {
-            "key": "FA_3",
+            "key": "FA_3A",
             "label": "۳",
         }
         "KC_4": {
-            "key": "FA_4",
+            "key": "FA_4A",
             "label": "۴",
         }
         "KC_5": {
-            "key": "FA_5",
+            "key": "FA_5A",
             "label": "۵",
         }
         "KC_6": {
-            "key": "FA_6",
+            "key": "FA_6A",
             "label": "۶",
         }
         "KC_7": {
-            "key": "FA_7",
+            "key": "FA_7A",
             "label": "۷",
         }
         "KC_8": {
-            "key": "FA_8",
+            "key": "FA_8A",
             "label": "۸",
         }
         "KC_9": {
-            "key": "FA_9",
+            "key": "FA_9A",
             "label": "۹",
         }
         "KC_0": {
-            "key": "FA_0",
+            "key": "FA_0A",
             "label": "۰",
         }
         "KC_MINS": {
@@ -194,7 +194,7 @@
             "label": "پ",
         }
         "KC_COMM": {
-            "key": "FA_VAV",
+            "key": "FA_WAW",
             "label": "و",
         }
         "KC_DOT": {
@@ -222,48 +222,48 @@
  * │    │    │    │           ‌             │    │    │    │    │
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
-        "S(FA_JSPC)": {
-            "key": "FA_TAGH",
+        "S(FA_ZWJ)": {
+            "key": "FA_DIV",
             "label": "÷",
         }
-        "S(FA_1)": {
+        "S(FA_1A)": {
             "key": "FA_EXLM",
             "label": "!",
         }
-        "S(FA_2)": {
+        "S(FA_2A)": {
             "key": "FA_THS",
             "label": "٬",
         }
-        "S(FA_3)": {
+        "S(FA_3A)": {
             "key": "FA_DECS",
             "label": "٫",
         }
-        "S(FA_4)": {
+        "S(FA_4A)": {
             "key": "FA_RIAL",
             "label": "﷼",
         }
-        "S(FA_5)": {
-            "key": "FA_PERC",
+        "S(FA_5A)": {
+            "key": "FA_PRCA",
             "label": "٪",
         }
-        "S(FA_6)": {
+        "S(FA_6A)": {
             "key": "FA_MUL",
             "label": "×",
         }
-        "S(FA_7)": {
-            "key": "FA_COMM",
+        "S(FA_7A)": {
+            "key": "FA_COMA",
             "label": "،",
         }
-        "S(FA_8)": {
+        "S(FA_8A)": {
             "key": "FA_ASTR",
             "label": "*",
         }
-        "S(FA_9)": {
-            "key": "FA_LPRN",
+        "S(FA_9A)": {
+            "key": "FA_RPRN",
             "label": ")",
         }
-        "S(FA_0)": {
-            "key": "FA_RPRN",
+        "S(FA_0A)": {
+            "key": "FA_LPRN",
             "label": "(",
         }
         "S(FA_MINS)": {
@@ -304,22 +304,22 @@
         }
         "S(FA_HE)": {
             "key": "FA_TSDD",
-            "label": "ّ",
+            "label": "",
         }
         "S(FA_KHE)": {
-            "key": "FA_LBRC",
+            "key": "FA_RBRC",
             "label": "]",
         }
         "S(FA_HEJ)": {
-            "key": "FA_RBRC",
+            "key": "FA_LBRC",
             "label": "[",
         }
         "S(FA_JIM)": {
-            "key": "FA_LCBR",
+            "key": "FA_RCBR",
             "label": "}",
         }
         "S(FA_CHE)": {
-            "key": "FA_RCBR",
+            "key": "FA_LCBR",
             "label": "{",
         }
         "S(FA_SHIN)": {
@@ -331,7 +331,7 @@
             "label": "ئ",
         }
         "S(FA_YE)": {
-            "key": "FA_AYE",
+            "key": "FA_YEA",
             "label": "ي",
         }
         "S(FA_BE)": {
@@ -351,11 +351,11 @@
             "label": "ة",
         }
         "S(FA_NOON)": {
-            "key": "FA_LQOT",
+            "key": "FA_RQOT",
             "label": "»",
         }
         "S(FA_MIM)": {
-            "key": "FA_RQOT",
+            "key": "FA_LQOT",
             "label": "«",
         }
         "S(FA_KAF)": {
@@ -363,7 +363,7 @@
             "label": ":",
         }
         "S(FA_GAF)": {
-            "key": "FA_SCLN",
+            "key": "FA_SCLA",
             "label": "؛",
         }
         "S(FA_LT)": {
@@ -371,7 +371,7 @@
             "label": ">",
         }
         "S(FA_ZA)": {
-            "key": "FA_AKAF",
+            "key": "FA_KAFA",
             "label": "ك",
         }
         "S(FA_TA)": {
@@ -379,7 +379,7 @@
             "label": "ٓ",
         }
         "S(FA_ZE)": {
-            "key": "FA_ZHE",
+            "key": "FA_JEH",
             "label": "ژ",
         }
         "S(FA_RE)": {
@@ -387,7 +387,7 @@
             "label": "ٰ",
         }
         "S(FA_ZAL)": {
-            "key": "FA_NSPC",
+            "key": "FA_ZWNJ",
             "label": "‌",
         }
         "S(FA_DAL)": {
@@ -398,7 +398,7 @@
             "key": "FA_HMZ",
             "label": "ء",
         }
-        "S(FA_VAV)": {
+        "S(FA_WAW)": {
             "key": "FA_GTA",
             "label": ">",
         }
@@ -407,11 +407,11 @@
             "label": "<",
         }
         "S(FA_SLSH)": {
-            "key": "FA_QUES",
+            "key": "FA_QSA",
             "label": "؟",
         }
         "S(FA_SPC)": {
-            "key": "FA_NSPA",
+            "key": "FA_ZWNA",
             "label": "‌",
         }
 /* AltGr symbols
@@ -427,48 +427,48 @@
  * │    │    │    │                        │    │    │    │    │
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
-        "ALGR(FA_JSPC)": {
+        "ALGR(FA_ZWJ)": {
             "key": "FA_TILD",
             "label": "~",
         }
-        "ALGR(FA_1)": {
+        "ALGR(FA_1A)": {
             "key": "FA_GRV",
             "label": "`",
         }
-        "ALGR(FA_2)": {
+        "ALGR(FA_2A)": {
             "key": "FA_AT",
             "label": "@",
         }
-        "ALGR(FA_3)": {
+        "ALGR(FA_3A)": {
             "key": "FA_HASH",
             "label": "#",
         }
-        "ALGR(FA_4)": {
+        "ALGR(FA_4A)": {
             "key": "FA_DLR",
             "label": "$",
         }
-        "ALGR(FA_5)": {
-            "key": "FA_EPRC",
+        "ALGR(FA_5A)": {
+            "key": "FA_PERC",
             "label": "%",
         }
-        "ALGR(FA_6)": {
+        "ALGR(FA_6A)": {
             "key": "FA_CIRC",
             "label": "^",
         }
-        "ALGR(FA_7)": {
+        "ALGR(FA_7A)": {
             "key": "FA_AMPR",
             "label": "&",
         }
-        "ALGR(FA_8)": {
-            "key": "FA_BSC",
+        "ALGR(FA_8A)": {
+            "key": "FA_BULT",
             "label": "•",
         }
-        "ALGR(FA_9)": {
-            "key": "FA_LTRM",
+        "ALGR(FA_9A)": {
+            "key": "FA_LRM",
             "label": "‎",
         }
-        "ALGR(FA_0)": {
-            "key": "FA_RTLM",
+        "ALGR(FA_0A)": {
+            "key": "FA_RLM",
             "label": "‏",
         }
         "ALGR(FA_MINS)": {
@@ -476,8 +476,8 @@
             "label": "_",
         }
         "ALGR(FA_EQL)": {
-            "key": "FA_MMNS",
-            "label": "−",
+            "key": "FA_DMNS",
+            "label": "− (dead)",
         }
         "ALGR(FA_ZAD)": {
             "key": "FA_DEG",
@@ -488,23 +488,23 @@
             "label": "€",
         }
         "ALGR(FA_HE)": {
-            "key": "FA_LTRO",
+            "key": "FA_LRO",
             "label": "‭",
         }
         "ALGR(FA_KHE)": {
-            "key": "FA_RTLO",
+            "key": "FA_RLO",
             "label": "‮",
         }
         "ALGR(FA_HEJ)": {
-            "key": "FA_PDIR",
+            "key": "FA_PDF",
             "label": "‬",
         }
         "ALGR(FA_JIM)": {
-            "key": "FA_LTRE",
+            "key": "FA_LRE",
             "label": "‪",
         }
         "ALGR(FA_CHE)": {
-            "key": "FA_RTLE",
+            "key": "FA_RLE",
             "label": "‫",
         }
         "ALGR(FA_YE)": {
@@ -524,7 +524,7 @@
             "label": "﴿",
         }
         "ALGR(FA_KAF)": {
-            "key": "FA_ESCN",
+            "key": "FA_SCLN",
             "label": ";",
         }
         "ALGR(FA_GAF)": {
@@ -532,7 +532,7 @@
             "label": "\"",
         }
         "ALGR(FA_BSLS)": {
-            "key": "FA_MNSA",
+            "key": "FA_MINA",
             "label": "-",
         }
         "ALGR(FA_ZA)": {
@@ -544,7 +544,7 @@
             "label": "ٖ",
         }
         "ALGR(FA_ZAL)": {
-            "key": "FA_JSPA",
+            "key": "FA_ZWJA",
             "label": "‍",
         }
         "ALGR(FA_DAL)": {
@@ -555,16 +555,16 @@
             "key": "FA_ELLP",
             "label": "…",
         }
-        "ALGR(FA_VAV)": {
-            "key": "FA_ECOM",
+        "ALGR(FA_WAW)": {
+            "key": "FA_COMM",
             "label": ",",
         }
         "ALGR(FA_DOT)": {
-            "key": "FA_EQOT",
+            "key": "FA_QUOT",
             "label": "'",
         }
         "ALGR(FA_SLSH)": {
-            "key": "FA_EQUS",
+            "key": "FA_QUES",
             "label": "?",
         }
 /* Shift+AltGr symbols
@@ -580,43 +580,43 @@
  * │    │    │    │                        │    │    │    │    │
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
-        "S(ALGR(FA_1))": {
+        "S(ALGR(FA_1A))": {
             "key": "FA_1E",
             "label": "1",
         }
-        "S(ALGR(FA_2))": {
+        "S(ALGR(FA_2A))": {
             "key": "FA_2E",
             "label": "2",
         }
-        "S(ALGR(FA_3))": {
+        "S(ALGR(FA_3A))": {
             "key": "FA_3E",
             "label": "3",
         }
-        "S(ALGR(FA_4))": {
+        "S(ALGR(FA_4A))": {
             "key": "FA_4E",
             "label": "4",
         }
-        "S(ALGR(FA_5))": {
+        "S(ALGR(FA_5A))": {
             "key": "FA_5E",
             "label": "5",
         }
-        "S(ALGR(FA_6))": {
+        "S(ALGR(FA_6A))": {
             "key": "FA_6E",
             "label": "6",
         }
-        "S(ALGR(FA_7))": {
+        "S(ALGR(FA_7A))": {
             "key": "FA_7E",
             "label": "7",
         }
-        "S(ALGR(FA_8))": {
+        "S(ALGR(FA_8A))": {
             "key": "FA_8E",
             "label": "8",
         }
-        "S(ALGR(FA_9))": {
+        "S(ALGR(FA_9A))": {
             "key": "FA_9E",
             "label": "9",
         }
-        "S(ALGR(FA_0))": {
+        "S(ALGR(FA_0A))": {
             "key": "FA_0E",
             "label": "0",
         }
