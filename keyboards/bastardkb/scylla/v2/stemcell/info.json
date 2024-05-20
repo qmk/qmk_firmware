@@ -7,20 +7,19 @@
         "driver": "ws2812"
     },
     "ws2812": {
-        "pin": "D3",
+        "pin": "A2",
         "driver": "pwm"
     },
     "build": {
         "debounce_type": "asym_eager_defer_pk"
     },
     "matrix_pins": {
-        "cols": ["F6", "F5", "B6", "D7", "E6", "B4"],
-        "rows": ["F4", "F7", "C6", "D4", "B5"]
+        "cols": ["B1", "B2", "A4", "B4", "B5", "B8"],
+        "rows": ["B10", "B0", "B3", "A15", "B9"]
     },
     "diode_direction": "ROW2COL",
     "split": {
-        "soft_serial_pin": "D2"
+        "soft_serial_pin": "A3"
     },
-    "processor": "STM32F411",
-    "bootloader": "stm32-dfu"
+    "development_board": "stemcell"
 }
