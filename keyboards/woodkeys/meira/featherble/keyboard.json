@@ -3,5 +3,8 @@
     "bootloader": "caterina",
     "bluetooth": {
         "driver": "bluefruit_le"
+    },
+    "features": {
+        "bluetooth": true
     }
 }

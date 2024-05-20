@@ -1,5 +1,10 @@
 {
     "keyboard_name": "Symmetric70 prototype promicro",
+    "features": {
+        "bootmagic": true,
+        "mousekey": false,
+        "extrakey": false
+    },
     "split": {
         "soft_serial_pin": "D0"
     },
