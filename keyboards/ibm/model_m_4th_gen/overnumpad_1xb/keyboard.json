@@ -11,6 +11,9 @@
              "keyboard": true
         }
     },
+    "haptic": {
+        "driver": "solenoid"
+    },
     "indicators": {
         "caps_lock": "C11",
         "num_lock": "C12",

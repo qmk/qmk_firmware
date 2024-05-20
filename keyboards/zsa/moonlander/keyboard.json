@@ -22,6 +22,9 @@
         "rgb_matrix": true,
         "swap_hands": true
     },
+    "audio": {
+        "driver": "dac_additive"
+    },
     "dynamic_keymap": {
         "layer_count": 8
     },

@@ -40,8 +40,7 @@
             {"pin_a": "C15", "pin_b": "C14", "resolution": 2}
         ]
     },
-    "processor": "STM32F401",
-    "bootloader": "stm32-dfu",
+    "development_board": "blackpill_f401",
     "features": {
         "bootmagic": true,
         "nkro": true,
@@ -50,6 +49,5 @@
         "extrakey": true,
         "encoder": true,
         "rgblight": true
-    },
-    "board": "BLACKPILL_STM32_F401"
+    }
 }

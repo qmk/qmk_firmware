@@ -17,6 +17,12 @@
         "extrakey": true,
         "nkro": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "community_layouts": ["numpad_5x4", "ortho_5x4"],
     "layouts": {
         "LAYOUT_numpad_5x4": {
