@@ -6,9 +6,9 @@ from milc import cli
 
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.info import info_json
-from qmk.keyboard import keyboard_completer, list_keyboards
+from qmk.keyboard import keyboard_completer, keyboard_folder_or_all, is_all_keyboards, list_keyboards
 from qmk.keymap import locate_keymap, list_keymaps
-from qmk.path import is_keyboard, keyboard
+from qmk.path import keyboard
 from qmk.git import git_get_ignored_files
 from qmk.c_parse import c_source_files
 
@@ -198,39 +198,34 @@ def keyboard_check(kb):
 
 
 @cli.argument('--strict', action='store_true', help='Treat warnings as errors')
-@cli.argument('-kb', '--keyboard', completer=keyboard_completer, help='Comma separated list of keyboards to check')
+@cli.argument('-kb', '--keyboard', action='append', type=keyboard_folder_or_all, completer=keyboard_completer, help='Keyboard to check. May be passed multiple times.')
 @cli.argument('-km', '--keymap', help='The keymap to check')
-@cli.argument('--all-kb', action='store_true', arg_only=True, help='Check all keyboards')
-@cli.argument('--all-km', action='store_true', arg_only=True, help='Check all keymaps')
 @cli.subcommand('Check keyboard and keymap for common mistakes.')
 @automagic_keyboard
 @automagic_keymap
 def lint(cli):
     """Check keyboard and keymap for common mistakes.
     """
-    failed = []
-
     # Determine our keyboard list
-    if cli.args.all_kb:
-        if cli.args.keyboard:
-            cli.log.warning('Both --all-kb and --keyboard passed, --all-kb takes precedence.')
-
-        keyboard_list = list_keyboards()
-    elif not cli.config.lint.keyboard:
-        cli.log.error('Missing required arguments: --keyboard or --all-kb')
+    if not cli.config.lint.keyboard:
+        cli.log.error('Missing required arguments: --keyboard')
         cli.print_help()
         return False
+
+    if isinstance(cli.config.lint.keyboard, str):
+        # if provided via config - string not array
+        keyboard_list = [cli.config.lint.keyboard]
+    elif is_all_keyboards(cli.args.keyboard[0]):
+        keyboard_list = list_keyboards()
     else:
-        keyboard_list = cli.config.lint.keyboard.split(',')
+        keyboard_list = cli.config.lint.keyboard
+
+    failed = []
 
     # Lint each keyboard
     for kb in keyboard_list:
-        if not is_keyboard(kb):
-            cli.log.error('No such keyboard: %s', kb)
-            continue
-
         # Determine keymaps to also check
-        if cli.args.all_km:
+        if cli.args.keymap == 'all':
             keymaps = list_keymaps(kb)
         elif cli.config.lint.keymap:
             keymaps = {cli.config.lint.keymap}

@@ -13,6 +13,9 @@
         "oled": true,
         "rgb_matrix": true
     },
+    "audio": {
+        "driver": "pwm_hardware"
+    },
     "matrix_pins": {
         "cols": ["GP8", "GP7", "GP6", "GP5", "GP4"],
         "rows": ["GP10", "GP19", "GP20", "GP18"]

@@ -6,7 +6,8 @@
   "usb": {
     "vid": "0x0483",
     "pid": "0xA372",
-    "device_version": "0.0.2"
+    "device_version": "0.0.2",
+    "wait_for_enumeration": true
   },
   "qmk": {
     "tap_keycode_delay": 10

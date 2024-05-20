@@ -26,7 +26,8 @@
         }
     },
     "ws2812": {
-        "pin": "D1"
+        "pin": "D1",
+        "rgbw": true
     },
     "features": {
         "bootmagic": true,

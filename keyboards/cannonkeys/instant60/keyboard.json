@@ -49,6 +49,12 @@
         "backlight": true,
         "rgblight": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "community_layouts": ["60_ansi", "60_tsangan_hhkb"],
     "layouts": {
         "LAYOUT_60_ansi": {
