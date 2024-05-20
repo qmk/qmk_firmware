@@ -50,16 +50,6 @@
     "processor": "MK20DX256",
     "bootloader": "kiibohd",
     "board": "IC_TEENSY_3_1",
-    "community_layouts": [
-        "65_ansi",
-        "65_ansi_blocker",
-        "65_ansi_blocker_split_bs",
-        "65_ansi_split_bs",
-        "65_iso",
-        "65_iso_blocker",
-        "65_iso_blocker_split_bs",
-        "65_iso_split_bs"
-    ],
     "layout_aliases": {
         "LAYOUT": "LAYOUT_all",
         "LAYOUT_aria": "LAYOUT_65_ansi_blocker",
@@ -67,6 +57,7 @@
         "LAYOUT_truefox": "LAYOUT_65_ansi_blocker_split_bs",
         "LAYOUT_vanilla": "LAYOUT_65_ansi"
     },
+    "community_layouts": ["65_ansi", "65_ansi_blocker", "65_ansi_blocker_split_bs", "65_ansi_split_bs", "65_iso", "65_iso_blocker", "65_iso_blocker_split_bs", "65_iso_split_bs"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
