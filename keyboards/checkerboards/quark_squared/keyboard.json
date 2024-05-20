@@ -51,6 +51,12 @@
         "unicode": true,
         "encoder": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "layouts": {
         "LAYOUT_4_2x225u": {
             "layout": [

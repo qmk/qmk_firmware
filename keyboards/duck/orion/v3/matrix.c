@@ -56,13 +56,13 @@ void matrix_scan_user(void) {
 void indicator_init_ports(void) {
 
   // Num LED
-  setPinOutput(B4); 
+  gpio_set_pin_output(B4); 
 
   // Caps Lock
-  setPinOutput(B0); 
+  gpio_set_pin_output(B0); 
 
   // Scroll Lock
-  setPinOutput(D7); 
+  gpio_set_pin_output(D7); 
 }
 
 void matrix_init(void) {
