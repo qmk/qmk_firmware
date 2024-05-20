@@ -57,8 +57,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_NAV] = LAYOUT_33_split_space(
       QK_BOOT,  KC_NO,    KC_NO,    KC_NO,  KC_NO,   KC_GRV,  KC_PGDN,    KC_UP,  KC_PGUP,  KC_SCLN,
-    RGB_TOG,  RGB_HUI,  RGB_SAI,  RGB_VAI,  KC_NO,  KC_HOME,  KC_LEFT,  KC_DOWN,  KC_RGHT,   KC_END,
-    RGB_MOD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  KC_NO,  KC_MINS,    KC_INT1,  KC_COMM,   KC_DOT,  KC_BSLS,
+    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_NO,  KC_HOME,  KC_LEFT,  KC_DOWN,  KC_RGHT,   KC_END,
+    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_NO,  KC_MINS,    KC_INT1,  KC_COMM,   KC_DOT,  KC_BSLS,
                    KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS,   KC_TRNS
   ),
 };

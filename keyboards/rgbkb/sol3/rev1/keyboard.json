@@ -21,8 +21,7 @@
         "mousekey": true,
         "nkro": true,
         "oled": true,
-        "rgb_matrix": true,
-        "rgblight": false
+        "rgb_matrix": true
     },
     "rgblight": {
         "led_count": 156,
