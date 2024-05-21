@@ -14,7 +14,7 @@
     },
     "matrix_pins": {
         "cols": [ "GP4", "GP5", "GP6", "GP7", "GP8", "GP9"],
-        "rows": [ "GP15", "GP26", "GP27", "GP28", "GP29" ]
+        "rows": [ "GP29", "GP28", "GP27", "GP26", "GP15" ]
     },
     "encoder": {
         "rotary": [
@@ -25,8 +25,8 @@
     "url": "",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x0000",
-        "vid": "0xFEED"
+        "pid": "0x6670",
+        "vid": "0x7366"
     },
     "layouts": {
         "LAYOUT": {

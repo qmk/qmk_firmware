@@ -31,12 +31,8 @@
 #define SERIAL_USART_TX_PIN GP0   // USART TX pin
 #define SERIAL_USART_RX_PIN GP1   // USART RX pin
 
-#define MATRIX_ROWS 5
+#define MATRIX_ROWS 10
 #define MATRIX_COLS 6
-
-#define MATRIX_ROW_PINS { GP15, GP26, GP27, GP28, GP29 }
-#define MATRIX_COL_PINS { GP4, GP5, GP6, GP7, GP8, GP9 }
-#define DIODE_DIRECTION COL2ROW
 
 //Adds optional Backlight at GP11
 #define BACKLIGHT_PIN GP11
@@ -48,7 +44,13 @@
 //config.h doc says ARM based Split KB must use this at present
 //SPLIT_TRANSPORT = custom
 
+/* already defined in info.json
 #define ENCODERS_PAD_A { GP13 }
 #define ENCODERS_PAD_B { GP14 }
 #define ENCODER_RESOLUTION 2
+*/
+
+//defines boot magic key for right split
+#define BOOTMAGIC_ROW_RIGHT 5
+#define BOOTMAGIC_COLUMN_RIGHT 0
 
