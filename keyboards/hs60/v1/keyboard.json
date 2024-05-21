@@ -73,8 +73,13 @@
     "mousekey": false,
     "extrakey": true,
     "nkro": true,
-    "rgb_matrix": true,
-    "raw": true
+    "rgb_matrix": true
+  },
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
   },
   "community_layouts": ["60_ansi", "60_iso"],
   "layouts": {

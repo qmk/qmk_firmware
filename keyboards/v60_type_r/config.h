@@ -19,9 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_STEP 16
 
-#define RGB_RED_PIN PF6
-#define RGB_GREEN_PIN PF5
-#define RGB_BLUE_PIN PF4
+#define RGB_RED_PIN F6
+#define RGB_GREEN_PIN F5
+#define RGB_BLUE_PIN F4
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
