@@ -30,6 +30,12 @@
         "extrakey": true,
         "command": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "layouts": {
       "LAYOUT_v2": {
         "layout": [

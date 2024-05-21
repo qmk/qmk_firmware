@@ -8,8 +8,7 @@
         "bootmagic": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
-        "rgblight": false 
+        "nkro": true
     },
     "indicators": {
         "caps_lock": "A10",

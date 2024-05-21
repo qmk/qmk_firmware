@@ -5,7 +5,8 @@
 A bare-bones stenography keyboard. No bells or whistles. Simple, cheap, effective, steno.
 
 * Keyboard Maintainer: [Kyle McCreery](https://github.com/kylemccreery)
-* Hardware Supported: BBS v0.1
+* Hardware Supported: BBS v0.1, v1.1
+  * v0.1 PCBs were miswired for WS2812 RGB LED strips. As the data pin is the same, a strip could still be added with some handwiring.
 * Hardware Availability: [BBS on MechWild](https://mechwild.com/product/bb-steno/)
 
 Make example for this keyboard (after setting up your build environment):
