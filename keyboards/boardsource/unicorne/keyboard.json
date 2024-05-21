@@ -32,6 +32,9 @@
         "pid": "0x7563",
         "vid": "0x4273"
     },
+    "audio": {
+        "driver": "pwm_hardware"
+    },
     "ws2812": {
         "driver": "vendor",
         "pin": "GP29"

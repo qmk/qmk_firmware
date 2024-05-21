@@ -17,11 +17,12 @@ combo_t key_combos[] = {
 
 This will send "Escape" if you hit the A and B keys, and Ctrl+Z when you hit the C and D keys.
 
-## Mod-Tap Support
-[Mod-Tap](mod_tap.md) feature is also supported together with combos. You will need to use the full Mod-Tap keycode in the combo definition, e.g.:
+## Advanced Keycodes Support
+Advanced keycodes, such as [Mod-Tap](mod_tap.md) and [Tap Dance](feature_tap_dance.md) are also supported together with combos. If you use these advanced keycodes in your keymap, you will need to place the full keycode in the combo definition, e.g.:
 
 ```c
 const uint16_t PROGMEM test_combo1[] = {LSFT_T(KC_A), LT(1, KC_B), COMBO_END};
+const uint16_t PROGMEM test_combo2[] = {TD(TD_ESC_CAPS), KC_F1, COMBO_END};
 ```
 
 ## Overlapping Combos

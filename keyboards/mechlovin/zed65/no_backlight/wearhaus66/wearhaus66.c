@@ -20,5 +20,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 void keyboard_pre_init_user(void) {
   // Call the keyboard pre init code.
   // Set our LED pins as output
-  setPinOutput(B7);
+  gpio_set_pin_output(B7);
 }

@@ -31,6 +31,12 @@
         "extrakey": true,
         "mousekey": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "layout_aliases": {
         "LAYOUT_split_3x6_3_2": "LAYOUT_split_3x6_3"
     },
