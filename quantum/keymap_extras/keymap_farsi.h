@@ -156,16 +156,16 @@
 #define FA_COMM ALGR(FA_WAW)  // ,
 #define FA_QUOT ALGR(FA_DOT)  // '
 #define FA_QUES ALGR(FA_SLSH) // ?
-#define FA_1E   S(ALGR(FA_1A))   // 1
-#define FA_2E   S(ALGR(FA_2A))   // 2
-#define FA_3E   S(ALGR(FA_3A))   // 3
-#define FA_4E   S(ALGR(FA_4A))   // 4
-#define FA_5E   S(ALGR(FA_5A))   // 5
-#define FA_6E   S(ALGR(FA_6A))   // 6
-#define FA_7E   S(ALGR(FA_7A))   // 7
-#define FA_8E   S(ALGR(FA_8A))   // 8
-#define FA_9E   S(ALGR(FA_9A))   // 9
-#define FA_0E   S(ALGR(FA_0A))   // 0
+#define FA_1    S(ALGR(FA_1A))   // 1
+#define FA_2    S(ALGR(FA_2A))   // 2
+#define FA_3    S(ALGR(FA_3A))   // 3
+#define FA_4    S(ALGR(FA_4A))   // 4
+#define FA_5    S(ALGR(FA_5A))   // 5
+#define FA_6    S(ALGR(FA_6A))   // 6
+#define FA_7    S(ALGR(FA_7A))   // 7
+#define FA_8    S(ALGR(FA_8A))   // 8
+#define FA_9    S(ALGR(FA_9A))   // 9
+#define FA_0    S(ALGR(FA_0A))   // 0
 #define FA_BRKP S(ALGR(FA_LT))   // ¦
 #define FA_NNBS S(ALGR(FA_SPC))  // (narrow non-breaking space)
 

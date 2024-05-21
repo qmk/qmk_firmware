@@ -565,43 +565,43 @@
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
         "S(ALGR(FA_1A))": {
-            "key": "FA_1E",
+            "key": "FA_1",
             "label": "1",
         }
         "S(ALGR(FA_2A))": {
-            "key": "FA_2E",
+            "key": "FA_2",
             "label": "2",
         }
         "S(ALGR(FA_3A))": {
-            "key": "FA_3E",
+            "key": "FA_3",
             "label": "3",
         }
         "S(ALGR(FA_4A))": {
-            "key": "FA_4E",
+            "key": "FA_4",
             "label": "4",
         }
         "S(ALGR(FA_5A))": {
-            "key": "FA_5E",
+            "key": "FA_5",
             "label": "5",
         }
         "S(ALGR(FA_6A))": {
-            "key": "FA_6E",
+            "key": "FA_6",
             "label": "6",
         }
         "S(ALGR(FA_7A))": {
-            "key": "FA_7E",
+            "key": "FA_7",
             "label": "7",
         }
         "S(ALGR(FA_8A))": {
-            "key": "FA_8E",
+            "key": "FA_8",
             "label": "8",
         }
         "S(ALGR(FA_9A))": {
-            "key": "FA_9E",
+            "key": "FA_9",
             "label": "9",
         }
         "S(ALGR(FA_0A))": {
-            "key": "FA_0E",
+            "key": "FA_0",
             "label": "0",
         }
         "S(ALGR(FA_LT))": {
