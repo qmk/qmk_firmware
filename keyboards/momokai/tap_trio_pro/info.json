@@ -18,6 +18,7 @@
     "bootmagic": {
         "matrix": [2, 0]
     },
+    "debounce": 0,
     "build": {
         "lto": true
       },

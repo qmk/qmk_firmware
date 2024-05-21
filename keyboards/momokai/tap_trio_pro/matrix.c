@@ -8,8 +8,8 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 #include "quantum.h"
 #include "analog.h"
 #include "lut.h"
+#include "debounce.h"
 #include "scanfunctions.h"
-#include "debounce.c"
 #include "sma.c"
 // #include "matrix_helpers.c"
 
@@ -64,7 +64,7 @@ void matrix_init_custom(void) {
     for (uint8_t i = 0; i < MATRIX_COLS; i++) {
         keys[1][i].is_analog = true;
         //should really be done at compile time
-        initialize_SMA_filter(keys[1][i], SMA_FILTER_SAMPLE_EXPONENT);
+        // initialize_SMA_filter(keys[1][i], SMA_FILTER_SAMPLE_EXPONENT);
     }
 
     // for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
@@ -94,15 +94,16 @@ void matrix_init_custom(void) {
 
 //setup only rows 0 and 2, leave row 1 untouched
 __attribute__((weak)) void matrix_init_pins(void) {
+    // if (keys[row][0].is_analog == false)
     for (int row = 0; row < MATRIX_ROWS; row++) {
-        // if (row != 1){
+        if (row != 1){
             for (int col = 0; col < MATRIX_COLS; col++) {
                 pin_t pin = matrix_pins[row][col];
                 if (pin != NO_PIN) {
                     setPinInputHigh(pin);
                 }
             }
-        // }
+        }
     }
 }
 
@@ -156,16 +157,6 @@ void matrix_init(void) {
 
     // initialize key pins
     matrix_init_pins();
-        for (int row = 0; row < MATRIX_ROWS; row++) {
-        // if (row != 1){
-            for (int col = 0; col < MATRIX_COLS; col++) {
-                pin_t pin = matrix_pins[row][col];
-                if (pin != NO_PIN) {
-                    setPinInputHigh(pin);
-                }
-            }
-        // }
-    }
     matrix_init_custom();
 
     // initialize matrix state: all keys off
@@ -175,7 +166,7 @@ void matrix_init(void) {
     }
 
     // Unless hardware debouncing - Init the configured debounce routine
-    debounce_init(MATRIX_ROWS);
+    // debounce_init(MATRIX_ROWS);
 
     // This *must* be called for correct keyboard behavior
     matrix_init_kb();
@@ -205,17 +196,12 @@ __attribute__((weak)) void matrix_read_cols_on_row(matrix_row_t current_matrix[]
     current_matrix[current_row] = current_row_value;
 }
 
+matrix_row_t previous_matrix[MATRIX_ROWS];
+
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
 
-    matrix_row_t previous_matrix[MATRIX_ROWS];
 
     // matrix_row_t is an alias for u_int8_t
-
-
-
-
-
-
 
     memcpy(previous_matrix, current_matrix, sizeof(previous_matrix));
 
