@@ -1,8 +1,3 @@
-# MCU name
-MCU = STM32F103
-
+# custom bootloader
 MCU_LDSCRIPT = jm60_bootloader
 BOARD = ST_NUCLEO64_F103RB
-
-# Bootloader selection
-BOOTLOADER = custom
