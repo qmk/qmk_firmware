@@ -8,6 +8,13 @@
         "pid": "0x3060",
         "device_version": "0.1.1"
     },
+    "features": {
+        "bootmagic": false,
+        "extrakey": false,
+        "mousekey": false,
+        "nkro": false,
+        "rgblight": true
+    },
     "rgblight": {
         "hue_steps": 10,
         "led_count": 21,

@@ -1,0 +1,12 @@
+{
+    "processor": "at90usb646",
+    "bootloader": "atmel-dfu",
+    "features": {
+        "bootmagic": false,
+        "mousekey": false,
+        "extrakey": true,
+        "nkro": true,
+        "audio": true,
+        "watchdog": true
+    }
+}

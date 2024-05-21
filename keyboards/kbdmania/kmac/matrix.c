@@ -94,8 +94,8 @@ void matrix_print(void) {
  */
 static void unselect_cols(void) {
     for (uint8_t x = 0; x < 6; x++) {
-        setPinOutput(col_pins[x]);
-        writePinLow(col_pins[x]);
+        gpio_set_pin_output(col_pins[x]);
+        gpio_write_pin_low(col_pins[x]);
     }
 }
 
@@ -103,13 +103,13 @@ static void select_col(uint8_t col) {
     if (col < 16) {
         uint8_t c = col + 8;
 
-        writePin(B6, c & 0b10000);
-        writePin(C6, c & 0b01000);
-        writePin(C7, c & 0b00100);
-        writePin(F1, c & 0b00010);
-        writePin(F0, c & 0b00001);
+        gpio_write_pin(B6, c & 0b10000);
+        gpio_write_pin(C6, c & 0b01000);
+        gpio_write_pin(C7, c & 0b00100);
+        gpio_write_pin(F1, c & 0b00010);
+        gpio_write_pin(F0, c & 0b00001);
     } else {
-        writePinHigh(B5);
+        gpio_write_pin_high(B5);
     }
 }
 
@@ -122,10 +122,10 @@ static void select_col(uint8_t col) {
 static void init_pins(void) {
     unselect_cols();
     for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
-        setPinInputHigh(row_pins[x]);
+        gpio_set_pin_input_high(row_pins[x]);
     }
 
-    setPinInputHigh(E2);
+    gpio_set_pin_input_high(E2);
 }
 
 static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col) {
@@ -143,7 +143,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
         // Check row pin state
         // Use the otherwise unused row: 3, col: 0 for caps lock
         if (row_index == 3 && current_col == 0) {
-            if (readPin(E2) == 0) {
+            if (gpio_read_pin(E2) == 0) {
                 // Pin LO, set col bit
                 current_matrix[row_index] |= (ROW_SHIFTER << current_col);
             } else {
@@ -151,7 +151,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
                 current_matrix[row_index] &= ~(ROW_SHIFTER << current_col);
             }
         } else {
-            if (readPin(row_pins[row_index]) == 0) {
+            if (gpio_read_pin(row_pins[row_index]) == 0) {
                 // Pin HI, clear col bit
                 current_matrix[row_index] &= ~(ROW_SHIFTER << current_col);
             } else {
