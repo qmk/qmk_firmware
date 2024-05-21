@@ -67,11 +67,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    KC_NO, KC_NO, KC_NO,         KC_BTN2, KC_BTN1, KC_BTN3
     )
 };
-
-/*  [0] = LAYOUT_qwerty( // media layer
-        KC_NO,     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,     KC_NO,
-        KC_NO,     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,     KC_NO,
-        KC_NO,     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,     KC_NO,
-        KC_NO,     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,     KC_NO,
-                                         KC_NO, KC_NO, KC_NO,         KC_NO, KC_NO, KC_NO
-) */
