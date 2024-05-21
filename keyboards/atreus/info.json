@@ -17,6 +17,12 @@
     "pid": "0xA1E5",
     "device_version": "0.0.8"
   },
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

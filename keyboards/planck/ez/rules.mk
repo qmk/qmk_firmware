@@ -1,5 +1,3 @@
-AUDIO_DRIVER = dac_additive
-
 RGBLIGHT_SUPPORTED = no
 BAKCLIGHT_SUPPORTED = no
 

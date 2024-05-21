@@ -11,6 +11,7 @@
     // invalid: Default `false`. Set to `true` to generate errors when a value exists
     // replace_with: use with a key marked deprecated or invalid to designate a replacement
 
+    "AUDIO_DRIVER": {"info_key": "audio.driver"},
     "BACKLIGHT_DRIVER": {"info_key": "backlight.driver"},
     "BLUETOOTH_DRIVER": {"info_key": "bluetooth.driver"},
     "BOARD": {"info_key": "board"},
