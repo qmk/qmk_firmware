@@ -1,6 +1,4 @@
-/*
-Copyright 2012 Jun Wako <wakojun@gmail.com>
-Copyright 2015 Jack Humbert
+/* Copyright 2021 Danny Nguyen <danny@keeb.io>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,9 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define SPLIT_HAND_PIN D2
+#if defined(KEYBOARD_keebio_sinc_rev1) || defined(KEYBOARD_keebio_sinc_rev2)
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
+    #define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 2
+
+#endif

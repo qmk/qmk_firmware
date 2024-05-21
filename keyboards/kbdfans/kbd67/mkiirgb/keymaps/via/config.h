@@ -1,4 +1,4 @@
-/* Copyright 2022 DZTECH <moyi4681@Live.cn>
+/* Copyright 2021 DZTECH <moyi4681@live.cn>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,4 +16,4 @@
 
 #pragma once
 
-#define RGBLIGHT_DEFAULT_MODE (RGBLIGHT_EFFECT_RAINBOW_MOOD + 6)
+#define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 2

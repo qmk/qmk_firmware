@@ -1,6 +1,5 @@
 /*
-Copyright 2012 Jun Wako <wakojun@gmail.com>
-Copyright 2015 Jack Humbert
+Copyright 2021 Elliot Powell
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,12 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 #pragma once
 
-#define SPLIT_HAND_PIN D2
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
+// 2 bits for 4 layout options
+#define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 2
