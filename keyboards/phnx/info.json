@@ -17,6 +17,7 @@
         "rows": ["B5", "D7", "D6", "C6", "B4"]
     },
     "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "url": "",
     "usb": {
         "vid": "0xACE1",
