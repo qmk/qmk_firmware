@@ -52,7 +52,8 @@
     }
   },
   "ws2812": {
-    "pin": "E6"
+    "pin": "E6",
+    "rgbw": true
   },
   "processor": "atmega32u4",
   "bootloader": "atmel-dfu",
