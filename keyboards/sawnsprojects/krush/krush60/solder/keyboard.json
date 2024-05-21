@@ -48,17 +48,7 @@
         "LAYOUT_60_ansi_arrow_split_bs_7u_spc": "LAYOUT_60_ansi_arrow_tsangan_split_bs",
         "LAYOUT_60_ansi_arrow_7u_spc": "LAYOUT_60_ansi_arrow_tsangan"
     },
-    "community_layouts": [
-        "60_ansi",
-        "60_ansi_arrow",
-        "60_ansi_arrow_split_bs",
-        "60_ansi_split_bs_rshift",
-        "60_ansi_tsangan",
-        "60_tsangan_hhkb",
-        "60_ansi_wkl",
-        "60_ansi_wkl_split_bs_rshift",
-        "60_hhkb"
-    ],
+    "community_layouts": ["60_ansi", "60_ansi_arrow", "60_ansi_arrow_split_bs", "60_ansi_split_bs_rshift", "60_ansi_tsangan", "60_tsangan_hhkb", "60_ansi_wkl", "60_ansi_wkl_split_bs_rshift", "60_hhkb"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
