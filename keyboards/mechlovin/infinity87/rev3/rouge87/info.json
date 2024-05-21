@@ -1,15 +1,37 @@
 {
+    "usb": {
+        "pid": "0x8706",
+        "device_version": "0.0.1"
+    },
+    "matrix_pins": {
+        "rows": ["A10", "B13", "B12", "B11", "C14", "C15"],
+        "cols": ["C13", "B9", "B4", "B7", "B8", "B5", "B6", "A9", "A5", "A6", "A7", "B1", "B2", "B10", "B3", "B14", "B15"]
+    },
     "indicators": {
         "caps_lock": "A4",
         "scroll_lock": "A8"
     },
-    "matrix_pins": {
-        "cols": ["C13", "B9", "B4", "B7", "B8", "B5", "B6", "A9", "A5", "A6", "A7", "B1", "B2", "B10", "B3", "B14", "B15"],
-        "rows": ["A10", "B13", "B12", "B11", "C14", "C15"]
+    "features": {
+        "rgblight": true
     },
-    "usb": {
-        "device_version": "0.0.1",
-        "pid": "0x8703"
+    "rgblight": {
+        "led_count": 41,
+        "sleep": true,
+        "animations": {
+            "knight": true,
+            "rainbow_swirl": true,
+            "rainbow_mood": true,
+            "snake": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true,
+            "breathing": true
+        }
+    },
+    "ws2812": {
+        "pin": "A15"
     },
     "community_layouts": ["tkl_ansi_tsangan", "tkl_iso_tsangan"],
     "layouts": {
