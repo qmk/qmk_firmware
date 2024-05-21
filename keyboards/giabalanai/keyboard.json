@@ -38,8 +38,7 @@
         "mousekey": false,
         "nkro": false,
         "command": false,
-        "backlight": false,
-        "rgb_matrix": false
+        "backlight": false
     },
     "build": {
         "lto": true

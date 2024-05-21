@@ -161,7 +161,7 @@ static void ws2812_dma_callback(void* p, uint32_t ct) {
     // FIFO is already empty.
     rtcnt_t time_to_completion = (pio_sm_get_tx_fifo_level(pio, STATE_MACHINE) + 1) * MAX(WS2812_T1H + WS2812_T1L, WS2812_T0H + WS2812_T0L);
 
-#if defined(RGBW)
+#if defined(WS2812_RGBW)
     time_to_completion *= 32;
 #else
     time_to_completion *= 24;
@@ -222,7 +222,7 @@ void ws2812_init(void) {
     sm_config_set_sideset(&config, 1, false, false);
 #endif
 
-#if defined(RGBW)
+#if defined(WS2812_RGBW)
     sm_config_set_out_shift(&config, false, true, 32);
 #else
     sm_config_set_out_shift(&config, false, true, 24);
@@ -270,7 +270,7 @@ void ws2812_setleds(rgb_led_t* ledarray, uint16_t leds) {
     sync_ws2812_transfer();
 
     for (int i = 0; i < leds; i++) {
-#if defined(RGBW)
+#if defined(WS2812_RGBW)
         WS2812_BUFFER[i] = rgbw8888_to_u32(ledarray[i].r, ledarray[i].g, ledarray[i].b, ledarray[i].w);
 #else
         WS2812_BUFFER[i] = rgbw8888_to_u32(ledarray[i].r, ledarray[i].g, ledarray[i].b, 0);
