@@ -28,7 +28,7 @@
 // clang-format off
 
 // Aliases
-#define FA_ZWJ  KC_GRV  // ‍
+#define FA_ZWJ  KC_GRV  // (zero-width joiner)
 #define FA_1A   KC_1    // ۱
 #define FA_2A   KC_2    // ۲
 #define FA_3A   KC_3    // ۳
@@ -118,13 +118,10 @@
 #define FA_MADO S(FA_TA)   // ٓ
 #define FA_JEH  S(FA_ZE)   // ژ
 #define FA_SUPA S(FA_RE)   // ٰ
-#define FA_ZWNJ S(FA_ZAL)  // ‌
+#define FA_ZWNJ S(FA_ZAL)  // (zero-width non-joiner)
 #define FA_HMZA S(FA_DAL)  // ٔ
 #define FA_HMZ  S(FA_PE)   // ء
-#define FA_GTA  S(FA_WAW)  // >
-#define FA_LTA  S(FA_DOT)  // <
 #define FA_QSA  S(FA_SLSH) // ؟
-#define FA_ZWNA S(FA_SPC)  // ‌
 #define FA_TILD ALGR(FA_ZWJ)  // ~
 #define FA_GRV  ALGR(FA_1A)   // `
 #define FA_AT   ALGR(FA_2A)   // @
@@ -134,17 +131,17 @@
 #define FA_CIRC ALGR(FA_6A)   // ^
 #define FA_AMPR ALGR(FA_7A)   // &
 #define FA_BULT ALGR(FA_8A)   // •
-#define FA_LRM  ALGR(FA_9A)   // ‎
-#define FA_RLM  ALGR(FA_0A)   // ‏
+#define FA_LRM  ALGR(FA_9A)   // (left-to-right mark)
+#define FA_RLM  ALGR(FA_0A)   // (right-to-left mark)
 #define FA_UNDS ALGR(FA_MINS) // _
 #define FA_DMNS ALGR(FA_EQL)  // − (dead)
 #define FA_DEG  ALGR(FA_ZAD)  // °
 #define FA_EURO ALGR(FA_SE)   // €
-#define FA_LRO  ALGR(FA_HE)   // ‭
-#define FA_RLO  ALGR(FA_KHE)  // ‮
-#define FA_PDF  ALGR(FA_HEJ)  // ‬
-#define FA_LRE  ALGR(FA_JIM)  // ‪
-#define FA_RLE  ALGR(FA_CHE)  // ‫
+#define FA_LRO  ALGR(FA_HE)   // (left-to-right override)
+#define FA_RLO  ALGR(FA_KHE)  // (right-to-left override)
+#define FA_PDF  ALGR(FA_HEJ)  // (pop directional formatting)
+#define FA_LRE  ALGR(FA_JIM)  // (left-to-right embedding)
+#define FA_RLE  ALGR(FA_CHE)  // (right-to-left embedding)
 #define FA_ALFM ALGR(FA_YE)   // ى
 #define FA_ALFW ALGR(FA_ALEF) // ٱ
 #define FA_LORP ALGR(FA_NOON) // ﴾
@@ -154,7 +151,6 @@
 #define FA_MINA ALGR(FA_BSLS) // -
 #define FA_PIPE ALGR(FA_ZA)   // |
 #define FA_SUBA ALGR(FA_RA)   // ٖ
-#define FA_ZWJA ALGR(FA_ZAL)  // ‍
 #define FA_HMZB ALGR(FA_DAL)  // ء
 #define FA_ELLP ALGR(FA_PE)   // …
 #define FA_COMM ALGR(FA_WAW)  // ,
@@ -171,5 +167,5 @@
 #define FA_9E   S(ALGR(FA_9A))   // 9
 #define FA_0E   S(ALGR(FA_0A))   // 0
 #define FA_BRKP S(ALGR(FA_LT))   // ¦
-#define FA_NNBS S(ALGR(FA_SPC))  //  
+#define FA_NNBS S(ALGR(FA_SPC))  // (narrow non-breaking space)
 
