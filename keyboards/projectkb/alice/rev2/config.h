@@ -35,10 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define INDICATOR_PIN_1 A8
 #define INDICATOR_PIN_2 B12
 
-
-// 2 bits for 4 layout options
-#define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 2
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

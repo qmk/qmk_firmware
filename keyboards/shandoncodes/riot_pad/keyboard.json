@@ -9,7 +9,8 @@
         "command": false,
         "console": false,
         "nkro": true,
-        "rgblight": true
+        "rgblight": true,
+        "extrakey": true
     },
     "matrix_pins": {
         "cols": ["B14", "A8", "A9"],

@@ -24,6 +24,7 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": false,
+        "oled": true,
         "rgb_matrix": true
     },
     "matrix_pins": {

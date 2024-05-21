@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "matrix.h"
 #include "split_util.h"
-#include "config.h"
 #include "timer.h"
 
 // Copy this code to split_common/matrix.c,
