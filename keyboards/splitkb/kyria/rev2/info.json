@@ -4,6 +4,15 @@
         "pid": "0x9D9D",
         "device_version": "0.0.2"
     },
+    "features": {
+        "bootmagic": false,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": false,
+        "nkro": false,
+        "oled": true,
+        "rgblight": true
+    },
     "rgblight": {
         "led_count": 20,
         "split_count": [10, 10]
