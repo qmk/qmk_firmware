@@ -23,8 +23,7 @@
         "pin": "A0",
         "levels": 5
     },
-    "processor": "STM32F401",
-    "bootloader": "stm32-dfu",
+    "development_board": "blackpill_f401",
     "features": {
         "bootmagic": true,
         "mousekey": true,
@@ -32,7 +31,6 @@
         "nkro": true,
         "backlight": true
     },
-    "board": "BLACKPILL_STM32_F401",
     "community_layouts": ["ortho_5x12"],
     "layouts": {
         "LAYOUT_ortho_5x12": {

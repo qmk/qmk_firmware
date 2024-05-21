@@ -15,7 +15,5 @@
         "rows": ["C13", "C14", "C15", "A0", "A1", "A2", "A3", "A4"]
     },
     "diode_direction": "ROW2COL",
-    "processor": "STM32F411",
-    "bootloader": "stm32-dfu",
-    "board": "BLACKPILL_STM32_F411"
+    "development_board": "blackpill_f411"
 }

@@ -1,1 +1,0 @@
-WAIT_FOR_USB = yes

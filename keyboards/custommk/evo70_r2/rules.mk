@@ -1,5 +1,3 @@
-AUDIO_DRIVER = pwm_hardware
-
 # project specific files
 SRC += matrix.c 
 
