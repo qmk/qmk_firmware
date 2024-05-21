@@ -8,6 +8,13 @@
         "pid": "0xE8BA",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false,
+        "rgblight": true
+    },
     "rgb_matrix": {
         "driver": "ws2812"
     },

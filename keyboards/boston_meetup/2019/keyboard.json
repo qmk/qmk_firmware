@@ -17,6 +17,9 @@
         "haptic": true,
         "oled": true
     },
+    "haptic": {
+        "driver": "drv2605l"
+    },
     "rgb_matrix": {
         "driver": "ws2812"
     },

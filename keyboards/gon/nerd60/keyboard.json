@@ -28,6 +28,12 @@
         "command": true,
         "nkro": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "community_layouts": ["60_ansi", "60_ansi_split_bs_rshift", "60_iso", "60_iso_split_bs_rshift"],
     "layouts": {
         "LAYOUT_all": {

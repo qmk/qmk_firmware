@@ -25,11 +25,6 @@
 #define I2C1_TIMINGR_SCLH 0x03U
 #define I2C1_TIMINGR_SCLL 0x09U
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
 // configure oled driver for the 128x32 oled
 #define OLED_UPDATE_INTERVAL 66 // ~15fps
 

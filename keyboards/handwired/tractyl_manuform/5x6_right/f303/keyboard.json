@@ -12,6 +12,9 @@
         "led_count": 20,
         "split_count": [10, 10]
     },
+    "audio": {
+        "driver": "dac_additive"
+    },
     "ws2812": {
         "pin": "A6",
         "driver": "pwm"
