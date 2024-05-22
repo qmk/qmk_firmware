@@ -45,6 +45,12 @@
     "rgblight": true,
     "encoder": true
   },
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  },
   "matrix_pins": {
     "direct": [
       ["D7", "B1", "D2"],
