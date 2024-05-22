@@ -15,6 +15,12 @@
     "nkro": true,
     "rgblight": true
   },
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  },
   "indicators": {
     "num_lock": "B4",
     "caps_lock": "B5",

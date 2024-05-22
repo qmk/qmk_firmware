@@ -20,6 +20,12 @@
     "mousekey": true,
     "extrakey": true
   },
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  },
   "community_layouts": ["60_ansi", "60_ansi_split_bs_rshift", "60_iso", "60_iso_split_bs_rshift"],
   "layout_aliases": {
     "LAYOUT_all": "LAYOUT_60_iso_split_bs_rshift"

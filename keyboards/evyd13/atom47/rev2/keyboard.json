@@ -40,6 +40,12 @@
         "extrakey": true,
         "backlight": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_split_space"
     },

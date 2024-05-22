@@ -25,6 +25,12 @@
         "command": true,
         "nkro": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "layout_aliases": {
         "LAYOUT_tkl_ansi_7u": "LAYOUT_tkl_ansi_tsangan"
     },
