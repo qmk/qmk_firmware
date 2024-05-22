@@ -14,6 +14,12 @@
         "extrakey": true,
         "pointing_device": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "matrix_pins": {
         "cols": ["D3", "D2", "D1", "D0", "D4", "C6", "D7", "E6", "B4", "B5"],
         "rows": ["F4", "F5", "F6", "B6"]

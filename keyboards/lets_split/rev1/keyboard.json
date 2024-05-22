@@ -27,6 +27,12 @@
         "extrakey": true,
         "command": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_ortho_4x12"
     },
