@@ -4,6 +4,12 @@
     },
     "processor": "atmega32u4",
     "bootloader": "halfkay",
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "community_layouts": ["65_ansi", "65_ansi_split_bs", "65_iso", "65_iso_split_bs"],
     "layouts": {
         "LAYOUT_65_ansi": {

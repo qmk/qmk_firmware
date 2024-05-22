@@ -10,8 +10,7 @@
             "matrix": [7, 0]
         }
     },
-    "processor": "STM32F411",
-    "bootloader": "stm32-dfu",
+    "development_board": "blackpill_f411",
     "features": {
         "bootmagic": true,
         "mousekey": true,
@@ -19,5 +18,10 @@
         "console": true,
         "command": true
     },
-    "board": "BLACKPILL_STM32_F411"
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    }
 }

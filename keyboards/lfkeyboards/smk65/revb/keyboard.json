@@ -4,6 +4,12 @@
     },
     "processor": "at90usb646",
     "bootloader": "atmel-dfu",
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_65_ansi"
     },
