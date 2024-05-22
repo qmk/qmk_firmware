@@ -14,6 +14,12 @@
         "nkro": true,
         "rgb_matrix": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "usb": {
         "vid": "0x4A4B",
         "pid": "0xEF6A"

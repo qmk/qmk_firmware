@@ -39,6 +39,12 @@
         "rgblight": true,
         "oled": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

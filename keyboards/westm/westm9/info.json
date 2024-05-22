@@ -7,6 +7,14 @@
         "vid": "0x574D",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "oled": true,
+        "rgblight": true
+    },
     "matrix_pins": {
         "cols": ["B8", "B5", "B4"],
         "rows": ["A14", "A15", "B3"]

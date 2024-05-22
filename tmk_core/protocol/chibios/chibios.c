@@ -51,6 +51,11 @@
 
 #define USB_GETSTATUS_REMOTE_WAKEUP_ENABLED (2U)
 
+#ifdef WAIT_FOR_USB
+// TODO: Remove backwards compatibility with old define
+#    define USB_WAIT_FOR_ENUMERATION
+#endif
+
 /* -------------------------
  *   TMK host driver defs
  * -------------------------
@@ -143,7 +148,7 @@ void protocol_pre_init(void) {
 
     /* Wait until USB is active */
     while (true) {
-#if defined(WAIT_FOR_USB)
+#if defined(USB_WAIT_FOR_ENUMERATION)
         if (USB_DRIVER.state == USB_ACTIVE) {
             driver = &chibios_driver;
             break;

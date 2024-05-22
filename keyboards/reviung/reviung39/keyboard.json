@@ -14,7 +14,30 @@
         "console": true,
         "extrakey": true,
         "mousekey": false,
-        "nkro": false
+        "nkro": false,
+        "rgblight": true
+    },
+    "rgblight": {
+        "led_count": 11,
+        "hue_steps": 16,
+        "saturation_steps": 16,
+        "brightness_steps": 16,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "ws2812": {
+        "pin": "D3"
     },
     "matrix_pins": {
         "cols": ["D4", "C6", "D7", "E6", "B4", "B5"],
