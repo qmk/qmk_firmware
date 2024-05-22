@@ -75,6 +75,12 @@
     "nkro": true,
     "rgb_matrix": true
   },
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  },
   "community_layouts": ["60_ansi", "60_iso"],
   "layouts": {
     "LAYOUT_60_iso": {

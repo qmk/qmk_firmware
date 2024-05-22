@@ -24,6 +24,12 @@
         "mousekey": true,
         "extrakey": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "community_layouts": [
         "split_3x6_3"
     ],
