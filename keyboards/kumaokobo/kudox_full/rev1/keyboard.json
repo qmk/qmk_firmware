@@ -44,6 +44,12 @@
         "unicode": true,
         "oled": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "build": {
         "lto": true
     },

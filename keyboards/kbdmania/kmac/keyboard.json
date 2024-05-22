@@ -25,6 +25,12 @@
     "nkro": true,
     "backlight": true
   },
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  },
   "community_layouts": ["tkl_ansi", "tkl_ansi_wkl"],
   "layouts": {
     "LAYOUT_tkl_ansi": {
