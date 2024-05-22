@@ -173,7 +173,7 @@ static matrix_row_t read_cols(uint8_t row) {
         // For each col...
         for (uint8_t col_index = 0; col_index < MATRIX_COLS_PER_SIDE; col_index++) {
             // Select the col pin to read (active low)
-            uint8_t pin_state = readPin(matrix_col_pins_mcu[col_index]);
+            uint8_t pin_state = gpio_read_pin(matrix_col_pins_mcu[col_index]);
 
             // Populate the matrix row with the state of the col pin
             current_row_value |= pin_state ? 0 : (MATRIX_ROW_SHIFTER << col_index);
@@ -199,7 +199,7 @@ static matrix_row_t read_cols(uint8_t row) {
 
 static void unselect_row(uint8_t row) {
     pin_t matrix_row_pins_mcu[MATRIX_ROWS_PER_SIDE] = MATRIX_ROW_PINS_MCU;
-    setPinInputHigh(matrix_row_pins_mcu[row]);
+    gpio_set_pin_input_high(matrix_row_pins_mcu[row]);
 }
 
 static void unselect_rows(void) {
@@ -211,14 +211,14 @@ static void unselect_rows(void) {
     pin_t matrix_row_pins_mcu[MATRIX_ROWS_PER_SIDE] = MATRIX_ROW_PINS_MCU;
     for (int pin_index = 0; pin_index < MATRIX_ROWS_PER_SIDE; pin_index++) {
         pin_t pin = matrix_row_pins_mcu[pin_index];
-        setPinInputHigh(pin);
+        gpio_set_pin_input_high(pin);
     }
 }
 static void unselect_cols(void) {
     pin_t matrix_col_pins_mcu[MATRIX_COLS_PER_SIDE] = MATRIX_COL_PINS_MCU;
     for (int pin_index = 0; pin_index < MATRIX_COLS_PER_SIDE; pin_index++) {
         pin_t pin = matrix_col_pins_mcu[pin_index];
-        setPinInputHigh(pin);
+        gpio_set_pin_input_high(pin);
     }
 }
 
@@ -227,8 +227,8 @@ static void select_row(uint8_t row) {
         // select on MCU
         pin_t matrix_row_pins_mcu[MATRIX_ROWS_PER_SIDE] = MATRIX_ROW_PINS_MCU;
         pin_t pin                                       = matrix_row_pins_mcu[row];
-        setPinOutput(pin);
-        writePinLow(pin);
+        gpio_set_pin_output(pin);
+        gpio_write_pin_low(pin);
     } else {
         // select on mcp23017
         if (mcp23017_status) {  // if there was an error

@@ -21,9 +21,7 @@
         "rows": ["A2", "A1", "A0", "B8"]
     },
     "diode_direction": "COL2ROW",
-    "processor": "STM32F303",
-    "bootloader": "stm32-dfu",
-    "board": "QMK_PROTON_C",
+    "development_board": "proton_c",
     "community_layouts": ["ortho_4x12"],
     "layouts": {
         "LAYOUT_ortho_4x12": {

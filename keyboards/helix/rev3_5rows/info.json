@@ -8,6 +8,12 @@
     "pid": "0x0003",
     "device_version": "0.0.1"
   },
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  },
   "rgb_matrix": {
     "driver": "ws2812",
     "sat_steps": 8,

@@ -15,6 +15,9 @@
             {"pin_a": "B13", "pin_b": "B14"}
         ]
     },
+    "haptic": {
+        "driver": "drv2605l"
+    },
     "rgblight": {
         "led_count": 10,
         "animations": {

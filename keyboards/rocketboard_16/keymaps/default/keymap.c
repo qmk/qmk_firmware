@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RGB_RMOD,                   KC_MUTE,
         KC_NO,    KC_NO,   KC_NO,   KC_EXAM,
         KC_NO,    KC_NO,   KC_NO,   KC_NO,
-        QK_BOOT,    RGB_TOG, RGB_SPI, RGB_SPD,
+        QK_BOOT,  RGB_TOG, RGB_SPI, RGB_SPD,
         KC_NO,    _______, KC_NO,   KC_NO
     )
 };
