@@ -1,7 +1,7 @@
 # The Q
 
 * Keyboard Maintainer: [waffle87](https://github.com/waffle87)
-* Hardware Supported: the_q PCB w/ Pro Micro style microcontroller
+* Hardware Supported: The Q PCB w/ Pro Micro style microcontroller
 * Hardware Availability: [boardsource.xyz](https://boardsource.xyz)
 
 Make example for this keyboard (after setting up your build environment):
