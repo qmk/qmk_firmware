@@ -26,6 +26,7 @@ The following converters are available at this time:
 | `elite_c`  | `elite_pi`        |
 | `elite_c`  | `helios`          |
 | `elite_c`  | `liatris`         |
+| `elite_c`  | `sea_picro`       |
 
 
 ## Overview
@@ -173,22 +174,24 @@ Feature set is identical to [Adafruit KB2040](#kb2040). VBUS detection is enable
 
 If a board currently supported in QMK uses an [Elite-C](https://keeb.io/products/elite-c-low-profile-version-usb-c-pro-micro-replacement-atmega32u4), the supported alternative controllers are:
 
-| Device                                                                           | Target            |
-|----------------------------------------------------------------------------------|-------------------|
-| [STeMCell](https://github.com/megamind4089/STeMCell)                             | `stemcell`        |
-| [Elite-Pi](https://keeb.io/products/elite-pi-usb-c-pro-micro-replacement-rp2040) | `elite_pi`        |
-| [0xCB Helios](https://keeb.supply/products/0xcb-helios)                          | `helios`          |
-| [Liatris](https://splitkb.com/products/liatris)                                  | `liatris`         |
+| Device                                                                           | Target      |
+|----------------------------------------------------------------------------------|-------------|
+| [STeMCell](https://github.com/megamind4089/STeMCell)                             | `stemcell`  |
+| [Elite-Pi](https://keeb.io/products/elite-pi-usb-c-pro-micro-replacement-rp2040) | `elite_pi`  |
+| [0xCB Helios](https://keeb.supply/products/0xcb-helios)                          | `helios`    |
+| [Liatris](https://splitkb.com/products/liatris)                                  | `liatris`   |
+| [Sea-Picro](https://github.com/joshajohnson/sea-picro)                           | `sea_picro` |
 
 Converter summary:
 
-| Target            | Argument                        | `rules.mk`                   | Condition                           |
-|-------------------|---------------------------------|------------------------------|-------------------------------------|
-| `stemcell`        | `-e CONVERT_TO=stemcell`        | `CONVERT_TO=stemcell`        | `#ifdef CONVERT_TO_STEMCELL`        |
-| `rp2040_ce`       | `-e CONVERT_TO=rp2040_ce`       | `CONVERT_TO=rp2040_ce`       | `#ifdef CONVERT_TO_RP2040_CE`       |
-| `elite_pi`        | `-e CONVERT_TO=elite_pi`        | `CONVERT_TO=elite_pi`        | `#ifdef CONVERT_TO_ELITE_PI`        |
-| `helios`          | `-e CONVERT_TO=helios`          | `CONVERT_TO=helios`          | `#ifdef CONVERT_TO_HELIOS`          |
-| `liatris`         | `-e CONVERT_TO=liatris`         | `CONVERT_TO=liatris`         | `#ifdef CONVERT_TO_LIATRIS`         |
+| Target      | Argument                  | `rules.mk`                   | Condition                     |
+|-------------|---------------------------|------------------------------|-------------------------------|
+| `stemcell`  | `-e CONVERT_TO=stemcell`  | `CONVERT_TO=stemcell`        | `#ifdef CONVERT_TO_STEMCELL`  |
+| `rp2040_ce` | `-e CONVERT_TO=rp2040_ce` | `CONVERT_TO=rp2040_ce`       | `#ifdef CONVERT_TO_RP2040_CE` |
+| `elite_pi`  | `-e CONVERT_TO=elite_pi`  | `CONVERT_TO=elite_pi`        | `#ifdef CONVERT_TO_ELITE_PI`  |
+| `helios`    | `-e CONVERT_TO=helios`    | `CONVERT_TO=helios`          | `#ifdef CONVERT_TO_HELIOS`    |
+| `liatris`   | `-e CONVERT_TO=liatris`   | `CONVERT_TO=liatris`         | `#ifdef CONVERT_TO_LIATRIS`   |
+| `sea_picro` | `-e CONVERT_TO=sea_picro` | `CONVERT_TO=sea_picro`       | `#ifdef CONVERT_TO_SEA_PICRO` |
 
 ### STeMCell :id=stemcell_elite
 
