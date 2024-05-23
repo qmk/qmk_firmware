@@ -16,6 +16,12 @@
       "nkro": true,
       "oled": true
    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
    "matrix_pins": {
       "cols": ["B3", "B2", "B1", "F7"],
       "rows": ["F0", "F1", "F4", "F5", "F6"]
