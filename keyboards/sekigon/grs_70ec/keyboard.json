@@ -15,6 +15,12 @@
         "mousekey": true,
         "nkro": false
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "split": {
         "enabled": true,
         "soft_serial_pin": "D3"
