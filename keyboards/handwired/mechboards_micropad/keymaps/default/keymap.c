@@ -35,35 +35,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case MECHBOARDURL:
       if (record->event.pressed) {
-        // when keycode QMKBEST is pressed
         SEND_STRING("https://mechboards.co.uk/" SS_TAP(X_ENTER));
-      } else {
-        // when keycode QMKBEST is released
       }
       break;
     case QMKURL:
       if (record->event.pressed) {
-        // when keycode QMKURL is pressed
         SEND_STRING("https://qmk.fm/" SS_TAP(X_ENTER));
-      } else {
-        // when keycode QMKURL is released
       }
       break;
     case MKUK:
       if (record->event.pressed) {
-        // when keycode QMKURL is pressed
         SEND_STRING("MKUK4 was amazing!");
-      } else {
-        // when keycode QMKURL is released
       }
       break;
     case LEDCHANGE:
       if (record->event.pressed) {
-        // when keycode QMKURL is pressed
         led_state = !led_state;
         writePin(F6, led_state);
-      } else {
-        // when keycode QMKURL is released
       }
       break;
   }
