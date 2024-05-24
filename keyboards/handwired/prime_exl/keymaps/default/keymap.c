@@ -67,16 +67,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool led_update_user(led_t led_state) {
-  writePin(NUM_LOCK_LED_PIN, led_state.num_lock);
-  writePin(CAPS_LOCK_LED_PIN, led_state.caps_lock);
-  // writePin(SCROLL_LOCK_LED_PIN, led_state.scroll_lock);
+  gpio_write_pin(NUM_LOCK_LED_PIN, led_state.num_lock);
+  gpio_write_pin(CAPS_LOCK_LED_PIN, led_state.caps_lock);
+  // gpio_write_pin(SCROLL_LOCK_LED_PIN, led_state.scroll_lock);
   return false;
 }
 
 //function for layer indicator LED
 layer_state_t layer_state_set_user(layer_state_t state)
 {
-    writePin(SCROLL_LOCK_LED_PIN, (get_highest_layer(state) == 1));
+    gpio_write_pin(SCROLL_LOCK_LED_PIN, (get_highest_layer(state) == 1));
 
     return state;
 }
