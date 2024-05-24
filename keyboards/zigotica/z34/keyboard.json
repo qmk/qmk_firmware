@@ -14,6 +14,12 @@
     "features": {
         "extrakey": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "processor": "atmega32u4",
     "bootloader": "caterina",
     "matrix_pins": {
