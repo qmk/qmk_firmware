@@ -43,13 +43,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {[_QWERTY] = LAYOUT
         ), 
     [_NUMP] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-           KC_TAB  ,XXXXXXX ,XXXXXXX  ,KC_UP  ,XXXXXXX ,XXXXXXX	                     ,KC_N7   ,KC_N8   ,KC_N9   ,XXXXXXX ,XXXXXXX ,KC_BSPC ,
+           KC_TAB  ,XXXXXXX ,XXXXXXX  ,KC_UP  ,XXXXXXX ,XXXXXXX	                     ,KP_N7   ,KP_N8   ,KP_N9   ,XXXXXXX ,XXXXXXX ,KC_BSPC ,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-           KC_LCTL ,XXXXXXX ,KC_LEFT ,KC_DOWN ,KC_RGHT ,XXXXXXX		                 ,KC_N4   ,KC_N5   ,KC_N6   ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+           KC_LCTL ,XXXXXXX ,KC_LEFT ,KC_DOWN ,KC_RGHT ,XXXXXXX		                 ,KP_N4   ,KP_N5   ,KP_N6   ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-           KC_LSFT ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX 		             ,KC_N1   ,KC_N2   ,KC_N3   ,KC_DOT  ,XXXXXXX ,XXXXXXX ,
+           KC_LSFT ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX 		             ,KP_N1   ,KP_N2   ,KP_N3   ,KC_DOT  ,XXXXXXX ,XXXXXXX ,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                               KC_LGUI ,_______ ,KC_SPC     ,KC_ENT  ,KC_N0   ,MO(3)
+                                               KC_LGUI ,_______ ,KC_SPC     ,KC_ENT  ,KC_NP   ,MO(3)
                                             //`--------------------------'  `--------------------------'
         ),
 
