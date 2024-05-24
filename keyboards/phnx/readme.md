@@ -4,8 +4,8 @@
 
 An unibody split ergonomic keyboard featuring 54 keys, each equipped with customizable addressable LEDs. Powered by ATMega and based on Miryoku.
 
--   Keyboard Maintainer: [sini6a](https://github.com/sini6a)
--   Hardware Supported: PHNX PCB
+* Keyboard Maintainer: [sini6a](https://github.com/sini6a)
+* Hardware Supported: PHNX PCB
 
 Make example for this keyboard (after setting up your build environment):
 
