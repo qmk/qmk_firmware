@@ -46,6 +46,9 @@
     "ws2812": {
         "pin": "B7"
     },
+    "dynamic_keymap": {
+        "layer_count": 7
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
