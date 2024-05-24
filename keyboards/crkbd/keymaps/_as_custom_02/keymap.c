@@ -23,7 +23,6 @@ enum layers {
     _QWERTY,
     _NUMP,
     _LOWER,
-    _FUNC,
     _RGB,
 };
 
@@ -34,48 +33,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {[_QWERTY] = LAYOUT
     //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_TAB  ,KC_Q    ,KC_W    ,KC_E    ,KC_R    ,KC_T			             ,KC_Y    ,KC_U    ,KC_I    ,KC_O    ,KC_P    ,KC_BSPC ,
     //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-       KC_LSFT ,KC_A    ,KC_S    ,KC_D    ,KC_F    ,KC_G			             ,KC_H    ,KC_J    ,KC_K    ,KC_L    ,KC_SCLN ,KC_QUOT ,
+       KC_LCTL ,KC_A    ,KC_S    ,KC_D    ,KC_F    ,KC_G			             ,KC_H    ,KC_J    ,KC_K    ,KC_L    ,KC_SCLN ,KC_QUOT ,
     //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-       KC_LCTL ,KC_Z    ,KC_X    ,KC_C    ,KC_V    ,KC_B  		                 ,KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH ,KC_ESC  ,
+       KC_LSFT ,KC_Z    ,KC_X    ,KC_C    ,KC_V    ,KC_B  		                 ,KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH ,KC_ESC  ,
     //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                           KC_LGUI ,MO(1)   ,KC_SPC     ,KC_ENT  ,MO(2)   ,MO(3)
+                                           KC_LGUI ,MO(1)   ,KC_SPC     ,KC_ENT  ,MO(2)   ,KC_RALT
                                         //`--------------------------'  `--------------------------'
 
-        ),  
-
+        ), 
     [_NUMP] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-           KC_TAB  ,XXXXXXX ,KC_UP   ,XXXXXXX ,XXXXXXX ,KC_NO	                     ,KC_P7   ,KC_P8   ,KC_P9   ,XXXXXXX ,XXXXXXX ,KC_BSPC ,
+           KC_TAB  ,XXXXXXX ,XXXXXXX  ,KC_UP  ,XXXXXXX ,XXXXXXX	                     ,KC_N7   ,KC_N8   ,KC_N9   ,XXXXXXX ,XXXXXXX ,KC_BSPC ,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-           KC_LSFT ,KC_LEFT ,KC_DOWN ,KC_RGHT ,XXXXXXX ,KC_NO  		                 ,KC_P4   ,KC_P5   ,KC_P6   ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+           KC_LCTL ,XXXXXXX ,KC_LEFT ,KC_DOWN ,KC_RGHT ,XXXXXXX		                 ,KC_N4   ,KC_N5   ,KC_N6   ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-           KC_LCTL ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,KC_NO			             ,KC_P1   ,KC_P2   ,KC_P3   ,KC_PDOT ,XXXXXXX ,XXXXXXX ,
+           KC_LSFT ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX 		             ,KC_N1   ,KC_N2   ,KC_N3   ,KC_DOT  ,XXXXXXX ,XXXXXXX ,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                               KC_LGUI ,_______ ,KC_SPC     ,KC_ENT  ,KC_P0   ,MO(4)
+                                               KC_LGUI ,_______ ,KC_SPC     ,KC_ENT  ,KC_N0   ,MO(3)
                                             //`--------------------------'  `--------------------------'
         ),
 
     [_LOWER] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-           KC_TAB  ,KC_EXLM ,KC_AT   ,KC_HASH ,KC_DLR  ,KC_PERC		                 ,KC_CIRC ,KC_AMPR ,KC_ASTR ,KC_LPRN ,KC_RPRN ,KC_BSPC ,
+           KC_TAB  ,KC_EXLM ,KC_AT   ,KC_HASH ,KC_DLR  ,KC_LPRN		                 ,KC_RPRN ,KC_F5   ,KC_10   ,KC_11   ,XXXXXXX ,KC_BSPC ,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-           KC_LSFT ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,KC_NO			             ,XXXXXXX ,XXXXXXX ,XXXXXXX ,KC_LBRC ,KC_RBRC ,XXXXXXX ,
+           KC_LCTL ,KC_PERC ,KC_CIRC ,KC_AMPR ,KC_ASTR ,KC_LBKT			             ,KC_RBKT ,KC_F6   ,XXXXXXX ,XXXXXXX ,KC_GRAVE,KC_PIPE2,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-           KC_LCTL ,XXXXXXX ,KC_PSLS ,XXXXXXX ,KC_HASH ,KC_UNDS   		             ,KC_PMNS ,KC_PLUS ,KC_EQL  ,KC_LT   ,KC_GT   ,XXXXXXX ,
+           KC_LSFT ,KC_NUHS ,KC_TILDE2,XXXXXXX,KC_UNDER ,KC_LBRC   		             ,KC_RBRC ,KC_MINUS,KC_PLUS ,KC_EQL  ,KC_FSLH ,KC_NUBS ,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                               KC_LGUI ,XXXXXXX   ,KC_SPC     ,KC_ENT  ,_______ ,XXXXXXX
-                                            //`--------------------------'  `--------------------------'
-        ),
-
-    [_FUNC] = LAYOUT_split_3x6_3(
-        //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-           XXXXXXX ,KC_F1   ,KC_F2   ,KC_F3   ,KC_F4   ,KC_F5                        ,KC_F6   ,KC_F7   ,KC_F8   ,KC_F9   ,KC_F10  ,XXXXXXX ,
-        //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-           XXXXXXX ,KC_F11  ,KC_F12  ,XXXXXXX ,XXXXXXX ,XXXXXXX                      ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
-        //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-           XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX                      ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
-        //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                               KC_LGUI ,XXXXXXX ,KC_SPC     ,KC_ENT  ,XXXXXXX ,_______
+                                               KC_LGUI ,XXXXXXX   ,KC_SPC     ,KC_ENT  ,_______ ,KC_RALT
                                             //`--------------------------'  `--------------------------'
         ),
 
@@ -87,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {[_QWERTY] = LAYOUT
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
            RGB_MOD ,RGB_HUD ,RGB_SAD ,RGB_VAD ,XXXXXXX, XXXXXXX                      ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                               KC_LGUI ,_______ ,KC_SPC     ,KC_ENT  ,_______ ,XXXXXXX
+                                               KC_LGUI ,_______ ,KC_SPC     ,KC_ENT  ,_______ ,KC_RALT
                                             //`--------------------------'  `--------------------------'
         )};
 
