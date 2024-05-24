@@ -77,11 +77,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool led_update_user(led_t led_state) {
   if (led_state.caps_lock) {
-    setPinOutput(A3);
-    writePinHigh(A3);
+    gpio_set_pin_output(A3);
+    gpio_write_pin_high(A3);
   } else {
-    setPinInput(A3);
-    writePinLow(A3);
+    gpio_set_pin_input(A3);
+    gpio_write_pin_low(A3);
   }
   return false;
 }

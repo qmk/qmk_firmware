@@ -51,7 +51,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case LEDCHANGE:
       if (record->event.pressed) {
         led_state = !led_state;
-        writePin(F6, led_state);
+        gpio_write_pin(F6, led_state);
       }
       break;
   }
@@ -59,6 +59,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_init_user(void) {
-  setPinOutput(F6);
-  writePinLow(F6);
+  gpio_set_pin_output(F6);
+  gpio_write_pin_low(F6);
 }
