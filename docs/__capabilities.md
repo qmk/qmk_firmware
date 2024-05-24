@@ -255,3 +255,7 @@ This is some inner content.
 </details>
 
   [1]: https://en.wikipedia.org/wiki/Eclipse_(software)
+
+## Embed
+
+[example embed](__capabilities_inc.md ':include')
