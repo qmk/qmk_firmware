@@ -21,14 +21,6 @@ enum layer_names {
     _FN1
 };
 
-// Example of custom keycodes used by macros in process_record_user
-/*
-enum custom_keycodes {
-    QMKBEST = SAFE_RANGE,
-    QMKURL
-};
- */
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* 
@@ -84,23 +76,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		  _______,                                _______,                                          _______
   )
 };
-
-/* macros template (example)
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case USECT:
-            if (record->event.pressed) {
-                // when keycode USECT is pressed
-                SEND_STRING("QMK is the best thing ever!");
-            } else {
-                // when keycode USECT is released
-            }
-            break;
-    }
-    return true;
-}
-*/
-
 
 void matrix_init_user(void) {
   set_unicode_input_mode(UNICODE_MODE_WINDOWS);

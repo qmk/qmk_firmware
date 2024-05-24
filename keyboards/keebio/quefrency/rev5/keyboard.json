@@ -63,6 +63,12 @@
         "rgblight": true,
         "encoder": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "build": {
         "lto": true
     },

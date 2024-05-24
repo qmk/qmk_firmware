@@ -12,6 +12,12 @@
         "bootmagic": true,
         "extrakey": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "matrix_pins": {
         "cols": ["F4", "F5", "F6", "F7", "B1", "B3"],
         "rows": ["D4", "D7", "E6", "B4"]
