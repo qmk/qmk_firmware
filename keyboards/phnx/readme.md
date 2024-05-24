@@ -1,6 +1,6 @@
 # PHNX Unibody Split
 
-[![phnx.png](https://i.imgur.com/Z4EUHM8.jpeg)](https://www.youtube.com/watch?v=Z5Uw6cO_Igg)
+![phnx.png](https://i.imgur.com/Z4EUHM8.jpeg)
 
 An unibody split ergonomic keyboard featuring 54 keys, each equipped with customizable addressable LEDs. Powered by ATMega and based on Miryoku.
 
