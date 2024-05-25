@@ -40,7 +40,9 @@ If there are any inconsistencies with these recommendations, you're best off [cr
 
 ## Keymap PRs
 
-!> Note that personal keymap submissions will no longer be accepted. This section applies to manufacturer-supported keymaps. Please see this [issue](https://github.com/qmk/qmk_firmware/issues/22724) for more information.
+::: warning
+Note that personal keymap submissions will no longer be accepted. This section applies to manufacturer-supported keymaps. Please see this [issue](https://github.com/qmk/qmk_firmware/issues/22724) for more information.
+:::
 
 - PRs for vendor specific keymaps will be permitted. The naming convention for these should be `default_${vendor}`, `via_${vendor}` i.e. `via_clueboard`.
     - vendor specific keymaps do not necessarily need to be "vanilla" and can be more richly featured than `default` or `via` stock keymaps.

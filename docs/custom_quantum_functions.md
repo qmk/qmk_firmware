@@ -98,7 +98,9 @@ These are the three main initialization functions, listed in the order that they
 * `matrix_init_*` - Happens midway through the firmware's startup process. Hardware is initialized, but features may not be yet.
 * `keyboard_post_init_*` - Happens at the end of the firmware's startup process. This is where you'd want to put "customization" code, for the most part.
 
-!> For most people, the `keyboard_post_init_user` function is what you want to call.  For instance, this is where you want to set up things for RGB Underglow.
+::: warning
+For most people, the `keyboard_post_init_user` function is what you want to call.  For instance, this is where you want to set up things for RGB Underglow.
+:::
 
 ## Keyboard Pre Initialization code
 
@@ -296,7 +298,9 @@ If `jump_to_bootloader` is set to `true`, this indicates that the board will be 
 
 As there is a keyboard and user level function, returning `false` for the user function will disable the keyboard level function, allowing for customization.
 
-?> Bootmagic does not trigger `shutdown_*()` as it happens before most of the initialization process.
+::: tip
+Bootmagic does not trigger `shutdown_*()` as it happens before most of the initialization process.
+:::
 
 ### Example `shutdown_kb()` Implementation
 
@@ -364,7 +368,9 @@ The second argument `cb_arg` is the same argument passed into `defer_exec()` bel
 
 The return value is the number of milliseconds to use if the function should be repeated -- if the callback returns `0` then it's automatically unregistered. In the example above, a hypothetical `my_deferred_functionality()` is invoked to determine if the callback needs to be repeated -- if it does, it reschedules for a `500` millisecond delay, otherwise it informs the deferred execution background task that it's done, by returning `0`.
 
-?> Note that the returned delay will be applied to the intended trigger time, not the time of callback invocation. This allows for generally consistent timing even in the face of occasional late execution.
+::: tip
+Note that the returned delay will be applied to the intended trigger time, not the time of callback invocation. This allows for generally consistent timing even in the face of occasional late execution.
+:::
 
 ## Deferred executor registration
 

@@ -4,7 +4,9 @@ LVGL (Light and Versatile Graphics Library) is an open-source graphics library p
 
 LVGL integrates with [Quantum Painter's](quantum_painter) API and drivers to render to the display, the hardware supported by Quantum Painter is also supported by LVGL.
 
-?> Keep in mind that enabling the LVGL integration has a big impact in firmware size, it is recommeded to use a supported MCU with >256 kB of flash space.
+::: tip
+Keep in mind that enabling the LVGL integration has a big impact in firmware size, it is recommeded to use a supported MCU with >256 kB of flash space.
+:::
 
 To learn more about LVGL and how to use it please take a look at their [official documentation](https://docs.lvgl.io/8.2/intro/)
 
@@ -41,7 +43,9 @@ void keyboard_post_init_kb(void) {
 ```
 To init. the display please read the [Display Initialisation](quantum_painter#quantum-painter-api-init) section.
 
-!> Attaching LVGL to a display means LVGL subsequently "owns" the display. Using standard Quantum Painter drawing operations with the display after LVGL attachment will likely result in display artifacts.
+::: warning
+Attaching LVGL to a display means LVGL subsequently "owns" the display. Using standard Quantum Painter drawing operations with the display after LVGL attachment will likely result in display artifacts.
+:::
 ### Quantum Painter LVGL Detach {#lvgl-api-init}
 
 ```c

@@ -81,9 +81,13 @@ $ curl https://keyboards.develop.qmk.fm/v1/constants_metadata.json # For `develo
 {"last_updated": "2022-11-26 12:00:00 GMT", "constants": {"keycodes": ["0.0.1", "0.0.2"]}}
 ```
 
-!> Versions exported by the `master` endpoint are locked-in. Any extra versions that exist on the `develop` endpoint which don't exist in `master` are subject to change.
+::: warning
+Versions exported by the `master` endpoint are locked-in. Any extra versions that exist on the `develop` endpoint which don't exist in `master` are subject to change.
+:::
 
-?> Only keycodes are currently published, but over time all other "externally visible" IDs are expected to appear on these endpoints.
+::: tip
+Only keycodes are currently published, but over time all other "externally visible" IDs are expected to appear on these endpoints.
+:::
 
 To retrieve the constants associated with a subsystem, the endpoint format is as follows:
 ```

@@ -19,7 +19,9 @@ By default, these are set to 0 and 0, which is usually the "ESC" key on a majori
 
 And to trigger the bootloader, you hold this key down when plugging the keyboard in. Just the single key.
 
-!> Using Bootmagic will **always reset** the EEPROM, so you will lose any settings that have been saved.
+::: warning
+Using Bootmagic will **always reset** the EEPROM, so you will lose any settings that have been saved.
+:::
 
 ## Split Keyboards
 
@@ -51,7 +53,9 @@ If you pick the top right key for the right half, it is `R05` on the top layout.
 #define BOOTMAGIC_COLUMN_RIGHT 4
 ```
 
-?> These values are not set by default.
+::: tip
+These values are not set by default.
+:::
 
 ## Advanced Bootmagic
 

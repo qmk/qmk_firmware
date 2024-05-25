@@ -25,22 +25,30 @@ You can have styled hint blocks drawn around text to draw attention to it.
 ### Important
 
 ```
-!> This is important
+::: warning
+This is important
+:::
 ```
 
 Renders as:
 
-!> This is important
+::: warning
+This is important
+:::
 
 ### General Tips
 
 ```
-?> This is a helpful tip.
+::: tip
+This is a helpful tip.
+:::
 ```
 
 Renders as:
 
-?> This is a helpful tip.
+::: tip
+This is a helpful tip.
+:::
 
 
 # Documenting Features

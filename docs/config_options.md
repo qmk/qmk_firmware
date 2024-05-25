@@ -10,7 +10,9 @@ There are three main types of configuration files in QMK:
 
 This page will only discuss the first two types, `config.h` and `rules.mk`.
 
-?> While not all settings have data-driven equivalents yet, keyboard makers are encouraged to utilize the `info.json` file to set the metadata for their boards when possible. See the [`info.json` Format](reference_info_json) page for more details.
+::: tip
+While not all settings have data-driven equivalents yet, keyboard makers are encouraged to utilize the `info.json` file to set the metadata for their boards when possible. See the [`info.json` Format](reference_info_json) page for more details.
+:::
 
 These files exist at various levels in QMK and all files of the same type are combined to build the final configuration. The levels, from lowest priority to highest priority, are:
 

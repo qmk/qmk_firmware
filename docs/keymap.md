@@ -137,7 +137,9 @@ After this you'll find the layer definitions. Typically you'll have one or more 
 
 `keymaps[][MATRIX_ROWS][MATRIX_COLS]` in QMK holds the 16 bit action code (sometimes referred as the quantum keycode) in it.  For the keycode representing typical keys, its high byte is 0 and its low byte is the USB HID usage ID for keyboard.
 
-> TMK from which QMK was forked uses `const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS]` instead and holds the 8 bit keycode.
+::: info
+TMK from which QMK was forked uses `const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS]` instead and holds the 8 bit keycode.
+:::
 
 #### Base Layer
 

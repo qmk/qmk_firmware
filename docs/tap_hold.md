@@ -8,7 +8,9 @@ These options let you modify the behavior of the Tap-Hold keys.
 
 The crux of all of the following features is the tapping term setting.  This determines what is a tap and what is a hold.  The exact timing for this to feel natural can vary from keyboard to keyboard, from switch to switch, and from key to key.
 
-?> `DYNAMIC_TAPPING_TERM_ENABLE` enables three special keys that can help you quickly find a comfortable tapping term for you. See "Dynamic Tapping Term" for more details.
+::: tip
+`DYNAMIC_TAPPING_TERM_ENABLE` enables three special keys that can help you quickly find a comfortable tapping term for you. See "Dynamic Tapping Term" for more details.
+:::
 
 You can set the global time for this by adding the following setting to your `config.h`:
 
@@ -296,7 +298,9 @@ However, this slightly different sequence will not be affected by the “permiss
 
 In the sequence above the dual-role key is released before the other key is released, and if that happens within the tapping term, the “permissive hold” mode will still choose the tap action for the dual-role key, and the sequence will be registered as `al` by the host. We could describe this as a “rolling press” (the two keys' key down and key up events behave as if you were rolling a ball across the two keys, first pressing each key down in sequence and then releasing them in the same order).
 
-?> The `PERMISSIVE_HOLD` option is not noticeable if you also enable `HOLD_ON_OTHER_KEY_PRESS` because the latter option considers both the “nested tap” and “rolling press” sequences like shown above as a hold action, not the tap action. `HOLD_ON_OTHER_KEY_PRESS` makes the Tap-Or-Hold decision earlier in the chain of key events, thus taking a precedence over `PERMISSIVE_HOLD`.
+::: tip
+The `PERMISSIVE_HOLD` option is not noticeable if you also enable `HOLD_ON_OTHER_KEY_PRESS` because the latter option considers both the “nested tap” and “rolling press” sequences like shown above as a hold action, not the tap action. `HOLD_ON_OTHER_KEY_PRESS` makes the Tap-Or-Hold decision earlier in the chain of key events, thus taking a precedence over `PERMISSIVE_HOLD`.
+:::
 
 For more granular control of this feature, you can add the following to your `config.h`:
 
@@ -394,7 +398,9 @@ With default settings, `a` will be sent on the first release, then `a` will be s
 
 With `QUICK_TAP_TERM` configured, the timing between `SFT_T(KC_A)` up and `SFT_T(KC_A)` down must be within `QUICK_TAP_TERM` to trigger auto repeat. Otherwise the second press will be sent as a Shift. If `QUICK_TAP_TERM` is set to `0`, the second press will always be sent as a Shift, effectively disabling auto-repeat.
 
-!> `QUICK_TAP_TERM` timing will also impact anything that uses tapping toggles (Such as the `TT` layer keycode, and the One Shot Tap Toggle).
+::: warning
+`QUICK_TAP_TERM` timing will also impact anything that uses tapping toggles (Such as the `TT` layer keycode, and the One Shot Tap Toggle).
+:::
 
 For more granular control of this feature, you can add the following to your `config.h`:
 
@@ -415,7 +421,9 @@ uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
-?> If `QUICK_TAP_TERM` is set higher than `TAPPING_TERM`, it will default to `TAPPING_TERM`.
+::: tip
+If `QUICK_TAP_TERM` is set higher than `TAPPING_TERM`, it will default to `TAPPING_TERM`.
+:::
 
 ## Retro Tapping
 
@@ -483,7 +491,9 @@ Examples:
 #define MODS_TO_NEUTRALIZE { MOD_BIT(KC_LEFT_ALT), MOD_BIT(KC_LEFT_GUI), MOD_BIT(KC_RIGHT_GUI), MOD_BIT(KC_LEFT_CTRL)|MOD_BIT(KC_LEFT_SHIFT) }
 ```
 
-!> Do not use `MOD_xxx` constants like `MOD_LSFT` or `MOD_RALT`, since they're 5-bit packed bit-arrays while `MODS_TO_NEUTRALIZE` expects a list of 8-bit packed bit-arrays. Use `MOD_BIT(<kc>)` or `MOD_MASK_xxx` instead.
+::: warning
+Do not use `MOD_xxx` constants like `MOD_LSFT` or `MOD_RALT`, since they're 5-bit packed bit-arrays while `MODS_TO_NEUTRALIZE` expects a list of 8-bit packed bit-arrays. Use `MOD_BIT(<kc>)` or `MOD_MASK_xxx` instead.
+:::
 
 ### Retro Shift
 

@@ -102,7 +102,9 @@ bool oled_task_user(void) {
 }
 ```
 
-?> The default font file is located at `drivers/oled/glcdfont.c` and its location can be overwritten with the `OLED_FONT_H` configuration option. Font file content can be edited with external tools such as [Helix Font Editor](https://helixfonteditor.netlify.app/) and [Logo Editor](https://joric.github.io/qle/).
+::: tip
+The default font file is located at `drivers/oled/glcdfont.c` and its location can be overwritten with the `OLED_FONT_H` configuration option. Font file content can be edited with external tools such as [Helix Font Editor](https://helixfonteditor.netlify.app/) and [Logo Editor](https://joric.github.io/qle/).
+:::
 
 ## Buffer Read Example
 For some purposes, you may need to read the current state of the OLED display
@@ -243,7 +245,9 @@ These configuration options should be placed in `config.h`. Example:
 |`OLED_DISPLAY_128X128`|*Not defined*  |Changes the display defines for use with 128x128 displays.                                                                             |
 |`OLED_DISPLAY_CUSTOM` |*Not defined*  |Changes the display defines for use with custom displays.<br>Requires user to implement the below defines.                             |
 
-!> 64x128 and 128x128 displays default to the SH1107 IC type, as these heights are not supported by the other IC types.
+::: warning
+64x128 and 128x128 displays default to the SH1107 IC type, as these heights are not supported by the other IC types.
+:::
 
 |Define               |Default        |Description                                                                                                                             |
 | --------------------|---------------|----------------------------------------------------------------------------------------------------------------------------------------|
@@ -462,9 +466,13 @@ uint8_t oled_max_chars(void);
 uint8_t oled_max_lines(void);
 ```
 
-!> Scrolling is unsupported on the SH1106 and SH1107.
+::: warning
+Scrolling is unsupported on the SH1106 and SH1107.
+:::
 
-!> Scrolling does not work properly on the SSD1306 if the display width is smaller than 128.
+::: warning
+Scrolling does not work properly on the SSD1306 if the display width is smaller than 128.
+:::
 
 ## SSD1306.h Driver Conversion Guide
 

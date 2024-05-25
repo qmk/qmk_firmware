@@ -82,7 +82,9 @@ The solution is to set a word break : before and/or after the typo to constrain 
 
 The `qmk generate-autocorrect-data` commands can make an effort to check for entries that would false trigger as substrings of correct words. It searches each typo against a dictionary of 25K English words from the english_words Python package, provided it’s installed. (run `python3 -m pip install english_words` to install it.)
 
-?> Unfortunately, this is limited to just english words, at this point.
+::: tip
+Unfortunately, this is limited to just english words, at this point.
+:::
 
 ## Overriding Autocorrect
 
@@ -110,7 +112,9 @@ Additionally, you can use the `AC_TOGG` keycode to toggle the on/off status for 
 
 Callback function `bool process_autocorrect_user(uint16_t *keycode, keyrecord_t *record, uint8_t *typo_buffer_size, uint8_t *mods)` is available to customise incoming keycodes and handle exceptions. You can use this function to sanitise input before they are passed onto the autocorrect engine
 
-?> Sanitisation of input is required because autocorrect will only match 8-bit [basic keycodes](keycodes_basic) for typos. If valid modifier keys or 16-bit keycodes that are part of a user's word input (such as Shift + A) is passed through, they will fail typo letter detection. For example a [Mod-Tap](mod_tap) key such as `LCTL_T(KC_A)` is 16-bit and should be masked for the 8-bit `KC_A`.
+::: tip
+Sanitisation of input is required because autocorrect will only match 8-bit [basic keycodes](keycodes_basic) for typos. If valid modifier keys or 16-bit keycodes that are part of a user's word input (such as Shift + A) is passed through, they will fail typo letter detection. For example a [Mod-Tap](mod_tap) key such as `LCTL_T(KC_A)` is 16-bit and should be masked for the 8-bit `KC_A`.
+:::
 
 The default user callback function is found inside `quantum/process_keycode/process_autocorrect.c`. It covers most use-cases for QMK special functions and quantum keycodes, including [overriding autocorrect](#overriding-autocorrect) with a modifier other than shift. The `process_autocorrect_user` function is `weak` defined to allow user's copy inside `keymap.c` (or code files) to overwrite it.
 
@@ -194,13 +198,17 @@ bool process_autocorrect_user(uint16_t *keycode, keyrecord_t *record, uint8_t *t
 }
 ```
 
-?> In this callback function, `return false` will skip processing of that keycode for autocorrect. Adding `*typo_buffer_size = 0` will also reset the autocorrect buffer at the same time, cancelling any current letters already stored in the buffer.
+::: tip
+In this callback function, `return false` will skip processing of that keycode for autocorrect. Adding `*typo_buffer_size = 0` will also reset the autocorrect buffer at the same time, cancelling any current letters already stored in the buffer.
+:::
 
 ### Apply Autocorrect
 
 Additionally, `apply_autocorrect(uint8_t backspaces, const char *str, char *typo, char *correct)` allows for users to add additional handling to the autocorrection, or replace the functionality entirely. This passes on the number of backspaces needed to replace the words, as well as the replacement string (partial word, not the full word), and the typo and corrected strings (complete words).
 
-?> Due to the way code works (no notion of words, just a stream of letters), the `typo` and `correct` strings are a best bet and could be "wrong". For example you may get `wordtpyo` & `wordtypo` instead of the expected `tpyo` & `typo`. 
+::: tip
+Due to the way code works (no notion of words, just a stream of letters), the `typo` and `correct` strings are a best bet and could be "wrong". For example you may get `wordtpyo` & `wordtypo` instead of the expected `tpyo` & `typo`. 
+:::
 
 #### Apply Autocorrect Example
 
@@ -223,9 +231,13 @@ bool apply_autocorrect(uint8_t backspaces, const char *str, char *typo, char *co
 }
 ```
 
-?> In this callback function, `return false` will stop the normal processing of autocorrect, which requires manually handling of removing the "bad" characters and typing the new characters.
+::: tip
+In this callback function, `return false` will stop the normal processing of autocorrect, which requires manually handling of removing the "bad" characters and typing the new characters.
+:::
 
-!> ***IMPORTANT***: `str` is a pointer to `PROGMEM` data for the autocorrection.  If you return false, and want to send the string, this needs to use `send_string_P` and not `send_string` nor `SEND_STRING`.
+::: warning
+***IMPORTANT***: `str` is a pointer to `PROGMEM` data for the autocorrection.  If you return false, and want to send the string, this needs to use `send_string_P` and not `send_string` nor `SEND_STRING`.
+:::
 
 You can also use `apply_autocorrect` to detect and display the event but allow internal code to execute the autocorrection with `return true`:
 

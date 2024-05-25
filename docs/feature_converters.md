@@ -38,7 +38,9 @@ qmk flash -c -kb keebio/bdn9/rev1 -km default -e CONVERT_TO=proton_c
 
 You can also add the same `CONVERT_TO=<target>` to your keymap's `rules.mk`, which will accomplish the same thing.
 
-?> If you get errors about `PORTB/DDRB`, etc not being defined, you'll need to convert the keyboard's code to use the [GPIO Controls](gpio_control) that will work for both ARM and AVR. This shouldn't affect the AVR builds at all.
+::: tip
+If you get errors about `PORTB/DDRB`, etc not being defined, you'll need to convert the keyboard's code to use the [GPIO Controls](gpio_control) that will work for both ARM and AVR. This shouldn't affect the AVR builds at all.
+:::
 
 ### Conditional Configuration
 

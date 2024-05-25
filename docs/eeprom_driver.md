@@ -16,7 +16,9 @@ Driver                             | Description
 
 #### STM32 L0/L1 Configuration {#stm32l0l1-eeprom-driver-configuration}
 
-!> Resetting EEPROM using an STM32L0/L1 device takes up to 1 second for every 1kB of internal EEPROM used.
+::: warning
+Resetting EEPROM using an STM32L0/L1 device takes up to 1 second for every 1kB of internal EEPROM used.
+:::
 
 `config.h` override                 | Description                                                                                                              | Default Value
 ------------------------------------|--------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------
@@ -52,7 +54,9 @@ RM24C512C EEPROM | `#define EEPROM_I2C_RM24C512C`  | <https://www.sparkfun.com/p
 24LC256 EEPROM   | `#define EEPROM_I2C_24LC256`    | <https://www.sparkfun.com/products/525>
 MB85RC256V FRAM  | `#define EEPROM_I2C_MB85RC256V` | <https://www.adafruit.com/product/1895>
 
-?> If you find that the EEPROM is not cooperating, ensure you've correctly shifted up your EEPROM address by 1. For example, the datasheet might state the address as `0b01010000` -- the correct value of `EXTERNAL_EEPROM_I2C_BASE_ADDRESS` needs to be `0b10100000`.
+::: tip
+If you find that the EEPROM is not cooperating, ensure you've correctly shifted up your EEPROM address by 1. For example, the datasheet might state the address as `0b01010000` -- the correct value of `EXTERNAL_EEPROM_I2C_BASE_ADDRESS` needs to be `0b10100000`.
+:::
 
 ## SPI Driver Configuration {#spi-eeprom-driver-configuration}
 
@@ -74,7 +78,9 @@ Module           | Equivalent `#define`            | Source
 -----------------|---------------------------------|------------------------------------------
 MB85RS64V FRAM   | `define EEPROM_SPI_MB85RS64V`   | <https://www.adafruit.com/product/1897>
 
-!> There's no way to determine if there is an SPI EEPROM actually responding. Generally, this will result in reads of nothing but zero.
+::: warning
+There's no way to determine if there is an SPI EEPROM actually responding. Generally, this will result in reads of nothing but zero.
+:::
 
 ## Transient Driver configuration {#transient-eeprom-driver-configuration}
 
@@ -103,7 +109,9 @@ Driver                                  | Description
 `WEAR_LEVELING_DRIVER = rp2040_flash`   | This driver is used to write to the same storage the RP2040 executes code from.
 `WEAR_LEVELING_DRIVER = legacy`         | This driver is the "legacy" emulated EEPROM provided in historical revisions of QMK. Currently used for STM32F0xx and STM32F4x1, but slated for deprecation and removal once `embedded_flash` support for those MCU families is complete.
 
-!> All wear-leveling drivers require an amount of RAM equivalent to the selected logical EEPROM size. Increasing the size to 32kB of EEPROM requires 32kB of RAM, which a significant number of MCUs simply do not have.
+::: warning
+All wear-leveling drivers require an amount of RAM equivalent to the selected logical EEPROM size. Increasing the size to 32kB of EEPROM requires 32kB of RAM, which a significant number of MCUs simply do not have.
+:::
 
 ## Wear-leveling Embedded Flash Driver Configuration {#wear_leveling-efl-driver-configuration}
 
@@ -119,7 +127,9 @@ Configurable options in your keyboard's `config.h`:
 `#define WEAR_LEVELING_BACKING_SIZE`     | `2048`             | Number of bytes used by the wear-leveling algorithm for its underlying storage, and needs to be a multiple of the logical size.
 `#define BACKING_STORE_WRITE_SIZE`       | _automatic_        | The byte width of the underlying write used on the MCU, and is usually automatically determined from the selected MCU family. If an error occurs in the auto-detection, you'll need to consult the MCU's datasheet and determine this value, specifying it directly.
 
-!> If your MCU does not boot after swapping to the EFL wear-leveling driver, it's likely that the flash size is incorrectly detected, usually as an MCU with larger flash and may require overriding.
+::: warning
+If your MCU does not boot after swapping to the EFL wear-leveling driver, it's likely that the flash size is incorrectly detected, usually as an MCU with larger flash and may require overriding.
+:::
 
 ## Wear-leveling SPI Flash Driver Configuration {#wear_leveling-flash_spi-driver-configuration}
 
@@ -135,7 +145,9 @@ Configurable options in your keyboard's `config.h`:
 `#define WEAR_LEVELING_BACKING_SIZE`                | `(block_count*block_size)`     | Number of bytes used by the wear-leveling algorithm for its underlying storage, and needs to be a multiple of the logical size.
 `#define BACKING_STORE_WRITE_SIZE`                  | `8`                            | The write width used whenever a write is performed on the external flash peripheral.
 
-!> There is currently a limit of 64kB for the EEPROM subsystem within QMK, so using a larger flash is not going to be beneficial as the logical size cannot be increased beyond 65536. The backing size may be increased to a larger value, but erase timing may suffer as a result.
+::: warning
+There is currently a limit of 64kB for the EEPROM subsystem within QMK, so using a larger flash is not going to be beneficial as the logical size cannot be increased beyond 65536. The backing size may be increased to a larger value, but erase timing may suffer as a result.
+:::
 
 ## Wear-leveling RP2040 Driver Configuration {#wear_leveling-rp2040-driver-configuration}
 

@@ -8,17 +8,25 @@ The build system will still honor the use of `users/<my keymap>` if you rely on 
 
 Additionally, there is first-class support for using GitHub Actions to build your keymaps, allowing you to automatically compile your keymaps whenever you push changes to your External Userspace repository.
 
-!> External Userspace is new functionality and may have issues. Tighter integration with the `qmk` command will occur over time.
+::: warning
+External Userspace is new functionality and may have issues. Tighter integration with the `qmk` command will occur over time.
+:::
 
-?> Historical keymap.json and GitHub-based firmware build instructions can be found [here](newbs_building_firmware_workflow). This document supersedes those instructions, but they should still function correctly.
+::: tip
+Historical keymap.json and GitHub-based firmware build instructions can be found [here](newbs_building_firmware_workflow). This document supersedes those instructions, but they should still function correctly.
+:::
 
 ## Setting up QMK Locally
 
 If you wish to build on your local machine, you will need to set up QMK locally. This is a one-time process, and is documented in the [newbs setup guide](newbs).
 
-!> If you wish to use any QMK CLI commands related to manipulating External Userspace definitions, you will currently need a copy of QMK Firmware as well.
+::: warning
+If you wish to use any QMK CLI commands related to manipulating External Userspace definitions, you will currently need a copy of QMK Firmware as well.
+:::
 
-!> Building locally has a much shorter turnaround time than waiting for GitHub Actions to complete.
+::: warning
+Building locally has a much shorter turnaround time than waiting for GitHub Actions to complete.
+:::
 
 ## External Userspace Repository Setup (forked on GitHub)
 
@@ -60,7 +68,9 @@ After creating your new keymap, building the keymap matches normal QMK usage:
 qmk compile -kb <keyboard> -km <keymap>
 ```
 
-!> The `qmk config user.overlay_dir=...` command must have been run when cloning the External Userspace repository for this to work correctly.
+::: warning
+The `qmk config user.overlay_dir=...` command must have been run when cloning the External Userspace repository for this to work correctly.
+:::
 
 ## Adding the keymap to External Userspace build targets
 

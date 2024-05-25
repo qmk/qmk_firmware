@@ -4,7 +4,9 @@ Programmable Buttons are keys that have no predefined meaning. This means they c
 
 The keycodes are emitted according to the HID Telephony Device page (`0x0B`), Programmable Button usage (`0x09`). On Linux (> 5.14) they are handled automatically and translated to `KEY_MACRO#` keycodes (up to `KEY_MACRO30`).
 
-?> Currently there is no known support in Windows or macOS. It may be possible to write a custom HID driver to receive these usages, but this is out of the scope of the QMK documentation.
+::: tip
+Currently there is no known support in Windows or macOS. It may be possible to write a custom HID driver to receive these usages, but this is out of the scope of the QMK documentation.
+:::
 
 ## Usage {#usage}
 

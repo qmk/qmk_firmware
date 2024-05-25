@@ -11,7 +11,9 @@ There are a few pieces of software you'll need to get started.
 * [Toolbox (optional)](https://github.com/qmk/qmk_toolbox)
   * A graphical program for Windows and macOS that allows you to both program and debug your custom keyboard
 
-?> If you haven't worked with the Linux/Unix command line before, there are a few basic concepts and commands you should learn. [These resources](newbs_learn_more_resources#command-line-resources) will teach you enough to be able to work with QMK.
+::: tip
+If you haven't worked with the Linux/Unix command line before, there are a few basic concepts and commands you should learn. [These resources](newbs_learn_more_resources#command-line-resources) will teach you enough to be able to work with QMK.
+:::
 
 ## 2. Prepare Your Build Environment {#set-up-your-environment}
 
@@ -30,7 +32,9 @@ You will need to install [QMK MSYS](https://msys.qmk.fm/). The latest release is
 <details>
   <summary>Advanced Users</summary>
 
-!> <b style="font-size:150%">This process is not recommended for new users.</b>
+::: warning
+<b style="font-size:150%">This process is not recommended for new users.</b>
+:::
 
 If you'd like to manually install MSYS2, the following sections will walk you through the process.
 
@@ -38,7 +42,9 @@ If you'd like to manually install MSYS2, the following sections will walk you th
 
 You will need to install [MSYS2](https://www.msys2.org). Once installed, close any open MSYS terminals (purple icon) and open a new MinGW 64-bit terminal (blue icon) from the Start Menu.
 
-!> **NOTE:** The MinGW 64-bit terminal is *not* the same as the MSYS terminal that opens when installation is completed. Your prompt should say "MINGW64" in purple text, rather than "MSYS". See [this page](https://www.msys2.org/wiki/MSYS2-introduction/#subsystems) for more information on the differences.
+::: warning
+**NOTE:** The MinGW 64-bit terminal is *not* the same as the MSYS terminal that opens when installation is completed. Your prompt should say "MINGW64" in purple text, rather than "MSYS". See [this page](https://www.msys2.org/wiki/MSYS2-introduction/#subsystems) for more information on the differences.
+:::
 
 #### Installation
 
@@ -56,7 +62,9 @@ QMK maintains a Homebrew tap and formula which will automatically install the CL
 
 You will need to install Homebrew. Follow the instructions on https://brew.sh.
 
-?> If you are using an Apple Silicon machine, the installation process will take significantly longer because GitHub actions do not have native runners to build binary packages for the ARM and AVR toolchains.
+::: tip
+If you are using an Apple Silicon machine, the installation process will take significantly longer because GitHub actions do not have native runners to build binary packages for the ARM and AVR toolchains.
+:::
 
 #### Installation
 
@@ -66,7 +74,9 @@ Install the QMK CLI by running:
     
 ### ** Linux/WSL **
 
-?> **Note for WSL users**: By default, the installation process will clone the QMK repository into your WSL home directory, but if you have cloned manually, ensure that it is located inside the WSL instance instead of the Windows filesystem (ie. not in `/mnt`), as accessing it is currently [extremely slow](https://github.com/microsoft/WSL/issues/4197).
+::: tip
+**Note for WSL users**: By default, the installation process will clone the QMK repository into your WSL home directory, but if you have cloned manually, ensure that it is located inside the WSL instance instead of the Windows filesystem (ie. not in `/mnt`), as accessing it is currently [extremely slow](https://github.com/microsoft/WSL/issues/4197).
+:::
 
 #### Prerequisites
 
@@ -154,9 +164,13 @@ In most situations you will want to answer `y` to all of the prompts.
 
 <!-- tabs:end -->
 
-?> The qmk home folder can be specified at setup with `qmk setup -H <path>`, and modified afterwards using the [cli configuration](cli_configuration#single-key-example) and the variable `user.qmk_home`. For all available options run `qmk setup --help`.
+::: tip
+The qmk home folder can be specified at setup with `qmk setup -H <path>`, and modified afterwards using the [cli configuration](cli_configuration#single-key-example) and the variable `user.qmk_home`. For all available options run `qmk setup --help`.
+:::
 
-?> If you already know how to use GitHub, [we recommend that you follow these instructions](getting_started_github) and use `qmk setup <github_username>/qmk_firmware` to clone your personal fork. If you don't know what that means you can safely ignore this message.
+::: tip
+If you already know how to use GitHub, [we recommend that you follow these instructions](getting_started_github) and use `qmk setup <github_username>/qmk_firmware` to clone your personal fork. If you don't know what that means you can safely ignore this message.
+:::
 
 ## 4. Test Your Build Environment
 
@@ -168,7 +182,9 @@ For example, to build a firmware for a Clueboard 66% you would use:
 
     qmk compile -kb clueboard/66/rev3 -km default
 
-?> The keyboard option is the path relative to the keyboard directory, the above example would be found in `qmk_firmware/keyboards/clueboard/66/rev3`. If you're unsure you can view a full list of supported keyboards with `qmk list-keyboards`.
+::: tip
+The keyboard option is the path relative to the keyboard directory, the above example would be found in `qmk_firmware/keyboards/clueboard/66/rev3`. If you're unsure you can view a full list of supported keyboards with `qmk list-keyboards`.
+:::
 
 When it is done you should have a lot of output that ends similar to this:
 

@@ -39,7 +39,9 @@ const uint16_t PROGMEM dip_switch_map[NUM_DIP_SWITCHES][NUM_DIP_STATES] = {
 #endif
 ```
 
-?> This should only be enabled at the keymap level.
+::: tip
+This should only be enabled at the keymap level.
+:::
 
 ## Callbacks
 

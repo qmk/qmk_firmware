@@ -21,4 +21,6 @@ Currently QMK supports almost all NOR Flash chips over SPI. As such, requires a 
 `#define EXTERNAL_FLASH_SIZE`                  | The total size of the FLASH in bytes, as specified in the datasheet                  | `(512 * 1024)`
 `#define EXTERNAL_FLASH_ADDRESS_SIZE`          | The Flash address size in bytes, as specified in datasheet                           | `3`
 
-!> All the above default configurations are based on MX25L4006E NOR Flash.
+::: warning
+All the above default configurations are based on MX25L4006E NOR Flash.
+:::

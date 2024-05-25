@@ -20,9 +20,13 @@ When QMK speaks to Plover over a steno protocol, Plover will not use the keyboar
 
 In this mode, Plover expects to speak with a steno machine over a serial port so QMK will present itself to the operating system as a virtual serial port in addition to a keyboard.
 
-> Note: Due to hardware limitations, you might not be able to run both a virtual serial port and mouse emulation at the same time.
+::: info
+Note: Due to hardware limitations, you might not be able to run both a virtual serial port and mouse emulation at the same time.
+:::
 
-!> Serial stenography protocols are not supported on [V-USB keyboards](compatible_microcontrollers#atmel-avr).
+::: warning
+Serial stenography protocols are not supported on [V-USB keyboards](compatible_microcontrollers#atmel-avr).
+:::
 
 To enable stenography protocols, add the following lines to your `rules.mk`:
 ```make
@@ -102,7 +106,9 @@ The default value for `STENO_PROTOCOL` is `all`.
 
 After enabling stenography and optionally selecting a protocol, you may also need disable mouse keys, extra keys, or another USB endpoint to prevent conflicts. The builtin USB stack for some processors only supports a certain number of USB endpoints and the virtual serial port needed for steno fills 3 of them.
 
-!> If you had *explicitly* set `VIRSTER_ENABLE = no`, none of the serial stenography protocols (GeminiPR, TX Bolt) will work properly. You are expected to either set it to `yes`, remove the line from your `rules.mk` or send the steno chords yourself in an alternative way using the [provided interceptable hooks](#interfacing-with-the-code).
+::: warning
+If you had *explicitly* set `VIRSTER_ENABLE = no`, none of the serial stenography protocols (GeminiPR, TX Bolt) will work properly. You are expected to either set it to `yes`, remove the line from your `rules.mk` or send the steno chords yourself in an alternative way using the [provided interceptable hooks](#interfacing-with-the-code).
+:::
 
 In your keymap, create a new layer for Plover, that you can fill in with the [steno keycodes](#keycode-reference). Remember to create a key to switch to the layer as well as a key for exiting the layer.
 
@@ -149,7 +155,9 @@ At the end of this scenario given as an example, `chord` would have five bits se
 
 ## Keycode Reference {#keycode-reference}
 
-> Note: TX Bolt does not support the full set of keys. The TX Bolt implementation in QMK will map the GeminiPR keys to the nearest TX Bolt key so that one key map will work for both.
+::: info
+Note: TX Bolt does not support the full set of keys. The TX Bolt implementation in QMK will map the GeminiPR keys to the nearest TX Bolt key so that one key map will work for both.
+:::
 
 |GeminiPR|TX Bolt|Steno Key|
 |--------|-------|-----------|

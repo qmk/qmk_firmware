@@ -280,7 +280,9 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t* record,
 }
 ```
 
-?> See [Layer Functions](feature_layers#functions) and [Checking Modifier
+::: tip
+See [Layer Functions](feature_layers#functions) and [Checking Modifier
+:::
 State](feature_advanced_keycodes#checking-modifier-state) for further
 details.
  

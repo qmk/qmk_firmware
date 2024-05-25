@@ -177,7 +177,9 @@ To enable, install the [latest release from GitHub](https://github.com/samhoceva
 
 **Mode Name:** `UNICODE_MODE_WINDOWS`
 
-!> This input mode is *not* the "Alt code" system. Alt codes are not Unicode; they instead follow [the Windows-1252 character set](https://en.wikipedia.org/wiki/Alt_code).
+::: warning
+This input mode is *not* the "Alt code" system. Alt codes are not Unicode; they instead follow [the Windows-1252 character set](https://en.wikipedia.org/wiki/Alt_code).
+:::
 
 This is Windows' built-in hex numpad Unicode input mode. It only supports code points up to `U+FFFF`, and is not recommended due to reliability and compatibility issues.
 

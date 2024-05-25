@@ -20,7 +20,9 @@ The following table shows the current driver status for peripherals on RP2040 MC
 <img alt="Raspberry Pi Pico pinout" src="https://i.imgur.com/nLaiYDE.jpg" width="48%"/>
 <img alt="Sparkfun RP2040 Pro Micro pinout" src="https://i.imgur.com/1TPAhrs.jpg" width="48%"/>
 
-!> The GPIO pins of the RP2040 are not 5V tolerant!
+::: warning
+The GPIO pins of the RP2040 are not 5V tolerant!
+:::
 
 ### Pin nomenclature
 
@@ -99,7 +101,9 @@ This is the default board that is chosen, unless any other RP2040 board is selec
 | `UART_TX_PIN`                                                              | `GP0`                                |
 | `UART_RX_PIN`                                                              | `GP1`                                |
 
-?> The pin-outs of Adafruit's KB2040 and Boardsource's Blok both deviate from the Sparkfun Pro Micro RP2040. Lookup the pin-out of these boards and adjust your keyboards pin definition accordingly if you want to use these boards.
+::: tip
+The pin-outs of Adafruit's KB2040 and Boardsource's Blok both deviate from the Sparkfun Pro Micro RP2040. Lookup the pin-out of these boards and adjust your keyboards pin definition accordingly if you want to use these boards.
+:::
 
 ### Generic RP2040 board
 

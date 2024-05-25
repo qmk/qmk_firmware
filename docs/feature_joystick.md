@@ -31,7 +31,9 @@ By default, two axes and eight buttons are defined, with a reported resolution o
 #define JOYSTICK_AXIS_RESOLUTION 10
 ```
 
-?> You must define at least one button or axis. Also note that the maximum ADC resolution of the supported AVR MCUs is 10-bit, and 12-bit for most STM32 MCUs.
+::: tip
+You must define at least one button or axis. Also note that the maximum ADC resolution of the supported AVR MCUs is 10-bit, and 12-bit for most STM32 MCUs.
+:::
 
 ### Axes {#axes}
 

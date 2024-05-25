@@ -1,6 +1,8 @@
 # Userspace: Sharing Code Between Keymaps
 
-!> Please note, userspace submissions to the upstream `qmk/qmk_firmware` repository are no longer being accepted. The userspace feature itself remains functional and can be configured locally.
+::: warning
+Please note, userspace submissions to the upstream `qmk/qmk_firmware` repository are no longer being accepted. The userspace feature itself remains functional and can be configured locally.
+:::
 
 If you use more than one keyboard with a similar keymap, you might see the benefit in being able to share code between them. Create your own folder in `users/` named the same as your keymap (ideally your GitHub username, `<name>`) with the following structure:
 
@@ -24,7 +26,9 @@ For example,
 
 Will include the `/users/jack/` folder in the path, along with `/users/jack/rules.mk`.  
 
-!> This `name` can be [overridden](#override-default-userspace), if needed.  
+::: warning
+This `name` can be [overridden](#override-default-userspace), if needed.  
+:::
 
 ## `Rules.mk`
 
@@ -254,4 +258,6 @@ Also, holding Shift will add the flash target (`:flash`) to the command.  Holdin
 
 And for the boards that lack a shift key, or that you want to always attempt the flashing part, you can add `FLASH_BOOTLOADER = yes` to the `rules.mk` of that keymap.
 
-?> This should flash the newly compiled firmware automatically, using the correct utility, based on the bootloader settings (or default to just generating the HEX file). However, it should be noted that this may not work on all systems. AVRDUDE doesn't work on WSL, namely.
+::: tip
+This should flash the newly compiled firmware automatically, using the correct utility, based on the bootloader settings (or default to just generating the HEX file). However, it should be noted that this may not work on all systems. AVRDUDE doesn't work on WSL, namely.
+:::

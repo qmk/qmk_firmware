@@ -16,7 +16,9 @@ DIGITIZER_ENABLE = yes
 
 The X and Y coordinates are normalized, meaning their value must be set between 0 and 1. For the X component, the value `0` is the leftmost position, whereas the value `1` is the rightmost position. Similarly for the Y component, `0` is at the top and `1` at the bottom.
 
-?> Since there is no display attached, the OS will likely map these coordinates to the virtual desktop. This may be important to know if you have multiple monitors.
+::: tip
+Since there is no display attached, the OS will likely map these coordinates to the virtual desktop. This may be important to know if you have multiple monitors.
+:::
 
 ## Examples {#examples}
 

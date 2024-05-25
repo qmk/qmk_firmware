@@ -13,7 +13,9 @@ QUANTUM_PAINTER_DRIVERS += ......
 
 You will also likely need to select an appropriate driver in `rules.mk`, which is listed below.
 
-!> Quantum Painter is not currently integrated with system-level operations such as when the keyboard goes into suspend. Users will need to handle this manually at the current time.
+::: warning
+Quantum Painter is not currently integrated with system-level operations such as when the keyboard goes into suspend. Users will need to handle this manually at the current time.
+:::
 
 The QMK CLI can be used to convert from normal images such as PNG files or animated GIFs, as well as fonts from TTF files.
 
@@ -367,7 +369,9 @@ The maximum number of displays can be configured by changing the following in yo
 
 Native color format rgb565 is compatible with ST7735
 
-!> Some ST7735 devices are known to have different drawing offsets -- despite being a 132x162 pixel display controller internally, some display panels are only 80x160, or smaller. These may require an offset to be applied; see `qp_set_viewport_offsets` above for information on how to override the offsets if they aren't correctly rendered.
+::: warning
+Some ST7735 devices are known to have different drawing offsets -- despite being a 132x162 pixel display controller internally, some display panels are only 80x160, or smaller. These may require an offset to be applied; see `qp_set_viewport_offsets` above for information on how to override the offsets if they aren't correctly rendered.
+:::
 
 #### ** ST7789 **
 
@@ -395,7 +399,9 @@ The maximum number of displays can be configured by changing the following in yo
 
 Native color format rgb565 is compatible with ST7789
 
-!> Some ST7789 devices are known to have different drawing offsets -- despite being a 240x320 pixel display controller internally, some display panels are only 240x240, or smaller. These may require an offset to be applied; see `qp_set_viewport_offsets` above for information on how to override the offsets if they aren't correctly rendered.
+::: warning
+Some ST7789 devices are known to have different drawing offsets -- despite being a 240x320 pixel display controller internally, some display panels are only 240x240, or smaller. These may require an offset to be applied; see `qp_set_viewport_offsets` above for information on how to override the offsets if they aren't correctly rendered.
+:::
 
 <!-- tabs:end -->
 
@@ -479,7 +485,9 @@ SSD1306 and SH1106 are almost entirely identical, to the point of being indising
 
 Quantum Painter has a surface driver which is able to target a buffer in RAM. In general, surfaces keep track of the "dirty" region -- the area that has been drawn to since the last flush -- so that when transferring to the display they can transfer the minimal amount of data to achieve the end result.
 
-!> These generally require significant amounts of RAM, so at large sizes and/or higher bit depths, they may not be usable on all MCUs.
+::: warning
+These generally require significant amounts of RAM, so at large sizes and/or higher bit depths, they may not be usable on all MCUs.
+:::
 
 Enabling support for surfaces in Quantum Painter is done by adding the following to `rules.mk`:
 
@@ -533,9 +541,13 @@ bool qp_surface_draw(painter_device_t surface, painter_device_t display, uint16_
 
 The `surface` is the surface to copy out from. The `display` is the target display to draw into. `x` and `y` are the target location to draw the surface pixel data. Under normal circumstances, the location should be consistent, as the dirty region is calculated with respect to the `x` and `y` coordinates -- changing those will result in partial, overlapping draws. `entire_surface` whether the entire surface should be drawn, instead of just the dirty region.
 
-!> The surface and display panel must have the same native pixel format.
+::: warning
+The surface and display panel must have the same native pixel format.
+:::
 
-?> Calling `qp_flush()` on the surface resets its dirty region. Copying the surface contents to the display also automatically resets the dirty region.
+::: tip
+Calling `qp_flush()` on the surface resets its dirty region. Copying the surface contents to the display also automatically resets the dirty region.
+:::
 
 <!-- tabs:end -->
 
@@ -554,7 +566,9 @@ To use any of the APIs, you need to include `qp.h`:
 
 The coordinate system used in Quantum Painter generally accepts `left`, `top`, `right`, and `bottom` instead of x/y/width/height, and each coordinate is inclusive of where pixels should be drawn. This is required as some datatypes used by display panels have a maximum value of `255` -- for any value or geometry extent that matches `256`, this would be represented as a `0`, instead.
 
-?> Drawing a horizontal line 8 pixels long, starting from 4 pixels inside the left side of the display, will need `left=4`, `right=11`.
+::: tip
+Drawing a horizontal line 8 pixels long, starting from 4 pixels inside the left side of the display, will need `left=4`, `right=11`.
+:::
 
 All color data matches the standard QMK HSV triplet definitions:
 
@@ -562,7 +576,9 @@ All color data matches the standard QMK HSV triplet definitions:
 * Saturation is of the range `0...255` and is internally mapped to 0...100% saturation.
 * Value is of the range `0...255` and is internally mapped to 0...100% brightness.
 
-?> Colors used in Quantum Painter are not subject to the RGB lighting CIE curve, if it is enabled.
+::: tip
+Colors used in Quantum Painter are not subject to the RGB lighting CIE curve, if it is enabled.
+:::
 
 ### ** Device Control **
 
@@ -592,7 +608,9 @@ bool qp_power(painter_device_t device, bool power_on);
 
 The `qp_power` function instructs the display whether or not the display panel should be on or off.
 
-!> If there is a separate backlight controlled through the normal QMK backlight API, this is not controlled by the `qp_power` function and needs to be manually handled elsewhere.
+::: warning
+If there is a separate backlight controlled through the normal QMK backlight API, this is not controlled by the `qp_power` function and needs to be manually handled elsewhere.
+:::
 
 ```c
 static uint8_t last_backlight = 255;
@@ -631,7 +649,9 @@ bool qp_flush(painter_device_t device);
 
 The `qp_flush` function ensures that all drawing operations are "pushed" to the display. This should be done as the last operation whenever a sequence of draws occur, and guarantees that any changes are applied.
 
-!> Some display panels may seem to work even without a call to `qp_flush` -- this may be because the driver cannot queue drawing operations and needs to display them immediately when invoked. In general, calling `qp_flush` at the end is still considered "best practice".
+::: warning
+Some display panels may seem to work even without a call to `qp_flush` -- this may be because the driver cannot queue drawing operations and needs to display them immediately when invoked. In general, calling `qp_flush` at the end is still considered "best practice".
+:::
 
 ```c
 void housekeeping_task_user(void) {
@@ -659,7 +679,9 @@ bool qp_setpixel(painter_device_t device, uint16_t x, uint16_t y, uint8_t hue, u
 
 The `qp_setpixel` can be used to set a specific pixel on the screen to the supplied color.
 
-?> Using `qp_setpixel` for large amounts of drawing operations is inefficient and should be avoided unless they cannot be achieved with other drawing APIs.
+::: tip
+Using `qp_setpixel` for large amounts of drawing operations is inefficient and should be avoided unless they cannot be achieved with other drawing APIs.
+:::
 
 ```c
 void housekeeping_task_user(void) {
@@ -792,7 +814,9 @@ The `qp_load_image_mem` function loads a QGF image from memory or flash.
 
 See the [CLI Commands](quantum_painter#quantum-painter-cli) for instructions on how to convert images to [QGF](quantum_painter_qgf).
 
-?> The total number of images available to load at any one time is controlled by the configurable option `QUANTUM_PAINTER_NUM_IMAGES` in the table above. If more images are required, the number should be increased in `config.h`.
+::: tip
+The total number of images available to load at any one time is controlled by the configurable option `QUANTUM_PAINTER_NUM_IMAGES` in the table above. If more images are required, the number should be increased in `config.h`.
+:::
 
 Image information is available through accessing the handle:
 
@@ -899,7 +923,9 @@ The `qp_load_font_mem` function loads a QFF font from memory or flash.
 
 See the [CLI Commands](quantum_painter#quantum-painter-cli) for instructions on how to convert TTF fonts to [QFF](quantum_painter_qff).
 
-?> The total number of fonts available to load at any one time is controlled by the configurable option `QUANTUM_PAINTER_NUM_FONTS` in the table above. If more fonts are required, the number should be increased in `config.h`.
+::: tip
+The total number of fonts available to load at any one time is controlled by the configurable option `QUANTUM_PAINTER_NUM_FONTS` in the table above. If more fonts are required, the number should be increased in `config.h`.
+:::
 
 Font information is available through accessing the handle:
 
@@ -1022,7 +1048,9 @@ bool qp_pixdata(painter_device_t device, const void *pixel_data, uint32_t native
 
 The `qp_pixdata` function allows raw pixel data to be streamed to the display. It requires a native pixel count rather than the number of bytes to transfer, to ensure display panel data alignment is respected. E.g. for display panels using RGB565 internal format, sending 10 pixels will result in 20 bytes of transfer.
 
-!> Under normal circumstances, users will not need to manually call either `qp_viewport` or `qp_pixdata`. These allow for writing of raw pixel information, in the display panel's native format, to the area defined by the viewport.
+::: warning
+Under normal circumstances, users will not need to manually call either `qp_viewport` or `qp_pixdata`. These allow for writing of raw pixel information, in the display panel's native format, to the area defined by the viewport.
+:::
 
 <!-- tabs:end -->
 

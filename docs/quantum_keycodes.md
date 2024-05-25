@@ -16,4 +16,6 @@ On this page we have documented keycodes between `0x00FF` and `0xFFFF` which are
 |`QK_MAKE`        |         |Sends `qmk compile -kb (keyboard) -km (keymap)`, or `qmk flash` if shift is held. Puts keyboard into bootloader mode if shift & control are held |
 |`QK_REBOOT`      |`QK_RBT` |Resets the keyboard. Does not load the bootloader                                                                                                |
 
-!> Note: `QK_MAKE` requires `#define ENABLE_COMPILE_KEYCODE` in your config.h to function.
+::: warning
+Note: `QK_MAKE` requires `#define ENABLE_COMPILE_KEYCODE` in your config.h to function.
+:::
