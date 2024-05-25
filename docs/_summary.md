@@ -178,7 +178,6 @@
 
   * QMK Reference
     * [Contributing to QMK](contributing.md)
-    * [Translating the QMK Docs](translating.md)
     * [Config Options](config_options.md)
     * [Data Driven Configuration](data_driven_config.md)
     * [Make Documentation](getting_started_make_guide.md)
@@ -193,12 +192,3 @@
     * [How Keyboards Work](how_keyboards_work.md)
     * [How a Matrix Works](how_a_matrix_works.md)
     * [Understanding QMK](understanding_qmk.md)
-
-  * QMK Internals (In Progress)
-    * [Defines](internals/defines.md)
-    * [Input Callback Reg](internals/input_callback_reg.md)
-    * [Midi Device](internals/midi_device.md)
-    * [Midi Device Setup Process](internals/midi_device_setup_process.md)
-    * [Midi Util](internals/midi_util.md)
-    * [Send Functions](internals/send_functions.md)
-    * [Sysex Tools](internals/sysex_tools.md)

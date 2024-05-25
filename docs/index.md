@@ -32,6 +32,5 @@ There are a lot of ways you can contribute to the QMK Community. The easiest way
     * [/r/olkb](https://www.reddit.com/r/olkb/)
     * [Discord Server](https://discord.gg/Uq7gcHh)
 * Contribute to our documentation by clicking "Edit This Page" at the bottom
-* [Translate our documentation into your language](translating.md)
 * [Report a bug](https://github.com/qmk/qmk_firmware/issues/new/choose)
 * [Open a Pull Request](contributing.md)
