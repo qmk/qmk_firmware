@@ -244,6 +244,6 @@ There are a lot of possibilities inside the firmware - explore [docs.qmk.fm](htt
 
 This page used to include more content. We have moved a section that used to be part of this page its own page. Everything below this point is simply a redirect so that people following old links on the web find what they're looking for.
 
-## Preamble: How a Keyboard Matrix Works (and why we need diodes) :id=preamble-how-a-keyboard-matrix-works-and-why-we-need-diodes
+## Preamble: How a Keyboard Matrix Works (and why we need diodes) {#preamble-how-a-keyboard-matrix-works-and-why-we-need-diodes}
 
 * [How a Keyboard Matrix Works](how_a_matrix_works.md)

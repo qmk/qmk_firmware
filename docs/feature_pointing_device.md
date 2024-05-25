@@ -1,4 +1,4 @@
-# Pointing Device :id=pointing-device
+# Pointing Device {#pointing-device}
 
 Pointing Device is a generic name for a feature intended to be generic: moving the system pointer around.  There are certainly other options for it - like mousekeys - but this aims to be easily modifiable and hardware driven.  You can implement custom keys to control functionality, or you can gather information from other peripherals and insert it directly here - let QMK handle the processing for you.
 
@@ -677,7 +677,7 @@ If you are having issues with pointing device drivers debug messages can be enab
 
 
 ---
-# Automatic Mouse Layer :id=pointing-device-auto-mouse
+# Automatic Mouse Layer {#pointing-device-auto-mouse}
 
 When using a pointing device combined with a keyboard the mouse buttons are often kept on a separate layer from the default keyboard layer, which requires pressing or holding a key to change layers before using the mouse. To make this easier and more efficient an additional pointing device feature may be enabled that will automatically activate a target layer as soon as the pointing device is active _(in motion, mouse button pressed etc.)_ and deactivate the target layer after a set time.   
 

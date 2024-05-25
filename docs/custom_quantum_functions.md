@@ -4,7 +4,7 @@ For a lot of people a custom keyboard is about more than sending button presses 
 
 This page does not assume any special knowledge about QMK, but reading [Understanding QMK](understanding_qmk.md) will help you understand what is going on at a more fundamental level.
 
-## A Word on Core vs Keyboards vs Keymap :id=a-word-on-core-vs-keyboards-vs-keymap
+## A Word on Core vs Keyboards vs Keymap {#a-word-on-core-vs-keyboards-vs-keymap}
 
 We have structured QMK as a hierarchy:
 
@@ -34,7 +34,7 @@ enum my_keycodes {
 };
 ```
 
-## Programming the Behavior of Any Keycode :id=programming-the-behavior-of-any-keycode
+## Programming the Behavior of Any Keycode {#programming-the-behavior-of-any-keycode}
 
 When you want to override the behavior of an existing key, or define the behavior for a new key, you should use the `process_record_kb()` and `process_record_user()` functions. These are called by QMK during key processing before the actual key event is handled. If these functions return `true` QMK will process the keycodes as usual. That can be handy for extending the functionality of a key rather than replacing it. If these functions return `false` QMK will skip the normal key handling, and it will be up to you to send any key up or down events that are required.
 
@@ -144,7 +144,7 @@ This is useful for setting up stuff that you may need elsewhere, but isn't hardw
 * Keyboard/Revision: `void matrix_init_kb(void)`
 * Keymap: `void matrix_init_user(void)`
 
-### Low-level Matrix Overrides Function Documentation :id=low-level-matrix-overrides
+### Low-level Matrix Overrides Function Documentation {#low-level-matrix-overrides}
 
 * GPIO pin initialisation: `void matrix_init_pins(void)`
   * This needs to perform the low-level initialisation of all row and column pins. By default this will initialise the input/output state of each of the GPIO pins listed in `MATRIX_ROW_PINS` and `MATRIX_COL_PINS`, based on whether or not the keyboard is set up for `ROW2COL`, `COL2ROW`, or `DIRECT_PINS`. Should the keyboard designer override this function, no initialisation of pin state will occur within QMK itself, instead deferring to the keyboard's override.
@@ -204,7 +204,7 @@ Similar to `matrix_scan_*`, these are called as often as the MCU can handle. To 
 
 ### Example `void housekeeping_task_user(void)` implementation
 
-This example will show you how to use `void housekeeping_task_user(void)` to turn off [RGB Light](feature_rgblight.md). For RGB Matrix, the [builtin](https://docs.qmk.fm/#/feature_rgb_matrix?id=additional-configh-options) `RGB_MATRIX_TIMEOUT` should be used.
+This example will show you how to use `void housekeeping_task_user(void)` to turn off [RGB Light](feature_rgblight.md). For RGB Matrix, the [builtin](feature_rgb_matrix?id=additional-configh-options) `RGB_MATRIX_TIMEOUT` should be used.
 
 First, add the following lines to your keymap's `config.h`:
 
@@ -284,7 +284,7 @@ void suspend_wakeup_init_user(void) {
 * Keymap: `void suspend_power_down_kb(void)` and `void suspend_wakeup_init_user(void)`
 
 
-# Keyboard Shutdown/Reboot Code :id=keyboard-shutdown-reboot-code
+# Keyboard Shutdown/Reboot Code {#keyboard-shutdown-reboot-code}
 
 This function gets called whenever the firmware is reset, whether it's a soft reset or reset to the bootloader.  This is the spot to use for any sort of cleanup, as this happens right before the actual reset.  And it can be useful for turning off different systems (such as RGB, onboard screens, etc).
 
@@ -342,7 +342,7 @@ bool shutdown_user(bool jump_to_bootloader) {
 * Keyboard/Revision: `bool shutdown_kb(bool jump_to_bootloader)`
 * Keymap: `bool shutdown_user(bool jump_to_bootloader)`
 
-# Deferred Execution :id=deferred-execution
+# Deferred Execution {#deferred-execution}
 
 QMK has the ability to execute a callback after a specified period of time, rather than having to manually manage timers. To enable this functionality, set `DEFERRED_EXEC_ENABLE = yes` in rules.mk.
 
@@ -408,14 +408,14 @@ If registrations fail, then you can increase this value in your keyboard or keym
 #define MAX_DEFERRED_EXECUTORS 16
 ```
 
-# Advanced topics :id=advanced-topics
+# Advanced topics {#advanced-topics}
 
 This page used to encompass a large set of features. We have moved many sections that used to be part of this page to their own pages. Everything below this point is simply a redirect so that people following old links on the web find what they're looking for.
 
-## Layer Change Code :id=layer-change-code
+## Layer Change Code {#layer-change-code}
 
 [Layer change code](feature_layers.md#layer-change-code)
 
-## Persistent Configuration (EEPROM) :id=persistent-configuration-eeprom
+## Persistent Configuration (EEPROM) {#persistent-configuration-eeprom}
 
 [Persistent Configuration (EEPROM)](feature_eeprom.md)

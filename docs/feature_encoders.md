@@ -69,7 +69,7 @@ Additionally, if one side does not have an encoder, you can specify `{}` for the
 
 !> Keep in mind that whenver you change the encoder resolution, you will need to reflash the half that has the encoder affected by the change.
 
-## Encoder map :id=encoder-map
+## Encoder map {#encoder-map}
 
 Encoder mapping may be added to your `keymap.c`, which replicates the normal keyswitch layer handling functionality, but with encoders. Add this to your keymap's `rules.mk`:
 
@@ -102,7 +102,7 @@ Using encoder mapping pumps events through the normal QMK keycode processing pip
 
 ## Callbacks
 
-?> [**Default Behaviour**](https://github.com/qmk/qmk_firmware/blob/master/quantum/encoder.c#L79-#L98): all encoders installed will function as volume up (`KC_VOLU`) on clockwise rotation and volume down (`KC_VOLD`) on counter-clockwise rotation. If you do not wish to override this, no further configuration is necessary.
+?> [**Default Behaviour**](https://github.com/qmk/qmk_firmware/blob/master/quantum/encoder.c#L79-): all encoders installed will function as volume up (`KC_VOLU`) on clockwise rotation and volume down (`KC_VOLD`) on counter-clockwise rotation. If you do not wish to override this, no further configuration is necessary.
 
 If you would like the alter the default behaviour, and are not using `ENCODER_MAP_ENABLE = yes`, the callback functions can be inserted into your `<keyboard>.c`:
 

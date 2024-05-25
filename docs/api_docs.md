@@ -67,7 +67,7 @@ Once your compile job has finished you'll check the `result` key. The value of t
 * `firmware_source_url`: A list of URLs for the full firmware source code
 * `output`: The stdout and stderr for this compile job. Errors will be found here.
 
-## Constants :id=qmk-constants
+## Constants {#qmk-constants}
 
 If you're writing a tool that leverages constants used within QMK, the API is used to publish "locked-in" versions of those constants in order to ensure that any third-party tooling has a canonical set of information to work with.
 

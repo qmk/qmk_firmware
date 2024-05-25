@@ -306,7 +306,7 @@ This enables the triggering of haptic feedback on the slave side of the split ke
 
 This synchronizes the activity timestamps between sides of the split keyboard, allowing for activity timeouts to occur.
 
-### Custom data sync between sides :id=custom-data-sync
+### Custom data sync between sides {#custom-data-sync}
 
 QMK's split transport allows for arbitrary data transactions at both the keyboard and user levels. This is modelled on a remote procedure call, with the master invoking a function on the slave side, with the ability to send data from master to slave, process it slave side, and send data back from slave to master.
 
@@ -381,7 +381,7 @@ By default, the inbound and outbound data is limited to a maximum of 32 bytes ea
 #define RPC_S2M_BUFFER_SIZE 48
 ```
 
-###  Hardware Configuration Options
+### Hardware Configuration Options
 
 There are some settings that you may need to configure, based on how the hardware is set up. 
 

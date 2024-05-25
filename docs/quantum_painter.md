@@ -1,4 +1,4 @@
-# Quantum Painter :id=quantum-painter
+# Quantum Painter {#quantum-painter}
 
 Quantum Painter is the standardised API for graphical displays. It currently includes support for basic drawing primitives, as well as custom images, animations, and fonts.
 
@@ -35,7 +35,7 @@ Supported devices:
 | SSD1306 (I2C)  | Monochrome OLED    | 128x32           | I2C             | `QUANTUM_PAINTER_DRIVERS += sh1106_i2c`  |
 | Surface        | Virtual            | User-defined     | None            | `QUANTUM_PAINTER_DRIVERS += surface`     |
 
-## Quantum Painter Configuration :id=quantum-painter-config
+## Quantum Painter Configuration {#quantum-painter-config}
 
 | Option                                            | Default | Purpose                                                                                                                                                                                      |
 |---------------------------------------------------|---------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -54,7 +54,7 @@ Supported devices:
 
 Drivers have their own set of configurable options, and are described in their respective sections.
 
-## Quantum Painter CLI Commands :id=quantum-painter-cli
+## Quantum Painter CLI Commands {#quantum-painter-cli}
 
 <!-- tabs:start -->
 
@@ -189,7 +189,7 @@ Writing /home/qmk/qmk_firmware/keyboards/my_keeb/generated/noto11.qff.c...
 
 <!-- tabs:end -->
 
-## Quantum Painter Display Drivers :id=quantum-painter-drivers
+## Quantum Painter Display Drivers {#quantum-painter-drivers}
 
 <!-- tabs:start -->
 
@@ -539,7 +539,7 @@ The `surface` is the surface to copy out from. The `display` is the target displ
 
 <!-- tabs:end -->
 
-## Quantum Painter Drawing API :id=quantum-painter-api
+## Quantum Painter Drawing API {#quantum-painter-api}
 
 All APIs require a `painter_device_t` object as their first parameter -- this object comes from the specific device initialisation, and instructions on creating it can be found in each driver's respective section.
 

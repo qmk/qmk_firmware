@@ -38,7 +38,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
-### Dynamic Tapping Term :id=dynamic-tapping-term
+### Dynamic Tapping Term {#dynamic-tapping-term}
 
 `DYNAMIC_TAPPING_TERM_ENABLE` is a feature you can enable in `rules.mk` that lets you use three special keys in your keymap to configure the tapping term on the fly.
 
@@ -126,13 +126,13 @@ The code which decides between the tap and hold actions of dual-role keys suppor
 
 Note that until the tap-or-hold decision completes (which happens when either the dual-role key is released, or the tapping term has expired, or the extra condition for the selected decision mode is satisfied), key events are delayed and not transmitted to the host immediately.  The default mode gives the most delay (if the dual-role key is held down, this mode always waits for the whole tapping term), and the other modes may give less delay when other keys are pressed, because the hold action may be selected earlier.
 
-### Comparison :id=comparison
+### Comparison {#comparison}
 
 To better illustrate the tap-or-hold decision modes, let us compare the expected output of each decision mode in a handful of tapping scenarios involving a mod-tap key (`LSFT_T(KC_A)`) and a regular key (`KC_B`) with the `TAPPING_TERM` set to 200ms.
 
 Note: "`kc` held" in the "Physical key event" column means that the key wasn't physically released yet at this point in time.
 
-#### Distinct taps (AABB) :id=distinct-taps
+#### Distinct taps (AABB) {#distinct-taps}
 
 | Time | Physical key event |    Default     | `PERMISSIVE_HOLD` |  `HOLD_ON_OTHER_KEY_PRESS` |
 |------|--------------------|----------------|-------------------|----------------------------|
@@ -149,7 +149,7 @@ Note: "`kc` held" in the "Physical key event" column means that the key wasn't p
 | 205  | `KC_B`      down   | b              | b                 |  b                         |
 | 210  | `KC_B`      up     | b              | b                 |  b                         |
 
-#### Nested tap (ABBA) :id=nested-tap
+#### Nested tap (ABBA) {#nested-tap}
 
 | Time | Physical key event |    Default     | `PERMISSIVE_HOLD` |  `HOLD_ON_OTHER_KEY_PRESS` |
 |------|--------------------|----------------|-------------------|----------------------------|
@@ -174,7 +174,7 @@ Note: "`kc` held" in the "Physical key event" column means that the key wasn't p
 | 210  | `KC_B` up          | B              | B                 | B                          |
 | 220  | `LSFT_T(KC_A)` up  | B              | B                 | B                          |
 
-#### Rolling keys (ABAB) :id=rolling-keys
+#### Rolling keys (ABAB) {#rolling-keys}
 
 | Time | Physical key event |    Default     | `PERMISSIVE_HOLD` |  `HOLD_ON_OTHER_KEY_PRESS` |
 |------|--------------------|----------------|-------------------|----------------------------|

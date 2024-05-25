@@ -13,7 +13,7 @@ There are a few pieces of software you'll need to get started.
 
 ?> If you haven't worked with the Linux/Unix command line before, there are a few basic concepts and commands you should learn. [These resources](newbs_learn_more_resources.md#command-line-resources) will teach you enough to be able to work with QMK.
 
-## 2. Prepare Your Build Environment :id=set-up-your-environment
+## 2. Prepare Your Build Environment {#set-up-your-environment}
 
 We've tried to make QMK as easy to set up as possible. You only have to prepare your Linux or Unix environment, then let QMK install the rest.
 
@@ -98,7 +98,7 @@ You can also try the `qmk-git` package from AUR:
 
     yay -S qmk-git
 
-###  ** FreeBSD **
+### ** FreeBSD **
 
 #### Installation
 
@@ -110,7 +110,7 @@ NOTE: remember to follow the instructions printed at the end of installation (us
 
 <!-- tabs:end -->
 
-## 3. Run QMK Setup :id=set-up-qmk
+## 3. Run QMK Setup {#set-up-qmk}
 
 <!-- tabs:start -->
 
@@ -144,7 +144,7 @@ This is due to a [bug](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=839155)
 Sadly, Ubuntu reintroduced this bug and is [yet to fix it](https://bugs.launchpad.net/ubuntu/+source/bash/+bug/1588562).
 Luckily, the fix is easy. Run this as your user: `echo 'PATH="$HOME/.local/bin:$PATH"' >> $HOME/.bashrc && source $HOME/.bashrc`
 
-###  ** FreeBSD **
+### ** FreeBSD **
 
 Open your preferred terminal app and run the following command:
 

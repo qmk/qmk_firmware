@@ -59,7 +59,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
 - keyboard updates and refactors (eg. to data driven) *must* go through `develop` to reduce `master` -> `develop` merge conflicts
 - PR submissions from a `kbfirmware` export (or equivalent) will not be accepted unless converted to new QMK standards -- try `qmk import-kbfirmware` first
 - `info.json`
-    - With the move to [data driven](https://docs.qmk.fm/#/data_driven_config) keyboard configuration, we encourage contributors to utilise as many features as possible of the info.json [schema](https://github.com/qmk/qmk_firmware/blob/master/data/schemas/keyboard.jsonschema).
+    - With the move to [data driven](data_driven_config.md) keyboard configuration, we encourage contributors to utilise as many features as possible of the info.json [schema](https://github.com/qmk/qmk_firmware/blob/master/data/schemas/keyboard.jsonschema).
     - the mandatory elements for a minimally complete `info.json` at present are:
         - valid URL
         - valid maintainer
@@ -86,7 +86,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
       - RGB Matrix Configuration
     - Run `qmk format-json` on this file before submitting your PR. Be sure to append the `-i` flag to directly modify the file, or paste the outputted code into the file. 
 - `readme.md`
-    - must follow the [template](https://github.com/qmk/qmk_firmware/blob/master/data/templates/keyboard/readme.md)
+    - must follow the [template](https://github.com/qmk/qmk_firmware/blob/master/data/templates/keyboard/readme)
     - flash command is present, and has `:flash` at end
     - valid hardware availability link (unless handwired) -- private groupbuys are okay, but one-off prototypes will be questioned. If open-source, a link to files should be provided.
     - clear instructions on how to reset the board into bootloader mode
@@ -133,12 +133,12 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - no duplication of `rules.mk` or `config.h` from keyboard
 - `keymaps/default/keymap.c`
     - `QMKBEST`/`QMKURL` example macros removed
-    - if using `MO(1)` and `MO(2)` keycodes together to access a third layer, the [Tri Layer](https://docs.qmk.fm/#/feature_tri_layer) feature should be used, rather than manually implementing this using `layer_on/off()` and `update_tri_layer()` functions in the keymap's `process_record_user()`.
+    - if using `MO(1)` and `MO(2)` keycodes together to access a third layer, the [Tri Layer](feature_tri_layer.md) feature should be used, rather than manually implementing this using `layer_on/off()` and `update_tri_layer()` functions in the keymap's `process_record_user()`.
 - default (and via) keymaps should be "pristine"
     - bare minimum to be used as a "clean slate" for another user to develop their own user-specific keymap
     - what does pristine mean? no custom keycodes. no advanced features like tap dance or macros. basic mod taps and home row mods would be acceptable where their use is necessary
     - standard layouts preferred in these keymaps, if possible
-    - should use [encoder map feature](https://docs.qmk.fm/#/feature_encoders?id=encoder-map), rather than `encoder_update_user()`
+    - should use [encoder map feature](feature_encoders?id=encoder-map), rather than `encoder_update_user()`
     - default keymap should not enable VIA -- the VIA integration documentation requires a keymap called `via`
 - submitters can add an example (or bells-and-whistles) keymap showcasing capabilities in the same PR but it shouldn't be embedded in the 'default' keymap
 - submitters can also have a "manufacturer-matching" keymap that mirrors existing functionality of the commercial product, if porting an existing board
@@ -167,7 +167,7 @@ Also, specific to ChibiOS:
     - `__early_init()` should be replaced by either `early_hardware_init_pre()` or `early_hardware_init_post()` as appropriate
     - `boardInit()` should be migrated to `board_init()`
 
-## Core PRs :id=core-pr
+## Core PRs {#core-pr}
 
 - all core PRs must now target `develop` branch, which will subsequently be merged back to `master` on the breaking changes timeline
 - as indicated above, the smallest set of changes to core components should be included in each PR
@@ -197,9 +197,9 @@ For future reference, we recommend against committing to your `master` branch as
 
 There are instructions on how to keep your fork updated here:
 
-[**Best Practices: Your Fork's Master: Update Often, Commit Never**](https://docs.qmk.fm/#/newbs_git_using_your_master_branch)
+[**Best Practices: Your Fork's Master: Update Often, Commit Never**](newbs_git_using_your_master_branch.md)
 
-[Fixing Your Branch](https://docs.qmk.fm/#/newbs_git_resynchronize_a_branch) will walk you through fixing up your `master` branch moving forward. If you need any help with this just ask.
+[Fixing Your Branch](newbs_git_resynchronize_a_branch.md) will walk you through fixing up your `master` branch moving forward. If you need any help with this just ask.
 
 Thanks for contributing!
 ```

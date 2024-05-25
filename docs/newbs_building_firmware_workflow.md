@@ -1,6 +1,6 @@
 # Building QMK with GitHub Userspace
 
-This is an intermediate QMK tutorial to setup an out-of-tree build environment with a personal GitHub repository. It avoids using a fork of the QMK firmware to store and build your keymap within its source tree. Keymap files will instead be stored in your own personal GitHub repository, in [Userspace](https://docs.qmk.fm/#/feature_userspace) format, and built with an action workflow. Unlike the [default tutorial](https://docs.qmk.fm/#/newbs), this guide requires some familiarity with using Git.
+This is an intermediate QMK tutorial to setup an out-of-tree build environment with a personal GitHub repository. It avoids using a fork of the QMK firmware to store and build your keymap within its source tree. Keymap files will instead be stored in your own personal GitHub repository, in [Userspace](feature_userspace.md) format, and built with an action workflow. Unlike the [default tutorial](newbs.md), this guide requires some familiarity with using Git.
 
 ?> **Is This Guide For Me?**<br>
 This is a lean setup to avoid space-consuming local build environment in your computer. Troubleshooting compile-time errors will be slower with commit uploads to GitHub for the compiler workflow.
@@ -173,12 +173,12 @@ Files committed to GitHub in the previous step will automatically trigger the wo
 4. Successfully compiled firmware will be under the "**Artifacts**" section.
 5. If there are build errors, review the job log for details.
 
-Download and flash the firmware file into your keyboard using [QMK Toolbox](https://docs.qmk.fm/#/newbs_flashing?id=flashing-your-keyboard-with-qmk-toolbox).
+Download and flash the firmware file into your keyboard using [QMK Toolbox](newbs_flashing?id=flashing-your-keyboard-with-qmk-toolbox).
 
 
 ## Customising your keymap
 
-This setup and workflow relies on the QMK [Userspace](https://docs.qmk.fm/#/feature_userspace) feature. The build process will copy the QMK source codes and clone your repository into its `users/` folder in a container. You must adhere to the following guidelines when customising your keymaps:
+This setup and workflow relies on the QMK [Userspace](feature_userspace.md) feature. The build process will copy the QMK source codes and clone your repository into its `users/` folder in a container. You must adhere to the following guidelines when customising your keymaps:
 
 * Keymap layout files must be retained in JSON format and cannot be converted to `keymap.c`.
 * User callback and functions (e.g. `process_record_user()`) can be placed in the `source.c` file.

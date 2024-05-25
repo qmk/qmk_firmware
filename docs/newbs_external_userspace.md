@@ -14,7 +14,7 @@ Additionally, there is first-class support for using GitHub Actions to build you
 
 ## Setting up QMK Locally
 
-If you wish to build on your local machine, you will need to set up QMK locally. This is a one-time process, and is documented in the [newbs setup guide](https://docs.qmk.fm/#/newbs).
+If you wish to build on your local machine, you will need to set up QMK locally. This is a one-time process, and is documented in the [newbs setup guide](newbs.md).
 
 !> If you wish to use any QMK CLI commands related to manipulating External Userspace definitions, you will currently need a copy of QMK Firmware as well.
 

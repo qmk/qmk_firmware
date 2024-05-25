@@ -1,12 +1,12 @@
-# Unicode :id=unicode
+# Unicode {#unicode}
 
 With a little help from your OS, practically any Unicode character can be input using your keyboard.
 
-## Caveats :id=caveats
+## Caveats {#caveats}
 
 There are some limitations to this feature. Because there is no "standard" method of Unicode input across all operating systems, each of them require their own setup process on both the host *and* in the firmware, which may involve installation of additional software. This also means Unicode input will not "just work" when the keyboard is plugged into another device.
 
-## Usage :id=usage
+## Usage {#usage}
 
 The core Unicode API can be used purely programmatically. However, there are also additional subsystems which build on top of it and come with keycodes to make things easier. See below for more details.
 
@@ -16,7 +16,7 @@ Add the following to your keymap's `rules.mk`:
 UNICODE_COMMON = yes
 ```
 
-## Basic Configuration :id=basic-configuration
+## Basic Configuration {#basic-configuration}
 
 Add the following to your `config.h`:
 
@@ -29,7 +29,7 @@ Add the following to your `config.h`:
 |`UNICODE_CYCLE_PERSIST` |`true`            |Whether to persist the current Unicode input mode to EEPROM                     |
 |`UNICODE_TYPE_DELAY`    |`10`              |The amount of time to wait, in milliseconds, between Unicode sequence keystrokes|
 
-### Audio Feedback :id=audio-feedback
+### Audio Feedback {#audio-feedback}
 
 If you have the [Audio](feature_audio.md) feature enabled on your board, you can configure it to play sounds when the input mode is changed.
 
@@ -43,7 +43,7 @@ Add the following to your `config.h`:
 |`UNICODE_SONG_WIN` |*n/a*  |The song to play when the Windows input mode is selected   |
 |`UNICODE_SONG_WINC`|*n/a*  |The song to play when the WinCompose input mode is selected|
 
-## Input Subsystems :id=input-subsystems
+## Input Subsystems {#input-subsystems}
 
 Each of these subsystems have their own pros and cons in terms of flexibility and ease of use. Choose the one that best fits your needs.
 
@@ -89,7 +89,7 @@ const uint32_t PROGMEM unicode_map[] = {
 
 Finally, add `UM(i)` keycodes to your keymap, where *i* is an index into the `unicode_map[]` array. If you defined the enum above, you can use those names instead, for example `UM(BANG)` or `UM(SNEK)`.
 
-#### Lower and Upper Case Pairs :id=unicodemap-pairs
+#### Lower and Upper Case Pairs {#unicodemap-pairs}
 
 Some writing systems have lowercase and uppercase variants of each character, such as å and Å. To make inputting these characters easier, you can use the `UP(i, j)` keycode in your keymap, where *i* and *j* are the mapping table indices of the lowercase and uppercase characters, respectively. If you're holding down Shift or have Caps Lock turned on when you press the key, the uppercase character will be inserted; otherwise, the lowercase character will be inserted.
 
@@ -131,7 +131,7 @@ To invoke UCIS input, the `ucis_start()` function must first be called (for exam
 
 <!-- tabs:end -->
 
-## Input Modes :id=input-modes
+## Input Modes {#input-modes}
 
 Unicode input works by typing a sequence of characters, similar to a macro. However, since this sequence depends on your OS, you will need to prepare both your host machine and QMK to recognise and send the correct Unicode input sequences respectively.
 
@@ -201,7 +201,7 @@ Not currently implemented. If you're a BSD user and want to contribute support f
 
 <!-- tabs:end -->
 
-## Keycodes :id=keycodes
+## Keycodes {#keycodes}
 
 |Key                         |Aliases  |Description                                                     |
 |----------------------------|---------|----------------------------------------------------------------|
@@ -217,23 +217,23 @@ Not currently implemented. If you're a BSD user and want to contribute support f
 |`QK_UNICODE_MODE_WINCOMPOSE`|`UC_WINC`|Switch to Windows input using WinCompose                        |
 |`QK_UNICODE_MODE_EMACS`     |`UC_EMAC`|Switch to emacs (`C-x-8 RET`)                                   |
 
-## API :id=api
+## API {#api}
 
-### `uint8_t get_unicode_input_mode(void)` :id=api-get-unicode-input-mode
+### `uint8_t get_unicode_input_mode(void)` {#api-get-unicode-input-mode}
 
 Get the current Unicode input mode.
 
-#### Return Value :id=api-get-unicode-input-mode-return-value
+#### Return Value {#api-get-unicode-input-mode-return-value}
 
 The currently active Unicode input mode.
 
 ---
 
-### `void set_unicode_input_mode(uint8_t mode)` :id=api-set-unicode-input-mode
+### `void set_unicode_input_mode(uint8_t mode)` {#api-set-unicode-input-mode}
 
 Set the Unicode input mode.
 
-#### Arguments :id=api-set-unicode-input-mode-arguments
+#### Arguments {#api-set-unicode-input-mode-arguments}
 
  - `uint8_t mode`  
    The input mode to set.
@@ -252,29 +252,29 @@ Change to the previous Unicode input mode.
 
 ---
 
-### `void unicode_input_mode_set_user(uint8_t input_mode)` :id=api-unicode-input-mode-set-user
+### `void unicode_input_mode_set_user(uint8_t input_mode)` {#api-unicode-input-mode-set-user}
 
 User-level callback, invoked when the input mode is changed.
 
-#### Arguments :id=api-unicode-input-mode-set-user-arguments
+#### Arguments {#api-unicode-input-mode-set-user-arguments}
 
  - `uint8_t input_mode`  
    The new input mode.
 
 ---
 
-### `void unicode_input_mode_set_kb(uint8_t input_mode)` :id=api-unicode-input-mode-set-kb
+### `void unicode_input_mode_set_kb(uint8_t input_mode)` {#api-unicode-input-mode-set-kb}
 
 Keyboard-level callback, invoked when the input mode is changed.
 
-#### Arguments :id=api-unicode-input-mode-set-kb-arguments
+#### Arguments {#api-unicode-input-mode-set-kb-arguments}
 
  - `uint8_t input_mode`  
    The new input mode.
 
 ---
 
-### `void unicode_input_start(void)` :id=api-unicode-input-start
+### `void unicode_input_start(void)` {#api-unicode-input-start}
 
 Begin the Unicode input sequence. The exact behavior depends on the currently selected input mode:
 
@@ -288,7 +288,7 @@ This function is weakly defined, and can be overridden in user code.
 
 ---
 
-### `void unicode_input_finish(void)` :id=api-unicode-input-finish
+### `void unicode_input_finish(void)` {#api-unicode-input-finish}
 
 Complete the Unicode input sequence. The exact behavior depends on the currently selected input mode:
 
@@ -302,7 +302,7 @@ This function is weakly defined, and can be overridden in user code.
 
 ---
 
-### `void unicode_input_cancel(void)` :id=api-unicode-input-cancel
+### `void unicode_input_cancel(void)` {#api-unicode-input-cancel}
 
 Cancel the Unicode input sequence. The exact behavior depends on the currently selected input mode:
 
@@ -316,105 +316,105 @@ This function is weakly defined, and can be overridden in user code.
 
 ---
 
-### `void register_unicode(uint32_t code_point)` :id=api-register-unicode
+### `void register_unicode(uint32_t code_point)` {#api-register-unicode}
 
 Input a single Unicode character. A surrogate pair will be sent if required by the input mode.
 
-#### Arguments :id=api-register-unicode-arguments
+#### Arguments {#api-register-unicode-arguments}
 
  - `uint32_t code_point`  
    The code point of the character to send.
 
 ---
 
-### `void send_unicode_string(const char *str)` :id=api-send-unicode-string
+### `void send_unicode_string(const char *str)` {#api-send-unicode-string}
 
 Send a string containing Unicode characters.
 
-#### Arguments :id=api-send-unicode-string-arguments
+#### Arguments {#api-send-unicode-string-arguments}
 
  - `const char *str`  
    The string to send.
 
 ---
 
-### `uint8_t unicodemap_index(uint16_t keycode)` :id=api-unicodemap-index
+### `uint8_t unicodemap_index(uint16_t keycode)` {#api-unicodemap-index}
 
 Get the index into the `unicode_map` array for the given keycode, respecting shift state for pair keycodes.
 
-#### Arguments :id=api-unicodemap-index-arguments
+#### Arguments {#api-unicodemap-index-arguments}
 
  - `uint16_t keycode`  
    The Unicode Map keycode to get the index of.
 
-#### Return Value :id=api-unicodemap-index-return-value
+#### Return Value {#api-unicodemap-index-return-value}
 
 An index into the `unicode_map` array.
 
 ---
 
-### `uint32_t unicodemap_get_code_point(uint8_t index)` :id=api-unicodemap-get-code-point
+### `uint32_t unicodemap_get_code_point(uint8_t index)` {#api-unicodemap-get-code-point}
 
 Get the code point for the given index in the `unicode_map` array.
 
-#### Arguments :id=unicodemap-get-code-point-arguments
+#### Arguments {#unicodemap-get-code-point-arguments}
 
  - `uint8_t index`  
    The index into  the `unicode_map` array.
 
-#### Return Value :id=unicodemap-get-code-point-return-value
+#### Return Value {#unicodemap-get-code-point-return-value}
 
 A Unicode code point value.
 
 ---
 
-### `void register_unicodemap(uint8_t index)` :id=api-register-unicodemap
+### `void register_unicodemap(uint8_t index)` {#api-register-unicodemap}
 
 Send the code point for the given index in the `unicode_map` array.
 
-#### Arguments :id=api-register-unicodemap-arguments
+#### Arguments {#api-register-unicodemap-arguments}
 
  - `uint8_t index`  
    The index into the `unicode_map` array.
 
 ---
 
-### `void ucis_start(void)` :id=api-ucis-start
+### `void ucis_start(void)` {#api-ucis-start}
 
 Begin the input sequence.
 
 ---
 
-### `bool ucis_active(void)` :id=api-ucis-active
+### `bool ucis_active(void)` {#api-ucis-active}
 
 Whether UCIS is currently active.
 
-#### Return Value :id=api-ucis-active-return-value
+#### Return Value {#api-ucis-active-return-value}
 
 `true` if UCIS is active.
 
 ---
 
-### `uint8_t ucis_count(void)` :id=api-ucis-count
+### `uint8_t ucis_count(void)` {#api-ucis-count}
 
 Get the number of characters in the input sequence buffer.
 
-#### Return Value :id=api-ucis-count-return-value
+#### Return Value {#api-ucis-count-return-value}
 
 The current input sequence buffer length.
 
 ---
 
-### `bool ucis_add(uint16_t keycode)` :id=api-ucis-add
+### `bool ucis_add(uint16_t keycode)` {#api-ucis-add}
 
 Add the given keycode to the input sequence buffer.
 
-#### Arguments :id=api-ucis-add-arguments
+#### Arguments {#api-ucis-add-arguments}
 
  - `uint16_t keycode`  
    The keycode to add. Must be between `KC_A` and `KC_Z`, or `KC_1` and `KC_0`.
 
-#### Return Value :id=api-ucis-add-return-value
+#### Return Value {#api-ucis-add-return-value}
 
 `true` if the keycode was added.
 
@@ -424,29 +424,29 @@ Add the given keycode to the input sequence buffer.
 
 Remove the last character from the input sequence buffer.
 
-#### Return Value :id=api-ucis-remove-last
+#### Return Value {#api-ucis-remove-last}
 
 `true` if the sequence was not empty.
 
 ---
 
-### `void ucis_finish(void)` :id=api-ucis-finish
+### `void ucis_finish(void)` {#api-ucis-finish}
 
 Mark the input sequence as complete, and attempt to match.
 
 ---
 
-### `void ucis_cancel(void)` :id=api-ucis-cancel
+### `void ucis_cancel(void)` {#api-ucis-cancel}
 
 Cancel the input sequence.
 
 ---
 
-### `void register_ucis(void)` :id=api-register-ucis
+### `void register_ucis(void)` {#api-register-ucis}
 
 Send the code point(s) for the given UCIS index.
 
-#### Arguments :id=api-register-ucis-arguments
+#### Arguments {#api-register-ucis-arguments}
 
  - `uint8_t index`  
    The index into the UCIS symbol table.

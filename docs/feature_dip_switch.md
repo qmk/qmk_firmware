@@ -20,7 +20,7 @@ or
 #define DIP_SWITCH_MATRIX_GRID { {0,6}, {1,6}, {2,6} } // List of row and col pairs
 ```
 
-## DIP Switch map :id=dip-switch-map
+## DIP Switch map {#dip-switch-map}
 
 DIP Switch mapping may be added to your `keymap.c`, which replicates the normal keyswitch functionality, but with dip switches. Add this to your keymap's `rules.mk`:
 

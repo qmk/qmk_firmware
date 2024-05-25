@@ -1,4 +1,4 @@
-# Modifier Keys :id=modifier-keys
+# Modifier Keys {#modifier-keys}
 
 These allow you to combine a modifier with a keycode. When pressed, the keydown event for the modifier, then `kc` will be sent. On release, the keyup event for `kc`, then the modifier will be sent.
 
@@ -26,7 +26,7 @@ These allow you to combine a modifier with a keycode. When pressed, the keydown 
 
 You can also chain them, for example `LCTL(LALT(KC_DEL))` or `C(A(KC_DEL))` makes a key that sends Control+Alt+Delete with a single keypress.
 
-# Checking Modifier State :id=checking-modifier-state
+# Checking Modifier State {#checking-modifier-state}
 
 The current modifier state can mainly be accessed with two functions: `get_mods()` for normal modifiers and modtaps and `get_oneshot_mods()` for one-shot modifiers (unless they're held, in which case they act like normal modifier keys).
 
@@ -77,11 +77,11 @@ Similarly, in addition to `get_oneshot_mods()`, there also exists these function
 * `set_oneshot_mods(mods)`: Overwrite current one-shot modifier state with `mods`
 * `clear_oneshot_mods()`: Reset the one-shot modifier state by disabling all one-shot modifiers
 
-## Examples :id=examples
+## Examples {#examples}
 
 The following examples use [advanced macro functions](feature_macros.md#advanced-macro-functions) which you can read more about in the [documentation page on macros](feature_macros.md).
 
-### Alt + Escape for Alt + Tab :id=alt-escape-for-alt-tab
+### Alt + Escape for Alt + Tab {#alt-escape-for-alt-tab}
 
 Simple example where chording Left Alt with `KC_ESC` makes it behave like `KC_TAB` for alt-tabbing between applications. This example strictly checks if only Left Alt is active, meaning you can't do Alt+Shift+Esc to switch between applications in reverse order. Also keep in mind that this removes the ability to trigger the actual Alt+Escape keyboard shortcut, though it keeps the ability to do AltGr+Escape.
 
@@ -110,7 +110,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 ```
 
-### Shift + Backspace for Delete :id=shift-backspace-for-delete
+### Shift + Backspace for Delete {#shift-backspace-for-delete}
 
 Advanced example where the original behaviour of shift is cancelled when chorded with `KC_BSPC` and is instead fully replaced by `KC_DEL`. Two main variables are created to make this work well: `mod_state` and `delkey_registered`. The first one stores the modifier state and is used to restore it after registering `KC_DEL`. The second variable is a boolean variable (true or false) which keeps track of the status of `KC_DEL` to manage the release of the whole Backspace/Delete key correctly.
 
@@ -162,26 +162,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 ```
 Alternatively, this can be done with [Key Overrides](feature_key_overrides?id=simple-example).
 
-# Advanced topics :id=advanced-topics
+# Advanced topics {#advanced-topics}
 
 This page used to encompass a large set of features. We have moved many sections that used to be part of this page to their own pages. Everything below this point is simply a redirect so that people following old links on the web find what they're looking for.
 
-## Layers :id=switching-and-toggling-layers
+## Layers {#switching-and-toggling-layers}
 
 * [Layers](feature_layers.md)
 
-## Mod-Tap :id=mod-tap
+## Mod-Tap {#mod-tap}
 
 * [Mod-Tap](mod_tap.md)
 
-## One Shot Keys :id=one-shot-keys
+## One Shot Keys {#one-shot-keys}
 
 * [One Shot Keys](one_shot_keys.md)
 
-## Tap-Hold Configuration Options :id=tap-hold-configuration-options
+## Tap-Hold Configuration Options {#tap-hold-configuration-options}
 
 * [Tap-Hold Configuration Options](tap_hold.md)
 
-## Key Overrides :id=key-overrides
+## Key Overrides {#key-overrides}
 
 * [Key Overrides](feature_key_overrides.md)

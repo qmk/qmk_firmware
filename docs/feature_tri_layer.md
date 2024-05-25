@@ -1,4 +1,4 @@
-# Tri Layers :id=tri-layers
+# Tri Layers {#tri-layers}
 
 This enables support for the OLKB style "Tri Layer" keycodes.  These function similar to the `MO` (momentary) function key, but if both the "Lower" and "Upper" keys are pressed, it activates a third "Adjust" layer.  To enable this functionality, add this line to your `rules.mk`:
 
@@ -10,7 +10,7 @@ Note that the "upper", "lower" and "adjust" names don't have a particular signif
 
 For a detailed explanation of how the layer stack works, check out [Keymap Overview](keymap.md#keymap-and-layers).
 
-## Keycodes :id=keycodes
+## Keycodes {#keycodes}
 
 | Keycode              | Alias     | Description                                                                                             |
 |----------------------|-----------|---------------------------------------------------------------------------------------------------------|

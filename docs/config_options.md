@@ -6,11 +6,11 @@ There are three main types of configuration files in QMK:
 
 * `config.h`, which contains various preprocessor directives (`#define`, `#ifdef`)
 * `rules.mk`, which contains additional variables
-* `info.json`, which is utilized for [data-driven configuration](https://docs.qmk.fm/#/data_driven_config)
+* `info.json`, which is utilized for [data-driven configuration](data_driven_config.md)
 
 This page will only discuss the first two types, `config.h` and `rules.mk`.
 
-?> While not all settings have data-driven equivalents yet, keyboard makers are encouraged to utilize the `info.json` file to set the metadata for their boards when possible. See the [`info.json` Format](https://docs.qmk.fm/#/reference_info_json) page for more details.
+?> While not all settings have data-driven equivalents yet, keyboard makers are encouraged to utilize the `info.json` file to set the metadata for their boards when possible. See the [`info.json` Format](reference_info_json.md) page for more details.
 
 These files exist at various levels in QMK and all files of the same type are combined to build the final configuration. The levels, from lowest priority to highest priority, are:
 
@@ -404,7 +404,7 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
   * `bootloadhid`
   * `usbasploader`
 
-## Feature Options :id=feature-options
+## Feature Options {#feature-options}
 
 Use these to enable or disable building certain features. The more you have enabled the bigger your firmware will be, and you run the risk of building a firmware too large for your MCU.
 

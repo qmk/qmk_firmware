@@ -131,7 +131,7 @@ You can override the default songs by doing something like this in your `config.
 
 ```c
 #ifdef AUDIO_ENABLE
-#    define STARTUP_SONG SONG(STARTUP_SOUND)
+# define STARTUP_SONG SONG(STARTUP_SOUND)
 #endif
 ```
 
