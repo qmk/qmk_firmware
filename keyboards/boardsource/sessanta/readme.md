@@ -2,8 +2,6 @@
 
 A 60% keyboard offered in an MX or Choc PCB with per-key RGB
 
-![sessanta](imgur.com image replace me!)
-
 * Keyboard Maintainer: [waffle87](https://github.com/waffle87)
 * Hardware Supported: Sessanta PCB w/ Pro Micro compatible microcontroller
 * Hardware Availability: [boardsource.xyz](https://boardsource.xyz)
