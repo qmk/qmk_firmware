@@ -21,7 +21,7 @@ To understand how the Configurator understands keyboards, first one must underst
 |---------------|
 ```
 
-?> For more on layout macros, see [Understanding QMK: Matrix Scanning](understanding_qmk.md?id=matrix-scanning) and [Understanding QMK: Matrix to Physical Layout Map](understanding_qmk.md?id=matrix-to-physical-layout-map).
+?> For more on layout macros, see [Understanding QMK: Matrix Scanning](understanding_qmk.md#matrix-scanning) and [Understanding QMK: Matrix to Physical Layout Map](understanding_qmk.md#matrix-to-physical-layout-map).
 
 The Configurator's API reads the keyboard's `.h` file from `qmk_firmware/keyboards/<keyboard>/<keyboard>.h`. For our numpad, this file would be `qmk_firmware/keyboards/numpad/numpad.h`:
 

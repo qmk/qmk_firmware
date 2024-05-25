@@ -56,10 +56,10 @@ This is a C header file that is one of the first things included, and will persi
   * the number of columns in your keyboard's matrix
 * `#define MATRIX_ROW_PINS { D0, D5, B5, B6 }`
   * pins of the rows, from top to bottom
-  * may be omitted by the keyboard designer if matrix reads are handled in an alternate manner. See [low-level matrix overrides](custom_quantum_functions.md?id=low-level-matrix-overrides) for more information.
+  * may be omitted by the keyboard designer if matrix reads are handled in an alternate manner. See [low-level matrix overrides](custom_quantum_functions.md#low-level-matrix-overrides) for more information.
 * `#define MATRIX_COL_PINS { F1, F0, B0, C7, F4, F5, F6, F7, D4, D6, B4, D7 }`
   * pins of the columns, from left to right
-  * may be omitted by the keyboard designer if matrix reads are handled in an alternate manner. See [low-level matrix overrides](custom_quantum_functions.md?id=low-level-matrix-overrides) for more information.
+  * may be omitted by the keyboard designer if matrix reads are handled in an alternate manner. See [low-level matrix overrides](custom_quantum_functions.md#low-level-matrix-overrides) for more information.
 * `#define MATRIX_IO_DELAY 30`
   * the delay in microseconds when between changing matrix pin state and reading values
 * `#define MATRIX_HAS_GHOST`
@@ -215,14 +215,14 @@ If you define these options you will enable the associated feature, which may in
 * `#define WS2812_DI_PIN D7`
   * pin the DI on the WS2812 is hooked-up to
 * `#define RGBLIGHT_LAYERS`
-  * Lets you define [lighting layers](feature_rgblight.md?id=lighting-layers) that can be toggled on or off. Great for showing the current keyboard layer or caps lock state.
+  * Lets you define [lighting layers](feature_rgblight.md#lighting-layers) that can be toggled on or off. Great for showing the current keyboard layer or caps lock state.
 * `#define RGBLIGHT_MAX_LAYERS`
-  * Defaults to 8. Can be expanded up to 32 if more [lighting layers](feature_rgblight.md?id=lighting-layers) are needed.
+  * Defaults to 8. Can be expanded up to 32 if more [lighting layers](feature_rgblight.md#lighting-layers) are needed.
   * Note: Increasing the maximum will increase the firmware size and slow sync on split keyboards.
 * `#define RGBLIGHT_LAYER_BLINK`
-  * Adds ability to [blink](feature_rgblight.md?id=lighting-layer-blink) a lighting layer for a specified number of milliseconds (e.g. to acknowledge an action).
+  * Adds ability to [blink](feature_rgblight.md#lighting-layer-blink) a lighting layer for a specified number of milliseconds (e.g. to acknowledge an action).
 * `#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF`
-  * If defined, then [lighting layers](feature_rgblight?id=overriding-rgb-lighting-onoff-status) will be shown even if RGB Light is off.
+  * If defined, then [lighting layers](feature_rgblight.md#overriding-rgb-lighting-onoff-status) will be shown even if RGB Light is off.
 * `#define RGBLIGHT_LED_COUNT 12`
   * number of LEDs
 * `#define RGBLIGHT_SPLIT`
@@ -294,7 +294,7 @@ There are a few different ways to set handedness for split keyboards (listed in 
 * `#define MATRIX_ROW_PINS_RIGHT { <row pins> }`
 * `#define MATRIX_COL_PINS_RIGHT { <col pins> }`
   * If you want to specify a different pinout for the right half than the left half, you can define `MATRIX_ROW_PINS_RIGHT`/`MATRIX_COL_PINS_RIGHT`. Currently, the size of `MATRIX_ROW_PINS` must be the same as `MATRIX_ROW_PINS_RIGHT` and likewise for the definition of columns.
-  * may be omitted by the keyboard designer if matrix reads are handled in an alternate manner. See [low-level matrix overrides](custom_quantum_functions.md?id=low-level-matrix-overrides) for more information.
+  * may be omitted by the keyboard designer if matrix reads are handled in an alternate manner. See [low-level matrix overrides](custom_quantum_functions.md#low-level-matrix-overrides) for more information.
 
 * `#define DIRECT_PINS_RIGHT { { F1, F0, B0, C7 }, { F4, F5, F6, F7 } }`
   * If you want to specify a different direct pinout for the right half than the left half, you can define `DIRECT_PINS_RIGHT`. Currently, the size of `DIRECT_PINS` must be the same as `DIRECT_PINS_RIGHT`.

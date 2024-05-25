@@ -122,9 +122,9 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
 - `<keyboard>.c`
     - empty `xxxx_xxxx_kb()`, `xxxx_xxxx_user()`, or other weak-defined default implemented functions removed
     - commented-out functions removed too
-    - `matrix_init_board()` etc. migrated to `keyboard_pre_init_kb()`, see: [keyboard_pre_init*](custom_quantum_functions.md?id=keyboard_pre_init_-function-documentation)
-    - prefer `CUSTOM_MATRIX = lite` if custom matrix used, allows for standard debounce, see [custom matrix 'lite'](custom_matrix.md?id=lite)
-    - prefer LED indicator [Configuration Options](feature_led_indicators.md?id=configuration-options) to custom `led_update_*()` implementations where possible
+    - `matrix_init_board()` etc. migrated to `keyboard_pre_init_kb()`, see: [keyboard_pre_init*](custom_quantum_functions.md#keyboard_pre_init_-function-documentation)
+    - prefer `CUSTOM_MATRIX = lite` if custom matrix used, allows for standard debounce, see [custom matrix 'lite'](custom_matrix.md#lite)
+    - prefer LED indicator [Configuration Options](feature_led_indicators.md#configuration-options) to custom `led_update_*()` implementations where possible
     - hardware that's enabled at the keyboard level and requires configuration such as OLED displays or encoders should have basic functionality implemented here
 - `<keyboard>.h`
     - `#include "quantum.h"` appears at the top
@@ -138,7 +138,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - bare minimum to be used as a "clean slate" for another user to develop their own user-specific keymap
     - what does pristine mean? no custom keycodes. no advanced features like tap dance or macros. basic mod taps and home row mods would be acceptable where their use is necessary
     - standard layouts preferred in these keymaps, if possible
-    - should use [encoder map feature](feature_encoders?id=encoder-map), rather than `encoder_update_user()`
+    - should use [encoder map feature](feature_encoders.md#encoder-map), rather than `encoder_update_user()`
     - default keymap should not enable VIA -- the VIA integration documentation requires a keymap called `via`
 - submitters can add an example (or bells-and-whistles) keymap showcasing capabilities in the same PR but it shouldn't be embedded in the 'default' keymap
 - submitters can also have a "manufacturer-matching" keymap that mirrors existing functionality of the commercial product, if porting an existing board
@@ -163,7 +163,7 @@ Also, specific to ChibiOS:
 - New board definitions must not be embedded in a keyboard PR
     - See [Core PRs](#core-pr) below for the procedure for adding a new board to QMK
 - if a board definition is unavoidable, `board.c` must have a standard `__early_init()` (as per normal ChibiOS board defs) and an empty `boardInit()`:
-    - see Arm/ChibiOS [early initialization](platformdev_chibios_earlyinit.md?id=board-init)
+    - see Arm/ChibiOS [early initialization](platformdev_chibios_earlyinit.md#board-init)
     - `__early_init()` should be replaced by either `early_hardware_init_pre()` or `early_hardware_init_post()` as appropriate
     - `boardInit()` should be migrated to `board_init()`
 

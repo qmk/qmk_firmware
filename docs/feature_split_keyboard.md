@@ -292,7 +292,7 @@ This enables transmitting the current ST7565 on/off status to the slave side of 
 
 This enables transmitting the pointing device status to the master side of the split keyboard. The purpose of this feature is to enable use pointing devices on the slave side. 
 
-!> There is additional required configuration for `SPLIT_POINTING_ENABLE` outlined in the [pointing device documentation](feature_pointing_device.md?id=split-keyboard-configuration).
+!> There is additional required configuration for `SPLIT_POINTING_ENABLE` outlined in the [pointing device documentation](feature_pointing_device.md#split-keyboard-configuration).
 
 ```c
 #define SPLIT_HAPTIC_ENABLE

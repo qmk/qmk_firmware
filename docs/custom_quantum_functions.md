@@ -204,7 +204,7 @@ Similar to `matrix_scan_*`, these are called as often as the MCU can handle. To 
 
 ### Example `void housekeeping_task_user(void)` implementation
 
-This example will show you how to use `void housekeeping_task_user(void)` to turn off [RGB Light](feature_rgblight.md). For RGB Matrix, the [builtin](feature_rgb_matrix?id=additional-configh-options) `RGB_MATRIX_TIMEOUT` should be used.
+This example will show you how to use `void housekeeping_task_user(void)` to turn off [RGB Light](feature_rgblight.md). For RGB Matrix, the [builtin](feature_rgb_matrix.md#additional-configh-options) `RGB_MATRIX_TIMEOUT` should be used.
 
 First, add the following lines to your keymap's `config.h`:
 

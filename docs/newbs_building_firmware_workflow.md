@@ -173,7 +173,7 @@ Files committed to GitHub in the previous step will automatically trigger the wo
 4. Successfully compiled firmware will be under the "**Artifacts**" section.
 5. If there are build errors, review the job log for details.
 
-Download and flash the firmware file into your keyboard using [QMK Toolbox](newbs_flashing?id=flashing-your-keyboard-with-qmk-toolbox).
+Download and flash the firmware file into your keyboard using [QMK Toolbox](newbs_flashing.md#flashing-your-keyboard-with-qmk-toolbox).
 
 
 ## Customising your keymap

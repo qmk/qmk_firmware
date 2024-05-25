@@ -790,7 +790,7 @@ The `qp_load_image_mem` function loads a QGF image from memory or flash.
 
 `qp_load_image_mem` returns a handle to the loaded image, which can then be used to draw to the screen using `qp_drawimage`, `qp_drawimage_recolor`, `qp_animate`, or `qp_animate_recolor`. If an image is no longer required, it can be unloaded by calling `qp_close_image` below.
 
-See the [CLI Commands](quantum_painter.md?id=quantum-painter-cli) for instructions on how to convert images to [QGF](quantum_painter_qgf.md).
+See the [CLI Commands](quantum_painter.md#quantum-painter-cli) for instructions on how to convert images to [QGF](quantum_painter_qgf.md).
 
 ?> The total number of images available to load at any one time is controlled by the configurable option `QUANTUM_PAINTER_NUM_IMAGES` in the table above. If more images are required, the number should be increased in `config.h`.
 
@@ -897,7 +897,7 @@ The `qp_load_font_mem` function loads a QFF font from memory or flash.
 
 `qp_load_font_mem` returns a handle to the loaded font, which can then be measured using `qp_textwidth`, or drawn to the screen using `qp_drawtext`, or `qp_drawtext_recolor`. If a font is no longer required, it can be unloaded by calling `qp_close_font` below.
 
-See the [CLI Commands](quantum_painter.md?id=quantum-painter-cli) for instructions on how to convert TTF fonts to [QFF](quantum_painter_qff.md).
+See the [CLI Commands](quantum_painter.md#quantum-painter-cli) for instructions on how to convert TTF fonts to [QFF](quantum_painter_qff.md).
 
 ?> The total number of fonts available to load at any one time is controlled by the configurable option `QUANTUM_PAINTER_NUM_FONTS` in the table above. If more fonts are required, the number should be increased in `config.h`.
 
