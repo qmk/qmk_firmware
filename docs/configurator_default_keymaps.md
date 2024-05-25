@@ -188,4 +188,4 @@ Note the call to `process_record_user()` at the end.
 
 ## Additional Reading {#additional-reading}
 
-For QMK Configurator to support your keyboard, your keyboard must be present in the `master` branch of the `qmk_firmware` repository. For instructions on this, please see [Supporting Your Keyboard in QMK Configurator](reference_configurator_support.md).
+For QMK Configurator to support your keyboard, your keyboard must be present in the `master` branch of the `qmk_firmware` repository. For instructions on this, please see [Supporting Your Keyboard in QMK Configurator](reference_configurator_support).

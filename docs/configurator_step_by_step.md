@@ -36,8 +36,8 @@ Keycode Entry is accomplished in one of 3 ways:
 
 ?> Hover your mouse over a key and a short blurb will tell you what that keycode does. For a more verbose description please see:
 
-* [Basic Keycode Reference](keycodes_basic.md)
-* [Advanced Keycode Reference](feature_advanced_keycodes.md)
+* [Basic Keycode Reference](keycodes_basic)
+* [Advanced Keycode Reference](feature_advanced_keycodes)
 
 !> If your selected layout doesn't match your physical build leave the unused keys blank. If you're not sure which key is in use, for example you have a one backspace key but `LAYOUT_all` has 2 keys, put the same keycode in both locations.
 
@@ -55,4 +55,4 @@ When the compilation is done, you will be able to press the green `Download Firm
 
 ## Next steps: Flashing Your Keyboard
 
-Please refer to [Flashing Firmware](newbs_flashing.md).
+Please refer to [Flashing Firmware](newbs_flashing).

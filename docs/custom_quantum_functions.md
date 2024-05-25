@@ -2,7 +2,7 @@
 
 For a lot of people a custom keyboard is about more than sending button presses to your computer. You want to be able to do things that are more complex than simple button presses and macros. QMK has hooks that allow you to inject code, override functionality, and otherwise customize how your keyboard behaves in different situations.
 
-This page does not assume any special knowledge about QMK, but reading [Understanding QMK](understanding_qmk.md) will help you understand what is going on at a more fundamental level.
+This page does not assume any special knowledge about QMK, but reading [Understanding QMK](understanding_qmk) will help you understand what is going on at a more fundamental level.
 
 ## A Word on Core vs Keyboards vs Keymap {#a-word-on-core-vs-keyboards-vs-keymap}
 
@@ -204,7 +204,7 @@ Similar to `matrix_scan_*`, these are called as often as the MCU can handle. To 
 
 ### Example `void housekeeping_task_user(void)` implementation
 
-This example will show you how to use `void housekeeping_task_user(void)` to turn off [RGB Light](feature_rgblight.md). For RGB Matrix, the [builtin](feature_rgb_matrix.md#additional-configh-options) `RGB_MATRIX_TIMEOUT` should be used.
+This example will show you how to use `void housekeeping_task_user(void)` to turn off [RGB Light](feature_rgblight). For RGB Matrix, the [builtin](feature_rgb_matrix#additional-configh-options) `RGB_MATRIX_TIMEOUT` should be used.
 
 First, add the following lines to your keymap's `config.h`:
 
@@ -414,7 +414,7 @@ This page used to encompass a large set of features. We have moved many sections
 
 ## Layer Change Code {#layer-change-code}
 
-[Layer change code](feature_layers.md#layer-change-code)
+[Layer change code](feature_layers#layer-change-code)
 
 ## Persistent Configuration (EEPROM) {#persistent-configuration-eeprom}
 

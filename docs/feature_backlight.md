@@ -1,6 +1,6 @@
 # Backlighting {#backlighting}
 
-Many keyboards support backlit keys by way of individual LEDs placed through or underneath the keyswitches. This feature is distinct from both the [RGB Underglow](feature_rgblight.md) and [RGB Matrix](feature_rgb_matrix.md) features as it usually allows for only a single colour per switch, though you can obviously install multiple different single coloured LEDs on a keyboard.
+Many keyboards support backlit keys by way of individual LEDs placed through or underneath the keyswitches. This feature is distinct from both the [RGB Underglow](feature_rgblight) and [RGB Matrix](feature_rgb_matrix) features as it usually allows for only a single colour per switch, though you can obviously install multiple different single coloured LEDs on a keyboard.
 
 QMK is able to control the brightness of these LEDs by switching them on and off rapidly in a certain ratio, a technique known as *Pulse Width Modulation*, or PWM. By altering the duty cycle of the PWM signal, it creates the illusion of dimming.
 
@@ -153,7 +153,7 @@ The following `#define`s apply only to the `timer` driver:
 |-----------------------|-------|----------------|
 |`BACKLIGHT_PWM_TIMER`  |`1`    |The timer to use|
 
-Note that the choice of timer may conflict with the [Audio](feature_audio.md) feature.
+Note that the choice of timer may conflict with the [Audio](feature_audio) feature.
 
 ## ChibiOS/ARM Configuration {#arm-configuration}
 

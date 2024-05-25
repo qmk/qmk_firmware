@@ -35,7 +35,7 @@ The presence of one or more specific modifiers in the current modifier state can
 Thus, to give an example, `01000010` would be the internal representation of LShift+RAlt.
 For more information on bitwise operators in C, click [here](https://en.wikipedia.org/wiki/Bitwise_operations_in_C) to open the Wikipedia page on the topic.
 
-In practice, this means that you can check whether a given modifier is active with `get_mods() & MOD_BIT(KC_<modifier>)` (see the [list of modifier keycodes](keycodes_basic.md#modifiers)) or with `get_mods() & MOD_MASK_<modifier>` if the difference between left and right hand modifiers is not important and you want to match both. Same thing can be done for one-shot modifiers if you replace `get_mods()` with `get_oneshot_mods()`.
+In practice, this means that you can check whether a given modifier is active with `get_mods() & MOD_BIT(KC_<modifier>)` (see the [list of modifier keycodes](keycodes_basic#modifiers)) or with `get_mods() & MOD_MASK_<modifier>` if the difference between left and right hand modifiers is not important and you want to match both. Same thing can be done for one-shot modifiers if you replace `get_mods()` with `get_oneshot_mods()`.
 
 To check that *only* a specific set of mods is active at a time, use a simple equality operator: `get_mods() == <mod mask>`.
 
@@ -79,7 +79,7 @@ Similarly, in addition to `get_oneshot_mods()`, there also exists these function
 
 ## Examples {#examples}
 
-The following examples use [advanced macro functions](feature_macros.md#advanced-macro-functions) which you can read more about in the [documentation page on macros](feature_macros.md).
+The following examples use [advanced macro functions](feature_macros#advanced-macro-functions) which you can read more about in the [documentation page on macros](feature_macros).
 
 ### Alt + Escape for Alt + Tab {#alt-escape-for-alt-tab}
 
@@ -160,7 +160,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 };
 ```
-Alternatively, this can be done with [Key Overrides](feature_key_overrides.md#simple-example).
+Alternatively, this can be done with [Key Overrides](feature_key_overrides#simple-example).
 
 # Advanced topics {#advanced-topics}
 
@@ -168,20 +168,20 @@ This page used to encompass a large set of features. We have moved many sections
 
 ## Layers {#switching-and-toggling-layers}
 
-* [Layers](feature_layers.md)
+* [Layers](feature_layers)
 
 ## Mod-Tap {#mod-tap}
 
-* [Mod-Tap](mod_tap.md)
+* [Mod-Tap](mod_tap)
 
 ## One Shot Keys {#one-shot-keys}
 
-* [One Shot Keys](one_shot_keys.md)
+* [One Shot Keys](one_shot_keys)
 
 ## Tap-Hold Configuration Options {#tap-hold-configuration-options}
 
-* [Tap-Hold Configuration Options](tap_hold.md)
+* [Tap-Hold Configuration Options](tap_hold)
 
 ## Key Overrides {#key-overrides}
 
-* [Key Overrides](feature_key_overrides.md)
+* [Key Overrides](feature_key_overrides)

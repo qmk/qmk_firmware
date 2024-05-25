@@ -6,7 +6,7 @@ In general, feature development is encouraged to support as many hardware config
 
 The most frequently-hit constraint is the amount of code that can be flashed onto an ATmega32U4 -- users almost always need to pick and choose included functionality due to the size constraints.
 
-!> [Squeezing AVR](squeezing_avr.md) has some steps that users can take in order to minimise the overall firmware size, which in some cases enables the ability for users to include other desired features.
+!> [Squeezing AVR](squeezing_avr) has some steps that users can take in order to minimise the overall firmware size, which in some cases enables the ability for users to include other desired features.
 
 ## Deprecation & Removal Policy
 

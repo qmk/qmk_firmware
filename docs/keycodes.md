@@ -1,12 +1,12 @@
 # Keycodes Overview
 
-When defining a [keymap](keymap.md) each key needs a valid key definition. This page documents the symbols that correspond to keycodes that are available to you in QMK.
+When defining a [keymap](keymap) each key needs a valid key definition. This page documents the symbols that correspond to keycodes that are available to you in QMK.
 
 This is a reference only. Each group of keys links to the page documenting their functionality in more detail.
 
 ## Basic Keycodes {#basic-keycodes}
 
-See also: [Basic Keycodes](keycodes_basic.md)
+See also: [Basic Keycodes](keycodes_basic)
 
 |Key                     |Aliases                        |Description                            |Windows      |macOS        |Linux<sup>1</sup>|
 |------------------------|-------------------------------|---------------------------------------|-------------|-------------|-----------------|
@@ -221,7 +221,7 @@ See also: [Basic Keycodes](keycodes_basic.md)
 
 ## Quantum Keycodes {#quantum-keycodes}
 
-See also: [Quantum Keycodes](quantum_keycodes.md#qmk-keycodes)
+See also: [Quantum Keycodes](quantum_keycodes#qmk-keycodes)
 
 |Key              |Aliases  |Description                                                                                                                                      |
 |-----------------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -233,7 +233,7 @@ See also: [Quantum Keycodes](quantum_keycodes.md#qmk-keycodes)
 
 ## Audio Keys {#audio-keys}
 
-See also: [Audio](feature_audio.md)
+See also: [Audio](feature_audio)
 
 |Key                      |Aliases  |Description                                |
 |-------------------------|---------|-------------------------------------------|
@@ -255,7 +255,7 @@ See also: [Audio](feature_audio.md)
 
 ## Auto Shift {#auto-shift}
 
-See also: [Auto Shift](feature_auto_shift.md)
+See also: [Auto Shift](feature_auto_shift)
 
 |Key                   |Aliases  |Description                                 |
 |----------------------|---------|--------------------------------------------|
@@ -268,7 +268,7 @@ See also: [Auto Shift](feature_auto_shift.md)
 
 ## Autocorrect {#autocorrect}
 
-See also: [Autocorrect](feature_autocorrect.md)
+See also: [Autocorrect](feature_autocorrect)
 
 |Key                    |Aliases  |Description                                   |
 |-----------------------|---------|----------------------------------------------|
@@ -278,7 +278,7 @@ See also: [Autocorrect](feature_autocorrect.md)
 
 ## Backlighting {#backlighting}
 
-See also: [Backlighting](feature_backlight.md)
+See also: [Backlighting](feature_backlight)
 
 | Key                             | Aliases   | Description                         |
 |---------------------------------|-----------|-------------------------------------|
@@ -292,7 +292,7 @@ See also: [Backlighting](feature_backlight.md)
 
 ## Bluetooth {#bluetooth}
 
-See also: [Bluetooth](feature_bluetooth.md)
+See also: [Bluetooth](feature_bluetooth)
 
 |Key                  |Aliases  |Description                                   |
 |---------------------|---------|----------------------------------------------|
@@ -302,7 +302,7 @@ See also: [Bluetooth](feature_bluetooth.md)
 
 ## Caps Word {#caps-word}
 
-See also: [Caps Word](feature_caps_word.md)
+See also: [Caps Word](feature_caps_word)
 
 |Key                  |Aliases  |Description                   |
 |---------------------|---------|------------------------------|
@@ -310,7 +310,7 @@ See also: [Caps Word](feature_caps_word.md)
 
 ## Dynamic Macros {#dynamic-macros}
 
-See also: [Dynamic Macros](feature_dynamic_macros.md)
+See also: [Dynamic Macros](feature_dynamic_macros)
 
 |Key                              |Aliases  |Description                                       |
 |---------------------------------|---------|--------------------------------------------------|
@@ -322,7 +322,7 @@ See also: [Dynamic Macros](feature_dynamic_macros.md)
 
 ## Grave Escape {#grave-escape}
 
-See also: [Grave Escape](feature_grave_esc.md)
+See also: [Grave Escape](feature_grave_esc)
 
 |Key              |Aliases  |Description                                                       |
 |-----------------|---------|------------------------------------------------------------------|
@@ -330,7 +330,7 @@ See also: [Grave Escape](feature_grave_esc.md)
 
 ## Joystick {#joystick}
 
-See also: [Joystick](feature_joystick.md)
+See also: [Joystick](feature_joystick)
 
 |Key                    |Aliases|Description|
 |-----------------------|-------|-----------|
@@ -369,7 +369,7 @@ See also: [Joystick](feature_joystick.md)
 
 ## Key Lock {#key-lock}
 
-See also: [Key Lock](feature_key_lock.md)
+See also: [Key Lock](feature_key_lock)
 
 |Key      |Description                                                   |
 |---------|--------------------------------------------------------------|
@@ -377,14 +377,14 @@ See also: [Key Lock](feature_key_lock.md)
 
 ## Layer Switching {#layer-switching}
 
-See also: [Layer Switching](feature_layers.md#switching-and-toggling-layers)
+See also: [Layer Switching](feature_layers#switching-and-toggling-layers)
 
 |Key             |Description                                                                       |
 |----------------|----------------------------------------------------------------------------------|
 |`DF(layer)`     |Set the base (default) layer                                                      |
 |`MO(layer)`     |Momentarily turn on `layer` when pressed (requires `KC_TRNS` on destination layer)|
-|`OSL(layer)`    |Momentarily activates `layer` until a key is pressed. See [One Shot Keys](one_shot_keys.md) for details. |
-|`LM(layer, mod)`|Momentarily turn on `layer` (like MO) with `mod` active as well.  Where `mod` is a mods_bit.  Mods can be viewed [here](mod_tap.md).  Example Implementation: `LM(LAYER_1, MOD_LALT)`|
+|`OSL(layer)`    |Momentarily activates `layer` until a key is pressed. See [One Shot Keys](one_shot_keys) for details. |
+|`LM(layer, mod)`|Momentarily turn on `layer` (like MO) with `mod` active as well.  Where `mod` is a mods_bit.  Mods can be viewed [here](mod_tap).  Example Implementation: `LM(LAYER_1, MOD_LALT)`|
 |`LT(layer, kc)` |Turn on `layer` when held, `kc` when tapped                                       |
 |`TG(layer)`     |Toggle `layer` on or off                                                          |
 |`TO(layer)`     |Turns on `layer` and turns off all other layers, except the default layer |
@@ -392,7 +392,7 @@ See also: [Layer Switching](feature_layers.md#switching-and-toggling-layers)
 
 ## Leader Key {#leader-key}
 
-See also: [Leader Key](feature_leader_key.md)
+See also: [Leader Key](feature_leader_key)
 
 |Key      |Description             |
 |---------|------------------------|
@@ -400,7 +400,7 @@ See also: [Leader Key](feature_leader_key.md)
 
 ## LED Matrix {#led-matrix}
 
-See also: [LED Matrix](feature_led_matrix.md)
+See also: [LED Matrix](feature_led_matrix)
 
 |Key                            |Aliases  |Description                        |
 |-------------------------------|---------|-----------------------------------|
@@ -416,7 +416,7 @@ See also: [LED Matrix](feature_led_matrix.md)
 
 ## Magic Keycodes {#magic-keycodes}
 
-See also: [Magic Keycodes](keycodes_magic.md)
+See also: [Magic Keycodes](keycodes_magic)
 
 |Key                                  |Aliases  |Description                                                               |
 |-------------------------------------|---------|--------------------------------------------------------------------------|
@@ -458,7 +458,7 @@ See also: [Magic Keycodes](keycodes_magic.md)
 
 ## MIDI {#midi}
 
-See also: [MIDI](feature_midi.md)
+See also: [MIDI](feature_midi)
 
 |Key                            |Aliases           |Description                      |
 |-------------------------------|------------------|---------------------------------|
@@ -609,7 +609,7 @@ See also: [MIDI](feature_midi.md)
 
 ## Mouse Keys {#mouse-keys}
 
-See also: [Mouse Keys](feature_mouse_keys.md)
+See also: [Mouse Keys](feature_mouse_keys)
 
 |Key             |Aliases  |Description                |
 |----------------|---------|---------------------------|
@@ -632,7 +632,7 @@ See also: [Mouse Keys](feature_mouse_keys.md)
 
 ## Modifiers {#modifiers}
 
-See also: [Modifier Keys](feature_advanced_keycodes.md#modifier-keys)
+See also: [Modifier Keys](feature_advanced_keycodes#modifier-keys)
 
 |Key       |Aliases                           |Description                                           |
 |----------|----------------------------------|------------------------------------------------------|
@@ -660,7 +660,7 @@ See also: [Modifier Keys](feature_advanced_keycodes.md#modifier-keys)
 
 ## Mod-Tap Keys {#mod-tap-keys}
 
-See also: [Mod-Tap](mod_tap.md)
+See also: [Mod-Tap](mod_tap)
 
 |Key          |Aliases                                                          |Description                                                   |
 |-------------|-----------------------------------------------------------------|--------------------------------------------------------------|
@@ -689,7 +689,7 @@ See also: [Mod-Tap](mod_tap.md)
 
 ## Tapping Term Keys {#tapping-term-keys}
 
-See also: [Dynamic Tapping Term](tap_hold.md#dynamic-tapping-term)
+See also: [Dynamic Tapping Term](tap_hold#dynamic-tapping-term)
 
 | Key                           | Aliases | Description                                                                               |
 |-------------------------------|---------|-------------------------------------------------------------------------------------------|
@@ -699,7 +699,7 @@ See also: [Dynamic Tapping Term](tap_hold.md#dynamic-tapping-term)
 
 ## RGB Lighting {#rgb-lighting}
 
-See also: [RGB Lighting](feature_rgblight.md)
+See also: [RGB Lighting](feature_rgblight)
 
 |Key                |Aliases   |Description                                                         |
 |-------------------|----------|--------------------------------------------------------------------|
@@ -724,7 +724,7 @@ See also: [RGB Lighting](feature_rgblight.md)
 
 ## RGB Matrix Lighting {#rgb-matrix-lighting}
 
-See also: [RGB Matrix Lighting](feature_rgb_matrix.md)
+See also: [RGB Matrix Lighting](feature_rgb_matrix)
 
 |Key                |Aliases   |Description                                                                           |
 |-------------------|----------|--------------------------------------------------------------------------------------|
@@ -742,7 +742,7 @@ See also: [RGB Matrix Lighting](feature_rgb_matrix.md)
 
 ## US ANSI Shifted Symbols {#us-ansi-shifted-symbols}
 
-See also: [US ANSI Shifted Symbols](keycodes_us_ansi_shifted.md)
+See also: [US ANSI Shifted Symbols](keycodes_us_ansi_shifted)
 
 |Key                     |Aliases            |Description|
 |------------------------|-------------------|-----------|
@@ -770,7 +770,7 @@ See also: [US ANSI Shifted Symbols](keycodes_us_ansi_shifted.md)
 
 ## One Shot Keys {#one-shot-keys}
 
-See also: [One Shot Keys](one_shot_keys.md)
+See also: [One Shot Keys](one_shot_keys)
 
 |Key                 |Aliases  |Description                       |
 |--------------------|---------|----------------------------------|
@@ -782,7 +782,7 @@ See also: [One Shot Keys](one_shot_keys.md)
 
 ## Programmable Button Support {#programmable-button}
 
-See also: [Programmable Button](feature_programmable_button.md)
+See also: [Programmable Button](feature_programmable_button)
 
 |Key                        |Aliases|Description           |
 |---------------------------|-------|----------------------|
@@ -821,7 +821,7 @@ See also: [Programmable Button](feature_programmable_button.md)
 
 ## Repeat Key {#repeat-key}
 
-See also: [Repeat Key](feature_repeat_key.md)
+See also: [Repeat Key](feature_repeat_key)
 
 |Keycode                |Aliases  |Description                          |
 |-----------------------|---------|-------------------------------------|
@@ -830,7 +830,7 @@ See also: [Repeat Key](feature_repeat_key.md)
 
 ## Space Cadet {#space-cadet}
 
-See also: [Space Cadet](feature_space_cadet.md)
+See also: [Space Cadet](feature_space_cadet)
 
 |Key                                           |Aliases  |Description                             |
 |----------------------------------------------|---------|----------------------------------------|
@@ -844,7 +844,7 @@ See also: [Space Cadet](feature_space_cadet.md)
 
 ## Swap Hands {#swap-hands}
 
-See also: [Swap Hands](feature_swap_hands.md)
+See also: [Swap Hands](feature_swap_hands)
 
 |Key                          |Aliases  |Description                                         |
 |-----------------------------|---------|----------------------------------------------------|
@@ -859,7 +859,7 @@ See also: [Swap Hands](feature_swap_hands.md)
 
 ## Unicode Support {#unicode-support}
 
-See also: [Unicode Support](feature_unicode.md)
+See also: [Unicode Support](feature_unicode)
 
 |Key                         |Aliases  |Description                                                     |
 |----------------------------|---------|----------------------------------------------------------------|

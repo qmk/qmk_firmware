@@ -22,7 +22,7 @@ In this mode, Plover expects to speak with a steno machine over a serial port so
 
 > Note: Due to hardware limitations, you might not be able to run both a virtual serial port and mouse emulation at the same time.
 
-!> Serial stenography protocols are not supported on [V-USB keyboards](compatible_microcontrollers.md#atmel-avr).
+!> Serial stenography protocols are not supported on [V-USB keyboards](compatible_microcontrollers#atmel-avr).
 
 To enable stenography protocols, add the following lines to your `rules.mk`:
 ```make
@@ -90,7 +90,7 @@ STENO_ENABLE = yes
 STENO_PROTOCOL = all
 ```
 
-If you want to switch protocols programatically, as part of a custom macro for example, don't use `tap_code(QK_STENO_*)`, as `tap_code` only supports [basic keycodes](keycodes_basic.md). Instead, you should use `steno_set_mode(STENO_MODE_*)`, whose valid arguments are `STENO_MODE_BOLT` and `STENO_MODE_GEMINI`.
+If you want to switch protocols programatically, as part of a custom macro for example, don't use `tap_code(QK_STENO_*)`, as `tap_code` only supports [basic keycodes](keycodes_basic). Instead, you should use `steno_set_mode(STENO_MODE_*)`, whose valid arguments are `STENO_MODE_BOLT` and `STENO_MODE_GEMINI`.
 
 The default protocol is Gemini PR but the last protocol used is stored in non-volatile memory so QMK will remember your choice between reboots of your keyboard &mdash; assuming that your keyboard features (emulated) EEPROM.
 

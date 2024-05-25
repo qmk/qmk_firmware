@@ -41,7 +41,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 ```
 
 ### `update_tri_layer_state(state, x, y, z)`
-The other function is `update_tri_layer_state(state, x, y, z)`.  This function is meant to be called from the [`layer_state_set_*` functions](custom_quantum_functions.md#layer-change-code).  This means that any time that you use a keycode to change the layer, this will be checked.  So you could use `LT(layer, kc)` to change the layer and it will trigger the same layer check.
+The other function is `update_tri_layer_state(state, x, y, z)`.  This function is meant to be called from the [`layer_state_set_*` functions](custom_quantum_functions#layer-change-code).  This means that any time that you use a keycode to change the layer, this will be checked.  So you could use `LT(layer, kc)` to change the layer and it will trigger the same layer check.
 
 There are a couple of caveats to this method:
 1. You cannot access the `z` layer without having `x` and `y` layers on, since if you try to activate just layer `z`, it will run this code and turn off layer `z` before you could use it.
@@ -71,7 +71,7 @@ Do you want to set the default layer, so that it's retained even after you unplu
 
 To use this, you would use `set_single_persistent_default_layer(layer)`.  If you have a name defined for your layer, you can use that instead (such as _QWERTY, _DVORAK or _COLEMAK).
 
-This will set the default layer, update the persistent settings, and play a tune if you have [Audio](feature_audio.md) enabled on your board, and the default layer sounds set.
+This will set the default layer, update the persistent settings, and play a tune if you have [Audio](feature_audio) enabled on your board, and the default layer sounds set.
 
 To configure the default layer sounds, you would want to define this in your `config.h` file, like this:
 
@@ -97,7 +97,7 @@ To reset to the bootloader use `QK_BOOTLOADER` or `QK_BOOT` keycode or `reset_ke
 
 ## Wiping the EEPROM (Persistent Storage)
 
-If you're having issues with Audio, RGB Underglow, backlighting or keys acting weird, then you can reset the EEPROM (persistent setting storage). To force an EEPROM reset, use the [`EE_CLR` keycode](quantum_keycodes.md) or [Bootmagic Lite](feature_bootmagic.md) functionality. If neither of those are an option, then you can use a custom macro to do so.
+If you're having issues with Audio, RGB Underglow, backlighting or keys acting weird, then you can reset the EEPROM (persistent setting storage). To force an EEPROM reset, use the [`EE_CLR` keycode](quantum_keycodes) or [Bootmagic Lite](feature_bootmagic) functionality. If neither of those are an option, then you can use a custom macro to do so.
 
 To wipe the EEPROM, run `eeconfig_init()` from your function or macro to reset most of the settings to default.
 

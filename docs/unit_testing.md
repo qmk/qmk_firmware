@@ -44,7 +44,7 @@ Note that the tests are always compiled with the native compiler of your platfor
 
 If there are problems with the tests, you can find the executable in the `./build/test` folder. You should be able to run those with GDB or a similar debugger.
 
-To forward any [debug messages](unit_testing.md#debug-api) to `stderr`, the tests can run with `DEBUG=1`. For example
+To forward any [debug messages](unit_testing#debug-api) to `stderr`, the tests can run with `DEBUG=1`. For example
 
 ```
 make test:all DEBUG=1

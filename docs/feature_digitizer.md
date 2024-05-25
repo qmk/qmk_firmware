@@ -1,6 +1,6 @@
 # Digitizer {#digitizer}
 
-Digitizers allow the mouse cursor to be placed at absolute coordinates, unlike the [Pointing Device](feature_pointing_device.md) feature which applies relative displacements.
+Digitizers allow the mouse cursor to be placed at absolute coordinates, unlike the [Pointing Device](feature_pointing_device) feature which applies relative displacements.
 
 This feature implements a stylus device with a tip switch and barrel switch (generally equivalent to the primary and secondary mouse buttons respectively). Tip pressure is not currently implemented.
 

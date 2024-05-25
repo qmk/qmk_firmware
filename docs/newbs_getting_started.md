@@ -6,12 +6,12 @@ Before you can build keymaps, you need to install some software and set up your 
 
 There are a few pieces of software you'll need to get started.
 
-* [Text editor](newbs_learn_more_resources.md#text-editor-resources)
+* [Text editor](newbs_learn_more_resources#text-editor-resources)
   * You’ll need a program that can edit and save plain text files. The default editor that comes with many OS's does not save plain text files, so you'll need to make sure that whatever editor you chose does.
 * [Toolbox (optional)](https://github.com/qmk/qmk_toolbox)
   * A graphical program for Windows and macOS that allows you to both program and debug your custom keyboard
 
-?> If you haven't worked with the Linux/Unix command line before, there are a few basic concepts and commands you should learn. [These resources](newbs_learn_more_resources.md#command-line-resources) will teach you enough to be able to work with QMK.
+?> If you haven't worked with the Linux/Unix command line before, there are a few basic concepts and commands you should learn. [These resources](newbs_learn_more_resources#command-line-resources) will teach you enough to be able to work with QMK.
 
 ## 2. Prepare Your Build Environment {#set-up-your-environment}
 
@@ -154,9 +154,9 @@ In most situations you will want to answer `y` to all of the prompts.
 
 <!-- tabs:end -->
 
-?> The qmk home folder can be specified at setup with `qmk setup -H <path>`, and modified afterwards using the [cli configuration](cli_configuration.md#single-key-example) and the variable `user.qmk_home`. For all available options run `qmk setup --help`.
+?> The qmk home folder can be specified at setup with `qmk setup -H <path>`, and modified afterwards using the [cli configuration](cli_configuration#single-key-example) and the variable `user.qmk_home`. For all available options run `qmk setup --help`.
 
-?> If you already know how to use GitHub, [we recommend that you follow these instructions](getting_started_github.md) and use `qmk setup <github_username>/qmk_firmware` to clone your personal fork. If you don't know what that means you can safely ignore this message.
+?> If you already know how to use GitHub, [we recommend that you follow these instructions](getting_started_github) and use `qmk setup <github_username>/qmk_firmware` to clone your personal fork. If you don't know what that means you can safely ignore this message.
 
 ## 4. Test Your Build Environment
 
@@ -182,4 +182,4 @@ Checking file size of clueboard_66_rev3_default.hex                             
 
 # Creating Your Keymap
 
-You are now ready to create your own personal keymap! Move on to [Building Your First Firmware](newbs_building_firmware.md) for that.
+You are now ready to create your own personal keymap! Move on to [Building Your First Firmware](newbs_building_firmware) for that.

@@ -4,7 +4,7 @@ The Send String API is part of QMK's macro system. It allows for sequences of ke
 
 The full ASCII character set is supported, along with all of the keycodes in the Basic Keycode range (as these are the only ones that will actually be sent to the host).
 
-?> Unicode characters are **not** supported with this API -- see the [Unicode](feature_unicode.md) feature instead.
+?> Unicode characters are **not** supported with this API -- see the [Unicode](feature_unicode) feature instead.
 
 ## Usage {#usage}
 
@@ -20,12 +20,12 @@ Add the following to your `config.h`:
 
 |Define           |Default         |Description                                                                                                 |
 |-----------------|----------------|------------------------------------------------------------------------------------------------------------|
-|`SENDSTRING_BELL`|*Not defined*   |If the [Audio](feature_audio.md) feature is enabled, the `\a` character (ASCII `BEL`) will beep the speaker.|
+|`SENDSTRING_BELL`|*Not defined*   |If the [Audio](feature_audio) feature is enabled, the `\a` character (ASCII `BEL`) will beep the speaker.|
 |`BELL_SOUND`     |`TERMINAL_SOUND`|The song to play when the `\a` character is encountered. By default, this is an eighth note of C5.          |
 
 ## Keycodes {#keycodes}
 
-The Send String functions accept C string literals, but specific keycodes can be injected with the below macros. All of the keycodes in the [Basic Keycode range](keycodes_basic.md) are supported (as these are the only ones that will actually be sent to the host), but with an `X_` prefix instead of `KC_`.
+The Send String functions accept C string literals, but specific keycodes can be injected with the below macros. All of the keycodes in the [Basic Keycode range](keycodes_basic) are supported (as these are the only ones that will actually be sent to the host), but with an `X_` prefix instead of `KC_`.
 
 |Macro         |Description                                                        |
 |--------------|-------------------------------------------------------------------|
@@ -46,7 +46,7 @@ The following characters are also mapped to their respective keycodes for conven
 
 ### Language Support {#language-support}
 
-By default, Send String assumes your OS keyboard layout is set to US ANSI. If you are using a different keyboard layout, you can [override the lookup tables used to convert ASCII characters to keystrokes](reference_keymap_extras.md#sendstring-support).
+By default, Send String assumes your OS keyboard layout is set to US ANSI. If you are using a different keyboard layout, you can [override the lookup tables used to convert ASCII characters to keystrokes](reference_keymap_extras#sendstring-support).
 
 ## Examples {#examples}
 

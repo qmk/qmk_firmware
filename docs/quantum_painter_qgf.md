@@ -125,7 +125,7 @@ Frame flags is a bitmask with the following format:
 Compression scheme possible values:
 
 * `0x00`: No compression
-* `0x01`: [QMK RLE](quantum_painter_rle.md)
+* `0x01`: [QMK RLE](quantum_painter_rle)
 
 ## Frame palette block {#qgf-frame-palette-descriptor}
 

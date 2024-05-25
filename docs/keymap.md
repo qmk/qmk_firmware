@@ -185,7 +185,7 @@ Some interesting things to note:
 
 This should have given you a basic overview for creating your own keymap. For more details see the following resources:
 
-* [Keycodes](keycodes.md)
-* [Keymap FAQ](faq_keymap.md)
+* [Keycodes](keycodes)
+* [Keymap FAQ](faq_keymap)
 
 We are actively working to improve these docs. If you have suggestions for how they could be made better please [file an issue](https://github.com/qmk/qmk_firmware/issues/new)!

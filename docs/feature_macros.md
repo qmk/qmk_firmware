@@ -6,7 +6,7 @@ Macros allow you to send multiple keystrokes when pressing just one key. QMK has
 
 ## Using Macros In JSON Keymaps
 
-You can define up to 32 macros in a `keymap.json` file, as used by [Configurator](newbs_building_firmware_configurator.md), and `qmk compile`. You can define these macros in a list under the `macros` keyword, like this:
+You can define up to 32 macros in a `keymap.json` file, as used by [Configurator](newbs_building_firmware_configurator), and `qmk compile`. You can define these macros in a list under the `macros` keyword, like this:
 
 ```json
 {
@@ -84,7 +84,7 @@ All objects have one required key: `action`. This tells QMK what the object does
 Only basic keycodes (prefixed by `KC_`) are supported. Do not include the `KC_` prefix when listing keycodes.
 
 * `beep`
-    * Play a bell if the keyboard has [audio enabled](feature_audio.md).
+    * Play a bell if the keyboard has [audio enabled](feature_audio).
     * Example: `{"action": "beep"}`
 * `delay`
     * Pause macro playback. Duration is specified in milliseconds (ms).
@@ -106,7 +106,7 @@ Only basic keycodes (prefixed by `KC_`) are supported. Do not include the `KC_` 
 
 ### `SEND_STRING()` & `process_record_user`
 
-See also: [Send String](feature_send_string.md)
+See also: [Send String](feature_send_string)
 
 Sometimes you want a key to type out words or phrases. For the most common situations, we've provided `SEND_STRING()`, which will type out a string (i.e. a sequence of characters) for you. All ASCII characters that are easily translatable to a keycode are supported (e.g. `qmk 123\n\t`).
 
@@ -146,7 +146,7 @@ If yes, we send the string `"QMK is the best thing ever!"` to the computer via t
 We return `true` to indicate to the caller that the key press we just processed should continue to be processed as normal (as we didn't replace or alter the functionality).
 Finally, we define the keymap so that the first button activates our macro and the second button is just an escape button.
 
-?>It is recommended to use the SAFE_RANGE macro as per [Customizing Functionality](custom_quantum_functions.md).
+?>It is recommended to use the SAFE_RANGE macro as per [Customizing Functionality](custom_quantum_functions).
 
 You might want to add more than one macro.
 You can do that by adding another keycode and adding another case to the switch statement, like so:
@@ -315,7 +315,7 @@ SEND_STRING(".."SS_TAP(X_END));
 
 There are some functions you may find useful in macro-writing. Keep in mind that while you can write some fairly advanced code within a macro, if your functionality gets too complex you may want to define a custom keycode instead. Macros are meant to be simple.
 
-?> You can also use the functions described in [Useful function](ref_functions.md) and [Checking modifier state](feature_advanced_keycodes.md#checking-modifier-state) for additional functionality. For example, `reset_keyboard()` allows you to reset the keyboard as part of a macro and `get_mods() & MOD_MASK_SHIFT` lets you check for the existence of active shift modifiers.
+?> You can also use the functions described in [Useful function](ref_functions) and [Checking modifier state](feature_advanced_keycodes#checking-modifier-state) for additional functionality. For example, `reset_keyboard()` allows you to reset the keyboard as part of a macro and `get_mods() & MOD_MASK_SHIFT` lets you check for the existence of active shift modifiers.
 
 #### `record->event.pressed`
 

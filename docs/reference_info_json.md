@@ -1,6 +1,6 @@
 # `info.json` Reference {#info-json-reference}
 
-The information contained in `info.json` is combined with the `config.h` and `rules.mk` files, dynamically generating the necessary configuration for your keyboard at compile time. It is also used by the [QMK API](https://github.com/qmk/qmk_api), and contains the information [QMK Configurator](https://config.qmk.fm/) needs to display a representation of your keyboard. Its key/value pairs are ruled by the [`data/schemas/keyboard.jsonschema`](https://github.com/qmk/qmk_firmware/blob/master/data/schemas/keyboard.jsonschema) file. To learn more about the why and how of the schema file see the [Data Driven Configuration](data_driven_config.md) page.
+The information contained in `info.json` is combined with the `config.h` and `rules.mk` files, dynamically generating the necessary configuration for your keyboard at compile time. It is also used by the [QMK API](https://github.com/qmk/qmk_api), and contains the information [QMK Configurator](https://config.qmk.fm/) needs to display a representation of your keyboard. Its key/value pairs are ruled by the [`data/schemas/keyboard.jsonschema`](https://github.com/qmk/qmk_firmware/blob/master/data/schemas/keyboard.jsonschema) file. To learn more about the why and how of the schema file see the [Data Driven Configuration](data_driven_config) page.
 
 You can create `info.json` files at every level under `qmk_firmware/keyboards/<keyboard_name>`. These files are combined, with more specific files overriding keys in less specific files. This means you do not need to duplicate your metadata information. For example, `qmk_firmware/keyboards/clueboard/info.json` specifies information common to all Clueboard products, such as `manufacturer` and `maintainer`, while `qmk_firmware/keyboards/clueboard/66/info.json` contains more specific information about Clueboard 66%.
 
@@ -95,7 +95,7 @@ You can create `info.json` files at every level under `qmk_firmware/keyboards/<k
 
 ## APA102 {#apa102}
 
-Configures the [APA102](apa102_driver.md) driver.
+Configures the [APA102](apa102_driver) driver.
 
 * `apa102`
     * `clock_pin` (Required)
@@ -108,7 +108,7 @@ Configures the [APA102](apa102_driver.md) driver.
 
 ## Audio {#audio}
 
-Configures the [Audio](feature_audio.md) feature.
+Configures the [Audio](feature_audio) feature.
 
 * `audio`
     * `default`
@@ -138,7 +138,7 @@ Configures the [Audio](feature_audio.md) feature.
 
 ## Backlight {#backlight}
 
-Configures the [Backlight](feature_backlight.md) feature.
+Configures the [Backlight](feature_backlight) feature.
 
 * `backlight`
     * `as_caps_lock`
@@ -179,7 +179,7 @@ Configures the [Backlight](feature_backlight.md) feature.
 
 ## Bluetooth {#bluetooth}
 
-Configures the [Bluetooth](feature_bluetooth.md) feature.
+Configures the [Bluetooth](feature_bluetooth) feature.
 
 * `bluetooth`
     * `driver`
@@ -187,7 +187,7 @@ Configures the [Bluetooth](feature_bluetooth.md) feature.
 
 ## Bootmagic {#bootmagic}
 
-Configures the [Bootmagic](feature_bootmagic.md) feature.
+Configures the [Bootmagic](feature_bootmagic) feature.
 
 * `bootmagic`
     * `enabled`
@@ -199,7 +199,7 @@ Configures the [Bootmagic](feature_bootmagic.md) feature.
 
 ## Caps Word {#caps-word}
 
-Configures the [Caps Word](feature_caps_word.md) feature.
+Configures the [Caps Word](feature_caps_word) feature.
 
 * `caps_word`
     * `both_shifts_turns_on`
@@ -220,7 +220,7 @@ Configures the [Caps Word](feature_caps_word.md) feature.
 
 ## Combo {#combo}
 
-Configures the [Combo](feature_combo.md) feature.
+Configures the [Combo](feature_combo) feature.
 
 * `combo`
     * `term`
@@ -229,7 +229,7 @@ Configures the [Combo](feature_combo.md) feature.
 
 ## DIP Switches {#dip-switch}
 
-Configures the [DIP Switches](feature_dip_switch.md) feature.
+Configures the [DIP Switches](feature_dip_switch) feature.
 
 * `dip_switch`
     * `enabled`
@@ -243,7 +243,7 @@ Configures the [DIP Switches](feature_dip_switch.md) feature.
 
 ## EEPROM {#eeprom}
 
-Configures the [EEPROM](eeprom_driver.md) driver.
+Configures the [EEPROM](eeprom_driver) driver.
 
 * `eeprom`
     * `driver`
@@ -259,7 +259,7 @@ Configures the [EEPROM](eeprom_driver.md) driver.
 
 ## Encoder {#encoder}
 
-Configures the [Encoder](feature_encoders.md) feature.
+Configures the [Encoder](feature_encoders) feature.
 
 * `encoder`
     * `rotary`
@@ -274,7 +274,7 @@ Configures the [Encoder](feature_encoders.md) feature.
 
 ## Indicators {#indicators}
 
-Configures the [LED Indicators](feature_led_indicators.md) feature.
+Configures the [LED Indicators](feature_led_indicators) feature.
 
 * `indicators`
     * `caps_lock`
@@ -346,7 +346,7 @@ The ISO enter key is represented by a 1.25u×2uh key. Renderers which utilize in
 
 ## Leader Key {#leader-key}
 
-Configures the [Leader Key](feature_leader_key.md) feature.
+Configures the [Leader Key](feature_leader_key) feature.
 
 * `leader_key`
     * `timing`
@@ -361,7 +361,7 @@ Configures the [Leader Key](feature_leader_key.md) feature.
 
 ## LED Matrix {#led-matrix}
 
-Configures the [LED Matrix](feature_led_matrix.md) feature.
+Configures the [LED Matrix](feature_led_matrix) feature.
 
 * `led_matrix`
     * `animations`
@@ -474,7 +474,7 @@ Configures the [LED Matrix](feature_led_matrix.md) feature.
 
 ## Mouse Keys {#mouse-keys}
 
-Configures the [Mouse Keys](feature_mouse_keys.md) feature.
+Configures the [Mouse Keys](feature_mouse_keys) feature.
 
 * `mouse_key`
     * `delay`
@@ -488,7 +488,7 @@ Configures the [Mouse Keys](feature_mouse_keys.md) feature.
 
 ## One Shot {#one-shot}
 
-Configures [One Shot keys](one_shot_keys.md).
+Configures [One Shot keys](one_shot_keys).
 
 * `oneshot`
     * `tap_toggle`
@@ -498,7 +498,7 @@ Configures [One Shot keys](one_shot_keys.md).
 
 ## PS/2 {#ps2}
 
-Configures the [PS/2](feature_ps2_mouse.md) feature.
+Configures the [PS/2](feature_ps2_mouse) feature.
 
 * `ps2`
     * `clock_pin`
@@ -529,7 +529,7 @@ Configures the [PS/2](feature_ps2_mouse.md) feature.
 
 ## RGBLight {#rgblight}
 
-Configures the [RGB Lighting](feature_rgblight.md) feature.
+Configures the [RGB Lighting](feature_rgblight) feature.
 
 * `rgblight`
     * `led_count` (Required)
@@ -603,7 +603,7 @@ Configures the [RGB Lighting](feature_rgblight.md) feature.
 
 ## RGB Matrix {#rgb-matrix}
 
-Configures the [RGB Matrix](feature_rgb_matrix.md) feature.
+Configures the [RGB Matrix](feature_rgb_matrix) feature.
 
 * `rgb_matrix`
     * `animations`
@@ -688,7 +688,7 @@ Configures the [RGB Matrix](feature_rgb_matrix.md) feature.
 
 ## Secure {#secure}
 
-Configures the [Secure](feature_secure.md) feature.
+Configures the [Secure](feature_secure) feature.
 
 * `secure`
     * `enabled`
@@ -706,7 +706,7 @@ Configures the [Secure](feature_secure.md) feature.
 
 ## Split Keyboard {#split-keyboard}
 
-Configures the [Split Keyboard](feature_split_keyboard.md) feature.
+Configures the [Split Keyboard](feature_split_keyboard) feature.
 
 * `split`
     * `bootmagic`
@@ -745,7 +745,7 @@ Configures the [Split Keyboard](feature_split_keyboard.md) feature.
                 * Mirror the activity timestamps to the secondary half.
                 * Default: `false`
             * `detected_os`
-                * Mirror the [detected OS](feature_os_detection.md) to the secondary half.
+                * Mirror the [detected OS](feature_os_detection) to the secondary half.
                 * Default: `false`
             * `haptic`
                 * Mirror the haptic state and process haptic feedback to the secondary half.
@@ -788,7 +788,7 @@ Configures the [Split Keyboard](feature_split_keyboard.md) feature.
 
 ## Stenography {#stenography}
 
-Configures the [Stenography](feature_stenography.md) feature.
+Configures the [Stenography](feature_stenography) feature.
 
 * `stenography`
     * `enabled`
@@ -838,7 +838,7 @@ Configures the [Stenography](feature_stenography.md) feature.
 
 ## WS2812 {#ws2812}
 
-Configures the [WS2812](ws2812_driver.md) driver.
+Configures the [WS2812](ws2812_driver) driver.
 
 * `ws2812`
     * `driver`

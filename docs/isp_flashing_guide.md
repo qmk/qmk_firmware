@@ -157,7 +157,7 @@ To use a Teensy 2.0 as an ISP flashing tool, you will first need to load a [spec
 
 [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) supports flashing both the ISP firmware and bootloader, but note that it cannot (currently) set the AVR fuse bytes for the actual ISP flashing step, so you may want to work with `avrdude` directly instead.
 
-Setting up the [QMK environment](newbs.md) is highly recommended, as it automatically installs `avrdude` along with a host of other tools.
+Setting up the [QMK environment](newbs) is highly recommended, as it automatically installs `avrdude` along with a host of other tools.
 
 ## Bootloader Firmware
 

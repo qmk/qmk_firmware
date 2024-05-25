@@ -412,7 +412,7 @@ The `POINTING_DEVICE_CS_PIN`, `POINTING_DEVICE_SDIO_PIN`, and `POINTING_DEVICE_S
 
 ## Split Keyboard Configuration
 
-The following configuration options are only available when using `SPLIT_POINTING_ENABLE` see [data sync options](feature_split_keyboard.md#data-sync-options). The rotation and invert `*_RIGHT` options are only used with `POINTING_DEVICE_COMBINED`. If using `POINTING_DEVICE_LEFT` or `POINTING_DEVICE_RIGHT` use the common configuration above to configure your pointing device.
+The following configuration options are only available when using `SPLIT_POINTING_ENABLE` see [data sync options](feature_split_keyboard#data-sync-options). The rotation and invert `*_RIGHT` options are only used with `POINTING_DEVICE_COMBINED`. If using `POINTING_DEVICE_LEFT` or `POINTING_DEVICE_RIGHT` use the common configuration above to configure your pointing device.
 
 | Setting                              | Description                                                                                           | Default       |
 | ------------------------------------ | ----------------------------------------------------------------------------------------------------- | ------------- |
@@ -425,7 +425,7 @@ The following configuration options are only available when using `SPLIT_POINTIN
 | `POINTING_DEVICE_INVERT_X_RIGHT`     | (Optional) Inverts the X axis report.                                                                 | _not defined_ |
 | `POINTING_DEVICE_INVERT_Y_RIGHT`     | (Optional) Inverts the Y axis report.                                                                 | _not defined_ |
 
-!> If there is a `_RIGHT` configuration option or callback, the [common configuration](feature_pointing_device.md#common-configuration) option will work for the left. For correct left/right detection you should setup a [handedness option](feature_split_keyboard.md#setting-handedness), `EE_HANDS` is usually a good option for an existing board that doesn't do handedness by hardware.
+!> If there is a `_RIGHT` configuration option or callback, the [common configuration](feature_pointing_device#common-configuration) option will work for the left. For correct left/right detection you should setup a [handedness option](feature_split_keyboard#setting-handedness), `EE_HANDS` is usually a good option for an existing board that doesn't do handedness by hardware.
 
 
 ## Callbacks and Functions 
@@ -448,7 +448,7 @@ The following configuration options are only available when using `SPLIT_POINTIN
 
 ## Split Keyboard Callbacks and Functions
 
-The combined functions below are only available when using `SPLIT_POINTING_ENABLE` and `POINTING_DEVICE_COMBINED`. The 2 callbacks `pointing_device_task_combined_*` replace the single sided equivalents above. See the [combined pointing devices example](feature_pointing_device.md#combined-pointing-devices)
+The combined functions below are only available when using `SPLIT_POINTING_ENABLE` and `POINTING_DEVICE_COMBINED`. The 2 callbacks `pointing_device_task_combined_*` replace the single sided equivalents above. See the [combined pointing devices example](feature_pointing_device#combined-pointing-devices)
 
 | Function                                                        | Description                                                                                                              |
 | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
@@ -673,7 +673,7 @@ If you are having issues with pointing device drivers debug messages can be enab
 #define POINTING_DEVICE_DEBUG
 ```
  
-?> The messages will be printed out to the `CONSOLE` output. For additional information, refer to [Debugging/Troubleshooting QMK](faq_debug.md).
+?> The messages will be printed out to the `CONSOLE` output. For additional information, refer to [Debugging/Troubleshooting QMK](faq_debug).
 
 
 ---

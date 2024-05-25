@@ -40,7 +40,7 @@ Flashing example for this keyboard:
 
     make planck/rev4:default:flash
 
-See the [build environment setup](getting_started_build_tools) and the [make instructions](getting_started_make_guide.md) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](newbs.md).
+See the [build environment setup](getting_started_build_tools) and the [make instructions](getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](newbs).
 
 ## Bootloader
 

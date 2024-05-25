@@ -86,7 +86,7 @@ qmk compile -j 0 -kb <keyboard_name>
 
 ## `qmk flash`
 
-This command is similar to `qmk compile`, but can also target a bootloader. The bootloader is optional, and is set to `:flash` by default. To specify a different bootloader, use `-bl <bootloader>`. Visit the [Flashing Firmware](flashing.md) guide for more details of the available bootloaders.
+This command is similar to `qmk compile`, but can also target a bootloader. The bootloader is optional, and is set to `:flash` by default. To specify a different bootloader, use `-bl <bootloader>`. Visit the [Flashing Firmware](flashing) guide for more details of the available bootloaders.
 
 This command is directory aware. It will automatically fill in KEYBOARD and/or KEYMAP if you are in a keyboard or keymap directory.
 
@@ -127,7 +127,7 @@ qmk flash -b
 
 ## `qmk config`
 
-This command lets you configure the behavior of QMK. For the full `qmk config` documentation see [CLI Configuration](cli_configuration.md).
+This command lets you configure the behavior of QMK. For the full `qmk config` documentation see [CLI Configuration](cli_configuration).
 
 **Usage**:
 
@@ -726,7 +726,7 @@ qmk generate-docs
 
 ## `qmk generate-rgb-breathe-table`
 
-This command generates a lookup table (LUT) header file for the [RGB Lighting](feature_rgblight.md) feature's breathing animation. Place this file in your keyboard or keymap directory as `rgblight_breathe_table.h` to override the default LUT in `quantum/rgblight/`.
+This command generates a lookup table (LUT) header file for the [RGB Lighting](feature_rgblight) feature's breathing animation. Place this file in your keyboard or keymap directory as `rgblight_breathe_table.h` to override the default LUT in `quantum/rgblight/`.
 
 **Usage**:
 
@@ -793,15 +793,15 @@ Run single test:
 
 ## `qmk painter-convert-graphics`
 
-This command converts images to a format usable by QMK, i.e. the QGF File Format. See the [Quantum Painter](quantum_painter.md#quantum-painter-cli) documentation for more information on this command.
+This command converts images to a format usable by QMK, i.e. the QGF File Format. See the [Quantum Painter](quantum_painter#quantum-painter-cli) documentation for more information on this command.
 
 ## `qmk painter-make-font-image`
 
-This command converts a TTF font to an intermediate format for editing, before converting to the QFF File Format. See the [Quantum Painter](quantum_painter.md#quantum-painter-cli) documentation for more information on this command.
+This command converts a TTF font to an intermediate format for editing, before converting to the QFF File Format. See the [Quantum Painter](quantum_painter#quantum-painter-cli) documentation for more information on this command.
 
 ## `qmk painter-convert-font-image`
 
-This command converts an intermediate font image to the QFF File Format. See the [Quantum Painter](quantum_painter.md#quantum-painter-cli) documentation for more information on this command.
+This command converts an intermediate font image to the QFF File Format. See the [Quantum Painter](quantum_painter#quantum-painter-cli) documentation for more information on this command.
 
 ## `qmk test-c`
 

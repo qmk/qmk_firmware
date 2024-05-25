@@ -8,21 +8,21 @@ QMK (*Quantum Mechanical Keyboard*) is an open source community centered around 
 
 <div class="flex-container">
 
-?> **Basic** [QMK Configurator](newbs_building_firmware_configurator.md) <br>
+?> **Basic** [QMK Configurator](newbs_building_firmware_configurator) <br>
 User friendly graphical interfaces, no programming knowledge required.
 
-?> **Advanced** [Use The Source](newbs.md) <br> 
+?> **Advanced** [Use The Source](newbs) <br> 
 More powerful, but harder to use.
 
 </div>
 
 ## Make It Yours
 
-QMK has lots of features to explore, and a good deal of reference documentation to dig through. Most features are taken advantage of by modifying your [keymap](keymap.md), and changing the [keycodes](keycodes.md).
+QMK has lots of features to explore, and a good deal of reference documentation to dig through. Most features are taken advantage of by modifying your [keymap](keymap), and changing the [keycodes](keycodes).
 
 ## Need help?
 
-Check out the [support page](support.md) to see how you can get help using QMK.
+Check out the [support page](support) to see how you can get help using QMK.
 
 ## Give Back
 
@@ -33,4 +33,4 @@ There are a lot of ways you can contribute to the QMK Community. The easiest way
     * [Discord Server](https://discord.gg/Uq7gcHh)
 * Contribute to our documentation by clicking "Edit This Page" at the bottom
 * [Report a bug](https://github.com/qmk/qmk_firmware/issues/new/choose)
-* [Open a Pull Request](contributing.md)
+* [Open a Pull Request](contributing)

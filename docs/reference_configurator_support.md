@@ -21,7 +21,7 @@ To understand how the Configurator understands keyboards, first one must underst
 |---------------|
 ```
 
-?> For more on layout macros, see [Understanding QMK: Matrix Scanning](understanding_qmk.md#matrix-scanning) and [Understanding QMK: Matrix to Physical Layout Map](understanding_qmk.md#matrix-to-physical-layout-map).
+?> For more on layout macros, see [Understanding QMK: Matrix Scanning](understanding_qmk#matrix-scanning) and [Understanding QMK: Matrix to Physical Layout Map](understanding_qmk#matrix-to-physical-layout-map).
 
 The Configurator's API reads the keyboard's `.h` file from `qmk_firmware/keyboards/<keyboard>/<keyboard>.h`. For our numpad, this file would be `qmk_firmware/keyboards/numpad/numpad.h`:
 
@@ -141,7 +141,7 @@ The `layouts` object contains the data that represents the physical layout of th
 
 Some objects will also have `"w"` and `"h"` keys, which represent a key's width and height, respectively.
 
-?> For more on the `info.json` files, see [`info.json` Format](reference_info_json.md).
+?> For more on the `info.json` files, see [`info.json` Format](reference_info_json).
 
 
 ## How the Configurator Programs Keys

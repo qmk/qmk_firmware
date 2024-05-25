@@ -192,11 +192,11 @@ The Haptic Exclusion is implemented as `__attribute__((weak)) bool get_haptic_en
 With the entry of `#define NO_HAPTIC_MOD` in config.h, the following keys will not trigger feedback:
 
 * Usual modifier keys such as Control/Shift/Alt/Gui (For example `KC_LCTL`)
-* `MO()` momentary keys. See also [Layers](feature_layers.md).
+* `MO()` momentary keys. See also [Layers](feature_layers).
 * `LM()` momentary keys with mod active.
 * `LT()` layer tap keys, when held to activate a layer. However when tapped, and the key is quickly released, and sends a keycode, haptic feedback is still triggered.
 * `TT()` layer tap toggle keys, when held to activate a layer. However when tapped `TAPPING_TOGGLE` times to permanently toggle the layer, on the last tap haptic feedback is still triggered.
-* `MT()` mod tap keys, when held to keep a usual modifier key pressed. However when tapped, and the key is quickly released, and sends a keycode, haptic feedback is still triggered. See also [Mod-Tap](mod_tap.md).
+* `MT()` mod tap keys, when held to keep a usual modifier key pressed. However when tapped, and the key is quickly released, and sends a keycode, haptic feedback is still triggered. See also [Mod-Tap](mod_tap).
 
 ### NO_HAPTIC_ALPHA
 With the entry of `#define NO_HAPTIC_ALPHA` in config.h, none of the alpha keys (A ... Z) will trigger a feedback.

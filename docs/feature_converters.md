@@ -38,7 +38,7 @@ qmk flash -c -kb keebio/bdn9/rev1 -km default -e CONVERT_TO=proton_c
 
 You can also add the same `CONVERT_TO=<target>` to your keymap's `rules.mk`, which will accomplish the same thing.
 
-?> If you get errors about `PORTB/DDRB`, etc not being defined, you'll need to convert the keyboard's code to use the [GPIO Controls](gpio_control.md) that will work for both ARM and AVR. This shouldn't affect the AVR builds at all.
+?> If you get errors about `PORTB/DDRB`, etc not being defined, you'll need to convert the keyboard's code to use the [GPIO Controls](gpio_control) that will work for both ARM and AVR. This shouldn't affect the AVR builds at all.
 
 ### Conditional Configuration
 
@@ -116,22 +116,22 @@ The following defaults are based on what has been implemented for STM32 boards.
 
 | Feature                                      | Notes                                                                                                            |
 |----------------------------------------------|------------------------------------------------------------------------------------------------------------------|
-| [Audio](feature_audio.md)                    | Enabled                                                                                                          |
-| [RGB Lighting](feature_rgblight.md)          | Disabled                                                                                                         |
-| [Backlight](feature_backlight.md)            | Forces [task driven PWM](feature_backlight.md#software-pwm-driver) until ARM can provide automatic configuration |
+| [Audio](feature_audio)                    | Enabled                                                                                                          |
+| [RGB Lighting](feature_rgblight)          | Disabled                                                                                                         |
+| [Backlight](feature_backlight)            | Forces [task driven PWM](feature_backlight#software-pwm-driver) until ARM can provide automatic configuration |
 | USB Host (e.g. USB-USB converter)            | Not supported (USB host code is AVR specific and is not currently supported on ARM)                              |
-| [Split keyboards](feature_split_keyboard.md) | Partial - heavily dependent on enabled features                                                                  |
+| [Split keyboards](feature_split_keyboard) | Partial - heavily dependent on enabled features                                                                  |
 
 ### Adafruit KB2040 {#kb2040}
 
-The following defaults are based on what has been implemented for [RP2040](platformdev_rp2040.md) boards.
+The following defaults are based on what has been implemented for [RP2040](platformdev_rp2040) boards.
 
 | Feature                                      | Notes                                                                                                            |
 |----------------------------------------------|------------------------------------------------------------------------------------------------------------------|
-| [RGB Lighting](feature_rgblight.md)          | Enabled via `PIO` vendor driver                                                                                  |
-| [Backlight](feature_backlight.md)            | Forces [task driven PWM](feature_backlight.md#software-pwm-driver) until ARM can provide automatic configuration |
+| [RGB Lighting](feature_rgblight)          | Enabled via `PIO` vendor driver                                                                                  |
+| [Backlight](feature_backlight)            | Forces [task driven PWM](feature_backlight#software-pwm-driver) until ARM can provide automatic configuration |
 | USB Host (e.g. USB-USB converter)            | Not supported (USB host code is AVR specific and is not currently supported on ARM)                              |
-| [Split keyboards](feature_split_keyboard.md) | Partial via `PIO` vendor driver - heavily dependent on enabled features                                          |
+| [Split keyboards](feature_split_keyboard) | Partial via `PIO` vendor driver - heavily dependent on enabled features                                          |
 
 ### SparkFun Pro Micro - RP2040, Blok, Bit-C PRO and Michi {#promicro_rp2040 }
 
@@ -166,7 +166,7 @@ The Bonsai C4 only has one on-board LED (B2), and by default, both the Pro Micro
 
 ### RP2040 Community Edition - Elite-Pi, Helios, and Liatris {#rp2040_ce}
 
-Feature set is identical to [Adafruit KB2040](#kb2040). VBUS detection is enabled by default for superior split keyboard support. For more information, refer to the [Community Edition pinout](platformdev_rp2040.md#rp2040_ce) docs.
+Feature set is identical to [Adafruit KB2040](#kb2040). VBUS detection is enabled by default for superior split keyboard support. For more information, refer to the [Community Edition pinout](platformdev_rp2040#rp2040_ce) docs.
 
 
 ## Elite-C

@@ -31,7 +31,7 @@ Add the following to your `config.h`:
 
 ### Audio Feedback {#audio-feedback}
 
-If you have the [Audio](feature_audio.md) feature enabled on your board, you can configure it to play sounds when the input mode is changed.
+If you have the [Audio](feature_audio) feature enabled on your board, you can configure it to play sounds when the input mode is changed.
 
 Add the following to your `config.h`:
 
@@ -197,7 +197,7 @@ Emacs supports code point input with the `insert-char` command.
 
 **Mode Name:** `UNICODE_MODE_BSD`
 
-Not currently implemented. If you're a BSD user and want to contribute support for this input mode, please [feel free](contributing.md)!
+Not currently implemented. If you're a BSD user and want to contribute support for this input mode, please [feel free](contributing)!
 
 <!-- tabs:end -->
 

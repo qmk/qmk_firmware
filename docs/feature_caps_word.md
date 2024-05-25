@@ -62,7 +62,7 @@ Next, use one the following methods to activate Caps Word:
 
 * **Custom activation**: You can activate Caps Word from code by calling
   `caps_word_on()`. This may be used to activate Caps Word through [a
-  combo](feature_combo.md) or [tap dance](feature_tap_dance.md) or any means
+  combo](feature_combo) or [tap dance](feature_tap_dance) or any means
   you like.
 
 ### Troubleshooting: Command {#troubleshooting-command}
@@ -71,7 +71,7 @@ When using `BOTH_SHIFTS_TURNS_ON_CAPS_WORD`, you might see a compile message
 **"BOTH_SHIFTS_TURNS_ON_CAPS_WORD and Command should not be enabled at the same
 time, since both use the Left Shift + Right Shift key combination."**
 
-Many keyboards enable the [Command feature](feature_command.md), which by
+Many keyboards enable the [Command feature](feature_command), which by
 default is also activated using the Left Shift + Right Shift key combination. To
 fix this conflict, please disable Command by adding in rules.mk:
 

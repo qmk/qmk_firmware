@@ -1,6 +1,6 @@
 # Audio Driver {#audio-driver}
 
-The [Audio feature](feature_audio.md) breaks the hardware specifics out into separate, exchangeable driver units, with a common interface to the audio-"core" - which itself handles playing songs and notes while tracking their progress in an internal state, initializing/starting/stopping the driver as needed.
+The [Audio feature](feature_audio) breaks the hardware specifics out into separate, exchangeable driver units, with a common interface to the audio-"core" - which itself handles playing songs and notes while tracking their progress in an internal state, initializing/starting/stopping the driver as needed.
 
 Not all MCUs support every available driver, either the platform-support is not there (yet?) or the MCU simply does not have the required hardware peripheral.
 

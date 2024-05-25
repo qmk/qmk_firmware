@@ -18,7 +18,7 @@ The general structure of the file is:
 
 ## Block Header {#qff-block-header}
 
-The block header is identical to [QGF's block header](quantum_painter_qgf.md#qgf-block-header), and is present for all blocks, including the font descriptor.
+The block header is identical to [QGF's block header](quantum_painter_qgf#qgf-block-header), and is present for all blocks, including the font descriptor.
 
 ## Font descriptor block {#qff-font-descriptor}
 
@@ -47,7 +47,7 @@ typedef struct __attribute__((packed)) qff_font_descriptor_v1_t {
 // _Static_assert(sizeof(qff_font_descriptor_v1_t) == (sizeof(qgf_block_header_v1_t) + 20), "qff_font_descriptor_v1_t must be 25 bytes in v1 of QFF");
 ```
 
-The values for `format`, `flags`, `compression_scheme`, and `transparency_index` match [QGF's frame descriptor block](quantum_painter_qgf.md#qgf-frame-descriptor), with the exception that the `delta` flag is ignored by QFF.
+The values for `format`, `flags`, `compression_scheme`, and `transparency_index` match [QGF's frame descriptor block](quantum_painter_qgf#qgf-frame-descriptor), with the exception that the `delta` flag is ignored by QFF.
 
 ## ASCII glyph table {#qff-ascii-table}
 
@@ -91,7 +91,7 @@ typedef struct __attribute__((packed)) qff_unicode_glyph_table_v1_t {
 * _typeid_ = 0x03
 * _length_ = variable
 
-The _font palette block_ is identical to [QGF's frame palette block](quantum_painter_qgf.md#qgf-frame-palette-descriptor), retaining the same _typeid_ of 0x03.
+The _font palette block_ is identical to [QGF's frame palette block](quantum_painter_qgf#qgf-frame-palette-descriptor), retaining the same _typeid_ of 0x03.
 
 It is only specified in the QFF if the font is palette-based, and follows the _unicode glyph block_ if the font contains any Unicode glyphs, or the _ASCII glyph block_ if the font contains only ASCII glyphs.
 
@@ -100,4 +100,4 @@ It is only specified in the QFF if the font is palette-based, and follows the _u
 * _typeid_ = 0x04
 * _length_ = variable
 
-The _font data block_ is the last block in the file and is identical to [QGF's frame data block](quantum_painter_qgf.md#qgf-frame-data-descriptor), however has a different _typeid_ of 0x04 in QFF.
+The _font data block_ is the last block in the file and is identical to [QGF's frame data block](quantum_painter_qgf#qgf-frame-data-descriptor), however has a different _typeid_ of 0x04 in QFF.

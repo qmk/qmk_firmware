@@ -123,7 +123,7 @@ Configurable options in your keyboard's `config.h`:
 
 ## Wear-leveling SPI Flash Driver Configuration {#wear_leveling-flash_spi-driver-configuration}
 
-This driver performs writes to an external SPI NOR Flash peripheral. It also requires a working configuration for the SPI NOR Flash peripheral -- see the [flash driver](flash_driver.md) documentation for more information.
+This driver performs writes to an external SPI NOR Flash peripheral. It also requires a working configuration for the SPI NOR Flash peripheral -- see the [flash driver](flash_driver) documentation for more information.
 
 Configurable options in your keyboard's `config.h`:
 

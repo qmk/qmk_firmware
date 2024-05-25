@@ -110,7 +110,7 @@ Additionally, you can use the `AC_TOGG` keycode to toggle the on/off status for 
 
 Callback function `bool process_autocorrect_user(uint16_t *keycode, keyrecord_t *record, uint8_t *typo_buffer_size, uint8_t *mods)` is available to customise incoming keycodes and handle exceptions. You can use this function to sanitise input before they are passed onto the autocorrect engine
 
-?> Sanitisation of input is required because autocorrect will only match 8-bit [basic keycodes](keycodes_basic.md) for typos. If valid modifier keys or 16-bit keycodes that are part of a user's word input (such as Shift + A) is passed through, they will fail typo letter detection. For example a [Mod-Tap](mod_tap.md) key such as `LCTL_T(KC_A)` is 16-bit and should be masked for the 8-bit `KC_A`.
+?> Sanitisation of input is required because autocorrect will only match 8-bit [basic keycodes](keycodes_basic) for typos. If valid modifier keys or 16-bit keycodes that are part of a user's word input (such as Shift + A) is passed through, they will fail typo letter detection. For example a [Mod-Tap](mod_tap) key such as `LCTL_T(KC_A)` is 16-bit and should be masked for the 8-bit `KC_A`.
 
 The default user callback function is found inside `quantum/process_keycode/process_autocorrect.c`. It covers most use-cases for QMK special functions and quantum keycodes, including [overriding autocorrect](#overriding-autocorrect) with a modifier other than shift. The `process_autocorrect_user` function is `weak` defined to allow user's copy inside `keymap.c` (or code files) to overwrite it.
 
