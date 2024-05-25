@@ -25,7 +25,7 @@ In this mode, Plover expects to speak with a steno machine over a serial port so
 !> Serial stenography protocols are not supported on [V-USB keyboards](compatible_microcontrollers.md#atmel-avr).
 
 To enable stenography protocols, add the following lines to your `rules.mk`:
-```mk
+```make
 STENO_ENABLE = yes
 ```
 
@@ -34,7 +34,7 @@ STENO_ENABLE = yes
 TX Bolt communicates the status of 24 keys over a simple protocol in variable-sized (1&ndash;4 bytes) packets.
 
 To select TX Bolt, add the following lines to your `rules.mk`:
-```mk
+```make
 STENO_ENABLE = yes
 STENO_PROTOCOL = txbolt
 ```
@@ -58,7 +58,7 @@ Examples of steno strokes and the associated packet:
 GeminiPR encodes 42 keys into a 6-byte packet. While TX Bolt contains everything that is necessary for standard stenography, GeminiPR opens up many more options, including differentiating between top and bottom `S-`, and supporting non-English theories.
 
 To select GeminiPR, add the following lines to your `rules.mk`:
-```mk
+```make
 STENO_ENABLE = yes
 STENO_PROTOCOL = geminipr
 ```
@@ -85,7 +85,7 @@ Examples of steno strokes and the associated packet:
 If you wish to switch the serial protocol used to transfer the steno chords without having to recompile your keyboard firmware every time, you can press the `QK_STENO_BOLT` and `QK_STENO_GEMINI` keycodes in order to switch protocols on the fly.
 
 To enable these special keycodes, add the following lines to your `rules.mk`:
-```mk
+```make
 STENO_ENABLE = yes
 STENO_PROTOCOL = all
 ```
