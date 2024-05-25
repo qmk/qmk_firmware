@@ -31,7 +31,7 @@ You will need to install [QMK MSYS](https://msys.qmk.fm/). The latest release is
 
 :::: details Advanced Users
 
-::: warning
+::: danger
 <b style="font-size:150%">This process is not recommended for new users.</b>
 :::
 
