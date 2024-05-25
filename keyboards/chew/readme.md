@@ -1,7 +1,7 @@
 ## Chew
 
-![Chew front photo](https://live.staticflickr.com/65535/53681212617_90e4eebaf9_o.jpg)
-![Chew front photo](https://live.staticflickr.com/65535/53682442119_1fcea26fef_o.jpg)
+[![Chew](https://live.staticflickr.com/65535/53745130678_97ce7dfedf_b.jpg)](https://live.staticflickr.com/65535/53745130678_2d3318d279_o.png)
+[![Chew](https://live.staticflickr.com/65535/53745130683_c98f1a152b_b.jpg)](https://live.staticflickr.com/65535/53745130683_90aa38b210_o.png)
 
 A humble 34 key choc-spaced keyboard.
 
@@ -35,4 +35,4 @@ The controller has two buttons, so you can enter the bootloader in 2 ways:
 - Press twice the **reset** button.
 
 ![hazelnuts](https://github.com/flinguenheld/chew/blob/main/images/hazelnuts.png?raw=true)
-![Chew back photo](https://live.staticflickr.com/65535/53730609287_f43368ee4b_o.png)
+[![Chew](https://live.staticflickr.com/65535/53744026347_a95fe6d897_b.jpg)](https://live.staticflickr.com/65535/53744026347_a0a3bbedb4_o.png)
