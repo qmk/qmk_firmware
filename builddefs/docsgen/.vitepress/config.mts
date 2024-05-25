@@ -11,7 +11,7 @@ export default defineConfig(({ mode }) => {
         title: "QMK Firmware",
         description: "Documentation for QMK Firmware",
 
-        srcDir: "../../docs",
+        srcDir: prod ? "docs" : "../../docs",
         outDir: "../../.build/docs",
         cleanUrls: true,
 
@@ -25,17 +25,9 @@ export default defineConfig(({ mode }) => {
 
         vite: {
             resolve: {
-                alias: prod // for some reason prod builds require a different method of resolving the renderer
-                    ? {
-                          "vue/server-renderer": require.resolve(
-                              "vue/server-renderer"
-                          ),
-                          vue: require.resolve("vue"),
-                      }
-                    : {},
+                preserveSymlinks: true,
             },
         },
-
         themeConfig: {
             // https://vitepress.dev/reference/default-theme-config
             nav: [{ text: "Home", link: "./" }],

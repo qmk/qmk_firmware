@@ -1,8 +1,9 @@
 """Handlers for the QMK documentation generator (docusaurus).
 """
 import shutil
+from pathlib import Path
 from subprocess import DEVNULL
-from os import chdir, environ, makedirs, pathsep
+from os import chdir, environ, makedirs, pathsep, name as os_name
 from milc import cli
 
 from qmk.constants import QMK_FIRMWARE
@@ -20,7 +21,17 @@ def run_docs_command(cmd, capture_output=False if cli.config.general.verbose els
     cli.run(['yarn', 'run', cmd], capture_output=capture_output, check=True, stdin=DEVNULL)
 
 
-def prepare_docs_build_area():
+def prepare_docs_build_area(is_production):
+    if is_production:
+        # Set up a symlink for docs to be inside builddefs -- vitepress can't handle source files in parent directories
+        try:
+            docs_link = Path(BUILDDEFS_PATH / 'docs')
+            if not docs_link.exists():
+                docs_link.symlink_to(DOCS_PATH)
+        except NotImplementedError:
+            cli.log.error('Symlinks are not supported on this platform.')
+            return False
+
     if BUILD_DOCS_PATH.exists():
         shutil.rmtree(BUILD_DOCS_PATH)
 

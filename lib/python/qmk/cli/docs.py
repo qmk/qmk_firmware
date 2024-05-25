@@ -19,5 +19,5 @@ def docs(cli):
         cli.log.error('yarn is not installed. Please install it and try again.')
         return
 
-    prepare_docs_build_area()
+    prepare_docs_build_area(is_production=False)
     run_docs_command('docs:dev', False)

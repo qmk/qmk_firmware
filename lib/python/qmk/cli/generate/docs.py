@@ -23,7 +23,8 @@ def generate_docs(cli):
         cli.log.error('yarn is not installed. Please install it and try again.')
         return
 
-    prepare_docs_build_area()
+    if not prepare_docs_build_area(is_production=True):
+        return False
 
     cli.log.info('Building vitepress docs')
     run_docs_command('docs:build')
