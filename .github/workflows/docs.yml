@@ -9,6 +9,7 @@ on:
     - master
     - vitepress
     paths:
+    - 'builddefs/docsgen/**'
     - 'tmk_core/**'
     - 'quantum/**'
     - 'platforms/**'
@@ -43,6 +44,7 @@ jobs:
       run: |
         source $HOME/.bashrc
         nvm install 20
+        nvm use 20
         corepack enable
         npm install -g moxygen
 
