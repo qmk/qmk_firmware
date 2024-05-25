@@ -3,7 +3,7 @@
 import shutil
 from pathlib import Path
 from subprocess import DEVNULL
-from os import chdir, environ, makedirs, pathsep, name as os_name
+from os import chdir, environ, makedirs, pathsep
 from milc import cli
 
 from qmk.constants import QMK_FIRMWARE
@@ -17,8 +17,21 @@ BUILD_DOCS_PATH = BUILD_PATH / 'docs'
 DOXYGEN_PATH = BUILD_DOCS_PATH / 'static' / 'doxygen'
 
 
-def run_docs_command(cmd, capture_output=False if cli.config.general.verbose else True):
-    cli.run(['yarn', 'run', cmd], capture_output=capture_output, check=True, stdin=DEVNULL)
+def run_docs_command(verb, cmd=None):
+    environ['PATH'] += pathsep + str(NODE_MODULES_PATH / '.bin')
+
+    args = {'capture_output': False if cli.config.general.verbose else True, 'check': True, 'stdin': DEVNULL}
+    docs_env = environ.copy()
+    if cli.config.general.verbose:
+        docs_env['DEBUG'] = 'vitepress:*,vite:*'
+    args['env'] = docs_env
+
+    arg_list = ['yarn', verb]
+    if cmd:
+        arg_list.append(cmd)
+
+    chdir(BUILDDEFS_PATH)
+    cli.run(arg_list, **args)
 
 
 def prepare_docs_build_area(is_production):
@@ -42,13 +55,7 @@ def prepare_docs_build_area(is_production):
     cli.log.info('Generating doxygen docs at %s', DOXYGEN_PATH)
     cli.run(['doxygen', 'Doxyfile'], **args)
 
-    environ['PATH'] += pathsep + str(NODE_MODULES_PATH / '.bin')
-
-    docs_env = environ.copy()
-    if cli.config.general.verbose:
-        docs_env['DEBUG'] = 'vitepress:*,vite:*'
-    args['env'] = docs_env
-
-    chdir(BUILDDEFS_PATH)
     cli.log.info('Installing vitepress dependencies')
-    cli.run(['yarn', 'install'], **args)
+    run_docs_command('install')
+
+    return True
