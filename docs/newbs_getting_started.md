@@ -29,8 +29,7 @@ QMK maintains a Bundle of MSYS2, the CLI and all necessary dependencies. It also
 
 You will need to install [QMK MSYS](https://msys.qmk.fm/). The latest release is available [here](https://github.com/qmk/qmk_distro_msys/releases/latest).
 
-<details>
-  <summary>Advanced Users</summary>
+:::: details Advanced Users
 
 ::: warning
 <b style="font-size:150%">This process is not recommended for new users.</b>
@@ -52,7 +51,7 @@ Install the QMK CLI by running:
 
     pacman --needed --noconfirm --disable-download-timeout -S git mingw-w64-x86_64-python-qmk
 
-</details>
+::::
 
 ### ** macOS **
 
