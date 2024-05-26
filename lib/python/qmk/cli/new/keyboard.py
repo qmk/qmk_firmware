@@ -15,7 +15,7 @@ from qmk.json_schema import load_jsonschema
 from qmk.path import keyboard
 from qmk.json_encoders import InfoJSONEncoder
 from qmk.json_schema import deep_update, json_load
-from qmk.constants import MCU2BOOTLOADER
+from qmk.constants import MCU2BOOTLOADER, QMK_FIRMWARE
 
 COMMUNITY = Path('layouts/default/')
 TEMPLATE = Path('data/templates/keyboard/')
@@ -72,6 +72,10 @@ def replace_placeholders(src, dest, tokens):
         content = content.replace(f'%{key}%', value)
 
     dest.write_text(content)
+
+
+def replace_string(src, token, value):
+    src.write_text(src.read_text().replace(token, value))
 
 
 def augment_community_info(src, dest):
@@ -218,6 +222,11 @@ def new_keyboard(cli):
     else:
         bootloader = select_default_bootloader(mcu)
 
+    detach_layout = False
+    if default_layout == 'none of the above':
+        default_layout = "ortho_4x4"
+        detach_layout = True
+
     tokens = {  # Comment here is to force multiline formatting
         'YEAR': str(date.today().year),
         'KEYBOARD': kb_name,
@@ -233,10 +242,6 @@ def new_keyboard(cli):
         for key, value in tokens.items():
             cli.echo(f"    {key.ljust(10)}:   {value}")
 
-    # TODO: detach community layout and rename to just "LAYOUT"
-    if default_layout == 'none of the above':
-        default_layout = "ortho_4x4"
-
     # begin with making the deepest folder in the tree
     keymaps_path = keyboard(kb_name) / 'keymaps/'
     keymaps_path.mkdir(parents=True)
@@ -251,9 +256,14 @@ def new_keyboard(cli):
 
     # merge in infos
     community_info = Path(COMMUNITY / f'{default_layout}/info.json')
-    augment_community_info(community_info, keyboard(kb_name) / community_info.name)
+    augment_community_info(community_info, keyboard(kb_name) / 'keyboard.json')
+
+    # detach community layout and rename to just "LAYOUT"
+    if detach_layout:
+        replace_string(keyboard(kb_name) / 'keyboard.json', 'LAYOUT_ortho_4x4', 'LAYOUT')
+        replace_string(keymaps_path / 'default/keymap.c', 'LAYOUT_ortho_4x4', 'LAYOUT')
 
     cli.log.info(f'{{fg_green}}Created a new keyboard called {{fg_cyan}}{kb_name}{{fg_green}}.{{fg_reset}}')
-    cli.log.info(f'To start working on things, `cd` into {{fg_cyan}}keyboards/{kb_name}{{fg_reset}},')
-    cli.log.info('or open the directory in your preferred text editor.')
-    cli.log.info(f"And build with {{fg_yellow}}qmk compile -kb {kb_name} -km default{{fg_reset}}.")
+    cli.log.info(f"Build Command: {{fg_yellow}}qmk compile -kb {kb_name} -km default{{fg_reset}}.")
+    cli.log.info(f'Project Location: {{fg_cyan}}{QMK_FIRMWARE}/{keyboard(kb_name)}{{fg_reset}},')
+    cli.log.info("{{fg_yellow}}Now update the config files to match the hardware!{{fg_reset}}")

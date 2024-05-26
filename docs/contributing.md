@@ -70,6 +70,7 @@ We have a few different types of changes in QMK, each requiring a different leve
   * Keymaps: Make sure that `make keyboard:keymap` does not return any errors.
   * Keyboards: Make sure that `make keyboard:all` does not return any errors.
   * Core: Make sure that `make all` does not return any errors.
+* Note that user-keymap and userspace contributions are no longer accepted.
 * Make sure commit messages are understandable on their own. You should put a short description (no more than 70 characters) on the first line, the second line should be empty, and on the 3rd and later lines you should describe your commit in detail, if required. Example:
 
 ```
@@ -79,8 +80,6 @@ The kerpleplork was intermittently failing with error code 23. The root cause wa
 
 Limited experimentation on the devices I have available shows that 7 is high enough to avoid confusing the kerpleplork, but I'd like to get some feedback from people with ARM devices to be sure.
 ```
-
-!> **IMPORTANT:** If you would like to contribute a bugfix or improvement to user code, such as non-default keymaps, userspace and layouts, be sure to tag the original submitter of the code in your PR. Many users, regardless of skill level with Git and GitHub, may be confused or frustrated at their code being modified without their knowledge.
 
 ## Documentation
 

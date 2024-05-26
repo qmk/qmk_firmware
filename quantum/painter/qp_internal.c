@@ -11,11 +11,13 @@ enum {
     // NOTE: We intentionally do not include surfaces here, despite them conforming to the same API.
     QP_NUM_DEVICES = (ILI9163_NUM_DEVICES)   // ILI9163
                      + (ILI9341_NUM_DEVICES) // ILI9341
+                     + (ILI9486_NUM_DEVICES) // ILI9486
                      + (ILI9488_NUM_DEVICES) // ILI9488
                      + (ST7789_NUM_DEVICES)  // ST7789
                      + (ST7735_NUM_DEVICES)  // ST7735
                      + (GC9A01_NUM_DEVICES)  // GC9A01
                      + (SSD1351_NUM_DEVICES) // SSD1351
+                     + (SH1106_NUM_DEVICES)  // SH1106
 };
 
 static painter_device_t qp_devices[QP_NUM_DEVICES] = {NULL};

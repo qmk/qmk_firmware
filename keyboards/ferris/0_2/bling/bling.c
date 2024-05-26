@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 |    | 4  |   |    ||   |   | 4  |   |
 | 6  |    |   | 2  || 2 |   |    | 5 |
 */
-const is31_led g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
     /* Refer to IS31 manual for these locations
      *   driver
      *   |  R location

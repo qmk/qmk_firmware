@@ -317,7 +317,7 @@ At the time of this writing our tests are not very comprehensive. Looking at the
 
 ## Integration Tests
 
-Integration tests can be found in `lib/python/qmk/tests/test_cli_commands.py`. This is where CLI commands are actually run and their overall behavior is verified. We use [`subprocess`](https://docs.python.org/3.6/library/subprocess.html#module-subprocess) to launch each CLI command and a combination of checking output and returncode to determine if the right thing happened.
+Integration tests can be found in `lib/python/qmk/tests/test_cli_commands.py`. This is where CLI commands are actually run and their overall behavior is verified. We use [`subprocess`](https://docs.python.org/3.7/library/subprocess.html#module-subprocess) to launch each CLI command and a combination of checking output and returncode to determine if the right thing happened.
 
 ## Unit Tests
 

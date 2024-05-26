@@ -28,7 +28,7 @@ To send data to the keyboard, you must first find a library for communicating wi
 * **Node.js:** [node-hid](https://github.com/node-hid/node-hid)
 * **C/C++:** [hidapi](https://github.com/libusb/hidapi)
 * **Java:** [purejavahidapi](https://github.com/nyholku/purejavahidapi) and [hid4java](https://github.com/gary-rowe/hid4java)
-* **Python:** [pyhidapi](https://pypi.org/project/hid/)
+* **Python:** [pyhidapi](https://pypi.org/project/hid/) and [pywinusb](https://pypi.org/project/pywinusb)
 
 Please refer to these libraries' own documentation for instructions on usage. Remember to close the device once you are finished with it!
 

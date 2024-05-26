@@ -95,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 bool led_update_user(led_t led_state) {
-    writePin(LED_RED, led_state.caps_lock);
-    writePin(LED_GREEN, led_state.scroll_lock);
+    gpio_write_pin(LED_RED, led_state.caps_lock);
+    gpio_write_pin(LED_GREEN, led_state.scroll_lock);
     return false;
 }

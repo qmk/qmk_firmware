@@ -17,11 +17,12 @@ combo_t key_combos[] = {
 
 This will send "Escape" if you hit the A and B keys, and Ctrl+Z when you hit the C and D keys.
 
-## Mod-Tap Support
-[Mod-Tap](mod_tap.md) feature is also supported together with combos. You will need to use the full Mod-Tap keycode in the combo definition, e.g.:
+## Advanced Keycodes Support
+Advanced keycodes, such as [Mod-Tap](mod_tap.md) and [Tap Dance](feature_tap_dance.md) are also supported together with combos. If you use these advanced keycodes in your keymap, you will need to place the full keycode in the combo definition, e.g.:
 
 ```c
 const uint16_t PROGMEM test_combo1[] = {LSFT_T(KC_A), LT(1, KC_B), COMBO_END};
+const uint16_t PROGMEM test_combo2[] = {TD(TD_ESC_CAPS), KC_F1, COMBO_END};
 ```
 
 ## Overlapping Combos
@@ -333,28 +334,26 @@ will give the _NAV layer as a reference to it's self. All other layers
 will have the default for their combo reference layer. If the default
 is not set, all other layers will reference themselves.
 
-    ```c
-    #define COMBO_REF_DEFAULT _MY_COMBO_LAYER
-    ...
+```c
+#define COMBO_REF_DEFAULT _MY_COMBO_LAYER
 
-    uint8_t combo_ref_from_layer(uint8_t layer){
-        switch (get_highest_layer(layer_state)){
-            case _DVORAK: return _QWERTY;
-            case _NAV: return _NAV;
-            default: return _MY_COMBO_LAYER;
-        }
-        return layer;  // important if default is not in case.
+uint8_t combo_ref_from_layer(uint8_t layer){
+    switch (get_highest_layer(layer_state)){
+        case _DVORAK: return _QWERTY;
+        case _NAV: return _NAV;
+        default: return _MY_COMBO_LAYER;
     }
+    return layer;  // important if default is not in case.
+}
+```
 
-    ```
-    
-    The equivalent definition using the combo macros is this: 
+The equivalent definition using the combo macros is this:
 
-    ```c
-    COMBO_REF_LAYER(_DVORAK, _QWERTY)
-    COMBO_REF_LAYER(_NAV, _NAV)
-    DEFAULT_REF_LAYER(_MY_COMBO_LAYER).
-    ```
+```c
+COMBO_REF_LAYER(_DVORAK, _QWERTY)
+COMBO_REF_LAYER(_NAV, _NAV)
+DEFAULT_REF_LAYER(_MY_COMBO_LAYER).
+```
     
 
 ## User callbacks

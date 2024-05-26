@@ -493,7 +493,7 @@ Examples:
 
 One thing that you may notice is that we include the key record for all of the "per key" functions, and may be wondering why we do that.
 
-Well, it's simple really: customization.  But specifically, it depends on how your keyboard is wired up.  For instance, if each row is actually using a row in the keyboard's matrix, then it may be simpler to use `if (record->event.row == 3)` instead of checking a whole bunch of keycodes.  Which is especially good for those people using the Tap Hold type keys on the home row. So you could fine-tune those to not interfere with your normal typing.
+Well, it's simple really: customization.  But specifically, it depends on how your keyboard is wired up.  For instance, if each row is actually using a row in the keyboard's matrix, then it may be simpler to use `if (record->event.key.row == 3)` instead of checking a whole bunch of keycodes.  Which is especially good for those people using the Tap Hold type keys on the home row. So you could fine-tune those to not interfere with your normal typing.
 
 ## Why are there no `*_kb` or `*_user` functions?!
 
