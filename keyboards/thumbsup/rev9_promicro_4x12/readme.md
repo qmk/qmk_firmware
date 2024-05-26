@@ -12,12 +12,12 @@ This v9 version got 4x12 key layout with 2- or 3-key thumbcluster and an optiona
 
 Make example for this keyboard (after setting up your build environment):
 
-    make thumbsup/rev9_promicro_4x12:default_4x12_v9_no_plover_via
+    make thumbsup/rev9_promicro_4x12:default
 
 Flashing example for this keyboard:
 
     make %KEYBOARD%:default:flash
-    make thumbsup/rev9_promicro_4x12:default_4x12_v9_no_plover_via:flash
+    make thumbsup/rev9_promicro_4x12:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
