@@ -114,20 +114,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    writePinLow(B2);
-    writePinLow(B3);
-    writePinLow(B7);
+    gpio_write_pin_low(B2);
+    gpio_write_pin_low(B3);
+    gpio_write_pin_low(B7);
 
     if (work_louder_config.led_level) {
         switch (get_highest_layer(state)) {
             case 1:
-                writePinHigh(B2);
+                gpio_write_pin_high(B2);
                 break;
             case 2:
-                writePinHigh(B3);
+                gpio_write_pin_high(B3);
                 break;
             case 3:
-                writePinHigh(B7);
+                gpio_write_pin_high(B7);
                 break;
         }
     }

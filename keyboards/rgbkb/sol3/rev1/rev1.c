@@ -8,6 +8,7 @@
  */
 
 #include "rev1.h"
+#include "transactions.h"
 #include "split_util.h"
 
 #define NUMBER_OF_TOUCH_ENCODERS 2
@@ -256,3 +257,15 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 };
+
+void keyboard_post_init_kb(void) {
+    touch_encoder_init();
+    transaction_register_rpc(TOUCH_ENCODER_SYNC, touch_encoder_slave_sync);
+    transaction_register_rpc(RGB_MENU_SYNC, rgb_menu_slave_sync);
+    keyboard_post_init_user();
+}
+
+void housekeeping_task_kb(void) {
+    touch_encoder_update(TOUCH_ENCODER_SYNC);
+    rgb_menu_update(RGB_MENU_SYNC);
+}

@@ -222,8 +222,8 @@ def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str
                     continue
                 valid_keymaps = filter(filter_class.apply, valid_keymaps)
 
-                value_str = f", {{fg_cyan}}{value}{{fg_reset}})" if value is not None else ""
-                cli.log.info(f'Filtering on condition: {{fg_green}}{func_name}{{fg_reset}}({{fg_cyan}}{key}{{fg_reset}}{value_str}...')
+                value_str = f", {{fg_cyan}}{value}{{fg_reset}}" if value is not None else ""
+                cli.log.info(f'Filtering on condition: {{fg_green}}{func_name}{{fg_reset}}({{fg_cyan}}{key}{{fg_reset}}{value_str})...')
 
             elif equals_match is not None:
                 key = equals_match.group('key')

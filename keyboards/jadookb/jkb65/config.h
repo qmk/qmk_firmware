@@ -17,6 +17,3 @@
 #pragma once
 
 #define RGB_MATRIX_LED_COUNT 67
-
-#define LOCKING_SUPPORT_ENABLE
-#define LOCKING_RESYNC_ENABLE

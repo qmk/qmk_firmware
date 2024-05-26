@@ -55,6 +55,12 @@
         "sleep_led": true,
         "st7565": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "board": "IC_TEENSY_3_1",
     "tapping": {
         "toggle": 1
