@@ -1,6 +1,6 @@
 # K0DEPAD
 
-![K0DEPAD](https://imgur.com/a/YJ7Kpya)
+![K0DEPAD]https://imgur.com/f694y04
 
 *A short description of the keyboard/project*
 
