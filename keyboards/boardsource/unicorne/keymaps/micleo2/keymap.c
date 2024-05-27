@@ -189,12 +189,11 @@ bool shutdown_user(bool jump_to_bootloader) {
 uint16_t frame_toggle_timer = 0;
 uint8_t  render_f1          = 0;
 // Delay to wait after kb inactivity to begin taunt animation.
-const uint32_t TAUNT_WAIT_MS = 10 * 1000;
+const uint32_t TAUNT_WAIT_MS = 30 * 1000;
 // Length of the taunt animation.
-/* const uint32_t TAUNT_LEN_MS = 60 * 3 * 1000; */
-const uint32_t TAUNT_LEN_MS = 5 * 1000;
+const uint32_t TAUNT_LEN_MS = 60 * 4 * 1000;
 // Length of a single frame of the taunt animation.
-const uint32_t TAUNT_TOGGLE_FRAME_LEN_MS = 1 * 1000;
+const uint32_t TAUNT_TOGGLE_FRAME_LEN_MS = 1500;
 // Don't use the display at all.
 bool should_sleep = false;
 
