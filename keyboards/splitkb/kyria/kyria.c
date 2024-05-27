@@ -49,22 +49,24 @@ bool oled_task_kb(void) {
             case 0:
                 oled_write_P(PSTR("QWERTY\n"), false);
                 break;
+            //  yes; this breaks the default layout. Do i care right now? No! This is a
+            //  personal fork, i just need my layout working properly!
+            /* case 1: */
+            /*     oled_write_P(PSTR("Dvorak\n"), false); */
+            /*     break; */
+            /* case 2: */
+            /*     oled_write_P(PSTR("Colemak-DH\n"), false); */
+            /*     break; */
             case 1:
-                oled_write_P(PSTR("Dvorak\n"), false);
-                break;
-            case 2:
-                oled_write_P(PSTR("Colemak-DH\n"), false);
-                break;
-            case 3:
                 oled_write_P(PSTR("Nav\n"), false);
                 break;
-            case 4:
+            case 2:
                 oled_write_P(PSTR("Sym\n"), false);
                 break;
-            case 5:
+            case 3:
                 oled_write_P(PSTR("Function\n"), false);
                 break;
-            case 6:
+            case 4:
                 oled_write_P(PSTR("Adjust\n"), false);
                 break;
             default:
