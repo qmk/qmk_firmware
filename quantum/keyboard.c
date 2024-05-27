@@ -587,11 +587,6 @@ static bool matrix_task(void) {
  * TODO: rationalise against keyboard_task and current split role
  */
 void quantum_task(void) {
-#ifdef SPLIT_KEYBOARD
-    // some tasks should only run on master
-    if (!is_keyboard_master()) return;
-#endif
-
 #if defined(AUDIO_ENABLE) && defined(AUDIO_INIT_DELAY)
     // There are some tasks that need to be run a little bit
     // after keyboard startup, or else they will not work correctly
@@ -610,6 +605,11 @@ void quantum_task(void) {
             delayed_tasks_run = true;
         }
     }
+#endif
+
+#ifdef SPLIT_KEYBOARD
+    // some tasks should only run on master
+    if (!is_keyboard_master()) return;
 #endif
 
 #if defined(AUDIO_ENABLE) && !defined(NO_MUSIC_MODE)
