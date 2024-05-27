@@ -32,6 +32,12 @@ export default defineConfig(({ mode }) => {
         },
         themeConfig: {
             // https://vitepress.dev/reference/default-theme-config
+            logo: {
+                light: "/gitbook/images/badge-community-light.svg",
+                dark: "/gitbook/images/badge-community-dark.svg",
+            },
+            siteTitle: false,
+
             nav: [{ text: "Home", link: "./" }],
 
             search: {
