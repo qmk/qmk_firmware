@@ -1,10 +1,12 @@
 
 mkfile_dir := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
 
-all: st_build
+all: st_build format_combos
 
 st_build:
 	python3 $(mkfile_dir)/sequence_transform/generator/sequence_transform_data.py
+
+format_combos:
 	python3 $(mkfile_dir)/format_combos.py -p $(mkfile_dir)
 
 include $(mkfile_dir)/sequence_transform/rules.mk
