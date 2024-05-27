@@ -198,6 +198,15 @@ const uint32_t TAUNT_TOGGLE_FRAME_LEN_MS = 1500;
 bool should_sleep = false;
 
 bool oled_task_user() {
+#    ifdef MASTER_RIGHT
+    if (is_keyboard_master()) {
+        return true;
+    }
+#    else
+    if (!is_keyboard_master()) {
+        return true;
+    }
+#    endif
     const uint8_t  cur_layer    = get_highest_layer(layer_state);
     const uint32_t idle_time_ms = last_matrix_activity_elapsed();
     if (idle_time_ms > TAUNT_WAIT_MS && cur_layer == _QWERTY) {
