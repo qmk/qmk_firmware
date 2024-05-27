@@ -1,11 +1,11 @@
 # K0DEPAD
 
-![K0DEPAD](https://imgur.com/a/YJ7Kpya))
+![K0DEPAD](https://imgur.com/a/YJ7Kpya)
 
 *A short description of the keyboard/project*
 
 * Keyboard Maintainer: [mukil](https://github.com/bukil)
-* Hardware Supported: *The PCBs, controllers supported*
+* Hardware Supported: *The PCBs, RP2040*
 * Hardware Availability: *Links to where you can find this hardware*
 
 /* 
