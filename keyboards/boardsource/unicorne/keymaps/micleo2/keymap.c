@@ -232,7 +232,7 @@ void render_downtaunt(uint32_t idle_time_ms) {
     }
     if (timer_elapsed32(frame_toggle_timer) > TAUNT_TOGGLE_FRAME_LEN_MS) {
         // Reset timer.
-        frame_toggle_timer = timer_read();
+        frame_toggle_timer = timer_read32();
         render_f1 ^= 1;
     }
     if (render_f1) {
