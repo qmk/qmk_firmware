@@ -6,7 +6,6 @@ This page lays out the capabilities used by the QMK Firmware documentation, in o
 
 Unrelated to styling, high-level tech.
 
-* Sidebar -- listing of pages by category: [_summary.md](_summary.md)
 * Title anchors -- `:id=some-anchor-name`, used for direct linking to sections
     * Links to anchors:
         * Style 1: [early initialization](platformdev_chibios_earlyinit.md?id=board-init)
