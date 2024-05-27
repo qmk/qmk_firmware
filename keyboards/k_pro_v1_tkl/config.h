@@ -18,3 +18,19 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
+
+// This is a 7-bit address, that gets left-shifted and bit 0
+// set to 0 for write, 1 for read (as per I2C protocol)
+// The address will vary depending on your wiring:
+// 00 AD <-> GND
+// 01 AD <-> SCL
+// 10 AD <-> SDA
+// 11 AD <-> VCC
+// ADDR represents A1:A0 of the 7-bit address.
+// The result is: 0b11101(ADDR)
+#define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
+#define IS31FL3731_I2C_ADDRESS_2 IS31FL3731_I2C_ADDRESS_SDA
+
+#define DRIVER_1_LED_TOTAL 59
+#define DRIVER_2_LED_TOTAL 33
+#define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
