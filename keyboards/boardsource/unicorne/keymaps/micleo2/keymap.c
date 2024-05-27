@@ -152,7 +152,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 
 #ifdef OLED_ENABLE
 
-void write_downtaunt_anim(void);
+void render_downtaunt(uint32_t idle_time_ms);
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 #    ifdef MASTER_RIGHT
@@ -186,26 +186,23 @@ bool shutdown_user(bool jump_to_bootloader) {
     return true;
 }
 
-uint16_t timer            = 0;
-uint8_t  downtaunt_toggle = 0;
+uint16_t frame_toggle_timer = 0;
+uint8_t  render_f1          = 0;
+// Delay to wait after kb inactivity to begin taunt animation.
+const uint32_t TAUNT_WAIT_MS = 10 * 1000;
+// Length of the taunt animation.
+/* const uint32_t TAUNT_LEN_MS = 60 * 3 * 1000; */
+const uint32_t TAUNT_LEN_MS = 5 * 1000;
+// Length of a single frame of the taunt animation.
+const uint32_t TAUNT_TOGGLE_FRAME_LEN_MS = 1 * 1000;
+// Don't use the display at all.
+bool should_sleep = false;
 
 bool oled_task_user() {
-    if (!is_keyboard_left()) {
-        oled_write_raw(logo, sizeof(logo));
-        return false;
-    }
-
-    const uint16_t TOGGLE_GAP_MS = 1000;
-    if (timer_elapsed(timer) > TOGGLE_GAP_MS) {
-        // Reset timer.
-        timer = timer_read();
-        downtaunt_toggle ^= 1;
-    }
-
-    const uint16_t DOWNTAUNT_WAIT_MS = 20000;
-    const uint8_t  cur_layer         = get_highest_layer(layer_state);
-    if (last_matrix_activity_elapsed() > DOWNTAUNT_WAIT_MS && cur_layer == _QWERTY) {
-        write_downtaunt_anim();
+    const uint8_t  cur_layer    = get_highest_layer(layer_state);
+    const uint32_t idle_time_ms = last_matrix_activity_elapsed();
+    if (idle_time_ms > TAUNT_WAIT_MS && cur_layer == _QWERTY) {
+        render_downtaunt(idle_time_ms);
     } else {
         switch (cur_layer) {
             case _QWERTY:
@@ -221,13 +218,25 @@ bool oled_task_user() {
                 oled_write_raw(gw_key, sizeof(gw_key));
                 break;
         }
+        should_sleep = false;
     }
 
     return false;
 }
 
-void write_downtaunt_anim(void) {
-    if (downtaunt_toggle) {
+void render_downtaunt(uint32_t idle_time_ms) {
+    if (should_sleep) return;
+    if (idle_time_ms > TAUNT_WAIT_MS + TAUNT_LEN_MS) {
+        oled_write_raw(gw_downtaunt_f2, sizeof(gw_idle));
+        should_sleep = true;
+        return;
+    }
+    if (timer_elapsed32(frame_toggle_timer) > TAUNT_TOGGLE_FRAME_LEN_MS) {
+        // Reset timer.
+        frame_toggle_timer = timer_read();
+        render_f1 ^= 1;
+    }
+    if (render_f1) {
         oled_write_raw(gw_downtaunt_f1, sizeof(gw_idle));
     } else {
         oled_write_raw(gw_downtaunt_f2, sizeof(gw_idle));
