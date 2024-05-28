@@ -28,13 +28,6 @@ enum layer_names {
     _EXTRARIGHT
 };
 
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-    QWERTY = SAFE_RANGE,
-    NUMPAD,
-    NUMBERS
-};
-
 // Aliases for this command to make the thumb keys work as LOWER/RAISE on hold and as space on hit.
 #define CURSORRGHT LT(_CURSORRGHT,KC_SPC)
 #define CURSORLEFT LT(_CURSORLEFT,KC_SPC)
