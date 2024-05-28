@@ -17,8 +17,6 @@ export default defineConfig(({ mode }) => {
         outDir: "../../.build/docs",
         cleanUrls: true,
 
-        srcExclude: ["ja/**", "zh-cn/**"],
-
         markdown: {
             config(md) {
                 md.use(tabsMarkdownPlugin);

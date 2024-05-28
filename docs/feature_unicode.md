@@ -47,9 +47,9 @@ Add the following to your `config.h`:
 
 Each of these subsystems have their own pros and cons in terms of flexibility and ease of use. Choose the one that best fits your needs.
 
-<!-- tabs:start -->
+::::tabs
 
-### ** Basic **
+=== Basic
 
 This is the easiest to use, albeit somewhat limited. It supports code points up to `U+7FFF`, which covers characters for most modern languages (including East Asian), as well as many symbols, but does not include emoji.
 
@@ -61,7 +61,7 @@ UNICODE_ENABLE = yes
 
 You can then add `UC(c)` keycodes to your keymap, where *c* is the code point of the desired character (in hexadecimal - the `U+` prefix will not work). For example, `UC(0x40B)` will output [Ћ](https://unicode-table.com/en/040B/), and `UC(0x30C4)` will output [ツ](https://unicode-table.com/en/30C4).
 
-### ** Unicode Map **
+=== Unicode Map
 
 Unicode Map supports all possible code points (up to `U+10FFFF`). Here, the code points are stored in a separate mapping table (which may contain at most 16,384 entries), instead of directly in the keymap.
 
@@ -104,7 +104,7 @@ This is most useful when creating a keymap for an international layout with spec
 
 Due to keycode size constraints, *i* and *j* can each only refer to one of the first 128 characters in your `unicode_map`. In other words, 0 ≤ *i* ≤ 127 and 0 ≤ *j* ≤ 127.
 
-### ** UCIS **
+=== UCIS
 
 As with Unicode Map, the UCIS method also supports all possible code points, and requires the use of a mapping table. However, it works much differently - Unicode characters are input by replacing a typed mnemonic.
 
@@ -129,7 +129,7 @@ By default, each table entry may be up to three code points long. This can be ch
 
 To invoke UCIS input, the `ucis_start()` function must first be called (for example, in a custom "Unicode" keycode). Then, type the mnemonic for the mapping table entry (such as "rofl"), and hit Space or Enter. The "rofl" text will be backspaced and the emoji inserted.
 
-<!-- tabs:end -->
+::::
 
 ## Input Modes {#input-modes}
 
@@ -147,9 +147,9 @@ These modes can then be cycled through using the `UC_NEXT` and `UC_PREV` keycode
 
 If your keyboard has working EEPROM, it will remember the last used input mode and continue using it on the next power up. This can be disabled by defining `UNICODE_CYCLE_PERSIST` to `false`.
 
-<!-- tabs:start -->
+:::::tabs
 
-### ** macOS **
+==== macOS
 
 **Mode Name:** `UNICODE_MODE_MACOS`
 
@@ -157,7 +157,7 @@ macOS has built-in support for Unicode input as its own input source. It support
 
 To enable, go to **System Preferences → Keyboard → Input Sources**, then add Unicode Hex Input to the list (under Other), and activate it from the input dropdown in the menu bar. Note that this may disable some Option-based shortcuts such as Option+Left and Option+Right.
 
-### ** Linux (IBus) **
+==== Linux (IBus)
 
 **Mode Name:** `UNICODE_MODE_LINUX`
 
@@ -165,7 +165,7 @@ For Linux distros with IBus, Unicode input is enabled by default, supports all p
 
 Users who would like support in non-GTK apps without IBus may need to resort to a more indirect method, such as creating a custom keyboard layout.
 
-### ** Windows (WinCompose) **
+==== Windows (WinCompose)
 
 **Mode Name:** `UNICODE_MODE_WINCOMPOSE`
 
@@ -173,7 +173,7 @@ This mode requires a third-party tool called [WinCompose](https://github.com/sam
 
 To enable, install the [latest release from GitHub](https://github.com/samhocevar/wincompose/releases/latest). Once installed, it will automatically run on startup. This works reliably under all versions of Windows supported by WinCompose.
 
-### ** Windows (HexNumpad) **
+==== Windows (HexNumpad)
 
 **Mode Name:** `UNICODE_MODE_WINDOWS`
 
@@ -189,19 +189,19 @@ To enable, run the following as an administrator, then reboot:
 reg add "HKCU\Control Panel\Input Method" -v EnableHexNumpad -t REG_SZ -d 1
 ```
 
-### ** Emacs **
+==== Emacs
 
 **Mode Name:** `UNICODE_MODE_EMACS`
 
 Emacs supports code point input with the `insert-char` command.
 
-### ** BSD **
+==== BSD
 
 **Mode Name:** `UNICODE_MODE_BSD`
 
 Not currently implemented. If you're a BSD user and want to contribute support for this input mode, please [feel free](contributing)!
 
-<!-- tabs:end -->
+:::::
 
 ## Keycodes {#keycodes}
 

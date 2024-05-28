@@ -58,9 +58,9 @@ Drivers have their own set of configurable options, and are described in their r
 
 ## Quantum Painter CLI Commands {#quantum-painter-cli}
 
-<!-- tabs:start -->
+:::::tabs
 
-### ** `qmk painter-convert-graphics` **
+==== `qmk painter-convert-graphics`
 
 This command converts images to a format usable by QMK, i.e. the QGF File Format.
 
@@ -111,7 +111,7 @@ Writing /home/qmk/qmk_firmware/keyboards/my_keeb/generated/my_image.qgf.h...
 Writing /home/qmk/qmk_firmware/keyboards/my_keeb/generated/my_image.qgf.c...
 ```
 
-### ** `qmk painter-make-font-image` **
+==== `qmk painter-make-font-image`
 
 This command converts a TTF font to an intermediate format for editing, before converting to the QFF File Format.
 
@@ -144,7 +144,7 @@ The `UNICODE_GLYPHS` argument allows for specifying extra unicode glyphs to gene
 $ qmk painter-make-font-image --font NotoSans-ExtraCondensedBold.ttf --size 11 -o noto11.png --unicode-glyphs "ĄȽɂɻɣɈʣ"
 ```
 
-### ** `qmk painter-convert-font-image` **
+==== `qmk painter-convert-font-image`
 
 This command converts an intermediate font image to the QFF File Format.
 
@@ -189,14 +189,13 @@ Writing /home/qmk/qmk_firmware/keyboards/my_keeb/generated/noto11.qff.h...
 Writing /home/qmk/qmk_firmware/keyboards/my_keeb/generated/noto11.qff.c...
 ```
 
-<!-- tabs:end -->
+:::::
 
 ## Quantum Painter Display Drivers {#quantum-painter-drivers}
 
-<!-- tabs:start -->
+::::::tabs
 
-
-### ** LCD **
+===== LCD
 
 Most TFT display panels use a 5-pin interface -- SPI SCK, SPI MOSI, SPI CS, D/C, and RST pins.
 
@@ -204,9 +203,9 @@ For these displays, QMK's `spi_master` must already be correctly configured for 
 
 The pin assignments for SPI CS, D/C, and RST are specified during device construction.
 
-<!-- tabs:start -->
+:::::tabs
 
-#### ** GC9A01 **
+==== GC9A01
 
 Enabling support for the GC9A01 in Quantum Painter is done by adding the following to `rules.mk`:
 
@@ -232,7 +231,7 @@ The maximum number of displays can be configured by changing the following in yo
 
 Native color format rgb565 is compatible with GC9A01
 
-#### ** ILI9163 **
+==== ILI9163
 
 Enabling support for the ILI9163 in Quantum Painter is done by adding the following to `rules.mk`:
 
@@ -258,7 +257,7 @@ The maximum number of displays can be configured by changing the following in yo
 
 Native color format rgb565 is compatible with ILI9163
 
-#### ** ILI9341 **
+==== ILI9341
 
 Enabling support for the ILI9341 in Quantum Painter is done by adding the following to `rules.mk`:
 
@@ -284,7 +283,7 @@ The maximum number of displays can be configured by changing the following in yo
 
 Native color format rgb565 is compatible with ILI9341
 
-#### ** ILI9486 **
+==== ILI9486
 
 Enabling support for the ILI9486 in Quantum Painter is done by adding the following to `rules.mk`:
 
@@ -317,7 +316,7 @@ The maximum number of displays can be configured by changing the following in yo
 Native color format rgb888 is compatible with ILI9486
 Native color format rgb565 is compatible with ILI9486 Waveshare
 
-#### ** ILI9488 **
+==== ILI9488
 
 Enabling support for the ILI9488 in Quantum Painter is done by adding the following to `rules.mk`:
 
@@ -343,7 +342,7 @@ The maximum number of displays can be configured by changing the following in yo
 
 Native color format rgb888 is compatible with ILI9488
 
-#### ** ST7735 **
+==== ST7735
 
 Enabling support for the ST7735 in Quantum Painter is done by adding the following to `rules.mk`:
 
@@ -373,7 +372,7 @@ Native color format rgb565 is compatible with ST7735
 Some ST7735 devices are known to have different drawing offsets -- despite being a 132x162 pixel display controller internally, some display panels are only 80x160, or smaller. These may require an offset to be applied; see `qp_set_viewport_offsets` above for information on how to override the offsets if they aren't correctly rendered.
 :::
 
-#### ** ST7789 **
+==== ST7789
 
 Enabling support for the ST7789 in Quantum Painter is done by adding the following to `rules.mk`:
 
@@ -403,9 +402,9 @@ Native color format rgb565 is compatible with ST7789
 Some ST7789 devices are known to have different drawing offsets -- despite being a 240x320 pixel display controller internally, some display panels are only 240x240, or smaller. These may require an offset to be applied; see `qp_set_viewport_offsets` above for information on how to override the offsets if they aren't correctly rendered.
 :::
 
-<!-- tabs:end -->
+:::::
 
-### ** OLED **
+===== OLED
 
 OLED displays tend to use 5-pin SPI when at larger resolutions, or when using color -- SPI SCK, SPI MOSI, SPI CS, D/C, and RST pins. Smaller OLEDs may use I2C instead.
 
@@ -413,9 +412,9 @@ When using these displays, either `spi_master` or `i2c_master` must already be c
 
 For SPI, the pin assignments for SPI CS, D/C, and RST are specified during device construction -- for I2C the panel's address is specified instead.
 
-<!-- tabs:start -->
+:::::tabs
 
-#### ** SSD1351 **
+==== SSD1351
 
 Enabling support for the SSD1351 in Quantum Painter is done by adding the following to `rules.mk`:
 
@@ -441,7 +440,7 @@ The maximum number of displays can be configured by changing the following in yo
 
 Native color format rgb565 is compatible with SSD1351
 
-#### ** SH1106 **
+==== SH1106
 
 Enabling support for the SH1106 in Quantum Painter is done by adding the following to `rules.mk`:
 
@@ -475,13 +474,13 @@ The maximum number of displays of each type can be configured by changing the fo
 
 Native color format mono2 is compatible with SH1106
 
-#### ** SSD1306 **
+==== SSD1306
 
 SSD1306 and SH1106 are almost entirely identical, to the point of being indisinguishable by Quantum Painter. Enable SH1106 support in Quantum Painter and create SH1106 devices in firmware to perform drawing operations on SSD1306 displays.
 
-<!-- tabs:end -->
+:::::
 
-### ** Surface **
+===== Surface
 
 Quantum Painter has a surface driver which is able to target a buffer in RAM. In general, surfaces keep track of the "dirty" region -- the area that has been drawn to since the last flush -- so that when transferring to the display they can transfer the minimal amount of data to achieve the end result.
 
@@ -549,7 +548,7 @@ The surface and display panel must have the same native pixel format.
 Calling `qp_flush()` on the surface resets its dirty region. Copying the surface contents to the display also automatically resets the dirty region.
 :::
 
-<!-- tabs:end -->
+::::::
 
 ## Quantum Painter Drawing API {#quantum-painter-api}
 
@@ -560,9 +559,9 @@ To use any of the APIs, you need to include `qp.h`:
 #include <qp.h>
 ```
 
-<!-- tabs:start -->
+::::::tabs
 
-### ** General Notes **
+===== General Notes
 
 The coordinate system used in Quantum Painter generally accepts `left`, `top`, `right`, and `bottom` instead of x/y/width/height, and each coordinate is inclusive of where pixels should be drawn. This is required as some datatypes used by display panels have a maximum value of `255` -- for any value or geometry extent that matches `256`, this would be represented as a `0`, instead.
 
@@ -580,11 +579,11 @@ All color data matches the standard QMK HSV triplet definitions:
 Colors used in Quantum Painter are not subject to the RGB lighting CIE curve, if it is enabled.
 :::
 
-### ** Device Control **
+===== Device Control
 
-<!-- tabs:start -->
+:::::tabs
 
-#### ** Display Initialisation **
+==== Display Initialisation
 
 ```c
 bool qp_init(painter_device_t device, painter_rotation_t rotation);
@@ -600,7 +599,7 @@ void keyboard_post_init_kb(void) {
 }
 ```
 
-#### ** Display Power **
+==== Display Power
 
 ```c
 bool qp_power(painter_device_t device, bool power_on);
@@ -633,7 +632,7 @@ void suspend_wakeup_init_user(void) {
 }
 ```
 
-#### ** Display Clear **
+==== Display Clear
 
 ```c
 bool qp_clear(painter_device_t device);
@@ -641,7 +640,7 @@ bool qp_clear(painter_device_t device);
 
 The `qp_clear` function clears the display's screen.
 
-#### ** Display Flush **
+==== Display Flush
 
 ```c
 bool qp_flush(painter_device_t device);
@@ -665,13 +664,13 @@ void housekeeping_task_user(void) {
 }
 ```
 
-<!-- tabs:end -->
+:::::
 
-### ** Drawing Primitives **
+===== Drawing Primitives
 
-<!-- tabs:start -->
+:::::tabs
 
-#### ** Set Pixel **
+==== Set Pixel
 
 ```c
 bool qp_setpixel(painter_device_t device, uint16_t x, uint16_t y, uint8_t hue, uint8_t sat, uint8_t val);
@@ -697,7 +696,7 @@ void housekeeping_task_user(void) {
 }
 ```
 
-#### ** Draw Line **
+==== Draw Line
 
 ```c
 bool qp_line(painter_device_t device, uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t hue, uint8_t sat, uint8_t val);
@@ -719,7 +718,7 @@ void housekeeping_task_user(void) {
 }
 ```
 
-#### ** Draw Rect **
+==== Draw Rect
 
 ```c
 bool qp_rect(painter_device_t device, uint16_t left, uint16_t top, uint16_t right, uint16_t bottom, uint8_t hue, uint8_t sat, uint8_t val, bool filled);
@@ -741,7 +740,7 @@ void housekeeping_task_user(void) {
 }
 ```
 
-#### ** Draw Circle **
+==== Draw Circle
 
 ```c
 bool qp_circle(painter_device_t device, uint16_t x, uint16_t y, uint16_t radius, uint8_t hue, uint8_t sat, uint8_t val, bool filled);
@@ -763,7 +762,7 @@ void housekeeping_task_user(void) {
 }
 ```
 
-#### ** Draw Ellipse **
+==== Draw Ellipse
 
 ```c
 bool qp_ellipse(painter_device_t device, uint16_t x, uint16_t y, uint16_t sizex, uint16_t sizey, uint8_t hue, uint8_t sat, uint8_t val, bool filled);
@@ -785,9 +784,9 @@ void housekeeping_task_user(void) {
 }
 ```
 
-<!-- tabs:end -->
+:::::
 
-### ** Image Functions **
+===== Image Functions
 
 Making an image available for use requires compiling it into your firmware. To do so, assuming you've created `my_image.qgf.c` and `my_image.qgf.h` as per the CLI examples above, you'd add the following to your `rules.mk`:
 
@@ -800,9 +799,9 @@ SRC += my_image.qgf.c
 #include "my_image.qgf.h"
 ```
 
-<!-- tabs:start -->
+:::::tabs
 
-#### ** Load Image **
+==== Load Image
 
 ```c
 painter_image_handle_t qp_load_image_mem(const void *buffer);
@@ -826,7 +825,7 @@ Image information is available through accessing the handle:
 | Height      | `image->height`      |
 | Frame Count | `image->frame_count` |
 
-#### ** Unload Image **
+==== Unload Image
 
 ```c
 bool qp_close_image(painter_image_handle_t image);
@@ -834,7 +833,7 @@ bool qp_close_image(painter_image_handle_t image);
 
 The `qp_close_image` function releases resources related to the loading of the supplied image.
 
-#### ** Draw image **
+==== Draw image
 
 ```c
 bool qp_drawimage(painter_device_t device, uint16_t x, uint16_t y, painter_image_handle_t image);
@@ -854,7 +853,7 @@ void keyboard_post_init_kb(void) {
 }
 ```
 
-#### ** Animate Image **
+==== Animate Image
 
 ```c
 deferred_token qp_animate(painter_device_t device, uint16_t x, uint16_t y, painter_image_handle_t image);
@@ -879,7 +878,7 @@ void keyboard_post_init_kb(void) {
 }
 ```
 
-#### ** Stop Animation **
+==== Stop Animation
 
 ```c
 void qp_stop_animation(deferred_token anim_token);
@@ -894,9 +893,9 @@ void housekeeping_task_user(void) {
 }
 ```
 
-<!-- tabs:end -->
+:::::
 
-### ** Font Functions **
+===== Font Functions
 
 Making a font available for use requires compiling it into your firmware. To do so, assuming you've created `my_font.qff.c` and `my_font.qff.h` as per the CLI examples above, you'd add the following to your `rules.mk`:
 
@@ -909,9 +908,9 @@ SRC += noto11.qff.c
 #include "noto11.qff.h"
 ```
 
-<!-- tabs: start -->
+:::::tabs
 
-#### ** Load Font **
+==== Load Font
 
 ```c
 painter_font_handle_t qp_load_font_mem(const void *buffer);
@@ -933,7 +932,7 @@ Font information is available through accessing the handle:
 |-------------|----------------------|
 | Line Height | `image->line_height` |
 
-#### ** Unload Font **
+==== Unload Font
 
 ```c
 bool qp_close_font(painter_font_handle_t font);
@@ -941,7 +940,7 @@ bool qp_close_font(painter_font_handle_t font);
 
 The `qp_close_font` function releases resources related to the loading of the supplied font.
 
-#### ** Measure Text **
+==== Measure Text
 
 ```c
 int16_t qp_textwidth(painter_font_handle_t font, const char *str);
@@ -949,7 +948,7 @@ int16_t qp_textwidth(painter_font_handle_t font, const char *str);
 
 The `qp_textwidth` function allows measurement of how many pixels wide the supplied string would result in, for the given font.
 
-#### ** Draw Text **
+==== Draw Text
 
 ```c
 int16_t qp_drawtext(painter_device_t device, uint16_t x, uint16_t y, painter_font_handle_t font, const char *str);
@@ -971,49 +970,49 @@ void keyboard_post_init_kb(void) {
 }
 ```
 
-<!-- tabs:end -->
+:::::
 
-### ** Advanced Functions **
+===== Advanced Functions
 
-<!-- tabs:start -->
+:::::tabs
 
-#### ** Gettters **
+==== Getters
 
 These functions allow external code to retrieve the current width, height, rotation, and drawing offsets.
 
-<!-- tabs:start -->
+::::tabs
 
-#### ** Width **
+=== Width
 
 ```c
 uint16_t qp_get_width(painter_device_t device);
 ```
 
-#### ** Height **
+=== Height
 
 ```c
 uint16_t qp_get_height(painter_device_t device);
 ```
 
-#### ** Rotation **
+=== Rotation
 
 ```c
 painter_rotation_t qp_get_rotation(painter_device_t device);
 ```
 
-#### ** Offset X **
+=== Offset X
 
 ```c
 uint16_t qp_get_offset_x(painter_device_t device);
 ```
 
-#### ** Offset Y **
+=== Offset Y
 
 ```c
 uint16_t qp_get_offset_y(painter_device_t device);
 ```
 
-##### ** Everything **
+=== Everything
 
 Convenience function to call all the previous ones at once.
 Note: You can pass `NULL` for the values you are not interested in.
@@ -1022,9 +1021,9 @@ Note: You can pass `NULL` for the values you are not interested in.
 void qp_get_geometry(painter_device_t device, uint16_t *width, uint16_t *height, painter_rotation_t *rotation, uint16_t *offset_x, uint16_t *offset_y);
 ```
 
-<!-- tabs:end -->
+::::
 
-#### ** Set Viewport Offsets **
+==== Set Viewport Offsets
 
 ```c
 void qp_set_viewport_offsets(painter_device_t device, uint16_t offset_x, uint16_t offset_y);
@@ -1032,7 +1031,7 @@ void qp_set_viewport_offsets(painter_device_t device, uint16_t offset_x, uint16_
 
 The `qp_set_viewport_offsets` function can be used to offset all subsequent drawing operations. For example, if a display controller is internally 240x320, but the display panel is 240x240 and has a Y offset of 80 pixels, you could invoke `qp_set_viewport_offsets(display, 0, 80);` and the drawing positioning would be corrected.
 
-#### ** Set Viewport **
+==== Set Viewport
 
 ```c
 bool qp_viewport(painter_device_t device, uint16_t left, uint16_t top, uint16_t right, uint16_t bottom);
@@ -1040,7 +1039,7 @@ bool qp_viewport(painter_device_t device, uint16_t left, uint16_t top, uint16_t 
 
 The `qp_viewport` function controls where raw pixel data is written to.
 
-#### ** Stream Pixel Data **
+==== Stream Pixel Data
 
 ```c
 bool qp_pixdata(painter_device_t device, const void *pixel_data, uint32_t native_pixel_count);
@@ -1052,6 +1051,6 @@ The `qp_pixdata` function allows raw pixel data to be streamed to the display. I
 Under normal circumstances, users will not need to manually call either `qp_viewport` or `qp_pixdata`. These allow for writing of raw pixel information, in the display panel's native format, to the area defined by the viewport.
 :::
 
-<!-- tabs:end -->
+:::::
 
-<!-- tabs:end -->
+::::::

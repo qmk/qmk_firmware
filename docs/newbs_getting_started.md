@@ -19,9 +19,9 @@ If you haven't worked with the Linux/Unix command line before, there are a few b
 
 We've tried to make QMK as easy to set up as possible. You only have to prepare your Linux or Unix environment, then let QMK install the rest.
 
-<!-- tabs:start -->
+:::::tabs
 
-### ** Windows **
+==== Windows
 
 QMK maintains a Bundle of MSYS2, the CLI and all necessary dependencies. It also provides a handy `QMK MSYS` terminal shortcut to boot you directly into the correct environment.
 
@@ -49,11 +49,13 @@ You will need to install [MSYS2](https://www.msys2.org). Once installed, close a
 
 Install the QMK CLI by running:
 
-    pacman --needed --noconfirm --disable-download-timeout -S git mingw-w64-x86_64-python-qmk
+```sh
+pacman --needed --noconfirm --disable-download-timeout -S git mingw-w64-x86_64-python-qmk
+```
 
 ::::
 
-### ** macOS **
+==== macOS
 
 QMK maintains a Homebrew tap and formula which will automatically install the CLI and all necessary dependencies.
 
@@ -69,9 +71,11 @@ If you are using an Apple Silicon machine, the installation process will take si
 
 Install the QMK CLI by running:
 
-    brew install qmk/qmk/qmk
-    
-### ** Linux/WSL **
+```sh
+brew install qmk/qmk/qmk
+```
+
+==== Linux/WSL
 
 ::: tip
 **Note for WSL users**: By default, the installation process will clone the QMK repository into your WSL home directory, but if you have cloned manually, ensure that it is located inside the WSL instance instead of the Windows filesystem (ie. not in `/mnt`), as accessing it is currently [extremely slow](https://github.com/microsoft/WSL/issues/4197).
@@ -93,7 +97,9 @@ You will need to install Git and Python. It's very likely that you already have 
 
 Install the QMK CLI by running:
 
-    python3 -m pip install --user qmk
+```sh
+python3 -m pip install --user qmk
+```
 
 #### Community Packages
 
@@ -101,67 +107,82 @@ These packages are maintained by community members, so may not be up to date or 
 
 On Arch-based distros you can install the CLI from the official repositories (NOTE: at the time of writing this package marks some dependencies as optional that should not be):
 
-    sudo pacman -S qmk
+```sh
+sudo pacman -S qmk
+```
 
 You can also try the `qmk-git` package from AUR:
 
-    yay -S qmk-git
+```sh
+yay -S qmk-git
+```
 
-### ** FreeBSD **
+==== FreeBSD
 
 #### Installation
 
 Install the FreeBSD package for QMK CLI by running:
 
-    pkg install -g "py*-qmk"
+```sh
+pkg install -g "py*-qmk"
+```
 
 NOTE: remember to follow the instructions printed at the end of installation (use `pkg info -Dg "py*-qmk"` to show them again).
 
-<!-- tabs:end -->
+:::::
 
 ## 3. Run QMK Setup {#set-up-qmk}
 
-<!-- tabs:start -->
+::::tabs
 
-### ** Windows **
+=== Windows
 
 Open QMK MSYS and run the following command:
 
-    qmk setup
+```sh
+qmk setup
+```
 
 In most situations you will want to answer `y` to all of the prompts.
 
-### ** macOS **
+=== macOS
 
 Open Terminal and run the following command:
 
-    qmk setup
+```sh
+qmk setup
+```
 
 In most situations you will want to answer `y` to all of the prompts.
 
-### ** Linux/WSL **
+=== Linux/WSL
 
 Open your preferred terminal app and run the following command:
 
-    qmk setup
+```sh
+qmk setup
+```
 
 In most situations you will want to answer `y` to all of the prompts.
 
-?>**Note on Debian, Ubuntu and their derivatives**:
+::: info Note on Debian, Ubuntu and their derivatives:
 It's possible, that you will get an error saying something like: `bash: qmk: command not found`.
 This is due to a [bug](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=839155) Debian introduced with their Bash 4.4 release, which removed `$HOME/.local/bin` from the PATH. This bug was later fixed on Debian and Ubuntu.
 Sadly, Ubuntu reintroduced this bug and is [yet to fix it](https://bugs.launchpad.net/ubuntu/+source/bash/+bug/1588562).
 Luckily, the fix is easy. Run this as your user: `echo 'PATH="$HOME/.local/bin:$PATH"' >> $HOME/.bashrc && source $HOME/.bashrc`
+:::
 
-### ** FreeBSD **
+=== FreeBSD
 
 Open your preferred terminal app and run the following command:
 
-    qmk setup
+```sh
+qmk setup
+```
 
 In most situations you will want to answer `y` to all of the prompts.
 
-<!-- tabs:end -->
+::::
 
 ::: tip
 The qmk home folder can be specified at setup with `qmk setup -H <path>`, and modified afterwards using the [cli configuration](cli_configuration#single-key-example) and the variable `user.qmk_home`. For all available options run `qmk setup --help`.
