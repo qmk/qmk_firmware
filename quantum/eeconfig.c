@@ -50,7 +50,7 @@ __attribute__((weak)) void eeconfig_init_kb(void) {
  */
 void eeconfig_init_quantum(void) {
 #if defined(EEPROM_DRIVER)
-    eeprom_driver_erase();
+    eeprom_driver_format(false);
 #endif
 
     eeprom_update_word(EECONFIG_MAGIC, EECONFIG_MAGIC_NUMBER);
@@ -115,7 +115,7 @@ void eeconfig_enable(void) {
  */
 void eeconfig_disable(void) {
 #if defined(EEPROM_DRIVER)
-    eeprom_driver_erase();
+    eeprom_driver_format(false);
 #endif
     eeprom_update_word(EECONFIG_MAGIC, EECONFIG_MAGIC_NUMBER_OFF);
 }
