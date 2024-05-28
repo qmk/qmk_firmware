@@ -1,4 +1,4 @@
-#include "../../config.h"
+#pragma once
 
 /* WS2812B RGB Underglow LED */
 #define WS2812_DI_PIN F5   // See readme.md for wiring your led's

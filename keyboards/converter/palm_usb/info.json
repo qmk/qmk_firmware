@@ -9,5 +9,12 @@
         "device_version": "1.0.0"
     },
     "processor": "atmega32u4",
-    "bootloader": "caterina"
+    "bootloader": "caterina",
+    "features": {
+        "bootmagic": false,
+        "mousekey": false,
+        "extrakey": false,
+        "console": true,
+        "command": true
+    }
 }

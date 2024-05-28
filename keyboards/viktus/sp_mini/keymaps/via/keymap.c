@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_FN1] = LAYOUT_all(
-    _______,   QK_BOOT,     _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,
+    _______,   QK_BOOT,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,
     _______,   KC_GRV,    KC_1,      KC_2,      KC_3,      KC_4,      KC_5,      KC_6,      KC_7,      KC_8,      KC_9,      KC_0,      KC_MINS,   KC_EQL,    _______,
     _______,   RGB_TOG,   RGB_HUI,   RGB_SAI,   RGB_VAI,   KC_VOLU,   KC_LBRC,   KC_RBRC,   KC_4,      KC_5,      KC_6,      KC_SCLN,              _______,   _______,
     _______,   RGB_MOD,   RGB_HUD,   RGB_SAD,   RGB_VAD,   KC_VOLD,   KC_LCBR,              KC_RCBR,   KC_1,      KC_2,      KC_3,      _______,   KC_UP,
@@ -75,38 +75,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void keyboard_pre_init_user(void) {
-    setPinOutput(F5);  // initialize F5 for LED
-    setPinOutput(F6);  // initialize F6 for LED
-    setPinOutput(F7);  // initialize F7 for LED
+    gpio_set_pin_output(F5);  // initialize F5 for LED
+    gpio_set_pin_output(F6);  // initialize F6 for LED
+    gpio_set_pin_output(F7);  // initialize F7 for LED
 
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
         case _FN1:
-            writePinHigh(F5);
-            writePinLow(F6);
-            writePinLow(F7);
+            gpio_write_pin_high(F5);
+            gpio_write_pin_low(F6);
+            gpio_write_pin_low(F7);
             break;
         case _FN2:
-            writePinHigh(F6);
-            writePinLow(F5);
-            writePinLow(F7);
+            gpio_write_pin_high(F6);
+            gpio_write_pin_low(F5);
+            gpio_write_pin_low(F7);
             break;
         case _FN3:  // replace 'XXXX' with the layer or function name
-            writePinHigh(F7);
-            writePinLow(F5);
-            writePinLow(F6);
+            gpio_write_pin_high(F7);
+            gpio_write_pin_low(F5);
+            gpio_write_pin_low(F6);
             break;
         case KC_F24:
-            writePinHigh(F7);
-            writePinHigh(F5);
-            writePinHigh(F6);
+            gpio_write_pin_high(F7);
+            gpio_write_pin_high(F5);
+            gpio_write_pin_high(F6);
             break;
         default:
-            writePinLow(F5);
-            writePinLow(F6);
-            writePinLow(F7);
+            gpio_write_pin_low(F5);
+            gpio_write_pin_low(F6);
+            gpio_write_pin_low(F7);
             break;
         }
     return state;

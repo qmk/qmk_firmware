@@ -803,3 +803,39 @@ This command converts a TTF font to an intermediate format for editing, before c
 
 This command converts an intermediate font image to the QFF File Format. See the [Quantum Painter](quantum_painter.md?id=quantum-painter-cli) documentation for more information on this command.
 
+## `qmk test-c`
+
+This command runs the C unit test suite. If you make changes to C code you should ensure this runs successfully.
+
+**Usage**:
+
+```
+qmk test-c [-h] [-t TEST] [-l] [-c] [-e ENV] [-j PARALLEL]
+
+options:
+  -h, --help            show this help message and exit
+  -t TEST, --test TEST  Test to run from the available list. Supports wildcard globs. May be passed multiple times.
+  -l, --list            List available tests.
+  -c, --clean           Remove object files before compiling.
+  -e ENV, --env ENV     Set a variable to be passed to make. May be passed multiple times.
+  -j PARALLEL, --parallel PARALLEL
+                        Set the number of parallel make jobs; 0 means unlimited.
+```
+
+**Examples**:
+
+Run entire test suite:
+
+    qmk test-c
+
+List available tests:
+
+    qmk test-c --list
+
+Run matching test:
+
+    qmk test-c --test unicode*
+
+Run single test:
+
+    qmk test-c --test basic
