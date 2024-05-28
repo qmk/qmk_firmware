@@ -53,7 +53,7 @@ Single hit:  |		       |      |Space |		|Space |      |                 |
 	     +------------------------------> SPACE SPACE <-----------------------------+
 
  */
-[_QWERTY] = LAYOUT_ortho_4x12(
+[_QWERTY] = LAYOUT(
   KC_ESC,                  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,       KC_Y,       KC_U,    KC_I,    KC_O,   KC_P,    KC_BSPC,
   LT(_EXTRARIGHT,KC_TAB),  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,       KC_H,       KC_J,    KC_K,    KC_L,   KC_SCLN, KC_PENT,
   KC_LCTL,                 KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,       KC_N,       KC_M,    KC_COMM, KC_DOT, KC_SLSH, KC_RCTL,
@@ -107,7 +107,7 @@ without separate thumbcluster.
  *               |      |      |      |      |   X  |      |      |      |
  *               `-------------------------------------------------------'
  */
-[_CURSORRGHT] = LAYOUT_ortho_4x12(
+[_CURSORRGHT] = LAYOUT(
   _______, KC_BRK,           KC_WH_D,      KC_MS_U,      KC_WH_U,      KC_DEL,              KC_PGUP,  KC_HOME, KC_UP,   KC_END,  KC_GRV,  KC_DEL,
   KC_ENT,  LCTL(KC_A),       KC_MS_L,      KC_MS_D,      KC_MS_R,      XXXXXXX,             KC_PGDN,  KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, _______,
   _______, LCTL(KC_Z),       LSFT(KC_DEL), LCTL(KC_INS), LSFT(KC_INS), XXXXXXX,             KC_INS,   KC_BTN1, KC_BTN3, KC_BTN2, XXXXXXX, _______,
@@ -127,7 +127,7 @@ without separate thumbcluster.
  *               |      |      |      |   X  |       |      |      |      |
  *               `-------------------------------------------------------'
  */
-[_CURSORLEFT] = LAYOUT_ortho_4x12(
+[_CURSORLEFT] = LAYOUT(
   _______, KC_BRK,          KC_HOME, KC_UP,   KC_END,  KC_PGUP,       KC_DEL,  KC_WH_U,      KC_MS_U,      KC_WH_D,      KC_GRV,  KC_DEL,
   KC_ENT,  LCTL(KC_A),      KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,       XXXXXXX, KC_MS_L,      KC_MS_D,      KC_MS_R,      XXXXXXX, _______,
   _______, XXXXXXX,         KC_BTN2, KC_BTN3, KC_BTN1, KC_INS,        XXXXXXX, LCTL(KC_DEL), LCTL(KC_INS), LSFT(KC_INS), XXXXXXX, _______,
@@ -147,7 +147,7 @@ h * |------+------+------+------+------+-------------+------+------+------+-----
  *               |      |      |      |      |      |      |      |      |
  *               `-------------------------------------------------------'
  */
-[_NUMBERS] = LAYOUT_ortho_4x12(
+[_NUMBERS] = LAYOUT(
   _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
   LT(_EXTRARIGHT,KC_TAB), KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______,
   _______, KC_F11,  KC_F12,  KC_LALT, KC_LSFT, KC_LALT, KC_RALT, KC_RSFT, KC_COMM, KC_DOT,  KC_SLSH, _______,
@@ -168,7 +168,7 @@ h * |------+------+------+------+------+-------------+------+------+------+-----
  *               |      |      |      |      |      |      |      |      |
  *               `-------------------------------------------------------'
  */
-[_EXTRARIGHT] = LAYOUT_ortho_4x12(
+[_EXTRARIGHT] = LAYOUT(
   _______, KC_BRK,  XXXXXXX, XXXXXXX,      XXXXXXX, 	 XXXXXXX, 	KC_GRV,  KC_EQL,  KC_LPRN, KC_RPRN, KC_MINS, _______,
   _______, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX,      XXXXXXX,       KC_PSCR, XXXXXXX, XXXXXXX, XXXXXXX, KC_QUOT, _______,
   _______, XXXXXXX, XXXXXXX, TG(_NUMPAD),  XXXXXXX,      XXXXXXX,       XXXXXXX, XXXXXXX, KC_LBRC, KC_RBRC, KC_BSLS, _______,
@@ -192,7 +192,7 @@ Hold:  		               | LSft |CursLt||CursRt| RSft |
 Single hit:		       |      |Space ||Space |      |
 		               +------+------||------+------+
  */
-[_NUMPAD] =  LAYOUT_ortho_4x12(
+[_NUMPAD] =  LAYOUT(
   KC_ESC,                 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_KP_SLASH, KC_7,    KC_8, KC_9, KC_KP_MINUS, KC_BSPC,
   LT(_EXTRARIGHT,KC_TAB), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_PAST,     KC_4,    KC_5, KC_6, KC_KP_PLUS,  KC_PENT,
   KC_LCTL,                XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_COMM,     KC_1,    KC_2, KC_3, KC_DOT,      KC_RCTL,
