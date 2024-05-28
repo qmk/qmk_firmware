@@ -4,7 +4,7 @@ This page attempts to explain the basic information you need to know to work wit
 
 ## Basic QMK Structure
 
-QMK is a fork of [Jun Wako](https://github.com/tmk)'s [tmk_keyboard](https://github.com/tmk/tmk_keyboard) project. The original TMK code, with modifications, can be found in the `tmk_core` folder. The QMK additions to the project may be found in the `quantum` folder. Keyboard projects may be found in the `handwired` and `keyboard` folders.
+QMK is a fork of [Jun Wako](https://github.com/tmk)'s [tmk_keyboard](https://github.com/tmk/tmk_keyboard) project. The original TMK code, with modifications, can be found in the `tmk_core` folder. The QMK additions to the project may be found in the `quantum` folder. Keyboard projects may be found in the `keyboards` folder.
 
 ### Userspace Structure
 

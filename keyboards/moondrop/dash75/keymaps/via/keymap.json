@@ -7,8 +7,7 @@
     "author": "vinorodrigues",
     "config": {
         "features": {
-            "via": true,
-            "lto": true
+            "via": true
         }
     },
     "layers": [

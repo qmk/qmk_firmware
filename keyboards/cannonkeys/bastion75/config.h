@@ -24,5 +24,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define BACKLIGHT_PWM_DRIVER PWMD3
 #define BACKLIGHT_PWM_CHANNEL RP2040_PWM_CHANNEL_A
-
-#define WS2812_PIO_USE_PIO1

@@ -2,7 +2,7 @@
 
 AVR is severely resource-constrained, and as QMK continues to grow, it is approaching a point where support for AVR may need to be moved to legacy status as newer development is unable to fit into those constraints.
 
-However, if you need to reduce the compiled size of your firmware, there are a number of options to do so.
+However, if you need to reduce the compiled size of your firmware to fit the controller's limited flash size, there are a number of options to do so.
 
 ## `rules.mk` Settings
 First and foremost is enabling link time optimization. To do so, add this to your rules.mk: 
@@ -91,15 +91,19 @@ Or if you're not using layers at all, you can outright remove the functionality 
 
 There are two `__attribute__ ((weak))` placeholder functions available to customize magic keycodes. If you are not using that feature to swap keycodes, such as backslash with backspace, add the following to your `keymap.c` or user space code:
 ```c
+#ifndef MAGIC_ENABLE
 uint16_t keycode_config(uint16_t keycode) {
     return keycode;
 }
+#endif
 ```
 Likewise, if you are not using magic keycodes to swap modifiers, such as Control with GUI, add the following to your `keymap.c` or user space code:
 ```c
+#ifndef MAGIC_ENABLE
 uint8_t mod_config(uint8_t mod) {
     return mod;
 }
+#endif
 ```
 Both of them will overwrite the placeholder functions with a simple return statement to reduce firmware size.
 
@@ -197,11 +201,7 @@ For RGB Matrix, these need to be explicitly enabled as well. To disable any that
 
 # Final Thoughts
 
-If you've done all of this, and your firmware is still too large, then it's time. It's time to consider making the switch to ARM. Unfortunately, right now is the worst possible time for that, due to the silicon shortage, and supply chain issues. Getting an ARM chip is difficult, at best, and significantly overpriced, at worst.
- -- Drashna
-
-That said, there are a number of Pro Micro replacements with ARM controllers: 
-* [Proton C](https://qmk.fm/proton-c/) (out of stock)
+If you've done all of this, and your firmware is still too large, then it is time to consider making the switch to ARM. There are a number of Pro Micro replacements with an ARM controller:
 * [Bonsai C](https://github.com/customMK/Bonsai-C) (Open Source, DIY/PCBA)
 * [STeMCell](https://github.com/megamind4089/STeMCell) (Open Source, DIY/PCBA)
 * [Adafruit KB2040](https://learn.adafruit.com/adafruit-kb2040)
@@ -210,7 +210,9 @@ That said, there are a number of Pro Micro replacements with ARM controllers:
 * [Elite-Pi](https://keeb.io/products/elite-pi-usb-c-pro-micro-replacement-rp2040)
 * [0xCB Helios](https://keeb.supply/products/0xcb-helios) ([Open Source](https://github.com/0xCB-dev/0xCB-Helios), DIY/PCBA/Shop)
 * [Liatris](https://splitkb.com/products/liatris)
+* [Imera](https://splitkb.com/products/imera)
 * [Michi](https://github.com/ci-bus/michi-promicro-rp2040)
+* [Proton C](https://qmk.fm/proton-c/) (out of stock)
 
 There are other, non-Pro Micro compatible boards out there. The most popular being:
 * [WeAct Blackpill F411](https://www.aliexpress.com/item/1005001456186625.html) (~$6 USD)

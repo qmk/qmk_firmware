@@ -6,7 +6,7 @@ QMK has the ability to control RGB LEDs attached to your keyboard. This is commo
 
 Some keyboards come with RGB LEDs preinstalled. Others must have them installed after the fact. See the [Hardware Modification](#hardware-modification) section for information on adding RGB lighting to your keyboard.
 
-Currently QMK supports the following addressable LEDs (however, the white LED in RGBW variants is not supported):
+Currently QMK supports the following addressable LEDs:
 
  * WS2811, WS2812, WS2812B, WS2812C, etc.
  * SK6812, SK6812MINI, SK6805
@@ -33,13 +33,13 @@ RGBLIGHT_DRIVER = apa102
 
 At minimum you must define the data pin your LED strip is connected to, and the number of LEDs in the strip, in your `config.h`. For APA102 LEDs, you must also define the clock pin. If your keyboard has onboard RGB LEDs, and you are simply creating a keymap, you usually won't need to modify these.
 
-|Define         |Description                                                              |
-|---------------|-------------------------------------------------------------------------|
-|`WS2812_DI_PIN`|The pin connected to the data pin of the LEDs (WS2812)                   |
-|`APA102_DI_PIN`|The pin connected to the data pin of the LEDs (APA102)                   |
-|`APA102_CI_PIN`|The pin connected to the clock pin of the LEDs (APA102)                  |
-|`RGBLED_NUM`   |The number of LEDs connected                                             |
-|`RGBLED_SPLIT` |(Optional) For split keyboards, the number of LEDs connected on each half|
+|Define              |Description                                                              |
+|--------------------|-------------------------------------------------------------------------|
+|`WS2812_DI_PIN`     |The pin connected to the data pin of the LEDs (WS2812)                   |
+|`APA102_DI_PIN`     |The pin connected to the data pin of the LEDs (APA102)                   |
+|`APA102_CI_PIN`     |The pin connected to the clock pin of the LEDs (APA102)                  |
+|`RGBLIGHT_LED_COUNT`|The number of LEDs connected                                             |
+|`RGBLED_SPLIT`      |(Optional) For split keyboards, the number of LEDs connected on each half|
 
 Then you should be able to use the keycodes below to change the RGB lighting to your liking.
 
@@ -152,28 +152,28 @@ Use these defines to add or remove animations from the firmware. When you are ru
 
 The following options are used to tweak the various animations:
 
-|Define                              |Default      |Description                                                                                    |
-|------------------------------------|-------------|-----------------------------------------------------------------------------------------------|
-|`RGBLIGHT_EFFECT_BREATHE_CENTER`    |*Not defined*|If defined, used to calculate the curve for the breathing animation. Valid values are 1.0 to 2.7 |
-|`RGBLIGHT_EFFECT_BREATHE_MAX`       |`255`        |The maximum brightness for the breathing mode. Valid values are 1 to 255                       |
-|`RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL`|`40`         |How long (in milliseconds) to wait between animation steps for the "Christmas" animation       |
-|`RGBLIGHT_EFFECT_CHRISTMAS_STEP`    |`2`          |The number of LEDs to group the red/green colors by for the "Christmas" animation              |
-|`RGBLIGHT_EFFECT_KNIGHT_LED_NUM`    |`RGBLED_NUM` |The number of LEDs to have the "Knight" animation travel                                       |
-|`RGBLIGHT_EFFECT_KNIGHT_LENGTH`     |`3`          |The number of LEDs to light up for the "Knight" animation                                      |
-|`RGBLIGHT_EFFECT_KNIGHT_OFFSET`     |`0`          |The number of LEDs to start the "Knight" animation from the start of the strip by              |
-|`RGBLIGHT_RAINBOW_SWIRL_RANGE`      |`255`        |Range adjustment for the rainbow swirl effect to get different swirls                          |
-|`RGBLIGHT_EFFECT_SNAKE_LENGTH`      |`4`          |The number of LEDs to light up for the "Snake" animation                                       |
-|`RGBLIGHT_EFFECT_TWINKLE_LIFE`      |`200`        |Adjusts how quickly each LED brightens and dims when twinkling (in animation steps)            |
-|`RGBLIGHT_EFFECT_TWINKLE_PROBABILITY`|`1/127`     |Adjusts how likely each LED is to twinkle (on each animation step)                             |
+|Define                              |Default             |Description                                                                                    |
+|------------------------------------|--------------------|-----------------------------------------------------------------------------------------------|
+|`RGBLIGHT_EFFECT_BREATHE_CENTER`    |*Not defined*       |If defined, used to calculate the curve for the breathing animation. Valid values are 1.0 to 2.7 |
+|`RGBLIGHT_EFFECT_BREATHE_MAX`       |`255`               |The maximum brightness for the breathing mode. Valid values are 1 to 255                       |
+|`RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL`|`40`                |How long (in milliseconds) to wait between animation steps for the "Christmas" animation       |
+|`RGBLIGHT_EFFECT_CHRISTMAS_STEP`    |`2`                 |The number of LEDs to group the red/green colors by for the "Christmas" animation              |
+|`RGBLIGHT_EFFECT_KNIGHT_LED_NUM`    |`RGBLIGHT_LED_COUNT`|The number of LEDs to have the "Knight" animation travel                                       |
+|`RGBLIGHT_EFFECT_KNIGHT_LENGTH`     |`3`                 |The number of LEDs to light up for the "Knight" animation                                      |
+|`RGBLIGHT_EFFECT_KNIGHT_OFFSET`     |`0`                 |The number of LEDs to start the "Knight" animation from the start of the strip by              |
+|`RGBLIGHT_RAINBOW_SWIRL_RANGE`      |`255`               |Range adjustment for the rainbow swirl effect to get different swirls                          |
+|`RGBLIGHT_EFFECT_SNAKE_LENGTH`      |`4`                 |The number of LEDs to light up for the "Snake" animation                                       |
+|`RGBLIGHT_EFFECT_TWINKLE_LIFE`      |`200`               |Adjusts how quickly each LED brightens and dims when twinkling (in animation steps)            |
+|`RGBLIGHT_EFFECT_TWINKLE_PROBABILITY`|`1/127`            |Adjusts how likely each LED is to twinkle (on each animation step)                             |
 
 ### Example Usage to Reduce Memory Footprint
   1. Use `#undef` to selectively disable animations. The following would disable two animations and save about 4KiB:
 
 ```diff
- #undef RGBLED_NUM
+ #undef RGBLIGHT_LED_COUNT
 +#undef RGBLIGHT_EFFECT_STATIC_GRADIENT
 +#undef RGBLIGHT_EFFECT_RAINBOW_SWIRL
- #define RGBLED_NUM 12
+ #define RGBLIGHT_LED_COUNT 12
  #define RGBLIGHT_HUE_STEP 8
  #define RGBLIGHT_SAT_STEP 8
 ```
@@ -356,26 +356,11 @@ Usually lighting layers apply their configured brightness once activated. If you
 
 If you need to change your RGB lighting in code, for example in a macro to change the color whenever you switch layers, QMK provides a set of functions to assist you. See [`rgblight.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight/rgblight.h) for the full list, but the most commonly used functions include:
 
-### Utility Functions
-|Function                                    |Description                                                        |
-|--------------------------------------------|-------------------------------------------------------------------|
-|`sethsv(hue, sat, val, ledbuf)`             |Set ledbuf to the given HSV value                                  |
-|`sethsv_raw(hue, sat, val, ledbuf)`         |Set ledbuf to the given HSV value without RGBLIGHT_LIMIT_VAL check |
-|`setrgb(r, g, b, ledbuf)`                   |Set ledbuf to the given RGB value where `r`/`g`/`b`                |
-
 ### Low level Functions
 |Function                                    |Description                                |
 |--------------------------------------------|-------------------------------------------|
 |`rgblight_set()`                            |Flush out led buffers to LEDs              |
 |`rgblight_set_clipping_range(pos, num)`     |Set clipping Range. see [Clipping Range](#clipping-range) |
-
-Example:
-```c
-sethsv(HSV_WHITE, (rgb_led_t *)&led[0]); // led 0
-sethsv(HSV_RED,   (rgb_led_t *)&led[1]); // led 1
-sethsv(HSV_GREEN, (rgb_led_t *)&led[2]); // led 2
-rgblight_set(); // Utility functions do not call rgblight_set() automatically, so they need to be called explicitly.
-```
 
 ### Effects and Animations Functions
 #### effect range setting
@@ -386,10 +371,10 @@ rgblight_set(); // Utility functions do not call rgblight_set() automatically, s
 #### direct operation
 |Function                                    |Description  |
 |--------------------------------------------|-------------|
-|`rgblight_setrgb_at(r, g, b, index)`          |Set a single LED to the given RGB value, where `r`/`g`/`b` are between 0 and 255 and `index` is between 0 and `RGBLED_NUM` (not written to EEPROM) |
-|`rgblight_sethsv_at(h, s, v, index)`          |Set a single LED to the given HSV value, where `h`/`s`/`v` are between 0 and 255, and `index` is between 0 and `RGBLED_NUM` (not written to EEPROM) |
-|`rgblight_setrgb_range(r, g, b, start, end)`|Set a continuous range of LEDs to the given RGB value, where `r`/`g`/`b` are between 0 and 255 and `start`(included) and `stop`(excluded) are between 0 and `RGBLED_NUM` (not written to EEPROM)|
-|`rgblight_sethsv_range(h, s, v, start, end)`|Set a continuous range of LEDs to the given HSV value, where `h`/`s`/`v` are between 0 and 255, and `start`(included) and `stop`(excluded) are between 0 and `RGBLED_NUM` (not written to EEPROM)|
+|`rgblight_setrgb_at(r, g, b, index)`          |Set a single LED to the given RGB value, where `r`/`g`/`b` are between 0 and 255 and `index` is between 0 and `RGBLIGHT_LED_COUNT` (not written to EEPROM) |
+|`rgblight_sethsv_at(h, s, v, index)`          |Set a single LED to the given HSV value, where `h`/`s`/`v` are between 0 and 255, and `index` is between 0 and `RGBLIGHT_LED_COUNT` (not written to EEPROM) |
+|`rgblight_setrgb_range(r, g, b, start, end)`|Set a continuous range of LEDs to the given RGB value, where `r`/`g`/`b` are between 0 and 255 and `start`(included) and `stop`(excluded) are between 0 and `RGBLIGHT_LED_COUNT` (not written to EEPROM)|
+|`rgblight_sethsv_range(h, s, v, start, end)`|Set a continuous range of LEDs to the given HSV value, where `h`/`s`/`v` are between 0 and 255, and `start`(included) and `stop`(excluded) are between 0 and `RGBLIGHT_LED_COUNT` (not written to EEPROM)|
 |`rgblight_setrgb(r, g, b)`                  |Set effect range LEDs to the given RGB value where `r`/`g`/`b` are between 0 and 255 (not written to EEPROM) |
 |`rgblight_setrgb_master(r, g, b)`           |Set the LEDs on the master side  to the given RGB value, where `r`/`g`/`b` are between 0 and 255 (not written to EEPROM) |
 |`rgblight_setrgb_slave(r, g, b)`            |Set the LEDs on the slave side  to the given RGB value, where `r`/`g`/`b` are between 0 and 255 (not written to EEPROM) |
@@ -519,7 +504,7 @@ By defining `RGBLIGHT_LED_MAP` as in the example below, you can specify the LED 
 ```c
 // config.h
 
-#define RGBLED_NUM 4
+#define RGBLIGHT_LED_COUNT 4
 #define RGBLIGHT_LED_MAP { 3, 2, 1, 0 }
 
 ```
@@ -541,7 +526,7 @@ In addition to setting the Clipping Range, you can use `RGBLIGHT_LED_MAP` togeth
 
 ```c
 // config.h
-#define RGBLED_NUM 8
+#define RGBLIGHT_LED_COUNT 8
 #define RGBLIGHT_LED_MAP { 7, 6, 5, 4, 3, 2, 1, 0 }
 
 // some source

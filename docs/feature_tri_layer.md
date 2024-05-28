@@ -45,4 +45,4 @@ Eg, if you wanted to set the "Adjust" layer to be layer 5, you'd add this to you
 | `get_tri_layer_upper_layer()`                | Gets the current "upper" layer.                 |
 | `get_tri_layer_adjust_layer()`               | Gets the current "adjust" layer.                |
 
-!> Note: these settings are not persisent, and will be reset to the default on power loss or power cycling of the controller.
+!> Note: these settings are not persistent, and will be reset to the default on power loss or power cycling of the controller.
