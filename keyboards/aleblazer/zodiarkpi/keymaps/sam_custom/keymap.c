@@ -154,7 +154,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_SYMBOL] = LAYOUT(
   _______ , KC_F1         , KC_F2    , KC_F3   , KC_F4      , KC_F5         ,                                         KC_F6      , KC_F7    , KC_F8         , KC_F9          , KC_F10       , _______,
   _______ , KC_0          , KC_LCBR  , KC_RCBR , KC_AT      , KC_ASTR       ,                                         KC_EXCLAIM , KC_COLON , KC_LEFT_PAREN , KC_RIGHT_PAREN , KC_SCLN      , _______,
-  _______ , KC_CIRCUMFLEX , KC_EQUAL , KC_HASH , KC_DLR     , KC_UNDERSCORE , KC_F11  , _______ , _______ , KC_F12  , KC_LEFT    , KC_DOWN  , KC_UP         , KC_RIGHT       , KC_TILDE     , _______,
+  _______ , KC_CIRCUMFLEX , KC_EQUAL , KC_HASH , KC_DLR     , KC_UNDERSCORE , KC_F11  , LCTL(KC_0) , _______ , KC_F12  , KC_LEFT    , KC_DOWN  , KC_UP         , KC_RIGHT       , KC_TILDE     , _______,
   _______ , KC_MINUS      , KC_LT    , KC_GT   , KC_PERCENT , KC_PIPE       , _______ , _______ , _______ , _______ , KC_AMPR    , KC_PLUS  , KC_LBRC       , KC_RBRC        , KC_BACKSLASH , _______,
   _______ , _______       , _______  , _______ , _______    ,                 _______ , _______ , _______ , _______ ,              TO(0)    , _______       , _______        , _______      , _______
 ),
@@ -371,36 +371,46 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
       return false; /* Don't process further events if user function exists and returns false */
     }
     if (index == 0) { /* First encoder */
-        if (clockwise) {
-            tap_code(KC_MS_WH_DOWN);
+        if(IS_LAYER_ON(_SYMBOL)) {
+            if (clockwise) {
+                tap_code16(LCTL(KC_MINUS));
+            } else {
+                tap_code16(LCTL(KC_PLUS));
+            }
         } else {
-            tap_code(KC_MS_WH_UP);
+            if (clockwise) {
+                tap_code(KC_MS_WH_DOWN);
+            } else {
+                tap_code(KC_MS_WH_UP);
+            }
         }
-    } else if (index == 1) { /* Second encoder */
-        if (clockwise) {
-            tap_code(KC_MS_WH_DOWN);
-        } else {
-            tap_code(KC_MS_WH_UP);
-        }
+
+    // } else if (index == 1) { /* Second encoder */
+    //     if (clockwise) {
+    //         tap_code(KC_MS_WH_DOWN);
+    //     } else {
+    //         tap_code(KC_MS_WH_UP);
+    //     }
     } else if (index == 2) { /* Third encoder */
         if (clockwise) {
             tap_code_delay(KC_VOLU, 2);
         } else {
             tap_code_delay(KC_VOLD, 2);
         }
-    } else if (index == 3) { /* Fourth encoder */
-        if (clockwise) {
-            tap_code(KC_MS_WH_DOWN);
-        } else {
-            tap_code(KC_MS_WH_UP);
-        }
-    } else if (index == 4) { /* Fifth encoder */
-        if (clockwise) {
-            tap_code(KC_MS_WH_DOWN);
-        } else {
-            tap_code(KC_MS_WH_UP);
-        }
     }
+    // } else if (index == 3) { /* Fourth encoder */
+    //     if (clockwise) {
+    //         tap_code(KC_MS_WH_DOWN);
+    //     } else {
+    //         tap_code(KC_MS_WH_UP);
+    //     }
+    // } else if (index == 4) { /* Fifth encoder */
+    //     if (clockwise) {
+    //         tap_code(KC_MS_WH_DOWN);
+    //     } else {
+    //         tap_code(KC_MS_WH_UP);
+    //     }
+    // }
     return true;
 }
 

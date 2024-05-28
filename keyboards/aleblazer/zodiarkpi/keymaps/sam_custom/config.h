@@ -128,7 +128,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Hardware
 
-#define ENCODER_RESOLUTION 2
+#define ENCODER_RESOLUTIONS {4, 2}
 
 // Data synchronization
 #define SPLIT_LAYER_STATE_ENABLE
