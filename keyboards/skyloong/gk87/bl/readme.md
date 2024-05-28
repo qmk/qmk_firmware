@@ -1,6 +1,6 @@
 # GK87 Backlight Keyboard
 
-![GK87 BL ANSI](https://i.imgur.com/pWJwQKGh.jpg)
+![GK87 BL ANSI](https://i.imgur.com/pWJwQKG.jpg)
 
 ## The PCB features:
 * QMK & VIA compatibility
