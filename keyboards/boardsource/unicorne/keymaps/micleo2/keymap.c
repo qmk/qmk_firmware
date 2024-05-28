@@ -54,9 +54,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {};
 #endif
 
-/* ****************** */
+/* ********************* */
 /* KEYCODE SECTION BEGIN */
-/* ****************** */
+/* ********************* */
 
 // return true to immediately select the hold action when another key is pressed.
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
@@ -68,9 +68,9 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-/* ****************** */
-/* KEYCODE SECTION BEGIN */
-/* ****************** */
+/* ******************* */
+/* KEYCODE SECTION END */
+/* ******************* */
 
 /* ****************** */
 /* RGB SECTION BEGIN */
@@ -79,6 +79,7 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_LIGHT_BLUE 0x4c, 0xa8, 0xfc
 #    define BASE_COL RGB_LIGHT_BLUE
+
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     uint8_t layer = get_highest_layer(layer_state);
     for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
@@ -202,6 +203,7 @@ bool oled_task_user() {
         frame_toggle_timer = timer_read32();
         render_f1 ^= 1;
     }
+
     const uint8_t  cur_layer    = get_highest_layer(layer_state);
     const uint32_t idle_time_ms = last_matrix_activity_elapsed();
     if (idle_time_ms > TAUNT_WAIT_MS && cur_layer == _QWERTY) {
