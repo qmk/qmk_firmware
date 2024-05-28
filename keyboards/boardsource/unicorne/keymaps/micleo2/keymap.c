@@ -186,7 +186,7 @@ bool shutdown_user(bool jump_to_bootloader) {
     return true;
 }
 
-uint16_t frame_toggle_timer = 0;
+uint32_t frame_toggle_timer = 0;
 uint8_t  render_f1          = 0;
 // Delay to wait after kb inactivity to begin taunt animation.
 const uint32_t TAUNT_WAIT_MS = 30 * 1000;
@@ -198,15 +198,10 @@ const uint32_t TAUNT_TOGGLE_FRAME_LEN_MS = 1500;
 bool should_sleep = false;
 
 bool oled_task_user() {
-#    ifdef MASTER_RIGHT
-    if (is_keyboard_master()) {
-        return true;
+    if (timer_elapsed32(frame_toggle_timer) > TAUNT_TOGGLE_FRAME_LEN_MS) {
+        frame_toggle_timer = timer_read32();
+        render_f1 ^= 1;
     }
-#    else
-    if (!is_keyboard_master()) {
-        return true;
-    }
-#    endif
     const uint8_t  cur_layer    = get_highest_layer(layer_state);
     const uint32_t idle_time_ms = last_matrix_activity_elapsed();
     if (idle_time_ms > TAUNT_WAIT_MS && cur_layer == _QWERTY) {
@@ -238,11 +233,6 @@ void render_downtaunt(uint32_t idle_time_ms) {
         oled_write_raw(gw_downtaunt_f2, sizeof(gw_idle));
         should_sleep = true;
         return;
-    }
-    if (timer_elapsed32(frame_toggle_timer) > TAUNT_TOGGLE_FRAME_LEN_MS) {
-        // Reset timer.
-        frame_toggle_timer = timer_read32();
-        render_f1 ^= 1;
     }
     if (render_f1) {
         oled_write_raw(gw_downtaunt_f1, sizeof(gw_idle));
