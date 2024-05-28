@@ -1,6 +1,6 @@
 # ThumbsUp! v9
 
-![ThumbsUp! v9](https://imgur.com/a/B93pDJF)
+![ThumbsUp! v9](https://i.imgur.com/Zqc6dpQ.jpeg)
 
 A yet another version of the ThumbsUp! keyboard, a three-level PCB-based keyboard supporting Kailh Choc (1350) switches.
 This v9 version got 4x12 key layout with 2- or 3-key thumbcluster and an optional touchpad.
