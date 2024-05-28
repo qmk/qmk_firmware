@@ -1,7 +1,7 @@
 {
-    "manufacturer": "ksmosna",
+    "manufacturer": "Smosna",
     "keyboard_name": "k_pro_v1_tkl",
-    "maintainer": "ksmosna",
+    "maintainer": "Krzysztof Smosna",
     "bootloader": "stm32-dfu",
     "diode_direction": "COL2ROW",
     "features": {
@@ -20,8 +20,8 @@
     "url": "",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x0000",
-        "vid": "0xFEED"
+        "pid": "0x0001",
+        "vid": "0x5301"
     },
     "layouts": {
         "LAYOUT_tkl_ansi": {
