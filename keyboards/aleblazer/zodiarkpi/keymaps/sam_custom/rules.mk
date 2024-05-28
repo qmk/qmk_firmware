@@ -7,10 +7,10 @@ VPATH += keyboards/gboards
 
 # LEDs
 OLED_ENABLE = no
-RGBLIGHT_ENABLE = no      # Enable keyboard RGB underglow
-RGB_MATRIX_ENABLE = yes     # Disable keyboard RGB matrix, as it is enabled by default on rev3
+RGBLIGHT_ENABLE = no
+RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = ws2812
-RGB_MATRIX_CUSTOM_USER = yes     # Enable custom user animations
+RGB_MATRIX_CUSTOM_USER = yes
 
 # Screens
 QUANTUM_PAINTER_ENABLE = yes
@@ -22,7 +22,6 @@ POINTING_DEVICE_ENABLE = no
 CONSOLE_ENABLE = yes
 
 # Disable some stuff we don't need
-MOUSEKEY_ENABLE = no
 SPACE_CADET_ENABLE = no
 GRAVE_ESC_ENABLE = no
 MAGIC_ENABLE = no
@@ -30,7 +29,8 @@ MUSIC_ENABLE = no
 
 # Hardware
 SPLIT_KEYBOARD = yes
-ENCODER_ENABLE = yes       # Enables the use of one or more encoders
+ENCODER_ENABLE = yes
+MOUSEKEY_ENABLE = yes
 
 # Behaviors
 CAPS_WORD_ENABLE = yes

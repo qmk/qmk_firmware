@@ -140,48 +140,6 @@ led_config_t g_led_config = { {
 } };
 #endif
 
-#ifdef ENCODER_ENABLE
-
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) {
-      return false; /* Don't process further events if user function exists and returns false */
-    }
-    if (index == 0) { /* First encoder */
-        if (clockwise) {
-            tap_code(KC_MS_WH_DOWN);
-        } else {
-            tap_code(KC_MS_WH_UP);
-        }
-    } else if (index == 1) { /* Second encoder */
-        if (clockwise) {
-            rgblight_decrease_val();
-        } else {
-            rgblight_increase_val();
-        }
-    } else if (index == 2) { /* Third encoder */
-        if (clockwise) {
-            tap_code_delay(KC_VOLU, 2);
-        } else {
-            tap_code_delay(KC_VOLD, 2);
-        }
-    } else if (index == 3) { /* Fourth encoder */
-        if (clockwise) {
-            tap_code(KC_MS_WH_RIGHT);
-        } else {
-            tap_code(KC_MS_WH_LEFT);
-        }
-    } else if (index == 4) { /* Fifth encoder */
-        if (clockwise) {
-            tap_code(KC_MS_WH_DOWN);
-        } else {
-            tap_code(KC_MS_WH_UP);
-        }
-    }
-    return true;
-}
-
-#endif
-
 // #ifdef QUANTUM_PAINTER_ENABLE
 //
 // #include "images/ZodiarkPiLogoGC.qgf.c"
