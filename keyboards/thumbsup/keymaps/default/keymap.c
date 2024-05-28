@@ -168,12 +168,11 @@ h * |------+------+------+------+------+-------------+------+------+------+-----
  *               |      |      |      |      |      |      |      |      |
  *               `-------------------------------------------------------'
  */
-[_EXTRARIGHT] = LAYOUT_ortho_4x12( \
-  _______, KC_BRK,  XXXXXXX, XXXXXXX,      XXXXXXX, 	 XXXXXXX, 	KC_GRV,  KC_EQL,  KC_LPRN, KC_RPRN, KC_MINS, _______, \
-  _______, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX,      XXXXXXX,       KC_PSCR, XXXXXXX, XXXXXXX, XXXXXXX, KC_QUOT, _______, \
-  _______, XXXXXXX, XXXXXXX, TG(_NUMPAD),  XXXXXXX,      XXXXXXX,       XXXXXXX, XXXXXXX, KC_LBRC, KC_RBRC, KC_BSLS, _______, \
-	   _______, _______, _______,      _______,      _______,       _______,  _______, _______, _______, _______           \
- 
+[_EXTRARIGHT] = LAYOUT_ortho_4x12(
+  _______, KC_BRK,  XXXXXXX, XXXXXXX,      XXXXXXX, 	 XXXXXXX, 	KC_GRV,  KC_EQL,  KC_LPRN, KC_RPRN, KC_MINS, _______,
+  _______, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX,      XXXXXXX,       KC_PSCR, XXXXXXX, XXXXXXX, XXXXXXX, KC_QUOT, _______,
+  _______, XXXXXXX, XXXXXXX, TG(_NUMPAD),  XXXXXXX,      XXXXXXX,       XXXXXXX, XXXXXXX, KC_LBRC, KC_RBRC, KC_BSLS, _______,
+	   _______, _______, _______,      _______,      _______,       _______,  _______, _______, _______, _______
 ),
 
 /* The right side turned into a numpad, set as default layer.
@@ -193,16 +192,10 @@ Hold:  		               | LSft |CursLt||CursRt| RSft |
 Single hit:		       |      |Space ||Space |      |
 		               +------+------||------+------+
  */
-[_NUMPAD] =  LAYOUT_ortho_4x12( \
-  KC_ESC,                 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_KP_SLASH, KC_7,    KC_8, KC_9, KC_KP_MINUS, KC_BSPC, \
-  LT(_EXTRARIGHT,KC_TAB), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_PAST,     KC_4,    KC_5, KC_6, KC_KP_PLUS,  KC_PENT, \
-  KC_LCTL,                XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_COMM,     KC_1,    KC_2, KC_3, KC_DOT,      KC_RCTL, \
-                          KC_SPC,  KC_LGUI, KC_LALT, KC_LSFT, CURSORLEFT, CURSORRGHT,  KC_RSFT, KC_0, KC_DOT, KC_SPC              \
+[_NUMPAD] =  LAYOUT_ortho_4x12(
+  KC_ESC,                 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_KP_SLASH, KC_7,    KC_8, KC_9, KC_KP_MINUS, KC_BSPC,
+  LT(_EXTRARIGHT,KC_TAB), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_PAST,     KC_4,    KC_5, KC_6, KC_KP_PLUS,  KC_PENT,
+  KC_LCTL,                XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_COMM,     KC_1,    KC_2, KC_3, KC_DOT,      KC_RCTL,
+                          KC_SPC,  KC_LGUI, KC_LALT, KC_LSFT, CURSORLEFT, CURSORRGHT,  KC_RSFT, KC_0, KC_DOT, KC_SPC
 )
-};
-
-
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-    return update_tri_layer_state (state, _CURSORRGHT, _CURSORLEFT, _NUMBERS);
 };
