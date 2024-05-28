@@ -217,16 +217,17 @@ As mentioned earlier, the center of the keyboard by default is expected to be `{
 
 ## Keycodes :id=keycodes
 
-All LED matrix keycodes are currently shared with the [Backlight feature](feature_backlight.md).
-
-| Key                     | Aliases   | Description                   |
-|-------------------------|-----------|-------------------------------|
-| `QK_BACKLIGHT_TOGGLE`   | `BL_TOGG` | Toggle LED Matrix on or off   |
-| `QK_BACKLIGHT_STEP`     | `BL_STEP` | Cycle through modes           |
-| `QK_BACKLIGHT_ON`       | `BL_ON`   | Turn on LED Matrix            |
-| `QK_BACKLIGHT_OFF`      | `BL_OFF`  | Turn off LED Matrix           |
-| `QK_BACKLIGHT_UP`       | `BL_UP`   | Increase the brightness level |
-| `QK_BACKLIGHT_DOWN`     | `BL_DOWN` | Decrease the brightness level |
+|Key                            |Aliases  |Description                        |
+|-------------------------------|---------|-----------------------------------|
+|`QK_LED_MATRIX_ON`             |`LM_ON`  |Turn on LED Matrix                 |
+|`QK_LED_MATRIX_OFF`            |`LM_OFF` |Turn off LED Matrix                |
+|`QK_LED_MATRIX_TOGGLE`         |`LM_TOGG`|Toggle LED Matrix on or off        |
+|`QK_LED_MATRIX_MODE_NEXT`      |`LM_NEXT`|Cycle through animations           |
+|`QK_LED_MATRIX_MODE_PREVIOUS`  |`LM_PREV`|Cycle through animations in reverse|
+|`QK_LED_MATRIX_BRIGHTNESS_UP`  |`LM_BRIU`|Increase the brightness level      |
+|`QK_LED_MATRIX_BRIGHTNESS_DOWN`|`LM_BRID`|Decrease the brightness level      |
+|`QK_LED_MATRIX_SPEED_UP`       |`LM_SPDU`|Increase the animation speed       |
+|`QK_LED_MATRIX_SPEED_DOWN`     |`LM_SPDD`|Decrease the animation speed       |
 
 ## LED Matrix Effects :id=led-matrix-effects
 

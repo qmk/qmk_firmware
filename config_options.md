@@ -237,7 +237,7 @@ If you define these options you will enable the associated feature, which may in
   * units to step when in/decreasing saturation
 * `#define RGBLIGHT_VAL_STEP 12`
   * units to step when in/decreasing value (brightness)
-* `#define RGBW`
+* `#define WS2812_RGBW`
   * Enables RGBW LED support
 
 ## Mouse Key Options
@@ -446,7 +446,7 @@ Use these to enable or disable building certain features. The more you have enab
   * Allows replacing the standard matrix scanning routine with a custom one.
 * `DEBOUNCE_TYPE`
   * Allows replacing the standard key debouncing routine with an alternative or custom one.
-* `WAIT_FOR_USB`
+* `USB_WAIT_FOR_ENUMERATION`
   * Forces the keyboard to wait for a USB connection to be established before it starts up
 * `NO_USB_STARTUP_CHECK`
   * Disables usb suspend check after keyboard startup. Usually the keyboard waits for the host to wake it up before any tasks are performed. This is useful for split keyboards as one half will not get a wakeup call but must send commands to the master.
