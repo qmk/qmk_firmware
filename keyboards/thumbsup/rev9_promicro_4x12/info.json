@@ -25,7 +25,7 @@
         "vid": "0x5361"
     },
     "layouts": {
-        "LAYOUT_ortho_4x12": {
+        "LAYOUT": {
             "layout": [
                 {"label": "ESC", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "Q", "matrix": [0, 1], "x": 1, "y": 0},
