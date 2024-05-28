@@ -30,10 +30,12 @@
     "processor": "STM32F303",
     "bootloader": "stm32-dfu",
     "layout_aliases": {
-        "LAYOUT_default": "LAYOUT_all",
-        "LAYOUT_tsangan": "LAYOUT_ansi_tsangan",
         "LAYOUT_ansi": "LAYOUT_tkl_nofrow_ansi",
-        "LAYOUT_iso": "LAYOUT_tkl_nofrow_iso"
+        "LAYOUT_ansi_tsangan": "LAYOUT_tkl_nofrow_ansi_tsangan",
+        "LAYOUT_default": "LAYOUT_all",
+        "LAYOUT_iso": "LAYOUT_tkl_nofrow_iso",
+        "LAYOUT_iso_tsangan": "LAYOUT_tkl_nofrow_iso_tsangan",
+        "LAYOUT_tsangan": "LAYOUT_tkl_nofrow_ansi_tsangan"
     },
     "community_layouts": ["tkl_nofrow_ansi", "tkl_nofrow_iso"],
     "layouts": {
