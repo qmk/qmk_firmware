@@ -55,10 +55,16 @@ jobs:
         qmk --verbose generate-docs
         touch '.build/docs/.nojekyll'
 
+    - name: Set CNAME
+      if: github.repository == 'qmk/qmk_firmware'
+      run: |
+        # Override target CNAME
+        echo 'docs.qmk.fm' > .build/docs/CNAME
+
     - name: Override CNAME
       if: github.repository == 'tzarc/qmk_firmware'
       run: |
-        # Temporarily override target CNAME
+        # Temporarily override target CNAME during development
         echo 'vitepress.qmk.fm' > .build/docs/CNAME
 
     - name: Deploy
