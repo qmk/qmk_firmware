@@ -266,7 +266,7 @@ This enables syncing of the Host LED status (caps lock, num lock, etc) between b
 #define SPLIT_MODS_ENABLE
 ```
 
-This enables transmitting modifier state (normal, weak and oneshot) to the non primary side of the split keyboard. The purpose of this feature is to support cosmetic use of modifer state (e.g. displaying status on an OLED screen).
+This enables transmitting modifier state (normal, weak, oneshot and oneshot locked) to the non primary side of the split keyboard. The purpose of this feature is to support cosmetic use of modifer state (e.g. displaying status on an OLED screen).
 
 ```c
 #define SPLIT_WPM_ENABLE
