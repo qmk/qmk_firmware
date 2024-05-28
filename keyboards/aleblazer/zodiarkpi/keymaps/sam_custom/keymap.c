@@ -23,9 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef QUANTUM_PAINTER_ENABLE
 
-#include "images/ZodiarkPiLogoGC.qgf.c"
-#include "images/ZodiarkPiLogo2Green.qgf.c"
-#include "images/ZodiarkPiLogoSTpink.qgf.c"
+#include "images/nvlogo_small.qgf.c"
 
 static painter_device_t display;
 static painter_image_handle_t image;
@@ -46,18 +44,18 @@ uint32_t deferred_init(uint32_t trigger_time, void *cb_arg) {
         qp_power(display, true);
         }
     if (is_keyboard_left()) {
-        qp_init(display, QP_ROTATION_180);
+        qp_init(display, QP_ROTATION_270);
         }
 // If using pointing device on right side, comment out following 3 lines, if using dual screens, uncomment.
         else {
-        qp_init(display, QP_ROTATION_0);
+        qp_init(display, QP_ROTATION_90);
         }
     if (is_keyboard_left()) {
-        image = qp_load_image_mem(gfx_ZodiarkPiLogoSTpink);
+        image = qp_load_image_mem(gfx_nvlogo_small);
     }
 // If using pointing device on right side, comment out following 3 lines, if using dual screens, uncomment
     else {
-        image = qp_load_image_mem(gfx_ZodiarkPiLogoSTpink);
+        image = qp_load_image_mem(gfx_nvlogo_small);
     }
     // ##end st7789 screen support
 
