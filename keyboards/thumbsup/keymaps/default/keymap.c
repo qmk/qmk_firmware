@@ -107,11 +107,11 @@ without separate thumbcluster.
  *               |      |      |      |      |   X  |      |      |      |
  *               `-------------------------------------------------------'
  */
-[_CURSORRGHT] = LAYOUT_ortho_4x12( \
-  _______, KC_BRK,           KC_WH_D,      KC_MS_U,      KC_WH_U,      KC_DEL,              KC_PGUP,  KC_HOME, KC_UP,   KC_END,  KC_GRV,  KC_DEL,  \
-  KC_ENT,  LCTL(KC_A),       KC_MS_L,      KC_MS_D,      KC_MS_R,      XXXXXXX,             KC_PGDN,  KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, _______, \
-  _______, LCTL(KC_Z),       LSFT(KC_DEL), LCTL(KC_INS), LSFT(KC_INS), XXXXXXX,             KC_INS,   KC_BTN1, KC_BTN3, KC_BTN2, XXXXXXX, _______, \
-	   _______,	     _______,      _______,      _______,      _______,             _______,  _______, _______, _______, _______           \
+[_CURSORRGHT] = LAYOUT_ortho_4x12(
+  _______, KC_BRK,           KC_WH_D,      KC_MS_U,      KC_WH_U,      KC_DEL,              KC_PGUP,  KC_HOME, KC_UP,   KC_END,  KC_GRV,  KC_DEL,
+  KC_ENT,  LCTL(KC_A),       KC_MS_L,      KC_MS_D,      KC_MS_R,      XXXXXXX,             KC_PGDN,  KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, _______,
+  _______, LCTL(KC_Z),       LSFT(KC_DEL), LCTL(KC_INS), LSFT(KC_INS), XXXXXXX,             KC_INS,   KC_BTN1, KC_BTN3, KC_BTN2, XXXXXXX, _______,
+	   _______,	     _______,      _______,      _______,      _______,             _______,  _______, _______, _______, _______
 ),
 
 
