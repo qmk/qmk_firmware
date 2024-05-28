@@ -38,6 +38,9 @@ Unrelated to styling, high-level tech.
 
 ![QMK Color Wheel with HSV Values](https://i.imgur.com/vkYVo66.jpg)
 
+![QMK Light](./public/badge-community-light.svg)
+![QMK Dark](./public/badge-community-dark.svg)
+
 <img src="./gitbook/images/color-wheel.svg" alt="HSV Color Wheel" width="250"/>
 
 ### Lists
