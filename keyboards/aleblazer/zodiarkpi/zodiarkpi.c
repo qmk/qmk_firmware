@@ -26,7 +26,7 @@ led_config_t g_led_config = { {
   // Right Hand
   { 52, 50, 49, 47, 46, 44, NO_LED },
   { 53, 54, 55, 56, 57, 58, 59 },
-  { 68, 66, 65, 63, 62, 64, 75 },
+  { 68, 66, 65, 63, 62, 61, 75 },
   { 69, 70, 71, 72, 73, 74, 76 },
   { 87, 85, 84, 82, 81, 79, 77 },
 
@@ -124,7 +124,19 @@ led_config_t g_led_config = { {
 },
 {
   // LED Index to Flag
- 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4
+ 4, 4, 4, 4, 4, 4, 4,
+ 4, 4, 4, 4, 4, 4, 4,
+ 4, 4, 4, 4, 4, 4, 4,
+ 4, 4, 4, 4, 4, 4, 4,
+ 4, 4, 4, 4, 4, 4, 4,
+ 4, 4, 4, 4, 4, 4, 4,
+ 4, 4, 4, 4, 4, 4, 4,
+ 4, 4, 4, 4, 4, 4, 4,
+ 4, 4, 4, 4, 4, 4, 4,
+ 4, 4, 4, 4, 4, 4, 4,
+ 4, 4, 4, 4, 4, 4, 4,
+ 4, 4, 4, 4, 4, 4, 4,
+ 4, 4, 4, 4
 } };
 #endif
 
@@ -136,9 +148,9 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     }
     if (index == 0) { /* First encoder */
         if (clockwise) {
-            tap_code_delay(KC_VOLD, 10);
+            tap_code(KC_MS_WH_DOWN);
         } else {
-            tap_code_delay(KC_VOLU, 10);
+            tap_code(KC_MS_WH_UP);
         }
     } else if (index == 1) { /* Second encoder */
         if (clockwise) {
@@ -146,12 +158,11 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
         } else {
             rgblight_increase_val();
         }
-
     } else if (index == 2) { /* Third encoder */
         if (clockwise) {
-            tap_code(KC_MS_WH_DOWN);
+            tap_code_delay(KC_VOLU, 2);
         } else {
-            tap_code(KC_MS_WH_UP);
+            tap_code_delay(KC_VOLD, 2);
         }
     } else if (index == 3) { /* Fourth encoder */
         if (clockwise) {
@@ -171,91 +182,92 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 
 #endif
 
-#ifdef QUANTUM_PAINTER_ENABLE
-
-#include "images/ZodiarkPiLogoGC.qgf.c"
-#include "images/ZodiarkPiLogo2Green.qgf.c"
-#include "images/ZodiarkPiLogoSTpink.qgf.c"
-
-static painter_device_t display;
-static painter_image_handle_t image;
-
-// st7789 enable, comment out the following line if not using a st7789
-painter_device_t qp_st7789_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode);
-// gc9a01 enable, comment out the following line if not using a gc9a01
-// painter_device_t qp_gc9a01_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode);
-
-void keyboard_post_init_user(void) {
-  // Customise these values to desired behaviour
-  debug_enable=true;
-  debug_matrix=true;
-  debug_keyboard=true;
-  debug_mouse=true;
-}
-
-uint32_t deferred_init(uint32_t trigger_time, void *cb_arg) {
-
-    print("doing stuff\n");
-
-// ##st7789 screen support, comment out down to "##end st7789 screen support" if not using a st7789 screen
-    display = qp_st7789_make_spi_device(320, 240, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, LCD_SPI_DIVISOR, 3);
-    if (is_keyboard_left()) {
-        qp_power(display, true);
-        }
-    if (is_keyboard_left()) {
-        qp_init(display, QP_ROTATION_180);
-        }
-// If using pointing device on right side, comment out following 3 lines, if using dual screens, uncomment.
-        else {
-        qp_init(display, QP_ROTATION_0);
-        }
-    if (is_keyboard_left()) {
-        image = qp_load_image_mem(gfx_ZodiarkPiLogoSTpink);
-    }
-// If using pointing device on right side, comment out following 3 lines, if using dual screens, uncomment
-    else {
-        image = qp_load_image_mem(gfx_ZodiarkPiLogoSTpink);
-    }
-    // ##end st7789 screen support
-
-// ##gc9a01 screeen support, comment out down to "##end GC9A01 screen support" if not using a gc9a01 screen
-    // display = qp_gc9a01_make_spi_device(240, 240, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, LCD_SPI_DIVISOR, 0);
-    // qp_power(display, true);
-    // if (is_keyboard_left()) {
-    //     qp_init(display, QP_ROTATION_0);
-    //     }
-    // If using pointing device on right side, comment out following 3 lines, if using dual screens, uncomment.
-    //     else {
-    //     qp_init(display, QP_ROTATION_0);
-    //     }
-
-    //     if (is_keyboard_left()) {
-    //     image = qp_load_image_mem(gfx_ZodiarkPiLogoGC);
-    //      }
-    // If using pointing device on right side, comment out following 3 lines, if using dual screens, uncomment.
-    //     else {
-    //     image = qp_load_image_mem(gfx_ZodiarkPiLogoGC);
-    // }
-    // ##end GC9A01 screeen support
-
-    if (image != NULL) {
-        print("image was not null\n");
-        if (is_keyboard_left()) {
-            qp_drawimage(display, 0, 0, image);
-        }
-    // If using pointing device on right side, comment out following 3 lines, if using dual screens, uncomment.
-        else {
-            qp_drawimage(display, 0, 0, image);
-        }
-    }
-
-
-    return(0);
-}
-
-void keyboard_post_init_kb(void)
-{
-    debug_enable=true;
-    defer_exec(3000, deferred_init, NULL);
-}
-#endif
+// #ifdef QUANTUM_PAINTER_ENABLE
+//
+// #include "images/ZodiarkPiLogoGC.qgf.c"
+// #include "images/ZodiarkPiLogo2Green.qgf.c"
+// #include "images/ZodiarkPiLogoSTpink.qgf.c"
+//
+// static painter_device_t display;
+// static painter_image_handle_t image;
+//
+// // st7789 enable, comment out the following line if not using a st7789
+// painter_device_t qp_st7789_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode);
+// // gc9a01 enable, comment out the following line if not using a gc9a01
+// // painter_device_t qp_gc9a01_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode);
+//
+// // Defined in keymap to avoid redefinition errors
+// //void keyboard_post_init_user(void) {
+// //  // Customise these values to desired behaviour
+// //  debug_enable=true;
+// //  debug_matrix=true;
+// //  debug_keyboard=true;
+// //  debug_mouse=true;
+// //}
+//
+// uint32_t deferred_init(uint32_t trigger_time, void *cb_arg) {
+//
+//     print("doing stuff\n");
+//
+// // ##st7789 screen support, comment out down to "##end st7789 screen support" if not using a st7789 screen
+//     display = qp_st7789_make_spi_device(320, 240, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, LCD_SPI_DIVISOR, 3);
+//     if (is_keyboard_left()) {
+//         qp_power(display, true);
+//         }
+//     if (is_keyboard_left()) {
+//         qp_init(display, QP_ROTATION_180);
+//         }
+// // If using pointing device on right side, comment out following 3 lines, if using dual screens, uncomment.
+//         else {
+//         qp_init(display, QP_ROTATION_0);
+//         }
+//     if (is_keyboard_left()) {
+//         image = qp_load_image_mem(gfx_ZodiarkPiLogoSTpink);
+//     }
+// // If using pointing device on right side, comment out following 3 lines, if using dual screens, uncomment
+//     else {
+//         image = qp_load_image_mem(gfx_ZodiarkPiLogoSTpink);
+//     }
+//     // ##end st7789 screen support
+//
+// // ##gc9a01 screeen support, comment out down to "##end GC9A01 screen support" if not using a gc9a01 screen
+//     // display = qp_gc9a01_make_spi_device(240, 240, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, LCD_SPI_DIVISOR, 0);
+//     // qp_power(display, true);
+//     // if (is_keyboard_left()) {
+//     //     qp_init(display, QP_ROTATION_0);
+//     //     }
+//     // If using pointing device on right side, comment out following 3 lines, if using dual screens, uncomment.
+//     //     else {
+//     //     qp_init(display, QP_ROTATION_0);
+//     //     }
+//
+//     //     if (is_keyboard_left()) {
+//     //     image = qp_load_image_mem(gfx_ZodiarkPiLogoGC);
+//     //      }
+//     // If using pointing device on right side, comment out following 3 lines, if using dual screens, uncomment.
+//     //     else {
+//     //     image = qp_load_image_mem(gfx_ZodiarkPiLogoGC);
+//     // }
+//     // ##end GC9A01 screeen support
+//
+//     if (image != NULL) {
+//         print("image was not null\n");
+//         if (is_keyboard_left()) {
+//             qp_drawimage(display, 0, 0, image);
+//         }
+//     // If using pointing device on right side, comment out following 3 lines, if using dual screens, uncomment.
+//         else {
+//             qp_drawimage(display, 0, 0, image);
+//         }
+//     }
+//
+//
+//     return(0);
+// }
+//
+// void keyboard_post_init_kb(void)
+// {
+//     debug_enable=true;
+//     defer_exec(3000, deferred_init, NULL);
+// }
+// #endif
