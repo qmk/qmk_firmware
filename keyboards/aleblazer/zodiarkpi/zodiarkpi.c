@@ -13,6 +13,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "quantum.h"
 #include "print.h"
+#include "display.h"
+
+static bool display_enabled;
 
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {
@@ -140,92 +143,15 @@ led_config_t g_led_config = { {
 } };
 #endif
 
-// #ifdef QUANTUM_PAINTER_ENABLE
-//
-// #include "images/ZodiarkPiLogoGC.qgf.c"
-// #include "images/ZodiarkPiLogo2Green.qgf.c"
-// #include "images/ZodiarkPiLogoSTpink.qgf.c"
-//
-// static painter_device_t display;
-// static painter_image_handle_t image;
-//
-// // st7789 enable, comment out the following line if not using a st7789
-// painter_device_t qp_st7789_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode);
-// // gc9a01 enable, comment out the following line if not using a gc9a01
-// // painter_device_t qp_gc9a01_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode);
-//
-// // Defined in keymap to avoid redefinition errors
-// //void keyboard_post_init_user(void) {
-// //  // Customise these values to desired behaviour
-// //  debug_enable=true;
-// //  debug_matrix=true;
-// //  debug_keyboard=true;
-// //  debug_mouse=true;
-// //}
-//
-// uint32_t deferred_init(uint32_t trigger_time, void *cb_arg) {
-//
-//     print("doing stuff\n");
-//
-// // ##st7789 screen support, comment out down to "##end st7789 screen support" if not using a st7789 screen
-//     display = qp_st7789_make_spi_device(320, 240, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, LCD_SPI_DIVISOR, 3);
-//     if (is_keyboard_left()) {
-//         qp_power(display, true);
-//         }
-//     if (is_keyboard_left()) {
-//         qp_init(display, QP_ROTATION_180);
-//         }
-// // If using pointing device on right side, comment out following 3 lines, if using dual screens, uncomment.
-//         else {
-//         qp_init(display, QP_ROTATION_0);
-//         }
-//     if (is_keyboard_left()) {
-//         image = qp_load_image_mem(gfx_ZodiarkPiLogoSTpink);
-//     }
-// // If using pointing device on right side, comment out following 3 lines, if using dual screens, uncomment
-//     else {
-//         image = qp_load_image_mem(gfx_ZodiarkPiLogoSTpink);
-//     }
-//     // ##end st7789 screen support
-//
-// // ##gc9a01 screeen support, comment out down to "##end GC9A01 screen support" if not using a gc9a01 screen
-//     // display = qp_gc9a01_make_spi_device(240, 240, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, LCD_SPI_DIVISOR, 0);
-//     // qp_power(display, true);
-//     // if (is_keyboard_left()) {
-//     //     qp_init(display, QP_ROTATION_0);
-//     //     }
-//     // If using pointing device on right side, comment out following 3 lines, if using dual screens, uncomment.
-//     //     else {
-//     //     qp_init(display, QP_ROTATION_0);
-//     //     }
-//
-//     //     if (is_keyboard_left()) {
-//     //     image = qp_load_image_mem(gfx_ZodiarkPiLogoGC);
-//     //      }
-//     // If using pointing device on right side, comment out following 3 lines, if using dual screens, uncomment.
-//     //     else {
-//     //     image = qp_load_image_mem(gfx_ZodiarkPiLogoGC);
-//     // }
-//     // ##end GC9A01 screeen support
-//
-//     if (image != NULL) {
-//         print("image was not null\n");
-//         if (is_keyboard_left()) {
-//             qp_drawimage(display, 0, 0, image);
-//         }
-//     // If using pointing device on right side, comment out following 3 lines, if using dual screens, uncomment.
-//         else {
-//             qp_drawimage(display, 0, 0, image);
-//         }
-//     }
-//
-//
-//     return(0);
-// }
-//
-// void keyboard_post_init_kb(void)
-// {
-//     debug_enable=true;
-//     defer_exec(3000, deferred_init, NULL);
-// }
-// #endif
+void housekeeping_task_kb(void) {
+    display_housekeeping_task();
+
+    housekeeping_task_user();
+}
+
+void keyboard_post_init_kb(void)
+{
+    display_enabled = display_init_kb();
+
+    keyboard_post_init_user();
+}

@@ -1,5 +1,7 @@
 SRC += capsword.c
 SRC += tapdance.c
+SRC += display.c
+SRC += lvgl_helpers.c
 SRC += rgb_matrix_user.c
 
 # Combo dictionary
@@ -15,6 +17,7 @@ RGB_MATRIX_CUSTOM_USER = yes
 # Screens
 QUANTUM_PAINTER_ENABLE = yes
 QUANTUM_PAINTER_DRIVERS += st7789_spi
+QUANTUM_PAINTER_LVGL_INTEGRATION = yes
 POINTING_DEVICE_DRIVER = cirque_pinnacle_spi
 POINTING_DEVICE_ENABLE = no
 
