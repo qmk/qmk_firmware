@@ -284,7 +284,6 @@
                 "text": "QMK Reference",
                 "items": [
                     { "text": "Contributing to QMK", "link": "/contributing" },
-                    { "text": "Translating the QMK Docs", "link": "/translating" },
                     { "text": "Config Options", "link": "/config_options" },
                     { "text": "Data Driven Configuration", "link": "/data_driven_config" },
                     { "text": "Make Documentation", "link": "/getting_started_make_guide" },
