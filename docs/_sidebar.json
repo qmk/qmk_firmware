@@ -152,7 +152,7 @@
                         "items": [
                             {
                                 "text": "Quantum Painter",
-                                "link": "quantum_painter.md)",
+                                "link": "quantum_painter",
                                 "items": [
                                     { "text": "Quantum Painter LVGL Integration", "link": "/quantum_painter_lvgl" }
                                 ]
@@ -224,7 +224,7 @@
                     { "text": "Compatible Microcontrollers", "link": "/compatible_microcontrollers" },
                     {
                         "text": "Drivers",
-                        "link": "hardware_drivers.md)",
+                        "link": "hardware_drivers",
                         "items": [
                             { "text": "ADC Driver", "link": "/adc_driver" },
                             { "text": "APA102 Driver", "link": "/apa102_driver" },

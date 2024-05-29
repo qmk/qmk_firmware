@@ -1,10 +1,6 @@
-import path from "path";
 import { defineConfig } from "vitepress";
 import { tabsMarkdownPlugin } from "vitepress-plugin-tabs";
-import { createRequire } from "node:module";
 import sidebar from "../../../docs/_sidebar.json";
-
-const require = createRequire(import.meta.url);
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig(({ mode }) => {
@@ -28,6 +24,7 @@ export default defineConfig(({ mode }) => {
                 preserveSymlinks: true,
             },
         },
+
         themeConfig: {
             // https://vitepress.dev/reference/default-theme-config
             logo: {
@@ -49,6 +46,6 @@ export default defineConfig(({ mode }) => {
                 { icon: "discord", link: "https://discord.gg/qmk" },
                 { icon: "github", link: "https://github.com/qmk/qmk_firmware" },
             ],
-        },
+        }
     };
 });
