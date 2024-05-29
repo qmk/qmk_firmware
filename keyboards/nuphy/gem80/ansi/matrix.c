@@ -40,8 +40,7 @@ extern matrix_row_t matrix[MATRIX_ROWS];     // debounced values
 static inline matrix_row_t read_cols(void) {
     uint16_t portA_pin_state = palReadPort(PAL_PORT(A0));
     uint16_t portB_pin_state = palReadPort(PAL_PORT(B0));
-    return ((((portA_pin_state & 0b1110000) ^ 0b1110000) >> 4) | (((portB_pin_state & 0b1000000000) ^ 0b1000000000) >> 6) | (((portB_pin_state & 0b11) ^ 0b11) << 4) | (((portB_pin_state & 0b1111110000000000) ^ 0b1111110000000000) >> 4) | (((portA_pin_state & 0b11100000000) ^ 0b11100000000) << 4) | ((portA_pin_state & 0b1000000000000000) ^ 0b1000000000000000) | (((portB_pin_state & 0b1000) ^ 0b1000) << 14));
-    // Если произвести перестановку пинов в колоннах, эту функцию можно значительно упростить и ускорить
+    return ((((portA_pin_state & 0b1110000) ^ 0b1110000) >> 4) | (((portB_pin_state & 0b1000000000) ^ 0b1000000000) >> 6) | (((portB_pin_state & 0b11) ^ 0b11) << 4) | (((portB_pin_state & 0b1111110000000000) ^ 0b1111110000000000) >> 4) | (((portA_pin_state & 0b11100000000) ^ 0b11100000000) << 4) | ((portA_pin_state & 0b1000000000000000) ^ 0b1000000000000000) | (((portB_pin_state & 0b1000) ^ 0b1000) << 13));
 }
 
 static inline void unselect_rows(void) {
@@ -90,3 +89,4 @@ uint8_t matrix_scan_custom(matrix_row_t current_matrix[]) {
 
     return changed;
 }
+
