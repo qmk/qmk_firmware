@@ -10,11 +10,16 @@
     "lto": true
   },
   "features": {
-    "bootmagic": true
+    "bootmagic": true,
+    "indicators": true
   },
   "bootmagic": {
     "enabled": true,
     "matrix": [3, 5]
+  },
+  "indicators": {
+    "caps_lock": "B3",
+    "on_state": 0
   },
   "diode_direction": "ROW2COL",
   "matrix_pins": {
