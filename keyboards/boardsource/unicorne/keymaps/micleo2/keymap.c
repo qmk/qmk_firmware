@@ -35,9 +35,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BSE] = LAYOUT_split_3x6_3(
     OSM(MOD_LSFT), KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                 KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          KC_DEL,
-    SFT_T(KC_ENT), KC_A,          LT(U, KC_S),  LALT_T(KC_D),  LT(N, KC_F),   KC_G,                 KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       LT(Y, QK_REP),
-    QK_REP,        KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,                 KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       C(G(KC_Q)),
-                                                CTL_T(KC_ESC), GUI_T(KC_SPC), HYPR_T(KC_TAB),      MEH_T(KC_ENT), SFT_T(KC_BSPC),OSL(M)
+    SFT_T(KC_ENT), KC_A,          LT(U, KC_S),  LALT_T(KC_D),  LT(N, KC_F),   HYPR_T(KC_G),         HYPR_T(KC_H),  KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(Y),
+    KC_TAB,        KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,                 KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       C(G(KC_Q)),
+                                                CTL_T(KC_ESC), GUI_T(KC_SPC), QK_REP,               MEH_T(KC_ENT), SFT_T(KC_BSPC),OSL(M)
 ),
 
 [_SYM] = LAYOUT_split_3x6_3(
@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_SYS] = LAYOUT_split_3x6_3(
     CW_TOGG,       _______,       FSCRNSHT,     SCRNSHT,       _______,       _______,              _______,       KC_F7,         KC_F8,        KC_F9,         KC_F12,        _______,
-    _______,       KC_MS_BTN1,    KC_MPLY,      KC_VOLU,       KC_VOLD,       _______,              _______,       KC_F4,         KC_F5,        KC_F6,         KC_F11,        ___E___,
+    _______,       _______,       KC_MPLY,      KC_VOLU,       KC_VOLD,       _______,              _______,       KC_F4,         KC_F5,        KC_F6,         KC_F11,        ___E___,
     QK_BOOT,       _______,       KC_MPRV,      KC_MNXT,       KC_MUTE,       _______,              _______,       KC_F1,         KC_F2,        KC_F3,         KC_F10,        QK_BOOT,
                                                 _______,       _______,       _______,              _______,       _______,       _______
 ),
@@ -76,6 +76,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {};
 #endif
 
+// Callback to invoke when the enter key is pressed.
+void enter_key_pressed_cb(void);
+
 /* ********************* */
 /* KEYCODE SECTION BEGIN */
 /* ********************* */
@@ -88,6 +91,19 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
             return true;
         default:
             return false;
+    }
+}
+
+// return true if qmk should continue processing the keycode as normal.
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (QK_MODS_GET_BASIC_KEYCODE(keycode)) {
+        case KC_ENT:
+            if (record->event.pressed) {
+                enter_key_pressed_cb();
+            }
+            return true;
+        default:
+            return true;
     }
 }
 
@@ -165,19 +181,18 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 /* POINTING_DEVICE SECTION BEGIN */
 /* ***************************** */
 
+// Convert mouse movement to scrolling.
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-    const uint8_t cur_layer = get_highest_layer(layer_state);
-    if (cur_layer == _NAV) {
-        // Convert mouse movement to scrolling on nav layer.
-        mouse_report.h = mouse_report.x;
-        mouse_report.v = -mouse_report.y / 4;
-        mouse_report.x = 0;
-        mouse_report.y = 0;
-    } else if (cur_layer == _NUM) {
+    const uint8_t cur_layer   = get_highest_layer(layer_state);
+    int8_t        slow_factor = 4;
+    if (cur_layer == _NUM) {
         // Decrease mouse sensitivity on num layer.
-        mouse_report.x /= 2;
-        mouse_report.y /= 2;
+        slow_factor = 8;
     }
+    mouse_report.h = mouse_report.x;
+    mouse_report.v = -mouse_report.y / slow_factor;
+    mouse_report.x = 0;
+    mouse_report.y = 0;
     return mouse_report;
 }
 
@@ -191,7 +206,8 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 
 #ifdef OLED_ENABLE
 
-void render_downtaunt(uint32_t idle_time_ms);
+bool render_downtaunt(void);
+bool render_flash_img(void);
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 #    ifdef MASTER_RIGHT
@@ -225,68 +241,86 @@ bool shutdown_user(bool jump_to_bootloader) {
     return true;
 }
 
-uint32_t frame_toggle_timer = 0;
-uint8_t  render_f1          = 0;
 // Delay to wait after kb inactivity to begin taunt animation.
 const uint32_t TAUNT_WAIT_MS = 60 * 1000;
-// Length of the taunt animation.
-const uint32_t TAUNT_LEN_MS = 60 * 60 * 1000;
 // Length of a single frame of the taunt animation.
 const uint32_t TAUNT_TOGGLE_FRAME_LEN_MS = 1500;
-// Don't use the display at all.
-bool should_sleep = false;
 
 bool oled_task_user() {
-    if (timer_elapsed32(frame_toggle_timer) > TAUNT_TOGGLE_FRAME_LEN_MS) {
-        frame_toggle_timer = timer_read32();
-        render_f1 ^= 1;
+    if (render_flash_img() == false) {
+        return false;
     }
 
-    const uint8_t  cur_layer    = get_highest_layer(layer_state);
-    const uint32_t idle_time_ms = last_matrix_activity_elapsed();
-    if (idle_time_ms > TAUNT_WAIT_MS && cur_layer == _BSE) {
-        render_downtaunt(idle_time_ms);
-    } else {
-        switch (cur_layer) {
-            case _BSE:
+    const uint8_t cur_layer = get_highest_layer(layer_state);
+    switch (cur_layer) {
+        case _BSE:
+            if (render_downtaunt()) {
                 oled_write_raw(gw_idle, sizeof(gw_idle));
-                break;
-            case _SYM:
-                oled_write_raw(gw_diver, sizeof(gw_diver));
-                break;
-            case _NAV:
-                oled_write_raw(gw_parachute, sizeof(gw_parachute));
-                break;
-            case _SYS:
-                oled_write_raw(gw_bomb, sizeof(gw_bomb));
-                break;
-            case _NUM:
-                oled_write_raw(gw_key, sizeof(gw_key));
-                break;
-            default:
-                oled_write_raw(gw_idle, sizeof(gw_idle));
-                break;
-        }
-        should_sleep = false;
+            }
+            break;
+        case _SYM:
+            oled_write_raw(gw_diver, sizeof(gw_diver));
+            break;
+        case _NAV:
+            oled_write_raw(gw_parachute, sizeof(gw_parachute));
+            break;
+        case _SYS:
+            oled_write_raw(gw_bomb, sizeof(gw_bomb));
+            break;
+        case _NUM:
+            oled_write_raw(gw_key, sizeof(gw_key));
+            break;
+        default:
+            oled_write_raw(gw_idle, sizeof(gw_idle));
+            break;
     }
 
     return false;
 }
 
-void render_downtaunt(uint32_t idle_time_ms) {
-    if (should_sleep) return;
-    if (idle_time_ms > TAUNT_WAIT_MS + TAUNT_LEN_MS) {
-        oled_write_raw(gw_downtaunt_f2, sizeof(gw_idle));
-        should_sleep = true;
-        return;
+bool render_downtaunt() {
+    const uint32_t idle_time_ms = last_matrix_activity_elapsed();
+    if (idle_time_ms <= TAUNT_WAIT_MS) {
+        return true;
     }
-    if (render_f1) {
+    if ((timer_read32() / TAUNT_TOGGLE_FRAME_LEN_MS) % 2 == 0) {
         oled_write_raw(gw_downtaunt_f1, sizeof(gw_idle));
     } else {
         oled_write_raw(gw_downtaunt_f2, sizeof(gw_idle));
     }
+    return false;
 }
 
+// When set, contains the end deadline for the flash image.
+uint32_t    flash_img_anim_timer = 0;
+const char *flash_img_data;
+uint16_t    flash_img_size;
+
+// Support briefly flashing an image on the display for a set amount of time. This ignores any layer information.
+// Currently these are only triggered by key events.
+// return true if the caller can continue rendering their own content.
+bool render_flash_img() {
+    if (flash_img_anim_timer == 0) {
+        return true;
+    }
+    if (timer_expired32(timer_read32(), flash_img_anim_timer)) {
+        flash_img_anim_timer = 0;
+        return true;
+    }
+    oled_write_raw(flash_img_data, flash_img_size);
+    return false;
+}
+
+void enter_key_pressed_cb(void) {
+#    define JUDGE9_LEN_MS 500
+    flash_img_anim_timer = timer_read32() + JUDGE9_LEN_MS;
+    flash_img_data       = gw_judge9;
+    flash_img_size       = sizeof(gw_judge9);
+}
+
+#else
+// Stub impl of enter_key_pressed_cb
+void enter_key_pressed_cb(void) {}
 #endif
 /* ****************** */
 /* OLED SECTION END */
