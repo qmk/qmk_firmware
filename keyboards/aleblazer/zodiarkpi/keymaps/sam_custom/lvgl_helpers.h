@@ -8,6 +8,7 @@ lv_obj_t *create_button(lv_obj_t *parent, const char *text, lv_style_t *style, l
 
 void use_flex_row(void *obj);
 void use_flex_column(void *obj);
+void use_grid_row(void *obj, lv_coord_t *row_dsc, lv_coord_t *col_dsc);
 void toggle_state(void *obj, lv_state_t state, bool enabled);
 void toggle_hidden(void *obj, bool visible);
 void resize_font(void *label, int32_t v);

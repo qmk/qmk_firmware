@@ -11,13 +11,17 @@ painter_image_handle_t image;
 painter_device_t qp_st7789_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode);
 
 // layers
-const char *layer_name = "default";
+const char *layer_name = "------";
 
 // standard styles
 lv_style_t style_screen;
 lv_style_t style_container;
+lv_style_t style_container_row;
 lv_style_t style_button;
 lv_style_t style_button_active;
+
+// colors
+unsigned long nv_green = 0x76b900;
 
 // screens
 static lv_obj_t *screen_home;
@@ -43,15 +47,22 @@ void init_styles(void) {
     lv_style_set_width(&style_container, lv_pct(100));
     lv_style_set_height(&style_container, LV_SIZE_CONTENT);
 
+    lv_style_init(&style_container_row);
+    lv_style_set_pad_all(&style_container_row, 0);
+    lv_style_set_bg_opa(&style_container_row, 0);
+    lv_style_set_border_width(&style_container_row, 0);
+    lv_style_set_width(&style_container_row, lv_pct(100));
+    lv_style_set_height(&style_container_row, LV_SIZE_CONTENT);
+
     lv_style_init(&style_button);
     lv_style_set_pad_all(&style_button, 4);
     lv_style_set_radius(&style_button, 6);
-    lv_style_set_text_color(&style_button, lv_palette_main(LV_PALETTE_AMBER));
+    lv_style_set_text_color(&style_button, lv_color_white());
 
     lv_style_init(&style_button_active);
-    lv_style_set_bg_color(&style_button_active, lv_palette_main(LV_PALETTE_AMBER));
+    lv_style_set_bg_color(&style_button_active, lv_color_hex(nv_green));
     lv_style_set_bg_opa(&style_button_active, LV_OPA_100);
-    lv_style_set_text_color(&style_button_active, lv_color_black());
+    lv_style_set_text_color(&style_button_active, lv_color_white());
 }
 
 void init_screen_home(void) {
@@ -66,7 +77,7 @@ void init_screen_home(void) {
     use_flex_column(layers);
 
     lv_obj_t *curr_layer = lv_obj_create(layers);
-    lv_obj_add_style(curr_layer, &style_container, LV_PART_MAIN);
+    lv_obj_add_style(curr_layer, &style_container_row, LV_PART_MAIN);
     use_flex_row(curr_layer);
     label_curr_layer = create_button(curr_layer, layer_name, &style_button, &style_button_active);
 
@@ -76,13 +87,13 @@ void init_screen_home(void) {
     use_flex_column(mods);
 
     lv_obj_t *mods_row1 = lv_obj_create(mods);
-    lv_obj_add_style(mods_row1, &style_container, LV_PART_MAIN);
+    lv_obj_add_style(mods_row1, &style_container_row, LV_PART_MAIN);
     use_flex_row(mods_row1);
     label_gui = create_button(mods_row1, "GUI", &style_button, &style_button_active);
     label_alt = create_button(mods_row1, "ALT", &style_button, &style_button_active);
 
     lv_obj_t *mods_row2 = lv_obj_create(mods);
-    lv_obj_add_style(mods_row2, &style_container, LV_PART_MAIN);
+    lv_obj_add_style(mods_row2, &style_container_row, LV_PART_MAIN);
     use_flex_row(mods_row2);
     label_ctrl = create_button(mods_row2, "CTL", &style_button, &style_button_active);
     label_shift = create_button(mods_row2, "SFT", &style_button, &style_button_active);
@@ -135,21 +146,23 @@ __attribute__((weak)) bool display_init_user(void) {
 }
 
 __attribute__((weak)) void display_housekeeping_task(void) {
+    char layer_buf[14];
+
     switch(get_highest_layer(layer_state)) {
         case _QWERTY:
-            layer_name = "qwerty";
+            layer_name = "QWERTY";
             break;
         case _SYMBOL:
-            layer_name = "symbol";
+            layer_name = "SYMBOL";
             break;
         case _NUMPAD:
-            layer_name = "numpad";
+            layer_name = "NUMPAD";
             break;
         case _MAGIC:
-            layer_name = "magic";
+            layer_name = "MAGIC";
             break;
         case _WINDOW:
-            layer_name = "window";
+            layer_name = "WINDOW";
             break;
         default:
             break;
@@ -160,5 +173,6 @@ __attribute__((weak)) void display_housekeeping_task(void) {
     toggle_state(label_alt, LV_STATE_PRESSED, MODS_ALT);
     toggle_state(label_gui, LV_STATE_PRESSED, MODS_GUI);
     toggle_state(label_capsword, LV_STATE_PRESSED, is_capsword_enabled);
-    lv_label_set_text(label_curr_layer, layer_name);
+    snprintf(layer_buf, sizeof(layer_buf), "LAYER: %s", layer_name);
+    lv_label_set_text(label_curr_layer, layer_buf);
 }
