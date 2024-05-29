@@ -242,13 +242,13 @@ Set the Unicode input mode.
 
 ---
 
-### `void unicode_input_mode_step(void)` : id=api-unicode-input-mode-step
+### `void unicode_input_mode_step(void)` : {#api-unicode-input-mode-step}
 
 Change to the next Unicode input mode.
 
 ---
 
-### `void unicode_input_mode_step_reverse(void)` : id=api-unicode-input-mode-step-reverse
+### `void unicode_input_mode_step_reverse(void)` : {#api-unicode-input-mode-step-reverse}
 
 Change to the previous Unicode input mode.
 
@@ -422,11 +422,11 @@ Add the given keycode to the input sequence buffer.
 
 ---
 
-### `bool ucis_remove_last(void)` :id=api-ucis-remove-last
+### `bool ucis_remove_last(void)` {#api-ucis-remove-last}
 
 Remove the last character from the input sequence buffer.
 
-#### Return Value {#api-ucis-remove-last}
+#### Return Value {#api-ucis-remove-last-return-value}
 
 `true` if the sequence was not empty.
 

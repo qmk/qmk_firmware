@@ -1003,7 +1003,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 }
 ```
 
-### Indicator Examples :id=indicator-examples
+### Indicator Examples {#indicator-examples}
 
 Caps Lock indicator on alphanumeric flagged keys:
 ```c
@@ -1063,7 +1063,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 Split keyboards will require layer state data syncing with `#define SPLIT_LAYER_STATE_ENABLE`. See [Data Sync Options](feature_split_keyboard#data-sync-options) for more details.
 :::
 
-#### Examples {#indicator-examples}
+#### Examples {#indicator-examples-2}
 
 This example sets the modifiers to be a specific color based on the layer state.  You can use a switch case here, instead, if you would like.  This uses HSV and then converts to RGB, because this allows the brightness to be limited (important when using the WS2812 driver).
 

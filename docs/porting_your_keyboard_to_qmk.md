@@ -13,7 +13,7 @@ $ qmk new-keyboard
 
 Name Your Keyboard Project
 For more infomation, see:
-https://docs.qmk.fm/#/hardware_keyboard_guidelines?id=naming-your-keyboardproject
+https://docs.qmk.fm/hardware_keyboard_guidelines#naming-your-keyboardproject
 
 keyboard Name? mycoolkeeb
 
