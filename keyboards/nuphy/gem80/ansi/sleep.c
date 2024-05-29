@@ -72,20 +72,25 @@ void sleep_handle(void) {
         rf_linking_time    = 0;
         rf_disconnect_time = 0;
 #endif
-
-        // don't deep sleep if charging on wireless, charging interrupts and wakes the MCU
-        if (dev_info.link_mode != LINK_USB && dev_info.rf_charge & 0x01) {
-            break_all_key();
-            enter_light_sleep();
-            // Don't deep sleep if in USB mode. Board may have issues waking as reported by others. I assume it's being
-            // powered if USB port is on, or otherwise it's disconnected at the hardware level if USB port is off..
-        } else if (dev_info.link_mode == LINK_USB && (g_config.usb_sleep_toggle || USB_DRIVER.state == USB_SUSPENDED)) {
-            break_all_key();
-            enter_light_sleep();
-        } else if (g_config.sleep_enable) {
-            break_all_key(); // reset keys before sleeping for new QMK lifecycle to handle on wake.
-            deep_sleep_handle();
-            return; // don't need to do anything else
+        // if LINK_USB -> light sleep
+        if (dev_info.link_mode == LINK_USB) {
+            if (g_config.usb_sleep_toggle || USB_DRIVER.state == USB_SUSPENDED) {
+                break_all_key();
+                enter_light_sleep();
+            }
+        }
+        // if not USB
+        else if (g_config.sleep_enable) {
+            // but charging -> light sleep
+            if ((dev_info.rf_charge & 0x01) != 0 || dev_info.rf_charge == 0x03) {
+                break_all_key();
+                enter_light_sleep();
+                // otherwise -> deep sleep
+            } else {
+                // break_all_key();
+                deep_sleep_handle();
+                return;
+            }
         }
 
         f_wakeup_prepare = 1; // only if light sleep.
