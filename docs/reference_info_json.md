@@ -118,14 +118,23 @@ Configures the [Audio](feature_audio.md) feature.
         * `clicky`
             * The default audio clicky enabled state.
             * Default: `true`
+    * `driver`
+        * The driver to use. Must be one of `dac_additive`, `dac_basic`, `pwm_software`, `pwm_hardware`.
     * `macro_beep`
         * Play a short beep for `\a` (ASCII `BEL`) characters in Send String macros.
         * Default: `false`
     * `pins` (Required)
         * The GPIO pin(s) connected to the speaker(s).
+    * `power_control`
+        * `on_state`
+            * The logical GPIO state required to turn the speaker on.
+            * Default: `1` (on = high)
+        * `pin`
+            * The GPIO pin connected to speaker power circuit.
     * `voices`
         * Use multiple audio voices.
         * Default: `false`
+
 
 ## Backlight :id=backlight
 
@@ -579,9 +588,6 @@ Configures the [RGB Lighting](feature_rgblight.md) feature.
     * `max_brightness`
         * The maximum value which the HSV "V" component is scaled to, from 0 to 255.
         * Default: `255`
-    * `rgbw`
-        * Enable RGBW LEDs.
-        * Default: `false`
     * `saturation_steps`
         * The number of saturation adjustment steps.
         * Default: `17`
@@ -633,7 +639,7 @@ Configures the [RGB Matrix](feature_rgb_matrix.md) feature.
             * The default animation speed.
             * Default: `128`
     * `driver` (Required)
-        * The driver to use. Must be one of `aw20216s`, `custom`, `is31fl3218`, `is31fl3729`, `is31fl3731`, `is31fl3733`, `is31fl3736`, `is31fl3737`, `is31fl3741`, `is31fl3742a`, `is31fl3743a`, `is31fl3745`, `is31fl3746a`, `snled27351`, `ws2812`.
+        * The driver to use. Must be one of `aw20216s`, `custom`, `is31fl3218`, `is31fl3236`, `is31fl3729`, `is31fl3731`, `is31fl3733`, `is31fl3736`, `is31fl3737`, `is31fl3741`, `is31fl3742a`, `is31fl3743a`, `is31fl3745`, `is31fl3746a`, `snled27351`, `ws2812`.
     * `hue_steps`
         * The number of hue adjustment steps.
         * Default: `8`
@@ -733,7 +739,7 @@ Configures the [Split Keyboard](feature_split_keyboard.md) feature.
         * Default: `1`
     * `transport`
         * `protocol`
-            * The split transport protocol to use. Must be one of `custom`, `i2c`, `serial`, `serial_usart`.
+            * The split transport protocol to use. Must be one of `custom`, `i2c`, `serial`.
         * `sync`
             * `activity`
                 * Mirror the activity timestamps to the secondary half.
@@ -826,7 +832,7 @@ Configures the [Stenography](feature_stenography.md) feature.
     * `suspend_wakeup_delay`
         * The amount of time to wait after sending a wakeup packet, in milliseconds.
         * Default: `0` (disabled)
-    * `wait_for`
+    * `wait_for_enumeration`
         * Force the keyboard to wait for USB enumeration before starting up.
         * Default: `false`
 
@@ -846,3 +852,6 @@ Configures the [WS2812](ws2812_driver.md) driver.
     * `i2c_timeout`
         * The I²C timeout in milliseconds (`i2c` driver only).
         * Default: `100` (100 ms)
+    * `rgbw`
+        * Enable RGBW LEDs.
+        * Default: `false`

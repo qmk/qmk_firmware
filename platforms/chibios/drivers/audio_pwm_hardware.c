@@ -87,7 +87,7 @@ static void audio_callback(virtual_timer_t *vtp, void *p) {
     chSysUnlockFromISR();
 }
 
-void audio_driver_initialize(void) {
+void audio_driver_initialize_impl(void) {
     pwmStart(&AUDIO_PWM_DRIVER, &pwmCFG);
 
     // connect the AUDIO_PIN to the PWM hardware
@@ -100,7 +100,7 @@ void audio_driver_initialize(void) {
     chVTObjectInit(&audio_vt);
 }
 
-void audio_driver_start(void) {
+void audio_driver_start_impl(void) {
     channel_1_stop();
     channel_1_start();
 
@@ -115,7 +115,7 @@ void audio_driver_start(void) {
     }
 }
 
-void audio_driver_stop(void) {
+void audio_driver_stop_impl(void) {
     channel_1_stop();
     chVTReset(&audio_vt);
 }
