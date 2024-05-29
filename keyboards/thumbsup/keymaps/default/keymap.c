@@ -1,4 +1,4 @@
-/* Copyright 2022  
+   /* Copyright 2022  
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,18 +19,16 @@
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
-// The first four layers are used for the tri-layer controls, so their order is important. 
     _QWERTY,
     _CURSORLEFT,
     _CURSORRGHT,
     _NUMBERS,
-    _NUMPAD,
     _EXTRARIGHT
 };
 
 // Aliases for this command to make the thumb keys work as LOWER/RAISE on hold and as space on hit.
-#define CURSORRGHT LT(_CURSORRGHT,KC_SPC)
-#define CURSORLEFT LT(_CURSORLEFT,KC_SPC)
+//#define CURSORRGHT LT(_CURSORRGHT,KC_SPC)
+//#define CURSORLEFT LT(_CURSORLEFT,KC_SPC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -57,9 +55,8 @@ Single hit:  |		       |      |Space |		|Space |      |                 |
   KC_ESC,                  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,       KC_Y,       KC_U,    KC_I,    KC_O,   KC_P,    KC_BSPC,
   LT(_EXTRARIGHT,KC_TAB),  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,       KC_H,       KC_J,    KC_K,    KC_L,   KC_SCLN, KC_PENT,
   KC_LCTL,                 KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,       KC_N,       KC_M,    KC_COMM, KC_DOT, KC_SLSH, KC_RCTL,
-                  	   KC_SPC,  KC_LGUI, KC_LALT, KC_LSFT, CURSORLEFT, CURSORRGHT, KC_RSFT, KC_RALT, KC_APP, KC_SPC
+                  	   KC_SPC,  KC_LGUI, KC_LALT, KC_LSFT, LT(_CURSORLEFT,KC_SPC), LT(_CURSORRGHT,KC_SPC), KC_RSFT, KC_RALT, KC_APP, KC_SPC
 ),
-
 
 
 /*
@@ -124,7 +121,7 @@ without separate thumbcluster.
  * |------+------+------+------+------+------+------|------+------+------+------+------|
  * |      | xxx  |MsBtRt|MsBtMi|MsBtLe| PgDn | xxx  | Cut  | Copy | Paste| xxx  |      |
  * `------+------+------+------+------+------+------+------+------+------+------+------.
- *               |      |      |      |   X  |       |      |      |      |
+ *               |      |      |      |   X  |      |      |      |      |
  *               `-------------------------------------------------------'
  */
 [_CURSORLEFT] = LAYOUT(
@@ -141,7 +138,7 @@ without separate thumbcluster.
  * |      |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |BackSp|
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |   F1 |   F2 |   F3 |   F4 |   F5 |   F6 |   F7 |   F8 |   F9 |   F10| Enter|
-h * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |  F11 |  F12 | LAlt |LShift| LAlt | RAlt |RShift|   ,  |   .  |   /  |      |
  * `------+------+------+------+------+------+------+------+------+------+------+------.
  *               |      |      |      |      |      |      |      |      |
@@ -163,7 +160,7 @@ h * |------+------+------+------+------+-------------+------+------+------+-----
    key turning
    this layer on
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |NumPad|      |      |      |      |   [  |   ]  |  \   |      |
+ * |      |      |      |NumPad|Qwerty|      |      |      |   [  |   ]  |  \   |      |
  * `------+------+------+------+------+------+------+------+------+------+------+------.
  *               |      |      |      |      |      |      |      |      |
  *               `-------------------------------------------------------'
@@ -171,31 +168,12 @@ h * |------+------+------+------+------+-------------+------+------+------+-----
 [_EXTRARIGHT] = LAYOUT(
   _______, KC_BRK,  XXXXXXX, XXXXXXX,      XXXXXXX, 	 XXXXXXX, 	KC_GRV,  KC_EQL,  KC_LPRN, KC_RPRN, KC_MINS, _______,
   _______, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX,      XXXXXXX,       KC_PSCR, XXXXXXX, XXXXXXX, XXXXXXX, KC_QUOT, _______,
-  _______, XXXXXXX, XXXXXXX, TG(_NUMPAD),  XXXXXXX,      XXXXXXX,       XXXXXXX, XXXXXXX, KC_LBRC, KC_RBRC, KC_BSLS, _______,
+  _______, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX,      XXXXXXX,       XXXXXXX, XXXXXXX, KC_LBRC, KC_RBRC, KC_BSLS, _______,
 	   _______, _______, _______,      _______,      _______,       _______,  _______, _______, _______, _______
-),
-
-/* The right side turned into a numpad, set as default layer.
- *
- * ,-----------------------------------------||-----------------------------------------.
- * |  Esc |      |      |      |      |      ||   /  |   7  |   8  |   9  |   -  |BackSp|
- * |------+------+------+------+------+------||------|------+------+------+------+------|
- * |      |      |      |      |      |      ||   *  |   4  |   5  |   6  |   +  |Enter |
-Hold:
-   Extra-Rt 
- * |------+------+------+------+------+------||-------------+------+------+------+------|
- * | Ctrl |      |      |      |      |      ||   ,  |   1  |   2  |   3  |   .  | Ctrl |
- * `------+------+------+------+------+------||------+------+------+------+------+------.
-		 |  GUI | Alt  |      |      ||      |      |   0  |   .  |
-	         +------+------+      |      ||      |      +------+------+               
-Hold:  		               | LSft |CursLt||CursRt| RSft |
-Single hit:		       |      |Space ||Space |      |
-		               +------+------||------+------+
- */
-[_NUMPAD] =  LAYOUT(
-  KC_ESC,                 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_KP_SLASH, KC_7,    KC_8, KC_9, KC_KP_MINUS, KC_BSPC,
-  LT(_EXTRARIGHT,KC_TAB), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_PAST,     KC_4,    KC_5, KC_6, KC_KP_PLUS,  KC_PENT,
-  KC_LCTL,                XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_COMM,     KC_1,    KC_2, KC_3, KC_DOT,      KC_RCTL,
-                          KC_SPC,  KC_LGUI, KC_LALT, KC_LSFT, CURSORLEFT, CURSORRGHT,  KC_RSFT, KC_0, KC_DOT, KC_SPC
 )
 };
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+  return update_tri_layer_state(state, _CURSORLEFT, _CURSORRGHT, _NUMBERS);
+}
+                                                                            
