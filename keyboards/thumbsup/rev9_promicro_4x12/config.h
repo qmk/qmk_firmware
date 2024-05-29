@@ -18,9 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-//This disables the auto-repeat for the double-action keys (e.g. S+LAlt)
-#define QUICK_TAP_TERM 0
-
 
 //Cirque ProGlide Touchpad configuration
 #define POINTING_DEVICE_ROTATION_90
