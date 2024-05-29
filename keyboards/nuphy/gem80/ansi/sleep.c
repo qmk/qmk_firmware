@@ -61,7 +61,7 @@ void sleep_handle(void) {
     if (timer_elapsed32(delay_step_timer) < 50) return;
     delay_step_timer = timer_read32();
 
-    if (!g_config.sleep_enable) return;
+    if (!g_config.sleep_toggle) return;
     uint32_t sleep_time_delay = get_sleep_timeout();
     // sleep process;
     if (f_goto_sleep) {
@@ -80,16 +80,20 @@ void sleep_handle(void) {
             }
         }
         // if not USB
-        else if (g_config.sleep_enable) {
+        else if (g_config.sleep_toggle) {
             // but charging -> light sleep
             if ((dev_info.rf_charge & 0x01) != 0 || dev_info.rf_charge == 0x03) {
                 break_all_key();
                 enter_light_sleep();
                 // otherwise -> deep sleep
             } else {
-                // break_all_key();
+            break_all_key(); // reset keys before sleeping for new QMK lifecycle to handle on wake.
+            if (g_config.deep_sleep_toggle) {
                 deep_sleep_handle();
-                return;
+                return; // don't need to do anything else
+            } else {
+                enter_light_sleep();
+            }
             }
         }
 

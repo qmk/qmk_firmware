@@ -1,4 +1,4 @@
-// Copyright 2023 Persama (@Persama)
+// Copyright 2023 Ryodeushii (@ryodeushii)
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include <stdint.h>
 #include "ansi.h"
@@ -239,25 +239,34 @@ void sys_sw_led_show(void) {
 void sleep_sw_led_show(void)
 
 {
-    static uint32_t sleep_show_timer    = 0;
-    static bool     sleep_show_flag     = false;
-    static bool     usb_sleep_show_flag = false;
+    static uint32_t sleep_show_timer     = 0;
+    static bool     sleep_show_flag      = false;
+    static bool     usb_sleep_show_flag  = false;
+    static bool     deep_sleep_show_flag = false;
 
     if (f_sleep_show) {
         f_sleep_show = false;
 
-        sleep_show_timer    = timer_read32();
-        sleep_show_flag     = true;
-        usb_sleep_show_flag = false;
+        sleep_show_timer     = timer_read32();
+        sleep_show_flag      = true;
+        usb_sleep_show_flag  = false;
+        deep_sleep_show_flag = false;
     } else if (f_usb_sleep_show) {
-        f_usb_sleep_show    = false;
-        sleep_show_timer    = timer_read32();
-        usb_sleep_show_flag = true;
-        sleep_show_flag     = false;
+        f_usb_sleep_show     = false;
+        sleep_show_timer     = timer_read32();
+        usb_sleep_show_flag  = true;
+        sleep_show_flag      = false;
+        deep_sleep_show_flag = false;
+    } else if (f_deep_sleep_show) {
+        f_deep_sleep_show    = false;
+        sleep_show_timer     = timer_read32();
+        usb_sleep_show_flag  = false;
+        sleep_show_flag      = false;
+        deep_sleep_show_flag = true;
     }
 
     if (sleep_show_flag) {
-        if (g_config.sleep_enable) {
+        if (g_config.sleep_toggle) {
             r_temp = 0x00;
             g_temp = 0x80;
             b_temp = 0x00;
@@ -292,6 +301,24 @@ void sleep_sw_led_show(void)
         if (timer_elapsed32(sleep_show_timer) >= (3000 - 50)) {
             usb_sleep_show_flag = false;
         }
+    } else if (deep_sleep_show_flag) {
+        if (g_config.deep_sleep_toggle) {
+            r_temp = 0x00;
+            g_temp = 0x80;
+            b_temp = 0x00;
+        } else {
+            r_temp = 0x80;
+            g_temp = 0x00;
+            b_temp = 0x00;
+        }
+        if ((timer_elapsed32(sleep_show_timer) / 500) % 2 == 0) {
+            set_side_rgb(r_temp, g_temp, b_temp);
+        } else {
+            set_side_rgb(0x00, 0x00, 0x00);
+        }
+        if (timer_elapsed32(sleep_show_timer) >= (3000 - 50)) {
+            deep_sleep_show_flag = false;
+        }
     }
 }
 
@@ -301,7 +328,7 @@ void sleep_sw_led_show(void)
 void sys_led_show(void) {
     // TODO: debug rf_led to know how to detect num_lock
     uint8_t caps_key_led_idx = get_led_index(3, 0);
-    bool showCapsLock = false;
+    bool    showCapsLock     = false;
     if (dev_info.link_mode == LINK_USB) {
         showCapsLock = host_keyboard_led_state().caps_lock;
     } else {

@@ -536,6 +536,16 @@
                             ]
                         },
                         {
+                            "label": "Deep Sleep Enable (RF only)",
+                            "showIf": "{id_sleep_toggle} == 1",
+                            "type": "toggle",
+                            "content": [
+                                "id_deep_sleep_toggle",
+                                0,
+                                6
+                            ]
+                        },
+                        {
                             "label": "USB Sleep Enable",
                             "showIf": "{id_sleep_toggle} == 1",
                             "type": "toggle",
@@ -809,6 +819,10 @@
         {
             "name": "DEBOUNCE\nRELEASE\nSHOW",
             "title": "Show Release Debounce Value"
+        },
+        {
+            "name": "TOG DEEP\nSLEEP",
+            "title": "Toggle Deep Sleep"
         }
     ]
 }

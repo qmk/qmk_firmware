@@ -1,3 +1,5 @@
+// Copyright 2023 Ryodeushii (@ryodeushii)
+// SPDX-License-Identifier: GPL-2.0-or-later
 #define LOGO_LINE 7
 #define SIDE_LINE 5
 #define SIDE_LED_NUM (LOGO_LINE + SIDE_LINE)

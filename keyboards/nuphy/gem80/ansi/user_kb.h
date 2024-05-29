@@ -143,6 +143,7 @@ typedef struct {
 extern bool          f_wakeup_prepare;
 extern bool          f_sleep_show;
 extern bool          f_usb_sleep_show;
+extern bool          f_deep_sleep_show;
 extern bool          f_dial_sw_init_ok;
 
 void    dev_sts_sync(void);
@@ -190,3 +191,4 @@ void pwr_side_led_off(void);
 void pwr_side_led_on(void);
 void led_pwr_sleep_handle(void);
 void led_pwr_wake_handle(void);
+void toggle_deep_sleep(void);

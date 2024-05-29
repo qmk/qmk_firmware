@@ -64,6 +64,7 @@ enum custom_keycodes {
     DEBOUNCE_RELEASE_INC,
     DEBOUNCE_RELEASE_DEC,
     DEBOUNCE_RELEASE_SHOW,
+    DEEP_SLEEP_TOGGLE,
 };
 
 #define MAC_PRT G(S(KC_3))
@@ -74,7 +75,8 @@ enum custom_keycodes {
 typedef struct {
     uint8_t been_initiated;
     uint8_t usb_sleep_toggle : 1;
-    uint8_t sleep_enable : 1;
+    uint8_t deep_sleep_toggle : 1;
+    uint8_t sleep_toggle : 1;
     uint8_t debounce_press_ms;
     uint8_t debounce_release_ms;
     uint8_t sleep_timeout;
@@ -92,8 +94,8 @@ typedef struct {
     uint8_t logo_rgb;
     uint8_t logo_color;
 } kb_config_t;
-#ifdef VIA_ENABLE
 
+#ifdef VIA_ENABLE
 enum via_indicator_value {
     id_usb_sleep_toggle    = 0,
     id_debounce_press      = 1,
@@ -101,6 +103,7 @@ enum via_indicator_value {
     id_sleep_timeout       = 3,
     id_caps_indicator_type = 4,
     id_sleep_toggle        = 5,
+    id_deep_sleep_toggle   = 6,
     // side light controls
     id_side_light_mode       = 10,
     id_side_light_speed      = 11,
@@ -122,3 +125,4 @@ extern kb_config_t g_config;
 
 void save_config_to_eeprom(void);
 void load_config_from_eeprom(void);
+void init_g_config(void);

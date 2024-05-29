@@ -33,6 +33,7 @@ bool f_bat_hold              = 0;
 bool f_sys_show              = 0;
 bool f_sleep_show            = 0;
 bool f_usb_sleep_show        = 0;
+bool f_deep_sleep_show        = 0;
 bool f_send_channel          = 0;
 bool f_dial_sw_init_ok       = 0;
 bool f_rf_sw_press           = 0;
@@ -429,26 +430,7 @@ void kb_config_reset(void) {
     rgb_matrix_set_speed(255 - RGB_MATRIX_SPD_STEP * 2);
     rgb_matrix_sethsv(RGB_DEFAULT_COLOUR, 255, RGB_MATRIX_MAXIMUM_BRIGHTNESS - RGB_MATRIX_VAL_STEP * 2);
 
-    // reset config in via to default too
-    g_config.sleep_enable         = true;
-    g_config.usb_sleep_toggle     = true;
-    g_config.sleep_timeout        = 5;
-    g_config.debounce_press_ms    = DEBOUNCE;
-    g_config.debounce_release_ms  = DEBOUNCE;
-    g_config.caps_indication_type = CAPS_INDICATOR_SIDE;
-    // (top) side LED
-    g_config.side_mode       = 0;
-    g_config.side_brightness = 3;
-    g_config.side_speed      = 2;
-    g_config.side_rgb        = 1;
-    g_config.side_color      = 0;
-    // logo LED
-
-    g_config.logo_mode       = 0;
-    g_config.logo_brightness = 3;
-    g_config.logo_speed      = 2;
-    g_config.logo_rgb        = 1;
-    g_config.logo_color      = 0;
+    init_g_config();
     // mark config as initiated
     g_config.been_initiated = 0x45;
 
@@ -663,7 +645,7 @@ void adjust_debounce(uint8_t dir, DEBOUNCE_EVENT debounce_event) {
 }
 
 void adjust_sleep_timeout(uint8_t dir) {
-    if (g_config.sleep_enable) {
+    if (g_config.sleep_toggle) {
         if (g_config.sleep_timeout > 1 && !dir) {
             g_config.sleep_timeout -= SLEEP_TIMEOUT_STEP;
         } else if (g_config.sleep_timeout < 60 && dir) {
@@ -674,6 +656,12 @@ void adjust_sleep_timeout(uint8_t dir) {
 }
 
 uint32_t get_sleep_timeout(void) {
-    if (!g_config.sleep_enable) return 0;
+    if (!g_config.sleep_toggle) return 0;
     return g_config.sleep_timeout * 60 * 1000 / TIMER_STEP;
+}
+
+void toggle_deep_sleep(void) {
+    f_deep_sleep_show          = 1;
+    g_config.deep_sleep_toggle = !g_config.deep_sleep_toggle;
+    save_config_to_eeprom();
 }
