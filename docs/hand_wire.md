@@ -181,7 +181,9 @@ Go through the rest of the tabs, assigning keys until you get to the last one wh
 
 The source given by Keyboard Firmware Builder is QMK, but is based on a version of QMK from early 2017. To compile the firmware in a modern version of QMK Firmware, you'll need to export via the `Save Configuration` button, then run:
 
-    qmk import-kbfirmware /path/to/export.json
+```
+qmk import-kbfirmware /path/to/export.json
+```
 
 For example:
 

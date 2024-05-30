@@ -19,7 +19,9 @@ Using the QMK installation script, detailed [here](newbs_getting_started), the r
 
 To flash via the command line, use the target `:bootloadhid` by executing the following command:
 
-    make <keyboard>:<keymap>:bootloadhid
+```
+make <keyboard>:<keymap>:bootloadhid
+```
 
 ## GUI Flashing
 

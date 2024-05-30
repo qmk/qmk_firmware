@@ -196,11 +196,15 @@ If you already know how to use GitHub, [we recommend that you follow these instr
 
 Now that your QMK build environment is set up, you can build a firmware for your keyboard. Start by trying to build the keyboard's default keymap. You should be able to do that with a command in this format:
 
-    qmk compile -kb <keyboard> -km default
+```sh
+qmk compile -kb <keyboard> -km default
+```
 
 For example, to build a firmware for a Clueboard 66% you would use:
 
-    qmk compile -kb clueboard/66/rev3 -km default
+```sh
+qmk compile -kb clueboard/66/rev3 -km default
+```
 
 ::: tip
 The keyboard option is the path relative to the keyboard directory, the above example would be found in `qmk_firmware/keyboards/clueboard/66/rev3`. If you're unsure you can view a full list of supported keyboards with `qmk list-keyboards`.

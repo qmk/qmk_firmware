@@ -40,7 +40,9 @@ Valid Examples:
 
 QMK uses sub-folders both for organization and to share code between revisions of the same keyboard. You can nest folders up to 4 levels deep:
 
-    qmk_firmware/keyboards/top_folder/sub_1/sub_2/sub_3/sub_4
+```
+qmk_firmware/keyboards/top_folder/sub_1/sub_2/sub_3/sub_4
+```
 
 If a sub-folder has a `rules.mk` file it will be considered a compilable keyboard. It will be available in QMK Configurator and tested with `make all`. If you are using a folder to organize several keyboards from the same maker you should not have a `rules.mk` file.
 
@@ -250,15 +252,21 @@ When developing your keyboard, keep in mind that all warnings will be treated as
 
 If you're adapting your keyboard's setup from another project, but not using the same code, be sure to update the copyright header at the top of the files to show your name, in this format:
 
-    Copyright 2017 Your Name <your@email.com>
+```c
+Copyright 2017 Your Name <your@email.com>
+```
 
 If you are modifying someone else's code and have made only trivial changes you should leave their name in the copyright statement. If you have done significant work on the file you should add your name to theirs, like so:
 
-    Copyright 2017 Their Name <original_author@example.com> Your Name <you@example.com>
+```c
+Copyright 2017 Their Name <original_author@example.com> Your Name <you@example.com>
+```
 
 The year should be the first year the file is created. If work was done to that file in later years you can reflect that by appending the second year to the first, like so:
 
-    Copyright 2015-2017 Your Name <you@example.com>
+```c
+Copyright 2015-2017 Your Name <you@example.com>
+```
 
 ## License
 
