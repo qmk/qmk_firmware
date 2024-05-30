@@ -254,15 +254,21 @@ qmk doctor [-y] [-n]
 
 Check your environment for problems and prompt to fix them:
 
-    qmk doctor
+```
+qmk doctor
+```
 
 Check your environment and automatically fix any problems found:
 
-    qmk doctor -y
+```
+qmk doctor -y
+```
 
 Check your environment and report problems only:
 
-    qmk doctor -n
+```
+qmk doctor -n
+```
 
 ## `qmk format-json`
 
@@ -290,15 +296,21 @@ This command is directory aware. It will automatically fill in KEYBOARD and/or K
 
 Show basic information for a keyboard:
 
-    qmk info -kb planck/rev5
+```
+qmk info -kb planck/rev5
+```
 
 Show the matrix for a keyboard:
 
-    qmk info -kb ergodox_ez -m
+```
+qmk info -kb ergodox_ez -m
+```
 
 Show a JSON keymap for a keyboard:
 
-    qmk info -kb clueboard/california -km default
+```
+qmk info -kb clueboard/california -km default
+```
 
 ## `qmk json2c`
 
@@ -350,7 +362,9 @@ This command is directory aware. It will automatically fill in KEYBOARD and/or K
 
 Do a basic lint check:
 
-    qmk lint -kb rominronin/katana60/rev2
+```
+qmk lint -kb rominronin/katana60/rev2
+```
 
 ## `qmk list-keyboards`
 
@@ -789,16 +803,22 @@ qmk pytest [-t TEST]
 
 Run entire test suite:
 
-    qmk pytest
+```
+qmk pytest
+```
 
 Run test group:
 
-    qmk pytest -t qmk.tests.test_cli_commands
+```
+qmk pytest -t qmk.tests.test_cli_commands
+```
 
 Run single test:
 
-    qmk pytest -t qmk.tests.test_cli_commands.test_c2json
-    qmk pytest -t qmk.tests.test_qmk_path
+```
+qmk pytest -t qmk.tests.test_cli_commands.test_c2json
+qmk pytest -t qmk.tests.test_qmk_path
+```
 
 ## `qmk painter-convert-graphics`
 
@@ -835,16 +855,24 @@ options:
 
 Run entire test suite:
 
-    qmk test-c
+```
+qmk test-c
+```
 
 List available tests:
 
-    qmk test-c --list
+```
+qmk test-c --list
+```
 
 Run matching test:
 
-    qmk test-c --test unicode*
+```
+qmk test-c --test unicode*
+```
 
 Run single test:
 
-    qmk test-c --test basic
+```
+qmk test-c --test basic
+```
