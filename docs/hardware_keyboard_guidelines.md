@@ -70,11 +70,11 @@ Your keyboard should be located in `qmk_firmware/keyboards/` and the folder name
 
 ### `readme.md`
 
-All projects need to have a `readme.md` file that explains what the keyboard is, who made it and where it's available. If applicable, it should also contain links to more information, such as the maker's website. Please follow the [published template](documentation_templates.md#keyboard-readmemd-template).
+All projects need to have a `readme.md` file that explains what the keyboard is, who made it and where it's available. If applicable, it should also contain links to more information, such as the maker's website. Please follow the [published template](documentation_templates#keyboard-readmemd-template).
 
 ### `info.json`
 
-This file is used by the [QMK API](https://github.com/qmk/qmk_api). It contains the information [QMK Configurator](https://config.qmk.fm/) needs to display a representation of your keyboard. You can also set metadata here. For more information see the [reference page](reference_info_json.md).
+This file is used by the [QMK API](https://github.com/qmk/qmk_api). It contains the information [QMK Configurator](https://config.qmk.fm/) needs to display a representation of your keyboard. You can also set metadata here. For more information see the [reference page](reference_info_json).
 
 ### `config.h`
 
@@ -87,7 +87,7 @@ The `config.h` files can also be placed in sub-folders, and the order in which t
     * `keyboards/top_folder/sub_1/sub_2/config.h`
       * `keyboards/top_folder/sub_1/sub_2/sub_3/config.h`
         * `keyboards/top_folder/sub_1/sub_2/sub_3/sub_4/config.h`
-          * [`.build/objs_<keyboard>/src/info_config.h`](data_driven_config.md#add-code-to-generate-it) see [Data Driven Configuration](data_driven_config.md)
+          * [`.build/objs_<keyboard>/src/info_config.h`](data_driven_config#add-code-to-generate-it) see [Data Driven Configuration](data_driven_config)
           * `users/a_user_folder/config.h`
           * `keyboards/top_folder/keymaps/a_keymap/config.h`
         * `keyboards/top_folder/sub_1/sub_2/sub_3/sub_4/post_config.h`
@@ -130,7 +130,9 @@ The `post_config.h` file can be used for additional post-processing, depending o
   #endif
   ```
 
-?> If you define options using `post_config.h` as in the above example, you should not define the same options in the keyboard- or user-level `config.h`.
+::: tip
+If you define options using `post_config.h` as in the above example, you should not define the same options in the keyboard- or user-level `config.h`.
+:::
 
 ### `rules.mk`
 
@@ -177,7 +179,9 @@ The `post_rules.mk` file can interpret `features` of a keyboard-level before `co
   endif
   ```
 
-?> See `build_keyboard.mk` and `common_features.mk` for more details.
+::: tip
+See `build_keyboard.mk` and `common_features.mk` for more details.
+:::
 
 ### `<keyboard_name.c>`
 
@@ -208,7 +212,9 @@ As an example, if you have a 60% PCB that supports ANSI and ISO you might define
 | LAYOUT_ansi | default_ansi | An ANSI layout |
 | LAYOUT_iso | default_iso | An ISO layout |
 
-?> Providing only `LAYOUT_all` is invalid - especially when implementing the additional layouts within 3rd party tooling.
+::: tip
+Providing only `LAYOUT_all` is invalid - especially when implementing the additional layouts within 3rd party tooling.
+:::
 
 ## Image/Hardware Files
 
@@ -222,7 +228,7 @@ Given the amount of functionality that QMK exposes it's very easy to confuse new
 
 ### Magic Keycodes and Command
 
-[Magic Keycodes](keycodes_magic.md) and [Command](feature_command.md) are two related features that allow a user to control their keyboard in non-obvious ways. We recommend you think long and hard about if you're going to enable either feature, and how you will expose this functionality. Keep in mind that users who want this functionality can enable it in their personal keymaps without affecting all the novice users who may be using your keyboard as their first programmable board.
+[Magic Keycodes](keycodes_magic) and [Command](feature_command) are two related features that allow a user to control their keyboard in non-obvious ways. We recommend you think long and hard about if you're going to enable either feature, and how you will expose this functionality. Keep in mind that users who want this functionality can enable it in their personal keymaps without affecting all the novice users who may be using your keyboard as their first programmable board.
 
 By far the most common problem new users encounter is accidentally triggering Bootmagic while they're plugging in their keyboard. They're holding the keyboard by the bottom, unknowingly pressing in alt and spacebar, and then they find that these keys have been swapped on them. We recommend leaving this feature disabled by default, but if you do turn it on consider setting `BOOTMAGIC_KEY_SALT` to a key that is hard to press while plugging your keyboard in.
 
@@ -230,7 +236,7 @@ If your keyboard does not have 2 shift keys you should provide a working default
 
 ## Custom Keyboard Programming
 
-As documented on [Customizing Functionality](custom_quantum_functions.md) you can define custom functions for your keyboard. Please keep in mind that your users may want to customize that behavior as well, and make it possible for them to do that. If you are providing a custom function, for example `process_record_kb()`, make sure that your function calls the `_user()` version of the call too. You should also take into account the return value of the `_user()` version, and only run your custom code if the user returns `true`.
+As documented on [Customizing Functionality](custom_quantum_functions) you can define custom functions for your keyboard. Please keep in mind that your users may want to customize that behavior as well, and make it possible for them to do that. If you are providing a custom function, for example `process_record_kb()`, make sure that your function calls the `_user()` version of the call too. You should also take into account the return value of the `_user()` version, and only run your custom code if the user returns `true`.
 
 ## Non-Production/Handwired Projects
 
@@ -257,7 +263,3 @@ The year should be the first year the file is created. If work was done to that 
 ## License
 
 The core of QMK is licensed under the [GNU General Public License](https://www.gnu.org/licenses/licenses.en.html). If you are shipping binaries for AVR processors you may choose either [GPLv2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html) or [GPLv3](https://www.gnu.org/licenses/gpl.html). If you are shipping binaries for ARM processors you must choose [GPL Version 3](https://www.gnu.org/licenses/gpl.html) to comply with the [ChibiOS](https://www.chibios.org) GPLv3 license.
-
-## Technical Details
-
-If you're looking for more information on making your keyboard work with QMK, [check out the hardware section](hardware.md)!

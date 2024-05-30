@@ -100,7 +100,9 @@ occasion. This is simply due to habit and holding some keys a little longer
 than others. Once you find this value, work on tapping your problem keys a little
 quicker than normal and you will be set.
 
-?> Auto Shift has three special keys that can help you get this value right very quick. See "Auto Shift Setup" for more details!
+::: tip
+Auto Shift has three special keys that can help you get this value right very quick. See "Auto Shift Setup" for more details!
+:::
 
 For more granular control of this feature, you can add the following to your `config.h`:
 
@@ -179,23 +181,23 @@ For more granular control, there is `get_auto_shifted_key`. The default function
 ```c
 bool get_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-#    ifndef NO_AUTO_SHIFT_ALPHA
+# ifndef NO_AUTO_SHIFT_ALPHA
         case AUTO_SHIFT_ALPHA:
-#    endif
-#    ifndef NO_AUTO_SHIFT_NUMERIC
+# endif
+# ifndef NO_AUTO_SHIFT_NUMERIC
         case AUTO_SHIFT_NUMERIC:
-#    endif
-#    ifndef NO_AUTO_SHIFT_SPECIAL
-#        ifndef NO_AUTO_SHIFT_TAB
+# endif
+# ifndef NO_AUTO_SHIFT_SPECIAL
+# ifndef NO_AUTO_SHIFT_TAB
         case KC_TAB:
 #        endif
-#        ifndef NO_AUTO_SHIFT_SYMBOLS
+# ifndef NO_AUTO_SHIFT_SYMBOLS
         case AUTO_SHIFT_SYMBOLS:
 #        endif
-#    endif
-#    ifdef AUTO_SHIFT_ENTER
+# endif
+# ifdef AUTO_SHIFT_ENTER
         case KC_ENT:
-#    endif
+# endif
             return true;
     }
     return get_custom_auto_shifted_key(keycode, record);
@@ -290,7 +292,7 @@ Holding and releasing a Tap Hold key without pressing another key will ordinaril
 result in only the hold. With `retro shift` enabled this action will instead
 produce a shifted version of the tap keycode on release.
 
-It does not require [Retro Tapping](tap_hold.md#retro-tapping) to be enabled, and
+It does not require [Retro Tapping](tap_hold#retro-tapping) to be enabled, and
 if both are enabled the state of `retro tapping` will only apply if the tap keycode
 is not matched by Auto Shift. `RETRO_TAPPING_PER_KEY` and its corresponding
 function, however, are checked before `retro shift` is applied.
@@ -314,10 +316,10 @@ Without a value set, holds of any length without an interrupting key will produc
 
 This value (if set) must be greater than one's `TAPPING_TERM`, as the key press
 must be designated as a 'hold' by `process_tapping` before we send the modifier.
-[Per-key tapping terms](tap_hold.md#tapping-term) can be used as a workaround.
+[Per-key tapping terms](tap_hold#tapping-term) can be used as a workaround.
 There is no such limitation in regards to `AUTO_SHIFT_TIMEOUT` for normal keys.
 
-**Note:** Tap Holds must be added to Auto Shift, see [here.](feature_auto_shift.md#auto-shift-per-key)
+**Note:** Tap Holds must be added to Auto Shift, see [here.](feature_auto_shift#auto-shift-per-key)
 `IS_RETRO` may be helpful if one wants all Tap Holds retro shifted.
 
 ### Retro Shift and Tap Hold Configurations
@@ -326,7 +328,7 @@ Tap Hold Configurations work a little differently when using Retro Shift.
 Referencing `TAPPING_TERM` makes little sense, as holding longer would result in
 shifting one of the keys.
 
-`RETRO_SHIFT` enables [`PERMISSIVE_HOLD`-like behaviour](tap_hold.md#permissive-hold) (even if not explicitly enabled) on all mod-taps for which `RETRO_SHIFT` applies.
+`RETRO_SHIFT` enables [`PERMISSIVE_HOLD`-like behaviour](tap_hold#permissive-hold) (even if not explicitly enabled) on all mod-taps for which `RETRO_SHIFT` applies.
 
 ## Using Auto Shift Setup
 

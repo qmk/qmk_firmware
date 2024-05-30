@@ -202,7 +202,9 @@ We use nose2, flake8, and yapf to test, lint, and format code. You can use the `
 
 We use [yapf](https://github.com/google/yapf) to automatically format code. Our configuration is in the `[yapf]` section of `setup.cfg`.
 
-?> Tip- Many editors can use yapf as a plugin to automatically format code as you type.
+::: tip
+Tip- Many editors can use yapf as a plugin to automatically format code as you type.
+:::
 
 ## Testing Details
 

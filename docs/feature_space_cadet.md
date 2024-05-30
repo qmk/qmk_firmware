@@ -24,7 +24,7 @@ Firstly, in your keymap, do one of the following:
 
 ## Caveats
 
-Space Cadet's functionality can conflict with the default Command functionality when both Shift keys are held at the same time. See the [Command feature](feature_command.md) for info on how to change it, or make sure that Command is disabled in your `rules.mk` with:
+Space Cadet's functionality can conflict with the default Command functionality when both Shift keys are held at the same time. See the [Command feature](feature_command) for info on how to change it, or make sure that Command is disabled in your `rules.mk` with:
 
 ```make
 COMMAND_ENABLE = no

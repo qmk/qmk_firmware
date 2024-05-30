@@ -2,7 +2,9 @@
 
 Since QMK has experimental support for MIDI, you can now turn your keyboard into a [step sequencer](https://en.wikipedia.org/wiki/Music_sequencer#Step_sequencers)!
 
-!> **IMPORTANT:** This feature is highly experimental, it has only been tested on a Planck EZ so far. Also, the scope will be limited to support the drum machine use-case to start with.
+::: warning
+**IMPORTANT:** This feature is highly experimental, it has only been tested on a Planck EZ so far. Also, the scope will be limited to support the drum machine use-case to start with.
+:::
 
 ## Enable the step sequencer
 

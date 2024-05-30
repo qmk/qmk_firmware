@@ -31,7 +31,9 @@ The simplest way to flash your keyboard will be with the [QMK Toolbox](https://g
 
 However, the Toolbox is currently only available for Windows and macOS. If you're using Linux (or just wish to flash the firmware from the command line), skip to the [Flash your Keyboard from the Command Line](#flash-your-keyboard-from-the-command-line) section.
 
-?> QMK Toolbox is not necessary for flashing [RP2040 devices](https://docs.qmk.fm/#/flashing?id=raspberry-pi-rp2040-uf2).
+::: tip
+QMK Toolbox is not necessary for flashing [RP2040 devices](flashing#raspberry-pi-rp2040-uf2).
+:::
 
 ### Load the File into QMK Toolbox
 
@@ -39,21 +41,21 @@ Begin by opening the QMK Toolbox application. You'll want to locate the firmware
 
 If you are on Windows or macOS, there are commands you can use to easily open the current folder in Explorer or Finder.
 
-<!-- tabs:start -->
+::::tabs
 
-#### ** Windows **
+=== Windows
 
 ```
 start .
 ```
 
-#### ** macOS **
+=== macOS
 
 ```
 open .
 ```
 
-<!-- tabs:end -->
+::::
 
 The firmware file always follows this naming format:
 
@@ -98,7 +100,7 @@ This has been made pretty simple compared to what it used to be. When you are re
 
     qmk flash
 
-If you did not configure your keyboard/keymap name in the CLI according to the [Configure your build environment](newbs_getting_started.md) section, or you have multiple keyboards, you can specify the keyboard and keymap:
+If you did not configure your keyboard/keymap name in the CLI according to the [Configure your build environment](newbs_getting_started) section, or you have multiple keyboards, you can specify the keyboard and keymap:
 
     qmk flash -kb <my_keyboard> -km <my_keymap>
 
@@ -108,9 +110,11 @@ However, this does rely on the bootloader being set by the keyboard. If this inf
 
     WARNING: This board's bootloader is not specified or is not supported by the ":flash" target at this time.
 
-In this case, you'll have to fall back on specifying the bootloader. See the [Flashing Firmware](flashing.md) Guide for more details.
+In this case, you'll have to fall back on specifying the bootloader. See the [Flashing Firmware](flashing) Guide for more details.
 
-!> If your bootloader is not detected by `qmk flash`, try running `qmk doctor` for suggestions on how to fix common problems.
+::: warning
+If your bootloader is not detected by `qmk flash`, try running `qmk doctor` for suggestions on how to fix common problems.
+:::
 
 ## Test It Out!
 

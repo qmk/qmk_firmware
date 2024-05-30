@@ -1,6 +1,8 @@
 # LED Indicators
 
-?> LED indicators on split keyboards will require state information synced to the slave half (e.g. `#define SPLIT_LED_STATE_ENABLE`). See [data sync options](feature_split_keyboard.md#data-sync-options) for more details.
+::: tip
+LED indicators on split keyboards will require state information synced to the slave half (e.g. `#define SPLIT_LED_STATE_ENABLE`). See [data sync options](feature_split_keyboard#data-sync-options) for more details.
+:::
 
 QMK provides methods to read 5 of the LEDs defined in the HID spec:
 
@@ -15,7 +17,9 @@ There are three ways to get the lock LED state:
 * Implement `led_update_*` function
 * Call `led_t host_keyboard_led_state()`
 
-!> The `host_keyboard_led_state()` may reflect an updated state before `led_update_user()` is called.
+::: warning
+The `host_keyboard_led_state()` may reflect an updated state before `led_update_user()` is called.
+:::
 
 Two deprecated functions that provide the LED state as `uint8_t`:
 
@@ -46,7 +50,9 @@ When the configuration options do not provide enough flexibility, the following 
 
 Both receives LED state as a struct parameter. Returning `true` in `led_update_user()` will allow the keyboard level code in `led_update_kb()` to run as well. Returning `false` will override the keyboard level code, depending on how the keyboard level function is set up.
 
-?> This boolean return type of `led_update_user` allows for overriding keyboard LED controls, and is thus recommended over the void `led_set_user` function.
+::: tip
+This boolean return type of `led_update_user` allows for overriding keyboard LED controls, and is thus recommended over the void `led_set_user` function.
+:::
 
 ### Example of keyboard LED update implementation
 

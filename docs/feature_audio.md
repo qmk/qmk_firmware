@@ -27,7 +27,7 @@ per speaker is - for example with a piezo buzzer - the black lead to Ground, and
 
 
 ## ARM based boards
-for more technical details, see the notes on [Audio driver](audio_driver.md).
+for more technical details, see the notes on [Audio driver](audio_driver).
 
 <!-- because I'm not sure where to fit this in: https://waveeditonline.com/ -->
 ### DAC (basic)
@@ -131,7 +131,7 @@ You can override the default songs by doing something like this in your `config.
 
 ```c
 #ifdef AUDIO_ENABLE
-#    define STARTUP_SONG SONG(STARTUP_SOUND)
+# define STARTUP_SONG SONG(STARTUP_SOUND)
 #endif
 ```
 
@@ -167,7 +167,9 @@ The available keycodes for audio are:
 |`QK_AUDIO_OFF`           |`AU_OFF` |Turns off Audio Feature                    |
 |`QK_AUDIO_TOGGLE`        |`AU_TOGG`|Toggles Audio state                        |
 
-!> These keycodes turn all of the audio functionality on and off.  Turning it off means that audio feedback, audio clicky, music mode, etc. are disabled, completely.
+::: warning
+These keycodes turn all of the audio functionality on and off.  Turning it off means that audio feedback, audio clicky, music mode, etc. are disabled, completely.
+:::
 
 ## Audio Config
 
@@ -346,7 +348,7 @@ You can configure the default, min and max frequencies, the stepping and built i
 
 ## MIDI Functionality
 
-See [MIDI](feature_midi.md)
+See [MIDI](feature_midi)
 
 ## Audio Keycodes
 

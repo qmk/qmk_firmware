@@ -32,7 +32,7 @@ a modern alternative to Caps Lock:
   shift](#configure-which-keys-are-word-breaking).
 
 
-## How do I enable Caps Word :id=how-do-i-enable-caps-word
+## How do I enable Caps Word {#how-do-i-enable-caps-word}
 
 In your `rules.mk`, add:
 
@@ -62,16 +62,16 @@ Next, use one the following methods to activate Caps Word:
 
 * **Custom activation**: You can activate Caps Word from code by calling
   `caps_word_on()`. This may be used to activate Caps Word through [a
-  combo](feature_combo.md) or [tap dance](feature_tap_dance.md) or any means
+  combo](feature_combo) or [tap dance](feature_tap_dance) or any means
   you like.
 
-### Troubleshooting: Command :id=troubleshooting-command
+### Troubleshooting: Command {#troubleshooting-command}
 
 When using `BOTH_SHIFTS_TURNS_ON_CAPS_WORD`, you might see a compile message
 **"BOTH_SHIFTS_TURNS_ON_CAPS_WORD and Command should not be enabled at the same
 time, since both use the Left Shift + Right Shift key combination."**
 
-Many keyboards enable the [Command feature](feature_command.md), which by
+Many keyboards enable the [Command feature](feature_command), which by
 default is also activated using the Left Shift + Right Shift key combination. To
 fix this conflict, please disable Command by adding in rules.mk:
 
@@ -88,9 +88,9 @@ by defining `IS_COMMAND()` in config.h:
 ```
 
 
-## Customizing Caps Word :id=customizing-caps-word
+## Customizing Caps Word {#customizing-caps-word}
 
-### Invert on shift :id=invert-on-shift
+### Invert on shift {#invert-on-shift}
 
 By default, Caps Word turns off when Shift keys are pressed, considering them as
 word-breaking. Alternatively with the `CAPS_WORD_INVERT_ON_SHIFT` option,
@@ -110,7 +110,7 @@ keys, and one-shot Shift keys. Note that while Caps Word is on, one-shot Shift
 keys behave like regular Shift keys, and have effect only while they are held.
 
 
-### Idle timeout :id=idle-timeout
+### Idle timeout {#idle-timeout}
 
 Caps Word turns off automatically if no keys are pressed for
 `CAPS_WORD_IDLE_TIMEOUT` milliseconds. The default is 5000 (5 seconds).
@@ -124,7 +124,7 @@ Setting `CAPS_WORD_IDLE_TIMEOUT` to 0 configures Caps Word to never time out.
 Caps Word then remains active indefinitely until a word breaking key is pressed.
 
 
-### Functions :id=functions
+### Functions {#functions}
 
 Functions to manipulate Caps Word:
 
@@ -136,7 +136,7 @@ Functions to manipulate Caps Word:
 | `is_caps_word_on()`     | Returns true if Caps Word is currently on.     |
 
 
-### Configure which keys are "word breaking" :id=configure-which-keys-are-word-breaking
+### Configure which keys are "word breaking" {#configure-which-keys-are-word-breaking}
 
 You can define the `caps_word_press_user(uint16_t keycode)` callback to
 configure which keys should be shifted and which keys are considered "word
@@ -171,7 +171,7 @@ bool caps_word_press_user(uint16_t keycode) {
 ```
 
 
-### Representing Caps Word state :id=representing-caps-word-state
+### Representing Caps Word state {#representing-caps-word-state}
 
 Define `caps_word_set_user(bool active)` to get callbacks when Caps Word turns
 on or off. This is useful to represent the current Caps Word state, e.g. by
