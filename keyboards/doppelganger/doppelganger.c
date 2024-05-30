@@ -16,30 +16,30 @@
 #include "quantum.h"
 
 void keyboard_pre_init_kb(void) {
-    setPinOutput(C6);
-    setPinOutput(B0);
+    gpio_set_pin_output(C6);
+    gpio_set_pin_output(B0);
 }
 
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if (res) {
-        // writePin sets the pin high for 1 and low for 0.
+        // gpio_write_pin sets the pin high for 1 and low for 0.
         // In this example the pins are inverted, setting
         // it low/0 turns it on, and high/1 turns the LED off.
         // This behavior depends on whether the LED is between the pin
         // and VCC or the pin and GND.
-        writePin(C6, !led_state.caps_lock);
+        gpio_write_pin(C6, !led_state.caps_lock);
     }
     return res;
 }
 
 __attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
-    writePin(B0, !(state & (1UL << 1)));
+    gpio_write_pin(B0, !(state & (1UL << 1)));
     return state;
 }
 
 // Override core logic as we reuse SPLIT_HAND_PIN within matrix pins
 bool is_keyboard_left(void) {
-    setPinInput(SPLIT_HAND_PIN);
-    return readPin(SPLIT_HAND_PIN);
+    gpio_set_pin_input(SPLIT_HAND_PIN);
+    return gpio_read_pin(SPLIT_HAND_PIN);
 }

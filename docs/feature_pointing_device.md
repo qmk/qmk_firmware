@@ -1,4 +1,4 @@
-# Pointing Device :id=pointing-device
+# Pointing Device {#pointing-device}
 
 Pointing Device is a generic name for a feature intended to be generic: moving the system pointer around.  There are certainly other options for it - like mousekeys - but this aims to be easily modifiable and hardware driven.  You can implement custom keys to control functionality, or you can gather information from other peripherals and insert it directly here - let QMK handle the processing for you.
 
@@ -112,7 +112,9 @@ Specific device profiles are provided which set the required values for dimensio
 | `AZOTEQ_IQS5XX_TPS43`            | (Pick One) Sets resolution/mm to TPS43 specifications.     |
 | `AZOTEQ_IQS5XX_TPS65`            | (Pick One) Sets resolution/mm to TPS65 specifications.     |
 
-?> If using one of the above defines you can skip to gesture settings.
+::: tip
+If using one of the above defines you can skip to gesture settings.
+:::
 
 | Setting                          | Description                                                | Default       |
 | -------------------------------- | ---------------------------------------------------------- | ------------- |
@@ -383,7 +385,9 @@ uint16_t       pointing_device_driver_get_cpi(void) { return 0; }
 void           pointing_device_driver_set_cpi(uint16_t cpi) {}
 ```
 
-!> Ideally, new sensor hardware should be added to `drivers/sensors/` and `quantum/pointing_device_drivers.c`, but there may be cases where it's very specific to the hardware.  So these functions are provided, just in case. 
+::: warning
+Ideally, new sensor hardware should be added to `drivers/sensors/` and `quantum/pointing_device_drivers.c`, but there may be cases where it's very specific to the hardware.  So these functions are provided, just in case. 
+:::
 
 ## Common Configuration
 
@@ -404,15 +408,19 @@ void           pointing_device_driver_set_cpi(uint16_t cpi) {}
 | `POINTING_DEVICE_SDIO_PIN`                     | (Optional) Provides a default SDIO pin, useful for supporting multiple sensor configs.                                           | _not defined_ |
 | `POINTING_DEVICE_SCLK_PIN`                     | (Optional) Provides a default SCLK pin, useful for supporting multiple sensor configs.                                           | _not defined_ |
 
-!> When using `SPLIT_POINTING_ENABLE` the `POINTING_DEVICE_MOTION_PIN` functionality is not supported and `POINTING_DEVICE_TASK_THROTTLE_MS` will default to `1`. Increasing this value will increase transport performance at the cost of possible mouse responsiveness.
+::: warning
+When using `SPLIT_POINTING_ENABLE` the `POINTING_DEVICE_MOTION_PIN` functionality is not supported and `POINTING_DEVICE_TASK_THROTTLE_MS` will default to `1`. Increasing this value will increase transport performance at the cost of possible mouse responsiveness.
+:::
 
 The `POINTING_DEVICE_CS_PIN`, `POINTING_DEVICE_SDIO_PIN`, and `POINTING_DEVICE_SCLK_PIN` provide a convenient way to define a single pin that can be used for an interchangeable sensor config.  This allows you to have a single config, without defining each device.  Each sensor allows for this to be overridden with their own defines. 
 
-!> Any pointing device with a lift/contact status can integrate inertial cursor feature into its driver, controlled by `POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE`. e.g. PMW3360 can use Lift_Stat from Motion register. Note that `POINTING_DEVICE_MOTION_PIN` cannot be used with this feature; continuous polling of `get_report()` is needed to generate glide reports.
+::: warning
+Any pointing device with a lift/contact status can integrate inertial cursor feature into its driver, controlled by `POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE`. e.g. PMW3360 can use Lift_Stat from Motion register. Note that `POINTING_DEVICE_MOTION_PIN` cannot be used with this feature; continuous polling of `get_report()` is needed to generate glide reports.
+:::
 
 ## Split Keyboard Configuration
 
-The following configuration options are only available when using `SPLIT_POINTING_ENABLE` see [data sync options](feature_split_keyboard.md?id=data-sync-options). The rotation and invert `*_RIGHT` options are only used with `POINTING_DEVICE_COMBINED`. If using `POINTING_DEVICE_LEFT` or `POINTING_DEVICE_RIGHT` use the common configuration above to configure your pointing device.
+The following configuration options are only available when using `SPLIT_POINTING_ENABLE` see [data sync options](feature_split_keyboard#data-sync-options). The rotation and invert `*_RIGHT` options are only used with `POINTING_DEVICE_COMBINED`. If using `POINTING_DEVICE_LEFT` or `POINTING_DEVICE_RIGHT` use the common configuration above to configure your pointing device.
 
 | Setting                              | Description                                                                                           | Default       |
 | ------------------------------------ | ----------------------------------------------------------------------------------------------------- | ------------- |
@@ -425,7 +433,9 @@ The following configuration options are only available when using `SPLIT_POINTIN
 | `POINTING_DEVICE_INVERT_X_RIGHT`     | (Optional) Inverts the X axis report.                                                                 | _not defined_ |
 | `POINTING_DEVICE_INVERT_Y_RIGHT`     | (Optional) Inverts the Y axis report.                                                                 | _not defined_ |
 
-!> If there is a `_RIGHT` configuration option or callback, the [common configuration](feature_pointing_device.md?id=common-configuration) option will work for the left. For correct left/right detection you should setup a [handedness option](feature_split_keyboard?id=setting-handedness), `EE_HANDS` is usually a good option for an existing board that doesn't do handedness by hardware.
+::: warning
+If there is a `_RIGHT` configuration option or callback, the [common configuration](feature_pointing_device#common-configuration) option will work for the left. For correct left/right detection you should setup a [handedness option](feature_split_keyboard#setting-handedness), `EE_HANDS` is usually a good option for an existing board that doesn't do handedness by hardware.
+:::
 
 
 ## Callbacks and Functions 
@@ -448,7 +458,7 @@ The following configuration options are only available when using `SPLIT_POINTIN
 
 ## Split Keyboard Callbacks and Functions
 
-The combined functions below are only available when using `SPLIT_POINTING_ENABLE` and `POINTING_DEVICE_COMBINED`. The 2 callbacks `pointing_device_task_combined_*` replace the single sided equivalents above. See the [combined pointing devices example](feature_pointing_device.md?id=combined-pointing-devices)
+The combined functions below are only available when using `SPLIT_POINTING_ENABLE` and `POINTING_DEVICE_COMBINED`. The 2 callbacks `pointing_device_task_combined_*` replace the single sided equivalents above. See the [combined pointing devices example](feature_pointing_device#combined-pointing-devices)
 
 | Function                                                        | Description                                                                                                              |
 | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
@@ -673,11 +683,13 @@ If you are having issues with pointing device drivers debug messages can be enab
 #define POINTING_DEVICE_DEBUG
 ```
  
-?> The messages will be printed out to the `CONSOLE` output. For additional information, refer to [Debugging/Troubleshooting QMK](faq_debug.md).
+::: tip
+The messages will be printed out to the `CONSOLE` output. For additional information, refer to [Debugging/Troubleshooting QMK](faq_debug).
+:::
 
 
 ---
-# Automatic Mouse Layer :id=pointing-device-auto-mouse
+# Automatic Mouse Layer {#pointing-device-auto-mouse}
 
 When using a pointing device combined with a keyboard the mouse buttons are often kept on a separate layer from the default keyboard layer, which requires pressing or holding a key to change layers before using the mouse. To make this easier and more efficient an additional pointing device feature may be enabled that will automatically activate a target layer as soon as the pointing device is active _(in motion, mouse button pressed etc.)_ and deactivate the target layer after a set time.   
 
@@ -780,6 +792,9 @@ There are several functions that allow for more advanced interaction with the au
 | `get_auto_mouse_timeout(void)`                             | Return the current timeout for turing off the layer                                  |                           |      `uint16_t` |
 | `set_auto_mouse_debounce(uint16_t timeout)`                | Change/set the debounce for preventing layer activation                              |                           |    `void`(None) |
 | `get_auto_mouse_debounce(void)`                            | Return the current debounce for preventing layer activation                          |                           |       `uint8_t` |
+| `is_auto_mouse_active(void)`                               | Returns the active state of the auto mouse layer (eg if the layer has been triggered)|                           |          `bool` |
+| `get_auto_mouse_key_tracker(void)`                         | Gets the current count for the auto mouse key tracker.                               |                           |        `int8_t` |
+| `set_auto_mouse_key_tracker(int8_t key_tracker)`           | Sets/Overrides the current count for the auto mouse key tracker.                     |                           |    `void`(None) |
 
 _NOTES:_   
     - _Due to the nature of how some functions work, the `auto_mouse_trigger_reset`, and `auto_mouse_layer_off` functions should never be called in the `layer_state_set_*` stack as this can cause indefinite loops._   

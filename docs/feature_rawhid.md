@@ -1,10 +1,10 @@
-# Raw HID :id=raw-hid
+# Raw HID {#raw-hid}
 
 The Raw HID feature allows for bidirectional communication between QMK and the host computer over an HID interface. This has many potential use cases, such as switching keymaps on the fly or sending useful metrics like CPU/RAM usage.
 
 In order to communicate with the keyboard using this feature, you will need to write a program that runs on the host. As such, some basic programming skills are required - more if you intend to implement complex behaviour.
 
-## Usage :id=usage
+## Usage {#usage}
 
 Add the following to your `rules.mk`:
 
@@ -12,7 +12,7 @@ Add the following to your `rules.mk`:
 RAW_ENABLE = yes
 ```
 
-## Basic Configuration :id=basic-configuration
+## Basic Configuration {#basic-configuration}
 
 By default, the HID Usage Page and Usage ID for the Raw HID interface are `0xFF60` and `0x61`. However, they can be changed if necessary by adding the following to your `config.h`:
 
@@ -21,7 +21,7 @@ By default, the HID Usage Page and Usage ID for the Raw HID interface are `0xFF6
 |`RAW_USAGE_PAGE`|`0xFF60`|The usage page of the Raw HID interface|
 |`RAW_USAGE_ID`  |`0x61`  |The usage ID of the Raw HID interface  |
 
-## Sending Data to the Keyboard :id=sending-data-to-the-keyboard
+## Sending Data to the Keyboard {#sending-data-to-the-keyboard}
 
 To send data to the keyboard, you must first find a library for communicating with HID devices in the programming language of your choice. Here are some examples:
 
@@ -46,15 +46,17 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 }
 ```
 
-!> Because the HID specification does not support variable length reports, all reports in both directions must be exactly `RAW_EPSIZE` (currently 32) bytes long, regardless of actual payload length. However, variable length payloads can potentially be implemented on top of this by creating your own data structure that may span multiple reports.
+::: warning
+Because the HID specification does not support variable length reports, all reports in both directions must be exactly `RAW_EPSIZE` (currently 32) bytes long, regardless of actual payload length. However, variable length payloads can potentially be implemented on top of this by creating your own data structure that may span multiple reports.
+:::
 
-## Receiving Data from the Keyboard :id=receiving-data-from-the-keyboard
+## Receiving Data from the Keyboard {#receiving-data-from-the-keyboard}
 
 If you need the keyboard to send data back to the host, simply call the `raw_hid_send()` function. It requires two arguments - a pointer to a 32-byte buffer containing the data you wish to send, and the length (which should always be `RAW_EPSIZE`).
 
 The received report can then be handled in whichever way your HID library provides.
 
-## Simple Example :id=simple-example
+## Simple Example {#simple-example}
 
 The following example reads the first byte of the received report from the host, and if it is an ASCII "A", responds with "B". `memset()` is used to fill the response buffer (which could still contain the previous response) with null bytes.
 
@@ -129,13 +131,13 @@ if __name__ == '__main__':
     ])
 ```
 
-## API :id=api
+## API {#api}
 
-### `void raw_hid_receive(uint8_t *data, uint8_t length)` :id=api-raw-hid-receive
+### `void raw_hid_receive(uint8_t *data, uint8_t length)` {#api-raw-hid-receive}
 
 Callback, invoked when a raw HID report has been received from the host.
 
-#### Arguments :id=api-raw-hid-receive-arguments
+#### Arguments {#api-raw-hid-receive-arguments}
 
  - `uint8_t *data`  
    A pointer to the received data. Always 32 bytes in length.
@@ -144,11 +146,11 @@ Callback, invoked when a raw HID report has been received from the host.
 
 ---
 
-### `void raw_hid_send(uint8_t *data, uint8_t length)` :id=api-raw-hid-send
+### `void raw_hid_send(uint8_t *data, uint8_t length)` {#api-raw-hid-send}
 
 Send an HID report.
 
-#### Arguments :id=api-raw-hid-send-arguments
+#### Arguments {#api-raw-hid-send-arguments}
 
  - `uint8_t *data`  
    A pointer to the data to send. Must always be 32 bytes in length.

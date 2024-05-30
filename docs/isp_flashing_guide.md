@@ -33,7 +33,9 @@ To use a 5V/16MHz Pro Micro as an ISP flashing tool, you will first need to load
 |`16` (`B2`)|`MOSI`  |
 |`14` (`B3`)|`MISO`  |
 
-!> Note that the `10` pin on the Pro Micro should be wired to the `RESET` pin on the keyboard's controller. ***DO NOT*** connect the `RESET` pin on the Pro Micro to the `RESET` on the keyboard.
+::: warning
+Note that the `10` pin on the Pro Micro should be wired to the `RESET` pin on the keyboard's controller. ***DO NOT*** connect the `RESET` pin on the Pro Micro to the `RESET` on the keyboard.
+:::
 
 
 ### Arduino Uno / Micro as ISP
@@ -66,7 +68,9 @@ A standard Uno or Micro can be used as an ISP flashing tool using the [example "
 |`16` (`B2`)|`MOSI`  |
 |`14` (`B3`)|`MISO`  |
 
-!> Note that the `10` pin on the Uno/Micro should be wired to the `RESET` pin on the keyboard's controller. ***DO NOT*** connect the `RESET` pin on the Uno/Micro to the `RESET` on the keyboard.
+::: warning
+Note that the `10` pin on the Uno/Micro should be wired to the `RESET` pin on the keyboard's controller. ***DO NOT*** connect the `RESET` pin on the Uno/Micro to the `RESET` on the keyboard.
+:::
 
 
 ### Teensy 2.0 as ISP
@@ -89,7 +93,9 @@ To use a Teensy 2.0 as an ISP flashing tool, you will first need to load a [spec
 |`B2`  |`MOSI`  |
 |`B3`  |`MISO`  |
 
-!> Note that the `B0` pin on the Teensy should be wired to the `RESET` pin on the keyboard's controller. ***DO NOT*** connect the `RESET` pin on the Teensy to the `RESET` on the keyboard.
+::: warning
+Note that the `B0` pin on the Teensy should be wired to the `RESET` pin on the keyboard's controller. ***DO NOT*** connect the `RESET` pin on the Teensy to the `RESET` on the keyboard.
+:::
 
 
 ### SparkFun PocketAVR / USBtinyISP
@@ -97,7 +103,9 @@ To use a Teensy 2.0 as an ISP flashing tool, you will first need to load a [spec
 [SparkFun PocketAVR](https://www.sparkfun.com/products/9825)  
 [Adafruit USBtinyISP](https://www.adafruit.com/product/46)  
 
-!> SparkFun PocketAVR and USBtinyISP **DO NOT support** AVR chips with more than 64 KiB of flash (e.g., the AT90USB128 series). This limitation is mentioned on the [shop page for SparkFun PocketAVR](https://www.sparkfun.com/products/9825) and in the [FAQ for USBtinyISP](https://learn.adafruit.com/usbtinyisp/f-a-q#faq-2270879). If you try to use one of these programmers with AT90USB128 chips, you will get verification errors from `avrdude`, and the bootloader won't be flashed properly (e.g., see the [issue #3286](https://github.com/qmk/qmk_firmware/issues/3286)).
+::: warning
+SparkFun PocketAVR and USBtinyISP **DO NOT support** AVR chips with more than 64 KiB of flash (e.g., the AT90USB128 series). This limitation is mentioned on the [shop page for SparkFun PocketAVR](https://www.sparkfun.com/products/9825) and in the [FAQ for USBtinyISP](https://learn.adafruit.com/usbtinyisp/f-a-q#faq-2270879). If you try to use one of these programmers with AT90USB128 chips, you will get verification errors from `avrdude`, and the bootloader won't be flashed properly (e.g., see the [issue #3286](https://github.com/qmk/qmk_firmware/issues/3286)).
+:::
 
 **AVRDUDE Programmer**: `usbtiny`  
 **AVRDUDE Port**: `usb`
@@ -137,7 +145,9 @@ To use a Teensy 2.0 as an ISP flashing tool, you will first need to load a [spec
 
 [Adafruit Bus Pirate](https://www.adafruit.com/product/237)
 
-!> The 5-pin "ICSP" header is for ISP flashing the PIC microcontroller of the Bus Pirate. Connect your target board to the 10-pin header opposite the USB connector instead.
+::: warning
+The 5-pin "ICSP" header is for ISP flashing the PIC microcontroller of the Bus Pirate. Connect your target board to the 10-pin header opposite the USB connector instead.
+:::
 
 **AVRDUDE Programmer**: `buspirate`  
 **AVRDUDE Port**: Serial
@@ -157,7 +167,7 @@ To use a Teensy 2.0 as an ISP flashing tool, you will first need to load a [spec
 
 [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) supports flashing both the ISP firmware and bootloader, but note that it cannot (currently) set the AVR fuse bytes for the actual ISP flashing step, so you may want to work with `avrdude` directly instead.
 
-Setting up the [QMK environment](newbs.md) is highly recommended, as it automatically installs `avrdude` along with a host of other tools.
+Setting up the [QMK environment](newbs) is highly recommended, as it automatically installs `avrdude` along with a host of other tools.
 
 ## Bootloader Firmware
 
@@ -194,7 +204,9 @@ There are several variants depending on the vendor, but they all mostly work the
 |[Arduino Leonardo](https://github.com/arduino/ArduinoCore-avr/blob/master/bootloaders/caterina/Caterina-Leonardo.hex)*                                           |`0xFF`|`0xD8`|`0xFB`  |`2341:0036`|
 |[Arduino Micro](https://github.com/arduino/ArduinoCore-avr/blob/master/bootloaders/caterina/Caterina-Micro.hex)*                                                 |`0xFF`|`0xD8`|`0xFB`  |`2341:0037`|
 
-?> Files marked with a * have combined Arduino sketches, which runs by default and also appears as a serial port. However, this is *not* the bootloader device.
+::: tip
+Files marked with a * have combined Arduino sketches, which runs by default and also appears as a serial port. However, this is *not* the bootloader device.
+:::
 
 ### BootloadHID (PS2AVRGB)
 
@@ -273,7 +285,9 @@ avrdude done.  Thank you.
 
 This is a slightly more advanced topic, but may be necessary if you are switching from one bootloader to another (for example, Caterina to Atmel/QMK DFU on a Pro Micro). Fuses control some of the low-level functionality of the AVR microcontroller, such as clock speed, whether JTAG is enabled, and the size of the section of flash memory reserved for the bootloader, among other things. You can find a fuse calculator for many AVR parts [here](https://www.engbedded.com/conffuse/).
 
-!> **WARNING:** Setting incorrect fuse values, in particular the clock-related bits, may render the MCU practically unrecoverable without high voltage programming (not covered here)! Make sure to double check the commands you enter before you execute them.
+::: warning
+**WARNING:** Setting incorrect fuse values, in particular the clock-related bits, may render the MCU practically unrecoverable without high voltage programming (not covered here)! Make sure to double check the commands you enter before you execute them.
+:::
 
 To set the fuses, add the following to the `avrdude` command:
 
@@ -283,7 +297,9 @@ To set the fuses, add the following to the `avrdude` command:
 
 where the `lfuse`, `hfuse` and `efuse` arguments represent the low, high and extended fuse bytes as listed in the [Hardware](#hardware) section.
 
-?> You may get a warning from `avrdude` that the extended fuse byte does not match what you provided when reading it back. If the second hex digit matches, this can usually be safely ignored, because the top four bits of this fuse do not actually exist on many AVR parts, and may read back as anything.
+::: tip
+You may get a warning from `avrdude` that the extended fuse byte does not match what you provided when reading it back. If the second hex digit matches, this can usually be safely ignored, because the top four bits of this fuse do not actually exist on many AVR parts, and may read back as anything.
+:::
 
 ## Creating a "Production" Firmware
 

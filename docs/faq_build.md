@@ -1,6 +1,6 @@
 # Frequently Asked Build Questions
 
-This page covers questions about building QMK. If you haven't yet done so, you should read the [Build Environment Setup](getting_started_build_tools.md) and [Make Instructions](getting_started_make_guide.md) guides.
+This page covers questions about building QMK. If you haven't yet done so, you should read the [Build Environment Setup](newbs_getting_started) and [Make Instructions](getting_started_make_guide) guides.
 
 ## Can't Program on Linux
 You will need proper permissions to operate a device. For Linux users, see the instructions regarding `udev` rules, below. If you have issues with `udev`, a work-around is to use the `sudo` command. If you are not familiar with this command, check its manual with `man sudo` or [see this webpage](https://linux.die.net/man/8/sudo).
@@ -17,7 +17,7 @@ or just:
 
 Note that running `make` with `sudo` is generally ***not*** a good idea, and you should use one of the former methods, if possible.
 
-### Linux `udev` Rules :id=linux-udev-rules
+### Linux `udev` Rules {#linux-udev-rules}
 
 On Linux, you'll need proper privileges to communicate with the bootloader device. You can either use `sudo` when flashing firmware (not recommended), or place [this file](https://github.com/qmk/qmk_firmware/tree/master/util/udev/50-qmk.rules) into `/etc/udev/rules.d/`.
 
@@ -46,7 +46,7 @@ Issues encountered when flashing keyboards on Windows are most often due to havi
 
 Re-running the QMK installation script (`./util/qmk_install.sh` from the `qmk_firmware` directory in MSYS2 or WSL) or reinstalling the QMK Toolbox may fix the issue. Alternatively, you can download and run the [`qmk_driver_installer`](https://github.com/qmk/qmk_driver_installer) package manually.
 
-If that doesn't work, then you may need to download and run Zadig. See [Bootloader Driver Installation with Zadig](driver_installation_zadig.md) for more detailed information.
+If that doesn't work, then you may need to download and run Zadig. See [Bootloader Driver Installation with Zadig](driver_installation_zadig) for more detailed information.
 
 ## USB VID and PID
 You can use any ID you want with editing `config.h`. Using any presumably unused ID will be no problem in fact except for very low chance of collision with other product.
@@ -66,4 +66,4 @@ Due to how EEPROM works on ARM based chips, saved settings may no longer be vali
 [Planck rev6 reset EEPROM](https://cdn.discordapp.com/attachments/473506116718952450/539284620861243409/planck_rev6_default.bin) can be used to force an eeprom reset. After flashing this image, flash your normal firmware again which should restore your keyboard to _normal_ working order.
 [Preonic rev3 reset EEPROM](https://cdn.discordapp.com/attachments/473506116718952450/537849497313738762/preonic_rev3_default.bin)
 
-If bootmagic is enabled in any form, you should be able to do this too (see [Bootmagic docs](feature_bootmagic.md) and keyboard info for specifics on how to do this).
+If bootmagic is enabled in any form, you should be able to do this too (see [Bootmagic docs](feature_bootmagic) and keyboard info for specifics on how to do this).
