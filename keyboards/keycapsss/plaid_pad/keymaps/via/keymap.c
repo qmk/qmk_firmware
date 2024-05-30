@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Only for Rev1 & Rev2
 #ifdef LED_RED
 void keyboard_post_init_user(void) {
-    writePinHigh(LED_RED);
+    gpio_write_pin_high(LED_RED);
 }
 #endif
 

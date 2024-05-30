@@ -27,7 +27,7 @@ per speaker is - for example with a piezo buzzer - the black lead to Ground, and
 
 
 ## ARM based boards
-for more technical details, see the notes on [Audio driver](audio_driver.md).
+for more technical details, see the notes on [Audio driver](audio_driver).
 
 <!-- because I'm not sure where to fit this in: https://waveeditonline.com/ -->
 ### DAC (basic)
@@ -131,7 +131,7 @@ You can override the default songs by doing something like this in your `config.
 
 ```c
 #ifdef AUDIO_ENABLE
-#    define STARTUP_SONG SONG(STARTUP_SOUND)
+# define STARTUP_SONG SONG(STARTUP_SOUND)
 #endif
 ```
 
@@ -167,33 +167,37 @@ The available keycodes for audio are:
 |`QK_AUDIO_OFF`           |`AU_OFF` |Turns off Audio Feature                    |
 |`QK_AUDIO_TOGGLE`        |`AU_TOGG`|Toggles Audio state                        |
 
-!> These keycodes turn all of the audio functionality on and off.  Turning it off means that audio feedback, audio clicky, music mode, etc. are disabled, completely.
+::: warning
+These keycodes turn all of the audio functionality on and off.  Turning it off means that audio feedback, audio clicky, music mode, etc. are disabled, completely.
+:::
 
 ## Audio Config
 
-| Settings                        | Default              | Description                                                                   |
-|---------------------------------|----------------------|-------------------------------------------------------------------------------|
-|`AUDIO_PIN`                      | *Not defined*        |Configures the pin that the speaker is connected to.                           |
-|`AUDIO_PIN_ALT`                  | *Not defined*        |Configures the pin for a second speaker or second pin connected to one speaker.|
-|`AUDIO_PIN_ALT_AS_NEGATIVE`      | *Not defined*        |Enables support for one speaker connected to two pins.                         |
-|`AUDIO_INIT_DELAY`               | *Not defined*        |Enables delay during startup song to accomidate for USB startup issues.        |
-|`AUDIO_ENABLE_TONE_MULTIPLEXING` | *Not defined*        |Enables time splicing/multiplexing to create multiple tones simutaneously.     |
-|`STARTUP_SONG`                   | `STARTUP_SOUND`      |Plays when the keyboard starts up (audio.c)                                    |
-|`GOODBYE_SONG`                   | `GOODBYE_SOUND`      |Plays when you press the QK_BOOT key (quantum.c)                               |
-|`AG_NORM_SONG`                   | `AG_NORM_SOUND`      |Plays when you press AG_NORM (process_magic.c)                                 |
-|`AG_SWAP_SONG`                   | `AG_SWAP_SOUND`      |Plays when you press AG_SWAP (process_magic.c)                                 |
-|`CG_NORM_SONG`                   | `AG_NORM_SOUND`      |Plays when you press CG_NORM (process_magic.c)                                 |
-|`CG_SWAP_SONG`                   | `AG_SWAP_SOUND`      |Plays when you press CG_SWAP (process_magic.c)                                 |
-|`MUSIC_ON_SONG`                  | `MUSIC_ON_SOUND`     |Plays when music mode is activated (process_music.c)                           |
-|`MUSIC_OFF_SONG`                 | `MUSIC_OFF_SOUND`    |Plays when music mode is deactivated (process_music.c)                         |
-|`MIDI_ON_SONG`                   | `MUSIC_ON_SOUND`     |Plays when midi mode is activated (process_music.c)                            |
-|`MIDI_OFF_SONG`                  | `MUSIC_OFF_SOUND`    |Plays when midi mode is deactivated (process_music.c)                          |
-|`CHROMATIC_SONG`                 | `CHROMATIC_SOUND`    |Plays when the chromatic music mode is selected (process_music.c)              |
-|`GUITAR_SONG`                    | `GUITAR_SOUND`       |Plays when the guitar music mode is selected (process_music.c)                 |
-|`VIOLIN_SONG`                    | `VIOLIN_SOUND`       |Plays when the violin music mode is selected (process_music.c)                 |
-|`MAJOR_SONG`                     | `MAJOR_SOUND`        |Plays when the major music mode is selected (process_music.c)                  |
-|`DEFAULT_LAYER_SONGS`            | *Not defined*        |Plays song when switched default layers with [`set_single_persistent_default_layer(layer)`](ref_functions.md#setting-the-persistent-default-layer)(quantum.c)       |
-|`SENDSTRING_BELL`                | *Not defined*        |Plays chime when the "enter" ("\a") character is sent (send_string.c)          |
+| Settings                         | Default              | Description                                                                                 |
+|----------------------------------|----------------------|---------------------------------------------------------------------------------------------|
+|`AUDIO_PIN`                       | *Not defined*        |Configures the pin that the speaker is connected to.                                         |
+|`AUDIO_PIN_ALT`                   | *Not defined*        |Configures the pin for a second speaker or second pin connected to one speaker.              |
+|`AUDIO_PIN_ALT_AS_NEGATIVE`       | *Not defined*        |Enables support for one speaker connected to two pins.                                       |
+|`AUDIO_INIT_DELAY`                | *Not defined*        |Enables delay during startup song to accomidate for USB startup issues.                      |
+|`AUDIO_ENABLE_TONE_MULTIPLEXING`  | *Not defined*        |Enables time splicing/multiplexing to create multiple tones simutaneously.                   |
+|`AUDIO_POWER_CONTROL_PIN`         | *Not defined*        |Enables power control code to enable or cut off power to speaker (such as with PAM8302 amp). |
+|`AUDIO_POWER_CONTROL_PIN_ON_STATE`| `1`                  |The state of the audio power control pin when audio is "on" - `1` for high, `0` for low.     |
+|`STARTUP_SONG`                    | `STARTUP_SOUND`      |Plays when the keyboard starts up (audio.c)                                                  |
+|`GOODBYE_SONG`                    | `GOODBYE_SOUND`      |Plays when you press the QK_BOOT key (quantum.c)                                             |
+|`AG_NORM_SONG`                    | `AG_NORM_SOUND`      |Plays when you press AG_NORM (process_magic.c)                                               |
+|`AG_SWAP_SONG`                    | `AG_SWAP_SOUND`      |Plays when you press AG_SWAP (process_magic.c)                                               |
+|`CG_NORM_SONG`                    | `AG_NORM_SOUND`      |Plays when you press CG_NORM (process_magic.c)                                               |
+|`CG_SWAP_SONG`                    | `AG_SWAP_SOUND`      |Plays when you press CG_SWAP (process_magic.c)                                               |
+|`MUSIC_ON_SONG`                   | `MUSIC_ON_SOUND`     |Plays when music mode is activated (process_music.c)                                         |
+|`MUSIC_OFF_SONG`                  | `MUSIC_OFF_SOUND`    |Plays when music mode is deactivated (process_music.c)                                       |
+|`MIDI_ON_SONG`                    | `MUSIC_ON_SOUND`     |Plays when midi mode is activated (process_music.c)                                          |
+|`MIDI_OFF_SONG`                   | `MUSIC_OFF_SOUND`    |Plays when midi mode is deactivated (process_music.c)                                        |
+|`CHROMATIC_SONG`                  | `CHROMATIC_SOUND`    |Plays when the chromatic music mode is selected (process_music.c)                            |
+|`GUITAR_SONG`                     | `GUITAR_SOUND`       |Plays when the guitar music mode is selected (process_music.c)                               |
+|`VIOLIN_SONG`                     | `VIOLIN_SOUND`       |Plays when the violin music mode is selected (process_music.c)                               |
+|`MAJOR_SONG`                      | `MAJOR_SOUND`        |Plays when the major music mode is selected (process_music.c)                                |
+|`DEFAULT_LAYER_SONGS`             | *Not defined*        |Plays song when switched default layers with [`set_single_persistent_default_layer(layer)`](ref_functions.md#setting-the-persistent-default-layer)(quantum.c). |
+|`SENDSTRING_BELL`                 | *Not defined*        |Plays chime when the "enter" ("\a") character is sent (send_string.c)                        |
 
 ## Tempo
 the 'speed' at which SONGs are played is dictated by the set Tempo, which is measured in beats-per-minute. Note lengths are defined relative to that.
@@ -259,31 +263,39 @@ In music mode, the following keycodes work differently, and don't pass through:
 
 The pitch standard (`PITCH_STANDARD_A`) is 440.0f by default - to change this, add something like this to your `config.h`:
 
-    #define PITCH_STANDARD_A 432.0f
+```c
+#define PITCH_STANDARD_A 432.0f
+```
 
 You can completely disable Music Mode as well. This is useful, if you're pressed for space on your controller.  To disable it, add this to your `config.h`:
 
-    #define NO_MUSIC_MODE
+```c
+#define NO_MUSIC_MODE
+```
 
 ### Music Mask
 
 By default, `MUSIC_MASK` is set to `keycode < 0xFF` which means keycodes less than `0xFF` are turned into notes, and don't output anything. You can change this by defining this in your `config.h` like this:
 
-    #define MUSIC_MASK keycode != KC_NO
+```c
+#define MUSIC_MASK keycode != KC_NO
+```
 
 Which will capture all keycodes - be careful, this will get you stuck in music mode until you restart your keyboard!
 
 For a more advanced way to control which keycodes should still be processed, you can use `music_mask_kb(keycode)` in `<keyboard>.c` and `music_mask_user(keycode)` in your `keymap.c`:
 
-    bool music_mask_user(uint16_t keycode) {
-      switch (keycode) {
-        case RAISE:
-        case LOWER:
-          return false;
-        default:
-          return true;
-      }
+```c
+  bool music_mask_user(uint16_t keycode) {
+    switch (keycode) {
+      case RAISE:
+      case LOWER:
+        return false;
+      default:
+        return true;
     }
+  }
+```
 
 Things that return false are not part of the mask, and are always processed.
 
@@ -325,8 +337,9 @@ Keycodes available:
 
 The feature is disabled by default, to save space.  To enable it, add this to your `config.h`:
 
-    #define AUDIO_CLICKY
-
+```c
+#define AUDIO_CLICKY
+```
 
 You can configure the default, min and max frequencies, the stepping and built in randomness by defining these values: 
 
@@ -339,12 +352,9 @@ You can configure the default, min and max frequencies, the stepping and built i
 | `AUDIO_CLICKY_FREQ_RANDOMNESS`     |  0.05f |  Sets a factor of randomness for the clicks, Setting this to `0f` will make each click identical, and `1.0f` will make this sound much like the 90's computer screen scrolling/typing effect. | 
 | `AUDIO_CLICKY_DELAY_DURATION` | 1 | An integer note duration where 1 is 1/16th of the tempo, or a sixty-fourth note (see `quantum/audio/musical_notes.h` for implementation details). The main clicky effect will be delayed by this duration.  Adjusting this to values around 6-12 will help compensate for loud switches. |
 
-
-
-
 ## MIDI Functionality
 
-See [MIDI](feature_midi.md)
+See [MIDI](feature_midi)
 
 ## Audio Keycodes
 

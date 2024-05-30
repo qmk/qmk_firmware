@@ -1,10 +1,10 @@
-# Joystick :id=joystick
+# Joystick {#joystick}
 
-This feature provides game controller input as a joystick device supporting up to 6 axes and 32 buttons. Axes can be read either from an [ADC-capable input pin](adc_driver.md), or can be virtual, so that its value is provided by your code.
+This feature provides game controller input as a joystick device supporting up to 6 axes and 32 buttons. Axes can be read either from an [ADC-capable input pin](adc_driver), or can be virtual, so that its value is provided by your code.
 
 An analog device such as a [potentiometer](https://en.wikipedia.org/wiki/Potentiometer) found on an analog joystick's axes is based on a voltage divider, where adjusting the movable wiper controls the output voltage which can then be read by the microcontroller's ADC.
 
-## Usage :id=usage
+## Usage {#usage}
 
 Add the following to your `rules.mk`:
 
@@ -18,7 +18,7 @@ By default the joystick driver is `analog`, but you can change this with:
 JOYSTICK_DRIVER = digital
 ```
 
-## Configuration :id=configuration
+## Configuration {#configuration}
 
 By default, two axes and eight buttons are defined, with a reported resolution of 8 bits (-127 to +127). This can be changed in your `config.h`:
 
@@ -31,9 +31,11 @@ By default, two axes and eight buttons are defined, with a reported resolution o
 #define JOYSTICK_AXIS_RESOLUTION 10
 ```
 
-?> You must define at least one button or axis. Also note that the maximum ADC resolution of the supported AVR MCUs is 10-bit, and 12-bit for most STM32 MCUs.
+::: tip
+You must define at least one button or axis. Also note that the maximum ADC resolution of the supported AVR MCUs is 10-bit, and 12-bit for most STM32 MCUs.
+:::
 
-### Axes :id=axes
+### Axes {#axes}
 
 When defining axes for your joystick, you must provide a definition array typically in your `keymap.c`.
 
@@ -55,7 +57,7 @@ Axes can be configured using one of the following macros:
 
 The `low` and `high` values can be swapped to effectively invert the axis.
 
-#### Virtual Axes :id=virtual-axes
+#### Virtual Axes {#virtual-axes}
 
 The following example adjusts two virtual axes (X and Y) based on keypad presses, with `KC_P0` as a precision modifier:
 
@@ -96,7 +98,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
-## Keycodes :id=keycodes
+## Keycodes {#keycodes}
 
 |Key                    |Aliases|Description|
 |-----------------------|-------|-----------|
@@ -133,13 +135,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 |`QK_JOYSTICK_BUTTON_30`|`JS_30`|Button 30  |
 |`QK_JOYSTICK_BUTTON_31`|`JS_31`|Button 31  |
 
-## API :id=api
+## API {#api}
 
-### `struct joystick_t` :id=api-joystick-t
+### `struct joystick_t` {#api-joystick-t}
 
 Contains the state of the joystick.
 
-#### Members :id=api-joystick-t-members
+#### Members {#api-joystick-t-members}
 
  - `uint8_t buttons[]`  
    A bit-packed array containing the joystick button states. The size is calculated as `(JOYSTICK_BUTTON_COUNT - 1) / 8 + 1`.
@@ -150,11 +152,11 @@ Contains the state of the joystick.
 
 ---
 
-### `struct joystick_config_t` :id=api-joystick-config-t
+### `struct joystick_config_t` {#api-joystick-config-t}
 
 Describes a single axis.
 
-#### Members :id=api-joystick-config-t-members
+#### Members {#api-joystick-config-t-members}
 
  - `pin_t input_pin`  
    The pin to read the analog value from, or `JS_VIRTUAL_AXIS`.
@@ -167,52 +169,52 @@ Describes a single axis.
 
 ---
 
-### `void joystick_flush(void)` :id=api-joystick-flush
+### `void joystick_flush(void)` {#api-joystick-flush}
 
 Send the joystick report to the host, if it has been marked as dirty.
 
 ---
 
-### `void register_joystick_button(uint8_t button)` :id=api-register-joystick-button
+### `void register_joystick_button(uint8_t button)` {#api-register-joystick-button}
 
 Set the state of a button, and flush the report.
 
-#### Arguments :id=api-register-joystick-button-arguments
+#### Arguments {#api-register-joystick-button-arguments}
 
  - `uint8_t button`  
    The index of the button to press, from 0 to 31.
 
 ---
 
-### `void unregister_joystick_button(uint8_t button)` :id=api-unregister-joystick-button
+### `void unregister_joystick_button(uint8_t button)` {#api-unregister-joystick-button}
 
 Reset the state of a button, and flush the report.
 
-#### Arguments :id=api-unregister-joystick-button-arguments
+#### Arguments {#api-unregister-joystick-button-arguments}
 
  - `uint8_t button`  
    The index of the button to release, from 0 to 31.
 
 ---
 
-### `int16_t joystick_read_axis(uint8_t axis)` :id=api-joystick-read-axis
+### `int16_t joystick_read_axis(uint8_t axis)` {#api-joystick-read-axis}
 
 Sample and process the analog value of the given axis.
 
-#### Arguments :id=api-joystick-read-axis-arguments
+#### Arguments {#api-joystick-read-axis-arguments}
 
  - `uint8_t axis`  
    The axis to read.
 
-#### Return Value :id=api-joystick-read-axis-return
+#### Return Value {#api-joystick-read-axis-return}
 
 A signed 16-bit integer, where 0 is the resting or mid point.
 
-### `void joystick_set_axis(uint8_t axis, int16_t value)` :id=api-joystick-set-axis
+### `void joystick_set_axis(uint8_t axis, int16_t value)` {#api-joystick-set-axis}
 
 Set the value of the given axis.
 
-#### Arguments :id=api-joystick-set-axis-arguments
+#### Arguments {#api-joystick-set-axis-arguments}
 
  - `uint8_t axis`  
    The axis to set the value of.

@@ -1,6 +1,5 @@
 {
     "manufacturer": "Qwertykeys",
-    "url": "",
     "maintainer": "Qwertykeys",
     "usb": {
         "vid": "0x4F53"
@@ -16,6 +15,9 @@
         "mousekey": true,
         "rgblight": true,
         "nkro": true
+    },
+    "build": {
+        "lto": true
     },
     "processor": "STM32F103",
     "bootloader": "stm32duino",

@@ -6,7 +6,7 @@ QMK has the ability to control RGB LEDs attached to your keyboard. This is commo
 
 Some keyboards come with RGB LEDs preinstalled. Others must have them installed after the fact. See the [Hardware Modification](#hardware-modification) section for information on adding RGB lighting to your keyboard.
 
-Currently QMK supports the following addressable LEDs (however, the white LED in RGBW variants is not supported):
+Currently QMK supports the following addressable LEDs:
 
  * WS2811, WS2812, WS2812B, WS2812C, etc.
  * SK6812, SK6812MINI, SK6805
@@ -22,7 +22,9 @@ On keyboards with onboard RGB LEDs, it is usually enabled by default. If it is n
 RGBLIGHT_ENABLE = yes
 ```
 
-?> There are additional configuration options for ARM controllers that offer increased performance over the default WS2812 bitbang driver. Please see [WS2812 Driver](ws2812_driver.md) for more information.
+::: tip
+There are additional configuration options for ARM controllers that offer increased performance over the default WS2812 bitbang driver. Please see [WS2812 Driver](ws2812_driver) for more information.
+:::
 
 For APA102 LEDs, add the following to your `rules.mk`:
 
@@ -47,7 +49,7 @@ Then you should be able to use the keycodes below to change the RGB lighting to 
 
 QMK uses [Hue, Saturation, and Value](https://en.wikipedia.org/wiki/HSL_and_HSV) to select colors rather than RGB. The color wheel below demonstrates how this works.
 
-<img src="gitbook/images/color-wheel.svg" alt="HSV Color Wheel" width="250"/>
+<img src="./gitbook/images/color-wheel.svg" alt="HSV Color Wheel" width="250"/>
 
 Changing the **Hue** cycles around the circle.<br>
 Changing the **Saturation** moves between the inner and outer sections of the wheel, affecting the intensity of the color.<br>
@@ -79,10 +81,14 @@ Changing the **Value** sets the overall brightness.<br>
 |`RGB_MODE_RGBTEST` |`RGB_M_T` |Red, Green, Blue test animation mode                                |
 |`RGB_MODE_TWINKLE` |`RGB_M_TW`|Twinkle animation mode                                              |
 
-?> `RGB_*` keycodes cannot be used with functions like `tap_code16(RGB_HUI)` as they're not USB HID keycodes. If you wish to replicate similar behaviour in custom code within your firmware (e.g. inside `encoder_update_user()` or `process_record_user()`), the equivalent [RGB functions](#functions) should be used instead.
+::: tip
+`RGB_*` keycodes cannot be used with functions like `tap_code16(RGB_HUI)` as they're not USB HID keycodes. If you wish to replicate similar behaviour in custom code within your firmware (e.g. inside `encoder_update_user()` or `process_record_user()`), the equivalent [RGB functions](#functions) should be used instead.
+:::
 
 
-!> By default, if you have both the RGB Light and the [RGB Matrix](feature_rgb_matrix.md) feature enabled, these keycodes will work for both features, at the same time. You can disable the keycode functionality by defining the `*_DISABLE_KEYCODES` option for the specific feature.
+::: warning
+By default, if you have both the RGB Light and the [RGB Matrix](feature_rgb_matrix) feature enabled, these keycodes will work for both features, at the same time. You can disable the keycode functionality by defining the `*_DISABLE_KEYCODES` option for the specific feature.
+:::
 
 ## Configuration
 
@@ -146,7 +152,9 @@ Use these defines to add or remove animations from the firmware. When you are ru
 |`RGBLIGHT_EFFECT_STATIC_GRADIENT`   |*Not defined*|Enable static gradient mode.                                             |
 |`RGBLIGHT_EFFECT_TWINKLE`           |*Not defined*|Enable twinkle animation mode.                                           |
 
-!> `RGBLIGHT_ANIMATIONS` is being deprecated and animation modes should be explicitly defined.
+::: warning
+`RGBLIGHT_ANIMATIONS` is being deprecated and animation modes should be explicitly defined.
+:::
 
 ### Effect and Animation Settings
 
@@ -209,12 +217,14 @@ const uint8_t RGBLED_GRADIENT_RANGES[] PROGMEM = {255, 170, 127, 85, 64};
 
 ## Lighting Layers
 
-?> **Note:** Lighting Layers is an RGB Light feature, it will not work for RGB Matrix. See [RGB Matrix Indicators](feature_rgb_matrix.md#indicators) for details on how to do so.
+::: tip
+**Note:** Lighting Layers is an RGB Light feature, it will not work for RGB Matrix. See [RGB Matrix Indicators](feature_rgb_matrix#indicators) for details on how to do so.
+:::
 
 By including `#define RGBLIGHT_LAYERS` in your `config.h` file you can enable lighting layers. These make
 it easy to use your underglow LEDs as status indicators to show which keyboard layer is currently active, or the state of caps lock, all without disrupting any animations. [Here's a video](https://youtu.be/uLGE1epbmdY) showing an example of what you can do.
 
-### Defining Lighting Layers :id=defining-lighting-layers
+### Defining Lighting Layers {#defining-lighting-layers}
 
 By default, 8 layers are possible. This can be expanded to as many as 32 by overriding the definition of `RGBLIGHT_MAX_LAYERS` in `config.h` (e.g. `#define RGBLIGHT_MAX_LAYERS 32`). Please note, if you use a split keyboard, you will need to flash both sides of the split after changing this. Also, increasing the maximum will increase the firmware size, and will slow sync on split keyboards.
 
@@ -259,7 +269,7 @@ void keyboard_post_init_user(void) {
 ```
 Note: For split keyboards with two controllers, both sides need to be flashed when updating the contents of rgblight_layers.
 
-### Enabling and disabling lighting layers :id=enabling-lighting-layers
+### Enabling and disabling lighting layers {#enabling-lighting-layers}
 
 Everything above just configured the definition of each lighting layer.
 We can now enable and disable the lighting layers whenever the state of the keyboard changes:
@@ -282,7 +292,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 ```
 
-### Lighting layer blink :id=lighting-layer-blink
+### Lighting layer blink {#lighting-layer-blink}
 
 By including `#define RGBLIGHT_LAYER_BLINK` in your `config.h` file you can turn a lighting
 layer on for a specified duration. Once the specified number of milliseconds has elapsed
@@ -342,7 +352,9 @@ rgblight_unblink_layer(3);
 rgblight_blink_layer(2, 500);
 ```
 
-!> Lighting layers on split keyboards will require layer state synced to the slave half (e.g. `#define SPLIT_LAYER_STATE_ENABLE`). See [data sync options](feature_split_keyboard.md#data-sync-options) for more details.
+::: warning
+Lighting layers on split keyboards will require layer state synced to the slave half (e.g. `#define SPLIT_LAYER_STATE_ENABLE`). See [data sync options](feature_split_keyboard#data-sync-options) for more details.
+:::
 
 ### Overriding RGB Lighting on/off status
 
@@ -356,26 +368,11 @@ Usually lighting layers apply their configured brightness once activated. If you
 
 If you need to change your RGB lighting in code, for example in a macro to change the color whenever you switch layers, QMK provides a set of functions to assist you. See [`rgblight.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight/rgblight.h) for the full list, but the most commonly used functions include:
 
-### Utility Functions
-|Function                                    |Description                                                        |
-|--------------------------------------------|-------------------------------------------------------------------|
-|`sethsv(hue, sat, val, ledbuf)`             |Set ledbuf to the given HSV value                                  |
-|`sethsv_raw(hue, sat, val, ledbuf)`         |Set ledbuf to the given HSV value without RGBLIGHT_LIMIT_VAL check |
-|`setrgb(r, g, b, ledbuf)`                   |Set ledbuf to the given RGB value where `r`/`g`/`b`                |
-
 ### Low level Functions
 |Function                                    |Description                                |
 |--------------------------------------------|-------------------------------------------|
 |`rgblight_set()`                            |Flush out led buffers to LEDs              |
 |`rgblight_set_clipping_range(pos, num)`     |Set clipping Range. see [Clipping Range](#clipping-range) |
-
-Example:
-```c
-sethsv(HSV_WHITE, (rgb_led_t *)&led[0]); // led 0
-sethsv(HSV_RED,   (rgb_led_t *)&led[1]); // led 1
-sethsv(HSV_GREEN, (rgb_led_t *)&led[2]); // led 2
-rgblight_set(); // Utility functions do not call rgblight_set() automatically, so they need to be called explicitly.
-```
 
 ### Effects and Animations Functions
 #### effect range setting
