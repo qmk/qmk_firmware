@@ -4,6 +4,9 @@
 #include "quantum.h"
 #include "qp.h"
 #include "lvgl_helpers.h"
+#include <ctype.h>
+#include <stdio.h>
+#include <stdint.h>
 
 #include "images/nvlogo_small.qgf.c"
 
@@ -112,8 +115,7 @@ bool display_init_kb(void) {
 
     // Initialize right side screen
     if (!is_keyboard_left()) {
-        qp_power(display, true);
-        qp_init(display, QP_ROTATION_90);
+        if (!qp_init(display, QP_ROTATION_90) || !qp_power(display, true)) return false;
         image = qp_load_image_mem(gfx_nvlogo_small);
         if (image != NULL) {
             print("image was not null\n");
