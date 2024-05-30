@@ -15,6 +15,11 @@
  */
 
 #include "rgb_functions.h"
+#include <stdint.h>
+#include "quantum.h"
+#include "action.h"
+#include "rgblight.h"
+#include "rgb_matrix.h"
 
 #ifdef RGBLIGHT_ENABLE
 #undef WS2812_DI_PIN

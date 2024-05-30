@@ -1,4 +1,4 @@
-# FLASH Driver Configuration :id=flash-driver-configuration
+# FLASH Driver Configuration {#flash-driver-configuration}
 
 The FLASH driver can be swapped out depending on the needs of the keyboard, or whether extra hardware is present.
 
@@ -7,7 +7,7 @@ Driver                             | Description
 `FLASH_DRIVER = spi`               | Supports writing to almost all NOR Flash chips. See the driver section below.
 
 
-## SPI FLASH Driver Configuration :id=spi-flash-driver-configuration
+## SPI FLASH Driver Configuration {#spi-flash-driver-configuration}
 
 Currently QMK supports almost all NOR Flash chips over SPI. As such, requires a working spi_master driver configuration. You can override the driver configuration via your config.h:
 
@@ -21,4 +21,6 @@ Currently QMK supports almost all NOR Flash chips over SPI. As such, requires a 
 `#define EXTERNAL_FLASH_SIZE`                  | The total size of the FLASH in bytes, as specified in the datasheet                  | `(512 * 1024)`
 `#define EXTERNAL_FLASH_ADDRESS_SIZE`          | The Flash address size in bytes, as specified in datasheet                           | `3`
 
-!> All the above default configurations are based on MX25L4006E NOR Flash.
+::: warning
+All the above default configurations are based on MX25L4006E NOR Flash.
+:::

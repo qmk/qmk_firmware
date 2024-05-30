@@ -19,6 +19,12 @@
         "mousekey": true,
         "nkro": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "matrix_pins": {
         "cols": ["D3", "D4", "D6"],
         "rows": ["E6", "B7", "D0"]
@@ -32,12 +38,12 @@
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"label": "Play", "matrix": [0, 0], "w": 1, "x": 0, "y": 0},
-                {"label": "Mute", "matrix": [0, 1], "w": 1, "x": 1.5, "y": 0.5},
-                {"label": "Next", "matrix": [1, 0], "w": 1, "x": 0, "y": 1},
-                {"label": "Prev", "matrix": [2, 0], "w": 1, "x": 0, "y": 2},
-                {"label": "Left", "matrix": [2, 1], "w": 1, "x": 1, "y": 2},
-                {"label": "Rght", "matrix": [2, 2], "w": 1, "x": 2, "y": 2}
+                {"label": "Play", "matrix": [0, 0], "x": 0, "y": 0},
+                {"label": "Mute", "matrix": [0, 1], "x": 1.5, "y": 0.5},
+                {"label": "Next", "matrix": [1, 0], "x": 0, "y": 1},
+                {"label": "Prev", "matrix": [2, 0], "x": 0, "y": 2},
+                {"label": "Left", "matrix": [2, 1], "x": 1, "y": 2},
+                {"label": "Rght", "matrix": [2, 2], "x": 2, "y": 2}
             ]
         }
     }

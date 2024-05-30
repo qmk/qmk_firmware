@@ -1,6 +1,6 @@
 # 'serial' Driver
 
-The serial driver powers the [Split Keyboard](feature_split_keyboard.md) feature. Several implementations are available, depending on the platform of your split keyboard. Note that none of the drivers support split keyboards with more than two halves.
+The Serial driver powers the [Split Keyboard](feature_split_keyboard) feature. Several implementations are available that cater to the platform and capabilites of MCU in use. Note that none of the drivers support split keyboards with more than two halves.
 
 | Driver                                  | AVR                | ARM                | Connection between halves                                                                     |
 | --------------------------------------- | ------------------ | ------------------ | --------------------------------------------------------------------------------------------- |
@@ -8,15 +8,19 @@ The serial driver powers the [Split Keyboard](feature_split_keyboard.md) feature
 | [USART Half-duplex](#usart-half-duplex) |                    | :heavy_check_mark: | Efficient single wire communication. One wire is used for reception and transmission.         |
 | [USART Full-duplex](#usart-full-duplex) |                    | :heavy_check_mark: | Efficient two wire communication. Two distinct wires are used for reception and transmission. |
 
-?> Serial in this context should be read as **sending information one bit at a time**, rather than implementing UART/USART/RS485/RS232 standards.
+::: tip
+Serial in this context should be read as **sending information one bit at a time**, rather than implementing UART/USART/RS485/RS232 standards.
+:::
 
 <hr>
 
 ## Bitbang
 
-This is the Default driver, the absence of configuration assumes this driver. It works by [bit banging](https://en.wikipedia.org/wiki/Bit_banging) a GPIO pin using the CPU. It is therefore not as efficient as a dedicated hardware peripheral, which the Half-duplex and Full-duplex drivers use.
+This is the Default driver, absence of configuration assumes this driver. It works by [bit banging](https://en.wikipedia.org/wiki/Bit_banging) a GPIO pin using the CPU. It is therefore not as efficient as a dedicated hardware peripheral, which the Half-duplex and Full-duplex drivers use.
 
-!> On ARM platforms the bitbang driver causes connection issues when using it together with the bitbang WS2812 driver. Choosing alternate drivers for both serial and WS2812 (instead of bitbang) is strongly recommended.
+::: warning
+On ARM platforms the bitbang driver causes connection issues when using it together with the bitbang WS2812 driver. Choosing alternate drivers for both serial and WS2812 (instead of bitbang) is strongly recommended.
+:::
 
 ### Pin configuration
 
@@ -31,7 +35,7 @@ This is the Default driver, the absence of configuration assumes this driver. It
 +-------+                 +-------+
 ```
 
-One GPIO pin is needed for the bitbang driver, as only one wire is used for receiving and transmitting data. This pin is referred to as the `SOFT_SERIAL_PIN` (SSP) in the configuration. A simple TRS or USB cable provides enough conductors for this driver to work. 
+One GPIO pin is needed for the bitbang driver, as only one wire is used for receiving and transmitting data. This pin is referred to as the `SOFT_SERIAL_PIN` (SSP) in the configuration. A TRS or USB cable provides enough conductors for this driver to function. 
 
 ### Setup
 
@@ -57,7 +61,7 @@ SERIAL_DRIVER = bitbang
 
 ## USART Half-duplex
 
-Targeting ARM boards based on ChibiOS, where communication is offloaded to a USART hardware device that supports Half-duplex operation. The advantages over bitbanging are fast, accurate timings and reduced CPU usage. Therefore it is advised to choose this driver or the Full-duplex driver whenever possible.
+Targeting ARM boards based on ChibiOS, where communication is offloaded to a USART hardware device that supports Half-duplex operation. The advantages over bitbanging are fast, accurate timings and reduced CPU usage. Therefore it is advised to choose Half-duplex over Bitbang if MCU is capable of utilising Half-duplex, and Full-duplex can't be used instead (e.g. lack of available GPIO pins, or imcompatible PCB design).
 
 ### Pin configuration
 
@@ -74,11 +78,15 @@ Targeting ARM boards based on ChibiOS, where communication is offloaded to a USA
 +-------+                 +-------+
 ```
 
-Only one GPIO pin is needed for the Half-duplex driver, as only one wire is used for receiving and transmitting data. This pin is referred to as the `SERIAL_USART_TX_PIN` in the configuration. Take care that the pin you chose can act as the TX pin of the USART peripheral. A simple TRS or USB cable provides enough conductors for this driver to work. As the split connection is configured to work in open-drain mode, an **external pull-up resistor is needed to keep the line high**. Resistor values of 1.5kΩ to 8.2kΩ are known to work.
+Only one GPIO pin is needed for the Half-duplex driver, as only one wire is used for receiving and transmitting data. This pin is referred to as the `SERIAL_USART_TX_PIN` in the configuration. Ensure that the pin chosen for split communication can operate as the TX pin of the contoller's USART peripheral. A TRS or USB cable provides enough conductors for this driver to function. As the split connection is configured to operate in open-drain mode, an **external pull-up resistor is needed to keep the line high**. Resistor values of 1.5kΩ to 8.2kΩ are known to work. 
+
+::: warning
+***Note:*** A pull-up resistor isn't required for RP2040 controllers configured with PIO subsystem.
+:::
 
 ### Setup
 
-To use the Half-duplex driver follow these steps to activate it. If you target the Raspberry Pi RP2040 PIO implementation skip step 1.
+To use the Half-duplex driver follow these steps to activate it. If you target the Raspberry Pi RP2040 PIO implementation, start at step 2.
 
 1. Change the `SERIAL_DRIVER` to `usart` in your keyboards `rules.mk` file:
 
@@ -86,7 +94,9 @@ To use the Half-duplex driver follow these steps to activate it. If you target t
 SERIAL_DRIVER = usart
 ```
 
-2. (RP2040 PIO only!) Change the `SERIAL_DRIVER` to `vendor` in your keyboards `rules.mk` file:
+Skip to step 3.
+
+2. (RP2040 + PIO only!) Change the `SERIAL_DRIVER` to `vendor` in your keyboards `rules.mk` file:
 
 ```make
 SERIAL_DRIVER = vendor
@@ -98,20 +108,20 @@ SERIAL_DRIVER = vendor
 #define SERIAL_USART_TX_PIN B6     // The GPIO pin that is used split communication.
 ```
 
-For STM32 MCUs several GPIO configuration options can be changed as well. See the section ["Alternate Functions for selected STM32 MCUs"](alternate-functions-for-selected-stm32-mcus).
+For STM32 MCUs several GPIO configuration options can be changed as well. See the section ["Alternate Functions for selected STM32 MCUs"](#alternate-functions-for-selected-stm32-mcus).
 
 ```c
 #define USART1_REMAP               // Remap USART TX and RX pins on STM32F103 MCUs, see table below.
 #define SERIAL_USART_TX_PAL_MODE 7 // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
 ```
 
-4. Decide either for `SERIAL`, `SIO` or `PIO` subsystem, see the section ["Choosing a driver subsystem"](#choosing-a-driver-subsystem).
+4. Decide either for `SERIAL`, `SIO`, or `PIO` subsystem. See section ["Choosing a driver subsystem"](#choosing-a-driver-subsystem).
 
 <hr>
 
 ## USART Full-duplex
 
-Targeting ARM boards based on ChibiOS where communication is offloaded to an USART hardware device. The advantages over bitbanging are fast, accurate timings and reduced CPU usage. Therefore it is advised to choose this driver or the Full-duplex driver whenever possible. Due to its internal design it is slightly more efficient then the Half-duplex driver, but it should be primarily chosen if Half-duplex operation is not supported by the USART peripheral.
+Targeting ARM boards based on ChibiOS where communication is offloaded to an USART hardware device. The advantages over bitbanging are fast, accurate timings and reduced CPU usage; therefore it is advised to choose this driver over all others where possible. Due to its internal design Full-duplex is slightly more efficient than the Half-duplex driver, but Full-duplex should be primarily chosen if Half-duplex operation is not supported by the controller's USART peripheral.
 
 ### Pin configuration
 
@@ -129,13 +139,13 @@ Targeting ARM boards based on ChibiOS where communication is offloaded to an USA
 +-------+                 +-------+
 ```
 
-Two GPIO pins are needed for the Full-duplex driver, as two distinct wires are used for receiving and transmitting data. The pin transmitting data is the `TX` pin and refereed to as the `SERIAL_USART_TX_PIN`, the pin receiving data is the `RX` pin and refereed to as the `SERIAL_USART_RX_PIN` in this configuration. Please note that `TX` pin of the master half has to be connected with the `RX` pin of the slave half and the `RX` pin of the master half has to be connected with the `TX` pin of the slave half! Usually this pin swap has to be done outside of the MCU e.g. with cables or on the PCB. Some MCUs like the STM32F303 used on the Proton-C allow this pin swap directly inside the MCU. A simple TRRS or USB cable provides enough conductors for this driver to work.
+Two GPIO pins are needed for the Full-duplex driver, as two distinct wires are used for receiving and transmitting data. The pin transmitting data is the `TX` pin and refereed to as the `SERIAL_USART_TX_PIN`, the pin receiving data is the `RX` pin and refereed to as the `SERIAL_USART_RX_PIN` in this configuration. Please note that `TX` pin of the master half has to be connected with the `RX` pin of the slave half and the `RX` pin of the master half has to be connected with the `TX` pin of the slave half! Usually this pin swap has to be done outside of the MCU e.g. with cables or on the PCB. Some MCUs like the STM32F303 used on the Proton-C allow this pin swap directly inside the MCU. A TRRS or USB cable provides enough conductors for this driver to function.
 
-To use this driver the usart peripherals `TX` and `RX` pins must be configured with the correct Alternate-functions. If you are using a Proton-C everything is already setup, same is true for STM32F103 MCUs. For MCUs which are using a modern flexible GPIO configuration you have to specify these by setting `SERIAL_USART_TX_PAL_MODE` and `SERIAL_USART_RX_PAL_MODE`. Refer to the corresponding datasheets of your MCU or find those settings in the section ["Alternate Functions for selected STM32 MCUs"](#alternate-functions-for-selected-stm32-mcus).
+To use this driver the USART peripherals `TX` and `RX` pins must be configured with the correct Alternate-functions. If you are using a Proton-C development board everything is already setup, same is true for STM32F103 MCUs. For MCUs which are using a modern flexible GPIO configuration you have to specify these by setting `SERIAL_USART_TX_PAL_MODE` and `SERIAL_USART_RX_PAL_MODE`. Refer to the corresponding datasheets of your MCU or find those settings in the section ["Alternate Functions for selected STM32 MCUs"](#alternate-functions-for-selected-stm32-mcus).
 
 ### Setup
 
-To use the Full-duplex driver follow these steps to activate it. If you target the Raspberry Pi RP2040 PIO implementation skip step 1.
+To use the Full-duplex driver follow these steps to activate it. If you target the Raspberry Pi RP2040 PIO implementation, start at step 2
 
 1. Change the `SERIAL_DRIVER` to `usart` in your keyboards `rules.mk` file:
 
@@ -143,7 +153,9 @@ To use the Full-duplex driver follow these steps to activate it. If you target t
 SERIAL_DRIVER = usart
 ```
 
-2. (RP2040 PIO only!) Change the `SERIAL_DRIVER` to `vendor` in your keyboards `rules.mk` file:
+Skip to step 3
+
+2. (RP2040 + PIO only!) Change the `SERIAL_DRIVER` to `vendor` in your keyboards `rules.mk` file:
 
 ```make
 SERIAL_DRIVER = vendor
@@ -157,7 +169,7 @@ SERIAL_DRIVER = vendor
 #define SERIAL_USART_RX_PIN B7     // USART RX pin
 ```
 
-For STM32 MCUs several GPIO configuration options, including the ability for `TX` to `RX` pin swapping, can be changed as well. See the section ["Alternate Functions for selected STM32 MCUs"](alternate-functions-for-selected-stm32-mcus).
+For STM32 MCUs several GPIO configuration options, including the ability for `TX` to `RX` pin swapping, can be changed as well. See the section ["Alternate Functions for selected STM32 MCUs"](#alternate-functions-for-selected-stm32-mcus).
 
 ```c
 #define SERIAL_USART_PIN_SWAP      // Swap TX and RX pins if keyboard is master halve. (Only available on some MCUs)
@@ -165,7 +177,7 @@ For STM32 MCUs several GPIO configuration options, including the ability for `TX
 #define SERIAL_USART_TX_PAL_MODE 7 // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
 ```
 
-1. Decide either for `SERIAL`, `SIO` or `PIO` subsystem, see the section ["Choosing a driver subsystem"](#choosing-a-driver-subsystem).
+4. Decide either for `SERIAL`, `SIO`, or `PIO` subsystem. See section ["Choosing a driver subsystem"](#choosing-a-driver-subsystem).
 
 <hr>
 
@@ -225,7 +237,7 @@ Just below `#include_next <mcuconf.h>` add:
 
 Where 'n' matches the peripheral number of your selected USART on the MCU.
 
-3. In you keyboards `config.h`: override the default USART `SIO` driver if you use a USART peripheral that does not belong to the default selected `SIOD1` driver. For instance, if you selected `STM32_SERIAL_USE_USART3` the matching driver would be `SIOD3`.
+3. In the keyboard's `config.h` file: override the default USART `SIO` driver if you use a USART peripheral that does not belong to the default selected `SIOD1` driver. For instance, if you selected `STM32_SERIAL_USE_USART3` the matching driver would be `SIOD3`.
 
 ```c
  #define SERIAL_USART_DRIVER SIOD3
@@ -233,9 +245,9 @@ Where 'n' matches the peripheral number of your selected USART on the MCU.
  
 ### The `PIO` driver
 
-The `PIO` subsystem is a Raspberry Pi RP2040 specific implementation, using the integrated PIO peripheral and is therefore only available on this MCU. Because of the flexible nature of the PIO peripherals, **any** GPIO pin can be used as a `TX` or `RX` pin. Half-duplex and Full-duplex operation is fully supported. The Half-duplex operation mode uses the built-in pull-ups and GPIO manipulation on the RP2040 to drive the line high by default. An external pull-up is therefore not necessary.
+The `PIO` subsystem is a Raspberry Pi RP2040 specific implementation, using an integrated PIO peripheral and is therefore only available on this MCU. Because of the flexible nature of PIO peripherals, **any** GPIO pin can be used as a `TX` or `RX` pin. Half-duplex and Full-duplex operation modes are fully supported with this driver. Half-duplex uses the built-in pull-ups and GPIO manipulation of the RP2040 to drive the line high by default, thus an external pull-up resistor **is not required**.
 
-You may optionally switch the PIO peripheral used with the following define in config.h:
+Optionally, the PIO peripheral utilized for split communication can be changed with the following define in config.h:
 ```c
 #define SERIAL_PIO_USE_PIO1 // Force the usage of PIO1 peripheral, by default the Serial implementation uses the PIO0 peripheral
 ```
@@ -285,7 +297,9 @@ If you're having issues withe serial communication, you can enable debug message
 #define SERIAL_DEBUG
 ```
  
-?> The messages will be printed out to the `CONSOLE` output. For additional information, refer to [Debugging/Troubleshooting QMK](faq_debug.md).
+::: tip
+The messages will be printed out to the `CONSOLE` output. For additional information, refer to [Debugging/Troubleshooting QMK](faq_debug).
+:::
 
 ## Alternate Functions for selected STM32 MCUs
 

@@ -15,7 +15,7 @@ The purpose of this page is to document how to set up VS Code for developing QMK
 This guide covers how to configure everything needed on Windows and Ubuntu 18.04
 
 # Set up VS Code
-Before starting, you will want to make sure that you have all of the build tools set up, and QMK Firmware cloned. Head to the [Newbs Getting Started Guide](newbs_getting_started.md) to get things set up, if you haven't already.
+Before starting, you will want to make sure that you have all of the build tools set up, and QMK Firmware cloned. Head to the [Newbs Getting Started Guide](newbs_getting_started) to get things set up, if you haven't already.
 
 ## Windows
 
@@ -73,7 +73,9 @@ Now, we will set up the MSYS2 window to show up in VSCode as the integrated term
 
    If there are settings here already, then just add everything between the first and last curly brackets and separate the existing settings with a comma from the newly added ones.
 
-?> If you installed MSYS2 to a different folder, then you'll need to change the path for `terminal.integrated.shell.windows` to the correct path for your system. 
+::: tip
+If you installed MSYS2 to a different folder, then you'll need to change the path for `terminal.integrated.shell.windows` to the correct path for your system. 
+:::
 
 4. Hit Ctrl-<code>&#96;</code> (Grave) to bring up the terminal or go to <kbd><kbd>View</kbd> > <kbd>Terminal</kbd></kbd> (command `workbench.action.terminal.toggleTerminal`). A new terminal will be opened if there isn‘t one already.
 
@@ -171,7 +173,9 @@ You'll need to perform some modifications to the file above in order to target y
 * `"device"`: The name of the MCU, which matches the `<name>` tag at the top of the downloaded `svd` file.
 * `"armToolchainPath"`: _[Optional]_ The path to the ARM toolchain installation location on Windows -- under normal circumstances Linux/macOS will auto-detect this correctly and will not need to be specified. 
 
-!> Windows builds of QMK Firmware are generally compiled using QMK MSYS, and the path to gdb's location (`C:\\QMK_MSYS\\mingw64\\bin`) needs to be specified under `armToolchainPath` for it to be detected. You may also need to change the GDB path to point at `C:\\QMK_MSYS\\mingw64\\bin\\gdb-multiarch.exe` in the VSCode Cortex-Debug user settings: ![VSCode Settings](https://i.imgur.com/EGrPM1L.png)
+::: warning
+Windows builds of QMK Firmware are generally compiled using QMK MSYS, and the path to gdb's location (`C:\\QMK_MSYS\\mingw64\\bin`) needs to be specified under `armToolchainPath` for it to be detected. You may also need to change the GDB path to point at `C:\\QMK_MSYS\\mingw64\\bin\\gdb-multiarch.exe` in the VSCode Cortex-Debug user settings: ![VSCode Settings](https://i.imgur.com/EGrPM1L.png)
+:::
 
 Optionally, the following modifications should also be made to the keyboard's `rules.mk` file to disable optimisations -- not strictly required but will ensure breakpoints and variable viewing works correctly:
 ```makefile

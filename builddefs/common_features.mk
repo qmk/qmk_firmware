@@ -353,7 +353,7 @@ ifeq ($(strip $(LED_MATRIX_ENABLE)), yes)
     COMMON_VPATH += $(QUANTUM_DIR)/led_matrix/animations
     COMMON_VPATH += $(QUANTUM_DIR)/led_matrix/animations/runners
     POST_CONFIG_H += $(QUANTUM_DIR)/led_matrix/post_config.h
-    SRC += $(QUANTUM_DIR)/process_keycode/process_backlight.c
+    SRC += $(QUANTUM_DIR)/process_keycode/process_led_matrix.c
     SRC += $(QUANTUM_DIR)/led_matrix/led_matrix.c
     SRC += $(QUANTUM_DIR)/led_matrix/led_matrix_drivers.c
     LIB8TION_ENABLE := yes
