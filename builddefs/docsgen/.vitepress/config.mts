@@ -9,6 +9,11 @@ export default defineConfig(({ mode }) => {
         title: "QMK Firmware",
         description: "Documentation for QMK Firmware",
 
+        head: [
+            ["link", {rel: "icon", href: "/qmk-logo-light.svg", media: "(prefers-color-scheme: light)"}],
+            ["link", {rel: "icon", href: "/qmk-logo-dark.svg", media: "(prefers-color-scheme: dark)"}],
+        ],
+
         srcDir: prod ? "docs" : "../../docs",
         outDir: "../../.build/docs",
         cleanUrls: true,
