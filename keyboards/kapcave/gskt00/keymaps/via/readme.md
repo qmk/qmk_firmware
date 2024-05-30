@@ -1,1 +1,0 @@
-The via keymap for the GSKT-00 PCB.

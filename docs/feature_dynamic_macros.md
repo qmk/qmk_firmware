@@ -24,7 +24,9 @@ To replay the macro, press either `DM_PLY1` or `DM_PLY2`.
 
 It is possible to replay a macro as part of a macro. It's ok to replay macro 2 while recording macro 1 and vice versa but never create recursive macros i.e. macro 1 that replays macro 1. If you do so and the keyboard will get unresponsive, unplug the keyboard and plug it again.  You can disable this completely by defining `DYNAMIC_MACRO_NO_NESTING`  in your `config.h` file.
 
-?> For the details about the internals of the dynamic macros, please read the comments in the `process_dynamic_macro.h` and `process_dynamic_macro.c` files.
+::: tip
+For the details about the internals of the dynamic macros, please read the comments in the `process_dynamic_macro.h` and `process_dynamic_macro.c` files.
+:::
 
 ## Customization 
 

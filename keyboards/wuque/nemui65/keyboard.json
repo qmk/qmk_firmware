@@ -20,6 +20,12 @@
         "nkro": true,
         "rbglight": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "diode_direction": "COL2ROW",
     "indicators": {
         "caps_lock": "F6",

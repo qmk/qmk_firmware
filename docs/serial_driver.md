@@ -1,6 +1,6 @@
 # 'serial' Driver
 
-The Serial driver powers the [Split Keyboard](feature_split_keyboard.md) feature. Several implementations are available that cater to the platform and capabilites of MCU in use. Note that none of the drivers support split keyboards with more than two halves.
+The Serial driver powers the [Split Keyboard](feature_split_keyboard) feature. Several implementations are available that cater to the platform and capabilites of MCU in use. Note that none of the drivers support split keyboards with more than two halves.
 
 | Driver                                  | AVR                | ARM                | Connection between halves                                                                     |
 | --------------------------------------- | ------------------ | ------------------ | --------------------------------------------------------------------------------------------- |
@@ -8,7 +8,9 @@ The Serial driver powers the [Split Keyboard](feature_split_keyboard.md) feature
 | [USART Half-duplex](#usart-half-duplex) |                    | :heavy_check_mark: | Efficient single wire communication. One wire is used for reception and transmission.         |
 | [USART Full-duplex](#usart-full-duplex) |                    | :heavy_check_mark: | Efficient two wire communication. Two distinct wires are used for reception and transmission. |
 
-?> Serial in this context should be read as **sending information one bit at a time**, rather than implementing UART/USART/RS485/RS232 standards.
+::: tip
+Serial in this context should be read as **sending information one bit at a time**, rather than implementing UART/USART/RS485/RS232 standards.
+:::
 
 <hr>
 
@@ -16,7 +18,9 @@ The Serial driver powers the [Split Keyboard](feature_split_keyboard.md) feature
 
 This is the Default driver, absence of configuration assumes this driver. It works by [bit banging](https://en.wikipedia.org/wiki/Bit_banging) a GPIO pin using the CPU. It is therefore not as efficient as a dedicated hardware peripheral, which the Half-duplex and Full-duplex drivers use.
 
-!> On ARM platforms the bitbang driver causes connection issues when using it together with the bitbang WS2812 driver. Choosing alternate drivers for both serial and WS2812 (instead of bitbang) is strongly recommended.
+::: warning
+On ARM platforms the bitbang driver causes connection issues when using it together with the bitbang WS2812 driver. Choosing alternate drivers for both serial and WS2812 (instead of bitbang) is strongly recommended.
+:::
 
 ### Pin configuration
 
@@ -76,7 +80,9 @@ Targeting ARM boards based on ChibiOS, where communication is offloaded to a USA
 
 Only one GPIO pin is needed for the Half-duplex driver, as only one wire is used for receiving and transmitting data. This pin is referred to as the `SERIAL_USART_TX_PIN` in the configuration. Ensure that the pin chosen for split communication can operate as the TX pin of the contoller's USART peripheral. A TRS or USB cable provides enough conductors for this driver to function. As the split connection is configured to operate in open-drain mode, an **external pull-up resistor is needed to keep the line high**. Resistor values of 1.5kΩ to 8.2kΩ are known to work. 
 
-!> ***Note:*** A pull-up resistor isn't required for RP2040 controllers configured with PIO subsystem.
+::: warning
+***Note:*** A pull-up resistor isn't required for RP2040 controllers configured with PIO subsystem.
+:::
 
 ### Setup
 
@@ -102,7 +108,7 @@ SERIAL_DRIVER = vendor
 #define SERIAL_USART_TX_PIN B6     // The GPIO pin that is used split communication.
 ```
 
-For STM32 MCUs several GPIO configuration options can be changed as well. See the section ["Alternate Functions for selected STM32 MCUs"](alternate-functions-for-selected-stm32-mcus).
+For STM32 MCUs several GPIO configuration options can be changed as well. See the section ["Alternate Functions for selected STM32 MCUs"](#alternate-functions-for-selected-stm32-mcus).
 
 ```c
 #define USART1_REMAP               // Remap USART TX and RX pins on STM32F103 MCUs, see table below.
@@ -163,7 +169,7 @@ SERIAL_DRIVER = vendor
 #define SERIAL_USART_RX_PIN B7     // USART RX pin
 ```
 
-For STM32 MCUs several GPIO configuration options, including the ability for `TX` to `RX` pin swapping, can be changed as well. See the section ["Alternate Functions for selected STM32 MCUs"](alternate-functions-for-selected-stm32-mcus).
+For STM32 MCUs several GPIO configuration options, including the ability for `TX` to `RX` pin swapping, can be changed as well. See the section ["Alternate Functions for selected STM32 MCUs"](#alternate-functions-for-selected-stm32-mcus).
 
 ```c
 #define SERIAL_USART_PIN_SWAP      // Swap TX and RX pins if keyboard is master halve. (Only available on some MCUs)
@@ -291,7 +297,9 @@ If you're having issues withe serial communication, you can enable debug message
 #define SERIAL_DEBUG
 ```
  
-?> The messages will be printed out to the `CONSOLE` output. For additional information, refer to [Debugging/Troubleshooting QMK](faq_debug.md).
+::: tip
+The messages will be printed out to the `CONSOLE` output. For additional information, refer to [Debugging/Troubleshooting QMK](faq_debug).
+:::
 
 ## Alternate Functions for selected STM32 MCUs
 

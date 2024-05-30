@@ -1,8 +1,8 @@
-# GPIO Control :id=gpio-control
+# GPIO Control {#gpio-control}
 
 QMK has a GPIO control abstraction layer which is microcontroller agnostic. This is done to allow easy access to pin control across different platforms.
 
-## Macros :id=macros
+## Macros {#macros}
 
 The following macros provide basic control of GPIOs and are found in `platforms/<platform>/gpio.h`.
 
@@ -20,11 +20,11 @@ The following macros provide basic control of GPIOs and are found in `platforms/
 |`gpio_read_pin(pin)`                 |Returns the level of the pin                                         |
 |`gpio_toggle_pin(pin)`               |Invert pin level, assuming it is an output                           |
 
-## Advanced Settings :id=advanced-settings
+## Advanced Settings {#advanced-settings}
 
 Each microcontroller can have multiple advanced settings regarding its GPIO. This abstraction layer does not limit the use of architecture-specific functions. Advanced users should consult the datasheet of their desired device. For AVR, the standard `avr/io.h` library is used; for STM32, the ChibiOS [PAL library](https://chibios.sourceforge.net/docs3/hal/group___p_a_l.html) is used.
 
-## Atomic Operation :id=atomic-operation
+## Atomic Operation {#atomic-operation}
 
 The above functions are not always guaranteed to work atomically. Therefore, if you want to prevent interruptions in the middle of operations when using multiple combinations of the above functions, use the following `ATOMIC_BLOCK_FORCEON` macro.
 

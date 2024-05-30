@@ -5,7 +5,7 @@ Have you ever needed an easy way to program a controller, such as a Proton C or 
 There are different styles of Easy Maker available depending on your needs:
 
 * [Direct Pin](https://config.qmk.fm/#/?filter=ez_maker/direct) - Connect a single switch to a single pin
-* Direct Pin + Backlight (Coming Soon) - Like Direct Pin but dedicates a single pin to [Backlight](feature_backlight.md) control
+* Direct Pin + Backlight (Coming Soon) - Like Direct Pin but dedicates a single pin to [Backlight](feature_backlight) control
 * Direct Pin + Numlock (Coming Soon) - Like Direct Pin but dedicates a single pin to the Numlock LED
 * Direct Pin + Capslock (Coming Soon) - Like Direct Pin but dedicates a single pin to the Capslock LED
 * Direct Pin + Encoder (Coming Soon) - Like Direct Pin but uses 2 pins to add a single rotary encoder

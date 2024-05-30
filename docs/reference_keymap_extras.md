@@ -23,6 +23,8 @@ These headers are located in [`quantum/keymap_extras/`](https://github.com/qmk/q
 |Canadian Multilingual (CSA)      |`keymap_canadian_multilingual.h` |`sendstring_canadian_multilingual.h`|
 |Croatian                         |`keymap_croatian.h`              |`sendstring_croatian.h`             |
 |Czech                            |`keymap_czech.h`                 |`sendstring_czech.h`                |
+|Czech (macOS, ANSI)              |`keymap_czech_mac_ansi.h`        |`sendstring_czech_mac_ansi.h`       |
+|Czech (macOS, ISO)               |`keymap_czech_mac_iso.h`         |`sendstring_czech_mac_iso.h`        |
 |Danish                           |`keymap_danish.h`                |`sendstring_danish.h`               |
 |Dutch (Belgium)                  |`keymap_belgian.h`               |`sendstring_belgian.h`              |
 |English (Ireland)                |`keymap_irish.h`                 |                                    |

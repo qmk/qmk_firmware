@@ -1,10 +1,10 @@
-# LED Matrix Lighting :id=led-matrix-lighting
+# LED Matrix Lighting {#led-matrix-lighting}
 
 This feature allows you to use LED matrices driven by external drivers. It hooks into the backlight system so you can use the same keycodes as backlighting to control it.
 
-If you want to use RGB LED's you should use the [RGB Matrix Subsystem](feature_rgb_matrix.md) instead.
+If you want to use RGB LED's you should use the [RGB Matrix Subsystem](feature_rgb_matrix) instead.
 
-## Driver Configuration :id=driver-configuration
+## Driver Configuration {#driver-configuration}
 
 LED Matrix is an abstraction layer on top of an underlying LED driver API. The list of supported LED drivers is below; see the respective documentation for information on how to configure the driver.
 
@@ -30,7 +30,7 @@ To assign the LED Matrix driver, add the following to your `rules.mk`, for examp
 LED_MATRIX_DRIVER = is31fl3218
 ```
 
-## Common Configuration :id=common-configuration
+## Common Configuration {#common-configuration}
 
 From this point forward the configuration is the same for all the drivers. The `led_config_t` struct provides a key electrical matrix to led index lookup table, what the physical position of each LED is on the board, and what type of key or usage the LED if the LED represents. Here is a brief example:
 
@@ -63,7 +63,7 @@ As mentioned earlier, the center of the keyboard by default is expected to be `{
 
 `// LED Index to Flag` is a bitmask, whether or not a certain LEDs is of a certain type. It is recommended that LEDs are set to only 1 type.
 
-## Flags :id=flags
+## Flags {#flags}
 
 |Define                      |Value |Description                                      |
 |----------------------------|------|-------------------------------------------------|
@@ -75,7 +75,7 @@ As mentioned earlier, the center of the keyboard by default is expected to be `{
 |`LED_FLAG_KEYLIGHT`         |`0x04`|If the LED is for key backlight                  |
 |`LED_FLAG_INDICATOR`        |`0x08`|If the LED is for keyboard state indication      |
 
-## Keycodes :id=keycodes
+## Keycodes {#keycodes}
 
 |Key                            |Aliases  |Description                        |
 |-------------------------------|---------|-----------------------------------|
@@ -89,7 +89,7 @@ As mentioned earlier, the center of the keyboard by default is expected to be `{
 |`QK_LED_MATRIX_SPEED_UP`       |`LM_SPDU`|Increase the animation speed       |
 |`QK_LED_MATRIX_SPEED_DOWN`     |`LM_SPDD`|Decrease the animation speed       |
 
-## LED Matrix Effects :id=led-matrix-effects
+## LED Matrix Effects {#led-matrix-effects}
 
 These are the effects that are currently available:
 
@@ -150,9 +150,11 @@ You can enable a single effect by defining `ENABLE_[EFFECT_NAME]` in your `confi
 |`#define ENABLE_LED_MATRIX_SOLID_SPLASH`               |Enables `LED_MATRIX_SOLID_SPLASH`             |
 |`#define ENABLE_LED_MATRIX_SOLID_MULTISPLASH`          |Enables `LED_MATRIX_SOLID_MULTISPLASH`        |
 
-?> These modes introduce additional logic that can increase firmware size.
+::: tip
+These modes introduce additional logic that can increase firmware size.
+:::
 
-## Custom LED Matrix Effects :id=custom-led-matrix-effects
+## Custom LED Matrix Effects {#custom-led-matrix-effects}
 
 By setting `LED_MATRIX_CUSTOM_USER` (and/or `LED_MATRIX_CUSTOM_KB`) in `rules.mk`, new effects can be defined directly from userspace, without having to edit any QMK core files.
 
@@ -213,7 +215,7 @@ static bool my_cool_effect2(effect_params_t* params) {
 For inspiration and examples, check out the built-in effects under `quantum/led_matrix/animations/`.
 
 
-## Additional `config.h` Options :id=additional-configh-options
+## Additional `config.h` Options {#additional-configh-options}
 
 ```c
 #define LED_MATRIX_KEYRELEASES // reactive effects respond to keyreleases (instead of keypresses)
@@ -231,17 +233,17 @@ For inspiration and examples, check out the built-in effects under `quantum/led_
                                     // If reactive effects are enabled, you also will want to enable SPLIT_TRANSPORT_MIRROR
 ```
 
-## EEPROM storage :id=eeprom-storage
+## EEPROM storage {#eeprom-storage}
 
 The EEPROM for it is currently shared with the RGB Matrix system (it's generally assumed only one feature would be used at a time).
 
-### Direct Operation :id=direct-operation
+### Direct Operation {#direct-operation}
 |Function                                    |Description  |
 |--------------------------------------------|-------------|
 |`led_matrix_set_value_all(v)`         |Set all of the LEDs to the given value, where `v` is between 0 and 255 (not written to EEPROM) |
 |`led_matrix_set_value(index, v)`      |Set a single LED to the given value, where `v` is between 0 and 255, and `index` is between 0 and `LED_MATRIX_LED_COUNT` (not written to EEPROM) |
 
-### Disable/Enable Effects :id=disable-enable-effects
+### Disable/Enable Effects {#disable-enable-effects}
 |Function                                    |Description  |
 |--------------------------------------------|-------------|
 |`led_matrix_toggle()`                       |Toggle effect range LEDs between on and off |
@@ -251,7 +253,7 @@ The EEPROM for it is currently shared with the RGB Matrix system (it's generally
 |`led_matrix_disable()`                      |Turn effect range LEDs off, based on their previous state |
 |`led_matrix_disable_noeeprom()`             |Turn effect range LEDs off, based on their previous state (not written to EEPROM) |
 
-### Change Effect Mode :id=change-effect-mode
+### Change Effect Mode {#change-effect-mode}
 |Function                                    |Description  |
 |--------------------------------------------|-------------|
 |`led_matrix_mode(mode)`                     |Set the mode, if LED animations are enabled |
@@ -267,7 +269,7 @@ The EEPROM for it is currently shared with the RGB Matrix system (it's generally
 |`led_matrix_set_speed(speed)`               |Set the speed of the animations to the given value where `speed` is between 0 and 255 |
 |`led_matrix_set_speed_noeeprom(speed)`      |Set the speed of the animations to the given value where `speed` is between 0 and 255 (not written to EEPROM) |
 
-### Change Value :id=change-value
+### Change Value {#change-value}
 |Function                                    |Description  |
 |--------------------------------------------|-------------|
 |`led_matrix_increase_val()`                 |Increase the value for effect range LEDs. This wraps around at maximum value |
@@ -275,7 +277,7 @@ The EEPROM for it is currently shared with the RGB Matrix system (it's generally
 |`led_matrix_decrease_val()`                 |Decrease the value for effect range LEDs. This wraps around at minimum value |
 |`led_matrix_decrease_val_noeeprom()`        |Decrease the value for effect range LEDs. This wraps around at minimum value (not written to EEPROM) |
 
-### Query Current Status :id=query-current-status
+### Query Current Status {#query-current-status}
 |Function                         |Description                |
 |---------------------------------|---------------------------|
 |`led_matrix_is_enabled()`        |Gets current on/off status |
@@ -284,9 +286,9 @@ The EEPROM for it is currently shared with the RGB Matrix system (it's generally
 |`led_matrix_get_speed()`         |Gets current speed         |
 |`led_matrix_get_suspend_state()` |Gets current suspend state |
 
-## Callbacks :id=callbacks
+## Callbacks {#callbacks}
 
-### Indicators :id=indicators
+### Indicators {#indicators}
 
 If you want to set custom indicators, such as an LED for Caps Lock, or layer indication, then you can use the `led_matrix_indicators_kb` function on the keyboard level source file, or `led_matrix_indicators_user` function in the user `keymap.c`.
 ```c

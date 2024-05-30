@@ -96,4 +96,4 @@ Further reading:
 - [Deskthority article](https://deskthority.net/wiki/Keyboard_matrix)
 - [Keyboard Matrix Help by Dave Dribin (2000)](https://www.dribin.org/dave/keyboard/one_html/)
 - [How Key Matrices Works by PCBheaven](https://pcbheaven.com/wikipages/How_Key_Matrices_Works/) (animated examples)
-- [How keyboards work - QMK documentation](how_keyboards_work.md)
+- [How keyboards work - QMK documentation](how_keyboards_work)
