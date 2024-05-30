@@ -34,8 +34,8 @@ enum layers {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BSE] = LAYOUT_split_3x6_3(
-    OSM(MOD_LSFT), KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                 KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          KC_DEL,
-    SFT_T(KC_ENT), KC_A,          LT(U, KC_S),  LALT_T(KC_D),  LT(N, KC_F),   HYPR_T(KC_G),         HYPR_T(KC_H),  KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(Y),
+    OSM(MOD_LSFT), KC_Q,          KC_W,         KC_E,          KC_R,          HYPR_T(KC_T),         HYPR_T(KC_Y),  KC_U,          KC_I,         KC_O,          KC_P,          KC_DEL,
+    SFT_T(KC_ENT), KC_A,          LT(U, KC_S),  LALT_T(KC_D),  LT(N, KC_F),   KC_G,                 KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(Y),
     KC_TAB,        KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,                 KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       C(G(KC_Q)),
                                                 CTL_T(KC_ESC), GUI_T(KC_SPC), QK_REP,               MEH_T(KC_ENT), SFT_T(KC_BSPC),OSL(M)
 ),
@@ -79,6 +79,12 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {};
 // Callback to invoke when the enter key is pressed.
 void enter_key_pressed_cb(void);
 
+// Callback to invoke when the copy hot-key is pressed.
+void copy_key_pressed_cb(void);
+
+// Callback to invoke when the paste hot-key is pressed.
+void paste_key_pressed_cb(void);
+
 /* ********************* */
 /* KEYCODE SECTION BEGIN */
 /* ********************* */
@@ -94,6 +100,24 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
+static uint8_t copypaste_modifier = 0;
+// Register the platform-correct copy/paste modifier.
+bool process_detected_host_os_user(os_variant_t detected_os) {
+    switch (detected_os) {
+        case OS_MACOS:
+        case OS_IOS:
+            copypaste_modifier = MOD_MASK_GUI;
+            break;
+        case OS_WINDOWS:
+        case OS_LINUX:
+            copypaste_modifier = MOD_MASK_CTRL;
+            break;
+        default:
+            break;
+    }
+    return true;
+}
+
 // return true if qmk should continue processing the keycode as normal.
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (QK_MODS_GET_BASIC_KEYCODE(keycode)) {
@@ -102,6 +126,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 enter_key_pressed_cb();
             }
             return true;
+        case KC_C: {
+            bool copypaste_mod_held = get_mods() & copypaste_modifier;
+            if (record->event.pressed && copypaste_mod_held) {
+                copy_key_pressed_cb();
+            }
+            return true;
+        }
+        case KC_V: {
+            bool copypaste_mod_held = get_mods() & copypaste_modifier;
+            if (record->event.pressed && copypaste_mod_held) {
+                paste_key_pressed_cb();
+            }
+            return true;
+        }
         default:
             return true;
     }
@@ -312,15 +350,65 @@ bool render_flash_img() {
 }
 
 void enter_key_pressed_cb(void) {
-#    define JUDGE9_LEN_MS 500
-    flash_img_anim_timer = timer_read32() + JUDGE9_LEN_MS;
-    flash_img_data       = gw_judge9;
-    flash_img_size       = sizeof(gw_judge9);
+#    define JUDGE9_LEN_MS 600
+    uint32_t cur_time_ms = timer_read32();
+    // Treat the time at which the enter key is pressed as RNG.
+    // We have a 1/9 chance of flashing the judge9.
+    if (cur_time_ms % 9 == 0) {
+        flash_img_anim_timer = cur_time_ms + JUDGE9_LEN_MS;
+        flash_img_data       = gw_judge9;
+        flash_img_size       = sizeof(gw_judge9);
+    }
+}
+
+// The current charged state of the bucket.
+static uint8_t charge_state = 0;
+// The bucket's fully charged state.
+static const uint8_t MAX_CHARGE_STATE = 2;
+
+void flash_current_charge_state(void) {
+#    define BUCKET_CHARGE_LEN_MS 500
+    flash_img_anim_timer = timer_read32() + BUCKET_CHARGE_LEN_MS;
+    switch (charge_state) {
+        case 0:
+            flash_img_data = gw_bucket_charged1;
+            flash_img_size = sizeof(gw_bucket_charged1);
+            break;
+        case 1:
+            flash_img_data = gw_bucket_charged2;
+            flash_img_size = sizeof(gw_bucket_charged2);
+            break;
+        case 2:
+            flash_img_data = gw_bucket_charged3;
+            flash_img_size = sizeof(gw_bucket_charged3);
+            break;
+    }
+}
+
+void copy_key_pressed_cb(void) {
+    flash_current_charge_state();
+    if (charge_state < MAX_CHARGE_STATE) {
+        charge_state++;
+    }
+}
+
+void paste_key_pressed_cb(void) {
+#    define BUCKET_THROW_LEN_MS 750
+    if (charge_state == MAX_CHARGE_STATE) {
+        flash_img_anim_timer = timer_read32() + BUCKET_THROW_LEN_MS;
+        flash_img_data       = gw_bucket_throw;
+        flash_img_size       = sizeof(gw_bucket_throw);
+        charge_state         = 0;
+    } else {
+        flash_current_charge_state();
+    }
 }
 
 #else
-// Stub impl of enter_key_pressed_cb
+// Stub impls.
 void enter_key_pressed_cb(void) {}
+void copy_key_pressed_cb(void) {}
+void paste_key_pressed_cb(void) {}
 #endif
 /* ****************** */
 /* OLED SECTION END */
