@@ -84,7 +84,7 @@ Nested mixed:
   * `lib/python/qmk/cli/generate/config_h.py`
   * `lib/python/qmk/cli/generate/rules_mk.py`
 
-### Emoji :id=emoji
+### Emoji {#emoji}
 
 #### Direct:
 
