@@ -19,19 +19,19 @@
 
 static inline void led_lwr(const bool on) {
 #ifdef LED_NUM_LOCK_PIN
-    writePin(LED_NUM_LOCK_PIN, on);
+    gpio_write_pin(LED_NUM_LOCK_PIN, on);
 #endif
 }
 
 static inline void led_rse(const bool on) {
 #ifdef LED_SCROLL_LOCK_PIN
-    writePin(LED_SCROLL_LOCK_PIN, on);
+    gpio_write_pin(LED_SCROLL_LOCK_PIN, on);
 #endif
 }
 
 static inline void led_caps(const bool on) {
 #ifdef LED_CAPS_LOCK_PIN
-    writePin(LED_CAPS_LOCK_PIN, !on);
+    gpio_write_pin(LED_CAPS_LOCK_PIN, !on);
 #endif
 }
 

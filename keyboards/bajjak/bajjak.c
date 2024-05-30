@@ -54,15 +54,13 @@ void matrix_init_kb(void) {
     TCCR1B = 0b00001001;  // set and configure fast PWM
 
     // (tied to Vcc for hardware convenience)
-    DDRB  &= ~(1<<4);  // set B(4) as input
-    PORTB &= ~(1<<4);  // set B(4) internal pull-up disabled
+    gpio_set_pin_input(B4); // set B(4) as input, internal pull-up disabled
 
     // unused pins - D4, D5, E6
     // set as input with internal pull-up enabled
-    DDRD  &= ~(1<<5 | 1<<4);
-    DDRE  &= ~(1<<6);
-    PORTD |=  (1<<5 | 1<<4);
-    PORTE |=  (1<<6);
+    gpio_set_pin_input_high(D4);
+    gpio_set_pin_input_high(D5);
+    gpio_set_pin_input_high(E6);
 
     keyboard_config.raw = eeconfig_read_kb();
     bajjak_led_all_set((uint8_t)keyboard_config.led_level * 255 / 4 );
@@ -138,14 +136,14 @@ uint8_t init_mcp23018(void) {
     // - input   : input  : 1
     // - driving : output : 0
     uint8_t data[] = {0b00000000, 0b00111111};
-    mcp23018_status = i2c_writeReg(I2C_ADDR, IODIRA, data, 2, BAJJAK_EZ_I2C_TIMEOUT);
+    mcp23018_status = i2c_write_register(I2C_ADDR, IODIRA, data, 2, BAJJAK_EZ_I2C_TIMEOUT);
 
     if (!mcp23018_status) {
         // set pull-up
         // - unused  : on  : 1
         // - input   : on  : 1
         // - driving : off : 0
-        mcp23018_status = i2c_writeReg(I2C_ADDR, IODIRA, data, 2, BAJJAK_EZ_I2C_TIMEOUT);
+        mcp23018_status = i2c_write_register(I2C_ADDR, IODIRA, data, 2, BAJJAK_EZ_I2C_TIMEOUT);
     }
 
 #ifdef LEFT_LEDS
@@ -172,7 +170,7 @@ uint8_t bajjak_left_leds_update(void) {
     uint8_t data[2];
     data[0] = 0b11111111 & ~(bajjak_left_led_1<<LEFT_LED_1_SHIFT);
     data[1] = 0b11111111 & ~(bajjak_left_led_2<<LEFT_LED_2_SHIFT);
-    mcp23018_status = i2c_writeReg(I2C_ADDR, OLATA, data, 2, BAJJAK_EZ_I2C_TIMEOUT);
+    mcp23018_status = i2c_write_register(I2C_ADDR, OLATA, data, 2, BAJJAK_EZ_I2C_TIMEOUT);
 
     return mcp23018_status;
 }

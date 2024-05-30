@@ -9,7 +9,9 @@
 
 #pragma once
 
-#include "sol3.h"
+#include "quantum.h"
+#include "touch_encoder.h"
+#include "common_oled.h"
 
 // weak functions overridable by the user
 void render_layer_status(void);

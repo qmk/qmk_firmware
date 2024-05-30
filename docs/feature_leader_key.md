@@ -1,8 +1,8 @@
-# The Leader Key: A New Kind of Modifier :id=the-leader-key
+# The Leader Key: A New Kind of Modifier {#the-leader-key}
 
-If you're a Vim user, you probably know what a Leader key is. In contrast to [Combos](feature_combo.md), the Leader key allows you to hit a *sequence* of up to five keys instead, which triggers some custom functionality once complete.
+If you're a Vim user, you probably know what a Leader key is. In contrast to [Combos](feature_combo), the Leader key allows you to hit a *sequence* of up to five keys instead, which triggers some custom functionality once complete.
 
-## Usage :id=usage
+## Usage {#usage}
 
 Add the following to your `rules.mk`:
 
@@ -12,7 +12,7 @@ LEADER_ENABLE = yes
 
 Then add the `QK_LEAD` keycode to your keymap.
 
-## Callbacks :id=callbacks
+## Callbacks {#callbacks}
 
 These callbacks are invoked when the leader sequence begins and ends. In the latter you can implement your custom functionality based on the contents of the sequence buffer.
 
@@ -38,9 +38,9 @@ void leader_end_user(void) {
 }
 ```
 
-## Basic Configuration :id=basic-configuration
+## Basic Configuration {#basic-configuration}
 
-### Timeout :id=timeout
+### Timeout {#timeout}
 
 This is the amount of time you have to complete a sequence once the leader key has been pressed. The default value is 300 milliseconds, but you can change this by adding the following to your `config.h`:
 
@@ -48,7 +48,7 @@ This is the amount of time you have to complete a sequence once the leader key h
 #define LEADER_TIMEOUT 350
 ```
 
-### Per-Key Timeout :id=per-key-timeout
+### Per-Key Timeout {#per-key-timeout}
 
 Rather than relying on an incredibly high timeout for long leader key strings or those of us without 200 wpm typing skills, you can enable per-key timing to ensure that each key pressed provides you with more time to finish the sequence. This is incredibly helpful with leader key emulation of tap dance (such as multiple taps of the same key like C, C, C).
 
@@ -72,7 +72,7 @@ if (leader_sequence_three_keys(KC_C, KC_C, KC_C)) {
 }
 ```
 
-### Disabling Initial Timeout :id=disabling-initial-timeout
+### Disabling Initial Timeout {#disabling-initial-timeout}
 
 Sometimes your leader key may be too far away from the rest of the keys in the sequence. Imagine that your leader key is one of your outer top right keys - you may need to reposition your hand just to reach your leader key. This can make typing the entire sequence on time hard difficult if you are able to type most of the sequence fast. For example, if your sequence is `Leader + asd`, typing `asd` fast is very easy once you have your hands in your home row, but starting the sequence in time after moving your hand out of the home row to reach the leader key and back is not.
 
@@ -84,9 +84,9 @@ To remove the stress this situation produces to your hands, you can disable the 
 
 Now, after you hit the leader key, you will have an infinite amount of time to start the rest of the sequence, allowing you to properly position your hands to type the rest of the sequence comfortably. This way you can configure a very short `LEADER_TIMEOUT`, but still have plenty of time to position your hands.
 
-### Strict Key Processing :id=strict-key-processing
+### Strict Key Processing {#strict-key-processing}
 
-By default, only the "tap keycode" portions of [Mod-Taps](mod_tap.md) and [Layer Taps](feature_layers.md#switching-and-toggling-layers) are added to the sequence buffer. This means if you press eg. `LT(3, KC_A)` as part of a sequence, `KC_A` will be added to the buffer, rather than the entire `LT(3, KC_A)` keycode.
+By default, only the "tap keycode" portions of [Mod-Taps](mod_tap) and [Layer Taps](feature_layers#switching-and-toggling-layers) are added to the sequence buffer. This means if you press eg. `LT(3, KC_A)` as part of a sequence, `KC_A` will be added to the buffer, rather than the entire `LT(3, KC_A)` keycode.
 
 This gives a more expected behaviour for most users, however you may want to change this.
 
@@ -96,7 +96,7 @@ To enable this, add the following to your `config.h`:
 #define LEADER_KEY_STRICT_KEY_PROCESSING
 ```
 
-## Example :id=example
+## Example {#example}
 
 This example will play the Mario "One Up" sound when you hit `QK_LEAD` to start the leader sequence. When the sequence ends, it will play "All Star" if it completes successfully or "Rick Roll" you if it fails (in other words, no sequence matched).
 
@@ -134,62 +134,62 @@ void leader_end_user(void) {
 }
 ```
 
-## Keycodes :id=keycodes
+## Keycodes {#keycodes}
 
 |Key                    |Aliases  |Description              |
 |-----------------------|---------|-------------------------|
 |`QK_LEADER`            |`QK_LEAD`|Begin the leader sequence|
 
-## API :id=api
+## API {#api}
 
-### `void leader_start_user(void)` :id=api-leader-start-user
+### `void leader_start_user(void)` {#api-leader-start-user}
 
 User callback, invoked when the leader sequence begins.
 
 ---
 
-### `void leader_end_user(void)` :id=api-leader-end-user
+### `void leader_end_user(void)` {#api-leader-end-user}
 
 User callback, invoked when the leader sequence ends.
 
 ---
 
-### `void leader_start(void)` :id=api-leader-start
+### `void leader_start(void)` {#api-leader-start}
 
 Begin the leader sequence, resetting the buffer and timer.
 
 ---
 
-### `void leader_end(void)` :id=api-leader-end
+### `void leader_end(void)` {#api-leader-end}
 
 End the leader sequence.
 
 ---
 
-### `bool leader_sequence_active(void)` :id=api-leader-sequence-active
+### `bool leader_sequence_active(void)` {#api-leader-sequence-active}
 
 Whether the leader sequence is active.
 
 ---
 
-### `bool leader_sequence_add(uint16_t keycode)` :id=api-leader-sequence-add
+### `bool leader_sequence_add(uint16_t keycode)` {#api-leader-sequence-add}
 
 Add the given keycode to the sequence buffer.
 
 If `LEADER_NO_TIMEOUT` is defined, the timer is reset if the buffer is empty.
 
-#### Arguments :id=api-leader-sequence-add-arguments
+#### Arguments {#api-leader-sequence-add-arguments}
 
  - `uint16_t keycode`  
    The keycode to add.
 
-#### Return Value :id=api-leader-sequence-add-return
+#### Return Value {#api-leader-sequence-add-return}
 
 `true` if the keycode was added, `false` if the buffer is full.
 
 ---
 
-### `bool leader_sequence_timed_out(void)` :id=api-leader-sequence-timed-out
+### `bool leader_sequence_timed_out(void)` {#api-leader-sequence-timed-out}
 
 Whether the leader sequence has reached the timeout.
 
@@ -197,49 +197,49 @@ If `LEADER_NO_TIMEOUT` is defined, the buffer must also contain at least one key
 
 ---
 
-### `bool leader_reset_timer(void)` :id=api-leader-reset-timer
+### `bool leader_reset_timer(void)` {#api-leader-reset-timer}
 
 Reset the leader sequence timer.
 
 ---
 
-### `bool leader_sequence_one_key(uint16_t kc)` :id=api-leader-sequence-one-key
+### `bool leader_sequence_one_key(uint16_t kc)` {#api-leader-sequence-one-key}
 
 Check the sequence buffer for the given keycode.
 
-#### Arguments :id=api-leader-sequence-one-key-arguments
+#### Arguments {#api-leader-sequence-one-key-arguments}
 
  - `uint16_t kc`  
    The keycode to check.
 
-#### Return Value :id=api-leader-sequence-one-key-return
+#### Return Value {#api-leader-sequence-one-key-return}
 
 `true` if the sequence buffer matches.
 
 ---
 
-### `bool leader_sequence_two_keys(uint16_t kc1, uint16_t kc2)` :id=api-leader-sequence-two-keys
+### `bool leader_sequence_two_keys(uint16_t kc1, uint16_t kc2)` {#api-leader-sequence-two-keys}
 
 Check the sequence buffer for the given keycodes.
 
-#### Arguments :id=api-leader-sequence-two-keys-arguments
+#### Arguments {#api-leader-sequence-two-keys-arguments}
 
  - `uint16_t kc1`  
    The first keycode to check.
  - `uint16_t kc2`  
    The second keycode to check.
 
-#### Return Value :id=api-leader-sequence-two-keys-return
+#### Return Value {#api-leader-sequence-two-keys-return}
 
 `true` if the sequence buffer matches.
 
 ---
 
-### `bool leader_sequence_three_keys(uint16_t kc1, uint16_t kc2, uint16_t kc3)` :id=api-leader-sequence-three-keys
+### `bool leader_sequence_three_keys(uint16_t kc1, uint16_t kc2, uint16_t kc3)` {#api-leader-sequence-three-keys}
 
 Check the sequence buffer for the given keycodes.
 
-#### Arguments :id=api-leader-sequence-three-keys-arguments
+#### Arguments {#api-leader-sequence-three-keys-arguments}
 
  - `uint16_t kc1`  
    The first keycode to check.
@@ -248,17 +248,17 @@ Check the sequence buffer for the given keycodes.
  - `uint16_t kc3`  
    The third keycode to check.
 
-#### Return Value :id=api-leader-sequence-three-keys-return
+#### Return Value {#api-leader-sequence-three-keys-return}
 
 `true` if the sequence buffer matches.
 
 ---
 
-### `bool leader_sequence_four_keys(uint16_t kc1, uint16_t kc2, uint16_t kc3, uint16_t kc4)` :id=api-leader-sequence-four-keys
+### `bool leader_sequence_four_keys(uint16_t kc1, uint16_t kc2, uint16_t kc3, uint16_t kc4)` {#api-leader-sequence-four-keys}
 
 Check the sequence buffer for the given keycodes.
 
-#### Arguments :id=api-leader-sequence-four-keys-arguments
+#### Arguments {#api-leader-sequence-four-keys-arguments}
 
  - `uint16_t kc1`  
    The first keycode to check.
@@ -269,17 +269,17 @@ Check the sequence buffer for the given keycodes.
  - `uint16_t kc4`  
    The fourth keycode to check.
 
-#### Return Value :id=api-leader-sequence-four-keys-return
+#### Return Value {#api-leader-sequence-four-keys-return}
 
 `true` if the sequence buffer matches.
 
 ---
 
-### `bool leader_sequence_five_keys(uint16_t kc1, uint16_t kc2, uint16_t kc3, uint16_t kc4, uint16_t kc5)` :id=api-leader-sequence-five-keys
+### `bool leader_sequence_five_keys(uint16_t kc1, uint16_t kc2, uint16_t kc3, uint16_t kc4, uint16_t kc5)` {#api-leader-sequence-five-keys}
 
 Check the sequence buffer for the given keycodes.
 
-#### Arguments :id=api-leader-sequence-five-keys-arguments
+#### Arguments {#api-leader-sequence-five-keys-arguments}
 
  - `uint16_t kc1`  
    The first keycode to check.
@@ -292,6 +292,6 @@ Check the sequence buffer for the given keycodes.
  - `uint16_t kc5`  
    The fifth keycode to check.
 
-#### Return Value :id=api-leader-sequence-five-keys-return
+#### Return Value {#api-leader-sequence-five-keys-return}
 
 `true` if the sequence buffer matches.

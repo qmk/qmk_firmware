@@ -1,0 +1,7 @@
+/* Override <kbd> as vitepress doesn't put them with borders */
+kbd {
+    border: 1px solid var(--vp-c-text-1);
+    border-radius: 0.6em;
+    margin: 0.2em;
+    padding: 0.2em;
+}
