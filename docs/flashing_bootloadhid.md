@@ -13,7 +13,9 @@ General flashing sequence:
 
 ## bootloadHID Flashing Target
 
-?> Using the QMK installation script, detailed [here](newbs_getting_started.md), the required bootloadHID tools should be automatically installed.
+::: tip
+Using the QMK installation script, detailed [here](newbs_getting_started), the required bootloadHID tools should be automatically installed.
+:::
 
 To flash via the command line, use the target `:bootloadhid` by executing the following command:
 

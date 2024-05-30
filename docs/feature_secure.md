@@ -2,7 +2,9 @@
 
 The secure feature aims to prevent unwanted interaction without user intervention.
 
-?> Secure does **not** currently implement encryption/decryption/etc and should not be a replacement where a strong hardware/software based solution is required.
+::: tip
+Secure does **not** currently implement encryption/decryption/etc and should not be a replacement where a strong hardware/software based solution is required.
+:::
 
 ### Unlock sequence
 
@@ -14,7 +16,7 @@ To unlock, the user must perform a set of actions. This can optionally be config
 ### Automatic Locking
 
 Once unlocked, the keyboard will revert back to a locked state after the configured timeout.
-The timeout can be refreshed by using the `secure_activity_event` function, for example from one of the various [hooks](custom_quantum_functions.md).
+The timeout can be refreshed by using the `secure_activity_event` function, for example from one of the various [hooks](custom_quantum_functions).
 
 ## Usage
 
