@@ -1,12 +1,14 @@
-# Programmable Button :id=programmable-button
+# Programmable Button {#programmable-button}
 
 Programmable Buttons are keys that have no predefined meaning. This means they can be processed on the host side by custom software without the operating system trying to interpret them.
 
 The keycodes are emitted according to the HID Telephony Device page (`0x0B`), Programmable Button usage (`0x09`). On Linux (> 5.14) they are handled automatically and translated to `KEY_MACRO#` keycodes (up to `KEY_MACRO30`).
 
-?> Currently there is no known support in Windows or macOS. It may be possible to write a custom HID driver to receive these usages, but this is out of the scope of the QMK documentation.
+::: tip
+Currently there is no known support in Windows or macOS. It may be possible to write a custom HID driver to receive these usages, but this is out of the scope of the QMK documentation.
+:::
 
-## Usage :id=usage
+## Usage {#usage}
 
 Add the following to your `rules.mk`:
 
@@ -14,7 +16,7 @@ Add the following to your `rules.mk`:
 PROGRAMMABLE_BUTTON_ENABLE = yes
 ```
 
-## Keycodes :id=keycodes
+## Keycodes {#keycodes}
 
 |Key                        |Aliases|Description           |
 |---------------------------|-------|----------------------|
@@ -51,94 +53,94 @@ PROGRAMMABLE_BUTTON_ENABLE = yes
 |`QK_PROGRAMMABLE_BUTTON_31`|`PB_31`|Programmable button 31|
 |`QK_PROGRAMMABLE_BUTTON_32`|`PB_32`|Programmable button 32|
 
-## API :id=api
+## API {#api}
 
-### `void programmable_button_clear(void)` :id=api-programmable-button-clear
+### `void programmable_button_clear(void)` {#api-programmable-button-clear}
 
 Clear the programmable button report.
 
 ---
 
-### `void programmable_button_add(uint8_t index)` :id=api-programmable-button-add
+### `void programmable_button_add(uint8_t index)` {#api-programmable-button-add}
 
 Set the state of a button.
 
-#### Arguments :id=api-programmable-button-add-arguments
+#### Arguments {#api-programmable-button-add-arguments}
 
  - `uint8_t index`  
    The index of the button to press, from 0 to 31.
 
 ---
 
-### `void programmable_button_remove(uint8_t index)` :id=api-programmable-button-remove
+### `void programmable_button_remove(uint8_t index)` {#api-programmable-button-remove}
 
 Reset the state of a button.
 
-#### Arguments :id=api-programmable-button-remove-arguments
+#### Arguments {#api-programmable-button-remove-arguments}
 
  - `uint8_t index`  
    The index of the button to release, from 0 to 31.
 
 ---
 
-### `void programmable_button_register(uint8_t index)` :id=api-programmable-button-register
+### `void programmable_button_register(uint8_t index)` {#api-programmable-button-register}
 
 Set the state of a button, and flush the report.
 
-#### Arguments :id=api-programmable-button-register-arguments
+#### Arguments {#api-programmable-button-register-arguments}
 
  - `uint8_t index`  
    The index of the button to press, from 0 to 31.
 
 ---
 
-### `void programmable_button_unregister(uint8_t index)` :id=api-programmable-button-unregister
+### `void programmable_button_unregister(uint8_t index)` {#api-programmable-button-unregister}
 
 Reset the state of a button, and flush the report.
 
-#### Arguments :id=api-programmable-button-unregister-arguments
+#### Arguments {#api-programmable-button-unregister-arguments}
 
  - `uint8_t index`  
    The index of the button to release, from 0 to 31.
 
 ---
 
-### `bool programmable_button_is_on(uint8_t index)` :id=api-programmable-button-is-on
+### `bool programmable_button_is_on(uint8_t index)` {#api-programmable-button-is-on}
 
 Get the state of a button.
 
-#### Arguments :id=api-programmable-button-is-on-arguments
+#### Arguments {#api-programmable-button-is-on-arguments}
 
  - `uint8_t index`  
    The index of the button to check, from 0 to 31.
 
-#### Return Value :id=api-programmable-button-is-on-return
+#### Return Value {#api-programmable-button-is-on-return}
 
 `true` if the button is pressed.
 
 ---
 
-### `void programmable_button_flush(void)` :id=api-programmable-button-flush
+### `void programmable_button_flush(void)` {#api-programmable-button-flush}
 
 Send the programmable button report to the host.
 
 ---
 
-### `uint32_t programmable_button_get_report(void)` :id=api-programmable-button-get-report
+### `uint32_t programmable_button_get_report(void)` {#api-programmable-button-get-report}
 
 Get the programmable button report.
 
-#### Return Value :id=api-programmable-button-get-report-return
+#### Return Value {#api-programmable-button-get-report-return}
 
 The bitmask of programmable button states.
 
 ---
 
-### `void programmable_button_set_report(uint32_t report)` :id=api-programmable-button-set-report
+### `void programmable_button_set_report(uint32_t report)` {#api-programmable-button-set-report}
 
 Set the programmable button report.
 
-#### Arguments :id=api-programmable-button-set-report-arguments
+#### Arguments {#api-programmable-button-set-report-arguments}
 
  - `uint32_t report`  
    A bitmask of programmable button states.

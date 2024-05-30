@@ -1,6 +1,6 @@
 # heavy_left
 
-![heavy_left](https://github.com/takashicompany/heavy_left/blob/master/images/qmk.jpg)
+![heavy_left](https://i.imgur.com/cWHrklQh.jpeg)
 
 This is a 95-key split type Japanese keyboard.  
 It has a numeric keypad on the left hand side, which can be used not only for entering numbers but also as a dedicated macro pad.  

@@ -172,7 +172,7 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
 #### Typing shortcuts
 
 A useful possibility is having Alternate Repeat press [a
-macro](feature_macros.md). This way macros can be used without having to
+macro](feature_macros). This way macros can be used without having to
 dedicate keys to them. The following defines a couple shortcuts.
 
 * Typing <kbd>K</kbd>, <kbd>Alt Repeat</kbd> produces "`keyboard`," with the
@@ -280,8 +280,10 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t* record,
 }
 ```
 
-?> See [Layer Functions](feature_layers.md#functions) and [Checking Modifier
-State](feature_advanced_keycodes.md#checking-modifier-state) for further
+::: tip
+See [Layer Functions](feature_layers#functions) and [Checking Modifier
+:::
+State](feature_advanced_keycodes#checking-modifier-state) for further
 details.
  
 
@@ -386,7 +388,7 @@ By leveraging `get_last_keycode()` in macros, it is possible to define
 additional, distinct "Alternate Repeat"-like keys. The following defines two
 keys `ALTREP2` and `ALTREP3` and implements ten shortcuts with them for common
 English 5-gram letter patterns, taking inspiration from
-[Stenotype](feature_stenography.md):
+[Stenotype](feature_stenography):
 
 
 | Typing                           | Produces | Typing                           | Produces |

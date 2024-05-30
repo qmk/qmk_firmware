@@ -16,22 +16,22 @@
 #include "quantum.h"
 
 void led_init_ports(void) {
-  setPinOutput(E6);
-  setPinOutput(B1);
-  setPinOutput(D0);
-  setPinOutput(D1);
-  setPinOutput(F0);
+  gpio_set_pin_output(E6);
+  gpio_set_pin_output(B1);
+  gpio_set_pin_output(D0);
+  gpio_set_pin_output(D1);
+  gpio_set_pin_output(F0);
   
-  writePinHigh(E6);
-  writePinHigh(B1);
-  writePinHigh(D0);
-  writePinHigh(D1);
-  writePinHigh(F0);
+  gpio_write_pin_high(E6);
+  gpio_write_pin_high(B1);
+  gpio_write_pin_high(D0);
+  gpio_write_pin_high(D1);
+  gpio_write_pin_high(F0);
 }
 
 bool led_update_kb(led_t led_state) {
   if(led_update_user(led_state)) {
-    writePin(E6, !led_state.num_lock);
+    gpio_write_pin(E6, !led_state.num_lock);
   }
 
   return true;

@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		         _______, _______, KC_UP, _______, RGB_TOG, RGB_HUI, RGB_HUD, 
 		_______, _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, RGB_VAI, RGB_VAD, 
 		_______, _______, _______, _______, _______, _______, RGB_MOD, RGB_RMOD, 
-		QK_BOOT,   _______, _______, _______, _______, _______
+		QK_BOOT, _______, _______, _______, _______, _______
     ),
   /* Function Layer
    * ,-------------------------------------.

@@ -67,9 +67,11 @@ Additionally, if one side does not have an encoder, you can specify `{}` for the
 #define ENCODER_RESOLUTIONS_RIGHT { 4 }
 ```
 
-!> Keep in mind that whenver you change the encoder resolution, you will need to reflash the half that has the encoder affected by the change.
+::: warning
+Keep in mind that whenver you change the encoder resolution, you will need to reflash the half that has the encoder affected by the change.
+:::
 
-## Encoder map :id=encoder-map
+## Encoder map {#encoder-map}
 
 Encoder mapping may be added to your `keymap.c`, which replicates the normal keyswitch layer handling functionality, but with encoders. Add this to your keymap's `rules.mk`:
 
@@ -82,15 +84,17 @@ Your `keymap.c` will then need an encoder mapping defined (for four layers and t
 ```c
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [_BASE] =   { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
-    [_LOWER] =  { ENCODER_CCW_CW(RGB_HUD, RGB_HUI),           ENCODER_CCW_CW(RGB_SAD, RGB_SAI)  },
-    [_RAISE] =  { ENCODER_CCW_CW(RGB_VAD, RGB_VAI),           ENCODER_CCW_CW(RGB_SPD, RGB_SPI)  },
-    [_ADJUST] = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD),          ENCODER_CCW_CW(KC_RIGHT, KC_LEFT) },
+    [0] = { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
+    [1] = { ENCODER_CCW_CW(RGB_HUD, RGB_HUI),           ENCODER_CCW_CW(RGB_SAD, RGB_SAI)  },
+    [2] = { ENCODER_CCW_CW(RGB_VAD, RGB_VAI),           ENCODER_CCW_CW(RGB_SPD, RGB_SPI)  },
+    [3] = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD),          ENCODER_CCW_CW(KC_RIGHT, KC_LEFT) },
 };
 #endif
 ```
 
-?> This should only be enabled at the keymap level.
+::: tip
+This should only be enabled at the keymap level.
+:::
 
 Using encoder mapping pumps events through the normal QMK keycode processing pipeline, resulting in a _keydown/keyup_ combination pushed through `process_record_xxxxx()`. To configure the amount of time between the encoder "keyup" and "keydown", you can add the following to your `config.h`:
 
@@ -98,11 +102,15 @@ Using encoder mapping pumps events through the normal QMK keycode processing pip
 #define ENCODER_MAP_KEY_DELAY 10
 ```
 
-?> By default, the encoder map delay matches the value of `TAP_CODE_DELAY`.
+::: tip
+By default, the encoder map delay matches the value of `TAP_CODE_DELAY`.
+:::
 
 ## Callbacks
 
-?> [**Default Behaviour**](https://github.com/qmk/qmk_firmware/blob/master/quantum/encoder.c#L79-#L98): all encoders installed will function as volume up (`KC_VOLU`) on clockwise rotation and volume down (`KC_VOLD`) on counter-clockwise rotation. If you do not wish to override this, no further configuration is necessary.
+::: tip
+[**Default Behaviour**](https://github.com/qmk/qmk_firmware/blob/master/quantum/encoder.c#L79-): all encoders installed will function as volume up (`KC_VOLU`) on clockwise rotation and volume down (`KC_VOLD`) on counter-clockwise rotation. If you do not wish to override this, no further configuration is necessary.
+:::
 
 If you would like the alter the default behaviour, and are not using `ENCODER_MAP_ENABLE = yes`, the callback functions can be inserted into your `<keyboard>.c`:
 
@@ -149,7 +157,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 ```
 
-!> If you return `true` in the keymap level `_user` function, it will allow the keyboard/core level encoder code to run on top of your own. Returning `false` will override the keyboard level function, if setup correctly. This is generally the safest option to avoid confusion.
+::: warning
+If you return `true` in the keymap level `_user` function, it will allow the keyboard/core level encoder code to run on top of your own. Returning `false` will override the keyboard level function, if setup correctly. This is generally the safest option to avoid confusion.
+:::
 
 ## Hardware
 
