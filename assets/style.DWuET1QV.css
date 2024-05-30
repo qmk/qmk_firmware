@@ -4878,18 +4878,6 @@ kbd {
     padding: 0.2em;
 }
 
-:root {
-    --vp-nav-logo-height: 100%;
-}
-
-.logo {
-    padding-bottom: 0.2em;
-}
-
-.VPNavBarTitle.has-sidebar .title {
-    border-bottom: 0;
-}
-
 .VPLocalSearchBox[data-v-43c4f204] {
   position: fixed;
   z-index: 100;
