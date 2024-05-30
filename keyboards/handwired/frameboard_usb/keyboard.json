@@ -10,8 +10,16 @@
     "lto": true
   },
   "features": {
+    "backlight": true,
     "bootmagic": true,
     "indicators": true
+  },
+  "backlight": {
+    "levels": 2,
+    "pin": "B7",
+    "default": {
+        "on": false
+    }
   },
   "bootmagic": {
     "enabled": true,
