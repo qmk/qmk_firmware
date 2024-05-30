@@ -242,13 +242,13 @@ Set the Unicode input mode.
 
 ---
 
-### `void unicode_input_mode_step(void)` : {#api-unicode-input-mode-step}
+### `void unicode_input_mode_step(void)` {#api-unicode-input-mode-step}
 
 Change to the next Unicode input mode.
 
 ---
 
-### `void unicode_input_mode_step_reverse(void)` : {#api-unicode-input-mode-step-reverse}
+### `void unicode_input_mode_step_reverse(void)` {#api-unicode-input-mode-step-reverse}
 
 Change to the previous Unicode input mode.
 

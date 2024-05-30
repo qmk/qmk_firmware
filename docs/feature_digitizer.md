@@ -71,43 +71,43 @@ Send the digitizer report to the host if it is marked as dirty.
 
 ---
 
-### `void digitizer_in_range_on(void)` :api-digitizer-in-range-on
+### `void digitizer_in_range_on(void)` {#api-digitizer-in-range-on}
 
 Assert the "in range" indicator, and flush the report.
 
 ---
 
-### `void digitizer_in_range_off(void)` :api-digitizer-in-range-off
+### `void digitizer_in_range_off(void)` {#api-digitizer-in-range-off}
 
 Deassert the "in range" indicator, and flush the report.
 
 ---
 
-### `void digitizer_tip_switch_on(void)` :api-digitizer-tip-switch-on
+### `void digitizer_tip_switch_on(void)` {#api-digitizer-tip-switch-on}
 
 Assert the tip switch, and flush the report.
 
 ---
 
-### `void digitizer_tip_switch_off(void)` :api-digitizer-tip-switch-off
+### `void digitizer_tip_switch_off(void)` {#api-digitizer-tip-switch-off}
 
 Deassert the tip switch, and flush the report.
 
 ---
 
-### `void digitizer_barrel_switch_on(void)` :api-digitizer-barrel-switch-on
+### `void digitizer_barrel_switch_on(void)` {#api-digitizer-barrel-switch-on}
 
 Assert the barrel switch, and flush the report.
 
 ---
 
-### `void digitizer_barrel_switch_off(void)` :api-digitizer-barrel-switch-off
+### `void digitizer_barrel_switch_off(void)` {#api-digitizer-barrel-switch-off}
 
 Deassert the barrel switch, and flush the report.
 
 ---
 
-### `void digitizer_set_position(float x, float y)` :api-digitizer-set-position
+### `void digitizer_set_position(float x, float y)` {#api-digitizer-set-position}
 
 Set the absolute X and Y position of the digitizer contact, and flush the report.
 
