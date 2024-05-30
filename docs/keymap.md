@@ -10,20 +10,21 @@ For trivial key definitions, the higher 8 bits of the **action code** are all 0 
 
 Respective layers can be validated simultaneously. Layers are indexed with 0 to 31 and higher layer has precedence.
 
-    Keymap: 32 Layers                   Layer: action code matrix
-    -----------------                   ---------------------
-    stack of layers                     array_of_action_code[row][column]
-           ____________ precedence               _______________________
-          /           / | high                  / ESC / F1  / F2  / F3   ....
-      31 /___________// |                      /-----/-----/-----/-----
-      30 /___________// |                     / TAB /  Q  /  W  /  E   ....
-      29 /___________/  |                    /-----/-----/-----/-----
-       :   _:_:_:_:_:__ |               :   /LCtrl/  A  /  S  /  D   ....
-       :  / : : : : : / |               :  /  :     :     :     :
-       2 /___________// |               2 `--------------------------
-       1 /___________// |               1 `--------------------------
-       0 /___________/  V low           0 `--------------------------
-
+```
+Keymap: 32 Layers                   Layer: action code matrix
+-----------------                   ---------------------
+stack of layers                     array_of_action_code[row][column]
+       ____________ precedence               _______________________
+      /           / | high                  / ESC / F1  / F2  / F3   ....
+  31 /___________// |                      /-----/-----/-----/-----
+  30 /___________// |                     / TAB /  Q  /  W  /  E   ....
+  29 /___________/  |                    /-----/-----/-----/-----
+   :   _:_:_:_:_:__ |               :   /LCtrl/  A  /  S  /  D   ....
+   :  / : : : : : / |               :  /  :     :     :     :
+   2 /___________// |               2 `--------------------------
+   1 /___________// |               1 `--------------------------
+   0 /___________/  V low           0 `--------------------------
+```
 
 Sometimes, the action code stored in keymap may be referred as keycode in some documents due to the TMK history.
 
@@ -36,50 +37,54 @@ The state of the Keymap layer is determined by two 32 bit parameters:
 
 Keymap layer '0' is usually the `default_layer`, with other layers initially off after booting up the firmware, although this can configured differently in `config.h`. It is useful to change `default_layer` when you completely switch a key layout, for example, if you want to switch to Colemak instead of Qwerty.
 
-    Initial state of Keymap          Change base layout
-    -----------------------          ------------------
+```
+Initial state of Keymap          Change base layout
+-----------------------          ------------------
 
-      31                               31
-      30                               30
-      29                               29
-       :                                :
-       :                                :   ____________
-       2   ____________                 2  /           /
-       1  /           /              ,->1 /___________/
-    ,->0 /___________/               |  0
-    |                                |
-    `--- default_layer = 0           `--- default_layer = 1
-         layer_state   = 0x00000001       layer_state   = 0x00000002
+  31                               31
+  30                               30
+  29                               29
+   :                                :
+   :                                :   ____________
+   2   ____________                 2  /           /
+   1  /           /              ,->1 /___________/
+,->0 /___________/               |  0
+|                                |
+`--- default_layer = 0           `--- default_layer = 1
+     layer_state   = 0x00000001       layer_state   = 0x00000002
+```
 
 On the other hand, you can change `layer_state` to overlay the base layer with other layers for features such as navigation keys, function keys (F1-F12), media keys, and/or special actions.
 
-    Overlay feature layer
-    ---------------------      bit|status
-           ____________        ---+------
-      31  /           /        31 |   0
-      30 /___________// -----> 30 |   1
-      29 /___________/  -----> 29 |   1
-       :                        : |   :
-       :   ____________         : |   :
-       2  /           /         2 |   0
-    ,->1 /___________/  ----->  1 |   1
-    |  0                        0 |   0
-    |                                 +
-    `--- default_layer = 1            |
-         layer_state   = 0x60000002 <-'
-
-
+```
+Overlay feature layer
+---------------------      bit|status
+       ____________        ---+------
+  31  /           /        31 |   0
+  30 /___________// -----> 30 |   1
+  29 /___________/  -----> 29 |   1
+   :                        : |   :
+   :   ____________         : |   :
+   2  /           /         2 |   0
+,->1 /___________/  ----->  1 |   1
+|  0                        0 |   0
+|                                 +
+`--- default_layer = 1            |
+     layer_state   = 0x60000002 <-'
+```
 
 ### Layer Precedence and Transparency
 Note that ***higher layers have higher priority within the stack of layers***. The firmware works its way down from the highest active layers to look up keycodes. Once the firmware locates a keycode other than `KC_TRNS` (transparent) on an active layer, it stops searching, and lower layers aren't referenced.
 
-           ____________
-          /           /  <--- Higher layer
-         /  KC_TRNS  //
-        /___________//   <--- Lower layer (KC_A)
-        /___________/
-    
-    In the above scenario, the non-transparent keys on the higher layer would be usable, but whenever `KC_TRNS` (or equivalent) is defined, the keycode (`KC_A`) on the lower level would be used.
+```
+   ____________
+  /           /  <--- Higher layer
+ /  KC_TRNS  //
+/___________//   <--- Lower layer (KC_A)
+/___________/
+```
+
+In the above scenario, the non-transparent keys on the higher layer would be usable, but whenever `KC_TRNS` (or equivalent) is defined, the keycode (`KC_A`) on the lower level would be used.
 
 **Note:** Valid ways to denote transparency on a given layer:
 * `KC_TRANSPARENT`
@@ -101,27 +106,29 @@ There are 2 main sections of a `keymap.c` file you'll want to concern yourself w
 
 At the top of the file you'll find this:
 
-    #include QMK_KEYBOARD_H
+```c
+#include QMK_KEYBOARD_H
 
-    // Helpful defines
-    #define GRAVE_MODS  (MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT)|MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI)|MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
+// Helpful defines
+#define GRAVE_MODS  (MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT)|MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI)|MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
 
-    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
-     *  You can use _______ in place for KC_TRNS (transparent)   *
-     *  Or you can use XXXXXXX for KC_NO (NOOP)                  *
-     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+    *  You can use _______ in place for KC_TRNS (transparent)   *
+    *  Or you can use XXXXXXX for KC_NO (NOOP)                  *
+    * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-    // Each layer gets a name for readability.
-    // The underscores don't mean anything - you can
-    // have a layer called STUFF or any other name.
-    // Layer names don't all need to be of the same
-    // length, and you can also skip them entirely
-    // and just use numbers.
-    enum layer_names {
-        _BL,
-        _FL,
-        _CL,
-    };
+// Each layer gets a name for readability.
+// The underscores don't mean anything - you can
+// have a layer called STUFF or any other name.
+// Layer names don't all need to be of the same
+// length, and you can also skip them entirely
+// and just use numbers.
+enum layer_names {
+    _BL,
+    _FL,
+    _CL,
+};
+```
 
 These are some handy definitions we can use when building our keymap and our custom function. The `GRAVE_MODS` definition will be used later in our custom function, and the following `_BL`, `_FL`, and `_CL` defines make it easier to refer to each of our layers.
 
@@ -131,7 +138,9 @@ Note: You may also find some older keymap files may also have a define(s) for `_
 
 The main part of this file is the `keymaps[]` definition. This is where you list your layers and the contents of those layers. This part of the file begins with this definition:
 
-    const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+```c
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+```
 
 After this you'll find the layer definitions. Typically you'll have one or more "base layers" (such as QWERTY, Dvorak, or Colemak) and then you'll layer on top of that one or more "function" layers. Due to the way layers are processed you can't overlay a "lower" layer on top of a "higher" layer.
 

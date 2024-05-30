@@ -192,11 +192,15 @@ We use nose2, flake8, and yapf to test, lint, and format code. You can use the `
 
 ### Testing and Linting
 
-    qmk pytest
+```
+qmk pytest
+```
 
 ### Formatting
 
-    qmk format-python
+```
+qmk format-python
+```
 
 ## Formatting Details
 
@@ -212,7 +216,9 @@ Our tests can be found in `lib/python/qmk/tests/`. You will find both unit and i
 
 If your PR does not include a comprehensive set of tests please add comments like this to your code so that other people know where they can help:
 
+```python
     # TODO(unassigned/<your_github_username>): Write <unit|integration> tests
+```
 
 We use [nose2](https://nose2.readthedocs.io/en/latest/getting_started.html) to run our tests. You can refer to the nose2 documentation for more details on what you can do in your test functions.
 

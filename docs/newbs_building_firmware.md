@@ -8,7 +8,9 @@ You can configure your build environment to set the defaults and make working wi
 
 Most people new to QMK only have 1 keyboard. You can set this keyboard as your default with the `qmk config` command. For example, to set your default keyboard to `clueboard/66/rev4`:
 
-    qmk config user.keyboard=clueboard/66/rev4
+```sh
+qmk config user.keyboard=clueboard/66/rev4
+```
 
 ::: tip
 The keyboard option is the path relative to the keyboard directory, the above example would be found in `qmk_firmware/keyboards/clueboard/66/rev4`. If you're unsure you can view a full list of supported keyboards with `qmk list-keyboards`.
@@ -16,21 +18,29 @@ The keyboard option is the path relative to the keyboard directory, the above ex
 
 You can also set your default keymap name. Most people use their GitHub username like the keymap name from the previous steps:
 
-    qmk config user.keymap=<github_username>
+```sh
+qmk config user.keymap=<github_username>
+```
 
 ## Create a New Keymap
 
 To create your own keymap you'll want to create a copy of the `default` keymap. If you configured your build environment in the last step you can do that easily with the QMK CLI:
 
-    qmk new-keymap
+```sh
+qmk new-keymap
+```
 
 If you did not configure your environment, or you have multiple keyboards, you can specify a keyboard name:
 
-    qmk new-keymap -kb <keyboard_name>
+```sh
+qmk new-keymap -kb <keyboard_name>
+```
 
 Look at the output from that command, you should see something like this:
 
-    Ψ Created a new keymap called <github_username> in: /home/me/qmk_firmware/keyboards/clueboard/66/rev3/keymaps/<github_username>.
+```
+Ψ Created a new keymap called <github_username> in: /home/me/qmk_firmware/keyboards/clueboard/66/rev3/keymaps/<github_username>.
+```
 
 This is the location of your new `keymap.c` file.
 
@@ -38,7 +48,9 @@ This is the location of your new `keymap.c` file.
 
 Open your `keymap.c` file in your text editor. Inside this file you'll find the structure that controls how your keyboard behaves. At the top of `keymap.c` there may be some defines and enums that make the keymap easier to read. Farther down you'll find a line that looks like this:
 
-    const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+```c
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+```
 
 This line indicates where the list of Layers begins. Below that you'll find lines containing `LAYOUT`, and these lines indicate the start of a layer. Below that line is the list of keys that comprise a particular layer.
 
@@ -63,11 +75,15 @@ While you get a feel for how keymaps work, keep each change small. Bigger change
 
 When your changes to the keymap are complete you will need to build the firmware. To do so go back to your terminal window and run the compile command:
 
-    qmk compile
+```sh
+qmk compile
+```
 
 If you did not configure defaults for your environment, or you have multiple keyboards, you can specify a keyboard and/or keymap:
 
-    qmk compile -kb <keyboard> -km <keymap>
+```sh
+qmk compile -kb <keyboard> -km <keymap>
+```
 
 While this compiles you will have a lot of output going to the screen informing you of what files are being compiled. It should end with output that looks similar to this:
 
