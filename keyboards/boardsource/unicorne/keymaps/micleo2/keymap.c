@@ -10,11 +10,11 @@
 // mk2kWjrf<t_ý>a`kWkvehyjPwkr <t_ý>aj
 
 enum layers {
-  _BSE,
-  _SYM,
-  _NAV,
-  _SYS,
-  _NUM,
+  _BSE, // Base
+  _SYM, // Symbol
+  _NAV, // Navigation
+  _SYS, // Sysctrl
+  _NUM, // Numpad
 };
 
 #define B _BSE
@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_SYS] = LAYOUT_split_3x6_3(
     CW_TOGG,       _______,       FSCRNSHT,     SCRNSHT,       _______,       _______,              _______,       KC_F7,         KC_F8,        KC_F9,         KC_F12,        _______,
-    _______,       _______,       KC_MPLY,      KC_VOLU,       KC_VOLD,       _______,              _______,       KC_F4,         KC_F5,        KC_F6,         KC_F11,        ___E___,
+    _______,       _______,       KC_MPLY,      KC_VOLD,       KC_VOLU,       _______,              _______,       KC_F4,         KC_F5,        KC_F6,         KC_F11,        ___E___,
     QK_BOOT,       _______,       KC_MPRV,      KC_MNXT,       KC_MUTE,       _______,              _______,       KC_F1,         KC_F2,        KC_F3,         KC_F10,        QK_BOOT,
                                                 _______,       _______,       _______,              _______,       _______,       _______
 ),
