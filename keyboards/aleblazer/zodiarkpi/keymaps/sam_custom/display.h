@@ -15,3 +15,4 @@ extern lv_style_t style_button_active;
 bool display_init_kb(void);
 bool display_init_user(void);
 void display_housekeeping_task(void);
+void lvgl_event_triggers(void);

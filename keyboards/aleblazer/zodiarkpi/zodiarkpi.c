@@ -146,6 +146,7 @@ led_config_t g_led_config = { {
 void housekeeping_task_kb(void) {
     if (is_keyboard_left()) {
         display_housekeeping_task();
+        lvgl_event_triggers();
     }
 
     housekeeping_task_user();

@@ -26,6 +26,9 @@ lv_style_t style_button_active;
 // colors
 unsigned long nv_green = 0x76b900;
 
+// events
+uint32_t USER_EVENT_RGBMODE_UPDATE;
+
 // screens
 static lv_obj_t *screen_home;
 
@@ -36,7 +39,74 @@ static lv_obj_t *label_alt;
 static lv_obj_t *label_gui;
 static lv_obj_t *label_capsword;
 static lv_obj_t *label_curr_layer;
+static lv_obj_t *label_rgb_mode;
 // static lv_obj_t *label_caps;
+
+// rgb matrix naming
+extern rgb_config_t rgb_matrix_config;
+#if defined(RGB_MATRIX_ENABLE)
+#   include <rgb_matrix.h>
+
+#   if defined(RGB_MATRIX_EFFECT)
+#       undef RGB_MATRIX_EFFECT
+#   endif
+
+#   define RGB_MATRIX_EFFECT(x) RGB_MATRIX_EFFECT_##x,
+enum {
+    RGB_MATRIX_EFFECT_NONE,
+#   include "rgb_matrix_effects.inc"
+#   undef RGB_MATRIX_EFFECT
+};
+
+#   define RGB_MATRIX_EFFECT(x)     \
+        case RGB_MATRIX_EFFECT_##x: \
+            return #x;
+const char *rgb_matrix_name(uint8_t effect) {
+    switch (effect) {
+        case RGB_MATRIX_EFFECT_NONE:
+            return "NONE";
+#   include "rgb_matrix_effects.inc"
+#   undef RGB_MATRIX_EFFECT
+        default:
+            return "UNKNOWN";
+    }
+}
+#endif
+
+void set_rgbmode_text_value(lv_obj_t *label) {
+    uint8_t curr_effect = rgb_matrix_config.mode;
+    if (lv_obj_is_valid(label)) {
+        char buf[32];
+        snprintf(buf, sizeof(buf), "%s", rgb_matrix_name(curr_effect));
+            for (int i = 1; i < sizeof(buf); ++i) {
+            if (buf[i] == 0)
+                break;
+            else if (buf[i] == '_')
+                buf[i] = ' ';
+            else if (buf[i - 1] == ' ')
+                buf[i] = toupper(buf[i]);
+            else if (buf[i - 1] != ' ')
+                buf[i] = tolower(buf[i]);
+            }
+        lv_label_set_text(label, buf);
+    }
+}
+
+void ui_render_rgbmode(lv_event_t *e) {
+    lv_event_code_t event_code = lv_event_get_code(e);
+    if(event_code == USER_EVENT_RGBMODE_UPDATE) {
+        set_rgbmode_text_value(label_rgb_mode);
+    }
+}
+
+void lvgl_event_triggers(void) {
+    static uint16_t last_effect = 0xFFFF;
+    uint8_t         curr_effect = rgb_matrix_config.mode;
+    if (last_effect != curr_effect) {
+        last_effect = curr_effect;
+        lv_event_send(label_rgb_mode, USER_EVENT_RGBMODE_UPDATE, NULL);
+    }
+}
 
 void init_styles(void) {
     lv_style_init(&style_screen);
@@ -84,6 +154,17 @@ void init_screen_home(void) {
     use_flex_row(curr_layer);
     label_curr_layer = create_button(curr_layer, layer_name, &style_button, &style_button_active);
 
+    lv_obj_t *rgb = lv_obj_create(screen_home);
+    lv_obj_add_style(rgb, &style_container, LV_PART_MAIN);
+    lv_obj_set_style_pad_hor(rgb, 20, LV_PART_MAIN);
+    use_flex_column(rgb);
+
+    lv_obj_t *curr_rgb = lv_obj_create(rgb);
+    lv_obj_add_style(curr_rgb, &style_container_row, LV_PART_MAIN);
+    use_flex_row(curr_rgb);
+    label_rgb_mode = create_button(curr_rgb, "NONE", &style_button, &style_button_active);
+    lv_obj_add_event_cb(label_rgb_mode, ui_render_rgbmode, USER_EVENT_RGBMODE_UPDATE, NULL);
+
     lv_obj_t *mods = lv_obj_create(screen_home);
     lv_obj_add_style(mods, &style_container, LV_PART_MAIN);
     lv_obj_set_style_pad_hor(mods, 20, LV_PART_MAIN);
@@ -115,7 +196,8 @@ bool display_init_kb(void) {
 
     // Initialize right side screen
     if (!is_keyboard_left()) {
-        if (!qp_init(display, QP_ROTATION_90) || !qp_power(display, true)) return false;
+        qp_power(display, true);
+        qp_init(display, QP_ROTATION_90);
         image = qp_load_image_mem(gfx_nvlogo_small);
         if (image != NULL) {
             print("image was not null\n");
