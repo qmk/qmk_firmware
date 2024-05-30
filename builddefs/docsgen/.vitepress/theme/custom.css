@@ -5,15 +5,3 @@ kbd {
     margin: 0.2em;
     padding: 0.2em;
 }
-
-:root {
-    --vp-nav-logo-height: 100%;
-}
-
-.logo {
-    padding-bottom: 0.2em;
-}
-
-.VPNavBarTitle.has-sidebar .title {
-    border-bottom: 0;
-}
