@@ -15,9 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-combo_t key_combos[] = {};
-uint16_t COMBO_LEN = 0;
-
 enum custom_keycodes {
     M2 = SAFE_RANGE,
     M3,
