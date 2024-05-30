@@ -20,7 +20,7 @@
 
 
 void keyboard_pre_init_kb(void) {
-    gpio_set_pin_output(C13);
-    gpio_write_pin(C13, 0);
+    gpio_set_pin_output(BLUE_PILL_STATUS_LED);
+    gpio_write_pin(BLUE_PILL_STATUS_LED, 0);
     keyboard_pre_init_user();
 }
