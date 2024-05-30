@@ -28,10 +28,10 @@ export default defineConfig(({ mode }) => {
         themeConfig: {
             // https://vitepress.dev/reference/default-theme-config
             logo: {
-                light: "/badge-community-light.svg",
-                dark: "/badge-community-dark.svg",
+                light: "/qmk-logo-light.svg",
+                dark: "/qmk-logo-dark.svg",
             },
-            siteTitle: false,
+            title: 'QMK Firmware',
 
             nav: [{ text: "Home", link: "./" }],
 
