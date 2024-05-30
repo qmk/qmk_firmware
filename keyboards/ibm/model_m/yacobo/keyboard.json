@@ -5,12 +5,9 @@
     "bootloader": "stm32duino",
     "diode_direction": "COL2ROW",
     "features": {
-        "bootmagic": false,
-        "command": false,
-        "console": false,
+        "bootmagic": true,
         "extrakey": true,
-        "mousekey": false,
-        "nkro": false
+        "mousekey": true
     },
     "qmk": {
         "locking": {
