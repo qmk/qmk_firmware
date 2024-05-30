@@ -107,11 +107,7 @@ Before opening a pull request, you can preview your changes if you have set up t
 
     qmk docs
 
-or if you only have Python 3 installed:
-
-    python3 -m http.server 8936 --directory docs
-
-and navigating to `http://localhost:8936/`.
+and navigating to `http://localhost:5173/`.
 
 ## Keyboards
 

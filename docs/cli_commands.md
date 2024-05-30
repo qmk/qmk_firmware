@@ -703,25 +703,34 @@ Now open your dev environment and live a squiggly-free life.
 
 ## `qmk docs`
 
-This command starts a local HTTP server which you can use for browsing or improving the docs. Default port is 8936.
-Use the `-b`/`--browser` flag to automatically open the local webserver in your default browser.
+This command starts a local HTTP server which you can use for browsing or improving the docs. Default port is 5173.
 
-This command runs `docsify serve` if `docsify-cli` is installed (which provides live reload), otherwise Python's builtin HTTP server module will be used.
+This command requires `node` and `yarn` to be installed as prerequisites, and provides live reload capability whilst editing.
 
 **Usage**:
 
 ```
-qmk docs [-b] [-p PORT]
+usage: qmk docs [-h]
+
+options:
+  -h, --help  show this help message and exit
 ```
 
 ## `qmk generate-docs`
 
-This command allows you to generate QMK documentation locally. It can be uses for general browsing or improving the docs. External tools such as [serve](https://www.npmjs.com/package/serve) can be used to browse the generated files.
+This command allows you to generate QMK documentation locally. It can be uses for general browsing or improving the docs.
+Use the `-s`/`--serve` flag to also serve the static site once built. Default port is 4173.
+
+This command requires `node` and `yarn` to be installed as prerequisites, and requires the operating system to support symlinks.
 
 **Usage**:
 
 ```
-qmk generate-docs
+usage: qmk generate-docs [-h] [-s]
+
+options:
+  -h, --help   show this help message and exit
+  -s, --serve  Serves the generated docs once built.
 ```
 
 ## `qmk generate-rgb-breathe-table`

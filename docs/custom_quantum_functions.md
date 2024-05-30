@@ -424,4 +424,4 @@ This page used to encompass a large set of features. We have moved many sections
 
 ## Persistent Configuration (EEPROM) {#persistent-configuration-eeprom}
 
-[Persistent Configuration (EEPROM)](feature_eeprom.md)
+[Persistent Configuration (EEPROM)](feature_eeprom)
