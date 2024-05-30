@@ -245,6 +245,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 #ifdef OLED_ENABLE
 
 bool render_downtaunt(void);
+void render_idle(void);
 bool render_flash_img(void);
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -279,11 +280,6 @@ bool shutdown_user(bool jump_to_bootloader) {
     return true;
 }
 
-// Delay to wait after kb inactivity to begin taunt animation.
-const uint32_t TAUNT_WAIT_MS = 60 * 1000;
-// Length of a single frame of the taunt animation.
-const uint32_t TAUNT_TOGGLE_FRAME_LEN_MS = 1500;
-
 bool oled_task_user() {
     if (render_flash_img() == false) {
         return false;
@@ -293,7 +289,7 @@ bool oled_task_user() {
     switch (cur_layer) {
         case _BSE:
             if (render_downtaunt()) {
-                oled_write_raw(gw_idle, sizeof(gw_idle));
+                render_idle();
             }
             break;
         case _SYM:
@@ -309,12 +305,27 @@ bool oled_task_user() {
             oled_write_raw(gw_key, sizeof(gw_key));
             break;
         default:
-            oled_write_raw(gw_idle, sizeof(gw_idle));
+            render_idle();
             break;
     }
 
     return false;
 }
+
+// Delay to wait after kb inactivity to begin taunt animation.
+#    define IDLE_TOGGLE_FRAME_LEN_MS 2500
+void render_idle() {
+    if ((timer_read32() / IDLE_TOGGLE_FRAME_LEN_MS) % 2 == 0) {
+        oled_write_raw(gw_idle_A, sizeof(gw_idle_A));
+    } else {
+        oled_write_raw(gw_idle_B, sizeof(gw_idle_B));
+    }
+}
+
+// Delay to wait after kb inactivity to begin taunt animation.
+#    define TAUNT_WAIT_MS 60 * 1000
+// Length of a single frame of the taunt animation.
+#    define TAUNT_TOGGLE_FRAME_LEN_MS 1500
 
 bool render_downtaunt() {
     const uint32_t idle_time_ms = last_matrix_activity_elapsed();
@@ -322,9 +333,9 @@ bool render_downtaunt() {
         return true;
     }
     if ((timer_read32() / TAUNT_TOGGLE_FRAME_LEN_MS) % 2 == 0) {
-        oled_write_raw(gw_downtaunt_f1, sizeof(gw_idle));
+        oled_write_raw(gw_downtaunt_f1, sizeof(gw_downtaunt_f1));
     } else {
-        oled_write_raw(gw_downtaunt_f2, sizeof(gw_idle));
+        oled_write_raw(gw_downtaunt_f2, sizeof(gw_downtaunt_f2));
     }
     return false;
 }
@@ -350,7 +361,7 @@ bool render_flash_img() {
 }
 
 void enter_key_pressed_cb(void) {
-#    define JUDGE9_LEN_MS 600
+#    define JUDGE9_LEN_MS 1100
     uint32_t cur_time_ms = timer_read32();
     // Treat the time at which the enter key is pressed as RNG.
     // We have a 1/9 chance of flashing the judge9.
@@ -364,7 +375,7 @@ void enter_key_pressed_cb(void) {
 // The current charged state of the bucket.
 static uint8_t charge_state = 0;
 // The bucket's fully charged state.
-static const uint8_t MAX_CHARGE_STATE = 2;
+#    define MAX_CHARGE_STATE 3
 
 void flash_current_charge_state(void) {
 #    define BUCKET_CHARGE_LEN_MS 500
@@ -378,7 +389,7 @@ void flash_current_charge_state(void) {
             flash_img_data = gw_bucket_charged2;
             flash_img_size = sizeof(gw_bucket_charged2);
             break;
-        case 2:
+        default:
             flash_img_data = gw_bucket_charged3;
             flash_img_size = sizeof(gw_bucket_charged3);
             break;
@@ -393,7 +404,7 @@ void copy_key_pressed_cb(void) {
 }
 
 void paste_key_pressed_cb(void) {
-#    define BUCKET_THROW_LEN_MS 750
+#    define BUCKET_THROW_LEN_MS 900
     if (charge_state == MAX_CHARGE_STATE) {
         flash_img_anim_timer = timer_read32() + BUCKET_THROW_LEN_MS;
         flash_img_data       = gw_bucket_throw;
