@@ -27,7 +27,7 @@ per speaker is - for example with a piezo buzzer - the black lead to Ground, and
 
 
 ## ARM based boards
-for more technical details, see the notes on [Audio driver](audio_driver.md).
+for more technical details, see the notes on [Audio driver](audio_driver).
 
 <!-- because I'm not sure where to fit this in: https://waveeditonline.com/ -->
 ### DAC (basic)
@@ -131,7 +131,7 @@ You can override the default songs by doing something like this in your `config.
 
 ```c
 #ifdef AUDIO_ENABLE
-#    define STARTUP_SONG SONG(STARTUP_SOUND)
+# define STARTUP_SONG SONG(STARTUP_SOUND)
 #endif
 ```
 
@@ -167,7 +167,9 @@ The available keycodes for audio are:
 |`QK_AUDIO_OFF`           |`AU_OFF` |Turns off Audio Feature                    |
 |`QK_AUDIO_TOGGLE`        |`AU_TOGG`|Toggles Audio state                        |
 
-!> These keycodes turn all of the audio functionality on and off.  Turning it off means that audio feedback, audio clicky, music mode, etc. are disabled, completely.
+::: warning
+These keycodes turn all of the audio functionality on and off.  Turning it off means that audio feedback, audio clicky, music mode, etc. are disabled, completely.
+:::
 
 ## Audio Config
 
@@ -261,31 +263,39 @@ In music mode, the following keycodes work differently, and don't pass through:
 
 The pitch standard (`PITCH_STANDARD_A`) is 440.0f by default - to change this, add something like this to your `config.h`:
 
-    #define PITCH_STANDARD_A 432.0f
+```c
+#define PITCH_STANDARD_A 432.0f
+```
 
 You can completely disable Music Mode as well. This is useful, if you're pressed for space on your controller.  To disable it, add this to your `config.h`:
 
-    #define NO_MUSIC_MODE
+```c
+#define NO_MUSIC_MODE
+```
 
 ### Music Mask
 
 By default, `MUSIC_MASK` is set to `keycode < 0xFF` which means keycodes less than `0xFF` are turned into notes, and don't output anything. You can change this by defining this in your `config.h` like this:
 
-    #define MUSIC_MASK keycode != KC_NO
+```c
+#define MUSIC_MASK keycode != KC_NO
+```
 
 Which will capture all keycodes - be careful, this will get you stuck in music mode until you restart your keyboard!
 
 For a more advanced way to control which keycodes should still be processed, you can use `music_mask_kb(keycode)` in `<keyboard>.c` and `music_mask_user(keycode)` in your `keymap.c`:
 
-    bool music_mask_user(uint16_t keycode) {
-      switch (keycode) {
-        case RAISE:
-        case LOWER:
-          return false;
-        default:
-          return true;
-      }
+```c
+  bool music_mask_user(uint16_t keycode) {
+    switch (keycode) {
+      case RAISE:
+      case LOWER:
+        return false;
+      default:
+        return true;
     }
+  }
+```
 
 Things that return false are not part of the mask, and are always processed.
 
@@ -327,8 +337,9 @@ Keycodes available:
 
 The feature is disabled by default, to save space.  To enable it, add this to your `config.h`:
 
-    #define AUDIO_CLICKY
-
+```c
+#define AUDIO_CLICKY
+```
 
 You can configure the default, min and max frequencies, the stepping and built in randomness by defining these values: 
 
@@ -341,12 +352,9 @@ You can configure the default, min and max frequencies, the stepping and built i
 | `AUDIO_CLICKY_FREQ_RANDOMNESS`     |  0.05f |  Sets a factor of randomness for the clicks, Setting this to `0f` will make each click identical, and `1.0f` will make this sound much like the 90's computer screen scrolling/typing effect. | 
 | `AUDIO_CLICKY_DELAY_DURATION` | 1 | An integer note duration where 1 is 1/16th of the tempo, or a sixty-fourth note (see `quantum/audio/musical_notes.h` for implementation details). The main clicky effect will be delayed by this duration.  Adjusting this to values around 6-12 will help compensate for loud switches. |
 
-
-
-
 ## MIDI Functionality
 
-See [MIDI](feature_midi.md)
+See [MIDI](feature_midi)
 
 ## Audio Keycodes
 

@@ -17,11 +17,12 @@ combo_t key_combos[] = {
 
 This will send "Escape" if you hit the A and B keys, and Ctrl+Z when you hit the C and D keys.
 
-## Mod-Tap Support
-[Mod-Tap](mod_tap.md) feature is also supported together with combos. You will need to use the full Mod-Tap keycode in the combo definition, e.g.:
+## Advanced Keycodes Support
+Advanced keycodes, such as [Mod-Tap](mod_tap) and [Tap Dance](feature_tap_dance) are also supported together with combos. If you use these advanced keycodes in your keymap, you will need to place the full keycode in the combo definition, e.g.:
 
 ```c
 const uint16_t PROGMEM test_combo1[] = {LSFT_T(KC_A), LT(1, KC_B), COMBO_END};
+const uint16_t PROGMEM test_combo2[] = {TD(TD_ESC_CAPS), KC_F1, COMBO_END};
 ```
 
 ## Overlapping Combos
@@ -98,7 +99,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 
 This will send "john.doe@example.com" if you chord E and M together, and clear the current line with Backspace and Left-Shift. You could change this to do stuff like play sounds or change settings.
 
-It is worth noting that `COMBO_ACTION`s are not needed anymore. As of [PR#8591](https://github.com/qmk/qmk_firmware/pull/8591/), it is possible to run your own custom keycodes from combos. Just define the custom keycode, program its functionality in `process_record_user`, and define a combo with `COMBO(<key_array>, <your_custom_keycode>)`. See the first example in [Macros](feature_macros.md).
+It is worth noting that `COMBO_ACTION`s are not needed anymore. As of [PR#8591](https://github.com/qmk/qmk_firmware/pull/8591/), it is possible to run your own custom keycodes from combos. Just define the custom keycode, program its functionality in `process_record_user`, and define a combo with `COMBO(<key_array>, <your_custom_keycode>)`. See the first example in [Macros](feature_macros).
 
 ## Keycodes
 You can enable, disable and toggle the Combo feature on the fly. This is useful if you need to disable them temporarily, such as for a game. The following keycodes are available for use in your `keymap.c`
@@ -372,7 +373,9 @@ In addition to the keycodes, there are a few functions that you can use to set t
 Having 3 places to update when adding new combos or altering old ones does become cumbersome when you have a lot of combos. We can alleviate this with some magic! ... If you consider C macros magic.
 First, you need to add `VPATH += keyboards/gboards` to your `rules.mk`. Next, include the file `g/keymap_combo.h` in your `keymap.c`.
 
-!> This functionality uses the same `process_combo_event` function as `COMBO_ACTION` macros do, so you cannot use the function yourself in your keymap. Instead, you have to define the `case`s of the `switch` statement by themselves within `inject.h`, which `g/keymap_combo.h` will then include into the function.
+::: warning
+This functionality uses the same `process_combo_event` function as `COMBO_ACTION` macros do, so you cannot use the function yourself in your keymap. Instead, you have to define the `case`s of the `switch` statement by themselves within `inject.h`, which `g/keymap_combo.h` will then include into the function.
+:::
 
 Then, write your combos in `combos.def` file in the following manner:
 

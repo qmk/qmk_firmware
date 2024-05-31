@@ -25,6 +25,12 @@
     "extrakey": true,
     "command": true
   },
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  },
   "community_layouts": ["split_3x5_3"],
   "layout_aliases": {
     "LAYOUT": "LAYOUT_split_3x5_3"

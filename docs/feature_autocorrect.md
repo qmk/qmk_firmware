@@ -2,7 +2,7 @@
 
 There are a lot of words that are prone to being typed incorrectly, due to habit, sequence or just user error.  This feature leverages your firmware to automatically correct these errors, to help reduce typos.
 
-## How does it work? :id=how-does-it-work
+## How does it work? {#how-does-it-work}
 
 The feature maintains a small buffer of recent key presses. On each key press, it checks whether the buffer ends in a recognized typo, and if so, automatically sends keystrokes to correct it.
 
@@ -12,7 +12,7 @@ The tricky part is how to efficiently check the buffer for typos. We don’t wan
 
 Since we search whether the buffer ends in a typo, we store the trie writing in reverse. The trie is queried starting from the last letter, then second to last letter, and so on, until either a letter doesn’t match or we reach a leaf, meaning a typo was found.
 
-## How do I enable Autocorrection :id=how-do-i-enable-autocorrection
+## How do I enable Autocorrection {#how-do-i-enable-autocorrection}
 
 In your `rules.mk`, add this:
 
@@ -24,7 +24,7 @@ Additionally, you will need a library for autocorrection.  A small sample librar
 
 By default, autocorrect is disabled.  To enable it, you need to use the `AC_TOGG` keycode to enable it. The status is stored in persistent memory, so you shouldn't need to enabled it again.
 
-## Customizing autocorrect library :id=customizing-autocorrect-library
+## Customizing autocorrect library {#customizing-autocorrect-library}
 
 To provide a custom library, you need to create a text file with the corrections.  For instance:
 
@@ -66,7 +66,7 @@ static const uint8_t autocorrect_data[DICTIONARY_SIZE] PROGMEM = {85, 7, 0, 23, 
     0};
 ```
 
-### Avoiding false triggers :id=avoiding-false-triggers
+### Avoiding false triggers {#avoiding-false-triggers}
 
 By default, typos are searched within words, to find typos within longer identifiers like maxFitlerOuput. While this is useful, a consequence is that autocorrection will falsely trigger when a typo happens to be a substring of a correctly-spelled word. For instance, if we had thier -> their as an entry, it would falsely trigger on (correct, though relatively uncommon) words like “wealthier” and “filthier.”
 
@@ -82,7 +82,9 @@ The solution is to set a word break : before and/or after the typo to constrain 
 
 The `qmk generate-autocorrect-data` commands can make an effort to check for entries that would false trigger as substrings of correct words. It searches each typo against a dictionary of 25K English words from the english_words Python package, provided it’s installed. (run `python3 -m pip install english_words` to install it.)
 
-?> Unfortunately, this is limited to just english words, at this point.
+::: tip
+Unfortunately, this is limited to just english words, at this point.
+:::
 
 ## Overriding Autocorrect
 
@@ -96,7 +98,7 @@ This works because the autocorrection implementation doesn’t understand hotkey
 
 Additionally, you can use the `AC_TOGG` keycode to toggle the on/off status for Autocorrect.
 
-### Keycodes :id=keycodes
+### Keycodes {#keycodes}
 
 |Keycode                |Aliases  |Description                                   |
 |-----------------------|---------|----------------------------------------------|
@@ -110,7 +112,9 @@ Additionally, you can use the `AC_TOGG` keycode to toggle the on/off status for 
 
 Callback function `bool process_autocorrect_user(uint16_t *keycode, keyrecord_t *record, uint8_t *typo_buffer_size, uint8_t *mods)` is available to customise incoming keycodes and handle exceptions. You can use this function to sanitise input before they are passed onto the autocorrect engine
 
-?> Sanitisation of input is required because autocorrect will only match 8-bit [basic keycodes](keycodes_basic.md) for typos. If valid modifier keys or 16-bit keycodes that are part of a user's word input (such as Shift + A) is passed through, they will fail typo letter detection. For example a [Mod-Tap](mod_tap.md) key such as `LCTL_T(KC_A)` is 16-bit and should be masked for the 8-bit `KC_A`.
+::: tip
+Sanitisation of input is required because autocorrect will only match 8-bit [basic keycodes](keycodes_basic) for typos. If valid modifier keys or 16-bit keycodes that are part of a user's word input (such as Shift + A) is passed through, they will fail typo letter detection. For example a [Mod-Tap](mod_tap) key such as `LCTL_T(KC_A)` is 16-bit and should be masked for the 8-bit `KC_A`.
+:::
 
 The default user callback function is found inside `quantum/process_keycode/process_autocorrect.c`. It covers most use-cases for QMK special functions and quantum keycodes, including [overriding autocorrect](#overriding-autocorrect) with a modifier other than shift. The `process_autocorrect_user` function is `weak` defined to allow user's copy inside `keymap.c` (or code files) to overwrite it.
 
@@ -145,11 +149,11 @@ bool process_autocorrect_user(uint16_t *keycode, keyrecord_t *record, uint8_t *t
         // Exclude tap-hold keys when they are held down
         // and mask for base keycode when they are tapped.
         case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
-#    ifdef NO_ACTION_LAYER
+# ifdef NO_ACTION_LAYER
             // Exclude Layer Tap, if layers are disabled
             // but action tapping is still enabled.
             return false;
-#    endif
+# endif
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
             // Exclude hold if mods other than Shift is not active
             if (!record->tap.count) {
@@ -194,13 +198,17 @@ bool process_autocorrect_user(uint16_t *keycode, keyrecord_t *record, uint8_t *t
 }
 ```
 
-?> In this callback function, `return false` will skip processing of that keycode for autocorrect. Adding `*typo_buffer_size = 0` will also reset the autocorrect buffer at the same time, cancelling any current letters already stored in the buffer.
+::: tip
+In this callback function, `return false` will skip processing of that keycode for autocorrect. Adding `*typo_buffer_size = 0` will also reset the autocorrect buffer at the same time, cancelling any current letters already stored in the buffer.
+:::
 
 ### Apply Autocorrect
 
 Additionally, `apply_autocorrect(uint8_t backspaces, const char *str, char *typo, char *correct)` allows for users to add additional handling to the autocorrection, or replace the functionality entirely. This passes on the number of backspaces needed to replace the words, as well as the replacement string (partial word, not the full word), and the typo and corrected strings (complete words).
 
-?> Due to the way code works (no notion of words, just a stream of letters), the `typo` and `correct` strings are a best bet and could be "wrong". For example you may get `wordtpyo` & `wordtypo` instead of the expected `tpyo` & `typo`. 
+::: tip
+Due to the way code works (no notion of words, just a stream of letters), the `typo` and `correct` strings are a best bet and could be "wrong". For example you may get `wordtpyo` & `wordtypo` instead of the expected `tpyo` & `typo`. 
+:::
 
 #### Apply Autocorrect Example
 
@@ -223,9 +231,13 @@ bool apply_autocorrect(uint8_t backspaces, const char *str, char *typo, char *co
 }
 ```
 
-?> In this callback function, `return false` will stop the normal processing of autocorrect, which requires manually handling of removing the "bad" characters and typing the new characters.
+::: tip
+In this callback function, `return false` will stop the normal processing of autocorrect, which requires manually handling of removing the "bad" characters and typing the new characters.
+:::
 
-!> ***IMPORTANT***: `str` is a pointer to `PROGMEM` data for the autocorrection.  If you return false, and want to send the string, this needs to use `send_string_P` and not `send_string` nor `SEND_STRING`.
+::: warning
+***IMPORTANT***: `str` is a pointer to `PROGMEM` data for the autocorrection.  If you return false, and want to send the string, this needs to use `send_string_P` and not `send_string` nor `SEND_STRING`.
+:::
 
 You can also use `apply_autocorrect` to detect and display the event but allow internal code to execute the autocorrection with `return true`:
 
@@ -253,13 +265,13 @@ Additional user callback functions to manipulate Autocorrect:
 | `autocorrect_is_enabled()` | Returns true if Autocorrect is currently on. |
 
 
-## Appendix: Trie binary data format :id=appendix
+## Appendix: Trie binary data format {#appendix}
 
 This section details how the trie is serialized to byte data in autocorrect_data. You don’t need to care about this to use this autocorrection implementation. But it is documented for the record in case anyone is interested in modifying the implementation, or just curious how it works.
 
 What I did here is fairly arbitrary, but it is simple to decode and gets the job done.
 
-### Encoding :id=encoding
+### Encoding {#encoding}
 
 All autocorrection data is stored in a single flat array autocorrect_data. Each trie node is associated with a byte offset into this array, where data for that node is encoded, beginning with root at offset 0. There are three kinds of nodes. The highest two bits of the first byte of the node indicate what kind:
 
@@ -299,7 +311,7 @@ If we were to encode this chain using the same format used for branching nodes, 
 +-------+-------+-------+-------+-------+-------+
 ```
 
-### Decoding :id=decoding
+### Decoding {#decoding}
 
 This format is by design decodable with fairly simple logic. A 16-bit variable state represents our current position in the trie, initialized with 0 to start at the root node. Then, for each keycode, test the highest two bits in the byte at state to identify the kind of node.
 

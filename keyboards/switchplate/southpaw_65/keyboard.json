@@ -19,6 +19,12 @@
         "nkro": false,
         "rgblight": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "backlight": {
         "pin": "B5",
         "levels": 10

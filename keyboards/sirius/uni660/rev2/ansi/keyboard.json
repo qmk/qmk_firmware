@@ -8,6 +8,15 @@
         "pid": "0x0202",
         "device_version": "20.0.4"
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": false,
+        "extrakey": true,
+        "console": true,
+        "command": true,
+        "nkro": true,
+        "unicode": true
+    },
     "processor": "atmega32u4",
     "bootloader": "caterina",
     "layouts": {

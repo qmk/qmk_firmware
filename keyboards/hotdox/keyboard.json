@@ -21,6 +21,12 @@
         "backlight": true,
         "unicode": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "tapping": {
       "toggle": 1
     },

@@ -1,11 +1,11 @@
-# Audio Driver :id=audio-driver
+# Audio Driver {#audio-driver}
 
-The [Audio feature](feature_audio.md) breaks the hardware specifics out into separate, exchangeable driver units, with a common interface to the audio-"core" - which itself handles playing songs and notes while tracking their progress in an internal state, initializing/starting/stopping the driver as needed.
+The [Audio feature](feature_audio) breaks the hardware specifics out into separate, exchangeable driver units, with a common interface to the audio-"core" - which itself handles playing songs and notes while tracking their progress in an internal state, initializing/starting/stopping the driver as needed.
 
 Not all MCUs support every available driver, either the platform-support is not there (yet?) or the MCU simply does not have the required hardware peripheral.
 
 
-## AVR :id=avr
+## AVR {#avr}
 
 Boards built around an Atmega32U4 can use two sets of PWM capable pins, each driving a separate speaker.
 The possible configurations are:
@@ -23,7 +23,7 @@ AUDIO_DRIVER = pwm_hardware
 ```
 
 
-## ARM :id=arm
+## ARM {#arm}
 
 For Arm based boards, QMK depends on ChibiOS - hence any MCU supported by the later is likely usable, as long as certain hardware peripherals are available.
 
@@ -50,7 +50,7 @@ piezo speakers are marked with :one: for the first/primary and :two: for the sec
 
 
 
-### DAC basic :id=dac-basic
+### DAC basic {#dac-basic}
 
 The default driver for ARM boards, in absence of an overriding configuration.
 This driver needs one Timer per enabled/used DAC channel, to trigger conversion; and a third timer to trigger state updates with the audio-core.
@@ -79,7 +79,9 @@ Additionally, in the board config, you'll want to make changes to enable the DAC
 #define STM32_GPT_USE_TIM8                  TRUE
 ```
 
-?> Note: DAC1 (A4) uses TIM6, DAC2 (A5) uses TIM7, and the audio state timer uses TIM8 (configurable). 
+::: tip
+Note: DAC1 (A4) uses TIM6, DAC2 (A5) uses TIM7, and the audio state timer uses TIM8 (configurable). 
+:::
 
 You can also change the timer used for the overall audio state by defining the driver.  For instance: 
 
@@ -87,7 +89,7 @@ You can also change the timer used for the overall audio state by defining the d
 #define AUDIO_STATE_TIMER GPTD9
 ```
 
-### DAC additive :id=dac-additive
+### DAC additive {#dac-additive}
 
 only needs one timer (GPTD6, Tim6) to trigger the DAC unit to do a conversion; the audio state updates are in turn triggered during the DAC callback.
 
@@ -131,7 +133,7 @@ There are a number of predefined quality settings that you can use, with "sane m
 | `AUDIO_DAC_QUALITY_VERY_HIGH`     | `88200U`    | `1`                 | `256U`      |
 | `AUDIO_DAC_QUALITY_SANE_MINIMUM`  | `16384U`    | `8`                 | `64U`       |
 
-#### Notes on buffer size :id=buffer-size
+#### Notes on buffer size {#buffer-size}
 
 By default, the buffer size attempts to keep to these constraints:
 
@@ -162,7 +164,7 @@ You can lower the buffer size if you need a bit more space in your firmware, or 
 ```
 
 
-### PWM hardware :id=pwm-hardware
+### PWM hardware {#pwm-hardware}
 
 This driver uses the ChibiOS-PWM system to produce a square-wave on specific output pins that are connected to the PWM hardware.
 The hardware directly toggles the pin via its alternate function. See your MCU's data-sheet for which pin can be driven by what timer - looking for TIMx_CHy and the corresponding alternate function.
@@ -205,7 +207,7 @@ You can also use the Complementary output (`TIMx_CHyN`) for PWM on supported con
 #define AUDIO_PWM_COMPLEMENTARY_OUTPUT
 ```
 
-### PWM software :id=pwm-software
+### PWM software {#pwm-software}
 
 This driver uses the PWM callbacks from PWMD1 with TIM1_CH1 to toggle the selected AUDIO_PIN in software.
 During the same callback, with AUDIO_PIN_ALT_AS_NEGATIVE set, the AUDIO_PIN_ALT is toggled inversely to AUDIO_PIN. This is useful for setups that drive a piezo from two pins (instead of one and Gnd).
@@ -217,7 +219,7 @@ You can also change the timer used for software PWM by defining the driver.  For
 ```
 
 
-### Testing Notes :id=testing-notes
+### Testing Notes {#testing-notes}
 
 While not an exhaustive list, the following table provides the scenarios that have been partially validated:
 
