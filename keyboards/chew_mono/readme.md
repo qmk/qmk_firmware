@@ -3,7 +3,7 @@
 [![Chew mono front photo](https://live.staticflickr.com/65535/53759880304_2e97179f76_b.jpg)](https://live.staticflickr.com/65535/53759880304_b9eb4130cf_o.png)  
 [![Chew mono front photo](https://live.staticflickr.com/65535/53759543226_57e3d6354f_b.jpg)](https://live.staticflickr.com/65535/53759543226_decbf17d2a_o.png)  
 
-A humble *monobloc* 34 key choc-spaced keyboard.
+A crunched *monobloc* 34 key choc-spaced keyboard.
 
 - Keyboard Maintainer: [Florent Linguenheld](https://github.com/flinguenheld/)
 - Visit the repository to get the last release: [Chew](https://github.com/flinguenheld/chew)
