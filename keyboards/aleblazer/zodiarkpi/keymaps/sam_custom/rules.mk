@@ -3,6 +3,10 @@ SRC += tapdance.c
 SRC += display.c
 SRC += lvgl_helpers.c
 SRC += rgb_matrix_user.c
+SRC += ui/ui.c \
+	   ui/ui_comp_hook.c \
+	   ui/ui_helpers.c \
+	   ui/ui_Screen1.c
 
 # Combo dictionary
 VPATH += keyboards/gboards
