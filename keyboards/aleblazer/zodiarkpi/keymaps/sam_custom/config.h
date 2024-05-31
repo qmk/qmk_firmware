@@ -133,3 +133,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Data synchronization
 #define SPLIT_LAYER_STATE_ENABLE
 #define SPLIT_TRANSACTION_IDS_KB RPC_CAPSWORD_SYNC
+#define SPLIT_MODS_ENABLE

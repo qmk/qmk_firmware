@@ -248,15 +248,17 @@ __attribute__((weak)) void display_housekeeping_task(void) {
         case _WINDOW:
             layer_name = "WINDOW";
             break;
-        default:
-            break;
     }
 
-    toggle_state(label_shift, LV_STATE_PRESSED, MODS_SHIFT);
-    toggle_state(label_ctrl, LV_STATE_PRESSED, MODS_CTRL);
-    toggle_state(label_alt, LV_STATE_PRESSED, MODS_ALT);
-    toggle_state(label_gui, LV_STATE_PRESSED, MODS_GUI);
-    toggle_state(label_capsword, LV_STATE_PRESSED, is_capsword_enabled);
-    snprintf(layer_buf, sizeof(layer_buf), "LAYER: %s", layer_name);
-    lv_label_set_text(label_curr_layer, layer_buf);
+
+    if (is_keyboard_left()) {
+      toggle_state(label_shift, LV_STATE_PRESSED, MODS_SHIFT);
+      toggle_state(label_ctrl, LV_STATE_PRESSED, MODS_CTRL);
+      toggle_state(label_alt, LV_STATE_PRESSED, MODS_ALT);
+      toggle_state(label_gui, LV_STATE_PRESSED, MODS_GUI);
+      toggle_state(label_capsword, LV_STATE_PRESSED, is_capsword_enabled);
+
+      snprintf(layer_buf, sizeof(layer_buf), "LAYER: %s", layer_name);
+      lv_label_set_text(label_curr_layer, layer_buf);
+    }
 }
