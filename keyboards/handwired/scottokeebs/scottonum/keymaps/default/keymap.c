@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Keymap
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT_numpad_4x5(
+    [0] = LAYOUT_numpad_5x4(
         KC_CIRCUMFLEX, KC_KP_SLASH, KC_KP_ASTERISK, KC_KP_MINUS,
         KC_KP_7,       KC_KP_8,      KC_KP_9,        KC_KP_PLUS,
         KC_KP_4,       KC_KP_5,      KC_KP_6,
