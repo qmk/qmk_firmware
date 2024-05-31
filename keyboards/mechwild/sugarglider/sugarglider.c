@@ -19,14 +19,14 @@ uint16_t          dpi_array[] = GLIDEPOINT_DPI_OPTIONS;
 void board_init(void) {
     // B9 is configured as I2C1_SDA in the board file; that function must be
     // disabled before using B7 as I2C1_SDA.
-    setPinInputHigh(B9);
-    setPinOutput(B12);
-    setPinOutput(B13);
-    setPinOutput(B14);
-    writePinLow(B12);
-    writePinLow(B13);
-    writePinLow(B14);
-    setPinOutput(C13);
+    gpio_set_pin_input_high(B9);
+    gpio_set_pin_output(B12);
+    gpio_set_pin_output(B13);
+    gpio_set_pin_output(B14);
+    gpio_write_pin_low(B12);
+    gpio_write_pin_low(B13);
+    gpio_write_pin_low(B14);
+    gpio_set_pin_output(C13);
 }
 
 #ifdef DYNAMIC_TAPPING_TERM_ENABLE
@@ -110,10 +110,10 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if(res) {
-        writePin(B12, led_state.num_lock);     // Updates status LEDs
-        writePin(B13, led_state.caps_lock);    // Updates status LEDs
-        writePin(B14, led_state.scroll_lock);  // Updates status LEDs
-        writePin(C13, !led_state.caps_lock);   // Updates status LEDs, this is the LED on the blackpill itself
+        gpio_write_pin(B12, led_state.num_lock);     // Updates status LEDs
+        gpio_write_pin(B13, led_state.caps_lock);    // Updates status LEDs
+        gpio_write_pin(B14, led_state.scroll_lock);  // Updates status LEDs
+        gpio_write_pin(C13, !led_state.caps_lock);   // Updates status LEDs, this is the LED on the blackpill itself
     }
     return res;
 }

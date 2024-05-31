@@ -52,6 +52,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RGB_HUD, RGB_HUI, BL_ON,
         RGB_SAD, RGB_SAI, BL_OFF,  _______,
         RGB_VAD, RGB_VAI, BL_STEP,
-        _______,          QK_BOOT,   _______
+        _______,          QK_BOOT, _______
     )
 };

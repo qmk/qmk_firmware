@@ -41,8 +41,6 @@ void pca9505_init(uint8_t slave_addr) {
     }
 
     // TODO: could check device connected
-    // i2c_start(SLAVE_TO_ADDR(slave) | I2C_WRITE);
-    // i2c_stop();
 }
 
 bool pca9505_set_config(uint8_t slave_addr, pca9505_port_t port, uint8_t conf) {
@@ -66,7 +64,7 @@ bool pca9505_set_config(uint8_t slave_addr, pca9505_port_t port, uint8_t conf) {
             break;
     }
 
-    i2c_status_t ret = i2c_writeReg(addr, cmd, &conf, sizeof(conf), TIMEOUT);
+    i2c_status_t ret = i2c_write_register(addr, cmd, &conf, sizeof(conf), TIMEOUT);
     if (ret != I2C_STATUS_SUCCESS) {
         print("pca9505_set_config::FAILED\n");
         return false;
@@ -96,7 +94,7 @@ bool pca9505_set_polarity(uint8_t slave_addr, pca9505_port_t port, uint8_t conf)
             break;
     }
 
-    i2c_status_t ret = i2c_writeReg(addr, cmd, &conf, sizeof(conf), TIMEOUT);
+    i2c_status_t ret = i2c_write_register(addr, cmd, &conf, sizeof(conf), TIMEOUT);
     if (ret != I2C_STATUS_SUCCESS) {
         print("pca9505_set_polarity::FAILED\n");
         return false;
@@ -126,7 +124,7 @@ bool pca9505_set_output(uint8_t slave_addr, pca9505_port_t port, uint8_t conf) {
             break;
     }
 
-    i2c_status_t ret = i2c_writeReg(addr, cmd, &conf, sizeof(conf), TIMEOUT);
+    i2c_status_t ret = i2c_write_register(addr, cmd, &conf, sizeof(conf), TIMEOUT);
     if (ret != I2C_STATUS_SUCCESS) {
         print("pca9505_set_output::FAILED\n");
         return false;
@@ -135,7 +133,7 @@ bool pca9505_set_output(uint8_t slave_addr, pca9505_port_t port, uint8_t conf) {
     return true;
 }
 
-bool pca9505_readPins(uint8_t slave_addr, pca9505_port_t port, uint8_t* out) {
+bool pca9505_read_pins(uint8_t slave_addr, pca9505_port_t port, uint8_t* out) {
     uint8_t addr = SLAVE_TO_ADDR(slave_addr);
     uint8_t cmd  = 0;
     switch (port) {
@@ -156,9 +154,9 @@ bool pca9505_readPins(uint8_t slave_addr, pca9505_port_t port, uint8_t* out) {
             break;
     }
 
-    i2c_status_t ret = i2c_readReg(addr, cmd, out, sizeof(uint8_t), TIMEOUT);
+    i2c_status_t ret = i2c_read_register(addr, cmd, out, sizeof(uint8_t), TIMEOUT);
     if (ret != I2C_STATUS_SUCCESS) {
-        print("pca9505_readPins::FAILED\n");
+        print("pca9505_read_pins::FAILED\n");
         return false;
     }
 
