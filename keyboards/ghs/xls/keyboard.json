@@ -35,7 +35,6 @@
             {"pin_a": "F0", "pin_b": "F1"}
         ]
     },
-    "community_layouts": ["numpad_6x4"],
     "layouts": {
         "LAYOUT_numpad_6x4": {
             "layout": [
