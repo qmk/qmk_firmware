@@ -20,8 +20,9 @@
 #include "report.h"
 
 typedef struct {
-    bool tap_enable;
     bool circular_scroll_enable;
+    bool dpad_mode_enable;
+    bool tap_enable;
 } cirque_pinnacle_features_t;
 
 #if defined(CIRQUE_PINNACLE_TAP_ENABLE) && CIRQUE_PINNACLE_POSITION_MODE
@@ -104,6 +105,26 @@ void cirque_pinnacle_enable_cursor_glide(bool enable);
  * @param trigger_px Movement required to trigger cursor glide, set this to non-zero if you have some amount of hover.
  */
 void cirque_pinnacle_configure_cursor_glide(float trigger_px);
+#endif
+
+#if defined(CIRQUE_PINNACLE_DPAD_MODE_ENABLE)
+typedef enum { DPAD_UP = 1, DPAD_LEFT = 3, DPAD_RIGHT = 5, DPAD_DOWN = 7 } dpad_key_t;
+
+typedef struct {
+    bool   discrete; // discrete or blended key handling
+    int8_t keystate; // bitmask: D_R_L_U_
+} dpad_state_t;
+
+/* Enable/disable dpad mode */
+void cirque_pinnacle_enable_dpad_mode(bool enable);
+
+/*
+ * Configure dpad mode.
+ *
+ * The trackpad can be setup to act as a dpad with four virtual keys.
+ * @param discrete true: split into quadrants and only emit one key event per quadrant. false: split into octants and emit up to two keyevents when adjacent virtual keys would be pressed, "blending" them together to allow diagonal movement.
+ */
+void cirque_pinnacle_configure_dpad_mode(bool discrete);
 #endif
 
 /* Process available gestures */
