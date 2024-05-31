@@ -84,7 +84,7 @@ void eeprom_set_valid(bool valid) {
     eeprom_update_byte(((void *)EEPROM_VERSION_ADDR), valid ? EEPROM_VERSION : 0xFF);
 }
 
-void bootmagic_lite_reset_eeprom(void) {
+void bootmagic_reset_eeprom(void) {
     eeprom_set_valid(false); // Set the keyboard-specific EEPROM state as invalid
     eeconfig_disable();      // Set the TMK/QMK EEPROM state as invalid
 }
@@ -95,7 +95,7 @@ void matrix_init_kb(void) {
     usb_mux_init();
 
     if (!eeprom_is_valid()) {
-        // eeprom_set_valid(false);      // Set the magic number to `false', in case this gets interrupted
+        //eeprom_set_valid(false);      // Set the magic number to `false', in case this gets interrupted
         dynamic_keymap_reset();       // Reset the keymaps in EEPROM to what is in flash
         dynamic_keymap_macro_reset(); // Reset the macros in EEPROM to nothing
         system76_ec_rgb_eeprom(true); // Populate System76 per-layer RGB matrix settings
@@ -104,9 +104,11 @@ void matrix_init_kb(void) {
         system76_ec_rgb_eeprom(false); // Read System76 per-layer RGB matrix settings
     }
 
-    system76_ec_rgb_layer(layer_state);
-
     matrix_init_user();
+}
+
+void keyboard_post_init_user(void) {
+    system76_ec_rgb_layer(layer_state);
 }
 
 void matrix_scan_kb(void) {
