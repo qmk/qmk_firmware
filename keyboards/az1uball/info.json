@@ -1,7 +1,7 @@
 {
-    "manufacturer": "k-jun",
-    "keyboard_name": "snowdrop43",
-    "maintainer": "k-jun",
+    "manufacturer": "Yuta Sakai",
+    "keyboard_name": "az1uball",
+    "maintainer": "unbosoms",
     "bootloader": "caterina",
     "diode_direction": "COL2ROW",
     "features": {
@@ -13,24 +13,22 @@
         "nkro": true
     },
     "matrix_pins": {
-        "cols": ["F4", "F5", "F6", "F7", "B1", "B3"],
-        "rows": ["D4", "C6", "D7", "E6"]
+        "cols": ["B5"],
+        "rows": ["E6"]
     },
     "processor": "atmega32u4",
     "url": "",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x0000",
+        "pid": "0x5953",
         "vid": "0xFEED"
     },
-    "split": {
-        "enabled": true
-    },
     "layouts": {
-        "LAYOUT_1x1": {
+        "LAYOUT_ortho_1x1": {
             "layout": [
-                {"matrix": [0, 0], "x": 0, "y": 0}
+                {"matrix": [0, 0], "label": "Mouse Left Click", "x": 0, "y": 0}
             ]
         }
     }
 }
+
