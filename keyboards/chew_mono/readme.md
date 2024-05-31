@@ -1,27 +1,37 @@
-# chew_mono
+## Chew Mono
 
-![chew_mono](imgur.com image replace me!)
+[![Chew mono front photo](https://live.staticflickr.com/65535/53759880304_2e97179f76_b.jpg)](https://live.staticflickr.com/65535/53759880304_b9eb4130cf_o.png)  
+[![Chew mono front photo](https://live.staticflickr.com/65535/53759543226_57e3d6354f_b.jpg)](https://live.staticflickr.com/65535/53759543226_decbf17d2a_o.png)  
 
-*A short description of the keyboard/project*
+A humble *monobloc* 34 key choc-spaced keyboard.
 
-* Keyboard Maintainer: [Florent Linguenheld](https://github.com/flinguenheld)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+- Keyboard Maintainer: [Florent Linguenheld](https://github.com/flinguenheld/)
+- Visit the repository to get the last release: [Chew](https://github.com/flinguenheld/chew)
+- Read the wiki to have some help or information: [Chew wiki](https://github.com/flinguenheld/chew/wiki)
 
-Make example for this keyboard (after setting up your build environment):
 
-    make chew_mono:default
+![fox](https://github.com/flinguenheld/chew/blob/main/images/fox_brown.png?raw=true)
 
-Flashing example for this keyboard:
+### Requirements
 
-    make chew_mono:default:flash
+- 1x PCB
+- 1x MCU board [RP2040-Zero](https://www.waveshare.com/wiki/RP2040-Zero)
+- 34x [1N4148W SMD diodes](https://splitkb.com/collections/keyboard-parts/products/smd-diodes)
+- 34x switches Choc V1 **only**
+- 34x keycaps Choc V1
 
-See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+Optional:
+- 18x [Mill Max sockets](https://splitkb.com/collections/keyboard-parts/products/mill-max-low-profile-sockets)
+- 34x [kailh hotswap sockets](https://cdn.shopify.com/s/files/1/0588/1108/9090/files/5118-Choc-Socket.pdf?v=1686715063)
+- 1x Back PCB + screws and bolts
 
-## Bootloader
+### Bootloader
 
-Enter the bootloader in 3 ways:
+The controller has two buttons, so you can enter the bootloader in 2 ways:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
-* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
+- Maintain the **boot** button and plug the usb cable in.
+- Press twice the **reset** button.
+
+![sausages](https://github.com/flinguenheld/chew/blob/main/images/sausages.png?raw=true)  
+
+[![Chew mono back photo](https://live.staticflickr.com/65535/53758638612_167c55f840_o.png)](https://live.staticflickr.com/65535/53758638612_167c55f840_o.png)

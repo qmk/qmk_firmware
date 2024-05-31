@@ -12,7 +12,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ├───┼───┼───┼───┼───┴───┼───┼───┼───┼───┤
      * │ Z │ X │ C │ V │       │ M │ , │ . │ / │
      * └───┴───┼───┼───┼───┬───┼───┼───┼───┴───┘
-     *         │ B │Bsp│Alt│   │Ent│ N │
+     *         │ B │Bsp│Alt│ ␣ │Ent│ N │
      *         └───┴───┴───┴───┴───┴───┘
      */
     [0] = LAYOUT(
