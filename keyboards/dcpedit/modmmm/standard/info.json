@@ -1,6 +1,5 @@
 {
     "keyboard_name": "Mod Mmm",
-    "url": "https://github.com/dcpedit/mod-mmm",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x1770",

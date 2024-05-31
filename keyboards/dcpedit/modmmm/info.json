@@ -1,4 +1,5 @@
 {
+    "url": "https://github.com/dcpedit/mod-mmm",
     "manufacturer": "dcpedit",
     "maintainer": "dcpedit",
     "board": "BLACKPILL_STM32_F411",
