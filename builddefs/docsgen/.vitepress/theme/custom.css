@@ -9,7 +9,7 @@ kbd {
 :root {
     --vp-nav-logo-height: 32px;
 
-    --vp-layout-max-width: calc(100% + 64px);
+    --vp-layout-max-width: calc(98% + 64px);
 
     --vp-sidebar-width: 300px;
 }
