@@ -207,7 +207,7 @@ qmk format-python
 We use [yapf](https://github.com/google/yapf) to automatically format code. Our configuration is in the `[yapf]` section of `setup.cfg`.
 
 ::: tip
-Tip- Many editors can use yapf as a plugin to automatically format code as you type.
+Many editors can use yapf as a plugin to automatically format code as you type.
 :::
 
 ## Testing Details
@@ -217,7 +217,7 @@ Our tests can be found in `lib/python/qmk/tests/`. You will find both unit and i
 If your PR does not include a comprehensive set of tests please add comments like this to your code so that other people know where they can help:
 
 ```python
-    # TODO(unassigned/<your_github_username>): Write <unit|integration> tests
+# TODO(unassigned/<your_github_username>): Write <unit|integration> tests
 ```
 
 We use [nose2](https://nose2.readthedocs.io/en/latest/getting_started.html) to run our tests. You can refer to the nose2 documentation for more details on what you can do in your test functions.

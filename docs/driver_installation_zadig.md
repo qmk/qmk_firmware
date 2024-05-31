@@ -65,7 +65,7 @@ Run `pnputil /delete-driver oemXX.inf /uninstall`. This will delete the driver a
 As with the previous section, this process may need to be repeated multiple times, as multiple drivers can be applicable to the same device.
 
 ::: warning
-**WARNING:** Be *extremely careful* when doing this! You could potentially uninstall the driver for some other critical device. If you are unsure, double check the output of `/enum-drivers`, and omit the `/uninstall` flag when running `/delete-driver`.
+Be *extremely careful* when doing this! You could potentially uninstall the driver for some other critical device. If you are unsure, double check the output of `/enum-drivers`, and omit the `/uninstall` flag when running `/delete-driver`.
 :::
 
 ## List of Known Bootloaders
