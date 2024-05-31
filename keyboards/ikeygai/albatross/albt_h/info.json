@@ -32,12 +32,7 @@
     "diode_direction": "COL2ROW",
     "processor": "STM32F401",
     "bootloader": "stm32-dfu",
-    "community_layouts": [
-        "tkl_f13_ansi",
-        "tkl_f13_ansi_split_bs_rshift",
-        "tkl_f13_ansi_tsangan",
-        "tkl_f13_ansi_tsangan_split_bs_rshift"
-    ],
+    "community_layouts": ["tkl_f13_ansi", "tkl_f13_ansi_split_bs_rshift", "tkl_f13_ansi_tsangan", "tkl_f13_ansi_tsangan_split_bs_rshift", "tkl_f13_ansi_wkl", "tkl_f13_ansi_wkl_split_bs_rshift"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
