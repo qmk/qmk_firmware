@@ -23,8 +23,8 @@
     "url": "https://skdevices.pl",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x0001",
-        "vid": "0x5301"
+        "pid": "0xA4CE",
+        "vid": "0x0483"
     },
     "encoder": {
         "rotary": [

@@ -1,3 +1,6 @@
+// Copyright 2024 ksmosna (@ksmosna)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include "quantum.h"
 #include "i2c_master.h"
 #include "drivers/led/issi/is31fl3733.h"
