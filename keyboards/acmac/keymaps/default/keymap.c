@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * │   │   │   │   || 0 | . | ' |Ent|
      * └───┴───┴───┴───┘└───┴───┴───┴───┘
      */
-    [0] = LAYOUT_ortho_6x8(
+    [0] = LAYOUT (
         KC_ESC,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_DEL,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PAST, KC_PSLS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_P7,   KC_P8,   KC_P9,   KKC_PMNS,
@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MO_(1), KC_TRNS, KC_TRNS, KC_TRNS, KC_P0,   KC_PDOT, KC_COMM, KC_PENT
     ),
 
-    [1] = LAYOUT_ortho_6x8 (
+    [1] = LAYOUT (
         _______,  _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______,
@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 
-    [2] = LAYOUT_ortho_6x8 (
+    [2] = LAYOUT (
         _______,  _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______,
@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MO_(3),  _______, _______, _______, _______, _______, _______, _______,
     ),
 
-    [3] = LAYOUT_ortho_6x8 (
+    [3] = LAYOUT (
         _______,  _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______,
