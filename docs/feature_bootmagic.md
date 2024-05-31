@@ -1,4 +1,4 @@
-# Bootmagic :id=bootmagic
+# Bootmagic {#bootmagic}
 
 The Bootmagic feature that only handles jumping into the bootloader. This is great for boards that don't have a physical reset button, giving you a way to jump into the bootloader
 
@@ -19,11 +19,13 @@ By default, these are set to 0 and 0, which is usually the "ESC" key on a majori
 
 And to trigger the bootloader, you hold this key down when plugging the keyboard in. Just the single key.
 
-!> Using Bootmagic will **always reset** the EEPROM, so you will lose any settings that have been saved.
+::: warning
+Using Bootmagic will **always reset** the EEPROM, so you will lose any settings that have been saved.
+:::
 
 ## Split Keyboards
 
-When [handedness](feature_split_keyboard.md#setting-handedness) is predetermined via options like `SPLIT_HAND_PIN` or `EE_HANDS`, you might need to configure a different key between halves. To identify the correct key for the right half, examine the split key matrix defined in the `<keyboard>.h` file, e.g.:
+When [handedness](feature_split_keyboard#setting-handedness) is predetermined via options like `SPLIT_HAND_PIN` or `EE_HANDS`, you might need to configure a different key between halves. To identify the correct key for the right half, examine the split key matrix defined in the `<keyboard>.h` file, e.g.:
 
 ```c
 #define LAYOUT_split_3x5_2( \
@@ -51,7 +53,9 @@ If you pick the top right key for the right half, it is `R05` on the top layout.
 #define BOOTMAGIC_COLUMN_RIGHT 4
 ```
 
-?> These values are not set by default.
+::: tip
+These values are not set by default.
+:::
 
 ## Advanced Bootmagic
 
@@ -76,6 +80,6 @@ You can define additional logic here. For instance, resetting the EEPROM or requ
 
 ## Addenda
 
-To manipulate settings that were formerly configured through the now-deprecated full Bootmagic feature, see [Magic Keycodes](keycodes_magic.md).
+To manipulate settings that were formerly configured through the now-deprecated full Bootmagic feature, see [Magic Keycodes](keycodes_magic).
 
-The Command feature, formerly known as Magic, also allows you to control different aspects of your keyboard. While it shares some functionality with Magic Keycodes, it also allows you to do things that Magic Keycodes cannot, such as printing version information to the console. For more information, see [Command](feature_command.md).
+The Command feature, formerly known as Magic, also allows you to control different aspects of your keyboard. While it shares some functionality with Magic Keycodes, it also allows you to do things that Magic Keycodes cannot, such as printing version information to the console. For more information, see [Command](feature_command).

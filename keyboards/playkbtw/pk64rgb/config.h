@@ -19,11 +19,3 @@
 #define IS31FL3733_I2C_ADDRESS_1 IS31FL3733_I2C_ADDRESS_GND_GND
 
 #define RGB_MATRIX_LED_COUNT 64
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
-/* VIA related config */
-#define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 2

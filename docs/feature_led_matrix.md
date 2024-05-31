@@ -1,12 +1,12 @@
-# LED Matrix Lighting :id=led-matrix-lighting
+# LED Matrix Lighting {#led-matrix-lighting}
 
 This feature allows you to use LED matrices driven by external drivers. It hooks into the backlight system so you can use the same keycodes as backlighting to control it.
 
-If you want to use RGB LED's you should use the [RGB Matrix Subsystem](feature_rgb_matrix.md) instead.
+If you want to use RGB LED's you should use the [RGB Matrix Subsystem](feature_rgb_matrix) instead.
 
-## Driver configuration :id=driver-configuration
+## Driver configuration {#driver-configuration}
 ---
-### IS31FL3731 :id=is31fl3731
+### IS31FL3731 {#is31fl3731}
 
 There is basic support for addressable LED matrix lighting with the I2C IS31FL3731 LED controller. To enable it, add this to your `rules.mk`:
 
@@ -47,7 +47,9 @@ Here is an example using 2 drivers.
 #define LED_MATRIX_LED_COUNT (LED_DRIVER_1_LED_TOTAL + LED_DRIVER_2_LED_TOTAL)
 ```
 
-!> Note the parentheses, this is so when `LED_MATRIX_LED_COUNT` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (LED_DRIVER_1_LED_TOTAL + LED_DRIVER_2_LED_TOTAL)` will give very different results than `rand() % LED_DRIVER_1_LED_TOTAL + LED_DRIVER_2_LED_TOTAL`.
+::: warning
+Note the parentheses, this is so when `LED_MATRIX_LED_COUNT` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (LED_DRIVER_1_LED_TOTAL + LED_DRIVER_2_LED_TOTAL)` will give very different results than `rand() % LED_DRIVER_1_LED_TOTAL + LED_DRIVER_2_LED_TOTAL`.
+:::
 
 For split keyboards using `LED_MATRIX_SPLIT` with an LED driver, you can either have the same driver address or different driver addresses. If using different addresses, use `IS31FL3731_I2C_ADDRESS_1` for one and `IS31FL3731_I2C_ADDRESS_2` for the other one. Then, in `g_is31fl3731_leds`, fill out the correct driver index (0 or 1). If using one address, use `IS31FL3731_I2C_ADDRESS_1` for both, and use index 0 for `g_is31fl3731_leds`.
 
@@ -68,7 +70,7 @@ const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3731.pdf) and the header file `drivers/led/issi/is31fl3731-mono.h`. The `driver` is the index of the driver you defined in your `config.h` (`0`, `1`, `2`, or `3` ).
 
 ---
-### IS31FLCOMMON :id=is31flcommon
+### IS31FLCOMMON {#is31flcommon}
 
 There is basic support for addressable LED matrix lighting with a selection of I2C ISSI Lumissil LED controllers through a shared common driver. To enable it, add this to your `rules.mk`:
 
@@ -130,7 +132,9 @@ Here is an example using 2 drivers.
 #define DRIVER_2_LED_TOTAL 42
 #define LED_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 ```
-!> Note the parentheses, this is so when `LED_MATRIX_LED_COUNT` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)` will give very different results than `rand() % DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL`.
+::: warning
+Note the parentheses, this is so when `LED_MATRIX_LED_COUNT` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)` will give very different results than `rand() % DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL`.
+:::
 
 Currently only 4 drivers are supported, but it would be trivial to support for more. Note that using a combination of different drivers is not supported. All drivers must be of the same model.
 
@@ -170,7 +174,7 @@ Where LED Index is the position of the LED in the `g_is31_leds` array. The `scal
 
 ---
 
-## Common Configuration :id=common-configuration
+## Common Configuration {#common-configuration}
 
 From this point forward the configuration is the same for all the drivers. The `led_config_t` struct provides a key electrical matrix to led index lookup table, what the physical position of each LED is on the board, and what type of key or usage the LED if the LED represents. Here is a brief example:
 
@@ -203,7 +207,7 @@ As mentioned earlier, the center of the keyboard by default is expected to be `{
 
 `// LED Index to Flag` is a bitmask, whether or not a certain LEDs is of a certain type. It is recommended that LEDs are set to only 1 type.
 
-## Flags :id=flags
+## Flags {#flags}
 
 |Define                      |Value |Description                                      |
 |----------------------------|------|-------------------------------------------------|
@@ -215,20 +219,21 @@ As mentioned earlier, the center of the keyboard by default is expected to be `{
 |`LED_FLAG_KEYLIGHT`         |`0x04`|If the LED is for key backlight                  |
 |`LED_FLAG_INDICATOR`        |`0x08`|If the LED is for keyboard state indication      |
 
-## Keycodes :id=keycodes
+## Keycodes {#keycodes}
 
-All LED matrix keycodes are currently shared with the [Backlight feature](feature_backlight.md).
+|Key                            |Aliases  |Description                        |
+|-------------------------------|---------|-----------------------------------|
+|`QK_LED_MATRIX_ON`             |`LM_ON`  |Turn on LED Matrix                 |
+|`QK_LED_MATRIX_OFF`            |`LM_OFF` |Turn off LED Matrix                |
+|`QK_LED_MATRIX_TOGGLE`         |`LM_TOGG`|Toggle LED Matrix on or off        |
+|`QK_LED_MATRIX_MODE_NEXT`      |`LM_NEXT`|Cycle through animations           |
+|`QK_LED_MATRIX_MODE_PREVIOUS`  |`LM_PREV`|Cycle through animations in reverse|
+|`QK_LED_MATRIX_BRIGHTNESS_UP`  |`LM_BRIU`|Increase the brightness level      |
+|`QK_LED_MATRIX_BRIGHTNESS_DOWN`|`LM_BRID`|Decrease the brightness level      |
+|`QK_LED_MATRIX_SPEED_UP`       |`LM_SPDU`|Increase the animation speed       |
+|`QK_LED_MATRIX_SPEED_DOWN`     |`LM_SPDD`|Decrease the animation speed       |
 
-| Key                     | Aliases   | Description                   |
-|-------------------------|-----------|-------------------------------|
-| `QK_BACKLIGHT_TOGGLE`   | `BL_TOGG` | Toggle LED Matrix on or off   |
-| `QK_BACKLIGHT_STEP`     | `BL_STEP` | Cycle through modes           |
-| `QK_BACKLIGHT_ON`       | `BL_ON`   | Turn on LED Matrix            |
-| `QK_BACKLIGHT_OFF`      | `BL_OFF`  | Turn off LED Matrix           |
-| `QK_BACKLIGHT_UP`       | `BL_UP`   | Increase the brightness level |
-| `QK_BACKLIGHT_DOWN`     | `BL_DOWN` | Decrease the brightness level |
-
-## LED Matrix Effects :id=led-matrix-effects
+## LED Matrix Effects {#led-matrix-effects}
 
 These are the effects that are currently available:
 
@@ -289,9 +294,11 @@ You can enable a single effect by defining `ENABLE_[EFFECT_NAME]` in your `confi
 |`#define ENABLE_LED_MATRIX_SOLID_SPLASH`               |Enables `LED_MATRIX_SOLID_SPLASH`             |
 |`#define ENABLE_LED_MATRIX_SOLID_MULTISPLASH`          |Enables `LED_MATRIX_SOLID_MULTISPLASH`        |
 
-?> These modes introduce additional logic that can increase firmware size.
+::: tip
+These modes introduce additional logic that can increase firmware size.
+:::
 
-## Custom LED Matrix Effects :id=custom-led-matrix-effects
+## Custom LED Matrix Effects {#custom-led-matrix-effects}
 
 By setting `LED_MATRIX_CUSTOM_USER` (and/or `LED_MATRIX_CUSTOM_KB`) in `rules.mk`, new effects can be defined directly from userspace, without having to edit any QMK core files.
 
@@ -352,7 +359,7 @@ static bool my_cool_effect2(effect_params_t* params) {
 For inspiration and examples, check out the built-in effects under `quantum/led_matrix/animations/`.
 
 
-## Additional `config.h` Options :id=additional-configh-options
+## Additional `config.h` Options {#additional-configh-options}
 
 ```c
 #define LED_MATRIX_KEYRELEASES // reactive effects respond to keyreleases (instead of keypresses)
@@ -370,17 +377,17 @@ For inspiration and examples, check out the built-in effects under `quantum/led_
                                     // If reactive effects are enabled, you also will want to enable SPLIT_TRANSPORT_MIRROR
 ```
 
-## EEPROM storage :id=eeprom-storage
+## EEPROM storage {#eeprom-storage}
 
 The EEPROM for it is currently shared with the RGB Matrix system (it's generally assumed only one feature would be used at a time).
 
-### Direct Operation :id=direct-operation
+### Direct Operation {#direct-operation}
 |Function                                    |Description  |
 |--------------------------------------------|-------------|
 |`led_matrix_set_value_all(v)`         |Set all of the LEDs to the given value, where `v` is between 0 and 255 (not written to EEPROM) |
 |`led_matrix_set_value(index, v)`      |Set a single LED to the given value, where `v` is between 0 and 255, and `index` is between 0 and `LED_MATRIX_LED_COUNT` (not written to EEPROM) |
 
-### Disable/Enable Effects :id=disable-enable-effects
+### Disable/Enable Effects {#disable-enable-effects}
 |Function                                    |Description  |
 |--------------------------------------------|-------------|
 |`led_matrix_toggle()`                       |Toggle effect range LEDs between on and off |
@@ -390,7 +397,7 @@ The EEPROM for it is currently shared with the RGB Matrix system (it's generally
 |`led_matrix_disable()`                      |Turn effect range LEDs off, based on their previous state |
 |`led_matrix_disable_noeeprom()`             |Turn effect range LEDs off, based on their previous state (not written to EEPROM) |
 
-### Change Effect Mode :id=change-effect-mode
+### Change Effect Mode {#change-effect-mode}
 |Function                                    |Description  |
 |--------------------------------------------|-------------|
 |`led_matrix_mode(mode)`                     |Set the mode, if LED animations are enabled |
@@ -406,7 +413,7 @@ The EEPROM for it is currently shared with the RGB Matrix system (it's generally
 |`led_matrix_set_speed(speed)`               |Set the speed of the animations to the given value where `speed` is between 0 and 255 |
 |`led_matrix_set_speed_noeeprom(speed)`      |Set the speed of the animations to the given value where `speed` is between 0 and 255 (not written to EEPROM) |
 
-### Change Value :id=change-value
+### Change Value {#change-value}
 |Function                                    |Description  |
 |--------------------------------------------|-------------|
 |`led_matrix_increase_val()`                 |Increase the value for effect range LEDs. This wraps around at maximum value |
@@ -414,7 +421,7 @@ The EEPROM for it is currently shared with the RGB Matrix system (it's generally
 |`led_matrix_decrease_val()`                 |Decrease the value for effect range LEDs. This wraps around at minimum value |
 |`led_matrix_decrease_val_noeeprom()`        |Decrease the value for effect range LEDs. This wraps around at minimum value (not written to EEPROM) |
 
-### Query Current Status :id=query-current-status
+### Query Current Status {#query-current-status}
 |Function                         |Description                |
 |---------------------------------|---------------------------|
 |`led_matrix_is_enabled()`        |Gets current on/off status |
@@ -423,9 +430,9 @@ The EEPROM for it is currently shared with the RGB Matrix system (it's generally
 |`led_matrix_get_speed()`         |Gets current speed         |
 |`led_matrix_get_suspend_state()` |Gets current suspend state |
 
-## Callbacks :id=callbacks
+## Callbacks {#callbacks}
 
-### Indicators :id=indicators
+### Indicators {#indicators}
 
 If you want to set custom indicators, such as an LED for Caps Lock, or layer indication, then you can use the `led_matrix_indicators_kb` function on the keyboard level source file, or `led_matrix_indicators_user` function in the user `keymap.c`.
 ```c

@@ -73,11 +73,13 @@ layouts/
     }
 ```
 
+
 Additionally, for each Community Layout being added to `"layouts"`:
 - Array length of `"layout"` **must** match array length of respective Community Layout
 - key sequence (i.e. order of keys from top to bottom) and graphical properties of each key (i.e. `"x":`, `"y":`, `"w":`, `"h":`) should be identical to respective Community Layout
 
 Array length and key sequence for each Community Layout are located in `layouts/default/`*<community_layout>*`/info.json`.
+
 
 ## Compiling Community Layout keymap
 Compiling keyboard firmware with a keymap inside either Community Layout repository is identical to regular keymap compilation, with the difference of the keymap argument being *<community_layout_keymap>*: 
@@ -88,6 +90,7 @@ The following examples compile the "default" keymap for the repsective Community
 
     qmk compile -kb dztech/pluto -km default_tkl_nofrow_ansi
     qmk compile -kb dz60 -km default_60_iso
+
 
 ### Conflicting Keymaps
 When compiling a <community_layout_keymap> that has the same name in two or more <community_layouts> the target keyboard supports, this can result in the undesired keymap being compiled.
