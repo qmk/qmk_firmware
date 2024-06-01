@@ -34,8 +34,8 @@ enum layers {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BSE] = LAYOUT_split_3x6_3(
-    OSM(MOD_LSFT), KC_Q,          KC_W,         KC_E,          KC_R,          HYPR_T(KC_T),         HYPR_T(KC_Y),  KC_U,          KC_I,         KC_O,          KC_P,          KC_DEL,
-    SFT_T(KC_ENT), KC_A,          LT(U, KC_S),  LALT_T(KC_D),  LT(N, KC_F),   KC_G,                 KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(Y),
+    OSM(MOD_LSFT), KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                 KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          KC_DEL,
+    HYPR_T(KC_ENT),KC_A,          LT(U, KC_S),  LALT_T(KC_D),  LT(N, KC_F),   KC_G,                 KC_H,          GUI_T(KC_J),   KC_K,         KC_L,          KC_SCLN,       OSL(Y),
     KC_TAB,        KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,                 KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       C(G(KC_Q)),
                                                 CTL_T(KC_ESC), GUI_T(KC_SPC), QK_REP,               MEH_T(KC_ENT), SFT_T(KC_BSPC),OSL(M)
 ),
@@ -222,10 +222,10 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 // Convert mouse movement to scrolling.
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     const uint8_t cur_layer   = get_highest_layer(layer_state);
-    int8_t        slow_factor = 4;
+    int8_t        slow_factor = 8;
     if (cur_layer == _NUM) {
         // Decrease mouse sensitivity on num layer.
-        slow_factor = 8;
+        slow_factor = 16;
     }
     mouse_report.h = mouse_report.x;
     mouse_report.v = -mouse_report.y / slow_factor;
