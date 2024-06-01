@@ -205,4 +205,4 @@ Tips:
 
 ## Use with PS/2 Mouse and Pointing Device
 
-Mouse keys button state is shared with [PS/2 mouse](feature_ps2_mouse.md) and [pointing device](feature_pointing_device.md) so mouse keys button presses can be used for clicks and drags.
+Mouse keys button state is shared with [PS/2 mouse](feature_ps2_mouse) and [pointing device](feature_pointing_device) so mouse keys button presses can be used for clicks and drags.

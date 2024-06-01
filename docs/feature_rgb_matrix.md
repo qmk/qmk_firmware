@@ -1,12 +1,12 @@
-# RGB Matrix Lighting :id=rgb-matrix-lighting
+# RGB Matrix Lighting {#rgb-matrix-lighting}
 
 This feature allows you to use RGB LED matrices driven by external drivers. It hooks into the RGBLIGHT system so you can use the same keycodes as RGBLIGHT to control it.
 
-If you want to use single color LED's you should use the [LED Matrix Subsystem](feature_led_matrix.md) instead.
+If you want to use single color LED's you should use the [LED Matrix Subsystem](feature_led_matrix) instead.
 
-## Driver configuration :id=driver-configuration
+## Driver configuration {#driver-configuration}
 ---
-### IS31FL3731 :id=is31fl3731
+### IS31FL3731 {#is31fl3731}
 
 There is basic support for addressable RGB matrix lighting with the I2C IS31FL3731 RGB controller. To enable it, add this to your `rules.mk`:
 
@@ -48,7 +48,9 @@ Here is an example using 2 drivers.
 #define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 ```
 
-!> Note the parentheses, this is so when `RGB_MATRIX_LED_COUNT` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)` will give very different results than `rand() % DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL`.
+::: warning
+Note the parentheses, this is so when `RGB_MATRIX_LED_COUNT` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)` will give very different results than `rand() % DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL`.
+:::
 
 For split keyboards using `RGB_MATRIX_SPLIT` with an LED driver, you can either have the same driver address or different driver addresses. If using different addresses, use `IS31FL3731_I2C_ADDRESS_1` for one and `IS31FL3731_I2C_ADDRESS_2` for the other one. Then, in `g_is31fl3731_leds`, fill out the correct driver index (0 or 1). If using one address, use `IS31FL3731_I2C_ADDRESS_1` for both, and use index 0 for `g_is31fl3731_leds`.
 
@@ -70,7 +72,7 @@ const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3731.pdf) and the header file `drivers/led/issi/is31fl3731.h`. The `driver` is the index of the driver you defined in your `config.h` (`0`, `1`, `2`, or `3`).
 
 ---
-### IS31FL3733 :id=is31fl3733
+### IS31FL3733 {#is31fl3733}
 
 There is basic support for addressable RGB matrix lighting with the I2C IS31FL3733 RGB controller. To enable it, add this to your `rules.mk`:
 
@@ -132,7 +134,9 @@ Here is an example using 2 drivers.
 #define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 ```
 
-!> Note the parentheses, this is so when `RGB_MATRIX_LED_COUNT` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)` will give very different results than `rand() % DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL`.
+::: warning
+Note the parentheses, this is so when `RGB_MATRIX_LED_COUNT` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)` will give very different results than `rand() % DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL`.
+:::
 
 Currently only 4 drivers are supported, but it would be trivial to support all 8 combinations.
 
@@ -154,7 +158,7 @@ const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT] = {
 Where `SWx_CSy` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3733.pdf) and the header file `drivers/led/issi/is31fl3733.h`. The `driver` is the index of the driver you defined in your `config.h` (`0`, `1`, `2`, or `3` for now).
 
 ---
-### IS31FL3736 :id=is31fl3736
+### IS31FL3736 {#is31fl3736}
 
 There is basic support for addressable RGB matrix lighting with the I2C IS31FL3736 RGB controller. To enable it, add this to your `rules.mk`:
 
@@ -213,7 +217,9 @@ Here is an example using 2 drivers.
 #define DRIVER_2_LED_TOTAL 32
 #define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 ```
-!> Note the parentheses, this is so when `RGB_MATRIX_LED_COUNT` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)` will give very different results than `rand() % DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL`.
+::: warning
+Note the parentheses, this is so when `RGB_MATRIX_LED_COUNT` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)` will give very different results than `rand() % DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL`.
+:::
 
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
@@ -229,7 +235,7 @@ const is31fl3736_led_t PROGMEM g_is31fl3736_leds[IS31FL3736_LED_COUNT] = {
     ....
 }
 ```
-### IS31FL3737 :id=is31fl3737
+### IS31FL3737 {#is31fl3737}
 
 There is basic support for addressable RGB matrix lighting with the I2C IS31FL3737 RGB controller. To enable it, add this to your `rules.mk`:
 
@@ -287,7 +293,9 @@ Here is an example using 2 drivers.
 #define DRIVER_2_LED_TOTAL 36
 #define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 ```
-!> Note the parentheses, this is so when `RGB_MATRIX_LED_COUNT` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)` will give very different results than `rand() % DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL`.
+::: warning
+Note the parentheses, this is so when `RGB_MATRIX_LED_COUNT` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)` will give very different results than `rand() % DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL`.
+:::
 
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
@@ -307,7 +315,7 @@ const is31fl3737_led_t PROGMEM g_is31fl3737_leds[IS31FL3737_LED_COUNT] = {
 Where `SWx_CSy` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3737.pdf) and the header file `drivers/led/issi/is31fl3737.h`. The `driver` is the index of the driver you defined in your `config.h` (Only `0`, `1`, `2`, or `3` for now).
 
 ---
-### IS31FLCOMMON :id=is31flcommon
+### IS31FLCOMMON {#is31flcommon}
 
 There is basic support for addressable RGB matrix lighting with a selection of I2C ISSI Lumissil RGB controllers through a shared common driver. To enable it, add this to your `rules.mk`:
 
@@ -372,7 +380,9 @@ Here is an example using 2 drivers.
 #define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 ```
 
-!> Note the parentheses, this is so when `RGB_MATRIX_LED_COUNT` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)` will give very different results than `rand() % DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL`.
+::: warning
+Note the parentheses, this is so when `RGB_MATRIX_LED_COUNT` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)` will give very different results than `rand() % DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL`.
+:::
 
 Currently only 4 drivers are supported, but it would be trivial to support for more. Note that using a combination of different drivers is not supported. All drivers must be of the same model.
 
@@ -415,7 +425,7 @@ Where LED Index is the position of the LED in the `g_is31_leds` array. The `scal
 
 ---
 
-### WS2812 :id=ws2812
+### WS2812 {#ws2812}
 
 There is basic support for addressable RGB matrix lighting with a WS2811/WS2812{a,b,c} addressable LED strand. To enable it, add this to your `rules.mk`:
 
@@ -433,11 +443,13 @@ Configure the hardware via your `config.h`:
 #define RGB_MATRIX_LED_COUNT 70
 ```
 
-?> There are additional configuration options for ARM controllers that offer increased performance over the default bitbang driver. Please see [WS2812 Driver](ws2812_driver.md) for more information.
+::: tip
+There are additional configuration options for ARM controllers that offer increased performance over the default bitbang driver. Please see [WS2812 Driver](ws2812_driver) for more information.
+:::
 
 ---
 
-### APA102 :id=apa102
+### APA102 {#apa102}
 
 There is basic support for APA102 based addressable LED strands. To enable it, add this to your `rules.mk`:
 
@@ -458,7 +470,7 @@ Configure the hardware via your `config.h`:
 ```
 
 ---
-### AW20216S :id=aw20216s
+### AW20216S {#aw20216s}
 There is basic support for addressable RGB matrix lighting with the SPI AW20216S RGB controller. To enable it, add this to your `rules.mk`:
 
 ```make
@@ -496,7 +508,9 @@ Here is an example using 2 drivers.
 #define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 ```
 
-!> Note the parentheses, this is so when `RGB_MATRIX_LED_COUNT` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)` will give very different results than `rand() % DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL`.
+::: warning
+Note the parentheses, this is so when `RGB_MATRIX_LED_COUNT` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)` will give very different results than `rand() % DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL`.
+:::
 
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
@@ -527,7 +541,7 @@ const aw20216s_led_t PROGMEM g_aw20216s_leds[AW20216S_LED_COUNT] = {
 
 ---
 
-## Common Configuration :id=common-configuration
+## Common Configuration {#common-configuration}
 
 From this point forward the configuration is the same for all the drivers. The `led_config_t` struct provides a key electrical matrix to led index lookup table, what the physical position of each LED is on the board, and what type of key or usage the LED if the LED represents. Here is a brief example:
 
@@ -560,7 +574,7 @@ As mentioned earlier, the center of the keyboard by default is expected to be `{
 
 `// LED Index to Flag` is a bitmask, whether or not a certain LEDs is of a certain type. It is recommended that LEDs are set to only 1 type.
 
-## Flags :id=flags
+## Flags {#flags}
 
 |Define                      |Value |Description                                      |
 |----------------------------|------|-------------------------------------------------|
@@ -573,7 +587,7 @@ As mentioned earlier, the center of the keyboard by default is expected to be `{
 |`LED_FLAG_KEYLIGHT`         |`0x04`|If the LED is for key backlight                  |
 |`LED_FLAG_INDICATOR`        |`0x08`|If the LED is for keyboard state indication      |
 
-## Keycodes :id=keycodes
+## Keycodes {#keycodes}
 
 All RGB keycodes are currently shared with the RGBLIGHT system:
 
@@ -599,12 +613,16 @@ All RGB keycodes are currently shared with the RGBLIGHT system:
 
 `RGB_MODE_PLAIN`, `RGB_MODE_BREATHE`, `RGB_MODE_RAINBOW`, and `RGB_MODE_SWIRL` are the only ones that are mapped properly. The rest don't have a direct equivalent, and are not mapped.
 
-?> `RGB_*` keycodes cannot be used with functions like `tap_code16(RGB_HUD)` as they're not USB HID keycodes. If you wish to replicate similar behaviour in custom code within your firmware (e.g. inside `encoder_update_user()` or `process_record_user()`), the equivalent [RGB functions](#functions) should be used instead.
+::: tip
+`RGB_*` keycodes cannot be used with functions like `tap_code16(RGB_HUD)` as they're not USB HID keycodes. If you wish to replicate similar behaviour in custom code within your firmware (e.g. inside `encoder_update_user()` or `process_record_user()`), the equivalent [RGB functions](#functions) should be used instead.
+:::
 
 
-!> By default, if you have both the [RGB Light](feature_rgblight.md) and the RGB Matrix feature enabled, these keycodes will work for both features, at the same time. You can disable the keycode functionality by defining the `*_DISABLE_KEYCODES` option for the specific feature.
+::: warning
+By default, if you have both the [RGB Light](feature_rgblight) and the RGB Matrix feature enabled, these keycodes will work for both features, at the same time. You can disable the keycode functionality by defining the `*_DISABLE_KEYCODES` option for the specific feature.
+:::
 
-## RGB Matrix Effects :id=rgb-matrix-effects
+## RGB Matrix Effects {#rgb-matrix-effects}
 
 All effects have been configured to support current configuration values (Hue, Saturation, Value, & Speed) unless otherwise noted below. These are the effects that are currently available:
 
@@ -709,7 +727,9 @@ You can enable a single effect by defining `ENABLE_[EFFECT_NAME]` in your `confi
 |`#define ENABLE_RGB_MATRIX_TYPING_HEATMAP`            |Enables `RGB_MATRIX_TYPING_HEATMAP`           |
 |`#define ENABLE_RGB_MATRIX_DIGITAL_RAIN`              |Enables `RGB_MATRIX_DIGITAL_RAIN`             |
 
-?> These modes introduce additional logic that can increase firmware size.
+::: tip
+These modes introduce additional logic that can increase firmware size.
+:::
 
 |Reactive Defines                                    |Description                                   |
 |------------------------------------------------------|----------------------------------------------|
@@ -726,10 +746,12 @@ You can enable a single effect by defining `ENABLE_[EFFECT_NAME]` in your `confi
 |`#define ENABLE_RGB_MATRIX_SOLID_SPLASH`              |Enables `RGB_MATRIX_SOLID_SPLASH`             |
 |`#define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH`         |Enables `RGB_MATRIX_SOLID_MULTISPLASH`        |
 
-?> These modes introduce additional logic that can increase firmware size.
+::: tip
+These modes introduce additional logic that can increase firmware size.
+:::
 
 
-### RGB Matrix Effect Typing Heatmap :id=rgb-matrix-effect-typing-heatmap
+### RGB Matrix Effect Typing Heatmap {#rgb-matrix-effect-typing-heatmap}
 
 This effect will color the RGB matrix according to a heatmap of recently pressed keys. Whenever a key is pressed its "temperature" increases as well as that of its neighboring keys. The temperature of each key is then decreased automatically every 25 milliseconds by default.
 
@@ -767,7 +789,7 @@ the number of keystrokes needed to fully heat up the key.
 #define RGB_MATRIX_TYPING_HEATMAP_INCREASE_STEP 32
 ```
 
-### RGB Matrix Effect Solid Reactive :id=rgb-matrix-effect-solid-reactive
+### RGB Matrix Effect Solid Reactive {#rgb-matrix-effect-solid-reactive}
 
 Solid reactive effects will pulse RGB light on key presses with user configurable hues. To enable gradient mode that will automatically change reactive color, add the following define:
 
@@ -777,11 +799,13 @@ Solid reactive effects will pulse RGB light on key presses with user configurabl
 
 Gradient mode will loop through the color wheel hues over time and its duration can be controlled with the effect speed keycodes (`RGB_SPI`/`RGB_SPD`).
 
-## Custom RGB Matrix Effects :id=custom-rgb-matrix-effects
+## Custom RGB Matrix Effects {#custom-rgb-matrix-effects}
 
 By setting `RGB_MATRIX_CUSTOM_USER = yes` in `rules.mk`, new effects can be defined directly from your keymap or userspace, without having to edit any QMK core files. To declare new effects, create a `rgb_matrix_user.inc` file in the user keymap directory or userspace folder.
 
-?> Hardware maintainers who want to limit custom effects to a specific keyboard can create a `rgb_matrix_kb.inc` file in the root of the keyboard directory, and add `RGB_MATRIX_CUSTOM_KB = yes` to the keyboard level `rules.mk`.
+::: tip
+Hardware maintainers who want to limit custom effects to a specific keyboard can create a `rgb_matrix_kb.inc` file in the root of the keyboard directory, and add `RGB_MATRIX_CUSTOM_KB = yes` to the keyboard level `rules.mk`.
+:::
 
 To use custom effects in your code, simply prepend `RGB_MATRIX_CUSTOM_` to the effect name specified in `RGB_MATRIX_EFFECT()`. For example, an effect declared as `RGB_MATRIX_EFFECT(my_cool_effect)` would be referenced with:
 
@@ -835,7 +859,7 @@ static bool my_cool_effect2(effect_params_t* params) {
 For inspiration and examples, check out the built-in effects under `quantum/rgb_matrix/animations/`.
 
 
-## Colors :id=colors
+## Colors {#colors}
 
 These are shorthands to popular colors. The `RGB` ones can be passed to the `setrgb` functions, while the `HSV` ones to the `sethsv` functions.
 
@@ -864,7 +888,7 @@ These are shorthands to popular colors. The `RGB` ones can be passed to the `set
 These are defined in [`color.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/color.h). Feel free to add to this list!
 
 
-## Additional `config.h` Options :id=additional-configh-options
+## Additional `config.h` Options {#additional-configh-options}
 
 ```c
 #define RGB_MATRIX_KEYRELEASES // reactive effects respond to keyreleases (instead of keypresses)
@@ -886,19 +910,19 @@ These are defined in [`color.h`](https://github.com/qmk/qmk_firmware/blob/master
 #define RGB_TRIGGER_ON_KEYDOWN      // Triggers RGB keypress events on key down. This makes RGB control feel more responsive. This may cause RGB to not function properly on some boards
 ```
 
-## EEPROM storage :id=eeprom-storage
+## EEPROM storage {#eeprom-storage}
 
 The EEPROM for it is currently shared with the LED Matrix system (it's generally assumed only one feature would be used at a time).
 
-## Functions :id=functions
+## Functions {#functions}
 
-### Direct Operation :id=direct-operation
+### Direct Operation {#direct-operation}
 |Function                                    |Description  |
 |--------------------------------------------|-------------|
 |`rgb_matrix_set_color_all(r, g, b)`         |Set all of the LEDs to the given RGB value, where `r`/`g`/`b` are between 0 and 255 (not written to EEPROM) |
 |`rgb_matrix_set_color(index, r, g, b)`      |Set a single LED to the given RGB value, where `r`/`g`/`b` are between 0 and 255, and `index` is between 0 and `RGB_MATRIX_LED_COUNT` (not written to EEPROM) |
 
-### Disable/Enable Effects :id=disable-enable-effects
+### Disable/Enable Effects {#disable-enable-effects}
 |Function                                    |Description  |
 |--------------------------------------------|-------------|
 |`rgb_matrix_toggle()`                       |Toggle effect range LEDs between on and off |
@@ -908,7 +932,7 @@ The EEPROM for it is currently shared with the LED Matrix system (it's generally
 |`rgb_matrix_disable()`                      |Turn effect range LEDs off, based on their previous state |
 |`rgb_matrix_disable_noeeprom()`             |Turn effect range LEDs off, based on their previous state (not written to EEPROM) |
 
-### Change Effect Mode :id=change-effect-mode
+### Change Effect Mode {#change-effect-mode}
 |Function                                    |Description  |
 |--------------------------------------------|-------------|
 |`rgb_matrix_mode(mode)`                     |Set the mode, if RGB animations are enabled |
@@ -925,7 +949,7 @@ The EEPROM for it is currently shared with the LED Matrix system (it's generally
 |`rgb_matrix_set_speed_noeeprom(speed)`      |Set the speed of the animations to the given value where `speed` is between 0 and 255 (not written to EEPROM) |
 |`rgb_matrix_reload_from_eeprom()`           |Reload the effect configuration (enabled, mode and color) from EEPROM |
 
-### Change Color :id=change-color
+### Change Color {#change-color}
 |Function                                    |Description  |
 |--------------------------------------------|-------------|
 |`rgb_matrix_increase_hue()`                 |Increase the hue for effect range LEDs. This wraps around at maximum hue |
@@ -943,7 +967,7 @@ The EEPROM for it is currently shared with the LED Matrix system (it's generally
 |`rgb_matrix_sethsv(h, s, v)`                |Set LEDs to the given HSV value where `h`/`s`/`v` are between 0 and 255 |
 |`rgb_matrix_sethsv_noeeprom(h, s, v)`       |Set LEDs to the given HSV value where `h`/`s`/`v` are between 0 and 255 (not written to EEPROM) |
 
-### Query Current Status :id=query-current-status
+### Query Current Status {#query-current-status}
 |Function                         |Description                |
 |---------------------------------|---------------------------|
 |`rgb_matrix_is_enabled()`        |Gets current on/off status |
@@ -955,9 +979,9 @@ The EEPROM for it is currently shared with the LED Matrix system (it's generally
 |`rgb_matrix_get_speed()`         |Gets current speed         |
 |`rgb_matrix_get_suspend_state()` |Gets current suspend state |
 
-## Callbacks :id=callbacks
+## Callbacks {#callbacks}
 
-### Indicators :id=indicators
+### Indicators {#indicators}
 
 If you want to set custom indicators, such as an LED for Caps Lock, or layer indication, then you can use the `rgb_matrix_indicators_kb` function on the keyboard level source file, or `rgb_matrix_indicators_user` function in the user `keymap.c`.
 ```c
@@ -979,7 +1003,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 }
 ```
 
-### Indicator Examples :id=indicator-examples
+### Indicator Examples {#indicator-examples}
 
 Caps Lock indicator on alphanumeric flagged keys:
 ```c
@@ -1035,9 +1059,11 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 }
 ```
 
-?> Split keyboards will require layer state data syncing with `#define SPLIT_LAYER_STATE_ENABLE`. See [Data Sync Options](feature_split_keyboard?id=data-sync-options) for more details.
+::: tip
+Split keyboards will require layer state data syncing with `#define SPLIT_LAYER_STATE_ENABLE`. See [Data Sync Options](feature_split_keyboard#data-sync-options) for more details.
+:::
 
-#### Examples :id=indicator-examples
+#### Examples {#indicator-examples-2}
 
 This example sets the modifiers to be a specific color based on the layer state.  You can use a switch case here, instead, if you would like.  This uses HSV and then converts to RGB, because this allows the brightness to be limited (important when using the WS2812 driver).
 
@@ -1078,7 +1104,9 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 }
 ```
 
-?> RGB indicators on split keyboards will require state information synced to the slave half (e.g. `#define SPLIT_LAYER_STATE_ENABLE`). See [data sync options](feature_split_keyboard.md#data-sync-options) for more details.
+::: tip
+RGB indicators on split keyboards will require state information synced to the slave half (e.g. `#define SPLIT_LAYER_STATE_ENABLE`). See [data sync options](feature_split_keyboard#data-sync-options) for more details.
+:::
 
 #### Indicators without RGB Matrix Effect
 
