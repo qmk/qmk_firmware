@@ -6,10 +6,8 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
-        "extrakey": false,
-        "mousekey": false,
+        "extrakey": true,
+        "mousekey": true,
         "nkro": true,
         "rgblight": true
     },
@@ -32,10 +30,6 @@
     "split": {
         "enabled": true,
         "soft_serial_pin": "D2",
-        "transport": {
-            "protocol": "serial",
-            "watchdog": true
-        },
         "usb_detect": {
             "enabled": true
         }

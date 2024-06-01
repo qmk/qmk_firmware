@@ -1,6 +1,6 @@
 # sleepy_keeb_split
 
-![sleepy_keeb_split](imgur.com image replace me!)
+![sleepy_keeb_split](https://i.imgur.com/f5VEA8C.jpeg)
 
 
 The Sleepy Keeb Split is an ortholinear 4x6 split keyboard inspired by the Planck. This is a hand-wired keyboard using the pro-micro or similar microcontrollers. The keyboard is designed to be used with a 3d printed case, which is also available on the Sleepy Craft Studios website. The unique element to this design is the integrated hotswap holders present in the 3d printed plate. The plate also includes diode holders for easy soldering.
@@ -11,7 +11,7 @@ The STL files are made available under the CC BY-NC-SA 4.0 license.
 
 * Keyboard Maintainer: [Sleepy Craft Studios](https://github.com/sleepy-craft-studios)
 * Hardware Supported: Pro-micro (tested), Elite-C, any other ATMega32U4 based microcontroller should work.
-* Hardware Availability: Kits can be purchased at [](https://sleepycraftstudios.com)
+* Hardware Availability: Kits can be purchased at [Sleepy Craft Studios](https://sleepycraftstudios.com/shop/sleepy-keeb-split-(diy))
 
 Make example for this keyboard (after setting up your build environment. The via keymap is recommended for VIA functionality):
 
