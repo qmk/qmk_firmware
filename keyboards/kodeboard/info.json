@@ -1,12 +1,11 @@
 {
     "manufacturer": "MUKIL",
-    "keyboard_name": "k0depad",
+    "keyboard_name": "KOD-PAD",
     "maintainer": "bukil",
     "bootloader": "rp2040",
     "processor": "RP2040",
     "diode_direction": "ROW2COL",
     "features": {
-        "bootmagic": true,
         "command": false,
         "console": false,
         "extrakey": true,
@@ -17,7 +16,6 @@
         "layer_count": 8
     }
     "encoder": {
-        "enabled": true,
         "rotary": [
             {"pin_a": "GP0", "pin_b": "GP1"}
         ]
