@@ -307,6 +307,50 @@ bool process_combo_key_release(uint16_t combo_index, combo_t *combo, uint8_t key
     return false;
 }
 ```
+
+### Customizable key repress
+By defining `COMBO_PROCESS_KEY_REPRESS` and implementing `bool process_combo_key_repress(uint16_t combo_index, combo_t *combo, uint8_t key_index, uint16_t keycode)` you can run your custom code when you repress just released key of a combo. By combining it with custom `process_combo_event` we can for example make special handling for Alt+Tab to switch windows, which, on combo F+G activation, registers Alt and presses Tab - then we can switch windows forward by releasing G and pressing it again, or backwards with F key. Here's the full example:
+
+```c
+enum combos {
+    CMB_ALTTAB
+};
+
+const uint16_t PROGMEM combo_alttab[] = {KC_F, KC_G, COMBO_END};
+
+combo_t key_combos[COMBO_LENGTH] = {
+    [CMB_ALTTAB] = COMBO(combo_alttab, KC_NO), // KC_NO to leave processing for process_combo_event
+};
+
+void process_combo_event(uint16_t combo_index, bool pressed) {
+    switch (combo_index) {
+        case CMB_ALTTAB:
+            if (pressed) {
+                register_mods(MOD_LALT);
+                tap_code(KC_TAB);
+            } else {
+                unregister_mods(MOD_LALT);
+            }
+            break;
+    }
+}
+
+bool process_combo_key_repress(uint16_t combo_index, combo_t *combo, uint8_t key_index, uint16_t keycode) {
+    switch (combo_index) {
+        case CMB_ALTTAB:
+            switch (keycode) {
+                case KC_F:
+                    tap_code16(S(KC_TAB));
+                    return true;
+                case KC_G:
+                    tap_code(KC_TAB);
+                    return true;
+            }
+    }
+    return false;
+}
+```
+
 ### Layer independent combos
 
 If you, for example, use multiple base layers for different key layouts, one for QWERTY, and another one for Colemak, you might want your combos to work from the same key positions on all layers. Defining the same combos again for another layout is redundant and takes more memory. The solution is to just check the keycodes from one layer.
