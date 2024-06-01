@@ -2,6 +2,10 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
+#include_next <mcuconf.h>
+
+#undef RP_I2C_USE_I2C0
+#define RP_I2C_USE_I2C0 TRUE
 #define ENCODERS 1
 #define ENCODERS_PAD_A { GP0 }
 #define ENCODERS_PAD_B { GP1 }
