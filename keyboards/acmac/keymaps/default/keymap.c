@@ -36,12 +36,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [1] = LAYOUT(
-        KC_ESC, KC_P0, KC_P0, KC_P0, KC_P0, KC_P0, KC_P0, KC_P0,
-         KC_P0, KC_P0, KC_P0, KC_P0, KC_P0, KC_P0, KC_P0, KC_P0,
-          KC_P0, KC_P0, KC_P0, KC_P0, KC_P0, KC_P0, KC_P0, KC_P0,
-           KC_P0, KC_P0, KC_P0, KC_P0, KC_P0, KC_P0, KC_P0, KC_P0,
-            KC_P0, KC_P0, KC_P0, KC_P0, KC_P0, KC_P0, KC_P0,
-             TO(0), KC_P0, KC_P0, KC_P0, KC_P0, KC_P0, KC_P0, KC_P0
+        KC_ESC, KC_P0, KC_P0, KC_P0,    KC_P0, KC_P0, KC_P0, KC_P0,
+         KC_P0, KC_P0, KC_P0, KC_P0,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+         KC_P0, KC_P0, KC_P0, KC_P0,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+         KC_P0, KC_P0, KC_P0, KC_P0,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+         KC_P0, KC_P0, KC_P0, KC_P0,    KC_TRNS, KC_TRNS, KC_TRNS,
+         TO(0), KC_P0, KC_P0, KC_P0,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     ),
 };
 
