@@ -18,10 +18,7 @@
 
 /* Select hand configuration */
 #define SPLIT_HAND_MATRIX_GRID B0,B7
+#define SPLIT_HAND_MATRIX_GRID_LOW_IS_LEFT
+
 #define MATRIX_MASKED
 #define SPLIT_USB_DETECT
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE

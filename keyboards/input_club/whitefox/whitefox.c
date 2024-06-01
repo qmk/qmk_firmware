@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 
 #ifdef LED_MATRIX_ENABLE
-const is31fl3731_led_t PROGMEM g_is31fl3731_leds[LED_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 // The numbers in the comments are the led numbers DXX on the PCB
 /* Refer to IS31 manual for these locations
  *  driver
@@ -64,15 +64,6 @@ led_config_t g_led_config = {
     }
 };
 #endif
-
-void keyboard_pre_init_kb(void) {
-#ifdef LED_MATRIX_ENABLE
-    // Turn on LED controller
-    setPinOutput(B16);
-    writePinHigh(B16);
-#endif
-    keyboard_pre_init_user();
-}
 
 void matrix_init_kb(void) {
     // put your keyboard start-up code here

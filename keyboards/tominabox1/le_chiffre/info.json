@@ -12,6 +12,12 @@
         "oled": true,
         "rgb_matrix": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "rgblight": {
         "animations": {
             "alternating": true,
@@ -73,7 +79,8 @@
         "max_brightness": 150,
         "sat_steps": 8,
         "speed_steps": 10,
-        "val_steps": 8
+        "val_steps": 8,
+        "sleep": true
     },
     "usb": {
         "vid": "0x7431",

@@ -113,4 +113,4 @@ def flash(cli):
         return False
 
     target.configure(parallel=cli.config.flash.parallel, clean=cli.args.clean)
-    target.compile(cli.args.bootloader, dry_run=cli.args.dry_run, **envs)
+    return target.compile(cli.args.bootloader, dry_run=cli.args.dry_run, **envs)

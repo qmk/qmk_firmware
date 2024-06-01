@@ -1,4 +1,4 @@
-# Pointing Device :id=pointing-device
+# Pointing Device {#pointing-device}
 
 Pointing Device is a generic name for a feature intended to be generic: moving the system pointer around.  There are certainly other options for it - like mousekeys - but this aims to be easily modifiable and hardware driven.  You can implement custom keys to control functionality, or you can gather information from other peripherals and insert it directly here - let QMK handle the processing for you.
 
@@ -69,10 +69,29 @@ The Analog Joystick is an analog (ADC) driven sensor.  There are a variety of jo
 | `ANALOG_JOYSTICK_Y_AXIS_PIN`      | (Required) The pin used for the horizontal/Y axis.                         | _not defined_ |
 | `ANALOG_JOYSTICK_AXIS_MIN`        | (Optional) Sets the lower range to be considered movement.                 | `0`           |
 | `ANALOG_JOYSTICK_AXIS_MAX`        | (Optional) Sets the upper range to be considered movement.                 | `1023`        |
+| `ANALOG_JOYSTICK_AUTO_AXIS`       | (Optional) Sets ranges to be considered movement automatically.            | _not defined_ |
 | `ANALOG_JOYSTICK_SPEED_REGULATOR` | (Optional) The divisor used to slow down movement. (lower makes it faster) | `20`          |
 | `ANALOG_JOYSTICK_READ_INTERVAL`   | (Optional) The interval in milliseconds between reads.                     | `10`          |
 | `ANALOG_JOYSTICK_SPEED_MAX`       | (Optional) The maximum value used for motion.                              | `2`           |
 | `ANALOG_JOYSTICK_CLICK_PIN`       | (Optional) The pin wired up to the press switch of the analog stick.       | _not defined_ |
+| `ANALOG_JOYSTICK_WEIGHTS`         | (Optional) Use custom weights for lever positions.                         | _not defined_ |
+| `ANALOG_JOYSTICK_CUTOFF`          | (Optional) Cut off movement when joystick returns to start position.       | _not defined_ |
+
+If `ANALOG_JOYSTICK_AUTO_AXIS` is used, then `ANALOG_JOYSTICK_AXIS_MIN` and `ANALOG_JOYSTICK_AXIS_MAX` are ignored.
+
+By default analog joystick implementation uses `x^2` weighting for lever positions. `ANALOG_JOYSTICK_WEIGHTS` allows to experiment with different configurations that might feel better.
+
+E.g. This is weights for `((x-0.4)^3+0.064)/0.282`:
+
+```c
+#define ANALOG_JOYSTICK_WEIGHTS {0,2,4,5,7,8,9,10,12,13,14,15,15,16,17,18,18,19,19,20,20,21,21,21,22,22,22,22,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,24,24,24,24,24,24,25,25,25,26,26,26,27,28,28,29,29,30,31,32,33,34,35,36,37,38,40,41,43,44,46,48,49,51,53,56,58,60,62,65,68,70,73,76,79,82,85,89,92,96,100}
+```
+
+You can use following JS code to generate weights for different formulas:
+
+```js
+JSON.stringify(Array.from(Array(101).keys()).map(x => Math.ceil((((x/100-0.4)**3+0.064)/0.282*100))))
+```
 
 ### Azoteq IQS5XX Trackpad
 
@@ -93,7 +112,9 @@ Specific device profiles are provided which set the required values for dimensio
 | `AZOTEQ_IQS5XX_TPS43`            | (Pick One) Sets resolution/mm to TPS43 specifications.     |
 | `AZOTEQ_IQS5XX_TPS65`            | (Pick One) Sets resolution/mm to TPS65 specifications.     |
 
-?> If using one of the above defines you can skip to gesture settings.
+::: tip
+If using one of the above defines you can skip to gesture settings.
+:::
 
 | Setting                          | Description                                                | Default       |
 | -------------------------------- | ---------------------------------------------------------- | ------------- |
@@ -158,12 +179,13 @@ This supports the Cirque Pinnacle 1CA027 Touch Controller, which is used in the 
 
 #### Common settings
 
-| Setting                          | Description                                                | Default                                     |
-| -------------------------------- | ---------------------------------------------------------- | ------------------------------------------- |
-| `CIRQUE_PINNACLE_DIAMETER_MM`    | (Optional) Diameter of the trackpad sensor in millimeters. | `40`                                        |
-| `CIRQUE_PINNACLE_ATTENUATION`    | (Optional) Sets the attenuation of the sensor data.        | `EXTREG__TRACK_ADCCONFIG__ADC_ATTENUATE_4X` |
-| `CIRQUE_PINNACLE_CURVED_OVERLAY` | (Optional) Applies settings tuned for curved overlay.      | _not defined_                               |
-| `CIRQUE_PINNACLE_POSITION_MODE`  | (Optional) Mode of operation.                              | _not defined_                               |
+| Setting                              | Description                                                | Default                                     |
+| ------------------------------------ | ---------------------------------------------------------- | ------------------------------------------- |
+| `CIRQUE_PINNACLE_DIAMETER_MM`        | (Optional) Diameter of the trackpad sensor in millimeters. | `40`                                        |
+| `CIRQUE_PINNACLE_ATTENUATION`        | (Optional) Sets the attenuation of the sensor data.        | `EXTREG__TRACK_ADCCONFIG__ADC_ATTENUATE_4X` |
+| `CIRQUE_PINNACLE_CURVED_OVERLAY`     | (Optional) Applies settings tuned for curved overlay.      | _not defined_                               |
+| `CIRQUE_PINNACLE_POSITION_MODE`      | (Optional) Mode of operation.                              | _not defined_                               |
+| `CIRQUE_PINNACLE_SKIP_SENSOR_CHECK`  | (Optional) Skips sensor presence check                     | _not defined_                               |
 
 **`CIRQUE_PINNACLE_ATTENUATION`** is a measure of how much data is suppressed in regards to sensitivity. The higher the attenuation, the less sensitive the touchpad will be.
 
@@ -197,12 +219,13 @@ Also see the `POINTING_DEVICE_TASK_THROTTLE_MS`, which defaults to 10ms when usi
 
 #### Absolute mode settings
 
-| Setting                          | Description                                                | Default            |
-| -------------------------------- | ---------------------------------------------------------- | ------------------ |
-| `CIRQUE_PINNACLE_X_LOWER`        | (Optional) The minimum reachable X value on the sensor.    | `127`              |
-| `CIRQUE_PINNACLE_X_UPPER`        | (Optional) The maximum reachable X value on the sensor.    | `1919`             |
-| `CIRQUE_PINNACLE_Y_LOWER`        | (Optional) The minimum reachable Y value on the sensor.    | `63`               |
-| `CIRQUE_PINNACLE_Y_UPPER`        | (Optional) The maximum reachable Y value on the sensor.    | `1471`             |
+| Setting                                 | Description                                                             | Default     |
+|-----------------------------------------|-------------------------------------------------------------------------|-------------|
+| `CIRQUE_PINNACLE_X_LOWER`               | (Optional) The minimum reachable X value on the sensor.                 | `127`       |
+| `CIRQUE_PINNACLE_X_UPPER`               | (Optional) The maximum reachable X value on the sensor.                 | `1919`      |
+| `CIRQUE_PINNACLE_Y_LOWER`               | (Optional) The minimum reachable Y value on the sensor.                 | `63`        |
+| `CIRQUE_PINNACLE_Y_UPPER`               | (Optional) The maximum reachable Y value on the sensor.                 | `1471`      |
+| `CIRQUE_PINNACLE_REACHABLE_CALIBRATION` | (Optional) Enable console messages to aide in calibrating above values. | not defined |
 
 #### Absolute mode gestures
 
@@ -362,7 +385,9 @@ uint16_t       pointing_device_driver_get_cpi(void) { return 0; }
 void           pointing_device_driver_set_cpi(uint16_t cpi) {}
 ```
 
-!> Ideally, new sensor hardware should be added to `drivers/sensors/` and `quantum/pointing_device_drivers.c`, but there may be cases where it's very specific to the hardware.  So these functions are provided, just in case. 
+::: warning
+Ideally, new sensor hardware should be added to `drivers/sensors/` and `quantum/pointing_device_drivers.c`, but there may be cases where it's very specific to the hardware.  So these functions are provided, just in case. 
+:::
 
 ## Common Configuration
 
@@ -383,15 +408,19 @@ void           pointing_device_driver_set_cpi(uint16_t cpi) {}
 | `POINTING_DEVICE_SDIO_PIN`                     | (Optional) Provides a default SDIO pin, useful for supporting multiple sensor configs.                                           | _not defined_ |
 | `POINTING_DEVICE_SCLK_PIN`                     | (Optional) Provides a default SCLK pin, useful for supporting multiple sensor configs.                                           | _not defined_ |
 
-!> When using `SPLIT_POINTING_ENABLE` the `POINTING_DEVICE_MOTION_PIN` functionality is not supported and `POINTING_DEVICE_TASK_THROTTLE_MS` will default to `1`. Increasing this value will increase transport performance at the cost of possible mouse responsiveness.
+::: warning
+When using `SPLIT_POINTING_ENABLE` the `POINTING_DEVICE_MOTION_PIN` functionality is not supported and `POINTING_DEVICE_TASK_THROTTLE_MS` will default to `1`. Increasing this value will increase transport performance at the cost of possible mouse responsiveness.
+:::
 
 The `POINTING_DEVICE_CS_PIN`, `POINTING_DEVICE_SDIO_PIN`, and `POINTING_DEVICE_SCLK_PIN` provide a convenient way to define a single pin that can be used for an interchangeable sensor config.  This allows you to have a single config, without defining each device.  Each sensor allows for this to be overridden with their own defines. 
 
-!> Any pointing device with a lift/contact status can integrate inertial cursor feature into its driver, controlled by `POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE`. e.g. PMW3360 can use Lift_Stat from Motion register. Note that `POINTING_DEVICE_MOTION_PIN` cannot be used with this feature; continuous polling of `get_report()` is needed to generate glide reports.
+::: warning
+Any pointing device with a lift/contact status can integrate inertial cursor feature into its driver, controlled by `POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE`. e.g. PMW3360 can use Lift_Stat from Motion register. Note that `POINTING_DEVICE_MOTION_PIN` cannot be used with this feature; continuous polling of `get_report()` is needed to generate glide reports.
+:::
 
 ## Split Keyboard Configuration
 
-The following configuration options are only available when using `SPLIT_POINTING_ENABLE` see [data sync options](feature_split_keyboard.md?id=data-sync-options). The rotation and invert `*_RIGHT` options are only used with `POINTING_DEVICE_COMBINED`. If using `POINTING_DEVICE_LEFT` or `POINTING_DEVICE_RIGHT` use the common configuration above to configure your pointing device.
+The following configuration options are only available when using `SPLIT_POINTING_ENABLE` see [data sync options](feature_split_keyboard#data-sync-options). The rotation and invert `*_RIGHT` options are only used with `POINTING_DEVICE_COMBINED`. If using `POINTING_DEVICE_LEFT` or `POINTING_DEVICE_RIGHT` use the common configuration above to configure your pointing device.
 
 | Setting                              | Description                                                                                           | Default       |
 | ------------------------------------ | ----------------------------------------------------------------------------------------------------- | ------------- |
@@ -404,7 +433,9 @@ The following configuration options are only available when using `SPLIT_POINTIN
 | `POINTING_DEVICE_INVERT_X_RIGHT`     | (Optional) Inverts the X axis report.                                                                 | _not defined_ |
 | `POINTING_DEVICE_INVERT_Y_RIGHT`     | (Optional) Inverts the Y axis report.                                                                 | _not defined_ |
 
-!> If there is a `_RIGHT` configuration option or callback, the [common configuration](feature_pointing_device.md?id=common-configuration) option will work for the left. For correct left/right detection you should setup a [handedness option](feature_split_keyboard?id=setting-handedness), `EE_HANDS` is usually a good option for an existing board that doesn't do handedness by hardware.
+::: warning
+If there is a `_RIGHT` configuration option or callback, the [common configuration](feature_pointing_device#common-configuration) option will work for the left. For correct left/right detection you should setup a [handedness option](feature_split_keyboard#setting-handedness), `EE_HANDS` is usually a good option for an existing board that doesn't do handedness by hardware.
+:::
 
 
 ## Callbacks and Functions 
@@ -427,7 +458,7 @@ The following configuration options are only available when using `SPLIT_POINTIN
 
 ## Split Keyboard Callbacks and Functions
 
-The combined functions below are only available when using `SPLIT_POINTING_ENABLE` and `POINTING_DEVICE_COMBINED`. The 2 callbacks `pointing_device_task_combined_*` replace the single sided equivalents above. See the [combined pointing devices example](feature_pointing_device.md?id=combined-pointing-devices)
+The combined functions below are only available when using `SPLIT_POINTING_ENABLE` and `POINTING_DEVICE_COMBINED`. The 2 callbacks `pointing_device_task_combined_*` replace the single sided equivalents above. See the [combined pointing devices example](feature_pointing_device#combined-pointing-devices)
 
 | Function                                                        | Description                                                                                                              |
 | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
@@ -652,11 +683,13 @@ If you are having issues with pointing device drivers debug messages can be enab
 #define POINTING_DEVICE_DEBUG
 ```
  
-?> The messages will be printed out to the `CONSOLE` output. For additional information, refer to [Debugging/Troubleshooting QMK](faq_debug.md).
+::: tip
+The messages will be printed out to the `CONSOLE` output. For additional information, refer to [Debugging/Troubleshooting QMK](faq_debug).
+:::
 
 
 ---
-# Automatic Mouse Layer :id=pointing-device-auto-mouse
+# Automatic Mouse Layer {#pointing-device-auto-mouse}
 
 When using a pointing device combined with a keyboard the mouse buttons are often kept on a separate layer from the default keyboard layer, which requires pressing or holding a key to change layers before using the mouse. To make this easier and more efficient an additional pointing device feature may be enabled that will automatically activate a target layer as soon as the pointing device is active _(in motion, mouse button pressed etc.)_ and deactivate the target layer after a set time.   
 
@@ -708,6 +741,7 @@ There are a few ways to control the auto mouse feature with both `config.h` opti
 | `AUTO_MOUSE_TIME`                   | (Optional) Time layer remains active after activation                 | _ideally_ (250-1000) |     _ms_    |                   `650 ms` |
 | `AUTO_MOUSE_DELAY`                  | (Optional) Lockout time after non-mouse key is pressed                | _ideally_ (100-1000) |     _ms_    | `TAPPING_TERM` or `200 ms` |
 | `AUTO_MOUSE_DEBOUNCE`               | (Optional) Time delay from last activation to next update             | _ideally_ (10 - 100) |     _ms_    |                    `25 ms` |
+| `AUTO_MOUSE_THRESHOLD`              | (Optional) Amount of mouse movement required to switch layers         | 0 -                  |   _units_   |                 `10 units` |
 
 ### Adding mouse keys
 
@@ -758,6 +792,9 @@ There are several functions that allow for more advanced interaction with the au
 | `get_auto_mouse_timeout(void)`                             | Return the current timeout for turing off the layer                                  |                           |      `uint16_t` |
 | `set_auto_mouse_debounce(uint16_t timeout)`                | Change/set the debounce for preventing layer activation                              |                           |    `void`(None) |
 | `get_auto_mouse_debounce(void)`                            | Return the current debounce for preventing layer activation                          |                           |       `uint8_t` |
+| `is_auto_mouse_active(void)`                               | Returns the active state of the auto mouse layer (eg if the layer has been triggered)|                           |          `bool` |
+| `get_auto_mouse_key_tracker(void)`                         | Gets the current count for the auto mouse key tracker.                               |                           |        `int8_t` |
+| `set_auto_mouse_key_tracker(int8_t key_tracker)`           | Sets/Overrides the current count for the auto mouse key tracker.                     |                           |    `void`(None) |
 
 _NOTES:_   
     - _Due to the nature of how some functions work, the `auto_mouse_trigger_reset`, and `auto_mouse_layer_off` functions should never be called in the `layer_state_set_*` stack as this can cause indefinite loops._   

@@ -88,7 +88,7 @@ Note that these methods can be combined.  Prepare your lengths of wire before mo
 
 ### A note on split keyboards
 
-If you are planning a split keyboard (e.g. Dactyl) each half will require a controller and a means of communicating between them (like a TRRS or hardwired cable).  Further information can be found in the [QMK split keyboard documentation.](feature_split_keyboard.md)
+If you are planning a split keyboard (e.g. Dactyl) each half will require a controller and a means of communicating between them (like a TRRS or hardwired cable).  Further information can be found in the [QMK split keyboard documentation.](feature_split_keyboard)
 
 
 ### Soldering
@@ -175,13 +175,15 @@ As you move along, be sure that the controller is staying in place - recutting a
 
 From here, you should have a working keyboard once you program a firmware.
 
-Simple firmware can be created easily using the [Keyboard Firmware Builder](https://kbfirmware.com/) website.  Recreate your layout using [Keyboard Layout Editor](https://www.keyboard-layout-editor.com), import it and recreate the matrix (if not already done as part of [planning the matrix](#planning-the-matrix).
+Simple firmware can be created easily using the [Keyboard Firmware Builder](https://kbfirmware.com/) website.  Recreate your layout using [Keyboard Layout Editor](https://www.keyboard-layout-editor.com), import it and recreate the matrix (if not already done as part of [planning the matrix](#planning-the-matrix)).
 
-Go through the rest of the tabs, assigning keys until you get to the last one where you can compile and download your firmware.  The .hex file can be flashed straight onto your keyboard, or for advanced functionality, compiled locally after [Setting up Your Environment](newbs_getting_started.md).
+Go through the rest of the tabs, assigning keys until you get to the last one where you can compile and download your firmware.  The .hex file can be flashed straight onto your keyboard, or for advanced functionality, compiled locally after [Setting up Your Environment](newbs_getting_started).
 
 The source given by Keyboard Firmware Builder is QMK, but is based on a version of QMK from early 2017. To compile the firmware in a modern version of QMK Firmware, you'll need to export via the `Save Configuration` button, then run:
 
-    qmk import-kbfirmware /path/to/export.json
+```
+qmk import-kbfirmware /path/to/export.json
+```
 
 For example:
 
@@ -244,6 +246,6 @@ There are a lot of possibilities inside the firmware - explore [docs.qmk.fm](htt
 
 This page used to include more content. We have moved a section that used to be part of this page its own page. Everything below this point is simply a redirect so that people following old links on the web find what they're looking for.
 
-## Preamble: How a Keyboard Matrix Works (and why we need diodes) :id=preamble-how-a-keyboard-matrix-works-and-why-we-need-diodes
+## Preamble: How a Keyboard Matrix Works (and why we need diodes) {#preamble-how-a-keyboard-matrix-works-and-why-we-need-diodes}
 
-* [How a Keyboard Matrix Works](how_a_matrix_works.md)
+* [How a Keyboard Matrix Works](how_a_matrix_works)
