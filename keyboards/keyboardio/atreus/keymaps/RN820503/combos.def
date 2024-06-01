@@ -1,0 +1,56 @@
+/*    COMBO NAME       | OUTPUT    | PARAMS    */
+
+/*---- standard alphas and punctuation ----*/
+COMB(H_Z,               KC_Z,       LM3, LM1)
+COMB(Hat,               KC_AT,      RT0, RT1)
+COMB(Hexlm,             KC_EXLM,    RT1, RT2)
+COMB(Hques,             KC_QUES,    RT2, RT3)
+COMB(Hcoln,             KC_COLN,    RT1, RT3)
+COMB(Hgrv,              KC_GRV,     RT3, RT4)
+COMB(Hscln,             KC_SCLN,    RM0, RM1)
+COMB(Hndsh,             A(KC_MINS), RB0, RB1)
+COMB(Hmdsh,             A(S(KC_MINS)), RB0, RB2)
+COMB(Hunds,             KC_UNDS,    RB1, RB3)
+COMB(Heql,              KC_EQL,     RB2, RB3)
+COMB(Htild,             KC_TILD,    RB1, RB4)
+
+/*---- digraphs ----*/
+COMB(H_Qu,              SS_Qu,      LT3, LT1)
+COMB(H_Wh,              SS_Wh,      LT3, LT2)
+COMB(H_Gh,              SS_Gh,      LT2, LT1)
+COMB(H_Th,              SS_Th,      LM2, LM1)
+COMB(H_Ch,              SS_Ch,      LM3, LM2)
+COMB(H_Ph,              SS_Ph,      LB3, LB1)
+
+/*---- commands ----*/
+COMB(Hesc,              KC_ESC,     LM4, LM1)
+/* COMB(Hbspc,             KC_BSPC,    RT1, RT2) */
+/* COMB(Hdel,              KC_DEL,      RT2, RT3) */
+/* COMB(Hbspw,             A(KC_BSPC), RT1, RT3) */
+COMB(Hent,              KC_ENT, 	RM1, RM2)
+COMB(Htab,            	KC_TAB,     RB1, RB2)
+
+
+/*---- directional ----*/
+/* COMB(Hleft,            	KC_LEFT,    RB1, RB2) */
+/* COMB(Hrght,            	KC_RGHT,    RB2, RB3) */
+/* COMB(Hup,            	KC_UP,      RB1, RM2) */
+/* COMB(Hdown,            	KC_DOWN,    RM2, RB3) */
+
+/*---- semantic functions ----*/
+COMB(Hundo,             G(KC_Z),    LB4, LB3)
+COMB(Hcut,              G(KC_X),    LB4, LB2)
+COMB(Hcopy,             G(KC_C),    LB3, LB2)
+COMB(Hpste,             G(KC_V),    LB2, LB1)
+COMB(Hsall,             G(KC_A),    LB4, LB1)
+COMB(Hpstm,             A(S(G(KC_V))), LB4, LB0)
+
+/* --- parens and brackets --- */
+COMB(Hlbrc,             KC_LBRC,    LT3, LM3)
+COMB(Hlcbr,             KC_LCBR,    LT2, LM2)
+COMB(Hlprn,             KC_LPRN,    LT1, LM1)
+COMB(Hlabk,             KC_LABK,    LT0, LM0)
+COMB(Hrabk,             KC_RABK,    RT0, RM0)
+COMB(Hrprn,             KC_RPRN,    RT1, RM1)
+COMB(Hrcbr,             KC_RCBR,    RT2, RM2)
+COMB(Hrbrc,             KC_RBRC,    RT3, RM3)
