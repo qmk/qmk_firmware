@@ -113,6 +113,8 @@ static void oled_render_keylog(void) {
     oled_write(depad_str(last_keycode_str, ' '), false);
     oled_write_P(PSTR(":"), false);
     oled_write_char(key_name, false);
+    oled_write("   ",false);
+
 }
 
 // static void render_bootmagic_status(bool status) {
