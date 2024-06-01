@@ -3,7 +3,7 @@
 
 #pragma once
 
-#inlude "config.h"
+#include "config.h"
 
 
 /* Increase macro limit to 42
