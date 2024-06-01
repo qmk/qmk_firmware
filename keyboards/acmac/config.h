@@ -3,6 +3,15 @@
 
 #pragma once
 
+#inlude "config.h"
+
+
+/* Increase macro limit to 42
+*/
+
+#define DYNAMIC_KEYMAP_MACRO_COUNT 42
+
+
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
