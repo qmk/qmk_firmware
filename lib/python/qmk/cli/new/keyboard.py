@@ -133,7 +133,7 @@ def _question(*args, **kwargs):
 def prompt_keyboard():
     prompt = """{fg_yellow}Name Your Keyboard Project{style_reset_all}
 For more infomation, see:
-https://docs.qmk.fm/#/hardware_keyboard_guidelines?id=naming-your-keyboardproject
+https://docs.qmk.fm/hardware_keyboard_guidelines#naming-your-keyboard-project
 
 Keyboard Name? """
 

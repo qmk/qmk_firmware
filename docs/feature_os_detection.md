@@ -29,10 +29,12 @@ enum {
 } os_variant_t;
 ```
 
-?> Note that it takes some time after firmware is booted to detect the OS.
+::: tip
+Note that it takes some time after firmware is booted to detect the OS.
+:::
 This time is quite short, probably hundreds of milliseconds, but this data may be not ready in keyboard and layout setup functions which run very early during firmware startup.
 
-## Callbacks :id=callbacks
+## Callbacks {#callbacks}
 
 If you want to perform custom actions when the OS is detected, then you can use the `process_detected_host_os_kb` function on the keyboard level source file, or `process_detected_host_os_user` function in the user `keymap.c`.
 
