@@ -49,7 +49,7 @@ Then you should be able to use the keycodes below to change the RGB lighting to 
 
 QMK uses [Hue, Saturation, and Value](https://en.wikipedia.org/wiki/HSL_and_HSV) to select colors rather than RGB. The color wheel below demonstrates how this works.
 
-<img src="./gitbook/images/color-wheel.svg" alt="HSV Color Wheel" width="250"/>
+<img src="./public/color-wheel.svg" alt="HSV Color Wheel" width="250"/>
 
 Changing the **Hue** cycles around the circle.<br>
 Changing the **Saturation** moves between the inner and outer sections of the wheel, affecting the intensity of the color.<br>
