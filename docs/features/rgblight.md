@@ -23,7 +23,7 @@ RGBLIGHT_ENABLE = yes
 ```
 
 ::: tip
-There are additional configuration options for ARM controllers that offer increased performance over the default WS2812 bitbang driver. Please see [WS2812 Driver](ws2812_driver) for more information.
+There are additional configuration options for ARM controllers that offer increased performance over the default WS2812 bitbang driver. Please see [WS2812 Driver](../drivers/ws2812) for more information.
 :::
 
 For APA102 LEDs, add the following to your `rules.mk`:
@@ -87,7 +87,7 @@ Changing the **Value** sets the overall brightness.<br>
 
 
 ::: warning
-By default, if you have both the RGB Light and the [RGB Matrix](feature_rgb_matrix) feature enabled, these keycodes will work for both features, at the same time. You can disable the keycode functionality by defining the `*_DISABLE_KEYCODES` option for the specific feature.
+By default, if you have both the RGB Light and the [RGB Matrix](rgb_matrix) feature enabled, these keycodes will work for both features, at the same time. You can disable the keycode functionality by defining the `*_DISABLE_KEYCODES` option for the specific feature.
 :::
 
 ## Configuration
@@ -218,7 +218,7 @@ const uint8_t RGBLED_GRADIENT_RANGES[] PROGMEM = {255, 170, 127, 85, 64};
 ## Lighting Layers
 
 ::: tip
-**Note:** Lighting Layers is an RGB Light feature, it will not work for RGB Matrix. See [RGB Matrix Indicators](feature_rgb_matrix#indicators) for details on how to do so.
+**Note:** Lighting Layers is an RGB Light feature, it will not work for RGB Matrix. See [RGB Matrix Indicators](rgb_matrix#indicators) for details on how to do so.
 :::
 
 By including `#define RGBLIGHT_LAYERS` in your `config.h` file you can enable lighting layers. These make
@@ -353,7 +353,7 @@ rgblight_blink_layer(2, 500);
 ```
 
 ::: warning
-Lighting layers on split keyboards will require layer state synced to the slave half (e.g. `#define SPLIT_LAYER_STATE_ENABLE`). See [data sync options](feature_split_keyboard#data-sync-options) for more details.
+Lighting layers on split keyboards will require layer state synced to the slave half (e.g. `#define SPLIT_LAYER_STATE_ENABLE`). See [data sync options](split_keyboard#data-sync-options) for more details.
 :::
 
 ### Overriding RGB Lighting on/off status

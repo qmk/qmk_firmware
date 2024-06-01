@@ -31,7 +31,7 @@ Add the following to your `config.h`:
 
 ### Audio Feedback {#audio-feedback}
 
-If you have the [Audio](feature_audio) feature enabled on your board, you can configure it to play sounds when the input mode is changed.
+If you have the [Audio](audio) feature enabled on your board, you can configure it to play sounds when the input mode is changed.
 
 Add the following to your `config.h`:
 

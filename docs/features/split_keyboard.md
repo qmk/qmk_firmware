@@ -20,12 +20,12 @@ Both sides must use the same MCU family, for eg two Pro Micro-compatible control
 
 | Transport                    | AVR                | ARM                |
 |------------------------------|--------------------|--------------------|
-| ['serial'](serial_driver) | :heavy_check_mark: | :white_check_mark: <sup>1</sup> |
+| ['serial'](../drivers/serial) | :heavy_check_mark: | :white_check_mark: <sup>1</sup> |
 | I2C                          | :heavy_check_mark: |                    |
 
 Notes:
 
-1. Both hardware and software limitations are detailed within the [driver documentation](serial_driver).
+1. Both hardware and software limitations are detailed within the [driver documentation](../drivers/serial).
 
 ## Hardware Configuration
 
@@ -307,7 +307,7 @@ This enables transmitting the current ST7565 on/off status to the slave side of 
 This enables transmitting the pointing device status to the master side of the split keyboard. The purpose of this feature is to enable use pointing devices on the slave side. 
 
 ::: warning
-There is additional required configuration for `SPLIT_POINTING_ENABLE` outlined in the [pointing device documentation](feature_pointing_device#split-keyboard-configuration).
+There is additional required configuration for `SPLIT_POINTING_ENABLE` outlined in the [pointing device documentation](pointing_device#split-keyboard-configuration).
 :::
 
 ```c

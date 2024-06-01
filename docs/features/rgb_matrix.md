@@ -2,7 +2,7 @@
 
 This feature allows you to use RGB LED matrices driven by external drivers. It hooks into the RGBLIGHT system so you can use the same keycodes as RGBLIGHT to control it.
 
-If you want to use single color LED's you should use the [LED Matrix Subsystem](feature_led_matrix) instead.
+If you want to use single color LED's you should use the [LED Matrix Subsystem](led_matrix) instead.
 
 ## Driver configuration {#driver-configuration}
 ---
@@ -444,7 +444,7 @@ Configure the hardware via your `config.h`:
 ```
 
 ::: tip
-There are additional configuration options for ARM controllers that offer increased performance over the default bitbang driver. Please see [WS2812 Driver](ws2812_driver) for more information.
+There are additional configuration options for ARM controllers that offer increased performance over the default bitbang driver. Please see [WS2812 Driver](../drivers/ws2812) for more information.
 :::
 
 ---
@@ -619,7 +619,7 @@ All RGB keycodes are currently shared with the RGBLIGHT system:
 
 
 ::: warning
-By default, if you have both the [RGB Light](feature_rgblight) and the RGB Matrix feature enabled, these keycodes will work for both features, at the same time. You can disable the keycode functionality by defining the `*_DISABLE_KEYCODES` option for the specific feature.
+By default, if you have both the [RGB Light](rgblight) and the RGB Matrix feature enabled, these keycodes will work for both features, at the same time. You can disable the keycode functionality by defining the `*_DISABLE_KEYCODES` option for the specific feature.
 :::
 
 ## RGB Matrix Effects {#rgb-matrix-effects}
@@ -1060,7 +1060,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 ```
 
 ::: tip
-Split keyboards will require layer state data syncing with `#define SPLIT_LAYER_STATE_ENABLE`. See [Data Sync Options](feature_split_keyboard#data-sync-options) for more details.
+Split keyboards will require layer state data syncing with `#define SPLIT_LAYER_STATE_ENABLE`. See [Data Sync Options](split_keyboard#data-sync-options) for more details.
 :::
 
 #### Examples {#indicator-examples-2}
@@ -1105,7 +1105,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 ```
 
 ::: tip
-RGB indicators on split keyboards will require state information synced to the slave half (e.g. `#define SPLIT_LAYER_STATE_ENABLE`). See [data sync options](feature_split_keyboard#data-sync-options) for more details.
+RGB indicators on split keyboards will require state information synced to the slave half (e.g. `#define SPLIT_LAYER_STATE_ENABLE`). See [data sync options](split_keyboard#data-sync-options) for more details.
 :::
 
 #### Indicators without RGB Matrix Effect

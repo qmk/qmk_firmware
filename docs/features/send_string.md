@@ -5,7 +5,7 @@ The Send String API is part of QMK's macro system. It allows for sequences of ke
 The full ASCII character set is supported, along with all of the keycodes in the Basic Keycode range (as these are the only ones that will actually be sent to the host).
 
 ::: tip
-Unicode characters are **not** supported with this API -- see the [Unicode](feature_unicode) feature instead.
+Unicode characters are **not** supported with this API -- see the [Unicode](unicode) feature instead.
 :::
 
 ## Usage {#usage}
@@ -22,7 +22,7 @@ Add the following to your `config.h`:
 
 |Define           |Default         |Description                                                                                                 |
 |-----------------|----------------|------------------------------------------------------------------------------------------------------------|
-|`SENDSTRING_BELL`|*Not defined*   |If the [Audio](feature_audio) feature is enabled, the `\a` character (ASCII `BEL`) will beep the speaker.|
+|`SENDSTRING_BELL`|*Not defined*   |If the [Audio](audio) feature is enabled, the `\a` character (ASCII `BEL`) will beep the speaker.|
 |`BELL_SOUND`     |`TERMINAL_SOUND`|The song to play when the `\a` character is encountered. By default, this is an eighth note of C5.          |
 
 ## Keycodes {#keycodes}

@@ -321,7 +321,7 @@ must be designated as a 'hold' by `process_tapping` before we send the modifier.
 [Per-key tapping terms](tap_hold#tapping-term) can be used as a workaround.
 There is no such limitation in regards to `AUTO_SHIFT_TIMEOUT` for normal keys.
 
-**Note:** Tap Holds must be added to Auto Shift, see [here.](feature_auto_shift#auto-shift-per-key)
+**Note:** Tap Holds must be added to Auto Shift, see [here.](auto_shift#auto-shift-per-key)
 `IS_RETRO` may be helpful if one wants all Tap Holds retro shifted.
 
 ### Retro Shift and Tap Hold Configurations

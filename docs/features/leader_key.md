@@ -1,6 +1,6 @@
 # The Leader Key: A New Kind of Modifier {#the-leader-key}
 
-If you're a Vim user, you probably know what a Leader key is. In contrast to [Combos](feature_combo), the Leader key allows you to hit a *sequence* of up to five keys instead, which triggers some custom functionality once complete.
+If you're a Vim user, you probably know what a Leader key is. In contrast to [Combos](combo), the Leader key allows you to hit a *sequence* of up to five keys instead, which triggers some custom functionality once complete.
 
 ## Usage {#usage}
 

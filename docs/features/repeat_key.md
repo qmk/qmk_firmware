@@ -388,7 +388,7 @@ By leveraging `get_last_keycode()` in macros, it is possible to define
 additional, distinct "Alternate Repeat"-like keys. The following defines two
 keys `ALTREP2` and `ALTREP3` and implements ten shortcuts with them for common
 English 5-gram letter patterns, taking inspiration from
-[Stenotype](feature_stenography):
+[Stenotype](stenography):
 
 
 | Typing                           | Produces | Typing                           | Produces |

@@ -1,6 +1,6 @@
 # Joystick {#joystick}
 
-This feature provides game controller input as a joystick device supporting up to 6 axes and 32 buttons. Axes can be read either from an [ADC-capable input pin](adc_driver), or can be virtual, so that its value is provided by your code.
+This feature provides game controller input as a joystick device supporting up to 6 axes and 32 buttons. Axes can be read either from an [ADC-capable input pin](../drivers/adc), or can be virtual, so that its value is provided by your code.
 
 An analog device such as a [potentiometer](https://en.wikipedia.org/wiki/Potentiometer) found on an analog joystick's axes is based on a voltage divider, where adjusting the movable wiper controls the output voltage which can then be read by the microcontroller's ADC.
 

@@ -103,7 +103,7 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 ```
 
 ### Flexible macOS-friendly Grave Escape {#flexible-macos-friendly-grave-escape}
-The [Grave Escape feature](feature_grave_esc) is limited in its configurability and has [bugs when used on macOS](feature_grave_esc#caveats). Key overrides can be used to achieve a similar functionality as Grave Escape, but with more customization and without bugs on macOS.
+The [Grave Escape feature](grave_esc) is limited in its configurability and has [bugs when used on macOS](grave_esc#caveats). Key overrides can be used to achieve a similar functionality as Grave Escape, but with more customization and without bugs on macOS.
 
 ```c
 // Shift + esc = ~
@@ -224,7 +224,7 @@ The duration of the key repeat delay is controlled with the `KEY_OVERRIDE_REPEAT
 
 ## Difference to Combos {#difference-to-combos}
 
-Note that key overrides are very different from [combos](feature_combo). Combos require that you press down several keys almost _at the same time_ and can work with any combination of non-modifier keys. Key overrides work like keyboard shortcuts (e.g. `ctrl` + `z`): They take combinations of _multiple_ modifiers and _one_ non-modifier key to then perform some custom action. Key overrides are implemented with much care to behave just like normal keyboard shortcuts would in regards to the order of pressed keys, timing, and interaction with other pressed keys. There are a number of optional settings that can be used to really fine-tune the behavior of each key override as well. Using key overrides also does not delay key input for regular key presses, which inherently happens in combos and may be undesirable.
+Note that key overrides are very different from [combos](combo). Combos require that you press down several keys almost _at the same time_ and can work with any combination of non-modifier keys. Key overrides work like keyboard shortcuts (e.g. `ctrl` + `z`): They take combinations of _multiple_ modifiers and _one_ non-modifier key to then perform some custom action. Key overrides are implemented with much care to behave just like normal keyboard shortcuts would in regards to the order of pressed keys, timing, and interaction with other pressed keys. There are a number of optional settings that can be used to really fine-tune the behavior of each key override as well. Using key overrides also does not delay key input for regular key presses, which inherently happens in combos and may be undesirable.
 
 ## Solution to the problem of flashing modifiers {#neutralize-flashing-modifiers}
 

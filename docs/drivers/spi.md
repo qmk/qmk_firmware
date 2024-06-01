@@ -4,7 +4,7 @@ The SPI Master drivers used in QMK have a set of common functions to allow porta
 
 ## Usage {#usage}
 
-In most cases, the SPI Master driver code is automatically included if you are using a feature or driver which requires it, such as [OLED](feature_oled_driver).
+In most cases, the SPI Master driver code is automatically included if you are using a feature or driver which requires it, such as [OLED](../features/oled_driver).
 
 However, if you need to use the driver standalone, add the following to your `rules.mk`:
 
