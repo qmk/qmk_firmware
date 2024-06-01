@@ -26,7 +26,7 @@ A Bluefruit UART friend can be converted to an SPI friend, however this [require
 <!-- FIXME: Document bluetooth support more completely. -->
 ## Bluetooth Rules.mk Options
 
-The currently supported Bluetooth chipsets do not support [N-Key Rollover (NKRO)](reference_glossary.md#n-key-rollover-nkro), so `rules.mk` must contain `NKRO_ENABLE = no`.
+The currently supported Bluetooth chipsets do not support [N-Key Rollover (NKRO)](reference_glossary#n-key-rollover-nkro), so `rules.mk` must contain `NKRO_ENABLE = no`.
 
 Add the following to your `rules.mk`:
 

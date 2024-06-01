@@ -54,13 +54,9 @@ bool led_update_kb(led_t led_state) {
 }
 
 #define REBOOT_MAGIC 0x41544B42
-void shutdown_user(void)
-{
-    // set the magic number for resetting to the bootloader
-    *(uint32_t *)(&(RTCD1.rtc->BKP0R)) = REBOOT_MAGIC;
-}
 
 void bootloader_jump(void) {
-    shutdown_user();
+    // set the magic number for resetting to the bootloader
+    *(uint32_t *)(&(RTCD1.rtc->BKP0R)) = REBOOT_MAGIC;
     NVIC_SystemReset();
 }

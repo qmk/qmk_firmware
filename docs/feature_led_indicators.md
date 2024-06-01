@@ -1,6 +1,8 @@
 # LED Indicators
 
-?> LED indicators on split keyboards will require state information synced to the slave half (e.g. `#define SPLIT_LED_STATE_ENABLE`). See [data sync options](feature_split_keyboard.md#data-sync-options) for more details.
+::: tip
+LED indicators on split keyboards will require state information synced to the slave half (e.g. `#define SPLIT_LED_STATE_ENABLE`). See [data sync options](feature_split_keyboard#data-sync-options) for more details.
+:::
 
 QMK provides methods to read 5 of the LEDs defined in the HID spec:
 
@@ -15,7 +17,9 @@ There are three ways to get the lock LED state:
 * Implement `led_update_*` function
 * Call `led_t host_keyboard_led_state()`
 
-!> The `host_keyboard_led_state()` may reflect an updated state before `led_update_user()` is called.
+::: warning
+The `host_keyboard_led_state()` may reflect an updated state before `led_update_user()` is called.
+:::
 
 Two deprecated functions that provide the LED state as `uint8_t`:
 
@@ -46,7 +50,9 @@ When the configuration options do not provide enough flexibility, the following 
 
 Both receives LED state as a struct parameter. Returning `true` in `led_update_user()` will allow the keyboard level code in `led_update_kb()` to run as well. Returning `false` will override the keyboard level code, depending on how the keyboard level function is set up.
 
-?> This boolean return type of `led_update_user` allows for overriding keyboard LED controls, and is thus recommended over the void `led_set_user` function.
+::: tip
+This boolean return type of `led_update_user` allows for overriding keyboard LED controls, and is thus recommended over the void `led_set_user` function.
+:::
 
 ### Example of keyboard LED update implementation
 
@@ -56,16 +62,16 @@ This is a template indicator function that can be implemented on keyboard level 
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if(res) {
-        // writePin sets the pin high for 1 and low for 0.
+        // gpio_write_pin sets the pin high for 1 and low for 0.
         // In this example the pins are inverted, setting
         // it low/0 turns it on, and high/1 turns the LED off.
         // This behavior depends on whether the LED is between the pin
         // and VCC or the pin and GND.
-        writePin(B0, !led_state.num_lock);
-        writePin(B1, !led_state.caps_lock);
-        writePin(B2, !led_state.scroll_lock);
-        writePin(B3, !led_state.compose);
-        writePin(B4, !led_state.kana);
+        gpio_write_pin(B0, !led_state.num_lock);
+        gpio_write_pin(B1, !led_state.caps_lock);
+        gpio_write_pin(B2, !led_state.scroll_lock);
+        gpio_write_pin(B3, !led_state.compose);
+        gpio_write_pin(B4, !led_state.kana);
     }
     return res;
 }

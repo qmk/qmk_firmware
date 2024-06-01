@@ -8,5 +8,11 @@
     "pid": "0x6006"
   },
   "processor": "atmega32u4",
-  "bootloader": "caterina"
+  "bootloader": "caterina",
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  }
 }

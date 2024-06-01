@@ -9,6 +9,9 @@
   "build": {
     "lto": true
   },
+  "eeprom": {
+    "driver": "spi"
+  },
   "features": {
     "audio": true,
     "backlight": true,
@@ -20,7 +23,6 @@
     "nkro": true,
     "quantum_painter": true,
     "rgb_matrix": true,
-    "unicode": false,
     "usbpd": true,
     "wpm": true
   },
@@ -28,6 +30,9 @@
     "custom_lite": true,
     "rows": ["B13", "B14", "B15", "C6", "C7", "C8"],
     "cols": ["C0", "C1", "C2", "C3", "A0", "A1", "A2"]
+  },
+  "audio": {
+    "driver": "pwm_software"
   },
   "backlight": {
     "pin": "A7",
@@ -42,12 +47,21 @@
   },
   "split": {
     "enabled": true,
-    "main": "pin",
     "encoder": {
       "right": {
         "rotary": [
           {"pin_a": "C15", "pin_b": "C14", "resolution": 2}
         ]
+      }
+    },
+    "transport": {
+      "sync": {
+          "activity": true,
+          "indicators": true,
+          "layer_state": true,
+          "matrix_state": true,
+          "modifiers": true,
+          "wpm": true
       }
     }
   },

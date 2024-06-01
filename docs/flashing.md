@@ -8,7 +8,7 @@ You will also be able to use the CLI to flash your keyboard, by running:
 ```
 $ qmk flash -kb <keyboard> -km <keymap>
 ```
-See the [`qmk flash`](cli_commands.md#qmk-flash) documentation for more information.
+See the [`qmk flash`](cli_commands#qmk-flash) documentation for more information.
 
 ## Atmel DFU
 
@@ -53,7 +53,7 @@ QMK maintains [a fork of the LUFA DFU bootloader](https://github.com/qmk/lufa/tr
 //#define QMK_LED E6
 //#define QMK_SPEAKER C6
 ```
-Currently we do not recommend making `QMK_ESC` the same key as the one designated for [Bootmagic Lite](feature_bootmagic.md), as holding it down will cause the MCU to loop back and forth between entering and exiting the bootloader.
+Currently we do not recommend making `QMK_ESC` the same key as the one designated for [Bootmagic Lite](feature_bootmagic), as holding it down will cause the MCU to loop back and forth between entering and exiting the bootloader.
 
 The manufacturer and product strings are automatically pulled from `config.h`, with " Bootloader" appended to the product string.
 
@@ -209,7 +209,7 @@ To enable the additional features, add the following defines to your `config.h`:
 //#define QMK_SPEAKER C6
 ```
 
-Currently we do not recommend making `QMK_ESC` the same key as the one designated for [Bootmagic Lite](feature_bootmagic.md), as holding it down will cause the MCU to loop back and forth between entering and exiting the bootloader.
+Currently we do not recommend making `QMK_ESC` the same key as the one designated for [Bootmagic Lite](feature_bootmagic), as holding it down will cause the MCU to loop back and forth between entering and exiting the bootloader.
 
 The manufacturer and product strings are automatically pulled from `config.h`, with " Bootloader" appended to the product string.
 
@@ -236,7 +236,7 @@ Flashing sequence:
 
 ## STM32/APM32 DFU
 
-All STM32 and APM32 MCUs, except for F103 (see the [STM32duino section](#stm32duino)) come preloaded with a factory bootloader that cannot be modified nor deleted.
+All USB-capable STM32 and APM32 MCUs, except for a small handful (such as STM32F103 -- see the [STM32duino section](#stm32duino)) come preloaded with a factory bootloader that cannot be modified nor deleted.
 
 To ensure compatibility with the STM32-DFU bootloader, make sure this block is present in your `rules.mk` (optionally with `apm32-dfu` instead):
 
@@ -464,4 +464,4 @@ CLI Flashing sequence:
 3. Flash via QMK CLI eg. `qmk flash --keyboard handwired/onekey/rpi_pico --keymap default`
 4. Wait for the keyboard to become available
 
-<sup>1</sup>: This works only if QMK was compiled with `RP2040_BOOTLOADER_DOUBLE_TAP_RESET` defined.
+<sup>1</sup>: This works only if the controller has been flashed with QMK Firmware with `RP2040_BOOTLOADER_DOUBLE_TAP_RESET` defined.

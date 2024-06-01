@@ -15,6 +15,11 @@
  */
 
 #include "navpad_prefs.h"
+#include "quantum.h"
+#include "action.h"
+#include "action_layer.h"
+#include "rgblight.h"
+#include "led.h"
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_user(keycode, record)) { return false; }

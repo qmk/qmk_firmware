@@ -67,10 +67,10 @@ bool qp_ellipse(painter_device_t device, uint16_t x, uint16_t y, uint16_t sizex,
         return false;
     }
 
-    int16_t aa = ((int16_t)sizex) * ((int16_t)sizex);
-    int16_t bb = ((int16_t)sizey) * ((int16_t)sizey);
-    int16_t fa = 4 * ((int16_t)aa);
-    int16_t fb = 4 * ((int16_t)bb);
+    int32_t aa = ((int32_t)sizex) * ((int32_t)sizex);
+    int32_t bb = ((int32_t)sizey) * ((int32_t)sizey);
+    int32_t fa = 4 * aa;
+    int32_t fb = 4 * bb;
 
     int16_t dx = 0;
     int16_t dy = ((int16_t)sizey);
@@ -83,7 +83,7 @@ bool qp_ellipse(painter_device_t device, uint16_t x, uint16_t y, uint16_t sizex,
     }
 
     bool ret = true;
-    for (int16_t delta = (2 * bb) + (aa * (1 - (2 * sizey))); bb * dx <= aa * dy; dx++) {
+    for (int32_t delta = (2 * bb) + (aa * (1 - (2 * sizey))); bb * dx <= aa * dy; dx++) {
         if (!qp_ellipse_helper_impl(device, x, y, dx, dy, filled)) {
             ret = false;
             break;
@@ -98,7 +98,7 @@ bool qp_ellipse(painter_device_t device, uint16_t x, uint16_t y, uint16_t sizex,
     dx = sizex;
     dy = 0;
 
-    for (int16_t delta = (2 * aa) + (bb * (1 - (2 * sizex))); aa * dy <= bb * dx; dy++) {
+    for (int32_t delta = (2 * aa) + (bb * (1 - (2 * sizex))); aa * dy <= bb * dx; dy++) {
         if (!qp_ellipse_helper_impl(device, x, y, dx, dy, filled)) {
             ret = false;
             break;

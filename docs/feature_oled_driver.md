@@ -102,7 +102,9 @@ bool oled_task_user(void) {
 }
 ```
 
-?> The default font file is located at `drivers/oled/glcdfont.c` and its location can be overwritten with the `OLED_FONT_H` configuration option. Font file content can be edited with external tools such as [Helix Font Editor](https://helixfonteditor.netlify.app/) and [Logo Editor](https://joric.github.io/qle/).
+::: tip
+The default font file is located at `drivers/oled/glcdfont.c` and its location can be overwritten with the `OLED_FONT_H` configuration option. Font file content can be edited with external tools such as [Helix Font Editor](https://helixfonteditor.netlify.app/) and [Logo Editor](https://joric.github.io/qle/).
+:::
 
 ## Buffer Read Example
 For some purposes, you may need to read the current state of the OLED display
@@ -167,6 +169,28 @@ bool oled_task_user(void) {
 #endif
 ```
 
+Render a message before booting into bootloader mode.
+```c
+void oled_render_boot(bool bootloader) {
+    oled_clear();
+    for (int i = 0; i < 16; i++) {
+        oled_set_cursor(0, i);
+        if (bootloader) {
+            oled_write_P(PSTR("Awaiting New Firmware "), false);
+        } else {
+            oled_write_P(PSTR("Rebooting "), false);
+        }
+    }
+
+    oled_render_dirty(true);
+}
+
+bool shutdown_user(bool jump_to_bootloader) {
+    oled_render_boot(jump_to_bootloader);
+}
+
+```
+
 ## Basic Configuration
 
 These configuration options should be placed in `config.h`. Example:
@@ -191,7 +215,7 @@ These configuration options should be placed in `config.h`. Example:
 |`OLED_SCROLL_TIMEOUT_RIGHT`|*Not defined*                  |Scroll timeout direction is right when defined, left when undefined.                                                 |
 |`OLED_TIMEOUT`             |`60000`                        |Turns off the OLED screen after 60000ms of screen update inactivity. Helps reduce OLED Burn-in. Set to 0 to disable. |
 |`OLED_UPDATE_INTERVAL`     |`0` (`50` for split keyboards) |Set the time interval for updating the OLED display in ms. This will improve the matrix scan rate.                   |
-|`OLED_UPDATE_PROCESS_LIMIT'|`1`                            |Set the number of dirty blocks to render per loop. Increasing may degrade performance.                               |
+|`OLED_UPDATE_PROCESS_LIMIT`|`1`                            |Set the number of dirty blocks to render per loop. Increasing may degrade performance.                               |
 
 ### I2C Configuration
 |Define                     |Default          |Description                                                                                                               |
@@ -221,7 +245,9 @@ These configuration options should be placed in `config.h`. Example:
 |`OLED_DISPLAY_128X128`|*Not defined*  |Changes the display defines for use with 128x128 displays.                                                                             |
 |`OLED_DISPLAY_CUSTOM` |*Not defined*  |Changes the display defines for use with custom displays.<br>Requires user to implement the below defines.                             |
 
-!> 64x128 and 128x128 displays default to the SH1107 IC type, as these heights are not supported by the other IC types.
+::: warning
+64x128 and 128x128 displays default to the SH1107 IC type, as these heights are not supported by the other IC types.
+:::
 
 |Define               |Default        |Description                                                                                                                             |
 | --------------------|---------------|----------------------------------------------------------------------------------------------------------------------------------------|
@@ -276,7 +302,7 @@ Rotation on SH1106 and SH1107 is noticeably less efficient than on SSD1306, beca
 ## OLED API
 
 ```c
-// OLED rotation enum values are flags
+// OLED Rotation enum values are flags
 typedef enum {
     OLED_ROTATION_0   = 0,
     OLED_ROTATION_90  = 1,
@@ -284,7 +310,7 @@ typedef enum {
     OLED_ROTATION_270 = 3, // OLED_ROTATION_90 | OLED_ROTATION_180
 } oled_rotation_t;
 
-// Initialize the OLED display, rotating the rendered output based on the define passed in.
+// Initialize the oled display, rotating the rendered output based on the define passed in.
 // Returns true if the OLED was initialized successfully
 bool oled_init(oled_rotation_t rotation);
 
@@ -302,8 +328,12 @@ bool oled_send_data(const uint8_t *data, uint16_t size);
 // Clears the display buffer, resets cursor position to 0, and sets the buffer to dirty for rendering
 void oled_clear(void);
 
-// Renders the dirty chunks of the buffer to OLED display
-void oled_render(void);
+// Alias to oled_render_dirty to avoid a change in api.
+#define oled_render() oled_render_dirty(false)
+
+// Renders all dirty blocks to the display at one time or a subset depending on the value of
+// all.
+void oled_render_dirty(bool all);
 
 // Moves cursor to character position indicated by column and line, wraps if out of bounds
 // Max column denoted by 'oled_max_chars()' and max lines by 'oled_max_lines()' functions
@@ -334,8 +364,6 @@ void oled_write_ln(const char *data, bool invert);
 
 // Pans the buffer to the right (or left by passing true) by moving contents of the buffer
 // Useful for moving the screen in preparation for new drawing
-// oled_scroll_left or oled_scroll_right should be preferred for all cases of moving a static
-// image such as a logo or to avoid burn-in as it's much, much less cpu intensive
 void oled_pan(bool left);
 
 // Returns a pointer to the requested start index in the buffer plus remaining
@@ -352,6 +380,7 @@ void oled_write_raw_byte(const char data, uint16_t index);
 // Coordinates start at top-left and go right and down for positive x and y
 void oled_write_pixel(uint8_t x, uint8_t y, bool on);
 
+#if defined(__AVR__)
 // Writes a PROGMEM string to the buffer at current cursor position
 // Advances the cursor while writing, inverts the pixels if true
 // Remapped to call 'void oled_write(const char *data, bool invert);' on ARM
@@ -365,6 +394,11 @@ void oled_write_ln_P(const char *data, bool invert);
 
 // Writes a PROGMEM string to the buffer at current cursor position
 void oled_write_raw_P(const char *data, uint16_t size);
+#else
+# define oled_write_P(data, invert) oled_write(data, invert)
+# define oled_write_ln_P(data, invert) oled_write_ln(data, invert)
+# define oled_write_raw_P(data, size) oled_write_raw(data, size)
+#endif // defined(__AVR__)
 
 // Can be used to manually turn on the screen if it is off
 // Returns true if the screen was on or turns on
@@ -432,9 +466,13 @@ uint8_t oled_max_chars(void);
 uint8_t oled_max_lines(void);
 ```
 
-!> Scrolling is unsupported on the SH1106 and SH1107.
+::: warning
+Scrolling is unsupported on the SH1106 and SH1107.
+:::
 
-!> Scrolling does not work properly on the SSD1306 if the display width is smaller than 128.
+::: warning
+Scrolling does not work properly on the SSD1306 if the display width is smaller than 128.
+:::
 
 ## SSD1306.h Driver Conversion Guide
 

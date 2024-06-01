@@ -22,8 +22,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MO(1),      LCTL(KC_C), LCTL(KC_V)  // FN(1) - Copy - Paste
     ),
     [1] = LAYOUT_ortho_3x3(
-        RGB_TOG,    RGB_MODE_REVERSE,    RGB_MODE_FORWARD,
-        _______,    RGB_MODE_BREATHE,    RGB_MODE_RAINBOW,
+        RGB_TOG,    RGB_RMOD,    RGB_MOD,
+        _______,    RGB_M_B,    RGB_M_R,
         _______,    _______,             QK_BOOT
     ),
     [2] = LAYOUT_ortho_3x3(
