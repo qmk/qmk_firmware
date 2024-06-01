@@ -1,3 +1,4 @@
+#include "timer.h"
 #include QMK_KEYBOARD_H
 #include "gw_oled.h"
 #include "quantum.h"
@@ -35,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BSE] = LAYOUT_split_3x6_3(
     OSM(MOD_LSFT), KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                 KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          KC_DEL,
-    HYPR_T(KC_ENT),KC_A,          LT(U, KC_S),  LALT_T(KC_D),  LT(N, KC_F),   KC_G,                 KC_H,          GUI_T(KC_J),   KC_K,         KC_L,          KC_SCLN,       OSL(Y),
+    HYPR_T(KC_ENT),KC_A,          LT(U, KC_S),  LALT_T(KC_D),  LT(N, KC_F),   KC_G,                 KC_H,          KC_J,          KC_K,         KC_L,          GUI_T(KC_SCLN),OSL(Y),
     KC_TAB,        KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,                 KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       C(G(KC_Q)),
                                                 CTL_T(KC_ESC), GUI_T(KC_SPC), QK_REP,               MEH_T(KC_ENT), SFT_T(KC_BSPC),OSL(M)
 ),
@@ -244,6 +245,9 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 
 #ifdef OLED_ENABLE
 
+// This is updated to the current time in ms every time we enter the render loop.
+static uint32_t cur_render_time = 0;
+
 bool render_downtaunt(void);
 void render_idle(void);
 bool render_flash_img(void);
@@ -281,6 +285,7 @@ bool shutdown_user(bool jump_to_bootloader) {
 }
 
 bool oled_task_user() {
+    cur_render_time = timer_read32();
     if (render_flash_img() == false) {
         return false;
     }
@@ -312,14 +317,49 @@ bool oled_task_user() {
     return false;
 }
 
-// Delay to wait after kb inactivity to begin taunt animation.
-#    define IDLE_TOGGLE_FRAME_LEN_MS 2500
+// How long an individual idle frame lasts.
+#    define IDLE_TOGGLE_FRAME_LEN_MS 500
+enum IDLE_DIR { RIGHT, LEFT };
+static uint8_t  cur_idle_pose          = 0;
+static bool     must_do_crouch         = false;
+static uint8_t  cur_idle_dir           = RIGHT;
+static uint32_t change_idle_pose_timer = 0;
+
 void render_idle() {
-    if ((timer_read32() / IDLE_TOGGLE_FRAME_LEN_MS) % 2 == 0) {
-        oled_write_raw(gw_idle_A, sizeof(gw_idle_A));
-    } else {
-        oled_write_raw(gw_idle_B, sizeof(gw_idle_B));
-    }
+    if (timer_expired32(cur_render_time, change_idle_pose_timer)) {
+        change_idle_pose_timer = cur_render_time + IDLE_TOGGLE_FRAME_LEN_MS;
+        // We emulate the idle animation behavior from smash. Most of the time is spent toggling between stand and crouch.
+        // When you are in any pose other than stand, the only valid next pose is back to stand. Stand can then branch
+        // into crouch, or backhand/outstreched (BO), but crouch is the most likely. If you have entered into stand from BO,
+        // then you must perform a crouch before you are eligible to do another BO.
+        if (cur_idle_pose == idle_stand_pose) {
+            if (must_do_crouch) {
+                cur_idle_pose = idle_crouch_pose;
+                must_do_crouch = false;
+            } else {
+                // 50% chance go into crouch, 25% backhand or outstreched individually.
+                switch (rand() % 4) {
+                    case 0:
+                    case 1:
+                        cur_idle_pose = idle_crouch_pose;
+                        break;
+                    case 2:
+                        cur_idle_pose  = idle_backhand_pose;
+                        must_do_crouch = true;
+                        break;
+                    case 3:
+                        cur_idle_pose = idle_outstretched_pose;
+                        must_do_crouch = true;
+                        break;
+                }
+            }
+        } else {
+            cur_idle_pose = idle_stand_pose;
+        }
+    };
+    uint8_t idleIdx = cur_idle_pose * 2 + cur_idle_dir;
+    // All the poses should have the same size, so it doesn't matter which one we use sizeof on.
+    oled_write_raw(gw_idle_poses[idleIdx], sizeof(gw_idle_A_right));
 }
 
 // Delay to wait after kb inactivity to begin taunt animation.
@@ -332,7 +372,7 @@ bool render_downtaunt() {
     if (idle_time_ms <= TAUNT_WAIT_MS) {
         return true;
     }
-    if ((timer_read32() / TAUNT_TOGGLE_FRAME_LEN_MS) % 2 == 0) {
+    if ((cur_render_time / TAUNT_TOGGLE_FRAME_LEN_MS) % 2 == 0) {
         oled_write_raw(gw_downtaunt_f1, sizeof(gw_downtaunt_f1));
     } else {
         oled_write_raw(gw_downtaunt_f2, sizeof(gw_downtaunt_f2));
@@ -352,7 +392,7 @@ bool render_flash_img() {
     if (flash_img_anim_timer == 0) {
         return true;
     }
-    if (timer_expired32(timer_read32(), flash_img_anim_timer)) {
+    if (timer_expired32(cur_render_time, flash_img_anim_timer)) {
         flash_img_anim_timer = 0;
         return true;
     }
@@ -362,11 +402,10 @@ bool render_flash_img() {
 
 void enter_key_pressed_cb(void) {
 #    define JUDGE9_LEN_MS 1100
-    uint32_t cur_time_ms = timer_read32();
     // Treat the time at which the enter key is pressed as RNG.
     // We have a 1/9 chance of flashing the judge9.
-    if (cur_time_ms % 9 == 0) {
-        flash_img_anim_timer = cur_time_ms + JUDGE9_LEN_MS;
+    if (cur_render_time % 9 == 0) {
+        flash_img_anim_timer = cur_render_time + JUDGE9_LEN_MS;
         flash_img_data       = gw_judge9;
         flash_img_size       = sizeof(gw_judge9);
     }
@@ -379,7 +418,7 @@ static uint8_t charge_state = 0;
 
 void flash_current_charge_state(void) {
 #    define BUCKET_CHARGE_LEN_MS 500
-    flash_img_anim_timer = timer_read32() + BUCKET_CHARGE_LEN_MS;
+    flash_img_anim_timer = cur_render_time + BUCKET_CHARGE_LEN_MS;
     switch (charge_state) {
         case 0:
             flash_img_data = gw_bucket_charged1;
@@ -406,7 +445,7 @@ void copy_key_pressed_cb(void) {
 void paste_key_pressed_cb(void) {
 #    define BUCKET_THROW_LEN_MS 900
     if (charge_state == MAX_CHARGE_STATE) {
-        flash_img_anim_timer = timer_read32() + BUCKET_THROW_LEN_MS;
+        flash_img_anim_timer = cur_render_time + BUCKET_THROW_LEN_MS;
         flash_img_data       = gw_bucket_throw;
         flash_img_size       = sizeof(gw_bucket_throw);
         charge_state         = 0;
