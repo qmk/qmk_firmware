@@ -2,9 +2,9 @@
 
 This page details various common questions people have about troubleshooting their keyboards.
 
-## Debugging :id=debugging
+## Debugging {#debugging}
 
-Your keyboard will output debug information if you have `CONSOLE_ENABLE = yes` in your `rules.mk`. By default the output is very limited, but you can turn on debug mode to increase the amount of debug output. Use the `DB_TOGG` keycode in your keymap, use the [Command](feature_command.md) feature to enable debug mode, or add the following code to your keymap.
+Your keyboard will output debug information if you have `CONSOLE_ENABLE = yes` in your `rules.mk`. By default the output is very limited, but you can turn on debug mode to increase the amount of debug output. Use the `DB_TOGG` keycode in your keymap, use the [Command](feature_command) feature to enable debug mode, or add the following code to your keymap.
 
 ```c
 void keyboard_post_init_user(void) {
@@ -26,15 +26,15 @@ For compatible platforms, [QMK Toolbox](https://github.com/qmk/qmk_toolbox) can 
 
 ### Debugging with QMK CLI
 
-Prefer a terminal based solution? The [QMK CLI console command](cli_commands.md#qmk-console) can be used to display debug messages from your keyboard.
+Prefer a terminal based solution? The [QMK CLI console command](cli_commands#qmk-console) can be used to display debug messages from your keyboard.
 
 ### Debugging With hid_listen
 
 Something stand-alone? [hid_listen](https://www.pjrc.com/teensy/hid_listen.html), provided by PJRC, can also be used to display debug messages. Prebuilt binaries for Windows,Linux,and MacOS are available.
 
-## Sending Your Own Debug Messages :id=debug-api
+## Sending Your Own Debug Messages {#debug-api}
 
-Sometimes it's useful to print debug messages from within your [custom code](custom_quantum_functions.md). Doing so is pretty simple. Start by including `print.h` at the top of your file:
+Sometimes it's useful to print debug messages from within your [custom code](custom_quantum_functions). Doing so is pretty simple. Start by including `print.h` at the top of your file:
 
 ```c
 #include "print.h"
@@ -49,7 +49,7 @@ After that you can use a few different print functions:
 
 ## Debug Examples
 
-Below is a collection of real world debugging examples. For additional information, refer to [Debugging/Troubleshooting QMK](faq_debug.md).
+Below is a collection of real world debugging examples. For additional information, refer to [Debugging/Troubleshooting QMK](faq_debug).
 
 ### Which matrix position is this keypress?
 

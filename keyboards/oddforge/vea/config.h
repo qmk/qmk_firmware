@@ -21,7 +21,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 15
 
-#define LOCKING_SUPPORT_ENABLE
-#define LOCKING_RESYNC_ENABLE
-
 #define RGBLIGHT_EFFECT_KNIGHT_OFFSET 9
