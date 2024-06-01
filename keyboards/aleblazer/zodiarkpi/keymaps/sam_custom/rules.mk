@@ -6,7 +6,8 @@ SRC += rgb_matrix_user.c
 SRC += ui/ui.c \
 	   ui/ui_comp_hook.c \
 	   ui/ui_helpers.c \
-	   ui/ui_Screen1.c
+	   ui/ui_Screen1.c \
+	   ui/ui_Screen2.c
 
 # Combo dictionary
 VPATH += keyboards/gboards

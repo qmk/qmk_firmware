@@ -11,7 +11,6 @@
 
 #include "images/nvlogo_small.qgf.c"
 
-
 painter_image_handle_t image;
 painter_device_t qp_st7789_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode);
 
@@ -131,6 +130,7 @@ __attribute__((weak)) void display_housekeeping_task(void) {
             break;
         case _NUMPAD:
             layer_name = "NUMPAD";
+            lv_event_send(ui_Screen1, LV_EVENT_PRESSED, NULL);
             break;
         case _MAGIC:
             layer_name = "MAGIC";
