@@ -86,6 +86,12 @@ void copy_key_pressed_cb(void);
 // Callback to invoke when the paste hot-key is pressed.
 void paste_key_pressed_cb(void);
 
+// Callback to invoke when the left arrow key is pressed.
+void leftarrow_key_pressed_cb(void);
+
+// Callback to invoke when the right arrow key is pressed.
+void rightarrow_key_pressed_cb(void);
+
 /* ********************* */
 /* KEYCODE SECTION BEGIN */
 /* ********************* */
@@ -141,6 +147,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return true;
         }
+        case KC_LEFT:
+            if (record->event.pressed) {
+                leftarrow_key_pressed_cb();
+            }
+            return true;
+        case KC_RIGHT:
+            if (record->event.pressed) {
+                rightarrow_key_pressed_cb();
+            }
+            return true;
         default:
             return true;
     }
@@ -223,10 +239,10 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 // Convert mouse movement to scrolling.
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     const uint8_t cur_layer   = get_highest_layer(layer_state);
-    int8_t        slow_factor = 8;
+    int8_t        slow_factor = 1;
     if (cur_layer == _NUM) {
         // Decrease mouse sensitivity on num layer.
-        slow_factor = 16;
+        slow_factor = 4;
     }
     mouse_report.h = mouse_report.x;
     mouse_report.v = -mouse_report.y / slow_factor;
@@ -334,7 +350,7 @@ void render_idle() {
         // then you must perform a crouch before you are eligible to do another BO.
         if (cur_idle_pose == idle_stand_pose) {
             if (must_do_crouch) {
-                cur_idle_pose = idle_crouch_pose;
+                cur_idle_pose  = idle_crouch_pose;
                 must_do_crouch = false;
             } else {
                 // 50% chance go into crouch, 25% backhand or outstreched individually.
@@ -348,7 +364,7 @@ void render_idle() {
                         must_do_crouch = true;
                         break;
                     case 3:
-                        cur_idle_pose = idle_outstretched_pose;
+                        cur_idle_pose  = idle_outstretched_pose;
                         must_do_crouch = true;
                         break;
                 }
@@ -360,6 +376,14 @@ void render_idle() {
     uint8_t idleIdx = cur_idle_pose * 2 + cur_idle_dir;
     // All the poses should have the same size, so it doesn't matter which one we use sizeof on.
     oled_write_raw(gw_idle_poses[idleIdx], sizeof(gw_idle_A_right));
+}
+
+void leftarrow_key_pressed_cb(void) {
+    cur_idle_dir = LEFT;
+}
+
+void rightarrow_key_pressed_cb(void) {
+    cur_idle_dir = RIGHT;
 }
 
 // Delay to wait after kb inactivity to begin taunt animation.
