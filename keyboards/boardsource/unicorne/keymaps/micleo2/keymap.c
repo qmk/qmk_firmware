@@ -483,6 +483,8 @@ void paste_key_pressed_cb(void) {
 void enter_key_pressed_cb(void) {}
 void copy_key_pressed_cb(void) {}
 void paste_key_pressed_cb(void) {}
+void leftarrow_key_pressed_cb(void) {}
+void rightarrow_key_pressed_cb(void) {}
 #endif
 /* ****************** */
 /* OLED SECTION END */
