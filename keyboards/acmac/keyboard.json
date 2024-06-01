@@ -2,7 +2,7 @@
     "manufacturer": "lynton ivins",
     "keyboard_name": "acmac",
     "maintainer": "stirrem",
-    "bootloader": "atmel-dfu",
+    "bootloader": "catarina",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
