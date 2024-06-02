@@ -63,9 +63,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_NUM] = LAYOUT_split_3x6_3(
-    _______,       _______,       _______,      _______,       _______,       _______,              _______,       KC_7,          KC_8,         KC_9,          _______,       _______,
-    _______,       _______,       ___E___,      _______,       _______,       _______,              _______,       KC_4,          KC_5,         KC_6,          _______,       _______,
-    _______,       _______,       _______,      _______,       _______,       _______,              _______,       KC_1,          KC_2,         KC_3,          _______,       _______,
+    _______,       _______,       _______,      _______,       _______,       _______,              _______,       KC_7,          KC_8,         KC_9,          KC_MINUS,      _______,
+    _______,       _______,       ___E___,      _______,       _______,       _______,              _______,       KC_4,          KC_5,         KC_6,          KC_PLUS,       _______,
+    _______,       _______,       _______,      _______,       _______,       _______,              _______,       KC_1,          KC_2,         KC_3,          KC_SLSH,       _______,
                                                 _______,       _______,       _______,              _______,       _______,       KC_0
 )
 
@@ -79,6 +79,9 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {};
 
 // Callback to invoke when the enter key is pressed.
 void enter_key_pressed_cb(void);
+
+// Callback to invoke when the enter key is pressed.
+void delete_key_pressed_cb(void);
 
 // Callback to invoke when the copy hot-key is pressed.
 void copy_key_pressed_cb(void);
@@ -139,6 +142,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 enter_key_pressed_cb();
             }
             return true;
+        case KC_DEL:
+            if (record->event.pressed) {
+                delete_key_pressed_cb();
+            }
+            return true;
         case KC_C: {
             bool copypaste_mod_held = get_mods() & copypaste_modifier;
             if (record->event.pressed && copypaste_mod_held) {
@@ -193,6 +201,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #    define BASE_COL RGB_LIGHT_BLUE
 
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    /* return false; */
     uint8_t layer = get_highest_layer(layer_state);
     uint8_t red;
     uint8_t green;
@@ -464,11 +473,16 @@ void               start_flash_img(const char *data, uint32_t img_len_ms, uint16
 
 void refresh_key_pressed_cb(void) {
 #    define PUFF_LEN_MS 200 * 3
-    start_flash_seq(gw_puffs, PUFF_LEN_MS, NUM_PUFFS, sizeof(gw_puff_f1));
+    start_flash_seq(gw_puffs, PUFF_LEN_MS, PUFF_SEQ_LEN, sizeof(gw_puff_f1));
 }
 
 // Start judge9 anim on enter key.
 void enter_key_pressed_cb(void) {
+#    define VERMIN_LEN_MS 300 * VERMIN_SEQ_LEN
+    start_flash_seq(gw_vermin, VERMIN_LEN_MS, VERMIN_SEQ_LEN, sizeof(gw_vermin_hi));
+}
+
+void delete_key_pressed_cb(void) {
 #    define JUDGE9_LEN_MS 1100
     // Treat the time at which the enter key is pressed as RNG.
     // We have a 1/9 chance of flashing the judge9.
@@ -508,9 +522,9 @@ void copy_key_pressed_cb(void) {
 }
 
 void paste_key_pressed_cb(void) {
-#    define BUCKET_THROW_LEN_MS 200 * NUM_THROWS
+#    define BUCKET_THROW_LEN_MS 200 * THROW_SEQ_LEN
     if (charge_state == MAX_CHARGE_STATE) {
-        start_flash_seq(gw_bucket_throws, BUCKET_THROW_LEN_MS, NUM_THROWS, sizeof(gw_bucket_throw1));
+        start_flash_seq(gw_bucket_throws, BUCKET_THROW_LEN_MS, THROW_SEQ_LEN, sizeof(gw_bucket_throw1));
         charge_state = 0;
     } else {
         flash_current_charge_state();
