@@ -92,6 +92,9 @@ void leftarrow_key_pressed_cb(void);
 // Callback to invoke when the right arrow key is pressed.
 void rightarrow_key_pressed_cb(void);
 
+// Callback to invoke when the right arrow key is pressed.
+void refresh_key_pressed_cb(void);
+
 /* ********************* */
 /* KEYCODE SECTION BEGIN */
 /* ********************* */
@@ -137,6 +140,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             bool copypaste_mod_held = get_mods() & copypaste_modifier;
             if (record->event.pressed && copypaste_mod_held) {
                 copy_key_pressed_cb();
+            }
+            return true;
+        }
+        case KC_R: {
+            bool copypaste_mod_held = get_mods() & copypaste_modifier;
+            if (record->event.pressed && copypaste_mod_held) {
+                refresh_key_pressed_cb();
             }
             return true;
         }
@@ -404,34 +414,65 @@ bool render_downtaunt() {
     return false;
 }
 
-// When set, contains the end deadline for the flash image.
-uint32_t    flash_img_anim_timer = 0;
-const char *flash_img_data;
-uint16_t    flash_img_size;
+// Contains all the frame data of the sequence.
+static const char **flash_seq_data;
+// When set, contains the end deadline for the flash sequence.
+static uint32_t flash_img_end_timer = 0;
+static uint32_t flash_seq_begin_time;
+static uint16_t flash_num_frames;
+static uint32_t flash_frame_len_ms;
+static uint16_t flash_img_size;
 
-// Support briefly flashing an image on the display for a set amount of time. This ignores any layer information.
-// Currently these are only triggered by key events.
-// return true if the caller can continue rendering their own content.
+// Support briefly flashing an image sequence on the display for a set amount of time. This ignores any layer information.
+// Each frame of the sequence will have an equal amount of render time, based off the ratio of the sequence length and
+// number of frames. Any leftover time not evenly divisible will be given to the last frame.
 bool render_flash_img() {
-    if (flash_img_anim_timer == 0) {
+    if (flash_img_end_timer == 0) {
         return true;
     }
-    if (timer_expired32(cur_render_time, flash_img_anim_timer)) {
-        flash_img_anim_timer = 0;
+    if (timer_expired32(cur_render_time, flash_img_end_timer)) {
+        flash_img_end_timer = 0;
         return true;
     }
-    oled_write_raw(flash_img_data, flash_img_size);
+    uint16_t seq_idx = (cur_render_time - flash_seq_begin_time) / flash_frame_len_ms;
+    if (seq_idx >= flash_num_frames) {
+        seq_idx = flash_num_frames - 1;
+    }
+    oled_write_raw(flash_seq_data[seq_idx], flash_img_size);
     return false;
 }
 
+void start_flash_seq(const char **data, uint32_t seq_len_ms, uint16_t num_frames, uint16_t img_size) {
+    flash_seq_data       = data;
+    flash_seq_begin_time = cur_render_time;
+    flash_img_end_timer  = cur_render_time + seq_len_ms;
+    flash_num_frames     = num_frames;
+    flash_frame_len_ms   = seq_len_ms / num_frames;
+    flash_img_size       = img_size;
+}
+
+// Helper function to launch a "sequence" which is really just one frame of data.
+static const char *helper_img_wrapper[1] = {NULL};
+void               start_flash_img(const char *data, uint32_t img_len_ms, uint16_t img_size) {
+    helper_img_wrapper[0] = data;
+    flash_seq_data        = helper_img_wrapper;
+    flash_img_end_timer   = cur_render_time + img_len_ms;
+    flash_num_frames      = 1;
+    flash_img_size        = img_size;
+}
+
+void refresh_key_pressed_cb(void) {
+#    define PUFF_LEN_MS 200 * 3
+    start_flash_seq(gw_puffs, PUFF_LEN_MS, NUM_PUFFS, sizeof(gw_puff_f1));
+}
+
+// Start judge9 anim on enter key.
 void enter_key_pressed_cb(void) {
 #    define JUDGE9_LEN_MS 1100
     // Treat the time at which the enter key is pressed as RNG.
     // We have a 1/9 chance of flashing the judge9.
     if (cur_render_time % 9 == 0) {
-        flash_img_anim_timer = cur_render_time + JUDGE9_LEN_MS;
-        flash_img_data       = gw_judge9;
-        flash_img_size       = sizeof(gw_judge9);
+        start_flash_img(gw_judge9, JUDGE9_LEN_MS, sizeof(gw_judge9));
     }
 }
 
@@ -442,19 +483,15 @@ static uint8_t charge_state = 0;
 
 void flash_current_charge_state(void) {
 #    define BUCKET_CHARGE_LEN_MS 500
-    flash_img_anim_timer = cur_render_time + BUCKET_CHARGE_LEN_MS;
     switch (charge_state) {
         case 0:
-            flash_img_data = gw_bucket_charged1;
-            flash_img_size = sizeof(gw_bucket_charged1);
+            start_flash_img(gw_bucket_charged1, BUCKET_CHARGE_LEN_MS, sizeof(gw_bucket_charged1));
             break;
         case 1:
-            flash_img_data = gw_bucket_charged2;
-            flash_img_size = sizeof(gw_bucket_charged2);
+            start_flash_img(gw_bucket_charged2, BUCKET_CHARGE_LEN_MS, sizeof(gw_bucket_charged2));
             break;
         default:
-            flash_img_data = gw_bucket_charged3;
-            flash_img_size = sizeof(gw_bucket_charged3);
+            start_flash_img(gw_bucket_charged3, BUCKET_CHARGE_LEN_MS, sizeof(gw_bucket_charged3));
             break;
     }
 }
@@ -469,10 +506,8 @@ void copy_key_pressed_cb(void) {
 void paste_key_pressed_cb(void) {
 #    define BUCKET_THROW_LEN_MS 900
     if (charge_state == MAX_CHARGE_STATE) {
-        flash_img_anim_timer = cur_render_time + BUCKET_THROW_LEN_MS;
-        flash_img_data       = gw_bucket_throw;
-        flash_img_size       = sizeof(gw_bucket_throw);
-        charge_state         = 0;
+        start_flash_img(gw_bucket_throw, BUCKET_CHARGE_LEN_MS, sizeof(gw_bucket_throw));
+        charge_state = 0;
     } else {
         flash_current_charge_state();
     }
@@ -485,6 +520,7 @@ void copy_key_pressed_cb(void) {}
 void paste_key_pressed_cb(void) {}
 void leftarrow_key_pressed_cb(void) {}
 void rightarrow_key_pressed_cb(void) {}
+void refresh_key_pressed_cb(void) {}
 #endif
 /* ****************** */
 /* OLED SECTION END */
