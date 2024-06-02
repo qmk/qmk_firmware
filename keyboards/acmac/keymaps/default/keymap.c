@@ -69,7 +69,7 @@ const rgblight_segment_t PROGMEM yel_macro3[]   = RGBLIGHT_LAYER_SEGMENTS({0, 5,
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     red_base,
     blu_macro1,    // Overrides base layer
-    mgrn_acro2,    // Overrides other layers
+    grn_macro2,    // Overrides other layers
     yel_macro3    // Overrides other layers
 );
 
