@@ -292,7 +292,7 @@ static uint32_t cur_render_time = 0;
 
 bool render_downtaunt(void);
 void render_idle(void);
-bool render_flash_img(void);
+bool render_flash_seq(void);
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 #    ifdef MASTER_RIGHT
@@ -328,7 +328,7 @@ bool shutdown_user(bool jump_to_bootloader) {
 
 bool oled_task_user() {
     cur_render_time = timer_read32();
-    if (render_flash_img() == false) {
+    if (render_flash_seq() == false) {
         return false;
     }
 
@@ -435,7 +435,7 @@ static uint16_t flash_img_size;
 // Support briefly flashing an image sequence on the display for a set amount of time. This ignores any layer information.
 // Each frame of the sequence will have an equal amount of render time, based off the ratio of the sequence length and
 // number of frames. Any leftover time not evenly divisible will be given to the last frame.
-bool render_flash_img() {
+bool render_flash_seq() {
     if (flash_img_end_timer == 0) {
         return true;
     }
@@ -464,10 +464,7 @@ void start_flash_seq(const char **data, uint32_t seq_len_ms, uint16_t num_frames
 static const char *helper_img_wrapper[1] = {NULL};
 void               start_flash_img(const char *data, uint32_t img_len_ms, uint16_t img_size) {
     helper_img_wrapper[0] = data;
-    flash_seq_data        = helper_img_wrapper;
-    flash_img_end_timer   = cur_render_time + img_len_ms;
-    flash_num_frames      = 1;
-    flash_img_size        = img_size;
+    start_flash_seq(helper_img_wrapper, img_len_ms, 1, img_size);
 }
 
 void refresh_key_pressed_cb(void) {
