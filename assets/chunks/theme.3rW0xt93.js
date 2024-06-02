@@ -1,4 +1,4 @@
-const __vite__fileDeps=["assets/chunks/VPLocalSearchBox.CxxpBRnA.js","assets/chunks/framework.DyMmIvSC.js"],__vite__mapDeps=i=>i.map(i=>__vite__fileDeps[i]);
+const __vite__fileDeps=["assets/chunks/VPLocalSearchBox.7P1x45Uc.js","assets/chunks/framework.DyMmIvSC.js"],__vite__mapDeps=i=>i.map(i=>__vite__fileDeps[i]);
 import { d as defineComponent, o as openBlock, c as createElementBlock, r as renderSlot, n as normalizeClass, a as createTextVNode, t as toDisplayString, b as createBlock, w as withCtx, e as createCommentVNode, T as Transition, _ as _export_sfc, u as useData$1, i as isExternal, f as treatAsHtml, g as withBase, h as computed, j as ref, k as onMounted, l as createBaseVNode, m as unref, p as pushScopeId, q as popScopeId, s as isActive, v as useMediaQuery, x as watch, y as watchEffect, z as onUnmounted, A as watchPostEffect, B as onUpdated, C as getScrollOffset, D as resolveComponent, F as Fragment, E as renderList, G as shallowRef, H as onContentUpdated, I as createVNode, J as resolveDynamicComponent, K as EXTERNAL_URL_RE, L as useRoute, M as mergeProps, N as inject, O as useWindowSize, P as normalizeStyle, Q as onClickOutside, R as onKeyStroke, S as nextTick, U as useWindowScroll, V as inBrowser, W as readonly, X as defineAsyncComponent, Y as __vitePreload, Z as useScrollLock, $ as provide, a0 as toHandlers, a1 as withKeys, a2 as withModifiers, a3 as useSlots, a4 as reactive, a5 as toRef, a6 as useRouter, a7 as onBeforeMount } from "./framework.DyMmIvSC.js";
 const _sfc_main$Z = /* @__PURE__ */ defineComponent({
   __name: "VPBadge",
@@ -2225,7 +2225,7 @@ const _hoisted_3$6 = {
 const _sfc_main$l = /* @__PURE__ */ defineComponent({
   __name: "VPNavBarSearch",
   setup(__props) {
-    const VPLocalSearchBox = defineAsyncComponent(() => __vitePreload(() => import("./VPLocalSearchBox.CxxpBRnA.js"), true ? __vite__mapDeps([0,1]) : void 0));
+    const VPLocalSearchBox = defineAsyncComponent(() => __vitePreload(() => import("./VPLocalSearchBox.7P1x45Uc.js"), true ? __vite__mapDeps([0,1]) : void 0));
     const VPAlgoliaSearchBox = () => null;
     const { theme: theme2 } = useData();
     const loaded = ref(false);
@@ -3387,13 +3387,91 @@ const enhanceAppWithTabs = (app) => {
   app.component("PluginTabs", _sfc_main$2);
   app.component("PluginTabsTab", PluginTabsTab);
 };
+const aliases = {
+  "/adding_a_keyboard_to_qmk": "/hardware_keyboard_guidelines",
+  "/build_environment_setup": "/newbs_getting_started",
+  "/cli_dev_configuration": "/cli_configuration",
+  "/dynamic_macros": "/feature_dynamic_macros",
+  "/feature_common_shortcuts": "/feature_advanced_keycodes",
+  "/getting_started_build_tools": "/newbs_getting_started",
+  "/getting_started_getting_help": "/support",
+  "/glossary": "/reference_glossary",
+  "/key_lock": "/feature_key_lock",
+  "/make_instructions": "/getting_started_make_guide",
+  "/python_development": "/cli_development",
+  "/space_cadet_shift": "/feature_space_cadet_shift",
+  "/tap_dance": "/feature_tap_dance",
+  "/tutorial": "/newbs",
+  "/unicode": "/feature_unicode",
+  "/adc_driver": "/drivers/adc",
+  "/apa102_driver": "/drivers/apa102",
+  "/audio_driver": "/drivers/audio",
+  "/eeprom_driver": "/drivers/eeprom",
+  "/feature_audio": "/features/audio",
+  "/feature_auto_shift": "/features/auto_shift",
+  "/feature_autocorrect": "/features/autocorrect",
+  "/feature_backlight": "/features/backlight",
+  "/feature_bluetooth": "/features/bluetooth",
+  "/feature_bootmagic": "/features/bootmagic",
+  "/feature_caps_word": "/features/caps_word",
+  "/feature_combo": "/features/combo",
+  "/feature_command": "/features/command",
+  "/feature_digitizer": "/features/digitizer",
+  "/feature_dip_switch": "/features/dip_switch",
+  "/feature_dynamic_macros": "/features/dynamic_macros",
+  "/feature_encoders": "/features/encoders",
+  "/feature_grave_esc": "/features/grave_esc",
+  "/feature_haptic_feedback": "/features/haptic_feedback",
+  "/feature_hd44780": "/features/hd44780",
+  "/feature_joystick": "/features/joystick",
+  "/feature_key_lock": "/features/key_lock",
+  "/feature_key_overrides": "/features/key_overrides",
+  "/feature_leader_key": "/features/leader_key",
+  "/feature_led_indicators": "/features/led_indicators",
+  "/feature_led_matrix": "/features/led_matrix",
+  "/feature_midi": "/features/midi",
+  "/feature_mouse_keys": "/features/mouse_keys",
+  "/feature_oled_driver": "/features/oled_driver",
+  "/feature_os_detection": "/features/os_detection",
+  "/feature_pointing_device": "/features/pointing_device",
+  "/feature_programmable_button": "/features/programmable_button",
+  "/feature_ps2_mouse": "/features/ps2_mouse",
+  "/feature_rawhid": "/features/rawhid",
+  "/feature_repeat_key": "/features/repeat_key",
+  "/feature_rgb_matrix": "/features/rgb_matrix",
+  "/feature_rgblight": "/features/rgblight",
+  "/feature_secure": "/features/secure",
+  "/feature_send_string": "/features/send_string",
+  "/feature_sequencer": "/features/sequencer",
+  "/feature_space_cadet": "/features/space_cadet",
+  "/feature_split_keyboard": "/features/split_keyboard",
+  "/feature_st7565": "/features/st7565",
+  "/feature_stenography": "/features/stenography",
+  "/feature_swap_hands": "/features/swap_hands",
+  "/feature_tap_dance": "/features/tap_dance",
+  "/feature_tri_layer": "/features/tri_layer",
+  "/feature_unicode": "/features/unicode",
+  "/feature_wpm": "/features/wpm",
+  "/flash_driver": "/drivers/flash",
+  "/gpio_control": "/drivers/gpio",
+  "/i2c_driver": "/drivers/i2c",
+  "/serial_driver": "/drivers/serial",
+  "/spi_driver": "/drivers/spi",
+  "/uart_driver": "/drivers/uart",
+  "/ws2812_driver": "/drivers/ws2812"
+};
 const _sfc_main = {
   __name: "QMKLayout",
   setup(__props) {
     const router = useRouter();
     onBeforeMount(async () => {
-      if (window.location.href.includes("/#/")) {
-        const newUrl = window.location.href.replace(/\/#\//, "/").replace(/\?id=/, "#");
+      let newUrl = window.location.href.replace(/\/#\//, "/").replace(/\?id=/, "#");
+      let testUrl = new URL(newUrl);
+      while (testUrl.pathname in aliases) {
+        testUrl.pathname = aliases[testUrl.pathname];
+      }
+      newUrl = testUrl.toString();
+      if (newUrl != window.location.href) {
         window.history.replaceState({}, "", newUrl);
         await router.go(newUrl);
       }
