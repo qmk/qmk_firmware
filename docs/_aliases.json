@@ -1,3 +1,9 @@
 {
+    "/a": "/b",
+    "/b": "/c",
+    "/c": "/d",
+    "/d": "/e",
+    "/e": "/newbs_external_userspace",
+
     "/feature_audio": "/features/audio"
 }
