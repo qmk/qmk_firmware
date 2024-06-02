@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_SYS] = LAYOUT_split_3x6_3(
-    CW_TOGG,       _______,       FSCRNSHT,     SCRNSHT,       _______,       _______,              _______,       KC_F7,         KC_F8,        KC_F9,         KC_F12,        _______,
+    CW_TOGG,       _______,       FSCRNSHT,     SCRNSHT,       KC_PSCR,       _______,              _______,       KC_F7,         KC_F8,        KC_F9,         KC_F12,        _______,
     _______,       _______,       KC_MPLY,      KC_VOLD,       KC_VOLU,       _______,              _______,       KC_F4,         KC_F5,        KC_F6,         KC_F11,        ___E___,
     QK_BOOT,       _______,       KC_MPRV,      KC_MNXT,       KC_MUTE,       _______,              _______,       KC_F1,         KC_F2,        KC_F3,         KC_F10,        QK_BOOT,
                                                 _______,       _______,       _______,              _______,       _______,       _______
@@ -344,7 +344,7 @@ bool oled_task_user() {
 }
 
 // How long an individual idle frame lasts.
-#    define IDLE_TOGGLE_FRAME_LEN_MS 500
+#    define IDLE_TOGGLE_FRAME_LEN_MS 1000
 enum IDLE_DIR { RIGHT, LEFT };
 static uint8_t  cur_idle_pose          = 0;
 static bool     must_do_crouch         = false;
@@ -507,9 +507,9 @@ void copy_key_pressed_cb(void) {
 }
 
 void paste_key_pressed_cb(void) {
-#    define BUCKET_THROW_LEN_MS 900
+#    define BUCKET_THROW_LEN_MS 200 * NUM_THROWS
     if (charge_state == MAX_CHARGE_STATE) {
-        start_flash_img(gw_bucket_throw, BUCKET_CHARGE_LEN_MS, sizeof(gw_bucket_throw));
+        start_flash_seq(gw_bucket_throws, BUCKET_THROW_LEN_MS, NUM_THROWS, sizeof(gw_bucket_throw1));
         charge_state = 0;
     } else {
         flash_current_charge_state();
