@@ -4,9 +4,10 @@
 #pragma once
 
 #include "config.h"
+#include "rules.mk"
 
 
-/* Increase macro limit to 42
+/* Increase macro limit to 32
 */
 
 #define DYNAMIC_KEYMAP_MACRO_COUNT 32
