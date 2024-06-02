@@ -233,7 +233,7 @@ See also: [Quantum Keycodes](quantum_keycodes#qmk-keycodes)
 
 ## Audio Keys {#audio-keys}
 
-See also: [Audio](feature_audio)
+See also: [Audio](features/audio)
 
 |Key                      |Aliases  |Description                                |
 |-------------------------|---------|-------------------------------------------|
@@ -255,7 +255,7 @@ See also: [Audio](feature_audio)
 
 ## Auto Shift {#auto-shift}
 
-See also: [Auto Shift](feature_auto_shift)
+See also: [Auto Shift](features/auto_shift)
 
 |Key                   |Aliases  |Description                                 |
 |----------------------|---------|--------------------------------------------|
@@ -268,7 +268,7 @@ See also: [Auto Shift](feature_auto_shift)
 
 ## Autocorrect {#autocorrect}
 
-See also: [Autocorrect](feature_autocorrect)
+See also: [Autocorrect](features/autocorrect)
 
 |Key                    |Aliases  |Description                                   |
 |-----------------------|---------|----------------------------------------------|
@@ -278,7 +278,7 @@ See also: [Autocorrect](feature_autocorrect)
 
 ## Backlighting {#backlighting}
 
-See also: [Backlighting](feature_backlight)
+See also: [Backlighting](features/backlight)
 
 | Key                             | Aliases   | Description                         |
 |---------------------------------|-----------|-------------------------------------|
@@ -292,7 +292,7 @@ See also: [Backlighting](feature_backlight)
 
 ## Bluetooth {#bluetooth}
 
-See also: [Bluetooth](feature_bluetooth)
+See also: [Bluetooth](features/bluetooth)
 
 |Key                  |Aliases  |Description                                   |
 |---------------------|---------|----------------------------------------------|
@@ -302,7 +302,7 @@ See also: [Bluetooth](feature_bluetooth)
 
 ## Caps Word {#caps-word}
 
-See also: [Caps Word](feature_caps_word)
+See also: [Caps Word](features/caps_word)
 
 |Key                  |Aliases  |Description                   |
 |---------------------|---------|------------------------------|
@@ -310,7 +310,7 @@ See also: [Caps Word](feature_caps_word)
 
 ## Dynamic Macros {#dynamic-macros}
 
-See also: [Dynamic Macros](feature_dynamic_macros)
+See also: [Dynamic Macros](features/dynamic_macros)
 
 |Key                              |Aliases  |Description                                       |
 |---------------------------------|---------|--------------------------------------------------|
@@ -322,7 +322,7 @@ See also: [Dynamic Macros](feature_dynamic_macros)
 
 ## Grave Escape {#grave-escape}
 
-See also: [Grave Escape](feature_grave_esc)
+See also: [Grave Escape](features/grave_esc)
 
 |Key              |Aliases  |Description                                                       |
 |-----------------|---------|------------------------------------------------------------------|
@@ -330,7 +330,7 @@ See also: [Grave Escape](feature_grave_esc)
 
 ## Joystick {#joystick}
 
-See also: [Joystick](feature_joystick)
+See also: [Joystick](features/joystick)
 
 |Key                    |Aliases|Description|
 |-----------------------|-------|-----------|
@@ -369,7 +369,7 @@ See also: [Joystick](feature_joystick)
 
 ## Key Lock {#key-lock}
 
-See also: [Key Lock](feature_key_lock)
+See also: [Key Lock](features/key_lock)
 
 |Key      |Description                                                   |
 |---------|--------------------------------------------------------------|
@@ -392,7 +392,7 @@ See also: [Layer Switching](feature_layers#switching-and-toggling-layers)
 
 ## Leader Key {#leader-key}
 
-See also: [Leader Key](feature_leader_key)
+See also: [Leader Key](features/leader_key)
 
 |Key      |Description             |
 |---------|------------------------|
@@ -400,7 +400,7 @@ See also: [Leader Key](feature_leader_key)
 
 ## LED Matrix {#led-matrix}
 
-See also: [LED Matrix](feature_led_matrix)
+See also: [LED Matrix](features/led_matrix)
 
 |Key                            |Aliases  |Description                        |
 |-------------------------------|---------|-----------------------------------|
@@ -458,7 +458,7 @@ See also: [Magic Keycodes](keycodes_magic)
 
 ## MIDI {#midi}
 
-See also: [MIDI](feature_midi)
+See also: [MIDI](features/midi)
 
 |Key                            |Aliases           |Description                      |
 |-------------------------------|------------------|---------------------------------|
@@ -609,7 +609,7 @@ See also: [MIDI](feature_midi)
 
 ## Mouse Keys {#mouse-keys}
 
-See also: [Mouse Keys](feature_mouse_keys)
+See also: [Mouse Keys](features/mouse_keys)
 
 |Key             |Aliases  |Description                |
 |----------------|---------|---------------------------|
@@ -699,7 +699,7 @@ See also: [Dynamic Tapping Term](tap_hold#dynamic-tapping-term)
 
 ## RGB Lighting {#rgb-lighting}
 
-See also: [RGB Lighting](feature_rgblight)
+See also: [RGB Lighting](features/rgblight)
 
 |Key                |Aliases   |Description                                                         |
 |-------------------|----------|--------------------------------------------------------------------|
@@ -724,7 +724,7 @@ See also: [RGB Lighting](feature_rgblight)
 
 ## RGB Matrix Lighting {#rgb-matrix-lighting}
 
-See also: [RGB Matrix Lighting](feature_rgb_matrix)
+See also: [RGB Matrix Lighting](features/rgb_matrix)
 
 |Key                |Aliases   |Description                                                                           |
 |-------------------|----------|--------------------------------------------------------------------------------------|
@@ -782,7 +782,7 @@ See also: [One Shot Keys](one_shot_keys)
 
 ## Programmable Button Support {#programmable-button}
 
-See also: [Programmable Button](feature_programmable_button)
+See also: [Programmable Button](features/programmable_button)
 
 |Key                        |Aliases|Description           |
 |---------------------------|-------|----------------------|
@@ -821,7 +821,7 @@ See also: [Programmable Button](feature_programmable_button)
 
 ## Repeat Key {#repeat-key}
 
-See also: [Repeat Key](feature_repeat_key)
+See also: [Repeat Key](features/repeat_key)
 
 |Keycode                |Aliases  |Description                          |
 |-----------------------|---------|-------------------------------------|
@@ -830,7 +830,7 @@ See also: [Repeat Key](feature_repeat_key)
 
 ## Space Cadet {#space-cadet}
 
-See also: [Space Cadet](feature_space_cadet)
+See also: [Space Cadet](features/space_cadet)
 
 |Key                                           |Aliases  |Description                             |
 |----------------------------------------------|---------|----------------------------------------|
@@ -844,7 +844,7 @@ See also: [Space Cadet](feature_space_cadet)
 
 ## Swap Hands {#swap-hands}
 
-See also: [Swap Hands](feature_swap_hands)
+See also: [Swap Hands](features/swap_hands)
 
 |Key                          |Aliases  |Description                                         |
 |-----------------------------|---------|----------------------------------------------------|
@@ -859,7 +859,7 @@ See also: [Swap Hands](feature_swap_hands)
 
 ## Unicode Support {#unicode-support}
 
-See also: [Unicode Support](feature_unicode)
+See also: [Unicode Support](features/unicode)
 
 |Key                         |Aliases  |Description                                                     |
 |----------------------------|---------|----------------------------------------------------------------|
