@@ -197,6 +197,5 @@ void ui_Screen1_screen_init(void)
     lv_obj_set_style_bg_opa(ui_capswordIndicator, 255, LV_PART_SELECTED | LV_STATE_DEFAULT);
 
 
-    lv_obj_add_event_cb(ui_Screen1, ui_event_Screen1, LV_EVENT_ALL, NULL);
 
 }

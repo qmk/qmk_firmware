@@ -11,7 +11,6 @@
 
 // SCREEN: ui_Screen1
 void ui_Screen1_screen_init(void);
-void ui_event_Screen1(lv_event_t * e);
 lv_obj_t * ui_Screen1;
 lv_obj_t * ui_currLayer;
 lv_obj_t * ui_currRGB;
@@ -42,15 +41,7 @@ lv_obj_t * ui____initial_actions0;
 ///////////////////// ANIMATIONS ////////////////////
 
 ///////////////////// FUNCTIONS ////////////////////
-// void ui_event_Screen1(lv_event_t * e)
-// {
-//     lv_event_code_t event_code = lv_event_get_code(e);
-//     // lv_obj_t * target = lv_event_get_target(e);
-//     if(event_code == LV_EVENT_PRESSED) {
-//         _ui_screen_change(&ui_Screen2, LV_SCR_LOAD_ANIM_NONE, 500, 0, &ui_Screen2_screen_init);
-//     }
-// }
-//
+
 ///////////////////// SCREENS ////////////////////
 
 void ui_init(void)
