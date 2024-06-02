@@ -53,11 +53,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     )
 };
+//const rgblight_segment_t PROGMEM my_layer0_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+   // {1, 25, HSV_PURPLE}
+//);
 
-const rgblight_segment_t PROGMEM red_base []   = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_RED});
-const rgblight_segment_t PROGMEM blu_macro1 []   = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_BLUE});
-const rgblight_segment_t PROGMEM grn_macro2[]   = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_GREEN});
-const rgblight_segment_t PROGMEM yel_macro3[]   = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_YELLOW});
+// const rgblight_segment_t PROGMEM red_base []   = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_RED});
+
+const rgblight_segment_t PROGMEM red_base []   = RGBLIGHT_LAYER_SEGMENTS({0, 5, HSV_RED});
+const rgblight_segment_t PROGMEM blu_macro1 []   = RGBLIGHT_LAYER_SEGMENTS({0, 5, HSV_BLUE});
+const rgblight_segment_t PROGMEM grn_macro2[]   = RGBLIGHT_LAYER_SEGMENTS({0, 5, HSV_GREEN});
+const rgblight_segment_t PROGMEM yel_macro3[]   = RGBLIGHT_LAYER_SEGMENTS({0, 5, HSV_YELLOW});
 // const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_GREEN});
 
 // Now define the array of layers. Later layers take precedence
