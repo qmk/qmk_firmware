@@ -77,28 +77,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {};
 #endif
 
-// Callback to invoke when the enter key is pressed.
+void b_key_pressed_cb(void);
+
 void enter_key_pressed_cb(void);
 
-// Callback to invoke when the enter key is pressed.
 void delete_key_pressed_cb(void);
 
-// Callback to invoke when the copy hot-key is pressed.
 void copy_key_pressed_cb(void);
 
-// Callback to invoke when the paste hot-key is pressed.
 void paste_key_pressed_cb(void);
 
-// Callback to invoke when the left arrow key is pressed.
 void leftarrow_key_pressed_cb(bool mods_active);
 
-// Callback to invoke when the right arrow key is pressed.
 void rightarrow_key_pressed_cb(bool mods_active);
 
-// Callback to invoke when the right arrow key is pressed.
 void downarrow_key_pressed_cb(void);
 
-// Callback to invoke when the right arrow key is pressed.
 void refresh_key_pressed_cb(void);
 
 /* ********************* */
@@ -137,6 +131,11 @@ bool process_detected_host_os_user(os_variant_t detected_os) {
 // return true if qmk should continue processing the keycode as normal.
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (QK_MODS_GET_BASIC_KEYCODE(keycode)) {
+        case KC_B:
+            if (record->event.pressed) {
+                b_key_pressed_cb();
+            }
+            return true;
         case KC_ENT:
             if (record->event.pressed) {
                 enter_key_pressed_cb();
@@ -491,6 +490,14 @@ void delete_key_pressed_cb(void) {
     }
 }
 
+void b_key_pressed_cb(void) {
+#    define BACON_LEN_MS 300 * BACON_SEQ_LEN
+    // 1/2 chance of cooking bacon on b.
+    if (cur_render_time % 2 == 0) {
+        start_flash_seq(gw_bacon, BACON_LEN_MS, BACON_SEQ_LEN, sizeof(gw_bacon0));
+    }
+}
+
 // The current charged state of the bucket.
 static uint8_t charge_state = 0;
 // The bucket's fully charged state.
@@ -556,7 +563,9 @@ void downarrow_key_pressed_cb() {
 
 #else
 // Stub impls.
+void b_key_pressed_cb(void) {}
 void enter_key_pressed_cb(void) {}
+void delete_key_pressed_cb(void) {}
 void copy_key_pressed_cb(void) {}
 void paste_key_pressed_cb(void) {}
 void leftarrow_key_pressed_cb(bool) {}
