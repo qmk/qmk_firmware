@@ -485,22 +485,25 @@ void flash_current_charge_state(void) {
 #    define BUCKET_CHARGE_LEN_MS 500
     switch (charge_state) {
         case 0:
-            start_flash_img(gw_bucket_charged1, BUCKET_CHARGE_LEN_MS, sizeof(gw_bucket_charged1));
+            start_flash_img(gw_bucket_charged0, BUCKET_CHARGE_LEN_MS, sizeof(gw_bucket_charged0));
             break;
         case 1:
+            start_flash_img(gw_bucket_charged1, BUCKET_CHARGE_LEN_MS, sizeof(gw_bucket_charged1));
+            break;
+        case 2:
             start_flash_img(gw_bucket_charged2, BUCKET_CHARGE_LEN_MS, sizeof(gw_bucket_charged2));
             break;
-        default:
+        case 3:
             start_flash_img(gw_bucket_charged3, BUCKET_CHARGE_LEN_MS, sizeof(gw_bucket_charged3));
             break;
     }
 }
 
 void copy_key_pressed_cb(void) {
-    flash_current_charge_state();
     if (charge_state < MAX_CHARGE_STATE) {
         charge_state++;
     }
+    flash_current_charge_state();
 }
 
 void paste_key_pressed_cb(void) {
