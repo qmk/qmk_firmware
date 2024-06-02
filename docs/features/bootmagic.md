@@ -80,6 +80,6 @@ You can define additional logic here. For instance, resetting the EEPROM or requ
 
 ## Addenda
 
-To manipulate settings that were formerly configured through the now-deprecated full Bootmagic feature, see [Magic Keycodes](keycodes_magic).
+To manipulate settings that were formerly configured through the now-deprecated full Bootmagic feature, see [Magic Keycodes](../keycodes_magic).
 
 The Command feature, formerly known as Magic, also allows you to control different aspects of your keyboard. While it shares some functionality with Magic Keycodes, it also allows you to do things that Magic Keycodes cannot, such as printing version information to the console. For more information, see [Command](command).

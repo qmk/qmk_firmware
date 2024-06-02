@@ -8,7 +8,7 @@ TRI_LAYER_ENABLE = yes
 
 Note that the "upper", "lower" and "adjust" names don't have a particular significance, they are just used to identify and clarify the behavior. Layers are processed from highest numeric value to lowest, however the values are not required to be consecutive.
 
-For a detailed explanation of how the layer stack works, check out [Keymap Overview](keymap#keymap-and-layers).
+For a detailed explanation of how the layer stack works, check out [Keymap Overview](../keymap#keymap-and-layers).
 
 ## Keycodes {#keycodes}
 

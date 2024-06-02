@@ -27,7 +27,7 @@ Add the following to your `config.h`:
 
 ## Keycodes {#keycodes}
 
-The Send String functions accept C string literals, but specific keycodes can be injected with the below macros. All of the keycodes in the [Basic Keycode range](keycodes_basic) are supported (as these are the only ones that will actually be sent to the host), but with an `X_` prefix instead of `KC_`.
+The Send String functions accept C string literals, but specific keycodes can be injected with the below macros. All of the keycodes in the [Basic Keycode range](../keycodes_basic) are supported (as these are the only ones that will actually be sent to the host), but with an `X_` prefix instead of `KC_`.
 
 |Macro         |Description                                                        |
 |--------------|-------------------------------------------------------------------|
@@ -48,7 +48,7 @@ The following characters are also mapped to their respective keycodes for conven
 
 ### Language Support {#language-support}
 
-By default, Send String assumes your OS keyboard layout is set to US ANSI. If you are using a different keyboard layout, you can [override the lookup tables used to convert ASCII characters to keystrokes](reference_keymap_extras#sendstring-support).
+By default, Send String assumes your OS keyboard layout is set to US ANSI. If you are using a different keyboard layout, you can [override the lookup tables used to convert ASCII characters to keystrokes](../reference_keymap_extras#sendstring-support).
 
 ## Examples {#examples}
 

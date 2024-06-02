@@ -684,7 +684,7 @@ If you are having issues with pointing device drivers debug messages can be enab
 ```
  
 ::: tip
-The messages will be printed out to the `CONSOLE` output. For additional information, refer to [Debugging/Troubleshooting QMK](faq_debug).
+The messages will be printed out to the `CONSOLE` output. For additional information, refer to [Debugging/Troubleshooting QMK](../faq_debug).
 :::
 
 

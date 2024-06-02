@@ -196,7 +196,7 @@ These keycodes turn all of the audio functionality on and off.  Turning it off m
 |`GUITAR_SONG`                     | `GUITAR_SOUND`       |Plays when the guitar music mode is selected (process_music.c)                               |
 |`VIOLIN_SONG`                     | `VIOLIN_SOUND`       |Plays when the violin music mode is selected (process_music.c)                               |
 |`MAJOR_SONG`                      | `MAJOR_SOUND`        |Plays when the major music mode is selected (process_music.c)                                |
-|`DEFAULT_LAYER_SONGS`             | *Not defined*        |Plays song when switched default layers with [`set_single_persistent_default_layer(layer)`](ref_functions.md#setting-the-persistent-default-layer)(quantum.c). |
+|`DEFAULT_LAYER_SONGS`             | *Not defined*        |Plays song when switched default layers with [`set_single_persistent_default_layer(layer)`](../ref_functions#setting-the-persistent-default-layer)(quantum.c). |
 |`SENDSTRING_BELL`                 | *Not defined*        |Plays chime when the "enter" ("\a") character is sent (send_string.c)                        |
 
 ## Tempo

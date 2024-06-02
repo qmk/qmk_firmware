@@ -294,7 +294,7 @@ Holding and releasing a Tap Hold key without pressing another key will ordinaril
 result in only the hold. With `retro shift` enabled this action will instead
 produce a shifted version of the tap keycode on release.
 
-It does not require [Retro Tapping](tap_hold#retro-tapping) to be enabled, and
+It does not require [Retro Tapping](../tap_hold#retro-tapping) to be enabled, and
 if both are enabled the state of `retro tapping` will only apply if the tap keycode
 is not matched by Auto Shift. `RETRO_TAPPING_PER_KEY` and its corresponding
 function, however, are checked before `retro shift` is applied.
@@ -318,7 +318,7 @@ Without a value set, holds of any length without an interrupting key will produc
 
 This value (if set) must be greater than one's `TAPPING_TERM`, as the key press
 must be designated as a 'hold' by `process_tapping` before we send the modifier.
-[Per-key tapping terms](tap_hold#tapping-term) can be used as a workaround.
+[Per-key tapping terms](../tap_hold#tapping-term) can be used as a workaround.
 There is no such limitation in regards to `AUTO_SHIFT_TIMEOUT` for normal keys.
 
 **Note:** Tap Holds must be added to Auto Shift, see [here.](auto_shift#auto-shift-per-key)
@@ -330,7 +330,7 @@ Tap Hold Configurations work a little differently when using Retro Shift.
 Referencing `TAPPING_TERM` makes little sense, as holding longer would result in
 shifting one of the keys.
 
-`RETRO_SHIFT` enables [`PERMISSIVE_HOLD`-like behaviour](tap_hold#permissive-hold) (even if not explicitly enabled) on all mod-taps for which `RETRO_SHIFT` applies.
+`RETRO_SHIFT` enables [`PERMISSIVE_HOLD`-like behaviour](../tap_hold#permissive-hold) (even if not explicitly enabled) on all mod-taps for which `RETRO_SHIFT` applies.
 
 ## Using Auto Shift Setup
 

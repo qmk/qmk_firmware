@@ -17,7 +17,7 @@ Optionally, you might want to set a custom `TAPPING_TERM` time by adding somethi
 #define TAPPING_TERM_PER_KEY
 ```
 
-The `TAPPING_TERM` time is the maximum time allowed between taps of your Tap Dance key, and is measured in milliseconds. For example, if you used the above `#define` statement and set up a Tap Dance key that sends `Space` on single-tap and `Enter` on double-tap, then this key will send `ENT` only if you tap this key twice in less than 175ms. If you tap the key, wait more than 175ms, and tap the key again you'll end up sending `SPC SPC` instead. The `TAPPING_TERM_PER_KEY` definition is only needed if you control the tapping term through a [custom `get_tapping_term` function](tap_hold#tapping_term), which may be needed because `TAPPING_TERM` affects not just tap-dance keys.
+The `TAPPING_TERM` time is the maximum time allowed between taps of your Tap Dance key, and is measured in milliseconds. For example, if you used the above `#define` statement and set up a Tap Dance key that sends `Space` on single-tap and `Enter` on double-tap, then this key will send `ENT` only if you tap this key twice in less than 175ms. If you tap the key, wait more than 175ms, and tap the key again you'll end up sending `SPC SPC` instead. The `TAPPING_TERM_PER_KEY` definition is only needed if you control the tapping term through a [custom `get_tapping_term` function](../tap_hold#tapping_term), which may be needed because `TAPPING_TERM` affects not just tap-dance keys.
 
 Next, you will want to define some tap-dance keys, which is easiest to do with the `TD()` macro. That macro takes a number which will later be used as an index into the `tap_dance_actions` array and turns it into a tap-dance keycode.
 
@@ -33,7 +33,7 @@ After this, you'll want to use the `tap_dance_actions` array to specify what act
 The first option is enough for a lot of cases, that just want dual roles. For example, `ACTION_TAP_DANCE_DOUBLE(KC_SPC, KC_ENT)` will result in `Space` being sent on single-tap, `Enter` otherwise. 
 
 ::: warning
-Keep in mind that only [basic keycodes](keycodes_basic) are supported here. Custom keycodes are not supported.
+Keep in mind that only [basic keycodes](../keycodes_basic) are supported here. Custom keycodes are not supported.
 :::
 
 Similar to the first option, the second and third option are good for simple layer-switching cases.
