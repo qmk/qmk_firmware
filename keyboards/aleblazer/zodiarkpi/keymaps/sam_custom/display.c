@@ -120,17 +120,25 @@ __attribute__((weak)) bool display_init_user(void) {
 
 __attribute__((weak)) void display_housekeeping_task(void) {
     char layer_buf[14];
+    lv_obj_t **activeScreen = (lv_obj_t**)lv_scr_act();
 
     switch(get_highest_layer(layer_state)) {
         case _QWERTY:
             layer_name = "QWERTY";
+            if(lv_scr_act() != ui_Screen1) {
+                _ui_screen_delete(activeScreen);
+                _ui_screen_change(&ui_Screen1, LV_SCR_LOAD_ANIM_NONE, 500, 0, &ui_Screen1_screen_init);
+            };
             break;
         case _SYMBOL:
             layer_name = "SYMBOL";
             break;
         case _NUMPAD:
             layer_name = "NUMPAD";
-            lv_event_send(ui_Screen1, LV_EVENT_PRESSED, NULL);
+            if(lv_scr_act() != ui_Screen2) {
+                _ui_screen_delete(activeScreen);
+                _ui_screen_change(&ui_Screen2, LV_SCR_LOAD_ANIM_NONE, 500, 0, &ui_Screen2_screen_init);
+            };
             break;
         case _MAGIC:
             layer_name = "MAGIC";
