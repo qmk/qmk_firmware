@@ -34,7 +34,7 @@ To enable advanced MIDI, add the following to your `config.h`:
 
 If you're aiming to emulate the features of something like a Launchpad or other MIDI controller you'll need to access the internal MIDI device directly.
 
-Because there are so many possible CC messages, not all of them are implemented as keycodes. Additionally, you might need to provide more than just two values that you would get from a keycode (pressed and released) - for example, the analog values from a fader or a potentiometer. So, you will need to implement [custom keycodes](feature_macros) if you want to use them in your keymap directly using `process_record_user()`.
+Because there are so many possible CC messages, not all of them are implemented as keycodes. Additionally, you might need to provide more than just two values that you would get from a keycode (pressed and released) - for example, the analog values from a fader or a potentiometer. So, you will need to implement [custom keycodes](../feature_macros) if you want to use them in your keymap directly using `process_record_user()`.
 
 
 For reference of all the possible control code numbers see [MIDI Specification](#midi-specification)

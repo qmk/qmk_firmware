@@ -298,7 +298,7 @@ If you're having issues withe serial communication, you can enable debug message
 ```
  
 ::: tip
-The messages will be printed out to the `CONSOLE` output. For additional information, refer to [Debugging/Troubleshooting QMK](faq_debug).
+The messages will be printed out to the `CONSOLE` output. For additional information, refer to [Debugging/Troubleshooting QMK](../faq_debug).
 :::
 
 ## Alternate Functions for selected STM32 MCUs

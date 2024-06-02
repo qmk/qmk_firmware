@@ -199,7 +199,7 @@ Emacs supports code point input with the `insert-char` command.
 
 **Mode Name:** `UNICODE_MODE_BSD`
 
-Not currently implemented. If you're a BSD user and want to contribute support for this input mode, please [feel free](contributing)!
+Not currently implemented. If you're a BSD user and want to contribute support for this input mode, please [feel free](../contributing)!
 
 :::::
 
