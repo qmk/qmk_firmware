@@ -87,10 +87,13 @@ void copy_key_pressed_cb(void);
 void paste_key_pressed_cb(void);
 
 // Callback to invoke when the left arrow key is pressed.
-void leftarrow_key_pressed_cb(void);
+void leftarrow_key_pressed_cb(bool mods_active);
 
 // Callback to invoke when the right arrow key is pressed.
-void rightarrow_key_pressed_cb(void);
+void rightarrow_key_pressed_cb(bool mods_active);
+
+// Callback to invoke when the right arrow key is pressed.
+void downarrow_key_pressed_cb(void);
 
 // Callback to invoke when the right arrow key is pressed.
 void refresh_key_pressed_cb(void);
@@ -159,12 +162,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         case KC_LEFT:
             if (record->event.pressed) {
-                leftarrow_key_pressed_cb();
+                leftarrow_key_pressed_cb(get_mods());
             }
             return true;
         case KC_RIGHT:
             if (record->event.pressed) {
-                rightarrow_key_pressed_cb();
+                rightarrow_key_pressed_cb(get_mods());
             }
             return true;
         default:
@@ -343,12 +346,13 @@ bool oled_task_user() {
     return false;
 }
 
+enum IDLE_DIR { RIGHT, LEFT };
+static uint8_t cur_arrow_dir = RIGHT;
+
 // How long an individual idle frame lasts.
 #    define IDLE_TOGGLE_FRAME_LEN_MS 1000
-enum IDLE_DIR { RIGHT, LEFT };
 static uint8_t  cur_idle_pose          = 0;
 static bool     must_do_crouch         = false;
-static uint8_t  cur_idle_dir           = RIGHT;
 static uint32_t change_idle_pose_timer = 0;
 
 void render_idle() {
@@ -383,17 +387,9 @@ void render_idle() {
             cur_idle_pose = idle_stand_pose;
         }
     };
-    uint8_t idleIdx = cur_idle_pose * 2 + cur_idle_dir;
+    uint8_t idleIdx = cur_idle_pose * 2 + cur_arrow_dir;
     // All the poses should have the same size, so it doesn't matter which one we use sizeof on.
     oled_write_raw(gw_idle_poses[idleIdx], sizeof(gw_idle_A_right));
-}
-
-void leftarrow_key_pressed_cb(void) {
-    cur_idle_dir = LEFT;
-}
-
-void rightarrow_key_pressed_cb(void) {
-    cur_idle_dir = RIGHT;
 }
 
 // Delay to wait after kb inactivity to begin taunt animation.
@@ -516,13 +512,33 @@ void paste_key_pressed_cb(void) {
     }
 }
 
+#    define CHAIR_LEN_MS 600
+void leftarrow_key_pressed_cb(bool mods_active) {
+    cur_arrow_dir = LEFT;
+    if (mods_active) {
+        start_flash_img(gw_chair_left, CHAIR_LEN_MS, sizeof(gw_chair_left));
+    }
+}
+
+void rightarrow_key_pressed_cb(bool mods_active) {
+    cur_arrow_dir = RIGHT;
+    if (mods_active) {
+        start_flash_img(gw_chair_right, CHAIR_LEN_MS, sizeof(gw_chair_right));
+    }
+}
+
+void downarrow_key_pressed_cb() {
+    /* start_flash_img(gw_down_squat, CHAIR_LEN_MS, sizeof(gw_down_squat)); */
+}
+
 #else
 // Stub impls.
 void enter_key_pressed_cb(void) {}
 void copy_key_pressed_cb(void) {}
 void paste_key_pressed_cb(void) {}
-void leftarrow_key_pressed_cb(void) {}
-void rightarrow_key_pressed_cb(void) {}
+void leftarrow_key_pressed_cb(bool) {}
+void rightarrow_key_pressed_cb(bool) {}
+void downarrow_key_pressed_cb(void) {}
 void refresh_key_pressed_cb(void) {}
 #endif
 /* ****************** */
