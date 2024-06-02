@@ -11,6 +11,11 @@
 
 #define DYNAMIC_KEYMAP_MACRO_COUNT 42
 
+/* lighting layers
+ */
+
+ #define RGBLIGHT_LAYERS
+
 
 /*
  * Feature disable options

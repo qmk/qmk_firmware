@@ -3,6 +3,11 @@
 
 #include QMK_KEYBOARD_H
 
+#define _BASE 0
+#define _MACRO1 1
+#define _MACRO2 2
+#define _MACRO3 3
+
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
@@ -11,22 +16,8 @@
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /* BASE
-     * ┌───┬───┬───┬───┐┌───┬───┬───┬───┐
-     * |Esc|   |   |   ||   |   |   |   |
-     * ├───┼───┼───┼───┤├───┼───┼───┼───┤
-     * |Del|   |   |   ||   | = | * | / |
-     * ├───┼───┼───┼───┤├───┼───┼───┼───┤
-     * │   │   │   │   │| 7 | 8 | 9 | - |
-     * ├───┼───┼───┼───┤├───┼───┼───┼───┤
-     * │   │   │   │   │| 4 | 5 | 6 | + |
-     * ├───┼───┼───┼───┤├───┼───┼───┼───┤
-     * │   │   │   │   │| 1 | 2 | 3 |Ent|
-     * ├───┼───┼───┼───┤├───┼───┼───┼─ ─┤
-     * │   │   │   │   || 0 | . | ' |Ent|
-     * └───┴───┴───┴───┘└───┴───┴───┴───┘
-     */
-    [0] = LAYOUT(
+
+    [_BASE] = LAYOUT( /*Base*/
          KC_ESC, KC_A, KC_B, KC_C, KC_V, KC_W, KC_X, KC_Y,
          KC_DEL, KC_D, KC_E, KC_F, KC_Z, KC_P0, KC_PAST, KC_PSLS,
          KC_G, KC_H, KC_I, KC_J, KC_P7, KC_P8, KC_P9, KC_PMNS,
@@ -35,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          TO(1), KC_S, KC_T, KC_U, KC_P0, KC_PDOT, KC_COMM, KC_PENT
     ),
 
-    [1] = LAYOUT(
+    [_MACRO1] = LAYOUT(
         KC_ESC, KC_P0, KC_P0, KC_P0,    KC_P0, KC_P0, KC_P0, KC_P0,
          KC_P0, KC_P0, KC_P0, KC_P0,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
          KC_P0, KC_P0, KC_P0, KC_P0,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -43,6 +34,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          KC_P0, KC_P0, KC_P0, KC_P0,    KC_TRNS, KC_TRNS, KC_TRNS,
          TO(0), KC_P0, KC_P0, KC_P0,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     ),
+
+    [_MACRO2] = LAYOUT(
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+    ),
+
+    [_MACRO3] = LAYOUT(
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+    )
 };
 
 
