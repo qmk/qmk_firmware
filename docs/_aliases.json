@@ -1,10 +1,4 @@
 {
-    "/___a": "/___b",
-    "/___b": "/___c",
-    "/___c": "/___d",
-    "/___d": "/___e",
-    "/___e": "/newbs_external_userspace",
-
     "/adding_a_keyboard_to_qmk": "/hardware_keyboard_guidelines",
     "/build_environment_setup": "/newbs_getting_started",
     "/cli_dev_configuration": "/cli_configuration",
