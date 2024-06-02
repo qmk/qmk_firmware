@@ -30,15 +30,15 @@
 //#define RGBLIGHT_SLEEP
 
 
- #include "rgblight_drivers.h"
+ //#include "rgblight_drivers.h"
 
-#if defined(RGBLIGHT_WS2812)
-#    include "ws2812.h"
+//#if defined(RGBLIGHT_WS2812)
+//#    include "ws2812.h"
 
-const rgblight_driver_t rgblight_driver = {
-    .init    = ws2812_init,
-    .setleds = ws2812_setleds,
-};
+//const rgblight_driver_t rgblight_driver = {
+//    .init    = ws2812_init,
+ //   .setleds = ws2812_setleds,
+//};
 
 
 
