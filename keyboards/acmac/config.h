@@ -4,7 +4,6 @@
 #pragma once
 
 #include "config.h"
-#include "rules.mk"
 
 
 /* Increase macro limit to 32
@@ -31,7 +30,7 @@
 //#define RGBLIGHT_SLEEP
 
 
- //#include "rgblight_drivers.h"
+ #include "rgblight_drivers.h"
 
 //#if defined(RGBLIGHT_WS2812)
 //#    include "ws2812.h"
