@@ -2,11 +2,9 @@
 
 This is an intermediate QMK tutorial to setup an out-of-tree build environment with a personal GitHub repository. It avoids using a fork of the QMK firmware to store and build your keymap within its source tree. Keymap files will instead be stored in your own personal GitHub repository, in [Userspace](feature_userspace) format, and built with an action workflow. Unlike the [default tutorial](newbs), this guide requires some familiarity with using Git.
 
-::: tip
-**Is This Guide For Me?**<br>
-:::
+::: tip Is This Guide For Me?
 This is a lean setup to avoid space-consuming local build environment in your computer. Troubleshooting compile-time errors will be slower with commit uploads to GitHub for the compiler workflow.
-
+:::
 
 ## Prerequisites
 

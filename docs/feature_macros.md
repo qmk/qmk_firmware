@@ -86,7 +86,7 @@ All objects have one required key: `action`. This tells QMK what the object does
 Only basic keycodes (prefixed by `KC_`) are supported. Do not include the `KC_` prefix when listing keycodes.
 
 * `beep`
-    * Play a bell if the keyboard has [audio enabled](feature_audio).
+    * Play a bell if the keyboard has [audio enabled](features/audio).
     * Example: `{"action": "beep"}`
 * `delay`
     * Pause macro playback. Duration is specified in milliseconds (ms).
@@ -108,7 +108,7 @@ Only basic keycodes (prefixed by `KC_`) are supported. Do not include the `KC_` 
 
 ### `SEND_STRING()` & `process_record_user`
 
-See also: [Send String](feature_send_string)
+See also: [Send String](features/send_string)
 
 Sometimes you want a key to type out words or phrases. For the most common situations, we've provided `SEND_STRING()`, which will type out a string (i.e. a sequence of characters) for you. All ASCII characters that are easily translatable to a keycode are supported (e.g. `qmk 123\n\t`).
 
@@ -252,11 +252,15 @@ You can send arbitrary keycodes by wrapping them in:
 
 For example:
 
-    SEND_STRING(SS_TAP(X_HOME));
+```c
+SEND_STRING(SS_TAP(X_HOME));
+```
 
 Would tap `KC_HOME` - note how the prefix is now `X_`, and not `KC_`. You can also combine this with other strings, like this:
 
-    SEND_STRING("VE"SS_TAP(X_HOME)"LO");
+```c
+SEND_STRING("VE"SS_TAP(X_HOME)"LO");
+```
 
 Which would send "VE" followed by a `KC_HOME` tap, and "LO" (spelling "LOVE" if on a newline).
 
@@ -266,7 +270,9 @@ Delays can be also added to the string:
 
 For example:
 
-    SEND_STRING("VE" SS_DELAY(1000) SS_TAP(X_HOME) "LO");
+```c
+SEND_STRING("VE" SS_DELAY(1000) SS_TAP(X_HOME) "LO");
+```
 
 Which would send "VE" followed by a 1-second delay, then a `KC_HOME` tap, and "LO" (spelling "LOVE" if on a newline, but delayed in the middle).
 
@@ -284,7 +290,9 @@ There's also a couple of mod shortcuts you can use:
 These press the respective modifier, send the supplied string and then release the modifier.
 They can be used like this:
 
-    SEND_STRING(SS_LCTL("a"));
+```c
+SEND_STRING(SS_LCTL("a"));
+```
 
 Which would send Left Control+`a` (Left Control down, `a`, Left Control up) - notice that they take strings (eg `"k"`), and not the `X_K` keycodes.
 

@@ -40,7 +40,9 @@ Valid Examples:
 
 QMK uses sub-folders both for organization and to share code between revisions of the same keyboard. You can nest folders up to 4 levels deep:
 
-    qmk_firmware/keyboards/top_folder/sub_1/sub_2/sub_3/sub_4
+```
+qmk_firmware/keyboards/top_folder/sub_1/sub_2/sub_3/sub_4
+```
 
 If a sub-folder has a `rules.mk` file it will be considered a compilable keyboard. It will be available in QMK Configurator and tested with `make all`. If you are using a folder to organize several keyboards from the same maker you should not have a `rules.mk` file.
 
@@ -228,7 +230,7 @@ Given the amount of functionality that QMK exposes it's very easy to confuse new
 
 ### Magic Keycodes and Command
 
-[Magic Keycodes](keycodes_magic) and [Command](feature_command) are two related features that allow a user to control their keyboard in non-obvious ways. We recommend you think long and hard about if you're going to enable either feature, and how you will expose this functionality. Keep in mind that users who want this functionality can enable it in their personal keymaps without affecting all the novice users who may be using your keyboard as their first programmable board.
+[Magic Keycodes](keycodes_magic) and [Command](features/command) are two related features that allow a user to control their keyboard in non-obvious ways. We recommend you think long and hard about if you're going to enable either feature, and how you will expose this functionality. Keep in mind that users who want this functionality can enable it in their personal keymaps without affecting all the novice users who may be using your keyboard as their first programmable board.
 
 By far the most common problem new users encounter is accidentally triggering Bootmagic while they're plugging in their keyboard. They're holding the keyboard by the bottom, unknowingly pressing in alt and spacebar, and then they find that these keys have been swapped on them. We recommend leaving this feature disabled by default, but if you do turn it on consider setting `BOOTMAGIC_KEY_SALT` to a key that is hard to press while plugging your keyboard in.
 
@@ -250,15 +252,21 @@ When developing your keyboard, keep in mind that all warnings will be treated as
 
 If you're adapting your keyboard's setup from another project, but not using the same code, be sure to update the copyright header at the top of the files to show your name, in this format:
 
-    Copyright 2017 Your Name <your@email.com>
+```c
+Copyright 2017 Your Name <your@email.com>
+```
 
 If you are modifying someone else's code and have made only trivial changes you should leave their name in the copyright statement. If you have done significant work on the file you should add your name to theirs, like so:
 
-    Copyright 2017 Their Name <original_author@example.com> Your Name <you@example.com>
+```c
+Copyright 2017 Their Name <original_author@example.com> Your Name <you@example.com>
+```
 
 The year should be the first year the file is created. If work was done to that file in later years you can reflect that by appending the second year to the first, like so:
 
-    Copyright 2015-2017 Your Name <you@example.com>
+```c
+Copyright 2015-2017 Your Name <you@example.com>
+```
 
 ## License
 

@@ -98,17 +98,23 @@ Click the `Flash` button in QMK Toolbox. You will see output similar to the foll
 
 This has been made pretty simple compared to what it used to be. When you are ready to compile and flash your firmware, open up your terminal window and run the flash command:
 
-    qmk flash
+```sh
+qmk flash
+```
 
 If you did not configure your keyboard/keymap name in the CLI according to the [Configure your build environment](newbs_getting_started) section, or you have multiple keyboards, you can specify the keyboard and keymap:
 
-    qmk flash -kb <my_keyboard> -km <my_keymap>
+```sh
+qmk flash -kb <my_keyboard> -km <my_keymap>
+```
 
 This will check the keyboard's configuration, and then attempt to flash it based on the specified bootloader. This means that you don't need to know which bootloader that your keyboard uses. Just run the command, and let the command do the heavy lifting.
 
 However, this does rely on the bootloader being set by the keyboard. If this information is not configured, or you're using a board that doesn't have a supported target to flash it, you will see this error:
 
-    WARNING: This board's bootloader is not specified or is not supported by the ":flash" target at this time.
+```
+WARNING: This board's bootloader is not specified or is not supported by the ":flash" target at this time.
+```
 
 In this case, you'll have to fall back on specifying the bootloader. See the [Flashing Firmware](flashing) Guide for more details.
 

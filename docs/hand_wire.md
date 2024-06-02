@@ -88,7 +88,7 @@ Note that these methods can be combined.  Prepare your lengths of wire before mo
 
 ### A note on split keyboards
 
-If you are planning a split keyboard (e.g. Dactyl) each half will require a controller and a means of communicating between them (like a TRRS or hardwired cable).  Further information can be found in the [QMK split keyboard documentation.](feature_split_keyboard)
+If you are planning a split keyboard (e.g. Dactyl) each half will require a controller and a means of communicating between them (like a TRRS or hardwired cable).  Further information can be found in the [QMK split keyboard documentation.](features/split_keyboard)
 
 
 ### Soldering
@@ -181,7 +181,9 @@ Go through the rest of the tabs, assigning keys until you get to the last one wh
 
 The source given by Keyboard Firmware Builder is QMK, but is based on a version of QMK from early 2017. To compile the firmware in a modern version of QMK Firmware, you'll need to export via the `Save Configuration` button, then run:
 
-    qmk import-kbfirmware /path/to/export.json
+```
+qmk import-kbfirmware /path/to/export.json
+```
 
 For example:
 

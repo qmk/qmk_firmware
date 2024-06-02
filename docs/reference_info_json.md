@@ -95,7 +95,7 @@ You can create `info.json` files at every level under `qmk_firmware/keyboards/<k
 
 ## APA102 {#apa102}
 
-Configures the [APA102](apa102_driver) driver.
+Configures the [APA102](drivers/apa102) driver.
 
 * `apa102`
     * `clock_pin` (Required)
@@ -108,7 +108,7 @@ Configures the [APA102](apa102_driver) driver.
 
 ## Audio {#audio}
 
-Configures the [Audio](feature_audio) feature.
+Configures the [Audio](features/audio) feature.
 
 * `audio`
     * `default`
@@ -138,7 +138,7 @@ Configures the [Audio](feature_audio) feature.
 
 ## Backlight {#backlight}
 
-Configures the [Backlight](feature_backlight) feature.
+Configures the [Backlight](features/backlight) feature.
 
 * `backlight`
     * `as_caps_lock`
@@ -179,7 +179,7 @@ Configures the [Backlight](feature_backlight) feature.
 
 ## Bluetooth {#bluetooth}
 
-Configures the [Bluetooth](feature_bluetooth) feature.
+Configures the [Bluetooth](features/bluetooth) feature.
 
 * `bluetooth`
     * `driver`
@@ -187,7 +187,7 @@ Configures the [Bluetooth](feature_bluetooth) feature.
 
 ## Bootmagic {#bootmagic}
 
-Configures the [Bootmagic](feature_bootmagic) feature.
+Configures the [Bootmagic](features/bootmagic) feature.
 
 * `bootmagic`
     * `enabled`
@@ -199,7 +199,7 @@ Configures the [Bootmagic](feature_bootmagic) feature.
 
 ## Caps Word {#caps-word}
 
-Configures the [Caps Word](feature_caps_word) feature.
+Configures the [Caps Word](features/caps_word) feature.
 
 * `caps_word`
     * `both_shifts_turns_on`
@@ -220,7 +220,7 @@ Configures the [Caps Word](feature_caps_word) feature.
 
 ## Combo {#combo}
 
-Configures the [Combo](feature_combo) feature.
+Configures the [Combo](features/combo) feature.
 
 * `combo`
     * `term`
@@ -229,7 +229,7 @@ Configures the [Combo](feature_combo) feature.
 
 ## DIP Switches {#dip-switch}
 
-Configures the [DIP Switches](feature_dip_switch) feature.
+Configures the [DIP Switches](features/dip_switch) feature.
 
 * `dip_switch`
     * `enabled`
@@ -243,7 +243,7 @@ Configures the [DIP Switches](feature_dip_switch) feature.
 
 ## EEPROM {#eeprom}
 
-Configures the [EEPROM](eeprom_driver) driver.
+Configures the [EEPROM](drivers/eeprom) driver.
 
 * `eeprom`
     * `driver`
@@ -259,7 +259,7 @@ Configures the [EEPROM](eeprom_driver) driver.
 
 ## Encoder {#encoder}
 
-Configures the [Encoder](feature_encoders) feature.
+Configures the [Encoder](features/encoders) feature.
 
 * `encoder`
     * `rotary`
@@ -274,7 +274,7 @@ Configures the [Encoder](feature_encoders) feature.
 
 ## Indicators {#indicators}
 
-Configures the [LED Indicators](feature_led_indicators) feature.
+Configures the [LED Indicators](features/led_indicators) feature.
 
 * `indicators`
     * `caps_lock`
@@ -346,7 +346,7 @@ The ISO enter key is represented by a 1.25u×2uh key. Renderers which utilize in
 
 ## Leader Key {#leader-key}
 
-Configures the [Leader Key](feature_leader_key) feature.
+Configures the [Leader Key](features/leader_key) feature.
 
 * `leader_key`
     * `timing`
@@ -361,7 +361,7 @@ Configures the [Leader Key](feature_leader_key) feature.
 
 ## LED Matrix {#led-matrix}
 
-Configures the [LED Matrix](feature_led_matrix) feature.
+Configures the [LED Matrix](features/led_matrix) feature.
 
 * `led_matrix`
     * `animations`
@@ -474,7 +474,7 @@ Configures the [LED Matrix](feature_led_matrix) feature.
 
 ## Mouse Keys {#mouse-keys}
 
-Configures the [Mouse Keys](feature_mouse_keys) feature.
+Configures the [Mouse Keys](features/mouse_keys) feature.
 
 * `mouse_key`
     * `delay`
@@ -498,7 +498,7 @@ Configures [One Shot keys](one_shot_keys).
 
 ## PS/2 {#ps2}
 
-Configures the [PS/2](feature_ps2_mouse) feature.
+Configures the [PS/2](features/ps2_mouse) feature.
 
 * `ps2`
     * `clock_pin`
@@ -529,7 +529,7 @@ Configures the [PS/2](feature_ps2_mouse) feature.
 
 ## RGBLight {#rgblight}
 
-Configures the [RGB Lighting](feature_rgblight) feature.
+Configures the [RGB Lighting](features/rgblight) feature.
 
 * `rgblight`
     * `led_count` (Required)
@@ -603,7 +603,7 @@ Configures the [RGB Lighting](feature_rgblight) feature.
 
 ## RGB Matrix {#rgb-matrix}
 
-Configures the [RGB Matrix](feature_rgb_matrix) feature.
+Configures the [RGB Matrix](features/rgb_matrix) feature.
 
 * `rgb_matrix`
     * `animations`
@@ -688,7 +688,7 @@ Configures the [RGB Matrix](feature_rgb_matrix) feature.
 
 ## Secure {#secure}
 
-Configures the [Secure](feature_secure) feature.
+Configures the [Secure](features/secure) feature.
 
 * `secure`
     * `enabled`
@@ -706,7 +706,7 @@ Configures the [Secure](feature_secure) feature.
 
 ## Split Keyboard {#split-keyboard}
 
-Configures the [Split Keyboard](feature_split_keyboard) feature.
+Configures the [Split Keyboard](features/split_keyboard) feature.
 
 * `split`
     * `bootmagic`
@@ -745,7 +745,7 @@ Configures the [Split Keyboard](feature_split_keyboard) feature.
                 * Mirror the activity timestamps to the secondary half.
                 * Default: `false`
             * `detected_os`
-                * Mirror the [detected OS](feature_os_detection) to the secondary half.
+                * Mirror the [detected OS](features/os_detection) to the secondary half.
                 * Default: `false`
             * `haptic`
                 * Mirror the haptic state and process haptic feedback to the secondary half.
@@ -788,7 +788,7 @@ Configures the [Split Keyboard](feature_split_keyboard) feature.
 
 ## Stenography {#stenography}
 
-Configures the [Stenography](feature_stenography) feature.
+Configures the [Stenography](features/stenography) feature.
 
 * `stenography`
     * `enabled`
@@ -838,7 +838,7 @@ Configures the [Stenography](feature_stenography) feature.
 
 ## WS2812 {#ws2812}
 
-Configures the [WS2812](ws2812_driver) driver.
+Configures the [WS2812](drivers/ws2812) driver.
 
 * `ws2812`
     * `driver`
