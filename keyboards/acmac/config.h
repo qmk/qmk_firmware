@@ -15,9 +15,35 @@
  */
 
  #define RGBLIGHT_LAYERS
+ #define WS2812_DI_PIN D0
+ #define RGBLIGHT_LED_COUNT 6
+
+/* all led features */
+// #define RGBLED_NUM 14
+//#define RGBLIGHT_LIMIT_VAL 200
+//#define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_STATIC_LIGHT
+//#define RGBLIGHT_DEFAULT_ON true
+//#define RGBLIGHT_DEFAULT_HUE 0
+//#define RGBLIGHT_DEFAULT_SAT UINT8_MAX
+//#define RGBLIGHT_DEFAULT_VAL RGBLIGHT_LIMIT_VAL
+//#define RGBLIGHT_LAYERS
+//#define RGBLIGHT_SLEEP
+
+
+ #include "rgblight_drivers.h"
+
+#if defined(RGBLIGHT_WS2812)
+#    include "ws2812.h"
+
+const rgblight_driver_t rgblight_driver = {
+    .init    = ws2812_init,
+    .setleds = ws2812_setleds,
+};
+
 
 
 /*
+
  * Feature disable options
  *  These options are also useful to firmware size reduction.
  */
