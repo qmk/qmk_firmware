@@ -22,8 +22,8 @@ extern analog_config g_config;
 
 typedef struct {
     /* For individual analog key data */
-    uint8_t value;
-    uint8_t extremum;
+    uint16_t value;
+    uint16_t extremum;
     int16_t offset;
     bool    is_analog;
     bool    dynamic_actuation_bool;
