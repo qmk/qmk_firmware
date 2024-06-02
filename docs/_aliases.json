@@ -10,7 +10,7 @@
     "/cli_dev_configuration": "/cli_configuration",
     "/dynamic_macros": "/feature_dynamic_macros",
     "/feature_common_shortcuts": "/feature_advanced_keycodes",
-    "/getting_started_build_tools":"/newbs_getting_started",
+    "/getting_started_build_tools": "/newbs_getting_started",
     "/getting_started_getting_help": "/support",
     "/glossary": "/reference_glossary",
     "/key_lock": "/feature_key_lock",
@@ -18,7 +18,7 @@
     "/python_development": "/cli_development",
     "/space_cadet_shift": "/feature_space_cadet_shift",
     "/tap_dance": "/feature_tap_dance",
-    "/tutorial":"/newbs",
+    "/tutorial": "/newbs",
     "/unicode": "/feature_unicode",
 
     "/adc_driver": "/drivers/adc",

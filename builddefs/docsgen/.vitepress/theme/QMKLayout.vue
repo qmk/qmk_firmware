@@ -4,7 +4,6 @@ import { useRouter } from 'vitepress'
 import { onBeforeMount } from 'vue';
 import aliases from "../../../../docs/_aliases.json";
 
-
 const router = useRouter()
 onBeforeMount(async () => {
     // Convert from docsify-style to vitepress-style URLs
