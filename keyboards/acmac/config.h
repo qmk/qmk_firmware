@@ -9,7 +9,7 @@
 /* Increase macro limit to 42
 */
 
-#define DYNAMIC_KEYMAP_MACRO_COUNT 42
+#define DYNAMIC_KEYMAP_MACRO_COUNT 32
 
 /* lighting layers
  */
