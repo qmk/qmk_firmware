@@ -66,4 +66,4 @@ Due to how EEPROM works on ARM based chips, saved settings may no longer be vali
 [Planck rev6 reset EEPROM](https://cdn.discordapp.com/attachments/473506116718952450/539284620861243409/planck_rev6_default.bin) can be used to force an eeprom reset. After flashing this image, flash your normal firmware again which should restore your keyboard to _normal_ working order.
 [Preonic rev3 reset EEPROM](https://cdn.discordapp.com/attachments/473506116718952450/537849497313738762/preonic_rev3_default.bin)
 
-If bootmagic is enabled in any form, you should be able to do this too (see [Bootmagic docs](feature_bootmagic) and keyboard info for specifics on how to do this).
+If bootmagic is enabled in any form, you should be able to do this too (see [Bootmagic docs](features/bootmagic) and keyboard info for specifics on how to do this).

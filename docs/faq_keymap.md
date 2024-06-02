@@ -45,7 +45,7 @@ QMK has a couple of features which allow you to change the behavior of your keyb
 Refer to the EEPROM clearing methods above, which should return those keys to normal operation. If that doesn't work, look here:
 
 * [Magic Keycodes](keycodes_magic)
-* [Command](feature_command)
+* [Command](features/command)
 
 ## The Menu Key Isn't Working
 
@@ -86,7 +86,7 @@ Old vintage mechanical keyboards occasionally have lock switches but modern ones
 
 ## Input Special Characters Other Than ASCII like Cédille 'Ç'
 
-See the [Unicode](feature_unicode) feature.
+See the [Unicode](features/unicode) feature.
 
 ## `Fn` Key on macOS
 
@@ -130,7 +130,7 @@ https://github.com/tekezo/Karabiner/issues/403
 
 ## Esc and <code>&#96;</code> on a Single Key
 
-See the [Grave Escape](feature_grave_esc) feature.
+See the [Grave Escape](features/grave_esc) feature.
 
 ## Eject on Mac OSX
 

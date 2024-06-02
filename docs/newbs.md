@@ -6,10 +6,9 @@ QMK tries to put a lot of power into your hands by making easy things easy, and 
 
 Not sure if your keyboard can run QMK? If it's a mechanical keyboard you built yourself chances are good it can. We support a [large number of hobbyist boards](https://qmk.fm/keyboards/). If your current keyboard can't run QMK there are a lot of choices out there for boards that do.
 
-::: tip
-**Is This Guide For Me?**<br>
-:::
+::: tip Is This Guide For Me?
 If the thought of programming intimidates you, please [take a look at our online GUI](newbs_building_firmware_configurator) instead.
+:::
 
 ## Overview
 

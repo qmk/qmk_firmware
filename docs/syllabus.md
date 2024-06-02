@@ -24,24 +24,24 @@ These topics start to dig into some of the features that QMK supports. You don't
 
 * **Learn How To Configure Features**
     <!-- * Configuration Overview  FIXME(skullydazed/anyone): write this document -->
-    * [Audio](feature_audio)
+    * [Audio](features/audio)
     * Lighting
-        * [Backlight](feature_backlight)
-        * [LED Matrix](feature_led_matrix)
-        * [RGB Lighting](feature_rgblight)
-        * [RGB Matrix](feature_rgb_matrix)
+        * [Backlight](features/backlight)
+        * [LED Matrix](features/led_matrix)
+        * [RGB Lighting](features/rgblight)
+        * [RGB Matrix](features/rgb_matrix)
     * [Tap-Hold Configuration](tap_hold)
     * [Squeezing Space from AVR](squeezing_avr)
 * **Learn More About Keymaps**
     * [Keymaps](keymap)
     * [Custom Functions and Keycodes](custom_quantum_functions)
     * Macros
-        * [Dynamic Macros](feature_dynamic_macros)
+        * [Dynamic Macros](features/dynamic_macros)
         * [Compiled Macros](feature_macros)
-    * [Tap Dance](feature_tap_dance)
-    * [Combos](feature_combo)
+    * [Tap Dance](features/tap_dance)
+    * [Combos](features/combo)
     * [Userspace](feature_userspace)
-    * [Key Overrides](feature_key_overrides)
+    * [Key Overrides](features/key_overrides)
 
 # Advanced Topics
 
@@ -53,15 +53,15 @@ Everything below here requires a lot of foundational knowledge. Besides being ab
     * [info.json Reference](reference_info_json)
     * [Debounce API](feature_debounce_type)
 * **Advanced Features**
-    * [Unicode](feature_unicode)
+    * [Unicode](features/unicode)
     * [API](api_overview)
-    * [Bootmagic Lite](feature_bootmagic)
+    * [Bootmagic Lite](features/bootmagic)
 * **Hardware**
     * [How Keyboards Work](how_keyboards_work)
     * [How A Keyboard Matrix Works](how_a_matrix_works)
-    * [Split Keyboards](feature_split_keyboard)
-    * [Stenography](feature_stenography)
-    * [Pointing Devices](feature_pointing_device)
+    * [Split Keyboards](features/split_keyboard)
+    * [Stenography](features/stenography)
+    * [Pointing Devices](features/pointing_device)
 * **Core Development**
     * [Coding Conventions](coding_conventions_c)
     * [Compatible Microcontrollers](compatible_microcontrollers)
