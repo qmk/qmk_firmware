@@ -64,8 +64,8 @@ How to complete this step is entirely up to you. Make the one change that's been
 
 * [Basic Keycodes](keycodes_basic)
 * [Quantum Keycodes](quantum_keycodes)
-* [Grave/Escape](feature_grave_esc)
-* [Mouse keys](feature_mouse_keys)
+* [Grave/Escape](features/grave_esc)
+* [Mouse keys](features/mouse_keys)
 
 ::: tip
 While you get a feel for how keymaps work, keep each change small. Bigger changes make it harder to debug any problems that arise.

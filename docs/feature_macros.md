@@ -86,7 +86,7 @@ All objects have one required key: `action`. This tells QMK what the object does
 Only basic keycodes (prefixed by `KC_`) are supported. Do not include the `KC_` prefix when listing keycodes.
 
 * `beep`
-    * Play a bell if the keyboard has [audio enabled](feature_audio).
+    * Play a bell if the keyboard has [audio enabled](features/audio).
     * Example: `{"action": "beep"}`
 * `delay`
     * Pause macro playback. Duration is specified in milliseconds (ms).
@@ -108,7 +108,7 @@ Only basic keycodes (prefixed by `KC_`) are supported. Do not include the `KC_` 
 
 ### `SEND_STRING()` & `process_record_user`
 
-See also: [Send String](feature_send_string)
+See also: [Send String](features/send_string)
 
 Sometimes you want a key to type out words or phrases. For the most common situations, we've provided `SEND_STRING()`, which will type out a string (i.e. a sequence of characters) for you. All ASCII characters that are easily translatable to a keycode are supported (e.g. `qmk 123\n\t`).
 

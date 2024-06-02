@@ -160,7 +160,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 };
 ```
-Alternatively, this can be done with [Key Overrides](feature_key_overrides#simple-example).
+Alternatively, this can be done with [Key Overrides](features/key_overrides#simple-example).
 
 # Advanced topics {#advanced-topics}
 
@@ -184,4 +184,4 @@ This page used to encompass a large set of features. We have moved many sections
 
 ## Key Overrides {#key-overrides}
 
-* [Key Overrides](feature_key_overrides)
+* [Key Overrides](features/key_overrides)
