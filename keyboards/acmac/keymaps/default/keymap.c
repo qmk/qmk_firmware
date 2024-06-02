@@ -54,18 +54,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-const rgblight_segment_t PROGMEM my_base_layer[]   = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_RED});
-const rgblight_segment_t PROGMEM my_macro1_layer[]   = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_BLUE});
-const rgblight_segment_t PROGMEM my_macro2_layer[]   = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_GREEN});
-const rgblight_segment_t PROGMEM my_macro3_layer[]   = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_YELLOW});
+const rgblight_segment_t PROGMEM red_base []   = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_RED});
+const rgblight_segment_t PROGMEM blu_macro1 []   = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_BLUE});
+const rgblight_segment_t PROGMEM grn_macro2[]   = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_GREEN});
+const rgblight_segment_t PROGMEM yel_macro3[]   = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_YELLOW});
 // const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_GREEN});
 
 // Now define the array of layers. Later layers take precedence
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
-    my_base_layer,
-    my_macro1_layer,    // Overrides base layer
-    my_macro2_layer,    // Overrides other layers
-    my_macro3_layer    // Overrides other layers
+    red_base,
+    blu_macro1,    // Overrides base layer
+    mgrn_acro2,    // Overrides other layers
+    yelLmacro3    // Overrides other layers
 );
 
 void keyboard_post_init_user(void) {
