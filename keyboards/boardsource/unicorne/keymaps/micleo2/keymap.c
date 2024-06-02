@@ -170,6 +170,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 rightarrow_key_pressed_cb(get_mods());
             }
             return true;
+        case KC_DOWN:
+            if (record->event.pressed) {
+                downarrow_key_pressed_cb();
+            }
+            return true;
         default:
             return true;
     }
@@ -528,7 +533,11 @@ void rightarrow_key_pressed_cb(bool mods_active) {
 }
 
 void downarrow_key_pressed_cb() {
-    /* start_flash_img(gw_down_squat, CHAIR_LEN_MS, sizeof(gw_down_squat)); */
+    if (cur_arrow_dir == RIGHT) {
+        start_flash_img(gw_down_squat_right, CHAIR_LEN_MS, sizeof(gw_down_squat_right));
+    } else {
+        start_flash_img(gw_down_squat_left, CHAIR_LEN_MS, sizeof(gw_down_squat_left));
+    }
 }
 
 #else
