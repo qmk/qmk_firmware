@@ -65,7 +65,7 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     red_base,
     blu_macro1,    // Overrides base layer
     mgrn_acro2,    // Overrides other layers
-    yelLmacro3    // Overrides other layers
+    yel_macro3    // Overrides other layers
 );
 
 void keyboard_post_init_user(void) {
