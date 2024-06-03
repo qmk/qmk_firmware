@@ -1,0 +1,4 @@
+RGBLIGHT_ENABLE = yes
+WS2812_DRIVER_REQUIRED = yes
+
+# RGBLIGHT_DRIVER = WS2812  (this did not compilr)
