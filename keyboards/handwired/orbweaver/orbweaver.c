@@ -60,7 +60,7 @@ led_config_t g_led_config = {
          { 11, 12, 13, 14, 15 },
          { 16, 17, 18, 19, 19 },
          { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
-         { NO_LED, NO_LED }
+         { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED }
      },
 
      // LED index to physical location

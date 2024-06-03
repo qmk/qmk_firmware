@@ -94,7 +94,7 @@ void dip_switch_init(void) {
     }
 #    endif
     for (uint8_t i = 0; i < NUM_DIP_SWITCHES; i++) {
-        setPinInputHigh(dip_switch_pad[i]);
+        gpio_set_pin_input_high(dip_switch_pad[i]);
     }
     dip_switch_read(true);
 #endif
@@ -123,7 +123,7 @@ void dip_switch_read(bool forced) {
 
     for (uint8_t i = 0; i < NUM_DIP_SWITCHES; i++) {
 #ifdef DIP_SWITCH_PINS
-        dip_switch_state[i] = !readPin(dip_switch_pad[i]);
+        dip_switch_state[i] = !gpio_read_pin(dip_switch_pad[i]);
 #endif
 #ifdef DIP_SWITCH_MATRIX_GRID
         dip_switch_state[i] = peek_matrix(dip_switch_pad[i].row, dip_switch_pad[i].col, read_raw);

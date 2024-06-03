@@ -8,11 +8,20 @@
     "pid": "0x0004",
     "device_version": "0.0.1"
   },
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  },
   "rgb_matrix": {
     "driver": "ws2812",
     "sat_steps": 8,
     "val_steps": 8,
-    "speed_steps": 10
+    "speed_steps": 10,
+    "max_brightness": 150,
+    "split_count": [25, 25],
+    "sleep": true
   },
   "dip_switch": {
     "matrix_grid": [ [0,6], [1,6], [5,6], [6,6] ]
@@ -23,6 +32,7 @@
     ]
   },
   "split": {
+    "enabled": true,
     "soft_serial_pin": "D2"
   },
   "ws2812": {

@@ -337,24 +337,23 @@ define BUILD_TEST
     endif
 endef
 
+define LIST_TEST
+    include $(BUILDDEFS_PATH)/testlist.mk
+    FOUND_TESTS := $$(patsubst ./tests/%,%,$$(TEST_LIST))
+    $$(info $$(FOUND_TESTS))
+endef
+
 define PARSE_TEST
     TESTS :=
-    # list of possible targets, colon-delimited, to reassign to MAKE_TARGET and remove
-    TARGETS := :clean:
-    ifneq (,$$(findstring :$$(lastword $$(subst :, ,$$(RULE))):, $$(TARGETS)))
-        MAKE_TARGET := $$(lastword $$(subst :, ,$$(RULE)))
-        TEST_SUBPATH := $$(subst $$(eval) ,/,$$(wordlist 2, $$(words $$(subst :, ,$$(RULE))), _ $$(subst :, ,$$(RULE))))
-    else
-        MAKE_TARGET :=
-        TEST_SUBPATH := $$(subst :,/,$$(RULE))
-    endif
+    TEST_NAME := $$(firstword $$(subst :, ,$$(RULE)))
+    TEST_TARGET := $$(subst $$(TEST_NAME),,$$(subst $$(TEST_NAME):,,$$(RULE)))
     include $(BUILDDEFS_PATH)/testlist.mk
-    ifeq ($$(RULE),all)
+    ifeq ($$(TEST_NAME),all)
         MATCHED_TESTS := $$(TEST_LIST)
     else
-        MATCHED_TESTS := $$(foreach TEST, $$(TEST_LIST),$$(if $$(findstring /$$(TEST_SUBPATH)/, $$(patsubst %,%/,$$(TEST))), $$(TEST),))
+        MATCHED_TESTS := $$(foreach TEST, $$(TEST_LIST),$$(if $$(findstring x$$(TEST_NAME)x, x$$(patsubst ./tests/%,%,$$(TEST)x)), $$(TEST),))
     endif
-    $$(foreach TEST,$$(MATCHED_TESTS),$$(eval $$(call BUILD_TEST,$$(TEST),$$(MAKE_TARGET))))
+    $$(foreach TEST,$$(MATCHED_TESTS),$$(eval $$(call BUILD_TEST,$$(TEST),$$(TEST_TARGET))))
 endef
 
 
@@ -436,6 +435,10 @@ git-submodules: git-submodule
 .PHONY: list-keyboards
 list-keyboards:
 	$(QMK_BIN) list-keyboards --no-resolve-defaults | tr '\n' ' '
+
+.PHONY: list-tests
+list-tests:
+	$(eval $(call LIST_TEST))
 
 .PHONY: generate-keyboards-file
 generate-keyboards-file:

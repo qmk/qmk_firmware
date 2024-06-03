@@ -1,6 +1,4 @@
 KEYBOARD_SHARED_EP = yes
-CONSOLE_ENABLE     = yes
 MOUSE_SHARED_EP    = yes
 
 SERIAL_DRIVER = usart
-AUDIO_DRIVER  = pwm_hardware
