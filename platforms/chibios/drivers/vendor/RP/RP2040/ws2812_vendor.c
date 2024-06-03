@@ -161,7 +161,7 @@ static void ws2812_dma_callback(void* p, uint32_t ct) {
     // FIFO is already empty.
     rtcnt_t time_to_completion = (pio_sm_get_tx_fifo_level(pio, STATE_MACHINE) + 1) * MAX(WS2812_T1H + WS2812_T1L, WS2812_T0H + WS2812_T0L);
 
-#if defined(RGBW)
+#if defined(WS2812_RGBW)
     time_to_completion *= 32;
 #else
     time_to_completion *= 24;
@@ -177,7 +177,7 @@ static void ws2812_dma_callback(void* p, uint32_t ct) {
     osalSysUnlockFromISR();
 }
 
-bool ws2812_init(void) {
+void ws2812_init(void) {
     uint pio_idx = pio_get_index(pio);
     /* Get PIOx peripheral out of reset state. */
     hal_lld_peripheral_unreset(pio_idx == 0 ? RESETS_ALLREG_PIO0 : RESETS_ALLREG_PIO1);
@@ -196,7 +196,7 @@ bool ws2812_init(void) {
     STATE_MACHINE = pio_claim_unused_sm(pio, true);
     if (STATE_MACHINE < 0) {
         dprintln("ERROR: Failed to acquire state machine for WS2812 output!");
-        return false;
+        return;
     }
 
     uint offset = pio_add_program(pio, &ws2812_program);
@@ -222,7 +222,7 @@ bool ws2812_init(void) {
     sm_config_set_sideset(&config, 1, false, false);
 #endif
 
-#if defined(RGBW)
+#if defined(WS2812_RGBW)
     sm_config_set_out_shift(&config, false, true, 32);
 #else
     sm_config_set_out_shift(&config, false, true, 24);
@@ -246,8 +246,6 @@ bool ws2812_init(void) {
                          DMA_CTRL_TRIG_TREQ_SEL(pio == pio0 ? STATE_MACHINE : STATE_MACHINE + 8) |
                          DMA_CTRL_TRIG_PRIORITY(RP_DMA_PRIORITY_WS2812);
     // clang-format on
-
-    return true;
 }
 
 static inline void sync_ws2812_transfer(void) {
@@ -269,15 +267,10 @@ static inline void sync_ws2812_transfer(void) {
 }
 
 void ws2812_setleds(rgb_led_t* ledarray, uint16_t leds) {
-    static bool is_initialized = false;
-    if (unlikely(!is_initialized)) {
-        is_initialized = ws2812_init();
-    }
-
     sync_ws2812_transfer();
 
     for (int i = 0; i < leds; i++) {
-#if defined(RGBW)
+#if defined(WS2812_RGBW)
         WS2812_BUFFER[i] = rgbw8888_to_u32(ledarray[i].r, ledarray[i].g, ledarray[i].b, ledarray[i].w);
 #else
         WS2812_BUFFER[i] = rgbw8888_to_u32(ledarray[i].r, ledarray[i].g, ledarray[i].b, 0);

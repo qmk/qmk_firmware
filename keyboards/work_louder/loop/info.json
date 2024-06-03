@@ -8,6 +8,18 @@
         "pid": "0x1DF9",
         "max_power": 100
     },
+    "build": {
+        "lto": true
+    },
+    "features": {
+        "bootmagic": true,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgb_matrix": true,
+        "rgblight": true
+    },
     "rgb_matrix": {
         "animations": {
             "alphas_mods": true,
