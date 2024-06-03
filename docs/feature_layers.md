@@ -27,7 +27,7 @@ For a similar reason, the `layer` argument of `LM()` is also limited to layers 0
 |:---------------:|:----------------------:|:------------------------:|:----------------:|
 |       ❌        |          ❌            |           ❌             |        ✅        |
 
-Expanding this would be complicated, at best. Moving to a 32-bit keycode would solve a lot of this, but would double the amount of space that the keymap matrix uses. And it could potentially cause issues, too. If you need to apply modifiers to your tapped keycode, [Tap Dance](feature_tap_dance#example-5-using-tap-dance-for-advanced-mod-tap-and-layer-tap-keys) can be used to accomplish this.
+Expanding this would be complicated, at best. Moving to a 32-bit keycode would solve a lot of this, but would double the amount of space that the keymap matrix uses. And it could potentially cause issues, too. If you need to apply modifiers to your tapped keycode, [Tap Dance](features/tap_dance#example-5-using-tap-dance-for-advanced-mod-tap-and-layer-tap-keys) can be used to accomplish this.
 
 ## Working with Layers {#working-with-layers}
 
@@ -104,7 +104,7 @@ This runs code every time that the layers get changed.  This can be useful for l
 
 ### Example `layer_state_set_*` Implementation
 
-This example shows how to set the [RGB Underglow](feature_rgblight) lights based on the layer, using the Planck as an example.
+This example shows how to set the [RGB Underglow](features/rgblight) lights based on the layer, using the Planck as an example.
 
 ```c
 layer_state_t layer_state_set_user(layer_state_t state) {

@@ -103,45 +103,45 @@
             {
                 "text": "Advanced Keycodes",
                 "items": [
-                    { "text": "Command", "link": "/feature_command" },
-                    { "text": "Dynamic Macros", "link": "/feature_dynamic_macros" },
-                    { "text": "Grave Escape", "link": "/feature_grave_esc" },
-                    { "text": "Leader Key", "link": "/feature_leader_key" },
+                    { "text": "Command", "link": "/features/command" },
+                    { "text": "Dynamic Macros", "link": "/features/dynamic_macros" },
+                    { "text": "Grave Escape", "link": "/features/grave_esc" },
+                    { "text": "Leader Key", "link": "/features/leader_key" },
                     { "text": "Mod-Tap", "link": "/mod_tap" },
                     { "text": "Macros", "link": "/feature_macros" },
-                    { "text": "Mouse Keys", "link": "/feature_mouse_keys" },
-                    { "text": "Programmable Button", "link": "/feature_programmable_button" },
-                    { "text": "Repeat Key", "link": "/feature_repeat_key" },
-                    { "text": "Space Cadet Shift", "link": "/feature_space_cadet" },
+                    { "text": "Mouse Keys", "link": "/features/mouse_keys" },
+                    { "text": "Programmable Button", "link": "/features/programmable_button" },
+                    { "text": "Repeat Key", "link": "/features/repeat_key" },
+                    { "text": "Space Cadet Shift", "link": "/features/space_cadet" },
                     { "text": "US ANSI Shifted Keys", "link": "/keycodes_us_ansi_shifted" }
                 ]
             },
             {
                 "text": "Software Features",
                 "items": [
-                    { "text": "Auto Shift", "link": "/feature_auto_shift" },
-                    { "text": "Autocorrect", "link": "/feature_autocorrect" },
-                    { "text": "Caps Word", "link": "/feature_caps_word" },
-                    { "text": "Combos", "link": "/feature_combo" },
+                    { "text": "Auto Shift", "link": "/features/auto_shift" },
+                    { "text": "Autocorrect", "link": "/features/autocorrect" },
+                    { "text": "Caps Word", "link": "/features/caps_word" },
+                    { "text": "Combos", "link": "/features/combo" },
                     { "text": "Debounce API", "link": "/feature_debounce_type" },
-                    { "text": "Digitizer", "link": "/feature_digitizer" },
+                    { "text": "Digitizer", "link": "/features/digitizer" },
                     { "text": "EEPROM", "link": "/feature_eeprom" },
-                    { "text": "Key Lock", "link": "/feature_key_lock" },
-                    { "text": "Key Overrides", "link": "/feature_key_overrides" },
+                    { "text": "Key Lock", "link": "/features/key_lock" },
+                    { "text": "Key Overrides", "link": "/features/key_overrides" },
                     { "text": "Layers", "link": "/feature_layers" },
                     { "text": "One Shot Keys", "link": "/one_shot_keys" },
-                    { "text": "OS Detection", "link": "/feature_os_detection" },
-                    { "text": "Raw HID", "link": "/feature_rawhid" },
-                    { "text": "Secure", "link": "/feature_secure" },
-                    { "text": "Send String", "link": "/feature_send_string" },
-                    { "text": "Sequencer", "link": "/feature_sequencer" },
-                    { "text": "Swap Hands", "link": "/feature_swap_hands" },
-                    { "text": "Tap Dance", "link": "/feature_tap_dance" },
+                    { "text": "OS Detection", "link": "/features/os_detection" },
+                    { "text": "Raw HID", "link": "/features/rawhid" },
+                    { "text": "Secure", "link": "/features/secure" },
+                    { "text": "Send String", "link": "/features/send_string" },
+                    { "text": "Sequencer", "link": "/features/sequencer" },
+                    { "text": "Swap Hands", "link": "/features/swap_hands" },
+                    { "text": "Tap Dance", "link": "/features/tap_dance" },
                     { "text": "Tap-Hold Configuration", "link": "/tap_hold" },
-                    { "text": "Tri Layer", "link": "/feature_tri_layer" },
-                    { "text": "Unicode", "link": "/feature_unicode" },
+                    { "text": "Tri Layer", "link": "/features/tri_layer" },
+                    { "text": "Unicode", "link": "/features/unicode" },
                     { "text": "Userspace", "link": "/feature_userspace" },
-                    { "text": "WPM Calculation", "link": "/feature_wpm" }
+                    { "text": "WPM Calculation", "link": "/features/wpm" }
                 ]
             },
             {
@@ -157,35 +157,35 @@
                                     { "text": "Quantum Painter LVGL Integration", "link": "/quantum_painter_lvgl" }
                                 ]
                             },
-                            { "text": "HD44780 LCD Driver", "link": "/feature_hd44780" },
-                            { "text": "ST7565 LCD Driver", "link": "/feature_st7565" },
-                            { "text": "OLED Driver", "link": "/feature_oled_driver" }
+                            { "text": "HD44780 LCD Driver", "link": "/features/hd44780" },
+                            { "text": "ST7565 LCD Driver", "link": "/features/st7565" },
+                            { "text": "OLED Driver", "link": "/features/oled_driver" }
                         ]
                     },
                     {
                         "text": "Lighting",
                         "items": [
-                            { "text": "Backlight", "link": "/feature_backlight" },
-                            { "text": "LED Matrix", "link": "/feature_led_matrix" },
-                            { "text": "RGB Lighting", "link": "/feature_rgblight" },
-                            { "text": "RGB Matrix", "link": "/feature_rgb_matrix" }
+                            { "text": "Backlight", "link": "/features/backlight" },
+                            { "text": "LED Matrix", "link": "/features/led_matrix" },
+                            { "text": "RGB Lighting", "link": "/features/rgblight" },
+                            { "text": "RGB Matrix", "link": "/features/rgb_matrix" }
                         ]
                     },
-                    { "text": "Audio", "link": "/feature_audio" },
-                    { "text": "Bluetooth", "link": "/feature_bluetooth" },
-                    { "text": "Bootmagic Lite", "link": "/feature_bootmagic" },
+                    { "text": "Audio", "link": "/features/audio" },
+                    { "text": "Bluetooth", "link": "/features/bluetooth" },
+                    { "text": "Bootmagic Lite", "link": "/features/bootmagic" },
                     { "text": "Converters", "link": "/feature_converters" },
                     { "text": "Custom Matrix", "link": "/custom_matrix" },
-                    { "text": "DIP Switch", "link": "/feature_dip_switch" },
-                    { "text": "Encoders", "link": "/feature_encoders" },
-                    { "text": "Haptic Feedback", "link": "/feature_haptic_feedback" },
-                    { "text": "Joystick", "link": "/feature_joystick" },
-                    { "text": "LED Indicators", "link": "/feature_led_indicators" },
-                    { "text": "MIDI", "link": "/feature_midi" },
-                    { "text": "Pointing Device", "link": "/feature_pointing_device" },
-                    { "text": "PS/2 Mouse", "link": "/feature_ps2_mouse" },
-                    { "text": "Split Keyboard", "link": "/feature_split_keyboard" },
-                    { "text": "Stenography", "link": "/feature_stenography" }
+                    { "text": "DIP Switch", "link": "/features/dip_switch" },
+                    { "text": "Encoders", "link": "/features/encoders" },
+                    { "text": "Haptic Feedback", "link": "/features/haptic_feedback" },
+                    { "text": "Joystick", "link": "/features/joystick" },
+                    { "text": "LED Indicators", "link": "/features/led_indicators" },
+                    { "text": "MIDI", "link": "/features/midi" },
+                    { "text": "Pointing Device", "link": "/features/pointing_device" },
+                    { "text": "PS/2 Mouse", "link": "/features/ps2_mouse" },
+                    { "text": "Split Keyboard", "link": "/features/split_keyboard" },
+                    { "text": "Stenography", "link": "/features/stenography" }
                 ]
             },
             {
@@ -226,19 +226,19 @@
                         "text": "Drivers",
                         "link": "hardware_drivers",
                         "items": [
-                            { "text": "ADC Driver", "link": "/adc_driver" },
-                            { "text": "APA102 Driver", "link": "/apa102_driver" },
-                            { "text": "Audio Driver", "link": "/audio_driver" },
-                            { "text": "I2C Driver", "link": "/i2c_driver" },
-                            { "text": "SPI Driver", "link": "/spi_driver" },
-                            { "text": "WS2812 Driver", "link": "/ws2812_driver" },
-                            { "text": "EEPROM Driver", "link": "/eeprom_driver" },
-                            { "text": "Flash Driver", "link": "/flash_driver" },
-                            { "text": "'serial' Driver", "link": "/serial_driver" },
-                            { "text": "UART Driver", "link": "/uart_driver" }
+                            { "text": "ADC Driver", "link": "/drivers/adc" },
+                            { "text": "APA102 Driver", "link": "/drivers/apa102" },
+                            { "text": "Audio Driver", "link": "/drivers/audio" },
+                            { "text": "EEPROM Driver", "link": "/drivers/eeprom" },
+                            { "text": "Flash Driver", "link": "/drivers/flash" },
+                            { "text": "I2C Driver", "link": "/drivers/i2c" },
+                            { "text": "'serial' Driver", "link": "/drivers/serial" },
+                            { "text": "SPI Driver", "link": "/drivers/spi" },
+                            { "text": "UART Driver", "link": "/drivers/uart" },
+                            { "text": "WS2812 Driver", "link": "/drivers/ws2812" }
                         ]
                     },
-                    { "text": "GPIO Controls", "link": "/gpio_control" },
+                    { "text": "GPIO Controls", "link": "/drivers/gpio" },
                     { "text": "Keyboard Guidelines", "link": "/hardware_keyboard_guidelines" }
                 ]
             },

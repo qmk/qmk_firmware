@@ -497,7 +497,7 @@ Do not use `MOD_xxx` constants like `MOD_LSFT` or `MOD_RALT`, since they're 5-bi
 
 ### Retro Shift
 
-[Auto Shift,](feature_auto_shift) has its own version of `retro tapping` called `retro shift`. It is extremely similar to `retro tapping`, but holding the key past `AUTO_SHIFT_TIMEOUT` results in the value it sends being shifted. Other configurations also affect it differently; see [here](feature_auto_shift#retro-shift) for more information.
+[Auto Shift,](features/auto_shift) has its own version of `retro tapping` called `retro shift`. It is extremely similar to `retro tapping`, but holding the key past `AUTO_SHIFT_TIMEOUT` results in the value it sends being shifted. Other configurations also affect it differently; see [here](features/auto_shift#retro-shift) for more information.
 
 ## Why do we include the key record for the per key functions?
 
