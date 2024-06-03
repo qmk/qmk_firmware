@@ -7,8 +7,12 @@
 
 #if defined(RGB_MATRIX_AW20216S)
 #    include "aw20216s.h"
+#elif defined(RGB_MATRIX_IS31FL3236)
+#    include "is31fl3236.h"
 #elif defined(RGB_MATRIX_IS31FL3218)
 #    include "is31fl3218.h"
+#elif defined(RGB_MATRIX_IS31FL3729)
+#    include "is31fl3729.h"
 #elif defined(RGB_MATRIX_IS31FL3731)
 #    include "is31fl3731.h"
 #elif defined(RGB_MATRIX_IS31FL3733)

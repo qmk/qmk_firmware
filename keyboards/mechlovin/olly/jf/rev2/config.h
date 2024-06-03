@@ -26,6 +26,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define I2C1_CLOCK_SPEED 400000
 #define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2
-
-#define WEAR_LEVELING_BACKING_SIZE 4096
-#define WEAR_LEVELING_LOGICAL_SIZE 2048

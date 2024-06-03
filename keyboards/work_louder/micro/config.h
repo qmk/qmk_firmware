@@ -7,7 +7,6 @@
 
 #define RGBLIGHT_DI_PIN D2
 #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_STATIC_GRADIENT + 9
-#define RGBLIGHT_DEFAULT_HUE 213
 
 /* disable debug print */
 //#define NO_DEBUG

@@ -30,7 +30,6 @@
 // Backlight configuration
 #define BACKLIGHT_PWM_DRIVER PWMD3
 #define BACKLIGHT_PWM_CHANNEL 2
-#define BACKLIGHT_DEFAULT_LEVEL 6
 
 // Timeout configuration
 #define QUANTUM_PAINTER_DISPLAY_TIMEOUT 10000

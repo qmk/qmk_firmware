@@ -108,7 +108,6 @@ static struct {
 i2c_status_t azoteq_iqs5xx_wake(void) {
     uint8_t      data   = 0;
     i2c_status_t status = i2c_read_register16(AZOTEQ_IQS5XX_ADDRESS, AZOTEQ_IQS5XX_REG_PREVIOUS_CYCLE_TIME, (uint8_t *)&data, sizeof(data), 1);
-    i2c_stop();
     wait_us(150);
     return status;
 }

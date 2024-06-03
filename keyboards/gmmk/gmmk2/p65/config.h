@@ -16,11 +16,6 @@
 
 #pragma once
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
 /* SPI Config for LED Driver */
 #define SPI_DRIVER SPIDM2
 #define SPI_SCK_PIN B13
@@ -29,5 +24,4 @@
 
 #define AW20216S_CS_PIN_1 A15
 #define AW20216S_CS_PIN_2 B9
-#define AW20216S_EN_PIN_1 C13
-#define AW20216S_EN_PIN_2 C13
+#define AW20216S_EN_PIN C13

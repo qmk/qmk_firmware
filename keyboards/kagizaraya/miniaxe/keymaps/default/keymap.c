@@ -24,8 +24,7 @@ enum layer_names {
 };
 
 enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  LOWER,
+  LOWER = SAFE_RANGE,
   RAISE,
   ADJUST,
 };
@@ -105,20 +104,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] =  LAYOUT_split_3x5_3(
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,        KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,
   KC_F11,  KC_F12,  _______, _______, _______,      _______, _______, _______, _______, _______,
-  QK_BOOT,   _______, _______, _______, _______,      KC_MPRV, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY,
+  QK_BOOT, _______, _______, _______, _______,      KC_MPRV, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY,
                     _______, _______, _______,      _______,  _______, _______
 )
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        // persistant_default_layer_set(1UL<<_QWERTY);
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      return false;
-      break;
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);

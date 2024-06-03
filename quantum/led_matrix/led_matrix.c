@@ -82,7 +82,7 @@ static last_hit_t last_hit_buffer;
 #endif // LED_MATRIX_KEYREACTIVE_ENABLED
 
 // split led matrix
-#if defined(LED_MATRIX_ENABLE) && defined(LED_MATRIX_SPLIT)
+#if defined(LED_MATRIX_SPLIT)
 const uint8_t k_led_matrix_split[2] = LED_MATRIX_SPLIT;
 #endif
 
@@ -98,7 +98,7 @@ void eeconfig_update_led_matrix_default(void) {
     led_matrix_eeconfig.mode   = LED_MATRIX_DEFAULT_MODE;
     led_matrix_eeconfig.val    = LED_MATRIX_DEFAULT_VAL;
     led_matrix_eeconfig.speed  = LED_MATRIX_DEFAULT_SPD;
-    led_matrix_eeconfig.flags  = LED_FLAG_ALL;
+    led_matrix_eeconfig.flags  = LED_MATRIX_DEFAULT_FLAGS;
     eeconfig_flush_led_matrix(true);
 }
 
@@ -147,7 +147,7 @@ void led_matrix_set_value(int index, uint8_t value) {
 }
 
 void led_matrix_set_value_all(uint8_t value) {
-#if defined(LED_MATRIX_ENABLE) && defined(LED_MATRIX_SPLIT)
+#if defined(LED_MATRIX_SPLIT)
     for (uint8_t i = 0; i < LED_MATRIX_LED_COUNT; i++)
         led_matrix_set_value(i, value);
 #else
@@ -159,7 +159,7 @@ void led_matrix_set_value_all(uint8_t value) {
 #endif
 }
 
-void process_led_matrix(uint8_t row, uint8_t col, bool pressed) {
+void led_matrix_handle_key_event(uint8_t row, uint8_t col, bool pressed) {
 #ifndef LED_MATRIX_SPLIT
     if (!is_keyboard_master()) return;
 #endif
