@@ -19,7 +19,6 @@ extern "C" {
 void ui_Screen1_screen_init(void);
 extern lv_obj_t * ui_Screen1;
 extern lv_obj_t * ui_currLayer;
-extern lv_obj_t * ui_currRGB;
 extern lv_obj_t * ui_Container1;
 extern lv_obj_t * ui_shiftIndicator;
 extern lv_obj_t * ui_ctrlIndicator;
@@ -32,6 +31,14 @@ extern lv_obj_t * ui_capswordIndicator;
 void ui_Screen2_screen_init(void);
 extern lv_obj_t * ui_Screen2;
 extern lv_obj_t * ui_currRgb;
+extern lv_obj_t * ui_Container4;
+extern lv_obj_t * ui_hueVal;
+extern lv_obj_t * ui_satVal;
+extern lv_obj_t * ui_brtVal;
+extern lv_obj_t * ui_Container5;
+extern lv_obj_t * ui_hueLabel;
+extern lv_obj_t * ui_satLabel;
+extern lv_obj_t * ui_brtLabel;
 extern lv_obj_t * ui____initial_actions0;
 
 

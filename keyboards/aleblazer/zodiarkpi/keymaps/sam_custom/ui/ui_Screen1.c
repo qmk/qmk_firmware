@@ -26,26 +26,12 @@ void ui_Screen1_screen_init(void)
 
 
 
-    ui_currRGB = lv_textarea_create(ui_Screen1);
-    lv_obj_set_width(ui_currRGB, 290);
-    lv_obj_set_height(ui_currRGB, LV_SIZE_CONTENT);    /// 70
-    lv_obj_set_x(ui_currRGB, lv_pct(0));
-    lv_obj_set_y(ui_currRGB, lv_pct(-20));
-    lv_obj_set_align(ui_currRGB, LV_ALIGN_CENTER);
-    lv_textarea_set_text(ui_currRGB, "current_rgb");
-    lv_textarea_set_placeholder_text(ui_currRGB, "Placeholder...");
-    lv_textarea_set_one_line(ui_currRGB, true);
-    lv_obj_set_style_text_align(ui_currRGB, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_color(ui_currRGB, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_currRGB, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_border_width(ui_currRGB, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-
-
     ui_Container1 = lv_obj_create(ui_Screen1);
     lv_obj_remove_style_all(ui_Container1);
     lv_obj_set_width(ui_Container1, 290);
     lv_obj_set_height(ui_Container1, LV_SIZE_CONTENT);    /// 100
+    lv_obj_set_x(ui_Container1, -1);
+    lv_obj_set_y(ui_Container1, lv_pct(-20));
     lv_obj_set_align(ui_Container1, LV_ALIGN_CENTER);
     lv_obj_set_flex_flow(ui_Container1, LV_FLEX_FLOW_ROW);
     lv_obj_set_flex_align(ui_Container1, LV_FLEX_ALIGN_SPACE_EVENLY, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
@@ -104,8 +90,6 @@ void ui_Screen1_screen_init(void)
     lv_obj_remove_style_all(ui_Container2);
     lv_obj_set_width(ui_Container2, 290);
     lv_obj_set_height(ui_Container2, LV_SIZE_CONTENT);    /// 100
-    lv_obj_set_x(ui_Container2, 0);
-    lv_obj_set_y(ui_Container2, lv_pct(20));
     lv_obj_set_align(ui_Container2, LV_ALIGN_CENTER);
     lv_obj_set_flex_flow(ui_Container2, LV_FLEX_FLOW_ROW);
     lv_obj_set_flex_align(ui_Container2, LV_FLEX_ALIGN_SPACE_EVENLY, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
@@ -164,7 +148,7 @@ void ui_Screen1_screen_init(void)
     lv_obj_set_width(ui_Container3, 290);
     lv_obj_set_height(ui_Container3, LV_SIZE_CONTENT);    /// 100
     lv_obj_set_x(ui_Container3, 0);
-    lv_obj_set_y(ui_Container3, lv_pct(40));
+    lv_obj_set_y(ui_Container3, lv_pct(20));
     lv_obj_set_align(ui_Container3, LV_ALIGN_CENTER);
     lv_obj_set_flex_flow(ui_Container3, LV_FLEX_FLOW_ROW);
     lv_obj_set_flex_align(ui_Container3, LV_FLEX_ALIGN_SPACE_EVENLY, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);

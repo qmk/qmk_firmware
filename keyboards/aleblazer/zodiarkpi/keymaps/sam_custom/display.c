@@ -17,8 +17,14 @@ painter_device_t qp_st7789_make_spi_device(uint16_t panel_width, uint16_t panel_
 // layers
 const char *layer_name = "------";
 
+// hsv state
+// lv_color_hsv_t col_hsv = {0, 0, 0};
+
 // events
 uint32_t USER_EVENT_RGBMODE_UPDATE;
+uint32_t USER_EVENT_RGB_HUE_UPDATE;
+uint32_t USER_EVENT_RGB_SAT_UPDATE;
+uint32_t USER_EVENT_RGB_BRT_UPDATE;
 
 // rgb matrix naming
 extern rgb_config_t rgb_matrix_config;
@@ -51,6 +57,25 @@ const char *rgb_matrix_name(uint8_t effect) {
 }
 #endif
 
+void set_rgbhsv_text_value(lv_obj_t *hsvLabel, lv_obj_t *satLabel, lv_obj_t *brtLabel) {
+    char hueBuf[8];
+    char satBuf[8];
+    char brtBuf[8];
+    snprintf(hueBuf, sizeof(hueBuf), "%d", (rgb_matrix_get_hue() * 360) / 255);
+    snprintf(satBuf, sizeof(satBuf), "%d", (rgb_matrix_get_sat() * 100) / 255);
+    snprintf(brtBuf, sizeof(brtBuf), "%d", (rgb_matrix_get_val() * 100) / 255);
+    lv_textarea_set_text(hsvLabel, hueBuf);
+    lv_textarea_set_text(satLabel, satBuf);
+    lv_textarea_set_text(brtLabel, brtBuf);
+}
+
+void ui_render_rgbhsv(lv_event_t *e) {
+    lv_event_code_t event_code = lv_event_get_code(e);
+    if(event_code == USER_EVENT_RGB_HUE_UPDATE || event_code == USER_EVENT_RGB_SAT_UPDATE || event_code == USER_EVENT_RGB_SAT_UPDATE) {
+        set_rgbhsv_text_value(ui_hueVal, ui_satVal, ui_brtVal);
+    }
+}
+
 void set_rgbmode_text_value(lv_obj_t *label) {
     uint8_t curr_effect = rgb_matrix_config.mode;
     if (lv_obj_is_valid(label)) {
@@ -73,16 +98,62 @@ void set_rgbmode_text_value(lv_obj_t *label) {
 void ui_render_rgbmode(lv_event_t *e) {
     lv_event_code_t event_code = lv_event_get_code(e);
     if(event_code == USER_EVENT_RGBMODE_UPDATE) {
-        set_rgbmode_text_value(ui_currRGB);
+        set_rgbmode_text_value(ui_currRgb);
+    }
+}
+
+void loadPage(lv_obj_t **target, lv_scr_load_anim_t fademode, int spd, int delay, void (*target_init)(void), lv_obj_t **curTarget) {
+    if(*target == NULL)
+        target_init();
+    lv_scr_load_anim(*target, fademode, spd, delay, false);
+
+    if(*curTarget == NULL) {
+        lv_obj_del(*curTarget);
+        curTarget = NULL;
     }
 }
 
 void lvgl_event_triggers(void) {
+    lv_obj_t **activeScreen = (lv_obj_t**)lv_scr_act();
+    switch(get_highest_layer(layer_state)) {
+        case _MAGIC:
+            if(lv_scr_act() != ui_Screen2) {
+                loadPage(&ui_Screen2, LV_SCR_LOAD_ANIM_NONE, 500, 0, &ui_Screen2_screen_init, activeScreen);
+            };
+            break;
+        default:
+            if(lv_scr_act() != ui_Screen1) {
+                loadPage(&ui_Screen1, LV_SCR_LOAD_ANIM_NONE, 500, 0, &ui_Screen1_screen_init, activeScreen);
+            };
+            break;
+    }
+
     static uint16_t last_effect = 0xFFFF;
     uint8_t         curr_effect = rgb_matrix_config.mode;
     if (last_effect != curr_effect) {
         last_effect = curr_effect;
-        lv_event_send(ui_currRGB, USER_EVENT_RGBMODE_UPDATE, NULL);
+        lv_event_send(ui_currRgb, USER_EVENT_RGBMODE_UPDATE, NULL);
+    }
+
+    static uint16_t last_hue = 0xFFFF;
+    uint8_t         curr_hue = (rgb_matrix_get_hue() * 360) / 100;
+    if (last_hue != curr_hue) {
+        last_hue = curr_hue;
+        lv_event_send(ui_hueVal, USER_EVENT_RGB_HUE_UPDATE, NULL);
+    }
+
+    static uint16_t last_sat = 0xFFFF;
+    uint8_t         curr_sat = (rgb_matrix_get_sat() * 360) / 100;
+    if (last_sat != curr_sat) {
+        last_sat = curr_sat;
+        lv_event_send(ui_satVal, USER_EVENT_RGB_SAT_UPDATE, NULL);
+    }
+
+    static uint16_t last_brt = 0xFFFF;
+    uint8_t         curr_brt = (rgb_matrix_get_val() * 360) / 100;
+    if (last_brt != curr_brt) {
+        last_brt = curr_brt;
+        lv_event_send(ui_brtVal, USER_EVENT_RGB_BRT_UPDATE, NULL);
     }
 }
 
@@ -108,7 +179,10 @@ bool display_init_kb(void) {
         keyboard_post_init_user();
         ui_init();
 
-        lv_obj_add_event_cb(ui_currRGB, ui_render_rgbmode, USER_EVENT_RGBMODE_UPDATE, NULL);
+        lv_obj_add_event_cb(ui_currRgb, ui_render_rgbmode, USER_EVENT_RGBMODE_UPDATE, NULL);
+        lv_obj_add_event_cb(ui_hueVal, ui_render_rgbhsv, USER_EVENT_RGB_HUE_UPDATE, NULL);
+        lv_obj_add_event_cb(ui_satVal, ui_render_rgbhsv, USER_EVENT_RGB_SAT_UPDATE, NULL);
+        lv_obj_add_event_cb(ui_brtVal, ui_render_rgbhsv, USER_EVENT_RGB_BRT_UPDATE, NULL);
     }
 
     return true;
@@ -120,25 +194,16 @@ __attribute__((weak)) bool display_init_user(void) {
 
 __attribute__((weak)) void display_housekeeping_task(void) {
     char layer_buf[14];
-    lv_obj_t **activeScreen = (lv_obj_t**)lv_scr_act();
 
     switch(get_highest_layer(layer_state)) {
         case _QWERTY:
             layer_name = "QWERTY";
-            if(lv_scr_act() != ui_Screen1) {
-                _ui_screen_delete(activeScreen);
-                _ui_screen_change(&ui_Screen1, LV_SCR_LOAD_ANIM_NONE, 500, 0, &ui_Screen1_screen_init);
-            };
             break;
         case _SYMBOL:
             layer_name = "SYMBOL";
             break;
         case _NUMPAD:
             layer_name = "NUMPAD";
-            if(lv_scr_act() != ui_Screen2) {
-                _ui_screen_delete(activeScreen);
-                _ui_screen_change(&ui_Screen2, LV_SCR_LOAD_ANIM_NONE, 500, 0, &ui_Screen2_screen_init);
-            };
             break;
         case _MAGIC:
             layer_name = "MAGIC";
