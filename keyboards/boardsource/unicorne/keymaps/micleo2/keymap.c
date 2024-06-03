@@ -1,3 +1,4 @@
+#include "oled_driver.h"
 #include "timer.h"
 #include QMK_KEYBOARD_H
 #include "gw_oled.h"
@@ -51,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_NAV] = LAYOUT_split_3x6_3(
     _______,       _______,       _______,      _______,       _______,       _______,              _______,       C(KC_TAB),     KC_TAB,       LSFT(KC_TAB),  C(S(KC_TAB)),  _______,
     _______,       _______,       _______,      _______,       ___E___,       _______,              KC_LEFT,       KC_DOWN,       KC_UP,        KC_RGHT,       _______,       _______,
-    _______,       _______,       _______,      _______,       _______,       _______,              _______,       _______,       C(KC_LEFT),   C(KC_RGHT),    _______,       _______,
+    _______,       _______,       _______,      _______,       _______,       _______,              _______,       _______,       KC_HOME,      KC_END,        _______,       _______,
                                                 _______,       _______,       _______,              _______,       KC_ENT,        _______
 ),
 
@@ -290,9 +291,12 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 // This is updated to the current time in ms every time we enter the render loop.
 static uint32_t cur_render_time = 0;
 
+// Render functions which return bool will optionally render. Returning true means the caller may
+// continue rendering their own content.
 bool render_downtaunt(void);
-void render_idle(void);
 bool render_flash_seq(void);
+void render_idle(void);
+void render_parachute(void);
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 #    ifdef MASTER_RIGHT
@@ -343,7 +347,7 @@ bool oled_task_user() {
             oled_write_raw(gw_diver, sizeof(gw_diver));
             break;
         case _NAV:
-            oled_write_raw(gw_parachute, sizeof(gw_parachute));
+            render_parachute();
             break;
         case _SYS:
             oled_write_raw(gw_bomb, sizeof(gw_bomb));
@@ -403,6 +407,25 @@ void render_idle() {
     uint8_t idleIdx = cur_idle_pose * 2 + cur_arrow_dir;
     // All the poses should have the same size, so it doesn't matter which one we use sizeof on.
     oled_write_raw(gw_idle_poses[idleIdx], sizeof(gw_idle_A_right));
+}
+
+uint32_t next_parachute_frame_timer = 0;
+uint16_t parachute_idx              = 0;
+
+void render_parachute() {
+#    define PARACHUTE_FRAME_LEN 550
+    if (timer_expired32(cur_render_time, next_parachute_frame_timer)) {
+        // If the frame timer is expired by a lot, that probably means that the parachute animation
+        // hasn't been running for a while. So reset the animation.
+        if (cur_render_time - next_parachute_frame_timer > PARACHUTE_FRAME_LEN * 2) {
+            parachute_idx = 0;
+        } else {
+            parachute_idx++;
+            parachute_idx %= PARACHUTE_SEQ_LEN;
+        }
+        next_parachute_frame_timer = cur_render_time + PARACHUTE_FRAME_LEN;
+    }
+    oled_write_raw(gw_parachute[parachute_idx], sizeof(gw_parachute1));
 }
 
 // Delay to wait after kb inactivity to begin taunt animation.
