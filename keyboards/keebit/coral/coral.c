@@ -3,6 +3,8 @@
 
 #include "quantum.h"
 
+#ifdef RGBLIGHT_ENABLE
+
 // ===== LED/RGB INDICATOR =====
 enum RGB_LAYERS {
     RGBL_CAPSL = 0,
@@ -40,3 +42,5 @@ void keyboard_post_init_kb(void) {
     rgblight_layers = rgb_layers;
     keyboard_post_init_user();
 }
+
+#endif /* ifdef RGBLIGHT_ENABLE */
