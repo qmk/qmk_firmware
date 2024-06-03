@@ -9,11 +9,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [1] = LAYOUT_ortho_1x2(
         KC_NO,    KC_UP
-<<<<<<< HEAD
     ),
-=======
-    )
->>>>>>> 711d6995c07fc13bff4011591d12fdbc4d15eb25
     [2] = LAYOUT_ortho_1x2(
         KC_DOWN,    KC_NO
     )
