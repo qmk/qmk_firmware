@@ -88,7 +88,7 @@ Note that these methods can be combined.  Prepare your lengths of wire before mo
 
 ### A note on split keyboards
 
-If you are planning a split keyboard (e.g. Dactyl) each half will require a controller and a means of communicating between them (like a TRRS or hardwired cable).  Further information can be found in the [QMK split keyboard documentation.](feature_split_keyboard)
+If you are planning a split keyboard (e.g. Dactyl) each half will require a controller and a means of communicating between them (like a TRRS or hardwired cable).  Further information can be found in the [QMK split keyboard documentation.](features/split_keyboard)
 
 
 ### Soldering

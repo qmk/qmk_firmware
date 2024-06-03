@@ -153,7 +153,7 @@ In the above example,
 * `"matrix": [0, 0]` defines the electrical position
 
 ::: tip
-See also: [Split Keyboard Layout Macro](feature_split_keyboard#layout-macro) and [Matrix to Physical Layout](understanding_qmk#matrix-to-physical-layout-map).
+See also: [Split Keyboard Layout Macro](features/split_keyboard#layout-macro) and [Matrix to Physical Layout](understanding_qmk#matrix-to-physical-layout-map).
 :::
 
 ## Additional Configuration

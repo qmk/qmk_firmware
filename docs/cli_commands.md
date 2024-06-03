@@ -749,7 +749,7 @@ options:
 
 ## `qmk generate-rgb-breathe-table`
 
-This command generates a lookup table (LUT) header file for the [RGB Lighting](feature_rgblight) feature's breathing animation. Place this file in your keyboard or keymap directory as `rgblight_breathe_table.h` to override the default LUT in `quantum/rgblight/`.
+This command generates a lookup table (LUT) header file for the [RGB Lighting](features/rgblight) feature's breathing animation. Place this file in your keyboard or keymap directory as `rgblight_breathe_table.h` to override the default LUT in `quantum/rgblight/`.
 
 **Usage**:
 
