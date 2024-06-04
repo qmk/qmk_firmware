@@ -14,8 +14,8 @@
 
  #define RGBLIGHT_LAYERS
  #define WS2812_DI_PIN D0
- #define RGBLIGHT_LED_COUNT 10
- 
+ #define RGBLIGHT_LED_COUNT 15
+
  //#define RGBLED_NUM 15
 
 
