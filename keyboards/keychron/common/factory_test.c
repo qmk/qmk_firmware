@@ -73,6 +73,7 @@ enum {
     FACTORY_TEST_CMD_CHARGING_ADC,
     FACTORY_TEST_CMD_RADIO_CARRIER,
     FACTORY_TEST_CMD_GET_BUILD_TIME,
+    FACTORY_TEST_CMD_GET_DEVICE_ID
 };
 
 enum {
@@ -420,6 +421,17 @@ void factory_test_rx(uint8_t *data, uint8_t length) {
                 len += sizeof(QMK_BUILDDATE);
                 factory_test_send(payload, len);
             } break;
+
+            case FACTORY_TEST_CMD_GET_DEVICE_ID:
+                payload[len++] = FACTORY_TEST_CMD_GET_DEVICE_ID;
+                payload[len++] = 12;    // UUID length
+                memcpy(&payload[len], (uint32_t *)UID_BASE, 4);
+                memcpy(&payload[len+4], (uint32_t *)UID_BASE+4, 4);
+                memcpy(&payload[len+8], (uint32_t *)UID_BASE+8, 4);
+
+                len += 12;
+                factory_test_send(payload, len);
+                break;
         }
     }
 }
