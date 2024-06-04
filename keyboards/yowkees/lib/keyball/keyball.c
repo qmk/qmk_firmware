@@ -51,7 +51,7 @@ keyball_t keyball = {
     .scroll_mode = false,
     .scroll_div  = 0,
 
-    .pressing_keys = { BL, BL, BL, BL, BL, BL, 0 },
+    .pressing_keys = { '\xB0', '\xB0', '\xB0', '\xB0', '\xB0', '\xB0', 0 },
 };
 
 //////////////////////////////////////////////////////////////////////////////
