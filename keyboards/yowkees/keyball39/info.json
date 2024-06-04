@@ -9,6 +9,10 @@
     "rgblight": {
         "driver": "ws2812"
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_right_ball",
+        "LAYOUT_universal": "LAYOUT_no_ball"
+    },
     "layouts": {
         "LAYOUT_no_ball": {
             "layout": [

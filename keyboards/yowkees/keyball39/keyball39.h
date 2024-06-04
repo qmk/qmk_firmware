@@ -20,6 +20,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 #include "lib/keyball/keyball.h"
-
-#define LAYOUT LAYOUT_right_ball
-#define LAYOUT_universal LAYOUT_no_ball
