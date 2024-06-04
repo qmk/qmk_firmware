@@ -31,7 +31,9 @@ The simplest way to flash your keyboard will be with the [QMK Toolbox](https://g
 
 However, the Toolbox is currently only available for Windows and macOS. If you're using Linux (or just wish to flash the firmware from the command line), skip to the [Flash your Keyboard from the Command Line](#flash-your-keyboard-from-the-command-line) section.
 
-?> QMK Toolbox is not necessary for flashing [RP2040 devices](https://docs.qmk.fm/#/flashing?id=raspberry-pi-rp2040-uf2).
+::: tip
+QMK Toolbox is not necessary for flashing [RP2040 devices](flashing#raspberry-pi-rp2040-uf2).
+:::
 
 ### Load the File into QMK Toolbox
 
@@ -39,21 +41,21 @@ Begin by opening the QMK Toolbox application. You'll want to locate the firmware
 
 If you are on Windows or macOS, there are commands you can use to easily open the current folder in Explorer or Finder.
 
-<!-- tabs:start -->
+::::tabs
 
-#### ** Windows **
+=== Windows
 
 ```
 start .
 ```
 
-#### ** macOS **
+=== macOS
 
 ```
 open .
 ```
 
-<!-- tabs:end -->
+::::
 
 The firmware file always follows this naming format:
 
@@ -96,21 +98,29 @@ Click the `Flash` button in QMK Toolbox. You will see output similar to the foll
 
 This has been made pretty simple compared to what it used to be. When you are ready to compile and flash your firmware, open up your terminal window and run the flash command:
 
-    qmk flash
+```sh
+qmk flash
+```
 
-If you did not configure your keyboard/keymap name in the CLI according to the [Configure your build environment](newbs_getting_started.md) section, or you have multiple keyboards, you can specify the keyboard and keymap:
+If you did not configure your keyboard/keymap name in the CLI according to the [Configure your build environment](newbs_getting_started) section, or you have multiple keyboards, you can specify the keyboard and keymap:
 
-    qmk flash -kb <my_keyboard> -km <my_keymap>
+```sh
+qmk flash -kb <my_keyboard> -km <my_keymap>
+```
 
 This will check the keyboard's configuration, and then attempt to flash it based on the specified bootloader. This means that you don't need to know which bootloader that your keyboard uses. Just run the command, and let the command do the heavy lifting.
 
 However, this does rely on the bootloader being set by the keyboard. If this information is not configured, or you're using a board that doesn't have a supported target to flash it, you will see this error:
 
-    WARNING: This board's bootloader is not specified or is not supported by the ":flash" target at this time.
+```
+WARNING: This board's bootloader is not specified or is not supported by the ":flash" target at this time.
+```
 
-In this case, you'll have to fall back on specifying the bootloader. See the [Flashing Firmware](flashing.md) Guide for more details.
+In this case, you'll have to fall back on specifying the bootloader. See the [Flashing Firmware](flashing) Guide for more details.
 
-!> If your bootloader is not detected by `qmk flash`, try running `qmk doctor` for suggestions on how to fix common problems.
+::: warning
+If your bootloader is not detected by `qmk flash`, try running `qmk doctor` for suggestions on how to fix common problems.
+:::
 
 ## Test It Out!
 
