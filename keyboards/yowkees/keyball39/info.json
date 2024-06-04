@@ -6,7 +6,35 @@
         "pid": "0x0200",
         "device_version": "1.0.0"
     },
+    "development_board": "promicro",
+    "features": {
+        "bootmagic": false,
+        "mousekey": false,
+        "extrakey": false,
+        "console": false,
+        "command": false,
+        "nkro": false,
+        "backlight": false,
+        "rgblight": false,
+        "rgb_matrix": false,
+        "oled": false,
+        "pointing_device": true,
+        "audio": false,
+        "sleep_led": false,
+        "grave_esc": false,
+        "magic": false,
+        "space_cadet": false
+    },
+    "build": {
+        "lto": true
+    },
+    "split": {
+        "enabled": true
+    },
     "rgblight": {
+        "driver": "ws2812"
+    },
+    "rgb_matrix": {
         "driver": "ws2812"
     },
     "layout_aliases": {
