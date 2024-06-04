@@ -22,31 +22,11 @@ __attribute__((weak)) bool qp_gc9107_init(painter_device_t device, painter_rotat
     const uint8_t gc9107_init_sequence[] = {
         GC9XXX_SET_INTER_REG_ENABLE1,   5,  0,
         GC9XXX_SET_INTER_REG_ENABLE2,   5,  0,
-
-        //0xB0, 0, 1, 0xC0,
-        // GC9107_SET_FUNCTION_CTL2, 0, 1, GC9107_ALLOW_SET_VGH | GC9107_ALLOW_SET_VGL | GC9107_ALLOW_SET_VGH_VGL_CLK,// | 0x28,
-        // GC9107_SET_VGH, 0, 1, 0x24,
-        // GC9107_SET_VGL, 0, 1, 0x48,
-        // GC9107_SET_VGH_VGL_CLK, 0, 1, 0x22,
-
-        // GC9107_SET_FUNCTION_CTL3, 0, 1, GC9107_ALLOW_SET_GAMMA1 | GC9107_ALLOW_SET_GAMMA2,
-        // GC9XXX_SET_GAMMA1, 0, 14, 0x1F,0x28,0x04,0x3E,0x2A,0x2E,0x20,0x00,0x0C,0x06,0x00,0x1C,0x1F,0x0f,
-        // GC9XXX_SET_GAMMA2, 0, 14, 0X00,0X2D,0X2F,0X3C,0X6F,0X1C,0X0B,0X00,0X00,0X00,0X07,0X0D,0X11,0X0f,
-
         GC9107_SET_FUNCTION_CTL6, 0, 1, GC9107_ALLOW_SET_COMPLEMENT_RGB | 0x08 | GC9107_ALLOW_SET_FRAMERATE,
         GC9107_SET_COMPLEMENT_RGB, 0, 1, GC9107_COMPLEMENT_WITH_LSB,
         0xAB, 0, 1, 0x0E,
         GC9107_SET_FRAME_RATE, 0, 1, 0x19,
-
-        // 0xB7, 0, 1, 0x01,
-        // 0xB8, 0, 1, 0x08,
-
-
-
-        // 0xC6, 0, 1, 0x30,
-        // 0xC7, 0, 1, 0x18,
         GC9XXX_SET_PIXEL_FORMAT, 0, 1, GC9107_PIXEL_FORMAT_16_BPP_IFPF,
-        // 0x21, 0, 0,
         GC9XXX_CMD_SLEEP_OFF,   120, 0,
         GC9XXX_CMD_DISPLAY_ON,  20,  0
     };
@@ -96,7 +76,7 @@ const tft_panel_dc_reset_painter_driver_vtable_t gc9107_driver_vtable = {
 };
 
 #ifdef QUANTUM_PAINTER_GC9107_SPI_ENABLE
-// Factory function for creating a handle to the ILI9341 device
+// Factory function for creating a handle to the GC9107 device
 painter_device_t qp_gc9107_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode) {
     for (uint32_t i = 0; i < GC9107_NUM_DEVICES; ++i) {
         tft_panel_dc_reset_painter_device_t *driver = &gc9107_drivers[i];
