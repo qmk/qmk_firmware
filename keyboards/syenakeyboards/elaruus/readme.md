@@ -1,12 +1,12 @@
 # SyenaKeyboards Elaruus
 
-![SyenaKeyboards Elaruus](https://i.imgur.com/JMiFegah.jpg)
+![SyenaKeyboards Elaruus](https://i.imgur.com/6qU13gi.jpeg)
 
-Elaruus is ortholinear 1x2 mechanical keyboard with two switch for everythinks. The default functions are `left`, `right`.
+Elaruus is ortholinear 1x2 mechanical keyboard with two switch for everythinks. The default functions are `left`, `right`. Elaruus is supported by QMK Firmware and VIA.
 
 * Keyboard Maintainer: [Syenasweta](https://github.com/syenasweta)
 * Hardware Supported: RP2040
-* Hardware Availability: [Tokopedia (Syenasweta)](https://tokopedia.link/gDJ6Rgp4xDb)
+* Hardware Availability: [Tokopedia (Syenasweta)](https://tokopedia.link/Ak0c4uqpbKb)
 
 Make example for this keyboard (after setting up your build environment):
 
