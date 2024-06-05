@@ -1,5 +1,3 @@
-#include "oled_driver.h"
-#include "timer.h"
 #include QMK_KEYBOARD_H
 #include "gw_oled.h"
 #include "quantum.h"
@@ -25,6 +23,39 @@ enum layers {
 #define Y _SYS
 #define U _NUM
 
+// Tap Dance keycodes
+enum td_keycodes {
+    LSFT_REP, // `LSFT` when held, repeat key when tapped.
+    MEH_REP // MEH when held, repeat key when tapped.
+};
+
+// Define a type containing as many tapdance states as you need
+typedef enum {
+    TD_NONE,
+    TD_UNKNOWN,
+    TD_SINGLE_TAP,
+    TD_SINGLE_HOLD
+} td_state_t;
+
+typedef struct {
+    uint16_t qk_mod;
+} tap_dance_mod_t;
+
+static td_state_t td_state;
+
+td_state_t cur_dance(tap_dance_state_t *state);
+
+void mod_rep_reset(tap_dance_state_t *state, void *user_data) ;
+void mod_rep_finished(tap_dance_state_t *state, void *user_data) ;
+
+#define ACTION_TAP_DANCE_MOD_REP(QK_MOD) \
+    { .fn = {NULL, mod_rep_finished, mod_rep_reset}, .user_data = (void *)&((tap_dance_mod_t){ QK_MOD }), }
+
+tap_dance_action_t tap_dance_actions[] = {
+    [LSFT_REP] = ACTION_TAP_DANCE_MOD_REP(QK_LSFT),
+    [MEH_REP] = ACTION_TAP_DANCE_MOD_REP(KC_MEH)
+};
+
 // This denotes the key you used to enter into the layer.
 // E for entry.
 #define ___E___ _______
@@ -39,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     OSM(MOD_LSFT), KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                 KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          KC_DEL,
     HYPR_T(KC_ENT),KC_A,          LT(U, KC_S),  LALT_T(KC_D),  LT(N, KC_F),   KC_G,                 KC_H,          KC_J,          KC_K,         KC_L,          GUI_T(KC_SCLN),OSL(Y),
     KC_TAB,        KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,                 KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       C(G(KC_Q)),
-                                                CTL_T(KC_ESC), GUI_T(KC_SPC), QK_REP,               MEH_T(KC_ENT), SFT_T(KC_BSPC),OSL(M)
+                                                CTL_T(KC_ESC), GUI_T(KC_SPC), TD(LSFT_REP),         TD(MEH_REP),   SFT_T(KC_BSPC),OSL(M)
 ),
 
 [_SYM] = LAYOUT_split_3x6_3(
@@ -73,6 +104,83 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 // clang-format on
+
+// Set a long-ish tapping term for tap-dance keys
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case QK_TAP_DANCE ... QK_TAP_DANCE_MAX:
+            return 120;
+        default:
+            return TAPPING_TERM;
+    }
+}
+
+bool remember_last_key_user(uint16_t keycode, keyrecord_t *record, uint8_t *remembered_mods) {
+    switch (keycode) {
+        case TD(MEH_REP):
+        case TD(LSFT_REP):
+            return false;
+    }
+    return true; // Other keys can be repeated.
+}
+
+// Determine the tapdance state to return
+td_state_t cur_dance(tap_dance_state_t *state) {
+    if (state->count == 1) {
+        if (state->interrupted || !state->pressed)
+            return TD_SINGLE_TAP;
+        else
+            return TD_SINGLE_HOLD;
+    }
+    return TD_UNKNOWN;
+}
+
+uint8_t mod_bits(uint16_t qk_mod) {
+    uint8_t mods_to_send = 0;
+    if (qk_mod & QK_RMODS_MIN) { // Right mod flag is set
+        if (qk_mod & QK_LCTL) mods_to_send |= MOD_BIT(KC_RIGHT_CTRL);
+        if (qk_mod & QK_LSFT) mods_to_send |= MOD_BIT(KC_RIGHT_SHIFT);
+        if (qk_mod & QK_LALT) mods_to_send |= MOD_BIT(KC_RIGHT_ALT);
+        if (qk_mod & QK_LGUI) mods_to_send |= MOD_BIT(KC_RIGHT_GUI);
+    } else {
+        if (qk_mod & QK_LCTL) mods_to_send |= MOD_BIT(KC_LEFT_CTRL);
+        if (qk_mod & QK_LSFT) mods_to_send |= MOD_BIT(KC_LEFT_SHIFT);
+        if (qk_mod & QK_LALT) mods_to_send |= MOD_BIT(KC_LEFT_ALT);
+        if (qk_mod & QK_LGUI) mods_to_send |= MOD_BIT(KC_LEFT_GUI);
+    }
+    return mods_to_send;
+}
+
+void mod_rep_finished(tap_dance_state_t *state, void *user_data) {
+    td_state               = cur_dance(state);
+    uint8_t mods_when_held = mod_bits(((tap_dance_mod_t *)user_data)->qk_mod);
+    switch (td_state) {
+        case TD_SINGLE_TAP:
+            register_mods(get_last_mods());
+            register_code16(get_last_keycode());
+            break;
+        case TD_SINGLE_HOLD:
+            register_mods(mods_when_held);
+            break;
+        default:
+            break;
+    }
+}
+
+void mod_rep_reset(tap_dance_state_t *state, void *user_data) {
+    uint8_t mods_when_held = mod_bits(((tap_dance_mod_t *)user_data)->qk_mod);
+    switch (td_state) {
+        case TD_SINGLE_TAP:
+            unregister_mods(get_last_mods());
+            unregister_code16(get_last_keycode());
+            break;
+        case TD_SINGLE_HOLD:
+            unregister_mods(mods_when_held);
+            break;
+        default:
+            break;
+    }
+}
 
 #if defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {};
