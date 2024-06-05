@@ -1,7 +1,6 @@
 """This script automates the conversion of font files into a format QMK firmware understands.
 """
 
-import sys
 from io import BytesIO
 from qmk.path import normpath
 from qmk.painter_qff import _generate_font_glyphs_list, QFFFont
@@ -58,7 +57,7 @@ def _image_to_qff(cli, input_):
         return
 
     # Work out the text substitutions for rendering the output data
-    subcommand = sys.argv[1]  # hacky way of telling apart painter-convert-font and painter-convert-font-image
+    subcommand = cli.args.entrypoint.__name__.replace('_', '-')  # tell apart painter-convert-font and painter-convert-font-image
     args_str = " ".join((f"--{arg} {getattr(cli.args, arg.replace('-', '_'))}" for arg in ["input", "output", "no-ascii", "unicode-glyphs", "format", "no-rle"]))
     command = f"qmk {subcommand} {args_str}"
     metadata = {"glyphs": _generate_font_glyphs_list(not cli.args.no_ascii, cli.args.unicode_glyphs)}
