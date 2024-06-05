@@ -39,6 +39,7 @@
         ],
         "max_brightness": 100
     },
+    "community_layouts": ["ortho_1x1"],
     "layouts": {
         "LAYOUT_ortho_1x1": {
             "layout": [
