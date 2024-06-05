@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_MASKED
 
 // Split parameters
+#define SPLIT_HAND_MATRIX_GRID_LOW_IS_LEFT
 #ifdef OLED_ENABLE
 #    define SPLIT_OLED_ENABLE
 #endif
