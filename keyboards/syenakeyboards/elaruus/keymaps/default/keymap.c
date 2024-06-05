@@ -5,12 +5,15 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_ortho_1x2(
-        LT(1,KC_LEFT),    LT(2,KC_RIGHT)
+        LT(1,KC_LEFT),  LT(2,KC_RIGHT)
     ),
     [1] = LAYOUT_ortho_1x2(
-        KC_NO,    KC_UP
+        KC_NO,          KC_UP
     ),
     [2] = LAYOUT_ortho_1x2(
-        KC_DOWN,    KC_NO
+        KC_DOWN,        KC_NO
+    ),
+    [3] = LAYOUT_ortho_1x2(
+        KC_NO,          KC_NO
     )
 };
