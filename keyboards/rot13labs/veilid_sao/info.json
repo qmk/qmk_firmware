@@ -40,7 +40,7 @@
         "max_brightness": 100
     },
     "layouts": {
-        "LAYOUT_sao_1x1": {
+        "LAYOUT_ortho_1x1": {
             "layout": [
                 {"label": "Ctrl", "matrix": [0, 0], "x": 0, "y": 0}
               ]
