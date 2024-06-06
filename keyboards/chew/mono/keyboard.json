@@ -1,26 +1,9 @@
 {
-    "manufacturer": "florent@linguenheld.fr",
     "keyboard_name": "chew/mono",
-    "maintainer": "florent@linguenheld.fr",
-    "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
-    "features": {
-        "bootmagic": true,
-        "command": false,
-        "console": false,
-        "extrakey": true,
-        "mousekey": true,
-        "nkro": true
-    },
     "matrix_pins": {
         "cols": ["GP28", "GP27", "GP26", "GP15", "GP14", "GP4", "GP3", "GP2", "GP1", "GP0"],
         "rows": ["GP5", "GP6", "GP7", "GP8"]
-    },
-    "processor": "RP2040",
-    "usb": {
-        "device_version": "1.0.0",
-        "pid": "0x0000",
-        "vid": "0xFEED"
     },
     "layouts": {
         "LAYOUT": {
