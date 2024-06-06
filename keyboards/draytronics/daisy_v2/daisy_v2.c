@@ -24,7 +24,6 @@ Other pixel images are either created by me or use the resources of Velency Grpa
 No claim for licence or ownership is made for any logos or similarities to logos or brand names.
 */
 
-#include QMK_KEYBOARD_H
 #include "daisy_v2.h"
 
 void board_init(void) {
