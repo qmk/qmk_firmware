@@ -180,8 +180,9 @@
             {"matrix": [5, 0], "x": 2, "y": 64, "flags": 4}
         ]
     },
+    "community_layouts": ["tkl_f13_ansi"],
     "layouts": {
-        "LAYOUT_tkl_ansi": {
+        "LAYOUT_tkl_f13_ansi": {
             "layout": [
                 {"label": "Esc",    "matrix": [0, 0],   "x": 0, "y": 0},
                 {"label": "F1",     "matrix": [0, 1],   "x": 1.25, "y": 0},
