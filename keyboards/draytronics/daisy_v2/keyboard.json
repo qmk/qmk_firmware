@@ -3,9 +3,6 @@
     "keyboard_name": "DAISY",
     "maintainer": "ghostseven",
     "bootloader": "stm32-dfu",
-    "bootmagic": {
-        "enabled": true
-    },
     "diode_direction": "COL2ROW",
     "encoder": {
         "enabled": true,
