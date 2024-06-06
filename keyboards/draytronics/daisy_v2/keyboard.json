@@ -54,9 +54,6 @@
     "ws2812": {
         "pin": "B12"
     },
-    "layout_aliases": {
-        "LAYOUT_daisy": "LAYOUT"
-    },
     "layouts": {
         "LAYOUT": {
             "layout": [
