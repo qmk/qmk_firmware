@@ -30,6 +30,5 @@
     },
     "clangd.arguments": [
         "--header-insertion=never"
-    ],
-    "C_Cpp.dimInactiveRegions": true
+    ]
 }
