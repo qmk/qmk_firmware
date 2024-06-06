@@ -150,12 +150,12 @@ For example, suppose you have the following keyboard.
 #define DIODE_DIRECTION COL2ROW
 ```
 
-<img width="1389" alt="1" src="https://github.com/BlueDrink9/qmk_firmware/assets/26474254/2ad78230-f1ce-4b1b-bbd8-cefc83bf8c1f">
+<img width="1389" src="https://i.imgur.com/MrcBQ78.png">
 
 
 You can add a diode to the circuit as below and further configuration as below.
 
-<img width="1389" alt="2" src="https://github.com/BlueDrink9/qmk_firmware/assets/26474254/d9b10585-d058-470d-9706-8aa2408407c8">
+<img width="1389" src="https://i.imgur.com/GCi0WML.png">
 
 
 ```c
