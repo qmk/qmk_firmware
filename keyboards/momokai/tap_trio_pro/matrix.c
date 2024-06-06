@@ -27,6 +27,9 @@ pin_t matrix_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
 
 hybrid_key_t keys[MATRIX_ROWS][MATRIX_COLS] = {0};
 
+static uint16_t pressedAdcValue = 0;
+static uint16_t restAdcValue = 0;
+
 /* matrix state(1:on, 0:off) */
 matrix_row_t raw_matrix[MATRIX_ROWS]; // raw values
 matrix_row_t matrix[MATRIX_ROWS];     // debounced values
@@ -85,7 +88,9 @@ void matrix_init_custom(void) {
     // }
 
     generate_lut();
-    get_sensor_offsets();
+    pressedAdcValue = distance_to_adc(400);
+    restAdcValue = distance_to_adc(0);
+    // get_sensor_offsets();
     wait_ms(200); // Let ADC reach steady state
     get_sensor_offsets();
 }
@@ -220,7 +225,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
                 key->value = lut[analogReadPin(matrix_pins[current_row][current_col]) + key->offset];
                 // limits our options, I would like to change hybrid_key_t to include weather it is a hall effect key
 
-                key->value = MIN((key->value << 8) / lut[1100 + key->offset], 255);
+                // key->value = MIN((key->value << 8) / lut[1100 + key->offset], 400);
 
                 switch (g_config.mode) {
                     case dynamic_actuation:
