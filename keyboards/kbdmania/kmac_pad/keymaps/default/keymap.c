@@ -132,12 +132,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool led_update_user(led_t led_state) {
-    writePin(B1, led_state.num_lock);
+    gpio_write_pin(B1, led_state.num_lock);
     return false;
 }
 
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    writePin(B3, !IS_LAYER_ON_STATE(state, 0));
+    gpio_write_pin(B3, !IS_LAYER_ON_STATE(state, 0));
     return state;
 }

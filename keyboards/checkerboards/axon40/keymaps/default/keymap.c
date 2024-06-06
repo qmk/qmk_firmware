@@ -80,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   RGB_HUI,  RGB_SAI,  _______,   KC_UP,   _______,  _______,  _______,  KC_UNDS, _______, KC_LBRC, KC_RBRC, RGB_VAI,
   RGB_HUD,  RGB_SAD,   KC_LEFT, KC_DOWN, KC_RGHT,   _______,  _______,  KC_MINS, _______, KC_LCBR, KC_RCBR, RGB_VAD,
   KC_F1,    KC_F2,     KC_F3,   KC_F4,   KC_F5,     KC_F6,    KC_F7,    KC_F8,   KC_F9,   KC_F10,   KC_F11,  KC_F12,
-  QK_BOOT,    RGB_TOG,  _______,  _______,  RGB_MOD,  RGB_RMOD
+  QK_BOOT,  RGB_TOG,  _______,  _______,  RGB_MOD,  RGB_RMOD
 ),
 
 };
