@@ -1,6 +1,6 @@
 # Swap-Hands Action
 
-The swap-hands action allows support for one-handed typing without requiring a separate layer. Set `SWAP_HANDS_ENABLE` in the Makefile and define a `hand_swap_config` entry in your keymap. Now whenever the `ACTION_SWAP_HANDS` command key is pressed the keyboard is mirrored. For instance, to type "Hello, World" on QWERTY you would type `^Ge^s^s^w^c W^wr^sd`
+The swap-hands action allows support for one-handed typing without requiring a separate layer. Set `SWAP_HANDS_ENABLE = yes` in your keymap's `rules.mk` (creating it if needed), and define a `hand_swap_config` entry in your keymap. Now whenever the `ACTION_SWAP_HANDS` command key is pressed the keyboard is mirrored. For instance, to type "Hello, World" on QWERTY you would type `^Ge^s^s^w^c W^wr^sd`
 
 ## Configuration
 
