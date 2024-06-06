@@ -24,10 +24,6 @@
     },
     "processor": "STM32F072",
     "qmk": {
-        "locking": {
-            "enabled": true,
-            "resync": true
-        },
         "tap_keycode_delay": 10
     },
     "rgblight": {
