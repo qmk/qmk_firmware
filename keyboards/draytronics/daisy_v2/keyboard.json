@@ -22,9 +22,6 @@
         "cols": ["B11", "B10", "B2", "B1"],
         "rows": ["A2", "A1", "A0"]
     },
-    "mouse_key": {
-        "enabled": true
-    },
     "processor": "STM32F072",
     "qmk": {
         "locking": {
