@@ -15,6 +15,9 @@
  */
 #include QMK_KEYBOARD_H
 
+// tested and working
+void matrix_io_delay(void) { __asm__ volatile("nop\nnop\nnop\n"); }
+
 enum layers{
     BASE,
     GAME,
@@ -128,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, RGB_M_P, RGB_M_2, RGB_M_3, RGB_M_4, RGB_M_5, RGB_M_6, RGB_M_7, RGB_M_8, RGB_M_9, RGB_M_0, KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,
         RGB_TOG, RGB_VAI, RGB_HUI, RGB_SAI, RGB_SPI, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS,
         KC_TRNS, RGB_VAD, RGB_HUD, RGB_SAD, RGB_SPD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MAGIC_TOGGLE_NKRO,KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, NK_TOGG,KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, TG(GAME),KC_TRNS,                            TO(PERF),                           KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     ),
 
@@ -144,13 +147,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* RGB matrix indicator code
 It reads the current matrix color, offsets the hue by 30, 
-and sets val to either 255 or, if defined, RGB_MATRIX_MAXIMUM_BRIGHTNESS
+and sets val to RGB_MATRIX_MAXIMUM_BRIGHTNESS (by default, 255)
 This is applied to both caps lock, and other indicator keys for layer 1 */
 
 bool rgb_matrix_indicators_user(void) {
   /* Layer 2 (perf mode on this keymap) is not supposed to have LED refreshes, hence excluded */
   if (!IS_LAYER_ON(2)) {
-    HSV hsv_ind = {rgb_matrix_get_hue()+30,255,INDICATOR_MAX_BRIGHTNESS};
+    HSV hsv_ind = {rgb_matrix_get_hue()+30,255,RGB_MATRIX_MAXIMUM_BRIGHTNESS};
     RGB rgb_ind = hsv_to_rgb(hsv_ind);
 
     /* Sets Caps to different color as indicator. If RGB mode is rain, and caps indicator is off, the LED will always be off.
@@ -163,7 +166,7 @@ bool rgb_matrix_indicators_user(void) {
 
     /* Sets W, A, S, D, LGUI to a different color as layer indicator */
     if(IS_LAYER_ON(1)) {
-      HSV hsv_ind = {rgb_matrix_get_hue()+30,255,INDICATOR_MAX_BRIGHTNESS};
+      HSV hsv_ind = {rgb_matrix_get_hue()+30,255,RGB_MATRIX_MAXIMUM_BRIGHTNESS};
       RGB rgb_ind = hsv_to_rgb(hsv_ind);
 
       rgb_matrix_set_color(W_LED_INDEX, rgb_ind.r, rgb_ind.g, rgb_ind.b);

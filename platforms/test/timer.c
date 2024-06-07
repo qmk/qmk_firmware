@@ -17,34 +17,65 @@
 #include "timer.h"
 #include <stdatomic.h>
 
-static atomic_uint_least32_t current_time = 0;
+static atomic_uint_least32_t current_time      = 0;
+static atomic_uint_least32_t async_tick_amount = 0;
+static atomic_uint_least32_t access_counter    = 0;
+
+void simulate_async_tick(uint32_t t) {
+    async_tick_amount = t;
+}
+
+uint32_t timer_read_internal(void) {
+    return current_time;
+}
+
+uint32_t current_access_counter(void) {
+    return access_counter;
+}
+
+void reset_access_counter(void) {
+    access_counter = 0;
+}
 
 void timer_init(void) {
-    current_time = 0;
+    current_time      = 0;
+    async_tick_amount = 0;
+    access_counter    = 0;
 }
 
 void timer_clear(void) {
-    current_time = 0;
+    current_time      = 0;
+    async_tick_amount = 0;
+    access_counter    = 0;
 }
 
 uint16_t timer_read(void) {
-    return current_time & 0xFFFF;
+    return (uint16_t)timer_read32();
 }
+
 uint32_t timer_read32(void) {
+    if (access_counter++ > 0) {
+        current_time += async_tick_amount;
+    }
     return current_time;
 }
+
 uint16_t timer_elapsed(uint16_t last) {
     return TIMER_DIFF_16(timer_read(), last);
 }
+
 uint32_t timer_elapsed32(uint32_t last) {
     return TIMER_DIFF_32(timer_read32(), last);
 }
 
 void set_time(uint32_t t) {
-    current_time = t;
+    current_time   = t;
+    access_counter = 0;
 }
+
 void advance_time(uint32_t ms) {
     current_time += ms;
+    access_counter = 0;
 }
 
 void wait_ms(uint32_t ms) {

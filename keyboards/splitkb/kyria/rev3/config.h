@@ -25,10 +25,3 @@
 #    define OLED_DISPLAY_128X64
 #    define SPLIT_OLED_ENABLE
 #endif
-
-// Not yet available in `info.json`
-#ifdef RGB_MATRIX_ENABLE
-#    define RGB_MATRIX_LED_COUNT RGBLED_NUM
-#    define RGB_MATRIX_SPLIT RGBLED_SPLIT
-#    define SPLIT_TRANSPORT_MIRROR
-#endif

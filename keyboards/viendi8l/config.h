@@ -17,13 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
-#define TAPPING_TERM 200
-
 #define I2C_DRIVER I2CD1
 #define I2C_SCL_PIN B6
 #define I2C_SDA_PIN B7
@@ -35,12 +28,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
 
-#define RGBLED_NUM 4
-#define RGBLIGHT_DEFAULT_VAL 0
-
 #define WS2812_PWM_COMPLEMENTARY_OUTPUT
 #define WS2812_PWM_DRIVER PWMD1
 #define WS2812_PWM_CHANNEL 3
 #define WS2812_PWM_PAL_MODE 1
-#define WS2812_DMA_STREAM STM32_DMA2_STREAM5
-#define WS2812_DMA_CHANNEL 6
+#define WS2812_PWM_DMA_STREAM STM32_DMA2_STREAM5
+#define WS2812_PWM_DMA_CHANNEL 6

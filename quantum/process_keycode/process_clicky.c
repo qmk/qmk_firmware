@@ -1,5 +1,7 @@
-#include "audio.h"
 #include "process_clicky.h"
+#include "audio.h"
+#include "eeconfig.h"
+#include <stdlib.h>
 
 #ifdef AUDIO_CLICKY
 
@@ -26,7 +28,7 @@ float clicky_freq = AUDIO_CLICKY_FREQ_DEFAULT;
 float clicky_rand = AUDIO_CLICKY_FREQ_RANDOMNESS;
 
 // the first "note" is an intentional delay; the 2nd and 3rd notes are the "clicky"
-float clicky_song[][2] = {{AUDIO_CLICKY_FREQ_MIN, AUDIO_CLICKY_DELAY_DURATION}, {AUDIO_CLICKY_FREQ_DEFAULT, 3}, {AUDIO_CLICKY_FREQ_DEFAULT, 1}}; // 3 and 1 --> durations
+float clicky_song[][2] = {{0.0f, AUDIO_CLICKY_DELAY_DURATION}, {AUDIO_CLICKY_FREQ_DEFAULT, 3}, {AUDIO_CLICKY_FREQ_DEFAULT, 1}}; // 3 and 1 --> durations
 
 extern audio_config_t audio_config;
 

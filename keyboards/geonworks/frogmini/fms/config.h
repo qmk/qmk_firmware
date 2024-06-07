@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #define BACKLIGHT_PWM_DRIVER    PWMD1
-#define BACKLIGHT_PWM_CHANNEL   3
 #define BACKLIGHT_PAL_MODE      1
 
 #define I2C_DRIVER I2CD1
@@ -29,6 +28,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EEPROM_I2C_24LC256
 #define I2C1_CLOCK_SPEED 400000
 #define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2
-
-#define LOCKING_SUPPORT_ENABLE
-#define LOCKING_RESYNC_ENABLE

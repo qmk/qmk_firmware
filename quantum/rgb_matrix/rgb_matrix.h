@@ -21,27 +21,65 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "rgb_matrix_types.h"
+#include "rgb_matrix_drivers.h"
 #include "color.h"
-#include "quantum.h"
+#include "keyboard.h"
 
-#ifdef IS31FL3731
-#    include "is31fl3731.h"
-#elif defined(IS31FL3733)
-#    include "is31fl3733.h"
-#elif defined(IS31FL3736)
-#    include "is31fl3736.h"
-#elif defined(IS31FL3737)
-#    include "is31fl3737.h"
-#elif defined(IS31FL3741)
-#    include "is31fl3741.h"
-#elif defined(IS31FLCOMMON)
-#    include "is31flcommon.h"
-#elif defined(CKLED2001)
-#    include "ckled2001.h"
-#elif defined(AW20216)
-#    include "aw20216.h"
-#elif defined(WS2812)
-#    include "ws2812.h"
+#ifndef RGB_MATRIX_TIMEOUT
+#    define RGB_MATRIX_TIMEOUT 0
+#endif
+
+#ifndef RGB_MATRIX_MAXIMUM_BRIGHTNESS
+#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS UINT8_MAX
+#endif
+
+#ifndef RGB_MATRIX_HUE_STEP
+#    define RGB_MATRIX_HUE_STEP 8
+#endif
+
+#ifndef RGB_MATRIX_SAT_STEP
+#    define RGB_MATRIX_SAT_STEP 16
+#endif
+
+#ifndef RGB_MATRIX_VAL_STEP
+#    define RGB_MATRIX_VAL_STEP 16
+#endif
+
+#ifndef RGB_MATRIX_SPD_STEP
+#    define RGB_MATRIX_SPD_STEP 16
+#endif
+
+#ifndef RGB_MATRIX_DEFAULT_ON
+#    define RGB_MATRIX_DEFAULT_ON true
+#endif
+
+#ifndef RGB_MATRIX_DEFAULT_MODE
+#    ifdef ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
+#        define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
+#    else
+// fallback to solid colors if RGB_MATRIX_CYCLE_LEFT_RIGHT is disabled in userspace
+#        define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_COLOR
+#    endif
+#endif
+
+#ifndef RGB_MATRIX_DEFAULT_HUE
+#    define RGB_MATRIX_DEFAULT_HUE 0
+#endif
+
+#ifndef RGB_MATRIX_DEFAULT_SAT
+#    define RGB_MATRIX_DEFAULT_SAT UINT8_MAX
+#endif
+
+#ifndef RGB_MATRIX_DEFAULT_VAL
+#    define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
+#endif
+
+#ifndef RGB_MATRIX_DEFAULT_SPD
+#    define RGB_MATRIX_DEFAULT_SPD UINT8_MAX / 2
+#endif
+
+#ifndef RGB_MATRIX_DEFAULT_FLAGS
+#    define RGB_MATRIX_DEFAULT_FLAGS LED_FLAG_ALL
 #endif
 
 #ifndef RGB_MATRIX_LED_FLUSH_LIMIT
@@ -49,38 +87,22 @@
 #endif
 
 #ifndef RGB_MATRIX_LED_PROCESS_LIMIT
-#    define RGB_MATRIX_LED_PROCESS_LIMIT (RGB_MATRIX_LED_COUNT + 4) / 5
+#    define RGB_MATRIX_LED_PROCESS_LIMIT ((RGB_MATRIX_LED_COUNT + 4) / 5)
 #endif
 
-#if defined(RGB_MATRIX_LED_PROCESS_LIMIT) && RGB_MATRIX_LED_PROCESS_LIMIT > 0 && RGB_MATRIX_LED_PROCESS_LIMIT < RGB_MATRIX_LED_COUNT
-#    if defined(RGB_MATRIX_SPLIT)
-#        define RGB_MATRIX_USE_LIMITS_ITER(min, max, iter)                                        \
-            uint8_t min = RGB_MATRIX_LED_PROCESS_LIMIT * (iter);                                  \
-            uint8_t max = min + RGB_MATRIX_LED_PROCESS_LIMIT;                                     \
-            if (max > RGB_MATRIX_LED_COUNT) max = RGB_MATRIX_LED_COUNT;                           \
-            uint8_t k_rgb_matrix_split[2] = RGB_MATRIX_SPLIT;                                     \
-            if (is_keyboard_left() && (max > k_rgb_matrix_split[0])) max = k_rgb_matrix_split[0]; \
-            if (!(is_keyboard_left()) && (min < k_rgb_matrix_split[0])) min = k_rgb_matrix_split[0];
-#    else
-#        define RGB_MATRIX_USE_LIMITS_ITER(min, max, iter)       \
-            uint8_t min = RGB_MATRIX_LED_PROCESS_LIMIT * (iter); \
-            uint8_t max = min + RGB_MATRIX_LED_PROCESS_LIMIT;    \
-            if (max > RGB_MATRIX_LED_COUNT) max = RGB_MATRIX_LED_COUNT;
-#    endif
-#else
-#    if defined(RGB_MATRIX_SPLIT)
-#        define RGB_MATRIX_USE_LIMITS_ITER(min, max, iter)                                        \
-            uint8_t       min                   = 0;                                              \
-            uint8_t       max                   = RGB_MATRIX_LED_COUNT;                           \
-            const uint8_t k_rgb_matrix_split[2] = RGB_MATRIX_SPLIT;                               \
-            if (is_keyboard_left() && (max > k_rgb_matrix_split[0])) max = k_rgb_matrix_split[0]; \
-            if (!(is_keyboard_left()) && (min < k_rgb_matrix_split[0])) min = k_rgb_matrix_split[0];
-#    else
-#        define RGB_MATRIX_USE_LIMITS_ITER(min, max, iter) \
-            uint8_t min = 0;                               \
-            uint8_t max = RGB_MATRIX_LED_COUNT;
-#    endif
-#endif
+struct rgb_matrix_limits_t {
+    uint8_t led_min_index;
+    uint8_t led_max_index;
+};
+
+struct rgb_matrix_limits_t rgb_matrix_get_limits(uint8_t iter);
+
+#define RGB_MATRIX_USE_LIMITS_ITER(min, max, iter)                   \
+    struct rgb_matrix_limits_t limits = rgb_matrix_get_limits(iter); \
+    uint8_t                    min    = limits.led_min_index;        \
+    uint8_t                    max    = limits.led_max_index;        \
+    (void)min;                                                       \
+    (void)max;
 
 #define RGB_MATRIX_USE_LIMITS(min, max) RGB_MATRIX_USE_LIMITS_ITER(min, max, params->iter)
 
@@ -126,7 +148,7 @@ uint8_t rgb_matrix_map_row_column_to_led(uint8_t row, uint8_t column, uint8_t *l
 void rgb_matrix_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
 void rgb_matrix_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
 
-void process_rgb_matrix(uint8_t row, uint8_t col, bool pressed);
+void rgb_matrix_handle_key_event(uint8_t row, uint8_t col, bool pressed);
 
 void rgb_matrix_task(void);
 
@@ -233,17 +255,6 @@ void        rgb_matrix_set_flags_noeeprom(led_flags_t flags);
 #    define rgblight_decrease_speed_noeeprom rgb_matrix_decrease_speed_noeeprom
 #endif
 
-typedef struct {
-    /* Perform any initialisation required for the other driver functions to work. */
-    void (*init)(void);
-    /* Set the colour of a single LED in the buffer. */
-    void (*set_color)(int index, uint8_t r, uint8_t g, uint8_t b);
-    /* Set the colour of all LEDS on the keyboard in the buffer. */
-    void (*set_color_all)(uint8_t r, uint8_t g, uint8_t b);
-    /* Flush any buffered changes to the hardware. */
-    void (*flush)(void);
-} rgb_matrix_driver_t;
-
 static inline bool rgb_matrix_check_finished_leds(uint8_t led_idx) {
 #if defined(RGB_MATRIX_SPLIT)
     if (is_keyboard_left()) {
@@ -255,8 +266,6 @@ static inline bool rgb_matrix_check_finished_leds(uint8_t led_idx) {
     return led_idx < RGB_MATRIX_LED_COUNT;
 #endif
 }
-
-extern const rgb_matrix_driver_t rgb_matrix_driver;
 
 extern rgb_config_t rgb_matrix_config;
 

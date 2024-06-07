@@ -6,16 +6,6 @@ enum keymap_layout {
     SETTINGS,     // 0x10
 };
 
-// Colors of the layer indicator LED
-// This list needs to define layer 0xFFFFFFFF, it is the end of the list, and the unknown layer
-const Layer_Info layer_info[] = {
-    // Layer     Mask           Red     Green   Blue
-    {0x00000000, 0xFFFFFFFF, {0x00, 0xFF, 0x00}}, // base layers - green
-    {0x00000002, 0xFFFFFFFE, {0x00, 0x00, 0xFF}}, // function layer - blue
-    {0x00000004, 0xFFFFFFFC, {0xFF, 0x00, 0xFF}}, // settings layer - magenta
-    {0xFFFFFFFF, 0xFFFFFFFF, {0xFF, 0xFF, 0xFF}}, // unknown layer - REQUIRED - white
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Keymap VANILLA: (Base Layer) Default Layer
      * ,-----------------------------------------------------------------------------.
@@ -89,11 +79,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX, XXXXXXX, XXXXXXX,                            XXXXXXX,                            XXXXXXX, XXXXXXX, XXXXXXX, _______,      RGB_SAD, RGB_HUD, RGB_SAI
     )
 };
-
-void matrix_init_user(void) {
-    // This keymap only has a single base layer, so reset the default if needed
-    if (eeconfig_read_default_layer() > 1) {
-        eeconfig_update_default_layer(1);
-        default_layer_set(1);
-    }
-}

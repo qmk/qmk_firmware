@@ -16,11 +16,14 @@
 
 #pragma once
 
-#include <string.h>
-
-#include "quantum.h"
+#include <stdint.h>
+#include <stdbool.h>
 #include "pointing_device.h"
-#include "print.h"
+#include "keycodes.h"
+#include "action.h"
+#include "report.h"
+#include "action_layer.h"
+#include "action_tapping.h"
 
 /* check settings and set defaults */
 #ifndef POINTING_DEVICE_AUTO_MOUSE_ENABLE
@@ -39,8 +42,17 @@
 #ifndef AUTO_MOUSE_DEBOUNCE
 #    define AUTO_MOUSE_DEBOUNCE 25
 #endif
+#ifndef AUTO_MOUSE_THRESHOLD
+#    define AUTO_MOUSE_THRESHOLD 10
+#endif
 
 /* data structure */
+typedef struct {
+    mouse_xy_report_t x;
+    mouse_xy_report_t y;
+    int8_t            v;
+    int8_t            h;
+} total_mouse_movement_t;
 typedef struct {
     struct {
         bool     is_enabled;
@@ -57,6 +69,7 @@ typedef struct {
         bool   is_toggled;
         int8_t mouse_key_tracker;
     } status;
+    total_mouse_movement_t total_mouse_movement;
 } auto_mouse_context_t;
 
 /* ----------Set up and control------------------------------------------------------------------------------ */
@@ -68,9 +81,11 @@ void          set_auto_mouse_timeout(uint16_t timeout);                 // set l
 uint16_t      get_auto_mouse_timeout(void);                             // get layer timeout
 void          set_auto_mouse_debounce(uint8_t debounce);                // set debounce
 uint8_t       get_auto_mouse_debounce(void);                            // get debounce
+void          set_auto_mouse_key_tracker(int8_t key_tracker);           // set key tracker
+int8_t        get_auto_mouse_key_tracker(void);                         // get key tracker
 void          auto_mouse_layer_off(void);                               // disable target layer if appropriate (DO NOT USE in layer_state_set stack!!)
 layer_state_t remove_auto_mouse_layer(layer_state_t state, bool force); // remove auto mouse target layer from state if appropriate (can be forced)
-
+bool          is_auto_mouse_active(void);                               // check if target layer is active
 /* ----------For custom pointing device activation----------------------------------------------------------- */
 bool auto_mouse_activation(report_mouse_t mouse_report); // handles pointing device trigger conditions for target layer activation (overwritable)
 

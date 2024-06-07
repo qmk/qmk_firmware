@@ -9,7 +9,23 @@
         "device_version": "0.0.2"
     },
     "split": {
+        "enabled": true,
         "soft_serial_pin": "D2"
+    },
+    "tapping": {
+        "term": 100
+    },
+    "rgblight": {
+        "hue_steps": 10,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true
+        }
     },
     "ws2812": {
         "pin": "D3"

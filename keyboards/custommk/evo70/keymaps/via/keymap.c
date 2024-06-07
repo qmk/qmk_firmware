@@ -23,65 +23,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 						  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,     KC_T,    KC_Y,     KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_PGUP,
 		KC_F1,   KC_F2,   KC_CAPS, 			KC_A,    KC_S,    KC_D,     KC_F,    KC_G,     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,  KC_PGDN,
 	    KC_F3,   KC_F4,            KC_LSFT, KC_Z,    KC_X,    KC_C,     KC_V,    KC_B,     KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, KC_UP,   KC_END,
-		KC_F5,   KC_F6,   KC_LCTL, KC_LWIN,          KC_LALT,                    KC_SPACE, KC_NO,   KC_VOLD, KC_RALT, KC_RCTL, KC_VOLU, KC_LEFT, KC_DOWN, KC_RGHT
+		KC_F5,   KC_F6,   KC_LCTL, KC_LWIN,          KC_LALT,                    KC_SPACE, KC_NO,   KC_RALT, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
 	[1] = LAYOUT(
-						  QK_BOOT,   KC_F1,   KC_F2,   KC_F3,   KC_F4,    KC_F5,   KC_F6,    KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_TRNS, KC_TRNS,
+						  QK_BOOT, KC_F1,   KC_F2,   KC_F3,   KC_F4,    KC_F5,   KC_F6,    KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_TRNS, KC_TRNS,
 						  KC_TRNS, KC_TRNS, KC_BSLS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 		KC_F7,   KC_F8,   KC_TRNS,          BL_TOGG, BL_STEP, BL_BRTG,  KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 	    KC_F9,   KC_F10,           KC_TRNS, RGB_TOG, RGB_MOD, RGB_RMOD, RGB_VAI, RGB_VAD,  RGB_HUI, RGB_HUD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-		KC_F11,  KC_F12,  KC_TRNS, KC_TRNS,          KC_TRNS,                    KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+		KC_F11,  KC_F12,  KC_TRNS, KC_TRNS,          KC_TRNS,                    KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     ),
 };
 
-static bool custom_encoder_mode = false;
-
-void set_custom_encoder_mode_user(bool custom_mode) {
-	custom_encoder_mode = custom_mode;
-}
-
-
-keyevent_t encoder_ccw = {
-    .key = (keypos_t){.row = 4, .col = 7},
-    .pressed = false,
-	.type = KEY_EVENT
+#ifdef ENCODER_MAP_ENABLE
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [1] = { ENCODER_CCW_CW(_______, _______) },
 };
-
-keyevent_t encoder_cw = {
-    .key = (keypos_t){.row = 4, .col = 10},
-    .pressed = false,
-	.type = KEY_EVENT
-};
-
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-	if (custom_encoder_mode) {
-	    if (clockwise) {
-	        encoder_cw.pressed = true;
-		    encoder_cw.time = timer_read();
-		    action_exec(encoder_cw);
-	    }
-	    else {
-		    encoder_ccw.pressed = true;
-		    encoder_ccw.time = timer_read();
-		    action_exec(encoder_ccw);
-	    }
-		return false;
-	}
-	return true;
-}
-
-void matrix_scan_user(void) {
-	if (encoder_ccw.pressed) {
-		encoder_ccw.pressed = false;
-		encoder_ccw.time = timer_read();
-		action_exec(encoder_ccw);
-	}
-
-	if (encoder_cw.pressed) {
-		encoder_cw.pressed = false;
-		encoder_cw.time = timer_read();
-		action_exec(encoder_cw);
-	}
-}
+#endif

@@ -4,16 +4,80 @@
   "maintainer": "jackhumbert",
   "usb": {
     "vid": "0x3297",
-    "device_version": "0.0.1"
+    "device_version": "0.0.1",
+    "shared_endpoint": {
+      "mouse": false
+    }
+  },
+  "features": {
+    "audio": true,
+    "bootmagic": true,
+    "command": true,
+    "console": true,
+    "encoder": true,
+    "extrakey": true,
+    "mousekey": true,
+    "nkro": true
   },
   "rgb_matrix": {
-    "driver": "IS31FL3737"
+    "animations": {
+      "alphas_mods": true,
+      "gradient_up_down": true,
+      "gradient_left_right": true,
+      "breathing": true,
+      "band_sat": true,
+      "band_val": true,
+      "band_pinwheel_sat": true,
+      "band_pinwheel_val": true,
+      "band_spiral_sat": true,
+      "band_spiral_val": true,
+      "cycle_all": true,
+      "cycle_left_right": true,
+      "cycle_up_down": true,
+      "rainbow_moving_chevron": true,
+      "cycle_out_in": true,
+      "cycle_out_in_dual": true,
+      "cycle_pinwheel": true,
+      "cycle_spiral": true,
+      "dual_beacon": true,
+      "rainbow_beacon": true,
+      "rainbow_pinwheels": true,
+      "raindrops": true,
+      "jellybean_raindrops": true,
+      "hue_breathing": true,
+      "hue_pendulum": true,
+      "hue_wave": true,
+      "pixel_rain": true,
+      "pixel_flow": true,
+      "pixel_fractal": true,
+      "typing_heatmap": true,
+      "digital_rain": true,
+      "solid_reactive_simple": true,
+      "solid_reactive": true,
+      "solid_reactive_wide": true,
+      "solid_reactive_multiwide": true,
+      "solid_reactive_cross": true,
+      "solid_reactive_multicross": true,
+      "solid_reactive_nexus": true,
+      "solid_reactive_multinexus": true,
+      "splash": true,
+      "multisplash": true,
+      "solid_splash": true,
+      "solid_multisplash": true
+    },
+    "driver": "is31fl3737",
+    "led_process_limit": 5,
+    "led_flush_limit": 26,
+    "sleep": true
   },
   "matrix_pins": {
     "cols": ["B11", "B10", "B2", "B1", "A7", "B0"],
     "rows": ["A10", "A9", "A8", "B15", "C13", "C14", "C15", "A2"]
   },
   "diode_direction": "COL2ROW",
+  "audio": {
+    "driver": "dac_additive"
+  },
   "encoder": {
     "rotary": [
       {"pin_a": "B12", "pin_b": "B13"}
@@ -21,6 +85,9 @@
   },
   "processor": "STM32F303",
   "bootloader": "stm32-dfu",
+  "tapping": {
+    "toggle": 1
+  },
   "community_layouts": ["ortho_4x12", "planck_mit"],
   "layout_aliases": {
     "LAYOUT_planck_grid": "LAYOUT_ortho_4x12",

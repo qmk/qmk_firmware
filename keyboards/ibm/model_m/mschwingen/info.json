@@ -8,11 +8,26 @@
         "pid": "0x558E",
         "device_version": "0.0.1"
     },
+    "rgblight": {
+        "led_count": 3
+    },
     "ws2812": {
         "pin": "B6"
     },
     "processor": "atmega32u4",
     "bootloader": "lufa-dfu",
+    "features": {
+        "bootmagic": false,
+        "mousekey": true,
+        "extrakey": true,
+        "console": true,
+        "command": true,
+        "key_lock": true,
+        "dynamic_macro": true
+    },
+    "build": {
+        "lto": true
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

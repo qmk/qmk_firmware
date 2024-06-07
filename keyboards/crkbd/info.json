@@ -9,12 +9,11 @@
         "device_version": "0.0.1"
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812"
     },
     "features": {
         "bootmagic": true,
         "extrakey": true,
-        "lto": true,
         "mousekey": true,
         "nkro": true,
         "oled": true

@@ -26,9 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "i2c_master.h"
 
 // I2C aliases and register addresses (see "mcp23018.md")
-#define I2C_ADDR        0b0100000
-#define I2C_ADDR_WRITE  ( (I2C_ADDR<<1) | I2C_WRITE )
-#define I2C_ADDR_READ   ( (I2C_ADDR<<1) | I2C_READ  )
+#define I2C_ADDR        (0b0100000<<1)
 #define IODIRA          0x00            // i/o direction register
 #define IODIRB          0x01
 #define GPPUA           0x0C            // GPIO pull-up resistor register
@@ -53,18 +51,40 @@ uint8_t ergodox_left_leds_update(void);
 #define LED_BRIGHTNESS_HI       255
 #endif
 
+#define ERGODOX_EZ_BOARD_LED_PIN D6
+#define ERGODOX_EZ_RIGHT_LED_1_PIN B5
+#define ERGODOX_EZ_RIGHT_LED_2_PIN B6
+#define ERGODOX_EZ_RIGHT_LED_3_PIN B7
 
-inline void ergodox_board_led_on(void)      { DDRD |=  (1<<6); PORTD |=  (1<<6); }
-inline void ergodox_right_led_1_on(void)    { DDRB |=  (1<<5); PORTB |=  (1<<5); }
-inline void ergodox_right_led_2_on(void)    { DDRB |=  (1<<6); PORTB |=  (1<<6); }
-inline void ergodox_right_led_3_on(void)    { DDRB |=  (1<<7); PORTB |=  (1<<7); }
-inline void ergodox_right_led_on(uint8_t led) { DDRB |= (1<<(led+4)); PORTB |= (1<<(led+4)); }
+inline void ergodox_board_led_on(void) {
+    gpio_set_pin_output(ERGODOX_EZ_BOARD_LED_PIN);
+    gpio_write_pin_high(ERGODOX_EZ_BOARD_LED_PIN);
+}
+inline void ergodox_right_led_1_on(void) {
+    gpio_set_pin_output(ERGODOX_EZ_RIGHT_LED_1_PIN);
+    gpio_write_pin_high(ERGODOX_EZ_RIGHT_LED_1_PIN);
+}
+inline void ergodox_right_led_2_on(void) {
+    gpio_set_pin_output(ERGODOX_EZ_RIGHT_LED_2_PIN);
+    gpio_write_pin_high(ERGODOX_EZ_RIGHT_LED_2_PIN);
+}
+inline void ergodox_right_led_3_on(void) {
+    gpio_set_pin_output(ERGODOX_EZ_RIGHT_LED_3_PIN);
+    gpio_write_pin_high(ERGODOX_EZ_RIGHT_LED_3_PIN);
+}
 
-inline void ergodox_board_led_off(void)     { DDRD &= ~(1<<6); PORTD &= ~(1<<6); }
-inline void ergodox_right_led_1_off(void)   { DDRB &= ~(1<<5); PORTB &= ~(1<<5); }
-inline void ergodox_right_led_2_off(void)   { DDRB &= ~(1<<6); PORTB &= ~(1<<6); }
-inline void ergodox_right_led_3_off(void)   { DDRB &= ~(1<<7); PORTB &= ~(1<<7); }
-inline void ergodox_right_led_off(uint8_t led) { DDRB &= ~(1<<(led+4)); PORTB &= ~(1<<(led+4)); }
+inline void ergodox_board_led_off(void) {
+    gpio_set_pin_input(ERGODOX_EZ_BOARD_LED_PIN);
+}
+inline void ergodox_right_led_1_off(void) {
+    gpio_set_pin_input(ERGODOX_EZ_RIGHT_LED_1_PIN);
+}
+inline void ergodox_right_led_2_off(void) {
+    gpio_set_pin_input(ERGODOX_EZ_RIGHT_LED_2_PIN);
+}
+inline void ergodox_right_led_3_off(void) {
+    gpio_set_pin_input(ERGODOX_EZ_RIGHT_LED_3_PIN);
+}
 
 #ifdef LEFT_LEDS
 bool ergodox_left_led_1;
@@ -139,25 +159,3 @@ typedef union {
 } keyboard_config_t;
 
 extern keyboard_config_t keyboard_config;
-
-/*  ---- LEFT HAND ----     ---- RIGHT HAND ---- */
-#define LED_LAYOUT_ergodox_pretty(                \
-    L01,L02,L03,L04,L05,    R01,R02,R03,R04,R05,  \
-    L11,L12,L13,L14,L15,    R11,R12,R13,R14,R15,  \
-    L21,L22,L23,L24,L25,    R21,R22,R23,R24,R25,  \
-    L31,L32,L33,L34,L35,    R31,R32,R33,R34,R35,  \
-    L41,L42,L43,L44,            R42,R43,R44,R45 ) \
-                                                  \
-   /* matrix positions */                         \
-    { R01, R02, R03, R04, R05,                    \
-      R11, R12, R13, R14, R15,                    \
-      R21, R22, R23, R24, R25,                    \
-      R31, R32, R33, R34, R35,                    \
-           R42, R43, R44, R45,                    \
-                                                  \
-      L05, L04, L03, L02, L01,                    \
-      L15, L14, L13, L12, L11,                    \
-      L25, L24, L23, L22, L21,                    \
-      L35, L34, L33, L32, L31,                    \
-           L44, L43, L42, L41                     \
-    }
