@@ -5,12 +5,19 @@
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
     "features": {
+        "backlight": true,
         "bootmagic": true,
         "command": false,
         "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
+    },
+    "backlight": {
+        "breathing": true,
+        "breathing_period": 5,
+        "levels": 15,
+        "pin": "GP22"
     },
     "indicators": {
         "caps_lock": "GP29",
