@@ -1,6 +1,6 @@
 # Keyball39
 
-![Keyball39](../../../../keyball39/doc/rev1/images/kb39_001.jpg)
+![Keyball39](https://raw.githubusercontent.com/Yowkees/keyball/main/keyball39/doc/rev1/images/kb39_001.jpg)
 
 A split keyboard with 39 vertically staggered keys and 34mm track ball.
 
@@ -12,7 +12,7 @@ A split keyboard with 39 vertically staggered keys and 34mm track ball.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make keyball/keyball39:default
+    make yowkees/keyball39:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
