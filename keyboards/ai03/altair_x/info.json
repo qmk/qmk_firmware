@@ -2,6 +2,7 @@
     "manufacturer": "ai03 Design Studio",
     "keyboard_name": "Altair-X",
     "maintainer": "ai03_2725",
+    "url": "https://ai03.com/",
     "processor": "RP2040",
     "bootloader": "rp2040",
     "usb": {
