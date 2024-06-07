@@ -1,6 +1,6 @@
 # Altair-X
 
-![altair-x](Link here later)
+![altair-x](https://i.imgur.com/regfKQC.png)
 
 ai03's third-generation ergonomic keyboard, 4-row variant  
 

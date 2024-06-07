@@ -1,6 +1,6 @@
 # Altair
 
-![altair](Link here later)
+![altair](https://i.imgur.com/O9UXaCO.png)
 
 ai03's third-generation ergonomic keyboard, 5-row variant  
 
