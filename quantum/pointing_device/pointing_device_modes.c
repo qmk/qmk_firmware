@@ -205,9 +205,21 @@ uint8_t pointing_mode_get_precision(void) {
 void pointing_mode_set_precision(uint8_t precision) {
     if (precision > POINTING_MODE_PRECISION_MAX || !precision) {
         pointing_mode_devices[active_device_id].precision = 1;
-        return;
+    } else {
+        pointing_mode_devices[active_device_id].precision = precision;
     }
-    pointing_mode_devices[active_device_id].precision = precision;
+}
+
+static uint8_t pointing_mode_get_type(uint8_t mode_id) {
+    uint8_t mode_type = PMT_NONE;
+
+    mode_type = pointing_mode_get_type_kb(mode_id);
+    if (mode_type) return mode_type;
+
+    mode_type = pointing_mode_get_type_user(mode_id);
+    if (mode_type) return mode_type;
+
+    return PMT_4WAY;
 }
 
 /**
@@ -317,23 +329,49 @@ static uint8_t pointing_mode_update_divisor(void) {
  *
  * Determines direction based on axis with largest magnitude
  *
- * NOTE: Defaults to PD_DOWN
+ * NOTE: Defaults to PMD_DOWN
  *
  * @return direction uint8_t
  */
 static uint8_t pointing_mode_update_direction(void) {
-    if (abs(pointing_mode_devices[active_device_id].x) > abs(pointing_mode_devices[active_device_id].y)) {
-        if (pointing_mode_devices[active_device_id].x > 0) {
-            return PD_RIGHT;
-        } else {
-            return PD_LEFT;
-        }
-    } else {
-        if (pointing_mode_devices[active_device_id].y > 0) {
-            return PD_DOWN;
-        } else {
-            return PD_UP;
-        }
+#    if POINTING_MODE_THRESHOLD > 0
+    if(abs(pointing_mode_devices[active_device_id].x) + abs(pointing_mode_devices[active_device_id].y) > POINTING_MODE_THRESHOLD) {
+        return PMD_NONE
+    }
+#    endif
+    switch (pointing_mode_get_type(pointing_mode_get_mode() & PMT_MODES) {
+        case PMT_4WAY:
+            if (abs(pointing_mode_devices[active_device_id].x) > abs(pointing_mode_devices[active_device_id].y)) {
+                if (pointing_mode_devices[active_device_id].x > 0) {
+                    return PMD_RIGHT;
+                } else {
+                    return PMD_LEFT;
+                }
+            } else {
+                if (pointing_mode_devices[active_device_id].y > 0) {
+                    return PMD_DOWN;
+                } else {
+                    return PMD_UP;
+                }
+            }
+            break;
+        case PMT_DPAD:
+            uint8_t dir_out = PMD_NONE;
+            if ((abs(pointing_mode_devices[active_device_id].x) << 1) > abs(pointing_mode_devices[active_device_id].y) {
+                if (pointing_mode_devices[active_device_id].x > 0) {
+                    dir_out &= PMD_RIGHT;
+                } else {
+                    dir_out &= PMD_LEFT;
+                }
+            }
+            if ((abs(pointing_mode_devices[active_device_id].y) << 1) > abs(pointing_mode_devices[active_device_id].x) {
+                if (pointing_mode_devices[active_device_id].y > 0) {
+                    dir_out &= PMD_DOWN;
+                } else {
+                    dir_out &= PMD_UP;
+                }
+            }
+            return dir_out;
     }
 }
 
@@ -380,18 +418,20 @@ uint8_t current_pointing_mode_divisor(void) {
  */
 static void pointing_tap_keycodes_raw(uint16_t* pm_keycodes) {
     int16_t count = 0;
-    uint8_t dir   = current_pointing_mode_direction();
+    uint8_t key   = 0;
 
-    switch (dir) {
-        case PD_DOWN ... PD_UP:
+    switch (current_pointing_mode_direction()) {
+        case PMD_DOWN ... PMD_UP:
             count = divisor_divide16(pointing_mode_devices[active_device_id].y);
             if (!count) return; // exit if accumulated y is too low
+            key = count > 0? PMK_DOWN:PMK_UP;
             pointing_mode_devices[active_device_id].y -= divisor_multiply16(count);
             pointing_mode_devices[active_device_id].x = 0;
             break;
-        case PD_LEFT ... PD_RIGHT:
+        case PMD_LEFT ... PMD_RIGHT:
             count = divisor_divide16(pointing_mode_devices[active_device_id].x);
             if (!count) return; // exit if accumulated x is too low
+            key = count > 0? PMK_RIGHT:PMK_LEFT;
             pointing_mode_devices[active_device_id].x -= divisor_multiply16(count);
             pointing_mode_devices[active_device_id].y = 0;
             break;
@@ -402,7 +442,7 @@ static void pointing_tap_keycodes_raw(uint16_t* pm_keycodes) {
     // tap codes
     uint8_t taps = clamp_uint_16_to_8((uint16_t)abs(count));
     do {
-        tap_code16_delay(pm_keycodes[dir], POINTING_MODE_TAP_DELAY);
+        tap_code16_delay(pm_keycodes[key], POINTING_MODE_TAP_DELAY);
     } while (--taps);
 }
 
@@ -434,35 +474,90 @@ void pointing_tap_codes(uint16_t kc_left, uint16_t kc_down, uint16_t kc_up, uint
  */
 #    ifdef POINTING_MODE_MAP_ENABLE
 static void pointing_exec_mapping(uint8_t map_id) {
-    int16_t count = 0;
-    uint8_t dir   = current_pointing_mode_direction();
+    static uint16_t prev_key[] = {0, 0};
 
-    switch (dir) {
-        case PD_DOWN ... PD_UP:
-            count = divisor_divide16(pointing_mode_devices[active_device_id].y);
-            if (!count) return; // exit if accumulated y is too low
-            pointing_mode_devices[active_device_id].y -= divisor_multiply16(count);
-            pointing_mode_devices[active_device_id].x = 0;
+    int16_t count[]   = {0, 0};
+    uint8_t key[]     = {0, 0};
+    uint8_t mode_type = pointing_mode_get_type(pointing_mode_get_mode());
+    switch (mode_type & PMT_MODES) {
+        case PMT_4WAY:
+            switch (current_pointing_mode_direction()) {
+                case PMD_DOWN ... PMD_UP:
+                    count[0] = divisor_divide16(pointing_mode_devices[active_device_id].y);
+                    if (!count[0]) return; // exit if accumulated y is too low
+                    key[0] = count[0] > 0? PMK_DOWN:PMK_UP;
+                    pointing_mode_devices[active_device_id].y = 0;
+                    pointing_mode_devices[active_device_id].x = 0;
+                    break;
+                case PMD_LEFT ... PMD_RIGHT:
+                    count[0] = divisor_divide16(pointing_mode_devices[active_device_id].x);
+                    if (!count[0]) return; // exit if accumulated x is too low
+                    key[0] = count[0] > 0? PMK_RIGHT:PMK_LEFT;
+                    pointing_mode_devices[active_device_id].x = 0;
+                    pointing_mode_devices[active_device_id].y = 0;
+                    break;
+            }
             break;
-        case PD_LEFT ... PD_RIGHT:
-            count = divisor_divide16(pointing_mode_devices[active_device_id].x);
-            if (!count) return; // exit if accumulated x is too low
-            pointing_mode_devices[active_device_id].x -= divisor_multiply16(count);
-            pointing_mode_devices[active_device_id].y = 0;
-            break;
+        case PMT_DPAD:
+            uint8_t dir = current_pointing_mode_direction();
+            if(dir & PMD_VERT) {
+                count[0] = divisor_divide16(pointing_mode_devices[active_device_id].y);
+                pointing_mode_devices[active_device_id].y = 0;
+                key[0] = count[0] > 0? PMK_DOWN:PMK_UP;
+            }
+            if(dir & PMD_HORI) {
+                count[1] = divisor_divide16(pointing_mode_devices[active_device_id].x);
+                pointing_mode_devices[active_device_id].x = 0;
+                key[1] = count[1] > 0? PMK_RIGHT:PMK_LEFT;
+            }
     }
-
-    // tap codes
-    uint8_t taps = clamp_uint_16_to_8((uint16_t)abs(count));
-    do {
-        action_exec(MAKE_POINTING_MODE_EVENT(map_id, dir, true));
+    switch(mode_type & PMT_OPTS){
+        case PMT_TAP:
+            if(count[0]) {
+                uint8_t taps = clamp_uint_16_to_8((uint16_t)abs(count[0]));
+                do {
+                    action_exec(MAKE_POINTING_MODE_EVENT(map_id, key[0], true));
 #        if POINTING_MODE_TAP_DELAY > 0
-        wait_ms(POINTING_MODE_TAP_DELAY);
+                    wait_ms(POINTING_MODE_TAP_DELAY);
 #        endif // POINTING_MODE_TAP_DELAY > 0
-        action_exec(MAKE_POINTING_MODE_EVENT(map_id, dir, false));
-    } while (--taps);
+                    action_exec(MAKE_POINTING_MODE_EVENT(map_id, key[0], false));
+                } while (--taps);
+            }
+            if(count[1]) {
+                uint8_t taps = clamp_uint_16_to_8((uint16_t)abs(count[1]));
+                do {
+                    action_exec(MAKE_POINTING_MODE_EVENT(map_id, key[1], true));
+#        if POINTING_MODE_TAP_DELAY > 0
+                    wait_ms(POINTING_MODE_TAP_DELAY);
+#        endif // POINTING_MODE_TAP_DELAY > 0
+                    action_exec(MAKE_POINTING_MODE_EVENT(map_id, key[1], false));
+                } while (--taps);
+            }
+            break;
+        case PMT_HOLD:
+            if(count[0]) {
+                action_exec(MAKE_POINTING_MODE_EVENT(map_id, prev_key[0], false));
+                if(prev_key[0] != key[0]) {
+                    action_exec(MAKE_POINTING_MODE_EVENT(map_id, key[0], true));
+                    prev_key[0] = key[0];
+                } else {
+                    prev_key[0] = 0;
+                }
+            }
+            if(count[1]) {
+                action_exec(MAKE_POINTING_MODE_EVENT(map_id, prev_key[1], false));
+                if(prev_key[1] != key[1]) {
+                    action_exec(MAKE_POINTING_MODE_EVENT(map_id, key[1], true));
+                    prev_key[1] = key[1];
+                } else {
+                    prev_key[1] = 0;
+                }
+            }
+    }
 }
 #    endif
+
+
 
 /**
  * @brief Core function to handle pointing mode task
@@ -566,7 +661,7 @@ __attribute__((weak)) bool process_pointing_mode_kb(pointing_mode_device_t point
 }
 
 /**
- * @brief Weak function for user level adding of pointing mode divisors
+ * @brief Weakly defined function adding of pointing mode divisors at user level
  *
  * Takes in mode id and direction allowing for divisor values to be
  * determined based on these parameters
@@ -581,7 +676,7 @@ __attribute__((weak)) uint8_t get_pointing_mode_divisor_user(uint8_t mode_id, ui
 }
 
 /**
- * @brief Weak function for user level adding of pointing mode divisors
+ * @brief Weakly defined function adding of pointing mode divisors at keyboard level
  *
  * Takes in mode id and direction allowing for divisor values to be
  * determined based on these parameters
@@ -593,6 +688,34 @@ __attribute__((weak)) uint8_t get_pointing_mode_divisor_user(uint8_t mode_id, ui
  */
 __attribute__((weak)) uint8_t get_pointing_mode_divisor_kb(uint8_t mode_id, uint8_t direction) {
     return 0; // continue processing
+}
+
+/**
+ * @brief Weakly defined function for setting pointing mode type at the user level
+ *
+ * Takes in mode id and returns current pointing mode type (PMT_4WAY, PMT_DPAD).
+ * Also mode options may be added to the mode type (PMT_HOLD)
+ *
+ * @params mode_id uint8_t
+ *
+ * @return pointing_mode_type uint8_t
+ */
+__attribute__((weak)) uint8_t get_pointing_mode_type_user(uint8_t mode_id) {
+    return PMT_NONE; // continue processing
+}
+
+/**
+ * @brief Weakly defined function for setting pointing mode type at the user level
+ *
+ * Takes in mode id and returns current pointing mode type (PMT_4WAY, PMT_DPAD).
+ * Also mode options may be added to the mode type (PMT_HOLD)
+ *
+ * @params mode_id uint8_t
+ *
+ * @return pointing_mode_type uint8_t
+ */
+__attribute__((weak)) uint8_t get_pointing_mode_type_kb(uint8_t mode_id, uint8_t direction) {
+    return PMT_NONE; // continue processing
 }
 
 #endif // POINTING_DEVICE_POINTING_MODES_ENABLE
