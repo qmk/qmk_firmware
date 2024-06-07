@@ -1,4 +1,4 @@
-# Matrix Diagram for Jaykeeb JK65
+# Matrix Diagram for Jaykeeb JK60
 
 ```
                                                     ┌───────┐

@@ -2,7 +2,7 @@
 
 ![jk60]( https://i.imgur.com/394cDVG.png )
 
-Layout 60% support multi layout and keyboard case exiting
+Layout 60% support multi layout and keyboard case existing
 
 * Keyboard Maintainer: [Alabahuy](https://github.com/Alabahuy)
 * Hardware Supported: JK60 PCB, RP2040
