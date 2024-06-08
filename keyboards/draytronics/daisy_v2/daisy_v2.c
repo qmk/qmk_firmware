@@ -26,6 +26,10 @@ No claim for licence or ownership is made for any logos or similarities to logos
 
 #include "daisy_v2.h"
 
+enum my_keycodes {
+  ENCODER_PRESS = SAFE_RANGE
+};
+
 void board_init(void) {
   SYSCFG->CFGR1 |= SYSCFG_CFGR1_I2C1_DMA_RMP;
 }
@@ -45,7 +49,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     key_pressed = record->event.pressed;
 #endif
     switch(keycode) {
-        case LT(0, KC_NO):
+        case ENCODER_PRESS:
             if (record->event.pressed) {
                 // on tap
                 if (record->tap.count) {
@@ -76,3 +80,10 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
     return layer_state_set_user(state);
 }
 #endif
+
+void keyboard_post_init_user(void) {
+    //This is an adjustment to resolve the issue that occurs when there is a
+    //static colour underglow the first LED can be a different colour on first init.
+    rgblight_disable_noeeprom();
+    rgblight_enable_noeeprom();
+}
