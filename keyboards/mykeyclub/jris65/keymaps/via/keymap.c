@@ -1,6 +1,4 @@
 
-// RSK: 
-//#include "iris65.h"
 #include "jris65.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
