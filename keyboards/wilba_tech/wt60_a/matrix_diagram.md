@@ -1,4 +1,4 @@
-# Matrix DIagram for wilba Tech WT60-A
+# Matrix Diagram for Wilba Tech WT60-A
 
 ```
                                                     ┌───────┐
