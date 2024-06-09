@@ -24,8 +24,8 @@
             "static_gradient": true,
             "twinkle": true
         },
-        "led_count": 9,
-        "split": true
+        "led_count": 18,
+        "split_count": [9, 9]
     },
     "split": {
         "enabled": true,
