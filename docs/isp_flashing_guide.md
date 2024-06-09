@@ -286,7 +286,7 @@ avrdude done.  Thank you.
 This is a slightly more advanced topic, but may be necessary if you are switching from one bootloader to another (for example, Caterina to Atmel/QMK DFU on a Pro Micro). Fuses control some of the low-level functionality of the AVR microcontroller, such as clock speed, whether JTAG is enabled, and the size of the section of flash memory reserved for the bootloader, among other things. You can find a fuse calculator for many AVR parts [here](https://www.engbedded.com/conffuse/).
 
 ::: warning
-**WARNING:** Setting incorrect fuse values, in particular the clock-related bits, may render the MCU practically unrecoverable without high voltage programming (not covered here)! Make sure to double check the commands you enter before you execute them.
+Setting incorrect fuse values, in particular the clock-related bits, may render the MCU practically unrecoverable without high voltage programming (not covered here)! Make sure to double check the commands you enter before you execute them.
 :::
 
 To set the fuses, add the following to the `avrdude` command:
