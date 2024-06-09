@@ -3,7 +3,6 @@
     "keyboard_name": "IRIS65",
     "maintainer": "5217zl",
     "bootloader": "atmel-dfu",
-    "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "url": "",
     "usb": {
@@ -11,6 +10,14 @@
         "pid": "0x4953",
         "vid": "0x5A4C"
     },
+    "features": {
+        "bootmagic": true
+    },
+    "matrix_pins": {
+        "cols": [ "B6", "C6", "C7", "F1", "F0", "E6", "B0", "B1", "B3", "B7", "D2", "D1", "D0", "D7", "B4", "B5" ],
+        "rows": [ "F7", "F6", "F5", "B2", "F4" ]
+    },
+    "diode_direction": "COL2ROW",
     "layouts": {
         "LAYOUT": {
             "layout": [
