@@ -15,6 +15,9 @@
         "rgb_matrix": true,
         "oled": true
     },
+    "build":{
+        "debounce_type": "asym_eager_defer_pk"
+    },
     "matrix_pins": {
         "cols": ["A10", "A9", "A8", "C9", "C8", "C7", "C6", "B15", "B14", "B13", "B12", "B10", "B2", "B1", "B0", "C5", "C4", "A7"],
         "rows": ["B5", "B4", "B3", "D2", "C12", "C11"]
@@ -28,7 +31,7 @@
     },
     "encoder": {
         "rotary": [
-          {"pin_a": "B8", "pin_b": "B9"}
+          {"pin_a": "B8", "pin_b": "B9", "resolution": 2}
         ]
       },
     "rgb_matrix": {
@@ -86,7 +89,6 @@
             "val": 150
         },
         "sleep": true,
-        "max_brightness": 200,
         "driver": "is31fl3733",
         "layout": [
             {"matrix": [0, 17], "x": 24, "y": 6, "flags": 1},
@@ -201,10 +203,10 @@
                 {"matrix": [0, 7], "x": 8.75, "y": 0},
                 {"matrix": [0, 8], "x": 9.75, "y": 0},
                 {"matrix": [0, 9], "x": 10.75, "y": 0},
-                {"matrix": [0, 11], "x": 12.25, "y": 0},
-                {"matrix": [0, 12], "x": 13.25, "y": 0},
-                {"matrix": [0, 13], "x": 14.25, "y": 0},
-                {"matrix": [0, 14], "x": 15.25, "y": 0},
+                {"matrix": [0, 10], "x": 12.25, "y": 0},
+                {"matrix": [0, 11], "x": 13.25, "y": 0},
+                {"matrix": [0, 12], "x": 14.25, "y": 0},
+                {"matrix": [0, 13], "x": 15.25, "y": 0},
                 {"matrix": [1, 17], "x": 0, "y": 1.25},
                 {"matrix": [1, 0], "x": 1.25, "y": 1.25},
                 {"matrix": [1, 1], "x": 2.25, "y": 1.25},
