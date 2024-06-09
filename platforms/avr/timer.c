@@ -82,7 +82,7 @@ inline void timer_clear(void) {
  *
  * FIXME: needs doc
  */
-inline void timer_set(uint32_t time_ms) {
+void timer_set(uint32_t time_ms) {
     ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
         timer_count = time_ms;
     }
