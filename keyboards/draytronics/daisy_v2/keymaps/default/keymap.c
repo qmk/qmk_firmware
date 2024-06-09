@@ -22,11 +22,6 @@ enum layers {
     _CODE
 };
 
-enum my_keycodes {
-  ENCODER_PRESS = SAFE_RANGE
-};
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /*
@@ -39,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * └────────────┴────────────┴────────────┴─────────────┘
      */
     [_BASE] = LAYOUT(
-        ENCODER_PRESS,
+        LT(0, KC_NO),
         MO(_CODE), KC_MPRV, KC_MNXT, KC_MPLY,
         C(KC_LEFT), C(KC_UP), C(KC_DOWN), C(KC_RIGHT)
     ),
@@ -53,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * └────────────┴────────────┴────────────┴─────────────┘
      */
     [_CODE] = LAYOUT(
-        ENCODER_PRESS,
+        LT(0, KC_NO),
         _______, RGB_MOD, RGB_HUI, RGB_TOG,
         G(S(KC_5)), G(A(KC_ESC)), G(KC_F), QK_BOOT
     )

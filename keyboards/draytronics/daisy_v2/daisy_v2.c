@@ -26,10 +26,6 @@ No claim for licence or ownership is made for any logos or similarities to logos
 
 #include "daisy_v2.h"
 
-enum my_keycodes {
-  ENCODER_PRESS = SAFE_RANGE
-};
-
 void board_init(void) {
   SYSCFG->CFGR1 |= SYSCFG_CFGR1_I2C1_DMA_RMP;
 }
@@ -49,7 +45,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     key_pressed = record->event.pressed;
 #endif
     switch(keycode) {
-        case ENCODER_PRESS:
+        case LT(0, KC_NO):
             if (record->event.pressed) {
                 // on tap
                 if (record->tap.count) {
