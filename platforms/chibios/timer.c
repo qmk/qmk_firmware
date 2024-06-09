@@ -73,6 +73,12 @@ void timer_clear(void) {
     chSysUnlock();
 }
 
+void timer_set(uint32_t time_ms) {
+    ticks_offset = get_system_time_ticks();
+    last_ticks   = 0;
+    ms_offset    = time_ms;
+}
+
 uint16_t timer_read(void) {
     return (uint16_t)timer_read32();
 }
