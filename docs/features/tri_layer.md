@@ -14,8 +14,8 @@ For a detailed explanation of how the layer stack works, check out [Keymap Overv
 
 | Keycode              | Alias     | Description                                                                                             |
 |----------------------|-----------|---------------------------------------------------------------------------------------------------------|
-| `QK_TRI_LAYER_LOWER` | `TL_LOWR` | Momentarily enables the "lower" layer. Enables the "adjust" layer if the "upper" layer is also enabled" |
-| `QK_TRI_LAYER_UPPER` | `TL_UPPR` | Momentarily enables the "upper" layer. Enables the "adjust" layer if the "lower" layer is also enabled" |
+| `QK_TRI_LAYER_LOWER` | `TL_LOWR` | Momentarily enables the "lower" layer. Enables the "adjust" layer if the "upper" layer is also enabled. |
+| `QK_TRI_LAYER_UPPER` | `TL_UPPR` | Momentarily enables the "upper" layer. Enables the "adjust" layer if the "lower" layer is also enabled. |
 
 ## Configuration
 
