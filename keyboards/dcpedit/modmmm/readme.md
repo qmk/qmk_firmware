@@ -13,17 +13,13 @@ Replacement PCB for the IBM Model M keyboard.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make dcpedit/mod-mmm/standard:default
+    make dcpedit/modmmm/standard:default
+    make dcpedit/modmmm/ortho:default
 
 Flashing example for this keyboard:
 
-    make dcpedit/mod-mmm/standard:default:flash
-    
-For the ortholinear PCB, use the following commands to build and flash:
-
-    make dcpedit/mod-mmm/ortho:default
-    make dcpedit/mod-mmm/ortho:default:flash
-
+    make dcpedit/modmmm/standard:default:flash
+    make dcpedit/modmmm/ortho:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
