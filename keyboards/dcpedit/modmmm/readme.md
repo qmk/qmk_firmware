@@ -1,7 +1,9 @@
 # Mod Mmm
 
 ![Mod Mmm](https://i.imgur.com/oMP5RlJ.jpeg)
+_Standard_
 ![Mod Mmm Ortholinear](https://i.imgur.com/g60BMQH.jpeg)
+_Ortho_
 
 Replacement PCB for the IBM Model M keyboard.
 
