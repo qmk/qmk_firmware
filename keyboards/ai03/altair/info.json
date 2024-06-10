@@ -28,6 +28,9 @@
             "matrix": [5, 0]
         },
         "enabled": true,
+        "handedness": {
+            "pin": "GP8"
+        },
         "matrix_pins": {
             "right": {
                 "cols": ["GP15", "GP21", "GP9", "GP13", "GP10", "GP11", "GP12"],

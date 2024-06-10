@@ -3,10 +3,6 @@
 
 #pragma once
 
-
-/* Split hand pin for handedness detection */
-#define SPLIT_HAND_PIN GP8
-
 /* VBUS-routed pin for upstream detection */
 #define USB_VBUS_PIN GP0
 
