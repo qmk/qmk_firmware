@@ -8,7 +8,7 @@ _Ortho_
 Replacement PCB for the IBM Model M keyboard.
 
 * Keyboard Maintainer: [dcpedit](https://github.com/dcpedit)
-* Hardware Supported: Blackpill STM32F411
+* Hardware Supported: Blackpill STM32F411 development board, Standard/Ortho Mod Mmm PCB
 * Hardware Availability: https://github.com/dcpedit/mod-mmm
 
 Make example for this keyboard (after setting up your build environment):
