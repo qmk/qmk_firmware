@@ -25,6 +25,7 @@
 #define SPLIT_HAND_PIN D2
 #define POINTING_DEVICE_ROTATION_90
 #define SSD1306OLED
+#define BACKLIGHT_PIN D3
 
 #define LAYOUT_macro(\
     l0A, l1A, l2A, l3A, l4A, l5A,\
@@ -34,7 +35,7 @@
     r0A, r1A, r2A, r3A, r4A, r5A,\
     r0B, r1B, r2B, r3B, r4B, r5B,\
     r0C, r1C, r2C, r3C, r4C, r5C,\
-         r1D, r2D, r3D\
+    r0D, r1D, r2D\
 )\
 {\
     { l5A, l4A, l3A, l2A, l1A, l0A },\
@@ -44,7 +45,7 @@
     { r0A, r1A, r2A, r3A, r4A, r5A },\
     { r0B, r1B, r2B, r3B, r4B, r5B },\
     { r0C, r1C, r2C, r3C, r4C, r5C },\
-    { KC_NO, r1D, r2D, r3D },\
+    { r0D, r1D, r2D },\
 }
 
 #define LAYOUT LAYOUT_macro

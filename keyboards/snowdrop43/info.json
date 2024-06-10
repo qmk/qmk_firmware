@@ -25,12 +25,5 @@
     },
     "split": {
         "enabled": true
-    },
-    "layouts": {
-        "LAYOUT_1x1": {
-            "layout": [
-                {"matrix": [0, 0], "x": 0, "y": 0}
-            ]
-        }
     }
 }
