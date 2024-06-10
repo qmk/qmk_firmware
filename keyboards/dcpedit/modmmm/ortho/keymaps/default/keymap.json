@@ -3,7 +3,7 @@
   "keymap": "default",
   "author": "dcpedit",
   "version": 1,
-  "layout": "LAYOUT_ortho",
+  "layout": "LAYOUT_all",
   "config": {
     "features": {
       "encoder_map": true
