@@ -55,7 +55,7 @@ enum custom_keycodes {
 #define RT4 KC_QUOT
 
 // middle row
-#define LM4 LT(_SYM, KC_S)
+#define LM4 LCTL_T(KC_S)
 #define LM3 LALT_T(KC_C)
 #define LM2 LGUI_T(KC_N)
 #define LM1 LSFT_T(KC_T)
@@ -65,10 +65,10 @@ enum custom_keycodes {
 #define RM1 RSFT_T(KC_A)
 #define RM2 RGUI_T(KC_E)
 #define RM3 RALT_T(KC_I)
-#define RM4 LT(_SYM, KC_H)
+#define RM4 RCTL_T(KC_H)
 
 // bottom row
-#define LB4 LCTL_T(KC_F)
+#define LB4 KC_F
 #define LB3 KC_P
 #define LB2 KC_L
 #define LB1 KC_D
@@ -80,7 +80,7 @@ enum custom_keycodes {
 #define RB1 KC_U
 #define RB2 KC_O
 #define RB3 KC_Y
-#define RB4 RCTL_T(KC_B)
+#define RB4 KC_B
 
 // thumb row
 #define LH4 KC_LEFT
@@ -88,9 +88,9 @@ enum custom_keycodes {
 #define LH2 G(KC_TAB)
 #define LH1 KC_BSPC
 #define LH0 LT(_NAV, KC_R)
-#define LH00 KC_TAB
+#define LH00 LT(_SYM, KC_TAB)
 
-#define RH00 KC_ESC
+#define RH00 LT(_SYM, KC_ESC)
 #define RH0 LT(_NUM, KC_SPC)
 #define RH1 KC_ENT
 #define RH2 TG(_NUM)
@@ -136,15 +136,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     /*
-    	[   7   8   9   ]       +   .   /
-    	;   1   2   3   =       ,   ⇧   ⌘   ⌥   ^
-    	`   4   5   6   \
-    	←   →           0   -
+    	*   4   5   6   -       +   .   /
+    	/   1   2   3   +       ,   ⇧   ⌘   ⌥   ^
+    	,   7   8   9   =       -
+    	←   →       .   0   ␣
     */
     [_NUM] = LAYOUT(
-    KC_MINS, KC_7,    KC_8,    KC_9,    KC_ASTR,                   _______, _______, _______, _______, _______,
-    KC_PLUS, KC_1,    KC_2,    KC_3,    KC_SLSH,                   _______, OSMSFT,  OSMCMD,  OSMOPT,  OSMCTL,
-    KC_EQL,  KC_4,    KC_5,    KC_6,    KC_COMM, _______, _______, _______, _______, ___x___, ___x___, _______,
+    KC_ASTR, KC_4,    KC_5,    KC_6,    KC_MINS,                   _______, _______, _______, _______, _______,
+    KC_SLSH, KC_1,    KC_2,    KC_3,    KC_PLUS,                   _______, OSMSFT,  OSMCMD,  OSMOPT,  OSMCTL,
+    KC_COMM, KC_7,    KC_8,    KC_9,    KC_EQL,  _______, _______, _______, _______, ___x___, ___x___, _______,
     _______, _______, _______, KC_DOT,  KC_0,    KC_SPC,  _______, _______, _______, _______, _______, _______
     ),
 
@@ -163,7 +163,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
 		{   &   *   (   }
     	:   !   @   #   +       ⇧   ⌘   ⌥   ^
-    	~   $   %   ^   |
+    	~   $   %   ^   |                       
     	←   →       (   )   _
     *
     [_SYM] = LAYOUT(
