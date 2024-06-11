@@ -1,4 +1,4 @@
-// Copyright 2020 QMK / Sendy YK
+// Copyright 2024 QMK / Aggynium
 // SPDX-License-Identifier: GPL-2.0-or-later/
 
 #include QMK_KEYBOARD_H

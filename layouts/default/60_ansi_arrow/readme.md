@@ -1,6 +1,6 @@
 # 60_ansi_arrow Keymap
 
-Default 60 ANSI Arrow Keymap by [Sendy YK](https://mr.sendyyk.com).
+Default 60 ANSI Arrow Keymap by [Aggynium](https://github.com/aggynium).
 
 ```c
     /*
