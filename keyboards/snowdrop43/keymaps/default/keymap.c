@@ -3,6 +3,13 @@
 
 #include QMK_KEYBOARD_H
 
+enum my_keycode{
+  SCROLL = SAFE_RANGE,
+  SWITCH,
+  CPI_UP,
+  CPI_DW,
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
         KC_TAB,  KC_Q,    KC_W,    KC_E,   KC_R,     KC_T,
@@ -29,19 +36,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [2] = LAYOUT(
         _______, KC_EXLM, KC_AT  , KC_HASH, KC_DLR , KC_PERC,
         _______, KC_1   , KC_2   , KC_3   , KC_4   , KC_5   ,
-        _______, _______, KC_BTN3, KC_BTN2, KC_BTN1, _______,
+        _______, _______, SCROLL , KC_BTN2, KC_BTN1, _______,
                           _______, _______, _______, _______,
-
 
         KC_CIRC, KC_AMPR, KC_ASTR, KC_PEQL, KC_PPLS, _______,
         KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , _______,
-        _______, _______, _______, _______, _______, _______,
+        _______, CPI_UP , CPI_DW , SWITCH , _______, _______,
                  _______, _______, _______
     )
-};
-
-enum custom_keycodes {
-    DRAG_SCROLL = KC_BTN3,
 };
 
 bool set_scrolling = false;
@@ -53,6 +55,8 @@ bool set_scrolling = false;
 // Variables to store accumulated scroll values
 float scroll_accumulated_h = 0;
 float scroll_accumulated_v = 0;
+int8_t cpi = 40;
+bool is_normal = true;
 
 // Function to handle mouse reports and perform drag scrolling
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
@@ -77,16 +81,47 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     return mouse_report;
 }
 
-// Function to handle key events and enable/disable drag scrolling
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case DRAG_SCROLL:
-            // Toggle set_scrolling when DRAG_SCROLL key is pressed or released
-            set_scrolling = record->event.pressed;
-            break;
-        default:
-            break;
-    }
-    return true;
+  uint8_t addr = 0x14;
+  uint8_t data_n[] = {0x90, 0x00};    // AZ1UBALL normal speed mode
+  uint8_t data_a[] = {0x91, 0x00};    // AZ1UBALL accellarationspeed mode
+  uint16_t timeout = 100;             // in milli-seconds
+  switch (keycode) {
+    case SWITCH:
+      if (is_normal) {
+        i2c_transmit (addr, data_a, 2, timeout);
+        pimoroni_trackball_set_cpi(128*cpi);
+        is_normal = false;
+      } else {
+        i2c_transmit (addr, data_n, 2, timeout);
+        pimoroni_trackball_set_cpi(128*125);
+        is_normal = true;
+      }
+    case CPI_UP:
+      cpi += 5;
+      pimoroni_trackball_set_cpi(128*cpi);
+    case CPI_DW:
+      cpi -= 5;
+      pimoroni_trackball_set_cpi(128*cpi);
+    case SCROLL:
+        set_scrolling = record->event.pressed;
+        break;
+    default:
+        break;
+      break;
+  }
+  return true;
 }
 
+// void pointing_device_init_kb(void) {
+//     uint8_t addr = 0x14;
+//     uint8_t data[] = {0x91, 0x00};
+//     uint16_t timeout = 100;
+//     i2c_status_t status;
+//     pimoroni_trackball_set_cpi(128*cpi);
+//     status = i2c_transmit (addr, data, 2, timeout);
+//     if (status != 0) {
+//         return;
+//     }
+// }
