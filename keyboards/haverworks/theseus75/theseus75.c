@@ -18,6 +18,27 @@
 #include "transactions.h"
 #include <stdio.h>
 #include "print.h"
+#include "usbpd.h"
+
+typedef struct _kb_state_t {
+    usbpd_allowance_t allowance;
+} kb_state_t;
+
+kb_state_t kb_state;
+
+const char* usbpd_str(usbpd_allowance_t allowance) {
+    switch (allowance) {
+        case USBPD_500MA:
+            return "500mA";
+        case USBPD_1500MA:
+            return "1500mA";
+        case USBPD_3000MA:
+            return "3000mA";
+        default:
+            dprintf("Encountered unknown allowance enum value: %d\n", allowance);
+            return "UNKNOWN";
+    }
+}
 
 void keyboard_pre_init_kb(void) {
     // Disable the PD peripheral in pre-init because its pins are being used in the matrix:
@@ -32,6 +53,9 @@ void keyboard_pre_init_kb(void) {
 }
 
 void keyboard_post_init_kb(void) {
+    // Set default state values
+    kb_state.allowance = USBPD_500MA;
+
     // If the keyboard is master
     if (is_keyboard_master()) {
         // Turn on power to the split half and to underglow LEDs
@@ -76,25 +100,26 @@ void housekeeping_task_kb(void) {
     // Call the corresponding _user() function (see https://docs.qmk.fm/#/custom_quantum_functions)
     housekeeping_task_user();
 
-    static uint32_t usbcpd_timer = 0;
-    if (timer_elapsed32(usbcpd_timer) > USBCPD_TIMESPAN) {
+    static uint32_t last_usbpd_allowance_check_time = 0;
+    if (timer_elapsed32(last_usbpd_allowance_check_time) > USBPD_ALLOWANCE_CHECK_INTERVAL) {
         // On master side: check USBPD_1_PIN and USBPD_2_PIN to determine current negotiated with host
+        // (Can't use the usbpd_get_allowance() function this uses this uses the native CC PD interface
+        //  of the G series MCU, while we're using dedicated port controllers instead)
         if (is_keyboard_master()) {
-            bool    out1         = gpio_read_pin(USBPD_1_PIN);
-            bool    out2         = gpio_read_pin(USBPD_2_PIN);
-            uint8_t host_current = 0; // 0: 500 mA, 1: 1500 mA, 2:3000 mA
+            usbpd_allowance_t allowance;
 
-            if (out1 == 1) {
-                host_current = 0;
-                printf("Host negotiated current: 500 mA\n");
-            } else if (out2 == 1) {
-                host_current = 1;
-                printf("Host negotiated current: 1500 mA\n");
+            if (gpio_read_pin(USBPD_1_PIN)) {
+                allowance = USBPD_500MA;
+            } else if (gpio_read_pin(USBPD_2_PIN)) {
+                allowance = USBPD_1500MA;
             } else {
-                host_current = 2;
-                printf("Host negotiated current: 3000 mA\n");
-            };
-            printf("Host current variable: %d\n", host_current);
+                allowance = USBPD_3000MA;
+            }
+
+            if (kb_state.allowance != allowance) {
+                printf("Host negotiated current: %s -> %s\n", usbpd_str(kb_state.allowance), usbpd_str(allowance));
+                kb_state.allowance = allowance;
+            }
         } else {
             printf("Im slave, you shouldn't see this\n");
             // On peripheral side - If ID_PIN is low: USB client negotiated 5V successfully -> enable power routing
@@ -107,6 +132,6 @@ void housekeeping_task_kb(void) {
                 printf("USB downstream device disconnected\n");
             }
         };
-        usbcpd_timer = timer_read32();
+        last_usbpd_allowance_check_time = timer_read32();
     };
 }
