@@ -5,7 +5,8 @@
 
 enum my_keycode{
   SCROLL = SAFE_RANGE,
-  SWITCH,
+  NORMAL,
+  ACCEL,
   CPI_UP,
   CPI_DW,
 };
@@ -41,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         KC_CIRC, KC_AMPR, KC_ASTR, KC_PEQL, KC_PPLS, _______,
         KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , _______,
-        _______, CPI_UP , CPI_DW , SWITCH , _______, _______,
+        _______, CPI_UP , CPI_DW , NORMAL , ACCEL  , _______,
                  _______, _______, _______
     )
 };
@@ -56,7 +57,7 @@ bool set_scrolling = false;
 float scroll_accumulated_h = 0;
 float scroll_accumulated_v = 0;
 int8_t cpi = 40;
-bool is_normal = true;
+
 
 // Function to handle mouse reports and perform drag scrolling
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
@@ -81,29 +82,30 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     return mouse_report;
 }
 
+bool is_normal = true;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   uint8_t addr = 0x14;
-  uint8_t data_n[] = {0x90, 0x00};    // AZ1UBALL normal speed mode
-  uint8_t data_a[] = {0x91, 0x00};    // AZ1UBALL accellarationspeed mode
-  uint16_t timeout = 100;             // in milli-seconds
+  uint8_t data_n[] = {0x90, 0x00};
+  uint8_t data_a[] = {0x91, 0x00};
+  uint16_t timeout = 100;
   switch (keycode) {
-    case SWITCH:
-      if (is_normal) {
-        i2c_transmit (addr, data_a, 2, timeout);
-        pimoroni_trackball_set_cpi(128*cpi);
-        is_normal = false;
-      } else {
-        i2c_transmit (addr, data_n, 2, timeout);
-        pimoroni_trackball_set_cpi(128*125);
-        is_normal = true;
-      }
+    case ACCEL:
+      i2c_transmit (addr, data_a, 2, timeout);
+      pimoroni_trackball_set_cpi(128*cpi);
+      break;
+    case NORMAL:
+      i2c_transmit (addr, data_n, 2, timeout);
+      pimoroni_trackball_set_cpi(128*125*2);
+      break;
     case CPI_UP:
       cpi += 5;
       pimoroni_trackball_set_cpi(128*cpi);
+      break;
     case CPI_DW:
       cpi -= 5;
       pimoroni_trackball_set_cpi(128*cpi);
+      break;
     case SCROLL:
         set_scrolling = record->event.pressed;
         break;
