@@ -1,5 +1,26 @@
 {
+    "development_board": "proton_c",
+    "matrix_pins": {
+        "cols": ["B9", "B15", "B14", "B13", "B8", "A0", "A1", "A2"],
+        "rows": ["B1", "B2", "B3", "B5"]
+    },
+    "diode_direction": "COL2ROW",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B4", "pin_b": "B0"}
+        ]
+    },
+    "split": {
+        "encoder": {
+            "right": {
+                "rotary": [
+                    {"pin_a": "B0", "pin_b": "B4"}
+                ]
+            }
+        }
+    },
     "ws2812": {
-        "driver": "pwm"
+        "driver": "pwm",
+        "pin": "A3"
     }
 }
