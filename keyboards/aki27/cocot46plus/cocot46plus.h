@@ -56,8 +56,6 @@ enum cocot_keycodes {
 #define SCRL_TO QK_USER_5
 #define SCRL_IN QK_USER_6
 
-bool encoder_update_user(uint8_t index, bool clockwise);
-bool encoder_update_kb(uint8_t index, bool clockwise);
 bool cocot_get_scroll_mode(void);
 void cocot_set_scroll_mode(bool mode);
 

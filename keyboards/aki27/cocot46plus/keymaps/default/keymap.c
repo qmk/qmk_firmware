@@ -16,9 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-#include <stdio.h>
-#include "quantum.h"
-
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_number {
