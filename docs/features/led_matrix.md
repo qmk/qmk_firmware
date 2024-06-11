@@ -352,7 +352,7 @@ static bool my_cool_effect2(effect_params_t* params) {
 To switch to your custom effect programmatically, simply call `led_matrix_mode()` and prepend `LED_MATRIX_CUSTOM_` to the effect name your specified in `LED_MATRIX_EFFECT()`. For example, an effect declared as `LED_MATRIX_EFFECT(my_cool_effect)` would be referenced with:
 
 ```c
-led_matrix_mode(led_MATRIX_CUSTOM_my_cool_effect);
+led_matrix_mode(LED_MATRIX_CUSTOM_my_cool_effect);
 ```
 
 For inspiration and examples, check out the built-in effects under `quantum/led_matrix/animations/`.
