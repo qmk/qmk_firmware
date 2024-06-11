@@ -1,4 +1,4 @@
-/* Copyright 2023 Moritz Plattner
+/* Copyright 2023 Moritz Plattner (@ebastler), Alex Havermale (@haversnail)
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -28,8 +28,16 @@
 
 #define SELECT_SOFT_SERIAL_SPEED 0    // Experimental, will make connection faster but may need testing.
 
-#define USB_VBUS_PIN C15                // Only the master side will have VBUS present at power-up. used to determine master/slave
-#define SPLIT_HAND_PIN B9               // The MCUs probe a pin to determine if they are left or right side. high = left, low = right
+#define ID_PIN A13
+#define USBSW_PIN A14     // Switches the hub input/output with the MUXes
+#define PSW_PIN A15       // Turns the power routing to the usb-c port on/off
+#define SPLIT_HAND_PIN B9 // The MCUs probe a pin to determine if they are left or right side. high = left, low = right
+#define BUS_B_PIN C13     // Tells the hub to be bus powered or self powered (which in turn tells the clients connected to it to be 100 mA or 500 mA)
+#define USB_VBUS_PIN C15  // Only the master side will have VBUS present at power-up (used to determine master/slave)
+#define USBPD_1_PIN F0
+#define USBPD_2_PIN F1
+
+#define SPLIT_TRANSACTION_IDS_KB RPC_ID_KB_STATE
 
 #define SPLIT_LAYER_STATE_ENABLE
 #define SPLIT_LED_STATE_ENABLE          // Required to sync LED indicator state info to the slave half (see https://docs.qmk.fm/#/feature_led_indicators)
