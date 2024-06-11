@@ -76,20 +76,19 @@ void keyboard_post_init_kb(void) {
         gpio_set_pin_output(USBSW_PIN);
         gpio_write_pin_high(USBSW_PIN);
 
-        // Enable outputs used for current negotiation
+        // Enable outputs used for current negotiation and default to 500mA
         gpio_set_pin_output(USBPD_1_PIN);
+        gpio_write_pin_high(USBPD_1_PIN);
         gpio_set_pin_output(USBPD_2_PIN);
-
-        // Test: 1.5A forced output
-        gpio_write_pin_low(USBPD_1_PIN);
         gpio_write_pin_high(USBPD_2_PIN);
 
         // Use ID pin to check if client is detected (if low: USB source port powered)
         gpio_set_pin_input_high(ID_PIN);
 
-        // Set BUS_B low to indicate a bus-powered hub (Test)
+        // Default to indicating the hub is bus-powered, and that high-powered devices should not try to connect or fast charge
+        // TODO: make this configurable for users who would rather always have their device connect, regardless of whether they meet the specs
         gpio_set_pin_output(BUS_B_PIN);
-        gpio_write_pin_high(BUS_B_PIN);
+        gpio_write_pin_low(BUS_B_PIN);
     }
     // Call the corresponding _user() function (see https://docs.qmk.fm/#/custom_quantum_functions)
     keyboard_post_init_user();
