@@ -14,7 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
  
-#include "phaseone.h"
+#include "quantum.h"
+
 void keyboard_pre_init_kb(void) {
-    setPinOutput(D4);
+    gpio_set_pin_output(D4);
 }

@@ -19,18 +19,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * scan matrix
  */
-#include <stdint.h>
-#include <stdbool.h>
-#if defined(__AVR__)
-#include <avr/io.h>
-#endif
+#include "matrix.h"
 #include "meira.h"
 #include "wait.h"
 #include "print.h"
 #include "debug.h"
-#include "util.h"
-#include "matrix.h"
-#include "config.h"
 #include "timer.h"
 
 #ifndef DEBOUNCE
@@ -119,7 +112,7 @@ void matrix_init(void)
         matrix_debouncing[i] = 0;
     }
 
-    matrix_init_quantum();
+    matrix_init_kb();
 
 }
 
@@ -154,7 +147,7 @@ uint8_t _matrix_scan(void)
 uint8_t matrix_scan(void)
 {
 	uint8_t ret = _matrix_scan();
-	matrix_scan_quantum();
+	matrix_scan_kb();
 	return ret;
 }
 

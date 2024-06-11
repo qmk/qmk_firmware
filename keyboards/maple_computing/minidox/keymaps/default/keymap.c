@@ -5,14 +5,15 @@
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-#define _QWERTY 0
-#define _LOWER 1
-#define _RAISE 2
-#define _ADJUST 16
+enum layer_names {
+    _QWERTY,
+    _LOWER,
+    _RAISE,
+    _ADJUST
+};
 
 enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  LOWER,
+  LOWER = SAFE_RANGE,
   RAISE,
   ADJUST,
 };
@@ -107,27 +108,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] =  LAYOUT_split_3x5_3(
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,        KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,
   KC_F11,  KC_F12,  _______, _______, _______,      _______, _______, _______, TSKMGR, CALTDEL,
-  QK_BOOT,   _______, _______, _______, _______,      _______, _______, _______, _______,  _______,
+  QK_BOOT, _______, _______, _______, _______,      _______, _______, _______, _______,  _______,
                     _______, _______, _______,      _______,  _______, _______
 )
 };
 
-void persistant_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_qwerty);
-        #endif
-        persistant_default_layer_set(1UL<<_QWERTY);
-      }
-      return false;
-      break;
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);

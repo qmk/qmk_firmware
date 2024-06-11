@@ -5,7 +5,7 @@ ps2avr(GB) boards use an ATmega32A microcontroller and a different bootloader. I
 General flashing sequence:
 
 1. Enter the bootloader using any of the following methods:
-    * Tap the `RESET` keycode (may not work on all devices)
+    * Tap the `QK_BOOT` keycode (may not work on all devices)
     * Hold the salt key while plugging the keyboard in (usually documented within keyboard readme) 
 2. Wait for the OS to detect the device
 3. Flash a .hex file
@@ -13,11 +13,15 @@ General flashing sequence:
 
 ## bootloadHID Flashing Target
 
-?> Using the QMK installation script, detailed [here](newbs_getting_started.md), the required bootloadHID tools should be automatically installed.
+::: tip
+Using the QMK installation script, detailed [here](newbs_getting_started), the required bootloadHID tools should be automatically installed.
+:::
 
 To flash via the command line, use the target `:bootloadhid` by executing the following command:
 
-    make <keyboard>:<keymap>:bootloadhid
+```
+make <keyboard>:<keymap>:bootloadhid
+```
 
 ## GUI Flashing
 

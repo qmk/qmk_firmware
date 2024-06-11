@@ -41,7 +41,6 @@ typedef union {
 /* Local copy of led_mask, used to override colors on the board */
 extern ap2_led_t led_mask[KEY_COUNT];
 extern ap2_led_t led_colors[KEY_COUNT];
-extern uint8_t rgb_row_changed[NUM_ROW];
 
 /* Handle incoming messages */
 extern void led_command_callback(const message_t *msg);
@@ -50,7 +49,6 @@ void ap2_set_IAP(void);
 void ap2_led_disable(void);
 void ap2_led_enable(void);
 void ap2_led_set_profile(uint8_t prof);
-void ap2_led_get_status(void);
 void ap2_led_next_profile(void);
 void ap2_led_prev_profile(void);
 void ap2_led_next_intensity(void);
@@ -85,6 +83,11 @@ void ap2_led_blink(uint8_t row, uint8_t col, ap2_led_t color, uint8_t count, uin
 /* Kept for compatibility, but implemented using masks */
 void ap2_led_set_foreground_color(uint8_t red, uint8_t green, uint8_t blue);
 void ap2_led_reset_foreground_color(void);
+
+void ap2_led_sticky_set_key(uint8_t row, uint8_t col, ap2_led_t color);
+void ap2_led_unset_sticky_key(uint8_t row, uint8_t col);
+void ap2_led_unset_sticky_row(uint8_t row);
+void ap2_led_unset_sticky_all(void);
 
 typedef struct {
     uint8_t amount_of_profiles;

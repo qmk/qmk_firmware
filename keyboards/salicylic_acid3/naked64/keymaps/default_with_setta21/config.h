@@ -21,11 +21,10 @@
 #define MASTER_LEFT
 // #define MASTER_RIGHT
 // #define EE_HANDS
-#define USE_SERIAL_PD2
 
-#define TAPPING_FORCE_HOLD
+#define QUICK_TAP_TERM 0
 #define TAPPING_TERM 180
 
-#define RGBLED_NUM 12    // Number of LEDs
+#define RGBLIGHT_LED_COUNT 12    // Number of LEDs
 #define RGBLIGHT_LED_MAP { 0, 1, 3, 2, 2, 3, 2, 3, 4, 5, 6, 7 }
 

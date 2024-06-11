@@ -15,7 +15,7 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "launch_1.h"
+#include "quantum.h"
 
 #include "usb_mux.h"
 
@@ -182,7 +182,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     }
 
     switch (keycode) {
-        case RESET:
+        case QK_BOOT:
             if (record->event.pressed) {
                 system76_ec_unlock();
             }

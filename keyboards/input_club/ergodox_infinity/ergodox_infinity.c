@@ -1,4 +1,4 @@
-#include QMK_KEYBOARD_H
+#include "ergodox_infinity.h"
 #include <ch.h>
 #include <hal.h>
 #include <string.h>
@@ -94,12 +94,7 @@ __attribute__ ((weak)) void matrix_init_user(void) {}
 __attribute__ ((weak)) void matrix_scan_user(void) {}
 
 
-void keyboard_pre_init_kb() {
-#ifdef LED_MATRIX_ENABLE
-    // Turn on LED controller
-    setPinOutput(B16);
-    writePinHigh(B16);
-#endif
+void keyboard_pre_init_kb(void) {
     // The backlight always has to be initialized, otherwise it will stay lit
     lcd_backlight_hal_init();
 #ifdef ST7565_ENABLE
@@ -117,10 +112,7 @@ void matrix_init_kb(void) {
      * Since K20x is stuck with a 32 byte EEPROM (see tmk_core/common/chibios/eeprom_teensy.c),
      * and neither led_matrix_eeconfig.speed or .flags fit in this boundary, just force their values to default on boot.
      */
-#    if !defined(LED_MATRIX_STARTUP_SPD)
-#        define LED_MATRIX_STARTUP_SPD UINT8_MAX / 2
-#    endif
-    led_matrix_set_speed(LED_MATRIX_STARTUP_SPD);
+    led_matrix_set_speed(LED_MATRIX_DEFAULT_SPD);
     led_matrix_set_flags(LED_FLAG_ALL);
 #endif
 
@@ -174,7 +166,7 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 #endif
 
 #ifdef LED_MATRIX_ENABLE
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 // The numbers in the comments are the led numbers DXX on the PCB
 /* Refer to IS31 manual for these locations
  *  driver
@@ -198,7 +190,7 @@ const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 //                                                                       71           70           69
                                                                     { 0, C3_7 }, { 0, C2_7 }, { 0, C1_7 },
 // Right half (mirrored)
-// Due to how LED_MATRIX_SPLIT is implemented, only the first half of g_is31_leds is actually used.
+// Due to how LED_MATRIX_SPLIT is implemented, only the first half of g_is31fl3731_leds is actually used.
 // Luckily, the right half has the same LED pinouts, just mirrored.
 //      45           44           43           42           41           40           39
    { 0, C2_2 }, { 0, C1_2 }, { 0, C5_1 }, { 0, C4_1 }, { 0, C3_1 }, { 0, C2_1 }, { 0, C1_1 },

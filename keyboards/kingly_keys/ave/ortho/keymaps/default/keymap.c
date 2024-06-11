@@ -32,7 +32,7 @@ enum avenue_tapcodes {
   TD_DBQT,
 };
 
-void dance_rst_reset (qk_tap_dance_state_t *state, void *user_data) { // *Line_Note.001
+void dance_rst_reset (tap_dance_state_t *state, void *user_data) { // *Line_Note.001
   if (state->count >= 2) {
     reset_keyboard();
     reset_tap_dance(state);
@@ -40,7 +40,7 @@ void dance_rst_reset (qk_tap_dance_state_t *state, void *user_data) { // *Line_N
 }
 
 //Tap Dance Functions:
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
  [TD_RST] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, NULL, dance_rst_reset), // References "dance_rst_reset" (*Line_Note.001)
  [TD_DBQT] = ACTION_TAP_DANCE_DOUBLE (KC_QUOTE, KC_DQT)
 };
@@ -217,23 +217,23 @@ void keyboard_post_init_user(void) {
         rgblight_sethsv_noeeprom(50, 255, 100);
         rgblight_mode_noeeprom(RGBLIGHT_EFFECT_BREATHING + 2);
 // Init the second LED to a static color:
-        setrgb(225, 185, 0, (LED_TYPE *)&led[1]);
-    rgblight_set();
+        rgblight_setrgb_at(225, 185, 0, 1);
   #endif // RGBLIGHT_ENABLE
 }
 
 // RGB Indicator Customization: (cont.)
 layer_state_t layer_state_set_user(layer_state_t state){
     #ifdef RGBLIGHT_ENABLE
-        uint8_t led1r = 0; uint8_t led1g = 0; uint8_t led1b = 0;
-            if (layer_state_cmp(state, 1)) {
-                led1b = 255;
-            }
-            if (layer_state_cmp(state, 3)) {
-                led1r = 200;
-            }
-            setrgb(led1r, led1g, led1b, (LED_TYPE *)&led[1]);
-        rgblight_set();
+        uint8_t led1r = 0;
+        uint8_t led1g = 0;
+        uint8_t led1b = 0;
+        if (layer_state_cmp(state, 1)) {
+            led1b = 255;
+        }
+        if (layer_state_cmp(state, 3)) {
+            led1r = 200;
+        }
+        rgblight_setrgb_at(led1r, led1g, led1b, 1);
     #endif //RGBLIGHT_ENABLE
   return state;
 }

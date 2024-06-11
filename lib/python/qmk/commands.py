@@ -8,12 +8,12 @@ from pathlib import Path
 from milc import cli
 import jsonschema
 
-import qmk.keymap
-from qmk.constants import KEYBOARD_OUTPUT_PREFIX
+from qmk.constants import QMK_USERSPACE, HAS_QMK_USERSPACE
 from qmk.json_schema import json_load, validate
+from qmk.keyboard import keyboard_alias_definitions
 
 
-def _find_make():
+def find_make():
     """Returns the correct make command for this environment.
     """
     make_cmd = os.environ.get('MAKE')
@@ -24,71 +24,6 @@ def _find_make():
     return make_cmd
 
 
-def create_make_target(target, dry_run=False, parallel=1, **env_vars):
-    """Create a make command
-
-    Args:
-
-        target
-            Usually a make rule, such as 'clean' or 'all'.
-
-        dry_run
-            make -n -- don't actually build
-
-        parallel
-            The number of make jobs to run in parallel
-
-        **env_vars
-            Environment variables to be passed to make.
-
-    Returns:
-
-        A command that can be run to make the specified keyboard and keymap
-    """
-    env = []
-    make_cmd = _find_make()
-
-    for key, value in env_vars.items():
-        env.append(f'{key}={value}')
-
-    return [make_cmd, *(['-n'] if dry_run else []), *get_make_parallel_args(parallel), *env, target]
-
-
-def create_make_command(keyboard, keymap, target=None, dry_run=False, parallel=1, **env_vars):
-    """Create a make compile command
-
-    Args:
-
-        keyboard
-            The path of the keyboard, for example 'plank'
-
-        keymap
-            The name of the keymap, for example 'algernon'
-
-        target
-            Usually a bootloader.
-
-        dry_run
-            make -n -- don't actually build
-
-        parallel
-            The number of make jobs to run in parallel
-
-        **env_vars
-            Environment variables to be passed to make.
-
-    Returns:
-
-        A command that can be run to make the specified keyboard and keymap
-    """
-    make_args = [keyboard, keymap]
-
-    if target:
-        make_args.append(target)
-
-    return create_make_target(':'.join(make_args), dry_run=dry_run, parallel=parallel, **env_vars)
-
-
 def get_make_parallel_args(parallel=1):
     """Returns the arguments for running the specified number of parallel jobs.
     """
@@ -97,7 +32,7 @@ def get_make_parallel_args(parallel=1):
     if int(parallel) <= 0:
         # 0 or -1 means -j without argument (unlimited jobs)
         parallel_args.append('--jobs')
-    else:
+    elif int(parallel) > 1:
         parallel_args.append('--jobs=' + str(parallel))
 
     if int(parallel) != 1:
@@ -105,85 +40,6 @@ def get_make_parallel_args(parallel=1):
         parallel_args.append('--output-sync=target')
 
     return parallel_args
-
-
-def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_vars):
-    """Convert a configurator export JSON file into a C file and then compile it.
-
-    Args:
-
-        user_keymap
-            A deserialized keymap export
-
-        bootloader
-            A bootloader to flash
-
-        parallel
-            The number of make jobs to run in parallel
-
-    Returns:
-
-        A command to run to compile and flash the C file.
-    """
-    # In case the user passes a keymap.json from a keymap directory directly to the CLI.
-    # e.g.: qmk compile - < keyboards/clueboard/california/keymaps/default/keymap.json
-    user_keymap["keymap"] = user_keymap.get("keymap", "default_json")
-
-    # Write the keymap.c file
-    keyboard_filesafe = user_keymap['keyboard'].replace('/', '_')
-    target = f'{keyboard_filesafe}_{user_keymap["keymap"]}'
-    keyboard_output = Path(f'{KEYBOARD_OUTPUT_PREFIX}{keyboard_filesafe}')
-    keymap_output = Path(f'{keyboard_output}_{user_keymap["keymap"]}')
-    c_text = qmk.keymap.generate_c(user_keymap)
-    keymap_dir = keymap_output / 'src'
-    keymap_c = keymap_dir / 'keymap.c'
-
-    keymap_dir.mkdir(exist_ok=True, parents=True)
-    keymap_c.write_text(c_text)
-
-    # Return a command that can be run to make the keymap and flash if given
-    verbose = 'true' if cli.config.general.verbose else 'false'
-    color = 'true' if cli.config.general.color else 'false'
-    make_command = [_find_make()]
-
-    if not cli.config.general.verbose:
-        make_command.append('-s')
-
-    make_command.extend([
-        *get_make_parallel_args(parallel),
-        '-r',
-        '-R',
-        '-f',
-        'builddefs/build_keyboard.mk',
-    ])
-
-    if bootloader:
-        make_command.append(bootloader)
-
-    for key, value in env_vars.items():
-        make_command.append(f'{key}={value}')
-
-    make_command.extend([
-        f'KEYBOARD={user_keymap["keyboard"]}',
-        f'KEYMAP={user_keymap["keymap"]}',
-        f'KEYBOARD_FILESAFE={keyboard_filesafe}',
-        f'TARGET={target}',
-        f'KEYBOARD_OUTPUT={keyboard_output}',
-        f'KEYMAP_OUTPUT={keymap_output}',
-        f'MAIN_KEYMAP_PATH_1={keymap_output}',
-        f'MAIN_KEYMAP_PATH_2={keymap_output}',
-        f'MAIN_KEYMAP_PATH_3={keymap_output}',
-        f'MAIN_KEYMAP_PATH_4={keymap_output}',
-        f'MAIN_KEYMAP_PATH_5={keymap_output}',
-        f'KEYMAP_C={keymap_c}',
-        f'KEYMAP_PATH={keymap_dir}',
-        f'VERBOSE={verbose}',
-        f'COLOR={color}',
-        'SILENT=false',
-        'QMK_BIN="qmk"',
-    ])
-
-    return make_command
 
 
 def parse_configurator_json(configurator_file):
@@ -198,17 +54,34 @@ def parse_configurator_json(configurator_file):
         cli.log.error(f'Invalid JSON keymap: {configurator_file} : {e.message}')
         exit(1)
 
-    orig_keyboard = user_keymap['keyboard']
-    aliases = json_load(Path('data/mappings/keyboard_aliases.json'))
+    keyboard = user_keymap['keyboard']
+    aliases = keyboard_alias_definitions()
 
-    if orig_keyboard in aliases:
-        if 'target' in aliases[orig_keyboard]:
-            user_keymap['keyboard'] = aliases[orig_keyboard]['target']
+    while keyboard in aliases:
+        last_keyboard = keyboard
+        keyboard = aliases[keyboard].get('target', keyboard)
+        if keyboard == last_keyboard:
+            break
 
-        if 'layouts' in aliases[orig_keyboard] and user_keymap['layout'] in aliases[orig_keyboard]['layouts']:
-            user_keymap['layout'] = aliases[orig_keyboard]['layouts'][user_keymap['layout']]
-
+    user_keymap['keyboard'] = keyboard
     return user_keymap
+
+
+def build_environment(args):
+    """Common processing for cli.args.env
+    """
+    envs = {}
+    for env in args:
+        if '=' in env:
+            key, value = env.split('=', 1)
+            envs[key] = value
+        else:
+            cli.log.warning('Invalid environment variable: %s', env)
+
+    if HAS_QMK_USERSPACE:
+        envs['QMK_USERSPACE'] = Path(QMK_USERSPACE).resolve()
+
+    return envs
 
 
 def in_virtualenv():

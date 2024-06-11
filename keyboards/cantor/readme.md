@@ -27,4 +27,4 @@ Enter the bootloader in 3 ways:
   * Press and hold the BOOT0 button.
   * Press and release the NRST button.
   * Release the BOOT0 button.
-* **Keycode in layout**: Press the key mapped to `RESET` if it is available
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available

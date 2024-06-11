@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case SFT_ESC:
-      SET_WHETHER(MODS_PRESSED(SHIFT), KC_ESC, KC_GRAVE);
+      SET_WHETHER(MODS_PRESSED(SFT), KC_ESC, KC_GRAVE);
 
       return false;
 
@@ -75,24 +75,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 }
 
-void led_set_user(uint8_t usb_led) {
-  if (usb_led & _BV(USB_LED_CAPS_LOCK)) {
-    PORTB |= _BV(PB0);
-  } else {
-    PORTB &= ~_BV(PB0);
-  }
-}
-
 void matrix_init_user(void) {
-  DDRB |= _BV(PB0);
-  DDRC |= _BV(PC7);
+  gpio_set_pin_output(C7);
+  gpio_write_pin_low(C7);
 }
 
-void matrix_scan_user(void) {
-  uint8_t layer = biton32(layer_state);
-  if (layer) {
-    PORTC |= _BV(PC7);
+layer_state_t layer_state_set_user(layer_state_t state) {
+  if (get_highest_layer(state)) {
+    gpio_write_pin_high(C7);
   } else {
-    PORTC &= ~_BV(PC7);
+    gpio_write_pin_low(C7);
   }
+  return state;
 }

@@ -60,3 +60,11 @@
 
 #define HT32_USB_USE_USB0 TRUE
 #define HT32_USB_USB0_IRQ_PRIORITY 5
+
+/*
+ * SPI driver setting
+ */
+
+#define HT32_SPI_USE_SPI1 TRUE
+#define HT32_SPI1_IRQ_PRIORITY 9
+

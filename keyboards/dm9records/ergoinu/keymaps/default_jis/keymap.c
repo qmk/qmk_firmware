@@ -8,8 +8,8 @@ extern rgblight_config_t rgblight_config;
 #define JA_CLON KC_QUOT  // : and +
 #define JA_AT   KC_LBRC  // @ and `
 #define JA_HAT  KC_EQL   // ^ and ~
-#define JA_ENUN KC_RO    // \ and _ (EN mark and UNder score)
-#define JA_ENVL KC_JYEN  // \ and | (EN mark and Vertical Line)
+#define JA_ENUN KC_INT1  // \ and _ (EN mark and UNder score)
+#define JA_ENVL KC_INT3  // \ and | (EN mark and Vertical Line)
 #define JA_LBRC KC_RBRC  // [ and {
 #define JA_RBRC KC_BSLS  // ] and }
 
@@ -27,19 +27,19 @@ enum CUSTOM_KEYCODES {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [BASE] = LAYOUT(
-    KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,   KC_8,    KC_9,    KC_0,    KC_MINS, JA_HAT,   KC_JYEN,
+    KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,   KC_8,    KC_9,    KC_0,    KC_MINS, JA_HAT,   KC_INT3,
     KC_DEL,  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,   KC_U,    KC_I,    KC_O,    KC_P,    JA_AT,    JA_LBRC,
     KC_LCTL,          KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,   KC_J,    KC_K,    KC_L,    KC_SCLN, JA_CLON,  JA_RBRC,
-    KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,   KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RO,    KC_RSFT,
-                      MO(META),KC_LALT, KC_ZKHK, KC_BSPC, KC_SPC,  KC_ENT, KC_BSPC, KC_MHEN, KC_KANA, MO(META)
+    KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,   KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_INT1,  KC_RSFT,
+                      MO(META),KC_LALT, KC_GRV,  KC_BSPC, KC_SPC,  KC_ENT, KC_BSPC, KC_INT5, KC_INT2, MO(META)
   ),
 
   [META] = LAYOUT(
     MO(CONF),KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_INS,
-    _______, KC_CAPS, _______, KC_UP,   _______, _______, _______, _______, _______, _______, KC_SLCK, KC_PSCR, KC_HOME, KC_END,
+    _______, KC_CAPS, _______, KC_UP,   _______, _______, _______, _______, _______, _______, KC_SCRL, KC_PSCR, KC_HOME, KC_END,
     _______,          KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, _______, KC_PAUS, KC_PGUP, KC_UP,   KC_PGDN,
     _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT,
-                      _______, _______, KC_RGUI, KC_DEL,  KC_ENT,  _______, KC_DEL,  KC_HENK, KC_LGUI, _______
+                      _______, _______, KC_RGUI, KC_DEL,  KC_ENT,  _______, KC_DEL,  KC_INT4, KC_LGUI, _______
   ),
 
   [CONF] = LAYOUT(

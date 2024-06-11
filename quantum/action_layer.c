@@ -1,15 +1,9 @@
 #include <limits.h>
 #include <stdint.h>
 
-#ifdef DEBUG_ACTION
-#    include "debug.h"
-#else
-#    include "nodebug.h"
-#endif
-
 #include "keyboard.h"
-#include "keymap.h"
 #include "action.h"
+#include "encoder.h"
 #include "util.h"
 #include "action_layer.h"
 
@@ -39,15 +33,15 @@ __attribute__((weak)) layer_state_t default_layer_state_set_kb(layer_state_t sta
  */
 static void default_layer_state_set(layer_state_t state) {
     state = default_layer_state_set_kb(state);
-    debug("default_layer_state: ");
+    ac_dprintf("default_layer_state: ");
     default_layer_debug();
-    debug(" to ");
+    ac_dprintf(" to ");
     default_layer_state = state;
     default_layer_debug();
-    debug("\n");
-#ifdef STRICT_LAYER_RELEASE
+    ac_dprintf("\n");
+#if defined(STRICT_LAYER_RELEASE)
     clear_keyboard_but_mods(); // To avoid stuck keys
-#else
+#elif defined(SEMI_STRICT_LAYER_RELEASE)
     clear_keyboard_but_mods_and_keys(); // Don't reset held keys
 #endif
 }
@@ -57,7 +51,7 @@ static void default_layer_state_set(layer_state_t state) {
  * Print out the hex value of the 32-bit default layer state, as well as the value of the highest bit.
  */
 void default_layer_debug(void) {
-    dprintf("%08lX(%u)", default_layer_state, get_highest_layer(default_layer_state));
+    ac_dprintf("%08hX(%u)", default_layer_state, get_highest_layer(default_layer_state));
 }
 
 /** \brief Default Layer Set
@@ -71,21 +65,21 @@ void default_layer_set(layer_state_t state) {
 #ifndef NO_ACTION_LAYER
 /** \brief Default Layer Or
  *
- * Turns on the default layer based on matching bits between specifed layer and existing layer state
+ * Turns on the default layer based on matching bits between specified layer and existing layer state
  */
 void default_layer_or(layer_state_t state) {
     default_layer_state_set(default_layer_state | state);
 }
 /** \brief Default Layer And
  *
- * Turns on default layer based on matching enabled bits between specifed layer and existing layer state
+ * Turns on default layer based on matching enabled bits between specified layer and existing layer state
  */
 void default_layer_and(layer_state_t state) {
     default_layer_state_set(default_layer_state & state);
 }
 /** \brief Default Layer Xor
  *
- * Turns on default layer based on non-matching bits between specifed layer and existing layer state
+ * Turns on default layer based on non-matching bits between specified layer and existing layer state
  */
 void default_layer_xor(layer_state_t state) {
     default_layer_state_set(default_layer_state ^ state);
@@ -115,19 +109,19 @@ __attribute__((weak)) layer_state_t layer_state_set_kb(layer_state_t state) {
 
 /** \brief Layer state set
  *
- * Sets the layer to match the specifed state (a bitmask)
+ * Sets the layer to match the specified state (a bitmask)
  */
 void layer_state_set(layer_state_t state) {
     state = layer_state_set_kb(state);
-    dprint("layer_state: ");
+    ac_dprintf("layer_state: ");
     layer_debug();
-    dprint(" to ");
+    ac_dprintf(" to ");
     layer_state = state;
     layer_debug();
-    dprintln();
-#    ifdef STRICT_LAYER_RELEASE
+    ac_dprintf("\n");
+#    if defined(STRICT_LAYER_RELEASE)
     clear_keyboard_but_mods(); // To avoid stuck keys
-#    else
+#    elif defined(SEMI_STRICT_LAYER_RELEASE)
     clear_keyboard_but_mods_and_keys(); // Don't reset held keys
 #    endif
 }
@@ -193,21 +187,21 @@ void layer_invert(uint8_t layer) {
 
 /** \brief Layer or
  *
- * Turns on layers based on matching bits between specifed layer and existing layer state
+ * Turns on layers based on matching bits between specified layer and existing layer state
  */
 void layer_or(layer_state_t state) {
     layer_state_set(layer_state | state);
 }
 /** \brief Layer and
  *
- * Turns on layers based on matching enabled bits between specifed layer and existing layer state
+ * Turns on layers based on matching enabled bits between specified layer and existing layer state
  */
 void layer_and(layer_state_t state) {
     layer_state_set(layer_state & state);
 }
 /** \brief Layer xor
  *
- * Turns on layers based on non-matching bits between specifed layer and existing layer state
+ * Turns on layers based on non-matching bits between specified layer and existing layer state
  */
 void layer_xor(layer_state_t state) {
     layer_state_set(layer_state ^ state);
@@ -218,7 +212,7 @@ void layer_xor(layer_state_t state) {
  * Print out the hex value of the 32-bit layer state, as well as the value of the highest bit.
  */
 void layer_debug(void) {
-    dprintf("%08lX(%u)", layer_state, get_highest_layer(layer_state));
+    ac_dprintf("%08hX(%u)", layer_state, get_highest_layer(layer_state));
 }
 #endif
 
@@ -355,3 +349,15 @@ uint8_t layer_switch_get_layer(keypos_t key) {
 action_t layer_switch_get_action(keypos_t key) {
     return action_for_key(layer_switch_get_layer(key), key);
 }
+
+#ifndef NO_ACTION_LAYER
+layer_state_t update_tri_layer_state(layer_state_t state, uint8_t layer1, uint8_t layer2, uint8_t layer3) {
+    layer_state_t mask12 = ((layer_state_t)1 << layer1) | ((layer_state_t)1 << layer2);
+    layer_state_t mask3  = (layer_state_t)1 << layer3;
+    return (state & mask12) == mask12 ? (state | mask3) : (state & ~mask3);
+}
+
+void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
+    layer_state_set(update_tri_layer_state(layer_state, layer1, layer2, layer3));
+}
+#endif
