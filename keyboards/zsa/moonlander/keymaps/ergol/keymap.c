@@ -25,6 +25,40 @@
 #include "sendstring_french.h"
 #include "unicode/unicode.h"
 
+/*
+** Implementation notes:
+** Ergol breaks the usual association between keys, for instance that the
+** shifted version of = is +. Thus defining a simple keymap is not enough and it
+** requires more work.
+**
+** The approach taken in this keymap is to define the set of custom keycode
+** Ergol uses, associate it to a (non optimized, space waste) structure and
+** depending on whether we're on the dead key or the code layer we select a
+** specific key code to send.
+**
+** The problem with this approach is that it makes impossible to use tap/TL/etc
+** features which only works on the basic keycode set.
+**
+** The assumption are:
+** - Base keycode is always "simple" and the shifted version is the same.
+** - Dead key layer have different base and shifted keycode and might be unicode.
+** - Code layer is the same as the Dead key one.
+**
+** Regarding the unicode, the simplest solution turned to use register_unicode
+** (which expects a uint32_t) and a mask is used to differentiate whether it is
+** a simple key code or an unicode sequence we want to send.
+**
+** The Dead key layer does not stay active even if the dead key is maintained
+** pressed, it will wait for the next key and revert to the previous layer.
+**
+** The Dead key layer is empty and uses transparent to fallback on the base
+** layer. It avoids defining custom keys by layer and seems simpler. If the keymap
+** is too big, it would be worth spliting it in three.
+**
+** TODO: second dead key layer, symbols.
+**
+*/
+
 enum layers {
     ERGOL,
     ERGOL_1DK,
@@ -85,8 +119,6 @@ void keyboard_post_init_user(void) {
 //
 
 #define IDX(KC) (KC - SAFE_RANGE)
-
-int current_layer = ERGOL;
 
 typedef struct {
     uint16_t base;
@@ -226,7 +258,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (keycode >= EKC_FIRST && keycode < EKC_MAX) {
             uint16_t    idx = IDX(keycode);
             ergol_key_t kc  = ergol_key_maps[idx];
-            switch (current_layer) {
+            switch (get_highest_layer(layer_state)) {
                 default:
                 case ERGOL:
                     // if key_code == EKC_DK we don't want the shift.
@@ -251,7 +283,7 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
         bool shifted = (get_mods() & MOD_MASK_SHIFT) != 0;
         if (!shifted) {
             if (record->event.pressed) {
-                switch (current_layer) {
+                switch (get_highest_layer(layer_state)) {
                     case ERGOL:
                         set_oneshot_layer(ERGOL_1DK, ONESHOT_START);
                         break;
@@ -263,12 +295,8 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
         }
     } else {
-        if (current_layer == ERGOL_1DK || current_layer == ERGOL_2DK) {
+        if (IS_LAYER_ON(ERGOL_1DK) || IS_LAYER_ON(ERGOL_2DK)) {
             clear_oneshot_layer_state(ONESHOT_PRESSED);
         }
     }
-}
-
-void oneshot_layer_changed_user(uint8_t layer) {
-    current_layer = layer;
 }
