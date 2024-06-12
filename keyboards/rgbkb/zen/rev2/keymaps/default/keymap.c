@@ -10,11 +10,6 @@ enum layer_number {
     _NAV
 };
 
-enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  NAV
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Qwerty
@@ -58,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [_NAV] = LAYOUT(
     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_F7,   KC_F8,    KC_F9,   KC_F10,  KC_F11,  KC_F12,
-    _______, RGB_SAI, RGB_VAI, RGB_SAD, QK_BOOT,   KC_LBRC,                   KC_RBRC, KC_PGUP,  KC_UP,   KC_PGDN, KC_INS,  KC_HOME,
+    _______, RGB_SAI, RGB_VAI, RGB_SAD, QK_BOOT, KC_LBRC,                   KC_RBRC, KC_PGUP,  KC_UP,   KC_PGDN, KC_INS,  KC_HOME,
     _______, RGB_HUD, RGB_VAD, RGB_HUI, _______, _______,                   _______, KC_LEFT,  KC_DOWN, KC_RGHT, KC_DEL,  KC_END,
     KC_LSFT, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, KC_MPLY, KC_MPRV, KC_MNXT,
     KC_LCTL, KC_LGUI, KC_LALT, RGB_MOD, _______, _______, _______, _______, _______, _______,  _______, KC_MUTE, KC_VOLU, KC_VOLD,
@@ -83,25 +78,6 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
   }
     return true;
 }
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(1UL<<_QWERTY);
-      }
-      return false;
-      break;
-    //case COLEMAK:
-      //if (record->event.pressed) {
-        //set_single_persistent_default_layer(1UL<<_COLEMAK);
-      //}
-      //return false;
-      //break;
-  }
-  return true;
-}
-
 
 #if OLED_ENABLE
 const char* layer_name_user(uint32_t layer) {
