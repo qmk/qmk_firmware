@@ -90,9 +90,9 @@ MD_RCU_PPRE_HCLK_DIV_16      = HCLK divided by 16
 /*
  * EXTI driver system settings.
  */
-#define WB32_IRQ_EXTI0_1_PRIORITY            6
-#define WB32_IRQ_EXTI2_3_PRIORITY            6
-#define WB32_IRQ_EXTI4_15_PRIORITY           6
+#define ES32_IRQ_EXTI0_1_PRIORITY            6
+#define ES32_IRQ_EXTI2_3_PRIORITY            6
+#define ES32_IRQ_EXTI4_15_PRIORITY           6
 
 /*
  * GPT driver system settings.
@@ -167,9 +167,9 @@ MD_RCU_PPRE_HCLK_DIV_16      = HCLK divided by 16
 #define ES32_SPI_USE_SPI1                  FALSE
 #define ES32_SPI_USE_SPI2                  FALSE
 #define ES32_SPI_USE_SPI3                  FALSE
-#define WB32_SPI_SPI1_IRQ_PRIORITY         10
-#define WB32_SPI_SPI2_IRQ_PRIORITY         10
-#define WB32_SPI_SPI3_IRQ_PRIORITY         10
+#define ES32_SPI_SPI1_IRQ_PRIORITY         10
+#define ES32_SPI_SPI2_IRQ_PRIORITY         10
+#define ES32_SPI_SPI3_IRQ_PRIORITY         10
 
 /*
  * ST driver system settings.
