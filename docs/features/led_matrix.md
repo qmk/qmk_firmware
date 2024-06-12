@@ -300,18 +300,11 @@ These modes introduce additional logic that can increase firmware size.
 
 ## Custom LED Matrix Effects {#custom-led-matrix-effects}
 
-By setting `LED_MATRIX_CUSTOM_USER` (and/or `LED_MATRIX_CUSTOM_KB`) in `rules.mk`, new effects can be defined directly from userspace, without having to edit any QMK core files.
+By setting `LED_MATRIX_CUSTOM_USER = yes` in `rules.mk`, new effects can be defined directly from your keymap or userspace, without having to edit any QMK core files. To declare new effects, create a `led_matrix_user.inc` file in the user keymap directory or userspace folder.
 
-To declare new effects, create a new `led_matrix_user/kb.inc` that looks something like this:
-
-`led_matrix_user.inc` should go in the root of the keymap directory.
-`led_matrix_kb.inc` should go in the root of the keyboard directory.
-
-To use custom effects in your code, simply prepend `LED_MATRIX_CUSTOM_` to the effect name specified in `LED_MATRIX_EFFECT()`. For example, an effect declared as `LED_MATRIX_EFFECT(my_cool_effect)` would be referenced with:
-
-```c
-led_matrix_mode(led_MATRIX_CUSTOM_my_cool_effect);
-```
+::: tip
+Hardware maintainers who want to limit custom effects to a specific keyboard can create a `led_matrix_kb.inc` file in the root of the keyboard directory, and add `LED_MATRIX_CUSTOM_KB = yes` to the keyboard level `rules.mk`.
+:::
 
 ```c
 // !!! DO NOT ADD #pragma once !!! //
@@ -354,6 +347,12 @@ static bool my_cool_effect2(effect_params_t* params) {
 }
 
 #endif // LED_MATRIX_CUSTOM_EFFECT_IMPLS
+```
+
+To switch to your custom effect programmatically, simply call `led_matrix_mode()` and prepend `LED_MATRIX_CUSTOM_` to the effect name your specified in `LED_MATRIX_EFFECT()`. For example, an effect declared as `LED_MATRIX_EFFECT(my_cool_effect)` would be referenced with:
+
+```c
+led_matrix_mode(LED_MATRIX_CUSTOM_my_cool_effect);
 ```
 
 For inspiration and examples, check out the built-in effects under `quantum/led_matrix/animations/`.
