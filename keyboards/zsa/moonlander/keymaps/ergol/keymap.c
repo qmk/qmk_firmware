@@ -43,6 +43,30 @@ enum custom_keycodes {
     EKC_DK,
     EKC_Y,
 
+    EKC_A,
+    EKC_S,
+    EKC_E,
+    EKC_N,
+    EKC_F,
+
+    EKC_L,
+    EKC_R,
+    EKC_T,
+    EKC_I,
+    EKC_U,
+
+    EKC_Z,
+    EKC_X,
+    EKC_MNS,
+    EKC_V,
+    EKC_B,
+
+    EKC_DOT,
+    EKC_H,
+    EKC_G,
+    EKC_COMM,
+    EKC_K,
+
     EKC_MAX
 };
 
@@ -105,7 +129,16 @@ const ergol_key_t ergol_key_maps[IDX(EKC_MAX)] = {
     [IDX(EKC_J)] = EGL(FR_J,       KC_TRNS,            KC_TRNS,            KC_AT,      KC_TRNS),
     [IDX(EKC_M)] = EGL(FR_M,       CP(0x00B5) /* µ */, KC_TRNS,            KC_AMPR,    KC_TRNS),
     [IDX(EKC_D)] = EGL(FR_D,       FR_UNDS,            KC_TRNS,            KC_ASTR,    CP(0x00D7) /* × */),
-    [IDX(EKC_DK)] = EGL(KC_EXLM,   KC_TRNS,            KC_TRNS,            KC_QUOTE,   CP(0x00B4) /* ´ */),
+    [IDX(EKC_DK)] = EGL(KC_EXLM,   KC_TRNS,            KC_TRNS,            KC_QUOTE,   CP(0x0301) /* ´ Combining Acute Accent*/),
+    [IDX(EKC_Y)] = EGL(FR_Y,       CP(0x00FB),         CP(0x00DB),         FR_GRV,     KC_TRNS),
+
+
+    [IDX(EKC_A)] = EGL(FR_A,       FR_AGRV,            CP(0x00C0),         FR_LCBR,    CP(0x0306) /* ̆  Combining Breve*/),
+    [IDX(EKC_S)] = EGL(FR_S,       FR_EACU,            CP(0x00DB),         FR_LPRN,    KC_TRNS),
+    [IDX(EKC_E)] = EGL(FR_E,       FR_EGRV,            CP(0x00C8),         FR_RPRN,    KC_TRNS),
+    [IDX(EKC_N)] = EGL(FR_N,       CP(0x00EA),         CP(0x00CA),         FR_RCBR,    CP(0x0307) /* ̇  Combining Dot Above*/),
+    [IDX(EKC_F)] = EGL(FR_F,       CP(0x00F1),         CP(0x00D1),         FR_EQL,     CP(0x2260) /* ≠ */),
+
 
 };
 // clang-format on
@@ -114,9 +147,9 @@ const ergol_key_t ergol_key_maps[IDX(EKC_MAX)] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [ERGOL] = LAYOUT(
         _______, _______, _______, _______, _______, _______, _______,           _______, _______, _______, _______, _______, _______, QK_BOOT,
-        _______,  EKC_Q ,  EKC_C ,  EKC_O ,  EKC_P ,  EKC_W , _______,           _______,  EKC_J ,  EKC_M ,  EKC_D , EKC_DK , _______, _______,
-        _______, _______, _______, _______, _______, _______, _______,           _______, _______, _______, _______, _______, _______, _______,
-        KC_LEFT_SHIFT, _______, _______, _______, _______, _______,                             _______, _______, _______, _______, _______, _______,
+        _______,  EKC_Q ,  EKC_C ,  EKC_O ,  EKC_P ,  EKC_W , _______,           _______,  EKC_J ,  EKC_M ,  EKC_D , EKC_DK ,  EKC_Y , _______,
+        _______,  EKC_A ,  EKC_S ,  EKC_E ,  EKC_N ,  EKC_F , _______,           _______, _______, _______, _______, _______, _______, _______,
+  KC_LEFT_SHIFT, _______, _______, _______, _______, _______,                             _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______,         _______,            _______,          _______, _______, _______, _______, _______,
                                             _______, _______, _______,           _______, KC_ENTER, _______
     ),
