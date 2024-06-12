@@ -177,8 +177,13 @@ void enter_deep_sleep(void) {
  */
 void exit_deep_sleep(void) {
     // 矩阵初始化
-    extern void matrix_init_custom(void);
-    matrix_init_custom();
+    #if CUSTOM_MATRIX
+        extern void matrix_init_custom(void);
+        matrix_init_custom();
+    #else
+        extern void matrix_init_pins(void);
+        matrix_init_pins();
+    #endif
 
     // connection mode switch pin
 #if (WORK_MODE == THREE_MODE)
