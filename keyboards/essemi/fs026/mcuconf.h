@@ -83,6 +83,11 @@ MD_RCU_PPRE_HCLK_DIV_16      = HCLK divided by 16
 #define ES32_BUS_DIV_PPRE    MD_RCU_PPRE_HCLK_DIV_1
 
 /*
+ * GPIO driver system settings.
+ */
+#define ES32_USB_USE_GPIO                   TRUE
+
+/*
  * EXTI driver system settings.
  */
 #define WB32_IRQ_EXTI0_1_PRIORITY            6
