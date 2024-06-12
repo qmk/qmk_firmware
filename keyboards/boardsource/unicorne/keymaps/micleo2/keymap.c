@@ -15,6 +15,7 @@ enum layers {
   _NAV, // Navigation
   _SYS, // Sysctrl
   _NUM, // Numpad
+  _BLN, // Blender
 };
 
 #define B _BSE
@@ -22,6 +23,7 @@ enum layers {
 #define N _NAV
 #define Y _SYS
 #define U _NUM
+#define L _BLN
 
 // Tap Dance keycodes
 enum td_keycodes {
@@ -63,9 +65,9 @@ tap_dance_action_t tap_dance_actions[] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BSE] = LAYOUT_split_3x6_3(
-    OSM(MOD_LSFT), KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                 KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          KC_DEL,
-    KC_ENT,        KC_A,          LT(U, KC_S),  ALT_T(KC_D),   LT(N, KC_F),   KC_G,                 KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(Y),
-    KC_TAB,        KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,                 KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       C(G(KC_Q)),
+    CW_TOGG,       KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                 KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          KC_DEL,
+    OSM(MOD_LSFT), KC_A,          LT(U, KC_S),  ALT_T(KC_D),   LT(N, KC_F),   KC_G,                 KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(Y),
+    KC_PSCR,       KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,                 KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       C(G(KC_Q)),
                                                 CTL_T(KC_ESC), GUI_T(KC_SPC), HYPR_T(KC_TAB),       MEH_T(KC_ENT), SFT_T(KC_BSPC),OSL(M)
 ),
 
@@ -84,17 +86,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_SYS] = LAYOUT_split_3x6_3(
-    CW_TOGG,       _______,       _______,      _______,       KC_PSCR,       _______,              _______,       KC_F7,         KC_F8,        KC_F9,         KC_F12,        _______,
+    CW_TOGG,       _______,       _______,      _______,       _______,       _______,              _______,       KC_F7,         KC_F8,        KC_F9,         KC_F12,        _______,
     _______,       _______,       KC_MPLY,      KC_VOLD,       KC_VOLU,       _______,              _______,       KC_F4,         KC_F5,        KC_F6,         KC_F11,        ___E___,
-    QK_BOOT,       _______,       KC_MPRV,      KC_MNXT,       KC_MUTE,       _______,              _______,       KC_F1,         KC_F2,        KC_F3,         KC_F10,        QK_BOOT,
+    QK_BOOT,       _______,       KC_MPRV,      KC_MNXT,       KC_MUTE,       _______,              _______,       KC_F1,         KC_F2,        KC_F3,         KC_F10,        TO(_BLN),
                                                 _______,       _______,       _______,              _______,       _______,       _______
 ),
 
 [_NUM] = LAYOUT_split_3x6_3(
     _______,       _______,       _______,      _______,       _______,       _______,              _______,       KC_7,          KC_8,         KC_9,          KC_MINUS,      _______,
-    _______,       _______,       ___E___,      _______,       _______,       _______,              _______,       KC_4,          KC_5,         KC_6,          KC_PLUS,       _______,
-    _______,       _______,       _______,      _______,       _______,       _______,              _______,       KC_1,          KC_2,         KC_3,          KC_SLSH,       _______,
-                                                _______,       _______,       _______,              _______,       KC_0,          KC_NO
+    _______,       _______,       ___E___,      _______,       _______,       _______,              _______,       KC_4,          KC_5,         KC_6,          KC_COMM,       _______,
+    _______,       _______,       _______,      _______,       _______,       _______,              _______,       KC_1,          KC_2,         KC_3,          KC_PLUS,       _______,
+                                                _______,       _______,       _______,              _______,       KC_0,          KC_BSPC
+),
+
+[_BLN] = LAYOUT_split_3x6_3(
+    KC_TILDE,      LT(0, KC_Q),   LT(0, KC_W),  LT(0, KC_E),   LT(0, KC_R),   LT(0, KC_T),          _______,       _______,       _______,      _______,       _______,       _______,
+    SFT_T(KC_ENT), _______,       _______,      _______,       _______,       LT(0, KC_G),          _______,       _______,       _______,      _______,       _______,       _______,
+    _______,       _______,       LT(0, KC_X),  LT(0, KC_C),   LT(0, KC_V),   _______,              _______,       _______,       _______,      _______,       _______,       TO(_BSE),
+                                                _______,       _______,       _______,              _______,       _______,       _______
 )
 
 };
@@ -235,56 +244,117 @@ bool process_detected_host_os_user(os_variant_t detected_os) {
 
 // return true if qmk should continue processing the keycode as normal.
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    // The following handlers simply notify callbacks.
     switch (QK_MODS_GET_BASIC_KEYCODE(keycode)) {
         case KC_B:
             if (record->event.pressed) {
                 b_key_pressed_cb();
             }
-            return true;
+            break;
         case KC_ENT:
             if (record->event.pressed) {
                 enter_key_pressed_cb();
             }
-            return true;
+            break;
         case KC_DEL:
             if (record->event.pressed) {
                 delete_key_pressed_cb();
             }
-            return true;
+            break;
         case KC_C: {
             bool copypaste_mod_held = get_mods() & copypaste_modifier;
             if (record->event.pressed && copypaste_mod_held) {
                 copy_key_pressed_cb();
             }
-            return true;
+            break;
         }
         case KC_R: {
             bool copypaste_mod_held = get_mods() & copypaste_modifier;
             if (record->event.pressed && copypaste_mod_held) {
                 refresh_key_pressed_cb();
             }
-            return true;
+            break;
         }
         case KC_V: {
             bool copypaste_mod_held = get_mods() & copypaste_modifier;
             if (record->event.pressed && copypaste_mod_held) {
                 paste_key_pressed_cb();
             }
-            return true;
+            break;
         }
         case KC_LEFT:
             if (record->event.pressed) {
                 leftarrow_key_pressed_cb(get_mods());
             }
-            return true;
+            break;
         case KC_RIGHT:
             if (record->event.pressed) {
                 rightarrow_key_pressed_cb(get_mods());
             }
-            return true;
+            break;
         case KC_DOWN:
             if (record->event.pressed) {
                 downarrow_key_pressed_cb();
+            }
+            break;
+        default:
+            break;
+    }
+
+    // This switch can actually modify keypress behavior.
+    switch (keycode) {
+        case LT(0, KC_Q):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(KC_1);
+                return false;
+            }
+            return true;
+        case LT(0, KC_W):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(KC_2);
+                return false;
+            }
+            return true;
+        case LT(0, KC_E):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(KC_3);
+                return false;
+            }
+            return true;
+        case LT(0, KC_R):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(KC_4);
+                return false;
+            }
+            return true;
+        case LT(0, KC_T):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(KC_Y);
+                return false;
+            }
+            return true;
+        case LT(0, KC_G):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(KC_H);
+                return false;
+            }
+            return true;
+        case LT(0, KC_X):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(KC_KP_7);
+                return false;
+            }
+            return true;
+        case LT(0, KC_C):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(KC_KP_1);
+                return false;
+            }
+            return true;
+        case LT(0, KC_V):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(KC_KP_3);
+                return false;
             }
             return true;
         default:
@@ -332,6 +402,9 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             break;
         case _NUM:
             SET_COLOR(RGB_GREEN);
+            break;
+        case _BLN:
+            SET_COLOR(RGB_ORANGE);
             break;
         default:
             SET_COLOR(BASE_COL);
