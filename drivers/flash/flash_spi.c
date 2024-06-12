@@ -59,7 +59,7 @@ static bool spi_flash_start(void) {
 
 static flash_status_t spi_flash_wait_while_busy_multiplier(int multiplier) {
     flash_status_t response = FLASH_STATUS_SUCCESS;
-    uint32_t deadline = timer_read32() + ((EXTERNAL_FLASH_SPI_TIMEOUT) * multiplier);
+    uint32_t       deadline = timer_read32() + ((EXTERNAL_FLASH_SPI_TIMEOUT)*multiplier);
     do {
         if (timer_read32() >= deadline) {
             response = FLASH_STATUS_TIMEOUT;
