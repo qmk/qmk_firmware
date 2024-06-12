@@ -62,10 +62,10 @@ When editing your keymap file be careful not to add or remove any commas. If you
 
 How to complete this step is entirely up to you. Make the one change that's been bugging you, or completely rework everything. You can remove layers if you don't need all of them, or add layers up to a total of 32. There are a lot of features in QMK, explore the sidebar to the left under "Using QMK" to see the full list. To get you started here are a few of the easier to use features:
 
-* [Basic Keycodes](keycodes_basic)
-* [Quantum Keycodes](quantum_keycodes)
-* [Grave/Escape](features/grave_esc)
-* [Mouse keys](features/mouse_keys)
+* [Basic Keycodes](keycodes_basic.md)
+* [Quantum Keycodes](quantum_keycodes.md)
+* [Grave/Escape](features/grave_esc.md)
+* [Mouse keys](features/mouse_keys.md)
 
 ::: tip
 While you get a feel for how keymaps work, keep each change small. Bigger changes make it harder to debug any problems that arise.
@@ -97,4 +97,4 @@ Checking file size of planck_rev5_default.hex                                   
 
 ## Flash Your Firmware
 
-Move on to [Flashing Firmware](newbs_flashing) to learn how to write your new firmware to your keyboard.
+Move on to [Flashing Firmware](newbs_flashing.md) to learn how to write your new firmware to your keyboard.

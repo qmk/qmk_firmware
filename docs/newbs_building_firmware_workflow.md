@@ -1,6 +1,6 @@
 # Building QMK with GitHub Userspace
 
-This is an intermediate QMK tutorial to setup an out-of-tree build environment with a personal GitHub repository. It avoids using a fork of the QMK firmware to store and build your keymap within its source tree. Keymap files will instead be stored in your own personal GitHub repository, in [Userspace](feature_userspace) format, and built with an action workflow. Unlike the [default tutorial](newbs), this guide requires some familiarity with using Git.
+This is an intermediate QMK tutorial to setup an out-of-tree build environment with a personal GitHub repository. It avoids using a fork of the QMK firmware to store and build your keymap within its source tree. Keymap files will instead be stored in your own personal GitHub repository, in [Userspace](feature_userspace.md) format, and built with an action workflow. Unlike the [default tutorial](newbs.md), this guide requires some familiarity with using Git.
 
 ::: tip Is This Guide For Me?
 This is a lean setup to avoid space-consuming local build environment in your computer. Troubleshooting compile-time errors will be slower with commit uploads to GitHub for the compiler workflow.
@@ -12,7 +12,7 @@ The following are required to get started:
 
 * [GitHub Account](https://github.com/new)
   * A working account is required to setup and host your repository for GitHub Actions to build QMK firmware.
-* [Text editor](newbs_learn_more_resources#text-editor-resources)
+* [Text editor](newbs_learn_more_resources.md#text-editor-resources)
   * You’ll need a program that can edit and save plain text files. The default editor that comes with many OS's does not save plain text files, so you'll need to make sure that whatever editor you chose does.
 * [Toolbox](https://github.com/qmk/qmk_toolbox)
   * A graphical program for Windows and macOS that allows you to both program and debug your custom keyboard.
@@ -95,7 +95,7 @@ Visit the [QMK Configurator](https://config.qmk.fm/#/) to create a keymap file:
 
 ### Add a GitHub Action workflow
 
-Open the file `~/qmk_keymap/.github/workflows/build.yml` with your favorite [text editor](newbs_learn_more_resources#text-editor-resources), paste the following workflow content, and save it:
+Open the file `~/qmk_keymap/.github/workflows/build.yml` with your favorite [text editor](newbs_learn_more_resources.md#text-editor-resources), paste the following workflow content, and save it:
 ```yml
 name: Build QMK firmware
 on: [push, workflow_dispatch]
@@ -183,12 +183,12 @@ Files committed to GitHub in the previous step will automatically trigger the wo
 4. Successfully compiled firmware will be under the "**Artifacts**" section.
 5. If there are build errors, review the job log for details.
 
-Download and flash the firmware file into your keyboard using [QMK Toolbox](newbs_flashing#flashing-your-keyboard-with-qmk-toolbox).
+Download and flash the firmware file into your keyboard using [QMK Toolbox](newbs_flashing.md#flashing-your-keyboard-with-qmk-toolbox).
 
 
 ## Customising your keymap
 
-This setup and workflow relies on the QMK [Userspace](feature_userspace) feature. The build process will copy the QMK source codes and clone your repository into its `users/` folder in a container. You must adhere to the following guidelines when customising your keymaps:
+This setup and workflow relies on the QMK [Userspace](feature_userspace.md) feature. The build process will copy the QMK source codes and clone your repository into its `users/` folder in a container. You must adhere to the following guidelines when customising your keymaps:
 
 * Keymap layout files must be retained in JSON format and cannot be converted to `keymap.c`.
 * User callback and functions (e.g. `process_record_user()`) can be placed in the `source.c` file.
