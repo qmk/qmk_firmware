@@ -18,6 +18,7 @@ enum {
     FLASH_STATUS_ERROR       = -1, //< An error occurred during the operation.
     FLASH_STATUS_TIMEOUT     = -2, //< The operation timed out.
     FLASH_STATUS_BAD_ADDRESS = -3, //< The address is out of bounds.
+    FLASH_STATUS_BUSY        = -4, //< The flash is busy.
 };
 
 /**
@@ -38,16 +39,16 @@ void flash_init(void);
  *
  * This function checks if the flash is currently busy with an operation.
  *
- * @return true if the flash is busy, false otherwise.
+ * @return FLASH_STATUS_SUCCESS if the flash is not busy, FLASH_STATUS_BUSY if the flash is busy, or FLASH_STATUS_ERROR if an error occurred.
  */
-bool flash_is_busy(void);
+flash_status_t flash_is_busy(void);
 
 /**
  * @brief Initiates a chip erase operation.
  *
  * This function does not wait for the flash to become ready.
  *
- * @return FLASH_STATUS_SUCCESS if the erase command was successfully sent, FLASH_STATUS_TIMEOUT if the flash is busy.
+ * @return FLASH_STATUS_SUCCESS if the erase command was successfully sent, FLASH_STATUS_TIMEOUT if the flash is busy, or FLASH_STATUS_ERROR if an error occurred.
  */
 flash_status_t flash_begin_erase_chip(void);
 
@@ -56,7 +57,7 @@ flash_status_t flash_begin_erase_chip(void);
  *
  * This function waits for the chip erase operation to complete.
  *
- * @return FLASH_STATUS_SUCCESS if the chip erase operation completed successfully, FLASH_STATUS_TIMEOUT if the flash was still busy.
+ * @return FLASH_STATUS_SUCCESS if the chip erase operation completed successfully, FLASH_STATUS_TIMEOUT if the flash was still busy, or FLASH_STATUS_ERROR if an error occurred.
  */
 flash_status_t flash_wait_erase_chip(void);
 
@@ -66,7 +67,7 @@ flash_status_t flash_wait_erase_chip(void);
  * This function initiates an erase operation to erase the entire flash memory chip.
  * It waits for the operation to complete.
  *
- * @return FLASH_STATUS_SUCCESS if the erase was successfully executed, FLASH_STATUS_TIMEOUT if the flash is busy.
+ * @return FLASH_STATUS_SUCCESS if the erase was successfully executed, FLASH_STATUS_TIMEOUT if the flash is busy, or FLASH_STATUS_ERROR if an error occurred.
  */
 flash_status_t flash_erase_chip(void);
 
@@ -78,7 +79,7 @@ flash_status_t flash_erase_chip(void);
  *
  * @param addr The address of the block to erase.
  *
- * @return FLASH_STATUS_SUCCESS if the erase was successfully executed, FLASH_STATUS_TIMEOUT if the flash is busy.
+ * @return FLASH_STATUS_SUCCESS if the erase was successfully executed, FLASH_STATUS_TIMEOUT if the flash is busy, or FLASH_STATUS_ERROR if an error occurred.
  */
 flash_status_t flash_erase_block(uint32_t addr);
 
@@ -90,7 +91,7 @@ flash_status_t flash_erase_block(uint32_t addr);
  *
  * @param addr The address of the sector to erase.
  *
- * @return FLASH_STATUS_SUCCESS if the erase was successfully executed, FLASH_STATUS_TIMEOUT if the flash is busy.
+ * @return FLASH_STATUS_SUCCESS if the erase was successfully executed, FLASH_STATUS_TIMEOUT if the flash is busy, or FLASH_STATUS_ERROR if an error occurred.
  */
 flash_status_t flash_erase_sector(uint32_t addr);
 
@@ -103,7 +104,7 @@ flash_status_t flash_erase_sector(uint32_t addr);
  * @param buf A pointer to the buffer to read the range into.
  * @param len The length of the range to read.
  *
- * @return FLASH_STATUS_SUCCESS if the range was successfully read, FLASH_STATUS_BAD_ADDRESS if the address is out of bounds.
+ * @return FLASH_STATUS_SUCCESS if the range was successfully read, FLASH_STATUS_BAD_ADDRESS if the address is out of bounds, FLASH_STATUS_TIMEOUT if the flash is busy, or FLASH_STATUS_ERROR if an error occurred.
  */
 flash_status_t flash_read_range(uint32_t addr, void *buf, size_t len);
 
@@ -116,7 +117,7 @@ flash_status_t flash_read_range(uint32_t addr, void *buf, size_t len);
  * @param buf A pointer to the buffer to write to the range.
  * @param len The length of the range to write.
  *
- * @return FLASH_STATUS_SUCCESS if the range was successfully written, FLASH_STATUS_BAD_ADDRESS if the address is out of bounds.
+ * @return FLASH_STATUS_SUCCESS if the range was successfully written, FLASH_STATUS_BAD_ADDRESS if the address is out of bounds, FLASH_STATUS_TIMEOUT if the flash is busy, or FLASH_STATUS_ERROR if an error occurred.
  */
 flash_status_t flash_write_range(uint32_t addr, const void *buf, size_t len);
 

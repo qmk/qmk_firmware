@@ -57,34 +57,25 @@ static bool spi_flash_start(void) {
     return spi_start(EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN, EXTERNAL_FLASH_SPI_LSBFIRST, EXTERNAL_FLASH_SPI_MODE, EXTERNAL_FLASH_SPI_CLOCK_DIVISOR);
 }
 
-static flash_status_t spi_flash_wait_while_busy_looped(int counter) {
+static flash_status_t spi_flash_wait_while_busy_multiplier(int multiplier) {
     flash_status_t response = FLASH_STATUS_SUCCESS;
-    for (int i = 0; i < counter; ++i) {
-        uint32_t deadline = timer_read32() + EXTERNAL_FLASH_SPI_TIMEOUT;
-        bool     is_busy;
-
-        do {
-            is_busy = flash_is_busy();
-            if (timer_read32() >= deadline) {
-                response = FLASH_STATUS_TIMEOUT;
-                break;
-            }
-        } while (is_busy);
-
-        if (!is_busy) {
-            response = FLASH_STATUS_SUCCESS;
+    uint32_t deadline = timer_read32() + ((EXTERNAL_FLASH_SPI_TIMEOUT) * multiplier);
+    do {
+        if (timer_read32() >= deadline) {
+            response = FLASH_STATUS_TIMEOUT;
             break;
         }
-    }
 
+        response = flash_is_busy();
+    } while (response == FLASH_STATUS_BUSY);
     return response;
 }
 
 static flash_status_t spi_flash_wait_while_busy(void) {
-    return spi_flash_wait_while_busy_looped(1);
+    return spi_flash_wait_while_busy_multiplier(1);
 }
 
-bool flash_is_busy(void) {
+flash_status_t flash_is_busy(void) {
     bool res = spi_flash_start();
     if (!res) {
         dprint("Failed to start SPI! [spi flash wait while busy]\n");
@@ -96,11 +87,11 @@ bool flash_is_busy(void) {
     spi_stop();
 
     if (status < 0) {
-        return false;
+        return status;
     }
 
     uint8_t sr = (uint8_t)status;
-    return sr & FLASH_FLAG_WIP;
+    return (sr & FLASH_FLAG_WIP) ? FLASH_STATUS_BUSY : FLASH_STATUS_SUCCESS;
 }
 
 static flash_status_t spi_flash_write_enable(void) {
@@ -200,8 +191,7 @@ flash_status_t flash_begin_erase_chip(void) {
 }
 
 flash_status_t flash_wait_erase_chip(void) {
-    flash_status_t response = spi_flash_wait_while_busy_looped(250); // Chip erase can take a long time, wait 250x the usual timeout
-
+    flash_status_t response = spi_flash_wait_while_busy_multiplier(250); // Chip erase can take a long time, wait 250x the usual timeout
     if (response != FLASH_STATUS_SUCCESS) {
         dprint("Failed to check WIP flag! [spi flash erase chip]\n");
         return response;
