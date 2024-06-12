@@ -20,6 +20,9 @@
 #include "keycodes.h"
 #include "version.h"
 #include "keymap_french.h"
+// redefine the ascii_to_keycode so that
+// the register_unicode works.
+#include "sendstring_french.h"
 #include "unicode/unicode.h"
 
 enum layers {
