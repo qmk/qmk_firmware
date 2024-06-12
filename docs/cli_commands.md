@@ -824,6 +824,12 @@ qmk pytest -t qmk.tests.test_qmk_path
 
 This command converts images to a format usable by QMK, i.e. the QGF File Format. See the [Quantum Painter](quantum_painter#quantum-painter-cli) documentation for more information on this command.
 
+## `qmk painter-convert-font`
+
+This command converts a TTF font to a QFF File Format. See the [Quantum Painter](quantum_painter.md?id=quantum-painter-cli) documentation for more information on this command.
+
+?> Note: The following commands do this in a 2-step process, so you can customize the font a bit.
+
 ## `qmk painter-make-font-image`
 
 This command converts a TTF font to an intermediate format for editing, before converting to the QFF File Format. See the [Quantum Painter](quantum_painter#quantum-painter-cli) documentation for more information on this command.
