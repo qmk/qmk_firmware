@@ -19,6 +19,12 @@ def maybe_exit(rc):
         if e:
             raise e
 
+def maybe_exit_config(should_exit: bool = True, should_reraise: bool = False):
+    global maybe_exit_should_exit
+    global maybe_exit_reraise
+    maybe_exit_should_exit = should_exit
+    maybe_exit_reraise = should_reraise
+
 
 @contextlib.contextmanager
 def parallelize():
