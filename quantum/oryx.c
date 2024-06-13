@@ -1,8 +1,5 @@
 #include <string.h>
 #include "oryx.h"
-#ifdef KEYBOARD_voyager
-#    include "voyager.h"
-#endif
 
 rawhid_state_t rawhid_state = {.paired = false, .rgb_control = false};
 
@@ -53,6 +50,20 @@ void trigger_smart_layer(void) {
     event[0] = ORYX_EVT_TRIGGER_SMART_LAYER;
     event[1] = ORYX_STOP_BIT;
     raw_hid_send(event, sizeof(event));
+}
+
+void set_webhid_effect(void) {
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_oryx_webhid_effect);
+    rawhid_state.rgb_control = true;
+}
+
+void clear_webhid_effect(void) {
+    // Clear the pattern
+    for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
+        webhid_leds[i] = (RGB){.r = 0, .g = 0, .b = 0};
+    }
+    rgb_matrix_reload_from_eeprom();
+    rawhid_state.rgb_control = false;
 }
 
 void raw_hid_receive(uint8_t *data, uint8_t length) {
@@ -106,11 +117,9 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
         case ORYX_RGB_CONTROL:
 #if defined(RGB_MATRIX_ENABLE) && !defined(KEYBOARD_ergodox_ez_glow)
             if (param[0] == 0) {
-                rgb_matrix_reload_from_eeprom();
-                rawhid_state.rgb_control = false;
+                clear_webhid_effect();
             } else {
-                rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_oryx_webhid_effect);
-                rawhid_state.rgb_control = true;
+                set_webhid_effect();
             }
             uint8_t event[RAW_EPSIZE];
             event[0] = ORYX_EVT_RGB_CONTROL;
@@ -124,11 +133,27 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
         case ORYX_SET_RGB_LED:
 #if defined(RGB_MATRIX_ENABLE) && !defined(KEYBOARD_ergodox_ez_glow)
             webhid_leds[param[0]] = (RGB){.r = param[1], .g = param[2], .b = param[3]};
+            if (rawhid_state.rgb_control == false) {
+                set_webhid_effect();
+            }
+#else
+            oryx_error(ORYX_ERR_RGB_MATRIX_NOT_ENABLED);
+#endif
+            break;
+        case ORYX_SET_RGB_LED_ALL:
+#if defined(RGB_MATRIX_ENABLE) && !defined(KEYBOARD_ergodox_ez_glow)
+            for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
+                webhid_leds[i] = (RGB){.r = param[0], .g = param[1], .b = param[2]};
+            }
+            if (rawhid_state.rgb_control == false) {
+                set_webhid_effect();
+            }
 #else
             oryx_error(ORYX_ERR_RGB_MATRIX_NOT_ENABLED);
 #endif
             break;
         case ORYX_SET_STATUS_LED:
+            rawhid_state.status_led_control = true; // Eagerly take control of the status LEDs
             switch (param[0]) {
                 case 0:
 #ifdef STATUS_LED_1
@@ -178,7 +203,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                     break;
             }
             break;
-        case ORYX_UPDATE_BRIGHTNESS:
+        case ORYX_UPDATE_BRIGHTNESS: {
 #if defined(RGB_MATRIX_ENABLE) && !defined(PROTOCOL_LUFA)
             if (param[0]) {
                 rgb_matrix_increase_val_noeeprom();
@@ -189,6 +214,15 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             oryx_error(ORYX_ERR_RGB_MATRIX_NOT_ENABLED);
 #endif
             break;
+        }
+        case ORYX_STATUS_LED_CONTROL: {
+            rawhid_state.status_led_control = param[0];
+            uint8_t event[RAW_EPSIZE];
+            event[0] = ORYX_EVT_STATUS_LED_CONTROL;
+            event[1] = rawhid_state.status_led_control;
+            raw_hid_send(event, RAW_EPSIZE);
+            break;
+        }
         default:
             oryx_error(ORYX_ERR_UNKNOWN_COMMAND);
     }

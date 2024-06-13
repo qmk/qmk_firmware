@@ -13,6 +13,13 @@ Once the host has paired, it can freely use the commands define in the Oryx_Comm
 
 #include "quantum.h"
 #include "raw_hid.h"
+#ifdef KEYBOARD_voyager
+#    include "voyager.h"
+#endif
+
+#ifdef KEYBOARD_moonlander
+#    include "moonlander.h"
+#endif
 
 #ifndef RAW_ENABLE
 #    error "Raw hid needs to be enabled, please enable it!"
@@ -21,7 +28,7 @@ Once the host has paired, it can freely use the commands define in the Oryx_Comm
 #    define RAW_EPSIZE 32
 #endif
 
-#define ORYX_PROTOCOL_VERSION 0x03
+#define ORYX_PROTOCOL_VERSION 0x04
 #define ORYX_STOP_BIT -2
 
 enum Oryx_Command_Code {
@@ -34,6 +41,8 @@ enum Oryx_Command_Code {
     ORYX_SET_RGB_LED,
     ORYX_SET_STATUS_LED,
     ORYX_UPDATE_BRIGHTNESS,
+    ORYX_SET_RGB_LED_ALL,
+    ORYX_STATUS_LED_CONTROL,
     ORYX_GET_PROTOCOL_VERSION = 0xFE,
 };
 
@@ -49,6 +58,7 @@ enum Oryx_Event_Code {
     ORYX_EVT_RGB_CONTROL,
     ORYX_EVT_TOGGLE_SMART_LAYER,
     ORYX_EVT_TRIGGER_SMART_LAYER,
+    ORYX_EVT_STATUS_LED_CONTROL,
     ORYX_EVT_GET_PROTOCOL_VERSION = 0XFE,
     ORYX_EVT_ERROR                = 0xFF,
 };
@@ -68,6 +78,7 @@ extern bool oryx_state_live_training_enabled;
 typedef struct {
     bool paired;
     bool rgb_control;
+    bool status_led_control;
 } rawhid_state_t;
 
 extern rawhid_state_t rawhid_state;
@@ -77,10 +88,12 @@ void pairing_failed_event(void);
 void pairing_succesful_event(void);
 void toggle_smart_layer(void);
 void trigger_smart_layer(void);
+void set_webhid_effect(void);
 
 void oryx_layer_event(void);
 bool process_record_oryx(uint16_t keycode, keyrecord_t* record);
 void layer_state_set_oryx(layer_state_t state);
+
 
 #if defined(RGB_MATRIX_ENABLE) && !defined(KEYBOARD_ergodox_ez_glow)
 RGB webhid_leds[RGB_MATRIX_LED_COUNT];
