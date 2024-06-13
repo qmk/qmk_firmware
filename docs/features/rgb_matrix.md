@@ -1177,7 +1177,7 @@ Move to the previous enabled effect.
 
 ---
 
-### `void rgb_matrix_step_reverse_noeeprom(void)` {#api-rgb-matrix-step-reverse}
+### `void rgb_matrix_step_reverse_noeeprom(void)` {#api-rgb-matrix-step-reverse-noeeprom}
 
 Move to the previous enabled effect. New state is not written to EEPROM.
 
