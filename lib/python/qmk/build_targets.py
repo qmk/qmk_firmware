@@ -119,9 +119,10 @@ class BuildTarget:
         command = self.compile_command(build_target=build_target, dry_run=True, **env_vars)
         from qmk.cli.generate.compilation_database import write_compilation_database  # Lazy load due to circular references
         output_path = QMK_FIRMWARE / 'compile_commands.json'
-        write_compilation_database(command=command, output_path=output_path, skip_clean=skip_clean, **env_vars)
-        if output_path.exists() and HAS_QMK_USERSPACE:
+        ret = write_compilation_database(command=command, output_path=output_path, skip_clean=skip_clean, **env_vars)
+        if ret and output_path.exists() and HAS_QMK_USERSPACE:
             shutil.copy(str(output_path), str(QMK_USERSPACE / 'compile_commands.json'))
+        return ret
 
     def compile(self, build_target: str = None, dry_run: bool = False, **env_vars) -> None:
         if self._clean or self._compiledb:
