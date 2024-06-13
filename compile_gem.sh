@@ -2,8 +2,8 @@
 
 set -e
 
-
-TAG=$(git describe --tags --abbrev=0)
+localtag=$(git describe --tags --abbrev=0)
+TAG=${1-$localtag}-ryodeushii
 echo "=============================="
 echo "      Version tag: $TAG       "
 echo "=============================="
@@ -40,11 +40,3 @@ echo "[default] Compiling for three-mode"
 make clean
 qmk compile --compiledb -j 0 -e TARGET="gem80_threemode_default_$TAG" -kb nuphy/gem80/ansi -km default
 
-
-echo "[halo75v2:via] Compiling"
-make clean
-qmk compile --compiledb -j 0 -e TARGET="halo75v2_via_$TAG" -kb nuphy/halo75v2/ansi -km via
-
-echo "[halo75v2:default] Compiling"
-make clean
-qmk compile --compiledb -j 0 -e TARGET="halo75v2_default_$TAG" -kb nuphy/halo75v2/ansi -km default

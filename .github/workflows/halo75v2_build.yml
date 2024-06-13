@@ -1,4 +1,4 @@
-name: Gem80 Build
+name: Halo75 v2 Build
 
 permissions:
   contents: read
@@ -7,15 +7,9 @@ on:
   # Trigger the workflow on tag creation/push, when tag starts with "ryo-"
   push:
     tags:
-      - 'gem80-*'
-  workflow_dispatch:
-    inputs:
-      branch:
-        type: choice
-        description: 'Branch to build'
-        options: [gem80]
+      - 'halo75v2-*'
 
-concurrency: ci_build-${{ github.event.inputs.branch || github.ref_name }}
+concurrency: ci_build-${{ github.ref_name }}
 
 jobs:
   ci_builds:
@@ -35,16 +29,16 @@ jobs:
     - uses: actions/checkout@v4
       with:
         submodules: recursive
-        ref: ${{ github.event.inputs.branch || github.ref }}
+        ref: ${{ github.ref }}
         fetch-depth: 0
 
     - name: Install dependencies
       run: pip3 install -r requirements.txt
 
-    - name: Run `./compile_gem.sh`
+    - name: Run `./compile_halo.sh`
       run: |
-        chmod +x compile_gem.sh
-        ./compile_gem.sh ${{ github.ref_name }}
+        chmod +x compile_halo.sh
+        ./compile_halo.sh ${{ github.ref_name }}
 
         [ ! -f .failed ] || exit 1
 
@@ -52,30 +46,28 @@ jobs:
       uses: actions/upload-artifact@v4
       if: always()
       with:
-        name: ${{ github.event.inputs.branch || github.ref_name }}-wired
+        name: ${{  github.ref_name }}-via
         if-no-files-found: ignore
         path: |
-          *wired*.bin
+          halo75v2_via*.bin
 
-    - name: Upload threemode version
+    - name: Upload default version
       uses: actions/upload-artifact@v4
       if: always()
       with:
-        name: ${{ github.event.inputs.branch || github.ref_name }}-threemode
+        name: ${{  github.ref_name }}-default
         if-no-files-found: ignore
         path: |
-          *threemode*.bin
+          halo75v2_default*.bin
 
     - name: Create draft release
       uses: softprops/action-gh-release@v2
-      if: startsWith(github.ref, 'refs/tags/gem80-')
+      if: startsWith(github.ref, 'refs/tags/halo75v2-')
       with:
         files: |
-          *wired_via*.bin
-          *threemode_via*.bin
-          *wired_default*.bin
-          *threemode_default*.bin
-          keyboards/nuphy/gem80/ansi/keymaps/via/*via3.json
+          halo75v2_default_*.bin
+          halo75v2__via_*.bin
+          keyboards/nuphy/halo75v2/ansi/keymaps/via/*via3.json
         tag_name: ${{ github.ref_name }}
         draft: true
         prerelease: true
