@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #include "keyball.h"
-#include "drivers/pmw3360/pmw3360.h"
 
 #include <string.h>
 
