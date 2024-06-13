@@ -520,7 +520,7 @@ Move to the previous enabled effect.
 
 ---
 
-### `void led_matrix_step_reverse_noeeprom(void)` {#api-led-matrix-step-reverse}
+### `void led_matrix_step_reverse_noeeprom(void)` {#api-led-matrix-step-reverse-noeeprom}
 
 Move to the previous enabled effect. New state is not written to EEPROM.
 
