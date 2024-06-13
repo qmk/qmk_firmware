@@ -21,8 +21,7 @@
             { "text": "Debugging QMK", "link": "/faq_debug" },
             { "text": "Keymap FAQ", "link": "/faq_keymap" },
             { "text": "Squeezing Space from AVR", "link": "/squeezing_avr" },
-            { "text": "Glossary", "link": "/reference_glossary" },
-            { "text": "Deprecation Policy", "link": "/support_deprecation_policy" }
+            { "text": "Glossary", "link": "/reference_glossary" }
         ]
     },
     {
@@ -213,7 +212,8 @@
                         "text": "Most Recent ChangeLog",
                         "link": "/ChangeLog/20240526"
                     },
-                    { "text": "Past Breaking Changes", "link": "/breaking_changes_history" }
+                    { "text": "Past Breaking Changes", "link": "/breaking_changes_history" },
+                    { "text": "Deprecation Policy", "link": "/support_deprecation_policy" }
                 ]
             },
 
