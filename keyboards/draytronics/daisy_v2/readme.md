@@ -9,11 +9,11 @@ An open source macro pad with a rotary encoder and OLED panel, this is an altern
 
 Make example for this keyboard (after setting up your build environment):
 
-    qmk compile -kb draytronics/daisy_v2 -km default
+    make draytronics/daisy_v2:default
 
 Flashing example for this keyboard:
 
-    qmk flash -kb draytronics/daisy_v2 -km default
+    make draytronics/daisy_v2:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with [The QMK Tutorial](https://docs.qmk.fm/#/newbs).
 
