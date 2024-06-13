@@ -11,4 +11,4 @@ OPT ?= 2
 # CUSTOM_MATRIX = lite
 # SRC += matrix.c
 
-CONSOLE_ENABLE = yes
+# CONSOLE_ENABLE = yes

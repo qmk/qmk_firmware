@@ -170,14 +170,8 @@ void enter_deep_sleep(void) {
  *       This is mostly Nuphy's unreleased logic with cleanup/refactoring by me.
  */
 void exit_deep_sleep(void) {
-    // 矩阵初始化
-    #if CUSTOM_MATRIX
-        extern void matrix_init_custom(void);
-        matrix_init_custom();
-    #else
-        extern void matrix_init_pins(void);
-        matrix_init_pins();
-    #endif
+    extern void matrix_init(void);
+    matrix_init();
 
     // connection mode switch pin
     gpio_set_pin_input_high(DEV_MODE_PIN);
@@ -193,6 +187,7 @@ void exit_deep_sleep(void) {
 
     /* Wake RF module? Not sure if this works... */
     gpio_set_pin_output(NRF_WAKEUP_PIN);
+    gpio_write_pin_low(NRF_WAKEUP_PIN);
 
     // power on LEDs This is missing from Nuphy's logic.
     rgb_led_powered_off = 1;
@@ -205,7 +200,7 @@ void exit_deep_sleep(void) {
     /* TIM6 使能 */
     if (tim6_enabled) TIM_Cmd(TIM6, ENABLE);
 
-        // Should re-init USB regardless probably if it was deinitialized.
+    // Should re-init USB regardless probably if it was deinitialized.
     uart_send_cmd(CMD_HAND, 0, 1);
     if (dev_info.link_mode == LINK_USB) {
         usb_lld_wakeup_host(&USB_DRIVER);
@@ -268,10 +263,6 @@ void led_pwr_sleep_handle(void) {
 void led_pwr_wake_handle(void) {
     if (rgb_led_powered_off) {
         pwr_rgb_led_on();
-        // Change any LED's state so the LED driver flushes after turning on for solid colours.
-        // Without doing this, the WS2812 driver wouldn't flush as the previous state is the same as current.
-        rgb_matrix_set_color_all(0, 0, 0);
-        rgb_matrix_update_pwm_buffers();
     }
 }
 

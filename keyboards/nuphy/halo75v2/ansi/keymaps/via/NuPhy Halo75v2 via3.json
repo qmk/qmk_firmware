@@ -171,7 +171,7 @@
                         },
                         {
                             "label": "Color",
-                            "showIf": "{id_side_light_mode_a} != 4",
+                            "showIf": "{id_side_light_mode_a} != 2",
                             "type": "dropdown",
                             "content": [
                                 "id_side_light_color",
@@ -191,7 +191,7 @@
                         },
                         {
                             "label": "Color",
-                            "showIf": "{id_side_light_mode_a} == 4",
+                            "showIf": "{id_side_light_mode_a} == 2",
                             "type": "dropdown",
                             "content": [
                                 "id_side_light_color",
