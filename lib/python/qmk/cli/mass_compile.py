@@ -101,7 +101,8 @@ all: {keyboard_safe}_{keymap_name}_binary
 def mass_compile(cli):
     """Compile QMK Firmware against all keyboards.
     """
-    maybe_exit_config(should_exit=False, should_reraise=False)
+    maybe_exit_config(should_exit=False, should_reraise=True)
+
     if len(cli.args.builds) > 0:
         json_like_targets = list([Path(p) for p in filter(lambda e: Path(e).exists() and Path(e).suffix == '.json', cli.args.builds)])
         make_like_targets = list(filter(lambda e: Path(e) not in json_like_targets, cli.args.builds))

@@ -20,7 +20,7 @@ def userspace_list(cli):
         cli.log.error('Could not determine QMK userspace location. Please run `qmk doctor` or `qmk userspace-doctor` to diagnose.')
         return False
 
-    maybe_exit_config(should_exit=False, should_reraise=False)
+    maybe_exit_config(should_exit=False, should_reraise=True)
 
     userspace = UserspaceDefs(QMK_USERSPACE / 'qmk.json')
 
