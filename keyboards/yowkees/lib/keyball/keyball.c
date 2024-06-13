@@ -208,14 +208,6 @@ __attribute__((weak)) void keyball_on_apply_motion_to_mouse_scroll(keyball_motio
 #endif
 }
 
-static void motion_to_mouse(keyball_motion_t *m, report_mouse_t *r, bool is_left, bool as_scroll) {
-    if (as_scroll) {
-        keyball_on_apply_motion_to_mouse_scroll(m, r, is_left);
-    } else {
-        keyball_on_apply_motion_to_mouse_move(m, r, is_left);
-    }
-}
-
 static inline bool should_report(void) {
     uint32_t now = timer_read32();
 #if defined(KEYBALL_REPORTMOUSE_INTERVAL) && KEYBALL_REPORTMOUSE_INTERVAL > 0
