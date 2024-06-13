@@ -212,7 +212,8 @@
                         "text": "Most Recent ChangeLog",
                         "link": "/ChangeLog/20240526"
                     },
-                    { "text": "Past Breaking Changes", "link": "/breaking_changes_history" }
+                    { "text": "Past Breaking Changes", "link": "/breaking_changes_history" },
+                    { "text": "Deprecation Policy", "link": "/support_deprecation_policy" }
                 ]
             },
 
