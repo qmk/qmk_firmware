@@ -807,12 +807,6 @@ By setting `RGB_MATRIX_CUSTOM_USER = yes` in `rules.mk`, new effects can be defi
 Hardware maintainers who want to limit custom effects to a specific keyboard can create a `rgb_matrix_kb.inc` file in the root of the keyboard directory, and add `RGB_MATRIX_CUSTOM_KB = yes` to the keyboard level `rules.mk`.
 :::
 
-To use custom effects in your code, simply prepend `RGB_MATRIX_CUSTOM_` to the effect name specified in `RGB_MATRIX_EFFECT()`. For example, an effect declared as `RGB_MATRIX_EFFECT(my_cool_effect)` would be referenced with:
-
-```c
-rgb_matrix_mode(RGB_MATRIX_CUSTOM_my_cool_effect);
-```
-
 ```c
 // !!! DO NOT ADD #pragma once !!! //
 
@@ -854,6 +848,12 @@ static bool my_cool_effect2(effect_params_t* params) {
 }
 
 #endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
+```
+
+To switch to your custom effect programmatically, simply call `rgb_matrix_mode()` and prepend `RGB_MATRIX_CUSTOM_` to the effect name you specified in `RGB_MATRIX_EFFECT()`. For example, an effect declared as `RGB_MATRIX_EFFECT(my_cool_effect)` would be referenced with:
+
+```c
+rgb_matrix_mode(RGB_MATRIX_CUSTOM_my_cool_effect);
 ```
 
 For inspiration and examples, check out the built-in effects under `quantum/rgb_matrix/animations/`.
