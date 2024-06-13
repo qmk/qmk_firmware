@@ -139,32 +139,6 @@ void keyboard_pre_init_kb(void) {
 }
 #endif
 
-void pointing_device_driver_init(void) {
-#if KEYBALL_MODEL != 46
-    keyball.this_have_ball = pmw3360_init();
-#endif
-    if (keyball.this_have_ball) {
-#if defined(KEYBALL_PMW3360_UPLOAD_SROM_ID)
-#    if KEYBALL_PMW3360_UPLOAD_SROM_ID == 0x04
-        pmw3360_srom_upload(pmw3360_srom_0x04);
-#    elif KEYBALL_PMW3360_UPLOAD_SROM_ID == 0x81
-        pmw3360_srom_upload(pmw3360_srom_0x81);
-#    else
-#        error Invalid value for KEYBALL_PMW3360_UPLOAD_SROM_ID. Please choose 0x04 or 0x81 or disable it.
-#    endif
-#endif
-        pmw3360_cpi_set(CPI_DEFAULT - 1);
-    }
-}
-
-uint16_t pointing_device_driver_get_cpi(void) {
-    return keyball_get_cpi();
-}
-
-void pointing_device_driver_set_cpi(uint16_t cpi) {
-    keyball_set_cpi(cpi);
-}
-
 __attribute__((weak)) void keyball_on_apply_motion_to_mouse_move(keyball_motion_t *m, report_mouse_t *r, bool is_left) {
 #if KEYBALL_MODEL == 61 || KEYBALL_MODEL == 39 || KEYBALL_MODEL == 147 || KEYBALL_MODEL == 44
     r->x = clip2int8(m->y);
@@ -261,28 +235,6 @@ static inline bool should_report(void) {
     }
 #endif
     return true;
-}
-
-report_mouse_t pointing_device_driver_get_report(report_mouse_t rep) {
-    // fetch from optical sensor.
-    if (keyball.this_have_ball) {
-        pmw3360_motion_t d = {0};
-        if (pmw3360_motion_burst(&d)) {
-            ATOMIC_BLOCK_FORCEON {
-                keyball.this_motion.x = add16(keyball.this_motion.x, d.x);
-                keyball.this_motion.y = add16(keyball.this_motion.y, d.y);
-            }
-        }
-    }
-    // report mouse event, if keyboard is primary.
-    if (is_keyboard_master() && should_report()) {
-        // modify mouse report by PMW3360 motion.
-        motion_to_mouse(&keyball.this_motion, &rep, is_keyboard_left(), keyball.scroll_mode);
-        motion_to_mouse(&keyball.that_motion, &rep, !is_keyboard_left(), keyball.scroll_mode ^ keyball.this_have_ball);
-        // store mouse report for OLED.
-        keyball.last_mouse = rep;
-    }
-    return rep;
 }
 
 //////////////////////////////////////////////////////////////////////////////
