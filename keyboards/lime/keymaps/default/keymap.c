@@ -173,8 +173,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Joystick + Encoder fix */
     void keyboard_post_init_kb(void) {
         if (is_keyboard_master()) {
-            writePinLow(JOYSTICK_X_PIN);
-            writePinLow(JOYSTICK_Y_PIN);
+            gpio_write_pin_low(JOYSTICK_X_PIN);
+            gpio_write_pin_low(JOYSTICK_Y_PIN);
         }
     }
 

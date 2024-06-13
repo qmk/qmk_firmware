@@ -15,11 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-// Defines the keycodes used by our macros in process_record_user
-//enum custom_keycodes {
-//  QMKBEST = SAFE_RANGE,
-//  QMKURL
-//};
 enum layer {
     _QWERTY,
     _CURSOL,

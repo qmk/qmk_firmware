@@ -210,12 +210,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           backlight_step();
         #endif
         #ifdef KEYBOARD_planck_rev5
-          writePinLow(E6);
+          gpio_write_pin_low(E6);
         #endif
       } else {
         unregister_code(KC_RSFT);
         #ifdef KEYBOARD_planck_rev5
-          writePinHigh(E6);
+          gpio_write_pin_high(E6);
         #endif
       }
       return false;

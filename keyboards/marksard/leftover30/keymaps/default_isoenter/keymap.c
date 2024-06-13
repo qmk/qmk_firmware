@@ -156,7 +156,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
 // for exsample customize of LED inducator
 // bool led_update_user(led_t led_state) {
-//     writePin(D2, IS_LAYER_ON(_LOWER));
-//     writePin(D1, IS_LAYER_ON(_RAISE));
+//     gpio_write_pin(D2, IS_LAYER_ON(_LOWER));
+//     gpio_write_pin(D1, IS_LAYER_ON(_RAISE));
 //     return false;
 // }

@@ -48,9 +48,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     if (get_highest_layer(state) != 0) {
-        writePinLow(C6);
+        gpio_write_pin_low(C6);
     } else {
-        writePinHigh(C6);
+        gpio_write_pin_high(C6);
     }
     return state;
 }

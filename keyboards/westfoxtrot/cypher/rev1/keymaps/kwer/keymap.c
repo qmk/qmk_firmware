@@ -54,13 +54,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool led_update_user(led_t led_state) {
   // Insert custom handling for CAPS_LOCK, NUM_LOCK, SCROLL_LOCK here
       if (led_state.num_lock) {
-        writePinHigh(F4);
-        writePinHigh(F1);
-        writePinHigh(F5);
+        gpio_write_pin_high(F4);
+        gpio_write_pin_high(F1);
+        gpio_write_pin_high(F5);
     } else {
-        writePinLow(F4);
-        writePinLow(F1);
-        writePinLow(F5);
+        gpio_write_pin_low(F4);
+        gpio_write_pin_low(F1);
+        gpio_write_pin_low(F5);
     }
     return false;
 }

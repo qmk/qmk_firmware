@@ -59,18 +59,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void matrix_init_user(void) {
   // set CapsLock LED to output and off (active high)
-  setPinOutput(F5);
+  gpio_set_pin_output(F5);
   // set NumLock LED to output and off (active high)
-  setPinOutput(F6);
+  gpio_set_pin_output(F6);
   // set ScrollLock LED to output and off (active high)
-  setPinOutput(F7);
+  gpio_set_pin_output(F7);
 }
 
 // write to above indicators in a binary fashion based on current layer
 layer_state_t layer_state_set_user(layer_state_t state)
 {
-    writePin(F5, (state & 0x1));
-    writePin(F6, (state & 0x2));
-    writePin(F7, (state & 0x4));
+    gpio_write_pin(F5, (state & 0x1));
+    gpio_write_pin(F6, (state & 0x2));
+    gpio_write_pin(F7, (state & 0x4));
     return state;
 }

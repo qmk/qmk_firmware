@@ -51,10 +51,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool led_update_user(led_t led_state) {
     if (led_state.caps_lock) {
         rgblight_sethsv(HSV_CYAN);
-        writePinHigh(D1);
+        gpio_write_pin_high(D1);
     } else {
         rgblight_sethsv(HSV_GREEN);
-        writePinLow(D1);
+        gpio_write_pin_low(D1);
     }
     return false;
 }

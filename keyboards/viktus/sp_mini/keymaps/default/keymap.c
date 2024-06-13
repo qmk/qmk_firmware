@@ -75,30 +75,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void keyboard_pre_init_user(void) {
-    setPinOutput(F5);  // initialize F5 for LED
-    setPinOutput(F6);  // initialize F6 for LED
-    setPinOutput(F7);  // initialize F7 for LED
+    gpio_set_pin_output(F5);  // initialize F5 for LED
+    gpio_set_pin_output(F6);  // initialize F6 for LED
+    gpio_set_pin_output(F7);  // initialize F7 for LED
 
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    writePinLow(F5);
-    writePinLow(F6);
-    writePinLow(F7);
+    gpio_write_pin_low(F5);
+    gpio_write_pin_low(F6);
+    gpio_write_pin_low(F7);
     switch (get_highest_layer(state)) {
         case _FN1:
-            writePinHigh(F5);
+            gpio_write_pin_high(F5);
             break;
         case _FN2:
-            writePinHigh(F6);
+            gpio_write_pin_high(F6);
             break;
         case _FN3:  // replace 'XXXX' with the layer or function name
-            writePinHigh(F7);
+            gpio_write_pin_high(F7);
             break;
         case KC_F24:
-            writePinHigh(F7);
-            writePinHigh(F5);
-            writePinHigh(F6);
+            gpio_write_pin_high(F7);
+            gpio_write_pin_high(F5);
+            gpio_write_pin_high(F6);
             break;
         }
     return state;
