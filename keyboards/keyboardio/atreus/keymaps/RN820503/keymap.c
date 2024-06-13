@@ -36,8 +36,8 @@ enum custom_keycodes {
             Building for Atreus44
 
     x   w   m    g   j           +=  .:  /    "!  '?
-    s1  c⌥  n⌘   t⇧  k           ,;  a⇧  e⌘   i⌥  h1
-    f⌃  p   l    d   v	 `   \	 -   u   o    y   b⌃
+    s⌃  c⌥  n⌘   t⇧  k           ,;  a⇧  e⌘   i⌥  h⌃
+    f   p   l    d   v	 `   \	 -   u   o    y   b
     ←   →  app   ⌫   r   ⇥   ⎋   ␣   ⏎  num   ↑   ↓
 */
 
@@ -86,13 +86,13 @@ enum custom_keycodes {
 #define LH4 KC_LEFT
 #define LH3 KC_RGHT
 #define LH2 G(KC_TAB)
-#define LH1 KC_BSPC
+#define LH1 LT(_SYM, KC_BSPC)
 #define LH0 LT(_NAV, KC_R)
-#define LH00 LT(_SYM, KC_TAB)
+#define LH00 KC_TAB
 
-#define RH00 LT(_SYM, KC_ESC)
+#define RH00 KC_ESC
 #define RH0 LT(_NUM, KC_SPC)
-#define RH1 KC_ENT
+#define RH1 LT(_SYM, KC_ENT)
 #define RH2 TG(_NUM)
 #define RH3 KC_UP
 #define RH4 KC_DOWN
@@ -163,7 +163,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
 		{   &   *   (   }
     	:   !   @   #   +       ⇧   ⌘   ⌥   ^
-    	~   $   %   ^   |                       
+    	~   $   %   ^   |
     	←   →       (   )   _
     *
     [_SYM] = LAYOUT(
