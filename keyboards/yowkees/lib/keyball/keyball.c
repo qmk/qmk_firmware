@@ -25,7 +25,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <string.h>
 
 const uint8_t CPI_DEFAULT    = KEYBALL_CPI_DEFAULT / 100;
-const uint8_t CPI_MAX        = pmw3360_MAXCPI + 1;
+/**
+ * The Keyball library uses a range of 0 <= cpi <= 119 internally, and the true
+ * CPI value is ( cpi + 1 ) * 100.
+ */
+const uint8_t CPI_MAX        = KEYBALL_PMW3360_MAXCPI + 1; // 119 + 1 = 12000 CPI actual
 const uint8_t SCROLL_DIV_MAX = 7;
 
 const uint16_t AML_TIMEOUT_MIN = 100;
