@@ -7,12 +7,16 @@ on:
   push:
     branches:
     - master
-    - vitepress
     paths:
     - 'builddefs/docsgen/**'
     - 'tmk_core/**'
     - 'quantum/**'
     - 'platforms/**'
+    - 'docs/**'
+    - '.github/workflows/docs.yml'
+  pull_request:
+    paths:
+    - 'builddefs/docsgen/**'
     - 'docs/**'
     - '.github/workflows/docs.yml'
 
@@ -25,9 +29,6 @@ jobs:
     runs-on: ubuntu-latest
     container: ghcr.io/qmk/qmk_cli
 
-    # protect against those who develop with their fork on master
-    if: github.repository == 'qmk/qmk_firmware' || (github.repository == 'tzarc/qmk_firmware' && github.ref == 'refs/heads/vitepress')
-
     steps:
     - uses: actions/checkout@v4
       with:
@@ -35,10 +36,10 @@ jobs:
 
     - name: Install dependencies
       run: |
-        apt-get update && apt-get install -y rsync doxygen curl
+        apt-get update && apt-get install -y rsync doxygen
         # install nvm
         touch $HOME/.bashrc
-        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+        wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 
     - name: Install node
       run: |
@@ -46,29 +47,15 @@ jobs:
         nvm install 20
         nvm use 20
         corepack enable
-        npm install -g moxygen
 
     - name: Build docs
       run: |
         source $HOME/.bashrc
         nvm use 20
         qmk --verbose generate-docs
-        touch '.build/docs/.nojekyll'
-
-    - name: Set CNAME
-      if: github.repository == 'qmk/qmk_firmware'
-      run: |
-        # Override target CNAME
-        echo 'docs.qmk.fm' > .build/docs/CNAME
-
-    - name: Override CNAME
-      if: github.repository == 'tzarc/qmk_firmware'
-      run: |
-        # Temporarily override target CNAME during development
-        echo 'vitepress.qmk.fm' > .build/docs/CNAME
 
     - name: Deploy
-      if: github.repository == 'qmk/qmk_firmware'
+      if: ${{ github.event_name == 'push' && github.repository == 'qmk/qmk_firmware' }}
       uses: JamesIves/github-pages-deploy-action@v4.6.1
       with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -76,10 +63,3 @@ jobs:
           folder: .build/docs
           git-config-name: QMK Bot
           git-config-email: hello@qmk.fm
-
-    - name: Deploy
-      if: github.repository == 'tzarc/qmk_firmware'
-      uses: JamesIves/github-pages-deploy-action@v4.6.1
-      with:
-        branch: gh-pages
-        folder: .build/docs
