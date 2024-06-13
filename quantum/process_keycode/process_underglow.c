@@ -84,54 +84,6 @@ bool process_underglow(uint16_t keycode, keyrecord_t *record) {
                     rgblight_decrease_speed();
                 }
                 return false;
-            case RGB_MODE_PLAIN:
-                rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
-                return false;
-#if defined(RGBLIGHT_EFFECT_BREATHING)
-            case RGB_MODE_BREATHE:
-                rgblight_mode(RGBLIGHT_MODE_BREATHING);
-                return false;
-#endif
-#if defined(RGBLIGHT_EFFECT_RAINBOW_MOOD)
-            case RGB_MODE_RAINBOW:
-                rgblight_mode(RGBLIGHT_MODE_RAINBOW_MOOD);
-                return false;
-#endif
-#if defined(RGBLIGHT_EFFECT_RAINBOW_SWIRL)
-            case RGB_MODE_SWIRL:
-                rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL);
-                return false;
-#endif
-#if defined(RGBLIGHT_EFFECT_SNAKE)
-            case RGB_MODE_SNAKE:
-                rgblight_mode(RGBLIGHT_MODE_SNAKE);
-                return false;
-#endif
-#if defined(RGBLIGHT_EFFECT_KNIGHT)
-            case RGB_MODE_KNIGHT:
-                rgblight_mode(RGBLIGHT_MODE_KNIGHT);
-                return false;
-#endif
-#if defined(RGBLIGHT_EFFECT_CHRISTMAS)
-            case RGB_MODE_XMAS:
-                rgblight_mode(RGBLIGHT_MODE_CHRISTMAS);
-                return false;
-#endif
-#if defined(RGBLIGHT_EFFECT_STATIC_GRADIENT)
-            case RGB_MODE_GRADIENT:
-                rgblight_mode(RGBLIGHT_MODE_STATIC_GRADIENT);
-                return false;
-#endif
-#if defined(RGBLIGHT_EFFECT_RGB_TEST)
-            case RGB_MODE_RGBTEST:
-                rgblight_mode(RGBLIGHT_MODE_RGB_TEST);
-                return false;
-#endif
-#if defined(RGBLIGHT_EFFECT_TWINKLE)
-            case RGB_MODE_TWINKLE:
-                rgblight_mode(RGBLIGHT_MODE_TWINKLE);
-                return false;
-#endif
         }
     }
 
