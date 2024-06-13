@@ -15,12 +15,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "quantum.h"
-#include <math.h>
 #include "cocot46plus.h"
-#include "wait.h"
-#include "debug.h"
-#include <stdio.h>
+#include <math.h>
 
 // Invert vertical scroll direction
 #ifndef COCOT_SCROLL_INV_DEFAULT
