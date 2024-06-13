@@ -193,8 +193,11 @@ void exit_deep_sleep(void) {
     gpio_set_pin_output(DRIVER_SIDE_CS_PIN);
     gpio_write_pin_low(DRIVER_SIDE_CS_PIN);
 
+#if (WORK_MODE == THREE_MODE)
     /* Wake RF module? Not sure if this works... */
     gpio_set_pin_output(NRF_WAKEUP_PIN);
+    gpio_write_pin_low(NRF_WAKEUP_PIN); // FIXME: test
+#endif
 
     // power on LEDs This is missing from Nuphy's logic.
     rgb_led_powered_off  = 1;
