@@ -18,6 +18,7 @@
 #include "planck_ez.h"
 #include <ch.h>
 #include <hal.h>
+#include "keycodes.h"
 
 keyboard_config_t keyboard_config;
 
@@ -150,13 +151,13 @@ void eeconfig_init_kb(void) {  // EEPROM is getting reset!
 #ifndef PLANCK_EZ_USER_LEDS
 
 #ifndef PLANCK_EZ_LED_LOWER
-#    define PLANCK_EZ_LED_LOWER 3
+#    define PLANCK_EZ_LED_LOWER 1
 #endif
 #ifndef PLANCK_EZ_LED_RAISE
-#    define PLANCK_EZ_LED_RAISE 4
+#    define PLANCK_EZ_LED_RAISE 2
 #endif
 #ifndef PLANCK_EZ_LED_ADJUST
-#    define PLANCK_EZ_LED_ADJUST 6
+#    define PLANCK_EZ_LED_ADJUST 3
 #endif
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
@@ -245,6 +246,8 @@ bool music_mask_kb(uint16_t keycode) {
     case AU_ON ... AU_PREV:
     case QK_BOOT:
     case QK_CLEAR_EEPROM:
+    case QK_TRI_LAYER_LOWER:
+    case QK_TRI_LAYER_UPPER:
         return false;
     default:
         return music_mask_user(keycode);
