@@ -707,6 +707,9 @@
     "xelus/valor": {
         "target": "xelus/valor/rev1"
     },
+    "ymdk/ymd68": {
+        "target": "ymdk/ym68"
+    },
     "z150_blackheart": {
         "target": "viktus/z150_bh"
     },
