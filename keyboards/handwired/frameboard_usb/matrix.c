@@ -20,13 +20,10 @@
 #include "gpio.h"
 #include "wait.h"
 
-
 static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 
-
-void matrix_init_custom(void)
-{
+void matrix_init_custom(void) {
     // A multiplexer is connected to the output (row) pins
     for (int i = 0; i < MATRIX_ROWS; i++) {
         gpio_set_pin_output(row_pins[i]);
@@ -40,37 +37,29 @@ void matrix_init_custom(void)
     gpio_write_pin_low(row_pins[0]);
 }
 
-
 // Select the active row (KSI) via the MUX
-void select_row(uint8_t row)
-{
+void select_row(uint8_t row) {
     gpio_write_pin(row_pins[1], (row >> 0) & 1);
     gpio_write_pin(row_pins[2], (row >> 1) & 1);
     gpio_write_pin(row_pins[3], (row >> 2) & 1);
     wait_ms(1);
 }
 
-
 // Read the KSO pins
-matrix_row_t read_row(void)
-{
+matrix_row_t read_row(void) {
     matrix_row_t row_state = 0;
 
-    for (uint8_t col = 0; col < MATRIX_COLS; ++col)
-    {
+    for (uint8_t col = 0; col < MATRIX_COLS; ++col) {
         row_state |= !gpio_read_pin(col_pins[col]) << col;
     }
 
     return row_state;
 }
 
-
-bool matrix_scan_custom(matrix_row_t current_matrix[])
-{
+bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     bool matrix_has_changed = false;
 
-    for (uint8_t row = 0; row < MATRIX_ROWS; ++row)
-    {
+    for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
         matrix_row_t last_state = current_matrix[row];
         select_row(row);
         current_matrix[row] = read_row();
