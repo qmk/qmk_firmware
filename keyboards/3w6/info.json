@@ -6,5 +6,9 @@
     "usb": {
         "vid": "0xFEED",
         "pid": "0x4658"
-    }
+    },
+        "layout_aliases": {
+            "LAYOUT": "LAYOUT_split_3x5_3"
+    },
+    "community_layouts": ["split_3x5_3"]
 }
