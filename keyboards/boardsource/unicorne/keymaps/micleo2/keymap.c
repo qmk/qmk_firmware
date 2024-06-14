@@ -100,10 +100,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_BLN] = LAYOUT_split_3x6_3(
-    KC_TILDE,      LT(0, KC_Q),   LT(0, KC_W),  LT(0, KC_E),   LT(0, KC_R),   LT(0, KC_T),          _______,       _______,       _______,      _______,       _______,       _______,
+    KC_GRV,        LT(0, KC_Q),   LT(0, KC_W),  LT(0, KC_E),   LT(0, KC_R),   LT(0, KC_T),          _______,       _______,       _______,      _______,       _______,       _______,
     SFT_T(KC_ENT), _______,       _______,      _______,       _______,       LT(0, KC_G),          _______,       _______,       _______,      _______,       _______,       _______,
     _______,       _______,       LT(0, KC_X),  LT(0, KC_C),   LT(0, KC_V),   _______,              _______,       _______,       _______,      _______,       _______,       TO(_BSE),
-                                                _______,       _______,       _______,              _______,       _______,       _______
+                                                _______,       _______,       SFT_T(KC_TAB),        _______,       _______,       _______
 )
 
 };
@@ -531,6 +531,9 @@ bool oled_task_user() {
             break;
         case _NUM:
             oled_write_raw(gw_key, sizeof(gw_key));
+            break;
+        case _BLN:
+            oled_write_raw(gw_flagman_right, sizeof(gw_flagman_right));
             break;
         default:
             render_idle();
