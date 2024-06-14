@@ -50,7 +50,7 @@ void layer_lock_invert(uint8_t layer) {
     } else { // Layer is being unlocked.
         layer_off(layer);
     }
-    layer_lock_set_user(locked_layers ^= mask);
+    layer_lock_set_kb(locked_layers ^= mask);
 }
 
 // Implement layer_lock_on/off by deferring to layer_lock_invert.
@@ -69,7 +69,7 @@ void layer_lock_off(uint8_t layer) {
 void layer_lock_all_off(void) {
     layer_and(~locked_layers);
     locked_layers = 0;
-    layer_lock_set_user(locked_layers);
+    layer_lock_set_kb(locked_layers);
 }
 
 __attribute__((weak)) bool layer_lock_set_kb(layer_state_t locked_layers) {
