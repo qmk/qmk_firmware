@@ -29,6 +29,7 @@
     "layout_aliases": {
         "LAYOUT": "LAYOUT_tkl_ansi_wkl"
     },
+    "community_layouts": ["tkl_ansi_wkl"],
     "layouts": {
         "LAYOUT_tkl_ansi_wkl": {
             "layout": [
