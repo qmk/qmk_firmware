@@ -14,8 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include QMK_KEYBOARD_H
-
 #include "matrix.h"
 #include "gpio.h"
 #include "wait.h"
