@@ -155,6 +155,7 @@
                         },
                         {
                             "label": "Speed (higher is slower)",
+                            "showIf": "{id_side_light_mode_a} != 4",
                             "type": "dropdown",
                             "content": [
                                 "id_side_light_speed",
