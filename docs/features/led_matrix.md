@@ -300,18 +300,11 @@ These modes introduce additional logic that can increase firmware size.
 
 ## Custom LED Matrix Effects {#custom-led-matrix-effects}
 
-By setting `LED_MATRIX_CUSTOM_USER` (and/or `LED_MATRIX_CUSTOM_KB`) in `rules.mk`, new effects can be defined directly from userspace, without having to edit any QMK core files.
+By setting `LED_MATRIX_CUSTOM_USER = yes` in `rules.mk`, new effects can be defined directly from your keymap or userspace, without having to edit any QMK core files. To declare new effects, create a `led_matrix_user.inc` file in the user keymap directory or userspace folder.
 
-To declare new effects, create a new `led_matrix_user/kb.inc` that looks something like this:
-
-`led_matrix_user.inc` should go in the root of the keymap directory.
-`led_matrix_kb.inc` should go in the root of the keyboard directory.
-
-To use custom effects in your code, simply prepend `LED_MATRIX_CUSTOM_` to the effect name specified in `LED_MATRIX_EFFECT()`. For example, an effect declared as `LED_MATRIX_EFFECT(my_cool_effect)` would be referenced with:
-
-```c
-led_matrix_mode(led_MATRIX_CUSTOM_my_cool_effect);
-```
+::: tip
+Hardware maintainers who want to limit custom effects to a specific keyboard can create a `led_matrix_kb.inc` file in the root of the keyboard directory, and add `LED_MATRIX_CUSTOM_KB = yes` to the keyboard level `rules.mk`.
+:::
 
 ```c
 // !!! DO NOT ADD #pragma once !!! //
@@ -356,6 +349,12 @@ static bool my_cool_effect2(effect_params_t* params) {
 #endif // LED_MATRIX_CUSTOM_EFFECT_IMPLS
 ```
 
+To switch to your custom effect programmatically, simply call `led_matrix_mode()` and prepend `LED_MATRIX_CUSTOM_` to the effect name your specified in `LED_MATRIX_EFFECT()`. For example, an effect declared as `LED_MATRIX_EFFECT(my_cool_effect)` would be referenced with:
+
+```c
+led_matrix_mode(LED_MATRIX_CUSTOM_my_cool_effect);
+```
+
 For inspiration and examples, check out the built-in effects under `quantum/led_matrix/animations/`.
 
 
@@ -381,55 +380,6 @@ For inspiration and examples, check out the built-in effects under `quantum/led_
 
 The EEPROM for it is currently shared with the RGB Matrix system (it's generally assumed only one feature would be used at a time).
 
-### Direct Operation {#direct-operation}
-|Function                                    |Description  |
-|--------------------------------------------|-------------|
-|`led_matrix_set_value_all(v)`         |Set all of the LEDs to the given value, where `v` is between 0 and 255 (not written to EEPROM) |
-|`led_matrix_set_value(index, v)`      |Set a single LED to the given value, where `v` is between 0 and 255, and `index` is between 0 and `LED_MATRIX_LED_COUNT` (not written to EEPROM) |
-
-### Disable/Enable Effects {#disable-enable-effects}
-|Function                                    |Description  |
-|--------------------------------------------|-------------|
-|`led_matrix_toggle()`                       |Toggle effect range LEDs between on and off |
-|`led_matrix_toggle_noeeprom()`              |Toggle effect range LEDs between on and off (not written to EEPROM) |
-|`led_matrix_enable()`                       |Turn effect range LEDs on, based on their previous state |
-|`led_matrix_enable_noeeprom()`              |Turn effect range LEDs on, based on their previous state (not written to EEPROM) |
-|`led_matrix_disable()`                      |Turn effect range LEDs off, based on their previous state |
-|`led_matrix_disable_noeeprom()`             |Turn effect range LEDs off, based on their previous state (not written to EEPROM) |
-
-### Change Effect Mode {#change-effect-mode}
-|Function                                    |Description  |
-|--------------------------------------------|-------------|
-|`led_matrix_mode(mode)`                     |Set the mode, if LED animations are enabled |
-|`led_matrix_mode_noeeprom(mode)`            |Set the mode, if LED animations are enabled (not written to EEPROM) |
-|`led_matrix_step()`                         |Change the mode to the next LED animation in the list of enabled LED animations |
-|`led_matrix_step_noeeprom()`                |Change the mode to the next LED animation in the list of enabled LED animations (not written to EEPROM) |
-|`led_matrix_step_reverse()`                 |Change the mode to the previous LED animation in the list of enabled LED animations |
-|`led_matrix_step_reverse_noeeprom()`        |Change the mode to the previous LED animation in the list of enabled LED animations (not written to EEPROM) |
-|`led_matrix_increase_speed()`               |Increase the speed of the animations |
-|`led_matrix_increase_speed_noeeprom()`      |Increase the speed of the animations (not written to EEPROM) |
-|`led_matrix_decrease_speed()`               |Decrease the speed of the animations |
-|`led_matrix_decrease_speed_noeeprom()`      |Decrease the speed of the animations (not written to EEPROM) |
-|`led_matrix_set_speed(speed)`               |Set the speed of the animations to the given value where `speed` is between 0 and 255 |
-|`led_matrix_set_speed_noeeprom(speed)`      |Set the speed of the animations to the given value where `speed` is between 0 and 255 (not written to EEPROM) |
-
-### Change Value {#change-value}
-|Function                                    |Description  |
-|--------------------------------------------|-------------|
-|`led_matrix_increase_val()`                 |Increase the value for effect range LEDs. This wraps around at maximum value |
-|`led_matrix_increase_val_noeeprom()`        |Increase the value for effect range LEDs. This wraps around at maximum value (not written to EEPROM) |
-|`led_matrix_decrease_val()`                 |Decrease the value for effect range LEDs. This wraps around at minimum value |
-|`led_matrix_decrease_val_noeeprom()`        |Decrease the value for effect range LEDs. This wraps around at minimum value (not written to EEPROM) |
-
-### Query Current Status {#query-current-status}
-|Function                         |Description                |
-|---------------------------------|---------------------------|
-|`led_matrix_is_enabled()`        |Gets current on/off status |
-|`led_matrix_get_mode()`          |Gets current mode          |
-|`led_matrix_get_val()`           |Gets current val           |
-|`led_matrix_get_speed()`         |Gets current speed         |
-|`led_matrix_get_suspend_state()` |Gets current suspend state |
-
 ## Callbacks {#callbacks}
 
 ### Indicators {#indicators}
@@ -453,3 +403,293 @@ void led_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     return false;
 }
 ```
+
+## API {#api}
+
+### `void led_matrix_toggle(void)` {#api-led-matrix-toggle}
+
+Toggle LED Matrix on or off.
+
+---
+
+### `void led_matrix_toggle_noeeprom(void)` {#api-led-matrix-toggle-noeeprom}
+
+Toggle LED Matrix on or off. New state is not written to EEPROM.
+
+---
+
+### `void led_matrix_enable(void)` {#api-led-matrix-enable}
+
+Turn LED Matrix on.
+
+---
+
+### `void led_matrix_enable_noeeprom(void)` {#api-led-matrix-enable-noeeprom}
+
+Turn LED Matrix on. New state is not written to EEPROM.
+
+---
+
+### `void led_matrix_disable(void)` {#api-led-matrix-disable}
+
+Turn LED Matrix off.
+
+---
+
+### `void led_matrix_disable_noeeprom(void)` {#api-led-matrix-disable-noeeprom}
+
+Turn LED Matrix off. New state is not written to EEPROM.
+
+---
+
+### `bool led_matrix_is_enabled(void)` {#api-led-matrix-is-enabled}
+
+Get the current enabled state of LED Matrix.
+
+#### Return Value {#api-led-matrix-is-enabled-return}
+
+`true` if LED Matrix is enabled.
+
+---
+
+### `void led_matrix_set_value(uint8_t index, uint8_t v)` {#led-matrix-set-value}
+
+Set the brightness of a single LED.
+
+This function can only be run from within an effect or indicator callback, otherwise the currently running animation will simply overwrite it on the next frame.
+
+#### Arguments {#api-led-matrix-set-value-arguments}
+
+ - `uint8_t index`  
+   The LED index, from 0 to `LED_MATRIX_LED_COUNT - 1`.
+ - `uint8_t v`  
+   The brightness value to set.
+
+---
+
+### `void led_matrix_set_value_all(uint8_t v)` {#api-led-matrix-set-value-all}
+
+Set the brightness of all LEDs.
+
+This function can only be run from within an effect or indicator callback, otherwise the currently running animation will simply overwrite it on the next frame.
+
+#### Arguments {#api-led-matrix-set-value-all-arguments}
+
+ - `uint8_t v`  
+   The brightness value to set.
+
+---
+
+### `void led_matrix_mode(uint8_t mode)` {#api-led-matrix-mode}
+
+Set the currently running effect.
+
+#### Arguments {#api-led-matrix-mode-arguments}
+
+ - `uint8_t mode`  
+   The effect to switch to.
+
+---
+
+### `void led_matrix_mode_noeeprom(uint8_t mode)` {#api-led-matrix-mode-noeeprom}
+
+Set the currently running effect. New state is not written to EEPROM.
+
+#### Arguments {#api-led-matrix-mode-noeeprom-arguments}
+
+ - `uint8_t mode`  
+   The effect to switch to.
+
+---
+
+### `void led_matrix_step(void)` {#api-led-matrix-step}
+
+Move to the next enabled effect.
+
+---
+
+### `void led_matrix_step_noeeprom(void)` {#api-led-matrix-step-noeeprom}
+
+Move to the next enabled effect. New state is not written to EEPROM.
+
+---
+
+### `void led_matrix_step_reverse(void)` {#api-led-matrix-step-reverse}
+
+Move to the previous enabled effect.
+
+---
+
+### `void led_matrix_step_reverse_noeeprom(void)` {#api-led-matrix-step-reverse-noeeprom}
+
+Move to the previous enabled effect. New state is not written to EEPROM.
+
+---
+
+### `uint8_t led_matrix_get_mode(void)` {#api-led-matrix-get-mode}
+
+Get the currently running effect.
+
+#### Return Value {#api-led-matrix-get-mode-return}
+
+The index of the currently running effect.
+
+---
+
+### `void val_matrix_increase_val(void)` {#api-led-matrix-increase-val}
+
+Increase the global effect brightness.
+
+---
+
+### `void led_matrix_increase_val_noeeprom(void)` {#api-led-matrix-increase-val-noeeprom}
+
+Increase the global effect brightness. New state is not written to EEPROM.
+
+---
+
+### `void led_matrix_decrease_val(void)` {#api-led-matrix-decrease-val}
+
+Decrease the global effect brightness.
+
+---
+
+### `void led_matrix_decrease_val_noeeprom(void)` {#api-led-matrix-decrease-val-noeeprom}
+
+Decrease the global effect brightness. New state is not written to EEPROM.
+
+---
+
+### `uint8_t led_matrix_get_val(void)` {#api-led-matrix-get-val}
+
+Get the current global effect brightness.
+
+#### Return Value {#api-led-matrix-get-val-return}
+
+The current brightness value, from 0 to 255.
+
+---
+
+### `void led_matrix_increase_speed(void)` {#api-led-matrix-increase-speed}
+
+Increase the effect speed.
+
+---
+
+### `void led_matrix_increase_speed_noeeprom(void)` {#api-led-matrix-increase-speed-noeeprom}
+
+Increase the effect speed. New state is not written to EEPROM.
+
+---
+
+### `void led_matrix_decrease_speed(void)` {#api-led-matrix-decrease-speed}
+
+Decrease the effect speed.
+
+---
+
+### `void led_matrix_decrease_speed_noeeprom(void)` {#api-led-matrix-decrease-speed-noeeprom}
+
+Decrease the effect speed. New state is not written to EEPROM.
+
+---
+
+### `void led_matrix_set_speed(uint8_t speed)` {#api-led-matrix-set-speed}
+
+Set the effect speed.
+
+#### Arguments {#api-led-matrix-set-speed-arguments}
+
+ - `uint8_t speed`  
+   The new speed to set, from 0 to 255.
+
+---
+
+### `void led_matrix_set_speed_noeeprom(uint8_t speed)` {#api-led-matrix-set-speed-noeeprom}
+
+Set the effect speed. New state is not written to EEPROM.
+
+#### Arguments {#api-led-matrix-set-speed-noeeprom-arguments}
+
+ - `uint8_t speed`  
+   The new speed to set, from 0 to 255.
+
+---
+
+### `uint8_t led_matrix_get_speed(void)` {#api-led-matrix-get-speed}
+
+Get the current effect speed.
+
+#### Return Value {#api-led-matrix-get-speed-return}
+
+The current effect speed, from 0 to 255.
+
+---
+
+### `void led_matrix_reload_from_eeprom(void)` {#api-led-matrix-reload-from-eeprom}
+
+Reload the effect configuration (enabled, mode and brightness) from EEPROM.
+
+---
+
+### `bool led_matrix_get_suspend_state(void)` {#api-led-matrix-get-suspend-state}
+
+Get the current suspend state of LED Matrix.
+
+#### Return Value {#api-led-matrix-get-suspend-state-return}
+
+`true` if LED Matrix is currently in the suspended state.
+
+---
+
+### `bool led_matrix_indicators_kb(void)` {#api-led-matrix-indicators-kb}
+
+Keyboard-level callback, invoked after current animation frame is rendered but before it is flushed to the LEDs.
+
+#### Return Value {#api-led-matrix-indicators-kb-return}
+
+Currently unused.
+
+---
+
+### `bool led_matrix_indicators_user(void)` {#api-led-matrix-indicators-user}
+
+Keymap-level callback, invoked after current animation frame is rendered but before it is flushed to the LEDs.
+
+#### Return Value {#api-led-matrix-indicators-user-return}
+
+`true` to continue running the keyboard-level callback.
+
+---
+
+### `bool led_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max)` {#api-led-matrix-indicators-advanced-kb}
+
+Keyboard-level callback, invoked after current animation frame is rendered but before it is flushed to the LEDs.
+
+### Arguments {#api-led-matrix-indicators-advanced-kb-arguments}
+
+ - `uint8_t led_min`  
+   The index of the first LED in this batch.
+ - `uint8_t led_max`  
+   The index of the last LED in this batch.
+
+#### Return Value {#api-led-matrix-indicators-advanced-kb-return}
+
+Currently unused.
+
+---
+
+### `bool led_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max)` {#api-led-matrix-indicators-advanced-user}
+
+Keymap-level callback, invoked after current animation frame is rendered but before it is flushed to the LEDs.
+
+### Arguments {#api-led-matrix-indicators-advanced-user-arguments}
+
+ - `uint8_t led_min`  
+   The index of the first LED in this batch.
+ - `uint8_t led_max`  
+   The index of the last LED in this batch.
+
+#### Return Value {#api-led-matrix-indicators-advanced-user-return}
+
+`true` to continue running the keyboard-level callback.
