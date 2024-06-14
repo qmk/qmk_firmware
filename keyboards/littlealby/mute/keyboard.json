@@ -31,8 +31,12 @@
       ["B5"]
     ]
   },
+  "layout_aliases": {
+    "LAYOUT": "LAYOUT_ortho_1x1"
+  },
+  "community_layouts": ["ortho_1x1"],
   "layouts": {
-    "LAYOUT": {
+    "LAYOUT_ortho_1x1": {
       "layout": [
         {"x": 0, "y": 0, "matrix": [0, 0]}
       ]

@@ -28,7 +28,7 @@ enum combo_events {
 const uint16_t PROGMEM led_adjust_combo[] = {KC_LEFT, KC_RGHT, COMBO_END};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [DEFAULT] = LAYOUT(
+    [DEFAULT] = LAYOUT_ortho_2x3(
         KC_END,  KC_UP,   KC_MUTE,
         KC_LEFT, KC_DOWN, KC_RGHT
     )
