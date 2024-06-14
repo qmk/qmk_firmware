@@ -3,7 +3,7 @@
 
 * A customizable soldering 75% keyboard.
 
-* Keyboard Maintainer: JACKY(https://github.com/JackyJia73)
+* Keyboard Maintainer: [JACKY](https://github.com/JackyJia73)
 * Hardware Supported: MMD-KM17
 * Hardware Availability: [MMD-KM17](https://github.com/Smartmmd/qmk_firmware/new/master/keyboards)
 
