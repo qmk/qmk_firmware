@@ -6,6 +6,7 @@
         "layer_count": 6
     },
     "features": {
+        "bootmagic": true,
         "extrakey": true,
         "mousekey": true,
         "rgb_matrix": true
@@ -113,6 +114,9 @@
         "sleep": true
     },
     "split": {
+        "bootmagic": {
+            "matrix": [4, 0]
+        },
         "enabled": true,
         "matrix_pins": {
             "right": {
