@@ -145,7 +145,12 @@ bool oled_task_kb(void) {
     if (!oled_task_user()) {
         return false;
     }
-    if (is_keyboard_master()) {
+    #ifdef OLED_FLIP
+    bool condition = !is_keyboard_master();
+    #else
+    bool condition = is_keyboard_master();
+    #endif
+    if (condition) {
         oled_render_layer_state();
         oled_render_keylog();
     } else {

@@ -187,7 +187,12 @@ const char *read_keylogs(void) {
 //new
 
 bool oled_task_user(void) {
-  if (is_keyboard_master()) {
+  #ifdef OLED_FLIP
+  bool condition = !is_keyboard_master();
+  #else
+  bool condition = is_keyboard_master();
+  #endif
+  if (condition) {
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
 

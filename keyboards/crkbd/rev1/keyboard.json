@@ -3,7 +3,6 @@
         "rgblight": true
     },
     "split": {
-        "soft_serial_pin": "D2",
         "transport": {
             "sync": {
                 "matrix_state": true
@@ -15,7 +14,8 @@
         "split_count": [27, 27]
     },
     "ws2812": {
-        "pin": "D3"
+        "pin": "GP0",
+        "driver": "vendor"
     },
     "rgb_matrix": {
         "split_count": [27, 27],
@@ -76,7 +76,8 @@
             {"matrix": [6, 0], "x": 224, "y": 41, "flags": 1}
         ]
     },
-    "development_board": "promicro",
+    "processor": "RP2040",
+    "bootloader": "rp2040",
     "layout_aliases": {
         "LAYOUT": "LAYOUT_split_3x6_3"
     },

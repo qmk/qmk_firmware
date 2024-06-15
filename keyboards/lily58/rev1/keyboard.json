@@ -12,22 +12,22 @@
         "oled": true
     },
     "matrix_pins": {
-        "cols": ["F6", "F7", "B1", "B3", "B2", "B6"],
-        "rows": ["C6", "D7", "E6", "B4", "B5"]
+        "cols": ["GP27", "GP26", "GP22", "GP20", "GP23", "GP21"],
+        "rows": ["GP5", "GP6", "GP7", "GP8", "GP9"]
     },
     "diode_direction": "COL2ROW",
     "split": {
-        "enabled": true,
-        "soft_serial_pin": "D2"
+        "enabled": true
     },
     "rgblight": {
         "led_count": 12
     },
     "ws2812": {
-        "pin": "D3"
+        "pin": "GP0",
+        "driver": "vendor"
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "processor": "RP2040",
+    "bootloader": "rp2040",
     "layouts": {
         "LAYOUT": {
             "layout": [

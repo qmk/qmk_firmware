@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include <stdbool.h>
+#include "keyboard.h"
 #include "ps2_mouse.h"
 #include "wait.h"
 #include "gpio.h"
@@ -40,6 +41,10 @@ static inline void ps2_mouse_scroll_button_task(report_mouse_t *mouse_report);
 
 /* supports only 3 button mouse at this time */
 void ps2_mouse_init(void) {
+    if (!is_keyboard_master()) {
+        return;
+    }
+
     ps2_host_init();
 
     wait_ms(PS2_MOUSE_INIT_DELAY); // wait for powering up
@@ -72,6 +77,10 @@ __attribute__((weak)) void ps2_mouse_init_user(void) {}
 __attribute__((weak)) void ps2_mouse_moved_user(report_mouse_t *mouse_report) {}
 
 void ps2_mouse_task(void) {
+    if (!is_keyboard_master()) {
+        return;
+    }
+
     static uint8_t buttons_prev = 0;
     extern int     tp_buttons;
 
