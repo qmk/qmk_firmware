@@ -8,6 +8,9 @@
         "enabled": true,
         "bootmagic": {
             "matrix": [7, 0]
+        },
+        "serial": {
+            "driver": "usart"
         }
     },
     "development_board": "blackpill_f411",

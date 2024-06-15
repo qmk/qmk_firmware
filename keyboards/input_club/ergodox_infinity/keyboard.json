@@ -39,7 +39,10 @@
     },
     "diode_direction": "ROW2COL",
     "split": {
-        "enabled": true
+        "enabled": true,
+        "serial": {
+            "driver": "usart"
+        }
     },
     "processor": "MK20DX256",
     "bootloader": "kiibohd",
