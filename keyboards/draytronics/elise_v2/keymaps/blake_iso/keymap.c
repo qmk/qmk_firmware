@@ -18,6 +18,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
+//Fix to prevent key repeat on wake from sleep when using a KVM / non direct usb connection.
+#undef USB_POLLING_INTERVAL_MS
+#define USB_POLLING_INTERVAL_MS 8
+#undef USB_SUSPEND_WAKEUP_DELAY
+#define USB_SUSPEND_WAKEUP_DELAY 3000
+
+
 enum custom_layers {
     _BL,
     _FL,
