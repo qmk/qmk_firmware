@@ -3,7 +3,7 @@
   "notes": "My awesome keymap",
   "documentation": "\"This file is a QMK Configurator export. You can import this at <https://config.qmk.fm>. It can also be used directly with QMK's source code.\n\nTo setup your QMK environment check out the tutorial: <https://docs.qmk.fm/#/newbs>\n\nYou can convert this file to a keymap.c using this command: `qmk json2c {keymap}`\n\nYou can compile this keymap using this command: `qmk compile {keymap}`\"\n",
   "keyboard": "bastardkb/skeletyl/blackpill",
-  "keymap": "default",
+  "keymap": "bastardkb_skeletyl_blackpill_default",
   "layout": "LAYOUT_split_3x5_3",
   "layers": [
     [
@@ -54,7 +54,7 @@
       "KC_NO",
       "KC_NO",
       "KC_NO",
-      "QK_RBT",
+      "ANY(QK_RBT)",
       "KC_MS_L",
       "KC_BTN2",
       "KC_BTN1",
@@ -159,7 +159,7 @@
       "KC_NO"
     ],
     [
-      "KC_EQL",
+      "KC_GRV",
       "KC_CIRC",
       "KC_LT",
       "KC_GT",
@@ -197,7 +197,7 @@
       "KC_NO"
     ],
     [
-      "QK_RBT",
+      "ANY(QK_RBT)",
       "KC_NO",
       "KC_NO",
       "KC_NO",
