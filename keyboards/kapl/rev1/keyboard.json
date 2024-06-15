@@ -78,6 +78,12 @@
     "extrakey": true,
     "rgb_matrix": true
   },
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  },
   "build": {
     "lto": true
   },

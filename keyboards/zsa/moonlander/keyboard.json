@@ -22,6 +22,12 @@
         "rgb_matrix": true,
         "swap_hands": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "audio": {
         "driver": "dac_additive"
     },

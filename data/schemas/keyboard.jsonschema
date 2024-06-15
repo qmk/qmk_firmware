@@ -805,7 +805,7 @@
                     "properties": {
                         "protocol": {
                             "type": "string",
-                            "enum": ["custom", "i2c", "serial", "serial_usart"]
+                            "enum": ["custom", "i2c", "serial"]
                         },
                         "sync": {
                             "type": "object",
