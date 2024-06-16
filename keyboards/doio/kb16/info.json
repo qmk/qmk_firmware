@@ -8,15 +8,6 @@
         "force_nkro": true
     },
     "diode_direction": "COL2ROW",
-    "features": {
-        "bootmagic": true,
-        "mousekey": true,
-        "extrakey": true,
-        "nkro": true,
-        "oled": true,
-        "rgb_matrix": true,
-        "encoder": true
-    },
     "build": {
         "lto": true
     },

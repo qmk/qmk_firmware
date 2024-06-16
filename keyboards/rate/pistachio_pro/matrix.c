@@ -14,23 +14,21 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <stdint.h>
-#include <stdbool.h>
 #include "matrix.h"
-#include "quantum.h"
+#include "atomic_util.h"
 
 static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 
 static inline void setPinOutput_writeLow(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
-        setPinOutput(pin);
-        writePinLow(pin);
+        gpio_set_pin_output(pin);
+        gpio_write_pin_low(pin);
     }
 }
 
 static inline void setPinInputHigh_atomic(pin_t pin) {
-    ATOMIC_BLOCK_FORCEON { setPinInputHigh(pin); }
+    ATOMIC_BLOCK_FORCEON { gpio_set_pin_input_high(pin); }
 }
 
 static void select_row(uint8_t row) {
@@ -83,7 +81,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     // For each col...
     for (uint8_t col_index = 0; col_index < MATRIX_COLS / 2; col_index++) {
         // Check row pin state
-        if (readPin(col_pins[col_index])) {
+        if (gpio_read_pin(col_pins[col_index])) {
             // Pin HI, clear col bit
             current_matrix[current_row] &= ~(MATRIX_ROW_SHIFTER << col_index);
         } else {
@@ -111,7 +109,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
         matrix_row_t last_row_value = current_matrix[row_index];
 
         // Check row pin state
-        if (readPin(row_pins[row_index])) {
+        if (gpio_read_pin(row_pins[row_index])) {
             // Pin HI, clear col bit
             current_matrix[row_index] &= ~(MATRIX_ROW_SHIFTER << ( current_col + MATRIX_COLS/2));
         } else {

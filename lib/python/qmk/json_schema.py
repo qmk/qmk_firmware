@@ -11,6 +11,8 @@ from copy import deepcopy
 
 from milc import cli
 
+from qmk.util import maybe_exit
+
 
 def _dict_raise_on_duplicates(ordered_pairs):
     """Reject duplicate keys."""
@@ -38,10 +40,10 @@ def _json_load_impl(json_file, strict=True):
 
     except (json.decoder.JSONDecodeError, hjson.HjsonDecodeError) as e:
         cli.log.error('Invalid JSON encountered attempting to load {fg_cyan}%s{fg_reset}:\n\t{fg_red}%s', json_file, e)
-        exit(1)
+        maybe_exit(1)
     except Exception as e:
         cli.log.error('Unknown error attempting to load {fg_cyan}%s{fg_reset}:\n\t{fg_red}%s', json_file, e)
-        exit(1)
+        maybe_exit(1)
 
 
 def json_load(json_file, strict=True):

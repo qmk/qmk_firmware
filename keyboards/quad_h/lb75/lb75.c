@@ -20,8 +20,8 @@ void matrix_init_kb(void) {
   // put your keyboard start-up code here
   // runs once when the firmware starts up
 
-  setPinOutput(B1);
-  setPinOutput(B2);
+  gpio_set_pin_output(B1);
+  gpio_set_pin_output(B2);
   
   matrix_init_user();
 }
@@ -30,8 +30,8 @@ bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
 
     if(res) {
-        writePin(B1, !led_state.caps_lock);
-        writePin(B2, !led_state.scroll_lock);
+        gpio_write_pin(B1, !led_state.caps_lock);
+        gpio_write_pin(B2, !led_state.scroll_lock);
     }
     
     return res;
