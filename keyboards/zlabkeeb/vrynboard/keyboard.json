@@ -70,8 +70,8 @@
         "sleep": true
     },
     "ws2812": {
-    "driver": "vendor",
-    "pin": "GP15"
+        "driver": "vendor",
+        "pin": "GP15"
     },
     "processor": "RP2040",
     "url": "https://github.com/zlabkeeb",
