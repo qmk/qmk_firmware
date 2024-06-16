@@ -2,5 +2,11 @@
     "keyboard_name": "ErgoDox EZ",
     "usb": {
         "pid": "0x4974"
+    },
+    "features": {
+        "bootmagic": false,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true
     }
 }
