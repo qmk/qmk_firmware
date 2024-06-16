@@ -12,8 +12,8 @@ echo "=============================="
 
 echo "[halo75v2:via] Compiling"
 make clean
-qmk compile --compiledb -j 0 -e TARGET="halo75v2_via_$TAG" -kb nuphy/halo75v2/ansi -km via
+qmk compile --compiledb -j 0 -e TARGET="via_$TAG" -kb nuphy/halo75v2/ansi -km via
 
 echo "[halo75v2:default] Compiling"
 make clean
-qmk compile --compiledb -j 0 -e TARGET="halo75v2_default_$TAG" -kb nuphy/halo75v2/ansi -km default
+qmk compile --compiledb -j 0 -e TARGET="default_$TAG" -kb nuphy/halo75v2/ansi -km default

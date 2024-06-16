@@ -42,31 +42,22 @@ jobs:
 
         [ ! -f .failed ] || exit 1
 
-    - name: Upload wired version
-      uses: actions/upload-artifact@v4
-      if: always()
-      with:
-        name: ${{  github.ref_name }}-via
-        if-no-files-found: ignore
-        path: |
-          halo75v2_via*.bin
-
-    - name: Upload default version
+    - name: Upload binaries
       uses: actions/upload-artifact@v4
       if: always()
       with:
         name: ${{  github.ref_name }}-default
         if-no-files-found: ignore
         path: |
-          halo75v2_default*.bin
+          *halo75v2*.bin
 
     - name: Create draft release
       uses: softprops/action-gh-release@v2
       if: startsWith(github.ref, 'refs/tags/halo75v2-')
       with:
         files: |
-          halo75v2_default_*.bin
-          halo75v2__via_*.bin
+          default_*.bin
+          via_*.bin
           keyboards/nuphy/halo75v2/ansi/keymaps/via/*via3.json
         tag_name: ${{ github.ref_name }}
         draft: true
