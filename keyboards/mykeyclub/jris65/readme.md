@@ -1,5 +1,8 @@
 # JRIS65
 
+![hotswap](https://i.imgur.com/kJzebgd.jpeg)
+**Hotswap PCB**
+
 A 65% keyboard sold by Mykeyclub.
 
 * Keyboard Maintainer: [The QMK Community](https://github.com/qmk)
