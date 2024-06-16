@@ -26,7 +26,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             _delay_ms(1000);
             SEND_STRING("terminal");
             _delay_ms(1000);
-            SEND_STRING(SS_TAP(X_ENT));
+            tap_code(KC_ENTER);
             _delay_ms(1000);
             SEND_STRING("open https://veilid.com\n");
             _delay_ms(1000);
