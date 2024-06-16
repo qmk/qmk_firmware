@@ -302,6 +302,9 @@
     "idobo": {
         "target": "idobao/id75/v1"
     },
+    "input_club/nightfox": {
+        "target": "input_club/whitefox"
+    },
     "jacky_studio/piggy60": {
         "target": "jacky_studio/piggy60/rev1"
     },
