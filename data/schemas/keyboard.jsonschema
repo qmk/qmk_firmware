@@ -515,8 +515,8 @@
                                     "minimum": 0
                                 }
                             },
-                            "x": {"$ref": "qmk.definitions.v1#/key_unit"},
-                            "y": {"$ref": "qmk.definitions.v1#/key_unit"},
+                            "x": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                            "y": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                             "flags": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
                         }
                     }
@@ -601,8 +601,8 @@
                                     "minimum": 0
                                 }
                             },
-                            "x": {"$ref": "qmk.definitions.v1#/key_unit"},
-                            "y": {"$ref": "qmk.definitions.v1#/key_unit"},
+                            "x": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                            "y": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                             "flags": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
                         }
                     }
