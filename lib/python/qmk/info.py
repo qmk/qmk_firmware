@@ -14,6 +14,7 @@ from qmk.keyboard import config_h, rules_mk
 from qmk.commands import parse_configurator_json
 from qmk.makefile import parse_rules_mk_file
 from qmk.math import compute
+from qmk.util import maybe_exit
 
 true_values = ['1', 'on', 'yes']
 false_values = ['0', 'off', 'no']
@@ -208,7 +209,7 @@ def _validate(keyboard, info_data):
     except jsonschema.ValidationError as e:
         json_path = '.'.join([str(p) for p in e.absolute_path])
         cli.log.error('Invalid API data: %s: %s: %s', keyboard, json_path, e.message)
-        exit(1)
+        maybe_exit(1)
 
 
 def info_json(keyboard):

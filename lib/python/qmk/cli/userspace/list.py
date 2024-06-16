@@ -10,6 +10,7 @@ from qmk.build_targets import BuildTarget
 from qmk.keyboard import is_all_keyboards, keyboard_folder
 from qmk.keymap import is_keymap_target
 from qmk.search import search_keymap_targets
+from qmk.util import maybe_exit_config
 
 
 @cli.argument('-e', '--expand', arg_only=True, action='store_true', help="Expands any use of `all` for either keyboard or keymap.")
@@ -18,6 +19,8 @@ def userspace_list(cli):
     if not HAS_QMK_USERSPACE:
         cli.log.error('Could not determine QMK userspace location. Please run `qmk doctor` or `qmk userspace-doctor` to diagnose.')
         return False
+
+    maybe_exit_config(should_exit=False, should_reraise=True)
 
     userspace = UserspaceDefs(QMK_USERSPACE / 'qmk.json')
 
