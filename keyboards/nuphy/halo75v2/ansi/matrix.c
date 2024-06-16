@@ -6,12 +6,10 @@ the Free Software Foundation, either version 2 of the License, or
 (at your option) any later version.
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 */
 
 #include <stdint.h>
@@ -34,13 +32,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* matrix state(1:on, 0:off) */
 extern matrix_row_t raw_matrix[MATRIX_ROWS]; // raw values
 extern matrix_row_t matrix[MATRIX_ROWS];     // debounced values
-
 // matrix code
-// ultra fast read_cols code
+// ultra fast read_cols code //Halo75v2
 static inline matrix_row_t read_cols(void) {
     uint16_t portA_pin_state = palReadPort(PAL_PORT(A0));
     uint16_t portB_pin_state = palReadPort(PAL_PORT(B0));
-    return ((((portA_pin_state & 0b1110000) ^ 0b1110000) >> 4) | (((portB_pin_state & 0b1000000000) ^ 0b1000000000) >> 6) | (((portB_pin_state & 0b11) ^ 0b11) << 4) | (((portB_pin_state & 0b1111110000000000) ^ 0b1111110000000000) >> 4) | (((portA_pin_state & 0b11100000000) ^ 0b11100000000) << 4) | ((portA_pin_state & 0b1000000000000000) ^ 0b1000000000000000) | (((portB_pin_state & 0b1000) ^ 0b1000) << 13));
+    return ((((portA_pin_state & 0b11110000) ^ 0b11110000) >> 4) | (((portB_pin_state & 0b11) ^ 0b11) << 4) | (((portB_pin_state & 0b1111110000000000) ^ 0b1111110000000000) >> 4) | (((portA_pin_state & 0b11100000000) ^ 0b11100000000) << 4) | ((portA_pin_state & 0b1000000000000000) ^ 0b1000000000000000) | (((portB_pin_state & 0b1000) ^ 0b1000) << 13));
 }
 
 static inline void unselect_rows(void) {
@@ -70,7 +67,6 @@ uint8_t matrix_scan_custom(matrix_row_t current_matrix[]) {
     bool changed = false;
 
     // Set col, read rows
-
     for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
         uint8_t stable_threshold = MATRIX_DEBOUNCE;
         while (stable_threshold > 0) // Wait for all Col signals to go HIGH
@@ -83,7 +79,6 @@ uint8_t matrix_scan_custom(matrix_row_t current_matrix[]) {
         unselect_rows(); // set row pin to HIGH
 
         changed |= (current_matrix[current_row] != cols);
-
         current_matrix[current_row] = cols;
     }
 

@@ -37,6 +37,8 @@
         "center_point": [70, 20],
         "max_brightness": 255,
         "val_steps": 64,
+        "led_process_limit": 4,
+        "led_flush_limit": 25,
         "speed_steps": 52,
         "animations": {
             "gradient_up_down": true,
