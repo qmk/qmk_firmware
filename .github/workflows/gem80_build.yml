@@ -8,12 +8,6 @@ on:
   push:
     tags:
       - 'gem80-*'
-  workflow_dispatch:
-    inputs:
-      branch:
-        type: choice
-        description: 'Branch to build'
-        options: [gem80]
 
 concurrency: ci_build-${{ github.event.inputs.branch || github.ref_name }}
 
