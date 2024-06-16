@@ -72,6 +72,7 @@
         "pid": "0x0267",
         "device_version": "2.0.0"
     },
+    "community_layouts": ["65_ansi_blocker"],
     "layouts": {
         "LAYOUT_65_ansi_blocker": {
             "layout": [
