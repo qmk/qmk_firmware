@@ -1,6 +1,6 @@
 # JRIS65
 
-A 65% keyboard sold my Mykeyclub.
+A 65% keyboard sold by Mykeyclub.
 
 * Keyboard Maintainer: [The QMK Community](https://github.com/qmk)
 * Hardware Supported: JRIS65 R1 hotswap.
