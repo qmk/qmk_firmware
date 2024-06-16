@@ -25,8 +25,9 @@
         "pid": "0x4953",
         "vid": "0x5A4C"
     },
+    "community_layouts": ["65_ansi_blocker", "65_ansi_blocker_split_bs", "65_iso_blocker", "65_iso_blocker_split_bs"],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_all": {
             "layout": [
                 {"label": "0,0", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "0,1", "matrix": [0, 1], "x": 1, "y": 0},
