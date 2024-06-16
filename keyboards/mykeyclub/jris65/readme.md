@@ -29,4 +29,4 @@ The QMK default keymap has FN+Backspace assigned to `QK_BOOT` so you can use tha
 
 In May 2024 Mykeyclub was contacted to see if they had interest in contributing firmware to the QMK project they did not. This code is thus community supported.
 
-This firmware has only been tested with JRIS65 R1 hotswap although it is likely to work with R2 hotswap. The soldered PCB will require modifications to this source configuration.
+This firmware has only been tested with JRIS65 R1 hotswap and is likely to work with R2 hotswap. The soldered variant of this PCB requires testing, with actual hardware, before being added.
