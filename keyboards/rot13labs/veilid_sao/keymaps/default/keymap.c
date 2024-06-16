@@ -20,7 +20,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case QK_USER_1:
         if (record->event.pressed) {            
-            SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_SPACE) SS_UP(X_LGUI));
+            tap_code16(LGUI(KC_SPACE));
             _delay_ms(1000);
             tap_code(KC_LEFT_GUI);
             _delay_ms(1000);
