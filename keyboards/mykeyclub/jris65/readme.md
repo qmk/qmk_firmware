@@ -3,16 +3,16 @@
 A 65% keyboard sold my Mykeyclub.
 
 * Keyboard Maintainer: [The QMK Community](https://github.com/qmk)
-* Hardware Supported: JRIS65 R1 and R2 both soldered and hotswap.
+* Hardware Supported: JRIS65 R1 hotswap.
 * Hardware Availability: intermitently via group buys from [Mykeyclub](https://www.mykeyclub.com/)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make mykeyclub/jris65:default
+    make mykeyclub/jris65/hotswap:default
 
 Flashing example for this keyboard:
 
-    make mykeyclub/jris65:default:flash
+    make mykeyclub/jris65/hotswap:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
@@ -29,4 +29,4 @@ The QMK default keymap has FN+Backspace assigned to `QK_BOOT` so you can use tha
 
 In May 2024 Mykeyclub was contacted to see if they had interest in contributing firmware to the QMK project they did not. This code is thus community supported.
 
-This firmware is likely to work on JRIS65 R1, R2, both soldered and hotswap but has only been tested on JRIS65 R1 hotswap.
+This firmware has only been tested with JRIS65 R1 hotswap although it is likely to work with R2 hotswap. The soldered PCB will require modifications to this source configuration.
