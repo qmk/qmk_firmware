@@ -22,7 +22,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {            
             SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_SPACE) SS_UP(X_LGUI));
             _delay_ms(1000);
-            SEND_STRING(SS_TAP(X_LGUI));
+            tap_code(KC_LEFT_GUI);
             _delay_ms(1000);
             SEND_STRING("terminal");
             _delay_ms(1000);
