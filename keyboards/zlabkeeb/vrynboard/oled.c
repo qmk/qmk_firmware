@@ -1798,7 +1798,7 @@ bool oled_task_kb(void) {
   }
   if (!logo_rendered) {
     render_logo();
-    if (timer_read() > 5000) logo_rendered = true;
+    if (timer_read() > 3000) logo_rendered = true;
   } else {
     switch (current_display_mode) {
       case 0:
