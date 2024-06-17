@@ -104,9 +104,16 @@ def _set_log_level(level):
 
 @contextlib.contextmanager
 def ignore_logging():
-    old = _set_log_level(logging.CRITICAL)
+    """suppress logging unless verbose execution
+    """
+    old = None
+    if not cli.config.general.verbose:
+        old = _set_log_level(logging.CRITICAL)
+
     yield
-    _set_log_level(old)
+
+    if old is not None:
+        _set_log_level(old)
 
 
 def _all_keymaps(keyboard):
