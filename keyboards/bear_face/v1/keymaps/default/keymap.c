@@ -1,7 +1,7 @@
 /* Copyright 2024 will-hedges */
 /* SPDX-License-Identifier: GPL-2.0-or-later */
 
-#include "QMK_KEYBOARD_H"
+#include QMK_KEYBOARD_H
 
 enum layers {
     _QWER,
