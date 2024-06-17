@@ -19,11 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* this will be tied to high (VCC with a 2k to 10k resistor) on the left keyboard half and tied to low (GND using a wire jumper only) on the right keyboard half.  This allows a user to plug in a USB cable to either side and function correctly with or without a TRS/TRRS cable with a single hex file. */
 #define SPLIT_HAND_PIN D1
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

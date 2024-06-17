@@ -133,8 +133,20 @@
                         "clicky": {"type": "boolean"}
                     }
                 },
+                "driver": {
+                    "type": "string",
+                    "enum": ["dac_additive", "dac_basic", "pwm_software", "pwm_hardware"]
+                },
                 "macro_beep": {"type": "boolean"},
                 "pins": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
+                "power_control": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "on_state": {"$ref": "qmk.definitions.v1#/bit"},
+                        "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"}
+                    }
+                },
                 "voices": {"type": "boolean"}
             }
         },
@@ -379,6 +391,15 @@
                 }
             }
         },
+        "haptic": {
+            "type": "object",
+            "properties": {
+                "driver": {
+                    "type": "string",
+                    "enum": ["drv2605l", "solenoid"]
+                }
+            }
+        },
         "leader_key": {
             "type": "object",
             "properties": {
@@ -445,6 +466,7 @@
                     "enum": [
                         "custom",
                         "is31fl3218",
+                        "is31fl3236",
                         "is31fl3729",
                         "is31fl3731",
                         "is31fl3733",
@@ -493,8 +515,8 @@
                                     "minimum": 0
                                 }
                             },
-                            "x": {"$ref": "qmk.definitions.v1#/key_unit"},
-                            "y": {"$ref": "qmk.definitions.v1#/key_unit"},
+                            "x": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                            "y": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                             "flags": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
                         }
                     }
@@ -527,6 +549,7 @@
                         "aw20216s",
                         "custom",
                         "is31fl3218",
+                        "is31fl3236",
                         "is31fl3729",
                         "is31fl3731",
                         "is31fl3733",
@@ -578,8 +601,8 @@
                                     "minimum": 0
                                 }
                             },
-                            "x": {"$ref": "qmk.definitions.v1#/key_unit"},
-                            "y": {"$ref": "qmk.definitions.v1#/key_unit"},
+                            "x": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                            "y": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                             "flags": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
                         }
                     }
@@ -638,7 +661,10 @@
                     "$ref": "qmk.definitions.v1#/mcu_pin",
                     "$comment": "Deprecated: use ws2812.pin instead"
                 },
-                "rgbw": {"type": "boolean"},
+                "rgbw": {
+                    "type": "boolean",
+                    "$comment": "Deprecated: use ws2812.rgbw instead"
+                },
                 "saturation_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "sleep": {"type": "boolean"},
                 "split": {"type": "boolean"},
@@ -779,7 +805,7 @@
                     "properties": {
                         "protocol": {
                             "type": "string",
-                            "enum": ["custom", "i2c", "serial", "serial_usart"]
+                            "enum": ["custom", "i2c", "serial"]
                         },
                         "sync": {
                             "type": "object",
@@ -875,7 +901,7 @@
                     }
                 },
                 "suspend_wakeup_delay": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                "wait_for": {"type": "boolean"}
+                "wait_for_enumeration": {"type": "boolean"}
             }
         },
         "qmk": {
@@ -914,6 +940,7 @@
                     "enum": ["bitbang", "custom", "i2c", "pwm", "spi", "vendor"]
                 },
                 "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "rgbw": {"type": "boolean"},
                 "i2c_address": {"$ref": "qmk.definitions.v1#/hex_number_2d"},
                 "i2c_timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"}
             }
