@@ -55,14 +55,12 @@
 ** layer. It avoids defining custom keys by layer and seems simpler. If the keymap
 ** is too big, it would be worth spliting it in three.
 **
-** TODO: second dead key layer, symbols.
 **
 */
 
 enum layers {
     ERGOL,
     ERGOL_1DK,
-    ERGOL_2DK,
     ERGOL_CODE,
 };
 
@@ -104,6 +102,19 @@ enum custom_keycodes {
     EKC_COMM,
     EKC_K,
 
+    EKC_SPC,
+
+    EKC_0,
+    EKC_1,
+    EKC_2,
+    EKC_3,
+    EKC_4,
+    EKC_5,
+    EKC_6,
+    EKC_7,
+    EKC_8,
+    EKC_9,
+
     EKC_MAX
 };
 
@@ -122,6 +133,7 @@ void keyboard_post_init_user(void) {
 
 typedef struct {
     uint16_t base;
+    uint32_t s_base;
 
     uint32_t dkey;
     uint32_t s_dkey;
@@ -130,9 +142,14 @@ typedef struct {
     uint32_t s_code;
 } ergol_key_t;
 
-#define EGL(B, DK, SDK, C, SC)                                         \
-    (ergol_key_t) {                                                    \
-        .base = B, .dkey = DK, .s_dkey = SDK, .code = C, .s_code = SC, \
+#define EGL(B, DK, SDK, C, SC)                                                            \
+    (ergol_key_t) {                                                                       \
+        .base = B, .s_base = KC_TRNS, .dkey = DK, .s_dkey = SDK, .code = C, .s_code = SC, \
+    }
+
+#define EGL_WITH_SBASE(B, SB, DK, SDK, C, SC)                                        \
+    (ergol_key_t) {                                                                  \
+        .base = B, .s_base = SB, .dkey = DK, .s_dkey = SDK, .code = C, .s_code = SC, \
     }
 
 #define ________ \
@@ -154,52 +171,72 @@ static inline uint32_t cp_val(uint32_t cp) {
 
 // clang-format off
 const ergol_key_t ergol_key_maps[IDX(EKC_MAX)] = {
-    [IDX(EKC_Q)] = EGL(FR_Q,       CP(0x00E2) /* â */, CP(0x00C2) /* Â */, FR_CIRC,    KC_TRNS),
-    [IDX(EKC_C)] = EGL(FR_C,       CP(0x00E7) /* ç */, CP(0x00C7) /* Ç */, KC_LT,      CP(0x2264) /* ≤ */),
-    [IDX(EKC_O)] = EGL(FR_O,       CP(0x0153) /* œ */, CP(0x0152) /* Œ */, KC_GT,      CP(0x2265) /* ≥ */),
-    [IDX(EKC_P)] = EGL(FR_P,       CP(0x00F4) /* ô */, CP(0x00D4) /* Ô */, KC_DLR,     CP(0x2264)),
-    [IDX(EKC_W)] = EGL(FR_W,       KC_TRNS,            KC_TRNS,            KC_PERC,    CP(0x2030) /* ‰ */),
+    [IDX(EKC_Q)] = EGL(FR_Q,       CP(0x00E2) /* â */, CP(0x00C2) /* Â */, CP(0x005E) /* ^ */,    CP(0x0302) /* ̂  Combining Circumflex Accent */),
+    [IDX(EKC_C)] = EGL(FR_C,       FR_CCED /* ç */,    CP(0x00C7) /* Ç */, FR_LABK,    CP(0x2264) /* ≤ */),
+    [IDX(EKC_O)] = EGL(FR_O,       CP(0x0153) /* œ */, CP(0x0152) /* Œ */, FR_RABK,    CP(0x2265) /* ≥ */),
+    [IDX(EKC_P)] = EGL(FR_P,       CP(0x00F4) /* ô */, CP(0x00D4) /* Ô */, FR_DLR,     KC_TRNS), // XXX: Implement currencies
+    [IDX(EKC_W)] = EGL(FR_W,       KC_TRNS,            KC_TRNS,            FR_PERC,    CP(0x2030) /* ‰ */),
 
-
-    [IDX(EKC_J)] = EGL(FR_J,       KC_TRNS,            KC_TRNS,            KC_AT,      KC_TRNS),
-    [IDX(EKC_M)] = EGL(FR_M,       CP(0x00B5) /* µ */, KC_TRNS,            KC_AMPR,    KC_TRNS),
-    [IDX(EKC_D)] = EGL(FR_D,       FR_UNDS,            KC_TRNS,            KC_ASTR,    CP(0x00D7) /* × */),
-    [IDX(EKC_DK)] = EGL(KC_EXLM,   KC_TRNS,            KC_TRNS,            KC_QUOTE,   CP(0x0301) /* ´ Combining Acute Accent*/),
-    [IDX(EKC_Y)] = EGL(FR_Y,       CP(0x00FB),         CP(0x00DB),         FR_GRV,     KC_TRNS),
-
+    [IDX(EKC_J)] = EGL(FR_J,       KC_TRNS,            KC_TRNS,            FR_AT,      CP(0x030A) /* ̊  Combining Ring Above */),
+    [IDX(EKC_M)] = EGL(FR_M,       CP(0x00B5) /* µ */, KC_TRNS,            FR_AMPR,    KC_TRNS),
+    [IDX(EKC_D)] = EGL(FR_D,       FR_UNDS,            KC_TRNS,            FR_ASTR,    CP(0x00D7) /* × */),
+    [IDX(EKC_DK)] = EGL_WITH_SBASE(KC_TRNS, KC_EXLM,   KC_TRNS,            CP(0x00A1) /* ¡ */,    FR_QUOT,   CP(0x0301) /* ´ Combining Acute Accent*/),
+    [IDX(EKC_Y)] = EGL(FR_Y,       CP(0x00FB),         CP(0x00DB),         FR_GRV,     CP(0x0300) /* ̀  Combining Grave Accent */),
 
     [IDX(EKC_A)] = EGL(FR_A,       FR_AGRV,            CP(0x00C0),         FR_LCBR,    CP(0x0306) /* ̆  Combining Breve*/),
     [IDX(EKC_S)] = EGL(FR_S,       FR_EACU,            CP(0x00DB),         FR_LPRN,    KC_TRNS),
     [IDX(EKC_E)] = EGL(FR_E,       FR_EGRV,            CP(0x00C8),         FR_RPRN,    KC_TRNS),
-    [IDX(EKC_N)] = EGL(FR_N,       CP(0x00EA),         CP(0x00CA),         FR_RCBR,    CP(0x0307) /* ̇  Combining Dot Above*/),
-    [IDX(EKC_F)] = EGL(FR_F,       CP(0x00F1),         CP(0x00D1),         FR_EQL,     CP(0x2260) /* ≠ */),
+    [IDX(EKC_N)] = EGL(FR_N,       CP(0x00EA) /* ê */, CP(0x00CA),         FR_RCBR,    CP(0x0307) /* ̇  Combining Dot Above*/),
+    [IDX(EKC_F)] = EGL(FR_F,       CP(0x00F1) /* ñ */, CP(0x00D1),         FR_EQL,     CP(0x2260) /* ≠ */),
+
+    [IDX(EKC_L)] = EGL(FR_L,       FR_LPRN,            KC_TRNS,            FR_BSLS,    CP(0x0338) /* ̸ Combining Long Solidus Overlay */),
+    [IDX(EKC_R)] = EGL(FR_R,       FR_RPRN,            KC_TRNS,            FR_PLUS,    CP(0x2A72) /* ⩲ */),
+    [IDX(EKC_T)] = EGL(FR_T,       CP(0x00EE) /* î */, CP(0x00CE) /* Î */, FR_MINS,    CP(0x0304) /* ̄  Combining Macron */),
+    [IDX(EKC_I)] = EGL(FR_I,       CP(0x00EF) /* ï */, CP(0x00CF) /* Ï */, FR_SLSH,    CP(0x00F7) /* ÷ */),
+    [IDX(EKC_U)] = EGL(FR_U,       CP(0x00F9) /* ù */, CP(0x00D9) /* Ù */, FR_DQUO,    CP(0x030B) /* ̋  Combining Double Acute Accent */),
+
+    [IDX(EKC_Z)] = EGL(FR_Z,       CP(0x00E6) /* æ */, CP(0x00C6) /* Æ */, FR_TILD,    CP(0x0303) /* ̃  Combining Tilde*/),
+    [IDX(EKC_X)] = EGL(FR_X,       KC_TRNS,            KC_TRNS,            FR_LBRC,    CP(0x0326) /* ̦  Combining Comma Below */),
+    [IDX(EKC_MNS)] = EGL_WITH_SBASE(FR_MINS,  FR_QUES, KC_TRNS, KC_TRNS,   FR_RBRC,    CP(0x0328) /* ̨  Combining Ogonek */),
+    [IDX(EKC_V)] = EGL(FR_V,       KC_TRNS,            KC_TRNS,            FR_UNDS,    CP(0x2013) /* – en dash */),
+    [IDX(EKC_B)] = EGL(FR_B,       KC_TRNS,            KC_TRNS,            FR_HASH,     KC_TRNS),
+
+    [IDX(EKC_DOT)] = EGL_WITH_SBASE(FR_DOT,   FR_COLN,  CP(0x2026) /* … */,KC_TRNS,    FR_PIPE,   CP(0x00A6) /* ¦ Broken bar */),
+    [IDX(EKC_H)] = EGL(FR_H,       KC_TRNS,           KC_TRNS,             FR_EXLM,    CP(0x00AC) /* ¬ Not sign */),
+    [IDX(EKC_G)] = EGL(FR_G,       KC_TRNS,           KC_TRNS,             FR_SCLN,    CP(0x0312) /*̒ Combining Turned Comma Above */),
+    [IDX(EKC_COMM)] = EGL_WITH_SBASE(FR_COMM, FR_SCLN,CP(0x00B7) /* · */,  CP(0x2022) /* • */,   FR_COLN, KC_TRNS),
+    [IDX(EKC_K)] = EGL(FR_K,       KC_TRNS,           KC_TRNS,           FR_QUES,   CP(0x0306) /* ̆  Combining Breve */),
 
 
+    [IDX(EKC_1)] = EGL_WITH_SBASE(FR_1,       CP(0x20AC) /* € */, CP(0x201E) /* „ */, CP(0x201A) /* ‚ */,  CP(0x2081) /* ₁ */, CP(0x00B9) /* ¹ */),
+    [IDX(EKC_2)] = EGL_WITH_SBASE(FR_2,       CP(0x00AB) /* « */, CP(0x201C) /* “ */, CP(0x2018) /* ‘ */,  CP(0x2082) /* ₂ */, CP(0x00B2) /* ² */),
+    [IDX(EKC_3)] = EGL_WITH_SBASE(FR_3,       CP(0x00BB) /* » */, CP(0x201F) /* ” */, CP(0x2019) /* ’ */,  CP(0x2083) /* ₃ */, CP(0x00B3) /* ³ */),
+    [IDX(EKC_4)] = EGL_WITH_SBASE(FR_4,       FR_DLR,             CP(0x00A2) /* ¢ */, KC_TRNS,             CP(0x2084) /* … */, CP(0x2074) /* … */),
+    [IDX(EKC_5)] = EGL_WITH_SBASE(FR_5,       FR_PERC,            CP(0x2030) /* ‰ */, KC_TRNS,             CP(0x2085) /* … */, CP(0x2075) /* … */),
+    [IDX(EKC_6)] = EGL_WITH_SBASE(FR_6,       CP(0x005E) /* ^ */, KC_TRNS,            KC_TRNS,             CP(0x2086) /* … */, CP(0x2076) /* … */),
+
+    [IDX(EKC_7)] = EGL_WITH_SBASE(FR_7,       FR_AMPR,            KC_TRNS,            KC_TRNS,             CP(0x2087) /* … */, CP(0x2077) /* … */),
+    [IDX(EKC_8)] = EGL_WITH_SBASE(FR_8,       FR_ASTR,            FR_SECT    /* § */, KC_TRNS,             CP(0x2088) /* … */, CP(0x2078) /* … */),
+    [IDX(EKC_9)] = EGL_WITH_SBASE(FR_9,       FR_HASH,            CP(0x00B6) /* ¶ */, KC_TRNS,             CP(0x2089) /* … */, CP(0x2079) /* … */),
+    [IDX(EKC_0)] = EGL_WITH_SBASE(FR_0,       FR_AT,              FR_DEG,             KC_TRNS,             CP(0x2080) /* … */, CP(0x2070) /* … */),
+
+    [IDX(EKC_SPC)] = EGL_WITH_SBASE(KC_SPC,    CP(0x202F) /* no-break-space */,  CP(0x2019) /* ’ Right Single Quotation Mark, Apostrophe*/, KC_TRNS, KC_SPC, KC_TRNS),
 };
 // clang-format on
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [ERGOL] = LAYOUT(
-        _______, _______, _______, _______, _______, _______, _______,           _______, _______, _______, _______, _______, _______, QK_BOOT,
-        _______,  EKC_Q ,  EKC_C ,  EKC_O ,  EKC_P ,  EKC_W , _______,           _______,  EKC_J ,  EKC_M ,  EKC_D , EKC_DK ,  EKC_Y , _______,
-        _______,  EKC_A ,  EKC_S ,  EKC_E ,  EKC_N ,  EKC_F , _______,           _______, _______, _______, _______, _______, _______, _______,
-  KC_LEFT_SHIFT, _______, _______, _______, _______, _______,                             _______, _______, _______, _______, _______, _______,
+        _______,  EKC_1 ,  EKC_2 ,  EKC_3 ,  EKC_4 ,  EKC_5 , _______,           _______,  EKC_6 ,  EKC_7,   EKC_8 ,  EKC_9 ,  EKC_0 , QK_BOOT,
+        _______,  EKC_Q ,  EKC_C ,  EKC_O ,  EKC_P ,  EKC_W , KC_DEL ,           KC_BSPC,  EKC_J ,  EKC_M ,  EKC_D , EKC_DK ,  EKC_Y , _______,
+        _______,  EKC_A ,  EKC_S ,  EKC_E ,  EKC_N ,  EKC_F , _______,           _______,  EKC_L ,  EKC_R ,  EKC_T ,  EKC_I ,  EKC_U , _______,
+  KC_LEFT_SHIFT,  EKC_Z ,  EKC_X , EKC_MNS,  EKC_V ,  EKC_B ,                             EKC_DOT,  EKC_H ,  EKC_G ,EKC_COMM,  EKC_K , _______,
         _______, _______, _______, _______, _______,         _______,            _______,          _______, _______, _______, _______, _______,
-                                            _______, _______, _______,           _______, KC_ENTER, _______
+                                           MO(ERGOL_CODE), _______, _______,     _______, KC_ENTER, EKC_SPC
     ),
 
 
     [ERGOL_1DK] = LAYOUT(
-        _______, _______, _______, _______, _______, _______, _______,           _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______,           _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______,           _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______,                             _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______,         _______,            _______,          _______, _______, _______, _______, _______,
-                                            _______, _______, _______,           _______, _______, _______
-    ),
-
-    [ERGOL_2DK] = LAYOUT(
         _______, _______, _______, _______, _______, _______, _______,           _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______,           _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______,           _______, _______, _______, _______, _______, _______, _______,
@@ -221,60 +258,86 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-static inline void reg_code16_with_unicode(uint32_t kc) {
-    if (is_cp(kc)) {
-        uint8_t temp_mod = get_mods();
-        uprintf("Mode before clear: %#X\n", temp_mod);
-        clear_mods();
-        kc = cp_val(kc);
-        uprintf("Register unicode: %#lX\n", kc);
-        register_unicode(kc);
-        set_mods(temp_mod);
-    } else {
-        uprintf("tap code 16: %#lX\n", kc);
-        register_code16(kc);
-    }
-}
+static inline void tap_press_or_release(bool pressed, bool shifted, ergol_key_t *key) {
+    uint32_t keycode;
+    bool     erase_shift;
 
-static inline void unreg_code16_with_unicode(uint32_t kc) {
-    if (is_cp(kc)) {
+    switch (get_highest_layer(layer_state)) {
+#define SET_KC(kc, skc)              \
+    if (shifted && skc != KC_TRNS) { \
+        keycode     = skc;           \
+        erase_shift = true;          \
+    } else {                         \
+        keycode     = kc;            \
+        erase_shift = false;         \
+    }
+        default:
+        case ERGOL:
+            SET_KC(key->base, key->s_base);
+            break;
+        case ERGOL_1DK:
+            SET_KC(key->dkey, key->s_dkey);
+            break;
+        case ERGOL_CODE:
+            SET_KC(key->code, key->s_code);
+            break;
+#undef SET_KC
+    }
+
+    if (pressed && is_cp(keycode)) {
+        uprintln("unicode sequence\n");
+        uint8_t temp_mod = get_mods();
+        clear_mods();
+        keycode = cp_val(keycode);
+        register_unicode(keycode);
+        set_mods(temp_mod);
         return;
     }
 
-    unregister_code16(kc);
-}
+    if (keycode == KC_TRNS) return;
 
-static inline void reg_code16_mods(bool shifted, uint32_t kc) {
-    reg_code16_with_unicode(shifted ? S(kc) : kc);
-}
+    if (pressed) {
+        // erase_shift is true if the ergol_keycode has a specific version of
+        // the keycode to actually send.  Because if that's the case we need to
+        // send the keycode without the shift modifier to get the poper
+        // character.
+        if (erase_shift) {
+            del_mods(MOD_BIT(KC_LSFT));
+        }
 
-static inline void unreg_code16_mods(uint32_t kc) {
-    unreg_code16_with_unicode(kc);
-}
-
-static inline void reg_or_tap_code16_mods2(bool shifted, uint32_t kc, uint32_t skc) {
-    if (shifted && kc != KC_TRNS) {
-        reg_code16_with_unicode(skc);
+        register_code16(keycode);
+        if (erase_shift) {
+            add_mods(MOD_BIT(KC_LSFT));
+        }
     } else {
-        reg_code16_with_unicode(kc);
-    }
-}
-
-static inline void unreg_code16_mods2(bool shifted, uint32_t kc, uint32_t skc) {
-    if (shifted && kc != KC_TRNS) {
-        unreg_code16_with_unicode(skc);
-    } else {
-        unreg_code16_with_unicode(kc);
+        // We scan for the first active keycode on the current ergol keycode and
+        // unregister it.
+        // This is required because when we register from the dead key layer,
+        // the layer is released before we receive the release event of the key.
+        // It means that for instance when à was pressed, the unregister was on
+        // the FR_A instead of FR_AGRV.
+        if (is_key_pressed(keycode)) {
+            unregister_code16(keycode);
+            return;
+        }
+        if (!is_cp(key->dkey) && is_key_pressed(key->dkey)) {
+            unregister_code16(key->dkey);
+            return;
+        }
+        if (!is_cp(key->s_dkey) && is_key_pressed(key->s_dkey)) {
+            unregister_code16(key->s_dkey);
+            return;
+        }
     }
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     bool shifted = (get_mods() & MOD_MASK_SHIFT) != 0;
 
-    if (record->event.pressed) {
-        if (keycode == EKC_DK) {
-            if (!shifted) {
-                return true;
+    if (!IS_LAYER_ON(ERGOL_CODE)) {
+        if (record->event.pressed) {
+            if (keycode == EKC_DK) {
+                if (!shifted) return true;
             }
         }
     }
@@ -282,34 +345,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (keycode >= EKC_FIRST && keycode < EKC_MAX) {
         uint16_t    idx = IDX(keycode);
         ergol_key_t kc  = ergol_key_maps[idx];
-        switch (get_highest_layer(layer_state)) {
-            default:
-            case ERGOL:
-                if (record->event.pressed) {
-                    // if key_code == EKC_DK we don't want the shift.
-                    reg_code16_mods(shifted && keycode != EKC_DK, kc.base);
-                } else {
-                    unreg_code16_mods(kc.base);
-                }
-                break;
-
-            case ERGOL_1DK:
-                if (record->event.pressed) {
-                    reg_or_tap_code16_mods2(shifted, kc.dkey, kc.s_dkey);
-                } else {
-                    unreg_code16_mods2(shifted, kc.dkey, kc.s_dkey);
-                }
-                break;
-
-            case ERGOL_CODE:
-                if (record->event.pressed) {
-                    reg_or_tap_code16_mods2(shifted, kc.code, kc.s_code);
-                } else {
-                    unreg_code16_mods2(shifted, kc.code, kc.s_code);
-                }
-                break;
-        }
+        tap_press_or_release(record->event.pressed, shifted, &kc);
     }
+
     return true;
 }
 
@@ -322,15 +360,15 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
                     case ERGOL:
                         set_oneshot_layer(ERGOL_1DK, ONESHOT_START);
                         break;
-                    case ERGOL_1DK:
-                        set_oneshot_layer(ERGOL_2DK, ONESHOT_START);
-                        break;
+                        /* case ERGOL_1DK: */
+                        /*     set_oneshot_layer(ERGOL_2DK, ONESHOT_START); */
+                        /*     break; */
                 }
                 unregister_code16(EKC_DK);
             }
         }
     } else {
-        if (IS_LAYER_ON(ERGOL_1DK) || IS_LAYER_ON(ERGOL_2DK)) {
+        if (IS_LAYER_ON(ERGOL_1DK) /*|| IS_LAYER_ON(ERGOL_2DK) */) {
             clear_oneshot_layer_state(ONESHOT_PRESSED);
         }
     }
