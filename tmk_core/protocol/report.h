@@ -133,6 +133,10 @@ enum desktop_usages {
 };
 
 // clang-format on
+/*
+   ARM_ATSAM uses a different HID interface
+   and should not send a report_id
+*/
 #if defined(PROTOCOL_ARM_ATSAM)
 #    include "protocol/arm_atsam/usb/udi_device_epsize.h"
 #    define NKRO_REPORT_BITS (NKRO_EPSIZE - 1)
