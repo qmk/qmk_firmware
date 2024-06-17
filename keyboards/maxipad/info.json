@@ -3,6 +3,20 @@
   "manufacturer": "wootpatoot",
   "url": "",
   "maintainer": "qmk",
+  "features": {
+    "bootmagic": true,
+    "command": false,
+    "console": false,
+    "extrakey": true,
+    "mousekey": true,
+    "nkro": true
+  },
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  },
   "usb": {
     "vid": "0xFEED",
     "pid": "0x6060",

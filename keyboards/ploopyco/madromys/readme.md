@@ -27,17 +27,6 @@ If you want to upload a new firmware file (a ".uf2" file, like "madromys_awesome
 
 **TIP**: If your firmware is in some kind of strange state and uploading new firmware isn't fixing it, try uploading [a flash nuke](https://learn.adafruit.com/getting-started-with-raspberry-pi-pico-circuitpython/circuitpython#flash-resetting-uf2-3083182) to the Madromys board before flashing the new firmware. It wipes the memory of the Madromys board completely clean, which can help clear a few types of errors.
 
-# Drag Scroll
+# Customizing your Ploopy Madromys
 
-Drag Scroll is a custom keycode for Ploopy devices that allows you to hold or tap a button and have the mouse movement translate into scrolling instead. 
-
-Nothing needs to be enabled to use this functionality; it's enabled on Madromys by default.
-
-### Drag Scroll Configuration
-
-* `#define PLOOPY_DRAGSCROLL_MOMENTARY` - Makes the key into a momentary key, rather than a toggle.
-* `#define PLOOPY_DRAGSCROLL_MULTIPLIER 0.75` - Sets the DPI multiplier to use when drag scroll is enabled. 
-* `#define PLOOPY_DRAGSCROLL_FIXED` - Normally, when activating Drag Scroll, it uses a fraction of the current DPI. You can define this to use a specific, set DPI rather than a fraction of the current DPI. 
-  * `#define PLOOPY_DRAGSCROLL_DPI 100` - When the fixed DPI option is enabled, this sets the DPI to be used for Drag Scroll.
-* `#define PLOOPY_DRAGSCROLL_INVERT` - This reverses the direction that the scroll is performed. 
-* `#define PLOOPY_DRAGSCROLL_SEMAPHORE` - This is a divisor on the drag scroll sensitivity. The default is 0, which means that the drag scroll is at maximum sensitivity. A value of 4 would mean that the drag scroll is 4 times less sensitive.
+You can find customziation options [here](../readme.md).
