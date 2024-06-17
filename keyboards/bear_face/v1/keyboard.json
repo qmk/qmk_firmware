@@ -7,8 +7,7 @@
     "usb": {
         "device_version": "1.0.0",
         "vid": "0xFEED",
-        "pid": "0x09F5",
-        "force_nkro": true
+        "pid": "0x09F5"
     },
     "features": {
         "backlight": true,

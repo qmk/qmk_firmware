@@ -74,7 +74,7 @@ void keyboard_pre_init_kb(void) {
     gpio_set_pin_output(F7);
 
     keyboard_pre_init_user();
-}
+};
 
 bool led_update_kb(led_t led_state) {
     // Caps Lock LED indicator toggling code here
@@ -83,7 +83,7 @@ bool led_update_kb(led_t led_state) {
         gpio_write_pin(F7, led_state.caps_lock);
     }
     return res;
-}
+};
 
 // macros to allow the user to set whatever default layer they want, even after reboot
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
