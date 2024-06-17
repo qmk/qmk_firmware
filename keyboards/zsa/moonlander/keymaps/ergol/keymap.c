@@ -221,58 +221,93 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-static inline void tap_code16_with_unicode(uint32_t kc) {
-    uint8_t temp_mod = get_mods();
-    clear_mods();
+static inline void reg_code16_with_unicode(uint32_t kc) {
     if (is_cp(kc)) {
+        uint8_t temp_mod = get_mods();
+        uprintf("Mode before clear: %#X\n", temp_mod);
+        clear_mods();
         kc = cp_val(kc);
+        uprintf("Register unicode: %#lX\n", kc);
         register_unicode(kc);
+        set_mods(temp_mod);
     } else {
-        tap_code16(kc);
+        uprintf("tap code 16: %#lX\n", kc);
+        register_code16(kc);
     }
-    set_mods(temp_mod);
 }
 
-static inline void tap_code16_mods(bool shifted, uint32_t kc) {
-    tap_code16_with_unicode(shifted ? S(kc) : kc);
+static inline void unreg_code16_with_unicode(uint32_t kc) {
+    if (is_cp(kc)) {
+        return;
+    }
+
+    unregister_code16(kc);
 }
 
-static inline void tap_code16_mods2(bool shifted, uint32_t kc, uint32_t skc) {
+static inline void reg_code16_mods(bool shifted, uint32_t kc) {
+    reg_code16_with_unicode(shifted ? S(kc) : kc);
+}
+
+static inline void unreg_code16_mods(uint32_t kc) {
+    unreg_code16_with_unicode(kc);
+}
+
+static inline void reg_or_tap_code16_mods2(bool shifted, uint32_t kc, uint32_t skc) {
     if (shifted && kc != KC_TRNS) {
-        tap_code16_with_unicode(skc);
+        reg_code16_with_unicode(skc);
     } else {
-        tap_code16_with_unicode(kc);
+        reg_code16_with_unicode(kc);
+    }
+}
+
+static inline void unreg_code16_mods2(bool shifted, uint32_t kc, uint32_t skc) {
+    if (shifted && kc != KC_TRNS) {
+        unreg_code16_with_unicode(skc);
+    } else {
+        unreg_code16_with_unicode(kc);
     }
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-        bool shifted = (get_mods() & MOD_MASK_SHIFT) != 0;
+    bool shifted = (get_mods() & MOD_MASK_SHIFT) != 0;
 
+    if (record->event.pressed) {
         if (keycode == EKC_DK) {
             if (!shifted) {
                 return true;
             }
         }
+    }
 
-        if (keycode >= EKC_FIRST && keycode < EKC_MAX) {
-            uint16_t    idx = IDX(keycode);
-            ergol_key_t kc  = ergol_key_maps[idx];
-            switch (get_highest_layer(layer_state)) {
-                default:
-                case ERGOL:
+    if (keycode >= EKC_FIRST && keycode < EKC_MAX) {
+        uint16_t    idx = IDX(keycode);
+        ergol_key_t kc  = ergol_key_maps[idx];
+        switch (get_highest_layer(layer_state)) {
+            default:
+            case ERGOL:
+                if (record->event.pressed) {
                     // if key_code == EKC_DK we don't want the shift.
-                    tap_code16_mods(shifted && keycode != EKC_DK, kc.base);
-                    break;
+                    reg_code16_mods(shifted && keycode != EKC_DK, kc.base);
+                } else {
+                    unreg_code16_mods(kc.base);
+                }
+                break;
 
-                case ERGOL_1DK:
-                    tap_code16_mods2(shifted, kc.dkey, kc.s_dkey);
-                    break;
+            case ERGOL_1DK:
+                if (record->event.pressed) {
+                    reg_or_tap_code16_mods2(shifted, kc.dkey, kc.s_dkey);
+                } else {
+                    unreg_code16_mods2(shifted, kc.dkey, kc.s_dkey);
+                }
+                break;
 
-                case ERGOL_CODE:
-                    tap_code16_mods2(shifted, kc.code, kc.s_code);
-                    break;
-            };
+            case ERGOL_CODE:
+                if (record->event.pressed) {
+                    reg_or_tap_code16_mods2(shifted, kc.code, kc.s_code);
+                } else {
+                    unreg_code16_mods2(shifted, kc.code, kc.s_code);
+                }
+                break;
         }
     }
     return true;
