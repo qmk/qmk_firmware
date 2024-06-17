@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // clang-format off
 
 /* HID report IDs */
-enum hid_report_ids { 
+enum hid_report_ids {
     REPORT_ID_ALL = 0,
     REPORT_ID_KEYBOARD = 1,
     REPORT_ID_MOUSE,
@@ -133,8 +133,14 @@ enum desktop_usages {
 };
 
 // clang-format on
-
-#define NKRO_REPORT_BITS 30
+#if defined(PROTOCOL_ARM_ATSAM)
+#    include "protocol/arm_atsam/usb/udi_device_epsize.h"
+#    define NKRO_REPORT_BITS (NKRO_EPSIZE - 1)
+#    undef NKRO_SHARED_EP
+#    undef MOUSE_SHARED_EP
+#else
+#    define NKRO_REPORT_BITS 30
+#endif
 
 #ifdef KEYBOARD_SHARED_EP
 #    define KEYBOARD_REPORT_SIZE 9
@@ -178,7 +184,9 @@ typedef struct {
 } PACKED report_keyboard_t;
 
 typedef struct {
+#ifdef NKRO_SHARED_EP
     uint8_t report_id;
+#endif
     uint8_t mods;
     uint8_t bits[NKRO_REPORT_BITS];
 } PACKED report_nkro_t;
