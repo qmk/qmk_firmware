@@ -50,8 +50,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_FN1] = LAYOUT_84_iso(
         _______, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, KC_PSCR, KC_SCRL, KC_PAUS, _______, _______, KC_INS,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_CALC, BASE_QWER,
-        _______, _______, _______, _______, QK_BOOT,   _______, _______, _______, _______, QK_BOOT,   _______, _______, _______, 		  BASE_COLE,
-        _______, _______, QK_BOOT,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, BASE_DVOR,
+        _______, _______, _______, _______, QK_BOOT, _______, _______, _______, _______, QK_BOOT, _______, _______, _______, 		  BASE_COLE,
+        _______, _______, QK_BOOT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, BASE_DVOR,
         _______, KC_APP,  _______, _______, _______, _______, _______, _______, _______, _______, KC_APP,  _______, _______, _______, _______,
         _______, _______, _______,                   _______,                            _______, _______, _______, _______, _______, _______
     ),
@@ -66,24 +66,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,                   _______,                            _______, _______, _______, _______, _______, _______
     ),
 */
-};
-
-
-// Caps Lock LED indicator
-void keyboard_pre_init_kb(void) {
-    // Sets LED pin as output
-    setPinOutput(F7);
-
-    keyboard_pre_init_user();
-};
-
-bool led_update_kb(led_t led_state) {
-    // Caps Lock LED indicator toggling code here
-    bool res = led_update_user(led_state);
-    if(res) {
-        writePin(F7, !led_state.caps_lock);
-    }
-    return res;
 };
 
 

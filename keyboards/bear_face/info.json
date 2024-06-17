@@ -26,7 +26,8 @@
     },
     "diode_direction": "COL2ROW",
     "backlight": {
-        "driver": "timer",
+        "as_caps_lock": true,
+        "driver": "software",
         "pin": "F7"
     },
     "processor": "atmega32u4",

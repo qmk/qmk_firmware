@@ -1,1 +1,1 @@
-DEFAULT_FOLDER = bear_face/v1
+DEFAULT_FOLDER = bear_face/v3

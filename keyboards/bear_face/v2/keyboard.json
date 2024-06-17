@@ -3,6 +3,9 @@
     "usb": {
         "device_version": "2.1.0"
     },
+    "backlight": {
+        "on_state": 0
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
