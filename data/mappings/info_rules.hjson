@@ -41,6 +41,7 @@
     "RGB_MATRIX_DRIVER": {"info_key": "rgb_matrix.driver"},
     "RGBLIGHT_DRIVER": {"info_key": "rgblight.driver"},
     "SECURE_ENABLE": {"info_key": "secure.enabled", "value_type": "bool"},
+    "SERIAL_DRIVER": {"info_key": "split.serial.driver"},
     "SPLIT_KEYBOARD": {"info_key": "split.enabled", "value_type": "bool"},
     "SPLIT_TRANSPORT": {"info_key": "split.transport.protocol", "to_c": false},
     "STENO_ENABLE": {"info_key": "stenography.enabled", "value_type": "bool"},

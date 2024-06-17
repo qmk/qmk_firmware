@@ -799,6 +799,16 @@
                     "minimum": 0,
                     "maximum": 5
                 },
+                "serial": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "driver": {
+                            "type": "string",
+                            "enum": ["bitbang", "usart", "vendor"]
+                        }
+                    }
+                },
                 "transport": {
                     "type": "object",
                     "additionalProperties": false,
