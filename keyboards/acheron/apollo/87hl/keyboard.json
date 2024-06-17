@@ -34,7 +34,11 @@
             "enabled": true,
             "resync": true 
         }
-    },   
+    },
+    "bootmagic": {
+        "enabled" : true,
+        "matrix":[0,1]
+    },
     "eeprom": {
         "driver" : "wear_leveling",
         "wear_leveling": {
@@ -69,6 +73,7 @@
                 {"matrix":[0,10], "x":12, "y":0},
                 {"matrix":[0,11], "x":13, "y":0},
                 {"matrix":[0,12], "x":14, "y":0},
+                {"matrix":[0,13], "x":14, "y":1.5},
                 {"matrix":[6,14], "x":15.25, "y":0},
                 {"matrix":[6,15], "x":16.25, "y":0},
                 {"matrix":[6,16], "x":17.25, "y":0},
@@ -86,7 +91,6 @@
                 {"matrix":[1,11], "x":11, "y":1.5},
                 {"matrix":[1,12], "x":12, "y":1.5},
                 {"matrix":[1,13], "x":13, "y":1.5},
-                {"matrix":[0,13], "x":14, "y":1.5},
                 {"matrix":[7,14], "x":15.25, "y":1.5},
                 {"matrix":[7,15], "x":16.25, "y":1.5},
                 {"matrix":[7,16], "x":17.25, "y":1.5},
