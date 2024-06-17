@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define OLED_TIMEOUT 0
+#define OLED_TIMEOUT 180000
 #define I2C1_SDA_PIN GP26
 #define I2C1_SCL_PIN GP27
 #define I2C_DRIVER I2CD1
