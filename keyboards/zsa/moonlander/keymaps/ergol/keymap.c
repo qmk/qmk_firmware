@@ -285,7 +285,6 @@ static inline void tap_press_or_release(bool pressed, bool shifted, ergol_key_t 
     }
 
     if (pressed && is_cp(keycode)) {
-        uprintln("unicode sequence\n");
         uint8_t temp_mod = get_mods();
         clear_mods();
         keycode = cp_val(keycode);
@@ -298,9 +297,10 @@ static inline void tap_press_or_release(bool pressed, bool shifted, ergol_key_t 
 
     if (pressed) {
         // erase_shift is true if the ergol_keycode has a specific version of
-        // the keycode to actually send.  Because if that's the case we need to
-        // send the keycode without the shift modifier to get the poper
-        // character.
+        // the keycode to actually send when shift is also pressed.
+        // For instance let say that the shifted version of `a` is `b` in
+        // Ergo-l, the ergo keycode would contain: base: `a`, s_base: `b`, but
+        // we would get `B` printed because shift is also sent.
         if (erase_shift) {
             del_mods(MOD_BIT(KC_LSFT));
         }
