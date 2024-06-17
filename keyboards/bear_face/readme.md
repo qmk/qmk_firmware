@@ -1,6 +1,6 @@
 # bear_face
 
-![bear_face](https://i.imgur.com/W4eib5kh.png)
+![bear_face](https://imgur.com/a/8qlhO1Y)
 
 QMK-compatible replacement PCB for the Vortex Race 3
 
