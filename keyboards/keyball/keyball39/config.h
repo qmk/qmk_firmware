@@ -30,6 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Split parameters
 #define SOFT_SERIAL_PIN         GP1
 #define SPLIT_HAND_MATRIX_GRID  GP27, GP9
+#define SPLIT_HAND_MATRIX_GRID_LOW_IS_LEFT
 //#define SPLIT_USB_DETECT
 //#define SPLIT_USB_TIMEOUT       500
 
