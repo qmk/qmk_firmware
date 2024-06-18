@@ -22,4 +22,6 @@ def do_dict(): file_subword(path_kmp, dict_do_un(path_kmp_def, do_d=True))
 
 def un_dict(): file_subword(path_kmp, dict_do_un(path_kmp_def, do_d=False))
 
+# example usage
+dict()
 un_dict()
