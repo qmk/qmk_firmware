@@ -24,10 +24,6 @@
         "oled": true,
         "rgb_matrix": true
     },
-    "matrix_size": {
-        "cols": 10,
-        "rows": 14
-    },
     "processor": "RP2040",
     "rgb_matrix": {
         "driver": "ws2812"

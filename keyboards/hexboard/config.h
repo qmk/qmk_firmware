@@ -3,6 +3,8 @@
 #pragma once
 
 #define RP2040_FLASH_GENERIC_03H
+#define MATRIX_ROWS 14
+#define MATRIX_COLS 10
 
 // WS2812_BYTE_ORDER defined by revision
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
