@@ -28,7 +28,7 @@
     "rgb_matrix": {
         "driver": "ws2812"
     },
-    "url": "https://shapingthesilence.com",
+    "url": "https://shapingthesilence.com/tech/hexboard-midi-controller/",
     "ws2812": {
         "driver": "vendor",
         "pin": "GP22"
