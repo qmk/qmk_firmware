@@ -1,0 +1,13 @@
+{
+    "keyboard_name": "Kinesis Advantage (elite-c)",
+    "manufacturer": "https://github.com/teoh",
+    "url": "",
+    "maintainer": "qmk",
+    "usb": {
+        "vid": "0x444D",
+        "pid": "0x3536",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu"
+}
