@@ -64,16 +64,6 @@ bool caps_word_press_user(uint16_t keycode) {
 const key_override_t **key_overrides = (const key_override_t *[]){
 	&ko_make_basic(MOD_MASK_SHIFT, MEH_T(KC_COMM), KC_COLON),
 	&ko_make_basic(MOD_MASK_SHIFT, KC_DOT, KC_SEMICOLON),
-	&ko_make_basic(MOD_MASK_SHIFT, KC_1, KC_F1),
-	&ko_make_basic(MOD_MASK_SHIFT, KC_2, KC_F2),
-	&ko_make_basic(MOD_MASK_SHIFT, KC_3, KC_F3),
-	&ko_make_basic(MOD_MASK_SHIFT, KC_4, KC_F4),
-	&ko_make_basic(MOD_MASK_SHIFT, KC_5, KC_F5),
-	&ko_make_basic(MOD_MASK_SHIFT, KC_6, KC_F6),
-	&ko_make_basic(MOD_MASK_SHIFT, KC_7, KC_F7),
-	&ko_make_basic(MOD_MASK_SHIFT, KC_8, KC_F8),
-	&ko_make_basic(MOD_MASK_SHIFT, KC_9, KC_F9),
-	&ko_make_basic(MOD_MASK_SHIFT, KC_0, KC_F10),
 	NULL
 };
 
@@ -83,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_Q,         KC_W,         HYPR_T(KC_F), KC_P,          KC_B,                                    KC_J,           KC_L,         HYPR_T(KC_U),   KC_Y,         KC_QUOT,
       LCTL_T(KC_A), LALT_T(KC_R), LGUI_T(KC_S), LSFT_T(KC_T),  KC_G,                                    KC_M,           RSFT_T(KC_N), RGUI_T(KC_E),   RALT_T(KC_I), RCTL_T(KC_O),
       KC_Z,         KC_X,         MEH_T(KC_C),  KC_D,          KC_V,                                    KC_K,           KC_H,         MEH_T(KC_COMM), KC_DOT,       KC_MINS,
-                                                LT(1, KC_ESC), LT(2, KC_SPC), KC_TAB,       KC_ENT,     LT(3, KC_BSPC), KC_SLASH
+                                                LT(1, KC_ESC), LT(2, KC_SPC), LT(4, KC_TAB),    KC_ENT, LT(3, KC_BSPC), KC_SLASH
 
   ),
 
@@ -106,5 +96,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_PIPE,      KC_BSLS,     KC_PLUS,       KC_EQL,        KC_QUES,                                 XXXXXXX,    KC_RIGHT_SHIFT,     KC_RIGHT_GUI, KC_RIGHT_ALT, KC_RIGHT_CTRL,
       KC_GRAVE,     KC_PERC,     KC_CIRC,       KC_AMPR,       KC_ASTR,                                 XXXXXXX,    XXXXXXX,            XXXXXXX,      XXXXXXX,      XXXXXXX,
                                                 KC_ESC,        KC_SPC,        KC_TAB,       XXXXXXX,    XXXXXXX,    XXXXXXX
-  )
+  ),
+
+  [4] = LAYOUT_split_3x5_3(
+      XXXXXXX,      XXXXXXX,     XXXXXXX,       XXXXXXX,       XXXXXXX,                                 XXXXXXX,        KC_F7,         KC_F8,           KC_F9,         KC_F10,
+      KC_LEFT_CTRL, KC_LEFT_ALT, KC_LEFT_GUI,   KC_LEFT_SHIFT, XXXXXXX,                                 XXXXXXX,        KC_F4,         KC_F5,           KC_F6,         KC_F11,
+      XXXXXXX,      XXXXXXX,     XXXXXXX,       XXXXXXX,       XXXXXXX,                                 XXXXXXX,        KC_F1,         KC_F2,           KC_F3,         KC_F12,
+                                                KC_ESC,        KC_SPC,        KC_TAB,       XXXXXXX,    XXXXXXX,        XXXXXXX
+  ),
 };
