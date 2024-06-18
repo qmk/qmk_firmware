@@ -3,6 +3,7 @@
     "keyboard_name": "Elysian",
     "maintainer": "customMK",
     "bootloader": "stm32-dfu",
+    "debounce": 10,
     "diode_direction": "ROW2COL",
     "dynamic_keymap": {
         "layer_count": 32

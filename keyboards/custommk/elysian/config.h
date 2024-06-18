@@ -12,5 +12,3 @@
 #define SPI_SCK_PIN B3
 #define SPI_MOSI_PIN B5
 #define SPI_MISO_PIN B4
-
-#define DEBOUNCE 10
