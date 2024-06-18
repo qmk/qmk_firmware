@@ -153,16 +153,14 @@ void enter_deep_sleep(void) {
     gpio_write_pin_low(SYS_MODE_PIN);
 
     // These should be LED pins as well, turning them off.
-    // gpio_set_pin_output(DRIVER_RGB_DI_PIN); // FIXME: does not allow to enable RGB after wakeup
-    // gpio_write_pin_low(DRIVER_RGB_DI_PIN);
     gpio_set_pin_output(DRIVER_SIDE_PIN);
     gpio_write_pin_low(DRIVER_SIDE_PIN);
 
     gpio_set_pin_output(NRF_TEST_PIN);
     gpio_write_pin_high(NRF_TEST_PIN);
 
-    gpio_set_pin_output(NRF_WAKEUP_PIN);
-    gpio_write_pin_high(NRF_WAKEUP_PIN);
+    gpio_set_pin_input(NRF_WAKEUP_PIN);
+    gpio_write_pin_low(NRF_WAKEUP_PIN);
 
     clear_report_buffer_and_queue();
 
@@ -196,7 +194,7 @@ void exit_deep_sleep(void) {
 #if (WORK_MODE == THREE_MODE)
     /* Wake RF module? Not sure if this works... */
     gpio_set_pin_output(NRF_WAKEUP_PIN);
-    gpio_write_pin_low(NRF_WAKEUP_PIN); // FIXME: test
+    gpio_write_pin_high(NRF_WAKEUP_PIN);
 #endif
 
     // power on LEDs This is missing from Nuphy's logic.

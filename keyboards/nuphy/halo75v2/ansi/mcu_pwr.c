@@ -155,8 +155,8 @@ void enter_deep_sleep(void) {
     gpio_set_pin_output(NRF_TEST_PIN);
     gpio_write_pin_high(NRF_TEST_PIN);
 
-    gpio_set_pin_output(NRF_WAKEUP_PIN);
-    gpio_write_pin_high(NRF_WAKEUP_PIN);
+    gpio_set_pin_input(NRF_WAKEUP_PIN);
+    gpio_write_pin_low(NRF_WAKEUP_PIN);
 
     clear_report_buffer_and_queue();
 
@@ -187,7 +187,7 @@ void exit_deep_sleep(void) {
 
     /* Wake RF module? Not sure if this works... */
     gpio_set_pin_output(NRF_WAKEUP_PIN);
-    gpio_write_pin_low(NRF_WAKEUP_PIN);
+    gpio_write_pin_high(NRF_WAKEUP_PIN);
 
     // power on LEDs This is missing from Nuphy's logic.
     rgb_led_powered_off = 1;
