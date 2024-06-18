@@ -69,23 +69,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-// Caps Lock LED indicator
-void keyboard_pre_init_kb(void) {
-    //Sets LED pin as output
-    gpio_set_pin_output(F7);
-
-    keyboard_pre_init_user();
-};
-
-bool led_update_kb(led_t led_state) {
-    // Caps Lock LED indicator toggling code here
-    bool res = led_update_user(led_state);
-    if(res) {
-        gpio_write_pin(F7, led_state.caps_lock);
-    }
-    return res;
-};
-
 // macros to allow the user to set whatever default layer they want, even after reboot
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
