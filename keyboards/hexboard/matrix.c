@@ -12,12 +12,12 @@ void matrix_init_custom(void) {
     // For each column pin...
     for (int pinNumber = 0; pinNumber < MATRIX_COLS; pinNumber++) {
         // set the pinMode to INPUT_PULLUP (+3.3V / HIGH).
-        setPinInputHigh(columns[pinNumber]);
+        gpio_set_pin_input_high(columns[pinNumber]);
     }
-    setPinOutput(mux_pins[0]);
-    setPinOutput(mux_pins[1]);
-    setPinOutput(mux_pins[2]);
-    setPinOutput(mux_pins[3]);
+    gpio_set_pin_output(mux_pins[0]);
+    gpio_set_pin_output(mux_pins[1]);
+    gpio_set_pin_output(mux_pins[2]);
+    gpio_set_pin_output(mux_pins[3]);
 }
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
@@ -26,19 +26,19 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     // Button Deck
     // Iterate through each of the row pins on the multiplexing chip.
     for (int rowIndex = 0; rowIndex < 14; rowIndex++) {
-        writePin(mux_pins[0], rowIndex & 1);
-        writePin(mux_pins[1], (rowIndex & 2) >> 1);
-        writePin(mux_pins[2], (rowIndex & 4) >> 2);
-        writePin(mux_pins[3], (rowIndex & 8) >> 3);
+        gpio_write_pin(mux_pins[0], rowIndex & 1);
+        gpio_write_pin(mux_pins[1], (rowIndex & 2) >> 1);
+        gpio_write_pin(mux_pins[2], (rowIndex & 4) >> 2);
+        gpio_write_pin(mux_pins[3], (rowIndex & 8) >> 3);
         // Now iterate through each of the column pins that are connected to the current row pin.
         for (int columnIndex = 0; columnIndex < MATRIX_COLS; columnIndex++) {
             // Hold the currently selected column pin in a variable.
             pin_t columnPin = columns[columnIndex];
             // Set that row pin to INPUT_PULLUP mode (+3.3V / HIGH).
-            setPinInputHigh(columnPin);
+            gpio_set_pin_input_high(columnPin);
             matrix_io_delay();
             bool previousValue = (current_matrix[rowIndex] >> columnIndex) & 1;
-            bool buttonState   = !readPin(columnPin); // inverted...
+            bool buttonState   = !gpio_read_pin(columnPin); // inverted...
             matrix_has_changed |= previousValue != buttonState;
             if (buttonState) {
                 current_matrix[rowIndex] |= (1 << columnIndex);
@@ -47,7 +47,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
             }
 
             // Set the selected column pin back to INPUT mode (0V / LOW).
-            setPinInput(columnPin);
+            gpio_set_pin_input(columnPin);
         }
     }
 
