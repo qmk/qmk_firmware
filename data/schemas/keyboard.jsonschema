@@ -342,6 +342,36 @@
                 "on_state": {"$ref": "qmk.definitions.v1#/bit"}
             }
         },
+        "joystick": {
+            "type": "object",
+            "properties": {
+                "enabled": {"type": "boolean"},
+                "driver": {"type": "string"},
+                "button_count": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "axis_resolution": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "axes": {
+                    "type": "object",
+                    "propertyNames": {"enum": ["x", "y", "z", "rx", "ry", "rz"]}
+                    "additionalProperties": {
+                        "oneOf": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "input_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                                    "low": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                                    "rest": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                                    "high": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                                }
+                            },
+                            {
+                                "type": "string",
+                                "enum": ["virtual"]
+                            }
+                        ]
+                    }
+                }
+            }
+        },
         "keycodes": {"$ref": "qmk.definitions.v1#/keycode_decl_array"},
         "layout_aliases": {
             "type": "object",
