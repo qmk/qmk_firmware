@@ -14,7 +14,7 @@ enum layers {
 
 //custom keycode enums
 enum custom_keycodes {
-    BASE_QWER = QK_KB_0,
+    BASE_QWER = SAFE_RANGE,
     BASE_COLE,
     BASE_DVOR
 };
@@ -68,34 +68,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 };
 
-//macros to allow the user to set whatever default layer they want, even after reboot
 
+// Macros to allow the user to set whatever default layer they want, even after reboot
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case BASE_QWER:
             if (record->event.pressed) {
-            // when keycode BASE_QWER is pressed
                 set_single_persistent_default_layer(_QWER);
-            } else {
-            // when keycode BASE_QWER is released
             }
             break;
-
         case BASE_COLE:
             if (record->event.pressed) {
-            // when keycode BASE_COLE is pressed
                 set_single_persistent_default_layer(_COLE);
-            } else {
-            // when keycode BASE_COLE is released
             }
             break;
-
         case BASE_DVOR:
             if (record->event.pressed) {
-            // when keycode BASE_DVOR is pressed
                 set_single_persistent_default_layer(_DVOR);
-            } else {
-            // when keycode BASE_DVOR is released
             }
             break;
     }

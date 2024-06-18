@@ -1,10 +1,7 @@
 {
-    "keyboard_name": "bear_face v2",
+    "keyboard_name": "bear_face v3",
     "usb": {
-        "device_version": "2.1.0"
-    },
-    "backlight": {
-        "on_state": 0
+        "device_version": "3.2.0"
     },
     "layouts": {
         "LAYOUT_all": {
