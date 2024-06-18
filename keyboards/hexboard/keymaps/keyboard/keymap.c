@@ -5,9 +5,9 @@
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [0] =   {ENCODER_CCW_CW(KC_LEFT, KC_RIGHT),},
+    [0] =   {ENCODER_CCW_CW(RGB_VAD, RGB_VAI),},
     [1] =  {ENCODER_CCW_CW(KC_VOLD, KC_VOLU),},
-    [2] =  {ENCODER_CCW_CW(RGB_VAD, RGB_VAI),},
+    [2] =  {ENCODER_CCW_CW(KC_LEFT, KC_RIGHT),},
 };
 #endif
 
@@ -84,7 +84,7 @@ _______,KC_LALT, MO(1),    KC_SPC,  MO(2),    KC_DOWN,   KC_RGHT
      */
 
     [1] = LAYOUT_landscape(
-                MI_BNDU,AU_TOGG,  RGB_M_SN,
+                MI_BNDU,QK_BOOT,  RGB_M_SN,
           MI_BNDD,MI_TOGG,  RGB_M_B,RGB_M_SW,
 _______,_______,_______,_______,_______,_______,_______,
     _______,_______,_______,_______,_______,_______,_______,

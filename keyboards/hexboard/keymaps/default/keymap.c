@@ -13,7 +13,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_landscape(
-               _______,_______,RGB_HUI,
+               _______,QK_BOOT,RGB_HUI,
           MO(1),    _______,RGB_VAD,RGB_MOD,
 
       _______,_______,_______,KC_EQL ,_______,_______,KC_PGUP,
