@@ -10,11 +10,13 @@
 # Customizing your PloopyCo Device
 
 There are a number of behavioral settings that you can use to help customize your experience
-|                                 |                   |                                                           |
-|---------------------------------|-------------------|-----------------------------------------------------------|
-| `PLOOPY_IGNORE_SCROLL_CLICK`    | *__not_defined__* | Ignores scroll wheel if it is pressed down.               |
-| `PLOOPY_SCROLL_DEBOUNCE`        | `5`               | Number of milliseconds between scroll events.             |
-| `PLOOPY_SCROLL_BUTTON_DEBOUNCE` | `100`             | Time to ignore scroll events after pressing scroll wheel. |
+| Define                          | Default Value     | Description                                                                                                                                           |
+| ------------------------------- | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `PLOOPY_IGNORE_SCROLL_CLICK`    | *__not_defined__* | Ignores scroll wheel if it is pressed down.                                                                                                           |
+| `PLOOPY_SCROLL_DEBOUNCE`        | `5`               | Number of milliseconds between scroll events.                                                                                                         |
+| `PLOOPY_SCROLL_BUTTON_DEBOUNCE` | `100`             | Time to ignore scroll events after pressing scroll wheel.                                                                                             |
+| `PLOOPY_HOST_LED_CONTROL`       | *__not_defined__* | Enables Host State to control Drag Scroll (Scroll Lock), DPI (Num Lock), and entering bootloader (Num, Caps, Scroll Lock). Useful for the Ploopy Nano |
+
 
 ## DPI
 
