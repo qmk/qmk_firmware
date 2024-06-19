@@ -117,13 +117,19 @@ bool layer_lock_set_kb(layer_state_t locked_layers);
 bool layer_lock_set_user(layer_state_t locked_layers);
 
 void layer_lock_task(void);
-#else // NO_ACTION_LAYER
-static inline bool is_layer_locked(uint8_t layer) { return false; }
+#else  // NO_ACTION_LAYER
+static inline bool is_layer_locked(uint8_t layer) {
+    return false;
+}
 static inline void layer_lock_on(uint8_t layer) {}
 static inline void layer_lock_off(uint8_t layer) {}
 static inline void layer_lock_all_off(void) {}
 static inline void layer_lock_invert(uint8_t layer) {}
-static inline bool layer_lock_set_kb(layer_state_t locked_layers) { return true; }
-static inline bool layer_lock_set_user(layer_state_t locked_layers) { return true; }
+static inline bool layer_lock_set_kb(layer_state_t locked_layers) {
+    return true;
+}
+static inline bool layer_lock_set_user(layer_state_t locked_layers) {
+    return true;
+}
 static inline void layer_lock_task(void) {}
 #endif // NO_ACTION_LAYER

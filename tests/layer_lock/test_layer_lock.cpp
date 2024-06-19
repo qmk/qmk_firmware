@@ -112,7 +112,6 @@ TEST_F(LayerLock, LayerLockOneshotHoldTest) {
     VERIFY_AND_CLEAR(driver);
 }
 
-
 TEST_F(LayerLock, LayerLockTimeoutTest) {
     TestDriver driver;
     KeymapKey  key_layer = KeymapKey(0, 0, 0, MO(1));
