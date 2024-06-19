@@ -72,6 +72,10 @@
 #    include "process_unicode_common.h"
 #endif
 
+#ifdef LAYER_LOCK_ENABLE
+#include "process_layer_lock.h"
+#endif // LAYER_LOCK_ENABLE
+
 #ifdef AUDIO_ENABLE
 #    ifndef GOODBYE_SONG
 #        define GOODBYE_SONG SONG(GOODBYE_SOUND)
