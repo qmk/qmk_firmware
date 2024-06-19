@@ -1,3 +1,2 @@
-CUSTOM_MATRIX = lite
-
 SRC += matrix.c
+LTO_ENABLE = yes
