@@ -2,7 +2,7 @@
   "keyboard_name": "cocot46plus",
   "manufacturer": "aki27",
   "maintainer": "markstos",
-  "tags": ["unibody","ergo","corne","trackball","encoder","rgb"]
+  "tags": ["unibody","ergo","corne","trackball","encoder","rgb"],
   "usb": {
     "device_version": "1.0.0",
     "pid": "0x0003",
@@ -17,26 +17,8 @@
     "encoder":true,
     "extrakey": true,
     "mousekey": true,
-    "oled": true,
     "pointing_device": true,
     "rgblight": true
-  },
-  "matrix_pins": {
-    "cols":  ["F4", "F5", "F6", "F7", "B1", "B3"],
-    "rows": ["D4", "C6", "D7", "E6", "NO_PIN"],
-    "custom": true,
-    "direct": [
-    [ "A00",   "A01",   "A02",   "A03",   "A04",   "A05" ], 
-    [ "A10",   "A11",   "A12",   "A13",   "A14",   "A15" ], 
-    [ "A20",   "A21",   "A22",   "A23",   "A24",   "A25" ], 
-    [ "A30",   "A31",   "A32",   "A33",   "A34",   "A35" ], 
-    [ null,    null,    "A42",   null,   null,    "A45" ], 
-    [ "B00",   "B01",   "B02",   "B03",   "B04",   "B05" ], 
-    [ "B10",   "B11",   "B12",   "B13",   "B14",   "B15" ], 
-    [ "B20",   "B21",   "B22",   "B23",   "B24",   "B25" ], 
-    [ "B30",   "B31",   "B32",   "B33",   "B34",   "B35" ], 
-    [ null,    null,    "B42", null,    null,     "B45" ]  
-    ]
   },
   "ws2812": {
     "pin": "B6"
@@ -59,6 +41,15 @@
     "hue_steps": 10,
     "max_brightness": 120,
   },
+  "keycodes":[
+    {"key": "CPI_SW"},
+    {"key": "SCRL_SW"},
+    {"key": "ROT_R15"},
+    {"key": "ROT_L15"},
+    {"key": "SCRL_MO"},
+    {"key": "SCRL_TO"},
+    {"key": "SCRL_IN"}
+  ],
   "layouts": {
     "LAYOUT": {
       "layout": [

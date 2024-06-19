@@ -25,7 +25,6 @@ enum layer_number {
     _TRACKBALL
 };
 
-
 #define LW_MHEN LT(1,KC_INT5)  // lower
 #define RS_HENK LT(2,KC_INT4)  // raise
 #define DEL_ALT ALT_T(KC_DEL)

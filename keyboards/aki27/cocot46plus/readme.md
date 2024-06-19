@@ -1,6 +1,6 @@
 # cocot46plus
 
-![cocot46plus_photo15](https://user-images.githubusercontent.com/88039287/171889114-53163c9f-4ef2-492d-b12b-7b6a23578bdf.jpg)
+![cocot46plus_photo15](https://i.imgur.com/yCvbMgo.jpeg)
 
 
 cocot46plus is a column-staggered keyboard with 46 keys, a 34mm-trackball and a rotary encoder.
@@ -39,12 +39,8 @@ Value    | Keycode   |Description
 
 ### Gallery
 
-![cocot46plus_photo12](https://user-images.githubusercontent.com/88039287/170438554-630e1c55-a0de-4021-96c9-22d9bfee850e.jpg)
-
-![cocot46plus_photo14](https://user-images.githubusercontent.com/88039287/170669470-d258e0f5-6dba-4e6a-8008-43c8c6c1f1b2.jpg)
-
-![cocot46plus_photo05](https://user-images.githubusercontent.com/88039287/170669586-f97a07f9-cc3e-4ec8-8144-de095594974b.jpg)
-
-![cocot46plus_photo02](https://user-images.githubusercontent.com/88039287/170669653-933e0ebc-dbf4-4f3d-9d89-2d6171de5415.jpg)
-
-![cocot46plus_photo10](https://user-images.githubusercontent.com/88039287/170669715-810a73a1-d12f-4cf3-9f66-493bf0615beb.jpg)
+![cocot46plus_photo12](https://i.imgur.com/hPOB98H.jpeg)
+![cocot46plus_photo14](https://i.imgur.com/HrtI9w1.jpeg)
+![cocot46plus_photo05](https://i.imgur.com/LOcxHIV.jpeg)
+![cocot46plus_photo02](https://i.imgur.com/b5O9tKq.jpeg)
+![cocot46plus_photo10](https://i.imgur.com/gDx5e64.jpeg)

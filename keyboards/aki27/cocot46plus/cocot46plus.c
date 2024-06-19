@@ -15,6 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include QMK_KEYBOARD_H
 #include "cocot46plus.h"
 #include <math.h>
 
@@ -235,18 +236,7 @@ void render_logo(void) {
 void oled_write_layer_state(void) {
 
     oled_write_P(PSTR(" "), false);
-    // int cpi = pointing_device_get_cpi();
-    int cpi = cpi_array[cocot_config.cpi_idx];
-    int scroll_div = scrl_div_array[cocot_config.scrl_div];
-    int angle = angle_array[cocot_config.rotation_angle];
     
-    char buf1[5];
-    char buf2[3];
-    char buf3[4];
-    snprintf(buf1, 5, "%4d", cpi);
-    snprintf(buf2, 3, "%2d", scroll_div);
-    snprintf(buf3, 4, "%3d", angle);
-
     switch (get_highest_layer(layer_state | default_layer_state)) {
         case 0:
             oled_write_P(PSTR("Base "), false);
@@ -279,12 +269,17 @@ void oled_write_layer_state(void) {
     } else{
         oled_write_P(PSTR("C"), false);
     }
+
+    int cpi = cpi_array[cocot_config.cpi_idx];
+    int scroll_div = scrl_div_array[cocot_config.scrl_div];
+    int angle = angle_array[cocot_config.rotation_angle];
+
     oled_write_P(PSTR("/"), false);
-    oled_write(buf1, false);
+    oled_write(get_u16_str(cpi,' '), false);
     oled_write_P(PSTR("/"), false);
-    oled_write(buf2, false);
+    oled_write(get_u8_str(scroll_div,' '), false);
     oled_write_P(PSTR("/"), false);
-    oled_write(buf3, false);
+    oled_write(get_u16_str(angle,' '), false);
 }
 
 #endif

@@ -31,30 +31,8 @@ typedef union {
     };
 } cocot_config_t;
 
-
-
 extern cocot_config_t cocot_config;
 
-enum cocot_keycodes {
-
-    COCOT_SAFE_RANGE = SAFE_RANGE,
-    CPI_SW,
-    SCRL_SW,
-    ROT_R15,
-    ROT_L15,
-    SCRL_MO,
-    SCRL_TO,
-    SCRL_IN,
-
-};
-
-#define CPI_SW QK_USER_0
-#define SCRL_SW QK_USER_1
-#define ROT_R15 QK_USER_2
-#define ROT_L15 QK_USER_3
-#define SCRL_MO QK_USER_4
-#define SCRL_TO QK_USER_5
-#define SCRL_IN QK_USER_6
 
 bool cocot_get_scroll_mode(void);
 void cocot_set_scroll_mode(bool mode);
