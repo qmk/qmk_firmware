@@ -24,6 +24,8 @@
 // Not sure what it is...
 // #define FIRMWARE_VERSION u8"QjAXm/vWLel"
 
+/* #define FR_HOST */
+
 // sets the number of milliseconds to pause after sending a wakeup packet.
 // Disabled by default, you might want to set this to 200 (or higher) if the
 // keyboard does not wake up properly after suspending

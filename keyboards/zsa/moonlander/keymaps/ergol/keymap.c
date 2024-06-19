@@ -19,10 +19,16 @@
 
 #include "keycodes.h"
 #include "version.h"
-#include "keymap_french.h"
+
+#ifdef FR_HOST
+#    include "keymap_french.h"
 // redefine the ascii_to_keycode so that
 // the register_unicode works.
-#include "sendstring_french.h"
+#    include "sendstring_french.h"
+#else
+#    include "send_string.h"
+#endif
+
 #include "unicode/unicode.h"
 
 /*
@@ -169,6 +175,7 @@ static inline uint32_t cp_val(uint32_t cp) {
     return (cp & CP_VAL_MASK);
 }
 
+#ifdef FR_HOST
 // clang-format off
 const ergol_key_t ergol_key_maps[IDX(EKC_MAX)] = {
     [IDX(EKC_Q)] = EGL(FR_Q,       CP(0x00E2) /* â */, CP(0x00C2) /* Â */, CP(0x005E) /* ^ */,    CP(0x0302) /* ̂  Combining Circumflex Accent */),
@@ -223,6 +230,62 @@ const ergol_key_t ergol_key_maps[IDX(EKC_MAX)] = {
     [IDX(EKC_SPC)] = EGL_WITH_SBASE(KC_SPC,    CP(0x202F) /* no-break-space */,  CP(0x2019) /* ’ Right Single Quotation Mark, Apostrophe*/, KC_TRNS, KC_SPC, KC_TRNS),
 };
 // clang-format on
+#else
+// clang-format off
+const ergol_key_t ergol_key_maps[IDX(EKC_MAX)] = {
+    [IDX(EKC_Q)] = EGL(KC_Q,       CP(0x00E2) /* â */, CP(0x00C2) /* Â */, CP(0x005E) /* ^ */,    CP(0x0302) /* ̂  Combining Circumflex Accent */),
+    [IDX(EKC_C)] = EGL(KC_C,       CP(0x00E7) /* ç */, CP(0x00C7) /* Ç */, KC_LABK,    CP(0x2264) /* ≤ */),
+    [IDX(EKC_O)] = EGL(KC_O,       CP(0x0153) /* œ */, CP(0x0152) /* Œ */, KC_RABK,    CP(0x2265) /* ≥ */),
+    [IDX(EKC_P)] = EGL(KC_P,       CP(0x00F4) /* ô */, CP(0x00D4) /* Ô */, KC_DLR,     KC_TRNS), // XXX: Implement currencies
+    [IDX(EKC_W)] = EGL(KC_W,       KC_TRNS,            KC_TRNS,            KC_PERC,    CP(0x2030) /* ‰ */),
+
+    [IDX(EKC_J)] = EGL(KC_J,       KC_TRNS,            KC_TRNS,            KC_AT,      CP(0x030A) /* ̊  Combining Ring Above */),
+    [IDX(EKC_M)] = EGL(KC_M,       CP(0x00B5) /* µ */, KC_TRNS,            KC_AMPR,    KC_TRNS),
+    [IDX(EKC_D)] = EGL(KC_D,       KC_UNDS,            KC_TRNS,            KC_ASTR,    CP(0x00D7) /* × */),
+    [IDX(EKC_DK)] = EGL_WITH_SBASE(KC_TRNS, KC_EXLM,   KC_TRNS,            CP(0x00A1) /* ¡ */,    KC_QUOT,   CP(0x0301) /* ´ Combining Acute Accent*/),
+    [IDX(EKC_Y)] = EGL(KC_Y,       CP(0x00FB),         CP(0x00DB),         KC_GRV,     CP(0x0300) /* ̀  Combining Grave Accent */),
+
+    [IDX(EKC_A)] = EGL(KC_A,       CP(0x00E0) /* à */, CP(0x00C0),         KC_LCBR,    CP(0x0306) /* ̆  Combining Breve*/),
+    [IDX(EKC_S)] = EGL(KC_S,       CP(0x00E9) /* é */, CP(0x00DB),         KC_LPRN,    KC_TRNS),
+    [IDX(EKC_E)] = EGL(KC_E,       CP(0x00E8) /* è */, CP(0x00C8),         KC_RPRN,    KC_TRNS),
+    [IDX(EKC_N)] = EGL(KC_N,       CP(0x00EA) /* ê */, CP(0x00CA),         KC_RCBR,    CP(0x0307) /* ̇  Combining Dot Above*/),
+    [IDX(EKC_F)] = EGL(KC_F,       CP(0x00F1) /* ñ */, CP(0x00D1),         KC_EQL,     CP(0x2260) /* ≠ */),
+
+    [IDX(EKC_L)] = EGL(KC_L,       KC_LPRN,            KC_TRNS,            KC_BSLS,    CP(0x0338) /* ̸ Combining Long Solidus Overlay */),
+    [IDX(EKC_R)] = EGL(KC_R,       KC_RPRN,            KC_TRNS,            KC_PLUS,    CP(0x2A72) /* ⩲ */),
+    [IDX(EKC_T)] = EGL(KC_T,       CP(0x00EE) /* î */, CP(0x00CE) /* Î */, KC_MINS,    CP(0x0304) /* ̄  Combining Macron */),
+    [IDX(EKC_I)] = EGL(KC_I,       CP(0x00EF) /* ï */, CP(0x00CF) /* Ï */, KC_SLSH,    CP(0x00F7) /* ÷ */),
+    [IDX(EKC_U)] = EGL(KC_U,       CP(0x00F9) /* ù */, CP(0x00D9) /* Ù */, KC_DQUO,    CP(0x030B) /* ̋  Combining Double Acute Accent */),
+
+    [IDX(EKC_Z)] = EGL(KC_Z,       CP(0x00E6) /* æ */, CP(0x00C6) /* Æ */, KC_TILD,    CP(0x0303) /* ̃  Combining Tilde*/),
+    [IDX(EKC_X)] = EGL(KC_X,       KC_TRNS,            KC_TRNS,            KC_LBRC,    CP(0x0326) /* ̦  Combining Comma Below */),
+    [IDX(EKC_MNS)] = EGL_WITH_SBASE(KC_MINS,  KC_QUES, KC_TRNS, KC_TRNS,   KC_RBRC,    CP(0x0328) /* ̨  Combining Ogonek */),
+    [IDX(EKC_V)] = EGL(KC_V,       KC_TRNS,            KC_TRNS,            KC_UNDS,    CP(0x2013) /* – en dash */),
+    [IDX(EKC_B)] = EGL(KC_B,       KC_TRNS,            KC_TRNS,            KC_HASH,     KC_TRNS),
+
+    [IDX(EKC_DOT)] = EGL_WITH_SBASE(KC_DOT,   KC_COLN,  CP(0x2026) /* … */,KC_TRNS,    KC_PIPE,   CP(0x00A6) /* ¦ Broken bar */),
+    [IDX(EKC_H)] = EGL(KC_H,       KC_TRNS,           KC_TRNS,             KC_EXLM,    CP(0x00AC) /* ¬ Not sign */),
+    [IDX(EKC_G)] = EGL(KC_G,       KC_TRNS,           KC_TRNS,             KC_SCLN,    CP(0x0312) /*̒ Combining Turned Comma Above */),
+    [IDX(EKC_COMM)] = EGL_WITH_SBASE(KC_COMM, KC_SCLN,CP(0x00B7) /* · */,  CP(0x2022) /* • */,   KC_COLN, KC_TRNS),
+    [IDX(EKC_K)] = EGL(KC_K,       KC_TRNS,           KC_TRNS,           KC_QUES,   CP(0x0306) /* ̆  Combining Breve */),
+
+
+    [IDX(EKC_1)] = EGL_WITH_SBASE(KC_1,       CP(0x20AC) /* € */, CP(0x201E) /* „ */, CP(0x201A) /* ‚ */,  CP(0x2081) /* ₁ */, CP(0x00B9) /* ¹ */),
+    [IDX(EKC_2)] = EGL_WITH_SBASE(KC_2,       CP(0x00AB) /* « */, CP(0x201C) /* “ */, CP(0x2018) /* ‘ */,  CP(0x2082) /* ₂ */, CP(0x00B2) /* ² */),
+    [IDX(EKC_3)] = EGL_WITH_SBASE(KC_3,       CP(0x00BB) /* » */, CP(0x201F) /* ” */, CP(0x2019) /* ’ */,  CP(0x2083) /* ₃ */, CP(0x00B3) /* ³ */),
+    [IDX(EKC_4)] = EGL_WITH_SBASE(KC_4,       KC_DLR,             CP(0x00A2) /* ¢ */, KC_TRNS,             CP(0x2084) /* … */, CP(0x2074) /* … */),
+    [IDX(EKC_5)] = EGL_WITH_SBASE(KC_5,       KC_PERC,            CP(0x2030) /* ‰ */, KC_TRNS,             CP(0x2085) /* … */, CP(0x2075) /* … */),
+    [IDX(EKC_6)] = EGL_WITH_SBASE(KC_6,       CP(0x005E) /* ^ */, KC_TRNS,            KC_TRNS,             CP(0x2086) /* … */, CP(0x2076) /* … */),
+
+    [IDX(EKC_7)] = EGL_WITH_SBASE(KC_7,       KC_AMPR,            KC_TRNS,            KC_TRNS,             CP(0x2087) /* … */, CP(0x2077) /* … */),
+    [IDX(EKC_8)] = EGL_WITH_SBASE(KC_8,       KC_ASTR,            CP(0x00A7) /* § */, KC_TRNS,             CP(0x2088) /* … */, CP(0x2078) /* … */),
+    [IDX(EKC_9)] = EGL_WITH_SBASE(KC_9,       KC_HASH,            CP(0x00B6) /* ¶ */, KC_TRNS,             CP(0x2089) /* … */, CP(0x2079) /* … */),
+    [IDX(EKC_0)] = EGL_WITH_SBASE(KC_0,       KC_AT,              CP(0x00B0) /* ° */, KC_TRNS,             CP(0x2080) /* … */, CP(0x2070) /* … */),
+
+    [IDX(EKC_SPC)] = EGL_WITH_SBASE(KC_SPC,    CP(0x202F) /* no-break-space */,  CP(0x2019) /* ’ Right Single Quotation Mark, Apostrophe*/, KC_TRNS, KC_SPC, KC_TRNS),
+};
+// clang-format on
+#endif
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
