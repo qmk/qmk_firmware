@@ -233,7 +233,7 @@ const ergol_key_t ergol_key_maps[IDX(EKC_MAX)] = {
 #else
 // clang-format off
 const ergol_key_t ergol_key_maps[IDX(EKC_MAX)] = {
-    [IDX(EKC_Q)] = EGL(KC_Q,       CP(0x00E2) /* â */, CP(0x00C2) /* Â */, CP(0x005E) /* ^ */,    CP(0x0302) /* ̂  Combining Circumflex Accent */),
+    [IDX(EKC_Q)] = EGL(KC_Q,       CP(0x00E2) /* â */, CP(0x00C2) /* Â */, KC_CIRC,    CP(0x0302) /* ̂  Combining Circumflex Accent */),
     [IDX(EKC_C)] = EGL(KC_C,       CP(0x00E7) /* ç */, CP(0x00C7) /* Ç */, KC_LABK,    CP(0x2264) /* ≤ */),
     [IDX(EKC_O)] = EGL(KC_O,       CP(0x0153) /* œ */, CP(0x0152) /* Œ */, KC_RABK,    CP(0x2265) /* ≥ */),
     [IDX(EKC_P)] = EGL(KC_P,       CP(0x00F4) /* ô */, CP(0x00D4) /* Ô */, KC_DLR,     KC_TRNS), // XXX: Implement currencies
@@ -275,7 +275,7 @@ const ergol_key_t ergol_key_maps[IDX(EKC_MAX)] = {
     [IDX(EKC_3)] = EGL_WITH_SBASE(KC_3,       CP(0x00BB) /* » */, CP(0x201F) /* ” */, CP(0x2019) /* ’ */,  CP(0x2083) /* ₃ */, CP(0x00B3) /* ³ */),
     [IDX(EKC_4)] = EGL_WITH_SBASE(KC_4,       KC_DLR,             CP(0x00A2) /* ¢ */, KC_TRNS,             CP(0x2084) /* … */, CP(0x2074) /* … */),
     [IDX(EKC_5)] = EGL_WITH_SBASE(KC_5,       KC_PERC,            CP(0x2030) /* ‰ */, KC_TRNS,             CP(0x2085) /* … */, CP(0x2075) /* … */),
-    [IDX(EKC_6)] = EGL_WITH_SBASE(KC_6,       CP(0x005E) /* ^ */, KC_TRNS,            KC_TRNS,             CP(0x2086) /* … */, CP(0x2076) /* … */),
+    [IDX(EKC_6)] = EGL_WITH_SBASE(KC_6,       KC_CIRC,            KC_TRNS,            KC_TRNS,             CP(0x2086) /* … */, CP(0x2076) /* … */),
 
     [IDX(EKC_7)] = EGL_WITH_SBASE(KC_7,       KC_AMPR,            KC_TRNS,            KC_TRNS,             CP(0x2087) /* … */, CP(0x2077) /* … */),
     [IDX(EKC_8)] = EGL_WITH_SBASE(KC_8,       KC_ASTR,            CP(0x00A7) /* § */, KC_TRNS,             CP(0x2088) /* … */, CP(0x2078) /* … */),
