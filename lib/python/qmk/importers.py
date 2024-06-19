@@ -102,7 +102,7 @@ def import_keyboard(info_data, keymap_data=None):
 
     # And validate some more as everything is optional
     if not all(key in info_data for key in ['keyboard_name', 'layouts']):
-        raise ValueError('invalid info.json')
+        raise ValueError('invalid json config')
 
     kb_name = info_data['keyboard_name']
 
@@ -115,7 +115,7 @@ def import_keyboard(info_data, keymap_data=None):
         # TODO: if supports community then grab that instead
         keymap_data = _gen_dummy_keymap(kb_name, info_data)
 
-    keyboard_info = kb_folder / 'info.json'
+    keyboard_json = kb_folder / 'keyboard.json'
     keyboard_keymap = kb_folder / 'keymaps' / 'default' / 'keymap.json'
 
     # begin with making the deepest folder in the tree
@@ -136,10 +136,10 @@ def import_keyboard(info_data, keymap_data=None):
     for file in list(TEMPLATE.iterdir()):
         replace_placeholders(file, kb_folder / file.name, tokens)
 
-    temp = json_load(keyboard_info)
+    temp = json_load(keyboard_json)
     deep_update(temp, info_data)
 
-    keyboard_info.write_text(json.dumps(temp, cls=InfoJSONEncoder, sort_keys=True))
+    keyboard_json.write_text(json.dumps(temp, cls=InfoJSONEncoder, sort_keys=True))
     keyboard_keymap.write_text(json.dumps(keymap_data, cls=KeymapJSONEncoder, sort_keys=True))
 
     return kb_name
