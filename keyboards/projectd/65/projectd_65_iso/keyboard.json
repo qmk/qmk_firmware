@@ -168,9 +168,6 @@
             "backing_size": 4096
         }
     },
-    "layout_aliases": {
-        "LAYOUT": "LAYOUT_65_iso_blocker"
-    },
     "community_layouts": ["65_iso_blocker"],
     "layouts": {
         "LAYOUT_65_iso_blocker": {
