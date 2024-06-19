@@ -19,6 +19,13 @@
 #include <stdint.h>
 #include "unicode_keycodes.h"
 
+/**
+ * \file
+ *
+ * \defgroup unicode Unicode
+ * \{
+ */
+
 typedef union {
     uint8_t raw;
     struct {
@@ -41,21 +48,87 @@ enum unicode_input_modes {
     UNICODE_MODE_COUNT // Number of available input modes (always leave at the end)
 };
 
-void    unicode_input_mode_init(void);
-uint8_t get_unicode_input_mode(void);
-void    set_unicode_input_mode(uint8_t mode);
-void    cycle_unicode_input_mode(int8_t offset);
-void    persist_unicode_input_mode(void);
+void unicode_input_mode_init(void);
 
+/**
+ * \brief Get the current Unicode input mode.
+ *
+ * \return The currently active Unicode input mode.
+ */
+uint8_t get_unicode_input_mode(void);
+
+/**
+ * \brief Set the Unicode input mode.
+ *
+ * \param mode The input mode to set.
+ */
+void set_unicode_input_mode(uint8_t mode);
+
+/**
+ * \brief Change to the next Unicode input mode.
+ */
+void unicode_input_mode_step(void);
+
+/**
+ * \brief Change to the previous Unicode input mode.
+ */
+void unicode_input_mode_step_reverse(void);
+
+/**
+ * \brief User-level callback, invoked when the input mode is changed.
+ *
+ * \param input_mode The new input mode.
+ */
 void unicode_input_mode_set_user(uint8_t input_mode);
+
+/**
+ * \brief Keyboard-level callback, invoked when the input mode is changed.
+ *
+ * \param input_mode The new input mode.
+ */
 void unicode_input_mode_set_kb(uint8_t input_mode);
 
+/**
+ * \brief Begin the Unicode input sequence. The exact behavior depends on the currently selected input mode.
+ */
 void unicode_input_start(void);
+
+/**
+ * \brief Complete the Unicode input sequence. The exact behavior depends on the currently selected input mode.
+ */
 void unicode_input_finish(void);
+
+/**
+ * \brief Cancel the Unicode input sequence. The exact behavior depends on the currently selected input mode.
+ */
 void unicode_input_cancel(void);
 
+/**
+ * \brief Send a 16-bit hex number.
+ *
+ * \param hex The number to send.
+ */
 void register_hex(uint16_t hex);
+
+/**
+ * \brief Send a 32-bit hex number.
+ *
+ * \param hex The number to send.
+ */
 void register_hex32(uint32_t hex);
+
+/**
+ * \brief Input a single Unicode character. A surrogate pair will be sent if required by the input mode.
+ *
+ * \param code_point The code point of the character to send.
+ */
 void register_unicode(uint32_t code_point);
 
+/**
+ * \brief Send a string containing Unicode characters.
+ *
+ * \param str The string to send.
+ */
 void send_unicode_string(const char *str);
+
+/** \} */

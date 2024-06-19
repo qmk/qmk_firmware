@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define _UDI_DEVICE_EPSIZE_H_
 
 #define KEYBOARD_EPSIZE 8
-#define MOUSE_EPSIZE 8
+#define MOUSE_EPSIZE 16
 #define EXTRAKEY_EPSIZE 8
 #define RAW_EPSIZE 32
 #define CONSOLE_EPSIZE 32

@@ -20,13 +20,13 @@ bool oled_task_kb(void) {
                 oled_write_raw(layer_zero, sizeof(layer_zero));
                 break;
             case 1:
-                oled_write_raw(layer_zero, sizeof(layer_zero));
+                oled_write_raw(layer_one, sizeof(layer_one));
                 break;
             case 2:
-                oled_write_raw(layer_zero, sizeof(layer_zero));
+                oled_write_raw(layer_two, sizeof(layer_two));
                 break;
             case 3:
-                oled_write_raw(layer_zero, sizeof(layer_zero));
+                oled_write_raw(layer_three, sizeof(layer_three));
                 break;
         }
     } else {

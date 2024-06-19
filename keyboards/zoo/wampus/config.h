@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PAL_MODE      1
 
 // SPI RGB Driver
-#define WS2812_SPI SPID2
+#define WS2812_SPI_DRIVER SPID2
 #define WS2812_SPI_MOSI_PAL_MODE 0
 #define WS2812_SPI_SCK_PAL_MODE 0
 #define WS2812_SPI_SCK_PIN B13
@@ -36,8 +36,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C1_TIMINGR_SDADEL 1U
 #define I2C1_TIMINGR_SCLH 	3U
 #define I2C1_TIMINGR_SCLL   9U
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
