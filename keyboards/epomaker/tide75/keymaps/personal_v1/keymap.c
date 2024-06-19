@@ -16,6 +16,19 @@ enum keycodes {
   QWERTY
 };
 
+enum custom_keycodes {
+  BTDEV1 = SAFE_RANGE,
+  BTDEV2,
+  BTDEV3,
+  BTDEV4,
+  BTDEV5,
+  WIRELESS,
+  USBC,
+  IM_BATQ,
+  SOMETHING,
+  RL_MOD
+};
+
 
 #define LOWER TT(_LOWER)
 #define RAISE TT(_RAISE)
@@ -64,13 +77,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         QWERTY,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   
         _______,  _______,  _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,  _______,  
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______, 
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,
+   KC_CAPS_LOCK,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______, 
+    KC_NUM_LOCK,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,
         _______,  _______,  _______,  EE_CLR,             _______,  EE_CLR,   EE_CLR,             _______,  _______,  _______,  _______,  _______,  _______
     )
 };
 
-#ifdef ENCODER_MAP_ENABLE
+//#ifdef ENCODER_MAP_ENABLE
+#ifdef ENCODER_ENABLE
 bool is_alt_tab_active = false; // ADD this near the begining of keymap.c
 bool is_alt_shift_tab_active = false; // ADD this near the begining of keymap.c
 uint16_t alt_tab_timer = 0;     // we will be using them soon.
@@ -78,7 +92,7 @@ uint16_t alt_tab_timer = 0;     // we will be using them soon.
 //ALT TAB Encoder Timer
 void matrix_scan_user(void) { // The very important timer.
   if (is_alt_tab_active) {
-    if (timer_elapsed(alt_tab_timer) > 1000) {
+    if (timer_elapsed(alt_tab_timer) > 900) {
       unregister_code(KC_LALT);
       unregister_code(KC_LSFT);
       is_alt_tab_active = false;
@@ -138,9 +152,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 	else if (get_highest_layer(layer_state|default_layer_state) == _LOWER) { 
         
 		if (clockwise) {
-		  tap_code16(C(KC_RGHT));
+		  tap_code16(KC_UP);
 		} else {
-		  tap_code16(C(KC_LEFT));
+		  tap_code16(KC_DOWN);
 		}
         
     }
@@ -157,8 +171,10 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 };
 
 /* const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [_LOWER] = {ENCODER_CCW_CW(C(KC_LEFT), C(KC_RGHT))},
-    [_RAISE] = {ENCODER_CCW_CW(S(C(KC_TAB)), C(KC_TAB))},
+	[_COLEMAK] = {ENCODER_CCW_CW(_______, _______)},
+	[_QWERTY] = {ENCODER_CCW_CW(_______, _______)},
+    [_LOWER] = {ENCODER_CCW_CW(_______, _______)},
+    [_RAISE] = {ENCODER_CCW_CW(_______), _______)}
 }; */
 #endif
 
