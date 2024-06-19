@@ -73,7 +73,7 @@
 #endif
 
 #ifdef LAYER_LOCK_ENABLE
-#include "process_layer_lock.h"
+#    include "process_layer_lock.h"
 #endif // LAYER_LOCK_ENABLE
 
 #ifdef AUDIO_ENABLE
