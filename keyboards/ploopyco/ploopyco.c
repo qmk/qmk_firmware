@@ -68,10 +68,6 @@ bool  is_drag_scroll       = false;
 float scroll_accumulated_h = 0;
 float scroll_accumulated_v = 0;
 
-#ifdef PLOOPY_HOST_LED_CONTROL
-bool num_lock_state = false;
-bool scroll_lock_state = false;
-#endif
 
 #ifdef ENCODER_ENABLE
 uint16_t lastScroll        = 0; // Previous confirmed wheel event
@@ -207,32 +203,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     return true;
 }
 
-bool led_update_kb(led_t led_state) {
-
-#ifdef PLOOPY_HOST_LED_CONTROL
-    // when scroll lock is pressed, toggle drag scroll state
-    if ( scroll_lock_state != led_state.scroll_lock ) {
-        toggle_drag_scroll();
-        scroll_lock_state = led_state.scroll_lock;
-    }
-
-    // when num lock is pressed, cycle dpi
-    if ( num_lock_state != led_state.num_lock ) {
-        cycle_dpi();
-        num_lock_state = led_state.num_lock;
-    }
-
-    // when all three are enabled, go to bootloader
-    if ( led_state.num_lock && led_state.caps_lock && led_state.scroll_lock ) {
-        reset_keyboard();
-    }
-#endif
-
-    return led_update_user(led_state);
-}
-
-
-
 // Hardware Setup
 void keyboard_pre_init_kb(void) {
     // debug_enable  = true;
@@ -261,17 +231,6 @@ void keyboard_pre_init_kb(void) {
 
     keyboard_pre_init_user();
 }
-
-void keyboard_post_init_kb(void) {
-
-#ifdef PLOOPY_HOST_LED_CONTROL
-    num_lock_state  = host_keyboard_led_state().num_lock;
-    scroll_lock_state  = host_keyboard_led_state().scroll_lock;
-#endif
-
-    keyboard_post_init_user();
-}
-
 
 void pointing_device_init_kb(void) {
     keyboard_config.raw = eeconfig_read_kb();
