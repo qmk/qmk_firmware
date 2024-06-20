@@ -14,7 +14,8 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Encoders
 
-Encoders must have matching pulse & detent resolutions (e.g. 24/24) for the scanning to work properly. Multiple encoders can be used at the same time, and are zero-indexed (compared to being one-indexed on the PCB's silkscreen) in the `encoder_update_user(uint8_t index, bool clockwise)` function:
+Encoders must have matching pulse & detent resolutions (e.g. 24/24) for the scanning to work properly. Multiple encoders can be used at the same time.
+If an encoder has a switch built-in, it's connected to the key at that location with index number:
 
 ```
 ,-----------------------------------------------------------------------------------.
@@ -28,7 +29,34 @@ Encoders must have matching pulse & detent resolutions (e.g. 24/24) for the scan
 `-----------------------------------------------------------------------------------'
 ```
 
-If an encoder has a switch built-in, it's connected to the key at that location. On the default keymap, each encoder will play its own rising/falling tone sequence when rotated, and will reset the pitch after one second of inactivity. The encoder map feature is not currently supported.
+Planck rev7 support `ENCODER_ENABLE` and `ENCODER_MAP_ENABLE`. If both ENCODER_MAP_ENABLE and ENCODER_ENABLE are defined, ENCODER_MAP_ENABLE takes precedence. On the default keymap, each encoder will play its own rising/falling tone sequence when rotated, and will reset the pitch after one second of inactivity.
+
+### With ENCODER_ENABLE
+
+Define it as follows in `rules.mk`:
+
+```
+ENCODER_ENABLE = yes
+```
+
+Zero-indexed (compared to being one-indexed on the PCB's silkscreen) in the `encoder_update_user(uint8_t index, bool clockwise)` function.
+
+### With ENCODER_MAP_ENABLE
+
+Define it as follows in `rules.mk`:
+
+```
+ENCODER_MAP_ENABLE = yes
+```
+
+If you enable `ENCODER_MAP_ENABLE`, defined `const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS]` and configure your keycode. And, If you enable `ENCODER_MAP_ENABLE`, does not use `encoder_update_user` directly. However by default, `encoder_update_user` has use via `encoder_keymap_task(uint8_t index, bool clockwise)` for play tone sequence.
+
+Absolutely, You can use the following config.h options:
+
+```c
+#define ENCODER_MAP_KEY_DELAY 10
+#define ENCODER_RESOLUTION 4
+```
 
 ## Some Planck-specific config.h options:
 
@@ -37,6 +65,6 @@ If an encoder has a switch built-in, it's connected to the key at that location.
 #define PLANCK_WATCHDOG_TIMEOUT 1.0
 // disables the watchdog timer - you may want to disable the watchdog timer if you use longer macros
 #define PLANCK_WATCHDOG_DISABLE
-// the resolution of the encoders used in the encoder matrix
-#define PLANCK_ENCODER_RESOLUTION 4
+// Sets the time to wait for the rotary encoder pin state to stabilize while scanning (Default is 20(us))
+#define PLANCK_ENCODER_SETTLE_PIN_STATE_DELAY 20
 ```
