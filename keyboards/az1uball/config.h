@@ -20,7 +20,7 @@
 //#define NO_ACTION_ONESHOT
 
 #define SPLIT_HAND_PIN D2
-#define USE_SERIAL
+#define USE_I2C
 #define POINTING_DEVICE_ROTATION_270
 #define SSD1306OLED
 
