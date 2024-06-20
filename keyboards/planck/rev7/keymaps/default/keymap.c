@@ -154,6 +154,62 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 
 };
+
+#ifdef ENCODER_MAP_ENABLE
+/* Rotary Encoders
+ */
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    /* Qwerty
+     *    v- (index) Clockwise / Counter Clockwise                        v- (index) Clockwise / Counter Clockwise
+     * ,---------------------------------------------------------------------------------------.
+     * | (0) Vol-    / Vol+    |   |   |   |   |   |   |   |   |   |   | (4) Vol-    / Vol+    |
+     * |-----------------------+---+---+---+---+---+---+---+---+---+---+-----------------------|
+     * | (1) KC_MNXT / KC_MPRV |   |   |   |   |   |   |   |   |   |   | (5) KC_MNXT / KC_MPRV |
+     * |-----------------------+---+---+---+---+---+---+---+---+---+---+-----------------------|
+     * | (2) KC_WBAK / KC_WFWD |   |   |   |   |   |   |   |   |   |   | (6) KC_SPC  / KC_ENT  |
+     * |-----------------------+---+---+---+---+---+---+---+---+---+---+-----------------------|
+     * | (3) KC_LEFT / KC_RGHT |   |   |   |   |       |   |   |   |   | (7) KC_DOWN / KC_UP   |
+     * `---------------------------------------------------------------------------------------'
+     */
+    [_QWERTY] = {
+        // LEFT SIDE (index 0 to 3)
+        ENCODER_CCW_CW(KC_VOLU, KC_VOLD),
+        ENCODER_CCW_CW(KC_MNXT, KC_MPRV),
+        ENCODER_CCW_CW(KC_WBAK, KC_WFWD),
+        ENCODER_CCW_CW(KC_LEFT, KC_RGHT),
+        // RIGHT SIDE (index 4 to 7)
+        ENCODER_CCW_CW(KC_VOLU, KC_VOLD),
+        ENCODER_CCW_CW(KC_MNXT, KC_MPRV),
+        ENCODER_CCW_CW(KC_SPC,  KC_ENT),
+        ENCODER_CCW_CW(KC_DOWN, KC_UP)
+    },
+
+    /* Adjust (Lower + Raise)
+     *    v- (index) Clockwise / Counter Clockwise                        v- (index) Clockwise / Counter Clockwise
+     * ,---------------------------------------------------------------------------------------.
+     * | (0) _______ / _______ |   |   |   |   |   |   |   |   |   |   | (4) _______ / _______ |
+     * |-----------------------+---+---+---+---+---+---+---+---+---+---+-----------------------|
+     * | (1) _______ / _______ |   |   |   |   |   |   |   |   |   |   | (5) _______ / _______ |
+     * |-----------------------+---+---+---+---+---+---+---+---+---+---+-----------------------|
+     * | (2) RGB_MOD / RGB_RMOD|   |   |   |   |   |   |   |   |   |   | (6) SAT- / SAT+       |
+     * |-----------------------+---+---+---+---+---+---+---+---+---+---+-----------------------|
+     * | (3) BRGTH- / BRGTH+   |   |   |   |   |       |   |   |   |   | (7) HUE- / HUE+       |
+     * `---------------------------------------------------------------------------------------'
+     */
+    [_ADJUST] = {
+        // LEFT SIDE (index 0 to 3)
+        ENCODER_CCW_CW(_______, _______),
+        ENCODER_CCW_CW(_______, _______),
+        ENCODER_CCW_CW(RGB_MOD, RGB_RMOD),
+        ENCODER_CCW_CW(RGB_VAD, RGB_VAI),
+        // RIGHT SIDE (index 4 to 7)
+        ENCODER_CCW_CW(_______, _______),
+        ENCODER_CCW_CW(_______, _______),
+        ENCODER_CCW_CW(RGB_SAD,  RGB_SAI),
+        ENCODER_CCW_CW(RGB_HUD, RGB_HUI)
+    }
+};
+#endif
 /* clang-format on */
 
 #ifdef AUDIO_ENABLE
@@ -228,13 +284,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 /* clang-format off */
 float melody[8][2][2] = {
-    {{440.0f, 8}, {440.0f, 24}}, 
-    {{440.0f, 8}, {440.0f, 24}}, 
-    {{440.0f, 8}, {440.0f, 24}}, 
-    {{440.0f, 8}, {440.0f, 24}}, 
-    {{440.0f, 8}, {440.0f, 24}}, 
-    {{440.0f, 8}, {440.0f, 24}}, 
-    {{440.0f, 8}, {440.0f, 24}}, 
+    {{440.0f, 8}, {440.0f, 24}},
+    {{440.0f, 8}, {440.0f, 24}},
+    {{440.0f, 8}, {440.0f, 24}},
+    {{440.0f, 8}, {440.0f, 24}},
+    {{440.0f, 8}, {440.0f, 24}},
+    {{440.0f, 8}, {440.0f, 24}},
+    {{440.0f, 8}, {440.0f, 24}},
     {{440.0f, 8}, {440.0f, 24}},
 };
 /* clang-format on */
@@ -251,7 +307,7 @@ float melody[8][2][2] = {
 #define ET12_MAJOR_THIRD 1.259921
 #define ET12_PERFECT_FOURTH 1.33484
 #define ET12_TRITONE 1.414214
-#define ET12_PERFECT_FIFTH 1.498307	
+#define ET12_PERFECT_FIFTH 1.498307
 
 deferred_token tokens[8];
 
@@ -273,6 +329,11 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     }
     tokens[index] = defer_exec(1000, reset_note, &melody[index][1][0]);
     return false;
+}
+
+void encoder_keymap_task(uint8_t index, bool clockwise) {
+    // Write your custom logic here
+    encoder_update_user(index, clockwise);
 }
 
 bool dip_switch_update_user(uint8_t index, bool active) {
