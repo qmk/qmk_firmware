@@ -53,14 +53,14 @@ void trigger_smart_layer(void) {
 }
 
 void set_webhid_effect(void) {
-#if defined(RGB_MATRIX_ENABLE)
+#if defined(RGB_MATRIX_ENABLE) && !defined(KEYBOARD_ergodox_ez_glow)
     rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_oryx_webhid_effect);
     rawhid_state.rgb_control = true;
 #endif
 }
 
 void clear_webhid_effect(void) {
-#if defined(RGB_MATRIX_ENABLE)
+#if defined(RGB_MATRIX_ENABLE) && !defined(KEYBOARD_ergodox_ez_glow)
     // Clear the pattern
     for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
         webhid_leds[i] = (RGB){.r = 0, .g = 0, .b = 0};
