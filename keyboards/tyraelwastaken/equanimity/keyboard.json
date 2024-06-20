@@ -3,31 +3,22 @@
     "keyboard_name": "Equanimity",
     "maintainer": "TyraelWasTaken",
     "bootloader": "stm32-dfu",
-    "bootmagic": {
-        "enabled": true
-    },
     "diode_direction": "COL2ROW",
     "encoder": {
-        "enabled": true,
         "rotary": [
             {"pin_a": "A9", "pin_b": "A10", "resolution": 1}
         ]
     },
     "features": {
-        "audio": false,
-        "backlight": false,
-        "command": true,
-        "console": true,
+        "bootmagic": true,
+        "encoder": true,
         "extrakey": true,
-        "nkro": true,
-        "rgblight": false
+        "mousekey": true,
+        "nkro": true
     },
     "matrix_pins": {
         "cols": ["B2", "B1", "B0", "A7", "A6", "A5", "A2", "B12", "B9", "B8", "B7", "B6", "B5", "B4", "B3", "A15"],
         "rows": ["B11", "B10", "A1", "A3", "A4"]
-    },
-    "mouse_key": {
-        "enabled": true
     },
     "processor": "STM32F072",
     "url": "https://github.com/TyraelWasTaken/Equanimity",
