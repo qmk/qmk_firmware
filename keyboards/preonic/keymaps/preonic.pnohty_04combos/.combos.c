@@ -24,30 +24,39 @@ const uint16_t PROGMEM cmbo_btmr[] = {KC_COMM,  KC_DOT, COMBO_END};
 const uint16_t PROGMEM cmbo_thml[] = {MO(1),    KC_SPC, COMBO_END};
 const uint16_t PROGMEM cmbo_thmr[] = {KC_RSFT,  MO(2),  COMBO_END};
 
-// positional descriptions
-enum kcout_pos {  
-// ┌───────┬───────┬───────┬───────┬───────┐   ┌───────┬───────┬───────┬───────┬───────┐
-// │  Q    │  W    │  E    │  R    │  T    │   │  Y    │  U    │  I    │  O    │  P    │
-                KC_TAB,                                              KC_NO,
-// ├───────┼───────┼───────┼───────┼───────┤   ├───────┼───────┼───────┼───────┼───────┤
-// │  A    │  S    │  D    │  F    │  G    │   │  H    │  J    │  K    │  L    │  ;    │
-                                          KC_F1,
-// ├───────┼───────┼───────┼───────┼───────┤   ├───────┼───────┼───────┼───────┼───────┤
-// │  Z    │  X    │  C    │  V    │  B    │   │  N    │  M    │  ,    │  .    │  /    │
-                OSM(MOD_LCTL),                                              OSM(KC_ENT),
-// ├───────┼───────┼───────┼───────┼───────┤   ├───────┼───────┼───────┼───────┼───────┤
-// │       │       │       │  sym  │  _    │   │  ^    │  num  │       │       │       │
-                                OSM(MOD_LGUI),                OSM(MOD_LALT), 
-// ├───────┼───────┼───────┼───────┼───────┤   ├───────┼───────┼───────┼───────┼───────┤
-KCOUT_LENGTH  };
-uint16_t KCOUT_LEN = KCOUT_LENGTH;
+// // positional descriptions
+// enum kcout_pos {  
+// // ┌───────┬───────┬───────┬───────┬───────┐   ┌───────┬───────┬───────┬───────┬───────┐
+// // │  Q    │  W    │  E    │  R    │  T    │   │  Y    │  U    │  I    │  O    │  P    │
+//                 KC_TAB,                                              KC_NO,
+// // ├───────┼───────┼───────┼───────┼───────┤   ├───────┼───────┼───────┼───────┼───────┤
+// // │  A    │  S    │  D    │  F    │  G    │   │  H    │  J    │  K    │  L    │  ;    │
+//                                           KC_F1,
+// // ├───────┼───────┼───────┼───────┼───────┤   ├───────┼───────┼───────┼───────┼───────┤
+// // │  Z    │  X    │  C    │  V    │  B    │   │  N    │  M    │  ,    │  .    │  /    │
+//                 OSM(MOD_LCTL),                                     OSM(KC_ENT),
+// // ├───────┼───────┼───────┼───────┼───────┤   ├───────┼───────┼───────┼───────┼───────┤
+// // │       │       │       │  sym  │  _    │   │  ^    │  num  │       │       │       │
+//                            OSM(MOD_LGUI),         OSM(MOD_LALT), 
+// // ├───────┼───────┼───────┼───────┼───────┤   ├───────┼───────┼───────┼───────┼───────┤
+// KCOUT_LENGTH  };
+// uint16_t KCOUT_LEN = KCOUT_LENGTH;
 
+// combo_t key_combos[] = {
+//   [_topl] = COMBO(cmbo_topl, kcout_pos[_topl]), 
+//   [_topr] = COMBO(cmbo_topr, kcout_pos[_topr]),
+//   [_midd] = COMBO(cmbo_midd, kcout_pos[_midd]),
+//   [_btml] = COMBO(cmbo_btml, kcout_pos[_btml]), 
+//   [_btmr] = COMBO(cmbo_btmr, kcout_pos[_btmr]), 
+//   [_thml] = COMBO(cmbo_thml, kcout_pos[_thml]), 
+//   [_thmr] = COMBO(cmbo_thmr, kcout_pos[_thmr])
+// };
 combo_t key_combos[] = {
-  [_topl] = COMBO(cmbo_topl, kcout_pos[_topl]), 
-  [_topr] = COMBO(cmbo_topr, kcout_pos[_topr]),
-  [_midd] = COMBO(cmbo_midd, kcout_pos[_midd]),
-  [_btml] = COMBO(cmbo_btml, kcout_pos[_btml]), 
-  [_btmr] = COMBO(cmbo_btmr, kcout_pos[_btmr]), 
-  [_thml] = COMBO(cmbo_thml, kcout_pos[_thml]), 
-  [_thmr] = COMBO(cmbo_thmr, kcout_pos[_thmr])
+  [_topl] = COMBO(cmbo_topl, KC_TAB), 
+  [_topr] = COMBO(cmbo_topr, KC_NO),
+  [_midd] = COMBO(cmbo_midd, KC_F1),
+  [_btml] = COMBO(cmbo_btml, OSM(MOD_LCTL)), 
+  [_btmr] = COMBO(cmbo_btmr, OSM(KC_ENT)), 
+  [_thml] = COMBO(cmbo_thml, OSM(MOD_LGUI)), 
+  [_thmr] = COMBO(cmbo_thmr, OSM(MOD_LALT))
 };
