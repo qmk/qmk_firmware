@@ -1,4 +1,4 @@
-/* Copyright 2024 Gondolindrim
+/* Copyright 2023 Gondolindrim
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,14 +14,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
+#pragma once
 
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if(res) {
-        led_state.scroll_lock ? rgblight_setrgb_at(RGB_WHITE, 0) : rgblight_setrgb_at(RGB_OFF, 0); 
-        led_state.caps_lock   ? rgblight_setrgb_at(RGB_WHITE, 1) : rgblight_setrgb_at(RGB_OFF, 1);
-        led_state.caps_lock   ? rgblight_setrgb_at(RGB_WHITE, 2) : rgblight_setrgb_at(RGB_OFF, 2); 
-    }
-    return res;
-}
+#define HAL_USE_PWM TRUE
+#define HAL_USE_PAL TRUE
+
+#include_next <halconf.h>

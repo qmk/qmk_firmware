@@ -1,18 +1,18 @@
 {
     "manufacturer": "AcheronProject",
-    "keyboard_name": "Apollo87HLT Alpha-RC1",
+    "keyboard_name": "Apollo87HLT Alpha-RC2",
     "url": "",
     "maintainer": "Gondolindrim",
     "usb": {
        "vid": "0xAC11",
-       "pid": "0x6588",
+       "pid": "0x6589",
        "device_version": "0.0.1"
     },
     "processor": "STM32F401",
     "bootloader": "stm32-dfu",
     "matrix_pins": {
-       "cols": ["C8" , "C7" , "C6" , "B14", "B12", "B10", "B1" , "B0" , "C5" , "C4" , "A6" , "A7" , "A4" , "C0" , "A15", "D2" , "B3"],
-       "rows": ["A10", "A8" , "C9" , "A5" , "B9" , "B8" , "C11", "C12", "C10"]
+       "cols": ["C8" , "C7" , "C6" , "B14", "B12", "B10", "B1" , "B0" , "C5" , "C4" , "A6" , "A7" , "A4" , "A10", "A15", "D2" , "B3"],
+       "rows": ["C0" , "A8" , "C9" , "A5" , "B9" , "B8" , "C11", "C12", "C10"]
     },
     "features": {
         "audio": false,
@@ -37,7 +37,7 @@
     },
     "bootmagic": {
         "enabled" : true,
-        "matrix":[0,1]
+        "matrix":[0,0]
     },
     "eeprom": {
         "driver" : "wear_leveling",
