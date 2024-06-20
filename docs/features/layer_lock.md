@@ -88,8 +88,9 @@ layer is locked or unlocked. This is useful to represent the current lock state
 for instance by setting an LED. In keymap.c, define
 
 ```c
-void layer_lock_set_user(layer_state_t locked_layers) {
+bool layer_lock_set_user(layer_state_t locked_layers) {
   // Do something like `set_led(is_layer_locked(NAV));`
+  return true;
 }
 ```
 
