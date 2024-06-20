@@ -18,20 +18,20 @@
 char wpm_str[4];
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT(
+    [0] = LAYOUT_ortho_2x3(
 
         KC_ESC,  KC_GRV,  TO(1),
         KC_Z,  KC_X,  KC_C      ),
 
-    [1] = LAYOUT(
+    [1] = LAYOUT_ortho_2x3(
 
         KC_TRNS, KC_TRNS, TO(0),
         KC_TRNS, KC_TRNS, KC_TRNS      ),
-    [2] = LAYOUT(
+    [2] = LAYOUT_ortho_2x3(
 
         KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS      ),
-    [3] = LAYOUT(
+    [3] = LAYOUT_ortho_2x3(
 
         KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS      ),
