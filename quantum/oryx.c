@@ -247,7 +247,6 @@ bool process_record_oryx(uint16_t keycode, keyrecord_t *record) {
 
 void layer_state_set_oryx(layer_state_t state) {
     if (rawhid_state.paired) {
-        wait_ms(50);
         uint8_t event[RAW_EPSIZE];
         event[0] = ORYX_EVT_LAYER;
         event[1] = get_highest_layer(state);
