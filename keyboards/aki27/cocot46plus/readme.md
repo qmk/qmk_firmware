@@ -7,8 +7,7 @@ cocot46plus is a column-staggered keyboard with 46 keys, a 34mm-trackball and a 
 
 - Keyboard Maintainer: [markstos](https://github.com/markstos)
 - Hardware Supported: cocot46plus PCB, ProMicro
-- Hardware Availability: [BOOTH](https://aki27.booth.pm/items/3879034)
-  Go on sale in June 2022.
+- Hardware Availability: [Yushakobo.jp](https://shop.yushakobo.jp/en/products/6955)
 
 Detailed information is available from the links below:  
 
@@ -24,8 +23,8 @@ Detailed information is available from the links below:
 
 Value    | Keycode   |Description
 ---------|-----------|-----------
-`0x5DA7` | `CPI_SW`  |Switch CPI
-`0x5DA8` | `SCRL_SW` |Switch scroll divider
+`0x5DA7` | `CPI_SW`  |Switch CPI. Low for precision, high for large movements.
+`0x5DA8` | `SCRL_SW` |Switch scroll divider. Larger value equals smaller scroll motion
 `0x5DA9` | `ROT_R15` |Rotate sensor coordinate by 15 degrees clockwise
 `0x5DAA` | `ROT_L15` |Rotate sensor coordinate by 15 degrees counterclockwise
 `0x5DAB` | `SCRL_MO` |Enable scroll mode while being pressed
