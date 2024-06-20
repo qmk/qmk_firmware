@@ -35,16 +35,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Pick good defaults for enabling homerow modifiers
 #define TAPPING_TERM 200
 // #define PERMISSIVE_HOLD
-#define IGNORE_MOD_TAP_INTERRUPT
+//#define IGNORE_MOD_TAP_INTERRUPT
 #define TAPPING_FORCE_HOLD
 //#define RETRO_TAPPING
 
 // Underglow configuration
-#ifdef RGBLIGHT_ENABLE
-  #define RGBLIGHT_ANIMATIONS
-  #define RGBLIGHT_HUE_STEP 8
-  #define RGBLIGHT_SAT_STEP 8
-  #define RGBLIGHT_VAL_STEP 8
-#endif
+//#ifdef RGBLIGHT_ENABLE
+//  #define RGBLIGHT_ANIMATIONS
+//  #define RGBLIGHT_HUE_STEP 8
+//  #define RGBLIGHT_SAT_STEP 8
+//  #define RGBLIGHT_VAL_STEP 8
+//#endif
 
 //#define UNICODE_SELECTED_MODES UC_MAC
