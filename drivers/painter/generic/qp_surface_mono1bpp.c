@@ -84,23 +84,6 @@ static bool qp_surface_append_pixels_mono1bpp(painter_device_t device, uint8_t *
     return true;
 }
 
-// Byte order inverted (7 - x) with respect to above's implementation
-// TODO?: Move some common code to funcs
-// TODO?: Better name than "inverted"
-static bool qp_surface_append_pixels_mono1bpp_inverted(painter_device_t device, uint8_t *target_buffer, qp_pixel_t *palette, uint32_t pixel_offset, uint32_t pixel_count, uint8_t *palette_indices) {
-    for (uint32_t i = 0; i < pixel_count; ++i) {
-        uint32_t pixel_num   = pixel_offset + i;
-        uint32_t byte_offset = pixel_num / 8;
-        uint8_t  bit_offset  = 7 - (pixel_num % 8);
-        if (palette[palette_indices[i]].mono) {
-            target_buffer[byte_offset] |= (1 << bit_offset);
-        } else {
-            target_buffer[byte_offset] &= ~(1 << bit_offset);
-        }
-    }
-    return true;
-}
-
 static bool mono1bpp_target_pixdata_transfer(painter_driver_t *surface_driver, painter_driver_t *target_driver, uint16_t x, uint16_t y, bool entire_surface) {
     return false; // Not yet supported.
 }
@@ -126,23 +109,5 @@ const surface_painter_driver_vtable_t mono1bpp_surface_driver_vtable = {
 };
 
 SURFACE_FACTORY_FUNCTION_IMPL(qp_make_mono1bpp_surface, mono1bpp_surface_driver_vtable, 1);
-
-const surface_painter_driver_vtable_t mono1bpp_surface_inverted_driver_vtable = {
-    .base =
-        {
-            .init            = qp_surface_init,
-            .power           = qp_surface_power,
-            .clear           = qp_surface_clear,
-            .flush           = qp_surface_flush,
-            .pixdata         = qp_surface_pixdata_mono1bpp,
-            .viewport        = qp_surface_viewport,
-            .palette_convert = qp_surface_palette_convert_mono1bpp,
-            .append_pixels   = qp_surface_append_pixels_mono1bpp_inverted,
-            .append_pixdata  = qp_surface_append_pixdata_mono1bpp,
-        },
-    .target_pixdata_transfer = mono1bpp_target_pixdata_transfer,
-};
-
-SURFACE_FACTORY_FUNCTION_IMPL(qp_make_mono1bpp_surface_inverted, mono1bpp_surface_inverted_driver_vtable, 1);
 
 #endif // QUANTUM_PAINTER_SURFACE_ENABLE

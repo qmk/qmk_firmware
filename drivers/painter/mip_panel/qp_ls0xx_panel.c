@@ -28,14 +28,22 @@ __attribute__((weak)) bool qp_ls0xx_init(painter_device_t device, painter_rotati
     mip_panel_painter_device_t *mip_dev = (mip_panel_painter_device_t *)device;
     painter_driver_t *          surface = (painter_driver_t *)&mip_dev->surface;
 
+    // Change the surface geometry based on the panel rotation
+    if (rotation == QP_ROTATION_90 || rotation == QP_ROTATION_270) {
+        surface->panel_width  = mip_dev->base.panel_height;
+        surface->panel_height = mip_dev->base.panel_width;
+    } else {
+        surface->panel_width  = mip_dev->base.panel_width;
+        surface->panel_height = mip_dev->base.panel_height;
+    }
+
     // Init the internal surface
-    if (!surface->driver_vtable->init(surface, rotation)) {
+    if (!surface->driver_vtable->init(surface, QP_ROTATION_0)) {
         qp_dprintf("Failed to init internal surface in qp_ls0xx_init\n");
         return false;
     }
 
     mip_dev->base.rotation = rotation;
-    surface->rotation      = rotation;
 
     writePinHigh(mip_dev->spi_config.chip_select_pin);
     const uint8_t ls0xx_init_sequence[] = {LS0XX_CLEAR, 0};
@@ -56,8 +64,6 @@ bool qp_ls0xx_passthru_clear(painter_device_t device) {
     return qp_ls0xx_init(device, driver->rotation);
 }
 
-// FIXME: This code may not work on the biggest displays of the family
-//        Since it uses uint8_t, we can "only" have 255 rows
 bool qp_ls0xx_flush(painter_device_t device) {
     mip_panel_painter_device_t *mip_dev = (mip_panel_painter_device_t *)device;
     surface_painter_device_t *  surface = &(mip_dev->surface);
@@ -69,8 +75,31 @@ bool qp_ls0xx_flush(painter_device_t device) {
     }
 
     // find out dirty area
-    uint8_t top    = dirty.t;
-    uint8_t bottom = dirty.b;
+    // update is done on **complete** horizontal lines
+    // which means that if the device is rotated 90 or 270 we need to check l/r instead
+    uint16_t top, bottom;
+    switch (mip_dev->base.rotation) {
+        case QP_ROTATION_0:
+            top    = dirty.t;
+            bottom = dirty.b;
+            break;
+
+        // TODO: Check whether this are backwards
+        case QP_ROTATION_90:
+            top    = dirty.l;
+            bottom = dirty.r;
+            break;
+
+        case QP_ROTATION_180:
+            top    = dirty.b;
+            bottom = dirty.t;
+            break;
+
+        case QP_ROTATION_270:
+            top    = dirty.r;
+            bottom = dirty.l;
+            break;
+    }
 
     // bytes sent for each row's data
     uint8_t bytes_per_line = (mip_dev->base.panel_width + 7) / 8 * mip_dev->base.native_bits_per_pixel;
