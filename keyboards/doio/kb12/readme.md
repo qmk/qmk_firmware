@@ -29,7 +29,7 @@ Enter the bootloader in 3 ways:
 
 # doio/kb12-02
 
-![kb12-02](https://imgur.com/a/q6VW1T6.png)
+![kb12-02](https://imgur.com/ohhAxhK.png)
 
 QMK for DOIO Knob keypad.
 
