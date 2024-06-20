@@ -17,6 +17,7 @@
     "encoder":true,
     "extrakey": true,
     "mousekey": true,
+    "oled": true,
     "pointing_device": true,
     "rgblight": true
   },
