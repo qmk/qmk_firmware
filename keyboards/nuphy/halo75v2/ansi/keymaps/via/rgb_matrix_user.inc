@@ -48,4 +48,3 @@ static bool position_mode(effect_params_t* params) {
 
 #endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-
