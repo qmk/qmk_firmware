@@ -19,29 +19,11 @@
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
 
-#pragma once
-
-#define USE_I2C
 #define SPLIT_HAND_PIN D2
+#define USE_I2C
 #define POINTING_DEVICE_ROTATION_90
 #define SSD1306OLED
-#define BACKLIGHT_PIN D3
 
-#define LAYOUT_macro(\
-    l0A, l1A, l2A, l3A, l4A, l5A, r0A, r1A, r2A, r3A, r4A, r5A,\
-    l0B, l1B, l2B, l3B, l4B, l5B, r0B, r1B, r2B, r3B, r4B, r5B,\
-    l0C, l1C, l2C, l3C, l4C, l5C, r0C, r1C, r2C, r3C, r4C, r5C,\
-              l0D, l1D, l2D, l3D, r0D, r1D, r2D\
-)\
-{\
-    { l5A, l4A, l3A, l2A, l1A, l0A },\
-    { l5B, l4B, l3B, l2B, l1B, l0B },\
-    { l5C, l4C, l3C, l2C, l1C, l0C },\
-              { l3D, l2D, l1D, l0D },\
-    { r0A, r1A, r2A, r3A, r4A, r5A },\
-    { r0B, r1B, r2B, r3B, r4B, r5B },\
-    { r0C, r1C, r2C, r3C, r4C, r5C },\
-    { r0D, r1D, r2D },\
-}
+#define SPLIT_POINTING_ENABLE
+#define POINTING_DEVICE_LEFT
 
-#define LAYOUT LAYOUT_macro

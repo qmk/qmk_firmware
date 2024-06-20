@@ -23,9 +23,6 @@
         "pid": "0x5953",
         "vid": "0xFEED"
     },
-    "split": {
-        "enabled": true
-    },
     "layouts": {
         "LAYOUT": {
             "layout": [

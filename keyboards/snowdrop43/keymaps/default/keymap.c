@@ -34,105 +34,106 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-/* int8_t cpi_a      = 40; */
-/* int8_t cpi_n      = 125; */
-/* bool   scrolling = false; */
-/* bool   is_normal = false; */
-/*  */
-/* bool process_record_user(uint16_t keycode, keyrecord_t *record) { */
-/*     uint8_t  addr     = 0x14; */
-/*     uint8_t  data_n[] = {0x90, 0x00}; */
-/*     uint8_t  data_a[] = {0x91, 0x00}; */
-/*     uint16_t timeout  = 100; */
-/*     switch (keycode) { */
-/*         case SWITCH: */
-/*             if (record->event.pressed) { */
-/*                 if (is_normal) { */
-/*                     i2c_transmit(addr, data_a, 2, timeout); */
-/*                     pimoroni_trackball_set_cpi(128 * cpi_a); */
-/*                     is_normal = false; */
-/*                 } else { */
-/*                     i2c_transmit(addr, data_n, 2, timeout); */
-/*                     pimoroni_trackball_set_cpi(128 * cpi_n); */
-/*                     is_normal = true; */
-/*                 } */
-/*             } */
-/*             break; */
-/*         case CPI_UP: */
-/*             if (record->event.pressed) { */
-/*                 if (is_normal) { */
-/*                     cpi_n += 5; */
-/*                     pimoroni_trackball_set_cpi(128 * cpi_n); */
-/*                 } else { */
-/*                     cpi_a += 5; */
-/*                     pimoroni_trackball_set_cpi(128 * cpi_a); */
-/*                 } */
-/*             } */
-/*             break; */
-/*         case CPI_DW: */
-/*             if (record->event.pressed) { */
-/*                 if (is_normal) { */
-/*                     cpi_n -= 5; */
-/*                     pimoroni_trackball_set_cpi(128 * cpi_n); */
-/*                 } else { */
-/*                     cpi_a -= 5; */
-/*                     pimoroni_trackball_set_cpi(128 * cpi_a); */
-/*                 } */
-/*             } */
-/*             break; */
-/*         case SCROLL: */
-/*             if (record->event.pressed) { */
-/*                 i2c_transmit(addr, data_n, 2, timeout); */
-/*                 pimoroni_trackball_set_cpi(128 * cpi_n); */
-/*             } else { */
-/*                 if (!is_normal) { */
-/*                     i2c_transmit(addr, data_a, 2, timeout); */
-/*                     pimoroni_trackball_set_cpi(128 * cpi_a); */
-/*                 } */
-/*             } */
-/*             scrolling = record->event.pressed; */
-/*             break; */
-/*         default: */
-/*             break; */
-/*     } */
-/*     return true; */
-/* } */
-/*  */
-/* void pointing_device_init_kb(void) { */
-/*     uint8_t  addr     = 0x14; */
-/*     uint8_t  data_a[] = {0x91, 0x00}; */
-/*     uint16_t timeout  = 100; */
-/*     i2c_transmit(addr, data_a, 2, timeout); */
-/*     pimoroni_trackball_set_cpi(128 * cpi_a); */
-/* } */
-/*  */
-/* // Modify these values to adjust the scrolling speed */
-/* #define SCROLL_DIVISOR_H -8.0 */
-/* #define SCROLL_DIVISOR_V -8.0 */
-/*  */
-/* // Variables to store accumulated scroll values */
-/* float scroll_accumulated_h = 0; */
-/* float scroll_accumulated_v = 0; */
-/*  */
-/* // Function to handle mouse reports and perform drag scrolling */
-/* report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) { */
-/*     // Check if drag scrolling is active */
-/*     if (scrolling) { */
-/*         // Calculate and accumulate scroll values based on mouse movement and divisors */
-/*         scroll_accumulated_h += (float)mouse_report.x / SCROLL_DIVISOR_H; */
-/*         scroll_accumulated_v += (float)mouse_report.y / SCROLL_DIVISOR_V; */
-/*  */
-/*         // Assign integer parts of accumulated scroll values to the mouse report */
-/*         mouse_report.h = (int8_t)scroll_accumulated_h; */
-/*         mouse_report.v = (int8_t)scroll_accumulated_v; */
-/*  */
-/*         // Update accumulated scroll values by subtracting the integer parts */
-/*         scroll_accumulated_h -= (int8_t)scroll_accumulated_h; */
-/*         scroll_accumulated_v -= (int8_t)scroll_accumulated_v; */
-/*  */
-/*         // Clear the X and Y values of the mouse report */
-/*         mouse_report.x = 0; */
-/*         mouse_report.y = 0; */
-/*     } */
-/*     return mouse_report; */
-/* } */
+int8_t cpi_a      = 40;
+int8_t cpi_n      = 125;
+bool   scrolling = false;
+bool   is_normal = true;
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    uint8_t  addr     = 0x14;
+    uint8_t  data_n[] = {0x90, 0x00};
+    uint8_t  data_a[] = {0x91, 0x00};
+    uint16_t timeout  = 100;
+    switch (keycode) {
+        case SWITCH:
+            if (record->event.pressed) {
+                if (is_normal) {
+                    i2c_transmit(addr, data_a, 2, timeout);
+                    pimoroni_trackball_set_cpi(128 * cpi_a);
+                    is_normal = false;
+                } else {
+                    i2c_transmit(addr, data_n, 2, timeout);
+                    pimoroni_trackball_set_cpi(128 * cpi_n);
+                    is_normal = true;
+                }
+            }
+            break;
+        case CPI_UP:
+            if (record->event.pressed) {
+                if (is_normal) {
+                    cpi_n += 5;
+                    pimoroni_trackball_set_cpi(128 * cpi_n);
+                } else {
+                    cpi_a += 5;
+                    pimoroni_trackball_set_cpi(128 * cpi_a);
+                }
+            }
+            break;
+        case CPI_DW:
+            if (record->event.pressed) {
+                if (is_normal) {
+                    cpi_n -= 5;
+                    pimoroni_trackball_set_cpi(128 * cpi_n);
+                } else {
+                    cpi_a -= 5;
+                    pimoroni_trackball_set_cpi(128 * cpi_a);
+                }
+            }
+            break;
+        case SCROLL:
+            if (record->event.pressed) {
+                i2c_transmit(addr, data_n, 2, timeout);
+                pimoroni_trackball_set_cpi(128 * cpi_n);
+            } else {
+                if (!is_normal) {
+                    i2c_transmit(addr, data_a, 2, timeout);
+                    pimoroni_trackball_set_cpi(128 * cpi_a);
+                }
+            }
+            scrolling = record->event.pressed;
+            break;
+        default:
+            break;
+    }
+    return true;
+}
+
+void pointing_device_init_kb(void) {
+    // FIXME when comment-in these lines, left side key switches not working, and make trackball jump randomly.
+    /* uint8_t  addr     = 0x14; */
+    /* uint8_t  data_a[] = {0x91, 0x00}; */
+    /* uint16_t timeout  = 100; */
+    /* i2c_transmit(addr, data_a, 2, timeout); */
+    /* pimoroni_trackball_set_cpi(128 * cpi_a); */
+}
+
+// Modify these values to adjust the scrolling speed
+#define SCROLL_DIVISOR_H -8.0
+#define SCROLL_DIVISOR_V -8.0
+
+// Variables to store accumulated scroll values
+float scroll_accumulated_h = 0;
+float scroll_accumulated_v = 0;
+
+// Function to handle mouse reports and perform drag scrolling
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+    // Check if drag scrolling is active
+    if (scrolling) {
+        // Calculate and accumulate scroll values based on mouse movement and divisors
+        scroll_accumulated_h += (float)mouse_report.x / SCROLL_DIVISOR_H;
+        scroll_accumulated_v += (float)mouse_report.y / SCROLL_DIVISOR_V;
+
+        // Assign integer parts of accumulated scroll values to the mouse report
+        mouse_report.h = (int8_t)scroll_accumulated_h;
+        mouse_report.v = (int8_t)scroll_accumulated_v;
+
+        // Update accumulated scroll values by subtracting the integer parts
+        scroll_accumulated_h -= (int8_t)scroll_accumulated_h;
+        scroll_accumulated_v -= (int8_t)scroll_accumulated_v;
+
+        // Clear the X and Y values of the mouse report
+        mouse_report.x = 0;
+        mouse_report.y = 0;
+    }
+    return mouse_report;
+}
