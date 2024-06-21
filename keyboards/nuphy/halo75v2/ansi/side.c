@@ -1099,13 +1099,13 @@ void side_led_show(void) {
         flag_power_on = 0;
     }
 
-    if (g_config.power_show) {
-        if (f_power_show) {
-            side_power_mode_show();
-            return;
-        }
-    } else {
+    if (!g_config.power_show) {
         f_power_show = 0;
+    }
+
+    if (f_power_show) {
+        side_power_mode_show();
+        return;
     }
 
     switch (g_config.side_mode_b) {
