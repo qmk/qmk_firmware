@@ -97,9 +97,7 @@ void host_keyboard_send(report_keyboard_t *report) {
 
 void host_nkro_send(report_nkro_t *report) {
     if (!driver) return;
-#ifdef NKRO_SHARED_EP
     report->report_id = REPORT_ID_NKRO;
-#endif
     (*driver->send_nkro)(report);
 
     if (debug_keyboard) {
