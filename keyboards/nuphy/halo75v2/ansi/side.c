@@ -858,31 +858,31 @@ uint8_t bat_r, bat_g, bat_b;
  */
 void bat_percent_led(uint8_t bat_percent) {
     uint8_t i;
-    if (bat_percent <= 20) { // 0-20
+    if (bat_percent <= 20) { // 0-20 red
         bat_end_led = 1;
         bat_r       = colour_lib[0][0];
         bat_g       = colour_lib[0][1];
         bat_b       = colour_lib[0][2];
-    } else if (bat_percent <= 40) { // 20-40
+    } else if (bat_percent <= 40) { // 20-40 orange
         bat_end_led = 2;
         bat_r       = colour_lib[1][0];
         bat_g       = colour_lib[1][1];
         bat_b       = colour_lib[1][2];
-    } else if (bat_percent <= 60) { // 40-60
+    } else if (bat_percent <= 60) { // 40-60 yellow
         bat_end_led = 3;
         bat_r       = colour_lib[2][0];
         bat_g       = colour_lib[2][1];
         bat_b       = colour_lib[2][2];
-    } else if (bat_percent <= 80) { // 60-80
+    } else if (bat_percent <= 80) { // 60-80 light blue
         bat_end_led = 4;
-        bat_r       = colour_lib[3][0];
-        bat_g       = colour_lib[3][1];
-        bat_b       = colour_lib[3][2];
-    } else { // 80-100
-        bat_end_led = 5;
         bat_r       = colour_lib[4][0];
         bat_g       = colour_lib[4][1];
         bat_b       = colour_lib[4][2];
+    } else { // 80-100 green
+        bat_end_led = 5;
+        bat_r       = colour_lib[3][0];
+        bat_g       = colour_lib[3][1];
+        bat_b       = colour_lib[3][2];
     }
 
     if (f_charging) {
