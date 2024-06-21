@@ -128,10 +128,6 @@ int8_t  encoder_LUT[]     = {0, -1, 1, 0, 1, 0, 0, -1, -1, 0, 0, 1, 0, 1, -1, 0}
 uint8_t encoder_state[8]  = {0};
 int8_t  encoder_pulses[8] = {0};
 
-
-__attribute__ ((weak)) void encoder_keymap_task(uint8_t index, bool clockwise) {
-}
-
 static void encoder_handle_state_change(uint8_t index, uint8_t state) {
     uint8_t i = index;
 
@@ -141,13 +137,11 @@ static void encoder_handle_state_change(uint8_t index, uint8_t state) {
 
     if (encoder_pulses[i] >= resolution) {
         encoder_queue_event(index, ENCODER_COUNTER_CLOCKWISE);
-        encoder_keymap_task(index, ENCODER_COUNTER_CLOCKWISE);
     }
 
     // direction is arbitrary here, but this clockwise
     if (encoder_pulses[i] <= -resolution) {
         encoder_queue_event(index, ENCODER_CLOCKWISE);
-        encoder_keymap_task(index, ENCODER_CLOCKWISE);
     }
     encoder_pulses[i] %= resolution;
 
