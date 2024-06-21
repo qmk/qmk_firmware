@@ -92,10 +92,9 @@ void send_nkro(report_nkro_t *report) {
         Skipping ahead `sizeof(report->report_id)` bytes
         since `report_id` is not used by this driver
      */
-    void* report_no_report_id = (void*)((char*)report + sizeof(report->report_id));
+    void *report_no_report_id = (void *)((char *)report + sizeof(report->report_id));
 
     memcpy(udi_hid_nkro_report, report_no_report_id, UDI_HID_NKRO_REPORT_SIZE);
-
     udi_hid_nkro_b_report_valid = 1;
     udi_hid_nkro_send_report();
 
@@ -116,7 +115,7 @@ void send_mouse(report_mouse_t *report) {
         Skipping ahead `sizeof(report->report_id)` bytes
         since `report_id` is not used by this driver
      */
-    void* report_no_report_id = (void*)((char*)report + sizeof(report->report_id));
+    void *report_no_report_id = (void *)((char *)report + sizeof(report->report_id));
 
     memcpy(udi_hid_mou_report, report_no_report_id, UDI_HID_MOU_REPORT_SIZE);
     udi_hid_mou_b_report_valid = 1;
