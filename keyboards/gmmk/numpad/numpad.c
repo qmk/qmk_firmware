@@ -109,10 +109,12 @@ led_config_t g_led_config = {{
 
 #    ifdef AW20216S_PW_EN_PIN
 
-void keyboard_pre_init_user(void) {
+void keyboard_pre_init_kb(void) {
     wait_ms(2000);
     gpio_set_pin_output(AW20216S_PW_EN_PIN);
     gpio_write_pin_high(AW20216S_PW_EN_PIN);
+
+    keyboard_pre_init_user();
 }
 #    endif
 
