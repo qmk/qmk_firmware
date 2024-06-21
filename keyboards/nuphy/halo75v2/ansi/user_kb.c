@@ -584,3 +584,8 @@ void toggle_deep_sleep(void) {
     g_config.deep_sleep_toggle = !g_config.deep_sleep_toggle;
     save_config_to_eeprom();
 }
+
+void toggle_power_on_animation(void) {
+    g_config.power_show = !g_config.power_show;
+    save_config_to_eeprom();
+}

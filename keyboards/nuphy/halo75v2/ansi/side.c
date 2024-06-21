@@ -1028,6 +1028,62 @@ void rgb_test_show(void) {
     wait_ms(1000);
 }
 
+/*
+ * @brief power on animation
+ */
+static void side_power_mode_show(void) {
+    if (side_play_cnt <= side_speed_table[0][g_config.side_speed])
+
+        return;
+    else
+        side_play_cnt -= side_speed_table[0][g_config.side_speed];
+    if (side_play_cnt > 20) side_play_cnt = 0;
+
+    if (power_play_index <= 45) {
+        key_pwm_tab[power_play_index] = 0xff;
+        power_play_index++;
+    }
+
+    uint8_t i;
+
+    for (i = 0; i < 45; i++) {
+        r_temp = colour_lib[g_config.side_color][0];
+        g_temp = colour_lib[g_config.side_color][1];
+        b_temp = colour_lib[g_config.side_color][2];
+
+        count_rgb_light(key_pwm_tab[i]);
+        count_rgb_light(side_light_table[2]);
+        rgb_matrix_set_color(side_led_index_tab[i], r_temp, g_temp, b_temp);
+    }
+
+    for (i = 0; i < 45; i++)
+
+    {
+        if (key_pwm_tab[i] & 0x80)
+            key_pwm_tab[i] -= 8;
+        else if (key_pwm_tab[i] & 0x40)
+            key_pwm_tab[i] -= 6;
+
+        else if (key_pwm_tab[i] & 0x20)
+            key_pwm_tab[i] -= 4;
+        else if (key_pwm_tab[i] & 0x10)
+            key_pwm_tab[i] -= 3;
+        else if (key_pwm_tab[i] & 0x08)
+            key_pwm_tab[i] -= 2;
+        else if (key_pwm_tab[i])
+            key_pwm_tab[i]--;
+    }
+
+    if (key_pwm_tab[44] == 1) {
+        f_power_show = 0;
+        save_config_to_eeprom();
+        rf_link_show_time = 0;
+        bat_show_flag     = true;
+        f_charging        = true;
+        bat_show_time     = timer_read32();
+    }
+}
+
 /**
  * @brief  side_led_show.
  */
@@ -1041,6 +1097,15 @@ void side_led_show(void) {
     if (flag_power_on) {
         if (!f_dial_sw_init_ok) return;
         flag_power_on = 0;
+    }
+
+    if (g_config.power_show) {
+        if (f_power_show) {
+            side_power_mode_show();
+            return;
+        }
+    } else {
+        f_power_show = 0;
     }
 
     switch (g_config.side_mode_b) {

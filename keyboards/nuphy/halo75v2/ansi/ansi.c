@@ -381,6 +381,11 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 toggle_deep_sleep();
             }
             return false;
+        case POWER_ON_TOGGLE:
+            if (record->event.pressed) {
+                toggle_power_on_animation();
+            }
+            return false;
 
         default:
             return true;
@@ -467,6 +472,7 @@ void init_g_config(void) {
     g_config.usb_sleep_toggle     = true;
     g_config.deep_sleep_toggle    = true;
     g_config.sleep_timeout        = 5;
+    g_config.power_show           = 1;
     g_config.debounce_press_ms    = DEBOUNCE;
     g_config.debounce_release_ms  = DEBOUNCE;
     g_config.caps_indication_type = CAPS_INDICATOR_SIDE;
@@ -508,9 +514,7 @@ void via_init_kb(void) {
     }
 }
 
-void via_config_set_value(uint8_t *data)
-
-{
+void via_config_set_value(uint8_t *data) {
     // data = [ value_id, value_data ]
 
     uint8_t *value_id   = &(data[0]);
@@ -553,6 +557,10 @@ void via_config_set_value(uint8_t *data)
             break;
         case id_side_light_brightness:
             g_config.side_brightness = *value_data;
+            break;
+
+        case id_power_on_animation:
+            g_config.power_show = *value_data;
             break;
     }
 #    if CONSOLE_ENABLE
@@ -600,6 +608,10 @@ void via_config_get_value(uint8_t *data) {
             break;
         case id_side_light_brightness:
             *value_data = g_config.side_brightness;
+            break;
+
+        case id_power_on_animation:
+            *value_data = g_config.power_show;
             break;
     }
 #    if CONSOLE_ENABLE

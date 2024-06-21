@@ -424,6 +424,15 @@
                     "label": "Indicators",
                     "content": [
                         {
+                            "label": "Power On Animation",
+                            "type": "toggle",
+                            "content": [
+                                "id_power_on_animation",
+                                0,
+                                20
+                            ]
+                        },
+                        {
                             "label": "Caps Lock Indicator",
                             "type": "dropdown",
                             "content": [
@@ -594,6 +603,10 @@
         {
             "name": "TOG DEEP\nSLEEP",
             "title": "Toggle Deep Sleep"
+        },
+        {
+            "name": "TOG POWERON\nANIM",
+            "title": "Toggle Power On Animation"
         }
     ]
 }
