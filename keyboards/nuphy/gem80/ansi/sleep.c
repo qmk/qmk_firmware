@@ -31,13 +31,6 @@ extern bool            f_wakeup_prepare;
 void set_side_rgb(uint8_t r, uint8_t g, uint8_t b);
 void set_logo_rgb(uint8_t r, uint8_t g, uint8_t b);
 void deep_sleep_handle(void) {
-    // Visual cue for deep sleep on side LED.
-    pwr_side_led_on();
-    wait_ms(50); // give some time to ensure LED powers on.
-    set_side_rgb(0x99, 0x00, 0x00);
-    set_logo_rgb(0x99, 0x00, 0x00);
-    wait_ms(500);
-
     // Sync again before sleeping. Without this, the wake keystroke is more likely to be lost.
     dev_sts_sync();
 

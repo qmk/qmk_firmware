@@ -177,21 +177,14 @@ void exit_deep_sleep(void) {
     gpio_set_pin_input_high(DEV_MODE_PIN);
     // keyboard OS switch pin
     gpio_set_pin_input_high(SYS_MODE_PIN);
-    // RGB?
-    gpio_set_pin_output(DC_BOOST_PIN);
-    gpio_write_pin_high(DC_BOOST_PIN);
-    gpio_set_pin_output(RGB_DRIVER_SDB1);
-    gpio_write_pin_high(RGB_DRIVER_SDB1);
-    gpio_set_pin_output(RGB_DRIVER_SDB2);
-    gpio_write_pin_high(RGB_DRIVER_SDB2);
 
-    /* Wake RF module? Not sure if this works... */
+    // RF module wakeup
     gpio_set_pin_output(NRF_WAKEUP_PIN);
     gpio_write_pin_high(NRF_WAKEUP_PIN);
 
-    // power on LEDs This is missing from Nuphy's logic.
-    rgb_led_powered_off = 1;
-    sleeping            = false;
+    // // power on LEDs This is missing from Nuphy's logic.
+    // rgb_led_powered_off = 1;
+    // sleeping            = false;
     led_pwr_wake_handle();
 
     // 重新初始化系统时钟
@@ -278,7 +271,6 @@ void pwr_rgb_led_off(void) {
 
 void pwr_rgb_led_on(void) {
     if (sleeping || rgb_led_on) return;
-    // if (rgb_led_on) return;
     // LED power supply on
     gpio_set_pin_output(DC_BOOST_PIN);
     gpio_write_pin_high(DC_BOOST_PIN);

@@ -183,24 +183,12 @@ void exit_deep_sleep(void) {
 #endif
     // keyboard OS switch pin
     gpio_set_pin_input_high(SYS_MODE_PIN);
-    // RGB?
-    gpio_set_pin_output(DC_BOOST_PIN);
-    gpio_write_pin_high(DC_BOOST_PIN);
-    gpio_set_pin_output(DRIVER_LED_CS_PIN);
-    gpio_write_pin_low(DRIVER_LED_CS_PIN);
-    gpio_set_pin_output(DRIVER_SIDE_CS_PIN);
-    gpio_write_pin_low(DRIVER_SIDE_CS_PIN);
 
 #if (WORK_MODE == THREE_MODE)
-    /* Wake RF module? Not sure if this works... */
     gpio_set_pin_output(NRF_WAKEUP_PIN);
     gpio_write_pin_high(NRF_WAKEUP_PIN);
 #endif
 
-    // power on LEDs This is missing from Nuphy's logic.
-    rgb_led_powered_off  = 1;
-    side_led_powered_off = 1;
-    sleeping             = false;
     led_pwr_wake_handle();
 
     // 重新初始化系统时钟
@@ -292,7 +280,7 @@ void led_pwr_wake_handle(void) {
         pwr_rgb_led_on();
         // Change any LED's state so the LED driver flushes after turning on for solid colours.
         // Without doing this, the WS2812 driver wouldn't flush as the previous state is the same as current.
-        rgb_matrix_set_color_all(0, 0, 0);
+        // rgb_matrix_set_color_all(0, 0, 0);
         rgb_matrix_update_pwm_buffers();
     }
     if (side_led_powered_off) {

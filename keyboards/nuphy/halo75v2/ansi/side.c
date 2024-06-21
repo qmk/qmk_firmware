@@ -18,11 +18,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "user_kb.h"
 #include "side.h"
 //------------------------------------------------
-#define SIDE_WAVE        0
-#define SIDE_MIX         1
-#define SIDE_NEW         2
-#define SIDE_BREATH      3
-#define SIDE_STATIC      4
+#define SIDE_WAVE 0
+#define SIDE_MIX 1
+#define SIDE_NEW 2
+#define SIDE_BREATH 3
+#define SIDE_STATIC 4
 
 #define SIDE_MODE_1 0
 #define SIDE_MODE_2 1
@@ -54,6 +54,7 @@ const uint8_t side_led_index_tab[45] = {
 uint8_t side_line = 45;
 
 bool     f_charging      = 1;
+bool     is_off          = 0;
 uint8_t  side_play_point = 0;
 uint32_t bat_show_time   = 0;
 bool     bat_show_flag   = true;
@@ -76,11 +77,16 @@ typedef struct is31fl3733_driver_t {
     bool    pwm_buffer_dirty;
     uint8_t led_control_buffer[IS31FL3733_LED_CONTROL_REGISTER_COUNT];
     bool    led_control_buffer_dirty;
-} PACKED                   is31fl3733_driver_t;
+} PACKED is31fl3733_driver_t;
 
 extern is31fl3733_driver_t driver_buffers[2];
 
-bool                       is_side_rgb_off(void) {
+void user_set_side_rgb_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
+    if (is_off) is_off = 0;
+    rgb_matrix_set_color(index, red, green, blue);
+}
+
+bool is_side_rgb_off(void) {
     is31fl3733_led_t led;
     for (int i = SIDE_INDEX; i < SIDE_INDEX + 10; i++) {
         memcpy_P(&led, (&g_is31_leds[i]), sizeof(led));
@@ -205,13 +211,10 @@ void    side_mode_a_control(uint8_t dir) {
             g_config.side_mode_a = 0;
         }
     }
-    if(g_config.side_mode_a == SIDE_NEW)
-    {
-        side_old_color = g_config.side_color;
+    if (g_config.side_mode_a == SIDE_NEW) {
+        side_old_color      = g_config.side_color;
         g_config.side_color = 0;
-    }
-    else if(g_config.side_mode_a == SIDE_BREATH)
-    {
+    } else if (g_config.side_mode_a == SIDE_BREATH) {
         g_config.side_color = side_old_color;
     }
     side_play_point = 0;
@@ -242,12 +245,19 @@ void side_mode_b_control(uint8_t dir) {
  */
 void set_left_rgb(uint8_t r, uint8_t g, uint8_t b) {
     for (int i = 0; i < 5; i++)
+        user_set_side_rgb_color(SIDE_INDEX + i, r, g, b);
+}
+
+void set_logo_rgb(uint8_t r, uint8_t g, uint8_t b) {
+    for (int i = 35; i < 37; i++)
         rgb_matrix_set_color(SIDE_INDEX + i, r, g, b);
 }
 
 void set_all_side_off(void) {
+    if (is_off) return;
     for (int i = 0; i < 45; i++)
-        rgb_matrix_set_color(SIDE_INDEX + i, 0, 0, 0);
+        user_set_side_rgb_color(SIDE_INDEX + i, 0, 0, 0);
+    is_off = 1;
 }
 
 /**
@@ -392,12 +402,12 @@ void sys_led_show(void) {
 
                 break;
             case CAPS_INDICATOR_UNDER_KEY:
-                user_set_rgb_color(caps_key_led_idx, 0, 0x80, 0x80); // 63 is CAPS_LOCK position
+                user_set_side_rgb_color(caps_key_led_idx, 0, 0x80, 0x80); // 63 is CAPS_LOCK position
 
                 break;
             case CAPS_INDICATOR_BOTH:
                 set_left_rgb(colour_lib[4][0], colour_lib[4][1], colour_lib[4][2]);
-                user_set_rgb_color(caps_key_led_idx, 0, 0x80, 0x80); // 63 is CAPS_LOCK position
+                user_set_side_rgb_color(caps_key_led_idx, 0, 0x80, 0x80); // 63 is CAPS_LOCK position
 
                 break;
             case CAPS_INDICATOR_OFF:
@@ -518,20 +528,20 @@ static void side_wave_mode_show(void) {
                         count_rgb_light(wave_data_tab[play_index_1]);
                     }
                     count_rgb_light(side_light_table[g_config.side_brightness]);
-                    rgb_matrix_set_color(side_led_index_tab[i], r_temp, g_temp, b_temp);
+                    user_set_side_rgb_color(side_led_index_tab[i], r_temp, g_temp, b_temp);
                 }
                 return;
             } else {
                 for (; i < 45; i++) {
-                    rgb_matrix_set_color(side_led_index_tab[i], 0, 0, 0);
+                    user_set_side_rgb_color(side_led_index_tab[i], 0, 0, 0);
                 }
                 return;
             }
         }
         if (is_side_rgb_on(i))
-            rgb_matrix_set_color(side_led_index_tab[i], r_temp, g_temp, b_temp);
+            user_set_side_rgb_color(side_led_index_tab[i], r_temp, g_temp, b_temp);
         else
-            rgb_matrix_set_color(side_led_index_tab[i], 0, 0, 0);
+            user_set_side_rgb_color(side_led_index_tab[i], 0, 0, 0);
     }
 }
 
@@ -569,20 +579,20 @@ static void side_new_mode_show(void) {
                 b_temp = b_temp * 0.3;
 
                 for (; i < 45; i++) {
-                    rgb_matrix_set_color(side_led_index_tab[i], r_temp, g_temp, b_temp);
+                    user_set_side_rgb_color(side_led_index_tab[i], r_temp, g_temp, b_temp);
                 }
                 return;
             } else {
                 for (; i < 45; i++) {
-                    rgb_matrix_set_color(side_led_index_tab[i], 0, 0, 0);
+                    user_set_side_rgb_color(side_led_index_tab[i], 0, 0, 0);
                 }
                 return;
             }
         }
         if (is_side_rgb_on(i))
-            rgb_matrix_set_color(side_led_index_tab[i], r_temp, g_temp, b_temp);
+            user_set_side_rgb_color(side_led_index_tab[i], r_temp, g_temp, b_temp);
         else
-            rgb_matrix_set_color(side_led_index_tab[i], 0, 0, 0);
+            user_set_side_rgb_color(side_led_index_tab[i], 0, 0, 0);
     }
 }
 
@@ -610,18 +620,18 @@ static void side_spectrum_mode_show(void) {
                 g_temp = g_temp * 0.3;
                 b_temp = b_temp * 0.3;
                 for (; i < 45; i++)
-                    rgb_matrix_set_color(side_led_index_tab[i], r_temp, g_temp, b_temp);
+                    user_set_side_rgb_color(side_led_index_tab[i], r_temp, g_temp, b_temp);
                 return;
             } else {
                 for (; i < 45; i++)
-                    rgb_matrix_set_color(side_led_index_tab[i], 0, 0, 0);
+                    user_set_side_rgb_color(side_led_index_tab[i], 0, 0, 0);
                 return;
             }
         }
         if (is_side_rgb_on(i))
-            rgb_matrix_set_color(side_led_index_tab[i], r_temp, g_temp, b_temp);
+            user_set_side_rgb_color(side_led_index_tab[i], r_temp, g_temp, b_temp);
         else
-            rgb_matrix_set_color(side_led_index_tab[i], 0, 0, 0);
+            user_set_side_rgb_color(side_led_index_tab[i], 0, 0, 0);
     }
 }
 
@@ -662,18 +672,18 @@ static void side_breathe_mode_show(void) {
                 g_temp = g_temp * 0.3;
                 b_temp = b_temp * 0.3;
                 for (; i < 45; i++)
-                    rgb_matrix_set_color(side_led_index_tab[i], r_temp, g_temp, b_temp);
+                    user_set_side_rgb_color(side_led_index_tab[i], r_temp, g_temp, b_temp);
                 return;
             } else {
                 for (; i < 45; i++)
-                    rgb_matrix_set_color(side_led_index_tab[i], 0, 0, 0);
+                    user_set_side_rgb_color(side_led_index_tab[i], 0, 0, 0);
                 return;
             }
         }
         if (is_side_rgb_on(i))
-            rgb_matrix_set_color(side_led_index_tab[i], r_temp, g_temp, b_temp);
+            user_set_side_rgb_color(side_led_index_tab[i], r_temp, g_temp, b_temp);
         else
-            rgb_matrix_set_color(side_led_index_tab[i], 0, 0, 0);
+            user_set_side_rgb_color(side_led_index_tab[i], 0, 0, 0);
     }
 }
 
@@ -705,9 +715,9 @@ static void side_static_mode_show(void) {
         count_rgb_light(side_light_table[g_config.side_brightness]);
 
         if (is_side_rgb_on(i))
-            rgb_matrix_set_color(side_led_index_tab[i], r_temp, g_temp, b_temp);
+            user_set_side_rgb_color(side_led_index_tab[i], r_temp, g_temp, b_temp);
         else
-            rgb_matrix_set_color(side_led_index_tab[i], 0, 0, 0);
+            user_set_side_rgb_color(side_led_index_tab[i], 0, 0, 0);
     }
 }
 
@@ -755,9 +765,9 @@ void bat_charging_design(uint8_t init, uint8_t r, uint8_t g, uint8_t b) {
 
     for (i = 0; i < side_line; i++) {
         if (show_mask & bit_mask) {
-            rgb_matrix_set_color(i, r, g, b);
+            user_set_side_rgb_color(i, r, g, b);
         } else {
-            rgb_matrix_set_color(i, 0x00, 0x00, 0x00);
+            user_set_side_rgb_color(i, 0x00, 0x00, 0x00);
         }
         bit_mask <<= 1;
     }
@@ -888,7 +898,7 @@ void bat_percent_led(uint8_t bat_percent) {
         bat_end_led       = 4;
         low_bat_blink_cnt = 6;
         for (i = 0; i <= bat_end_led; i++)
-            rgb_matrix_set_color(SIDE_INDEX + i, bat_r, bat_g, bat_b);
+            user_set_side_rgb_color(SIDE_INDEX + i, bat_r, bat_g, bat_b);
     }
 }
 
