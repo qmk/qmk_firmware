@@ -21,15 +21,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case QK_USER_1:
         if (record->event.pressed) {            
             tap_code16(LGUI(KC_SPACE));
-            _delay_ms(1000);
+            wait_ms(1000);
             tap_code(KC_LEFT_GUI);
-            _delay_ms(1000);
+            wait_ms(1000);
             SEND_STRING("terminal");
-            _delay_ms(1000);
+            wait_ms(1000);
             tap_code(KC_ENTER);
-            _delay_ms(1000);
+            wait_ms(1000);
             SEND_STRING("open https://veilid.com\n");
-            _delay_ms(1000);
+            wait_ms(1000);
             SEND_STRING("start https://veilid.com\n");
         }
         break;
