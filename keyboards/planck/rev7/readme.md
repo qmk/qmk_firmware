@@ -49,7 +49,7 @@ Define it as follows in `rules.mk`:
 ENCODER_MAP_ENABLE = yes
 ```
 
-If you enable `ENCODER_MAP_ENABLE`, defined `const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS]` and configure your keycode. And, If you enable `ENCODER_MAP_ENABLE`, does not use `encoder_update_user` directly. However by default, `encoder_update_user` has use via `encoder_keymap_task(uint8_t index, bool clockwise)` for play tone sequence.
+If you enable `ENCODER_MAP_ENABLE`, defined `const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS]` and configure your keycode. And, If you enable `ENCODER_MAP_ENABLE`, does not use `encoder_update_user` directly. 
 
 Absolutely, You can use the following config.h options:
 
