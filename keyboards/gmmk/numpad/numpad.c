@@ -107,7 +107,7 @@ led_config_t g_led_config = {{
 	2, 2, 2, 2, 2, 2, 2
 } };
 
-#    ifdef AW20216S_PW_EN_PIN_1
+#    ifdef AW20216S_PW_EN_PIN
 
 void keyboard_pre_init_user(void) {
     wait_ms(2000);
