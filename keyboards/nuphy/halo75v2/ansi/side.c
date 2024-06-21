@@ -1052,7 +1052,7 @@ static void side_power_mode_show(void) {
 
         count_rgb_light(key_pwm_tab[i]);
         count_rgb_light(side_light_table[2]);
-        rgb_matrix_set_color(side_led_index_tab[i], r_temp, g_temp, b_temp);
+        user_set_side_rgb_color(side_led_index_tab[i], r_temp, g_temp, b_temp);
     }
 
     for (i = 0; i < 45; i++)
