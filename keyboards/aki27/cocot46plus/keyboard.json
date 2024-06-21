@@ -14,7 +14,7 @@
   },
   "features": {
     "bootmagic": true,
-    "encoder":true,
+    "encoder": true,
     "extrakey": true,
     "mousekey": true,
     "oled": true,

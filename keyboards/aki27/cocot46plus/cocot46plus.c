@@ -128,49 +128,50 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     // xprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
     
-    if (!process_record_user(keycode, record)) return false;
-
-    switch (keycode) {
-        if (keycode == CPI_SW && record->event.pressed) {
-            cocot_config.cpi_idx = (cocot_config.cpi_idx + 1) % CPI_OPTION_SIZE;
-            eeconfig_update_kb(cocot_config.raw);
-            pointing_device_set_cpi(cpi_array[cocot_config.cpi_idx]);
-        }
-
-        if (keycode == SCRL_SW && record->event.pressed) {
-            cocot_config.scrl_div = (cocot_config.scrl_div + 1) % SCRL_DIV_SIZE;
-            eeconfig_update_kb(cocot_config.raw);
-        }
-
-        if (keycode == ROT_R15 && record->event.pressed) {
-            cocot_config.rotation_angle = (cocot_config.rotation_angle + 1) % ANGLE_SIZE;
-            eeconfig_update_kb(cocot_config.raw);
-        }
-
-        if (keycode == ROT_L15 && record->event.pressed) {
-            cocot_config.rotation_angle = (ANGLE_SIZE + cocot_config.rotation_angle - 1) % ANGLE_SIZE;
-            eeconfig_update_kb(cocot_config.raw);
-        }
-
-        if (keycode == SCRL_IN && record->event.pressed) {
-            cocot_config.scrl_inv = -cocot_config.scrl_inv;
-            eeconfig_update_kb(cocot_config.raw);
-        }
-
-        if (keycode == SCRL_TO && record->event.pressed) {
-            {
-                cocot_config.scrl_mode ^= 1;
-            }
-        }
-
-        if (keycode == SCRL_MO) {
-            {
-                cocot_config.scrl_mode ^= 1;
-            }
-        }
-
-        return true;
+    if (!process_record_user(keycode, record)) {
+        return false;
     }
+
+    if (keycode == CPI_SW && record->event.pressed) {
+        cocot_config.cpi_idx = (cocot_config.cpi_idx + 1) % CPI_OPTION_SIZE;
+        eeconfig_update_kb(cocot_config.raw);
+        pointing_device_set_cpi(cpi_array[cocot_config.cpi_idx]);
+    }
+
+    if (keycode == SCRL_SW && record->event.pressed) {
+        cocot_config.scrl_div = (cocot_config.scrl_div + 1) % SCRL_DIV_SIZE;
+        eeconfig_update_kb(cocot_config.raw);
+    }
+
+    if (keycode == ROT_R15 && record->event.pressed) {
+        cocot_config.rotation_angle = (cocot_config.rotation_angle + 1) % ANGLE_SIZE;
+        eeconfig_update_kb(cocot_config.raw);
+    }
+
+    if (keycode == ROT_L15 && record->event.pressed) {
+        cocot_config.rotation_angle = (ANGLE_SIZE + cocot_config.rotation_angle - 1) % ANGLE_SIZE;
+        eeconfig_update_kb(cocot_config.raw);
+    }
+
+    if (keycode == SCRL_IN && record->event.pressed) {
+        cocot_config.scrl_inv = -cocot_config.scrl_inv;
+        eeconfig_update_kb(cocot_config.raw);
+    }
+
+    if (keycode == SCRL_TO && record->event.pressed) {
+        {
+            cocot_config.scrl_mode ^= 1;
+        }
+    }
+
+    if (keycode == SCRL_MO) {
+        {
+            cocot_config.scrl_mode ^= 1;
+        }
+    }
+
+    return true;
+}
 
 void eeconfig_init_kb(void) {
     cocot_config.cpi_idx = COCOT_CPI_DEFAULT;

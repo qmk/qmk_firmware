@@ -94,23 +94,33 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
     case _LOWER:
+        #ifdef RGBLIGHT_ENABLE
         rgblight_sethsv_range(HSV_BLUE, 0, 2);
+        #endif
         cocot_set_scroll_mode(true);
         break;
     case _RAISE:
+        #ifdef RGBLIGHT_ENABLE
         rgblight_sethsv_range(HSV_RED, 0, 2);
+        #endif
         cocot_set_scroll_mode(true);
         break;
     case _TRACKBALL:
+        #ifdef RGBLIGHT_ENABLE
         rgblight_sethsv_range(HSV_GREEN, 0, 2);
+        #endif
         cocot_set_scroll_mode(false);
         break;
     default:
+        #ifdef RGBLIGHT_ENABLE
         rgblight_sethsv_range( 0, 0, 0, 0, 2);
+        #endif
         cocot_set_scroll_mode(false);
         break;
     }
+    #ifdef RGBLIGHT_ENABLE
     rgblight_set_effect_range( 2, 10);
+    #endif
       return state;
 };
 
