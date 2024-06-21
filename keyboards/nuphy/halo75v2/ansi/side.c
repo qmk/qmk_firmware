@@ -386,7 +386,6 @@ void sleep_sw_led_show(void) {
  * @brief  host system led indicate.
  */
 void sys_led_show(void) {
-    // TODO: debug rf_led to know how to detect num_lock
     uint8_t caps_key_led_idx = get_led_index(3, 0);
     bool    showCapsLock     = false;
     if (dev_info.link_mode == LINK_USB) {
@@ -402,12 +401,12 @@ void sys_led_show(void) {
 
                 break;
             case CAPS_INDICATOR_UNDER_KEY:
-                user_set_side_rgb_color(caps_key_led_idx, 0, 0x80, 0x80); // 63 is CAPS_LOCK position
+                user_set_side_rgb_color(caps_key_led_idx, colour_lib[4][0], colour_lib[4][1], colour_lib[4][2]);
 
                 break;
             case CAPS_INDICATOR_BOTH:
                 set_left_rgb(colour_lib[4][0], colour_lib[4][1], colour_lib[4][2]);
-                user_set_side_rgb_color(caps_key_led_idx, 0, 0x80, 0x80); // 63 is CAPS_LOCK position
+                user_set_side_rgb_color(caps_key_led_idx, colour_lib[4][0], colour_lib[4][1], colour_lib[4][2]);
 
                 break;
             case CAPS_INDICATOR_OFF:
@@ -722,7 +721,7 @@ static void side_static_mode_show(void) {
 }
 
 /**
- * @brief  bat_chargeing_breathe.
+ * @brief  bat_charging_breathe.
  */
 void bat_charging_breathe(void) {
     static uint32_t interval_timer = 0;
@@ -741,7 +740,7 @@ void bat_charging_breathe(void) {
 }
 
 /**
- * @brief  bat_chargeing_design.
+ * @brief  bat_charging_design.
  */
 void bat_charging_design(uint8_t init, uint8_t r, uint8_t g, uint8_t b) {
     static uint32_t interval_timer = 0;
@@ -763,11 +762,11 @@ void bat_charging_design(uint8_t init, uint8_t r, uint8_t g, uint8_t b) {
         }
     }
 
-    for (i = 0; i < side_line; i++) {
+    for (i = 0; i < init+1; i++) {
         if (show_mask & bit_mask) {
-            user_set_side_rgb_color(i, r, g, b);
+            user_set_side_rgb_color(SIDE_INDEX + i, r, g, b);
         } else {
-            user_set_side_rgb_color(i, 0x00, 0x00, 0x00);
+            user_set_side_rgb_color(SIDE_INDEX + i, 0x00, 0x00, 0x00);
         }
         bit_mask <<= 1;
     }
@@ -859,27 +858,27 @@ uint8_t bat_r, bat_g, bat_b;
 void bat_percent_led(uint8_t bat_percent) {
     uint8_t i;
     if (bat_percent <= 20) { // 0-20 red
-        bat_end_led = 1;
+        bat_end_led = 0;
         bat_r       = colour_lib[0][0];
         bat_g       = colour_lib[0][1];
         bat_b       = colour_lib[0][2];
     } else if (bat_percent <= 40) { // 20-40 orange
-        bat_end_led = 2;
+        bat_end_led = 1;
         bat_r       = colour_lib[1][0];
         bat_g       = colour_lib[1][1];
         bat_b       = colour_lib[1][2];
     } else if (bat_percent <= 60) { // 40-60 yellow
-        bat_end_led = 3;
+        bat_end_led = 2;
         bat_r       = colour_lib[2][0];
         bat_g       = colour_lib[2][1];
         bat_b       = colour_lib[2][2];
     } else if (bat_percent <= 80) { // 60-80 light blue
-        bat_end_led = 4;
+        bat_end_led = 3;
         bat_r       = colour_lib[4][0];
         bat_g       = colour_lib[4][1];
         bat_b       = colour_lib[4][2];
     } else { // 80-100 green
-        bat_end_led = 5;
+        bat_end_led = 4;
         bat_r       = colour_lib[3][0];
         bat_g       = colour_lib[3][1];
         bat_b       = colour_lib[3][2];

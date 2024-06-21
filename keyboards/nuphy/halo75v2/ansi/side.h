@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define FIREWORK_INDEX_LEN (158)
 #define STARRY_DATA_LEN 96
 #define TIDE_DATA_LEN 120
+#define CHARGING_SHIFT 1
 
 // disable clangd format
 // clang-format off
