@@ -111,6 +111,7 @@ void send_mouse(report_mouse_t *report) {
     __disable_irq();
     __DMB();
 
+#ifdef MOUSE_SHARED_EP
     /*
         Skipping ahead `sizeof(report->report_id)` bytes
         since `report_id` is not used by this driver
@@ -118,6 +119,9 @@ void send_mouse(report_mouse_t *report) {
     void *report_no_report_id = (void *)((char *)report + sizeof(report->report_id));
 
     memcpy(udi_hid_mou_report, report_no_report_id, UDI_HID_MOU_REPORT_SIZE);
+#else
+    memcpy(udi_hid_mou_report, report, UDI_HID_MOU_REPORT_SIZE);
+#endif
     udi_hid_mou_b_report_valid = 1;
     udi_hid_mou_send_report();
 
