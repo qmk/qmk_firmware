@@ -12,8 +12,25 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+
 #include QMK_KEYBOARD_H
 
+
+enum custom_keycodes {
+#ifdef VIA_ENABLE
+//    KC_USB = QK_USER,
+    KC_24G = QK_KB_0,
+#else
+    KC_24G = SAFE_RANGE,
+#endif
+  KC_BLE1,
+  KC_BLE2,
+  KC_BLE3,
+  WIN_LOCK,
+  KC_RESET,
+  KC_BAT,
+  ENC_TG
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -56,6 +73,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	)
 };
 						
-
-
 
