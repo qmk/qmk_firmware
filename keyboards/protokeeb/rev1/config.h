@@ -44,7 +44,7 @@
 //#define WS2812_DI_PIN GP10
 
 /* ARGB LED Byte order */
-// #define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_GRB // for WS2812
+// #define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_GRB // for WS2812B-5050
 #define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_RGB // for WS2812B-2020
 
 /* Total number of ARGB LEDs connected */
