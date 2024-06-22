@@ -12,7 +12,6 @@ bool is_launching     = false;
 #if defined(DEFERRED_EXEC_ENABLE)
 #    if defined(DYNAMIC_MACRO_ENABLE)
 deferred_token dynamic_macro_token = INVALID_DEFERRED_TOKEN;
-
 static uint32_t dynamic_macro_led(uint32_t trigger_time, void *cb_arg) {
     static bool led_state = true;
     if (!is_launching) {
@@ -22,8 +21,8 @@ static uint32_t dynamic_macro_led(uint32_t trigger_time, void *cb_arg) {
     return 100;
 }
 
-void dynamic_macro_record_start_user(void) {
-    if (my_token == INVALID_DEFERRED_TOKEN) {
+void dynamic_macro_record_start_user(int8_t direction) {
+    if (dynamic_macro_token == INVALID_DEFERRED_TOKEN) {
         STATUS_LED_3(true);
         dynamic_macro_token = defer_exec(100, dynamic_macro_led, NULL);
     }
