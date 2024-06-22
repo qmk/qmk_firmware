@@ -181,9 +181,17 @@ def import_kbfirmware(kbfirmware_data):
             info_data['indicators.scroll_lock'] = kbf_data['keyboard.pins.scroll']
 
     if kbf_data['keyboard.pins.rgb']:
-        info_data['rgblight.animations.all'] = True
+        info_data['rgblight.animations'] = {  # Comment here is to force multiline formatting
+            "breathing": True,
+            "rainbow_mood": True,
+            "rainbow_swirl": True,
+            "snake": True,
+            "knight": True,
+            "static_gradient": True,
+            "twinkle": True
+        }
         info_data['rgblight.led_count'] = kbf_data['keyboard.settings.rgbNum']
-        info_data['rgblight.pin'] = kbf_data['keyboard.pins.rgb']
+        info_data['ws2812.pin'] = kbf_data['keyboard.pins.rgb']
 
     if kbf_data['keyboard.pins.led']:
         info_data['backlight.levels'] = kbf_data['keyboard.settings.backlightLevels']
