@@ -3,16 +3,16 @@
 
 * A customizable soldering 75% keyboard.
 
-* Keyboard Maintainer: [JACKY](https://github.com/JackyJia73)
-* Hardware Supported: MMD-KM17
-* Hardware Availability: [MMD-KM17](https://github.com/Smartmmd)
+* Keyboard Maintainer: [MMD](https://github.com/Smartmmd)
+* Hardware Supported: [MMD](https://github.com/Smartmmd)
+* Hardware Availability: [MMD](https://github.com/Smartmmd)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make MMD-KM17:default
+    make mmd/km17:default
 Flashing example for this keyboard:
 
-    make MMD-KM17:default:flash
+    make mmd/km17:default:flash
 
 See the build environment setup and the make instructions for more information. Brand new to QMK? Start with our Complete Newbs Guide.
 
