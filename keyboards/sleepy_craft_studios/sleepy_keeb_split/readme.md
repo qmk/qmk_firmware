@@ -13,13 +13,13 @@ The STL files are made available under the CC BY-NC-SA 4.0 license.
 * Hardware Supported: Pro-micro (tested), Elite-C, any other ATMega32U4 based microcontroller should work.
 * Hardware Availability: Kits can be purchased at [Sleepy Craft Studios](https://sleepycraftstudios.com/shop/sleepy-keeb-split-(diy))
 
-Make example for this keyboard (after setting up your build environment. The via keymap is recommended for VIA functionality):
+Make example for this keyboard (after setting up your build environment):
 
-    make sleepy_craft_studios/sleepy_keeb_split:via
+    make sleepy_craft_studios/sleepy_keeb_split:default
 
 Flashing example for this keyboard:
 
-    make sleepy_craft_studios/sleepy_keeb_split:via:flash
+    make sleepy_craft_studios/sleepy_keeb_split:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
