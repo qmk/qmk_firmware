@@ -16,22 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 
 
-enum custom_keycodes {
-#ifdef VIA_ENABLE
-//    KC_USB = QK_USER,
-    KC_24G = QK_KB_0,
-#else
-    KC_24G = SAFE_RANGE,
-#endif
-  KC_BLE1,
-  KC_BLE2,
-  KC_BLE3,
-  WIN_LOCK,
-  KC_RESET,
-  KC_BAT,
-  ENC_TG
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
@@ -46,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	),
 	[1] = LAYOUT(
 		_______,            KC_BRID,   KC_BRIU,   LGUI(KC_TAB),   LGUI(KC_E),   KC_MAIL,   KC_WHOM,   KC_MPRV,   KC_MPLY,  KC_MNXT,  KC_MUTE,  KC_VOLD,  KC_VOLU,  _______,  _______,
-		_______,  KC_BLE1,  KC_BLE2,   KC_BLE3,   KC_24G,    _______,   _______,   _______,   _______,   _______,  _______,  _______,  _______,  KC_BAT,  _______,
+		_______,  _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,  _______,  _______,  _______,  KC_BAT,  _______,
 		_______,  _______,  _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,  _______,  RGB_HUI,  RGB_HUD,  RGB_MOD,  RGB_TOG,
 		_______,  _______,  _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,  _______,  _______,  _______,	 _______,
 		_______,  _______,  _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,  _______,  _______,  RGB_VAI,  _______,
@@ -64,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	),
 	[3] = LAYOUT(
 		_______,            KC_BRID,   KC_BRIU,   KC_MCTL,   KC_LPAD,   RGB_VAD,   RGB_VAI,   KC_MPRV,   KC_MPLY,  KC_MNXT,  KC_MUTE,  KC_VOLD,  KC_VOLU,  _______,  _______,
-		_______,  KC_BLE1,  KC_BLE2,   KC_BLE3,   KC_24G,    _______,   _______,   _______,   _______,   _______,  _______,  _______,  _______,  KC_BAT,  _______,
+		_______,  _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,  _______,  _______,  _______,  KC_BAT,  _______,
 		_______,  _______,  _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,  _______,  RGB_HUI,  RGB_HUD,  RGB_MOD, RGB_TOG,
 		_______,  _______,  _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,  _______,  _______,  _______,	 _______,
 		_______,  _______,  _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,  _______,  _______,  RGB_VAI,  _______,

@@ -1,4 +1,4 @@
-# MMD-KM17
+# MMD-KM75
 
 
 * A customizable soldering 75% keyboard.
@@ -9,10 +9,10 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make mmd/km17:default
+    make mmd/km75:default
 Flashing example for this keyboard:
 
-    make mmd/km17:default:flash
+    make mmd/km75:default:flash
 
 See the build environment setup and the make instructions for more information. Brand new to QMK? Start with our Complete Newbs Guide.
 
