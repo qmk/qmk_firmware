@@ -93,13 +93,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [LGME] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-            XXXXXXX, XXXXXXX,    KC_W,    KC_F,    KC_P,    KC_B,                         KC_J,    KC_L,    KC_U,   CTL_Y, XXXXXXX, XXXXXXX,
+            XXXXXXX, XXXXXXX,    KC_W,    KC_F,    KC_P,    KC_B,                         KC_J,    KC_7,    KC_8,    KC_9, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-              KC_Q,     KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                         KC_M,    KC_N,    KC_E,    KC_I,    KC_O, TO(LCMK),
+              KC_Q,     KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                         KC_M,    KC_4,    KC_5,    KC_6,    KC_O, TO(LCMK),
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            XXXXXXX, KC_LSFT,    KC_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H, KC_COMM,  KC_DOT, SFT_SLS, XXXXXXX,
+            XXXXXXX, KC_LSFT,    KC_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_1,    KC_2,    KC_3,  KC_LSFT, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                                KC_LALT,KC_LCTL,  KC_SPC,   KC_BTN1,  KC_BTN2, KC_BTN3
+                                                KC_LALT,KC_LCTL,  KC_SPC,     KC_ESC,  KC_0, KC_LGUI
                                             //`--------------------------'  `--------------------------'
     ),
 };
