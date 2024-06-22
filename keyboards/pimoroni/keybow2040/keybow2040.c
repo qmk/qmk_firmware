@@ -3,10 +3,7 @@
 #include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
-/*
- * the LED addresses must match the wiring in the Keybow 2040 schematic
- */
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
     /* driver, r, g, b */
     { 0, C8_9,  C6_9,  C7_9  }, // LEDB12 0,0
     { 0, C9_9,  C3_9,  C5_9  }, // LEDB11 1,0
