@@ -1,5 +1,5 @@
 # Build Options Protokeeb rev1
-# Change yes to no to diable features
+# Change yes to no to disable features
 
 # Enable Via support
 VIA_ENABLE = yes
@@ -14,3 +14,5 @@ DIP_SWITCH_MAP_ENABLE = no
 # Note: This may have unexpected side effects on keyboards 
 # using ARM processors, so test thoroughly with it enabled and disabled.
 # LTO_ENABLE = yes
+
+TRI_LAYER_ENABLE = yes

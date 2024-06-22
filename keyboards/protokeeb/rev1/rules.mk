@@ -1,5 +1,5 @@
 # Build Options
-# Change yes to no to diable feature
+# Change yes to no to disable feature
 
 # Default keyboard folder
 DEFAULT_FOLDER = protokeeb/rev1

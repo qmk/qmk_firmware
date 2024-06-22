@@ -29,13 +29,14 @@ enum protokeeb_keymap_layers {
 };
 
 #define LOWER MO(LAYER_LOWER)
+#define RAISE LT(DYNAMIC_LAYER1, KC_KP_PLUS)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[LAYER_BASE] = LAYOUT( /* Base */
 	KC_KP_7, KC_KP_8, KC_KP_9, KC_KP_SLASH,
 	KC_KP_4, KC_KP_5, KC_KP_6, KC_KP_ASTERISK,
 	KC_KP_1, KC_KP_2, KC_KP_3, KC_KP_MINUS,
-	LOWER, KC_KP_0, KC_KP_PLUS, KC_KP_ENTER
+	LOWER, KC_KP_0, RAISE, KC_KP_ENTER
 	),
 
 	[LAYER_LOWER] = LAYOUT( /* RGB Control */
@@ -64,7 +65,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [LAYER_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [LAYER_LOWER] = { ENCODER_CCW_CW(KC_BRIGHTNESS_DOWN, KC_BRIGHTNESS_UP) },
-    [DYNAMIC_LAYER1] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
+		[DYNAMIC_LAYER1] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
     [DYNAMIC_LAYER2] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
 };
 #endif
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    return update_tri_layer_state(state, LAYER_LOWER, DYNAMIC_LAYER1, DYNAMIC_LAYER2);
+}

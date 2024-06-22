@@ -2,42 +2,43 @@
 
 ![Protokeeb](https://i.imgur.com/RsSBoJg.jpg)
 
-A 16-key (4 x 4) Numpad/Macropad/Midi device designed by A-Tech Officials for easily getting started in the field of custom keyboards.
-Learn, build, modify easily as the Protokeeb is an open-source hardware project.
-The PCB is based on a Raspberry Pi Pico development board.
-Designed for developers and enthusiasts who wants to begin their journey in custom keyboards and keyboard firmware.
-Per key south facing ARGB LED and much more.
-For more info visit https://github.com/atechofficials/protokeeb
+The Protokeeb is a versatile 16-key (4 x 4) Numpad/Macropad/Midi device designed by A-Tech Officials. It is perfect for anyone looking to get started with custom keyboards. This open-source hardware project is based on a Raspberry Pi Pico development board, making it easy to learn, build, and modify. Designed for developers and enthusiasts alike, the Protokeeb features per-key south-facing ARGB LEDs and much more.
 
--   Keyboard Maintainer: [A-Tech Officials](https://github.com/atechofficials)
--   Hardware Supported: _Protokeeb Keyboard PCB v1.x, Raspberry Pi Pico, Raspberry Pi Pico W, Waveshare RP2040-Plus_
--   Hardware Availability: [atechofficials](https://github.com/atechofficials/protokeeb)
+For more information, visit the [Protokeeb GitHub page](https://github.com/atechofficials/protokeeb).
+
+-   **Keyboard Maintainer:** [A-Tech Officials](https://github.com/atechofficials)
+-   **Hardware Supported:** Protokeeb Keyboard PCB v1.x, Raspberry Pi Pico, Raspberry Pi Pico W, Waveshare RP2040-Plus
+-   **Hardware Availability:** [ProtoKeeb](https://github.com/atechofficials/protokeeb)
 
 ![Protokeeb Layout Image](https://i.imgur.com/e0RlllX.png)
 
 ## Default Protokeeb Layout
 
-This is the default layout that comes flashed on every Protokeeb.
-The deafult layout consists of 2 layers.
-1st layer for the 16-key numpad, excluding the NUM LOCK key.
-2nd layer for RGB LED control and keyboard boot options.
+The default layout comes pre-flashed on every Protokeeb and consists of two layers:
 
-Make example of this keyboard (after setting up your build environment):
+-   Layer 1: 16-key numpad, excluding the NUM LOCK key.
+-   Layer 2: RGB LED control and keyboard boot options.
 
-    make protokeeb:default
+To build the default layout, use the following command after setting up your build environment:
 
-Flashing example for this keyboard:
+```go
+make protokeeb:default
+```
 
-    make protokeeb:default:flash
+To flash the default layout, use:
 
-See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+```go
+make protokeeb:default:flash
+```
+
+For more information, see the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide). If you're new to QMK, start with the [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 ## Bootloader
 
-Enter the bootloader in 3 ways:
+You can enter the bootloader in three ways:
 
--   **Bootmagic**: Press and hold the top left key (row-0, column-0) before plugging-in the keyboard to your PC/Laptop/host to enter the bootloader.
+-   **Bootmagic**: Press and hold the top left key (row-0, column-0) before plugging-in the keyboard to your PC/Laptop/host.
 
--   **Physical pcb buttons**: Briefly press and hold both the left and right (Bootsel and Reset) tactile push button located on the top left side of the Protokeeb, then keep holding the left (Bootsel) push button and release/let go the right (Reset) push button and then after 3-5 seconds also release/let go the left (Bootsel) push button to enter the bootloader mode.
+-   **Physical PCB buttons**: Briefly press and hold both the left (Bootsel) and right (Reset) tactile push buttons located on the top left side of the Protokeeb. Keep holding the left (Bootsel) button, release the right (Reset) button, then release the left (Bootsel) button after 3-5 seconds to enter bootloader mode.
 
--   **Keycode in layout**: Press and hold the FN Key (row-4, column-1) then press the key mapped to `QK_BOOT` i.e ENTER Key (row-4, column-4) to enter the bootloader mode.
+-   **Keycode in Layout**: Press and hold the FN Key (row-4, column-1) then press the key mapped to `QK_BOOT` (ENTER Key, row-4, column-4) to enter bootloader mode.

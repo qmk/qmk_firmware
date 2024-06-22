@@ -1,5 +1,5 @@
 # Build Options
-# Change yes to no to diable feature
+# Change yes to no to disable feature
 
 MIDI_ENABLE = yes
 

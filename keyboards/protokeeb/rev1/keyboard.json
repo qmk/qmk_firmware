@@ -11,7 +11,7 @@
             "mouse": false
         },
         "suspend_wakeup_delay": 0,
-        "wait_for": false
+        "wait_for_enumeration": false
     },
     "board": "GENERIC_RP_RP2040",
     "bootloader": "rp2040",
@@ -161,7 +161,7 @@
                     "h": 1
                 },
                 {
-                    "label": "+",
+                    "label": "LT(2, +)",
                     "matrix": [3, 2],
                     "x": 2,
                     "y": 3,
