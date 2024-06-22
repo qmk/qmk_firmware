@@ -35,6 +35,11 @@
     "backlight": {
         "pin": "B7"
     },
+    "indicators": {
+        "caps_lock": "D5",
+        "scroll_lock": "E6",
+        "on_state": 0
+    },
     "ws2812": {
         "pin": "D3"
     },
