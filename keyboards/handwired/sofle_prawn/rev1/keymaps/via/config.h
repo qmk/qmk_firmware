@@ -54,3 +54,7 @@
 #define BOOTMAGIC_ROW_RIGHT 5
 #define BOOTMAGIC_COLUMN_RIGHT 0
 
+//encoder tuning
+//#define ENCODER_MAP_KEY_DELAY 10
+
+

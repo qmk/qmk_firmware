@@ -1,6 +1,6 @@
 {
     "manufacturer": "Vincent Su",
-    "keyboard_name": "handwired/sofle_prawn/rev1",
+    "keyboard_name": "SoflePrawn",
     "maintainer": "FlattestPrawn",
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
@@ -18,7 +18,7 @@
     },
     "encoder": {
         "rotary": [
-            {"pin_a": "GP13", "pin_b": "GP14", "resolution": 2}
+            {"pin_a": "GP13", "pin_b": "GP14", "resolution": 4}
         ]
     },
     "processor": "RP2040",
