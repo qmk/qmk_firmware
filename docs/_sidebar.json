@@ -64,13 +64,7 @@
                         "text": "Development Environments",
                         "items": [{ "text": "Docker Guide", "link": "/getting_started_docker" }]
                     },
-                    {
-                        "text": "Flashing",
-                        "items": [
-                            { "text": "Flashing", "link": "/flashing" },
-                            { "text": "Flashing ATmega32A (ps2avrgb)", "link": "/flashing_bootloadhid" }
-                        ]
-                    },
+                    { "text": "Flashing", "link": "/flashing" },
                     {
                         "text": "IDEs",
                         "items": [

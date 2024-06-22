@@ -4,6 +4,7 @@
     "/cli_dev_configuration": "/cli_configuration",
     "/dynamic_macros": "/feature_dynamic_macros",
     "/feature_common_shortcuts": "/feature_advanced_keycodes",
+    "/flashing_bootloadhid": "/flashing",
     "/getting_started_build_tools": "/newbs_getting_started",
     "/getting_started_getting_help": "/support",
     "/glossary": "/reference_glossary",

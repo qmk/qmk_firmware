@@ -15,7 +15,7 @@ def maybe_exit(rc):
     if maybe_exit_should_exit:
         sys.exit(rc)
     if maybe_exit_reraise:
-        e = sys.exception()
+        e = sys.exc_info()[1]
         if e:
             raise e
 
