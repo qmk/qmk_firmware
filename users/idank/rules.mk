@@ -97,9 +97,11 @@ ifeq ($(strip $(POINTING_DEVICE)), cirque35_trackball)
 endif
 
 ifeq ($(strip $(POINTING_DEVICE)), trackpoint)
-	PS2_MOUSE_ENABLE = yes
+	# PS2_MOUSE_ENABLE = yes
 	PS2_ENABLE = yes
 	PS2_DRIVER = vendor
+	POINTING_DEVICE_ENABLE = yes
+	POINTING_DEVICE_DRIVER = ps2
 	OPT_DEFS += -DPOINTING_DEVICE_CONFIGURATION_TRACKPOINT
 endif
 
