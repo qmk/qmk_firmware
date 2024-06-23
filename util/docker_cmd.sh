@@ -48,6 +48,7 @@ fi
 qmk_firmware_dir=$(pwd -W 2>/dev/null) || qmk_firmware_dir=$PWD  # Use Windows path if on Windows
 qmk_userspace_dir=""
 userspace_docker_args=""
+
 if [ -n "$(qmk userspace-path)" ]; then
 	qmk_userspace_dir=$(cd "$(qmk userspace-path)" && pwd -W 2>/dev/null) || qmk_userspace_dir=$(qmk userspace-path)  # Use Windows path if on Windows
 	userspace_docker_args="-v $qmk_userspace_dir:/qmk_userspace:z -e QMK_USERSPACE=/qmk_userspace"
