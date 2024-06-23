@@ -1,7 +1,3 @@
-"""QMK Python Hello World
-
-This is an example QMK CLI script.
-"""
 from milc import cli
 from qmk.constants import QMK_USERSPACE
 
