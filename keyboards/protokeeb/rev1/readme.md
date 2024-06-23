@@ -16,31 +16,29 @@ For more information, visit the [Protokeeb GitHub page](https://github.com/atech
 
 The default layout comes pre-flashed on every Protokeeb and consists of two layers:
 
--   Layer 1: 16-key numpad, excluding the NUM LOCK and dot `.` keys.
+-   Layer 1: 16-key numpad, excluding the `NUM LOCK` key.
 -   Layer 2: RGB LED control and keyboard boot options.
--   Layer 3: Function keys and other options.
--   Layer 4: Media controls and other quick launch options.
 
-To build the default layout, use the following command after setting up your build environment:
+Make example for this keyboard (after setting up your build environment):
 
 ```go
 make protokeeb/rev1:default
 ```
 
-To flash the default layout, use:
+Flashing example for this keyboard:
 
 ```go
 make protokeeb/rev1:default:flash
 ```
 
-For more information, see the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide). If you're new to QMK, start with the [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 ## Bootloader
 
-You can enter the bootloader in three ways:
+Enter the bootloader in 3 ways:
 
--   **Bootmagic**: Press and hold the top left key (row-0, column-0) before plugging-in the keyboard to your PC/Laptop/host.
+-   **Bootmagic reset:** Press and hold the top left key (row-0, column-0) before plugging-in the keyboard into your PC/Laptop.
 
--   **Physical PCB buttons**: Briefly press and hold both the left (Bootsel) and right (Reset) tactile push buttons located on the top left side of the Protokeeb. Keep holding the left (Bootsel) button, release the right (Reset) button, then release the left (Bootsel) button after 3-5 seconds to enter bootloader mode.
+-   **Physical reset buttons:** Briefly press and hold both the left (Bootsel) and right (Reset) tactile push buttons located on the top left side of the Protokeeb rev1 PCB. Keep holding the left (Bootsel) button, release the right (Reset) button, then release the left (Bootsel) button after 3-5 seconds to enter bootloader mode.
 
--   **Keycode in Layout**: Press and hold the FN Key (row-4, column-1) then press the key mapped to `QK_BOOT` (ENTER Key, row-4, column-4) to enter bootloader mode.
+-   **Keycode in Layout:** Press and hold the 0-key (row-4, column-1) then press the key mapped to `QK_BOOT` (Plus + key, row-4, column-4) to enter bootloader mode.

@@ -16,4 +16,4 @@
 
 #pragma once
 
-#define MIDI_ADVANCED
+#define MIDI_BASIC

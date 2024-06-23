@@ -4,10 +4,8 @@
 # Default keyboard folder
 DEFAULT_FOLDER = protokeeb/rev1
 
-# OS detection
+# Enable OS detection
 OS_DETECTION_ENABLE = yes
 
-RGBLIGHT_ENABLE = yes
-
-# Rotary Encoder support
+# Enable Rotary Encoder support
 ENCODER_ENABLE = yes
