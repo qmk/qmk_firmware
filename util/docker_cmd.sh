@@ -49,8 +49,13 @@ qmk_firmware_dir=$(pwd -W 2>/dev/null) || qmk_firmware_dir=$PWD  # Use Windows p
 qmk_userspace_dir=""
 userspace_docker_args=""
 
-if [ -n "$(qmk userspace-path)" ]; then
+if [ -n "$QMK_USERSPACE" ] && [ -e "$QMK_USERSPACE/qmk.json" ]; then
+	qmk_userspace_dir=$(cd "$QMK_USERSPACE" && pwd -W 2>/dev/null) || qmk_userspace_dir=$QMK_USERSPACE  # Use Windows path if on Windows
+elif [ -n "$(which qmk 2>/dev/null)" ] && [ -n "$(qmk userspace-path)" ]; then
 	qmk_userspace_dir=$(cd "$(qmk userspace-path)" && pwd -W 2>/dev/null) || qmk_userspace_dir=$(qmk userspace-path)  # Use Windows path if on Windows
+fi
+
+if [ -n "$qmk_userspace_dir" ]; then
 	userspace_docker_args="-v $qmk_userspace_dir:/qmk_userspace:z -e QMK_USERSPACE=/qmk_userspace"
 fi
 
@@ -65,5 +70,8 @@ fi
 	-w /qmk_firmware \
 	-v "$qmk_firmware_dir":/qmk_firmware:z \
 	$userspace_docker_args \
+	-e SKIP_GIT="$SKIP_GIT" \
+	-e SKIP_VERSION="$SKIP_VERSION" \
+	-e MAKEFLAGS="$MAKEFLAGS" \
 	ghcr.io/qmk/qmk_cli \
 	"$@"
