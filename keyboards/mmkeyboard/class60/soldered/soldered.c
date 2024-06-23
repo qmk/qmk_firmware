@@ -16,6 +16,8 @@ float scroll_off[][2] = SONG(SCROLL_LOCK_OFF_SOUND);
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if (res) {
+        led_update_ports(led_state);
+
         static uint8_t caps_state = 0;
         if (caps_state != led_state.caps_lock) {
             led_state.caps_lock ? PLAY_SONG(caps_on) : PLAY_SONG(caps_off);
