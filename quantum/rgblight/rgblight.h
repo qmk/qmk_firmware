@@ -18,6 +18,7 @@
 
 // DEPRECATED DEFINES - DO NOT USE
 #if defined(RGBLED_NUM)
+#    undef RGBLIGHT_LED_COUNT
 #    define RGBLIGHT_LED_COUNT RGBLED_NUM
 #endif
 // ========
