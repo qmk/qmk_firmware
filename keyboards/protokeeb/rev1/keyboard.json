@@ -13,14 +13,6 @@
         "nkro": true,
         "encoder": true
     },
-    "qmk": {
-        "locking": {
-            "enabled": false,
-            "resync": false
-        },
-        "tap_capslock_delay": 80,
-        "tap_keycode_delay": 0
-    },
     "matrix_pins": {
         "cols": ["GP6", "GP7", "GP8", "GP9"],
         "rows": ["GP2", "GP3", "GP4", "GP5"]
