@@ -191,7 +191,8 @@ def _eprint(errmsg):
 # Last update: 2024 Jun 24
 #
 # Arch: 3.12
-# Debian: 3.11
+# Debian 11: 3.9
+# Debian 12: 3.11
 # Fedora 39: 3.12
 # Fedora 40: 3.12
 # FreeBSD: 3.11
