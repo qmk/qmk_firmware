@@ -4,6 +4,9 @@
     "maintainer": "customMK",
     "bootloader": "stm32-dfu",
     "diode_direction": "ROW2COL",
+    "audio": {
+        "driver": "pwm_hardware"
+    },
     "dynamic_keymap": {
         "layer_count": 32
     },
