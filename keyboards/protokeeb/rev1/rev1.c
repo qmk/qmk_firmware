@@ -14,7 +14,7 @@
  * If not, see <https://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-#include "rev1.h"
+#include "quantum.h"
 
 #if defined(DIP_SWITCH_ENABLE)
 bool dip_switch_update_kb(uint8_t index, bool active) { 
