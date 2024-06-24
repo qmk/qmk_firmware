@@ -1,17 +1,7 @@
 {
     "usb": {
         "pid": "0x1717",
-        "device_version": "1.0.0",
-        "force_nkro": false,
-        "max_power": 500,
-        "no_startup_check": false,
-        "polling_interval": 1,
-        "shared_endpoint": {
-            "keyboard": true,
-            "mouse": false
-        },
-        "suspend_wakeup_delay": 0,
-        "wait_for_enumeration": false
+        "device_version": "1.0.0"
     },
     "board": "GENERIC_RP_RP2040",
     "bootloader": "rp2040",
