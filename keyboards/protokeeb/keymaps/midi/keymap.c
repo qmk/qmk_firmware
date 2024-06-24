@@ -21,10 +21,10 @@
 #include QMK_KEYBOARD_H
 
 enum protokeeb_keymap_layers {
-    LAYER_NOTES_SET_1 = 0,
-    LAYER_NOTES_SET_2 = 1,
-    LAYER_NOTES_SET_3 = 2,
-    LAYER_RGB_CONTROL = 3,
+    LAYER_NOTES_SET_1
+    LAYER_NOTES_SET_2
+    LAYER_NOTES_SET_3
+    LAYER_RGB_CONTROL
 };
 
 #define NOTES_SET_1 TG(LAYER_NOTES_SET_1)
