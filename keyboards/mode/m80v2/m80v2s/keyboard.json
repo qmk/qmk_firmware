@@ -33,8 +33,11 @@
     },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
+    "layout_aliases": {
+        "LAYOUT_m80v2s": "LAYOUT_tkl_ansi_split_bs_lshift_rshift"
+    },
     "layouts": {
-        "LAYOUT_m80v2s": {
+        "LAYOUT_tkl_ansi_split_bs_lshift_rshift": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
 
