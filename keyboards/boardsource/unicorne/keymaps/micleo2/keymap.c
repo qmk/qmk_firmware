@@ -1,6 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "gw_oled.h"
 #include "quantum.h"
+#include "unicode.h"
 
 // clang-format off
 
@@ -29,13 +30,17 @@ enum layers {
 // E for entry.
 #define ___E___ _______
 
+enum custom_keycodes {
+  KB_VLEAD = SAFE_RANGE
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BSE] = LAYOUT_split_3x6_3(
     CW_TOGG,       KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                 KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          KC_DEL,
     OSM(MOD_LSFT), KC_A,          LT(U, KC_S),  ALT_T(KC_D),   LT(N, KC_F),   KC_G,                 KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(Y),
     TG(_BLN),      KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,                 KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       C(G(KC_Q)),
-                                                CTL_T(KC_ESC), GUI_T(KC_SPC), QK_LEAD,              HYPR_T(KC_ENT),SFT_T(KC_BSPC),OSL(M)
+                                                CTL_T(KC_ESC), GUI_T(KC_SPC), KB_VLEAD,             HYPR_T(KC_ENT),SFT_T(KC_BSPC),OSL(M)
 ),
 
 [_SYM] = LAYOUT_split_3x6_3(
@@ -77,14 +82,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // clang-format on
 
-void leader_start_user(void) {}
+#define SEQ_END 0
+const uint16_t PROGMEM goto_ws4[] = {LT(U, KC_S), GUI_T(KC_SPC), KC_J, SEQ_END};
+const uint16_t PROGMEM goto_ws5[] = {LT(U, KC_S), GUI_T(KC_SPC), KC_K, SEQ_END};
+const uint16_t PROGMEM goto_ws6[] = {LT(U, KC_S), GUI_T(KC_SPC), KC_L, SEQ_END};
 
-void leader_end_user(void) {
-    if (leader_sequence_one_key(KC_U)) {
-        SEND_STRING("../");
-    } else if (leader_sequence_one_key(KC_E)) {
-    }
-}
+combo_t key_combos[] = {
+    COMBO(goto_ws4, G(KC_4)),
+    COMBO(goto_ws5, G(KC_5)),
+    COMBO(goto_ws6, G(KC_6)),
+};
 
 #if defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {};
@@ -130,10 +137,12 @@ bool process_detected_host_os_user(os_variant_t detected_os) {
         case OS_MACOS:
         case OS_IOS:
             copypaste_modifier = MOD_MASK_GUI;
+            set_unicode_input_mode(UNICODE_MODE_MACOS);
             break;
         case OS_WINDOWS:
         case OS_LINUX:
             copypaste_modifier = MOD_MASK_CTRL;
+            set_unicode_input_mode(UNICODE_MODE_LINUX);
             break;
         default:
             break;
@@ -141,8 +150,159 @@ bool process_detected_host_os_user(os_variant_t detected_os) {
     return true;
 }
 
+typedef struct vlead_seq_t {
+    const uint16_t *keys;
+    uint16_t        event_id;
+    unsigned int    is_eligible : 1;
+    unsigned int    keys_count : 7;
+} vlead_seq_t;
+#define VLEAD_SEQ(ck, ca) \
+    { .keys = &(ck)[0], .event_id = (ca) }
+
+enum vleader_events {
+    K_U,
+    K_C,
+    K_E,
+    K_M,
+    K_NM,
+    K_NT,
+    K_NA,
+};
+
+const uint16_t PROGMEM k_u[]  = {KC_U, SEQ_END};
+const uint16_t PROGMEM k_c[]  = {KC_C, SEQ_END};
+const uint16_t PROGMEM k_e[]  = {KC_E, SEQ_END};
+const uint16_t PROGMEM k_m[]  = {KC_M, SEQ_END};
+const uint16_t PROGMEM k_nm[] = {KC_N, KC_M, SEQ_END};
+const uint16_t PROGMEM k_nt[] = {KC_N, KC_T, SEQ_END};
+const uint16_t PROGMEM k_na[] = {KC_N, KC_A, SEQ_END};
+
+// clang-format off
+vlead_seq_t vleader_map[] = {
+    VLEAD_SEQ(k_u, K_U),
+    VLEAD_SEQ(k_c, K_C),
+    VLEAD_SEQ(k_e, K_E),
+    VLEAD_SEQ(k_m, K_M),
+    VLEAD_SEQ(k_nm, K_NM),
+    VLEAD_SEQ(k_nt, K_NT),
+    VLEAD_SEQ(k_na, K_NA),
+};
+// clang-format on
+
+void process_vlead_event_user(uint16_t vlead_idx) {
+    switch (vlead_idx) {
+        case K_U:
+            SEND_STRING("../");
+            break;
+        case K_C:
+            SEND_STRING("./");
+            break;
+        default:
+            break;
+    }
+}
+
+bool     vleading              = false;
+uint16_t vleader_time          = 0;
+uint8_t  vleader_sequence_size = 0;
+
+uint16_t vleader_map_count(void) {
+    return sizeof(vleader_map) / sizeof(vlead_seq_t);
+}
+
+vlead_seq_t *vleader_map_get(uint16_t seq_idx) {
+    return &vleader_map[seq_idx];
+}
+
+bool vleader_sequence_active(void) {
+    return vleading;
+}
+
+bool vleader_sequence_timed_out(void) {
+#if defined(LEADER_NO_TIMEOUT)
+    return vleader_sequence_size > 0 && timer_elapsed(vleader_time) > LEADER_TIMEOUT;
+#else
+    return timer_elapsed(leader_time) > LEADER_TIMEOUT;
+#endif
+}
+
+void vleader_start(void) {
+    vleading              = true;
+    vleader_time          = timer_read();
+    vleader_sequence_size = 0;
+    for (uint16_t i = 0; i < vleader_map_count(); i++) {
+        vlead_seq_t *seq    = vleader_map_get(i);
+        seq->is_eligible    = 1;
+        uint16_t keys_count = 0;
+        while (true) {
+            uint16_t key = pgm_read_word(&seq->keys[keys_count]);
+            if (key == SEQ_END) break;
+            keys_count++;
+        }
+        seq->keys_count = keys_count;
+    }
+}
+
+void vleader_end(void) {
+    vleading = false;
+}
+
+void vleader_sequence_add(uint16_t keycode) {
+    vleader_sequence_size++;
+    bool         duplicate_matches  = false;
+    vlead_seq_t *first_matching_seq = NULL;
+    for (uint16_t i = 0; i < vleader_map_count(); i++) {
+        vlead_seq_t *seq = vleader_map_get(i);
+        if (!seq->is_eligible) continue;
+        if (seq->keys_count < vleader_sequence_size) {
+            seq->is_eligible = false;
+            continue;
+        }
+        uint16_t seq_cur_kc = pgm_read_word(&seq->keys[vleader_sequence_size - 1]);
+        if (seq_cur_kc != keycode) {
+            seq->is_eligible = false;
+            continue;
+        }
+        if (first_matching_seq) {
+            duplicate_matches = true;
+        } else {
+            first_matching_seq = seq;
+        }
+    }
+    if (!first_matching_seq) {
+        vleader_end();
+    }
+    if (!duplicate_matches) {
+        process_vlead_event_user(first_matching_seq->event_id);
+        vleader_end();
+    }
+}
+
+bool process_vleader(uint16_t keycode, keyrecord_t *record) {
+    if (vleader_sequence_active() && vleader_sequence_timed_out()) {
+        vleader_end();
+    }
+    if (record->event.pressed) {
+        if (vleader_sequence_active()) {
+            // If a user enters in an incorrect sequence, we still want to consume the entire
+            // sequence. So if there is a sequence for "as", and they type "ad", then both a
+            // and d should not register as taps. But the leader will get disabled after.
+            vleader_sequence_add(keycode);
+            return false;
+        } else if (keycode == KB_VLEAD) {
+            vleader_start();
+            return false;
+        }
+    }
+    return true;
+}
+
 // return true if qmk should continue processing the keycode as normal.
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (!process_vleader(keycode, record)) {
+        return false;
+    }
+
     // The following handlers simply notify callbacks.
     switch (QK_MODS_GET_BASIC_KEYCODE(keycode)) {
         case KC_B:
