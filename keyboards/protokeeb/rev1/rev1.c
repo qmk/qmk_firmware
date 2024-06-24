@@ -29,10 +29,6 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
 							// Toggle Host Mute
 							tap_code(KC_MUTE);
 						}
-						// Encoder Push Button Released
-						else {
-							// Do Nothing
-						}
             break;
 		}
 		return true;
