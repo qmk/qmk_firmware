@@ -25,7 +25,8 @@
         "bootmagic": true,
         "rgblight": true,
         "extrakey": true,
-        "nkro": true
+        "nkro": true,
+        "encoder": true
     },
     "qmk": {
         "locking": {
