@@ -200,6 +200,8 @@ def _eprint(errmsg):
 # msys2: 3.11
 # Slackware: 3.9
 # solus: 3.10
+# Ubuntu 22.04: 3.10
+# Ubuntu 24.04: 3.12
 # void: 3.12
 
 if sys.version_info[0] != 3 or sys.version_info[1] < 7:
