@@ -494,7 +494,7 @@ kb_config_t g_config;
 void init_g_config(void) {
     // custom functions
     g_config.sleep_toggle         = true;
-    g_config.usb_sleep_toggle     = true;
+    g_config.usb_sleep_toggle     = false;
     g_config.deep_sleep_toggle    = true;
     g_config.sleep_timeout        = 5;
     g_config.debounce_press_ms    = DEBOUNCE;
