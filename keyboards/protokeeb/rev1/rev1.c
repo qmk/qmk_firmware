@@ -8,29 +8,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
- * along with this program. 
+ * along with this program.
  * If not, see <https://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
 #include "quantum.h"
 
 #if defined(DIP_SWITCH_ENABLE)
-bool dip_switch_update_kb(uint8_t index, bool active) { 
-    if(!dip_switch_update_user(index, active))
-		{
-			return false;
-		}
-		switch (index) {
+bool dip_switch_update_kb(uint8_t index, bool active) {
+    if (!dip_switch_update_user(index, active)) {
+        return false;
+    }
+    switch (index) {
         case 0:
-						// Encode Push Button Pressed
-            if(active) {
-							// Toggle Host Mute
-							tap_code(KC_MUTE);
-						}
+            // Encode Push Button Pressed
+            if (active) {
+                // Toggle Host Mute
+                tap_code(KC_MUTE);
+            }
             break;
-		}
-		return true;
+    }
+    return true;
 }
 #endif
