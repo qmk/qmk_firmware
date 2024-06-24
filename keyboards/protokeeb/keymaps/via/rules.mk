@@ -9,5 +9,3 @@ ENCODER_MAP_ENABLE = yes
 
 # DIP Switch Keymap support
 DIP_SWITCH_MAP_ENABLE = no
-
-TRI_LAYER_ENABLE = yes
