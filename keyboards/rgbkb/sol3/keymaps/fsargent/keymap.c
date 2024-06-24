@@ -65,8 +65,8 @@ enum sol_keycodes {
 #define LBRC		MT(MOD_LALT, KC_LBRC)
 #define RBRC		MT(MOD_LGUI, KC_RBRC)
 
-#define MINUS		LT(_SYM, KC_MINS)
-#define EQL		LT(_NAV, KC_EQL)
+#define MINUS		LT(_NUM, KC_MINS)
+#define EQL		LT(_SYM, KC_EQL)
 
 
 #define LTHUMB0		CMD_T(KC_BSPC)
@@ -163,10 +163,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[_NUM]	= LAYOUT(
 	KC_GRV,		KC_F1,		KC_F2,		KC_F3,		KC_F4,		KC_F5,		_______,					KC_NO,		KC_CIRC,	KC_HASH,	KC_DLR,		KC_TILD,	KC_EXLM,	KC_NUM,
-	_______,	KC_PAST,	KC_P7,		KC_P8,		KC_P9,		KC_MINS,	_______,						KC_NO,		KC_PERC,	KC_P7,		KC_P8,		KC_P9,		KC_COLN,	KC_K,
+	_______,	KC_PAST,	KC_P7,		KC_P8,		KC_P9,		KC_MINS,	_______,					KC_NO,		KC_PERC,	KC_P7,		KC_P8,		KC_P9,		KC_COLN,	KC_K,
 	KC_NUM,		KC_KP_0,	KC_P4,		KC_P5,		KC_P6,		KC_PPLS,	_______,					RGB_MOD,	KC_PPLS,	KC_P4,		KC_P5,		KC_P6,		KC_MINS,	KC_PEQL,
 	_______,	KC_PSLS,	KC_P1,		KC_P2,		KC_P3,		KC_EQL,		_______,					RGB_RMOD,	KC_PAST,	KC_P1,		KC_P2,		KC_P3,		KC_PSLS,	S(KC_G),
-	_______,	KC_EQL,		KC_COMMA,	KC_KP_0,	KC_PDOT,	_______,	KC_KP_0,	KC_PDOT,	KC_PDOT,	MENU_BTN,	KC_KP_0,	KC_LPRN,	KC_LBRC,	KC_RBRC,	KC_RPRN,	KC_AT,
+	_______,	KC_EQL,		KC_COMMA,	KC_KP_0,	KC_PDOT,	_______,	_______,	_______,	KC_PDOT,	MENU_BTN,	KC_KP_0,	KC_LPRN,	KC_LBRC,	KC_RBRC,	KC_RPRN,	KC_AT,
 	_______,	_______,	KC_RBRC,	KC_RPRN,	KC_RCBR,													_______,	_______,	_______,	_______,	_______
 	),
 

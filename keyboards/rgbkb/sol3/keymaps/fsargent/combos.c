@@ -31,7 +31,7 @@ const uint16_t PROGMEM rbl_combo[]		= {KC_R, KC_B, MT(MOD_LALT, KC_L), COMBO_END
 
 const uint16_t PROGMEM togwin_combo[]		= {KC_9, KC_2, COMBO_END};
 const uint16_t PROGMEM toggame_combo[]		= {KC_0, KC_1, COMBO_END};
-const uint16_t PROGMEM tog_num[] = {KC_KP_0		,	KC_PDOT, COMBO_END};
+const uint16_t PROGMEM tog_num_combo[] = {KC_KP_0,	KC_PDOT, COMBO_END};
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 	switch (keycode) {
@@ -77,7 +77,7 @@ combo_t key_combos[]	= {
 	[QP]		= COMBO_ACTION(phone_combo),
 	[QIN]		= COMBO_ACTION(qin_combo),
 	[QNM]		= COMBO_ACTION(qnm_combo),
-	[THUMBS]	= COMBO_ACTION(tog_num),
+	[THUMBS]	= COMBO_ACTION(tog_num_combo),
 	[THUMBS]	= COMBO_ACTION(thumbs_combo)
 };
 
