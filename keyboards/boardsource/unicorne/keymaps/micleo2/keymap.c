@@ -434,7 +434,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #    define BASE_COL RGB_LIGHT_BLUE
 
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    /* return false; */
     uint8_t layer = get_highest_layer(layer_state);
     uint8_t red;
     uint8_t green;
@@ -445,6 +444,39 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         blue  = b;
 
 #    define SET_COLOR(...) SET_COLOR_INNER(__VA_ARGS__)
+
+    if (vleader_sequence_active()) {
+        for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
+            for (uint8_t col = 0; col < MATRIX_COLS; ++col) {
+                uint8_t index = g_led_config.matrix_co[row][col];
+                if (!(index >= led_min && index < led_max && index != NO_LED)) {
+                    continue;
+                }
+                uint16_t kc = keymap_key_to_keycode(layer, (keypos_t){col, row});
+                if (kc == KC_NO) {
+                    rgb_matrix_set_color(index, RGB_OFF);
+                    continue;
+                }
+                bool kc_is_eligible = false;
+                for (uint16_t i = 0; i < vleader_map_count(); i++) {
+                    vlead_seq_t *seq = vleader_map_get(i);
+                    if (!seq->is_eligible) continue;
+                    if (seq->keys_count < vleader_sequence_size) continue;
+                    uint16_t seq_cur_kc = pgm_read_word(&seq->keys[vleader_sequence_size]);
+                    if (seq_cur_kc == kc) {
+                        kc_is_eligible = true;
+                        break;
+                    }
+                }
+                if (kc_is_eligible) {
+                    rgb_matrix_set_color(index, RGB_GREEN);
+                } else {
+                    rgb_matrix_set_color(index, BASE_COL);
+                }
+            }
+        }
+        return false;
+    }
 
     switch (layer) {
         case _BSE:
@@ -569,6 +601,11 @@ bool shutdown_user(bool jump_to_bootloader) {
 bool oled_task_user() {
     cur_render_time = timer_read32();
     if (render_flash_seq() == false) {
+        return false;
+    }
+
+    if (vleader_sequence_active()) {
+        oled_write_raw(gw_diver, sizeof(gw_diver));
         return false;
     }
 
