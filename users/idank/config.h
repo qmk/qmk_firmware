@@ -6,65 +6,70 @@
 
 #define SERIAL_USART_TX_PIN GP1
 
-#ifdef POINTING_DEVICE_POSITION_LEFT
-#define MASTER_LEFT
+#ifdef POINTING_DEVICE_CONFIGURATION_TRACKPOINT_TRACKBALL
+    #define MASTER_LEFT
+    #define POINTING_DEVICE_ROTATION_90_RIGHT
+#elif POINTING_DEVICE_CONFIGURATION_TRACKBALL_TRACKPOINT
+    #define MASTER_RIGHT
+    #define POINTING_DEVICE_ROTATION_270
+#elif POINTING_DEVICE_CONFIGURATION_TRACKPOINT_CIRQUE35
+    #define MASTER_LEFT
+#elif POINTING_DEVICE_CONFIGURATION_CIRQUE35_TRACKPOINT
+    #define MASTER_RIGHT
+#elif POINTING_DEVICE_CONFIGURATION_PIMORONI_CIRQUE35
+    #define MASTER_RIGHT
+    // The pimoroni needs frequest updates, set a value so the Cirque configs don't set it to 10ms.
+    #define POINTING_DEVICE_TASK_THROTTLE_MS 1
+    // A pimoroni on the left side can only go in this orientation.
+    #define POINTING_DEVICE_ROTATION_270
+#elif POINTING_DEVICE_CONFIGURATION_CIRQUE35_PIMORONI
+    #define MASTER_RIGHT
+    // The pimoroni needs frequest updates, set a value so the Cirque configs don't set it to 10ms.
+    #define POINTING_DEVICE_TASK_THROTTLE_MS 1
+    // Determine right side rotation based on POINTING_DEVICE_POSITION flag.
+    #if POINTING_DEVICE_POSITION_THUMB_OUTER
+      #define POINTING_DEVICE_ROTATION_270_RIGHT
+    #elif defined(POINTING_DEVICE_POSITION_THUMB) || defined(POINTING_DEVICE_POSITION_THUMB_INNER)
+    #else
+       #define POINTING_DEVICE_ROTATION_90_RIGHT
+    #endif
+#elif POINTING_DEVICE_CONFIGURATION_PIMORONI_PIMORONI
+    #define MASTER_RIGHT
+    // A pimoroni on the left side can only go in this orientation.
+    #define POINTING_DEVICE_ROTATION_270
+    // Determine right side rotation based on POINTING_DEVICE_POSITION flag.
+    #if POINTING_DEVICE_POSITION_THUMB_OUTER
+      #define POINTING_DEVICE_ROTATION_270_RIGHT
+    #elif defined(POINTING_DEVICE_POSITION_THUMB) || defined(POINTING_DEVICE_POSITION_THUMB_INNER)
+    #else
+       #define POINTING_DEVICE_ROTATION_90_RIGHT
+    #endif
+#elif POINTING_DEVICE_CONFIGURATION_PIMORONI
+    #ifdef POINTING_DEVICE_POSITION_LEFT
+      #define POINTING_DEVICE_ROTATION_270
+    #elif POINTING_DEVICE_POSITION_RIGHT
+       #define POINTING_DEVICE_ROTATION_90
+    #elif POINTING_DEVICE_POSITION_THUMB_OUTER
+      #define POINTING_DEVICE_ROTATION_270
+    #elif defined(POINTING_DEVICE_POSITION_THUMB) || defined(POINTING_DEVICE_POSITION_THUMB_INNER) || defined(POINTING_DEVICE_POSITION_MIDDLE)
+    #endif
 #else
-#define MASTER_RIGHT
-#endif
-
-#ifdef POINTING_DEVICE_CONFIGURATION_PIMORONI_CIRQUE35
-    // The pimoroni needs frequest updates, set a value so the Cirque configs don't set it to 10ms.
-    #define POINTING_DEVICE_TASK_THROTTLE_MS 1
-    // A pimoroni on the left side can only go in this orientation.
-    #define POINTING_DEVICE_ROTATION_270
-#endif
-
-#ifdef POINTING_DEVICE_CONFIGURATION_CIRQUE35_PIMORONI
-    // The pimoroni needs frequest updates, set a value so the Cirque configs don't set it to 10ms.
-    #define POINTING_DEVICE_TASK_THROTTLE_MS 1
-    // Determine right side rotation based on POINTING_DEVICE_POSITION flag.
-#   if POINTING_DEVICE_POSITION_THUMB_OUTER
-      #define POINTING_DEVICE_ROTATION_270_RIGHT
-#   elif defined(POINTING_DEVICE_POSITION_THUMB) || defined(POINTING_DEVICE_POSITION_THUMB_INNER)
-#   else
-       #define POINTING_DEVICE_ROTATION_90_RIGHT
-#   endif
-#endif
-
-// Configuration for dual trackballs.
-#ifdef POINTING_DEVICE_CONFIGURATION_PIMORONI_PIMORONI
-    // A pimoroni on the left side can only go in this orientation.
-    #define POINTING_DEVICE_ROTATION_270
-    // Determine right side rotation based on POINTING_DEVICE_POSITION flag.
-#   if POINTING_DEVICE_POSITION_THUMB_OUTER
-      #define POINTING_DEVICE_ROTATION_270_RIGHT
-#   elif defined(POINTING_DEVICE_POSITION_THUMB) || defined(POINTING_DEVICE_POSITION_THUMB_INNER)
-#   else
-       #define POINTING_DEVICE_ROTATION_90_RIGHT
-#   endif
+    #ifdef POINTING_DEVICE_POSITION_LEFT
+        #define MASTER_LEFT
+    #else
+        #define MASTER_RIGHT
+    #endif
 #endif
 
 // Generic Cirque configuration.
 #ifdef POINTING_DEVICE_DRIVER_cirque_pinnacle_i2c
-#define CIRQUE_PINNACLE_DIAMETER_MM 35
-// Tap for left click.
-#define CIRQUE_PINNACLE_TAP_ENABLE
-#define POINTING_DEVICE_GESTURES_SCROLL_ENABLE
+    #define CIRQUE_PINNACLE_DIAMETER_MM 35
+    // Tap for left click.
+    #define CIRQUE_PINNACLE_TAP_ENABLE
+    #define POINTING_DEVICE_GESTURES_SCROLL_ENABLE
 #endif
 
-// Configuration for single trackball.
-#ifdef POINTING_DEVICE_CONFIGURATION_PIMORONI
-#   ifdef POINTING_DEVICE_POSITION_LEFT
-      #define POINTING_DEVICE_ROTATION_270
-#   elif POINTING_DEVICE_POSITION_RIGHT
-       #define POINTING_DEVICE_ROTATION_90
-#   elif POINTING_DEVICE_POSITION_THUMB_OUTER
-      #define POINTING_DEVICE_ROTATION_270
-#   elif defined(POINTING_DEVICE_POSITION_THUMB) || defined(POINTING_DEVICE_POSITION_THUMB_INNER) || defined(POINTING_DEVICE_POSITION_MIDDLE)
-#   endif
-#endif
-
-#ifdef POINTING_DEVICE_CONFIGURATION_TRACKPOINT
+#ifdef POINTING_DEVICE_DRIVER_ps2
     // The default streaming mode is flaky and doesn't always work. This setting doesn't seem to affect performance.
     #define PS2_MOUSE_USE_REMOTE_MODE
 

@@ -1,4 +1,4 @@
-VALID_POINTING_DEVICE_CONFIGURATIONS := trackball cirque35 cirque35_cirque35 trackball_trackball trackball_cirque35 cirque35_trackball trackpoint
+VALID_POINTING_DEVICE_CONFIGURATIONS := trackball cirque35 cirque35_cirque35 trackball_trackball trackball_cirque35 cirque35_trackball trackpoint trackpoint_trackball trackball_trackpoint trackpoint_cirque35 cirque35_trackpoint
 ifdef POINTING_DEVICE
     ifeq ($(filter $(POINTING_DEVICE),$(VALID_POINTING_DEVICE_CONFIGURATIONS)),)
         $(call CATASTROPHIC_ERROR,Invalid POINTING_DEVICE,POINTING_DEVICE="$(POINTING_DEVICE)" is not a valid pointing device configuration)
@@ -96,13 +96,90 @@ ifeq ($(strip $(POINTING_DEVICE)), cirque35_trackball)
 	endif
 endif
 
+# ----------------- Trackpoint -----------------
+
 ifeq ($(strip $(POINTING_DEVICE)), trackpoint)
-	# PS2_MOUSE_ENABLE = yes
+	OPT_DEFS += -DPOINTING_DEVICE_CONFIGURATION_TRACKPOINT
 	PS2_ENABLE = yes
 	PS2_DRIVER = vendor
 	POINTING_DEVICE_ENABLE = yes
 	POINTING_DEVICE_DRIVER = ps2
-	OPT_DEFS += -DPOINTING_DEVICE_CONFIGURATION_TRACKPOINT
+endif
+
+ifeq ($(strip $(POINTING_DEVICE)), trackpoint_trackball)
+    OPT_DEFS += -DPOINTING_DEVICE_CONFIGURATION_TRACKPOINT_TRACKBALL
+
+    POINTING_DEVICE_ENABLE = yes
+    OPT_DEFS += -DSPLIT_POINTING_ENABLE
+    OPT_DEFS += -DPOINTING_DEVICE_COMBINED
+
+    ifeq ($(strip $(SIDE)), left)
+        PS2_ENABLE = yes
+        PS2_DRIVER = vendor
+        POINTING_DEVICE_DRIVER = ps2
+    endif
+    ifeq ($(strip $(SIDE)), right)
+        POINTING_DEVICE_DRIVER = pimoroni_trackball
+
+        ifeq ($(strip $(TRACKBALL_RGB_RAINBOW)), yes)
+            SRC += quantum/color.c $(USER_PATH)/trackball_rgb_rainbow.c
+        endif
+    endif
+endif
+
+ifeq ($(strip $(POINTING_DEVICE)), trackball_trackpoint)
+    OPT_DEFS += -DPOINTING_DEVICE_CONFIGURATION_TRACKBALL_TRACKPOINT
+
+    POINTING_DEVICE_ENABLE = yes
+    OPT_DEFS += -DSPLIT_POINTING_ENABLE
+    OPT_DEFS += -DPOINTING_DEVICE_COMBINED
+
+    ifeq ($(strip $(SIDE)), right)
+        PS2_ENABLE = yes
+        PS2_DRIVER = vendor
+        POINTING_DEVICE_DRIVER = ps2
+    endif
+    ifeq ($(strip $(SIDE)), left)
+        POINTING_DEVICE_DRIVER = pimoroni_trackball
+
+        ifeq ($(strip $(TRACKBALL_RGB_RAINBOW)), yes)
+            SRC += quantum/color.c $(USER_PATH)/trackball_rgb_rainbow.c
+        endif
+    endif
+endif
+
+ifeq ($(strip $(POINTING_DEVICE)), trackpoint_cirque35)
+    OPT_DEFS += -DPOINTING_DEVICE_CONFIGURATION_TRACKPOINT_CIRQUE35
+
+    POINTING_DEVICE_ENABLE = yes
+    OPT_DEFS += -DSPLIT_POINTING_ENABLE
+    OPT_DEFS += -DPOINTING_DEVICE_COMBINED
+
+    ifeq ($(strip $(SIDE)), left)
+        PS2_ENABLE = yes
+        PS2_DRIVER = vendor
+        POINTING_DEVICE_DRIVER = ps2
+    endif
+    ifeq ($(strip $(SIDE)), right)
+        POINTING_DEVICE_DRIVER = cirque_pinnacle_i2c
+    endif
+endif
+
+ifeq ($(strip $(POINTING_DEVICE)), cirque35_trackpoint)
+    OPT_DEFS += -DPOINTING_DEVICE_CONFIGURATION_CIRQUE35_TRACKPOINT
+
+    POINTING_DEVICE_ENABLE = yes
+    OPT_DEFS += -DSPLIT_POINTING_ENABLE
+    OPT_DEFS += -DPOINTING_DEVICE_COMBINED
+
+    ifeq ($(strip $(SIDE)), right)
+        PS2_ENABLE = yes
+        PS2_DRIVER = vendor
+        POINTING_DEVICE_DRIVER = ps2
+    endif
+    ifeq ($(strip $(SIDE)), left)
+        POINTING_DEVICE_DRIVER = cirque_pinnacle_i2c
+    endif
 endif
 
 MOUSEKEY_ENABLE = yes
