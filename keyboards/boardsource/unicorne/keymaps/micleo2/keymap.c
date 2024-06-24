@@ -222,8 +222,12 @@ bool vleader_sequence_timed_out(void) {
 #if defined(LEADER_NO_TIMEOUT)
     return vleader_sequence_size > 0 && timer_elapsed(vleader_time) > LEADER_TIMEOUT;
 #else
-    return timer_elapsed(leader_time) > LEADER_TIMEOUT;
+    return timer_elapsed(vleader_time) > LEADER_TIMEOUT;
 #endif
+}
+
+void vleader_reset_timer(void) {
+    vleader_time = timer_read();
 }
 
 void vleader_start(void) {
@@ -271,11 +275,16 @@ void vleader_sequence_add(uint16_t keycode) {
     }
     if (!first_matching_seq) {
         vleader_end();
+        return;
     }
+    // If we found a single match, execute this event and end the sequence.
     if (!duplicate_matches) {
         process_vlead_event_user(first_matching_seq->event_id);
         vleader_end();
+        return;
     }
+    // We found a partial match, reset the timer.
+    vleader_reset_timer();
 }
 
 bool process_vleader(uint16_t keycode, keyrecord_t *record) {
@@ -295,6 +304,12 @@ bool process_vleader(uint16_t keycode, keyrecord_t *record) {
         }
     }
     return true;
+}
+
+void housekeeping_task_user(void) {
+    if (vleader_sequence_active() && vleader_sequence_timed_out()) {
+        vleader_end();
+    }
 }
 
 // return true if qmk should continue processing the keycode as normal.
