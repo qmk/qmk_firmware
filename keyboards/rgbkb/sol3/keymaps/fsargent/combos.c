@@ -15,6 +15,7 @@ const uint16_t PROGMEM xc_combo[]		= {KC_X, KC_C, COMBO_END};
 const uint16_t PROGMEM cv_combo[]		= {KC_C, KC_V, COMBO_END};
 const uint16_t PROGMEM qr_combo[]		= {KC_Q, KC_R, COMBO_END};
 const uint16_t PROGMEM df_combo[]		= {LGUI_T(KC_D),	LSFT_T(KC_F), COMBO_END};
+const uint16_t PROGMEM win_df_combo[]		= {LCTL_T(KC_D),	LSFT_T(KC_F), COMBO_END};
 const uint16_t PROGMEM gravminus_combo[]	= {KC_GRV, KC_DEL, COMBO_END};
 
 const uint16_t PROGMEM xcv_combo[]		= {KC_X, KC_C, KC_V, COMBO_END};
@@ -30,6 +31,7 @@ const uint16_t PROGMEM rbl_combo[]		= {KC_R, KC_B, MT(MOD_LALT, KC_L), COMBO_END
 
 const uint16_t PROGMEM togwin_combo[]		= {KC_9, KC_2, COMBO_END};
 const uint16_t PROGMEM toggame_combo[]		= {KC_0, KC_1, COMBO_END};
+const uint16_t PROGMEM tog_num[] = {KC_KP_0		,	KC_PDOT, COMBO_END};
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 	switch (keycode) {
@@ -48,6 +50,7 @@ combo_t key_combos[]	= {
 	[PST]		= COMBO_ACTION(cv_combo),
 	[CTRLR]		= COMBO_ACTION(qr_combo),
 	[DELWD]		= COMBO_ACTION(df_combo),
+	[DELWD]		= COMBO_ACTION(win_df_combo),
 	[JK]		= COMBO_ACTION(jk_combo),
 	// [TGSYM]		= COMBO_ACTION(thumbs_combo),
 	// [WINTGSYM]		= COMBO_ACTION(win_thumbs_combo),
@@ -74,7 +77,10 @@ combo_t key_combos[]	= {
 	[QP]		= COMBO_ACTION(phone_combo),
 	[QIN]		= COMBO_ACTION(qin_combo),
 	[QNM]		= COMBO_ACTION(qnm_combo),
-	[THUMBS]	= COMBO_ACTION(thumbs_combo)};
+	[THUMBS]	= COMBO_ACTION(tog_num),
+	[THUMBS]	= COMBO_ACTION(thumbs_combo)
+};
+
 /* COMBO_ACTION(x) is same as COMBO(x, KC_NO) */
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
@@ -153,77 +159,74 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 			}
 		}
 	}
-    switch (combo_index) {
-	case JK:
-		if (pressed) {
-			tap_code(KC_ENT);
-		}
+
+
+	switch (combo_index) {
+		case JK:
+			if (pressed) {
+				tap_code(KC_ENT);
+			}
+			break;
+		case THUMBS:
+			if (pressed) {
+				layer_invert(_NUM);
+			}
+			break;
+		case MUTE:
+			if (pressed) {
+				tap_code(KC_MUTE);
+			}
+			break;
+		case RST:
+				if (pressed) {
+			reset_keyboard();
+				}
+				break;
+		case QNM:
+				if (pressed) {
+				SEND_STRING("Felix Sargent");
+				}
+				break;
+		case QIN:
+			if (pressed) {
+				SEND_STRING("https://linkedin.com/in/felixsargent");
+			}
+			break;
+		case CAL:
+				if (pressed) {
+				SEND_STRING("https://felixsargent.com/calendar");
+				}
+				break;
+		case EML:
+			if (pressed) {
+				SEND_STRING("felix.sargent@gmail.com");
+			}
 		break;
-	case THUMBS:
-		if (pressed) {
-			layer_on(_NUM);
-		} else {
-			layer_off(_NUM);
-		}
-		break;
-	case MUTE:
-		if (pressed) {
-			tap_code(KC_MUTE);
-		}
-		break;
-	// case TGSYM:
-	//	if (pressed) {layer_invert(_NUM);}
-	//	break;
-	case RST:
-		  if (pressed) {
-		reset_keyboard();
-		  }
-		  break;
-	case QNM:
-		  if (pressed) {
-			 SEND_STRING("Felix Sargent");
-		  }
-		  break;
-	case QIN:
-		if (pressed) {
-			SEND_STRING("https://linkedin.com/in/felixsargent");
-		}
-		break;
-	case CAL:
-		  if (pressed) {
-			 SEND_STRING("https://felixsargent.com/calendar");
-		  }
-		  break;
-	case EML:
-		if (pressed) {
-			SEND_STRING("felix.sargent@gmail.com");
-		}
-	break;
-	case WRK:
-		if (pressed) {
-			SEND_STRING("fsargent@recruitbot.com");
-		}
-		break;
-	case RBU:
-		if (pressed) {
-			SEND_STRING("RecruitBot");
-		}
-		break;
-	case RBL:
-		if (pressed) {
-			SEND_STRING("recruitbot");
-		}
-		break;
-	case QP:
-		if (pressed) {
-			SEND_STRING("4158606970");
-		}
-		break;
-	case CTRLALTDEL:
-		if (pressed) {
-			tap_code16(C(A(KC_DEL)));
-		}
-		break;
+		case WRK:
+			if (pressed) {
+				SEND_STRING("fsargent@recruitbot.com");
+			}
+			break;
+		case RBU:
+			if (pressed) {
+				SEND_STRING("RecruitBot");
+			}
+			break;
+		case RBL:
+			if (pressed) {
+				SEND_STRING("recruitbot");
+			}
+			break;
+		case QP:
+			if (pressed) {
+				SEND_STRING("4158606970");
+			}
+			break;
+		case CTRLALTDEL:
+			if (pressed) {
+				tap_code16(C(A(KC_DEL)));
+			}
+			break;
 	}
 }
 
