@@ -21,8 +21,8 @@
 #include QMK_KEYBOARD_H
 
 enum protokeeb_keymap_layers {
-    LAYER_BASE = 0,
-    LAYER_LOWER = 1,
+    LAYER_BASE
+    LAYER_LOWER
 };
 
 #define LOWER LT(LAYER_LOWER, KC_KP_0)
