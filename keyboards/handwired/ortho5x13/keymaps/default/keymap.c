@@ -153,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = LAYOUT(
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12 , _______,
-  _______, QK_BOOT,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL , _______,
+  _______, QK_BOOT, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL , _______,
   _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  _______, _______, _______,
   _______, AU_PREV, AU_NEXT, MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______,     _______,      _______, _______, _______, _______, _______, _______
@@ -175,11 +175,6 @@ float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
 float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
 #endif
 
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
         case QWERTY:
@@ -187,7 +182,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             #ifdef AUDIO_ENABLE
               PLAY_SONG(tone_qwerty);
             #endif
-            persistent_default_layer_set(1UL<<_QWERTY);
+            set_single_persistent_default_layer(_QWERTY);
           }
           return false;
           break;
@@ -196,7 +191,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             #ifdef AUDIO_ENABLE
               PLAY_SONG(tone_colemak);
             #endif
-            persistent_default_layer_set(1UL<<_COLEMAK);
+            set_single_persistent_default_layer(_COLEMAK);
           }
           return false;
           break;
@@ -205,7 +200,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             #ifdef AUDIO_ENABLE
               PLAY_SONG(tone_dvorak);
             #endif
-            persistent_default_layer_set(1UL<<_DVORAK);
+            set_single_persistent_default_layer(_DVORAK);
           }
           return false;
           break;

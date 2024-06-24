@@ -12,7 +12,13 @@
     "bootmagic": {
         "matrix": [0, 3]
     },
+
     "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false,
+        "pointing_device": true,
         "encoder": true
     },
     "encoder": {

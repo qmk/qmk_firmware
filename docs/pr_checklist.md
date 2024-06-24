@@ -8,7 +8,7 @@ If there are any inconsistencies with these recommendations, you're best off [cr
 
 - PR should be submitted using a non-`master` branch on the source repository
     - this does not mean you target a different branch for your PR, rather that you're not working out of your own master branch
-    - if submitter _does_ use their own `master` branch, they'll be given a link to the ["how to git"](newbs_git_using_your_master_branch.md) page after merging -- (end of this document will contain the contents of the message)
+    - if submitter _does_ use their own `master` branch, they'll be given a link to the ["how to git"](newbs_git_using_your_master_branch) page after merging -- (end of this document will contain the contents of the message)
     - Note, frequently merging upstream with your branch is not needed and is discouraged. Valid reason for updating your branch may be resolving merge conflicts and pulling in new changes relevant to your PR.
 - PRs should contain the smallest amount of modifications required for a single change to the codebase
     - multiple keyboards at the same time is not acceptable
@@ -40,7 +40,9 @@ If there are any inconsistencies with these recommendations, you're best off [cr
 
 ## Keymap PRs
 
-!> Note that personal keymap submissions will no longer be accepted. This section applies to manufacturer-supported keymaps. Please see this [issue](https://github.com/qmk/qmk_firmware/issues/22724) for more information.
+::: warning
+Note that personal keymap submissions will no longer be accepted. This section applies to manufacturer-supported keymaps. Please see this [issue](https://github.com/qmk/qmk_firmware/issues/22724) for more information.
+:::
 
 - PRs for vendor specific keymaps will be permitted. The naming convention for these should be `default_${vendor}`, `via_${vendor}` i.e. `via_clueboard`.
     - vendor specific keymaps do not necessarily need to be "vanilla" and can be more richly featured than `default` or `via` stock keymaps.
@@ -59,7 +61,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
 - keyboard updates and refactors (eg. to data driven) *must* go through `develop` to reduce `master` -> `develop` merge conflicts
 - PR submissions from a `kbfirmware` export (or equivalent) will not be accepted unless converted to new QMK standards -- try `qmk import-kbfirmware` first
 - `info.json`
-    - With the move to [data driven](https://docs.qmk.fm/#/data_driven_config) keyboard configuration, we encourage contributors to utilise as many features as possible of the info.json [schema](https://github.com/qmk/qmk_firmware/blob/master/data/schemas/keyboard.jsonschema).
+    - With the move to [data driven](data_driven_config) keyboard configuration, we encourage contributors to utilise as many features as possible of the info.json [schema](https://github.com/qmk/qmk_firmware/blob/master/data/schemas/keyboard.jsonschema).
     - the mandatory elements for a minimally complete `info.json` at present are:
         - valid URL
         - valid maintainer
@@ -122,9 +124,9 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
 - `<keyboard>.c`
     - empty `xxxx_xxxx_kb()`, `xxxx_xxxx_user()`, or other weak-defined default implemented functions removed
     - commented-out functions removed too
-    - `matrix_init_board()` etc. migrated to `keyboard_pre_init_kb()`, see: [keyboard_pre_init*](custom_quantum_functions.md?id=keyboard_pre_init_-function-documentation)
-    - prefer `CUSTOM_MATRIX = lite` if custom matrix used, allows for standard debounce, see [custom matrix 'lite'](custom_matrix.md?id=lite)
-    - prefer LED indicator [Configuration Options](feature_led_indicators.md?id=configuration-options) to custom `led_update_*()` implementations where possible
+    - `matrix_init_board()` etc. migrated to `keyboard_pre_init_kb()`, see: [keyboard_pre_init*](custom_quantum_functions#keyboard_pre_init_-function-documentation)
+    - prefer `CUSTOM_MATRIX = lite` if custom matrix used, allows for standard debounce, see [custom matrix 'lite'](custom_matrix#lite)
+    - prefer LED indicator [Configuration Options](features/led_indicators#configuration-options) to custom `led_update_*()` implementations where possible
     - hardware that's enabled at the keyboard level and requires configuration such as OLED displays or encoders should have basic functionality implemented here
 - `<keyboard>.h`
     - `#include "quantum.h"` appears at the top
@@ -133,12 +135,12 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - no duplication of `rules.mk` or `config.h` from keyboard
 - `keymaps/default/keymap.c`
     - `QMKBEST`/`QMKURL` example macros removed
-    - if using `MO(1)` and `MO(2)` keycodes together to access a third layer, the [Tri Layer](https://docs.qmk.fm/#/feature_tri_layer) feature should be used, rather than manually implementing this using `layer_on/off()` and `update_tri_layer()` functions in the keymap's `process_record_user()`.
+    - if using `MO(1)` and `MO(2)` keycodes together to access a third layer, the [Tri Layer](features/tri_layer) feature should be used, rather than manually implementing this using `layer_on/off()` and `update_tri_layer()` functions in the keymap's `process_record_user()`.
 - default (and via) keymaps should be "pristine"
     - bare minimum to be used as a "clean slate" for another user to develop their own user-specific keymap
     - what does pristine mean? no custom keycodes. no advanced features like tap dance or macros. basic mod taps and home row mods would be acceptable where their use is necessary
     - standard layouts preferred in these keymaps, if possible
-    - should use [encoder map feature](https://docs.qmk.fm/#/feature_encoders?id=encoder-map), rather than `encoder_update_user()`
+    - should use [encoder map feature](features/encoders#encoder-map), rather than `encoder_update_user()`
     - default keymap should not enable VIA -- the VIA integration documentation requires a keymap called `via`
 - submitters can add an example (or bells-and-whistles) keymap showcasing capabilities in the same PR but it shouldn't be embedded in the 'default' keymap
 - submitters can also have a "manufacturer-matching" keymap that mirrors existing functionality of the commercial product, if porting an existing board
@@ -163,11 +165,11 @@ Also, specific to ChibiOS:
 - New board definitions must not be embedded in a keyboard PR
     - See [Core PRs](#core-pr) below for the procedure for adding a new board to QMK
 - if a board definition is unavoidable, `board.c` must have a standard `__early_init()` (as per normal ChibiOS board defs) and an empty `boardInit()`:
-    - see Arm/ChibiOS [early initialization](platformdev_chibios_earlyinit.md?id=board-init)
+    - see Arm/ChibiOS [early initialization](platformdev_chibios_earlyinit#board-init)
     - `__early_init()` should be replaced by either `early_hardware_init_pre()` or `early_hardware_init_post()` as appropriate
     - `boardInit()` should be migrated to `board_init()`
 
-## Core PRs :id=core-pr
+## Core PRs {#core-pr}
 
 - all core PRs must now target `develop` branch, which will subsequently be merged back to `master` on the breaking changes timeline
 - as indicated above, the smallest set of changes to core components should be included in each PR
@@ -197,9 +199,9 @@ For future reference, we recommend against committing to your `master` branch as
 
 There are instructions on how to keep your fork updated here:
 
-[**Best Practices: Your Fork's Master: Update Often, Commit Never**](https://docs.qmk.fm/#/newbs_git_using_your_master_branch)
+[**Best Practices: Your Fork's Master: Update Often, Commit Never**](newbs_git_using_your_master_branch)
 
-[Fixing Your Branch](https://docs.qmk.fm/#/newbs_git_resynchronize_a_branch) will walk you through fixing up your `master` branch moving forward. If you need any help with this just ask.
+[Fixing Your Branch](newbs_git_resynchronize_a_branch) will walk you through fixing up your `master` branch moving forward. If you need any help with this just ask.
 
 Thanks for contributing!
 ```

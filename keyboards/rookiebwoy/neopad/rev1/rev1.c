@@ -17,8 +17,8 @@
 
 void keyboard_pre_init_kb(void) {
     // Set LED IO as outputs
-    setPinOutput(LED_00);
-    setPinOutput(LED_01);
+    gpio_set_pin_output(LED_00);
+    gpio_set_pin_output(LED_01);
     keyboard_pre_init_user();
 }
 
@@ -27,8 +27,8 @@ bool shutdown_kb(bool jump_to_bootloader) {
         return false;
     }
     // Shutdown LEDs
-    writePinLow(LED_00);
-    writePinLow(LED_01);
+    gpio_write_pin_low(LED_00);
+    gpio_write_pin_low(LED_01);
     return true;
 }
 
@@ -37,8 +37,8 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 
     // Layer LEDs act as binary indication of current layer
     uint8_t layer = get_highest_layer(state);
-    writePin(LED_00, layer & 0b1);
-    writePin(LED_01, (layer >> 1) & 0b1);
+    gpio_write_pin(LED_00, layer & 0b1);
+    gpio_write_pin(LED_01, (layer >> 1) & 0b1);
     return state;
 }
 
@@ -51,11 +51,11 @@ void matrix_init_kb(void) {
     // runs once when the firmware starts up
     uint8_t led_delay_ms = 80;
     for (int i = 0; i < 2; i++) {
-        writePinHigh(LED_00);
-        writePinHigh(LED_01);
+        gpio_write_pin_high(LED_00);
+        gpio_write_pin_high(LED_01);
         wait_ms(led_delay_ms);
-        writePinLow(LED_00);
-        writePinLow(LED_01);
+        gpio_write_pin_low(LED_00);
+        gpio_write_pin_low(LED_01);
         if (i < 1) {
             wait_ms(led_delay_ms);
         }

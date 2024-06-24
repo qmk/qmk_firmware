@@ -215,9 +215,9 @@ void audio_startup(void);
 // hardware interface
 
 // implementation in the driver_avr/arm_* respective parts
-void audio_driver_initialize(void);
-void audio_driver_start(void);
-void audio_driver_stop(void);
+void audio_driver_initialize_impl(void);
+void audio_driver_start_impl(void);
+void audio_driver_stop_impl(void);
 
 /**
  * @brief get the number of currently active tones
