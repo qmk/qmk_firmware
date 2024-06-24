@@ -17,7 +17,6 @@
 #pragma once
 
 /* ARGB LED Byte order */
-#undef WS2812_BYTE_ORDER
 #define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_RGB
 
 /* Peripheral used */
