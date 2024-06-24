@@ -68,7 +68,7 @@ def parse_configurator_json(configurator_file):
     return user_keymap
 
 
-def build_environment(args):
+def parse_env_vars(args):
     """Common processing for cli.args.env
     """
     envs = {}
@@ -78,6 +78,11 @@ def build_environment(args):
             envs[key] = value
         else:
             cli.log.warning('Invalid environment variable: %s', env)
+    return envs
+
+
+def build_environment(args):
+    envs = parse_env_vars(args)
 
     if HAS_QMK_USERSPACE:
         envs['QMK_USERSPACE'] = Path(QMK_USERSPACE).resolve()
