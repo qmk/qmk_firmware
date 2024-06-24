@@ -533,7 +533,8 @@ $(INTERMEDIATE_OUTPUT)_CONFIG := $(CONFIG_H) $(POST_CONFIG_H)
 # Default target.
 all: build check-size
 
-build: elf cpfirmware
+print-summary:
+build: elf cpfirmware print-summary
 check-size: build
 check-md5: build
 objs-size: build
