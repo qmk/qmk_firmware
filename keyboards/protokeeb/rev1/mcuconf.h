@@ -25,9 +25,6 @@
 #undef RP_I2C_USE_I2C1
 #define RP_I2C_USE_I2C1 FALSE
 
-// #define RP_I2C_BUSY_TIMEOUT 50
-// #define RP_I2C_USE_DMA TRUE
-
 /* RP2040 SPI Driver Selection */
 #undef RP_SPI_USE_SPI0
 #define RP_SPI_USE_SPI0 TRUE
