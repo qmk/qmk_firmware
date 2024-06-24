@@ -6,11 +6,6 @@
     "board": "GENERIC_RP_RP2040",
     "bootloader": "rp2040",
     "processor": "RP2040",
-    "build": {
-        "debounce_type": "sym_defer_g",
-        "firmware_format": "uf2",
-        "lto": false
-    },
     "features": {
         "bootmagic": true,
         "rgblight": true,
