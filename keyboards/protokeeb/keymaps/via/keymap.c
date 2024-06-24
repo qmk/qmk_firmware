@@ -19,7 +19,6 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "quantum.h"
 
 enum protokeeb_keymap_layers {
     LAYER_BASE = 0,
