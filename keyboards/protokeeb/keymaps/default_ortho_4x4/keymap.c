@@ -23,10 +23,10 @@
 #include "quantum.h"
 
 enum protokeeb_keymap_layers {
-    LAYER_BASE = 0,
-    LAYER_LOWER = 1,
-		LAYER_RAISE = 2,
-		LAYER_ADJUST = 3,
+    LAYER_BASE,
+    LAYER_LOWER,
+		LAYER_RAISE,
+		LAYER_ADJUST,
 };
 
 #define LOWER LT(LAYER_LOWER, KC_KP_0)
