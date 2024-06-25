@@ -1,0 +1,8 @@
+{
+    "bootloader": "custom",
+    "processor": "STM32F303",
+    "ws2812": {
+        "pin": "B8",
+        "driver": "pwm"
+    }
+}
