@@ -31,15 +31,16 @@ enum layers {
 #define ___E___ _______
 
 enum custom_keycodes {
-  KB_VLEAD = SAFE_RANGE
+  KB_VLEAD = SAFE_RANGE,
+  MY_CW_TOG
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BSE] = LAYOUT_split_3x6_3(
-    CW_TOGG,       KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                 KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          KC_DEL,
-    OSM(MOD_LSFT), KC_A,          LT(U, KC_S),  ALT_T(KC_D),   LT(N, KC_F),   KC_G,                 KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(Y),
-    TG(_BLN),      KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,                 KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       C(G(KC_Q)),
+    TG(_BLN),      KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                 KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          KC_DEL,
+    MY_CW_TOG,     KC_A,          LT(U, KC_S),  ALT_T(KC_D),   LT(N, KC_F),   KC_G,                 KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(Y),
+    _______,       KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,                 KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       C(G(KC_Q)),
                                                 CTL_T(KC_ESC), GUI_T(KC_SPC), KB_VLEAD,             HYPR_T(KC_ENT),SFT_T(KC_BSPC),OSL(M)
 ),
 
@@ -83,15 +84,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 
 #define SEQ_END 0
+const uint16_t PROGMEM goto_ws1[] = {LT(U, KC_S), GUI_T(KC_SPC), KC_M, SEQ_END};
+const uint16_t PROGMEM goto_ws2[] = {LT(U, KC_S), GUI_T(KC_SPC), KC_COMM, SEQ_END};
+const uint16_t PROGMEM goto_ws3[] = {LT(U, KC_S), GUI_T(KC_SPC), KC_DOT, SEQ_END};
 const uint16_t PROGMEM goto_ws4[] = {LT(U, KC_S), GUI_T(KC_SPC), KC_J, SEQ_END};
 const uint16_t PROGMEM goto_ws5[] = {LT(U, KC_S), GUI_T(KC_SPC), KC_K, SEQ_END};
 const uint16_t PROGMEM goto_ws6[] = {LT(U, KC_S), GUI_T(KC_SPC), KC_L, SEQ_END};
+const uint16_t PROGMEM goto_ws7[] = {LT(U, KC_S), GUI_T(KC_SPC), KC_U, SEQ_END};
+const uint16_t PROGMEM goto_ws8[] = {LT(U, KC_S), GUI_T(KC_SPC), KC_I, SEQ_END};
+const uint16_t PROGMEM goto_ws9[] = {LT(U, KC_S), GUI_T(KC_SPC), KC_O, SEQ_END};
 
+// clang-format off
 combo_t key_combos[] = {
+    COMBO(goto_ws1, G(KC_1)),
+    COMBO(goto_ws2, G(KC_2)),
+    COMBO(goto_ws3, G(KC_3)),
     COMBO(goto_ws4, G(KC_4)),
     COMBO(goto_ws5, G(KC_5)),
     COMBO(goto_ws6, G(KC_6)),
+    COMBO(goto_ws7, G(KC_7)),
+    COMBO(goto_ws8, G(KC_8)),
+    COMBO(goto_ws9, G(KC_9)),
 };
+// clang-format on
 
 #if defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {};
@@ -161,18 +176,20 @@ typedef struct vlead_seq_t {
 
 enum vleader_events {
     K_U,
-    K_C,
+    K_D,
     K_E,
     K_M,
+    K_H,
     K_NM,
     K_NT,
     K_NA,
 };
 
 const uint16_t PROGMEM k_u[]  = {KC_U, SEQ_END};
-const uint16_t PROGMEM k_c[]  = {KC_C, SEQ_END};
+const uint16_t PROGMEM k_d[]  = {ALT_T(KC_D), SEQ_END};
 const uint16_t PROGMEM k_e[]  = {KC_E, SEQ_END};
 const uint16_t PROGMEM k_m[]  = {KC_M, SEQ_END};
+const uint16_t PROGMEM k_h[]  = {KC_H, SEQ_END};
 const uint16_t PROGMEM k_nm[] = {KC_N, KC_M, SEQ_END};
 const uint16_t PROGMEM k_nt[] = {KC_N, KC_T, SEQ_END};
 const uint16_t PROGMEM k_na[] = {KC_N, KC_A, SEQ_END};
@@ -180,9 +197,10 @@ const uint16_t PROGMEM k_na[] = {KC_N, KC_A, SEQ_END};
 // clang-format off
 vlead_seq_t vleader_map[] = {
     VLEAD_SEQ(k_u, K_U),
-    VLEAD_SEQ(k_c, K_C),
+    VLEAD_SEQ(k_d, K_D),
     VLEAD_SEQ(k_e, K_E),
     VLEAD_SEQ(k_m, K_M),
+    VLEAD_SEQ(k_h, K_H),
     VLEAD_SEQ(k_nm, K_NM),
     VLEAD_SEQ(k_nt, K_NT),
     VLEAD_SEQ(k_na, K_NA),
@@ -194,7 +212,7 @@ void process_vlead_event_user(uint16_t vlead_idx) {
         case K_U:
             SEND_STRING("../");
             break;
-        case K_C:
+        case K_D:
             SEND_STRING("./");
             break;
         default:
@@ -237,13 +255,6 @@ void vleader_start(void) {
     for (uint16_t i = 0; i < vleader_map_count(); i++) {
         vlead_seq_t *seq    = vleader_map_get(i);
         seq->is_eligible    = 1;
-        uint16_t keys_count = 0;
-        while (true) {
-            uint16_t key = pgm_read_word(&seq->keys[keys_count]);
-            if (key == SEQ_END) break;
-            keys_count++;
-        }
-        seq->keys_count = keys_count;
     }
 }
 
@@ -304,6 +315,19 @@ bool process_vleader(uint16_t keycode, keyrecord_t *record) {
         }
     }
     return true;
+}
+
+void keyboard_post_init_user(void) {
+    for (uint16_t i = 0; i < vleader_map_count(); i++) {
+        vlead_seq_t *seq    = vleader_map_get(i);
+        uint16_t keys_count = 0;
+        while (true) {
+            uint16_t key = pgm_read_word(&seq->keys[keys_count]);
+            if (key == SEQ_END) break;
+            keys_count++;
+        }
+        seq->keys_count = keys_count;
+    }
 }
 
 void housekeeping_task_user(void) {
@@ -375,65 +399,78 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
     }
 
+    const uint8_t all_mods = get_mods() | get_oneshot_mods();
+
     // This switch can actually modify keypress behavior.
     switch (keycode) {
+        case MY_CW_TOG:
+            if (record->event.pressed) {
+                if (all_mods & MOD_MASK_SHIFT) {
+                    caps_word_toggle();
+                } else {
+                    add_oneshot_mods(MOD_MASK_SHIFT);
+                }
+                return false;
+            }
+            break;
         case LT(0, KC_Q):
             if (!record->tap.count && record->event.pressed) {
                 tap_code16(KC_1);
                 return false;
             }
-            return true;
+            break;
         case LT(0, KC_W):
             if (!record->tap.count && record->event.pressed) {
                 tap_code16(KC_2);
                 return false;
             }
-            return true;
+            break;
         case LT(0, KC_E):
             if (!record->tap.count && record->event.pressed) {
                 tap_code16(KC_3);
                 return false;
             }
-            return true;
+            break;
         case LT(0, KC_R):
             if (!record->tap.count && record->event.pressed) {
                 tap_code16(KC_4);
                 return false;
             }
-            return true;
+            break;
         case LT(0, KC_T):
             if (!record->tap.count && record->event.pressed) {
                 tap_code16(KC_Y);
                 return false;
             }
-            return true;
+            break;
         case LT(0, KC_G):
             if (!record->tap.count && record->event.pressed) {
                 tap_code16(KC_H);
                 return false;
             }
-            return true;
+            break;
         case LT(0, KC_X):
             if (!record->tap.count && record->event.pressed) {
                 tap_code16(KC_KP_7);
                 return false;
             }
-            return true;
+            break;
         case LT(0, KC_C):
             if (!record->tap.count && record->event.pressed) {
                 tap_code16(KC_KP_1);
                 return false;
             }
-            return true;
+            break;
         case LT(0, KC_V):
             if (!record->tap.count && record->event.pressed) {
                 tap_code16(KC_KP_3);
                 return false;
             }
-            return true;
+            break;
         default:
-            return true;
+            break;
     }
+    return true;
 }
 
 /* ******************* */
