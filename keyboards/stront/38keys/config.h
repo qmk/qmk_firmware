@@ -3,5 +3,6 @@
 
 #pragma once
 
-bool is_display_enabled(void);
-bool is_display_side(void);
+#define LCD_DC_PIN GP12
+#define LCD_RST_PIN GP13
+#define BACKLIGHT_PWM_DRIVER PWMD7

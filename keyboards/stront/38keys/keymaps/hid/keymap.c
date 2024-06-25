@@ -4,6 +4,7 @@
 #include QMK_KEYBOARD_H
 
 #include "hid_display.h"
+#include "display.h"
 #include "raw_hid.h"
 #include "transactions.h"
 
@@ -38,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *               .---------------------------.                    .---------------------------.
      *               |   W  |   E  |   R  |   T  |                    |   Y  |   U  |   I  |   O  |
      * .------+------+------+------+------+------|                    |------+------+------+------+------+------.
-     * |  Q   |   A  |   S  |   D  |   F  |   G  |                    |   H  |   J  |   K  |   L  |   P  |  ;   |
+     * |  Q   |   A  |   S  |   D  |   F  |   G  |                    |   H  |   J  |   K  |   L  |   ;  |  P   |
      * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
      * |  -   |   Z  |   X  |   C  |   V  |   B  |--------.  .--------|   N  |   M  |   ,  |   .  |   /  |  '   |
      * '-----------------------------------------/       /    \       \-----------------------------------------'
@@ -98,36 +99,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // clang-format on
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    dprintf("process_record_user %u %s %s %d\n", keycode, record->event.pressed ? "pressed" : "depressed", record->tap.interrupted ? "interrupted" : "not interrupted", record->tap.count);
-
-    if (record->event.pressed) {
-        uint8_t data[32];
-        data[0] = 0;
-
-        switch (keycode) {
-            // send hid commands
-            case KC_VOLU:
-            case KC_VOLD:
-                data[0] = _VOLUME;
-                break;
-        }
-
-        if (data[0]) {
-            dprintf("raw_hid_send %u\n", data[0]);
-            raw_hid_send(data, sizeof(data));
-        }
-    }
-
-    return true;
-}
-
 /* Caps Word processing */
 #ifdef CAPS_WORD_ENABLE
 void caps_word_set_user(bool active) {
     if (is_display_enabled()) {
-        display_process_caps_word(active);
-    } else if (is_keyboard_master() && !is_keyboard_left()) {
+        display_process_caps(active);
+    } else if (is_keyboard_master() && !is_display_side()) {
         dprintf("RPC_ID_USER_CAPS_WORD_SYNC: %s\n", active ? "active" : "inactive");
         transaction_rpc_send(RPC_ID_USER_CAPS_WORD_SYNC, 1, &active);
     }
@@ -138,7 +115,7 @@ void caps_word_set_user(bool active) {
 layer_state_t layer_state_set_user(layer_state_t state) {
     if (is_display_enabled()) {
         display_process_layer_state(get_highest_layer(state));
-    } else if (is_keyboard_master() && !is_keyboard_left()) {
+    } else if (is_keyboard_master() && !is_display_side()) {
         uint8_t layer = get_highest_layer(state);
         dprintf("RPC_ID_USER_LAYER_SYNC: %u\n", layer);
         transaction_rpc_send(RPC_ID_USER_LAYER_SYNC, 1, &layer);
@@ -153,7 +130,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 
     if (is_display_enabled()) {
         display_process_raw_hid_data(data, length);
-    } else if (is_keyboard_master() && !is_keyboard_left()) {
+    } else if (is_keyboard_master() && !is_display_side()) {
         dprint("RPC_ID_USER_HID_SYNC \n");
         transaction_rpc_send(RPC_ID_USER_HID_SYNC, length, data);
     }
@@ -173,7 +150,7 @@ void layer_sync(uint8_t initiator2target_buffer_size, const void *initiator2targ
 
 void caps_word_sync(uint8_t initiator2target_buffer_size, const void *initiator2target_buffer, uint8_t target2initiator_buffer_size, void *target2initiator_buffer) {
     if (is_display_enabled()) {
-        display_process_caps_word(*(bool *)initiator2target_buffer);
+        display_process_caps(*(bool *)initiator2target_buffer);
     }
 }
 
