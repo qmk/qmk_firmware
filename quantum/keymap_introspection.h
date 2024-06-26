@@ -67,3 +67,17 @@ combo_t* combo_get_raw(uint16_t combo_idx);
 combo_t* combo_get(uint16_t combo_idx);
 
 #endif // defined(COMBO_ENABLE)
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Key Interrupt
+
+#if defined(KEY_INTERRUPT_ENABLE)
+// Get the number of key interrupts defined in the user's keymap, stored in firmware rather than any other persistent storage
+uint16_t key_interrupt_count_raw(void);
+// Get the number of key interrupts defined in the user's keymap, potentially stored dynamically
+uint16_t key_interrupt_count(void);
+
+uint16_t key_interrupt_get_keycode_press_at_idx(uint16_t idx);
+
+uint16_t key_interrupt_get_keycode_unpress_at_idx(uint16_t idx);
+#endif // defined(KEY_INTERRUPT_ENABLE)
