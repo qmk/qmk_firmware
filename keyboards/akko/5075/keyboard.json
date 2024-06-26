@@ -11,6 +11,12 @@
             "backing_size": 8192
         }
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "dip_switch": {
         "pins": ["A9"]
     },
