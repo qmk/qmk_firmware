@@ -11,6 +11,7 @@ import jsonschema
 from qmk.constants import QMK_USERSPACE, HAS_QMK_USERSPACE
 from qmk.json_schema import json_load, validate
 from qmk.keyboard import keyboard_alias_definitions
+from qmk.util import maybe_exit
 
 
 def find_make():
@@ -52,7 +53,7 @@ def parse_configurator_json(configurator_file):
 
     except jsonschema.ValidationError as e:
         cli.log.error(f'Invalid JSON keymap: {configurator_file} : {e.message}')
-        exit(1)
+        maybe_exit(1)
 
     keyboard = user_keymap['keyboard']
     aliases = keyboard_alias_definitions()
@@ -101,7 +102,9 @@ def dump_lines(output_file, lines, quiet=True):
         output_file.parent.mkdir(parents=True, exist_ok=True)
         if output_file.exists():
             output_file.replace(output_file.parent / (output_file.name + '.bak'))
-        output_file.write_text(generated, encoding='utf-8')
+        with open(output_file, 'w', encoding='utf-8', newline='\n') as f:
+            f.write(generated)
+        # output_file.write_text(generated, encoding='utf-8', newline='\n') # `newline` needs Python 3.10
 
         if not quiet:
             cli.log.info(f'Wrote {output_file.name} to {output_file}.')

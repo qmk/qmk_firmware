@@ -18,9 +18,6 @@
 void matrix_init_kb(void) {
     // Set our LED pins as output
     gpio_set_pin_output(D6);
-    gpio_set_pin_output(B4);
-    gpio_set_pin_output(B5);
-    gpio_set_pin_output(B6);
 
     // Set our Tilt Sensor pins as input
     gpio_set_pin_input_high(SHAKE_PIN_A);
@@ -131,17 +128,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 #endif
 
     return process_record_user(keycode, record);
-}
-
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if(res) {
-        gpio_write_pin(B4, !led_state.num_lock);
-        gpio_write_pin(B5, !led_state.caps_lock);
-        gpio_write_pin(B6, !led_state.scroll_lock);
-    }
-
-    return res;
 }
 
 __attribute__((weak)) bool encoder_update_keymap(uint8_t index, bool clockwise) { return true; }

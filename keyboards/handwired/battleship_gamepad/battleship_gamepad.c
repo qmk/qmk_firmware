@@ -16,12 +16,6 @@
 
 #include "quantum.h"
 
-/* joystick config */
-joystick_config_t joystick_axes[JOYSTICK_AXIS_COUNT] = {
-    [0] = JOYSTICK_AXIS_IN(F5, 1023, 512, 0),
-    [1] = JOYSTICK_AXIS_IN(F4, 0, 512, 1023)
-};
-
 /* joystick button code (thumbstick pressed) */
 void keyboard_pre_init_kb(void) {
 	gpio_set_pin_input_high(F6);

@@ -17,21 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 
-void keyboard_pre_init_kb(void) {
-  gpio_set_pin_output(E6);
-  gpio_write_pin_high(E6);
-  
-  keyboard_pre_init_user();
-}
-
-bool led_update_kb(led_t led_state) {
-    if(led_update_user(led_state)) {
-        gpio_write_pin(E6, !led_state.caps_lock);
-    }
-
-    return true;
-}
-
 #ifdef RGB_MATRIX_ENABLE
 void suspend_power_down_kb(void) {
     rgb_matrix_set_suspend_state(true);
