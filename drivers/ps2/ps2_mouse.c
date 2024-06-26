@@ -51,6 +51,8 @@ void ps2_mouse_init(void) {
     wait_ms(PS2_MOUSE_INIT_DELAY); // wait for powering up
 
     PS2_MOUSE_SEND(PS2_MOUSE_RESET, "ps2_mouse_init: sending reset");
+    // Spec calls for 500ms sleep after reset.
+    wait_ms(500);
 
     PS2_MOUSE_RECEIVE("ps2_mouse_init: read BAT");
     PS2_MOUSE_RECEIVE("ps2_mouse_init: read DevID");
@@ -58,8 +60,8 @@ void ps2_mouse_init(void) {
 #ifdef PS2_MOUSE_USE_REMOTE_MODE
     ps2_mouse_set_remote_mode();
 #else
-    ps2_mouse_enable_data_reporting();
-    ps2_mouse_set_stream_mode();
+    ps2_mouse_disable_data_reporting();
+    ps2_mouse_mode = PS2_MOUSE_STREAM_MODE;
 #endif
 
 #ifdef PS2_MOUSE_ENABLE_SCROLLING
@@ -71,6 +73,8 @@ void ps2_mouse_init(void) {
 #endif
 
     ps2_mouse_init_user();
+
+    ps2_mouse_enable_data_reporting();
 }
 
 __attribute__((weak)) void ps2_mouse_init_user(void) {}
@@ -194,6 +198,44 @@ void ps2_mouse_set_resolution(ps2_mouse_resolution_t resolution) {
 
 void ps2_mouse_set_sample_rate(ps2_mouse_sample_rate_t sample_rate) {
     PS2_MOUSE_SET_SAFE(PS2_MOUSE_SET_SAMPLE_RATE, sample_rate, "ps2 mouse set sample rate");
+}
+
+const char* ps2_register_enum_to_string(ps2_mouse_register_e reg) {
+    switch (reg) {
+        case PS2_MOUSE_SENSITIVITY_FACTOR:
+            return "sensitivity";
+        case PS2_MOUSE_VALUE6:
+            return "value6";
+        case PS2_MOUSE_K1:
+            return "K1";
+        case PS2_MOUSE_C1:
+            return "C1";
+        case PS2_MOUSE_C2:
+            return "C2";
+        case PS2_MOUSE_C3:
+            return "C3";
+        default:
+            return "unknown register";
+    }
+}
+
+uint8_t ps2_mouse_read_register(ps2_mouse_register_e reg) {
+    PS2_MOUSE_SEND(0xE2, "trackpoint command");
+    PS2_MOUSE_SEND(0x80, "read byte");
+    PS2_MOUSE_SEND(reg, ps2_register_enum_to_string(reg));
+    uint8_t rcv = ps2_host_recv_response();
+    if (debug_mouse) {
+        xprintf("ps2 read register %s result: %X, error: %X [%ld] \n", ps2_register_enum_to_string(reg), rcv, ps2_error, timer_read32());
+    }
+    return rcv;
+}
+
+
+void ps2_mouse_write_register(ps2_mouse_register_e reg, uint8_t data) {
+    PS2_MOUSE_SEND(0xE2, "trackpoint command");
+    PS2_MOUSE_SEND(0x81, "write byte");
+    PS2_MOUSE_SEND(reg, ps2_register_enum_to_string(reg));
+    PS2_MOUSE_SEND(data, "data");
 }
 
 /* ============================= HELPERS ============================ */

@@ -128,6 +128,7 @@ ifeq ($(strip $(POINTING_DEVICE)), trackpoint)
 	PS2_DRIVER = vendor
 	POINTING_DEVICE_ENABLE = yes
 	POINTING_DEVICE_DRIVER = ps2
+	MSG_POINTING_DEVICE = trackpoint
 endif
 
 ifeq ($(strip $(POINTING_DEVICE)), trackpoint_trackball)

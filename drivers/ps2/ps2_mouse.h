@@ -135,6 +135,15 @@ enum ps2_mouse_command_e {
     PS2_MOUSE_SET_SCALING_1_1        = 0xE6,
 };
 
+typedef enum ps2_mouse_register_e {
+    PS2_MOUSE_SENSITIVITY_FACTOR    = 0x4A,
+    PS2_MOUSE_VALUE6                = 0x60,
+    PS2_MOUSE_K1         = 0xA9,
+    PS2_MOUSE_C1         = 0xA5,
+    PS2_MOUSE_C2         = 0xA6,
+    PS2_MOUSE_C3         = 0xA7,
+} ps2_mouse_register_e;
+
 typedef enum ps2_mouse_resolution_e {
     PS2_MOUSE_1_COUNT_MM,
     PS2_MOUSE_2_COUNT_MM,
@@ -175,5 +184,7 @@ void ps2_mouse_set_scaling_1_1(void);
 void ps2_mouse_set_resolution(ps2_mouse_resolution_t resolution);
 
 void ps2_mouse_set_sample_rate(ps2_mouse_sample_rate_t sample_rate);
+uint8_t ps2_mouse_read_register(ps2_mouse_register_e reg);
+void ps2_mouse_write_register(ps2_mouse_register_e reg, uint8_t data);
 
 void ps2_mouse_moved_user(report_mouse_t *mouse_report);
