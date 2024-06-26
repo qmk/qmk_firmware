@@ -9,10 +9,6 @@
     "bootloader": "rp2040",
     "debounce": 20,
     "diode_direction": "COL2ROW",
-    "dip_switch": {
-        "enabled": true,
-        "pins": ["GP14"]
-    },
     "encoder": {
         "rotary": [{ "pin_a": "GP12", "pin_b": "GP13", "resolution": 2 }]
     },
@@ -24,7 +20,7 @@
         "rgblight": true
     },
     "matrix_pins": {
-        "cols": ["GP6", "GP7", "GP8", "GP9"],
+        "cols": ["GP6", "GP7", "GP8", "GP9", "GP14"],
         "rows": ["GP2", "GP3", "GP4", "GP5"]
     },
     "processor": "RP2040",
@@ -67,12 +63,13 @@
         "pin": "GP10"
     },
     "layouts": {
-        "LAYOUT_ortho_4x4": {
+        "LAYOUT_custom_matrix": {
             "layout": [
                 { "label": "7", "matrix": [0, 0], "x": 0, "y": 0 },
                 { "label": "8", "matrix": [0, 1], "x": 1, "y": 0 },
                 { "label": "9", "matrix": [0, 2], "x": 2, "y": 0 },
                 { "label": "/", "matrix": [0, 3], "x": 3, "y": 0 },
+                { "label": "MUTE", "matrix": [0, 4], "x": 4, "y": 0 },
                 { "label": "4", "matrix": [1, 0], "x": 0, "y": 1 },
                 { "label": "5", "matrix": [1, 1], "x": 1, "y": 1 },
                 { "label": "6", "matrix": [1, 2], "x": 2, "y": 1 },

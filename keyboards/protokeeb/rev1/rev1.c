@@ -16,20 +16,18 @@
 
 #include "quantum.h"
 
-#if defined(DIP_SWITCH_ENABLE)
-bool dip_switch_update_kb(uint8_t index, bool active) {
-    if (!dip_switch_update_user(index, active)) {
-        return false;
+// Override the matrix read function to include the encoder button
+void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) 
+{
+    if (current_row == ENCODER_BUTTON_ROW) 
+    {
+        if (readPin(ENCODER_BUTTON_PIN) == 0) 
+        {
+            current_matrix[current_row] |= (1 << ENCODER_BUTTON_COL);
+        } 
+        else 
+        {
+            current_matrix[current_row] &= ~(1 << ENCODER_BUTTON_COL);
+        }
     }
-    switch (index) {
-        case 0:
-            // Encoder Push Button Pressed
-            if (active) {
-                // Toggle Host Mute
-                tap_code(KC_MUTE);
-            }
-            break;
-    }
-    return true;
 }
-#endif
