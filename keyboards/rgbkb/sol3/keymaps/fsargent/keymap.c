@@ -5,7 +5,8 @@
  * notice you can do whatever you want with this stuff. If we meet some day,	and
  * you think this stuff is worth it,	you can buy me a beer in return. David Rauseo
  *
- * make rgbkb/sol3/rev1:fsargent:flash
+ * qmk compile -kb rgbkb/sol3 -km fsargent
+ * qmk flash -kb rgbkb/sol3 -km fsargent
  * ----------------------------------------------------------------------------
  */
 
@@ -13,19 +14,19 @@
 #include "os_detection.h"
 
 /* Qwerty
- * ┌──────┬──────┬──────┬──────┬──────┬──────┬──────┐  ┌──────┬──────┬──────┬──────┬──────┬──────┬──────┐
- * │ GESC │   1  │   2  │   3  │   4  │   5  │   -  │  │		=  │   6  │   7  │   8  │   9  │   0  │ BkSp │
- * ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤
- * │ Tab  │   Q  │   W  │   E  │   R  │   T  │   [  │  │   ]  │   Y  │   U  │   I  │   O  │   P  │   \  │
- * ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤
- * │FNCAPS│   A  │   S  │   D  │   F  │   G  │   (  │  │   )  │   H  │   J  │   K  │   L  │   ;  │   '  │
- * ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤
- * │Shift │   Z  │   X  │   C  │   V  │   B  │   {  │  │   }  │   N  │   M  │   ,	 │   .  │   /  │Enter │
- * ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤
- * │ Ctrl │  Win │  Alt │  RGB │ ADJ  │	  │ DEL  │  │ Enter│	  │  FN  │ Left │ Down │ Up   │Right │
- * └──────┴──────┴──────┴──────┴──────┤ Space├──────┤  ├──────┤ Space├──────┴──────┴──────┴──────┴──────┘
- *									│	  │ DEL  │  │ Enter│	  │
- *									└──────┴──────┘  └──────┴──────┘
+* ┌──────┬──────┬──────┬──────┬──────┬──────┬──────┐  ┌──────┬──────┬──────┬──────┬──────┬──────┬──────┐
+* │ GESC │   1  │   2  │   3  │   4  │   5  │ ESC  │  │      │   6  │   7  │   8  │   9  │   0  │   -  │
+* ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤  ├ OLED ┼──────┼──────┼──────┼──────┼──────┼──────┤
+* │ Tab  │   Q  │   W  │   E  │   R  │   T  │   {  │  │      │   Y  │   U  │   I  │   O  │   P  │   \  │
+* ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤
+* |MEHESC│   A  │   S  │   D  │   F  │   G  │   (  │  │VOLUP │   H  │   J  │   K  │   L  │   ;  │   '  │
+* ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤
+* │Shift │   Z  │   X  │  C   │   V  │   B  │   [  │  │VOLDN │   N  │   M  │   ,  │   .  │   /  │Shift │
+* ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤
+* │ Ctrl │  Alt │  Win │  SYM │ NAV  │      │2Sym  │  │2Ctrl │      │  _   │   =  │RGUI  │RALT  │RCTRL │
+* └──────┴──────┴──────┴──────┴──────┤1BSpc ├──────┤  ├──────┤ 3Spc ├──────┴──────┴──────┴──────┴──────┘
+*				     │      │3Ctrl │  │1Enter│      │
+*				     └──────┴──────┘  └──────┴──────┘
  * ┌──────┬──────┬──────┬──────┬──────┬──────┐				┌──────┬──────┬──────┬──────┬──────┬──────┐
  * │Vol Dn│Vol Up│Vol Dn│Vol Up│Vol Dn│Vol Up│				│Vol Dn│Vol Up│Vol Dn│Vol Up│Vol Dn│Vol Up│
  * └──────┴──────┴──────┴──────┴──────┴──────┘				└──────┴──────┴──────┴──────┴──────┴──────┘
@@ -59,14 +60,14 @@ enum sol_keycodes {
 #define SYMTAB		LT(_NUM, KC_TAB)
 #define GAME		DF(_GAME)
 #define QWERTY		DF(_MAC)
-// #define UP		LT(_NUM, KC_PGUP)
-// #define DOWN		LT(_NUM, KC_PGDN)
 
 #define LBRC		MT(MOD_LALT, KC_LBRC)
 #define RBRC		MT(MOD_LGUI, KC_RBRC)
 
 #define MINUS		LT(_NUM, KC_MINS)
 #define EQL		LT(_SYM, KC_EQL)
+#define APPLE		KC_LPRN
+#define BERRY 		KC_RPRN
 
 
 #define LTHUMB0		CMD_T(KC_BSPC)
@@ -81,6 +82,16 @@ enum sol_keycodes {
 #define MT_K	MT(MOD_LGUI, KC_K)
 #define MT_L	MT(MOD_LALT, KC_L)
 #define MT_SEMI	MT(MOD_LCTL, KC_SCLN)
+
+#define M_A	LCTL_T(KC_A)
+#define M_S	LALT_T(KC_S)
+#define M_D	LGUI_T(KC_D)
+#define M_F	LSFT_T(KC_F)
+
+#define W_A	LCTL_T(KC_A)
+#define W_S	LALT_T(KC_S)
+#define W_D	LGUI_T(KC_D)
+#define W_F	LSFT_T(KC_F)
 
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 	switch (keycode) {
@@ -102,19 +113,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	/* Mac
 	* ┌──────┬──────┬──────┬──────┬──────┬──────┬──────┐  ┌──────┬──────┬──────┬──────┬──────┬──────┬──────┐
-	* │ GESC │   1  │   2  │   3  │   4  │   5  │ ESC  │  │	  │   6  │   7  │   8  │   9  │   0  │   -  │
+	* │ GESC │   1  │   2  │   3  │   4  │   5  │ ESC  │  │      │   6  │   7  │   8  │   9  │   0  │   -  │
 	* ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤  ├ OLED ┼──────┼──────┼──────┼──────┼──────┼──────┤
-	* │ Tab  │   Q  │   W  │   E  │   R  │   T  │   {  │  │	  │   Y  │   U  │   I  │   O  │   P  │   \  │
+	* │ Tab  │   Q  │   W  │   E  │   R  │   T  │   {  │  │      │   Y  │   U  │   I  │   O  │   P  │   \  │
 	* ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤
 	* |MEHESC│   A  │   S  │   D  │   F  │   G  │   (  │  │VOLUP │   H  │   J  │   K  │   L  │   ;  │   '  │
 	* ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤
 	* │Shift │   Z  │   X  │  C   │   V  │   B  │   [  │  │VOLDN │   N  │   M  │   ,  │   .  │   /  │Shift │
 	* ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤
-	* │ Ctrl │  Alt │  Win │  SYM │ NAV  │	  │2Sym  │  │2Ctrl │	  │  _   │		=  │RGUI  │RALT  │RCTRL │
+	* │ Ctrl │  Alt │  Win │  NUM │ NAV  │      │2Del  │  │2Play │      │  -   │   =  │   (  │   )  │RCTRL │
 	* └──────┴──────┴──────┴──────┴──────┤1BSpc ├──────┤  ├──────┤ 3Spc ├──────┴──────┴──────┴──────┴──────┘
-	*									│	  │3Ctrl │  │1Enter│	  │
-	*									└──────┴──────┘  └──────┴──────┘
-	* Home Row Mods: To alt tab, use S + TAB on LTHUMB1.
+	*				     │      │3Alt  │  │1Enter│      │
+	*				     └──────┴──────┘  └──────┴──────┘
+	* Home Row Mods: To alt tab, use S + TAB on LTHUMB1.v
 	*
 	*/
 
@@ -123,20 +134,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_TAB,		KC_Q,		KC_W,		KC_E,		KC_R,		KC_T,		TO(_MAC),					KC_NO,		KC_Y,		KC_U,		KC_I,		KC_O,		KC_P,		KC_BSLS,
 	MEHESC,		LCTL_T(KC_A),	LALT_T(KC_S),	LGUI_T(KC_D),	LSFT_T(KC_F),	KC_G,		TO(_WIN),					KC_F11,		KC_H,		MT_J,		MT_K,		MT_L,		MT_SEMI,	KC_QUOT,
 	KC_LSFT,	KC_Z,		KC_X,		KC_C,		KC_V,		KC_B,		TO(_GAME),					KC_F12,		KC_N,		KC_M,		KC_COMM,	KC_DOT,		KC_SLSH,	KC_RSFT,
-	KC_LCTL,	LBRC,		RBRC,		MO(_NUM),	MO(_NAV),	LTHUMB0,	LTHUMB1,	LTHUMB2,	RTHUMB2,	RTHUMB1,	RTHUMB0,	MINUS,		EQL,		KC_RGUI,	KC_RALT,	KC_RCTL,
-
-	KC_WH_D,	KC_WH_U,	KC_LBRC,	KC_LPRN,	KC_LCBR,													KC_H,		KC_J,		KC_MNXT,	KC_MPLY,	KC_MPRV
+	KC_LCTL,	LBRC,		RBRC,		MO(_NUM),	MO(_NAV),	LTHUMB0,	LTHUMB1,	LTHUMB2,	RTHUMB2,	RTHUMB1,	RTHUMB0,	MINUS,		EQL,		APPLE,		BERRY,		KC_RCTL,
+	KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,														KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO
 	),
 
 
 	[_WIN]	= LAYOUT(
 	KC_GRV,		_______,	_______,	_______,	_______,	_______,	_______,					_______,	_______,	_______,	_______,	_______,	_______,	_______,
 	_______,	_______,	_______,	_______,	_______,	_______,	_______,					_______,	_______,	_______,	_______,	_______,	_______,	_______,
-	MEHESC,		LGUI_T(KC_A),	LALT_T(KC_S),	LCTL_T(KC_D),	LSFT_T(KC_F),	_______,	_______,					_______,	_______,	_______,	LCTL_T(KC_K),	_______,	LGUI_T(KC_SCLN),	_______,
+	MEHESC,		LGUI_T(KC_A),	LALT_T(KC_S),	LCTL_T(KC_D),	LSFT_T(KC_F),	_______,	_______,					_______,	_______,	_______,	LCTL_T(KC_K),	_______,	LGUI_T(KC_SCLN),_______,
 	_______,	_______,	_______,	_______,	_______,	_______,	_______,					_______,	_______,	_______,	_______,	_______,	_______,	_______,
-
 	_______,	_______,	_______,	_______,	MO(_WINNAV),	LTHUMB0WIN,	LTHUMB1,	LTHUMB2,	RTHUMB2,	RTHUMB1,	RTHUMB0,	_______,	_______,	_______,	_______,	_______,
-
 	_______,	_______,	_______,	_______,	_______,													_______,	_______,	_______,	_______,	_______
 	),
 
@@ -145,9 +153,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	C(KC_TAB),	A(KC_BSPC),	A(KC_LEFT),	KC_UP,		A(KC_RGHT),	A(KC_DEL),	_______,					_______,	KC_WH_U,	KC_WH_U,	KC_MS_U,	KC_WH_L,	KC_PGUP,	_______,
 	KC_MEH,		G(KC_LEFT),	KC_LEFT,	KC_DOWN,	KC_RGHT,	G(KC_RGHT),	_______,					KC_F11,		KC_WH_L,	KC_MS_L,	KC_MS_D,	KC_MS_R,	KC_WH_R,	_______,
 	KC_LSFT,	KC_HOME,	G(KC_DOWN),	KC_DEL,		G(KC_UP),	KC_END,		_______,					KC_F12,		KC_WH_D,	KC_WH_D,	KC_NO,		KC_NO,		KC_PGDN,	_______,
-	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	KC_BTN2,	KC_MPLY,	KC_BTN1,	KC_APP,		_______,	_______,	_______,	_______,
-
-	_______,	_______,	KC_RBRC,	KC_RPRN,	KC_RCBR,													_______,	_______,	_______,	_______,	_______
+	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	KC_BTN2,	MENU_BTN,	KC_BTN1,	KC_APP,		_______,	_______,	_______,	_______,
+	_______,	_______,	_______,	_______,	_______,													_______,	_______,	_______,	_______,	_______
 	),
 
 	[_GAME]		= LAYOUT(
@@ -155,9 +162,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	_______,	_______,	_______,	_______,	_______,	_______,	_______,					_______,	_______,	_______,	_______,	_______,	_______,	_______,
 	KC_ESC,		KC_A,		KC_S,		KC_D,		KC_F,		_______,	_______,					_______,	_______,	_______,	_______,	_______,	_______,	_______,
 	_______,	_______,	_______,	_______,	_______,	_______,	_______,					_______,	_______,	_______,	_______,	_______,	_______,	_______,
-
-	_______,	_______,	_______,	_______,	MO(_WINNAV), KC_SPC,	LT(_NUM, KC_DEL),	 KC_LALT,	KC_ENT,		KC_MPLY,	KC_SPC,		_______,	_______,	_______,	_______,	_______,
-
+	_______,	_______,	_______,	_______,	MO(_WINNAV), KC_SPC,	LT(_NUM, KC_DEL),	 KC_LALT,	KC_ENT,		_______,	KC_SPC,		_______,	_______,	_______,	_______,	_______,
 	_______,	_______,	_______,	_______,	_______,													_______,	_______,	_______,	_______,	_______
 	),
 
@@ -167,7 +172,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_NUM,		KC_KP_0,	KC_P4,		KC_P5,		KC_P6,		KC_PPLS,	_______,					RGB_MOD,	KC_PPLS,	KC_P4,		KC_P5,		KC_P6,		KC_MINS,	KC_PEQL,
 	_______,	KC_PSLS,	KC_P1,		KC_P2,		KC_P3,		KC_EQL,		_______,					RGB_RMOD,	KC_PAST,	KC_P1,		KC_P2,		KC_P3,		KC_PSLS,	S(KC_G),
 	_______,	KC_EQL,		KC_COMMA,	KC_KP_0,	KC_PDOT,	_______,	_______,	_______,	KC_PDOT,	MENU_BTN,	KC_KP_0,	KC_LPRN,	KC_LBRC,	KC_RBRC,	KC_RPRN,	KC_AT,
-	_______,	_______,	KC_RBRC,	KC_RPRN,	KC_RCBR,													_______,	_______,	_______,	_______,	_______
+	_______,	_______,	_______,	_______,	_______,													_______,	_______,	_______,	_______,	_______
 	),
 
 	[_WINNAV] = LAYOUT(
@@ -175,9 +180,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	C(KC_TAB),	C(KC_BSPC),	C(KC_LEFT),	KC_UP,		C(KC_RGHT),	C(KC_DEL),	KC_RCBR,					_______,	KC_WH_U,	KC_WH_U,	KC_MS_U,	KC_WH_L,	KC_PGUP,	_______,
 	KC_MEH,		KC_HOME,	KC_LEFT,	KC_DOWN,	KC_RGHT,	KC_END,		KC_RPRN,					KC_F11,		KC_WH_L,	KC_MS_L,	KC_MS_D,	KC_MS_R,	KC_WH_R,	_______,
 	KC_LSFT,	C(KC_HOME),	C(KC_DOWN),	KC_DEL,		C(KC_UP),	C(KC_END),	KC_RBRC,					KC_F12,		KC_WH_D,	KC_WH_D,	KC_NO,		KC_NO,		KC_PGDN,	_______,
-	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	KC_BTN3,	KC_BTN2,	KC_BTN1,	_______,	_______,	_______,	_______,	_______,
-
-	_______,	_______,	KC_RBRC,	KC_RPRN,	KC_RCBR,																		_______,	_______,	_______,	_______,	_______
+	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	KC_BTN2,	MENU_BTN,	KC_BTN1,	_______,	_______,	_______,	_______,	_______,
+	_______,	_______,	_______,	_______,	_______,													_______,	_______,	_______,	_______,	_______
 
 	),
 
@@ -187,8 +191,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	_______,	MEH(KC_A),	MEH(KC_S),	MEH(KC_D),	MEH(KC_F),	MEH(KC_G),	TO(_GAME),					KC_VOLU,	MEH(KC_H),	MEH(KC_J),	MEH(KC_K),	MEH(KC_L),	MEH(KC_SCLN),	MEH(KC_QUOT),
 	_______,	MEH(KC_Z),	MEH(KC_X),	MEH(KC_C),	MEH(KC_V),	MEH(KC_B),	_______,					KC_VOLD,	MEH(KC_N),	MEH(KC_M),	MEH(KC_COMM),	MEH(KC_DOT),	MEH(KC_SLSH),	MEH(KC_RSFT),
 	_______,	_______,	RGB_RMOD,	RGB_TOG,	RGB_MOD,	KC_LGUI,	KC_LALT,	KC_LCTL,	KC_MNXT,	KC_MPRV,	KC_MPLY,	TO(_MAC),	TO(_WIN),	TO(_GAME),	_______,	_______,
-
-	_______,	_______,	_______,	_______,	_______,																_______,	_______,	_______,	_______,	_______
+	_______,	_______,	_______,	_______,	_______,													_______,	_______,	_______,	_______,	_______
 	),
 
 	[_SYM]	= LAYOUT(
@@ -196,9 +199,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_EXLM,	KC_LCBR,	KC_QUOT,	KC_DQT,		KC_RCBR,	KC_QUES,	_______,					_______,	KC_SCLN,	KC_LSFT,	KC_LCTL,	KC_LALT,	KC_LGUI,	_______,
 	KC_HASH,	KC_CIRC,	KC_EQL,		KC_UNDS,	KC_DLR,		KC_ASTR,	_______,					_______,	KC_DOT,		KC_BSPC,	KC_TAB,		KC_SPC,		KC_ENT,		_______,
 	KC_TILD,	KC_LT,		KC_PIPE,	KC_MINS,	KC_GT,		KC_SLSH,	_______,					_______,	KC_SLSH,	KC_DEL,		S(KC_TAB),	_______,	_______,	_______,
-
 	KC_AT,		KC_AMPR,	KC_LBRC,	KC_RBRC,	KC_PLUS,	KC_BSLS,	_______,	_______,	_______,	_______,	_______,	KC_LPRN,	KC_LBRC,	KC_RBRC,	KC_RPRN,	_______,
-
 	_______,	_______,	_______,	_______,	_______,													_______,	_______,	_______,	_______,	_______
 	),
 };
@@ -213,12 +214,12 @@ bool process_record_user(uint16_t keycode,	keyrecord_t *record) {
 			return false;
 		case MENU_UP:
 			if (record->event.pressed) {
-				rgb_menu_action(true);
+				rgb_menu_action(false);
 			}
 			return false;
 		case MENU_DN:
 			if (record->event.pressed) {
-				rgb_menu_action(false);
+				rgb_menu_action(true);
 			}
 			return false;
 		case RGB_RST:
@@ -273,19 +274,15 @@ void render_layer_status(void) {
 os_variant_t os_type;
 
 uint32_t startup_exec(uint32_t trigger_time, void *cb_arg) {
-	/* do something */
-
 	if (is_keyboard_master()) {
-		os_type		= detected_host_os();
+		os_type	= detected_host_os();
 		if (os_type) {
-		  //   bool is_mac						= (os_type		== OS_MACOS) || (os_type		== OS_IOS);
-		  //   keymap_config.swap_lctl_lgui		= keymap_config.swap_rctl_rgui		= is_mac;
-#	ifdef UNICODE_COMMON_ENABLE
-			uint8_t mode		= is_mac ? UNICODE_MODE_MACOS : UNICODE_MODE_WINCOMPOSE;
-			if (mode != get_unicode_input_mode()) {
-				set_unicode_input_mode(mode);
-			}
-#	endif
+			#ifdef UNICODE_COMMON_ENABLE
+				uint8_t mode = is_mac ? UNICODE_MODE_MACOS : UNICODE_MODE_WINCOMPOSE;
+				if (mode != get_unicode_input_mode()) {
+					set_unicode_input_mode(mode);
+				}
+			#endif
 			switch (os_type) {
 				case OS_UNSURE:
 					xprintf("unknown OS Detected\n");
@@ -295,33 +292,19 @@ uint32_t startup_exec(uint32_t trigger_time, void *cb_arg) {
 					break;
 				case OS_WINDOWS:
 					xprintf("Windows Detected\n");
-				layer_move(_WIN);
+					layer_move(_WIN);
 					break;
-#	if 0
-				case OS_WINDOWS_UNSURE:
-					xprintf("Windows? Detected\n");
-					break;
-#	endif
 				case OS_MACOS:
 					xprintf("MacOS Detected\n");
-				layer_move(_MAC);
+					layer_move(_MAC);
 					break;
 				case OS_IOS:
 					xprintf("iOS Detected\n");
-				layer_move(_MAC);
+					layer_move(_MAC);
 					break;
-#	if 0
-				case OS_PS5:
-					xprintf("PlayStation 5 Detected\n");
-					break;
-				case OS_HANDHELD:
-					xprintf("Nintend Switch/Quest 2 Detected\n");
-					break;
-#	endif
 			}
 		}
 	}
-
 	return os_type ? 0 : 500;
 }
 
@@ -352,20 +335,20 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 		ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)
 	},
 	[_NAV] = {
-		ENCODER_CCW_CW(KC_MPRV, KC_MNXT), ENCODER_CCW_CW(KC_MPRV, KC_MNXT), ENCODER_CCW_CW(KC_MPRV, KC_MNXT),
-		ENCODER_CCW_CW(KC_MPRV, KC_MNXT), ENCODER_CCW_CW(KC_MPRV, KC_MNXT), ENCODER_CCW_CW(KC_MPRV, KC_MNXT),
+		ENCODER_CCW_CW(MENU_DN, MENU_UP), ENCODER_CCW_CW(MENU_DN, MENU_UP), ENCODER_CCW_CW(MENU_DN, MENU_UP),
+		ENCODER_CCW_CW(MENU_DN, MENU_UP), ENCODER_CCW_CW(MENU_DN, MENU_UP), ENCODER_CCW_CW(MENU_DN, MENU_UP)
 	},
 	[_WINNAV] = {
-		ENCODER_CCW_CW(KC_MPRV, KC_MNXT), ENCODER_CCW_CW(KC_MPRV, KC_MNXT), ENCODER_CCW_CW(KC_MPRV, KC_MNXT),
-		ENCODER_CCW_CW(KC_MPRV, KC_MNXT), ENCODER_CCW_CW(KC_MPRV, KC_MNXT), ENCODER_CCW_CW(KC_MPRV, KC_MNXT),
+		ENCODER_CCW_CW(MENU_DN, MENU_UP), ENCODER_CCW_CW(MENU_DN, MENU_UP), ENCODER_CCW_CW(MENU_DN, MENU_UP),
+		ENCODER_CCW_CW(MENU_DN, MENU_UP), ENCODER_CCW_CW(MENU_DN, MENU_UP), ENCODER_CCW_CW(MENU_DN, MENU_UP)
 	},
 	[_GAME] = {
 		ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_VOLD, KC_VOLU),
 		ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)
 	},
 	[_MEH] 	= {
-		ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_VOLD, KC_VOLU),
-		ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)
+		ENCODER_CCW_CW(KC_MPRV, KC_MNXT), ENCODER_CCW_CW(KC_MPRV, KC_MNXT), ENCODER_CCW_CW(KC_MPRV, KC_MNXT),
+		ENCODER_CCW_CW(KC_MPRV, KC_MNXT), ENCODER_CCW_CW(KC_MPRV, KC_MNXT), ENCODER_CCW_CW(KC_MPRV, KC_MNXT),
 	},
 	[_NUM] 	= {
 		ENCODER_CCW_CW(MENU_DN, MENU_UP), ENCODER_CCW_CW(MENU_DN, MENU_UP), ENCODER_CCW_CW(MENU_DN, MENU_UP),
@@ -377,5 +360,3 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 	}
 };
 #endif
-
-// 	KC_MNXT,	KC_MPLY,	KC_MPRV

@@ -1,12 +1,3 @@
-/*
- * ----------------------------------------------------------------------------
- * "THE BEER-WARE LICENSE" (Revision 42):
- * <https://github.com/Legonut> wrote this file.  As long as you retain this
- * notice you can do whatever you want with this stuff. If we meet some day, and
- * you think this stuff is worth it, you can buy me a beer in return. David Rauseo
- * ----------------------------------------------------------------------------
- */
-
 #include "common_oled.h"
 #include "oled_driver.h"
 #include "rgb_matrix.h"
@@ -21,7 +12,7 @@ typedef struct {
     uint8_t selection;
 } kb_menu_status_t;
 
-static kb_menu_status_t rgb_menu = { false, 4 };
+static kb_menu_status_t rgb_menu = { false, 0 };
 static bool rgb_menu_changed = false;
 
 void render_logo(void) {
@@ -41,26 +32,33 @@ void render_icon(void) {
     oled_write_P(font_icon, false);
 }
 
-#define RGB_FUNCTION_COUNT 6
+#define RGB_FUNCTION_COUNT 5
 typedef void (*rgb_matrix_f)(void);
 const rgb_matrix_f rgb_matrix_functions[RGB_FUNCTION_COUNT][2] = {
+    { rgb_matrix_step,              rgb_matrix_step_reverse     },
+    { rgb_matrix_increase_val,      rgb_matrix_decrease_val     },
     { rgb_matrix_increase_hue,      rgb_matrix_decrease_hue     },
     { rgb_matrix_increase_sat,      rgb_matrix_decrease_sat     },
-    { rgb_matrix_increase_val,      rgb_matrix_decrease_val     },
     { rgb_matrix_increase_speed,    rgb_matrix_decrease_speed   },
-    { rgb_matrix_step,              rgb_matrix_step_reverse     },
-    { rgb_matrix_toggle,            rgb_matrix_toggle           }
+//     { rgb_matrix_toggle,            rgb_matrix_toggle           }
 };
 
 void render_rgb_menu(void) {
     static char buffer[63] = {0};
     snprintf(buffer, sizeof(buffer), "Mode   %3dValue  %3dHue    %3dSatrn  %3dSpeed  %3d",
-    rgb_matrix_config.mode,
-    rgb_matrix_config.hsv.v,
-    rgb_matrix_config.hsv.h,
-    rgb_matrix_config.hsv.s,
-    rgb_matrix_config.speed);
+	rgb_matrix_config.mode,
+	rgb_matrix_config.hsv.v,
+	rgb_matrix_config.hsv.h,
+	rgb_matrix_config.hsv.s,
+	rgb_matrix_config.speed
+    );
 
+    // Clear previous indicators
+    for (int i = 0; i < RGB_FUNCTION_COUNT; i++) {
+        buffer[5 + i * 10] = ' ';
+    }
+
+    // Set new indicator
     if (rgb_menu.selecting) {
         buffer[5 + rgb_menu.selection * 10] = '*';
     }
@@ -80,9 +78,7 @@ void rgb_menu_action(bool clockwise) {
     if (!is_keyboard_master()) return;
     if (rgb_menu.selecting)  {
         if (!clockwise) {
-            rgb_menu.selection = (rgb_menu.selection - 1);
-            if (rgb_menu.selection >= RGB_FUNCTION_COUNT)
-                rgb_menu.selection = RGB_FUNCTION_COUNT - 1;
+            rgb_menu.selection = (rgb_menu.selection - 1 + RGB_FUNCTION_COUNT) % RGB_FUNCTION_COUNT;
         }
         else {
             rgb_menu.selection = (rgb_menu.selection + 1) % RGB_FUNCTION_COUNT;

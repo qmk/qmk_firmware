@@ -20,14 +20,15 @@ const uint16_t PROGMEM gravminus_combo[]	= {KC_GRV, KC_DEL, COMBO_END};
 
 const uint16_t PROGMEM xcv_combo[]		= {KC_X, KC_C, KC_V, COMBO_END};
 
-const uint16_t PROGMEM cal_combo[]		= {KC_C, KC_A, MT(MOD_LALT, KC_L), COMBO_END};
+const uint16_t PROGMEM cal_combo[]		= {KC_C, M_A, MT_L, COMBO_END};
+const uint16_t PROGMEM win_cal_combo[]		= {KC_C, W_A, MT_L, COMBO_END};
 const uint16_t PROGMEM phone_combo[]		= {KC_P, KC_Q, COMBO_END};
 const uint16_t PROGMEM qnm_combo[]		= {KC_Q, KC_N, KC_M, COMBO_END};
 const uint16_t PROGMEM qin_combo[]		= {KC_Q, KC_I, KC_N, COMBO_END};
-const uint16_t PROGMEM eml_combo[]		= {KC_E, KC_M, MT(MOD_LALT, KC_L), COMBO_END};
+const uint16_t PROGMEM eml_combo[]		= {KC_E, KC_M, MT_L, COMBO_END};
 const uint16_t PROGMEM wrk_combo[]		= {KC_W, KC_R, MT(MOD_LGUI, KC_K), COMBO_END};
 const uint16_t PROGMEM rbu_combo[]		= {KC_R, KC_B, KC_U, COMBO_END};
-const uint16_t PROGMEM rbl_combo[]		= {KC_R, KC_B, MT(MOD_LALT, KC_L), COMBO_END};
+const uint16_t PROGMEM rbl_combo[]		= {KC_R, KC_B, MT_L, COMBO_END};
 
 const uint16_t PROGMEM togwin_combo[]		= {KC_9, KC_2, COMBO_END};
 const uint16_t PROGMEM toggame_combo[]		= {KC_0, KC_1, COMBO_END};
@@ -69,6 +70,7 @@ combo_t key_combos[]	= {
 	// [CTRLALTDEL]	= COMBO_ACTION(jklsemi_combo),
 
 	// Misc
+	[CAL]		= COMBO_ACTION(win_cal_combo),
 	[CAL]		= COMBO_ACTION(cal_combo),
 	[RBU]		= COMBO_ACTION(rbu_combo),
 	[RBL]		= COMBO_ACTION(rbl_combo),
@@ -205,16 +207,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 		case WRK:
 			if (pressed) {
 				SEND_STRING("fsargent@recruitbot.com");
-			}
-			break;
-		case RBU:
-			if (pressed) {
-				SEND_STRING("RecruitBot");
-			}
-			break;
-		case RBL:
-			if (pressed) {
-				SEND_STRING("recruitbot");
 			}
 			break;
 		case QP:
