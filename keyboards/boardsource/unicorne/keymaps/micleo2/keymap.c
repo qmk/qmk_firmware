@@ -32,14 +32,13 @@ enum layers {
 
 enum custom_keycodes {
   KB_VLEAD = SAFE_RANGE,
-  MY_CW_TOG
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BSE] = LAYOUT_split_3x6_3(
     TG(_BLN),      KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                 KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          KC_DEL,
-    MY_CW_TOG,     KC_A,          LT(U, KC_S),  ALT_T(KC_D),   LT(N, KC_F),   KC_G,                 KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(Y),
+    LT(0, KC_A),   KC_A,          LT(U, KC_S),  ALT_T(KC_D),   LT(N, KC_F),   KC_G,                 KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(Y),
     _______,       KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,                 KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       C(G(KC_Q)),
                                                 CTL_T(KC_ESC), GUI_T(KC_SPC), KB_VLEAD,             HYPR_T(KC_ENT),SFT_T(KC_BSPC),OSL(M)
 ),
@@ -253,8 +252,8 @@ void vleader_start(void) {
     vleader_time          = timer_read();
     vleader_sequence_size = 0;
     for (uint16_t i = 0; i < vleader_map_count(); i++) {
-        vlead_seq_t *seq    = vleader_map_get(i);
-        seq->is_eligible    = 1;
+        vlead_seq_t *seq = vleader_map_get(i);
+        seq->is_eligible = 1;
     }
 }
 
@@ -319,8 +318,8 @@ bool process_vleader(uint16_t keycode, keyrecord_t *record) {
 
 void keyboard_post_init_user(void) {
     for (uint16_t i = 0; i < vleader_map_count(); i++) {
-        vlead_seq_t *seq    = vleader_map_get(i);
-        uint16_t keys_count = 0;
+        vlead_seq_t *seq        = vleader_map_get(i);
+        uint16_t     keys_count = 0;
         while (true) {
             uint16_t key = pgm_read_word(&seq->keys[keys_count]);
             if (key == SEQ_END) break;
@@ -403,15 +402,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     // This switch can actually modify keypress behavior.
     switch (keycode) {
-        case MY_CW_TOG:
+        case LT(0, KC_A):
             if (record->event.pressed) {
-                if (all_mods & MOD_MASK_SHIFT) {
-                    caps_word_toggle();
+                if (record->tap.count) {
+                    // On tap, either set caps word or one shot shift.
+                    if (all_mods & MOD_MASK_SHIFT) {
+                        caps_word_toggle();
+                    } else {
+                        add_oneshot_mods(MOD_MASK_SHIFT);
+                    }
                 } else {
-                    add_oneshot_mods(MOD_MASK_SHIFT);
+                    // On hold, hold shift
+                    register_mods(MOD_MASK_SHIFT);
                 }
-                return false;
+            } else {
+                if (get_mods() & MOD_MASK_SHIFT) {
+                    unregister_mods(MOD_MASK_SHIFT);
+                }
             }
+            return false;
             break;
         case LT(0, KC_Q):
             if (!record->tap.count && record->event.pressed) {
