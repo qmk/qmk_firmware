@@ -112,6 +112,7 @@ user_song_list.h
 !/keyboards/moonlander
 !/keyboards/ergodox_ez
 !/keyboards/voyager
+/keyboards/**/keymaps/*
 # clangd
 compile_commands.json
 .clangd/

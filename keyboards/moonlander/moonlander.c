@@ -33,51 +33,54 @@ void dynamic_macro_record_start_user(int8_t direction) {
 
 void dynamic_macro_record_end_user(int8_t direction) {
     is_dynamic_recording = false;
-    ML_LED_3(false);
+    STATUS_LED_3(false);
 }
 #endif
 
 void moonlander_led_task(void) {
+#ifdef ORYX_ENABLE
+    if (rawhid_state.status_led_control) return;
+#endif
     if (is_launching) {
-        ML_LED_1(false);
-        ML_LED_2(false);
-        ML_LED_3(false);
-        ML_LED_4(false);
-        ML_LED_5(false);
-        ML_LED_6(false);
+        STATUS_LED_1(false);
+        STATUS_LED_2(false);
+        STATUS_LED_3(false);
+        STATUS_LED_4(false);
+        STATUS_LED_5(false);
+        STATUS_LED_6(false);
 
-        ML_LED_1(true);
+        STATUS_LED_1(true);
         wait_ms(250);
-        ML_LED_2(true);
+        STATUS_LED_2(true);
         wait_ms(250);
-        ML_LED_3(true);
+        STATUS_LED_3(true);
         wait_ms(250);
-        ML_LED_4(true);
+        STATUS_LED_4(true);
         wait_ms(250);
-        ML_LED_5(true);
+        STATUS_LED_5(true);
         wait_ms(250);
-        ML_LED_6(true);
+        STATUS_LED_6(true);
         wait_ms(250);
-        ML_LED_1(false);
+        STATUS_LED_1(false);
         wait_ms(250);
-        ML_LED_2(false);
+        STATUS_LED_2(false);
         wait_ms(250);
-        ML_LED_3(false);
+        STATUS_LED_3(false);
         wait_ms(250);
-        ML_LED_4(false);
+        STATUS_LED_4(false);
         wait_ms(250);
-        ML_LED_5(false);
+        STATUS_LED_5(false);
         wait_ms(250);
-        ML_LED_6(false);
+        STATUS_LED_6(false);
         wait_ms(250);
         is_launching = false;
         layer_state_set_kb(layer_state);
     }
 #ifdef DYNAMIC_MACRO_ENABLE
     else if (is_dynamic_recording) {
-        ML_LED_3(true);
+        STATUS_LED_3(true);
         wait_ms(100);
-        ML_LED_3(false);
+        STATUS_LED_3(false);
         wait_ms(155);
     }
 #endif
@@ -120,6 +123,9 @@ void keyboard_pre_init_kb(void) {
 layer_state_t layer_state_set_kb(layer_state_t state) {
     state = layer_state_set_user(state);
     if (is_launching || !keyboard_config.led_level) return state;
+#ifdef ORYX_ENABLE
+    if (rawhid_state.status_led_control) return state;
+#endif
     bool LED_1 = false;
     bool LED_2 = false;
     bool LED_3 = false;
@@ -160,13 +166,13 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
             break;
     }
 
-    ML_LED_1(LED_1);
-    ML_LED_2(LED_2);
-    ML_LED_3(LED_3);
-    ML_LED_4(LED_4);
-    ML_LED_5(LED_5);
+    STATUS_LED_1(LED_1);
+    STATUS_LED_2(LED_2);
+    STATUS_LED_3(LED_3);
+    STATUS_LED_4(LED_4);
+    STATUS_LED_5(LED_5);
 #    if !defined(CAPS_LOCK_STATUS)
-    ML_LED_6(LED_6);
+    STATUS_LED_6(LED_6);
 #    endif
     return state;
 }
@@ -401,7 +407,7 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef CAPS_LOCK_STATUS
 void led_update_ports(led_t led_state) {
-    ML_LED_6(led_state.caps_lock);
+    STATUS_LED_6(led_state.caps_lock);
 }
 #endif
 
@@ -418,12 +424,12 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 if (keyboard_config.led_level) {
                     layer_state_set_kb(layer_state);
                 } else {
-                    ML_LED_1(false);
-                    ML_LED_2(false);
-                    ML_LED_3(false);
-                    ML_LED_4(false);
-                    ML_LED_5(false);
-                    ML_LED_6(false);
+                    STATUS_LED_1(false);
+                    STATUS_LED_2(false);
+                    STATUS_LED_3(false);
+                    STATUS_LED_4(false);
+                    STATUS_LED_5(false);
+                    STATUS_LED_6(false);
                 }
             }
             break;

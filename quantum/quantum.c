@@ -72,6 +72,9 @@
 #ifdef VELOCIKEY_ENABLE
 #    include "velocikey.h"
 #endif
+#ifdef LAYER_LOCK_ENABLE
+#    include "process_layer_lock.h"
+#endif
 
 #ifdef AUDIO_ENABLE
 #    ifndef GOODBYE_SONG
@@ -248,6 +251,9 @@ uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache) {
 /* Get keycode, and then process pre tapping functionality */
 bool pre_process_record_quantum(keyrecord_t *record) {
     uint16_t keycode = get_record_keycode(record, true);
+#ifdef ORYX_ENABLE
+        process_record_oryx(keycode, record);
+#endif
     return pre_process_record_kb(keycode, record) &&
 #ifdef COMBO_ENABLE
            process_combo(keycode, record) &&
@@ -280,6 +286,7 @@ bool process_record_quantum(keyrecord_t *record) {
         return false;
     }
 #endif
+
 
 #ifdef TAP_DANCE_ENABLE
     if (preprocess_tap_dance(keycode, record)) {
@@ -319,9 +326,6 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef HAPTIC_ENABLE
             process_haptic(keycode, record) &&
 #endif // HAPTIC_ENABLE
-#ifdef ORYX_ENABLE
-            process_record_oryx(keycode, record) &&
-#endif
 #if defined(VIA_ENABLE)
             process_record_via(keycode, record) &&
 #endif
@@ -397,6 +401,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
 #ifdef TRI_LAYER_ENABLE
             process_tri_layer(keycode, record) &&
+#endif
+#ifdef LAYER_LOCK_ENABLE
+            process_layer_lock(keycode, record) &&
 #endif
             true)) {
         return false;

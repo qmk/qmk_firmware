@@ -1,0 +1,10 @@
+{
+    "bootloader": "custom",
+    "usb": {
+        "pid": "0x1999"
+    },
+    "processor": "GD32F303",
+    "ws2812": {
+        "pin": "D7"
+    }
+}

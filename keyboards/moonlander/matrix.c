@@ -213,12 +213,12 @@ void matrix_power_up(void) {
 
     is_launching = temp_launching;
     if (!temp_launching) {
-        ML_LED_1(false);
-        ML_LED_2(false);
-        ML_LED_3(false);
-        ML_LED_4(false);
-        ML_LED_5(false);
-        ML_LED_6(false);
+        STATUS_LED_1(false);
+        STATUS_LED_2(false);
+        STATUS_LED_3(false);
+        STATUS_LED_4(false);
+        STATUS_LED_5(false);
+        STATUS_LED_6(false);
     }
 
     // initialize matrix state: all keys off

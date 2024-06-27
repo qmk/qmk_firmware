@@ -39,7 +39,7 @@ void dynamic_macro_record_end_user(int8_t direction) {
 
 void voyager_led_task(void) {
 #ifdef ORYX_ENABLE
-    if (rawhid_state.rgb_control) return;
+    if (rawhid_state.status_led_control) return;
 #endif
     if (is_launching) {
         STATUS_LED_1(false);
@@ -113,57 +113,16 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
     state = layer_state_set_user(state);
     if (is_launching || !keyboard_config.led_level) return state;
 #ifdef ORYX_ENABLE
-    if (rawhid_state.rgb_control) return state;
+    if (rawhid_state.status_led_control) return state;
 #endif
-    bool LED_1 = false;
-    bool LED_2 = false;
-    bool LED_3 = false;
-#    if !defined(CAPS_LOCK_STATUS)
-    bool LED_4 = false;
-#    endif
-
     uint8_t layer = get_highest_layer(state);
-    switch (layer) {
-        case 1:
-            LED_1 = true;
-            break;
-        case 2:
-            LED_2 = true;
-            break;
-        case 3:
-            LED_3 = true;
-            break;
-        case 4:
-#    if !defined(CAPS_LOCK_STATUS)
-            LED_4 = true;
-#    endif
-            break;
-        case 5:
-            LED_1 = true;
-            LED_2 = true;
-            break;
-        case 6:
-            LED_1 = true;
-            LED_2 = true;
-            LED_3 = true;
-            break;
-        case 7:
-            LED_1 = true;
-            LED_2 = true;
-            LED_3 = true;
-#    if !defined(CAPS_LOCK_STATUS)
-            LED_4 = true;
-#    endif
-            break;
-        default:
-            break;
-    }
 
-    STATUS_LED_1(LED_1);
-    STATUS_LED_2(LED_2);
-    STATUS_LED_3(LED_3);
+    STATUS_LED_1(layer & (1<<0));
+    STATUS_LED_2(layer & (1<<1));
+    STATUS_LED_3(layer & (1<<2));
+
 #    if !defined(CAPS_LOCK_STATUS)
-    STATUS_LED_4(LED_4);
+    STATUS_LED_4(layer & (1<<3));
 #    endif
     return state;
 }

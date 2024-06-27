@@ -234,7 +234,9 @@ extern layer_state_t layer_state;
 #    include "repeat_key.h"
 #    include "process_repeat_key.h"
 #endif
-
+#ifdef LAYER_LOCK_ENABLE
+#    include "layer_lock.h"
+#endif
 void set_single_persistent_default_layer(uint8_t default_layer);
 
 #define IS_LAYER_ON(layer) layer_state_is(layer)

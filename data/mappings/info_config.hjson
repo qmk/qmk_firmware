@@ -49,6 +49,9 @@
     "DYNAMIC_KEYMAP_EEPROM_MAX_ADDR": {"info_key": "dynamic_keymap.eeprom_max_addr", "value_type": "int"},
     "DYNAMIC_KEYMAP_LAYER_COUNT": {"info_key": "dynamic_keymap.layer_count", "value_type": "int"},
 
+    // Layer locking
+    "LAYER_LOCK_IDLE_TIMEOUT": {"info_key": "layer_lock.timeout", "value_type": "int"},
+
     // Indicators
     "LED_CAPS_LOCK_PIN": {"info_key": "indicators.caps_lock"},
     "LED_NUM_LOCK_PIN": {"info_key": "indicators.num_lock"},
