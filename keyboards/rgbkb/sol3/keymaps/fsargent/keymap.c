@@ -69,29 +69,25 @@ enum sol_keycodes {
 #define APPLE		KC_LPRN
 #define BERRY 		KC_RPRN
 
-
 #define LTHUMB0		CMD_T(KC_BSPC)
 #define LTHUMB0WIN	CTL_T(KC_BSPC)
 #define LTHUMB1		MT(MOD_LCTL, KC_DEL)
 #define LTHUMB2		MT(MOD_LALT, KC_TAB)
+
 #define RTHUMB0		KC_SPC
 #define RTHUMB2		KC_ENT
 #define RTHUMB1		KC_MPLY
-
-#define MT_J	RCTL_T(KC_J)
-#define MT_K	RALT_T(KC_K)
-#define MT_L	RGUI_T(KC_L)
-#define MT_SEMI	RSFT_T(KC_SCLN)
 
 #define M_A	LSFT_T(KC_A)
 #define M_S	LGUI_T(KC_S)
 #define M_D	LALT_T(KC_D)
 #define M_F	LCTL_T(KC_F)
 
-#define W_A	LSFT_T(KC_A)
-#define W_S	LGUI_T(KC_S)
-#define W_D	LALT_T(KC_D)
-#define W_F	LCTL_T(KC_F)
+#define MT_J	RCTL_T(KC_J)
+#define MT_K	RALT_T(KC_K)
+#define MT_L	RGUI_T(KC_L)
+#define MT_SEMI	RSFT_T(KC_SCLN)
+
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 	switch (keycode) {
 		// Immediately select the hold action when another key is pressed.

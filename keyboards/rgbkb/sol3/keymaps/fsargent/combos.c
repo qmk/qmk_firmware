@@ -1,5 +1,34 @@
 
-enum combo_events { RST, TOGWIN, TOGGAME, MUTE, SEL_WORD, SEL_LINE, WINTGSYM, TGSYM, RBU, RBL, CTRLALTDEL, CTRLC, CTRLR, CUT, CPY, PST, CAL, DELWD, QIN, QNM, EML,WRK, QP, WINDELWD, THUMBS, OUTER_THUMB, JK, COMBO_LENGTH };
+enum combo_events {
+	RST,
+	TOGWIN,
+	TOGGAME,
+	MUTE,
+	SEL_WORD,
+	SEL_LINE,
+	WINTGSYM,
+	TGSYM,
+	RBU,
+	RBL,
+	CTRLALTDEL,
+	CTRLC,
+	CTRLR,
+	CUT,
+	CPY,
+	PST,
+	CAL,
+	DELWD,
+	QIN,
+	QNM,
+	EML,WRK,
+	QP,
+	WINDELWD,
+	THUMBS,
+	OUTER_THUMB,
+	JK,
+	TAB,
+	COMBO_LENGTH
+};
 uint16_t COMBO_LEN		= COMBO_LENGTH;  // remove the COMBO_COUNT define and use this instead!
 
 const uint16_t PROGMEM asdf_combo[]		= {KC_A, KC_S, KC_D, KC_F, COMBO_END};
@@ -9,19 +38,23 @@ const uint16_t PROGMEM uiop_combo[]		= {KC_U, KC_I, KC_O, KC_P, COMBO_END};
 const uint16_t PROGMEM thumbs_combo[]		= {LTHUMB1, LTHUMB2, COMBO_END};
 const uint16_t PROGMEM mute_combo[]		= {KC_VOLU,KC_VOLD, COMBO_END};
 
+// LSFT_T(KC_A)
+// LGUI_T(KC_S)
+// LALT_T(KC_D)
+// LCTL_T(KC_F)
+
 const uint16_t PROGMEM zx_combo[]		= {KC_Z, KC_X, COMBO_END};
 const uint16_t PROGMEM jk_combo[]		= {MT_J, MT_K, COMBO_END};
 const uint16_t PROGMEM xc_combo[]		= {KC_X, KC_C, COMBO_END};
 const uint16_t PROGMEM cv_combo[]		= {KC_C, KC_V, COMBO_END};
 const uint16_t PROGMEM qr_combo[]		= {KC_Q, KC_R, COMBO_END};
-const uint16_t PROGMEM df_combo[]		= {LGUI_T(KC_D),	LSFT_T(KC_F), COMBO_END};
-const uint16_t PROGMEM win_df_combo[]		= {LCTL_T(KC_D),	LSFT_T(KC_F), COMBO_END};
+const uint16_t PROGMEM df_combo[]		= {LALT_T(KC_D), LCTL_T(KC_F), COMBO_END};
 const uint16_t PROGMEM gravminus_combo[]	= {KC_GRV, KC_DEL, COMBO_END};
 
 const uint16_t PROGMEM xcv_combo[]		= {KC_X, KC_C, KC_V, COMBO_END};
+const uint16_t PROGMEM sdf_combo[]		= {LGUI_T(KC_S), LALT_T(KC_D), LCTL_T(KC_F), COMBO_END};
 
-const uint16_t PROGMEM cal_combo[]		= {KC_C, M_A, MT_L, COMBO_END};
-const uint16_t PROGMEM win_cal_combo[]		= {KC_C, W_A, MT_L, COMBO_END};
+const uint16_t PROGMEM cal_combo[]		= {KC_C, LSFT_T(KC_A), MT_L, COMBO_END};
 const uint16_t PROGMEM phone_combo[]		= {KC_P, KC_Q, COMBO_END};
 const uint16_t PROGMEM qnm_combo[]		= {KC_Q, KC_N, KC_M, COMBO_END};
 const uint16_t PROGMEM qin_combo[]		= {KC_Q, KC_I, KC_N, COMBO_END};
@@ -32,7 +65,7 @@ const uint16_t PROGMEM rbl_combo[]		= {KC_R, KC_B, MT_L, COMBO_END};
 
 const uint16_t PROGMEM togwin_combo[]		= {KC_9, KC_2, COMBO_END};
 const uint16_t PROGMEM toggame_combo[]		= {KC_0, KC_1, COMBO_END};
-const uint16_t PROGMEM tog_num_combo[] = {KC_KP_0,	KC_PDOT, COMBO_END};
+const uint16_t PROGMEM tog_num_combo[]		= {KC_KP_0,	KC_PDOT, COMBO_END};
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 	switch (keycode) {
@@ -51,7 +84,6 @@ combo_t key_combos[]	= {
 	[PST]		= COMBO_ACTION(cv_combo),
 	[CTRLR]		= COMBO_ACTION(qr_combo),
 	[DELWD]		= COMBO_ACTION(df_combo),
-	[DELWD]		= COMBO_ACTION(win_df_combo),
 	[JK]		= COMBO_ACTION(jk_combo),
 	// [TGSYM]		= COMBO_ACTION(thumbs_combo),
 	// [WINTGSYM]		= COMBO_ACTION(win_thumbs_combo),
@@ -63,6 +95,7 @@ combo_t key_combos[]	= {
 
 	// 3 key combos
 	[SEL_WORD]	= COMBO_ACTION(xcv_combo),
+	[TAB]		= COMBO_ACTION(sdf_combo),
 
 	// 4 key combos
 	//     [CMD_ENTER]		= COMBO_ACTION(asdf_combo),
@@ -70,7 +103,6 @@ combo_t key_combos[]	= {
 	// [CTRLALTDEL]	= COMBO_ACTION(jklsemi_combo),
 
 	// Misc
-	[CAL]		= COMBO_ACTION(win_cal_combo),
 	[CAL]		= COMBO_ACTION(cal_combo),
 	[RBU]		= COMBO_ACTION(rbu_combo),
 	[RBL]		= COMBO_ACTION(rbl_combo),
@@ -164,6 +196,11 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 
 
 	switch (combo_index) {
+		case TAB:
+			if (pressed) {
+				tap_code(KC_TAB);
+			}
+			break;
 		case JK:
 			if (pressed) {
 				tap_code(KC_ENT);
