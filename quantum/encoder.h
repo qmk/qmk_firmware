@@ -47,48 +47,48 @@ bool encoder_dequeue_event(uint8_t *index, bool *clockwise);
 bool encoder_update_kb(uint8_t index, bool clockwise);
 bool encoder_update_user(uint8_t index, bool clockwise);
 
-#    ifdef SPLIT_KEYBOARD
+#ifdef SPLIT_KEYBOARD
 
-#        if defined(ENCODER_A_PINS_RIGHT)
-#            ifndef NUM_ENCODERS_LEFT
-#                define NUM_ENCODERS_LEFT ARRAY_SIZE(((pin_t[])ENCODER_A_PINS))
-#            endif
-#            ifndef NUM_ENCODERS_RIGHT
-#                define NUM_ENCODERS_RIGHT ARRAY_SIZE(((pin_t[])ENCODER_A_PINS_RIGHT))
-#            endif
-#        else
-#            ifndef NUM_ENCODERS_LEFT
-#                define NUM_ENCODERS_LEFT ARRAY_SIZE(((pin_t[])ENCODER_A_PINS))
-#            endif
-#            ifndef NUM_ENCODERS_RIGHT
-#                define NUM_ENCODERS_RIGHT NUM_ENCODERS_LEFT
-#            endif
+#    if defined(ENCODER_A_PINS_RIGHT)
+#        ifndef NUM_ENCODERS_LEFT
+#            define NUM_ENCODERS_LEFT ARRAY_SIZE(((pin_t[])ENCODER_A_PINS))
 #        endif
-#        ifndef NUM_ENCODERS
-#            define NUM_ENCODERS (NUM_ENCODERS_LEFT + NUM_ENCODERS_RIGHT)
+#        ifndef NUM_ENCODERS_RIGHT
+#            define NUM_ENCODERS_RIGHT ARRAY_SIZE(((pin_t[])ENCODER_A_PINS_RIGHT))
 #        endif
-
-#    else // SPLIT_KEYBOARD
-
-#        ifndef NUM_ENCODERS
-#            define NUM_ENCODERS ARRAY_SIZE(((pin_t[])ENCODER_A_PINS))
+#    else
+#        ifndef NUM_ENCODERS_LEFT
+#            define NUM_ENCODERS_LEFT ARRAY_SIZE(((pin_t[])ENCODER_A_PINS))
 #        endif
-#        define NUM_ENCODERS_LEFT NUM_ENCODERS
-#        define NUM_ENCODERS_RIGHT 0
+#        ifndef NUM_ENCODERS_RIGHT
+#            define NUM_ENCODERS_RIGHT NUM_ENCODERS_LEFT
+#        endif
+#    endif
+#    ifndef NUM_ENCODERS
+#        define NUM_ENCODERS (NUM_ENCODERS_LEFT + NUM_ENCODERS_RIGHT)
+#    endif
 
-#    endif // SPLIT_KEYBOARD
+#else // SPLIT_KEYBOARD
 
 #    ifndef NUM_ENCODERS
-#        define NUM_ENCODERS 0
-#        define NUM_ENCODERS_LEFT 0
-#        define NUM_ENCODERS_RIGHT 0
-#    endif // NUM_ENCODERS
+#        define NUM_ENCODERS ARRAY_SIZE(((pin_t[])ENCODER_A_PINS))
+#    endif
+#    define NUM_ENCODERS_LEFT NUM_ENCODERS
+#    define NUM_ENCODERS_RIGHT 0
 
-#    define NUM_ENCODERS_MAX_PER_SIDE MAX(NUM_ENCODERS_LEFT, NUM_ENCODERS_RIGHT)
+#endif // SPLIT_KEYBOARD
 
-#    ifndef MAX_QUEUED_ENCODER_EVENTS
-#        define MAX_QUEUED_ENCODER_EVENTS MAX(4, ((NUM_ENCODERS_MAX_PER_SIDE) + 1))
-#    endif // MAX_QUEUED_ENCODER_EVENTS
+#ifndef NUM_ENCODERS
+#    define NUM_ENCODERS 0
+#    define NUM_ENCODERS_LEFT 0
+#    define NUM_ENCODERS_RIGHT 0
+#endif // NUM_ENCODERS
+
+#define NUM_ENCODERS_MAX_PER_SIDE MAX(NUM_ENCODERS_LEFT, NUM_ENCODERS_RIGHT)
+
+#ifndef MAX_QUEUED_ENCODER_EVENTS
+#    define MAX_QUEUED_ENCODER_EVENTS MAX(4, ((NUM_ENCODERS_MAX_PER_SIDE) + 1))
+#endif // MAX_QUEUED_ENCODER_EVENTS
 
 typedef struct encoder_event_t {
     uint8_t index : 7;
@@ -113,12 +113,12 @@ bool encoder_dequeue_event_advanced(encoder_events_t *events, uint8_t *index, bo
 // Reset the queue to be empty
 void encoder_signal_queue_drain(void);
 
-#    ifdef ENCODER_MAP_ENABLE
-#        define NUM_DIRECTIONS 2
-#        define ENCODER_CCW_CW(ccw, cw) \
-            { (cw), (ccw) }
+#ifdef ENCODER_MAP_ENABLE
+#    define NUM_DIRECTIONS 2
+#    define ENCODER_CCW_CW(ccw, cw) \
+        { (cw), (ccw) }
 extern const uint16_t encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS];
-#    endif // ENCODER_MAP_ENABLE
+#endif // ENCODER_MAP_ENABLE
 
 // "Custom encoder lite" support
 void encoder_driver_init(void);
