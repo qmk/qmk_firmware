@@ -28,14 +28,14 @@ enum protokeeb_keymap_layers {
 #define LOWER LT(LAYER_LOWER, KC_KP_0)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-	[LAYER_BASE] = LAYOUT_custom_matrix( /* Base */
+	[LAYER_BASE] = LAYOUT( /* Base */
 	KC_KP_7, KC_KP_8, KC_KP_9, KC_KP_SLASH, KC_MUTE,
 	KC_KP_4, KC_KP_5, KC_KP_6, KC_KP_ASTERISK,
 	KC_KP_1, KC_KP_2, KC_KP_3, KC_KP_MINUS,
 	LOWER, KC_KP_DOT, KC_KP_ENTER, KC_KP_PLUS
 	),
 
-	[LAYER_LOWER] = LAYOUT_custom_matrix( /* RGB Control */
+	[LAYER_LOWER] = LAYOUT( /* RGB Control */
 	RGB_MODE_PLAIN, RGB_MODE_FORWARD, RGB_MODE_REVERSE, RGB_TOG, KC_MUTE,
 	RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD,
 	RGB_VAI, RGB_VAD, RGB_SPI, RGB_SPD,
