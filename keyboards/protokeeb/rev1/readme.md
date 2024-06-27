@@ -18,6 +18,8 @@ The default layout comes pre-flashed on every Protokeeb and consists of two laye
 
 -   Layer 1: 16-key numpad, excluding the `NUM LOCK` key.
 -   Layer 2: RGB LED control and keyboard boot options.
+-   Layer 3: Media control, quick launch application and other options.
+-   Layer 4: Function Keys.
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -26,7 +28,6 @@ Make example for this keyboard (after setting up your build environment):
 Flashing example for this keyboard:
 
     make protokeeb/rev1:default:flash
-
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 

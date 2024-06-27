@@ -3,3 +3,6 @@
 
 # Rotary Encoder Keymap support
 ENCODER_MAP_ENABLE = yes
+
+# Enable Tri Layer support
+TRI_LAYER_ENABLE = yes
