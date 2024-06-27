@@ -78,21 +78,20 @@ enum sol_keycodes {
 #define RTHUMB2		KC_ENT
 #define RTHUMB1		KC_MPLY
 
-#define MT_J	MT(MOD_LSFT, KC_J)
-#define MT_K	MT(MOD_LGUI, KC_K)
-#define MT_L	MT(MOD_LALT, KC_L)
-#define MT_SEMI	MT(MOD_LCTL, KC_SCLN)
+#define MT_J	RCTL_T(KC_J)
+#define MT_K	RALT_T(KC_K)
+#define MT_L	RGUI_T(KC_L)
+#define MT_SEMI	RSFT_T(KC_SCLN)
 
-#define M_A	LCTL_T(KC_A)
-#define M_S	LALT_T(KC_S)
-#define M_D	LGUI_T(KC_D)
-#define M_F	LSFT_T(KC_F)
+#define M_A	LSFT_T(KC_A)
+#define M_S	LGUI_T(KC_S)
+#define M_D	LALT_T(KC_D)
+#define M_F	LCTL_T(KC_F)
 
-#define W_A	LCTL_T(KC_A)
-#define W_S	LALT_T(KC_S)
-#define W_D	LGUI_T(KC_D)
-#define W_F	LSFT_T(KC_F)
-
+#define W_A	LSFT_T(KC_A)
+#define W_S	LGUI_T(KC_S)
+#define W_D	LALT_T(KC_D)
+#define W_F	LCTL_T(KC_F)
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 	switch (keycode) {
 		// Immediately select the hold action when another key is pressed.
@@ -107,7 +106,6 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 }
 
 #include "combos.c"
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -132,7 +130,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_MAC]	= LAYOUT(
 	KC_GRV,		KC_1,		KC_2,		KC_3,		KC_4,		KC_5,		KC_ESC,						KC_NO,		KC_6,		KC_7,		KC_8,		KC_9,		KC_0,		KC_DEL,
 	KC_TAB,		KC_Q,		KC_W,		KC_E,		KC_R,		KC_T,		TO(_MAC),					KC_NO,		KC_Y,		KC_U,		KC_I,		KC_O,		KC_P,		KC_BSLS,
-	MEHESC,		LCTL_T(KC_A),	LALT_T(KC_S),	LGUI_T(KC_D),	LSFT_T(KC_F),	KC_G,		TO(_WIN),					KC_F11,		KC_H,		MT_J,		MT_K,		MT_L,		MT_SEMI,	KC_QUOT,
+	MEHESC,		M_A,		M_S,		M_D,		M_F,		KC_G,		TO(_WIN),					KC_F11,		KC_H,		MT_J,		MT_K,		MT_L,		MT_SEMI,	KC_QUOT,
 	KC_LSFT,	KC_Z,		KC_X,		KC_C,		KC_V,		KC_B,		TO(_GAME),					KC_F12,		KC_N,		KC_M,		KC_COMM,	KC_DOT,		KC_SLSH,	KC_RSFT,
 	KC_LCTL,	LBRC,		RBRC,		MO(_NUM),	MO(_NAV),	LTHUMB0,	LTHUMB1,	LTHUMB2,	RTHUMB2,	RTHUMB1,	RTHUMB0,	MINUS,		EQL,		APPLE,		BERRY,		KC_RCTL,
 	KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,														KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO
@@ -140,11 +138,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 	[_WIN]	= LAYOUT(
-	KC_GRV,		_______,	_______,	_______,	_______,	_______,	_______,					_______,	_______,	_______,	_______,	_______,	_______,	_______,
 	_______,	_______,	_______,	_______,	_______,	_______,	_______,					_______,	_______,	_______,	_______,	_______,	_______,	_______,
-	MEHESC,		LGUI_T(KC_A),	LALT_T(KC_S),	LCTL_T(KC_D),	LSFT_T(KC_F),	_______,	_______,					_______,	_______,	_______,	LCTL_T(KC_K),	_______,	LGUI_T(KC_SCLN),_______,
 	_______,	_______,	_______,	_______,	_______,	_______,	_______,					_______,	_______,	_______,	_______,	_______,	_______,	_______,
-	_______,	_______,	_______,	_______,	MO(_WINNAV),	LTHUMB0WIN,	LTHUMB1,	LTHUMB2,	RTHUMB2,	RTHUMB1,	RTHUMB0,	_______,	_______,	_______,	_______,	_______,
+	_______,	_______,	_______,	_______,	_______,	_______,	_______,					_______,	_______,	_______,	_______,	_______,	_______,	_______,
+	_______,	_______,	_______,	_______,	_______,	_______,	_______,					_______,	_______,	_______,	_______,	_______,	_______,	_______,
+	_______,	_______,	_______,	_______,	MO(_WINNAV),	LTHUMB0WIN,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,
 	_______,	_______,	_______,	_______,	_______,													_______,	_______,	_______,	_______,	_______
 	),
 
