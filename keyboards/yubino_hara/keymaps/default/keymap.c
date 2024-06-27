@@ -11,15 +11,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             KC_LGUI, MO(1),   KC_SPC,           KC_ENT,  MO(2),   KC_RALT
     ),
     [1] = LAYOUT_split_6x3_4(
-        KC_TAB,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                            KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
-        KC_LCTL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, LGUI(KC_SPC),                       KC_QUOT, KC_EQL,  KC_BSLS, KC_LBRC, KC_RBRC, KC_GRV,
-        KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LNG2,  _______,         _______, KC_UNDS, KC_PLUS, KC_PIPE, KC_LCBR, KC_RCBR, KC_TILD,
+        KC_TAB,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                            KC_ASTR, KC_AMPR, KC_LPRN, KC_RPRN, KC_CIRC, KC_BSPC,
+        KC_LCTL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, LGUI(KC_SPC),                       KC_QUOT, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS, KC_GRV,
+        KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LNG2,  RGB_TOG,         _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, KC_TILD,
                                             _______, _______,  _______,         _______,  MO(3),  _______
     ),
     [2] = LAYOUT_split_6x3_4(
         KC_TAB,  XXXXXXX,    KC_7,    KC_8,    KC_9, XXXXXXX,                            XXXXXXX, XXXXXXX, KC_UP,   XXXXXXX, XXXXXXX, XXXXXXX,
         KC_LCTL, XXXXXXX,    KC_4,    KC_5,    KC_6, XXXXXXX,                            XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX,
-        KC_LSFT, KC_LALT,    KC_1,    KC_2,    KC_3,    KC_0,  _______,         _______, KC_LNG1, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        KC_LSFT, KC_LALT,    KC_1,    KC_2,    KC_3,    KC_0,  KC_BTN1,         _______, KC_LNG1, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                                             _______,   MO(3),  _______,         _______,  _______, _______
     ),
     [3] = LAYOUT_split_6x3_4(
@@ -29,3 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             _______, _______,  _______,         _______,  _______, _______
     ),
 };
+
+void keyboard_post_init_user(void) {
+    rgblight_sethsv(0, 0, 100);
+}

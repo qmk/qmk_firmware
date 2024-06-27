@@ -5,6 +5,7 @@
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
     "features": {
+        "rgblight": true,
         "bootmagic": true,
         "command": false,
         "console": false,
@@ -37,6 +38,16 @@
         "device_version": "1.0.0",
         "pid": "0x0000",
         "vid": "0x7936"
+    },
+    "ws2812": {
+        "driver": "vendor",
+        "pin": "GP14"
+    },
+    "rgblight": {
+        "led_count": 44,
+        "split": true,
+        "split_count": [22, 22],
+        "sleep": true
     },
     "layouts": {
         "LAYOUT_split_6x3_4": {
