@@ -1,0 +1,96 @@
+{
+    "manufacturer": "Snipeye",
+    "keyboard_name": "oare",
+    "maintainer": "Snipeye",
+    "bootloader": "rp2040",
+    "diode_direction": "ROW2COL",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "NO_PIN", "pin_b": "NO_PIN"},
+            {"pin_a": "NO_PIN", "pin_b": "NO_PIN"},
+            {"pin_a": "NO_PIN", "pin_b": "NO_PIN"},
+            {"pin_a": "NO_PIN", "pin_b": "NO_PIN"},
+            {"pin_a": "NO_PIN", "pin_b": "NO_PIN"},
+            {"pin_a": "NO_PIN", "pin_b": "NO_PIN"},
+            {"pin_a": "NO_PIN", "pin_b": "NO_PIN"},
+            {"pin_a": "NO_PIN", "pin_b": "NO_PIN"},
+            {"pin_a": "NO_PIN", "pin_b": "NO_PIN"},
+            {"pin_a": "NO_PIN", "pin_b": "NO_PIN"},
+            {"pin_a": "NO_PIN", "pin_b": "NO_PIN"},
+            {"pin_a": "NO_PIN", "pin_b": "NO_PIN"},
+            {"pin_a": "NO_PIN", "pin_b": "NO_PIN"},
+            {"pin_a": "NO_PIN", "pin_b": "NO_PIN"},
+            {"pin_a": "NO_PIN", "pin_b": "NO_PIN"},
+            {"pin_a": "NO_PIN", "pin_b": "NO_PIN"},
+            {"pin_a": "NO_PIN", "pin_b": "NO_PIN"},
+            {"pin_a": "NO_PIN", "pin_b": "NO_PIN"},
+            {"pin_a": "NO_PIN", "pin_b": "NO_PIN"},
+            {"pin_a": "NO_PIN", "pin_b": "NO_PIN"},
+            {"pin_a": "NO_PIN", "pin_b": "NO_PIN"},
+            {"pin_a": "NO_PIN", "pin_b": "NO_PIN"},
+            {"pin_a": "NO_PIN", "pin_b": "NO_PIN"},
+            {"pin_a": "NO_PIN", "pin_b": "NO_PIN"},
+            {"pin_a": "NO_PIN", "pin_b": "NO_PIN"},
+            {"pin_a": "NO_PIN", "pin_b": "NO_PIN"},
+            {"pin_a": "NO_PIN", "pin_b": "NO_PIN"},
+            {"pin_a": "NO_PIN", "pin_b": "NO_PIN"},
+            {"pin_a": "NO_PIN", "pin_b": "NO_PIN"},
+            {"pin_a": "NO_PIN", "pin_b": "NO_PIN"}
+        ]
+    },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "matrix_pins": {
+        "cols": ["GP1", "GP0", "GP9", "GP8", "GP7", "GP6", "GP5", "GP4", "GP3", "GP2"],
+        "rows": ["GP25", "GP17", "GP16", "GP18", "GP21", "GP20", "GP22", "GP24", "GP23"]
+    },
+    "processor": "RP2040",
+    "url": "https://imgur.com/a/yFKNxBH",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0xF000",
+        "vid": "0xFEED"
+    },
+    "layouts": {
+        "LAYOUT_ortho_3x10": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+                {"matrix": [0, 4], "x": 4, "y": 0},
+                {"matrix": [0, 5], "x": 5, "y": 0},
+                {"matrix": [0, 6], "x": 6, "y": 0},
+                {"matrix": [0, 7], "x": 7, "y": 0},
+                {"matrix": [0, 8], "x": 8, "y": 0},
+                {"matrix": [0, 9], "x": 9, "y": 0},
+                {"matrix": [3, 0], "x": 0, "y": 1},
+                {"matrix": [3, 1], "x": 1, "y": 1},
+                {"matrix": [3, 2], "x": 2, "y": 1},
+                {"matrix": [3, 3], "x": 3, "y": 1},
+                {"matrix": [3, 4], "x": 4, "y": 1},
+                {"matrix": [3, 5], "x": 5, "y": 1},
+                {"matrix": [3, 6], "x": 6, "y": 1},
+                {"matrix": [3, 7], "x": 7, "y": 1},
+                {"matrix": [3, 8], "x": 8, "y": 1},
+                {"matrix": [3, 9], "x": 9, "y": 1},
+                {"matrix": [6, 0], "x": 0, "y": 2},
+                {"matrix": [6, 1], "x": 1, "y": 2},
+                {"matrix": [6, 2], "x": 2, "y": 2},
+                {"matrix": [6, 3], "x": 3, "y": 2},
+                {"matrix": [6, 4], "x": 4, "y": 2},
+                {"matrix": [6, 5], "x": 5, "y": 2},
+                {"matrix": [6, 6], "x": 6, "y": 2},
+                {"matrix": [6, 7], "x": 7, "y": 2},
+                {"matrix": [6, 8], "x": 8, "y": 2},
+                {"matrix": [6, 9], "x": 9, "y": 2}
+            ]
+        }
+    }
+}
