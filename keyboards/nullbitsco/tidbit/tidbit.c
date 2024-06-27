@@ -96,7 +96,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         case QK_BOOT:
             if (record->event.pressed) {
                 set_bitc_LED(LED_DIM);
-                rgblight_disable_noeeprom();
+                // rgblight_disable_noeeprom();
                 #ifdef OLED_ENABLE
                 oled_off();
                 #endif

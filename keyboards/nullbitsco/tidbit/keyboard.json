@@ -41,14 +41,6 @@
         "rows": ["B1", "E6", "D7", "C6", "D4"]
     },
     "diode_direction": "ROW2COL",
-    "encoder": {
-        "rotary": [
-            {"pin_a": "B2", "pin_b": "B3"},
-            {"pin_a": "B4", "pin_b": "B5"},
-            {"pin_a": "D0", "pin_b": "D1"},
-            {"pin_a": "D3", "pin_b": "D2"}
-        ]
-    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {

@@ -1,7 +1,5 @@
 #include QMK_KEYBOARD_H
 #include "action_layer.h"
-// #include "../common/remote_kb.h"
-// #include "../common/bitc_led.h"
 
 #define _NUM	0
 #define _NAV	1
@@ -20,11 +18,11 @@ enum sol_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	// Base layer (numpad)
 	[_NUM] = LAYOUT(
-				KC_ESC,			KC_BSPC,	KC_EQL, \
-	KC_KP_SLASH,		KC_KP_7,		KC_KP_8,	KC_KP_9,\
-	KC_KP_ASTERISK,		KC_KP_4,		KC_KP_5,	KC_KP_6,\
-	KC_KP_MINUS,		KC_KP_1,		KC_KP_2,	KC_KP_3,\
-	LT(_NAV,KC_KP_PLUS),	KC_KP_ENTER,	KC_KP_0,	KC_KP_DOT\
+				KC_ESC,		KC_ESC,		KC_KP_ENTER, \
+	KC_KP_SLASH,		KC_KP_7,	KC_KP_8,	KC_KP_9,\
+	KC_KP_ASTERISK,		KC_KP_4,	KC_KP_5,	KC_KP_6,\
+	KC_KP_MINUS,		KC_KP_1,	KC_KP_2,	KC_KP_3,\
+	LT(_NAV,KC_KP_PLUS),	KC_EQL,		KC_KP_0,	KC_KP_DOT\
 	),
 	[_NAV] = LAYOUT(
 				KC_ESC,		G(KC_Z),	S(G(KC_Z)),\
@@ -48,11 +46,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_F16,			KC_KP_ENTER,	KC_F10,		KC_ESC\
 	),
 	[_FN2] = LAYOUT(
-				KC_F22,			KC_F23,		KC_F24,\
-	KC_NO,			KC_F19,			KC_F20,		KC_F21,\
-	KC_ESC,			KC_F16,			KC_F17,		KC_F18,\
-	KC_KP_ENTER,		KC_F13,			KC_F14,		KC_F15,\
-	KC_NO,			KC_KP_ENTER,		KC_F22,		KC_ESC\
+				KC_F22,		KC_F23,		KC_F24,\
+	KC_NO,			KC_F19,		KC_F20,		KC_F21,\
+	KC_ESC,			KC_F16,		KC_F17,		KC_F18,\
+	KC_KP_ENTER,		KC_F13,		KC_F14,		KC_F15,\
+	KC_NO,			KC_KP_ENTER,	KC_F22,		KC_ESC\
 	),
 
 	[_MUSIC] = LAYOUT(
@@ -72,10 +70,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	)
 };
 
+
+
 // ENCODERS
 bool encoder_update_user(uint8_t index, bool clockwise) {
 	/* With an if statement we can check which encoder was turned. */
-
+	if (index == 0) {
 		switch (get_highest_layer(layer_state)) {
 		case 0:
 			if (clockwise) {
@@ -100,7 +100,8 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 			}
 			break;
 		}
-	return true;
+	}
+	return false;
 };
 // ENCODERS END
 
@@ -117,21 +118,21 @@ static void print_status_narrow(void) {
 	switch (get_highest_layer(layer_state)) {
 		case _NUM:
 			oled_write_P(PSTR("Num\n"), false);
-			oled_write_P(PSTR("X|<|="), false);
+			oled_write_P(PSTR("X|<|E"), false);
 			oled_write_P(PSTR("7|8|9"), false);
 			oled_write_P(PSTR("4|5|6"), false);
 			oled_write_P(PSTR("1|2|3"), false);
-			oled_write_P(PSTR("E|0|.\n"), false);
+			oled_write_P(PSTR("=|0|.\n"), false);
 
 			oled_write_ln_P(PSTR("/"), false);
 			oled_write_ln_P(PSTR("*"), false);
-			oled_write_P(PSTR("-"), false);
+			oled_write_ln_P(PSTR("-"), false);
 			oled_write_ln_P(PSTR("+"), false);
 			oled_write_ln_P(PSTR(""), false);
 			oled_write_ln_P(PSTR(""), false);
 			break;
 		case _MUSIC:
-			oled_write_P(PSTR("Music"), true);
+			oled_write_P(PSTR("Music"), false);
 			oled_write_P(PSTR(" | | "), false);
 			oled_write_P(PSTR(" |^| "), false);
 			oled_write_P(PSTR("<-P->"), false);
@@ -146,7 +147,7 @@ static void print_status_narrow(void) {
 
 			break;
 		case _FN:
-			oled_write_P(PSTR("Fn\n"), true);
+			oled_write_P(PSTR("Fn\n"), false);
 			oled_write_P(PSTR("10-12"), false);
 			oled_write_P(PSTR("7|8|9"), false);
 			oled_write_P(PSTR("4|5|6"), false);
@@ -160,7 +161,7 @@ static void print_status_narrow(void) {
 
 			break;
 		case _FN2:
-			oled_write_P(PSTR("Fn2\n"), true);
+			oled_write_P(PSTR("Fn2\n"), false);
 			oled_write_P(PSTR("22-24"), false);
 			oled_write_P(PSTR("19-21"), false);
 			oled_write_P(PSTR("16-18"), false);
@@ -174,7 +175,7 @@ static void print_status_narrow(void) {
 			oled_write_ln_P(PSTR(""), false);
 			break;
 		case _NAV:
-			oled_write_P(PSTR("Nav\n"), true);
+			oled_write_P(PSTR("Nav\n"), false);
 			oled_write_P(PSTR("x|u|r"), false);
 			oled_write_P(PSTR("w|^|w"), false);
 			oled_write_P(PSTR("<|v|>"), false);
@@ -188,7 +189,7 @@ static void print_status_narrow(void) {
 
 			break;
 		case _WNAV:
-			oled_write_P(PSTR("WNav\n"), true);
+			oled_write_P(PSTR("WNav\n"), false);
 			oled_write_P(PSTR("x|u|r"), false);
 			oled_write_P(PSTR("w|^|w"), false);
 			oled_write_P(PSTR("<|v|>"), false);
@@ -202,7 +203,7 @@ static void print_status_narrow(void) {
 
 			break;
 		 case _RGB:
-			oled_write_P(PSTR("RGB\n"), true);
+			oled_write_P(PSTR("RGB\n"), false);
 			oled_write_P(PSTR("Togg"), false);
 			oled_write_P(PSTR("Mode"), false);
 			oled_write_P(PSTR("Hue\n"), false);
@@ -219,8 +220,9 @@ static void print_status_narrow(void) {
 	}
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
 	print_status_narrow();
+	return false;
 }
 
 #endif
