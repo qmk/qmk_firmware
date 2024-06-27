@@ -4,6 +4,8 @@ OLED_ENABLE = yes
 LEDS_ENABLE = yes
 THUMBSTICK_ENABLE = yes
 
+LTO_ENABLE = yes
+
 SRC += state.c
 
 VPATH += keyboards/handwired/replicazeron/common
