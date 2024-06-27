@@ -60,8 +60,8 @@ void ps2_mouse_init(void) {
 #ifdef PS2_MOUSE_USE_REMOTE_MODE
     ps2_mouse_set_remote_mode();
 #else
-    ps2_mouse_disable_data_reporting();
-    ps2_mouse_mode = PS2_MOUSE_STREAM_MODE;
+    ps2_mouse_enable_data_reporting();
+    ps2_mouse_set_stream_mode();
 #endif
 
 #ifdef PS2_MOUSE_ENABLE_SCROLLING
@@ -74,7 +74,6 @@ void ps2_mouse_init(void) {
 
     ps2_mouse_init_user();
 
-    ps2_mouse_enable_data_reporting();
 }
 
 __attribute__((weak)) void ps2_mouse_init_user(void) {}

@@ -70,6 +70,9 @@
 #endif
 
 #ifdef POINTING_DEVICE_DRIVER_ps2
+    // The default streaming mode is flaky and doesn't always work. This setting doesn't seem to affect performance.
+    #define PS2_MOUSE_USE_REMOTE_MODE
+
     // Serial uses PIO0, change PS2 to PIO1.
     #define PS2_PIO_USE_PIO1
 
@@ -78,6 +81,9 @@
 
     #define PS2_DATA_PIN    GP2
     #define PS2_CLOCK_PIN   GP3
+
+    // Start faster when keyboard resets.
+    #define PS2_MOUSE_INIT_DELAY 500
 #endif
 
 #ifdef OLED_ENABLE
