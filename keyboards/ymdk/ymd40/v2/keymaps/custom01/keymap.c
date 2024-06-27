@@ -11,6 +11,7 @@
 enum unicode_names {
     ORDINAL_MALE,
 	ORDINAL_FEMALE,
+	RAYA,
     SMAILING,
     GRINNING,
     BEAMING,
@@ -109,8 +110,9 @@ enum layer_names {
 
 const uint32_t PROGMEM unicode_map[] = {
     
-    [ORDINAL_MALE] = 0xBA, //
-    [ORDINAL_FEMALE]  = 0xAA,  // 
+    [ORDINAL_MALE] = 0xBA, // º
+    [ORDINAL_FEMALE]  = 0xAA,  // ª
+	[RAYA] = 0x2014, // —
  	[SMAILING] = 0x1F642, // 🙂
     [GRINNING]  = 0x1F600,  // 😀
     [BEAMING] = 0x1F601,  // 😁
@@ -180,7 +182,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_LOWER]=LAYOUT_ortho_4x12(
 			KC_DEL,     KC_NO,		LENS_CLOSE,		LENS_DOWN,		LENS_UP,            DM_PLY1,	RALT(KC_1),		 					KC_EXLM,		KC_AT,		    KC_HASH,	    	KC_DLR,			KC_PERC,
 			KC_NO,		WINTAB,		ALTTAB,	    	C(G(KC_LEFT)),	C(G(KC_RIGHT)),		DM_PLY2,	KC_GRV,								KC_CIRC,		KC_AMPR,	    KC_ASTR,	        TD(TD_LPRN),	TD(TD_RPRN),
-			KC_NO,		KC_NO,		KC_NO,			G(S(KC_S)),		G(KC_V),		    KC_NO,		XP(ORDINAL_MALE,ORDINAL_FEMALE),	KC_MINS,		KC_EQL,		    KC_BSLS,		    UNIX_HOME,		KC_NO,
+			KC_NO,		KC_NO,		KC_NO,			G(S(KC_S)),		G(KC_V),		    KC_NO,		XP(ORDINAL_MALE,ORDINAL_FEMALE),	KC_MINS,		KC_EQL,		    KC_BSLS,		    UNIX_HOME,		X(RAYA),
 			KC_NO,		KC_TRNS,	KC_TRNS,		KC_TRNS,		KC_TRNS,	        KC_NO,		KC_NO,		 						MO(_OTHERS),	RALT(KC_5),		KC_NO,				KC_NO,			KC_NO
 	),
     
