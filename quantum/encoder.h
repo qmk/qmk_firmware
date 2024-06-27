@@ -22,7 +22,20 @@
 #include "gpio.h"
 #include "util.h"
 
-#ifdef ENCODER_ENABLE
+// ======== DEPRECATED DEFINES - DO NOT USE ========
+#ifdef ENCODERS_PAD_A
+#    define ENCODER_A_PINS ENCODERS_PAD_A
+#endif
+#ifdef ENCODERS_PAD_B
+#    define ENCODER_B_PINS ENCODERS_PAD_B
+#endif
+#ifdef ENCODERS_PAD_A_RIGHT
+#    define ENCODER_A_PINS_RIGHT ENCODERS_PAD_A_RIGHT
+#endif
+#ifdef ENCODERS_PAD_B_RIGHT
+#    define ENCODER_B_PINS_RIGHT ENCODERS_PAD_B_RIGHT
+#endif
+// ========
 
 __attribute__((weak)) bool should_process_encoder(void);
 
@@ -36,16 +49,16 @@ bool encoder_update_user(uint8_t index, bool clockwise);
 
 #    ifdef SPLIT_KEYBOARD
 
-#        if defined(ENCODERS_PAD_A_RIGHT)
+#        if defined(ENCODER_A_PINS_RIGHT)
 #            ifndef NUM_ENCODERS_LEFT
-#                define NUM_ENCODERS_LEFT ARRAY_SIZE(((pin_t[])ENCODERS_PAD_A))
+#                define NUM_ENCODERS_LEFT ARRAY_SIZE(((pin_t[])ENCODER_A_PINS))
 #            endif
 #            ifndef NUM_ENCODERS_RIGHT
-#                define NUM_ENCODERS_RIGHT ARRAY_SIZE(((pin_t[])ENCODERS_PAD_A_RIGHT))
+#                define NUM_ENCODERS_RIGHT ARRAY_SIZE(((pin_t[])ENCODER_A_PINS_RIGHT))
 #            endif
 #        else
 #            ifndef NUM_ENCODERS_LEFT
-#                define NUM_ENCODERS_LEFT ARRAY_SIZE(((pin_t[])ENCODERS_PAD_A))
+#                define NUM_ENCODERS_LEFT ARRAY_SIZE(((pin_t[])ENCODER_A_PINS))
 #            endif
 #            ifndef NUM_ENCODERS_RIGHT
 #                define NUM_ENCODERS_RIGHT NUM_ENCODERS_LEFT
@@ -58,7 +71,7 @@ bool encoder_update_user(uint8_t index, bool clockwise);
 #    else // SPLIT_KEYBOARD
 
 #        ifndef NUM_ENCODERS
-#            define NUM_ENCODERS ARRAY_SIZE(((pin_t[])ENCODERS_PAD_A))
+#            define NUM_ENCODERS ARRAY_SIZE(((pin_t[])ENCODER_A_PINS))
 #        endif
 #        define NUM_ENCODERS_LEFT NUM_ENCODERS
 #        define NUM_ENCODERS_RIGHT 0
@@ -110,5 +123,3 @@ extern const uint16_t encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS];
 // "Custom encoder lite" support
 void encoder_driver_init(void);
 void encoder_driver_task(void);
-
-#endif // ENCODER_ENABLE
