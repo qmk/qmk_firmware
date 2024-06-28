@@ -16,10 +16,6 @@
         "cols": ["B7", "B6", "B5", "B4", "B3", "A15", "A3", "A4", "A5", "A6", "A7", "B0", "B1"],
         "rows": ["B13", "B15", "B14", "A8"]
     },
-	"indicators": {
-        "caps_lock": "B10",
-        "num_lock": "B11"
-    }
     "processor": "STM32F072",
     "usb": {
         "vid": "0xEB69",
