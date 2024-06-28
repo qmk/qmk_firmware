@@ -93,7 +93,7 @@ bool process_key_interrupt(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
 
-    if (!keymap_config.autocorrect_enable) {
+    if (!keymap_config.key_interrupt_enable) {
         return true;
     }
 

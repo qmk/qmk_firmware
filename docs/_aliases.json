@@ -39,7 +39,6 @@
     "/feature_joystick": "/features/joystick",
     "/feature_key_lock": "/features/key_lock",
     "/feature_key_overrides": "/features/key_overrides",
-    "/feature_key_interrupt": "/features/key_interrupt",
     "/feature_leader_key": "/features/leader_key",
     "/feature_led_indicators": "/features/led_indicators",
     "/feature_led_matrix": "/features/led_matrix",
