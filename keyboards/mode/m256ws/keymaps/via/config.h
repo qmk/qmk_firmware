@@ -17,9 +17,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define WS2812_PWM_COMPLEMENTARY_OUTPUT
-#define WS2812_PWM_DRIVER PWMD1
-#define WS2812_PWM_CHANNEL 3
-#define WS2812_PWM_PAL_MODE 1
-#define WS2812_PWM_DMA_STREAM STM32_DMA2_STREAM5
-#define WS2812_PWM_DMA_CHANNEL 6
+#define EECONFIG_USER_DATA_SIZE (1)
