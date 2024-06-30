@@ -156,6 +156,7 @@ painter_device_t qp_sh1106_make_spi_device(uint16_t panel_width, uint16_t panel_
             // SPI and other pin configuration
             driver->oled.base.comms_config                                   = &driver->oled.spi_dc_reset_config;
             driver->oled.spi_dc_reset_config.spi_config.chip_select_pin      = chip_select_pin;
+            driver->oled.spi_dc_reset_config.spi_config.cs_active_low        = true;
             driver->oled.spi_dc_reset_config.spi_config.divisor              = spi_divisor;
             driver->oled.spi_dc_reset_config.spi_config.lsb_first            = false;
             driver->oled.spi_dc_reset_config.spi_config.mode                 = spi_mode;

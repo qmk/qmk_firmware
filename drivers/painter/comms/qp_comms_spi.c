@@ -27,7 +27,7 @@ bool qp_comms_spi_start(painter_device_t device) {
     painter_driver_t *     driver       = (painter_driver_t *)device;
     qp_comms_spi_config_t *comms_config = (qp_comms_spi_config_t *)driver->comms_config;
 
-    return spi_start(comms_config->chip_select_pin, comms_config->lsb_first, comms_config->mode, comms_config->divisor);
+    return spi_start_extended(comms_config->chip_select_pin, comms_config->lsb_first, comms_config->mode, comms_config->divisor, comms_config->cs_active_low);
 }
 
 uint32_t qp_comms_spi_send_data(painter_device_t device, const void *data, uint32_t byte_count) {

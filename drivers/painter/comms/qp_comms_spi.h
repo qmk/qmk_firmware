@@ -14,6 +14,7 @@
 
 typedef struct qp_comms_spi_config_t {
     pin_t    chip_select_pin;
+    bool     cs_active_low;
     uint16_t divisor;
     bool     lsb_first;
     int8_t   mode;

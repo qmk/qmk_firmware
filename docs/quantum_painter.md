@@ -35,6 +35,7 @@ Supported devices:
 | SH1106 (I2C)   | Monochrome OLED    | 128x64           | I2C             | `QUANTUM_PAINTER_DRIVERS += sh1106_i2c`  |
 | SSD1306 (SPI)  | Monochrome OLED    | 128x64           | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += sh1106_spi`  |
 | SSD1306 (I2C)  | Monochrome OLED    | 128x32           | I2C             | `QUANTUM_PAINTER_DRIVERS += sh1106_i2c`  |
+| LS0xx (SPI)    | MIP LCD            | User-defined     | SPI             | `QUANTUM_PAINTER_DRIVERS += ls0xx_spi`   |
 | Surface        | Virtual            | User-defined     | None            | `QUANTUM_PAINTER_DRIVERS += surface`     |
 
 ## Quantum Painter Configuration {#quantum-painter-config}
@@ -314,6 +315,7 @@ The maximum number of displays can be configured by changing the following in yo
 ```
 
 Native color format rgb888 is compatible with ILI9486
+
 Native color format rgb565 is compatible with ILI9486 Waveshare
 
 ==== ILI9488
@@ -479,6 +481,42 @@ Native color format mono2 is compatible with SH1106
 SSD1306 and SH1106 are almost entirely identical, to the point of being indisinguishable by Quantum Painter. Enable SH1106 support in Quantum Painter and create SH1106 devices in firmware to perform drawing operations on SSD1306 displays.
 
 :::::
+
+
+===== MIP
+
+Most MIP display panels use a 3-pin interface -- SPI SCK, SPI MOSI and SPI CS pins.
+
+For these displays, QMK's `spi_master` must already be correctly configured for the platform you're building for.
+
+The pin assignment for SPI CS is specified during device construction.
+
+:::::tabs
+
+==== LS0xx Series
+
+Enabling support for the LS0xx family of displays in Quantum Painter is done by adding the following to `rules.mk`:
+
+```make
+QUANTUM_PAINTER_ENABLE = yes
+QUANTUM_PAINTER_DRIVERS += ls0xx_spi
+```
+
+Creating a device in firmware can then be done with the following API:
+
+```c
+uint8_t buf[SURFACE_REQUIRED_BUFFER_BYTE_SIZE(panel_width, panel_height, 1)] = {0}; // framebuffer for pixels' data
+painter_device_t qp_ls0xx_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, uint16_t spi_divisor, int spi_mode, void *buf);
+```
+
+The device handle returned from the `qp_ls0xx_make_spi_device` function can be used to perform all other drawing operations.
+
+The maximum number of displays can be configured by changing the following in your `config.h` (default is 1):
+
+```c
+// 3 displays:
+#define LS0XX_NUM_DEVICES 3
+```
 
 ===== Surface
 
