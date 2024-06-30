@@ -1,0 +1,11 @@
+{
+    "keyboard_name": "Protokeeb",
+    "manufacturer": "A-Tech Officials",
+    "maintainer": "atechofficials",
+    "url": "https://github.com/atechofficials/protokeeb",
+    "bootloader_instructions": "Press and hold the FN Key (row-4, column-1) then press the key mapped to `QK_BOOT` i.e ENTER Key (row-4, column-4) to enter the bootloader mode.",
+    "tags": ["rgb", "4x4"],
+    "usb": {
+        "vid": "0x419A"
+    }
+}
