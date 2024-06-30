@@ -50,7 +50,7 @@
     "processor": "STM32F103",
     "bootloader": "stm32duino",
     "layout_aliases": {
-        "LAYOUT_60_tsangan_hhkb": "60_ansi_tsangan_split_bs_rshift"
+        "LAYOUT_60_tsangan_hhkb": "LAYOUT_60_ansi_tsangan_split_bs_rshift"
     },
     "community_layouts": ["60_ansi_tsangan", "60_tsangan_hhkb", "60_ansi_wkl", "60_ansi_wkl_split_bs_rshift", "60_hhkb"],
     "layouts": {
