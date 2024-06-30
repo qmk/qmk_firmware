@@ -7,5 +7,11 @@
         "vid": "0x5845",
         "pid": "0x5253"
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "community_layouts": ["60_ansi_split_bs_rshift", "60_ansi", "60_ansi_tsangan", "60_tsangan_hhkb"]
 }
