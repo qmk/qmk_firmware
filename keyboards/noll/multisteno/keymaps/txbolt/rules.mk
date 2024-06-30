@@ -1,0 +1,1 @@
+STENO_PROTOCOL = txbolt	# geminipr or txbolt
