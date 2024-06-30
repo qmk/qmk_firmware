@@ -394,6 +394,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef TRI_LAYER_ENABLE
             process_tri_layer(keycode, record) &&
 #endif
+#ifdef KEY_INTERRUPT_ENABLE
+            process_key_interrupt(keycode, record) &&
+#endif
             true)) {
         return false;
     }

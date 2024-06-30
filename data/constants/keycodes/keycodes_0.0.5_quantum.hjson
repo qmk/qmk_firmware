@@ -1,0 +1,25 @@
+{
+    "keycodes": {
+        "0x7C7B": {
+            "group": "quantum",
+            "key": "QK_KEY_INTERRUPT_ON",
+            "aliases": [
+                "KI_ON"
+            ]
+        },
+        "0x7C7C": {
+            "group": "quantum",
+            "key": "QK_KEY_INTERRUPT_OFF",
+            "aliases": [
+                "KI_OFF"
+            ]
+        },
+        "0x7C7D": {
+            "group": "quantum",
+            "key": "QK_KEY_INTERRUPT_TOGGLE",
+            "aliases": [
+                "KI_TOGG"
+            ]
+        }
+    }
+}
