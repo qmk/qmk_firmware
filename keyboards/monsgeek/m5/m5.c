@@ -157,6 +157,7 @@ void keyboard_pre_init_kb(void) {
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if (res) {
+        led_update_ports(led_state);
         gpio_write_pin(LED_WIN_LOCK_PIN, keymap_config.no_gui);
     }
     return res;
