@@ -25,7 +25,7 @@
     },
     "indicators": {
         "caps_lock": "A8",
-        "on_state": 0
+        "on_state": 1
     },
     "community_layouts": ["60_hhkb"],
     "layouts": {
@@ -89,8 +89,8 @@
                 {"label": "Win", "matrix": [4, 1], "x": 1.5, "y": 4},
                 {"label": "Alt", "matrix": [4, 2], "x": 2.5, "y": 4, "w": 1.5},
                 {"label": "Space", "matrix": [4, 6], "x": 4, "y": 4, "w": 7},
-                {"label": "Alt", "matrix": [4, 10], "x": 11, "y": 4, "w": 1.5},
-                {"label": "Win", "matrix": [4, 11], "x": 12.5, "y": 4}
+                {"label": "Alt", "matrix": [4, 9], "x": 11, "y": 4, "w": 1.5},
+                {"label": "Win", "matrix": [4, 10], "x": 12.5, "y": 4}
             ]
         }
     }
