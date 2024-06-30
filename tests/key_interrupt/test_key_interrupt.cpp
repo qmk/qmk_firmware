@@ -55,14 +55,94 @@ TEST_F(KeyInterrupt, OnOffToggle) {
 }
 
 // Test that holding A, and then pressing D, releases A and sends only D
-TEST_F(KeyInterrupt, a_d_key_interrupt) {
+TEST_F(KeyInterrupt, a_hold_d_key_interrupt) {
     TestDriver driver;
     KeymapKey  key_a(0, 0, 0, KC_A);
     KeymapKey  key_d(0, 1, 0, KC_D);
 
     set_keymap({key_a, key_d});
 
-    EXPECT_NO_REPORT(driver);
+    /* Press A key */
+    EXPECT_REPORT(driver, (KC_A));
+    key_a.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    /* Press D key */
+    EXPECT_REPORT(driver, (KC_D));
+    key_d.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
+
+// Test that holding D, and then pressing A, releases D and sends only A
+TEST_F(KeyInterrupt, d_hold_a_key_interrupt) {
+    TestDriver driver;
+    KeymapKey  key_a(0, 0, 0, KC_A);
+    KeymapKey  key_d(0, 1, 0, KC_D);
+
+    set_keymap({key_a, key_d});
+
+    /* Press A key */
+    EXPECT_REPORT(driver, (KC_D));
+    key_d.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    /* Press D key */
+    EXPECT_REPORT(driver, (KC_A));
+    key_a.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
+
+// Test that holding W, holding A, and then pressing D, does NOT release W, but only releases A
+TEST_F(KeyInterrupt, w_a_hold_d_key_interrupt) {
+    TestDriver driver;
+    KeymapKey  key_a(0, 0, 0, KC_A);
+    KeymapKey  key_d(0, 1, 0, KC_D);
+    KeymapKey  key_w(0, 2, 0, KC_W);
+
+    set_keymap({key_a, key_d, key_w});
+
+    /* Press W key */
+    EXPECT_REPORT(driver, (KC_W));
+    key_w.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    /* Press A key */
+    EXPECT_REPORT(driver, (KC_A, KC_W));
+    key_a.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    /* Press D key */
+    EXPECT_REPORT(driver, (KC_D, KC_W));
+    key_d.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
+
+// Test that holding D and F, then press A, releases D and F, and sends only A
+TEST_F(KeyInterrupt, d_f_hold_a_key_interrupt) {
+    TestDriver driver;
+    KeymapKey  key_a(0, 0, 0, KC_A);
+    KeymapKey  key_d(0, 1, 0, KC_D);
+    KeymapKey  key_f(0, 2, 0, KC_F);
+
+    set_keymap({key_a, key_d, key_f});
+
+    /* Press F key */
+    EXPECT_REPORT(driver, (KC_F));
+    key_f.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    /* Press D key */
+    EXPECT_REPORT(driver, (KC_D, KC_F));
+    key_d.press();
+    run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 
     /* Press A key */
@@ -70,6 +150,40 @@ TEST_F(KeyInterrupt, a_d_key_interrupt) {
     key_a.press();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
+}
+
+// 2 Consecutive key interrupts, A, D, A, D
+TEST_F(KeyInterrupt, d_and_a_consecutive_key_interrupt) {
+    TestDriver driver;
+    KeymapKey  key_a(0, 0, 0, KC_A);
+    KeymapKey  key_d(0, 1, 0, KC_D);
+    KeymapKey  key_f(0, 2, 0, KC_F);
+
+    set_keymap({key_a, key_d, key_f});
+
+    /* Press A key */
+    EXPECT_REPORT(driver, (KC_A));
+    key_a.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    /* Press D key */
+    EXPECT_REPORT(driver, (KC_D));
+    key_d.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    key_a.release();
+    run_one_scan_loop();
+
+    /* Press A key */
+    EXPECT_REPORT(driver, (KC_A));
+    key_a.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    key_d.release();
+    run_one_scan_loop();
 
     /* Press D key */
     EXPECT_REPORT(driver, (KC_D));
