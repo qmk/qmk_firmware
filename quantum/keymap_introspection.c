@@ -114,9 +114,9 @@ __attribute__((weak)) combo_t* combo_get(uint16_t combo_idx) {
 // Key Interrupt
 
 #if defined(KEY_INTERRUPT_ENABLE)
-#include "process_key_interrupt.h"
+#    include "process_key_interrupt.h"
 uint16_t key_interrupt_count_raw(void) {
-    return ((uint16_t)sizeof(key_interrupt_list) / ((NUM_KEY_INTERRUPTS) * sizeof(uint16_t)));
+    return ((uint16_t)sizeof(key_interrupt_list) / ((NUM_INTERRUPT_KEYCODES) * sizeof(uint16_t)));
 }
 __attribute__((weak)) uint16_t key_interrupt_count(void) {
     return key_interrupt_count_raw();

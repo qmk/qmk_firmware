@@ -72,7 +72,7 @@ combo_t* combo_get(uint16_t combo_idx);
 // Key Interrupt
 
 #if defined(KEY_INTERRUPT_ENABLE)
-#include "process_key_interrupt.h"
+#    include "process_key_interrupt.h"
 // Get the number of key interrupts defined in the user's keymap, stored in firmware rather than any other persistent storage
 uint16_t key_interrupt_count_raw(void);
 // Get the number of key interrupts defined in the user's keymap, potentially stored dynamically
