@@ -136,6 +136,7 @@
         ],
         "sleep": true
     },
+    "community_layouts": ["64_ansi"],
     "layouts": {
         "LAYOUT_64_ansi": {
             "layout": [
