@@ -1,0 +1,9 @@
+{
+    "keyboard_name": "Planck EZ Glow",
+    "usb": {
+        "pid": "0xC6CF"
+    },
+    "features": {
+        "rgb_matrix": true
+    }
+}

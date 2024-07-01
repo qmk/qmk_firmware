@@ -1,0 +1,145 @@
+{
+    "keyboard_name": "Neito",
+    "manufacturer": "Oliver Granlund",
+    "url": "olli.works",
+    "maintainer": "Oliver Granlund",
+    "usb": {
+        "vid": "0xB9F7",
+        "pid": "0xB44C",
+        "device_version": "0.0.1"
+    },
+    "features": {
+        "backlight": true,
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgblight": true
+    },
+    "matrix_pins": {
+        "cols": ["F4", "F1", "F7", "B2", "D1", "D2", "B3", "B1"],
+        "rows": ["E6", "F0", "F5", "F6", "C7", "C6", "B4", "D7", "D6", "D4"]
+    },
+    "diode_direction": "COL2ROW",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B7", "pin_b": "B0"}
+        ]
+    },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
+    "backlight": {
+        "pin": "B5",
+        "levels": 5,
+        "on_state": 0
+    },
+    "indicators": {
+        "caps_lock": "B6"
+    },
+    "ws2812": {
+        "pin": "D5"
+    },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 11,
+        "max_brightness": 200,
+        "led_map": [4, 3, 2, 1, 0, 10, 9, 8, 7, 6, 5],
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+   "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0.62, "y": 0.25},
+                {"matrix": [1, 0], "x": 1.62, "y": 0.25},
+                {"matrix": [0, 1], "x": 2.62, "y": 0.19},
+                {"matrix": [1, 1], "x": 4, "y": 0.44},
+                {"matrix": [0, 2], "x": 5, "y": 0.44},
+                {"matrix": [1, 2], "x": 6, "y": 0.44},
+                {"matrix": [0, 3], "x": 7, "y": 0.44},
+                {"matrix": [1, 3], "x": 10.25, "y": 0.44},
+                {"matrix": [0, 4], "x": 11.25, "y": 0.44},
+                {"matrix": [1, 4], "x": 12.25, "y": 0.44},
+                {"matrix": [0, 5], "x": 13.25, "y": 0.44},
+                {"matrix": [1, 5], "x": 14.94, "y": 0.19},
+                {"matrix": [0, 6], "x": 15.94, "y": 0.25},
+                {"matrix": [1, 6], "x": 16.94, "y": 0.25, "w": 2},
+                {"matrix": [0, 7], "x": 19.19, "y": 0},
+
+                {"matrix": [2, 0], "x": 0.43, "y": 1.25, "w": 1.5},
+                {"matrix": [3, 0], "x": 1.93, "y": 1.25},
+                {"matrix": [2, 1], "x": 3.5, "y": 1.44},
+                {"matrix": [3, 1], "x": 4.5, "y": 1.44},
+                {"matrix": [2, 2], "x": 5.5, "y": 1.44},
+                {"matrix": [3, 2], "x": 6.5, "y": 1.44},
+                {"matrix": [2, 3], "x": 9.75, "y": 1.44},
+                {"matrix": [3, 3], "x": 10.75, "y": 1.44},
+                {"matrix": [2, 4], "x": 11.75, "y": 1.44},
+                {"matrix": [3, 4], "x": 12.75, "y": 1.44},
+                {"matrix": [2, 5], "x": 13.75, "y": 1.44},
+                {"matrix": [3, 5], "x": 15.69, "y": 1.25},
+                {"matrix": [2, 6], "x": 16.69, "y": 1.25},
+                {"matrix": [3, 6], "x": 17.94, "y": 1.25, "w": 1.25, "h": 2},
+                {"matrix": [2, 7], "x": 19.44, "y": 1},
+
+                {"matrix": [4, 0], "x": 0.18, "y": 2.25, "w": 1.75},
+                {"matrix": [5, 0], "x": 1.93, "y": 2.25},
+                {"matrix": [4, 1], "x": 3.75, "y": 2.44},
+                {"matrix": [5, 1], "x": 4.75, "y": 2.44},
+                {"matrix": [4, 2], "x": 5.75, "y": 2.44},
+                {"matrix": [5, 2], "x": 6.75, "y": 2.44},
+                {"matrix": [4, 3], "x": 10, "y": 2.44},
+                {"matrix": [5, 3], "x": 11, "y": 2.44},
+                {"matrix": [4, 4], "x": 12, "y": 2.44},
+                {"matrix": [5, 4], "x": 13, "y": 2.44},
+                {"matrix": [4, 5], "x": 14.94, "y": 2.25},
+                {"matrix": [5, 5], "x": 15.94, "y": 2.25},
+                {"matrix": [4, 6], "x": 16.94, "y": 2.25},
+                {"matrix": [4, 7], "x": 19.69, "y": 2},
+
+                {"matrix": [6, 0], "x": 0, "y": 3.25, "w": 1.25},
+                {"matrix": [8, 0], "x": 1.25, "y": 3.25},
+                {"matrix": [7, 0], "x": 2.25, "y": 3.25},
+                {"matrix": [6, 1], "x": 4.25, "y": 3.44},
+                {"matrix": [7, 1], "x": 5.25, "y": 3.44},
+                {"matrix": [6, 2], "x": 6.25, "y": 3.44},
+                {"matrix": [7, 2], "x": 7.25, "y": 3.44},
+                {"matrix": [8, 3], "x": 9.25, "y": 3.44},
+                {"matrix": [6, 3], "x": 10.25, "y": 3.44},
+                {"matrix": [7, 3], "x": 11.25, "y": 3.44},
+                {"matrix": [6, 4], "x": 12.25, "y": 3.44},
+                {"matrix": [7, 4], "x": 13.25, "y": 3.44},
+                {"matrix": [6, 5], "x": 15.44, "y": 3.25},
+                {"matrix": [6, 6], "x": 16.44, "y": 3.25, "w": 1.75},
+                {"matrix": [7, 6], "x": 18.44, "y": 3.5},
+
+                {"matrix": [9, 0], "x": 0, "y": 4.25, "w": 1.5},
+                {"matrix": [8, 1], "x": 4.25, "y": 4.44, "w": 1.5},
+                {"matrix": [8, 2], "x": 5.75, "y": 4.44, "w": 2},
+                {"matrix": [9, 2], "x": 7.75, "y": 4.44},
+                {"matrix": [9, 3], "x": 9.75, "y": 4.44, "w": 2.75},
+                {"matrix": [8, 4], "x": 12.5, "y": 4.44, "w": 1.5},
+                {"matrix": [8, 6], "x": 17.44, "y": 4.5},
+                {"matrix": [9, 6], "x": 18.44, "y": 4.5},
+                {"matrix": [8, 7], "x": 19.44, "y": 4.5}
+            ]
+        }
+    }
+}
