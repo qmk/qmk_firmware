@@ -159,10 +159,10 @@ For example, one could search for all keyboards using STM32F411:
 qmk find -f 'processor=STM32F411'
 ```
 
-...and one can further constrain the list to keyboards using STM32F411 as well as rgb_matrix support:
+...and one can further constrain the list to keyboards using STM32F411 as well as rgb_matrix support with at least 3 columns:
 
 ```
-qmk find -f 'processor=STM32F411' -f 'features.rgb_matrix=true'
+qmk find -f 'processor=STM32F411' -f 'features.rgb_matrix=true' -f 'length(matrix_pins.cols, >=3)'
 ```
 
 The following filter expressions are also supported:
@@ -170,7 +170,7 @@ The following filter expressions are also supported:
  - `exists(key)`: Match targets where `key` is present.
  - `absent(key)`: Match targets where `key` is not present.
  - `contains(key, value)`: Match targets where `key` contains `value`. Can be used for strings, arrays and object keys.
- - `length(key, value)`: Match targets where the length of `key` is `value`. Can be used for strings, arrays and objects.
+ - `length(key, value)`: Match targets where the length of `key` matches `value`. Can be used for strings, arrays and objects.
 
 You can also list arbitrary values for each matched target with `--print`:
 
