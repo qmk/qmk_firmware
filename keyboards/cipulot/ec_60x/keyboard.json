@@ -54,8 +54,9 @@
         "driver": "pwm",
         "pin": "B15"
     },
+    "community_layouts": ["60_abnt2", "60_ansi", "60_ansi_tsangan", "60_ansi_wkl", "60_iso", "60_iso_tsangan", "60_iso_wkl", "60_jis"],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_all": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
