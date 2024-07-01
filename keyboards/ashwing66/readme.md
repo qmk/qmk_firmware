@@ -1,12 +1,12 @@
 # Ashwing66
 
-![Ashwing66](https://i.imgur.com/CkDzpjo.png)
+![Ashwing66](https://i.imgur.com/)
 
 66 key winged unibody split
 
 * Keyboard Maintainer: [James Gzowski](https://github.com/gzowski)
 * Hardware Supported: Pi Pico or equivilent
-* Build Guide: [Ashwing66](https://github.com/gzowski/Ashwing66) - Rev 1
+* Build Guide: [Proteus67](https://github.com/gzowski/Ashwing66)
 
 Make example for this keyboard (after setting up your build environment):
 	
