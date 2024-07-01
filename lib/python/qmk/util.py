@@ -3,6 +3,7 @@
 import contextlib
 import multiprocessing
 import sys
+from pathlib import Path
 
 from milc import cli
 
@@ -25,6 +26,24 @@ def maybe_exit_config(should_exit: bool = True, should_reraise: bool = False):
     global maybe_exit_reraise
     maybe_exit_should_exit = should_exit
     maybe_exit_reraise = should_reraise
+
+
+def cached_get(*args, **kwargs):
+    import requests_cache
+    session = requests_cache.CachedSession(Path('~/.local/qmk/qmk_requests.sqlite').expanduser(), expire_after=300, cache_control=True)
+    return session.get(*args, **kwargs)
+
+
+def download_with_progress(url, filename):
+    import requests
+    import tqdm
+    response = requests.get(url, stream=True)
+    total_size = int(response.headers.get('content-length', 0))
+    with tqdm.tqdm(desc=filename, total=total_size, unit='B', unit_scale=True) as pbar:
+        with open(filename, 'wb') as file:
+            for data in response.iter_content(1024):
+                file.write(data)
+                pbar.update(len(data))
 
 
 @contextlib.contextmanager

@@ -82,6 +82,7 @@ subcommands = [
     'qmk.cli.painter',
     'qmk.cli.pytest',
     'qmk.cli.test.c',
+    'qmk.cli.toolchain.commands',
     'qmk.cli.userspace.add',
     'qmk.cli.userspace.compile',
     'qmk.cli.userspace.doctor',
@@ -258,3 +259,11 @@ for subcommand in subcommands:
             _eprint(f'Warning: Could not import {subcommand}: {e.__class__.__name__}, {e}')
         else:
             raise
+
+# Add the QMK toolchains to $PATH
+try:
+    from qmk.constants import QMK_TOOLCHAINS_PATH  # noqa
+    if QMK_TOOLCHAINS_PATH.exists():
+        os.environ['PATH'] = f'{QMK_TOOLCHAINS_PATH}/bin{os.pathsep}{os.environ["PATH"]}'
+except Exception:
+    pass

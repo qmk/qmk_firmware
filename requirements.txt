@@ -6,8 +6,11 @@ dotty-dict
 hid
 hjson
 jsonschema>=4
-milc>=1.4.2
+milc>=1.8.0
 pygments
 pyserial
 pyusb
 pillow
+requests
+requests-cache
+tqdm
