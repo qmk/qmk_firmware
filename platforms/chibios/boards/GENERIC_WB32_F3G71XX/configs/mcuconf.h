@@ -44,7 +44,7 @@
 #define WB32_NO_INIT                       FALSE
 #define WB32_MHSI_ENABLED                  TRUE
 #define WB32_FHSI_ENABLED                  FALSE
-#define WB32_LSI_ENABLED                   FALSE
+#define WB32_LSI_ENABLED                   TRUE
 #define WB32_HSE_ENABLED                   TRUE
 #define WB32_LSE_ENABLED                   FALSE
 #define WB32_PLL_ENABLED                   TRUE
