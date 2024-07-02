@@ -34,13 +34,15 @@ enum custom_keycodes {
   KB_VLEAD = SAFE_RANGE,
 };
 
+#define PWR_SFT LT(0, KC_A)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BSE] = LAYOUT_split_3x6_3(
     TG(_BLN),      KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                 KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          KC_DEL,
-    LT(0, KC_A),   KC_A,          LT(U, KC_S),  ALT_T(KC_D),   LT(N, KC_F),   KC_G,                 KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(Y),
+    PWR_SFT,       KC_A,          LT(U, KC_S),  ALT_T(KC_D),   LT(N, KC_F),   KC_G,                 KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(Y),
     _______,       KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,                 KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       C(G(KC_Q)),
-                                                CTL_T(KC_ESC), GUI_T(KC_SPC), KB_VLEAD,             HYPR_T(KC_ENT),SFT_T(KC_BSPC),OSL(M)
+                                                CTL_T(KC_ESC), GUI_T(KC_SPC), HYPR_T(KC_ENT),       KB_VLEAD,      SFT_T(KC_BSPC),OSL(M)
 ),
 
 [_SYM] = LAYOUT_split_3x6_3(
@@ -58,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_SYS] = LAYOUT_split_3x6_3(
-    CW_TOGG,       _______,       _______,      _______,       KC_PSCR,       _______,              _______,       KC_F7,         KC_F8,        KC_F9,         KC_F12,        _______,
+    CW_TOGG,       RGB_TOG,       RGB_VAD,      RGB_VAI,       KC_PSCR,       _______,              _______,       KC_F7,         KC_F8,        KC_F9,         KC_F12,        _______,
     _______,       _______,       KC_MPLY,      KC_VOLD,       KC_VOLU,       _______,              _______,       KC_F4,         KC_F5,        KC_F6,         KC_F11,        ___E___,
     QK_BOOT,       _______,       KC_MPRV,      KC_MNXT,       KC_MUTE,       _______,              _______,       KC_F1,         KC_F2,        KC_F3,         KC_F10,        _______,
                                                 _______,       _______,       _______,              _______,       _______,       _______
@@ -73,9 +75,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BLN] = LAYOUT_split_3x6_3(
     KC_GRV,        LT(0, KC_Q),   LT(0, KC_W),  LT(0, KC_E),   LT(0, KC_R),   LT(0, KC_T),          _______,       _______,       _______,      _______,       _______,       _______,
-    SFT_T(KC_ENT), _______,       _______,      _______,       _______,       LT(0, KC_G),          _______,       _______,       _______,      _______,       _______,       _______,
+    SFT_T(KC_TAB), _______,       _______,      _______,       _______,       LT(0, KC_G),          _______,       _______,       _______,      _______,       _______,       _______,
     TG(_BLN),      _______,       LT(0, KC_X),  LT(0, KC_C),   LT(0, KC_V),   _______,              _______,       _______,       _______,      _______,       _______,       _______,
-                                                _______,       _______,       SFT_T(KC_TAB),        _______,       _______,       _______
+                                                _______,       _______,       SFT_T(KC_ENT),        _______,       _______,       _______
 )
 
 };
@@ -182,16 +184,18 @@ enum vleader_events {
     K_NM,
     K_NT,
     K_NA,
+    K_LTHUMB,
 };
 
-const uint16_t PROGMEM k_u[]  = {KC_U, SEQ_END};
-const uint16_t PROGMEM k_d[]  = {ALT_T(KC_D), SEQ_END};
-const uint16_t PROGMEM k_e[]  = {KC_E, SEQ_END};
-const uint16_t PROGMEM k_m[]  = {KC_M, SEQ_END};
-const uint16_t PROGMEM k_h[]  = {KC_H, SEQ_END};
-const uint16_t PROGMEM k_nm[] = {KC_N, KC_M, SEQ_END};
-const uint16_t PROGMEM k_nt[] = {KC_N, KC_T, SEQ_END};
-const uint16_t PROGMEM k_na[] = {KC_N, KC_A, SEQ_END};
+const uint16_t PROGMEM k_u[]      = {KC_U, SEQ_END};
+const uint16_t PROGMEM k_d[]      = {ALT_T(KC_D), SEQ_END};
+const uint16_t PROGMEM k_e[]      = {KC_E, SEQ_END};
+const uint16_t PROGMEM k_m[]      = {KC_M, SEQ_END};
+const uint16_t PROGMEM k_h[]      = {KC_H, SEQ_END};
+const uint16_t PROGMEM k_nm[]     = {KC_N, KC_M, SEQ_END};
+const uint16_t PROGMEM k_nt[]     = {KC_N, KC_T, SEQ_END};
+const uint16_t PROGMEM k_na[]     = {KC_N, KC_A, SEQ_END};
+const uint16_t PROGMEM k_lthumb[] = {GUI_T(KC_SPC), SEQ_END};
 
 // clang-format off
 vlead_seq_t vleader_map[] = {
@@ -203,11 +207,16 @@ vlead_seq_t vleader_map[] = {
     VLEAD_SEQ(k_nm, K_NM),
     VLEAD_SEQ(k_nt, K_NT),
     VLEAD_SEQ(k_na, K_NA),
+    VLEAD_SEQ(k_lthumb, K_LTHUMB),
 };
 // clang-format on
 
 void process_vlead_event_user(uint16_t vlead_idx) {
     switch (vlead_idx) {
+        case K_LTHUMB:
+            SEND_STRING(". ");
+            add_oneshot_mods(MOD_MASK_SHIFT);
+            break;
         case K_U:
             SEND_STRING("../");
             break;
@@ -402,21 +411,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     // This switch can actually modify keypress behavior.
     switch (keycode) {
-        case LT(0, KC_A):
+        // When tapped: oneshot shift.
+        // When tapped while holding shift: toggle caps word.
+        // When held: hold shift.
+        case PWR_SFT:
             if (record->event.pressed) {
                 if (record->tap.count) {
-                    // On tap, either set caps word or one shot shift.
                     if (all_mods & MOD_MASK_SHIFT) {
                         caps_word_toggle();
                     } else {
                         add_oneshot_mods(MOD_MASK_SHIFT);
                     }
                 } else {
-                    // On hold, hold shift
                     register_mods(MOD_MASK_SHIFT);
                 }
             } else {
-                if (get_mods() & MOD_MASK_SHIFT) {
+                if (!record->tap.count) {
                     unregister_mods(MOD_MASK_SHIFT);
                 }
             }
