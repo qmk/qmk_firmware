@@ -2,6 +2,7 @@
 """
 from pathlib import Path
 import shutil
+import hjson
 import json
 
 from milc import cli
@@ -13,6 +14,7 @@ from qmk.json_schema import json_load
 from qmk.keymap import list_keymaps
 from qmk.keyboard import find_readme, list_keyboards, keyboard_alias_definitions
 from qmk.keycodes import load_spec, list_versions, list_languages
+from qmk.xap.common import get_xap_definition_files, update_xap_definitions
 
 DATA_PATH = Path('data')
 TEMPLATE_PATH = DATA_PATH / 'templates/api/'
@@ -87,6 +89,22 @@ def _filtered_keyboard_list():
                 kb_list.append(keyboard_name)
         keyboard_list = kb_list
     return keyboard_list
+
+
+def _resolve_xap_specs(output_folder):
+    """To make it easier for consumers, publish pre-merged spec files
+    """
+    overall = None
+    for file in get_xap_definition_files():
+        overall = update_xap_definitions(overall, hjson.load(file.open(encoding='utf-8')))
+
+        # Inject dummy bits for unspecified response flags
+        for n in range(0, 8):
+            if str(n) not in overall['response_flags']['bits']:
+                overall['response_flags']['bits'][str(n)] = {'name': '', 'description': '', 'define': '-'}
+
+        output_file = output_folder / (file.stem + ".json")
+        output_file.write_text(json.dumps(overall, indent=4), encoding='utf-8')
 
 
 @cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="Don't write the data to disk.")
@@ -181,6 +199,7 @@ def generate_api(cli):
 
     # Feature specific handling
     _resolve_keycode_specs(v1_dir)
+    _resolve_xap_specs(v1_dir / 'xap')
 
     # Write the global JSON files
     keyboard_all_json = json.dumps({'last_updated': current_datetime(), 'keyboards': kb_all}, separators=(',', ':'))
