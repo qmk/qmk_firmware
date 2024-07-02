@@ -47,11 +47,17 @@
 
 typedef struct aw20216s_driver_t {
     uint8_t pwm_buffer[AW20216S_PWM_REGISTER_COUNT];
-    bool    pwm_buffer_dirty;
+#ifdef AW20216S_DOUBLE_BUFFER
+    uint8_t pwm_flush_buffer[AW20216S_PWM_REGISTER_COUNT];
+#endif
+    bool pwm_buffer_dirty;
 } PACKED aw20216s_driver_t;
 
 aw20216s_driver_t driver_buffers[AW20216S_DRIVER_COUNT] = {{
-    .pwm_buffer       = {0},
+    .pwm_buffer = {0},
+#ifdef AW20216S_DOUBLE_BUFFER
+    .pwm_flush_buffer = {0},
+#endif
     .pwm_buffer_dirty = false,
 }};
 
@@ -158,8 +164,20 @@ void aw20216s_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
 
 void aw20216s_update_pwm_buffers(pin_t cs_pin, uint8_t index) {
     if (driver_buffers[index].pwm_buffer_dirty) {
-        aw20216s_write(cs_pin, AW20216S_PAGE_PWM, 0, driver_buffers[index].pwm_buffer, AW20216S_PWM_REGISTER_COUNT);
         driver_buffers[index].pwm_buffer_dirty = false;
+#ifdef AW20216S_DOUBLE_BUFFER
+        if (memcmp(driver_buffers[index].pwm_buffer, driver_buffers[index].pwm_flush_buffer, AW20216S_PWM_REGISTER_COUNT) == 0) {
+            // if they are the same return early
+            return;
+        }
+
+        // copy the current buffer to the flush buffer
+        memcpy(driver_buffers[index].pwm_flush_buffer, driver_buffers[index].pwm_buffer, AW20216S_PWM_REGISTER_COUNT);
+
+        aw20216s_write(cs_pin, AW20216S_PAGE_PWM, 0, driver_buffers[index].pwm_flush_buffer, AW20216S_PWM_REGISTER_COUNT);
+#else
+        aw20216s_write(cs_pin, AW20216S_PAGE_PWM, 0, driver_buffers[index].pwm_buffer, AW20216S_PWM_REGISTER_COUNT);
+#endif
     }
 }
 

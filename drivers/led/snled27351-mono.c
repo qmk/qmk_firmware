@@ -59,13 +59,19 @@ const uint8_t i2c_addresses[SNLED27351_DRIVER_COUNT] = {
 // probably not worth the extra complexity.
 typedef struct snled27351_driver_t {
     uint8_t pwm_buffer[SNLED27351_PWM_REGISTER_COUNT];
+#ifdef SNLED27351_DOUBLE_BUFFER
+    uint8_t pwm_flush_buffer[SNLED27351_PWM_REGISTER_COUNT];
+#endif
     bool    pwm_buffer_dirty;
     uint8_t led_control_buffer[SNLED27351_LED_CONTROL_REGISTER_COUNT];
     bool    led_control_buffer_dirty;
 } PACKED snled27351_driver_t;
 
 snled27351_driver_t driver_buffers[SNLED27351_DRIVER_COUNT] = {{
-    .pwm_buffer               = {0},
+    .pwm_buffer = {0},
+#ifdef SNLED27351_DOUBLE_BUFFER
+    .pwm_flush_buffer = {0},
+#endif
     .pwm_buffer_dirty         = false,
     .led_control_buffer       = {0},
     .led_control_buffer_dirty = false,
@@ -93,10 +99,18 @@ void snled27351_write_pwm_buffer(uint8_t index) {
     for (uint8_t i = 0; i < SNLED27351_PWM_REGISTER_COUNT; i += 16) {
 #if SNLED27351_I2C_PERSISTENCE > 0
         for (uint8_t j = 0; j < SNLED27351_I2C_PERSISTENCE; j++) {
+#    ifdef SNLED27351_DOUBLE_BUFFER
+            if (i2c_write_register(i2c_addresses[index] << 1, i, driver_buffers[index].pwm_flush_buffer + i, 16, SNLED27351_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
+#    else
             if (i2c_write_register(i2c_addresses[index] << 1, i, driver_buffers[index].pwm_buffer + i, 16, SNLED27351_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
+#    endif
         }
 #else
+#    ifdef SNLED27351_DOUBLE_BUFFER
+        i2c_write_register(i2c_addresses[index] << 1, i, driver_buffers[index].pwm_flush_buffer + i, 16, SNLED27351_I2C_TIMEOUT);
+#    else
         i2c_write_register(i2c_addresses[index] << 1, i, driver_buffers[index].pwm_buffer + i, 16, SNLED27351_I2C_TIMEOUT);
+#    endif
 #endif
     }
 }
@@ -207,11 +221,19 @@ void snled27351_set_led_control_register(uint8_t index, bool value) {
 
 void snled27351_update_pwm_buffers(uint8_t index) {
     if (driver_buffers[index].pwm_buffer_dirty) {
+        driver_buffers[index].pwm_buffer_dirty = false;
+#ifdef SNLED27351_DOUBLE_BUFFER
+        if (memcmp(driver_buffers[index].pwm_buffer, driver_buffers[index].pwm_flush_buffer, SNLED27351_PWM_REGISTER_COUNT) == 0) {
+            // if they are the same return early
+            return;
+        }
+
+        // copy the current buffer to the flush buffer
+        memcpy(driver_buffers[index].pwm_flush_buffer, driver_buffers[index].pwm_buffer, SNLED27351_PWM_REGISTER_COUNT);
+#endif
         snled27351_select_page(index, SNLED27351_COMMAND_PWM);
 
         snled27351_write_pwm_buffer(index);
-
-        driver_buffers[index].pwm_buffer_dirty = false;
     }
 }
 

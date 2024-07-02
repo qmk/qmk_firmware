@@ -148,6 +148,9 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
 
 // LED color buffer
 rgb_led_t rgb_matrix_ws2812_array[WS2812_LED_COUNT];
+#    ifdef WS2812_DOUBLE_BUFFER
+rgb_led_t rgb_matrix_ws2812_flush_array[WS2812_LED_COUNT];
+#    endif
 bool      ws2812_dirty = false;
 
 static void init(void) {
@@ -157,8 +160,15 @@ static void init(void) {
 
 static void flush(void) {
     if (ws2812_dirty) {
-        ws2812_setleds(rgb_matrix_ws2812_array, WS2812_LED_COUNT);
         ws2812_dirty = false;
+#    ifdef WS2812_DOUBLE_BUFFER
+        if (memcmp(rgb_matrix_ws2812_array, rgb_matrix_ws2812_flush_array, WS2812_LED_COUNT) == 0) {
+            return;
+        }
+
+        memcpy(rgb_matrix_ws2812_flush_array, rgb_matrix_ws2812_array, WS2812_LED_COUNT);
+#    endif
+        ws2812_setleds(rgb_matrix_ws2812_array, WS2812_LED_COUNT);
     }
 }
 
