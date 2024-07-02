@@ -18,6 +18,7 @@
         "rgblight": true
     },
     "qmk": {
+        "tap_keycode_delay": 10,
         "locking": {
             "enabled": true,
             "resync": true
@@ -29,8 +30,6 @@
     },
     "diode_direction": "COL2ROW",
     "rgblight": {
-        "saturation_steps": 8,
-        "brightness_steps": 8,
         "led_count": 7,
         "sleep": true,
         "animations": {
