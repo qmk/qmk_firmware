@@ -1,0 +1,40 @@
+{
+  "keyboard_name": "SixKeyBoard",
+  "manufacturer": "TechKeys",
+  "url": "",
+  "maintainer": "qmk",
+  "usb": {
+    "vid": "0x746B",
+    "pid": "0x736B",
+    "device_version": "0.0.1",
+    "force_nkro": true
+  },
+  "features": {
+    "bootmagic": false,
+    "extrakey": false,
+    "mousekey": false,
+    "nkro": false
+  },
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  },
+  "processor": "atmega16u2",
+  "bootloader": "atmel-dfu",
+  "community_layouts": ["ortho_2x3"],
+  "layouts": {
+    "LAYOUT_ortho_2x3": {
+      "layout": [
+        {"matrix": [0, 0], "x": 0, "y": 0},
+        {"matrix": [0, 1], "x": 1, "y": 0},
+        {"matrix": [0, 2], "x": 2, "y": 0},
+
+        {"matrix": [1, 0], "x": 0, "y": 1},
+        {"matrix": [1, 1], "x": 1, "y": 1},
+        {"matrix": [1, 2], "x": 2, "y": 1}
+      ]
+    }
+  }
+}

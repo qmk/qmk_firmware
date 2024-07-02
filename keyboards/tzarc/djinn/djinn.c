@@ -1,12 +1,10 @@
 // Copyright 2018-2023 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
-#include <string.h>
-#include "quantum.h"
-#include <hal_pal.h>
 #include "djinn.h"
+#include <string.h>
+#include <hal_pal.h>
 #include "serial.h"
 #include "split_util.h"
-#include "qp.h"
 
 painter_device_t lcd;
 
@@ -48,23 +46,23 @@ void keyboard_post_init_kb(void) {
     memset(&kb_state, 0, sizeof(kb_state));
 
     // Turn off increased current limits
-    setPinOutput(RGB_CURR_1500mA_OK_PIN);
-    writePinLow(RGB_CURR_1500mA_OK_PIN);
-    setPinOutput(RGB_CURR_3000mA_OK_PIN);
-    writePinLow(RGB_CURR_3000mA_OK_PIN);
+    gpio_set_pin_output(RGB_CURR_1500mA_OK_PIN);
+    gpio_write_pin_low(RGB_CURR_1500mA_OK_PIN);
+    gpio_set_pin_output(RGB_CURR_3000mA_OK_PIN);
+    gpio_write_pin_low(RGB_CURR_3000mA_OK_PIN);
 
     // Turn on the RGB
-    setPinOutput(RGB_POWER_ENABLE_PIN);
-    writePinHigh(RGB_POWER_ENABLE_PIN);
+    gpio_set_pin_output(RGB_POWER_ENABLE_PIN);
+    gpio_write_pin_high(RGB_POWER_ENABLE_PIN);
 
 #ifdef EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN
-    setPinOutput(EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN);
-    writePinHigh(EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN);
+    gpio_set_pin_output(EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN);
+    gpio_write_pin_high(EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN);
 #endif // EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN
 
     // Turn on the LCD
-    setPinOutput(LCD_POWER_ENABLE_PIN);
-    writePinHigh(LCD_POWER_ENABLE_PIN);
+    gpio_set_pin_output(LCD_POWER_ENABLE_PIN);
+    gpio_write_pin_high(LCD_POWER_ENABLE_PIN);
 
     // Let the LCD get some power...
     wait_ms(150);
@@ -150,16 +148,16 @@ void housekeeping_task_kb(void) {
         switch (current_setting) {
             default:
             case USBPD_500MA:
-                writePinLow(RGB_CURR_1500mA_OK_PIN);
-                writePinLow(RGB_CURR_3000mA_OK_PIN);
+                gpio_write_pin_low(RGB_CURR_1500mA_OK_PIN);
+                gpio_write_pin_low(RGB_CURR_3000mA_OK_PIN);
                 break;
             case USBPD_1500MA:
-                writePinHigh(RGB_CURR_1500mA_OK_PIN);
-                writePinLow(RGB_CURR_3000mA_OK_PIN);
+                gpio_write_pin_high(RGB_CURR_1500mA_OK_PIN);
+                gpio_write_pin_low(RGB_CURR_3000mA_OK_PIN);
                 break;
             case USBPD_3000MA:
-                writePinHigh(RGB_CURR_1500mA_OK_PIN);
-                writePinHigh(RGB_CURR_3000mA_OK_PIN);
+                gpio_write_pin_high(RGB_CURR_1500mA_OK_PIN);
+                gpio_write_pin_high(RGB_CURR_3000mA_OK_PIN);
                 break;
         }
 #else
@@ -168,12 +166,12 @@ void housekeeping_task_kb(void) {
             default:
             case USBPD_500MA:
             case USBPD_1500MA:
-                writePinLow(RGB_CURR_1500mA_OK_PIN);
-                writePinLow(RGB_CURR_3000mA_OK_PIN);
+                gpio_write_pin_low(RGB_CURR_1500mA_OK_PIN);
+                gpio_write_pin_low(RGB_CURR_3000mA_OK_PIN);
                 break;
             case USBPD_3000MA:
-                writePinHigh(RGB_CURR_1500mA_OK_PIN);
-                writePinLow(RGB_CURR_3000mA_OK_PIN);
+                gpio_write_pin_high(RGB_CURR_1500mA_OK_PIN);
+                gpio_write_pin_low(RGB_CURR_3000mA_OK_PIN);
                 break;
         }
 #endif
@@ -191,7 +189,7 @@ void housekeeping_task_kb(void) {
     // Enable/disable RGB
     if (peripherals_on) {
         // Turn on RGB
-        writePinHigh(RGB_POWER_ENABLE_PIN);
+        gpio_write_pin_high(RGB_POWER_ENABLE_PIN);
         // Modify the RGB state if different to the LCD state
         if (rgb_matrix_is_enabled() != peripherals_on) {
             // Wait for a small amount of time to allow the RGB capacitors to charge, before enabling RGB output
@@ -201,7 +199,7 @@ void housekeeping_task_kb(void) {
         }
     } else {
         // Turn off RGB
-        writePinLow(RGB_POWER_ENABLE_PIN);
+        gpio_write_pin_low(RGB_POWER_ENABLE_PIN);
         // Disable the PWM output for the RGB
         if (rgb_matrix_is_enabled() != peripherals_on) {
             rgb_matrix_disable_noeeprom();
