@@ -72,7 +72,15 @@ base_path = os.path.join(os.getcwd(), "keyboards") + os.path.sep
 
 @lru_cache(maxsize=1)
 def keyboard_alias_definitions():
-    return json_load(Path('data/mappings/keyboard_aliases.hjson'))
+    data = json_load(Path('data/mappings/keyboard_aliases.hjson'))
+
+    # Add fake entries to maintain DEFAULT_FOLDER logic for CLI
+    for kb in list_keyboards(False):
+        res = _resolve_keyboard(kb)
+        if res != kb:
+            data[kb] = {'target': res}
+
+    return data
 
 
 def is_all_keyboards(keyboard):
@@ -131,8 +139,6 @@ def keyboard_folder(keyboard):
         if keyboard == last_keyboard:
             break
 
-    keyboard = resolve_keyboard(keyboard)
-
     if not qmk.path.is_keyboard(keyboard):
         raise ValueError(f'Invalid keyboard: {keyboard}')
 
@@ -144,7 +150,7 @@ def keyboard_aliases(keyboard):
 
     Includes the keyboard itself.
     """
-    aliases = json_load(Path('data/mappings/keyboard_aliases.hjson'))
+    aliases = keyboard_alias_definitions()
 
     if keyboard in aliases:
         keyboard = aliases[keyboard].get('target', keyboard)
@@ -190,13 +196,13 @@ def list_keyboards(resolve_defaults=True):
 
     found = map(_find_name, paths)
     if resolve_defaults:
-        found = map(resolve_keyboard, found)
+        found = map(_resolve_keyboard, found)
 
     return sorted(set(found))
 
 
 @lru_cache(maxsize=None)
-def resolve_keyboard(keyboard):
+def _resolve_keyboard(keyboard):
     cur_dir = Path('keyboards')
     rules = parse_rules_mk_file(cur_dir / keyboard / 'rules.mk')
     while 'DEFAULT_FOLDER' in rules and keyboard != rules['DEFAULT_FOLDER']:
@@ -216,7 +222,7 @@ def config_h(keyboard):
     """
     config = {}
     cur_dir = Path('keyboards')
-    keyboard = Path(resolve_keyboard(keyboard))
+    keyboard = Path(keyboard)
 
     for dir in keyboard.parts:
         cur_dir = cur_dir / dir
@@ -235,7 +241,7 @@ def rules_mk(keyboard):
         a dictionary representing the content of the entire rules.mk tree for a keyboard
     """
     cur_dir = Path('keyboards')
-    keyboard = Path(resolve_keyboard(keyboard))
+    keyboard = Path(keyboard)
     rules = parse_rules_mk_file(cur_dir / keyboard / 'rules.mk')
 
     for i, dir in enumerate(keyboard.parts):
