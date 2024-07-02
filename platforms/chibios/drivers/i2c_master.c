@@ -1,210 +1,288 @@
-/* Copyright 2018 Jack Humbert
- * Copyright 2018 Yiancar
- * Copyright 2023 customMK
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2024 Nick Brassel (@tzarc)
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-/* This library is only valid for STM32 processors.
- * This library follows the convention of the AVR i2c_master library.
- * As a result addresses are expected to be already shifted (addr << 1).
- * I2CD1 is the default driver which corresponds to pins B6 and B7. This
- * can be changed.
- * Please ensure that HAL_USE_I2C is TRUE in the halconf.h file and that
- * STM32_I2C_USE_I2C1 is TRUE in the mcuconf.h file. Pins B6 and B7 are used
- * but using any other I2C pins should be trivial.
- */
-
-#include "i2c_master.h"
-#include "gpio.h"
-#include "chibios_config.h"
-#include <string.h>
-#include <ch.h>
 #include <hal.h>
+#include "i2c_master.h"
 
-#ifndef I2C1_SCL_PIN
-#    define I2C1_SCL_PIN B6
-#endif
-#ifndef I2C1_SDA_PIN
-#    define I2C1_SDA_PIN B7
-#endif
+#ifndef I2C_MULTI_BUS
 
-#ifdef USE_I2CV1
-#    ifndef I2C1_OPMODE
-#        define I2C1_OPMODE OPMODE_I2C
+#    ifndef I2C1_SCL_PIN
+#        define I2C1_SCL_PIN B6
 #    endif
-#    ifndef I2C1_CLOCK_SPEED
-#        define I2C1_CLOCK_SPEED 100000 /* 400000 */
+#    ifndef I2C1_SDA_PIN
+#        define I2C1_SDA_PIN B7
 #    endif
-#    ifndef I2C1_DUTY_CYCLE
-#        define I2C1_DUTY_CYCLE STD_DUTY_CYCLE /* FAST_DUTY_CYCLE_2 */
-#    endif
-#else
+
+#    ifdef USE_I2CV1
+#        ifndef I2C1_OPMODE
+#            define I2C1_OPMODE OPMODE_I2C
+#        endif
+#        ifndef I2C1_CLOCK_SPEED
+#            define I2C1_CLOCK_SPEED 100000 /* 400000 */
+#        endif
+#        ifndef I2C1_DUTY_CYCLE
+#            define I2C1_DUTY_CYCLE STD_DUTY_CYCLE /* FAST_DUTY_CYCLE_2 */
+#        endif
+#    else
 // The default timing values below configures the I2C clock to 400khz assuming a 72Mhz clock
 // For more info : https://www.st.com/en/embedded-software/stsw-stm32126.html
-#    ifndef I2C1_TIMINGR_PRESC
-#        define I2C1_TIMINGR_PRESC 0U
+#        ifndef I2C1_TIMINGR_PRESC
+#            define I2C1_TIMINGR_PRESC 0U
+#        endif
+#        ifndef I2C1_TIMINGR_SCLDEL
+#            define I2C1_TIMINGR_SCLDEL 7U
+#        endif
+#        ifndef I2C1_TIMINGR_SDADEL
+#            define I2C1_TIMINGR_SDADEL 0U
+#        endif
+#        ifndef I2C1_TIMINGR_SCLH
+#            define I2C1_TIMINGR_SCLH 38U
+#        endif
+#        ifndef I2C1_TIMINGR_SCLL
+#            define I2C1_TIMINGR_SCLL 129U
+#        endif
 #    endif
-#    ifndef I2C1_TIMINGR_SCLDEL
-#        define I2C1_TIMINGR_SCLDEL 7U
-#    endif
-#    ifndef I2C1_TIMINGR_SDADEL
-#        define I2C1_TIMINGR_SDADEL 0U
-#    endif
-#    ifndef I2C1_TIMINGR_SCLH
-#        define I2C1_TIMINGR_SCLH 38U
-#    endif
-#    ifndef I2C1_TIMINGR_SCLL
-#        define I2C1_TIMINGR_SCLL 129U
-#    endif
-#endif
 
-#ifndef I2C_DRIVER
-#    define I2C_DRIVER I2CD1
-#endif
+#    ifndef I2C_DRIVER
+#        define I2C_DRIVER I2CD1
+#    endif
 
-#ifdef USE_GPIOV1
-#    ifndef I2C1_SCL_PAL_MODE
-#        define I2C1_SCL_PAL_MODE PAL_MODE_ALTERNATE_OPENDRAIN
-#    endif
-#    ifndef I2C1_SDA_PAL_MODE
-#        define I2C1_SDA_PAL_MODE PAL_MODE_ALTERNATE_OPENDRAIN
-#    endif
-#else
+#    ifdef USE_GPIOV1
+#        ifndef I2C1_SCL_PAL_MODE
+#            define I2C1_SCL_PAL_MODE PAL_MODE_ALTERNATE_OPENDRAIN
+#        endif
+#        ifndef I2C1_SDA_PAL_MODE
+#            define I2C1_SDA_PAL_MODE PAL_MODE_ALTERNATE_OPENDRAIN
+#        endif
+#    else
 // The default PAL alternate modes are used to signal that the pins are used for I2C
-#    ifndef I2C1_SCL_PAL_MODE
-#        define I2C1_SCL_PAL_MODE 4
+#        ifndef I2C1_SCL_PAL_MODE
+#            define I2C1_SCL_PAL_MODE 4
+#        endif
+#        ifndef I2C1_SDA_PAL_MODE
+#            define I2C1_SDA_PAL_MODE 4
+#        endif
 #    endif
-#    ifndef I2C1_SDA_PAL_MODE
-#        define I2C1_SDA_PAL_MODE 4
-#    endif
-#endif
 
-static const I2CConfig i2cconfig = {
-#if defined(USE_I2CV1_CONTRIB)
-    I2C1_CLOCK_SPEED,
-#elif defined(USE_I2CV1)
-    I2C1_OPMODE,
-    I2C1_CLOCK_SPEED,
-    I2C1_DUTY_CYCLE,
-#elif defined(WB32F3G71xx) || defined(WB32FQ95xx)
-    I2C1_OPMODE,
-    I2C1_CLOCK_SPEED,
-#else
-    // This configures the I2C clock to 400khz assuming a 72Mhz clock
-    // For more info : https://www.st.com/en/embedded-software/stsw-stm32126.html
-    STM32_TIMINGR_PRESC(I2C1_TIMINGR_PRESC) | STM32_TIMINGR_SCLDEL(I2C1_TIMINGR_SCLDEL) | STM32_TIMINGR_SDADEL(I2C1_TIMINGR_SDADEL) | STM32_TIMINGR_SCLH(I2C1_TIMINGR_SCLH) | STM32_TIMINGR_SCLL(I2C1_TIMINGR_SCLL), 0, 0
-#endif
-};
+#    define _I2Cx_DRIVER I2C_DRIVER
+#    define _I2Cx_SCL_PIN I2C1_SCL_PIN
+#    define _I2Cx_SDA_PIN I2C1_SDA_PIN
+#    define _I2Cx_OPMODE I2C1_OPMODE
+#    define _I2Cx_CLOCK_SPEED I2C1_CLOCK_SPEED
+#    define _I2Cx_DUTY_CYCLE I2C1_DUTY_CYCLE
+#    define _I2Cx_TIMINGR_PRESC I2C1_TIMINGR_PRESC
+#    define _I2Cx_TIMINGR_SCLDEL I2C1_TIMINGR_SCLDEL
+#    define _I2Cx_TIMINGR_SDADEL I2C1_TIMINGR_SDADEL
+#    define _I2Cx_TIMINGR_SCLH I2C1_TIMINGR_SCLH
+#    define _I2Cx_TIMINGR_SCLL I2C1_TIMINGR_SCLL
+#    define _I2Cx_SCL_PAL_MODE I2C1_SCL_PAL_MODE
+#    define _I2Cx_SDA_PAL_MODE I2C1_SDA_PAL_MODE
 
-/**
- * @brief Handles any I2C error condition by stopping the I2C peripheral and
- * aborting any ongoing transactions. Furthermore ChibiOS status codes are
- * converted into QMK codes.
- *
- * @param status ChibiOS specific I2C status code
- * @return i2c_status_t QMK specific I2C status code
- */
-static i2c_status_t i2c_epilogue(const msg_t status) {
-    if (status == MSG_OK) {
-        return I2C_STATUS_SUCCESS;
-    }
+#    define _i2cx_config i2cconfig
+#    define _i2cx_epilogue i2c_epilogue
+#    define _i2cx_init i2c_init
+#    define _i2cx_transmit i2c_transmit
+#    define _i2cx_receive i2c_receive
+#    define _i2cx_write_register i2c_write_register
+#    define _i2cx_write_register16 i2c_write_register16
+#    define _i2cx_read_register i2c_read_register
+#    define _i2cx_read_register16 i2c_read_register16
+#    define _i2cx_ping_address i2c_ping_address
 
-    // From ChibiOS HAL: "After a timeout the driver must be stopped and
-    // restarted because the bus is in an uncertain state." We also issue that
-    // hard stop in case of any error.
-    i2cStop(&I2C_DRIVER);
+#    include "i2c_master.impl.c"
 
-    return status == MSG_TIMEOUT ? I2C_STATUS_TIMEOUT : I2C_STATUS_ERROR;
+#else // I2C_MULTI_BUS
+
+// Ensure we aren't overriding I2C APIs with a default bus when we #include the impl
+#    undef i2c_init
+#    undef i2c_transmit
+#    undef i2c_receive
+#    undef i2c_write_register
+#    undef i2c_write_register16
+#    undef i2c_read_register
+#    undef i2c_read_register16
+#    undef i2c_ping_address
+
+#    ifdef HAS_I2C0
+
+#        undef _i2cx_config
+#        undef _i2cx_epilogue
+#        undef _i2cx_init
+#        undef _i2cx_transmit
+#        undef _i2cx_receive
+#        undef _i2cx_write_register
+#        undef _i2cx_write_register16
+#        undef _i2cx_read_register
+#        undef _i2cx_read_register16
+#        undef _i2cx_ping_address
+
+#        define _i2cx_config i2c0config
+#        define _i2cx_epilogue i2c0_epilogue
+#        define _i2cx_init i2c0_init
+#        define _i2cx_transmit i2c0_transmit
+#        define _i2cx_receive i2c0_receive
+#        define _i2cx_write_register i2c0_write_register
+#        define _i2cx_write_register16 i2c0_write_register16
+#        define _i2cx_read_register i2c0_read_register
+#        define _i2cx_read_register16 i2c0_read_register16
+#        define _i2cx_ping_address i2c0_ping_address
+
+#        undef _I2Cx_DRIVER
+#        undef _I2Cx_SCL_PIN
+#        undef _I2Cx_SDA_PIN
+#        undef _I2Cx_OPMODE
+#        undef _I2Cx_CLOCK_SPEED
+#        undef _I2Cx_DUTY_CYCLE
+#        undef _I2Cx_TIMINGR_PRESC
+#        undef _I2Cx_TIMINGR_SCLDEL
+#        undef _I2Cx_TIMINGR_SDADEL
+#        undef _I2Cx_TIMINGR_SCLH
+#        undef _I2Cx_TIMINGR_SCLL
+#        undef _I2Cx_SCL_PAL_MODE
+#        undef _I2Cx_SDA_PAL_MODE
+
+#        define _I2Cx_DRIVER I2CD0
+#        define _I2Cx_SCL_PIN I2C0_SCL_PIN
+#        define _I2Cx_SDA_PIN I2C0_SDA_PIN
+#        define _I2Cx_OPMODE I2C0_OPMODE
+#        define _I2Cx_CLOCK_SPEED I2C0_CLOCK_SPEED
+#        define _I2Cx_DUTY_CYCLE I2C0_DUTY_CYCLE
+#        define _I2Cx_TIMINGR_PRESC I2C0_TIMINGR_PRESC
+#        define _I2Cx_TIMINGR_SCLDEL I2C0_TIMINGR_SCLDEL
+#        define _I2Cx_TIMINGR_SDADEL I2C0_TIMINGR_SDADEL
+#        define _I2Cx_TIMINGR_SCLH I2C0_TIMINGR_SCLH
+#        define _I2Cx_TIMINGR_SCLL I2C0_TIMINGR_SCLL
+#        define _I2Cx_SCL_PAL_MODE I2C0_SCL_PAL_MODE
+#        define _I2Cx_SDA_PAL_MODE I2C0_SDA_PAL_MODE
+
+#        include "i2c_master.impl.c"
+
+#    endif // HAS_I2C0
+
+#    ifdef HAS_I2C1
+
+#        undef _I2Cx_DRIVER
+#        undef _i2cx_config
+#        undef _i2cx_epilogue
+#        undef _i2cx_init
+#        undef _i2cx_transmit
+#        undef _i2cx_receive
+#        undef _i2cx_write_register
+#        undef _i2cx_write_register16
+#        undef _i2cx_read_register
+#        undef _i2cx_read_register16
+#        undef _i2cx_ping_address
+
+#        define _i2cx_config i2c1config
+#        define _i2cx_epilogue i2c1_epilogue
+#        define _i2cx_init i2c1_init
+#        define _i2cx_transmit i2c1_transmit
+#        define _i2cx_receive i2c1_receive
+#        define _i2cx_write_register i2c1_write_register
+#        define _i2cx_write_register16 i2c1_write_register16
+#        define _i2cx_read_register i2c1_read_register
+#        define _i2cx_read_register16 i2c1_read_register16
+#        define _i2cx_ping_address i2c1_ping_address
+
+#        undef _I2Cx_DRIVER
+#        undef _I2Cx_SCL_PIN
+#        undef _I2Cx_SDA_PIN
+#        undef _I2Cx_OPMODE
+#        undef _I2Cx_CLOCK_SPEED
+#        undef _I2Cx_DUTY_CYCLE
+#        undef _I2Cx_TIMINGR_PRESC
+#        undef _I2Cx_TIMINGR_SCLDEL
+#        undef _I2Cx_TIMINGR_SDADEL
+#        undef _I2Cx_TIMINGR_SCLH
+#        undef _I2Cx_TIMINGR_SCLL
+#        undef _I2Cx_SCL_PAL_MODE
+#        undef _I2Cx_SDA_PAL_MODE
+
+#        define _I2Cx_DRIVER I2CD1
+#        define _I2Cx_SCL_PIN I2C1_SCL_PIN
+#        define _I2Cx_SDA_PIN I2C1_SDA_PIN
+#        define _I2Cx_OPMODE I2C1_OPMODE
+#        define _I2Cx_CLOCK_SPEED I2C1_CLOCK_SPEED
+#        define _I2Cx_DUTY_CYCLE I2C1_DUTY_CYCLE
+#        define _I2Cx_TIMINGR_PRESC I2C1_TIMINGR_PRESC
+#        define _I2Cx_TIMINGR_SCLDEL I2C1_TIMINGR_SCLDEL
+#        define _I2Cx_TIMINGR_SDADEL I2C1_TIMINGR_SDADEL
+#        define _I2Cx_TIMINGR_SCLH I2C1_TIMINGR_SCLH
+#        define _I2Cx_TIMINGR_SCLL I2C1_TIMINGR_SCLL
+#        define _I2Cx_SCL_PAL_MODE I2C1_SCL_PAL_MODE
+#        define _I2Cx_SDA_PAL_MODE I2C1_SDA_PAL_MODE
+
+#        include "i2c_master.impl.c"
+
+#    endif // HAS_I2C1
+
+#    ifdef HAS_I2C2
+
+#        undef _I2Cx_DRIVER
+#        undef _i2cx_config
+#        undef _i2cx_epilogue
+#        undef _i2cx_init
+#        undef _i2cx_transmit
+#        undef _i2cx_receive
+#        undef _i2cx_write_register
+#        undef _i2cx_write_register16
+#        undef _i2cx_read_register
+#        undef _i2cx_read_register16
+#        undef _i2cx_ping_address
+
+#        define _i2cx_config i2c2config
+#        define _i2cx_epilogue i2c2_epilogue
+#        define _i2cx_init i2c2_init
+#        define _i2cx_transmit i2c2_transmit
+#        define _i2cx_receive i2c2_receive
+#        define _i2cx_write_register i2c2_write_register
+#        define _i2cx_write_register16 i2c2_write_register16
+#        define _i2cx_read_register i2c2_read_register
+#        define _i2cx_read_register16 i2c2_read_register16
+#        define _i2cx_ping_address i2c2_ping_address
+
+#        undef _I2Cx_DRIVER
+#        undef _I2Cx_SCL_PIN
+#        undef _I2Cx_SDA_PIN
+#        undef _I2Cx_OPMODE
+#        undef _I2Cx_CLOCK_SPEED
+#        undef _I2Cx_DUTY_CYCLE
+#        undef _I2Cx_TIMINGR_PRESC
+#        undef _I2Cx_TIMINGR_SCLDEL
+#        undef _I2Cx_TIMINGR_SDADEL
+#        undef _I2Cx_TIMINGR_SCLH
+#        undef _I2Cx_TIMINGR_SCLL
+#        undef _I2Cx_SCL_PAL_MODE
+#        undef _I2Cx_SDA_PAL_MODE
+
+#        define _I2Cx_DRIVER I2CD2
+#        define _I2Cx_SCL_PIN I2C2_SCL_PIN
+#        define _I2Cx_SDA_PIN I2C2_SDA_PIN
+#        define _I2Cx_OPMODE I2C2_OPMODE
+#        define _I2Cx_CLOCK_SPEED I2C2_CLOCK_SPEED
+#        define _I2Cx_DUTY_CYCLE I2C2_DUTY_CYCLE
+#        define _I2Cx_TIMINGR_PRESC I2C2_TIMINGR_PRESC
+#        define _I2Cx_TIMINGR_SCLDEL I2C2_TIMINGR_SCLDEL
+#        define _I2Cx_TIMINGR_SDADEL I2C2_TIMINGR_SDADEL
+#        define _I2Cx_TIMINGR_SCLH I2C2_TIMINGR_SCLH
+#        define _I2Cx_TIMINGR_SCLL I2C2_TIMINGR_SCLL
+#        define _I2Cx_SCL_PAL_MODE I2C2_SCL_PAL_MODE
+#        define _I2Cx_SDA_PAL_MODE I2C2_SDA_PAL_MODE
+
+#        include "i2c_master.impl.c"
+
+#    endif // HAS_I2C2
+
+void i2c_init(void) {
+#    ifdef HAS_I2C0
+    i2c0_init();
+#    endif // HAS_I2C0
+#    ifdef HAS_I2C1
+    i2c1_init();
+#    endif // HAS_I2C1
+#    ifdef HAS_I2C2
+    i2c2_init();
+#    endif // HAS_I2C2
 }
 
-__attribute__((weak)) void i2c_init(void) {
-    static bool is_initialised = false;
-    if (!is_initialised) {
-        is_initialised = true;
-
-        // Try releasing special pins for a short time
-        palSetLineMode(I2C1_SCL_PIN, PAL_MODE_INPUT);
-        palSetLineMode(I2C1_SDA_PIN, PAL_MODE_INPUT);
-
-        chThdSleepMilliseconds(10);
-#if defined(USE_GPIOV1)
-        palSetLineMode(I2C1_SCL_PIN, I2C1_SCL_PAL_MODE);
-        palSetLineMode(I2C1_SDA_PIN, I2C1_SDA_PAL_MODE);
-#else
-        palSetLineMode(I2C1_SCL_PIN, PAL_MODE_ALTERNATE(I2C1_SCL_PAL_MODE) | PAL_OUTPUT_TYPE_OPENDRAIN);
-        palSetLineMode(I2C1_SDA_PIN, PAL_MODE_ALTERNATE(I2C1_SDA_PAL_MODE) | PAL_OUTPUT_TYPE_OPENDRAIN);
-#endif
-    }
-}
-
-i2c_status_t i2c_transmit(uint8_t address, const uint8_t* data, uint16_t length, uint16_t timeout) {
-    i2cStart(&I2C_DRIVER, &i2cconfig);
-    msg_t status = i2cMasterTransmitTimeout(&I2C_DRIVER, (address >> 1), data, length, 0, 0, TIME_MS2I(timeout));
-    return i2c_epilogue(status);
-}
-
-i2c_status_t i2c_receive(uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout) {
-    i2cStart(&I2C_DRIVER, &i2cconfig);
-    msg_t status = i2cMasterReceiveTimeout(&I2C_DRIVER, (address >> 1), data, length, TIME_MS2I(timeout));
-    return i2c_epilogue(status);
-}
-
-i2c_status_t i2c_write_register(uint8_t devaddr, uint8_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout) {
-    i2cStart(&I2C_DRIVER, &i2cconfig);
-
-    uint8_t complete_packet[length + 1];
-    for (uint16_t i = 0; i < length; i++) {
-        complete_packet[i + 1] = data[i];
-    }
-    complete_packet[0] = regaddr;
-
-    msg_t status = i2cMasterTransmitTimeout(&I2C_DRIVER, (devaddr >> 1), complete_packet, length + 1, 0, 0, TIME_MS2I(timeout));
-    return i2c_epilogue(status);
-}
-
-i2c_status_t i2c_write_register16(uint8_t devaddr, uint16_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout) {
-    i2cStart(&I2C_DRIVER, &i2cconfig);
-
-    uint8_t complete_packet[length + 2];
-    for (uint16_t i = 0; i < length; i++) {
-        complete_packet[i + 2] = data[i];
-    }
-    complete_packet[0] = regaddr >> 8;
-    complete_packet[1] = regaddr & 0xFF;
-
-    msg_t status = i2cMasterTransmitTimeout(&I2C_DRIVER, (devaddr >> 1), complete_packet, length + 2, 0, 0, TIME_MS2I(timeout));
-    return i2c_epilogue(status);
-}
-
-i2c_status_t i2c_read_register(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout) {
-    i2cStart(&I2C_DRIVER, &i2cconfig);
-    msg_t status = i2cMasterTransmitTimeout(&I2C_DRIVER, (devaddr >> 1), &regaddr, 1, data, length, TIME_MS2I(timeout));
-    return i2c_epilogue(status);
-}
-
-i2c_status_t i2c_read_register16(uint8_t devaddr, uint16_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout) {
-    i2cStart(&I2C_DRIVER, &i2cconfig);
-    uint8_t register_packet[2] = {regaddr >> 8, regaddr & 0xFF};
-    msg_t   status             = i2cMasterTransmitTimeout(&I2C_DRIVER, (devaddr >> 1), register_packet, 2, data, length, TIME_MS2I(timeout));
-    return i2c_epilogue(status);
-}
-
-__attribute__((weak)) i2c_status_t i2c_ping_address(uint8_t address, uint16_t timeout) {
-    // ChibiOS does not provide low level enough control to check for an ack.
-    // Best effort instead tries reading register 0 which will either succeed or timeout.
-    // This approach may produce false negative results for I2C devices that do not respond to a register 0 read request.
-    uint8_t data = 0;
-    return i2c_read_register(address, 0, &data, sizeof(data), timeout);
-}
+#endif // I2C_MULTI_BUS
