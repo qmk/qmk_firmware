@@ -33,3 +33,7 @@ uint32_t timer_elapsed32(uint32_t tlast) {
 void timer_clear(void) {
     set_time(0);
 }
+
+void timer_set(uint32_t time_ms) {
+    set_time(time_ms);
+}
