@@ -15,10 +15,6 @@
  */
 #pragma once
 
-#ifndef USB_VBUS_PIN
-#    define SPLIT_USB_DETECT // Force this on when dedicated pin is not used
-#endif
-
 #if defined(MCU_RP)
 #    define CPU_CLOCK RP_CORE_CLK
 // ChibiOS uses the RP2040 timer peripheral as its real time counter, this timer

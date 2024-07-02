@@ -61,7 +61,7 @@ static struct {
     bool left;
 } split_config;
 
-#if defined(SPLIT_USB_DETECT)
+#if defined(SPLIT_USB_DETECTION_USB_ENUMERATION)
 _Static_assert((SPLIT_USB_TIMEOUT / SPLIT_USB_TIMEOUT_POLL) <= UINT16_MAX, "Please lower SPLIT_USB_TIMEOUT and/or increase SPLIT_USB_TIMEOUT_POLL.");
 static bool usb_bus_detected(void) {
     for (uint16_t i = 0; i < (SPLIT_USB_TIMEOUT / SPLIT_USB_TIMEOUT_POLL); i++) {
@@ -73,23 +73,20 @@ static bool usb_bus_detected(void) {
     }
     return false;
 }
-#else
+#elif defined(SPLIT_USB_DETECTION_VBUS_SENSING)
 static inline bool usb_bus_detected(void) {
     return usb_vbus_state();
 }
+#else
+#    error "Please define SPLIT_USB_DETECTION_USB_ENUMERATION or SPLIT_USB_DETECTION_VBUS_SENSING"
 #endif
 
 #if defined(SPLIT_WATCHDOG_ENABLE)
 #    if !defined(SPLIT_WATCHDOG_TIMEOUT)
-#        if defined(SPLIT_USB_TIMEOUT)
-#            define SPLIT_WATCHDOG_TIMEOUT (SPLIT_USB_TIMEOUT + 100)
-#        else
-#            define SPLIT_WATCHDOG_TIMEOUT 3000
-#        endif
+#        define SPLIT_WATCHDOG_TIMEOUT (SPLIT_USB_TIMEOUT + 100)
 #    endif
-#    if defined(SPLIT_USB_DETECT)
+
 _Static_assert(SPLIT_USB_TIMEOUT < SPLIT_WATCHDOG_TIMEOUT, "SPLIT_WATCHDOG_TIMEOUT should not be below SPLIT_USB_TIMEOUT.");
-#    endif
 _Static_assert(SPLIT_MAX_CONNECTION_ERRORS > 0, "SPLIT_WATCHDOG_ENABLE requires SPLIT_MAX_CONNECTION_ERRORS be above 0 for a functioning disconnection check.");
 
 static uint32_t split_watchdog_started = 0;
@@ -165,7 +162,7 @@ __attribute__((weak)) bool is_keyboard_left_impl(void) {
 #            pragma message "Faking EE_HANDS for right hand"
     const bool should_be_left = false;
 #        endif
-    bool       is_left        = eeconfig_read_handedness();
+    bool is_left = eeconfig_read_handedness();
     if (is_left != should_be_left) {
         eeconfig_update_handedness(should_be_left);
     }
