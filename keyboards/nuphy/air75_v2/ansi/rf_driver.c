@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "host_driver.h"
 #include "rf_driver.h"
 #include "host.h"
-#include "user_kb.h"
+#include "kb_util.h"
 
 /* Variable declaration */
 extern DEV_INFO_STRUCT dev_info;

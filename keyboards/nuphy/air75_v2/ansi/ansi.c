@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "user_kb.h"
+#include "kb_util.h"
 #include "ansi.h"
 #include "usb_main.h"
 
@@ -152,13 +152,13 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
         case SIDE_VAI:
             if (record->event.pressed) {
-                side_light_contol(1);
+                side_light_control(1);
             }
             return false;
 
         case SIDE_VAD:
             if (record->event.pressed) {
-                side_light_contol(0);
+                side_light_control(0);
             }
             return false;
 
@@ -176,13 +176,13 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
         case SIDE_SPI:
             if (record->event.pressed) {
-                side_speed_contol(1);
+                side_speed_control(1);
             }
             return false;
 
         case SIDE_SPD:
             if (record->event.pressed) {
-                side_speed_contol(0);
+                side_speed_control(0);
             }
             return false;
 
@@ -271,6 +271,4 @@ void housekeeping_task_kb(void) {
     side_led_show();
 
     sleep_handle();
-
-    housekeeping_task_user();
 }

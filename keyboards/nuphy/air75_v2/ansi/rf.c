@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "user_kb.h"
+#include "kb_util.h"
 #include "uart.h" // qmk uart.h
 #include "ansi.h"
 #include "rf_driver.h"
@@ -146,7 +146,7 @@ void uart_send_report_repeat(void)
             wait_us(200);
 
             if(f_bit_kb_act)
-            uart_send_report(CMD_RPT_BIT_KB, uart_bit_report_buf, 16);
+                uart_send_report(CMD_RPT_BIT_KB, uart_bit_report_buf, 16);
         }
         else {
             f_bit_kb_act = 0;
@@ -256,11 +256,11 @@ void RF_Protocol_Receive(void) {
 
                     dev_info.rf_charge = Usart_Mgr.RXDBuf[7];
 
-                    if (Usart_Mgr.RXDBuf[8] <= 100) dev_info.rf_baterry = Usart_Mgr.RXDBuf[8];
-                    if (dev_info.rf_charge & 0x01) dev_info.rf_baterry = 100;
+                    if (Usart_Mgr.RXDBuf[8] <= 100) dev_info.rf_battery = Usart_Mgr.RXDBuf[8];
+                    if (dev_info.rf_charge & 0x01) dev_info.rf_battery = 100;
                 }
                 else {
-                    if (dev_info.rf_state != RF_INVAILD) {
+                    if (dev_info.rf_state != RF_INVALID) {
                         if (error_cnt >= 5) {
                             error_cnt      = 0;
                             f_send_channel = 1;
@@ -447,9 +447,9 @@ void dev_sts_sync(void) {
     if (f_rf_reset) {
         f_rf_reset = 0;
         wait_ms(100);
-        writePinLow(NRF_RESET_PIN);
+        gpio_write_pin_low(NRF_RESET_PIN);
         wait_ms(50);
-        writePinHigh(NRF_RESET_PIN);
+        gpio_write_pin_high(NRF_RESET_PIN);
         wait_ms(50);
     }
     else if (f_send_channel) {
@@ -506,22 +506,22 @@ void dev_sts_sync(void) {
 /**
  * @brief Uart send bytes.
  * @param Buffer data buf
- * @param Length data lenght
+ * @param Length data length
  */
 void UART_Send_Bytes(uint8_t *Buffer, uint32_t Length) {
-    writePinLow(NRF_WAKEUP_PIN);
+    gpio_write_pin_low(NRF_WAKEUP_PIN);
     wait_us(50);
 
     uart_transmit(Buffer, Length);
 
     wait_us(50 + Length * 30);
-    writePinHigh(NRF_WAKEUP_PIN);
+    gpio_write_pin_high(NRF_WAKEUP_PIN);
 }
 
 /**
  * @brief get checksum.
  * @param buf data buf
- * @param len data lenght
+ * @param len data length
  */
 uint8_t get_checksum(uint8_t *buf, uint8_t len) {
     uint8_t i;
@@ -560,7 +560,7 @@ void uart_send_report(uint8_t report_type, uint8_t *report_buf, uint8_t report_s
 }
 
 /**
- * @brief Uart receives data and processes it after completion,.
+ * @brief Uart receives data and processes it after completion.
  */
 void uart_receive_pro(void) {
     static bool rcv_start = false;
