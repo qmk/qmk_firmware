@@ -15,6 +15,9 @@
     },
     "split": {
         "enabled": true,
+        "handedness": {
+            "pin": "B4"
+        },
         "soft_serial_pin": "D0"
     },
     "rgblight": {

@@ -30,6 +30,9 @@
     "diode_direction": "ROW2COL",
     "split": {
       "enabled": true,
+      "handedness": {
+        "pin": "F4"
+      },
       "soft_serial_pin": "D0"
     },
     "rgblight": {

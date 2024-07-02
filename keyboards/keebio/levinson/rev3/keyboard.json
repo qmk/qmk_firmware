@@ -2,6 +2,9 @@
     "keyboard_name": "Levinson Rev. 3",
     "split": {
         "soft_serial_pin": "D0",
+        "handedness": {
+            "pin": "D2"
+        },
         "matrix_pins": {
             "right": {
                 "cols": ["F4", "F7", "D3", "B5", "B4", "E6"],

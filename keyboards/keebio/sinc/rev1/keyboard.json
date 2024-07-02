@@ -39,6 +39,9 @@
                 ]
             }
         },
+        "handedness": {
+            "pin": "F7"
+        },
         "matrix_pins": {
             "right": {
                 "cols": ["F1", "F0", "F4", "F5", "F6", "D5", "C7", "D3", "B7"],

@@ -39,6 +39,9 @@
     },
     "split": {
         "enabled": true,
+        "handedness": {
+            "pin": "E6"
+        },
         "soft_serial_pin": "D1"
     },
     "processor": "atmega32u4",

@@ -7,6 +7,9 @@
   },
   "split": {
     "soft_serial_pin": "B9",
+    "handedness": {
+      "pin": "B11"
+    },
     "usb_detect": {
       "enabled": true
     }

@@ -18,9 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* Split Defines */
-#define SPLIT_HAND_PIN D3
-
 // The 'EH' has previously forced use of I2C so this default has been kept
 // however users can undef to use serial
 #define USE_I2C

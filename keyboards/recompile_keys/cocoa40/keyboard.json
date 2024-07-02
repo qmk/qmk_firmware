@@ -23,6 +23,9 @@
     "diode_direction": "COL2ROW",
     "split": {
         "enabled": true,
+        "handedness": {
+            "pin": "D3"
+        },
         "soft_serial_pin": "D2"
     },
     "processor": "atmega32u4",

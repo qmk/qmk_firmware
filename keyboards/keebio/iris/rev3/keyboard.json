@@ -45,6 +45,9 @@
     },
     "split": {
         "enabled": true,
+        "handedness": {
+            "pin": "F0"
+        },
         "soft_serial_pin": "D0"
     },
     "processor": "atmega32u4",

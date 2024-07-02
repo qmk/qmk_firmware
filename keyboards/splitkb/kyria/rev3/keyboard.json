@@ -109,6 +109,9 @@
                 ]
             }
         },
+        "handedness": {
+            "pin": "B5"
+        },
         "transport": {
             "sync": {
                 "matrix_state": true

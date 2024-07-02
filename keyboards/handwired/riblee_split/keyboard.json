@@ -25,6 +25,9 @@
     },
     "split": {
         "enabled": true,
+        "handedness": {
+            "pin": "C15"
+        },
         "transport": {
             "sync_matrix_state": true
         }

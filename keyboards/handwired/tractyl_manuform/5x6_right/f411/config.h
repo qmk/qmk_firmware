@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 // #define USB_VBUS_PIN        B10 // doesn't seem to work for me on one of my controllers... */
-#define SPLIT_HAND_PIN      C14  // high = left, low = right
 
 // WS2812 RGB LED strip input and number of LEDs
 #define WS2812_PWM_DRIVER   PWMD2  // default: PWMD2

@@ -19,6 +19,9 @@
     "diode_direction": "COL2ROW",
     "split": {
         "enabled": true,
+        "handedness": {
+            "pin": "D4"
+        },
         "soft_serial_pin": "D1",
         "matrix_pins": {
             "right": {

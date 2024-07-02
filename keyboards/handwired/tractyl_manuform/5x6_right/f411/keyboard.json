@@ -18,6 +18,11 @@
     "audio": {
         "driver": "pwm_hardware"
     },
+    "split": {
+        "handedness": {
+            "pin": "C14"
+        }
+    },
     "ws2812": {
         "pin": "A1",
         "driver": "pwm"

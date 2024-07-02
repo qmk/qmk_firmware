@@ -140,6 +140,9 @@
                 ]
             }
         },
+        "handedness": {
+            "pin": "C13"
+        },
         "matrix_pins": {
             "right": {
                 "cols": ["B9", "B8", "B4", "A6", "A3", "B10", "B12", "B11"],

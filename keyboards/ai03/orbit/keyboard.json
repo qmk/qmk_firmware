@@ -31,6 +31,9 @@
     },
     "split": {
         "enabled": true,
+        "handedness": {
+            "pin": "D5"
+        },
         "soft_serial_pin": "D0",
         "matrix_pins": {
             "right": {

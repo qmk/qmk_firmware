@@ -21,6 +21,9 @@
     "diode_direction": "COL2ROW",
     "split": {
         "enabled": true,
+        "handedness": {
+            "pin": "B3"
+        },
         "soft_serial_pin": "D2"
     },
     "bootmagic": {

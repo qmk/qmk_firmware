@@ -93,6 +93,9 @@
                 ]
             }
         },
+        "handedness": {
+            "pin": "F4"
+        },
         "transport": {
             "sync": {
                 "matrix_state": true
