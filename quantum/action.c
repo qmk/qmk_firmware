@@ -664,6 +664,8 @@ void process_action(keyrecord_t *record, action_t action) {
                             if (tap_count >= ONESHOT_TAP_TOGGLE) {
                                 reset_oneshot_layer();
                                 set_oneshot_layer(action.layer_tap.val, ONESHOT_TOGGLED);
+                            } else if (get_oneshot_layer() != action.layer_tap.val) {
+                                layer_off(action.layer_tap.val);
                             } else {
                                 clear_oneshot_layer_state(ONESHOT_PRESSED);
                             }
@@ -671,6 +673,8 @@ void process_action(keyrecord_t *record, action_t action) {
 #        else
                         if (event.pressed) {
                             set_oneshot_layer(action.layer_tap.val, ONESHOT_START);
+                        } else if (get_oneshot_layer() != action.layer_tap.val) {
+                            layer_off(action.layer_tap.val);
                         } else {
                             clear_oneshot_layer_state(ONESHOT_PRESSED);
                             if (tap_count > 1) {
