@@ -1,6 +1,6 @@
 # lfn.merro60
 
-![lfn.merro60 PCB](https://github.com/gaclee3b/shared/blob/main/lfn.merro60/lfn_merro60_pcb.jpeg?raw=true)
+![lfn.merro60 PCB](https://i.imgur.com/naIgvKy.jpg)
 
 - Standard 60% format keyboard PCB with USB-C and unified daughterboard compatibility.
 - Modified cutouts to allow usage of certain tray mount cases into gummy gasket o-ring mount.
