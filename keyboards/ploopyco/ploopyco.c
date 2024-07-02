@@ -71,8 +71,8 @@ float scroll_accumulated_v = 0;
 #ifdef ENCODER_ENABLE
 uint16_t lastScroll        = 0; // Previous confirmed wheel event
 uint16_t lastMidClick      = 0; // Stops scrollwheel from being read if it was pressed
-pin_t    encoder_pins_a[1] = ENCODERS_PAD_A;
-pin_t    encoder_pins_b[1] = ENCODERS_PAD_B;
+pin_t    encoder_pins_a[1] = ENCODER_A_PINS;
+pin_t    encoder_pins_b[1] = ENCODER_B_PINS;
 bool     debug_encoder     = false;
 
 bool encoder_update_kb(uint8_t index, bool clockwise) {

@@ -15,6 +15,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#define ENCODERS_PAD_A { F0 }
-#define ENCODERS_PAD_B { F1 }
+#define ENCODER_A_PINS { F0 }
+#define ENCODER_B_PINS { F1 }
 #define ENCODER_RESOLUTION 4

@@ -16,8 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-#define ENCODERS_PAD_A { D5 }
-#define ENCODERS_PAD_B { D3 }
+#define ENCODER_A_PINS { D5 }
+#define ENCODER_B_PINS { D3 }
 
 #define WS2812_DI_PIN D0
 #define RGBLIGHT_EFFECT_BREATHING

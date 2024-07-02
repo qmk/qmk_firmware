@@ -375,8 +375,8 @@ def _extract_audio(info_data, config_c):
 def _extract_encoders_values(config_c, postfix=''):
     """Common encoder extraction logic
     """
-    a_pad = config_c.get(f'ENCODERS_PAD_A{postfix}', '').replace(' ', '')[1:-1]
-    b_pad = config_c.get(f'ENCODERS_PAD_B{postfix}', '').replace(' ', '')[1:-1]
+    a_pad = config_c.get(f'ENCODER_A_PINS{postfix}', '').replace(' ', '')[1:-1]
+    b_pad = config_c.get(f'ENCODER_B_PINS{postfix}', '').replace(' ', '')[1:-1]
     resolutions = config_c.get(f'ENCODER_RESOLUTIONS{postfix}', '').replace(' ', '')[1:-1]
 
     default_resolution = config_c.get('ENCODER_RESOLUTION', None)
