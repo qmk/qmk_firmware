@@ -20,7 +20,6 @@
 
 #define VIRT_COLS_PER_HAND 1
 #define PHYS_COLS_PER_HAND (MATRIX_COLS - VIRT_COLS_PER_HAND)
-#define ROWS_PER_HAND (MATRIX_ROWS / 2)
 #define COL_SHIFTER ((uint32_t)1)
 #define EXT_PIN_ROW 2
 #define EXT_PIN_COL 8

@@ -23,8 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define ERROR_DISCONNECT_COUNT 5
 
-#define ROWS_PER_HAND (MATRIX_ROWS / 2)
-
 static pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 
@@ -201,7 +199,7 @@ void matrix_init(void) {
         matrix[i]     = 0;
     }
 
-    debounce_init(ROWS_PER_HAND);
+    debounce_init();
 
     matrix_init_kb();
 
@@ -267,7 +265,7 @@ uint8_t matrix_scan(void) {
         }
     }
 
-    debounce(raw_matrix, matrix + thisHand, ROWS_PER_HAND, local_changed);
+    debounce(raw_matrix, matrix + thisHand, local_changed);
 
     bool remote_changed = matrix_post_scan();
     return (uint8_t)(local_changed || remote_changed);

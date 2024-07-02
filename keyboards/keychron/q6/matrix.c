@@ -32,8 +32,6 @@ static pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 #endif // MATRIX_COL_PINS
 
-#define ROWS_PER_HAND (MATRIX_ROWS)
-
 #ifndef NO_PIN_NUM
 #    define NO_PIN_NUM 8
 #endif

@@ -27,12 +27,6 @@ releasing a key, that state is pushed after no changes occur for DEBOUNCE millis
 #include "timer.h"
 #include <stdlib.h>
 
-#ifdef PROTOCOL_CHIBIOS
-#    if CH_CFG_USE_MEMCORE == FALSE
-#        error ChibiOS is configured without a memory allocator. Your keyboard may have set `#define CH_CFG_USE_MEMCORE FALSE`, which is incompatible with this debounce algorithm.
-#    endif
-#endif
-
 #ifndef DEBOUNCE
 #    define DEBOUNCE 5
 #endif
@@ -51,34 +45,29 @@ typedef struct {
 } debounce_counter_t;
 
 #if DEBOUNCE > 0
-static debounce_counter_t *debounce_counters;
-static fast_timer_t        last_time;
-static bool                counters_need_update;
-static bool                matrix_need_update;
-static bool                cooked_changed;
+static debounce_counter_t debounce_counters[ROWS_PER_HAND * MATRIX_COLS];
+static fast_timer_t       last_time;
+static bool               counters_need_update;
+static bool               matrix_need_update;
+static bool               cooked_changed;
 
 #    define DEBOUNCE_ELAPSED 0
 
-static void update_debounce_counters_and_transfer_if_expired(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, uint8_t elapsed_time);
-static void transfer_matrix_values(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows);
+static void update_debounce_counters_and_transfer_if_expired(matrix_row_t raw[], matrix_row_t cooked[], uint8_t elapsed_time);
+static void transfer_matrix_values(matrix_row_t raw[], matrix_row_t cooked[]);
 
-// we use num_rows rather than MATRIX_ROWS to support split keyboards
-void debounce_init(uint8_t num_rows) {
-    debounce_counters = malloc(num_rows * MATRIX_COLS * sizeof(debounce_counter_t));
-    int i             = 0;
-    for (uint8_t r = 0; r < num_rows; r++) {
+void debounce_init(void) {
+    int i = 0;
+    for (uint8_t r = 0; r < ROWS_PER_HAND; r++) {
         for (uint8_t c = 0; c < MATRIX_COLS; c++) {
             debounce_counters[i++].time = DEBOUNCE_ELAPSED;
         }
     }
 }
 
-void debounce_free(void) {
-    free(debounce_counters);
-    debounce_counters = NULL;
-}
+void debounce_free(void) {}
 
-bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed) {
+bool debounce(matrix_row_t raw[], matrix_row_t cooked[], bool changed) {
     bool updated_last = false;
     cooked_changed    = false;
 
@@ -93,7 +82,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
         }
 
         if (elapsed_time > 0) {
-            update_debounce_counters_and_transfer_if_expired(raw, cooked, num_rows, elapsed_time);
+            update_debounce_counters_and_transfer_if_expired(raw, cooked, elapsed_time);
         }
     }
 
@@ -102,19 +91,19 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
             last_time = timer_read_fast();
         }
 
-        transfer_matrix_values(raw, cooked, num_rows);
+        transfer_matrix_values(raw, cooked);
     }
 
     return cooked_changed;
 }
 
-static void update_debounce_counters_and_transfer_if_expired(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, uint8_t elapsed_time) {
+static void update_debounce_counters_and_transfer_if_expired(matrix_row_t raw[], matrix_row_t cooked[], uint8_t elapsed_time) {
     debounce_counter_t *debounce_pointer = debounce_counters;
 
     counters_need_update = false;
     matrix_need_update   = false;
 
-    for (uint8_t row = 0; row < num_rows; row++) {
+    for (uint8_t row = 0; row < ROWS_PER_HAND; row++) {
         for (uint8_t col = 0; col < MATRIX_COLS; col++) {
             matrix_row_t col_mask = (ROW_SHIFTER << col);
 
@@ -141,12 +130,12 @@ static void update_debounce_counters_and_transfer_if_expired(matrix_row_t raw[],
     }
 }
 
-static void transfer_matrix_values(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows) {
+static void transfer_matrix_values(matrix_row_t raw[], matrix_row_t cooked[]) {
     debounce_counter_t *debounce_pointer = debounce_counters;
 
     matrix_need_update = false;
 
-    for (uint8_t row = 0; row < num_rows; row++) {
+    for (uint8_t row = 0; row < ROWS_PER_HAND; row++) {
         matrix_row_t delta = raw[row] ^ cooked[row];
         for (uint8_t col = 0; col < MATRIX_COLS; col++) {
             matrix_row_t col_mask = (ROW_SHIFTER << col);
