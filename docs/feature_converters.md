@@ -38,7 +38,9 @@ qmk flash -c -kb keebio/bdn9/rev1 -km default -e CONVERT_TO=proton_c
 
 You can also add the same `CONVERT_TO=<target>` to your keymap's `rules.mk`, which will accomplish the same thing.
 
-?> If you get errors about `PORTB/DDRB`, etc not being defined, you'll need to convert the keyboard's code to use the [GPIO Controls](gpio_control.md) that will work for both ARM and AVR. This shouldn't affect the AVR builds at all.
+::: tip
+If you get errors about `PORTB/DDRB`, etc not being defined, you'll need to convert the keyboard's code to use the [GPIO Controls](drivers/gpio) that will work for both ARM and AVR. This shouldn't affect the AVR builds at all.
+:::
 
 ### Conditional Configuration
 
@@ -104,7 +106,7 @@ Converter summary:
 | `imera`           | `-e CONVERT_TO=imera`           | `CONVERT_TO=imera`           | `#ifdef CONVERT_TO_IMERA`           |
 | `michi`           | `-e CONVERT_TO=michi`           | `CONVERT_TO=michi`           | `#ifdef CONVERT_TO_MICHI`           |
 
-### Proton C :id=proton_c
+### Proton C {#proton_c}
 
 The Proton C only has one on-board LED (C13), and by default, the TXLED (D5) is mapped to it. If you want the RXLED (B0) mapped to it instead, add this line to your `config.h`:
 
@@ -116,28 +118,28 @@ The following defaults are based on what has been implemented for STM32 boards.
 
 | Feature                                      | Notes                                                                                                            |
 |----------------------------------------------|------------------------------------------------------------------------------------------------------------------|
-| [Audio](feature_audio.md)                    | Enabled                                                                                                          |
-| [RGB Lighting](feature_rgblight.md)          | Disabled                                                                                                         |
-| [Backlight](feature_backlight.md)            | Forces [task driven PWM](feature_backlight.md#software-pwm-driver) until ARM can provide automatic configuration |
+| [Audio](features/audio)                    | Enabled                                                                                                          |
+| [RGB Lighting](features/rgblight)          | Disabled                                                                                                         |
+| [Backlight](features/backlight)            | Forces [task driven PWM](features/backlight#software-pwm-driver) until ARM can provide automatic configuration |
 | USB Host (e.g. USB-USB converter)            | Not supported (USB host code is AVR specific and is not currently supported on ARM)                              |
-| [Split keyboards](feature_split_keyboard.md) | Partial - heavily dependent on enabled features                                                                  |
+| [Split keyboards](features/split_keyboard) | Partial - heavily dependent on enabled features                                                                  |
 
-### Adafruit KB2040 :id=kb2040
+### Adafruit KB2040 {#kb2040}
 
-The following defaults are based on what has been implemented for [RP2040](platformdev_rp2040.md) boards.
+The following defaults are based on what has been implemented for [RP2040](platformdev_rp2040) boards.
 
 | Feature                                      | Notes                                                                                                            |
 |----------------------------------------------|------------------------------------------------------------------------------------------------------------------|
-| [RGB Lighting](feature_rgblight.md)          | Enabled via `PIO` vendor driver                                                                                  |
-| [Backlight](feature_backlight.md)            | Forces [task driven PWM](feature_backlight.md#software-pwm-driver) until ARM can provide automatic configuration |
+| [RGB Lighting](features/rgblight)          | Enabled via `PIO` vendor driver                                                                                  |
+| [Backlight](features/backlight)            | Forces [task driven PWM](features/backlight#software-pwm-driver) until ARM can provide automatic configuration |
 | USB Host (e.g. USB-USB converter)            | Not supported (USB host code is AVR specific and is not currently supported on ARM)                              |
-| [Split keyboards](feature_split_keyboard.md) | Partial via `PIO` vendor driver - heavily dependent on enabled features                                          |
+| [Split keyboards](features/split_keyboard) | Partial via `PIO` vendor driver - heavily dependent on enabled features                                          |
 
-### SparkFun Pro Micro - RP2040, Blok, Bit-C PRO and Michi :id=promicro_rp2040 
+### SparkFun Pro Micro - RP2040, Blok, Bit-C PRO and Michi {#promicro_rp2040 }
 
 Feature set is identical to [Adafruit KB2040](#kb2040).
 
-### STeMCell :id=stemcell
+### STeMCell {#stemcell}
 
 Feature set currently identical to [Proton C](#proton_c).
 There are two versions of STeMCell available, with different pinouts:
@@ -154,7 +156,7 @@ STeMCell has support to swap UART and I2C pins to enable single-wire uart commun
 | D1        | -e STMC_IS=yes|
 | D0        | Not needed    |
 
-### Bonsai C4 :id=bonsai_c4
+### Bonsai C4 {#bonsai_c4}
 
 The Bonsai C4 only has one on-board LED (B2), and by default, both the Pro Micro TXLED (D5) and RXLED (B0) are mapped to it. If you want only one of them mapped, you can undefine one and redefine it to another pin by adding these line to your `config.h`:
 
@@ -164,9 +166,9 @@ The Bonsai C4 only has one on-board LED (B2), and by default, both the Pro Micro
 #define B0 PAL_LINE(GPIOA, 9)
 ```
 
-### RP2040 Community Edition - Elite-Pi, Helios, and Liatris :id=rp2040_ce
+### RP2040 Community Edition - Elite-Pi, Helios, and Liatris {#rp2040_ce}
 
-Feature set is identical to [Adafruit KB2040](#kb2040). VBUS detection is enabled by default for superior split keyboard support. For more information, refer to the [Community Edition pinout](platformdev_rp2040.md#rp2040_ce) docs.
+Feature set is identical to [Adafruit KB2040](#kb2040). VBUS detection is enabled by default for superior split keyboard support. For more information, refer to the [Community Edition pinout](platformdev_rp2040#rp2040_ce) docs.
 
 
 ## Elite-C
@@ -190,10 +192,10 @@ Converter summary:
 | `helios`          | `-e CONVERT_TO=helios`          | `CONVERT_TO=helios`          | `#ifdef CONVERT_TO_HELIOS`          |
 | `liatris`         | `-e CONVERT_TO=liatris`         | `CONVERT_TO=liatris`         | `#ifdef CONVERT_TO_LIATRIS`         |
 
-### STeMCell :id=stemcell_elite
+### STeMCell {#stemcell}_elite
 
 Identical to [Pro Micro - STeMCell](#stemcell) with support for the additional bottom row of pins.
 
-### RP2040 Community Edition :id=rp2040_ce_elite
+### RP2040 Community Edition {#rp2040_ce_elite}
 
 Identical to [Pro Micro - RP2040 Community Edition](#rp2040_ce) with support for the additional bottom row of pins.

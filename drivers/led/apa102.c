@@ -67,7 +67,9 @@ static void apa102_send_byte(uint8_t byte) {
 }
 
 static void apa102_start_frame(void) {
-    apa102_init();
+    gpio_write_pin_low(APA102_DI_PIN);
+    gpio_write_pin_low(APA102_CI_PIN);
+
     for (uint16_t i = 0; i < 4; i++) {
         apa102_send_byte(0);
     }
@@ -103,7 +105,8 @@ static void apa102_end_frame(uint16_t num_leds) {
         apa102_send_byte(0);
     }
 
-    apa102_init();
+    gpio_write_pin_low(APA102_DI_PIN);
+    gpio_write_pin_low(APA102_CI_PIN);
 }
 
 static void apa102_send_frame(uint8_t red, uint8_t green, uint8_t blue, uint8_t brightness) {
@@ -116,9 +119,6 @@ static void apa102_send_frame(uint8_t red, uint8_t green, uint8_t blue, uint8_t 
 void apa102_init(void) {
     gpio_set_pin_output(APA102_DI_PIN);
     gpio_set_pin_output(APA102_CI_PIN);
-
-    gpio_write_pin_low(APA102_DI_PIN);
-    gpio_write_pin_low(APA102_CI_PIN);
 }
 
 void apa102_setleds(rgb_led_t *start_led, uint16_t num_leds) {

@@ -12,6 +12,12 @@
         "oled": true,
         "rgb_matrix": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "rgblight": {
         "animations": {
             "alternating": true,
