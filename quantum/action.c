@@ -844,14 +844,14 @@ void process_action(keyrecord_t *record, action_t action) {
             if (tap_count > 0) {
                 retro_tap_primed = false;
             } else {
-#        if !defined(NO_ACTION_ONESHOT) && !(defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
+#        if !(defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
                 retro_tap_curr_mods = retro_tap_next_mods;
                 retro_tap_next_mods = get_mods();
 #        endif
             }
         } else {
             uint16_t event_keycode = get_event_keycode(event, false);
-#        if !defined(NO_ACTION_ONESHOT) && !(defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
+#        if !(defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
             uint8_t curr_mods = get_mods();
 #        endif
             if (tap_count > 0) {
@@ -862,18 +862,19 @@ void process_action(keyrecord_t *record, action_t action) {
                     get_retro_tapping(event_keycode, record) &&
 #        endif
                     retro_tap_primed) {
-#        if !defined(NO_ACTION_ONESHOT) && !(defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
-                    set_oneshot_mods(retro_tap_curr_mods);
-#        endif
 #        if defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)
                     process_auto_shift(action.layer_tap.code, record);
 #        else
+                    register_mods(retro_tap_curr_mods);
+                    wait_ms(TAP_CODE_DELAY);
                     tap_code(action.layer_tap.code);
+                    wait_ms(TAP_CODE_DELAY);
+                    unregister_mods(retro_tap_curr_mods);
 #        endif
                 }
                 retro_tap_primed = false;
             }
-#        if !defined(NO_ACTION_ONESHOT) && !(defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
+#        if !(defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
             retro_tap_next_mods = curr_mods;
 #        endif
         }

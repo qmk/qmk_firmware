@@ -53,7 +53,7 @@ TEST_F(RetroTapKeyRoll, regular_to_left_gui_mod_over_tap_term) {
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 
-    EXPECT_REPORT(driver, (KC_LGUI, DUMMY_MOD_NEUTRALIZER_KEYCODE));
+    EXPECT_REPORT(driver, (KC_LEFT_GUI, DUMMY_MOD_NEUTRALIZER_KEYCODE));
     EXPECT_REPORT(driver, (KC_LEFT_GUI));
     EXPECT_EMPTY_REPORT(driver);
     EXPECT_REPORT(driver, (KC_P));
@@ -274,10 +274,12 @@ TEST_F(RetroTapKeyRoll, mod_under_tap_term_to_mod_over_tap_term) {
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 
-    EXPECT_REPORT(driver, (KC_LGUI, DUMMY_MOD_NEUTRALIZER_KEYCODE));
+    EXPECT_REPORT(driver, (KC_LEFT_GUI, DUMMY_MOD_NEUTRALIZER_KEYCODE));
     EXPECT_REPORT(driver, (KC_LEFT_GUI));
     EXPECT_EMPTY_REPORT(driver);
+    EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
     EXPECT_REPORT(driver, (KC_P, KC_LEFT_SHIFT));
+    EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
     EXPECT_EMPTY_REPORT(driver);
     mod_tap_hold_gui.release();
     run_one_scan_loop();
@@ -309,10 +311,12 @@ TEST_F(RetroTapKeyRoll, mod_over_tap_term_to_mod_over_tap_term) {
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 
-    EXPECT_REPORT(driver, (KC_LGUI, DUMMY_MOD_NEUTRALIZER_KEYCODE));
+    EXPECT_REPORT(driver, (KC_LEFT_GUI, DUMMY_MOD_NEUTRALIZER_KEYCODE));
     EXPECT_REPORT(driver, (KC_LEFT_GUI));
     EXPECT_EMPTY_REPORT(driver);
+    EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
     EXPECT_REPORT(driver, (KC_P, KC_LEFT_SHIFT));
+    EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
     EXPECT_EMPTY_REPORT(driver);
     mod_tap_hold_gui.release();
     run_one_scan_loop();
