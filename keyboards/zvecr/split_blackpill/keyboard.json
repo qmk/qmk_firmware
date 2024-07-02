@@ -26,6 +26,9 @@
         "handedness": {
             "pin": "B3"
         },
+        "serial": {
+            "driver": "usart"
+        },
         "soft_serial_pin": "B6",
         "bootmagic": {
             "matrix": [4, 0]

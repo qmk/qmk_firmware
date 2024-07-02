@@ -22,6 +22,9 @@
         "vid": "0x6F75"
     },
     "split": {
+        "serial": {
+            "driver": "vendor"
+        },
         "transport": {
             "sync": {
                 "matrix_state": true

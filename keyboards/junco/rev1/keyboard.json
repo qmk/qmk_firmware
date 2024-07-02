@@ -39,6 +39,9 @@
                     {"pin_a": "GP16", "pin_b": "GP17"}
                 ]
             }
+        },
+        "serial": {
+            "driver": "vendor"
         }
     },
     "processor": "RP2040",

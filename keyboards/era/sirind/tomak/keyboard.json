@@ -182,6 +182,9 @@
                 "rows": ["GP10", "GP11", "GP12", "GP28", "GP19", "GP16"]
             }
         },
+        "serial": {
+            "driver": "vendor"
+        },
         "transport": {
             "sync": {
                 "indicators": true,

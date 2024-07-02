@@ -30,7 +30,10 @@
     "diode_direction": "ROW2COL",
     "split": {
         "enabled": true,
-        "soft_serial_pin": "A9"
+        "soft_serial_pin": "A9",
+        "serial": {
+            "driver": "usart"
+        }
     },
     "processor": "STM32F401",
     "bootloader": "stm32-dfu",

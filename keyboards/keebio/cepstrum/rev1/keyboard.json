@@ -15,6 +15,9 @@
                 "rows": ["GP2", "GP3", "GP5", "GP8", "GP19"]
             }
         },
+        "serial": {
+            "driver": "vendor"
+        },
         "transport": {
             "sync": {
                 "matrix_state": true

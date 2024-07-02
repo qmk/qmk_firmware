@@ -18,6 +18,11 @@
     "audio": {
         "driver": "pwm_hardware"
     },
+    "split": {
+        "serial": {
+            "driver": "usart"
+        }
+    },
     "ws2812": {
         "pin": "A1",
         "driver": "pwm"

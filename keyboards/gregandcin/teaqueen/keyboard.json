@@ -25,7 +25,10 @@
                 "rows": ["GP5", "GP6", "GP7", "GP8", "GP9"]
             }
         },
-        "soft_serial_pin": "GP3"
+        "soft_serial_pin": "GP3",
+        "serial": {
+            "driver": "vendor"
+        }
     },
     "url": "https://github.com/gregandcin/teaqueen",
     "usb": {

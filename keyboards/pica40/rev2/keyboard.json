@@ -40,6 +40,9 @@
             "right": {
                 "rotary": []
             }
+        },
+        "serial": {
+            "driver": "vendor"
         }
     },
     "encoder": {
