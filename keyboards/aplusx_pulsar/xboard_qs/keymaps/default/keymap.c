@@ -18,10 +18,6 @@
 
 enum _layer { WIN_BASE = 0, WIN_FN, MAC_BASE, MAC_FN };
 
-enum pulsar_keycodes {
-KC_TGUI = SAFE_RANGE,   // Toggle between GUI Lock or Unlock
-};
-
 #define KC_TASK LGUI(KC_TAB)
 #define KC_DIC  LGUI(KC_H)      // WIN ; 받아쓰기
 #define KC_LOCK2 LGUI(KC_L)     // WIN ; pc잠금
@@ -74,23 +70,3 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 };
 #endif // ENCODER_MAP_ENABLE
 
-//-----------------------------------------------------------------------------
-
-#ifdef RGB_MATRIX_ENABLE
-bool rgb_matrix_indicators_user(void)  {
-
-    led_t host_leds = host_keyboard_led_state();
-
-    if (host_leds.caps_lock) {
-        rgb_matrix_set_color(72, 50, 50, 50);
-    }
-    if (host_leds.scroll_lock) {
-        rgb_matrix_set_color(22, 50, 50, 50);
-    }
-
-    if (keymap_config.no_gui){     
-        rgb_matrix_set_color(99, 50, 50, 50);
-    }
-    return TRUE;
-}
-#endif
