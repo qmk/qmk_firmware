@@ -98,6 +98,7 @@ The device name here is the name that appears in Zadig, and may not be what the 
 |`bootloadhid` |HIDBoot                       |`16C0:05DF`   |HidUsb |
 |`usbasploader`|USBasp                        |`16C0:05DC`   |libusbK|
 |`apm32-dfu`   |APM32 DFU ISP Mode            |`314B:0106`   |WinUSB |
+|`at32-dfu`    |AT32 Bootloader DFU           |`2E3C:DF11`   |WinUSB |
 |`stm32-dfu`   |STM32 BOOTLOADER              |`0483:DF11`   |WinUSB |
 |`gd32v-dfu`   |GD32V BOOTLOADER              |`28E9:0189`   |WinUSB |
 |`kiibohd`     |Kiibohd DFU Bootloader        |`1C11:B007`   |WinUSB |
