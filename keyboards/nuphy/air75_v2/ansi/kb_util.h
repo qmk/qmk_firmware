@@ -47,7 +47,7 @@ typedef enum {
 #define RF_DISCONNECT           4
 #define RF_SLEEP                5
 #define RF_SNIF                 6
-#define RF_INVAILD              0XFE
+#define RF_INVALID              0XFE
 #define RF_ERR_STATE            0XFF
 
 #define CMD_POWER_UP            0XF0
@@ -124,7 +124,7 @@ typedef struct
     uint8_t rf_state;
     uint8_t rf_charge;
     uint8_t rf_led;
-    uint8_t rf_baterry;
+    uint8_t rf_battery;
     uint8_t sys_sw_state;
 } DEV_INFO_STRUCT;
 
@@ -147,8 +147,8 @@ void    rf_device_init(void);
 void    uart_send_report_repeat(void);
 void    uart_receive_pro(void);
 void    uart_send_report(uint8_t report_type, uint8_t *report_buf, uint8_t report_size);
-void    side_speed_contol(uint8_t dir);
-void    side_light_contol(uint8_t dir);
+void    side_speed_control(uint8_t dir);
+void    side_light_control(uint8_t dir);
 void    side_colour_control(uint8_t dir);
 void    side_mode_control(uint8_t dir);
 void    side_led_show(void);

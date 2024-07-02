@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "user_kb.h"
+#include "kb_util.h"
 #include "ansi.h"
 #include "hal_usb.h"
 #include "usb_main.h"
@@ -51,12 +51,12 @@ void sleep_handle(void) {
             else
                 uart_send_cmd(CMD_SLEEP, 5, 5);
 
-            // power off led
-            setPinOutput(DC_BOOST_PIN);
-            writePinLow(DC_BOOST_PIN);
+            // power off LED
+            gpio_set_pin_output_push_pull(DC_BOOST_PIN);
+            gpio_write_pin_low(DC_BOOST_PIN);
 
-            setPinInput(DRIVER_LED_CS_PIN);
-            setPinInput(DRIVER_SIDE_CS_PIN);
+            gpio_set_pin_input(DRIVER_LED_CS_PIN);
+            gpio_set_pin_input(DRIVER_SIDE_CS_PIN);
         }
 
         f_wakeup_prepare = 1;
@@ -66,12 +66,12 @@ void sleep_handle(void) {
     if (f_wakeup_prepare && (no_act_time < 10)) {
         f_wakeup_prepare = 0;
 
-        writePinHigh(DC_BOOST_PIN);
+        gpio_write_pin_high(DC_BOOST_PIN);
 
-        setPinOutput(DRIVER_LED_CS_PIN);
-        writePinLow(DRIVER_LED_CS_PIN);
-        setPinOutput(DRIVER_SIDE_CS_PIN);
-        writePinLow(DRIVER_SIDE_CS_PIN);
+        gpio_set_pin_output_push_pull(DRIVER_LED_CS_PIN);
+        gpio_write_pin_low(DRIVER_LED_CS_PIN);
+        gpio_set_pin_output_push_pull(DRIVER_SIDE_CS_PIN);
+        gpio_write_pin_low(DRIVER_SIDE_CS_PIN);
 
         uart_send_cmd(CMD_HAND, 0, 1);
 

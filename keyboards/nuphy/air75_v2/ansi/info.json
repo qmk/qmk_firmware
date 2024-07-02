@@ -3,7 +3,7 @@
     "manufacturer": "NuPhy",
     "usb":{
         "vid": "0x19F5",
-        "pid": "0x3245",
+        "pid": "0x3246",
         "device_version": "0.0.1",
         "no_startup_check": true
     },
