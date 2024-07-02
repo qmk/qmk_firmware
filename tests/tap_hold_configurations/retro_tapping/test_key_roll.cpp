@@ -286,6 +286,42 @@ TEST_F(RetroTapKeyRoll, mod_under_tap_term_to_mod_over_tap_term) {
     VERIFY_AND_CLEAR(driver);
 }
 
+TEST_F(RetroTapKeyRoll, mod_under_tap_term_to_mod_over_tap_term_offset) {
+    TestDriver driver;
+    InSequence s;
+    auto       mod_tap_hold_gui   = KeymapKey(0, 1, 0, LGUI_T(KC_P));
+    auto       mod_tap_hold_lshft = KeymapKey(0, 2, 0, SFT_T(KC_A));
+
+    set_keymap({mod_tap_hold_gui, mod_tap_hold_lshft});
+
+    EXPECT_NO_REPORT(driver);
+    mod_tap_hold_lshft.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_NO_REPORT(driver);
+    mod_tap_hold_gui.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_REPORT(driver, (KC_A));
+    EXPECT_EMPTY_REPORT(driver);
+    mod_tap_hold_lshft.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_REPORT(driver, (KC_LEFT_GUI));
+    EXPECT_REPORT(driver, (KC_LEFT_GUI, DUMMY_MOD_NEUTRALIZER_KEYCODE));
+    EXPECT_REPORT(driver, (KC_LEFT_GUI));
+    EXPECT_EMPTY_REPORT(driver);
+    EXPECT_REPORT(driver, (KC_P));
+    EXPECT_EMPTY_REPORT(driver);
+    idle_for(TAPPING_TERM);
+    mod_tap_hold_gui.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
+
 TEST_F(RetroTapKeyRoll, mod_over_tap_term_to_mod_over_tap_term) {
     TestDriver driver;
     InSequence s;
