@@ -358,3 +358,51 @@ TEST_F(RetroTapKeyRoll, mod_over_tap_term_to_mod_over_tap_term) {
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 }
+
+TEST_F(RetroTapKeyRoll, mod_to_mod_to_mod) {
+    TestDriver driver;
+    InSequence s;
+    auto       mod_tap_hold_lalt  = KeymapKey(0, 1, 0, LALT_T(KC_R));
+    auto       mod_tap_hold_lshft = KeymapKey(0, 2, 0, SFT_T(KC_A));
+    auto       mod_tap_hold_lctrl = KeymapKey(0, 3, 0, LCTL_T(KC_C));
+
+    set_keymap({mod_tap_hold_lalt, mod_tap_hold_lshft, mod_tap_hold_lctrl});
+
+    EXPECT_REPORT(driver, (KC_LEFT_ALT));
+    mod_tap_hold_lalt.press();
+    idle_for(TAPPING_TERM);
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_REPORT(driver, (KC_LEFT_SHIFT, KC_LEFT_ALT));
+    mod_tap_hold_lshft.press();
+    idle_for(TAPPING_TERM);
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
+    mod_tap_hold_lalt.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_REPORT(driver, (KC_LEFT_CTRL, KC_LEFT_SHIFT));
+    EXPECT_NO_REPORT(driver);
+    mod_tap_hold_lctrl.press();
+    idle_for(TAPPING_TERM);
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_REPORT(driver, (KC_LEFT_CTRL));
+    mod_tap_hold_lshft.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_EMPTY_REPORT(driver);
+    EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
+    EXPECT_REPORT(driver, (KC_C, KC_LEFT_SHIFT));
+    EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
+    EXPECT_EMPTY_REPORT(driver);
+    mod_tap_hold_lctrl.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
