@@ -17,6 +17,9 @@ These functions allow you to activate layers in various ways. Note that layers a
 * `TO(layer)` - activates *layer* and de-activates all other layers (except your default layer). This function is special, because instead of just adding/removing one layer to your active layer stack, it will completely replace your current active layers, uniquely allowing you to replace higher layers with a lower one. This is activated on keydown (as soon as the key is pressed).
 * `TT(layer)` - Layer Tap-Toggle. If you hold the key down, *layer* is activated, and then is de-activated when you let go (like `MO`). If you repeatedly tap it, the layer will be toggled on or off (like `TG`). It needs 5 taps by default, but you can change this by defining `TAPPING_TOGGLE` -- for example, `#define TAPPING_TOGGLE 2` to toggle on just two taps.
 
+See also the [Layer Lock key](features/layer_lock), which locks the highest
+active layer until pressed again.
+
 ### Caveats {#caveats}
 
 Currently, the `layer` argument of `LT()` is limited to layers 0-15, and the `kc` argument to the [Basic Keycode set](keycodes_basic), meaning you can't use keycodes like `LCTL()`, `KC_TILD`, or anything greater than `0xFF`. This is because QMK uses 16-bit keycodes, of which 4 bits are used for the function identifier and 4 bits for the layer, leaving only 8 bits for the keycode.
