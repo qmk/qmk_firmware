@@ -49,7 +49,7 @@ int tp_buttons;
 #if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY) || (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
 bool     retro_tap_primed   = false;
 uint16_t retro_tap_curr_key = 0;
-#    if !defined(NO_ACTION_ONESHOT) && !(defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
+#    if !(defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
 uint8_t retro_tap_curr_mods = 0;
 uint8_t retro_tap_next_mods = 0;
 #    endif
