@@ -28,7 +28,7 @@ typedef struct {
 #    ifndef CIRQUE_PINNACLE_TAPPING_TERM
 #        include "action.h"
 #        include "action_tapping.h"
-#        define CIRQUE_PINNACLE_TAPPING_TERM GET_TAPPING_TERM(KC_BTN1, &(keyrecord_t){})
+#        define CIRQUE_PINNACLE_TAPPING_TERM GET_TAPPING_TERM(QK_MOUSE_BUTTON_1, &(keyrecord_t){})
 #    endif
 #    ifndef CIRQUE_PINNACLE_TOUCH_DEBOUNCE
 #        define CIRQUE_PINNACLE_TOUCH_DEBOUNCE (CIRQUE_PINNACLE_TAPPING_TERM * 8)
