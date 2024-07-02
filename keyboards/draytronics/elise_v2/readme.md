@@ -19,14 +19,14 @@ Entering DFU mode (to allow flashing):
  - If you have one of the provided keymaps flashed, then pressing FN-Tab will enter DFU.
     
 Make example for this keyboard (after setting up your build environment):
-
+    
     make draytronics/elise_v2:default
 
 Flashing example for this keyboard:
 
     make draytronics/elise_v2:default:flash
 
-See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with [The QMK Tutorial](https://docs.qmk.fm/#/newbs).
 
 
 ![elise-pcb-top](https://www.draytronics.co.uk/wp-content/uploads/2021/08/Draytronics-Elise-PCB-V2-top.png)

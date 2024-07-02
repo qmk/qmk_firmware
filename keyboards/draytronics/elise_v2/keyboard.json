@@ -9,8 +9,6 @@
         "device_version": "2.0.0"
     },
     "rgblight": {
-        "saturation_steps": 8,
-        "brightness_steps": 8,
         "led_count": 16,
         "sleep": true,
         "animations": {
@@ -39,6 +37,7 @@
         "rgblight": true
     },
     "qmk": {
+        "tap_keycode_delay": 10,
         "locking": {
             "enabled": true,
             "resync": true
