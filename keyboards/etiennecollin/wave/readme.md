@@ -1,8 +1,8 @@
 # Wave
 
-![Wave pcb](https://i.imgur.com/oWF1Fnr.png)
+![Wave Keyboard](https://i.imgur.com/Lz45D3z.png)
 
-_The Wave is a small, reversible keyboard inspired by the [Ferris](https://github.com/pierrechevalier83/ferris), the [Ferris Sweep](https://github.com/davidphilipbarr/Sweep), the [Swoop](https://github.com/jimmerricks/swoop) and the [Sweep36](https://github.com/sadekbaroudi/sweep36). It aims to solve a few issues I found with the keyboards._
+_The Wave is a small, reversible keyboard inspired by the [Ferris](https://github.com/pierrechevalier83/ferris), the [Ferris Sweep](https://github.com/davidphilipbarr/Sweep), the [Swoop](https://github.com/jimmerricks/swoop) and the [Sweep36](https://github.com/sadekbaroudi/sweep36). It aims to put together everything I like about these other models and to solve a few issues I found with them._
 
 -   Keyboard Maintainer: [Etienne Collin](https://github.com/etiennecollin)
 -   Hardware Supported: [Wave](https://github.com/etiennecollin/wave)
@@ -17,16 +17,6 @@ Flashing example for this keyboard:
     make etiennecollin/wave:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
-
-## Recommended Keymap
-
-For an everyday keyboard, it is recommended to use the `feature` keymap, as the default keymap is extremely barebone. Here is a make example:
-
-    make etiennecollin/wave:feature
-
-Flashing example:
-
-    make etiennecollin/wave:feature:flash
 
 ## Bootloader
 

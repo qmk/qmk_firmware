@@ -8,6 +8,18 @@
       "pid": "0xDCD1",
       "max_power": 100
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true,
+        "rgblight": true,
+        "rgb_matrix": true,
+        "encoder": true
+    },
+    "build": {
+        "lto": true
+    },
     "rgb_matrix": {
       "animations": {
         "alphas_mods": true,
