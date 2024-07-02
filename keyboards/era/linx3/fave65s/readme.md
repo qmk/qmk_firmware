@@ -1,4 +1,4 @@
-# Unknown65H
+# FAve 65S, Solder Ver
 
 * Keyboard Maintainer: [ERA](https://github.com/eerraa)
 * Hardware supported: LINWORKS
