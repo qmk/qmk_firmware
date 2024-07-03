@@ -5,6 +5,11 @@
     "board": "STM32_F103_STM32DUINO",
     "bootloader": "stm32duino",
     "diode_direction": "ROW2COL",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B3", "pin_b": "A7", "resolution": 2}
+        ]
+    },
     "features": {
         "bootmagic": true,
         "console": true,
