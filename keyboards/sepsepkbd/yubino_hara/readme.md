@@ -1,20 +1,26 @@
 # yubino_hara
 
-![yubino_hara](imgur.com image replace me!)
+![yubino_hara](https://raw.githubusercontent.com/nagmeal/sep-sep-kbd/main/yubino-hara/yubinohara.jpg)
 
-*A short description of the keyboard/project*
+- Split
+- Reverse tilt (tilted from front to back)
+- Symmetrical staggered
+
+
 
 * Keyboard Maintainer: [t-ando](https://github.com/nagmeal)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: *YUBINO-HARA PCB, RP2040-zero*
+* Hardware Availability: *[PCB & Case Data](https://github.com/nagmeal/sep-sep-kbd/tree/main/yubino-hara)*
+
+
 
 Make example for this keyboard (after setting up your build environment):
 
-    make yubino_hara:default
+    qmk compile -kb sepsepkbd/yubino_hara -km default
 
 Flashing example for this keyboard:
 
-    make yubino_hara:default:flash
+    Connect to PC with USB cable and copy the generated fa2 file.
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
@@ -22,6 +28,5 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Enter the bootloader in 3 ways:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
-* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
+* **Bootmagic reset**: Connect to PC while holding down the "BOOT" button on the RP2040-zero.
+* **Physical reset button**: Press the "RESET" button on RP2040-zero.
