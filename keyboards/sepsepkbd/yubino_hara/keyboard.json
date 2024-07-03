@@ -20,17 +20,11 @@
             "sync": {
                 "matrix_state": true
             }
-        },
-        "usb_detect": {
-            "enabled": true
         }
     },
     "matrix_pins": {
         "cols": ["GP1", "GP2", "GP3", "GP4", "GP5", "GP6", "GP7"],
         "rows": ["GP29", "GP28", "GP27", "GP26"]
-    },
-    "mouse_key": {
-        "enabled": true
     },
     "processor": "RP2040",
     "url": "",
@@ -47,7 +41,12 @@
         "led_count": 44,
         "split": true,
         "split_count": [22, 22],
-        "sleep": true
+        "sleep": true,
+        "default": {
+            "hue": 0,
+            "sat": 0,
+            "val": 50
+        }
     },
     "layouts": {
         "LAYOUT_split_6x3_3_1": {

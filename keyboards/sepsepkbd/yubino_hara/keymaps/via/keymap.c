@@ -29,7 +29,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             _______, _______,  _______,         _______,  _______, _______
     ),
 };
-
-void keyboard_post_init_user(void) {
-    rgblight_sethsv(0, 0, 100);
-}

@@ -1,6 +1,6 @@
 # yubino_hara
 
-![yubino_hara](https://raw.githubusercontent.com/nagmeal/sep-sep-kbd/main/yubino-hara/yubinohara.jpg)
+![yubino_hara](https://imgur.com/a/c91DXXL)
 
 - Split
 - Reverse tilt (tilted from front to back)
@@ -16,11 +16,11 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    qmk compile -kb sepsepkbd/yubino_hara -km default
+    make sepsepkbd/yubino_hara:default
 
 Flashing example for this keyboard:
 
-    Connect to PC with USB cable and copy the generated fa2 file.
+    make sepsepkbd/yubino_hara:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
