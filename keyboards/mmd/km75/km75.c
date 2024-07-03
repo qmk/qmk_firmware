@@ -17,7 +17,9 @@
 
 
 void keyboard_pre_init_kb(void) {
-    setPinOutput(A8);
-    writePinHigh(A8);
+    gpio_set_pin_output(A8);
+    gpio_write_pin_high(A8);
+    
+    keyboard_pre_init_user();
 }
 
