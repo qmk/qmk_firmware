@@ -97,7 +97,7 @@ bool ps2_mouse_read(report_mouse_t* mouse_report) {
         return false;
     }
 
-#if defined(POINTING_DEVICE_TRACKBALL_TRACKPOINT) || defined(POINTING_DEVICE_TRACKPOINT_TRACKBALL)
+#if defined(POINTING_DEVICE_CONFIGURATION_TRACKBALL_TRACKPOINT) || defined(POINTING_DEVICE_CONFIGURATION_TRACKPOINT_TRACKBALL)
     // Reading the ps2 mouse too often can cause the Pimoroni on the other side to lock up.
     static uint32_t last_exec = 0;
     if (timer_elapsed32(last_exec) < 15) {
