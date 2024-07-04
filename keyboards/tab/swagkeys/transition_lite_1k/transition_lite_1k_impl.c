@@ -132,17 +132,18 @@ void keyboard_pre_init_kb(void) {
 }
 
 // 初始化矩阵
-void matrix_init_kb(void) {
+void keyboard_post_init_kb(void) {
 // 检查灯开关
 #ifdef RGBLIGHT_ENABLE
     // Enable the LED layers
     // rgblight_layers = tab_rgb_layers;
     rgblight_set_effect_range(0, RGBLIGHT_LED_COUNT);
 #endif
+    keyboard_post_init_user();
 }
 
 // 矩阵扫描
-void matrix_scan_user(void) {
+void housekeeping_task_kb(void) {
 #if defined(RGB_MATRIX_ENABLE) && defined(EEPROM_ENABLE) && defined(RGB_MATRIX_SWITCH_PIN)
     // rgb_matrix 关闭时断电
     if (rgb_matrix_is_enabled() != cp_cfg_led_power_get()) {
@@ -178,7 +179,10 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 
 #ifdef RGB_MATRIX_ENABLE
 // rgb动画锁定颜色
-bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_users()) {
+        return false;
+    }
     if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(RBG_INDEX_CAPS, RGB_WHITE);
     }
