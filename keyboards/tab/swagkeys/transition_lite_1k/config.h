@@ -17,19 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-
-
-
-// A1 TIM2_CH2
-#define WS2812_RGBLIGHT_DI_PIN              A2
-// #define WS2812_RGBLIGHT_PWM_COMPLEMENTARY_OUTPUT                /** TIMx_CHyN   需要带N结尾*/
-#define WS2812_RGBLIGHT_PWM_DRIVER           PWMD2               /** TIMx        对应x*/
-#define WS2812_RGBLIGHT_PWM_CHANNEL          3                   /** TIMx_CHy    对应y */
-#define WS2812_RGBLIGHT_PWM_PAL_MODE         2
-#define WS2812_RGBLIGHT_DMA_STREAM           STM32_DMA1_STREAM2  /** TIMx_UP     对应x的UP，DMA数据表*/
-#define WS2812_RGBLIGHT_DMA_CHANNEL          2                   /** STM32_DMAx_STREAMy 对应y*/
-
 #ifdef RGB_MATRIX_ENABLE
 // /** RGB MATRIX CONFIGS ----- B13 TIM1_CH1N */
 #define WS2812_PWM_COMPLEMENTARY_OUTPUT                 /** TIMx_CHyN   需要带N结尾*/

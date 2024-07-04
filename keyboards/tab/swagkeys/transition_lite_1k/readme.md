@@ -1,6 +1,6 @@
 # Transition Lite 1k
 
-![Transition Lite 1k](https://imgur.com/Mpg8iSr)
+![Transition Lite 1k](https://i.imgur.com/Mpg8iSr.jpeg)
 
 An entry-level keyboard that is modelled after the Transition TKL. 
 
