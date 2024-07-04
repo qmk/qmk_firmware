@@ -2,7 +2,9 @@
 
 ![Tyson60s](https://i.imgur.com/3EC4RfF.jpg)
 
-A GH60 form factor PCB for 60% keyboards. Uses a Left USB Type C connector or 4 JST SH positions for daughter board.
+A Hiney H60 form factor PCB for 60% keyboards. Uses a Left USB Type C connector or 4 JST SH positions for daughter board. 
+
+![Layout](https://i.imgur.com/baNC0u8.jpeg)
 
 * Keyboard Maintainer: [Trnthsn](https://github.com/trnthsn)
 * Hardware Supported: RP2040, Tyson60s PCB, Hiney H60
