@@ -1,6 +1,6 @@
 # yubino_hara
 
-![yubino_hara](https://imgur.com/a/c91DXXL)
+![yubino_hara](https://i.imgur.com/WtB6bMy.jpeg)
 
 - Split
 - Reverse tilt (tilted from front to back)
