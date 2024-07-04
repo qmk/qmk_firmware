@@ -15,56 +15,56 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "hd44780.h"
+#include "ws0010.h"
 #include "gpio.h"
 #include "progmem.h"
 #include "wait.h"
 
-#ifndef HD44780_DATA_PINS
-#    error hd44780: no data pins defined!
+#ifndef WS0010_DATA_PINS
+#    error ws0010: no data pins defined!
 #endif
 
-#ifndef HD44780_RS_PIN
-#    error hd44780: no RS pin defined!
+#ifndef WS0010_RS_PIN
+#    error ws0010: no RS pin defined!
 #endif
 
-#ifndef HD44780_RW_PIN
-#    error hd44780: no R/W pin defined!
+#ifndef WS0010_RW_PIN
+#    error ws0010: no R/W pin defined!
 #endif
 
-#ifndef HD44780_E_PIN
-#    error hd44780: no E pin defined!
+#ifndef WS0010_E_PIN
+#    error ws0010: no E pin defined!
 #endif
 
-static const pin_t data_pins[4] = HD44780_DATA_PINS;
+static const pin_t data_pins[4] = WS0010_DATA_PINS;
 
-#ifndef HD44780_DISPLAY_COLS
-#    define HD44780_DISPLAY_COLS 16
+#ifndef WS0010_DISPLAY_COLS
+#    define WS0010_DISPLAY_COLS 16
 #endif
 
-#ifndef HD44780_DISPLAY_LINES
-#    define HD44780_DISPLAY_LINES 2
+#ifndef WS0010_DISPLAY_LINES
+#    define WS0010_DISPLAY_LINES 2
 #endif
 
-#ifndef HD44780_DDRAM_LINE0_ADDR
-#    define HD44780_DDRAM_LINE0_ADDR 0x00
+#ifndef WS0010_DDRAM_LINE0_ADDR
+#    define WS0010_DDRAM_LINE0_ADDR 0x00
 #endif
-#ifndef HD44780_DDRAM_LINE1_ADDR
-#    define HD44780_DDRAM_LINE1_ADDR 0x40
+#ifndef WS0010_DDRAM_LINE1_ADDR
+#    define WS0010_DDRAM_LINE1_ADDR 0x40
 #endif
 
-#define HD44780_INIT_DELAY_MS 16
-#define HD44780_ENABLE_DELAY_US 1
+#define WS0010_INIT_DELAY_MS 16
+#define WS0010_ENABLE_DELAY_US 1
 
-static void hd44780_latch(void) {
-    gpio_write_pin_high(HD44780_E_PIN);
-    wait_us(HD44780_ENABLE_DELAY_US);
-    gpio_write_pin_low(HD44780_E_PIN);
+static void ws0010_latch(void) {
+    gpio_write_pin_high(WS0010_E_PIN);
+    wait_us(WS0010_ENABLE_DELAY_US);
+    gpio_write_pin_low(WS0010_E_PIN);
 }
 
-void hd44780_write(uint8_t data, bool isData) {
-    gpio_write_pin(HD44780_RS_PIN, isData);
-    gpio_write_pin_low(HD44780_RW_PIN);
+void ws0010_write(uint8_t data, bool isData) {
+    gpio_write_pin(WS0010_RS_PIN, isData);
+    gpio_write_pin_low(WS0010_RW_PIN);
 
     for (int i = 0; i < 4; i++) {
         gpio_set_pin_output(data_pins[i]);
@@ -74,31 +74,31 @@ void hd44780_write(uint8_t data, bool isData) {
     for (int i = 0; i < 4; i++) {
         gpio_write_pin(data_pins[i], (data >> 4) & (1 << i));
     }
-    hd44780_latch();
+    ws0010_latch();
 
     // Write low nibble
     for (int i = 0; i < 4; i++) {
         gpio_write_pin(data_pins[i], data & (1 << i));
     }
-    hd44780_latch();
+    ws0010_latch();
 
     for (int i = 0; i < 4; i++) {
         gpio_write_pin_high(data_pins[i]);
     }
 }
 
-uint8_t hd44780_read(bool isData) {
+uint8_t ws0010_read(bool isData) {
     uint8_t data = 0;
 
-    gpio_write_pin(HD44780_RS_PIN, isData);
-    gpio_write_pin_high(HD44780_RW_PIN);
+    gpio_write_pin(WS0010_RS_PIN, isData);
+    gpio_write_pin_high(WS0010_RW_PIN);
 
     for (int i = 0; i < 4; i++) {
         gpio_set_pin_input(data_pins[i]);
     }
 
-    gpio_write_pin_high(HD44780_E_PIN);
-    wait_us(HD44780_ENABLE_DELAY_US);
+    gpio_write_pin_high(WS0010_E_PIN);
+    wait_us(WS0010_ENABLE_DELAY_US);
 
     // Read high nibble
     for (int i = 0; i < 4; i++) {
@@ -107,178 +107,178 @@ uint8_t hd44780_read(bool isData) {
 
     data <<= 4;
 
-    gpio_write_pin_low(HD44780_E_PIN);
-    wait_us(HD44780_ENABLE_DELAY_US);
-    gpio_write_pin_high(HD44780_E_PIN);
-    wait_us(HD44780_ENABLE_DELAY_US);
+    gpio_write_pin_low(WS0010_E_PIN);
+    wait_us(WS0010_ENABLE_DELAY_US);
+    gpio_write_pin_high(WS0010_E_PIN);
+    wait_us(WS0010_ENABLE_DELAY_US);
 
     // Read low nibble
     for (int i = 0; i < 4; i++) {
         data |= (gpio_read_pin(data_pins[i]) << i);
     }
 
-    gpio_write_pin_low(HD44780_E_PIN);
+    gpio_write_pin_low(WS0010_E_PIN);
 
     return data;
 }
 
-bool hd44780_busy(void) {
-    return hd44780_read(false) & HD44780_BUSY_FLAG;
+bool ws0010_busy(void) {
+    return ws0010_read(false) & WS0010_BUSY_FLAG;
 }
 
-void hd44780_command(uint8_t command) {
-    while (hd44780_busy())
+void ws0010_command(uint8_t command) {
+    while (ws0010_busy())
         ;
-    hd44780_write(command, false);
+    ws0010_write(command, false);
 }
 
-void hd44780_data(uint8_t data) {
-    while (hd44780_busy())
+void ws0010_data(uint8_t data) {
+    while (ws0010_busy())
         ;
-    hd44780_write(data, true);
+    ws0010_write(data, true);
 }
 
-void hd44780_clear(void) {
-    hd44780_command(HD44780_CMD_CLEAR_DISPLAY);
+void ws0010_clear(void) {
+    ws0010_command(WS0010_CMD_CLEAR_DISPLAY);
 }
 
-void hd44780_home(void) {
-    hd44780_command(HD44780_CMD_RETURN_HOME);
+void ws0010_home(void) {
+    ws0010_command(WS0010_CMD_RETURN_HOME);
 }
 
-void hd44780_on(bool cursor, bool blink) {
+void ws0010_on(bool cursor, bool blink) {
     if (cursor) {
         if (blink) {
-            hd44780_command(HD44780_CMD_DISPLAY | HD44780_DISPLAY_ON | HD44780_DISPLAY_CURSOR | HD44780_DISPLAY_BLINK);
+            ws0010_command(WS0010_CMD_DISPLAY | WS0010_DISPLAY_ON | WS0010_DISPLAY_CURSOR | WS0010_DISPLAY_BLINK);
         } else {
-            hd44780_command(HD44780_CMD_DISPLAY | HD44780_DISPLAY_ON | HD44780_DISPLAY_CURSOR);
+            ws0010_command(WS0010_CMD_DISPLAY | WS0010_DISPLAY_ON | WS0010_DISPLAY_CURSOR);
         }
     } else {
-        hd44780_command(HD44780_CMD_DISPLAY | HD44780_DISPLAY_ON);
+        ws0010_command(WS0010_CMD_DISPLAY | WS0010_DISPLAY_ON);
     }
 }
 
-void hd44780_off(void) {
-    hd44780_command(HD44780_CMD_DISPLAY);
+void ws0010_off(void) {
+    ws0010_command(WS0010_CMD_DISPLAY);
 }
 
-void hd44780_set_cgram_address(uint8_t address) {
-    hd44780_command(HD44780_CMD_SET_CGRAM_ADDRESS + (address & 0x3F));
+void ws0010_set_cgram_address(uint8_t address) {
+    ws0010_command(WS0010_CMD_SET_CGRAM_ADDRESS + (address & 0x3F));
 }
 
-void hd44780_set_ddram_address(uint8_t address) {
-    hd44780_command(HD44780_CMD_SET_DDRAM_ADDRESS + (address & 0x7F));
+void ws0010_set_ddram_address(uint8_t address) {
+    ws0010_command(WS0010_CMD_SET_DDRAM_ADDRESS + (address & 0x7F));
 }
 
-void hd44780_init(bool cursor, bool blink) {
-    gpio_set_pin_output(HD44780_RS_PIN);
-    gpio_set_pin_output(HD44780_RW_PIN);
-    gpio_set_pin_output(HD44780_E_PIN);
+//void ws0010_init(bool cursor, bool blink) {
+    //gpio_set_pin_output(WS0010_RS_PIN);
+    //gpio_set_pin_output(WS0010_RW_PIN);
+    //gpio_set_pin_output(WS0010_E_PIN);
 
-    for (int i = 0; i < 4; i++) {
-        gpio_set_pin_output(data_pins[i]);
-    }
+   // for (int i = 0; i < 4; i++) {
+   //     gpio_set_pin_output(data_pins[i]);
+   // }
 
-    wait_ms(HD44780_INIT_DELAY_MS);
+    //wait_ms(WS0010_INIT_DELAY_MS);
 
-    // Manually configure for 4-bit mode - can't use hd44780_command() yet
-    // HD44780U datasheet, Fig. 24 (p46)
-    gpio_write_pin_high(data_pins[0]); // Function set
-    gpio_write_pin_high(data_pins[1]); // DL = 1
-    hd44780_latch();
-    wait_ms(5);
+    // Manually configure for 4-bit mode - can't use ws0010_command() yet
+    // WS0010U datasheet, Fig. 24 (p46)
+    //gpio_write_pin_high(data_pins[0]); // Function set
+    //gpio_write_pin_high(data_pins[1]); // DL = 1
+    //ws0010_latch();
+    //wait_ms(5);
     // Send again
-    hd44780_latch();
-    wait_us(64);
+    //ws0010_latch();
+    //wait_us(64);
     // And again (?)
-    hd44780_latch();
-    wait_us(64);
+    //ws0010_latch();
+    //wait_us(64);
 
-    gpio_write_pin_low(data_pins[0]); // DL = 0
-    hd44780_latch();
-    wait_us(64);
+    //gpio_write_pin_low(data_pins[0]); // DL = 0
+    //ws0010_latch();
+    //wait_us(64);
 
-#if HD44780_DISPLAY_LINES == 1
-    hd44780_command(HD44780_CMD_FUNCTION); // 4 bit, 1 line, 5x8 dots
-#else
-    hd44780_command(HD44780_CMD_FUNCTION | HD44780_FUNCTION_2_LINES); // 4 bit, 2 lines, 5x8 dots
-#endif
-    hd44780_on(cursor, blink);
-    hd44780_clear();
-    hd44780_home();
-    hd44780_command(HD44780_CMD_ENTRY_MODE | HD44780_ENTRY_MODE_INC);
-}
+//#if WS0010_DISPLAY_LINES == 1
+    //ws0010_command(WS0010_CMD_FUNCTION); // 4 bit, 1 line, 5x8 dots
+//#else
+    //ws0010_command(WS0010_CMD_FUNCTION | WS0010_FUNCTION_2_LINES); // 4 bit, 2 lines, 5x8 dots
+//#endif
+    //ws0010_on(cursor, blink);
+    //ws0010_clear();
+    //ws0010_home();
+    //ws0010_command(WS0010_CMD_ENTRY_MODE | WS0010_ENTRY_MODE_INC);
+//}
 
-void hd44780_set_cursor(uint8_t col, uint8_t line) {
+void ws0010_set_cursor(uint8_t col, uint8_t line) {
     register uint8_t address = col;
 
-#if HD44780_DISPLAY_LINES == 1
-    address += HD44780_DDRAM_LINE0_ADDR;
-#elif HD44780_DISPLAY_LINES == 2
+#if WS0010_DISPLAY_LINES == 1
+    address += WS0010_DDRAM_LINE0_ADDR;
+#elif WS0010_DISPLAY_LINES == 2
     if (line == 0) {
-        address += HD44780_DDRAM_LINE0_ADDR;
+        address += WS0010_DDRAM_LINE0_ADDR;
     } else {
-        address += HD44780_DDRAM_LINE1_ADDR;
+        address += WS0010_DDRAM_LINE1_ADDR;
     }
 #endif
 
-    hd44780_set_ddram_address(address);
+    ws0010_set_ddram_address(address);
 }
 
-void hd44780_define_char(uint8_t index, uint8_t *data) {
-    hd44780_set_cgram_address((index & 0x7) << 3);
+void ws0010_define_char(uint8_t index, uint8_t *data) {
+    ws0010_set_cgram_address((index & 0x7) << 3);
     for (uint8_t i = 0; i < 8; i++) {
-        hd44780_data(data[i]);
+        ws0010_data(data[i]);
     }
 }
 
-void hd44780_putc(char c) {
-    while (hd44780_busy())
+void ws0010_putc(char c) {
+    while (ws0010_busy())
         ;
-    uint8_t current_position = hd44780_read(false);
+    uint8_t current_position = ws0010_read(false);
 
     if (c == '\n') {
-        hd44780_set_cursor(0, current_position < HD44780_DDRAM_LINE1_ADDR ? 1 : 0);
+        ws0010_set_cursor(0, current_position < WS0010_DDRAM_LINE1_ADDR ? 1 : 0);
     } else {
-#if defined(HD44780_WRAP_LINES)
-#    if HD44780_DISPLAY_LINES == 1
-        if (current_position == HD44780_DDRAM_LINE0_ADDR + HD44780_DISPLAY_COLS) {
+#if defined(WS0010_WRAP_LINES)
+#    if WS0010_DISPLAY_LINES == 1
+        if (current_position == WS0010_DDRAM_LINE0_ADDR + WS0010_DISPLAY_COLS) {
             // Go to start of line
-            hd44780_set_cursor(0, 0);
+            ws0010_set_cursor(0, 0);
         }
-#    elif HD44780_DISPLAY_LINES == 2
-        if (current_position == HD44780_DDRAM_LINE0_ADDR + HD44780_DISPLAY_COLS) {
+#    elif WS0010_DISPLAY_LINES == 2
+        if (current_position == WS0010_DDRAM_LINE0_ADDR + WS0010_DISPLAY_COLS) {
             // Go to start of second line
-            hd44780_set_cursor(0, 1);
-        } else if (current_position == HD44780_DDRAM_LINE1_ADDR + HD44780_DISPLAY_COLS) {
+            ws0010_set_cursor(0, 1);
+        } else if (current_position == WS0010_DDRAM_LINE1_ADDR + WS0010_DISPLAY_COLS) {
             // Go to start of first line
-            hd44780_set_cursor(0, 0);
+            ws0010_set_cursor(0, 0);
         }
 #    endif
 #endif
-        hd44780_data(c);
+        ws0010_data(c);
     }
 }
 
-void hd44780_puts(const char *s) {
+void ws0010_puts(const char *s) {
     register char c;
     while ((c = *s++)) {
-        hd44780_putc(c);
+        ws0010_putc(c);
     }
 }
 
 #if defined(__AVR__)
-void hd44780_define_char_P(uint8_t index, const uint8_t *data) {
-    hd44780_set_cgram_address(index << 3);
+void ws0010_define_char_P(uint8_t index, const uint8_t *data) {
+    ws0010_set_cgram_address(index << 3);
     for (uint8_t i = 0; i < 8; i++) {
-        hd44780_data(pgm_read_byte(data++));
+        ws0010_data(pgm_read_byte(data++));
     }
 }
 
-void hd44780_puts_P(const char *s) {
+void ws0010_puts_P(const char *s) {
     register char c;
     while ((c = pgm_read_byte(s++))) {
-        hd44780_putc(c);
+        ws0010_putc(c);
     }
 }
 #endif
