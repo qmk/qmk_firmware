@@ -32,7 +32,7 @@
             "static_gradient": true,
             "twinkle": true
         },
-        "led_count": 22,
+        "led_count": 20,
         "max_brightness": 240,
         "sleep": true
     },
