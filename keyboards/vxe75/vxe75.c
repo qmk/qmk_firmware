@@ -16,6 +16,7 @@
 
 #include "quantum.h"
 
+#ifdef RGB_MATRIX_ENABLE
 const aw20216s_led_t PROGMEM g_aw20216s_leds[AW20216S_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
