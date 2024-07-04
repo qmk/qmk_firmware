@@ -44,7 +44,7 @@
                 {"label": "3", "matrix": [4, 2], "x": 2, "y": 4},
                 {"label": "0", "matrix": [5, 0], "x": 0, "y": 5, "w": 2},
                 {"label": ".", "matrix": [5, 2], "x": 2, "y": 5},
-                {"label": "Enter", "matrix": [4, 3], "x": 3, "y": 4, "h": 2},
+                {"label": "Enter", "matrix": [4, 3], "x": 3, "y": 4, "h": 2}
             ]
         }
     }
