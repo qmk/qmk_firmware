@@ -1,6 +1,6 @@
 # doio/kb09
 
-![kb09-01](https://imgur.com/MVKeweC.png)
+![kb09-01](https://i.imgur.com/MVKeweC.png)
 
 QMK for DOIO GBA keypad .
 
