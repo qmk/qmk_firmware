@@ -23,9 +23,6 @@
 #define MOUSEKEY_MAX_SPEED   7
 #define MOUSEKEY_WHEEL_DELAY 0
 
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
 #define SPLIT_HAND_PIN B9
 #define SERIAL_USART_DRIVER SD1
 #define SERIAL_USART_TX_PAL_MODE 7

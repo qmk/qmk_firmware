@@ -26,6 +26,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [3] = LAYOUT_ortho_3x3(
         KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS,
-        QK_BOOT,   KC_TRNS, KC_TRNS
+        QK_BOOT, KC_TRNS, KC_TRNS
     )
 };

@@ -12,9 +12,9 @@ This is a keyboard firmware based on the [tmk\_keyboard firmware](https://github
 
 * [See the official documentation on docs.qmk.fm](https://docs.qmk.fm)
 
-The docs are powered by [Docsify](https://docsify.js.org/) and hosted on [GitHub](/docs/). They are also viewable offline; see [Previewing the Documentation](https://docs.qmk.fm/#/contributing?id=previewing-the-documentation) for more details.
+The docs are powered by [VitePress](https://vitepress.dev/). They are also viewable offline; see [Previewing the Documentation](https://docs.qmk.fm/#/contributing?id=previewing-the-documentation) for more details.
 
-You can request changes by making a fork and opening a [pull request](https://github.com/qmk/qmk_firmware/pulls), or by clicking the "Edit this page" link at the bottom of any page.
+You can request changes by making a fork and opening a [pull request](https://github.com/qmk/qmk_firmware/pulls).
 
 ## Supported Keyboards
 
