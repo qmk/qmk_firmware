@@ -111,3 +111,4 @@ const aw20216s_led_t PROGMEM g_aw20216s_leds[AW20216S_LED_COUNT] = {
     {1, SW11_CS4, SW11_CS5,  SW11_CS6 },  // 78
     {1, SW5_CS10, SW5_CS11,  SW5_CS12 },  // 79
 };
+#endif
