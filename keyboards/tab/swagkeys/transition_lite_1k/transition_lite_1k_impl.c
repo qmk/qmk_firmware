@@ -26,102 +26,6 @@
 #    include "led.h"
 #endif
 
-/* RGB LIGHT **************************************************************/
-#ifdef RGBLIGHT_ENABLE
-static bool rgblight_process_record_kb(uint16_t keycode) {
-    bool is_function_key = true;
-
-    switch (keycode) {
-        case RGB_TOG: {
-            rgblight_toggle();
-        } break; // 灯效开关
-        case RGB_MOD: {
-            rgblight_step();
-        } break; // 灯效顺序切换
-        case RGB_RMOD: {
-            rgblight_step_reverse();
-        } break; // 灯效逆序切换
-        case RGB_VAI: {
-            rgblight_increase_val();
-        } break; // 灯效增加亮度
-        case RGB_VAD: {
-            rgblight_decrease_val();
-        } break; // 灯效降低亮度
-        case RGB_HUI: {
-            rgblight_increase_hue();
-        } break; // 灯效增加色调
-        case RGB_HUD: {
-            rgblight_decrease_hue();
-        } break; // 灯效降低色调
-        case RGB_SAI: {
-            rgblight_increase_sat();
-        } break; // 灯效增加饱和度
-        case RGB_SAD: {
-            rgblight_decrease_sat();
-        } break; // 灯效降低饱和度
-        case RGB_SPI: {
-            rgblight_increase_speed();
-        } break; // 灯效增加速度
-        case RGB_SPD: {
-            rgblight_decrease_speed();
-        } break; // 灯效降低速度
-        default: {
-            is_function_key = false;
-        } break;
-    }
-
-    return !is_function_key;
-}
-#endif // RGBLIGHT_ENABLE
-
-/* RGB MATRIX **************************************************************/
-#ifdef RGB_MATRIX_ENABLE
-static bool rgb_matrix_process_record_kb(uint16_t keycode) {
-    bool is_function_key = true;
-
-    switch (keycode) {
-        case RGB_TOG: {
-            rgb_matrix_toggle();
-        } break; // 灯效开关
-        case RGB_MOD: {
-            rgb_matrix_step();
-        } break; // 灯效顺序切换
-        case RGB_RMOD: {
-            rgb_matrix_step_reverse();
-        } break; // 灯效逆序切换
-        case RGB_VAI: {
-            rgb_matrix_increase_val();
-        } break; // 灯效增加亮度
-        case RGB_VAD: {
-            rgb_matrix_decrease_val();
-        } break; // 灯效降低亮度
-        case RGB_HUI: {
-            rgb_matrix_increase_hue();
-        } break; // 灯效增加色调
-        case RGB_HUD: {
-            rgb_matrix_decrease_hue();
-        } break; // 灯效降低色调
-        case RGB_SAI: {
-            rgb_matrix_increase_sat();
-        } break; // 灯效增加饱和度
-        case RGB_SAD: {
-            rgb_matrix_decrease_sat();
-        } break; // 灯效降低饱和度
-        case RGB_SPI: {
-            rgb_matrix_increase_speed();
-        } break; // 灯效增加速度
-        case RGB_SPD: {
-            rgb_matrix_decrease_speed();
-        } break; // 灯效降低速度
-        default: {
-            is_function_key = false;
-        } break;
-    }
-
-    return !is_function_key;
-}
-#endif // RGB_MATRIX_ENABLE
-
 /**************************** Matrix *********************************/
 // 矩阵初始化之前执行
 void keyboard_pre_init_kb(void) {
@@ -153,34 +57,10 @@ void housekeeping_task_kb(void) {
 #endif
 }
 
-// 是否为RGB Matrix模式
-static bool is_rgb_matrix_type = false;
-
-bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
-    if (!record->event.pressed) return true;
-
-    // 按键操作
-    if (is_rgb_matrix_type) {
-#ifdef RGB_MATRIX_ENABLE
-        if (!rgb_matrix_process_record_kb(keycode)) {
-            return false;
-        }
-#endif
-    } else {
-#ifdef RGBLIGHT_ENABLE
-        if (!rgblight_process_record_kb(keycode)) {
-            return false;
-        }
-#endif
-    }
-
-    return true;
-}
-
 #ifdef RGB_MATRIX_ENABLE
 // rgb动画锁定颜色
 bool rgb_matrix_indicators_kb(void) {
-    if (!rgb_matrix_indicators_users()) {
+    if (!rgb_matrix_indicators_user()) {
         return false;
     }
     if (host_keyboard_led_state().caps_lock) {

@@ -16,8 +16,17 @@
     "extrakey": true,
     "mousekey": true,
     "nkro": true,
-    "rgblight": true,
-    "rgb_matrix": true
+    "rgblight": true
+  },
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  },
+  "build": {
+    "debounce_type": "sym_eager_pk",
+    "lto": true
   },
   "diode_direction": "COL2ROW",
   "matrix_pins": {
@@ -30,7 +39,6 @@
     "driver": "pwm"
   },
   "rgblight": {
-    "driver": "custom",
     "led_count": 26,
     "max_brightness": 240,
     "sleep": true,
