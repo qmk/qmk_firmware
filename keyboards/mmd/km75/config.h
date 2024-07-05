@@ -17,8 +17,6 @@
 
 #pragma once
 
-
-#define RGB_MATRIX_LED_COUNT 81
 #define WS2812_PWM_DRIVER PWMD3
 #define WS2812_PWM_CHANNEL 1
 #define WS2812_PWM_PAL_MODE 2
