@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define WS2812_DMA_STREAM           STM32_DMA1_STREAM5  /** TIMx_UP     对应x的UP，DMA数据表*/
 #define WS2812_DMA_CHANNEL          5                   /** STM32_DMAx_STREAMy 对应y*/
 
-#define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_DISABLE_KEYCODES
 
 #define RBG_INDEX_CAPS                  62  /** Caps 指示灯索引 **/

@@ -4,7 +4,7 @@
   "maintainer": "Tab",
   "url": "https://swagkeys.com/",
   "processor": "STM32F103",
-
+  "bootloader": "uf2boot",
   "usb": {
     "vid": "0x534B",
     "pid": "0x5431",
@@ -68,7 +68,6 @@
         "val": 160
     },
     "animations": {
-        "solid_color": true,
         "alphas_mods": true,
         "gradient_up_down": true,
         "gradient_left_right": true,
