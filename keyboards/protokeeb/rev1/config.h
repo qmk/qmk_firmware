@@ -50,6 +50,4 @@
 /* LED to blink when entering bootloader mode */
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP25
 
-#if defined (ENCODER_ENABLE)
 #define ENCODER_MAP_KEY_DELAY 10
-#endif
