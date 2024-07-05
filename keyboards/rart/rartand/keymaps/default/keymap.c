@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [2] = LAYOUT_all(
-        RESET,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_DEL,
+        QK_BOOT, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_DEL,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______,          _______,      _______,     _______,          _______, _______, _______, _______, _______
@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef OLED_ENABLE
-void oled_task_user(void) {
+bool oled_task_user(void) {
     // Host Keyboard Layer Status
     oled_write_P(PSTR("* R A R T A N D *\n  Powered by QMK\nLayer: "), false);
 
@@ -74,5 +74,6 @@ void oled_task_user(void) {
     oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
     oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
     oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
+    return false;
 }
 #endif

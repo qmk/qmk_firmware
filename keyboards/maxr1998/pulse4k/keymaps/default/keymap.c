@@ -21,6 +21,10 @@ enum layers {
     DEFAULT
 };
 
+enum combo_events {
+    LED_ADJUST
+};
+
 const uint16_t PROGMEM led_adjust_combo[] = {KC_LEFT, KC_RGHT, COMBO_END};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -29,3 +33,39 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LEFT, KC_DOWN, KC_RGHT
     )
 };
+
+combo_t key_combos[] = {
+    [LED_ADJUST] = COMBO_ACTION(led_adjust_combo)
+};
+
+bool led_adjust_active = false;
+
+void process_combo_event(uint16_t combo_index, bool pressed) {
+    if (combo_index == LED_ADJUST) {
+        led_adjust_active = pressed;
+    }
+}
+
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    if (index == 0) {
+        if (led_adjust_active) {
+            if (clockwise) {
+                rgblight_increase_val();
+            } else {
+                rgblight_decrease_val();
+            }
+            return false;
+        }
+    } else if (index == 1) {
+        if (led_adjust_active) {
+            if (clockwise) {
+                rgblight_increase_hue();
+            } else {
+                rgblight_decrease_hue();
+            }
+            return false;
+        }
+    }
+
+    return true;
+}

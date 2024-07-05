@@ -22,7 +22,13 @@ def test_template_json_pytest_has_template():
 
 
 def test_generate_c_pytest_has_template():
-    templ = qmk.keymap.generate_c('handwired/pytest/has_template', 'LAYOUT', [['KC_A']])
+    keymap_json = {
+        'keyboard': 'handwired/pytest/has_template',
+        'layout': 'LAYOUT',
+        'layers': [['KC_A']],
+        'macros': None,
+    }
+    templ = qmk.keymap.generate_c(keymap_json)
     assert templ == '#include QMK_KEYBOARD_H\nconst uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\t[0] = LAYOUT(KC_A)};\n'
 
 

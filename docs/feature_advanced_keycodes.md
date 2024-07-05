@@ -1,4 +1,4 @@
-# Modifier Keys :id=modifier-keys
+# Modifier Keys {#modifier-keys}
 
 These allow you to combine a modifier with a keycode. When pressed, the keydown event for the modifier, then `kc` will be sent. On release, the keyup event for `kc`, then the modifier will be sent.
 
@@ -26,7 +26,7 @@ These allow you to combine a modifier with a keycode. When pressed, the keydown 
 
 You can also chain them, for example `LCTL(LALT(KC_DEL))` or `C(A(KC_DEL))` makes a key that sends Control+Alt+Delete with a single keypress.
 
-# Checking Modifier State :id=checking-modifier-state
+# Checking Modifier State {#checking-modifier-state}
 
 The current modifier state can mainly be accessed with two functions: `get_mods()` for normal modifiers and modtaps and `get_oneshot_mods()` for one-shot modifiers (unless they're held, in which case they act like normal modifier keys).
 
@@ -35,11 +35,11 @@ The presence of one or more specific modifiers in the current modifier state can
 Thus, to give an example, `01000010` would be the internal representation of LShift+RAlt.
 For more information on bitwise operators in C, click [here](https://en.wikipedia.org/wiki/Bitwise_operations_in_C) to open the Wikipedia page on the topic.
 
-In practice, this means that you can check whether a given modifier is active with `get_mods() & MOD_BIT(KC_<modifier>)` (see the [list of modifier keycodes](keycodes_basic.md#modifiers)) or with `get_mods() & MOD_MASK_<modifier>` if the difference between left and right hand modifiers is not important and you want to match both. Same thing can be done for one-shot modifiers if you replace `get_mods()` with `get_oneshot_mods()`.
+In practice, this means that you can check whether a given modifier is active with `get_mods() & MOD_BIT(KC_<modifier>)` (see the [list of modifier keycodes](keycodes_basic#modifiers)) or with `get_mods() & MOD_MASK_<modifier>` if the difference between left and right hand modifiers is not important and you want to match both. Same thing can be done for one-shot modifiers if you replace `get_mods()` with `get_oneshot_mods()`.
 
-To check that *only* a specific set of mods is active at a time, AND the modifier state and your desired mod mask as explained above and compare the result to the mod mask itself: `get_mods() & <mod mask> == <mod mask>`.
+To check that *only* a specific set of mods is active at a time, use a simple equality operator: `get_mods() == <mod mask>`.
 
-For example, let's say you want to trigger a piece of custom code if one-shot left control and one-shot left shift are on but every other one-shot mods are off. To do so, you can compose the desired mod mask by combining the mod bits for left control and shift with `(MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT))` and then plug it in: `get_oneshot_mods & (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT)) == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT))`. Using `MOD_MASK_CS` instead for the mod bitmask would have forced you to press four modifier keys (both versions of control and shift) to fulfill the condition.
+For example, let's say you want to trigger a piece of custom code if one-shot left control and one-shot left shift are on but every other one-shot mods are off. To do so, you can compose the desired mod mask by combining the mod bits for left control and shift with `(MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT))` and then plug it in: `get_oneshot_mods() == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT))`. Using `MOD_MASK_CS` instead for the mod bitmask would have forced you to press four modifier keys (both versions of control and shift) to fulfill the condition.
 
 The full list of mod masks is as follows:
 
@@ -77,11 +77,11 @@ Similarly, in addition to `get_oneshot_mods()`, there also exists these function
 * `set_oneshot_mods(mods)`: Overwrite current one-shot modifier state with `mods`
 * `clear_oneshot_mods()`: Reset the one-shot modifier state by disabling all one-shot modifiers
 
-## Examples :id=examples
+## Examples {#examples}
 
-The following examples use [advanced macro functions](feature_macros.md#advanced-macro-functions) which you can read more about in the [documentation page on macros](feature_macros.md).
+The following examples use [advanced macro functions](feature_macros#advanced-macro-functions) which you can read more about in the [documentation page on macros](feature_macros).
 
-### Alt + Escape for Alt + Tab :id=alt-escape-for-alt-tab
+### Alt + Escape for Alt + Tab {#alt-escape-for-alt-tab}
 
 Simple example where chording Left Alt with `KC_ESC` makes it behave like `KC_TAB` for alt-tabbing between applications. This example strictly checks if only Left Alt is active, meaning you can't do Alt+Shift+Esc to switch between applications in reverse order. Also keep in mind that this removes the ability to trigger the actual Alt+Escape keyboard shortcut, though it keeps the ability to do AltGr+Escape.
 
@@ -91,7 +91,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case KC_ESC:
         // Detect the activation of only Left Alt
-        if ((get_mods() & MOD_BIT(KC_LALT)) == MOD_BIT(KC_LALT)) {
+        if (get_mods() == MOD_BIT(KC_LALT)) {
             if (record->event.pressed) {
                 // No need to register KC_LALT because it's already active.
                 // The Alt modifier will apply on this KC_TAB.
@@ -110,7 +110,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 ```
 
-### Shift + Backspace for Delete :id=shift-backspace-for-delete
+### Shift + Backspace for Delete {#shift-backspace-for-delete}
 
 Advanced example where the original behaviour of shift is cancelled when chorded with `KC_BSPC` and is instead fully replaced by `KC_DEL`. Two main variables are created to make this work well: `mod_state` and `delkey_registered`. The first one stores the modifier state and is used to restore it after registering `KC_DEL`. The second variable is a boolean variable (true or false) which keeps track of the status of `KC_DEL` to manage the release of the whole Backspace/Delete key correctly.
 
@@ -160,23 +160,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 };
 ```
+Alternatively, this can be done with [Key Overrides](features/key_overrides#simple-example).
 
-# Legacy Content :id=legacy-content
+# Advanced topics {#advanced-topics}
 
 This page used to encompass a large set of features. We have moved many sections that used to be part of this page to their own pages. Everything below this point is simply a redirect so that people following old links on the web find what they're looking for.
 
-## Layers :id=switching-and-toggling-layers
+## Layers {#switching-and-toggling-layers}
 
-* [Layers](feature_layers.md)
+* [Layers](feature_layers)
 
-## Mod-Tap :id=mod-tap
+## Mod-Tap {#mod-tap}
 
-* [Mod-Tap](mod_tap.md)
+* [Mod-Tap](mod_tap)
 
-## One Shot Keys :id=one-shot-keys
+## One Shot Keys {#one-shot-keys}
 
-* [One Shot Keys](one_shot_keys.md)
+* [One Shot Keys](one_shot_keys)
 
-## Tap-Hold Configuration Options :id=tap-hold-configuration-options
+## Tap-Hold Configuration Options {#tap-hold-configuration-options}
 
-* [Tap-Hold Configuration Options](tap_hold.md)
+* [Tap-Hold Configuration Options](tap_hold)
+
+## Key Overrides {#key-overrides}
+
+* [Key Overrides](features/key_overrides)

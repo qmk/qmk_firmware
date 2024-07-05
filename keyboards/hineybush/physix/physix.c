@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "physix.h"
+#include "quantum.h"
 
 // Optional override functions below.
 // You can leave any or all of these undefined.
@@ -24,8 +24,8 @@
 void matrix_init_kb(void) {
     // put your keyboard start-up code here
     // runs once when the firmware starts up
-    setPinOutput(D3);
-    setPinOutput(D5);
+    gpio_set_pin_output(D3);
+    gpio_set_pin_output(D5);
     matrix_init_user();
 }
 
@@ -33,13 +33,13 @@ bool led_update_kb(led_t led_state) {
     // put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
     bool res = led_update_user(led_state);
     if(res) {
-        // writePin sets the pin high for 1 and low for 0.
+        // gpio_write_pin sets the pin high for 1 and low for 0.
         // In this example the pins are inverted, setting
         // it low/0 turns it on, and high/1 turns the LED off.
         // This behavior depends on whether the LED is between the pin
         // and VCC or the pin and GND.
-        writePin(D3, led_state.caps_lock);
-        writePin(D5, led_state.scroll_lock);
+        gpio_write_pin(D3, led_state.caps_lock);
+        gpio_write_pin(D5, led_state.scroll_lock);
     }
     return res;
     return led_update_user(led_state);

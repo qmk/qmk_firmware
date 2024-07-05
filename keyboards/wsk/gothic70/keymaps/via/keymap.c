@@ -34,14 +34,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_FN] = LAYOUT(
     KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,           KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______,    KC_PAUS,
-    _______, _______, _______, _______, RESET,   _______,                  _______, _______, _______, _______, _______, _______, _______, _______,    _______,
+    _______, _______, _______, _______, QK_BOOT, _______,                  _______, _______, _______, _______, _______, _______, _______, _______,    _______,
     _______, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, _______,                  _______, _______, _______, _______, _______, _______, _______,             _______,
     _______, RGB_TOG, RGB_HUD, RGB_SAD, RGB_VAD, _______,        _______,  _______, _______, _______, _______, _______, _______,           KC_PGUP,
     _______, _______, _______,          _______, _______,                         _______,           _______,      _______,       KC_HOME, KC_PGDN, KC_END
   ),
 
   [_MEDIA] = LAYOUT(
-    _______, _______, _______, _______, _______, _______, _______,         _______, _______, _______, _______, _______, _______, _______, _______,    RESET,
+    _______, _______, _______, _______, _______, _______, _______,         _______, _______, _______, _______, _______, _______, _______, _______,    QK_BOOT,
     _______, _______, _______, _______, _______, _______,                  _______, _______, _______, _______, _______, _______, _______, _______,    _______,
     _______, _______, _______, _______, _______, _______,                  _______, _______, _______, _______, _______, _______, KC_MPLY,             _______,
     _______, _______, _______, _______, _______, _______,        _______,  _______, _______, _______, _______, _______, _______,           KC_VOLU,
@@ -59,18 +59,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void matrix_init_user(void) {
   // set CapsLock LED to output and off (active high)
-  setPinOutput(F5);
+  gpio_set_pin_output(F5);
   // set NumLock LED to output and off (active high)
-  setPinOutput(F6);
+  gpio_set_pin_output(F6);
   // set ScrollLock LED to output and off (active high)
-  setPinOutput(F7);
+  gpio_set_pin_output(F7);
 }
 
 // write to above indicators in a binary fashion based on current layer
 layer_state_t layer_state_set_user(layer_state_t state)
 {
-    writePin(F5, (state & 0x1));
-    writePin(F6, (state & 0x2));
-    writePin(F7, (state & 0x4));
+    gpio_write_pin(F5, (state & 0x1));
+    gpio_write_pin(F6, (state & 0x2));
+    gpio_write_pin(F7, (state & 0x4));
     return state;
 }

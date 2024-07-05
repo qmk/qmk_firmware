@@ -4,7 +4,7 @@ In order to flash a microcontroller over USB, it needs something called a bootlo
 
 However, it can sometimes happen that the bootloader becomes corrupted and needs reflashing, or you may want to change the bootloader to another one. It's not possible to do this with the existing bootloader, because, of course, it is already running, and cannot overwrite itself. Instead, you will need to ISP flash the microcontroller.
 
-There are several different kinds of bootloaders available for AVR microcontrollers. Most STM32 ARM-based microcontrollers already have a USB-capable bootloader in ROM, so generally do not need to be ISP flashed.
+There are several different kinds of bootloaders available for AVR microcontrollers. Most STM32 ARM-based microcontrollers already have a USB-capable bootloader in ROM, so generally do not need to be ISP flashed. The one current exception is the [STM32F103](#flashing-stm32duino-bootloader).
 
 ## Hardware
 
@@ -33,7 +33,45 @@ To use a 5V/16MHz Pro Micro as an ISP flashing tool, you will first need to load
 |`16` (`B2`)|`MOSI`  |
 |`14` (`B3`)|`MISO`  |
 
-!> Note that the `10` pin on the Pro Micro should be wired to the `RESET` pin on the keyboard's controller. ***DO NOT*** connect the `RESET` pin on the Pro Micro to the `RESET` on the keyboard.
+::: warning
+Note that the `10` pin on the Pro Micro should be wired to the `RESET` pin on the keyboard's controller. ***DO NOT*** connect the `RESET` pin on the Pro Micro to the `RESET` on the keyboard.
+:::
+
+
+### Arduino Uno / Micro as ISP
+
+[Arduino Uno](https://store.arduino.cc/products/arduino-uno-rev3)
+[Arduino Micro](https://store.arduino.cc/products/arduino-micro)
+
+A standard Uno or Micro can be used as an ISP flashing tool using the [example "ArduinoISP" sketch](https://docs.arduino.cc/built-in-examples/arduino-isp/ArduinoISP#load-the-sketch) to emulate an STK500 ISP. Also works with Sparkfun Pro Micros and clones.
+
+**AVRDUDE Programmer**: `stk500v1`  
+**AVRDUDE Port**: Serial
+
+#### Wiring
+
+|Uno        |Keyboard|
+|-----------|--------|
+|`5V`       |`VCC`   |
+|`GND`      |`GND`   |
+|`10` (`B2`)|`RESET` |
+|`13` (`B5`)|`SCLK`  |
+|`11` (`B3`)|`MOSI`  |
+|`12` (`B4`)|`MISO`  |
+
+|Micro      |Keyboard|
+|-----------|--------|
+|`5V`       |`VCC`   |
+|`GND`      |`GND`   |
+|`10` (`B6`)|`RESET` |
+|`15` (`B1`)|`SCLK`  |
+|`16` (`B2`)|`MOSI`  |
+|`14` (`B3`)|`MISO`  |
+
+::: warning
+Note that the `10` pin on the Uno/Micro should be wired to the `RESET` pin on the keyboard's controller. ***DO NOT*** connect the `RESET` pin on the Uno/Micro to the `RESET` on the keyboard.
+:::
+
 
 ### Teensy 2.0 as ISP
 
@@ -55,15 +93,40 @@ To use a Teensy 2.0 as an ISP flashing tool, you will first need to load a [spec
 |`B2`  |`MOSI`  |
 |`B3`  |`MISO`  |
 
-!> Note that the `B0` pin on the Teensy should be wired to the `RESET` pin on the keyboard's controller. ***DO NOT*** connect the `RESET` pin on the Teensy to the `RESET` on the keyboard.
+::: warning
+Note that the `B0` pin on the Teensy should be wired to the `RESET` pin on the keyboard's controller. ***DO NOT*** connect the `RESET` pin on the Teensy to the `RESET` on the keyboard.
+:::
 
-### SparkFun PocketAVR / USBtinyISP / USBasp
+
+### SparkFun PocketAVR / USBtinyISP
 
 [SparkFun PocketAVR](https://www.sparkfun.com/products/9825)  
 [Adafruit USBtinyISP](https://www.adafruit.com/product/46)  
+
+::: warning
+SparkFun PocketAVR and USBtinyISP **DO NOT support** AVR chips with more than 64 KiB of flash (e.g., the AT90USB128 series). This limitation is mentioned on the [shop page for SparkFun PocketAVR](https://www.sparkfun.com/products/9825) and in the [FAQ for USBtinyISP](https://learn.adafruit.com/usbtinyisp/f-a-q#faq-2270879). If you try to use one of these programmers with AT90USB128 chips, you will get verification errors from `avrdude`, and the bootloader won't be flashed properly (e.g., see the [issue #3286](https://github.com/qmk/qmk_firmware/issues/3286)).
+:::
+
+**AVRDUDE Programmer**: `usbtiny`  
+**AVRDUDE Port**: `usb`
+
+#### Wiring
+
+|ISP      |Keyboard|
+|---------|--------|
+|`VCC`    |`VCC`   |
+|`GND`    |`GND`   |
+|`RST`    |`RESET` |
+|`SCLK`   |`SCLK`  |
+|`MOSI`   |`MOSI`  |
+|`MISO`   |`MISO`  |
+
+
+### USBasp
+
 [Thomas Fischl's USBasp](https://www.fischl.de/usbasp/)
 
-**AVRDUDE Programmer**: `usbtiny` / `usbasp`  
+**AVRDUDE Programmer**: `usbasp`  
 **AVRDUDE Port**: `usb`
 
 #### Wiring
@@ -82,7 +145,9 @@ To use a Teensy 2.0 as an ISP flashing tool, you will first need to load a [spec
 
 [Adafruit Bus Pirate](https://www.adafruit.com/product/237)
 
-!> The 5-pin "ICSP" header is for ISP flashing the PIC microcontroller of the Bus Pirate. Connect your target board to the 10-pin header opposite the USB connector instead.
+::: warning
+The 5-pin "ICSP" header is for ISP flashing the PIC microcontroller of the Bus Pirate. Connect your target board to the 10-pin header opposite the USB connector instead.
+:::
 
 **AVRDUDE Programmer**: `buspirate`  
 **AVRDUDE Port**: Serial
@@ -102,7 +167,7 @@ To use a Teensy 2.0 as an ISP flashing tool, you will first need to load a [spec
 
 [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) supports flashing both the ISP firmware and bootloader, but note that it cannot (currently) set the AVR fuse bytes for the actual ISP flashing step, so you may want to work with `avrdude` directly instead.
 
-Setting up the [QMK environment](newbs.md) is highly recommended, as it automatically installs `avrdude` along with a host of other tools.
+Setting up the [QMK environment](newbs) is highly recommended, as it automatically installs `avrdude` along with a host of other tools.
 
 ## Bootloader Firmware
 
@@ -139,7 +204,9 @@ There are several variants depending on the vendor, but they all mostly work the
 |[Arduino Leonardo](https://github.com/arduino/ArduinoCore-avr/blob/master/bootloaders/caterina/Caterina-Leonardo.hex)*                                           |`0xFF`|`0xD8`|`0xFB`  |`2341:0036`|
 |[Arduino Micro](https://github.com/arduino/ArduinoCore-avr/blob/master/bootloaders/caterina/Caterina-Micro.hex)*                                                 |`0xFF`|`0xD8`|`0xFB`  |`2341:0037`|
 
-?> Files marked with a * have combined Arduino sketches, which runs by default and also appears as a serial port. However, this is *not* the bootloader device.
+::: tip
+Files marked with a * have combined Arduino sketches, which runs by default and also appears as a serial port. However, this is *not* the bootloader device.
+:::
 
 ### BootloadHID (PS2AVRGB)
 
@@ -218,7 +285,9 @@ avrdude done.  Thank you.
 
 This is a slightly more advanced topic, but may be necessary if you are switching from one bootloader to another (for example, Caterina to Atmel/QMK DFU on a Pro Micro). Fuses control some of the low-level functionality of the AVR microcontroller, such as clock speed, whether JTAG is enabled, and the size of the section of flash memory reserved for the bootloader, among other things. You can find a fuse calculator for many AVR parts [here](https://www.engbedded.com/conffuse/).
 
-!> **WARNING:** Setting incorrect fuse values, in particular the clock-related bits, may render the MCU practically unrecoverable without high voltage programming (not covered here)! Make sure to double check the commands you enter before you execute them.
+::: warning
+Setting incorrect fuse values, in particular the clock-related bits, may render the MCU practically unrecoverable without high voltage programming (not covered here)! Make sure to double check the commands you enter before you execute them.
+:::
 
 To set the fuses, add the following to the `avrdude` command:
 
@@ -228,7 +297,9 @@ To set the fuses, add the following to the `avrdude` command:
 
 where the `lfuse`, `hfuse` and `efuse` arguments represent the low, high and extended fuse bytes as listed in the [Hardware](#hardware) section.
 
-?> You may get a warning from `avrdude` that the extended fuse byte does not match what you provided when reading it back. If the second hex digit matches, this can usually be safely ignored, because the top four bits of this fuse do not actually exist on many AVR parts, and may read back as anything.
+::: tip
+You may get a warning from `avrdude` that the extended fuse byte does not match what you provided when reading it back. If the second hex digit matches, this can usually be safely ignored, because the top four bits of this fuse do not actually exist on many AVR parts, and may read back as anything.
+:::
 
 ## Creating a "Production" Firmware
 
@@ -240,3 +311,93 @@ For mass production purposes, it is possible to join the bootloader and QMK firm
  4. Save it as a new file, for example `<keyboard>_<keymap>_production.hex`.
 
 You can then ISP flash this combined firmware instead, which allows you to skip the extra step of flashing the QMK firmware over USB.
+
+## Flashing STM32Duino Bootloader
+
+As mentioned above, *most* supported STM32 devices already possess a USB DFU bootloader which cannot be overwritten, however the ROM bootloader in the STM32F103 used on the Bluepill is not USB capable. In this case an ST-Link V2 dongle is required to upload the STM32Duino bootloader to the device. These can be readily purchased for relatively cheap on eBay and other places.
+
+This bootloader is a descendant of the Maple bootloader by Leaflabs, and is compatible with dfu-util.
+
+### Software
+
+To communicate with the ST-Link, you must install the following packages:
+
+* **macOS:** `brew install stlink openocd`
+* **Windows (MSYS2):** `pacman -S mingw-w64-x86_64-stlink mingw-w64-x86_64-openocd`
+* **Linux:** will vary by distribution, but will likely be `stlink` and `openocd` through your particular package manager
+
+Additionally, you may need to update the ST-Link's firmware with the [`STSW-LINK007`](https://www.st.com/en/development-tools/stsw-link007.html) application. Note you will be asked to provide your name and email address if you do not have an ST.com account (this does not create one).
+
+Finally, the bootloader binary itself can be downloaded from [here](https://github.com/rogerclarkmelbourne/STM32duino-bootloader/blob/master/bootloader_only_binaries/generic_boot20_pc13.bin).
+
+### Wiring
+
+Connect the four-pin header on the end of the Bluepill to the matching pins on the ST-Link (the pinout will usually be printed on the side):
+
+|ST-Link      |Bluepill|
+|-------------|--------|
+|`GND` (6)    |`GND`   |
+|`SWCLK` (2)  |`DCLK`  |
+|`SWDIO` (4)  |`DIO`   |
+|`3.3V` (8)   |`3.3`   |
+
+### Flashing
+
+Firstly, make sure both jumpers on the Bluepill are set to 0.
+
+Check that the ST-Link can talk to the Bluepill by running `st-info --probe`:
+
+```
+Found 1 stlink programmers
+  version:    V2J37S7
+  serial:     2C1219002B135937334D4E00
+  flash:      65536 (pagesize: 1024)
+  sram:       20480
+  chipid:     0x0410
+  descr:      F1xx Medium-density
+```
+
+If the reported `chipid` is `0x0410`, everything is working. If it is `0x0000`, check your wiring, and try swapping the `SWDIO` and `SWCLK` pins, as some ST-Link dongles may have incorrect pinouts.
+
+Next, run the following command:
+
+```
+st-flash --reset --format binary write <path-to-bootloader> 0x08000000
+```
+
+where `<path-to-bootloader>` is the path to the bootloader `.bin` file above. You can run this command from the directory you downloaded it to, so that you can simply pass in the filename.
+
+If all goes well, you should get output similar to the following:
+
+```
+st-flash 1.7.0
+2022-03-08T12:16:30 INFO common.c: F1xx Medium-density: 20 KiB SRAM, 64 KiB flash in at least 1 KiB pages.
+file generic_boot20_pc13.bin md5 checksum: 333c30605e739ce9bedee5999fdaf81b, stlink checksum: 0x0008e534
+2022-03-08T12:16:30 INFO common.c: Attempting to write 7172 (0x1c04) bytes to stm32 address: 134217728 (0x8000000)
+2022-03-08T12:16:30 INFO common.c: Flash page at addr: 0x08000000 erased
+2022-03-08T12:16:30 INFO common.c: Flash page at addr: 0x08000400 erased
+2022-03-08T12:16:31 INFO common.c: Flash page at addr: 0x08000800 erased
+2022-03-08T12:16:31 INFO common.c: Flash page at addr: 0x08000c00 erased
+2022-03-08T12:16:31 INFO common.c: Flash page at addr: 0x08001000 erased
+2022-03-08T12:16:31 INFO common.c: Flash page at addr: 0x08001400 erased
+2022-03-08T12:16:31 INFO common.c: Flash page at addr: 0x08001800 erased
+2022-03-08T12:16:31 INFO common.c: Flash page at addr: 0x08001c00 erased
+2022-03-08T12:16:31 INFO common.c: Finished erasing 8 pages of 1024 (0x400) bytes
+2022-03-08T12:16:31 INFO common.c: Starting Flash write for VL/F0/F3/F1_XL
+2022-03-08T12:16:31 INFO flash_loader.c: Successfully loaded flash loader in sram
+2022-03-08T12:16:31 INFO flash_loader.c: Clear DFSR
+  8/  8 pages written
+2022-03-08T12:16:31 INFO common.c: Starting verification of write complete
+2022-03-08T12:16:31 INFO common.c: Flash written and verified! jolly good!
+2022-03-08T12:16:31 WARN common.c: NRST is not connected
+```
+
+Otherwise, if you receive an `Unknown memory region` error, run the following command to unlock the STM32F103:
+
+```
+openocd -f interface/stlink.cfg -f target/stm32f1x.cfg -c "init; reset halt; stm32f1x unlock 0; reset halt; exit"
+```
+
+Then re-plug the ST-Link and try again.
+
+After all of this, unplug the Bluepill from the ST-Link and connect it to USB. It should now be ready to flash using dfu-util, the QMK CLI or Toolbox.

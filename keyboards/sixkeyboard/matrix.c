@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "util.h"
 #include "matrix.h"
-#include "sixkeyboard.h"
+#include "timer.h"
 #include <string.h>
 
 /* matrix state(1:on, 0:off) */
@@ -71,13 +71,12 @@ uint8_t matrix_cols(void)
 
 void matrix_init(void)
 {
-
-    DDRC  &= ~(1<<7);
-    PORTC |=  (1<<7);
-    DDRB  &= ~(1<<7 | 1<<5);
-    PORTB |=  (1<<7 | 1<<5);
-    DDRD  &= ~(1<<6 | 1<<4 | 1<<1);
-    PORTD |=  (1<<6 | 1<<4 | 1<<1);
+    gpio_set_pin_input_high(C7);
+    gpio_set_pin_input_high(B5);
+    gpio_set_pin_input_high(B7);
+    gpio_set_pin_input_high(D1);
+    gpio_set_pin_input_high(D4);
+    gpio_set_pin_input_high(D6);
 
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
         matrix[i] = 0;
@@ -85,7 +84,7 @@ void matrix_init(void)
         matrix_stage[i] = 0;
     }
 
-    matrix_init_quantum();
+    matrix_init_kb();
 
 }
 
@@ -109,14 +108,9 @@ uint8_t matrix_scan(void)
         debouncing = false;
     }
 
-    matrix_scan_quantum();
+    matrix_scan_kb();
 
     return 1;
-}
-
-bool matrix_is_modified(void)
-{
-    return true;
 }
 
 inline
@@ -134,13 +128,3 @@ matrix_row_t matrix_get_row(uint8_t row)
 void matrix_print(void)
 {
 }
-
-uint8_t matrix_key_count(void)
-{
-    uint8_t count = 0;
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        count += bitpop16(matrix[i]);
-    }
-    return count;
-}
-

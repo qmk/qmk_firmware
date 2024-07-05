@@ -16,18 +16,18 @@
 
 #pragma once
 
-#ifndef BOOTMAGIC_LITE_ROW
-#    define BOOTMAGIC_LITE_ROW 0
+#ifndef BOOTMAGIC_ROW
+#    define BOOTMAGIC_ROW 0
 #endif
-#ifndef BOOTMAGIC_LITE_COLUMN
-#    define BOOTMAGIC_LITE_COLUMN 1
+#ifndef BOOTMAGIC_COLUMN
+#    define BOOTMAGIC_COLUMN 1
 #endif
 
-#ifndef BOOTMAGIC_LITE_ROW_RIGHT
-#    define BOOTMAGIC_LITE_ROW_RIGHT 4
+#ifndef BOOTMAGIC_ROW_RIGHT
+#    define BOOTMAGIC_ROW_RIGHT 4
 #endif
-#ifndef BOOTMAGIC_LITE_COLUMN_RIGHT
-#    define BOOTMAGIC_LITE_COLUMN_RIGHT 1
+#ifndef BOOTMAGIC_COLUMN_RIGHT
+#    define BOOTMAGIC_COLUMN_RIGHT 1
 #endif
 
 #ifdef RGBLIGHT_ENABLE
@@ -40,4 +40,10 @@
 #    ifndef RGB_MATRIX_MAXIMUM_BRIGHTNESS
 #        define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120
 #    endif
+#endif
+
+#ifdef OLED_ENABLE
+    #ifndef OLED_FONT_H
+        #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
+    #endif
 #endif

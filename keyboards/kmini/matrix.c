@@ -84,7 +84,7 @@ void matrix_init(void) {
         matrix_debouncing[i] = 0;
     }
 
-    matrix_init_quantum();
+    matrix_init_kb();
 }
 
 uint8_t matrix_scan(void)
@@ -105,7 +105,7 @@ uint8_t matrix_scan(void)
         debouncing = false;
     }
 
-    matrix_scan_quantum();
+    matrix_scan_kb();
     return 1;
 }
 
@@ -130,15 +130,6 @@ void matrix_print(void)
         print_bin_reverse32(matrix_get_row(row));
         print("\n");
     }
-}
-
-uint8_t matrix_key_count(void)
-{
-    uint8_t count = 0;
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        count += bitpop32(matrix[i]);
-    }
-    return count;
 }
 
 static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
@@ -203,11 +194,13 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
  * Caps lock uses its own pin E2
  */
 static void init_rows(void) {
-    DDRD  &= ~((1<<0)| (1<<1) | (1<<2) | (1<<3) | (1<<5)); // IN
-    PORTD &= ~((1<<0)| (1<<1) | (1<<2) | (1<<3) | (1<<5)); // LO
+    gpio_set_pin_input(D0);
+    gpio_set_pin_input(D1);
+    gpio_set_pin_input(D2);
+    gpio_set_pin_input(D3);
+    gpio_set_pin_input(D5);
 
-    DDRE &= ~(1<<2); // IN
-    PORTE |= (1<<2); // HI
+    gpio_set_pin_input_high(E2);
 }
 
 /* Columns 0 - 16
@@ -233,87 +226,103 @@ static void init_rows(void) {
  * col 16: B4
  */
 static void unselect_cols(void) {
-    DDRB  |= (1<<5) | (1<<6) | (1<<0) | (1<<7) | (1<<4); // OUT
-    PORTB &= ~((1<<5) | (1<<6) | (1<<0) |  (1<<7) | (1<<4)); // LO
+    gpio_set_pin_output(B0);
+    gpio_set_pin_output(B4);
+    gpio_set_pin_output(B5);
+    gpio_set_pin_output(B6);
+    gpio_set_pin_output(B7);
+    gpio_write_pin_low(B0);
+    gpio_write_pin_low(B4);
+    gpio_write_pin_low(B5);
+    gpio_write_pin_low(B6);
+    gpio_write_pin_low(B7);
 
-    DDRD  |= (1<<4) | (1<<6) | (1<<7); // OUT
-    PORTD &= ~((1<<4) | (1<<6) | (1<<7)); // LO
+    gpio_set_pin_output(D4);
+    gpio_set_pin_output(D6);
+    gpio_set_pin_output(D7);
+    gpio_write_pin_low(D4);
+    gpio_write_pin_low(D6);
+    gpio_write_pin_low(D7);
 
-    DDRE  |= (1<<6); // OUT
-    PORTE &= ~((1<<6)); // LO
+    gpio_set_pin_output(E6);
+    gpio_write_pin_low(E6);
 
-    DDRF  |= (1<<0) | (1<<1); // OUT
-    PORTF &= ~((1<<0) | (1<<1)); // LO
+    gpio_set_pin_output(F0);
+    gpio_set_pin_output(F1);
+    gpio_write_pin_low(F0);
+    gpio_write_pin_low(F1);
 
-    DDRC  |= (1<<7) | (1<<6); // OUT
-    PORTC &= ~((1<<7) | (1<<6)); // LO
+    gpio_set_pin_output(C6);
+    gpio_set_pin_output(C7);
+    gpio_write_pin_low(C6);
+    gpio_write_pin_low(C7);
 }
 
 static void select_col(uint8_t col)
 {
     switch (col) {
         case 0:
-            PORTB |= (1<<5); // HI
+            gpio_write_pin_high(B5); // HI
             break;
         case 1:
-            PORTB |= (1<<6); // HI
+            gpio_write_pin_high(B6); // HI
             break;
         case 2:
-            PORTC |= (1<<6); // HI
+            gpio_write_pin_high(C6); // HI
             break;
         case 3:
-            PORTC |= (1<<6); // HI
-            PORTF |= (1<<0); // HI
+            gpio_write_pin_high(C6); // HI
+            gpio_write_pin_high(F0); // HI
             break;
         case 4:
-            PORTC |= (1<<6); // HI
-            PORTF |= (1<<1); // HI
+            gpio_write_pin_high(C6); // HI
+            gpio_write_pin_high(F1); // HI
             break;
         case 5:
-            PORTC |= (1<<6); // HI
-            PORTF |= (1<<0); // HI
-            PORTF |= (1<<1); // HI
+            gpio_write_pin_high(C6); // HI
+            gpio_write_pin_high(F0); // HI
+            gpio_write_pin_high(F1); // HI
             break;
         case 6:
-            PORTC |= (1<<6); // HI
-            PORTC |= (1<<7); // HI
+            gpio_write_pin_high(C6); // HI
+            gpio_write_pin_high(C7); // HI
             break;
         case 7:
-            PORTC |= (1<<6); // HI
-            PORTF |= (1<<0); // HI
-            PORTC |= (1<<7); // HI
+            gpio_write_pin_high(C6); // HI
+            gpio_write_pin_high(F0); // HI
+            gpio_write_pin_high(C7); // HI
             break;
         case 8:
-            PORTC |= (1<<6); // HI
-            PORTF |= (1<<1); // HI
-            PORTC |= (1<<7); // HI
+            gpio_write_pin_high(C6); // HI
+            gpio_write_pin_high(F1); // HI
+            gpio_write_pin_high(C7); // HI
             break;
         case 9:
-            PORTC |= (1<<6); // HI
-            PORTF |= (1<<0); // HI
-            PORTF |= (1<<1); // HI
-            PORTC |= (1<<7); // HI
+            gpio_write_pin_high(C6); // HI
+            gpio_write_pin_high(F0); // HI
+            gpio_write_pin_high(F1); // HI
+            gpio_write_pin_high(C7); // HI
             break;
         case 10:
-            PORTE |= (1<<6); // HI
+            gpio_write_pin_high(E6); // HI
             break;
         case 11:
-            PORTB |= (1<<0); // HI
+            gpio_write_pin_high(B0); // HI
             break;
         case 12:
-            PORTB |= (1<<7); // HI
+            gpio_write_pin_high(B7); // HI
             break;
         case 13:
-            PORTD |= (1<<4); // HI
+            gpio_write_pin_high(D4); // HI
             break;
         case 14:
-            PORTD |= (1<<6); // HI
+            gpio_write_pin_high(D6); // HI
             break;
         case 15:
-            PORTD |= (1<<7); // HI
+            gpio_write_pin_high(D7); // HI
             break;
         case 16:
-            PORTB |= (1<<4); // HI
+            gpio_write_pin_high(B4); // HI
             break;
     }
 }

@@ -14,21 +14,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "mc_76k.h"
+#include "quantum.h"
 
 void keyboard_pre_init_kb (void) {
-  setPinOutput(D2);
+  gpio_set_pin_output(D2);
 }
 
 bool led_update_kb(led_t led_state) {
   bool res = led_update_user(led_state);
   if(res) {
-    // writePin sets the pin high for 1 and low for 0.
+    // gpio_write_pin sets the pin high for 1 and low for 0.
     // In this example the pins are inverted, setting
     // it low/0 turns it on, and high/1 turns the LED off.
     // This behavior depends on whether the LED is between the pin
     // and VCC or the pin and GND.
-    writePin(D2, !led_state.caps_lock);
+    gpio_write_pin(D2, !led_state.caps_lock);
   }
   return res;
 }

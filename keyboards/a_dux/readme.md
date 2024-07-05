@@ -28,7 +28,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Setting Handedness
 
-Keyboard uses [handedness by EEPROM](https://docs.qmk.fm/#/feature_split_keyboard?id=handedness-by-eeprom) as default. The make commands are:
+Firmware uses [handedness by EEPROM](https://docs.qmk.fm/#/feature_split_keyboard?id=handedness-by-eeprom) as default and it must be *configured once* on each side. The make commands are:
 
     make a_dux:default:dfu-split-left
     make a_dux:default:dfu-split-right
@@ -41,5 +41,5 @@ Enter the bootloader in 3 ways:
 
 * **Bootmagic reset**: Hold down the top left key on the left half (or the top right right key on the right half) and plug in the controller on that side.
 * **Physical reset pins**: Briefly short the RST and GND pins on the microcontroller using tweezers, a paperclip, or any other conductive material.
-* **Keycode in layout**: Press the key mapped to `RESET` if it is configured.
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is configured.
 

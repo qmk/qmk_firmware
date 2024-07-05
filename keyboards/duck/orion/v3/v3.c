@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "v3.h"
+#include "quantum.h"
 #include "indicator_leds.h"
 
 // Alphas              PB1
@@ -31,9 +31,9 @@
 // of the Escape key. 
 bool led_update_kb(led_t led_state) {
     if(led_update_user(led_state)) {
-        writePin(B0, !led_state.caps_lock);
-        writePin(B4, !led_state.num_lock);
-        writePin(D7, !led_state.scroll_lock);
+        gpio_write_pin(B0, !led_state.caps_lock);
+        gpio_write_pin(B4, !led_state.num_lock);
+        gpio_write_pin(D7, !led_state.scroll_lock);
     }
     return true;
 }

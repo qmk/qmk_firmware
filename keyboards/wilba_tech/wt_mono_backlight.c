@@ -14,17 +14,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
 #include "wt_mono_backlight.h"
 #include "wt_rgb_backlight_api.h" // reuse these for now
 #include "wt_rgb_backlight_keycodes.h" // reuse these for now
 
+#include <stdlib.h>
 #include <avr/interrupt.h>
 #include "i2c_master.h"
-
+#include "host.h"
 #include "progmem.h"
-#include "quantum/color.h"
-#include "tmk_core/common/eeprom.h"
+#include "eeprom.h"
 
 #include "via.h" // uses EEPROM address, lighting value IDs
 #define MONO_BACKLIGHT_CONFIG_EEPROM_ADDR (VIA_EEPROM_CUSTOM_CONFIG_ADDR)
@@ -33,9 +32,7 @@
 #error VIA_EEPROM_CUSTOM_CONFIG_SIZE was not defined to store backlight_config struct
 #endif
 
-#include "drivers/led/issi/is31fl3736.h"
-
-#define ISSI_ADDR_DEFAULT 0x50
+#include "drivers/led/issi/is31fl3736-mono.h"
 
 #define BACKLIGHT_EFFECT_MAX 3
 
@@ -53,7 +50,6 @@ backlight_config g_config = {
 };
 
 bool g_suspend_state = false;
-uint8_t g_indicator_state = 0;
 
 // Global tick at 20 Hz
 uint32_t g_tick = 0;
@@ -63,14 +59,7 @@ uint32_t g_any_key_hit = 0;
 
 void backlight_init_drivers(void)
 {
-	// Initialize I2C
-	i2c_init();
-	IS31FL3736_init( ISSI_ADDR_DEFAULT );
-
-	for ( uint8_t index = 0; index < 96; index++ )	{
-		IS31FL3736_mono_set_led_control_register( index, true );
-	}
-	IS31FL3736_update_led_control_registers( ISSI_ADDR_DEFAULT, 0x00 );
+    is31fl3736_init_drivers();
 }
 
 void backlight_set_key_hit(uint8_t row, uint8_t column)
@@ -118,24 +107,19 @@ void backlight_set_suspend_state(bool state)
 	g_suspend_state = state;
 }
 
-void backlight_set_indicator_state(uint8_t state)
-{
-    g_indicator_state = state;
-}
-
 void backlight_set_brightness_all( uint8_t value )
 {
-	IS31FL3736_mono_set_brightness_all( value );
+	is31fl3736_set_value_all( value );
 }
 
 void backlight_effect_all_off(void)
 {
-	IS31FL3736_mono_set_brightness_all( 0 );
+	is31fl3736_set_value_all( 0 );
 }
 
 void backlight_effect_all_on(void)
 {
-	IS31FL3736_mono_set_brightness_all( g_config.brightness );
+	is31fl3736_set_value_all( g_config.brightness );
 }
 
 void backlight_effect_raindrops(bool initialize)
@@ -149,7 +133,7 @@ void backlight_effect_raindrops(bool initialize)
         // If not, all but one will stay the same as before.
         if ( initialize || i == led_to_change )
         {
-            IS31FL3736_mono_set_brightness(i, rand() & 0xFF );
+            is31fl3736_set_value(i, rand() & 0xFF );
         }
     }
 }
@@ -168,11 +152,40 @@ void backlight_effect_indicators(void)
 #if defined(MONO_BACKLIGHT_WT75_A)
     HSV hsv = { .h = g_config.color_1.h, .s = g_config.color_1.s, .v = g_config.brightness };
     RGB rgb = hsv_to_rgb( hsv );
-    // G8, H8, I8 -> (6*8+7) (7*8+7), (8*8+7)
-    IS31FL3736_mono_set_brightness(55, rgb.r);
-    IS31FL3736_mono_set_brightness(63, rgb.g);
-    IS31FL3736_mono_set_brightness(71, rgb.b);
+    // SW7,CS8 = (6*8+7) = 55
+    // SW8,CS8 = (7*8+7) = 63
+    // SW9,CS8 = (8*8+7) = 71
+    is31fl3736_set_value(55, rgb.r);
+    is31fl3736_set_value(63, rgb.g);
+    is31fl3736_set_value(71, rgb.b);
 #endif // MONO_BACKLIGHT_WT75_A
+
+// This pairs with "All Off" already setting zero brightness,
+// and "All On" already setting non-zero brightness.
+#if defined(MONO_BACKLIGHT_WT60_A) || \
+defined(MONO_BACKLIGHT_WT65_A) || \
+defined(MONO_BACKLIGHT_WT65_B) || \
+defined(MONO_BACKLIGHT_WT75_A) || \
+defined(MONO_BACKLIGHT_WT75_B) || \
+defined(MONO_BACKLIGHT_WT75_C) || \
+defined(MONO_BACKLIGHT_WT80_A)
+    if ( host_keyboard_led_state().caps_lock ) {
+        // SW3,CS1 = (2*8+0) = 16
+        is31fl3736_set_value(16, 255);
+    }
+#endif
+#if defined(MONO_BACKLIGHT_WT80_A)
+    if ( host_keyboard_led_state().scroll_lock ) {
+        // SW7,CS7 = (6*8+6) = 54
+        is31fl3736_set_value(54, 255);
+    }
+#endif
+#if defined(MONO_BACKLIGHT_WT75_C)
+    if ( host_keyboard_led_state().scroll_lock ) {
+        // SW7,CS8 = (6*8+7) = 55
+        is31fl3736_set_value(55, 255);
+    }
+#endif
 }
 
 ISR(TIMER3_COMPA_vect)
@@ -338,7 +351,7 @@ void backlight_config_save(void)
 
 void backlight_update_pwm_buffers(void)
 {
-	IS31FL3736_update_pwm_buffers(ISSI_ADDR_DEFAULT,0x00);
+    is31fl3736_flush();
 }
 
 bool process_record_backlight(uint16_t keycode, keyrecord_t *record)
@@ -447,4 +460,15 @@ void backlight_brightness_decrease(void)
 {
     g_config.brightness = decrement( g_config.brightness, 8, 0, 255 );
     backlight_config_save();
+}
+
+void backlight_device_indication(uint8_t value)
+{
+    static uint8_t current_effect = 0;
+    static uint8_t alternate_effect = 0;
+    if ( value == 0 ) {
+        current_effect = g_config.effect;
+        alternate_effect = g_config.effect > 0 ? 0 : 1;
+    }
+    g_config.effect = value % 2 == 0 ? alternate_effect : current_effect;
 }

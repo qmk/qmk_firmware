@@ -1,2 +1,0 @@
-RGBLIGHT_ENABLE = no
-RAW_ENABLE = yes

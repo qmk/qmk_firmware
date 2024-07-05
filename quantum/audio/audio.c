@@ -17,7 +17,10 @@
 #include "audio.h"
 #include "eeconfig.h"
 #include "timer.h"
+#include "debug.h"
 #include "wait.h"
+#include "util.h"
+#include "gpio.h"
 
 /* audio system:
  *
@@ -61,24 +64,31 @@
  * the internal state of the audio system does its calculations with the later - ms
  */
 
+#ifndef AUDIO_DEFAULT_ON
+#    define AUDIO_DEFAULT_ON true
+#endif
+#ifndef AUDIO_DEFAULT_CLICKY_ON
+#    define AUDIO_DEFAULT_CLICKY_ON true
+#endif
+
 #ifndef AUDIO_TONE_STACKSIZE
 #    define AUDIO_TONE_STACKSIZE 8
 #endif
-uint8_t        active_tones = 0;             // number of tones pushed onto the stack by audio_play_tone - might be more than the hardware is able to reproduce at any single time
-musical_tone_t tones[AUDIO_TONE_STACKSIZE];  // stack of currently active tones
+uint8_t        active_tones = 0;            // number of tones pushed onto the stack by audio_play_tone - might be more than the hardware is able to reproduce at any single time
+musical_tone_t tones[AUDIO_TONE_STACKSIZE]; // stack of currently active tones
 
-bool playing_melody = false;  // playing a SONG?
-bool playing_note   = false;  // or (possibly multiple simultaneous) tones
-bool state_changed  = false;  // global flag, which is set if anything changes with the active_tones
+bool playing_melody = false; // playing a SONG?
+bool playing_note   = false; // or (possibly multiple simultaneous) tones
+bool state_changed  = false; // global flag, which is set if anything changes with the active_tones
 
 // melody/SONG related state variables
-float (*notes_pointer)[][2];                            // SONG, an array of MUSICAL_NOTEs
-uint16_t notes_count;                                   // length of the notes_pointer array
-bool     notes_repeat;                                  // PLAY_SONG or PLAY_LOOP?
-uint16_t melody_current_note_duration = 0;              // duration of the currently playing note from the active melody, in ms
-uint8_t  note_tempo                   = TEMPO_DEFAULT;  // beats-per-minute
-uint16_t current_note                 = 0;              // index into the array at notes_pointer
-bool     note_resting                 = false;          // if a short pause was introduced between two notes with the same frequency while playing a melody
+float (*notes_pointer)[][2];                           // SONG, an array of MUSICAL_NOTEs
+uint16_t notes_count;                                  // length of the notes_pointer array
+bool     notes_repeat;                                 // PLAY_SONG or PLAY_LOOP?
+uint16_t melody_current_note_duration = 0;             // duration of the currently playing note from the active melody, in ms
+uint8_t  note_tempo                   = TEMPO_DEFAULT; // beats-per-minute
+uint16_t current_note                 = 0;             // index into the array at notes_pointer
+bool     note_resting                 = false;         // if a short pause was introduced between two notes with the same frequency while playing a melody
 uint16_t last_timestamp               = 0;
 
 #ifdef AUDIO_ENABLE_TONE_MULTIPLEXING
@@ -86,7 +96,7 @@ uint16_t last_timestamp               = 0;
 #        define AUDIO_MAX_SIMULTANEOUS_TONES 3
 #    endif
 uint16_t tone_multiplexing_rate        = AUDIO_TONE_MULTIPLEXING_RATE_DEFAULT;
-uint8_t  tone_multiplexing_index_shift = 0;  // offset used on active-tone array access
+uint8_t  tone_multiplexing_index_shift = 0; // offset used on active-tone array access
 #endif
 
 // provided and used by voices.c
@@ -112,32 +122,61 @@ static bool    audio_initialized    = false;
 static bool    audio_driver_stopped = true;
 audio_config_t audio_config;
 
-void audio_init() {
+#ifndef AUDIO_POWER_CONTROL_PIN_ON_STATE
+#    define AUDIO_POWER_CONTROL_PIN_ON_STATE 1
+#endif
+
+void audio_driver_initialize(void) {
+#ifdef AUDIO_POWER_CONTROL_PIN
+    gpio_set_pin_output_push_pull(AUDIO_POWER_CONTROL_PIN);
+    gpio_write_pin(AUDIO_POWER_CONTROL_PIN, !AUDIO_POWER_CONTROL_PIN_ON_STATE);
+#endif
+    audio_driver_initialize_impl();
+}
+
+void audio_driver_stop(void) {
+    audio_driver_stop_impl();
+#ifdef AUDIO_POWER_CONTROL_PIN
+    gpio_write_pin(AUDIO_POWER_CONTROL_PIN, !AUDIO_POWER_CONTROL_PIN_ON_STATE);
+#endif
+}
+
+void audio_driver_start(void) {
+#ifdef AUDIO_POWER_CONTROL_PIN
+    gpio_write_pin(AUDIO_POWER_CONTROL_PIN, AUDIO_POWER_CONTROL_PIN_ON_STATE);
+#endif
+    audio_driver_start_impl();
+}
+
+void eeconfig_update_audio_current(void) {
+    eeconfig_update_audio(audio_config.raw);
+}
+
+void eeconfig_update_audio_default(void) {
+    audio_config.valid         = true;
+    audio_config.enable        = AUDIO_DEFAULT_ON;
+    audio_config.clicky_enable = AUDIO_DEFAULT_CLICKY_ON;
+    eeconfig_update_audio(audio_config.raw);
+}
+
+void audio_init(void) {
     if (audio_initialized) {
         return;
     }
 
-    // Check EEPROM
-#ifdef EEPROM_ENABLE
-    if (!eeconfig_is_enabled()) {
-        eeconfig_init();
-    }
     audio_config.raw = eeconfig_read_audio();
-#else  // EEPROM settings
-    audio_config.enable        = true;
-#    ifdef AUDIO_CLICKY_ON
-    audio_config.clicky_enable = true;
-#    endif
-#endif  // EEPROM settings
+    if (!audio_config.valid) {
+        dprintf("audio_init audio_config.valid = 0. Write default values to EEPROM.\n");
+        eeconfig_update_audio_default();
+    }
 
     for (uint8_t i = 0; i < AUDIO_TONE_STACKSIZE; i++) {
         tones[i] = (musical_tone_t){.time_started = 0, .pitch = -1.0f, .duration = 0};
     }
 
-    if (!audio_initialized) {
-        audio_driver_initialize();
-        audio_initialized = true;
-    }
+    audio_driver_initialize();
+    audio_initialized = true;
+
     stop_all_notes();
 #ifndef AUDIO_INIT_DELAY
     audio_startup();
@@ -160,6 +199,8 @@ void audio_toggle(void) {
     eeconfig_update_audio(audio_config.raw);
     if (audio_config.enable) {
         audio_on_user();
+    } else {
+        audio_off_user();
     }
 }
 
@@ -172,15 +213,18 @@ void audio_on(void) {
 
 void audio_off(void) {
     PLAY_SONG(audio_off_song);
+    audio_off_user();
     wait_ms(100);
     audio_stop_all();
     audio_config.enable = 0;
     eeconfig_update_audio(audio_config.raw);
 }
 
-bool audio_is_on(void) { return (audio_config.enable != 0); }
+bool audio_is_on(void) {
+    return (audio_config.enable != 0);
+}
 
-void audio_stop_all() {
+void audio_stop_all(void) {
     if (audio_driver_stopped) {
         return;
     }
@@ -265,7 +309,7 @@ void audio_play_note(float pitch, uint16_t duration) {
                 tones[j]     = tones[j + 1];
                 tones[j + 1] = (musical_tone_t){.time_started = timer_read(), .pitch = pitch, .duration = duration};
             }
-            return;  // since this frequency played already, the hardware was already started
+            return; // since this frequency played already, the hardware was already started
         }
     }
 
@@ -283,7 +327,7 @@ void audio_play_note(float pitch, uint16_t duration) {
     tones[active_tones - 1] = (musical_tone_t){.time_started = timer_read(), .pitch = pitch, .duration = duration};
 
     // TODO: needs to be handled per note/tone -> use its timestamp instead?
-    voices_timer = timer_read();  // reset to zero, for the effects added by voices.c
+    voices_timer = timer_read(); // reset to zero, for the effects added by voices.c
 
     if (audio_driver_stopped) {
         audio_driver_start();
@@ -291,11 +335,17 @@ void audio_play_note(float pitch, uint16_t duration) {
     }
 }
 
-void audio_play_tone(float pitch) { audio_play_note(pitch, 0xffff); }
+void audio_play_tone(float pitch) {
+    audio_play_note(pitch, 0xffff);
+}
 
 void audio_play_melody(float (*np)[][2], uint16_t n_count, bool n_repeat) {
     if (!audio_config.enable) {
         audio_stop_all();
+        return;
+    }
+
+    if (n_count == 0) {
         return;
     }
 
@@ -313,7 +363,7 @@ void audio_play_melody(float (*np)[][2], uint16_t n_count, bool n_repeat) {
     notes_count   = n_count;
     notes_repeat  = n_repeat;
 
-    current_note = 0;  // note in the melody-array/list at note_pointer
+    current_note = 0; // note in the melody-array/list at note_pointer
 
     // start first note manually, which also starts the audio_driver
     // all following/remaining notes are played by 'audio_update_state'
@@ -344,11 +394,17 @@ void  audio_play_click(uint16_t delay, float pitch, uint16_t duration) {
     }
 }
 
-bool audio_is_playing_note(void) { return playing_note; }
+bool audio_is_playing_note(void) {
+    return playing_note;
+}
 
-bool audio_is_playing_melody(void) { return playing_melody; }
+bool audio_is_playing_melody(void) {
+    return playing_melody;
+}
 
-uint8_t audio_get_number_of_active_tones(void) { return active_tones; }
+uint8_t audio_get_number_of_active_tones(void) {
+    return active_tones;
+}
 
 float audio_get_frequency(uint8_t tone_index) {
     if (tone_index >= active_tones) {
@@ -367,7 +423,7 @@ float audio_get_processed_frequency(uint8_t tone_index) {
 
 #ifdef AUDIO_ENABLE_TONE_MULTIPLEXING
     index = index - tone_multiplexing_index_shift;
-    if (index < 0)  // wrap around
+    if (index < 0) // wrap around
         index += active_tones;
 #endif
 
@@ -393,7 +449,7 @@ bool audio_update_state(void) {
             last_timestamp         = current_time;
             uint16_t previous_note = current_note;
             current_note++;
-            voices_timer = timer_read();  // reset to zero, for the effects added by voices.c
+            voices_timer = timer_read(); // reset to zero, for the effects added by voices.c
 
             if (current_note >= notes_count) {
                 if (notes_repeat) {
@@ -463,11 +519,11 @@ bool audio_update_state(void) {
 
         // housekeeping: stop notes that have no playtime left
         for (int i = 0; i < active_tones; i++) {
-            if ((tones[i].duration != 0xffff)  // indefinitely playing notes, started by 'audio_play_tone'
-                && (tones[i].duration != 0)    // 'uninitialized'
+            if ((tones[i].duration != 0xffff) // indefinitely playing notes, started by 'audio_play_tone'
+                && (tones[i].duration != 0)   // 'uninitialized'
             ) {
                 if (timer_elapsed(tones[i].time_started) >= tones[i].duration) {
-                    audio_stop_tone(tones[i].pitch);  // also sets 'state_changed=true'
+                    audio_stop_tone(tones[i].pitch); // also sets 'state_changed=true'
                 }
             }
         }
@@ -484,9 +540,15 @@ bool audio_update_state(void) {
 
 // Tone-multiplexing functions
 #ifdef AUDIO_ENABLE_TONE_MULTIPLEXING
-void audio_set_tone_multiplexing_rate(uint16_t rate) { tone_multiplexing_rate = rate; }
-void audio_enable_tone_multiplexing(void) { tone_multiplexing_rate = AUDIO_TONE_MULTIPLEXING_RATE_DEFAULT; }
-void audio_disable_tone_multiplexing(void) { tone_multiplexing_rate = 0; }
+void audio_set_tone_multiplexing_rate(uint16_t rate) {
+    tone_multiplexing_rate = rate;
+}
+void audio_enable_tone_multiplexing(void) {
+    tone_multiplexing_rate = AUDIO_TONE_MULTIPLEXING_RATE_DEFAULT;
+}
+void audio_disable_tone_multiplexing(void) {
+    tone_multiplexing_rate = 0;
+}
 void audio_increase_tone_multiplexing_rate(uint16_t change) {
     if ((0xffff - change) > tone_multiplexing_rate) {
         tone_multiplexing_rate += change;
@@ -523,20 +585,42 @@ void audio_decrease_tempo(uint8_t tempo_change) {
         note_tempo -= tempo_change;
 }
 
-// TODO in the int-math version are some bugs; songs sometimes abruptly end - maybe an issue with the timer/system-tick wrapping around?
+/**
+ * Converts from units of 1/64ths of a beat to milliseconds.
+ *
+ * Round-off error is at most 1 millisecond.
+ *
+ * Conversion will never overflow for duration_bpm <= 699, provided that
+ * note_tempo is at least 10. This is quite a long duration, over ten beats.
+ *
+ * Beware that for duration_bpm > 699, the result may overflow uint16_t range
+ * when duration_bpm is large compared to note_tempo:
+ *
+ *    duration_bpm * 60 * 1000 / (64 * note_tempo) > UINT16_MAX
+ *
+ *    duration_bpm > (2 * 65535 / 1875) * note_tempo
+ *                 = 69.904 * note_tempo.
+ */
 uint16_t audio_duration_to_ms(uint16_t duration_bpm) {
-#if defined(__AVR__)
-    // doing int-math saves us some bytes in the overall firmware size, but the intermediate result is less accurate before being cast to/returned as uint
-    return ((uint32_t)duration_bpm * 60 * 1000) / (64 * note_tempo);
-    // NOTE: beware of uint16_t overflows when note_tempo is low and/or the duration is long
-#else
-    return ((float)duration_bpm * 60) / (64 * note_tempo) * 1000;
-#endif
+    return ((uint32_t)duration_bpm * 1875) / ((uint_fast16_t)note_tempo * 2);
 }
+
+/**
+ * Converts from units of milliseconds to 1/64ths of a beat.
+ *
+ * Round-off error is at most 1/64th of a beat.
+ *
+ * This conversion never overflows: since duration_ms <= UINT16_MAX = 65535
+ * and note_tempo <= 255, the result is always in uint16_t range:
+ *
+ *     duration_ms * 64 * note_tempo / 60 / 1000
+ *     <= 65535 * 2 * 255 / 1875
+ *      = 17825.52
+ *     <= UINT16_MAX.
+ */
 uint16_t audio_ms_to_duration(uint16_t duration_ms) {
-#if defined(__AVR__)
-    return ((uint32_t)duration_ms * 64 * note_tempo) / 60 / 1000;
-#else
-    return ((float)duration_ms * 64 * note_tempo) / 60 / 1000;
-#endif
+    return ((uint32_t)duration_ms * 2 * note_tempo) / 1875;
 }
+
+__attribute__((weak)) void audio_on_user(void) {}
+__attribute__((weak)) void audio_off_user(void) {}

@@ -21,7 +21,7 @@ DOXYFILE_ENCODING      = UTF-8
 PROJECT_NAME           = "QMK Firmware"
 PROJECT_NUMBER         = https://github.com/qmk/qmk_firmware
 PROJECT_BRIEF          = "Keyboard controller firmware for Atmel AVR and ARM USB families"
-OUTPUT_DIRECTORY       = doxygen
+OUTPUT_DIRECTORY       = .build/docs/static/doxygen
 ALLOW_UNICODE_NAMES    = NO
 OUTPUT_LANGUAGE        = English
 BRIEF_MEMBER_DESC      = YES
@@ -40,8 +40,8 @@ ABBREVIATE_BRIEF       = "The $name class" \
 ALWAYS_DETAILED_SEC    = NO
 INLINE_INHERITED_MEMB  = NO
 FULL_PATH_NAMES        = YES
-STRIP_FROM_PATH        = 
-STRIP_FROM_INC_PATH    = 
+STRIP_FROM_PATH        =
+STRIP_FROM_INC_PATH    =
 SHORT_NAMES            = NO
 JAVADOC_AUTOBRIEF      = NO
 QT_AUTOBRIEF           = NO
@@ -49,13 +49,13 @@ MULTILINE_CPP_IS_BRIEF = NO
 INHERIT_DOCS           = YES
 SEPARATE_MEMBER_PAGES  = NO
 TAB_SIZE               = 4
-ALIASES                = 
-TCL_SUBST              = 
+ALIASES                =
+TCL_SUBST              =
 OPTIMIZE_OUTPUT_FOR_C  = YES
 OPTIMIZE_OUTPUT_JAVA   = NO
 OPTIMIZE_FOR_FORTRAN   = NO
 OPTIMIZE_OUTPUT_VHDL   = NO
-EXTENSION_MAPPING      = 
+EXTENSION_MAPPING      =
 MARKDOWN_SUPPORT       = YES
 TOC_INCLUDE_HEADINGS   = 2
 AUTOLINK_SUPPORT       = YES
@@ -104,14 +104,14 @@ GENERATE_TODOLIST      = YES
 GENERATE_TESTLIST      = YES
 GENERATE_BUGLIST       = YES
 GENERATE_DEPRECATEDLIST= YES
-ENABLED_SECTIONS       = 
+ENABLED_SECTIONS       =
 MAX_INITIALIZER_LINES  = 30
 SHOW_USED_FILES        = YES
 SHOW_FILES             = YES
 SHOW_NAMESPACES        = YES
-FILE_VERSION_FILTER    = 
-LAYOUT_FILE            = 
-CITE_BIB_FILES         = 
+FILE_VERSION_FILTER    =
+LAYOUT_FILE            =
+CITE_BIB_FILES         =
 
 #---------------------------------------------------------------------------
 # Configuration options related to warning and progress messages
@@ -124,7 +124,7 @@ WARN_IF_DOC_ERROR      = YES
 WARN_NO_PARAMDOC       = NO
 WARN_AS_ERROR          = NO
 WARN_FORMAT            = "$file:$line: $text"
-WARN_LOGFILE           = 
+WARN_LOGFILE           =
 
 #---------------------------------------------------------------------------
 # Configuration options related to the input files
@@ -143,19 +143,19 @@ FILE_PATTERNS          = *.c \
                          *.hpp \
                          *.h++
 RECURSIVE              = YES
-EXCLUDE                = 
+EXCLUDE                =
 EXCLUDE_SYMLINKS       = NO
-EXCLUDE_PATTERNS       = 
-EXCLUDE_SYMBOLS        = 
-EXAMPLE_PATH           = 
+EXCLUDE_PATTERNS       = */protocol/arm_atsam/*
+EXCLUDE_SYMBOLS        =
+EXAMPLE_PATH           =
 EXAMPLE_PATTERNS       = *
 EXAMPLE_RECURSIVE      = NO
-IMAGE_PATH             = 
-INPUT_FILTER           = 
-FILTER_PATTERNS        = 
+IMAGE_PATH             =
+INPUT_FILTER           =
+FILTER_PATTERNS        =
 FILTER_SOURCE_FILES    = NO
-FILTER_SOURCE_PATTERNS = 
-USE_MDFILE_AS_MAINPAGE = 
+FILTER_SOURCE_PATTERNS =
+USE_MDFILE_AS_MAINPAGE =
 
 #---------------------------------------------------------------------------
 # Configuration options related to source browsing
@@ -177,7 +177,7 @@ VERBATIM_HEADERS       = YES
 
 ALPHABETICAL_INDEX     = YES
 COLS_IN_ALPHA_INDEX    = 5
-IGNORE_PREFIX          = 
+IGNORE_PREFIX          =
 
 #---------------------------------------------------------------------------
 # Configuration options related to disabled outputs
@@ -207,18 +207,18 @@ ENABLE_PREPROCESSING   = YES
 MACRO_EXPANSION        = NO
 EXPAND_ONLY_PREDEF     = NO
 SEARCH_INCLUDES        = YES
-INCLUDE_PATH           = 
-INCLUDE_FILE_PATTERNS  = 
-PREDEFINED             = 
-EXPAND_AS_DEFINED      = 
+INCLUDE_PATH           =
+INCLUDE_FILE_PATTERNS  =
+PREDEFINED             = __DOXYGEN__ PROGMEM
+EXPAND_AS_DEFINED      =
 SKIP_FUNCTION_MACROS   = YES
 
 #---------------------------------------------------------------------------
 # Configuration options related to external references
 #---------------------------------------------------------------------------
 
-TAGFILES               = 
-GENERATE_TAGFILE       = 
+TAGFILES               =
+GENERATE_TAGFILE       =
 ALLEXTERNALS           = NO
 EXTERNAL_GROUPS        = YES
 EXTERNAL_PAGES         = YES
@@ -229,14 +229,14 @@ PERL_PATH              = /usr/bin/perl
 #---------------------------------------------------------------------------
 
 CLASS_DIAGRAMS         = YES
-MSCGEN_PATH            = 
-DIA_PATH               = 
+MSCGEN_PATH            =
+DIA_PATH               =
 HIDE_UNDOC_RELATIONS   = YES
 HAVE_DOT               = NO
 DOT_NUM_THREADS        = 0
 DOT_FONTNAME           = Helvetica
 DOT_FONTSIZE           = 10
-DOT_FONTPATH           = 
+DOT_FONTPATH           =
 CLASS_GRAPH            = YES
 COLLABORATION_GRAPH    = YES
 GROUP_GRAPHS           = YES
@@ -251,13 +251,13 @@ GRAPHICAL_HIERARCHY    = YES
 DIRECTORY_GRAPH        = YES
 DOT_IMAGE_FORMAT       = png
 INTERACTIVE_SVG        = NO
-DOT_PATH               = 
-DOTFILE_DIRS           = 
-MSCFILE_DIRS           = 
-DIAFILE_DIRS           = 
-PLANTUML_JAR_PATH      = 
-PLANTUML_CFG_FILE      = 
-PLANTUML_INCLUDE_PATH  = 
+DOT_PATH               =
+DOTFILE_DIRS           =
+MSCFILE_DIRS           =
+DIAFILE_DIRS           =
+PLANTUML_JAR_PATH      =
+PLANTUML_CFG_FILE      =
+PLANTUML_INCLUDE_PATH  =
 DOT_GRAPH_MAX_NODES    = 50
 MAX_DOT_GRAPH_DEPTH    = 0
 DOT_TRANSPARENT        = NO

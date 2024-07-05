@@ -1,39 +1,33 @@
-/* Copyright 2020
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2024 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+/*******************************************************************************
+  88888888888 888      d8b                .d888 d8b 888               d8b
+      888     888      Y8P               d88P"  Y8P 888               Y8P
+      888     888                        888        888
+      888     88888b.  888 .d8888b       888888 888 888  .d88b.       888 .d8888b
+      888     888 "88b 888 88K           888    888 888 d8P  Y8b      888 88K
+      888     888  888 888 "Y8888b.      888    888 888 88888888      888 "Y8888b.
+      888     888  888 888      X88      888    888 888 Y8b.          888      X88
+      888     888  888 888  88888P'      888    888 888  "Y8888       888  88888P'
+                                                        888                 888
+                                                        888                 888
+                                                        888                 888
+     .d88b.   .d88b.  88888b.   .d88b.  888d888 8888b.  888888 .d88b.   .d88888
+    d88P"88b d8P  Y8b 888 "88b d8P  Y8b 888P"      "88b 888   d8P  Y8b d88" 888
+    888  888 88888888 888  888 88888888 888    .d888888 888   88888888 888  888
+    Y88b 888 Y8b.     888  888 Y8b.     888    888  888 Y88b. Y8b.     Y88b 888
+     "Y88888  "Y8888  888  888  "Y8888  888    "Y888888  "Y888 "Y8888   "Y88888
+         888
+    Y8b d88P
+     "Y88P"
+*******************************************************************************/
 
 #pragma once
-
-#include "keymap.h"
-
+#include "keycodes.h"
 // clang-format off
 
-/*
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ ; │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ - │ = │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │ / │ ' │ פ │ ם │ ן │ ו │ ט │ א │ ר │ ק │ ] │ [ │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │ ף │ ך │ ל │ ח │ י │ ע │ כ │ ג │ ד │ ש │ , │ \ │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │   │ ץ │ ת │ צ │ מ │ נ │ ה │ ב │ ס │ ז │ . │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
+// Aliases
 #define IL_SCLN KC_GRV  // ;
 #define IL_1    KC_1    // 1
 #define IL_2    KC_2    // 2
@@ -47,7 +41,6 @@
 #define IL_0    KC_0    // 0
 #define IL_MINS KC_MINS // -
 #define IL_EQL  KC_EQL  // =
-// Row 2
 #define IL_SLSH KC_Q    // /
 #define IL_QUOT KC_W    // '
 #define IL_QOF  KC_E    // ק
@@ -60,7 +53,6 @@
 #define IL_PE   KC_P    // פ
 #define IL_RBRC KC_LBRC // ]
 #define IL_LBRC KC_RBRC // [
-// Row 3
 #define IL_SHIN KC_A    // ש
 #define IL_DALT KC_S    // ד
 #define IL_GIML KC_D    // ג
@@ -73,7 +65,6 @@
 #define IL_FPE  KC_SCLN // ף
 #define IL_COMM KC_QUOT // ,
 #define IL_BSLS KC_NUHS // (backslash)
-// Row 4
 #define IL_ZAYN KC_Z    // ז
 #define IL_SMKH KC_X    // ס
 #define IL_BET  KC_C    // ב
@@ -84,21 +75,6 @@
 #define IL_TAV  KC_COMM // ת
 #define IL_FTSD KC_DOT  // ץ
 #define IL_DOT  KC_SLSH // .
-
-/* Shifted symbols
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ ~ │ ! │ @ │ # │ $ │ % │ ^ │ & │ * │ ) │ ( │ _ │ + │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │   │   │   │   │   │   │   │   │   │   │ } │ { │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │   │   │   │   │   │   │   │   │   │ : │ " │ | │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │   │   │   │   │   │   │   │   │ > │ < │ ? │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
 #define IL_TILD S(IL_SCLN) // ~
 #define IL_EXLM S(IL_1)    // !
 #define IL_AT   S(IL_2)    // @
@@ -112,40 +88,20 @@
 #define IL_LPRN S(IL_0)    // (
 #define IL_UNDS S(IL_MINS) // _
 #define IL_PLUS S(IL_EQL)  // +
-// Row 2
 #define IL_RCBR S(IL_RBRC) // }
 #define IL_LCBR S(IL_LBRC) // {
-// Row 3
 #define IL_COLN S(IL_FPE)  // :
 #define IL_DQUO S(IL_COMM) // "
 #define IL_PIPE S(IL_BSLS) // |
-// Row 4
 #define IL_RABK S(IL_TAV)  // >
 #define IL_LABK S(IL_FTSD) // <
 #define IL_QUES S(IL_DOT)  // ?
-
-/* AltGr symbols
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │   │   │   │ € │ ₪ │ ° │   │   │ × │   │   │   │   │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │   │   │   │   │   │ װ │   │   │   │   │   │   │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │   │   │   │   │ ײ │ ױ │   │   │   │   │   │   │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │   │   │   │   │   │   │   │   │   │   │ ÷ │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
 #define IL_EURO ALGR(IL_3)    // €
 #define IL_SHKL ALGR(IL_4)    // ₪
 #define IL_DEG  ALGR(IL_5)    // °
 #define IL_MUL  ALGR(IL_8)    // ×
-// Row 2
 #define IL_DVAV ALGR(IL_TET)  // װ
-// Row 3
 #define IL_VYOD ALGR(IL_AYIN) // ױ
 #define IL_DYOD ALGR(IL_YOD)  // ײ
-// Row 4
 #define IL_DIV  ALGR(IL_DOT)  // ÷
+

@@ -30,8 +30,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE
     ),
     [_FN1] = LAYOUT(
-        RESET,    KC_UP,   _______,
-        KC_LEFT, KC_DOWN, KC_RGHT, MAGIC_TOGGLE_NKRO
+        QK_BOOT,    KC_UP,   _______,
+        KC_LEFT, KC_DOWN, KC_RGHT, NK_TOGG
     ),
     [_FN2] = LAYOUT(
         _______,    _______,   _______,

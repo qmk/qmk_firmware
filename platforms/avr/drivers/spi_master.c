@@ -41,10 +41,10 @@ static uint8_t currentSlaveConfig = 0;
 static bool    currentSlave2X     = false;
 
 void spi_init(void) {
-    writePinHigh(SPI_SS_PIN);
-    setPinOutput(SPI_SCK_PIN);
-    setPinOutput(SPI_MOSI_PIN);
-    setPinInput(SPI_MISO_PIN);
+    gpio_write_pin_high(SPI_SS_PIN);
+    gpio_set_pin_output(SPI_SCK_PIN);
+    gpio_set_pin_output(SPI_MOSI_PIN);
+    gpio_set_pin_input(SPI_MISO_PIN);
 
     SPCR = (_BV(SPE) | _BV(MSTR));
 }
@@ -105,8 +105,8 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
         SPSR |= _BV(SPI2X);
     }
     currentSlavePin = slavePin;
-    setPinOutput(currentSlavePin);
-    writePinLow(currentSlavePin);
+    gpio_set_pin_output(currentSlavePin);
+    gpio_write_pin_low(currentSlavePin);
 
     return true;
 }
@@ -125,7 +125,7 @@ spi_status_t spi_write(uint8_t data) {
 }
 
 spi_status_t spi_read() {
-    SPDR = 0x00;  // Dummy
+    SPDR = 0x00; // Dummy
 
     uint16_t timeout_timer = timer_read();
     while (!(SPSR & _BV(SPIF))) {
@@ -169,8 +169,8 @@ spi_status_t spi_receive(uint8_t *data, uint16_t length) {
 
 void spi_stop(void) {
     if (currentSlavePin != NO_PIN) {
-        setPinOutput(currentSlavePin);
-        writePinHigh(currentSlavePin);
+        gpio_set_pin_output(currentSlavePin);
+        gpio_write_pin_high(currentSlavePin);
         currentSlavePin = NO_PIN;
         SPSR &= ~(_BV(SPI2X));
         SPCR &= ~(currentSlaveConfig);

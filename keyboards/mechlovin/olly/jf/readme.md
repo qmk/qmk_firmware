@@ -18,6 +18,11 @@ Flashing example for this keyboard:
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
-**Reset Key:** 2 ways to put the Olly JF into bootloader:
-By keycode: Tap RESET keycode.
-By bootloader: hold ESC key while plugging in
+## Bootloader
+
+Enter the bootloader in 4 ways:
+
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available.
+* **Bootloader reset**: hold ESC (0,0) key while plugging in (jump to bootloader)
+* **Bootmagic reset**: hold Insert (1,14) key while pluging in (jump to bootloader and reset EEPROM)
+* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead

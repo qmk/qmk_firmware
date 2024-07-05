@@ -52,17 +52,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #if (MATRIX_COLS <= 8)
 #    define print_matrix_header()  print("\nr/c 01234567\n")
 #    define print_matrix_row(row)  print_bin_reverse8(matrix_get_row(row))
-#    define matrix_bitpop(i)       bitpop(matrix[i])
 #    define ROW_SHIFTER ((uint8_t)1)
 #elif (MATRIX_COLS <= 16)
 #    define print_matrix_header()  print("\nr/c 0123456789ABCDEF\n")
 #    define print_matrix_row(row)  print_bin_reverse16(matrix_get_row(row))
-#    define matrix_bitpop(i)       bitpop16(matrix[i])
 #    define ROW_SHIFTER ((uint16_t)1)
 #elif (MATRIX_COLS <= 32)
 #    define print_matrix_header()  print("\nr/c 0123456789ABCDEF0123456789ABCDEF\n")
 #    define print_matrix_row(row)  print_bin_reverse32(matrix_get_row(row))
-#    define matrix_bitpop(i)       bitpop32(matrix[i])
 #    define ROW_SHIFTER  ((uint32_t)1)
 #endif
 
@@ -94,16 +91,6 @@ static matrix_row_t matrix_debouncing[MATRIX_ROWS];
     static void unselect_col(uint8_t col);
     static void select_col(uint8_t col);
 #endif
-
-__attribute__ ((weak))
-void matrix_init_quantum(void) {
-    matrix_init_kb();
-}
-
-__attribute__ ((weak))
-void matrix_scan_quantum(void) {
-    matrix_scan_kb();
-}
 
 __attribute__ ((weak))
 void matrix_init_kb(void) {
@@ -157,7 +144,7 @@ void matrix_init(void) {
         matrix_debouncing[i] = 0;
     }
 
-    matrix_init_quantum();
+    matrix_init_kb();
 }
 
 uint8_t matrix_scan(void)
@@ -226,16 +213,8 @@ if (i2c_transaction(SLAVE_I2C_ADDRESS_NUMPAD, 0x1FFFF, 11)) {
     }
 }
 
-    matrix_scan_quantum();
+    matrix_scan_kb();
     return 1;
-}
-
-bool matrix_is_modified(void)
-{
-#if (DEBOUNCE > 0)
-    if (debouncing) return false;
-#endif
-    return true;
 }
 
 inline
@@ -266,17 +245,6 @@ void matrix_print(void)
         print("\n");
     }
 }
-
-uint8_t matrix_key_count(void)
-{
-    uint8_t count = 0;
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        count += matrix_bitpop(i);
-    }
-    return count;
-}
-
-
 
 #if (DIODE_DIRECTION == COL2ROW)
 
@@ -419,37 +387,13 @@ static void unselect_cols(void)
 
 // Complete rows from other modules over i2c
 i2c_status_t i2c_transaction(uint8_t address, uint32_t mask, uint8_t col_offset) {
-    i2c_status_t status = i2c_start(address, 50);
-    if (status < 0) {
-        goto error;
+    uint8_t data[MATRIX_ROWS + 1];
+    i2c_status_t status = i2c_read_register(address, 0x01, data, (MATRIX_ROWS + 1), 5);
+
+    for (uint8_t i = 0; i < (MATRIX_ROWS) && status >= 0; i++) { //assemble slave matrix in main matrix
+        matrix[i] &= mask;  //mask bits to keep
+        matrix[i] |= ((uint32_t)data[i+1] << (MATRIX_COLS_SCANNED + col_offset)); //add new bits at the end
     }
 
-    status = i2c_write(0x01, 50);
-    if (status < 0) {
-        goto error;
-    }
-
-    status = i2c_start(address | I2C_READ, 50);
-
-    status = i2c_read_ack(50);
-    if (status != 0x55) { //synchronization byte
-        goto error;
-    }
-
-    for (uint8_t i = 0; i < MATRIX_ROWS-1 && status >= 0; i++) { //assemble slave matrix in main matrix
-        matrix[i] &= mask; //mask bits to keep
-        status = i2c_read_ack(50);
-            matrix[i] |= ((uint32_t)status << (MATRIX_COLS_SCANNED + col_offset)); //add new bits at the end
-        }
-    //last read request must be followed by a NACK
-    if (status >= 0) {
-        matrix[MATRIX_ROWS - 1] &= mask; //mask bits to keep
-        status = i2c_read_nack(50);
-        matrix[MATRIX_ROWS - 1] |= ((uint32_t)status << (MATRIX_COLS_SCANNED + col_offset)); //add new bits at the end
-    }
-
-error:
-    i2c_stop();
-
-    return (status < 0) ? status : I2C_STATUS_SUCCESS;
+    return status;
 }

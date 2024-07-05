@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "j01.h"
+#include "quantum.h"
 
 // Optional override functions below.
 // You can leave any or all of these undefined.
@@ -26,12 +26,12 @@ void matrix_init_kb(void) {
     // runs once when the firmware starts up
 
     matrix_init_user();
-    setPinOutput(E6);
+    gpio_set_pin_output(E6);
 }
 
 bool led_update_kb(led_t led_state) {
     if(led_update_user(led_state)) {
-        writePin(E6, !led_state.caps_lock);
+        gpio_write_pin(E6, !led_state.caps_lock);
     }
 
     return true;

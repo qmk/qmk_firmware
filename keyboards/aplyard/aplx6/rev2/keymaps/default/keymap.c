@@ -113,8 +113,9 @@ static void render_logo(void) {
     }
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     render_logo();
+    return false;
 }
 #endif
 

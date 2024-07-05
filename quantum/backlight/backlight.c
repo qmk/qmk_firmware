@@ -15,7 +15,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "quantum.h"
 #include "backlight.h"
 #include "eeprom.h"
 #include "eeconfig.h"
@@ -23,8 +22,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 backlight_config_t backlight_config;
 
+#ifndef BACKLIGHT_DEFAULT_ON
+#    define BACKLIGHT_DEFAULT_ON true
+#endif
+
 #ifndef BACKLIGHT_DEFAULT_LEVEL
 #    define BACKLIGHT_DEFAULT_LEVEL BACKLIGHT_LEVELS
+#endif
+
+#ifndef BACKLIGHT_DEFAULT_BREATHING
+#    define BACKLIGHT_DEFAULT_BREATHING false
+#else
+#    undef BACKLIGHT_DEFAULT_BREATHING
+#    define BACKLIGHT_DEFAULT_BREATHING true
 #endif
 
 #ifdef BACKLIGHT_BREATHING
@@ -32,20 +42,26 @@ backlight_config_t backlight_config;
 static uint8_t breathing_period = BREATHING_PERIOD;
 #endif
 
+static void backlight_check_config(void) {
+    /* Add some out of bound checks for backlight config */
+
+    if (backlight_config.level > BACKLIGHT_LEVELS) {
+        backlight_config.level = BACKLIGHT_LEVELS;
+    }
+}
+
 /** \brief Backlight initialization
  *
  * FIXME: needs doc
  */
 void backlight_init(void) {
-    /* check signature */
-    if (!eeconfig_is_enabled()) {
-        eeconfig_init();
+    backlight_config.raw = eeconfig_read_backlight();
+    if (!backlight_config.valid) {
+        dprintf("backlight_init backlight_config.valid = 0. Write default values to EEPROM.\n");
         eeconfig_update_backlight_default();
     }
-    backlight_config.raw = eeconfig_read_backlight();
-    if (backlight_config.level > BACKLIGHT_LEVELS) {
-        backlight_config.level = BACKLIGHT_LEVELS;
-    }
+    backlight_check_config();
+
     backlight_set(backlight_config.enable ? backlight_config.level : 0);
 }
 
@@ -95,10 +111,10 @@ void backlight_toggle(void) {
  * FIXME: needs doc
  */
 void backlight_enable(void) {
-    if (backlight_config.enable) return;  // do nothing if backlight is already on
+    if (backlight_config.enable) return; // do nothing if backlight is already on
 
     backlight_config.enable = true;
-    if (backlight_config.raw == 1)  // enabled but level == 0
+    if (backlight_config.raw == 1) // enabled but level == 0
         backlight_config.level = 1;
     eeconfig_update_backlight(backlight_config.raw);
     dprintf("backlight enable\n");
@@ -110,7 +126,7 @@ void backlight_enable(void) {
  * FIXME: needs doc
  */
 void backlight_disable(void) {
-    if (!backlight_config.enable) return;  // do nothing if backlight is already off
+    if (!backlight_config.enable) return; // do nothing if backlight is already off
 
     backlight_config.enable = false;
     eeconfig_update_backlight(backlight_config.raw);
@@ -122,7 +138,9 @@ void backlight_disable(void) {
  *
  * FIXME: needs doc
  */
-bool is_backlight_enabled(void) { return backlight_config.enable; }
+bool is_backlight_enabled(void) {
+    return backlight_config.enable;
+}
 
 /** \brief Backlight step through levels
  *
@@ -158,20 +176,23 @@ void backlight_level(uint8_t level) {
     eeconfig_update_backlight(backlight_config.raw);
 }
 
-uint8_t eeconfig_read_backlight(void) { return eeprom_read_byte(EECONFIG_BACKLIGHT); }
+uint8_t eeconfig_read_backlight(void) {
+    return eeprom_read_byte(EECONFIG_BACKLIGHT);
+}
 
-void eeconfig_update_backlight(uint8_t val) { eeprom_update_byte(EECONFIG_BACKLIGHT, val); }
+void eeconfig_update_backlight(uint8_t val) {
+    eeprom_update_byte(EECONFIG_BACKLIGHT, val);
+}
 
-void eeconfig_update_backlight_current(void) { eeconfig_update_backlight(backlight_config.raw); }
+void eeconfig_update_backlight_current(void) {
+    eeconfig_update_backlight(backlight_config.raw);
+}
 
 void eeconfig_update_backlight_default(void) {
-    backlight_config.enable = 1;
-#ifdef BACKLIGHT_DEFAULT_BREATHING
-    backlight_config.breathing = 1;
-#else
-    backlight_config.breathing = 0;
-#endif
-    backlight_config.level = BACKLIGHT_DEFAULT_LEVEL;
+    backlight_config.valid     = true;
+    backlight_config.enable    = BACKLIGHT_DEFAULT_ON;
+    backlight_config.breathing = BACKLIGHT_DEFAULT_BREATHING;
+    backlight_config.level     = BACKLIGHT_DEFAULT_LEVEL;
     eeconfig_update_backlight(backlight_config.raw);
 }
 
@@ -179,7 +200,9 @@ void eeconfig_update_backlight_default(void) {
  *
  * FIXME: needs doc
  */
-uint8_t get_backlight_level(void) { return backlight_config.level; }
+uint8_t get_backlight_level(void) {
+    return backlight_config.level;
+}
 
 #ifdef BACKLIGHT_BREATHING
 /** \brief Backlight breathing toggle
@@ -200,7 +223,7 @@ void backlight_toggle_breathing(void) {
  * FIXME: needs doc
  */
 void backlight_enable_breathing(void) {
-    if (backlight_config.breathing) return;  // do nothing if breathing is already on
+    if (backlight_config.breathing) return; // do nothing if breathing is already on
 
     backlight_config.breathing = true;
     eeconfig_update_backlight(backlight_config.raw);
@@ -213,7 +236,7 @@ void backlight_enable_breathing(void) {
  * FIXME: needs doc
  */
 void backlight_disable_breathing(void) {
-    if (!backlight_config.breathing) return;  // do nothing if breathing is already off
+    if (!backlight_config.breathing) return; // do nothing if breathing is already off
 
     backlight_config.breathing = false;
     eeconfig_update_backlight(backlight_config.raw);
@@ -225,18 +248,30 @@ void backlight_disable_breathing(void) {
  *
  * FIXME: needs doc
  */
-bool is_backlight_breathing(void) { return backlight_config.breathing; }
+bool is_backlight_breathing(void) {
+    return backlight_config.breathing;
+}
 
 // following are marked as weak purely for backwards compatibility
-__attribute__((weak)) void breathing_period_set(uint8_t value) { breathing_period = value ? value : 1; }
+__attribute__((weak)) void breathing_period_set(uint8_t value) {
+    breathing_period = value ? value : 1;
+}
 
-__attribute__((weak)) uint8_t get_breathing_period(void) { return breathing_period; }
+__attribute__((weak)) uint8_t get_breathing_period(void) {
+    return breathing_period;
+}
 
-__attribute__((weak)) void breathing_period_default(void) { breathing_period_set(BREATHING_PERIOD); }
+__attribute__((weak)) void breathing_period_default(void) {
+    breathing_period_set(BREATHING_PERIOD);
+}
 
-__attribute__((weak)) void breathing_period_inc(void) { breathing_period_set(breathing_period + 1); }
+__attribute__((weak)) void breathing_period_inc(void) {
+    breathing_period_set(breathing_period + 1);
+}
 
-__attribute__((weak)) void breathing_period_dec(void) { breathing_period_set(breathing_period - 1); }
+__attribute__((weak)) void breathing_period_dec(void) {
+    breathing_period_set(breathing_period - 1);
+}
 
 __attribute__((weak)) void breathing_toggle(void) {
     if (is_breathing())

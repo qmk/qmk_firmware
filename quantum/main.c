@@ -19,8 +19,16 @@
 void platform_setup(void);
 
 void protocol_setup(void);
-void protocol_init(void);
-void protocol_task(void);
+void protocol_pre_init(void);
+void protocol_post_init(void);
+void protocol_pre_task(void);
+void protocol_post_task(void);
+
+// Bodge as refactoring this area sucks....
+void protocol_keyboard_task(void) __attribute__((weak));
+void protocol_keyboard_task(void) {
+    keyboard_task();
+}
 
 /** \brief Main
  *
@@ -30,12 +38,40 @@ int main(void) __attribute__((weak));
 int main(void) {
     platform_setup();
     protocol_setup();
+    keyboard_setup();
 
-    protocol_init();
+    protocol_pre_init();
+    keyboard_init();
+    protocol_post_init();
 
     /* Main loop */
     while (true) {
-        protocol_task();
+        protocol_pre_task();
+        protocol_keyboard_task();
+        protocol_post_task();
+
+#ifdef RAW_ENABLE
+        void raw_hid_task(void);
+        raw_hid_task();
+#endif
+
+#ifdef CONSOLE_ENABLE
+        void console_task(void);
+        console_task();
+#endif
+
+#ifdef QUANTUM_PAINTER_ENABLE
+        // Run Quantum Painter task
+        void qp_internal_task(void);
+        qp_internal_task();
+#endif
+
+#ifdef DEFERRED_EXEC_ENABLE
+        // Run deferred executions
+        void deferred_exec_task(void);
+        deferred_exec_task();
+#endif // DEFERRED_EXEC_ENABLE
+
         housekeeping_task();
     }
 }

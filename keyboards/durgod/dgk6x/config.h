@@ -16,14 +16,8 @@
 
 #pragma once
 
-#include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xD60D
-#define MANUFACTURER    Hoksi Technology
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION ROW2COL
+#define WAIT_US_TIMER           GPTD3
 
 // Dynamic EEPROM
 // Something sensible or else VIA may crash
@@ -33,38 +27,14 @@
 // Increase VIA layer count
 #define DYNAMIC_KEYMAP_LAYER_COUNT 16
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-/* Bootmagic Lite key configuration */
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
-#define BOOTMAGIC_LITE_ROW                 0
-#define BOOTMAGIC_LITE_COLUMN              0
 
 /* LED indicator pins */
-#define LED_CAPS_LOCK_PIN   C4
 #define LED_WIN_LOCK_PIN    C5
-#define LED_SCROLL_LOCK_PIN A8
 #define LED_MR_LOCK_PIN     LED_SCROLL_LOCK_PIN
-#define LED_PIN_ON_STATE    0
 
-#ifdef RGB_MATRIX_ENABLE
-// This is a 7-bit address, that gets left-shifted and bit 0
-// set to 0 for write, 1 for read (as per I2C protocol)
-// The address will vary depending on your wiring:
-// 00 <-> GND
-// 01 <-> SCL
-// 10 <-> SDA
-// 11 <-> VCC
-// ADDR1 represents A1:A0 of the 7-bit address.
-// ADDR2 represents A3:A2 of the 7-bit address.
-// The result is: 0b101(ADDR2)(ADDR1)
-
-#define DRIVER_ADDR_1 0b1010000
-#define DRIVER_ADDR_2 0b1010011
-
-#define DRIVER_COUNT 2
-#define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
+#define IS31FL3733_I2C_ADDRESS_1 IS31FL3733_I2C_ADDRESS_GND_GND
+#define IS31FL3733_I2C_ADDRESS_2 IS31FL3733_I2C_ADDRESS_GND_VCC
 
 /* I2C Alternate function settings */
 #define I2C1_SCL_PAL_MODE 1
@@ -76,18 +46,3 @@
 #define I2C1_TIMINGR_SDADEL  0x0U
 #define I2C1_TIMINGR_SCLH   0x0cU
 #define I2C1_TIMINGR_SCLL   0x22U
-
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended
-#    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#    define RGB_MATRIX_KEYPRESSES
-#    define RGB_MATRIX_LED_PROCESS_LIMIT 4
-#    define RGB_MATRIX_LED_FLUSH_LIMIT 26
-
-#    define DISABLE_RGB_MATRIX_HUE_BREATHING
-#    define DISABLE_RGB_MATRIX_HUE_PENDULUM
-#    define DISABLE_RGB_MATRIX_HUE_WAVE
-
-// This allows VIA to control RGB Matrix settings in the 'Lighting' section.
-#define VIA_QMK_RGBLIGHT_ENABLE
-
-#endif /* RGB_MATRIX_ENABLE */

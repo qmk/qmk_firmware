@@ -1,1 +1,0 @@
-# The keymap for krush60 solder layout 7u spacebar & split backspace

@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "zima.h"
+#include "quantum.h"
 #include <stdio.h>
 
 #ifdef HAPTIC_ENABLE
@@ -35,12 +35,17 @@ void suspend_wakeup_init_kb(void) {
     suspend_wakeup_init_user();
 }
 
-__attribute__((weak)) oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_180; }
+oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
+    return OLED_ROTATION_180;
+}
 
-__attribute__((weak)) void oled_task_user(void) {
+bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
+    }
     if (is_asleep) {
         oled_off();
-        return;
+        return false;
     }
 
     if (timer_elapsed32(oled_timer) < 30000) {
@@ -83,6 +88,7 @@ __attribute__((weak)) void oled_task_user(void) {
             oled_off();
         }
     }
+    return false;
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
