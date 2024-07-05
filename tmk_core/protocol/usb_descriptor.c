@@ -49,7 +49,7 @@
 #    include "os_detection.h"
 #endif
 
-#if SERIAL_NUMBER_USE_HARDWARE_ID == TRUE
+#if defined(SERIAL_NUMBER_USE_HARDWARE_ID) && SERIAL_NUMBER_USE_HARDWARE_ID == TRUE
 #    include "hardware_id.h"
 #endif
 
@@ -455,7 +455,7 @@ const USB_Descriptor_Device_t PROGMEM DeviceDescriptor = {
     .ReleaseNumber              = DEVICE_VER,
     .ManufacturerStrIndex       = 0x01,
     .ProductStrIndex            = 0x02,
-#if defined(SERIAL_NUMBER) || SERIAL_NUMBER_USE_HARDWARE_ID == TRUE
+#if defined(SERIAL_NUMBER) || (defined(SERIAL_NUMBER_USE_HARDWARE_ID) && SERIAL_NUMBER_USE_HARDWARE_ID == TRUE)
     .SerialNumStrIndex          = 0x03,
 #else
     .SerialNumStrIndex          = 0x00,
@@ -1067,7 +1067,7 @@ const USB_Descriptor_String_t PROGMEM ProductString = {
 
 // clang-format on
 
-#if SERIAL_NUMBER_USE_HARDWARE_ID == TRUE
+#if defined(SERIAL_NUMBER_USE_HARDWARE_ID) && SERIAL_NUMBER_USE_HARDWARE_ID == TRUE
 
 #    if defined(__AVR__)
 #        error Dynamically setting the serial number on AVR is unsupported as LUFA requires the string to be in PROGMEM.
@@ -1106,7 +1106,7 @@ void set_serial_number_descriptor(void) {
     desc->Header.Type = DTYPE_String;
 }
 
-#else // SERIAL_NUMBER_USE_HARDWARE_ID == FALSE
+#else // defined(SERIAL_NUMBER_USE_HARDWARE_ID) && SERIAL_NUMBER_USE_HARDWARE_ID == TRUE
 
 #    if defined(SERIAL_NUMBER)
 // clang-format off
@@ -1120,7 +1120,7 @@ const USB_Descriptor_String_t PROGMEM SerialNumberString = {
 // clang-format on
 #    endif // defined(SERIAL_NUMBER)
 
-#endif // SERIAL_NUMBER_USE_HARDWARE_ID == TRUE
+#endif // defined(SERIAL_NUMBER_USE_HARDWARE_ID) && SERIAL_NUMBER_USE_HARDWARE_ID == TRUE
 
 /**
  * This function is called by the library when in device mode, and must be overridden (see library "USB Descriptors"
@@ -1163,10 +1163,10 @@ uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const 
                     Size    = pgm_read_byte(&ProductString.Header.Size);
 
                     break;
-#if defined(SERIAL_NUMBER) || SERIAL_NUMBER_USE_HARDWARE_ID == TRUE
+#if defined(SERIAL_NUMBER) || (defined(SERIAL_NUMBER_USE_HARDWARE_ID) && SERIAL_NUMBER_USE_HARDWARE_ID == TRUE)
                 case 0x03:
                     Address = (const USB_Descriptor_String_t*)&SerialNumberString;
-#    if SERIAL_NUMBER_USE_HARDWARE_ID == TRUE
+#    if defined(SERIAL_NUMBER_USE_HARDWARE_ID) && (SERIAL_NUMBER_USE_HARDWARE_ID == TRUE)
                     set_serial_number_descriptor();
                     Size = ((const USB_Descriptor_String_t*)SerialNumberString)->Header.Size;
 #    else
@@ -1174,7 +1174,7 @@ uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const 
 #    endif
 
                     break;
-#endif // defined(SERIAL_NUMBER) || SERIAL_NUMBER_USE_HARDWARE_ID == TRUE
+#endif // defined(SERIAL_NUMBER) || (defined(SERIAL_NUMBER_USE_HARDWARE_ID) && SERIAL_NUMBER_USE_HARDWARE_ID == TRUE)
             }
 #ifdef OS_DETECTION_ENABLE
             process_wlength(wLength);
