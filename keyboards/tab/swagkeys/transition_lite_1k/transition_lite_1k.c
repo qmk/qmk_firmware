@@ -40,21 +40,9 @@ void keyboard_post_init_kb(void) {
 // 检查灯开关
 #ifdef RGBLIGHT_ENABLE
     // Enable the LED layers
-    // rgblight_layers = tab_rgb_layers;
     rgblight_set_effect_range(0, RGBLIGHT_LED_COUNT);
 #endif
     keyboard_post_init_user();
-}
-
-// 矩阵扫描
-void housekeeping_task_kb(void) {
-#if defined(RGB_MATRIX_ENABLE) && defined(EEPROM_ENABLE) && defined(RGB_MATRIX_SWITCH_PIN)
-    // rgb_matrix 关闭时断电
-    if (rgb_matrix_is_enabled() != cp_cfg_led_power_get()) {
-        cp_cfg_led_power_toggle();
-        gpio_write_pin(RGB_MATRIX_SWITCH_PIN, rgb_matrix_is_enabled());
-    }
-#endif
 }
 
 #ifdef RGB_MATRIX_ENABLE
