@@ -1,5 +1,8 @@
 # FAve 65S, Solder Ver
 
+![head](https://i.imgur.com/4Sc42zO.jpg)
+![tail](https://i.imgur.com/hgCPtWg.jpg)
+
 * Keyboard Maintainer: [ERA](https://github.com/eerraa)
 * Hardware supported: LINWORKS
 * Hardware availability: [LINWORKS](https://allthatkeyboard.com/)
