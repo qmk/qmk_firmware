@@ -180,15 +180,15 @@ void ws0010_init(bool cursor, bool blink) {
     wait_ms(WS0010_INIT_DELAY_MS); // Wait for power stabilization
 
     // Send WS0010 bus reset commands (needed for warm restarts)
-    ws0010_write(0x0);
+    ws0010_command(0x0);
     wait_us(WS0010_INIT_NEXT_US)
-    ws0010_write(0x0);
+    ws0010_command(0x0);
     wait_us(WS0010_INIT_NEXT_US)
-    ws0010_write(0x0);
+    ws0010_command(0x0);
     wait_us(WS0010_INIT_NEXT_US)
-    ws0010_write(0x0);
+    ws0010_command(0x0);
     wait_us(WS0010_INIT_NEXT_US)
-    ws0010_write(0x0);
+    ws0010_command(0x0);
     wait_us(WS0010_INIT_NEXT_US)
 
     // There should be some timing inbetween commands but the docs just sat check busy inbetween, this is built into the command
