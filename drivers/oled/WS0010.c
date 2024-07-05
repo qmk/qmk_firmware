@@ -53,8 +53,9 @@ static const pin_t data_pins[4] = WS0010_DATA_PINS;
 #    define WS0010_DDRAM_LINE1_ADDR 0x40
 #endif
 
-#define WS0010_INIT_DELAY_MS 16
+#define WS0010_INIT_DELAY_MS 100
 #define WS0010_ENABLE_DELAY_US 1
+#define WS0010_INIT_NEXT_US 200
 
 static void ws0010_latch(void) {
     gpio_write_pin_high(WS0010_E_PIN);
@@ -171,88 +172,38 @@ void ws0010_set_ddram_address(uint8_t address) {
     ws0010_command(WS0010_CMD_SET_DDRAM_ADDRESS + (address & 0x7F));
 }
 
-//void ws0010_init(bool cursor, bool blink) {
-    //gpio_set_pin_output(WS0010_RS_PIN);
-    //gpio_set_pin_output(WS0010_RW_PIN);
-    //gpio_set_pin_output(WS0010_E_PIN);
-
-   // for (int i = 0; i < 4; i++) {
-   //     gpio_set_pin_output(data_pins[i]);
-   // }
-
-    //wait_ms(WS0010_INIT_DELAY_MS);
-
-    // Manually configure for 4-bit mode - can't use ws0010_command() yet
-    // WS0010U datasheet, Fig. 24 (p46)
-    //gpio_write_pin_high(data_pins[0]); // Function set
-    //gpio_write_pin_high(data_pins[1]); // DL = 1
-    //ws0010_latch();
-    //wait_ms(5);
-    // Send again
-    //ws0010_latch();
-    //wait_us(64);
-    // And again (?)
-    //ws0010_latch();
-    //wait_us(64);
-
-    //gpio_write_pin_low(data_pins[0]); // DL = 0
-    //ws0010_latch();
-    //wait_us(64);
-
-//#if WS0010_DISPLAY_LINES == 1
-    //ws0010_command(WS0010_CMD_FUNCTION); // 4 bit, 1 line, 5x8 dots
-//#else
-    //ws0010_command(WS0010_CMD_FUNCTION | WS0010_FUNCTION_2_LINES); // 4 bit, 2 lines, 5x8 dots
-//#endif
-    //ws0010_on(cursor, blink);
-    //ws0010_clear();
-    //ws0010_home();
-    //ws0010_command(WS0010_CMD_ENTRY_MODE | WS0010_ENTRY_MODE_INC);
-//}
-
 void ws0010_init(bool cursor, bool blink) {
     gpio_set_pin_output(WS0010_RS_PIN);
     gpio_set_pin_output(WS0010_RW_PIN);
     gpio_set_pin_output(WS0010_E_PIN);
 
-    for (int i = 0; i < 4; i++) {
-        gpio_set_pin_output(data_pins[i]);
-    }
+    wait_ms(WS0010_INIT_DELAY_MS); // Wait for power stabilization
 
-    wait_ms(WS0010_INIT_DELAY_MS);
+    // Send WS0010 bus reset commands (needed for warm restarts)
+    ws0010_write(0x0);
+    wait_us(WS0010_INIT_NEXT_US)
+    ws0010_write(0x0);
+    wait_us(WS0010_INIT_NEXT_US)
+    ws0010_write(0x0);
+    wait_us(WS0010_INIT_NEXT_US)
+    ws0010_write(0x0);
+    wait_us(WS0010_INIT_NEXT_US)
+    ws0010_write(0x0);
+    wait_us(WS0010_INIT_NEXT_US)
 
-    // Send WS0010 bus reset commands
-    ws0010_write(0x0);
-    ws0010_write(0x0);
-    ws0010_write(0x0);
-    ws0010_write(0x0);
-    ws0010_write(0x0);
-
-    // Manually configure for 4-bit mode - can't use ws0010_command() yet
+    // There should be some timing inbetween commands but the docs just sat check busy inbetween, this is built into the command
     ws0010_write(0x2, false); //0010 nibble
-    //ws0010_latch();
-    //wait_ms(5);
-    // Send again
-    //ws0010_latch();
-    //wait_us(64);
-    // And again (?)
-    //ws0010_latch();
-    //wait_us(64);
-
-    //gpio_write_pin_low(data_pins[0]); // DL = 0
-    //ws0010_latch();
-    //wait_us(64);
-
-//#if WS0010_DISPLAY_LINES == 1
-    //ws0010_command(WS0010_CMD_FUNCTION); // 4 bit, 1 line, 5x8 dots
-//#else
-    //ws0010_command(WS0010_CMD_FUNCTION | WS0010_FUNCTION_2_LINES); // 4 bit, 2 lines, 5x8 dots
-//#endif
-    //ws0010_on(cursor, blink);
-    //ws0010_clear();
-    //ws0010_home();
-    //ws0010_command(WS0010_CMD_ENTRY_MODE | WS0010_ENTRY_MODE_INC);
-//}
+    #if WS0010_DISPLAY_LINES == 1
+        ws0010_command(WS0010_CMD_FUNCTION); // 4 bit, 1 line, 5x8 dots
+    #else
+        ws0010_command(WS0010_CMD_FUNCTION | WS0010_FUNCTION_2_LINES); // 4 bit, 2 lines, 5x8 dots
+    #endif
+    ws0010_command(WS0010_CMD_DISPLAY); // Turn off display
+    ws0010_command(WS0010_CMD_CLEAR_DISPLAY); // Clear the display
+    ws0010_command(WS0010_CMD_ENTRY_MODE | WS0010_ENTRY_MODE_INC | WS0010_ENTRY_MODE_SHIFT); // Set entry mode to input from right hand side and scroll the text to the left
+    ws0010_command(WS0010_CMD_RETURN_HOME);
+    ws0010_command(WS0010_CMD_DISPLAY | WS0010_DISPLAY_ON | WS0010_DISPLAY_CURSOR | WS0010_DISPLAY_BLINK); // Turn the display on with a blinking cursor
+}
 
 void ws0010_set_cursor(uint8_t col, uint8_t line) {
     register uint8_t address = col;
