@@ -1051,7 +1051,7 @@ const USB_Descriptor_String_t PROGMEM LanguageString = {
 
 const USB_Descriptor_String_t PROGMEM ManufacturerString = {
     .Header = {
-        .Size                   = sizeof(USBSTR(MANUFACTURER)),
+        .Size                   = sizeof(USB_Descriptor_Header_t) + (sizeof(USBSTR(MANUFACTURER)) - 2), // includes header, don't count null terminator
         .Type                   = DTYPE_String
     },
     .UnicodeString              = USBSTR(MANUFACTURER)
@@ -1059,7 +1059,7 @@ const USB_Descriptor_String_t PROGMEM ManufacturerString = {
 
 const USB_Descriptor_String_t PROGMEM ProductString = {
     .Header = {
-        .Size                   = sizeof(USBSTR(PRODUCT)),
+        .Size                   = sizeof(USB_Descriptor_Header_t) + (sizeof(USBSTR(PRODUCT)) - 2), // includes header, don't count null terminator
         .Type                   = DTYPE_String
     },
     .UnicodeString              = USBSTR(PRODUCT)
@@ -1074,10 +1074,10 @@ const USB_Descriptor_String_t PROGMEM ProductString = {
 #    endif // defined(__AVR__)
 
 #    ifndef SERIAL_NUMBER_LENGTH
-#        define SERIAL_NUMBER_LENGTH 32
+#        define SERIAL_NUMBER_LENGTH (sizeof(hardware_id_t) * 2)
 #    endif
 
-uint8_t SerialNumberString[sizeof(USB_Descriptor_String_t) + ((((SERIAL_NUMBER_LENGTH + 1) / 2) * 2) * sizeof(wchar_t))] = {0};
+uint8_t SerialNumberString[sizeof(USB_Descriptor_String_t) + ((((SERIAL_NUMBER_LENGTH + 1) / 2) * 2) * sizeof(wchar_t)) + sizeof(wchar_t)] = {0};
 
 void set_serial_number_descriptor(void) {
     static bool is_set = false;
@@ -1098,7 +1098,7 @@ void set_serial_number_descriptor(void) {
         desc->UnicodeString[i + 1] = hex_str[p[i / 2] & 0xF];
     }
 
-    desc->Header.Size = length * sizeof(wchar_t);
+    desc->Header.Size = sizeof(USB_Descriptor_Header_t) + (length * sizeof(wchar_t)); // includes header, don't count null terminator
     desc->Header.Type = DTYPE_String;
 }
 
@@ -1108,7 +1108,7 @@ void set_serial_number_descriptor(void) {
 // clang-format off
 const USB_Descriptor_String_t PROGMEM SerialNumberString = {
     .Header = {
-        .Size                   = sizeof(USBSTR(SERIAL_NUMBER)),
+        .Size                   = sizeof(USB_Descriptor_Header_t) + (sizeof(USBSTR(SERIAL_NUMBER)) - 2), // includes header, don't count null terminator
         .Type                   = DTYPE_String
     },
     .UnicodeString              = USBSTR(SERIAL_NUMBER)
