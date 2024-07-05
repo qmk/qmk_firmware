@@ -19,6 +19,7 @@
     "rgblight": {
         "led_count": 12,
         "split_count": [6, 6],
+        "sleep": true,
         "animations": {
             "breathing": true,
             "rainbow_mood": true,
@@ -42,7 +43,7 @@
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "features": {
-        "bootmagic": false,
+        "bootmagic": true,
         "mousekey": false,
         "extrakey": true,
         "nkro": true,
