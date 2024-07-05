@@ -2,7 +2,6 @@
     "manufacturer": "MMD",
     "keyboard_name": "MMD-KM75",
     "maintainer": "Smartmmd",
-    "board": "STM32_F103_STM32DUINO",
     "bootloader": "stm32duino",
     "diode_direction": "ROW2COL",
     "encoder": {
