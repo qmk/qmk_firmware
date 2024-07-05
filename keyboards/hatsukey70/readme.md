@@ -1,6 +1,6 @@
 # hatsukey70
 
-![hatsukey70](https://imgur.com/a/4KEGMBC)
+![hatsukey70](https://i.imgur.com/wQG6KxD.jpeg)
 ※Hatsukey71 is printed on the board, but it is a mistake for Hatsukey70.
 
 
