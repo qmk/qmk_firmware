@@ -192,7 +192,7 @@ void ws0010_init(bool cursor, bool blink) {
     wait_us(WS0010_INIT_NEXT_US)
 
     // There should be some timing inbetween commands but the docs just sat check busy inbetween, this is built into the command
-    ws0010_write(0x2, false); //0010 nibble
+    ws0010_command(0x2, false); //0010 nibble
     #if WS0010_DISPLAY_LINES == 1
         ws0010_command(WS0010_CMD_FUNCTION); // 4 bit, 1 line, 5x8 dots
     #else
@@ -200,9 +200,10 @@ void ws0010_init(bool cursor, bool blink) {
     #endif
     ws0010_command(WS0010_CMD_DISPLAY); // Turn off display
     ws0010_command(WS0010_CMD_CLEAR_DISPLAY); // Clear the display
-    ws0010_command(WS0010_CMD_ENTRY_MODE | WS0010_ENTRY_MODE_INC | WS0010_ENTRY_MODE_SHIFT); // Set entry mode to input from right hand side and scroll the text to the left
-    ws0010_command(WS0010_CMD_RETURN_HOME);
-    ws0010_command(WS0010_CMD_DISPLAY | WS0010_DISPLAY_ON | WS0010_DISPLAY_CURSOR | WS0010_DISPLAY_BLINK); // Turn the display on with a blinking cursor
+    ws0010_command(WS0010_CMD_ENTRY_MODE | WS0010_ENTRY_MODE_INC); // Set entry mode
+    ws0010_command(WS0010_CMD_RETURN_HOME); // Home command
+    ws0010_command(WS0010_CMD_DISPLAY | WS0010_DISPLAY_ON); // Turn the display on
+    // init finished. call init on a soft reset to reset the screen.
 }
 
 void ws0010_set_cursor(uint8_t col, uint8_t line) {
