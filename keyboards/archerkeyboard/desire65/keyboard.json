@@ -2,18 +2,13 @@
     "manufacturer": "archerkeyboard",
     "keyboard_name": "desire65",
     "maintainer": "akyp",
-    "backlight": {
-        "driver": "software",
-        "levels": 8,
-        "pin": "GP18"
+    "indicators": {
+        "caps_lock": "GP18"
     },
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
     "features": {
-        "backlight": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
