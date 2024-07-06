@@ -32,10 +32,8 @@ AUDIO_ENABLE = no          # Enable audio support, `yes` or `no`
 DEBOUNCE_TYPE = sym_eager_pk # Eager, per-key
 
 # Supported keycodes
-MOUSEKEY_ENABLE = yes      # Mouse movement using keys
-EXTRAKEY_ENABLE = yes      # Audio and system control
+MOUSEKEY_ENABLE = yes     # Mouse movement using keys
+EXTRAKEY_ENABLE = yes     # Audio and system control
 
 # N-key rollover instead of 6-key rollover
-NKRO_ENABLE = yes          # Enable N-Key Rollover
-
-
+NKRO_ENABLE = yes        # Enable N-Key Rollover

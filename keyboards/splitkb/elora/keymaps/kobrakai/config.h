@@ -22,15 +22,19 @@
 // Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed
 #define DEBOUNCE 2
 
+// Automatically turn on NKRO
+#define FORCE_NKRO
+
 // Sets USB Polling interval
 #define USB_POLLING_INTERVAL_MS 1
 
-// 5Encoder Resolution 
+// Encoder Resolution 
 // defined in splitkb/elora/rev1/config.h
 
 // RGB Animations
 // Sleep when computer turned off
 #define RGBLIGHT_SLEEP
+#define RGB_DISABLE_WHEN_USB_SUSPENDED
 // Split Keyboard support
 #define RGBLIGHT_SPLIT
 // Default RGB Mode
