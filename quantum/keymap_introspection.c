@@ -109,3 +109,26 @@ __attribute__((weak)) combo_t* combo_get(uint16_t combo_idx) {
 }
 
 #endif // defined(COMBO_ENABLE)
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Tap Dance
+
+#if defined(TAP_DANCE_ENABLE)
+
+uint16_t tap_dance_count_raw(void) {
+    return sizeof(tap_dance_actions) / sizeof(tap_dance_action_t);
+}
+
+uint16_t tap_dance_count(void) {
+    return tap_dance_count_raw();
+}
+
+tap_dance_action_t* tap_dance_get_raw(uint16_t tap_dance_idx) {
+    return &tap_dance_actions[tap_dance_idx];
+}
+
+tap_dance_action_t* tap_dance_get(uint16_t tap_dance_idx) {
+    return tap_dance_get_raw(tap_dance_idx);
+}
+
+#endif // defined(TAP_DANCE_ENABLE)

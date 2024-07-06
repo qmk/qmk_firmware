@@ -15,22 +15,6 @@
  */
 #include "quantum.h"
 
-void matrix_init_kb(void) {
-	// put your keyboard start-up code here
-	// runs once when the firmware starts up
-   	setPinOutput(D5);
-    setPinOutput(E6);
-	matrix_init_user();
-}
-
-bool led_update_kb(led_t led_state) {
-    if(led_update_user(led_state)) {
-        writePin(D5, !led_state.caps_lock);
-        writePin(E6, !led_state.scroll_lock);
-    }
-    return true;
-}
-
 void eeconfig_init_kb(void) {  // EEPROM is getting reset!
   rgblight_enable(); // Enable RGB by default
   rgblight_sethsv(0, 255, 128);  // Set default HSV - red hue, full saturation, medium brightness
