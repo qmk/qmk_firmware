@@ -1041,9 +1041,13 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
 /*
  * String descriptors
  */
+
+#define USB_DESCRIPTOR_SIZE_LITERAL_U16STRING(str) \
+    (sizeof(USB_Descriptor_Header_t) + sizeof(str) - sizeof(wchar_t)) // include header, don't count null terminator
+
 const USB_Descriptor_String_t PROGMEM LanguageString = {
     .Header = {
-        .Size                   = 4,
+        .Size                   = sizeof(USB_Descriptor_Header_t) + sizeof(uint16_t),
         .Type                   = DTYPE_String
     },
     .UnicodeString              = {LANGUAGE_ID_ENG}
@@ -1051,7 +1055,7 @@ const USB_Descriptor_String_t PROGMEM LanguageString = {
 
 const USB_Descriptor_String_t PROGMEM ManufacturerString = {
     .Header = {
-        .Size                   = sizeof(USB_Descriptor_Header_t) + (sizeof(USBSTR(MANUFACTURER)) - 2), // includes header, don't count null terminator
+        .Size                   = USB_DESCRIPTOR_SIZE_LITERAL_U16STRING(USBSTR(MANUFACTURER)),
         .Type                   = DTYPE_String
     },
     .UnicodeString              = USBSTR(MANUFACTURER)
@@ -1059,7 +1063,7 @@ const USB_Descriptor_String_t PROGMEM ManufacturerString = {
 
 const USB_Descriptor_String_t PROGMEM ProductString = {
     .Header = {
-        .Size                   = sizeof(USB_Descriptor_Header_t) + (sizeof(USBSTR(PRODUCT)) - 2), // includes header, don't count null terminator
+        .Size                   = USB_DESCRIPTOR_SIZE_LITERAL_U16STRING(USBSTR(PRODUCT)),
         .Type                   = DTYPE_String
     },
     .UnicodeString              = USBSTR(PRODUCT)
@@ -1078,7 +1082,7 @@ const USB_Descriptor_String_t PROGMEM ProductString = {
 #    endif
 
 #    define SERIAL_NUMBER_DESCRIPTOR_SIZE                                            \
-        (sizeof(USB_Descriptor_String_t)                     /* Descriptor header */ \
+        (sizeof(USB_Descriptor_Header_t)                     /* Descriptor header */ \
          + (((SERIAL_NUMBER_LENGTH) + 1) * sizeof(wchar_t))) /* Length of serial number, with potential extra character as we're converting 2 nibbles at a time */
 
 uint8_t SerialNumberString[SERIAL_NUMBER_DESCRIPTOR_SIZE] = {0};
@@ -1112,7 +1116,7 @@ void set_serial_number_descriptor(void) {
 // clang-format off
 const USB_Descriptor_String_t PROGMEM SerialNumberString = {
     .Header = {
-        .Size                   = sizeof(USB_Descriptor_Header_t) + (sizeof(USBSTR(SERIAL_NUMBER)) - 2), // includes header, don't count null terminator
+        .Size                   = USB_DESCRIPTOR_SIZE_LITERAL_U16STRING(USBSTR(SERIAL_NUMBER)),
         .Type                   = DTYPE_String
     },
     .UnicodeString              = USBSTR(SERIAL_NUMBER)
