@@ -15,11 +15,11 @@
  */
 #include "bhq.h"
 
-
 #include <stdbool.h>
 #include "quantum.h"
 #include "bluetooth.h"
 #include "raw_hid.h"
+#include "report_buffer.h"
 
 // **************************** uart io  define ****************************
 // uart2: Tx:A2 Rx:A3
@@ -104,34 +104,137 @@ void BHQ_SendData(uint8_t *dat, uint16_t length)
     sdWrite(&BT_DRIVER,dat, length);
 }
 
+
+void BHQ_SendCmd(uint8_t isack, uint8_t *dat, uint8_t datLength)
+{
+    uint8_t index = 0;
+    uint16_t crc = 0;
+    uint8_t i = 0;
+    uint8_t pkt[128] = {0};
+    memset(pkt, 0, 128);
+
+    pkt[index++] = BHQ_FRAME_HEADER_1;          
+    pkt[index++] = BHQ_FRAME_HEADER_2;          
+    pkt[index++] = isack;            
+    pkt[index++] = datLength;                  
+    for(i = 0; i < datLength; i++) 
+    {
+        pkt[index++] = dat[i];    
+    }
+    crc = bhkSumCrc(pkt, index);
+    pkt[index++] = BHQ_L_UINT16(crc);           // crc 
+    pkt[index++] = BHQ_H_UINT16(crc);           // crc 
+    pkt[index++] = BHQ_FRAME_END_1;
+    BHQ_SendData(pkt, index);
+}
+
+
+
 // common Not data Ack
 void ackCommonNotData(uint8_t cmdid, uint8_t sta)
 {
     uint8_t index = 0;
-    uint16_t crc = 0;
 
-    bhkBuff[index++] = BHQ_FRAME_HEADER_1;          // frame header 1
-    bhkBuff[index++] = BHQ_FRAME_HEADER_2;          // frame header 2
-    bhkBuff[index++] = BHQ_NOT_ACK;                 // ack enabled
+    bhkBuff[index++] = BHQ_CMD_TO_ACKCMD(cmdid);    
+    bhkBuff[index++] = sta;                        
 
-    bhkBuff[index++] = 0x02;                        // length
-    bhkBuff[index++] = BHQ_CMD_TO_ACKCMD(cmdid);    // ack cmdid
-    bhkBuff[index++] = sta;                         // is success
-
-    crc = bhkSumCrc(bhkBuff, index);
-    bhkBuff[index++] = BHQ_L_UINT16(crc);           // crc low
-    bhkBuff[index++] = BHQ_H_UINT16(crc);           // crc high
-    bhkBuff[index++] = BHQ_FRAME_END_1;
-    BHQ_SendData(bhkBuff, index);
+    BHQ_SendCmd(BHQ_NOT_ACK, bhkBuff,index);
 }
+
+void bhq_SetPairingMode(uint8_t host_index, uint8_t timeout_10s)
+{
+    uint8_t index = 0;
+
+    bhkBuff[index++] = 0x14;
+    bhkBuff[index++] = host_index;                        
+    bhkBuff[index++] = timeout_10s;      
+
+    BHQ_SendCmd(BHQ_NOT_ACK, bhkBuff,index);
+}
+
+
+void bhq_send_keyboard(uint8_t* report) {
+    uint8_t index = 0;
+    memset(bhkBuff, 0, PACKET_MAX_LEN);
+
+    bhkBuff[index++] = 0x21;
+    memcpy(bhkBuff + index, report, 8);
+    index += 8;
+
+    BHQ_SendCmd(BHQ_NOT_ACK, bhkBuff,index);
+}
+
+void bhq_send_nkro(uint8_t* report) {
+    uint8_t index = 0;
+    memset(bhkBuff, 0, PACKET_MAX_LEN);
+
+    bhkBuff[index++] = 0x22;
+    memcpy(bhkBuff + index, report, NKRO_REPORT_BITS + 1); // NKRO report lenght is limited to 31 bytes
+    index += NKRO_REPORT_BITS + 1;
+    
+    BHQ_SendCmd(BHQ_NOT_ACK, bhkBuff,index);
+}
+
+void bhq_send_consumer(uint16_t report) {
+    uint8_t index = 0;
+    memset(bhkBuff, 0, PACKET_MAX_LEN);
+
+    bhkBuff[index++] = 0x23;
+    bhkBuff[index++] = report & 0xFF;
+    bhkBuff[index++] = ((report) >> 8) & 0xFF;
+
+    BHQ_SendCmd(BHQ_NOT_ACK, bhkBuff,index);
+}
+
+void bhq_send_system(uint16_t report) {
+
+    uint8_t index = 0;
+    memset(bhkBuff, 0, PACKET_MAX_LEN);
+
+    bhkBuff[index++] = 0x24;
+    bhkBuff[index++] = report & 0xFF;
+    bhkBuff[index++] = ((report) >> 8) & 0xFF;
+
+    BHQ_SendCmd(BHQ_NOT_ACK, bhkBuff,index);
+}
+
+void bhq_send_mouse(uint8_t* report) {
+    uint8_t index = 0;
+    memset(bhkBuff, 0, PACKET_MAX_LEN);
+
+    bhkBuff[index++] = 0x25;            // Cmd type
+    bhkBuff[index++] = report[1];                        // Button
+    bhkBuff[index++] = report[2];                        // X
+    bhkBuff[index++] = (report[2] & 0x80) ? 0xff : 0x00; // BHQ use 16bit report, set high byte
+    bhkBuff[index++] = report[3];                        // Y
+    bhkBuff[index++] = (report[3] & 0x80) ? 0xff : 0x00; // BHQ use 16bit report, set high byte
+    bhkBuff[index++] = report[4];                        // V wheel
+    bhkBuff[index++] = report[5];                        // H wheel
+
+    BHQ_SendCmd(BHQ_NOT_ACK, bhkBuff,index);
+}
+
+
+
+
+// BHQ_Protocol_Process
 void BHQ_Protocol_Process(uint8_t *dat, uint16_t length)
 {
     uint8_t cmdid = 0;
     cmdid = dat[4];
     switch(cmdid)
     {
-        case 0x26:
+        case 0x26:  // ble model return hid led lock sta
+            dat[5] = dat[5];    // led lock sta
             ackCommonNotData(cmdid,0);
+            break;
+
+        case 0xA1:
+        case 0xA2:
+        case 0xA3:
+        case 0xA4:
+        case 0xA5:
+            report_buffer_set_inverval(DEFAULT_REPORT_INVERVAL_MS);
             break;
     }
 }
@@ -240,7 +343,6 @@ void bhq_task(void)
             buf[index++] = bytedata;
             if(index == dataLength && buf[dataLength - 1] == 0x5E)
             {
-                // this full of data package
                 if(bhkVerify(buf, index) == 0x00)
                 {
                     BHQ_Protocol_Process(buf, index) ;

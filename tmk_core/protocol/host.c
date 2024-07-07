@@ -96,6 +96,15 @@ void host_keyboard_send(report_keyboard_t *report) {
 }
 
 void host_nkro_send(report_nkro_t *report) {
+
+#ifdef BLUETOOTH_ENABLE
+    if (where_to_send() == OUTPUT_BLUETOOTH) {
+        bluetooth_send_nkro(report);
+        return;
+    }
+#endif
+
+
     if (!driver) return;
     report->report_id = REPORT_ID_NKRO;
     (*driver->send_nkro)(report);
@@ -130,6 +139,14 @@ void host_mouse_send(report_mouse_t *report) {
 }
 
 void host_system_send(uint16_t usage) {
+#ifdef BLUETOOTH_ENABLE
+    if (where_to_send() == OUTPUT_BLUETOOTH) {
+        bluetooth_send_system(usage);
+        return;
+    }
+#endif
+
+
     if (usage == last_system_usage) return;
     last_system_usage = usage;
 

@@ -16,17 +16,20 @@
 
 #include "bluetooth.h"
 #include "bhq.h"
+#include "report_buffer.h"
+
+
+
 
 void bluetooth_init(void) {
     bhq_init(false);
+    report_buffer_init();
 }
 
 void bluetooth_task(void) {
     bhq_task();
+    report_buffer_task();
 }
-// void housekeeping_task_kb(void) {
-//     bhq_task();
-// }
 
 
 /**
@@ -37,6 +40,31 @@ void bluetooth_task(void) {
 void bluetooth_send_keyboard(report_keyboard_t *report)
 {
 
+    bool firstBuffer = false;
+    if (report_buffer_is_empty() && report_buffer_next_inverval()) {
+        firstBuffer = true;
+    }
+
+    report_buffer_t report_buffer;
+    report_buffer.type = REPORT_TYPE_KB;
+    memcpy(&report_buffer.report_data, report, sizeof(report_keyboard_t));
+    report_buffer_enqueue(&report_buffer);
+
+    if (firstBuffer) {
+        report_buffer_task();
+    }
+
+
+return;
+    if (report_buffer_is_empty() && report_buffer_next_inverval()) {
+        bhq_send_keyboard((uint8_t*)report);
+        report_buffer_update_timer();
+    } else {
+        report_buffer_t report_buffer;
+        report_buffer.type = REPORT_TYPE_KB;
+        memcpy(&report_buffer.report_data, report, sizeof(report_keyboard_t));
+        report_buffer_enqueue(&report_buffer);
+    }
     
 }
 
@@ -47,9 +75,9 @@ void bluetooth_send_keyboard(report_keyboard_t *report)
  */
 void bluetooth_send_mouse(report_mouse_t *report)
 {
-
-    
+    bhq_send_mouse((uint8_t *)report);
 }
+
 
 /**
  * \brief Send a consumer usage.
@@ -58,6 +86,81 @@ void bluetooth_send_mouse(report_mouse_t *report)
  */
 void bluetooth_send_consumer(uint16_t usage)
 {
+    bool firstBuffer = false;
+    if (report_buffer_is_empty() && report_buffer_next_inverval()) {
+        firstBuffer = true;
+    }
+
+    report_buffer_t report_buffer;
+    report_buffer.type     = REPORT_TYPE_CONSUMER;
+    report_buffer.consumer = usage;
+    report_buffer_enqueue(&report_buffer);
+
+    if (firstBuffer) {
+        report_buffer_task();
+    }
+}
+
+/**
+ * \brief Send a system usage.
+ *
+ * \param usage The system usage to send.
+ */
+void bluetooth_send_system(uint16_t usage)
+{
+    bool firstBuffer = false;
+    if (report_buffer_is_empty() && report_buffer_next_inverval()) {
+        firstBuffer = true;
+    }
+
+    report_buffer_t report_buffer;
+    report_buffer.type     = REPORT_TYPE_SYSTEM;
+    report_buffer.consumer = usage;
+    report_buffer_enqueue(&report_buffer);
+
+    if (firstBuffer) {
+        report_buffer_task();
+    }
+}
+
+/**
+ * \brief Send a nkro report.
+ *
+ * \param report The nkro report to send.
+ */
+void bluetooth_send_nkro(report_nkro_t *report)
+{
+    bool firstBuffer = false;
+    if (report_buffer_is_empty() && report_buffer_next_inverval()) {
+        firstBuffer = true;
+    }
+
+    report_buffer_t report_buffer;
+    report_buffer.type = REPORT_TYPE_NKRO;
+
+    report_buffer.report_data[0] = report->mods;
+    for (size_t i = 0; i < NKRO_REPORT_BITS; i++)
+    {
+        report_buffer.report_data[1 + i] = report->bits[i];
+    }
+    
+    report_buffer_enqueue(&report_buffer);
+
+    if (firstBuffer) {
+        report_buffer_task();
+    }
+}
 
 
+bool process_record_user(uint16_t keycode, keyrecord_t *record) 
+{
+    switch (keycode) {
+        case OU_BT:
+            if(record->event.pressed)
+            {
+                bhq_SetPairingMode(0,10);
+            }
+            break;
+    }
+    return true;
 }

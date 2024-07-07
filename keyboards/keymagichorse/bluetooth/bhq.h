@@ -53,6 +53,8 @@
 
 void bhq_init(bool wakeup_from_low_power_mode);
 
+void bhq_SetPairingMode(uint8_t host_index, uint8_t timeout_10s);
+
 void bhq_send_keyboard(uint8_t* report);
 void bhq_send_nkro(uint8_t* report);
 void bhq_send_consumer(uint16_t report);

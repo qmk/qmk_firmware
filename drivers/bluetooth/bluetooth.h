@@ -20,6 +20,7 @@
 #include <stdint.h>
 #include "report.h"
 
+
 /**
  * \brief Initialize the Bluetooth system.
  */
@@ -50,3 +51,17 @@ void bluetooth_send_mouse(report_mouse_t *report);
  * \param usage The consumer usage to send.
  */
 void bluetooth_send_consumer(uint16_t usage);
+
+/**
+ * \brief Send a system usage.
+ *
+ * \param usage The system usage to send.
+ */
+void bluetooth_send_system(uint16_t usage);
+
+/**
+ * \brief Send a nkro report.
+ *
+ * \param report The nkro report to send.
+ */
+void bluetooth_send_nkro(report_nkro_t *report);

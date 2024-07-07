@@ -60,3 +60,13 @@ void bluetooth_send_consumer(uint16_t usage) {
     rn42_send_consumer(usage);
 #endif
 }
+
+
+void bluetooth_send_system(uint16_t usage)
+{
+    return;
+}
+
+void bluetooth_send_nkro(report_nkro_t *report) {
+    return;
+}
