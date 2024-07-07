@@ -15,8 +15,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <stdint.h>
-#include <stdbool.h>
 #if defined(__AVR__)
 #include <avr/io.h>
 #include <avr/wdt.h>
@@ -31,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "timer.h"
 #include "i2c_slave.h"
 #include "lufa.h"
-#include "quantum.h"
 
 #define SLAVE_I2C_ADDRESS 0x32
 
@@ -90,16 +87,6 @@ static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 #endif
 
 __attribute__ ((weak))
-void matrix_init_quantum(void) {
-    matrix_init_kb();
-}
-
-__attribute__ ((weak))
-void matrix_scan_quantum(void) {
-    matrix_scan_kb();
-}
-
-__attribute__ ((weak))
 void matrix_init_kb(void) {
     matrix_init_user();
 }
@@ -144,7 +131,7 @@ void matrix_init(void) {
         matrix_debouncing[i] = 0;
     }
 
-    matrix_init_quantum();
+    matrix_init_kb();
 }
 
 uint8_t matrix_scan(void)
@@ -199,7 +186,7 @@ uint8_t matrix_scan(void)
         i2c_slave_reg[i+2] = matrix[i]; //send matrix over i2c
     }
 
-    matrix_scan_quantum();
+    matrix_scan_kb();
     return 1;
 }
 

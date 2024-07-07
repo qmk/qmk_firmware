@@ -14,15 +14,12 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <stdint.h>
-#include <stdbool.h>
 #include "wait.h"
 #include "print.h"
 #include "debug.h"
 #include "util.h"
 #include "matrix.h"
 #include "debounce.h"
-#include "quantum.h"
 #include "pca9555.h"
 
 /*
@@ -91,10 +88,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 static matrix_row_t raw_matrix[MATRIX_ROWS];  // raw values
 static matrix_row_t matrix[MATRIX_ROWS];      // debounced values
 
-__attribute__((weak)) void matrix_init_quantum(void) { matrix_init_kb(); }
-
-__attribute__((weak)) void matrix_scan_quantum(void) { matrix_scan_kb(); }
-
 __attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
 
 __attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
@@ -149,8 +142,8 @@ static void select_row(uint8_t row) {
 static uint16_t read_cols(void) {
   uint8_t state_1 = 0;
   uint8_t state_2 = 0;
-  pca9555_readPins(IC2, PCA9555_PORT0, &state_1);
-  pca9555_readPins(IC2, PCA9555_PORT1, &state_2);
+  pca9555_read_pins(IC2, PCA9555_PORT0, &state_1);
+  pca9555_read_pins(IC2, PCA9555_PORT1, &state_2);
 
   uint16_t state = (((uint16_t)state_1 & PORT0_COLS_MASK) << 3) | (((uint16_t)state_2 & PORT1_COLS_MASK));
 
@@ -191,7 +184,7 @@ void matrix_init(void) {
 
   debounce_init(MATRIX_ROWS);
 
-  matrix_init_quantum();
+  matrix_init_kb();
 }
 
 uint8_t matrix_scan(void) {
@@ -203,7 +196,7 @@ uint8_t matrix_scan(void) {
 
   debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
 
-  matrix_scan_quantum();
+  matrix_scan_kb();
 
   return (uint8_t)changed;
 }

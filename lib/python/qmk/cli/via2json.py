@@ -69,7 +69,7 @@ def _via_to_keymap(via_backup, keyboard_data, keymap_layout):
     layout_data = keyboard_data['layouts'].get(keymap_layout)
     if not layout_data:
         cli.log.error(f'LAYOUT macro {keymap_layout} is not a valid one for keyboard {cli.args.keyboard}!')
-        exit(1)
+        return None
 
     layout_data = layout_data['layout']
     sorting_hat = list()
@@ -118,7 +118,7 @@ def via2json(cli):
     keymap_layout = cli.args.layout if cli.args.layout else _find_via_layout_macro(cli.args.keyboard)
     if not keymap_layout:
         cli.log.error(f"Couldn't find LAYOUT macro for keyboard {cli.args.keyboard}. Please specify it with the '-l' argument.")
-        exit(1)
+        return False
 
     # Load the VIA backup json
     with cli.args.filename.open('r') as fd:
@@ -126,9 +126,15 @@ def via2json(cli):
 
     # Generate keyboard metadata
     keyboard_data = info_json(cli.args.keyboard)
+    if not keyboard_data:
+        cli.log.error(f'LAYOUT macro {keymap_layout} is not a valid one for keyboard {cli.args.keyboard}!')
+        return False
 
     # Get keycode array
     keymap_data = _via_to_keymap(via_backup, keyboard_data, keymap_layout)
+    if not keymap_data:
+        cli.log.error(f'Could not extract valid keycode data from VIA backup matching keyboard {cli.args.keyboard}!')
+        return False
 
     # Convert macros
     macro_data = list()
@@ -141,5 +147,5 @@ def via2json(cli):
     # Generate the keymap.json
     keymap_json = generate_json(cli.args.keymap, cli.args.keyboard, keymap_layout, keymap_data, macro_data)
 
-    keymap_lines = [json.dumps(keymap_json, cls=KeymapJSONEncoder)]
+    keymap_lines = [json.dumps(keymap_json, cls=KeymapJSONEncoder, sort_keys=True)]
     dump_lines(cli.args.output, keymap_lines, cli.args.quiet)

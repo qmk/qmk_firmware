@@ -312,37 +312,36 @@ static inline uint8_t instant(void) {
     m0110_send(M0110_INSTANT);
     uint8_t data = m0110_recv();
     if (data != M0110_NULL) {
-        debug_hex(data);
-        debug(" ");
+        dprintf("%02X ", data);
     }
     return data;
 }
 
-static inline void clock_lo() {
+static inline void clock_lo(void) {
     M0110_CLOCK_PORT &= ~(1 << M0110_CLOCK_BIT);
     M0110_CLOCK_DDR |= (1 << M0110_CLOCK_BIT);
 }
-static inline void clock_hi() {
+static inline void clock_hi(void) {
     /* input with pull up */
     M0110_CLOCK_DDR &= ~(1 << M0110_CLOCK_BIT);
     M0110_CLOCK_PORT |= (1 << M0110_CLOCK_BIT);
 }
-static inline bool clock_in() {
+static inline bool clock_in(void) {
     M0110_CLOCK_DDR &= ~(1 << M0110_CLOCK_BIT);
     M0110_CLOCK_PORT |= (1 << M0110_CLOCK_BIT);
     _delay_us(1);
     return M0110_CLOCK_PIN & (1 << M0110_CLOCK_BIT);
 }
-static inline void data_lo() {
+static inline void data_lo(void) {
     M0110_DATA_PORT &= ~(1 << M0110_DATA_BIT);
     M0110_DATA_DDR |= (1 << M0110_DATA_BIT);
 }
-static inline void data_hi() {
+static inline void data_hi(void) {
     /* input with pull up */
     M0110_DATA_DDR &= ~(1 << M0110_DATA_BIT);
     M0110_DATA_PORT |= (1 << M0110_DATA_BIT);
 }
-static inline bool data_in() {
+static inline bool data_in(void) {
     M0110_DATA_DDR &= ~(1 << M0110_DATA_BIT);
     M0110_DATA_PORT |= (1 << M0110_DATA_BIT);
     _delay_us(1);

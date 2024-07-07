@@ -10,8 +10,8 @@ enum layer_number {
   _ADJUST,
 };
 
-#define LOWER FN_MO13
-#define RAISE FN_MO23
+#define LOWER TL_LOWR
+#define RAISE TL_UPPR
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT_split_3x6_4(
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-   QK_BOOT,   _______, _______, _______, _______, _______,                   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,
+   QK_BOOT, _______, _______, _______, _______, _______,                   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
    RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______,                   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+

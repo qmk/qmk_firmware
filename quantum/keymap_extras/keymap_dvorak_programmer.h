@@ -1,39 +1,33 @@
-/* Copyright 2016 Artyom Mironov
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2024 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+/*******************************************************************************
+  88888888888 888      d8b                .d888 d8b 888               d8b
+      888     888      Y8P               d88P"  Y8P 888               Y8P
+      888     888                        888        888
+      888     88888b.  888 .d8888b       888888 888 888  .d88b.       888 .d8888b
+      888     888 "88b 888 88K           888    888 888 d8P  Y8b      888 88K
+      888     888  888 888 "Y8888b.      888    888 888 88888888      888 "Y8888b.
+      888     888  888 888      X88      888    888 888 Y8b.          888      X88
+      888     888  888 888  88888P'      888    888 888  "Y8888       888  88888P'
+                                                        888                 888
+                                                        888                 888
+                                                        888                 888
+     .d88b.   .d88b.  88888b.   .d88b.  888d888 8888b.  888888 .d88b.   .d88888
+    d88P"88b d8P  Y8b 888 "88b d8P  Y8b 888P"      "88b 888   d8P  Y8b d88" 888
+    888  888 88888888 888  888 88888888 888    .d888888 888   88888888 888  888
+    Y88b 888 Y8b.     888  888 Y8b.     888    888  888 Y88b. Y8b.     Y88b 888
+     "Y88888  "Y8888  888  888  "Y8888  888    "Y888888  "Y888 "Y8888   "Y88888
+         888
+    Y8b d88P
+     "Y88P"
+*******************************************************************************/
 
 #pragma once
-
-#include "keymap.h"
-
+#include "keycodes.h"
 // clang-format off
 
-/*
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ $ │ & │ [ │ { │ } │ ( │ = │ * │ ) │ + │ ] │ ! │ # │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │ ; │ , │ . │ P │ Y │ F │ G │ C │ R │ L │ / │ @ │  \  │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
- * │      │ A │ O │ E │ U │ I │ D │ H │ T │ N │ S │ - │        │
- * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────────┤
- * │        │ ' │ Q │ J │ K │ X │ B │ M │ W │ V │ Z │          │
- * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
+// Aliases
 #define DP_DLR  KC_GRV  // $
 #define DP_AMPR KC_1    // &
 #define DP_LBRC KC_2    // [
@@ -47,7 +41,6 @@
 #define DP_RBRC KC_0    // ]
 #define DP_EXLM KC_MINS // !
 #define DP_HASH KC_EQL  // #
-// Row 2
 #define DP_SCLN KC_Q    // ;
 #define DP_COMM KC_W    // ,
 #define DP_DOT  KC_E    // .
@@ -61,7 +54,6 @@
 #define DP_SLSH KC_LBRC // /
 #define DP_AT   KC_RBRC // @
 #define DP_BSLS KC_BSLS // (backslash)
-// Row 3
 #define DP_A    KC_A    // A
 #define DP_O    KC_S    // O
 #define DP_E    KC_D    // E
@@ -73,7 +65,6 @@
 #define DP_N    KC_L    // N
 #define DP_S    KC_SCLN // S
 #define DP_MINS KC_QUOT // -
-// Row 4
 #define DP_QUOT KC_Z    // '
 #define DP_Q    KC_X    // Q
 #define DP_J    KC_C    // J
@@ -84,21 +75,6 @@
 #define DP_W    KC_COMM // W
 #define DP_V    KC_DOT  // V
 #define DP_Z    KC_SLSH // Z
-
-/* Shifted symbols
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ ~ │ % │ 7 │ 5 │ 3 │ 1 │ 9 │ 0 │ 2 │ 4 │ 6 │ 8 │ ` │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │ : │ < │ > │   │   │   │   │   │   │   │ ? │ ^ │  |  │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
- * │      │   │   │   │   │   │   │   │   │   │   │ _ │        │
- * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────────┤
- * │        │ " │   │   │   │   │   │   │   │   │   │          │
- * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
 #define DP_TILD S(DP_DLR)  // ~
 #define DP_PERC S(DP_AMPR) // %
 #define DP_7    S(DP_LBRC) // 7
@@ -112,14 +88,12 @@
 #define DP_6    S(DP_RBRC) // 6
 #define DP_8    S(DP_EXLM) // 8
 #define DP_GRV  S(DP_HASH) // `
-// Row 2
 #define DP_COLN S(DP_SCLN) // :
 #define DP_LABK S(DP_COMM) // <
 #define DP_RABK S(DP_DOT)  // >
 #define DP_QUES S(DP_SLSH) // ?
 #define DP_CIRC S(DP_AT)   // ^
 #define DP_PIPE S(DP_BSLS) // |
-// Row 3
 #define DP_UNDS S(DP_MINS) // _
-// Row 4
 #define DP_DQUO S(DP_QUOT) // "
+

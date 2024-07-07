@@ -14,14 +14,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "p1800fl.h"
+#include "quantum.h"
 
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if(res) {
-        writePin(D3, led_state.num_lock);
-        writePin(D5, led_state.caps_lock);
-        writePin(C6, led_state.scroll_lock);
+        gpio_write_pin(D3, led_state.num_lock);
+        gpio_write_pin(D5, led_state.caps_lock);
+        gpio_write_pin(C6, led_state.scroll_lock);
     }
     return res;
 }

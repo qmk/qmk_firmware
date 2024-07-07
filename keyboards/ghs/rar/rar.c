@@ -14,12 +14,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "rar.h"
+#include "quantum.h"
 
 void keyboard_pre_init_kb(void) {
     // Set our LED pins as output.
-    setPinOutput(B1);
-    setPinOutput(B3);
+    gpio_set_pin_output(B1);
+    gpio_set_pin_output(B3);
 
     keyboard_pre_init_user();
 }
@@ -28,8 +28,8 @@ bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
 
     if (res) {
-        writePin(B1, led_state.caps_lock);
-        writePin(B3, led_state.scroll_lock);
+        gpio_write_pin(B1, led_state.caps_lock);
+        gpio_write_pin(B3, led_state.scroll_lock);
     }
 
     return res;

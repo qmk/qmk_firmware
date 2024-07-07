@@ -45,8 +45,9 @@
 #    include "joystick.h"
 #endif
 
-// TODO: wb32 support defines ISO macro which breaks PRODUCT stringification
-#undef ISO
+#ifdef OS_DETECTION_ENABLE
+#    include "os_detection.h"
+#endif
 
 // clang-format off
 
@@ -92,6 +93,8 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM KeyboardReport[] = {
         HID_RI_USAGE_PAGE(8, 0x08),    // LED
         HID_RI_USAGE_MINIMUM(8, 0x01), // Num Lock
         HID_RI_USAGE_MAXIMUM(8, 0x05), // Kana
+        HID_RI_LOGICAL_MINIMUM(8, 0x00),
+        HID_RI_LOGICAL_MAXIMUM(8, 0x01),
         HID_RI_REPORT_COUNT(8, 0x05),
         HID_RI_REPORT_SIZE(8, 0x01),
         HID_RI_OUTPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE),
@@ -356,10 +359,10 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
         // Keycodes
         HID_RI_USAGE_PAGE(8, 0x07),    // Keyboard/Keypad
         HID_RI_USAGE_MINIMUM(8, 0x00),
-        HID_RI_USAGE_MAXIMUM(8, KEYBOARD_REPORT_BITS * 8 - 1),
+        HID_RI_USAGE_MAXIMUM(8, NKRO_REPORT_BITS * 8 - 1),
         HID_RI_LOGICAL_MINIMUM(8, 0x00),
         HID_RI_LOGICAL_MAXIMUM(8, 0x01),
-        HID_RI_REPORT_COUNT(8, KEYBOARD_REPORT_BITS * 8),
+        HID_RI_REPORT_COUNT(8, NKRO_REPORT_BITS * 8),
         HID_RI_REPORT_SIZE(8, 0x01),
         HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
 
@@ -417,14 +420,6 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM ConsoleReport[] = {
         HID_RI_REPORT_COUNT(8, CONSOLE_EPSIZE),
         HID_RI_REPORT_SIZE(8, 0x08),
         HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
-
-        // Data from host
-        HID_RI_USAGE(8, 0x76),     // Vendor Defined
-        HID_RI_LOGICAL_MINIMUM(8, 0x00),
-        HID_RI_LOGICAL_MAXIMUM(16, 0x00FF),
-        HID_RI_REPORT_COUNT(8, CONSOLE_EPSIZE),
-        HID_RI_REPORT_SIZE(8, 0x08),
-        HID_RI_OUTPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE),
     HID_RI_END_COLLECTION(0),
 };
 #endif
@@ -674,7 +669,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
         },
         .InterfaceNumber        = CONSOLE_INTERFACE,
         .AlternateSetting       = 0x00,
-        .TotalEndpoints         = 2,
+        .TotalEndpoints         = 1,
         .Class                  = HID_CSCP_HIDClass,
         .SubClass               = HID_CSCP_NonBootSubclass,
         .Protocol               = HID_CSCP_NonBootProtocol,
@@ -697,16 +692,6 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
             .Type               = DTYPE_Endpoint
         },
         .EndpointAddress        = (ENDPOINT_DIR_IN | CONSOLE_IN_EPNUM),
-        .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
-        .EndpointSize           = CONSOLE_EPSIZE,
-        .PollingIntervalMS      = 0x01
-    },
-    .Console_OUTEndpoint = {
-        .Header = {
-            .Size               = sizeof(USB_Descriptor_Endpoint_t),
-            .Type               = DTYPE_Endpoint
-        },
-        .EndpointAddress        = (ENDPOINT_DIR_OUT | CONSOLE_OUT_EPNUM),
         .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
         .EndpointSize           = CONSOLE_EPSIZE,
         .PollingIntervalMS      = 0x01
@@ -1005,7 +990,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
         .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
         .EndpointSize           = JOYSTICK_EPSIZE,
         .PollingIntervalMS      = USB_POLLING_INTERVAL_MS
-    }
+    },
 #endif
 
 #if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
@@ -1095,7 +1080,7 @@ const USB_Descriptor_String_t PROGMEM SerialNumberString = {
  * is called so that the descriptor details can be passed back and the appropriate descriptor sent back to the
  * USB host.
  */
-uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const void** const DescriptorAddress) {
+uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const uint16_t wLength, const void** const DescriptorAddress) {
     const uint8_t DescriptorType  = (wValue >> 8);
     const uint8_t DescriptorIndex = (wValue & 0xFF);
     const void*   Address         = NULL;
@@ -1137,6 +1122,9 @@ uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const 
                     break;
 #endif
             }
+#ifdef OS_DETECTION_ENABLE
+            process_wlength(wLength);
+#endif
 
             break;
         case HID_DTYPE_HID:

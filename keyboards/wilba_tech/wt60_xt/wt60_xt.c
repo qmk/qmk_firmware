@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "wt60_xt.h"
+#include "quantum.h"
 
 #ifdef AUDIO_ENABLE
 #include "audio.h"
@@ -51,14 +51,14 @@ void eeconfig_init_kb(void) {
 #endif // AUDIO_CLICKY
 
 void keyboard_pre_init_kb(void) {
-    setPinOutput(F1);
+    gpio_set_pin_output(F1);
 
     keyboard_pre_init_user();
 }
 
 bool led_update_kb(led_t led_state) {
     if (led_update_user(led_state)) {
-        writePin(F1, led_state.caps_lock);
+        gpio_write_pin(F1, led_state.caps_lock);
     }
 
 #ifdef AUDIO_ENABLE

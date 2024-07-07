@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
  
-#include "ak81_ve.h"
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {
@@ -46,7 +46,7 @@ led_config_t g_led_config = { {
 } };
 #endif
 
-#if !defined(VIA_ENABLE) && defined(ENCODER_ENABLE)
+#if defined(ENCODER_ENABLE) && !defined(ENCODER_MAP_ENABLE)
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) {
         return false;

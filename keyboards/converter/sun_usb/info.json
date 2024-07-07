@@ -7,5 +7,15 @@
       "vid": "0xFEED",
       "pid": "0x3333",
       "device_version": "1.0.0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "lufa-dfu",
+    "features": {
+        "bootmagic": false,
+        "mousekey": true,
+        "extrakey": true,
+        "console": true,
+        "command": true,
+        "nkro": true
     }
 }

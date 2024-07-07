@@ -68,12 +68,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if (res) {
-        writePin(C6, led_state.num_lock);
+        gpio_write_pin(C6, led_state.num_lock);
     }
-    return true;
-}
-
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) { return false; }
     return true;
 }

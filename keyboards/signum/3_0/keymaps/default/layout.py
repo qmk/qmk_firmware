@@ -388,7 +388,7 @@ qmk_dict = {
     "acc2": "KC_ACL2",
     # Modifiers missinng, add entry for each specific application
     # Mod-Tap Keys missing, add entry for each specific application
-    "_Sh_swp": "LSFT_T(SH_TG)",
+    "_Sh_swp": "LSFT_T(SH_TOGG)",
     # RGB Lighting missing
     # RGB Matrix Lighting missing
     # Thermal Printer missing
@@ -396,7 +396,7 @@ qmk_dict = {
     # One Shot Keys missing
     # Swap Hands
     "_sp_swp": "SHT(KC_SPC)",
-    # Unicode support (via X()) included implicitly
+    # Unicode support included implicitly
     # Switching Unicode Input Modes
     "UC_win": "UC_WINC", "UC_lnx": "UC_LINX", "UC_mac": "UC_MAC",
 

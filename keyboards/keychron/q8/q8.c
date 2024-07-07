@@ -14,15 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "q8.h"
-
-const matrix_row_t matrix_mask[] = {
-    0b111111111111111,
-    0b111111111111111,
-    0b111111111111111,
-    0b111111111111111,
-    0b111111111101111,
-};
+#include "quantum.h"
 
 #ifdef DIP_SWITCH_ENABLE
 

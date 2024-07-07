@@ -38,26 +38,26 @@ TEST_F(HoldOnOtherKeyPress, short_distinct_taps_of_mod_tap_key_and_regular_key) 
     EXPECT_NO_REPORT(driver);
     mod_tap_hold_key.press();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Release mod-tap-hold key. */
     EXPECT_REPORT(driver, (KC_P));
     EXPECT_EMPTY_REPORT(driver);
     mod_tap_hold_key.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Press regular key. */
     EXPECT_REPORT(driver, (KC_A));
     regular_key.press();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Release regular key. */
     EXPECT_EMPTY_REPORT(driver);
     regular_key.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 TEST_F(HoldOnOtherKeyPress, long_distinct_taps_of_mod_tap_key_and_regular_key) {
@@ -72,30 +72,30 @@ TEST_F(HoldOnOtherKeyPress, long_distinct_taps_of_mod_tap_key_and_regular_key) {
     EXPECT_NO_REPORT(driver);
     mod_tap_hold_key.press();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Idle for tapping term of mod tap hold key. */
     EXPECT_REPORT(driver, (KC_LSFT));
     idle_for(TAPPING_TERM + 1);
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Release mod-tap-hold key. */
     EXPECT_EMPTY_REPORT(driver);
     mod_tap_hold_key.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Press regular key. */
     EXPECT_REPORT(driver, (KC_A));
     regular_key.press();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Release regular key. */
     EXPECT_EMPTY_REPORT(driver);
     regular_key.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 TEST_F(HoldOnOtherKeyPress, short_distinct_taps_of_layer_tap_key_and_regular_key) {
@@ -111,26 +111,26 @@ TEST_F(HoldOnOtherKeyPress, short_distinct_taps_of_layer_tap_key_and_regular_key
     EXPECT_NO_REPORT(driver);
     layer_tap_hold_key.press();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Release layer-tap-hold key. */
     EXPECT_REPORT(driver, (KC_P));
     EXPECT_EMPTY_REPORT(driver);
     layer_tap_hold_key.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Press regular key. */
     EXPECT_REPORT(driver, (KC_A));
     regular_key.press();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Release regular key. */
     EXPECT_EMPTY_REPORT(driver);
     regular_key.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 TEST_F(HoldOnOtherKeyPress, long_distinct_taps_of_layer_tap_key_and_regular_key) {
@@ -146,30 +146,30 @@ TEST_F(HoldOnOtherKeyPress, long_distinct_taps_of_layer_tap_key_and_regular_key)
     EXPECT_NO_REPORT(driver);
     layer_tap_hold_key.press();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Idle for tapping term of layer tap hold key. */
     EXPECT_NO_REPORT(driver);
     idle_for(TAPPING_TERM + 1);
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Release layer-tap-hold key. */
     EXPECT_NO_REPORT(driver);
     layer_tap_hold_key.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Press regular key. */
     EXPECT_REPORT(driver, (KC_A));
     regular_key.press();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Release regular key. */
     EXPECT_EMPTY_REPORT(driver);
     regular_key.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 TEST_F(HoldOnOtherKeyPress, tap_regular_key_while_mod_tap_key_is_held) {
@@ -184,30 +184,30 @@ TEST_F(HoldOnOtherKeyPress, tap_regular_key_while_mod_tap_key_is_held) {
     EXPECT_NO_REPORT(driver);
     mod_tap_hold_key.press();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Press regular key. */
     EXPECT_REPORT(driver, (KC_LSFT));
     EXPECT_REPORT(driver, (KC_A, KC_LSFT));
     regular_key.press();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Release regular key. */
     EXPECT_REPORT(driver, (KC_LSFT));
     regular_key.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Release mod-tap-hold key. */
     EXPECT_EMPTY_REPORT(driver);
     mod_tap_hold_key.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Idle for tapping term of mod tap hold key. */
     idle_for(TAPPING_TERM - 3);
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 TEST_F(HoldOnOtherKeyPress, tap_a_mod_tap_key_while_another_mod_tap_key_is_held) {
@@ -222,26 +222,26 @@ TEST_F(HoldOnOtherKeyPress, tap_a_mod_tap_key_while_another_mod_tap_key_is_held)
     EXPECT_NO_REPORT(driver);
     first_mod_tap_hold_key.press();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Press second tap-hold key */
     EXPECT_REPORT(driver, (KC_LSFT));
     second_mod_tap_hold_key.press();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Release second tap-hold key */
     EXPECT_REPORT(driver, (KC_A, KC_LSFT));
     EXPECT_REPORT(driver, (KC_LSFT));
     second_mod_tap_hold_key.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Release first mod-tap-hold key */
     EXPECT_EMPTY_REPORT(driver);
     first_mod_tap_hold_key.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 TEST_F(HoldOnOtherKeyPress, tap_regular_key_while_layer_tap_key_is_held) {
@@ -257,25 +257,25 @@ TEST_F(HoldOnOtherKeyPress, tap_regular_key_while_layer_tap_key_is_held) {
     EXPECT_NO_REPORT(driver);
     layer_tap_hold_key.press();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Press regular key */
     EXPECT_REPORT(driver, (KC_B));
     regular_key.press();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Release regular key */
     EXPECT_EMPTY_REPORT(driver);
     regular_key.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Release layer-tap-hold key */
     EXPECT_NO_REPORT(driver);
     layer_tap_hold_key.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 TEST_F(HoldOnOtherKeyPress, nested_tap_of_layer_0_layer_tap_keys) {
@@ -293,25 +293,25 @@ TEST_F(HoldOnOtherKeyPress, nested_tap_of_layer_0_layer_tap_keys) {
     EXPECT_NO_REPORT(driver);
     first_layer_tap_key.press();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Press second layer-tap key */
     EXPECT_REPORT(driver, (KC_Q));
     second_layer_tap_key.press();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Release second layer-tap key */
     EXPECT_EMPTY_REPORT(driver);
     second_layer_tap_key.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Release first layer-tap key */
     EXPECT_NO_REPORT(driver);
     first_layer_tap_key.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 TEST_F(HoldOnOtherKeyPress, nested_tap_of_layer_tap_keys) {
@@ -331,26 +331,26 @@ TEST_F(HoldOnOtherKeyPress, nested_tap_of_layer_tap_keys) {
     EXPECT_NO_REPORT(driver);
     first_key_layer_0.press();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Press second layer-tap key */
     EXPECT_NO_REPORT(driver);
     second_key_layer_0.press();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Release second layer-tap key */
     EXPECT_REPORT(driver, (KC_Q));
     EXPECT_EMPTY_REPORT(driver);
     second_key_layer_0.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Release first layer-tap key */
     EXPECT_NO_REPORT(driver);
     first_key_layer_0.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 TEST_F(HoldOnOtherKeyPress, roll_mod_tap_key_with_regular_key) {
@@ -365,26 +365,26 @@ TEST_F(HoldOnOtherKeyPress, roll_mod_tap_key_with_regular_key) {
     EXPECT_NO_REPORT(driver);
     mod_tap_hold_key.press();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Press regular key. */
     EXPECT_REPORT(driver, (KC_LSFT));
     EXPECT_REPORT(driver, (KC_A, KC_LSFT));
     regular_key.press();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Release mod-tap-hold key. */
     EXPECT_REPORT(driver, (KC_A));
     mod_tap_hold_key.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Release regular key. */
     EXPECT_EMPTY_REPORT(driver);
     regular_key.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 TEST_F(HoldOnOtherKeyPress, roll_layer_tap_key_with_regular_key) {
@@ -401,23 +401,23 @@ TEST_F(HoldOnOtherKeyPress, roll_layer_tap_key_with_regular_key) {
     EXPECT_NO_REPORT(driver);
     layer_tap_hold_key.press();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Press regular key */
     EXPECT_REPORT(driver, (KC_B));
     regular_key.press();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Release layer-tap-hold key */
     EXPECT_NO_REPORT(driver);
     layer_tap_hold_key.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Release regular key */
     EXPECT_EMPTY_REPORT(driver);
     regular_key.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }

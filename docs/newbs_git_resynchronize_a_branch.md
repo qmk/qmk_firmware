@@ -2,7 +2,9 @@
 
 Suppose you have committed to your `master` branch, and now need to update your QMK repository. You could `git pull` QMK's `master` branch into your own, but GitHub will tell you that your branch is a number of commits ahead of `qmk:master`, which can create issues if you want to make a pull request to QMK.
 
-?> This document builds upon the concepts detailed in [Your Fork's Master: Update Often, Commit Never](newbs_git_using_your_master_branch.md). If you are not familiar with that document, please read it first, then return here.
+::: tip
+This document builds upon the concepts detailed in [Your Fork's Master: Update Often, Commit Never](newbs_git_using_your_master_branch). If you are not familiar with that document, please read it first, then return here.
+:::
 
 ## Backing Up the Changes on Your Own Master Branch (Optional)
 
@@ -51,21 +53,23 @@ git remote set-url origin https://github.com/<your_username>/qmk_firmware.git
 Now that you have both remotes configured, you need to update the references for the upstream repository, which is QMK's, by running:
 
 ```
-git fetch upstream
+git fetch --recurse-submodules upstream
 ```
 
 At this point, resynchronize your branch to QMK's by running:
 
 ```
-git reset --hard upstream/master
+git reset --recurse-submodules --hard upstream/master
 ```
 
 These steps will update the repository on your computer, but your GitHub fork will still be out of sync. To resynchronize your fork on GitHub, you need to push to your fork, instructing Git to override any remote changes that are not reflected in your local repository. To do this, run:
 
 ```
-git push --force-with-lease
+git push --recurse-submodules=on-demand --force-with-lease
 ```
 
-!> **DO NOT** run `git push --force-with-lease` on a fork to which other users post commits. This will erase their commits.
+::: warning
+**DO NOT** run `git push --recurse-submodules=on-demand --force-with-lease` on a fork to which other users post commits. This will erase their commits.
+:::
 
-Now your GitHub fork, your local files, and QMK's repository are all the same. From here you can make further needed changes ([use a branch!](newbs_git_using_your_master_branch.md#making-changes)) and post them as normal.
+Now your GitHub fork, your local files, and QMK's repository are all the same. From here you can make further needed changes ([use a branch!](newbs_git_using_your_master_branch#making-changes)) and post them as normal.

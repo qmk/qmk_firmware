@@ -1,0 +1,304 @@
+[
+    {
+        "text": "Tutorial",
+        "items": [
+            { "text": "Introduction", "link": "/newbs" },
+            { "text": "Setup", "link": "/newbs_getting_started" },
+            { "text": "Building Your First Firmware", "link": "/newbs_building_firmware" },
+            { "text": "Flashing Firmware", "link": "/newbs_flashing" },
+            { "text": "Getting Help/Support", "link": "/support" },
+            { "text": "External Userspace", "link": "/newbs_external_userspace" },
+            { "text": "Other Resources", "link": "/newbs_learn_more_resources" },
+            { "text": "Syllabus", "link": "/syllabus" }
+        ]
+    },
+    {
+        "text": "FAQs",
+        "items": [
+            { "text": "General FAQ", "link": "/faq_general" },
+            { "text": "Build/Compile QMK", "link": "/faq_build" },
+            { "text": "Troubleshooting QMK", "link": "/faq_misc" },
+            { "text": "Debugging QMK", "link": "/faq_debug" },
+            { "text": "Keymap FAQ", "link": "/faq_keymap" },
+            { "text": "Squeezing Space from AVR", "link": "/squeezing_avr" },
+            { "text": "Glossary", "link": "/reference_glossary" }
+        ]
+    },
+    {
+        "text": "Configurator",
+        "items": [
+            { "text": "Overview", "link": "/newbs_building_firmware_configurator" },
+            { "text": "Step by Step", "link": "/configurator_step_by_step" },
+            { "text": "Troubleshooting", "link": "/configurator_troubleshooting" },
+            { "text": "Architecture", "link": "/configurator_architecture" },
+            {
+                "text": "QMK API",
+                "items": [
+                    { "text": "Overview", "link": "/api_overview" },
+                    { "text": "API Documentation", "link": "/api_docs" },
+                    { "text": "Keyboard Support", "link": "/reference_configurator_support" },
+                    { "text": "Adding Default Keymaps", "link": "/configurator_default_keymaps" }
+                ]
+            }
+        ]
+    },
+    {
+        "text": "CLI",
+        "items": [
+            { "text": "Overview", "link": "/cli" },
+            { "text": "Configuration", "link": "/cli_configuration" },
+            { "text": "Commands", "link": "/cli_commands" },
+            { "text": "Tab Completion", "link": "/cli_tab_complete" }
+        ]
+    },
+    {
+        "text": "Using QMK",
+        "items": [
+            {
+                "text": "Guides",
+                "items": [
+                    { "text": "Customizing Functionality", "link": "/custom_quantum_functions" },
+                    { "text": "Driver Installation with Zadig", "link": "/driver_installation_zadig" },
+                    { "text": "Keymap Overview", "link": "/keymap" },
+                    {
+                        "text": "Development Environments",
+                        "items": [{ "text": "Docker Guide", "link": "/getting_started_docker" }]
+                    },
+                    { "text": "Flashing", "link": "/flashing" },
+                    {
+                        "text": "IDEs",
+                        "items": [
+                            { "text": "Using Eclipse with QMK", "link": "/other_eclipse" },
+                            { "text": "Using VSCode with QMK", "link": "/other_vscode" }
+                        ]
+                    },
+                    {
+                        "text": "Git Best Practices",
+                        "items": [
+                            { "text": "Introduction", "link": "/newbs_git_best_practices" },
+                            { "text": "Your Fork", "link": "/newbs_git_using_your_master_branch" },
+                            { "text": "Merge Conflicts", "link": "/newbs_git_resolving_merge_conflicts" },
+                            { "text": "Fixing Your Branch", "link": "/newbs_git_resynchronize_a_branch" }
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "Simple Keycodes",
+                "items": [
+                    { "text": "Full List", "link": "/keycodes" },
+                    { "text": "Basic Keycodes", "link": "/keycodes_basic" },
+                    { "text": "Language-Specific Keycodes", "link": "/reference_keymap_extras" },
+                    { "text": "Modifier Keys", "link": "/feature_advanced_keycodes" },
+                    { "text": "Quantum Keycodes", "link": "/quantum_keycodes" },
+                    { "text": "Magic Keycodes", "link": "/keycodes_magic" }
+                ]
+            },
+            {
+                "text": "Advanced Keycodes",
+                "items": [
+                    { "text": "Command", "link": "/features/command" },
+                    { "text": "Dynamic Macros", "link": "/features/dynamic_macros" },
+                    { "text": "Grave Escape", "link": "/features/grave_esc" },
+                    { "text": "Leader Key", "link": "/features/leader_key" },
+                    { "text": "Mod-Tap", "link": "/mod_tap" },
+                    { "text": "Macros", "link": "/feature_macros" },
+                    { "text": "Mouse Keys", "link": "/features/mouse_keys" },
+                    { "text": "Programmable Button", "link": "/features/programmable_button" },
+                    { "text": "Repeat Key", "link": "/features/repeat_key" },
+                    { "text": "Space Cadet Shift", "link": "/features/space_cadet" },
+                    { "text": "US ANSI Shifted Keys", "link": "/keycodes_us_ansi_shifted" }
+                ]
+            },
+            {
+                "text": "Software Features",
+                "items": [
+                    { "text": "Auto Shift", "link": "/features/auto_shift" },
+                    { "text": "Autocorrect", "link": "/features/autocorrect" },
+                    { "text": "Caps Word", "link": "/features/caps_word" },
+                    { "text": "Combos", "link": "/features/combo" },
+                    { "text": "Debounce API", "link": "/feature_debounce_type" },
+                    { "text": "Digitizer", "link": "/features/digitizer" },
+                    { "text": "EEPROM", "link": "/feature_eeprom" },
+                    { "text": "Key Lock", "link": "/features/key_lock" },
+                    { "text": "Key Overrides", "link": "/features/key_overrides" },
+                    { "text": "Layers", "link": "/feature_layers" },
+                    { "text": "One Shot Keys", "link": "/one_shot_keys" },
+                    { "text": "OS Detection", "link": "/features/os_detection" },
+                    { "text": "Raw HID", "link": "/features/rawhid" },
+                    { "text": "Secure", "link": "/features/secure" },
+                    { "text": "Send String", "link": "/features/send_string" },
+                    { "text": "Sequencer", "link": "/features/sequencer" },
+                    { "text": "Swap Hands", "link": "/features/swap_hands" },
+                    { "text": "Tap Dance", "link": "/features/tap_dance" },
+                    { "text": "Tap-Hold Configuration", "link": "/tap_hold" },
+                    { "text": "Tri Layer", "link": "/features/tri_layer" },
+                    { "text": "Unicode", "link": "/features/unicode" },
+                    { "text": "Userspace", "link": "/feature_userspace" },
+                    { "text": "WPM Calculation", "link": "/features/wpm" }
+                ]
+            },
+            {
+                "text": "Hardware Features",
+                "items": [
+                    {
+                        "text": "Displays",
+                        "items": [
+                            {
+                                "text": "Quantum Painter",
+                                "link": "quantum_painter",
+                                "items": [
+                                    { "text": "Quantum Painter LVGL Integration", "link": "/quantum_painter_lvgl" }
+                                ]
+                            },
+                            { "text": "HD44780 LCD Driver", "link": "/features/hd44780" },
+                            { "text": "ST7565 LCD Driver", "link": "/features/st7565" },
+                            { "text": "OLED Driver", "link": "/features/oled_driver" }
+                        ]
+                    },
+                    {
+                        "text": "Lighting",
+                        "items": [
+                            { "text": "Backlight", "link": "/features/backlight" },
+                            { "text": "LED Matrix", "link": "/features/led_matrix" },
+                            { "text": "RGB Lighting", "link": "/features/rgblight" },
+                            { "text": "RGB Matrix", "link": "/features/rgb_matrix" }
+                        ]
+                    },
+                    { "text": "Audio", "link": "/features/audio" },
+                    { "text": "Bluetooth", "link": "/features/bluetooth" },
+                    { "text": "Bootmagic Lite", "link": "/features/bootmagic" },
+                    { "text": "Converters", "link": "/feature_converters" },
+                    { "text": "Custom Matrix", "link": "/custom_matrix" },
+                    { "text": "DIP Switch", "link": "/features/dip_switch" },
+                    { "text": "Encoders", "link": "/features/encoders" },
+                    { "text": "Haptic Feedback", "link": "/features/haptic_feedback" },
+                    { "text": "Joystick", "link": "/features/joystick" },
+                    { "text": "LED Indicators", "link": "/features/led_indicators" },
+                    { "text": "MIDI", "link": "/features/midi" },
+                    { "text": "Pointing Device", "link": "/features/pointing_device" },
+                    { "text": "PS/2 Mouse", "link": "/features/ps2_mouse" },
+                    { "text": "Split Keyboard", "link": "/features/split_keyboard" },
+                    { "text": "Stenography", "link": "/features/stenography" }
+                ]
+            },
+            {
+                "text": "Keyboard Building",
+                "items": [
+                    { "text": "Easy Maker for One Offs", "link": "/easy_maker" },
+                    { "text": "Porting Keyboards", "link": "/porting_your_keyboard_to_qmk" },
+                    { "text": "Hand Wiring Guide", "link": "/hand_wire" },
+                    { "text": "ISP Flashing Guide", "link": "/isp_flashing_guide" }
+                ]
+            }
+        ]
+    },
+    {
+        "text": "Developing QMK",
+        "items": [
+            { "text": "PR Checklist", "link": "/pr_checklist" },
+            {
+                "text": "Breaking Changes",
+                "items": [
+                    { "text": "Overview", "link": "/breaking_changes" },
+                    { "text": "My Pull Request Was Flagged", "link": "/breaking_changes_instructions" },
+                    {
+                        "text": "Most Recent ChangeLog",
+                        "link": "/ChangeLog/20240526"
+                    },
+                    { "text": "Past Breaking Changes", "link": "/breaking_changes_history" },
+                    { "text": "Deprecation Policy", "link": "/support_deprecation_policy" }
+                ]
+            },
+
+            {
+                "text": "C Development",
+                "items": [
+                    { "text": "ARM Debugging Guide", "link": "/arm_debugging" },
+                    { "text": "Coding Conventions", "link": "/coding_conventions_c" },
+                    { "text": "Compatible Microcontrollers", "link": "/compatible_microcontrollers" },
+                    {
+                        "text": "Drivers",
+                        "link": "hardware_drivers",
+                        "items": [
+                            { "text": "ADC Driver", "link": "/drivers/adc" },
+                            { "text": "APA102 Driver", "link": "/drivers/apa102" },
+                            { "text": "Audio Driver", "link": "/drivers/audio" },
+                            { "text": "EEPROM Driver", "link": "/drivers/eeprom" },
+                            { "text": "Flash Driver", "link": "/drivers/flash" },
+                            { "text": "I2C Driver", "link": "/drivers/i2c" },
+                            { "text": "'serial' Driver", "link": "/drivers/serial" },
+                            { "text": "SPI Driver", "link": "/drivers/spi" },
+                            { "text": "UART Driver", "link": "/drivers/uart" },
+                            { "text": "WS2812 Driver", "link": "/drivers/ws2812" }
+                        ]
+                    },
+                    { "text": "GPIO Controls", "link": "/drivers/gpio" },
+                    { "text": "Keyboard Guidelines", "link": "/hardware_keyboard_guidelines" }
+                ]
+            },
+
+            {
+                "text": "Python Development",
+                "items": [
+                    { "text": "Coding Conventions", "link": "/coding_conventions_python" },
+                    { "text": "QMK CLI Development", "link": "/cli_development" }
+                ]
+            },
+
+            {
+                "text": "Configurator Development",
+                "items": [
+                    {
+                        "text": "QMK API",
+                        "items": [
+                            { "text": "Development Environment", "link": "/api_development_environment" },
+                            { "text": "Architecture Overview", "link": "/api_development_overview" }
+                        ]
+                    }
+                ]
+            },
+
+            {
+                "text": "Hardware Platform Development",
+                "items": [
+                    {
+                        "text": "Arm/ChibiOS",
+                        "items": [
+                            { "text": "Selecting an MCU", "link": "/platformdev_selecting_arm_mcu" },
+                            { "text": "Early initialization", "link": "/platformdev_chibios_earlyinit" },
+                            { "text": "Raspberry Pi RP2040", "link": "/platformdev_rp2040" },
+                            { "text": "Proton C", "link": "/platformdev_proton_c" },
+                            { "text": "WeAct Blackpill F4x1", "link": "/platformdev_blackpill_f4x1" }
+                        ]
+                    }
+                ]
+            },
+
+            {
+                "text": "QMK Reference",
+                "items": [
+                    { "text": "Contributing to QMK", "link": "/contributing" },
+                    { "text": "Config Options", "link": "/config_options" },
+                    { "text": "Data Driven Configuration", "link": "/data_driven_config" },
+                    { "text": "Make Documentation", "link": "/getting_started_make_guide" },
+                    { "text": "Documentation Best Practices", "link": "/documentation_best_practices" },
+                    { "text": "Documentation Templates", "link": "/documentation_templates" },
+                    { "text": "Community Layouts", "link": "/feature_layouts" },
+                    { "text": "Unit Testing", "link": "/unit_testing" },
+                    { "text": "Useful Functions", "link": "/ref_functions" },
+                    { "text": "info.json Format", "link": "/reference_info_json" }
+                ]
+            },
+
+            {
+                "text": "For a Deeper Understanding",
+                "items": [
+                    { "text": "How Keyboards Work", "link": "/how_keyboards_work" },
+                    { "text": "How a Matrix Works", "link": "/how_a_matrix_works" },
+                    { "text": "Understanding QMK", "link": "/understanding_qmk" }
+                ]
+            }
+        ]
+    }
+]

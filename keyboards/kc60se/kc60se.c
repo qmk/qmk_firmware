@@ -14,16 +14,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include QMK_KEYBOARD_H
+#include "quantum.h"
 
 void matrix_init_kb(void){
-    setPinOutput(B2);
+    gpio_set_pin_output(B2);
 }
 
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if(res) {
-        writePin(B2, !led_state.caps_lock);
+        gpio_write_pin(B2, !led_state.caps_lock);
     }
     return res;
 }

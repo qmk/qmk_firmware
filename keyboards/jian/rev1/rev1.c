@@ -1,4 +1,4 @@
-#include "rev1.h"
+#include "quantum.h"
 
 #ifdef SWAP_HANDS_ENABLE
 __attribute__ ((weak))
@@ -36,15 +36,15 @@ void suspend_wakeup_init_kb(void) {
 void led_init_kb(void)
 {
 #ifdef NUM_LOCK_LED_PIN
-    setPinOutput(NUM_LOCK_LED_PIN);
+    gpio_set_pin_output(NUM_LOCK_LED_PIN);
     RESET_NUM_LOCK_LED();
 #endif // NUM_LOCK_LED_PIN
 #ifdef CAPS_LOCK_LED_PIN
-    setPinOutput(CAPS_LOCK_LED_PIN);
+    gpio_set_pin_output(CAPS_LOCK_LED_PIN);
     RESET_CAPS_LOCK_LED();
 #endif // CAPS_LOCK_LED_PIN
 #ifdef SCROLL_LOCK_LED_PIN
-    setPinOutput(SCROLL_LOCK_LED_PIN);
+    gpio_set_pin_output(SCROLL_LOCK_LED_PIN);
     RESET_SCROLL_LOCK_LED();
 #endif // SCROLL_LOCK_LED_PIN
 }

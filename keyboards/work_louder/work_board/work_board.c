@@ -16,20 +16,6 @@
 
 #include "work_board.h"
 
-#if defined(ENCODER_ENABLE)
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) {
-        return false;
-    }
-    if (clockwise) {
-        tap_code(KC_VOLD);
-    } else {
-        tap_code(KC_VOLU);
-    }
-    return true;
-}
-#endif
-
 #ifdef OLED_ENABLE
 #    ifdef RGB_MATRIX_ENABLE
 #        error Cannot run OLED and Per Key RGB at the same time due to pin conflicts
@@ -125,13 +111,13 @@ bool rgb_matrix_indicators_kb(void) {
 }
 
 void keyboard_pre_init_kb(void) {
-    setPinOutput(B2);
-    setPinOutput(B3);
-    setPinOutput(B7);
+    gpio_set_pin_output(B2);
+    gpio_set_pin_output(B3);
+    gpio_set_pin_output(B7);
 
-    writePinLow(B2);
-    writePinLow(B3);
-    writePinLow(B7);
+    gpio_write_pin_low(B2);
+    gpio_write_pin_low(B3);
+    gpio_write_pin_low(B7);
 
     keyboard_pre_init_user();
 }

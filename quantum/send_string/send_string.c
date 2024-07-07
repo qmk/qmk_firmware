@@ -147,7 +147,7 @@ __attribute__((weak)) const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
 #define PGM_LOADBIT(mem, pos) ((pgm_read_byte(&((mem)[(pos) / 8])) >> ((pos) % 8)) & 0x01)
 
 void send_string(const char *string) {
-    send_string_with_delay(string, 0);
+    send_string_with_delay(string, TAP_CODE_DELAY);
 }
 
 void send_string_with_delay(const char *string, uint8_t interval) {
@@ -156,6 +156,7 @@ void send_string_with_delay(const char *string, uint8_t interval) {
         if (!ascii_code) break;
         if (ascii_code == SS_QMK_PREFIX) {
             ascii_code = *(++string);
+
             if (ascii_code == SS_TAP_CODE) {
                 // tap
                 uint8_t keycode = *(++string);
@@ -172,28 +173,30 @@ void send_string_with_delay(const char *string, uint8_t interval) {
                 // delay
                 int     ms      = 0;
                 uint8_t keycode = *(++string);
+
                 while (isdigit(keycode)) {
                     ms *= 10;
                     ms += keycode - '0';
                     keycode = *(++string);
                 }
-                while (ms--)
-                    wait_ms(1);
+
+                wait_ms(ms);
             }
+
+            wait_ms(interval);
         } else {
-            send_char(ascii_code);
+            send_char_with_delay(ascii_code, interval);
         }
+
         ++string;
-        // interval
-        {
-            uint8_t ms = interval;
-            while (ms--)
-                wait_ms(1);
-        }
     }
 }
 
 void send_char(char ascii_code) {
+    send_char_with_delay(ascii_code, TAP_CODE_DELAY);
+}
+
+void send_char_with_delay(char ascii_code, uint8_t interval) {
 #if defined(AUDIO_ENABLE) && defined(SENDSTRING_BELL)
     if (ascii_code == '\a') { // BEL
         PLAY_SONG(bell_song);
@@ -208,19 +211,30 @@ void send_char(char ascii_code) {
 
     if (is_shifted) {
         register_code(KC_LEFT_SHIFT);
+        wait_ms(interval);
     }
+
     if (is_altgred) {
         register_code(KC_RIGHT_ALT);
+        wait_ms(interval);
     }
-    tap_code(keycode);
+
+    tap_code_delay(keycode, interval);
+    wait_ms(interval);
+
     if (is_altgred) {
         unregister_code(KC_RIGHT_ALT);
+        wait_ms(interval);
     }
+
     if (is_shifted) {
         unregister_code(KC_LEFT_SHIFT);
+        wait_ms(interval);
     }
+
     if (is_dead) {
         tap_code(KC_SPACE);
+        wait_ms(interval);
     }
 }
 
@@ -280,7 +294,7 @@ void tap_random_base64(void) {
 
 #if defined(__AVR__)
 void send_string_P(const char *string) {
-    send_string_with_delay_P(string, 0);
+    send_string_with_delay_P(string, TAP_CODE_DELAY);
 }
 
 void send_string_with_delay_P(const char *string, uint8_t interval) {
@@ -289,6 +303,7 @@ void send_string_with_delay_P(const char *string, uint8_t interval) {
         if (!ascii_code) break;
         if (ascii_code == SS_QMK_PREFIX) {
             ascii_code = pgm_read_byte(++string);
+
             if (ascii_code == SS_TAP_CODE) {
                 // tap
                 uint8_t keycode = pgm_read_byte(++string);
@@ -305,24 +320,19 @@ void send_string_with_delay_P(const char *string, uint8_t interval) {
                 // delay
                 int     ms      = 0;
                 uint8_t keycode = pgm_read_byte(++string);
+
                 while (isdigit(keycode)) {
                     ms *= 10;
                     ms += keycode - '0';
                     keycode = pgm_read_byte(++string);
                 }
-                while (ms--)
-                    wait_ms(1);
+                wait_ms(ms);
             }
         } else {
-            send_char(ascii_code);
+            send_char_with_delay(ascii_code, interval);
         }
+
         ++string;
-        // interval
-        {
-            uint8_t ms = interval;
-            while (ms--)
-                wait_ms(1);
-        }
     }
 }
 #endif

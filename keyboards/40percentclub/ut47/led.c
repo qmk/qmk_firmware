@@ -19,20 +19,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include "led.h"
 
-
-void led_set(uint8_t usb_led)
+bool led_update_kb(led_t led_state)
 {
-    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-        // output low
-        DDRB |= (1<<0);
-        PORTB &= ~(1<<0);
-        DDRD |= (1<<5);
-        PORTD &= ~(1<<5);
-    } else {
-        // Hi-Z
-        DDRB &= ~(1<<0);
-        PORTB &= ~(1<<0);
-        DDRD &= ~(1<<5);
-        PORTD &= ~(1<<5);
+    bool res = led_update_user(led_state);
+    if (res) {
+        if (led_state.caps_lock) {
+            // output low
+            gpio_set_pin_output(B0);
+            gpio_write_pin_low(B0);
+            gpio_set_pin_output(D5);
+            gpio_write_pin_low(D5);
+        } else {
+            // Hi-Z
+            gpio_set_pin_input(B0);
+            gpio_set_pin_input(D5);
+        }
     }
+    return false;
 }

@@ -14,10 +14,10 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "dp60.h"
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -172,27 +172,3 @@ webusb_pos_t webusb_keymap[] = {
     {4, 0}, {4, 1}, {4, 2}, {4, 6}, {4, 10}, {4, 11}, {4, 12}, {4, 13},
 };
 #endif
-
-#ifndef RAW_ENABLE
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-#else
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-#endif
-  if (record->event.pressed) {
-    switch(keycode) {
-    #ifdef RGBLIGHT_ENABLE
-        #ifdef RGB_MATRIX_ENABLE
-        case KC_F13: // toggle rgb matrix
-            rgb_matrix_toggle();
-            return false;
-        case KC_F14:
-            rgb_matrix_step();
-            return false;
-        #endif
-    #endif
-        default:
-        break;
-    }
-  }
-  return true;
-}

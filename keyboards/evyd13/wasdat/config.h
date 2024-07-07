@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 8
@@ -38,8 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define SN74X138_ADDRESS_PINS { D2, D1, D0 }
 
-#define LED_PIN_ON_STATE 0
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
@@ -55,9 +52,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 5
-
-#define DYNAMIC_KEYMAP_LAYER_COUNT 3

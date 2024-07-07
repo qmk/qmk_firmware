@@ -2,6 +2,9 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "specialk.h"
+#include "keycodes.h"
+#include "action_layer.h"
+#include "action_util.h"
 
 bool delkey_registered = false;
 uint32_t __keycode_raised = 0;
@@ -22,7 +25,7 @@ bool ID61_process_special_k(uint16_t keycode, keyrecord_t *record, bool arrow_mo
     bool is_raised = get_highest_layer(layer_state|default_layer_state) != 0;
 
     if (record->event.pressed) {
-        set_keycode_raised(keycode - USER00, is_raised);  // save for key release event
+        set_keycode_raised(keycode - QK_KB_0, is_raised);  // save for key release event
         if (is_raised) {
             // *** Fn keyed ***
             if (arrow_mode) {
@@ -43,7 +46,7 @@ bool ID61_process_special_k(uint16_t keycode, keyrecord_t *record, bool arrow_mo
             }
         }
     } else {
-        if (get_keycode_raised(keycode - USER00)) {
+        if (get_keycode_raised(keycode - QK_KB_0)) {
             // *** Fn keyed ***
             if (arrow_mode) {
                 // alternate key

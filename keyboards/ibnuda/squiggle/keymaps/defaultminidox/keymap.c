@@ -105,7 +105,7 @@ const uint16_t PROGMEM z_slash_combo[]       = {KC_Z, KC_SLSH, COMBO_END};
 const uint16_t PROGMEM x_comma_combo[]       = {KC_X, KC_COMM, COMBO_END};
 const uint16_t PROGMEM j_f_combo[]           = {KC_F, KC_J,    COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
     // left hand combinations.
     [Q_W]           = COMBO(q_w_combo, KC_TAB),
     [W_E]           = COMBO(w_e_combo, KC_DQT),
@@ -151,7 +151,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = LAYOUT_split_3x5_3(
     _______,EXPLR,  KC_UP,  PRVTAB, PRVWIN,     NXTWIN, NXTTAB, _______,_______,LCKGUI,
     TSKMGR, KC_LEFT,KC_DOWN,KC_RGHT,UPTAB,      DNTAB,  KC_ENT, KC_LGUI,_______,CALDL,
-    _______,CLSGUI, _______,CONPST, QK_BOOT,      _______,_______,_______,_______,_______,
+    _______,CLSGUI, _______,CONPST, QK_BOOT,    _______,_______,_______,_______,_______,
                     _______,_______,_______,    _______,_______,_______
 ),
 };

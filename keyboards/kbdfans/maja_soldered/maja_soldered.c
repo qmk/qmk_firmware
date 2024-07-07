@@ -13,17 +13,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "maja_soldered.h"
+#include "quantum.h"
 
 void matrix_init_kb(void) {
-    setPinOutput(D4);
+    gpio_set_pin_output(D4);
     matrix_init_user();
 }
 
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if(res) {
-        writePin(D4, !led_state.caps_lock);
+        gpio_write_pin(D4, !led_state.caps_lock);
     }
     return res;
 }

@@ -97,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PSCR, _______, _______, _______,          RGB_HUI,
                 _______, _______, KC_SCRL, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, RGB_SAI,
                 _______,          _______, _______, _______, _______, _______, KC_NUM,  _______, _______, _______, _______,          _______, RGB_VAI, RGB_SAD,
-                _______, GUI_TOG, _______,                            _______,                   _______, _______,          _______, _______, RGB_VAD, _______
+                _______, GU_TOGG, _______,                            _______,                   _______, _______,          _______, _______, RGB_VAD, _______
             ),
 };
 
@@ -139,8 +139,8 @@ bool rgb_matrix_indicators_user(void) {
     rgb_matrix_set_color(104, 0, 0, 0);
 
     uint8_t red = host_keyboard_led_state().caps_lock ? 255 : 0;
-    uint8_t green = host_keyboard_led_state().scroll_lock ? 255 : 0;
-    uint8_t blue = keymap_config.no_gui ? 255 : 0;
+    uint8_t blue = host_keyboard_led_state().scroll_lock ? 255 : 0;
+    uint8_t green = keymap_config.no_gui ? 255 : 0;
 
 
     if ((rgb_matrix_get_flags() & LED_FLAG_KEYLIGHT)) {
@@ -160,7 +160,7 @@ bool rgb_matrix_indicators_user(void) {
 }
 
 #ifdef ENCODER_MAP_ENABLE
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [_FN]   = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
 };

@@ -14,23 +14,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "rev1.h"
+#include "quantum.h"
 
 void keyboard_pre_init_user(void) {
   // Call the keyboard pre init code.
   // Set our LED pins as output
-  setPinOutput(D5);
-  setPinOutput(D3);
-  setPinOutput(D2);
-  setPinOutput(D1);
+  gpio_set_pin_output(D5);
+  gpio_set_pin_output(D3);
+  gpio_set_pin_output(D2);
+  gpio_set_pin_output(D1);
 }
 
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if(res) {
-        writePin(D5, led_state.num_lock);
-        writePin(D3, led_state.caps_lock);
-        writePin(D2, led_state.scroll_lock);
+        gpio_write_pin(D5, led_state.num_lock);
+        gpio_write_pin(D3, led_state.caps_lock);
+        gpio_write_pin(D2, led_state.scroll_lock);
     }
     return res;
 }
@@ -38,10 +38,10 @@ bool led_update_kb(led_t led_state) {
 layer_state_t layer_state_set_kb(layer_state_t state) {
     switch (get_highest_layer(state)) {
       case 1:
-        writePinHigh(D1);
+        gpio_write_pin_high(D1);
         break;
       default: //  for any other layers, or the default layer
-        writePinLow(D1);
+        gpio_write_pin_low(D1);
         break;
       }
     return layer_state_set_user(state);

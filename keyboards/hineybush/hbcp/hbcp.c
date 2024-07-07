@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "hbcp.h"
+#include "quantum.h"
 
 // Indicator color definitions
 #ifndef HSV_CAPS
@@ -45,42 +45,46 @@ void eeconfig_init_kb(void) {  // EEPROM is getting reset!
 
 #ifdef RGBLIGHT_ENABLE
 
-__attribute__ ((weak))
-void led_set_user(uint8_t usb_led) {
-    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-        sethsv_raw(HSV_CAPS, (LED_TYPE *)&led[0]);
-    } else {
-        sethsv(HSV_BLACK, (LED_TYPE *)&led[0]);
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if (res) {
+        if (led_state.caps_lock) {
+            rgblight_sethsv_at(HSV_CAPS, 0);
+        } else {
+            rgblight_sethsv_at(HSV_BLACK, 0);
+        }
+        if (led_state.num_lock) {
+            rgblight_sethsv_at(HSV_NLCK, 1);
+        } else {
+            rgblight_sethsv_at(HSV_BLACK, 1);
+        }
+        if (led_state.scroll_lock) {
+            rgblight_sethsv_at(HSV_SCRL, 2);
+        } else {
+            rgblight_sethsv_at(HSV_BLACK, 2);
+        }
     }
-    if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-        sethsv_raw(HSV_NLCK, (LED_TYPE *)&led[1]);
-    } else {
-        sethsv(HSV_BLACK, (LED_TYPE *)&led[1]);
-    }
-    if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
-        sethsv_raw(HSV_SCRL, (LED_TYPE *)&led[2]);
-    } else {
-        sethsv(HSV_BLACK, (LED_TYPE *)&led[2]);
-    }
-    rgblight_set();
+    return false;
 }
 
 __attribute__ ((weak))
 void keyboard_post_init_user(void) {
-    rgblight_set_effect_range(3, RGBLED_NUM-3);
-    led_set_user(_BV(USB_LED_CAPS_LOCK)|_BV(USB_LED_NUM_LOCK)|_BV(USB_LED_SCROLL_LOCK));
+    rgblight_set_effect_range(3, RGBLIGHT_LED_COUNT-3);
+    led_t led_state = {
+        .caps_lock = true,
+        .num_lock = true,
+        .scroll_lock = true
+    };
+    led_update_kb(led_state);
     wait_ms(300);
-    led_set_user(0);
+    led_update_kb((led_t){0});
 }
 
 __attribute__ ((weak))
 void hbcp_sethsv_range(uint8_t hue, uint8_t sat, uint8_t val, uint8_t start, uint8_t end) {
-  LED_TYPE tmp_led;
-  sethsv_raw(hue, sat, val, &tmp_led);
   for (uint8_t i = start; i < end; i++) {
-      led[i] = tmp_led;
+      rgblight_sethsv_at(hue, sat, val, i);
   }
-  rgblight_set();
 }
 
 #endif

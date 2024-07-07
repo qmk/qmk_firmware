@@ -14,11 +14,8 @@
  */
 #pragma once
 
-#include "config_common.h"
 #define BACKLIGHT_PWM_DRIVER PWMD1
 #define BACKLIGHT_PWM_CHANNEL 2
-#define BACKLIGHT_PAL_MODE 2
-
 
 #ifdef OLED_ENABLE
 

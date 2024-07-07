@@ -130,10 +130,10 @@ avrdude-split-right: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 	$(call EXEC_AVRDUDE,eeprom-righthand.eep)
 
 define EXEC_USBASP
-	if $(AVRDUDE_PROGRAMMER) -p $(AVRDUDE_MCU) -c usbasp 2>&1 | grep -q "could not find USB device with"; then \
+	if $(AVRDUDE_PROGRAMMER) -p $(AVRDUDE_MCU) -c usbasp 2>&1 | grep -q "\(could not\|cannot\) find USB device with"; then \
 		printf "$(MSG_BOOTLOADER_NOT_FOUND_QUICK_RETRY)" ;\
 		sleep $(BOOTLOADER_RETRY_TIME) ;\
-		until $(AVRDUDE_PROGRAMMER) -p $(AVRDUDE_MCU) -c usbasp 2>&1 | (! grep -q "could not find USB device with"); do\
+		until $(AVRDUDE_PROGRAMMER) -p $(AVRDUDE_MCU) -c usbasp 2>&1 | (! grep -q "\(could not\|cannot\) find USB device with"); do\
 			printf "." ;\
 			sleep $(BOOTLOADER_RETRY_TIME) ;\
 		done ;\
