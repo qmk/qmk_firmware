@@ -147,7 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid(
-    _______, QK_BOOT, DB_TOGG, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DEL ,
+    _______, QK_BOOT, DB_TOGG, UG_TOGG, UG_NEXT, UG_HUEU, UG_HUED, UG_SATU, UG_SATD, UG_SPDU, UG_SPDD, KC_DEL ,
     _______, EE_CLR,  MU_NEXT, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  PLOVER,  _______,
     _______, AU_PREV, AU_NEXT, MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
@@ -191,22 +191,22 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
      * |-----------------------+---+---+---+---+---+---+---+---+---+---+-----------------------|
      * | (1) _______ / _______ |   |   |   |   |   |   |   |   |   |   | (5) _______ / _______ |
      * |-----------------------+---+---+---+---+---+---+---+---+---+---+-----------------------|
-     * | (2) RGB_MOD / RGB_RMOD|   |   |   |   |   |   |   |   |   |   | (6) SAT- / SAT+       |
+     * | (2) UG_NEXT / UG_PREV |   |   |   |   |   |   |   |   |   |   | (6) SAT- / SAT+       |
      * |-----------------------+---+---+---+---+---+---+---+---+---+---+-----------------------|
-     * | (3) BRGTH- / BRGTH+   |   |   |   |   |       |   |   |   |   | (7) HUE- / HUE+       |
+     * | (3) UG_VALD / UG_VALU |   |   |   |   |       |   |   |   |   | (7) HUE- / HUE+       |
      * `---------------------------------------------------------------------------------------'
      */
     [_ADJUST] = {
         // LEFT SIDE (index 0 to 3)
         ENCODER_CCW_CW(_______, _______),
         ENCODER_CCW_CW(_______, _______),
-        ENCODER_CCW_CW(RGB_MOD, RGB_RMOD),
-        ENCODER_CCW_CW(RGB_VAD, RGB_VAI),
+        ENCODER_CCW_CW(UG_NEXT, UG_PREV),
+        ENCODER_CCW_CW(UG_VALD, UG_VALU),
         // RIGHT SIDE (index 4 to 7)
         ENCODER_CCW_CW(_______, _______),
         ENCODER_CCW_CW(_______, _______),
-        ENCODER_CCW_CW(RGB_SAD,  RGB_SAI),
-        ENCODER_CCW_CW(RGB_HUD, RGB_HUI)
+        ENCODER_CCW_CW(UG_SATD,  UG_SATU),
+        ENCODER_CCW_CW(UG_HUEU,  UG_HUED)
     }
 };
 #endif
