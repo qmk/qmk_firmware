@@ -471,7 +471,7 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 
     rgb_matrix_set_color(RGB_MATRIX_LED_COUNT - 1, 0, 0, 0);
 
-    return true;
+    return rgb_matrix_indicators_advanced_user(led_min, led_max);
 }
 
 /* qmk housekeeping task */
