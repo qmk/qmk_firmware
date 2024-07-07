@@ -481,35 +481,7 @@ void user_set_rgb_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 uint8_t get_led_index(uint8_t row, uint8_t col) {
-    switch (row) {
-        case 0:
-            if (col == 15) return 14;
-            if (col == 14) return 15;
-            return col;
-        case 1:
-            if (col == 15) return 16 + col - 1;
-            return 16 + col;
-        case 2:
-            if (col == 15) return 31 + col - 1;
-            return 31 + col;
-        case 3:
-            if (col == 13) return 46 + col - 1;
-            if (col == 15) return 46 + col - 2;
-            return 46 + col;
-        case 4:
-            if (col >= 13) return 60 + col - 2;
-            if (col >= 2) return 60 + col - 1;
-            return 60 + col;
-        case 5:
-            if (col == 6) return 74 + 3;
-            if (col == 9) return 74 + 4;
-            if (col == 10) return 74 + 5;
-            if (col >= 13) return 74 + col - 7;
-
-            return 74 + col;
-    };
-
-    return 15;
+   return g_led_config.matrix_co[row][col];
 }
 
 /**

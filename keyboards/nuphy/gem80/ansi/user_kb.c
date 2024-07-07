@@ -33,7 +33,7 @@ bool f_bat_hold              = 0;
 bool f_sys_show              = 0;
 bool f_sleep_show            = 0;
 bool f_usb_sleep_show        = 0;
-bool f_deep_sleep_show        = 0;
+bool f_deep_sleep_show       = 0;
 bool f_send_channel          = 0;
 bool f_dial_sw_init_ok       = 0;
 bool f_rf_sw_press           = 0;
@@ -459,7 +459,7 @@ void toggle_usb_sleep(void) {
  */
 void toggle_caps_indication(void) {
 #if CONSOLE_ENABLE
-        xprintf("CPU_CLOCK %u \n", CPU_CLOCK);
+    xprintf("CPU_CLOCK %u \n", CPU_CLOCK);
 #endif
 
     if (g_config.caps_indication_type == CAPS_INDICATOR_OFF) {
@@ -542,55 +542,7 @@ void led_power_handle(void) {
 }
 
 uint8_t get_led_index(uint8_t row, uint8_t col) {
-    switch (row) {
-        case 0:
-            return col;
-        case 1:
-            return 33 - col;
-        case 2:
-            return 34 + col;
-        case 3:
-            if (col == 13) {
-                return 51;
-            }
-            return 63 - col;
-        case 4:
-            if (col >= 13) {
-                col -= 2;
-            } else if (col >= 2) {
-                col -= 1;
-            }
-            return 64 + col;
-        case 5:
-            if (col == 6) {
-                return 84;
-            }
-            if (col == 9) {
-                return 83;
-            }
-            if (col == 11) {
-                return 82;
-            }
-            if (col == 10) {
-                return 81;
-            }
-            if (col == 12) {
-                return 80;
-            }
-            if (col == 13) {
-                return 79;
-            }
-            if (col == 14) {
-                return 78;
-            }
-            if (col == 15) {
-                return 77;
-            }
-
-            return 87 - col;
-    };
-
-    return 16;
+    return g_led_config.matrix_co[row][col];
 }
 
 /**
