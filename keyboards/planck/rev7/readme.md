@@ -29,7 +29,7 @@ If an encoder has a switch built-in, it's connected to the key at that location 
 `-----------------------------------------------------------------------------------'
 ```
 
-Planck rev7 support `ENCODER_ENABLE` and `ENCODER_MAP_ENABLE`. If both ENCODER_MAP_ENABLE and ENCODER_ENABLE are defined, ENCODER_MAP_ENABLE takes precedence. On the default keymap, each encoder will play its own rising/falling tone sequence when rotated, and will reset the pitch after one second of inactivity.
+Planck rev7 supports `ENCODER_ENABLE` and `ENCODER_MAP_ENABLE`. If both `ENCODER_MAP_ENABLE` and `ENCODER_ENABLE` are defined, `ENCODER_MAP_ENABLE` takes precedence. On the default keymap, each encoder will play its own rising/falling tone sequence when rotated, and will reset the pitch after one second of inactivity.
 
 ### With ENCODER_ENABLE
 
