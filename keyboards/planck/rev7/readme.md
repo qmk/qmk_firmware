@@ -52,7 +52,7 @@ ENCODER_MAP_ENABLE = yes
 
 If you enable `ENCODER_MAP_ENABLE`, define `const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS]` and configure your keycodes. If you enable `ENCODER_MAP_ENABLE`, `encoder_update_user` is not used directly. 
 
-Absolutely, You can use the following config.h options:
+Additionally, you can use the following `config.h` options:
 
 ```c
 #define ENCODER_MAP_KEY_DELAY 10
