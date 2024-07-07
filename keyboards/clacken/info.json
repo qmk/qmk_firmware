@@ -70,5 +70,25 @@
                 {"matrix": [7, 2], "x": 8.5, "y": 3.25}
             ]
         }
+    },
+    "rgblight": {
+        "led_count": 2,
+        "animations": {
+            "rainbow_mood": true
+        },
+        "default": {
+            "animation": "rainbow_mood",
+            "hue": 100,
+            "sat": 100,
+            "speed": 100
+        },
+        "driver": "ws2812",
+        "layers": {
+            "enabled": true
+        },
+        "led_map": [0, 1],
+        "max_brightness": 100,
+        "split": true,
+        "split_count": [1, 1]
     }
 }
