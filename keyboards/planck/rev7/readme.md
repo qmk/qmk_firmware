@@ -46,6 +46,7 @@ Zero-indexed (compared to being one-indexed on the PCB's silkscreen) in the `enc
 Define it as follows in `rules.mk`:
 
 ```
+ENCODER_ENABLE = yes
 ENCODER_MAP_ENABLE = yes
 ```
 
