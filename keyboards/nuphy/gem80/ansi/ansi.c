@@ -499,13 +499,14 @@ kb_config_t g_config;
 
 void init_g_config(void) {
     // custom functions
-    g_config.sleep_toggle         = true;
-    g_config.usb_sleep_toggle     = false;
-    g_config.deep_sleep_toggle    = true;
-    g_config.sleep_timeout        = 5;
-    g_config.debounce_press_ms    = DEBOUNCE;
-    g_config.debounce_release_ms  = DEBOUNCE;
-    g_config.caps_indication_type = CAPS_INDICATOR_SIDE;
+    g_config.sleep_toggle                 = true;
+    g_config.usb_sleep_toggle             = false;
+    g_config.deep_sleep_toggle            = true;
+    g_config.sleep_timeout                = 5;
+    g_config.debounce_press_ms            = DEBOUNCE;
+    g_config.debounce_release_ms          = DEBOUNCE;
+    g_config.caps_indication_type         = CAPS_INDICATOR_SIDE;
+    g_config.battery_indicator_brightness = 100;
     // top LED
     g_config.side_mode       = 0;
     g_config.side_brightness = 3;
@@ -605,6 +606,9 @@ void via_config_set_value(uint8_t *data)
         case id_logo_light_brightness:
             g_config.logo_brightness = *value_data;
             break;
+        case id_battery_indicator_brightness:
+            g_config.battery_indicator_brightness = *value_data;
+            break;
     }
 #    if CONSOLE_ENABLE
     xprintf("[SET]VALUE_ID: %u DATA: %u\n", *value_id, *value_data);
@@ -661,6 +665,10 @@ void via_config_get_value(uint8_t *data) {
             break;
         case id_logo_light_brightness:
             *value_data = g_config.logo_brightness;
+            break;
+        case id_battery_indicator_brightness:
+            *value_data = g_config.battery_indicator_brightness;
+            break;
     }
 #    if CONSOLE_ENABLE
     xprintf("[GET]VALUE_ID: %u DATA: %u\n", *value_id, *value_data);

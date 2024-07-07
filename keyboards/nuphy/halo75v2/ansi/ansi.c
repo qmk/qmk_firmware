@@ -483,6 +483,7 @@ void init_g_config(void) {
     g_config.side_speed      = 2;
     g_config.side_rgb        = 1;
     g_config.side_color      = 0;
+    g_config.battery_indicator_brightness = 100;
 }
 
 void load_config_from_eeprom(void) {
@@ -562,6 +563,9 @@ void via_config_set_value(uint8_t *data) {
         case id_power_on_animation:
             g_config.power_show = *value_data;
             break;
+        case id_battery_indicator_brightness:
+            g_config.battery_indicator_brightness = *value_data;
+            break;
     }
 #    if CONSOLE_ENABLE
     xprintf("[SET]VALUE_ID: %u DATA: %u\n", *value_id, *value_data);
@@ -612,6 +616,9 @@ void via_config_get_value(uint8_t *data) {
 
         case id_power_on_animation:
             *value_data = g_config.power_show;
+            break;
+        case id_battery_indicator_brightness:
+            *value_data = g_config.battery_indicator_brightness;
             break;
     }
 #    if CONSOLE_ENABLE

@@ -85,6 +85,7 @@ typedef struct {
     uint8_t side_rgb;
     uint8_t side_color;
     uint8_t power_show : 1;
+    uint8_t battery_indicator_brightness;
 } kb_config_t;
 
 #ifdef VIA_ENABLE
@@ -103,6 +104,7 @@ enum via_indicator_value {
     id_side_light_color      = 13,
     id_side_light_brightness = 14,
     id_power_on_animation    = 20,
+    id_battery_indicator_brightness = 21,
 };
 
 // function declaration

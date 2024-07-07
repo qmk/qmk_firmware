@@ -633,6 +633,20 @@
                     "label": "Indicators",
                     "content": [
                         {
+                            "label": "Battery indicator brightness",
+                            "type": "range",
+                            "content": [
+                                "id_battery_indicator_brightness",
+                                0,
+                                31
+                            ],
+                            "options": [
+                                0,
+                                100
+                            ]
+
+                        },
+                        {
                             "label": "Caps Lock Indicator",
                             "type": "dropdown",
                             "content": [

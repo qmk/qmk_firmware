@@ -884,6 +884,12 @@ void bat_percent_led(uint8_t bat_percent) {
         bat_b       = colour_lib[3][2];
     }
 
+    // NOTE: dim using g_config.battery_indicator_brightness as percentage value
+    bat_r = bat_r * g_config.battery_indicator_brightness / 100;
+    bat_g = bat_g * g_config.battery_indicator_brightness / 100;
+    bat_b = bat_b * g_config.battery_indicator_brightness / 100;
+
+
     if (f_charging) {
         low_bat_blink_cnt = 6;
 #if (CHARGING_SHIFT)

@@ -424,6 +424,20 @@
                     "label": "Indicators",
                     "content": [
                         {
+                            "label": "Battery indicator brightness",
+                            "type": "range",
+                            "content": [
+                                "id_battery_indicator_brightness",
+                                0,
+                                21
+                            ],
+                            "options": [
+                                0,
+                                100
+                            ]
+
+                        },
+                        {
                             "label": "Power On Animation",
                             "type": "toggle",
                             "content": [
