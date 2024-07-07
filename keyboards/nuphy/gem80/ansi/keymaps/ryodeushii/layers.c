@@ -24,3 +24,12 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
     return true;
 }
+
+// TODO: implement custom colors based on custom codes
+// - debounce groups (green press, red release)
+// - sleep group - cyan / lightblue
+// - logo led - white
+// - side led - yellow
+// - rgb matrix keycodes - purple
+// - wireless modes - blue
+// - other utilitary keys (reset, rgb test, etc) - off state (Black)?
