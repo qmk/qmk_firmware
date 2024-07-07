@@ -38,6 +38,7 @@ quantum/version.h
 
 # DD config at wrong location
 /keyboards/**/keymaps/*/info.json
+/keyboards/**/keymaps/*/keyboard.json
 
 # Old-style QMK Makefiles
 /keyboards/**/Makefile

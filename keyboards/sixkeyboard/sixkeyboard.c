@@ -4,27 +4,26 @@ void matrix_init_kb(void) {
     // put your keyboard start-up code here
     // runs once when the firmware starts up
 
-    DDRC |= (1<<4);
-    PORTC &= ~(1<<4);
+    gpio_set_pin_output(C4);
+    gpio_write_pin_low(C4);
 
+    gpio_set_pin_output(C6);
+    gpio_write_pin_low(C6);
 
-    DDRC |= (1<<6);
-    PORTC &= ~(1<<6);
+    gpio_set_pin_output(B6);
+    gpio_write_pin_low(B6);
 
-    DDRB |= (1<<6);
-    PORTB &= ~(1<<6);
+    gpio_set_pin_output(B4);
+    gpio_write_pin_low(B4);
 
-    DDRB |= (1<<4);
-    PORTB &= ~(1<<4);
+    gpio_set_pin_output(D5);
+    gpio_write_pin_low(D5);
 
-    DDRD |= (1<<5);
-    PORTD &= ~(1<<5);
+    gpio_set_pin_output(D2);
+    gpio_write_pin_low(D2);
 
-    DDRD |= (1<<2);
-    PORTD &= ~(1<<2);
-
-    DDRD |= (1<<3);
-    PORTD &= ~(1<<3);
+    gpio_set_pin_output(D3);
+    gpio_write_pin_low(D3);
 
     matrix_init_user();
 };

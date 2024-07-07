@@ -40,7 +40,8 @@
         "pattern": "^[0-9a-z_/\\-]+\\.json$"
     },
     "key_unit": {
-        "type": "number"
+        "type": "number",
+        "minimum": 0
     },
     "keyboard": {
         "type": "string",
