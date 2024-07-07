@@ -217,57 +217,10 @@ float plover_song[][2]    = SONG(PLOVER_SOUND);
 float plover_gb_song[][2] = SONG(PLOVER_GOODBYE_SOUND);
 #endif
 
+bool play_encoder_melody(uint8_t index, bool clockwise);
+
 layer_state_t layer_state_set_user(layer_state_t state) {
     return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
-
-/* clang-format off */
-float melody[8][2][2] = {
-    {{440.0f, 8}, {440.0f, 24}},
-    {{440.0f, 8}, {440.0f, 24}},
-    {{440.0f, 8}, {440.0f, 24}},
-    {{440.0f, 8}, {440.0f, 24}},
-    {{440.0f, 8}, {440.0f, 24}},
-    {{440.0f, 8}, {440.0f, 24}},
-    {{440.0f, 8}, {440.0f, 24}},
-    {{440.0f, 8}, {440.0f, 24}},
-};
-/* clang-format on */
-
-#define JUST_MINOR_THIRD 1.2
-#define JUST_MAJOR_THIRD 1.25
-#define JUST_PERFECT_FOURTH 1.33333333
-#define JUST_TRITONE 1.42222222
-#define JUST_PERFECT_FIFTH 1.33333333
-
-#define ET12_MINOR_SECOND 1.059463
-#define ET12_MAJOR_SECOND 1.122462
-#define ET12_MINOR_THIRD 1.189207
-#define ET12_MAJOR_THIRD 1.259921
-#define ET12_PERFECT_FOURTH 1.33484
-#define ET12_TRITONE 1.414214
-#define ET12_PERFECT_FIFTH 1.498307
-
-deferred_token tokens[8];
-
-uint32_t reset_note(uint32_t trigger_time, void *note) {
-    *(float*)note = 440.0f;
-    return 0;
-}
-
-bool play_encoder_melody(uint8_t index, bool clockwise) {
-    cancel_deferred_exec(tokens[index]);
-    if (clockwise) {
-        melody[index][1][0] = melody[index][1][0] * ET12_MINOR_SECOND;
-        melody[index][0][0] = melody[index][1][0] / ET12_PERFECT_FIFTH;
-        audio_play_melody(&melody[index], 2, false);
-    } else {
-        melody[index][1][0] = melody[index][1][0] / ET12_MINOR_SECOND;
-        melody[index][0][0] = melody[index][1][0] * ET12_TRITONE;
-        audio_play_melody(&melody[index], 2, false);
-    }
-    tokens[index] = defer_exec(1000, reset_note, &melody[index][1][0]);
-    return false;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -336,6 +289,54 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+/* clang-format off */
+float melody[8][2][2] = {
+    {{440.0f, 8}, {440.0f, 24}},
+    {{440.0f, 8}, {440.0f, 24}},
+    {{440.0f, 8}, {440.0f, 24}},
+    {{440.0f, 8}, {440.0f, 24}},
+    {{440.0f, 8}, {440.0f, 24}},
+    {{440.0f, 8}, {440.0f, 24}},
+    {{440.0f, 8}, {440.0f, 24}},
+    {{440.0f, 8}, {440.0f, 24}},
+};
+/* clang-format on */
+
+#define JUST_MINOR_THIRD 1.2
+#define JUST_MAJOR_THIRD 1.25
+#define JUST_PERFECT_FOURTH 1.33333333
+#define JUST_TRITONE 1.42222222
+#define JUST_PERFECT_FIFTH 1.33333333
+
+#define ET12_MINOR_SECOND 1.059463
+#define ET12_MAJOR_SECOND 1.122462
+#define ET12_MINOR_THIRD 1.189207
+#define ET12_MAJOR_THIRD 1.259921
+#define ET12_PERFECT_FOURTH 1.33484
+#define ET12_TRITONE 1.414214
+#define ET12_PERFECT_FIFTH 1.498307
+
+deferred_token tokens[8];
+
+uint32_t reset_note(uint32_t trigger_time, void *note) {
+    *(float*)note = 440.0f;
+    return 0;
+}
+
+bool play_encoder_melody(uint8_t index, bool clockwise) {
+    cancel_deferred_exec(tokens[index]);
+    if (clockwise) {
+        melody[index][1][0] = melody[index][1][0] * ET12_MINOR_SECOND;
+        melody[index][0][0] = melody[index][1][0] / ET12_PERFECT_FIFTH;
+        audio_play_melody(&melody[index], 2, false);
+    } else {
+        melody[index][1][0] = melody[index][1][0] / ET12_MINOR_SECOND;
+        melody[index][0][0] = melody[index][1][0] * ET12_TRITONE;
+        audio_play_melody(&melody[index], 2, false);
+    }
+    tokens[index] = defer_exec(1000, reset_note, &melody[index][1][0]);
+    return false;
+}
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
     return play_encoder_melody(index, clockwise);
