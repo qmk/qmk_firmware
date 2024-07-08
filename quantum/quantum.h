@@ -150,6 +150,10 @@ extern layer_state_t layer_state;
 #    include "hd44780.h"
 #endif
 
+#ifdef WS0010_ENABLE
+#    include "ws0010.h"
+#endif
+
 #ifdef SEND_STRING_ENABLE
 #    include "send_string.h"
 #endif
