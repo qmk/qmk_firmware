@@ -1,4 +1,4 @@
-# Matrix Diagram for 4pplet Waffling60 Rev E Solder
+# Matrix Diagram for IBE60 Rev A
 
 ```
 ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
