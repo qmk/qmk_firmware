@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "ws0010.h"
+#include "WS0010.h"
 #include "gpio.h"
 #include "progmem.h"
 #include "wait.h"
