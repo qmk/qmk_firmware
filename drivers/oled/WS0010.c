@@ -108,7 +108,7 @@ uint8_t ws0010_read(bool isData) {
 
     data <<= 4;
 
-    gpio_write_pin_low(WS0010_E_PIN);pull
+    gpio_write_pin_low(WS0010_E_PIN);
     wait_us(WS0010_ENABLE_DELAY_US);
     gpio_write_pin_high(WS0010_E_PIN);
     wait_us(WS0010_ENABLE_DELAY_US);
