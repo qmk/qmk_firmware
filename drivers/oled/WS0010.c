@@ -192,7 +192,7 @@ void ws0010_init(bool cursor, bool blink) {
     wait_us(WS0010_INIT_NEXT_US);
 
     // There should be some timing inbetween commands but the docs just sat check busy inbetween, this is built into the command
-    ws0010_command(0x2, false); //0010 nibble
+    ws0010_command(0x2); //0010 nibble
     #if WS0010_DISPLAY_LINES == 1
         ws0010_command(WS0010_CMD_FUNCTION); // 4 bit, 1 line, 5x8 dots
     #else
