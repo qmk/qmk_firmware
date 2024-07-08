@@ -22,8 +22,7 @@
         "vid": "0x4448"
     },
     "indicators": {
-        "caps_lock": "A8",
-        "on_state": 1
+        "caps_lock": "A8"
     },
     "community_layouts": ["60_hhkb"],
     "layouts": {
