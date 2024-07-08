@@ -108,7 +108,7 @@ uint8_t ws0010_read(bool isData) {
 
     data <<= 4;
 
-    gpio_write_pin_low(WS0010_E_PIN);
+    gpio_write_pin_low(WS0010_E_PIN);pull
     wait_us(WS0010_ENABLE_DELAY_US);
     gpio_write_pin_high(WS0010_E_PIN);
     wait_us(WS0010_ENABLE_DELAY_US);
@@ -181,15 +181,15 @@ void ws0010_init(bool cursor, bool blink) {
 
     // Send WS0010 bus reset commands (needed for warm restarts)
     ws0010_command(0x0);
-    wait_us(WS0010_INIT_NEXT_US)
+    wait_us(WS0010_INIT_NEXT_US);
     ws0010_command(0x0);
-    wait_us(WS0010_INIT_NEXT_US)
+    wait_us(WS0010_INIT_NEXT_US);
     ws0010_command(0x0);
-    wait_us(WS0010_INIT_NEXT_US)
+    wait_us(WS0010_INIT_NEXT_US);
     ws0010_command(0x0);
-    wait_us(WS0010_INIT_NEXT_US)
+    wait_us(WS0010_INIT_NEXT_US);
     ws0010_command(0x0);
-    wait_us(WS0010_INIT_NEXT_US)
+    wait_us(WS0010_INIT_NEXT_US);
 
     // There should be some timing inbetween commands but the docs just sat check busy inbetween, this is built into the command
     ws0010_command(0x2, false); //0010 nibble
