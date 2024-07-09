@@ -407,42 +407,42 @@ void mousekey_on(uint8_t code) {
 #    ifdef MOUSEKEY_INERTIA
 
     // initial keypress sets impulse and activates first frame of movement
-    if ((code == KC_MS_UP) || (code == KC_MS_DOWN)) {
-        mousekey_y_dir = (code == KC_MS_DOWN) ? 1 : -1;
+    if ((code == QK_MOUSE_CURSOR_UP) || (code == QK_MOUSE_CURSOR_DOWN)) {
+        mousekey_y_dir = (code == QK_MOUSE_CURSOR_DOWN) ? 1 : -1;
         if (mousekey_frame < 2) mouse_report.y = move_unit(1);
-    } else if ((code == KC_MS_LEFT) || (code == KC_MS_RIGHT)) {
-        mousekey_x_dir = (code == KC_MS_RIGHT) ? 1 : -1;
+    } else if ((code == QK_MOUSE_CURSOR_LEFT) || (code == QK_MOUSE_CURSOR_RIGHT)) {
+        mousekey_x_dir = (code == QK_MOUSE_CURSOR_RIGHT) ? 1 : -1;
         if (mousekey_frame < 2) mouse_report.x = move_unit(0);
     }
 
 #    else // no inertia
 
-    if (code == KC_MS_UP)
+    if (code == QK_MOUSE_CURSOR_UP)
         mouse_report.y = move_unit() * -1;
-    else if (code == KC_MS_DOWN)
+    else if (code == QK_MOUSE_CURSOR_DOWN)
         mouse_report.y = move_unit();
-    else if (code == KC_MS_LEFT)
+    else if (code == QK_MOUSE_CURSOR_LEFT)
         mouse_report.x = move_unit() * -1;
-    else if (code == KC_MS_RIGHT)
+    else if (code == QK_MOUSE_CURSOR_RIGHT)
         mouse_report.x = move_unit();
 
 #    endif // inertia or not
 
-    else if (code == KC_MS_WH_UP)
+    else if (code == QK_MOUSE_WHEEL_UP)
         mouse_report.v = wheel_unit();
-    else if (code == KC_MS_WH_DOWN)
+    else if (code == QK_MOUSE_WHEEL_DOWN)
         mouse_report.v = wheel_unit() * -1;
-    else if (code == KC_MS_WH_LEFT)
+    else if (code == QK_MOUSE_WHEEL_LEFT)
         mouse_report.h = wheel_unit() * -1;
-    else if (code == KC_MS_WH_RIGHT)
+    else if (code == QK_MOUSE_WHEEL_RIGHT)
         mouse_report.h = wheel_unit();
     else if (IS_MOUSEKEY_BUTTON(code))
-        mouse_report.buttons |= 1 << (code - KC_MS_BTN1);
-    else if (code == KC_MS_ACCEL0)
+        mouse_report.buttons |= 1 << (code - QK_MOUSE_BUTTON_1);
+    else if (code == QK_MOUSE_ACCELERATION_0)
         mousekey_accel |= (1 << 0);
-    else if (code == KC_MS_ACCEL1)
+    else if (code == QK_MOUSE_ACCELERATION_1)
         mousekey_accel |= (1 << 1);
-    else if (code == KC_MS_ACCEL2)
+    else if (code == QK_MOUSE_ACCELERATION_2)
         mousekey_accel |= (1 << 2);
 }
 
@@ -450,43 +450,43 @@ void mousekey_off(uint8_t code) {
 #    ifdef MOUSEKEY_INERTIA
 
     // key release clears impulse unless opposite direction is held
-    if ((code == KC_MS_UP) && (mousekey_y_dir < 1))
+    if ((code == QK_MOUSE_CURSOR_UP) && (mousekey_y_dir < 1))
         mousekey_y_dir = 0;
-    else if ((code == KC_MS_DOWN) && (mousekey_y_dir > -1))
+    else if ((code == QK_MOUSE_CURSOR_DOWN) && (mousekey_y_dir > -1))
         mousekey_y_dir = 0;
-    else if ((code == KC_MS_LEFT) && (mousekey_x_dir < 1))
+    else if ((code == QK_MOUSE_CURSOR_LEFT) && (mousekey_x_dir < 1))
         mousekey_x_dir = 0;
-    else if ((code == KC_MS_RIGHT) && (mousekey_x_dir > -1))
+    else if ((code == QK_MOUSE_CURSOR_RIGHT) && (mousekey_x_dir > -1))
         mousekey_x_dir = 0;
 
 #    else // no inertia
 
-    if (code == KC_MS_UP && mouse_report.y < 0)
+    if (code == QK_MOUSE_CURSOR_UP && mouse_report.y < 0)
         mouse_report.y = 0;
-    else if (code == KC_MS_DOWN && mouse_report.y > 0)
+    else if (code == QK_MOUSE_CURSOR_DOWN && mouse_report.y > 0)
         mouse_report.y = 0;
-    else if (code == KC_MS_LEFT && mouse_report.x < 0)
+    else if (code == QK_MOUSE_CURSOR_LEFT && mouse_report.x < 0)
         mouse_report.x = 0;
-    else if (code == KC_MS_RIGHT && mouse_report.x > 0)
+    else if (code == QK_MOUSE_CURSOR_RIGHT && mouse_report.x > 0)
         mouse_report.x = 0;
 
 #    endif // inertia or not
 
-    else if (code == KC_MS_WH_UP && mouse_report.v > 0)
+    else if (code == QK_MOUSE_WHEEL_UP && mouse_report.v > 0)
         mouse_report.v = 0;
-    else if (code == KC_MS_WH_DOWN && mouse_report.v < 0)
+    else if (code == QK_MOUSE_WHEEL_DOWN && mouse_report.v < 0)
         mouse_report.v = 0;
-    else if (code == KC_MS_WH_LEFT && mouse_report.h < 0)
+    else if (code == QK_MOUSE_WHEEL_LEFT && mouse_report.h < 0)
         mouse_report.h = 0;
-    else if (code == KC_MS_WH_RIGHT && mouse_report.h > 0)
+    else if (code == QK_MOUSE_WHEEL_RIGHT && mouse_report.h > 0)
         mouse_report.h = 0;
     else if (IS_MOUSEKEY_BUTTON(code))
-        mouse_report.buttons &= ~(1 << (code - KC_MS_BTN1));
-    else if (code == KC_MS_ACCEL0)
+        mouse_report.buttons &= ~(1 << (code - QK_MOUSE_BUTTON_1));
+    else if (code == QK_MOUSE_ACCELERATION_0)
         mousekey_accel &= ~(1 << 0);
-    else if (code == KC_MS_ACCEL1)
+    else if (code == QK_MOUSE_ACCELERATION_1)
         mousekey_accel &= ~(1 << 1);
-    else if (code == KC_MS_ACCEL2)
+    else if (code == QK_MOUSE_ACCELERATION_2)
         mousekey_accel &= ~(1 << 2);
     if (mouse_report.x == 0 && mouse_report.y == 0) {
         mousekey_repeat = 0;
@@ -568,29 +568,29 @@ void mousekey_on(uint8_t code) {
     uint16_t const c_offset  = c_offsets[mk_speed];
     uint16_t const w_offset  = w_offsets[mk_speed];
     uint8_t const  old_speed = mk_speed;
-    if (code == KC_MS_UP)
+    if (code == QK_MOUSE_CURSOR_UP)
         mouse_report.y = c_offset * -1;
-    else if (code == KC_MS_DOWN)
+    else if (code == QK_MOUSE_CURSOR_DOWN)
         mouse_report.y = c_offset;
-    else if (code == KC_MS_LEFT)
+    else if (code == QK_MOUSE_CURSOR_LEFT)
         mouse_report.x = c_offset * -1;
-    else if (code == KC_MS_RIGHT)
+    else if (code == QK_MOUSE_CURSOR_RIGHT)
         mouse_report.x = c_offset;
-    else if (code == KC_MS_WH_UP)
+    else if (code == QK_MOUSE_WHEEL_UP)
         mouse_report.v = w_offset;
-    else if (code == KC_MS_WH_DOWN)
+    else if (code == QK_MOUSE_WHEEL_DOWN)
         mouse_report.v = w_offset * -1;
-    else if (code == KC_MS_WH_LEFT)
+    else if (code == QK_MOUSE_WHEEL_LEFT)
         mouse_report.h = w_offset * -1;
-    else if (code == KC_MS_WH_RIGHT)
+    else if (code == QK_MOUSE_WHEEL_RIGHT)
         mouse_report.h = w_offset;
     else if (IS_MOUSEKEY_BUTTON(code))
-        mouse_report.buttons |= 1 << (code - KC_MS_BTN1);
-    else if (code == KC_MS_ACCEL0)
+        mouse_report.buttons |= 1 << (code - QK_MOUSE_BUTTON_1);
+    else if (code == QK_MOUSE_ACCELERATION_0)
         mk_speed = mkspd_0;
-    else if (code == KC_MS_ACCEL1)
+    else if (code == QK_MOUSE_ACCELERATION_1)
         mk_speed = mkspd_1;
-    else if (code == KC_MS_ACCEL2)
+    else if (code == QK_MOUSE_ACCELERATION_2)
         mk_speed = mkspd_2;
     if (mk_speed != old_speed) adjust_speed();
 }
@@ -599,30 +599,30 @@ void mousekey_off(uint8_t code) {
 #    ifdef MK_MOMENTARY_ACCEL
     uint8_t const old_speed = mk_speed;
 #    endif
-    if (code == KC_MS_UP && mouse_report.y < 0)
+    if (code == QK_MOUSE_CURSOR_UP && mouse_report.y < 0)
         mouse_report.y = 0;
-    else if (code == KC_MS_DOWN && mouse_report.y > 0)
+    else if (code == QK_MOUSE_CURSOR_DOWN && mouse_report.y > 0)
         mouse_report.y = 0;
-    else if (code == KC_MS_LEFT && mouse_report.x < 0)
+    else if (code == QK_MOUSE_CURSOR_LEFT && mouse_report.x < 0)
         mouse_report.x = 0;
-    else if (code == KC_MS_RIGHT && mouse_report.x > 0)
+    else if (code == QK_MOUSE_CURSOR_RIGHT && mouse_report.x > 0)
         mouse_report.x = 0;
-    else if (code == KC_MS_WH_UP && mouse_report.v > 0)
+    else if (code == QK_MOUSE_WHEEL_UP && mouse_report.v > 0)
         mouse_report.v = 0;
-    else if (code == KC_MS_WH_DOWN && mouse_report.v < 0)
+    else if (code == QK_MOUSE_WHEEL_DOWN && mouse_report.v < 0)
         mouse_report.v = 0;
-    else if (code == KC_MS_WH_LEFT && mouse_report.h < 0)
+    else if (code == QK_MOUSE_WHEEL_LEFT && mouse_report.h < 0)
         mouse_report.h = 0;
-    else if (code == KC_MS_WH_RIGHT && mouse_report.h > 0)
+    else if (code == QK_MOUSE_WHEEL_RIGHT && mouse_report.h > 0)
         mouse_report.h = 0;
     else if (IS_MOUSEKEY_BUTTON(code))
-        mouse_report.buttons &= ~(1 << (code - KC_MS_BTN1));
+        mouse_report.buttons &= ~(1 << (code - QK_MOUSE_BUTTON_1));
 #    ifdef MK_MOMENTARY_ACCEL
-    else if (code == KC_MS_ACCEL0)
+    else if (code == QK_MOUSE_ACCELERATION_0)
         mk_speed = mkspd_DEFAULT;
-    else if (code == KC_MS_ACCEL1)
+    else if (code == QK_MOUSE_ACCELERATION_1)
         mk_speed = mkspd_DEFAULT;
-    else if (code == KC_MS_ACCEL2)
+    else if (code == QK_MOUSE_ACCELERATION_2)
         mk_speed = mkspd_DEFAULT;
     if (mk_speed != old_speed) adjust_speed();
 #    endif
