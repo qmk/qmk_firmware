@@ -13,8 +13,14 @@
         "rgblight": false,
         "rgb_matrix": true
     },
+    "bootmagic": {
+        "matrix": [0, 1]
+    },
     "split": {
-        "enabled": true
+        "enabled": true,
+        "bootmagic": {
+            "matrix": [4, 1]
+        }
     },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_split_3x6_3"
