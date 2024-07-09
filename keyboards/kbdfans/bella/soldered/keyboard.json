@@ -31,6 +31,10 @@
     "backlight": {
         "pin": "B7"
     },
+    "indicators": {
+        "caps_lock": "E6",
+        "on_state": 0
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {

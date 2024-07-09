@@ -115,6 +115,7 @@ void adns9800_init(void) {
     adns9800_read(REG_Delta_Y_L);
     adns9800_read(REG_Delta_Y_H);
 
+#ifdef ADNS9800_UPLOAD_SROM
     // upload firmware
 
     // 3k firmware mode
@@ -145,6 +146,16 @@ void adns9800_init(void) {
     spi_stop();
 
     wait_ms(10);
+#else
+    // write reset value to REG_Configuration_IV
+    adns9800_write(REG_Configuration_IV, 0x0);
+
+    // write reset value to REG_SROM_Enable
+    adns9800_write(REG_SROM_Enable, 0x0);
+
+    // wait a frame
+    wait_ms(10);
+#endif
 
     // enable laser
     uint8_t laser_ctrl0 = adns9800_read(REG_LASER_CTRL0);
