@@ -43,6 +43,9 @@
                 ]
             }
         },
+        "handedness": {
+            "pin": "GP21"
+        },
         "serial": {
             "driver": "vendor"
         },
