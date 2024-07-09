@@ -30,20 +30,6 @@
 #    define BOOTMAGIC_COLUMN_RIGHT 1
 #endif
 
-#ifdef RGBLIGHT_ENABLE
-#    ifndef RGBLIGHT_LIMIT_VAL
-#        define RGBLIGHT_LIMIT_VAL 120
-#    endif
-#endif
-
-#ifdef RGB_MATRIX_ENABLE
-#    ifndef RGB_MATRIX_MAXIMUM_BRIGHTNESS
-#        define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120
-#    endif
-#endif
-
-#ifdef OLED_ENABLE
-    #ifndef OLED_FONT_H
-        #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
-    #endif
+#ifndef OLED_FONT_H
+#    define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
 #endif
