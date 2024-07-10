@@ -1,6 +1,6 @@
 # QK65 - Hotswap R2 PCB
 
-![qk65](./qk65-r2-white.avif)
+![White QK65 R2](https://gist.github.com/assets/5701149/2c400ae3-8a73-465a-9354-79200d1e2c9b.jpg)
 
 A 65% made by Qwertykeys.
 
