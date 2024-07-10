@@ -67,7 +67,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             uint16_t kc = layer ?                                         // To enable highlight keys even on the default layer, change this two line to :
                 keymap_key_to_keycode(layer, (keypos_t){col,row}) : 0;    // uint16_t kc = keymap_key_to_keycode(layer, (keypos_t){col,row}); 
 
-            if (kc >= QK_MOD_TAP && kc <= QK_LAYER_TAP_MAX) // Disable this two line to explicitly use MT() and LT() keycodes in your switch-cases
+            if (kc >= QK_MOD_TAP && kc <= QK_LAYER_TAP_MAX)               // Disable this two line to explicitly use MT() and LT() keycodes in your switch-cases
                 kc &= 0xff;
 
             switch (kc) {
@@ -83,7 +83,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                 break;
             case KC_KP_1 ... KC_KP_0:
                 if (!num_lock) {
-                    hsv.h = 252;
+                    hsv.h = 85;
                     hsv.v >>= 2;
                     break;
                 }
@@ -94,7 +94,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                 else
             continue;
                 break;
-            case KC_NUM:
+            case KC_NUM:                                                // NumLock key
                 hsv.h = 149;
                 break;
 #ifdef MOUSEKEY_ENABLE
