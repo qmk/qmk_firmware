@@ -19,7 +19,7 @@
 // Override the matrix read function to include the encoder button
 void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
     if (current_row == ENCODER_BUTTON_ROW) {
-        if (readPin(ENCODER_BUTTON_PIN) == 0) {
+        if (gpio_read_pin(ENCODER_BUTTON_PIN) == 0) {
             current_matrix[current_row] |= (1 << ENCODER_BUTTON_COL);
         } else {
             current_matrix[current_row] &= ~(1 << ENCODER_BUTTON_COL);
