@@ -18,7 +18,7 @@
 // Additional options
 
 #define SPLIT_LAYER_STATE_ENABLE // ensures the current layer state is available on the slave when using the QMK-provided split transport
-// #define SPLIT_LED_STATE_ENABLE // ensures the current host indicator state (caps/num/scroll) is available on the slave when using the QMK-provided split transport
+#define SPLIT_LED_STATE_ENABLE // ensures the current host indicator state (caps/num/scroll) is available on the slave when using the QMK-provided split transport
 
 // Additional RGB matrix options
 
