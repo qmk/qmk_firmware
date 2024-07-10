@@ -23,9 +23,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                     if (index >= led_min && index <= led_max && index != NO_LED) {
                         int keycode = keymap_key_to_keycode(layer, (keypos_t){col, row});
 
-                        if (keycode >= LOGO_VAI && keycode <= LOGO_SPD) {
-                            rgb_matrix_set_color(index, RGB_WHITE);
-                        } else if (keycode >= SIDE_VAI && keycode <= SIDE_SPD) {
+                         if ((keycode >= SIDE_VAI && keycode <= SIDE_SPD) || keycode == POWER_ON_TOGGLE) {
                             rgb_matrix_set_color(index, RGB_YELLOW);
                         } else if (keycode >= DEBOUNCE_PRESS_INC && keycode <= DEBOUNCE_PRESS_SHOW) {
                             rgb_matrix_set_color(index, 0, 255, 0);
