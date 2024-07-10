@@ -15,7 +15,7 @@
 #define I2C1_SDA_PIN GP10
 #define I2C1_SCL_PIN GP11
 
-/ Additional options
+// Additional options
 
 #define SPLIT_LAYER_STATE_ENABLE // ensures the current layer state is available on the slave when using the QMK-provided split transport
 // #define SPLIT_LED_STATE_ENABLE // ensures the current host indicator state (caps/num/scroll) is available on the slave when using the QMK-provided split transport
