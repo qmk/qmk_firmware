@@ -33,7 +33,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
   return true;
 };
 
-// Key lighting depending on the active layer
+// Key lighting depending on the active layer (https://github.com/fxkuehl/qmk_firmware/keyboards/mantis/mantis.c)
 
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
