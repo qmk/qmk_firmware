@@ -12,6 +12,8 @@ enum custom_layer {
     _FN3
 };
 
+// Layer Lock Key (https://github.com/getreuer)
+
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
   if (!process_layer_lock(keycode, record, KC_NO)) { return false; }
 
@@ -31,7 +33,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
   return true;
 };
 
-bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
+// Key lighting depending on the active layer
+
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
     const bool caps_lock = host_keyboard_led_state().caps_lock;
     const bool num_lock = host_keyboard_led_state().num_lock;
@@ -76,6 +80,12 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
                     break;
                 }
                 // fall through
+           case KC_LSFT:
+                if (caps_lock)
+                    hsv.h = 149;
+                else
+            continue;
+                break;
             case KC_NUM:
                 hsv.h = 149;
                 break;
@@ -92,12 +102,13 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
                 hsv.v >>= 1 - inc;
                 break;
             default:
-                if (caps_lock && (row == 0 ||
-                            (row == 3 && (col == 0 || col == 9))
-                            ))
-                    hsv.h = matrix_hsv.h+128, hsv.s >>= 1,
-                        hsv.v = RGB_MATRIX_MAXIMUM_BRIGHTNESS;
-                else
+              
+//                if (caps_lock && (row == 0 ||
+//                            (row == 3 && (col == 0 || col == 9))
+//                            )) // Light up the top row for caps-lock on Mantis keyboard 
+//                    hsv.h = matrix_hsv.h+128, hsv.s >>= 1,
+//                        hsv.v = RGB_MATRIX_MAXIMUM_BRIGHTNESS;
+//                else
                     continue;
             }
 
@@ -117,11 +128,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤                            ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
    KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,                                  KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_DEL,
 //├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤                            ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-   KC_LCTL,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,                                  KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT,
+   KC_LSFT,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,                                  KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_RSFT,
 //├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐        ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-   KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_HOME,           KC_END,   KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,
+   KC_LGUI,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     TL_LOWR,           TL_UPPR,  KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_ENT,
 //└─────────┴─────────┴─────────┴────┬────┴────┬────┴────┬────┴────┬────┘        └────┬────┴────┬────┴────┬────┴────┬────┴─────────┴─────────┴─────────┘
-                                      KC_LGUI,  TL_LOWR, KC_ENT,                       KC_SPC,   TL_UPPR,  KC_RALT
+                                      _______,  KC_LCTL,  KC_SPC,                      KC_SPC,   KC_QUOT,  KC_RALT
                                   // └─────────┴─────────┴─────────┘                  └─────────┴─────────┴─────────┘
   ),
 
