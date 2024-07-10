@@ -5,6 +5,9 @@
 #include "rgb_matrix.h"
 #include "rgb_matrix_types.h"
 #include "ansi.h"
+#include "user_kb.h"
+
+extern DEV_INFO_STRUCT dev_info;
 
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     uint8_t layer = get_highest_layer(layer_state);
@@ -29,11 +32,13 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                         } else if (keycode >= DEBOUNCE_RELEASE_INC && keycode <= DEBOUNCE_RELEASE_SHOW) {
                             rgb_matrix_set_color(index, 255, 0, 0);
                         } else if (keycode == SLEEP_MODE || keycode == TOG_USB_SLP || keycode == DEEP_SLEEP_TOGGLE || (keycode >= SLEEP_TIMEOUT_INC && keycode <= SLEEP_TIMEOUT_SHOW)) {
-                           rgb_matrix_set_color(index, RGB_CYAN);
+                            rgb_matrix_set_color(index, RGB_CYAN);
                         } else if (keycode >= LNK_USB && keycode <= LNK_BLE3) {
-                           rgb_matrix_set_color(index, RGB_BLUE);
+                            if (dev_info.link_mode != LINK_USB) {
+                                rgb_matrix_set_color(index, RGB_BLUE);
+                            }
                         } else if (IS_RGB_KEYCODE(keycode)) {
-                           rgb_matrix_set_color(index, RGB_PURPLE);
+                            rgb_matrix_set_color(index, RGB_PURPLE);
                         } else if (keycode > KC_TRNS) {
                             rgb_matrix_set_color(index, 225, 65, 140);
                         }
@@ -45,11 +50,3 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
     return true;
 }
-
-// TODO: implement custom colors based on custom codes
-// + debounce groups (green press, red release)
-// + sleep group - cyan / lightblue
-// + logo led - white
-// + side led - yellow
-// + wireless modes - blue
-// + other utilitary keys (reset, rgb test, etc) - current pink-ish
