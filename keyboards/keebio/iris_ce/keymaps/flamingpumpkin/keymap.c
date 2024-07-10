@@ -64,12 +64,12 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             hsv.s = 255;
             hsv.v = matrix_hsv.v;
 
-//            uint16_t kc = layer ?
-//                keymap_key_to_keycode(layer, (keypos_t){col,row}) : 0;
+            uint16_t kc = layer ?
+                keymap_key_to_keycode(layer, (keypos_t){col,row}) : 0;
             // Disable the two line above and active the line below to enable highlight keys even on the default layer
             uint16_t kc = keymap_key_to_keycode(layer, (keypos_t){col,row});
 
-            if (kc >= QK_MOD_TAP && kc <= QK_LAYER_TAP_MAX)               // Disable this two line to explicitly use MT() and LT() keycodes in your switch-cases
+//            if (kc >= QK_MOD_TAP && kc <= QK_LAYER_TAP_MAX)               // Disable this two line to explicitly use MT() and LT() keycodes in your switch-cases
                 kc &= 0xff;
 
             switch (kc) {
@@ -86,12 +86,16 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             case KC_F1 ... KC_F12:
                 hsv.h = 80;
                 break;
-            case KC_KP_1 ... KC_KP_0:
-                if (!num_lock) {
-                    hsv.h = 85;
-                    hsv.v >>= 2;
-                    break;
-                }
+//            case KC_P1 ... KC_P0:
+//                if (!num_lock) {
+//                    hsv.h = 85;
+//                    hsv.v >>= 2;
+//                    break;
+//                }
+            case KC_P1 ... KC_P0:
+                hsv.h = 85;
+                hsv.v >>= 2;
+                break;
                 // fall through
            case KC_LSFT:
                 if (caps_lock)
