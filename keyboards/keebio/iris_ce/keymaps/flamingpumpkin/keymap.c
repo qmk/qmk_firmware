@@ -33,7 +33,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
   return true;
 };
 
-// Key lighting depending on the active layer (https://github.com/fxkuehl/qmk_firmware/keyboards/mantis/mantis.c)
+// Key lighting depending on keycode and active layer (https://github.com/fxkuehl/qmk_firmware/keyboards/mantis/mantis.c)
+//
+//            case KC_xyz:
+//                switch(layer) {
+//            case 1: hsv.h = 80; break; // green
+//            case 2: hsv.h = 252; break; // red
+//            default: continue; // no light
+//                     }
+//                    break;
 
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
@@ -56,10 +64,10 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             hsv.s = 255;
             hsv.v = matrix_hsv.v;
 
-            uint16_t kc = layer ?
-                keymap_key_to_keycode(layer, (keypos_t){col,row}) : 0;
+            uint16_t kc = layer ?                                         // To enable highlight keys even on the default layer, change this two line to :
+                keymap_key_to_keycode(layer, (keypos_t){col,row}) : 0;    // uint16_t kc = keymap_key_to_keycode(layer, (keypos_t){col,row}); 
 
-            if (kc >= QK_MOD_TAP && kc <= QK_LAYER_TAP_MAX)
+            if (kc >= QK_MOD_TAP && kc <= QK_LAYER_TAP_MAX) // Disable this two line to explicitly use MT() and LT() keycodes in your switch-cases
                 kc &= 0xff;
 
             switch (kc) {
@@ -101,8 +109,8 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                 uint8_t inc = (kc + !!(get_mods() & MOD_LSFT)) & 1;
                 hsv.v >>= 1 - inc;
                 break;
-            default:
-              
+
+            default:             
 //                if (caps_lock && (row == 0 ||
 //                            (row == 3 && (col == 0 || col == 9))
 //                            )) // Light up the top row for caps-lock on Mantis keyboard 
@@ -138,27 +146,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_FN1] = LAYOUT(
 //┌─────────┬─────────┬─────────┬─────────┬─────────┬─────────┐                            ┌─────────┬─────────┬─────────┬─────────┬─────────┬─────────┐
-   KC_TILD,  KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,                               KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,  KC_PGUP,
+   _______,  KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,                               KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,  KC_PGUP,
 //├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤                            ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-   KC_GRV,   _______,  KC_UP,    _______,  QK_BOOT,  _______,                               _______,  KC_P7,    KC_P8,    KC_P9,    KC_P0,    KC_PGDN,
+   _______,  _______,  _______,  KC_UP,    _______,  _______,                               _______,  KC_P7,    KC_P8,    KC_P9,    KC_P0,    KC_PGDN,
 //├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤                            ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-   KC_DEL,   KC_LEFT,  KC_DOWN,  KC_RGHT,  _______,  KC_LBRC,                               KC_RBRC,  KC_P4,    KC_P5,    KC_P6,    KC_PLUS,  KC_PIPE,
+   _______,  _______,  KC_RGHT,  KC_DOWN,  KC_RGHT,  _______,                               _______,  KC_P4,    KC_P5,    KC_P6,    KC_PLUS,  _______,
 //├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐        ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-   RGB_MOD,  EE_CLR,   _______,  _______,  _______,  KC_LCBR,  KC_LPRN,           KC_RPRN,  KC_RCBR,  KC_P1,    KC_P2,    KC_P3,    KC_MINS,  _______,
+   _______,  _______,  _______,  _______,  _______,  RGB_TOG,  _______,           _______,  _______,  KC_P1,    KC_P2,    KC_P3,    KC_MINS,  _______,
 //└─────────┴─────────┴─────────┴────┬────┴────┬────┴────┬────┴────┬────┘        └────┬────┴────┬────┴────┬────┴────┬────┴─────────┴─────────┴─────────┘
-                                      _______,  _______,  KC_DEL,                      KC_DEL,   _______,  KC_P0
+                                      _______,  _______,  _______,                      KC_DEL,   _______,  KC_P0
                                   // └─────────┴─────────┴─────────┘                  └─────────┴─────────┴─────────┘
   ),
 
   [_FN2] = LAYOUT(
 //┌─────────┬─────────┬─────────┬─────────┬─────────┬─────────┐                            ┌─────────┬─────────┬─────────┬─────────┬─────────┬─────────┐
-   KC_F12,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,                                 KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,
+   _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,                                 KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,
 //├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤                            ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-   RGB_TOG,  KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,                               KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,  QK_BOOT,
+   _______,  KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_F11,                                KC_F12,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,  QK_BOOT,
 //├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤                            ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-   RGB_MOD,  KC_MPRV,  KC_MNXT,  KC_VOLU,  KC_PGUP,  KC_UNDS,                               KC_EQL,   KC_HOME,  RGB_HUI,  RGB_SAI,  RGB_VAI,  KC_BSLS,
+   _______,  KC_MPRV,  KC_MNXT,  KC_VOLU,  KC_PGUP,  KC_UNDS,                               KC_EQL,   KC_HOME,  RGB_HUI,  RGB_SAI,  RGB_VAI,  KC_BSLS,
 //├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐        ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-   KC_MUTE,  KC_MSTP,  KC_MPLY,  KC_VOLD,  KC_PGDN,  KC_MINS,  KC_LPRN,           _______,  KC_PLUS,  KC_END,   RGB_HUD,  RGB_SAD,  RGB_VAD,  EE_CLR,
+   KC_MUTE,  KC_MSTP,  KC_MPLY,  KC_VOLD,  KC_PGDN,  KC_MINS,  _______,           _______,  KC_PLUS,  KC_END,   RGB_HUD,  RGB_SAD,  RGB_VAD,  EE_CLR,
 //└─────────┴─────────┴─────────┴────┬────┴────┬────┴────┬────┴────┬────┘        └────┬────┴────┬────┴────┬────┴────┬────┴─────────┴─────────┴─────────┘
                                       _______,  _______,  _______,                     _______,  _______,  _______
                                   // └─────────┴─────────┴─────────┘                  └─────────┴─────────┴─────────┘
@@ -172,7 +180,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤                            ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
    _______,  _______,  _______,  _______,  _______,  _______,                               _______,  _______,  _______,  _______,  _______,  _______,
 //├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐        ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-   _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  _______,  _______,  _______,  _______,  EE_CLR,
+   _______,  _______,  _______,  EE_CLR,   _______,  QK_BOOT,  _______,            _______,  _______,  _______,  _______,  _______,  _______, _______,
 //└─────────┴─────────┴─────────┴────┬────┴────┬────┴────┬────┴────┬────┘        └────┬────┴────┬────┴────┬────┴────┬────┴─────────┴─────────┴─────────┘
                                       _______,  _______,  _______,                     _______,  _______,  _______
                                   // └─────────┴─────────┴─────────┘                  └─────────┴─────────┴─────────┘
