@@ -64,8 +64,10 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             hsv.s = 255;
             hsv.v = matrix_hsv.v;
 
-            uint16_t kc = layer ?                                         // To enable highlight keys even on the default layer, change this two line to :
-                keymap_key_to_keycode(layer, (keypos_t){col,row}) : 0;    // uint16_t kc = keymap_key_to_keycode(layer, (keypos_t){col,row}); 
+//            uint16_t kc = layer ?
+//                keymap_key_to_keycode(layer, (keypos_t){col,row}) : 0;
+            // Disable the two line above and active the line below to enable highlight keys even on the default layer
+            uint16_t kc = keymap_key_to_keycode(layer, (keypos_t){col,row});
 
             if (kc >= QK_MOD_TAP && kc <= QK_LAYER_TAP_MAX)               // Disable this two line to explicitly use MT() and LT() keycodes in your switch-cases
                 kc &= 0xff;
@@ -79,6 +81,9 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                 hsv.h = 252;
                 break;
             case KC_1 ... KC_0:
+                hsv.h = 80;
+                break;
+            case KC_F1 ... KC_F12:
                 hsv.h = 80;
                 break;
             case KC_KP_1 ... KC_KP_0:
