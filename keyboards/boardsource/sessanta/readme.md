@@ -1,5 +1,7 @@
 # Sessanta
 
+![image](https://i.imgur.com/ALvvC53.jpeg)
+
 A 60% keyboard offered in an MX or Choc PCB with per-key RGB
 
 * Keyboard Maintainer: [waffle87](https://github.com/waffle87)
