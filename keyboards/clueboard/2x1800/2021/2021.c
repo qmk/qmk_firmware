@@ -90,6 +90,8 @@ void matrix_init_kb(void) {
 #elif defined(DRAWING_TOY_MODE)
     max7219_set_led(0, 0, true);
 #endif
+
+    matrix_init_user();
 }
 
 __attribute__ ((weak))
