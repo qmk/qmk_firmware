@@ -83,6 +83,8 @@ jobs:
 
       - name: Checkout QMK Firmware
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Download firmwares
         uses: actions/download-artifact@v4
