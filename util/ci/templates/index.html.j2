@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style type="text/css">
+        {{ ansi2html_styles }}
+
+        body {
+            color: #FFF;
+            background-color: #111;
+        }
+
+        h3 {
+            font-family: sans-serif;
+            margin-top: 0;
+        }
+
+        a {
+            color: #00e1ff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #f700ff;
+            text-decoration: underline;
+        }
+
+        a:visited {
+            color: #00e1ff;
+        }
+
+        .build-target {
+            background-color: #333;
+            font-family: monospace;
+            padding-left: 0.3em;
+            padding-right: 0.3em;
+        }
+
+        .binary-link {
+            margin: 0;
+            margin-top: 0.25em;
+        }
+
+        .container {
+            background-color: #222;
+            padding: 2.0em;
+            margin: 2.0em;
+            border-radius: 2.0em;
+        }
+
+        .header-container {
+            display: table-cell;
+            padding-left: 1.5em;
+            vertical-align: middle;
+            font-family: sans-serif;
+        }
+
+        .header-container div:not(:first-child) {
+            margin-top: 0.25em;
+        }
+    </style>
+</head>
+
+<body class="" style="font-size: normal;">
+    <div style="float: left">
+        <div class="container">
+            <div style="display: table-cell; vertical-align: middle;">
+                <a href="https://qmk.fm/"><img src="https://qmk.fm/assets/images/badge-community-dark.svg" style="width: 30em;" /></a>
+            </div>
+            <div class="header-container">
+                <div>
+                    <span style="font-size: 175%; font-weight: bold;">CI Build {% if failures | length > 0 %}&#10060;{% else %}&#9989;{% endif %}</span>
+                </div>
+                <div>
+                    <span style="font-size: 100%; font-family: monospace;">{{ git_describe }}</span>
+                </div>
+                <div>
+                    <span style="font-size: 100%; font-family: monospace;">{{ git_revision }}</span>
+                </div>
+                <div>
+                    <span style="font-size: 80%; font-weight: bold; color: {% if failures | length > 0 %}#F00{% else %}#0F0{% endif %};">{{ failures | length }} failure{% if failures | length != 1 %}s{% endif %}</span>
+                </div>
+                <div>
+                    <span style="font-size: 80%">
+                    {% if binaries | length > 0 %}<a href="#firmwares">Firmwares</a> | {% endif %}
+                    <a href="#commit_info">Commit info</a>
+                    {% if failures | length > 0 %} | <a href="#failure_logs">Failure Logs</a>{% endif %}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <a name="commit_info"></a>
+        <div class="container">
+            <h3>Git commit</h3>
+            <div class="body_foreground body_background"
+                style="display: table-cell; padding: 1.0em; border-radius: 1.0em;">
+                <pre class="ansi2html-content">{{ git_log | ansi2html }}</pre>
+            </div>
+        </div>
+        {% if failures | length > 0 %}
+        <a name="failure_logs"></a>
+        <div class="container">
+            <h3>Build failure logs</h3>
+            <ul>
+                {% for failure in failures %}
+                <li><a style="font-family: monospace;" href="#build_failure_{{ failure.keyboard }}_{{ failure.keymap }}">{{ failure.keyboard }}:{{ failure.keymap }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% for failure in failures %}
+        <a name="build_failure_{{ failure.keyboard }}_{{ failure.keymap }}"></a>
+        <div class="container">
+            <h3>Build failure &mdash; <span class="build-target">{{ failure.keyboard }}:{{ failure.keymap }}</span></h3>
+            <div class="body_foreground body_background"
+                style="display: table-cell; padding: 1.0em; border-radius: 1.0em;">
+                <pre class="ansi2html-content">{{ failure.stdout | ansi2html }}</pre>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+    {% if binaries | length > 0 %}
+    <div style="float: right">
+        <a name="firmwares"></a>
+        <div class="container">
+            <h3>Firmware downloads</h3>
+            <div class="body_foreground body_background"
+                style="display: table-cell; padding: 1.0em; border-radius: 1.0em;">
+                {% for binary in binaries %}
+                <p class="binary-link" style="font-family: monospace;"><a href="{{ binary.name }}">{{ binary.name }}</a></p>
+                {%- endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</body>
+
+</html>
