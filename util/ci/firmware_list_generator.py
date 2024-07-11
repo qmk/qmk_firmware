@@ -5,6 +5,7 @@ from time import gmtime, strftime
 
 DATETIME_FORMAT = '%Y-%m-%d %H:%M:%S %Z'
 
+
 def current_datetime():
     return strftime(DATETIME_FORMAT, gmtime())
 
