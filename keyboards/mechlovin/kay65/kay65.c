@@ -21,5 +21,5 @@ void keyboard_pre_init_kb(void) {
   // Set our LED pins as output
   gpio_set_pin_output(D7);
 
-  keyboard_pre_init_user()
+  keyboard_pre_init_user();
 }
