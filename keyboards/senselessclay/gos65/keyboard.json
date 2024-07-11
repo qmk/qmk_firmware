@@ -12,6 +12,9 @@
       "pin": "B0"
     },
     "rgblight": {
+      "default": {
+        "val": 125
+      },
       "led_count": 68,
       "max_brightness": 125,
       "sleep": true,
