@@ -1,4 +1,4 @@
-# ATSET AT1
+# ATSET AT2
 
 A special 1 key keyboard powered by QMK.
 
@@ -12,7 +12,7 @@ Make example for this keyboard (after setting up your build environment):
 
 Flashing example for this keyboard:
 
-    make atset/at1:default:flash
+    make atset/at2:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
