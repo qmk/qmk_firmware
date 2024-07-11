@@ -20,17 +20,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case QK_USER_1:
         if (record->event.pressed) {            
-            tap_code16(LGUI(KC_SPACE));
-            wait_ms(1000);
-            tap_code(KC_LEFT_GUI);
-            wait_ms(1000);
-            SEND_STRING("terminal");
-            wait_ms(1000);
-            tap_code(KC_ENTER);
-            wait_ms(1000);
-            SEND_STRING("open https://veilid.com\n");
-            wait_ms(1000);
-            SEND_STRING("start https://veilid.com\n");
+            SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_SPACE) SS_UP(X_LGUI) SS_DELAY(1000) SS_TAP(X_LGUI) SS_DELAY(1000) "terminal" SS_DELAY(1000) SS_TAP(X_ENTER) SS_DELAY(1000) "open https://veilid.com\n" SS_DELAY(1000) "start https://veilid.com\n");
         }
         break;
     }
