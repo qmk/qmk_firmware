@@ -172,7 +172,7 @@ jobs:
             targets-${{ inputs.keymap }}
 
       - name: 'CI Discord Notification'
-        if: always()
+        if: always() && !cancelled()
         working-directory: util/ci/
         env:
           DISCORD_WEBHOOK: ${{ secrets.CI_DISCORD_WEBHOOK }}
