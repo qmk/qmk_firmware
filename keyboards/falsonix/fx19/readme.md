@@ -4,9 +4,9 @@
 
 *A short description of the keyboard/project*
 
-* Keyboard Maintainer: [Christian Greene](https://github.com/falsonix)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [falsonix](https://github.com/falsonix)
+* Hardware Supported: *FX19 Numpads*
+* Hardware Availability: *Coming soon!*
 
 Make example for this keyboard (after setting up your build environment):
 
