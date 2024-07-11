@@ -21,5 +21,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C1_SDA_PIN GP26
 #define I2C1_SCL_PIN GP27
 #define I2C_DRIVER I2CD1
-#define DYNAMIC_KEYMAP_MACRO_COUNT 50
+#define DYNAMIC_KEYMAP_MACRO_COUNT 30
 #define WEAR_LEVELING_BACKING_SIZE 16384
