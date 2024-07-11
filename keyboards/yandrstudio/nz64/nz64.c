@@ -97,6 +97,10 @@ void keyboard_post_init_kb(void) {
 #endif
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (!process_record_user(keycode, record)) {
+        return false;
+    }
+
     switch(keycode) {
 #ifdef RGB_MATRIX_ENABLE
         case URGB_K:

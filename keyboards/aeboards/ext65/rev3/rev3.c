@@ -19,10 +19,12 @@
 // Tested and verified working on EXT65 Rev3
 void matrix_io_delay(void) { __asm__ volatile("nop\nnop\nnop\n"); }
 
-void keyboard_pre_init_user(void) {
+void keyboard_pre_init_kb(void) {
   // Call the keyboard pre init code.
   // Set our LED pins as output
   gpio_set_pin_output(LED_LAYERS_PIN);
+
+  keyboard_pre_init_user();
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
