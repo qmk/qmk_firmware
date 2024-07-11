@@ -1060,7 +1060,7 @@
         "target": "lyso1/lefishe"
     },
     "lets_split_eh/eh": {
-        "target": "maple_computing/lets_split_eh/eh"
+        "target": "maple_computing/lets_split_eh"
     },
     "ls_60": {
         "target": "weirdo/ls_60"
@@ -1079,6 +1079,9 @@
     },
     "macro1": {
         "target": "laneware/macro1"
+    },
+    "maple_computing/lets_split_eh/eh": {
+        "target": "maple_computing/lets_split_eh"
     },
     "massdrop/thekey": {
         "target": "drop/thekey/v1"
