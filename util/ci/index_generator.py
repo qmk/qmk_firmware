@@ -48,17 +48,19 @@ def _ansi2html_styles():
     return "\n".join([str(s) for s in styles])
 
 
-def _git_log(count = 4):
+def _git_log(count=4):
     os.chdir(qmk_firmware_dir)
     ret = _run(f"git log -n {count} --color=always --no-merges --topo-order --stat").stdout.strip()
     os.chdir(orig_cwd)
     return ret
+
 
 def _git_describe():
     os.chdir(qmk_firmware_dir)
     ret = _run("git describe --tags --always --dirty").stdout.strip()
     os.chdir(orig_cwd)
     return ret
+
 
 def _git_revision():
     os.chdir(qmk_firmware_dir)
@@ -88,22 +90,18 @@ for mdfile in list(sorted(build_dir.glob("failed.log.*"))):
 
     txt = KEYBOARD_PATTERN.sub("", KEYMAP_PATTERN.sub("", txt)).strip()
 
-    failures.append(
-        {
-            "stdout": txt,
-            "keyboard": m_kb.group("keyboard"),
-            "keymap": m_km.group("keymap"),
-        }
-    )
+    failures.append({
+        "stdout": txt,
+        "keyboard": m_kb.group("keyboard"),
+        "keymap": m_km.group("keymap"),
+    })
 
 template = env.get_template("index.html.j2")
-print(
-    template.render(
-        ansi2html_styles=_ansi2html_styles(),
-        git_log=_git_log(),
-        git_describe=_git_describe(),
-        git_revision=_git_revision(),
-        binaries=binaries,
-        failures=failures,
-    )
-)
+print(template.render(
+    ansi2html_styles=_ansi2html_styles(),
+    git_log=_git_log(),
+    git_describe=_git_describe(),
+    git_revision=_git_revision(),
+    binaries=binaries,
+    failures=failures,
+))
