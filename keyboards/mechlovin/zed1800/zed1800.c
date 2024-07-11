@@ -27,9 +27,13 @@ RGBLIGHT_LAYERS_LIST(
             my_numlock_layer,
             my_scroll_layer
         );
+
 void keyboard_post_init_kb(void) {
     rgblight_layers = my_rgb_layers;
+
+    keyboard_post_init_user();
 }
+
 // Activate rgb layer for caps when capslock is enabled
 bool led_update_kb(led_t led_state) {
     rgblight_set_layer_state(0, led_state.caps_lock);
