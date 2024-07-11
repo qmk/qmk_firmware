@@ -95,11 +95,12 @@ jobs:
         run: |
           python3 -m pip install -r ./util/ci/requirements.txt
           ./util/ci/index_generator.py > index.html
+          ./util/ci/firmware_list_generator.py > firmware_list.json
 
       - name: Upload to https://ci.qmk.fm/${{ inputs.branch || github.ref_name }}/${{ github.sha }}
         uses: jakejarvis/s3-sync-action@master
         with:
-          args: --acl public-read --follow-symlinks --delete --exclude '*' --include 'index.html' --include '*.hex' --include '*.bin' --include '*.uf2'
+          args: --acl public-read --follow-symlinks --delete --exclude '*' --include 'index.html' --include 'firmware_list.json' --include '*.hex' --include '*.bin' --include '*.uf2'
         env:
           AWS_S3_BUCKET: ${{ vars.CI_QMK_FM_SPACES_BUCKET }}
           AWS_ACCESS_KEY_ID: ${{ secrets.CI_QMK_FM_SPACES_KEY }}
@@ -112,7 +113,7 @@ jobs:
       - name: Upload to https://ci.qmk.fm/${{ inputs.branch || github.ref_name }}/latest
         uses: jakejarvis/s3-sync-action@master
         with:
-          args: --acl public-read --follow-symlinks --delete --exclude '*' --include 'index.html' --include '*.hex' --include '*.bin' --include '*.uf2'
+          args: --acl public-read --follow-symlinks --delete --exclude '*' --include 'index.html' --include 'firmware_list.json' --include '*.hex' --include '*.bin' --include '*.uf2'
         env:
           AWS_S3_BUCKET: ${{ vars.CI_QMK_FM_SPACES_BUCKET }}
           AWS_ACCESS_KEY_ID: ${{ secrets.CI_QMK_FM_SPACES_KEY }}
