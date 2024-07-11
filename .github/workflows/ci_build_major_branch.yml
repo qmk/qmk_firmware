@@ -52,9 +52,9 @@ jobs:
         run: |
           target_count=$( {
             qmk find -km default 2>/dev/null
-            qmk find -km via 2>/dev/null
+            # qmk find -km xap 2>/dev/null
           } | sort | uniq | wc -l)
-          slice_length=$((target_count / ($CONCURRENT_JOBS - 1))) # Err on the side of caution as we're splitting default and via
+          slice_length=$((target_count / ($CONCURRENT_JOBS - 1))) # Err on the side of caution
           echo "slice_length=$slice_length" >> $GITHUB_OUTPUT
 
   build_targets:
@@ -63,7 +63,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        keymap: [default, via]
+        keymap: [default]
+        # keymap: [default, xap]
     uses: ./.github/workflows/ci_build_major_branch_keymap.yml
     with:
       branch: ${{ inputs.branch || github.ref_name }}
