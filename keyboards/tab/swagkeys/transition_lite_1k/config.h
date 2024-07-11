@@ -28,8 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_MATRIX_DISABLE_KEYCODES
 
-#define RBG_INDEX_CAPS                  62  /** Caps 指示灯索引 **/
-#define RBG_INDEX_SCROLL                14  /** Scorll 指示灯索引 **/
-#define RBG_INDEX_FN                    80  /** FN   指示灯索引 **/
+#define RGB_INDEX_CAPS                  62  /** Caps 指示灯索引 **/
+#define RGB_INDEX_SCROLL                14  /** Scroll 指示灯索引 **/
+#define RGB_INDEX_FN                    80  /** FN   指示灯索引 **/
 #endif
 

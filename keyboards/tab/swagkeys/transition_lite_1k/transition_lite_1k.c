@@ -13,18 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <stdint.h>
-#include <stdbool.h>
-
 #include "quantum.h"
-
-#include "matrix.h"
-#include "timer.h"
-
-#ifdef RGBLIGHT_ENABLE
-#    include "rgblight.h"
-#    include "led.h"
-#endif
 
 /**************************** Matrix *********************************/
 // 矩阵初始化之前执行
@@ -52,15 +41,15 @@ bool rgb_matrix_indicators_kb(void) {
         return false;
     }
     if (host_keyboard_led_state().caps_lock) {
-        rgb_matrix_set_color(RBG_INDEX_CAPS, RGB_WHITE);
+        rgb_matrix_set_color(RGB_INDEX_CAPS, RGB_WHITE);
     }
 
     if (host_keyboard_led_state().scroll_lock) {
-        rgb_matrix_set_color(RBG_INDEX_SCROLL, RGB_WHITE);
+        rgb_matrix_set_color(RGB_INDEX_SCROLL, RGB_WHITE);
     }
 
     if (layer_state_is(1)) {
-        rgb_matrix_set_color(RBG_INDEX_FN, RGB_WHITE);
+        rgb_matrix_set_color(RGB_INDEX_FN, RGB_WHITE);
     }
 
     return false;

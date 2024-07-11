@@ -4,8 +4,8 @@
 
 An entry-level keyboard that is modelled after the Transition TKL. 
 
-* Keyboard Maintainer: [Tab](https://github.com/tabkb)  
-* Hardware Supported: Blue Pill STM32F103CBT6  
+* Keyboard Maintainer: [Tab](https://github.com/tabkb)
+* Hardware Supported: Blue Pill STM32F103CBT6
 * Hardware Availability: [swagkeys](https://swagkeys.com/)
 
 Make example for this keyboard (after setting up your build environment):
