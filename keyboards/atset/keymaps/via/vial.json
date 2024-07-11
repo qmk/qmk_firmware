@@ -1,0 +1,20 @@
+{
+    "name": "ATR",
+    "vendorId": "0x2E8A",
+    "productId": "0x0003",
+    "lighting": "none",
+   
+    "matrix": {
+        "rows": 1,
+        "cols": 2
+    },
+    "layouts": {
+        "keymap": [
+            [
+                "0,0",
+                "0,1"
+              ]
+        ]
+        
+    }
+}
