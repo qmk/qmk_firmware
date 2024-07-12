@@ -202,7 +202,16 @@ void ws0010_init(bool cursor, bool blink) {
     ws0010_command(WS0010_CMD_CLEAR_DISPLAY); // Clear the display
     ws0010_command(WS0010_CMD_ENTRY_MODE | WS0010_ENTRY_MODE_INC); // Set entry mode
     ws0010_command(WS0010_CMD_RETURN_HOME); // Home command
-    ws0010_command(WS0010_CMD_DISPLAY | WS0010_DISPLAY_ON); // Turn the display on
+    //turn on the display and cursor and blink if appliable
+    if (cursor) {
+        if (blink) {
+            ws0010_command(WS0010_CMD_DISPLAY | WS0010_DISPLAY_ON | WS0010_DISPLAY_CURSOR | WS0010_DISPLAY_BLINK);
+        } else {
+            ws0010_command(WS0010_CMD_DISPLAY | WS0010_DISPLAY_ON | WS0010_DISPLAY_CURSOR);
+        }
+    } else {
+        ws0010_command(WS0010_CMD_DISPLAY | WS0010_DISPLAY_ON);
+    }
     // init finished. call init on a soft reset to reset the screen.
 }
 
