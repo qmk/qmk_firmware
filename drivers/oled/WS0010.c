@@ -201,7 +201,7 @@ void ws0010_init(bool cursor, bool blink, bool shift) {
     ws0010_command(WS0010_CMD_DISPLAY); // Turn off display
     ws0010_command(WS0010_CMD_CLEAR_DISPLAY); // Clear the display
     if (shift) {
-    ws0010_command(WS0010_CMD_ENTRY_MODE | WS0010_ENTRY_MODE_INC | WS0010_ENTRY_MODE_SHIFT); // Set entry mode right to left
+    ws0010_command(WS0010_CMD_ENTRY_MODE | WS0010_ENTRY_MODE_SHIFT); // Set entry mode right to left
         } else {
     ws0010_command(WS0010_CMD_ENTRY_MODE | WS0010_ENTRY_MODE_INC); // Set entry mode left to right
         }
