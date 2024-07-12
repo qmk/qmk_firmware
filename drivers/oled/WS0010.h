@@ -161,8 +161,9 @@ void ws0010_set_ddram_address(uint8_t address);
  *
  * \param cursor Whether to show the cursor.
  * \param blink Whether to blink the cursor, if shown.
+ * \param shift entry mode right to left.
  */
-void ws0010_init(bool cursor, bool blink);
+void ws0010_init(bool cursor, bool blink, bool shift);
 
 /**
  * \brief Move the cursor to the specified position on the display.
