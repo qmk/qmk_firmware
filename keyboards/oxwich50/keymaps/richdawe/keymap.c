@@ -7,6 +7,8 @@
 #define LT2_ESC LT(2, KC_ESC)
 #define LT3_TAB LT(3, KC_TAB)
 
+#define MT_LASL LALT_T(KC_SLSH)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base layer
      * ┌───┬───┬───┬───┐
@@ -22,8 +24,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
         LT3_TAB, KC_Q,    KC_W,    KC_E,     KC_R,    KC_T,    KC_LBRC, KC_RBRC,  KC_Y,    KC_U,     KC_I,    KC_O,    KC_P,    KC_BSPC,
         LT2_ESC, KC_A,    KC_S,    KC_D,     KC_F,    KC_G,    KC_TILD, KC_MINS,  KC_H,    KC_J,     KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-        KC_LSFT, KC_Z,    KC_X,    KC_C,     KC_V,    KC_B,             KC_SLSH,  KC_N,    KC_M,     KC_COMM, KC_DOT,  KC_UP,   SC_SENT,
-        KC_LCTL, KC_LGUI, KC_LALT,           LT1_SPC,                             LT1_SPC,           KC_LALT, KC_LEFT, KC_DOWN, KC_RIGHT
+        KC_LSFT, KC_Z,    KC_X,    KC_C,     KC_V,    KC_B,             KC_B,     KC_N,    KC_M,     KC_COMM, KC_DOT,  KC_UP,   SC_SENT,
+        KC_LCTL, KC_LGUI, KC_LALT,           LT1_SPC,                             LT1_SPC,           MT_LASL, KC_LEFT, KC_DOWN, KC_RIGHT
     ),
 
     /* Numbers and symbols layer
