@@ -1,6 +1,6 @@
 # Varys
 
-![varys](https://i.imgur.com/KHbSSrX.jpeg)
+![varys](https://i.imgur.com/XDd9HKF.jpeg)
 
 Varys is a mechanical split keyboard with custom designed PCB's, embedded ATmega32U4 microcontroller, EC11 encoders, USB-C connectors(for both power and communication), Serial/I2C communication, 132x32 Oled and per-key RGB. Keyboard layout is based on the lily58 layout.
 
