@@ -5,7 +5,7 @@
 * [Trackball Mini](trackball_mini/)
 * [Trackball Nano](trackball_nano/)
 * [Trackball Thumb](trackball_thumb/)
-* [Adept/Madromys](manromys/)
+* [Adept/Madromys](madromys/)
 
 # Customizing your PloopyCo Device
 
