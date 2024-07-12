@@ -21,3 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Increase eeprom size to allow for 5 layers */
 #define WEAR_LEVELING_BACKING_SIZE 16384
 #define WEAR_LEVELING_LOGICAL_SIZE 4096
+
+/* Increase debounce, as asym eager seems to lead to chatter with the fast polling rate in some cases */
+#define DEBOUNCE 7

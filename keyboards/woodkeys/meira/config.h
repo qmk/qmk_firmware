@@ -21,12 +21,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12
-
-/* COL2ROW, ROW2COL*/
-//#define DIODE_DIRECTION
-
-#define BACKLIGHT_PWM_MAP {2, 4, 8, 16, 40, 55, 70, 128, 200, 255}
-
-#ifdef RGBLIGHT_ENABLE
-#define RGBLED_NUM 15    // Number of LEDs
-#endif

@@ -17,9 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define LOCKING_SUPPORT_ENABLE
-#define LOCKING_RESYNC_ENABLE
-
 //#define ALL_RGBS // Define the RGB option here
 //#define LINE_RGBS
 //#define RUNE_RGBS
@@ -39,5 +36,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #       define RGBLIGHT_LED_MAP {21 , 2  , 3  , 4  , 5  , 1  , 20 , 0  , 6  , 7  , 8  , 9  , 10 , 11 , 12 , 13 , 19 , 14 , 15 , 16 , 17 , 18 }
 //                               D18, D19, D20, D21, D22, D23, D24, D25, D26, D27, D28, D29, D60, D61, D62, D63, D64, D65, D66, D67, D68, D69}
 #endif
-
-#define RGBLIGHT_DEFAULT_VAL 0

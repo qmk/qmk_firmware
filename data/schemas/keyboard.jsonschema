@@ -6,6 +6,10 @@
         "encoder_config": {
             "type": "object",
             "properties": {
+                "driver": {
+                    "type": "string",
+                    "enum": ["custom", "quadrature"]
+                },
                 "rotary": {
                     "type": "array",
                     "items": {
@@ -20,10 +24,16 @@
                     }
                 }
             }
+        },
+        "dip_switch_config": {
+            "type": "object",
+            "properties": {
+                "pins": {"$ref": "qmk.definitions.v1#/mcu_pin_array"}
+            }
         }
     },
     "type": "object",
-    "not": { "required": [ "vendorId", "productId" ] }, // reject via keys...
+    "not": {"required": ["vendorId", "productId"]}, // reject via keys...
     "properties": {
         "keyboard_name": {"$ref": "qmk.definitions.v1#/text_identifier"},
         "keyboard_folder": {"$ref": "qmk.definitions.v1#/keyboard"},
@@ -35,7 +45,7 @@
         },
         "development_board": {
             "type": "string",
-            "enum": ["promicro", "elite_c", "elite_pi", "proton_c", "kb2040", "promicro_rp2040", "blok", "michi", "bit_c_pro", "stemcell", "bluepill", "blackpill_f401", "blackpill_f411", "bonsai_c4", "helios", "liatris"]
+            "enum": ["promicro", "elite_c", "elite_pi", "proton_c", "kb2040", "promicro_rp2040", "blok", "michi", "bit_c_pro", "stemcell", "bluepill", "blackpill_f401", "blackpill_f411", "bonsai_c4", "helios", "liatris", "imera"]
         },
         "pin_compatible": {
             "type": "string",
@@ -71,6 +81,8 @@
                 "STM32F446",
                 "STM32G431",
                 "STM32G474",
+                "STM32H723",
+                "STM32H733",
                 "STM32L412",
                 "STM32L422",
                 "STM32L432",
@@ -113,8 +125,28 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
+                "default": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "on": {"type": "boolean"},
+                        "clicky": {"type": "boolean"}
+                    }
+                },
+                "driver": {
+                    "type": "string",
+                    "enum": ["dac_additive", "dac_basic", "pwm_software", "pwm_hardware"]
+                },
                 "macro_beep": {"type": "boolean"},
                 "pins": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
+                "power_control": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "on_state": {"$ref": "qmk.definitions.v1#/bit"},
+                        "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"}
+                    }
+                },
                 "voices": {"type": "boolean"}
             }
         },
@@ -124,7 +156,16 @@
             "properties": {
                 "driver": {
                     "type": "string",
-                    "enum": ["pwm", "software", "timer", "custom"]
+                    "enum": ["custom", "pwm", "software", "timer"]
+                },
+                "default": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "on": {"type": "boolean"},
+                        "breathing": {"type": "boolean"},
+                        "brightness": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
+                    }
                 },
                 "breathing": {"type": "boolean"},
                 "breathing_period": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
@@ -146,7 +187,7 @@
             "properties": {
                 "driver": {
                     "type": "string",
-                    "enum": ["BluefruitLE", "RN42", "custom"]
+                    "enum": ["bluefruit_le", "custom", "rn42"]
                 }
             }
         },
@@ -174,6 +215,7 @@
         "bootloader": {
             "type": "string",
             "enum": [
+                "apm32-dfu",
                 "atmel-dfu",
                 "bootloadhid",
                 "caterina",
@@ -242,9 +284,40 @@
             "type": "array",
             "items": {"$ref": "qmk.definitions.v1#/filename"}
         },
+        "dip_switch": {
+            "$ref": "#/definitions/dip_switch_config",
+            "properties": {
+                "enabled": {"type": "boolean"},
+                "matrix_grid": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "type": "array",
+                        "minItems": 2,
+                        "maxItems": 2,
+                        "items": {
+                            "type": "integer",
+                            "minimum": 0
+                        }
+                    }
+                }
+            }
+        },
         "eeprom": {
             "properties": {
-                "driver": {"type": "string"}
+                "driver": {"type": "string"},
+                "wear_leveling": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "driver": {
+                            "type": "string",
+                            "enum": ["custom", "embedded_flash", "legacy", "rp2040_flash", "spi_flash"]
+                        },
+                        "backing_size": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                        "logical_size": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                    }
+                }
             }
         },
         "encoder": {
@@ -253,7 +326,11 @@
                 "enabled": {"type": "boolean"}
             }
         },
-        "features": {"$ref": "qmk.definitions.v1#/boolean_array"},
+        "features": {
+            "$ref": "qmk.definitions.v1#/boolean_array",
+            "propertyNames": {"$ref": "qmk.definitions.v1#/snake_case"},
+            "not": {"required": ["lto"]}
+        },
         "indicators": {
             "type": "object",
             "properties": {
@@ -277,15 +354,9 @@
                 "type": "object",
                 "additionalProperties": false,
                 "properties": {
-                    "filename": {
-                        "type": "string"
-                    },
-                    "c_macro": {
-                        "type": "boolean"
-                    },
-                    "json_layout": {
-                        "type": "boolean"
-                    },
+                    "filename": {"type": "string"},
+                    "c_macro": {"type": "boolean"},
+                    "json_layout": {"type": "boolean"},
                     "layout": {
                         "type": "array",
                         "items": {
@@ -293,6 +364,7 @@
                             "additionalProperties": false,
                             "required": ["x", "y"],
                             "properties": {
+                                "encoder": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                                 "label": {
                                     "type": "string",
                                     "pattern": "^[^\\n]*$"
@@ -316,6 +388,15 @@
                             }
                         }
                     }
+                }
+            }
+        },
+        "haptic": {
+            "type": "object",
+            "properties": {
+                "driver": {
+                    "type": "string",
+                    "enum": ["drv2605l", "solenoid"]
                 }
             }
         },
@@ -367,11 +448,38 @@
             "properties": {
                 "animations": {
                     "type": "object",
-                    "additionalProperties": {
-                        "type": "boolean"
+                    "propertyNames": {"$ref": "qmk.definitions.v1#/snake_case"},
+                    "additionalProperties": {"type": "boolean"}
+                },
+                "default": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "on": {"type": "boolean"},
+                        "animation": {"type": "string"},
+                        "val": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                        "speed": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
                     }
                 },
-                "driver": {"type": "string"},
+                "driver": {
+                    "type": "string",
+                    "enum": [
+                        "custom",
+                        "is31fl3218",
+                        "is31fl3236",
+                        "is31fl3729",
+                        "is31fl3731",
+                        "is31fl3733",
+                        "is31fl3736",
+                        "is31fl3737",
+                        "is31fl3741",
+                        "is31fl3742a",
+                        "is31fl3743a",
+                        "is31fl3745",
+                        "is31fl3746a",
+                        "snled27351"
+                    ]
+                },
                 "center_point": {
                     "type": "array",
                     "minItems": 2,
@@ -380,10 +488,12 @@
                 },
                 "max_brightness": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
                 "timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                "hue_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                "sat_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "val_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "speed_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "led_flush_limit": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "led_process_limit": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "react_on_keyup": {"type": "boolean"},
+                "sleep": {"type": "boolean"},
                 "split_count": {
                     "type": "array",
                     "minItems": 2,
@@ -405,8 +515,8 @@
                                     "minimum": 0
                                 }
                             },
-                            "x": {"$ref": "qmk.definitions.v1#/key_unit"},
-                            "y": {"$ref": "qmk.definitions.v1#/key_unit"},
+                            "x": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                            "y": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                             "flags": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
                         }
                     }
@@ -418,11 +528,42 @@
             "properties": {
                 "animations": {
                     "type": "object",
-                    "additionalProperties": {
-                        "type": "boolean"
+                    "propertyNames": {"$ref": "qmk.definitions.v1#/snake_case"},
+                    "additionalProperties": {"type": "boolean"}
+                },
+                "default": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "on": {"type": "boolean"},
+                        "animation": {"type": "string"},
+                        "hue": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                        "sat": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                        "val": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                        "speed": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
                     }
                 },
-                "driver": {"type": "string"},
+                "driver": {
+                    "type": "string",
+                    "enum": [
+                        "aw20216s",
+                        "custom",
+                        "is31fl3218",
+                        "is31fl3236",
+                        "is31fl3729",
+                        "is31fl3731",
+                        "is31fl3733",
+                        "is31fl3736",
+                        "is31fl3737",
+                        "is31fl3741",
+                        "is31fl3742a",
+                        "is31fl3743a",
+                        "is31fl3745",
+                        "is31fl3746a",
+                        "snled27351",
+                        "ws2812"
+                    ]
+                },
                 "center_point": {
                     "type": "array",
                     "minItems": 2,
@@ -435,6 +576,10 @@
                 "sat_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "val_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "speed_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "led_flush_limit": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "led_process_limit": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "react_on_keyup": {"type": "boolean"},
+                "sleep": {"type": "boolean"},
                 "split_count": {
                     "type": "array",
                     "minItems": 2,
@@ -456,8 +601,8 @@
                                     "minimum": 0
                                 }
                             },
-                            "x": {"$ref": "qmk.definitions.v1#/key_unit"},
-                            "y": {"$ref": "qmk.definitions.v1#/key_unit"},
+                            "x": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                            "y": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                             "flags": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
                         }
                     }
@@ -470,11 +615,26 @@
             "properties": {
                 "animations": {
                     "type": "object",
-                    "additionalProperties": {
-                        "type": "boolean"
-                    }
+                    "propertyNames": {"$ref": "qmk.definitions.v1#/snake_case"},
+                    "additionalProperties": {"type": "boolean"}
                 },
                 "brightness_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "default": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "on": {"type": "boolean"},
+                        "animation": {"type": "string"},
+                        "hue": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                        "sat": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                        "val": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                        "speed": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
+                    }
+                },
+                "driver": {
+                    "type": "string",
+                    "enum": ["apa102", "custom", "ws2812"]
+                },
                 "hue_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "layers": {
                     "type": "object",
@@ -491,12 +651,20 @@
                     }
                 },
                 "led_count": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "led_map": {
+                    "type": "array",
+                    "minItems": 2,
+                    "items": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                },
                 "max_brightness": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
                 "pin": {
                     "$ref": "qmk.definitions.v1#/mcu_pin",
                     "$comment": "Deprecated: use ws2812.pin instead"
                 },
-                "rgbw": {"type": "boolean"},
+                "rgbw": {
+                    "type": "boolean",
+                    "$comment": "Deprecated: use ws2812.rgbw instead"
+                },
                 "saturation_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "sleep": {"type": "boolean"},
                 "split": {"type": "boolean"},
@@ -576,10 +744,6 @@
                         }
                     }
                 },
-                "matrix_grid": {
-                    "type": "array",
-                    "items": {"$ref": "qmk.definitions.v1#/mcu_pin"}
-                },
                 "matrix_pins": {
                     "type": "object",
                     "additionalProperties": false,
@@ -599,6 +763,15 @@
                         }
                     }
                 },
+                "dip_switch": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "right": {
+                            "$ref": "#/definitions/dip_switch_config"
+                        }
+                    }
+                },
                 "encoder": {
                     "type": "object",
                     "additionalProperties": false,
@@ -608,9 +781,17 @@
                         }
                     }
                 },
-                "main": {
-                    "type": "string",
-                    "enum": ["eeprom", "left", "matrix_grid", "pin", "right"]
+                "handedness": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                        "matrix_grid": {
+                            "$ref": "qmk.definitions.v1#/mcu_pin_array",
+                            "minItems": 2,
+                            "maxItems": 2
+                        }
+                    }
                 },
                 "soft_serial_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
                 "soft_serial_speed": {
@@ -624,12 +805,34 @@
                     "properties": {
                         "protocol": {
                             "type": "string",
-                            "enum": ["custom", "i2c", "serial", "serial_usart"]
+                            "enum": ["custom", "i2c", "serial"]
                         },
-                        "sync_matrix_state": {"type": "boolean"},
-                        "sync_modifiers": {"type": "boolean"},
+                        "sync": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "activity": {"type": "boolean"},
+                                "detected_os": {"type": "boolean"},
+                                "haptic": {"type": "boolean"},
+                                "layer_state": {"type": "boolean"},
+                                "indicators": {"type": "boolean"},
+                                "matrix_state": {"type": "boolean"},
+                                "modifiers": {"type": "boolean"},
+                                "oled": {"type": "boolean"},
+                                "st7565": {"type": "boolean"},
+                                "wpm": {"type": "boolean"}
+                            }
+                        },
                         "watchdog": {"type": "boolean"},
-                        "watchdog_timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                        "watchdog_timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                        "sync_matrix_state": {
+                            "type": "boolean",
+                            "$comment": "Deprecated: use sync.matrix_state instead"
+                        },
+                        "sync_modifiers": {
+                            "type": "boolean",
+                            "$comment": "Deprecated: use sync.modifiers instead"
+                        }
                     }
                 },
                 "usb_detect": {
@@ -640,6 +843,16 @@
                         "polling_interval": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                         "timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"}
                     }
+                },
+                "main": {
+                    "type": "string",
+                    "enum": ["eeprom", "left", "matrix_grid", "pin", "right"],
+                    "$comment": "Deprecated: use config.h options for now"
+                },
+                "matrix_grid": {
+                    "type": "array",
+                    "items": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                    "$comment": "Deprecated: use split.handedness.matrix_grid instead"
                 }
             }
         },
@@ -688,7 +901,7 @@
                     }
                 },
                 "suspend_wakeup_delay": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                "wait_for": {"type": "boolean"}
+                "wait_for_enumeration": {"type": "boolean"}
             }
         },
         "qmk": {
@@ -697,7 +910,15 @@
             "properties": {
                 "keys_per_scan": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
                 "tap_keycode_delay": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                "tap_capslock_delay": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                "tap_capslock_delay": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "locking": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "enabled": {"type": "boolean"},
+                        "resync": {"type": "boolean"}
+                    }
+                }
             }
         },
         "qmk_lufa_bootloader": {
@@ -719,6 +940,7 @@
                     "enum": ["bitbang", "custom", "i2c", "pwm", "spi", "vendor"]
                 },
                 "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "rgbw": {"type": "boolean"},
                 "i2c_address": {"$ref": "qmk.definitions.v1#/hex_number_2d"},
                 "i2c_timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"}
             }

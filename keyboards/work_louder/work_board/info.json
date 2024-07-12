@@ -8,8 +8,57 @@
       "pid": "0xDCD1",
       "max_power": 100
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true,
+        "rgblight": true,
+        "rgb_matrix": true,
+        "encoder": true
+    },
+    "build": {
+        "lto": true
+    },
     "rgb_matrix": {
-      "driver": "WS2812"
+      "animations": {
+        "alphas_mods": true,
+        "gradient_up_down": true,
+        "gradient_left_right": true,
+        "breathing": true,
+        "band_sat": true,
+        "band_val": true,
+        "band_pinwheel_sat": true,
+        "band_pinwheel_val": true,
+        "band_spiral_sat": true,
+        "band_spiral_val": true,
+        "cycle_all": true,
+        "cycle_left_right": true,
+        "cycle_up_down": true,
+        "rainbow_moving_chevron": true,
+        "cycle_out_in": true,
+        "cycle_out_in_dual": true,
+        "cycle_pinwheel": true,
+        "cycle_spiral": true,
+        "dual_beacon": true,
+        "rainbow_beacon": true,
+        "rainbow_pinwheels": true,
+        "raindrops": true,
+        "jellybean_raindrops": true,
+        "hue_breathing": true,
+        "hue_pendulum": true,
+        "hue_wave": true,
+        "pixel_rain": true,
+        "pixel_flow": true,
+        "pixel_fractal": true
+      },
+      "default": {
+        "animation": "solid_color",
+        "hue": 191
+      },
+      "driver": "ws2812",
+      "max_brightness": 120,
+      "sleep": true
     },
     "matrix_pins": {
       "cols": ["D3", "D5", "D4", "D6", "D7", "B4", "B5", "B6", "C6", "C7", "F7", "F6", "E6"],
@@ -25,7 +74,22 @@
       "pin": "D1"
     },
     "rgblight": {
-      "max_brightness": 120
+      "driver": "custom",
+      "max_brightness": 120,
+      "sleep": true,
+      "animations": {
+        "breathing": true,
+        "rainbow_mood": true,
+        "rainbow_swirl": true,
+        "snake": true,
+        "knight": true,
+        "christmas": true,
+        "static_gradient": true,
+        "twinkle": true
+      },
+      "default": {
+          "hue": 213
+      }
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

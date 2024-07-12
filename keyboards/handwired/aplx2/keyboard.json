@@ -1,0 +1,34 @@
+{
+    "keyboard_name": "Aplx2",
+    "manufacturer": "Aplyard",
+    "url": "",
+    "maintainer": "Aplyard",
+    "usb": {
+        "vid": "0xE0E0",
+        "pid": "0x0030",
+        "device_version": "0.0.1"
+    },
+    "features": {
+        "bootmagic": false,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "matrix_pins": {
+        "cols": ["B5", "D3"],
+        "rows": ["D1"]
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0}
+            ]
+        }
+    }
+}

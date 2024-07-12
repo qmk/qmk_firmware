@@ -20,6 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #include <stdint.h>
 
+#include "timer.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -30,7 +32,7 @@ typedef struct {
     uint8_t row;
 } keypos_t;
 
-typedef enum keyevent_type_t { TICK_EVENT = 0, KEY_EVENT = 1, ENCODER_CW_EVENT = 2, ENCODER_CCW_EVENT = 3, COMBO_EVENT = 4 } keyevent_type_t;
+typedef enum keyevent_type_t { TICK_EVENT = 0, KEY_EVENT = 1, ENCODER_CW_EVENT = 2, ENCODER_CCW_EVENT = 3, COMBO_EVENT = 4, DIP_SWITCH_ON_EVENT = 5, DIP_SWITCH_OFF_EVENT = 6 } keyevent_type_t;
 
 /* key event */
 typedef struct {
@@ -46,6 +48,8 @@ typedef struct {
 /* special keypos_t entries */
 #define KEYLOC_ENCODER_CW 253
 #define KEYLOC_ENCODER_CCW 252
+#define KEYLOC_DIP_SWITCH_ON 251
+#define KEYLOC_DIP_SWITCH_OFF 250
 
 static inline bool IS_NOEVENT(const keyevent_t event) {
     return event.type == TICK_EVENT;
@@ -61,6 +65,9 @@ static inline bool IS_COMBOEVENT(const keyevent_t event) {
 }
 static inline bool IS_ENCODEREVENT(const keyevent_t event) {
     return event.type == ENCODER_CW_EVENT || event.type == ENCODER_CCW_EVENT;
+}
+static inline bool IS_DIPSWITCHEVENT(const keyevent_t event) {
+    return event.type == DIP_SWITCH_ON_EVENT || event.type == DIP_SWITCH_OFF_EVENT;
 }
 
 /* Common keypos_t object factory */
@@ -89,6 +96,12 @@ static inline bool IS_ENCODEREVENT(const keyevent_t event) {
 #    define MAKE_ENCODER_CW_EVENT(enc_id, press) MAKE_EVENT(KEYLOC_ENCODER_CW, (enc_id), (press), ENCODER_CW_EVENT)
 #    define MAKE_ENCODER_CCW_EVENT(enc_id, press) MAKE_EVENT(KEYLOC_ENCODER_CCW, (enc_id), (press), ENCODER_CCW_EVENT)
 #endif // ENCODER_MAP_ENABLE
+
+#ifdef DIP_SWITCH_MAP_ENABLE
+/* Dip Switch events */
+#    define MAKE_DIPSWITCH_ON_EVENT(switch_id, press) MAKE_EVENT(KEYLOC_DIP_SWITCH_ON, (switch_id), (press), DIP_SWITCH_ON_EVENT)
+#    define MAKE_DIPSWITCH_OFF_EVENT(switch_id, press) MAKE_EVENT(KEYLOC_DIP_SWITCH_OFF, (switch_id), (press), DIP_SWITCH_OFF_EVENT)
+#endif // DIP_SWITCH_MAP_ENABLE
 
 /* it runs once at early stage of startup before keyboard_init. */
 void keyboard_setup(void);

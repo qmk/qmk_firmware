@@ -16,20 +16,9 @@
 
 #pragma once
 
-#ifdef RGBLIGHT_ENABLE
-#   define RGBLED_NUM 60  // Total number of LEDs
-#   define RGBLED_SPLIT { 30, 30 } // LEDs per side
-#   define RGBLIGHT_SPLIT
-#endif
-
 // Limit the power draw
 #ifdef IOS_DEVICE_ENABLE
   #define RGBLIGHT_LIMIT_VAL 40
 #else
   #define RGBLIGHT_LIMIT_VAL 80
 #endif
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE

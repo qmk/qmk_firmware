@@ -236,3 +236,21 @@ TEST_F(DebounceTest, OneKeyDelayedScan4) {
     time_jumps_ = true;
     runEvents();
 }
+
+TEST_F(DebounceTest, AsyncTickOneKeyShort1) {
+    addEvents({
+        /* Time, Inputs, Outputs */
+        {0, {{0, 1, DOWN}}, {}},
+
+        {5, {}, {{0, 1, DOWN}}},
+        /* 0ms delay (fast scan rate) */
+        {5, {{0, 1, UP}}, {}},
+
+        {10, {}, {{0, 1, UP}}},
+    });
+    /*
+     * Debounce implementations should never read the timer more than once per invocation
+     */
+    async_time_jumps_ = DEBOUNCE;
+    runEvents();
+}

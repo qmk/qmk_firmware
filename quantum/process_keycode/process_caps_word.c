@@ -13,6 +13,15 @@
 // limitations under the License.
 
 #include "process_caps_word.h"
+#include "process_auto_shift.h"
+#include "process_space_cadet.h"
+#include "caps_word.h"
+#include "keycodes.h"
+#include "quantum_keycodes.h"
+#include "modifiers.h"
+#include "timer.h"
+#include "action_tapping.h"
+#include "action_util.h"
 
 #ifdef CAPS_WORD_INVERT_ON_SHIFT
 static uint8_t held_mods = 0;
@@ -102,6 +111,9 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
 #        endif // COMMAND_ENABLE
         ) {
             caps_word_on();
+#        ifdef SPACE_CADET_ENABLE
+            reset_space_cadet();
+#        endif // SPACE_CADET_ENABLE
         }
 #    endif     // defined(COMMAND_ENABLE) && !defined(IS_COMMAND)
 #endif         // BOTH_SHIFTS_TURNS_ON_CAPS_WORD

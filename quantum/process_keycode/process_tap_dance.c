@@ -13,7 +13,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+#include "process_tap_dance.h"
 #include "quantum.h"
+#include "action_layer.h"
+#include "action_tapping.h"
+#include "action_util.h"
+#include "timer.h"
+#include "wait.h"
 
 static uint16_t active_td;
 static uint16_t last_tap_time;
@@ -88,6 +95,10 @@ static inline void process_tap_dance_action_on_each_tap(tap_dance_action_t *acti
     _process_tap_dance_action_fn(&action->state, action->user_data, action->fn.on_each_tap);
 }
 
+static inline void process_tap_dance_action_on_each_release(tap_dance_action_t *action) {
+    _process_tap_dance_action_fn(&action->state, action->user_data, action->fn.on_each_release);
+}
+
 static inline void process_tap_dance_action_on_reset(tap_dance_action_t *action) {
     _process_tap_dance_action_fn(&action->state, action->user_data, action->fn.on_reset);
     del_weak_mods(action->state.weak_mods);
@@ -122,7 +133,7 @@ bool preprocess_tap_dance(uint16_t keycode, keyrecord_t *record) {
 
     if (!active_td || keycode == active_td) return false;
 
-    action                             = &tap_dance_actions[TD_INDEX(active_td)];
+    action                             = &tap_dance_actions[QK_TAP_DANCE_GET_INDEX(active_td)];
     action->state.interrupted          = true;
     action->state.interrupting_keycode = keycode;
     process_tap_dance_action_on_dance_finished(action);
@@ -143,7 +154,7 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
 
     switch (keycode) {
         case QK_TAP_DANCE ... QK_TAP_DANCE_MAX:
-            action = &tap_dance_actions[TD_INDEX(keycode)];
+            action = &tap_dance_actions[QK_TAP_DANCE_GET_INDEX(keycode)];
 
             action->state.pressed = record->event.pressed;
             if (record->event.pressed) {
@@ -151,8 +162,12 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
                 process_tap_dance_action_on_each_tap(action);
                 active_td = action->state.finished ? 0 : keycode;
             } else {
+                process_tap_dance_action_on_each_release(action);
                 if (action->state.finished) {
                     process_tap_dance_action_on_reset(action);
+                    if (active_td == keycode) {
+                        active_td = 0;
+                    }
                 }
             }
 
@@ -167,7 +182,7 @@ void tap_dance_task(void) {
 
     if (!active_td || timer_elapsed(last_tap_time) <= GET_TAPPING_TERM(active_td, &(keyrecord_t){})) return;
 
-    action = &tap_dance_actions[TD_INDEX(active_td)];
+    action = &tap_dance_actions[QK_TAP_DANCE_GET_INDEX(active_td)];
     if (!action->state.interrupted) {
         process_tap_dance_action_on_dance_finished(action);
     }

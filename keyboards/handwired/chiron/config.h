@@ -19,8 +19,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Pro Micro Pins      RX1
 #define SPLIT_HAND_PIN D2
-
-#define LOCKING_SUPPORT_ENABLE
-#define LOCKING_RESYNC_ENABLE
-
-#define RGBLED_NUM 4

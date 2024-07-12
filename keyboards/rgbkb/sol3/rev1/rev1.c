@@ -8,32 +8,18 @@
  */
 
 #include "rev1.h"
+#include "transactions.h"
 #include "split_util.h"
 
 #define NUMBER_OF_TOUCH_ENCODERS 2
 #define TOUCH_ENCODER_OPTIONS TOUCH_SEGMENTS + 2
-
-#define NUMBER_OF_ENCODERS 6
-#define ENCODER_OPTIONS 2
 
 typedef struct PACKED {
     uint8_t r;
     uint8_t c;
 } encodermap_t;
 
-// this maps encoders and then touch encoders to their respective electrical matrix entry
-// mapping is row (y) then column (x) when looking at the electrical layout
-const encodermap_t encoder_map[NUMBER_OF_ENCODERS][ENCODER_OPTIONS] = 
-{
-    { {  5, 0 }, {  5, 1 } }, // Encoder 0 matrix entries
-    { {  5, 2 }, {  5, 3 } }, // Encoder 1 matrix entries
-    { {  5, 4 }, {  5, 5 } }, // Encoder 2 matrix entries
-    { { 11, 0 }, { 11, 1 } }, // Encoder 3 matrix entries
-    { { 11, 2 }, { 11, 3 } }, // Encoder 4 matrix entries
-    { { 11, 4 }, { 11, 5 } }  // Encoder 5 matrix entries
-};
-
-const encodermap_t touch_encoder_map[NUMBER_OF_TOUCH_ENCODERS][TOUCH_ENCODER_OPTIONS] = 
+const encodermap_t touch_encoder_map[NUMBER_OF_TOUCH_ENCODERS][TOUCH_ENCODER_OPTIONS] =
 {
     { { 1, 7 }, { 0, 7 }, { 2, 7 }, {  5, 6 }, {  5, 7 }, }, // Touch Encoder 0 matrix entries
     { { 7, 7 }, { 6, 7 }, { 8, 7 }, { 11, 6 }, { 11, 7 }, }  // Touch Encoder 1 matrix entries
@@ -43,7 +29,7 @@ static bool limit_lightning = true;
 
 RGB rgb_matrix_hsv_to_rgb(HSV hsv) {
     if (limit_lightning) hsv.v /= 2;
-    return hsv_to_rgb(hsv); 
+    return hsv_to_rgb(hsv);
 }
 
 bool dip_switch_update_kb(uint8_t index, bool active) {
@@ -70,15 +56,6 @@ static void process_encoder_matrix(encodermap_t pos) {
     wait_ms(TAP_CODE_DELAY);
 #endif
     action_exec(MAKE_KEYEVENT(pos.r, pos.c, false));
-}
-
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise))
-        return false;
-
-    // Mapping clockwise (typically increase) to zero, and counter clockwise (decrease) to 1
-    process_encoder_matrix(encoder_map[index][clockwise ? 0 : 1]);
-    return false;
 }
 
 bool touch_encoder_update_kb(uint8_t index, bool clockwise) {
@@ -189,7 +166,7 @@ void rgb_matrix_increase_flags(void)
 #endif
 
 
-__attribute__((weak)) 
+__attribute__((weak))
 void render_layer_status(void) {
     // Keymap specific, expected to be overridden
     // Host Keyboard Layer Status
@@ -245,7 +222,7 @@ oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
 bool oled_task_kb(void) {
     if (!oled_task_user())
         return false;
-    
+
     if (is_keyboard_left()) {
         render_icon();
         oled_write_P(PSTR("     "), false);
@@ -280,3 +257,15 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 };
+
+void keyboard_post_init_kb(void) {
+    touch_encoder_init();
+    transaction_register_rpc(TOUCH_ENCODER_SYNC, touch_encoder_slave_sync);
+    transaction_register_rpc(RGB_MENU_SYNC, rgb_menu_slave_sync);
+    keyboard_post_init_user();
+}
+
+void housekeeping_task_kb(void) {
+    touch_encoder_update(TOUCH_ENCODER_SYNC);
+    rgb_menu_update(RGB_MENU_SYNC);
+}

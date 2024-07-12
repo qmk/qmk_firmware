@@ -28,12 +28,15 @@
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
 
-#define RGBLED_NUM 4
-#define RGBLIGHT_EFFECT_BREATHING
-#define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-
 // #define DEBUG_LED_PIN F7
 
 /* PMW33XX Settings */
 #define PMW33XX_CS_PIN B0
+
+#define ENCODER_BUTTON_COL 1
+#define ENCODER_BUTTON_ROW 0
+/* Custom encoder needs to specify just how many encoders we have */
+#define NUM_ENCODERS 1
+
+#define ENCODERS_PAD_A { F0 }
+#define ENCODERS_PAD_B { F4 }
