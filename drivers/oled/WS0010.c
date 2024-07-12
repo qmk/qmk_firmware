@@ -193,10 +193,11 @@ void ws0010_init(bool cursor, bool blink, bool shift) {
 
     // There should be some timing inbetween commands but the docs just sat check busy inbetween, this is built into the command
     ws0010_command(0x2); //0010 nibble
-    if WS0010_DISPLAY_LINES == 1
+    if WS0010_DISPLAY_LINES == 1 {
         ws0010_command(WS0010_CMD_FUNCTION); // 4 bit, 1 line, 5x8 dots
-    else
+        } else {
         ws0010_command(WS0010_CMD_FUNCTION | WS0010_FUNCTION_2_LINES); // 4 bit, 2 lines, 5x8 dots
+        }
     ws0010_command(WS0010_CMD_DISPLAY); // Turn off display
     ws0010_command(WS0010_CMD_CLEAR_DISPLAY); // Clear the display
     if (shift) {
