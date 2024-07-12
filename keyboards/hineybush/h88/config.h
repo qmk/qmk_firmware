@@ -1,4 +1,4 @@
-/* Copyright 2021 Harrison Chan (Xelus)
+/* Copyright 2019 Josh Hinnebusch
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,13 +13,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#pragma once
 
-#include "quantum.h"
-
-void eeconfig_init_kb(void) {  // EEPROM is getting reset!
-    rgblight_enable();                      // Enable RGB by default
-    rgblight_mode(RGBLIGHT_MODE_RGB_TEST);  // set to RGBLIGHT_MODE_RGB_TEST by default
-
-    eeconfig_update_kb(0);
-    eeconfig_init_user();
-}
+#define RGBLIGHT_DEFAULT_MODE (RGBLIGHT_MODE_RAINBOW_SWIRL + 2)

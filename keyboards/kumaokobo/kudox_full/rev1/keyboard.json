@@ -29,6 +29,9 @@
             "knight": true,
             "christmas": true,
             "static_gradient": true
+        },
+        "default": {
+            "animation": "rainbow_swirl"
         }
     },
     "ws2812": {
