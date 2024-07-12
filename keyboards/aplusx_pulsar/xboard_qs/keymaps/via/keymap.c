@@ -16,7 +16,6 @@
 
 #include QMK_KEYBOARD_H
 
-#include "xboard_qs.h"
 
 enum _layer { WIN_BASE = 0, WIN_FN, MAC_BASE, MAC_FN };
 
