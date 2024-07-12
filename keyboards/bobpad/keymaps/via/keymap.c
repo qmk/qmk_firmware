@@ -46,11 +46,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // C6 E6 D7
 
 void matrix_scan_user(void) {
-    writePin(C6, layer_state_is(1));
-    writePin(E6, layer_state_is(2));
-    writePin(D7, layer_state_is(3));
-    writePin(D4, layer_state_is(4));
-    writePin(D0, layer_state_is(5));
+    gpio_write_pin(C6, layer_state_is(1));
+    gpio_write_pin(E6, layer_state_is(2));
+    gpio_write_pin(D7, layer_state_is(3));
+    gpio_write_pin(D4, layer_state_is(4));
+    gpio_write_pin(D0, layer_state_is(5));
     if (is_alt_tab_active) {
         if (timer_elapsed(alt_tab_timer) > 1000) {
         unregister_code(KC_LWIN);
