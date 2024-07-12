@@ -423,7 +423,7 @@ bool rgb_matrix_indicators_kb(void) {
 bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     if (keymap_config.no_gui) {
         // fixed position in top right corner, key position in matrix is (0,16), led index is (16)
-        rgb_matrix_set_color(get_led_index(0, 15), 0x00, 0x80, 0x00);
+        rgb_matrix_set_color(get_led_index(0, MATRIX_COLS - 1), 0x00, 0x80, 0x00);
     }
 
     if (f_debounce_press_show) { // green numbers - press debounce
@@ -477,12 +477,12 @@ void init_g_config(void) {
     g_config.debounce_release_ms  = DEBOUNCE;
     g_config.caps_indication_type = CAPS_INDICATOR_SIDE;
     // top LED
-    g_config.side_mode_a     = 0;
-    g_config.side_mode_b     = 3;
-    g_config.side_brightness = 2;
-    g_config.side_speed      = 2;
-    g_config.side_rgb        = 1;
-    g_config.side_color      = 0;
+    g_config.side_mode_a                  = 0;
+    g_config.side_mode_b                  = 3;
+    g_config.side_brightness              = 2;
+    g_config.side_speed                   = 2;
+    g_config.side_rgb                     = 1;
+    g_config.side_color                   = 0;
     g_config.battery_indicator_brightness = 100;
 }
 
