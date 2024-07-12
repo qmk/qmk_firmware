@@ -172,7 +172,7 @@ void ws0010_set_ddram_address(uint8_t address) {
     ws0010_command(WS0010_CMD_SET_DDRAM_ADDRESS + (address & 0x7F));
 }
 
-void ws0010_init(bool cursor, bool blink) {
+void ws0010_init(bool cursor, bool blink, bool shift) {
     gpio_set_pin_output(WS0010_RS_PIN);
     gpio_set_pin_output(WS0010_RW_PIN);
     gpio_set_pin_output(WS0010_E_PIN);
@@ -193,14 +193,17 @@ void ws0010_init(bool cursor, bool blink) {
 
     // There should be some timing inbetween commands but the docs just sat check busy inbetween, this is built into the command
     ws0010_command(0x2); //0010 nibble
-    #if WS0010_DISPLAY_LINES == 1
+    if WS0010_DISPLAY_LINES == 1
         ws0010_command(WS0010_CMD_FUNCTION); // 4 bit, 1 line, 5x8 dots
-    #else
+    else
         ws0010_command(WS0010_CMD_FUNCTION | WS0010_FUNCTION_2_LINES); // 4 bit, 2 lines, 5x8 dots
-    #endif
     ws0010_command(WS0010_CMD_DISPLAY); // Turn off display
     ws0010_command(WS0010_CMD_CLEAR_DISPLAY); // Clear the display
-    ws0010_command(WS0010_CMD_ENTRY_MODE | WS0010_ENTRY_MODE_INC); // Set entry mode
+    if (shift) {
+    ws0010_command(WS0010_CMD_ENTRY_MODE | WS0010_ENTRY_MODE_INC | WS0010_ENTRY_MODE_SHIFT); // Set entry mode right to left
+        } else {
+    ws0010_command(WS0010_CMD_ENTRY_MODE | WS0010_ENTRY_MODE_INC); // Set entry mode left to right
+        }
     ws0010_command(WS0010_CMD_RETURN_HOME); // Home command
     //turn on the display and cursor and blink if appliable
     if (cursor) {
