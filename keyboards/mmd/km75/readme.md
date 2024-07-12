@@ -4,8 +4,8 @@
 * A customizable soldering 75% keyboard.
 
 * Keyboard Maintainer: [MMD](https://github.com/Smartmmd)
-* Hardware Supported: [MMD](https://github.com/Smartmmd)
-* Hardware Availability: [MMD](https://github.com/Smartmmd)
+* Hardware Supported: [i-game](http://www.i-game.tech)
+* Hardware Availability: [i-game](http://www.i-game.tech)
 
 Make example for this keyboard (after setting up your build environment):
 
