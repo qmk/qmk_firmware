@@ -28,34 +28,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
-  [_QWERTY] = LAYOUT(
-  KC_ESC,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                              KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_GRV,
-  KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                              KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS,
-  KC_LSFT,  KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                              KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-  KC_LCTL,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_WHOM,    KC_AUDIO_MUTE,   KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  KC_RSFT,
-                             KC_LALT, L_LOWER,KC_LGUI, KC_SPC,   KC_ENT, KC_BSPC,  L_RAISE, KC_RALT
-  ),
-  [_LOWER] = LAYOUT(
-  _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-  KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6  ,                   KC_F7  ,KC_F8   ,KC_F9   ,KC_F10  ,KC_F11  ,KC_F12,
-  KC_GRV, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                    KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_TILD,
-  KC_CAPS, KC_SCRL, KC_NUM, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
-                             _______, _______, _______, _______, _______,  _______, _______, _______
-  ),
-  [_RAISE] = LAYOUT(
-  _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                             _______, _______, _______, _______, _______,  _______, _______, _______
-  ),
-  [_MISC] = LAYOUT(
-  _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                             _______, _______, _______, _______, _______,  _______, _______, _______
-  )
+    [_QWERTY] = LAYOUT(
+    KC_ESC,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                              KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_GRV,
+    KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                              KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS,
+    KC_LSFT,  KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                              KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+    KC_LCTL,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_WHOM,    KC_AUDIO_MUTE,   KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  KC_RSFT,
+                               KC_LALT, L_LOWER,KC_LGUI, KC_SPC,   KC_ENT, KC_BSPC,  L_RAISE, KC_RALT
+    ),
+    [_LOWER] = LAYOUT(
+    _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
+    KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6  ,                   KC_F7  ,KC_F8   ,KC_F9   ,KC_F10  ,KC_F11  ,KC_F12,
+    KC_GRV, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                    KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_TILD,
+    KC_CAPS, KC_SCRL, KC_NUM, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
+                               _______, _______, _______, _______, _______,  _______, _______, _______
+    ),
+    [_RAISE] = LAYOUT(
+    _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+                               _______, _______, _______, _______, _______,  _______, _______, _______
+    ),
+    [_MISC] = LAYOUT(
+    _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+                               _______, _______, _______, _______, _______,  _______, _______, _______
+    )
 };
 
 
@@ -190,20 +190,8 @@ led_config_t g_led_config = {
       LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW,
       LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW,
       LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW, 
-    }};
-bool rgb_matrix_indicators_user(void) {
-  // Set all LEDs to teal color
-  for (int i = 0; i < RGB_MATRIX_LED_COUNT; ++i) {
-    if (i == 33) {
-      rgb_matrix_set_color(i, 255, 0, 0);
-      } else if (i == 24) {
-      rgb_matrix_set_color(i, 0, 0,255);
-    } else {
-      rgb_matrix_set_color(i, 255, 0, 255);
     }
-  }
-  return false;
-}
+};
 #endif
 
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -234,34 +222,34 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 
 bool oled_task_user(void) {
-  oled_set_cursor(0, 1);
-  // Draw Logo 32x96
-  oled_write_raw_P(varys_logo, sizeof(varys_logo));
-  oled_set_cursor(0, 14);
-  switch (get_highest_layer(layer_state)) {
-    case _QWERTY:
-      oled_write_P(PSTR("VARYS"), false);
-      break;
-    case _LOWER:
-      oled_write_P(PSTR("LOWER"), false);
-      break;
-    case _RAISE:
-      oled_write_P(PSTR("RAISE"), false);
-      break;
-    case _MISC:
-      oled_write_P(PSTR("MISC "), false);
-      break;
-    default:
-      oled_write_ln_P(PSTR("Undefined"), false);
-  }
-  led_t led_state = host_keyboard_led_state();
+    oled_set_cursor(0, 1);
+    // Draw Logo 32x96
+    oled_write_raw_P(varys_logo, sizeof(varys_logo));
+    oled_set_cursor(0, 14);
+    switch (get_highest_layer(layer_state)) {
+      case _QWERTY:
+        oled_write_P(PSTR("VARYS"), false);
+        break;
+      case _LOWER:
+        oled_write_P(PSTR("LOWER"), false);
+        break;
+      case _RAISE:
+        oled_write_P(PSTR("RAISE"), false);
+        break;
+      case _MISC:
+        oled_write_P(PSTR("MISC "), false);
+        break;
+      default:
+        oled_write_ln_P(PSTR("Undefined"), false);
+    }
+    led_t led_state = host_keyboard_led_state();
     oled_set_cursor(0, 9);
-  oled_write_P(led_state.num_lock ? PSTR(" NUM ") : PSTR(" NUM "), false);
-  oled_set_cursor(0, 10);
-  oled_write_P(led_state.caps_lock ? PSTR(" CAP ") : PSTR(" CAP "), false);
-  oled_set_cursor(0, 11);
-  oled_write_P(led_state.scroll_lock ? PSTR(" SCR ") : PSTR(" SCR "), false);
-  return false;
+    oled_write_P(led_state.num_lock ? PSTR(" NUM ") : PSTR("     "), false);
+    oled_set_cursor(0, 10);
+    oled_write_P(led_state.caps_lock ? PSTR(" CAP ") : PSTR("     "), false);
+    oled_set_cursor(0, 11);
+    oled_write_P(led_state.scroll_lock ? PSTR(" SCR ") : PSTR("     "), false);
+    return false;
 }
 #endif
 
