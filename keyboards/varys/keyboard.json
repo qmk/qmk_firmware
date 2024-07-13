@@ -2,6 +2,7 @@
     "manufacturer": "Vinay Komaravolu",
     "keyboard_name": "Varys",
     "maintainer": "Vinay Komaravolu",
+    "processor": "atmega32u4",
     "bootloader": "caterina",
     "diode_direction": "COL2ROW",
     "url" : "https://github.com/vinaykomaravolu/varys",
