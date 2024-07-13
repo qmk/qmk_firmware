@@ -20,7 +20,7 @@ extern matrix_row_t matrix[]; // Declare the matrix array
 
 void matrix_scan_kb(void) {
     // Read the encoder button state and update the matrix
-    if (readPin(ENCODER_BUTTON_PIN) == 0) {
+    if (gpio_read_pin(ENCODER_BUTTON_PIN) == 0) {
         matrix[ENCODER_BUTTON_ROW] |= (1 << ENCODER_BUTTON_COL);
     } else {
         matrix[ENCODER_BUTTON_ROW] &= ~(1 << ENCODER_BUTTON_COL);
