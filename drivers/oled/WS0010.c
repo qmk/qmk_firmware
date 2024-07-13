@@ -191,7 +191,7 @@ void ws0010_init(bool cursor, bool blink, bool shift) {
     ws0010_command(0x0);
     wait_us(WS0010_INIT_NEXT_US);
 
-    // There should be some timing inbetween commands but the docs just sat check busy inbetween, this is built into the command
+    // There should be some timing inbetween commands but the docs just say check busy inbetween, this is built into the command function.
     ws0010_command(0x2); //0010 nibble
     #if WS0010_DISPLAY_LINES == 1
         ws0010_command(WS0010_CMD_FUNCTION); // 4 bit, 1 line, 5x8 dots
