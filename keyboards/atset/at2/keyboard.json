@@ -1,13 +1,13 @@
 {
     "manufacturer": "Atset",
     "keyboard_name": "AT2",
- 
+
     "maintainer": "atset",
     "board": "GENERIC_RP_RP2040",
     "processor": "RP2040",
     "bootloader": "rp2040",
-    "community_layouts": ["ortho_1x1"],
-    
+
+
     "diode_direction": "COL2ROW",
     "usb": {
         "vid": "0x2E8A",
@@ -21,13 +21,13 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true
-        
+
     },
     "matrix_pins": {
         "cols": ["GP19", "GP20"],
         "rows": ["GP28"]
     },
-    
+
     "layouts": {
         "LAYOUT": {
             "layout": [
