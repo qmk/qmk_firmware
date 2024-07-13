@@ -453,6 +453,44 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 
     rgb_matrix_set_color(RGB_MATRIX_LED_COUNT - 1, 0, 0, 0);
 
+    if (g_config.light_custom_keys) {
+        uint8_t layer = get_highest_layer(layer_state);
+        switch (layer) {
+            case 0:
+            case 2:
+                break;
+            default: {
+                for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
+                    for (uint8_t col = 0; col < MATRIX_COLS; ++col) {
+                        uint8_t index = g_led_config.matrix_co[row][col];
+
+                        if (index >= led_min && index <= led_max && index != NO_LED) {
+                            int keycode = keymap_key_to_keycode(layer, (keypos_t){col, row});
+
+                            if ((keycode >= SIDE_VAI && keycode <= SIDE_SPD) || keycode == POWER_ON_TOGGLE) {
+                                rgb_matrix_set_color(index, RGB_YELLOW);
+                            } else if (keycode >= DEBOUNCE_PRESS_INC && keycode <= DEBOUNCE_PRESS_SHOW) {
+                                rgb_matrix_set_color(index, 0, 255, 0);
+                            } else if (keycode >= DEBOUNCE_RELEASE_INC && keycode <= DEBOUNCE_RELEASE_SHOW) {
+                                rgb_matrix_set_color(index, 255, 0, 0);
+                            } else if (keycode == SLEEP_MODE || keycode == TOG_USB_SLP || keycode == DEEP_SLEEP_TOGGLE || (keycode >= SLEEP_TIMEOUT_INC && keycode <= SLEEP_TIMEOUT_SHOW)) {
+                                rgb_matrix_set_color(index, RGB_CYAN);
+                            } else if (keycode >= LNK_USB && keycode <= LNK_BLE3) {
+                                if (dev_info.link_mode != LINK_USB) {
+                                    rgb_matrix_set_color(index, RGB_BLUE);
+                                }
+                            } else if (keycode > KC_NUM_LOCK && keycode <= KC_KP_DOT) {
+                                rgb_matrix_set_color(index, RGB_RED);
+                            } else if (keycode > KC_TRNS) {
+                                rgb_matrix_set_color(index, 225, 65, 140);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     return rgb_matrix_indicators_advanced_user(led_min, led_max);
 }
 
@@ -495,6 +533,7 @@ void init_g_config(void) {
     g_config.side_rgb                     = 1;
     g_config.side_color                   = 0;
     g_config.battery_indicator_brightness = 100;
+    g_config.light_custom_keys            = 0;
 }
 
 void load_config_from_eeprom(void) {
@@ -577,6 +616,9 @@ void via_config_set_value(uint8_t *data) {
         case id_battery_indicator_brightness:
             g_config.battery_indicator_brightness = *value_data;
             break;
+        case id_light_custom_keys:
+            g_config.light_custom_keys = *value_data;
+            break;
     }
 #    if CONSOLE_ENABLE
     xprintf("[SET]VALUE_ID: %u DATA: %u\n", *value_id, *value_data);
@@ -630,6 +672,9 @@ void via_config_get_value(uint8_t *data) {
             break;
         case id_battery_indicator_brightness:
             *value_data = g_config.battery_indicator_brightness;
+            break;
+        case id_light_custom_keys:
+            *value_data = g_config.light_custom_keys;
             break;
     }
 #    if CONSOLE_ENABLE

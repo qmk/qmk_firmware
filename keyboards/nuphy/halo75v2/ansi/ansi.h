@@ -86,6 +86,8 @@ typedef struct {
     uint8_t side_color;
     uint8_t power_show : 1;
     uint8_t battery_indicator_brightness;
+    // custom keys highlight
+    uint8_t light_custom_keys : 1;
 } kb_config_t;
 
 #ifdef VIA_ENABLE
@@ -98,13 +100,14 @@ enum via_indicator_value {
     id_sleep_toggle        = 5,
     id_deep_sleep_toggle   = 6,
     // side light controls
-    id_side_light_mode_a     = 10,
-    id_side_light_mode_b     = 11,
-    id_side_light_speed      = 12,
-    id_side_light_color      = 13,
-    id_side_light_brightness = 14,
-    id_power_on_animation    = 20,
+    id_side_light_mode_a            = 10,
+    id_side_light_mode_b            = 11,
+    id_side_light_speed             = 12,
+    id_side_light_color             = 13,
+    id_side_light_brightness        = 14,
+    id_power_on_animation           = 20,
     id_battery_indicator_brightness = 21,
+    id_light_custom_keys            = 22,
 };
 
 // function declaration

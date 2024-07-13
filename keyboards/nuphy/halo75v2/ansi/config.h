@@ -77,9 +77,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_KEYRELEASES
 
-#define EECONFIG_KB_DATA_SIZE 14
+#define EECONFIG_KB_DATA_SIZE 15
 #ifdef VIA_ENABLE
-#    define VIA_EEPROM_CUSTOM_CONFIG_SIZE 16 // sizeof via_config
+#    define VIA_EEPROM_CUSTOM_CONFIG_SIZE 17 // sizeof via_config
 #endif
 
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CUSTOM_position_mode

@@ -113,11 +113,10 @@ enum via_indicator_value {
     id_side_light_color      = 12,
     id_side_light_brightness = 13,
     // logo light controls
-    id_logo_light_mode       = 20,
-    id_logo_light_speed      = 21,
-    id_logo_light_color      = 22,
-    id_logo_light_brightness = 23,
-    // battery indicator stuff
+    id_logo_light_mode              = 20,
+    id_logo_light_speed             = 21,
+    id_logo_light_color             = 22,
+    id_logo_light_brightness        = 23,
     id_battery_indicator_brightness = 31,
     id_light_custom_keys            = 32,
 };
