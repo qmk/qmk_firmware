@@ -8,7 +8,7 @@ A special 2 key keyboard powered by QMK.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make atset/at1:default
+    make atset/at2:default
 
 Flashing example for this keyboard:
 
