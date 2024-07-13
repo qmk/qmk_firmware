@@ -23,9 +23,6 @@
 #define ENCODER_BUTTON_ROW 0
 #define ENCODER_BUTTON_COL 4
 
-/* ARGB LED Byte order */
-#define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_RGB
-
 /* Peripheral used */
 #define WS2812_PIO_USE_PIO1
 
