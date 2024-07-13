@@ -58,6 +58,6 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 
 #if defined(DIP_SWITCH_MAP_ENABLE)
 const uint16_t PROGMEM dip_switch_map[NUM_DIP_SWITCHES][NUM_DIP_STATES] = {
-    DIP_SWITCH_OFF_ON(TO(0), TO(1)),
+    DIP_SWITCH_OFF_ON(DF(0), DF(1)),
 };
 #endif
