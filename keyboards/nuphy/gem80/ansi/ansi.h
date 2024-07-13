@@ -94,6 +94,8 @@ typedef struct {
     uint8_t logo_rgb;
     uint8_t logo_color;
     uint8_t battery_indicator_brightness;
+    // custom keys highlight
+    uint8_t light_custom_keys : 1;
 } kb_config_t;
 
 #ifdef VIA_ENABLE
@@ -117,6 +119,7 @@ enum via_indicator_value {
     id_logo_light_brightness = 23,
     // battery indicator stuff
     id_battery_indicator_brightness = 31,
+    id_light_custom_keys            = 32,
 };
 
 // function declaration

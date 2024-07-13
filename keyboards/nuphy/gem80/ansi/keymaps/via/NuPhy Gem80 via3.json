@@ -660,6 +660,15 @@
                                 "Side & Under Key",
                                 "Off"
                             ]
+                        },
+                        {
+                            "label": "Light up custom keys (on non default layer)",
+                            "type": "toggle",
+                            "content": [
+                                "id_light_custom_keys",
+                                0,
+                                32
+                            ]
                         }
                     ]
                 }
