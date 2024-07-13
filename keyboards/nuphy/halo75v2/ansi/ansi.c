@@ -440,6 +440,17 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
         rgb_matrix_set_color(two_digit_ones_led(g_config.sleep_timeout), 0x00, 0x80, 0x80);
     }
 
+    uint8_t showNumLock = 0;
+    if (dev_info.link_mode != LINK_USB) {
+        showNumLock = dev_info.rf_led & 0x01;
+    } else {
+        showNumLock = host_keyboard_led_state().num_lock;
+    }
+
+    if (showNumLock) {
+        rgb_matrix_set_color(get_led_index(0, 14), 0x00, 0x80, 0x00);
+    }
+
     rgb_matrix_set_color(RGB_MATRIX_LED_COUNT - 1, 0, 0, 0);
 
     return rgb_matrix_indicators_advanced_user(led_min, led_max);
