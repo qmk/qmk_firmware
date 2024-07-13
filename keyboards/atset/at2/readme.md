@@ -1,6 +1,6 @@
 # ATSET AT2
 
-A special 1 key keyboard powered by QMK.
+A special 2 key keyboard powered by QMK.
 
 * Keyboard Maintainer: [ATSET](https://github.com/anubhavd7)
 * Hardware Supported: RP2040
