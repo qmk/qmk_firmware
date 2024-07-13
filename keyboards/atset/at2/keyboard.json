@@ -10,8 +10,8 @@
     
     "diode_direction": "COL2ROW",
     "usb": {
-        "vid": "0x2E8A",
-        "pid": "0x0003",
+        "vid": "0x4141",
+        "pid": "0x6174",
         "device_version": "1.0.0"
     },
     "features": {
