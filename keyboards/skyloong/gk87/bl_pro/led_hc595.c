@@ -37,15 +37,15 @@
 
 static inline void setPinOutput_writeLow(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
-        setPinOutput(pin);
-        writePinLow(pin);
+        gpio_set_pin_output(pin);
+        gpio_write_pin_low(pin);
     }
 }
 
 static inline void setPinOutput_writeHigh(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
-        setPinOutput(pin);
-        writePinHigh(pin);
+        gpio_set_pin_output(pin);
+        gpio_write_pin_high(pin);
     }
 }
 
@@ -56,11 +56,11 @@ static inline void select_delay(uint16_t n) {
 }
 
 static inline void clockPulse(uint16_t n) {
-    writePinHigh(HC595_SH_PIN);
-    writePinHigh(HC595_ST_PIN);
+    gpio_write_pin_high(HC595_SH_PIN);
+    gpio_write_pin_high(HC595_ST_PIN);
     select_delay(n);
-    writePinLow(HC595_SH_PIN);
-    writePinLow(HC595_ST_PIN);
+    gpio_write_pin_low(HC595_SH_PIN);
+    gpio_write_pin_low(HC595_ST_PIN);
 }
 
 static void s_serial_to_parallel(uint8_t data) { // Serial port to parallel port function
@@ -69,9 +69,9 @@ static void s_serial_to_parallel(uint8_t data) { // Serial port to parallel port
     setPinOutput_writeLow(HC595_ST_PIN);
     for(uint8_t i = 0; i < 8; i++) {
         if(data & 0x01){
-            writePinHigh(HC595_DS);
+            gpio_write_pin_high(HC595_DS);
         }else{
-            writePinLow(HC595_DS);
+            gpio_write_pin_low(HC595_DS);
         }
         clockPulse(CLOCK_TIME);
         data >>= 1; // Move the data one digit to the right
