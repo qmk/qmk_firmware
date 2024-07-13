@@ -6,7 +6,7 @@
     "board": "GENERIC_RP_RP2040",
     "processor": "RP2040",
     "bootloader": "rp2040",
-    
+    "community_layouts": ["ortho_1x1"],
     
     "diode_direction": "COL2ROW",
     "usb": {
