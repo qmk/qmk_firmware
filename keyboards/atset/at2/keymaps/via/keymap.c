@@ -15,10 +15,16 @@
 
 #include QMK_KEYBOARD_H
 
-VIA_ENABLE = yes
+enum {
+    _L0,
+    _L1
+} keyboard_layers;
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT(
+    [_L0] = LAYOUT(
         KC_MUTE, KC_MPLY
+    ),
+    [_L1] = LAYOUT(
+        KC_A, KC_B
     )
 };
 
