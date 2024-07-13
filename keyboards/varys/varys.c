@@ -3,9 +3,9 @@
 #include "quantum.h"
 
 enum layer_number {
-    _QWERTY = 0,
-    _RAISE,
+    _QWERTY,
     _LOWER,
+    _RAISE,
     _MISC,
 };
 
