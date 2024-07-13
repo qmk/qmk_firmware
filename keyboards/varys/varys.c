@@ -32,6 +32,9 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 
 bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
+    }
     oled_set_cursor(0, 1);
     // Draw Logo 32x96
     oled_write_raw_P(varys_logo, sizeof(varys_logo));
