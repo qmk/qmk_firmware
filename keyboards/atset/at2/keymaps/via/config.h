@@ -1,4 +1,4 @@
-/* Copyright 2022 Binepad (@binpad) */
+/* Copyright 2024 Atset (@anubhavd7) */
 /* SPDX-License-Identifier: GPL-2.0-or-later */
 
 #pragma once
