@@ -146,6 +146,9 @@
                 "rows": ["B15", "B14", "A8", "A13", "A7", null]
             }
         },
+        "serial": {
+            "driver": "usart"
+        },
         "transport": {
             "sync": {
                 "indicators": true,

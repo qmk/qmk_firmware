@@ -62,6 +62,9 @@
                 "rows": ["B1", "A4", "A5", "A6", "A7"]
             }
         },
+        "serial": {
+            "driver": "usart"
+        },
         "transport": {
             "sync": {
                 "indicators": true,

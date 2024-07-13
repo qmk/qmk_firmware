@@ -37,6 +37,9 @@
                 "rows": ["GP5", "GP16", "GP20", "GP28", "GP14"]
             }
         },
+        "serial": {
+            "driver": "vendor"
+        },
         "soft_serial_pin": "GP29"
     },
     "url": "https://ai03.com/",

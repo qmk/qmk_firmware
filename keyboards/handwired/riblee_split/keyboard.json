@@ -25,6 +25,9 @@
     },
     "split": {
         "enabled": true,
+        "serial": {
+            "driver": "usart"
+        },
         "transport": {
             "sync_matrix_state": true
         }
