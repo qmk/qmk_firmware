@@ -16,6 +16,9 @@
         "driver": "dac_additive"
     },
     "split": {
+        "handedness": {
+            "pin": "C14"
+        },
         "serial": {
             "driver": "usart"
         }

@@ -175,6 +175,9 @@
         "bootmagic": {
             "matrix": [6, 0]
         },
+        "handedness": {
+            "pin": "GP21"
+        },
         "enabled": true,
         "matrix_pins": {
             "right": {

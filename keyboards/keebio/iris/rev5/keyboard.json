@@ -70,6 +70,9 @@
                 ]
             }
         },
+        "handedness": {
+            "pin": "D5"
+        },
         "matrix_pins": {
             "right": {
                 "cols": ["D4", "D7", "D3", "B7", "F0", "B3"],

@@ -23,6 +23,9 @@
     },
     "split": {
         "enabled": true,
+        "handedness": {
+            "pin": "F7"
+        },
         "soft_serial_pin": "D0"
     },
     "rgblight": {
