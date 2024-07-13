@@ -11,7 +11,9 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "oled": true,
+        "encoder": true
     },
     "matrix_pins": {
         "rows": ["B6", "B7", "C6", "C7", "D4"],
@@ -22,6 +24,23 @@
         "device_version": "0.0.1",
         "pid": "0x7521",
         "vid": "0xF8E9"
+    },
+    "split": {
+      "enabled": true,
+      "transport": {
+        "protocol": "i2c"
+      },
+      "usb_detect": {
+            "enabled": true
+      },
+      "handedness": {
+        "pin": "D7"
+      }      
+    },
+    "encoder": {
+      "rotary": [
+        {"pin_a": "F6", "pin_b": "F7"}
+      ]
     },
     "layouts": {
          "LAYOUT": {
