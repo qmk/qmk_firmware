@@ -19,7 +19,6 @@
         "rows": ["B6", "B7", "C6", "C7", "D4"],
         "cols": ["B5", "B4", "B3", "B2", "B1", "B0"]
     },
-    "processor": "atmega32u4",
     "usb": {
         "device_version": "0.0.1",
         "pid": "0x7521",
