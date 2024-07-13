@@ -21,6 +21,9 @@
                 ]
             }
         },
+        "handedness": {
+            "pin": "GP23"
+        },
         "matrix_pins": {
             "right":{
                 "cols": ["GP25", "GP29", "GP20", "GP11", "GP3", "GP2"],

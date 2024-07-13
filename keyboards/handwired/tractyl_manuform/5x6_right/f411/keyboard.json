@@ -19,9 +19,12 @@
         "driver": "pwm_hardware"
     },
     "split": {
+        "handedness": {
+            "pin": "C14"
+        },
         "serial": {
             "driver": "usart"
-        }
+        },
     },
     "ws2812": {
         "pin": "A1",

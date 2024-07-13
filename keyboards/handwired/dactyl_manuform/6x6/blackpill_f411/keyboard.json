@@ -11,6 +11,9 @@
         },
         "serial": {
             "driver": "usart"
+        },
+        "handedness": {
+            "pin": "B10"
         }
     },
     "development_board": "blackpill_f411",
