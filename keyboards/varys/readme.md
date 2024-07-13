@@ -7,7 +7,7 @@ Varys is a mechanical split keyboard with custom designed PCB's, embedded ATmega
 Due to limited firmware space, RGB features have been disabled.
 
 * Keyboard Maintainer: [Vinay Komaravolu](https://github.com/VinayKomaravolu)
-* Hardware Supported: Varys PCB (Atmega324U)
+* Hardware Supported: Varys PCB (Atmega32u4)
 * Hardware Availability: [Varys Keyboard](https://github.com/vinaykomaravolu/varys)
 
 
