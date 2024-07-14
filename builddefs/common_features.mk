@@ -741,7 +741,7 @@ endif
 ifeq ($(strip $(WS0010_ENABLE)), yes)
     OPT_DEFS += -DWS0010_ENABLE
     COMMON_VPATH += $(DRIVER_PATH)/oled
-    SRC += WS0010.c
+    SRC += ws0010.c
 endif
 
 VALID_OLED_DRIVER_TYPES := custom ssd1306
