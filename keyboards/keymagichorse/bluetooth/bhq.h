@@ -52,6 +52,8 @@
 
 
 void bhq_init(bool wakeup_from_low_power_mode);
+void bhq_Disable(void);
+
 
 void bhq_SetPairingMode(uint8_t host_index, uint8_t timeout_10s);
 

@@ -17,18 +17,20 @@
 #include "bluetooth.h"
 #include "bhq.h"
 #include "report_buffer.h"
-
+#include "lpm.h"
 
 
 
 void bluetooth_init(void) {
     bhq_init(false);
     report_buffer_init();
+    lpm_init();
 }
 
 void bluetooth_task(void) {
     bhq_task();
     report_buffer_task();
+    lpm_task();
 }
 
 
