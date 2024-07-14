@@ -516,22 +516,22 @@ void housekeeping_task_kb(void) {
 kb_config_t g_config;
 
 void init_g_config(void) {
-    g_config.sleep_toggle                 = true;
-    g_config.usb_sleep_toggle             = false;
-    g_config.deep_sleep_toggle            = true;
-    g_config.sleep_timeout                = 5;
-    g_config.power_show                   = 1;
+    g_config.sleep_toggle                 = DEFAULT_SLEEP_TOGGLE;
+    g_config.usb_sleep_toggle             = DEFAULT_USB_SLEEP_TOGGLE;
+    g_config.deep_sleep_toggle            = DEFAULT_DEEP_SLEEP_TOGGLE;
+    g_config.sleep_timeout                = DEFAULT_SLEEP_TIMEOUT;
+    g_config.power_show                   = DEFAULT_TOGGLE_POWER_ON_ANIMATION;
     g_config.debounce_press_ms            = DEBOUNCE;
     g_config.debounce_release_ms          = DEBOUNCE;
-    g_config.caps_indicator_type          = CAPS_INDICATOR_SIDE;
-    g_config.side_mode_a                  = 0;
-    g_config.side_mode_b                  = 3;
-    g_config.side_brightness              = 2;
-    g_config.side_speed                   = 2;
-    g_config.side_rgb                     = 1;
-    g_config.side_color                   = 0;
-    g_config.battery_indicator_brightness = 100;
-    g_config.toggle_custom_keys_highlight = 0;
+    g_config.caps_indicator_type          = DEFAULT_CAPS_INDICATOR_TYPE;
+    g_config.side_mode_a                  = DEFAULT_SIDE_MODE_A;
+    g_config.side_mode_b                  = DEFAULT_SIDE_MODE_B;
+    g_config.side_brightness              = DEFAULT_SIDE_BRIGHTNESS;
+    g_config.side_speed                   = DEFAULT_SIDE_SPEED;
+    g_config.side_rgb                     = DEFAULT_SIDE_RGB;
+    g_config.side_color                   = DEFAULT_SIDE_COLOR;
+    g_config.battery_indicator_brightness = DEFAULT_BATTERY_INDICATOR_BRIGHTNESS;
+    g_config.toggle_custom_keys_highlight = DEFAULT_LIGHT_CUSTOM_KEYS;
 }
 
 void load_config_from_eeprom(void) {
