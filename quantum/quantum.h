@@ -151,7 +151,7 @@ extern layer_state_t layer_state;
 #endif
 
 #ifdef WS0010_ENABLE
-#    include "WS0010.h"
+#    include "ws0010.h"
 #endif
 
 #ifdef SEND_STRING_ENABLE
