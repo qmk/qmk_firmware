@@ -96,16 +96,11 @@ void matrix_init_kb(void) {
     matrix_init_user();
 }
 
-__attribute__ ((weak))
-bool encoder_update_keymap(int8_t index, bool clockwise) {
-    return false;
-}
-
 #define NUM_COLUMNS 8*MAX7219_CONTROLLERS
 uint8_t led_position[2] = {0,0};  // The location of the cursor in the matrix
 
 bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_keymap(index, clockwise)) {
+    if (encoder_update_user(index, clockwise)) {
 #if defined(DRAWING_TOY_MODE)
         // Encoder 1, left
         if (index == 0 && clockwise) {
