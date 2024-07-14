@@ -96,7 +96,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "hd44780.h"
 #endif
 #ifdef WS0010_ENABLE
-#    include "WS0010.h"
+#    include "ws0010.h"
 #endif
 #ifdef OLED_ENABLE
 #    include "oled_driver.h"
