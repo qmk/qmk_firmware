@@ -59,9 +59,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #define RGB_MATRIX_LED_COUNT 101 // 93  // RGB总灯数 (88轴灯+5侧灯) 88 + 5 + 7
 
-#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CUSTOM_position_mode
-#define RGB_DEFAULT_COLOUR 168
-
 #define RGB_MATRIX_SLEEP
 
 // #define DEBUG_MATRIX_SCAN_RATE
@@ -86,3 +83,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEBOUNCE 5
 // use dedicated timer for wait_us interrupts instead on ChibiOS defaulting to minimum 100us even if you sleep for 10us
 #define WAIT_US_TIMER GPTD14
+
+/*
+ * DEFAULT VALUES FOR INITIAL CONFIG to allow override in user keymap
+ */
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CUSTOM_position_mode
+#define RGB_DEFAULT_COLOR 168
+
+#define DEFAULT_SLEEP_TOGGLE true
+#define DEFAULT_USB_SLEEP_TOGGLE false
+#define DEFAULT_DEEP_SLEEP_TOGGLE true
+#define DEFAULT_SLEEP_TIMEOUT 5
+#define DEFAULT_CAPS_INDICATOR_TYPE CAPS_INDICATOR_SIDE
+#define DEFAULT_BATTERY_INDICATOR_BRIGHTNESS 100
+#define DEFAULT_LIGHT_CUSTOM_KEYS 0
+#define DEFAULT_SIDE_MODE 0
+#define DEFAULT_SIDE_BRIGHTNESS 3
+#define DEFAULT_SIDE_SPEED 2
+#define DEFAULT_SIDE_RGB 1
+#define DEFAULT_SIDE_COLOR 0
+#define DEFAULT_LOGO_MODE 0
+#define DEFAULT_LOGO_BRIGHTNESS 3
+#define DEFAULT_LOGO_SPEED 2
+#define DEFAULT_LOGO_RGB 1
+#define DEFAULT_LOGO_COLOR 0
+/*
+ * END OF DEFAULT VALUES
+ */

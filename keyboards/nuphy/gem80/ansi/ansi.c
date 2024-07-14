@@ -408,7 +408,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 adjust_sleep_timeout(0);
             }
             return false;
-        case DEEP_SLEEP_TOGGLE:
+        case TOG_DEEP_SLEEP:
             if (record->event.pressed) {
                 toggle_deep_sleep();
             }
@@ -482,7 +482,7 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 
     rgb_matrix_set_color(RGB_MATRIX_LED_COUNT - 1, 0, 0, 0);
 
-    if (g_config.light_custom_keys) {
+    if (g_config.toggle_custom_keys_highlight) {
         uint8_t layer = get_highest_layer(layer_state);
         switch (layer) {
             case 0:
@@ -504,7 +504,7 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
                                 rgb_matrix_set_color(index, 0, 255, 0);
                             } else if (keycode >= DEBOUNCE_RELEASE_INC && keycode <= DEBOUNCE_RELEASE_SHOW) {
                                 rgb_matrix_set_color(index, 255, 0, 0);
-                            } else if (keycode == SLEEP_MODE || keycode == TOG_USB_SLP || keycode == DEEP_SLEEP_TOGGLE || (keycode >= SLEEP_TIMEOUT_INC && keycode <= SLEEP_TIMEOUT_SHOW)) {
+                            } else if (keycode == SLEEP_MODE || keycode == TOG_USB_SLP || keycode == TOG_DEEP_SLEEP || (keycode >= SLEEP_TIMEOUT_INC && keycode <= SLEEP_TIMEOUT_SHOW)) {
                                 rgb_matrix_set_color(index, RGB_CYAN);
                             } else if (keycode >= LNK_USB && keycode <= LNK_BLE3) {
                                 if (dev_info.link_mode != LINK_USB) {
@@ -549,28 +549,25 @@ void housekeeping_task_kb(void) {
 kb_config_t g_config;
 
 void init_g_config(void) {
-    // custom functions
-    g_config.sleep_toggle                 = true;
-    g_config.usb_sleep_toggle             = false;
-    g_config.deep_sleep_toggle            = true;
-    g_config.sleep_timeout                = 5;
+    g_config.sleep_toggle                 = DEFAULT_SLEEP_TOGGLE;
+    g_config.usb_sleep_toggle             = DEFAULT_USB_SLEEP_TOGGLE;
+    g_config.deep_sleep_toggle            = DEFAULT_DEEP_SLEEP_TOGGLE;
+    g_config.sleep_timeout                = DEFAULT_SLEEP_TIMEOUT;
     g_config.debounce_press_ms            = DEBOUNCE;
     g_config.debounce_release_ms          = DEBOUNCE;
-    g_config.caps_indication_type         = CAPS_INDICATOR_SIDE;
-    g_config.battery_indicator_brightness = 100;
-    g_config.light_custom_keys            = 0;
-    // top LED
-    g_config.side_mode       = 0;
-    g_config.side_brightness = 3;
-    g_config.side_speed      = 2;
-    g_config.side_rgb        = 1;
-    g_config.side_color      = 0;
-    // right LED
-    g_config.logo_mode       = 0;
-    g_config.logo_brightness = 3;
-    g_config.logo_speed      = 2;
-    g_config.logo_rgb        = 1;
-    g_config.logo_color      = 0;
+    g_config.caps_indicator_type          = DEFAULT_CAPS_INDICATOR_TYPE;
+    g_config.battery_indicator_brightness = DEFAULT_BATTERY_INDICATOR_BRIGHTNESS;
+    g_config.toggle_custom_keys_highlight = DEFAULT_LIGHT_CUSTOM_KEYS;
+    g_config.side_mode                    = DEFAULT_SIDE_MODE;
+    g_config.side_brightness              = DEFAULT_SIDE_BRIGHTNESS;
+    g_config.side_speed                   = DEFAULT_SIDE_SPEED;
+    g_config.side_rgb                     = DEFAULT_SIDE_RGB;
+    g_config.side_color                   = DEFAULT_SIDE_COLOR;
+    g_config.logo_mode                    = DEFAULT_LOGO_MODE;
+    g_config.logo_brightness              = DEFAULT_LOGO_BRIGHTNESS;
+    g_config.logo_speed                   = DEFAULT_LOGO_SPEED;
+    g_config.logo_rgb                     = DEFAULT_LOGO_RGB;
+    g_config.logo_color                   = DEFAULT_LOGO_COLOR;
 }
 
 void load_config_from_eeprom(void) {
@@ -627,7 +624,7 @@ void via_config_set_value(uint8_t *data)
             g_config.sleep_timeout = *value_data + 1;
             break;
         case id_caps_indicator_type:
-            g_config.caps_indication_type = *value_data;
+            g_config.caps_indicator_type = *value_data;
             break;
         case id_sleep_toggle:
             g_config.sleep_toggle = *value_data;
@@ -661,8 +658,8 @@ void via_config_set_value(uint8_t *data)
         case id_battery_indicator_brightness:
             g_config.battery_indicator_brightness = *value_data;
             break;
-        case id_light_custom_keys:
-            g_config.light_custom_keys = *value_data;
+        case id_toggle_custom_keys_highlight:
+            g_config.toggle_custom_keys_highlight = *value_data;
             break;
     }
 #    if CONSOLE_ENABLE
@@ -690,7 +687,7 @@ void via_config_get_value(uint8_t *data) {
             *value_data = g_config.sleep_timeout - 1;
             break;
         case id_caps_indicator_type:
-            *value_data = g_config.caps_indication_type;
+            *value_data = g_config.caps_indicator_type;
             break;
         case id_sleep_toggle:
             *value_data = g_config.sleep_toggle;
@@ -724,8 +721,8 @@ void via_config_get_value(uint8_t *data) {
         case id_battery_indicator_brightness:
             *value_data = g_config.battery_indicator_brightness;
             break;
-        case id_light_custom_keys:
-            *value_data = g_config.light_custom_keys;
+        case id_toggle_custom_keys_highlight:
+            *value_data = g_config.toggle_custom_keys_highlight;
             break;
     }
 #    if CONSOLE_ENABLE

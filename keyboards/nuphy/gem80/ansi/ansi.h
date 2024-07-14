@@ -64,7 +64,7 @@ enum custom_keycodes {
     DEBOUNCE_RELEASE_INC,
     DEBOUNCE_RELEASE_DEC,
     DEBOUNCE_RELEASE_SHOW,
-    DEEP_SLEEP_TOGGLE,
+    TOG_DEEP_SLEEP,
 };
 
 #define MAC_PRT G(S(KC_3))
@@ -74,13 +74,13 @@ enum custom_keycodes {
 // struct to save configs
 typedef struct {
     uint8_t been_initiated;
+    uint8_t sleep_toggle : 1;
     uint8_t usb_sleep_toggle : 1;
     uint8_t deep_sleep_toggle : 1;
-    uint8_t sleep_toggle : 1;
     uint8_t debounce_press_ms;
     uint8_t debounce_release_ms;
     uint8_t sleep_timeout;
-    uint8_t caps_indication_type;
+    uint8_t caps_indicator_type;
     // (top) side light config
     uint8_t side_mode;
     uint8_t side_brightness;
@@ -95,7 +95,7 @@ typedef struct {
     uint8_t logo_color;
     uint8_t battery_indicator_brightness;
     // custom keys highlight
-    uint8_t light_custom_keys : 1;
+    uint8_t toggle_custom_keys_highlight : 1;
 } kb_config_t;
 
 #ifdef VIA_ENABLE
@@ -118,7 +118,7 @@ enum via_indicator_value {
     id_logo_light_color             = 22,
     id_logo_light_brightness        = 23,
     id_battery_indicator_brightness = 31,
-    id_light_custom_keys            = 32,
+    id_toggle_custom_keys_highlight            = 32,
 };
 
 // function declaration

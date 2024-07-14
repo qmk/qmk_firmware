@@ -336,7 +336,7 @@ void sys_led_show(void) {
     }
 
     if (showCapsLock) {
-        switch (g_config.caps_indication_type) {
+        switch (g_config.caps_indicator_type) {
             case CAPS_INDICATOR_SIDE:
                 set_side_rgb(0X00, 0x80, 0x80); // highlight top-left side led to indicate caps lock enabled state
 
