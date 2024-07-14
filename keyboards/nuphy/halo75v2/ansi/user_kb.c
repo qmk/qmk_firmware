@@ -397,7 +397,7 @@ void kb_config_reset(void) {
     rgb_matrix_enable();
     rgb_matrix_mode(RGB_MATRIX_DEFAULT_MODE);
     rgb_matrix_set_speed(255 - RGB_MATRIX_SPD_STEP * 2);
-    rgb_matrix_sethsv(RGB_DEFAULT_COLOUR, 255, RGB_MATRIX_MAXIMUM_BRIGHTNESS - RGB_MATRIX_VAL_STEP * 2);
+    rgb_matrix_sethsv(RGB_DEFAULT_COLOR, 255, RGB_MATRIX_MAXIMUM_BRIGHTNESS - RGB_MATRIX_VAL_STEP * 2);
 
     init_g_config();
     // mark config as initiated
@@ -431,10 +431,10 @@ void toggle_caps_indication(void) {
     xprintf("CPU_CLOCK %u \n", CPU_CLOCK);
 #endif
 
-    if (g_config.caps_indication_type == CAPS_INDICATOR_OFF) {
-        g_config.caps_indication_type = CAPS_INDICATOR_SIDE; // set to initial state, when last state reached
+    if (g_config.caps_indicator_type == CAPS_INDICATOR_OFF) {
+        g_config.caps_indicator_type = CAPS_INDICATOR_SIDE; // set to initial state, when last state reached
     } else {
-        g_config.caps_indication_type += 1;
+        g_config.caps_indicator_type += 1;
     }
 
     save_config_to_eeprom();

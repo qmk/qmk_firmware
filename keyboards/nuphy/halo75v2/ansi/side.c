@@ -395,7 +395,7 @@ void sys_led_show(void) {
     }
 
     if (showCapsLock) {
-        switch (g_config.caps_indication_type) {
+        switch (g_config.caps_indicator_type) {
             case CAPS_INDICATOR_SIDE:
                 set_left_rgb(colour_lib[4][0], colour_lib[4][1], colour_lib[4][2]);
 
