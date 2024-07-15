@@ -10,7 +10,7 @@ A Hotswap Multi-layout F13 TKL PCB (h88c compatible) powered by RP2040.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make asmodus/plaquead:default
+    make asmodus/plaquead/standard:default
     make asmodus/plaquead/rgb:default
 
 Flashing example for this keyboard:
