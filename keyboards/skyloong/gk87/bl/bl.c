@@ -82,6 +82,6 @@ layer_state_t default_layer_state_set_kb(layer_state_t state) {
 void board_init(void) {
     // JTAG-DP Disabled and SW-DP Disabled
     AFIO->MAPR = (AFIO->MAPR & ~AFIO_MAPR_SWJ_CFG_Msk) | AFIO_MAPR_SWJ_CFG_DISABLE;
-    setPinOutput(MAC_PIN);
-    writePinHigh(MAC_PIN);
+    gpio_set_pin_output(MAC_PIN);
+    gpio_write_pin_high(MAC_PIN);
 }
