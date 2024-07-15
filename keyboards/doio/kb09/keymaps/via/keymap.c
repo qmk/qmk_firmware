@@ -1,4 +1,4 @@
-/* Copyright 2022 DOIO
+ /* Copyright 2022 DOIO
  * Copyright 2022 DOIO2022 <https://github.com/DOIO2022>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -26,22 +26,22 @@ enum layer_names {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_LAY0] = LAYOUT(
+	[_LAY0] = LAYOUT(
 				KC_UP,			KC_1,		KC_2,		KC_3,		KC_MPLY,	KC_MUTE,
-		KC_LEFT,	KC_RIGHT,	KC_4, 		KC_5, 		KC_6,
+		KC_LEFT,	KC_RIGHT,	KC_4,		KC_5,		KC_6,
 				KC_DOWN,		KC_7,		KC_8,		KC_9,
 		TO(1),	LWIN(KC_D)),
-  [_LAY1] = LAYOUT(
+	[_LAY1] = LAYOUT(
 				KC_TRNS,		C(S(KC_S)),	C(KC_H),	C(KC_G),	KC_TRNS,	KC_TRNS,
-		KC_TRNS,	KC_TRNS,	C(S(KC_A)), C(KC_J),	C(S(KC_G)),
-				KC_TRNS,		C(KC_Z),	KC_DEL,		C(A(S(KC_E))), 
+		KC_TRNS,	KC_TRNS,	C(S(KC_A)),	C(KC_J),	C(S(KC_G)),
+				KC_TRNS,		C(KC_Z),	KC_DEL,		C(A(S(KC_E))),
 		TO(2),	KC_TRNS),
-  [_LAY2] = LAYOUT(
+	[_LAY2] = LAYOUT(
 				KC_TRNS,		S(KC_I),	A(KC_EQL),	C(S(KC_M)),	KC_TRNS,	KC_TRNS,
-		KC_TRNS,	KC_TRNS,	S(KC_O),	A(KC_MINS), S(KC_M),
+		KC_TRNS,	KC_TRNS,	S(KC_O),	A(KC_MINS),	S(KC_M),
 				KC_TRNS,		KC_C,		KC_V,		C(KC_M),
 		TO(3),	KC_TRNS),
-  [_LAY3] = LAYOUT(
+	[_LAY3] = LAYOUT(
 				KC_TRNS,		RGB_SPI,	RGB_SPD,	RGB_HUI,	KC_TRNS,	KC_TRNS,
 		KC_TRNS,	KC_TRNS,	RGB_SAI,	RGB_SAD,	RGB_HUD,
 				KC_TRNS,		RGB_MOD,	RGB_VAI,	RGB_VAD,
