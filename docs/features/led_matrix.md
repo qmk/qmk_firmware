@@ -4,175 +4,31 @@ This feature allows you to use LED matrices driven by external drivers. It hooks
 
 If you want to use RGB LED's you should use the [RGB Matrix Subsystem](rgb_matrix) instead.
 
-## Driver configuration {#driver-configuration}
----
-### IS31FL3731 {#is31fl3731}
+## Driver Configuration {#driver-configuration}
 
-There is basic support for addressable LED matrix lighting with the I2C IS31FL3731 LED controller. To enable it, add this to your `rules.mk`:
+LED Matrix is an abstraction layer on top of an underlying LED driver API. The list of supported LED drivers is below; see the respective documentation for information on how to configure the driver.
+
+|Driver                               |Max LEDs|
+|-------------------------------------|--------|
+|[IS31FL3218](../drivers/is31fl3218)  |18      |
+|[IS31FL3236](../drivers/is31fl3236)  |36      |
+|[IS31FL3729](../drivers/is31fl3729)  |135     |
+|[IS31FL3731](../drivers/is31fl3731)  |144     |
+|[IS31FL3733](../drivers/is31fl3733)  |192     |
+|[IS31FL3736](../drivers/is31fl3736)  |96      |
+|[IS31FL3737](../drivers/is31fl3737)  |144     |
+|[IS31FL3741](../drivers/is31fl3741)  |351     |
+|[IS31FL3742A](../drivers/is31fl3742a)|180     |
+|[IS31FL3743A](../drivers/is31fl3743a)|198     |
+|[IS31FL3745](../drivers/is31fl3745)  |144     |
+|[IS31FL3746A](../drivers/is31fl3746a)|72      |
+|[SNLED27351](../drivers/snled27351)  |192     |
+
+To assign the LED Matrix driver, add the following to your `rules.mk`, for example:
 
 ```make
-LED_MATRIX_ENABLE = yes
-LED_MATRIX_DRIVER = is31fl3731
+LED_MATRIX_DRIVER = is31fl3218
 ```
-
-You can use between 1 and 4 IS31FL3731 IC's. Do not specify `LED_DRIVER_ADDR_<N>` defines for IC's that are not present on your keyboard. You can define the following items in `config.h`:
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `IS31FL3731_I2C_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
-| `IS31FL3731_I2C_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
-| `LED_MATRIX_LED_COUNT` | (Required) How many LED lights are present across all drivers | |
-| `IS31FL3731_I2C_ADDRESS_1` | (Required) Address for the first LED driver | |
-| `IS31FL3731_I2C_ADDRESS_2` | (Optional) Address for the second LED driver | |
-| `IS31FL3731_I2C_ADDRESS_3` | (Optional) Address for the third LED driver | |
-| `IS31FL3731_I2C_ADDRESS_4` | (Optional) Address for the fourth LED driver | |
-
-Here is an example using 2 drivers.
-
-```c
-// This is a 7-bit address, that gets left-shifted and bit 0
-// set to 0 for write, 1 for read (as per I2C protocol)
-// The address will vary depending on your wiring:
-// 00 AD <-> GND
-// 01 AD <-> SCL
-// 10 AD <-> SDA
-// 11 AD <-> VCC
-// ADDR represents A1:A0 of the 7-bit address.
-// The result is: 0b11101(ADDR)
-#define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
-#define IS31FL3731_I2C_ADDRESS_2 IS31FL3731_I2C_ADDRESS_SDA
-
-#define LED_DRIVER_1_LED_TOTAL 25
-#define LED_DRIVER_2_LED_TOTAL 24
-#define LED_MATRIX_LED_COUNT (LED_DRIVER_1_LED_TOTAL + LED_DRIVER_2_LED_TOTAL)
-```
-
-::: warning
-Note the parentheses, this is so when `LED_MATRIX_LED_COUNT` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (LED_DRIVER_1_LED_TOTAL + LED_DRIVER_2_LED_TOTAL)` will give very different results than `rand() % LED_DRIVER_1_LED_TOTAL + LED_DRIVER_2_LED_TOTAL`.
-:::
-
-For split keyboards using `LED_MATRIX_SPLIT` with an LED driver, you can either have the same driver address or different driver addresses. If using different addresses, use `IS31FL3731_I2C_ADDRESS_1` for one and `IS31FL3731_I2C_ADDRESS_2` for the other one. Then, in `g_is31fl3731_leds`, fill out the correct driver index (0 or 1). If using one address, use `IS31FL3731_I2C_ADDRESS_1` for both, and use index 0 for `g_is31fl3731_leds`.
-
-Define these arrays listing all the LEDs in your `<keyboard>.c`:
-
-```c
-const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
-/* Refer to IS31 manual for these locations
- *    driver
- *    |  LED address
- *    |  | */
-    { 0, C1_1  },
-    { 0, C1_15 },
-    // ...
-}
-```
-
-Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3731.pdf) and the header file `drivers/led/issi/is31fl3731-mono.h`. The `driver` is the index of the driver you defined in your `config.h` (`0`, `1`, `2`, or `3` ).
-
----
-### IS31FLCOMMON {#is31flcommon}
-
-There is basic support for addressable LED matrix lighting with a selection of I2C ISSI Lumissil LED controllers through a shared common driver. To enable it, add this to your `rules.mk`:
-
-```makefile
-LED_MATRIX_ENABLE = yes
-LED_MATRIX_DRIVER = <driver name>
-```
-
-Where `<driver name>` is the applicable LED driver chip as below
-
-| Driver Name | Data Sheet | Capability |
-|-------------|------------|------------|
-| `IS31FL3742A` | [datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3742A_DS.pdf) | 180 LED, 30x6 Matrix |
-| `IS31FL3743A` | [datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3743A_DS.pdf) | 198 LED, 18x11 Matrix |
-| `IS31FL3745` | [datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3745_DS.pdf) | 144 LED, 18x8 Matrix |
-| `IS31FL3746A` | [datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3746A_DS.pdf) | 72 LED, 18x4 Matrix |
-
-You can use between 1 and 4 IC's. Do not specify `DRIVER_ADDR_<N>` define for IC's if not present on your keyboard. The `DRIVER_ADDR_1` default assumes that all Address pins on the controller have been connected to GND. Drivers that have SYNC functionality have the default settings to disable if 1 driver. If more than 1 drivers then `DRIVER_ADDR_1` will be set to Master and the remaiing ones set to Slave.
-
-Configure the hardware via your `config.h`:
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `ISSI_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
-| `ISSI_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
-| `LED_MATRIX_LED_COUNT` | (Required) How many LED lights are present across all drivers | |
-| `DRIVER_ADDR_1` | (Optional) Address for the first LED driver | |
-| `DRIVER_ADDR_<N>` | (Required) Address for the additional LED drivers | |
-| `ISSI_SSR_<N>` | (Optional) Configuration for the Spread Spectrum Register | |
-| `ISSI_CONFIGURATION` | (Optional) Configuration for the Configuration Register | |
-| `ISSI_GLOBALCURRENT` | (Optional) Configuration for the Global Current Register | 0xFF |
-| `ISSI_PULLDOWNUP` | (Optional) Configuration for the Pull Up & Pull Down Register | |
-| `ISSI_TEMP` | (Optional) Configuration for the Tempature Register | |
-| `ISSI_PWM_ENABLE` | (Optional) Configuration for the PWM Enable Register | |
-| `ISSI_PWM_SET` | (Optional) Configuration for the PWM Setting Register | |
-| `ISSI_SCAL_LED ` | (Optional) Configuration for the LEDs Scaling Registers | 0xFF |
-| `ISSI_MANUAL_SCALING` | (Optional) If you wish to configure the Scaling Registers manually | |
-
-
-Defaults
-
-| Variable | IS31FL3742A | IS31FL3743A | IS31FL3745 | IS31FL3746 |
-|----------|-------------|-------------|------------|------------|
-| `DRIVER_ADDR_1` | 0b0110000 | 0b0100000 | 0b0100000 | 0b1100000 |
-| `ISSI_SSR_1` | 0x00 | 0x00 / 0x60 | 0x00 / 0xC0 | 0x00 |
-| `ISSI_SSR_<2-4>` | 0x00 | 0x40 | 0x80 | 0x00 |
-| `ISSI_CONFIGURATION` | 0x31 | 0x01 | 0x31 | 0x01 |
-| `ISSI_PULLDOWNUP` | 0x55 | 0x33 | 0x33 | 0x33 |
-| `ISSI_TEMP` | N/A | 0x00 | 0x00 | 0x00 |
-| `ISSI_PWM_ENABLE` | N/A | N/A | N/A | 0x00 |
-| `ISSI_PWM_SET` | 0x00 | N/A | N/A | 0x00 |
-
-Here is an example using 2 drivers.
-
-```c
-#define DRIVER_ADDR_2 0b0100001
-
-#define DRIVER_1_LED_TOTAL 66
-#define DRIVER_2_LED_TOTAL 42
-#define LED_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
-```
-::: warning
-Note the parentheses, this is so when `LED_MATRIX_LED_COUNT` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)` will give very different results than `rand() % DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL`.
-:::
-
-Currently only 4 drivers are supported, but it would be trivial to support for more. Note that using a combination of different drivers is not supported. All drivers must be of the same model.
-
-Define these arrays listing all the LEDs in your `<keyboard>.c`:
-
-```c
-const is31_led PROGMEM g_is31_leds[LED_MATRIX_LED_COUNT] = {
-/* Refer to IS31 manual for these locations
- *    driver
- *    |  LED address
- *    |  | */
-    { 0, SW1_CS1 },
-    { 0, SW1_CS2 },
-    // ...
-}
-```
-
-Where `CSx_SWx` is the location of the LED in the matrix defined by the datasheet. The `driver` is the index of the driver you defined in your `config.h` (`0`, `1`, `2`, or `3` for now).
-
-`ISSI_MANUAL_SCALING` is used to override the Scaling for individual LED's. By default they will be set as per `ISSI_SCAL_LED`. In `config.h` set how many LED's you want to manually set scaling for.
-Eg `#define ISSI_MANUAL_SCALING 3`
-
-Then Define the array listing all the LEDs you want to override in your `<keyboard>.c`:
-
-```c
-const is31_led PROGMEM g_is31_scaling[ISSI_MANUAL_SCALING] = {
-/*   LED Index
- *   |  Scaling
- *   |  | */
-    {5, 120},
-    {9, 120},
-    ....
-}
-```
-
-Where LED Index is the position of the LED in the `g_is31_leds` array. The `scaling` value between 0 and 255 to be written to the Scaling Register.
-
----
 
 ## Common Configuration {#common-configuration}
 
