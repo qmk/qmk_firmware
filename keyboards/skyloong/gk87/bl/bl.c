@@ -75,7 +75,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 }
 
 layer_state_t default_layer_state_set_kb(layer_state_t state) {
-    writePin(MAC_PIN, !layer_state_cmp(state, 1));
+    gpio_write_pin(MAC_PIN, !layer_state_cmp(state, 1));
   return state;
 }
 
