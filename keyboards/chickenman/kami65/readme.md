@@ -6,7 +6,7 @@ A 65% keyboard.
 
 * Keyboard Maintainer: [Mai The San](https://github.com/maithesan)
 * Hardware Supported: Kami65 Keyboard
-* Hardware Availability: UCSD Discord
+* Hardware Availability: [UCSD GB](https://www.instagram.com/p/C1BD0RZsttm/)
 
 Make example for this keyboard (after setting up your build environment):
 
