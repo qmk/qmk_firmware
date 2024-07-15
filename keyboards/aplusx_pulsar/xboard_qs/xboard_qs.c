@@ -14,8 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include QMK_KEYBOARD_H
-
 #include "xboard_qs.h"
 
 static bool     INIT3S_on = false;
@@ -36,33 +34,33 @@ typedef union {
         bool    eeprom_kvm_pc_sel :1;
         uint8_t eeprom_Status_LED_Bright;       //
     };
-} user_config_t;
+} keyboard_config_t;
 
-user_config_t user_config;
+keyboard_config_t keyboard_config;
 
 void kvm_switch(bool pc_num){
-    writePinHigh(GPIO_KM_OE);
-    writePinLow(GPIO_KM_PWEN);
-    if (!pc_num) writePinLow(GPIO_KM_SEL);
-    else   writePinHigh(GPIO_KM_SEL);
-    writePinLow(GPIO_KM_OE);
+    gpio_write_pin_high(GPIO_KM_OE);
+    gpio_write_pin_low(GPIO_KM_PWEN);
+    if (!pc_num) gpio_write_pin_low(GPIO_KM_SEL);
+    else   gpio_write_pin_high(GPIO_KM_SEL);
+    gpio_write_pin_low(GPIO_KM_OE);
 
     kvm_timer = timer_read();
     kvm_sel_on = true;
 };
 
 void keyboard_pre_init_kb(void) {
-    setPinOutput(GPIO_KM_OE);       // H/W power on default = 0
-    setPinOutput(GPIO_KM_SEL);      // H/W power on default = 0
-    setPinOutput(GPIO_KM_PWEN);     // H/W power on default = 1
+    gpio_set_pin_output(GPIO_KM_OE);       // H/W power on default = 0
+    gpio_set_pin_output(GPIO_KM_SEL);      // H/W power on default = 0
+    gpio_set_pin_output(GPIO_KM_PWEN);     // H/W power on default = 1
 }
 
 void keyboard_post_init_kb(void) {
-    user_config.raw = eeconfig_read_user();                 // Read the user config from EEPROM
-    kvm_pc_sel      = user_config.eeprom_kvm_pc_sel;
+    keyboard_config.raw = eeconfig_read_kb();                 // Read the config from EEPROM
+    kvm_pc_sel      = keyboard_config.eeprom_kvm_pc_sel;
     kvm_switch(kvm_pc_sel);
 
-    Status_LED_Bright = user_config.eeprom_Status_LED_Bright;   // 0 = 초기값, 1~5 = 50~250의 5단계 밝기
+    Status_LED_Bright = keyboard_config.eeprom_Status_LED_Bright;   // 0 = 초기값, 1~5 = 50~250의 5단계 밝기
     if (Status_LED_Bright == 0) Status_LED_Bright = 5;
 }
 
@@ -119,8 +117,8 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                     kvm_pc_sel = 0;
                     kvm_switch(0);
 
-                    user_config.eeprom_kvm_pc_sel = kvm_pc_sel;
-                    eeconfig_update_user(user_config.raw); // Writes the new status to EEPROM
+                    keyboard_config.eeprom_kvm_pc_sel = kvm_pc_sel;
+                    eeconfig_update_kb(keyboard_config.raw); // Writes the new status to EEPROM
                 }
             }
             return false;
@@ -131,8 +129,8 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                     kvm_pc_sel = 1;
                     kvm_switch(1);
 
-                    user_config.eeprom_kvm_pc_sel = kvm_pc_sel;
-                    eeconfig_update_user(user_config.raw); // Writes the new status to EEPROM
+                    keyboard_config.eeprom_kvm_pc_sel = kvm_pc_sel;
+                    eeconfig_update_kb(keyboard_config.raw); // Writes the new status to EEPROM
                 }
             }
             return false;
@@ -142,8 +140,8 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 kvm_pc_sel = !kvm_pc_sel;
                 if (kvm_pc_sel) kvm_switch(1);
                 else kvm_switch(0);
-                user_config.eeprom_kvm_pc_sel = kvm_pc_sel; //
-                eeconfig_update_user(user_config.raw); // Writes the new status to EEPROM
+                keyboard_config.eeprom_kvm_pc_sel = kvm_pc_sel; //
+                eeconfig_update_kb(keyboard_config.raw); // Writes the new status to EEPROM
             }
             return false;
 
@@ -152,8 +150,8 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 if (++Status_LED_Bright > 5) {
                     Status_LED_Bright = 1;
                 };
-                user_config.eeprom_Status_LED_Bright = Status_LED_Bright; //
-                eeconfig_update_user(user_config.raw); // Writes the new status to EEPROM
+                keyboard_config.eeprom_Status_LED_Bright = Status_LED_Bright; //
+                eeconfig_update_kb(keyboard_config.raw); // Writes the new status to EEPROM
             }
             return false;
 
@@ -167,11 +165,11 @@ bool isRecording = false;           // dynamic macro REC. LED
 bool isRecordingLedOn = false;
 static uint16_t recording_timer;
 
-void matrix_scan_kb(void) {
+void housekeeping_task_kb(void) {
 
     if (kvm_sel_on == true){
         if (timer_elapsed(kvm_timer) > kvm_deadtime ) {
-            writePinHigh(GPIO_KM_PWEN);
+            gpio_write_pin_high(GPIO_KM_PWEN);
             kvm_sel_on = false;                             //// 키보드 리셋이 필요?
         }
     }
@@ -212,6 +210,9 @@ void dynamic_macro_record_end_kb(int8_t direction){
 #endif
 
 bool rgb_matrix_indicators_kb(void)  {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
+    }
 
     uint8_t Status_LED_Bright_value = Status_LED_Bright * 50;
 

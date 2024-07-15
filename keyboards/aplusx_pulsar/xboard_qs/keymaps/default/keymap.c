@@ -16,7 +16,12 @@
 
 #include QMK_KEYBOARD_H
 
-enum _layer { WIN_BASE = 0, WIN_FN, MAC_BASE, MAC_FN };
+enum _layer {
+    WIN_BASE,
+    WIN_FN,
+    MAC_BASE,
+    MAC_FN,
+};
 
 #define KC_TASK LGUI(KC_TAB)
 #define KC_DIC  LGUI(KC_H)      // WIN ; 받아쓰기
