@@ -5,7 +5,7 @@
 bool dis_breath = 0;
 
 void suspend_power_down_kb() {
-    writePinHigh(MAC_PIN);
+    gpio_write_pin_high(MAC_PIN);
     suspend_power_down_user();
 }
 
