@@ -14,7 +14,7 @@ void suspend_wakeup_init_kb() {
 }
 
 bool shutdown_kb(bool jump_to_bootloader) {
-    writePinHigh(MAC_PIN);
+    gpio_write_pin_high(MAC_PIN);
     return shutdown_user(jump_to_bootloader);
 }
 
