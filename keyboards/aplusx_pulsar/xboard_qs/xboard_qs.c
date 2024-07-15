@@ -47,12 +47,14 @@ void kvm_switch(bool pc_num){
 
     kvm_timer = timer_read();
     kvm_sel_on = true;
-};
+}
 
 void keyboard_pre_init_kb(void) {
     gpio_set_pin_output(GPIO_KM_OE);       // H/W power on default = 0
     gpio_set_pin_output(GPIO_KM_SEL);      // H/W power on default = 0
     gpio_set_pin_output(GPIO_KM_PWEN);     // H/W power on default = 1
+
+    keyboard_pre_init_user();
 }
 
 void keyboard_post_init_kb(void) {
@@ -62,6 +64,8 @@ void keyboard_post_init_kb(void) {
 
     Status_LED_Bright = keyboard_config.eeprom_Status_LED_Bright;   // 0 = 초기값, 1~5 = 50~250의 5단계 밝기
     if (Status_LED_Bright == 0) Status_LED_Bright = 5;
+
+    keyboard_post_init_user();
 }
 
 #define HCS(report) host_consumer_send(record->event.pressed ? report : 0); return false
@@ -80,8 +84,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             }
             break;
 
-        case KC_SPOTLIGHT:
-            HCS(0x221);
         case KC_DICTATION:
             HCS(0xCF);
         case KC_DO_NOT_DISTURB:
@@ -198,12 +200,12 @@ void housekeeping_task_kb(void) {
 }
 
 #ifdef DYNAMIC_MACRO_ENABLE
-void dynamic_macro_record_start_kb(int8_t direction) {
+__attribute__((weak)) void dynamic_macro_record_start_user(int8_t direction) {
     isRecording = true;
     isRecordingLedOn = true;
     recording_timer = timer_read();
 }
-void dynamic_macro_record_end_kb(int8_t direction){
+__attribute__((weak)) void dynamic_macro_record_end_user(int8_t direction) {
     isRecording = false;
     isRecordingLedOn = false;
 }
