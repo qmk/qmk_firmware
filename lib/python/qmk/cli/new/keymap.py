@@ -15,9 +15,9 @@ from qmk.userspace import UserspaceDefs
 
 
 def validate_keymap_name(name):
-    """Returns True if the given keymap name contains only lowercase a-z, 0-9 and underscore characters.
+    """Returns True if the given keymap name contains only a-z, 0-9 and underscore characters.
     """
-    regex = re.compile(r'^[a-z0-9][a-z0-9_]+$')
+    regex = re.compile(r'^[a-zA-Z0-9][a-zA-Z0-9_]+$')
     return bool(regex.match(name))
 
 
@@ -69,7 +69,7 @@ def new_keymap(cli):
         return False
 
     if not validate_keymap_name(user_name):
-        cli.log.error('Keymap names must contain only {fg_cyan}lowercase a-z{fg_reset}, {fg_cyan}0-9{fg_reset} and {fg_cyan}_{fg_reset}! Please choose a different name.')
+        cli.log.error('Keymap names must contain only {fg_cyan}a-z{fg_reset}, {fg_cyan}0-9{fg_reset} and {fg_cyan}_{fg_reset}! Please choose a different name.')
         return False
 
     if keymap_path_new.exists():
