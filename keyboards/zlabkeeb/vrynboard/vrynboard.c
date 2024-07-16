@@ -230,7 +230,7 @@ void layer3(void) {
 }
 
 void default_status(void) {
-    switch (biton32(layer_state)) {
+    switch (get_highest_layer(layer_state)) {
         case 0:
             layer0();
             break;
