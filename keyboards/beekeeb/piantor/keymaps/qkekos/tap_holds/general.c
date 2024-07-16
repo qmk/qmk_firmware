@@ -41,6 +41,8 @@ bool is_homerow_mod_tap(uint16_t keycode) {
 
 bool is_ignored_prev_keycode(uint16_t keycode) {
     if (IS_QK_TAP_DANCE(keycode)) return true;
+    if (IS_QK_LAYER_TAP(keycode) && is_pressed[keycode]) return true;
+
     return false;
 }
 
@@ -67,6 +69,7 @@ bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
     }
 
+    timestamps_pr(keycode, record);
     return true;
 }
 
