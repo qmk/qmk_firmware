@@ -1,9 +1,4 @@
 
-// $ - an alias for q
-// # - an alias for l
-// ! - an alias for k
-// % - an alias for j
-
 // * - magic key (upper right index)
 // @ - repeat key(home  right thumb)
 
@@ -14,7 +9,27 @@
 
 //REGEX_START
 
-// ------------------------------------'---------------------------------------
+// -------------------------------------@i@-------------------------------------
+
+bbg           -> bbing
+ddg           -> dding
+eeg           -> eeing
+ffg           -> ffing
+ggg           -> gging
+kkg           -> kking
+llg           -> lling
+mmg           -> mming
+nng           -> nning
+rrg           -> rring
+ssg           -> ssing
+ttg           -> tting
+zzg           -> zzing
+
+ppn           -> pping
+
+eang          -> eaning
+
+// --------------------------------------'--------------------------------------
 
 _aint         -> ain't
 _arent        -> aren't
@@ -57,10 +72,12 @@ _isnt         -> isn't
 _youv         -> you've
 _havent       -> haven't
 
-// ------------------------------------A---------------------------------------
+// --------------------------------------A--------------------------------------
 
 a*            -> ab
 a@            -> and
+
+[cdgpyw]a*    -> \1ay
 
 _ag*          -> again
 _ag*s         -> against
@@ -68,21 +85,27 @@ _ag*s         -> against
 _av*          -> average
 _av*g         -> averaging
 
-_af$          -> after
-_af$d         -> afterwards
+_afq          -> after
+_afqd         -> afterwards
 
 _al*          -> alr
 _al*d         -> already
 _al*g         -> alright
 
+_abk          -> abandon
+_abkd         -> abandoned
+_abkg         -> abandoning
+_abkq         -> abandonment
+
 _a@c          -> accuracy
+_a@q          -> actually
 _a@t          -> accurate
 _a@ty         -> accurately
 
-_as#          -> ascend
-_as#e         -> ascended
-_as#o         -> ascendion
-_as#n         -> ascending
+_asl          -> ascend
+_asle         -> ascended
+_aslo         -> ascension
+_asln         -> ascending
 
 _adj*         -> adjust
 _adj*d        -> adjusted
@@ -91,33 +114,35 @@ _adj*t        -> adjustment
 _adj*l        -> adjustable
 
 _any@         -> anyway
-_any$         -> anyone
+_anyq         -> anyone
 _anym         -> anymore
 _anyo         -> anybody
-_any#         -> anytime
+_anyl         -> anytime
 _anyr         -> anywhere
 _anyt         -> anything
 
 _a*v          -> above
-_ab$          -> about
+_abq          -> about
 _assg         -> assign
 _askg         -> asking
 _am*          -> amount
 _ar*          -> around
 _alm*         -> almost
-_as#@         -> asleep
-_an$          -> another
+_asl@         -> asleep
+_anq          -> another
 _awk@         -> awkward
 _alt*         -> although
 _alg*         -> algorithm
+_aggv         -> aggressive
 _ab@          -> abbreviation
 
-// ------------------------------------B---------------------------------------
+// --------------------------------------B--------------------------------------
 
 _b@           -> bz
 
-_b*           -> basic
-_b*l          -> basically
+_bjq          -> bj
+_bj           -> basic
+_bjl          -> basically
 
 _br@          -> bring
 _br@g         -> bringing
@@ -129,49 +154,51 @@ _bt@r         -> bothersome
 
 _b@g          -> begin
 _b@ga         -> began
-_b@$          -> being
-_beg$         -> begging
-_b@g$         -> beginning
+_b@q          -> being
+_begq         -> begging
+_b@gq         -> beginning
 
-_b$           -> back
-_b$u          -> backup
-_b$d          -> backed
-_b$@          -> backing
-_b$e          -> backend
-_b$o          -> backdoor
-_b$w          -> backwards
-_b$s          -> backspace
-_b$g          -> background
+_bq           -> back
+_bqu          -> backup
+_bqd          -> backed
+_bq@          -> backing
+_bqe          -> backend
+_bqo          -> backdoor
+_bqw          -> backwards
+_bqs          -> backspace
+_bqg          -> background
 
 _b@e          -> been
-_b@k          -> back
-_b@o          -> both
+_bko          -> both
+_bkj          -> below
 _b@m          -> become
 _b@mc         -> became
 _b@r          -> before
 _b@u          -> buffer
 _b@p          -> bypass
 _b@t          -> better
+_b@d          -> behind
 _b@c          -> because
 _b@l          -> believe
 _b@w          -> between
+_b@s          -> business
 _b@v          -> behavior
 _b@mg         -> becoming
 _b@ps         -> bypassing
 
 _bc@          -> bunch
-_by$          -> bypass
+_byq          -> bypass
 _bud*         -> budget
 
-// ------------------------------------C---------------------------------------
+// --------------------------------------C--------------------------------------
 
 [oauei]c*     -> \1ck
 
 c*            -> cy
 _c@           -> con
 
-_co$          -> copy
-_co$@         -> copying
+_coq          -> copy
+_coq@         -> copying
 
 _col*         -> column
 _col*@        -> columnar
@@ -182,6 +209,15 @@ _cry@         -> crying
 _c@l          -> conflict
 _c@ln         -> conflicting
 
+_c@vn         -> convince
+_c@vng        -> convincing
+
+_comm*        -> common
+_comm*l       -> commonly
+
+_c@qe         -> constitute
+_c@qen        -> constitutional
+
 _c@*          -> consider
 _c@*e         -> considered
 _c@*i         -> considering
@@ -189,59 +225,70 @@ _c@*i         -> considering
 _c@m          -> confirm
 _c@md         -> confirmed
 _c@mg         -> confirming
+_c@ma         -> confirmation
 
 _c@s*         -> consistent
 _c@s*c        -> consistency
 _c@s*l        -> consistently
 
-_cf#          -> confident
-_cf#e         -> confidence
-_cf#@         -> confidently
+_c@fd          -> confident
+_c@fde         -> confidence
+_c@fdl         -> confidently
 
 _c*m          -> comfort
 _c*me         -> comfortable
 _c*ma         -> comfortably
 
 _c@d*         -> condition
-_c@d*$        -> conditioning
+_c@d*q        -> conditioning
 _c@d*l        -> conditionional
 
-_c@$          -> const
-_c@$a         -> constant
-_c@$ay        -> constantly
+_com*         -> comment
+_com*d        -> commented
+_com*g        -> commenting
 
-_c@$u         -> constsruct
-_c@$uo        -> constsructor
-_c@$ud        -> constsructed
-_c@$u*        -> constsruction
+_c@q          -> const
+_c@qa         -> constant
+_c@qj         -> constantly
 
-_c@$e         -> constitute
-_c@$en        -> constitutional
-
-_c@$*         -> conquer
-_c@$*s        -> conquest
-_c@$i         -> constrain
-
-_c@f          -> config
-_c@fr         -> configure
-_c@fi         -> configuring
-_c@f#         -> configurable
-_c@ft         -> configuration
+_c@q*         -> conquer
+_c@q*t        -> conquest
+_c@qi         -> constrain
 
 _c@e          -> confuse
-_c@e*         -> confused
-_c@en         -> confusing
-_c@eo         -> confusion
+_c@el         -> confusing
+_c@eq         -> confusion
+
+_c@qu         -> constsruct
+_c@quo        -> constsructor
+_c@qud        -> constsructed
+_c@qu*        -> constsruction
 
 _c@n          -> connect
 _c@ne         -> connected
 _c@no         -> connection
 _c@ni         -> connecting
 
+_c*@          -> community
+_c*@t         -> communicate
+_c*@o         -> communication
+_c*@q         -> communicating
+
 _c@t*         -> contain
 _c@t*d        -> contained
 _c@t*e        -> container
 _c@t*i        -> containing
+
+_c*j          -> cyber
+_c*jk         -> cyberpunk
+_c*jr         -> cyberpower
+_c*js         -> cybersecurity
+
+_c@j          -> config
+_c@jr         -> configure
+_c@jq         -> configuring
+_c@jl         -> configurable
+_c@jt         -> configuration
 
 _c@v*         -> convert
 _c@v*e        -> converted
@@ -249,28 +296,28 @@ _c@v*o        -> conversion
 _c@v*t        -> convenient
 _c@v*a        -> conversation
 
-_c%*          -> c%
-_c%           -> change
-_c%n          -> chance
-_c%r          -> charge
-_c%l          -> channel
-_c%@          -> changing
-_c%r@         -> charging
-_c%r*         -> character
-_c%l@         -> channelling
+_cjq          -> cj
+_cj           -> change
+_cj*          -> changed
+_cj@          -> chance
+_cjr          -> charge
+_cjl          -> channel
+_cjn          -> changing
+_cjr@         -> charging
+_cjr*         -> character
+_cjl@         -> channelling
 
 _co*          -> could
 _cop*         -> coping
 _cri*         -> cringe
-_cou#         -> course
-_com*         -> comment
+_c*r          -> course
+_comj         -> command
 _ca@          -> capable
 _cov*d        -> covered
-_c@vn         -> convince
 _cu@          -> curious
 _c@r*         -> congratulations
 
-// ------------------------------------D---------------------------------------
+// --------------------------------------D--------------------------------------
 
 d*            -> dy
 _d@           -> dd
@@ -305,11 +352,11 @@ _d@te         -> disappointed
 _d@tn         -> disappointing
 _d@t*         -> disappointment
 
-_df#          -> define
-_df#e         -> definite
-_df#o         -> definition
-_df#i         -> definitive
-_df#@         -> definitely
+_d@j          -> define
+_d@jq         -> definite
+_d@jt         -> definition
+_d@jv         -> definitive
+_d@jl         -> definitely
 
 _dev@         -> develop
 _dev@d        -> developed
@@ -317,21 +364,22 @@ _dev@r        -> developer
 _dev@n        -> developing
 _dev@m        -> development
 
-da*           -> day
 _d@n          -> down
 _d@r          -> during
-_d@i          -> decide
 _d@a          -> doable
+_d@i          -> decide
+_d@ig         -> deciding
+_d@u          -> difficult
+
 _dred*        -> dredge
 _de*          -> default
-_d@ig         -> deciding
-_del@         -> deflation
-_d@u          -> difficult
 _demo*        -> democracy
+_downj        -> downwards
+_del@         -> deflation
 _disf         -> discomfort
-_des$         -> destination
+_desj         -> destination
 
-// ------------------------------------E---------------------------------------
+// --------------------------------------E--------------------------------------
 
 e*            -> eu
 _e@           -> ee
@@ -345,11 +393,14 @@ _edit@        -> editing
 _e@s          -> essential
 _e@sl         -> essentially
 
-_ea#          -> early
-_ea#@         -> earlier
+_eal          -> early
+_eal@         -> earlier
 
 _e@pt         -> expert
 _e@pt*        -> expertise
+
+_e@x          -> external
+_e@xl         -> externally
 
 _e@tr         -> extreme
 _e@tra        -> extremal
@@ -370,6 +421,7 @@ _e@ty         -> exactly
 _e@l          -> explain
 _e@ld         -> explained
 _e@lg         -> explaining
+_e@la         -> explaination
 
 _e@pl         -> explore
 _e@pln        -> exploring
@@ -378,6 +430,14 @@ _e@plo        -> exploration
 _e@n          -> experience
 _e@ng         -> experiencing
 _e@nl         -> experiential
+
+_e@k          -> export
+_e@kd         -> exported
+_e@kg         -> exporting
+
+_engj         -> engine
+_engjr        -> engineer
+_engjg        -> engineering
 
 _e@pr         -> express
 _e@pre        -> expressed
@@ -407,29 +467,30 @@ _e@pv         -> expensive
 _e@p*         -> unexpected
 _e@po         -> expectation
 
-_e@t#         -> extend
-_e@t$         -> extent
-_e@t#*        -> extends
-_e@t#d        -> extended
-_e@t#o        -> extension
-_e@t#n        -> extending
-_e@t#i        -> extensive
-_e@t#iy       -> extensively
+_e@tl         -> extend
+_e@tq         -> extent
+_e@tl*        -> extends
+_e@tld        -> extended
+_e@tlo        -> extension
+_e@tln        -> extending
+_e@tli        -> extensive
+_e@tliy       -> extensively
 
 _ey*          -> eye
 _ed*          -> edge
 _e@r          -> either
 _e@g          -> enough
-_e@$          -> example
+_e@q          -> example
 _evn@         -> eventually
 _e@y          -> especially
-_env#         -> environment
+_envl         -> environment
 
-// ------------------------------------F---------------------------------------
+// --------------------------------------F--------------------------------------
 
 _@            -> for
+_@v           -> forever
 
-_f$           -> fine
+_fq           -> fine
 _f@           -> first
 
 _@b           -> forbid
@@ -439,71 +500,74 @@ _@*           -> follow
 _@*d          -> followed
 _@*g          -> following
 
-_fu@          -> fun
-_fu@t         -> function
-_fu@tl        -> functional
-_fu@tg        -> functioning
-_fu@ty        -> functionality
+_feq          -> frequent
+_feqc         -> frequency
+_feqy         -> frequently
+_feqs         -> frequencies
 
-_fu@m         -> fundament
-_fu@ml        -> fundamentally
+_fj           -> fun
+_fjy          -> funny
+_fjt          -> function
+_fjtl         -> functional
+_fjtg         -> functioning
+_fjty         -> functionality
 
-_fe$          -> frequent
-_fe$c         -> frequency
-_fe$y         -> frequently
-_fe$s         -> frequentcies
+_fjm          -> fundament
+_fjml         -> fundamentally
 
+_fk           -> find
 _fr@          -> from
-_fi$          -> find
-_fc#          -> fancy
-_fg$          -> finger
+_fcl          -> fancy
+_fgq          -> finger
 
-// ------------------------------------G---------------------------------------
+// --------------------------------------G--------------------------------------
 
 g*            -> gy
 
 _gov*         -> govern
 _gov*@        -> government
 
-_gn$          -> genuine
-_gn$e         -> genuinely
+_gnq          -> genuine
+_gnq@         -> genuinely
 
-_gen$         -> general
-_gen$y        -> generally
+_genq         -> general
+_genq@        -> generally
+
+_genk         -> generous
+_genk@        -> generously
 
 _gi*          -> ginger
 
-// ------------------------------------H---------------------------------------
+// --------------------------------------H--------------------------------------
 
 _h@           -> hand
 
 _hs@          -> honest
 _hs@l         -> honestly
 
-_ha$@         -> happen
-_ha$@d        -> happened
-_ha$@g        -> happenning
+_haq@         -> happen
+_haq@d        -> happened
+_haq@g        -> happenning
 
 _h@l          -> handle
+_h@d          -> handed
 _h@r          -> handler
-_h@ld         -> handled
-_h@ls         -> handles
 _h@lg         -> handling
 
-_ha$          -> happy
-_ha$y         -> happily
-_ha$e         -> happier
-_ha$s         -> happiest
-_ha$n         -> happiness
+_haq          -> happy
+_haqy         -> happily
+_haqe         -> happier
+_haqs         -> happiest
+_haqn         -> happiness
 
 _hy@          -> hype
-_he$          -> health
+_heq          -> health
 _how@         -> however
 _ht@          -> https://
-_hi$          -> hilarious
-_hope@        -> hopefully
+_hiq          -> hilarious
+_hopel        -> hopefully
 
-// ------------------------------------I---------------------------------------
+// --------------------------------------I--------------------------------------
 
 i@            -> ing
 i*            -> ion
@@ -511,15 +575,6 @@ ion*          -> ional
 
 _i@s          -> instead
 _i@c          -> incapable
-
-_i@$          -> instant
-_i@$c         -> instance
-_i@$y         -> instantly
-
-_i@!          -> intention
-_i@!a         -> intentional
-_u@!          -> unintentional
-_i@!ay        -> intentionally
 
 _i@t          -> interest
 _i@td         -> interested
@@ -529,43 +584,58 @@ _i@r          -> increase
 _i@rd         -> increased
 _i@rg         -> increasing
 
+_i@q          -> instant
+_i@qc         -> instance
+_i@qy         -> instantly
+
+_i@x          -> infinite
+_i@xy         -> infinity
+_i@xl         -> infinitely
+
+_i@k          -> intention
+_i@ka         -> intentional
+_i@kay        -> intentionally
+_u@k          -> unintentional
+_u@ky         -> unintentionally
+
 _i@p          -> implement
 _i@pe         -> implemented
 _i@pn         -> implementing
 _i@pt         -> implementation
 
-_im#          -> import
-_im#n         -> importing
-_im#a         -> important
-_im#e         -> importance
-_im#@         -> importantly
+_iml          -> import
+_imln         -> importing
+_imla         -> important
+_imle         -> importance
+_iml@         -> importantly
 
 _i*           -> info
-_i*r          -> inform
-_i*rd         -> informed
-_i*rt         -> information
+_i*m          -> inform
+_i*d          -> informed
+_i*t          -> information
 
 _i@           -> I
 _is*          -> issue
 _imp@         -> impossible
 
-// ------------------------------------J---------------------------------------
+// --------------------------------------J--------------------------------------
 
-_jd*          -> judge
-_jd*@         -> judging
-_jd*m         -> judgment
+_jg           -> judge
+_jgn          -> judging
+_jgt          -> judgment
 
 _j@           -> join
 _j@d          -> joined
 _j@g          -> joining
 
 _j*           -> just
+_jq           -> journey
 _j*c          -> justice
 _j*y          -> justify
 _j*d          -> justified
 _j*g          -> justifying
 
-// ------------------------------------K---------------------------------------
+// --------------------------------------K--------------------------------------
 
 k*            -> ks
 
@@ -577,13 +647,14 @@ _kn@ge        -> knowledgeable
 _ke*          -> key
 _ke*p         -> keycap
 _ke*w         -> keyword
-_ke*@         -> keycode
+_ke*q         -> keycode
 _ke*r         -> keyboard
 
-// ------------------------------------L---------------------------------------
+// --------------------------------------L--------------------------------------
 
 l*            -> lk
 led*          -> ledge
+linl          -> line
 
 _leg*         -> legit
 _leg*t        -> legitimate
@@ -596,17 +667,19 @@ _lega*        -> legacy
 _len@         -> length
 
 _li*          -> list
-_li*$         -> listed
+_li*k         -> listen
+_li*d         -> listed
 _lm(f)?a*     -> lm\1ao
 _li*r         -> listener
 _li*g         -> listening
 
-// ------------------------------------M---------------------------------------
+// --------------------------------------M--------------------------------------
 
 mp*           -> mpl
 m*            -> ment
 m*@           -> mental
 m*@y          -> mentally
+m*@l          -> mentality
 
 _mu*          -> must
 _mu@          -> music
@@ -624,18 +697,18 @@ _my@          -> myth
 _my@a         -> mythical
 _my@o         -> mythology
 
-_men#         -> menu
+_menl         -> menu
 _may*         -> maybe
-_min@         -> minute
+_mj           -> minute
 _mov*         -> movement
 _meanl        -> meanwhile
 
-// ------------------------------------N---------------------------------------
+// --------------------------------------N--------------------------------------
 
-[oaui]n$      -> \1nion
+[oaui]nq      -> \1nion
 
 _n@           -> nn
-_n$           -> nice
+_nq           -> nice
 
 _nec@         -> necessary
 _nec@l        -> necessarily
@@ -648,11 +721,12 @@ _n@w          -> nowhere
 _n@g          -> nothing
 _n@r          -> neither
 
-_n$@          -> nicer
+_noq          -> noone
+_nq@          -> nicer
 nat@          -> nation
 _nev*l        -> nevertheless
 
-// ------------------------------------O---------------------------------------
+// --------------------------------------O--------------------------------------
 
 o*            -> oa
 o@            -> oo
@@ -672,10 +746,10 @@ _o@vg         -> observing
 _o@vl         -> observable
 _o@vn         -> observation
 
-_oj*          -> object
-_oj*t         -> objection
-_oj*@         -> objective
-_oj*y         -> objectively
+_obq          -> object
+_obqo         -> objection
+_obqt         -> objective
+_obqy         -> objectively
 
 _ov*p         -> overlap
 _ov*@         -> overall
@@ -694,7 +768,7 @@ _ov*we        -> overwhelmed
 _ov*p@        -> overlapping
 _ov*wn        -> overwhelming
 
-// ------------------------------------P---------------------------------------
+// --------------------------------------P--------------------------------------
 
 p*            -> py
 pl*           -> ply
@@ -702,28 +776,9 @@ pl*           -> ply
 _pol*         -> policy
 _pha*         -> pharmacy
 
-_pr*          -> previous
-_pr*o         -> previously
-
-_pri*         -> priva
-_pri*t        -> private
-_pri*@        -> privacy
-
 _ps*          -> psych
 _ps*o@        -> psychology
 _ps*a         -> psychological
-
-_pro*         -> project
-_pro*@        -> projected
-_pro*t        -> projection
-_pro*l        -> projectile
-_pro*$        -> projecting
-
-_pr@          -> prob
-_pr@a         -> program
-_pr@e         -> problem
-_pr@o         -> probably
-_pr@ot        -> probability
 
 _pa*          -> page
 _po*          -> point
@@ -731,10 +786,11 @@ _pay*         -> paypal
 _pu*          -> public
 _pe*          -> people
 _p*@          -> python
-_poss#        -> possible
+_possl        -> possible
 _pos*         -> position
+_punq         -> punctuation
 
-// ------------------------------------Q---------------------------------------
+// --------------------------------------Q--------------------------------------
 
 q[aoei]       -> qu\1
 q[aoi]*       -> q\1
@@ -747,7 +803,7 @@ _qe@          -> quest
 _qe@o         -> question
 _qe@od        -> questioned
 _qe@og        -> questioning
-_qe@o$        -> questionable
+_qe@oq        -> questionable
 
 _qa@          -> quali
 _qa@y         -> qualify
@@ -759,16 +815,17 @@ _qa@yn        -> qualification
 _qe*          -> queue
 _qe*g         -> queuing
 
-_(en|de)$     -> \1que
-_(en|de)$e    -> \1queue
+_(en|de)q     -> \1que
+_(en|de)qe    -> \1queue
 
-_de$n         -> dequeuing
-_en$g         -> enqueuing
+_deqn         -> dequeuing
+_enqg         -> enqueuing
 
 _q*           -> qmk
-_quin$        -> quintessential
+_qol          -> qol
+_quinq        -> quintessential
 
-// ------------------------------------R---------------------------------------
+// --------------------------------------R--------------------------------------
 
 r*            -> rl
 rs@           -> rst
@@ -790,6 +847,10 @@ _req*         -> request
 _req*d        -> requested
 _req*g        -> requesting
 
+_rem*         -> remember
+_rem*d        -> remembered
+_rem*@        -> remembering
+
 _rev@         -> reverse
 _rev@a        -> reversal
 _rev@g        -> reversing
@@ -805,28 +866,39 @@ _re*g         -> reasoning
 _re*y         -> reasonably
 _re*l         -> reasonable
 
+_rec@         -> recommend
+_rec@*        -> recommended
+_rec@n        -> recommending
+_rec@o        -> recommendation
+
 _res*         -> response
 _res*e        -> responsive
 _res*l        -> responsible
 _res*@        -> responsibility
 _res*@s       -> responsibilities
 
-_re@          -> review
 _rat*         -> rather
 _reo*         -> reorder
 _rest*        -> restart
 
-// ------------------------------------S---------------------------------------
+// --------------------------------------S--------------------------------------
 
 s*            -> sk
 s@            -> ss
 st@           -> sts
 
+_seaq         -> season
+_seaq@        -> seasonal
+
+_sc*          -> screen
+_sc*o         -> screenshot
+
+_s@*          -> soon
 _s@e          -> system
 _s@o          -> symbol
 
-_str*         -> straight
-_str*@        -> straightforward
+_sr*          -> straight
+_sr*@         -> straightforward
 
 _sp@          -> specific
 _sp@a         -> specifically
@@ -852,8 +924,8 @@ _so*d         -> sorted
 _so*g         -> sorting
 
 _so@          -> some
-_so@#         -> someone
-_so@h         -> somehow
+_so@l         -> someone
+_so@q         -> somehow
 _so@d         -> someday
 _so@w         -> somewhat
 _so@m         -> sometime
@@ -863,9 +935,9 @@ _so@m*        -> sometimes
 
 _st@          -> stat
 _st@a         -> stats
-_st@o         -> station
 _st@u         -> status
 _st@d         -> stated
+_st@o         -> station
 _st@c         -> statistic
 _st@*         -> statement
 _st@c*        -> statistics
@@ -874,6 +946,7 @@ _st@ca        -> statistically
 _sn@          -> seen
 _sk@          -> skill
 _sti@         -> still
+_ser@         -> server
 _sc@          -> school
 _sh@          -> should
 _si@r         -> singer
@@ -884,10 +957,11 @@ _ser*         -> serious
 _sup*         -> supremacy
 _(con)?se*    -> \1sequence
 
-// ------------------------------------T---------------------------------------
+// --------------------------------------T--------------------------------------
 
 _*            -> the
 _ty*          -> typ
+_**           -> then
 t*            -> tment
 te*           -> tement
 tio@          -> tional
@@ -895,20 +969,25 @@ tio@          -> tional
 _ta@          -> take
 _ta@g         -> taking
 
-_t%           -> though
-_t%@          -> thought
-_tr%          -> through
+_(life)?ti*   -> \1time
+_ti*p         -> timestamp
+
+_tj           -> though
+_tj@          -> thought
+_trj          -> through
+
+_*s           -> this
+_*g           -> thing
+_*q           -> these
 
 _t@           -> than
 _(t*|*t)      -> that
 _th@          -> those
-_t@$          -> thank
+_t@q          -> thank
 _t@*          -> think
-_t@$*         -> thanks
-
-_*s           -> this
-_*g           -> thing
-_*$           -> these
+_t@q*         -> thanks
+_t@*g         -> thinking
+_*ms          -> themselves
 
 _*@           -> theory
 _*@s          -> theories
@@ -937,23 +1016,23 @@ _te*g         -> technology
 _te*ly        -> technically
 _te*g@        -> technologies
 
-_(life)?ti*   -> \1time
 _ty*@         -> typing
 _tal*g        -> talking
 _*ro          -> therefore
 _monkey*      -> monkeytype
 
-// ------------------------------------U---------------------------------------
+// --------------------------------------U--------------------------------------
 
 u*            -> ue
 
-_uf$          -> unfortunate
-_uf$y         -> unfortunately
+_u@t          -> unfortunate
+_u@ty         -> unfortunately
 
 _up*          -> update
 _ug*          -> upgrade
 _up*@         -> updated
 _ug*@         -> upgraded
+_up*l         -> updating
 
 _unr@         -> unreal
 _unr@d        -> unrelated
@@ -961,8 +1040,9 @@ _unr@t        -> unrealistic
 _unr@s        -> unreasonable
 
 _u@           -> use
+_u@x          -> usage
 _u@g          -> using
-_u@$          -> useful
+_u@q          -> useful
 _u@l          -> useless
 _u@*          -> unusable
 _u@c          -> unironically
@@ -973,18 +1053,19 @@ _u*td         -> understood
 _u*@          -> underneath
 _u*l          -> underlying
 _u*g          -> underground
-_u*$          -> underestimate
+_u*q          -> underestimate
 _u*w          -> underwhelming
 _u*tg         -> understanding
 _u*tl         -> understandable
-_u*$g         -> underestimating
+_u*qg         -> underestimating
 
+_upj          -> upwards
 _und@         -> undoable
 _uni@         -> university
-_unn$         -> unnecessary
+_unnq         -> unnecessary
 _unc@         -> uncomfortable
 
-// ------------------------------------V---------------------------------------
+// --------------------------------------V--------------------------------------
 
 v*            -> ver
 
@@ -992,21 +1073,21 @@ _v*l          -> versatile
 _v*l@         -> versatility
 
 _ve@          -> view
+_(p)?re@      -> \1review
+
 _vi*          -> vision
 _v*o          -> version
+
+_va@          -> value
+_va@l         -> valuable
 
 _v@           -> var
 _v@o          -> various
 _v@l          -> variable
 
-_va@          -> value
-
-// ------------------------------------W---------------------------------------
+// --------------------------------------W--------------------------------------
 
 _w@           -> ww
-
-_(a)?wa*      -> \1way
-_work@        -> working
 
 _w@o          -> who
 _w@*          -> why
@@ -1023,22 +1104,63 @@ _w@nr         -> whenever
 _w@av         -> whatsoever
 
 _we*          -> web
+_work@        -> working
 _wit@         -> without
 
-// ------------------------------------X---------------------------------------
+// --------------------------------------X--------------------------------------
 
 x*            -> xt
 x@            -> xes
 
-// ------------------------------------Y---------------------------------------
+// --------------------------------------Y--------------------------------------
 
 y@            -> you
 y*            -> ying
 
-y@rf          -> yourself
+y@*           -> yourself
 
-// ------------------------------------Z---------------------------------------
+// --------------------------------------Z--------------------------------------
 
 _z@           -> zone
+
+// ------------------------------------RT_PR------------------------------------
+
+_rt           -> pr
+_rtj          -> rt
+_rtx          -> rtx
+
+_rt@          -> pro
+
+_rt@o         -> probably
+_rt@o*        -> probability
+
+_rt@u         -> product
+_rt@u*        -> produce
+_rt@ug        -> producing
+
+_rt@e         -> problem
+_rt@a         -> program
+_rt@j         -> project
+
+// -----------------------------------------------------------------------------
+
+_pr*          -> previous
+_pr*o         -> previously
+
+_pri*         -> priva
+_pri*t        -> private
+_pri*@        -> privacy
+
+_pro*         -> project
+_pro*@        -> projected
+_pro*t        -> projection
+_pro*l        -> projectile
+_pro*q        -> projecting
+
+_pr@          -> prob
+_pr@a         -> program
+_pr@e         -> problem
+_pr@o         -> probably
+_pr@ot        -> probability
 
 //REGEX_END

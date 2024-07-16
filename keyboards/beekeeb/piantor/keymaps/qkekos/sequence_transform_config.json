@@ -7,12 +7,6 @@
     "wordbreak_symbol": {
         "_": "^"
     },
-    "token_aliases": {
-        "$": "q",
-        "#": "l",
-        "!": "k",
-        "%": "j"
-    },
     "output_func_symbols": "↻⇑",
     "comment_str": "//",
     "separator_str": "->",
