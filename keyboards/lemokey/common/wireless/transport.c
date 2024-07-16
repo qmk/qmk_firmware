@@ -236,6 +236,11 @@ void transport_changed(transport_t new_transport) {
 void usb_remote_wakeup(void) {
     if (USB_DRIVER.state == USB_SUSPENDED) {
         while (USB_DRIVER.state == USB_SUSPENDED) {
+            wireless_pre_task();
+            if (get_transport() != TRANSPORT_USB) {
+                suspend_wakeup_init_quantum();
+                return;
+            }
             /* Do this in the suspended state */
             suspend_power_down(); // on AVR this deep sleeps for 15ms
             /* Remote wakeup */
