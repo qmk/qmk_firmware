@@ -45,6 +45,7 @@ SRC += general/custom_keys.c
 SRC += general/lower_layer.c
 SRC += general/arrows.c
 SRC += general/window_activator.c
+SRC += general/timestamps.c
 
 SRC += localization/language_swapper.c
 SRC += localization/lang_independant.c
