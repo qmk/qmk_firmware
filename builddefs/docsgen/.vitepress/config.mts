@@ -33,7 +33,7 @@ export default defineConfig(({ mode }) => {
             },
             title: 'QMK Firmware',
 
-            nav: [{ text: "Home", link: "./" }],
+            nav: [{ text: "Home", link: "/" }],
 
             search: {
                 provider: "local",
