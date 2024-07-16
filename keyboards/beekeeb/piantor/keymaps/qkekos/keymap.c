@@ -3,7 +3,6 @@
 #include "g/keymap_combo.h"
 
 int (*process_records[])(uint16_t, keyrecord_t*) = {
-    timestamps_pr,
     sturdy_pr,
     fence_pr,
     alt_case_pr,
