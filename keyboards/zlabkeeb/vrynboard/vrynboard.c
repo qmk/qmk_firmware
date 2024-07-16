@@ -276,7 +276,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
             case OLED_LAYER_UPDATE:
-                layer_move((biton32(layer_state) + 1) % 4);
+                layer_move((get_highest_layer(layer_state) + 1) % 4);
                 return false;
         }
     }
