@@ -67,25 +67,22 @@ void switchToHSI(void) {
 void My_PWR_EnterSTOPMode(bool is_low_voltage_model)
 {
 
-    // 2. 清除 PDDS 位，选择 STOP 模式
+    // select STOP model
     PWR->CR &= ~PWR_CR_PDDS;
 
-    // 3. 根据 Regulator 参数设置电压调节模式
-    // LPDS 位的选择取决于 Regulator 参数的值
     if (is_low_voltage_model) {
-        PWR->CR |= PWR_CR_LPDS;  // 低功耗电压调节模式
+        PWR->CR |= PWR_CR_LPDS;  // Low power voltage regulation mode
     } else {
-        PWR->CR &= ~PWR_CR_LPDS; // 正常电压调节模式
+        PWR->CR &= ~PWR_CR_LPDS; // Normal voltage regulation mode
     }
 
-    // 4. 设置 SLEEPDEEP 位以进入 STOP 模式
+    // set SLEEPDEEP to STOP model
     SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
 
-    // 进入等待中断模式
+    // set mcu to wait interrupt
     __WFI();
 
-
-    // 6. 清除 SLEEPDEEP 位以恢复正常模式
+    // clear SLEEPDEEP
     SCB->SCR &= ~SCB_SCR_SLEEPDEEP_Msk;
 }
 
@@ -125,23 +122,21 @@ void enter_low_power_mode_prepare(void)
     switchToHSI();
     
 
-    My_PWR_EnterSTOPMode(true); // 等待中断指令
-
+    My_PWR_EnterSTOPMode(true); // mcu low power to stop model  
 
     chSysLock();
-    stm32_clock_init();
-    stInit();
-    timer_init();
+        stm32_clock_init();
+        stInit();
+        timer_init();
+    
+
+        bhq_init(false);
+        report_buffer_init();
+        restart_usb_driver(&USBD1); // TODO: read USB_POWER_SENSE_PIN
+        lpm_timer_reset();
+        debounce_free();
+        matrix_init();
     chSysUnlock();
-
-
-    bhq_init(false);
-    report_buffer_init();
-    restart_usb_driver(&USBD1);
-    lpm_timer_reset();
-    debounce_free();
-    matrix_init();
-
 }
 
 
