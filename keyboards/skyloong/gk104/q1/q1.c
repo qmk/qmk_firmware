@@ -222,7 +222,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 }
 
 void suspend_power_down_kb() {
-    writePinLow(MAC_PIN);
+    gpio_write_pin_low(MAC_PIN);
     s_serial_to_parallel(0);
     suspend_power_down_user();
 }
@@ -240,13 +240,13 @@ bool shutdown_kb(bool jump_to_bootloader) {
 layer_state_t default_layer_state_set_kb(layer_state_t state) {
     switch (get_highest_layer(state)) {
     case 0:
-        writePinLow(MAC_PIN);
+        gpio_write_pin_low(MAC_PIN);
         //switch to win layer display
         IND = IND & (~MAC_ON);
         IND = IND | WIN_ON;
         break;
     case 1:
-        writePinHigh(MAC_PIN);
+        gpio_write_pin_high(MAC_PIN);
         //switch to mac layer display
         IND = IND & (~WIN_ON);
         IND = IND | MAC_ON;
@@ -307,8 +307,8 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 void board_init(void) {
     // JTAG-DP Disabled and SW-DP Disabled
     AFIO->MAPR = (AFIO->MAPR & ~AFIO_MAPR_SWJ_CFG_Msk) | AFIO_MAPR_SWJ_CFG_DISABLE;
-    setPinOutput(MAC_PIN);
-    writePinHigh(MAC_PIN);
+    gpio_set_pin_output(MAC_PIN);
+    gpio_write_pin_high(MAC_PIN);
     s_serial_to_parallel(0xFF);
     IND = SKYLOONG;
 }

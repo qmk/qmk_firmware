@@ -29,27 +29,27 @@ static inline void select_delay(uint16_t n) {
     };
 }
 
-static inline void setPinOutput_writeLow(pin_t pin) {
+static inline void gpio_set_pin_output_write_low(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
         gpio_set_pin_output(pin);
         gpio_write_pin_low(pin);
     }
 }
 
-static inline void setPinOutput_writeHigh(pin_t pin) {
+static inline void gpio_set_pin_output_write_high(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
         gpio_set_pin_output(pin);
         gpio_write_pin_high(pin);
     }
 }
 
-static inline void setPinInputHigh_atomic(pin_t pin) {
+static inline void gpio_set_pin_input_high_atomic(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
         gpio_set_pin_input_high(pin);
     }
 }
 
-static inline uint8_t readMatrixPin(pin_t pin) {
+static inline uint8_t read_matrix_pin(pin_t pin) {
     if (pin != NO_PIN) {
         return (gpio_read_pin(pin) == MATRIX_INPUT_PRESSED_STATE) ? 0 : 1;
     } else {
@@ -57,7 +57,7 @@ static inline uint8_t readMatrixPin(pin_t pin) {
     }
 }
 
-static inline void clockPulse(uint16_t n) {
+static inline void clock_pulse(uint16_t n) {
     gpio_write_pin_high(HC595_SH_PIN);
     gpio_write_pin_high(HC595_ST_PIN);
     select_delay(n);
@@ -68,14 +68,14 @@ static inline void clockPulse(uint16_t n) {
 // matrix code
 
 static bool select_col(uint8_t col) {
-    setPinOutput_writeHigh(HC595_DS_PIN);
+    gpio_set_pin_output_write_high(HC595_DS_PIN);
         for (uint8_t m = 0; m <= col; m++) {
            if(m == 0){
                gpio_write_pin_low(HC595_DS_PIN);
             }else{
                gpio_write_pin_high(HC595_DS_PIN);
             }
-           clockPulse(ClOCK_TIME);
+           clock_pulse(ClOCK_TIME);
         }
         return true;
 
@@ -83,18 +83,18 @@ static bool select_col(uint8_t col) {
 
 static void unselect_col(uint8_t col) {
     uint8_t x = (MATRIX_COLS - col);
-    setPinOutput_writeHigh(HC595_DS_PIN);
+    gpio_set_pin_output_write_high(HC595_DS_PIN);
      for (uint8_t y = 0; y < x ; y++) {
-        clockPulse(ClOCK_TIME);
+        clock_pulse(ClOCK_TIME);
     }
 }
 
 static void unselect_cols(void) {
-    setPinOutput_writeLow(HC595_SH_PIN);
-    setPinOutput_writeLow(HC595_ST_PIN);
-    setPinOutput_writeHigh(HC595_DS_PIN);
+    gpio_set_pin_output_write_low(HC595_SH_PIN);
+    gpio_set_pin_output_write_low(HC595_ST_PIN);
+    gpio_set_pin_output_write_high(HC595_DS_PIN);
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-        clockPulse(ClOCK_TIME);
+        clock_pulse(ClOCK_TIME);
     }
 }
 
@@ -102,7 +102,7 @@ __attribute__((weak)) void matrix_init_pins(void) {
     unselect_cols();
     for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
         if (row_pins[x] != NO_PIN) {
-            setPinInputHigh_atomic(row_pins[x]);
+            gpio_set_pin_input_high_atomic(row_pins[x]);
         }
     }
 }
@@ -119,7 +119,7 @@ __attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[]
     // For each row...
     for (uint8_t row_index = 0; row_index < MATRIX_ROWS; row_index++) {
         // Check row pin state
-        if (readMatrixPin(row_pins[row_index]) == 0) {
+        if (read_matrix_pin(row_pins[row_index]) == 0) {
             // Pin LO, set col bit
             current_matrix[row_index] |= row_shifter;
             key_pressed = true;
