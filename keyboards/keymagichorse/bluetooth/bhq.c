@@ -63,21 +63,21 @@
 uint8_t bhkBuff[PACKET_MAX_LEN] = {0};
 
 void bhq_init(bool wakeup_from_low_power_mode) {
-    uint8_t        pkt[] = "hello qmk uart2 dev config success!\r\n";
+    // uint8_t        pkt[] = "hello qmk uart2 dev config success!\r\n";
 
     SerialConfig config = {
         .speed = 115200,
     };
-    if (wakeup_from_low_power_mode) {
-        sdInit();
-        sdStart(&BT_DRIVER, &config);
-        return;
-    }
+    // if (wakeup_from_low_power_mode) {
+    //     sdInit();
+    //     sdStart(&BT_DRIVER, &config);
+    //     return;
+    // }
     sdStart(&BT_DRIVER, &config);
     palSetPadMode(BT_DRIVER_UART_TX_BANK, BT_DRIVER_UART_TX, PAL_MODE_ALTERNATE(BT_DRIVER_UART_TX_PAL_MODE));
     palSetPadMode(BT_DRIVER_UART_RX_BANK, BT_DRIVER_UART_RX, PAL_MODE_ALTERNATE(BT_DRIVER_UART_RX_PAL_MODE));
 
-    sdWrite(&BT_DRIVER,pkt, sizeof(pkt)-1);
+    // sdWrite(&BT_DRIVER,pkt, sizeof(pkt)-1);
 }
 
 void bhq_Disable(void)
@@ -88,7 +88,6 @@ void bhq_Disable(void)
     // 配置引脚为模拟输入以降低功耗
     palSetPadMode(BT_DRIVER_UART_TX_BANK, BT_DRIVER_UART_TX, PAL_MODE_INPUT_ANALOG);
     palSetPadMode(BT_DRIVER_UART_RX_BANK, BT_DRIVER_UART_RX, PAL_MODE_INPUT_ANALOG);
-
 }
 
 

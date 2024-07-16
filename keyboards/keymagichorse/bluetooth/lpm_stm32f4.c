@@ -64,6 +64,30 @@ void switchToHSI(void) {
     // wait disabled HSE
     while ((RCC->CR & RCC_CR_HSERDY) != 0);
 }
+void My_PWR_EnterSTOPMode(bool is_low_voltage_model)
+{
+
+    // 2. 清除 PDDS 位，选择 STOP 模式
+    PWR->CR &= ~PWR_CR_PDDS;
+
+    // 3. 根据 Regulator 参数设置电压调节模式
+    // LPDS 位的选择取决于 Regulator 参数的值
+    if (is_low_voltage_model) {
+        PWR->CR |= PWR_CR_LPDS;  // 低功耗电压调节模式
+    } else {
+        PWR->CR &= ~PWR_CR_LPDS; // 正常电压调节模式
+    }
+
+    // 4. 设置 SLEEPDEEP 位以进入 STOP 模式
+    SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+
+    // 进入等待中断模式
+    __WFI();
+
+
+    // 6. 清除 SLEEPDEEP 位以恢复正常模式
+    SCB->SCR &= ~SCB_SCR_SLEEPDEEP_Msk;
+}
 
 void enter_low_power_mode_prepare(void)
 {
@@ -97,9 +121,11 @@ void enter_low_power_mode_prepare(void)
     /* Usb unit is actived and running, stop and disconnect first */
     usbStop(&USBD1);
     usbDisconnectBus(&USBD1);
+    bhq_Disable();
     switchToHSI();
+    
 
-    __WFI();
+    My_PWR_EnterSTOPMode(true); // 等待中断指令
 
 
     chSysLock();
@@ -109,7 +135,7 @@ void enter_low_power_mode_prepare(void)
     chSysUnlock();
 
 
-    bhq_init(true);
+    bhq_init(false);
     report_buffer_init();
     restart_usb_driver(&USBD1);
     lpm_timer_reset();
