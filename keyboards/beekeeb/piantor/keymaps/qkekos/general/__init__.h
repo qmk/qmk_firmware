@@ -13,5 +13,6 @@
 #include "caps_word.h"
 #include "utils.h"
 #include "window_activator.h"
+#include "timestamps.h"
 
 #define is_layer_on layer_state_is
