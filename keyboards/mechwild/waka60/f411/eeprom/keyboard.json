@@ -1,5 +1,0 @@
-{
-    "eeprom": {
-        "driver": "i2c"
-    }
-}
