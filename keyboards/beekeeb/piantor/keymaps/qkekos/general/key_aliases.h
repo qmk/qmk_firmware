@@ -15,6 +15,10 @@
 
 #define MO_PAD  MO(NUMPAD)
 
+#define KC_ALTZ A(KC_Z)
+#define KC_ALTX A(KC_X)
+#define KC_ALTC A(KC_C)
+
 // HOTKEYS
 #define HK_TMCF S(KC_ENT)
 #define HK_TMOP S(KC_ESC)

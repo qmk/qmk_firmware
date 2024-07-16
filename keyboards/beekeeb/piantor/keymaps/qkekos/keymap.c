@@ -3,6 +3,7 @@
 #include "g/keymap_combo.h"
 
 int (*process_records[])(uint16_t, keyrecord_t*) = {
+    timestamps_pr,
     sturdy_pr,
     fence_pr,
     alt_case_pr,
@@ -103,11 +104,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ------------------------------------------------------------------------------------------------------------------------------------
     [FUNCTION] = LAYOUT_split_3x6_3(
 //     ┌─────────┬─────────┬─────────┬─────────┬─────────┬─────────┐      ┌─────────┬─────────┬─────────┬─────────┬─────────┬─────────┐
-          KC_NO,   KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,            KC_NO,    KC_F7,    KC_F8,    KC_F9,   KC_F11,    KC_NO,
+          KC_NO,   KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,           KC_ALTC,  KC_F7,    KC_F8,    KC_F9,   KC_F11,    KC_NO,
 //     ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤      ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-          KC_NO,   OS_LGUI,  OS_LALT,  OS_LCTL,  OS_LSFT,  KC_NO,            KC_NO,    KC_F4,    KC_F5,    KC_F6,   KC_F12,    KC_NO,
+          KC_NO,   OS_LGUI,  OS_LALT,  OS_LCTL,  OS_LSFT,  KC_NO,           KC_ALTZ,  KC_F4,    KC_F5,    KC_F6,   KC_F12,    KC_NO,
 //     ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤      ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-          KC_NO,   KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,            KC_NO,    KC_F1,    KC_F2,    KC_F3,   KC_F10,    KC_NO,
+          KC_NO,   KC_NO,    KC_NO,    KC_NO,    KC_PMNS,  KC_NO,           KC_ALTX,  KC_F1,    KC_F2,    KC_F3,   KC_F10,    KC_NO,
 //     └─────────┴─────────┴─────────┴─────────┴─────────┴─────────┘      └─────────┴─────────┴─────────┴─────────┴─────────┴─────────┘
 //                                   ┌─────────┬─────────┬─────────┐      ┌─────────┬─────────┬─────────┐
                                        MO_PAD,   MO_PAD,   MO_PAD,           KC_NO,    KC_NO,    KC_NO
