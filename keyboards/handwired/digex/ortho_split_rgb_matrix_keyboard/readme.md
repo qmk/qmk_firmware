@@ -2,8 +2,8 @@
 
 Ortholinear  split RGB matrix keyboard
 
- ![20240716_171712-EDIT](https://github.com/user-attachments/assets/d0d24fa9-c69c-4d09-b6c3-8fe2f40b67e5)
- 
+
+ [![N|Solid](https://i.imgur.com/4qRwPcX.jpeg)]()
 * Keyboard Maintainer: [Petrov Denis ]
 
 
