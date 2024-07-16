@@ -1,1 +1,1 @@
-/* Copyright 2020 QMK
+/* Copyright 2020 qmk */
