@@ -461,6 +461,14 @@ def _extract_split_handedness(info_data, config_c):
         split['handedness']['matrix_grid'] = split.pop('matrix_grid')
 
 
+def _extract_split_serial(info_data, config_c):
+    # Migrate
+    split = info_data.get('split', {})
+    if 'soft_serial_pin' in split:
+        split['serial'] = split.get('serial', {})
+        split['serial']['pin'] = split.pop('soft_serial_pin')
+
+
 def _extract_split_transport(info_data, config_c):
     # Figure out the transport method
     if config_c.get('USE_I2C') is True:
@@ -656,6 +664,7 @@ def _extract_config_h(info_data, config_c):
     _extract_audio(info_data, config_c)
     _extract_secure_unlock(info_data, config_c)
     _extract_split_handedness(info_data, config_c)
+    _extract_split_serial(info_data, config_c)
     _extract_split_transport(info_data, config_c)
     _extract_split_right_pins(info_data, config_c)
     _extract_encoders(info_data, config_c)
