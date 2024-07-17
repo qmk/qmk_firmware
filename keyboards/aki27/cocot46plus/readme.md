@@ -6,7 +6,7 @@
 cocot46plus is a column-staggered keyboard with 46 keys, a 34mm-trackball and a rotary encoder.
 
 - Keyboard Maintainer: [markstos](https://github.com/markstos)
-- Hardware Supported: cocot46plus PCB, ProMicro
+- Hardware Supported: cocot46plus PCB, SparkFun Pro Micro - RP2040
 - Hardware Availability: [Yushakobo.jp](https://shop.yushakobo.jp/en/products/6955)
 
 Detailed information is available from the links below:  

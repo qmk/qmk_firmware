@@ -52,10 +52,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 cocot_config_t cocot_config;
 uint16_t cpi_array[] = COCOT_CPI_OPTIONS;
 uint16_t scrl_div_array[] = COCOT_SCROLL_DIVIDERS;
-uint16_t angle_array[] = COCOT_ROTATION_ANGLE;
+int8_t angle_array[] = COCOT_ROTATION_ANGLE;
 #define CPI_OPTION_SIZE (sizeof(cpi_array) / sizeof(uint16_t))
 #define SCRL_DIV_SIZE (sizeof(scrl_div_array) / sizeof(uint16_t))
-#define ANGLE_SIZE (sizeof(angle_array) / sizeof(uint16_t))
+#define ANGLE_SIZE (sizeof(angle_array) / sizeof(int8_t))
 
 
 // Trackball State
@@ -75,7 +75,7 @@ void pointing_device_init_kb(void) {
 
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
 
-    double rad = angle_array[cocot_config.rotation_angle] * (M_PI / 180) * -1;
+    double rad = (double)angle_array[cocot_config.rotation_angle] * (M_PI / 180) * -1;
     int8_t x_rev =  + mouse_report.x * cos(rad) - mouse_report.y * sin(rad);
     int8_t y_rev =  + mouse_report.x * sin(rad) + mouse_report.y * cos(rad);
 
@@ -261,16 +261,19 @@ void oled_write_layer_state(void) {
         oled_write_P(PSTR("C"), false);
     }
 
-    int cpi = cpi_array[cocot_config.cpi_idx];
-    int scroll_div = scrl_div_array[cocot_config.scrl_div];
-    int angle = angle_array[cocot_config.rotation_angle];
+    char cpi[5];
+    char scroll_div[3];
+    char angle[4];
+    snprintf(cpi, 5, "%4d", cpi_array[cocot_config.cpi_idx]);
+    snprintf(scroll_div, 3, "%2d", scrl_div_array[cocot_config.scrl_div]);
+    snprintf(angle, 4, "%3d",  angle_array[cocot_config.rotation_angle]);
 
     oled_write_P(PSTR("/"), false);
-    oled_write(get_u16_str(cpi,' '), false);
+    oled_write(cpi, false);
     oled_write_P(PSTR("/"), false);
-    oled_write(get_u8_str(scroll_div,' '), false);
+    oled_write(scroll_div, false);
     oled_write_P(PSTR("/"), false);
-    oled_write(get_u16_str(angle,' '), false);
+    oled_write(angle, false);
 }
 
 #endif
