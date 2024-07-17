@@ -1,4 +1,4 @@
-# Matrix Diagram for Cipulot EC 60X
+# Matrix Diagram for Cipulot EC 60
 
 ```
                                                     ┌───────┐
