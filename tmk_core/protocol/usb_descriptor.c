@@ -49,9 +49,12 @@
 #    include "os_detection.h"
 #endif
 
-#if defined(SERIAL_NUMBER_USE_HARDWARE_ID) && SERIAL_NUMBER_USE_HARDWARE_ID == TRUE
-#    include "hardware_id.h"
-#endif
+#if defined(SERIAL_NUMBER) || (defined(SERIAL_NUMBER_USE_HARDWARE_ID) && SERIAL_NUMBER_USE_HARDWARE_ID == TRUE)
+#    define HAS_SERIAL_NUMBER
+#    if defined(SERIAL_NUMBER_USE_HARDWARE_ID) && SERIAL_NUMBER_USE_HARDWARE_ID == TRUE
+#        include "hardware_id.h"
+#    endif
+#endif // defined(SERIAL_NUMBER) || (defined(SERIAL_NUMBER_USE_HARDWARE_ID) && SERIAL_NUMBER_USE_HARDWARE_ID == TRUE)
 
 // clang-format off
 
@@ -455,11 +458,11 @@ const USB_Descriptor_Device_t PROGMEM DeviceDescriptor = {
     .ReleaseNumber              = DEVICE_VER,
     .ManufacturerStrIndex       = 0x01,
     .ProductStrIndex            = 0x02,
-#if defined(SERIAL_NUMBER) || (defined(SERIAL_NUMBER_USE_HARDWARE_ID) && SERIAL_NUMBER_USE_HARDWARE_ID == TRUE)
+#ifdef HAS_SERIAL_NUMBER
     .SerialNumStrIndex          = 0x03,
-#else
+#else // HAS_SERIAL_NUMBER
     .SerialNumStrIndex          = 0x00,
-#endif
+#endif // HAS_SERIAL_NUMBER
     .NumberOfConfigurations     = FIXED_NUM_CONFIGURATIONS
 };
 
@@ -1168,7 +1171,7 @@ uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const 
                     Size    = pgm_read_byte(&ProductString.Header.Size);
 
                     break;
-#if defined(SERIAL_NUMBER) || (defined(SERIAL_NUMBER_USE_HARDWARE_ID) && SERIAL_NUMBER_USE_HARDWARE_ID == TRUE)
+#ifdef HAS_SERIAL_NUMBER
                 case 0x03:
                     Address = (const USB_Descriptor_String_t*)&SerialNumberString;
 #    if defined(SERIAL_NUMBER)
@@ -1179,7 +1182,7 @@ uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const 
 #    endif
 
                     break;
-#endif // defined(SERIAL_NUMBER) || (defined(SERIAL_NUMBER_USE_HARDWARE_ID) && SERIAL_NUMBER_USE_HARDWARE_ID == TRUE)
+#endif // HAS_SERIAL_NUMBER
             }
 #ifdef OS_DETECTION_ENABLE
             process_wlength(wLength);
