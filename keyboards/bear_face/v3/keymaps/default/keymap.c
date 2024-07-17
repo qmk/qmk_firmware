@@ -14,7 +14,7 @@ enum layers {
 
 //custom keycode enums
 enum custom_keycodes {
-    BASE_QWER = QK_KB_0,
+    BASE_QWER = QK_USER,
     BASE_COLE,
     BASE_DVOR
 };
