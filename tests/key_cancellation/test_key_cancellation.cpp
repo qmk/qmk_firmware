@@ -155,7 +155,7 @@ TEST_F(KeyInterrupt, d_and_a_consecutive_key_cancellation) {
     VERIFY_AND_CLEAR(driver);
 
     /* Check that releasing A does nothing */
-    EXPECT_EMPTY_REPORT(driver);
+    EXPECT_NO_REPORT(driver);
     key_a.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
@@ -167,7 +167,7 @@ TEST_F(KeyInterrupt, d_and_a_consecutive_key_cancellation) {
     VERIFY_AND_CLEAR(driver);
 
     /* Check that releasing D does nothing */
-    EXPECT_EMPTY_REPORT(driver);
+    EXPECT_NO_REPORT(driver);
     key_d.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
