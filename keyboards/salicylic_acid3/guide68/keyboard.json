@@ -48,6 +48,9 @@
     },
     "split": {
         "enabled": true,
+        "handedness": {
+            "pin": "B6"
+        },
         "transport": {
             "protocol": "serial"
         },

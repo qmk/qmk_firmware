@@ -17,6 +17,9 @@
                     {"pin_a": "B0", "pin_b": "B4"}
                 ]
             }
+        },
+        "serial": {
+            "driver": "usart"
         }
     },
     "ws2812": {

@@ -139,6 +139,8 @@ void matrix_init_kb(void) {
     }
 
     system76_ec_rgb_layer(layer_state);
+
+    matrix_init_user();
 }
 
 void matrix_scan_kb(void) {
@@ -238,9 +240,11 @@ layer_state_t layer_state_set_kb(layer_state_t layer_state) {
 }
 
 #ifdef CONSOLE_ENABLE
-void keyboard_post_init_user(void) {
+void keyboard_post_init_kb(void) {
     debug_enable   = true;
     debug_matrix   = false;
     debug_keyboard = false;
+
+    keyboard_post_init_user();
 }
 #endif  // CONSOLE_ENABLE
