@@ -176,7 +176,7 @@
     "SECURE_UNLOCK_TIMEOUT": {"info_key": "secure.unlock_timeout", "value_type": "int"},
 
     // Split Keyboard
-    "SOFT_SERIAL_PIN": {"info_key": "split.soft_serial_pin"},
+    "SOFT_SERIAL_PIN": {"info_key": "split.serial.pin"},
     "SOFT_SERIAL_SPEED": {"info_key": "split.soft_serial_speed"},
     "SPLIT_HAND_MATRIX_GRID": {"info_key": "split.handedness.matrix_grid", "value_type": "array", "to_c": false},
     "SPLIT_HAND_PIN": {"info_key": "split.handedness.pin"},
