@@ -556,7 +556,7 @@ TEST_P(CapsWordDoubleTapShift, Interrupted) {
     left_shift.press();
     run_one_scan_loop();
 
-    tap_key(key_a); // 'A' key interrupts the double tap.
+    tap_key(key_a); // 'A' key cancellation the double tap.
 
     left_shift.release();
     run_one_scan_loop();
