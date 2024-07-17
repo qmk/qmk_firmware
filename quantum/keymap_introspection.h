@@ -114,7 +114,7 @@ const key_override_t* key_override_get(uint16_t key_override_idx);
 // Key Cancellation
 
 #if defined(KEY_CANCELLATION_ENABLE)
-#include "process_key_cancellation.h"
+#    include "process_key_cancellation.h"
 // Forward declaration of key_cancellation_t so we don't need to deal with header reordering
 struct key_cancellation_t;
 typedef struct key_cancellation_t key_cancellation_t;
