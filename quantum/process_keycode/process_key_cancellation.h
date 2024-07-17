@@ -12,8 +12,6 @@ typedef struct key_cancellation_t {
     uint16_t press, unpress;
 } key_cancellation_t;
 
-extern const key_cancellation_t PROGMEM key_cancellation_list[];
-
 bool process_key_cancellation(uint16_t keycode, keyrecord_t *record);
 bool process_key_cancellation_user(uint16_t keycode, keyrecord_t *record);
 
