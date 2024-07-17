@@ -127,6 +127,9 @@
                 "rows": ["GP2", "GP3", "GP4", "GP5", "GP6"]
             }
         },
+        "serial": {
+            "driver": "vendor"
+        },
         "soft_serial_pin": "GP1"
     },
     "url": "https://aidansmith.dev",
