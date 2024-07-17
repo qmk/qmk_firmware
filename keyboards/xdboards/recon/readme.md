@@ -1,9 +1,8 @@
 # xdboards/recon
 
-![xdboards/recon](imgur.com image replace me!)
+![xdboards/recon](https://xdboards.xyz/cdn/shop/files/20240522-132208.jpg?v=1716784494&width=1445)
 
 A split low profile keyboard with hotswap sockets that is built around the Sea-Picro microcontroller for it's dedicated RGB pin.
-
 
 * Keyboard Maintainer: [Daniel Weeks](https://github.com/Xanimos)
 * Hardware Supported: Recon PCB, Sea-Picro, backwards compatibility with ProMicro pin layout.
