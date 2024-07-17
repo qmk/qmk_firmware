@@ -8,24 +8,8 @@
 enum layers {
     BASE,  // default layer
     SYMB,  // symbols
+    QWERTY
 };
-
-const uint16_t PROGMEM combo_btn1l[] = {KC_P, KC_T, COMBO_END};
-const uint16_t PROGMEM combo_btn2l[] = {KC_F, KC_S, COMBO_END};
-const uint16_t PROGMEM combo_btn1r[] = {KC_L, KC_N, COMBO_END};
-const uint16_t PROGMEM combo_btn2r[] = {KC_U, KC_E, COMBO_END};
-const uint16_t PROGMEM combo_play[] = {KC_MPRV, KC_MNXT, COMBO_END};
-const uint16_t PROGMEM combo_tab[] = {KC_W, KC_F, COMBO_END};
-const uint16_t PROGMEM combo_enter[] = {KC_L, KC_U, COMBO_END};
-const uint16_t PROGMEM combo_esc[] = {KC_F, KC_P, COMBO_END};
-const uint16_t PROGMEM combo_rctl[] = {KC_H, KC_COMMA, COMBO_END};
-const uint16_t PROGMEM combo_semi[] = {KC_F, KC_P, COMBO_END};
-const uint16_t PROGMEM combo_cd[] = {KC_C, KC_D, COMBO_END};
-const uint16_t PROGMEM combo_xc[] = {KC_X, KC_C, COMBO_END};
-const uint16_t PROGMEM combo_w3[] = {KC_W, KC_3, COMBO_END};
-const uint16_t PROGMEM combo_y8[] = {KC_Y, KC_8, COMBO_END};
-const uint16_t PROGMEM combo_backtick[] = {KC_W, KC_F, COMBO_END};
-const uint16_t PROGMEM combo_dqt[] = {KC_X, KC_C, COMBO_END};
 
 bool is_alt_tab_active = false;
 uint16_t alt_tab_timer = 0;
@@ -39,49 +23,48 @@ enum custom_keycodes {
   ALT_TAB,
   COPY,
   PASTE,
-  HISTORY_PREV,
-  HISTORY_NEXT,
+  H_PREV,
+  H_NEXT,
 };
 
-combo_t key_combos[] = {
-    COMBO(combo_btn1l, KC_BTN1),
-    COMBO(combo_btn2l, KC_BTN2),
-    COMBO(combo_btn1r, KC_BTN1),
-    COMBO(combo_btn2r, KC_BTN2),
-    COMBO(combo_play, KC_MPLY),
-    COMBO(combo_tab, KC_TAB),
-    COMBO(combo_enter, KC_ENTER),
-    COMBO(combo_rctl, OSM(MOD_LCTL)),
-    COMBO(combo_dqt, KC_DQT),
-    COMBO(combo_xc, COPY),
-    COMBO(combo_cd, PASTE),
-    COMBO(combo_w3, HISTORY_PREV),
-    COMBO(combo_y8, HISTORY_NEXT),
-};
+combo_t key_combos[] = {};
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = LAYOUT_ergodox_pretty(
-  ALT_TAB,         KC_1,               KC_2,                 KC_3,                KC_4,                  KC_5,    KC_BACKSLASH,              LCTL(KC_H),     KC_6,                  KC_7,                  KC_8,                      KC_9,                 KC_0,                   LALT(KC_X),
-  KC_TAB,          KC_Q,               KC_W,                 KC_F,                KC_P,                  KC_B,    KC_LBRC,                   KC_RBRC,        KC_J,                  KC_L,                  KC_U,                      KC_Y,                 KC_TRNS,                KC_BSPC,
-  KC_ESC,          KC_A,               KC_R,                 KC_S,                KC_T,                  KC_G,                                               KC_M,                  KC_N,                  KC_E,                      KC_I,                 KC_O,                   KC_ENT,
-  KC_LSFT,         KC_Z,               KC_X,                 KC_C,                KC_D,                  KC_V,    KC_QUOT,                   KC_SEMICOLON,   KC_K,                  KC_H,                  KC_COMMA,                  KC_DOT,               KC_MINUS,               KC_RSFT,
-  KC_TRNS,         KC_TRNS,            KC_DELETE,            KC_BSPC,             MO(SYMB),                                                                                         OSM(MOD_LGUI),         KC_TRNS,                   KC_TRNS,              KC_TRNS,                KC_TRNS,
-                                                             KC_LT,               KC_GT,                                                    KC_VOLU,         OSM(MOD_LCTL),
+  KC_ESC,          KC_1,               KC_2,                 KC_3,                KC_4,                  KC_5,    KC_BACKSLASH,              ALT_TAB,        KC_6,                  KC_7,                  KC_8,                      KC_9,                 KC_0,                   KC_DEL,
+  KC_TAB,          KC_Q,               KC_W,                 KC_E,                KC_R,                  KC_T,    KC_LBRC,                   KC_RBRC,        KC_Y,                  KC_U,                  KC_I,                      KC_O,                 KC_P,                   KC_BSPC,
+  KC_LCTL,         KC_A,               KC_S,                 KC_D,                LT(SYMB, KC_F),        KC_G,                                               KC_H,                  LT(SYMB, KC_J),        KC_K,                   KC_L,                 KC_COLON,               KC_ENT,
+  KC_LSFT,         KC_Z,               KC_X,                 KC_C,                KC_V,                  KC_B,    KC_QUOT,                   KC_SEMICOLON,   KC_N,                  KC_M,                  KC_COMMA,                  KC_DOT,               KC_MINUS,               KC_RSFT,
+  KC_LCTL,         KC_LALT,            KC_LGUI,              KC_BTN1,             MO(SYMB),                                                                                         KC_LGUI,               KC_LSFT,                   KC_TRNS,              KC_TRNS,                TG(QWERTY),
+
+                                                             KC_MPRV,             KC_MNXT,                                                  KC_VOLU,         KC_MPLY,
                                                                                   KC_PSCR,                                                  KC_VOLD,
-                                                     KC_SPC, OSM(MOD_LSFT),       KC_SLASH,                                                 KC_GRAVE,        OSM(MOD_LALT),               OSM(MOD_LCTL)
+                                                     KC_SPC, KC_LSFT,            KC_SLASH,                                                  KC_GRAVE,        KC_LALT,               KC_LCTL
 ),
 
 [SYMB] = LAYOUT_ergodox_pretty(
   // left hand
   VRSN,     KC_F1,      KC_F2,      KC_F3,   KC_F4,    KC_F5,   KC_TRNS,         KC_TRNS, KC_F6,   KC_F7,    KC_F8,   KC_F9,   KC_F10,  KC_F11,
   KC_QUOTE, KC_TRNS,    KC_PGUP,    KC_UP,   KC_PGDN,  KC_EQL,  KC_TRNS,         KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_F12,
-  KC_DQT,   KC_HOME,    KC_LEFT,    KC_DOWN, KC_RIGHT, KC_END,                   KC_TRNS, KC_TRNS, KC_TRNS , KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS,  LGUI(KC_E), LCTL(LALT(KC_LEFT)),      KC_TRNS, LCTL(LALT(KC_RIGHT)),    KC_TRNS, KC_TRNS,         KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_DQT,   KC_HOME,    KC_LEFT,    KC_DOWN, KC_RIGHT, KC_END,                            KC_TRNS, H_PREV,   H_NEXT,  KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_TRNS,  LGUI(KC_E), KC_TRNS,    KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,         KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
   EE_CLR,   KC_TRNS,    KC_TRNS,    KC_TRNS, KC_TRNS,                                     KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS,
-                                            KC_TRNS,  KC_TRNS,     KC_TRNS, KC_TRNS,
-                                                      KC_TRNS,     KC_TRNS,
-                                    KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS
+                                             KC_TRNS,  KC_TRNS,     KC_TRNS, KC_TRNS,
+                                                       KC_TRNS,     KC_TRNS,
+                                    KC_TRNS, KC_TRNS,  KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS
+),
+
+[QWERTY] = LAYOUT_ergodox_pretty(
+  // left hand
+  KC_ESC,          KC_1,        KC_2,          KC_3,    KC_4,    KC_5,    KC_LEFT,              KC_RGHT,      KC_6,    KC_7,    KC_8,    KC_9,              KC_0,           KC_MINS,
+  KC_TAB,          KC_Q,        KC_W,          KC_E,    KC_R,    KC_T,    TG(SYMB),             TG(SYMB),     KC_Y,    KC_U,    KC_I,    KC_O,              KC_P,           KC_BSPC,
+  KC_LCTL,         KC_A,        KC_S,          KC_D,    KC_F,    KC_G,                                        KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
+  KC_LSFT,         KC_Z,        KC_X,          KC_C,    KC_V,    KC_B,    ALL_T(KC_NO),                  MEH_T(KC_NO), KC_N,    KC_M,    KC_COMM, KC_DOT,           CTL_T(KC_SLSH), KC_RSFT,
+  KC_LCTL,         KC_QUOT,     KC_BTN2, KC_BTN1,  MO(SYMB),                                            KC_UP,   KC_DOWN, KC_LBRC, KC_RBRC, TG(QWERTY),
+                                                           ALT_T(KC_APP), KC_LGUI,                 TG(QWERTY), CTL_T(KC_ESC),
+                                                                          KC_HOME,                 KC_PGUP,
+                                                         KC_SPC, KC_BSPC, KC_END,                  KC_PGDN, KC_LALT, KC_LCTL
 ),
 };
 // clang-format on
@@ -89,12 +72,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   os_variant_t os = detected_host_os();
   switch (keycode) { // This will do most of the grunt work with the keycodes.
-    case HISTORY_PREV:
+    case H_PREV:
       if (record->event.pressed) {
         SEND_STRING(SS_LALT(SS_TAP(X_LEFT)));
       }
       break;
-    case HISTORY_NEXT:
+    case H_NEXT:
       if (record->event.pressed) {
         SEND_STRING(SS_LALT(SS_TAP(X_RIGHT)));
       }
@@ -121,7 +104,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         if (!is_alt_tab_active) {
           is_alt_tab_active = true;
-          register_code(KC_LGUI);
+          if (os == OS_MACOS) {
+            register_code(KC_LGUI);
+          } else {
+            register_code(KC_LALT);
+          }
         }
         alt_tab_timer = timer_read();
         register_code(KC_TAB);
@@ -134,9 +121,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_scan_user(void) { // The very important timer.
+  os_variant_t os = detected_host_os();
   if (is_alt_tab_active) {
     if (timer_elapsed(alt_tab_timer) > 400) {
-      unregister_code(KC_LGUI);
+      if (os == OS_MACOS) {
+        unregister_code(KC_LGUI);
+      } else {
+        unregister_code(KC_LALT);
+      }
       is_alt_tab_active = false;
     }
   }
