@@ -469,15 +469,17 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
         rgb_matrix_set_color(two_digit_ones_led(g_config.sleep_timeout), 0x00, 0x80, 0x80);
     }
 
-    uint8_t showNumLock = 0;
-    if (dev_info.link_mode != LINK_USB) {
-        showNumLock = dev_info.rf_led & 0x01;
-    } else {
-        showNumLock = host_keyboard_led_state().num_lock;
-    }
+    if (g_config.detect_numlock_state) {
+        uint8_t showNumLock = 0;
+        if (dev_info.link_mode != LINK_USB) {
+            showNumLock = dev_info.rf_led & 0x01;
+        } else {
+            showNumLock = host_keyboard_led_state().num_lock;
+        }
 
-    if (showNumLock) {
-        rgb_matrix_set_color(get_led_index(0, 15), 0x00, 0x80, 0x00);
+        if (showNumLock) {
+            rgb_matrix_set_color(get_led_index(0, 15), 0x00, 0x80, 0x00);
+        }
     }
 
     rgb_matrix_set_color(RGB_MATRIX_LED_COUNT - 1, 0, 0, 0);
@@ -568,6 +570,7 @@ void init_g_config(void) {
     g_config.logo_speed                   = DEFAULT_LOGO_SPEED;
     g_config.logo_rgb                     = DEFAULT_LOGO_RGB;
     g_config.logo_color                   = DEFAULT_LOGO_COLOR;
+    g_config.detect_numlock_state         = 0;
 }
 
 void load_config_from_eeprom(void) {
@@ -661,6 +664,9 @@ void via_config_set_value(uint8_t *data)
         case id_toggle_custom_keys_highlight:
             g_config.toggle_custom_keys_highlight = *value_data;
             break;
+        case id_toggle_detect_numlock_state:
+            g_config.detect_numlock_state = *value_data;
+            break;
     }
 #    if CONSOLE_ENABLE
     xprintf("[SET]VALUE_ID: %u DATA: %u\n", *value_id, *value_data);
@@ -723,6 +729,9 @@ void via_config_get_value(uint8_t *data) {
             break;
         case id_toggle_custom_keys_highlight:
             *value_data = g_config.toggle_custom_keys_highlight;
+            break;
+        case id_toggle_detect_numlock_state:
+            *value_data = g_config.detect_numlock_state;
             break;
     }
 #    if CONSOLE_ENABLE

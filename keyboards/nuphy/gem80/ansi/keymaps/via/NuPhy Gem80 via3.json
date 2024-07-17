@@ -669,6 +669,15 @@
                                 0,
                                 32
                             ]
+                        },
+                        {
+                            "label": "Detect Numlock State (indicator will be off when numlock is off)",
+                            "type": "toggle",
+                            "content": [
+                                "id_toggle_detect_numlock_state",
+                                0,
+                                33
+                            ]
                         }
                     ]
                 }

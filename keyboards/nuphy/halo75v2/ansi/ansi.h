@@ -88,6 +88,7 @@ typedef struct {
     uint8_t battery_indicator_brightness;
     // custom keys highlight
     uint8_t toggle_custom_keys_highlight : 1;
+    uint8_t detect_numlock_state : 1;
 } kb_config_t;
 
 #ifdef VIA_ENABLE
@@ -107,7 +108,8 @@ enum via_indicator_value {
     id_side_light_brightness        = 14,
     id_power_on_animation           = 20,
     id_battery_indicator_brightness = 21,
-    id_toggle_custom_keys_highlight            = 22,
+    id_toggle_custom_keys_highlight = 22,
+    id_toggle_detect_numlock_state  = 23,
 };
 
 // function declaration
