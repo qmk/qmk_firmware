@@ -122,6 +122,9 @@
                 "layer_state": true,
                 "matrix_state": true
             }
+        },
+        "serial": {
+            "driver": "usart"
         }
     },
     "processor": "STM32F303",

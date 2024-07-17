@@ -30,6 +30,12 @@
     "diode_direction": "ROW2COL",
     "split": {
         "enabled": true,
+        "handedness": {
+            "pin": "B9"
+        },
+        "serial": {
+            "driver": "usart"
+        },
         "soft_serial_pin": "A9"
     },
     "processor": "STM32F401",

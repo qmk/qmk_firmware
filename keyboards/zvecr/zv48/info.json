@@ -57,6 +57,9 @@
         "bootmagic": {
             "matrix": [4, 0]
         },
+        "serial": {
+            "driver": "usart"
+        },
         "matrix_pins": {
             "right": {
                 "cols": ["B10", "B15", "A10", "A15", "B3", "B4"],

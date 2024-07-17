@@ -42,6 +42,8 @@ void keyboard_post_init_kb(void) {
     if ( g_first_execution ) {
         rgblight_mode(RGBLIGHT_MODE_RGB_TEST);
     }
+
+    keyboard_post_init_user();
 }
 
 #endif // VIA_ENABLE

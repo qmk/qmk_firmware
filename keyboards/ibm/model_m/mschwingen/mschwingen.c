@@ -114,6 +114,8 @@ void keyboard_pre_init_kb(void) {
     gpio_set_pin_output(SR_CLK_PIN);
     gpio_set_pin_output(SR_DOUT_PIN);  // MOSI - unused
     gpio_write_pin_low(SR_CLK_PIN);
+
+    keyboard_pre_init_user();
 }
 
 #ifdef KEYBOARD_ibm_model_m_mschwingen_led_ws2812
