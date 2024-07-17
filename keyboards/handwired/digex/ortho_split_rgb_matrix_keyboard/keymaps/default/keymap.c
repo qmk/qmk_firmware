@@ -15,11 +15,13 @@
 #define _ADJUST 	4
 #define _ARROW 		5
 
-
+#ifdef TAP_DANCE_ENABLE
 int cur_dance (tap_dance_state_t *state);
 //for the x tap dance. Put it here so it can be used in any keymap
 void x_finished (tap_dance_state_t *state, void *user_data);
 void x_reset (tap_dance_state_t *state, void *user_data);
+#endif
+
 
 #ifdef RGB_MATRIX_ENABLE
 HSV color_my;
@@ -211,9 +213,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record ) {
         case RGB_MyEFF:
         	#ifdef RGB_MATRIX_ENABLE
 				rgb_matrix_mode(RGB_MATRIX_SOLID_REACTIVE);
+                return true; 
 			#endif
-
-            return true;             // Return true for normal processing of tap keycode
+        #ifdef TAP_DANCE_ENABLE
+                        // Return true for normal processing of tap keycode
         case LT(0,KC_1):
             if (!record->tap.count && record->event.pressed) {
                 tap_code16(KC_F1); // Intercept hold function to send Ctrl-X
@@ -267,6 +270,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record ) {
                 tap_code16(KC_F10); // Intercept hold function to send Ctrl-X
                 return false;
             }
+            #endif
             return true;             // Return true for normal processing of tap keycode
 
 
@@ -372,7 +376,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   
 };
 
-
+#ifdef TAP_DANCE_ENABLE
 int cur_dance (tap_dance_state_t *state) {
   if (state->count == 1) {
     if (state->interrupted || !state->pressed)  return SINGLE_TAP;
@@ -428,4 +432,6 @@ tap_dance_action_t tap_dance_actions[] = {
   [F4_HOLD]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,x_finished, x_reset)
 };
 
+
+#endif
 ;

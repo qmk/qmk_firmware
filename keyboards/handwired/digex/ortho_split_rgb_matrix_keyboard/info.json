@@ -10,7 +10,7 @@
         "bootmagic": true,
         "command": false,
         "console": false,
-        "tap_dance" : true,
+       // "tap_dance" : true,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
