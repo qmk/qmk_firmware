@@ -23,6 +23,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define COCOT_SCROLL_INV_DEFAULT 1
 #endif
 
+// All the default values here refer to O-based array indexes
+// not actual values
+
 #ifndef COCOT_CPI_OPTIONS
 #    define COCOT_CPI_OPTIONS { 250, 500, 750, 1000, 1250 }
 #endif
@@ -69,7 +72,6 @@ void pointing_device_init_kb(void) {
     pointing_device_set_cpi(cpi_array[cocot_config.cpi_idx]);
     adns5050_write_reg(0x22, 0b10000 | 0x80);
 }
-
 
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
 
@@ -122,8 +124,6 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
 
     return pointing_device_task_user(mouse_report);
 }
-
-
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     // xprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
@@ -227,7 +227,7 @@ void render_logo(void) {
 void oled_write_layer_state(void) {
 
     oled_write_P(PSTR(" "), false);
-    
+
     switch (get_highest_layer(layer_state | default_layer_state)) {
         case 0:
             oled_write_P(PSTR("Base "), false);
