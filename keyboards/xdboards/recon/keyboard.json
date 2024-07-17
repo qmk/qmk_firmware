@@ -2,15 +2,15 @@
     "manufacturer": "XD Boards",
     "keyboard_name": "xdboards/recon",
     "maintainer": "Xanimos",
-    "development_board": "elite_pi",
-    "pin_compatible": "elite_c",
-    "firmware_format": "uf2",
+    "development_board": "promicro",
+    "pin_compatible": "promicro",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
         "extrakey": true,
         "nkro": true,
-        "rgb_matrix": true
+        "rgb_matrix": true,
+        "oled": true
     },
     "matrix_pins": {
         "cols": ["D4", "C6", "D7", "E6", "B4", "B5"],
@@ -57,11 +57,8 @@
             }
         }
     },
-    "layout_aliases": {
-        "LAYOUT": "LAYOUT_split_3x6_8_1"
-    },
     "layouts": {
-        "LAYOUT_split_3x6_8_1": {
+        "LAYOUT": {
             "layout": [
                 {"label": "L01", "matrix": [0, 0], "x": 0, "y": 0.75},
                 {"label": "L02", "matrix": [0, 1], "x": 1, "y": 0.75},
@@ -223,7 +220,6 @@
         }
     },
     "ws2812": {
-        "driver": "vendor",
-        "pin": "GP25"
+        "driver": "vendor"
     }
 }
