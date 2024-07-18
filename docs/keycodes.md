@@ -369,7 +369,7 @@ See also: [Joystick](features/joystick)
 
 ## Key Lock {#key-lock}
 
-See also: [Key Lock](features/key_lock)
+See also: [Key Lock](features/key_lock.md)
 
 |Key      |Description                                                   |
 |---------|--------------------------------------------------------------|
@@ -392,7 +392,7 @@ See also: [Layer Switching](feature_layers#switching-and-toggling-layers)
 
 ## Leader Key {#leader-key}
 
-See also: [Leader Key](features/leader_key)
+See also: [Leader Key](features/leader_key.md)
 
 |Key      |Description             |
 |---------|------------------------|
