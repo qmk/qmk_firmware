@@ -48,8 +48,9 @@ __attribute__((weak)) bool dynamic_macro_record_start_user(int8_t direction) {
 }
 
 __attribute__((weak)) bool dynamic_macro_play_kb(int8_t direction) {
-    dynamic_macro_play_user(direction);
+    return dynamic_macro_play_user(direction);
 }
+
 __attribute__((weak)) bool dynamic_macro_play_user(int8_t direction) {
     dynamic_macro_led_blink();
     return true;
