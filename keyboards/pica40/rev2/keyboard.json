@@ -42,7 +42,8 @@
             }
         },
         "serial": {
-            "driver": "vendor"
+            "driver": "vendor",
+            "pin": "GP0"
         }
     },
     "encoder": {
