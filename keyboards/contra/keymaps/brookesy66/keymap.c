@@ -13,13 +13,15 @@
  */
 
 #include QMK_KEYBOARD_H
+#define SPC_ML LT(_MOVEMENT, KC_SPC) // tap for space, hold for modify/movement layer
 
 
 enum planck_layers {
   _BASE,
   _LOWER,
   _RAISE,
-  _ADJUST
+  _ADJUST,
+  _MOVEMENT
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -39,7 +41,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESC,      KC_Q,    KC_W,    KC_E,    KC_R,       KC_T,    KC_Y,    KC_U,         KC_I,    KC_O,    KC_P,    KC_BSPC,
     KC_TAB,      KC_A,    KC_S,    KC_D,    KC_F,       KC_G,    KC_H,    KC_J,         KC_K,    KC_L,    KC_SCLN, KC_QUOT,
     KC_LSFT,     KC_Z,    KC_X,    KC_C,    KC_V,       KC_B,    KC_N,    KC_M,         KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
-    KC_LCTL, MO(_ADJUST), KC_LGUI, KC_LALT, MO(_LOWER),     KC_SPC,       MO(_RAISE),   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+    KC_LCTL, MO(_ADJUST), KC_LGUI, KC_LALT, MO(_LOWER),     SPC_ML,       MO(_RAISE),   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+  ),
+
+  /* Movement
+   * ,-----------------------------------------------------------------------------------.
+   * | Esc  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
+   * |------+------+------+------+------+-------------+------+------+------+------+------|
+   * | Tab  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
+   * |------+------+------+------+------+------|------+------+------+------+------+------|
+   * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
+   * |------+------+------+------+------+------+------+------+------+------+------+------|
+   * | Ctrl | Adjst| Gui  | Alt  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
+   * `-----------------------------------------------------------------------------------'
+   */
+  [_MOVEMENT] = LAYOUT_planck_mit(
+    _______, KC_MUTE, KC_VOLD, KC_VOLU, KC_END,   KC_F5,   KC_PGUP, _______, _______, _______,  KC_HOME, KC_DEL,
+    _______, _______, KC_PGDN, _______, _______,  _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, _______, _______,
+    _______, _______, KC_DEL,  _______, _______,  _______, _______, _______, _______, _______,  _______, _______,
+    _______, _______, _______, _______, _______,     _______,       _______, KC_MNXT, KC_VOLD,  KC_VOLU, KC_MPLY
   ),
 
   /* Lower
