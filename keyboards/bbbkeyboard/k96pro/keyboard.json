@@ -27,16 +27,12 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "dip_switch": true,
         "encoder": true,
         "extrakey": true,
-        "haptic": false,
         "mousekey": true,
         "nkro": true,
-        "rgb_matrix": true,
-        "rgblight": false
+        "rgb_matrix": true
     },
     "matrix_pins": {
         "cols": ["C1", "C2", "C3", "A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "C4", "C5", "B0", "B1", "B2", "B10", "B11"],
