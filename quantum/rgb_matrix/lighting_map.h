@@ -241,6 +241,26 @@ enum { ENABLED_RGB_MATRIX_EFFECTS = 0
     | (1ULL << 0x2B)
 #endif
 #endif
+
+#ifdef ENABLE_RGB_MATRIX_FLOWER_BLOOMING
+    | (1ULL << 0x2C)
+#endif
+
+#ifdef ENABLE_RGB_MATRIX_STARLIGHT
+    | (1ULL << 0x2D)
+#endif
+
+#ifdef ENABLE_RGB_MATRIX_STARLIGHT_DUAL_SAT
+    | (1ULL << 0x2E)
+#endif
+
+#ifdef ENABLE_RGB_MATRIX_STARLIGHT_DUAL_HUE
+    | (1ULL << 0x2F)
+#endif
+
+#ifdef ENABLE_RGB_MATRIX_RIVERFLOW
+    | (1ULL << 0x30)
+#endif
 };
 static const uint8_t rgb_matrix_effect_map[][2] PROGMEM = {
 { 0x00, RGB_MATRIX_SOLID_COLOR},
@@ -457,6 +477,26 @@ static const uint8_t rgb_matrix_effect_map[][2] PROGMEM = {
 #ifdef ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 { 0x2B, RGB_MATRIX_SOLID_MULTISPLASH},
 #endif
+#endif
+
+#ifdef ENABLE_RGB_MATRIX_FLOWER_BLOOMING
+{ 0x2C, RGB_MATRIX_FLOWER_BLOOMING},
+#endif
+
+#ifdef ENABLE_RGB_MATRIX_STARLIGHT
+{ 0x2D, RGB_MATRIX_STARLIGHT},
+#endif
+
+#ifdef ENABLE_RGB_MATRIX_STARLIGHT_DUAL_SAT
+{ 0x2E, RGB_MATRIX_STARLIGHT_DUAL_SAT},
+#endif
+
+#ifdef ENABLE_RGB_MATRIX_STARLIGHT_DUAL_HUE
+{ 0x2F, RGB_MATRIX_STARLIGHT_DUAL_HUE},
+#endif
+
+#ifdef ENABLE_RGB_MATRIX_RIVERFLOW
+{ 0x30, RGB_MATRIX_RIVERFLOW},
 #endif
 };
 

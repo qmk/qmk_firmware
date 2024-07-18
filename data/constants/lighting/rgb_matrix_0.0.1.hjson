@@ -155,6 +155,21 @@
         "0x2B": {
             "key": "SOLID_MULTISPLASH",
             "group": "reactive"
+        },
+        "0x2C": {
+            "key": "FLOWER_BLOOMING"
+        },
+        "0x2D": {
+            "key": "STARLIGHT"
+        },
+        "0x2E": {
+            "key": "STARLIGHT_DUAL_SAT"
+        },
+        "0x2F": {
+            "key": "STARLIGHT_DUAL_HUE"
+        },
+        "0x30": {
+            "key": "RIVERFLOW"
         }
     }
 }
