@@ -1,6 +1,6 @@
 # ATSET ATR20
 
-![ATSET ATR20](https://i.imgur.com/FrkVRhhh.jpg)
+![ATSET ATR20]
 
 A 4x5 macropad with four rotary encoder.
 
