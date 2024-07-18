@@ -12,8 +12,8 @@
 #define _F_TRPT 	1
 #define _SYMB   	2
 #define _MOUSE 		3
-#define _ADJUST 	4
-#define _ARROW 		5
+#define _ADJUST 	5
+#define _ARROW 		4
 
 #ifdef TAP_DANCE_ENABLE
 int cur_dance (tap_dance_state_t *state);
@@ -114,13 +114,13 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         		color_my_rgb   = hsv_to_rgb(color4);
         		break;
         	case 5:
-        		color_my_rgb   = hsv_to_rgb(color4);
+        		color_my_rgb   = hsv_to_rgb(color5);
         		break;
         }
     	
 
 		
-		if (get_highest_layer(layer_state) == 4)  {
+		if (get_highest_layer(layer_state) == 5)  {
 		
 			for (uint8_t i = led_min; i <= 34; i++) 
 			{
@@ -144,7 +144,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                 uint8_t index = g_led_config.matrix_co[row][col];
 
 				switch (layer) {
-					case 4:
+					case 5:
                 		if (index >= led_min && index <= 34 && index != NO_LED && keymap_key_to_keycode(layer, (keypos_t){col,row}) > KC_TRNS ) 
                 		{
         					rgb_matrix_set_color(index, color_my_rgb.r, color_my_rgb.g, color_my_rgb.b);
@@ -154,6 +154,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                 		if (index >= led_min && index <= led_max && index != NO_LED && keymap_key_to_keycode(layer, (keypos_t){col,row}) > KC_TRNS ) 
                 		{
         					rgb_matrix_set_color(index, color_my_rgb.r, color_my_rgb.g, color_my_rgb.b);
+
             			}
             		}
             }
@@ -167,6 +168,18 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         	rgb_matrix_set_color(14, orange_1.r, orange_1.g, orange_1.b);
     	}
     	
+        if (host_keyboard_led_state().num_lock) // Num Lock status
+        {
+            
+            if (layer == 4)  { // is layer arrow
+            
+            RGB orange_1 = hsv_to_rgb(hsv_Orang);
+            rgb_matrix_set_color(48 , orange_1.r, orange_1.g, orange_1.b);
+            }
+        }
+
+
+
     	#endif
    return true;
 }
@@ -185,6 +198,7 @@ void suspend_wakeup_init_user(void) {
 	#ifdef RGB_MATRIX_ENABLE
     rgb_matrix_set_suspend_state(false);
     #endif
+    //NVIC_SystemReset();
 }
 
 
@@ -299,7 +313,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      KC_LSFT ,KC_Z    ,KC_X    ,KC_C  ,KC_V ,KC_B  , KC_SPC ,                         MO(_ADJUST) ,KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH ,MT(MOD_RSFT, KC_BSLS) ,
   //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
-     KC_LCTL ,KC_LGUI ,KC_LALT ,KC_ADEN ,  KC_BSPC , KC_DEL ,MO(_ADJUST) ,                 ADJT  ,KC_PSCR  ,    KC_NAGR ,     KC_RALT ,KC_APP,KC_RCTL 
+     KC_LCTL ,KC_LGUI ,KC_LALT ,KC_ADEN ,  KC_BSPC , KC_DEL ,TG(_ADJUST) ,                 ADJT  ,KC_PSCR  ,    KC_NAGR ,     KC_RALT ,KC_APP,KC_RCTL 
   //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
   ),
 
@@ -335,7 +349,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //┌────────┬────────┬────────┬────────┬────────┬────────┐                        	         ┌────────┌────────┬────────┬────────┬────────┬────────┬────────┐
     LCTL(KC_GRV),KC_HOME,XXXXXXX ,KC_END ,XXXXXXX ,XXXXXXX ,XXXXXXX ,        	  	 XXXXXXX, KC_PAST, XXXXXXX , XXXXXXX,  KC_MINS, KC_EQL, KC_BSPC ,
  //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐               	         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-    XXXXXXX ,XXXXXXX ,KC_UP ,XXXXXXX ,KC_WH_U ,XXXXXXX ,KC_PGUP ,           	  	 XXXXXXX , XXXXXXX, KC_P7    ,KC_P8   ,KC_P9   ,XXXXXXX ,XXXXXXX ,XXXXXXX,
+    XXXXXXX ,XXXXXXX ,KC_UP ,XXXXXXX ,KC_WH_U ,XXXXXXX ,KC_PGUP ,           	  	 XXXXXXX , KC_NUM , KC_P7    ,KC_P8   ,KC_P9   ,XXXXXXX ,XXXXXXX ,XXXXXXX,
  //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤               	         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
     TG(_F_TRPT),KC_LEFT ,KC_DOWN ,KC_RIGHT ,KC_WH_D ,XXXXXXX ,KC_PGDN,        	  	 XXXXXXX , XXXXXXX, KC_P4    ,KC_P5   ,KC_P6   ,XXXXXXX ,XXXXXXX ,KC_ENT ,
  //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐      	┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
@@ -347,15 +361,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   
   [_ADJUST] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┬────────┐────────┐                         ┌────────┌────────┬────────┬────────┬────────┬────────┬────────┐
-     LCTL(KC_GRV) ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO,               XXXXXXX,  XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC ,
+     LCTL(KC_GRV) ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO,               XXXXXXX,  XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     RGB_TOG ,RGB_MyEFF,RGB_MOD ,RGB_SAD ,RGB_HUI ,RGB_VAI ,RGB_HUI ,                XXXXXXX , XXXXXXX, KC_P7    ,KC_P8   ,KC_P9   ,XXXXXXX ,XXXXXXX ,XXXXXXX,
+     RGB_TOG ,RGB_MyEFF,RGB_MOD ,RGB_SAD ,RGB_HUI ,RGB_VAI ,RGB_HUI ,                XXXXXXX , XXXXXXX, XXXXXXX    ,XXXXXXX   ,XXXXXXX   ,XXXXXXX ,XXXXXXX ,XXXXXXX,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     TG(_F_TRPT),XXXXXXX ,XXXXXXX ,RGB_SAI ,RGB_HUD ,RGB_VAD ,XXXXXXX ,              XXXXXXX , XXXXXXX, KC_P4    ,KC_P5   ,KC_P6   ,XXXXXXX ,XXXXXXX ,KC_ENT ,
+     TG(_F_TRPT),XXXXXXX ,XXXXXXX ,RGB_SAI ,RGB_HUD ,RGB_VAD ,XXXXXXX ,              XXXXXXX , XXXXXXX, XXXXXXX    ,XXXXXXX   ,XXXXXXX   ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_LSFT ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,_______ ,                 _______ ,XXXXXXX  , KC_P1    ,KC_P2  , KC_P3 , XXXXXXX  ,XXXXXXX ,
+     KC_LSFT ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,_______ ,                 _______ ,XXXXXXX  , XXXXXXX    ,XXXXXXX  , XXXXXXX , XXXXXXX  ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
-     XXXXXXX ,RGB_SPI ,RGB_SPD ,XXXXXXX ,     XXXXXXX ,    XXXXXXX , XXXXXXX ,       XXXXXXX  ,XXXXXXX  ,    KC_P0 ,     KC_PDOT ,XXXXXXX  ,KC_DOT
+     XXXXXXX ,RGB_SPI ,RGB_SPD ,XXXXXXX ,     XXXXXXX ,    XXXXXXX , TG(_ADJUST),    XXXXXXX  ,XXXXXXX  ,    XXXXXXX ,     XXXXXXX ,XXXXXXX  ,XXXXXXX
   //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
   ),
   
