@@ -44,6 +44,7 @@ __attribute__((weak)) bool dynamic_macro_record_start_kb(int8_t direction) {
 
 __attribute__((weak)) bool dynamic_macro_record_start_user(int8_t direction) {
     dynamic_macro_led_blink();
+    return true;
 }
 
 __attribute__((weak)) bool dynamic_macro_play_kb(int8_t direction) {
@@ -51,6 +52,7 @@ __attribute__((weak)) bool dynamic_macro_play_kb(int8_t direction) {
 }
 __attribute__((weak)) bool dynamic_macro_play_user(int8_t direction) {
     dynamic_macro_led_blink();
+    return true;
 }
 
 __attribute__((weak)) bool dynamic_macro_record_key_kb(int8_t direction, keyrecord_t *record) {
@@ -59,6 +61,7 @@ __attribute__((weak)) bool dynamic_macro_record_key_kb(int8_t direction, keyreco
 
 __attribute__((weak)) bool dynamic_macro_record_key_user(int8_t direction, keyrecord_t *record) {
     dynamic_macro_led_blink();
+    return true;
 }
 
 __attribute__((weak)) bool dynamic_macro_record_end_kb(int8_t direction) {
@@ -67,6 +70,7 @@ __attribute__((weak)) bool dynamic_macro_record_end_kb(int8_t direction) {
 
 __attribute__((weak)) bool dynamic_macro_record_end_user(int8_t direction) {
     dynamic_macro_led_blink();
+    return true;
 }
 
 __attribute__((weak)) bool dynamic_macro_valid_key_kb(uint16_t keycode, keyrecord_t *record) {
