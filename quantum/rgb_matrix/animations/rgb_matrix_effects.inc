@@ -42,4 +42,5 @@
 #include "starlight_anim.h"
 #include "starlight_dual_sat_anim.h"
 #include "starlight_dual_hue_anim.h"
+#include "starlight_smooth_anim.h"
 #include "riverflow_anim.h"
