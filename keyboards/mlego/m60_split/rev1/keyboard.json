@@ -73,7 +73,8 @@
             }
         },
         "serial": {
-            "driver": "usart"
+            "driver": "usart",
+            "pin": "B6"
         },
         "transport": {
             "sync": {
