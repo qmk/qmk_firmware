@@ -1,6 +1,6 @@
 # MCU name
 MCU = STM32F103
-#DEFAULT_FOLDER =  handwired/digex/ortho_split_rgb_matrix_keyboard/rev_1
+DEFAULT_FOLDER =  handwired/digex/ortho_split_rgb_matrix_keyboard/rev_1
 
 #MCU = GD32VF103C8
 
