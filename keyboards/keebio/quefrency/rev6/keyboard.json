@@ -3,6 +3,9 @@
     "keyboard_name": "Quefrency Rev. 6",
     "maintainer": "nooges",
     "bootloader": "stm32-dfu",
+    "bootmagic": {
+        "matrix": [0, 2]
+    },
     "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
@@ -10,6 +13,7 @@
         ]
     },
     "features": {
+        "bootmagic": true,
         "extrakey": true,
         "mousekey": true,
         "rgb_matrix": true
@@ -184,18 +188,26 @@
         "split_count": [50, 51]
     },
     "split": {
+        "bootmagic": {
+            "matrix": [0, 0]
+        },
         "enabled": true,
         "encoder": {
             "right": {
                 "rotary": [
-                    {"pin_a": "B13", "pin_b": "B12"}
+                    {"pin_a": "B15", "pin_b": "B14"}
                 ]
             }
         },
         "matrix_pins": {
             "right": {
-                "cols": ["B2", "B1", "A5", "B9", "C10", "B6", "C13", "C14", "C15"],
-                "rows": ["B4", "C11", "A15", "B5", "F1"]
+                "cols": ["B2", "B1", "B0", "B12", "B13", "A7", "B6", "C13", "C14"],
+                "rows": ["A5", "A4", "A3", "B5", "F1"]
+            }
+        },
+        "transport": {
+            "sync": {
+                "matrix_state": true
             }
         }
     },
