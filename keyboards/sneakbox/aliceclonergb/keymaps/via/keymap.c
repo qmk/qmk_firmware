@@ -36,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_FN] = LAYOUT_alice_split_bs(
         KC_TRNS,   KC_TRNS,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,       KC_F8,   KC_F9,   KC_F10,  KC_F11,     KC_F12,    KC_TRNS,    KC_TRNS,
         KC_TRNS,   KC_TRNS,   KC_TRNS, KC_UP,   KC_TRNS, KC_TRNS, KC_TRNS,                       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,   RGB_RMOD,   RGB_MOD,    RGB_TOG,
-        QK_BOOT,     KC_TRNS,   KC_LEFT, KC_DOWN, KC_RGHT, KC_TRNS, KC_TRNS,                       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    RGB_VAD,   RGB_VAI,    KC_TRNS,
+        QK_BOOT,   KC_TRNS,   KC_LEFT, KC_DOWN, KC_RGHT, KC_TRNS, KC_TRNS,                       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    RGB_VAD,   RGB_VAI,    KC_TRNS,
                    KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    RGB_SAD,   RGB_SAI,    KC_TRNS,    RGB_HUI,
                    KC_TRNS,                     KC_TRNS, KC_TRNS, KC_TRNS,                       KC_TRNS, KC_TRNS,                                             KC_TRNS),
     [_L3] = LAYOUT_alice_split_bs(

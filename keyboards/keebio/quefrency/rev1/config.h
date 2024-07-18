@@ -19,11 +19,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #define SPLIT_HAND_PIN D2
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
-// Set 65% column (option 1) and Macro (option 2) on by default
-#define VIA_EEPROM_LAYOUT_OPTIONS_DEFAULT 0x60
