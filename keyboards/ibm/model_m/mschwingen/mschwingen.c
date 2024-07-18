@@ -220,5 +220,5 @@ bool dynamic_macro_record_end_kb(int8_t direction) {
         return false;
     }
     if (isRecording) isRecording--;
-    return true
+    return true;
 }
