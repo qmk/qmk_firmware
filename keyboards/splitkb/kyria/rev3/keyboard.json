@@ -95,7 +95,6 @@
         "bootmagic": {
             "matrix": [4, 6]
         },
-        "soft_serial_pin": "D2",
         "matrix_pins": {
             "right": {
                 "rows": ["F6", "F7", "B1", "B3"],
@@ -111,6 +110,9 @@
         },
         "handedness": {
             "pin": "B5"
+        },
+        "serial": {
+            "pin": "D2"
         },
         "transport": {
             "sync": {
