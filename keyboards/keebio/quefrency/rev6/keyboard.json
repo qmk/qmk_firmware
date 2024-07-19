@@ -9,11 +9,12 @@
     "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
-            {"pin_a": "B13", "pin_b": "B12"}
+            {"pin_a": "B12", "pin_b": "B13"}
         ]
     },
     "features": {
         "bootmagic": true,
+        "encoder": true,
         "extrakey": true,
         "mousekey": true,
         "rgb_matrix": true
@@ -195,7 +196,7 @@
         "encoder": {
             "right": {
                 "rotary": [
-                    {"pin_a": "B15", "pin_b": "B14"}
+                    {"pin_a": "B14", "pin_b": "B15"}
                 ]
             }
         },
