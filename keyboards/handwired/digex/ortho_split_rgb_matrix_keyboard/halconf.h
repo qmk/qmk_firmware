@@ -24,5 +24,11 @@
 
 #define PAL_USE_CALLBACKS TRUE
 
+#define _CHIBIOS_HAL_CONF_
+#define _CHIBIOS_HAL_CONF_VER_7_0_
+
+#include "mcuconf.h"
+
+
 #include_next <halconf.h>
 

@@ -15,6 +15,9 @@
  */
 
 
+#include "quantum.h"
+
+
 
 
 
@@ -24,7 +27,7 @@ void keyboard_pre_init_kb(void){
   //  palSetLineMode(B9, PAL_MODE_OUTPUT_OPENDRAIN);
    // palSetLineMode(B8, PAL_MODE_OUTPUT_OPENDRAIN);
 
-   // keyboard_pre_init_user();
+    keyboard_pre_init_user();
 }
 
 void board_init(void) {
@@ -33,14 +36,14 @@ void board_init(void) {
 
 #ifdef RGB_MATRIX_ENABLE
 
-//void suspend_power_down_kb(void) {
-//    rgb_matrix_set_suspend_state(true);
-//    suspend_power_down_user();
-//}
-//
-//void suspend_wakeup_init_kb(void) {
-//    rgb_matrix_set_suspend_state(false);
-//    suspend_wakeup_init_user();
-//}
+void suspend_power_down_kb(void) {
+    rgb_matrix_set_suspend_state(true);
+    suspend_power_down_user();
+}
+
+void suspend_wakeup_init_kb(void) {
+    rgb_matrix_set_suspend_state(false);
+    suspend_wakeup_init_user();
+}
 
 #endif

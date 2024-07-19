@@ -1,6 +1,6 @@
 {
     "features": {
-       //"tap_dance" : false,
+       "tap_dance" : true,
        //"console": false
     }
 }

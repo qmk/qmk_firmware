@@ -13,8 +13,8 @@
        // "tap_dance" : true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
-        "rgb_matrix": true,
+        //"nkro": true,
+        //"rgb_matrix": true,
     },
     //"matrix_pins": {
     //    "cols":  ["A1", "A6", "A7", "B0," "B1", "B10", "B11", "NO_PIN" ],
@@ -40,7 +40,7 @@
         "device_version": "1.0.0",
         "pid": "0x0000",
         "vid": "0xFEED",
-        //"no_startup_check": true
+        //"no_startup_check": true,
     },
     "rgb_matrix":{
         "driver": "ws2812",

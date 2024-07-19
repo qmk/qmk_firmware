@@ -184,9 +184,34 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
    return true;
 }
 
-//void keyboard_post_init_user(void) {
-//
-//}
+void keyboard_post_init_user(void) {
+
+//       for (uint8_t row = 0; row < MATRIX_ROWS; ++row) 
+//       {
+//           for (uint8_t col = 0; col < MATRIX_COLS; ++col) 
+//           {
+//               uint8_t index = g_led_config.matrix_co[row][col];
+
+//                       if (index >= led_min && index <= led_max && index != NO_LED && keymap_key_to_keycode(layer, (keypos_t){col,row}) > KC_TRNS ) 
+//                       {
+//                           rgb_matrix_set_color(index, color_my_rgb.r, color_my_rgb.g, color_my_rgb.b);
+
+//                       }
+//                   
+//           }
+//       
+//       }
+
+    //rgb_matrix_sethsv_noeeprom(HSV_OFF);
+    //rgb_matrix_set_color_all(45, 45, 45);
+}
+
+
+
+
+
+
+
 
 void suspend_power_down_user(void) {
 	#ifdef RGB_MATRIX_ENABLE

@@ -19,6 +19,7 @@
 //#define MATRIX_ROWS 10 // Rows are doubled-up
 //#define MATRIX_COLS 8
 
+#define PERMISSIVE_HOLD
 
 #define MATRIX_COL_PINS           { A1, A6, A7, B0, B1, B10, B11, NO_PIN }
 #define MATRIX_COL_PINS_RIGHT     { A8, A1, A6, A7, B0, B1,  B10, B11 }
@@ -98,7 +99,7 @@
 //#define RGBLED_NUM       72 // Number of LEDs
 //#define DRIVER_LED_TOTAL RGBLED_NUM
 //#define RGB_MATRIX_SPLIT     { 35, 37 }
-#endif
+
 //#define  WS2812_DI_PIN B4
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
@@ -151,7 +152,7 @@
         
 //#define RGB_MATRIX_SOLID_REACTIVE_GRADIENT_MODE
 
-#define RGBLIGHT_LAYERS_RETAIN_VAL
+//#define RGBLIGHT_LAYERS_RETAIN_VAL
 
 #define  RGB_MATRIX_KEYPRESSES  // реагирует на нажатия клавиш 
 #define  RGB_MATRIX_FRAMEBUFFER_EFFECTS  // включение эффектов кадрового буфера 
@@ -162,7 +163,7 @@
  * This is userful for the Windows task manager shortcut (ctrl+shift+esc).
  */
 // #define GRAVE_ESC_CTRL_OVERRIDE
-
+#endif
 /*
  * Force NKRO
  *
@@ -182,7 +183,7 @@
  * power-up.
  *
  */
-#define FORCE_NKRO
+//#define FORCE_NKRO
 
 /*
  * Feature disable options
@@ -206,4 +207,4 @@
     
     
 
-#define TAPPING_TERM_PER_KEY
+//#define TAPPING_TERM_PER_KEY
