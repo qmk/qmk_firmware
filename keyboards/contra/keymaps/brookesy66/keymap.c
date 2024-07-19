@@ -18,10 +18,11 @@
 
 enum planck_layers {
   _BASE,
+  _MOVEMENT,
+  _POINTER,
   _LOWER,
   _RAISE,
-  _ADJUST,
-  _MOVEMENT
+  _ADJUST
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -56,10 +57,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----------------------------------------------------------------------------------'
    */
   [_MOVEMENT] = LAYOUT_planck_mit(
-    _______, KC_MUTE, KC_VOLD, KC_VOLU, KC_END,   KC_F5,   _______, KC_PGUP, _______, _______,  KC_HOME, KC_DEL,
-    _______, _______, _______, KC_PGDN, _______,  _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, _______, _______,
-    KC_LSPO, _______, KC_DEL,  _______, _______,  _______, _______, _______, _______, _______,  _______, KC_RSPC,
-    _______, _______, _______, _______, _______,     _______,       _______, KC_MNXT, KC_VOLD,  KC_VOLU, KC_MPLY
+    _______,      KC_MUTE, KC_VOLD, KC_VOLU, KC_END,   KC_F5,   _______, KC_PGUP, _______, _______,  KC_HOME, KC_DEL,
+    _______,      _______, _______, KC_PGDN, _______,  _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, _______, _______,
+    MO(_POINTER), _______, KC_DEL,  _______, _______,  _______, _______, _______, _______, _______,  _______, KC_RSPC,
+    _______,      _______, _______, _______, _______,     _______,       _______, KC_MNXT, KC_VOLD,  KC_VOLU, KC_MPLY
+  ),
+
+  [_POINTER] = LAYOUT_planck_mit(
+    _______, _______, _______, _______, _______,   _______,   _______, _______, _______, _______,  _______, _______,
+    _______, _______, _______, _______, _______,  _______,   KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, _______, _______,
+    _______, KC_BTN1, KC_BTN2, KC_BTN3, _______,  _______,   _______, _______, _______, _______,  _______, _______,
+    _______, _______, _______, _______, _______,       _______,       _______, _______, _______,  _______, _______
   ),
 
   /* Lower

@@ -1,2 +1,3 @@
 BOOTLOADER = atmel-dfu
 CAPS_WORD_ENABLE = yes
+MOUSEKEY_ENABLE = yes
