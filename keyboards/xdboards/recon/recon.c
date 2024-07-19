@@ -18,11 +18,7 @@
 
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
-   const oled_rotation_t user_rotation = oled_init_user(rotation);
-   if (!user_rotation) {
-       return OLED_ROTATION_180;
-   }
-   return user_rotation;
+   return OLED_ROTATION_180;
 }
 
 bool oled_task_kb(void) {
@@ -30,7 +26,27 @@ bool oled_task_kb(void) {
        return false;
     }
     if (is_keyboard_master()) {
-
+        // Host Keyboard Layer Status
+        oled_write_P(PSTR("Layer: "), false);
+        switch (get_highest_layer(layer_state | default_layer_state)) {
+            case 0:
+                oled_write_P(PSTR("QWERTY\n"), false);
+                break;
+            case 1:
+                oled_write_P(PSTR("Symbols\n"), false);
+                break;
+            case 2:
+                oled_write_P(PSTR("Numbers\n"), false);
+                break;
+            case 3:
+                oled_write_P(PSTR("Function\n"), false);
+                break;
+            case 4:
+                oled_write_P(PSTR("RGB\n"), false);
+                break;
+            default:
+                oled_write_P(PSTR("Undefined\n"), false);
+        }
         // Host Keyboard LED Status
         led_t led_usb_state = host_keyboard_led_state();
         oled_write_P(PSTR("CAPSLCK"), led_usb_state.caps_lock);

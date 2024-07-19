@@ -178,30 +178,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //    ),
 };
 // clang-format on
-
-bool oled_task_user(void) {
-    if (is_keyboard_master()) {
-        // Host Keyboard Layer Status
-        oled_write_P(PSTR("Layer: "), false);
-        switch (get_highest_layer(layer_state | default_layer_state)) {
-            case 0:
-                oled_write_P(PSTR("QWERTY\n"), false);
-                break;
-            case 1:
-                oled_write_P(PSTR("Symbols\n"), false);
-                break;
-            case 2:
-                oled_write_P(PSTR("Numbers\n"), false);
-                break;
-            case 3:
-                oled_write_P(PSTR("Function\n"), false);
-                break;
-            case 4:
-                oled_write_P(PSTR("RGB\n"), false);
-                break;
-            default:
-                oled_write_P(PSTR("Undefined\n"), false);
-        }
-    }
-    return true;
-}

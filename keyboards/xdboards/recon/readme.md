@@ -28,8 +28,9 @@ Enter the bootloader in 2 ways:
 Solder the "Pro-Micro Compatibility" jumper on the bottom of both boards.
 
 In your keymap directory:
-  - add/modify a `rules.mk` file and insert `CONVERT_TO = <Desired Converter>` see [QMK Documentation](https://docs.qmk.fm/#/feature_converters)
-  - add/modify a `config.h` file and insert `#define WS2812_DI_PIN D3`
+  - add/modify a `rules.mk` file
+    - Remove or set `CONVERT_TO` to desired converter see [QMK Documentation](https://docs.qmk.fm/#/feature_converters)
+    - Remove or set `USE_SEA_PICRO_RGB_PIN` to `no`
 
 
 ## Setup for Underglow rgb only
