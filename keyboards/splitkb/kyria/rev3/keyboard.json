@@ -1,13 +1,11 @@
 {
     "keyboard_name": "Kyria rev3",
+    "development_board": "elite_c",
     "usb": {
         "pid": "0xCF44"
     },
     "bootmagic": {
         "matrix": [0, 6]
-    },
-    "build": {
-        "lto": true
     },
     "features": {
         "mousekey": true,
@@ -110,6 +108,9 @@
                     {"pin_a": "F4", "pin_b": "F5"}
                 ]
             }
+        },
+        "handedness": {
+            "pin": "B5"
         },
         "transport": {
             "sync": {

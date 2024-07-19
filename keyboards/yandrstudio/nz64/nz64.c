@@ -84,15 +84,23 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 void eeconfig_init_kb(void) {
     kb_cums.raw = 0;
     eeconfig_update_kb(kb_cums.raw);
+
+    eeconfig_init_user();
 }
 
 void keyboard_post_init_kb(void) {
     kb_cums.underground_rgb_sw = eeconfig_read_kb();
+
+    keyboard_post_init_user();
 }
 
 #endif
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (!process_record_user(keycode, record)) {
+        return false;
+    }
+
     switch(keycode) {
 #ifdef RGB_MATRIX_ENABLE
         case URGB_K:

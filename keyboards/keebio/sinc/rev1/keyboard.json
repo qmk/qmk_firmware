@@ -14,6 +14,12 @@
         "rgblight": true,
         "backlight": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "indicators": {
         "caps_lock": "B6"
     },
@@ -33,6 +39,9 @@
                 ]
             }
         },
+        "handedness": {
+            "pin": "F7"
+        },
         "matrix_pins": {
             "right": {
                 "cols": ["F1", "F0", "F4", "F5", "F6", "D5", "C7", "D3", "B7"],
@@ -51,6 +60,9 @@
         ]
     },
     "backlight": {
+        "default": {
+            "brightness": 3
+        },
         "pin": "B5"
     },
     "rgblight": {

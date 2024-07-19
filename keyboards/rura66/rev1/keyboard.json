@@ -19,6 +19,12 @@
         "oled": true,
         "rgblight": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "rgb_matrix": {
         "driver": "ws2812"
     },

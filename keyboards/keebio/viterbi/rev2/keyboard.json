@@ -1,6 +1,9 @@
 {
     "keyboard_name": "Viterbi Rev. 2",
     "split": {
+        "handedness": {
+            "pin": "D2"
+        },
         "soft_serial_pin": "D0"
     },
     "usb": {
@@ -28,6 +31,12 @@
         "mousekey": true,
         "extrakey": true,
         "backlight": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     },
     "build": {
         "lto": true

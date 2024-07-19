@@ -114,20 +114,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    writePinLow(B2);
-    writePinLow(B3);
-    writePinLow(B7);
+    gpio_write_pin_low(B2);
+    gpio_write_pin_low(B3);
+    gpio_write_pin_low(B7);
 
     if (work_louder_config.led_level) {
         switch (get_highest_layer(state)) {
             case 1:
-                writePinHigh(B2);
+                gpio_write_pin_high(B2);
                 break;
             case 2:
-                writePinHigh(B3);
+                gpio_write_pin_high(B3);
                 break;
             case 3:
-                writePinHigh(B7);
+                gpio_write_pin_high(B7);
                 break;
         }
     }
@@ -214,3 +214,21 @@ void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
     }
     *command_id = id_unhandled;
 }
+
+bool via_layout_2u = false;
+
+void via_set_layout_options_kb(uint32_t value) {
+    via_layout_2u = (bool)value;
+}
+
+#ifdef RGB_MATRIX_ENABLE
+bool rgb_matrix_indicators_user(void) {
+    if (via_layout_2u) {
+        rgb_matrix_set_color(5, 0, 0, 0);
+        rgb_matrix_set_color(7, 0, 0, 0);
+    } else {
+        rgb_matrix_set_color(6, 0, 0, 0);
+    }
+    return false;
+}
+#endif

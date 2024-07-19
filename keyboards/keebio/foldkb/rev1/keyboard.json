@@ -23,6 +23,9 @@
     },
     "split": {
         "enabled": true,
+        "handedness": {
+            "pin": "F7"
+        },
         "soft_serial_pin": "D0"
     },
     "rgblight": {
@@ -54,6 +57,12 @@
         "backlight": true,
         "rgblight": true,
         "encoder": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     },
     "build": {
         "lto": true
