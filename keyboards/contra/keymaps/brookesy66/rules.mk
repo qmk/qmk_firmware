@@ -1,1 +1,2 @@
 BOOTLOADER = atmel-dfu
+CAPS_WORD_ENABLE = yes
