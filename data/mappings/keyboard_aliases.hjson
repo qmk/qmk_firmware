@@ -1529,9 +1529,10 @@
     "kprepublic/jj50": {
         "target": "kprepublic/jj50/rev1"
     },
-    "dnworks/sbl": {
-        "target": "dnworks/60percent"
     "dnworks/9973": {
         "target": "dnworks/tkl87"
-    }
+    },
+    "dnworks/sbl": {
+        "target": "dnworks/60percent"
+    },
 }
