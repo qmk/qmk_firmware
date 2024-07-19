@@ -677,6 +677,7 @@ enum rgb_matrix_effects {
     RGB_MATRIX_STARLIGHT,           // LEDs turn on and off at random at varying brightness, maintaining user set color
     RGB_MATRIX_STARLIGHT_DUAL_HUE,  // LEDs turn on and off at random at varying brightness, modifies user set hue by +- 30
     RGB_MATRIX_STARLIGHT_DUAL_SAT,  // LEDs turn on and off at random at varying brightness, modifies user set saturation by +- 30
+    RGB_MATRIX_STARLIGHT_SMOOTH,    // LEDs randomly and smoothly increase and decrease in brightness to create a starlight effect, speed adjustable
     RGB_MATRIX_RIVERFLOW,           // Modification to breathing animation, offset's animation depending on key location to simulate a river flowing
     RGB_MATRIX_EFFECT_MAX
 };
