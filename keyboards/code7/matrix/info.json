@@ -1,7 +1,7 @@
 {
-    "manufacturer": "Seven Crumbs",
+    "manufacturer": "Code7",
     "keyboard_name": "Matrix",
-    "maintainer": "ZoidTechnology",
+    "maintainer": "Zoid Technology",
     "board": "GENERIC_RP_RP2040",
     "bootloader": "rp2040",
     "bootloader_instructions": "Press and hold all four buttons while connecting the USB cable.",
