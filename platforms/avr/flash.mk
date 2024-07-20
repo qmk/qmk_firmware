@@ -24,7 +24,7 @@ GREP ?= grep
 
 define EXEC_DFU
 	if [ "$(1)" ]; then \
-		echo "Flashing '$(1)' for EE_HANDS split keyboard support." ;\
+		echo "Flashing '$(1)' for EEPROM handedness split keyboard support." ;\
 	fi; \
 	if ! $(DFU_PROGRAMMER) $(MCU) get bootloader-version >/dev/null 2>/dev/null; then\
 		printf "$(MSG_BOOTLOADER_NOT_FOUND_QUICK_RETRY)" ;\
