@@ -45,8 +45,7 @@
     "diode_direction": "COL2ROW",
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D2",
-        "main": "eeprom"
+        "soft_serial_pin": "D2"
     },
     "development_board": "promicro",
     "layouts": {
