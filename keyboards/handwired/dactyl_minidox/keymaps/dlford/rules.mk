@@ -11,6 +11,8 @@ INDICATOR_LIGHTS = yes      # Enable indicator lights for caps lock, etc.
 # KEY_OVERRIDE_ENABLE = yes   # Override key combos
 # COMBO_ENABLE = yes          # Custom key combos
 
+RGB_MATRIX_ENABLE = yes
+
 LTO_ENABLE = yes
 RGBLIGHT_SUPPORTED = yes
 RGB_MATRIX_SUPPORTED = yes
