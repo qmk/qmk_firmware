@@ -1,7 +1,0 @@
-{
-    "bootloader": "halfkay",
-    "processor": "atmega32u4",
-    "ws2812": {
-        "pin": "D7"
-    }
-}
