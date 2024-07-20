@@ -8,5 +8,9 @@ bool is_keyboard_left(void) {
         gpio_set_pin_input(SPLIT_HAND_PIN);
         return x;
     #endif
-    return eeprom_read_byte(EECONFIG_HANDEDNESS);
+    if (eeconfig_read_handedness() == EEHANDS_UNSET){
+        return is_keyboard_master();
+    } else {
+        return eeconfig_read_handedness() == EEHANDS_LEFT ? true : false;
+    }
 }

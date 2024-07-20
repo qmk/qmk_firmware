@@ -157,17 +157,21 @@ __attribute__((weak)) bool is_keyboard_left_impl(void) {
 #    if defined(INIT_EE_HANDS_LEFT) || defined(INIT_EE_HANDS_RIGHT)
 #        if defined(INIT_EE_HANDS_LEFT)
 #            pragma message "Forcing EEPROM setting for left hand"
-    const bool should_be_left = true;
+    const eehands_t eehands_forced = EEHANDS_LEFT;
 #        else
 #            pragma message "Forcing EEPROM setting for right hand"
-    const bool should_be_left = false;
+    const eehands_t eehands_forced = EEHANDS_RIGHT;
 #        endif
-    bool       is_left        = eeconfig_read_handedness();
-    if (is_left != should_be_left) {
-        eeconfig_update_handedness(should_be_left);
+    if (eehands_forced != eeconfig_read_handedness()) {
+        eeconfig_update_handedness(eehands_forced);
     }
 #    endif // defined(INIT_EE_HANDS_LEFT) || defined(INIT_EE_HANDS_RIGHT)
-    return eeconfig_read_handedness();
+
+    if (eeconfig_read_handedness() == EEHANDS_UNSET){
+        return is_keyboard_master();
+    } else {
+        return eeconfig_read_handedness() == EEHANDS_LEFT ? true : false;
+    }
 #endif
 }
 
