@@ -20,4 +20,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SELECT_SOFT_SERIAL_SPEED 5
 
 #define SPLIT_USB_DETECT
-#define EE_HANDS

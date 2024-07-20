@@ -15,6 +15,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define EE_HANDS
-
-#    define RGBLIGHT_LAYERS
+#define RGBLIGHT_LAYERS

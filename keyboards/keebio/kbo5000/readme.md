@@ -13,7 +13,7 @@ Example of flashing this keyboard:
 
     make keebio/kbo5000/rev1:default:flash
 
-Handedness detection is already hardwired onto the PCB, so no need to deal with `EE_HANDS` or flashing .eep files.
+Handedness detection is already hardwired onto the PCB.
 
 See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 

@@ -3,10 +3,6 @@
 
 #pragma once
 
-// Auto mouse layer makes use of the Cirque touchdown indicator which requires
-// the touch sensor to be on the master side
-#define MASTER_RIGHT
-
 // Transport dpi and enc mode for display on oled
 #define SPLIT_TRANSACTION_IDS_KB RPC_ID_KB_CONFIG_SYNC
 

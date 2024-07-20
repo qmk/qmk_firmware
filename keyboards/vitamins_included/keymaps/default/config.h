@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Select hand configuration */
 // Defaults:
-// Rev1: EE_HANDS
+// Rev1: EEPROM
 // Rev2: SPLIT_HAND_PIN B4
 
 #ifdef AUDIO_ENABLE

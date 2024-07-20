@@ -22,6 +22,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define OLED_TIMEOUT 30000
 #endif
 
-#define EE_HANDS
-
 #define LAYER_STATE_8BIT

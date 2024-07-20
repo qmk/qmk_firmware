@@ -132,18 +132,7 @@ The EEPROM approach requires additional setup (flashing the eeprom) but allows y
 
 The USB cable approach is easier to setup and if you just want the usb cable on the left board, you do not need to do anything extra.
 
-### Setting the left hand as master
-If you always plug the usb cable into the left board, nothing extra is needed as this is the default. Comment out `EE_HANDS` and comment out `I2C_MASTER_RIGHT` or `MASTER_RIGHT` if for some reason it was set.
-
-### Setting the right hand as master
-If you always plug the usb cable into the right board, add an extra flag to your `config.h`
-```
- #define MASTER_RIGHT
-```
-
-### Setting EE_hands to use either hands as master
-If you define `EE_HANDS` in your `config.h`, you will need to set the
-EEPROM for the left and right halves.
+### Using EEPROM to use either side as master
 
 The EEPROM is used to store whether the
 half is left handed or right handed. This makes it so that the same firmware
@@ -163,7 +152,7 @@ avrdude -p atmega32u4 -P $(COM_PORT) -c avr109 -U eeprom:w:"./quantum/split_comm
 
 NOTE: replace `$(COM_PORT)` with the port of your device (e.g. `/dev/ttyACM0`)
 
-After you have flashed the EEPROM, you then need to set `EE_HANDS` in your config.h, rebuild the hex files and reflash.
+After you have flashed the EEPROM, you then need to reflash.
 
 Note that you need to program both halves, but you have the option of using
 different keymaps for each half. You could program the left half with a QWERTY

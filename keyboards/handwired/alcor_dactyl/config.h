@@ -27,4 +27,3 @@
 #define SERIAL_USART_TX_PIN GP10
 #define SERIAL_USART_RX_PIN GP9
 
-#define EE_HANDS

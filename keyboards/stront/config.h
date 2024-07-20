@@ -12,7 +12,6 @@
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 500U
 
 /* any side can be master by default, enable split sync to support it */
-#define EE_HANDS
 #define SPLIT_POINTING_ENABLE
 
 /* SPI config for display/touchpad */

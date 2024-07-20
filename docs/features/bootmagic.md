@@ -25,7 +25,7 @@ Using Bootmagic will **always reset** the EEPROM, so you will lose any settings 
 
 ## Split Keyboards
 
-When [handedness](split_keyboard#setting-handedness) is predetermined via options like `SPLIT_HAND_PIN` or `EE_HANDS`, you might need to configure a different key between halves. To identify the correct key for the right half, examine the split key matrix defined in the `<keyboard>.h` file, e.g.:
+When [handedness](split_keyboard#setting-handedness) is predetermined via options like `SPLIT_HAND_PIN` or EEPROM, you might need to configure a different key between halves. To identify the correct key for the right half, examine the split key matrix defined in the `<keyboard>.h` file, e.g.:
 
 ```c
 #define LAYOUT_split_3x5_2( \

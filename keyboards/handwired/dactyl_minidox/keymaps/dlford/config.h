@@ -17,9 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //#define USE_MATRIX_I2C
 
-/* Select hand configuration */
-#define EE_HANDS // ./util/docker_build.sh crkbd:dlford:dfu-split-[left|right] (or avrdude-split[left|right])
-
 #define TAPPING_TOGGLE 2 // number of taps to toggle TT
 #define TAPPING_TERM_PER_KEY // milliseconds from tap to hold for mod tap per key
 #define PERMISSIVE_HOLD_PER_KEY // activate mod top hold earlier if another key is pressed AND released per key

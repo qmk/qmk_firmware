@@ -18,8 +18,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-//#undef USE_I2C
-#define MASTER_RIGHT
-
 /* PMW3360 Settings */
 #define POINTING_DEVICE_CS_PIN B0

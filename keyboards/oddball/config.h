@@ -19,7 +19,6 @@
 /* Split Keyboard specific options */
 #define USE_I2C
 #define SPLIT_USB_DETECT
-#define MASTER_RIGHT
 
 /* optical sensor settings */
 #define SCROLL_DIVIDER 12

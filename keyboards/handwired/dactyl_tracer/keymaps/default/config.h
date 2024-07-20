@@ -19,5 +19,3 @@
 #define MOUSEKEY_WHEEL_DELAY 0
 
 #define TAPPING_TERM    200
-
-#define MASTER_RIGHT

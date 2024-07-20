@@ -104,14 +104,8 @@ static enum { UNKNOWN, LEFT, RIGHT } hand_side = UNKNOWN;
         hand_side = peek_matrix_intersection(SPLIT_HAND_MATRIX_GRID) ? LEFT : RIGHT;
         return (hand_side == LEFT);
 #    endif
-#elif defined(EE_HANDS)
-        hand_side = eeconfig_read_handedness() ? LEFT : RIGHT;
-        return (hand_side == LEFT);
-#elif defined(MASTER_RIGHT)
-        hand_side = !is_keyboard_master() ? LEFT : RIGHT;
-        return (hand_side == LEFT);
 #endif
-        hand_side = is_keyboard_master() ? LEFT : RIGHT;
+        hand_side = eeconfig_read_handedness() ? LEFT : RIGHT;
         return (hand_side == LEFT);
     } else {
         return (hand_side == LEFT);

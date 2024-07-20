@@ -19,9 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define USE_I2C
 
-/* Select hand configuration */
-#define EE_HANDS
-
 // different Jian configs
 #define PHYSICAL_LEDS_ENABLE
 #define NUM_LOCK_LED_PIN C6

@@ -18,9 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* Select hand configuration */
-#define EE_HANDS
-
 #ifndef RGBLIGHT_SPLIT_ENABLE
     #define RGBLIGHT_LED_COUNT 30
 #else
