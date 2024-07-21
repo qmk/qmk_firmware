@@ -25,7 +25,6 @@ SRC += lib/duplexmatrix/duplexmatrix.c
 
 # Encoders
 ENCODER_ENABLE = yes
-ENCODER_MAP_ENABLE = yes
 
 # This is unnecessary for processing KC_MS_BTN*.
 MOUSEKEY_ENABLE = no
