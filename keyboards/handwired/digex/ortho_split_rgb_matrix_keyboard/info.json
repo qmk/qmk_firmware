@@ -14,20 +14,27 @@
         "extrakey": true,
         "mousekey": true,
         //"nkro": true,
-        //"rgb_matrix": true,
+        "rgb_matrix": true,
     },
-    //"matrix_pins": {
-    //    "cols":  ["A1", "A6", "A7", "B0," "B1", "B10", "B11", "NO_PIN" ],
-    //    "rows":  ["B15", "B14", "B13", "B12", "A15"]
-    //},
+    "matrix_pins": {
+        "cols":  ["A1", "A6", "A7", "B0", "B1", "B10", "B11", "NO_PIN" ],
+        "rows":  ["B15", "B14", "B13", "B12", "A15"],
+        "io_delay": 5
+    },
     "split": {
         "enabled": true,
-        //"matrix_pins": {
-        //    "right": {
-        //    "cols": ["A8", "A1", "A6", "A7," "B0", "B1", "B10", "B11" ],
-        //    "rows": ["B15", "B14", "B13", "B12", "A15"]
-        //             },
-        //},
+        "handedness": {
+            "pin": "B3"
+        },
+        "bootmagic": {
+            "matrix": [4, 0]
+        },
+        "matrix_pins": {
+            "right": {
+            "cols": ["A8", "A1", "A6", "A7", "B0", "B1", "B10", "B11" ],
+            "rows": ["B15", "B14", "B13", "B12", "A15"]
+                     },
+        },
         "transport":{
             "sync": {
                 "detected_os": true,

@@ -1,8 +1,8 @@
 # MCU name
-MCU = STM32F103
+#MCU = STM32F103
 DEFAULT_FOLDER =  handwired/digex/ortho_split_rgb_matrix_keyboard/rev_1
 
-BOARD = STM32_F103_STM32DUINO
+#BOARD = STM32_F103_STM32DUINO
 
 # Bootloader selection
 #BOOTLOADER = stm32duino

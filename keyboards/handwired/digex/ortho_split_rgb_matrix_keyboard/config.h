@@ -21,12 +21,12 @@
 
 #define PERMISSIVE_HOLD
 
-#define MATRIX_COL_PINS           { A1, A6, A7, B0, B1, B10, B11, NO_PIN }
-#define MATRIX_COL_PINS_RIGHT     { A8, A1, A6, A7, B0, B1,  B10, B11 }
-
-
-#define MATRIX_ROW_PINS_RIGHT { B15, B14, B13, B12, A15 }
-#define MATRIX_ROW_PINS       { B15, B14, B13, B12, A15 }
+//#define MATRIX_COL_PINS           { A1, A6, A7, B0, B1, B10, B11, NO_PIN }
+//#define MATRIX_COL_PINS_RIGHT     { A8, A1, A6, A7, B0, B1,  B10, B11 }
+//
+//
+//#define MATRIX_ROW_PINS_RIGHT { B15, B14, B13, B12, A15 }
+//#define MATRIX_ROW_PINS       { B15, B14, B13, B12, A15 }
 /* COL2ROW, ROW2COL*/
 //#define DIODE_DIRECTION ROW2COL
 
@@ -55,7 +55,7 @@
 
 
 #define   	SPLIT_HAND_PIN_LOW_IS_LEFT
-#define 	SPLIT_HAND_PIN  B3
+//#define 	SPLIT_HAND_PIN  B3
 //#define MASTER_RIGHT
 //#define MASTER_LEFT
 //#define SPLIT_USB_DETECT
