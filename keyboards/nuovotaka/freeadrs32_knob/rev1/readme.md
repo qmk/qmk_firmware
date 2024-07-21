@@ -32,6 +32,13 @@ Currently Freeadrs32_knob firmwares are verified to compile with QMK 0.25.17
 $ ls
 freeadrs32/ qmk/
 
+$ cd qmk/keyboards
+
+
+$ ln -s ../../freeadrs32/FreeAdrs32_knob/qmk_firmware/keyboards/nuovotaka nuovotaka
+$ ls nuovotaka/
+freeadrs32_knob/  lib/
+$ cd ..
 ```
 
 4. `make` your Freeadrs32_knob firmware.
@@ -49,7 +56,7 @@ $ make nuovotaka/freeadrs32_knob/rev1:default:flash
 
 There are three keymaps provided at least:
 
--   via - Standard version with [Remap](https://remap-keys.app/) or VIA to change keymap
+-   via - Standard version with [Remap](https://remap-keys.app/) to change keymap
 -   test - Easy-to-use version for checking operation at build time
 -   default - Base version for creating your own customized firmware
 
