@@ -1,0 +1,131 @@
+{
+  "manufacturer": "Takahiro Natsume",
+  "keyboard_name": "freeadrs32_knob",
+  "maintainer": "nuovotaka",
+  "bootloader": "caterina",
+  "encoder": {
+    "rotary": [
+      { "pin_a": "E6", "pin_b": "B4", "resolution": 2 },
+      { "pin_a": "B5", "pin_b": "B6", "resolution": 2 },
+      { "pin_a": "B2", "pin_b": "B3", "resolution": 2 }
+    ]
+  },
+  "processor": "atmega32u4",
+  "url": "",
+  "usb": {
+    "device_version": "1.0.0",
+    "pid": "0x8832",
+    "vid": "0x8832"
+  },
+  "layouts": {
+    "LAYOUT": {
+      "layout": [
+        {
+          "label": "N00","x": 0,"y": 0
+        },
+        {
+          "label": "F01","x": 1,"y": 0
+        },
+        {
+          "label": "F02","x": 2,"y": 0
+        },
+        {
+          "label": "F03","x": 3,"y": 0
+        },
+        {
+          "label": "F05","x": 4,"y": 0
+        },
+        {
+          "label": "F06","x": 5,"y": 0
+        },
+        {
+          "label": "F07","x": 6,"y": 0
+        },
+        {
+          "label": "F08","x": 7,"y": 0
+        },
+        {
+          "label": "F09","x": 8,"y": 0
+        },
+        {
+          "label": "F11","x": 1,"y": 1
+        },
+        {
+          "label": "F12","x": 2,"y": 1
+        },
+        {
+          "label": "F13","x": 3,"y": 1
+        },
+        {
+          "label": "F15","x": 4,"y": 1
+        },
+        {
+          "label": "F16","x": 5,"y": 1
+        },
+        {
+          "label": "F17","x": 6,"y": 1
+        },
+        {
+          "label": "F18","x": 7,"y": 1
+        },
+        {
+          "label": "F19","x": 8,"y": 1
+        },
+        {
+          "label": "N20","x": 0,"y": 2
+        },
+        {
+          "label": "F21","x": 1,"y": 2
+        },
+        {
+          "label": "F22","x": 2,"y": 2
+        },
+        {
+          "label": "F23","x": 3,"y": 2
+        },
+        {
+          "label": "F25","x": 4,"y": 2
+        },
+        {
+          "label": "F26","x": 5,"y": 2
+        },
+        {
+          "label": "F27","x": 6,"y": 2
+        },
+        {
+          "label": "F28","x": 7,"y": 2
+        },
+        {
+          "label": "F29","x": 8,"y": 2
+        },
+        {
+          "label": "N30","x": 0,"y": 3
+        },
+        {
+          "label": "F31","x": 1,"y": 3
+        },
+        {
+          "label": "F32","x": 2,"y": 3
+        },
+        {
+          "label": "F33","x": 3,"y": 3
+        },
+        {
+          "label": "F35","x": 4,"y": 3
+        },
+        {
+          "label": "F36","x": 5,"y": 3
+        },
+        {
+          "label": "F37","x": 6,"y": 3
+        },
+        {
+          "label": "F38","x": 7,"y": 3
+        },
+        {
+          "label": "F39","x": 8,"y": 3
+        }
+      ]
+    }
+  }
+}
