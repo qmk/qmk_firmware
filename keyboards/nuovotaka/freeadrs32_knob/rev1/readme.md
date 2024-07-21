@@ -10,13 +10,48 @@
 -   Hardware Supported: ProMicro like footprint
 -   Hardware Availability: See [nuovotaka shop](https://nuovotaka-kbd.stores.jp/)
 
-Make example for this keyboard (after setting up your build environment):
+## How to build
 
-    make nuovotaka/freeadrs32_knob/rev1:default
+1. Check out this repository.
 
-Flashing example for this keyboard:
+```
+git clone https://github.com/nuovotaka/FreeAdrs32.git freeadrs32
+```
 
-    make nuovotaka/freeadrs32_knob/rev1:default:flash
+2. Check out [qmk/qmk_firmware](https://github.com/qmk/qmk_firmware/) repository in another place.
+
+```
+git clone https://github.com/qmk/qmk_firmware.git --depth 1 --recurse-submodules --shallow-submodules -b 0.25.17 qmk
+```
+
+Currently Freeadrs32_knob firmwares are verified to compile with QMK 0.25.17
+
+3. Create a symbolic link to this freeadrs32/ directory from [qmk/qmk_firmware]'s `keyboards`/ directory.
+
+```
+$ ls
+freeadrs32/ qmk/
+
+```
+
+4. `make` your Freeadrs32_knob firmware.
+
+```
+# Build Freeadrs32_knob firmware with "default" keymap
+$ make SKIP_GIT=yes nuovotaka/freeadrs32_knob/rev1:default
+```
+
+5. Flashing firmware.
+
+```
+$ make nuovotaka/freeadrs32_knob/rev1:default:flash
+```
+
+There are three keymaps provided at least:
+
+-   via - Standard version with [Remap](https://remap-keys.app/) or VIA to change keymap
+-   test - Easy-to-use version for checking operation at build time
+-   default - Base version for creating your own customized firmware
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
