@@ -42,6 +42,9 @@
         "sleep": true,
         "split_count": [48, 52]
     },
+    "build": {
+        "lto": true
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {
