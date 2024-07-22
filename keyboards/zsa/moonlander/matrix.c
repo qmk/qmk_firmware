@@ -31,7 +31,7 @@
 /* matrix state(1:on, 0:off) */
 extern matrix_row_t matrix[MATRIX_ROWS];     // debounced values
 extern matrix_row_t raw_matrix[MATRIX_ROWS]; // raw values
-static matrix_row_t raw_matrix_right[MATRIX_COLS];
+static matrix_row_t raw_matrix_right[MATRIX_ROWS];
 
 #define MCP_ROWS_PER_HAND (MATRIX_ROWS / 2)
 
