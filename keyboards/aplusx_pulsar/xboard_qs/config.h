@@ -16,7 +16,7 @@
 
 #pragma once
 
-#define WAIT_US_TIMER           GPTD3       //  Encoder 및 RGB ANI가 부드러워짐
+#define WAIT_US_TIMER GPTD3
 
 /* USB Hub Control pins  */
 #define GPIO_KM_PWEN        C1      // Hub Device Power on/off
