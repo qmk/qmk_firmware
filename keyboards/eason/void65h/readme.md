@@ -2,7 +2,7 @@
 
 ![meow65](https://i.imgur.com/3Z3jNAS.jpg)
 
-* A customizable hotswap 65% keyboard.
+A customizable hotswap 65% keyboard.
 
 * Keyboard Maintainer: [EASON](https://github.com/EasonQian1)
 * Hardware Supported: void65h
