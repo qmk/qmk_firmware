@@ -43,7 +43,9 @@
                 ]
             }
         },
-        "soft_serial_pin": "D2",
+        "serial": {
+            "pin": "D2"
+        },
         "transport": {
             "protocol": "serial"
         }
