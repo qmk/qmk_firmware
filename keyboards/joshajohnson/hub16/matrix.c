@@ -14,12 +14,9 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <stdint.h>
-#include <stdbool.h>
 #include "wait.h"
 #include "util.h"
 #include "matrix.h"
-#include "quantum.h"
 
 // Encoder things
 #define SWITCH_1 F7
@@ -34,22 +31,22 @@ extern matrix_row_t raw_matrix[MATRIX_ROWS];  // raw values
 extern matrix_row_t matrix[MATRIX_ROWS];      // debounced values
 
 static void select_row(uint8_t row) {
-    setPinOutput(row_pins[row]);
-    writePinLow(row_pins[row]);
+    gpio_set_pin_output(row_pins[row]);
+    gpio_write_pin_low(row_pins[row]);
 }
 
-static void unselect_row(uint8_t row) { setPinInputHigh(row_pins[row]); }
+static void unselect_row(uint8_t row) { gpio_set_pin_input_high(row_pins[row]); }
 
 static void unselect_rows(void) {
     for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
-        setPinInputHigh(row_pins[x]);
+        gpio_set_pin_input_high(row_pins[x]);
     }
 }
 
 static void init_pins(void) {
     unselect_rows();
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-        setPinInputHigh(col_pins[x]);
+        gpio_set_pin_input_high(col_pins[x]);
     }
 }
 
@@ -67,7 +64,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     // For each col...
     for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
         // Select the col pin to read (active low)
-        uint8_t pin_state = readPin(col_pins[col_index]);
+        uint8_t pin_state = gpio_read_pin(col_pins[col_index]);
 
         // Populate the matrix row with the state of the col pin
         current_matrix[current_row] |= pin_state ? 0 : (MATRIX_ROW_SHIFTER << col_index);
@@ -82,8 +79,8 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 
 void matrix_init_custom(void) {
     // initialize key pins
-    setPinInput(SWITCH_1);
-    setPinInput(SWITCH_2);
+    gpio_set_pin_input(SWITCH_1);
+    gpio_set_pin_input(SWITCH_2);
     init_pins();
 }
 
@@ -115,8 +112,8 @@ static bool read_encoder_switches(matrix_row_t current_matrix[], uint8_t current
     bool           btn_2_rise = 0;
     btn_1_array <<= 1;
     btn_2_array <<= 1;
-    btn_1_array |= readPin(SWITCH_1);
-    btn_2_array |= readPin(SWITCH_2);
+    btn_1_array |= gpio_read_pin(SWITCH_1);
+    btn_2_array |= gpio_read_pin(SWITCH_2);
     (btn_1_array == 0b01111111) ? (btn_1_rise = 1) : (btn_1_rise = 0);
     (btn_2_array == 0b01111111) ? (btn_2_rise = 1) : (btn_2_rise = 0);
 
