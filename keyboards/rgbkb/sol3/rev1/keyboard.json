@@ -130,7 +130,6 @@
                 "pins": ["A14", "B0"]
             }
         },
-        "soft_serial_pin": "A9",
         "encoder": {
             "right": {
                 "rotary": [
@@ -150,7 +149,8 @@
             }
         },
         "serial": {
-            "driver": "usart"
+            "driver": "usart",
+            "pin": "A9"
         },
         "transport": {
             "sync": {

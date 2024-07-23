@@ -30,7 +30,9 @@
     },
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D2",
+        "serial": {
+            "pin": "D2"
+        },
         "matrix_pins": {
             "right": {
                 "cols": ["B1", "F7", "F6", "F5", "F4"],

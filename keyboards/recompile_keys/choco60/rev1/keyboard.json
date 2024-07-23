@@ -15,7 +15,9 @@
         "handedness": {
             "pin": "D0"
         },
-        "soft_serial_pin": "D3"
+        "serial": {
+            "pin": "D3"
+        }
     },
     "processor": "atmega32u4",
     "bootloader": "caterina"

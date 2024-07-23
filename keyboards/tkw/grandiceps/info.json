@@ -52,7 +52,6 @@
     },
     "split": {
         "enabled": true,
-        "soft_serial_pin": "A15",
         "matrix_pins": {
             "right": {
                 "cols": ["B0", "A7", "A3", "A5", "A4", "A2"],
@@ -60,7 +59,8 @@
             }
         },
         "serial": {
-            "driver": "usart"
+            "driver": "usart",
+            "pin": "A15"
         }
     },
     "qmk": {
