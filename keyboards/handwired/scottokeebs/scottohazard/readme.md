@@ -1,8 +1,8 @@
 # ScottoHazard
 
-![ScottoHazard](https://i.imgur.com/y2j7DOxh.jpeg)
+![ScottoHazard](https://i.imgur.com/y2j7DOxh.jpg)
 
-A 3x5 (40-keys) or 3x6 (48-keys) split ortholinear keyboard that uses a TRRS for the interconnect.
+A 3x5 (40-keys) or 3x6 (48-keys) split ortholinear keyboard that uses a TRRS cable for the interconnect.
 
 * Keyboard Maintainer: [Joe Scotto](https://github.com/joe-scotto)
 *   Hardware Supported: RP2040 Pro Micro
