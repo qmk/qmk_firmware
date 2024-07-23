@@ -14,7 +14,9 @@
         "handedness": {
             "matrix_grid": ["E6", "B3"]
         },
-        "soft_serial_pin": "D2",
+        "serial": {
+            "pin": "D2"
+        },
         "encoder": {
             "right": {
                 "rotary": [
