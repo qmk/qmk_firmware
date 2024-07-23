@@ -16,7 +16,7 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgblight": true
+        "rgblight": false
     },
     "indicators": {
         "caps_lock": "C13"
