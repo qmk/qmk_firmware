@@ -4,7 +4,9 @@
         "handedness": {
             "pin": "D2"
         },
-        "soft_serial_pin": "D0"
+        "serial": {
+            "pin": "D0"
+        }
     },
     "usb": {
         "pid": "0x2157",

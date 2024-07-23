@@ -34,7 +34,9 @@
         "handedness": {
             "pin": "D5"
         },
-        "soft_serial_pin": "D0"
+        "serial": {
+            "pin": "D0"
+        }
     },
     "rgblight": {
         "led_count": 12,

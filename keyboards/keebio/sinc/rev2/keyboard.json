@@ -25,7 +25,6 @@
     },
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D0",
         "transport": {
             "protocol": "serial",
             "sync" :{
@@ -47,6 +46,9 @@
                 "cols": ["F1", "F0", "F4", "F5", "F6", "D5", "C7", "D3", "B7"],
                 "rows": ["B3", "B2", "B6", "B4", "D7", "B0"]
             }
+        },
+        "serial": {
+            "pin": "D0"
         }
     },
     "matrix_pins": {

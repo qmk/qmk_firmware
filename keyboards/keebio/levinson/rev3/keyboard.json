@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Levinson Rev. 3",
     "split": {
-        "soft_serial_pin": "D0",
         "handedness": {
             "pin": "D2"
         },
@@ -10,6 +9,9 @@
                 "cols": ["F4", "F7", "D3", "B5", "B4", "E6"],
                 "rows": ["D4", "B2", "B3", "B1"]
             }
+        },
+        "serial": {
+            "pin": "D0"
         }
     },
     "usb": {
