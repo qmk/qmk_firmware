@@ -8,7 +8,11 @@
     "pid": "0x0003",
     "vid": "0x1727"
   },
-  "development_board": "promicro",
+  "development_board": "promicro_rp2040",
+  "matrix_pins": {
+    "cols": ["GP29", "GP28", "GP27", "GP26", "GP22", "GP20"],
+    "rows": ["GP4", "GP5", "GP6", "GP7", "NO_PIN"]
+  },
   "build": {
     "lto": true
   },
@@ -22,11 +26,12 @@
     "rgblight": true
   },
   "ws2812": {
-    "pin": "B6"
+    "pin": "GP7",
+    "driver": "vendor"
   },
   "encoder": {
     "rotary": [
-       { "pin_a": "D3", "pin_b": "D2"}
+       { "pin_a": "GP0", "pin_b": "GP0"}
     ]
   },
   "rgblight": {
