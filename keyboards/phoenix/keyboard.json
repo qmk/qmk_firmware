@@ -34,9 +34,9 @@
             "pin": "B9"
         },
         "serial": {
-            "driver": "usart"
-        },
-        "soft_serial_pin": "A9"
+            "driver": "usart",
+            "pin": "A9"
+        }
     },
     "processor": "STM32F401",
     "bootloader": "stm32-dfu",
