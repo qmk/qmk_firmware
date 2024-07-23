@@ -18,9 +18,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 // These do not seem to have keyboard.json support yet.
-#define ADNS5050_SCLK_PIN         23U
-#define ADNS5050_SDIO_PIN         8U
-#define ADNS5050_CS_PIN           9U
+#define ADNS5050_SCLK_PIN         GP23
+#define ADNS5050_SDIO_PIN         GP8
+#define ADNS5050_CS_PIN           GP9
 
 #define I2C1_SDA_PIN GP2
 #define I2C1_SCL_PIN GP3
