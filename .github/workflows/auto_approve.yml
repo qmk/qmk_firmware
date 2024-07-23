@@ -16,5 +16,5 @@ jobs:
     - uses: zvecr/automatic-approve-action@safe_files
       with:
         token: ${{ secrets.QMK_BOT_TOKEN }}
-        workflows: "format.yml,lint.yml,unit_test.yml,docs.yml"
+        workflows: "labeler.yml,lint.yml,docs.yml"
         safe_files: "keyboards/,docs/"
