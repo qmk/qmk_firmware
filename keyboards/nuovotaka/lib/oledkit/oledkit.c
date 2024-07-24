@@ -21,17 +21,18 @@ __attribute__((weak)) void oledkit_render_info_user(void)
     oledkit_render_mylogo();
 }
 
-__attribute__((weak)) bool oled_task_user(void)
-{
+bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
+    }
     oledkit_render_mylogo();
     oledkit_render_info_user();
 
-    return true;
+    return false;
 }
 
 __attribute__((weak)) oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
     return OLED_ROTATION_270;
-    return rotation;
 }
 
 #endif

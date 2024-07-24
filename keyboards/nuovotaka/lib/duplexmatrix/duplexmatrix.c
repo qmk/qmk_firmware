@@ -18,7 +18,7 @@ static pin_t col_pins[PINNUM_COL] = MATRIX_COL_PINS;
 
 static inline void set_pin_input(pin_t pin)
 {
-    setPinInputHigh(pin);
+    gpio_set_pin_input_high(pin);
 }
 
 static void set_pins_input(pin_t *pins, uint8_t n)
@@ -31,13 +31,13 @@ static void set_pins_input(pin_t *pins, uint8_t n)
 
 static inline void set_pin_output(pin_t pin)
 {
-    setPinOutput(pin);
-    writePinLow(pin);
+    gpio_set_pin_output(pin);
+    gpio_write_pin_low(pin);
 }
 
 static inline bool get_pin(pin_t pin)
 {
-    return readPin(pin);
+    return gpio_read_pin(pin);
 }
 
 __attribute__((weak)) void duplex_scan_raw_post_kb(matrix_row_t out_matrix[]) {}
@@ -97,8 +97,6 @@ static bool duplex_scan(matrix_row_t current_matrix[])
     return changed;
 }
 
-#define thisHand 0
-
 void matrix_init_custom(void)
 {
     set_pins_input(col_pins, PINNUM_COL);
@@ -109,12 +107,9 @@ void matrix_init_custom(void)
 extern matrix_row_t raw_matrix[MATRIX_ROWS];
 extern matrix_row_t matrix[MATRIX_ROWS];
 
-uint8_t matrix_scan(void)
+bool matrix_scan_custom(matrix_row_t current_matrix[])
 {
-    bool changed = duplex_scan(raw_matrix);
+    bool changed = duplex_scan(current_matrix);
 
-    debounce(raw_matrix, matrix + thisHand, ROWS_PER_HAND, changed);
-
-    matrix_scan_kb();
     return changed;
 }

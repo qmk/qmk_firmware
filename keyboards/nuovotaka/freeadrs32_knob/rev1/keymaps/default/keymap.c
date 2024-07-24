@@ -2,9 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
-#include "quantum.h"
-
-#define NUM_DIRECTIONS 2
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -62,14 +59,4 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
         ENCODER_CCW_CW(KC_UP, KC_DOWN),           // Encoder 2
         ENCODER_CCW_CW(KC_LEFT, KC_RIGHT)         // Encoder 3
     }};
-#endif
-
-#ifdef OLED_ENABLE
-
-#include "keyboards/nuovotaka/lib/oledkit/oledkit.h"
-
-void oledkit_render_info_user(void) {
-    free32knob_oled_render_keyinfo();
-    free32knob_oled_render_layerinfo();
-}
 #endif

@@ -31,7 +31,7 @@ RGBLIGHT_ENABLE = yes        # Enable RGBLIGHT
 RGB_MATRIX_DRIVER = ws2812
 
 # To support OLED
-OLED_ENABLE = no                # Please Enable this in each keymaps.
+OLED_ENABLE = yes                # Please Enable this in each keymaps.
 SRC += lib/oledkit/oledkit.c    #
 
 # Include common library

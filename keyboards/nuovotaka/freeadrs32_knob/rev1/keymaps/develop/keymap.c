@@ -4,7 +4,7 @@
 #include QMK_KEYBOARD_H
 #include "quantum.h"
 
-#define NUM_DIRECTIONS 2
+#include "print.h"
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -27,7 +27,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|------+--------+--------+--------+--------+-------+--------+--------+--------|
         S(KC_1), KC_LSFT, S(KC_A), S(KC_S), S(KC_D), S(KC_F), S(KC_G), S(KC_H), S(KC_J),
         //|------+--------+--------+--------+--------+-------+--------+--------+--------|
-        S(KC_1), KC_LALT, S(KC_Z), S(KC_X), S(KC_C), S(KC_V), MO(1), S(KC_M), KC_ENT
+        S(KC_1), KC_LALT, S(KC_Z), S(KC_X), S(KC_C), S(KC_V), _______, S(KC_M), KC_ENT
         //|------+--------+--------+--------+--------+-------+--------+--------+--------|
     )
 };
@@ -48,20 +48,16 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     }};
 #endif
 
-#ifdef OLED_ENABLE
-
-#include "keyboards/nuovotaka/lib/oledkit/oledkit.h"
-
-void oledkit_render_info_user(void) {
-    free32knob_oled_render_keyinfo();
-    free32knob_oled_render_layerinfo();
-}
-#endif
-
-
 void keyboard_post_init_user(void)
 {
 #ifdef CONSOLE_ENABLE
     debug_enable = true;
 #endif
+}
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  // If console is enabled, it will print the matrix position and status of each key pressed
+#ifdef CONSOLE_ENABLE
+    uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
+#endif 
+  return true;
 }

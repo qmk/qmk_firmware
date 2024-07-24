@@ -36,14 +36,3 @@ void keyboard_post_init_user()
     rgblight_mode_noeeprom(RGBLIGHT_MODE_RGB_TEST);
 #endif
 }
-
-#ifdef OLED_ENABLE
-
-#include "keyboards/nuovotaka/lib/oledkit/oledkit.h"
-
-void oledkit_render_info_user(void)
-{
-    free32knob_oled_render_keyinfo();
-    free32knob_oled_render_layerinfo();
-}
-#endif

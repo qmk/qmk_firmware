@@ -3,7 +3,7 @@
 
 #include QMK_KEYBOARD_H
 
-#include "lib/freeadrs32/freeadrs32.h"
+#include "rev1.h"
 
 // clang-format off
 matrix_row_t matrix_mask[MATRIX_ROWS] = {
