@@ -1,6 +1,6 @@
 # Key Cancellation
 
-Upon a selected key press down, if another key is pressed, it will release another key. This is similar to the "Kill switch" function created by Realforce.
+Upon a selected key press down, if another key is pressed, it will release another key until it is physically pressed again.
 
 ## How do I enable key cancellation {#how-do-i-enable-key-cancellation}
 
@@ -9,7 +9,7 @@ in `rules.mk` add this:
 KEY_CANCELLATION_ENABLE = yes
 ```
 
-By default, key cancellation is disabled. To enable it, you need to use the `KX_CATG` or `KX_CAON` keycode to enable it. The status is stored in persistent memory, so you shouldn't need to enable it again.
+By default, key cancellation is disabled even after adding to `rules.mk`. To enable it, you need to use the `KX_CATG` or `KX_CAON` keycode to enable it. The status is stored in persistent memory, so you shouldn't need to enable it again.
 
 ### Keycodes {#keycodes}
 
