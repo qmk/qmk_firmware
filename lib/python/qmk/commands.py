@@ -101,6 +101,12 @@ def dump_lines(output_file, lines, quiet=True):
     if output_file and output_file.name != '-':
         output_file.parent.mkdir(parents=True, exist_ok=True)
         if output_file.exists():
+            with open(output_file, 'r', encoding='utf-8', newline='\n') as f:
+                existing = f.read()
+            if existing == generated:
+                if not quiet:
+                    cli.log.info(f'No changes to {output_file.name}.')
+                return
             output_file.replace(output_file.parent / (output_file.name + '.bak'))
         with open(output_file, 'w', encoding='utf-8', newline='\n') as f:
             f.write(generated)
