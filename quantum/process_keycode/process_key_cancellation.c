@@ -59,7 +59,7 @@ void key_cancellation_toggle(void) {
 }
 
 /**
- * @brief handler for user to override whether autocorrect should process this keypress
+ * @brief handler for user to override whether key cancellation should process this keypress
  *
  * @param keycode Keycode registered by matrix press, per keymap
  * @param record keyrecord_t structure
