@@ -26,3 +26,4 @@ The Iris Rev. 6 and Rev. 6.1 PCBs are nearly identical and have the same firmwar
 To enable Lighting controls in VIA, you will need the `rev6a` firmware. See [Enabling Iris Rev. 6 VIA RGB Controls](https://docs.keeb.io/iris-rev6-rgb-via) for more details.
 
 Both the Rev. 6 and Rev. 6.1 PCBs are compatible with the `rev6a` firmware.
+This is a test
