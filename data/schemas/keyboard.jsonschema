@@ -372,12 +372,6 @@
                 }
             }
         },
-        "key_cancellation": {
-            "type": "object",
-            "properties": {
-                "enabled": {"type": "boolean"},
-            }
-        },
         "keycodes": {"$ref": "qmk.definitions.v1#/keycode_decl_array"},
         "layout_aliases": {
             "type": "object",

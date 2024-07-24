@@ -4,21 +4,21 @@
             "group": "quantum",
             "key": "QK_KEY_CANCELLATION_ON",
             "aliases": [
-                "KI_ON"
+                "KX_CAON"
             ]
         },
         "0x7C7C": {
             "group": "quantum",
             "key": "QK_KEY_CANCELLATION_OFF",
             "aliases": [
-                "KI_OFF"
+                "KX_CAOF"
             ]
         },
         "0x7C7D": {
             "group": "quantum",
             "key": "QK_KEY_CANCELLATION_TOGGLE",
             "aliases": [
-                "KI_TOGG"
+                "KX_CATG"
             ]
         }
     }
