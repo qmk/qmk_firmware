@@ -51,9 +51,6 @@
         "handedness": {
             "pin": "B6"
         },
-        "transport": {
-            "protocol": "serial"
-        },
         "serial": {
             "pin": "D0"
         }
