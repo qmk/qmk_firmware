@@ -46,7 +46,7 @@ led_config_t g_led_config = { {
 } };
 #endif
 
-#if !defined(VIA_ENABLE) && defined(ENCODER_ENABLE)
+#if defined(ENCODER_ENABLE) && !defined(ENCODER_MAP_ENABLE)
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) {
         return false;

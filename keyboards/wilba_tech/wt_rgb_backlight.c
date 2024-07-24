@@ -40,18 +40,14 @@
 #error wt_rgb_backlight.c compiled without setting configuration symbol
 #endif
 
-#ifndef MAX
-    #define MAX(X, Y) ((X) > (Y) ? (X) : (Y))
-#endif
-
-#ifndef MIN
-    #define MIN(a,b) ((a) < (b)? (a): (b))
-#endif
-
-#include "quantum.h"
 #include "wt_rgb_backlight.h"
 #include "wt_rgb_backlight_api.h"
 #include "wt_rgb_backlight_keycodes.h"
+
+#include <stdlib.h>
+#include "quantum.h"
+#include "host.h"
+#include "util.h"
 
 #if !defined(RGB_BACKLIGHT_HS60) && !defined(RGB_BACKLIGHT_NK65) && !defined(RGB_BACKLIGHT_NK87) && !defined(RGB_BACKLIGHT_NEBULA68) && !defined(RGB_BACKLIGHT_NEBULA12) && !defined (RGB_BACKLIGHT_KW_MEGA)
 #include <avr/interrupt.h>
@@ -2237,6 +2233,9 @@ void backlight_init_drivers(void)
     is31fl3733_update_led_control_registers( 0 );
     is31fl3733_update_led_control_registers( 1 );
 #else
+#if defined(RGB_BACKLIGHT_DAWN60)
+    ws2812_init();
+#endif
     // Init the #1 driver
     is31fl3731_init( 0 );
     // Init the #2 driver (if used)
@@ -2630,15 +2629,12 @@ void backlight_debug_led( bool state )
 {
     if (state)
     {
-        // Output high.
-        DDRE |= (1<<6);
-        PORTE |= (1<<6);
+        gpio_set_pin_output(E6);
+        gpio_write_pin_high(E6);
     }
     else
     {
-        // Output low.
-        DDRE &= ~(1<<6);
-        PORTE &= ~(1<<6);
+        gpio_set_pin_input(E6);
     }
 }
 #endif // defined(RGB_DEBUGGING_ONLY)
