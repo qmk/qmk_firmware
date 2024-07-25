@@ -1,6 +1,8 @@
 # Key Cancellation
 
-When a specific key is pressed and a second key is pressed, the first key will be deactivated. To reactivate it, press the first key again.
+This feature iterates over the `key_cancellation_list`, and upon any matches of key down, all specified keys are released.
+
+Imagine you're holding down the `A` key. If you then press the `D` key, the `A` key will stop being active. To use the `A` key again, you need to press it once more.
 
 ## Usage {#usage}
 
