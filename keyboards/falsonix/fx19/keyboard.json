@@ -25,7 +25,7 @@
     },
     "layouts": {
     "LAYOUT_numpad_4x5": {
-        "layout": [
+        "matrix": [
             {"label":"Num Lock", "x":0, "y":0}, 
             {"label":"/", "x":1, "y":0}, 
             {"label":"*", "x":2, "y":0}, 
