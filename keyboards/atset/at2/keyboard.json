@@ -15,7 +15,7 @@
         "bootmagic": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true    
+        "nkro": true
     },
     "matrix_pins": {
         "cols": ["GP19", "GP20"],
