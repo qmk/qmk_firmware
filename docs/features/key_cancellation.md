@@ -1,6 +1,6 @@
 # Key Cancellation
 
-Upon a selected key press down, if another key is pressed, it will release another key until it is physically pressed again.
+When a specific key is pressed and a second key is pressed, the first key will be deactivated. To reactivate it, press the first key again.
 
 ## Usage {#usage}
 
@@ -20,7 +20,6 @@ const key_cancellation_t PROGMEM key_cancellation_list[] = {
     //       |     |
     [0] = {KC_D, KC_A},
     [1] = {KC_A, KC_D},
-    [2] = {KC_A, KC_F},
 };
 ```
 
@@ -38,7 +37,7 @@ const key_cancellation_t PROGMEM key_cancellation_list[] = {
 bool process_key_cancellation_user(uint16_t keycode, keyrecord_t *record);
 ```
 
-## SOCD Example
+## SOCD WASD Example
 
 ```c
 const key_cancellation_t PROGMEM key_cancellation_list[] = {
@@ -47,7 +46,8 @@ const key_cancellation_t PROGMEM key_cancellation_list[] = {
     //       |     |
     [0] = {KC_D, KC_A},
     [1] = {KC_A, KC_D},
-    [2] = {KC_A, KC_F},
+    [2] = {KC_W, KC_S},
+    [3] = {KC_S, KC_W},
 };
 ```
 
