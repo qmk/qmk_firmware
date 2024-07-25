@@ -111,7 +111,7 @@ bool process_key_cancellation(uint16_t keycode, keyrecord_t *record) {
     }
 
     // loop through all the keyup and keydown events
-    for (int i = 0; i < key_cancellation_count(); i++) {
+    for (uint16_t i = 0; i < key_cancellation_count(); i++) {
         key_cancellation_t key_cancellation = key_cancellation_get(i);
         if (keycode == key_cancellation.press) {
             del_key(key_cancellation.unpress);
