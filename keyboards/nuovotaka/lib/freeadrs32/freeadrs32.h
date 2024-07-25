@@ -26,12 +26,11 @@ extern knob_t knob;
 
 //////////////////////////////////////////////////////////////////////////////
 // Public API functions
-
+void oledkit_render_mylogo(void);
 /// free32_knob_oled_render_keyinfo renders last processed key information to OLED.
-/// It shows column, row, key code, and key name (if available).
+/// It shows column, row, key code.
 void free32knob_oled_render_keyinfo(void);
 
 /// free32_knob_oled_render_layerinfo renders current layer status information to
-/// OLED.  It shows layer mask with number (1~f) for active layers and '_' for
-/// inactive layers.
+/// OLED.
 void free32knob_oled_render_layerinfo(void);

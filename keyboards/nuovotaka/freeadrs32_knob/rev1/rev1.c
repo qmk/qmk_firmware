@@ -16,3 +16,10 @@ matrix_row_t matrix_mask[MATRIX_ROWS] = {
 };
 
 // clang-format on
+
+bool oled_task_user(void) {
+    oledkit_render_mylogo();
+    free32knob_oled_render_keyinfo();
+    free32knob_oled_render_layerinfo();
+    return false;
+}

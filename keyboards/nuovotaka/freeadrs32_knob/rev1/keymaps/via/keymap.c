@@ -67,10 +67,3 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
         ENCODER_CCW_CW(_______, _______)  // Encoder 3
     }};
 #endif
-
-bool oled_task_user(void) {
-
-    free32knob_oled_render_keyinfo();
-    free32knob_oled_render_layerinfo();
-    return false;
-}
