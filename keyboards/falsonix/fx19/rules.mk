@@ -4,4 +4,4 @@
 # Bootloader selection
 BOOTLOADER = atmel-dfu
 
-RGBLIGHT_ENABLE = yes # Enable RGB lighting
+# RGBLIGHT_ENABLE = yes # Enable RGB lighting
