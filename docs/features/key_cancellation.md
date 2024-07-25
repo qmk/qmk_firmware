@@ -2,9 +2,9 @@
 
 Upon a selected key press down, if another key is pressed, it will release another key until it is physically pressed again.
 
-## How do I enable key cancellation {#how-do-i-enable-key-cancellation}
+## Usage {#usage}
 
-in `rules.mk` add this:
+Add the following to your `rules.mk`
 ```make
 KEY_CANCELLATION_ENABLE = yes
 ```
