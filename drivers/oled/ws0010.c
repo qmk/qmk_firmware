@@ -193,20 +193,20 @@ void ws0010_init(bool cursor, bool blink, bool shift) {
 
     // There should be some timing inbetween commands but the docs just say check busy inbetween, this is built into the command function.
     ws0010_command(0x2); //0010 nibble
-    #if WS0010_DISPLAY_LINES == 1
-        ws0010_command(WS0010_CMD_FUNCTION); // 4 bit, 1 line, 5x8 dots
-    #else
-        ws0010_command(WS0010_CMD_FUNCTION | WS0010_FUNCTION_2_LINES); // 4 bit, 2 lines, 5x8 dots
-    #endif
+#if WS0010_DISPLAY_LINES == 1
+    ws0010_command(WS0010_CMD_FUNCTION); // 4 bit, 1 line, 5x8 dots
+#else
+    ws0010_command(WS0010_CMD_FUNCTION | WS0010_FUNCTION_2_LINES); // 4 bit, 2 lines, 5x8 dots
+#endif
     ws0010_command(WS0010_CMD_DISPLAY); // Turn off display
     ws0010_command(WS0010_CMD_CLEAR_DISPLAY); // Clear the display
     if (shift) {
     ws0010_command(WS0010_CMD_ENTRY_MODE | WS0010_ENTRY_MODE_INC | WS0010_ENTRY_MODE_SHIFT); // Set entry mode right to left
-        } else {
+    } else {
     ws0010_command(WS0010_CMD_ENTRY_MODE | WS0010_ENTRY_MODE_INC); // Set entry mode left to right
-        }
+    }
     ws0010_command(WS0010_CMD_RETURN_HOME); // Home command
-    //turn on the display and cursor and blink if appliable
+    // turn on the display and cursor and blink if appliable
     if (cursor) {
         if (blink) {
             ws0010_command(WS0010_CMD_DISPLAY | WS0010_DISPLAY_ON | WS0010_DISPLAY_CURSOR | WS0010_DISPLAY_BLINK);
