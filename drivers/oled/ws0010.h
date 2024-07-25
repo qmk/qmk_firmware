@@ -30,7 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * WS0010 CHARACTER OLED MODULE USER MANUAL
  * https://surenoo.tech/download/03_SOL/0301_SOC/SOC1602E.pdf
- * 
+ *
  * WS0010 ic specifications
  * https://forums.adafruit.com/download/file.php?id=69617
  *
