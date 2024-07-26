@@ -311,23 +311,18 @@ void host_joystick_send(joystick_t *joystick) {
 __attribute__((weak)) void send_joystick(report_joystick_t *report) {}
 
 #ifdef DIGITIZER_ENABLE
-void host_digitizer_send(digitizer_t *digitizer) {
-    report_digitizer_t report = {
-#    ifdef DIGITIZER_SHARED_EP
-        .report_id = REPORT_ID_DIGITIZER,
-#    endif
-        .in_range = digitizer->in_range,
-        .tip      = digitizer->tip,
-        .barrel   = digitizer->barrel,
-        .x        = (uint16_t)(digitizer->x * 0x7FFF),
-        .y        = (uint16_t)(digitizer->y * 0x7FFF),
-    };
-
-    send_digitizer(&report);
+void host_digitizer_send(report_digitizer_t *report) {
+    report->report_id = REPORT_ID_DIGITIZER;
+    send_digitizer(report);
 }
-#endif
-
 __attribute__((weak)) void send_digitizer(report_digitizer_t *report) {}
+
+void host_digitizer_stylus_send(report_digitizer_stylus_t *report) {
+    report->report_id = REPORT_ID_DIGITIZER_STYLUS;
+    send_digitizer_stylus(report);
+}
+__attribute__((weak)) void send_digitizer_stylus(report_digitizer_stylus_t *report) {}
+#endif
 
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
 void host_programmable_button_send(uint32_t data) {

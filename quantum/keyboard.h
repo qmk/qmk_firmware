@@ -133,9 +133,12 @@ uint32_t last_encoder_activity_time(void);    // Timestamp of the last encoder a
 uint32_t last_encoder_activity_elapsed(void); // Number of milliseconds since the last encoder activity
 
 uint32_t last_pointing_device_activity_time(void);    // Timestamp of the last pointing device activity
-uint32_t last_pointing_device_activity_elapsed(void); // Number of milliseconds since the last  pointing device activity
+uint32_t last_pointing_device_activity_elapsed(void); // Number of milliseconds since the last pointing device activity
 
-void set_activity_timestamps(uint32_t matrix_timestamp, uint32_t encoder_timestamp, uint32_t pointing_device_timestamp); // Set the timestamps of the last matrix and encoder activity
+uint32_t last_digitizer_activity_time(void);    // Timestamp of the last digitizer activity
+uint32_t last_digitizer_activity_elapsed(void); // Number of milliseconds since the last digitizer activity
+
+void set_activity_timestamps(uint32_t matrix_timestamp, uint32_t encoder_timestamp, uint32_t pointing_device_timestamp, uint32_t digitizer_timestamp); // Set the timestamps of the last matrix and encoder activity
 
 uint32_t get_matrix_scan_rate(void);
 
