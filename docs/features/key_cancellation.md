@@ -16,6 +16,7 @@ By default, key cancellation is disabled even after adding to `rules.mk`. To ena
 Your `keymap.c` will then need a Key Cancellation list definition:
 
 ```c
+#if defined(KEY_CANCELLATION_ENABLE)
 const key_cancellation_t PROGMEM key_cancellation_list[] = {
     // on key down
     //       |    key to be released
@@ -23,6 +24,23 @@ const key_cancellation_t PROGMEM key_cancellation_list[] = {
     [0] = {KC_D, KC_A},
     [1] = {KC_A, KC_D},
 };
+#endif
+```
+
+## SOCD WASD Example
+
+```c
+#if defined(KEY_CANCELLATION_ENABLE)
+const key_cancellation_t PROGMEM key_cancellation_list[] = {
+    // on key down
+    //       |    key to be released
+    //       |     |
+    [0] = {KC_D, KC_A},
+    [1] = {KC_A, KC_D},
+    [2] = {KC_W, KC_S},
+    [3] = {KC_S, KC_W},
+};
+#endif
 ```
 
 ## Keycodes {#keycodes}
@@ -39,23 +57,10 @@ const key_cancellation_t PROGMEM key_cancellation_list[] = {
 bool process_key_cancellation_user(uint16_t keycode, keyrecord_t *record);
 ```
 
-## SOCD WASD Example
-
-```c
-const key_cancellation_t PROGMEM key_cancellation_list[] = {
-    // on key down
-    //       |    key to be released
-    //       |     |
-    [0] = {KC_D, KC_A},
-    [1] = {KC_A, KC_D},
-    [2] = {KC_W, KC_S},
-    [3] = {KC_S, KC_W},
-};
-```
 
 ## Functions {#functions}
 
-Additional provided to to manipulate Key Cancellation:
+Additional functions provided to manipulate Key Cancellation:
 
 | Function                        | Description                                       |
 |---------------------------------|---------------------------------------------------|
