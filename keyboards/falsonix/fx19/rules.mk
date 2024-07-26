@@ -4,5 +4,5 @@
 # Bootloader selection
 BOOTLOADER = atmel-dfu
 
-RGB_MATRIX_ENABLE = yes # Enable RGB matrix
-RGB_MATRIX_DRIVER = ws2812 # Set LED type to the WS2812
+RGBLIGHT_ENABLE = yes # enable RGB lighting
+RGBLIGHT_DRIVER = ws2812 # specify led type

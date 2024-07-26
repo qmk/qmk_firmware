@@ -3,20 +3,6 @@
 
 #include QMK_KEYBOARD_H
 
-#define LAYOUT_numpad_4x5( \
-    k00, k01, k02, k03, \
-    k04, k05, k06, \
-    k07, k08, k09, k16, \
-    k10, k11, k12, \
-    k13, k14, k15, k17 \
-) { \
-    { k00, k01, k02, k03 }, \
-    { k04, k05, k06, KC_NO }, \
-    { k07, k08, k09, k16 }, \
-    { k10, k11, k12, KC_NO }, \
-    { k13, k14, k15, k17 } \
-}
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
     *┌───┬───┬───┬───┐
