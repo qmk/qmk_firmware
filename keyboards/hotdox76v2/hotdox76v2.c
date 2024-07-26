@@ -248,11 +248,10 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void matrix_scan_kb(void) {
+void housekeeping_task_kb(void) {
     if (!is_oled_on()) {
         m2s.cur_alp_index = 1;
     }
-    matrix_scan_user();
 }
 
 void user_sync_alpa_slave_handler(uint8_t in_buflen, const void *in_data, uint8_t out_buflen, void *out_data) {
