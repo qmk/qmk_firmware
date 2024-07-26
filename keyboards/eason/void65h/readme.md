@@ -6,7 +6,7 @@ A customizable hotswap 65% keyboard.
 
 * Keyboard Maintainer: [EASON](https://github.com/EasonQian1)
 * Hardware Supported: void65h
-* Hardware Availability: [vertex-kb](https://github.com/Vertex-kb)
+* Hardware Availability: [anorexus](https://anorexus.design/project/void)
 
 Make example for this keyboard (after setting up your build environment):
 
