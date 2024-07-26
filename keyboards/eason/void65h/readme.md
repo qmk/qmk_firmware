@@ -1,6 +1,6 @@
 # void65h
 
-![meow65](https://i.imgur.com/3Z3jNAS.jpg)
+![void65h](https://i.imgur.com/3Z3jNAS.jpg)
 
 A customizable hotswap 65% keyboard.
 
