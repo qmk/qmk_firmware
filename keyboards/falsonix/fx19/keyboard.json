@@ -12,6 +12,12 @@
         "mousekey": true,
         "nkro": true
     },
+    "rgblight": {
+        "led_count": 6
+    },
+    "ws2812": {
+        "pin": "D7"
+    },
     "matrix_pins": {
         "cols": ["C7", "C6", "B6", "B5"],
         "rows": ["F0", "F1", "F4", "F5", "F6"]
