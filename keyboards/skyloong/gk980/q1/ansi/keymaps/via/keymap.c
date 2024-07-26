@@ -136,11 +136,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
      case DF(0):
       if (record->event.pressed) {
        L_WIN = 1;
+       L_MAC = 0;
+       layer_move(0);
        set_single_persistent_default_layer(0); // Save default layer 0 to eeprom
       } else {
        L_WIN = 0;
       }
-      return true; // continue all further processing of this key
+      return false; // cancel all further processing of this key
 
      case MO(2):
       if (record->event.pressed) {
@@ -153,11 +155,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
      case DF(1):
       if (record->event.pressed) {
        L_MAC = 1;
+       L_WIN = 0;
+       layer_move(1);
        set_single_persistent_default_layer(1);  //Save default layer 1 to eeprom
       } else {
        L_MAC = 0;
       }
-      return true; // continue all further processing of this key
+      return false; // cancel  all further processing of this key
 
      case MO(3):
       if (record->event.pressed) {
@@ -167,6 +171,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return true; // continue all further processing of this key
     default:
+       L_MAC = 0;
+       L_WIN = 0;
       return true;
     }
 }
