@@ -39,19 +39,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL,  _______,
         KC_CAPS, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS, _______, _______, KC_SCLN, KC_QUOT, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______,                      _______,                                  _______, _______, _______, _______    
-    ), 
+        _______, _______,                      _______,                                  _______, _______, _______, _______
+    ),
 
     [_LAYER2] = LAYOUT_ortho(
         KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,    KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,   KC_F12,  _______,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_M_K, RGB_M_G, RGB_M_R, RGB_M_SW, _______, RGB_HUI,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RESET,   XXXXXXX, XXXXXXX, XXXXXXX, RGB_VAI, RGB_VAD,  _______, RGB_HUD,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, RGB_VAI, RGB_VAD,  _______, RGB_HUD,
         _______, RGB_TOG,                      XXXXXXX,                                  XXXXXXX, KC_DEL,   KC_RALT, KC_RCTL
     ),
 };
 
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         if (clockwise) {
             tap_code(KC_VOLU);
@@ -59,17 +59,15 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_VOLD);
         }
     }
-} 
+    return true;
+}
 
 #ifdef COMBO_ENABLE
 const uint16_t PROGMEM combo_ent[] = {KC_DOT, KC_SLSH, COMBO_END};
 
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
   [COMBO_ENT] = COMBO(combo_ent,KC_ENT),
 
 };
 #endif
-        
-
-    

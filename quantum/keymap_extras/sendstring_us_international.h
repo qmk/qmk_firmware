@@ -14,12 +14,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Sendstring lookup tables for UK layouts
+// Sendstring lookup tables for US International layouts
 
 #pragma once
 
+#include "send_string.h"
 #include "keymap_us_international.h"
-#include "quantum.h"
 
 // clang-format off
 

@@ -18,43 +18,41 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x3060
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    RGBKB
-#define PRODUCT         Sol
-
-/* ws2812 RGB LED */
-#define RGB_DI_PIN B7
-
-#define BACKLIGHT_LEDS 124
-
-#ifdef FULLHAND_ENABLE
-  #define FULLHAND_LEDS 24
-#elif SF_ENABLE
-  #define FULLHAND_LEDS 38
-#else
-  #define FULLHAND_LEDS 0
-#endif
-
 // Underglow / DIY Tent Glow are parallel to the top row leds, no separate define
-
+// Full Hand case adds 24 LEDs, Star Fighter case adds 38 LEDs
+// For mirrored LED control (each MCU controls half the LEDs), total LED counts are divided in half
 #ifdef LED_MIRRORED
-  #define RGBLED_NUM ((BACKLIGHT_LEDS + FULLHAND_LEDS) / 2)
+  #ifdef FULLHAND_ENABLE
+    #define FULLHAND_LEDS 24
+    #define RGBLIGHT_LED_COUNT 74
+  #elif SF_ENABLE
+    #define FULLHAND_LEDS 38
+    #define RGBLIGHT_LED_COUNT 81
+  #else
+    #define FULLHAND_LEDS 0
+    #define RGBLIGHT_LED_COUNT 62
+  #endif
 #else
-  #define RGBLED_NUM (BACKLIGHT_LEDS + FULLHAND_LEDS)
+  #ifdef FULLHAND_ENABLE
+    #define FULLHAND_LEDS 24
+    #define RGBLIGHT_LED_COUNT 148
+  #elif SF_ENABLE
+    #define FULLHAND_LEDS 38
+    #define RGBLIGHT_LED_COUNT 162
+  #else
+    #define FULLHAND_LEDS 0
+    #define RGBLIGHT_LED_COUNT 124
+  #endif
 #endif
-#define DRIVER_LED_TOTAL  RGBLED_NUM
 
-#define RGB_MATRIX_CENTER { 112, 37 }
+#define RGB_MATRIX_LED_COUNT  RGBLIGHT_LED_COUNT
 
 // Encoder support
 #ifndef EXTRA_ENCODERS_ENABLE
 #define ENCODERS_PAD_A { D2 }
 #define ENCODERS_PAD_B { D6 }
 #else
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
     #error Extra encoders cannot be enabled at the same time as the OLED Driver as they use the same pins.
 #endif
 #define ENCODERS_PAD_A { D2, D1, B0 }

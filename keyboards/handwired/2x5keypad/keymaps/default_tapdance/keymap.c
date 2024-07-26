@@ -17,80 +17,80 @@ enum tap_codes {
     A_Y, I_I, O_C, U_U
 };
 
-#define FR_A_GRAVE  "00E0"
-#define FR_A_HAT    "00E2"
+#define FR_A_GRAVE  0x00E0 // à
+#define FR_A_HAT    0x00E2 // â
 
-#define FR_C_CIRCUM "00E7"
+#define FR_C_CIRCUM 0x00E7 // ç
 
-#define FR_E_AIGU   "00E9"
-#define FR_E_GRAVE  "00E8"
-#define FR_E_HAT    "00EA"
-#define FR_E_UMLAUT "00EB"
+#define FR_E_AIGU   0x00E9 // é
+#define FR_E_GRAVE  0x00E8 // è
+#define FR_E_HAT    0x00EA // ê
+#define FR_E_UMLAUT 0x00EB // ë
 
-#define FR_I_HAT    "00EE"
-#define FR_I_UMLAUT "00EF"
+#define FR_I_HAT    0x00EE // î
+#define FR_I_UMLAUT 0x00EF // ï
 
-#define FR_O_HAT    "00F4"
+#define FR_O_HAT    0x00F4 // ô
 
-#define FR_U_GRAVE  "00F9"
-#define FR_U_HAT    "00FB"
-#define FR_U_UMLAUT "00FC"
+#define FR_U_GRAVE  0x00F9 // ù
+#define FR_U_HAT    0x00FB // û
+#define FR_U_UMLAUT 0x00FC // ü
 
-#define FR_Y_UMLAUT "00FF"
+#define FR_Y_UMLAUT 0x00FF // ÿ
 
-#define FR_L_QUOTE  "00AB"
-#define FR_R_QUOTE  "00BB"
+#define FR_L_QUOTE  0x00AB // «
+#define FR_R_QUOTE  0x00BB // »
 
-void send_french_unicode_char(uint8_t count, char *once, char *twice)
+void send_french_unicode_char(uint8_t count, uint32_t once, uint32_t twice)
 {
     if (count <= 1)
-	send_unicode_hex_string(once);
+	register_unicode(once);
     else
-	send_unicode_hex_string(twice); 
+	register_unicode(twice);
 }
 
-void dance_a_q(qk_tap_dance_state_t *state, void *user_data)
+void dance_a_q(tap_dance_state_t *state, void *user_data)
 {
     send_french_unicode_char(state->count, FR_A_GRAVE, FR_L_QUOTE);
 }
 
-void dance_e_q(qk_tap_dance_state_t *state, void *user_data)
+void dance_e_q(tap_dance_state_t *state, void *user_data)
 {
     send_french_unicode_char(state->count, FR_E_AIGU, FR_R_QUOTE);
 }
 
-void dance_e_u(qk_tap_dance_state_t *state, void *user_data)
+void dance_e_u(tap_dance_state_t *state, void *user_data)
 {
     send_french_unicode_char(state->count, FR_E_GRAVE, FR_U_GRAVE);
 }
 
-void dance_e_e(qk_tap_dance_state_t *state, void *user_data)
+void dance_e_e(tap_dance_state_t *state, void *user_data)
 {
     send_french_unicode_char(state->count, FR_E_HAT, FR_E_UMLAUT);
 }
 
-void dance_a_y(qk_tap_dance_state_t *state, void *user_data)
+void dance_a_y(tap_dance_state_t *state, void *user_data)
 {
     send_french_unicode_char(state->count, FR_A_HAT, FR_Y_UMLAUT);
 }
 
-void dance_i_i(qk_tap_dance_state_t *state, void *user_data)
+void dance_i_i(tap_dance_state_t *state, void *user_data)
 {
     send_french_unicode_char(state->count, FR_I_HAT, FR_I_UMLAUT);
 }
 
-void dance_o_c(qk_tap_dance_state_t *state, void *user_data)
+void dance_o_c(tap_dance_state_t *state, void *user_data)
 {
     send_french_unicode_char(state->count, FR_O_HAT, FR_C_CIRCUM);
 }
 
-void dance_u_u(qk_tap_dance_state_t *state, void *user_data)
+void dance_u_u(tap_dance_state_t *state, void *user_data)
 {
     send_french_unicode_char(state->count, FR_U_HAT, FR_U_UMLAUT);
 }
 
 /* Define the tap dance actions for the french characters */
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [A_Q] = ACTION_TAP_DANCE_FN(dance_a_q),
     [E_Q] = ACTION_TAP_DANCE_FN(dance_e_q),
     [E_U] = ACTION_TAP_DANCE_FN(dance_e_u),
@@ -119,23 +119,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 			    KC_TRNS,  TD(A_Y), TD(I_I), TD(O_C), TD(U_U))
 };
 
-
-/* DISABLED
-void matrix_init_user(void) {
-}
-
-void matrix_scan_user(void) {
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	return true;
-}
-*/
-
-
 void matrix_init_user(void)
 {
-    set_unicode_input_mode(UC_WINC);  /* See https://jayliu50.github.io/qmk-cheatsheet/ */
+    set_unicode_input_mode(UNICODE_MODE_WINCOMPOSE);  /* See https://jayliu50.github.io/qmk-cheatsheet/ */
 }
 
 

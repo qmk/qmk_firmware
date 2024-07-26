@@ -15,32 +15,31 @@
  */
 
 #include "process_backlight.h"
-
 #include "backlight.h"
 
 bool process_backlight(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
-            case BL_ON:
+            case QK_BACKLIGHT_ON:
                 backlight_level(BACKLIGHT_LEVELS);
                 return false;
-            case BL_OFF:
+            case QK_BACKLIGHT_OFF:
                 backlight_level(0);
                 return false;
-            case BL_DEC:
+            case QK_BACKLIGHT_DOWN:
                 backlight_decrease();
                 return false;
-            case BL_INC:
+            case QK_BACKLIGHT_UP:
                 backlight_increase();
                 return false;
-            case BL_TOGG:
+            case QK_BACKLIGHT_TOGGLE:
                 backlight_toggle();
                 return false;
-            case BL_STEP:
+            case QK_BACKLIGHT_STEP:
                 backlight_step();
                 return false;
 #ifdef BACKLIGHT_BREATHING
-            case BL_BRTG:
+            case QK_BACKLIGHT_TOGGLE_BREATHING:
                 backlight_toggle_breathing();
                 return false;
 #endif

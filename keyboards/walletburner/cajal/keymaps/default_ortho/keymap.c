@@ -47,31 +47,40 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
+//Initialize indicator LEDs
+void matrix_init_user(void) {
+  gpio_set_pin_output(B5);
+  gpio_write_pin_low(B5);
+  gpio_set_pin_output(B6);
+  gpio_write_pin_low(B6);
+  gpio_set_pin_output(B7);
+  gpio_write_pin_low(B7);
+}
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    writePinLow(B7);
-    writePinLow(B6);
+    gpio_write_pin_low(B7);
+    gpio_write_pin_low(B6);
     switch (get_highest_layer(state)) {
     case 1:
-        writePinHigh(B7);
+        gpio_write_pin_high(B7);
         break;
     case 2:
-        writePinHigh(B6);
+        gpio_write_pin_high(B6);
         break;
     case 3:
-        writePinHigh(B7);
-        writePinHigh(B6);
+        gpio_write_pin_high(B7);
+        gpio_write_pin_high(B6);
         break;
     }
     return state;
 }
 
 bool led_update_user(led_t led_state) {
-    writePin(B5, led_state.caps_lock);
+    gpio_write_pin(B5, led_state.caps_lock);
     return false;
 }
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         if (clockwise) {
             tap_code(KC_VOLD);
@@ -79,4 +88,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_VOLU);
         }
     }
+    return true;
 }

@@ -1,39 +1,33 @@
-/* Copyright 2019
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2024 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+/*******************************************************************************
+  88888888888 888      d8b                .d888 d8b 888               d8b
+      888     888      Y8P               d88P"  Y8P 888               Y8P
+      888     888                        888        888
+      888     88888b.  888 .d8888b       888888 888 888  .d88b.       888 .d8888b
+      888     888 "88b 888 88K           888    888 888 d8P  Y8b      888 88K
+      888     888  888 888 "Y8888b.      888    888 888 88888888      888 "Y8888b.
+      888     888  888 888      X88      888    888 888 Y8b.          888      X88
+      888     888  888 888  88888P'      888    888 888  "Y8888       888  88888P'
+                                                        888                 888
+                                                        888                 888
+                                                        888                 888
+     .d88b.   .d88b.  88888b.   .d88b.  888d888 8888b.  888888 .d88b.   .d88888
+    d88P"88b d8P  Y8b 888 "88b d8P  Y8b 888P"      "88b 888   d8P  Y8b d88" 888
+    888  888 88888888 888  888 88888888 888    .d888888 888   88888888 888  888
+    Y88b 888 Y8b.     888  888 Y8b.     888    888  888 Y88b. Y8b.     Y88b 888
+     "Y88888  "Y8888  888  888  "Y8888  888    "Y888888  "Y888 "Y8888   "Y88888
+         888
+    Y8b d88P
+     "Y88P"
+*******************************************************************************/
 
 #pragma once
-
-#include "keymap.h"
-
+#include "keycodes.h"
 // clang-format off
 
-/*
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ + │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ / │ - │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │ F │ G │ Ğ │ I │ O │ D │ R │ N │ H │ P │ Q │ W │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │ U │ İ │ E │ A │ Ü │ T │ K │ M │ L │ Y │ Ş │ X │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │ < │ J │ Ö │ V │ C │ Ç │ Z │ S │ B │ . │ , │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
+// Aliases
 #define TR_PLUS KC_GRV  // +
 #define TR_1    KC_1    // 1
 #define TR_2    KC_2    // 2
@@ -47,7 +41,6 @@
 #define TR_0    KC_0    // 0
 #define TR_SLSH KC_MINS // /
 #define TR_MINS KC_EQL  // -
-// Row 2
 #define TR_F    KC_Q    // F
 #define TR_G    KC_W    // G
 #define TR_GBRV KC_E    // Ğ
@@ -60,7 +53,6 @@
 #define TR_P    KC_P    // P
 #define TR_Q    KC_LBRC // Q
 #define TR_W    KC_RBRC // W
-// Row 3
 #define TR_U    KC_A    // U
 #define TR_IDOT KC_S    // İ
 #define TR_E    KC_D    // E
@@ -73,7 +65,6 @@
 #define TR_Y    KC_SCLN // Y
 #define TR_SCED KC_QUOT // Ş
 #define TR_X    KC_NUHS // X
-// Row 4
 #define TR_LABK KC_NUBS // <
 #define TR_J    KC_Z    // J
 #define TR_ODIA KC_X    // Ö
@@ -85,21 +76,6 @@
 #define TR_B    KC_COMM // B
 #define TR_DOT  KC_DOT  // .
 #define TR_COMM KC_SLSH // ,
-
-/* Shifted symbols
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ * │ ! │ " │ ^ │ $ │ % │ & │ ' │ ( │ ) │ = │ ? │ _ │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │   │   │   │   │   │   │   │   │   │   │   │   │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │   │   │   │   │   │   │   │   │   │   │   │   │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │ > │   │   │   │   │   │   │   │   │ : │ ; │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
 #define TR_ASTR S(TR_PLUS) // *
 #define TR_EXLM S(TR_1)    // !
 #define TR_DQUO S(TR_2)    // "
@@ -111,27 +87,11 @@
 #define TR_LPRN S(TR_8)    // (
 #define TR_RPRN S(TR_9)    // )
 #define TR_EQL  S(TR_0)    // =
-#define TR_QUES S(TR_ASTR) // ?
+#define TR_QUES S(TR_SLSH) // ?
 #define TR_UNDS S(TR_MINS) // _
-// Row 4
 #define TR_RABK S(TR_LABK) // >
 #define TR_COLN S(TR_DOT)  // :
 #define TR_SCLN S(TR_COMM) // ;
-
-/* AltGr symbols
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ ¬ │ ¹ │ ² │ # │ ¼ │ ½ │ ¾ │ { │ [ │ ] │ } │ \ │ | │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │ @ │   │   │ ¶ │   │ ¥ │   │   │ Ø │ £ │ ¨ │ ~ │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │ Æ │ ß │ € │   │   │ ₺ │   │   │   │ ´ │   │ ` │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │   │ « │ » │ ¢ │   │   │   │ µ │ × │ ÷ │ - │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
 #define TR_NOT  ALGR(TR_PLUS) // ¬
 #define TR_SUP1 ALGR(TR_1)    // ¹
 #define TR_SUP2 ALGR(TR_2)    // ²
@@ -145,7 +105,6 @@
 #define TR_RCBR ALGR(TR_0)    // }
 #define TR_BSLS ALGR(TR_SLSH) // (backslash)
 #define TR_PIPE ALGR(TR_MINS) // |
-// Row 2
 #define TR_AT   ALGR(TR_F)    // @
 #define TR_PILC ALGR(TR_I)    // ¶
 #define TR_YEN  ALGR(TR_D)    // ¥
@@ -153,45 +112,26 @@
 #define TR_PND  ALGR(TR_P)    // £
 #define TR_DIAE ALGR(TR_Q)    // ¨ (dead)
 #define TR_TILD ALGR(TR_W)    // ~ (dead)
-// Row 3
 #define TR_AE   ALGR(TR_U)    // Æ
 #define TR_SS   ALGR(TR_IDOT) // ß
 #define TR_EURO ALGR(TR_E)    // €
 #define TR_LIRA ALGR(TR_T)    // ₺
 #define TR_ACUT ALGR(TR_Y)    // ´ (dead)
 #define TR_GRV  ALGR(TR_X)    // ` (dead)
-// Row 4
 #define TR_LDAQ ALGR(TR_J)    // «
 #define TR_RDAQ ALGR(TR_ODIA) // »
 #define TR_CENT ALGR(TR_V)    // ¢
 #define TR_MICR ALGR(TR_S)    // µ
 #define TR_MUL  ALGR(TR_B)    // ×
 #define TR_DIV  ALGR(TR_DOT)  // ÷
-#define TR_SHYP ALGR(TR_COMM) // (soft hyphen)
-
-/* Shift+AltGr symbols
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │   │   │   │ ³ │ ¤ │   │   │   │   │   │   │ ¿ │   │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │   │   │   │ ® │   │   │   │   │   │   │   │   │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │   │ § │   │ ª │   │   │   │   │   │   │   │   │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │ ¦ │   │   │ © │   │   │   │ º │   │   │   │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
+#define TR_SHYP ALGR(TR_COMM) // ­ (soft hyphen)
 #define TR_SUP3 S(ALGR(TR_3))    // ³
 #define TR_CURR S(ALGR(TR_4))    // ¤
 #define TR_IQUE S(ALGR(TR_SLSH)) // ¿
-// Row 2
-#define TR_REGD S(ALGR(TR_I)     // ®
-// Row 3
+#define TR_REGD S(ALGR(TR_I))    // ®
 #define TR_SECT S(ALGR(TR_IDOT)) // §
 #define TR_FORD S(ALGR(TR_A))    // ª
-// Row 4
 #define TR_BRKP S(ALGR(TR_LABK)) // ¦
 #define TR_COPY S(ALGR(TR_V))    // ©
 #define TR_MORD S(ALGR(TR_S))    // º
+

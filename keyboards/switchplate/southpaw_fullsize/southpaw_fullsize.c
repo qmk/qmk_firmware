@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "southpaw_fullsize.h"
+#include "quantum.h"
 
 // Optional override functions below.
 // You can leave any or all of these undefined.
@@ -30,9 +30,9 @@ void matrix_init_kb(void) {
     // runs once when the firmware starts up
 
     // D3 Numlock, D4 Capslock, D5 Scrlock
-    setPinOutput(INDICATOR_NUM);
-    setPinOutput(INDICATOR_CAPS);
-    setPinOutput(INDICATOR_SCR);
+    gpio_set_pin_output(INDICATOR_NUM);
+    gpio_set_pin_output(INDICATOR_CAPS);
+    gpio_set_pin_output(INDICATOR_SCR);
 
     matrix_init_user();
 }
@@ -42,9 +42,9 @@ bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if (res)
     {
-        writePin(INDICATOR_NUM, !led_state.num_lock);
-        writePin(INDICATOR_CAPS, !led_state.caps_lock);
-        writePin(INDICATOR_SCR, !led_state.scroll_lock);
+        gpio_write_pin(INDICATOR_NUM, !led_state.num_lock);
+        gpio_write_pin(INDICATOR_CAPS, !led_state.caps_lock);
+        gpio_write_pin(INDICATOR_SCR, !led_state.scroll_lock);
     }
     return res;
 }

@@ -1,11 +1,21 @@
 #pragma once
 
-// raw is the current key state
-// on entry cooked is the previous debounced state
-// on exit cooked is the current debounced state
-// changed is true if raw has changed since the last call
-void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed);
+#include <stdint.h>
+#include <stdbool.h>
+#include "matrix.h"
 
-bool debounce_active(void);
+/**
+ * @brief Debounce raw matrix events according to the choosen debounce algorithm.
+ *
+ * @param raw The current key state
+ * @param cooked The debounced key state
+ * @param num_rows Number of rows to debounce
+ * @param changed True if raw has changed since the last call
+ * @return true Cooked has new keychanges after debouncing
+ * @return false Cooked is the same as before
+ */
+bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed);
 
 void debounce_init(uint8_t num_rows);
+
+void debounce_free(void);

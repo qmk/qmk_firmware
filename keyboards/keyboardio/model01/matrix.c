@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "quantum.h"
+#include "matrix.h"
 #include "i2c_master.h"
 #include <string.h>
 #include "model01.h"
@@ -25,6 +25,17 @@
 static matrix_row_t rows[MATRIX_ROWS];
 #define ROWS_PER_HAND (MATRIX_ROWS / 2)
 
+// user-defined overridable functions
+
+__attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
+
+__attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
+
+__attribute__((weak)) void matrix_init_user(void) {}
+
+__attribute__((weak)) void matrix_scan_user(void) {}
+
+// helper functions
 inline
 uint8_t matrix_rows(void) {
   return MATRIX_ROWS;
@@ -58,22 +69,22 @@ static int i2c_set_keyscan_interval(int hand, int delay) {
 
 void matrix_init(void) {
   /* Ensure scanner power is on - else right hand will not work */
-  DDRC |= _BV(7);
-  PORTC |= _BV(7);
+  gpio_set_pin_output(C7);
+  gpio_write_pin_high(C7);
 
   i2c_init();
   i2c_set_keyscan_interval(LEFT, 2);
   i2c_set_keyscan_interval(RIGHT, 2);
   memset(rows, 0, sizeof(rows));
 
-  matrix_init_quantum();
+  matrix_init_kb();
 }
 
 uint8_t matrix_scan(void) {
   uint8_t ret = 0;
   ret |= i2c_read_hand(LEFT);
   ret |= i2c_read_hand(RIGHT);
-  matrix_scan_quantum();
+  matrix_scan_kb();
   return ret;
 }
 

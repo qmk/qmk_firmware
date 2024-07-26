@@ -1,39 +1,33 @@
-/* Copyright 2018 fuge
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2024 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+/*******************************************************************************
+  88888888888 888      d8b                .d888 d8b 888               d8b
+      888     888      Y8P               d88P"  Y8P 888               Y8P
+      888     888                        888        888
+      888     88888b.  888 .d8888b       888888 888 888  .d88b.       888 .d8888b
+      888     888 "88b 888 88K           888    888 888 d8P  Y8b      888 88K
+      888     888  888 888 "Y8888b.      888    888 888 88888888      888 "Y8888b.
+      888     888  888 888      X88      888    888 888 Y8b.          888      X88
+      888     888  888 888  88888P'      888    888 888  "Y8888       888  88888P'
+                                                        888                 888
+                                                        888                 888
+                                                        888                 888
+     .d88b.   .d88b.  88888b.   .d88b.  888d888 8888b.  888888 .d88b.   .d88888
+    d88P"88b d8P  Y8b 888 "88b d8P  Y8b 888P"      "88b 888   d8P  Y8b d88" 888
+    888  888 88888888 888  888 88888888 888    .d888888 888   88888888 888  888
+    Y88b 888 Y8b.     888  888 Y8b.     888    888  888 Y88b. Y8b.     Y88b 888
+     "Y88888  "Y8888  888  888  "Y8888  888    "Y888888  "Y888 "Y8888   "Y88888
+         888
+    Y8b d88P
+     "Y88P"
+*******************************************************************************/
 
 #pragma once
-
-#include "keymap.h"
-
+#include "keycodes.h"
 // clang-format off
 
-/*
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ 0 │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ Ö │ Ü │ Ó │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │ Q │ W │ E │ R │ T │ Z │ U │ I │ O │ P │ Ő │ Ú │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │ A │ S │ D │ F │ G │ H │ J │ K │ L │ É │ Á │ Ű │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │ Í │ Y │ X │ C │ V │ B │ N │ M │ , │ . │ - │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
+// Aliases
 #define HU_0    KC_GRV  // 0
 #define HU_1    KC_1    // 1
 #define HU_2    KC_2    // 2
@@ -47,7 +41,6 @@
 #define HU_ODIA KC_0    // Ö
 #define HU_UDIA KC_MINS // Ü
 #define HU_OACU KC_EQL  // Ó
-// Row 2
 #define HU_Q    KC_Q    // Q
 #define HU_W    KC_W    // W
 #define HU_E    KC_E    // E
@@ -60,7 +53,6 @@
 #define HU_P    KC_P    // P
 #define HU_ODAC KC_LBRC // Ő
 #define HU_UACU KC_RBRC // Ú
-// Row 3
 #define HU_A    KC_A    // A
 #define HU_S    KC_S    // S
 #define HU_D    KC_D    // D
@@ -73,7 +65,6 @@
 #define HU_EACU KC_SCLN // É
 #define HU_AACU KC_QUOT // Á
 #define HU_UDAC KC_NUHS // Ű
-// Row 4
 #define HU_IACU KC_NUBS // Í
 #define HU_Y    KC_Z    // Y
 #define HU_X    KC_X    // X
@@ -85,21 +76,6 @@
 #define HU_COMM KC_COMM // ,
 #define HU_DOT  KC_DOT  // .
 #define HU_MINS KC_SLSH // -
-
-/* Shifted symbols
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ § │ ' │ " │ + │ ! │ % │ / │ = │ ( │ ) │   │   │   │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │   │   │   │   │   │   │   │   │   │   │   │   │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │   │   │   │   │   │   │   │   │   │   │   │   │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │   │   │   │   │   │   │   │   │ ? │ : │ _ │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
 #define HU_SECT S(HU_0)    // §
 #define HU_QUOT S(HU_1)    // '
 #define HU_DQUO S(HU_2)    // "
@@ -110,25 +86,9 @@
 #define HU_EQL  S(HU_7)    // =
 #define HU_LPRN S(HU_8)    // (
 #define HU_RPRN S(HU_9)    // )
-// Row 4
 #define HU_QUES S(HU_COMM) // ?
 #define HU_COLN S(HU_DOT)  // :
 #define HU_UNDS S(HU_MINS) // _
-
-/* AltGr symbols
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │   │ ~ │ ˇ │ ^ │ ˘ │ ° │ ˛ │ ` │ ˙ │ ´ │ ˝ │ ¨ │ ¸ │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │ \ │ | │ Ä │   │   │   │ € │   │   │   │ ÷ │ × │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │ ä │ đ │ Đ │ [ │ ] │   │   │ ł │ Ł │ $ │ ß │ ¤ │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │ < │ > │ # │ & │ @ │ { │ } │   │ ; │   │ * │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
 #define HU_TILD ALGR(HU_1)    // ~
 #define HU_CARN ALGR(HU_2)    // ˇ (dead)
 #define HU_CIRC ALGR(HU_3)    // ^ (dead)
@@ -141,14 +101,12 @@
 #define HU_DACU ALGR(HU_ODIA) // ˝ (dead)
 #define HU_DIAE ALGR(HU_UDIA) // ¨ (dead)
 #define HU_CEDL ALGR(HU_OACU) // ¸ (dead)
-// Row 2
 #define HU_BSLS ALGR(HU_Q)    // (backslash)
 #define HU_PIPE ALGR(HU_W)    // |
 #define HU_CADI ALGR(HU_E)    // Ä
 #define HU_EURO ALGR(HU_U)    // €
 #define HU_DIV  ALGR(HU_ODAC) // ÷
 #define HU_MUL  ALGR(HU_UACU) // ×
-// Row 3
 #define HU_LADI ALGR(HU_A)    // ä
 #define HU_LDST ALGR(HU_S)    // đ
 #define HU_CDST ALGR(HU_D)    // Đ
@@ -159,7 +117,6 @@
 #define HU_DLR  ALGR(HU_EACU) // $
 #define HU_SS   ALGR(HU_AACU) // ß
 #define HU_CURR ALGR(HU_UDAC) // ¤
-// Row 4
 #define HU_LABK ALGR(HU_IACU) // <
 #define HU_RABK ALGR(HU_Y)    // >
 #define HU_HASH ALGR(HU_X)    // #
@@ -170,21 +127,3 @@
 #define HU_SCLN ALGR(HU_COMM) // ;
 #define HU_ASTR ALGR(HU_MINS) // *
 
-// DEPRECATED
-#define HU_OE   HU_ODIA
-#define HU_UE   HU_UDIA
-#define HU_OO   HU_OACU
-#define HU_OEE  HU_ODAC
-#define HU_UU   HU_UACU
-#define HU_EE   HU_EACU
-#define HU_AA   HU_AACU
-#define HU_UEE  HU_UDAC
-#define HU_II   HU_IACU
-#define HU_PARA HU_SECT
-#define HU_DQOT HU_DQUO
-#define HU_QST  HU_QUES
-#define HU_BRV  HU_BREV
-#define HU_RING HU_RNGA
-#define HU_CRSS HU_MUL
-#define HU_LESS HU_LABK
-#define HU_MORE HU_RABK

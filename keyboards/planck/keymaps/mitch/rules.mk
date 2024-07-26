@@ -1,2 +1,0 @@
-SUBPROJECT = rev3
-

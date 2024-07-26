@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //          ┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
                KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                              KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_EQL,
   // ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┼────────┐
-      KC_F11,  KC_TAB,  RGB_HUI, KC_HOME, RESET,   RGB_SAI, RGB_VAI,                            KC_VOLU, KC_PGUP, RESET,   KC_HOME, KC_INS,  KC_DEL,  KC_F12,
+      KC_F11,  KC_TAB,  RGB_HUI, KC_HOME, QK_BOOT, RGB_SAI, RGB_VAI,                            KC_VOLU, KC_PGUP, QK_BOOT, KC_HOME, KC_INS,  KC_DEL,  KC_F12,
   // └────────┼────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┼────────┘
                KC_LSFT, RGB_HUD, KC_LEFT, KC_UP,   KC_RGHT, RGB_VAD,                            KC_MUTE, KC_LEFT, KC_UP,   KC_RGHT, KC_PSCR, KC_SLSF,
   //          ├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤

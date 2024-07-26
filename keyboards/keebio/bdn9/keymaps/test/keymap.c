@@ -14,7 +14,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == _LEFT) {
         if (clockwise) {
             rgblight_increase_hue();
@@ -36,4 +36,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             rgblight_decrease_val();
         }
     }
+    return true;
 }

@@ -70,7 +70,7 @@ void matrix_init_custom(void) {
 // Reads and stores a row, returning
 // whether a change occurred.
 static inline bool store_raw_matrix_row(uint8_t index) {
-    matrix_row_t temp = read_cols(index);
+    matrix_row_t temp = 0x3F & read_cols(index);
     if (raw_matrix[index] != temp) {
         raw_matrix[index] = temp;
         return true;
@@ -130,12 +130,12 @@ static void init_cols(void) {
     // not needed, already done as part of init_mcp23018()
 
     // init on teensy
-    setPinInputHigh(F0);
-    setPinInputHigh(F1);
-    setPinInputHigh(F4);
-    setPinInputHigh(F5);
-    setPinInputHigh(F6);
-    setPinInputHigh(F7);
+    gpio_set_pin_input_high(F0);
+    gpio_set_pin_input_high(F1);
+    gpio_set_pin_input_high(F4);
+    gpio_set_pin_input_high(F5);
+    gpio_set_pin_input_high(F6);
+    gpio_set_pin_input_high(F7);
 }
 
 static matrix_row_t read_cols(uint8_t row) {
@@ -146,13 +146,8 @@ static matrix_row_t read_cols(uint8_t row) {
             uint8_t data = 0;
             // reading GPIOB (column port) since in mcp23018's sequential mode
             // it is addressed directly after writing to GPIOA in select_row()
-            mcp23018_status = i2c_start(I2C_ADDR_READ, ERGODOX_EZ_I2C_TIMEOUT);    if (mcp23018_status) goto out;
-            mcp23018_status = i2c_read_nack(ERGODOX_EZ_I2C_TIMEOUT);               if (mcp23018_status < 0) goto out;
-            data            = ~((uint8_t)mcp23018_status);
-            mcp23018_status = I2C_STATUS_SUCCESS;
-        out:
-            i2c_stop();
-            return data;
+            mcp23018_status = i2c_receive(I2C_ADDR, &data, 1, ERGODOX_EZ_I2C_TIMEOUT);
+            return ~data;
         }
     } else {
         /* read from teensy
@@ -181,13 +176,13 @@ static void unselect_rows(void) {
     // direction
 
     // unselect on teensy
-    setPinInput(B0);
-    setPinInput(B1);
-    setPinInput(B2);
-    setPinInput(B3);
-    setPinInput(D2);
-    setPinInput(D3);
-    setPinInput(C6);
+    gpio_set_pin_input(B0);
+    gpio_set_pin_input(B1);
+    gpio_set_pin_input(B2);
+    gpio_set_pin_input(B3);
+    gpio_set_pin_input(D2);
+    gpio_set_pin_input(D3);
+    gpio_set_pin_input(C6);
 }
 
 static void select_row(uint8_t row) {
@@ -196,43 +191,41 @@ static void select_row(uint8_t row) {
         if (!mcp23018_status) {
             // set active row low  : 0
             // set other rows hi-Z : 1
-            mcp23018_status = i2c_start(I2C_ADDR_WRITE, ERGODOX_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(GPIOA, ERGODOX_EZ_I2C_TIMEOUT);                 if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(0xFF & ~(1 << row), ERGODOX_EZ_I2C_TIMEOUT);    if (mcp23018_status) goto out;
-        out:
-            i2c_stop();
+            uint8_t data;
+            data = 0xFF & ~(1 << row);
+            mcp23018_status = i2c_write_register(I2C_ADDR, GPIOA, &data, 1, ERGODOX_EZ_I2C_TIMEOUT);
         }
     } else {
         // select on teensy
         // Output low(DDR:1, PORT:0) to select
         switch (row) {
             case 7:
-                setPinOutput(B0);
-                writePinLow(B0);
+                gpio_set_pin_output(B0);
+                gpio_write_pin_low(B0);
                 break;
             case 8:
-                setPinOutput(B1);
-                writePinLow(B1);
+                gpio_set_pin_output(B1);
+                gpio_write_pin_low(B1);
                 break;
             case 9:
-                setPinOutput(B2);
-                writePinLow(B2);
+                gpio_set_pin_output(B2);
+                gpio_write_pin_low(B2);
                 break;
             case 10:
-                setPinOutput(B3);
-                writePinLow(B3);
+                gpio_set_pin_output(B3);
+                gpio_write_pin_low(B3);
                 break;
             case 11:
-                setPinOutput(D2);
-                writePinLow(D2);
+                gpio_set_pin_output(D2);
+                gpio_write_pin_low(D2);
                 break;
             case 12:
-                setPinOutput(D3);
-                writePinLow(D3);
+                gpio_set_pin_output(D3);
+                gpio_write_pin_low(D3);
                 break;
             case 13:
-                setPinOutput(C6);
-                writePinLow(C6);
+                gpio_set_pin_output(C6);
+                gpio_write_pin_low(C6);
                 break;
         }
     }

@@ -13,40 +13,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "h88.h"
+#include "quantum.h"
 
 void matrix_init_kb(void) {
 	// put your keyboard start-up code here
 	// runs once when the firmware starts up
-	setPinOutput(D5);
-	setPinOutput(E6);
+	gpio_set_pin_output(D5);
+	gpio_set_pin_output(E6);
 	matrix_init_user();
-}
-
-void matrix_scan_kb(void) {
-	// put your looping keyboard code here
-	// runs every cycle (a lot)
-
-	matrix_scan_user();
-}
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-	// put your per-action keyboard code here
-	// runs for every action, just before processing by the firmware
-
-	return process_record_user(keycode, record);
-}
-
-void led_set_kb(uint8_t usb_led) {
-	// put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
-
-	led_set_user(usb_led);
 }
 
 bool led_update_kb(led_t led_state) {
     if(led_update_user(led_state)) {
-        writePin(D5, !led_state.caps_lock);
-        writePin(E6, !led_state.scroll_lock);
+        gpio_write_pin(D5, !led_state.caps_lock);
+        gpio_write_pin(E6, !led_state.scroll_lock);
     }
     return true;
 }

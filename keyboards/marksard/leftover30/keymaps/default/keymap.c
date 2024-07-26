@@ -47,7 +47,7 @@ enum custom_keycodes {
 #define KC_11SF  LSFT_T(KC_F11)
 #define KC_12AL  LALT_T(KC_F12)
 #define KC_QUSF  RCTL_T(KC_QUOT)
-#define KC_ROSF  RSFT_T(KC_RO)
+#define KC_ROSF  RSFT_T(KC_INT1)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_all(
@@ -64,11 +64,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_LOWER] = LAYOUT_all(
   //,-----------------------------------------------------------------------------------------------------------.
-               KC_F1AL,   KC_F2,   KC_F3,   KC_F4,   KC_F5, KC_MINS,  KC_EQL, KC_JYEN, KC_LBRC, KC_RBRC, KC_BSLS,
+               KC_F1AL,   KC_F2,   KC_F3,   KC_F4,   KC_F5, KC_MINS,  KC_EQL, KC_INT3, KC_LBRC, KC_RBRC, KC_BSLS,
   //|--------+--------+--------+--------+--------+--------|--------+--------+--------+--------+--------+--------|
                KC_F6CT,   KC_F7,   KC_F8,   KC_F9,  KC_F10, XXXXXXX, XXXXXXX, XXXXXXX, KC_SCLN,     KC_QUSF,
   //|--------+--------+--------+--------+--------+--------|--------+--------+--------+--------+--------+--------|
-               KC_11SF, KC_12AL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC_GRV,   KC_RO, KC_SLSH,     KC_ROSF,
+               KC_11SF, KC_12AL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC_GRV, KC_INT1, KC_SLSH,     KC_ROSF,
   //|--------+--------+--------+--------+--------+--------|--------+--------+--------+--------+--------+--------|
       _______, _______,                                KC_AJST,                                 _______, _______
   //`-----------------------------------------------------------------------------------------------------------'
@@ -88,9 +88,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT_all(
   //,-----------------------------------------------------------------------------------------------------------.
-                 RESET,  RGBRST, AG_NORM, AG_SWAP, XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP,  KC_END,  KC_INS, KC_PSCR,
+               QK_BOOT,  RGBRST, AG_NORM, AG_SWAP, XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP,  KC_END,  KC_INS, KC_PSCR,
   //|--------+--------+--------+--------+--------+--------|--------+--------+--------+--------+--------+--------|
-               RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R,     KC_NLCK,
+               RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R,     KC_NUM,
   //|--------+--------+--------+--------+--------+--------|--------+--------+--------+--------+--------+--------|
                RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, KC_BTN1, KC_BTN2, XXXXXXX, XXXXXXX,     KC_CAPS,
   //|--------+--------+--------+--------+--------+--------|--------+--------+--------+--------+--------+--------|
@@ -114,9 +114,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case KANJI:
       if (record->event.pressed) {
-          register_code16(keymap_config.swap_lalt_lgui ? A(KC_GRV) : KC_LANG2);
+          register_code16(keymap_config.swap_lalt_lgui ? A(KC_GRV) : KC_LNG2);
       } else {
-          unregister_code16(keymap_config.swap_lalt_lgui ? A(KC_GRV) : KC_LANG2);
+          unregister_code16(keymap_config.swap_lalt_lgui ? A(KC_GRV) : KC_LNG2);
       }
     break;
 #ifdef RGBLIGHT_ENABLE
@@ -135,7 +135,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return result;
 }
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         if (IS_LAYER_ON(_ADJUST)) {
           if (clockwise) {
@@ -150,13 +150,13 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         } else {
           tap_code((clockwise == true) ? KC_WH_D : KC_WH_U);
         }
-
     }
+    return true;
 }
 
 // for exsample customize of LED inducator
 // bool led_update_user(led_t led_state) {
-//     writePin(D2, IS_LAYER_ON(_LOWER));
-//     writePin(D1, IS_LAYER_ON(_RAISE));
+//     gpio_write_pin(D2, IS_LAYER_ON(_LOWER));
+//     gpio_write_pin(D1, IS_LAYER_ON(_RAISE));
 //     return false;
 // }

@@ -1,0 +1,1 @@
+JOYSTICK_DRIVER = analog

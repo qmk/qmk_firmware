@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include "yosino58.h"
 
 char timelog_str[24] = {};
 int last_time = 0;

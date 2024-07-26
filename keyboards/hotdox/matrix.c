@@ -81,7 +81,7 @@ void matrix_init(void)
     }
   }
 
-  matrix_init_quantum();
+  matrix_init_kb();
 }
 
 void matrix_power_up(void) {
@@ -133,7 +133,7 @@ uint8_t matrix_scan(void)
     unselect_rows();
   }
 
-  matrix_scan_quantum();
+  matrix_scan_kb();
 
   return 1;
 }
@@ -160,26 +160,18 @@ void matrix_print(void)
   }
 }
 
-uint8_t matrix_key_count(void)
-{
-  uint8_t count = 0;
-  for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-    count += bitpop16(matrix[i]);
-  }
-  return count;
-}
-
 static void init_cols(void)
 {
   // Pro Micro
-  DDRB  &= ~(1<<PB0 | 1<<PB1 | 1<<PB2 | 1<<PB3);
-  PORTB |=  (1<<PB0 | 1<<PB1 | 1<<PB2 | 1<<PB3);
+  gpio_set_pin_input_high(B0);
+  gpio_set_pin_input_high(B1);
+  gpio_set_pin_input_high(B2);
+  gpio_set_pin_input_high(B3);
 
-  DDRD  &= ~(1<<PD2 | 1<<PD3);
-  PORTD |=  (1<<PD2 | 1<<PD3);
+  gpio_set_pin_input_high(D2);
+  gpio_set_pin_input_high(D3);
 
-  DDRC  &= ~(1<<PC6);
-  PORTC |=  (1<<PC6);
+  gpio_set_pin_input_high(C6);
 
   left_init();
 }
@@ -204,8 +196,12 @@ static matrix_row_t read_cols(uint8_t row)
 static void unselect_rows(void)
 {
   // Pro Micro
-  DDRF  &= ~(1<<PF7 | 1<< PF6 | 1<<PF5 | 1<<PF4 | 1<<PF1 | 1<<PF0);
-  PORTF &= ~(1<<PF7 | 1<< PF6 | 1<<PF5 | 1<<PF4 | 1<<PF1 | 1<<PF0);
+  gpio_set_pin_input(F0);
+  gpio_set_pin_input(F1);
+  gpio_set_pin_input(F4);
+  gpio_set_pin_input(F5);
+  gpio_set_pin_input(F6);
+  gpio_set_pin_input(F7);
 
   left_unselect_rows();
 }
@@ -215,28 +211,28 @@ static void select_row(uint8_t row)
   // Pro Micro
   switch (row) {
   case 5:
-    DDRF  |=  (1<<PF0);
-    PORTF &= ~(1<<PF0);
+    gpio_set_pin_output(F0);
+    gpio_write_pin_low(F0);
     break;
   case 4:
-    DDRF  |=  (1<<PF1);
-    PORTF &= ~(1<<PF1);
+    gpio_set_pin_output(F1);
+    gpio_write_pin_low(F1);
     break;
   case 3:
-    DDRF  |=  (1<<PF4);
-    PORTF &= ~(1<<PF4);
+    gpio_set_pin_output(F4);
+    gpio_write_pin_low(F4);
     break;
   case 2:
-    DDRF  |=  (1<<PF5);
-    PORTF &= ~(1<<PF5);
+    gpio_set_pin_output(F5);
+    gpio_write_pin_low(F5);
     break;
   case 1:
-    DDRF  |=  (1<<PF6);
-    PORTF &= ~(1<<PF6);
+    gpio_set_pin_output(F6);
+    gpio_write_pin_low(F6);
     break;
   case 0:
-    DDRF  |=  (1<<PF7);
-    PORTF &= ~(1<<PF7);
+    gpio_set_pin_output(F7);
+    gpio_write_pin_low(F7);
     break;
   }
 

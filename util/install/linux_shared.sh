@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # For those distros that do not package bootloadHID
 _qmk_install_bootloadhid() {

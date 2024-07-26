@@ -18,7 +18,7 @@ enum {
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  uint16_t macro_kc = (keycode == MO(DYN) ? DYN_REC_STOP : keycode);
+  uint16_t macro_kc = (keycode == MO(DYN) ? QK_DYNAMIC_MACRO_RECORD_STOP : keycode);
   
   if (!process_record_dynamic_macro(macro_kc, record)) {
       return false;
@@ -85,11 +85,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * └────┴────┴────┴────────────────────────┴───┴───┴───┴───┴───┘
 */
 
-#define MacRec1 DYN_REC_START1
-#define MacRec2 DYN_REC_START2
-#define MacPla1 DYN_MACRO_PLAY1
-#define MacPla2 DYN_MACRO_PLAY2
-#define MacStop DYN_REC_STOP
+#define MacRec1 DM_REC1
+#define MacRec2 DM_REC2
+#define MacPla1 DM_PLY1
+#define MacPla2 DM_PLY2
+#define MacStop DM_RSTP
 
   [DEF] = LAYOUT_60_iso_5x1u_split_rshift(
     KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,
@@ -102,8 +102,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [FN1] = LAYOUT_60_iso_5x1u_split_rshift(
     KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, RESET,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PSCR, KC_SLCK, KC_PAUS,
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TO(NUM), XXXXXXX, XXXXXXX, KC_INS,  KC_DEL,  KC_NLCK, XXXXXXX,
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PSCR, KC_SCRL, KC_PAUS,
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TO(NUM), XXXXXXX, XXXXXXX, KC_INS,  KC_DEL,  KC_NUM,  XXXXXXX,
     _______, XXXXXXX, XXXXXXX, XXXXXXX, KC_MPLY, KC_MSTP, KC_MPRV, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX, KC_RSFT, XXXXXXX,
     _______, _______, _______,                            KC_LCTL,                   _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
   ),

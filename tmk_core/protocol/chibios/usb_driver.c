@@ -1,102 +1,42 @@
-/*
-    ChibiOS - Copyright (C) 2006..2016 Giovanni Di Sirio
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-        http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-*/
-
-/**
- * @file    hal_serial_usb.c
- * @brief   Serial over USB Driver code.
- *
- * @addtogroup SERIAL_USB
- * @{
- */
+// Copyright 2023 Stefan Kerkmann (@KarlK90)
+// Copyright 2021 Purdea Andrei
+// Copyright 2021 Michael Stapelberg
+// Copyright 2020 Ryan (@fauxpark)
+// Copyright 2016 Fredizzimo
+// Copyright 2016 Giovanni Di Sirio
+// SPDX-License-Identifier: GPL-3.0-or-later OR Apache-2.0
 
 #include <hal.h>
-#include "usb_driver.h"
 #include <string.h>
 
-/*===========================================================================*/
-/* Driver local definitions.                                                 */
-/*===========================================================================*/
-
-/*===========================================================================*/
-/* Driver exported variables.                                                */
-/*===========================================================================*/
-
-/*===========================================================================*/
-/* Driver local variables and types.                                         */
-/*===========================================================================*/
-
-/*
- * Current Line Coding.
- */
-static cdc_linecoding_t linecoding = {{0x00, 0x96, 0x00, 0x00}, /* 38400.                           */
-                                      LC_STOP_1,
-                                      LC_PARITY_NONE,
-                                      8};
+#include "usb_driver.h"
+#include "util.h"
 
 /*===========================================================================*/
 /* Driver local functions.                                                   */
 /*===========================================================================*/
 
-static bool qmkusb_start_receive(QMKUSBDriver *qmkusbp) {
-    uint8_t *buf;
-
+static void usb_start_receive(usb_endpoint_out_t *endpoint) {
     /* If the USB driver is not in the appropriate state then transactions
        must not be started.*/
-    if ((usbGetDriverStateI(qmkusbp->config->usbp) != USB_ACTIVE) || (qmkusbp->state != QMKUSB_READY)) {
-        return true;
+    if ((usbGetDriverStateI(endpoint->config.usbp) != USB_ACTIVE)) {
+        return;
     }
 
     /* Checking if there is already a transaction ongoing on the endpoint.*/
-    if (usbGetReceiveStatusI(qmkusbp->config->usbp, qmkusbp->config->bulk_in)) {
-        return true;
+    if (usbGetReceiveStatusI(endpoint->config.usbp, endpoint->config.ep)) {
+        return;
     }
 
     /* Checking if there is a buffer ready for incoming data.*/
-    buf = ibqGetEmptyBufferI(&qmkusbp->ibqueue);
-    if (buf == NULL) {
-        return true;
+    uint8_t *buffer = ibqGetEmptyBufferI(&endpoint->ibqueue);
+    if (buffer == NULL) {
+        return;
     }
 
     /* Buffer found, starting a new transaction.*/
-    usbStartReceiveI(qmkusbp->config->usbp, qmkusbp->config->bulk_out, buf, qmkusbp->ibqueue.bsize - sizeof(size_t));
-
-    return false;
+    usbStartReceiveI(endpoint->config.usbp, endpoint->config.ep, buffer, endpoint->ibqueue.bsize - sizeof(size_t));
 }
-
-/*
- * Interface implementation.
- */
-
-static size_t _write(void *ip, const uint8_t *bp, size_t n) { return obqWriteTimeout(&((QMKUSBDriver *)ip)->obqueue, bp, n, TIME_INFINITE); }
-
-static size_t _read(void *ip, uint8_t *bp, size_t n) { return ibqReadTimeout(&((QMKUSBDriver *)ip)->ibqueue, bp, n, TIME_INFINITE); }
-
-static msg_t _put(void *ip, uint8_t b) { return obqPutTimeout(&((QMKUSBDriver *)ip)->obqueue, b, TIME_INFINITE); }
-
-static msg_t _get(void *ip) { return ibqGetTimeout(&((QMKUSBDriver *)ip)->ibqueue, TIME_INFINITE); }
-
-static msg_t _putt(void *ip, uint8_t b, sysinterval_t timeout) { return obqPutTimeout(&((QMKUSBDriver *)ip)->obqueue, b, timeout); }
-
-static msg_t _gett(void *ip, sysinterval_t timeout) { return ibqGetTimeout(&((QMKUSBDriver *)ip)->ibqueue, timeout); }
-
-static size_t _writet(void *ip, const uint8_t *bp, size_t n, sysinterval_t timeout) { return obqWriteTimeout(&((QMKUSBDriver *)ip)->obqueue, bp, n, timeout); }
-
-static size_t _readt(void *ip, uint8_t *bp, size_t n, sysinterval_t timeout) { return ibqReadTimeout(&((QMKUSBDriver *)ip)->ibqueue, bp, n, timeout); }
-
-static const struct QMKUSBDriverVMT vmt = {0, _write, _read, _put, _get, _putt, _gett, _writet, _readt};
 
 /**
  * @brief   Notification of empty buffer released into the input buffers queue.
@@ -104,8 +44,8 @@ static const struct QMKUSBDriverVMT vmt = {0, _write, _read, _put, _get, _putt, 
  * @param[in] bqp       the buffers queue pointer.
  */
 static void ibnotify(io_buffers_queue_t *bqp) {
-    QMKUSBDriver *qmkusbp = bqGetLinkX(bqp);
-    (void)qmkusb_start_receive(qmkusbp);
+    usb_endpoint_out_t *endpoint = bqGetLinkX(bqp);
+    usb_start_receive(endpoint);
 }
 
 /**
@@ -114,22 +54,22 @@ static void ibnotify(io_buffers_queue_t *bqp) {
  * @param[in] bqp       the buffers queue pointer.
  */
 static void obnotify(io_buffers_queue_t *bqp) {
-    size_t        n;
-    QMKUSBDriver *qmkusbp = bqGetLinkX(bqp);
+    usb_endpoint_in_t *endpoint = bqGetLinkX(bqp);
 
-    /* If the USB driver is not in the appropriate state then transactions
+    /* If the USB endpoint is not in the appropriate state then transactions
        must not be started.*/
-    if ((usbGetDriverStateI(qmkusbp->config->usbp) != USB_ACTIVE) || (qmkusbp->state != QMKUSB_READY)) {
+    if ((usbGetDriverStateI(endpoint->config.usbp) != USB_ACTIVE)) {
         return;
     }
 
     /* Checking if there is already a transaction ongoing on the endpoint.*/
-    if (!usbGetTransmitStatusI(qmkusbp->config->usbp, qmkusbp->config->bulk_in)) {
+    if (!usbGetTransmitStatusI(endpoint->config.usbp, endpoint->config.ep)) {
         /* Trying to get a full buffer.*/
-        uint8_t *buf = obqGetFullBufferI(&qmkusbp->obqueue, &n);
-        if (buf != NULL) {
+        size_t   n;
+        uint8_t *buffer = obqGetFullBufferI(&endpoint->obqueue, &n);
+        if (buffer != NULL) {
             /* Buffer found, starting a new transaction.*/
-            usbStartTransmitI(qmkusbp->config->usbp, qmkusbp->config->bulk_in, buf, n);
+            usbStartTransmitI(endpoint->config.usbp, endpoint->config.ep, buffer, n);
         }
     }
 }
@@ -138,264 +78,149 @@ static void obnotify(io_buffers_queue_t *bqp) {
 /* Driver exported functions.                                                */
 /*===========================================================================*/
 
-/**
- * @brief   Serial Driver initialization.
- * @note    This function is implicitly invoked by @p halInit(), there is
- *          no need to explicitly initialize the driver.
- *
- * @init
- */
-void qmkusbInit(void) {}
+void usb_endpoint_in_init(usb_endpoint_in_t *endpoint) {
+    usb_endpoint_config_t *config = &endpoint->config;
+    endpoint->ep_config.in_state  = &endpoint->ep_in_state;
 
-/**
- * @brief   Initializes a generic full duplex driver object.
- * @details The HW dependent part of the initialization has to be performed
- *          outside, usually in the hardware initialization code.
- *
- * @param[out] qmkusbp     pointer to a @p QMKUSBDriver structure
- *
- * @init
- */
-void qmkusbObjectInit(QMKUSBDriver *qmkusbp, const QMKUSBConfig *config) {
-    qmkusbp->vmt = &vmt;
-    osalEventObjectInit(&qmkusbp->event);
-    qmkusbp->state = QMKUSB_STOP;
-    // Note that the config uses the USB direction naming
-    ibqObjectInit(&qmkusbp->ibqueue, true, config->ob, config->out_size, config->out_buffers, ibnotify, qmkusbp);
-    obqObjectInit(&qmkusbp->obqueue, true, config->ib, config->in_size, config->in_buffers, obnotify, qmkusbp);
+#if defined(USB_ENDPOINTS_ARE_REORDERABLE)
+    if (endpoint->is_shared) {
+        endpoint->ep_config.out_state = &endpoint->ep_out_state;
+    }
+#endif
+    obqObjectInit(&endpoint->obqueue, true, config->buffer, config->buffer_size, config->buffer_capacity, obnotify, endpoint);
 }
 
-/**
- * @brief   Configures and starts the driver.
- *
- * @param[in] qmkusbp      pointer to a @p QMKUSBDriver object
- * @param[in] config    the serial over USB driver configuration
- *
- * @api
- */
-void qmkusbStart(QMKUSBDriver *qmkusbp, const QMKUSBConfig *config) {
-    USBDriver *usbp = config->usbp;
+void usb_endpoint_out_init(usb_endpoint_out_t *endpoint) {
+    usb_endpoint_config_t *config = &endpoint->config;
+    endpoint->ep_config.out_state = &endpoint->ep_out_state;
+    ibqObjectInit(&endpoint->ibqueue, true, config->buffer, config->buffer_size, config->buffer_capacity, ibnotify, endpoint);
+}
 
-    osalDbgCheck(qmkusbp != NULL);
+void usb_endpoint_in_start(usb_endpoint_in_t *endpoint) {
+    osalDbgCheck(endpoint != NULL);
 
     osalSysLock();
-    osalDbgAssert((qmkusbp->state == QMKUSB_STOP) || (qmkusbp->state == QMKUSB_READY), "invalid state");
-    usbp->in_params[config->bulk_in - 1U]   = qmkusbp;
-    usbp->out_params[config->bulk_out - 1U] = qmkusbp;
-    if (config->int_in > 0U) {
-        usbp->in_params[config->int_in - 1U] = qmkusbp;
-    }
-    qmkusbp->config = config;
-    qmkusbp->state  = QMKUSB_READY;
+    osalDbgAssert((usbGetDriverStateI(endpoint->config.usbp) == USB_STOP) || (usbGetDriverStateI(endpoint->config.usbp) == USB_READY), "invalid state");
+    endpoint->config.usbp->in_params[endpoint->config.ep - 1U] = endpoint;
+    endpoint->timed_out                                        = false;
     osalSysUnlock();
 }
 
-/**
- * @brief   Stops the driver.
- * @details Any thread waiting on the driver's queues will be awakened with
- *          the message @p MSG_RESET.
- *
- * @param[in] qmkusbp      pointer to a @p QMKUSBDriver object
- *
- * @api
- */
-void qmkusbStop(QMKUSBDriver *qmkusbp) {
-    USBDriver *usbp = qmkusbp->config->usbp;
-
-    osalDbgCheck(qmkusbp != NULL);
+void usb_endpoint_out_start(usb_endpoint_out_t *endpoint) {
+    osalDbgCheck(endpoint != NULL);
 
     osalSysLock();
+    osalDbgAssert((usbGetDriverStateI(endpoint->config.usbp) == USB_STOP) || (usbGetDriverStateI(endpoint->config.usbp) == USB_READY), "invalid state");
+    endpoint->config.usbp->out_params[endpoint->config.ep - 1U] = endpoint;
+    endpoint->timed_out                                         = false;
+    osalSysUnlock();
+}
 
-    osalDbgAssert((qmkusbp->state == QMKUSB_STOP) || (qmkusbp->state == QMKUSB_READY), "invalid state");
+void usb_endpoint_in_stop(usb_endpoint_in_t *endpoint) {
+    osalDbgCheck(endpoint != NULL);
 
-    /* Driver in stopped state.*/
-    usbp->in_params[qmkusbp->config->bulk_in - 1U]   = NULL;
-    usbp->out_params[qmkusbp->config->bulk_out - 1U] = NULL;
-    if (qmkusbp->config->int_in > 0U) {
-        usbp->in_params[qmkusbp->config->int_in - 1U] = NULL;
+    osalSysLock();
+    endpoint->config.usbp->in_params[endpoint->config.ep - 1U] = NULL;
+
+    bqSuspendI(&endpoint->obqueue);
+    obqResetI(&endpoint->obqueue);
+    if (endpoint->report_storage != NULL) {
+        endpoint->report_storage->reset_report(endpoint->report_storage->reports);
     }
-    qmkusbp->config = NULL;
-    qmkusbp->state  = QMKUSB_STOP;
-
-    /* Enforces a disconnection.*/
-    chnAddFlagsI(qmkusbp, CHN_DISCONNECTED);
-    ibqResetI(&qmkusbp->ibqueue);
-    obqResetI(&qmkusbp->obqueue);
     osalOsRescheduleS();
-
     osalSysUnlock();
 }
 
-/**
- * @brief   USB device suspend handler.
- * @details Generates a @p CHN_DISCONNECT event and puts queues in
- *          non-blocking mode, this way the application cannot get stuck
- *          in the middle of an I/O operations.
- * @note    If this function is not called from an ISR then an explicit call
- *          to @p osalOsRescheduleS() in necessary afterward.
- *
- * @param[in] qmkusbp      pointer to a @p QMKUSBDriver object
- *
- * @iclass
- */
-void qmkusbSuspendHookI(QMKUSBDriver *qmkusbp) {
-    chnAddFlagsI(qmkusbp, CHN_DISCONNECTED);
-    bqSuspendI(&qmkusbp->ibqueue);
-    bqSuspendI(&qmkusbp->obqueue);
+void usb_endpoint_out_stop(usb_endpoint_out_t *endpoint) {
+    osalDbgCheck(endpoint != NULL);
+
+    osalSysLock();
+    osalDbgAssert((usbGetDriverStateI(endpoint->config.usbp) == USB_STOP) || (usbGetDriverStateI(endpoint->config.usbp) == USB_READY), "invalid state");
+
+    bqSuspendI(&endpoint->ibqueue);
+    ibqResetI(&endpoint->ibqueue);
+    osalOsRescheduleS();
+    osalSysUnlock();
 }
 
-/**
- * @brief   USB device wakeup handler.
- * @details Generates a @p CHN_CONNECT event and resumes normal queues
- *          operations.
- *
- * @note    If this function is not called from an ISR then an explicit call
- *          to @p osalOsRescheduleS() in necessary afterward.
- *
- * @param[in] qmkusbp      pointer to a @p QMKUSBDriver object
- *
- * @iclass
- */
-void qmkusbWakeupHookI(QMKUSBDriver *qmkusbp) {
-    chnAddFlagsI(qmkusbp, CHN_CONNECTED);
-    bqResumeX(&qmkusbp->ibqueue);
-    bqResumeX(&qmkusbp->obqueue);
-}
+void usb_endpoint_in_suspend_cb(usb_endpoint_in_t *endpoint) {
+    bqSuspendI(&endpoint->obqueue);
+    obqResetI(&endpoint->obqueue);
 
-/**
- * @brief   USB device configured handler.
- *
- * @param[in] qmkusbp      pointer to a @p QMKUSBDriver object
- *
- * @iclass
- */
-void qmkusbConfigureHookI(QMKUSBDriver *qmkusbp) {
-    ibqResetI(&qmkusbp->ibqueue);
-    bqResumeX(&qmkusbp->ibqueue);
-    obqResetI(&qmkusbp->obqueue);
-    bqResumeX(&qmkusbp->obqueue);
-    chnAddFlagsI(qmkusbp, CHN_CONNECTED);
-    (void)qmkusb_start_receive(qmkusbp);
-}
-
-/**
- * @brief   Default requests hook.
- * @details Applications wanting to use the Serial over USB driver can use
- *          this function as requests hook in the USB configuration.
- *          The following requests are emulated:
- *          - CDC_GET_LINE_CODING.
- *          - CDC_SET_LINE_CODING.
- *          - CDC_SET_CONTROL_LINE_STATE.
- *          .
- *
- * @param[in] usbp      pointer to the @p USBDriver object
- * @return              The hook status.
- * @retval true         Message handled internally.
- * @retval false        Message not handled.
- */
-bool qmkusbRequestsHook(USBDriver *usbp) {
-    if ((usbp->setup[0] & USB_RTYPE_TYPE_MASK) == USB_RTYPE_TYPE_CLASS) {
-        switch (usbp->setup[1]) {
-            case CDC_GET_LINE_CODING:
-                usbSetupTransfer(usbp, (uint8_t *)&linecoding, sizeof(linecoding), NULL);
-                return true;
-            case CDC_SET_LINE_CODING:
-                usbSetupTransfer(usbp, (uint8_t *)&linecoding, sizeof(linecoding), NULL);
-                return true;
-            case CDC_SET_CONTROL_LINE_STATE:
-                /* Nothing to do, there are no control lines.*/
-                usbSetupTransfer(usbp, NULL, 0, NULL);
-                return true;
-            default:
-                return false;
-        }
-    }
-    return false;
-}
-
-/**
- * @brief   SOF handler.
- * @details The SOF interrupt is used for automatic flushing of incomplete
- *          buffers pending in the output queue.
- *
- * @param[in] qmkusbp      pointer to a @p QMKUSBDriver object
- *
- * @iclass
- */
-void qmkusbSOFHookI(QMKUSBDriver *qmkusbp) {
-    /* If the USB driver is not in the appropriate state then transactions
-       must not be started.*/
-    if ((usbGetDriverStateI(qmkusbp->config->usbp) != USB_ACTIVE) || (qmkusbp->state != QMKUSB_READY)) {
-        return;
-    }
-
-    /* If there is already a transaction ongoing then another one cannot be
-       started.*/
-    if (usbGetTransmitStatusI(qmkusbp->config->usbp, qmkusbp->config->bulk_in)) {
-        return;
-    }
-
-    /* Checking if there only a buffer partially filled, if so then it is
-       enforced in the queue and transmitted.*/
-    if (obqTryFlushI(&qmkusbp->obqueue)) {
-        size_t   n;
-        uint8_t *buf = obqGetFullBufferI(&qmkusbp->obqueue, &n);
-
-        /* For fixed size drivers, fill the end with zeros */
-        if (qmkusbp->config->fixed_size) {
-            memset(buf + n, 0, qmkusbp->config->in_size - n);
-            n = qmkusbp->config->in_size;
-        }
-
-        osalDbgAssert(buf != NULL, "queue is empty");
-
-        usbStartTransmitI(qmkusbp->config->usbp, qmkusbp->config->bulk_in, buf, n);
+    if (endpoint->report_storage != NULL) {
+        endpoint->report_storage->reset_report(endpoint->report_storage->reports);
     }
 }
 
-/**
- * @brief   Default data transmitted callback.
- * @details The application must use this function as callback for the IN
- *          data endpoint.
- *
- * @param[in] usbp      pointer to the @p USBDriver object
- * @param[in] ep        IN endpoint number
- */
-void qmkusbDataTransmitted(USBDriver *usbp, usbep_t ep) {
-    uint8_t *     buf;
-    size_t        n;
-    QMKUSBDriver *qmkusbp = usbp->in_params[ep - 1U];
+void usb_endpoint_out_suspend_cb(usb_endpoint_out_t *endpoint) {
+    bqSuspendI(&endpoint->ibqueue);
+    ibqResetI(&endpoint->ibqueue);
+}
 
-    if (qmkusbp == NULL) {
+void usb_endpoint_in_wakeup_cb(usb_endpoint_in_t *endpoint) {
+    bqResumeX(&endpoint->obqueue);
+}
+
+void usb_endpoint_out_wakeup_cb(usb_endpoint_out_t *endpoint) {
+    bqResumeX(&endpoint->ibqueue);
+}
+
+void usb_endpoint_in_configure_cb(usb_endpoint_in_t *endpoint) {
+    usbInitEndpointI(endpoint->config.usbp, endpoint->config.ep, &endpoint->ep_config);
+    obqResetI(&endpoint->obqueue);
+    bqResumeX(&endpoint->obqueue);
+}
+
+void usb_endpoint_out_configure_cb(usb_endpoint_out_t *endpoint) {
+    /* The current assumption is that there are no standalone OUT endpoints,
+     * therefore if we share an endpoint with an IN endpoint, it is already
+     * initialized. */
+#if !defined(USB_ENDPOINTS_ARE_REORDERABLE)
+    usbInitEndpointI(endpoint->config.usbp, endpoint->config.ep, &endpoint->ep_config);
+#endif
+    ibqResetI(&endpoint->ibqueue);
+    bqResumeX(&endpoint->ibqueue);
+    (void)usb_start_receive(endpoint);
+}
+
+void usb_endpoint_in_tx_complete_cb(USBDriver *usbp, usbep_t ep) {
+    usb_endpoint_in_t *endpoint = usbp->in_params[ep - 1U];
+    size_t             n;
+    uint8_t *          buffer;
+
+    if (endpoint == NULL) {
         return;
     }
 
     osalSysLockFromISR();
 
-    /* Signaling that space is available in the output queue.*/
-    chnAddFlagsI(qmkusbp, CHN_OUTPUT_EMPTY);
+    /* Sending succeded, so we can reset the timed out state. */
+    endpoint->timed_out = false;
 
     /* Freeing the buffer just transmitted, if it was not a zero size packet.*/
-    if (usbp->epc[ep]->in_state->txsize > 0U) {
-        obqReleaseEmptyBufferI(&qmkusbp->obqueue);
+    if (!obqIsEmptyI(&endpoint->obqueue) && usbp->epc[ep]->in_state->txsize > 0U) {
+        /* Store the last send report in the endpoint to be retrieved by a
+         * GET_REPORT request or IDLE report handling. */
+        if (endpoint->report_storage != NULL) {
+            buffer = obqGetFullBufferI(&endpoint->obqueue, &n);
+            endpoint->report_storage->set_report(endpoint->report_storage->reports, buffer, n);
+        }
+        obqReleaseEmptyBufferI(&endpoint->obqueue);
     }
 
     /* Checking if there is a buffer ready for transmission.*/
-    buf = obqGetFullBufferI(&qmkusbp->obqueue, &n);
+    buffer = obqGetFullBufferI(&endpoint->obqueue, &n);
 
-    if (buf != NULL) {
+    if (buffer != NULL) {
         /* The endpoint cannot be busy, we are in the context of the callback,
            so it is safe to transmit without a check.*/
-        usbStartTransmitI(usbp, ep, buf, n);
-    } else if ((usbp->epc[ep]->in_state->txsize > 0U) && ((usbp->epc[ep]->in_state->txsize & ((size_t)usbp->epc[ep]->in_maxsize - 1U)) == 0U)) {
+        usbStartTransmitI(usbp, ep, buffer, n);
+    } else if ((usbp->epc[ep]->ep_mode == USB_EP_MODE_TYPE_BULK) && (usbp->epc[ep]->in_state->txsize > 0U) && ((usbp->epc[ep]->in_state->txsize & ((size_t)usbp->epc[ep]->in_maxsize - 1U)) == 0U)) {
         /* Transmit zero sized packet in case the last one has maximum allowed
-           size. Otherwise the recipient may expect more data coming soon and
-           not return buffered data to app. See section 5.8.3 Bulk Transfer
-           Packet Size Constraints of the USB Specification document.*/
-        if (!qmkusbp->config->fixed_size) {
-            usbStartTransmitI(usbp, ep, usbp->setup, 0);
-        }
-
+         * size. Otherwise the recipient may expect more data coming soon and
+         * not return buffered data to app. See section 5.8.3 Bulk Transfer
+         * Packet Size Constraints of the USB Specification document. */
+        usbStartTransmitI(usbp, ep, usbp->setup, 0);
     } else {
         /* Nothing to transmit.*/
     }
@@ -403,47 +228,114 @@ void qmkusbDataTransmitted(USBDriver *usbp, usbep_t ep) {
     osalSysUnlockFromISR();
 }
 
-/**
- * @brief   Default data received callback.
- * @details The application must use this function as callback for the OUT
- *          data endpoint.
- *
- * @param[in] usbp      pointer to the @p USBDriver object
- * @param[in] ep        OUT endpoint number
- */
-void qmkusbDataReceived(USBDriver *usbp, usbep_t ep) {
-    QMKUSBDriver *qmkusbp = usbp->out_params[ep - 1U];
-    if (qmkusbp == NULL) {
+void usb_endpoint_out_rx_complete_cb(USBDriver *usbp, usbep_t ep) {
+    usb_endpoint_out_t *endpoint = usbp->out_params[ep - 1U];
+    if (endpoint == NULL) {
         return;
     }
 
     osalSysLockFromISR();
 
-    /* Signaling that data is available in the input queue.*/
-    chnAddFlagsI(qmkusbp, CHN_INPUT_AVAILABLE);
+    size_t size = usbGetReceiveTransactionSizeX(usbp, ep);
+    if (size > 0) {
+        /* Posting the filled buffer in the queue.*/
+        ibqPostFullBufferI(&endpoint->ibqueue, usbGetReceiveTransactionSizeX(endpoint->config.usbp, endpoint->config.ep));
+    }
 
-    /* Posting the filled buffer in the queue.*/
-    ibqPostFullBufferI(&qmkusbp->ibqueue, usbGetReceiveTransactionSizeX(qmkusbp->config->usbp, qmkusbp->config->bulk_out));
-
-    /* The endpoint cannot be busy, we are in the context of the callback,
-       so a packet is in the buffer for sure. Trying to get a free buffer
-       for the next transaction.*/
-    (void)qmkusb_start_receive(qmkusbp);
+    /* The endpoint cannot be busy, we are in the context of the callback, so a
+     * packet is in the buffer for sure. Trying to get a free buffer for the
+     * next transaction.*/
+    usb_start_receive(endpoint);
 
     osalSysUnlockFromISR();
 }
 
-/**
- * @brief   Default data received callback.
- * @details The application must use this function as callback for the IN
- *          interrupt endpoint.
- *
- * @param[in] usbp      pointer to the @p USBDriver object
- * @param[in] ep        endpoint number
- */
-void qmkusbInterruptTransmitted(USBDriver *usbp, usbep_t ep) {
-    (void)usbp;
-    (void)ep;
+bool usb_endpoint_in_send(usb_endpoint_in_t *endpoint, const uint8_t *data, size_t size, sysinterval_t timeout, bool buffered) {
+    osalDbgCheck((endpoint != NULL) && (data != NULL) && (size > 0U) && (size <= endpoint->config.buffer_size));
+
+    osalSysLock();
+    if (usbGetDriverStateI(endpoint->config.usbp) != USB_ACTIVE) {
+        osalSysUnlock();
+        return false;
+    }
+
+    /* Short circuit the waiting if this endpoint timed out before, e.g. if
+     * nobody is listening on this endpoint (is disconnected) such as
+     * `hid_listen`/`qmk console` or we are in an environment with a very
+     * restricted USB stack. The reason is to not introduce micro lock-ups if
+     * the report is send periodically. */
+    if (endpoint->timed_out && timeout != TIME_INFINITE) {
+        timeout = TIME_IMMEDIATE;
+    }
+    osalSysUnlock();
+
+    while (true) {
+        size_t sent = obqWriteTimeout(&endpoint->obqueue, data, size, timeout);
+
+        if (sent < size) {
+            osalSysLock();
+            endpoint->timed_out |= sent == 0;
+            bqSuspendI(&endpoint->obqueue);
+            obqResetI(&endpoint->obqueue);
+            bqResumeX(&endpoint->obqueue);
+            osalOsRescheduleS();
+            osalSysUnlock();
+            continue;
+        }
+
+        if (!buffered) {
+            obqFlush(&endpoint->obqueue);
+        }
+
+        return true;
+    }
 }
 
-/** @} */
+void usb_endpoint_in_flush(usb_endpoint_in_t *endpoint, bool padded) {
+    osalDbgCheck(endpoint != NULL);
+
+    output_buffers_queue_t *obqp = &endpoint->obqueue;
+
+    if (padded && obqp->ptr != NULL) {
+        ptrdiff_t bytes_left = (size_t)obqp->top - (size_t)obqp->ptr;
+        while (bytes_left > 0) {
+            // Putting bytes into a buffer that has space left should never
+            // fail and be instant, therefore we don't check the return value
+            // for errors here.
+            obqPutTimeout(obqp, 0, TIME_IMMEDIATE);
+            bytes_left--;
+        }
+    }
+
+    obqFlush(obqp);
+}
+
+bool usb_endpoint_in_is_inactive(usb_endpoint_in_t *endpoint) {
+    osalDbgCheck(endpoint != NULL);
+
+    osalSysLock();
+    bool inactive = obqIsEmptyI(&endpoint->obqueue) && !usbGetTransmitStatusI(endpoint->config.usbp, endpoint->config.ep);
+    osalSysUnlock();
+
+    return inactive;
+}
+
+bool usb_endpoint_out_receive(usb_endpoint_out_t *endpoint, uint8_t *data, size_t size, sysinterval_t timeout) {
+    osalDbgCheck((endpoint != NULL) && (data != NULL) && (size > 0U));
+
+    osalSysLock();
+    if (usbGetDriverStateI(endpoint->config.usbp) != USB_ACTIVE) {
+        osalSysUnlock();
+        return false;
+    }
+
+    if (endpoint->timed_out && timeout != TIME_INFINITE) {
+        timeout = TIME_IMMEDIATE;
+    }
+    osalSysUnlock();
+
+    const size_t received = ibqReadTimeout(&endpoint->ibqueue, data, size, timeout);
+    endpoint->timed_out   = received == 0;
+
+    return received == size;
+}

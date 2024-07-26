@@ -1,1 +1,0 @@
-DEFAULT_FOLDER = aleth42/rev1

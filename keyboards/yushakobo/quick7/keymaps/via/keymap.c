@@ -36,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LEFT,   KC_DOWN,    KC_RGHT
     ),
     [_FUNC1] = LAYOUT(
-        RESET,   KC_TRNS, RGB_TOG,
+        QK_BOOT, KC_TRNS, RGB_TOG,
         KC_HOME, KC_VOLU, KC_END,
         KC_MPRV, KC_VOLD, KC_MNXT
     ),
@@ -56,17 +56,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case YUSHAURL:
             if (record->event.pressed) {
-                // when keycode QMKURL is pressed
                 SEND_STRING("https://yushakobo.jp/\n");
-            } else {
-                // when keycode QMKURL is released
             }
             break;
     }
     return true;
 }
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { // Left encoder
         if (clockwise) {
             tap_code(KC_VOLU);
@@ -81,4 +78,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             rgblight_increase_hue_noeeprom();
         }
     }
+    return true;
 }

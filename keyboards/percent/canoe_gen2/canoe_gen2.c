@@ -15,16 +15,18 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "canoe_gen2.h"
+#include "quantum.h"
 
 void keyboard_pre_init_kb(void) {
-  setPinOutput(E6);
-  writePinHigh(E6);
+  gpio_set_pin_output(E6);
+  gpio_write_pin_high(E6);
+  
+  keyboard_pre_init_user();
 }
 
 bool led_update_kb(led_t led_state) {
     if(led_update_user(led_state)) {
-        writePin(E6, !led_state.caps_lock);
+        gpio_write_pin(E6, !led_state.caps_lock);
     }
 
     return true;

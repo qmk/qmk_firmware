@@ -17,13 +17,13 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_ortho_3x3(
-        KC_MUTE, KC_HOME, KC_MPLY, \
-        MO(1),   KC_UP,   KC_END, \
-        KC_LEFT, KC_DOWN, KC_RGHT \
+        KC_MUTE, KC_HOME, KC_MPLY,
+        MO(1),   KC_UP,   KC_END,
+        KC_LEFT, KC_DOWN, KC_RGHT
     ),
     [1] = LAYOUT_ortho_3x3(
-        RESET,   _______, KC_STOP, \
-        _______, _______, RGB_MOD, \
-        KC_MPRV, _______, KC_MNXT \
+        QK_BOOT, _______, KC_STOP,
+        _______, _______, RGB_MOD,
+        KC_MPRV, _______, KC_MNXT
     ),
 };

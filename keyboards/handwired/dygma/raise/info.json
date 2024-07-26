@@ -1,0 +1,29 @@
+{
+    "keyboard_name": "Raise",
+    "manufacturer": "Dygma",
+    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/dygma/raise",
+    "maintainer": "ibash",
+    "usb": {
+        "vid": "0x1209",
+        "pid": "0x2201",
+        "device_version": "0.0.1"
+    },
+    "rgb_matrix": {
+        "animations": {
+            "typing_heatmap": true,
+            "solid_reactive_simple": true,
+            "solid_reactive": true,
+            "solid_reactive_wide": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_cross": true,
+            "solid_reactive_multicross": true,
+            "solid_reactive_nexus": true,
+            "solid_reactive_multinexus": true
+        },
+        "driver": "custom",
+        "led_flush_limit": 100,
+        "sleep": true
+    },
+    "development_board": "blackpill_f411",
+    "debounce": 0
+}

@@ -1,4 +1,0 @@
-USER_NAME := not_drashna
-
-RGBLIGHT_ENABLE = yes
-CONSOLE_ENABLE  = no

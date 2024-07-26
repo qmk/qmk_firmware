@@ -14,8 +14,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "process_music.h"
+#include "timer.h"
 
 #ifdef AUDIO_ENABLE
+#    include "audio.h"
 #    include "process_audio.h"
 #endif
 #if defined(MIDI_ENABLE) && defined(MIDI_BASIC)
@@ -101,17 +103,17 @@ void music_all_notes_off(void) {
 }
 
 bool process_music(uint16_t keycode, keyrecord_t *record) {
-    if (keycode == MU_ON && record->event.pressed) {
+    if (keycode == QK_MUSIC_ON && record->event.pressed) {
         music_on();
         return false;
     }
 
-    if (keycode == MU_OFF && record->event.pressed) {
+    if (keycode == QK_MUSIC_OFF && record->event.pressed) {
         music_off();
         return false;
     }
 
-    if (keycode == MU_TOG && record->event.pressed) {
+    if (keycode == QK_MUSIC_TOGGLE && record->event.pressed) {
         if (music_activated) {
             music_off();
         } else {
@@ -120,17 +122,17 @@ bool process_music(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
 
-    if (keycode == MI_ON && record->event.pressed) {
+    if (keycode == QK_MIDI_ON && record->event.pressed) {
         midi_on();
         return false;
     }
 
-    if (keycode == MI_OFF && record->event.pressed) {
+    if (keycode == QK_MIDI_OFF && record->event.pressed) {
         midi_off();
         return false;
     }
 
-    if (keycode == MI_TOG && record->event.pressed) {
+    if (keycode == QK_MIDI_TOGGLE && record->event.pressed) {
         if (midi_activated) {
             midi_off();
         } else {
@@ -139,14 +141,14 @@ bool process_music(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
 
-    if (keycode == MU_MOD && record->event.pressed) {
+    if (keycode == QK_MUSIC_MODE_NEXT && record->event.pressed) {
         music_mode_cycle();
         return false;
     }
 
     if (music_activated || midi_activated) {
         if (record->event.pressed) {
-            if (keycode == KC_LCTL) {  // Start recording
+            if (keycode == KC_LEFT_CTRL) { // Start recording
                 music_all_notes_off();
                 music_sequence_recording = true;
                 music_sequence_recorded  = false;
@@ -155,9 +157,9 @@ bool process_music(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
 
-            if (keycode == KC_LALT) {  // Stop recording/playing
+            if (keycode == KC_LEFT_ALT) { // Stop recording/playing
                 music_all_notes_off();
-                if (music_sequence_recording) {  // was recording
+                if (music_sequence_recording) { // was recording
                     music_sequence_recorded = true;
                 }
                 music_sequence_recording = false;
@@ -165,7 +167,7 @@ bool process_music(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
 
-            if (keycode == KC_LGUI && music_sequence_recorded) {  // Start playing
+            if (keycode == KC_LEFT_GUI && music_sequence_recorded) { // Start playing
                 music_all_notes_off();
                 music_sequence_recording = false;
                 music_sequence_playing   = true;
@@ -230,11 +232,17 @@ bool music_mask(uint16_t keycode) {
 #    endif
 }
 
-__attribute__((weak)) bool music_mask_kb(uint16_t keycode) { return music_mask_user(keycode); }
+__attribute__((weak)) bool music_mask_kb(uint16_t keycode) {
+    return music_mask_user(keycode);
+}
 
-__attribute__((weak)) bool music_mask_user(uint16_t keycode) { return keycode < 0xFF; }
+__attribute__((weak)) bool music_mask_user(uint16_t keycode) {
+    return keycode < 0xFF;
+}
 
-bool is_music_on(void) { return (music_activated != 0); }
+bool is_music_on(void) {
+    return (music_activated != 0);
+}
 
 void music_toggle(void) {
     if (!music_activated) {
@@ -260,7 +268,9 @@ void music_off(void) {
 #    endif
 }
 
-bool is_midi_on(void) { return (midi_activated != 0); }
+bool is_midi_on(void) {
+    return (midi_activated != 0);
+}
 
 void midi_toggle(void) {
     if (!midi_activated) {
@@ -296,7 +306,7 @@ void music_mode_cycle(void) {
 #    endif
 }
 
-void matrix_scan_music(void) {
+void music_task(void) {
     if (music_sequence_playing) {
         if ((music_sequence_timer == 0) || (timer_elapsed(music_sequence_timer) > music_sequence_interval)) {
             music_sequence_timer = timer_read();
@@ -309,10 +319,10 @@ void matrix_scan_music(void) {
     }
 }
 
-__attribute__((weak)) void music_on_user() {}
+__attribute__((weak)) void music_on_user(void) {}
 
-__attribute__((weak)) void midi_on_user() {}
+__attribute__((weak)) void midi_on_user(void) {}
 
-__attribute__((weak)) void music_scale_user() {}
+__attribute__((weak)) void music_scale_user(void) {}
 
-#endif  // defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
+#endif // defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
