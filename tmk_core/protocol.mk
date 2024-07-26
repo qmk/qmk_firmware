@@ -71,14 +71,9 @@ ifeq ($(strip $(JOYSTICK_ENABLE)), yes)
     endif
 endif
 
-ifeq ($(strip $(DIGITIZER_SHARED_EP)), yes)
-    OPT_DEFS += -DDIGITIZER_SHARED_EP
-    SHARED_EP_ENABLE = yes
-endif
-
 ifeq ($(strip $(DIGITIZER_ENABLE)), yes)
     OPT_DEFS += -DDIGITIZER_ENABLE
-    ifeq ($(strip $(SHARED_EP_ENABLE)), yes)
+    ifeq ($(strip $(DIGITIZER_SHARED_EP)), yes)
         OPT_DEFS += -DDIGITIZER_SHARED_EP
         SHARED_EP_ENABLE = yes
     endif
