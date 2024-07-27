@@ -56,7 +56,7 @@ uint32_t ld7032_comms_i2c_send_command_and_databuf(painter_device_t device, uint
 
 // Power control
 bool qp_ld7032_power(painter_device_t device, bool power_on) {
-    painter_driver_t                   *driver       = (painter_driver_t *)device;
+    painter_driver_t *                  driver       = (painter_driver_t *)device;
     ld7032_comms_with_command_vtable_t *comms_vtable = (ld7032_comms_with_command_vtable_t *)driver->comms_vtable;
 
     comms_vtable->send_command_data(device, LD7032_DISP_ON_OFF, power_on ? 0x01 : 0x00);
@@ -77,7 +77,7 @@ bool qp_ld7032_clear(painter_device_t device) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void ld7032_flush_rot0(painter_device_t device, surface_dirty_data_t *dirty, const uint8_t *framebuffer) {
-    painter_driver_t                   *driver       = (painter_driver_t *)device;
+    painter_driver_t *                  driver       = (painter_driver_t *)device;
     ld7032_comms_with_command_vtable_t *comms_vtable = (ld7032_comms_with_command_vtable_t *)driver->comms_vtable;
 
     int     x_start       = dirty->l >> 3;
@@ -106,7 +106,7 @@ void ld7032_flush_rot0(painter_device_t device, surface_dirty_data_t *dirty, con
 }
 
 void ld7032_flush_rot90(painter_device_t device, surface_dirty_data_t *dirty, const uint8_t *framebuffer) {
-    painter_driver_t                   *driver       = (painter_driver_t *)device;
+    painter_driver_t *                  driver       = (painter_driver_t *)device;
     ld7032_comms_with_command_vtable_t *comms_vtable = (ld7032_comms_with_command_vtable_t *)driver->comms_vtable;
 
     int     x_start       = dirty->t >> 3;
@@ -145,7 +145,7 @@ void ld7032_flush_rot90(painter_device_t device, surface_dirty_data_t *dirty, co
 }
 
 void ld7032_flush_rot180(painter_device_t device, surface_dirty_data_t *dirty, const uint8_t *framebuffer) {
-    painter_driver_t                   *driver       = (painter_driver_t *)device;
+    painter_driver_t *                  driver       = (painter_driver_t *)device;
     ld7032_comms_with_command_vtable_t *comms_vtable = (ld7032_comms_with_command_vtable_t *)driver->comms_vtable;
 
     int     x_start       = dirty->l >> 3;
@@ -176,7 +176,7 @@ void ld7032_flush_rot180(painter_device_t device, surface_dirty_data_t *dirty, c
 }
 
 void ld7032_flush_rot270(painter_device_t device, surface_dirty_data_t *dirty, const uint8_t *framebuffer) {
-    painter_driver_t                   *driver       = (painter_driver_t *)device;
+    painter_driver_t *                  driver       = (painter_driver_t *)device;
     ld7032_comms_with_command_vtable_t *comms_vtable = (ld7032_comms_with_command_vtable_t *)driver->comms_vtable;
 
     int     x_start       = dirty->t >> 3;
@@ -300,7 +300,7 @@ __attribute__((weak)) bool qp_ld7032_init(painter_device_t device, painter_rotat
             break;
     }
 
-    painter_driver_t                   *pdriver      = (painter_driver_t *)device;
+    painter_driver_t *                  pdriver      = (painter_driver_t *)device;
     ld7032_comms_with_command_vtable_t *comms_vtable = (ld7032_comms_with_command_vtable_t *)pdriver->comms_vtable;
 
     comms_vtable->send_command_data(device, LD7032_WRITE_DIRECTION, write_direction);
