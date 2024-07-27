@@ -1140,6 +1140,12 @@
     "mt980": {
         "target": "mt/mt980"
     },
+    "mt/ncr80/hotswap": {
+        "target": "mt/ncr80/r2/hotswap"
+    },
+    "mt/ncr80/solder": {
+        "target": "mt/ncr80/r2/solder"
+    },
     "nafuda": {
         "target": "salicylic_acid3/nafuda"
     },
