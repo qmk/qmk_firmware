@@ -27,7 +27,8 @@ const key_cancellation_t PROGMEM key_cancellation_list[] = {
 #endif
 ```
 
-## SOCD WASD Example
+## Examples {#examples}
+### SOCD WASD Example
 
 ```c
 #if defined(KEY_CANCELLATION_ENABLE)
