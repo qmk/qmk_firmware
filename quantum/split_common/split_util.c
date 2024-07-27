@@ -167,7 +167,7 @@ __attribute__((weak)) bool is_keyboard_left_impl(void) {
     }
 #    endif // defined(INIT_EE_HANDS_LEFT) || defined(INIT_EE_HANDS_RIGHT)
 
-    if (eeconfig_read_handedness() == EEHANDS_UNSET){
+    if (eeconfig_read_handedness() == EEHANDS_UNSET) {
         return is_keyboard_master();
     } else {
         return eeconfig_read_handedness() == EEHANDS_LEFT ? true : false;

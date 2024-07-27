@@ -155,7 +155,7 @@ void     eeconfig_update_haptic(uint32_t val);
 #endif
 
 eehands_t eeconfig_read_handedness(void);
-void eeconfig_update_handedness(eehands_t val);
+void      eeconfig_update_handedness(eehands_t val);
 
 #if (EECONFIG_KB_DATA_SIZE) > 0
 bool eeconfig_is_kb_datablock_valid(void);
