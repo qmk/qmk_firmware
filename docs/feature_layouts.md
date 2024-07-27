@@ -1,6 +1,6 @@
 # Community Layouts
 
-This feature allows a keymap to be shared with and compiled on keyboards that have the same community-established physical layout.
+This feature allows a keymap to be shared with and compiled on keyboards that have the same, community-established, physical layout.
 
 #### Example
 You have a QMK powered, TKL ANSI keyboard flashed with a keymap of your new experimental functional layout. Your friend/"partner in keyboard layout crime" also has a QMK powered, TKL ANSI physical layout keyboard but it's a different manufacturer and/or model to your keyboard and therefore would require your friend to recreate your experimental keymap exclusively for their keyboard.
@@ -16,8 +16,6 @@ The `layouts/default/` and `layouts/community/` sub-directories are two examples
 - `default/` contains reference information regarding each Community Layout, which includes a default keymap for testing Community Layout support.  
 - `community/` is typically used for storing local (to GitHub Repository) keymaps and community/user shared keymaps (e.g. Miryoku) for each respective Community Layout.
 
-QMK searches through all sub-directories in `layouts/`, so it's possible to have multiple repositories.
-
 To assist explanation of concepts, terms encapsulated in angled brackets are used.
 ```
 layouts/
@@ -32,7 +30,6 @@ layouts/
 ```
 **<community_layout>**: As well as sub-directory name, this serves as the Community Layout name  
 **<community_layout_keymap>**: As well as sub-directory name, this serves as keymap name
-
 
 ## Add Community Layout support to keyboard
 
@@ -53,7 +50,6 @@ layouts/
 ```
 2. Within `"layouts"` object literal, for each Community Layout supported, add layout information with macro name that is identical to the respective Community Layout's macro name; macro name is specified in keymap file (`keymap.c`/`keymap.json`) of *<community_layout_keymap>*.
 
-
 #### Macro name example for Community Layout `60_ansi`
 `layouts/default/60_ansi/default_60_ansi/keymap.c`:
 ```c
@@ -73,13 +69,11 @@ layouts/
     }
 ```
 
-
 Additionally, for each Community Layout being added to `"layouts"`:
 - Array length of `"layout"` **must** match array length of respective Community Layout
 - key sequence (i.e. order of keys from top to bottom) and graphical properties of each key (i.e. `"x":`, `"y":`, `"w":`, `"h":`) should be identical to respective Community Layout
 
 Array length and key sequence for each Community Layout are located in `layouts/default/`*<community_layout>*`/info.json`.
-
 
 ## Compiling Community Layout keymap
 Compiling keyboard firmware with a keymap inside either Community Layout repository is identical to regular keymap compilation, with the difference of the keymap argument being *<community_layout_keymap>*: 
@@ -90,7 +84,6 @@ The following examples compile the "default" keymap for the repsective Community
 
     qmk compile -kb dztech/pluto -km default_tkl_nofrow_ansi
     qmk compile -kb dz60 -km default_60_iso
-
 
 ### Conflicting Keymaps
 When compiling a <community_layout_keymap> that has the same name in two or more <community_layouts> the target keyboard supports, this can result in the undesired keymap being compiled.
