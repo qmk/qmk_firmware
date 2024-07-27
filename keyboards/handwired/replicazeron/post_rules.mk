@@ -9,6 +9,6 @@ endif
 
 ifeq ($(strip $(THUMBSTICK_ENABLE)), yes)
     OPT_DEFS += -DTHUMBSTICK_ENABLE
-    SRC += analog.c \
-           thumbstick.c
+    SRC += thumbstick.c
+    ANALOG_DRIVER_REQUIRED = yes
 endif
