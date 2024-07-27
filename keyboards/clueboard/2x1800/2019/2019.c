@@ -58,7 +58,7 @@ uint8_t detected_shakes = 0;
 static uint16_t shake_timer;
 #endif
 
-void matrix_scan_kb(void) {
+void housekeeping_task_kb(void) {
 #ifdef SHAKE_ENABLE
     // Read the current state of the tilt sensor. It is physically
     // impossible for both pins to register a low state at the same time.
@@ -81,8 +81,6 @@ void matrix_scan_kb(void) {
         detected_shakes = 0;
     }
 #endif
-
-    matrix_scan_user();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {

@@ -21,13 +21,11 @@
 #ifndef DRAWING_TOY_MODE
 static uint16_t led_frame_timer = 0;
 
-void matrix_scan_kb(void) {
+void housekeeping_task_kb(void) {
     if (timer_elapsed(led_frame_timer) > 100) {
         max7219_message_sign_task(true);
         led_frame_timer = timer_read();
     }
-
-    matrix_scan_user();
 }
 #endif
 
