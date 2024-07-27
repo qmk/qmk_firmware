@@ -29,12 +29,10 @@ void matrix_init_kb(void)
 #endif
 }
 
-void matrix_scan_kb(void)
-{
+void housekeeping_task_kb(void) {
 #ifdef WATCHDOG_ENABLE
     wdt_reset();
 #endif
-    matrix_scan_user();
 }
 
 void click(uint16_t freq, uint16_t duration){
