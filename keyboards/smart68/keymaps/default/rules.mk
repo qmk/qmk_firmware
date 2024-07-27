@@ -1,1 +1,0 @@
-COMMAND_ENABLE = yes
