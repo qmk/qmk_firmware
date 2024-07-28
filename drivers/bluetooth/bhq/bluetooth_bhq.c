@@ -14,23 +14,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "bluetooth.h"
+#include "bluetooth_bhq.h"
 #include "bhq.h"
 #include "report_buffer.h"
-#include "lpm.h"
+// #include "lpm.h"
 
 
 
-void bluetooth_init(void) {
+void bluetooth_bhq_init(void) {
     bhq_init(false);
     report_buffer_init();
-    lpm_init();
+    // lpm_init();
 }
 
-void bluetooth_task(void) {
+void bluetooth_bhq_task(void) {
     bhq_task();
     report_buffer_task();
-    lpm_task();
+    // lpm_task();
 }
 
 
@@ -39,7 +39,7 @@ void bluetooth_task(void) {
  *
  * \param report The keyboard report to send.
  */
-void bluetooth_send_keyboard(report_keyboard_t *report)
+void bluetooth_bhq_send_keyboard(report_keyboard_t *report)
 {
 
     bool firstBuffer = false;
@@ -75,7 +75,7 @@ return;
  *
  * \param report The mouse report to send.
  */
-void bluetooth_send_mouse(report_mouse_t *report)
+void bluetooth_bhq_send_mouse(report_mouse_t *report)
 {
     bhq_send_mouse((uint8_t *)report);
 }
@@ -86,7 +86,7 @@ void bluetooth_send_mouse(report_mouse_t *report)
  *
  * \param usage The consumer usage to send.
  */
-void bluetooth_send_consumer(uint16_t usage)
+void bluetooth_bhq_send_consumer(uint16_t usage)
 {
     bool firstBuffer = false;
     if (report_buffer_is_empty() && report_buffer_next_inverval()) {
@@ -108,7 +108,7 @@ void bluetooth_send_consumer(uint16_t usage)
  *
  * \param usage The system usage to send.
  */
-void bluetooth_send_system(uint16_t usage)
+void bluetooth_bhq_send_system(uint16_t usage)
 {
     bool firstBuffer = false;
     if (report_buffer_is_empty() && report_buffer_next_inverval()) {
@@ -130,7 +130,7 @@ void bluetooth_send_system(uint16_t usage)
  *
  * \param report The nkro report to send.
  */
-void bluetooth_send_nkro(report_nkro_t *report)
+void bluetooth_bhq_send_nkro(report_nkro_t *report)
 {
     bool firstBuffer = false;
     if (report_buffer_is_empty() && report_buffer_next_inverval()) {
@@ -153,16 +153,3 @@ void bluetooth_send_nkro(report_nkro_t *report)
     }
 }
 
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) 
-{
-    switch (keycode) {
-        case OU_BT:
-            if(record->event.pressed)
-            {
-                bhq_SetPairingMode(0,10);
-            }
-            break;
-    }
-    return true;
-}

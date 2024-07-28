@@ -873,7 +873,7 @@ ifeq ($(strip $(USBPD_ENABLE)), yes)
 endif
 
 BLUETOOTH_ENABLE ?= no
-VALID_BLUETOOTH_DRIVER_TYPES := bluefruit_le custom rn42
+VALID_BLUETOOTH_DRIVER_TYPES := bluefruit_le custom rn42 bhq
 ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
     ifeq ($(filter $(strip $(BLUETOOTH_DRIVER)),$(VALID_BLUETOOTH_DRIVER_TYPES)),)
         $(call CATASTROPHIC_ERROR,Invalid BLUETOOTH_DRIVER,BLUETOOTH_DRIVER="$(BLUETOOTH_DRIVER)" is not a valid Bluetooth driver type)
@@ -895,6 +895,15 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
         UART_DRIVER_REQUIRED = yes
         SRC += $(DRIVER_PATH)/bluetooth/bluetooth.c
         SRC += $(DRIVER_PATH)/bluetooth/rn42.c
+    endif
+
+    ifeq ($(strip $(BLUETOOTH_DRIVER)), bhq)
+        NO_USB_STARTUP_CHECK = yes
+        COMMON_VPATH += $(DRIVER_PATH)/bluetooth/bhq
+        SRC += $(DRIVER_PATH)/bluetooth/bluetooth.c
+        SRC += $(DRIVER_PATH)/bluetooth/bhq/bhq.c
+        SRC += $(DRIVER_PATH)/bluetooth/bhq/bluetooth_bhq.c
+        SRC += $(DRIVER_PATH)/bluetooth/bhq/report_buffer.c
     endif
 endif
 

@@ -82,10 +82,8 @@ void bhq_init(bool wakeup_from_low_power_mode) {
 
 void bhq_Disable(void)
 {
-    // 停止串行驱动器
     sdStop(&BT_DRIVER);
     
-    // 配置引脚为模拟输入以降低功耗
     palSetPadMode(BT_DRIVER_UART_TX_BANK, BT_DRIVER_UART_TX, PAL_MODE_INPUT_ANALOG);
     palSetPadMode(BT_DRIVER_UART_RX_BANK, BT_DRIVER_UART_RX, PAL_MODE_INPUT_ANALOG);
 }

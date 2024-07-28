@@ -21,6 +21,10 @@
 #    include "bluefruit_le.h"
 #elif defined(BLUETOOTH_RN42)
 #    include "rn42.h"
+#elif defined(BLUETOOTH_BHQ)
+#   include "action.h"
+#   include "report.h"
+#   include "bluetooth_bhq.h"
 #endif
 
 void bluetooth_init(void) {
@@ -28,12 +32,16 @@ void bluetooth_init(void) {
     bluefruit_le_init();
 #elif defined(BLUETOOTH_RN42)
     rn42_init();
+#elif defined(BLUETOOTH_BHQ)
+    bluetooth_bhq_init();
 #endif
 }
 
 void bluetooth_task(void) {
 #if defined(BLUETOOTH_BLUEFRUIT_LE)
     bluefruit_le_task();
+#elif defined(BLUETOOTH_BHQ)
+    bluetooth_bhq_task();
 #endif
 }
 
@@ -42,6 +50,8 @@ void bluetooth_send_keyboard(report_keyboard_t *report) {
     bluefruit_le_send_keyboard(report);
 #elif defined(BLUETOOTH_RN42)
     rn42_send_keyboard(report);
+#elif defined(BLUETOOTH_BHQ)
+    bluetooth_bhq_send_keyboard(report);
 #endif
 }
 
@@ -50,6 +60,8 @@ void bluetooth_send_mouse(report_mouse_t *report) {
     bluefruit_le_send_mouse(report);
 #elif defined(BLUETOOTH_RN42)
     rn42_send_mouse(report);
+#elif defined(BLUETOOTH_BHQ)
+
 #endif
 }
 
@@ -58,15 +70,21 @@ void bluetooth_send_consumer(uint16_t usage) {
     bluefruit_le_send_consumer(usage);
 #elif defined(BLUETOOTH_RN42)
     rn42_send_consumer(usage);
+#elif defined(BLUETOOTH_BHQ)
+    bluetooth_bhq_send_consumer(usage);
 #endif
 }
 
 
 void bluetooth_send_system(uint16_t usage)
 {
-    return;
+#if defined(BLUETOOTH_BHQ)
+    bluetooth_bhq_send_system(usage);
+#endif
 }
 
 void bluetooth_send_nkro(report_nkro_t *report) {
-    return;
+#if defined(BLUETOOTH_BHQ)
+    bluetooth_bhq_send_nkro(report);
+#endif
 }

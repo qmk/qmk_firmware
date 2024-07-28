@@ -14,7 +14,11 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
+        "bluetooth": true,
         "nkro": true
+    },
+    "bluetooth":{
+        "driver":"bhq"
     },
     "matrix_pins": {
         "cols": ["A15", "B3", "B4", "B6", "B7", "B5", "C13", "A5", "A4", "B14", "B15", "A8", "A9", "A10"],

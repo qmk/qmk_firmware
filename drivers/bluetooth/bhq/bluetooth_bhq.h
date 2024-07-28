@@ -23,12 +23,12 @@
 /**
  * \brief Initialize the Bluetooth system.
  */
-void bluetooth_init(void);
+void bluetooth_bhq_init(void);
 
 /**
  * \brief Perform housekeeping tasks.
  */
-void bluetooth_task(void);
+void bluetooth_bhq_task(void);
 
 
 /**
@@ -36,28 +36,28 @@ void bluetooth_task(void);
  *
  * \param report The keyboard report to send.
  */
-void bluetooth_send_keyboard(report_keyboard_t *report);
+void bluetooth_bhq_send_keyboard(report_keyboard_t *report);
 
 /**
  * \brief Send a mouse report.
  *
  * \param report The mouse report to send.
  */
-void bluetooth_send_mouse(report_mouse_t *report);
+void bluetooth_bhq_send_mouse(report_mouse_t *report);
 
 /**
  * \brief Send a consumer usage.
  *
  * \param usage The consumer usage to send.
  */
-void bluetooth_send_consumer(uint16_t usage);
+void bluetooth_bhq_send_consumer(uint16_t usage);
 
 /**
  * \brief Send a system usage.
  *
  * \param usage The system usage to send.
  */
-void bluetooth_send_system(uint16_t usage);
+void bluetooth_bhq_send_system(uint16_t usage);
 
 
 /**
@@ -65,4 +65,4 @@ void bluetooth_send_system(uint16_t usage);
  *
  * \param report The nkro report to send.
  */
-void bluetooth_send_nkro(report_nkro_t *report);
+void bluetooth_bhq_send_nkro(report_nkro_t *report);
