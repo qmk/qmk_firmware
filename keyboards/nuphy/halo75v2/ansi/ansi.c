@@ -535,6 +535,8 @@ void init_g_config(void) {
     g_config.battery_indicator_brightness = DEFAULT_BATTERY_INDICATOR_BRIGHTNESS;
     g_config.toggle_custom_keys_highlight = DEFAULT_LIGHT_CUSTOM_KEYS;
     g_config.detect_numlock_state         = 0;
+    g_config.side_use_custom_color        = 0;
+    g_config.side_custom_color            = rgb_matrix_get_hsv();
 }
 
 void load_config_from_eeprom(void) {
@@ -623,6 +625,12 @@ void via_config_set_value(uint8_t *data) {
         case id_toggle_detect_numlock_state:
             g_config.detect_numlock_state = *value_data;
             break;
+        case id_side_use_custom_color:
+            g_config.side_use_custom_color = *value_data;
+            break;
+        case id_side_custom_color:
+            _set_color(&(g_config.side_custom_color), value_data);
+            break;
     }
 #    if CONSOLE_ENABLE
     xprintf("[SET]VALUE_ID: %u DATA: %u\n", *value_id, *value_data);
@@ -682,6 +690,12 @@ void via_config_get_value(uint8_t *data) {
             break;
         case id_toggle_detect_numlock_state:
             *value_data = g_config.detect_numlock_state;
+            break;
+        case id_side_use_custom_color:
+            *value_data = g_config.side_use_custom_color;
+            break;
+        case id_side_custom_color:
+            _get_color(&(g_config.side_custom_color), value_data);
             break;
     }
 #    if CONSOLE_ENABLE
@@ -748,3 +762,14 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 
     {0, D_12, E_12, F_12}, {0, D_13, E_13, F_13}, {0, D_14, E_14, F_14}, {0, D_15, E_15, F_15}, {0, D_16, E_16, F_16}, {0, G_16, H_16, I_16}, {0, G_15, H_15, I_15}, {0, G_14, H_14, I_14}, {0, G_13, H_13, I_13}, {0, G_12, H_12, I_12}, {0, G_11, H_11, I_11}, {0, G_10, H_10, I_10}, {0, G_9, H_9, I_9},    {0, J_16, K_16, L_16}, {0, J_15, K_15, L_15}, {0, J_14, K_14, L_14}, {0, J_13, K_13, L_13}, {1, D_16, E_16, F_16}, {1, D_15, E_15, F_15}, {1, D_14, E_14, F_14}, {1, D_13, E_13, F_13}, {1, D_12, E_12, F_12}, {1, D_11, E_11, F_11}, {1, D_10, E_10, F_10}, {1, D_9, E_9, F_9}, {1, G_7, H_7, I_7}, {1, G_8, H_8, I_8}, {1, G_9, H_9, I_9}, {1, G_10, H_10, I_10}, {1, G_11, H_11, I_11}, {1, G_12, H_12, I_12}, {1, G_13, H_13, I_13}, {1, G_14, H_14, I_14}, {1, G_15, H_15, I_15}, {1, G_16, H_16, I_16},
 };
+
+// Some helpers for setting/getting HSV
+void _set_color(HSV *color, uint8_t *data) {
+    color->h = data[0];
+    color->s = data[1];
+}
+
+void _get_color(HSV *color, uint8_t *data) {
+    data[0] = color->h;
+    data[1] = color->s;
+}

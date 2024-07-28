@@ -636,7 +636,7 @@ static void side_spectrum_mode_show(void) {
 
 static void side_breathe_mode_show(void) {
     static uint8_t play_point = 0;
-    static uint8_t color     = 0;
+    // static uint8_t color      = 0;
 
     if (side_play_cnt <= side_speed_table[g_config.side_mode_a][g_config.side_speed])
         return;
@@ -648,19 +648,28 @@ static void side_breathe_mode_show(void) {
 
     light_point_playing(0, 1, BREATHE_TAB_LEN, &play_point);
 
-    if (g_config.side_rgb) {
-        if (play_point == 0) {
-            if (++color >= LIGHT_COLOR_MAX) color = 0;
-        }
-        r_temp = side_color_lib[color][0];
-        g_temp = side_color_lib[color][1];
-        b_temp = side_color_lib[color][2];
-
+    // if (g_config.side_rgb) {
+    //     if (play_point == 0) {
+    //         if (++color >= LIGHT_COLOR_MAX) color = 0;
+    //     }
+    //     r_temp = side_color_lib[color][0];
+    //     g_temp = side_color_lib[color][1];
+    //     b_temp = side_color_lib[color][2];
+    //
+    // } else {
+    if (g_config.side_use_custom_color) {
+        HSV hsv = g_config.side_custom_color;
+        hsv.v   = rgb_matrix_config.hsv.v;
+        RGB rgb = hsv_to_rgb(hsv);
+        r_temp  = rgb.r;
+        g_temp  = rgb.g;
+        b_temp  = rgb.b;
     } else {
         r_temp = side_color_lib[g_config.side_color][0];
         g_temp = side_color_lib[g_config.side_color][1];
         b_temp = side_color_lib[g_config.side_color][2];
     }
+    // }
     count_rgb_light(breathe_data_tab[play_point]);
     count_rgb_light(side_light_table[g_config.side_brightness]);
 
@@ -700,15 +709,24 @@ static void side_static_mode_show(void) {
 
     if (side_play_point >= SIDE_COLOR_MAX) side_play_point = 0;
 
-    for (int i = 0; i < side_line; i++) {
+    if (g_config.side_use_custom_color) {
+        HSV hsv = g_config.side_custom_color;
+        hsv.v   = rgb_matrix_config.hsv.v;
+        RGB rgb = hsv_to_rgb(hsv);
+        r_temp  = rgb.r;
+        g_temp  = rgb.g;
+        b_temp  = rgb.b;
+    } else {
         r_temp = side_color_lib[g_config.side_color][0];
         g_temp = side_color_lib[g_config.side_color][1];
         b_temp = side_color_lib[g_config.side_color][2];
+    }
 
+    for (int i = 0; i < side_line; i++) {
         if ((side_led_index_tab[i] <= SIDE_INDEX + 9) && (side_led_index_tab[i] >= SIDE_INDEX)) {
-            r_temp = side_color_lib_1[g_config.side_color][0] * 0.7;
-            g_temp = side_color_lib_1[g_config.side_color][1] * 0.7;
-            b_temp = side_color_lib_1[g_config.side_color][2] * 0.7;
+            r_temp = r_temp * 0.7;
+            g_temp = g_temp * 0.7;
+            b_temp = b_temp * 0.7;
         }
 
         count_rgb_light(side_light_table[g_config.side_brightness]);
@@ -762,7 +780,7 @@ void bat_charging_design(uint8_t init, uint8_t r, uint8_t g, uint8_t b) {
         }
     }
 
-    for (i = 0; i < init+1; i++) {
+    for (i = 0; i < init + 1; i++) {
         if (show_mask & bit_mask) {
             user_set_side_rgb_color(SIDE_INDEX + i, r, g, b);
         } else {
@@ -888,7 +906,6 @@ void bat_percent_led(uint8_t bat_percent) {
     bat_r = bat_r * g_config.battery_indicator_brightness / 100;
     bat_g = bat_g * g_config.battery_indicator_brightness / 100;
     bat_b = bat_b * g_config.battery_indicator_brightness / 100;
-
 
     if (f_charging) {
         low_bat_blink_cnt = 6;
