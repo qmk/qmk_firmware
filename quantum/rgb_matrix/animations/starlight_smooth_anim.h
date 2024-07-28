@@ -1,18 +1,16 @@
 #ifdef ENABLE_RGB_MATRIX_STARLIGHT_SMOOTH
-RGB_MATRIX_EFFECT(STAR_LIGHT_SMOOTH)
+RGB_MATRIX_EFFECT(STARLIGHT_SMOOTH)
 #    ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-bool STAR_LIGHT_SMOOTH(effect_params_t* params) {
+bool STARLIGHT_SMOOTH(effect_params_t* params) {
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
 
     static uint16_t time_offsets[RGB_MATRIX_LED_COUNT] = {0};
-    static bool     initialized                        = false;
 
-    if (!initialized) {
+    if (params->init) {
         for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
-            time_offsets[i] = rand() % 65500;
+            time_offsets[i] = random16_max(65000);
         }
-        initialized = true;
     }
 
     for (uint8_t i = led_min; i < led_max; i++) {
