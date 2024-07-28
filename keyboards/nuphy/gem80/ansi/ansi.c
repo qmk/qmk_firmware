@@ -572,11 +572,10 @@ void init_g_config(void) {
     g_config.logo_rgb                     = DEFAULT_LOGO_RGB;
     g_config.logo_color                   = DEFAULT_LOGO_COLOR;
     g_config.detect_numlock_state         = 0;
-    // custom colors
-    g_config.side_use_custom_color = 0;
-    g_config.logo_use_custom_color = 0;
-    g_config.side_custom_color     = rgb_matrix_get_hsv();
-    g_config.logo_custom_color     = rgb_matrix_get_hsv();
+    g_config.side_use_custom_color        = 0;
+    g_config.logo_use_custom_color        = 0;
+    g_config.side_custom_color            = rgb_matrix_get_hsv();
+    g_config.logo_custom_color            = rgb_matrix_get_hsv();
 }
 
 void load_config_from_eeprom(void) {
