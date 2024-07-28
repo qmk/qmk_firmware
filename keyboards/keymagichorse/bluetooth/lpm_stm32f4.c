@@ -44,6 +44,14 @@ void lpm_timer_stop(void) {
 void lpm_init(void)
 {
     lpm_timer_reset();
+    // 在系统初始化代码中禁用SWD接口
+    palSetPadMode(GPIOA, 13, PAL_MODE_INPUT_ANALOG);
+    palSetPadMode(GPIOA, 14, PAL_MODE_INPUT_ANALOG);
+    // 禁用调试功能以降低功耗
+    DBGMCU->CR &= ~DBGMCU_CR_DBG_SLEEP;   // 禁用在Sleep模式下的调试
+    DBGMCU->CR &= ~DBGMCU_CR_DBG_STOP;    // 禁用在Stop模式下的调试
+    DBGMCU->CR &= ~DBGMCU_CR_DBG_STANDBY; // 禁用在Standby模式下的调试
+
 }
 
 // Disabled HSE   Enabled HSI
