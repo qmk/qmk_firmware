@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "color.h"
-#include "print.h"
 #include "rgb_matrix.h"
 #include "steno_keycodes.h"
 #include QMK_KEYBOARD_H
@@ -22,6 +21,7 @@ enum layers {
   _NUM, // Numpad
   _BLN, // Blender
   _PLV, // Plover
+  _GME, // GAME
 };
 
 #define B _BSE
@@ -31,6 +31,7 @@ enum layers {
 #define U _NUM
 #define L _BLN
 #define P _PLV
+#define E _GAME
 
 // This denotes the key you used to enter into the layer.
 // E for entry.
@@ -46,27 +47,12 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-/* BASE
- * ,-----------------------------------------.                    ,-----------------------------------------.
- * |      |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |  `   |
- * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |   Q  |   W  |   E  |   R  |   T  |                    |   Y  |   U  |   I  |   O  |   P  |  ;   |
- * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |   A  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |   ;  |  '   |
- * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
- * |      |   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |RShift|
- * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | LAlt | LGUI |LOWER | /Space  /       \Enter \  |RAISE |BackSP| RGUI |
- *                   |      |      |      |/       /         \      \ |      |      |      |
- *                   `----------------------------'           '------''--------------------'
- */
-
 [_BSE] = LAYOUT(
   QK_BOOT,       KC_1,          KC_2,         KC_3,          KC_4,          KC_5,                                        KC_6,          KC_7,          KC_8,         KC_9,          KC_0,          QK_BOOT,
-  _______,       KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                                        KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          KC_DEL,
+  TG(_PLV),      KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                                        KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          KC_DEL,
   PWR_SFT,       KC_A,          LT(U, KC_S),  ALT_T(KC_D),   LT(N, KC_F),   KC_G,                                        KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(Y),
-  TG(_PLV),      KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,          KC_LBRC,       KC_RBRC,       KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       C(G(KC_Q)),
-                                _______,      CTL_T(KC_ESC), GUI_T(KC_SPC), HYPR_T(KC_ENT),                              KB_VLEAD,      SFT_T(KC_BSPC),OSL(M),       _______
+  TG(_BLN),      KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,          KC_LBRC,       KC_RBRC,       KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       C(G(KC_Q)),
+                                _______,      CTL_T(KC_ESC), GUI_T(KC_SPC), HYPR_T(KC_ENT),                              KB_VLEAD,      SFT_T(KC_BSPC),OSL(M),       TG(_GME)
 ),
 
 [_SYM] = LAYOUT(
@@ -105,17 +91,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,       _______,       _______,      _______,       _______,       _______,                                     _______,       _______,       _______,      _______,       _______,       _______,
   _______,       _______,       _______,      _______,       _______,       _______,                                     _______,       _______,       _______,      _______,       _______,       _______,
   _______,       _______,       _______,      _______,       _______,       _______,                                     _______,       _______,       _______,      _______,       _______,       _______,
-  _______,       _______,       _______,      _______,       _______,       _______,       _______,       _______,       _______,       _______,       _______,      _______,       _______,       _______,
+  TG(_BLN),      _______,       _______,      _______,       _______,       _______,       _______,       _______,       _______,       _______,       _______,      _______,       _______,       _______,
                                 _______,      _______,       _______,       _______,                                     _______,       _______,       _______,      _______
 ),
 
 [_PLV] = LAYOUT(
   _______,       _______,       _______,      _______,       _______,       _______,                                     _______,       _______,       _______,      _______,       _______,       _______,
-  _______,       _______,       _______,      _______,       _______,       _______,                                     _______,       _______,       _______,      _______,       _______,       _______,
+  TG(_PLV),      _______,       _______,      _______,       _______,       _______,                                     _______,       _______,       _______,      _______,       _______,       _______,
   _______,       STN_S1,        STN_TL,       STN_PL,        STN_HL,        STN_ST1,                                     STN_ST3,       STN_FR,        STN_PR,       STN_LR,        STN_TR,        STN_DR,
-  TG(_PLV),      STN_S2,        STN_KL,       STN_WL,        STN_RL,        STN_ST2,       _______,       _______,       STN_ST4,       STN_RR,        STN_BR,       STN_GR,        STN_SR,        STN_ZR,
+  _______,       STN_S2,        STN_KL,       STN_WL,        STN_RL,        STN_ST2,       _______,       _______,       STN_ST4,       STN_RR,        STN_BR,       STN_GR,        STN_SR,        STN_ZR,
                                 _______,      STN_A,         STN_O,         STN_AO,                                      STN_EU,        STN_E,         STN_U,        _______
-)
+),
+
+[_GME] = LAYOUT(
+  KC_ESC,        _______,       _______,      _______,       _______,       _______,                                     _______,       _______,       _______,      _______,       _______,       _______,
+  KC_TAB,        _______,       _______,      _______,       _______,       _______,                                     _______,       _______,       _______,      _______,       _______,       _______,
+  KC_LSFT,       _______,       KC_S,         KC_D,          KC_F,          _______,                                     _______,       _______,       _______,      _______,       _______,       _______,
+  _______,       _______,       _______,      _______,       _______,       _______,       _______,       _______,       _______,       _______,       _______,      _______,       _______,       _______,
+                                KC_LALT,      KC_SPC,        KC_LCTL,       _______,                                     _______,       _______,       _______,      TG(_GME)
+),
 
 };
 
@@ -497,6 +491,9 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             break;
         case _BLN:
             SET_COLOR(HSV_ORANGE);
+            break;
+        case _GME:
+            SET_COLOR(HSV_PINK);
             break;
         default:
             SET_COLOR(BASE_COL);
