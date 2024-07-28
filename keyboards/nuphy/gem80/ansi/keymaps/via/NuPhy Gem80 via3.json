@@ -322,8 +322,28 @@
                             ]
                         },
                         {
-                            "label": "Color",
+                            "label": "Use custom color",
                             "showIf": "{id_side_light_mode} != 4",
+                            "type": "toggle",
+                            "content": [
+                                "id_side_light_use_custom_color",
+                                0,
+                                14
+                            ]
+                        },
+                        {
+                            "label": "Custom Color",
+                            "showIf": "{id_side_light_mode} != 4 && {id_side_light_use_custom_color} == 1",
+                            "type": "color",
+                            "content": [
+                                "id_side_light_custom_color",
+                                0,
+                                15
+                            ]
+                        },
+                        {
+                            "label": "Color",
+                            "showIf": "{id_side_light_mode} != 4 && {id_side_light_use_custom_color} == 0",
                             "type": "dropdown",
                             "content": [
                                 "id_side_light_color",
@@ -394,8 +414,28 @@
                             ]
                         },
                         {
-                            "label": "Color",
+                            "label": "Use custom color",
                             "showIf": "{id_logo_light_mode} != 4",
+                            "type": "toggle",
+                            "content": [
+                                "id_logo_light_use_custom_color",
+                                0,
+                                24
+                            ]
+                        },
+                        {
+                            "label": "Custom Color",
+                            "showIf": "{id_logo_light_mode} != 4 && {id_logo_light_use_custom_color} == 1",
+                            "type": "color",
+                            "content": [
+                                "id_logo_light_custom_color",
+                                0,
+                                25
+                            ]
+                        },
+                        {
+                            "label": "Color",
+                            "showIf": "{id_logo_light_mode} != 4 && {id_logo_light_use_custom_color} == 0",
                             "type": "dropdown",
                             "content": [
                                 "id_logo_light_color",

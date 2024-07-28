@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include <stdint.h>
 #include "ansi.h"
+#include "color.h"
 #include "host.h"
 #include "rgb_matrix.h"
 #include "timer.h"
@@ -475,15 +476,24 @@ static void side_breathe_mode_show(void) {
 
     light_point_playing(0, 1, BREATHE_TAB_LEN, &play_point);
 
-    r_temp = side_color_lib[g_config.side_color][0];
-    g_temp = side_color_lib[g_config.side_color][1];
-    b_temp = side_color_lib[g_config.side_color][2];
+    if (g_config.side_use_custom_color) {
+        HSV hsv = g_config.side_custom_color;
+        hsv.v = rgb_matrix_config.hsv.v;
+        RGB rgb = hsv_to_rgb(hsv);
+        r_temp = rgb.r;
+        g_temp = rgb.g;
+        b_temp = rgb.b;
+    } else {
+        r_temp = side_color_lib[g_config.side_color][0] >> 2;
+        g_temp = side_color_lib[g_config.side_color][1] >> 2;
+        b_temp = side_color_lib[g_config.side_color][2] >> 2;
+    }
 
     count_rgb_light(breathe_data_tab[play_point]);
     count_rgb_light(side_light_table[g_config.side_brightness]);
 
     for (int i = 0; i < SIDE_LINE; i++) {
-        side_rgb_set_color(side_led_index_tab[i], r_temp >> 2, g_temp >> 2, b_temp >> 2);
+        side_rgb_set_color(side_led_index_tab[i], r_temp, g_temp, b_temp);
     }
 }
 
@@ -500,14 +510,23 @@ static void side_static_mode_show(void) {
 
     if (side_play_point >= SIDE_COLOR_MAX) side_play_point = 0;
 
-    for (int i = 0; i < SIDE_LINE; i++) {
-        r_temp = side_color_lib[g_config.side_color][0];
-        g_temp = side_color_lib[g_config.side_color][1];
-        b_temp = side_color_lib[g_config.side_color][2];
+    if (g_config.side_use_custom_color) {
+        HSV hsv = g_config.side_custom_color;
+        hsv.v = rgb_matrix_config.hsv.v;
+        RGB rgb = hsv_to_rgb(hsv);
+        r_temp = rgb.r;
+        g_temp = rgb.g;
+        b_temp = rgb.b;
+    } else {
+        r_temp = side_color_lib[g_config.side_color][0] >> 2;
+        g_temp = side_color_lib[g_config.side_color][1] >> 2;
+        b_temp = side_color_lib[g_config.side_color][2] >> 2;
+    }
 
+    for (int i = 0; i < SIDE_LINE; i++) {
         count_rgb_light(side_light_table[g_config.side_brightness]);
 
-        side_rgb_set_color(side_led_index_tab[i], r_temp >> 2, g_temp >> 2, b_temp >> 2);
+        side_rgb_set_color(side_led_index_tab[i], r_temp, g_temp, b_temp);
     }
 }
 

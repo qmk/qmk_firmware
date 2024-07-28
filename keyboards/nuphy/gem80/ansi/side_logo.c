@@ -1,6 +1,7 @@
 // Copyright 2023 Persama (@Persama)
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "ansi.h"
+#include "rgb_matrix.h"
 #include "side.h"
 #include "timer.h"
 
@@ -196,15 +197,24 @@ static void logo_breathe_mode_show(void) {
 
     logo_light_point_playing(0, 1, BREATHE_TAB_LEN, &play_point);
 
-    r_temp = side_color_lib[g_config.logo_color][0];
-    g_temp = side_color_lib[g_config.logo_color][1];
-    b_temp = side_color_lib[g_config.logo_color][2];
+    if (g_config.logo_use_custom_color) {
+        HSV hsv = g_config.logo_custom_color;
+        hsv.v   = rgb_matrix_config.hsv.v;
+        RGB rgb = hsv_to_rgb(hsv);
+        r_temp  = rgb.r;
+        g_temp  = rgb.g;
+        b_temp  = rgb.b;
+    } else {
+        r_temp = side_color_lib[g_config.logo_color][0] >> 2;
+        g_temp = side_color_lib[g_config.logo_color][1] >> 2;
+        b_temp = side_color_lib[g_config.logo_color][2] >> 2;
+    }
 
     logo_count_rgb_light(breathe_data_tab[play_point]);
     logo_count_rgb_light(side_light_table[g_config.logo_brightness]);
 
     for (int i = 0; i < LOGO_LINE; i++) {
-        side_rgb_set_color(logo_led_index_tab[i], r_temp >> 2, g_temp >> 2, b_temp >> 2);
+        side_rgb_set_color(logo_led_index_tab[i], r_temp, g_temp, b_temp);
     }
 }
 
@@ -217,14 +227,23 @@ static void logo_static_mode_show(void) {
 
     if (logo_play_point >= SIDE_COLOR_MAX) logo_play_point = 0;
 
-    for (int i = 0; i < LOGO_LINE; i++) {
-        r_temp = side_color_lib[g_config.logo_color][0];
-        g_temp = side_color_lib[g_config.logo_color][1];
-        b_temp = side_color_lib[g_config.logo_color][2];
+    if (g_config.logo_use_custom_color) {
+        HSV hsv = g_config.logo_custom_color;
+        hsv.v   = rgb_matrix_config.hsv.v;
+        RGB rgb = hsv_to_rgb(hsv);
+        r_temp  = rgb.r;
+        g_temp  = rgb.g;
+        b_temp  = rgb.b;
+    } else {
+        r_temp = side_color_lib[g_config.logo_color][0] >> 2;
+        g_temp = side_color_lib[g_config.logo_color][1] >> 2;
+        b_temp = side_color_lib[g_config.logo_color][2] >> 2;
+    }
 
+    for (int i = 0; i < LOGO_LINE; i++) {
         logo_count_rgb_light(side_light_table[g_config.logo_brightness]);
 
-        side_rgb_set_color(logo_led_index_tab[i], r_temp >> 2, g_temp >> 2, b_temp >> 2);
+        side_rgb_set_color(logo_led_index_tab[i], r_temp, g_temp, b_temp);
     }
 }
 

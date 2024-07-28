@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "action.h"
+#include "color.h"
 #include "config.h"
 #include "host.h"
 #include "keycodes.h"
@@ -571,6 +572,11 @@ void init_g_config(void) {
     g_config.logo_rgb                     = DEFAULT_LOGO_RGB;
     g_config.logo_color                   = DEFAULT_LOGO_COLOR;
     g_config.detect_numlock_state         = 0;
+    // custom colors
+    g_config.side_use_custom_color = 0;
+    g_config.logo_use_custom_color = 0;
+    g_config.side_custom_color     = rgb_matrix_get_hsv();
+    g_config.logo_custom_color     = rgb_matrix_get_hsv();
 }
 
 void load_config_from_eeprom(void) {
@@ -667,6 +673,18 @@ void via_config_set_value(uint8_t *data)
         case id_toggle_detect_numlock_state:
             g_config.detect_numlock_state = *value_data;
             break;
+        case id_side_use_custom_color:
+            g_config.side_use_custom_color = *value_data;
+            break;
+        case id_logo_use_custom_color:
+            g_config.logo_use_custom_color = *value_data;
+            break;
+        case id_side_custom_color:
+            _set_color(&(g_config.side_custom_color), value_data);
+            break;
+        case id_logo_custom_color:
+            _set_color(&(g_config.logo_custom_color), value_data);
+            break;
     }
 #    if CONSOLE_ENABLE
     xprintf("[SET]VALUE_ID: %u DATA: %u\n", *value_id, *value_data);
@@ -733,6 +751,19 @@ void via_config_get_value(uint8_t *data) {
         case id_toggle_detect_numlock_state:
             *value_data = g_config.detect_numlock_state;
             break;
+
+        case id_side_use_custom_color:
+            *value_data = g_config.side_use_custom_color;
+            break;
+        case id_logo_use_custom_color:
+            *value_data = g_config.logo_use_custom_color;
+            break;
+        case id_side_custom_color:
+            _get_color(&(g_config.side_custom_color), value_data);
+            break;
+        case id_logo_custom_color:
+            _get_color(&(g_config.logo_custom_color), value_data);
+            break;
     }
 #    if CONSOLE_ENABLE
     xprintf("[GET]VALUE_ID: %u DATA: %u\n", *value_id, *value_data);
@@ -778,3 +809,14 @@ void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
     // DO NOT call raw_hid_send(data,length) here, let caller do this
 }
 #endif
+
+// Some helpers for setting/getting HSV
+void _set_color(HSV *color, uint8_t *data) {
+    color->h = data[0];
+    color->s = data[1];
+}
+
+void _get_color(HSV *color, uint8_t *data) {
+    data[0] = color->h;
+    data[1] = color->s;
+}
