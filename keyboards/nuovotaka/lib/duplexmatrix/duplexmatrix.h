@@ -3,4 +3,4 @@
 
 #pragma once
 
-void duplex_scan_raw_post_kb(matrix_row_t out_matrix[]);
+void duplex_scan_post_kb(matrix_row_t out_matrix[]);
