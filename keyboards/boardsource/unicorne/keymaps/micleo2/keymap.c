@@ -2,6 +2,7 @@
 #include "gw_oled.h"
 #include "quantum.h"
 #include "unicode.h"
+#include "steno_keycodes.h"
 
 // clang-format off
 
@@ -17,6 +18,7 @@ enum layers {
   _SYS, // Sysctrl
   _NUM, // Numpad
   _BLN, // Blender
+  _PLV, // Plover
 };
 
 #define B _BSE
@@ -25,13 +27,14 @@ enum layers {
 #define Y _SYS
 #define U _NUM
 #define L _BLN
+#define P _PLV
 
 // This denotes the key you used to enter into the layer.
 // E for entry.
 #define ___E___ _______
 
 enum custom_keycodes {
-  KB_VLEAD = SAFE_RANGE,
+  KB_VLEAD = SAFE_RANGE
 };
 
 #define PWR_SFT LT(0, KC_A)
@@ -41,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BSE] = LAYOUT_split_3x6_3(
     TG(_BLN),      KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                 KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          KC_DEL,
     PWR_SFT,       KC_A,          LT(U, KC_S),  ALT_T(KC_D),   LT(N, KC_F),   KC_G,                 KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(Y),
-    _______,       KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,                 KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       C(G(KC_Q)),
+    TG(_PLV),      KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,                 KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       C(G(KC_Q)),
                                                 CTL_T(KC_ESC), GUI_T(KC_SPC), HYPR_T(KC_ENT),       KB_VLEAD,      SFT_T(KC_BSPC),OSL(M)
 ),
 
@@ -78,6 +81,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     SFT_T(KC_TAB), _______,       _______,      _______,       _______,       LT(0, KC_G),          _______,       _______,       _______,      _______,       _______,       _______,
     TG(_BLN),      _______,       LT(0, KC_X),  LT(0, KC_C),   LT(0, KC_V),   _______,              _______,       _______,       _______,      _______,       _______,       _______,
                                                 _______,       _______,       SFT_T(KC_ENT),        _______,       _______,       _______
+),
+
+[_PLV] = LAYOUT_split_3x6_3(
+    _______,       _______,       _______,      _______,       _______,       _______,              _______,       _______,       _______,      _______,       _______,       _______,
+    _______,       STN_S1,        STN_TL,       STN_PL,        STN_HL,        STN_ST1,              STN_ST3,       STN_FR,        STN_PR,       STN_LR,        STN_TR,        STN_DR,
+    TG(_PLV),      STN_S2,        STN_KL,       STN_WL,        STN_RL,        STN_ST2,              STN_ST4,       STN_RR,        STN_BR,       STN_GR,        STN_SR,        STN_ZR,
+                                                STN_A,         STN_O,         STN_AO,               STN_EU,        STN_E,         STN_U
 )
 
 };
@@ -516,38 +526,38 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
 #    define SET_COLOR(...) SET_COLOR_INNER(__VA_ARGS__)
 
-    if (vleader_sequence_active()) {
-        for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
-            for (uint8_t col = 0; col < MATRIX_COLS; ++col) {
-                uint8_t index = g_led_config.matrix_co[row][col];
-                if (!(index >= led_min && index < led_max && index != NO_LED)) {
-                    continue;
-                }
-                uint16_t kc = keymap_key_to_keycode(layer, (keypos_t){col, row});
-                if (kc == KC_NO) {
-                    rgb_matrix_set_color(index, RGB_OFF);
-                    continue;
-                }
-                bool kc_is_eligible = false;
-                for (uint16_t i = 0; i < vleader_map_count(); i++) {
-                    vlead_seq_t *seq = vleader_map_get(i);
-                    if (!seq->is_eligible) continue;
-                    if (seq->keys_count < vleader_sequence_size) continue;
-                    uint16_t seq_cur_kc = pgm_read_word(&seq->keys[vleader_sequence_size]);
-                    if (seq_cur_kc == kc) {
-                        kc_is_eligible = true;
-                        break;
-                    }
-                }
-                if (kc_is_eligible) {
-                    rgb_matrix_set_color(index, RGB_GREEN);
-                } else {
-                    rgb_matrix_set_color(index, BASE_COL);
-                }
-            }
-        }
-        return false;
-    }
+    /* if (vleader_sequence_active()) { */
+    /*     for (uint8_t row = 0; row < MATRIX_ROWS; ++row) { */
+    /*         for (uint8_t col = 0; col < MATRIX_COLS; ++col) { */
+    /*             uint8_t index = g_led_config.matrix_co[row][col]; */
+    /*             if (!(index >= led_min && index < led_max && index != NO_LED)) { */
+    /*                 continue; */
+    /*             } */
+    /*             uint16_t kc = keymap_key_to_keycode(layer, (keypos_t){col, row}); */
+    /*             if (kc == KC_NO) { */
+    /*                 rgb_matrix_set_color(index, RGB_OFF); */
+    /*                 continue; */
+    /*             } */
+    /*             bool kc_is_eligible = false; */
+    /*             for (uint16_t i = 0; i < vleader_map_count(); i++) { */
+    /*                 vlead_seq_t *seq = vleader_map_get(i); */
+    /*                 if (!seq->is_eligible) continue; */
+    /*                 if (seq->keys_count < vleader_sequence_size) continue; */
+    /*                 uint16_t seq_cur_kc = pgm_read_word(&seq->keys[vleader_sequence_size]); */
+    /*                 if (seq_cur_kc == kc) { */
+    /*                     kc_is_eligible = true; */
+    /*                     break; */
+    /*                 } */
+    /*             } */
+    /*             if (kc_is_eligible) { */
+    /*                 rgb_matrix_set_color(index, RGB_GREEN); */
+    /*             } else { */
+    /*                 rgb_matrix_set_color(index, BASE_COL); */
+    /*             } */
+    /*         } */
+    /*     } */
+    /*     return false; */
+    /* } */
 
     switch (layer) {
         case _BSE:
@@ -563,6 +573,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             SET_COLOR(RGB_RED);
             break;
         case _NUM:
+        case _PLV:
             SET_COLOR(RGB_GREEN);
             break;
         case _BLN:
@@ -697,6 +708,7 @@ bool oled_task_user() {
             oled_write_raw(gw_bomb, sizeof(gw_bomb));
             break;
         case _NUM:
+        case _PLV:
             oled_write_raw(gw_key, sizeof(gw_key));
             break;
         case _BLN:
