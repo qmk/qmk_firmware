@@ -13,7 +13,9 @@
         "nkro": true
     },
     "rgblight": {
-        "led_count": 6
+        "led_count": 6,
+        "default_on": true,
+        "default_mode": "RGBLIGHT_MODE_RAINBOW_MOOD"
     },
     "ws2812": {
         "pin": "D7"
