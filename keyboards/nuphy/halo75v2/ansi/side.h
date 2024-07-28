@@ -20,8 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define STARRY_INDEX_LEN (160)
 #define WAVE_TAB_LEN 112
 #define BREATHE_TAB_LEN 128
-#define MIXCOLOUR_TAB_LEN 144
-#define FLOW_COLOUR_TAB_LEN 192
+#define MIXCOLOR_TAB_LEN 144
+#define FLOW_COLOR_TAB_LEN 192
 #define FIREWORK_INDEX_LEN (158)
 #define STARRY_DATA_LEN 96
 #define TIDE_DATA_LEN 120
@@ -87,7 +87,7 @@ const uint8_t wave_data_tab[WAVE_TAB_LEN]=
 	42,		39,		36,		33,		30,		27,		24,		22,
 };
 
-const uint8_t	flow_rainbow_colour_tab[FLOW_COLOUR_TAB_LEN][3]=
+const uint8_t	flow_rainbow_color_tab[FLOW_COLOR_TAB_LEN][3]=
 {
 	{255,	8,		8},
 	{255,	8,		8},
@@ -295,7 +295,7 @@ const uint8_t	flow_rainbow_colour_tab[FLOW_COLOUR_TAB_LEN][3]=
 };
 
 
-const uint8_t dual_colour_lib[3][6] =
+const uint8_t dual_side_color_lib[3][6] =
 {
     {0, 255, 255,      0,   0,  255},
 	{0, 0,   255,      255,	0,	160},
@@ -303,7 +303,7 @@ const uint8_t dual_colour_lib[3][6] =
 
 };
 
-const uint8_t colour_lib[9][3] =
+const uint8_t side_color_lib[9][3] =
 {
 	{0xff, 0x00, 0x00}, // red
 	{0xff, 0x6f, 0x00}, // orange
@@ -315,7 +315,7 @@ const uint8_t colour_lib[9][3] =
 	{0xff, 0xa0, 0xa0}, // light-pink - skin like
 	{0x00, 0x00, 0x00}, // off - zeroes
 };
-const uint8_t colour_lib_1[9][3] =
+const uint8_t side_color_lib_1[9][3] =
 {
 	{0x70, 0x00, 0x00},
 	{0x70, 0x20, 0x00},

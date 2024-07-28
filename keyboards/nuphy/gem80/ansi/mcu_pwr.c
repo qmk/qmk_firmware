@@ -278,7 +278,7 @@ void side_rgb_refresh(void);
 void led_pwr_wake_handle(void) {
     if (rgb_led_powered_off) {
         pwr_rgb_led_on();
-        // Change any LED's state so the LED driver flushes after turning on for solid colours.
+        // Change any LED's state so the LED driver flushes after turning on for solid colors.
         // Without doing this, the WS2812 driver wouldn't flush as the previous state is the same as current.
         // rgb_matrix_set_color_all(0, 0, 0);
         rgb_matrix_update_pwm_buffers();

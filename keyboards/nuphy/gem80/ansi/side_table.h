@@ -60,7 +60,7 @@ const uint8_t wave_data_tab[WAVE_TAB_LEN] =
     42,     39,     36,     33,     30,     27,     24,     22,
 };
 
-const uint8_t flow_rainbow_colour_tab[FLOW_COLOUR_TAB_LEN][3] =
+const uint8_t flow_rainbow_color_tab[FLOW_COLOR_TAB_LEN][3] =
 {
     {255,   8,      8},
     {255,   8,      8},
@@ -301,7 +301,7 @@ const uint8_t flow_rainbow_colour_tab[FLOW_COLOUR_TAB_LEN][3] =
     {255,   8,      8,  },
 };
 
-const uint8_t colour_lib[9][3] =
+const uint8_t side_color_lib[9][3] =
 {
     {0xff, 0x00, 0x00},
     {0xff, 0x80, 0x00},

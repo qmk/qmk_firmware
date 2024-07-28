@@ -10,7 +10,7 @@
 #include "side_table.h"
 
 // clang-format off
-const uint8_t side_speed_table[6][5] = {
+const uint8_t side_speed_table[5][5] = {
     [SIDE_WAVE] = {24, 30, 36, 42, 50},
     [SIDE_MIX] = {14, 20, 28, 36, 50},
     [SIDE_STATIC] = {50, 50, 50, 50, 50},
@@ -133,7 +133,7 @@ void side_color_control(uint8_t dir) {
 
         } else {
             g_config.side_color++;
-            if (g_config.side_color >= LIGHT_COLOUR_MAX) {
+            if (g_config.side_color >= LIGHT_COLOR_MAX) {
                 g_config.side_rgb   = 1;
                 g_config.side_color = 0;
             }
@@ -141,11 +141,11 @@ void side_color_control(uint8_t dir) {
     } else {
         if (g_config.side_rgb) {
             g_config.side_rgb   = 0;
-            g_config.side_color = LIGHT_COLOUR_MAX - 1;
+            g_config.side_color = LIGHT_COLOR_MAX - 1;
 
         } else {
             g_config.side_color--;
-            if (g_config.side_color >= LIGHT_COLOUR_MAX) {
+            if (g_config.side_color >= LIGHT_COLOR_MAX) {
                 g_config.side_rgb   = 1;
                 g_config.side_color = 0;
             }
@@ -408,7 +408,7 @@ static void side_wave_mode_show(void) {
 
     //------------------------------
     if (g_config.side_rgb)
-        light_point_playing(0, 1, FLOW_COLOUR_TAB_LEN, &side_play_point);
+        light_point_playing(0, 1, FLOW_COLOR_TAB_LEN, &side_play_point);
 
     else
         light_point_playing(0, 2, WAVE_TAB_LEN, &side_play_point);
@@ -416,15 +416,15 @@ static void side_wave_mode_show(void) {
     play_index = side_play_point;
     for (int i = 0; i < SIDE_LINE; i++) {
         if (g_config.side_rgb) {
-            r_temp = flow_rainbow_colour_tab[play_index][0];
-            g_temp = flow_rainbow_colour_tab[play_index][1];
-            b_temp = flow_rainbow_colour_tab[play_index][2];
+            r_temp = flow_rainbow_color_tab[play_index][0];
+            g_temp = flow_rainbow_color_tab[play_index][1];
+            b_temp = flow_rainbow_color_tab[play_index][2];
 
-            light_point_playing(1, 8, FLOW_COLOUR_TAB_LEN, &play_index);
+            light_point_playing(1, 8, FLOW_COLOR_TAB_LEN, &play_index);
         } else {
-            r_temp = colour_lib[g_config.side_color][0];
-            g_temp = colour_lib[g_config.side_color][1];
-            b_temp = colour_lib[g_config.side_color][2];
+            r_temp = side_color_lib[g_config.side_color][0];
+            g_temp = side_color_lib[g_config.side_color][1];
+            b_temp = side_color_lib[g_config.side_color][2];
 
             light_point_playing(1, 12, WAVE_TAB_LEN, &play_index);
             count_rgb_light(wave_data_tab[play_index]);
@@ -447,12 +447,12 @@ static void side_spectrum_mode_show(void) {
         side_play_cnt -= side_speed_table[g_config.side_mode][g_config.side_speed];
     if (side_play_cnt > 20) side_play_cnt = 0;
 
-    light_point_playing(1, 1, FLOW_COLOUR_TAB_LEN, &side_play_point);
+    light_point_playing(1, 1, FLOW_COLOR_TAB_LEN, &side_play_point);
 
-    r_temp = flow_rainbow_colour_tab[side_play_point][0];
-    g_temp = flow_rainbow_colour_tab[side_play_point][1];
+    r_temp = flow_rainbow_color_tab[side_play_point][0];
+    g_temp = flow_rainbow_color_tab[side_play_point][1];
 
-    b_temp = flow_rainbow_colour_tab[side_play_point][2];
+    b_temp = flow_rainbow_color_tab[side_play_point][2];
 
     count_rgb_light(side_light_table[g_config.side_brightness]);
 
@@ -475,20 +475,9 @@ static void side_breathe_mode_show(void) {
 
     light_point_playing(0, 1, BREATHE_TAB_LEN, &play_point);
 
-    if (0) {
-        if (play_point == 0) {
-            if (++side_play_point >= LIGHT_COLOUR_MAX) side_play_point = 0;
-        }
-
-        r_temp = colour_lib[side_play_point][0];
-        g_temp = colour_lib[side_play_point][1];
-        b_temp = colour_lib[side_play_point][2];
-
-    } else {
-        r_temp = colour_lib[g_config.side_color][0];
-        g_temp = colour_lib[g_config.side_color][1];
-        b_temp = colour_lib[g_config.side_color][2];
-    }
+    r_temp = side_color_lib[g_config.side_color][0];
+    g_temp = side_color_lib[g_config.side_color][1];
+    b_temp = side_color_lib[g_config.side_color][2];
 
     count_rgb_light(breathe_data_tab[play_point]);
     count_rgb_light(side_light_table[g_config.side_brightness]);
@@ -503,28 +492,18 @@ static void side_breathe_mode_show(void) {
 
  */
 static void side_static_mode_show(void) {
-    uint8_t play_index;
-
     if (side_play_cnt <= side_speed_table[g_config.side_mode][g_config.side_speed])
         return;
     else
         side_play_cnt -= side_speed_table[g_config.side_mode][g_config.side_speed];
     if (side_play_cnt > 20) side_play_cnt = 0;
 
-    if (side_play_point >= SIDE_COLOUR_MAX) side_play_point = 0;
+    if (side_play_point >= SIDE_COLOR_MAX) side_play_point = 0;
 
     for (int i = 0; i < SIDE_LINE; i++) {
-        if (0) {
-            r_temp = flow_rainbow_colour_tab[16 * i][0];
-            g_temp = flow_rainbow_colour_tab[16 * i][1];
-            b_temp = flow_rainbow_colour_tab[16 * i][2];
-            light_point_playing(0, 24, FLOW_COLOUR_TAB_LEN, &play_index);
-        } else {
-            r_temp = colour_lib[g_config.side_color][0];
-            g_temp = colour_lib[g_config.side_color][1];
-
-            b_temp = colour_lib[g_config.side_color][2];
-        }
+        r_temp = side_color_lib[g_config.side_color][0];
+        g_temp = side_color_lib[g_config.side_color][1];
+        b_temp = side_color_lib[g_config.side_color][2];
 
         count_rgb_light(side_light_table[g_config.side_brightness]);
 

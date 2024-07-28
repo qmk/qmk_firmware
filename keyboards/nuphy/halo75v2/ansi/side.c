@@ -32,8 +32,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SIDE_MODE_6 5
 #define SIDE_MODE_7 6
 
-#define LIGHT_COLOUR_MAX 8
-#define SIDE_COLOUR_MAX 8
+#define LIGHT_COLOR_MAX 8
+#define SIDE_COLOR_MAX 8
 #define LIGHT_SPEED_MAX 4
 
 const uint8_t side_speed_table[5][5] = {
@@ -276,13 +276,13 @@ void sys_sw_led_show(void) {
 
     if (sys_show_flag) {
         if (dev_info.sys_sw_state == SYS_SW_MAC) {
-            r_temp = colour_lib[7][0];
-            g_temp = colour_lib[7][1];
-            b_temp = colour_lib[7][2];
+            r_temp = side_color_lib[7][0];
+            g_temp = side_color_lib[7][1];
+            b_temp = side_color_lib[7][2];
         } else {
-            r_temp = colour_lib[5][0];
-            g_temp = colour_lib[5][1];
-            b_temp = colour_lib[5][2];
+            r_temp = side_color_lib[5][0];
+            g_temp = side_color_lib[5][1];
+            b_temp = side_color_lib[5][2];
         }
         if ((timer_elapsed32(sys_show_timer) / 500) % 2 == 0) {
             set_left_rgb(r_temp, g_temp, b_temp);
@@ -397,16 +397,16 @@ void sys_led_show(void) {
     if (showCapsLock) {
         switch (g_config.caps_indicator_type) {
             case CAPS_INDICATOR_SIDE:
-                set_left_rgb(colour_lib[4][0], colour_lib[4][1], colour_lib[4][2]);
+                set_left_rgb(side_color_lib[4][0], side_color_lib[4][1], side_color_lib[4][2]);
 
                 break;
             case CAPS_INDICATOR_UNDER_KEY:
-                user_set_side_rgb_color(caps_key_led_idx, colour_lib[4][0], colour_lib[4][1], colour_lib[4][2]);
+                user_set_side_rgb_color(caps_key_led_idx, side_color_lib[4][0], side_color_lib[4][1], side_color_lib[4][2]);
 
                 break;
             case CAPS_INDICATOR_BOTH:
-                set_left_rgb(colour_lib[4][0], colour_lib[4][1], colour_lib[4][2]);
-                user_set_side_rgb_color(caps_key_led_idx, colour_lib[4][0], colour_lib[4][1], colour_lib[4][2]);
+                set_left_rgb(side_color_lib[4][0], side_color_lib[4][1], side_color_lib[4][2]);
+                user_set_side_rgb_color(caps_key_led_idx, side_color_lib[4][0], side_color_lib[4][1], side_color_lib[4][2]);
 
                 break;
             case CAPS_INDICATOR_OFF:
@@ -486,7 +486,7 @@ static void side_wave_mode_show(void) {
     if (side_play_cnt > 20) side_play_cnt = 0;
 
     if (g_config.side_rgb)
-        light_point_playing(0, 1, FLOW_COLOUR_TAB_LEN, &side_play_point);
+        light_point_playing(0, 1, FLOW_COLOR_TAB_LEN, &side_play_point);
     else
         light_point_playing(0, 1, WAVE_TAB_LEN, &side_play_point);
 
@@ -494,16 +494,16 @@ static void side_wave_mode_show(void) {
     if (side_line == 0) set_all_side_off();
     for (int i = 0; i <= side_line - 5; i++) {
         if (g_config.side_rgb) {
-            r_temp = flow_rainbow_colour_tab[play_index][0];
-            g_temp = flow_rainbow_colour_tab[play_index][1];
-            b_temp = flow_rainbow_colour_tab[play_index][2];
+            r_temp = flow_rainbow_color_tab[play_index][0];
+            g_temp = flow_rainbow_color_tab[play_index][1];
+            b_temp = flow_rainbow_color_tab[play_index][2];
 
-            light_point_playing(1, 5, FLOW_COLOUR_TAB_LEN, &play_index);
+            light_point_playing(1, 5, FLOW_COLOR_TAB_LEN, &play_index);
 
         } else {
-            r_temp = colour_lib[g_config.side_color][0];
-            g_temp = colour_lib[g_config.side_color][1];
-            b_temp = colour_lib[g_config.side_color][2];
+            r_temp = side_color_lib[g_config.side_color][0];
+            g_temp = side_color_lib[g_config.side_color][1];
+            b_temp = side_color_lib[g_config.side_color][2];
 
             light_point_playing(1, 5, WAVE_TAB_LEN, &play_index);
             count_rgb_light(wave_data_tab[play_index]);
@@ -517,13 +517,13 @@ static void side_wave_mode_show(void) {
             if (f_side_flag == 0x1f) {
                 for (; i < 45; i++) {
                     if (g_config.side_rgb) {
-                        r_temp = flow_rainbow_colour_tab[play_index_1][0] * 0.4;
-                        g_temp = flow_rainbow_colour_tab[play_index_1][1] * 0.4;
-                        b_temp = flow_rainbow_colour_tab[play_index_1][2] * 0.4;
+                        r_temp = flow_rainbow_color_tab[play_index_1][0] * 0.4;
+                        g_temp = flow_rainbow_color_tab[play_index_1][1] * 0.4;
+                        b_temp = flow_rainbow_color_tab[play_index_1][2] * 0.4;
                     } else {
-                        r_temp = colour_lib[g_config.side_color][0] * 0.4;
-                        g_temp = colour_lib[g_config.side_color][1] * 0.4;
-                        b_temp = colour_lib[g_config.side_color][2] * 0.4;
+                        r_temp = side_color_lib[g_config.side_color][0] * 0.4;
+                        g_temp = side_color_lib[g_config.side_color][1] * 0.4;
+                        b_temp = side_color_lib[g_config.side_color][2] * 0.4;
                         count_rgb_light(wave_data_tab[play_index_1]);
                     }
                     count_rgb_light(side_light_table[g_config.side_brightness]);
@@ -558,13 +558,13 @@ static void side_new_mode_show(void) {
     if (side_line == 0) set_all_side_off();
     for (int i = 0; i <= (side_line - 5); i++) {
         if (play_index < (side_line - 5) / 2) {
-            r_temp = dual_colour_lib[g_config.side_color][0];
-            g_temp = dual_colour_lib[g_config.side_color][1];
-            b_temp = dual_colour_lib[g_config.side_color][2];
+            r_temp = dual_side_color_lib[g_config.side_color][0];
+            g_temp = dual_side_color_lib[g_config.side_color][1];
+            b_temp = dual_side_color_lib[g_config.side_color][2];
         } else {
-            r_temp = dual_colour_lib[g_config.side_color][3];
-            g_temp = dual_colour_lib[g_config.side_color][4];
-            b_temp = dual_colour_lib[g_config.side_color][5];
+            r_temp = dual_side_color_lib[g_config.side_color][3];
+            g_temp = dual_side_color_lib[g_config.side_color][4];
+            b_temp = dual_side_color_lib[g_config.side_color][5];
         }
 
         light_point_playing(1, 1, (side_line - 5), &play_index);
@@ -604,11 +604,11 @@ static void side_spectrum_mode_show(void) {
 
     if (side_line == 0) set_all_side_off();
 
-    light_point_playing(1, 1, FLOW_COLOUR_TAB_LEN, &side_play_point);
+    light_point_playing(1, 1, FLOW_COLOR_TAB_LEN, &side_play_point);
 
-    r_temp = flow_rainbow_colour_tab[side_play_point][0];
-    g_temp = flow_rainbow_colour_tab[side_play_point][1];
-    b_temp = flow_rainbow_colour_tab[side_play_point][2];
+    r_temp = flow_rainbow_color_tab[side_play_point][0];
+    g_temp = flow_rainbow_color_tab[side_play_point][1];
+    b_temp = flow_rainbow_color_tab[side_play_point][2];
 
     count_rgb_light(side_light_table[g_config.side_brightness]);
 
@@ -636,7 +636,7 @@ static void side_spectrum_mode_show(void) {
 
 static void side_breathe_mode_show(void) {
     static uint8_t play_point = 0;
-    static uint8_t colour     = 0;
+    static uint8_t color     = 0;
 
     if (side_play_cnt <= side_speed_table[g_config.side_mode_a][g_config.side_speed])
         return;
@@ -650,16 +650,16 @@ static void side_breathe_mode_show(void) {
 
     if (g_config.side_rgb) {
         if (play_point == 0) {
-            if (++colour >= LIGHT_COLOUR_MAX) colour = 0;
+            if (++color >= LIGHT_COLOR_MAX) color = 0;
         }
-        r_temp = colour_lib[colour][0];
-        g_temp = colour_lib[colour][1];
-        b_temp = colour_lib[colour][2];
+        r_temp = side_color_lib[color][0];
+        g_temp = side_color_lib[color][1];
+        b_temp = side_color_lib[color][2];
 
     } else {
-        r_temp = colour_lib[g_config.side_color][0];
-        g_temp = colour_lib[g_config.side_color][1];
-        b_temp = colour_lib[g_config.side_color][2];
+        r_temp = side_color_lib[g_config.side_color][0];
+        g_temp = side_color_lib[g_config.side_color][1];
+        b_temp = side_color_lib[g_config.side_color][2];
     }
     count_rgb_light(breathe_data_tab[play_point]);
     count_rgb_light(side_light_table[g_config.side_brightness]);
@@ -698,17 +698,17 @@ static void side_static_mode_show(void) {
 
     if (side_line == 0) set_all_side_off();
 
-    if (side_play_point >= SIDE_COLOUR_MAX) side_play_point = 0;
+    if (side_play_point >= SIDE_COLOR_MAX) side_play_point = 0;
 
     for (int i = 0; i < side_line; i++) {
-        r_temp = colour_lib[g_config.side_color][0];
-        g_temp = colour_lib[g_config.side_color][1];
-        b_temp = colour_lib[g_config.side_color][2];
+        r_temp = side_color_lib[g_config.side_color][0];
+        g_temp = side_color_lib[g_config.side_color][1];
+        b_temp = side_color_lib[g_config.side_color][2];
 
         if ((side_led_index_tab[i] <= SIDE_INDEX + 9) && (side_led_index_tab[i] >= SIDE_INDEX)) {
-            r_temp = colour_lib_1[g_config.side_color][0] * 0.7;
-            g_temp = colour_lib_1[g_config.side_color][1] * 0.7;
-            b_temp = colour_lib_1[g_config.side_color][2] * 0.7;
+            r_temp = side_color_lib_1[g_config.side_color][0] * 0.7;
+            g_temp = side_color_lib_1[g_config.side_color][1] * 0.7;
+            b_temp = side_color_lib_1[g_config.side_color][2] * 0.7;
         }
 
         count_rgb_light(side_light_table[g_config.side_brightness]);
@@ -784,18 +784,18 @@ void rf_led_show(void) {
     extern uint8_t  rf_blink_cnt;
 
     if (dev_info.link_mode == LINK_RF_24) {
-        r_temp = colour_lib[3][0];
-        g_temp = colour_lib[3][1];
-        b_temp = colour_lib[3][2];
+        r_temp = side_color_lib[3][0];
+        g_temp = side_color_lib[3][1];
+        b_temp = side_color_lib[3][2];
     } else if (dev_info.link_mode == LINK_USB) {
-        r_temp = colour_lib[2][0];
-        g_temp = colour_lib[2][1];
-        b_temp = colour_lib[2][2];
+        r_temp = side_color_lib[2][0];
+        g_temp = side_color_lib[2][1];
+        b_temp = side_color_lib[2][2];
         if (flag_power_on && (rf_link_show_time < RF_LINK_SHOW_TIME)) return;
     } else {
-        r_temp = colour_lib[5][0];
-        g_temp = colour_lib[5][1];
-        b_temp = colour_lib[5][2];
+        r_temp = side_color_lib[5][0];
+        g_temp = side_color_lib[5][1];
+        b_temp = side_color_lib[5][2];
     }
 
     flag_power_on = 0;
@@ -859,29 +859,29 @@ void bat_percent_led(uint8_t bat_percent) {
     uint8_t i;
     if (bat_percent <= 20) { // 0-20 red
         bat_end_led = 0;
-        bat_r       = colour_lib[0][0];
-        bat_g       = colour_lib[0][1];
-        bat_b       = colour_lib[0][2];
+        bat_r       = side_color_lib[0][0];
+        bat_g       = side_color_lib[0][1];
+        bat_b       = side_color_lib[0][2];
     } else if (bat_percent <= 40) { // 20-40 orange
         bat_end_led = 1;
-        bat_r       = colour_lib[1][0];
-        bat_g       = colour_lib[1][1];
-        bat_b       = colour_lib[1][2];
+        bat_r       = side_color_lib[1][0];
+        bat_g       = side_color_lib[1][1];
+        bat_b       = side_color_lib[1][2];
     } else if (bat_percent <= 60) { // 40-60 yellow
         bat_end_led = 2;
-        bat_r       = colour_lib[2][0];
-        bat_g       = colour_lib[2][1];
-        bat_b       = colour_lib[2][2];
+        bat_r       = side_color_lib[2][0];
+        bat_g       = side_color_lib[2][1];
+        bat_b       = side_color_lib[2][2];
     } else if (bat_percent <= 80) { // 60-80 light blue
         bat_end_led = 3;
-        bat_r       = colour_lib[4][0];
-        bat_g       = colour_lib[4][1];
-        bat_b       = colour_lib[4][2];
+        bat_r       = side_color_lib[4][0];
+        bat_g       = side_color_lib[4][1];
+        bat_b       = side_color_lib[4][2];
     } else { // 80-100 green
         bat_end_led = 4;
-        bat_r       = colour_lib[3][0];
-        bat_g       = colour_lib[3][1];
-        bat_b       = colour_lib[3][2];
+        bat_r       = side_color_lib[3][0];
+        bat_g       = side_color_lib[3][1];
+        bat_b       = side_color_lib[3][2];
     }
 
     // NOTE: dim using g_config.battery_indicator_brightness as percentage value
@@ -1052,9 +1052,9 @@ static void side_power_mode_show(void) {
     uint8_t i;
 
     for (i = 0; i < 45; i++) {
-        r_temp = colour_lib[g_config.side_color][0];
-        g_temp = colour_lib[g_config.side_color][1];
-        b_temp = colour_lib[g_config.side_color][2];
+        r_temp = side_color_lib[g_config.side_color][0];
+        g_temp = side_color_lib[g_config.side_color][1];
+        b_temp = side_color_lib[g_config.side_color][2];
 
         count_rgb_light(key_pwm_tab[i]);
         count_rgb_light(side_light_table[2]);

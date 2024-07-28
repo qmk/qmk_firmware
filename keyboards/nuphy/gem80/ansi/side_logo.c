@@ -9,8 +9,8 @@ extern const uint8_t side_light_table[6];
 extern const uint8_t light_value_tab[101];
 extern const uint8_t breathe_data_tab[BREATHE_TAB_LEN];
 extern const uint8_t wave_data_tab[WAVE_TAB_LEN];
-extern const uint8_t flow_rainbow_colour_tab[FLOW_COLOUR_TAB_LEN][3];
-extern const uint8_t colour_lib[9][3];
+extern const uint8_t flow_rainbow_color_tab[FLOW_COLOR_TAB_LEN][3];
+extern const uint8_t side_color_lib[9][3];
 extern uint8_t       r_temp, g_temp, b_temp;
 extern void          side_rgb_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
 
@@ -62,7 +62,7 @@ void logo_side_color_control(uint8_t dir) {
             g_config.logo_color = 0;
         } else {
             g_config.logo_color++;
-            if (g_config.logo_color >= LIGHT_COLOUR_MAX) {
+            if (g_config.logo_color >= LIGHT_COLOR_MAX) {
                 g_config.logo_rgb   = 1;
                 g_config.logo_color = 0;
             }
@@ -70,10 +70,10 @@ void logo_side_color_control(uint8_t dir) {
     } else {
         if (g_config.logo_rgb) {
             g_config.logo_rgb   = 0;
-            g_config.logo_color = LIGHT_COLOUR_MAX - 1;
+            g_config.logo_color = LIGHT_COLOR_MAX - 1;
         } else {
             g_config.logo_color--;
-            if (g_config.logo_color >= LIGHT_COLOUR_MAX) {
+            if (g_config.logo_color >= LIGHT_COLOR_MAX) {
                 g_config.logo_rgb   = 1;
                 g_config.logo_color = 0;
             }
@@ -139,22 +139,22 @@ static void logo_wave_mode_show(void) {
 
     //------------------------------
     if (g_config.logo_rgb)
-        logo_light_point_playing(0, 1, FLOW_COLOUR_TAB_LEN, &logo_play_point);
+        logo_light_point_playing(0, 1, FLOW_COLOR_TAB_LEN, &logo_play_point);
     else
         logo_light_point_playing(0, 1, WAVE_TAB_LEN, &logo_play_point);
 
     play_index = logo_play_point;
     for (int i = 0; i < LOGO_LINE; i++) {
         if (g_config.logo_rgb) {
-            r_temp = flow_rainbow_colour_tab[play_index][0];
-            g_temp = flow_rainbow_colour_tab[play_index][1];
-            b_temp = flow_rainbow_colour_tab[play_index][2];
+            r_temp = flow_rainbow_color_tab[play_index][0];
+            g_temp = flow_rainbow_color_tab[play_index][1];
+            b_temp = flow_rainbow_color_tab[play_index][2];
 
-            logo_light_point_playing(1, 5, FLOW_COLOUR_TAB_LEN, &play_index);
+            logo_light_point_playing(1, 5, FLOW_COLOR_TAB_LEN, &play_index);
         } else {
-            r_temp = colour_lib[g_config.logo_color][0];
-            g_temp = colour_lib[g_config.logo_color][1];
-            b_temp = colour_lib[g_config.logo_color][2];
+            r_temp = side_color_lib[g_config.logo_color][0];
+            g_temp = side_color_lib[g_config.logo_color][1];
+            b_temp = side_color_lib[g_config.logo_color][2];
 
             logo_light_point_playing(1, 12, WAVE_TAB_LEN, &play_index);
             logo_count_rgb_light(wave_data_tab[play_index]);
@@ -172,11 +172,11 @@ static void logo_spectrum_mode_show(void) {
         logo_play_cnt -= side_speed_table[g_config.logo_mode][g_config.logo_speed];
     if (logo_play_cnt > 20) logo_play_cnt = 0;
 
-    logo_light_point_playing(1, 1, FLOW_COLOUR_TAB_LEN, &logo_play_point);
+    logo_light_point_playing(1, 1, FLOW_COLOR_TAB_LEN, &logo_play_point);
 
-    r_temp = flow_rainbow_colour_tab[logo_play_point][0];
-    g_temp = flow_rainbow_colour_tab[logo_play_point][1];
-    b_temp = flow_rainbow_colour_tab[logo_play_point][2];
+    r_temp = flow_rainbow_color_tab[logo_play_point][0];
+    g_temp = flow_rainbow_color_tab[logo_play_point][1];
+    b_temp = flow_rainbow_color_tab[logo_play_point][2];
 
     logo_count_rgb_light(side_light_table[g_config.logo_brightness]);
 
@@ -196,19 +196,9 @@ static void logo_breathe_mode_show(void) {
 
     logo_light_point_playing(0, 1, BREATHE_TAB_LEN, &play_point);
 
-    if (0) {
-        if (play_point == 0) {
-            if (++logo_play_point >= LIGHT_COLOUR_MAX) logo_play_point = 0;
-        }
-
-        r_temp = colour_lib[logo_play_point][0];
-        g_temp = colour_lib[logo_play_point][1];
-        b_temp = colour_lib[logo_play_point][2];
-    } else {
-        r_temp = colour_lib[g_config.logo_color][0];
-        g_temp = colour_lib[g_config.logo_color][1];
-        b_temp = colour_lib[g_config.logo_color][2];
-    }
+    r_temp = side_color_lib[g_config.logo_color][0];
+    g_temp = side_color_lib[g_config.logo_color][1];
+    b_temp = side_color_lib[g_config.logo_color][2];
 
     logo_count_rgb_light(breathe_data_tab[play_point]);
     logo_count_rgb_light(side_light_table[g_config.logo_brightness]);
@@ -219,27 +209,18 @@ static void logo_breathe_mode_show(void) {
 }
 
 static void logo_static_mode_show(void) {
-    uint8_t play_index;
-
     if (logo_play_cnt <= side_speed_table[g_config.logo_mode][g_config.logo_speed])
         return;
     else
         logo_play_cnt -= side_speed_table[g_config.logo_mode][g_config.logo_speed];
     if (logo_play_cnt > 20) logo_play_cnt = 0;
 
-    if (logo_play_point >= SIDE_COLOUR_MAX) logo_play_point = 0;
+    if (logo_play_point >= SIDE_COLOR_MAX) logo_play_point = 0;
 
     for (int i = 0; i < LOGO_LINE; i++) {
-        if (0) {
-            r_temp = flow_rainbow_colour_tab[16 * i][0];
-            g_temp = flow_rainbow_colour_tab[16 * i][1];
-            b_temp = flow_rainbow_colour_tab[16 * i][2];
-            logo_light_point_playing(0, 24, FLOW_COLOUR_TAB_LEN, &play_index);
-        } else {
-            r_temp = colour_lib[g_config.logo_color][0];
-            g_temp = colour_lib[g_config.logo_color][1];
-            b_temp = colour_lib[g_config.logo_color][2];
-        }
+        r_temp = side_color_lib[g_config.logo_color][0];
+        g_temp = side_color_lib[g_config.logo_color][1];
+        b_temp = side_color_lib[g_config.logo_color][2];
 
         logo_count_rgb_light(side_light_table[g_config.logo_brightness]);
 

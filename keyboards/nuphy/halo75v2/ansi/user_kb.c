@@ -65,7 +65,7 @@ extern uint8_t            logo_mode;
 extern uint8_t            logo_light;
 extern uint8_t            logo_speed;
 extern uint8_t            logo_rgb;
-extern uint8_t            logo_colour;
+extern uint8_t            logo_color;
 
 /**
  * @brief  gpio initial.
@@ -466,7 +466,7 @@ void update_bat_pct_rgb(void) {
         .v = 128, // 50% max brightness
     };
 
-    bat_pct_rgb = hsv_to_rgb_nocie(hsv); // this results in same calculation as colour pickers.
+    bat_pct_rgb = hsv_to_rgb_nocie(hsv); // this results in same calculation as color pickers.
 }
 
 /**

@@ -12,8 +12,8 @@ enum {
     SIDE_OFF,
 } side_effects;
 
-#define LIGHT_COLOUR_MAX 8
-#define SIDE_COLOUR_MAX 8
+#define LIGHT_COLOR_MAX 8
+#define SIDE_COLOR_MAX 8
 
 // from side_logo.c
 #define STARRY_INDEX_LEN (160)
@@ -38,4 +38,4 @@ enum {
 #define WAVE_TAB_LEN 112
 #define LIGHT_TAB_LEN           101
 #define BREATHE_TAB_LEN 128
-#define FLOW_COLOUR_TAB_LEN 224
+#define FLOW_COLOR_TAB_LEN 224
