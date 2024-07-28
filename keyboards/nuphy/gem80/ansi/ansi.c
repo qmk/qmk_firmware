@@ -47,11 +47,11 @@ extern uint8_t         rf_blink_cnt;
 
 extern void light_speed_contol(uint8_t fast);
 extern void light_level_control(uint8_t brighten);
-extern void side_colour_control(uint8_t dir);
+extern void side_color_control(uint8_t dir);
 extern void side_mode_control(uint8_t dir);
 extern void logo_light_speed_contol(uint8_t fast);
 extern void logo_light_level_control(uint8_t brighten);
-extern void logo_side_colour_control(uint8_t dir);
+extern void logo_side_color_control(uint8_t dir);
 extern void logo_side_mode_control(uint8_t dir);
 extern void exit_light_sleep(void);
 
@@ -252,7 +252,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
         case SIDE_HUI:
             if (record->event.pressed) {
-                side_colour_control(1);
+                side_color_control(1);
             }
             return false;
 
@@ -285,7 +285,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             return false;
         case LOGO_HUI:
             if (record->event.pressed) {
-                logo_side_colour_control(1);
+                logo_side_color_control(1);
             }
             return false;
         case LOGO_SPI:

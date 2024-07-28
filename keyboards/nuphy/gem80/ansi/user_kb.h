@@ -154,7 +154,7 @@ void    uart_receive_pro(void);
 void    uart_send_report(uint8_t report_type, uint8_t *report_buf, uint8_t report_size);
 void    side_speed_control(uint8_t dir);
 void    side_light_control(uint8_t dir);
-void    side_colour_control(uint8_t dir);
+void    side_color_control(uint8_t dir);
 void    side_mode_control(uint8_t dir);
 void    side_led_show(void);
 void    sleep_handle(void);

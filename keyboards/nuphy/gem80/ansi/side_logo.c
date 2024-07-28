@@ -48,7 +48,7 @@ void logo_light_speed_contol(uint8_t fast) {
     save_config_to_eeprom();
 }
 
-void logo_side_colour_control(uint8_t dir) {
+void logo_side_color_control(uint8_t dir) {
     if (g_config.logo_mode != SIDE_WAVE) {
         if (g_config.logo_rgb) {
             g_config.logo_rgb   = 0;

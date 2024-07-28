@@ -117,7 +117,7 @@ void light_speed_contol(uint8_t fast) {
  * @note  save to eeprom.
  */
 
-void side_colour_control(uint8_t dir) {
+void side_color_control(uint8_t dir) {
     if (g_config.side_mode != SIDE_WAVE) {
         if (g_config.side_rgb) {
             g_config.side_rgb   = 0;
