@@ -37,12 +37,6 @@ enum layers {
 // E for entry.
 #define ___E___ _______
 
-enum custom_keycodes {
-  KB_VLEAD = SAFE_RANGE,
-  MC_AO,
-  MC_EU,
-};
-
 #define PWR_SFT LT(0, KC_A)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -52,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   TG(_PLV),      KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                                        KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          KC_DEL,
   PWR_SFT,       KC_A,          LT(U, KC_S),  ALT_T(KC_D),   LT(N, KC_F),   KC_G,                                        KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(Y),
   TG(_BLN),      KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,          RGB_VAI,       RGB_VAD,       KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       C(G(KC_Q)),
-                                _______,      CTL_T(KC_ESC), GUI_T(KC_SPC), HYPR_T(KC_ENT),                              KB_VLEAD,      SFT_T(KC_BSPC),OSL(M),       TG(_GME)
+                                KC_TAB,       CTL_T(KC_ESC), GUI_T(KC_SPC), SFT_T(KC_ENT),                               HYPR_T(KC_SPC),SFT_T(KC_BSPC),OSL(M),       TG(_GME)
 ),
 
 [_SYM] = LAYOUT(
@@ -81,17 +75,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_NUM] = LAYOUT(
   _______,       _______,       _______,      _______,       _______,       _______,                                     _______,       _______,       _______,      _______,       _______,       _______,
-  _______,       _______,       _______,      _______,       _______,       _______,                                     _______,       KC_7,          KC_8,         KC_9,       _______,       _______,
-  _______,       _______,       _______,      _______,       _______,       _______,                                     _______,       KC_4,          KC_5,         KC_6,       _______,       _______,
-  _______,       _______,       _______,      _______,       _______,       _______,       _______,       _______,       _______,       KC_1,          KC_2,         KC_3,       _______,       _______,
+  _______,       _______,       _______,      _______,       _______,       _______,                                     _______,       KC_7,          KC_8,         KC_9,          _______,       _______,
+  _______,       _______,       _______,      _______,       _______,       _______,                                     _______,       KC_4,          KC_5,         KC_6,          _______,       _______,
+  _______,       _______,       _______,      _______,       _______,       _______,       _______,       _______,       _______,       KC_1,          KC_2,         KC_3,          _______,       _______,
                                 _______,      _______,       _______,       _______,                                     _______,       KC_0,          KC_BSPC,      _______
 ),
 
 [_BLN] = LAYOUT(
   _______,       _______,       _______,      _______,       _______,       _______,                                     _______,       _______,       _______,      _______,       _______,       _______,
-  _______,       _______,       _______,      _______,       _______,       _______,                                     _______,       _______,       _______,      _______,       _______,       _______,
-  _______,       _______,       _______,      _______,       _______,       _______,                                     _______,       _______,       _______,      _______,       _______,       _______,
-  TG(_BLN),      _______,       _______,      _______,       _______,       _______,       _______,       _______,       _______,       _______,       _______,      _______,       _______,       _______,
+  KC_GRV,        LT(0, KC_Q),   LT(0, KC_W),  LT(0, KC_E),   LT(0, KC_R),   LT(0, KC_T),                                 _______,       _______,       _______,      _______,       _______,       _______,
+  _______,       _______,       _______,      _______,       _______,       LT(0, KC_G),                                 _______,       _______,       _______,      _______,       _______,       _______,
+  TG(_BLN),      _______,       LT(0, KC_X),  LT(0, KC_C),   LT(0, KC_V),   _______,       _______,       _______,       _______,       _______,       _______,      _______,       _______,       _______,
                                 _______,      _______,       _______,       _______,                                     _______,       _______,       _______,      _______
 ),
 
@@ -294,9 +288,6 @@ bool process_vleader(uint16_t keycode, keyrecord_t *record) {
             // and d should not register as taps. But the leader will get disabled after.
             vleader_sequence_add(keycode);
             return false;
-        } else if (keycode == KB_VLEAD) {
-            vleader_start();
-            return false;
         }
     }
     return true;
@@ -354,6 +345,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
+            break;
+        case HYPR_T(KC_SPC):
+            if (record->tap.count && record->event.pressed) {
+                vleader_start();
+                return false;
+            }
             break;
         case LT(0, KC_Q):
             if (!record->tap.count && record->event.pressed) {
