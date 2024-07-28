@@ -24,7 +24,7 @@
   "rgb_matrix": {
     "driver": "ws2812",
     "split_count": [35, 35],
-    "max_brightness": 70,
+    "max_brightness": 150,
     "animations": {
       "alphas_mods": true,
       "gradient_up_down": true,
