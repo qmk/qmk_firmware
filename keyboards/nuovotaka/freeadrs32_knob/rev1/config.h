@@ -18,7 +18,6 @@
 
 // RGB LED settings
 #define WS2812_DI_PIN D3
-#define RGBLIGHT_LED_COUNT 32
 
 #ifdef RGBLIGHT_ENABLE
 #    undef RGBLIGHT_EFFECT_BREATHING
@@ -33,21 +32,6 @@
 #    undef RGBLIGHT_EFFECT_TWINKLE
 #endif
 
-#ifdef RGBLIGHT_ENABLE
-#ifndef RGBLIGHT_LIMIT_VAL
-#define RGBLIGHT_LIMIT_VAL 120 // limitated for power consumption
-#endif
-#ifndef RGBLIGHT_VAL_STEP
-#define RGBLIGHT_VAL_STEP 12
-#endif
-#ifndef RGBLIGHT_HUE_STEP
-#define RGBLIGHT_HUE_STEP 17
-#endif
-#ifndef RGBLIGHT_SAT_STEP
-#define RGBLIGHT_SAT_STEP 17
-#endif
-#endif
-
 #ifndef OLED_FONT_H
 #define OLED_FONT_H "keyboards/nuovotaka/lib/logofont/logofont.c"
 #define OLED_FONT_START 32
@@ -57,9 +41,6 @@
 #if !defined(LAYER_STATE_8BIT) && !defined(LAYER_STATE_16BIT) && !defined(LAYER_STATE_32BIT)
 #define LAYER_STATE_8BIT
 #endif
-
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 1
 
 // To squeeze firmware size
 #undef LOCKING_SUPPORT_ENABLE

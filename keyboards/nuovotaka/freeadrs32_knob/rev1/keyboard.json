@@ -2,7 +2,19 @@
   "manufacturer": "Takahiro Natsume",
   "keyboard_name": "freeadrs32_knob",
   "maintainer": "nuovotaka",
+  "url": "",
   "bootloader": "caterina",
+  "processor": "atmega32u4",
+  "build": {
+    "lto": true
+  },
+  "features": {
+    "rgblight": true
+  },
+  "bootmagic": {
+    "enabled": false,
+    "matrix": [0,1]
+  },
   "encoder": {
     "rotary": [
       { "pin_a": "E6", "pin_b": "B4", "resolution": 2 },
@@ -10,12 +22,29 @@
       { "pin_a": "B2", "pin_b": "B3", "resolution": 2 }
     ]
   },
-  "processor": "atmega32u4",
-  "url": "",
   "usb": {
     "device_version": "1.0.0",
     "pid": "0x8832",
     "vid": "0x8832"
+  },
+  "rgblight":{
+    "led_count": 32,
+    "animations": {
+      "breathing": false,
+      "rainbow_mood": false,
+      "rainbow_swirl": false,
+      "snake": false,
+      "knight": false,
+      "christmas": false,
+      "static_gradient": true,
+      "rgb_test": false,
+      "alternating": false,
+      "twinkle": false
+    },
+    "brightness_steps": 12,
+    "max_brightness": 120,
+    "hue_steps": 17,
+    "saturation_steps": 17
   },
   "layouts": {
     "LAYOUT": {
