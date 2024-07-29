@@ -49,13 +49,13 @@
 
 
 #ifdef RGB_MATRIX_ENABLE
-#define RGBLED_NUM 35    // Number of LEDs
-#define RGBLED_NUM 35    // Number of LEDs
-#define RGB_MATRIX_LED_COUNT RGBLED_NUM
+#define RGBLIGHT_LED_COUNT 35    // Number of LEDs
+#define RGBLIGHT_LED_COUNT 35    // Number of LEDs
+#define RGB_MATRIX_LED_COUNT RGBLIGHT_LED_COUNT
 #endif
 
 #ifdef RGBLIGHT_ENABLE
-    #undef RGBLED_NUM
+    #undef RGBLIGHT_LED_COUNT
 
 	//#define RGBLIGHT_EFFECT_BREATHING
 	#define RGBLIGHT_EFFECT_RAINBOW_MOOD
@@ -68,11 +68,12 @@
 	//#define RGBLIGHT_EFFECT_ALTERNATING
 	//#define RGBLIGHT_EFFECT_TWINKLE
 
-    #define RGBLED_NUM 70
-	//#define RGBLED_SPLIT
+    #define RGBLIGHT_LED_COUNT 70
+	#undef RGBLED_SPLIT
 	#define RGBLED_SPLIT { 35, 35 } // haven't figured out how to use this yet
 
-	//#define RGBLED_NUM 30
+	//#define RGBLIGHT_LED_COUNT 30
+    #undef RGBLIGHT_LIMIT_VAL
     #define RGBLIGHT_LIMIT_VAL 120
     #define RGBLIGHT_HUE_STEP 10
     #define RGBLIGHT_SAT_STEP 17
@@ -82,7 +83,7 @@
 #ifdef RGB_MATRIX_ENABLE
 #   define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 // #   define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
-#   define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
+#   define RGB_MATRIX_SLEEP // turn off effects when suspended
 #   define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 // #   define RGB_MATRIX_LED_PROCESS_LIMIT (RGB_MATRIX_LED_COUNT + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
 // #   define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)

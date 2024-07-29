@@ -19,7 +19,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define SPLIT_HAND_PIN D5
 
-#define BACKLIGHT_DEFAULT_LEVEL 3
-
-#define RGBLIGHT_DEFAULT_VAL 128
 #define RGBLIGHT_DEFAULT_MODE (RGBLIGHT_MODE_RAINBOW_SWIRL + 2)
