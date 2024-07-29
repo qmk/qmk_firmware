@@ -18,6 +18,75 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 
+#ifdef RGB_MATRIX_ENABLE
+
+  // Logical Layout
+  // Columns
+  // Left
+  // 0  1  2  3  4  5
+  //                   ROWS
+  // 25 24 19 18 11 10   0
+  //    03    02    01
+  // 26 23 20 17 12 09   1
+  //    04    05    06
+  // 27 22 21 16 13 08   2
+  //
+  //          15 14 07   3
+  //
+  // Right
+  // 0  1  2  3  4  5
+  //                    ROWS
+  // 25 24 19 18 11 10   4
+  //    03    02    01
+  // 26 23 20 17 12 09   5
+  //    04    05    06
+  // 27 22 21 16 13 08   6
+  //
+  //          15 14 07   7
+  //
+  // Physical Layout
+  // Columns
+  // 0  1  2  3  4  5  6  7  8  9  10 11 12 13
+  //                                           ROWS
+  // 25 24 19 18 11 10       10 11 18 19 24 25  0
+  //    03    02    01       01    02    03
+  // 26 23 20 17 12 09       09 12 17 20 23 26  1
+  //    04                               04
+  // 27 22 21 16 13 08       08 13 16 21 22 27  2
+  //          05    06       06    05
+  //           15 14 07     07 14 15              3
+
+led_config_t g_led_config = { {
+    {  24,  23,  18,  17,  10,   9 },
+    {  25,  22,  19,  16,  11,   8 },
+    {  26,  21,  20,  15,  12,   7 },
+    { NO_LED, NO_LED, NO_LED,  14,  13,   6 },
+    {  51,  50,  45,  44,  37,  36 },
+    {  52,  49,  46,  43,  38,  35 },
+    {  53,  48,  47,  42,  39,  34 },
+    { NO_LED, NO_LED, NO_LED,  41,  40,  33 }
+}, {
+    {  85,  16 }, {  50,  13 }, {  16,  20 }, {  16,  38 }, {  50,  48 }, {  85,  52 }, {  95,  63 },
+    {  85,  39 }, {  85,  21 }, {  85,   4 }, {  68,   2 }, {  68,  19 }, {  68,  37 }, {  80,  58 },
+    {  60,  55 }, {  50,  35 }, {  50,  13 }, {  50,   0 }, {  33,   3 }, {  33,  20 }, {  33,  37 },
+    {  16,  42 }, {  16,  24 }, {  16,   7 }, {   0,   7 }, {   0,  24 }, {   0,  41 }, { 139,  16 },
+    { 174,  13 }, { 208,  20 }, { 208,  38 }, { 174,  48 }, { 139,  52 }, { 129,  63 }, { 139,  39 },
+    { 139,  21 }, { 139,   4 }, { 156,   2 }, { 156,  19 }, { 156,  37 }, { 144,  58 }, { 164,  55 },
+    { 174,  35 }, { 174,  13 }, { 174,   0 }, { 191,   3 }, { 191,  20 }, { 191,  37 }, { 208,  42 },
+    { 208,  24 }, { 208,   7 }, { 224,   7 }, { 224,  24 }, { 224,  41 }
+}, {
+    2, 2, 2, 2, 2, 2, 1,
+    4, 4, 4, 4, 4, 4, 1,
+    1, 4, 4, 4, 4, 4, 4,
+    4, 4, 4, 1, 1, 1, 2,
+    2, 2, 2, 2, 2, 1, 4,
+    4, 4, 4, 4, 4, 1, 1,
+    4, 4, 4, 4, 4, 4, 4,
+    4, 4, 1, 1, 1
+} };
+
+#endif
+
 #ifdef SWAP_HANDS_ENABLE
 __attribute__((weak)) const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     // Left
@@ -36,11 +105,9 @@ __attribute__((weak)) const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRI
 #ifdef OLED_ENABLE
 
 oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
-    if (!is_keyboard_master()) {
-        return OLED_ROTATION_180; // flips the display 180 degrees if offhand
-    }
-    return rotation;
+    return OLED_ROTATION_270;
 }
+
 
 static void oled_render_layer_state(void) {
     oled_write_P(PSTR("Layer: "), false);
@@ -61,59 +128,6 @@ static void oled_render_layer_state(void) {
             oled_write_ln_P(PSTR("Undef"), false);
             break;
     }
-}
-
-char     key_name = ' ';
-uint16_t last_keycode;
-uint8_t  last_row;
-uint8_t  last_col;
-
-static const char PROGMEM code_to_name[60] = {' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'R', 'E', 'B', 'T', '_', '-', '=', '[', ']', '\\', '#', ';', '\'', '`', ',', '.', '/', ' ', ' ', ' '};
-
-static void set_keylog(uint16_t keycode, keyrecord_t *record) {
-    // save the row and column (useful even if we can't find a keycode to show)
-    last_row = record->event.key.row;
-    last_col = record->event.key.col;
-
-    key_name     = ' ';
-    last_keycode = keycode;
-    if (IS_QK_MOD_TAP(keycode)) {
-        if (record->tap.count) {
-            keycode = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
-        } else {
-            keycode = 0xE0 + biton(QK_MOD_TAP_GET_MODS(keycode) & 0xF) + biton(QK_MOD_TAP_GET_MODS(keycode) & 0x10);
-        }
-    } else if (IS_QK_LAYER_TAP(keycode) && record->tap.count) {
-        keycode = QK_LAYER_TAP_GET_TAP_KEYCODE(keycode);
-    } else if (IS_QK_MODS(keycode)) {
-        keycode = QK_MODS_GET_BASIC_KEYCODE(keycode);
-    } else if (IS_QK_ONE_SHOT_MOD(keycode)) {
-        keycode = 0xE0 + biton(QK_ONE_SHOT_MOD_GET_MODS(keycode) & 0xF) + biton(QK_ONE_SHOT_MOD_GET_MODS(keycode) & 0x10);
-    }
-    if (keycode > ARRAY_SIZE(code_to_name)) {
-        return;
-    }
-
-    // update keylog
-    key_name = pgm_read_byte(&code_to_name[keycode]);
-}
-
-static const char *depad_str(const char *depad_str, char depad_char) {
-    while (*depad_str == depad_char)
-        ++depad_str;
-    return depad_str;
-}
-
-static void oled_render_keylog(void) {
-    oled_write_char('0' + last_row, false);
-    oled_write_P(PSTR("x"), false);
-    oled_write_char('0' + last_col, false);
-    oled_write_P(PSTR(", k"), false);
-    const char *last_keycode_str = get_u16_str(last_keycode, ' ');
-    oled_write(depad_str(last_keycode_str, ' '), false);
-    oled_write_P(PSTR(":"), false);
-    oled_write_char(key_name, false);
-    oled_advance_page(true);
 }
 
 // static void render_bootmagic_status(bool status) {
@@ -148,7 +162,6 @@ bool oled_task_kb(void) {
     }
     if (is_keyboard_master()) {
         oled_render_layer_state();
-        oled_render_keylog();
     } else {
         oled_render_logo();
     }
@@ -156,9 +169,6 @@ bool oled_task_kb(void) {
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-        set_keylog(keycode, record);
-    }
     return process_record_user(keycode, record);
 }
 #endif // OLED_ENABLE
