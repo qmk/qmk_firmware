@@ -9,11 +9,25 @@
     "lto": true
   },
   "features": {
-    "rgblight": true
+    "audio": false,
+    "bootmagic": false,
+    "command": false,
+    "console": false,
+    "extrakey": true,
+    "mousekey": false,
+    "nkro": false,
+    "backlight": false,
+    "rgblight": true,
+    "encoder": true
   },
   "bootmagic": {
     "enabled": false,
     "matrix": [0,1]
+  },
+  "matrix_pins": {
+    "custom_lite": true,
+    "cols": [ "F4", "F5", "F6", "F7", "B1" ],
+    "rows": [ "D2", "D4", "C6", "D7" ]
   },
   "encoder": {
     "rotary": [
@@ -28,6 +42,8 @@
     "vid": "0x8832"
   },
   "rgblight":{
+    "driver": "ws2812",
+    "pin": "D3",
     "led_count": 32,
     "animations": {
       "breathing": false,
@@ -44,7 +60,8 @@
     "brightness_steps": 12,
     "max_brightness": 120,
     "hue_steps": 17,
-    "saturation_steps": 17
+    "saturation_steps": 17,
+    "sleep": true
   },
   "layouts": {
     "LAYOUT": {

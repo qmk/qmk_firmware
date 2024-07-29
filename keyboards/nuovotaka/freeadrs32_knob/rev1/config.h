@@ -7,10 +7,7 @@
 #define MATRIX_ROWS 4     // 行数
 #define MATRIX_COLS 5 * 2 // 列数 Duplex-Matrix
 
-#define MATRIX_ROW_PINS { D2, D4, C6, D7} // 各行に割り当てるピン番号
-#define MATRIX_COL_PINS { F4, F5, F6, F7, B1 } // 各列に割り当てるピン番号
 #define MATRIX_MASKED
-
 
 #define ENCODER_PAD_A { E6, B5, B2 }
 #define ENCODER_PAD_B { B4, B6, B3 }
