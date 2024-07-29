@@ -64,7 +64,7 @@
         "driver": "i2c"
     },
     "processor": "atmega32u4",
-    "bootloader": "bootloadhid",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT": "LAYOUT_ortho_5x12"
     },
