@@ -1,21 +1,68 @@
 {
-    "manufacturer": "HS",
-    "keyboard_name": "EPOMAKER TIDE 65",
+    "manufacturer": "EPOMAKER",
+    "keyboard_name": "TIDE65",
     "maintainer": "sdk66",
     "bootloader": "wb32-dfu",
+    "bootmagic": {
+        "matrix": [0, 0]
+    },
+    "debounce": 1,
     "diode_direction": "ROW2COL",
+    "eeprom": {
+        "driver": "wear_leveling",
+        "wear_leveling": {
+            "backing_size": 4096,
+            "driver": "spi_flash"
+        }
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "B7", "pin_b": "B6"}
         ]
     },
     "features": {
-        "bootmagic": true,
-        "encoder": true,
+        "combo": false,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgb_matrix": true
+        "rgb_matrix": true,
+        "deferred_exec": true,
+        "rgblight": false,
+        "encoder": true
+    },
+    "keycodes": [
+        {
+            "key": "KC_USB"
+        },
+        {
+            "key": "KC_BT1"
+        },
+        {
+            "key": "KC_BT2"
+        },
+        {
+            "key": "KC_BT3"
+        },
+        {
+            "key": "KC_BT4"
+        },
+        {
+            "key": "KC_BT5"
+        },
+        {
+            "key": "KC_2G4"
+        },
+        {
+            "key": "KC_BATQ"
+        },
+        {
+            "key": "KC_FTOG"
+        }
+    ],
+    "dynamic_keymap": {
+        "layer_count": 9
     },
     "matrix_pins": {
         "cols": ["C0", "C1", "C2", "C3", "A6", "B10", "B11", "B12", "B13", "B14", "A10", "C6", "C7", "C8", "C9"],
@@ -55,6 +102,7 @@
             "rainbow_moving_chevron": true,
             "rainbow_pinwheels": true,
             "raindrops": true,
+            "solid_color": true,
             "solid_multisplash": true,
             "solid_reactive": true,
             "solid_reactive_cross": true,
@@ -139,18 +187,29 @@
             {"matrix": [4, 12], "x": 192, "y": 64, "flags": 4},
             {"matrix": [4, 13], "x": 208, "y": 64, "flags": 4},
             {"matrix": [4, 14], "x": 224, "y": 64, "flags": 4}
-        ]
+        ],
+        "max_brightness": 200,
+        "val_steps": 40,
+        "speed_steps": 51,
+        "default": {
+            "val" :153,
+            "speed" :204
+        },
+        "sleep": false,
+        "timeout": 300000
     },
-    "url": "",
+    "tap_keycode_delay": 10,
+    "url": "https://www.epomaker.com",
     "usb": {
-        "device_version": "0.0.1",
+        "device_version": "0.2.0",
         "force_nkro": true,
         "pid": "0xE463",
         "suspend_wakeup_delay": 1000,
         "vid": "0x342D"
     },
     "ws2812": {
-        "pin": "B15"
+        "pin": "B15",
+        "driver": "spi"
     },
     "layouts": {
         "LAYOUT": {
