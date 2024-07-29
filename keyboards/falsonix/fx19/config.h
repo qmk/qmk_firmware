@@ -1,5 +1,0 @@
-#pragma once
-
-#define RGBLIGHT_DEFAULT_ON = true
-#define RGBLIGHT_DEFAULT_MODE = RGBLIGHT_MODE_RAINBOW_MOOD
-#define RGBLIGHT_SLEEP

@@ -13,7 +13,14 @@
         "nkro": true
     },
     "rgblight": {
-        "led_count": 5
+        "led_count": 5,
+        "animations": {
+            "rainbow_mood": true,
+            "rainbow_swirl": true
+        },
+        "default": {
+            "animation": "rainbow_swirl"
+        }
     },
     "ws2812": {
         "pin": "D7"
