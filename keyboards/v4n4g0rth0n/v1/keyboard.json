@@ -1,0 +1,20 @@
+{
+    "usb": {
+        "device_version": "0.0.1"
+    },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false
+    },
+    "matrix_pins": {
+        "cols": ["D3", "D2", "D1", "D0", "D5", "F7", "F6", "E6", "F5", "F4", "F1", "F0"],
+        "rows": ["C7", "C6", "B6", "B5", "B7"]
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu"
+}

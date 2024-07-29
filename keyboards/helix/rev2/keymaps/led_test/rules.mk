@@ -5,7 +5,6 @@
 #   See TOP/keyboards/helix/rules.mk for a list of options that can be set.
 #   See TOP/docs/config_options.md for more information.
 #
-SPLIT_KEYBOARD = yes
 
 LTO_ENABLE = no  # if firmware size over limit, try this option
 

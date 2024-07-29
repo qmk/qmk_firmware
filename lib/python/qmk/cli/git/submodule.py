@@ -1,8 +1,8 @@
 import shutil
+from pathlib import Path
 
 from milc import cli
 
-from qmk.path import normpath
 from qmk import submodules
 
 REMOVE_DIRS = [
@@ -40,12 +40,12 @@ def git_submodule(cli):
     remove_dirs = REMOVE_DIRS
     if cli.config.git_submodule.force:
         # Also trash everything that isnt marked as "safe"
-        for path in normpath('lib').iterdir():
+        for path in Path('lib').iterdir():
             if not any(ignore in path.as_posix() for ignore in IGNORE_DIRS):
                 remove_dirs.append(path)
 
-    for folder in map(normpath, remove_dirs):
-        if normpath(folder).is_dir():
+    for folder in map(Path, remove_dirs):
+        if folder.is_dir():
             print(f"Removing '{folder}'")
             shutil.rmtree(folder)
 
