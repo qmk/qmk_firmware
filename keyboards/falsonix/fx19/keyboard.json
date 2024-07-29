@@ -10,7 +10,8 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "rgblight": true
     },
     "rgblight": {
         "led_count": 5,
@@ -23,7 +24,7 @@
         }
     },
     "ws2812": {
-        "pin": "D7"
+        "pin": "F7"
     },
     "matrix_pins": {
         "cols": ["C7", "C6", "B6", "B5"],
