@@ -28,6 +28,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       with:
+        token: ${{ secrets.MY_REPO_PAT }}
         submodules: recursive
     - name: Install dependencies
       run: pip3 install -r requirements-dev.txt
