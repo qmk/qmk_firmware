@@ -1,6 +1,6 @@
 # falsonix/fx19
 
-![falsonix/fx19](https://github.com/falsonix/fx19/blob/main/fx19-enclosure-v45.png)
+![falsonix/fx19](https://i.imgur.com/UGExzJl.png)
 
 A small, 18-key number pad for use with modern computers. (Yes, the name says 19 and this is due to me miscounting the keys and realizing only after I'd named everything in firmware and hardware). Includes RGB for maximum performance.
 
