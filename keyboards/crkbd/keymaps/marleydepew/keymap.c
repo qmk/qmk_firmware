@@ -175,7 +175,8 @@ void oled_render_logo(void) {
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
     };
     // clang-format on
-    oled_write_raw_P(marley_katakana, sizeof(marley_katakana));
+    // oled_write_raw_P(marley_katakana, sizeof(marley_katakana));
+    oled_write_P(marley_katakana, false);
 }
 
 void oled_render_status(void) {
