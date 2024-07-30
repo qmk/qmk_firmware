@@ -21,7 +21,6 @@
         ]
     },
     "features": {
-        "combo": false,
         "command": false,
         "console": false,
         "extrakey": true,
