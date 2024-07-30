@@ -1,12 +1,14 @@
 # falsonix/fx19
 
-![falsonix/fx19](imgur.com image replace me!)
+![falsonix/fx19](https://github.com/falsonix/fx19/blob/main/fx19-enclosure-v45.png)
 
-*A short description of the keyboard/project*
+A small, 18-key number pad for use with modern computers. (Yes, the name says 19 and this is due to me miscounting the keys and realizing only after I'd named everything in firmware and hardware). Includes RGB for maximum performance.
+
+Support for VIA is also included for easy reconfiguration.
 
 * Keyboard Maintainer: [falsonix](https://github.com/falsonix)
 * Hardware Supported: *FX19 Numpads*
-* Hardware Availability: *Coming soon!*
+* Hardware Availability: *DIY by the enduser*
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -20,8 +22,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Bootloader
 
-Enter the bootloader in 3 ways:
+Enter the bootloader in 2 ways:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
-* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (the top left key) and plug in the keyboard
+* **Physical reset button**: Briefly press the button on the front of the PCB
