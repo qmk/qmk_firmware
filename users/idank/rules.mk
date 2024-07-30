@@ -1,4 +1,4 @@
-VALID_POINTING_DEVICE_CONFIGURATIONS := trackball cirque40 cirque35 cirque35_cirque35 trackball_trackball trackball_cirque35 cirque35_trackball trackpoint trackpoint_trackball trackball_trackpoint trackpoint_cirque35 cirque35_trackpoint
+VALID_POINTING_DEVICE_CONFIGURATIONS := trackball cirque40 cirque35 cirque35_cirque35 cirque40_cirque40 trackball_trackball trackball_cirque35 cirque35_trackball trackball_cirque40 cirque40_trackball trackpoint trackpoint_trackball trackball_trackpoint trackpoint_cirque35 cirque35_trackpoint trackpoint_cirque40 cirque40_trackpoint
 ifdef POINTING_DEVICE
     ifeq ($(filter $(POINTING_DEVICE),$(VALID_POINTING_DEVICE_CONFIGURATIONS)),)
         $(call CATASTROPHIC_ERROR,Invalid POINTING_DEVICE,POINTING_DEVICE="$(POINTING_DEVICE)" is not a valid pointing device configuration)
@@ -72,6 +72,18 @@ ifeq ($(strip $(POINTING_DEVICE)), cirque35_cirque35)
 	MSG_MASTER_SIDE = right
 endif
 
+ifeq ($(strip $(POINTING_DEVICE)), cirque40_cirque40)
+	OPT_DEFS += -DSPLIT_POINTING_ENABLE
+	OPT_DEFS += -DPOINTING_DEVICE_COMBINED
+	OPT_DEFS += -DPOINTING_DEVICE_CONFIGURATION_CIRQUE40_CIRQUE40
+
+	POINTING_DEVICE_ENABLE = yes
+	POINTING_DEVICE_DRIVER = cirque_pinnacle_i2c
+
+	MSG_POINTING_DEVICE = cirque40 touchpad (left), cirque40 touchpad (right)
+	MSG_MASTER_SIDE = right
+endif
+
 ifeq ($(strip $(POINTING_DEVICE)), trackball_trackball)
 	OPT_DEFS += -DSPLIT_POINTING_ENABLE
 	OPT_DEFS += -DPOINTING_DEVICE_COMBINED
@@ -127,6 +139,48 @@ ifeq ($(strip $(POINTING_DEVICE)), cirque35_trackball)
 	endif
 
 	MSG_POINTING_DEVICE = cirque35 touchpad (left), trackball (right); built for side = $(SIDE)
+	MSG_MASTER_SIDE = right
+endif
+
+ifeq ($(strip $(POINTING_DEVICE)), trackball_cirque40)
+	OPT_DEFS += -DSPLIT_POINTING_ENABLE
+	OPT_DEFS += -DPOINTING_DEVICE_COMBINED
+	OPT_DEFS += -DPOINTING_DEVICE_CONFIGURATION_PIMORONI_CIRQUE40
+	POINTING_DEVICE_ENABLE = yes
+
+	ifeq ($(strip $(SIDE)), left)
+		POINTING_DEVICE_DRIVER = pimoroni_trackball
+
+		ifeq ($(strip $(TRACKBALL_RGB_RAINBOW)), yes)
+			SRC += quantum/color.c $(USER_PATH)/trackball_rgb_rainbow.c
+		endif
+	endif
+	ifeq ($(strip $(SIDE)), right)
+		POINTING_DEVICE_DRIVER = cirque_pinnacle_i2c
+	endif
+
+	MSG_POINTING_DEVICE = trackball (left), cirque40 touchpad (right); built for side = $(SIDE)$
+	MSG_MASTER_SIDE = right
+endif
+
+ifeq ($(strip $(POINTING_DEVICE)), cirque40_trackball)
+	OPT_DEFS += -DSPLIT_POINTING_ENABLE
+	OPT_DEFS += -DPOINTING_DEVICE_COMBINED
+	OPT_DEFS += -DPOINTING_DEVICE_CONFIGURATION_CIRQUE40_PIMORONI
+	POINTING_DEVICE_ENABLE = yes
+
+	ifeq ($(strip $(SIDE)), right)
+		POINTING_DEVICE_DRIVER = pimoroni_trackball
+
+		ifeq ($(strip $(TRACKBALL_RGB_RAINBOW)), yes)
+			SRC += quantum/color.c $(USER_PATH)/trackball_rgb_rainbow.c
+		endif
+	endif
+	ifeq ($(strip $(SIDE)), left)
+		POINTING_DEVICE_DRIVER = cirque_pinnacle_i2c
+	endif
+
+	MSG_POINTING_DEVICE = cirque40 touchpad (left), trackball (right); built for side = $(SIDE)
 	MSG_MASTER_SIDE = right
 endif
 
@@ -224,6 +278,46 @@ ifeq ($(strip $(POINTING_DEVICE)), cirque35_trackpoint)
     endif
 
 	MSG_POINTING_DEVICE = cirque35 touchpad (left), trackpoint (right); built for side = $(SIDE)
+	MSG_MASTER_SIDE = right
+endif
+
+ifeq ($(strip $(POINTING_DEVICE)), trackpoint_cirque40)
+    OPT_DEFS += -DPOINTING_DEVICE_CONFIGURATION_TRACKPOINT_CIRQUE40
+
+    POINTING_DEVICE_ENABLE = yes
+    OPT_DEFS += -DSPLIT_POINTING_ENABLE
+    OPT_DEFS += -DPOINTING_DEVICE_COMBINED
+
+    ifeq ($(strip $(SIDE)), left)
+        PS2_ENABLE = yes
+        PS2_DRIVER = vendor
+        POINTING_DEVICE_DRIVER = ps2
+    endif
+    ifeq ($(strip $(SIDE)), right)
+        POINTING_DEVICE_DRIVER = cirque_pinnacle_i2c
+    endif
+
+	MSG_POINTING_DEVICE = trackpoint (left), cirque40 touchpad (right); built for side = $(SIDE)
+	MSG_MASTER_SIDE = left
+endif
+
+ifeq ($(strip $(POINTING_DEVICE)), cirque40_trackpoint)
+    OPT_DEFS += -DPOINTING_DEVICE_CONFIGURATION_CIRQUE40_TRACKPOINT
+
+    POINTING_DEVICE_ENABLE = yes
+    OPT_DEFS += -DSPLIT_POINTING_ENABLE
+    OPT_DEFS += -DPOINTING_DEVICE_COMBINED
+
+    ifeq ($(strip $(SIDE)), right)
+        PS2_ENABLE = yes
+        PS2_DRIVER = vendor
+        POINTING_DEVICE_DRIVER = ps2
+    endif
+    ifeq ($(strip $(SIDE)), left)
+        POINTING_DEVICE_DRIVER = cirque_pinnacle_i2c
+    endif
+
+	MSG_POINTING_DEVICE = cirque40 touchpad (left), trackpoint (right); built for side = $(SIDE)
 	MSG_MASTER_SIDE = right
 endif
 

@@ -47,10 +47,12 @@ class Command:
 
 def build_commands():
     commands = []
+    skip_pointing_devices =[('trackpoint', 'trackpoint'), ('cirque35', 'cirque40'), ('cirque40', 'cirque35')]
     for kb in ['crkbd/rev1', 'idank/spankbd', 'lily58/rev1', 'idank/sweeq']:
         for left_pointing_device in ['trackpoint', 'trackball', 'cirque35', 'cirque40', '']:
             for right_pointing_device in ['trackpoint', 'trackball', 'cirque35', 'cirque40', '']:
-                if left_pointing_device == 'trackpoint' and right_pointing_device == 'trackpoint':
+                if (left_pointing_device, right_pointing_device) in skip_pointing_devices:
+                    print('Skipping configuration: ', left_pointing_device, right_pointing_device)
                     continue
                 if left_pointing_device and right_pointing_device:
                     for side in ('left', 'right'):
