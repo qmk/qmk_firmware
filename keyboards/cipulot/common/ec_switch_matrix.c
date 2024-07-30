@@ -70,6 +70,16 @@ void init_amux(void) {
     }
 }
 
+// Disable all the unused rows
+void disable_unused_row(uint8_t row) {
+    // disable all the other rows apart from the current selected one
+    for (uint8_t idx = 0; idx < MATRIX_ROWS; idx++) {
+        if (idx != row) {
+            gpio_write_pin_low(row_pins[idx]);
+        }
+    }
+}
+
 // Select the multiplexer channel of the specified multiplexer
 void select_amux_channel(uint8_t channel, uint8_t col) {
     // Get the channel for the specified multiplexer
@@ -181,6 +191,7 @@ bool ec_matrix_scan(matrix_row_t current_matrix[]) {
         disable_unused_amux(amux);
         for (uint8_t col = 0; col < amux_n_col_sizes[amux]; col++) {
             for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+                disable_unused_row(row);
                 uint8_t sum = 0;
                 for (uint8_t i = 0; i < (amux > 0 ? amux : 0); i++)
                     sum += amux_n_col_sizes[i];

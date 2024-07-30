@@ -58,6 +58,7 @@ extern ec_config_t ec_config;
 
 void init_row(void);
 void init_amux(void);
+void disable_unused_row(void);
 void select_amux_channel(uint8_t channel, uint8_t col);
 void disable_unused_amux(uint8_t channel);
 void discharge_capacitor(void);
@@ -69,5 +70,9 @@ bool     ec_matrix_scan(matrix_row_t current_matrix[]);
 uint16_t ec_readkey_raw(uint8_t channel, uint8_t row, uint8_t col);
 bool     ec_update_key(matrix_row_t* current_row, uint8_t row, uint8_t col, uint16_t sw_value);
 void     ec_print_matrix(void);
+
+#ifdef SPLIT_KEYBOARD
+void via_cmd_slave_handler(uint8_t m2s_size, const void* m2s_buffer, uint8_t s2m_size, void* s2m_buffer);
+#endif
 
 uint16_t rescale(uint16_t x, uint16_t in_min, uint16_t in_max, uint16_t out_min, uint16_t out_max);
