@@ -66,3 +66,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_SAT_STEP 17
     #define RGBLIGHT_VAL_STEP 17
 #endif
+
+#ifdef RGB_MATRIX_ENABLE
+    #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+    #define ENABLE_RGB_MATRIX_DIGITAL_RAIN
+#endif
