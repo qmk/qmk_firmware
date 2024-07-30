@@ -46,24 +46,31 @@
     #endif
 #elif POINTING_DEVICE_CONFIGURATION_PIMORONI
     #ifdef POINTING_DEVICE_POSITION_LEFT
-      #define POINTING_DEVICE_ROTATION_270
-    #elif POINTING_DEVICE_POSITION_RIGHT
-       #define POINTING_DEVICE_ROTATION_90
-    #elif POINTING_DEVICE_POSITION_THUMB_OUTER
-      #define POINTING_DEVICE_ROTATION_270
-    #elif defined(POINTING_DEVICE_POSITION_THUMB) || defined(POINTING_DEVICE_POSITION_THUMB_INNER) || defined(POINTING_DEVICE_POSITION_MIDDLE)
-    #endif
-#else
-    #ifdef POINTING_DEVICE_POSITION_LEFT
         #define MASTER_LEFT
-    #else
+        #define POINTING_DEVICE_ROTATION_270
+    #elif POINTING_DEVICE_POSITION_RIGHT
+        #define MASTER_RIGHT
+        #define POINTING_DEVICE_ROTATION_90
+    #elif POINTING_DEVICE_POSITION_THUMB_OUTER
+        #define MASTER_RIGHT
+        #define POINTING_DEVICE_ROTATION_270
+    #elif defined(POINTING_DEVICE_POSITION_THUMB) || defined(POINTING_DEVICE_POSITION_THUMB_INNER) || defined(POINTING_DEVICE_POSITION_MIDDLE)
         #define MASTER_RIGHT
     #endif
+#else
+    // No pointing device, default to right.
+    #define MASTER_RIGHT
 #endif
 
 // Generic Cirque configuration.
 #ifdef POINTING_DEVICE_DRIVER_cirque_pinnacle_i2c
-    #define CIRQUE_PINNACLE_DIAMETER_MM 35
+    #ifdef POINTING_DEVICE_CONFIGURATION_CIRQUE35
+        #define CIRQUE_PINNACLE_DIAMETER_MM 35
+    #elif defined(POINTING_DEVICE_CONFIGURATION_CIRQUE40)
+        #define CIRQUE_PINNACLE_DIAMETER_MM 40
+    #else
+        #error "Unknown Cirque configuration."
+    #endif
     // Tap for left click.
     #define CIRQUE_PINNACLE_TAP_ENABLE
     #define POINTING_DEVICE_GESTURES_SCROLL_ENABLE

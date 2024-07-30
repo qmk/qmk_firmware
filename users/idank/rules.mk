@@ -1,4 +1,4 @@
-VALID_POINTING_DEVICE_CONFIGURATIONS := trackball cirque35 cirque35_cirque35 trackball_trackball trackball_cirque35 cirque35_trackball trackpoint trackpoint_trackball trackball_trackpoint trackpoint_cirque35 cirque35_trackpoint
+VALID_POINTING_DEVICE_CONFIGURATIONS := trackball cirque40 cirque35 cirque35_cirque35 trackball_trackball trackball_cirque35 cirque35_trackball trackpoint trackpoint_trackball trackball_trackpoint trackpoint_cirque35 cirque35_trackpoint
 ifdef POINTING_DEVICE
     ifeq ($(filter $(POINTING_DEVICE),$(VALID_POINTING_DEVICE_CONFIGURATIONS)),)
         $(call CATASTROPHIC_ERROR,Invalid POINTING_DEVICE,POINTING_DEVICE="$(POINTING_DEVICE)" is not a valid pointing device configuration)
@@ -50,6 +50,14 @@ ifeq ($(strip $(POINTING_DEVICE)), cirque35)
 	POINTING_DEVICE_DRIVER = cirque_pinnacle_i2c
 
 	MSG_POINTING_DEVICE = cirque35 touchpad
+endif
+
+ifeq ($(strip $(POINTING_DEVICE)), cirque40)
+	OPT_DEFS += -DPOINTING_DEVICE_CONFIGURATION_CIRQUE40
+	POINTING_DEVICE_ENABLE = yes
+	POINTING_DEVICE_DRIVER = cirque_pinnacle_i2c
+
+	MSG_POINTING_DEVICE = cirque40 touchpad
 endif
 
 ifeq ($(strip $(POINTING_DEVICE)), cirque35_cirque35)
