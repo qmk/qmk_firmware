@@ -1,10 +1,6 @@
-
 # Duplex matrix.
 CUSTOM_MATRIX = lite
 SRC += lib/duplexmatrix/duplexmatrix.c
-
-# Encoders
-ENCODER_MAP_ENABLE = yes
 
 # To support OLED
 OLED_ENABLE = yes
