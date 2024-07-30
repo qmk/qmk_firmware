@@ -19,5 +19,5 @@
 /* RGB Matrix Driver Configuration */
 #define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_GND
 
-/* Enable CapsLcok LED*/
+/* Enable CapsLock LED*/
 #define CAPS_LOCK_LED_INDEX 27
