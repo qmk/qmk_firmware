@@ -4,8 +4,6 @@
 
 A small, 18-key number pad for use with modern computers. (Yes, the name says 19 and this is due to me miscounting the keys and realizing only after I'd named everything in firmware and hardware). Includes RGB for maximum performance.
 
-Support for VIA is also included for easy reconfiguration.
-
 * Keyboard Maintainer: [falsonix](https://github.com/falsonix)
 * Hardware Supported: *FX19 Numpads*
 * Hardware Availability: *DIY by the enduser*
