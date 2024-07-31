@@ -70,4 +70,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGB_MATRIX_ENABLE
     #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
     #define ENABLE_RGB_MATRIX_DIGITAL_RAIN
+    #define ENABLE_RGB_MATRIX_TYPING_HEATMAP
 #endif
