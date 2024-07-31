@@ -1534,5 +1534,5 @@
     },
     "dnworks/sbl": {
         "target": "dnworks/60percent"
-    },
+    }
 }
