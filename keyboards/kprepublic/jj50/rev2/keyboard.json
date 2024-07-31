@@ -28,7 +28,7 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "mousekey": false,
+        "mousekey": true,
         "extrakey": true,
         "nkro": false,
         "backlight": true,
