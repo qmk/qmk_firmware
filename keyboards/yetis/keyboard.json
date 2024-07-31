@@ -1,0 +1,99 @@
+{
+    "manufacturer": "jogme",
+    "keyboard_name": "Yetis",
+    "maintainer": "qmk",
+    "development_board": "elite_c",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "oled": true,
+        "rgblight": true
+    },
+    "matrix_pins": {
+        "direct": [
+            [null, null, "F7", "F6", "F5", "F4"],
+            ["F0", "F1", "B1", "B3", "B2", "B6"],
+            [null, "C7", "D5", "B7", "B5", "E6"],
+            [null, null, null, null, "D7", "C6"]
+        ]
+    },
+    "rgblight": {
+        "led_count": 12,
+        "split": true,
+        "split_count": [6, 6],
+        "animations": {
+            "breathing": true,
+            "knight": true
+        }
+    },
+    "ws2812": {
+        "pin": "D3"
+    },
+    "split": {
+        "enabled": true,
+        "matrix_pins": {
+            "right": {
+                "direct": [
+                    ["F4", "F5", "F6", "F7", null, null],
+                    ["B6", "B2", "B3", "B1", "F1", "F0"],
+                    ["E6", "B5", "B7", "D5", "C7", null],
+                    ["C6", "D7", null, null, null, null]
+                ]
+            }
+        },
+        "soft_serial_pin": "D2",
+        "transport": {
+            "sync": {
+                "oled": true
+            }
+        }
+    },
+    "url": "https://www.jogmekeebs.com/",
+    "usb": {
+        "device_version": "1.1.0",
+        "pid": "0x8008",
+        "vid": "0xFEED"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 2], "x": 2, "y": 0.25},
+                {"matrix": [0, 3], "x": 3.25, "y": 0},
+                {"matrix": [0, 4], "x": 4.6, "y": 0.6},
+                {"matrix": [0, 5], "x": 5.6, "y": 0.85},
+                {"matrix": [4, 0], "x": 10, "y": 0.85},
+                {"matrix": [4, 1], "x": 11, "y": 0.6},
+                {"matrix": [4, 2], "x": 12.35, "y": 0},
+                {"matrix": [4, 3], "x": 13.6, "y": 0.25},
+                {"matrix": [1, 0], "x": 0, "y": 1.9},
+                {"matrix": [1, 1], "x": 1, "y": 1.9},
+                {"matrix": [1, 2], "x": 2, "y": 1.25},
+                {"matrix": [1, 3], "x": 3.25, "y": 1},
+                {"matrix": [1, 4], "x": 4.6, "y": 1.6},
+                {"matrix": [1, 5], "x": 5.6, "y": 1.85},
+                {"matrix": [5, 0], "x": 10, "y": 1.85},
+                {"matrix": [5, 1], "x": 11, "y": 1.6},
+                {"matrix": [5, 2], "x": 12.35, "y": 1},
+                {"matrix": [5, 3], "x": 13.6, "y": 1.25},
+                {"matrix": [5, 4], "x": 14.6, "y": 1.9},
+                {"matrix": [5, 5], "x": 15.6, "y": 1.9},
+                {"matrix": [2, 1], "x": 0.85, "y": 2.9},
+                {"matrix": [2, 2], "x": 2, "y": 2.25},
+                {"matrix": [2, 3], "x": 3.25, "y": 2},
+                {"matrix": [2, 4], "x": 4.6, "y": 2.6},
+                {"matrix": [2, 5], "x": 5.6, "y": 2.85},
+                {"matrix": [6, 0], "x": 10, "y": 2.85},
+                {"matrix": [6, 1], "x": 11, "y": 2.6},
+                {"matrix": [6, 2], "x": 12.35, "y": 2},
+                {"matrix": [6, 3], "x": 13.6, "y": 2.25},
+                {"matrix": [6, 4], "x": 14.75, "y": 2.9},
+                {"matrix": [3, 4], "x": 5.6, "y": 5},
+                {"matrix": [3, 5], "x": 6.4, "y": 6},
+                {"matrix": [7, 0], "x": 9.2, "y": 6},
+                {"matrix": [7, 1], "x": 10, "y": 5}
+            ]
+        }
+    }
+}
