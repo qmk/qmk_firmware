@@ -4,9 +4,7 @@ Vida PCB from CannonKeys
 
 This is for the wired hotswap and solderable versions of the Vida PCB
 
-The hotswap version:
-* Does not have the same layout support as the solderable versoin
-* Does not support per-key LEDs
+The hotswap version does not have the same layout support as the solderable versoin and does not support per-key LEDs
 
 * Keyboard Maintainer: [Andrew Kannan](https://github.com/awkannan)
 * Hardware Supported: RP2040
