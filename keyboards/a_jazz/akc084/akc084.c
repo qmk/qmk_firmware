@@ -16,10 +16,3 @@
 #include "quantum.h"
 
 
-void keyboard_pre_init_kb(void) {
-    gpio_set_pin_output(A8); // USB ENABLE
-    gpio_write_pin_high(A8);  //USB ENABLE
-    
-    keyboard_pre_init_user();
-}
-

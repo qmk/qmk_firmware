@@ -1,7 +1,8 @@
 # A-JAZZ  AKC084
 
 ![](https://github.com/fenggx-a-jazz/documents/blob/main/akc084.jpg?raw=true)
-
+![](https://github.com/fenggx-a-jazz/documents/blob/main/akc084-2.png?raw=true)
+![](https://github.com/fenggx-a-jazz/documents/blob/main/akc084-2.jpg?raw=true)
 
 * A customizable 84keys keyboard.
 
