@@ -203,6 +203,19 @@ Tips:
 * Keep `MOUSEKEY_MOVE_DELTA` at 1.  This allows precise movements before the gliding effect starts.
 * Mouse wheel options are the same as the default accelerated mode, and do not use inertia.
 
+### Overlapping mouse key control
+
+When additional overlapping mouse key is pressed, the mouse cursor will continue in a new direction with the same acceleration. The following settings can be used to reset the acceleration with new overlapping keys for more precise control if desired:
+
+|Define                        |Default               |Description                                                            |
+|------------------------------|----------------------|-----------------------------------------------------------------------|
+|`MOUSEKEY_OVERLAP_RESET`      |undefined             |Enables overlapping mouse key control                                  |
+|`MOUSEKEY_OVERLAP_MOVE_DELTA` |`MOUSEKEY_MOVE_DELTA` |Step size of reset movement acceleration                               |
+|`MOUSEKEY_OVERLAP_WHEEL_DELTA`|`MOUSEKEY_WHEEL_DELTA`|Step size of reset mouse wheel acceleration                            |
+|`MOUSEKEY_OVERLAP_INTERVAL`   |`MOUSEKEY_INTERVAL`   |Reset time between cursor movements in milliseconds (Kinetic mode only)|
+
+?> This feature will not be applied on Inertial mode
+
 ## Use with PS/2 Mouse and Pointing Device
 
 Mouse keys button state is shared with [PS/2 mouse](ps2_mouse) and [pointing device](pointing_device) so mouse keys button presses can be used for clicks and drags.
