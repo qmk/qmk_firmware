@@ -3,7 +3,7 @@
 ![](https://github.com/fenggx-a-jazz/documents/blob/main/akc084.jpg?raw=true)
 
 
-* A customizable soldering 75% keyboard.
+* A customizable 84keys keyboard.
 
 * Keyboard Maintainer: [Feng](https://github.com/fenggx-a-jazz)
 * Hardware Supported: [a-jazz](https://www.a-jazz.com)
