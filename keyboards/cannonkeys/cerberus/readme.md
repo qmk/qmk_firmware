@@ -1,9 +1,10 @@
 # Cerberus Keyboard by CannonKeys
 
 This is used for both the Solderable and Hotswap version of Cerberus
-The hotswap PCB:
-* Does not support per-key LEDs
-* Has reduced layout support (no ISO)
+
+The hotswap PCB does not support per-key LEDs
+and has reduced layout support (no ISO)
+
 
 * Keyboard Maintainer: [Andrew Kannan](https://github.com/awkannan)
 * Hardware Supported: STM32F072CBT6
