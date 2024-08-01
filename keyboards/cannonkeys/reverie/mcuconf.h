@@ -1,4 +1,4 @@
-// Copyright 2022 Andrew Kannan
+// Copyright 2024 Andrew Kannan
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once

@@ -2,6 +2,8 @@
 
 Reverie PCB from CannonKeys
 
+This is for both the solderable and hotswap versions of this PCB. The hotswap version does not support per-key LEDs and has reduced layout support (no ISO)
+
 * Keyboard Maintainer: [Andrew Kannan](https://github.com/awkannan)
 * Hardware Supported: RP2040
 * Hardware Availability: [CannonKeys](https://cannonkeys.com)
