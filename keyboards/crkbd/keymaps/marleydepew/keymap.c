@@ -133,7 +133,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (is_keyboard_master()) {
         return OLED_ROTATION_270;
     } else {
-        return OLED_ROTATION_0;
+        return OLED_ROTATION_180;
     }
 }
 
@@ -263,15 +263,17 @@ bool oled_task_user(void) {
     return false;
 }
 
-#endif // End OLED Section
+#endif // End OLED_ENABLE
 
 // These are my custom overrides for the shift keys
 #ifdef KEY_OVERRIDE_ENABLE
 
 // Shift + ( = < on the number layer
 const key_override_t left_parenth_override = ko_make_with_layers(MOD_MASK_SHIFT, KC_LPRN, KC_LABK, 1 << _NUMBER);
+
 // Shift + ) = > on the number layer
 const key_override_t right_parenth_override = ko_make_with_layers(MOD_MASK_SHIFT, KC_RPRN, KC_RABK, 1 << _NUMBER);
+
 // Shift + 9 = . on the number layer
 const key_override_t nine_override = ko_make_with_layers(MOD_MASK_SHIFT, KC_9, KC_DOT, 1 << _NUMBER);
 
@@ -280,10 +282,10 @@ const key_override_t **key_overrides = (const key_override_t *[]){
     &left_parenth_override,
     &right_parenth_override,
     &nine_override,
-    NULL // Null terminate the array of overrides!
+    NULL // Null terminate the array of overrides
 };
 
-#endif // End Key Override Section
+#endif // End KEY_OVERRIDE_ENABLE
 
 // This gets called for each key.
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -294,6 +296,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case MACRO_0:
             if (record->event.pressed) {
                 // when keycode MACRO_0 is pressed
+                // The string is defined in "../../macro.h"
                 SEND_STRING(M0_STRING);
             } else {
                 // when keycode MACRO_0 is released
@@ -303,6 +306,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case MACRO_1:
             if (record->event.pressed) {
                 // when keycode MACRO_1 is pressed
+                // The string is defined in "../../macro.h"
                 SEND_STRING(M1_STRING);
             } else {
                 // when keycode MACRO_1 is released
@@ -312,6 +316,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case MACRO_2:
             if (record->event.pressed) {
                 // when keycode MACRO_2 is pressed
+                // The string is defined in "../../macro.h"
                 SEND_STRING(M2_STRING);
             } else {
                 // when keycode MACRO_2 is released
