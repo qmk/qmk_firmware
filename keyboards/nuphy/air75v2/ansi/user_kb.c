@@ -61,11 +61,11 @@ extern bool               f_rf_new_adv_ok;
 extern report_keyboard_t *keyboard_report;
 extern report_nkro_t     *nkro_report;
 extern host_driver_t      rf_host_driver;
-extern uint8_t            logo_mode;
-extern uint8_t            logo_light;
-extern uint8_t            logo_speed;
-extern uint8_t            logo_rgb;
-extern uint8_t            logo_color;
+extern uint8_t            right_side_mode;
+extern uint8_t            right_side_light;
+extern uint8_t            right_side_speed;
+extern uint8_t            right_side_rgb;
+extern uint8_t            right_side_color;
 
 /**
  * @brief  gpio initial.

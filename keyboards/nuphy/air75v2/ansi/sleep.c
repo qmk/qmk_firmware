@@ -29,7 +29,7 @@ extern bool            f_goto_sleep;
 extern bool            f_wakeup_prepare;
 
 void set_side_rgb(uint8_t r, uint8_t g, uint8_t b);
-void set_logo_rgb(uint8_t r, uint8_t g, uint8_t b);
+void set_right_side_rgb(uint8_t r, uint8_t g, uint8_t b);
 void deep_sleep_handle(void) {
     // Sync again before sleeping. Without this, the wake keystroke is more likely to be lost.
     dev_sts_sync();

@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include <stdbool.h>
 #include <stdint.h>
-#define LOGO_LINE 6
+#define RIGHT_SIDE_LINE 6
 #define SIDE_LINE 6
-#define SIDE_LED_NUM (LOGO_LINE + SIDE_LINE)
+#define SIDE_LED_NUM (RIGHT_SIDE_LINE + SIDE_LINE)
 
 enum {
     SIDE_WAVE = 0,
@@ -17,7 +17,7 @@ enum {
 #define LIGHT_COLOR_MAX 8
 #define SIDE_COLOR_MAX 8
 
-// from side_logo.c
+// from side_right.c
 #define STARRY_INDEX_LEN (160)
 #define FIREWORK_INDEX_LEN (158)
 #define STARRY_DATA_LEN 96

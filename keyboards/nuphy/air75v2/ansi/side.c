@@ -12,9 +12,9 @@
 
 // clang-format off
 const uint8_t side_speed_table[5][5] = {
-    [SIDE_WAVE] = {10, 20, 25, 30, 45},
-    [SIDE_MIX] = {25, 30, 40, 50, 60},
-    [SIDE_BREATH] = {25, 30, 40, 50, 60},
+    [SIDE_WAVE] = {10, 14, 20, 28, 38},
+    [SIDE_MIX] = {10, 14, 20, 28, 38},
+    [SIDE_BREATH] = {10, 14, 20, 28, 38},
     [SIDE_STATIC] = {50, 50, 50, 50, 50},
     [SIDE_OFF] = {50, 50, 50, 50, 50},
 };
@@ -42,17 +42,17 @@ uint8_t                r_temp, g_temp, b_temp;
 extern DEV_INFO_STRUCT dev_info;
 extern bool            f_bat_hold;
 
-extern uint8_t  logo_play_point;
+extern uint8_t  right_side_play_point;
 extern uint8_t  rf_blink_cnt;
 extern uint16_t rf_link_show_time;
-extern uint8_t  logo_play_cnt;
-extern uint32_t logo_play_timer;
+extern uint8_t  right_side_play_cnt;
+extern uint32_t right_side_play_timer;
 
 RGB  side_leds[SIDE_LED_NUM] = {0};
 void side_ws2812_setleds(RGB *ledarray, uint16_t leds);
 void rgb_matrix_update_pwm_buffers(void);
-void logo_led_loop(void);
-void set_logo_rgb(uint8_t r, uint8_t g, uint8_t b);
+void right_side_led_loop(void);
+void set_right_side_rgb(uint8_t r, uint8_t g, uint8_t b);
 
 /**
  * @brief  side leds set color vaule.
@@ -509,7 +509,7 @@ static void side_static_mode_show(void) {
 
     if (g_config.side_use_custom_color) {
         HSV hsv = g_config.side_custom_color;
-        hsv.v   = side_light_table[g_config.side_brightness];
+        hsv.v   = rgb_matrix_config.hsv.v;
         RGB rgb = hsv_to_rgb(hsv);
         r_temp  = rgb.r;
         g_temp  = rgb.g;
@@ -841,8 +841,8 @@ void bat_led_show(void) {
                 g_config.side_brightness = 1;
             }
 
-            if (g_config.logo_brightness > 1) {
-                g_config.logo_brightness = 1;
+            if (g_config.right_side_brightness > 1) {
+                g_config.right_side_brightness = 1;
             }
         }
     }
@@ -892,9 +892,9 @@ void device_reset_init(void) {
     side_play_cnt   = 0;
     side_play_timer = timer_read32();
 
-    logo_play_point = 0;
-    logo_play_cnt   = 0;
-    logo_play_timer = timer_read32();
+    right_side_play_point = 0;
+    right_side_play_cnt   = 0;
+    right_side_play_timer = timer_read32();
 
     f_bat_hold = false;
 
@@ -968,7 +968,7 @@ void side_led_show(void) {
     sys_sw_led_show();
     sleep_sw_led_show();
 
-    logo_led_loop();
+    right_side_led_loop();
 
     if (timer_elapsed32(side_refresh_time) > 50) {
         side_refresh_time = timer_read32();

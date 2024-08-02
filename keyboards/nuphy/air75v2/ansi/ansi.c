@@ -50,10 +50,10 @@ extern void light_speed_contol(uint8_t fast);
 extern void light_level_control(uint8_t brighten);
 extern void side_color_control(uint8_t dir);
 extern void side_mode_control(uint8_t dir);
-extern void logo_light_speed_contol(uint8_t fast);
-extern void logo_light_level_control(uint8_t brighten);
-extern void logo_side_color_control(uint8_t dir);
-extern void logo_side_mode_control(uint8_t dir);
+extern void right_side_light_speed_contol(uint8_t fast);
+extern void right_side_light_level_control(uint8_t brighten);
+extern void right_side_side_color_control(uint8_t dir);
+extern void right_side_side_mode_control(uint8_t dir);
 extern void exit_light_sleep(void);
 
 bool pre_process_record_kb(uint16_t keycode, keyrecord_t *record) {
@@ -269,34 +269,34 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
 
-        case LOGO_VAI:
+        case RIGHT_SIDE_VAI:
             if (record->event.pressed) {
-                logo_light_level_control(1);
+                right_side_light_level_control(1);
             }
             return false;
-        case LOGO_VAD:
+        case RIGHT_SIDE_VAD:
             if (record->event.pressed) {
-                logo_light_level_control(0);
+                right_side_light_level_control(0);
             }
             return false;
-        case LOGO_MOD:
+        case RIGHT_SIDE_MOD:
             if (record->event.pressed) {
-                logo_side_mode_control(1);
+                right_side_side_mode_control(1);
             }
             return false;
-        case LOGO_HUI:
+        case RIGHT_SIDE_HUI:
             if (record->event.pressed) {
-                logo_side_color_control(1);
+                right_side_side_color_control(1);
             }
             return false;
-        case LOGO_SPI:
+        case RIGHT_SIDE_SPI:
             if (record->event.pressed) {
-                logo_light_speed_contol(1);
+                right_side_light_speed_contol(1);
             }
             return false;
-        case LOGO_SPD:
+        case RIGHT_SIDE_SPD:
             if (record->event.pressed) {
-                logo_light_speed_contol(0);
+                right_side_light_speed_contol(0);
             }
             return false;
 
@@ -499,7 +499,7 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
                         if (index >= led_min && index <= led_max && index != NO_LED) {
                             int keycode = keymap_key_to_keycode(layer, (keypos_t){col, row});
 
-                            if (keycode >= LOGO_VAI && keycode <= LOGO_SPD) {
+                            if (keycode >= RIGHT_SIDE_VAI && keycode <= RIGHT_SIDE_SPD) {
                                 rgb_matrix_set_color(index, RGB_WHITE);
                             } else if (keycode >= SIDE_VAI && keycode <= SIDE_SPD) {
                                 rgb_matrix_set_color(index, RGB_YELLOW);
@@ -566,16 +566,16 @@ void init_g_config(void) {
     g_config.side_speed                   = DEFAULT_SIDE_SPEED;
     g_config.side_rgb                     = DEFAULT_SIDE_RGB;
     g_config.side_color                   = DEFAULT_SIDE_COLOR;
-    g_config.logo_mode                    = DEFAULT_LOGO_MODE;
-    g_config.logo_brightness              = DEFAULT_LOGO_BRIGHTNESS;
-    g_config.logo_speed                   = DEFAULT_LOGO_SPEED;
-    g_config.logo_rgb                     = DEFAULT_LOGO_RGB;
-    g_config.logo_color                   = DEFAULT_LOGO_COLOR;
+    g_config.right_side_mode                    = DEFAULT_RIGHT_SIDE_MODE;
+    g_config.right_side_brightness              = DEFAULT_RIGHT_SIDE_BRIGHTNESS;
+    g_config.right_side_speed                   = DEFAULT_RIGHT_SIDE_SPEED;
+    g_config.right_side_rgb                     = DEFAULT_RIGHT_SIDE_RGB;
+    g_config.right_side_color                   = DEFAULT_RIGHT_SIDE_COLOR;
     g_config.detect_numlock_state         = 0;
     g_config.side_use_custom_color        = 0;
-    g_config.logo_use_custom_color        = 0;
+    g_config.right_side_use_custom_color        = 0;
     g_config.side_custom_color            = rgb_matrix_get_hsv();
-    g_config.logo_custom_color            = rgb_matrix_get_hsv();
+    g_config.right_side_custom_color            = rgb_matrix_get_hsv();
 }
 
 void load_config_from_eeprom(void) {
@@ -651,17 +651,17 @@ void via_config_set_value(uint8_t *data)
             g_config.side_brightness = *value_data;
             break;
 
-        case id_logo_light_mode:
-            g_config.logo_mode = *value_data;
+        case id_right_side_light_mode:
+            g_config.right_side_mode = *value_data;
             break;
-        case id_logo_light_speed:
-            g_config.logo_speed = *value_data;
+        case id_right_side_light_speed:
+            g_config.right_side_speed = *value_data;
             break;
-        case id_logo_light_color:
-            g_config.logo_color = *value_data;
+        case id_right_side_light_color:
+            g_config.right_side_color = *value_data;
             break;
-        case id_logo_light_brightness:
-            g_config.logo_brightness = *value_data;
+        case id_right_side_light_brightness:
+            g_config.right_side_brightness = *value_data;
             break;
         case id_battery_indicator_brightness:
             g_config.battery_indicator_brightness = *value_data;
@@ -675,14 +675,14 @@ void via_config_set_value(uint8_t *data)
         case id_side_use_custom_color:
             g_config.side_use_custom_color = *value_data;
             break;
-        case id_logo_use_custom_color:
-            g_config.logo_use_custom_color = *value_data;
+        case id_right_side_use_custom_color:
+            g_config.right_side_use_custom_color = *value_data;
             break;
         case id_side_custom_color:
             _set_color(&(g_config.side_custom_color), value_data);
             break;
-        case id_logo_custom_color:
-            _set_color(&(g_config.logo_custom_color), value_data);
+        case id_right_side_custom_color:
+            _set_color(&(g_config.right_side_custom_color), value_data);
             break;
     }
 #    if CONSOLE_ENABLE
@@ -729,17 +729,17 @@ void via_config_get_value(uint8_t *data) {
             *value_data = g_config.side_brightness;
             break;
 
-        case id_logo_light_mode:
-            *value_data = g_config.logo_mode;
+        case id_right_side_light_mode:
+            *value_data = g_config.right_side_mode;
             break;
-        case id_logo_light_speed:
-            *value_data = g_config.logo_speed;
+        case id_right_side_light_speed:
+            *value_data = g_config.right_side_speed;
             break;
-        case id_logo_light_color:
-            *value_data = g_config.logo_color;
+        case id_right_side_light_color:
+            *value_data = g_config.right_side_color;
             break;
-        case id_logo_light_brightness:
-            *value_data = g_config.logo_brightness;
+        case id_right_side_light_brightness:
+            *value_data = g_config.right_side_brightness;
             break;
         case id_battery_indicator_brightness:
             *value_data = g_config.battery_indicator_brightness;
@@ -754,14 +754,14 @@ void via_config_get_value(uint8_t *data) {
         case id_side_use_custom_color:
             *value_data = g_config.side_use_custom_color;
             break;
-        case id_logo_use_custom_color:
-            *value_data = g_config.logo_use_custom_color;
+        case id_right_side_use_custom_color:
+            *value_data = g_config.right_side_use_custom_color;
             break;
         case id_side_custom_color:
             _get_color(&(g_config.side_custom_color), value_data);
             break;
-        case id_logo_custom_color:
-            _get_color(&(g_config.logo_custom_color), value_data);
+        case id_right_side_custom_color:
+            _get_color(&(g_config.right_side_custom_color), value_data);
             break;
     }
 #    if CONSOLE_ENABLE

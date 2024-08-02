@@ -47,12 +47,12 @@ enum custom_keycodes {
     SIDE_SPI,
     SIDE_SPD,
 
-    LOGO_VAI,
-    LOGO_VAD,
-    LOGO_MOD,
-    LOGO_HUI,
-    LOGO_SPI,
-    LOGO_SPD,
+    RIGHT_SIDE_VAI,
+    RIGHT_SIDE_VAD,
+    RIGHT_SIDE_MOD,
+    RIGHT_SIDE_HUI,
+    RIGHT_SIDE_SPI,
+    RIGHT_SIDE_SPD,
     TOG_USB_SLP,
     TOG_CAPS_IND,
     DEBOUNCE_PRESS_INC,
@@ -91,14 +91,14 @@ typedef struct {
     uint8_t side_use_custom_color : 1;
     HSV     side_custom_color;
 
-    // logo light config
-    uint8_t logo_mode;
-    uint8_t logo_brightness;
-    uint8_t logo_speed;
-    uint8_t logo_rgb;
-    uint8_t logo_color;
-    uint8_t logo_use_custom_color : 1;
-    HSV     logo_custom_color;
+    // right side light config
+    uint8_t right_side_mode;
+    uint8_t right_side_brightness;
+    uint8_t right_side_speed;
+    uint8_t right_side_rgb;
+    uint8_t right_side_color;
+    uint8_t right_side_use_custom_color : 1;
+    HSV     right_side_custom_color;
     uint8_t battery_indicator_brightness;
     // custom keys highlight
     uint8_t toggle_custom_keys_highlight : 1;
@@ -121,13 +121,13 @@ enum via_indicator_value {
     id_side_light_brightness = 13,
     id_side_use_custom_color = 14,
     id_side_custom_color     = 15,
-    // logo light controls
-    id_logo_light_mode              = 20,
-    id_logo_light_speed             = 21,
-    id_logo_light_color             = 22,
-    id_logo_light_brightness        = 23,
-    id_logo_use_custom_color        = 24,
-    id_logo_custom_color            = 25,
+    // right side light controls
+    id_right_side_light_mode              = 20,
+    id_right_side_light_speed             = 21,
+    id_right_side_light_color             = 22,
+    id_right_side_light_brightness        = 23,
+    id_right_side_use_custom_color        = 24,
+    id_right_side_custom_color            = 25,
     id_battery_indicator_brightness = 31,
     id_toggle_custom_keys_highlight = 32,
     id_toggle_detect_numlock_state  = 33,

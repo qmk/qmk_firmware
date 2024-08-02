@@ -207,13 +207,13 @@
                     ]
                 },
                 {
-                    "label": "Logo Light",
+                    "label": "Right Side Light",
                     "content": [
                         {
                             "label": "Mode",
                             "type": "dropdown",
                             "content": [
-                                "id_logo_light_mode",
+                                "id_right_side_light_mode",
                                 0,
                                 20
                             ],
@@ -227,10 +227,10 @@
                         },
                         {
                             "label": "Speed (higher is slower)",
-                            "showIf": "{id_logo_light_mode} != 4 && {id_logo_light_mode} != 2",
+                            "showIf": "{id_right_side_light_mode} != 4 && {id_right_side_light_mode} != 2",
                             "type": "dropdown",
                             "content": [
-                                "id_logo_light_speed",
+                                "id_right_side_light_speed",
                                 0,
                                 21
                             ],
@@ -244,30 +244,30 @@
                         },
                         {
                             "label": "Use custom color",
-                            "showIf": "{id_logo_light_mode} == 2",
+                            "showIf": "{id_right_side_light_mode} == 2",
                             "type": "toggle",
                             "content": [
-                                "id_logo_light_use_custom_color",
+                                "id_right_side_light_use_custom_color",
                                 0,
                                 24
                             ]
                         },
                         {
                             "label": "Custom Color",
-                            "showIf": "{id_logo_light_mode} == 2 && {id_logo_light_use_custom_color} == 1",
+                            "showIf": "{id_right_side_light_mode} == 2 && {id_right_side_light_use_custom_color} == 1",
                             "type": "color",
                             "content": [
-                                "id_logo_light_custom_color",
+                                "id_right_side_light_custom_color",
                                 0,
                                 25
                             ]
                         },
                         {
                             "label": "Color",
-                            "showIf": "{id_logo_light_mode} != 4 && {id_logo_light_use_custom_color} == 0",
+                            "showIf": "{id_right_side_light_mode} != 4 && {id_right_side_light_use_custom_color} == 0",
                             "type": "dropdown",
                             "content": [
-                                "id_logo_light_color",
+                                "id_right_side_light_color",
                                 0,
                                 22
                             ],
@@ -284,10 +284,10 @@
                         },
                         {
                             "label": "Brightness",
-                            "showIf": "{id_logo_light_mode} != 4",
+                            "showIf": "{id_right_side_light_mode} != 4",
                             "type": "range",
                             "content": [
-                                "id_logo_light_brightness",
+                                "id_right_side_light_brightness",
                                 0,
                                 23
                             ],
@@ -650,28 +650,28 @@
             "title": "Side Speed -"
         },
         {
-            "name": "Logo\nLight+",
-            "title": "Logo Light +"
+            "name": "Right\nSide\nLight+",
+            "title": "Right Side Light +"
         },
         {
-            "name": "Logo\nLight-",
-            "title": "Logo Light -"
+            "name": "Right\nSide\nLight-",
+            "title": "Right Side Light -"
         },
         {
-            "name": "Logo\nMode",
-            "title": "Logo Next Mode"
+            "name": "Right\nSide\nMode",
+            "title": "Right Side Next Mode"
         },
         {
-            "name": "Logo\nColor",
-            "title": "Logo Next Color"
+            "name": "Right\nSide\nColor",
+            "title": "Right Side Next Color"
         },
         {
-            "name": "Logo\nFast",
-            "title": "Logo Speed +"
+            "name": "Right\nSide\nFast",
+            "title": "Right Side Speed +"
         },
         {
-            "name": "Logo\nSlow",
-            "title": "Logo Speed -"
+            "name": "Right\nSide\nSlow",
+            "title": "Right Side Speed -"
         },
         {
             "name": "TOG USB\nSleep",
