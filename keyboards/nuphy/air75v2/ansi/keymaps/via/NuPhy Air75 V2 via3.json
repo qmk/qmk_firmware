@@ -1,0 +1,731 @@
+{
+    "name": "NuPhy Air75 V2",
+    "vendorId": "0x19F5",
+    "productId": "0x3246",
+    "matrix": {
+        "rows": 6,
+        "cols": 17
+    },
+	"layouts": {
+		"keymap": [
+			["0,0","0,1","0,2","0,3","0,4","0,5","0,6","0,7","0,8","0,9","0,10","0,11","0,12","2,14","0,15","0,14"],
+			["1,0","1,1","1,2","1,3","1,4","1,5","1,6","1,7","1,8","1,9","1,10","1,11","1,12",{"w":2},"1,13","1,16"],
+			[{"w":1.5},"2,0","2,1","2,2","2,3","2,4","2,5","2,6","2,7","2,8","2,9","2,10","2,11","2,12",{"w":1.5},"2,13","2,16"],
+			[{"w":1.75},"3,0","3,1","3,2","3,3","3,4","3,5","3,6","3,7","3,8","3,9","3,10","3,11",{"w":2.25},"3,13","1,15"],
+			[{"w":2.25},"4,0","4,2","4,3","4,4","4,5","4,6","4,7","4,8","4,9","4,10","4,11",{"w":1.75},"4,13","4,14","2,15"],
+			[{"w":1.25},"5,0",{"w":1.25},"5,1",{"w":1.25},"5,2",{"w":6.25},"5,6","5,9","5,10","3,14","5,13","5,14","5,15"]
+		]
+	},
+    "menus": [
+        {
+            "label": "Lighting",
+            "content": [
+                {
+                    "label": "Backlight",
+                    "content": [
+                        {
+                            "label": "Brightness",
+                            "type": "range",
+                            "options": [
+                                0,
+                                255
+                            ],
+                            "content": [
+                                "id_qmk_rgb_matrix_brightness",
+                                3,
+                                1
+                            ]
+                        },
+                        {
+                            "label": "Effect",
+                            "type": "dropdown",
+                            "content": [
+                                "id_qmk_rgb_matrix_effect",
+                                3,
+                                2
+                            ],
+                            "options": [
+                                "All Off",
+                                "Solid Color",
+                                "Gradient Up/Down",
+                                "Gradient Left/Right",
+                                "Breathing",
+                                "Band Sat.",
+                                "Band Val.",
+                                "Pinwheel Sat.",
+                                "Pinwheel Val.",
+                                "Spiral Sat.",
+                                "Spiral Val.",
+                                "Cycle All",
+                                "Cycle Left/Right",
+                                "Cycle Up/Down",
+                                "Rainbow Moving Chevron",
+                                "Cycle Out/In",
+                                "Cycle Out/In Dual",
+                                "Cycle Pinwheel",
+                                "Cycle Spiral",
+                                "Dual Beacon",
+                                "Rainbow Beacon",
+                                "Rainbow Pinwheels",
+                                "Raindrops",
+                                "Jellybean Raindrops",
+                                "Hue Breathing",
+                                "Hue Pendulum",
+                                "Hue Wave",
+                                "Typing Heatmap",
+                                "Digital Rain",
+                                "Reactive Simple",
+                                "Reactive",
+                                "Reactive Wide",
+                                "Reactive Multiwide",
+                                "Reactive Cross",
+                                "Reactive Multicross",
+                                "Reactive Nexus",
+                                "Reactive MultiNexus",
+                                "Splash",
+                                "MultiSplash",
+                                "Solid Splash",
+                                "Solid MultiSplash",
+                                "game_mode",
+                                "position_mode"
+                            ]
+                        },
+                        {
+                            "showIf": "{id_qmk_rgb_matrix_effect} != 0",
+                            "label": "Effect Speed",
+                            "type": "range",
+                            "options": [
+                                0,
+                                255
+                            ],
+                            "content": [
+                                "id_qmk_rgb_matrix_effect_speed",
+                                3,
+                                3
+                            ]
+                        },
+                        {
+                            "showIf": "{id_qmk_rgb_matrix_effect} != 0",
+                            "label": "Color",
+                            "type": "color",
+                            "content": [
+                                "id_qmk_rgb_matrix_color",
+                                3,
+                                4
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "label": "Side Light",
+                    "content": [
+                        {
+                            "label": "Mode",
+                            "type": "dropdown",
+                            "content": [
+                                "id_side_light_mode",
+                                0,
+                                10
+                            ],
+                            "options": [
+                                "Wawe",
+                                "Mix",
+                                "Static",
+                                "Breath",
+                                "Off"
+                            ]
+                        },
+                        {
+                            "label": "Speed (higher is slower)",
+                            "showIf": "{id_side_light_mode} != 4 && {id_side_light_mode} != 2",
+                            "type": "dropdown",
+                            "content": [
+                                "id_side_light_speed",
+                                0,
+                                11
+                            ],
+                            "options": [
+                                "1",
+                                "2",
+                                "3",
+                                "4",
+                                "5"
+                            ]
+                        },
+                        {
+                            "label": "Use custom color",
+                            "showIf": "{id_side_light_mode} == 2",
+                            "type": "toggle",
+                            "content": [
+                                "id_side_light_use_custom_color",
+                                0,
+                                14
+                            ]
+                        },
+                        {
+                            "label": "Custom Color",
+                            "showIf": "{id_side_light_mode} == 2 && {id_side_light_use_custom_color} == 1",
+                            "type": "color",
+                            "content": [
+                                "id_side_light_custom_color",
+                                0,
+                                15
+                            ]
+                        },
+                        {
+                            "label": "Color",
+                            "showIf": "{id_side_light_mode} != 4 && {id_side_light_use_custom_color} == 0",
+                            "type": "dropdown",
+                            "content": [
+                                "id_side_light_color",
+                                0,
+                                12
+                            ],
+                            "options": [
+                                "Red",
+                                "Orange",
+                                "Yellow",
+                                "Green",
+                                "Cyan",
+                                "Blue",
+                                "Purple",
+                                "Light-Purple"
+                            ]
+                        },
+                        {
+                            "label": "Brightness",
+                            "showIf": "{id_side_light_mode} != 4",
+                            "type": "range",
+                            "content": [
+                                "id_side_light_brightness",
+                                0,
+                                13
+                            ],
+                            "options": [
+                                0,
+                                5
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "label": "Logo Light",
+                    "content": [
+                        {
+                            "label": "Mode",
+                            "type": "dropdown",
+                            "content": [
+                                "id_logo_light_mode",
+                                0,
+                                20
+                            ],
+                            "options": [
+                                "Wawe",
+                                "Mix",
+                                "Static",
+                                "Breath",
+                                "Off"
+                            ]
+                        },
+                        {
+                            "label": "Speed (higher is slower)",
+                            "showIf": "{id_logo_light_mode} != 4 && {id_logo_light_mode} != 2",
+                            "type": "dropdown",
+                            "content": [
+                                "id_logo_light_speed",
+                                0,
+                                21
+                            ],
+                            "options": [
+                                "1",
+                                "2",
+                                "3",
+                                "4",
+                                "5"
+                            ]
+                        },
+                        {
+                            "label": "Use custom color",
+                            "showIf": "{id_logo_light_mode} == 2",
+                            "type": "toggle",
+                            "content": [
+                                "id_logo_light_use_custom_color",
+                                0,
+                                24
+                            ]
+                        },
+                        {
+                            "label": "Custom Color",
+                            "showIf": "{id_logo_light_mode} == 2 && {id_logo_light_use_custom_color} == 1",
+                            "type": "color",
+                            "content": [
+                                "id_logo_light_custom_color",
+                                0,
+                                25
+                            ]
+                        },
+                        {
+                            "label": "Color",
+                            "showIf": "{id_logo_light_mode} != 4 && {id_logo_light_use_custom_color} == 0",
+                            "type": "dropdown",
+                            "content": [
+                                "id_logo_light_color",
+                                0,
+                                22
+                            ],
+                            "options": [
+                                "Red",
+                                "Orange",
+                                "Yellow",
+                                "Green",
+                                "Cyan",
+                                "Blue",
+                                "Purple",
+                                "Light-Purple"
+                            ]
+                        },
+                        {
+                            "label": "Brightness",
+                            "showIf": "{id_logo_light_mode} != 4",
+                            "type": "range",
+                            "content": [
+                                "id_logo_light_brightness",
+                                0,
+                                23
+                            ],
+                            "options": [
+                                0,
+                                5
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "label": "Custom Configs",
+            "content": [
+                {
+                    "label": "Debounce",
+                    "content": [
+                        {
+                            "label": "Debounce Press (ms)",
+                            "type": "dropdown",
+                            "options": [
+                                "0ms",
+                                "1ms",
+                                "2ms",
+                                "3ms",
+                                "4ms",
+                                "5ms",
+                                "6ms",
+                                "7ms",
+                                "8ms",
+                                "9ms",
+                                "10ms",
+                                "11ms",
+                                "12ms",
+                                "13ms",
+                                "14ms",
+                                "15ms",
+                                "16ms",
+                                "17ms",
+                                "18ms",
+                                "19ms",
+                                "20ms",
+                                "21ms",
+                                "22ms",
+                                "23ms",
+                                "24ms",
+                                "25ms",
+                                "26ms",
+                                "27ms",
+                                "28ms",
+                                "29ms",
+                                "30ms"
+                            ],
+                            "content": [
+                                "id_debounce_press",
+                                0,
+                                1
+                            ]
+                        },
+                        {
+                            "label": "Debounce Release (ms)",
+                            "type": "dropdown",
+                            "options": [
+                                "0ms",
+                                "1ms",
+                                "2ms",
+                                "3ms",
+                                "4ms",
+                                "5ms",
+                                "6ms",
+                                "7ms",
+                                "8ms",
+                                "9ms",
+                                "10ms",
+                                "11ms",
+                                "12ms",
+                                "13ms",
+                                "14ms",
+                                "15ms",
+                                "16ms",
+                                "17ms",
+                                "18ms",
+                                "19ms",
+                                "20ms",
+                                "21ms",
+                                "22ms",
+                                "23ms",
+                                "24ms",
+                                "25ms",
+                                "26ms",
+                                "27ms",
+                                "28ms",
+                                "29ms",
+                                "30ms"
+                            ],
+                            "content": [
+                                "id_debounce_release",
+                                0,
+                                2
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "label": "Sleep",
+                    "content": [
+                        {
+                            "label": "Sleep Enable",
+                            "type": "toggle",
+                            "content": [
+                                "id_sleep_toggle",
+                                0,
+                                5
+                            ]
+                        },
+                        {
+                            "label": "Deep Sleep Enable (RF only)",
+                            "showIf": "{id_sleep_toggle} == 1",
+                            "type": "toggle",
+                            "content": [
+                                "id_deep_sleep_toggle",
+                                0,
+                                6
+                            ]
+                        },
+                        {
+                            "label": "USB Sleep Enable",
+                            "showIf": "{id_sleep_toggle} == 1",
+                            "type": "toggle",
+                            "content": [
+                                "id_usb_sleep_toggle",
+                                0,
+                                0
+                            ]
+                        },
+                        {
+                            "label": "Sleep Timeout",
+                            "showIf": "{id_sleep_toggle} == 1",
+                            "type": "dropdown",
+                            "options": [
+                                "1m",
+                                "2m",
+                                "3m",
+                                "4m",
+                                "5m",
+                                "6m",
+                                "7m",
+                                "8m",
+                                "9m",
+                                "10m",
+                                "11m",
+                                "12m",
+                                "13m",
+                                "14m",
+                                "15m",
+                                "16m",
+                                "17m",
+                                "18m",
+                                "19m",
+                                "20m",
+                                "21m",
+                                "22m",
+                                "23m",
+                                "24m",
+                                "25m",
+                                "26m",
+                                "27m",
+                                "28m",
+                                "29m",
+                                "30m",
+                                "31m",
+                                "32m",
+                                "33m",
+                                "34m",
+                                "35m",
+                                "36m",
+                                "37m",
+                                "38m",
+                                "39m",
+                                "40m",
+                                "41m",
+                                "42m",
+                                "43m",
+                                "44m",
+                                "45m",
+                                "46m",
+                                "47m",
+                                "48m",
+                                "49m",
+                                "50m",
+                                "51m",
+                                "52m",
+                                "53m",
+                                "54m",
+                                "55m",
+                                "56m",
+                                "57m",
+                                "58m",
+                                "59m",
+                                "60m"
+                            ],
+                            "content": [
+                                "id_sleep_timeout",
+                                0,
+                                3
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "label": "Indicators",
+                    "content": [
+                        {
+                            "label": "Battery indicator brightness",
+                            "type": "range",
+                            "content": [
+                                "id_battery_indicator_brightness",
+                                0,
+                                31
+                            ],
+                            "options": [
+                                0,
+                                100
+                            ]
+
+                        },
+                        {
+                            "label": "Caps Lock Indicator",
+                            "type": "dropdown",
+                            "content": [
+                                "id_caps_indicator_type",
+                                0,
+                                4
+                            ],
+                            "options": [
+                                "Side",
+                                "Under Key",
+                                "Side & Under Key",
+                                "Off"
+                            ]
+                        },
+                        {
+                            "label": "Light up custom keys (on non default layer)",
+                            "type": "toggle",
+                            "content": [
+                                "id_toggle_custom_keys_highlight",
+                                0,
+                                32
+                            ]
+                        },
+                        {
+                            "label": "Detect Numlock State (indicator will be off when numlock is off)",
+                            "type": "toggle",
+                            "content": [
+                                "id_toggle_detect_numlock_state",
+                                0,
+                                33
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "keycodes": [
+        "qmk_lighting"
+    ],
+    "customKeycodes": [
+        {
+            "name": "RF\nDFU",
+            "title": "RF DFU"
+        },
+        {
+            "name": "Link\nUSB",
+            "title": "Link USB"
+        },
+        {
+            "name": "Link\nRF",
+            "title": "Link RF"
+        },
+        {
+            "name": "Link\nBLE_1",
+            "title": "Link BLE_1"
+        },
+        {
+            "name": "Link\nBLE_2",
+            "title": "Link BLE_2"
+        },
+        {
+            "name": "Link\nBLE_3",
+            "title": "Link BLE_3"
+        },
+        {
+            "name": "Mac\nTask",
+            "title": "Mac Task"
+        },
+        {
+            "name": "Mac\nSearch",
+            "title": "Mac Search"
+        },
+        {
+            "name": "Mac\nVoice",
+            "title": "Mac Siri Voice"
+        },
+        {
+            "name": "Mac\nConsole",
+            "title": "Mac Console"
+        },
+        {
+            "name": "Mac\nDND",
+            "title": "Mac DND"
+        },
+        {
+            "name": "Win\nlock",
+            "title": "Win lock"
+        },
+        {
+            "name": "Dev\nReset",
+            "title": "Device Reset"
+        },
+        {
+            "name": "Sleep\nMode",
+            "title": "Auto Sleep"
+        },
+        {
+            "name": "Bat\nShow",
+            "title": "Battery Show"
+        },
+        {
+            "name": "RGB\nTest",
+            "title": "Hold for 3 seconds for RGB color test"
+        },
+        {
+            "name": "Tilde",
+            "title": "SHIFT+` = ~"
+        },
+        {
+            "name": "Side\nLight+",
+            "title": "Side Light +"
+        },
+        {
+            "name": "Side\nLight-",
+            "title": "Side Light -"
+        },
+        {
+            "name": "Side\nMode",
+            "title": "Side Next Mode"
+        },
+        {
+            "name": "Side\nColor",
+            "title": "Side Next Color"
+        },
+        {
+            "name": "Side\nFast",
+            "title": "Side Speed +"
+        },
+        {
+            "name": "Side\nSlow",
+            "title": "Side Speed -"
+        },
+        {
+            "name": "Logo\nLight+",
+            "title": "Logo Light +"
+        },
+        {
+            "name": "Logo\nLight-",
+            "title": "Logo Light -"
+        },
+        {
+            "name": "Logo\nMode",
+            "title": "Logo Next Mode"
+        },
+        {
+            "name": "Logo\nColor",
+            "title": "Logo Next Color"
+        },
+        {
+            "name": "Logo\nFast",
+            "title": "Logo Speed +"
+        },
+        {
+            "name": "Logo\nSlow",
+            "title": "Logo Speed -"
+        },
+        {
+            "name": "TOG USB\nSleep",
+            "title": "Toggle USB Sleep"
+        },
+        {
+            "name": "TOG CAPS\nINDICATOR",
+            "title": "Toggle Caps Lock Indicator"
+        },
+        {
+            "name": "DEBOUNCE\nPRESS\nINCREASE",
+            "title": "Increase Press Debounce"
+        },
+        {
+            "name": "DEBOUNCE\nPRESS\nDECREASE",
+            "title": "Decrease Press Debounce"
+        },
+        {
+            "name": "DEBOUNCE\nPRESS\nSHOW",
+            "title": "Show Press Debounce Value"
+        },
+        {
+            "name": "SLP TIME\nINCREASE",
+            "title": "Increase Sleep Timeout"
+        },
+        {
+            "name": "SLP TIME\nDECREASE",
+            "title": "Decrease Sleep Timeout"
+        },
+        {
+            "name": "SLP TIME\nSHOW VAL",
+            "title": "Show Sleep Timeout Value"
+        },
+        {
+            "name": "Mac\nGlobe",
+            "title": "Mac Globe"
+        },
+        {
+            "name": "DEBOUNCE\nRELEASE\nINCREASE",
+            "title": "Increase Release Debounce"
+        },
+        {
+            "name": "DEBOUNCE\nRELEASE\nDECREASE",
+            "title": "Decrease Release Debounce"
+        },
+        {
+            "name": "DEBOUNCE\nRELEASE\nSHOW",
+            "title": "Show Release Debounce Value"
+        },
+        {
+            "name": "TOG DEEP\nSLEEP",
+            "title": "Toggle Deep Sleep"
+        }
+    ]
+}
