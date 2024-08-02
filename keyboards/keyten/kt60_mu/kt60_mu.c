@@ -10,4 +10,3 @@ void matrix_init_kb(void) {
     gpio_write_pin_high(LED_INDICATOR_PIN);
     matrix_init_user();
 }
-
