@@ -145,6 +145,9 @@ static void logo_wave_mode_show(void) {
         logo_light_point_playing(0, 1, WAVE_TAB_LEN, &logo_play_point);
 
     play_index = logo_play_point;
+
+    logo_count_rgb_light(side_light_table[g_config.logo_brightness]);
+
     for (int i = 0; i < LOGO_LINE; i++) {
         if (g_config.logo_rgb) {
             r_temp = flow_rainbow_color_tab[play_index][0];
@@ -161,7 +164,6 @@ static void logo_wave_mode_show(void) {
             logo_count_rgb_light(wave_data_tab[play_index]);
         }
 
-        logo_count_rgb_light(side_light_table[g_config.logo_brightness]);
         side_rgb_set_color(logo_led_index_tab[i], r_temp >> 1, g_temp >> 1, b_temp >> 1);
     }
 }
@@ -197,18 +199,9 @@ static void logo_breathe_mode_show(void) {
 
     logo_light_point_playing(0, 1, BREATHE_TAB_LEN, &play_point);
 
-    if (g_config.logo_use_custom_color) {
-        HSV hsv = g_config.logo_custom_color;
-        hsv.v   = rgb_matrix_config.hsv.v;
-        RGB rgb = hsv_to_rgb(hsv);
-        r_temp  = rgb.r;
-        g_temp  = rgb.g;
-        b_temp  = rgb.b;
-    } else {
-        r_temp = side_color_lib[g_config.logo_color][0] >> 2;
-        g_temp = side_color_lib[g_config.logo_color][1] >> 2;
-        b_temp = side_color_lib[g_config.logo_color][2] >> 2;
-    }
+    r_temp = side_color_lib[g_config.logo_color][0] >> 2;
+    g_temp = side_color_lib[g_config.logo_color][1] >> 2;
+    b_temp = side_color_lib[g_config.logo_color][2] >> 2;
 
     logo_count_rgb_light(breathe_data_tab[play_point]);
     logo_count_rgb_light(side_light_table[g_config.logo_brightness]);
@@ -219,17 +212,11 @@ static void logo_breathe_mode_show(void) {
 }
 
 static void logo_static_mode_show(void) {
-    if (logo_play_cnt <= side_speed_table[g_config.logo_mode][g_config.logo_speed])
-        return;
-    else
-        logo_play_cnt -= side_speed_table[g_config.logo_mode][g_config.logo_speed];
-    if (logo_play_cnt > 20) logo_play_cnt = 0;
-
     if (logo_play_point >= SIDE_COLOR_MAX) logo_play_point = 0;
 
     if (g_config.logo_use_custom_color) {
         HSV hsv = g_config.logo_custom_color;
-        hsv.v   = rgb_matrix_config.hsv.v;
+        hsv.v   = side_light_table[g_config.logo_brightness];
         RGB rgb = hsv_to_rgb(hsv);
         r_temp  = rgb.r;
         g_temp  = rgb.g;
@@ -240,9 +227,9 @@ static void logo_static_mode_show(void) {
         b_temp = side_color_lib[g_config.logo_color][2] >> 2;
     }
 
-    for (int i = 0; i < LOGO_LINE; i++) {
-        logo_count_rgb_light(side_light_table[g_config.logo_brightness]);
+    logo_count_rgb_light(side_light_table[g_config.logo_brightness]);
 
+    for (int i = 0; i < LOGO_LINE; i++) {
         side_rgb_set_color(logo_led_index_tab[i], r_temp, g_temp, b_temp);
     }
 }

@@ -636,7 +636,6 @@ static void side_spectrum_mode_show(void) {
 
 static void side_breathe_mode_show(void) {
     static uint8_t play_point = 0;
-    // static uint8_t color      = 0;
 
     if (side_play_cnt <= side_speed_table[g_config.side_mode_a][g_config.side_speed])
         return;
@@ -648,28 +647,10 @@ static void side_breathe_mode_show(void) {
 
     light_point_playing(0, 1, BREATHE_TAB_LEN, &play_point);
 
-    // if (g_config.side_rgb) {
-    //     if (play_point == 0) {
-    //         if (++color >= LIGHT_COLOR_MAX) color = 0;
-    //     }
-    //     r_temp = side_color_lib[color][0];
-    //     g_temp = side_color_lib[color][1];
-    //     b_temp = side_color_lib[color][2];
-    //
-    // } else {
-    if (g_config.side_use_custom_color) {
-        HSV hsv = g_config.side_custom_color;
-        hsv.v   = rgb_matrix_config.hsv.v;
-        RGB rgb = hsv_to_rgb(hsv);
-        r_temp  = rgb.r;
-        g_temp  = rgb.g;
-        b_temp  = rgb.b;
-    } else {
-        r_temp = side_color_lib[g_config.side_color][0];
-        g_temp = side_color_lib[g_config.side_color][1];
-        b_temp = side_color_lib[g_config.side_color][2];
-    }
-    // }
+    r_temp = side_color_lib[g_config.side_color][0];
+    g_temp = side_color_lib[g_config.side_color][1];
+    b_temp = side_color_lib[g_config.side_color][2];
+
     count_rgb_light(breathe_data_tab[play_point]);
     count_rgb_light(side_light_table[g_config.side_brightness]);
 
@@ -711,7 +692,7 @@ static void side_static_mode_show(void) {
 
     if (g_config.side_use_custom_color) {
         HSV hsv = g_config.side_custom_color;
-        hsv.v   = rgb_matrix_config.hsv.v;
+        hsv.v   = side_light_table[g_config.side_brightness];
         RGB rgb = hsv_to_rgb(hsv);
         r_temp  = rgb.r;
         g_temp  = rgb.g;

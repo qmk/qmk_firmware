@@ -323,7 +323,7 @@
                         },
                         {
                             "label": "Use custom color",
-                            "showIf": "{id_side_light_mode} != 4",
+                            "showIf": "{id_side_light_mode} == 2",
                             "type": "toggle",
                             "content": [
                                 "id_side_light_use_custom_color",
@@ -333,7 +333,7 @@
                         },
                         {
                             "label": "Custom Color",
-                            "showIf": "{id_side_light_mode} != 4 && {id_side_light_use_custom_color} == 1",
+                            "showIf": "{id_side_light_mode} == 2 && {id_side_light_use_custom_color} == 1",
                             "type": "color",
                             "content": [
                                 "id_side_light_custom_color",
@@ -425,7 +425,7 @@
                         },
                         {
                             "label": "Custom Color",
-                            "showIf": "{id_logo_light_mode} != 4 && {id_logo_light_use_custom_color} == 1",
+                            "showIf": "{id_logo_light_mode} == 2 && {id_logo_light_use_custom_color} == 1",
                             "type": "color",
                             "content": [
                                 "id_logo_light_custom_color",
