@@ -184,7 +184,7 @@ void oled_render_logo(void) {
 
 void oled_render_status(void) {
 
-    /* layer */
+    // Print layer status
     oled_set_cursor(0, 0);
     oled_write("LAYER", false);
 
@@ -226,7 +226,7 @@ void oled_render_status(void) {
 
     led_t led_usb_state = host_keyboard_led_state();
 
-    //print num lock status
+    // print num lock status
     oled_set_cursor(0, 8);
     if(led_usb_state.num_lock) {
         oled_write("NUMLK", true);
@@ -234,7 +234,7 @@ void oled_render_status(void) {
         oled_write("     ", false);
     }
     
-    //print scroll lock status
+    // print scroll lock status
     oled_set_cursor(0, 10);
     if (led_usb_state.scroll_lock) {
         oled_write("SCRLK", true);
@@ -242,7 +242,7 @@ void oled_render_status(void) {
         oled_write("     ", false);
     }
 
-    //print caps lock status
+    // print caps lock status
     oled_set_cursor(0, 12);
     if (led_usb_state.caps_lock) {
         oled_write("CPSLK", true);
