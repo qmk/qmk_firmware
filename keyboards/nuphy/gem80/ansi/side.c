@@ -496,7 +496,7 @@ static void side_static_mode_show(void) {
 
     if (g_config.side_use_custom_color) {
         HSV hsv = g_config.side_custom_color;
-        hsv.v   = side_light_table[g_config.side_brightness];
+        hsv.v   = rgb_matrix_config.hsv.v;
         RGB rgb = hsv_to_rgb(hsv);
         r_temp  = rgb.r;
         g_temp  = rgb.g;
