@@ -13,6 +13,7 @@
 Make example for this keyboard (after setting up your build environment):
 
     make a_jazz/akc084:default
+
 Flashing example for this keyboard:
 
     make a_jazz/akc084:default:flash
