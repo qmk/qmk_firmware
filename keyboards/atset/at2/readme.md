@@ -3,8 +3,7 @@
 A special 2 key keyboard powered by QMK.
 
 * Keyboard Maintainer: [ATSET](https://github.com/anubhavd7)
-* Hardware Supported: RP2040
-* Hardware Availability: Interest Check
+* Hardware Supported: ATSET AT2
 
 Make example for this keyboard (after setting up your build environment):
 
