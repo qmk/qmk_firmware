@@ -145,6 +145,9 @@ static void logo_wave_mode_show(void) {
         logo_light_point_playing(0, 1, WAVE_TAB_LEN, &logo_play_point);
 
     play_index = logo_play_point;
+
+    logo_count_rgb_light(side_light_table[g_config.logo_brightness]);
+
     for (int i = 0; i < LOGO_LINE; i++) {
         if (g_config.logo_rgb) {
             r_temp = flow_rainbow_color_tab[play_index][0];
@@ -161,7 +164,6 @@ static void logo_wave_mode_show(void) {
             logo_count_rgb_light(wave_data_tab[play_index]);
         }
 
-        logo_count_rgb_light(side_light_table[g_config.logo_brightness]);
         side_rgb_set_color(logo_led_index_tab[i], r_temp >> 1, g_temp >> 1, b_temp >> 1);
     }
 }
@@ -222,6 +224,8 @@ static void logo_static_mode_show(void) {
         g_temp = side_color_lib[g_config.logo_color][1] >> 2;
         b_temp = side_color_lib[g_config.logo_color][2] >> 2;
     }
+
+    logo_count_rgb_light(side_light_table[g_config.logo_brightness]);
 
     set_logo_rgb(r_temp, g_temp, b_temp);
 }

@@ -87,7 +87,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * DEFAULT VALUES FOR INITIAL CONFIG to allow override in user keymap
  */
-#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CUSTOM_position_mode
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
 #define RGB_DEFAULT_COLOR 168
 
 #define DEFAULT_SLEEP_TOGGLE true

@@ -415,6 +415,9 @@ static void side_wave_mode_show(void) {
         light_point_playing(0, 2, WAVE_TAB_LEN, &side_play_point);
 
     play_index = side_play_point;
+
+    count_rgb_light(side_light_table[g_config.side_brightness]);
+
     for (int i = 0; i < SIDE_LINE; i++) {
         if (g_config.side_rgb) {
             r_temp = flow_rainbow_color_tab[play_index][0];
@@ -430,8 +433,6 @@ static void side_wave_mode_show(void) {
             light_point_playing(1, 12, WAVE_TAB_LEN, &play_index);
             count_rgb_light(wave_data_tab[play_index]);
         }
-
-        count_rgb_light(side_light_table[g_config.side_brightness]);
 
         side_rgb_set_color(side_led_index_tab[i], r_temp >> 2, g_temp >> 2, b_temp >> 2);
     }
@@ -508,7 +509,7 @@ static void side_static_mode_show(void) {
 
     if (g_config.side_use_custom_color) {
         HSV hsv = g_config.side_custom_color;
-        hsv.v   = rgb_matrix_config.hsv.v;
+        hsv.v   = side_light_table[g_config.side_brightness];
         RGB rgb = hsv_to_rgb(hsv);
         r_temp  = rgb.r;
         g_temp  = rgb.g;
@@ -518,6 +519,9 @@ static void side_static_mode_show(void) {
         g_temp = side_color_lib[g_config.side_color][1] >> 2;
         b_temp = side_color_lib[g_config.side_color][2] >> 2;
     }
+
+    count_rgb_light(side_light_table[g_config.side_brightness]);
+
     set_side_rgb(r_temp, g_temp, b_temp);
 }
 
@@ -538,9 +542,7 @@ static void side_off_mode_show(void)
 
     b_temp = 0x00;
 
-    for (int i = 0; i < SIDE_LINE; i++) {
-        side_rgb_set_color(side_led_index_tab[i], r_temp >> 2, g_temp >> 2, b_temp >> 2);
-    }
+    set_side_rgb(r_temp, g_temp, b_temp);
 }
 
 void bat_charging_breathe(void) {
