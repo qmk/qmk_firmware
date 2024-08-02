@@ -133,7 +133,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (is_keyboard_master()) {
         return OLED_ROTATION_270;
     } else {
-        return OLED_ROTATION_180;
+        return OLED_ROTATION_0;
     }
 }
 
@@ -142,7 +142,7 @@ void oled_render_logo(void) {
     static const char PROGMEM marley_katakana[] = {
         // https://javl.github.io/image2cpp/
         // Code Output: Plain Bytes; Draw Mode: Vertical; Rotate Image: 0 degrees
-        // 'marley katakana_rotated.jpg'; 128x32px 
+        // 'marley katakana_rotated.jpg'; 128x32px   
         // (source image was rotated 90 degrees to lay horizontally
         // with the bottom of the image on the left and the top of the image on the right)
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
