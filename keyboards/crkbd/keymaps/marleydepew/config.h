@@ -50,7 +50,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MK_W_INTERVAL_2 40
 
 #ifdef RGBLIGHT_ENABLE
-    #define RGB_DIGITAL_RAIN_DROPS
+    #undef RGB_DIGITAL_RAIN_DROPS
     #undef RGBLIGHT_EFFECT_BREATHING
     #undef RGBLIGHT_EFFECT_RAINBOW_MOOD
     #undef RGBLIGHT_EFFECT_RAINBOW_SWIRL
