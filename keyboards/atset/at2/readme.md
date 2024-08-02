@@ -2,8 +2,8 @@
 
 A special 2 key keyboard powered by QMK.
 
-* Keyboard Maintainer: [ATSET](https://github.com/anubhavd7)
-* Hardware Supported: RP2040
+* Keyboard Maintainer: [ATSET] (https://github.com/anubhavd7)
+* Hardware Supported: RP2040 (https://www.raspberrypi.com/documentation/microcontrollers/rp2040.html)
 * Hardware Availability: Interest Check
 
 Make example for this keyboard (after setting up your build environment):
