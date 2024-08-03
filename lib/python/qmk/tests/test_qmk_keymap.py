@@ -11,19 +11,9 @@ def test_template_json_pytest_basic():
     assert templ == {'keyboard': 'handwired/pytest/basic'}
 
 
-def test_template_c_pytest_has_template():
-    templ = qmk.keymap.template_c('handwired/pytest/has_template')
-    assert templ == '#include QMK_KEYBOARD_H\nconst uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {__KEYMAP_GOES_HERE__};\n'
-
-
-def test_template_json_pytest_has_template():
-    templ = qmk.keymap.template_json('handwired/pytest/has_template')
-    assert templ == {'keyboard': 'handwired/pytest/has_template', "documentation": "This file is a keymap.json file for handwired/pytest/has_template"}
-
-
-def test_generate_c_pytest_has_template():
+def test_generate_c_pytest_basic():
     keymap_json = {
-        'keyboard': 'handwired/pytest/has_template',
+        'keyboard': 'handwired/pytest/basic',
         'layout': 'LAYOUT',
         'layers': [['KC_A']],
         'macros': None,
@@ -32,9 +22,9 @@ def test_generate_c_pytest_has_template():
     assert templ == '#include QMK_KEYBOARD_H\nconst uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\t[0] = LAYOUT(KC_A)};\n'
 
 
-def test_generate_json_pytest_has_template():
-    templ = qmk.keymap.generate_json('default', 'handwired/pytest/has_template', 'LAYOUT', [['KC_A']])
-    assert templ == {"keyboard": "handwired/pytest/has_template", "documentation": "This file is a keymap.json file for handwired/pytest/has_template", "keymap": "default", "layout": "LAYOUT", "layers": [["KC_A"]]}
+def test_generate_json_pytest_basic():
+    templ = qmk.keymap.generate_json('default', 'handwired/pytest/basic', 'LAYOUT', [['KC_A']])
+    assert templ == {"keyboard": "handwired/pytest/basic", "documentation": "This file is a keymap.json file for handwired/pytest/basic", "keymap": "default", "layout": "LAYOUT", "layers": [["KC_A"]]}
 
 
 def test_parse_keymap_c():
