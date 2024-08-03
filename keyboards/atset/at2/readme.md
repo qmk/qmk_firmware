@@ -3,7 +3,7 @@
 A special 2 key keyboard powered by QMK.
 
 * Keyboard Maintainer: [ATSET](https://github.com/anubhavd7)
-* Hardware Supported: ATSET AT2
+* Hardware Supported: ATSET AT2 (https://imgur.com/a/yBbVwef)
 
 Make example for this keyboard (after setting up your build environment):
 
