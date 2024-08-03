@@ -58,7 +58,7 @@ extern ec_config_t ec_config;
 
 void init_row(void);
 void init_amux(void);
-void disable_unused_row(void);
+void disable_unused_row(uint8_t row);
 void select_amux_channel(uint8_t channel, uint8_t col);
 void disable_unused_amux(uint8_t channel);
 void discharge_capacitor(void);
