@@ -41,33 +41,10 @@ void bluetooth_bhq_task(void) {
  */
 void bluetooth_bhq_send_keyboard(report_keyboard_t *report)
 {
-
-    bool firstBuffer = false;
-    if (report_buffer_is_empty() && report_buffer_next_inverval()) {
-        firstBuffer = true;
-    }
-
     report_buffer_t report_buffer;
     report_buffer.type = REPORT_TYPE_KB;
     memcpy(&report_buffer.report_data, report, sizeof(report_keyboard_t));
     report_buffer_enqueue(&report_buffer);
-
-    if (firstBuffer) {
-        report_buffer_task();
-    }
-
-
-return;
-    if (report_buffer_is_empty() && report_buffer_next_inverval()) {
-        bhq_send_keyboard((uint8_t*)report);
-        report_buffer_update_timer();
-    } else {
-        report_buffer_t report_buffer;
-        report_buffer.type = REPORT_TYPE_KB;
-        memcpy(&report_buffer.report_data, report, sizeof(report_keyboard_t));
-        report_buffer_enqueue(&report_buffer);
-    }
-    
 }
 
 /**
@@ -153,3 +130,25 @@ void bluetooth_bhq_send_nkro(report_nkro_t *report)
     }
 }
 
+/**
+ * \brief Send a hid_raw report.
+ *
+ * \param report The hid_raw report to send.
+ */
+void bluetooth_bhq_send_hid_raw(uint8_t *data, uint8_t length)
+{
+    bool firstBuffer = false;
+    if (report_buffer_is_empty() && report_buffer_next_inverval()) {
+        firstBuffer = true;
+    }
+
+    report_buffer_t report_buffer;
+    report_buffer.type = REPORT_TYPE_HID_RAW;
+    report_buffer.length = length;
+    memcpy(&report_buffer.report_data, data, length);
+    report_buffer_enqueue(&report_buffer);
+
+    if (firstBuffer) {
+        report_buffer_task();
+    }
+}

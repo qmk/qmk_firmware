@@ -20,7 +20,7 @@
 
 /* Default report interval value */
 #ifndef DEFAULT_REPORT_INVERVAL_MS
-#    define DEFAULT_REPORT_INVERVAL_MS 10
+#    define DEFAULT_REPORT_INVERVAL_MS 15
 #endif
 
 /* Default report interval value */
@@ -28,12 +28,13 @@
 #    define RETPORT_RETRY_COUNT 30
 #endif
 
-enum { REPORT_TYPE_NONE, REPORT_TYPE_KB, REPORT_TYPE_NKRO, REPORT_TYPE_CONSUMER, REPORT_TYPE_SYSTEM };
+enum { REPORT_TYPE_NONE, REPORT_TYPE_KB, REPORT_TYPE_NKRO, REPORT_TYPE_CONSUMER, REPORT_TYPE_SYSTEM ,REPORT_TYPE_HID_RAW};
 
 typedef struct {
     uint8_t type;
     union {
         uint8_t           report_data[128];
+        uint8_t           length;
         uint16_t          consumer;
     };
 } report_buffer_t;

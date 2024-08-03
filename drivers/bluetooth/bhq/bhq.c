@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "bhq.h"
-
 #include <stdbool.h>
 #include "quantum.h"
 #include "bluetooth.h"
@@ -63,27 +62,17 @@
 uint8_t bhkBuff[PACKET_MAX_LEN] = {0};
 
 void bhq_init(bool wakeup_from_low_power_mode) {
-    // uint8_t        pkt[] = "hello qmk uart2 dev config success!\r\n";
-
     SerialConfig config = {
         .speed = 115200,
     };
-    // if (wakeup_from_low_power_mode) {
-    //     sdInit();
-    //     sdStart(&BT_DRIVER, &config);
-    //     return;
-    // }
     sdStart(&BT_DRIVER, &config);
     palSetPadMode(BT_DRIVER_UART_TX_BANK, BT_DRIVER_UART_TX, PAL_MODE_ALTERNATE(BT_DRIVER_UART_TX_PAL_MODE));
     palSetPadMode(BT_DRIVER_UART_RX_BANK, BT_DRIVER_UART_RX, PAL_MODE_ALTERNATE(BT_DRIVER_UART_RX_PAL_MODE));
-
-    // sdWrite(&BT_DRIVER,pkt, sizeof(pkt)-1);
 }
 
 void bhq_Disable(void)
 {
     sdStop(&BT_DRIVER);
-    
     palSetPadMode(BT_DRIVER_UART_TX_BANK, BT_DRIVER_UART_TX, PAL_MODE_INPUT_ANALOG);
     palSetPadMode(BT_DRIVER_UART_RX_BANK, BT_DRIVER_UART_RX, PAL_MODE_INPUT_ANALOG);
 }
@@ -166,7 +155,7 @@ void bhq_send_keyboard(uint8_t* report) {
     memcpy(bhkBuff + index, report, 8);
     index += 8;
 
-    BHQ_SendCmd(BHQ_NOT_ACK, bhkBuff,index);
+    BHQ_SendCmd(BHQ_ACK, bhkBuff,index);
 }
 
 void bhq_send_nkro(uint8_t* report) {
@@ -177,7 +166,7 @@ void bhq_send_nkro(uint8_t* report) {
     memcpy(bhkBuff + index, report, NKRO_REPORT_BITS + 1); // NKRO report lenght is limited to 31 bytes
     index += NKRO_REPORT_BITS + 1;
     
-    BHQ_SendCmd(BHQ_NOT_ACK, bhkBuff,index);
+    BHQ_SendCmd(BHQ_ACK, bhkBuff,index);
 }
 
 void bhq_send_consumer(uint16_t report) {
@@ -188,7 +177,7 @@ void bhq_send_consumer(uint16_t report) {
     bhkBuff[index++] = report & 0xFF;
     bhkBuff[index++] = ((report) >> 8) & 0xFF;
 
-    BHQ_SendCmd(BHQ_NOT_ACK, bhkBuff,index);
+    BHQ_SendCmd(BHQ_ACK, bhkBuff,index);
 }
 
 void bhq_send_system(uint16_t report) {
@@ -200,7 +189,7 @@ void bhq_send_system(uint16_t report) {
     bhkBuff[index++] = report & 0xFF;
     bhkBuff[index++] = ((report) >> 8) & 0xFF;
 
-    BHQ_SendCmd(BHQ_NOT_ACK, bhkBuff,index);
+    BHQ_SendCmd(BHQ_ACK, bhkBuff,index);
 }
 
 void bhq_send_mouse(uint8_t* report) {
@@ -216,9 +205,21 @@ void bhq_send_mouse(uint8_t* report) {
     bhkBuff[index++] = report[4];                        // V wheel
     bhkBuff[index++] = report[5];                        // H wheel
 
-    BHQ_SendCmd(BHQ_NOT_ACK, bhkBuff,index);
+    BHQ_SendCmd(BHQ_ACK, bhkBuff,index);
 }
 
+void bhq_send_hid_raw(uint8_t *data, uint8_t length)
+{
+
+    uint8_t index = 0;
+    memset(bhkBuff, 0, PACKET_MAX_LEN);
+
+    bhkBuff[index++] = 0x27;
+    memcpy(bhkBuff + index, data, length);
+    index += length;
+
+    BHQ_SendCmd(BHQ_ACK, bhkBuff,index);
+}
 
 
 
@@ -229,16 +230,20 @@ void BHQ_Protocol_Process(uint8_t *dat, uint16_t length)
     cmdid = dat[4];
     switch(cmdid)
     {
-        case 0x26:  // ble model return hid led lock sta
+        case 0x26:  // BHQ model return hid led lock sta
             dat[5] = dat[5];    // led lock sta
             ackCommonNotData(cmdid,0);
             break;
-
+        case 0x27:  // BHQ model return hid raw data 
+            // data and length
+            raw_hid_receive(&dat[4],dat[3]);  
+            break;
         case 0xA1:
         case 0xA2:
         case 0xA3:
         case 0xA4:
         case 0xA5:
+        case 0xA7:
             report_buffer_set_inverval(DEFAULT_REPORT_INVERVAL_MS);
             break;
     }

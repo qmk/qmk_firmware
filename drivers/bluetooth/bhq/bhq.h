@@ -62,6 +62,7 @@ void bhq_send_nkro(uint8_t* report);
 void bhq_send_consumer(uint16_t report);
 void bhq_send_system(uint16_t report);
 void bhq_send_mouse(uint8_t* report);
+void bhq_send_hid_raw(uint8_t *data, uint8_t length);
 
 
 void bhq_task(void);

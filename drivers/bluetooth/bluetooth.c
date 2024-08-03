@@ -88,3 +88,9 @@ void bluetooth_send_nkro(report_nkro_t *report) {
     bluetooth_bhq_send_nkro(report);
 #endif
 }
+
+void bluetooth_send_hid_raw(uint8_t *data, uint8_t length) {
+#if defined(BLUETOOTH_BHQ)
+    bluetooth_bhq_send_hid_raw(data, length);
+#endif
+}

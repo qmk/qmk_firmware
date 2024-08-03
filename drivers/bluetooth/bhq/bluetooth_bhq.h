@@ -66,3 +66,11 @@ void bluetooth_bhq_send_system(uint16_t usage);
  * \param report The nkro report to send.
  */
 void bluetooth_bhq_send_nkro(report_nkro_t *report);
+
+
+/**
+ * \brief Send a hid_raw report.
+ *
+ * \param report The hid_raw report to send.
+ */
+void bluetooth_bhq_send_hid_raw(uint8_t *data, uint8_t length);

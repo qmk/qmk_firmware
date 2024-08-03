@@ -100,7 +100,7 @@ void report_buffer_set_inverval(uint8_t interval) {
 
 
 void report_buffer_task(void) {
-    if (/*bluetooth_get_state() == BLUETOOTH_CONNECTED && */(!report_buffer_is_empty()) && report_buffer_next_inverval()) {
+    if ((!report_buffer_is_empty()) && report_buffer_next_inverval()) {
         bool pending_data = false;
 
         // Simplified: Always try to dequeue and send the report
@@ -128,7 +128,11 @@ void report_buffer_task(void) {
             {
                 bhq_send_system(kb_rpt.consumer);
             }
-            report_timer_buffer = sync_timer_read32();
+            if(kb_rpt.type == REPORT_TYPE_HID_RAW)
+            {
+                bhq_send_hid_raw(kb_rpt.report_data, kb_rpt.length);
+            }
+            report_buffer_update_timer();
         }
     }
 }

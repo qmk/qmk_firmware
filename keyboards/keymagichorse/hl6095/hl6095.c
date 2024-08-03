@@ -14,10 +14,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "quantum.h"
-
+#include"bhq.h"
 void board_init(void) {
 }
 
+bool process_record_user(uint16_t keycode, keyrecord_t *record) 
+{
+    switch (keycode) {
+        case OU_BT:
+            if(record->event.pressed)
+            {
+                bhq_SetPairingMode(0,10);
+            }
+            break;
+    }
+    return true;
+}
 #ifdef RGBLIGHT_ENABLE
 
 
