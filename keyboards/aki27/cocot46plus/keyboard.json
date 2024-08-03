@@ -26,12 +26,12 @@
     "rgblight": true
   },
   "ws2812": {
-    "pin": "GP7",
+    "pin": "GP21",
     "driver": "vendor"
   },
   "encoder": {
     "rotary": [
-       { "pin_a": "GP0", "pin_b": "GP0"}
+       { "pin_a": "GP0", "pin_b": "GP1"}
     ]
   },
   "rgblight": {
