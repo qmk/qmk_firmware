@@ -31,7 +31,7 @@ def test_generate_c_pytest_basic():
  * edit it directly.
  */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-	[0] = LAYOUT(KC_A)
+\t[0] = LAYOUT(KC_A)
 };
 
 #if defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
