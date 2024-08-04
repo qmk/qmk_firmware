@@ -40,7 +40,6 @@ __ENCODER_MAP_GOES_HERE__
 #endif // defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
 
 __MACRO_OUTPUT_GOES_HERE__
-
 """
 
 
@@ -51,7 +50,7 @@ def _generate_keymap_table(keymap_json):
             lines[-1] = lines[-1] + ','
         layer = map(_strip_any, layer)
         layer_keys = ', '.join(layer)
-        lines.append('\t[%s] = %s(%s)' % (layer_num, keymap_json['layout'], layer_keys))
+        lines.append('    [%s] = %s(%s)' % (layer_num, keymap_json['layout'], layer_keys))
     return lines
 
 
@@ -61,7 +60,7 @@ def _generate_encodermap_table(keymap_json):
         if layer_num != 0:
             lines[-1] = lines[-1] + ','
         encoder_keycode_txt = ', '.join([f'ENCODER_CCW_CW({_strip_any(e["ccw"])}, {_strip_any(e["cw"])})' for e in layer])
-        lines.append('\t[%s] = {%s}' % (layer_num, encoder_keycode_txt))
+        lines.append('    [%s] = {%s}' % (layer_num, encoder_keycode_txt))
     return lines
 
 
