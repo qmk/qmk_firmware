@@ -11,7 +11,7 @@ A remake of a PCB for a Polish 40% keyboard with 19 mm switch grid spacing
 
 Make example for this keyboard (after setting up your build environment):
 
-    make druah/efreet:default
+    make druah/efreet_redux:default
 
 Flashing example for this keyboard:
 
