@@ -156,7 +156,7 @@ def test_json2c():
  * edit it directly.
  */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-\t[0] = LAYOUT_ortho_1x1(KC_A)
+    [0] = LAYOUT_ortho_1x1(KC_A)
 };
 
 #if defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
@@ -164,7 +164,6 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 
 };
 #endif // defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
-
 
 
 
@@ -195,7 +194,7 @@ def test_json2c_stdin():
  * edit it directly.
  */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-\t[0] = LAYOUT_ortho_1x1(KC_A)
+    [0] = LAYOUT_ortho_1x1(KC_A)
 };
 
 #if defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
@@ -203,7 +202,6 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 
 };
 #endif // defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
-
 
 
 
