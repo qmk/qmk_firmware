@@ -38,8 +38,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DYNAMIC_MACRO_SIZE 64
 
+#define MK_COMBINED
+
+#define MOUSEKEY_WHEEL_DELAY 10
+#define MOUSEKEY_WHEEL_INTERVAL 80
+#define MOUSEKEY_WHEEL_DELTA 1
+#define MOUSEKEY_WHEEL_MAX_SPEED 1
+#define MOUSEKEY_WHEEL_TIME_TO_MAX 0
+
 #define MK_3_SPEED
 #define MK_MOMENTARY_ACCEL
+
+#define MK_C_OFFSET_UNMOD 16
+#define MK_C_INTERVAL_UNMOD 16
+#define MK_C_OFFSET_0 1
+#define MK_C_INTERVAL_0 32
+#define MK_C_OFFSET_1 4
+#define MK_C_INTERVAL_1 16
+#define MK_C_OFFSET_2 32
+#define MK_C_INTERVAL_2 16
+
 #define MK_W_OFFSET_UNMOD 1
 #define MK_W_INTERVAL_UNMOD 80
 #define MK_W_OFFSET_0 1

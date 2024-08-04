@@ -25,7 +25,7 @@ enum layer_names {
     _SYMBOL,
     _FUNCTION,
     _NAVIGATION,
-    _MACRO,
+    _MOUSE,
     _RGB
 };
 
@@ -88,23 +88,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //                                     |-----------+-----------+-----------|   |-----------+-----------+-----------|
   ),
 
-    [_NAVIGATION] = LAYOUT_split_3x6_3(                                // Navigation Layer
+    [_NAVIGATION] = LAYOUT_split_3x6_3(                            // Navigation Layer (with macros)
     // |-----------+-----------+-----------+-----------+-----------+-----------|   |-----------+-----------+-----------+-----------+-----------+-----------|
-        XXXXXXX,    KC_WH_L,    KC_WH_U,    KC_WH_D,    KC_WH_R,    XXXXXXX,        XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,
+        MACRO_0,    DM_REC2,    DM_REC1,    DM_PLY2,    DM_PLY1,    XXXXXXX,        XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,
     // |-----------+-----------+-----------+-----------+-----------+-----------|   |-----------+-----------+-----------+-----------+-----------+-----------|
-        XXXXXXX,    KC_LEFT,    KC_UP,      KC_DOWN,    KC_RGHT,    XXXXXXX,          XXXXXXX,    KC_RCTL,    KC_RSFT,    KC_RALT,    KC_RGUI,    XXXXXXX,
+        MACRO_1,    KC_LEFT,    KC_UP,      KC_DOWN,    KC_RGHT,    LSFT(KC_F3),    XXXXXXX,    KC_RCTL,    KC_RSFT,    KC_RALT,    KC_RGUI,    XXXXXXX,
     // |-----------+-----------+-----------+-----------+-----------+-----------|   |-----------+-----------+-----------+-----------+-----------+-----------|
-        XXXXXXX,    KC_HOME,    KC_PGUP,    KC_PGDN,    KC_END,     XXXXXXX,        XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,
+        MACRO_2,    KC_HOME,    KC_PGUP,    KC_PGDN,    KC_END,     XXXXXXX,        XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,
     // |-----------+-----------+-----------+-----------+-----------+-----------|   |-----------+-----------+-----------+-----------+-----------+-----------|
                                             KC_ACL0,    KC_ACL1,    KC_ACL2,        XXXXXXX,    XXXXXXX,    XXXXXXX
     //                                     |-----------+-----------+-----------|   |-----------+-----------+-----------|
   ),
 
-    [_MACRO] = LAYOUT_split_3x6_3(                                        // Macro Layer
+    [_MOUSE] = LAYOUT_split_3x6_3(                                        // Mouse Layer
     // |-----------+-----------+-----------+-----------+-----------+-----------|   |-----------+-----------+-----------+-----------+-----------+-----------|
-        MACRO_1,    DM_REC2,    DM_REC1,    MACRO_TH,   MACRO_WL,   XXXXXXX,        XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,
+        XXXXXXX,    KC_WH_L,    KC_WH_U,    KC_WH_D,    KC_WH_R,    XXXXXXX,        XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,
     // |-----------+-----------+-----------+-----------+-----------+-----------|   |-----------+-----------+-----------+-----------+-----------+-----------|
-        MACRO_2,    DM_PLY2,    DM_PLY1,    MACRO_TM,   MACRO_WM,   LSFT(KC_F3),    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,
+        XXXXXXX,    KC_MS_L,    KC_MS_U,    KC_MS_D,    KC_MS_R,    LSFT(KC_F3),    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,
     // |-----------+-----------+-----------+-----------+-----------+-----------|   |-----------+-----------+-----------+-----------+-----------+-----------|
         XXXXXXX,    LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), LCTL(KC_Y),     XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,
     // |-----------+-----------+-----------+-----------+-----------+-----------|   |-----------+-----------+-----------+-----------+-----------+-----------|
@@ -211,8 +211,8 @@ void oled_render_status(void) {
             oled_write("NVGTN", false);
             break;
 
-        case _MACRO:
-            oled_write("MACRO", false);
+        case _MOUSE:
+            oled_write("MOUSE", false);
             break;
 
         case _RGB:
@@ -290,7 +290,7 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 // This gets called for each key.
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
-    // This is for the macro
+    // This is for the macros
     switch (keycode) {
         
         case MACRO_0:
