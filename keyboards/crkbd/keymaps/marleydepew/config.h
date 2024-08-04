@@ -1,34 +1,8 @@
-/*
-This is the c configuration file for the keymap
-
-Copyright 2012 Jun Wako <wakojun@gmail.com>
-Copyright 2015 Jack Humbert
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
 
 #pragma once
 
-//#define USE_MATRIX_I2C
-
-/* Select hand configuration */
-
 #define MASTER_LEFT
-// #define MASTER_RIGHT
-// #define EE_HANDS
 
-//#define QUICK_TAP_TERM 0
 #define TAPPING_TERM 230
 #define DYNAMIC_TAPPING_TERM_INCREMENT 5
 
@@ -38,8 +12,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DYNAMIC_MACRO_SIZE 64
 
+// Mouse Key Combined Mode (Accelerated + Constant) Settings
 #define MK_COMBINED
 
+// Accelerated Mouse Key Settings
 #define MOUSEKEY_DELAY 10
 #define MOUSEKEY_INTERVAL 20
 #define MOUSEKEY_MOVE_DELTA 8
@@ -52,16 +28,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSEKEY_WHEEL_MAX_SPEED 1
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 0
 
+// Constant Settings
 #define MK_3_SPEED
 #define MK_MOMENTARY_ACCEL
 
-#define MK_C_OFFSET_UNMOD 16
+#define MK_C_OFFSET_UNMOD 8
 #define MK_C_INTERVAL_UNMOD 16
 #define MK_C_OFFSET_0 1
 #define MK_C_INTERVAL_0 32
 #define MK_C_OFFSET_1 4
 #define MK_C_INTERVAL_1 16
-#define MK_C_OFFSET_2 32
+#define MK_C_OFFSET_2 16
 #define MK_C_INTERVAL_2 16
 
 #define MK_W_OFFSET_UNMOD 1
