@@ -6,6 +6,7 @@ This is a configuration of QMK intended to be used with the [ctrl-M controller](
 
 * Keyboard Maintainer: [nuess0r](https://github.com/nuess0r)
 * Hardware Supported: [ctrl-M](https://github.com/nuess0r/ctrl-m)
+* Hardware Availability: [tindie shop](https://www.tindie.com/products/brain4free/ctrl-m/)
 
 Example how to compile for this keyboard (after setting up your build environment):
 
@@ -14,10 +15,6 @@ Example how to compile for this keyboard (after setting up your build environmen
 Flashing example for this keyboard:
 
     make ibm/model_m/ctrl_m:default:flash
-
-Or if you use the QMK tool:
-
-    qmk compile -kb ibm/model_m/ctrl_m -km default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
