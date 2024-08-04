@@ -1,0 +1,135 @@
+    {
+
+    "manufacturer": "mentako-ya",
+    "keyboard_name": "mtk64erp",
+    "maintainer": "mentako-ya",
+    "bootloader": "rp2040",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": false,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "oled": true,
+        "encoder": true,
+        "nkro": true
+    },
+    "processor": "RP2040",
+    "url": "https://github.com/mentako-ya/mtk",
+    "usb": {
+        "vid": "0x4D59",
+        "pid": "0x0300",
+        "device_version": "3.0.0"
+    },
+    "matrix_pins": {
+        "cols": ["GP28", "GP27", "GP26", "GP22", "GP20", "GP23", "GP21"],
+        "rows": ["GP28", "GP27", "GP26", "GP22", "GP20", "GP23", "GP21"]
+    },
+    "encoder": {
+        "rotary": [
+            { "pin_a": "GP6", "pin_b": "GP7", "resolution": 2 },
+            { "pin_a": "GP8", "pin_b": "GP9", "resolution": 2 }
+        ]
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                { "label": "L01", "x": 1, "y": 0 },
+                { "label": "L02", "x": 2, "y": 0 },
+                { "label": "L03", "x": 3, "y": 0 },
+                { "label": "L04", "x": 4, "y": 0 },
+                { "label": "L05", "x": 5, "y": 0 },
+                { "label": "L06", "x": 6, "y": 0 },
+                { "label": "R01", "x": 1, "y": 7 },
+                { "label": "R02", "x": 2, "y": 7 },
+                { "label": "R03", "x": 3, "y": 7 },
+                { "label": "R04", "x": 4, "y": 7 },
+                { "label": "R05", "x": 5, "y": 7 },
+                { "label": "R06", "x": 6, "y": 7 },
+
+                { "label": "L10", "x": 0, "y": 1 },
+                { "label": "L12", "x": 2, "y": 1 },
+                { "label": "L13", "x": 3, "y": 1 },
+                { "label": "L14", "x": 4, "y": 1 },
+                { "label": "L15", "x": 5, "y": 1 },
+                { "label": "L16", "x": 6, "y": 1 },
+                { "label": "R10", "x": 0, "y": 8 },
+                { "label": "R12", "x": 2, "y": 8 },
+                { "label": "R13", "x": 3, "y": 8 },
+                { "label": "R14", "x": 4, "y": 8 },
+                { "label": "R15", "x": 5, "y": 8 },
+                { "label": "R16", "x": 6, "y": 8 },
+
+                { "label": "L20", "x": 0, "y": 2 },
+                { "label": "L21", "x": 1, "y": 2 },
+                { "label": "L23", "x": 3, "y": 2 },
+                { "label": "L24", "x": 4, "y": 2 },
+                { "label": "L25", "x": 5, "y": 2 },
+                { "label": "R26", "x": 6, "y": 2 },
+                { "label": "R20", "x":13, "y": 2 },
+                { "label": "R21", "x":12, "y": 2 },
+                { "label": "R23", "x":10, "y": 2 },
+                { "label": "R24", "x": 9, "y": 2 },
+                { "label": "R25", "x": 8, "y": 2 },
+                { "label": "R26", "x": 7, "y": 2 },
+
+                { "label": "L30", "x": 0, "y": 3 },
+                { "label": "L31", "x": 1, "y": 3 },
+                { "label": "L32", "x": 2, "y": 3 },
+                { "label": "L34", "x": 4, "y": 3 },
+                { "label": "L35", "x": 5, "y": 3 },
+                { "label": "L36", "x": 6, "y": 3 },
+                { "label": "R30", "x":13, "y": 3 },
+                { "label": "R31", "x":12, "y": 3 },
+                { "label": "R32", "x":11, "y": 3 },
+                { "label": "R34", "x": 9, "y": 3 },
+                { "label": "R35", "x": 8, "y": 3 },
+                { "label": "R36", "x": 7, "y": 3 },
+
+                { "label": "L40", "x": 0, "y": 4 },
+                { "label": "L41", "x": 1, "y": 4 },
+                { "label": "L46", "x": 6, "y": 4 },
+                { "label": "R46", "x":13, "y": 4 },
+                { "label": "R41", "x": 8, "y": 4 },
+                { "label": "R40", "x": 7, "y": 4 },
+
+                { "label": "L50", "x": 0, "y": 5 },
+                { "label": "L51", "x": 1, "y": 5 },
+                { "label": "L52", "x": 2, "y": 5 },
+                { "label": "L53", "x": 3, "y": 5 },
+                { "label": "L54", "x": 4, "y": 5 },
+                { "label": "R50", "x":13, "y": 5 },
+                { "label": "R51", "x":12, "y": 5 },
+                { "label": "R52", "x":11, "y": 5 },
+                { "label": "R53", "x":10, "y": 5 },
+                { "label": "R54", "x": 9, "y": 5 },
+
+                { "label": "L60", "x": 0, "y": 6 },
+                { "label": "L61", "x": 1, "y": 6 },
+                { "label": "L62", "x": 2, "y": 6 },
+                { "label": "L64", "x": 4, "y": 6 },
+                { "label": "R60", "x":13, "y": 6 },
+                { "label": "R61", "x":12, "y": 6 },
+                { "label": "R62", "x":11, "y": 6 },
+                { "label": "R64", "x": 9, "y": 6 }
+            ]
+        }
+    },
+    "split": {
+        "enabled": true,
+        "matrix_pins": {
+            "right":{
+                "cols": ["GP28", "GP27", "GP26", "GP22", "GP20", "GP23", "GP21"],
+                "rows": ["GP28", "GP27", "GP26", "GP22", "GP20", "GP23", "GP21"]
+            }
+        },
+        "soft_serial_pin":"GP1",
+        "transport":{
+            "protocol":"serial"
+        },
+        "handedness":{
+            "matrix_grid": ["GP21", "GP23"]
+        }
+    }
+}
