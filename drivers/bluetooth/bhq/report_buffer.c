@@ -47,17 +47,21 @@
 uint8_t report_interval = DEFAULT_REPORT_INVERVAL_MS;
 
 static uint32_t report_timer_buffer = 0;
+uint32_t        retry_time_buffer   = 0;
 report_buffer_t report_buffer_queue[REPORT_BUFFER_QUEUE_SIZE];
 uint16_t         report_buffer_queue_head;
 uint16_t         report_buffer_queue_tail;
 report_buffer_t kb_rpt;
+uint8_t         retry = 0;
 
 void report_buffer_init(void) {
     // Initialise the report queue
     memset(&report_buffer_queue, 0, sizeof(report_buffer_queue));
-    report_buffer_queue_head = 0;
-    report_buffer_queue_tail = 0;
-    report_timer_buffer      = sync_timer_read32();
+    report_buffer_queue_head    = 0;
+    report_buffer_queue_tail    = 0;
+    report_timer_buffer         = sync_timer_read32();
+    retry                       = 0;
+    retry_time_buffer           = 0;
 }
 
 bool report_buffer_enqueue(report_buffer_t *report) {
@@ -98,14 +102,32 @@ void report_buffer_set_inverval(uint8_t interval) {
 }
 
 
+uint8_t report_buffer_get_retry(void) {
+    return retry;
+}
+
+void report_buffer_set_retry(uint8_t times) {
+    retry = times;
+}
 
 void report_buffer_task(void) {
     if ((!report_buffer_is_empty()) && report_buffer_next_inverval()) {
         bool pending_data = false;
 
-        // Simplified: Always try to dequeue and send the report
-        if (report_buffer_dequeue(&kb_rpt) && kb_rpt.type != REPORT_TYPE_NONE) {
-            pending_data = true;
+        if (!retry) {
+            if (report_buffer_dequeue(&kb_rpt) && kb_rpt.type != REPORT_TYPE_NONE) {
+                if (sync_timer_read32() > 2) {
+                    pending_data      = true;
+                    retry             = RETPORT_RETRY_COUNT;
+                    retry_time_buffer = sync_timer_read32();
+                }
+            }
+        } else {
+            if (sync_timer_elapsed32(retry_time_buffer) > 7) {
+                pending_data = true;
+                --retry;
+                retry_time_buffer = sync_timer_read32();
+            }
         }
 
         if (pending_data) {

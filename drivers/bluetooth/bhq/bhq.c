@@ -227,6 +227,7 @@ void bhq_send_hid_raw(uint8_t *data, uint8_t length)
 void BHQ_Protocol_Process(uint8_t *dat, uint16_t length)
 {
     uint8_t cmdid = 0;
+    uint8_t buff_sta = 0;
     cmdid = dat[4];
     switch(cmdid)
     {
@@ -244,7 +245,21 @@ void BHQ_Protocol_Process(uint8_t *dat, uint16_t length)
         case 0xA4:
         case 0xA5:
         case 0xA7:
-            report_buffer_set_inverval(DEFAULT_REPORT_INVERVAL_MS);
+            buff_sta = dat[5];
+            switch(buff_sta)
+            {
+                case 0:
+                    report_buffer_set_retry(0);
+                    report_buffer_set_inverval(DEFAULT_REPORT_INVERVAL_MS);
+                break;
+                case 1:
+                    report_buffer_set_retry(0);
+                    report_buffer_set_inverval(DEFAULT_REPORT_INVERVAL_MS + 3);
+                break;
+                case 2:
+                    report_buffer_set_retry(5);
+                break;
+            }
             break;
     }
 }

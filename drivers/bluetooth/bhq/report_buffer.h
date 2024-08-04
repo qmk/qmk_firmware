@@ -20,7 +20,7 @@
 
 /* Default report interval value */
 #ifndef DEFAULT_REPORT_INVERVAL_MS
-#    define DEFAULT_REPORT_INVERVAL_MS 15
+#    define DEFAULT_REPORT_INVERVAL_MS 3
 #endif
 
 /* Default report interval value */
@@ -46,4 +46,6 @@ bool    report_buffer_is_empty(void);
 void    report_buffer_update_timer(void);
 bool    report_buffer_next_inverval(void);
 void    report_buffer_set_inverval(uint8_t interval);
+uint8_t report_buffer_get_retry(void);
+void    report_buffer_set_retry(uint8_t times);
 void    report_buffer_task(void);
