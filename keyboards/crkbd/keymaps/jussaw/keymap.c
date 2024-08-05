@@ -64,6 +64,49 @@ enum custom_keycodes {
 #define F3_LCTL LCTL_T(KC_F3)
 #define F4_LSFT LSFT_T(KC_F4)
 
+
+static bool a_pressed = false;
+static bool d_pressed = false;
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (layer_state_is(_GAME)) {
+        switch (keycode) {
+            case KC_A:
+                if (record->event.pressed) {
+                    if (d_pressed) {
+                        unregister_code(KC_D);
+                    }
+                    register_code(KC_A);
+                    a_pressed = true;
+                } else {
+                    unregister_code(KC_A);
+                    a_pressed = false;
+                    if (d_pressed) {
+                        register_code(KC_D);
+                    }
+                }
+                return false;  // Skip default handling for this key
+
+            case KC_D:
+                if (record->event.pressed) {
+                    if (a_pressed) {
+                        unregister_code(KC_A);
+                    }
+                    register_code(KC_D);
+                    d_pressed = true;
+                } else {
+                    unregister_code(KC_D);
+                    d_pressed = false;
+                    if (a_pressed) {
+                        register_code(KC_A);
+                    }
+                }
+                return false;  // Skip default handling for this key
+        }
+    }
+    return true;  // Process all other keycodes normally
+}
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Qwerty
