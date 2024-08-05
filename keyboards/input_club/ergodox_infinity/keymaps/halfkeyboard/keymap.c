@@ -1,8 +1,5 @@
 #include QMK_KEYBOARD_H
-#include "debug.h"
-#include "action_layer.h"
 #include "version.h"
-#include "keymap_steno.h"
 #ifndef MIDI_ENABLE
 #error "Midi is not enabled"
 #endif
@@ -236,8 +233,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_DOWN, KC_KP_4, KC_KP_5,  KC_KP_6,  KC_KP_MINUS, KC_KP_ENTER,
        KC_NO,KC_AMPR,KC_KP_1, KC_KP_2,  KC_KP_3,   KC_KP_PLUS, KC_NO,
                          KC_TRNS,KC_DOT,  KC_0,    KC_KP_EQUAL,  KC_NO,
-       BL_OFF, KC_TRNS,
-       BL_ON,
+       LM_OFF, KC_TRNS,
+       LM_ON,
        KC_NO, KC_NO, LT(HALFSYMB, KC_ENT)
 ),
 /* Keymap 6: Mirrored Symbol Layer
@@ -350,7 +347,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [SHORTCUTS] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
-        RGB_MODE_KNIGHT,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_LEFT,
+        RGB_M_K,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_LEFT,
         KC_TAB,   LCTL(KC_Q),   LCTL(KC_W),LCTL(KC_E),LCTL(KC_R),LCTL(KC_T),   KC_NO,
         KC_BSPC,  LCTL(KC_A),   LCTL(KC_S),LCTL(KC_D),LCTL(KC_F),LCTL(KC_G),
         KC_LSFT,  LCTL(KC_Z),  	LCTL(KC_X),LCTL(KC_C),LCTL(KC_V),LCTL(KC_B),   KC_MINUS,

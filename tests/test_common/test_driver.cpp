@@ -31,7 +31,7 @@ uint8_t hex_digit_to_keycode(uint8_t digit) {
 }
 } // namespace
 
-TestDriver::TestDriver() : m_driver{&TestDriver::keyboard_leds, &TestDriver::send_keyboard, &TestDriver::send_mouse, &TestDriver::send_extra} {
+TestDriver::TestDriver() : m_driver{&TestDriver::keyboard_leds, &TestDriver::send_keyboard, &TestDriver::send_nkro, &TestDriver::send_mouse, &TestDriver::send_extra} {
     host_set_driver(&m_driver);
     m_this = this;
 }
@@ -47,6 +47,10 @@ uint8_t TestDriver::keyboard_leds(void) {
 void TestDriver::send_keyboard(report_keyboard_t* report) {
     test_logger.trace() << *report;
     m_this->send_keyboard_mock(*report);
+}
+
+void TestDriver::send_nkro(report_nkro_t* report) {
+    m_this->send_nkro_mock(*report);
 }
 
 void TestDriver::send_mouse(report_mouse_t* report) {

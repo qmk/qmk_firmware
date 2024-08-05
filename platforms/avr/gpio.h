@@ -22,17 +22,17 @@ typedef uint8_t pin_t;
 
 /* Operation of GPIO by pin. */
 
-#define setPinInput(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF), PORTx_ADDRESS(pin) &= ~_BV((pin)&0xF))
-#define setPinInputHigh(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF), PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
-#define setPinInputLow(pin) _Static_assert(0, "AVR processors cannot implement an input as pull low")
-#define setPinOutputPushPull(pin) (DDRx_ADDRESS(pin) |= _BV((pin)&0xF))
-#define setPinOutputOpenDrain(pin) _Static_assert(0, "AVR platform does not implement an open-drain output")
-#define setPinOutput(pin) setPinOutputPushPull(pin)
+#define gpio_set_pin_input(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF), PORTx_ADDRESS(pin) &= ~_BV((pin)&0xF))
+#define gpio_set_pin_input_high(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF), PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
+#define gpio_set_pin_input_low(pin) _Static_assert(0, "GPIO pulldowns in input mode are not available on AVR")
+#define gpio_set_pin_output_push_pull(pin) (DDRx_ADDRESS(pin) |= _BV((pin)&0xF))
+#define gpio_set_pin_output_open_drain(pin) _Static_assert(0, "Open-drain outputs are not available on AVR")
+#define gpio_set_pin_output(pin) gpio_set_pin_output_push_pull(pin)
 
-#define writePinHigh(pin) (PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
-#define writePinLow(pin) (PORTx_ADDRESS(pin) &= ~_BV((pin)&0xF))
-#define writePin(pin, level) ((level) ? writePinHigh(pin) : writePinLow(pin))
+#define gpio_write_pin_high(pin) (PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
+#define gpio_write_pin_low(pin) (PORTx_ADDRESS(pin) &= ~_BV((pin)&0xF))
+#define gpio_write_pin(pin, level) ((level) ? gpio_write_pin_high(pin) : gpio_write_pin_low(pin))
 
-#define readPin(pin) ((bool)(PINx_ADDRESS(pin) & _BV((pin)&0xF)))
+#define gpio_read_pin(pin) ((bool)(PINx_ADDRESS(pin) & _BV((pin)&0xF)))
 
-#define togglePin(pin) (PORTx_ADDRESS(pin) ^= _BV((pin)&0xF))
+#define gpio_toggle_pin(pin) (PORTx_ADDRESS(pin) ^= _BV((pin)&0xF))

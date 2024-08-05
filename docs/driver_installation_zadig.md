@@ -8,15 +8,17 @@ We recommend the use of the [Zadig](https://zadig.akeo.ie/) utility. If you have
 
 ## Installation
 
-Put your keyboard into bootloader mode, either by hitting the `QK_BOOT` keycode (which may be on a different layer), or by pressing the reset switch that's usually located on the underside of the board. If your keyboard has neither, try holding Escape or Space+`B` as you plug it in (see the [Bootmagic Lite](feature_bootmagic.md) docs for more details). Some boards use [Command](feature_command.md) instead of Bootmagic; in this case, you can enter bootloader mode by hitting Left Shift+Right Shift+`B` or Left Shift+Right Shift+Escape at any point while the keyboard is plugged in.
-Some keyboards may have specific instructions for entering the bootloader. For example, the [Bootmagic Lite](feature_bootmagic.md) key (default: Escape) might be on a different key, e.g. Left Control; or the magic combination for Command (default: Left Shift+Right Shift) might require you to hold something else, e.g. Left Control+Right Control. Refer to the board's README file if you are unsure.
+Put your keyboard into bootloader mode, either by hitting the `QK_BOOT` keycode (which may be on a different layer), or by pressing the reset switch that's usually located on the underside of the board. If your keyboard has neither, try holding Escape or Space+`B` as you plug it in (see the [Bootmagic Lite](features/bootmagic) docs for more details). Some boards use [Command](features/command) instead of Bootmagic; in this case, you can enter bootloader mode by hitting Left Shift+Right Shift+`B` or Left Shift+Right Shift+Escape at any point while the keyboard is plugged in.
+Some keyboards may have specific instructions for entering the bootloader. For example, the [Bootmagic Lite](features/bootmagic) key (default: Escape) might be on a different key, e.g. Left Control; or the magic combination for Command (default: Left Shift+Right Shift) might require you to hold something else, e.g. Left Control+Right Control. Refer to the board's README file if you are unsure.
 
 To put a device in bootloader mode with USBaspLoader, tap the `RESET` button while holding down the `BOOT` button.
 Alternatively, hold `BOOT` while inserting the USB cable.
 
 Zadig should automatically detect the bootloader device, but you may sometimes need to check **Options → List All Devices** and select the device from the dropdown instead.
 
-!> If Zadig lists one or more devices with the `HidUsb` driver, your keyboard is probably not in bootloader mode. The arrow will be colored orange and you will be asked to confirm modifying a system driver. **Do not** proceed if this is the case!
+::: warning
+If Zadig lists one or more devices with the `HidUsb` driver, your keyboard is probably not in bootloader mode. The arrow will be colored orange and you will be asked to confirm modifying a system driver. **Do not** proceed if this is the case!
+:::
 
 If the arrow appears green, select the driver, and click **Install Driver**. See the [list of known bootloaders](#list-of-known-bootloaders) for the correct driver to install.
 
@@ -40,7 +42,9 @@ Right-click each entry and hit **Uninstall device**. Make sure to tick **Delete 
 
 Click **Action → Scan for hardware changes**. At this point, you should be able to type again. Double check in Zadig that the keyboard device(s) are using the `HidUsb` driver. If so, you're all done, and your board should be functional again! Otherwise, repeat this process until Zadig reports the correct driver.
 
-?> A full reboot of your computer may sometimes be necessary at this point, to get Windows to pick up the new driver.
+::: tip
+A full reboot of your computer may sometimes be necessary at this point, to get Windows to pick up the new driver.
+:::
 
 ## Uninstallation
 
@@ -60,7 +64,9 @@ Run `pnputil /delete-driver oemXX.inf /uninstall`. This will delete the driver a
 
 As with the previous section, this process may need to be repeated multiple times, as multiple drivers can be applicable to the same device.
 
-!> **WARNING:** Be *extremely careful* when doing this! You could potentially uninstall the driver for some other critical device. If you are unsure, double check the output of `/enum-drivers`, and omit the `/uninstall` flag when running `/delete-driver`.
+::: warning
+Be *extremely careful* when doing this! You could potentially uninstall the driver for some other critical device. If you are unsure, double check the output of `/enum-drivers`, and omit the `/uninstall` flag when running `/delete-driver`.
+:::
 
 ## List of Known Bootloaders
 
@@ -70,13 +76,13 @@ The device name here is the name that appears in Zadig, and may not be what the 
 
 |Bootloader    |Device Name                   |VID/PID       |Driver |
 |--------------|------------------------------|--------------|-------|
-|`atmel-dfu`   |ATmega16u2 DFU                |`03EB:2FEF`   |libusb0|
-|`atmel-dfu`   |ATmega32U2 DFU                |`03EB:2FF0`   |libusb0|
-|`atmel-dfu`   |ATm16U4 DFU V1.0.2            |`03EB:2FF3`   |libusb0|
-|`atmel-dfu`   |ATm32U4DFU                    |`03EB:2FF4`   |libusb0|
-|`atmel-dfu`   |*none* (AT90USB64)            |`03EB:2FF9`   |libusb0|
-|`atmel-dfu`   |AT90USB128 DFU                |`03EB:2FFB`   |libusb0|
-|`qmk-dfu`     |(keyboard name) Bootloader    |As `atmel-dfu`|libusb0|
+|`atmel-dfu`   |ATmega16u2 DFU                |`03EB:2FEF`   |WinUSB |
+|`atmel-dfu`   |ATmega32U2 DFU                |`03EB:2FF0`   |WinUSB |
+|`atmel-dfu`   |ATm16U4 DFU V1.0.2            |`03EB:2FF3`   |WinUSB |
+|`atmel-dfu`   |ATm32U4DFU                    |`03EB:2FF4`   |WinUSB |
+|`atmel-dfu`   |*none* (AT90USB64)            |`03EB:2FF9`   |WinUSB |
+|`atmel-dfu`   |AT90USB128 DFU                |`03EB:2FFB`   |WinUSB |
+|`qmk-dfu`     |(keyboard name) Bootloader    |As `atmel-dfu`|WinUSB |
 |`halfkay`     |*none*                        |`16C0:0478`   |HidUsb |
 |`caterina`    |Pro Micro 3.3V                |`1B4F:9203`   |usbser |
 |`caterina`    |Pro Micro 5V                  |`1B4F:9205`   |usbser |

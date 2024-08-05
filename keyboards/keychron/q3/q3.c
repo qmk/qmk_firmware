@@ -17,19 +17,6 @@
 #include "quantum.h"
 #include "rgb_matrix.h"
 
-// clang-format off
-
-const matrix_row_t matrix_mask[] = {
-    0b1111111111111111,
-    0b1111111111111111,
-    0b1111111111111111,
-    0b1111111111111111,
-    0b1111111111111111,
-    0b1111111111101111,
-};
-
-// clang-format on
-
 #ifdef DIP_SWITCH_ENABLE
 
 bool dip_switch_update_kb(uint8_t index, bool active) {

@@ -4,8 +4,16 @@ from os import environ
 from datetime import date
 from pathlib import Path
 
+from qmk.userspace import detect_qmk_userspace
+
 # The root of the qmk_firmware tree.
 QMK_FIRMWARE = Path.cwd()
+
+# The detected userspace tree
+QMK_USERSPACE = detect_qmk_userspace()
+
+# Whether or not we have a separate userspace directory
+HAS_QMK_USERSPACE = True if QMK_USERSPACE is not None else False
 
 # Upstream repo url
 QMK_FIRMWARE_UPSTREAM = 'qmk/qmk_firmware'
