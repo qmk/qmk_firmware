@@ -9,14 +9,10 @@
     "development_board": "promicro",
     "diode_direction": "COL2ROW",
     "features": {
-        "backlight": false,
         "bootmagic": false,
         "command": false,
         "console": false,
-        "extrakey": true,
-        "mousekey": true,
-        "nkro": true,
-        "rgb": false
+        "nkro": true
     },
     "matrix_pins": {
         "cols": ["F5", "F6", "F7", "B1", "B3", "B2", "B6"],
