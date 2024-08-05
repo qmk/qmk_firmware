@@ -22,10 +22,7 @@
 #include "debug.h"
 #include "usb_util.h"
 #include "bootloader.h"
-
-#ifdef EE_HANDS
-#    include "eeconfig.h"
-#endif
+#include "eeconfig.h"
 
 #if defined(RGBLIGHT_ENABLE) && defined(RGBLED_SPLIT)
 #    include "rgblight.h"
@@ -152,29 +149,29 @@ __attribute__((weak)) bool is_keyboard_left_impl(void) {
 #    else
     return peek_matrix_intersection(SPLIT_HAND_MATRIX_GRID);
 #    endif
-#elif defined(EE_HANDS)
+#else
     if (!eeconfig_is_enabled()) {
         eeconfig_init();
     }
     // TODO: Remove once ARM has a way to configure EECONFIG_HANDEDNESS within the emulated eeprom via dfu-util or another tool
 #    if defined(INIT_EE_HANDS_LEFT) || defined(INIT_EE_HANDS_RIGHT)
 #        if defined(INIT_EE_HANDS_LEFT)
-#            pragma message "Faking EE_HANDS for left hand"
-    const bool should_be_left = true;
+#            pragma message "Forcing EEPROM setting for left hand"
+    const eehands_t eehands_forced = EEHANDS_LEFT;
 #        else
-#            pragma message "Faking EE_HANDS for right hand"
-    const bool should_be_left = false;
+#            pragma message "Forcing EEPROM setting for right hand"
+    const eehands_t eehands_forced = EEHANDS_RIGHT;
 #        endif
-    bool       is_left        = eeconfig_read_handedness();
-    if (is_left != should_be_left) {
-        eeconfig_update_handedness(should_be_left);
+    if (eehands_forced != eeconfig_read_handedness()) {
+        eeconfig_update_handedness(eehands_forced);
     }
 #    endif // defined(INIT_EE_HANDS_LEFT) || defined(INIT_EE_HANDS_RIGHT)
-    return eeconfig_read_handedness();
-#elif defined(MASTER_RIGHT)
-    return !is_keyboard_master();
-#else
-    return is_keyboard_master();
+
+    if (eeconfig_read_handedness() == EEHANDS_UNSET) {
+        return is_keyboard_master();
+    } else {
+        return eeconfig_read_handedness() == EEHANDS_LEFT ? true : false;
+    }
 #endif
 }
 

@@ -20,4 +20,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PERMISSIVE_HOLD
 
 #define USE_I2C
-#define MASTER_RIGHT

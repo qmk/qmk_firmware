@@ -21,7 +21,4 @@
 // If you use the HashTwenty(alpha), please enable USE_HASHTWENTY
 // #define USE_HASHTWENTY
 
-// If you plug in the USB on the right side, please enable MASTER_RIGHT
-// #define MASTER_RIGHT
-
 #define OLED_FONT_H "keyboards/marksard/rhymestone/common/glcdfont.c"

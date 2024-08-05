@@ -17,11 +17,8 @@
 
 #pragma once
 
-/* Handedness. */
-#define MASTER_RIGHT
-
 // To use the handedness pin, resistors need to be installed on the adapter PCB.
-// If so, uncomment the following code, and undefine MASTER_RIGHT above.
+// If so, uncomment the following code.
 // #define A0 PAL_LINE(GPIOA, 0)
 // #define SPLIT_HAND_PIN A0
 // #define SPLIT_HAND_PIN_LOW_IS_LEFT  // High -> right, Low -> left.

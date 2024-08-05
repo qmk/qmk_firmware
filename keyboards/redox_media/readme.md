@@ -32,7 +32,7 @@ The generated `.hex` file is output to the QMK root.
 
 Once you are comfortable flashing your Pro Micros and your setup works continue with the following steps:
 
-- I've had the most success with using the `EE_HANDS` setting and flashing the EEPROM to the left and right halves of the keyboard respectively. To do this start with flashing the EEPROM of the 2 pro micros separately by setting the bootloader flag in the flash command (the pro micro uses the avrdude bootloader):
+- I've had the most success with using the `EEPROM` setting and flashing the EEPROM to the left and right halves of the keyboard respectively. To do this start with flashing the EEPROM of the 2 pro micros separately by setting the bootloader flag in the flash command (the pro micro uses the avrdude bootloader):
 ```
 qmk flash -kb redox/media -km media_ch -bl avrdude-split-left
 qmk flash -kb redox/media -km media_ch -bl avrdude-split-right

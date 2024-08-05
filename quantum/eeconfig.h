@@ -28,6 +28,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #define EECONFIG_MAGIC_NUMBER_OFF (uint16_t)0xFFFF
 
+typedef enum {
+    EEHANDS_LEFT,
+    EEHANDS_RIGHT,
+    EEHANDS_UNSET,
+} eehands_t;
+
 // Dummy struct only used to calculate offsets
 typedef struct PACKED {
     uint16_t magic;
@@ -148,8 +154,8 @@ uint32_t eeconfig_read_haptic(void);
 void     eeconfig_update_haptic(uint32_t val);
 #endif
 
-bool eeconfig_read_handedness(void);
-void eeconfig_update_handedness(bool val);
+eehands_t eeconfig_read_handedness(void);
+void      eeconfig_update_handedness(eehands_t val);
 
 #if (EECONFIG_KB_DATA_SIZE) > 0
 bool eeconfig_is_kb_datablock_valid(void);

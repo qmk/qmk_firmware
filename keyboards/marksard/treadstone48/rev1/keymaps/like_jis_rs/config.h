@@ -44,7 +44,7 @@
 // If you use the HashTwenty(alpha), please enable USE_HASHTWENTY
 // #define ANGELINA_KEYMAP
 
-// If you plug in the USB on the right side, please enable MASTER_RIGHT
+// If you plug in the USB on the right side
 // #define RHYMESTONE_RIGHTHAND
 
 #define OLED_FONT_H "keyboards/marksard/treadstone48/common/glcdfont.c"

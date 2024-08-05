@@ -143,13 +143,6 @@ While `MATRIX_MASKED` isn't necessary to use `SPLIT_HAND_MATRIX_GRID` successful
 
 This method sets the keyboard's handedness by setting a flag in the persistent storage (`EEPROM`).  This is checked when the controller first starts up, and determines what half the keyboard is, and how to orient the keyboard layout. 
 
-
-To enable this method, add the following to your `config.h` file: 
-
-```c
-#define EE_HANDS
-```
-
 Next, you will have to flash the correct handedness option to the controller on each halve. You can do this manually with the following bootloader targets using `qmk flash -kb <keyboard> -km <keymap> -bl <bootloader>` command to flash:
 
 |Microcontroller Type|Bootloader Parameter|
@@ -179,25 +172,6 @@ Some controllers (e.g. Blackpill with DFU compatible bootloader) will need to be
 This setting is not changed when re-initializing the EEPROM using the `EE_CLR` key, or using the `eeconfig_init()` function.  However, if you reset the EEPROM outside of the firmware's built in options (such as flashing a file that overwrites the `EEPROM`, like how the [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases/)'s "Reset EEPROM" button works), you'll need to re-flash the controller with the `EEPROM` files. 
 
 You can find the `EEPROM` files in the QMK firmware repo, [here](https://github.com/qmk/qmk_firmware/tree/master/quantum/split_common).
-
-
-#### Handedness by `#define`
-
-You can use this option when USB cable is always connected to just one side of the split keyboard.
-
-If the USB cable is always connected to the right side, add the following to your `config.h` file and flash both sides with this option:
-```c
-#define MASTER_RIGHT
-```
-
-If the USB cable is always connected to the left side, add the following to your `config.h` file and flash both sides with this option:
-```c
-#define MASTER_LEFT
-```
-
-::: tip
-If neither options are defined, the handedness defaults to `MASTER_LEFT`.
-:::
 
 
 ### Communication Options

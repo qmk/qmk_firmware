@@ -19,9 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define USE_I2C
 
-/* Select hand configuration */
-#define EE_HANDS
-
 #define LCPO_KEYS KC_LCTL,KC_TRNS,KC_LBRC
 #define RCPC_KEYS KC_RCTL,KC_TRNS,KC_RBRC
 

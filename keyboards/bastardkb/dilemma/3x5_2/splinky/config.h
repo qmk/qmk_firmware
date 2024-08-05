@@ -17,11 +17,8 @@
 
 #pragma once
 
-/* Handedness. */
-#define MASTER_RIGHT
-
 // To use the handedness pin, resistors need to be installed on the PCB.
-// If so, uncomment the following code, and undefine MASTER_RIGHT above.
+// If so, uncomment the following code.
 //#define SPLIT_HAND_PIN GP29
 // If you've soldered the handedness pull-up on the upper side instead of the
 // left one, uncomment the following line.

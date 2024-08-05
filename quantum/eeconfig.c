@@ -63,6 +63,8 @@ void eeconfig_init_quantum(void) {
     eeprom_update_byte(EECONFIG_STENOMODE, 0);
     eeprom_write_qword(EECONFIG_RGB_MATRIX, 0);
     eeprom_update_dword(EECONFIG_HAPTIC, 0);
+    eeprom_update_byte(EECONFIG_HANDEDNESS, EEHANDS_UNSET);
+
 #if defined(HAPTIC_ENABLE)
     haptic_reset();
 #endif
@@ -254,15 +256,15 @@ void eeconfig_update_haptic(uint32_t val) {
  *
  * FIXME: needs doc
  */
-bool eeconfig_read_handedness(void) {
-    return !!eeprom_read_byte(EECONFIG_HANDEDNESS);
+eehands_t eeconfig_read_handedness(void) {
+    return eeprom_read_byte(EECONFIG_HANDEDNESS);
 }
 /** \brief eeconfig update split handedness
  *
  * FIXME: needs doc
  */
-void eeconfig_update_handedness(bool val) {
-    eeprom_update_byte(EECONFIG_HANDEDNESS, !!val);
+void eeconfig_update_handedness(eehands_t val) {
+    eeprom_update_byte(EECONFIG_HANDEDNESS, val);
 }
 
 #if (EECONFIG_KB_DATA_SIZE) > 0

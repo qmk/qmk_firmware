@@ -25,7 +25,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 -   `i2c` - default keymap with I2C Cirque instead of default SPI
 -   `zzeneg` - my highly customized layout, you can use as a reference
 
-Keymaps have [EE_HANDS](https://docs.qmk.fm/#/feature_split_keyboard?id=handedness-by-eeprom) enabled, so any side can be master (though using side with touchpad as master is recommended). You have to specify left/right side by flashing with different commands:
+Keymaps have [EEPROM](https://docs.qmk.fm/#/feature_split_keyboard?id=handedness-by-eeprom) enabled, so any side can be master (though using side with touchpad as master is recommended). You have to specify left/right side by flashing with different commands:
 
 `qmk flash -kb stront -km default -bl uf2-split-left`
 

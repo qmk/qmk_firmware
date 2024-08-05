@@ -434,7 +434,7 @@ The following configuration options are only available when using `SPLIT_POINTIN
 | `POINTING_DEVICE_INVERT_Y_RIGHT`     | (Optional) Inverts the Y axis report.                                                                 | _not defined_ |
 
 ::: warning
-If there is a `_RIGHT` configuration option or callback, the [common configuration](pointing_device#common-configuration) option will work for the left. For correct left/right detection you should setup a [handedness option](split_keyboard#setting-handedness), `EE_HANDS` is usually a good option for an existing board that doesn't do handedness by hardware.
+If there is a `_RIGHT` configuration option or callback, the [common configuration](pointing_device#common-configuration) option will work for the left. For correct left/right detection you should setup a [handedness option](split_keyboard#setting-handedness), Using EEPROM is usually a good option for an existing board that doesn't do handedness by hardware.
 :::
 
 

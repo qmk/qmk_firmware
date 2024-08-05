@@ -23,7 +23,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define AUDIO_PIN       C6
 #define AUDIO_PIN_ALT   B7
 
-#define EE_HANDS
-
 /* PMW33XX Settings */
 #define PMW33XX_CS_PIN B0

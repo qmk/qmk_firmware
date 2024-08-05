@@ -36,10 +36,6 @@ There is no dedicated build guide for alt34. If you are a novice builder and nee
 
 Set up your build environment according to the QMK documentation, then after cloning the `qmk_firmware` repository you can run the below commands in the repo root to build and flash the firmware onto your controller.
 
-Note that this method enables `EE_HANDS` mode which allows you to connect the USB cable to either half of alt34 when using the keyboard.
-
-
-Flash `EE_HANDS` to the left hand half, this updates the persistent EEPROM storage along with the firmware.
 Run the below command and then set the board into bootloader mode by bridging the reset pads below the TRRS connector with a paper clip or similar.
 ```
 make alt34/rev1:default:dfu-split-left
