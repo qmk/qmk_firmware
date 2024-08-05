@@ -1,20 +1,21 @@
-# reviung53
+# reviung46
 
-![reviung53](https://github.com/gtips/reviung/blob/master/reviung53/image/reviung53-04.jpg) 
+![reviung46](https://github.com/gtips/reviung/blob/master/reviung46/image/reviung46-01.jpg) 
 
-The REVIUNG53 is 53-key keyboard.
+The REVIUNG46 is 42-46 key keyboard.
+This PCB is compatible with the GH60 case, but some of the pin headers used for the Pro Micro require minor modifications. Please see the build guide for more details. 
 
 * Keyboard Maintainer: [gtips](https://github.com/gtips)
-* Hardware Supported: REVIUNG53 PCB. 
-* Hardware Availability: [PCB & Case Data](https://github.com/gtips/reviung/tree/master/reviung53) 
+* Hardware Supported: REVIUNG46 PCB. 
+* Hardware Availability: [PCB & Case Data](https://github.com/gtips/reviung/tree/master/reviung46) 
 
 Make example for this keyboard (after setting up your build environment):
 
-    make reviung53:default
+    make reviung46:default
 
 Flashing example for this keyboard:
 
-    make reviung53:default:flash
+    make reviung46:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
