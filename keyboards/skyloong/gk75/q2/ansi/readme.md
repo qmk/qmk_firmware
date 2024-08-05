@@ -1,4 +1,4 @@
-# The GK75 Q2 is an RGB matrix Keyboard with an encoder.
+# The GK75 Q2 ansi is an RGB matrix Keyboard with an encoder.
 
 ![GK75 Q2 ansi](https://i.imgur.com/G9PrQtth.png)
 
