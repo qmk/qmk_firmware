@@ -29,9 +29,11 @@
     },
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D0",
         "transport": {
             "protocol": "i2c"
+        },
+        "usb_detect": {
+            "enabled": true
         }
     },
     "url": "https://github.com/ngrigoriev/dactyl-manuform-5x7_2_6",
