@@ -24,8 +24,8 @@
         "rgb_matrix": true
     },
     "rgblight": {
-        "led_count": 156,
-        "split_count": [78, 78],
+        "led_count": 218,
+        "split_count": [109, 109],
         "animations": {
             "breathing": true,
             "rainbow_mood": true,
@@ -100,7 +100,7 @@
         "led_flush_limit": 33,
         "led_process_limit": 10,
         "sleep": true,
-        "split_count": [78, 78]
+        "split_count": [109, 109]
     },
     "matrix_pins": {
         "cols": ["A6", "A7", "B0", "B2", "B1", "B9", "B3", "B4"],
