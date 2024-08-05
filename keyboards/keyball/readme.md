@@ -27,10 +27,10 @@ See each directories for each keyboards in a table above.
 2. Check out [qmk/qmk_firmware](https://github.com/qmk/qmk_firmware/) repository in another place.
 
     ```console
-    $ git clone https://github.com/qmk/qmk_firmware.git --depth 1 --recurse-submodules --shallow-submodules -b 0.22.3 qmk
+    $ git clone https://github.com/qmk/qmk_firmware.git --depth 1 --recurse-submodules --shallow-submodules -b 0.22.14 qmk
     ```
 
-    Currently Keyball firmwares are verified to compile with QMK 0.22.3
+    Currently Keyball firmwares are verified to compile with QMK 0.22.14
 
 3. Create a symbolic link to this `keyball/` directory from [qmk/qmk_firmware]'s `keyboards/` directory.
 
@@ -66,4 +66,19 @@ There are three keymaps provided at least:
 
 ## How to create your keymap
 
-(TO BE DOCUMENTED)
+1. Fork this Yowkees/keyball repository
+2. Checkout forked repository
+3. (OPTIONAL) Create a new branch
+4. Add a your keymap, or make some changes
+5. Commit changes and push it to your forked repository
+6. Open your forked repository with web browser
+7. Click and open "Actions" tab
+8. Click "Build a firmware on demand" in Workflows on left panel
+9. Press "Run workflow" button on right side, then you will see forms
+10. (OPTIONAL) Select a your working branch
+11. Select a "Keyboard" from drop-down list
+12. Enter the "keymap" you want to build
+13. Click "Run workflow"
+14. Wait a minute until the firmware build is finished
+15. Click a latest workflow run and open details
+16. Download built firmware in "Artifacts" section

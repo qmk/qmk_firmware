@@ -12,10 +12,10 @@
         "driver": "ws2812"
     },
     "ws2812": {
-          "driver": "vendor"
-        },
-        "split": {
-          "enabled": true
+        "driver": "vendor"
+    },
+    "split": {
+        "enabled": true
     },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_right_ball",

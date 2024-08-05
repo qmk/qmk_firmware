@@ -33,6 +33,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define SPLIT_USB_DETECT
 // #define SPLIT_USB_TIMEOUT       500
 
+// If your PC does not recognize Keyball, try setting this macro. This macro
+// increases the firmware size by 200 bytes, so it is disabled by default, but
+// it has been reported to work well in such cases.
+//#define SPLIT_WATCHDOG_ENABLE
+
 #define SPLIT_TRANSACTION_IDS_KB KEYBALL_GET_INFO, KEYBALL_GET_MOTION, KEYBALL_SET_CPI
 
 // RGB LED settings
@@ -41,7 +46,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_LED_COUNT      74
 #    define RGBLED_SPLIT    { 37, 37 }
 #    ifndef RGBLIGHT_LIMIT_VAL
-#        define RGBLIGHT_LIMIT_VAL  80 // limitated for power consumption
+#        define RGBLIGHT_LIMIT_VAL  120 // limitated for power consumption
 #    endif
 #    ifndef RGBLIGHT_VAL_STEP
 #        define RGBLIGHT_VAL_STEP   12
@@ -59,7 +64,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #ifndef OLED_FONT_H
-#    define OLED_FONT_H "keyboards/keyball/lib/glcdfont.c"
+#    define OLED_FONT_H "keyboards/keyball/lib/logofont/logofont.c"
+#    define OLED_FONT_START 32
+#    define OLED_FONT_END 195
 #endif
 
 #if !defined(LAYER_STATE_8BIT) && !defined(LAYER_STATE_16BIT) && !defined(LAYER_STATE_32BIT)

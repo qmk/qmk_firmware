@@ -20,20 +20,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #if defined(OLED_ENABLE) && !defined(OLEDKIT_DISABLE)
 
-// clang-format off
-static const char PROGMEM logo[] = {
-    0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
-    0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4,
-    0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4,
-    0};
-// clang-format on
-
 __attribute__((weak)) void oledkit_render_logo_user(void) {
-    oled_write_P(logo, false);
+    // Require `OLED_FONT_H "keyboards/keyball/lib/logofont/logofont.c"`
+    char ch = 0x80;
+    for (int y = 0; y < 3; y++) {
+        oled_write_P(PSTR("  "), false);
+        for (int x = 0; x < 16; x++) {
+            oled_write_char(ch++, false);
+        }
+        oled_advance_page(false);
+    }
 }
 
 __attribute__((weak)) void oledkit_render_info_user(void) {
-    oled_write_P(logo, false);
+    oledkit_render_logo_user();
 }
 
 __attribute__((weak)) bool oled_task_user(void) {
@@ -46,6 +46,15 @@ __attribute__((weak)) bool oled_task_user(void) {
 }
 
 __attribute__((weak)) oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    // Logo needs to be rotated 180 degrees.
+    //
+    // A typical OLED has a narrow margin on the left side near the origin, and
+    // a wide margin on the right side. The Keyball logo consists of three
+    // lines. If the logo is displayed on an OLED consisting of four lines, the
+    // margin on the right side will be too large and the balance is not good.
+    //
+    // Additionally, by rotating it, the left side of the logo will be above
+    // the OLED screen, giving it a natural look.
     return !is_keyboard_master() ? OLED_ROTATION_180 : rotation;
 }
 
