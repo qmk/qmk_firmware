@@ -1,6 +1,6 @@
 # Duplex matrix.
 CUSTOM_MATRIX = lite
-SRC += lib/duplexmatrix/duplexmatrix.c
+SRC += lib/duplexmatrix/matrix.c
 
 # To support OLED
 OLED_ENABLE = yes
