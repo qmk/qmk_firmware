@@ -85,4 +85,4 @@ typedef struct QP_PACKED qff_unicode_glyph_table_v1_t {
 
 bool     qff_validate_stream(qp_stream_t *stream);
 uint32_t qff_get_total_size(qp_stream_t *stream);
-bool     qff_read_font_descriptor(qp_stream_t *stream, uint8_t *line_height, bool *has_ascii_table, uint16_t *num_unicode_glyphs, uint8_t *bpp, bool *has_palette, painter_compression_t *compression_scheme, uint32_t *total_bytes);
+bool     qff_read_font_descriptor(qp_stream_t *stream, uint8_t *line_height, bool *has_ascii_table, uint16_t *num_unicode_glyphs, uint8_t *bpp, bool *has_palette, bool *is_panel_native, painter_compression_t *compression_scheme, uint32_t *total_bytes);

@@ -9,4 +9,5 @@ SRC += keyboards/wilba_tech/wt_main.c \
        quantum/color.c \
        drivers/led/issi/is31fl3741.c
 
-QUANTUM_LIB_SRC += i2c_master.c
+I2C_DRIVER_REQUIRED = yes
+CIE1931_CURVE = yes

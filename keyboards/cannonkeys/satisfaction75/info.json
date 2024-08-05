@@ -1,27 +1,33 @@
 {
-    "keyboard_name": "Satisfaction75",
     "manufacturer": "CannonKeys",
-    "url": "",
-    "maintainer": "Cannon Keys",
-    "usb": {
-        "vid": "0xCA04",
-        "pid": "0x57F5",
-        "device_version": "0.0.1"
-    },
-    "matrix_pins": {
-        "cols": ["B1", "B2", "B10", "B11", "B12", "B13", "B14", "A8", "A9", "A10", "B0", "A7", "A5", "B5", "A15", "A1"],
-        "rows": ["B3", "B4", "A0", "A2", "A4", "A3"]
-    },
-    "diode_direction": "COL2ROW",
-    "encoder": {
-        "rotary": [
-            {"pin_a": "B9", "pin_b": "B8", "resolution": 2}
-        ]
-    },
+    "keyboard_name": "Satisfaction75",
+    "maintainer": "awkannan",
     "backlight": {
+        "breathing": true,
         "levels": 24,
-        "breathing": true
+        "pin": "A6"
+    },
+    "bootloader": "stm32-dfu",
+    "features": {
+        "backlight": true,
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "oled": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     },
     "processor": "STM32F072",
-    "bootloader": "stm32-dfu"
+    "url": "https://cannonkeys.com",
+    "usb": {
+        "vid": "0xCA04"
+    }
 }

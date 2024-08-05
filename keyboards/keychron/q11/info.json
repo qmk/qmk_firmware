@@ -11,6 +11,14 @@
     "bootmagic": {
         "matrix": [0, 1]
     },
+    "dip_switch": {
+        "pins": ["A8"]
+    },
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096
+        }
+    },
     "features": {
         "bootmagic": true,
         "command": false,
@@ -36,6 +44,9 @@
                 ]
             }
         },
+        "handedness": {
+            "matrix_grid": ["A2", "A15"]
+        },
         "matrix_pins": {
             "right": {
                 "cols": ["A8", "A7", "A6", "A5", "A4", "A3", "A2", "A1", "A0"],
@@ -43,8 +54,9 @@
             }
         },
         "transport": {
-            "protocol": "serial_usart",
-            "sync_matrix_state": true
+            "sync" :{
+                "matrix_state": true
+            }
         },
         "bootmagic": {
             "matrix": [6, 7]
@@ -59,7 +71,7 @@
         ]
     },
     "rgb_matrix": {
-        "driver": "ckled2001",
+        "driver": "snled27351",
         "animations": {
             "breathing": true,
             "band_spiral_val": true,
@@ -82,7 +94,8 @@
             "solid_reactive_multinexus": true,
             "splash": true,
             "solid_splash": true
-        }
+        },
+        "sleep": true
     },
     "layouts": {
         "LAYOUT_91_ansi": {
