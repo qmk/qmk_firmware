@@ -11,6 +11,7 @@ enum {
     // NOTE: We intentionally do not include surfaces here, despite them conforming to the same API.
     QP_NUM_DEVICES = (ILI9163_NUM_DEVICES)   // ILI9163
                      + (ILI9341_NUM_DEVICES) // ILI9341
+                     + (ILI9486_NUM_DEVICES) // ILI9486
                      + (ILI9488_NUM_DEVICES) // ILI9488
                      + (ST7789_NUM_DEVICES)  // ST7789
                      + (ST7735_NUM_DEVICES)  // ST7735
