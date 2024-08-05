@@ -1,5 +1,7 @@
 # Alps64
 
+![alps64](https://i.imgur.com/mZJXFFM.jpeg)
+
 An Alps only 60% board designed by Hasu.
 
 Keyboard Maintainer: QMK Community  
