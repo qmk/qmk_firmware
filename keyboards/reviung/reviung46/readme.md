@@ -3,7 +3,6 @@
 ![reviung46](https://github.com/gtips/reviung/blob/master/reviung46/image/reviung46-01.jpg) 
 
 The REVIUNG46 is 42-46 key keyboard.
-This PCB is compatible with the GH60 case, but some of the pin headers used for the Pro Micro require minor modifications. Please see the build guide for more details. 
 
 * Keyboard Maintainer: [gtips](https://github.com/gtips)
 * Hardware Supported: REVIUNG46 PCB. 
