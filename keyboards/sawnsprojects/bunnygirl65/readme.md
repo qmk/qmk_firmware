@@ -1,6 +1,6 @@
 # BunnyGirl65
 
-![BunnyGirl65](https://i.imgur.com/APqNMhci.jpeg)
+![BunnyGirl65](https://i.imgur.com/APqNMhc.jpeg)
 
 A Wibu 60% keyboard PCB Design by inspire of Nekomata Okayu and can fit many keyboard case
 
