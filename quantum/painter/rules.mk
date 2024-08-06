@@ -17,7 +17,8 @@ VALID_QUANTUM_PAINTER_DRIVERS := \
     gc9107_spi \
     ssd1351_spi \
     sh1106_i2c \
-    sh1106_spi
+    sh1106_spi \
+    ls0xx_spi
 
 #-------------------------------------------------------------------------------
 
@@ -181,6 +182,16 @@ define handle_quantum_painter_driver
         SRC += \
             $(DRIVER_PATH)/painter/oled_panel/qp_oled_panel.c \
             $(DRIVER_PATH)/painter/sh1106/qp_sh1106.c
+
+    else ifeq ($$(strip $$(CURRENT_PAINTER_DRIVER)),ls0xx_spi)
+        QUANTUM_PAINTER_NEEDS_SURFACE := yes
+        QUANTUM_PAINTER_NEEDS_COMMS_SPI := yes
+        OPT_DEFS += -DQUANTUM_PAINTER_LS0XX_ENABLE -DQUANTUM_PAINTER_LS0XX_SPI_ENABLE
+        COMMON_VPATH += \
+            $(DRIVER_PATH)/painter/mip_panel
+        SRC += \
+            $(DRIVER_PATH)/painter/mip_panel/qp_ls0xx_panel.c \
+            $(DRIVER_PATH)/painter/mip_panel/qp_ls0xx.c
 
     endif
 endef
