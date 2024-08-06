@@ -557,7 +557,7 @@ void init_g_config(void) {
     g_config.deep_sleep_toggle            = DEFAULT_DEEP_SLEEP_TOGGLE;
     g_config.sleep_timeout                = DEFAULT_SLEEP_TIMEOUT;
     g_config.debounce_press_ms            = DEBOUNCE;
-    g_config.debounce_release_ms          = DEBOUNCE;
+    g_config.debounce_release_ms          = RELEASE_DEBOUNCE;
     g_config.caps_indicator_type          = DEFAULT_CAPS_INDICATOR_TYPE;
     g_config.battery_indicator_brightness = DEFAULT_BATTERY_INDICATOR_BRIGHTNESS;
     g_config.toggle_custom_keys_highlight = DEFAULT_LIGHT_CUSTOM_KEYS;

@@ -524,7 +524,7 @@ void init_g_config(void) {
     g_config.sleep_timeout                = DEFAULT_SLEEP_TIMEOUT;
     g_config.power_show                   = DEFAULT_TOGGLE_POWER_ON_ANIMATION;
     g_config.debounce_press_ms            = DEBOUNCE;
-    g_config.debounce_release_ms          = DEBOUNCE;
+    g_config.debounce_release_ms          = RELEASE_DEBOUNCE;
     g_config.caps_indicator_type          = DEFAULT_CAPS_INDICATOR_TYPE;
     g_config.side_mode_a                  = DEFAULT_SIDE_MODE_A;
     g_config.side_mode_b                  = DEFAULT_SIDE_MODE_B;
