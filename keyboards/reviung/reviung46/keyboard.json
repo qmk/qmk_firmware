@@ -35,8 +35,8 @@
         "command": false,
         "console": false,
         "extrakey": true,
-        "mousekey": false,
-        "nkro": false,
+        "mousekey": true,
+        "nkro": true,
         "rgblight": true
     },
     "qmk": {
@@ -52,9 +52,7 @@
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "caterina",
-    "layout_aliases": {
-        "LAYOUT_reviung53": "LAYOUT"
-    },
+    "development_board": "promicro",
     "layouts": {
         "LAYOUT": {
             "layout": [
