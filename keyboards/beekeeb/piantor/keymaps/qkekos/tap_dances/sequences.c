@@ -32,7 +32,11 @@ void eql_td(tap_dance_state_t *state, void *user_data) {
     } else if (state->count % 3 == 0 && is_ctrl_held()) {
         send_lang_independant_string(";");
     } else double_sequence_td(
-        execute_without_mods(tap_code(KC_ENT)),
+        execute_without_mods(
+            tap_code16(KC_BSPC);
+            send_lang_independant_string("${");
+        ),
+
         send_lang_independant_string("="),
         send_lang_independant_string(")"),
         send_lang_independant_string("="),
@@ -104,8 +108,7 @@ void coln_td(tap_dance_state_t *state, void *user_data) {
 
 void arr_td(tap_dance_state_t *state, void *user_data) {
     double_sequence_td(
-        , ,
-        send_lang_independant_string("${"),
+        , , ,
         {
             send_lang_independant_string(" {");
             execute_without_mods(tap_code(KC_ENT));
@@ -115,8 +118,14 @@ void arr_td(tap_dance_state_t *state, void *user_data) {
             send_lang_independant_string("() => {");
             execute_without_mods(tap_code(KC_ENT));
         },
-        ,
-        send_lang_independant_string("${"),
+        {
+            send_lang_independant_string("{%  %}");
+            execute_without_mods(multi_tap(KC_LEFT, 3));
+        },
+        {
+            send_lang_independant_string("{{  }}");
+            execute_without_mods(multi_tap(KC_LEFT, 3));
+        },
         send_lang_independant_string("=>")
     );
 }
