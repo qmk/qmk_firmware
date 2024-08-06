@@ -1,4 +1,4 @@
-// Copyright 2021 gtips (@gtips)
+// Copyright 2024 gtips (@gtips)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
