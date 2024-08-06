@@ -1,6 +1,6 @@
 # handwired/dactyl_manuform/5x7_2_6
 
-![keyboad_image](https://raw.githubusercontent.com/ngrigoriev/dactyl-manuform-5x7_2_6/main/pics/kbpic_small_21.jpg)
+![keyboad_image](https://i.ibb.co/09tfjY0/kbpic-small-21.jpg)
 
 A standard Dactyl Manuform keyboard with 5x7 matrix, 6 thumb cluster keys. Last row has 2 keys only. Index column has 3 rows. The outer keys are 1,5u wide. [More info on https://github.com/ngrigoriev/dactyl-manuform-5x7_2_6](https://github.com/ngrigoriev/dactyl-manuform-5x7_2_6). Based on the original set of Dactyl Manuform keyboards created and maintaied by [Jack Humbert](https://github.com/jackhumbert).
 
