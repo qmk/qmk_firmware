@@ -1,6 +1,7 @@
-# PiantorUV44
+# Piantor UV 44
 
-![PiantorUV44](https://ibb.co/HG7bmzp)
+![Piantor UV 44]([https://ibb.co/HG7bmzp](https://github.com/user-attachments/assets/43d3886e-2063-45a0-89b7-176b8744ccfb))
+
 
 PiantorUV44 is a Piantor/Cantor fork with Raspberry Pi Pico, hybrid hotswap socket and soldered-in switches support and flippable PCB.
 
