@@ -1,19 +1,19 @@
-name: Halo75 v2 Build
+name: Build Nuphy Keyboards
 
 permissions:
   contents: read
 
 on:
-  # Trigger the workflow on tag creation/push, when tag starts with "ryo-"
   push:
     tags:
-      - 'halo75v2-*'
+      - 'r*.*.*'
+      - 'r*-pre'
 
 concurrency: ci_build-${{ github.ref_name }}
 
 jobs:
   ci_builds:
-    name: "CI Build"
+    name: Build
     timeout-minutes: 1380
     runs-on: ubuntu-latest
 
@@ -37,8 +37,8 @@ jobs:
 
     - name: Run `./compile_halo.sh`
       run: |
-        chmod +x compile_halo.sh
-        ./compile_halo.sh ${{ github.ref_name }}
+        chmod +x compile_all.sh
+        ./compile_all.sh ${{ github.ref_name }}
 
         [ ! -f .failed ] || exit 1
 
@@ -49,16 +49,17 @@ jobs:
         name: ${{  github.ref_name }}-default
         if-no-files-found: ignore
         path: |
-          *halo75v2*.bin
+          *.bin
 
     - name: Create draft release
       uses: softprops/action-gh-release@v2
       if: startsWith(github.ref, 'refs/tags/halo75v2-')
       with:
         files: |
-          default_*.bin
-          via_*.bin
+          *.bin
           keyboards/nuphy/halo75v2/ansi/keymaps/via/*via3.json
+          keyboards/nuphy/air75v2/ansi/keymaps/via/*via3.json
+          keyboards/nuphy/gem80/ansi/keymaps/via/*via3.json
         tag_name: ${{ github.ref_name }}
         draft: true
         prerelease: true
