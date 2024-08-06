@@ -84,15 +84,15 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
         roundedDivisor <<= 1;
     }
 
-#if defined(AT32F415)
+#    if defined(AT32F415)
     if (roundedDivisor < 2 || roundedDivisor > 1024) {
         return false;
     }
-#else
+#    else
     if (roundedDivisor < 2 || roundedDivisor > 256) {
         return false;
     }
-#endif
+#    endif
 #endif
 
 #if defined(K20x) || defined(KL2x)

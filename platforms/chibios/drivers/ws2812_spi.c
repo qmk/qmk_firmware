@@ -203,9 +203,9 @@ void ws2812_init(void) {
         PAL_PAD(WS2812_DI_PIN),
 #    if defined(AT32F415)
         WS2812_SPI_DIVISOR_CTRL1_MDIV_X,
-#    if (WS2812_SPI_DIVISOR == 512 || WS2812_SPI_DIVISOR == 1024)
+#        if (WS2812_SPI_DIVISOR == 512 || WS2812_SPI_DIVISOR == 1024)
         WS2812_SPI_DIVISOR_CTRL2_MDIV_X,
-#    endif
+#        endif
         0
 #    else
         WS2812_SPI_DIVISOR_CR1_BR_X,
