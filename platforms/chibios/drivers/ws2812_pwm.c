@@ -342,8 +342,8 @@ void ws2812_init(void) {
                 [WS2812_PWM_CHANNEL - 1] = {.mode = WS2812_PWM_OUTPUT_MODE, .callback = NULL}, // Turn on the channel we care about
             },
 #if defined(AT32F415)
-        .ctrl2  = 0,
-        .iden = AT32_TMR_IDEN_OVFDEN, // DMA on update event for next period
+        .ctrl2 = 0,
+        .iden  = AT32_TMR_IDEN_OVFDEN, // DMA on update event for next period
 #else
         .cr2  = 0,
         .dier = TIM_DIER_UDE, // DMA on update event for next period
