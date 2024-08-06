@@ -6,7 +6,7 @@ PiantorUV44 is a Piantor/Cantor fork with Raspberry Pi Pico, hybrid hotswap sock
 
 * Keyboard Maintainer: [azhizhinov](https://github.com/azhizhinov)
 * Hardware Supported: RP2040
-* Hardware Availability: https://github.com/azhizhinov/PIANTORUV
+* Hardware Availability: https://github.com/azhizhinov/PIANTORUV44
 
 Make example for this keyboard (after setting up your build environment):
 
