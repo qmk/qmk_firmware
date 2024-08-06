@@ -32,9 +32,6 @@ ifneq ($(CONVERT_TO),)
 
     PLATFORM_KEY = $(shell echo $(CONVERTER) | cut -d "/" -f2)
 
-    # force setting as value can be from environment
-    override TARGET := $(TARGET)_$(CONVERT_TO)
-
     # Configure any defaults
     OPT_DEFS += -DCONVERT_TO_$(shell echo $(CONVERT_TO) | tr '[:lower:]' '[:upper:]')
     OPT_DEFS += -DCONVERTER_TARGET=\"$(CONVERT_TO)\"
