@@ -1,6 +1,6 @@
-# saevus cor
+# concrete flowers cor
 
-![saevus cor](https://i.imgur.com/AOT6mmMl.jpg)
+![concrete flowers cor](https://i.imgur.com/AOT6mmMl.jpg)
 
 An exploded 65% with a macro column.
 
@@ -9,11 +9,11 @@ An exploded 65% with a macro column.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make saevus/cor:via
+    make concreteflowers/cor:default
     
 Flashing example for this keyboard:
 
-    make saevus/cor:via:flash
+    make concrete flowers/cor:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
