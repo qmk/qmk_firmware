@@ -11,13 +11,9 @@ enum layer_names {
 	_ADJUST
 };
 
-#define LOWER  MO(_LOWER)
-#define RAISE  MO(_RAISE)
-#define ADJUST MO(_ADJUST)
-
 #define SF_SS RSFT_T(KC_SLSH)
-#define SP_LO LT(LOWER, KC_SPC)
-#define SP_RA LT(RAISE, KC_SPC)
+#define SP_LO LT(_LOWER, KC_SPC)
+#define SP_RA LT(_RAISE, KC_SPC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_BASE] = LAYOUT(
