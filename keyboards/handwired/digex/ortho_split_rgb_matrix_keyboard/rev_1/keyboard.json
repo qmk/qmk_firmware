@@ -1,0 +1,10 @@
+{
+    "features": {
+        //"tap_dance" : true,
+        //"console": false
+        "nkro": false,
+        "rgb_matrix": true,
+    }
+}
+
+

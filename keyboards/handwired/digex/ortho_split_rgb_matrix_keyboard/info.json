@@ -1,0 +1,285 @@
+{
+    "manufacturer": "Petrov Denis",
+    "keyboard_name": "ortho_split_rgb_matrix_keyboard",
+    "maintainer": "petrvden",
+    "bootloader": "stm32duino",
+    "diode_direction": "ROW2COL",
+    "processor": "STM32F103",
+    "url": "",
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+       // "tap_dance" : true,
+        "extrakey": true,
+        "mousekey": true,
+        //"nkro": true,
+        "rgb_matrix": true,
+    },
+    "matrix_pins": {
+        "cols":  ["A1", "A6", "A7", "B0", "B1", "B10", "B11", "NO_PIN" ],
+        "rows":  ["B15", "B14", "B13", "B12", "A15"],
+        "io_delay": 5
+    },
+    "split": {
+        "enabled": true,
+        "handedness": {
+            "pin": "B3"
+        },
+        "bootmagic": {
+            "matrix": [4, 0]
+        },
+        "matrix_pins": {
+            "right": {
+            "cols": ["A8", "A1", "A6", "A7", "B0", "B1", "B10", "B11" ],
+            "rows": ["B15", "B14", "B13", "B12", "A15"]
+                     },
+        },
+        "transport":{
+            "sync": {
+                "detected_os": true,
+                "layer_state": true,
+                //"led_state": true,
+            }
+        }
+    },
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0000",
+        "vid": "0xFEED",
+        //"no_startup_check": true,
+    },
+    "rgb_matrix":{
+        "driver": "ws2812",
+        "split_count" : [35, 37],
+        "sleep": true,
+        "animations": {
+                "solid_color": true,                // Static single hue, no speed support
+                "alphas_mods": true,                // Static dual hue, speed is hue for secondary hue
+                "gradient_up_down": true,           // Static gradient top to bottom, speed controls how much gradient changes
+                "gradient_left_right": true,        // Static gradient left to right, speed controls how much gradient changes
+                "breathing": true,                  // Single hue brightness cycling animation
+                "band_sat": true,                   // Single hue band fading saturation scrolling left to right
+                "band_val": true,                   // Single hue band fading brightness scrolling left to right
+                "band_pinwheel_sat": true,          // Single hue 3 blade spinning pinwheel fades saturation
+                "band_pinwheel_val": true,          // Single hue 3 blade spinning pinwheel fades brightness
+                "band_spiral_sat": true,            // Single hue spinning spiral fades saturation
+                "band_spiral_val": true,            // Single hue spinning spiral fades brightness
+                "cycle_all": true,                  // Full keyboard solid hue cycling through full gradient
+                "cycle_left_right": true,           // Full gradient scrolling left to right
+                "cycle_up_down": true,              // Full gradient scrolling top to bottom
+                "cycle_out_in": true,               // Full gradient scrolling out to in
+                "cycle_out_in_dual": true,          // Full dual gradients scrolling out to in
+                "rainbow_moving_chevron": true,     // Full gradient Chevron shapped scrolling left to right
+                "cycle_pinwheel": true,             // Full gradient spinning pinwheel around center of keyboard
+                "cycle_spiral": true,               // Full gradient spinning spiral around center of keyboard
+                "dual_beacon": true,                // Full gradient spinning around center of keyboard
+                "rainbow_beacon": true,             // Full tighter gradient spinning around center of keyboard
+                "rainbow_pinwheels": true,          // Full dual gradients spinning two halfs of keyboard
+                "flower_blooming": true,            // Full tighter gradient of first half scrolling left to right and second half scrolling right to left
+                "raindrops": true,                  // Randomly changes a single key's hue
+                "jellybean_raindrops": true,        // Randomly changes a single key's hue and saturation
+                "hue_breathing": true,              // Hue shifts up a slight ammount at the same time, then shifts back
+                "hue_pendulum": true,               // Hue shifts up a slight ammount in a wave to the right, then back to the left
+                "hue_wave": true,                   // Hue shifts up a slight ammount and then back down in a wave to the right
+                "pixel_fractal": true,              // Single hue fractal filled keys pulsing horizontally out to edges
+                "pixel_flow": true,                 // Pulsing RGB flow along LED wiring with random hues
+                "pixel_rain": true,                 // Randomly light keys with random hues
+                "typing_heatmap": true,             // How hot is your WPM!
+                "digital_rain": true,               // That famous computer simulation
+                "solid_reactive_simple": true,      // Pulses keys hit to hue & value then fades value out
+                "solid_reactive": true,             // Static single hue, pulses keys hit to shifted hue then fades to current hue
+                "solid_reactive_wide": true,        // Hue & value pulse near a single key hit then fades value out
+                "solid_reactive_multiwide": true,   // Hue & value pulse near multiple key hits then fades value out
+                "solid_reactive_cross": true,       // Hue & value pulse the same column and row of a single key hit then fades value out
+                "solid_reactive_multicross": true,  // Hue & value pulse the same column and row of multiple key hits then fades value out
+                "solid_reactive_nexus": true,       // Hue & value pulse away on the same column and row of a single key hit then fades value out
+                "solid_reactive_multinexus": true,  // Hue & value pulse away on the same column and row of multiple key hits then fades value out
+                "splash": true,                     // Full gradient & value pulse away from a single key hit then fades value out
+                "multisplash": true,                // Full gradient & value pulse away from multiple key hits then fades value out
+                "solid_splash": true,               // Hue & value pulse away from a single key hit then fades value out
+                "solid_multisplash": true,          // Hue & value pulse away from multiple key hits then fades value out
+                "starlight": true,                  // LEDs turn on and off at random at varying brightness, maintaining user set color
+                "starlight_dual_hue": true,         // LEDs turn on and off at random at varying brightness, modifies user set hue by +- 30
+                "starlight_dual_sat": true,         // LEDs turn on and off at random at varying brightness, modifies user set saturation by +- 30
+                "riverflow": true,                  // Modification to breathing animation, offset's animation depending on key location to simulate a river flowing
+        },
+            "layout": [
+                {"matrix": [0, 0], "x":  9, "y": 0, "flags": 4},
+                {"matrix": [0, 1], "x": 23, "y": 0, "flags": 4},
+                {"matrix": [0, 2], "x": 37, "y": 0, "flags": 4},
+                {"matrix": [0, 3], "x": 51, "y": 0, "flags": 4},
+                {"matrix": [0, 4], "x": 65, "y": 0, "flags": 4},
+                {"matrix": [0, 5], "x": 79, "y": 0, "flags": 4},
+                {"matrix": [0, 6], "x": 93, "y": 0, "flags": 4},
+
+                {"matrix": [1, 6], "x": 93, "y": 12, "flags": 4},
+                {"matrix": [1, 5], "x": 79, "y": 12, "flags": 4},
+                {"matrix": [1, 4], "x": 65, "y": 12, "flags": 4},
+                {"matrix": [1, 3], "x": 51, "y": 12, "flags": 4},
+                {"matrix": [1, 2], "x": 37, "y": 12, "flags": 4},
+                {"matrix": [1, 1], "x": 23, "y": 12, "flags": 4},
+                {"matrix": [1, 0], "x":  5, "y": 12, "flags": 4},
+
+                {"matrix": [2, 0], "x":  4, "y": 23, "flags": 4},
+                {"matrix": [2, 1], "x": 23, "y": 23, "flags": 4},
+                {"matrix": [2, 2], "x": 37, "y": 23, "flags": 4},
+                {"matrix": [2, 3], "x": 51, "y": 23, "flags": 4},
+                {"matrix": [2, 4], "x": 65, "y": 23, "flags": 4},
+                {"matrix": [2, 5], "x": 79, "y": 23, "flags": 4},
+                {"matrix": [2, 6], "x": 93, "y": 23, "flags": 4},
+
+                {"matrix": [3, 0], "x":   0, "y": 35, "flags": 4},
+                {"matrix": [3, 1], "x":  23, "y": 35, "flags": 4},
+                {"matrix": [3, 2], "x":  37, "y": 35, "flags": 4},
+                {"matrix": [3, 3], "x":  51, "y": 35, "flags": 4},
+                {"matrix": [3, 4], "x":  65, "y": 35, "flags": 4},
+                {"matrix": [3, 5], "x":  79, "y": 35, "flags": 4},
+                {"matrix": [3, 6], "x":  92, "y": 43, "flags": 4},
+
+                {"matrix": [4, 6], "x":  98, "y": 57, "flags": 4},
+                {"matrix": [4, 5], "x": 110, "y": 64, "flags": 4},
+                {"matrix": [4, 4], "x": 107, "y": 48, "flags": 4},
+                {"matrix": [4, 3], "x":  63, "y": 47, "flags": 4},
+                {"matrix": [4, 2], "x":  42, "y": 47, "flags": 4},
+                {"matrix": [4, 1], "x":  24, "y": 47, "flags": 4},
+                {"matrix": [4, 0], "x":   7, "y": 47, "flags": 4},
+
+                {"matrix": [5, 7], "x": 121, "y": 0, "flags": 4},
+                {"matrix": [5, 6], "x": 135, "y": 0, "flags": 4},
+                {"matrix": [5, 5], "x": 149, "y": 0, "flags": 4},
+                {"matrix": [5, 4], "x": 163, "y": 0, "flags": 4},
+                {"matrix": [5, 3], "x": 177, "y": 0, "flags": 4},
+                {"matrix": [5, 2], "x": 191, "y": 0, "flags": 4},
+                {"matrix": [5, 1], "x": 212, "y": 0, "flags": 4},
+
+                {"matrix": [6, 0], "x": 219, "y": 12, "flags": 4},
+                {"matrix": [6, 1], "x": 205, "y": 12, "flags": 4},
+                {"matrix": [6, 2], "x": 191, "y": 12, "flags": 4},
+                {"matrix": [6, 3], "x": 177, "y": 12, "flags": 4},
+                {"matrix": [6, 4], "x": 163, "y": 12, "flags": 4},
+                {"matrix": [6, 5], "x": 149, "y": 12, "flags": 4},
+                {"matrix": [6, 6], "x": 135, "y": 12, "flags": 4},
+                {"matrix": [6, 7], "x": 121, "y": 15, "flags": 4},
+
+                {"matrix": [7, 7], "x": 121, "y": 32, "flags": 4},
+                {"matrix": [7, 6], "x": 135, "y": 23, "flags": 4},
+                {"matrix": [7, 5], "x": 149, "y": 23, "flags": 4},
+                {"matrix": [7, 4], "x": 163, "y": 23, "flags": 4},
+                {"matrix": [7, 3], "x": 177, "y": 23, "flags": 4},
+                {"matrix": [7, 2], "x": 191, "y": 23, "flags": 4},
+                {"matrix": [7, 1], "x": 205, "y": 23, "flags": 4},
+                {"matrix": [7, 0], "x": 224, "y": 23, "flags": 4},
+
+                {"matrix": [8, 1], "x": 210, "y": 47, "flags": 4},
+                {"matrix": [8, 2], "x": 191, "y": 35, "flags": 4},
+                {"matrix": [8, 3], "x": 177, "y": 35, "flags": 4},
+                {"matrix": [8, 4], "x": 163, "y": 35, "flags": 4},
+                {"matrix": [8, 5], "x": 149, "y": 35, "flags": 4},
+                {"matrix": [8, 6], "x": 135, "y": 35, "flags": 4},
+                {"matrix": [8, 7], "x": 107, "y": 35, "flags": 4},
+
+                {"matrix": [9, 7], "x": 112, "y": 59, "flags": 4},
+                {"matrix": [9, 6], "x": 124, "y": 51, "flags": 4},
+                {"matrix": [9, 5], "x": 149, "y": 47, "flags": 4},
+                {"matrix": [9, 3], "x": 171, "y": 47, "flags": 4},
+                {"matrix": [9, 2], "x": 189, "y": 47, "flags": 4},
+                {"matrix": [9, 1], "x": 210, "y": 47, "flags": 4}
+            ],
+    },
+    "ws2812": {
+        "pin": "B4",
+        //"driver": "pwm"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+                {"matrix": [0, 4], "x": 4, "y": 0},
+                {"matrix": [0, 5], "x": 5, "y": 0},
+                {"matrix": [0, 6], "x": 6, "y": 0},
+
+                {"matrix": [5, 7], "x": 7, "y": 0},
+                {"matrix": [5, 6], "x": 8, "y": 0},
+                {"matrix": [5, 5], "x": 9, "y": 0},
+                {"matrix": [5, 4], "x": 10, "y": 0},
+                {"matrix": [5, 3], "x": 11, "y": 0},
+                {"matrix": [5, 2], "x": 12, "y": 0},
+                {"matrix": [5, 1], "x": 13, "y": 0},
+
+
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [1, 3], "x": 3, "y": 1},
+                {"matrix": [1, 4], "x": 4, "y": 1},
+                {"matrix": [1, 5], "x": 5, "y": 1},
+                {"matrix": [1, 6], "x": 6, "y": 1},
+
+                {"matrix": [6, 7], "x": 7, "y": 1},
+                {"matrix": [6, 6], "x": 8, "y": 1},
+                {"matrix": [6, 5], "x": 9, "y": 1},
+                {"matrix": [6, 4], "x": 10, "y": 1},
+                {"matrix": [6, 3], "x": 11, "y": 1},
+                {"matrix": [6, 2], "x": 12, "y": 1},
+                {"matrix": [6, 1], "x": 13, "y": 1},
+                {"matrix": [6, 0], "x": 14, "y": 1},
+
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2},
+                {"matrix": [2, 3], "x": 3, "y": 2},
+                {"matrix": [2, 4], "x": 4, "y": 2},
+                {"matrix": [2, 5], "x": 5, "y": 2},
+                {"matrix": [2, 6], "x": 6, "y": 2},
+
+                {"matrix": [7, 7], "x": 7, "y": 2},
+                {"matrix": [7, 6], "x": 8, "y": 2},
+                {"matrix": [7, 5], "x": 9, "y": 2},
+                {"matrix": [7, 4], "x": 10, "y": 2},
+                {"matrix": [7, 3], "x": 11, "y": 2},
+                {"matrix": [7, 2], "x": 12, "y": 2},
+                {"matrix": [7, 1], "x": 13, "y": 2},
+                {"matrix": [7, 0], "x": 14, "y": 2},
+
+                {"matrix": [3, 0], "x": 0, "y": 3},
+                {"matrix": [3, 1], "x": 1, "y": 3},
+                {"matrix": [3, 2], "x": 2, "y": 3},
+                {"matrix": [3, 3], "x": 3, "y": 3},
+                {"matrix": [3, 4], "x": 4, "y": 3},
+                {"matrix": [3, 5], "x": 5, "y": 3},
+                {"matrix": [3, 6], "x": 6, "y": 3},
+
+                {"matrix": [8, 7], "x": 7, "y": 3},
+                {"matrix": [8, 6], "x": 8, "y": 3},
+                {"matrix": [8, 5], "x": 9, "y": 3},
+                {"matrix": [8, 4], "x": 10, "y": 3},
+                {"matrix": [8, 3], "x": 11, "y": 3},
+                {"matrix": [8, 2], "x": 12, "y": 3},
+                {"matrix": [8, 1], "x": 13, "y": 3},
+
+
+                {"matrix": [4, 0], "x": 0, "y": 4},
+                {"matrix": [4, 1], "x": 1, "y": 4},
+                {"matrix": [4, 2], "x": 2, "y": 4},
+                {"matrix": [4, 3], "x": 3, "y": 4},
+                {"matrix": [4, 4], "x": 4, "y": 4},
+                {"matrix": [4, 5], "x": 5, "y": 4},
+                {"matrix": [4, 6], "x": 6, "y": 4},
+
+
+                {"matrix": [9, 7], "x": 7, "y": 4},
+                {"matrix": [9, 6], "x": 8, "y": 4},
+                {"matrix": [9, 5], "x": 9, "y": 4},
+                {"matrix": [9, 3], "x": 10, "y": 4},
+                {"matrix": [9, 2], "x": 11, "y": 4},
+                {"matrix": [9, 1], "x": 12, "y": 4}
+            ]
+        }
+    } 
+}
+
+
