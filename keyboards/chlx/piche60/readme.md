@@ -1,4 +1,4 @@
-# ppr.merro60
+# piche60
 
 ![piche60 PCB](https://imgur.com/a/piche60-8t4EzTC)
 
