@@ -9,7 +9,7 @@
             "group": "connection",
             "key": "QK_OUTPUT_NEXT",
             "aliases": [
-                "CX_NEXT",
+                "OU_NEXT",
                 "OU_AUTO"
             ]
         },
@@ -17,14 +17,13 @@
             "group": "connection",
             "key": "QK_OUTPUT_PREV",
             "aliases": [
-                "CX_PREV"
+                "OU_PREV"
             ]
         },
         "0x7782": {
             "group": "connection",
             "key": "QK_OUTPUT_USB",
             "aliases": [
-                "CX_USB",
                 "OU_USB"
             ]
         },
@@ -32,14 +31,13 @@
             "group": "connection",
             "key": "QK_OUTPUT_2P4GHZ",
             "aliases": [
-                "CX_2P4G"
+                "OU_2P4G"
             ]
         },
         "0x7784": {
             "group": "connection",
             "key": "QK_OUTPUT_BLUETOOTH",
             "aliases": [
-                "CX_BT",
                 "OU_BT"
             ]
         },
