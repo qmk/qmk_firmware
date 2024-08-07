@@ -1,11 +1,11 @@
 # le_chiffre_pi
 
-![le_chiffre_pi](https://imgur.com/a/bgj7vld)
+![le_chiffre_pi](https://imgur.com/CeyLhVh)
 
 a mostly 3d printed, solder-free, hand-wired, hot-swap, rp2040W-powered variant of tominabox1's classic le_chiffre, sans rotary encoder and with a custom default keymap.
 
 * Keyboard Maintainer: [jkaunert](https://github.com/jkaunert)
-* Hardware Supported: Hand-wired, rp_2040W(support for LED, BLE in future revision), ![HSSv4.4 3D printed sockets](https://github.com/stingray127/handwirehotswap).
+* Hardware Supported: Hand-wired, rp_2040W(support for LED, BLE in future revision), [HSSv4.4 3D printed sockets](https://github.com/stingray127/handwirehotswap).
 * Hardware Availability: [Build log coming soon](https://areyoujoshing.me)
 
 Make example for this keyboard (after setting up your build environment):
