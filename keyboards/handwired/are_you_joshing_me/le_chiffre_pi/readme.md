@@ -1,6 +1,6 @@
 # le_chiffre_pi
 
-![le_chiffre_pi](https://imgur.com/CeyLhVh)
+![le_chiffre_pi](https://github.com/user-attachments/assets/8991ef32-331e-4a57-b435-bee1fe92902c)
 
 a mostly 3d printed, solder-free, hand-wired, hot-swap, rp2040W-powered variant of tominabox1's classic le_chiffre, sans rotary encoder and with a custom default keymap.
 
