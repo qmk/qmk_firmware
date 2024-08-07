@@ -38,20 +38,44 @@ void dynamic_macro_led_blink(void) {
 
 /* User hooks for Dynamic Macros */
 
-__attribute__((weak)) void dynamic_macro_record_start_user(int8_t direction) {
-    dynamic_macro_led_blink();
+__attribute__((weak)) bool dynamic_macro_record_start_kb(int8_t direction) {
+    return dynamic_macro_record_start_user(direction);
 }
 
-__attribute__((weak)) void dynamic_macro_play_user(int8_t direction) {
+__attribute__((weak)) bool dynamic_macro_record_start_user(int8_t direction) {
     dynamic_macro_led_blink();
+    return true;
 }
 
-__attribute__((weak)) void dynamic_macro_record_key_user(int8_t direction, keyrecord_t *record) {
-    dynamic_macro_led_blink();
+__attribute__((weak)) bool dynamic_macro_play_kb(int8_t direction) {
+    return dynamic_macro_play_user(direction);
 }
 
-__attribute__((weak)) void dynamic_macro_record_end_user(int8_t direction) {
+__attribute__((weak)) bool dynamic_macro_play_user(int8_t direction) {
     dynamic_macro_led_blink();
+    return true;
+}
+
+__attribute__((weak)) bool dynamic_macro_record_key_kb(int8_t direction, keyrecord_t *record) {
+    return dynamic_macro_record_key_user(direction, record);
+}
+
+__attribute__((weak)) bool dynamic_macro_record_key_user(int8_t direction, keyrecord_t *record) {
+    dynamic_macro_led_blink();
+    return true;
+}
+
+__attribute__((weak)) bool dynamic_macro_record_end_kb(int8_t direction) {
+    return dynamic_macro_record_end_user(direction);
+}
+
+__attribute__((weak)) bool dynamic_macro_record_end_user(int8_t direction) {
+    dynamic_macro_led_blink();
+    return true;
+}
+
+__attribute__((weak)) bool dynamic_macro_valid_key_kb(uint16_t keycode, keyrecord_t *record) {
+    return dynamic_macro_valid_key_user(keycode, record);
 }
 
 __attribute__((weak)) bool dynamic_macro_valid_key_user(uint16_t keycode, keyrecord_t *record) {
@@ -74,7 +98,7 @@ __attribute__((weak)) bool dynamic_macro_valid_key_user(uint16_t keycode, keyrec
 void dynamic_macro_record_start(keyrecord_t **macro_pointer, keyrecord_t *macro_buffer, int8_t direction) {
     dprintln("dynamic macro recording: started");
 
-    dynamic_macro_record_start_user(direction);
+    dynamic_macro_record_start_kb(direction);
 
     clear_keyboard();
     layer_clear();
@@ -108,7 +132,7 @@ void dynamic_macro_play(keyrecord_t *macro_buffer, keyrecord_t *macro_end, int8_
 
     layer_state_set(saved_layer_state);
 
-    dynamic_macro_play_user(direction);
+    dynamic_macro_play_kb(direction);
 }
 
 /**
@@ -134,7 +158,7 @@ void dynamic_macro_record_key(keyrecord_t *macro_buffer, keyrecord_t **macro_poi
         **macro_pointer = *record;
         *macro_pointer += direction;
     }
-    dynamic_macro_record_key_user(direction, record);
+    dynamic_macro_record_key_kb(direction, record);
 
     dprintf("dynamic macro: slot %d length: %d/%d\n", DYNAMIC_MACRO_CURRENT_SLOT(), DYNAMIC_MACRO_CURRENT_LENGTH(macro_buffer, *macro_pointer), DYNAMIC_MACRO_CURRENT_CAPACITY(macro_buffer, macro2_end));
 }
@@ -144,7 +168,7 @@ void dynamic_macro_record_key(keyrecord_t *macro_buffer, keyrecord_t **macro_poi
  * pointer to the end of the macro.
  */
 void dynamic_macro_record_end(keyrecord_t *macro_buffer, keyrecord_t *macro_pointer, int8_t direction, keyrecord_t **macro_end) {
-    dynamic_macro_record_end_user(direction);
+    dynamic_macro_record_end_kb(direction);
 
     /* Do not save the keys being held when stopping the recording,
      * i.e. the keys used to access the layer DM_RSTP is on.
@@ -220,15 +244,7 @@ void dynamic_macro_stop_recording(void) {
     macro_id = 0;
 }
 
-/* Handle the key events related to the dynamic macros. Should be
- * called from process_record_user() like this:
- *
- *   bool process_record_user(uint16_t keycode, keyrecord_t *record) {
- *       if (!process_record_dynamic_macro(keycode, record)) {
- *           return false;
- *       }
- *       <...THE REST OF THE FUNCTION...>
- *   }
+/* Handle the key events related to the dynamic macros.
  */
 bool process_dynamic_macro(uint16_t keycode, keyrecord_t *record) {
     if (macro_id == 0) {
@@ -271,7 +287,7 @@ bool process_dynamic_macro(uint16_t keycode, keyrecord_t *record) {
                 return false;
 #endif
             default:
-                if (dynamic_macro_valid_key_user(keycode, record)) {
+                if (dynamic_macro_valid_key_kb(keycode, record)) {
                     /* Store the key in the macro buffer and process it normally. */
                     switch (macro_id) {
                         case 1:

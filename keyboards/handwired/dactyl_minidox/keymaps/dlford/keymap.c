@@ -234,12 +234,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 // Dynamic Macro Recording Backlight
-void dynamic_macro_record_start_user(int8_t direction) {
+bool dynamic_macro_record_start_user(int8_t direction) {
     is_macro_recording = true;
+    return true;
 }
 
-void dynamic_macro_record_end_user(int8_t direction) {
+bool dynamic_macro_record_end_user(int8_t direction) {
     is_macro_recording = false;
+    return true;
 }
 
 // Indicators
