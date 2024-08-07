@@ -3,6 +3,9 @@
     "keyboard_name": "piche60",
     "maintainer": "gaclee4b",
     "bootloader": "atmel-dfu",
+    "bootmagic": {
+        "matrix": [1, 1]
+    },
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,

@@ -1,6 +1,6 @@
 # piche60
 
-![piche60 PCB](https://imgur.com/a/piche60-8t4EzTC)
+![piche60 PCB](https://i.imgur.com/CBeJSUy.jpeg)
 
 - 60% alice format keyboard pcb with USB-C and unified daughterboard compatibility.
 - Layout adds 3 additional keys in the palm area voids of traditional alice format.
