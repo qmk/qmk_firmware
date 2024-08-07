@@ -24,6 +24,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 ## Bootloader
 
 Enter bootloader mode by any of the following options -
-- When plugged in, pressing and releasing the reset button on the pcb bottom behind the CAPSLOCK / A-key region
-- When plugged in, shorting out the two reset metal contacts near the 'z' key (accessible through the switch LED slot)
+- When unplugged, holding the top-left key (typically ESC) while plugging in the keyboard
+- When already plugged in, pressing and releasing the reset button on the pcb bottom behind the CAPSLOCK / A-key region
+- When already plugged in, shorting out the two reset metal contacts near the 'z' key (accessible through the switch LED slot)
 
