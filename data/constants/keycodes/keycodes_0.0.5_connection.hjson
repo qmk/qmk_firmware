@@ -7,20 +7,35 @@
     "keycodes": {
         "0x7780": {
             "group": "connection",
+            "key": "QK_OUTPUT_NEXT",
+            "aliases": [
+                "CX_NEXT",
+                "OU_AUTO"
+            ]
+        },
+        "0x7781": {
+            "group": "connection",
+            "key": "QK_OUTPUT_PREV",
+            "aliases": [
+                "CX_PREV"
+            ]
+        },
+        "0x7782": {
+            "group": "connection",
             "key": "QK_OUTPUT_USB",
             "aliases": [
                 "CX_USB",
                 "OU_USB"
             ]
         },
-        "0x7781": {
+        "0x7783": {
             "group": "connection",
             "key": "QK_OUTPUT_2P4GHZ",
             "aliases": [
                 "CX_2P4G"
             ]
         },
-        "0x7782": {
+        "0x7784": {
             "group": "connection",
             "key": "QK_OUTPUT_BLUETOOTH",
             "aliases": [
