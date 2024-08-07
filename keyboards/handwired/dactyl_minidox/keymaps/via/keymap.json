@@ -1,6 +1,6 @@
 {
     "keyboard": "handwired/dactyl_minidox",
-    "keymap": "default",
+    "keymap": "via",
     "layout": "LAYOUT_split_3x5_3",
     "config": {
         "features": {
