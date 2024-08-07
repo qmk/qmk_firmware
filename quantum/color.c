@@ -113,9 +113,16 @@ RGB hsv_to_rgb_nocie(HSV hsv) {
 void convert_rgb_to_rgbw(rgb_led_t *led) {
     // Determine lowest value in all three colors, put that into
     // the white channel and then shift all colors by that amount
-    led->w = MIN(led->r, MIN(led->g, led->b));
-    led->r -= led->w;
-    led->g -= led->w;
-    led->b -= led->w;
+    if (led->r == led->g && led->r == led->b) {
+        led->w = led->r;
+        led->r -= 0;
+        led->g -= 0;
+        led->b -= 0;
+    } else {
+        led->w = MIN(led->r, MIN(led->g, led->b));
+        led->r -= led->w;
+        led->g -= led->w;
+        led->b -= led->w;
+    }
 }
 #endif
