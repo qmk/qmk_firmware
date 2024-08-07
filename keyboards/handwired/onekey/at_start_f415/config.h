@@ -5,3 +5,6 @@
 #pragma once
 
 #define ADC_PIN A0
+
+#define BACKLIGHT_PWM_DRIVER PWMD5
+#define BACKLIGHT_PWM_CHANNEL 1
