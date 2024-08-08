@@ -1,20 +1,18 @@
-# Lily58 Pro v2
-
-![lily58_pro_v2](imgur.com image replace me!)
+# Lily58 Lite Rev3
 
 *A short description of the keyboard/project*
 
 * Keyboard Maintainer: [yuchi](https://github.com/kata0510)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: RP2040-Zero
+* Hardware Availability: [PCB Link](https://github.com/kata0510/Lily58/tree/master/Lite_Rev3)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make lily58/pro_v2:default
+    make lily58/lite_rev3:default
 
 Flashing example for this keyboard:
 
-    make lily58/pro_v2:default:flash
+    make lily58/lite_rev3:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
