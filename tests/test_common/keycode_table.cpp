@@ -687,6 +687,7 @@ std::map<uint16_t, std::string> KEYCODE_ID_TABLE = {
     {QK_TRI_LAYER_UPPER, "QK_TRI_LAYER_UPPER"},
     {QK_REPEAT_KEY, "QK_REPEAT_KEY"},
     {QK_ALT_REPEAT_KEY, "QK_ALT_REPEAT_KEY"},
+    {QK_LAYER_LOCK, "QK_LAYER_LOCK"},
     {QK_KB_0, "QK_KB_0"},
     {QK_KB_1, "QK_KB_1"},
     {QK_KB_2, "QK_KB_2"},

@@ -1,0 +1,11 @@
+{
+    "keycodes": {
+        "0x7C7B": {
+            "group": "quantum",
+            "key": "QK_LAYER_LOCK",
+            "aliases": [
+                "QK_LLCK"
+            ]
+        }
+    }
+}

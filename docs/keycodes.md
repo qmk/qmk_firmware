@@ -375,6 +375,14 @@ See also: [Key Lock](features/key_lock)
 |---------|--------------------------------------------------------------|
 |`QK_LOCK`|Hold down the next key pressed, until the key is pressed again|
 
+## Layer Lock {#layer-lock}
+
+See also: [Layer Lock](features/layer_lock)
+
+|Key            |Aliases  |Description                       |
+|---------------|---------|----------------------------------|
+|`QK_LAYER_LOCK`|`QK_LLCK`|Locks or unlocks the highest layer|
+
 ## Layer Switching {#layer-switching}
 
 See also: [Layer Switching](feature_layers#switching-and-toggling-layers)
