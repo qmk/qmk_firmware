@@ -78,6 +78,16 @@ inline void timer_clear(void) {
     }
 }
 
+/** \brief timer set
+ *
+ * FIXME: needs doc
+ */
+void timer_set(uint32_t time_ms) {
+    ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+        timer_count = time_ms;
+    }
+}
+
 /** \brief timer read
  *
  * FIXME: needs doc
