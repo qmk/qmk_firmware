@@ -737,6 +737,12 @@ ifeq ($(strip $(HD44780_ENABLE)), yes)
     SRC += hd44780.c
 endif
 
+ifeq ($(strip $(WS0010_ENABLE)), yes)
+    OPT_DEFS += -DWS0010_ENABLE
+    COMMON_VPATH += $(DRIVER_PATH)/oled
+    SRC += ws0010.c
+endif
+
 VALID_OLED_DRIVER_TYPES := custom ssd1306
 OLED_DRIVER ?= ssd1306
 VALID_OLED_TRANSPORT_TYPES := i2c spi custom

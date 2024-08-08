@@ -18,7 +18,8 @@
 
 /* key matrix size */
 #define MATRIX_ROWS 5
-#define MATRIX_COLS 14
+#define MATRIX_COLS 15
+#define DIODE_DIRECTION COL2ROW
 
 /*
  * Feature disable options
@@ -34,3 +35,5 @@
 //rgb matrix setting
 #define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
 #define IS31FL3731_I2C_ADDRESS_2 IS31FL3731_I2C_ADDRESS_VCC
+
+#define RGB_MATRIX_LED_COUNT 72
