@@ -563,6 +563,15 @@
     "plain60": {
         "target": "evyd13/plain60"
     },
+    "planck/ez": {
+        "target": "zsa/planck_ez/base"
+    },
+    "planck/ez/base": {
+        "target": "zsa/planck_ez/base"
+    },
+    "planck/ez/glow": {
+        "target": "zsa/planck_ez/glow"
+    },
     "ploopyco/trackball": {
         "target": "ploopyco/trackball/rev1_005"
     },
