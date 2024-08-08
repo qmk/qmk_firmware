@@ -45,17 +45,19 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record)
     if (click_toggle && record->event.pressed){
         clicking_notes(click_hz, click_time);
     }
-    if (keycode == QK_BOOT) {
-        reset_keyboard_kb();
-    }
     return process_record_user(keycode, record);
 }
 
-void reset_keyboard_kb(void){
+bool shutdown_kb(bool jump_to_bootloader) {
 #ifdef WATCHDOG_ENABLE
+    // Unconditionally run so shutdown_user can't mess up watchdog
     MCUSR = 0;
     wdt_disable();
     wdt_reset();
 #endif
-    reset_keyboard();
+
+    if (!shutdown_user(jump_to_bootloader)) {
+        return false;
+    }
+    return true;
 }
