@@ -1,6 +1,6 @@
 # GK87 backlight Digital Indicator Keyboard
 
-![GK87 BL Pro PCBAS](https://i.imgur.com/Z9wxLYh.jpg)
+![GK87 BL Pro ansi PCBAS](https://i.imgur.com/Z9wxLYh.jpg)
 
 ## The PCB features:
 * QMK & VIA compatibility
