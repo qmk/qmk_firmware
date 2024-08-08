@@ -91,13 +91,19 @@ const uint8_t driver_sync[IS31FL3745_DRIVER_COUNT] = {
 
 typedef struct is31fl3745_driver_t {
     uint8_t pwm_buffer[IS31FL3745_PWM_REGISTER_COUNT];
+#ifdef IS31FL3745_DOUBLE_BUFFER
+    uint8_t pwm_flush_buffer[IS31FL3745_PWM_REGISTER_COUNT];
+#endif
     bool    pwm_buffer_dirty;
     uint8_t scaling_buffer[IS31FL3745_SCALING_REGISTER_COUNT];
     bool    scaling_buffer_dirty;
 } PACKED is31fl3745_driver_t;
 
 is31fl3745_driver_t driver_buffers[IS31FL3745_DRIVER_COUNT] = {{
-    .pwm_buffer           = {0},
+    .pwm_buffer = {0},
+#ifdef IS31FL3745_DOUBLE_BUFFER
+    .pwm_flush_buffer = {0},
+#endif
     .pwm_buffer_dirty     = false,
     .scaling_buffer       = {0},
     .scaling_buffer_dirty = false,
@@ -126,10 +132,18 @@ void is31fl3745_write_pwm_buffer(uint8_t index) {
     for (uint8_t i = 0; i < IS31FL3745_PWM_REGISTER_COUNT; i += 18) {
 #if IS31FL3745_I2C_PERSISTENCE > 0
         for (uint8_t j = 0; j < IS31FL3745_I2C_PERSISTENCE; j++) {
+#    ifdef IS31FL3745_DOUBLE_BUFFER
+            if (i2c_write_register(i2c_addresses[index] << 1, i + 1, driver_buffers[index].pwm_flush_buffer + i, 18, IS31FL3745_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
+#    else
             if (i2c_write_register(i2c_addresses[index] << 1, i + 1, driver_buffers[index].pwm_buffer + i, 18, IS31FL3745_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
+#    endif
         }
 #else
+#    ifdef IS31FL3745_DOUBLE_BUFFER
+        i2c_write_register(i2c_addresses[index] << 1, i + 1, driver_buffers[index].pwm_flush_buffer + i, 18, IS31FL3745_I2C_TIMEOUT);
+#    else
         i2c_write_register(i2c_addresses[index] << 1, i + 1, driver_buffers[index].pwm_buffer + i, 18, IS31FL3745_I2C_TIMEOUT);
+#    endif
 #endif
     }
 }
@@ -222,11 +236,19 @@ void is31fl3745_set_scaling_register(uint8_t index, uint8_t red, uint8_t green, 
 
 void is31fl3745_update_pwm_buffers(uint8_t index) {
     if (driver_buffers[index].pwm_buffer_dirty) {
+        driver_buffers[index].pwm_buffer_dirty = false;
+#ifdef IS31FL3745_DOUBLE_BUFFER
+        if (memcmp(driver_buffers[index].pwm_buffer, driver_buffers[index].pwm_flush_buffer, IS31FL3745_PWM_REGISTER_COUNT) == 0) {
+            // if they are the same return early
+            return;
+        }
+
+        // copy the current buffer to the flush buffer
+        memcpy(driver_buffers[index].pwm_flush_buffer, driver_buffers[index].pwm_buffer, IS31FL3745_PWM_REGISTER_COUNT);
+#endif
         is31fl3745_select_page(index, IS31FL3745_COMMAND_PWM);
 
         is31fl3745_write_pwm_buffer(index);
-
-        driver_buffers[index].pwm_buffer_dirty = false;
     }
 }
 

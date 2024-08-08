@@ -31,6 +31,9 @@
 
 typedef struct is31fl3218_driver_t {
     uint8_t pwm_buffer[IS31FL3218_PWM_REGISTER_COUNT];
+#ifdef IS31FL3218_DOUBLE_BUFFER
+    uint8_t pwm_flush_buffer[IS31FL3218_PWM_REGISTER_COUNT];
+#endif
     bool    pwm_buffer_dirty;
     uint8_t led_control_buffer[IS31FL3218_LED_CONTROL_REGISTER_COUNT];
     bool    led_control_buffer_dirty;
@@ -38,7 +41,10 @@ typedef struct is31fl3218_driver_t {
 
 // IS31FL3218 has 18 PWM outputs and a fixed I2C address, so no chaining.
 is31fl3218_driver_t driver_buffers = {
-    .pwm_buffer               = {0},
+    .pwm_buffer = {0},
+#ifdef IS31FL3218_DOUBLE_BUFFER
+    .pwm_flush_buffer = {0},
+#endif
     .pwm_buffer_dirty         = false,
     .led_control_buffer       = {0},
     .led_control_buffer_dirty = false,
@@ -57,10 +63,18 @@ void is31fl3218_write_register(uint8_t reg, uint8_t data) {
 void is31fl3218_write_pwm_buffer(void) {
 #if IS31FL3218_I2C_PERSISTENCE > 0
     for (uint8_t i = 0; i < IS31FL3218_I2C_PERSISTENCE; i++) {
+#    ifdef IS31FL3218_DOUBLE_BUFFER
+        if (i2c_write_register(IS31FL3218_I2C_ADDRESS << 1, IS31FL3218_REG_PWM, driver_buffers.pwm_flush_buffer, 18, IS31FL3218_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
+#    else
         if (i2c_write_register(IS31FL3218_I2C_ADDRESS << 1, IS31FL3218_REG_PWM, driver_buffers.pwm_buffer, 18, IS31FL3218_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
+#    endif
     }
 #else
+#    ifdef IS31FL3218_DOUBLE_BUFFER
+    i2c_write_register(IS31FL3218_I2C_ADDRESS << 1, IS31FL3218_REG_PWM, driver_buffers.pwm_flush_buffer, 18, IS31FL3218_I2C_TIMEOUT);
+#    else
     i2c_write_register(IS31FL3218_I2C_ADDRESS << 1, IS31FL3218_REG_PWM, driver_buffers.pwm_buffer, 18, IS31FL3218_I2C_TIMEOUT);
+#    endif
 #endif
 }
 
@@ -137,11 +151,19 @@ void is31fl3218_set_led_control_register(uint8_t index, bool value) {
 
 void is31fl3218_update_pwm_buffers(void) {
     if (driver_buffers.pwm_buffer_dirty) {
+        driver_buffers.pwm_buffer_dirty = false;
+#ifdef IS31FL3218_DOUBLE_BUFFER
+        if (memcmp(driver_buffers.pwm_buffer, driver_buffers.pwm_flush_buffer, IS31FL3218_PWM_REGISTER_COUNT) == 0) {
+            // if they are the same return early
+            return;
+        }
+
+        // copy the current buffer to the flush buffer
+        memcpy(driver_buffers.pwm_flush_buffer, driver_buffers.pwm_buffer, IS31FL3218_PWM_REGISTER_COUNT);
+#endif
         is31fl3218_write_pwm_buffer();
         // Load PWM registers and LED Control register data
         is31fl3218_write_register(IS31FL3218_REG_UPDATE, 0x01);
-
-        driver_buffers.pwm_buffer_dirty = false;
     }
 }
 
