@@ -368,6 +368,34 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
 
 ```
 
+### SpaceMouse Module (UART)
+
+To use the SpaceMouse module to control the pointer, add this to your `rules.mk`
+
+```make
+POINTING_DEVICE_DRIVER = spacemouse_module
+```
+
+The SpaceMouse Module is a UART driven sensor, with 6 axes of motion.  
+
+| Setting (`config.h`)         | Description                                                                                 | Default       |
+| ---------------------------- | ------------------------------------------------------------------------------------------- | ------------- |
+| `SPACEMOUSE_USE_TILT_AXIS`   | Uses the tilt axes for movement rather than the shift axes.                             | _not_defined_ |
+
+
+By default, not all of the axes are utilized.  If you would like to use more of them, you can do so by using this custom function, which translates the data from the SpaceMouse Module to the pointing device report.
+
+```c
+void spacemouse_module_handle_axes(spacemouse_data_t *spacemouse_data, report_mouse_t* mouse_report) {
+    mouse_report->x = CONSTRAIN_HID_XY(spacemouse_data->x);
+    mouse_report->y = CONSTRAIN_HID_XY(spacemouse_data->y);
+    mouse_report->h = CONSTRAIN_HID(spacemouse_data->b);
+    mouse_report->v = CONSTRAIN_HID(spacemouse_data->c);
+    
+    mouse_report->buttons = pointing_device_handle_buttons(mouse_report->buttons, (space_mouse_data->z < -10), KC_BTN1);
+}
+```
+
 ### Custom Driver
 
 If you have a sensor type that isn't supported above, a custom option is available by adding the following to your `rules.mk`
