@@ -1537,5 +1537,8 @@
     },
     "dnworks/9973": {
         "target": "dnworks/tkl87"
+    },
+    "dnworks/sbl": {
+        "target": "dnworks/60percent"
     }
 }
