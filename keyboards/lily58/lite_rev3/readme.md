@@ -1,6 +1,8 @@
 # Lily58 Lite Rev3
 
-*A short description of the keyboard/project*
+![lily58_lite](https://user-images.githubusercontent.com/6285554/84393842-13960900-ac37-11ea-811e-65db2948ca73.jpg)
+![lily58_lite_rev3_pcb](https://github.com/user-attachments/assets/1f1b7ba9-0dc8-4819-9092-49406aa220d0)
+
 
 * Keyboard Maintainer: [yuchi](https://github.com/kata0510)
 * Hardware Supported: RP2040-Zero
