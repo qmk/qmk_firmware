@@ -19,6 +19,10 @@
 #include "print.h"
 #include "via.h"
 
+#ifdef SPLIT_KEYBOARD
+#    include "transactions.h"
+#endif
+
 #ifdef VIA_ENABLE
 
 void ec_rescale_values(uint8_t item);
@@ -49,6 +53,12 @@ void via_config_set_value(uint8_t *data) {
     // data = [ value_id, value_data ]
     uint8_t *value_id   = &(data[0]);
     uint8_t *value_data = &(data[1]);
+
+#    ifdef SPLIT_KEYBOARD
+    if (is_keyboard_master()) {
+        transaction_rpc_send(RPC_ID_VIA_CMD, 30, data);
+    }
+#    endif
 
     switch (*value_id) {
         case id_actuation_mode: {
@@ -258,8 +268,8 @@ void ec_save_threshold_data(uint8_t option) {
     // Save Rapid Trigger mode thresholds and rescale them for runtime usage
     else if (option == 1) {
         eeprom_ec_config.mode_1_initial_deadzone_offset = ec_config.mode_1_initial_deadzone_offset;
-        eeprom_ec_config.mode_1_actuation_offset   = ec_config.mode_1_actuation_offset;
-        eeprom_ec_config.mode_1_release_offset     = ec_config.mode_1_release_offset;
+        eeprom_ec_config.mode_1_actuation_offset        = ec_config.mode_1_actuation_offset;
+        eeprom_ec_config.mode_1_release_offset          = ec_config.mode_1_release_offset;
         ec_rescale_values(2);
     }
     eeconfig_update_kb_datablock(&eeprom_ec_config);
@@ -359,5 +369,15 @@ void ec_clear_bottoming_calibration_data(void) {
     uprintf("# Bottoming calibration data cleared #\n");
     uprintf("######################################\n");
 }
+
+#    ifdef SPLIT_KEYBOARD
+void via_cmd_slave_handler(uint8_t m2s_size, const void *m2s_buffer, uint8_t s2m_size, void *s2m_buffer) {
+    if (m2s_size == 30) {
+        via_config_set_value((uint8_t *)m2s_buffer);
+    } else {
+        uprintf("Unexpected response in slave handler\n");
+    }
+}
+#    endif
 
 #endif // VIA_ENABLE
