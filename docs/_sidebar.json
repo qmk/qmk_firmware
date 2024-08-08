@@ -122,6 +122,7 @@
                     { "text": "EEPROM", "link": "/feature_eeprom" },
                     { "text": "Key Lock", "link": "/features/key_lock" },
                     { "text": "Key Overrides", "link": "/features/key_overrides" },
+                    { "text": "Key Cancellation", "link": "/features/key_cancellation" },
                     { "text": "Layers", "link": "/feature_layers" },
                     { "text": "One Shot Keys", "link": "/one_shot_keys" },
                     { "text": "OS Detection", "link": "/features/os_detection" },

@@ -106,6 +106,12 @@ typedef struct PACKED {
 #define EECONFIG_KEYMAP_SWAP_GRAVE_ESC (1 << 5)
 #define EECONFIG_KEYMAP_SWAP_BACKSLASH_BACKSPACE (1 << 6)
 #define EECONFIG_KEYMAP_NKRO (1 << 7)
+#define EECONFIG_KEYMAP_SWAP_LCTL_LGUI (1 << 8)
+#define EECONFIG_KEYMAP_SWAP_RCTL_RGUI (1 << 9)
+#define EECONFIG_KEYMAP_ONESHOT (1 << 10)
+#define EECONFIG_KEYMAP_SWAP_ESC_CAPS (1 << 11)
+#define EECONFIG_KEYMAP_AUTOCORRECT (1 << 12)
+#define EECONFIG_KEYMAP_KEY_CANCELLATION (1 << 13)
 
 bool eeconfig_is_enabled(void);
 bool eeconfig_is_disabled(void);
