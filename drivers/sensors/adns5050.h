@@ -83,3 +83,4 @@ void              adns5050_set_cpi(uint16_t cpi);
 uint16_t          adns5050_get_cpi(void);
 int8_t            convert_twoscomp(uint8_t data);
 bool              adns5050_check_signature(void);
+void              adns5050_power_down(void);
