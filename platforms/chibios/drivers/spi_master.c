@@ -19,12 +19,32 @@
 #include "timer.h"
 
 static bool spiStarted = false;
-
 #if SPI_SELECT_MODE == SPI_SELECT_MODE_NONE
-static pin_t currentSlavePin;
+static pin_t currentSlavePin       = NO_PIN;
+static bool  current_cs_active_low = true;
 #endif
 
 static SPIConfig spiConfig;
+
+static inline void spi_select(void) {
+    spiSelect(&SPI_DRIVER);
+
+#if SPI_SELECT_MODE == SPI_SELECT_MODE_NONE
+    if (currentSlavePin != NO_PIN) {
+        gpio_write_pin(currentSlavePin, current_cs_active_low ? 0 : 1);
+    }
+#endif
+}
+
+static inline void spi_unselect(void) {
+#if SPI_SELECT_MODE == SPI_SELECT_MODE_NONE
+    if (currentSlavePin != NO_PIN) {
+        gpio_write_pin(currentSlavePin, current_cs_active_low ? 1 : 0);
+    }
+#endif
+
+    spiUnselect(&SPI_DRIVER);
+}
 
 __attribute__((weak)) void spi_init(void) {
     static bool is_initialised = false;
@@ -63,7 +83,7 @@ __attribute__((weak)) void spi_init(void) {
     }
 }
 
-bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
+bool spi_start_extended(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor, bool cs_active_low) {
 #if (SPI_USE_MUTUAL_EXCLUSION == TRUE)
     spiAcquireBus(&SPI_DRIVER);
 #endif // (SPI_USE_MUTUAL_EXCLUSION == TRUE)
@@ -71,7 +91,6 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
     if (spiStarted) {
         return false;
     }
-
 #if SPI_SELECT_MODE != SPI_SELECT_MODE_NONE
     if (slavePin == NO_PIN) {
         return false;
@@ -271,7 +290,8 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
 
     spiStarted = true;
 #if SPI_SELECT_MODE == SPI_SELECT_MODE_NONE
-    currentSlavePin = slavePin;
+    currentSlavePin       = slavePin;
+    current_cs_active_low = cs_active_low;
 #endif
 #if SPI_SELECT_MODE == SPI_SELECT_MODE_PAD
     spiConfig.ssport = PAL_PORT(slavePin);
@@ -286,14 +306,13 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
 #endif
 
     spiStart(&SPI_DRIVER, &spiConfig);
-    spiSelect(&SPI_DRIVER);
-#if SPI_SELECT_MODE == SPI_SELECT_MODE_NONE
-    if (slavePin != NO_PIN) {
-        gpio_write_pin_low(slavePin);
-    }
-#endif
+    spi_select();
 
     return true;
+}
+
+bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
+    return spi_start_extended(slavePin, lsbFirst, mode, divisor, true);
 }
 
 spi_status_t spi_write(uint8_t data) {
@@ -322,12 +341,7 @@ spi_status_t spi_receive(uint8_t *data, uint16_t length) {
 
 void spi_stop(void) {
     if (spiStarted) {
-#if SPI_SELECT_MODE == SPI_SELECT_MODE_NONE
-        if (currentSlavePin != NO_PIN) {
-            gpio_write_pin_high(currentSlavePin);
-        }
-#endif
-        spiUnselect(&SPI_DRIVER);
+        spi_unselect();
         spiStop(&SPI_DRIVER);
         spiStarted = false;
     }

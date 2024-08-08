@@ -78,6 +78,7 @@ extern "C" {
 void spi_init(void);
 
 bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor);
+bool spi_start_extended(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor, bool cs_active_low);
 
 spi_status_t spi_write(uint8_t data);
 
