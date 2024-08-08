@@ -22,6 +22,12 @@
             {"$ref": "#/json_file_path"}
         ]
     },
+    "define": {
+        "type": "string",
+        "minLength": 2,
+        "maxLength": 50,
+        "pattern": "^[A-Z_]*$"
+    },
     "filename": {
         "type": "string",
         "minLength": 1,
@@ -175,6 +181,10 @@
         "type": "string",
         "minLength": 1,
         "maxLength": 250
+    },
+    "text_unsigned_int": {
+        "type": "string",
+        "pattern": "^[0-8]+$"
     },
     "unsigned_decimal": {
         "type": "number",

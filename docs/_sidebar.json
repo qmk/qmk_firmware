@@ -135,7 +135,8 @@
                     { "text": "Tri Layer", "link": "/features/tri_layer" },
                     { "text": "Unicode", "link": "/features/unicode" },
                     { "text": "Userspace", "link": "/feature_userspace" },
-                    { "text": "WPM Calculation", "link": "/features/wpm" }
+                    { "text": "WPM Calculation", "link": "/features/wpm" },
+                    { "text": "XAP", "link": "/xap" }
                 ]
             },
             {
