@@ -6,7 +6,7 @@ A family of split keyboards with embedded RP2040 controllers, support for Cirque
 -   Hardware Supported: [Bastardkb Dilemma](https://github.com/Bastardkb/Dilemma)
 -   Hardware Availability: [Bastardkb.com](https://bastardkb.com/)
 
-A DIY version of the 3x5_2 PCB with promicro compatible footprint is also available.
+A DIY version of the 3x5_2 PCB with promicro compatible footprint is also available, but no longer supported. Please see the archived tree at commit [`f0ffdc3b6d`](https://github.com/Bastardkb/bastardkb-qmk/tree/f0ffdc3b6d34b1d0e72474bc2d2296399871d5b9/keyboards/bastardkb/dilemma/).
 
 Make example for this keyboard (after setting up your build environment):
 
