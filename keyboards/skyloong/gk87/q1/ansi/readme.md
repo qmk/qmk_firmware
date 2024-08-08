@@ -1,6 +1,6 @@
 # GK87 Q1 Digital Indicator Keyboard
 
-![GK87 Q1 PCBAS](https://i.imgur.com/ckupRBG.jpeg)
+![GK87 Q1 ansi PCBAS](https://i.imgur.com/ckupRBG.jpeg)
 
 ## The PCB features:
 * QMK & VIA compatibility
