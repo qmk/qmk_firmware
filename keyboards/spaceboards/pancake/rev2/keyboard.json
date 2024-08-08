@@ -1,8 +1,8 @@
 {
   "keyboard_name": "Pancake 2",
-  "manufacturer": "Spaceman",
+  "manufacturer": "Spaceboards",
   "url": "",
-  "maintainer": "Spaceman",
+  "maintainer": "Spaceboards",
   "usb": {
     "vid": "0x5342",
     "pid": "0x5032",
