@@ -265,6 +265,7 @@ void EVENT_USB_Device_Disconnect(void) {
 void EVENT_USB_Device_Reset(void) {
     print("[R]");
     usb_device_state_set_reset();
+    usb_device_state_set_protocol(USB_PROTOCOL_REPORT);
 }
 
 /** \brief Event USB Device Connect
