@@ -14,3 +14,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #pragma once
+
+
+#define UART_DRIVER SD2
+
+#define UART_TX_PIN	        A2
+#define UART_TX_PAL_MODE    7
+
+#define UART_RX_PIN         A3
+#define UART_RX_PAL_MODE	7
+ 

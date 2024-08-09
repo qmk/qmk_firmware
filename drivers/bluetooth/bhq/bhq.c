@@ -14,67 +14,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "bhq.h"
-#include <stdbool.h>
+
+#include "uart.h"
+
 #include "quantum.h"
 #include "bluetooth.h"
 #include "raw_hid.h"
 #include "report_buffer.h"
 
-// **************************** uart io  define ****************************
-// uart2: Tx:A2 Rx:A3
-#ifndef BT_DRIVER_UART_TX_BANK
-#    define BT_DRIVER_UART_TX_BANK GPIOA
-#endif
-#ifndef BT_DRIVER_UART_RX_BANK
-#    define BT_DRIVER_UART_RX_BANK GPIOA
-#endif
-
-#ifndef BT_DRIVER_UART_TX
-#    define BT_DRIVER_UART_TX 2
-#endif
-
-#ifndef BT_DRIVER_UART_RX
-#    define BT_DRIVER_UART_RX 3
-#endif
-// select uart2
-#ifndef BT_DRIVER
-#    define BT_DRIVER SD2
-#endif
-
-#ifdef USE_GPIOV1
-#    ifndef BT_DRIVER_UART_TX_PAL_MODE
-#        define BT_DRIVER_UART_TX_PAL_MODE PAL_MODE_STM32_ALTERNATE_PUSHPULL
-#    endif
-#    ifndef BT_DRIVER_UART_RX_PAL_MODE
-#        define BT_DRIVER_UART_RX_PAL_MODE PAL_MODE_STM32_ALTERNATE_PUSHPULL
-#    endif
-#else
-// The default PAL alternate modes are used to signal that the pins are used for I2C
-#    ifndef BT_DRIVER_UART_TX_PAL_MODE
-#        define BT_DRIVER_UART_TX_PAL_MODE 7
-#    endif
-#    ifndef BT_DRIVER_UART_RX_PAL_MODE
-#        define BT_DRIVER_UART_RX_PAL_MODE 7
-#    endif
-#endif
-// **************************** uart io  define ****************************
 
 uint8_t bhkBuff[PACKET_MAX_LEN] = {0};
+uint32_t uartTimeoutBuffer = 0;         // uart timeout 
 
-void bhq_init(bool wakeup_from_low_power_mode) {
-    SerialConfig config = {
-        .speed = 115200,
-    };
-    sdStart(&BT_DRIVER, &config);
-    palSetPadMode(BT_DRIVER_UART_TX_BANK, BT_DRIVER_UART_TX, PAL_MODE_ALTERNATE(BT_DRIVER_UART_TX_PAL_MODE));
-    palSetPadMode(BT_DRIVER_UART_RX_BANK, BT_DRIVER_UART_RX, PAL_MODE_ALTERNATE(BT_DRIVER_UART_RX_PAL_MODE));
+void bhq_init(bool wakeup_from_low_power_mode) 
+{
+    uart_init(115200);
 }
 
 void bhq_Disable(void)
 {
-    sdStop(&BT_DRIVER);
-    palSetPadMode(BT_DRIVER_UART_TX_BANK, BT_DRIVER_UART_TX, PAL_MODE_INPUT_ANALOG);
-    palSetPadMode(BT_DRIVER_UART_RX_BANK, BT_DRIVER_UART_RX, PAL_MODE_INPUT_ANALOG);
+
 }
 
 
@@ -95,9 +54,15 @@ uint16_t bhkSumCrc(uint8_t *data, uint16_t length) ;
 // bhq model send uart data
 void BHQ_SendData(uint8_t *dat, uint16_t length)
 {
-    sdWrite(&BT_DRIVER,dat, length);
+    uart_transmit(dat, length);
 }
-
+int16_t BHQ_ReadData(void) {
+    if (uart_available()) {
+        return uart_read();
+    } else {
+        return -1;
+    }
+}
 
 void BHQ_SendCmd(uint8_t isack, uint8_t *dat, uint8_t datLength)
 {
@@ -274,67 +239,39 @@ void bhq_task(void)
     static uint8_t u_sta = 0;
     uint8_t bytedata = 0;
     static bool    wait_for_new_pkt = false;
-    msg_t msg  = 0;
-    if(BT_DRIVER.iqueue.q_counter > 0)
-    {
-        // 检查是否有数据可用
-        msg = sdGetTimeout(&BT_DRIVER, TIME_IMMEDIATE);
-        bytedata = (uint8_t)msg;
-        if (msg == Q_TIMEOUT) 
-        {
-            // 处理超时，没有数据可用
-            while (true)
-            {
-                // 检查输入队列是否为空
-                if (BT_DRIVER.iqueue.q_counter > 0) 
-                {
-                    // 队列中有数据，处理数据
-                    msg = sdGetTimeout(&BT_DRIVER, TIME_IMMEDIATE);
-                    // 处理数据的代码
-                    if (msg == Q_TIMEOUT) 
-                    {
-                        // 队列为空，退出循环
-                        break;
-                    }
-                } 
-                else 
-                {
-                    // 队列为空，退出循环
-                    break;
-                }
 
-            }
-            index = 0;
-            u_sta = 0;
-            dataLength = 0;
-            memset(buf, 0, PACKET_MAX_LEN);
-        } 
-        else 
+    int16_t temp = BHQ_ReadData();
+    if(temp == -1)
+    {
+        if(sync_timer_elapsed32(uartTimeoutBuffer) > 1500)
         {
-            wait_for_new_pkt = true;
+            uartTimeoutBuffer = sync_timer_read32();
+            if(index > 0)
+            {
+                index = 0;
+                u_sta = 0;
+                dataLength = 0;
+                memset(buf, 0, PACKET_MAX_LEN);
+            }
         }
+        else
+        {
+            uartTimeoutBuffer = sync_timer_read32();
+        }
+        
     }
     else
     {
-        if(index > 0)
-        {
-            index = 0;
-            u_sta = 0;
-            dataLength = 0;
-            memset(buf, 0, PACKET_MAX_LEN);
-        }
-       
+        wait_for_new_pkt = true;
     }
-
 
     if(wait_for_new_pkt == false)
     {
         return;
     }
     wait_for_new_pkt = false;
-
-
-
+    bytedata = (uint8_t)temp;
+    uartTimeoutBuffer = sync_timer_read32();
     switch (u_sta)
     {
         case 0:
