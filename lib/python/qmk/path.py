@@ -12,11 +12,20 @@ from qmk.errors import NoSuchKeyboardError
 def is_keyboard(keyboard_name):
     """Returns True if `keyboard_name` is a keyboard we can compile.
     """
-    if keyboard_name:
-        keyboard_path = QMK_FIRMWARE / 'keyboards' / keyboard_name
-        rules_mk = keyboard_path / 'rules.mk'
+    if not keyboard_name:
+        return False
 
-        return rules_mk.exists()
+    # keyboard_name values of 'c:/something' or '/something' trigger append issues
+    # due to "If the argument is an absolute path, the previous path is ignored"
+    # however it should always be a folder located under qmk_firmware/keyboards
+    if Path(keyboard_name).is_absolute():
+        return False
+
+    keyboard_path = QMK_FIRMWARE / 'keyboards' / keyboard_name
+    rules_mk = keyboard_path / 'rules.mk'
+    keyboard_json = keyboard_path / 'keyboard.json'
+
+    return rules_mk.exists() or keyboard_json.exists()
 
 
 def under_qmk_firmware(path=Path(os.environ['ORIG_CWD'])):

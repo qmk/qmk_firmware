@@ -12,6 +12,7 @@ from qmk.constants import QMK_FIRMWARE
 from qmk.commands import find_make, get_make_parallel_args, build_environment
 from qmk.search import search_keymap_targets, search_make_targets
 from qmk.build_targets import BuildTarget, JsonKeymapBuildTarget
+from qmk.util import maybe_exit_config
 
 
 def mass_compile_targets(targets: List[BuildTarget], clean: bool, dry_run: bool, no_temp: bool, parallel: int, **env):
@@ -25,7 +26,7 @@ def mass_compile_targets(targets: List[BuildTarget], clean: bool, dry_run: bool,
     if dry_run:
         cli.log.info('Compilation targets:')
         for target in sorted(targets, key=lambda t: (t.keyboard, t.keymap)):
-            cli.log.info(f"{{fg_cyan}}qmk compile -kb {target[0]} -km {target[1]}{{fg_reset}}")
+            cli.log.info(f"{{fg_cyan}}qmk compile -kb {target.keyboard} -km {target.keymap}{{fg_reset}}")
     else:
         if clean:
             cli.run([make_cmd, 'clean'], capture_output=False, stdin=DEVNULL)
@@ -52,9 +53,9 @@ all: {keyboard_safe}_{keymap_name}_binary
 	{' '.join(command)} \\
 		>>"{build_log}" 2>&1 \\
 		|| cp "{build_log}" "{failed_log}"
-	@{{ grep '\[ERRORS\]' "{build_log}" >/dev/null 2>&1 && printf "Build %-64s \e[1;31m[ERRORS]\e[0m\\n" "{keyboard_name}:{keymap_name}" ; }} \\
-		|| {{ grep '\[WARNINGS\]' "{build_log}" >/dev/null 2>&1 && printf "Build %-64s \e[1;33m[WARNINGS]\e[0m\\n" "{keyboard_name}:{keymap_name}" ; }} \\
-		|| printf "Build %-64s \e[1;32m[OK]\e[0m\\n" "{keyboard_name}:{keymap_name}"
+	@{{ grep '\\[ERRORS\\]' "{build_log}" >/dev/null 2>&1 && printf "Build %-64s \\e[1;31m[ERRORS]\\e[0m\\n" "{keyboard_name}:{keymap_name}" ; }} \\
+		|| {{ grep '\\[WARNINGS\\]' "{build_log}" >/dev/null 2>&1 && printf "Build %-64s \\e[1;33m[WARNINGS]\\e[0m\\n" "{keyboard_name}:{keymap_name}" ; }} \\
+		|| printf "Build %-64s \\e[1;32m[OK]\\e[0m\\n" "{keyboard_name}:{keymap_name}"
 	@rm -f "{build_log}" || true
 """# noqa
                 )
@@ -100,6 +101,8 @@ all: {keyboard_safe}_{keymap_name}_binary
 def mass_compile(cli):
     """Compile QMK Firmware against all keyboards.
     """
+    maybe_exit_config(should_exit=False, should_reraise=True)
+
     if len(cli.args.builds) > 0:
         json_like_targets = list([Path(p) for p in filter(lambda e: Path(e).exists() and Path(e).suffix == '.json', cli.args.builds)])
         make_like_targets = list(filter(lambda e: Path(e) not in json_like_targets, cli.args.builds))

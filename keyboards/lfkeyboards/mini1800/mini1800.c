@@ -13,8 +13,8 @@ void matrix_init_kb(void)
     matrix_init_user();
 #ifndef AUDIO_ENABLE
     // If we're not using the audio pin, drive it low
-    setPinOutput(C6);
-    writePinLow(C6);
+    gpio_set_pin_output(C6);
+    gpio_write_pin_low(C6);
 #endif
     _delay_ms(500);
 #ifdef WATCHDOG_ENABLE
@@ -24,12 +24,10 @@ void matrix_init_kb(void)
 #endif
 }
 
-void matrix_scan_kb(void)
-{
+void housekeeping_task_kb(void) {
 #ifdef WATCHDOG_ENABLE
     wdt_reset();
 #endif
-    matrix_scan_user();
 }
 
 void click(uint16_t freq, uint16_t duration){

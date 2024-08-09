@@ -27,21 +27,19 @@ void matrix_init_kb(void)
 #ifdef AUDIO_ENABLE
     // audio_init() sets PB5 to output and drives it low, which breaks our matrix
     // so reset PB5 to input
-    setPinInput(B5);
-    writePinHigh(B5);
+    gpio_set_pin_input(B5);
+    gpio_write_pin_high(B5);
 #else
     // If we're not using the audio pin, drive it low
-    setPinOutput(C6);
-    writePinLow(C6);
+    gpio_set_pin_output(C6);
+    gpio_write_pin_low(C6);
 #endif
 }
 
-void matrix_scan_kb(void)
-{
+void housekeeping_task_kb(void) {
 #ifdef WATCHDOG_ENABLE
     wdt_reset();
 #endif
-    matrix_scan_user();
 }
 
 void click(uint16_t freq, uint16_t duration){

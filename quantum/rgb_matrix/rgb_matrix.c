@@ -84,7 +84,7 @@ static last_hit_t last_hit_buffer;
 #endif // RGB_MATRIX_KEYREACTIVE_ENABLED
 
 // split rgb matrix
-#if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
+#if defined(RGB_MATRIX_SPLIT)
 const uint8_t k_rgb_matrix_split[2] = RGB_MATRIX_SPLIT;
 #endif
 
@@ -100,7 +100,7 @@ void eeconfig_update_rgb_matrix_default(void) {
     rgb_matrix_config.mode   = RGB_MATRIX_DEFAULT_MODE;
     rgb_matrix_config.hsv    = (HSV){RGB_MATRIX_DEFAULT_HUE, RGB_MATRIX_DEFAULT_SAT, RGB_MATRIX_DEFAULT_VAL};
     rgb_matrix_config.speed  = RGB_MATRIX_DEFAULT_SPD;
-    rgb_matrix_config.flags  = LED_FLAG_ALL;
+    rgb_matrix_config.flags  = RGB_MATRIX_DEFAULT_FLAGS;
     eeconfig_flush_rgb_matrix(true);
 }
 
@@ -148,7 +148,7 @@ void rgb_matrix_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void rgb_matrix_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
-#if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
+#if defined(RGB_MATRIX_SPLIT)
     for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++)
         rgb_matrix_set_color(i, red, green, blue);
 #else
@@ -156,7 +156,7 @@ void rgb_matrix_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
 #endif
 }
 
-void process_rgb_matrix(uint8_t row, uint8_t col, bool pressed) {
+void rgb_matrix_handle_key_event(uint8_t row, uint8_t col, bool pressed) {
 #ifndef RGB_MATRIX_SPLIT
     if (!is_keyboard_master()) return;
 #endif
@@ -460,12 +460,6 @@ void rgb_matrix_init(void) {
     }
 #endif // RGB_MATRIX_KEYREACTIVE_ENABLED
 
-    if (!eeconfig_is_enabled()) {
-        dprintf("rgb_matrix_init_drivers eeconfig is not enabled.\n");
-        eeconfig_init();
-        eeconfig_update_rgb_matrix_default();
-    }
-
     eeconfig_init_rgb_matrix();
     if (!rgb_matrix_config.mode) {
         dprintf("rgb_matrix_init_drivers rgb_matrix_config.mode = 0. Write default values to EEPROM.\n");
@@ -475,7 +469,7 @@ void rgb_matrix_init(void) {
 }
 
 void rgb_matrix_set_suspend_state(bool state) {
-#ifdef RGB_DISABLE_WHEN_USB_SUSPENDED
+#ifdef RGB_MATRIX_SLEEP
     if (state && !suspend_state) { // only run if turning off, and only once
         rgb_task_render(0);        // turn off all LEDs when suspending
         rgb_task_flush(0);         // and actually flash led state to LEDs
