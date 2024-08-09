@@ -23,8 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "raw_hid.h"
 #endif
 
-uint8_t keyboard_protocol = 1;
-
 void main_suspend_action(void) {
     ui_powerdown();
 }

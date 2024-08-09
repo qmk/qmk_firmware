@@ -318,7 +318,7 @@ void send_nkro_report(void) {
  */
 void send_keyboard_report(void) {
 #ifdef NKRO_ENABLE
-    if (keyboard_protocol && keymap_config.nkro) {
+    if (usb_device_state_get_protocol() == USB_PROTOCOL_REPORT && keymap_config.nkro) {
         send_nkro_report();
     } else {
         send_6kro_report();

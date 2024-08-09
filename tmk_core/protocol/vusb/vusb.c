@@ -85,10 +85,6 @@ _Static_assert(TOTAL_INTERFACES <= MAX_INTERFACES, "There are not enough availab
 #    error Mouse/Extra Keys share an endpoint with Console. Please disable one of the two.
 #endif
 
-static uint8_t keyboard_led_state = 0;
-uint8_t        keyboard_idle      = 0;
-uint8_t        keyboard_protocol  = 1;
-
 static report_keyboard_t keyboard_report_sent;
 
 static void send_report_fragment(uint8_t endpoint, void *data, size_t size) {
@@ -224,12 +220,8 @@ host_driver_t *vusb_driver(void) {
     return &driver;
 }
 
-static uint8_t keyboard_leds(void) {
-    return keyboard_led_state;
-}
-
 static void send_keyboard(report_keyboard_t *report) {
-    if (!keyboard_protocol) {
+    if (usb_device_state_get_protocol() == USB_PROTOCOL_BOOT) {
         send_report(1, &report->mods, 8);
     } else {
         send_report(1, report, sizeof(report_keyboard_t));
@@ -304,11 +296,15 @@ usbMsgLen_t usbFunctionSetup(uchar data[8]) {
                 break;
             case USBRQ_HID_GET_IDLE:
                 dprint("GET_IDLE:");
-                usbMsgPtr = (usbMsgPtr_t)&keyboard_idle;
+                static uint8_t keyboard_idle;
+                keyboard_idle = usb_device_state_get_idle_rate();
+                usbMsgPtr     = (usbMsgPtr_t)&keyboard_idle;
                 return 1;
             case USBRQ_HID_GET_PROTOCOL:
                 dprint("GET_PROTOCOL:");
-                usbMsgPtr = (usbMsgPtr_t)&keyboard_protocol;
+                static uint8_t keyboard_protocol;
+                keyboard_protocol = usb_device_state_get_protocol();
+                usbMsgPtr         = (usbMsgPtr_t)&keyboard_protocol;
                 return 1;
             case USBRQ_HID_SET_REPORT:
                 dprint("SET_REPORT:");
@@ -320,13 +316,13 @@ usbMsgLen_t usbFunctionSetup(uchar data[8]) {
                 }
                 return USB_NO_MSG; // to get data in usbFunctionWrite
             case USBRQ_HID_SET_IDLE:
-                keyboard_idle = (rq->wValue.word & 0xFF00) >> 8;
-                dprintf("SET_IDLE: %02X", keyboard_idle);
+                usb_device_state_set_idle_rate(rq->wValue.hbyte);
+                dprintf("SET_IDLE: %02X", usb_device_state_get_idle_rate());
                 break;
             case USBRQ_HID_SET_PROTOCOL:
                 if (rq->wIndex.word == KEYBOARD_INTERFACE) {
-                    keyboard_protocol = rq->wValue.word & 0xFF;
-                    dprintf("SET_PROTOCOL: %02X", keyboard_protocol);
+                    usb_device_state_set_protocol(rq->wValue.lbyte);
+                    dprintf("SET_PROTOCOL: %02X", usb_device_state_get_protocol());
                 }
                 break;
             default:
