@@ -1,18 +1,18 @@
 {
     "keyboard_name": "Infinity87 Rev.2",
-    "manufacturer": "Mechlovin.Studio",
     "url": "",
-    "maintainer": "Mechlovin' Studio",
     "usb": {
-        "vid": "0x4D4C",
         "pid": "0x8702",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "custom": true,
+        "custom_lite": true
+    },
+    "diode_direction": "ROW2COL",
     "features": {
-        "bootmagic": true,
-        "mousekey": true,
-        "extrakey": true,
-        "nkro": true,
+        "console": false,
+        "command": false,
         "backlight": true,
         "rgblight": true
     },
