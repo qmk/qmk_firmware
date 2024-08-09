@@ -4,15 +4,15 @@
 
 ## The PCB features:
 * QMK & VIA compatibility
-* RGB Matrix backlight
-* Mechanical switches Keyboard with LED display.
+* RGB Matrix effect backlight
+* Mechanical switches Keyboard and supporting up to 4 encoders which are can be replaced with switches.
 
 
 The following is the QMK Firmware for the Destop 75% keylayout -  designed by Dongguan Jizhi Electronic Technology Co., Ltd
 
 * Keyboard Maintainer: [NaturalZh](https://github.com/NaturalZh)
-* Hardware Supported: DestopPCB for Skyloong keylayout 87%, STM32F103C8T6
-* Hardware Availability: http://www.skyloong.com.cn  https://skyloong.vip
+* Hardware Supported: DestopPCB for Skyloong keylayout 75%, STM32F103C8T6
+* Hardware Availability: http://www.skyloong.com.cn  https://skyloongtech.com
 
 Make example for this keyboard (after setting up your build environment):
 
