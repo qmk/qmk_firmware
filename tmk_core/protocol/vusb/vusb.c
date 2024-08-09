@@ -30,6 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "wait.h"
 #include "usb_descriptor_common.h"
+#include "usb_device_state.h"
 
 #ifdef RAW_ENABLE
 #    include "raw_hid.h"
@@ -84,10 +85,6 @@ _Static_assert(TOTAL_INTERFACES <= MAX_INTERFACES, "There are not enough availab
 #if (defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)) && CONSOLE_ENABLE
 #    error Mouse/Extra Keys share an endpoint with Console. Please disable one of the two.
 #endif
-
-static uint8_t keyboard_led_state = 0;
-uint8_t        keyboard_idle      = 0;
-uint8_t        keyboard_protocol  = 1;
 
 static report_keyboard_t keyboard_report_sent;
 
@@ -212,24 +209,19 @@ void console_task(void) {
 /*------------------------------------------------------------------*
  * Host driver
  *------------------------------------------------------------------*/
-static uint8_t keyboard_leds(void);
-static void    send_keyboard(report_keyboard_t *report);
-static void    send_nkro(report_nkro_t *report);
-static void    send_mouse(report_mouse_t *report);
-static void    send_extra(report_extra_t *report);
+static void send_keyboard(report_keyboard_t *report);
+static void send_nkro(report_nkro_t *report);
+static void send_mouse(report_mouse_t *report);
+static void send_extra(report_extra_t *report);
 
-static host_driver_t driver = {keyboard_leds, send_keyboard, send_nkro, send_mouse, send_extra};
+static host_driver_t driver = {.keyboard_leds = usb_device_state_get_leds, .send_keyboard = send_keyboard, .send_nkro = send_nkro, .send_mouse = send_mouse, .send_extra = send_extra};
 
 host_driver_t *vusb_driver(void) {
     return &driver;
 }
 
-static uint8_t keyboard_leds(void) {
-    return keyboard_led_state;
-}
-
 static void send_keyboard(report_keyboard_t *report) {
-    if (!keyboard_protocol) {
+    if (usb_device_state_get_protocol() == USB_PROTOCOL_BOOT) {
         send_report(1, &report->mods, 8);
     } else {
         send_report(1, report, sizeof(report_keyboard_t));
@@ -304,11 +296,15 @@ usbMsgLen_t usbFunctionSetup(uchar data[8]) {
                 break;
             case USBRQ_HID_GET_IDLE:
                 dprint("GET_IDLE:");
-                usbMsgPtr = (usbMsgPtr_t)&keyboard_idle;
+                static uint8_t keyboard_idle;
+                keyboard_idle = usb_device_state_get_idle_rate();
+                usbMsgPtr     = (usbMsgPtr_t)&keyboard_idle;
                 return 1;
             case USBRQ_HID_GET_PROTOCOL:
                 dprint("GET_PROTOCOL:");
-                usbMsgPtr = (usbMsgPtr_t)&keyboard_protocol;
+                static uint8_t keyboard_protocol;
+                keyboard_protocol = usb_device_state_get_protocol();
+                usbMsgPtr         = (usbMsgPtr_t)&keyboard_protocol;
                 return 1;
             case USBRQ_HID_SET_REPORT:
                 dprint("SET_REPORT:");
@@ -320,13 +316,13 @@ usbMsgLen_t usbFunctionSetup(uchar data[8]) {
                 }
                 return USB_NO_MSG; // to get data in usbFunctionWrite
             case USBRQ_HID_SET_IDLE:
-                keyboard_idle = (rq->wValue.word & 0xFF00) >> 8;
-                dprintf("SET_IDLE: %02X", keyboard_idle);
+                usb_device_state_set_idle_rate(rq->wValue.word >> 8);
+                dprintf("SET_IDLE: %02X", usb_device_state_get_idle_rate());
                 break;
             case USBRQ_HID_SET_PROTOCOL:
                 if (rq->wIndex.word == KEYBOARD_INTERFACE) {
-                    keyboard_protocol = rq->wValue.word & 0xFF;
-                    dprintf("SET_PROTOCOL: %02X", keyboard_protocol);
+                    usb_device_state_set_protocol(rq->wValue.word & 0xFF);
+                    dprintf("SET_PROTOCOL: %02X", usb_device_state_get_protocol());
                 }
                 break;
             default:
@@ -347,9 +343,9 @@ uchar usbFunctionWrite(uchar *data, uchar len) {
     }
     switch (last_req.kind) {
         case SET_LED:
-            dprintf("SET_LED: %02X\n", data[0]);
-            keyboard_led_state = data[0];
-            last_req.len       = 0;
+            usb_device_state_set_leds(data[0]);
+            dprintf("SET_LED: %02X\n", usb_device_state_get_leds());
+            last_req.len = 0;
             return 1;
             break;
         case NONE:
