@@ -44,7 +44,7 @@ void    send_extra(report_extra_t *report);
 void deferred_exec_task(void);
 #endif // DEFERRED_EXEC_ENABLE
 
-host_driver_t arm_atsam_driver = {keyboard_leds, send_keyboard, send_nkro, send_mouse, send_extra};
+host_driver_t arm_atsam_driver = {.keyboard_leds = keyboard_leds, .send_keyboard = send_keyboard, .send_nkro = send_nkro, .send_mouse = send_mouse, .send_extra = send_extra};
 
 uint8_t led_states;
 
