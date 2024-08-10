@@ -1,5 +1,4 @@
     {
-
     "manufacturer": "mentako-ya",
     "keyboard_name": "mtk64erp",
     "maintainer": "mentako-ya",
@@ -20,7 +19,7 @@
     "usb": {
         "vid": "0x4D59",
         "pid": "0x0300",
-        "device_version": "3.0.0"
+        "device_version": "0.2.0"
     },
     "matrix_pins": {
         "cols": ["GP28", "GP27", "GP26", "GP22", "GP20", "GP23", "GP21"],
