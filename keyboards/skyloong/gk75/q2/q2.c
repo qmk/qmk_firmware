@@ -282,11 +282,6 @@ void suspend_wakeup_init_kb() {
     gpio_write_pin_high(AW20216S_EN_PIN);
     suspend_wakeup_init_user();
 }
-
-bool shutdown_kb(bool jump_to_bootloader) {
-    return true;
-}
-
 void board_init(void) {
     // JTAG-DP Disabled and SW-DP Disabled
     AFIO->MAPR = (AFIO->MAPR & ~AFIO_MAPR_SWJ_CFG_Msk) | AFIO_MAPR_SWJ_CFG_DISABLE;
