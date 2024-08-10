@@ -94,7 +94,7 @@ static void unselect_cols(void) {
     setPinOutput_writeLow(HC595_ST_PIN);
     setPinOutput_writeHigh(HC595_DS_PIN);
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-        clockPulse(ClOCK_TIME);
+        clockPulse(CLOCK_TIME);
     }
 }
 
