@@ -12,5 +12,3 @@
 #define I2C_DRIVER I2CD1 // I2CD1 = I2C1
 #define I2C1_SDA_PIN GP14
 #define I2C1_SCL_PIN GP15
-
-#define OLED_FONT_H "lib/glcdfont_lily.c"
