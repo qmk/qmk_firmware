@@ -6,7 +6,7 @@
 #include "atomic_util.h"
 #include "debounce.h"
 
-#define ClOCK_TIME 15
+#define CLOCK_TIME 15
 #define MATRIX_INPUT_PRESSED_STATE 0
 
 #define HC595_ST_PIN A6
