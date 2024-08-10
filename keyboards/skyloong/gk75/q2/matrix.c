@@ -75,7 +75,7 @@ static bool select_col(uint8_t col) {
             }else{
                gpio_write_pin_high(HC595_DS_PIN);
             }
-           clockPulse(ClOCK_TIME);
+           clockPulse(CLOCK_TIME);
         }
         return true;
 
