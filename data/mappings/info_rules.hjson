@@ -46,6 +46,8 @@
     "SERIAL_DRIVER": {"info_key": "split.serial.driver"},
     "SPLIT_KEYBOARD": {"info_key": "split.enabled", "value_type": "bool"},
     "SPLIT_TRANSPORT": {"info_key": "split.transport.protocol", "to_c": false},
+    "SPLIT_USB_DETECT_ENABLE": {"info_key": "split.usb_detect.enabled", "value_type": "bool"},
+    "SPLIT_USB_DETECT_DRIVER": {"info_key": "split.usb_detect.driver"},
     "STENO_ENABLE": {"info_key": "stenography.enabled", "value_type": "bool"},
     "STENO_PROTOCOL": {"info_key": "stenography.protocol"},
     "USB_WAIT_FOR_ENUMERATION": {"info_key": "usb.wait_for_enumeration", "value_type": "bool"},
