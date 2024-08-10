@@ -1,7 +1,7 @@
 # Lily58 Lite Rev3
 
-![lily58_lite](https://user-images.githubusercontent.com/6285554/84393842-13960900-ac37-11ea-811e-65db2948ca73.jpg)
-![lily58_lite_rev3_pcb](https://github.com/user-attachments/assets/1f1b7ba9-0dc8-4819-9092-49406aa220d0)
+![lily58_lite](https://i.imgur.com/RCx5Xym.jpeg)
+![lily58_lite_rev3_pcb](https://i.imgur.com/rIjVjCE.png)
 
 
 * Keyboard Maintainer: [yuchi](https://github.com/kata0510)
