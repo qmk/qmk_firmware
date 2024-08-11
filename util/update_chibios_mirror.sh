@@ -4,10 +4,10 @@
 # Configuration
 
 # The ChibiOS branches to mirror
-chibios_branches="trunk stable_20.3.x stable_21.11.x"
+chibios_branches="trunk stable_21.11.x"
 
 # The ChibiOS-Contrib branches to mirror
-contrib_branches="chibios-20.3.x chibios-21.11.x"
+contrib_branches="chibios-21.11.x"
 
 ################################
 # Actions
@@ -46,7 +46,7 @@ git fetch --all --tags --prune
 echo "Ensure refs actually match up..."
 for branch in $chibios_branches ; do
     echo "Matching $branch..."
-    git update-ref refs/remotes/svn/$branch refs/remotes/origin/svn-mirror/$branch
+    git update-ref refs/remotes/svn/$branch refs/remotes/qmk/svn-mirror/$branch
 done
 
 echo "Fetching latest from subversion..."
