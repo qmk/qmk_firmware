@@ -110,7 +110,24 @@ void bhq_SetPairingMode(uint8_t host_index, uint8_t timeout_10s)
 
     BHQ_SendCmd(BHQ_NOT_ACK, bhkBuff,index);
 }
+void bhq_OpenBleAdvertising(uint8_t host_index, uint8_t timeout_10s)
+{
+    uint8_t index = 0;
 
+    bhkBuff[index++] = 0x15;
+    bhkBuff[index++] = host_index;                        
+    bhkBuff[index++] = timeout_10s;      
+
+    BHQ_SendCmd(BHQ_NOT_ACK, bhkBuff,index);
+}
+void bhq_CloseBleAdvertising(void)
+{
+    uint8_t index = 0;
+
+    bhkBuff[index++] = 0x16;
+    bhkBuff[index++] = 0;
+    BHQ_SendCmd(BHQ_NOT_ACK, bhkBuff,index);
+}
 
 void bhq_send_keyboard(uint8_t* report) {
     uint8_t index = 0;

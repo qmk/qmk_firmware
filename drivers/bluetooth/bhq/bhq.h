@@ -57,6 +57,10 @@ void bhq_Disable(void);
 
 
 void bhq_SetPairingMode(uint8_t host_index, uint8_t timeout_10s);
+void bhq_OpenBleAdvertising(uint8_t host_index, uint8_t timeout_10s);
+void bhq_CloseBleAdvertising(void);
+
+
 
 void bhq_send_keyboard(uint8_t* report);
 void bhq_send_nkro(uint8_t* report);
