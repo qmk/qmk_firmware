@@ -34,8 +34,8 @@ enum crkbd_layers {
     _FUNCS
 };
 
-enum custom_keycodes {
-    KC_QWERTY,
+enum my_keycodes {
+    KC_QWERTY = SAFE_RANGE,
     KC_COLEMAK,
     KC_NUMS,
     KC_SYMBOLS,
