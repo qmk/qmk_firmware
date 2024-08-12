@@ -9,7 +9,8 @@
     },
     "indicators": {
         "caps_lock": "A4",
-        "scroll_lock": "A8"
+        "scroll_lock": "A8",
+        "on_state": 0
     },
     "features": {
         "rgblight": true
