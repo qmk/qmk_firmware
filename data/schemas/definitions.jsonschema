@@ -16,12 +16,6 @@
         "type": "object",
         "additionalProperties": {"type": "boolean"}
     },
-    "build_target": {
-        "oneOf": [
-            {"$ref": "#/keyboard_keymap_tuple"},
-            {"$ref": "#/json_file_path"}
-        ]
-    },
     "filename": {
         "type": "string",
         "minLength": 1,
@@ -53,6 +47,19 @@
             {"$ref": "#/keyboard"},
             {"$ref": "#/filename"}
         ],
+        "minItems": 2,
+        "maxItems": 2,
+        "unevaluatedItems": false
+    },
+    "keyboard_keymap_env": {
+        "type": "array",
+        "prefixItems": [
+            {"$ref": "#/keyboard"},
+            {"$ref": "#/filename"},
+            {"$ref": "#/kvp_object"}
+        ],
+        "minItems": 3,
+        "maxItems": 3,
         "unevaluatedItems": false
     },
     "keycode": {
@@ -86,6 +93,10 @@
         "minLength": 2,
         "maxLength": 7,
         "pattern": "^[A-Z][A-Zs_0-9]*$"
+    },
+    "kvp_object": {
+        "type": "object",
+        "additionalProperties": {"type": "string"}
     },
     "layout_macro": {
         "oneOf": [
