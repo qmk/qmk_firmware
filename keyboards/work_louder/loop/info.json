@@ -51,8 +51,7 @@
             "pixel_rain": true,
             "pixel_flow": true,
             "pixel_fractal": true,
-            "typing_heatmap": true,
-            "digital_rain": true
+            "typing_heatmap": true
         },
         "driver": "ws2812",
         "max_brightness": 120,
