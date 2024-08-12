@@ -34,10 +34,16 @@ ifeq ($(strip $(DUMP_CI_METADATA)),yes)
 endif
 
 # Force expansion
-TARGET := $(TARGET)
+override TARGET := $(TARGET)
+$(info TARGET=$(TARGET))
 
 ifneq ($(FORCE_LAYOUT),)
-    TARGET := $(TARGET)_$(FORCE_LAYOUT)
+    override TARGET := $(TARGET)_$(FORCE_LAYOUT)
+    $(info TARGET=$(TARGET))
+endif
+ifneq ($(CONVERT_TO),)
+    override TARGET := $(TARGET)_$(CONVERT_TO)
+    $(info TARGET=$(TARGET))
 endif
 
 # Object files and generated keymap directory
@@ -57,9 +63,6 @@ endif
 ifdef SKIP_GIT
 VERSION_H_FLAGS += --skip-git
 endif
-
-# Generate the board's version.h file.
-$(shell $(QMK_BIN) generate-version-h $(VERSION_H_FLAGS) -q -o $(INTERMEDIATE_OUTPUT)/src/version.h)
 
 # Determine which subfolders exist.
 KEYBOARD_FOLDER_PATH_1 := $(KEYBOARD)
@@ -222,6 +225,9 @@ generated-files: $(INTERMEDIATE_OUTPUT)/src/config.h $(INTERMEDIATE_OUTPUT)/src/
 endif
 
 include $(BUILDDEFS_PATH)/converters.mk
+
+# Generate the board's version.h file.
+$(shell $(QMK_BIN) generate-version-h $(VERSION_H_FLAGS) -q -o $(INTERMEDIATE_OUTPUT)/src/version.h)
 
 MCU_ORIG := $(MCU)
 include $(wildcard $(PLATFORM_PATH)/*/mcu_selection.mk)
