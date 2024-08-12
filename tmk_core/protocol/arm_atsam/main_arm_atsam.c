@@ -136,7 +136,7 @@ void send_extra(report_extra_t *report) {
 static char     console_printbuf[CONSOLE_PRINTBUF_SIZE];
 static uint16_t console_printbuf_len = 0;
 
-int8_t sendchar(uint8_t c) {
+int8_t console_write(uint8_t c) {
     if (console_printbuf_len >= CONSOLE_PRINTBUF_SIZE) return -1;
 
     console_printbuf[console_printbuf_len++] = c;

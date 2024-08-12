@@ -44,6 +44,35 @@ else ifeq ($(strip $(DEBUG_MATRIX_SCAN_RATE_ENABLE)), api)
     OPT_DEFS += -DDEBUG_MATRIX_SCAN_RATE
 endif
 
+ifeq ($(strip $(CONSOLE_ENABLE)), yes)
+    SENDCHAR_DRIVER ?= console
+else
+    SENDCHAR_DRIVER ?= none
+endif
+VALID_SENDCHAR_DRIVER_TYPES := console uart rtt custom
+ifneq ($(strip $(SENDCHAR_DRIVER)),none)
+    ifeq ($(filter $(SENDCHAR_DRIVER),$(VALID_SENDCHAR_DRIVER_TYPES)),)
+        $(call CATASTROPHIC_ERROR,Invalid SENDCHAR_DRIVER,SENDCHAR_DRIVER="$(SENDCHAR_DRIVER)" is not a valid logging driver type)
+    else
+        OPT_DEFS += -DSENDCHAR_DRIVER_$(strip $(shell echo $(SENDCHAR_DRIVER) | tr '[:lower:]' '[:upper:]'))
+
+        ifneq ($(strip $(SENDCHAR_DRIVER)), custom)
+            QUANTUM_SRC += $(QUANTUM_DIR)/logging/sendchar_$(strip $(shell echo $(SENDCHAR_DRIVER) | tr '[:upper:]' '[:lower:]')).c
+        endif
+
+        ifeq ($(strip $(SENDCHAR_DRIVER)), uart)
+            UART_DRIVER_REQUIRED = yes
+        endif
+
+        ifeq ($(strip $(SENDCHAR_DRIVER)), rtt)
+            SEGGER_RTT_DRIVER_REQUIRED = yes
+        endif
+    endif
+else
+    OPT_DEFS += -DNO_PRINT
+    OPT_DEFS += -DNO_DEBUG
+endif
+
 AUDIO_ENABLE ?= no
 ifeq ($(strip $(AUDIO_ENABLE)), yes)
     ifeq ($(PLATFORM),CHIBIOS)
@@ -964,6 +993,12 @@ ifeq ($(strip $(I2C_DRIVER_REQUIRED)), yes)
     OPT_DEFS += -DHAL_USE_I2C=TRUE
     QUANTUM_LIB_SRC += i2c_master.c
 endif
+
+ifeq ($(strip $(SEGGER_RTT_DRIVER_REQUIRED)), yes)
+    OPT_DEFS += -DSEGGER_RTT_ENABLE
+    include $(QUANTUM_PATH)/logging/rtt.mk
+endif
+
 
 ifeq ($(strip $(SPI_DRIVER_REQUIRED)), yes)
     OPT_DEFS += -DHAL_USE_SPI=TRUE
