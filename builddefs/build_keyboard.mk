@@ -35,15 +35,12 @@ endif
 
 # Force expansion
 override TARGET := $(TARGET)
-$(info TARGET=$(TARGET))
 
 ifneq ($(FORCE_LAYOUT),)
     override TARGET := $(TARGET)_$(FORCE_LAYOUT)
-    $(info TARGET=$(TARGET))
 endif
 ifneq ($(CONVERT_TO),)
     override TARGET := $(TARGET)_$(CONVERT_TO)
-    $(info TARGET=$(TARGET))
 endif
 
 # Object files and generated keymap directory
