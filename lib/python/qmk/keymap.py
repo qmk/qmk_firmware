@@ -35,9 +35,9 @@ __ENCODER_MAP_GOES_HERE__
 __MACRO_OUTPUT_GOES_HERE__
 
 #ifdef OTHER_KEYMAP_C
-#if __has_include_next(OTHER_KEYMAP_C)
-#include_next OTHER_KEYMAP_C
-#endif // __has_include_next(OTHER_KEYMAP_C)
+#    if __has_include_next(OTHER_KEYMAP_C)
+#        include_next OTHER_KEYMAP_C
+#    endif // __has_include_next(OTHER_KEYMAP_C)
 #endif // OTHER_KEYMAP_C
 """
 
