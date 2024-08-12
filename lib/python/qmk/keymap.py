@@ -356,7 +356,7 @@ def write(keymap_json):
     return write_file(keymap_file, keymap_content)
 
 
-def locate_keymap(keyboard, keymap):
+def locate_keymap(keyboard, keymap, force_layout=None):
     """Returns the path to a keymap for a specific keyboard.
     """
     if not qmk.path.is_keyboard(keyboard):
@@ -395,7 +395,7 @@ def locate_keymap(keyboard, keymap):
             return keymap_path
 
     # Check community layouts as a fallback
-    info = info_json(keyboard)
+    info = info_json(keyboard, force_layout=force_layout)
 
     community_parents = list(Path('layouts').glob('*/'))
     if HAS_QMK_USERSPACE and (Path(QMK_USERSPACE) / "layouts").exists():
