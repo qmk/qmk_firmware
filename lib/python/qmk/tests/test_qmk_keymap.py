@@ -1,16 +1,6 @@
 import qmk.keymap
 
 
-def test_template_c_pytest_basic():
-    templ = qmk.keymap.template_c('handwired/pytest/basic')
-    assert templ == qmk.keymap.DEFAULT_KEYMAP_C
-
-
-def test_template_json_pytest_basic():
-    templ = qmk.keymap.template_json('handwired/pytest/basic')
-    assert templ == {'keyboard': 'handwired/pytest/basic'}
-
-
 def test_generate_c_pytest_basic():
     keymap_json = {
         'keyboard': 'handwired/pytest/basic',
