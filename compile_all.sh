@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 TAG=${1:-$(git describe --tags --abbrev=0)}
 
 for KEYMAP in "via" "default" "ryodeushii"
