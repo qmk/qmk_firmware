@@ -530,7 +530,7 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
         }
     }
 
-    if (f_bat_hold && g_config.batttery_indicator_numeric) {
+    if (f_bat_hold && g_config.battery_indicator_numeric) {
         rgb_matrix_set_color(two_digit_decimals_led(dev_info.rf_battery), 0x00, 0x80, 0x80);
         rgb_matrix_set_color(two_digit_ones_led(dev_info.rf_battery), 0x00, 0x80, 0x80);
     }
