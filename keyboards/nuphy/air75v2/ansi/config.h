@@ -50,9 +50,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SD1_RX_PIN B7
 #define SD1_RX_PAL_MODE 0
 
-#define EECONFIG_KB_DATA_SIZE 26
+#define EECONFIG_KB_DATA_SIZE 27
 #ifdef VIA_ENABLE
-#    define VIA_EEPROM_CUSTOM_CONFIG_SIZE 28 // sizeof via_config
+#    define VIA_EEPROM_CUSTOM_CONFIG_SIZE 29 // sizeof via_config
 #endif
 #ifdef RGB_MATRIX_LED_COUNT
 #    undef RGB_MATRIX_LED_COUNT
@@ -108,6 +108,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEFAULT_RIGHT_SIDE_SPEED 2
 #define DEFAULT_RIGHT_SIDE_RGB 1
 #define DEFAULT_RIGHT_SIDE_COLOR 0
+#define DEFAULT_DETECT_NUMLOCK 0
+#define DEFAULT_SIDE_USE_CUSTOM_COLOR 0
+#define DEFAULT_RIGHT_SIDE_USE_CUSTOM_COLOR 0
+#define DEFAULT_BATTERY_INDICATOR_BRIGHTNESS 0
 /*
  * END OF DEFAULT VALUES
  */
