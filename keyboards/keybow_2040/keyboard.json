@@ -75,7 +75,7 @@
             "wave_up_down": true
         },
         "default": {
-            "animation": "solid_reactive_simple"
+            "animation": "breathing"
         },
         "driver": "is31fl3731",
         "sleep": true,
