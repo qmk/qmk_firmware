@@ -7,7 +7,7 @@ bool process_connection(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
             case QK_OUTPUT_NEXT:
-                set_output(OUTPUT_AUTO); // This should cycle through the outputs going forward. Ensure `docs/features/bluetooth.md` is updated when it does.
+                set_output(OUTPUT_AUTO); // This should cycle through the outputs going forward. Ensure `docs/keycodes.md`, `docs/features/bluetooth.md` are updated when it does.
                 return false;
             case QK_OUTPUT_USB:
                 set_output(OUTPUT_USB);
@@ -28,7 +28,7 @@ bool process_connection(uint16_t keycode, keyrecord_t *record) {
             case QK_BLUETOOTH_PROFILE4:
             case QK_BLUETOOTH_PROFILE5:
                 // As-yet unimplemented.
-                // When implementation is done, ensure `docs/features/bluetooth.md` is updated accordingly.
+                // When implementation is done, ensure `docs/keycodes.md`, `docs/features/bluetooth.md` are updated accordingly.
                 return false;
         }
     }
