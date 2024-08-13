@@ -1,7 +1,7 @@
 # A-JAZZ  AKC084
 
 * A customizable 84keys keyboard.
-
+![akc084](https://i.imgur.com/381vaD7.png)
 * Keyboard Maintainer: [Feng](https://github.com/fenggx-a-jazz)
 * Hardware Supported: [a-jazz](https://www.a-jazz.com)
 * Hardware Availability: [a-jazz](https://www.a-jazz.com)
