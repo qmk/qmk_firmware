@@ -35,9 +35,9 @@
         },
         "driver": "ws2812",
         "layout": [
-            {"matrix": [0, 15], "x": 16.25, "y": 1, "flags": 4},
-            {"matrix": [0, 16], "x": 17.25, "y": 1, "flags": 4},
-            {"matrix": [0, 17], "x": 18.25, "y": 1, "flags": 4}
+            {"matrix": [0, 15], "x": 16, "y": 1, "flags": 4},
+            {"matrix": [0, 16], "x": 17, "y": 1, "flags": 4},
+            {"matrix": [0, 17], "x": 18, "y": 1, "flags": 4}
         ],
         "led_count": 3,
         "max_brightness": 255

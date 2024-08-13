@@ -25,7 +25,6 @@
     },
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D1",
         "bootmagic": {
             "matrix": [4, 4]
         },
@@ -38,6 +37,9 @@
                     ["B5", "B4", null, null, null]
                 ]
             }
+        },
+        "serial": {
+            "pin": "D1"
         }
     },
     "community_layouts": ["split_3x5_2"],

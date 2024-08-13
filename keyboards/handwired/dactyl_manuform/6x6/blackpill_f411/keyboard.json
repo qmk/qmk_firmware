@@ -16,6 +16,12 @@
         "enabled": true,
         "bootmagic": {
             "matrix": [7, 0]
+        },
+        "serial": {
+            "driver": "usart"
+        },
+        "handedness": {
+            "pin": "B10"
         }
     }
 }
