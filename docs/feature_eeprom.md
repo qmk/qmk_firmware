@@ -109,7 +109,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 }
 ```
-And lastly, you want to add the `eeconfig_init_user` function, so that when the EEPROM is reset, you can specify default values, and even custom actions. To force an EEPROM reset, use the `EE_CLR` keycode or [Bootmagic Lite](feature_bootmagic.md) functionallity. For example, if you want to set rgb layer indication by default, and save the default valued.
+And lastly, you want to add the `eeconfig_init_user` function, so that when the EEPROM is reset, you can specify default values, and even custom actions. To force an EEPROM reset, use the `EE_CLR` keycode or [Bootmagic Lite](features/bootmagic) functionallity. For example, if you want to set rgb layer indication by default, and save the default valued.
 
 ```c
 void eeconfig_init_user(void) {  // EEPROM is getting reset!

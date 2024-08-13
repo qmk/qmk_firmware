@@ -37,8 +37,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 void matrix_scan_user(void) {
   // escape LED on layer 1
   if (IS_LAYER_ON(1)) {
-    writePinLow(B0);
+    gpio_write_pin_low(B0);
   } else {
-    writePinHigh(B0);
+    gpio_write_pin_high(B0);
   }
 }

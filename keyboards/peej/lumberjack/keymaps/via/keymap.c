@@ -50,23 +50,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void keyboard_pre_init_user() {
-    writePin(LED1, true);
-    writePin(LED2, true);
+    gpio_write_pin(LED1, true);
+    gpio_write_pin(LED2, true);
 }
 
 void keyboard_post_init_user() {
-    writePin(LED1, false);
-    writePin(LED2, false);
+    gpio_write_pin(LED1, false);
+    gpio_write_pin(LED2, false);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    writePin(LED1, record->event.pressed);
+    gpio_write_pin(LED1, record->event.pressed);
 
     return true;
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    writePin(LED2, state);
+    gpio_write_pin(LED2, state);
 
     return state;
 }
