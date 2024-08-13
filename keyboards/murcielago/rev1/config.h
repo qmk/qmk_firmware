@@ -22,29 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_USB_DETECT
 
 /*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-#define MATRIX_ROW_PINS { B4, D5, B3, B2, B1, B0 }
-#define MATRIX_COL_PINS { C6, B6, B5, D7, D6, D4 }
-#define MATRIX_ROW_PINS_RIGHT { B3, B7, D4, B6, C6, C7 }
-#define MATRIX_COL_PINS_RIGHT { D6, D7, D3, B2, B1, B0 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
-/*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
  */

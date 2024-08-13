@@ -371,14 +371,31 @@ void housekeeping_task_kb(void) {
 
 #if defined(KEYBOARD_bastardkb_charybdis_3x5_blackpill) || defined(KEYBOARD_bastardkb_charybdis_4x6_blackpill)
 void keyboard_pre_init_kb(void) {
-    setPinInputHigh(A0);
+    gpio_set_pin_input_high(A0);
     keyboard_pre_init_user();
 }
 
 void matrix_scan_kb(void) {
-    if (!readPin(A0)) {
+    if (!gpio_read_pin(A0)) {
         reset_keyboard();
     }
     matrix_scan_user();
 }
 #endif // KEYBOARD_bastardkb_charybdis_3x5_blackpill || KEYBOARD_bastardkb_charybdis_4x6_blackpill
+
+bool shutdown_kb(bool jump_to_bootloader) {
+    if (!shutdown_user(jump_to_bootloader)) {
+        return false;
+    }
+#ifdef RGBLIGHT_ENABLE
+    rgblight_enable_noeeprom();
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+    rgblight_setrgb(RGB_RED);
+#endif // RGBLIGHT_ENABLE
+#ifdef RGB_MATRIX_ENABLE
+    void rgb_matrix_update_pwm_buffers(void);
+    rgb_matrix_set_color_all(RGB_RED);
+    rgb_matrix_update_pwm_buffers();
+#endif // RGB_MATRIX_ENABLE
+    return true;
+}

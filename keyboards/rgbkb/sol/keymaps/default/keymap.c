@@ -201,7 +201,7 @@ const rgb_matrix_f rgb_matrix_functions[6][2] = {
 
 #ifdef ENCODER_ENABLE
 
-static pin_t encoders_pad_a[] = ENCODERS_PAD_A;
+static pin_t encoders_pad_a[] = ENCODER_A_PINS;
 #define NUMBER_OF_ENCODERS ARRAY_SIZE(encoders_pad_a)
 
 const uint16_t PROGMEM encoders[][NUMBER_OF_ENCODERS * 2][2]  = {
@@ -344,11 +344,11 @@ static void render_status(void) {
   }
 
   // Host Keyboard LED Status
-    uint8_t led_state = host_keyboard_leds();
+    led_t led_state = host_keyboard_led_state();
     oled_write_P(PSTR("-----"), false);
-    oled_write_P(IS_LED_ON(led_state, USB_LED_NUM_LOCK) ? PSTR("NUMLK") : PSTR("     "), false);
-    oled_write_P(IS_LED_ON(led_state, USB_LED_CAPS_LOCK) ? PSTR("CAPLK") : PSTR("     "), false);
-    oled_write_P(IS_LED_ON(led_state, USB_LED_SCROLL_LOCK) ? PSTR("SCRLK") : PSTR("     "), false);
+    oled_write_P(led_state.num_lock ? PSTR("NUMLK") : PSTR("     "), false);
+    oled_write_P(led_state.caps_lock ? PSTR("CAPLK") : PSTR("     "), false);
+    oled_write_P(led_state.scroll_lock ? PSTR("SCRLK") : PSTR("     "), false);
 
 #ifdef RGB_OLED_MENU
     static char buffer[31] = { 0 };

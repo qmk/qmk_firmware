@@ -11,13 +11,14 @@
 */
 
 #pragma once
-#include QMK_KEYBOARD_H
-#include <string.h>
+
 #include <stdint.h>
+#include <stdbool.h>
+#include <string.h>
 #include <stdio.h>
+#include "action.h"
+#include "progmem.h"
 #include "config_engine.h"
-#include <avr/pgmspace.h>
-#include "wait.h"
 
 // Maximum values for combos
 #define COMBO_END 0x00

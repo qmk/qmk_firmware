@@ -8,7 +8,6 @@
 
 #include QMK_KEYBOARD_H
 
-#define IGNORE_MOD_TAP_INTERRUPT
 #define BASE 0 // default layer
 #define SYMB 1 // symbols
 #define NUMB 2 // numbers/motion
@@ -138,11 +137,6 @@ KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,  K
                                                            KC_TRNS,       KC_TRNS,
                                              	  KC_TRNS, KC_TRNS,       KC_TRNS, KC_TRNS),
  */
-
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-
-};
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {

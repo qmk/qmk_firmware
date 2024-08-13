@@ -1,7 +1,0 @@
-# KEYBOARD_SHARED_EP = yes
-CONSOLE_ENABLE     = yes
-
-EEPROM_DRIVER = spi
-WS2812_DRIVER = pwm
-SERIAL_DRIVER = usart
-AUDIO_DRIVER  = dac_additive

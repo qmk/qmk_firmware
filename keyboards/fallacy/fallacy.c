@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "fallacy.h"
+#include "quantum.h"
 #include "indicators.h"
 
 void matrix_init_kb(void) {
@@ -22,9 +22,8 @@ void matrix_init_kb(void) {
     matrix_init_user();
 }
 
-void matrix_scan_kb(void) {
+void housekeeping_task_kb(void) {
     update_fallacy_leds();
-    matrix_scan_user();
 }
  
 /* update LED driver with usb led_state

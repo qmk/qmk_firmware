@@ -5,9 +5,9 @@
 #include <stdint.h>
 
 /**
- * \defgroup leader
+ * \file
  *
- * Leader Key
+ * \defgroup leader Leader Key
  * \{
  */
 

@@ -15,7 +15,12 @@ from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
 
 
 def generate_define(define, value=None):
+    is_keymap = cli.args.filename
     value = f' {value}' if value is not None else ''
+    if is_keymap:
+        return f"""
+#undef {define}
+#define {define}{value}"""
     return f"""
 #ifndef {define}
 #    define {define}{value}
@@ -67,6 +72,19 @@ def generate_matrix_size(kb_info_json, config_h_lines):
         config_h_lines.append(generate_define('MATRIX_ROWS', kb_info_json['matrix_size']['rows']))
 
 
+def generate_matrix_masked(kb_info_json, config_h_lines):
+    """"Enable matrix mask if required"""
+    mask_required = False
+
+    if 'matrix_grid' in kb_info_json.get('dip_switch', {}):
+        mask_required = True
+    if 'matrix_grid' in kb_info_json.get('split', {}).get('handedness', {}):
+        mask_required = True
+
+    if mask_required:
+        config_h_lines.append(generate_define('MATRIX_MASKED'))
+
+
 def generate_config_items(kb_info_json, config_h_lines):
     """Iterate through the info_config map to generate basic config values.
     """
@@ -75,9 +93,9 @@ def generate_config_items(kb_info_json, config_h_lines):
     for config_key, info_dict in info_config_map.items():
         info_key = info_dict['info_key']
         key_type = info_dict.get('value_type', 'raw')
-        to_config = info_dict.get('to_config', True)
+        to_c = info_dict.get('to_c', True)
 
-        if not to_config:
+        if not to_c:
             continue
 
         try:
@@ -90,6 +108,8 @@ def generate_config_items(kb_info_json, config_h_lines):
         elif key_type.startswith('array'):
             config_h_lines.append(generate_define(config_key, f'{{ {", ".join(map(str, config_value))} }}'))
         elif key_type == 'bool':
+            config_h_lines.append(generate_define(config_key, 'true' if config_value else 'false'))
+        elif key_type == 'flag':
             if config_value:
                 config_h_lines.append(generate_define(config_key))
         elif key_type == 'mapping':
@@ -115,11 +135,13 @@ def generate_encoder_config(encoder_json, config_h_lines, postfix=''):
         b_pads.append(encoder["pin_b"])
         resolutions.append(encoder.get("resolution", None))
 
-    config_h_lines.append(generate_define(f'ENCODERS_PAD_A{postfix}', f'{{ {", ".join(a_pads)} }}'))
-    config_h_lines.append(generate_define(f'ENCODERS_PAD_B{postfix}', f'{{ {", ".join(b_pads)} }}'))
+    config_h_lines.append(generate_define(f'ENCODER_A_PINS{postfix}', f'{{ {", ".join(a_pads)} }}'))
+    config_h_lines.append(generate_define(f'ENCODER_B_PINS{postfix}', f'{{ {", ".join(b_pads)} }}'))
 
     if None in resolutions:
-        cli.log.debug("Unable to generate ENCODER_RESOLUTION configuration")
+        cli.log.debug(f"Unable to generate ENCODER_RESOLUTION{postfix} configuration")
+    elif len(resolutions) == 0:
+        cli.log.debug(f"Skipping ENCODER_RESOLUTION{postfix} configuration")
     elif len(set(resolutions)) == 1:
         config_h_lines.append(generate_define(f'ENCODER_RESOLUTION{postfix}', resolutions[0]))
     else:
@@ -128,23 +150,11 @@ def generate_encoder_config(encoder_json, config_h_lines, postfix=''):
 
 def generate_split_config(kb_info_json, config_h_lines):
     """Generate the config.h lines for split boards."""
-    if 'primary' in kb_info_json['split']:
-        if kb_info_json['split']['primary'] in ('left', 'right'):
-            config_h_lines.append('')
-            config_h_lines.append('#ifndef MASTER_LEFT')
-            config_h_lines.append('#    ifndef MASTER_RIGHT')
-            if kb_info_json['split']['primary'] == 'left':
-                config_h_lines.append('#        define MASTER_LEFT')
-            elif kb_info_json['split']['primary'] == 'right':
-                config_h_lines.append('#        define MASTER_RIGHT')
-            config_h_lines.append('#    endif // MASTER_RIGHT')
-            config_h_lines.append('#endif // MASTER_LEFT')
-        elif kb_info_json['split']['primary'] == 'pin':
-            config_h_lines.append(generate_define('SPLIT_HAND_PIN'))
-        elif kb_info_json['split']['primary'] == 'matrix_grid':
-            config_h_lines.append(generate_define('SPLIT_HAND_MATRIX_GRID', f'{{ {",".join(kb_info_json["split"]["matrix_grid"])} }}'))
-        elif kb_info_json['split']['primary'] == 'eeprom':
-            config_h_lines.append(generate_define('EE_HANDS'))
+    if 'handedness' in kb_info_json['split']:
+        # TODO: change SPLIT_HAND_MATRIX_GRID to require brackets
+        handedness = kb_info_json['split']['handedness']
+        if 'matrix_grid' in handedness:
+            config_h_lines.append(generate_define('SPLIT_HAND_MATRIX_GRID', ', '.join(handedness['matrix_grid'])))
 
     if 'protocol' in kb_info_json['split'].get('transport', {}):
         if kb_info_json['split']['transport']['protocol'] == 'i2c':
@@ -157,10 +167,13 @@ def generate_split_config(kb_info_json, config_h_lines):
         generate_encoder_config(kb_info_json['split']['encoder']['right'], config_h_lines, '_RIGHT')
 
 
-def generate_led_animations_config(led_feature_json, config_h_lines, prefix):
+def generate_led_animations_config(feature, led_feature_json, config_h_lines, enable_prefix, animation_prefix):
+    if 'animation' in led_feature_json.get('default', {}):
+        config_h_lines.append(generate_define(f'{feature.upper()}_DEFAULT_MODE', f'{animation_prefix}{led_feature_json["default"]["animation"].upper()}'))
+
     for animation in led_feature_json.get('animations', {}):
         if led_feature_json['animations'][animation]:
-            config_h_lines.append(generate_define(f'{prefix}{animation.upper()}'))
+            config_h_lines.append(generate_define(f'{enable_prefix}{animation.upper()}'))
 
 
 @cli.argument('filename', nargs='?', arg_only=True, type=FileType('r'), completer=FilesCompleter('.json'), help='A configurator export JSON to be compiled and flashed or a pre-compiled binary firmware file (bin/hex) to be flashed.')
@@ -189,6 +202,8 @@ def generate_config_h(cli):
 
     generate_matrix_size(kb_info_json, config_h_lines)
 
+    generate_matrix_masked(kb_info_json, config_h_lines)
+
     if 'matrix_pins' in kb_info_json:
         config_h_lines.append(matrix_pins(kb_info_json['matrix_pins']))
 
@@ -199,13 +214,13 @@ def generate_config_h(cli):
         generate_split_config(kb_info_json, config_h_lines)
 
     if 'led_matrix' in kb_info_json:
-        generate_led_animations_config(kb_info_json['led_matrix'], config_h_lines, 'ENABLE_LED_MATRIX_')
+        generate_led_animations_config('led_matrix', kb_info_json['led_matrix'], config_h_lines, 'ENABLE_LED_MATRIX_', 'LED_MATRIX_')
 
     if 'rgb_matrix' in kb_info_json:
-        generate_led_animations_config(kb_info_json['rgb_matrix'], config_h_lines, 'ENABLE_RGB_MATRIX_')
+        generate_led_animations_config('rgb_matrix', kb_info_json['rgb_matrix'], config_h_lines, 'ENABLE_RGB_MATRIX_', 'RGB_MATRIX_')
 
     if 'rgblight' in kb_info_json:
-        generate_led_animations_config(kb_info_json['rgblight'], config_h_lines, 'RGBLIGHT_EFFECT_')
+        generate_led_animations_config('rgblight', kb_info_json['rgblight'], config_h_lines, 'RGBLIGHT_EFFECT_', 'RGBLIGHT_MODE_')
 
     # Show the results
     dump_lines(cli.args.output, config_h_lines, cli.args.quiet)

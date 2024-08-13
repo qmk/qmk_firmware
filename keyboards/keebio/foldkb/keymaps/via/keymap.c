@@ -14,6 +14,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "encoder.h"
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -25,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_PGDN,          KC_LCTL, KC_LGUI, KC_LALT, MO(1),   KC_SPC,  KC_SPC,      KC_SPC,  KC_SPC,  KC_RALT, KC_RGUI, KC_MENU, KC_RCTL
   ),
   [1] = LAYOUT(
-    KC_MUTE, QK_BOOT,   _______, RGB_HUD, RGB_HUI, _______, _______, _______,     _______, _______, _______, _______, _______, _______, _______, KC_DEL,
+    KC_MUTE, QK_BOOT, _______, RGB_HUD, RGB_HUI, _______, _______, _______,     _______, _______, _______, _______, _______, _______, _______, KC_DEL,
     BL_STEP,          _______, RGB_SAD, RGB_SAI, _______, _______, _______,     _______, KC_7,    KC_8,    KC_9,    _______, _______, _______, _______,
     RGB_MOD,          _______, RGB_VAD, RGB_VAI, _______, _______, _______,     _______, KC_4,    KC_5,    KC_6,    _______, _______,          _______,
     KC_VOLU,          _______, _______, _______, _______, _______, _______,     _______, KC_1,    KC_2,    KC_3,    _______, _______, _______,
@@ -46,3 +47,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,          _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______
   )
 };
+
+#ifdef ENCODER_MAP_ENABLE
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [1] = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD) },
+    [2] = { ENCODER_CCW_CW(RGB_HUD, RGB_HUI) },
+    [3] = { ENCODER_CCW_CW(RGB_SAD, RGB_SAI) },
+};
+#endif

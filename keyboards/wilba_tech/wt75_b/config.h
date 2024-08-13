@@ -16,28 +16,6 @@
 
 #pragma once
 
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
-*/
-#define MATRIX_ROW_PINS { F1, F0, E6, F4, F6, F7 }
-#define MATRIX_COL_PINS { F5, D5, B1, B7, B3, D3, D2, C7, C6, B6, B5, B4, D7, D6, B2, D4 }
-
-/* COL2ROW, ROW2COL */
-#define DIODE_DIRECTION ROW2COL
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
@@ -78,3 +56,6 @@
 // Backlight config starts after VIA's EEPROM usage,
 // dynamic keymaps start after this.
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 7
+
+#define IS31FL3736_I2C_ADDRESS_1 IS31FL3736_I2C_ADDRESS_GND_GND
+#define IS31FL3736_LED_COUNT 96

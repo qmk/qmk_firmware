@@ -1,0 +1,65 @@
+{
+    "manufacturer": "customMK",
+    "keyboard_name": "Elysian",
+    "maintainer": "customMK",
+    "bootloader": "stm32-dfu",
+    "debounce": 10,
+    "diode_direction": "ROW2COL",
+    "dynamic_keymap": {
+        "layer_count": 32
+    },
+    "eeprom": {
+        "driver": "spi"
+    },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "encoder": true
+    },
+    "matrix_pins": {
+        "cols": ["A0", "A1", "A2", "A3", "A4"],
+        "rows": ["B0", "B1", "B6", "B8"]
+    },
+    "processor": "STM32F411",
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
+    "url": "https://shop.custommk.com/collections/elysian/products/elysian",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0xFABB",
+        "vid": "0xF35B",
+        "force_nkro": true
+    },
+    "encoder": {
+        "rotary": [
+            { "pin_a": "A5", "pin_b": "A6", "resolution": 2},
+            { "pin_a": "A7", "pin_b": "A8", "resolution": 2}
+        ]
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [1, 3], "x": 3, "y": 1},
+                {"matrix": [1, 4], "x": 4, "y": 1},
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2},
+                {"matrix": [2, 3], "x": 3, "y": 2},
+                {"matrix": [2, 4], "x": 4, "y": 2},
+                {"matrix": [3, 0], "x": 0, "y": 3},
+                {"matrix": [3, 1], "x": 1, "y": 3},
+                {"matrix": [3, 2], "x": 2, "y": 3},
+                {"matrix": [3, 3], "x": 3, "y": 3},
+                {"matrix": [3, 4], "x": 4, "y": 3}
+            ]
+        }
+    }
+}

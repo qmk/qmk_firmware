@@ -1,13 +1,37 @@
 {
-    "keyboard_name": "Dimple", 
+    "keyboard_name": "Dimple",
     "manufacturer": "LazyDesigners",
-    "url": "http://lazydesigners.cn", 
-    "maintainer": "Erovia", 
+    "url": "http://lazydesigners.cn",
+    "maintainer": "Erovia",
     "usb": {
         "vid": "0x4C44",
         "pid": "0x0040",
         "device_version": "0.0.1"
     },
+    "rgblight": {
+        "led_count": 50,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "ws2812": {
+        "pin": "B7"
+    },
+    "matrix_pins": {
+        "cols": ["B0", "B1", "B2", "B3", "D4", "D6", "D7", "B4", "B5", "B6", "C6", "C7"],
+        "rows": ["D0", "D1", "D2", "D3"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu"
 }

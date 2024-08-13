@@ -371,6 +371,11 @@ INSTANTIATE_TEST_CASE_P(
             "OSL", OSL(1), 1, KC_NO, true},
         CapsWordPressUserParams{
             "LT_held", LT_1_KC_A, TAPPING_TERM + 1, KC_NO, true},
+        // Tri-Layer keys are ignored and continue Caps Word.
+        CapsWordPressUserParams{
+            "TL_LOWR", TL_LOWR, 1, KC_NO, true},
+        CapsWordPressUserParams{
+            "TL_UPPR", TL_UPPR, 1, KC_NO, true},
         // AltGr keys are ignored and continue Caps Word.
         CapsWordPressUserParams{
             "KC_RALT", KC_RALT, 1, KC_NO, true},
@@ -418,8 +423,8 @@ TEST_P(CapsWordBothShifts, PressLRLR) {
     run_one_scan_loop();
     right_shift.press();
 
-    // For mod-tap and Space Cadet keys, wait for the tapping term.
-    if (left_shift.code == LSFT_T(KC_A) || left_shift.code == QK_SPACE_CADET_LEFT_SHIFT_PARENTHESIS_OPEN) {
+    // For mod-tap, wait for the tapping term.
+    if (left_shift.code == LSFT_T(KC_A)) {
         idle_for(TAPPING_TERM);
     }
 
@@ -456,7 +461,7 @@ TEST_P(CapsWordBothShifts, PressLRRL) {
     run_one_scan_loop();
     right_shift.press();
 
-    if (left_shift.code == LSFT_T(KC_A) || left_shift.code == QK_SPACE_CADET_LEFT_SHIFT_PARENTHESIS_OPEN) {
+    if (left_shift.code == LSFT_T(KC_A)) {
         idle_for(TAPPING_TERM);
     }
     run_one_scan_loop();

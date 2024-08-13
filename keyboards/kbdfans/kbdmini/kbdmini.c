@@ -1,61 +1,61 @@
-#include "kbdmini.h"
+#include "quantum.h"
 
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
-    { 0, B_9,  A_9,  C_9  }, //LA33
-    { 0, B_10, A_10, C_10 }, //LA37
-    { 0, B_11, A_11, C_11 }, //LA41
-    { 0, B_12, A_12, C_12 }, //LA45
-    { 0, B_13, A_13, C_13 }, //LA49
-    { 0, B_14, A_14, C_14 }, //LA53
-    { 0, B_15, A_15, C_15 }, //LA57
-    { 0, B_6,  A_6,  C_6  }, //LA21
-    { 0, B_5,  A_5,  C_5  }, //LA17
-    { 0, B_4,  A_4,  C_4  }, //LA13
-    { 0, B_3,  A_3,  C_3  }, //LA9
-    { 0, B_2,  A_2,  C_2  }, //LA5
-    { 0, B_1,  A_1,  C_1  }, //LA1
+const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT] = {
+    { 0, SW2_CS9,  SW1_CS9,  SW3_CS9  }, //LA33
+    { 0, SW2_CS10, SW1_CS10, SW3_CS10 }, //LA37
+    { 0, SW2_CS11, SW1_CS11, SW3_CS11 }, //LA41
+    { 0, SW2_CS12, SW1_CS12, SW3_CS12 }, //LA45
+    { 0, SW2_CS13, SW1_CS13, SW3_CS13 }, //LA49
+    { 0, SW2_CS14, SW1_CS14, SW3_CS14 }, //LA53
+    { 0, SW2_CS15, SW1_CS15, SW3_CS15 }, //LA57
+    { 0, SW2_CS6,  SW1_CS6,  SW3_CS6  }, //LA21
+    { 0, SW2_CS5,  SW1_CS5,  SW3_CS5  }, //LA17
+    { 0, SW2_CS4,  SW1_CS4,  SW3_CS4  }, //LA13
+    { 0, SW2_CS3,  SW1_CS3,  SW3_CS3  }, //LA9
+    { 0, SW2_CS2,  SW1_CS2,  SW3_CS2  }, //LA5
+    { 0, SW2_CS1,  SW1_CS1,  SW3_CS1  }, //LA1
 
-    { 0, E_9,  D_9,  F_9  }, //LA34
-    { 0, E_10, D_10, F_10 }, //LA38
-    { 0, E_11, D_11, F_11 }, //LA42
-    { 0, E_12, D_12, F_12 }, //LA46
-    { 0, E_13, D_13, F_13 }, //LA50
-    { 0, E_14, D_14, F_14 }, //LA54
-    { 0, E_15, D_15, F_15 }, //LA58
-    { 0, E_6,  D_6,  F_6  }, //LA22
-    { 0, E_5,  D_5,  F_5  }, //LA18
-    { 0, E_4,  D_4,  F_4  }, //LA14
-    { 0, E_3,  D_3,  F_3  }, //LA10
-    { 0, E_2,  D_2,  F_2  }, //LA6
-    { 0, E_1,  D_1,  F_1  }, //LA2
+    { 0, SW5_CS9,  SW4_CS9,  SW6_CS9  }, //LA34
+    { 0, SW5_CS10, SW4_CS10, SW6_CS10 }, //LA38
+    { 0, SW5_CS11, SW4_CS11, SW6_CS11 }, //LA42
+    { 0, SW5_CS12, SW4_CS12, SW6_CS12 }, //LA46
+    { 0, SW5_CS13, SW4_CS13, SW6_CS13 }, //LA50
+    { 0, SW5_CS14, SW4_CS14, SW6_CS14 }, //LA54
+    { 0, SW5_CS15, SW4_CS15, SW6_CS15 }, //LA58
+    { 0, SW5_CS6,  SW4_CS6,  SW6_CS6  }, //LA22
+    { 0, SW5_CS5,  SW4_CS5,  SW6_CS5  }, //LA18
+    { 0, SW5_CS4,  SW4_CS4,  SW6_CS4  }, //LA14
+    { 0, SW5_CS3,  SW4_CS3,  SW6_CS3  }, //LA10
+    { 0, SW5_CS2,  SW4_CS2,  SW6_CS2  }, //LA6
+    { 0, SW5_CS1,  SW4_CS1,  SW6_CS1  }, //LA2
 
-    { 0, H_9,  G_9,  I_9  }, //LA35
-    { 0, H_10, G_10, I_10 }, //LA39
-    { 0, H_11, G_11, I_11 }, //LA43
-    { 0, H_12, G_12, I_12 }, //LA47
-    { 0, H_13, G_13, I_13 }, //LA51
-    { 0, H_14, G_14, I_14 }, //LA55
-    { 0, H_15, G_15, I_15 }, //LA59
-    { 0, H_6,  G_6,  I_6  }, //LA23
-    { 0, H_5,  G_5,  I_5  }, //LA19
-    { 0, H_4,  G_4,  I_4  }, //LA15
-    { 0, H_3,  G_3,  I_3  }, //LA11
-    { 0, H_2,  G_2,  I_2  }, //LA7
-    { 0, H_1,  G_1,  I_1  }, //LA3
+    { 0, SW8_CS9,  SW7_CS9,  SW9_CS9  }, //LA35
+    { 0, SW8_CS10, SW7_CS10, SW9_CS10 }, //LA39
+    { 0, SW8_CS11, SW7_CS11, SW9_CS11 }, //LA43
+    { 0, SW8_CS12, SW7_CS12, SW9_CS12 }, //LA47
+    { 0, SW8_CS13, SW7_CS13, SW9_CS13 }, //LA51
+    { 0, SW8_CS14, SW7_CS14, SW9_CS14 }, //LA55
+    { 0, SW8_CS15, SW7_CS15, SW9_CS15 }, //LA59
+    { 0, SW8_CS6,  SW7_CS6,  SW9_CS6  }, //LA23
+    { 0, SW8_CS5,  SW7_CS5,  SW9_CS5  }, //LA19
+    { 0, SW8_CS4,  SW7_CS4,  SW9_CS4  }, //LA15
+    { 0, SW8_CS3,  SW7_CS3,  SW9_CS3  }, //LA11
+    { 0, SW8_CS2,  SW7_CS2,  SW9_CS2  }, //LA7
+    { 0, SW8_CS1,  SW7_CS1,  SW9_CS1  }, //LA3
 
-    { 0, K_9,  J_9,  L_9  }, //LA36
-    { 0, K_10, J_10, L_10 }, //LA40
-    { 0, K_11, J_11, L_11 }, //LA44
-    { 0, K_12, J_12, L_12 }, //LA48
-    { 0, K_13, J_13, L_13 }, //LA52
-    { 0, K_14, J_14, L_14 }, //LA56
-    { 0, K_15, J_15, L_15 }, //LA60
-    { 0, K_6,  J_6,  L_6  }, //LA24
-    { 0, K_5,  J_5,  L_5  }, //LA20
-    { 0, K_4,  J_4,  L_4  }, //LA16
-    { 0, K_3,  J_3,  L_3  }, //LA12
-    { 0, K_2,  J_2,  L_2  }, //LA8
-    { 0, K_1,  J_1,  L_1  }  //LA4
+    { 0, SW11_CS9,  SW10_CS9,  SW12_CS9  }, //LA36
+    { 0, SW11_CS10, SW10_CS10, SW12_CS10 }, //LA40
+    { 0, SW11_CS11, SW10_CS11, SW12_CS11 }, //LA44
+    { 0, SW11_CS12, SW10_CS12, SW12_CS12 }, //LA48
+    { 0, SW11_CS13, SW10_CS13, SW12_CS13 }, //LA52
+    { 0, SW11_CS14, SW10_CS14, SW12_CS14 }, //LA56
+    { 0, SW11_CS15, SW10_CS15, SW12_CS15 }, //LA60
+    { 0, SW11_CS6,  SW10_CS6,  SW12_CS6  }, //LA24
+    { 0, SW11_CS5,  SW10_CS5,  SW12_CS5  }, //LA20
+    { 0, SW11_CS4,  SW10_CS4,  SW12_CS4  }, //LA16
+    { 0, SW11_CS3,  SW10_CS3,  SW12_CS3  }, //LA12
+    { 0, SW11_CS2,  SW10_CS2,  SW12_CS2  }, //LA8
+    { 0, SW11_CS1,  SW10_CS1,  SW12_CS1  }  //LA4
 };
 
 led_config_t g_led_config = {
@@ -76,13 +76,3 @@ led_config_t g_led_config = {
         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
     }
 };
-
-void suspend_power_down_kb(void) {
-    rgb_matrix_set_suspend_state(true);
-    suspend_power_down_user();
-}
-
-void suspend_wakeup_init_kb(void) {
-    rgb_matrix_set_suspend_state(false);
-    suspend_wakeup_init_user();
-}

@@ -1,9 +1,0 @@
-{
-    "backlight": {
-        "pin": "A6",
-        "levels": 20,
-        "breathing": true
-    },
-    "processor": "STM32F072",
-    "bootloader": "stm32-dfu"
-}

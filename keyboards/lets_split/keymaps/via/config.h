@@ -26,12 +26,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                               SONG(DVORAK_SOUND) \
                             }
 
-/* Select hand configuration */
-#define MASTER_LEFT
-// #define MASTER_RIGHT
-// #define EE_HANDS
 
-#undef RGBLED_NUM
+#undef RGBLIGHT_LED_COUNT
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -42,6 +38,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-#define RGBLED_NUM 10
+#define RGBLIGHT_LED_COUNT 10
 
 #define NO_MUSIC_MODE

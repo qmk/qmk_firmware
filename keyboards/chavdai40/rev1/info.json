@@ -1,8 +1,0 @@
-{
-    "keyboard_name": "Chavdai40",
-    "usb": {
-        "device_version": "0.0.1"
-    },
-    "processor": "STM32F042",
-    "bootloader": "stm32-dfu"
-}

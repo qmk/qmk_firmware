@@ -1,9 +1,0 @@
-{
-    "usb": {
-        "pid": "0x1121",
-        "device_version": "2.0.0"
-    },
-    "processor": "atmega32u4",
-    "bootloader": "atmel-dfu",
-    "debounce": 3
-}

@@ -1,0 +1,30 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema#",
+    "$id": "qmk.user_repo.v1",
+    "title": "User Repository Information",
+    "type": "object",
+    "definitions": {
+        "build_target": {
+            "oneOf": [
+                {"$ref": "qmk.definitions.v1#/keyboard_keymap_tuple"},
+                {"$ref": "qmk.definitions.v1#/json_file_path"}
+            ]
+        },
+    },
+    "required": [
+        "userspace_version",
+        "build_targets"
+    ],
+    "properties": {
+        "userspace_version": {
+            "type": "string",
+            "enum": ["1.0"]
+        },
+        "build_targets": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/build_target"
+            }
+        }
+    }
+}

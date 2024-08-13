@@ -9,13 +9,13 @@ OPT = g
 include paths.mk
 include $(BUILDDEFS_PATH)/message.mk
 
-TARGET=test/$(TEST)
+TARGET=test/$(TEST_OUTPUT)
 
 GTEST_OUTPUT = $(BUILD_DIR)/gtest
 
 TEST_OBJ = $(BUILD_DIR)/test_obj
 
-OUTPUTS := $(TEST_OBJ)/$(TEST) $(GTEST_OUTPUT)
+OUTPUTS := $(TEST_OBJ)/$(TEST_OUTPUT) $(GTEST_OUTPUT)
 
 GTEST_INC := \
 	$(LIB_PATH)/googletest/googletest/include \
@@ -47,7 +47,8 @@ PLATFORM:=TEST
 PLATFORM_KEY:=test
 BOOTLOADER_TYPE:=none
 
-ifeq ($(strip $(DEBUG)), 1)
+DEBUG ?= 0
+ifneq ($(strip $(DEBUG)), 0)
 CONSOLE_ENABLE = yes
 endif
 
@@ -71,14 +72,18 @@ ifneq ($(filter $(FULL_TESTS),$(TEST)),)
 include $(BUILDDEFS_PATH)/build_full_test.mk
 endif
 
-$(TEST)_SRC += \
+$(TEST_OUTPUT)_SRC += \
 	tests/test_common/main.cpp \
 	$(QUANTUM_PATH)/logging/print.c
 
-$(TEST_OBJ)/$(TEST)_SRC := $($(TEST)_SRC)
-$(TEST_OBJ)/$(TEST)_INC := $($(TEST)_INC) $(VPATH) $(GTEST_INC)
-$(TEST_OBJ)/$(TEST)_DEFS := $($(TEST)_DEFS)
-$(TEST_OBJ)/$(TEST)_CONFIG := $($(TEST)_CONFIG)
+ifneq ($(strip $(INTROSPECTION_KEYMAP_C)),)
+$(TEST_OUTPUT)_DEFS += -DINTROSPECTION_KEYMAP_C=\"$(strip $(INTROSPECTION_KEYMAP_C))\"
+endif
+
+$(TEST_OBJ)/$(TEST_OUTPUT)_SRC := $($(TEST_OUTPUT)_SRC)
+$(TEST_OBJ)/$(TEST_OUTPUT)_INC := $($(TEST_OUTPUT)_INC) $(VPATH) $(GTEST_INC)
+$(TEST_OBJ)/$(TEST_OUTPUT)_DEFS := $($(TEST_OUTPUT)_DEFS)
+$(TEST_OBJ)/$(TEST_OUTPUT)_CONFIG := $($(TEST_OUTPUT)_CONFIG)
 
 include $(PLATFORM_PATH)/$(PLATFORM_KEY)/platform.mk
 include $(BUILDDEFS_PATH)/common_rules.mk

@@ -16,17 +16,7 @@
 
 #pragma once
 
-/* RGB Matrix Driver Configuration */
-#define DRIVER_COUNT 2
-#define DRIVER_ADDR_1 0b1110111
-#define DRIVER_ADDR_2 0b1110100
-
-/* RGB Matrix Configuration */
-#define DRIVER_1_LED_TOTAL 46
-#define DRIVER_2_LED_TOTAL 40
-#define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
-
-#define CKLED2001_CURRENT_TUNE \
+#define SNLED27351_CURRENT_TUNE \
     { 0xA0, 0xA0, 0x4D, 0xA0, 0xA0, 0x4D, 0xA0, 0xA0, 0x4D, 0xA0, 0xA0, 0x4D }
 
 /* Enable caps-lock LED */

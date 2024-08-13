@@ -14,6 +14,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#pragma once
+
+#include <stdint.h>
+#include <stdbool.h>
+#include "color.h"
+
 enum layer_names {
     _CONTROL,
     _EDIT1,

@@ -1,6 +1,0 @@
-{
-    "backlight": {
-        "pin": "B6",
-        "levels": 5
-    }
-}

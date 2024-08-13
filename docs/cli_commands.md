@@ -20,7 +20,7 @@ qmk compile [-c] <configuratorExport.json>
 qmk compile [-c] [-e <var>=<value>] [-j <num_jobs>] -kb <keyboard_name> -km <keymap_name>
 ```
 
-**Usage in Keyboard Directory**:  
+**Usage in Keyboard Directory**:
 
 Must be in keyboard directory with a default keymap, or in keymap directory for keyboard, or supply one with `--keymap <keymap_name>`
 ```
@@ -44,7 +44,7 @@ $ qmk compile
 or with optional keymap argument
 
 ```
-$ cd ~/qmk_firmware/keyboards/clueboard/66/rev4 
+$ cd ~/qmk_firmware/keyboards/clueboard/66/rev4
 $ qmk compile -km 66_iso
 Ψ Compiling keymap with make clueboard/66/rev4:66_iso
 ...
@@ -58,7 +58,7 @@ $ qmk compile
 ...
 ```
 
-**Usage in Layout Directory**:  
+**Usage in Layout Directory**:
 
 Must be under `qmk_firmware/layouts/`, and in a keymap folder.
 ```
@@ -86,7 +86,7 @@ qmk compile -j 0 -kb <keyboard_name>
 
 ## `qmk flash`
 
-This command is similar to `qmk compile`, but can also target a bootloader. The bootloader is optional, and is set to `:flash` by default. To specify a different bootloader, use `-bl <bootloader>`. Visit the [Flashing Firmware](flashing.md) guide for more details of the available bootloaders.
+This command is similar to `qmk compile`, but can also target a bootloader. The bootloader is optional, and is set to `:flash` by default. To specify a different bootloader, use `-bl <bootloader>`. Visit the [Flashing Firmware](flashing) guide for more details of the available bootloaders.
 
 This command is directory aware. It will automatically fill in KEYBOARD and/or KEYMAP if you are in a keyboard or keymap directory.
 
@@ -127,7 +127,7 @@ qmk flash -b
 
 ## `qmk config`
 
-This command lets you configure the behavior of QMK. For the full `qmk config` documentation see [CLI Configuration](cli_configuration.md).
+This command lets you configure the behavior of QMK. For the full `qmk config` documentation see [CLI Configuration](cli_configuration).
 
 **Usage**:
 
@@ -147,6 +147,49 @@ To exit out into the parent shell, simply type `exit`.
 
 ```
 qmk cd
+```
+
+## `qmk find`
+
+This command allows for searching through keyboard/keymap targets, filtering by specific criteria. `info.json` and `rules.mk` files contribute to the search data, as well as keymap configurations, and the results can be filtered using "dotty" syntax matching the overall `info.json` file format.
+
+For example, one could search for all keyboards using STM32F411:
+
+```
+qmk find -f 'processor=STM32F411'
+```
+
+...and one can further constrain the list to keyboards using STM32F411 as well as rgb_matrix support:
+
+```
+qmk find -f 'processor=STM32F411' -f 'features.rgb_matrix=true'
+```
+
+The following filter expressions are also supported:
+
+ - `exists(key)`: Match targets where `key` is present.
+ - `absent(key)`: Match targets where `key` is not present.
+ - `contains(key, value)`: Match targets where `key` contains `value`. Can be used for strings, arrays and object keys.
+ - `length(key, value)`: Match targets where the length of `key` is `value`. Can be used for strings, arrays and objects.
+
+You can also list arbitrary values for each matched target with `--print`:
+
+```
+qmk find -f 'processor=STM32F411' -p 'keyboard_name' -p 'features.rgb_matrix'
+```
+
+**Usage**:
+
+```
+qmk find [-h] [-km KEYMAP] [-p PRINT] [-f FILTER]
+
+options:
+  -km KEYMAP, --keymap KEYMAP
+                        The keymap name to build. Default is 'default'.
+  -p PRINT, --print PRINT
+                        For each matched target, print the value of the supplied info.json key. May be passed multiple times.
+  -f FILTER, --filter FILTER
+                        Filter the list of keyboards based on their info.json data. Accepts the formats key=value, function(key), or function(key,value), eg. 'features.rgblight=true'. Valid functions are 'absent', 'contains', 'exists' and 'length'. May be passed multiple times; all filters need to match. Value may include wildcards such as '*' and '?'.
 ```
 
 ## `qmk console`
@@ -211,15 +254,21 @@ qmk doctor [-y] [-n]
 
 Check your environment for problems and prompt to fix them:
 
-    qmk doctor
+```
+qmk doctor
+```
 
 Check your environment and automatically fix any problems found:
 
-    qmk doctor -y
+```
+qmk doctor -y
+```
 
 Check your environment and report problems only:
 
-    qmk doctor -n
+```
+qmk doctor -n
+```
 
 ## `qmk format-json`
 
@@ -247,15 +296,21 @@ This command is directory aware. It will automatically fill in KEYBOARD and/or K
 
 Show basic information for a keyboard:
 
-    qmk info -kb planck/rev5
+```
+qmk info -kb planck/rev5
+```
 
 Show the matrix for a keyboard:
 
-    qmk info -kb ergodox_ez -m
+```
+qmk info -kb ergodox_ez -m
+```
 
 Show a JSON keymap for a keyboard:
 
-    qmk info -kb clueboard/california -km default
+```
+qmk info -kb clueboard/california -km default
+```
 
 ## `qmk json2c`
 
@@ -269,13 +324,26 @@ qmk json2c [-o OUTPUT] filename
 
 ## `qmk c2json`
 
-Creates a keymap.json from a keymap.c.  
+Creates a keymap.json from a keymap.c.
+
 **Note:** Parsing C source files is not easy, therefore this subcommand may not work with your keymap. In some cases not using the C pre-processor helps.
 
 **Usage**:
 
 ```
 qmk c2json -km KEYMAP -kb KEYBOARD [-q] [--no-cpp] [-o OUTPUT] filename
+```
+
+**Examples**:
+
+```
+qmk c2json -km default -kb handwired/dactyl_promicro
+```
+
+or with filename:
+
+```
+qmk c2json keyboards/handwired/dactyl_promicro/keymaps/default/keymap.c
 ```
 
 ## `qmk lint`
@@ -294,7 +362,9 @@ This command is directory aware. It will automatically fill in KEYBOARD and/or K
 
 Do a basic lint check:
 
-    qmk lint -kb rominronin/katana60/rev2
+```
+qmk lint -kb rominronin/katana60/rev2
+```
 
 ## `qmk list-keyboards`
 
@@ -316,6 +386,16 @@ This command is directory aware. It will automatically fill in KEYBOARD if you a
 
 ```
 qmk list-keymaps -kb planck/ez
+```
+
+## `qmk migrate`
+
+This command searches for legacy code that can be converted to the new `info.json` format and adds it to the specified keyboard's `info.json`.
+
+**Usage**:
+
+```
+qmk migrate [-h] -kb KEYBOARD [-f FILTER]
 ```
 
 ## `qmk new-keyboard`
@@ -438,11 +518,136 @@ $ qmk import-kbfirmware ~/Downloads/gh62.json
 
 ---
 
+# External Userspace Commands
+
+## `qmk userspace-add`
+
+This command adds a keyboard/keymap to the External Userspace build targets.
+
+**Usage**:
+
+```
+qmk userspace-add [-h] [-km KEYMAP] [-kb KEYBOARD] [builds ...]
+
+positional arguments:
+  builds                List of builds in form <keyboard>:<keymap>, or path to a keymap JSON file.
+
+options:
+  -h, --help            show this help message and exit
+  -km KEYMAP, --keymap KEYMAP
+                        The keymap to build a firmware for. Ignored when a configurator export is supplied.
+  -kb KEYBOARD, --keyboard KEYBOARD
+                        The keyboard to build a firmware for. Ignored when a configurator export is supplied.
+```
+
+**Example**:
+
+```
+$ qmk userspace-add -kb planck/rev6 -km default
+Ψ Added planck/rev6:default to userspace build targets
+Ψ Saved userspace file to /home/you/qmk_userspace/qmk.json
+```
+
+## `qmk userspace-remove`
+
+This command removes a keyboard/keymap from the External Userspace build targets.
+
+**Usage**:
+
+```
+qmk userspace-remove [-h] [-km KEYMAP] [-kb KEYBOARD] [builds ...]
+
+positional arguments:
+  builds                List of builds in form <keyboard>:<keymap>, or path to a keymap JSON file.
+
+options:
+  -h, --help            show this help message and exit
+  -km KEYMAP, --keymap KEYMAP
+                        The keymap to build a firmware for. Ignored when a configurator export is supplied.
+  -kb KEYBOARD, --keyboard KEYBOARD
+                        The keyboard to build a firmware for. Ignored when a configurator export is supplied.
+```
+
+**Example**:
+
+```
+$ qmk userspace-remove -kb planck/rev6 -km default
+Ψ Removed planck/rev6:default from userspace build targets
+Ψ Saved userspace file to /home/you/qmk_userspace/qmk.json
+```
+
+## `qmk userspace-list`
+
+This command lists the External Userspace build targets.
+
+**Usage**:
+
+```
+qmk userspace-list [-h] [-e]
+
+options:
+  -h, --help    show this help message and exit
+  -e, --expand  Expands any use of `all` for either keyboard or keymap.
+```
+
+**Example**:
+
+```
+$ qmk userspace-list
+Ψ Current userspace build targets:
+Ψ Keyboard: planck/rev6, keymap: you
+Ψ Keyboard: clueboard/66/rev3, keymap: you
+```
+
+## `qmk userspace-compile`
+
+This command compiles all the External Userspace build targets.
+
+**Usage**:
+
+```
+qmk userspace-compile [-h] [-e ENV] [-n] [-c] [-j PARALLEL] [-t]
+
+options:
+  -h, --help            show this help message and exit
+  -e ENV, --env ENV     Set a variable to be passed to make. May be passed multiple times.
+  -n, --dry-run         Don't actually build, just show the commands to be run.
+  -c, --clean           Remove object files before compiling.
+  -j PARALLEL, --parallel PARALLEL
+                        Set the number of parallel make jobs; 0 means unlimited.
+  -t, --no-temp         Remove temporary files during build.
+```
+
+**Example**:
+
+```
+$ qmk userspace-compile
+Ψ Preparing target list...
+Build planck/rev6:you                                                  [OK]
+Build clueboard/66/rev3:you                                            [OK]
+```
+
+## `qmk userspace-doctor`
+
+This command examines your environment and alerts you to potential problems related to External Userspace.
+
+**Example**:
+
+```
+% qmk userspace-doctor
+Ψ QMK home: /home/you/qmk_userspace/qmk_firmware
+Ψ Testing userspace candidate: /home/you/qmk_userspace -- Valid `qmk.json`
+Ψ QMK userspace: /home/you/qmk_userspace
+Ψ Userspace enabled: True
+```
+
+---
+
 # Developer Commands
 
 ## `qmk format-text`
 
-This command formats text files to have proper line endings. 
+This command formats text files to have proper line endings.
 
 Every text file in the repository needs to have Unix (LF) line ending.
 If you are working on **Windows**, you must ensure that line endings are corrected in order to get your PRs merged.
@@ -453,7 +658,7 @@ qmk format-text
 
 ## `qmk format-c`
 
-This command formats C code using clang-format. 
+This command formats C code using clang-format.
 
 Run it with no arguments to format all core code that has been changed. Default checks `origin/master` with `git diff`, branch can be changed using `-b <branch_name>`
 
@@ -512,30 +717,39 @@ Now open your dev environment and live a squiggly-free life.
 
 ## `qmk docs`
 
-This command starts a local HTTP server which you can use for browsing or improving the docs. Default port is 8936.
-Use the `-b`/`--browser` flag to automatically open the local webserver in your default browser.
+This command starts a local HTTP server which you can use for browsing or improving the docs. Default port is 5173.
 
-This command runs `docsify serve` if `docsify-cli` is installed (which provides live reload), otherwise Python's builtin HTTP server module will be used.
+This command requires `node` and `yarn` to be installed as prerequisites, and provides live reload capability whilst editing.
 
 **Usage**:
 
 ```
-qmk docs [-b] [-p PORT]
+usage: qmk docs [-h]
+
+options:
+  -h, --help  show this help message and exit
 ```
 
 ## `qmk generate-docs`
 
-This command allows you to generate QMK documentation locally. It can be uses for general browsing or improving the docs. External tools such as [serve](https://www.npmjs.com/package/serve) can be used to browse the generated files.
+This command allows you to generate QMK documentation locally. It can be uses for general browsing or improving the docs.
+Use the `-s`/`--serve` flag to also serve the static site once built. Default port is 4173.
+
+This command requires `node` and `yarn` to be installed as prerequisites, and requires the operating system to support symlinks.
 
 **Usage**:
 
 ```
-qmk generate-docs
+usage: qmk generate-docs [-h] [-s]
+
+options:
+  -h, --help   show this help message and exit
+  -s, --serve  Serves the generated docs once built.
 ```
 
 ## `qmk generate-rgb-breathe-table`
 
-This command generates a lookup table (LUT) header file for the [RGB Lighting](feature_rgblight.md) feature's breathing animation. Place this file in your keyboard or keymap directory as `rgblight_breathe_table.h` to override the default LUT in `quantum/rgblight/`.
+This command generates a lookup table (LUT) header file for the [RGB Lighting](features/rgblight) feature's breathing animation. Place this file in your keyboard or keymap directory as `rgblight_breathe_table.h` to override the default LUT in `quantum/rgblight/`.
 
 **Usage**:
 
@@ -556,7 +770,7 @@ qmk kle2json [-f] <filename>
 **Examples**:
 
 ```
-$ qmk kle2json kle.txt 
+$ qmk kle2json kle.txt
 ☒ File info.json already exists, use -f or --force to overwrite.
 ```
 
@@ -589,26 +803,76 @@ qmk pytest [-t TEST]
 
 Run entire test suite:
 
-    qmk pytest
+```
+qmk pytest
+```
 
 Run test group:
 
-    qmk pytest -t qmk.tests.test_cli_commands
+```
+qmk pytest -t qmk.tests.test_cli_commands
+```
 
 Run single test:
 
-    qmk pytest -t qmk.tests.test_cli_commands.test_c2json
-    qmk pytest -t qmk.tests.test_qmk_path
+```
+qmk pytest -t qmk.tests.test_cli_commands.test_c2json
+qmk pytest -t qmk.tests.test_qmk_path
+```
 
 ## `qmk painter-convert-graphics`
 
-This command converts images to a format usable by QMK, i.e. the QGF File Format. See the [Quantum Painter](quantum_painter.md?id=quantum-painter-cli) documentation for more information on this command.
+This command converts images to a format usable by QMK, i.e. the QGF File Format. See the [Quantum Painter](quantum_painter#quantum-painter-cli) documentation for more information on this command.
 
 ## `qmk painter-make-font-image`
 
-This command converts a TTF font to an intermediate format for editing, before converting to the QFF File Format. See the [Quantum Painter](quantum_painter.md?id=quantum-painter-cli) documentation for more information on this command.
+This command converts a TTF font to an intermediate format for editing, before converting to the QFF File Format. See the [Quantum Painter](quantum_painter#quantum-painter-cli) documentation for more information on this command.
 
 ## `qmk painter-convert-font-image`
 
-This command converts an intermediate font image to the QFF File Format. See the [Quantum Painter](quantum_painter.md?id=quantum-painter-cli) documentation for more information on this command.
+This command converts an intermediate font image to the QFF File Format. See the [Quantum Painter](quantum_painter#quantum-painter-cli) documentation for more information on this command.
 
+## `qmk test-c`
+
+This command runs the C unit test suite. If you make changes to C code you should ensure this runs successfully.
+
+**Usage**:
+
+```
+qmk test-c [-h] [-t TEST] [-l] [-c] [-e ENV] [-j PARALLEL]
+
+options:
+  -h, --help            show this help message and exit
+  -t TEST, --test TEST  Test to run from the available list. Supports wildcard globs. May be passed multiple times.
+  -l, --list            List available tests.
+  -c, --clean           Remove object files before compiling.
+  -e ENV, --env ENV     Set a variable to be passed to make. May be passed multiple times.
+  -j PARALLEL, --parallel PARALLEL
+                        Set the number of parallel make jobs; 0 means unlimited.
+```
+
+**Examples**:
+
+Run entire test suite:
+
+```
+qmk test-c
+```
+
+List available tests:
+
+```
+qmk test-c --list
+```
+
+Run matching test:
+
+```
+qmk test-c --test unicode*
+```
+
+Run single test:
+
+```
+qmk test-c --test basic
+```

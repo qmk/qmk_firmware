@@ -16,10 +16,8 @@
 
 #pragma once
 
-#ifdef RGB_DI_PIN
-    #undef RGBLED_NUM
-    #define RGBLED_NUM 17 // Layer Indicator(2) + Rotary Encoder(5) + Optional(2) + Under(8)
+    #undef RGBLIGHT_LED_COUNT
+    #define RGBLIGHT_LED_COUNT 17 // Layer Indicator(2) + Rotary Encoder(5) + Optional(2) + Under(8)
 
     #undef RGBLIGHT_LED_MAP
     #define RGBLIGHT_LED_MAP {2, 0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16} // Left to Right to Under
-#endif

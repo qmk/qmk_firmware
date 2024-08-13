@@ -13,8 +13,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #include "process_space_cadet.h"
+#include "keycodes.h"
+#include "timer.h"
+#include "action.h"
 #include "action_tapping.h"
+#include "action_util.h"
 
 // ********** OBSOLETE DEFINES, STOP USING! (pls?) **********
 // Shift / paren setup
@@ -152,10 +157,14 @@ bool process_space_cadet(uint16_t keycode, keyrecord_t *record) {
         }
         default: {
             if (record->event.pressed) {
-                sc_last = 0;
+                reset_space_cadet();
             }
             break;
         }
     }
     return true;
+}
+
+void reset_space_cadet() {
+    sc_last = 0;
 }

@@ -81,12 +81,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, KC_UP,   _______, _______, _______, KC_UNDS, _______, KC_LBRC, KC_RBRC, _______,
         _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, KC_MINS, _______, KC_LCBR, KC_RCBR, _______,
         KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
-        QK_BOOT,   _______, _______,          _______,                   _______,          _______, _______, _______
+        QK_BOOT, _______, _______,          _______,                   _______,          _______, _______, _______
     )
 };
 
 #ifdef ENCODER_MAP_ENABLE
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [1] = { ENCODER_CCW_CW(_______, _______) },
     [2] = { ENCODER_CCW_CW(_______, _______) },

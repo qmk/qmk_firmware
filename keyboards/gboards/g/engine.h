@@ -12,16 +12,13 @@
 
 #pragma once
 
-#include QMK_KEYBOARD_H
-#include <string.h>
 #include <stdint.h>
+#include <stdbool.h>
+#include <string.h>
 #include <stdio.h>
+#include "action.h"
+#include "progmem.h"
 #include "config_engine.h"
-#include <avr/pgmspace.h>
-#include "wait.h"
-#ifdef MOUSEKEY_ENABLE
-#    include "mousekey.h"
-#endif
 
 // Set defaults
 #ifndef IN_CHORD_MASK

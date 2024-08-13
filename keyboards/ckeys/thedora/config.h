@@ -16,18 +16,6 @@
 
 #pragma once
 
-#define MATRIX_ROW_PINS { A2, A1, A0, B8 }
-#define MATRIX_COL_PINS { B5, B4, B3, B2, B1, B0 }
-
-
-/* COL2ROW, ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
 #define AUDIO_CLICKY
 
 #define DAC_SAMPLE_MAX 65535U

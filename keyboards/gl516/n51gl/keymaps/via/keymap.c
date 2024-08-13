@@ -18,48 +18,48 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT_rotary_layer(
+  [0] = LAYOUT(
   //,--------------------------------------------------------------|        |--------------------------------------------------------------.
        KC_ESC,  KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,             KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_LBRC, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------+--------|
-         LT(1,KC_CAPS),    KC_A,    KC_S,    KC_D,    KC_F,    KC_G, KC_VOLU,    KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,  KC_ENT,
+         LT(1,KC_CAPS),    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,             KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,  KC_ENT,
   //|--------+--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------+--------|
                KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B, KC_MUTE,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,   KC_UP, KC_RSFT,
   //|--------+--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------+--------|
-              KC_LCTL, KC_LGUI,          KC_LALT,  KC_SPC,  KC_SPC, KC_VOLD,  KC_SPC,  KC_SPC, KC_LALT,          KC_LEFT, KC_DOWN, KC_RGHT
+              KC_LCTL, KC_LGUI,          KC_LALT,  KC_SPC,  KC_SPC,              KC_SPC,  KC_SPC, KC_LALT,          KC_LEFT, KC_DOWN, KC_RGHT
   //|--------------------------------------------------------------|        |--------------------------------------------------------------'
   ),
-  [1] = LAYOUT_rotary_layer(
+  [1] = LAYOUT(
   //,--------------------------------------------------------------|        |--------------------------------------------------------------.
-      _______,   QK_BOOT,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,            KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,
+      _______, QK_BOOT,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,            KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,
   //|--------+--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------+--------|
-               _______,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5, _______,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0, _______, _______, 
+               _______,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,              KC_6,    KC_7,    KC_8,    KC_9,    KC_0, _______, _______,
   //|--------+--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------+--------|
                _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   //|--------+--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------+--------|
-               _______, _______,          _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______
+               _______, _______,          _______, _______, _______,              _______, _______, _______,          _______, _______, _______
   //|--------------------------------------------------------------|        |--------------------------------------------------------------'
   ),
-  [2] = LAYOUT_rotary_layer(
+  [2] = LAYOUT(
   //,--------------------------------------------------------------|        |--------------------------------------------------------------.
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------+--------|
-               XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+               XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------+--------|
                XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------+--------|
-               XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX
+               XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX
   //|--------------------------------------------------------------|        |--------------------------------------------------------------'
   ),
-  [3] = LAYOUT_rotary_layer(
+  [3] = LAYOUT(
   //,--------------------------------------------------------------|        |--------------------------------------------------------------.
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------+--------|
-               XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+               XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------+--------|
                XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------+--------|
-               XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX
+               XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX
   //|--------------------------------------------------------------|        |--------------------------------------------------------------'
   )
 };
@@ -87,16 +87,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 return state;
 }
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    keypos_t key;
-    if (clockwise) {
-        key.row = 3;
-        key.col = 0;
-    } else {
-        key.row = 1;
-        key.col = 0;
-    }
-    action_exec((keyevent_t){.key = key, .pressed = true, .time = (timer_read() | 1)});
-    action_exec((keyevent_t){.key = key, .pressed = false, .time = (timer_read() | 1)});
-    return true;
-}
+#ifdef ENCODER_MAP_ENABLE
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [1] = { ENCODER_CCW_CW(_______, _______) },
+    [2] = { ENCODER_CCW_CW(_______, _______) },
+    [3] = { ENCODER_CCW_CW(_______, _______) },
+};
+#endif

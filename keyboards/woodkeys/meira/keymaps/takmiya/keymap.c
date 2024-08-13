@@ -13,9 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "meira.h"
-#include "issi.h"
-#include "lighting.h"
+#include QMK_KEYBOARD_H
 
 #ifdef RGBLIGHT_ENABLE
 //Following line allows macro to read current RGB settings
@@ -25,11 +23,10 @@ extern rgblight_config_t rgblight_config;
 #define _QWERTY 0
 #define _LOWER 1
 #define _RAISE 2
-#define _ADJUST 16
+#define _ADJUST 3
 
 enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  LOWER,
+  LOWER = SAFE_RANGE,
   RAISE,
   ADJUST,
 };
@@ -106,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          */
         [_ADJUST] =  LAYOUT(
                 BL_TOGG, QK_BOOT, _______, KC_MRWD, KC_MPLY, KC_MFFD, KC_PSCR, _______, KC_MUTE, KC_VOLD, KC_VOLU, KC_DEL,
-                BL_STEP, RGB_MOD, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  _______, _______,  _______, _______,
+                BL_STEP, RGB_MOD, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, _______, _______,  _______, _______,
                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                 _______, KC_PSCR, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
         )
@@ -126,15 +123,6 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_qwerty);
-        #endif
-//        persistent_default_layer_set(1UL<<_QWERTY);
-      }
-      return false;
-      break;
     case LOWER:
         if (record->event.pressed) {
             //not sure how to have keyboard check mode and set it to a variable, so my work around
@@ -190,15 +178,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
         break;
-    case BL_TOGG:
-#ifdef ISSI_ENABLE
-        if (record->event.pressed) {
-            print("Enabling backlight\n");
-            issi_init();
-        }
-#endif
-        return false;
-        break;
     case BL_STEP:
         if (record->event.pressed) {
             print("Stepping backlight\n");
@@ -227,8 +206,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //    		break;
   }
   return true;
-}
-
-void led_set_user(uint8_t usb_led) {
-
 }

@@ -19,9 +19,8 @@ Basic symmetric per-key algorithm. Uses an 8-bit counter per key.
 When no state changes have occured for DEBOUNCE milliseconds, we push the state.
 */
 
-#include "matrix.h"
+#include "debounce.h"
 #include "timer.h"
-#include "quantum.h"
 #include <stdlib.h>
 
 #ifdef PROTOCOL_CHIBIOS
