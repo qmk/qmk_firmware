@@ -433,6 +433,7 @@ static void side_wave_mode_show(void) {
             light_point_playing(1, 12, WAVE_TAB_LEN, &play_index);
             count_rgb_light(wave_data_tab[play_index]);
         }
+        count_rgb_light(side_light_table[g_config.side_brightness]);
 
         side_rgb_set_color(side_led_index_tab[i], r_temp >> 2, g_temp >> 2, b_temp >> 2);
     }

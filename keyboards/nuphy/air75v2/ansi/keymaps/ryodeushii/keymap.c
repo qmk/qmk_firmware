@@ -22,7 +22,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	_______, 	LNK_BLE1,  	LNK_BLE2,  	LNK_BLE3,  	LNK_RF,   	_______,   	_______,   	_______,   	_______,   	_______,  	_______,   	_______,	_______, 	_______,	            _______,
 	_______, 	_______,   	_______,   	_______,   	_______,   	_______,   	DEBOUNCE_PRESS_DEC,   	DEBOUNCE_PRESS_SHOW,   	DEBOUNCE_PRESS_INC,   	TOG_DEEP_SLEEP,  	TOG_USB_SLP,   	DEV_RESET,	SLEEP_MODE, BAT_SHOW,	            _______,
 	TOG_CAPS_IND,	SLEEP_TIMEOUT_DEC,   	SLEEP_TIMEOUT_SHOW,   	SLEEP_TIMEOUT_INC,  	_______,   	_______,   	DEBOUNCE_RELEASE_DEC,	DEBOUNCE_RELEASE_SHOW,   	DEBOUNCE_RELEASE_INC,   	_______,  	_______,	_______, 	_______,                            _______,
-	_______,				_______,   	_______,   	RGB_TEST,  	_______,    _______,   	_______,	MO(4), 		RGB_SPD,	RGB_SPI,	_______,	_______,	            RGB_VAI,    _______,
+	_______,				_______,   	_______,   	RGB_TEST,  	_______,    _______,   	MO(5),	MO(4), 		RGB_SPD,	RGB_SPI,	_______,	_______,	            RGB_VAI,    _______,
 	_______,	_______,	_______,										_______, 							_______,	MO(1),   	_______,				RGB_MOD,	RGB_VAD,    RGB_HUI),
 
 // layer win

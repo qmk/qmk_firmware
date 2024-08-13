@@ -146,8 +146,6 @@ static void right_side_wave_mode_show(void) {
 
     play_index = right_side_play_point;
 
-    right_side_count_rgb_light(side_light_table[g_config.right_side_brightness]);
-
     for (int i = 0; i < RIGHT_SIDE_LINE; i++) {
         if (g_config.right_side_rgb) {
             r_temp = flow_rainbow_color_tab[play_index][0];
@@ -163,6 +161,8 @@ static void right_side_wave_mode_show(void) {
             right_side_light_point_playing(1, 12, WAVE_TAB_LEN, &play_index);
             right_side_count_rgb_light(wave_data_tab[play_index]);
         }
+
+        right_side_count_rgb_light(side_light_table[g_config.right_side_brightness]);
 
         side_rgb_set_color(right_side_led_index_tab[i], r_temp >> 1, g_temp >> 1, b_temp >> 1);
     }

@@ -164,6 +164,8 @@ static void logo_wave_mode_show(void) {
             logo_count_rgb_light(wave_data_tab[play_index]);
         }
 
+        logo_count_rgb_light(side_light_table[g_config.logo_brightness]);
+
         side_rgb_set_color(logo_led_index_tab[i], r_temp >> 1, g_temp >> 1, b_temp >> 1);
     }
 }
