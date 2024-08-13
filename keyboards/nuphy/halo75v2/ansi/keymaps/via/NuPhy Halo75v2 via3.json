@@ -588,6 +588,15 @@
                             ]
                         },
                         {
+                            "label": "Battery indicator show numeric value",
+                            "type": "toggle",
+                            "content": [
+                                "id_battery_indicator_numeric",
+                                0,
+                                24
+                            ]
+                        },
+                        {
                             "label": "Power On Animation",
                             "type": "toggle",
                             "content": [
@@ -789,6 +798,10 @@
         {
             "name": "TOG POWERON\nANIM",
             "title": "Toggle Power On Animation"
+        },
+        {
+            "name": "TOG BAT\nIND\nNUMERIC",
+            "title": "Toggle indicator numeric visual"
         }
     ]
 }

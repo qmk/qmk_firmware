@@ -386,6 +386,12 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 toggle_power_on_animation();
             }
             return false;
+        case TOG_BAT_IND_NUM:
+            if (record->event.pressed) {
+                g_config.battery_indicator_numeric = !g_config.battery_indicator_numeric;
+                save_config_to_eeprom();
+            }
+            return false;
 
         default:
             return true;
@@ -493,6 +499,11 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
         }
     }
 
+    if (f_bat_hold && g_config.battery_indicator_numeric) {
+        rgb_matrix_set_color(two_digit_decimals_led(dev_info.rf_battery), 0x00, 0x80, 0x80);
+        rgb_matrix_set_color(two_digit_ones_led(dev_info.rf_battery), 0x00, 0x80, 0x80);
+    }
+
     return rgb_matrix_indicators_advanced_user(led_min, led_max);
 }
 
@@ -534,9 +545,10 @@ void init_g_config(void) {
     g_config.side_color                   = DEFAULT_SIDE_COLOR;
     g_config.battery_indicator_brightness = DEFAULT_BATTERY_INDICATOR_BRIGHTNESS;
     g_config.toggle_custom_keys_highlight = DEFAULT_LIGHT_CUSTOM_KEYS;
-    g_config.detect_numlock_state         = 0;
-    g_config.side_use_custom_color        = 0;
+    g_config.detect_numlock_state         = DEFAULT_DETECT_NUMLOCK;
+    g_config.side_use_custom_color        = DEFAULT_SIDE_USE_CUSTOM_COLOR;
     g_config.side_custom_color            = rgb_matrix_get_hsv();
+    g_config.battery_indicator_numeric    = DEFAULT_BATTERY_INDICATOR_NUMERIC;
 }
 
 void load_config_from_eeprom(void) {
@@ -631,6 +643,9 @@ void via_config_set_value(uint8_t *data) {
         case id_side_custom_color:
             _set_color(&(g_config.side_custom_color), value_data);
             break;
+        case id_battery_indicator_numeric:
+            g_config.battery_indicator_numeric= *value_data;
+            break;
     }
 #    if CONSOLE_ENABLE
     xprintf("[SET]VALUE_ID: %u DATA: %u\n", *value_id, *value_data);
@@ -696,6 +711,9 @@ void via_config_get_value(uint8_t *data) {
             break;
         case id_side_custom_color:
             _get_color(&(g_config.side_custom_color), value_data);
+            break;
+        case id_battery_indicator_numeric:
+            *value_data = g_config.battery_indicator_numeric;
             break;
     }
 #    if CONSOLE_ENABLE
