@@ -31,7 +31,7 @@
         "device_version": "1.0.1",
         "no_startup_check": true,
         "pid": "0x0084",
-        "vid": "0x3151",
+        "vid": "0x414A",
         "wait_for_enumeration": false
     },
     "layouts": {
