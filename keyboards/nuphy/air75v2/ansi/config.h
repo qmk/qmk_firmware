@@ -111,7 +111,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEFAULT_DETECT_NUMLOCK 0
 #define DEFAULT_SIDE_USE_CUSTOM_COLOR 0
 #define DEFAULT_RIGHT_SIDE_USE_CUSTOM_COLOR 0
-#define DEFAULT_BATTERY_INDICATOR_BRIGHTNESS 0
+#define DEFAULT_BATTERY_INDICATOR_NUMERIC 0
 /*
  * END OF DEFAULT VALUES
  */
