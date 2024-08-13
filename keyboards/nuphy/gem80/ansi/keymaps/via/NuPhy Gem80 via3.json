@@ -684,7 +684,15 @@
                                 0,
                                 100
                             ]
-
+                        },
+                        {
+                            "label": "Battery indicator show numeric value",
+                            "type": "toggle",
+                            "content": [
+                                "id_battery_indicator_numeric",
+                                0,
+                                34
+                            ]
                         },
                         {
                             "label": "Caps Lock Indicator",
@@ -895,6 +903,10 @@
         {
             "name": "TOG DEEP\nSLEEP",
             "title": "Toggle Deep Sleep"
+        },
+        {
+            "name": "TOG BAT\nIND\nNUMERIC",
+            "title": "Toggle indicator numeric visual"
         }
     ]
 }
