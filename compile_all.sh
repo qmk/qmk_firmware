@@ -8,7 +8,7 @@ for KEYMAP in "via" "default" "ryodeushii"
 do
     for KEYBOARD in "air75v2" "halo75v2" "gem80"
     do
-        if [ $KEYMAP == "gem80" ]; then
+        if [ $KEYBOARD == "gem80" ]; then
             sed -i 's/WORK_MODE THREE_MODE/WORK_MODE USB_MODE/' keyboards/nuphy/gem80/ansi/config.h
 
             qmk compile -kb nuphy/$KEYBOARD/ansi -km $KEYMAP -j 0 -c -e TARGET="wired-$KEYBOARD-$KEYMAP-$TAG"
