@@ -1,12 +1,12 @@
-# keybow_2040
+# Pimoroni Keybow 2040
 
-![keybow_2040](imgur.com image replace me!)
+![Keybow 2040 board](https://imgur.com/LXEHacp)
 
-*A short description of the keyboard/project*
+Keybow 2040 is an RP2040-powered, 4x4 ortholinear macro pad, with per-key RGB lighting.
 
 * Keyboard Maintainer: [Sandy Macdonald](https://github.com/sandyjmacdonald)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: Keybow 2040
+* Hardware Availability: [Buy Keybow 2040 at pimoroni.com](https://shop.pimoroni.com/products/keybow-2040)
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -20,8 +20,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Bootloader
 
-Enter the bootloader in 3 ways:
+Enter the bootloader as follows:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
-* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
+* **Boards with boot and reset buttons**: Hold down the boot button, and then press and release the reset button
+* **Boards with boot button only**: Unplug USB cable, hold down the boot button, and then plug in USB cable
