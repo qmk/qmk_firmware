@@ -27,12 +27,6 @@ void keyboard_pre_init_kb(void) {
     writePinHigh(A8);  //ENABLE USB
     uart_init(460800);
     wait_ms(400);
-    // debug_enable=true;
-    // debug_keyboard=true;
-    // debug_matrix=true;
-    // debug_mouse=true;
-    setPinOutput(B8);
-    writePinLow(B8);
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) 
