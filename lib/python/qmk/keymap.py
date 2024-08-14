@@ -35,9 +35,7 @@ __ENCODER_MAP_GOES_HERE__
 __MACRO_OUTPUT_GOES_HERE__
 
 #ifdef OTHER_KEYMAP_C
-#    if __has_include_next(OTHER_KEYMAP_C)
-#        include_next OTHER_KEYMAP_C
-#    endif // __has_include_next(OTHER_KEYMAP_C)
+#    include OTHER_KEYMAP_C
 #endif // OTHER_KEYMAP_C
 """
 
@@ -55,7 +53,10 @@ def _generate_keymap_table(keymap_json):
 
 
 def _generate_encodermap_table(keymap_json):
-    lines = ['#if defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)', 'const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {']
+    lines = [
+        '#if defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)',
+        'const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {',
+    ]
     for layer_num, layer in enumerate(keymap_json['encoders']):
         if layer_num != 0:
             lines[-1] = lines[-1] + ','

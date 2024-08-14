@@ -28,9 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 #ifdef OTHER_KEYMAP_C
-#    if __has_include_next(OTHER_KEYMAP_C)
-#        include_next OTHER_KEYMAP_C
-#    endif // __has_include_next(OTHER_KEYMAP_C)
+#    include OTHER_KEYMAP_C
 #endif // OTHER_KEYMAP_C
 """
 
