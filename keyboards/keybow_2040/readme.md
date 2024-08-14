@@ -1,6 +1,6 @@
 # Pimoroni Keybow 2040
 
-![Keybow 2040 board](https://imgur.com/LXEHacp)
+![Keybow 2040 board](https://imgur.com/LXEHacp.jpeg)
 
 Keybow 2040 is an RP2040-powered, 4x4 ortholinear macro pad, with per-key RGB lighting.
 
