@@ -90,9 +90,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 //function for layer indicator LED
 layer_state_t layer_state_set_user(layer_state_t state) {
-    writePin(D0, layer_state_cmp(state, 0));
-    writePin(D1, layer_state_cmp(state, 1));
-    writePin(D2, layer_state_cmp(state, 2));
+    gpio_write_pin(D0, layer_state_cmp(state, 0));
+    gpio_write_pin(D1, layer_state_cmp(state, 1));
+    gpio_write_pin(D2, layer_state_cmp(state, 2));
     return state;
 }
 

@@ -24,6 +24,12 @@
         "ps2": true,
         "ps2_mouse": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

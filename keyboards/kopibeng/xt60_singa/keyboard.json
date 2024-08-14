@@ -17,8 +17,7 @@
             "breathing": true,
             "rainbow_mood": true,
             "rainbow_swirl": true,
-            "static_gradient": true,
-            "rgb_test": true
+            "static_gradient": true
         }
     },
     "ws2812": {
@@ -26,12 +25,18 @@
     },
     "features": {
         "bootmagic": true,
-        "command": true,
-        "console": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
         "rgblight": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     },
     "matrix_pins": {
         "cols": ["C7", "F5", "F1", "F0", "C6", "B6", "B5", "B4", "D7", "D6", "D5", "D3", "D2", "D1"],

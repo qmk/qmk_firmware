@@ -82,6 +82,12 @@
         "encoder": true,
         "midi": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "build": {
         "lto": true
     },
