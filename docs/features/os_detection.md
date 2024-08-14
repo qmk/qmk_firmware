@@ -77,10 +77,12 @@ If your keyboard does not redetect the OS in this situation, you can force the k
 
 ## Configuration Options
 
-* `#define OS_DETECTION_DEBOUNCE 200`
+* `#define OS_DETECTION_DEBOUNCE 250`
   * defined the debounce time for OS detection, in milliseconds
 * `#define OS_DETECTION_KEYBOARD_RESET`
   * enables the keyboard reset upon a USB device reinitilization, such as switching devices on some KVMs
+* `#define OS_DETECTION_MULTI_REPORT`
+  * allows the callbacks to be called after the first report in case the detected OS changes afterwards
 
 ## Debug
 
