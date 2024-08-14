@@ -1,0 +1,18 @@
+ ***failed;                                                                                                                            
+ ***failed;                                                                                                                            
+ ***failed;                                                                                                                            
+avrdude: Error: butterfly programmer uses avr_write_page() but does not                                                                
+provide a cmd() method.                                                                                                                                                                                           
+ *** page 127 (addresses 0x7400 - 0x747f) failed to write
+
+への対応
+
+sudo systemctl stop ModemManager.service
+の実行で回避可能
+
+
+これが機能する場合は、サービスが次回の起動を開始しないようにします。
+
+sudo systemctl disable ModemManager.service
+
+https://arduino.stackexchange.com/questions/61359/avrdude-error-butterfly-programmer-uses-avr-write-page-but-does-not-provide
