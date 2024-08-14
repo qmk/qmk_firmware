@@ -1,6 +1,6 @@
 {
     "manufacturer": "Pimoroni Ltd.",
-    "keyboard_name": "Pimoroni Keybow 2040",
+    "keyboard_name": "Keybow 2040",
     "maintainer": "sandyjmacdonald",
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
