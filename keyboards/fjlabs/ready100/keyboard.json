@@ -42,6 +42,12 @@
         "nkro": true,
         "rgblight": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "layout_aliases": {
         "LAYOUT_64key": "LAYOUT_64_ansi"
     },

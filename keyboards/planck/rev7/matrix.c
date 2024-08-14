@@ -111,13 +111,21 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     return changed;
 }
 
+#if defined(ENCODER_ENABLE) || defined(ENCODER_MAP_ENABLE)
+#if !defined(PLANCK_ENCODER_SETTLE_PIN_STATE_DELAY)
+#   define PLANCK_ENCODER_SETTLE_PIN_STATE_DELAY 10
+#endif
+
+void encoder_quadrature_init_pin(uint8_t index, bool pad_b) {
+}
+
 uint8_t encoder_quadrature_read_pin(uint8_t index, bool pad_b) {
-    pin_t pin = pad_b ? B13: B12;
-    gpio_set_pin_input_high(pin);
-    gpio_write_pin_low(matrix_row_pins[index]);
-    wait_us(10);
-    uint8_t ret = gpio_read_pin(pin) ? 1 : 0;
-    gpio_set_pin_input_low(matrix_row_pins[index]);
-    gpio_set_pin_input_low(pin);
+    pin_t col_pin = pad_b ? B13 : B12;
+    gpio_set_pin_output(col_pin);
+    gpio_write_pin_high(col_pin);
+    wait_us(PLANCK_ENCODER_SETTLE_PIN_STATE_DELAY);
+    uint8_t ret = gpio_read_pin(matrix_row_pins[index]) ? 0 : 1;
+    gpio_set_pin_input_low(col_pin);
     return ret;
 }
+#endif // ENCODER_ENABLE || ENCODER_MAP_ENABLE
