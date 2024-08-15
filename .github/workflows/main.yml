@@ -1,0 +1,11 @@
+name: create_images
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: execute keyboard.py
+        run: |
+          python scripts/keyboard.py
