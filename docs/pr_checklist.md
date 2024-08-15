@@ -2,7 +2,7 @@
 
 This is a non-exhaustive checklist of what the QMK Collaborators will be checking when reviewing submitted PRs.
 
-If there are any inconsistencies with these recommendations, you're best off [creating an issue](https://github.com/qmk/qmk_firmware/issues/new) against this document, or getting in touch with a QMK Collaborator on [Discord](https://discord.gg/Uq7gcHh).
+If there are any inconsistencies with these recommendations, you're best off [creating an issue](https://github.com/qmk/qmk_firmware/issues/new) against this document, or getting in touch with a QMK Collaborator on [Discord](https://discord.gg/qmk).
 
 ## Requirements for all PRs
 
