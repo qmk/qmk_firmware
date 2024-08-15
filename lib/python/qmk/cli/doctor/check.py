@@ -46,7 +46,7 @@ def _check_arm_gcc_version():
     version_number = ESSENTIAL_BINARIES['arm-none-eabi-gcc']['output'].strip()
     cli.log.info('Found arm-none-eabi-gcc version %s', version_number)
 
-    # Right now all known arm versions are ok, so check that it can produce binaries
+    # Right now all known ARM versions are ok, so check that it can produce binaries
     return _check_arm_gcc_installation()
 
 
@@ -55,12 +55,21 @@ def _check_arm_gcc_installation():
     """
     with TemporaryDirectory() as temp_dir:
         temp_file = Path(temp_dir) / 'test.elf'
+
         args = ['arm-none-eabi-gcc', '-mcpu=cortex-m0', '-mthumb', '-mno-thumb-interwork', '--specs=nosys.specs', '--specs=nano.specs', '-x', 'c', '-o', str(temp_file), '-']
-        result = cli.run(args, stdin=None, stdout=None, stderr=None, input='int main() { return 0; }')
+        result = cli.run(args, stdin=None, stdout=None, stderr=None, input='#include <newlib.h>\nint main() { return __NEWLIB__ * __NEWLIB_MINOR__ * __NEWLIB_PATCHLEVEL__; }')
         if result.returncode != 0:
             cli.log.error(f'Failed to compile a simple program with arm-none-eabi-gcc, return code {result.returncode}')
             cli.log.error(f'Command: {" ".join(args)}')
             return CheckStatus.ERROR
+
+        args = ['arm-none-eabi-size', str(temp_file)]
+        result = cli.run(args, stdin=None, stdout=None, stderr=None, input='int main() { return 0; }')
+        if result.returncode != 0:
+            cli.log.error(f'Failed to execute arm-none-eabi-size, perhaps corrupt arm-none-eabi-binutils, return code {result.returncode}')
+            cli.log.error(f'Command: {" ".join(args)}')
+            return CheckStatus.ERROR
+
         return CheckStatus.OK
 
 
@@ -70,7 +79,7 @@ def _check_avr_gcc_version():
     version_number = ESSENTIAL_BINARIES['avr-gcc']['output'].strip()
     cli.log.info('Found avr-gcc version %s', version_number)
 
-    # Right now all known avr versions are ok, so check that it can produce binaries
+    # Right now all known AVR versions are ok, so check that it can produce binaries
     return _check_avr_gcc_installation()
 
 
@@ -79,12 +88,21 @@ def _check_avr_gcc_installation():
     """
     with TemporaryDirectory() as temp_dir:
         temp_file = Path(temp_dir) / 'test.elf'
+
         args = ['avr-gcc', '-mmcu=atmega32u4', '-x', 'c', '-o', str(temp_file), '-']
         result = cli.run(args, stdin=None, stdout=None, stderr=None, input='int main() { return 0; }')
         if result.returncode != 0:
             cli.log.error(f'Failed to compile a simple program with avr-gcc, return code {result.returncode}')
             cli.log.error(f'Command: {" ".join(args)}')
             return CheckStatus.ERROR
+
+        args = ['avr-size', str(temp_file)]
+        result = cli.run(args, stdin=None, stdout=None, stderr=None, input='int main() { return 0; }')
+        if result.returncode != 0:
+            cli.log.error(f'Failed to execute avr-size, perhaps corrupt avr-binutils, return code {result.returncode}')
+            cli.log.error(f'Command: {" ".join(args)}')
+            return CheckStatus.ERROR
+
         return CheckStatus.OK
 
 
