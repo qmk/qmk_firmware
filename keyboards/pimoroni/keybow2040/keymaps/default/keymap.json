@@ -1,0 +1,23 @@
+{
+    "keyboard": "pimoroni/keybow2040",
+    "author": "fanf2",
+    "version": 1,
+    "keymap": "default",
+    "layout": "LAYOUT",
+    "layers": [
+        [
+            "KC_F13",  "KC_F14",  "KC_F15",  "KC_F16",
+            "KC_F17",  "KC_F18",  "KC_F19",  "KC_F20",
+            "KC_HOME", "KC_UP",   "KC_END",  "KC_PGUP",
+            "KC_LEFT", "KC_DOWN", "KC_RIGHT","KC_PGDN",
+            "TO(1)"
+        ],
+        [
+            "KC_TRANSPARENT", "KC_TRANSPARENT", "KC_TRANSPARENT", "KC_TRANSPARENT",
+            "KC_TRANSPARENT", "KC_TRANSPARENT", "KC_TRANSPARENT", "KC_TRANSPARENT",
+            "RGB_SAD",        "RGB_SAI",        "RGB_HUD",        "RGB_HUI",
+            "KC_TRANSPARENT", "RGB_TOG",        "RGB_RMOD",       "RGB_MOD",
+            "TO(0)"
+        ]
+    ]
+}
