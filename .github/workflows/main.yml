@@ -19,3 +19,8 @@ jobs:
       - name: execute keyboard.py
         run: |
           python scripts/keyboard.py
+      - name: actions/upload-artifact@v4
+        with:
+          name: svgs
+          path: |
+            *.svg

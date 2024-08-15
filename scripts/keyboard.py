@@ -61,7 +61,7 @@ for layer in layers:
         "keymap","draw","debug.yml","-s",layer
     ],capture_output=True,text=True)
 
-    with open(f"../../images/{layer}.svg","w") as file:
+    with open(f"{layer}.svg","w") as file:
         file.write(result.stdout)
 
 
