@@ -70,7 +70,7 @@ def _check_avr_gcc_version():
     version_number = ESSENTIAL_BINARIES['avr-gcc']['output'].strip()
     cli.log.info('Found avr-gcc version %s', version_number)
 
-    # Right now all known arm versions are ok, so check that it can produce binaries
+    # Right now all known avr versions are ok, so check that it can produce binaries
     return _check_avr_gcc_installation()
 
 
