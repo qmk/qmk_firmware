@@ -56,7 +56,7 @@ def _check_arm_gcc_installation():
     with TemporaryDirectory() as temp_dir:
         temp_file = Path(temp_dir) / 'test.elf'
         args = ['arm-none-eabi-gcc', '-mcpu=cortex-m0', '-mthumb', '-mno-thumb-interwork', '--specs=nosys.specs', '--specs=nano.specs', '-x', 'c', '-o', str(temp_file), '-']
-        result = cli.run(args, stdin=None, stdout=DEVNULL, stderr=None, input='int main() { return 0; }')
+        result = cli.run(args, stdin=None, stdout=None, stderr=None, input='int main() { return 0; }')
         if result.returncode != 0:
             cli.log.error(f'Failed to compile a simple program with arm-none-eabi-gcc, return code {result.returncode}')
             cli.log.error(f'Command: {" ".join(args)}')
