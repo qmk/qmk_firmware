@@ -5,7 +5,7 @@ from replacement import data
 result = subprocess.run([
     "qmk",
     "c2json",
-    "/home/smierx/qmk_firmware/keyboards/splitkb/aurora/lily58/keymaps/smierx-colemak-dh/keymap.c",
+    "keyboards/splitkb/aurora/lily58/keymaps/smierx-colemak-dh/keymap.c",
     "--no-cpp",
 ],capture_output=True,text=True)
 
