@@ -6,6 +6,15 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
+      - name: setup qmk
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.12
+          run: |
+            python -m pip install --upgrade pip
+            pip install qmk
+            pip install keymap-drawer
+            
       - name: execute keyboard.py
         run: |
           python scripts/keyboard.py
