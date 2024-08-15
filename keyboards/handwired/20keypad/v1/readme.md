@@ -10,7 +10,7 @@ A 20 Key (4x5) Macropad that could be reprogramed to suite your need, it has got
 ## Hardware Availability:
 * MicroController: [rp2040zero](https://es.aliexpress.com/item/1005006051130777.html?spm=a2g0o.order_list.order_list_main.5.1808194dhetDF1&gatewayAdapt=glo2esp)
 * Diodes:[1N4148](https://es.aliexpress.com/item/1005006127068810.html?spm=a2g0o.order_list.order_list_main.105.1808194dhetDF1&gatewayAdapt=glo2esp)
-* 3D files: Printables
+* 3D files: [Printables](https://www.printables.com/model/841830-qmk-20keymacropad)
 
 ### Attention:
 
