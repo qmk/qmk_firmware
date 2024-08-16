@@ -143,10 +143,8 @@ void matrix_init_kb(void) {
     matrix_init_user();
 }
 
-void matrix_scan_kb(void) {
+void housekeeping_task_kb(void) {
     usb_mux_event();
-
-    matrix_scan_user();
 }
 
 #define LEVEL(value) (uint8_t)(((uint16_t)value) * ((uint16_t)RGB_MATRIX_MAXIMUM_BRIGHTNESS) / ((uint16_t)255))

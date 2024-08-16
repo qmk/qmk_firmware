@@ -20,12 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* Select hand configuration */
-
-#define MASTER_LEFT
-// #define MASTER_RIGHT
-// #define EE_HANDS
-
 // Underglow
 #undef RGBLIGHT_LED_COUNT
 #define RGBLIGHT_LED_COUNT 14    // Number of LEDs

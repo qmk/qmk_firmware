@@ -33,7 +33,9 @@
         "handedness": {
             "pin": "B6"
         },
-        "soft_serial_pin": "D2"
+        "serial": {
+            "pin": "D2"
+        }
     },
     "rgblight": {
         "hue_steps": 10,

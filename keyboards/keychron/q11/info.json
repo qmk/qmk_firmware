@@ -54,7 +54,8 @@
             }
         },
         "serial": {
-            "driver": "usart"
+            "driver": "usart",
+            "pin": "A9"
         },
         "transport": {
             "sync" :{
