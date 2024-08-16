@@ -1,8 +1,5 @@
 {
     "keyboard_name": "Reverie HS",
-    "features": {
-        "backlight": false
-    },
     "usb": {
         "pid": "0x0033"
     },
