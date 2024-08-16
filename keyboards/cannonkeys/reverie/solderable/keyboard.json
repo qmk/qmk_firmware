@@ -1,38 +1,20 @@
 {
-    "manufacturer": "CannonKeys",
     "keyboard_name": "Reverie",
-    "maintainer": "awkannan",
     "backlight": {
         "breathing": true,
         "breathing_period": 5,
         "levels": 15,
         "pin": "GP22"
     },
-    "bootloader": "rp2040",
-    "diode_direction": "COL2ROW",
     "features": {
-        "backlight": true,
-        "bootmagic": true,
-        "command": false,
-        "console": false,
-        "extrakey": true,
-        "mousekey": true,
-        "nkro": true
+        "backlight": true
     },
     "indicators": {
         "caps_lock": "GP29",
         "on_state": 0
     },
-    "matrix_pins": {
-        "cols": ["GP28", "GP8", "GP14", "GP13", "GP12", "GP11", "GP10", "GP9", "GP6", "GP5", "GP4", "GP3", "GP2", "GP1", "GP0"],
-        "rows": ["GP26", "GP27", "GP15", "GP16", "GP17"]
-    },
-    "processor": "RP2040",
-    "url": "https://cannonkeys.com",
     "usb": {
-        "device_version": "0.0.1",
-        "pid": "0x0030",
-        "vid": "0xCA04"
+        "pid": "0x0030"
     },
     "community_layouts": ["65_ansi_blocker", "65_ansi_blocker_split_bs", "65_ansi_blocker_tsangan", "65_ansi_blocker_tsangan_split_bs", "65_iso_blocker", "65_iso_blocker_split_bs", "65_iso_blocker_tsangan", "65_iso_blocker_tsangan_split_bs"],
     "layout_aliases": {

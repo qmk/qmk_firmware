@@ -1,8 +1,10 @@
-# Reverie PCB
+# Reverie PCBs
 
-Reverie PCB from CannonKeys
+Reverie PCBs from CannonKeys
 
-This is for both the solderable and hotswap versions of this PCB. The hotswap version does not support per-key LEDs and has reduced layout support (no ISO)
+This folder is for both the solderable and hotswap versions of this PCB. 
+
+The hotswap version does not support per-key LEDs and has reduced layout support (no ISO)
 
 * Keyboard Maintainer: [Andrew Kannan](https://github.com/awkannan)
 * Hardware Supported: RP2040
@@ -11,11 +13,11 @@ This is for both the solderable and hotswap versions of this PCB. The hotswap ve
 
 Make example for this keyboard (after setting up your build environment):
 
-    make cannonkeys/reverie:default
+    make cannonkeys/reverie/solderable:default
     
 Flashing example for this keyboard:
 
-    make cannonkeys/reverie:default:flash
+    make cannonkeys/reverie/solderable:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
