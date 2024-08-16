@@ -2,9 +2,10 @@
 
 Vida PCB from CannonKeys
 
-This is for the wired hotswap and solderable versions of the Vida PCB
+This folder has files for both the wired hotswap and solderable versions of the Vida PCB
 
-The hotswap version does not have the same layout support as the solderable versoin and does not support per-key LEDs
+The hotswap version does not have as much layout support as the solderable version (no ISO, no split space)
+The hotswap version does not support per key LED backlighting
 
 * Keyboard Maintainer: [Andrew Kannan](https://github.com/awkannan)
 * Hardware Supported: RP2040
@@ -13,11 +14,11 @@ The hotswap version does not have the same layout support as the solderable vers
 
 Make example for this keyboard (after setting up your build environment):
 
-    make cannonkeys/vida:default
+    make cannonkeys/vida:hotswap:default
     
 Flashing example for this keyboard:
 
-    make cannonkeys/vida:default:flash
+    make cannonkeys/vida:hotswap:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 

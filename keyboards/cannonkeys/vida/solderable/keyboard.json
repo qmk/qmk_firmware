@@ -1,38 +1,16 @@
 {
-    "manufacturer": "CannonKeys",
     "keyboard_name": "Vida",
-    "maintainer": "awkannan",
     "backlight": {
         "breathing": true,
         "breathing_period": 5,
         "levels": 15,
         "pin": "GP22"
     },
-    "bootloader": "rp2040",
-    "diode_direction": "COL2ROW",
     "features": {
-        "backlight": true,
-        "bootmagic": true,
-        "command": false,
-        "console": false,
-        "extrakey": true,
-        "mousekey": true,
-        "nkro": true
+        "backlight": true
     },
-    "indicators": {
-        "caps_lock": "GP29",
-        "on_state": 0
-    },
-    "matrix_pins": {
-        "cols": ["GP28", "GP8", "GP14", "GP13", "GP12", "GP11", "GP10", "GP9", "GP6", "GP5", "GP4", "GP3", "GP2", "GP1"],
-        "rows": ["GP26", "GP27", "GP15", "GP16", "GP17"]
-    },
-    "processor": "RP2040",
-    "url": "https://cannonkeys.com",
     "usb": {
-        "device_version": "0.0.1",
-        "pid": "0x0032",
-        "vid": "0xCA04"
+        "pid": "0x0032"
     },
     "community_layouts": ["60_ansi", "60_ansi_split_bs_rshift", "60_ansi_tsangan", "60_tsangan_hhkb", "60_hhkb", "60_iso", "60_iso_split_bs_rshift", "60_iso_tsangan"],
     "layouts": {
