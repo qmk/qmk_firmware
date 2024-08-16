@@ -1,0 +1,2 @@
+SERIAL_DRIVER = vendor
+OLED_DRIVER = ssd1306
