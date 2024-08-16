@@ -1,17 +1,7 @@
 {
     "keyboard_name": "Reverie HS",
-    "backlight": {
-        "breathing": true,
-        "breathing_period": 5,
-        "levels": 15,
-        "pin": "GP22"
-    },
     "features": {
-        "backlight": true
-    },
-    "indicators": {
-        "caps_lock": "GP29",
-        "on_state": 0
+        "backlight": false
     },
     "usb": {
         "pid": "0x0033"
