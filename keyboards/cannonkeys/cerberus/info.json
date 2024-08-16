@@ -4,7 +4,6 @@
     "bootloader": "stm32-dfu",
     "diode_direction": "COL2ROW",
     "features": {
-        "backlight": false,
         "bootmagic": true,
         "command": true,
         "console": true,

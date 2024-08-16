@@ -1,5 +1,8 @@
 {
     "keyboard_name": "Cerberus HS",
+    "features": {
+        "backlight": false
+    },
     "usb": {
         "pid": "0x0034"
     },
