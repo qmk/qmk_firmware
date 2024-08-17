@@ -1,53 +1,40 @@
-/* Copyright 2017 Balz Guenat
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2024 Wilhelm Schuster
+// Copyright 2017 Balz Guenat
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+#include "actuation_point.h"
 
 #include "ad5258.h"
 
+#include "util.h"
+
 #ifdef ACTUATION_DEPTH_ADJUSTMENT
-void actuation_point_up(void) {
-    // write RDAC register: lower value makes actuation point shallow
-    uint8_t rdac = ad5258_read_rdac();
-    if (rdac == 0) {
-        ad5258_write_rdac(0);
-    } else {
-        ad5258_write_rdac(rdac - 1);
-    }
+int8_t actuation_point_make_shallower(void) {
+    return actuation_point_adjust(-1 * ACTUATION_DEPTH_ADJUSTMENT);
 }
 
-void actuation_point_down(void) {
-    // write RDAC register: higher value makes actuation point deep
-    uint8_t rdac = ad5258_read_rdac();
-    if (rdac == 63) {
-        ad5258_write_rdac(63);
-    } else {
-        ad5258_write_rdac(rdac + 1);
-    }
+int8_t actuation_point_make_deeper(void) {
+    return actuation_point_adjust(ACTUATION_DEPTH_ADJUSTMENT);
 }
 
-void adjust_actuation_point(int offset) {
-    ad5258_init();
-    uint8_t rdac = ad5258_read_eeprom() + offset;
-    if (rdac > 63) { // protects from under and overflows
+int8_t actuation_point_adjust(int8_t offset) {
+    int8_t ret  = -1;
+    int8_t rdac = ad5258_read_rdac();
+
+    if (rdac >= 0) {
+        int8_t rdac_new = rdac + offset;
+
         if (offset > 0) {
-            ad5258_write_rdac(63);
-        } else {
-            ad5258_write_rdac(0);
+            ret = ad5258_write_rdac(MIN(AD5258_RDAC_MAX, rdac_new));
+        } else if (offset < 0) {
+            ret = ad5258_write_rdac(MAX(AD5258_RDAC_MIN, rdac_new));
         }
-    } else {
-        ad5258_write_rdac(rdac);
     }
+
+    return ret;
+}
+
+void actuation_point_reset(void) {
+    ad5258_restore_from_eeprom();
 }
 #endif

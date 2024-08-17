@@ -1,23 +1,15 @@
-/*
-Copyright 2017 Balz Guenat
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+// Copyright 2024 Wilhelm Schuster
+// Copyright 2017 Balz Guenat
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
 
-#ifdef ACTUATION_DEPTH_ADJUSTMENT
-void actuation_point_up(void);
-void actuation_point_down(void);
+#include <stdint.h>
 
-// be careful with this.
-void adjust_actuation_point(int offset);
-#endif
+int8_t actuation_point_make_shallower(void);
+
+int8_t actuation_point_make_deeper(void);
+
+int8_t actuation_point_adjust(int8_t offset);
+
+void actuation_point_reset(void);
