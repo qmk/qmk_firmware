@@ -159,7 +159,6 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
             SRC += drivers/sensors/pmw33xx_common.c
         else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), ps2_mouse)
             PS2_ENABLE := yes
-            SRC += drivers/ps2/ps2_mouse.c
         endif
     endif
 endif
