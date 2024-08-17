@@ -42,6 +42,8 @@
 #    include "snled27351.h"
 #elif defined(RGB_MATRIX_SNLED27351_SPI)
 #    include "snled27351-spi.h"
+#elif defined(RGB_MATRIX_SN3734_SPI)
+#    include "sn3734-spi.h"
 #elif defined(RGB_MATRIX_AW20216S)
 #    include "aw20216s.h"
 #elif defined(RGB_MATRIX_WS2812)

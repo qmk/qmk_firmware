@@ -52,6 +52,10 @@
 #    endif
 #endif
 
+#ifndef XINPUT_HID_DESCRIPTOR_LEN
+#define XINPUT_HID_DESCRIPTOR_LEN 0x11
+#endif
+
 /*
  * USB descriptor structure
  */
@@ -144,6 +148,14 @@ typedef struct {
     USB_HID_Descriptor_HID_t   Digitizer_HID;
     USB_Descriptor_Endpoint_t  Digitizer_INEndpoint;
 #endif
+
+#if defined(XINPUT_ENABLE)
+    // Xinput Interface
+    USB_Descriptor_Interface_t Xinput_Interface;
+    uint8_t    Xinput_HID[XINPUT_HID_DESCRIPTOR_LEN];
+    USB_Descriptor_Endpoint_t  Xinput_INEndpoint;
+    USB_Descriptor_Endpoint_t  Xinput_OUTEndpoint;
+#endif
 } USB_Descriptor_Configuration_t;
 
 /*
@@ -193,6 +205,11 @@ enum usb_interfaces {
 #if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
     DIGITIZER_INTERFACE,
 #endif
+
+#if defined(XINPUT_ENABLE)
+    XINPUT_INTERFACE,
+#endif
+
     TOTAL_INTERFACES
 };
 
@@ -205,6 +222,15 @@ enum usb_interfaces {
  */
 enum usb_endpoints {
     __unused_epnum__ = NEXT_EPNUM, // Endpoint numbering starts at 1
+
+#ifdef XINPUT_ENABLE
+        XINPUT_IN_EPNUM = NEXT_EPNUM,
+#    ifdef USB_ENDPOINTS_ARE_REORDERABLE
+#        define XINPUT_OUT_EPNUM XINPUT_IN_EPNUM
+#    else
+         #error("xinput require same endpoint for in and out")
+#    endif
+#endif
 
 #ifndef KEYBOARD_SHARED_EP
     KEYBOARD_IN_EPNUM = NEXT_EPNUM,
@@ -295,5 +321,20 @@ enum usb_endpoints {
 #define CDC_EPSIZE 16
 #define JOYSTICK_EPSIZE 8
 #define DIGITIZER_EPSIZE 8
+#define XINPUT_EPSIZE 32
+
+#if defined(XINPUT_ENABLE)
+#    define USB_RTYPE_TYPE_OS_FEATURE 0xC0U
+
+#    ifndef USB_REQ_GET_MS_DESCRIPTOR
+#        define USB_REQ_GET_MS_DESCRIPTOR 4U
+#    endif
+#endif
 
 uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const uint16_t wLength, const void** const DescriptorAddress);
+uint16_t get_usb_vendor_descriptor(uint8_t recipient, uint8_t reqeuest, const uint16_t wValue, const uint16_t wIndex, const uint16_t wLength, const void** const DescriptorAddress);
+#ifdef XINPUT_ENABLE
+uint16_t get_usb_vendor_descriptor(uint8_t recipient, uint8_t reqeuest, const uint16_t wValue, const uint16_t wIndex, const uint16_t wLength, const void** const DescriptorAddress);
+void get_usb_vendor_descriptor_kb(uint8_t recipient, uint8_t reqeuest, const uint16_t wValue, const uint16_t wIndex, const uint16_t wLength, const void** const DescriptorAddress, uint16_t *size);
+#endif
+

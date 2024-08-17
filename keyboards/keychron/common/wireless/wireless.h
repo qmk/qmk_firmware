@@ -59,6 +59,12 @@ typedef struct {
     void (*send_consumer)(uint16_t);
     void (*send_system)(uint16_t);
     void (*send_mouse)(uint8_t *);
+#ifdef JOYSTICK_ENABLE
+    void (*send_joystick)(uint8_t *);
+#endif
+#ifdef XINPUT_ENABLE
+    void (*send_xinput)(uint8_t *);
+#endif
     void (*update_bat_level)(uint8_t);
     void (*task)(void);
 } wt_func_t;
@@ -84,7 +90,7 @@ void wireless_enter_reset_kb(uint8_t reason);
 void wireless_enter_discoverable_kb(uint8_t host_idx);
 void wireless_enter_reconnecting_kb(uint8_t host_idx);
 void wireless_enter_connected_kb(uint8_t host_idx);
-void wireless_enter_disconnected_kb(uint8_t host_idx);
+void wireless_enter_disconnected_kb(uint8_t host_idx, uint8_t reason);
 void wireless_enter_bluetooth_pin_code_entry_kb(void);
 void wireless_exit_bluetooth_pin_code_entry_kb(void);
 void wireless_enter_sleep_kb(void);

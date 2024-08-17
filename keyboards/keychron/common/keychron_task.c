@@ -21,6 +21,9 @@
 #ifdef FACTORY_TEST_ENABLE
 #    include "factory_test.h"
 #endif
+#ifdef ANANLOG_MATRIX
+#include "analog_matrix.h"
+#endif
 
 __attribute__((weak)) bool process_record_keychron_kb(uint16_t keycode, keyrecord_t *record) {
     return true;
@@ -50,6 +53,9 @@ bool led_matrix_indicators_keychron(void) {
 #    ifdef FACTORY_TEST_ENABLE
     factory_test_indicator();
 #    endif
+#ifdef ANANLOG_MATRIX
+    analog_matrix_indicator();
+#endif
     return true;
 }
 #endif
@@ -63,6 +69,9 @@ bool rgb_matrix_indicators_keychron(void) {
 #    ifdef FACTORY_TEST_ENABLE
     factory_test_indicator();
 #    endif
+#ifdef ANANLOG_MATRIX
+    analog_matrix_indicator();
+#endif
     return true;
 }
 #endif

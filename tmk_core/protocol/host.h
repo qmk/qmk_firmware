@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "report.h"
 #include "host_driver.h"
 #include "led.h"
+#include "joystick.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -43,6 +44,8 @@ void    host_mouse_send(report_mouse_t *report);
 void    host_system_send(uint16_t usage);
 void    host_consumer_send(uint16_t usage);
 void    host_programmable_button_send(uint32_t data);
+void    host_joystick_send(joystick_t * joystick);
+void    host_xinput_send(report_xinput_t *xinput);
 
 uint16_t host_last_system_usage(void);
 uint16_t host_last_consumer_usage(void);

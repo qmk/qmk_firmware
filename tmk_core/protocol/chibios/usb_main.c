@@ -84,7 +84,13 @@ static const USBDescriptor *usb_get_descriptor_cb(USBDriver *usbp, uint8_t dtype
 
     static USBDescriptor descriptor;
     descriptor.ud_string = NULL;
-    descriptor.ud_size   = get_usb_descriptor(setup->wValue.word, setup->wIndex, setup->wLength, (const void **const) & descriptor.ud_string);
+    //descriptor.ud_size   = get_usb_descriptor(setup->wValue.word, setup->wIndex, setup->wLength, (const void **const) & descriptor.ud_string);
+#ifdef XINPUT_ENABLE
+    if ((usbp->setup[0] & (USB_RTYPE_DIR_MASK | USB_RTYPE_TYPE_MASK)) == (USB_RTYPE_DIR_DEV2HOST | USB_RTYPE_TYPE_VENDOR))
+        descriptor.ud_size = get_usb_vendor_descriptor(setup->bmRequestType & USB_RTYPE_RECIPIENT_MASK, setup->bRequest, setup->wValue.word, setup->wIndex, setup->wLength, (const void **const) & descriptor.ud_string);
+    else
+#endif
+        descriptor.ud_size  = get_usb_descriptor(setup->wValue.word, setup->wIndex, setup->wLength, (const void **const) & descriptor.ud_string);
 
     if (descriptor.ud_string == NULL) {
         return NULL;
@@ -316,6 +322,18 @@ static bool usb_requests_hook_cb(USBDriver *usbp) {
         return true;
     }
 
+#ifdef XINPUT_ENABLE
+    /* Handle the GET_MS_DESCRIPTOR control request */
+    if ((setup->bmRequestType == USB_RTYPE_TYPE_OS_FEATURE) && (setup->bRequest == USB_REQ_GET_MS_DESCRIPTOR)) {
+        const USBDescriptor *descriptor = usbp->config->get_descriptor_cb(usbp, setup->wValue.lbyte, setup->wValue.hbyte, setup->wIndex);
+        if (descriptor == NULL) {
+            return FALSE;
+        }
+        usbSetupTransfer(usbp, (uint8_t *)descriptor->ud_string, descriptor->ud_size, NULL);
+        return TRUE;
+    }
+#endif
+
     for (int i = 0; i < USB_ENDPOINT_IN_COUNT; i++) {
         if (usb_endpoints_in[i].usb_requests_cb != NULL) {
             if (usb_endpoints_in[i].usb_requests_cb(usbp)) {
@@ -486,6 +504,12 @@ void send_joystick(report_joystick_t *report) {
 void send_digitizer(report_digitizer_t *report) {
 #ifdef DIGITIZER_ENABLE
     send_report(USB_ENDPOINT_IN_DIGITIZER, report, sizeof(report_digitizer_t));
+#endif
+}
+
+void send_xinput(report_xinput_t *report) {
+#ifdef XINPUT_ENABLE
+    send_report(USB_ENDPOINT_IN_XINPUT, report, sizeof(report_xinput_t));
 #endif
 }
 

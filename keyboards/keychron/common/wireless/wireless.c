@@ -24,12 +24,17 @@
 #include "rtc_timer.h"
 #include "keychron_wireless_common.h"
 #include "keychron_task.h"
+#include "wireless_config.h"
 
 extern uint8_t         pairing_indication;
 extern host_driver_t   chibios_driver;
 extern report_buffer_t kb_rpt;
 extern uint32_t        retry_time_buffer;
 extern uint8_t         retry;
+
+#ifdef NKRO_ENABLE
+extern nkro_t nkro;
+#endif
 
 static uint8_t host_index = 0;
 static uint8_t led_state  = 0;
@@ -45,10 +50,19 @@ void    wireless_send_keyboard(report_keyboard_t *report);
 void    wireless_send_nkro(report_nkro_t *report);
 void    wireless_send_mouse(report_mouse_t *report);
 void    wireless_send_extra(report_extra_t *report);
+void    wireless_send_joystick(report_joystick_t *report);
+void    wireless_send_xinput(report_xinput_t *report);
 bool    process_record_wireless(uint16_t keycode, keyrecord_t *record);
 
 /* host struct */
-host_driver_t wireless_driver = {wreless_keyboard_leds, wireless_send_keyboard, wireless_send_nkro, wireless_send_mouse, wireless_send_extra};
+host_driver_t wireless_driver = {wreless_keyboard_leds, wireless_send_keyboard, wireless_send_nkro, wireless_send_mouse, wireless_send_extra,
+#ifdef JOYSTICK_ENABLE
+                                 wireless_send_joystick,
+#endif
+#ifdef XINPUT_ENABLE
+                                 wireless_send_xinput,
+#endif
+                                };
 
 #define WT_EVENT_QUEUE_SIZE 16
 wireless_event_t wireless_event_queue[WT_EVENT_QUEUE_SIZE];
@@ -101,6 +115,13 @@ void wireless_init(void) {
     lpm_init();
 #if HAL_USE_RTC
     rtc_timer_init();
+#endif
+#ifdef NKRO_ENABLE
+    keymap_config.raw = eeconfig_read_keymap();
+    nkro.usb =  keymap_config.nkro;
+#ifdef WIRELESS_NKRO_ENABLE
+    nkro.bluetooth = keymap_config.nkro;
+#endif
 #endif
 }
 
@@ -227,20 +248,19 @@ static void wireless_enter_connected(uint8_t host_idx) {
 #endif
 
     wireless_enter_connected_kb(host_idx);
-#ifdef BAT_LOW_LED_PIN
     if (battery_is_empty()) {
         indicator_battery_low_enable(true);
     }
-#endif
     if (wireless_transport.update_bat_level) wireless_transport.update_bat_level(battery_get_percentage());
+    lpm_timer_reset();
 }
 
 /* Enters disconnected state. Upon entering this state we perform the following actions:
  *   - change state to DISCONNECTED
  *   - set disconnected indication
  */
-static void wireless_enter_disconnected(uint8_t host_idx) {
-    kc_printf("wireless_disconnected %d\n\r", host_idx);
+static void wireless_enter_disconnected(uint8_t host_idx, uint8_t reason) {
+    kc_printf("wireless_disconnected %d, %d\n\r", host_idx, reason);
 
     uint8_t previous_state = wireless_state;
     led_state              = 0;
@@ -252,20 +272,19 @@ static void wireless_enter_disconnected(uint8_t host_idx) {
     if (previous_state == WT_CONNECTED) {
         lpm_timer_reset();
         indicator_set(WT_SUSPEND, host_idx);
-    } else
+    } else {
         indicator_set(wireless_state, host_idx);
+        if (reason && (get_transport() & TRANSPORT_WIRELESS))
+            indicator_set_backlit_timeout(DISCONNECTED_BACKLIGHT_OFF_DELAY_TIME*1000);
+    }
 
 #ifndef DISABLE_REPORT_BUFFER
     report_buffer_init();
 #endif
     retry = 0;
-    wireless_enter_disconnected_kb(host_idx);
-#ifdef BAT_LOW_LED_PIN
+    wireless_enter_disconnected_kb(host_idx, reason);
+
     indicator_battery_low_enable(false);
-#endif
-#if defined(LOW_BAT_IND_INDEX)
-    indicator_battery_low_backlit_enable(false);
-#endif
 }
 
 /* Enter pin code entry state. */
@@ -294,18 +313,15 @@ static void wireless_enter_sleep(void) {
     kc_printf("wireless_enter_sleep %d\n\r", wireless_state);
 
     led_state = 0;
-    if (wireless_state == WT_PARING) {
+
+    if (wireless_state == WT_CONNECTED || wireless_state == WT_PARING) {
         wireless_state = WT_SUSPEND;
         kc_printf("WT_SUSPEND\n\r");
+        lpm_timer_reset();
 
         wireless_enter_sleep_kb();
         indicator_set(wireless_state, 0);
-#ifdef BAT_LOW_LED_PIN
         indicator_battery_low_enable(false);
-#endif
-#if defined(LOW_BAT_IND_INDEX)
-        indicator_battery_low_backlit_enable(false);
-#endif
     }
 }
 
@@ -313,7 +329,7 @@ __attribute__((weak)) void wireless_enter_reset_kb(uint8_t reason) {}
 __attribute__((weak)) void wireless_enter_discoverable_kb(uint8_t host_idx) {}
 __attribute__((weak)) void wireless_enter_reconnecting_kb(uint8_t host_idx) {}
 __attribute__((weak)) void wireless_enter_connected_kb(uint8_t host_idx) {}
-__attribute__((weak)) void wireless_enter_disconnected_kb(uint8_t host_idx) {}
+__attribute__((weak)) void wireless_enter_disconnected_kb(uint8_t host_idx, uint8_t reason) {}
 __attribute__((weak)) void wireless_enter_bluetooth_pin_code_entry_kb(void) {}
 __attribute__((weak)) void wireless_exit_bluetooth_pin_code_entry_kb(void) {}
 __attribute__((weak)) void wireless_enter_sleep_kb(void) {}
@@ -423,14 +439,36 @@ void wireless_send_extra(report_extra_t *report) {
     }
 }
 
-void wireless_low_battery_shutdown(void) {
-#ifdef BAT_LOW_LED_PIN
-    indicator_battery_low_enable(false);
-#endif
-#if defined(LOW_BAT_IND_INDEX)
-    indicator_battery_low_backlit_enable(false);
-#endif
+void wireless_send_joystick(report_joystick_t *report) {
+#ifdef JOYSTICK_ENABLE
+    if (battery_is_critical_low()) return;
 
+    if (wireless_state == WT_CONNECTED) {
+        if (wireless_transport.send_joystick) {
+            wireless_transport.send_joystick((uint8_t *)(report->axes));
+        }
+    } else if (wireless_state != WT_RESET) {
+        wireless_connect();
+    }
+#endif
+}
+
+void wireless_send_xinput(report_xinput_t *report) {
+#ifdef XINPUT_ENABLE
+    if (battery_is_critical_low()) return;
+
+   if (wireless_state == WT_CONNECTED) {
+       if (wireless_transport.send_xinput) {
+           wireless_transport.send_xinput((uint8_t *)report);
+       }
+   } else if (wireless_state != WT_RESET) {
+       wireless_connect();
+   }
+#endif
+}
+
+void wireless_low_battery_shutdown(void) {
+    indicator_battery_low_enable(false);
     report_buffer_init();
     clear_keyboard(); //
     wait_ms(50);      // wait a while for bt module to free buffer by sending report
@@ -473,7 +511,7 @@ void wireless_event_task(void) {
                 wireless_enter_reconnecting(event.params.hostIndex);
                 break;
             case EVT_DISCONNECTED:
-                wireless_enter_disconnected(event.params.hostIndex);
+                wireless_enter_disconnected(event.params.hostIndex, event.data);
                 break;
             case EVT_BT_PINCODE_ENTRY:
                 wireless_enter_bluetooth_pin_code_entry();
@@ -527,16 +565,9 @@ bool process_record_wireless(uint16_t keycode, keyrecord_t *record) {
     if (get_transport() & TRANSPORT_WIRELESS) {
         lpm_timer_reset();
 
-#if defined(BAT_LOW_LED_PIN) || defined(LOW_BAT_IND_INDEX)
         if (battery_is_empty() && wireless_get_state() == WT_CONNECTED && record->event.pressed) {
-#    if defined(BAT_LOW_LED_PIN)
             indicator_battery_low_enable(true);
-#    endif
-#    if defined(LOW_BAT_IND_INDEX)
-            indicator_battery_low_backlit_enable(true);
-#    endif
         }
-#endif
     }
 
     if (!process_record_keychron_wireless(keycode, record)) return false;

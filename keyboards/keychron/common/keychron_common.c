@@ -27,13 +27,26 @@
 #ifdef LK_WIRELESS_ENABLE
 #    include "lkbt51.h"
 #endif
+#ifdef ANANLOG_MATRIX
+#    include "profile.h"
+#endif
 
 bool     is_siri_active = false;
 uint32_t siri_timer     = 0;
 
-static uint8_t mac_keycode[4] = {KC_LOPT, KC_ROPT, KC_LCMD, KC_RCMD};
+static uint8_t mac_keycode[4] = {
+    KC_LOPT,
+    KC_ROPT,
+    KC_LCMD,
+    KC_RCMD,
+};
 
-static key_combination_t key_comb_list[4] = {{2, {KC_LWIN, KC_TAB}}, {2, {KC_LWIN, KC_E}}, {3, {KC_LSFT, KC_LCMD, KC_4}}, {2, {KC_LWIN, KC_C}}};
+static key_combination_t key_comb_list[4] = {
+    {2, {KC_LWIN, KC_TAB}},
+    {2, {KC_LWIN, KC_E}},
+    {3, {KC_LSFT, KC_LCMD, KC_4}},
+    {2, {KC_LWIN, KC_C}},
+};
 
 bool process_record_keychron_common(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -87,9 +100,15 @@ bool process_record_keychron_common(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false; // Skip all further processing of this key
+
         default:
-            return true; // Process all other keycodes normally
+#ifdef ANANLOG_MATRIX
+            return process_record_profile( keycode, record);
+#endif
+            break;
     }
+
+    return true;
 }
 
 void keychron_common_task(void) {
@@ -99,112 +118,24 @@ void keychron_common_task(void) {
         is_siri_active = false;
         siri_timer     = 0;
     }
+#ifdef ANANLOG_MATRIX
+    process_profile_select_combo();
+#endif
 }
 
 #ifdef ENCODER_ENABLE
-static void encoder0_pad_cb(void *param) {
-    (void)param;
-    encoder_inerrupt_read(0);
+static void encoder_pad_cb(void *param) {
+    encoder_inerrupt_read((uint32_t)param);
 }
 
 void encoder_cb_init(void) {
     pin_t encoders_pad_a[] = ENCODERS_PAD_A;
     pin_t encoders_pad_b[] = ENCODERS_PAD_B;
-    palEnableLineEvent(encoders_pad_a[0], PAL_EVENT_MODE_BOTH_EDGES);
-    palEnableLineEvent(encoders_pad_b[0], PAL_EVENT_MODE_BOTH_EDGES);
-    palSetLineCallback(encoders_pad_a[0], encoder0_pad_cb, NULL);
-    palSetLineCallback(encoders_pad_b[0], encoder0_pad_cb, NULL);
-}
-#endif
-
-//__attribute__((weak)) bool raw_hid_receive_keychron(uint8_t *data, uint8_t length) { return true; }
-#define PROTOCOL_VERSION 0x02
-
-enum { kc_get_protocol_version = 0xA0, kc_get_firmware_version = 0xA1, kc_get_support_feature = 0xA2, kc_get_default_layer = 0xA3 };
-
-enum {
-    FEATURE_DEFAULT_LAYER = 0x01 << 0,
-    FEATURE_BLUETOOTH     = 0x01 << 1,
-    FEATURE_P2P4G         = 0x01 << 2,
-    FEATURE_ANALOG_MATRIX = 0x01 << 3,
-};
-
-void get_support_feature(uint8_t *data) {
-    data[1] = FEATURE_DEFAULT_LAYER
-#ifdef KC_BLUETOOTH_ENABLE
-              | FEATURE_BLUETOOTH
-#endif
-#ifdef LK_WIRELESS_ENABLE
-              | FEATURE_BLUETOOTH | FEATURE_P2P4G
-#endif
-#ifdef ANANLOG_MATRIX
-              | FEATURE_ANALOG_MATRIX
-#endif
-        ;
-}
-
-bool via_command_kb(uint8_t *data, uint8_t length) {
-    // if (!raw_hid_receive_keychron(data, length))
-    //     return false;
-    switch (data[0]) {
-        case kc_get_protocol_version:
-            data[1] = PROTOCOL_VERSION;
-            raw_hid_send(data, length);
-            break;
-
-        case kc_get_firmware_version: {
-            uint8_t i = 1;
-            data[i++] = 'v';
-            if ((DEVICE_VER & 0xF000) != 0) itoa((DEVICE_VER >> 12), (char *)&data[i++], 16);
-            itoa((DEVICE_VER >> 8) & 0xF, (char *)&data[i++], 16);
-            data[i++] = '.';
-            itoa((DEVICE_VER >> 4) & 0xF, (char *)&data[i++], 16);
-            data[i++] = '.';
-            itoa(DEVICE_VER & 0xF, (char *)&data[i++], 16);
-            data[i++] = ' ';
-            memcpy(&data[i], QMK_BUILDDATE, sizeof(QMK_BUILDDATE));
-            i += sizeof(QMK_BUILDDATE);
-            raw_hid_send(data, length);
-        } break;
-
-        case kc_get_support_feature:
-            get_support_feature(&data[1]);
-            raw_hid_send(data, length);
-            break;
-
-        case kc_get_default_layer:
-            data[1] = get_highest_layer(default_layer_state);
-            raw_hid_send(data, length);
-            break;
-
-#ifdef ANANLOG_MATRIX
-        case 0xA9:
-            analog_matrix_rx(data, length);
-            break;
-#endif
-#ifdef LK_WIRELESS_ENABLE
-        case 0xAA:
-            lkbt51_dfu_rx(data, length);
-            break;
-#endif
-#ifdef FACTORY_TEST_ENABLE
-        case 0xAB:
-            factory_test_rx(data, length);
-            break;
-#endif
-        default:
-            return false;
-    }
-
-    return true;
-}
-
-#if !defined(VIA_ENABLE)
-void raw_hid_receive(uint8_t *data, uint8_t length) {
-    switch (data[0]) {
-        case RAW_HID_CMD:
-            via_command_kb(data, length);
-            break;
+    for (uint32_t i=0; i<NUM_ENCODERS; i++) {
+        palEnableLineEvent(encoders_pad_a[i], PAL_EVENT_MODE_BOTH_EDGES);
+        palEnableLineEvent(encoders_pad_b[i], PAL_EVENT_MODE_BOTH_EDGES);
+        palSetLineCallback(encoders_pad_a[i], encoder_pad_cb, (void*)i);
+        palSetLineCallback(encoders_pad_b[i], encoder_pad_cb, (void*)i);
     }
 }
 #endif

@@ -64,6 +64,14 @@ enum {
 #define KC_SNAP KC_SCREEN_SHOT
 #define KC_CTANA KC_CORTANA
 
+#ifdef ANANLOG_MATRIX
+enum {
+    KEY_PRESS_FN = 0x01 << 0,
+    KEY_PRESS_P  = 0x01 << 1,
+    KEY_PRESS_PROF_COMBO = KEY_PRESS_FN | KEY_PRESS_P,
+};
+#endif
+
 typedef struct PACKED {
     uint8_t len;
     uint8_t keycode[3];
@@ -74,5 +82,8 @@ void keychron_common_task(void);
 
 #ifdef ENCODER_ENABLE
 void encoder_cb_init(void);
+#endif
+#ifdef ANANLOG_MATRIX
+void analog_matrix_rx(uint8_t *data, uint8_t length);
 #endif
 

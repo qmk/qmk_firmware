@@ -470,7 +470,7 @@ const USB_Descriptor_Device_t PROGMEM DeviceDescriptor = {
 /*
  * Configuration descriptors
  */
-const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
+USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
     .Config = {
         .Header = {
             .Size               = sizeof(USB_Descriptor_Configuration_Header_t),
@@ -1032,6 +1032,53 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
         .PollingIntervalMS      = USB_POLLING_INTERVAL_MS
     },
 #endif
+
+#ifdef XINPUT_ENABLE
+    /*
+     * Xinput HID
+     */
+    .Xinput_Interface = {
+        .Header = {
+            .Size               = sizeof(USB_Descriptor_Interface_t),
+            .Type               = DTYPE_Interface
+        },
+        .InterfaceNumber        = XINPUT_INTERFACE,
+        .AlternateSetting       = 0x00,
+        .TotalEndpoints         = 2,
+        .Class                  = 0xFF,
+        .SubClass               = 0x5D,
+        .Protocol               = 0x01,
+        .InterfaceStrIndex      = NO_DESCRIPTOR
+    },
+    .Xinput_HID = {
+        XINPUT_HID_DESCRIPTOR_LEN,                   /*bLength: CUSTOM_HID Descriptor size*/
+        0x21,                                        /*bDescriptorType: CUSTOM_HID*/
+        0x00, 0x01, 0x01, 0x25,
+        0x81, 0x14, 0x00, 0x00,
+        0x00, 0x00, 0x13, 0x01,
+        0x08, 0x00, 0x00
+    },
+    .Xinput_INEndpoint = {
+        .Header = {
+            .Size               = sizeof(USB_Descriptor_Endpoint_t),
+            .Type               = DTYPE_Endpoint
+        },
+        .EndpointAddress        = (ENDPOINT_DIR_IN | XINPUT_IN_EPNUM),
+        .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
+        .EndpointSize           = XINPUT_EPSIZE,
+        .PollingIntervalMS      = 0x01
+    },
+    .Xinput_OUTEndpoint = {
+        .Header = {
+            .Size               = sizeof(USB_Descriptor_Endpoint_t),
+            .Type               = DTYPE_Endpoint
+        },
+        .EndpointAddress        = (ENDPOINT_DIR_OUT | XINPUT_OUT_EPNUM),
+        .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
+        .EndpointSize           = XINPUT_EPSIZE,
+        .PollingIntervalMS      = 0x01
+    },
+#endif
 };
 
 /*
@@ -1071,7 +1118,75 @@ const USB_Descriptor_String_t PROGMEM SerialNumberString = {
 };
 #endif
 
+#if defined(XINPUT_ENABLE)
+/*
+    OS String Descriptor Fields:
+    +-----------------+----------------+-----------------+--------------------------+
+    | Field           | Length (Bytes) | Value           | Description              |
+    +-----------------+----------------+-----------------+--------------------------+
+    | bLength         | 1              | 0x12            | Length of the descriptor |
+    +-----------------+----------------+-----------------+--------------------------+
+    | bDescriptorType | 1              | 0x03            | Descriptor type          |
+    +-----------------+----------------+-----------------+--------------------------+
+    | qwSignature     | 14             | ‘MSFT100’       | Signature field          |
+    +-----------------+----------------+-----------------+--------------------------+
+    | bMS_VendorCode  | 1              | Vendor-specific | Vendor code              |
+    +-----------------+----------------+-----------------+--------------------------+
+    | bPad            | 1              | 0x00            | Pad field                |
+    +-----------------+----------------+-----------------+--------------------------+
+
+   Refer to Microsoft OS 1.0 Descriptors Specification for details
+   https://learn.microsoft.com/en-us/windows-hardware/drivers/usbcon/microsoft-os-1-0-descriptors-specification
+*/
+const USB_Descriptor_String_t PROGMEM MsOsString = {
+    .Header = {
+        .Size                   = 0x12,
+        .Type                   = DTYPE_String
+    },
+    .UnicodeString              = { 'M' ,'S' ,'F' ,'T' ,'1' ,'0' ,'0', USB_REQ_GET_MS_DESCRIPTOR }
+};
+
+PROGMEM uint8_t compatIdDescriptor[] =
+{
+    0x28, 0x00, 0x00, 0x00,    // dwLength
+    0x00, 0x01,                // bcdVersion: 1.00
+    0x04, 0x00,                // wIndex: Compatibility ID
+    0x01,                      // bCount (number of sections)
+    0x00, 0x00, 0x00, 0x00,    // reserved
+    0x00, 0x00, 0x00,          // reserved
+    XINPUT_INTERFACE,          // bFirstInterfaceNumber
+    0x01,                      // reserved
+    'X', 'U', 'S', 'B', '1', '0', 0x00, 0x00,        // compatibleID
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  // subCompatibleID
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,              // reserved
+//    SHARED_INTERFACE,          // bFirstInterfaceNumber
+//    0x01,                      // reserved
+//    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  // compatibleID
+//    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  // subCompatibleID
+//    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,              // reserved
+};
+
+PROGMEM uint8_t extendedPropertiesDescriptor[0x92] =
+{
+    0x92, 0x00, 0x00, 0x00,    // dwLength
+    0x00, 0x01,                // bcdVersion: 1.00
+    0x05, 0x00,                // wIndex: extended properties
+    0x01, 0x00,                // wCount (number of sections)
+    0x88, 0x00, 0x00, 0x00,    // dwSize of first section
+    0x07, 0x00, 0x00, 0x00,    // dwPropertyDataType: REG_MULTI_SZ
+    0x2a, 0x00,                // wPropertyNameLength
+    'D',0,'e',0,'v',0,'i',0,'c',0,'e',0,'I',0,'n',0,'t',0,'e',0,'r',0,
+    'f',0,'a',0,'c',0,'e',0,'G',0,'U',0,'I',0,'D',0,'s',0,0,0,
+    0x50, 0x00, 0x00, 0x00,    // dwPropertyDataLength
+    '{',0,'9',0,'9',0,'c',0,'4',0,'b',0,'b',0,'b',0,'0',0,'-',0,
+    'e',0,'9',0,'2',0,'5',0,'-',0,'4',0,'3',0,'9',0,'7',0,'-',0,
+    'a',0,'f',0,'e',0,'e',0,'-',0,'9',0,'8',0,'1',0,'c',0,'d',0,
+    '0',0,'7',0,'0',0,'2',0,'1',0,'6',0,'3',0,'}',0,0,0,0,0,
+};
+#endif
+
 // clang-format on
+__attribute__((weak))  void get_usb_descriptor_kb(const uint16_t wValue, const uint16_t wIndex, const uint16_t wLength, const void** const DescriptorAddress, uint16_t *size){}
 
 /**
  * This function is called by the library when in device mode, and must be overridden (see library "USB Descriptors"
@@ -1118,6 +1233,13 @@ uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const 
                 case 0x03:
                     Address = &SerialNumberString;
                     Size    = pgm_read_byte(&SerialNumberString.Header.Size);
+
+                    break;
+#endif
+#if defined(XINPUT_ENABLE)
+                case 0xEE:
+                    Address = &MsOsString;
+                    Size    = pgm_read_byte(&MsOsString.Header.Size);
 
                     break;
 #endif
@@ -1242,6 +1364,32 @@ uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const 
     }
 
     *DescriptorAddress = Address;
+    get_usb_descriptor_kb(wValue, wIndex, wLength, DescriptorAddress, &Size);
 
     return Size;
 }
+
+#ifdef XINPUT_ENABLE
+__attribute__((weak)) void get_usb_vendor_descriptor_kb(uint8_t recipient, uint8_t reqeuest, const uint16_t wValue, const uint16_t wIndex, const uint16_t wLength, const void** const DescriptorAddress, uint16_t *size) { }
+
+uint16_t get_usb_vendor_descriptor(uint8_t recipient, uint8_t reqeuest, const uint16_t wValue, const uint16_t wIndex, const uint16_t wLength, const void** const DescriptorAddress) {
+    const void*   Address         = NULL;
+    uint16_t      Size            = NO_DESCRIPTOR;
+
+    if (recipient == USB_RTYPE_RECIPIENT_DEVICE && reqeuest == USB_REQ_GET_MS_DESCRIPTOR) {
+        if (wIndex == 4) {
+            Address = &compatIdDescriptor;
+            Size = 0x28;
+        } else if (wIndex == 5 && wLength == 0) {
+            Address = &extendedPropertiesDescriptor;
+            Size = 0x28;
+        }
+    }
+
+    *DescriptorAddress = Address;
+    get_usb_vendor_descriptor_kb(recipient, reqeuest, wValue, wIndex, wLength, DescriptorAddress, &Size);
+
+    return Size;
+}
+#endif
+

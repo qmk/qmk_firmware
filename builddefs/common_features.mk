@@ -446,7 +446,7 @@ endif
 
 RGB_MATRIX_ENABLE ?= no
 
-VALID_RGB_MATRIX_TYPES := aw20216s is31fl3218 is31fl3731 is31fl3733 is31fl3736 is31fl3737 is31fl3741 is31fl3742a is31fl3743a is31fl3745 is31fl3746a snled27351 snled27351_spi ws2812 custom
+VALID_RGB_MATRIX_TYPES := aw20216s is31fl3218 is31fl3731 is31fl3733 is31fl3736 is31fl3737 is31fl3741 is31fl3742a is31fl3743a is31fl3745 is31fl3746a snled27351 snled27351_spi sn3734_spi ws2812 custom
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
     ifeq ($(filter $(RGB_MATRIX_DRIVER),$(VALID_RGB_MATRIX_TYPES)),)
         $(call CATASTROPHIC_ERROR,Invalid RGB_MATRIX_DRIVER,RGB_MATRIX_DRIVER="$(RGB_MATRIX_DRIVER)" is not a valid matrix type)
@@ -542,9 +542,15 @@ ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
     endif
 
     ifeq ($(strip $(RGB_MATRIX_DRIVER)), snled27351_spi)
-	SPI_DRIVER_REQUIRED = yes
+        SPI_DRIVER_REQUIRED = yes
         COMMON_VPATH += $(DRIVER_PATH)/led
         SRC += snled27351-spi.c
+    endif
+
+    ifeq ($(strip $(RGB_MATRIX_DRIVER)), sn3734_spi)
+        SPI_DRIVER_REQUIRED = yes
+        COMMON_VPATH += $(DRIVER_PATH)/led
+        SRC += sn3734-spi.c
     endif
 
     ifeq ($(strip $(RGB_MATRIX_DRIVER)), ws2812)

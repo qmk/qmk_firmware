@@ -102,6 +102,17 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .exit_shutdown = snled27351_exit_shutdown
 #        endif
 };
+#elif defined(RGB_MATRIX_SN3734_SPI)
+const rgb_matrix_driver_t rgb_matrix_driver = {
+    .init = sn3734_init_drivers,
+    .flush = sn3734_flush,
+    .set_color = sn3734_set_color,
+    .set_color_all = sn3734_set_color_all,
+#        if defined(RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE)
+    .shutdown = sn3734_shutdown,
+    .exit_shutdown = sn3734_exit_shutdown
+#        endif
+};
 #elif defined(RGB_MATRIX_AW20216S)
 const rgb_matrix_driver_t rgb_matrix_driver = {
     .init          = aw20216s_init_drivers,

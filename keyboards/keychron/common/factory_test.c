@@ -26,6 +26,9 @@
 #    include "lkbt51.h"
 #    include "indicator.h"
 #endif
+#ifdef ANANLOG_MATRIX
+#    include "analog_matrix.h"
+#endif
 #include "config.h"
 #include "version.h"
 
@@ -44,6 +47,26 @@
 #ifndef P2P4G_CELAR_MASK
 #    define P2P4G_CELAR_MASK P2P4G_CLEAR_PAIRING_TYPE_C
 #endif
+
+#ifdef ANANLOG_MATRIX
+#ifndef J_KEY_ROW
+#define J_KEY_ROW   3
+#endif
+
+#ifndef J_KEY_COL
+#define J_KEY_COL   7
+#endif
+
+#ifndef Z_KEY_ROW
+#define Z_KEY_ROW   4
+#endif
+
+#ifndef Z_KEY_COL
+#define Z_KEY_COL   2
+#endif
+#endif
+#define KEY_MASK(r, c)  (virtual_matrix[r] & (1 << c))
+
 
 enum {
     BACKLIGHT_TEST_OFF = 0,
@@ -109,7 +132,14 @@ static inline void factory_timer_check(void) {
 
             clear_keyboard(); // Avoid key being pressed after NKRO state changed
             layer_state_t default_layer_tmp = default_layer_state;
-            eeconfig_init();
+
+#ifdef ANANLOG_MATRIX
+            eeconfig_disable();
+            analog_matrix_eeconfig_init();
+#endif
+            if (!eeconfig_is_enabled())
+                eeconfig_init();
+
             keymap_config.raw = eeconfig_read_keymap();
             default_layer_set(default_layer_tmp);
 #ifdef LED_MATRIX_ENABLE
@@ -247,6 +277,32 @@ bool process_record_factory_test(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+#ifdef ANANLOG_MATRIX
+void factory_reset_check(void) {
+    extern matrix_row_t virtual_matrix[MATRIX_ROWS];
+
+    if (factory_reset_state & KEY_PRESS_FN) {
+        if ((factory_reset_state & KEY_PRESS_J) ==  0 && KEY_MASK(J_KEY_ROW, J_KEY_COL)) {
+            factory_reset_state |= KEY_PRESS_J;
+        } else if ((factory_reset_state & KEY_PRESS_J) &&  KEY_MASK(J_KEY_ROW, J_KEY_COL) == 0) {
+            factory_reset_state &= ~KEY_PRESS_J;
+            factory_reset_timer = 0;
+        }
+
+        if ((factory_reset_state & KEY_PRESS_Z) ==  0 && KEY_MASK(Z_KEY_ROW, Z_KEY_COL)) {
+            factory_reset_state |= KEY_PRESS_Z;
+        } else if ((factory_reset_state & KEY_PRESS_Z) &&  KEY_MASK(Z_KEY_ROW, Z_KEY_COL) == 0) {
+            factory_reset_state &= ~KEY_PRESS_Z;
+            factory_reset_timer = 0;
+        }
+
+        if (factory_reset_state == KEY_PRESS_FACTORY_RESET && factory_reset_timer == 0)
+            factory_timer_start();
+    }
+
+}
+#endif
+
 #ifdef LED_MATRIX_ENABLE
 bool factory_test_indicator(void) {
     if (factory_reset_ind_state) {
@@ -293,7 +349,9 @@ bool factory_reset_indicating(void) {
 bool factory_test_task(void) {
     if (factory_reset_timer) factory_timer_check();
     if (factory_reset_ind_timer) factory_reset_ind_timer_check();
-
+#ifdef ANANLOG_MATRIX
+    factory_reset_check();
+#endif
     return true;
 }
 
@@ -355,16 +413,8 @@ void factory_test_rx(uint8_t *data, uint8_t length) {
                         break;
                     /* Set INT state */
                     case 0xA2:
-                        kc_printf("pin %d\n\r", data[3]);
                         writePin(BLUETOOTH_INT_OUTPUT_PIN, data[3]);
                         break;
-                        /* Report INT state */
-                        //                    case 0xA3:
-                        //                        payload[len++] = FACTORY_TEST_CMD_INT_PIN;
-                        //                        payload[len++] = 0xA3;
-                        //                        payload[len++] = readPin(LKBT51_INT_INPUT_PIN);
-                        //                        factory_test_send(payload, len);
-                        //                        break;
                 }
                 break;
             case FACTORY_TEST_CMD_GET_TRANSPORT:
@@ -421,10 +471,9 @@ void factory_test_rx(uint8_t *data, uint8_t length) {
                 len += sizeof(QMK_BUILDDATE);
                 factory_test_send(payload, len);
             } break;
-
             case FACTORY_TEST_CMD_GET_DEVICE_ID:
                 payload[len++] = FACTORY_TEST_CMD_GET_DEVICE_ID;
-                payload[len++] = 12;    // UUID length
+                payload[len++] = 12;
                 memcpy(&payload[len], (uint32_t *)UID_BASE, 4);
                 memcpy(&payload[len+4], (uint32_t *)UID_BASE+4, 4);
                 memcpy(&payload[len+8], (uint32_t *)UID_BASE+8, 4);

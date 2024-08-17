@@ -96,6 +96,14 @@ usb_endpoint_in_t usb_endpoints_in[USB_ENDPOINT_IN_COUNT] = {
 #    endif
     [USB_ENDPOINT_IN_CDC_SIGNALING] = QMK_USB_ENDPOINT_IN(USB_EP_MODE_TYPE_INTR, CDC_NOTIFICATION_EPSIZE, CDC_NOTIFICATION_EPNUM, CDC_SIGNALING_DUMMY_CAPACITY, NULL, NULL),
 #endif
+
+#if defined(XINPUT_ENABLE)
+#    if defined(USB_ENDPOINTS_ARE_REORDERABLE)
+    [USB_ENDPOINT_IN_XINPUT] = QMK_USB_ENDPOINT_IN_SHARED(USB_EP_MODE_TYPE_INTR, XINPUT_EPSIZE, XINPUT_IN_EPNUM, XINPUT_IN_CAPACITY, NULL, QMK_USB_REPORT_STORAGE_DEFAULT(XINPUT_EPSIZE)),
+#    else
+    #error("Xinput require same endpoint for input and output")
+#    endif
+#endif
 };
 
 usb_endpoint_in_lut_t usb_endpoint_interface_lut[TOTAL_INTERFACES] = {
@@ -135,6 +143,10 @@ usb_endpoint_in_lut_t usb_endpoint_interface_lut[TOTAL_INTERFACES] = {
 #if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
     [DIGITIZER_INTERFACE] = USB_ENDPOINT_IN_DIGITIZER,
 #endif
+
+#if defined(XINPUT_ENABLE)
+    [XINPUT_INTERFACE] = USB_ENDPOINT_IN_XINPUT,
+#endif
 };
 
 usb_endpoint_out_t usb_endpoints_out[USB_ENDPOINT_OUT_COUNT] = {
@@ -148,5 +160,9 @@ usb_endpoint_out_t usb_endpoints_out[USB_ENDPOINT_OUT_COUNT] = {
 
 #if defined(VIRTSER_ENABLE)
     [USB_ENDPOINT_OUT_CDC_DATA] = QMK_USB_ENDPOINT_OUT(USB_EP_MODE_TYPE_BULK, CDC_EPSIZE, CDC_OUT_EPNUM, CDC_OUT_CAPACITY),
+#endif
+
+#if defined(XINPUT_ENABLE)
+    [USB_ENDPOINT_OUT_XINPUT] = QMK_USB_ENDPOINT_OUT(USB_EP_MODE_TYPE_INTR, XINPUT_EPSIZE, XINPUT_OUT_EPNUM, CDC_OUT_CAPACITY),
 #endif
 };

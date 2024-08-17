@@ -250,6 +250,19 @@ typedef struct {
 #endif
 } PACKED report_joystick_t;
 
+typedef struct {
+    uint8_t report_type;
+    uint8_t len;
+    uint16_t buttons;
+    uint8_t left_trigger;
+    uint8_t right_trigger;
+    uint16_t x;
+    uint16_t y;
+    uint16_t rx;
+    uint16_t ry;
+    uint8_t reserved[6];
+} PACKED report_xinput_t;
+
 /* keycode to system usage */
 static inline uint16_t KEYCODE2SYSTEM(uint8_t key) {
     switch (key) {

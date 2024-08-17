@@ -244,7 +244,11 @@ void usb_remote_wakeup(void) {
             /* Do this in the suspended state */
             suspend_power_down(); // on AVR this deep sleeps for 15ms
             /* Remote wakeup */
-            if (suspend_wakeup_condition()) {
+            if (suspend_wakeup_condition()
+#ifdef ENCODER_ENABLE
+                || encoder_read()
+#endif
+                ) {
                 usbWakeupHost(&USB_DRIVER);
                 wait_ms(300);
 #ifdef MOUSEKEY_ENABLE

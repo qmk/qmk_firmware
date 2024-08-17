@@ -15,9 +15,14 @@
  */
 
 #pragma once
+#include "config.h"
 
-#ifndef RUN_MODE_PROCESS_TIME
-#    define RUN_MODE_PROCESS_TIME 1000
+#ifndef DEFAULT_PROCESS_TIME
+#    define DEFAULT_PROCESS_TIME 3000
+#endif
+
+#ifndef CONNECTED_PROCESS_TIME
+#    define CONNECTED_PROCESS_TIME  (30*60*1000)
 #endif
 
 typedef enum {
@@ -32,5 +37,6 @@ void lpm_timer_reset(void);
 void lpm_timer_stop(void);
 bool usb_power_connected(void);
 bool lpm_is_kb_idle(void);
+void matrix_lpm(void);
 void enter_power_mode(pm_t mode);
 void lpm_task(void);

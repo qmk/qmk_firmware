@@ -25,9 +25,9 @@
 
 extern void factory_test_send(uint8_t* payload, uint8_t length);
 
-#    ifndef RAW_EPSIZE
-#        define RAW_EPSIZE 32
-#    endif
+#ifndef RAW_EPSIZE
+#    define RAW_EPSIZE 32
+#endif
 
 #ifndef SPI_SCK_PIN
 #    define SPI_SCK_PIN A5
@@ -67,12 +67,15 @@ enum {
     LKBT51_CMD_SEND_FN       = 0x15, // Not used currently
     LKBT51_CMD_SEND_MOUSE    = 0x16,
     LKBT51_CMD_SEND_BOOT_KB  = 0x17,
+    LKBT51_CMD_SEND_JOYSTICK = 0x18,
+    LKBT51_CMD_SEND_XINPUT   = 0x19,
     /* Bluetooth connections */
     LKBT51_CMD_PAIRING        = 0x21,
     LKBT51_CMD_CONNECT        = 0x22,
     LKBT51_CMD_DISCONNECT     = 0x23,
     LKBT51_CMD_SWITCH_HOST    = 0x24,
     LKBT51_CMD_READ_STATE_REG = 0x25,
+    LKBT51_CMD_XINPUT         = 0x26,
     /* Battery */
     LKBT51_CMD_BATTERY_MANAGE = 0x31,
     LKBT51_CMD_UPDATE_BAT_LVL = 0x32,
@@ -86,6 +89,8 @@ enum {
     LKBT51_CMD_SET_NAME        = 0x45,
     LKBT51_CMD_GET_NAME        = 0x46,
     LKBT51_CMD_WRTE_CSTM_DATA  = 0x49,
+    LKBT51_CMD_SET_MS_SWIFT_PAIRING_NAME = 0x4A,
+    LKBT51_CMD_GET_MS_SWIFT_PAIRING_NAME = 0x4B,
     /* DFU */
     LKBT51_CMD_GET_DFU_VER      = 0x60,
     LKBT51_CMD_HAND_SHAKE_TOKEN = 0x61,
@@ -137,6 +142,7 @@ enum{
     LK_EVT_MSK_BATT = 0x01 << 2,
     LK_EVT_MSK_RESET = 0x01 << 3,
     LK_EVT_MSK_RPT_INTERVAL = 0x01 << 4,
+    LK_EVT_MSK_XINPUT = 0x01 << 6,
     LK_EVT_MSK_MD = 0x01 << 7,
 };
 
@@ -147,6 +153,7 @@ static uint8_t  reg_offset          = 0xFF;
 static uint8_t  expect_len          = 22;
 static uint16_t connection_interval = 1;
 static uint32_t wake_time;
+static uint32_t factory_reset = 0;
 
 // clang-format off
 wt_func_t wireless_transport = {
@@ -159,6 +166,12 @@ wt_func_t wireless_transport = {
     lkbt51_send_consumer,
     lkbt51_send_system,
     lkbt51_send_mouse,
+#ifdef JOYSTICK_ENABLE
+    lkbt51_send_joysticks,
+#endif
+#ifdef XINPUT_ENABLE
+    lkbt51_send_xinput,
+#endif
     lkbt51_update_bat_lvl,
     lkbt51_task
 };
@@ -372,6 +385,27 @@ void lkbt51_send_mouse(uint8_t* report) {
     payload[i++] = (report[3] & 0x80) ? 0xff : 0x00; // ckbt51 use 16bit report, set high byte
     payload[i++] = report[4];                        // V wheel
     payload[i++] = report[5];                        // H wheel
+    lkbt51_send_cmd(payload, i, false, false);
+}
+
+void lkbt51_send_joysticks(uint8_t* report) {
+    uint8_t i = 0;
+    memset(payload, 0, PACKET_MAX_LEN);
+
+    payload[i++] = LKBT51_CMD_SEND_JOYSTICK;
+    memcpy(payload + i, report, 10);
+    i += 10;
+
+    lkbt51_send_cmd(payload, i, false, false);
+}
+
+void lkbt51_send_xinput(uint8_t *report) {
+    uint8_t i = 0;
+    memset(payload, 0, PACKET_MAX_LEN);
+
+    payload[i++] = LKBT51_CMD_SEND_XINPUT;
+    memcpy(payload + i, report, 20);
+    i += 20;
 
     lkbt51_send_cmd(payload, i, false, false);
 }
@@ -434,6 +468,8 @@ void lkbt51_disconnect(void) {
     payload[i++] = LKBT51_CMD_DISCONNECT;
     payload[i++] = 0; // Sleep mode
 
+    if (WT_DRIVER.state != SPI_READY)
+        spiStart(&WT_DRIVER, &spicfg);
     spiSelect(&SPID1);
     wait_ms(30);
     // spiUnselect(&SPID1);
@@ -461,6 +497,16 @@ void lkbt51_read_state_reg(uint8_t reg, uint8_t len) {
     payload[i++]              = len;
 
     // TODO
+    lkbt51_send_cmd(payload, i, false, false);
+}
+
+void lkbt51_set_xinput_mode(bool enable) {
+    uint8_t i = 0;
+    memset(payload, 0, PACKET_MAX_LEN);
+
+    payload[i++] = LKBT51_CMD_XINPUT;
+    payload[i++] = enable;
+
     lkbt51_send_cmd(payload, i, false, false);
 }
 
@@ -530,6 +576,29 @@ void lkbt51_get_local_name(void) {
     lkbt51_send_cmd(payload, i, false, false);
 }
 
+void lkbt51_set_ms_swift_pairing_name(const char* name) {
+    uint8_t i   = 0;
+    uint8_t len = strlen(name);
+    if (len > 13) return;
+
+    memset(payload, 0, PACKET_MAX_LEN);
+
+    payload[i++] = LKBT51_CMD_SET_MS_SWIFT_PAIRING_NAME;
+    memcpy(payload + i, name, len);
+    i += len;
+    lkbt51_send_cmd(payload, i, false, false);
+}
+
+void lkbt51_get_ms_swift_pairing_name(void) {
+    uint8_t i = 0;
+    memset(payload, 0, PACKET_MAX_LEN);
+
+    payload[i++] = LKBT51_CMD_GET_MS_SWIFT_PAIRING_NAME;
+
+    lkbt51_send_cmd(payload, i, false, false);
+}
+
+
 void lkbt51_factory_reset(uint8_t p2p4g_clr_msk) {
     uint8_t i = 0;
     memset(payload, 0, PACKET_MAX_LEN);
@@ -539,6 +608,7 @@ void lkbt51_factory_reset(uint8_t p2p4g_clr_msk) {
 
     lkbt51_wake();
     lkbt51_send_cmd(payload, i, false, false);
+    factory_reset = timer_read32();
 }
 
 void lkbt51_int_pin_test(bool enable) {
@@ -791,6 +861,10 @@ void lkbt51_task(void) {
                         break;
                     case LKBT51_DISCONNECTED:
                         event.evt_type = EVT_DISCONNECTED;
+                        if (factory_reset && timer_elapsed32(factory_reset) < 3000) {
+                            factory_reset = 0;
+                            event.data = 1;
+                        }
                         break;
                     case LKBT51_PINCODE_ENTRY:
                         event.evt_type = EVT_BT_PINCODE_ENTRY;

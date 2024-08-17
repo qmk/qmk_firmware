@@ -105,12 +105,15 @@ void lkbt51_send_nkro(uint8_t* report);
 void lkbt51_send_consumer(uint16_t report);
 void lkbt51_send_system(uint16_t report);
 void lkbt51_send_mouse(uint8_t* report);
+void lkbt51_send_joysticks(uint8_t* report);
+void lkbt51_send_xinput(uint8_t *report);
 
 void lkbt51_become_discoverable(uint8_t host_idx, void* param);
 void lkbt51_connect(uint8_t hostIndex, uint16_t timeout);
 void lkbt51_disconnect(void);
 void lkbt51_switch_host(uint8_t hostIndex);
 void lkbt51_read_state_reg(uint8_t reg, uint8_t len);
+void lkbt51_set_xinput_mode(bool enable);
 
 void lkbt51_update_bat_lvl(uint8_t bat_lvl);
 void lkbt51_update_bat_state(uint8_t bat_state);
@@ -120,6 +123,7 @@ void lkbt51_set_param(module_param_t* param);
 void lkbt51_get_param(module_param_t* param);
 void lkbt51_set_local_name(const char* name);
 void lkbt51_get_local_name(void);
+void lkbt51_set_ms_swift_pairing_name(const char* name);
 
 void lkbt51_factory_reset(uint8_t p2p4g_clr_msk);
 void lkbt51_int_pin_test(bool enable);
