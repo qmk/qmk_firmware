@@ -71,7 +71,6 @@
             "driver": "vendor"
         },
         "transport": {
-            "protocol": "serial_usart",
             "sync": {
                 "matrix_state": true
             },
