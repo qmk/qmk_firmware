@@ -23,3 +23,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "ad5258.h"
 #    include "actuation_point.h"
 #endif
+
+typedef union {
+    uint32_t raw;
+    struct {
+        int8_t actuation_point_value;
+    };
+} keyboard_config_t;
+
+void matrix_init_kb(void);
+
+void fc980c_eeconfig_update_kb(void);
+
+void eeconfig_init_kb(void);
+
+void keyboard_post_init_kb(void);
+
