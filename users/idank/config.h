@@ -16,13 +16,13 @@
     #define MASTER_LEFT
 #elif POINTING_DEVICE_CONFIGURATION_CIRQUE35_TRACKPOINT
     #define MASTER_RIGHT
-#elif POINTING_DEVICE_CONFIGURATION_PIMORONI_CIRQUE35
+#elif defined(POINTING_DEVICE_CONFIGURATION_PIMORONI_CIRQUE35) || defined(POINTING_DEVICE_CONFIGURATION_PIMORONI_CIRQUE40)
     #define MASTER_RIGHT
     // The pimoroni needs frequest updates, set a value so the Cirque configs don't set it to 10ms.
     #define POINTING_DEVICE_TASK_THROTTLE_MS 1
     // A pimoroni on the left side can only go in this orientation.
     #define POINTING_DEVICE_ROTATION_270
-#elif POINTING_DEVICE_CONFIGURATION_CIRQUE35_PIMORONI
+#elif defined(POINTING_DEVICE_CONFIGURATION_CIRQUE35_PIMORONI) || defined(POINTING_DEVICE_CONFIGURATION_CIRQUE40_PIMORONI)
     #define MASTER_RIGHT
     // The pimoroni needs frequest updates, set a value so the Cirque configs don't set it to 10ms.
     #define POINTING_DEVICE_TASK_THROTTLE_MS 1
