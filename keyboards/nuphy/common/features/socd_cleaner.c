@@ -26,7 +26,7 @@
 extern "C" {
 #endif
 
-bool socd_cleaner_enabled = true;
+bool socd_cleaner_enabled = false;
 
 static void update_key(uint8_t keycode, bool press) {
   if (press) {
