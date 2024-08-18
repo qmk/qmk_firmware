@@ -18,7 +18,7 @@
 
 // 32kB logical EEPROM
 #ifndef WEAR_LEVELING_LOGICAL_SIZE
-#    define WEAR_LEVELING_LOGICAL_SIZE 4096
+#    define WEAR_LEVELING_LOGICAL_SIZE ((WEAR_LEVELING_BACKING_SIZE) / 2)
 #endif // WEAR_LEVELING_LOGICAL_SIZE
 
 // Define how much flash space we have (defaults to lib/pico-sdk/src/boards/include/boards/***)

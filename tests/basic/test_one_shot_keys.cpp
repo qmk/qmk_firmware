@@ -32,10 +32,7 @@ TEST_F(OneShot, OSMWithoutAdditionalKeypressDoesNothing) {
 
     /* Press and release OSM key*/
     EXPECT_NO_REPORT(driver);
-    osm_key.press();
-    run_one_scan_loop();
-    osm_key.release();
-    run_one_scan_loop();
+    tap_key(osm_key);
     VERIFY_AND_CLEAR(driver);
 
     /* OSM are added when an actual report is send */
@@ -88,10 +85,7 @@ TEST_P(OneShotParametrizedTestFixture, OSMWithAdditionalKeypress) {
 
     /* Press and release OSM */
     EXPECT_NO_REPORT(driver);
-    osm_key.press();
-    run_one_scan_loop();
-    osm_key.release();
-    run_one_scan_loop();
+    tap_key(osm_key);
     VERIFY_AND_CLEAR(driver);
 
     /* Press regular key */
@@ -171,18 +165,12 @@ TEST_F(OneShot, OSMChainingTwoOSMs) {
 
     /* Press and release OSM1 */
     EXPECT_NO_REPORT(driver);
-    osm_key1.press();
-    run_one_scan_loop();
-    osm_key1.release();
-    run_one_scan_loop();
+    tap_key(osm_key1);
     VERIFY_AND_CLEAR(driver);
 
     /* Press and relesea OSM2 */
     EXPECT_NO_REPORT(driver);
-    osm_key2.press();
-    run_one_scan_loop();
-    osm_key2.release();
-    run_one_scan_loop();
+    tap_key(osm_key2);
     VERIFY_AND_CLEAR(driver);
 
     /* Press regular key */
@@ -209,22 +197,13 @@ TEST_F(OneShot, OSMDoubleTapNotLockingOSMs) {
 
     /* Press and release OSM1 */
     EXPECT_NO_REPORT(driver);
-    osm_key1.press();
-    run_one_scan_loop();
-    osm_key1.release();
-    run_one_scan_loop();
+    tap_key(osm_key1);
     VERIFY_AND_CLEAR(driver);
 
     /* Press and release OSM2 twice */
     EXPECT_NO_REPORT(driver);
-    osm_key2.press();
-    run_one_scan_loop();
-    osm_key2.release();
-    run_one_scan_loop();
-    osm_key2.press();
-    run_one_scan_loop();
-    osm_key2.release();
-    run_one_scan_loop();
+    tap_key(osm_key2);
+    tap_key(osm_key2);
     VERIFY_AND_CLEAR(driver);
 
     /* Press regular key */
@@ -263,10 +242,7 @@ TEST_F(OneShot, OSMHoldNotLockingOSMs) {
 
     /* Press and release OSM1 */
     EXPECT_NO_REPORT(driver);
-    osm_key1.press();
-    run_one_scan_loop();
-    osm_key1.release();
-    run_one_scan_loop();
+    tap_key(osm_key1);
     VERIFY_AND_CLEAR(driver);
 
     /* Press and hold OSM2 */
@@ -279,10 +255,7 @@ TEST_F(OneShot, OSMHoldNotLockingOSMs) {
     /* Press and release regular key */
     EXPECT_REPORT(driver, (osm_key1.report_code, osm_key2.report_code, regular_key.report_code)).Times(1);
     EXPECT_REPORT(driver, (osm_key2.report_code)).Times(1);
-    regular_key.press();
-    run_one_scan_loop();
-    regular_key.release();
-    run_one_scan_loop();
+    tap_key(regular_key);
     VERIFY_AND_CLEAR(driver);
 
     /* Release OSM2 */
@@ -329,6 +302,49 @@ TEST_F(OneShot, OSLWithAdditionalKeypress) {
     EXPECT_EMPTY_REPORT(driver);
     regular_key.press();
     run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    /* Release regular key */
+    EXPECT_NO_REPORT(driver);
+    regular_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
+
+TEST_F(OneShot, OSLWithOsmAndAdditionalKeypress) {
+    TestDriver driver;
+    InSequence s;
+    KeymapKey  osl_key     = KeymapKey{0, 0, 0, OSL(1)};
+    KeymapKey  osm_key     = KeymapKey{1, 1, 0, OSM(MOD_LSFT), KC_LSFT};
+    KeymapKey  regular_key = KeymapKey{1, 1, 1, KC_A};
+
+    set_keymap({osl_key, osm_key, regular_key});
+
+    /* Press OSL key */
+    EXPECT_NO_REPORT(driver);
+    osl_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    /* Release OSL key */
+    EXPECT_NO_REPORT(driver);
+    osl_key.release();
+    run_one_scan_loop();
+    EXPECT_TRUE(layer_state_is(1));
+    VERIFY_AND_CLEAR(driver);
+
+    /* Press and release OSM */
+    EXPECT_NO_REPORT(driver);
+    tap_key(osm_key);
+    EXPECT_TRUE(layer_state_is(1));
+    VERIFY_AND_CLEAR(driver);
+
+    /* Press regular key */
+    EXPECT_REPORT(driver, (osm_key.report_code, regular_key.report_code)).Times(1);
+    EXPECT_EMPTY_REPORT(driver);
+    regular_key.press();
+    run_one_scan_loop();
+    EXPECT_FALSE(layer_state_is(1));
     VERIFY_AND_CLEAR(driver);
 
     /* Release regular key */

@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         [_FN] = LAYOUT(
         KC_ESC, KC_LANG,KC_NO,  RGB_TOG,KC_MNXT,KC_VOLU,
         KC_CAPS,KC_NUM, KC_NO,  RGB_MOD,KC_MPRV,KC_VOLD,
-        CG_NORM,LCG_SWP,EE_CLR, QK_BOOT,  TO(0),  KC_MUTE
+        CG_NORM,CG_LSWP,EE_CLR, QK_BOOT,TO(0),  KC_MUTE
     )
 };
 

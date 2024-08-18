@@ -116,25 +116,26 @@ void action_tapping_process(keyrecord_t record) {
  * readable. The conditional definition of tapping_keycode and all the
  * conditional uses of it are hidden inside macros named TAP_...
  */
-#    if (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)) || defined(PERMISSIVE_HOLD_PER_KEY) || defined(HOLD_ON_OTHER_KEY_PRESS_PER_KEY)
-#        define TAP_DEFINE_KEYCODE const uint16_t tapping_keycode = get_record_keycode(&tapping_key, false)
-#    else
-#        define TAP_DEFINE_KEYCODE
-#    endif
+#    define TAP_DEFINE_KEYCODE const uint16_t tapping_keycode = get_record_keycode(&tapping_key, false)
 
 #    if defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)
 #        ifdef RETRO_TAPPING_PER_KEY
-#            define TAP_GET_RETRO_TAPPING get_retro_tapping(tapping_keycode, &tapping_key)
+#            define TAP_GET_RETRO_TAPPING(keyp) get_auto_shifted_key(tapping_keycode, keyp) && get_retro_tapping(tapping_keycode, &tapping_key)
 #        else
-#            define TAP_GET_RETRO_TAPPING true
+#            define TAP_GET_RETRO_TAPPING(keyp) get_auto_shifted_key(tapping_keycode, keyp)
 #        endif
-#        define MAYBE_RETRO_SHIFTING(ev) (TAP_GET_RETRO_TAPPING && (RETRO_SHIFT + 0) != 0 && TIMER_DIFF_16((ev).time, tapping_key.event.time) < (RETRO_SHIFT + 0))
+/* Used to extend TAPPING_TERM:
+ *     indefinitely if RETRO_SHIFT does not have a value
+ *     to RETRO_SHIFT if RETRO_SHIFT is set
+ * for possibly retro shifted keys.
+ */
+#        define MAYBE_RETRO_SHIFTING(ev, keyp) (get_auto_shifted_key(tapping_keycode, keyp) && TAP_GET_RETRO_TAPPING(keyp) && ((RETRO_SHIFT + 0) == 0 || TIMER_DIFF_16((ev).time, tapping_key.event.time) < (RETRO_SHIFT + 0)))
 #        define TAP_IS_LT IS_QK_LAYER_TAP(tapping_keycode)
 #        define TAP_IS_MT IS_QK_MOD_TAP(tapping_keycode)
 #        define TAP_IS_RETRO IS_RETRO(tapping_keycode)
 #    else
-#        define TAP_GET_RETRO_TAPPING false
-#        define MAYBE_RETRO_SHIFTING(ev) false
+#        define TAP_GET_RETRO_TAPPING(keyp) false
+#        define MAYBE_RETRO_SHIFTING(ev, kp) false
 #        define TAP_IS_LT false
 #        define TAP_IS_MT false
 #        define TAP_IS_RETRO false
@@ -187,20 +188,19 @@ bool process_tapping(keyrecord_t *keyp) {
         return true;
     }
 
+#    if (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)) || defined(PERMISSIVE_HOLD_PER_KEY) || defined(HOLD_ON_OTHER_KEY_PRESS_PER_KEY)
     TAP_DEFINE_KEYCODE;
+#    endif
 
     // process "pressed" tapping key state
     if (tapping_key.event.pressed) {
-        if (WITHIN_TAPPING_TERM(event) || MAYBE_RETRO_SHIFTING(event)) {
+        if (WITHIN_TAPPING_TERM(event) || MAYBE_RETRO_SHIFTING(event, keyp)) {
             if (IS_NOEVENT(event)) {
                 // early return for tick events
                 return true;
             }
             if (tapping_key.tap.count == 0) {
                 if (IS_TAPPING_RECORD(keyp) && !event.pressed) {
-#    if defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)
-                    retroshift_swap_times();
-#    endif
                     // first tap!
                     ac_dprintf("Tapping: First tap(0->1).\n");
                     tapping_key.tap.count = 1;
@@ -218,28 +218,12 @@ bool process_tapping(keyrecord_t *keyp) {
                  */
                 // clang-format off
                 else if (
+                    !event.pressed && waiting_buffer_typed(event) &&
                     (
-                        !event.pressed && waiting_buffer_typed(event) &&
-                        TAP_GET_PERMISSIVE_HOLD
-                    )
-                    // Causes nested taps to not wait past TAPPING_TERM/RETRO_SHIFT
-                    // unnecessarily and fixes them for Layer Taps.
-                    || (TAP_GET_RETRO_TAPPING &&
-                        (
-                            // Rolled over the two keys.
-                            (tapping_key.tap.interrupted == true && (
-                                (TAP_IS_LT && TAP_GET_HOLD_ON_OTHER_KEY_PRESS) ||
-                                (TAP_IS_MT && TAP_GET_HOLD_ON_OTHER_KEY_PRESS)
-                                )
-                            )
-                            // Makes Retro Shift ignore the default behavior of
-                            // MTs and LTs on nested taps below TAPPING_TERM or RETRO_SHIFT
-                            || (
-                                TAP_IS_RETRO
-                                && (event.key.col != tapping_key.event.key.col || event.key.row != tapping_key.event.key.row)
-                                && !event.pressed && waiting_buffer_typed(event)
-                            )
-                        )
+                        TAP_GET_PERMISSIVE_HOLD ||
+                        // Causes nested taps to not wait past TAPPING_TERM/RETRO_SHIFT
+                        // unnecessarily and fixes them for Layer Taps.
+                        TAP_GET_RETRO_TAPPING(keyp)
                     )
                 ) {
                     // clang-format on
@@ -284,10 +268,16 @@ bool process_tapping(keyrecord_t *keyp) {
                     process_record(keyp);
                     return true;
                 } else {
-                    // set interrupted flag when other key preesed during tapping
+                    // set interrupted flag when other key pressed during tapping
                     if (event.pressed) {
                         tapping_key.tap.interrupted = true;
-                        if (TAP_GET_HOLD_ON_OTHER_KEY_PRESS) {
+                        if (TAP_GET_HOLD_ON_OTHER_KEY_PRESS
+#    if defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)
+                            // Auto Shift cannot evaluate this early
+                            // Retro Shift uses the hold action for all nested taps even without HOLD_ON_OTHER_KEY_PRESS, so this is fine to skip
+                            && !(MAYBE_RETRO_SHIFTING(event, keyp) && get_auto_shifted_key(get_record_keycode(keyp, false), keyp))
+#    endif
+                        ) {
                             ac_dprintf("Tapping: End. No tap. Interfered by pressed key\n");
                             process_record(&tapping_key);
                             tapping_key = (keyrecord_t){0};
@@ -332,6 +322,9 @@ bool process_tapping(keyrecord_t *keyp) {
                     return true;
                 } else {
                     ac_dprintf("Tapping: key event while last tap(>0).\n");
+#    if defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)
+                    retroshift_swap_times();
+#    endif
                     process_record(keyp);
                     return true;
                 }
@@ -388,7 +381,7 @@ bool process_tapping(keyrecord_t *keyp) {
     }
     // process "released" tapping key state
     else {
-        if (WITHIN_TAPPING_TERM(event) || MAYBE_RETRO_SHIFTING(event)) {
+        if (WITHIN_TAPPING_TERM(event) || MAYBE_RETRO_SHIFTING(event, keyp)) {
             if (IS_NOEVENT(event)) {
                 // early return for tick events
                 return true;
@@ -506,9 +499,16 @@ void waiting_buffer_scan_tap(void) {
         return;
     }
 
+#    if (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
+    TAP_DEFINE_KEYCODE;
+#    endif
     for (uint8_t i = waiting_buffer_tail; i != waiting_buffer_head; i = (i + 1) % WAITING_BUFFER_SIZE) {
         keyrecord_t *candidate = &waiting_buffer[i];
-        if (IS_EVENT(candidate->event) && KEYEQ(candidate->event.key, tapping_key.event.key) && !candidate->event.pressed && WITHIN_TAPPING_TERM(candidate->event)) {
+        // clang-format off
+        if (IS_EVENT(candidate->event) && KEYEQ(candidate->event.key, tapping_key.event.key) && !candidate->event.pressed && (
+            WITHIN_TAPPING_TERM(waiting_buffer[i].event) || MAYBE_RETRO_SHIFTING(waiting_buffer[i].event, &tapping_key)
+        )) {
+            // clang-format on
             tapping_key.tap.count = 1;
             candidate->tap.count  = 1;
             process_record(&tapping_key);

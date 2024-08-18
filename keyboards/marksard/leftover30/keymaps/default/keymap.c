@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT_all(
   //,-----------------------------------------------------------------------------------------------------------.
-                 QK_BOOT,  RGBRST, AG_NORM, AG_SWAP, XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP,  KC_END,  KC_INS, KC_PSCR,
+               QK_BOOT,  RGBRST, AG_NORM, AG_SWAP, XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP,  KC_END,  KC_INS, KC_PSCR,
   //|--------+--------+--------+--------+--------+--------|--------+--------+--------+--------+--------+--------|
                RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R,     KC_NUM,
   //|--------+--------+--------+--------+--------+--------|--------+--------+--------+--------+--------+--------|
@@ -156,7 +156,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
 // for exsample customize of LED inducator
 // bool led_update_user(led_t led_state) {
-//     writePin(D2, IS_LAYER_ON(_LOWER));
-//     writePin(D1, IS_LAYER_ON(_RAISE));
+//     gpio_write_pin(D2, IS_LAYER_ON(_LOWER));
+//     gpio_write_pin(D1, IS_LAYER_ON(_RAISE));
 //     return false;
 // }
