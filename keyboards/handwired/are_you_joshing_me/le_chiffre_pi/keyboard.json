@@ -17,11 +17,17 @@
         "rows": ["GP21", "GP6", "GP7", "GP8"]
     },
     "processor": "RP2040",
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "url": "https://areyoujoshing.me",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0000",
         "vid": "0xFEED"
+    },
+    "ws2812": {
+        "pin": "GP29"
     },
     "layouts": {
         "LAYOUT_split_3x5_2": {
