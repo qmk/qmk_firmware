@@ -6,7 +6,7 @@ a mostly 3d printed, solder-free, hand-wired, hot-swap, rp2040W-powered variant 
 
 * Keyboard Maintainer: [jkaunert](https://github.com/jkaunert)
 * Hardware Supported: RP2040
-* Hardware Availability: <https://areyoujoshing.me/keyboards>
+* Hardware Availability:  [HSSv4.4 3D printed sockets](https://github.com/stingray127/handwirehotswap)
 
 Make example for this keyboard (after setting up your build environment):
 
