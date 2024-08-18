@@ -1,4 +1,4 @@
 RGBLIGHT_SUPPORTED = no
 BAKCLIGHT_SUPPORTED = no
 
-DEFAULT_FOLDER = planck/ez/base
+DEFAULT_FOLDER = zsa/planck_ez/base

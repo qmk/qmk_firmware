@@ -11,7 +11,7 @@ Third-party contributions help us grow and improve QMK. We want to make the pull
 
 ## I Don't Want to Read This Whole Thing! I Just Have a Question!
 
-If you'd like to ask questions about QMK you can do so on the [OLKB Subreddit](https://reddit.com/r/olkb) or on [Discord](https://discord.gg/Uq7gcHh).
+If you'd like to ask questions about QMK you can do so on the [OLKB Subreddit](https://reddit.com/r/olkb) or on [Discord](https://discord.gg/qmk).
 
 Please keep these things in mind:
 
@@ -29,7 +29,7 @@ QMK is largely written in C, with specific features and parts written in C++. It
 
 # Where Can I Go for Help?
 
-If you need help you can [open an issue](https://github.com/qmk/qmk_firmware/issues) or [chat on Discord](https://discord.gg/Uq7gcHh).
+If you need help you can [open an issue](https://github.com/qmk/qmk_firmware/issues) or [chat on Discord](https://discord.gg/qmk).
 
 # How Do I Make a Contribution?
 
@@ -128,7 +128,7 @@ We also ask that you follow these guidelines:
 
 Before you put a lot of work into building your new feature you should make sure you are implementing it in the best way. You can get a basic understanding of QMK by reading [Understanding QMK](understanding_qmk), which will take you on a tour of the QMK program flow. From here you should talk to us to get a sense of the best way to implement your idea. There are two main ways to do this:
 
-* [Chat on Discord](https://discord.gg/Uq7gcHh)
+* [Chat on Discord](https://discord.gg/qmk)
 * [Open an Issue](https://github.com/qmk/qmk_firmware/issues/new)
 
 Feature and Bug Fix PRs affect all keyboards. We are also in the process of restructuring QMK. For this reason it is especially important for significant changes to be discussed before implementation has happened. If you open a PR without talking to us first please be prepared to do some significant rework if your choices do not mesh well with our planned direction.

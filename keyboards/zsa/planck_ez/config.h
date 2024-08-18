@@ -1,4 +1,6 @@
-/* Copyright 2019 marksard
+/* Copyright 2018 Jack Humbert <jack.humb@gmail.com>
+ * Copyright 2015 ZSA Technology Labs Inc (@zsa)
+ * Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,24 +18,9 @@
 
 #pragma once
 
-// place overrides here
-#define TAPPING_TERM 200
+#define MUSIC_MAP
+#define AUDIO_PIN A5
+#define AUDIO_PIN_ALT A4
+#define AUDIO_PIN_ALT_AS_NEGATIVE
 
-#define TAPPING_LAYER_TERM 150 // Custom LT Tapping term
-#define TAPPING_TERM_PER_KEY
-
-#ifdef MOUSEKEY_ENABLE
-  #undef MOUSEKEY_INTERVAL
-  #define MOUSEKEY_INTERVAL 1
-  #undef MOUSEKEY_TIME_TO_MAX
-  #define MOUSEKEY_TIME_TO_MAX 150
-
-  #undef MOUSEKEY_MAX_SPEED
-  #define MOUSEKEY_MAX_SPEED 3
-
-  #undef MOUSEKEY_MOVE_DELTA
-  #define MOUSEKEY_MOVE_DELTA 4
-
-  #undef MOUSEKEY_DELAY
-  #define MOUSEKEY_DELAY 0
-#endif
+#define IS31FL3737_I2C_ADDRESS_1 IS31FL3737_I2C_ADDRESS_GND
