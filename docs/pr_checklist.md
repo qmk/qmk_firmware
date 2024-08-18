@@ -2,7 +2,7 @@
 
 This is a non-exhaustive checklist of what the QMK Collaborators will be checking when reviewing submitted PRs.
 
-If there are any inconsistencies with these recommendations, you're best off [creating an issue](https://github.com/qmk/qmk_firmware/issues/new) against this document, or getting in touch with a QMK Collaborator on [Discord](https://discord.gg/Uq7gcHh).
+If there are any inconsistencies with these recommendations, you're best off [creating an issue](https://github.com/qmk/qmk_firmware/issues/new) against this document, or getting in touch with a QMK Collaborator on [Discord](https://discord.gg/qmk).
 
 ## Requirements for all PRs
 
@@ -88,7 +88,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
       - RGB Matrix Configuration
     - Run `qmk format-json` on this file before submitting your PR. Be sure to append the `-i` flag to directly modify the file, or paste the outputted code into the file. 
 - `readme.md`
-    - must follow the [template](https://github.com/qmk/qmk_firmware/blob/master/data/templates/keyboard/readme)
+    - must follow the [template](https://github.com/qmk/qmk_firmware/blob/master/data/templates/keyboard/readme.md)
     - flash command is present, and has `:flash` at end
     - valid hardware availability link (unless handwired) -- private groupbuys are okay, but one-off prototypes will be questioned. If open-source, a link to files should be provided.
     - clear instructions on how to reset the board into bootloader mode

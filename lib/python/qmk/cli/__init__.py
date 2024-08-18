@@ -86,6 +86,7 @@ subcommands = [
     'qmk.cli.userspace.compile',
     'qmk.cli.userspace.doctor',
     'qmk.cli.userspace.list',
+    'qmk.cli.userspace.path',
     'qmk.cli.userspace.remove',
     'qmk.cli.via2json',
 ]
@@ -188,20 +189,22 @@ def _eprint(errmsg):
 # Supported version information
 #
 # Based on the OSes we support these are the minimum python version available by default.
-# Last update: 2021 Jan 02
+# Last update: 2024 Jun 24
 #
-# Arch: 3.9
-# Debian: 3.7
-# Fedora 31: 3.7
-# Fedora 32: 3.8
-# Fedora 33: 3.9
-# FreeBSD: 3.7
-# Gentoo: 3.7
-# macOS: 3.9 (from homebrew)
-# msys2: 3.8
-# Slackware: 3.7
-# solus: 3.7
-# void: 3.9
+# Arch: 3.12
+# Debian 11: 3.9
+# Debian 12: 3.11
+# Fedora 39: 3.12
+# Fedora 40: 3.12
+# FreeBSD: 3.11
+# Gentoo: 3.12
+# macOS: 3.12 (from homebrew)
+# msys2: 3.11
+# Slackware: 3.9
+# solus: 3.10
+# Ubuntu 22.04: 3.10
+# Ubuntu 24.04: 3.12
+# void: 3.12
 
 if sys.version_info[0] != 3 or sys.version_info[1] < 7:
     _eprint('Error: Your Python is too old! Please upgrade to Python 3.7 or later.')

@@ -29,8 +29,11 @@
         "rows": ["D6", "B0", "D7", "B5", "B3", "B4", "B2"]
     },
     "diode_direction": "COL2ROW",
+    "layout_aliases": {
+        "LAYOUT_all": "LAYOUT"
+    },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT": {
             "layout": [
                 {"label": "Num Lock", "matrix": [2, 10], "x": 6.75, "y": 0},
                 {"label": "-", "matrix": [1, 10], "x": 6.75, "y": 1},

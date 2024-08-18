@@ -14,6 +14,7 @@ from qmk.keyboard import config_h, rules_mk
 from qmk.commands import parse_configurator_json
 from qmk.makefile import parse_rules_mk_file
 from qmk.math import compute
+from qmk.util import maybe_exit
 
 true_values = ['1', 'on', 'yes']
 false_values = ['0', 'off', 'no']
@@ -208,10 +209,10 @@ def _validate(keyboard, info_data):
     except jsonschema.ValidationError as e:
         json_path = '.'.join([str(p) for p in e.absolute_path])
         cli.log.error('Invalid API data: %s: %s: %s', keyboard, json_path, e.message)
-        exit(1)
+        maybe_exit(1)
 
 
-def info_json(keyboard):
+def info_json(keyboard, force_layout=None):
     """Generate the info.json data for a specific keyboard.
     """
     cur_dir = Path('keyboards')
@@ -253,6 +254,11 @@ def info_json(keyboard):
 
     # Merge in data from <keyboard.c>
     info_data = _extract_led_config(info_data, str(keyboard))
+
+    # Force a community layout if requested
+    community_layouts = info_data.get("community_layouts", [])
+    if force_layout in community_layouts:
+        info_data["community_layouts"] = [force_layout]
 
     # Validate
     _validate(keyboard, info_data)
@@ -987,25 +993,25 @@ def find_info_json(keyboard):
     return [info_json for info_json in info_jsons if info_json.exists()]
 
 
-def keymap_json_config(keyboard, keymap):
+def keymap_json_config(keyboard, keymap, force_layout=None):
     """Extract keymap level config
     """
     # TODO: resolve keymap.py and info.py circular dependencies
     from qmk.keymap import locate_keymap
 
-    keymap_folder = locate_keymap(keyboard, keymap).parent
+    keymap_folder = locate_keymap(keyboard, keymap, force_layout=force_layout).parent
 
     km_info_json = parse_configurator_json(keymap_folder / 'keymap.json')
     return km_info_json.get('config', {})
 
 
-def keymap_json(keyboard, keymap):
+def keymap_json(keyboard, keymap, force_layout=None):
     """Generate the info.json data for a specific keymap.
     """
     # TODO: resolve keymap.py and info.py circular dependencies
     from qmk.keymap import locate_keymap
 
-    keymap_folder = locate_keymap(keyboard, keymap).parent
+    keymap_folder = locate_keymap(keyboard, keymap, force_layout=force_layout).parent
 
     # Files to scan
     keymap_config = keymap_folder / 'config.h'
@@ -1013,10 +1019,10 @@ def keymap_json(keyboard, keymap):
     keymap_file = keymap_folder / 'keymap.json'
 
     # Build the info.json file
-    kb_info_json = info_json(keyboard)
+    kb_info_json = info_json(keyboard, force_layout=force_layout)
 
     # Merge in the data from keymap.json
-    km_info_json = keymap_json_config(keyboard, keymap) if keymap_file.exists() else {}
+    km_info_json = keymap_json_config(keyboard, keymap, force_layout=force_layout) if keymap_file.exists() else {}
     deep_update(kb_info_json, km_info_json)
 
     # Merge in the data from config.h, and rules.mk

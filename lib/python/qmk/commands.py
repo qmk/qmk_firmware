@@ -11,6 +11,7 @@ import jsonschema
 from qmk.constants import QMK_USERSPACE, HAS_QMK_USERSPACE
 from qmk.json_schema import json_load, validate
 from qmk.keyboard import keyboard_alias_definitions
+from qmk.util import maybe_exit
 
 
 def find_make():
@@ -52,7 +53,7 @@ def parse_configurator_json(configurator_file):
 
     except jsonschema.ValidationError as e:
         cli.log.error(f'Invalid JSON keymap: {configurator_file} : {e.message}')
-        exit(1)
+        maybe_exit(1)
 
     keyboard = user_keymap['keyboard']
     aliases = keyboard_alias_definitions()
@@ -67,7 +68,7 @@ def parse_configurator_json(configurator_file):
     return user_keymap
 
 
-def build_environment(args):
+def parse_env_vars(args):
     """Common processing for cli.args.env
     """
     envs = {}
@@ -77,6 +78,11 @@ def build_environment(args):
             envs[key] = value
         else:
             cli.log.warning('Invalid environment variable: %s', env)
+    return envs
+
+
+def build_environment(args):
+    envs = parse_env_vars(args)
 
     if HAS_QMK_USERSPACE:
         envs['QMK_USERSPACE'] = Path(QMK_USERSPACE).resolve()
@@ -100,6 +106,12 @@ def dump_lines(output_file, lines, quiet=True):
     if output_file and output_file.name != '-':
         output_file.parent.mkdir(parents=True, exist_ok=True)
         if output_file.exists():
+            with open(output_file, 'r', encoding='utf-8', newline='\n') as f:
+                existing = f.read()
+            if existing == generated:
+                if not quiet:
+                    cli.log.info(f'No changes to {output_file.name}.')
+                return
             output_file.replace(output_file.parent / (output_file.name + '.bak'))
         output_file.write_text(generated, encoding='utf-8')
 
