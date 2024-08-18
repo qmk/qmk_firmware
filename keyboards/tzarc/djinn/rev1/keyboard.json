@@ -6,9 +6,11 @@
     "max_brightness": 144
   },
   "split": {
-    "soft_serial_pin": "B9",
     "handedness": {
       "pin": "B11"
+    },
+    "serial": {
+      "pin": "B9"
     },
     "usb_detect": {
       "enabled": true

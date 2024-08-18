@@ -120,6 +120,4 @@ void housekeeping_task_kb(void) {
         }
     }
 #endif // defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_LAYERS)
-
-    housekeeping_task_user();
 }

@@ -35,12 +35,14 @@
         "handedness": {
             "pin": "D5"
         },
-        "soft_serial_pin": "D0",
         "matrix_pins": {
             "right": {
                 "cols": ["B4", "B5", "B6", "C6", "C7", "D4", "D6", "D3", "D2"],
                 "rows": ["E6", "F0", "F1", "F7", "D7"]
             }
+        },
+        "serial": {
+            "pin": "D0"
         }
     },
     "processor": "atmega32u4",

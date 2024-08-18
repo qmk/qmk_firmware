@@ -823,7 +823,10 @@
                         }
                     }
                 },
-                "soft_serial_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "soft_serial_pin": {
+                    "$ref": "qmk.definitions.v1#/mcu_pin",
+                    "$comment": "Deprecated: use split.serial.pin instead"
+                },
                 "soft_serial_speed": {
                     "type": "integer",
                     "minimum": 0,
@@ -836,7 +839,8 @@
                         "driver": {
                             "type": "string",
                             "enum": ["bitbang", "usart", "vendor"]
-                        }
+                        },
+                        "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"}
                     }
                 },
                 "transport": {
