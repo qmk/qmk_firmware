@@ -219,7 +219,7 @@ ifneq ($(strip $(EEPROM_DRIVER)),none)
           COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/flash
           COMMON_VPATH += $(DRIVER_PATH)/flash
           SRC += eeprom_driver.c eeprom_legacy_emulated_flash.c legacy_flash_ops.c
-        else ifneq ($(filter $(MCU_SERIES),STM32F1xx STM32F3xx STM32F4xx STM32L4xx STM32G4xx WB32F3G71xx WB32FQ95xx AT32F415 GD32VF103),)
+        else ifneq ($(filter $(MCU_SERIES),STM32F1xx STM32F3xx STM32F4xx STM32L4xx STM32G0xx STM32G4xx WB32F3G71xx WB32FQ95xx AT32F415 GD32VF103),)
           # Wear-leveling EEPROM implementation, backed by MCU flash
           OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_WEAR_LEVELING
           SRC += eeprom_driver.c eeprom_wear_leveling.c
