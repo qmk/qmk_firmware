@@ -40,7 +40,7 @@ Consider a keymap with the following base layer.
 The highlighted key is a momentary layer switch `MO(NAV)`. Holding it accesses a
 navigation layer.
 
-![Nav layer wite a Layer Lock key.](https://i.imgur.com/2wUZNWk.png)
+![Nav layer with a Layer Lock key.](https://i.imgur.com/2wUZNWk.png)
 
 
 Holding the NAV key is fine for brief use, but awkward to continue holding when
