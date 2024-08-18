@@ -10,3 +10,5 @@ UART_DRIVER_REQUIRED = yes
 OPT ?= 2
 CUSTOM_MATRIX = lite
 SRC += matrix.c
+
+SRC += common/features/socd_cleaner.c
