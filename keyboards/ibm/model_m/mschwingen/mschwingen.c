@@ -206,11 +206,19 @@ void update_layer_leds(void) {
 
 #endif
 
-void dynamic_macro_record_start_user(int8_t direction) {
+bool dynamic_macro_record_start_kb(int8_t direction) {
+    if (!dynamic_macro_record_start_user(direction)) {
+        return false;
+    }
     isRecording++;
     blink_cycle_timer = timer_read();
+    return true;
 }
 
-void dynamic_macro_record_end_user(int8_t direction) {
+bool dynamic_macro_record_end_kb(int8_t direction) {
+    if (!dynamic_macro_record_end_user(direction)) {
+        return false;
+    }
     if (isRecording) isRecording--;
+    return true;
 }

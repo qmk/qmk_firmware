@@ -26,11 +26,21 @@ bool is_launching     = false;
 #ifdef DYNAMIC_MACRO_ENABLE
 static bool is_dynamic_recording = false;
 
-void dynamic_macro_record_start_user(int8_t direction) { is_dynamic_recording = true; }
+bool dynamic_macro_record_start_kb(int8_t direction) {
+    if (!dynamic_macro_record_start_user(direction)) {
+        return false;
+    }
+    is_dynamic_recording = true;
+    return true;
+}
 
-void dynamic_macro_record_end_user(int8_t direction) {
+bool dynamic_macro_record_end_kb(int8_t direction) {
+    if (!dynamic_macro_record_end_user(direction)) {
+        return false;
+    }
     is_dynamic_recording = false;
     ML_LED_3(false);
+    return false;
 }
 #endif
 
