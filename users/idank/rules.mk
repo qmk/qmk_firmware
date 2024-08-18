@@ -117,7 +117,7 @@ ifeq ($(strip $(POINTING_DEVICE)), trackball_cirque35)
 		POINTING_DEVICE_DRIVER = cirque_pinnacle_i2c
 	endif
 
-	MSG_POINTING_DEVICE = trackball (left), cirque35 touchpad (right); built for side = $(SIDE)$
+	MSG_POINTING_DEVICE = trackball (left), cirque35 touchpad (right); built for side = $(SIDE)
 	MSG_MASTER_SIDE = right
 endif
 
@@ -159,7 +159,7 @@ ifeq ($(strip $(POINTING_DEVICE)), trackball_cirque40)
 		POINTING_DEVICE_DRIVER = cirque_pinnacle_i2c
 	endif
 
-	MSG_POINTING_DEVICE = trackball (left), cirque40 touchpad (right); built for side = $(SIDE)$
+	MSG_POINTING_DEVICE = trackball (left), cirque40 touchpad (right); built for side = $(SIDE)
 	MSG_MASTER_SIDE = right
 endif
 
