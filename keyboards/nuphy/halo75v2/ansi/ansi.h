@@ -63,6 +63,9 @@ enum custom_keycodes {
     TOG_DEEP_SLEEP,
     TOG_POWER_ON_ANIMATION,
     TOG_BAT_IND_NUM,
+    SOCDON,
+    SOCDOFF,
+    SOCDTOG,
 };
 
 #define MAC_PRT G(S(KC_3))
@@ -94,6 +97,7 @@ typedef struct {
     uint8_t toggle_custom_keys_highlight : 1;
     uint8_t detect_numlock_state : 1;
     uint8_t battery_indicator_numeric : 1;
+    uint8_t show_socd_indicator : 1;
 } kb_config_t;
 
 #ifdef VIA_ENABLE
@@ -118,6 +122,7 @@ enum via_indicator_value {
     id_toggle_custom_keys_highlight = 22,
     id_toggle_detect_numlock_state  = 23,
     id_battery_indicator_numeric    = 24,
+    id_toggle_socd_indicator        = 25,
 };
 
 // function declaration

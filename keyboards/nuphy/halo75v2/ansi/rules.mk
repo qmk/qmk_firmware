@@ -12,3 +12,5 @@ CUSTOM_MATRIX = lite
 SRC += matrix.c
 
 # CONSOLE_ENABLE = yes
+
+SRC += common/features/socd_cleaner.c
