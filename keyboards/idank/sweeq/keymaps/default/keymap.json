@@ -51,8 +51,8 @@
          "KC_TRNS"     , "KC_TRNS"     , "KC_TRNS"        , "KC_TRNS"       , "KC_TRNS",
          "KC_TRNS"     , "KC_MINS"     , "KC_BSLS"        , "KC_GRV"        , "KC_TRNS",
 
-         "RGB_RMOD"    , "KC_TRNS",
-         "KC_TRNS"     , "RGB_MOD"
+         "KC_TRNS"     , "KC_TRNS",
+         "KC_TRNS"     , "KC_TRNS"
         ],
         ["KC_TRNS"     , "KC_COLN"     , "KC_LT"          , "KC_GT"         , "KC_SCLN",
          "KC_TRNS"     , "KC_TRNS"     , "KC_TRNS"        , "KC_TRNS"       , "KC_TRNS",

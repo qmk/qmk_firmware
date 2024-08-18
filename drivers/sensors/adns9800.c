@@ -100,7 +100,7 @@ uint8_t adns9800_read(uint8_t reg_addr) {
 }
 
 void adns9800_init(void) {
-    setPinOutput(ADNS9800_CS_PIN);
+    gpio_set_pin_output(ADNS9800_CS_PIN);
 
     spi_init();
 

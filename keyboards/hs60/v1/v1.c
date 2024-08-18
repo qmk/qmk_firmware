@@ -15,83 +15,9 @@
  */
 #include "quantum.h"
 
-// Please ignore this is for upcoming features
-/*#ifdef RAW_ENABLE
-
-void raw_hid_receive( uint8_t *data, uint8_t length )
-{
-	uint8_t command = data[0];
-	switch ( command )
-	{
-		case id_protocol_version:
-		{
-			msg_protocol_version *msg = (msg_protocol_version*)&data[1];
-			msg->version = PROTOCOL_VERSION;
-			break;
-		}
-#if USE_KEYMAPS_IN_EEPROM
-		case id_keymap_keycode_load:
-		{
-			msg_keymap_keycode_load *msg = (msg_keymap_keycode_load*)&data[1];
-			msg->keycode = keymap_keycode_load( msg->layer, msg->row, msg->column );
-			break;
-		}
-		case id_keymap_keycode_save:
-		{
-			msg_keymap_keycode_save *msg = (msg_keymap_keycode_save*)&data[1];
-			keymap_keycode_save( msg->layer, msg->row, msg->column, msg->keycode);
-			break;
-		}
-		case id_keymap_default_save:
-		{
-			keymap_default_save();
-			break;
-		}
-#endif // USE_KEYMAPS_IN_EEPROM
-		case id_backlight_config_set_values:
-		{
-			msg_backlight_config_set_values *msg = (msg_backlight_config_set_values*)&data[1];
-			backlight_config_set_values(msg);
-			backlight_config_save();
-			break;
-		}
-		case id_backlight_config_set_alphas_mods:
-		{
-			msg_backlight_config_set_alphas_mods *msg = (msg_backlight_config_set_alphas_mods*)&data[1];
-			backlight_config_set_alphas_mods( msg->alphas_mods );
-			backlight_config_save();
-			break;
-		}
-		case id_backlight_set_key_color:
-		{
-			msg_backlight_set_key_color *msg = (msg_backlight_set_key_color*)&data[1];
-			backlight_set_key_color(msg->row, msg->column, msg->hsv);
-			break;
-		}
-		case id_system_get_state:
-		{
-			msg_system_state *msg = (msg_system_state*)&data[1];
-			msg->value = backlight_get_tick();
-			break;
-		}
-		default:
-		{
-			// Unhandled message.
-			data[0] = id_unhandled;
-			break;
-		}
-	}
-
-	// Return same buffer with values changed
-	raw_hid_send( data, length );
-
-}
-
-#endif*/
-
 #ifdef HS60_ANSI
 
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -199,7 +125,7 @@ led_config_t g_led_config = { {
 
 #else
 
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location

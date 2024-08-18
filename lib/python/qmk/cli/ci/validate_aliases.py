@@ -1,11 +1,8 @@
 """Validates the list of keyboard aliases.
 """
-from pathlib import Path
-
 from milc import cli
 
-from qmk.json_schema import json_load
-from qmk.keyboard import resolve_keyboard, keyboard_folder
+from qmk.keyboard import resolve_keyboard, keyboard_folder, keyboard_alias_definitions
 
 
 def _safe_keyboard_folder(target):
@@ -34,7 +31,7 @@ def _target_keyboard_exists(target):
 
 @cli.subcommand('Validates the list of keyboard aliases.', hidden=True)
 def ci_validate_aliases(cli):
-    aliases = json_load(Path('data/mappings/keyboard_aliases.hjson'))
+    aliases = keyboard_alias_definitions()
 
     success = True
     for alias in aliases.keys():

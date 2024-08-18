@@ -17,40 +17,7 @@
 
 #pragma once
 
-#ifdef RGB_MATRIX_ENABLE
-#    define RGB_MATRIX_LED_COUNT 84
-#    define RGB_MATRIX_KEYPRESSES                                      // Reacts to keypresses
-// #    define RGB_MATRIX_KEYRELEASES                                     // Reacts to keyreleases (instead of keypresses)
-// #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS                             // Enables framebuffer effects
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED                             // Turns off effects when suspended
-// Limit brightness to support USB-A at 0.5 A
-// TODO: Do this dynamically based on power source
-#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 176                          // Limits maximum brightness of LEDs to 176 out of 255. If not defined, maximum brightness is set to 255
-#    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_RAINBOW_MOVING_CHEVRON  // Sets the default mode, if none has been set
-#    define RGB_MATRIX_DEFAULT_HUE 142                                 // Sets the default hue value, if none has been set
-#    define RGB_MATRIX_DEFAULT_SAT 255                                 // Sets the default saturation value, if none has been set
-#    define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS       // Sets the default brightness value, if none has been set
-#    define RGB_MATRIX_DEFAULT_SPD 127                                 // Sets the default animation speed, if none has been set
-#    define RGB_MATRIX_DISABLE_KEYCODES                                // Disables control of rgb matrix by keycodes (must use code functions to control the feature)
-
-#    define ENABLE_RGB_MATRIX_CYCLE_ALL
-#    define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
-#    define ENABLE_RGB_MATRIX_CYCLE_UP_DOWN
-#    define ENABLE_RGB_MATRIX_CYCLE_OUT_IN
-#    define ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
-#    define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
-#    define ENABLE_RGB_MATRIX_CYCLE_PINWHEEL
-#    define ENABLE_RGB_MATRIX_CYCLE_SPIRAL
-#    define ENABLE_RGB_MATRIX_RAINDROPS
-#    define ENABLE_RGB_MATRIX_SPLASH
-#    define ENABLE_RGB_MATRIX_MULTISPLASH
-#endif  // RGB_MATRIX_ENABLE
-
-// Mechanical locking support; use KC_LCAP, KC_LNUM, or KC_LSCR instead in keymap
-#define LOCKING_SUPPORT_ENABLE
-
-// Locking resynchronize hack
-#define LOCKING_RESYNC_ENABLE
+#define RGB_MATRIX_DISABLE_KEYCODES // Disables control of rgb matrix by keycodes (must use code functions to control the feature)
 
 // I2C {
 #define F_SCL 100000UL // Run I2C bus at 100 kHz

@@ -17,19 +17,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
 #define RGBLIGHT_EFFECT_KNIGHT_LENGTH 5
 
 /* PWM RGB Underglow Defines */
 #define WS2812_PWM_DRIVER PWMD1
 #define WS2812_PWM_CHANNEL 3
 #define WS2812_PWM_PAL_MODE 2
-#define WS2812_DMA_STREAM STM32_DMA1_STREAM5
-#define WS2812_DMA_CHANNEL 3
+#define WS2812_PWM_DMA_STREAM STM32_DMA1_STREAM5
+#define WS2812_PWM_DMA_CHANNEL 3
 #define WS2812_EXTERNAL_PULLUP
 
 /* I2C driver overrides */
