@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "action.h"
 #include "color.h"
+#include "common/features/socd_cleaner.h"
 #include "config.h"
 #include "host.h"
 #include "keycodes.h"
@@ -72,12 +73,22 @@ bool pre_process_record_kb(uint16_t keycode, keyrecord_t *record) {
     return pre_process_record_user(keycode, record);
 }
 
+socd_cleaner_t socd_v = {{KC_W, KC_S}, SOCD_CLEANER_LAST};
+socd_cleaner_t socd_h = {{KC_A, KC_D}, SOCD_CLEANER_LAST};
+
 /* qmk process record */
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     no_act_time     = 0;
     rf_linking_time = 0;
 
     if (!process_record_user(keycode, record)) {
+        return false;
+    }
+    // socd handling
+    if (!process_socd_cleaner(keycode, record, &socd_v)) {
+        return false;
+    }
+    if (!process_socd_cleaner(keycode, record, &socd_h)) {
         return false;
     }
 
@@ -415,11 +426,27 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
         case TOG_BAT_IND_NUM:
-            if (record -> event.pressed) {
+            if (record->event.pressed) {
                 g_config.battery_indicator_numeric = !g_config.battery_indicator_numeric;
                 save_config_to_eeprom();
             }
             return false;
+        case SOCDON: // Turn SOCD Cleaner on.
+            if (record->event.pressed) {
+                socd_cleaner_enabled = true;
+            }
+            return false;
+        case SOCDOFF: // Turn SOCD Cleaner off.
+            if (record->event.pressed) {
+                socd_cleaner_enabled = false;
+            }
+            return false;
+        case SOCDTOG: // Toggle SOCD Cleaner.
+            if (record->event.pressed) {
+                socd_cleaner_enabled = !socd_cleaner_enabled;
+            }
+            return false;
+
         default:
             return true;
     }
@@ -475,6 +502,13 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
         rgb_matrix_set_color(two_digit_ones_led(g_config.sleep_timeout), 0x00, 0x80, 0x80);
     }
 
+    if (g_config.show_socd_indicator && socd_cleaner_enabled) {
+        rgb_matrix_set_color(get_led_index(2, 2), RGB_BLUE);
+        rgb_matrix_set_color(get_led_index(3, 2), RGB_BLUE);
+        rgb_matrix_set_color(get_led_index(3, 1), RGB_BLUE);
+        rgb_matrix_set_color(get_led_index(3, 3), RGB_BLUE);
+    }
+
     if (g_config.detect_numlock_state) {
         uint8_t showNumLock = 0;
         if (dev_info.link_mode != LINK_USB) {
@@ -520,6 +554,8 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
                                 }
                             } else if (keycode > KC_NUM_LOCK && keycode <= KC_KP_DOT) {
                                 rgb_matrix_set_color(index, RGB_RED);
+                            } else if (keycode >= SOCDON && keycode <= SOCDTOG) {
+                                rgb_matrix_set_color(index, RGB_BLUE);
                             } else if (keycode > KC_TRNS) {
                                 rgb_matrix_set_color(index, 225, 65, 140);
                             }
@@ -534,7 +570,6 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
         rgb_matrix_set_color(two_digit_decimals_led(dev_info.rf_battery), 0x00, 0x80, 0x80);
         rgb_matrix_set_color(two_digit_ones_led(dev_info.rf_battery), 0x00, 0x80, 0x80);
     }
-
 
     return rgb_matrix_indicators_advanced_user(led_min, led_max);
 }
@@ -577,17 +612,18 @@ void init_g_config(void) {
     g_config.side_speed                   = DEFAULT_SIDE_SPEED;
     g_config.side_rgb                     = DEFAULT_SIDE_RGB;
     g_config.side_color                   = DEFAULT_SIDE_COLOR;
-    g_config.right_side_mode                    = DEFAULT_RIGHT_SIDE_MODE;
-    g_config.right_side_brightness              = DEFAULT_RIGHT_SIDE_BRIGHTNESS;
-    g_config.right_side_speed                   = DEFAULT_RIGHT_SIDE_SPEED;
-    g_config.right_side_rgb                     = DEFAULT_RIGHT_SIDE_RGB;
-    g_config.right_side_color                   = DEFAULT_RIGHT_SIDE_COLOR;
+    g_config.right_side_mode              = DEFAULT_RIGHT_SIDE_MODE;
+    g_config.right_side_brightness        = DEFAULT_RIGHT_SIDE_BRIGHTNESS;
+    g_config.right_side_speed             = DEFAULT_RIGHT_SIDE_SPEED;
+    g_config.right_side_rgb               = DEFAULT_RIGHT_SIDE_RGB;
+    g_config.right_side_color             = DEFAULT_RIGHT_SIDE_COLOR;
     g_config.detect_numlock_state         = DEFAULT_DETECT_NUMLOCK;
     g_config.side_use_custom_color        = DEFAULT_SIDE_USE_CUSTOM_COLOR;
-    g_config.right_side_use_custom_color        = DEFAULT_RIGHT_SIDE_USE_CUSTOM_COLOR;
+    g_config.right_side_use_custom_color  = DEFAULT_RIGHT_SIDE_USE_CUSTOM_COLOR;
     g_config.side_custom_color            = rgb_matrix_get_hsv();
-    g_config.right_side_custom_color            = rgb_matrix_get_hsv();
+    g_config.right_side_custom_color      = rgb_matrix_get_hsv();
     g_config.battery_indicator_numeric    = DEFAULT_BATTERY_INDICATOR_NUMERIC;
+    g_config.show_socd_indicator          = DEFAULT_SHOW_SOCD_INDICATOR;
 }
 
 void load_config_from_eeprom(void) {
@@ -697,7 +733,10 @@ void via_config_set_value(uint8_t *data)
             _set_color(&(g_config.right_side_custom_color), value_data);
             break;
         case id_battery_indicator_numeric:
-            g_config.battery_indicator_numeric= *value_data;
+            g_config.battery_indicator_numeric = *value_data;
+            break;
+        case id_toggle_socd_indicator:
+            g_config.show_socd_indicator = *value_data;
             break;
     }
 #    if CONSOLE_ENABLE
@@ -780,6 +819,9 @@ void via_config_get_value(uint8_t *data) {
             break;
         case id_battery_indicator_numeric:
             *value_data = g_config.battery_indicator_numeric;
+            break;
+        case id_toggle_socd_indicator:
+            *value_data = g_config.show_socd_indicator;
             break;
     }
 #    if CONSOLE_ENABLE

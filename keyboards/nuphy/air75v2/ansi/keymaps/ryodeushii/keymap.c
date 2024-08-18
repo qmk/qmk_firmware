@@ -2,24 +2,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "ansi.h"
-#include "common/features/socd_cleaner.h"
 #include "keycodes.h"
 #include QMK_KEYBOARD_H
-
-socd_cleaner_t socd_v = {{KC_W, KC_S}, SOCD_CLEANER_LAST};
-socd_cleaner_t socd_h = {{KC_A, KC_D}, SOCD_CLEANER_LAST};
-
-bool process_record_user(uint16_t keycode, keyrecord_t* record) {
-  if (!process_socd_cleaner(keycode, record, &socd_v)) { return false; }
-  if (!process_socd_cleaner(keycode, record, &socd_h)) { return false; }
-
-  return true;
-}
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-  socd_cleaner_enabled = IS_LAYER_ON_STATE(state, 2) || IS_LAYER_ON_STATE(state, 6) || IS_LAYER_ON_STATE(state, 7);
-  return state;
-}
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -52,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // layer win Fn
 [3] = LAYOUT_ansi_84(
-	TOG_BAT_IND_NUM, 	KC_BRID,  	KC_BRIU,  	_______, 	    _______,  	_______,  	_______,  	KC_MPRV,  	KC_MPLY,  	KC_MNXT, 	KC_MUTE, 	KC_VOLD, 	KC_VOLU, 	KC_PSCR,KC_F14,		TG(7),
+	TOG_BAT_IND_NUM, 	KC_BRID,  	KC_BRIU,  	SOCDON, 	    SOCDOFF,  	SOCDTOG,  	_______,  	KC_MPRV,  	KC_MPLY,  	KC_MNXT, 	KC_MUTE, 	KC_VOLD, 	KC_VOLU, 	KC_PSCR,KC_F14,		TG(7),
 	_______, 	LNK_BLE1,  	LNK_BLE2,  	LNK_BLE3,  	LNK_RF,   	_______,   	_______,   	_______,   	_______,   	_______,  	_______,   	_______,	_______, 	_______,	            _______,
 	_______, 	_______,   	_______,   	_______,   	_______,   	_______,   	DEBOUNCE_PRESS_DEC,   	DEBOUNCE_PRESS_SHOW,   	DEBOUNCE_PRESS_INC,   	TOG_DEEP_SLEEP,  	TOG_USB_SLP,   	DEV_RESET,	SLEEP_MODE, BAT_SHOW,	            _______,
 	TOG_CAPS_IND,	SLEEP_TIMEOUT_DEC,   	SLEEP_TIMEOUT_SHOW,   	SLEEP_TIMEOUT_INC,  	_______,   	_______,   	DEBOUNCE_RELEASE_DEC,	DEBOUNCE_RELEASE_SHOW,   	DEBOUNCE_RELEASE_INC,   	_______,  	_______,	_______, 	_______,                            _______,
@@ -87,4 +71,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	_______,	_______,	_______,										_______, 							_______,	_______,   	_______,                _______,    _______,	_______),
 };
 // clang-format on
-
