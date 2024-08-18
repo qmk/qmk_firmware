@@ -34,7 +34,7 @@ https://github.com/9R/replicazeron_schematics
 
 ### Rows
 |row| promiro gpios | promicro pin | stm32F103 gpios |   color |
-----------------------------------------------------------------
+|---|---------------|--------------|-----------------|---------|
 | 0 |          B1   |          15  |          B15    |  red    |
 | 1 |          B3   |          14  |           A8    |  blue   |
 | 2 |          B2   |          16  |           A9    |  yellow |
@@ -44,7 +44,7 @@ https://github.com/9R/replicazeron_schematics
 
 ### Columns
 |col| promiro gpios | promicro pin | stm32F103 gpios |  color  |
-----------------------------------------------------------------
+|---|---------------|--------------|-----------------|---------|
 | 0 |         C6    |            5 |          A7     |  white  |
 | 1 |         D4    |            4 |          A6     |  grey   |
 | 2 |         D7    |            6 |          A5     |  violet |
@@ -53,7 +53,7 @@ https://github.com/9R/replicazeron_schematics
 
 ### Analog
 | promicro gpio | stm32F103 gpio | pin | color |
-------------------------------------------------
+|---------------|----------------|-----|-------|
 |          GND  |           GND  | GND | white |
 |          VCC  |           VCC  | VCC | red   |
 |          F4   |           B1   | VRx | brown |
@@ -62,7 +62,7 @@ https://github.com/9R/replicazeron_schematics
 
 ### OLED
 | promicro gpio | stm32F103 gpio | pin | color |
-------------------------------------------------
+|---------------|----------------|-----|-------|
 |          GND  |           GND  | GND | white |
 |          VCC  |           VCC  | VCC | red   |
 |           D4  |           B10  | SDA | green |
