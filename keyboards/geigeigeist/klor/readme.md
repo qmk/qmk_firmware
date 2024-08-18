@@ -6,7 +6,7 @@
 * Hardware Supported: Klor PCBs w/ Pro-Micro compatible microcontrollers
 * Hardware Availability: [github:geigeigeist/klor](https://github.com/geigeigeist/klor)
 
-**Note**: Audio feature is disabled by default to conserve firmware space on AVR
+**Note**: Audio and Pointing Device features are disabled by default to conserve firmware space on AVR
 
 Make example for this keyboard (after setting up your build environment):
 
