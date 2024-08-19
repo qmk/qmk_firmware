@@ -2,11 +2,10 @@
 
 ![Buff75](https://imgur.com/UjwWjYY.jpg)
 An 75%/TenKeyLess sized keyboard with 1 RGB.
-This PCB has two versions: hotswap and solder.
 
 * Keyboard Maintainer: [HereVoLand](https://github.com/Vem-596)
 * Hardware Supported: buff75
-* Hardware Availability: [HereVoLand](https://github.com/Vem-596)
+* Hardware Availability: [BUFF Customer-Keyboard](https://shop107132374.taobao.com)
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -24,4 +23,3 @@ Enter the bootloader in 2 ways:
 
 - **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key which is Escape in this keyboard) and plug in the keyboard
 - **Keycode in layout**: Press the key mapped to `QK_BOOT` 
-
