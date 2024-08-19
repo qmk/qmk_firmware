@@ -26,7 +26,7 @@ For compatible platforms, [QMK Toolbox](https://github.com/qmk/qmk_toolbox) can 
 
 ### Debugging with QMK CLI
 
-Prefer a terminal based solution? The [QMK CLI console command](cli_commands#qmk-console) can be used to display debug messages from your keyboard.
+Prefer a terminal based solution? The [QMK CLI console command](cli_commands.md#qmk-console) can be used to display debug messages from your keyboard.
 
 ### Debugging With hid_listen
 
