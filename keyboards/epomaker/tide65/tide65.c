@@ -5,6 +5,8 @@
 
 #ifdef WIRELESS_ENABLE
 #    include "wireless.h"
+#    include "usb_main.h"
+#    include "lowpower.h"
 #endif
 
 typedef union {
@@ -56,6 +58,7 @@ bool charging_state      = false;
 bool bat_full_flag       = false;
 bool enable_bat_indicators = true;
 uint32_t bat_indicator_cnt = true;
+static uint32_t ee_clr_timer = 0;
 
 void eeconfig_confinfo_update(uint32_t raw) {
 
@@ -99,8 +102,8 @@ void keyboard_post_init_kb(void) {
 #endif
 
 #ifdef USB_POWER_EN_PIN
-    gpio_set_pin_output(USB_POWER_EN_PIN);
     gpio_write_pin_low(USB_POWER_EN_PIN);
+    gpio_set_pin_output(USB_POWER_EN_PIN);
 #endif
 
 #ifdef HS_BAT_CABLE_PIN
@@ -113,6 +116,7 @@ void keyboard_post_init_kb(void) {
 
 #ifdef WIRELESS_ENABLE
     wireless_init();
+    wireless_devs_change(!confinfo.devs, confinfo.devs, false);
     post_init_timer = timer_read32();
 #endif
 
@@ -151,6 +155,15 @@ void suspend_wakeup_init_kb(void) {
 
     wireless_devs_change(wireless_get_current_devs(), wireless_get_current_devs(), false);
     suspend_wakeup_init_user();
+}
+
+bool lpwr_is_allow_timeout_hook(void) {
+
+    if (wireless_get_current_devs() == DEVS_USB) {
+        return false;
+    }
+
+    return true;
 }
 
 void wireless_post_task(void) {
@@ -269,8 +282,10 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
     switch (keycode) {
         case EE_CLR:{
-            if (record->event.pressed){
-                hs_reset_settings();
+            if (record->event.pressed) {
+                ee_clr_timer = timer_read32(); 
+            } else {
+                ee_clr_timer = 0; 
             }
             return false;
             break;
@@ -587,7 +602,7 @@ void bat_indicators(void) {
     } else if (charging_state) { 
 
         battery_process_time = 0;
-        rgb_matrix_hs_bat_set(HS_MATRIX_BLINK_INDEX_BAT, (RGB){RGB_RED}, 300, 0xFF);
+        rgb_matrix_set_color(HS_MATRIX_BLINK_INDEX_BAT, RGB_RED);
     } else if (*md_getp_bat() <= BATTERY_CAPACITY_LOW) { 
 
         rgb_matrix_hs_bat_set(HS_MATRIX_BLINK_INDEX_BAT, (RGB){RGB_RED}, 250, 1);
@@ -654,28 +669,55 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
         return false;
     }
 
-    if (host_keyboard_led_state().caps_lock)
-        rgb_matrix_set_color(HS_RGB_INDEX_CAPS, RGB_WHITE);
+    if (ee_clr_timer && timer_elapsed32(ee_clr_timer) > 3000) {
+        hs_reset_settings();
+        ee_clr_timer = 0;  
+    }
 
-    if (!keymap_is_mac_system() && keymap_config.no_gui)
-        rgb_matrix_set_color(HS_RGB_INDEX_WIN_LOCK, RGB_WHITE);
+    extern RGB rgb_matrix_ws2812_array[HS_RGB_INDICATOR_COUNT];
 
+    uint8_t r,g,b;
+    r = rgb_matrix_ws2812_array[1].r;
+    g = rgb_matrix_ws2812_array[1].g;
+    b = rgb_matrix_ws2812_array[1].b;
+    rgb_matrix_set_color(2,r,g,b);
+
+    if ((*md_getp_state() == MD_STATE_CONNECTED) || USB_DRIVER.state == USB_ACTIVE)
+    {
+        if (host_keyboard_led_state().caps_lock)
+            rgb_matrix_set_color(HS_RGB_INDEX_CAPS, RGB_WHITE);
+
+        if (!keymap_is_mac_system() && keymap_config.no_gui)
+            rgb_matrix_set_color(HS_RGB_INDEX_WIN_LOCK, RGB_WHITE);
+    }
+    
 #    ifdef WIRELESS_ENABLE
     rgb_matrix_wls_indicator();
     
-    if (enable_bat_indicators) {
+    if (enable_bat_indicators && !inqbat_flag) {
         rgb_matrix_hs_bat();
         bat_indicators();
         bat_indicator_cnt = timer_read32();
     }
 
-    if(!enable_bat_indicators){
-        if(timer_elapsed32(bat_indicator_cnt) > 3000){
+    if (!enable_bat_indicators) {
+        if (timer_elapsed32(bat_indicator_cnt) > 2000){
             enable_bat_indicators = true;
             bat_indicator_cnt = timer_read32();
         }
     }
-    
+
+    if (confinfo.devs == DEVS_USB){
+        if (USB_DRIVER.state != USB_ACTIVE) {
+            if(enable_bat_indicators){
+                rgb_matrix_hs_indicator_set(HS_RGB_BLINK_INDEX_USB, (RGB){HS_LBACK_COLOR_UBS}, 500, 1);
+            }
+            
+        } else {
+            lpwr_set_state(LPWR_WAKEUP);
+        }
+    }
+
 #    endif
 
     rgb_matrix_hs_indicator();
@@ -718,6 +760,10 @@ void hs_reset_settings(void) {
 #if defined(NKRO_ENABLE) && defined(FORCE_NKRO)
     keymap_config.nkro = 1;
     eeconfig_update_keymap(keymap_config.raw);
+#endif
+
+#if defined(WIRELESS_ENABLE)
+    wireless_devs_change(wireless_get_current_devs(), DEVS_USB, false);
 #endif
 
     if (hs_reset_settings_user() != true) {

@@ -194,13 +194,13 @@
             "val" :153,
             "speed" :204
         },
-        "sleep": false,
-        "timeout": 300000
+        "sleep": true,
+        "timeout": 60000
     },
     "tap_keycode_delay": 10,
     "url": "https://www.epomaker.com",
     "usb": {
-        "device_version": "0.2.0",
+        "device_version": "0.3.0",
         "force_nkro": true,
         "pid": "0xE463",
         "suspend_wakeup_delay": 1000,

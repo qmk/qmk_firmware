@@ -211,15 +211,6 @@ uint8_t wireless_get_current_devs(void) {
     return wls_devs;
 }
 
-bool lpwr_is_allow_timeout_hook(void) {
-
-    if (wls_devs == DEVS_USB) {
-        return false;
-    }
-
-    return true;
-}
-
 void wireless_pre_task(void) __attribute__((weak));
 void wireless_pre_task(void) {}
 

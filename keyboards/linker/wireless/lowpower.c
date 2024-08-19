@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "quantum.h"
-#include "lowpower.h"
+#include "wireless.h"
+#include "usb_main.h"
 
 #ifndef LPWR_TIMEOUT
 #    define LPWR_TIMEOUT 300000 // 5min
@@ -132,6 +133,12 @@ bool lpwr_is_allow_timeout(void) {
     uint32_t timeout = lpwr_timeout_value_read();
 
     if (lpwr_is_allow_timeout_hook() != true) {
+        manual_timeout = false;
+        return false;
+    }
+
+    if ((wireless_get_current_devs() == DEVS_USB) && (USB_DRIVER.state == USB_ACTIVE)) {
+        manual_timeout = false;
         return false;
     }
 
