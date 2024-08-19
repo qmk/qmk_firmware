@@ -10,6 +10,7 @@
 
 Keyboard Maintainer: [Alexander Lee](https://github.com/gaclee3b)
 Hardware Supported: chlx PCB piche60.x.x.x
+Hardware Availability: for top-side USB version, most keyboard cases that accept legacy alice format PCBs (i.e. lubrigante)
 
 Make example for this keyboard (after setting up your build environment):
 
