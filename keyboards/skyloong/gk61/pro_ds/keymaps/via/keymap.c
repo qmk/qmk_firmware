@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_WIN_INDEX] =  LAYOUT_all(
         KC_GRV ,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,       KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_DEL,
-        _______,  _______,    TO(0),    TO(1),  _______,  _______,     _______,  _______,  _______,  _______,  RGB_M_P,  RGB_RMOD, RGB_RMOD, RGB_TOG,
+        _______,  _______,    DF(0),    DF(1),  _______,  _______,     _______,  _______,  _______,  _______,  RGB_M_P,  RGB_RMOD, RGB_RMOD, RGB_TOG,
         _______,  _______,  _______,  _______,  _______,  _______,     _______,  _______,  _______,  _______,  RGB_SPD,  RGB_SPI,            _______,
         _______,  _______,  _______,  _______,  _______,  _______,     _______,  _______,  RGB_VAD,  RGB_VAI,  KC_UP,              _______,
         _______,  _______,  _______,            _______,  _______,                         _______,  KC_LEFT,  _______,  KC_DOWN,            KC_RIGHT
@@ -67,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_MAC_INDEX] = LAYOUT_all(
         KC_GRV ,   KC_F14,   KC_F15,  C(KC_UP),  G(KC_D),  G(KC_SPC),   LAG(KC_EJCT),  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_MUTE,   KC_VOLD,  KC_VOLU,  KC_DEL,
-        _______,  _______,    TO(0),     TO(1),  _______,    _______,     _______,  _______,  _______,  _______,  RGB_M_P,  RGB_RMOD, RGB_RMOD, RGB_TOG,
+        _______,  _______,    DF(0),     DF(1),  _______,    _______,     _______,  _______,  _______,  _______,  RGB_M_P,  RGB_RMOD, RGB_RMOD, RGB_TOG,
         _______,  _______,  _______,   _______,  _______,    _______,     _______,  _______,  _______,  _______,  RGB_SPD,   RGB_SPI,           _______,
         _______,  _______,  _______,   _______,  _______,    _______,     _______,  _______,  RGB_VAD,  RGB_VAI,  KC_UP,              _______,
         _______,  _______,  _______,             _______,    _______,                         _______,  KC_LEFT,  _______,   KC_DOWN,           KC_RIGHT
@@ -191,14 +191,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           rgb_matrix_set_flags(LED_FLAG_ALL);
           return true;
 #    endif
-     case TO(0):
+     case DF(0):
       if (record->event.pressed) {
        L_WIN = 1;
+       L_MAC = 0;
+       layer_move(0);
        set_single_persistent_default_layer(0); // Save default layer 0 to eeprom
       } else {
        L_WIN = 0;
       }
-      return true; // continue all further processing of this key
+      return false; // cancel all further processing of this key
 
      case MO(2):
       if (record->event.pressed) {
@@ -208,14 +210,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return true; // continue all further processing of this key
 
-     case TO(1):
+     case DF(1):
       if (record->event.pressed) {
        L_MAC = 1;
+       L_WIN = 0;
+       layer_move(1);
        set_single_persistent_default_layer(1);  //Save default layer 1 to eeprom
       } else {
        L_MAC = 0;
       }
-      return true; // continue all further processing of this key
+      return false; // cancel  all further processing of this key
 
      case MO(3):
       if (record->event.pressed) {
@@ -233,6 +237,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
 
      default:
-       return true;
+       L_MAC = 0;
+       L_WIN = 0;
+      return true;
     }
 }
