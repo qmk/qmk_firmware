@@ -1,6 +1,6 @@
 # Buff75
 
-![Buff75](https://imgur.com/UjwWjYY.jpg)
+![Buff75](https://imgur.com/pQfzIZr.jpg)
 An 75%/TenKeyLess sized keyboard with 1 RGB.
 
 * Keyboard Maintainer: [HereVoLand](https://github.com/Vem-596)
