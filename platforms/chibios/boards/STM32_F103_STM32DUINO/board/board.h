@@ -31,7 +31,12 @@
  * Board frequencies.
  */
 #define STM32_LSECLK            32768
+
+#if defined(STM32_HSE_16MHZ)    /* user selected 16 MHz HSE */
+#define STM32_HSECLK            16000000
+#else                           /* assume 8 MHz HSE */
 #define STM32_HSECLK            8000000
+#endif
 
 /*
  * MCU type, supported types are defined in ./os/hal/platforms/hal_lld.h.

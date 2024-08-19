@@ -100,6 +100,16 @@ ifeq ($(strip $(BOOTLOADER)), stm32duino)
     DFU_ARGS = -d 1EAF:0003 -a 2 -R
     DFU_SUFFIX_ARGS = -v 1EAF -p 0003
 endif
+ifeq ($(strip $(BOOTLOADER)), stm32duino_16mhz)
+    OPT_DEFS += -DBOOTLOADER_STM32DUINO -DSTM32_HSE_16MHZ
+    BOARD = STM32_F103_STM32DUINO
+    BOOTLOADER = stm32duino
+    BOOTLOADER_TYPE = stm32duino
+
+    # Options to pass to dfu-util when flashing
+    DFU_ARGS = -d 1EAF:0003 -a 2 -R
+    DFU_SUFFIX_ARGS = -v 1EAF -p 0003
+endif
 ifeq ($(strip $(BOOTLOADER)), tinyuf2)
     OPT_DEFS += -DBOOTLOADER_TINYUF2
     BOOTLOADER_TYPE = tinyuf2

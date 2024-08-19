@@ -231,6 +231,7 @@
                 "rp2040",
                 "stm32-dfu",
                 "stm32duino",
+                "stm32duino_16mhz",
                 "tinyuf2",
                 "uf2boot",
                 "unknown",
