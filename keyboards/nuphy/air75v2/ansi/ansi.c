@@ -485,7 +485,7 @@ bool rgb_matrix_indicators_kb(void) {
 bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     if (keymap_config.no_gui) {
         // fixed position in top right corner, key position in matrix is (0,16), led index is (16)
-        rgb_matrix_set_color(get_led_index(0, 16), 0x00, 0x80, 0x00);
+        rgb_matrix_set_color(get_led_index(0, 15), 0x00, 0x80, 0x00);
     }
 
     if (f_debounce_press_show) { // green numbers - press debounce
@@ -518,7 +518,7 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
         }
 
         if (showNumLock) {
-            rgb_matrix_set_color(get_led_index(0, 15), 0x00, 0x80, 0x00);
+            rgb_matrix_set_color(get_led_index(0, 14), 0x00, 0x80, 0x00);
         }
     }
 
