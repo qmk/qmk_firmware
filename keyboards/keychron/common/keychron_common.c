@@ -102,18 +102,21 @@ void keychron_common_task(void) {
 }
 
 #ifdef ENCODER_ENABLE
-static void encoder0_pad_cb(void *param) {
-    (void)param;
-    encoder_inerrupt_read(0);
+static void encoder_pad_cb(void *param) {
+    uint8_t index = (uint32_t)param;
+    encoder_inerrupt_read(index);
 }
 
 void encoder_cb_init(void) {
     pin_t encoders_pad_a[] = ENCODERS_PAD_A;
     pin_t encoders_pad_b[] = ENCODERS_PAD_B;
-    palEnableLineEvent(encoders_pad_a[0], PAL_EVENT_MODE_BOTH_EDGES);
-    palEnableLineEvent(encoders_pad_b[0], PAL_EVENT_MODE_BOTH_EDGES);
-    palSetLineCallback(encoders_pad_a[0], encoder0_pad_cb, NULL);
-    palSetLineCallback(encoders_pad_b[0], encoder0_pad_cb, NULL);
+    for (uint32_t i=0; i<NUM_ENCODERS; i++)
+    {
+        palEnableLineEvent(encoders_pad_a[i], PAL_EVENT_MODE_BOTH_EDGES);
+        palEnableLineEvent(encoders_pad_b[i], PAL_EVENT_MODE_BOTH_EDGES);
+        palSetLineCallback(encoders_pad_a[i], encoder_pad_cb, (void*)i);
+        palSetLineCallback(encoders_pad_b[i], encoder_pad_cb, (void*)i);
+    }
 }
 #endif
 
