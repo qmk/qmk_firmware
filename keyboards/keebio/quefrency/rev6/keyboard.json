@@ -190,7 +190,7 @@
     },
     "split": {
         "bootmagic": {
-            "matrix": [0, 0]
+            "matrix": [5, 8]
         },
         "enabled": true,
         "encoder": {
