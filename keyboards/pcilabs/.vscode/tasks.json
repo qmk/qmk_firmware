@@ -1,0 +1,36 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "QMK Compile",
+            "type": "shell",
+            "command": "C:\\\\QMK_MSYS\\\\qmk_compile_filename.cmd ${input:keyboardName}"
+        },
+        {
+            "label": "Flash firmware",
+            "type": "shell",
+            "command": "C:\\\\Users\\\\xazga\\\\Documents\\\\dfu-util-win64\\\\dfu-util.exe -a 2 -d 1EAF:0003 -R -D \"C:\\\\Users\\\\xazga\\\\qmk_firmware\\\\pcilabs_${input:keyboardName}_default.bin\""
+        }
+    ],
+    "inputs": [
+        {
+            "id": "keyboardName",
+            "type": "command",
+            "command": "extension.commandvariable.transform",
+            "args": {
+                "text": "${transform:removeBefore}",
+                "find": "\\\\keymaps\\\\default\\\\keymap.c",
+                "replace": "",
+                "flags": "g",
+                "transform": {
+                    "removeBefore": {
+                        "text": "${relativeFile}",
+                        "find": "pcilabs\\\\",
+                        "replace": "",
+                        "flags": "g"
+                    }
+                }
+            }
+        }
+    ]
+}
