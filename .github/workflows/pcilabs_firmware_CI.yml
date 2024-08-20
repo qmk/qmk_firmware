@@ -2,7 +2,7 @@ name: pcilabs firmware CI
 
 on:
   push:
-    branches: [ "main", "dev" ]
+    branches: [ "master", "develop" ]
 
 jobs:
   build:
