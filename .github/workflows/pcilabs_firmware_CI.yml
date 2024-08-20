@@ -19,8 +19,12 @@ jobs:
     container: ghcr.io/qmk/qmk_cli
     
     steps:
+    - name: disable safe.directory check
+      run: git config --global --add safe.directory '*'
     - name: setup qmk
       uses: actions/checkout@master
+    - name: deploy submodules
+      run: qmk git-submodule -f
     - name: compile firmware for all keyboards
       continue-on-error: true
       run: qmk mass-compile -j0 -f "manufacturer=PCI Labs" || touch .failed
