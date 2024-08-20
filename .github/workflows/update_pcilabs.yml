@@ -1,4 +1,4 @@
-name: 'Submodules Sync'
+name: 'Update pcilabs'
 
 on:
   # Allows you to run this workflow manually from the Actions tab or through HTTP API
@@ -19,6 +19,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
       with:
+        token: ${{ secrets.QMK_CI_CD_PAT }}
         submodules: true
 
     # Update references
