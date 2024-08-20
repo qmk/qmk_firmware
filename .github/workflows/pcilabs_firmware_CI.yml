@@ -1,0 +1,28 @@
+name: pcilabs firmware CI
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        type: choice
+        description: "Branch to build"
+        options: [master, develop]
+  push:
+    branches: [ "main", "dev" ]
+  pull_request:
+    branches: [ "main", "dev" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    container: ghcr.io/qmk/qmk_cli
+    
+    steps:
+    - name: setup qmk
+      uses: actions/checkout@develop
+    - name: compile firmware for all keyboards
+      run: |
+        qmk list-keyboards | grep -v ^pcilabs/dapboot > keebs.txt
+        xargs < keebs.txt -I keebname qmk compile -j0 -kb keebname -km default
+      
