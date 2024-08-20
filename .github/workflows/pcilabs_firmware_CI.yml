@@ -20,7 +20,7 @@ jobs:
     
     steps:
     - name: setup qmk
-      uses: actions/checkout@develop
+      uses: actions/checkout@master
     - name: compile firmware for all keyboards
       run: |
         qmk list-keyboards | grep -v ^pcilabs/dapboot > keebs.txt
