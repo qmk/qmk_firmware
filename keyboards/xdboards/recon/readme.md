@@ -1,6 +1,6 @@
 # xdboards/recon
 
-![xdboards/recon](https://xdboards.xyz/cdn/shop/files/20240522-132208.jpg?v=1716784494&width=1445)
+![xdboards/recon](https://imgur.com/a/HcjT4yq)
 
 A split low profile keyboard with hotswap sockets that is built around the Sea-Picro microcontroller for it's dedicated RGB pin.
 
@@ -22,6 +22,16 @@ Enter the bootloader in 2 ways:
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
 * **Boot Magic**: Hold down the boot magic key while plugging in the USB cable
 
+## Setup for Sea-Picro microcontrollers
+
+To take advantage of the dedicated 5v RGB pin on the sea-picro you must create your keymap
+and then add a `rules.mk` file and copy and paste the following:
+```
+CONVERT_TO = rp2040_ce
+USE_SEA_PICRO_RGB_PIN = yes
+```
+
+If you do not want to use the dedicated 5v RGB header then follow the Setup for non Sea-Picro microcontrollers.
 
 ## Setup for non Sea-Picro microcontrollers
 

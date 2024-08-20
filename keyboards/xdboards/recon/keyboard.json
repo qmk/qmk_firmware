@@ -24,7 +24,6 @@
         "vid": "0xFEED"
     },
     "encoder": {
-        "enabled": true,
         "rotary": [
             { "pin_a": "B6","pin_b": "B2" }
         ]
@@ -41,15 +40,7 @@
                 "rows": ["F4", "F5", "F6", "F7", "B1"]
             }
         },
-        "encoder": {
-            "right": {
-                "rotary": [
-                    { "pin_a": "B6","pin_b": "B2" }
-                ]
-            }
-        },
         "transport": {
-            "protocol": "serial",
             "sync": {
                 "layer_state": true,
                 "oled": true,
