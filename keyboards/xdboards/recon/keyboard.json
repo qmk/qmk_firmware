@@ -192,7 +192,6 @@
             {"flags": 2, "x": 172, "y": 12},
             {"flags": 2, "x": 158, "y": 37}
         ],
-        "max_brightness": 225,
         "split_count": [31, 31],
         "animations": {
             "alphas_mods": true,
