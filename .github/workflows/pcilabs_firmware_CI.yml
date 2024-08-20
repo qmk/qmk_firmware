@@ -5,7 +5,11 @@ on:
     branches: [ "master", "develop" ]
 
 jobs:
-  build:
+  build_and_release:
+  
+    permissions:
+      packages: write
+      contents: write
 
     runs-on: ubuntu-latest
     container: ghcr.io/qmk/qmk_cli
@@ -14,13 +18,13 @@ jobs:
     - name: disable safe.directory check
       run: git config --global --add safe.directory '*'
     - name: setup qmk
-      uses: actions/checkout@master
+      uses: actions/checkout@v4
     - name: deploy submodules
       run: qmk git-submodule -f
     - name: compile firmware for all keyboards
       continue-on-error: true
       run: qmk mass-compile -j0 -f "manufacturer=PCI Labs" || touch .failed
-    - name: upload binaries
+    - name: upload artifacts
       uses: actions/upload-artifact@v4
       with:
         name: firmware-${{github.base_ref || github.ref_name}}
@@ -31,4 +35,21 @@ jobs:
             *.uf2
             .build/failed.*
             .failed
+    - name: fail build if any group failed
+      run: |
+        [ ! -f .failed ] || exit 1
+    - name: Get current date
+      id: date
+      run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+    - name: make release
+    - uses: "marvinpinto/action-automatic-releases@latest"
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "latest ${{github.base_ref || github.ref_name}}"
+        prerelease: false
+        title: "build-${{github.base_ref || github.ref_name}}-${{steps.date.outputs.date}}"
+        files: |
+            *.bin
+            *.hex
+            *.uf2
       
