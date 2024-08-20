@@ -1,15 +1,7 @@
 name: pcilabs firmware CI
 
 on:
-  workflow_dispatch:
-    inputs:
-      branch:
-        type: choice
-        description: "Branch to build"
-        options: [master, develop]
   push:
-    branches: [ "main", "dev" ]
-  pull_request:
     branches: [ "main", "dev" ]
 
 jobs:
