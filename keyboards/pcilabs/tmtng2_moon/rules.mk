@@ -1,7 +1,4 @@
 #QUANTUM_LIB_SRC += analog.c
-
-include keyboards/pcilabs/dapboot/dapboot.mk
-
 MCU_FAMILY = STM32
 MCU_SERIES = STM32F1xx
 
