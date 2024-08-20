@@ -24,4 +24,15 @@ jobs:
     - name: compile firmware for all keyboards
       continue-on-error: true
       run: qmk mass-compile -j0 -f "manufacturer=PCI Labs" || touch .failed
+    - name: upload binaries
+      uses: actions/upload-artifact@v4
+      with:
+        name: firmware-${{github.base_ref || github.ref_name}}
+        if-no-files-found: ignore
+        path: |
+            *.bin
+            *.hex
+            *.uf2
+            .build/failed.*
+            .failed
       
