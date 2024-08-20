@@ -21,8 +21,6 @@ jobs:
     steps:
     - name: setup qmk
       uses: actions/checkout@master
-      with:
-        ref: ${GITHUB_REF}
     - name: compile firmware for all keyboards
       run: |
         qmk mass-compile -j0 -f "manufacturer=PCI Labs"
