@@ -1,9 +1,0 @@
-{
-    "matrix_pins": {
-        "cols": ["B7", "D0", "D1", "D2", "C6", "C7", "F6", "F7", "B6", "B5", "D7", "D6"],
-        "rows": ["D3"]
-    },
-    "diode_direction": "COL2ROW",
-    "processor": "atmega32u4",
-    "bootloader": "halfkay"
-}
