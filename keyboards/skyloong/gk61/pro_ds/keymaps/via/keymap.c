@@ -202,13 +202,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false; // cancel all further processing of this key
 
-     case MO(2):
-      if (record->event.pressed) {
-       FN_WIN = 1;
-      } else {
-       FN_WIN = 0;
-      }
-      return true; // continue all further processing of this key
 
      case DF(1):
       if (record->event.pressed) {
