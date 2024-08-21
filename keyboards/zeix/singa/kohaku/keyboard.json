@@ -33,7 +33,6 @@
         },
         "brightness_steps": 8,
         "led_count": 28,
-        "pin": "GP20",
         "saturation_steps": 8,
         "sleep": true
     },
