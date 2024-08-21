@@ -9,11 +9,6 @@
 
 #pragma once
 
-#define SPLIT_WATCHDOG_ENABLE
-#define SPLIT_WATCHDOG_TIMEOUT 3000
-#define SPLIT_USB_TIMEOUT 2000
-#define SPLIT_USB_TIMEOUT_POLL 10
-
 #define BUSY_WAIT
 #define BUSY_WAIT_INSTRUCTIONS 35 // Increase if two rows are pressed at the same time.
 #define GPIO_INPUT_PIN_DELAY 10
