@@ -32,7 +32,7 @@
         "custom_lite": true
     },
     "ws2812": {
-        "pin": "B8",
+        "pin": "A8",
         "driver": "bitbang"
     },
     "rgb_matrix": {
