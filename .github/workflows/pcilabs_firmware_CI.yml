@@ -38,7 +38,7 @@ jobs:
     - name: fail build if any group failed or no files were built
       run: |
         [ ! -f .failed ] || exit 1
-         ls *.{hex,bin,uf2} >/dev/null 2>&1 || exit 1
+        find . -maxdepth 1 -name "*.hex" -o -name "*.bin" -o -name "*.uf2" | grep -q . || exit 1
     - name: Get current date
       id: date
       run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
