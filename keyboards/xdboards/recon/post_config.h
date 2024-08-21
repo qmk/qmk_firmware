@@ -20,5 +20,5 @@
     // Dedicated 5V RGB signal pin on sea-picro
 #   define WS2812_DI_PIN 25U
 #else
-    #define WS2812_DI_PIN B3
+#   define WS2812_DI_PIN B3
 #endif

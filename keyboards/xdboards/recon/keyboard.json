@@ -2,8 +2,8 @@
     "manufacturer": "XD Boards",
     "keyboard_name": "xdboards/recon",
     "maintainer": "Xanimos",
-    "development_board": "elite_c",
-    "pin_compatible": "elite_c",
+    "development_board": "promicro",
+    "pin_compatible": "promicro",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
