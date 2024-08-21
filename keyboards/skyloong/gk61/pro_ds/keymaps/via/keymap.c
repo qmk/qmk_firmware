@@ -119,7 +119,7 @@ tap_dance_action_t tap_dance_actions[] = {
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
    switch (get_highest_layer(layer_state)) {
-      case 2:{
+      case _WIN_INDEX:{
         RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 255, 255, 255);
         if (!rgb_matrix_get_flags()) {
             RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 0, 0, 0);
