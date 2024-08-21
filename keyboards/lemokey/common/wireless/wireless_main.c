@@ -1,4 +1,4 @@
-/* Copyright 2023 @ lokher (https://www.keychron.com)
+/* Copyright 2022~2024 @ lokher (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,6 +20,7 @@
 #include "factory_test.h"
 #include "lemokey_task.h"
 
+__attribute__((weak)) bool wireless_pre_task_kb(void) { return true; }
 __attribute__((weak)) void wireless_pre_task(void) {}
 __attribute__((weak)) void wireless_post_task(void) {}
 

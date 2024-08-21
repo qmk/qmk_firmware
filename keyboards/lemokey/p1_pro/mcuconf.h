@@ -1,4 +1,4 @@
-/* Copyright 2023 @ Keychron (https://www.lemokey.com)
+/* Copyright 2024 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,13 +14,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "stdint.h"
-#ifdef VIA_ENABLE
-#    include "via.h"
-#endif
-#include "quantum_keycodes.h"
+#pragma once
+#include_next <mcuconf.h>
 
-void lkbt51_param_init(void);
+#undef WB32_I2C_USE_I2C1
+#define WB32_I2C_USE_I2C1 TRUE
 
-bool process_record_lemokey_wireless(uint16_t keycode, keyrecord_t *record);
-void lemokey_wireless_common_task(void);
+#undef WB32_SPI_USE_QSPI
+#define WB32_SPI_USE_QSPI TRUE
+
+#undef WB32_LSI_ENABLED
+#define WB32_LSI_ENABLED TRUE
+
+#define WB32_EXTI_REQUIRED

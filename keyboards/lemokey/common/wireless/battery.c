@@ -1,4 +1,4 @@
-/* Copyright 2023 @ lokher (https://www.lemokey.com)
+/* Copyright 2022~2024 @ lokher (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -167,12 +167,7 @@ void battery_check_empty(void) {
     if (voltage < EMPTY_VOLTAGE_VALUE) {
         if (bat_empty <= BATTERY_EMPTY_COUNT) {
             if (++bat_empty > BATTERY_EMPTY_COUNT) {
-#ifdef BAT_LOW_LED_PIN
                 indicator_battery_low_enable(true);
-#endif
-#if defined(LOW_BAT_IND_INDEX)
-                indicator_battery_low_backlit_enable(true);
-#endif
                 power_on_sample = VOLTAGE_POWER_ON_MEASURE_COUNT;
             }
         }
@@ -229,11 +224,6 @@ void battery_task(void) {
     if ((bat_empty || critical_low) && usb_power_connected()) {
         bat_empty    = false;
         critical_low = false;
-#ifdef BAT_LOW_LED_PIN
         indicator_battery_low_enable(false);
-#endif
-#if defined(LOW_BAT_IND_INDEX)
-        indicator_battery_low_backlit_enable(false);
-#endif
     }
 }

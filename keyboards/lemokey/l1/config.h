@@ -20,6 +20,8 @@
 #define ENCODER_DEFAULT_POS 0x3
 #define ENCODER_MAP_KEY_DELAY 2
 
+#        define LED_DRIVER_SHUTDOWN_PIN B7
+
 #ifdef LK_WIRELESS_ENABLE
 /* Hardware configuration */
 #    define P2P4_MODE_SELECT_PIN A9
@@ -39,13 +41,10 @@
 
 #    if defined(RGB_MATRIX_ENABLE) || defined(LED_MATRIX_ENABLE)
 
-#        define LED_DRIVER_SHUTDOWN_PIN B7
-
-#        define BT_HOST_LED_MATRIX_LIST \
+#        define BT_INDICATION_LED_LIST \
             { 16, 17, 18 }
 
-#        define P2P4G_HOST_LED_MATRIX_LIST \
-            { 19 }
+#        define P24G_INDICATION_LED_INDEX 19
 
 #        define BAT_LEVEL_LED_LIST \
             { 16, 17, 18, 19, 20, 21, 22, 23, 24, 25 }

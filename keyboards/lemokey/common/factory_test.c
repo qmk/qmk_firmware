@@ -1,4 +1,4 @@
-/* Copyright 2021 @ Keychron (https://www.keychron.com)
+/* Copyright 2022~2024 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -176,6 +176,7 @@ bool process_record_factory_test(uint16_t keycode, keyrecord_t *record) {
                 factory_reset_timer = 0;
             }
             break;
+
         case KC_Z:
 #if defined(FN_Z_KEY)
         case FN_Z_KEY:
@@ -195,6 +196,7 @@ bool process_record_factory_test(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             break;
+
 #if defined(BL_CYCLE_KEY) || defined(BL_CYCLE_KEY_2)
 #    if defined(BL_CYCLE_KEY)
         case BL_CYCLE_KEY:

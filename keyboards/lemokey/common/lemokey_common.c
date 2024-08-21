@@ -1,4 +1,4 @@
-/* Copyright 2022 @ Keychron (https://www.keychron.com)
+/* Copyright 2022~2024 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,6 +34,16 @@ static key_combination_t key_comb_list[3] = {
     {2, {KC_LWIN, KC_L}},
 };
 
+#if defined(WIN_LOCK_HOLD_TIME)
+static uint32_t winlock_timer = 0;
+#endif
+
+void gui_toggle(void) {
+    keymap_config.no_gui = !keymap_config.no_gui;
+    eeconfig_update_keymap(keymap_config.raw);
+    led_update_kb(host_keyboard_led_state());
+}
+
 bool process_record_lemokey_common(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case KC_TASK_VIEW:
@@ -49,6 +59,7 @@ bool process_record_lemokey_common(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false; // Skip all further processing of this key
+
         case KC_MCTRL:
             if (record->event.pressed) {
                 register_code(KC_MISSION_CONTROL);
@@ -56,13 +67,15 @@ bool process_record_lemokey_common(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(KC_MISSION_CONTROL);
             }
             return false; // Skip all further processing of this key
-        case KC_LANCH:
+
+        case KC_LNPAD:
             if (record->event.pressed) {
                 register_code(KC_LAUNCHPAD);
             } else {
                 unregister_code(KC_LAUNCHPAD);
             }
             return false; // Skip all further processing of this key
+
         case KC_LOPTN:
         case KC_ROPTN:
         case KC_LCMMD:
@@ -73,59 +86,73 @@ bool process_record_lemokey_common(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(mac_keycode[keycode - KC_LOPTN]);
             }
             return false; // Skip all further processing of this key
+
+#if defined(WIN_LOCK_HOLD_TIME) || defined(WIN_LOCK_LED_PIN) || defined(WINLOCK_LED_LIST)
+        case GU_TOGG:
+#    if defined(WIN_LOCK_HOLD_TIME)
+            if (record->event.pressed) {
+                winlock_timer = timer_read32();
+            } else {
+                winlock_timer = 0;
+            }
+#    else
+            if (record->event.pressed) gui_toggle();
+#    endif
+            return false;
+#endif
         default:
             return true; // Process all other keycodes normally
     }
 }
 
-void lemokey_common_task(void) {}
+void lemokey_common_task(void) {
+#if defined(WIN_LOCK_HOLD_TIME)
+    if (winlock_timer) {
+        if (keymap_config.no_gui) {
+            winlock_timer = 0;
+            gui_toggle();
+        } else if (timer_elapsed32(winlock_timer) > WIN_LOCK_HOLD_TIME) {
+            winlock_timer = 0;
+            gui_toggle();
+        }
+    }
+#endif
+}
 
 #ifdef ENCODER_ENABLE
-static void encoder0_pad_cb(void *param) {
-    (void)param;
-    encoder_inerrupt_read(0);
+static void encoder_pad_cb(void *param) {
+    uint8_t index = (uint32_t)param;
+    encoder_inerrupt_read(index);
 }
 
 void encoder_cb_init(void) {
     pin_t encoders_pad_a[] = ENCODERS_PAD_A;
     pin_t encoders_pad_b[] = ENCODERS_PAD_B;
-    palEnableLineEvent(encoders_pad_a[0], PAL_EVENT_MODE_BOTH_EDGES);
-    palEnableLineEvent(encoders_pad_b[0], PAL_EVENT_MODE_BOTH_EDGES);
-    palSetLineCallback(encoders_pad_a[0], encoder0_pad_cb, NULL);
-    palSetLineCallback(encoders_pad_b[0], encoder0_pad_cb, NULL);
-}
-#endif
-
-//__attribute__((weak)) bool raw_hid_receive_lemokey(uint8_t *data, uint8_t length) { return true; }
-
-bool via_command_kb(uint8_t *data, uint8_t length) {
-    // if (!raw_hid_receive_lemokey(data, length))
-    //     return false;
-
-    switch (data[0]) {
-#ifdef LK_WIRELESS_ENABLE
-        case 0xAA:
-            lkbt51_dfu_rx(data, length);
-            break;
-#endif
-#ifdef FACTORY_TEST_ENABLE
-        case 0xAB:
-            factory_test_rx(data, length);
-            break;
-#endif
-        default:
-            return false;
-    }
-
-    return true;
-}
-
-#if !defined(VIA_ENABLE)
-void raw_hid_receive(uint8_t *data, uint8_t length) {
-    switch (data[0]) {
-        case RAW_HID_CMD:
-            via_command_kb(data, length);
-            break;
+    for (uint32_t i=0; i<NUM_ENCODERS; i++)
+    {
+        palEnableLineEvent(encoders_pad_a[i], PAL_EVENT_MODE_BOTH_EDGES);
+        palEnableLineEvent(encoders_pad_b[i], PAL_EVENT_MODE_BOTH_EDGES);
+        palSetLineCallback(encoders_pad_a[i], encoder_pad_cb, (void*)i);
+        palSetLineCallback(encoders_pad_b[i], encoder_pad_cb, (void*)i);
     }
 }
 #endif
+
+__attribute__((weak)) void suspend_power_down_lemokey(void) {}
+__attribute__((weak)) void suspend_wakeup_init_lemokey(void) {}
+
+void suspend_power_down_kb(void) {
+#ifdef WIN_LOCK_LED_PIN
+    writePin(WIN_LOCK_LED_PIN, !WIN_LOCK_LED_ON_LEVEL);
+#endif
+    suspend_power_down_lemokey();
+    suspend_power_down_user();
+}
+
+void suspend_wakeup_init_kb(void) {
+#ifdef WIN_LOCK_LED_PIN
+    if (keymap_config.no_gui) writePin(WIN_LOCK_LED_PIN, !WIN_LOCK_LED_ON_LEVEL);
+#endif
+    suspend_wakeup_init_lemokey();
+    suspend_wakeup_init_user();
+}

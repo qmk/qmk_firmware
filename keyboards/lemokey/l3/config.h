@@ -54,11 +54,10 @@
 
 #        define LED_DRIVER_SHUTDOWN_PIN B7
 
-#        define BT_HOST_LED_MATRIX_LIST \
+#        define BT_INDICATION_LED_LIST \
             { 17, 18, 19 }
 
-#        define P2P4G_HOST_LED_MATRIX_LIST \
-            { 20 }
+#        define P24G_INDICATION_LED_INDEX 20
 
 #        define BAT_LEVEL_LED_LIST \
             { 17, 18, 19, 20, 21, 22, 23, 24, 25, 26 }

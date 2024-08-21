@@ -22,7 +22,7 @@
 #include "indicator.h"
 #include "transport.h"
 #include "rtc_timer.h"
-#include "lemokey_wireless_common.h"
+#include "wireless_common.h"
 #include "lemokey_task.h"
 
 extern uint8_t         pairing_indication;
@@ -90,6 +90,7 @@ static inline bool wireless_event_dequeue(wireless_event_t *event) {
  * Bluetooth init.
  */
 void wireless_init(void) {
+    kc_printf("wireless_init\r\n");
     wireless_state = WT_INITIALIZED;
 
     wireless_event_queue_init();
@@ -233,51 +234,50 @@ static void wireless_enter_connected(uint8_t host_idx) {
     clear_keyboard();
 
     /* Enable NKRO since it may be disabled in pin code entry */
-#if defined(NKRO_ENABLE) && defined(WIRELESS_NKRO_ENABLE)
-    keymap_config.nkro = nkro.bluetooth;
-#else
+#if defined(NKRO_ENABLE) && !defined(WIRELESS_NKRO_ENABLE)
     keymap_config.nkro = false;
 #endif
 
     wireless_enter_connected_kb(host_idx);
-#ifdef BAT_LOW_LED_PIN
     if (battery_is_empty()) {
         indicator_battery_low_enable(true);
     }
-#endif
     if (wireless_transport.update_bat_level) wireless_transport.update_bat_level(battery_get_percentage());
+    lpm_timer_reset();
 }
 
 /* Enters disconnected state. Upon entering this state we perform the following actions:
  *   - change state to DISCONNECTED
  *   - set disconnected indication
  */
-static void wireless_enter_disconnected(uint8_t host_idx) {
-    kc_printf("wireless_disconnected %d\n\r", host_idx);
+static void wireless_enter_disconnected(uint8_t host_idx, uint8_t reason) {
+    kc_printf("wireless_disconnected %d, %d\n\r", host_idx, reason);
 
     uint8_t previous_state = wireless_state;
     led_state              = 0;
-    led_update_kb((led_t)led_state);
+    if (get_transport() & TRANSPORT_WIRELESS)
+        led_update_kb((led_t)led_state);
 
     wireless_state = WT_DISCONNECTED;
 
     if (previous_state == WT_CONNECTED) {
         lpm_timer_reset();
         indicator_set(WT_SUSPEND, host_idx);
-    } else
+    } else {
         indicator_set(wireless_state, host_idx);
+#if defined(RGB_MATRIX_ENABLE) || defined(LED_MATRIX_ENABLE)
+        if (reason && (get_transport() & TRANSPORT_WIRELESS))
+            indicator_set_backlit_timeout(DISCONNECTED_BACKLIGHT_DISABLE_TIMEOUT*1000);
+#endif
+    }
 
 #ifndef DISABLE_REPORT_BUFFER
     report_buffer_init();
 #endif
     retry = 0;
-    wireless_enter_disconnected_kb(host_idx);
-#ifdef BAT_LOW_LED_PIN
+    wireless_enter_disconnected_kb(host_idx, reason);
+
     indicator_battery_low_enable(false);
-#endif
-#if defined(LOW_BAT_IND_INDEX)
-    indicator_battery_low_backlit_enable(false);
-#endif
 }
 
 /* Enter pin code entry state. */
@@ -291,8 +291,8 @@ static void wireless_enter_bluetooth_pin_code_entry(void) {
 
 /* Exit pin code entry state. */
 static void wireless_exit_bluetooth_pin_code_entry(void) {
-#if defined(NKRO_ENABLE)
-    keymap_config.nkro = true;
+#if defined(NKRO_ENABLE) || defined(WIRELESS_NKRO_ENABLE)
+    keymap_config.raw = eeconfig_read_keymap();
 #endif
     pincodeEntry = false;
     wireless_exit_bluetooth_pin_code_entry_kb();
@@ -306,26 +306,24 @@ static void wireless_enter_sleep(void) {
     kc_printf("wireless_enter_sleep %d\n\r", wireless_state);
 
     led_state = 0;
-    if (wireless_state == WT_PARING) {
-        wireless_state = WT_SUSPEND;
+#if defined(RGB_MATRIX_ENABLE) || defined(LED_MATRIX_ENABLE)
+    if (wireless_state == WT_CONNECTED || wireless_state == WT_PARING)
+#endif
+    {
         kc_printf("WT_SUSPEND\n\r");
-
+        lpm_timer_reset();
         wireless_enter_sleep_kb();
-        indicator_set(wireless_state, 0);
-#ifdef BAT_LOW_LED_PIN
+        indicator_set(WT_SUSPEND, 0);
         indicator_battery_low_enable(false);
-#endif
-#if defined(LOW_BAT_IND_INDEX)
-        indicator_battery_low_backlit_enable(false);
-#endif
     }
+    wireless_state = WT_SUSPEND;
 }
 
 __attribute__((weak)) void wireless_enter_reset_kb(uint8_t reason) {}
 __attribute__((weak)) void wireless_enter_discoverable_kb(uint8_t host_idx) {}
 __attribute__((weak)) void wireless_enter_reconnecting_kb(uint8_t host_idx) {}
 __attribute__((weak)) void wireless_enter_connected_kb(uint8_t host_idx) {}
-__attribute__((weak)) void wireless_enter_disconnected_kb(uint8_t host_idx) {}
+__attribute__((weak)) void wireless_enter_disconnected_kb(uint8_t host_idx, uint8_t reason) {}
 __attribute__((weak)) void wireless_enter_bluetooth_pin_code_entry_kb(void) {}
 __attribute__((weak)) void wireless_exit_bluetooth_pin_code_entry_kb(void) {}
 __attribute__((weak)) void wireless_enter_sleep_kb(void) {}
@@ -436,13 +434,7 @@ void wireless_send_extra(report_extra_t *report) {
 }
 
 void wireless_low_battery_shutdown(void) {
-#ifdef BAT_LOW_LED_PIN
     indicator_battery_low_enable(false);
-#endif
-#if defined(LOW_BAT_IND_INDEX)
-    indicator_battery_low_backlit_enable(false);
-#endif
-
     report_buffer_init();
     clear_keyboard(); //
     wait_ms(50);      // wait a while for bt module to free buffer by sending report
@@ -485,7 +477,7 @@ void wireless_event_task(void) {
                 wireless_enter_reconnecting(event.params.hostIndex);
                 break;
             case EVT_DISCONNECTED:
-                wireless_enter_disconnected(event.params.hostIndex);
+                wireless_enter_disconnected(event.params.hostIndex, event.data);
                 break;
             case EVT_BT_PINCODE_ENTRY:
                 wireless_enter_bluetooth_pin_code_entry();
@@ -518,7 +510,7 @@ void wireless_task(void) {
     report_buffer_task();
 #endif
     indicator_task();
-    lemokey_wireless_common_task();
+    wireless_common_task();
     battery_task();
     lpm_task();
 }
@@ -540,19 +532,12 @@ bool process_record_wireless(uint16_t keycode, keyrecord_t *record) {
     if (get_transport() & TRANSPORT_WIRELESS) {
         lpm_timer_reset();
 
-#if defined(BAT_LOW_LED_PIN) || defined(LOW_BAT_IND_INDEX)
         if (battery_is_empty() && wireless_get_state() == WT_CONNECTED && record->event.pressed) {
-#    if defined(BAT_LOW_LED_PIN)
             indicator_battery_low_enable(true);
-#    endif
-#    if defined(LOW_BAT_IND_INDEX)
-            indicator_battery_low_backlit_enable(true);
-#    endif
         }
-#endif
     }
 
-    if (!process_record_lemokey_wireless(keycode, record)) return false;
+    if (!process_record_wireless_common(keycode, record)) return false;
 
     return true;
 }

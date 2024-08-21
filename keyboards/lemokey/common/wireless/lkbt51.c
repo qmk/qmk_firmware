@@ -1,4 +1,4 @@
-/* Copyright 2021 @ Keychron (https://www.keychron.com)
+/* Copyright 2022~2024 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,9 +25,9 @@
 
 extern void factory_test_send(uint8_t* payload, uint8_t length);
 
-#    ifndef RAW_EPSIZE
-#        define RAW_EPSIZE 32
-#    endif
+#ifndef RAW_EPSIZE
+#    define RAW_EPSIZE 32
+#endif
 
 #ifndef SPI_SCK_PIN
 #    define SPI_SCK_PIN A5
@@ -141,12 +141,12 @@ enum{
 };
 
 // clang-format on
-
 static uint8_t  payload[PACKET_MAX_LEN];
 static uint8_t  reg_offset          = 0xFF;
 static uint8_t  expect_len          = 22;
 static uint16_t connection_interval = 1;
 static uint32_t wake_time;
+static uint32_t factory_reset = 0;
 
 // clang-format off
 wt_func_t wireless_transport = {
@@ -164,6 +164,7 @@ wt_func_t wireless_transport = {
 };
 // clang-format on
 
+#if defined(MCU_STM32)
 /* Init SPI */
 const SPIConfig spicfg = {
     .circular = false,
@@ -175,6 +176,18 @@ const SPIConfig spicfg = {
     .cr1      = SPI_CR1_MSTR | SPI_CR1_BR_1 | SPI_CR1_BR_0,
     .cr2      = 0U,
 };
+#endif
+
+#if defined(WB32F3G71xx)
+/* Init SPI */
+const SPIConfig spicfg = {
+    .ssport                = PAL_PORT(BLUETOOTH_INT_OUTPUT_PIN),
+    .sspad                 = PAL_PAD(BLUETOOTH_INT_OUTPUT_PIN),
+    .SPI_CPOL              = 0U,
+    .SPI_CPHA              = 0U,
+    .SPI_BaudRatePrescaler = 32U,
+};
+#endif
 
 void lkbt51_init(bool wakeup_from_low_power_mode) {
 #ifdef LKBT51_RESET_PIN
@@ -187,14 +200,11 @@ void lkbt51_init(bool wakeup_from_low_power_mode) {
 #endif
 
 #if (HAL_USE_SPI == TRUE)
+    palSetLineMode(SPI_SCK_PIN, PAL_MODE_ALTERNATE(SPI_CLK_PAL_MODE));
+    palSetLineMode(SPI_MISO_PIN, PAL_MODE_ALTERNATE(SPI_MISO_PAL_MODE));
+    palSetLineMode(SPI_MOSI_PIN, PAL_MODE_ALTERNATE(SPI_MOSI_PAL_MODE));
+
     if (WT_DRIVER.state == SPI_UNINIT) {
-        setPinOutput(SPI_SCK_PIN);
-        writePinHigh(SPI_SCK_PIN);
-
-        palSetLineMode(SPI_SCK_PIN, PAL_MODE_ALTERNATE(SPI_CLK_PAL_MODE));
-        palSetLineMode(SPI_MISO_PIN, PAL_MODE_ALTERNATE(SPI_MISO_PAL_MODE));
-        palSetLineMode(SPI_MOSI_PIN, PAL_MODE_ALTERNATE(SPI_MOSI_PAL_MODE));
-
         if (wakeup_from_low_power_mode) {
             spiInit();
             return;
@@ -367,9 +377,9 @@ void lkbt51_send_mouse(uint8_t* report) {
     payload[i++] = LKBT51_CMD_SEND_MOUSE;            // Cmd type
     payload[i++] = report[1];                        // Button
     payload[i++] = report[2];                        // X
-    payload[i++] = (report[2] & 0x80) ? 0xff : 0x00; // ckbt51 use 16bit report, set high byte
+    payload[i++] = (report[2] & 0x80) ? 0xff : 0x00; // lkbt51 use 16bit report, set high byte
     payload[i++] = report[3];                        // Y
-    payload[i++] = (report[3] & 0x80) ? 0xff : 0x00; // ckbt51 use 16bit report, set high byte
+    payload[i++] = (report[3] & 0x80) ? 0xff : 0x00; // lkbt51 use 16bit report, set high byte
     payload[i++] = report[4];                        // V wheel
     payload[i++] = report[5];                        // H wheel
 
@@ -434,7 +444,8 @@ void lkbt51_disconnect(void) {
     payload[i++] = LKBT51_CMD_DISCONNECT;
     payload[i++] = 0; // Sleep mode
 
-    spiSelect(&SPID1);
+    if (WT_DRIVER.state != SPI_READY) spiStart(&WT_DRIVER, &spicfg);
+
     wait_ms(30);
     // spiUnselect(&SPID1);
     wait_ms(70);
@@ -539,6 +550,7 @@ void lkbt51_factory_reset(uint8_t p2p4g_clr_msk) {
 
     lkbt51_wake();
     lkbt51_send_cmd(payload, i, false, false);
+    factory_reset = timer_read32();
 }
 
 void lkbt51_int_pin_test(bool enable) {
@@ -610,9 +622,9 @@ void lkbt51_write_customize_data(uint8_t* data, uint8_t len) {
 }
 #ifdef RAW_ENABLE
 void lkbt51_dfu_tx(uint8_t rsp, uint8_t* data, uint8_t len, uint8_t sn) {
-    uint16_t checksum = 0;
-    uint8_t buf[RAW_EPSIZE] = {0};
-    uint8_t i               = 0;
+    uint16_t checksum        = 0;
+    uint8_t  buf[RAW_EPSIZE] = {0};
+    uint8_t  i               = 0;
 
     buf[i++] = 0x03;
     buf[i++] = 0xAA;
@@ -791,6 +803,10 @@ void lkbt51_task(void) {
                         break;
                     case LKBT51_DISCONNECTED:
                         event.evt_type = EVT_DISCONNECTED;
+                        if (factory_reset && timer_elapsed32(factory_reset) < 3000) {
+                            factory_reset = 0;
+                            event.data = 1;
+                        }
                         break;
                     case LKBT51_PINCODE_ENTRY:
                         event.evt_type = EVT_BT_PINCODE_ENTRY;

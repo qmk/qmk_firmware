@@ -1,4 +1,4 @@
-/* Copyright 2023 @ Keychron (https://www.keychron.com)
+/* Copyright 2022~2024 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,18 +18,23 @@
 
 #include "stdint.h"
 #include "hal.h"
-
-#ifndef WT_DRIVER
-#    define WT_DRIVER SPID1
-#endif
+#include "config.h"
 
 // Error checking
 #if HAL_USE_SPI == FALSE
 #    error "Please enable SPI to use LKBT51"
 #endif
 
-#if !STM32_SPI_USE_SPI1 && !STM32_SPI_USE_SPI2 && !STM32_SPI_USE_SPI3
-#    error "WT driver activated but no SPI peripheral assigned"
+#if defined(WB32F3G71xx)
+#    ifndef WT_DRIVER
+#        define WT_DRIVER SPIDQ
+#    endif
+#endif
+
+#if defined(MCU_STM32)
+#    ifndef WT_DRIVER
+#        define WT_DRIVER SPID1
+#    endif
 #endif
 
 #define PACKECT_HEADER_LEN 5

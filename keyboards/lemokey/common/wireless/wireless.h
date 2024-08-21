@@ -1,4 +1,4 @@
-/* Copyright 2023 @ lokher (https://www.keychron.com)
+/* Copyright 2022~2024 @ lokher (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -84,7 +84,7 @@ void wireless_enter_reset_kb(uint8_t reason);
 void wireless_enter_discoverable_kb(uint8_t host_idx);
 void wireless_enter_reconnecting_kb(uint8_t host_idx);
 void wireless_enter_connected_kb(uint8_t host_idx);
-void wireless_enter_disconnected_kb(uint8_t host_idx);
+void wireless_enter_disconnected_kb(uint8_t host_idx, uint8_t reason);
 void wireless_enter_bluetooth_pin_code_entry_kb(void);
 void wireless_exit_bluetooth_pin_code_entry_kb(void);
 void wireless_enter_sleep_kb(void);
@@ -98,4 +98,4 @@ wt_state_t wireless_get_state(void);
 
 void wireless_low_battery_shutdown(void);
 
-bool process_record_wireless(uint16_t keycode, keyrecord_t *record);
+bool process_record_wireless_common(uint16_t keycode, keyrecord_t *record);

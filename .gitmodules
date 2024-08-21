@@ -4,7 +4,7 @@
 	branch = master
 [submodule "lib/chibios-contrib"]
 	path = lib/chibios-contrib
-	url = https://github.com/qmk/ChibiOS-Contrib
+	url = https://github.com/Keychron/ChibiOS-Contrib
 	branch = master
 [submodule "lib/googletest"]
 	path = lib/googletest

@@ -47,7 +47,7 @@
 
 /* Indications */
 #    define CAPS_LOCK_INDEX 47
-#    define LOW_BAT_IND_INDEX \
+#    define SPACE_KEY_LOW_BAT_IND \
         { 79 }
 
 #    define RGB_MATRIX_KEYPRESSES

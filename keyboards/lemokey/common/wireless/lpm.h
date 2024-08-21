@@ -1,4 +1,4 @@
-/* Copyright 2023 @ lokher (https://www.keychron.com)
+/* Copyright 2022~2024 @ lokher (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,6 +30,19 @@ typedef enum {
 void lpm_init(void);
 void lpm_timer_reset(void);
 void lpm_timer_stop(void);
+void select_all_cols(void);
+void matrix_enter_low_power(void);
+void matrix_exit_low_power(void);
+void lpm_pre_enter_low_power(void);
+void lpm_enter_low_power(void);
+void lpm_enter_low_power_kb(void);
+void lpm_post_enter_low_power(void) ;
+void lpm_standby(pm_t mode);
+void lpm_early_wakeup(void);
+void lpm_wakeup_init(void);
+void lpm_pre_wakeup(void);
+void lpm_wakeup(void);
+void lpm_post_wakeup(void);
 bool usb_power_connected(void);
 bool lpm_is_kb_idle(void);
 void enter_power_mode(pm_t mode);

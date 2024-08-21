@@ -23,7 +23,7 @@
 #ifdef LK_WIRELESS_ENABLE
 #    include "lkbt51.h"
 #    include "wireless.h"
-#    include "lemokey_wireless_common.h"
+#    include "wireless_common.h"
 #    include "battery.h"
 #    include "transport.h"
 #endif

@@ -11,11 +11,18 @@ SRC += \
      $(WIRELESS_DIR)/wireless_main.c \
      $(WIRELESS_DIR)/transport.c \
      $(WIRELESS_DIR)/lpm.c \
-     $(WIRELESS_DIR)/lpm_stm32f401.c \
      $(WIRELESS_DIR)/battery.c \
      $(WIRELESS_DIR)/bat_level_animation.c \
      $(WIRELESS_DIR)/rtc_timer.c \
-     $(WIRELESS_DIR)/lemokey_wireless_common.c
+     $(WIRELESS_DIR)/wireless_common.c
+
+ifeq ($(strip $(MCU_SERIES)), STM32F4xx)
+SRC += $(WIRELESS_DIR)/lpm_stm32f401.c
+endif
+
+ifeq ($(strip $(MCU_SERIES)), WB32F3G71xx)
+SRC += $(WIRELESS_DIR)/lpm_wb32f3g71.c
+endif
 
 VPATH += $(TOP_DIR)/keyboards/lemokey/$(WIRELESS_DIR)
 

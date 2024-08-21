@@ -1,4 +1,4 @@
-/* Copyright 2022 @ lokher (https://www.keychron.com)
+/* Copyright 2022~2024 @ lokher (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,3 +21,4 @@ void bat_level_animiation_stop(void);
 bool bat_level_animiation_actived(void);
 void bat_level_animiation_indicate(void);
 void bat_level_animiation_task(void);
+void bat_level_indication(uint8_t percentage);

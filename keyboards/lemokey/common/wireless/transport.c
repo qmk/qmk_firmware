@@ -1,4 +1,4 @@
-/* Copyright 2023 @ lokher (https://www.keychron.com)
+/* Copyright 2022~2024 @ lokher (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -55,7 +55,7 @@ __attribute__((weak)) void bt_transport_enable(bool enable) {
         wireless_disconnect();
 
         uint32_t t = timer_read32();
-        while (timer_elapsed32(t) < 50) {
+        while (timer_elapsed32(t) < 100) {
             wireless_transport.task();
         }
         // wireless_connect();
@@ -83,7 +83,7 @@ __attribute__((weak)) void p24g_transport_enable(bool enable) {
         wireless_disconnect();
 
         uint32_t t = timer_read32();
-        while (timer_elapsed32(t) < 50) {
+        while (timer_elapsed32(t) < 100) {
             wireless_transport.task();
         }
         wireless_connect_ex(P24G_INDEX, 0);
@@ -125,9 +125,10 @@ __attribute__((weak)) void usb_transport_enable(bool enable) {
 #endif
     }
 }
-
 void set_transport(transport_t new_transport) {
     if (transport != new_transport) {
+        indicator_init();
+
         if (transport == TRANSPORT_USB || ((transport != TRANSPORT_USB) && wireless_get_state() == WT_CONNECTED)) clear_keyboard();
 
         transport = new_transport;
@@ -212,10 +213,7 @@ static void reinit_led_drvier(void) {
 #endif
 
 void transport_changed(transport_t new_transport) {
-    kc_printf("transport_changed %d\n\r", new_transport);
-    indicator_init();
-
-#if (REINIT_LED_DRIVER)
+#if (REINIT_LED_DRIVER) && !defined(TRANSPORT_SOFT_SWITCH_ENABLE)
     reinit_led_drvier();
 #endif
 
@@ -235,6 +233,10 @@ void transport_changed(transport_t new_transport) {
 
 void usb_remote_wakeup(void) {
     if (USB_DRIVER.state == USB_SUSPENDED) {
+#if defined(WB32F3G71xx)
+        wait_ms(300);
+        if (!usb_power_connected()) return;
+#endif
         while (USB_DRIVER.state == USB_SUSPENDED) {
             wireless_pre_task();
             if (get_transport() != TRANSPORT_USB) {
@@ -244,7 +246,11 @@ void usb_remote_wakeup(void) {
             /* Do this in the suspended state */
             suspend_power_down(); // on AVR this deep sleeps for 15ms
             /* Remote wakeup */
-            if (suspend_wakeup_condition()) {
+            if (suspend_wakeup_condition()
+#ifdef ENCODER_ENABLE
+                || encoder_read()
+#endif
+                ) {
                 usbWakeupHost(&USB_DRIVER);
                 wait_ms(300);
 #ifdef MOUSEKEY_ENABLE

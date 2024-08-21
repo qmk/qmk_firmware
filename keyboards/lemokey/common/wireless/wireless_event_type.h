@@ -1,4 +1,4 @@
-/* Copyright 2023 @ lokher (https://www.keychron.com)
+/* Copyright 2022~2024 @ lokher (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,4 +41,5 @@ typedef struct {
         uint8_t protocol;  /* Parameters to EVT_HID_SET_PROTOCOL event */
         uint8_t interval;  /* Parameters to EVT_CONECTION_INTERVAL event */
     } params;
+    uint8_t data;
 } wireless_event_t;

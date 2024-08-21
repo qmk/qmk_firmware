@@ -1,4 +1,4 @@
-/* Copyright 2023 @ Keychron (https://www.keychron.com)
+/* Copyright 2022~2024 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,7 +34,6 @@ bool process_record_lemokey(uint16_t keycode, keyrecord_t *record) {
 #ifdef FACTORY_TEST_ENABLE
     if (!process_record_factory_test(keycode, record)) return false;
 #endif
-    // extern bool process_record_lemokey_kb(uint16_t keycode, keyrecord_t *record);
 
     if (!process_record_lemokey_kb(keycode, record)) return false;
 

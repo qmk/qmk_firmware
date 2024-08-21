@@ -101,6 +101,13 @@ _Static_assert((DYNAMIC_KEYMAP_EEPROM_MAX_ADDR) - (DYNAMIC_KEYMAP_MACRO_EEPROM_A
 #    define DYNAMIC_KEYMAP_MACRO_DELAY TAP_CODE_DELAY
 #endif
 
+#ifdef KEYCODE_BUFFER_ENABLE
+static uint8_t layer_buffer = 0xFF;
+static uint8_t row_buffer = 0xFF;
+static uint8_t col_buffer = 0xFF;
+static uint16_t keycode_buffer = 0;
+#endif
+
 uint8_t dynamic_keymap_get_layer_count(void) {
     return DYNAMIC_KEYMAP_LAYER_COUNT;
 }
@@ -113,18 +120,33 @@ void *dynamic_keymap_key_to_eeprom_address(uint8_t layer, uint8_t row, uint8_t c
 uint16_t dynamic_keymap_get_keycode(uint8_t layer, uint8_t row, uint8_t column) {
     if (layer >= DYNAMIC_KEYMAP_LAYER_COUNT || row >= MATRIX_ROWS || column >= MATRIX_COLS) return KC_NO;
     void *address = dynamic_keymap_key_to_eeprom_address(layer, row, column);
+#ifdef KEYCODE_BUFFER_ENABLE
+    uint16_t keycode = eeprom_read_word(address);
+    keycode=__builtin_bswap16(keycode);
+#else
     // Big endian, so we can read/write EEPROM directly from host if we want
     uint16_t keycode = eeprom_read_byte(address) << 8;
     keycode |= eeprom_read_byte(address + 1);
+#endif
+
     return keycode;
 }
 
 void dynamic_keymap_set_keycode(uint8_t layer, uint8_t row, uint8_t column, uint16_t keycode) {
     if (layer >= DYNAMIC_KEYMAP_LAYER_COUNT || row >= MATRIX_ROWS || column >= MATRIX_COLS) return;
+#ifdef KEYCODE_BUFFER_ENABLE
+    if (layer == layer_buffer && row == row_buffer && column == col_buffer)
+        layer_buffer = row_buffer = col_buffer = 0xFF;
+#endif
     void *address = dynamic_keymap_key_to_eeprom_address(layer, row, column);
+#ifdef KEYCODE_BUFFER_ENABLE
+    keycode = __builtin_bswap16(keycode);
+    eeprom_update_word(address, keycode);
+#else
     // Big endian, so we can read/write EEPROM directly from host if we want
     eeprom_update_byte(address, (uint8_t)(keycode >> 8));
     eeprom_update_byte(address + 1, (uint8_t)(keycode & 0xFF));
+#endif
 }
 
 #ifdef ENCODER_MAP_ENABLE
@@ -151,13 +173,26 @@ void dynamic_keymap_set_encoder(uint8_t layer, uint8_t encoder_id, bool clockwis
 #endif // ENCODER_MAP_ENABLE
 
 void dynamic_keymap_reset(void) {
+#ifdef KEYCODE_BUFFER_ENABLE
+    uint16_t  keymap_buffer[MATRIX_ROWS][MATRIX_COLS];
+
+    layer_buffer = row_buffer = col_buffer = 0xFF;
+#endif
     // Reset the keymaps in EEPROM to what is in flash.
     for (int layer = 0; layer < DYNAMIC_KEYMAP_LAYER_COUNT; layer++) {
         for (int row = 0; row < MATRIX_ROWS; row++) {
             for (int column = 0; column < MATRIX_COLS; column++) {
+#ifdef KEYCODE_BUFFER_ENABLE
+                keymap_buffer[row][column] = keycode_at_keymap_location_raw(layer, row, column);
+                keymap_buffer[row][column] = __builtin_bswap16(keymap_buffer[row][column]);
+#else
                 dynamic_keymap_set_keycode(layer, row, column, keycode_at_keymap_location_raw(layer, row, column));
+#endif
             }
         }
+#ifdef KEYCODE_BUFFER_ENABLE
+        eeprom_update_block(keymap_buffer, dynamic_keymap_key_to_eeprom_address(layer, 0, 0),sizeof(keymap_buffer));
+#endif
 #ifdef ENCODER_MAP_ENABLE
         for (int encoder = 0; encoder < NUM_ENCODERS; encoder++) {
             dynamic_keymap_set_encoder(layer, encoder, true, keycode_at_encodermap_location_raw(layer, encoder, true));
@@ -197,7 +232,18 @@ void dynamic_keymap_set_buffer(uint16_t offset, uint16_t size, uint8_t *data) {
 
 uint16_t keycode_at_keymap_location(uint8_t layer_num, uint8_t row, uint8_t column) {
     if (layer_num < DYNAMIC_KEYMAP_LAYER_COUNT && row < MATRIX_ROWS && column < MATRIX_COLS) {
+#ifdef KEYCODE_BUFFER_ENABLE
+        if( (layer_num != layer_buffer) || (row != row_buffer) || (column != col_buffer))
+        {
+            layer_buffer = layer_num;
+            row_buffer = row;
+            col_buffer = column;
+            keycode_buffer = dynamic_keymap_get_keycode(layer_num, row, column);
+        }
+        return keycode_buffer;
+#else
         return dynamic_keymap_get_keycode(layer_num, row, column);
+#endif
     }
     return KC_NO;
 }

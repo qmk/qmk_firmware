@@ -1,4 +1,4 @@
-/* Copyright 2023 @ lokher (https://www.keychron.com)
+/* Copyright 2022~2024 @ lokher (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,19 +18,6 @@
 
 #include "config.h"
 
-//
 #ifndef BT_HOST_DEVICES_COUNT
 #    define BT_HOST_DEVICES_COUNT 3
-#endif
-
-#define P2P4G_HOST_DEVICES_COUNT 1
-
-//  Uint: Second
-#ifndef DISCONNECTED_BACKLIGHT_OFF_DELAY_TIME
-#    define DISCONNECTED_BACKLIGHT_OFF_DELAY_TIME 40
-#endif
-
-//  Uint: Second, the timer restarts on key activities.
-#ifndef CONNECTED_BACKLIGHT_OFF_DELAY_TIME
-#    define CONNECTED_BACKLIGHT_OFF_DELAY_TIME 600
 #endif

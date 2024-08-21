@@ -1,4 +1,4 @@
-/* Copyright 2022 @ lokher (https://www.keychron.com)
+/* Copyright 2022~2024 @ lokher (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,7 +29,28 @@
 #include "lpm_stm32f401.h"
 #include "config.h"
 
+#include "hal.h"
+
 static pm_t power_mode = PM_RUN;
+
+void lpm_post_enter_low_power(void) {
+    /*  USB D+/D- */
+    palSetLineMode(A12, PAL_MODE_INPUT_PULLDOWN);
+    palSetLineMode(A11, PAL_MODE_INPUT_PULLDOWN);
+}
+
+void lpm_pre_wakeup(void) {
+    /*  USB D+/D- */
+    palSetLineMode(A11, PAL_STM32_OTYPE_PUSHPULL | PAL_STM32_OSPEED_HIGHEST | PAL_STM32_PUPDR_FLOATING | PAL_MODE_ALTERNATE(10U));
+    palSetLineMode(A12, PAL_STM32_OTYPE_PUSHPULL | PAL_STM32_OSPEED_HIGHEST | PAL_STM32_PUPDR_FLOATING | PAL_MODE_ALTERNATE(10U));
+
+    /* SPI */
+#if (HAL_USE_SPI == TRUE)
+    palSetLineMode(SPI_SCK_PIN, PAL_MODE_ALTERNATE(5));
+    palSetLineMode(SPI_MISO_PIN, PAL_MODE_ALTERNATE(5));
+    palSetLineMode(SPI_MOSI_PIN, PAL_MODE_ALTERNATE(5));
+#endif
+}
 
 bool lpm_set(pm_t mode) {
     bool ret = true;
@@ -51,20 +72,21 @@ bool lpm_set(pm_t mode) {
             else {
                 SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
                 PWR->CR |=
-#if STOP_MODE_MAIN_REGULATOR_LOW_VOLTAGE
+#    if STOP_MODE_MAIN_REGULATOR_LOW_VOLTAGE
                     PWR_CR_MRLVDS |
-#endif
-#if STOP_MODE_LOW_POWER_REGULATOR_LOW_VOLTAG
+#    endif
+#    if STOP_MODE_LOW_POWER_REGULATOR_LOW_VOLTAG
                     PWR_CR_LPLVDS |
-#endif
-#if STOP_MODE_FLASH_POWER_DOWN
+#    endif
+#    if STOP_MODE_FLASH_POWER_DOWN
                     PWR_CR_FPDS |
-#endif
-#if STOP_MODE_LOW_POWER_DEEPSLEEP
+#    endif
+#    if STOP_MODE_LOW_POWER_DEEPSLEEP
                     PWR_CR_LPDS |
-#endif
+#    endif
                     0;
             }
+
             break;
 
         case PM_STANDBY:
@@ -83,7 +105,7 @@ bool lpm_set(pm_t mode) {
     return ret;
 }
 
-void enter_power_mode(pm_t mode) {
+void lpm_standby(pm_t mode) {
 #if STM32_HSE_ENABLED
     /* Switch to HSI */
     RCC->CFGR = (RCC->CFGR & (~STM32_SW_MASK)) | STM32_SW_HSI;
@@ -103,10 +125,10 @@ void enter_power_mode(pm_t mode) {
     __WFI();
 
     SCB->SCR &= ~SCB_SCR_SLEEPDEEP_Msk;
+}
 
-    writePinLow(BLUETOOTH_INT_OUTPUT_PIN);
+void lpm_wakeup_init(void) {
     stm32_clock_init();
-    writePinHigh(BLUETOOTH_INT_OUTPUT_PIN);
 }
 
 void usb_power_connect(void) {}

@@ -1,4 +1,4 @@
-/* Copyright 2022 @ Keychron (https://www.keychron.com)
+/* Copyright 2022~2024 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,25 +15,25 @@
  */
 
 #include QMK_KEYBOARD_H
-#ifdef LK_WIRELESS_ENABLE
-#    include "lkbt51.h"
-#    include "wireless.h"
-#    include "indicator.h"
-#    include "transport.h"
-#    include "battery.h"
-#    include "bat_level_animation.h"
-#    include "lpm.h"
-#    include "lemokey_wireless_common.h"
-#    include "lemokey_task.h"
-#endif
+
+#include "lkbt51.h"
+#include "wireless.h"
+#include "indicator.h"
+#include "transport.h"
+#include "battery.h"
+#include "bat_level_animation.h"
+#include "lpm.h"
+#include "wireless_common.h"
+#include "lemokey_task.h"
 #include "lemokey_common.h"
+#include "config.h"
 
 bool firstDisconnect = true;
 
 static uint32_t pairing_key_timer;
 static uint8_t  host_idx = 0;
 
-bool process_record_lemokey_wireless(uint16_t keycode, keyrecord_t *record) {
+bool process_record_wireless_common(uint16_t keycode, keyrecord_t *record) {
     static uint8_t host_idx;
 
     switch (keycode) {
@@ -100,7 +100,7 @@ void wireless_enter_reset_kb(uint8_t reason) {
     lkbt51_param_init();
 }
 
-void wireless_enter_disconnected_kb(uint8_t host_idx) {
+void wireless_enter_disconnected_kb(uint8_t host_idx, uint8_t reason) {
     /* CKBT51 bluetooth module boot time is slower, it enters disconnected after boot,
        so we place initialization here. */
     if (firstDisconnect && timer_read32() < 1000) {
@@ -110,7 +110,7 @@ void wireless_enter_disconnected_kb(uint8_t host_idx) {
     }
 }
 
-void lemokey_wireless_common_task(void) {
+void wireless_common_task(void) {
     if (pairing_key_timer) {
         if (timer_elapsed32(pairing_key_timer) > 2000) {
             pairing_key_timer = 0;
@@ -120,21 +120,24 @@ void lemokey_wireless_common_task(void) {
 }
 
 void wireless_pre_task(void) {
-    static uint8_t  mode = 0;
-    static uint32_t time = 0;
+    static uint8_t  dip_switch_state = 0;
+    static uint32_t time             = 0;
 
     if (time == 0) {
-        if ((readPin(BT_MODE_SELECT_PIN) << 1 | readPin(P2P4_MODE_SELECT_PIN)) != mode) {
-            mode = readPin(BT_MODE_SELECT_PIN) << 1 | readPin(P2P4_MODE_SELECT_PIN);
-            time = timer_read32();
+        uint8_t pins_state = (readPin(BT_MODE_SELECT_PIN) << 1) | readPin(P2P4_MODE_SELECT_PIN);
+        if (pins_state != dip_switch_state) {
+            dip_switch_state = pins_state;
+            time             = timer_read32();
         }
     }
 
     if ((time && timer_elapsed32(time) > 100) || get_transport() == TRANSPORT_NONE) {
-        if ((readPin(BT_MODE_SELECT_PIN) << 1 | readPin(P2P4_MODE_SELECT_PIN)) == mode) {
+        uint8_t pins_state = (readPin(BT_MODE_SELECT_PIN) << 1) | readPin(P2P4_MODE_SELECT_PIN);
+
+        if (pins_state == dip_switch_state) {
             time = 0;
 
-            switch (mode) {
+            switch (dip_switch_state) {
                 case 0x01:
                     set_transport(TRANSPORT_BLUETOOTH);
                     break;
@@ -148,8 +151,8 @@ void wireless_pre_task(void) {
                     break;
             }
         } else {
-            mode = readPin(BT_MODE_SELECT_PIN) << 1 | readPin(P2P4_MODE_SELECT_PIN);
-            time = timer_read32();
+            dip_switch_state = pins_state;
+            time             = timer_read32();
         }
     }
 }

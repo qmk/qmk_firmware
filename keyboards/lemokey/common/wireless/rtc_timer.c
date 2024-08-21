@@ -1,4 +1,4 @@
-/* Copyright 2023 @ lokher (https://www.keychron.com)
+/* Copyright 2022~2024 @ lokher (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +17,6 @@
 #include "hal.h"
 
 #if (HAL_USE_RTC)
-
 #    include "rtc_timer.h"
 
 void rtc_timer_init(void) {
@@ -39,5 +38,4 @@ uint32_t rtc_timer_read_ms(void) {
 uint32_t rtc_timer_elapsed_ms(uint32_t last) {
     return TIMER_DIFF_32(rtc_timer_read_ms(), last);
 }
-
 #endif

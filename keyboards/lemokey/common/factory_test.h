@@ -1,4 +1,4 @@
-/* Copyright 2022 @ lokher (https://www.keychron.com)
+/* Copyright 2022~2024 @ lokher (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +25,6 @@ void factory_test_init(void);
 bool factory_test_indicator(void);
 #endif
 
-//void process_record_factory_test(uint16_t keycode, keyrecord_t *record);
 bool factory_reset_indicating(void);
 void factory_test_task(void);
 void factory_test_rx(uint8_t *data, uint8_t length);

@@ -1,4 +1,4 @@
-/* Copyright 2023 @ lokher (https://www.keychron.com)
+/* Copyright 2022~2024 @ lokher (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -95,7 +95,6 @@ bool report_buffer_next_inverval(void) {
 }
 
 void report_buffer_set_inverval(uint8_t interval) {
-    // OG_TRACE("report_buffer_set_inverval: %d\n\r", interval);
     report_interval = interval;
 }
 

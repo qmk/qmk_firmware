@@ -56,6 +56,8 @@
 #define WB32_PPRE1                         1
 #define WB32_PPRE2                         1
 #define WB32_USBPRE                        WB32_USBPRE_DIV1P5
+#define WB32_RTCSEL                        WB32_RTCSEL_HSEDIV
+#define WB32_RTCLP_SEL                     WB32_RTCSEL_LSI
 
 /*
  * EXTI driver system settings.
@@ -84,6 +86,11 @@
 #define WB32_GPT_TIM2_IRQ_PRIORITY         7
 #define WB32_GPT_TIM3_IRQ_PRIORITY         7
 #define WB32_GPT_TIM4_IRQ_PRIORITY         7
+/*
+ * RTC driver system settings.
+ */
+#define WB32_RTCAlarm_IRQ_PRIORITY         14
+#define WB32_RTC_IRQ_PRIORITY              15
 
 /*
  * ICU driver system settings.

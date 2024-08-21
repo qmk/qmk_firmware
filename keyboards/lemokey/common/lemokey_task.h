@@ -1,4 +1,4 @@
-/* Copyright 2022 @ Keychron (https://www.lemokey.com)
+/* Copyright 2022~2024 @ Keychron (https://www.lemokey.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
