@@ -2,8 +2,8 @@
     "manufacturer": "XD Boards",
     "keyboard_name": "xdboards/recon",
     "maintainer": "Xanimos",
-    "development_board": "promicro",
-    "pin_compatible": "promicro",
+    "development_board": "elite_c",
+    "pin_compatible": "elite_c",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
@@ -30,7 +30,7 @@
     },
     "split": {
         "enabled": true,
-        "soft_serial_pin": "B3",
+        "soft_serial_pin": "D3",
         "handedness": {
             "pin": "D2"
         },
@@ -195,12 +195,6 @@
         "split_count": [31, 31],
         "animations": {
             "alphas_mods": true,
-            "digital_rain": true,
-            "hue_pendulum": true,
-            "jellybean_raindrops": true,
-            "typing_heatmap": true,
-            "riverflow": true,
-            "solid_splash": true,
             "solid_reactive": true
         },
         "default": {
@@ -208,8 +202,5 @@
             "hue": 126,
             "sat": 255
         }
-    },
-    "ws2812": {
-        "driver": "vendor"
     }
 }
