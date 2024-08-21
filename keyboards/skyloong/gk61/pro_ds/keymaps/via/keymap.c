@@ -214,14 +214,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false; // cancel  all further processing of this key
 
-     case MO(3):
-      if (record->event.pressed) {
-       FN_MAC = 1;
-      } else {
-       FN_MAC = 0;
-      }
-      return true; // continue all further processing of this key
-
      case TD(_DN_MU):
          action = &tap_dance_actions[QK_TAP_DANCE_GET_INDEX(keycode)];
            if (!record->event.pressed && action->state.count && !action->state.finished) {
