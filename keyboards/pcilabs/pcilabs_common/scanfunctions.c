@@ -11,31 +11,6 @@ SPDX-License-Identifier: GPL-2.0-or-later
 #include "custom_analog.h"
 #include "analogkeys.h"
 
-#if MUXES == 0
-extern pin_t matrix_pins[MATRIX_ROWS][MATRIX_COLS];
-
-
-void SMA_init(void) {
-    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-            analog_key_t *key = &keys[row][col];
-            for (uint8_t idx = 0; idx < SMA_SAMPLE_SIZE; idx++) {
-                uint16_t raw = analogReadPin(matrix_pins[row][col]);
-                key->SMA.sum += raw;
-                key->SMA.buf[idx] = raw;
-            }
-        }
-    }
-}
-
-void SMA_filter(analog_key_t *key) {
-    key->SMA.sum                 = key->SMA.sum - key->SMA.buf[key->SMA.index] + key->raw;
-    key->SMA.buf[key->SMA.index] = key->raw;
-    key->SMA.index++;
-    if (key->SMA.index == SMA_SAMPLE_SIZE) key->SMA.index = 0;
-    key->raw = key->SMA.sum >> SMA_SAMPLE_EXP;
-}
-#endif
 void lut_init(void) {
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         for (uint8_t col = 0; col < MATRIX_COLS; col++) {
@@ -169,3 +144,10 @@ void matrix_read_cols_continuous_dynamic_actuation(matrix_row_t *current_row, ui
         key->continuous_dynamic_actuation = true;
     }
 }
+
+void (*matrix_read_mode_array[7])(matrix_row_t*, uint8_t, analog_key_t*) = {
+    [static_actuation]             = matrix_read_cols_static_actuation,
+    [dynamic_actuation]            = matrix_read_cols_dynamic_actuation,
+    [continuous_dynamic_actuation] = matrix_read_cols_continuous_dynamic_actuation,
+    [dynamic_keystroke]            = NULL
+};

@@ -6,8 +6,6 @@ SPDX-License-Identifier: GPL-2.0-or-later
 #include "quantum.h"
 #include "multiplexer.h"
 
-#if MUXES != 0
-
 const pin_t mux_pins[MUXES]                      = MUX_PINS;
 const pin_t mux_selector_pins[MUX_SELECTOR_BITS] = MUX_SELECTOR_PINS;
 
@@ -35,5 +33,3 @@ const mux_t mux_index[MUXES][MUX_CHANNELS] =
     {NC, {3, 7}, {3, 6}, {2, 7}, {4, 3}, {3, 9}, {4, 4}, {3, 8}, {2, 9}, {0, 9}, {1, 9}, {0, 8}, {1, 7}, {2, 8}, {0, 7}, {1, 8}},
     {{4, 5}, {3, 10}, {4, 6}, {0, 10}, {4, 7}, {1, 13}, {3, 11}, {2, 12}, {0, 13}, {0, 12}, {1, 12}, {0, 11}, {2, 10}, {2, 11}, {1, 10}, {1, 11}}
 };
-
-#endif
