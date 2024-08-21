@@ -14,13 +14,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "bhq.h"
-
-#include "uart.h"
-
-#include "quantum.h"
 #include "bluetooth.h"
 #include "raw_hid.h"
 #include "report_buffer.h"
+#include "config.h"
+
+#include "uart.h"
+#include "quantum.h"
 
 
 uint8_t bhkBuff[PACKET_MAX_LEN] = {0};
@@ -29,6 +29,7 @@ uint32_t uartTimeoutBuffer = 0;         // uart timeout
 void bhq_init(bool wakeup_from_low_power_mode) 
 {
     uart_init(115200);
+
 }
 
 void bhq_Disable(void)
@@ -37,23 +38,45 @@ void bhq_Disable(void)
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
 uint8_t bhkVerify(uint8_t *dat, uint16_t length);
 uint16_t bhkSumCrc(uint8_t *data, uint16_t length) ;
-
 // bhq model send uart data
 void BHQ_SendData(uint8_t *dat, uint16_t length)
 {
+    uint32_t wait_bhq_ack_timeout = 0;
+    uint32_t last_toggle_time = 0;
+    uint32_t bhq_wakeup = 0;
+    if(gpio_read_pin(BHQ_RUN_STATE_INPUT_PIN) != BHQ_RUN_OR_INT_LEVEL)
+    {
+        wait_bhq_ack_timeout = sync_timer_read32();
+        last_toggle_time = sync_timer_read32();
+        while(1)
+        {
+            // Flip the level to wake the module
+            gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
+            if(sync_timer_elapsed32(last_toggle_time) >= 20)
+            {
+                gpio_write_pin_low(QMK_RUN_OUTPUT_PIN);
+                last_toggle_time = sync_timer_read32();
+            }
+            // After the high and low level jump, the module wakes up, then you need to wait 10ms for the module to stabilize
+            if(gpio_read_pin(BHQ_RUN_STATE_INPUT_PIN) == BHQ_RUN_OR_INT_LEVEL && bhq_wakeup == 0)
+            {
+                bhq_wakeup = sync_timer_read32();
+            }
+            if(gpio_read_pin(BHQ_RUN_STATE_INPUT_PIN) == BHQ_RUN_OR_INT_LEVEL && sync_timer_elapsed32(last_toggle_time) >= 5)
+            {
+                break;
+            }
+
+            if(sync_timer_elapsed32(wait_bhq_ack_timeout) > 100) 
+            {
+                gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
+                return;
+            }
+        }
+    }
+    gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
     uart_transmit(dat, length);
 }
 int16_t BHQ_ReadData(void) {

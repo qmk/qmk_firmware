@@ -62,6 +62,9 @@ void report_buffer_init(void) {
     report_timer_buffer         = sync_timer_read32();
     retry                       = 0;
     retry_time_buffer           = 0;
+
+    gpio_set_pin_input_low(BHQ_RUN_STATE_INPUT_PIN);    // Module operating status. 
+    gpio_set_pin_output(QMK_RUN_OUTPUT_PIN);            // The qmk has a data request.
 }
 
 bool report_buffer_enqueue(report_buffer_t *report) {
@@ -111,50 +114,54 @@ void report_buffer_set_retry(uint8_t times) {
 }
 
 void report_buffer_task(void) {
-    if ((!report_buffer_is_empty()) && report_buffer_next_inverval()) {
-        bool pending_data = false;
+    bool pending_data = false;
+    if (report_buffer_is_empty() || !report_buffer_next_inverval())
+    {
+        return;
+    }
 
-        if (!retry) {
-            if (report_buffer_dequeue(&kb_rpt) && kb_rpt.type != REPORT_TYPE_NONE) {
-                if (sync_timer_read32() > 2) {
-                    pending_data      = true;
-                    retry             = RETPORT_RETRY_COUNT;
-                    retry_time_buffer = sync_timer_read32();
-                }
-            }
-        } else {
-            if (sync_timer_elapsed32(retry_time_buffer) > 7) {
-                pending_data = true;
-                --retry;
+    // report_buffer_is_empty() == false) and (report_buffer_next_inverval() == true)
+
+    if (!retry) {
+        if (report_buffer_dequeue(&kb_rpt) && kb_rpt.type != REPORT_TYPE_NONE) {
+            if (sync_timer_read32() > 2) {
+                pending_data      = true;
+                retry             = RETPORT_RETRY_COUNT;
                 retry_time_buffer = sync_timer_read32();
             }
         }
-
-        if (pending_data) {
-#if defined(NKRO_ENABLE)
-            // nkro 
-            if(kb_rpt.type == REPORT_TYPE_NKRO)
-            {
-                bhq_send_nkro(kb_rpt.report_data);
-            }
-#endif
-            if(kb_rpt.type == REPORT_TYPE_KB)
-            {
-                bhq_send_keyboard(kb_rpt.report_data);
-            }
-            if(kb_rpt.type == REPORT_TYPE_CONSUMER)
-            {
-                bhq_send_consumer(kb_rpt.consumer);
-            }
-            if(kb_rpt.type == REPORT_TYPE_SYSTEM)
-            {
-                bhq_send_system(kb_rpt.consumer);
-            }
-            if(kb_rpt.type == REPORT_TYPE_HID_RAW)
-            {
-                bhq_send_hid_raw(kb_rpt.report_data, kb_rpt.length);
-            }
-            report_buffer_update_timer();
+    } else {
+        if (sync_timer_elapsed32(retry_time_buffer) > 7) {
+            pending_data = true;
+            --retry;
+            retry_time_buffer = sync_timer_read32();
         }
+    }
+
+    if (pending_data) {
+#if defined(NKRO_ENABLE)
+        // nkro 
+        if(kb_rpt.type == REPORT_TYPE_NKRO)
+        {
+            bhq_send_nkro(kb_rpt.report_data);
+        }
+#endif
+        if(kb_rpt.type == REPORT_TYPE_KB)
+        {
+            bhq_send_keyboard(kb_rpt.report_data);
+        }
+        if(kb_rpt.type == REPORT_TYPE_CONSUMER)
+        {
+            bhq_send_consumer(kb_rpt.consumer);
+        }
+        if(kb_rpt.type == REPORT_TYPE_SYSTEM)
+        {
+            bhq_send_system(kb_rpt.consumer);
+        }
+        if(kb_rpt.type == REPORT_TYPE_HID_RAW)
+        {
+            bhq_send_hid_raw(kb_rpt.report_data, kb_rpt.length);
+        }
+        report_buffer_update_timer();
     }
 }

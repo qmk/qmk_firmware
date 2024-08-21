@@ -17,7 +17,7 @@
 #include "bluetooth_bhq.h"
 #include "bhq.h"
 #include "report_buffer.h"
-// #include "lpm.h"
+#include "lpm.h"
 
 
 

@@ -43,13 +43,17 @@
 #define BHQ_L_UINT16(a) ((a) & 0xFF)       
 #define BHQ_BUILD_UINT16(loByte, hiByte) ((uint16_t)(((loByte) & 0x00FF)|(((hiByte) & 0x00FF)<<8)))
 
-
 #define BHQ_SET_BIT_VALUE(var, xbit, value) ((value) ? ((var) |= (1 << (xbit))) : ((var) &= ~(1 << (xbit))))
 
-
-
 #define BHQ_SUCCESS     0
-// ----------------------------------------
+// -------------------- bhq protocol Small terminal mode --------------------
+#define BHQ_RUN_OR_INT_LEVEL       1             // Module operating status and qmk have the level status of data transmission       
+#ifndef BHQ_RUN_STATE_INPUT_PIN
+#    error "BHQ_RUN_STATE_INPUT_PIN is not defined"
+#endif
+#ifndef QMK_RUN_OUTPUT_PIN
+#    error "QMK_RUN_OUTPUT_PIN is not defined"
+#endif
 
 
 void bhq_init(bool wakeup_from_low_power_mode);

@@ -16,7 +16,7 @@
 
 #pragma once
 #ifndef RUN_MODE_PROCESS_TIME
-#    define RUN_MODE_PROCESS_TIME 1000
+#    define RUN_MODE_PROCESS_TIME 5000
 #endif
 
 #ifndef USB_POWER_SENSE_PIN                         // usb insert detection 

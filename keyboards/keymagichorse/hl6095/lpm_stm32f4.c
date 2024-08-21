@@ -24,7 +24,7 @@
 #include "report_buffer.h"
 
 
-static uint32_t     lpm_timer_buffer;
+static uint32_t     lpm_timer_buffer = 0;
 static bool         lpm_time_up               = false;
 
 // use for config wakeUp Pin
@@ -34,7 +34,7 @@ static const pin_t wakeUpCol_pins[MATRIX_COLS]   = MATRIX_COL_PINS;
 
 void lpm_timer_reset(void) {
     lpm_time_up      = false;
-    lpm_timer_buffer = sync_timer_read32();
+    lpm_timer_buffer = 0;
 }
 
 void lpm_timer_stop(void) {
@@ -51,7 +51,8 @@ void lpm_init(void)
     DBGMCU->CR &= ~DBGMCU_CR_DBG_SLEEP;   // 禁用在Sleep模式下的调试
     DBGMCU->CR &= ~DBGMCU_CR_DBG_STOP;    // 禁用在Stop模式下的调试
     DBGMCU->CR &= ~DBGMCU_CR_DBG_STANDBY; // 禁用在Standby模式下的调试
-
+    
+    gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
 }
 
 // Disabled HSE   Enabled HSI
@@ -88,7 +89,7 @@ void My_PWR_EnterSTOPMode(bool is_low_voltage_model)
     SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
 
     // set mcu to wait interrupt
-    __WFI();
+    __WFE();
 
     // clear SLEEPDEEP
     SCB->SCR &= ~SCB_SCR_SLEEPDEEP_Msk;
@@ -124,40 +125,51 @@ void enter_low_power_mode_prepare(void)
 #endif
 
     /* Usb unit is actived and running, stop and disconnect first */
-    usbStop(&USBD1);
-    usbDisconnectBus(&USBD1);
-    bhq_Disable();
-    switchToHSI();
-    
+    // usbStop(&USBD1);
+    // usbDisconnectBus(&USBD1);
+    // switchToHSI();
 
-    My_PWR_EnterSTOPMode(true); // mcu low power to stop model  
+    __WFE();
 
-    chSysLock();
-        stm32_clock_init();
-        stInit();
-        timer_init();
-    
 
-        bhq_init(false);
-        report_buffer_init();
-        restart_usb_driver(&USBD1); // TODO: read USB_POWER_SENSE_PIN
-        lpm_timer_reset();
-        debounce_free();
-        matrix_init();
-    chSysUnlock();
+//     chSysLock();
+//      halInit();
+//   chSysInit();
+ 
+//     timer_init();
+//     chSysUnlock();
+
+//     // Set col(low valid), read rows
+//     for (i = 0; i < matrix_rows(); i++)
+//     { // set row pull-up input 
+//         ATOMIC_BLOCK_FORCEON {
+//             palDisableLineEvent(wakeUpRow_pins[i]);
+//         }
+//     }
+//     bhq_init(true);
+//     report_buffer_init();
+//     usbStop(&USBD1);
+//     usbDisconnectBus(&USBD1);
+//     lpm_timer_reset();
+//     debounce_free();
+//     matrix_init();
+
+
 }
+
 
 
 void lpm_task(void)
 {
-    if (!lpm_time_up && sync_timer_elapsed32(lpm_timer_buffer) > RUN_MODE_PROCESS_TIME) {
-        lpm_time_up      = true;
-        lpm_timer_buffer = 0;
-    }
-    if(lpm_time_up == false)
-    {
-        return;
-    }
-    lpm_time_up = false;
-    enter_low_power_mode_prepare();
+    // if(lpm_time_up == false && lpm_timer_buffer == 0)
+    // {
+    //     lpm_time_up = true;
+    //     lpm_timer_buffer = sync_timer_read32();
+    // }
+
+    // if (lpm_time_up == true && sync_timer_elapsed32(lpm_timer_buffer) > RUN_MODE_PROCESS_TIME) {
+    //     gpio_toggle_pin(QMK_RUN_OUTPUT_PIN);
+    //     lpm_time_up = false;
+    //     lpm_timer_buffer = 0;
+    // }
 }

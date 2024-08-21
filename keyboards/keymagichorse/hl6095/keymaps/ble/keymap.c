@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include "config.h"
 #include "bhq.h"
 #include "outputselect.h"
 #include "usb_main.h"
@@ -79,9 +80,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if(record->event.pressed)
             {
                 output_mode_press_time = timer_read32();
+                // gpio_write_pin_low(QMK_RUN_OUTPUT_PIN);
             }
             else 
             {
+                // gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
                 if(timer_elapsed32(output_mode_press_time) >= 500) 
                 {
                     ble_host_index = 0;
@@ -96,9 +99,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if(record->event.pressed)
             {
                 output_mode_press_time = timer_read32();
+                // gpio_write_pin_low(QMK_RUN_OUTPUT_PIN);
             }
             else 
             {
+                // gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
                 if(timer_elapsed32(output_mode_press_time) >= 500) 
                 {
                     // TODO: 等待bhq驱动完善
@@ -127,9 +132,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if(record->event.pressed)
             {
                 output_mode_press_time = timer_read32();
+                // gpio_write_pin_low(QMK_RUN_OUTPUT_PIN);
             }
             else
             {
+                // gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
                 if(timer_elapsed32(output_mode_press_time) >= 500) 
                 {
                     bhq_CloseBleAdvertising();
@@ -143,9 +150,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if(record->event.pressed)
             {
                 ble_switch_press_time = timer_read32();
+                // gpio_write_pin_low(QMK_RUN_OUTPUT_PIN);
             }
             else
             {
+                // gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
                 switch (keycode)
                 {
                     case BL_SW_0:
