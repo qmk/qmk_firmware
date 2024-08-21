@@ -5,7 +5,10 @@
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
     "features": {
-        "rgblight": true
+        "rgblight": true,
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true
     },
     "indicators": {
         "caps_lock": "GP29"
