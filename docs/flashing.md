@@ -358,7 +358,6 @@ BOOTLOADER = at32-dfu
 
 Compatible flashers:
 
-* [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
 * [dfu-util](https://dfu-util.sourceforge.net/) / `:dfu-util` target in QMK (recommended command line)
   ```
   dfu-util -a 0 -d 2E3C:DF11 -s 0x8000000:leave -D <filename>
