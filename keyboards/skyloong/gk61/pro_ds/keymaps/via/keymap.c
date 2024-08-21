@@ -2,8 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
-_Bool FN_WIN = 0;
-_Bool FN_MAC = 0;
 _Bool L_WIN = 0;
 _Bool L_MAC = 0;
 
