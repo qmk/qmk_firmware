@@ -132,7 +132,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
          }
       } break;
 
-      case 0:{
+      case _WIN:{
        if (L_WIN) {
             RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 255, 255, 255);
             if (!rgb_matrix_get_flags()) {
