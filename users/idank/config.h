@@ -71,6 +71,13 @@
     #else
         #error "Unknown Cirque configuration."
     #endif
+    // Cirque 40mm on the left side of a split keyboard is rotated 180 degrees.
+    #if defined(POINTING_DEVICE_CONFIGURATION_CIRQUE40) && defined(POINTING_DEVICE_POSITION_LEFT)
+        #define POINTING_DEVICE_ROTATION_180
+    #endif
+    #if defined(POINTING_DEVICE_CONFIGURATION_CIRQUE40_PIMORONI) || defined(POINTING_DEVICE_CONFIGURATION_CIRQUE40_TRACKPOINT)
+        #define POINTING_DEVICE_ROTATION_180
+    #endif
     // Tap for left click.
     #define CIRQUE_PINNACLE_TAP_ENABLE
     #define POINTING_DEVICE_GESTURES_SCROLL_ENABLE
