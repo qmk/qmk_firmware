@@ -50,6 +50,7 @@ pin_t pins_col[MATRIX_COLS] = MATRIX_COL_PINS;
 
 __attribute__((weak)) void select_all_cols(void) {
     for (uint8_t i = 0; i < MATRIX_COLS; i++) {
+        if (pins_col[i] == NO_PIN) continue;
         setPinOutput(pins_col[i]);
         writePinLow(pins_col[i]);
     }

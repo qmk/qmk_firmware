@@ -35,7 +35,7 @@
 #    define BAT_CHARGING_PIN B13
 #    define BAT_CHARGING_LEVEL 0
 
-#    define BAT_LOW_LED_PIN C9
+#    define BAT_LOW_LED_PIN B12
 #    define BAT_LOW_LED_PIN_ON_STATE 1
 
 #    define BT_HOST_DEVICES_COUNT 3
