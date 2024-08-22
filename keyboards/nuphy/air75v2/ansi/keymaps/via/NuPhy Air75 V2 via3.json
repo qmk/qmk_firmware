@@ -880,6 +880,10 @@
         {
             "name": "SOCD\nTOGGLE",
             "title": "Toggle SOCD"
+        },
+        {
+            "name": "PRNT\nCFW\nVERSION",
+            "title": "Print Custom Firmware Version"
         }
     ]
 }

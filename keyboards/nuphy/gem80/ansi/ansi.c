@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config.h"
 #include "host.h"
 #include "keycodes.h"
+#include "quantum.h"
 #include "rgb_matrix.h"
 #include "user_kb.h"
 #include "ansi.h"
@@ -433,6 +434,11 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         case SOCDTOG: // Toggle SOCD Cleaner.
             if (record->event.pressed) {
                 socd_cleaner_enabled = !socd_cleaner_enabled;
+            }
+            return false;
+        case FW_VERSION:
+            if (record->event.pressed) {
+                SEND_STRING(CFW_VERSION);
             }
             return false;
 

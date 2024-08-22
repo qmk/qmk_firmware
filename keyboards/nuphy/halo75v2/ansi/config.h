@@ -137,3 +137,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * END OF DEFAULT VALUES
  */
+#define CFW_VERSION "put_version_here"

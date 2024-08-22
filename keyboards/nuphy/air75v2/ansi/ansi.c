@@ -436,6 +436,11 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 socd_cleaner_enabled = !socd_cleaner_enabled;
             }
             return false;
+        case FW_VERSION:
+            if (record->event.pressed) {
+                SEND_STRING(CFW_VERSION);
+            }
+            return false;
 
         default:
             return true;
