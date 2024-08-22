@@ -59,9 +59,6 @@ bool pre_process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
     // wakeup check for light sleep/no sleep - fire this immediately to not lose wake keys.
     if (f_wakeup_prepare) {
-#if CONSOLE_ENABLE
-        xprintf("Early wake with keycode |  %u | and record pressed? ( %u )\n", keycode, record->event.pressed);
-#endif
         f_wakeup_prepare = 0;
         if (g_config.sleep_toggle) exit_light_sleep();
     }
@@ -87,14 +84,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!process_socd_cleaner(keycode, record, &socd_h)) {
         return false;
     }
-
-#if CONSOLE_ENABLE
-    uint8_t row     = record->event.key.row;
-    uint8_t col     = record->event.key.col;
-    uint8_t led_idx = get_led_index(row, col);
-    xprintf("KL: row: %u, column: %u, led_idx: %u, pressed: %u\n", row, col, led_idx, record->event.pressed);
-    // rgb_matrix_set_color(led_idx, 0xff,0xff,0xff);
-#endif
 
     switch (keycode) {
         case RF_DFU:
@@ -686,9 +675,6 @@ void via_config_set_value(uint8_t *data) {
             g_config.show_socd_indicator = *value_data;
             break;
     }
-#    if CONSOLE_ENABLE
-    xprintf("[SET]VALUE_ID: %u DATA: %u\n", *value_id, *value_data);
-#    endif
 }
 
 void via_config_get_value(uint8_t *data) {
@@ -758,10 +744,6 @@ void via_config_get_value(uint8_t *data) {
             *value_data = g_config.show_socd_indicator;
             break;
     }
-#    if CONSOLE_ENABLE
-    xprintf("[GET]VALUE_ID: %u DATA: %u\n", *value_id, *value_data);
-    xprintf("G_CONFIG_SIZE: %u \n", sizeof(g_config));
-#    endif
 }
 
 void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
