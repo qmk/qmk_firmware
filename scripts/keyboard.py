@@ -10,6 +10,7 @@ result = subprocess.run([
 ],capture_output=True,text=True)
 
 data_json = json.loads(result.stdout)
+
 new_data_json = {
     "keyboard":"splitkb/aurora/lily58/rev1",
     "keymap":"smierx-colemak-dh",
