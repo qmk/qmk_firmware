@@ -57,17 +57,17 @@ bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
         next_row = record->event.key.row;
     }
 
-    if (is_homerow_mod_tap(keycode) && is_alpha_layer_on() && !is_ignored_prev_keycode(prev_keycode)) {
-        uint8_t const tap_keycode = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
-
-        if (record->event.pressed && prior_idle_condition) {
-            record->keycode = tap_keycode;
-            is_pressed[tap_keycode] = true;
-        } else if (!record->event.pressed && is_pressed[tap_keycode]) {
-            record->keycode = tap_keycode;
-            is_pressed[tap_keycode] = false;
-        }
-    }
+//    if (is_homerow_mod_tap(keycode) && is_alpha_layer_on() && !is_ignored_prev_keycode(prev_keycode)) {
+//        uint8_t const tap_keycode = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
+//
+//        if (record->event.pressed && prior_idle_condition) {
+//            record->keycode = tap_keycode;
+//            is_pressed[tap_keycode] = true;
+//        } else if (!record->event.pressed && is_pressed[tap_keycode] && current_key_layerstamp <= QWERTY) {
+//            record->keycode = tap_keycode;
+//            is_pressed[tap_keycode] = false;
+//        }
+//    }
 
     timestamps_pr(keycode, record);
     return true;
