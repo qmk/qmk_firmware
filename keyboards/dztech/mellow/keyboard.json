@@ -1,6 +1,6 @@
 {
     "manufacturer": "dztech",
-    "keyboard_name": "neu",
+    "keyboard_name": "mellow",
     "maintainer": "moyi4681",
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
@@ -12,6 +12,9 @@
         "mousekey": true,
         "nkro": true
     },
+	"indicators": {
+        "caps_lock": "GP25"
+    },
     "matrix_pins": {
         "cols": ["GP29", "GP28", "GP27", "GP26", "GP0", "GP13", "GP12", "GP11", "GP10", "GP9", "GP8", "GP7", "GP6", "GP5"],
         "rows": ["GP1", "GP2", "GP3", "GP4", "GP24"]
@@ -22,6 +25,11 @@
         "pid": "0x0007",
         "vid": "0x445A"
     },
+	"community_layouts": [
+        "60_ansi",
+        "60_hhkb",
+        "60_iso"
+    ],
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [
