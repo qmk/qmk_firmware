@@ -2,7 +2,7 @@
 #include "stdint.h"
 
 typedef enum {
-    SEND_KEYBOARD_DATA,
+    SEND_KEYBOARD_DATA = 1,
     RECIEVE_KEY_CONFIG,
     RECIEVE_KEY_REBIND,
     BOOTLOADER_JUMP,
