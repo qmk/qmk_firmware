@@ -5,7 +5,7 @@
 
 * Keyboard Maintainer: [nuphy](https://github.com/nuphy-src)
 * Hardware Supported: NuPhy Air75 V2 PCB
-* Hardware Availability: Private
+* Hardware Availability: [link](https://nuphy.com/products/air75-v2)
 
 Make example for this keyboard (after setting up your build environment):
 
