@@ -37,6 +37,7 @@
     },
     "rgb_matrix": {
         "driver": "ws2812",
+        "max_brightness": 32,
         "sleep": true,
         "centre_point": [
             112,
