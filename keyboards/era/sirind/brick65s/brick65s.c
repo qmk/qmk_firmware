@@ -3,7 +3,6 @@
 
 #include "quantum.h"
 
-#ifdef RGB_MATRIX_ENABLE
 bool rgb_matrix_indicators_kb(void) {
     if (!rgb_matrix_indicators_user()) {
          return false;
@@ -23,4 +22,3 @@ bool rgb_matrix_indicators_kb(void) {
     
     return true;
 }
-#endif
