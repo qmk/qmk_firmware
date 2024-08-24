@@ -44,7 +44,7 @@ bool dynamic_macro_record_start_kb(int8_t direction) {
         ML_LED_3(true);
         dynamic_macro_token = defer_exec(100, dynamic_macro_led, NULL);
     }
-    return true
+    return true;
 }
 
 bool dynamic_macro_record_end_kb(int8_t direction) {
@@ -55,7 +55,7 @@ bool dynamic_macro_record_end_kb(int8_t direction) {
         dynamic_macro_token = INVALID_DEFERRED_TOKEN;
         ML_LED_3(false);
     }
-    return false
+    return false;
 }
 #    endif
 
