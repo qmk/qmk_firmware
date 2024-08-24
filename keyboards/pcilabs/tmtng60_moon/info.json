@@ -120,7 +120,7 @@
             {"x": 17,  "y": 16, "flags": 4, "matrix": [1,  1]},
             {"x": 0,   "y": 16, "flags": 4, "matrix": [1,  0]},
 
-            {"x": 0,   "y": 32, "flags": 4, "matrix": [2,  0]},
+            {"x": 0,   "y": 32, "flags": 8, "matrix": [2,  0]},
             {"x": 19,  "y": 32, "flags": 4, "matrix": [2,  1]},
             {"x": 37,  "y": 32, "flags": 4, "matrix": [2,  2]},
             {"x": 56,  "y": 32, "flags": 4, "matrix": [2,  3]},
