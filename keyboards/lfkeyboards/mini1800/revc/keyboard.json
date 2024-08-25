@@ -8,5 +8,11 @@
         "nkro": true,
         "audio": true,
         "watchdog": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     }
 }
