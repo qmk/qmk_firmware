@@ -4,7 +4,7 @@ A special 2 key keyboard powered by QMK.
 
 * Keyboard Maintainer: [ATSET](https://github.com/anubhavd7)
 * Hardware Supported: ATSET AT2 (https://imgur.com/a/yBbVwef)
-
+https://www.atsetmediscience.com/atset-at2-9949007.html
 Make example for this keyboard (after setting up your build environment):
 
     make atset/at2:default
