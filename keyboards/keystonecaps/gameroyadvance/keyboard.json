@@ -17,6 +17,12 @@
         "mousekey": true,
         "nkro": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "matrix_pins": {
         "cols": ["D4", "D0", "D1", "C6", "D7", "E6", "F4", "B2", "B6"],
         "rows": ["F5", "F6", "F7", "B1", "B3"]
@@ -49,7 +55,6 @@
     },
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D2",
         "encoder": {
             "right": {
                 "rotary": [
@@ -62,6 +67,9 @@
                 "cols": ["C6", "D4", "D0", "D1", "B1", "F7", "F4", "F5", "F6"],
                 "rows": ["D7", "E6", "B4", "B5", "B6"]
             }
+        },
+        "serial": {
+            "pin": "D2"
         }
     },
     "processor": "atmega32u4",

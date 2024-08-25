@@ -6,7 +6,10 @@
     "diode_direction": "COL2ROW",
     "split": {
         "enabled": true,
-        "soft_serial_pin": "GP0"
+        "soft_serial_pin": "GP0",
+        "serial": {
+            "driver": "vendor"
+        }
     },
 
     "features": {

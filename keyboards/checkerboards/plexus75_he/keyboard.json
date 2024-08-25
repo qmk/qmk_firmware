@@ -38,6 +38,12 @@
         "nkro": false,
         "rgblight": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "matrix_pins": {
         "cols": ["C4", "C5", "D3", "C7", "B7", "B6", "B5", "B4"],
         "rows": ["C2", "D0", "D1", "D2", "D6", "B0", "B3", "B2", "C6", "B1"]
