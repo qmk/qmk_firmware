@@ -114,6 +114,8 @@ void keyboard_pre_init_kb(void) {
     gpio_set_pin_output(SR_CLK_PIN);
     gpio_set_pin_output(SR_DOUT_PIN);  // MOSI - unused
     gpio_write_pin_low(SR_CLK_PIN);
+
+    keyboard_pre_init_user();
 }
 
 #ifdef KEYBOARD_ibm_model_m_mschwingen_led_ws2812
@@ -204,11 +206,19 @@ void update_layer_leds(void) {
 
 #endif
 
-void dynamic_macro_record_start_user(int8_t direction) {
+bool dynamic_macro_record_start_kb(int8_t direction) {
+    if (!dynamic_macro_record_start_user(direction)) {
+        return false;
+    }
     isRecording++;
     blink_cycle_timer = timer_read();
+    return true;
 }
 
-void dynamic_macro_record_end_user(int8_t direction) {
+bool dynamic_macro_record_end_kb(int8_t direction) {
+    if (!dynamic_macro_record_end_user(direction)) {
+        return false;
+    }
     if (isRecording) isRecording--;
+    return true;
 }

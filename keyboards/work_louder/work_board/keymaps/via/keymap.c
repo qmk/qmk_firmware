@@ -214,3 +214,21 @@ void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
     }
     *command_id = id_unhandled;
 }
+
+bool via_layout_2u = false;
+
+void via_set_layout_options_kb(uint32_t value) {
+    via_layout_2u = (bool)value;
+}
+
+#ifdef RGB_MATRIX_ENABLE
+bool rgb_matrix_indicators_user(void) {
+    if (via_layout_2u) {
+        rgb_matrix_set_color(5, 0, 0, 0);
+        rgb_matrix_set_color(7, 0, 0, 0);
+    } else {
+        rgb_matrix_set_color(6, 0, 0, 0);
+    }
+    return false;
+}
+#endif
