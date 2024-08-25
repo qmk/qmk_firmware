@@ -2,7 +2,6 @@
     "manufacturer": "IBM",
     "keyboard_name": "Model M (Yacobo)",
     "maintainer": "sje-mse",
-    "bootloader": "stm32duino",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
@@ -26,7 +25,7 @@
         "rows": ["A1", "A2", "A3", "A4", "A5", "A6", "A7","B0"],
         "ghost": true
     },
-    "processor": "STM32F103",
+    "development_board": "bluepill",
     "url": "https://github.com/sje-mse/yacobo",
     "usb": {
         "device_version": "1.0.0",
@@ -281,6 +280,6 @@
                 {"label": "0", "matrix": [0, 11], "x": 19, "y": 5.5, "w": 2},
                 {"label": ".", "matrix": [0, 13], "x": 21, "y": 5.5}
             ]
-	}
+        }
     }
 }

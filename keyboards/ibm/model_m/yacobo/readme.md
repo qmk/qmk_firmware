@@ -3,9 +3,7 @@
 ![yacobo](https://i.imgur.com/1nfuWoa.jpeg)
 
 *A replacement qmk-compatible control board for the 101-key Model M keyboards.
-Inspired by and based on the ModelH by jhawthorn, with the primary difference
-being the use of 100% through-hole components (including the widely available
-STM32F103C8T6 "Blue Pill" development board) for ease of assembly by hobbyists.*
+Inspired by and based on the ModelH by jhawthorn, in comparison this design uses 100% through-hole components, including the widely available STM32F103C8T6 "Blue Pill" development board, for ease of assembly.*
 
 * Keyboard Maintainer: [Stephen Edwards](https://github.com/sje-mse)
 * Hardware Supported: IBM 101-key Model M with Yacobo replacement control boards.
