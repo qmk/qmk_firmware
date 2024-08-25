@@ -13,9 +13,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
  #include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
+
 const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT] = {
     { 0, SW10_CS14, SW11_CS14,  SW12_CS14 },
     { 0, SW10_CS13, SW11_CS13,  SW12_CS13 },
@@ -95,4 +97,5 @@ bool rgb_matrix_indicators_kb(void) {
     }
     return true;
 }
+
 #endif
