@@ -22,7 +22,7 @@
 #include <usb_main.h>
 #include "bhq.h"
 #include "report_buffer.h"
-
+#include "uart.h"
 
 static uint32_t     lpm_timer_buffer = 0;
 static bool         lpm_time_up               = false;
@@ -55,43 +55,30 @@ void lpm_init(void)
     gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
 }
 
-// Disabled HSE   Enabled HSI
-void switchToHSI(void) {
-    // Enabled HSI
-    RCC->CR |= RCC_CR_HSION;
-    // wait HSI
-    while ((RCC->CR & RCC_CR_HSIRDY) == 0);
-    // select HSI
-    RCC->CFGR &= ~RCC_CFGR_SW;
-    RCC->CFGR |= RCC_CFGR_SW_HSI;
-    // wait disabled HSI
-    while ((RCC->CFGR & RCC_CFGR_SWS) != RCC_CFGR_SWS_HSI);
-    
 
-    // disabled HSE
-    RCC->CR &= ~RCC_CR_HSEON;  
-    // wait disabled HSE
-    while ((RCC->CR & RCC_CR_HSERDY) != 0);
-}
-void My_PWR_EnterSTOPMode(bool is_low_voltage_model)
+void My_PWR_EnterSTOPMode(void)
 {
 
-    // select STOP model
-    PWR->CR &= ~PWR_CR_PDDS;
+#if STM32_HSE_ENABLED
+    /* Switch to HSI */
+    RCC->CFGR = (RCC->CFGR & (~STM32_SW_MASK)) | STM32_SW_HSI;
+    while ((RCC->CFGR & RCC_CFGR_SWS) != (STM32_SW_HSI << 2));
 
-    if (is_low_voltage_model) {
-        PWR->CR |= PWR_CR_LPDS;  // Low power voltage regulation mode
-    } else {
-        PWR->CR &= ~PWR_CR_LPDS; // Normal voltage regulation mode
-    }
-
-    // set SLEEPDEEP to STOP model
+    /* Set HSE off  */
+    RCC->CR &= ~RCC_CR_HSEON;
+    while ((RCC->CR & RCC_CR_HSERDY));
+#endif
+    /* Wake source: Reset pin, all I/Os, BOR, PVD, PVM, RTC, LCD, IWDG,
+    COMPx, USARTx, LPUART1, I2Cx, LPTIMx, USB, SWPMI */
     SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+    PWR->CR |=
+        PWR_CR_MRLVDS |
+        PWR_CR_LPLVDS |
+        PWR_CR_FPDS |
+        PWR_CR_LPDS |
+        0;
+    __WFI();
 
-    // set mcu to wait interrupt
-    __WFE();
-
-    // clear SLEEPDEEP
     SCB->SCR &= ~SCB_SCR_SLEEPDEEP_Msk;
 }
 
@@ -125,51 +112,47 @@ void enter_low_power_mode_prepare(void)
 #endif
 
     /* Usb unit is actived and running, stop and disconnect first */
-    // usbStop(&USBD1);
-    // usbDisconnectBus(&USBD1);
-    // switchToHSI();
+    usbStop(&USBD1);
+    usbDisconnectBus(&USBD1);
+    bhq_Disable();
 
-    __WFE();
+    My_PWR_EnterSTOPMode();
 
-
-//     chSysLock();
-//      halInit();
-//   chSysInit();
- 
-//     timer_init();
-//     chSysUnlock();
-
-//     // Set col(low valid), read rows
-//     for (i = 0; i < matrix_rows(); i++)
-//     { // set row pull-up input 
-//         ATOMIC_BLOCK_FORCEON {
-//             palDisableLineEvent(wakeUpRow_pins[i]);
-//         }
-//     }
-//     bhq_init(true);
-//     report_buffer_init();
-//     usbStop(&USBD1);
-//     usbDisconnectBus(&USBD1);
-//     lpm_timer_reset();
-//     debounce_free();
-//     matrix_init();
+    stm32_clock_init();
+    // Set col(low valid), read rows
+    for (i = 0; i < matrix_rows(); i++)
+    { // set row pull-up input 
+        ATOMIC_BLOCK_FORCEON {
+            palDisableLineEvent(wakeUpRow_pins[i]);
+        }
+    }
+    halInit();
 
 
+    /* Call debounce_free() to avoiding memory leak of debounce_counters as debounce_init()
+    invoked in matrix_init() alloc new memory to debounce_counters */
+    debounce_free();
+    matrix_init();
+
+    lpm_timer_reset();
+    report_buffer_init();
+    bhq_init();
 }
 
 
 
 void lpm_task(void)
 {
-    // if(lpm_time_up == false && lpm_timer_buffer == 0)
-    // {
-    //     lpm_time_up = true;
-    //     lpm_timer_buffer = sync_timer_read32();
-    // }
+    if(lpm_time_up == false && lpm_timer_buffer == 0)
+    {
+        lpm_time_up = true;
+        lpm_timer_buffer = sync_timer_read32();
+    }
 
-    // if (lpm_time_up == true && sync_timer_elapsed32(lpm_timer_buffer) > RUN_MODE_PROCESS_TIME) {
-    //     gpio_toggle_pin(QMK_RUN_OUTPUT_PIN);
-    //     lpm_time_up = false;
-    //     lpm_timer_buffer = 0;
-    // }
+    if (lpm_time_up == true && sync_timer_elapsed32(lpm_timer_buffer) > RUN_MODE_PROCESS_TIME) {
+        gpio_toggle_pin(QMK_RUN_OUTPUT_PIN);
+        lpm_time_up = false;
+        lpm_timer_buffer = 0;
+        enter_low_power_mode_prepare();
+    }
 }

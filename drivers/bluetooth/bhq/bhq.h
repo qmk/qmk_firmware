@@ -56,7 +56,7 @@
 #endif
 
 
-void bhq_init(bool wakeup_from_low_power_mode);
+void bhq_init(void);
 void bhq_Disable(void);
 
 

@@ -22,15 +22,15 @@
 
 
 void bluetooth_bhq_init(void) {
-    bhq_init(false);
+    bhq_init();
     report_buffer_init();
-    // lpm_init();
+    lpm_init();
 }
 
 void bluetooth_bhq_task(void) {
     bhq_task();
     report_buffer_task();
-    // lpm_task();
+    lpm_task();
 }
 
 

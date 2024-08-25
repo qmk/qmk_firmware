@@ -26,7 +26,7 @@
 uint8_t bhkBuff[PACKET_MAX_LEN] = {0};
 uint32_t uartTimeoutBuffer = 0;         // uart timeout 
 
-void bhq_init(bool wakeup_from_low_power_mode) 
+void bhq_init(void) 
 {
     uart_init(115200);
 
@@ -34,7 +34,9 @@ void bhq_init(bool wakeup_from_low_power_mode)
 
 void bhq_Disable(void)
 {
-
+    palSetLineMode(UART_TX_PIN, PAL_MODE_INPUT_ANALOG);
+    palSetLineMode(UART_RX_PIN, PAL_MODE_INPUT_ANALOG);
+    sdStop(&UART_DRIVER);
 }
 
 
