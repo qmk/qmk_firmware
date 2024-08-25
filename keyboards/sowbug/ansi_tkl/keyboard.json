@@ -58,7 +58,8 @@
             "solid_multisplash": true
         },
         "driver": "ws2812",
-        "max_brightness": 128
+        "max_brightness": 128,
+        "sleep": true
     },
     "features": {
         "bootmagic": true,

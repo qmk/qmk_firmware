@@ -14,6 +14,12 @@
         "key_lock": true,
         "leader": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "usb": {
         "vid": "0xFEED",
         "pid": "0x6060",
