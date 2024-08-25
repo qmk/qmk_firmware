@@ -45,15 +45,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_FN2] = LAYOUT(
   //┌──────────┬──────────┬──────────┬──────────┬──────────┬──────────┐
-     KC_TRNS   ,RGB_HUI   ,RGB_HUD   ,RGB_SAI   ,RGB_SAD   ,RGB_VAI   ,
+     KC_TRNS   ,UG_HUEU   ,UG_HUED   ,UG_SATU   ,UG_SATD   ,UG_VALU   ,
   //└──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
-                RGB_M_P   ,RGB_M_SW  ,RGB_M_X   ,RGB_M_B   ,RGB_VAD   ,
+                RGB_M_P   ,RGB_M_SW  ,RGB_M_X   ,RGB_M_B   ,UG_VALD   ,
   //┌──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┐
      KC_TRNS   ,KC_TRNS   ,RGB_M_SN  ,RGB_M_G   ,RGB_M_R   ,RGB_M_K   ,RGB_M_T   ,
   //├──────────┼──────────┼──────────┴──────────┼──────────┼──────────┼──────────┤
-     KC_TRNS   ,RGB_M_T                         ,KC_DEL    ,RGB_VAI   ,RGB_VAD   ,
+     KC_TRNS   ,RGB_M_T                         ,KC_DEL    ,UG_VALU   ,UG_VALD   ,
   //├──────────┼──────────┘                     └──────────┴──────────┼──────────┼──────────┐
-     TO(_FN1)                                                         ,RGB_MOD   ,RGB_TOG
+     TO(_FN1)                                                         ,UG_NEXT   ,UG_TOGG
   //└──────────┘                                                      └──────────┴──────────┘
   ),
 

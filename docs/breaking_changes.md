@@ -10,25 +10,25 @@ Practically, this means QMK merges the `develop` branch into the `master` branch
 
 ## What has been included in past Breaking Changes?
 
-* [2024 Feb 25](ChangeLog/20240225.md)
-* [2023 Nov 26](ChangeLog/20231126.md)
-* [2023 Aug 27](ChangeLog/20230827.md)
-* [Older Breaking Changes](breaking_changes_history.md)
+* [2024 May 26](ChangeLog/20240526)
+* [2024 Feb 25](ChangeLog/20240225)
+* [2023 Nov 26](ChangeLog/20231126)
+* [Older Breaking Changes](breaking_changes_history)
 
 ## When is the next Breaking Change?
 
-The next Breaking Change is scheduled for May 26, 2024.
+The next Breaking Change is scheduled for August 25, 2024.
 
 ### Important Dates
 
-* 2024 Feb 25 - `develop` is tagged with a new release version. Each push to `master` is subsequently merged to `develop` by GitHub actions.
-* 2024 Apr 28 - `develop` closed to new PRs.
-* 2024 Apr 28 - Call for testers.
-* 2024 May 5 - Last day for merges -- after this point `develop` is locked for testing and accepts only bugfixes
-* 2024 May 19 - `develop` is locked, only critical bugfix PRs merged.
-* 2024 May 23 - `master` is locked, no PRs merged.
-* 2024 May 26 - Merge `develop` to `master`.
-* 2024 May 26 - `master` is unlocked. PRs can be merged again.
+* 2024 May 26 - `develop` is tagged with a new release version. Each push to `master` is subsequently merged to `develop` by GitHub actions.
+* 2024 Jul 28 - `develop` closed to new PRs.
+* 2024 Jul 28 - Call for testers.
+* 2024 Aug 4 - Last day for merges -- after this point `develop` is locked for testing and accepts only bugfixes
+* 2024 Aug 18 - `develop` is locked, only critical bugfix PRs merged.
+* 2024 Aug 22 - `master` is locked, no PRs merged.
+* 2024 Aug 25 - Merge `develop` to `master`.
+* 2024 Aug 25 - `master` is unlocked. PRs can be merged again.
 
 ## What changes will be included?
 
@@ -71,7 +71,7 @@ This section documents various processes we use when running the Breaking Change
 ### 1 Week Before Merge
 
 * `develop` is now closed to PR merges, only critical bugfixes may be included
-* Announce that master will be closed from <2 Days Before> to <Day of Merge> -- message `@Breaking Changes Updates` on `#qmk_firmware` in Discord:
+* Announce that master will be closed from `<2 Days Before>` to `<Day of Merge>` -- message `@Breaking Changes Updates` on `#qmk_firmware` in Discord:
     * `@Breaking Changes Updates -- Hey folks, last day for functional PRs to be merged into qmk_firmware for this breaking changes cycle is today. After that, we're handling bugfixes only.`
 
 ### 2 Days Before Merge
@@ -136,7 +136,7 @@ This happens immediately after the previous `develop` branch is merged to `maste
 * Announce that both `master` and `develop` are now unlocked -- message `@Breaking Changes Updates` on `#qmk_firmware` in Discord:
     * `@Breaking Changes Updates -- Hey folks, develop has now been merged into master -- newest batch of changes are now available for everyone to use!`
 
-* (Optional) [update ChibiOS + ChibiOS-Contrib on `develop`](chibios_upgrade_instructions.md)
+* (Optional) [update ChibiOS + ChibiOS-Contrib on `develop`](chibios_upgrade_instructions)
 
 
 ### Set up Discord events for the next cycle
