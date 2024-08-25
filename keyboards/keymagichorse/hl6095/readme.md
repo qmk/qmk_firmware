@@ -1,17 +1,18 @@
 # hl6095
 
-![hl6095](https://i.imgur.com/k2SVb94h.png)
 A 60% multi-layout keyboard (there are 95 keys in total) with 1 RGB in capslock key.
-This keyboard use 16mhz HSE and APM32F103CBT6(STM32F103CBT6) as MCU.
+This keyboard use 25mhz HSE and STM32F411 as MCU.
 
-- Keyboard Maintainer: https://github.com/hlkjXm
+- Keyboard Maintainer: https://github.com/KeyMagicHorse/qmk_firmware
 - Hardware Supported: hl6095
-- Hardware Availability: [TaoBao-5162](https://item.taobao.com/item.htm?id=678583896604)
-
+- Hardware Availability: 
 Make example for this keyboard (after setting up your build environment):
-
+    ```
     make keymagichorse/hl6095:default
-
+    ```
+    ```
+    make keymagichorse/hl6095:ble
+    ```
 See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 
 ## Bootloader

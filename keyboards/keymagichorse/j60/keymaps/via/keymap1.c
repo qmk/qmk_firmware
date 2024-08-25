@@ -1,17 +1,85 @@
-#include "lmj60.h"
+#include "j60.h"
 #include QMK_KEYBOARD_H
 #include "joystick.h"
 //#include <print.h>
 #include "analog.h"
-#include "quantum.h"
-#include "dynamic_keymap.c"
+
+
+//huoqu!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#include "config.h"
+#include "keymap.h"  // to get keymaps[][][]
+#include "tmk_core/common/eeprom.h"
+#include "progmem.h"  // to read default from flash
+#include "quantum.h"  // for send_string()
+#include "dynamic_keymap.h"
+#include "via.h"  // for default VIA_EEPROM_ADDR_END
+
+
+
+#ifndef DYNAMIC_KEYMAP_LAYER_COUNT
+#    define DYNAMIC_KEYMAP_LAYER_COUNT 4
+#endif
+
+#ifndef DYNAMIC_KEYMAP_MACRO_COUNT
+#    define DYNAMIC_KEYMAP_MACRO_COUNT 16
+#endif
+
+// This is the default EEPROM max address to use for dynamic keymaps.
+// The default is the ATmega32u4 EEPROM max address.
+// Explicitly override it if the keyboard uses a microcontroller with
+// more EEPROM *and* it makes sense to increase it.
+#ifndef DYNAMIC_KEYMAP_EEPROM_MAX_ADDR
+#    if defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__)
+#        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 2047
+#    else
+#        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 1023
+#    endif
+#endif
+
+// Due to usage of uint16_t check for max 65535
+#if DYNAMIC_KEYMAP_EEPROM_MAX_ADDR > 65535
+#    error DYNAMIC_KEYMAP_EEPROM_MAX_ADDR must be less than 65536
+#endif
+
+// If DYNAMIC_KEYMAP_EEPROM_ADDR not explicitly defined in config.h,
+// default it start after VIA_EEPROM_CUSTOM_ADDR+VIA_EEPROM_CUSTOM_SIZE
+#ifndef DYNAMIC_KEYMAP_EEPROM_ADDR
+#    ifdef VIA_EEPROM_CUSTOM_CONFIG_ADDR
+#        define DYNAMIC_KEYMAP_EEPROM_ADDR (VIA_EEPROM_CUSTOM_CONFIG_ADDR + VIA_EEPROM_CUSTOM_CONFIG_SIZE)
+#    else
+#        error DYNAMIC_KEYMAP_EEPROM_ADDR not defined
+#    endif
+#endif
+
+// Dynamic macro starts after dynamic keymaps
+#ifndef DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR
+#    define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR (DYNAMIC_KEYMAP_EEPROM_ADDR + (DYNAMIC_KEYMAP_LAYER_COUNT * MATRIX_ROWS * MATRIX_COLS * 2))
+#endif
+
+// Sanity check that dynamic keymaps fit in available EEPROM
+// If there's not 100 bytes available for macros, then something is wrong.
+// The keyboard should override DYNAMIC_KEYMAP_LAYER_COUNT to reduce it,
+// or DYNAMIC_KEYMAP_EEPROM_MAX_ADDR to increase it, *only if* the microcontroller has
+// more than the default.
+#if DYNAMIC_KEYMAP_EEPROM_MAX_ADDR - DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR < 100
+#    error Dynamic keymaps are configured to use more EEPROM than is available.
+#endif
+
+// Dynamic macros are stored after the keymaps and use what is available
+// up to and including DYNAMIC_KEYMAP_EEPROM_MAX_ADDR.
+#ifndef DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE
+#    define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE (DYNAMIC_KEYMAP_EEPROM_MAX_ADDR - DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR + 1)
+#endif
+//huoqu!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 //摇杆
 char arrow_keys[4] = {KC_UP, KC_LEFT, KC_DOWN, KC_RIGHT}; // up, left, down, right
 static int actuation = 256; // actuation point for arrows (0-511)
 bool arrows[4];
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //0moren
-		KEYMAP(
+		keyCheng(
             KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSPC,
             LT(MO(1),KC_TAB), KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS,
             LT(MO(2),KC_CAPS), KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT,
@@ -19,20 +87,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, KC_LALT, MO(1), KC_LCTL),
 
         //1meiti
-        KEYMAP(
+        keyCheng(
             RESET, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL,
             LT(MO(1),KC_TAB), KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS,
             LT(MO(2),KC_CAPS),KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT,
             KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M,RGB_TOG, RGB_MOD, RGB_HUI, KC_LSFT, KC_DEL,
             KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, KC_LALT, MO(1), KC_LCTL),
         //2 shubiao
-        KEYMAP(
+        keyCheng(
             KC_ACL0,KC_ACL1, KC_ACL2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL,
             LT(MO(1),KC_TAB), KC_MS_BTN1, KC_MS_BTN2, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS,
             LT(MO(2),KC_CAPS),KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT,
             KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_LSFT, KC_DEL,
             KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, KC_LALT, MO(1), KC_LCTL),
 };
+uint8_t dynamic_keymap_get_layer_count(void) { return DYNAMIC_KEYMAP_LAYER_COUNT; }
+
+void *dynamic_keymap_key_to_eeprom_address(uint8_t layer, uint8_t row, uint8_t column) {
+    // TODO: optimize this with some left shifts
+    return ((void *)DYNAMIC_KEYMAP_EEPROM_ADDR) + (layer * MATRIX_ROWS * MATRIX_COLS * 2) + (row * MATRIX_COLS * 2) + (column * 2);
+}
+
+uint16_t dynamic_keymap_get_keycode1(uint8_t layer, uint8_t row, uint8_t column) {
+    void *address = dynamic_keymap_key_to_eeprom_address(layer, row, column);
+    // Big endian, so we can read/write EEPROM directly from host if we want
+    uint16_t keycode = eeprom_read_byte(address) << 8;
+    keycode |= eeprom_read_byte(address + 1);
+    return keycode;
+}
+
 void matrix_scan_user(void){
 
    switch (biton32(layer_state))
@@ -43,7 +126,7 @@ void matrix_scan_user(void){
                 if (!arrows[0] && analogReadPin(D7) - 512 > actuation){
                     arrows[0] = true;
                     //register_code16(KC_UP);
-                    register_code16(dynamic_keymap_get_keycode(0,0,0));
+                    register_code16(dynamic_keymap_get_keycode1(0,0,0));
                    // unregister_code16(dynamic_keymap_get_keycode(0,0,0));
                     //register_code16(KC_UP);
                 //    register_code16(dynamic_keymap_get_keycode(0,2,2));
@@ -51,7 +134,7 @@ void matrix_scan_user(void){
                 else if (arrows[0] &&  analogReadPin(D7) - 512 < actuation){
                     arrows[0] = false;
                     //unregister_code16(KC_UP);
-                    unregister_code16(dynamic_keymap_get_keycode(0,0,0));
+                    unregister_code16(dynamic_keymap_get_keycode1(0,0,0));
                     //unregister_code16(dynamic_keymap_get_keycode(0,0,0));
                     // unregister_code16(KC_UP);
                 }

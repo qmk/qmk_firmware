@@ -7,8 +7,8 @@
 #define VENDOR_ID       0x4C4D
 #define PRODUCT_ID      0x4C01
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    LM STUDIO
-#define PRODUCT         LMJ60
+#define MANUFACTURER    J STUDIO
+#define PRODUCT         J60
 
 
 /* key matrix size */

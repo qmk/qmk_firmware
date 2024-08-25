@@ -1,6 +1,6 @@
 
 {
-  "name": "LMJ60",
+  "name": "J60",
   "vendorId": "0x4C4D",
   "productId": "0x4C01",
   "lighting": "qmk_rgblight",

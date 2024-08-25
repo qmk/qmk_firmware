@@ -1,4 +1,4 @@
-#include "lmj60.h"
+#include "j60.h"
 #include QMK_KEYBOARD_H
 #include "joystick.h"
 #include <print.h>
