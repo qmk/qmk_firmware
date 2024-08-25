@@ -135,15 +135,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
     [_ADJUST] =  LAYOUT_ortho_4x12(
         _______, QK_BOOT, RGBRST,  _______, _______, _______,                   _______, QWERTY,  _______, _______,  _______, KC_INS,
-        _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, AG_NORM,                   AG_SWAP, KC_MINS, KC_EQL,  KC_PSCR, KC_SCRL, KC_PAUS,
-        RGB_RMOD,RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, _______,                   _______, _______, _______, _______, KC_PGUP, _______,
+        _______, UG_TOGG, UG_HUEU, UG_SATU, UG_VALU, AG_NORM,                   AG_SWAP, KC_MINS, KC_EQL,  KC_PSCR, KC_SCRL, KC_PAUS,
+        UG_PREV, UG_NEXT, UG_HUED, UG_SATD, UG_VALD, _______,                   _______, _______, _______, _______, KC_PGUP, _______,
         _______, _______, _______, EISU,    EISU,    EISU,                      KANA,    KANA,    KANA,    KC_HOME, KC_PGDN, KC_END
         ),
 
     [_ADJUST2] =  LAYOUT_ortho_4x12(
         _______, QK_BOOT, RGBRST,  _______, _______, _______,                   _______, QWERTY,  _______, _______,  _______, KC_INS,
-        _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, AG_NORM,                   AG_SWAP, KC_MINS, KC_EQL,  KC_PSCR, KC_SCRL, KC_PAUS,
-        RGB_RMOD,RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, _______,                   _______, _______, _______, _______, KC_PGUP, _______,
+        _______, UG_TOGG, UG_HUEU, UG_SATU, UG_VALU, AG_NORM,                   AG_SWAP, KC_MINS, KC_EQL,  KC_PSCR, KC_SCRL, KC_PAUS,
+        UG_PREV, UG_NEXT, UG_HUED, UG_SATD, UG_VALD, _______,                   _______, _______, _______, _______, KC_PGUP, _______,
         _______, _______, _______, EISU,    EISU,    EISU,                      KANA,    KANA,    KANA,    KC_HOME, KC_PGDN, KC_END
         )
 };

@@ -20,9 +20,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         _______, _______, LT(3, KC_ENT),      LT(3, KC_ESC), _______, _______
 ),
 [3] = LAYOUT(
-  QK_BOOT, DB_TOGG, XXXXXXX, BL_UP,   RGB_VAI, RGB_HUD, RGB_HUI,      RGB_HUI, RGB_HUD, RGB_VAI, BL_UP,   XXXXXXX, DB_TOGG, QK_BOOT,
-           XXXXXXX, XXXXXXX, BL_DOWN, RGB_VAD, RGB_SAD, RGB_SAI,      RGB_SAI, RGB_SAD, RGB_VAD, BL_DOWN, XXXXXXX, XXXXXXX,
-           XXXXXXX, BL_BRTG, BL_TOGG, RGB_TOG, RGB_RMOD,RGB_MOD,      RGB_MOD, RGB_RMOD,RGB_TOG, BL_TOGG, BL_BRTG, XXXXXXX,
+  QK_BOOT, DB_TOGG, XXXXXXX, BL_UP,   UG_VALU, UG_HUED, UG_HUEU,      UG_HUEU, UG_HUED, UG_VALU, BL_UP,   XXXXXXX, DB_TOGG, QK_BOOT,
+           XXXXXXX, XXXXXXX, BL_DOWN, UG_VALD, UG_SATD, UG_SATU,      UG_SATU, UG_SATD, UG_VALD, BL_DOWN, XXXXXXX, XXXXXXX,
+           XXXXXXX, BL_BRTG, BL_TOGG, UG_TOGG, UG_PREV, UG_NEXT,      UG_NEXT, UG_PREV, UG_TOGG, BL_TOGG, BL_BRTG, XXXXXXX,
                                       _______, SH_TOGG, _______,      _______, SH_TOGG, _______
 )
 };

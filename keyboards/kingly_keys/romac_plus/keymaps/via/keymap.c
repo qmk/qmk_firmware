@@ -9,7 +9,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	),
   
 	[1] = LAYOUT(
-		RGB_MOD,  KC_HOME,  KC_PGUP,
+		UG_NEXT,  KC_HOME,  KC_PGUP,
 		KC_TRNS,  KC_END,   KC_PGDN,
 		KC_TRNS,  KC_TRNS,  KC_TRNS,
 		KC_TRNS,  KC_TRNS,  KC_ENT

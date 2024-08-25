@@ -33,8 +33,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [FN1] = LAYOUT(
       _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,
-      _______, RGB_TOG, RGB_VAI, RGB_MOD, RGB_HUI, _______,
-      _______, _______, RGB_VAD, RGB_RMOD,RGB_HUD, _______,
+      _______, UG_TOGG, UG_VALU, UG_NEXT, UG_HUEU, _______,
+      _______, _______, UG_VALD, UG_PREV, UG_HUED, _______,
       _______, _______, _______, _______,          _______
   ),
   [FN2] = LAYOUT(

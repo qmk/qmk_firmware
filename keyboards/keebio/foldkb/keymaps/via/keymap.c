@@ -26,9 +26,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_PGDN,          KC_LCTL, KC_LGUI, KC_LALT, MO(1),   KC_SPC,  KC_SPC,      KC_SPC,  KC_SPC,  KC_RALT, KC_RGUI, KC_MENU, KC_RCTL
   ),
   [1] = LAYOUT(
-    KC_MUTE, QK_BOOT, _______, RGB_HUD, RGB_HUI, _______, _______, _______,     _______, _______, _______, _______, _______, _______, _______, KC_DEL,
-    BL_STEP,          _______, RGB_SAD, RGB_SAI, _______, _______, _______,     _______, KC_7,    KC_8,    KC_9,    _______, _______, _______, _______,
-    RGB_MOD,          _______, RGB_VAD, RGB_VAI, _______, _______, _______,     _______, KC_4,    KC_5,    KC_6,    _______, _______,          _______,
+    KC_MUTE, QK_BOOT, _______, UG_HUED, UG_HUEU, _______, _______, _______,     _______, _______, _______, _______, _______, _______, _______, KC_DEL,
+    BL_STEP,          _______, UG_SATD, UG_SATU, _______, _______, _______,     _______, KC_7,    KC_8,    KC_9,    _______, _______, _______, _______,
+    UG_NEXT,          _______, UG_VALD, UG_VALU, _______, _______, _______,     _______, KC_4,    KC_5,    KC_6,    _______, _______,          _______,
     KC_VOLU,          _______, _______, _______, _______, _______, _______,     _______, KC_1,    KC_2,    KC_3,    _______, _______, _______,
     KC_VOLD,          _______, _______, _______, _______, _______, _______,     _______, KC_0,    _______, _______, _______, _______
   ),
@@ -51,8 +51,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [1] = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD) },
-    [2] = { ENCODER_CCW_CW(RGB_HUD, RGB_HUI) },
-    [3] = { ENCODER_CCW_CW(RGB_SAD, RGB_SAI) },
+    [1] = { ENCODER_CCW_CW(UG_PREV, UG_NEXT) },
+    [2] = { ENCODER_CCW_CW(UG_HUED, UG_HUEU) },
+    [3] = { ENCODER_CCW_CW(UG_SATD, UG_SATU) },
 };
 #endif

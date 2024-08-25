@@ -43,8 +43,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	//Layer3, Lighting Function keys, soft reset on Tab.
 	[3] = LAYOUT(
 		KC_NO, 			   KC_NO, 	 KC_NO,    KC_NO, 	KC_NO, 	 KC_NO,   KC_NO, 	KC_NO,   KC_NO, 	KC_NO, 	 KC_NO,   KC_NO, 	KC_NO, 		KC_NO, 	 KC_NO, 		KC_NO,
-		QK_BOOT, 			   KC_NO, 	 RGB_HUD,  RGB_HUI, RGB_VAD, RGB_VAI, KC_NO, 	BL_TOGG, BL_DOWN,	BL_UP,   BL_STEP, KC_NO, 	KC_NO, 		MO(4), 	 				KC_NO,
-		KC_TRNS, 		   KC_NO, 	 RGB_RMOD, RGB_MOD, RGB_TOG, KC_NO,   KC_MSTP,  KC_MPLY, KC_MPRV,   KC_MNXT, KC_VOLD, KC_VOLU, 				KC_NO, 					KC_NO,
-		KC_NO, KC_NO, 	   KC_NO, 	 RGB_SAD,  RGB_SAI, KC_NO, 	 KC_NO,   KC_NO,	KC_NO, 	 KC_NO, 	KC_NO, 	 KC_NO,   KC_NO, 	KC_NO, 								KC_NO,
+		QK_BOOT, 			   KC_NO, 	 UG_HUED,  UG_HUEU, UG_VALD, UG_VALU, KC_NO, 	BL_TOGG, BL_DOWN,	BL_UP,   BL_STEP, KC_NO, 	KC_NO, 		MO(4), 	 				KC_NO,
+		KC_TRNS, 		   KC_NO, 	 UG_PREV,  UG_NEXT, UG_TOGG, KC_NO,   KC_MSTP,  KC_MPLY, KC_MPRV,   KC_MNXT, KC_VOLD, KC_VOLU, 				KC_NO, 					KC_NO,
+		KC_NO, KC_NO, 	   KC_NO, 	 UG_SATD,  UG_SATU, KC_NO, 	 KC_NO,   KC_NO,	KC_NO, 	 KC_NO, 	KC_NO, 	 KC_NO,   KC_NO, 	KC_NO, 								KC_NO,
 		KC_NO, 			   KC_NO, 	 KC_NO,    KC_NO, 			 KC_NO, 			KC_NO, 	 KC_NO, 	KC_NO, 				 KC_NO, KC_NO, KC_NO),
 };
