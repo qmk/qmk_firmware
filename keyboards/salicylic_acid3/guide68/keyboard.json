@@ -48,10 +48,12 @@
     },
     "split": {
         "enabled": true,
-        "transport": {
-            "protocol": "serial"
+        "handedness": {
+            "pin": "B6"
         },
-        "soft_serial_pin": "D0"
+        "serial": {
+            "pin": "D0"
+        }
     },
     "layouts": {
         "LAYOUT": {

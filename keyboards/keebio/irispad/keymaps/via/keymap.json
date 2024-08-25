@@ -1,6 +1,6 @@
 {
     "config": { "features": {"encoder_map": true, "via": true} },
-    "keyboard": "keebio/irispad",
+    "keyboard": "keebio/irispad/rev8",
     "keymap": "via",
     "layout": "LAYOUT",
     "layers": [

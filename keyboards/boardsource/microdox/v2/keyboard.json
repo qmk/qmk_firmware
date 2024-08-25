@@ -19,7 +19,6 @@
     ]
   },
   "split": {
-    "soft_serial_pin": "D3",
     "matrix_pins": {
       "right": {
         "cols": ["F4", "B1", "D7", "C6", "B3"],
@@ -32,6 +31,9 @@
           {"pin_a": "B6", "pin_b": "B2"}
         ]
       }
+    },
+    "serial": {
+      "pin": "D3"
     }
   },
   "rgb_matrix": {

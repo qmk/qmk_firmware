@@ -9,7 +9,11 @@
         "device_version": "0.0.1"
     },
     "qmk": {
-        "tap_keycode_delay": 50
+        "tap_keycode_delay": 50,
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     },
     "features": {
         "bootmagic": true,
