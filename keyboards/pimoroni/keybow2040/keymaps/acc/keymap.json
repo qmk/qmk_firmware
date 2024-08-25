@@ -1,0 +1,28 @@
+{
+    "keyboard": "pimoroni/keybow2040",
+    "author": "willoucom",
+    "version": 1,
+    "keymap": "acc",
+    "config": {
+        "features": {
+            "via": true
+        }
+    },
+    "layout": "LAYOUT",
+    "layers": [
+        [
+            "KC_F13",        "KC_F14",            "KC_F15",          "KC_F16",
+            "KC_AUDIO_MUTE", "KC_AUDIO_VOL_DOWN", "KC_AUDIO_VOL_UP", "KC_AUDIO_MUTE",
+            "LSFT(KC_A)",    "LSFT(KC_T)",        "LSFT(KC_Y)",      "LSFT(KC_B)",
+            "LCTL(KC_A)",    "LCTL(KC_T)",        "LCTL(KC_Y)",      "LCTL(KC_B)",
+            "TO(1)"
+        ],
+        [
+            "KC_TRANSPARENT", "KC_TRANSPARENT", "KC_TRANSPARENT", "KC_TRANSPARENT",
+            "KC_TRANSPARENT", "KC_TRANSPARENT", "KC_TRANSPARENT", "KC_TRANSPARENT",
+            "RGB_SAD",        "RGB_SAI",        "RGB_HUD",        "RGB_HUI",
+            "KC_TRANSPARENT", "RGB_TOG",        "RGB_RMOD",       "RGB_MOD",
+            "TO(0)"
+        ]
+    ]
+}

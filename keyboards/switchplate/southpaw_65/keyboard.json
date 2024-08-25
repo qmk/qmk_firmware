@@ -19,9 +19,19 @@
         "nkro": false,
         "rgblight": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "backlight": {
         "pin": "B5",
         "levels": 10
+    },
+    "indicators": {
+        "caps_lock": "B6",
+        "on_state": 0
     },
     "rgblight": {
         "led_count": 9,

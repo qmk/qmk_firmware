@@ -8,6 +8,21 @@
         "pid": "0x3510",
         "device_version": "0.0.1"
     },
+    "build": {
+        "lto": true
+    },
+    "features": {
+        "audio": true,
+        "bootmagic": true,
+        "dip_switch": true,
+        "dynamic_macro": true,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "oled": true,
+        "rgb_matrix": true
+    },
     "rgblight": {
         "led_count": 156,
         "split_count": [78, 78],
@@ -25,6 +40,9 @@
         }
     },
     "audio": {
+        "default": {
+            "clicky": false
+        },
         "driver": "dac_additive"
     },
     "ws2812": {
@@ -112,7 +130,6 @@
                 "pins": ["A14", "B0"]
             }
         },
-        "soft_serial_pin": "A9",
         "encoder": {
             "right": {
                 "rotary": [
@@ -122,11 +139,18 @@
                 ]
             }
         },
+        "handedness": {
+            "pin": "C13"
+        },
         "matrix_pins": {
             "right": {
                 "cols": ["B9", "B8", "B4", "A6", "A3", "B10", "B12", "B11"],
                 "rows": ["B15", "B14", "A8", "A13", "A7", null]
             }
+        },
+        "serial": {
+            "driver": "usart",
+            "pin": "A9"
         },
         "transport": {
             "sync": {
