@@ -42,4 +42,5 @@
 
 
 void lpm_init(void);
+void lpm_timer_reset(void);
 void lpm_task(void);

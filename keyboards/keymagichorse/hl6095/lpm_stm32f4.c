@@ -37,10 +37,7 @@ void lpm_timer_reset(void) {
     lpm_timer_buffer = 0;
 }
 
-void lpm_timer_stop(void) {
-    lpm_time_up      = false;
-    lpm_timer_buffer = 0;
-}
+
 void lpm_init(void)
 {
     lpm_timer_reset();
@@ -112,11 +109,12 @@ void enter_low_power_mode_prepare(void)
 #endif
 
     gpio_set_pin_input_low(BHQ_RUN_STATE_INPUT_PIN);
-    palEnableLineEvent(BHQ_RUN_STATE_INPUT_PIN, PAL_EVENT_MODE_BOTH_EDGES);
+    palEnableLineEvent(BHQ_RUN_STATE_INPUT_PIN, PAL_EVENT_MODE_RISING_EDGE);
     gpio_write_pin_low(QMK_RUN_OUTPUT_PIN);
 
 
     /* Usb unit is actived and running, stop and disconnect first */
+    sdStop(&UART_DRIVER);
     usbStop(&USBD1);
     usbDisconnectBus(&USBD1);
     bhq_Disable();
@@ -142,6 +140,10 @@ void enter_low_power_mode_prepare(void)
     lpm_timer_reset();
     report_buffer_init();
     bhq_init();
+
+    clear_keyboard();
+    layer_clear();
+
     gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
 }
 
@@ -149,6 +151,13 @@ void enter_low_power_mode_prepare(void)
 
 void lpm_task(void)
 {
+    if(report_buffer_is_empty() == false)
+    {
+        lpm_time_up = false;
+        lpm_timer_buffer = 0;
+        return;
+    }
+
     if(lpm_time_up == false && lpm_timer_buffer == 0)
     {
         lpm_time_up = true;

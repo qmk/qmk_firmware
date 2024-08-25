@@ -15,6 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 #include "config.h"
+#include "lpm.h"
 #include "bhq.h"
 #include "outputselect.h"
 #include "usb_main.h"
@@ -73,6 +74,7 @@ static uint32_t ble_switch_press_time = 0;
 static uint8_t ble_host_index = 0;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    lpm_timer_reset();
         switch (keycode)
     {
         case BLE_TOG:
