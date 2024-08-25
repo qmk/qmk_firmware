@@ -1,4 +1,4 @@
-# Copyright 2023 Nick Brassel (@tzarc)
+# Copyright 2023-2024 Nick Brassel (@tzarc)
 # SPDX-License-Identifier: GPL-2.0-or-later
 from os import environ
 from pathlib import Path
@@ -77,31 +77,43 @@ class UserspaceDefs:
             raise exception
 
         # Iterate through each version of the schema, starting with the latest and decreasing to v1
-        try:
-            validate(json, 'qmk.user_repo.v1')
-            self.__load_v1(json)
-            success = True
-        except jsonschema.ValidationError as err:
-            exception.add('qmk.user_repo.v1', err)
+        schema_versions = [
+            ('qmk.user_repo.v1_1', self.__load_v1_1),  #
+            ('qmk.user_repo.v1', self.__load_v1)  #
+        ]
+
+        for v in schema_versions:
+            schema = v[0]
+            loader = v[1]
+            try:
+                validate(json, schema)
+                loader(json)
+                success = True
+                break
+            except jsonschema.ValidationError as err:
+                exception.add(schema, err)
 
         if not success:
             raise exception
 
     def save(self):
         target_json = {
-            "userspace_version": "1.0",  # Needs to match latest version
+            "userspace_version": "1.1",  # Needs to match latest version
             "build_targets": []
         }
 
         for e in self.build_targets:
             if isinstance(e, dict):
-                target_json['build_targets'].append([e['keyboard'], e['keymap']])
+                entry = [e['keyboard'], e['keymap']]
+                if 'env' in e:
+                    entry.append(e['env'])
+                target_json['build_targets'].append(entry)
             elif isinstance(e, Path):
                 target_json['build_targets'].append(str(e.relative_to(self.path.parent)))
 
         try:
             # Ensure what we're writing validates against the latest version of the schema
-            validate(target_json, 'qmk.user_repo.v1')
+            validate(target_json, 'qmk.user_repo.v1_1')
         except jsonschema.ValidationError as err:
             cli.log.error(f'Could not save userspace file: {err}')
             return False
@@ -114,7 +126,7 @@ class UserspaceDefs:
             cli.log.info(f'Saved userspace file to {self.path}.')
         return True
 
-    def add_target(self, keyboard=None, keymap=None, json_path=None, do_print=True):
+    def add_target(self, keyboard=None, keymap=None, build_env=None, json_path=None, do_print=True):
         if json_path is not None:
             # Assume we're adding a json filename/path
             json_path = Path(json_path)
@@ -128,6 +140,8 @@ class UserspaceDefs:
         elif keyboard is not None and keymap is not None:
             # Both keyboard/keymap specified
             e = {"keyboard": keyboard, "keymap": keymap}
+            if build_env is not None:
+                e['env'] = build_env
             if e not in self.build_targets:
                 self.build_targets.append(e)
                 if do_print:
@@ -136,7 +150,7 @@ class UserspaceDefs:
                 if do_print:
                     cli.log.info(f'{keyboard}:{keymap} is already a userspace build target.')
 
-    def remove_target(self, keyboard=None, keymap=None, json_path=None, do_print=True):
+    def remove_target(self, keyboard=None, keymap=None, build_env=None, json_path=None, do_print=True):
         if json_path is not None:
             # Assume we're removing a json filename/path
             json_path = Path(json_path)
@@ -150,6 +164,8 @@ class UserspaceDefs:
         elif keyboard is not None and keymap is not None:
             # Both keyboard/keymap specified
             e = {"keyboard": keyboard, "keymap": keymap}
+            if build_env is not None:
+                e['env'] = build_env
             if e in self.build_targets:
                 self.build_targets.remove(e)
                 if do_print:
@@ -160,12 +176,26 @@ class UserspaceDefs:
 
     def __load_v1(self, json):
         for e in json['build_targets']:
-            if isinstance(e, list) and len(e) == 2:
-                self.add_target(keyboard=e[0], keymap=e[1], do_print=False)
-            if isinstance(e, str):
-                p = self.path.parent / e
-                if p.exists() and p.suffix == '.json':
-                    self.add_target(json_path=p, do_print=False)
+            self.__load_v1_target(e)
+
+    def __load_v1_1(self, json):
+        for e in json['build_targets']:
+            self.__load_v1_1_target(e)
+
+    def __load_v1_target(self, e):
+        if isinstance(e, list) and len(e) == 2:
+            self.add_target(keyboard=e[0], keymap=e[1], do_print=False)
+        if isinstance(e, str):
+            p = self.path.parent / e
+            if p.exists() and p.suffix == '.json':
+                self.add_target(json_path=p, do_print=False)
+
+    def __load_v1_1_target(self, e):
+        # v1.1 adds support for a third item in the build target tuple; kvp's for environment
+        if isinstance(e, list) and len(e) == 3:
+            self.add_target(keyboard=e[0], keymap=e[1], build_env=e[2], do_print=False)
+        else:
+            self.__load_v1_target(e)
 
 
 class UserspaceValidationError(Exception):

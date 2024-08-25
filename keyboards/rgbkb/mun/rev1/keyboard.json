@@ -115,13 +115,16 @@
     },
     "split": {
         "enabled": true,
-        "soft_serial_pin": "A9",
         "transport": {
             "sync": {
                 "indicators": true,
                 "layer_state": true,
                 "matrix_state": true
             }
+        },
+        "serial": {
+            "driver": "usart",
+            "pin": "A9"
         }
     },
     "processor": "STM32F303",
