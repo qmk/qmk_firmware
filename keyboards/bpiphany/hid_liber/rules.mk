@@ -1,4 +1,2 @@
-CUSTOM_MATRIX = yes         # Custom matrix file
-
-# Project specific files
+CUSTOM_MATRIX = yes
 SRC = matrix.c

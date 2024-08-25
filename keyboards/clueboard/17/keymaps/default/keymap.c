@@ -43,10 +43,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * '-------------------'
    */
   [_FL] = LAYOUT_numpad_5x4(
-    LT(_FL, KC_NUM),  _______, _______, RGB_TOG,
-    _______,          RGB_SAI, _______,
-    RGB_HUD,          BL_STEP, RGB_HUI, RGB_VAI,
-    _______,          RGB_SAD, _______,
-    RGB_MOD,                   _______, RGB_VAD
+    LT(_FL, KC_NUM),  _______, _______, UG_TOGG,
+    _______,          UG_SATU, _______,
+    UG_HUED,          BL_STEP, UG_HUEU, UG_VALU,
+    _______,          UG_SATD, _______,
+    UG_NEXT,                   _______, UG_VALD
   )
 };

@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_SETTINGS] = LAYOUT_ansi(
         QK_BOOT, KC_NO,   KC_NO,   KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-        KC_NO,   RGB_TOG, RGB_MOD, RGB_RMOD, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+        KC_NO,   UG_TOGG, UG_NEXT, UG_PREV,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
         KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,            KC_NO,
         KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,            KC_NO,
         KC_NO,   KC_NO,   KC_NO,                      KC_NO,   KC_NO,   KC_NO,                     KC_NO,   KC_NO,   KC_NO,            KC_NO,   KC_NO,   KC_NO
@@ -62,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_QWERTY] = { ENCODER_CCW_CW(KC_WH_U, KC_WH_D), },
     [_LOWER] = { ENCODER_CCW_CW(KC_VOLU, KC_VOLD) },
-    [_RAISE] = { ENCODER_CCW_CW(RGB_MOD, RGB_RMOD) },
+    [_RAISE] = { ENCODER_CCW_CW(UG_NEXT, UG_PREV) },
     [_SETTINGS] = { ENCODER_CCW_CW(KC_WH_U, KC_WH_D) },
 };
 #endif
