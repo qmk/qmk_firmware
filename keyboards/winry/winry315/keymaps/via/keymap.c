@@ -37,3 +37,8 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [2 ... 7] =  { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______) }
 };
 #endif
+
+// The enum values are assumed to match the layout option values used by VIA.
+void via_set_layout_options_kb(uint32_t value) {
+    winry315_set_orientation(value & 0x03);
+}

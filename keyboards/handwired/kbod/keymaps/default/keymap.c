@@ -76,15 +76,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_init_user(void) {
-  setPinOutput(C7);
-  writePinLow(C7);
+  gpio_set_pin_output(C7);
+  gpio_write_pin_low(C7);
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   if (get_highest_layer(state)) {
-    writePinHigh(C7);
+    gpio_write_pin_high(C7);
   } else {
-    writePinLow(C7);
+    gpio_write_pin_low(C7);
   }
   return state;
 }
