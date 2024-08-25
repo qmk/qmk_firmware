@@ -15,6 +15,17 @@
     "build": {
         "debounce_type": "asym_eager_defer_pk"
     },
+    "audio": {
+        "driver": "pwm_hardware"
+    },
+    "split": {
+        "handedness": {
+            "pin": "C14"
+        },
+        "serial": {
+            "driver": "usart"
+        },
+    },
     "ws2812": {
         "pin": "A1",
         "driver": "pwm"

@@ -15,6 +15,12 @@
     "mousekey": false,
     "nkro": true
   },
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  },
   "backlight": {
     "pin": "B7"
   },

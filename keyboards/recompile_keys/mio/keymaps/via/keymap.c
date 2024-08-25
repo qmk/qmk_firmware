@@ -25,9 +25,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MO(1),   KC_LCTL, KC_LALT,                   KC_SPC,  KC_ENT
     ),
     [1] = LAYOUT(
-        QK_BOOT,             _______, _______, _______, _______, _______, _______,
-        RGB_TOG, RGB_MOD,  RGB_HUI, RGB_SAI, RGB_VAI, _______, _______, _______,
-        _______, RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, _______, _______,
+        QK_BOOT,           _______, _______, _______, _______, _______, _______,
+        UG_TOGG, UG_NEXT,  UG_HUEU, UG_SATU, UG_VALU, _______, _______, _______,
+        _______, UG_PREV,  UG_HUED, UG_SATD, UG_VALD, _______, _______,
         _______, _______,  _______, _______, _______, _______, _______,
         _______, _______,  _______, _______, _______, _______, _______,
         _______, _______,  _______,                   _______, _______
