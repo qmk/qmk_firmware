@@ -10,9 +10,9 @@ Practically, this means QMK merges the `develop` branch into the `master` branch
 
 ## What has been included in past Breaking Changes?
 
+* [2024 Aug 25](ChangeLog/20240825)
 * [2024 May 26](ChangeLog/20240526)
 * [2024 Feb 25](ChangeLog/20240225)
-* [2023 Nov 26](ChangeLog/20231126)
 * [Older Breaking Changes](breaking_changes_history)
 
 ## When is the next Breaking Change?
