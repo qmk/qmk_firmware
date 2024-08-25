@@ -165,6 +165,10 @@ bool rgb_matrix_indicators_kb(void) {
 #endif  //RGB_MATRIX_ENABLE
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (!process_record_user(keycode, record)) {
+        return false;
+    }
+
     if (record->event.pressed) {
         switch(keycode) {
 #if defined(RGB_MATRIX_DISABLE_KEYCODES)

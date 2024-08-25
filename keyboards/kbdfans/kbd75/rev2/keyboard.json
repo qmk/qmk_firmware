@@ -52,6 +52,12 @@
         "backlight": true,
         "rgblight": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "layout_aliases": {
         "LAYOUT_ansi_1u": "LAYOUT_75_ansi"
     },

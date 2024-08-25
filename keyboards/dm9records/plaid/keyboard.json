@@ -21,6 +21,12 @@
     "mousekey": true,
     "extrakey": true
   },
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  },
   "community_layouts": ["ortho_4x12", "planck_mit"],
   "layout_aliases": {
     "LAYOUT": "LAYOUT_ortho_4x12",

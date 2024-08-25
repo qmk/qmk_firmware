@@ -15,6 +15,12 @@
         "nkro": false,
         "oled": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "usb": {
         "vid": "0x5363",
         "pid": "0x0001",
