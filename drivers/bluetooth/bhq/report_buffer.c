@@ -62,9 +62,6 @@ void report_buffer_init(void) {
     report_timer_buffer         = sync_timer_read32();
     retry                       = 0;
     retry_time_buffer           = 0;
-
-    gpio_set_pin_input_low(BHQ_RUN_STATE_INPUT_PIN);    // Module operating status. 
-    gpio_set_pin_output(QMK_RUN_OUTPUT_PIN);            // The qmk has a data request.
 }
 
 bool report_buffer_enqueue(report_buffer_t *report) {

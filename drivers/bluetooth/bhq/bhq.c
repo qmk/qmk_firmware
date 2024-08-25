@@ -29,7 +29,8 @@ uint32_t uartTimeoutBuffer = 0;         // uart timeout
 void bhq_init(void) 
 {
     uart_init(115200);
-
+    gpio_set_pin_input_low(BHQ_RUN_STATE_INPUT_PIN);    // Module operating status. 
+    gpio_set_pin_output(QMK_RUN_OUTPUT_PIN);            // The qmk has a data request.
 }
 
 void bhq_Disable(void)

@@ -111,6 +111,11 @@ void enter_low_power_mode_prepare(void)
     }
 #endif
 
+    gpio_set_pin_input_low(BHQ_RUN_STATE_INPUT_PIN);
+    palEnableLineEvent(BHQ_RUN_STATE_INPUT_PIN, PAL_EVENT_MODE_BOTH_EDGES);
+    gpio_write_pin_low(QMK_RUN_OUTPUT_PIN);
+
+
     /* Usb unit is actived and running, stop and disconnect first */
     usbStop(&USBD1);
     usbDisconnectBus(&USBD1);
@@ -137,6 +142,7 @@ void enter_low_power_mode_prepare(void)
     lpm_timer_reset();
     report_buffer_init();
     bhq_init();
+    gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
 }
 
 
@@ -150,7 +156,6 @@ void lpm_task(void)
     }
 
     if (lpm_time_up == true && sync_timer_elapsed32(lpm_timer_buffer) > RUN_MODE_PROCESS_TIME) {
-        gpio_toggle_pin(QMK_RUN_OUTPUT_PIN);
         lpm_time_up = false;
         lpm_timer_buffer = 0;
         enter_low_power_mode_prepare();
