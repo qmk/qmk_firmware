@@ -50,6 +50,9 @@
     },
     "split": {
         "enabled": true,
+        "serial": {
+            "driver": "vendor"
+        },
         "transport": {
             "sync": {
                 "indicators": true,

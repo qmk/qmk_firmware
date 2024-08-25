@@ -30,13 +30,15 @@
     "diode_direction": "COL2ROW",
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D2",
         "encoder": {
             "right": {
                 "rotary": [
                     {"pin_a": "F5", "pin_b": "F4"}
                 ]
             }
+        },
+        "serial": {
+            "pin": "D2"
         }
     },
     "qmk": {
