@@ -26,12 +26,12 @@ static SIOConfig sioConfig = {
 #endif
 
 void uart_init(uint32_t baud) {
-    // static bool is_initialised = false;
+    static bool is_initialised = false;
 
-    // if (is_initialised) {
-    //     return;
-    // }
-    // is_initialised = true;
+    if (is_initialised) {
+        return;
+    }
+    is_initialised = true;
 
     sioConfig.baud = baud;
 

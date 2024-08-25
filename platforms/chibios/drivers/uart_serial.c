@@ -20,12 +20,12 @@ static SerialConfig serialConfig = {
 #endif
 
 void uart_init(uint32_t baud) {
-    // static bool is_initialised = false;
+    static bool is_initialised = false;
 
-    // if (is_initialised) {
-    //     return;
-    // }
-    // is_initialised = true;
+    if (is_initialised) {
+        return;
+    }
+    is_initialised = true;
 
 #if defined(MCU_KINETIS)
     serialConfig.sc_speed = baud;
