@@ -82,7 +82,7 @@ static last_hit_t last_hit_buffer;
 #endif // LED_MATRIX_KEYREACTIVE_ENABLED
 
 // split led matrix
-#if defined(LED_MATRIX_ENABLE) && defined(LED_MATRIX_SPLIT)
+#if defined(LED_MATRIX_SPLIT)
 const uint8_t k_led_matrix_split[2] = LED_MATRIX_SPLIT;
 #endif
 
@@ -147,7 +147,7 @@ void led_matrix_set_value(int index, uint8_t value) {
 }
 
 void led_matrix_set_value_all(uint8_t value) {
-#if defined(LED_MATRIX_ENABLE) && defined(LED_MATRIX_SPLIT)
+#if defined(LED_MATRIX_SPLIT)
     for (uint8_t i = 0; i < LED_MATRIX_LED_COUNT; i++)
         led_matrix_set_value(i, value);
 #else
