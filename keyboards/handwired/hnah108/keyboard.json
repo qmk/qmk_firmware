@@ -39,8 +39,6 @@
             "pixel_rain": true,
             "pixel_flow": true,
             "pixel_fractal": true,
-            "typing_heatmap": true,
-            "digital_rain": true,
             "solid_reactive_simple": true,
             "solid_reactive": true,
             "solid_reactive_wide": true,

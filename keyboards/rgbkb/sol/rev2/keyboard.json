@@ -18,8 +18,7 @@
         "mousekey": false,
         "nkro": false,
         "oled": false,
-        "rgb_matrix": true,
-        "rgblight": false
+        "rgb_matrix": true
     },
     "rgb_matrix": {
         "animations": {
@@ -91,7 +90,9 @@
     "diode_direction": "COL2ROW",
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D3"
+        "serial": {
+            "pin": "D3"
+        }
     },
     "tapping": {
         "term": 150

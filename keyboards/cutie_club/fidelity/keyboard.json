@@ -10,6 +10,12 @@
         "command": false,
         "console": false
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "usb": {
         "vid": "0xFB9C",
         "pid": "0x4D1B",
