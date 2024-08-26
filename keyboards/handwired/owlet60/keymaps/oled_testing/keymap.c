@@ -15,14 +15,8 @@
  */
 #include QMK_KEYBOARD_H
 
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-  QMKBEST = SAFE_RANGE,
-  QMKURL
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT_owlet60_full_bsp(
+  [0] = LAYOUT_full_bs(
     KC_1,    KC_ESC, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,    KC_EQL,     KC_BSPC,   KC_PGUP,
     KC_2,    KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC,    KC_RBRC,    KC_BSLS,   KC_PGDN,
     KC_3,    KC_CAPS,KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,    KC_ENT,                KC_HOME,
@@ -30,36 +24,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_LCTL,        KC_LALT,        KC_SPC, MO(1),KC_SPC,                 KC_RALT,                    KC_LEFT,    KC_DOWN,   KC_RIGHT
   ),
 
-  [1] = LAYOUT_owlet60_full_bsp(
-    KC_NO,       KC_GRV, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,    KC_F12,     KC_DEL,   RGB_TOG,
-    KC_NO,    KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,  KC_NO,   KC_NO,   KC_NO,    KC_NO,    KC_NO,   RGB_MOD,
-    KC_NO,    KC_NO,KC_NO,   KC_NO,   KC_NO,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,KC_NO,    KC_NO,                RGB_VAI,
-                 KC_TRNS,KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,  KC_NO,   KC_N,   KC_NO,   KC_NO,KC_NO, KC_NO,    KC_NO,    KC_TRNS,     RGB_VAD,
+  [1] = LAYOUT_full_bs(
+    KC_NO,       KC_GRV, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,    KC_F12,     KC_DEL,   UG_TOGG,
+    KC_NO,    KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,  KC_NO,   KC_NO,   KC_NO,    KC_NO,    KC_NO,   UG_NEXT,
+    KC_NO,    KC_NO,KC_NO,   KC_NO,   KC_NO,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,KC_NO,    KC_NO,                UG_VALU,
+                 KC_TRNS,KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,  KC_NO,   KC_N,   KC_NO,   KC_NO,KC_NO, KC_NO,    KC_NO,    KC_TRNS,     UG_VALD,
                  KC_TRNS,        KC_TRNS,        KC_TRNS, KC_TRNS,KC_TRNS,                 KC_TRNS,                    KC_TRNS,    KC_TRNS,   KC_TRNS
   )
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case QMKBEST:
-      if (record->event.pressed) {
-        // when keycode QMKBEST is pressed
-        SEND_STRING("QMK is the best thing ever!");
-      } else {
-        // when keycode QMKBEST is released
-      }
-      break;
-    case QMKURL:
-      if (record->event.pressed) {
-        // when keycode QMKURL is pressed
-        SEND_STRING("https://qmk.fm/" SS_TAP(X_ENTER));
-      } else {
-        // when keycode QMKURL is released
-      }
-      break;
-  }
-  return true;
-}
 
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
