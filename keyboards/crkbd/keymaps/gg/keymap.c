@@ -19,37 +19,49 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef OLED_ENABLE
 // Rotate OLED
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-	return OLED_ROTATION_90;
+    if (!is_keyboard_master()) {
+        return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
+    }
+
+    return rotation;
 }
 
-// Draw to OLED
 bool oled_task_user() {
-	oled_set_cursor(0,1);
-
-	// oled_write("Hello World!", false);
-	switch (get_highest_layer(layer_state)) {
-		case _DEFAULT :
-			oled_write("Default", false);
-			break;
-		case _GAMING :
-			oled_write("Gaming", false);
-			break;
-		case _NUMBER :
-			oled_write("Numbers", false);
-			break;
-		case _SYMBOL :
-			oled_write("Symbols", false);
-			break;
-		case _ADJUST :
-			oled_write("Adjust", false);
-			break;
-	}
-	oled_set_cursor(0,2);
-	led_t led_state = host_keyboard_led_state();
-	oled_write(led_state.caps_lock ? PSTR("Caps Lock: On") : PSTR("Caps Lock: Off"), false);
-
-	return false;
+    if (is_keyboard_master()) {
+        oled_write_P(PSTR("Layer: "), false);
+		switch (get_highest_layer(layer_state)) {
+			case _DEFAULT :
+				oled_write("Default\n", false);
+				break;
+			case _GAMING :
+				oled_write("Gaming\n", false);
+				break;
+			case _NUMBER :
+				oled_write("Numbers\n", false);
+				break;
+			case _SYMBOL :
+				oled_write("Symbols\n", false);
+				break;
+			case _ADJUST :
+				oled_write("Adjust\n", false);
+				break;
+			default:
+				oled_write("Undef\n", false);
+		}
+		
+    } else {
+        // clang-format off
+		static const char PROGMEM crkbd_logo[] = {
+			0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
+			0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4,
+			0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4,
+			0};
+		// clang-format on
+		oled_write_P(crkbd_logo, false);
+		}
+		return false;
 }
+
 #endif
 
 enum combos { 
