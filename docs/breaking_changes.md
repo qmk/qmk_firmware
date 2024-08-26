@@ -17,7 +17,7 @@ Practically, this means QMK merges the `develop` branch into the `master` branch
 
 ## When is the next Breaking Change?
 
-The next Breaking Change is scheduled for August 25, 2024.
+The next Breaking Change is scheduled for November 24, 2024.
 
 ### Important Dates
 
