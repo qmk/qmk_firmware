@@ -108,6 +108,11 @@
 #    if defined(STM32F1XX) || defined(STM32F2XX) || defined(STM32F4XX) || defined(STM32L1XX)
 #        define USE_I2CV1
 #    endif
+
+#    if defined(STM32G0XX) || defined(STM32G4XX) || defined(STM32L5XX) || defined(STM32H7XX)
+#        define USE_USARTV3
+#    endif
+
 #endif
 
 // GD32 compatibility

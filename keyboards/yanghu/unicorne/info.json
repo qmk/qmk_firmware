@@ -8,6 +8,19 @@
     "pid": "0x0204",
     "device_version": "0.0.1"
   },
+  "features": {
+    "audio": true,
+    "bootmagic": false,
+    "encoder": true,
+    "extrakey": true,
+    "mousekey": true,
+    "nkro": true,
+    "oled": true,
+    "rgblight": true
+  },
+  "audio": {
+    "driver": "pwm_hardware"
+  },
   "rgblight": {
     "led_count": 8,
     "animations": {

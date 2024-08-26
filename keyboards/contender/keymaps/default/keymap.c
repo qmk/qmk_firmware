@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                            KC_NUM,      KC_KP_SLASH,  KC_KP_ASTERISK,  KC_EQUAL,
                            KC_KP_7,     KC_KP_8,      KC_KP_9,         KC_KP_MINUS,
       MO(_FUNCTION),       KC_KP_4,     KC_KP_5,      KC_KP_6,         KC_KP_PLUS,
-      RGB_TOG,             KC_KP_1,     KC_KP_2,      KC_KP_3,         KC_KP_ENTER,
+      UG_TOGG,             KC_KP_1,     KC_KP_2,      KC_KP_3,         KC_KP_ENTER,
       TG(_UNRULY),         KC_KP_0,     DOUBLE_ZERO,  KC_KP_DOT
     ),
     /* Lightning */
@@ -48,12 +48,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     /* Function */
     [_FUNCTION] = LAYOUT(
-                           QK_BOOT,       KC_NO,        KC_NO,           KC_NO,
+                           QK_BOOT,     KC_NO,        KC_NO,           KC_NO,
                            KC_NO,       KC_NO,        KC_NO,           KC_NO,
                            KC_NO,       KC_NO,        KC_NO,           KC_NO,
-      KC_TRNS,             RGB_RMOD,    RGB_MOD,      KC_NO,           KC_NO,
-      KC_TRNS,             RGB_HUI,     RGB_SAI,      RGB_VAI,         KC_NO,
-      KC_TRNS,             RGB_HUD,     RGB_SAD,      RGB_VAD
+      KC_TRNS,             UG_PREV,     UG_NEXT,      KC_NO,           KC_NO,
+      KC_TRNS,             UG_HUEU,     UG_SATU,      UG_VALU,         KC_NO,
+      KC_TRNS,             UG_HUED,     UG_SATD,      UG_VALD
     )
 };
 

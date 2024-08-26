@@ -16,7 +16,7 @@
 
 #include "quantum.h"
 
-#if defined(BACKLIGHT_ENABLE) || defined(LED_MATRIX_ENABLE)
+#ifdef BACKLIGHT_ENABLE
 #    include "process_backlight.h"
 #endif
 
@@ -38,6 +38,10 @@
 
 #ifdef LEADER_ENABLE
 #    include "process_leader.h"
+#endif
+
+#ifdef LED_MATRIX_ENABLE
+#    include "process_led_matrix.h"
 #endif
 
 #ifdef MAGIC_ENABLE
@@ -242,10 +246,9 @@ uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache) {
 
 /* Get keycode, and then process pre tapping functionality */
 bool pre_process_record_quantum(keyrecord_t *record) {
-    uint16_t keycode = get_record_keycode(record, true);
-    return pre_process_record_kb(keycode, record) &&
+    return pre_process_record_kb(get_record_keycode(record, true), record) &&
 #ifdef COMBO_ENABLE
-           process_combo(keycode, record) &&
+           process_combo(get_record_keycode(record, true), record) &&
 #endif
            true;
 }
@@ -333,8 +336,11 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef AUDIO_ENABLE
             process_audio(keycode, record) &&
 #endif
-#if defined(BACKLIGHT_ENABLE) || defined(LED_MATRIX_ENABLE)
+#if defined(BACKLIGHT_ENABLE)
             process_backlight(keycode, record) &&
+#endif
+#if defined(LED_MATRIX_ENABLE)
+            process_led_matrix(keycode, record) &&
 #endif
 #ifdef STENO_ENABLE
             process_steno(keycode, record) &&
