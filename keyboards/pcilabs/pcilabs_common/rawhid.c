@@ -23,6 +23,7 @@ void raw_hid_send_rgb_settings(void){
 
 void raw_hid_send_key_rebinds(void){
     /* new rebind structure: id, [layer, row, col, keycode], ..., 69 {finish marker} */
+    // /* new rebind structure: id, [layer, row, col, keycode_low, keycode_high], ..., 69 {finish marker} */
     uint8_t data[32] = {0};
     data[0] = RECIEVE_KEY_REBIND;
     uint8_t data_idx = 1;
@@ -30,15 +31,22 @@ void raw_hid_send_key_rebinds(void){
         for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
             for (uint8_t col = 0; col < MATRIX_COLS; col++) {
                 uint8_t keycode = dynamic_keymap_get_keycode(layer, row, col); // TODO: make it 16 bit when software will be ready
+                // uint16_t keycode = dynamic_keymap_get_keycode(layer, row, col);
+                // uint8_t keycode_low  = keycode & 255;
+                // uint8_t keycode_high = keycode >> 8;
                 if(data_idx + 4 >= 31) {
+                // if(data_idx + 5 >= 31) {
                     data[data_idx] = 69;
                     raw_hid_send(data, 32);
                     data_idx = 1;
                     memset(&data[1], 0, 31);
                 }
                 uint8_t rebind[4] = {layer, row, col, keycode};
+                // uint8_t rebind[5] = {layer, row, col, keycode_low, keycode_high};
                 memcpy(&data[data_idx], rebind, 4);
                 data_idx += 4;
+                // memcpy(&data[data_idx], rebind, 5);
+                // data_idx += 5;
             }
         }
     }
@@ -137,11 +145,13 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             break;
         case RECIEVE_KEY_REBIND:;
             /* new rebind structure: id, [layer, row, col, keycode], ..., 69 {finish marker} */
+            // /* new rebind structure: id, [layer, row, col, keycode_low, keycode_high], ..., 69 {finish marker} */
             for (int i = 1; i < length && data[i] != 69; i++) {
                 uint8_t  layer   = data[i];
                 uint8_t  row     = data[i + 1];
                 uint8_t  col     = data[i + 2];
                 uint16_t keycode = data[i + 3];
+                // uint16_t keycode = (uint16_t)data[i + 3] | (uint16_t)data[i + 4] << 8;
                 dynamic_keymap_set_keycode(layer, row, col, keycode);
             }
             break;
