@@ -162,7 +162,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             eeconfig_init();
             reset_keyboard();
             break;
-        case SEND_RGB_SETTINGS:;
+     /*   case SEND_RGB_SETTINGS:;
             raw_hid_send_rgb_settings();
             break;
         case SEND_KEY_CONFIG:;
@@ -171,5 +171,6 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
         case SEND_KEY_REBIND:;
             raw_hid_send_key_rebinds();
             break;
+        */
     }
 }
