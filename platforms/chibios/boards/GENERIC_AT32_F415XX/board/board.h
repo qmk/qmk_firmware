@@ -19,6 +19,10 @@
 #ifndef _BOARD_H_
 #define _BOARD_H_
 
+/*===========================================================================*/
+/* Driver constants.                                                         */
+/*===========================================================================*/
+
 /*
  * Setup for a Generic AT32F415 board.
  */
@@ -30,10 +34,15 @@
 #define BOARD_NAME                  "GENERIC AT32F415 board"
 
 /*
- * Board frequencies.
+ * Board oscillators-related settings.
  */
+#if !defined(AT32_LEXTCLK)
 #define AT32_LEXTCLK                32768
+#endif
+
+#if !defined(AT32_HEXTCLK)
 #define AT32_HEXTCLK                8000000
+#endif
 
 /*
  * MCU type, supported types are defined in ./os/hal/platforms/hal_lld.h.
@@ -56,8 +65,8 @@
 #define GPIOA_PIN10                 10U
 #define GPIOA_PIN11                 11U
 #define GPIOA_PIN12                 12U
-#define GPIOA_PIN13                 13U
-#define GPIOA_PIN14                 14U
+#define GPIOA_SWDIO                 13U
+#define GPIOA_SWCLK                 14U
 #define GPIOA_PIN15                 15U
 
 #define GPIOB_PIN0                  0U
@@ -94,39 +103,30 @@
 #define GPIOC_PIN14                 14U
 #define GPIOC_PIN15                 15U
 
-#define GPIOD_PIN0                  0U
-#define GPIOD_PIN1                  1U
+#define GPIOD_HEXT_IN               0U
+#define GPIOD_HEXT_OUT              1U
 #define GPIOD_PIN2                  2U
-#define GPIOD_PIN3                  3U
-#define GPIOD_PIN4                  4U
-#define GPIOD_PIN5                  5U
-#define GPIOD_PIN6                  6U
-#define GPIOD_PIN7                  7U
-#define GPIOD_PIN8                  8U
-#define GPIOD_PIN9                  9U
-#define GPIOD_PIN10                 10U
-#define GPIOD_PIN11                 11U
-#define GPIOD_PIN12                 12U
-#define GPIOD_PIN13                 13U
-#define GPIOD_PIN14                 14U
-#define GPIOD_PIN15                 15U
 
-#define GPIOF_PIN0                  0U
-#define GPIOF_PIN1                  1U
-#define GPIOF_PIN2                  2U
-#define GPIOF_PIN3                  3U
 #define GPIOF_PIN4                  4U
 #define GPIOF_PIN5                  5U
 #define GPIOF_PIN6                  6U
 #define GPIOF_PIN7                  7U
-#define GPIOF_PIN8                  8U
-#define GPIOF_PIN9                  9U
-#define GPIOF_PIN10                 10U
-#define GPIOF_PIN11                 11U
-#define GPIOF_PIN12                 12U
-#define GPIOF_PIN13                 13U
-#define GPIOF_PIN14                 14U
-#define GPIOF_PIN15                 15U
+
+/*===========================================================================*/
+/* Driver pre-compile time settings.                                         */
+/*===========================================================================*/
+
+/*===========================================================================*/
+/* Derived constants and error checks.                                       */
+/*===========================================================================*/
+
+/*===========================================================================*/
+/* Driver data structures and types.                                         */
+/*===========================================================================*/
+
+/*===========================================================================*/
+/* Driver macros.                                                            */
+/*===========================================================================*/
 
 /*
  * I/O ports initial setup, this configuration is established soon after reset
@@ -176,8 +176,8 @@
 /*
  * Port D setup.
  * Everything input with pull-up except:
- * PD0  - Normal input              (XTAL).
- * PD1  - Normal input              (XTAL).
+ * PD0  - Normal input              (GPIOD_HEXT_IN).
+ * PD1  - Normal input              (GPIOD_HEXT_OUT).
  */
 #define VAL_GPIODCFGLR          0x88888844      /*  PD7...PD0 */
 #define VAL_GPIODCFGHR          0x88888888      /* PD15...PD8 */
@@ -189,6 +189,10 @@
 #define VAL_GPIOFCFGLR          0x88888888      /*  PF7...PF0 */
 #define VAL_GPIOFCFGHR          0x88888888      /* PF15...PF8 */
 #define VAL_GPIOFODT            0xFFFFFFFF
+
+/*===========================================================================*/
+/* External declarations.                                                    */
+/*===========================================================================*/
 
 #if !defined(_FROM_ASM_)
 #ifdef __cplusplus

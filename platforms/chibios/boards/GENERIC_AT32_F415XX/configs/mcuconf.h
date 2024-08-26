@@ -1,5 +1,5 @@
 /*
-    ChibiOS - Copyright (C) 2006..2018 Giovanni Di Sirio
+    ChibiOS - Copyright (C) 2006..2020 Giovanni Di Sirio
     ChibiOS - Copyright (C) 2023..2024 HorrorTroll
     ChibiOS - Copyright (C) 2023..2024 Zhaqian
 
@@ -19,8 +19,6 @@
 #ifndef MCUCONF_H
 #define MCUCONF_H
 
-#define AT32F415_MCUCONF
-
 /*
  * AT32F415 drivers configuration.
  * The following settings override the default settings present in
@@ -35,10 +33,16 @@
  * 0...3        Lowest...Highest.
  */
 
+#define AT32F415_MCUCONF
+
+/*
+ * General settings.
+ */
+#define AT32_NO_INIT                        FALSE
+
 /*
  * HAL driver system settings.
  */
-#define AT32_NO_INIT                        FALSE
 #define AT32_HICK_ENABLED                   TRUE
 #define AT32_LICK_ENABLED                   FALSE
 #define AT32_HEXT_ENABLED                   TRUE
@@ -58,6 +62,7 @@
 #define AT32_USB_CLOCK_REQUIRED             TRUE
 #define AT32_USBDIV                         AT32_USBDIV_DIV3
 #define AT32_CLKOUT_SEL                     AT32_CLKOUT_SEL_NOCLOCK
+#define AT32_CLKOUTDIV                      AT32_CLKOUTDIV_DIV1
 #define AT32_ERTCSEL                        AT32_ERTCSEL_HEXTDIV
 #define AT32_PVM_ENABLE                     FALSE
 #define AT32_PVMSEL                         AT32_PVMSEL_LEV1
@@ -170,6 +175,16 @@
 #define AT32_ERTC_TAMP_INIT                 0
 
 /*
+ * SDC driver system settings.
+ */
+#define AT32_SDC_SDIO_DMA_PRIORITY          3
+#define AT32_SDC_SDIO_IRQ_PRIORITY          9
+#define AT32_SDC_WRITE_TIMEOUT_MS           1000
+#define AT32_SDC_READ_TIMEOUT_MS            1000
+#define AT32_SDC_CLOCK_ACTIVATION_DELAY     10
+#define AT32_SDC_SDIO_UNALIGNED_SUPPORT     TRUE
+
+/*
  * SERIAL driver system settings.
  */
 #define AT32_SERIAL_USE_USART1              FALSE
@@ -212,7 +227,6 @@
 #define AT32_USB_USE_OTG1                   TRUE
 #define AT32_USB_OTG1_IRQ_PRIORITY          14
 #define AT32_USB_OTG1_RX_FIFO_SIZE          512
-#define AT32_USB_HOST_WAKEUP_DURATION       2
 
 /*
  * WDG driver system settings.

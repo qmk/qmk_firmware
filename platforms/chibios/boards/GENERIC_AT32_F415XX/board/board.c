@@ -18,6 +18,18 @@
 
 #include "hal.h"
 
+/*===========================================================================*/
+/* Driver local definitions.                                                 */
+/*===========================================================================*/
+
+/*===========================================================================*/
+/* Driver exported variables.                                                */
+/*===========================================================================*/
+
+/*===========================================================================*/
+/* Driver local variables and types.                                         */
+/*===========================================================================*/
+
 /**
  * @brief   PAL setup.
  * @details Digital I/O ports static configuration as defined in @p board.h.
@@ -38,17 +50,51 @@ const PALConfig pal_default_config =
 };
 #endif
 
-/*
- * Early initialization code.
- * This initialization must be performed just after stack setup and before
- * any other initialization.
+/*===========================================================================*/
+/* Driver local functions.                                                   */
+/*===========================================================================*/
+
+/*===========================================================================*/
+/* Driver interrupt handlers.                                                */
+/*===========================================================================*/
+
+/*===========================================================================*/
+/* Driver exported functions.                                                */
+/*===========================================================================*/
+
+/**
+ * @brief   Early initialization code.
+ * @details System clocks are initialized before everything else.
  */
 void __early_init(void) {
   at32_clock_init();
 }
 
-/*
- * Board-specific initialization code.
+#if HAL_USE_SDC || defined(__DOXYGEN__)
+/**
+ * @brief   SDC card detection.
+ */
+bool sdc_lld_is_card_inserted(SDCDriver *sdcp) {
+  static bool last_status = false;
+
+  if (blkIsTransferring(sdcp))
+    return last_status;
+  return last_status = (bool)palReadPad(GPIOC, GPIOC_PIN11);
+}
+
+/**
+ * @brief   SDC card write protection detection.
+ */
+bool sdc_lld_is_write_protected(SDCDriver *sdcp) {
+
+  (void)sdcp;
+  return false;
+}
+#endif /* HAL_USE_SDC */
+
+/**
+ * @brief   Board-specific initialization code.
+ * @note    You can add your board-specific code here.
  */
 void boardInit(void) {
   IOMUX->REMAP |= IOMUX_REMAP_SWJTAG_MUX_JTAGDIS;
