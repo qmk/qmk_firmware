@@ -9,9 +9,9 @@ typedef enum {
     RECIEVE_KEY_REBIND,
     BOOTLOADER_JUMP,
     EEPROM_RESET
-    //SEND_RGB_SETTINGS,
-    //SEND_KEY_CONFIG,
-    //SEND_KEY_REBIND
+    SEND_RGB_SETTINGS,
+    SEND_KEY_CONFIG,
+    SEND_KEY_REBIND
 } report_id_t;
 
 void raw_hid_send_rgb_settings(void);
