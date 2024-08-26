@@ -1,5 +1,5 @@
 {
-    "keyboard_name": "Helix Beta",
+    "keyboard_name": "Helix rev2",
     "features": {
         "oled": true
     },
@@ -8,8 +8,6 @@
         "rows": ["D4", "C6", "D7", "E6", "B4"]
     },
     "rgblight": {
-        "brightness_steps": 4,
-        "hue_steps": 10,
         "led_count": 32,
         "max_brightness": 35
     },
