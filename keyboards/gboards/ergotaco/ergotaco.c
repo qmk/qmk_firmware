@@ -5,25 +5,30 @@ i2c_status_t mcp23018_status = 0x20;
 
 void matrix_init_kb(void) {
     // (tied to Vcc for hardware convenience)
-    //DDRB  &= ~(1<<4);  // set B(4) as input
-    //PORTB &= ~(1<<4);  // set B(4) internal pull-up disabled
+    //gpio_set_pin_input(B4);  // set B(4) as input, internal pull-up disabled
 
     // unused pins
     // set as input with internal pull-up enabled
-    DDRB  &= ~(1<<4 | 1<<5 | 1<<6 | 1<<7);
-    PORTB |=  (1<<4 | 1<<5 | 1<<6 | 1<<7);
+    gpio_set_pin_input_high(B4);
+    gpio_set_pin_input_high(B5);
+    gpio_set_pin_input_high(B6);
+    gpio_set_pin_input_high(B7);
 
-    DDRC  &= ~(1<<7 | 1<<6);
-    PORTC |=  (1<<7 | 1<<6);
+    gpio_set_pin_input_high(C6);
+    gpio_set_pin_input_high(C7);
 
-    DDRD  &= ~(1<<4 | 1<<5 | 1<<6 | 1<<7);
-    PORTD |=  (1<<4 | 1<<5 | 1<<6 | 1<<7);
+    gpio_set_pin_input_high(D4);
+    gpio_set_pin_input_high(D5);
+    gpio_set_pin_input_high(D6);
+    gpio_set_pin_input_high(D7);
 
-    DDRE  &= ~(1<<6);
-    PORTE |=  (1<<6);
+    gpio_set_pin_input_high(E6);
 
-    DDRF  &= ~(1<<0 | 1<<1 | 1<<4 | 1<<6 | 1<<7);
-    PORTF |=  (1<<0 | 1<<1 | 1<<4 | 1<<6 | 1<<7);
+    gpio_set_pin_input_high(D0);
+    gpio_set_pin_input_high(D1);
+    gpio_set_pin_input_high(D4);
+    gpio_set_pin_input_high(D6);
+    gpio_set_pin_input_high(D7);
 
     matrix_init_user();
 }

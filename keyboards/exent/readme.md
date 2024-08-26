@@ -10,7 +10,7 @@ Make example for this keyboard (after setting up your build environment):
 
     make exent:default
 
-Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](flashing_bootloadhid.md))
+Flashing example for this keyboard:
 
     make exent:default:flash
 
