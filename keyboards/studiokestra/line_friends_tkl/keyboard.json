@@ -12,6 +12,12 @@
         "mousekey": true,
         "nkro": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "indicators": {
         "caps_lock": "B6",
         "on_state": 1,

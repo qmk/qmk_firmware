@@ -1,6 +1,12 @@
 {
     "processor": "at90usb1286",
     "bootloader": "atmel-dfu",
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "matrix_pins": {
         "cols": ["A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "E6", "E7", "F0", "F1", "F2", "F3", "C0", "C1", "C2"],
         "rows": ["D2", "D3", "D4", "D5", "D6", "D7"]
