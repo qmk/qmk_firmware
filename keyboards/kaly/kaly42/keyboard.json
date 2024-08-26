@@ -33,6 +33,9 @@
                     ["A0", "A1", "A2", "NO_PIN", "NO_PIN", "NO_PIN"]
                 ]
             }
+        },
+        "serial": {
+            "driver": "usart"
         }
     },
     "url": "https://github.com/Dwctor/Kaly",

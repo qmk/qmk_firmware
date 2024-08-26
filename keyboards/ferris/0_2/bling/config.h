@@ -20,5 +20,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* LED Drivers */
 #define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
 #define IS31FL3731_I2C_ADDRESS_2 IS31FL3731_I2C_ADDRESS_SCL
-
-#define RGB_MATRIX_LED_COUNT 14
