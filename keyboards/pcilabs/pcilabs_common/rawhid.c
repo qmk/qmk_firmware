@@ -150,8 +150,8 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                 uint8_t  layer   = data[i];
                 uint8_t  row     = data[i + 1];
                 uint8_t  col     = data[i + 2];
-                uint16_t keycode = data[i + 3];
-                // uint16_t keycode = (uint16_t)data[i + 3] | (uint16_t)data[i + 4] << 8;
+                //uint16_t keycode = data[i + 3];
+                uint16_t keycode = (uint16_t)data[i + 3] | (uint16_t)data[i + 4] << 8;
                 dynamic_keymap_set_keycode(layer, row, col, keycode);
             }
             break;
