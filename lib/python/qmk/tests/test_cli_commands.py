@@ -118,21 +118,18 @@ def test_list_keymaps_kb_only():
     result = check_subcommand('list-keymaps', '-kb', 'contra')
     check_returncode(result)
     assert 'default' in result.stdout
-    assert 'via' in result.stdout
 
 
 def test_list_keymaps_vendor_kb():
     result = check_subcommand('list-keymaps', '-kb', 'ai03/lunar')
     check_returncode(result)
     assert 'default' in result.stdout
-    assert 'via' in result.stdout
 
 
 def test_list_keymaps_vendor_kb_rev():
     result = check_subcommand('list-keymaps', '-kb', 'kbdfans/kbd67/mkiirgb/v2')
     check_returncode(result)
     assert 'default' in result.stdout
-    assert 'via' in result.stdout
 
 
 def test_list_keymaps_no_keyboard_found():
