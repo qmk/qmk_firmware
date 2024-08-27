@@ -12,7 +12,12 @@
     "diode_direction": "COL2ROW",
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D3"
+        "handedness": {
+            "pin": "D0"
+        },
+        "serial": {
+            "pin": "D3"
+        }
     },
     "processor": "atmega32u4",
     "bootloader": "caterina"
