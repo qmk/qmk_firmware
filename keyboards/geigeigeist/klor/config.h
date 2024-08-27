@@ -13,5 +13,5 @@
 
 #ifdef OLED_ENABLE
 #    define OLED_DISPLAY_128X64
-#    define OLED_FONT_H "glcdfont.c"
+#    define OLED_FONT_H "keyboards/geigeigeist/klor/glcdfont.c"
 #endif
