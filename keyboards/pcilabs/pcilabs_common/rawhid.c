@@ -146,7 +146,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
         case RECIEVE_KEY_REBIND:;
             /* new rebind structure: id, [layer, row, col, keycode], ..., 69 {finish marker} */
             // /* new rebind structure: id, [layer, row, col, keycode_low, keycode_high], ..., 69 {finish marker} */
-            for (int i = 1; i < length && data[i] != 69; i++) {
+            for (int i = 1; i < length && data[i] != 69; i+=5) {
                 uint8_t  layer   = data[i];
                 uint8_t  row     = data[i + 1];
                 uint8_t  col     = data[i + 2];
