@@ -15,6 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <stdlib.h>
+#include "host_driver.h"
 #include "bluetooth.h"
 
 #if defined(BLUETOOTH_BLUEFRUIT_LE)
@@ -53,10 +55,50 @@ void bluetooth_send_mouse(report_mouse_t *report) {
 #endif
 }
 
-void bluetooth_send_consumer(uint16_t usage) {
+void bluetooth_send_extra(report_extra_t *report) {
 #if defined(BLUETOOTH_BLUEFRUIT_LE)
-    bluefruit_le_send_consumer(usage);
+    switch (report->report_id) {
+        case REPORT_ID_CONSUMER:
+            bluefruit_le_send_consumer(report->usage);
+            break;
+        case REPORT_ID_SYSTEM:
+            // bluefruit_le_send_system(report->usage);
+            break;
+    }
 #elif defined(BLUETOOTH_RN42)
-    rn42_send_consumer(usage);
+    switch (report->report_id) {
+        case REPORT_ID_CONSUMER:
+            rn42_send_consumer(report->usage);
+            break;
+        case REPORT_ID_SYSTEM:
+            // rn42_send_system(report->usage);
+            break;
+    }
 #endif
+}
+
+static host_driver_t bluetooth_driver = {
+    .has_init_executed = false,
+    .init              = NULL,
+    .connect           = NULL,
+    .disconnect        = NULL,
+    .is_connected      = NULL,
+    .keyboard_leds     = NULL,
+    .send_keyboard     = bluetooth_send_keyboard,
+    .send_nkro         = NULL,
+    .send_mouse        = bluetooth_send_mouse,
+    .send_extra        = bluetooth_send_extra,
+#ifdef JOYSTICK_ENABLE
+    .send_joystick = NULL,
+#endif // JOYSTICK_ENABLE
+#ifdef DIGITIZER_ENABLE
+    .send_digitizer = NULL,
+#endif // DIGITIZER_ENABLE
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+    .send_programmable_button = NULL,
+#endif // PROGRAMMABLE_BUTTON_ENABLE
+};
+
+host_driver_t *host_bluetooth_driver(void) {
+    return &bluetooth_driver;
 }

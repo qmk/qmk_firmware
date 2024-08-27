@@ -118,5 +118,3 @@ typedef struct usbConfigurationDescriptor {
 } __attribute__((packed)) usbConfigurationDescriptor_t;
 
 extern bool vusb_suspended;
-
-host_driver_t *vusb_driver(void);
