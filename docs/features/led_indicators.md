@@ -21,9 +21,8 @@ There are three ways to get the lock LED state:
 The `host_keyboard_led_state()` may reflect an updated state before `led_update_user()` is called.
 :::
 
-Two deprecated functions that provide the LED state as `uint8_t`:
+Deprecated functions that provide the LED state as `uint8_t`:
 
-* `uint8_t led_set_user(uint8_t usb_led)`
 * `uint8_t host_keyboard_leds()`
 
 ## Configuration Options
@@ -49,10 +48,6 @@ When the configuration options do not provide enough flexibility, the following 
 * Keymap: `bool led_update_user(led_t led_state)`
 
 Both receives LED state as a struct parameter. Returning `true` in `led_update_user()` will allow the keyboard level code in `led_update_kb()` to run as well. Returning `false` will override the keyboard level code, depending on how the keyboard level function is set up.
-
-::: tip
-This boolean return type of `led_update_user` allows for overriding keyboard LED controls, and is thus recommended over the void `led_set_user` function.
-:::
 
 ### Example of keyboard LED update implementation
 

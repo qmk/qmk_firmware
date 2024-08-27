@@ -74,7 +74,7 @@ void led_keypress_update(pin_t led_pin, uint16_t keycode, keyrecord_t *record) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Update LED state
-    led_keypress_update(LED, keycode, record);
+    led_keypress_update(LED_CAPS_LOCK_PIN, keycode, record);
     return true;
 }
 

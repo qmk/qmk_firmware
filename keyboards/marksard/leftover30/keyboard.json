@@ -33,6 +33,10 @@
             {"pin_a": "F4", "pin_b": "F5"}
         ]
     },
+    "indicators": {
+        "caps_lock": "D1",
+        "num_lock": "D2"
+    },
     "rgblight": {
         "saturation_steps": 8,
         "brightness_steps": 8,

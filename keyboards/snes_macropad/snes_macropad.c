@@ -92,9 +92,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         set_keylog(keycode, record);
     }
-    if (keycode == QK_BOOT) {
-        setupForFlashing();
-    }
     return process_record_user(keycode, record);
 }
 
@@ -103,4 +100,12 @@ void keyboard_post_init_kb(void) {
     rgblight_sethsv_noeeprom(HSV_MAGENTA);
     rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_SWIRL);
     keyboard_post_init_user();
+}
+
+bool shutdown_kb(bool jump_to_bootloader) {
+    if (!shutdown_user(jump_to_bootloader)) {
+        return false;
+    }
+    setupForFlashing();
+    return true;
 }

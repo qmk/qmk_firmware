@@ -16,8 +16,6 @@
 
 #pragma once
 
-#define SPLIT_HAND_PIN F4
-
 #define OLED_BRIGHTNESS 128
 
 /*
