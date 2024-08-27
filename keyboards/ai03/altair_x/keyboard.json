@@ -37,7 +37,10 @@
                 "rows": ["GP16", "GP20", "GP28", "GP14"]
             }
         },
-        "soft_serial_pin": "GP29"
+        "serial": {
+            "driver": "vendor",
+            "pin": "GP29"
+        }
     },
     "url": "https://ai03.com/",
     "usb": {
