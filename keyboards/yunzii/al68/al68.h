@@ -15,11 +15,7 @@
 //  */
 
 enum custom_keycodes {
-#ifdef VIA_ENABLE
     KC_USB = QK_KB_0,
-#else
-    KC_USB = SAFE_RANGE,
-#endif
   KC_BLE1,
   KC_BLE2,
   KC_BLE3,
