@@ -25,35 +25,27 @@
 #define POKER  MO(_POKER)
 #define EXTR   MO(_EXTRA)
 
-#define PRESS(keycode) register_code16(keycode)
-#define RELEASE(keycode) unregister_code16(keycode)
+// Define a type containing as many tapdance states as you need
+typedef enum {
+    TD_UNKNOWN,
+    TD_SINGLE_TAP,
+    TD_SINGLE_HOLD,
+    TD_DOUBLE_SINGLE_TAP
+} td_state_t;
 
-void dance_flsh_finished(tap_dance_state_t *state, void *user_data) {
-  layer_on(_SELECT);
-  if (state->count == 1) {
-    PRESS(KC_LCTL);
-    PRESS(KC_LSFT);
-  } else {
-    PRESS(KC_LCTL);
-  }
-}
+// Create a global instance of the tapdance state type
+static td_state_t td_state;
 
-void dance_flsh_reset(tap_dance_state_t *state, void *user_data) {
-  layer_off(_SELECT);
-  if (state->count == 1) {
-    RELEASE(KC_LSFT);
-    RELEASE(KC_LCTL);
-  } else {
-    RELEASE(KC_LCTL);
-  }
-}
+// Function to determine the current tapdance state
+td_state_t cur_dance(tap_dance_state_t *state);
 
-enum {
-  LAYER_SWITCH = 0
-};
+// `finished` and `reset` functions for each tapdance keycode
+void altlp_finished(tap_dance_state_t *state, void *user_data);
+void altlp_reset(tap_dance_state_t *state, void *user_data);
 
-tap_dance_action_t tap_dance_actions[] = {
-    [LAYER_SWITCH] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_flsh_finished, dance_flsh_reset)
+// Tap Dance keycodes
+enum td_keycodes {
+    TAP_SHFT
 };
 
 enum custom_keycodes {
@@ -184,3 +176,58 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 };
+
+
+// Determine the tapdance state to return
+td_state_t cur_dance(tap_dance_state_t *state) {
+    if (state->count == 1) {
+        if (state->interrupted || !state->pressed) return TD_SINGLE_TAP;
+        else return TD_SINGLE_HOLD;
+    }
+
+    if (state->count == 2) return TD_DOUBLE_SINGLE_TAP;
+    else return TD_UNKNOWN; // Any number higher than the maximum state value you return above
+}
+
+
+// Handle the possible states for each tapdance keycode you define:
+void tap_finished(tap_dance_state_t *state, void *user_data) {
+    td_state = cur_dance(state);
+    layer_on(_BASE);
+    switch (td_state) {
+        case TD_SINGLE_TAP:
+            register_code16(KC_LCTL);
+            register_code16(KC_LSFT);
+            break;
+        case TD_SINGLE_HOLD:
+            break;
+        case TD_DOUBLE_SINGLE_TAP:
+            register_code16(KC_LCTL);
+            break;
+        default:
+            break;
+    }
+}
+
+void tap_reset(tap_dance_state_t *state, void *user_data) {
+    layer_off(_BASE);
+    switch (td_state) {
+        case TD_SINGLE_TAP:
+            unregister_code16(KC_LCTL);
+            unregister_code16(KC_LSFT);
+            break;
+        case TD_SINGLE_HOLD:
+            break;
+        case TD_DOUBLE_SINGLE_TAP:
+            unregister_code16(KC_LCTL);
+            break;
+        default:
+            break;
+    }
+}
+
+// Define `ACTION_TAP_DANCE_FN_ADVANCED()` for each tapdance keycode, passing in `finished` and `reset` functions
+tap_dance_action_t tap_dance_actions[] = {
+    [TAP_SHFT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tap_finished, tap_reset)
+};
+
