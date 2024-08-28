@@ -124,6 +124,9 @@
                 "rows": ["GP24", "GP23", "GP21", "GP3"]
             }
         },
+        "serial": {
+            "driver": "vendor"
+        },
         "transport": {
             "sync_matrix_state": true
         }

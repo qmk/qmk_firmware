@@ -17,6 +17,9 @@
         "nkro": true,
         "sleep_led": true
     },
+    "indicators": {
+        "caps_lock": "B13"
+    },
     "qmk": {
         "locking": {
             "enabled": true,
