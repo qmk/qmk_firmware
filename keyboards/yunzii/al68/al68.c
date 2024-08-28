@@ -34,12 +34,12 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record)
     if (record->event.pressed){
         if ((keycode>=KC_BLE1) && (keycode<=KC_24G))
         {
-            WIRELESS_START(keycode-KC_USB);
+            wireless_start(keycode-KC_USB);
             return false;     
         }
         else if (keycode == KC_USB)
         {
-            WIRELESS_STOP();
+            wireless_stop();
             return false;
         }
     }
