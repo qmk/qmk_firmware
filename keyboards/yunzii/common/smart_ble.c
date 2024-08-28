@@ -88,7 +88,7 @@ void sc_ble_battary(uint8_t batt_level) {
         uart_write(batt_level);
 }
 
-void WIRELESS_START(uint32_t mode)
+void wireless_start(uint32_t mode)
 {
     uint8_t ble_command[24]; 
     smart_ble_startup();
@@ -107,7 +107,7 @@ void WIRELESS_START(uint32_t mode)
     uart_transmit(ble_command,sizeof(ble_command));
 }
 
-void WIRELESS_STOP(void)
+void wireless_stop(void)
 {
     smart_ble_disconnect();
     uart_write(0x55);  
