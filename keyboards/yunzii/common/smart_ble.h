@@ -18,5 +18,5 @@
 #include "quantum.h"
 
 void sc_ble_battary(uint8_t batt_level);
-void WIRELESS_START(uint32_t mode);
-void WIRELESS_STOP(void);
+void wireless_start(uint32_t mode);
+void wireless_stop(void);
