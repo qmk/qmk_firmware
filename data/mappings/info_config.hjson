@@ -24,6 +24,17 @@
     "AUDIO_VOICES": {"info_key": "audio.voices", "value_type": "flag"},
     "SENDSTRING_BELL": {"info_key": "audio.macro_beep", "value_type": "flag"},
 
+    // AUto Shift
+    "AUTO_SHIFT_ENTER": {"info_key": "auto_shift.enter", "value_type": "flag" },
+    "AUTO_SHIFT_TIMEOUT": {"info_key": "auto_shift.timeout", "value_type": "int" },
+    "AUTO_SHIFT_TIMEOUT_PER_KEY": {"info_key": "auto_shift.timeout_per_key", "value_type": "flag"},
+    "NO_AUTO_SHIFT_ALPHA": {"info_key": "auto_shift.no_alpha", "value_type": "flag"},
+    "NO_AUTO_SHIFT_NUMERIC": {"info_key": "auto_shift.no_numeric", "value_type": "flag"},
+    "NO_AUTO_SHIFT_TAB": {"info_key": "auto_shift.no_tab", "value_type": "flag"},
+    "NO_AUTO_SHIFT_SPECIAL": {"info_key": "auto_shift.no_special", "value_type": "flag"},
+    "NO_AUTO_SHIFT_SYMBOLS": {"info_key": "auto_shift.no_symbols", "value_type": "flag"},
+    "RETRO_SHIFT": {"info_key": "auto_shift.retro", "value_type": "flag" },
+
     // Backlight
     "BACKLIGHT_BREATHING": {"info_key": "backlight.breathing", "value_type": "flag"},
     "BACKLIGHT_CAPS_LOCK": {"info_key": "backlight.as_caps_lock", "value_type": "flag"},
@@ -51,6 +62,9 @@
 
     // Combos
     "COMBO_TERM": {"info_key": "combo.term", "value_type": "int"},
+    "EXTRA_SHORT_COMBOS": {"info_key": "combo.extra_short_combos", "value_type": "int"},
+    "EXTRA_LONG_COMBOS": {"info_key": "combo.extra_long_combos", "value_type": "int"},
+    "EXTRA_EXTRA_LONG_COMBOS": {"info_key": "combo.extra_extra_long_combos", "value_type": "int"},
 
     "DIP_SWITCH_MATRIX_GRID": {"info_key": "dip_switch.matrix_grid", "value_type": "array.array.int", "to_json": false},
     "DIP_SWITCH_PINS": {"info_key": "dip_switch.pins", "value_type": "array"},

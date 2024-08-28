@@ -150,6 +150,20 @@
                 "voices": {"type": "boolean"}
             }
         },
+        "auto_shift": {
+            "type": "object",
+            "properties": {
+                "enter": {"type": "boolean"},
+                "timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "timeout_per_key": {"type": "boolean"},
+                "no_alpha": {"type": "boolean"},
+                "no_numeric": {"type": "boolean"},
+                "no_tab": {"type": "boolean"},
+                "no_special": {"type": "boolean"},
+                "no_symbols": {"type": "boolean"},
+                "retro": {"type": "boolean"}
+            }
+        },
         "backlight": {
             "type": "object",
             "additionalProperties": false,
@@ -276,8 +290,12 @@
         "combo": {
             "type": "object",
             "properties": {
+                "enabled": {"type": "boolean"},
                 "count": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                "term": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                "term": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "extra_short_combos": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "extra_long_combos": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "extra_extra_long_combos": {"$ref": "qmk.definitions.v1#/unsigned_int"}
             }
         },
         "community_layouts": {
