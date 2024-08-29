@@ -34,7 +34,7 @@ util/docker_build.sh keyboard:keymap:target
 # For example: util/docker_build.sh planck/rev6:default:flash
 ```
 
-Note that mass storage bootloader are not supported by the `flash` target. In this case you have to manually copy over the firmware file to the keyboard.
+Note that mass storage bootloaders are not supported by the `flash` target. In this case you will have to manually copy the firmware file to the keyboard.
 
 You can also start the script without any parameters, in which case it will ask you to input the build parameters one by one, which you may find easier to use:
 
