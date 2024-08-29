@@ -39,4 +39,3 @@
 #define SNLED27351_I2C_ADDRESS_2 SNLED27351_I2C_ADDRESS_VDDIO
 #define I2C1_OPMODE OPMODE_I2C
 #define I2C1_CLOCK_SPEED 400000 /* 400000 */
-// #define DISABLE_5075_KEYCODES /*If you need to change or restore the default QMK button function, please open it*/
