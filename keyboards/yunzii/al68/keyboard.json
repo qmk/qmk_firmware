@@ -124,8 +124,7 @@
         "device_version": "1.0.2",
         "no_startup_check": true,
         "pid": "0x304E",
-        "vid": "0x414A",
-        "wait_for_enumeration": false
+        "vid": "0x414A"
     },
     "ws2812": {
         "driver": "pwm",
