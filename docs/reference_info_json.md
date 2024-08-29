@@ -255,9 +255,9 @@ Configures the [Caps Word](features/caps_word) feature.
 Configures the [Combo](features/combo) feature.
 
 * `combo`
-    * `term`
-        * The amount of time to recognize a combo in milliseconds.
-        * Default: `50` (50 ms)
+    * `enabled`
+        * Enables the Combo feature.
+        * Default: `false`
     * `extra_short_combos`
         * Uses of upto 6 keys for combo.
         * Default: `6`
@@ -267,6 +267,9 @@ Configures the [Combo](features/combo) feature.
     * `extra_extra_long_combos`
         * Uses upto 32 keys for combo.
         * Default: `32`
+    * `term`
+        * The amount of time to recognize a combo in milliseconds.
+        * Default: `50` (50 ms)
 
 ## DIP Switches {#dip-switch}
 
