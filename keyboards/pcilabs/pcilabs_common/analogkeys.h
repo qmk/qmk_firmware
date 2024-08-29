@@ -58,7 +58,7 @@ _Static_assert(sizeof(eeconfig_kb_t) == EECONFIG_KB_DATA_SIZE, "Size mismatch");
 
 static const key_config_t key_config_default = {
     .mode                = static_actuation,
-    .switch_type         = latenpow,
+    .switch_type         = KS_20,
     .actuation_point     = 120,
     .press_sensitivity   = 32,
     .release_sensitivity = 32,
