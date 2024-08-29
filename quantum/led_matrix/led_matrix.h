@@ -61,7 +61,7 @@
 #endif
 
 #ifndef LED_MATRIX_VAL_STEP
-#    define LED_MATRIX_VAL_STEP 8
+#    define LED_MATRIX_VAL_STEP 16
 #endif
 
 #ifndef LED_MATRIX_SPD_STEP
