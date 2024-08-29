@@ -135,7 +135,7 @@ Configures the [Audio](features/audio) feature.
         * Use multiple audio voices.
         * Default: `false`
         
-## AUto Shift
+## Auto Shift
 
 Configures the [Auto Shift](features/auto_shift) driver.
 
@@ -259,7 +259,7 @@ Configures the [Combo](features/combo) feature.
         * Enables the Combo feature.
         * Default: `false`
     * `extra_short_combos`
-        * Uses of upto 6 keys for combo.
+        * Uses upto 6 keys for combo.
         * Default: `6`
     * `extra_long_combos`
         * Uses upto 16 keys for combo.
