@@ -39,5 +39,10 @@
                 {"matrix": [3, 3], "x": 3, "y": 3}
             ]
         }
+    },
+    "config": {
+        "VENDOR_ID": "0xFEED",
+        "PRODUCT_ID": "0x0000",
+        "DEVICE_VER": "0x0001"
     }
 }
