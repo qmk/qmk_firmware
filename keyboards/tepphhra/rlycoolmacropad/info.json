@@ -3,8 +3,7 @@
     "manufacturer": "tepphhra",
     "url": "",
     "maintainer": "tepphhra",
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "matrix_pins": {
         "cols": ["C6", "D4", "D0", "D1"],
         "rows": ["B6", "E6", "B4", "B5"]
