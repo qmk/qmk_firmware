@@ -161,7 +161,7 @@
                 "no_tab": {"type": "boolean"},
                 "no_special": {"type": "boolean"},
                 "no_symbols": {"type": "boolean"},
-                "retro": {"type": "boolean"}
+                "retro": {"$ref": "qmk.definitions.v1#/unsigned_int"}
             }
         },
         "backlight": {

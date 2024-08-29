@@ -134,7 +134,39 @@ Configures the [Audio](features/audio) feature.
     * `voices`
         * Use multiple audio voices.
         * Default: `false`
+        
+## AUto Shift
 
+Configures the [Auto Shift](features/auto_shift) driver.
+
+* `auto_shift`
+    * `enter`
+        * Auto Shift the enter key.
+        * Default: `false`
+    * `no_alpha`
+        * Disables Auto Shift on alpha characters, which include A through Z.
+        * Default: `false`
+    * `no_numeric`
+        * Disables Auto Shift on numeric keys, zero through nine.
+        * Default: `false`
+    * `no_tab`
+        * Disables Auto Shift on KC_TAB only.
+        * Default: `false`
+    * `no_special`
+        * Disables Auto Shift on special keys, which include -_, =+, [{, ]}, ;:, '", ,<, .>, /?, and the KC_TAB.
+        * Default: `false`
+    * `no_symbols`
+        * Disables Auto Shift on symbol keys, which include -_, =+, [{, ]}, ;:, '", ,<, .>, and /?.
+        * Default: `false`
+    * `retro`
+        * Changes the behavior of Tap Hold keys, and produces a shifted version of the tap keycode when released.
+        * Default: `200` (200ms)
+    * `timeout`
+        * Adjusts the key hold time to trigger the shifted state.
+        * Default: `175` (175ms)
+    * `timeout_per_key`
+        * Adjusts Auto Shift timeout for different key groups. Cannot override individual keys within a defined group ( e.g., `AUTO_SHIFT_ALPHA` is set)
+        * Default: `false`
 
 ## Backlight {#backlight}
 
@@ -226,6 +258,15 @@ Configures the [Combo](features/combo) feature.
     * `term`
         * The amount of time to recognize a combo in milliseconds.
         * Default: `50` (50 ms)
+    * `extra_short_combos`
+        * Uses of upto 6 keys for combo.
+        * Default: `6`
+    * `extra_long_combos`
+        * Uses upto 16 keys for combo.
+        * Default: `16`
+    * `extra_extra_long_combos`
+        * Uses upto 32 keys for combo.
+        * Default: `32`
 
 ## DIP Switches {#dip-switch}
 

@@ -33,7 +33,7 @@
     "NO_AUTO_SHIFT_TAB": {"info_key": "auto_shift.no_tab", "value_type": "flag"},
     "NO_AUTO_SHIFT_SPECIAL": {"info_key": "auto_shift.no_special", "value_type": "flag"},
     "NO_AUTO_SHIFT_SYMBOLS": {"info_key": "auto_shift.no_symbols", "value_type": "flag"},
-    "RETRO_SHIFT": {"info_key": "auto_shift.retro", "value_type": "flag" },
+    "RETRO_SHIFT": {"info_key": "auto_shift.retro", "value_type": "value_type": "int" },
 
     // Backlight
     "BACKLIGHT_BREATHING": {"info_key": "backlight.breathing", "value_type": "flag"},
