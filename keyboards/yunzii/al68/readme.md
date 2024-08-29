@@ -11,11 +11,11 @@ A customizable 68keys keyboard.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make mk/al68:default
+    make yunzii/al68:default
 
 Flashing example for this keyboard:
 
-    make mk/al68:default:flash
+    make yunzii/al68:default:flash
 
 See the build environment setup and the make instructions for more information. Brand new to QMK? Start with our Complete Newbs Guide.
 
