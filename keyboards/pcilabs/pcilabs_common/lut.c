@@ -29,12 +29,13 @@ uint16_t adc_to_distance(uint16_t adc, switch_type_t sw) {
 }
 
 void generate_lut(void) {
-    for(switch_type_t sw = latenpow; sw <= KS_20; sw++){
+    switch_type_t sw = KS_20;
+    //for(switch_type_t sw = latenpow; sw <= KS_20; sw++){
         //for (uint16_t i = 0; i <= abs(luts[sw].a - luts[sw].d) ; i++) {
         for (uint16_t i = 0; i < ADC_RESOLUTION_MAX; i++) {
             printf("%d ", adc_to_distance(i, sw));
             luts[sw].values[i] = adc_to_distance(i, sw);
-        }
+        //}
         printf("/n/n/n");
     }
 }
