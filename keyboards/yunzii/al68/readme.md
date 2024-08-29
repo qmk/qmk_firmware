@@ -1,7 +1,10 @@
 # MK AL68
 
-* A customizable 68keys keyboard.
+
 ![AL68](https://i.imgur.com/mhiYDh3.png)
+
+A customizable 68keys keyboard.
+
 * Keyboard Maintainer: [Jeff](https://github.com/yunziikeyboard)
 * Hardware Supported: [yunzii](https://www.yunzii.com)
 * Hardware Availability: [yunzii](https://www.yunzii.com)
