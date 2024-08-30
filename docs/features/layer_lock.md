@@ -133,7 +133,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 In the above, `KC_0` is an arbitrary placeholder for the tapping keycode. This
 keycode will never be sent, so any basic keycode will do. In
-`process_record_user()`, the tap press event is changed to to toggle the lock on
+`process_record_user()`, the tap press event is changed to toggle the lock on
 the highest layer. Layer Lock can be combined with a [layer-tap LT
 key](../feature_layers#switching-and-toggling-layers) similarly.
 
