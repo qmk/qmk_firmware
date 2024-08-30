@@ -8,5 +8,11 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": false
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     }
 }

@@ -164,7 +164,7 @@ static void flush(void) {
 
 // Set an led in the buffer to a color
 static inline void setled(int i, uint8_t r, uint8_t g, uint8_t b) {
-#    if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
+#    if defined(RGB_MATRIX_SPLIT)
     const uint8_t k_rgb_matrix_split[2] = RGB_MATRIX_SPLIT;
     if (!is_keyboard_left()) {
         if (i >= k_rgb_matrix_split[0]) {
