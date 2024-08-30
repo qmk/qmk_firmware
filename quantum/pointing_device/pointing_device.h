@@ -25,6 +25,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "pointing_device_auto_mouse.h"
 #endif
 
+#ifdef POINTING_DEVICE_HIGH_RESOLUTION_SCROLL_ENABLE
+#    ifdef POINTING_DEVICE_HIGH_RESOLUTION_SCROLL_MULTIPLIER
+#        if POINTING_DEVICE_HIGH_RESOLUTION_SCROLL_MULTIPLIER > 127 || POINTING_DEVICE_HIGH_RESOLUTION_SCROLL_MULTIPLIER < 1
+#             error "POINTING_DEVICE_HIGH_RESOLUTION_SCROLL_MULTIPLIER must be between 1 and 127, inclusive!"
+#        endif
+#    else
+#        define POINTING_DEVICE_HIGH_RESOLUTION_SCROLL_MULTIPLIER 120
+#    endif
+#    ifdef POINTING_DEVICE_HIGH_RESOLUTION_SCROLL_EXPONENT
+#        if POINTING_DEVICE_HIGH_RESOLUTION_SCROLL_EXPONENT > 127 || POINTING_DEVICE_HIGH_RESOLUTION_SCROLL_EXPONENT < 1
+#            error "POINTING_DEVICE_HIGH_RESOLUTION_SCROLL_EXPONENT must be between 1 and 127, inclusive!"
+#        endif
+#    else
+#        define POINTING_DEVICE_HIGH_RESOLUTION_SCROLL_EXPONENT 0
+#    endif
+#endif
+
 #if defined(POINTING_DEVICE_DRIVER_adns5050)
 #    include "drivers/sensors/adns5050.h"
 #    define POINTING_DEVICE_MOTION_PIN_ACTIVE_LOW
