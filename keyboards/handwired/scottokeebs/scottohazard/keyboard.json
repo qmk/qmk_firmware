@@ -25,7 +25,10 @@
             "matrix": [4, 0]
         },
         "enabled": true,
-        "soft_serial_pin": "GP1"
+        "serial": {
+            "driver": "vendor",
+            "pin": "GP1"
+        }
     },
     "url": "https://scottokeebs.com",
     "usb": {
