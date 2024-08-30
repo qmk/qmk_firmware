@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef readPort
 #    include "gpio_extr.h"
 #endif
+#include "atomic_util.h"
 #include "util.h"
 #include "matrix.h"
 #include "matrix_extr.h"

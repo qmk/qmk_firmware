@@ -2,7 +2,7 @@
     "manufacturer": "Jean Bernard",
     "keyboard_name": "ms_sculpt",
     "maintainer": "jn-bernard",
-    "bootloader": "stm32-dfu",
+    "development_board": "blackpill_f401",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
@@ -22,7 +22,6 @@
         "io_delay": 5
     },
     "debounce": 3,
-    "processor": "STM32F401",
     "url": "",
     "usb": {
         "polling_interval": 1,

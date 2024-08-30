@@ -67,57 +67,23 @@ bool oled_task_kb(void) {
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
-// clang-format off
-led_config_t g_led_config = { {
-    { 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48 },
-    { 36, 35, 34, 33, 32, 31, 30, 29, 28, 27, 26, 25 },
-    { 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24 },
-    { 12, 11, 10,  9,  8,  7,  5,  4,  3,  2,  1,  0}
-}, {
-    { 223,  63 }, { 203,  63 }, { 183,  63 }, { 162,  63 }, { 142,  63 }, { 122,  63 }, { 112,  63 }, { 101,  63 }, {  81,  63 }, {  61,  63 }, {  40,  63 }, {  20,  63 }, {   0,  63 },
-    {   0,  42 }, {  20,  42 }, {  40,  42 }, {  61,  42 }, {  81,  42 }, { 101,  42 }, { 122,  42 }, { 142,  42 }, { 162,  42 }, { 183,  42 }, { 203,  42 }, { 223,  42 },
-    { 223,  21 }, { 203,  21 }, { 183,  21 }, { 162,  21 }, { 142,  21 }, { 122,  21 }, { 101,  21 }, {  81,  21 }, {  61,  21 }, {  40,  21 }, {  20,  21 }, {   0,  21 },
-    {   0,   0 }, {  20,   0 }, {  40,   0 }, {  61,   0 }, {  81,   0 }, { 101,   0 }, { 122,   0 }, { 142,   0 }, { 162,   0 }, { 183,   0 }, { 203,   0 }, { 223,   0 }
-}, {
-    1, 1, 1, 1, 1, 4,4,4, 1, 1, 1, 1, 1,
-    1, 4, 4, 4, 4, 4,  4, 4, 4, 4, 4, 1,
-    1, 4, 4, 4, 4, 4,  4, 4, 4, 4, 4, 1,
-    1, 4, 4, 4, 4, 4,  4, 4, 4, 4, 4, 1
-} };
-// clang-format on
-
-#    ifdef VIA_ENABLE
-bool via_layout_2u = false;
-
-void via_set_layout_options_kb(uint32_t value) { via_layout_2u = (bool)value; }
-#    endif  // VIA_ENABLE
-
 bool rgb_matrix_indicators_kb(void) {
     if (!rgb_matrix_indicators_user()) {
         return false;
     }
-#    ifdef VIA_ENABLE
-    if (via_layout_2u) {
-        rgb_matrix_set_color(5, 0, 0, 0);
-        rgb_matrix_set_color(7, 0, 0, 0);
-    } else {
-        rgb_matrix_set_color(6, 0, 0, 0);
-    }
-#    else
     rgb_matrix_set_color(5, 0, 0, 0);
     rgb_matrix_set_color(7, 0, 0, 0);
-#    endif
     return true;
 }
 
 void keyboard_pre_init_kb(void) {
-    setPinOutput(B2);
-    setPinOutput(B3);
-    setPinOutput(B7);
+    gpio_set_pin_output(B2);
+    gpio_set_pin_output(B3);
+    gpio_set_pin_output(B7);
 
-    writePinLow(B2);
-    writePinLow(B3);
-    writePinLow(B7);
+    gpio_write_pin_low(B2);
+    gpio_write_pin_low(B3);
+    gpio_write_pin_low(B7);
 
     keyboard_pre_init_user();
 }
