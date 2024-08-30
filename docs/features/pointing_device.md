@@ -394,6 +394,7 @@ Ideally, new sensor hardware should be added to `drivers/sensors/` and `quantum/
 | Setting                                        | Description                                                                                                                      | Default       |
 | ---------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ------------- |
 | `MOUSE_EXTENDED_REPORT`                        | (Optional) Enables support for extended mouse reports. (-32767 to 32767, instead of just -127 to 127).                           | _not defined_ |
+| `WHEEL_EXTENDED_REPORT`                        | (Optional) Enables support for extended wheel reports. (-32767 to 32767, instead of just -127 to 127).                           | _not defined_ |
 | `POINTING_DEVICE_ROTATION_90`                  | (Optional) Rotates the X and Y data by  90 degrees.                                                                              | _not defined_ |
 | `POINTING_DEVICE_ROTATION_180`                 | (Optional) Rotates the X and Y data by 180 degrees.                                                                              | _not defined_ |
 | `POINTING_DEVICE_ROTATION_270`                 | (Optional) Rotates the X and Y data by 270 degrees.                                                                              | _not defined_ |
@@ -416,6 +417,32 @@ The `POINTING_DEVICE_CS_PIN`, `POINTING_DEVICE_SDIO_PIN`, and `POINTING_DEVICE_S
 
 ::: warning
 Any pointing device with a lift/contact status can integrate inertial cursor feature into its driver, controlled by `POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE`. e.g. PMW3360 can use Lift_Stat from Motion register. Note that `POINTING_DEVICE_MOTION_PIN` cannot be used with this feature; continuous polling of `get_report()` is needed to generate glide reports.
+:::
+
+## High Resolution Scrolling
+
+| Setting                                            | Description                                                                                                               | Default       |
+| -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| `POINTING_DEVICE_HIGH_RESOLUTION_SCROLL_ENABLE`    | (Optional) Enables high resolution scrolling.                                                                             | _not defined_ |
+| `POINTING_DEVICE_HIGH_RESOLUTION_SCROLL_MULTIPLIER`| (Optional) Resolution mutiplier value used by high resolution scrolling. Must be between 1 and 127, inclusive.            | `120`         |
+| `POINTING_DEVICE_HIGH_RESOLUTION_SCROLL_EXPONENT`  | (Optional) Resolution exponent value used by high resolution scrolling. Must be between 1 and 127, inclusive.             | `0`           |
+
+The `POINTING_DEVICE_HIGH_RESOLUTION_SCROLL_ENABLE` setting enables smooth and continuous scrolling when using trackballs or high-end encoders as mouse wheels (as opposed to the typical stepped behavior of most mouse wheels).
+This works by adding a resolution multiplier to the HID descriptor for mouse wheel reports, causing the host computer to interpret each wheel tick sent by the keyboard as a fraction of a normal wheel tick.
+The resolution multiplier is set to `1 / (POINTING_DEVICE_HIGH_RESOLUTION_SCROLL_MULTIPLIER * (10 ^ POINTING_DEVICE_HIGH_RESOLUTION_SCROLL_EXPONENT))`, which is `1 / 120` by default.
+If even smoother scrolling than provided by this default value is desired, first try using `#define POINTING_DEVICE_HIGH_RESOLUTION_SCROLL_EXPONENT 1` which will result in a multiplier of `1 / 1200`.
+
+::: warning
+High resolution scrolling usually results in larger and/or more frequent mouse reports. This can result in overflow errors and overloading of the host computer's input buffer. 
+To deal with these issues, define `WHEEL_EXTENDED_REPORT` and add throttling to your scrolling implementation to avoid filling the host computer's input buffer.
+See the [high resolution drag-scroll example](pointing_device#high-resolution-drag-scroll) below for more details.
+:::
+
+::: warning
+Many programs, especially those that implement their own smoothing for scrolling, don't work well when they receive simultaneous vertical and horizontal wheel inputs (e.g. from high resolution drag-scroll using a trackball).
+These programs typically implement their smoothing in a way that assumes the user will only scroll in one axis at a time, resulting in slow or jittery motion when trying to scroll at an angle.
+This can be addressed by snapping scrolling to one axis at a time.
+See the [advanced high resolution drag-scroll example](pointing_device#advanced-high-resolution-drag-scroll) below for more details.
 :::
 
 ## Split Keyboard Configuration
@@ -616,6 +643,247 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 ```
 
+### High Resolution Drag Scroll
+
+This basic implementation of high resolution drag-scroll sends wheel data out at a throttled rate to avoid overloading the host computer's input buffer. Add `#define WHEEL_EXTENDED_REPORT` to `config.h` in order to avoid overflow errors.
+
+```c
+// Modify this value to adjust the rate at which wheel reports are sent
+#define SCROLL_RATE 16
+
+enum custom_keycodes {
+    DRAG_SCROLL = SAFE_RANGE,
+};
+
+bool set_scrolling = false;
+uint32_t last_scroll_time = 0;      // last time a wheel report was sent
+int16_t scroll_accumulated_h = 0;   // accumulated scroll values
+int16_t scroll_accumulated_v = 0;   // accumulated scroll values
+
+// Function to handle mouse reports and perform drag scrolling
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+    
+    // Check if drag scrolling is active
+    if (!set_scrolling) { return mouse_report; }
+    
+    // Accumulate scroll values based on mouse movement
+    scroll_accumulated_h += mouse_report.x;
+    scroll_accumulated_v += mouse_report.y;
+    
+    // Clear the X and Y values of the mouse report
+    mouse_report.x = 0;
+    mouse_report.y = 0;
+    
+    // Check to see if it's time to send another wheel report; if not, stop here
+    if (timer_elapsed32(last_scroll_time) < SCROLL_RATE) {
+        mouse_report.h = 0;
+        mouse_report.v = 0;
+        return mouse_report;
+    }
+    
+    // Keep track of when we last sent a wheel report
+    last_scroll_time = timer_read32();
+    
+    // Assign accumulated scroll values to the mouse report
+    mouse_report->h = scroll_accumulated_h;
+    mouse_report->v = scroll_accumulated_v;
+    
+    // Reset accumulated scroll values
+    scroll_accumulated_h = 0;
+    scroll_accumulated_v = 0;
+    
+    // Return modified mouse report
+    return mouse_report;
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (keycode == DRAG_SCROLL && record->event.pressed) {
+        set_scrolling = !set_scrolling;
+    }
+    return true;
+}
+```
+
+### Advanced High Resolution Drag Scroll
+
+This implementation of high resolution drag-scroll implements several features: throttling, rescaling, smoothing, and axis-snapping. As in the previous example, make sure to add `#define WHEEL_EXTENDED_REPORT` to `config.h` in order to avoid overflow errors.
+
+```c
+// Modify this value to adjust the rate at which wheel reports are sent
+#define SCROLL_RATE 16
+
+// Modify these values to adjust the scrolling speed
+#define SCROLL_DIVISOR_H 8.0
+#define SCROLL_DIVISOR_V 8.0
+
+// Modify this value to adjust the amount of smoothing applied
+#define RING_BUFFER_CAPACITY 4
+
+// Modify these values to adjust snapping dynamics
+#define SCROLL_SNAPPING_THRESHOLD 10  // increase to make it harder to switch axes
+#define SCROLL_SNAPPING_RATIO 1.5
+
+// Simple ring buffer implementation for smoothing
+typedef struct {
+    float items[RING_BUFFER_CAPACITY];
+    float current_sum;
+    size_t current_size;
+    size_t next_index;
+} ring_buffer_t;
+float ring_buffer_mean(ring_buffer_t* rb) {
+    return rb->current_size > 0 ? rb->current_sum / rb->current_size : 0.0;
+}
+void ring_buffer_reset(ring_buffer_t* rb) {
+    rb->current_sum = 0;
+    rb->current_size = 0;
+    rb->next_index = 0;
+}
+void ring_buffer_push(ring_buffer_t* rb, float item) {
+    if (rb->current_size == RING_BUFFER_CAPACITY) {
+        rb->current_sum -= rb->items[rb->next_index];
+    } else {
+        rb->current_size++;
+    }
+    rb->items[rb->next_index] = item;
+    rb->current_sum += item;
+    rb->next_index = (rb->next_index + 1) % RING_BUFFER_CAPACITY;
+}
+
+enum custom_keycodes {
+    DRAG_SCROLL = SAFE_RANGE,
+};
+
+enum scroll_snap_states {
+    NEITHER = 0,
+    HORIZONTAL,
+    VERTICAL,
+};
+
+bool set_scrolling = false;
+uint32_t last_scroll_time = 0;                  // last time a wheel report was sent
+float scroll_accumulated_h = 0;                 // accumulated scroll values
+float scroll_accumulated_v = 0;                 // accumulated scroll values
+ring_buffer_t scroll_smoothing_buffer_h = {0};  // used for smoothing
+ring_buffer_t scroll_smoothing_buffer_v = {0};  // used for smoothing
+uint16_t scroll_snap_state = NEITHER;           // used for snapping (keeps track of which axis we're snappped to)
+float scroll_snap_deviation = 0;                // used for snapping (if this becomes too big, switch to the other axis)
+
+// Function to handle mouse reports and perform drag scrolling
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+    
+    // Check if drag scrolling is active
+    if (!set_scrolling) { return mouse_report; }
+    
+    // Calculate and accumulate scroll values based on mouse movement and divisors
+    scroll_accumulated_h += (float)mouse_report.x / SCROLL_DIVISOR_H;
+    scroll_accumulated_v += (float)mouse_report.y / SCROLL_DIVISOR_V;
+    
+    // Clear the X and Y values of the mouse report
+    mouse_report.x = 0;
+    mouse_report.y = 0;
+    
+    // Check to see if it's time to send another wheel report; if not, stop here
+    if (timer_elapsed32(last_scroll_time) < SCROLL_RATE) {
+        mouse_report.h = 0;
+        mouse_report.v = 0;
+        return mouse_report;
+    }
+    
+    // Keep track of when we last sent a wheel report
+    last_scroll_time = timer_read32();
+    
+    // Apply smoothing using ring buffers
+    ring_buffer_push(&scroll_smoothing_buffer_h, scroll_accumulated_h);
+    ring_buffer_push(&scroll_smoothing_buffer_v, scroll_accumulated_v);
+    scroll_accumulated_h = ring_buffer_mean(&scroll_smoothing_buffer_h);
+    scroll_accumulated_v = ring_buffer_mean(&scroll_smoothing_buffer_v);
+    
+    // Apply axis-snapping
+    if (scroll_snap_state == NEITHER) {
+        if (abs(scroll_accumulated_h) > abs(scroll_accumulated_v)) {
+            scroll_accumulated_v = 0;
+            scroll_snap_state = HORIZONTAL;
+        } else if (abs(scroll_accumulated_h) < abs(scroll_accumulated_v)) {
+            scroll_accumulated_h = 0;
+            scroll_snap_state = VERTICAL;
+        }
+    } else if (scroll_snap_state == HORIZONTAL) {
+        scroll_snap_deviation += scroll_accumulated_v;
+        if (scroll_snap_deviation > 0) {
+            scroll_snap_deviation -= abs(scroll_accumulated_h) * SCROLL_SNAPPING_RATIO;
+            scroll_snap_deviation = scroll_snap_deviation < 0 ? 0 : scroll_snap_deviation;
+        } else if (scroll_snap_deviation < 0) {
+            scroll_snap_deviation += abs(scroll_accumulated_h) * SCROLL_SNAPPING_RATIO;
+            scroll_snap_deviation = scroll_snap_deviation > 0 ? 0 : scroll_snap_deviation;
+        }
+        if (abs(scroll_snap_deviation) > SCROLL_SNAPPING_THRESHOLD) {
+            scroll_accumulated_h = 0;
+            ring_buffer_reset(&scroll_smoothing_buffer_h);
+            ring_buffer_reset(&scroll_smoothing_buffer_v);
+            scroll_snap_state = VERTICAL;
+            scroll_snap_deviation = 0;
+        } else {
+            scroll_accumulated_v = 0;
+        }
+    } else if (scroll_snap_state == VERTICAL) {
+        scroll_snap_deviation += scroll_accumulated_h;
+        if (scroll_snap_deviation > 0) {
+            scroll_snap_deviation -= abs(scroll_accumulated_v) * SCROLL_SNAPPING_RATIO;
+            scroll_snap_deviation = scroll_snap_deviation < 0 ? 0 : scroll_snap_deviation;
+        } else if (scroll_snap_deviation < 0) {
+            scroll_snap_deviation += abs(scroll_accumulated_v) * SCROLL_SNAPPING_RATIO;
+            scroll_snap_deviation = scroll_snap_deviation > 0 ? 0 : scroll_snap_deviation;
+        }
+        if (abs(scroll_snap_deviation) > SCROLL_SNAPPING_THRESHOLD) {
+            scroll_accumulated_v = 0;
+            ring_buffer_reset(&scroll_smoothing_buffer_h);
+            ring_buffer_reset(&scroll_smoothing_buffer_v);
+            scroll_snap_state = HORIZONTAL;
+            scroll_snap_deviation = 0;
+        } else {
+            scroll_accumulated_h = 0;
+        }
+    }
+    
+    // Assign integer parts of accumulated scroll values to the mouse report
+    mouse_report.h = (int16_t)scroll_accumulated_h;
+    mouse_report.v = (int16_t)scroll_accumulated_v;
+
+    // Update accumulated scroll values by subtracting the integer parts
+    scroll_accumulated_h -= (int16_t)scroll_accumulated_h;
+    scroll_accumulated_v -= (int16_t)scroll_accumulated_v;
+    
+    // Return modified mouse report
+    return mouse_report;
+}
+
+// Function to start drag scrolling
+void scrolling_start(void) {
+    set_scrolling = true;
+    scroll_accumulated_h = 0;
+    scroll_accumulated_v = 0;
+    ring_buffer_reset(&scroll_smoothing_buffer_h);
+    ring_buffer_reset(&scroll_smoothing_buffer_v);
+    scroll_snap_state = 0;
+    scroll_snap_deviation = 0;
+}
+
+// Function to stop drag scrolling
+void scrolling_stop(void) {
+    set_scrolling = false;
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (keycode == DRAG_SCROLL && record->event.pressed) {
+        if (set_scrolling) {
+            scrolling_stop();
+        } else {
+            scrolling_start();
+        }
+    }
+    return true;
+}
+```
 
 ## Split Examples
 
