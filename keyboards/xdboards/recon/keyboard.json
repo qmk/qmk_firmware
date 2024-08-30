@@ -44,6 +44,7 @@
             "sync": {
                 "layer_state": true,
                 "oled": true,
+                "matrix_state": true,
                 "modifiers": true
             }
         }
