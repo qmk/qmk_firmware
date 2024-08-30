@@ -84,7 +84,7 @@ static last_hit_t last_hit_buffer;
 #endif // RGB_MATRIX_KEYREACTIVE_ENABLED
 
 // split rgb matrix
-#if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
+#if defined(RGB_MATRIX_SPLIT)
 const uint8_t k_rgb_matrix_split[2] = RGB_MATRIX_SPLIT;
 #endif
 
@@ -148,7 +148,7 @@ void rgb_matrix_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void rgb_matrix_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
-#if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
+#if defined(RGB_MATRIX_SPLIT)
     for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++)
         rgb_matrix_set_color(i, red, green, blue);
 #else

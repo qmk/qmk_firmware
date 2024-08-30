@@ -49,7 +49,11 @@
         ]
     },
     "qmk": {
-        "tap_keycode_delay": 10
+        "tap_keycode_delay": 10,
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     },
     "community_layouts": ["65_iso", "65_ansi"],
     "layouts": {

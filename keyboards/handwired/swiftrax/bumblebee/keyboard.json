@@ -36,8 +36,11 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "layout_aliases": {
+        "LAYOUT_all": "LAYOUT"
+    },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [1, 0], "x": 1, "y": 0, "w": 1.5},

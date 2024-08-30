@@ -2629,15 +2629,12 @@ void backlight_debug_led( bool state )
 {
     if (state)
     {
-        // Output high.
-        DDRE |= (1<<6);
-        PORTE |= (1<<6);
+        gpio_set_pin_output(E6);
+        gpio_write_pin_high(E6);
     }
     else
     {
-        // Output low.
-        DDRE &= ~(1<<6);
-        PORTE &= ~(1<<6);
+        gpio_set_pin_input(E6);
     }
 }
 #endif // defined(RGB_DEBUGGING_ONLY)
