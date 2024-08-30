@@ -27,7 +27,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_P0,  KC_P0,   KC_PDOT, KC_PENT),
 
     [1] = LAYOUT_all(
-        RGB_TOG, RGB_VAD, RGB_VAI, _______,
+        UG_TOGG, UG_VALD, UG_VALU, _______,
         _______, _______, _______, NK_TOGG,
         _______, _______, _______, _______,
         _______, _______, _______, _______,

@@ -33,6 +33,11 @@
         "pin": "B7",
         "levels": 5
     },
+    "indicators": {
+        "caps_lock": "B1",
+        "scroll_lock": "B2",
+        "on_state": 0
+    },
     "ws2812": {
         "pin": "B0"
     },

@@ -10,5 +10,7 @@ void keyboard_post_init_kb(void) {
   debug_enable=true;
   debug_matrix=true;
   debug_keyboard=true;
+
+  keyboard_post_init_user();
 }
 #endif

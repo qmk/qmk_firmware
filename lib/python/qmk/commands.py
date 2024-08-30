@@ -113,7 +113,9 @@ def dump_lines(output_file, lines, quiet=True):
                     cli.log.info(f'No changes to {output_file.name}.')
                 return
             output_file.replace(output_file.parent / (output_file.name + '.bak'))
-        output_file.write_text(generated, encoding='utf-8')
+        with open(output_file, 'w', encoding='utf-8', newline='\n') as f:
+            f.write(generated)
+        # output_file.write_text(generated, encoding='utf-8', newline='\n') # `newline` needs Python 3.10
 
         if not quiet:
             cli.log.info(f'Wrote {output_file.name} to {output_file}.')

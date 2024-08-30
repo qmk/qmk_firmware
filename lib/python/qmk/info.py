@@ -7,7 +7,7 @@ from dotty_dict import dotty
 
 from milc import cli
 
-from qmk.constants import COL_LETTERS, ROW_LETTERS, CHIBIOS_PROCESSORS, LUFA_PROCESSORS, VUSB_PROCESSORS
+from qmk.constants import COL_LETTERS, ROW_LETTERS, CHIBIOS_PROCESSORS, LUFA_PROCESSORS, VUSB_PROCESSORS, JOYSTICK_AXES
 from qmk.c_parse import find_layouts, parse_config_h_file, find_led_config
 from qmk.json_schema import deep_update, json_load, validate
 from qmk.keyboard import config_h, rules_mk
@@ -249,8 +249,9 @@ def info_json(keyboard, force_layout=None):
     info_data = _extract_rules_mk(info_data, rules_mk(str(keyboard)))
     info_data = _extract_config_h(info_data, config_h(str(keyboard)))
 
-    # Ensure that we have matrix row and column counts
+    # Ensure that we have various calculated values
     info_data = _matrix_size(info_data)
+    info_data = _joystick_axis_count(info_data)
 
     # Merge in data from <keyboard.c>
     info_data = _extract_led_config(info_data, str(keyboard))
@@ -379,8 +380,8 @@ def _extract_audio(info_data, config_c):
 def _extract_encoders_values(config_c, postfix=''):
     """Common encoder extraction logic
     """
-    a_pad = config_c.get(f'ENCODERS_PAD_A{postfix}', '').replace(' ', '')[1:-1]
-    b_pad = config_c.get(f'ENCODERS_PAD_B{postfix}', '').replace(' ', '')[1:-1]
+    a_pad = config_c.get(f'ENCODER_A_PINS{postfix}', '').replace(' ', '')[1:-1]
+    b_pad = config_c.get(f'ENCODER_B_PINS{postfix}', '').replace(' ', '')[1:-1]
     resolutions = config_c.get(f'ENCODER_RESOLUTIONS{postfix}', '').replace(' ', '')[1:-1]
 
     default_resolution = config_c.get('ENCODER_RESOLUTION', None)
@@ -463,6 +464,14 @@ def _extract_split_handedness(info_data, config_c):
     if 'matrix_grid' in split:
         split['handedness'] = split.get('handedness', {})
         split['handedness']['matrix_grid'] = split.pop('matrix_grid')
+
+
+def _extract_split_serial(info_data, config_c):
+    # Migrate
+    split = info_data.get('split', {})
+    if 'soft_serial_pin' in split:
+        split['serial'] = split.get('serial', {})
+        split['serial']['pin'] = split.pop('soft_serial_pin')
 
 
 def _extract_split_transport(info_data, config_c):
@@ -660,6 +669,7 @@ def _extract_config_h(info_data, config_c):
     _extract_audio(info_data, config_c)
     _extract_secure_unlock(info_data, config_c)
     _extract_split_handedness(info_data, config_c)
+    _extract_split_serial(info_data, config_c)
     _extract_split_transport(info_data, config_c)
     _extract_split_right_pins(info_data, config_c)
     _extract_encoders(info_data, config_c)
@@ -801,6 +811,16 @@ def _matrix_size(info_data):
         if 'split' in info_data:
             if info_data['split'].get('enabled', False):
                 info_data['matrix_size']['rows'] *= 2
+
+    return info_data
+
+
+def _joystick_axis_count(info_data):
+    """Add info_data['joystick.axis_count'] if required
+    """
+    if 'axes' in info_data.get('joystick', {}):
+        axes_keys = info_data['joystick']['axes'].keys()
+        info_data['joystick']['axis_count'] = max(JOYSTICK_AXES.index(a) for a in axes_keys) + 1 if axes_keys else 0
 
     return info_data
 
