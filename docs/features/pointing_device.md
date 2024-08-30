@@ -648,7 +648,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 This basic implementation of high resolution drag-scroll sends wheel data out at a throttled rate to avoid overloading the host computer's input buffer. Add `#define WHEEL_EXTENDED_REPORT` to `config.h` in order to avoid overflow errors.
 
 ```c
-// Modify this value to adjust the rate at which wheel reports are sent
+// Modify this value to adjust the rate at which mouse reports are sent while drag scrolling
 #define SCROLL_RATE 16
 
 enum custom_keycodes {
@@ -656,7 +656,7 @@ enum custom_keycodes {
 };
 
 bool set_scrolling = false;
-uint32_t last_scroll_time = 0;      // last time a wheel report was sent
+uint32_t last_scroll_time = 0;      // last time a mouse report was sent
 int16_t scroll_accumulated_h = 0;   // accumulated scroll values
 int16_t scroll_accumulated_v = 0;   // accumulated scroll values
 
@@ -674,14 +674,14 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     mouse_report.x = 0;
     mouse_report.y = 0;
     
-    // Check to see if it's time to send another wheel report; if not, stop here
+    // Check to see if it's time to send another mouse report; if not, stop here
     if (timer_elapsed32(last_scroll_time) < SCROLL_RATE) {
         mouse_report.h = 0;
         mouse_report.v = 0;
         return mouse_report;
     }
     
-    // Keep track of when we last sent a wheel report
+    // Keep track of when we last sent a mouse report
     last_scroll_time = timer_read32();
     
     // Assign accumulated scroll values to the mouse report
@@ -709,12 +709,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 This implementation of high resolution drag-scroll implements several features: throttling, rescaling, smoothing, and axis-snapping. As in the previous example, make sure to add `#define WHEEL_EXTENDED_REPORT` to `config.h` in order to avoid overflow errors.
 
 ```c
-// Modify this value to adjust the rate at which wheel reports are sent
+# include <math.h>
+
+// Modify this value to adjust the rate at which mouse reports are sent while drag scrolling
 #define SCROLL_RATE 16
 
 // Modify these values to adjust the scrolling speed
-#define SCROLL_DIVISOR_H 8.0
-#define SCROLL_DIVISOR_V 8.0
+#define SCROLL_MULTIPLIER_H 4.0
+#define SCROLL_MULTIPLIER_V 4.0
 
 // Modify this value to adjust the amount of smoothing applied
 #define RING_BUFFER_CAPACITY 4
@@ -731,7 +733,7 @@ typedef struct {
     size_t next_index;
 } ring_buffer_t;
 float ring_buffer_mean(ring_buffer_t* rb) {
-    return rb->current_size > 0 ? rb->current_sum / rb->current_size : 0.0;
+    return rb->current_size > 0 ? rb->current_sum / rb->current_size : 0;
 }
 void ring_buffer_reset(ring_buffer_t* rb) {
     rb->current_sum = 0;
@@ -760,7 +762,7 @@ enum scroll_snap_states {
 };
 
 bool set_scrolling = false;
-uint32_t last_scroll_time = 0;                  // last time a wheel report was sent
+uint32_t last_scroll_time = 0;                  // last time a mouse report was sent
 float scroll_accumulated_h = 0;                 // accumulated scroll values
 float scroll_accumulated_v = 0;                 // accumulated scroll values
 ring_buffer_t scroll_smoothing_buffer_h = {0};  // used for smoothing
@@ -775,21 +777,21 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     if (!set_scrolling) { return mouse_report; }
     
     // Calculate and accumulate scroll values based on mouse movement and divisors
-    scroll_accumulated_h += (float)mouse_report.x / SCROLL_DIVISOR_H;
-    scroll_accumulated_v += (float)mouse_report.y / SCROLL_DIVISOR_V;
+    scroll_accumulated_h += (float)mouse_report.x * SCROLL_MULTIPLIER_H;
+    scroll_accumulated_v += (float)mouse_report.y * SCROLL_MULTIPLIER_V;
     
     // Clear the X and Y values of the mouse report
     mouse_report.x = 0;
     mouse_report.y = 0;
     
-    // Check to see if it's time to send another wheel report; if not, stop here
+    // Check to see if it's time to send another mouse report; if not, stop here
     if (timer_elapsed32(last_scroll_time) < SCROLL_RATE) {
         mouse_report.h = 0;
         mouse_report.v = 0;
         return mouse_report;
     }
     
-    // Keep track of when we last sent a wheel report
+    // Keep track of when we last sent a mouse report
     last_scroll_time = timer_read32();
     
     // Apply smoothing using ring buffers
@@ -845,13 +847,13 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
         }
     }
     
-    // Assign integer parts of accumulated scroll values to the mouse report
-    mouse_report.h = (int16_t)scroll_accumulated_h;
-    mouse_report.v = (int16_t)scroll_accumulated_v;
+    // Round processed scroll values and assign to the mouse report
+    mouse_report.h = (int16_t)(round(scroll_accumulated_h));
+    mouse_report.v = (int16_t)(round(scroll_accumulated_v));
 
-    // Update accumulated scroll values by subtracting the integer parts
-    scroll_accumulated_h -= (int16_t)scroll_accumulated_h;
-    scroll_accumulated_v -= (int16_t)scroll_accumulated_v;
+    // Reset accumulated scroll values
+    scroll_accumulated_h = 0;
+    scroll_accumulated_v = 0;
     
     // Return modified mouse report
     return mouse_report;
