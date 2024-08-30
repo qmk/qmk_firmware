@@ -28,11 +28,11 @@
     "AUTO_SHIFT_ENTER": {"info_key": "auto_shift.enter", "value_type": "flag" },
     "AUTO_SHIFT_TIMEOUT": {"info_key": "auto_shift.timeout", "value_type": "int" },
     "AUTO_SHIFT_TIMEOUT_PER_KEY": {"info_key": "auto_shift.timeout_per_key", "value_type": "flag"},
-    "NO_AUTO_SHIFT_ALPHA": {"info_key": "auto_shift.no_alpha", "value_type": "flag"},
-    "NO_AUTO_SHIFT_NUMERIC": {"info_key": "auto_shift.no_numeric", "value_type": "flag"},
-    "NO_AUTO_SHIFT_TAB": {"info_key": "auto_shift.no_tab", "value_type": "flag"},
-    "NO_AUTO_SHIFT_SPECIAL": {"info_key": "auto_shift.no_special", "value_type": "flag"},
-    "NO_AUTO_SHIFT_SYMBOLS": {"info_key": "auto_shift.no_symbols", "value_type": "flag"},
+    "NO_AUTO_SHIFT_ALPHA": {"info_key": "auto_shift.exclusions.no_alpha", "value_type": "flag"},
+    "NO_AUTO_SHIFT_NUMERIC": {"info_key": "auto_shift.exclusions.no_numeric", "value_type": "flag"},
+    "NO_AUTO_SHIFT_TAB": {"info_key": "auto_shift.exclusions.no_tab", "value_type": "flag"},
+    "NO_AUTO_SHIFT_SPECIAL": {"info_key": "auto_shift.exclusions.no_special", "value_type": "flag"},
+    "NO_AUTO_SHIFT_SYMBOLS": {"info_key": "auto_shift.exclusions.no_symbols", "value_type": "flag"},
     "RETRO_SHIFT": {"info_key": "auto_shift.retro", "value_type": "int" },
 
     // Backlight
@@ -62,9 +62,17 @@
 
     // Combos
     "COMBO_TERM": {"info_key": "combo.term", "value_type": "int"},
-    "EXTRA_SHORT_COMBOS": {"info_key": "combo.extra_short_combos", "value_type": "int"},
-    "EXTRA_LONG_COMBOS": {"info_key": "combo.extra_long_combos", "value_type": "int"},
-    "EXTRA_EXTRA_LONG_COMBOS": {"info_key": "combo.extra_extra_long_combos", "value_type": "int"},
+    "COMBO_BUFFER_LENGTH": {"info_key": "combo.buffer.length", "value_type": "int"},
+    "COMBO_KEY_BUFFER_LENGTH": {"info_key": "combo.buffer.key_length", "value_type": "int"},
+    "COMBO_MUST_HOLD_MODS": {"info_key": "combo.modifiers.hold_mod", "value_type": "flag"},
+    "COMBO_HOLD_TERM": {"info_key": "combo.modifiers.hold_term", "value_type": "int"},
+    "COMBO_MUST_HOLD_PER_COMBO": {"info_key": "combo.timing.hold", "value_type": "flag"},
+    "COMBO_MUST_PRESS_IN_ORDER_PER_COMBO": {"info_key": "combo.timing.press_in_order", "value_type": "flag"},
+    "COMBO_MUST_TAP_PER_COMBO": {"info_key": "combo.timing.tap", "value_type": "flag"},
+    "COMBO_TERM_PER_COMBO": {"info_key": "combo.timing.term", "value_type": "int"},
+    "EXTRA_EXTRA_LONG_COMBOS": {"info_key": "combo.length.extra_long", "value_type": "int"},
+    "EXTRA_LONG_COMBOS": {"info_key": "combo.length.long", "value_type": "int"},
+    "EXTRA_SHORT_COMBOS": {"info_key": "combo.length.short", "value_type": "int"},
 
     "DIP_SWITCH_MATRIX_GRID": {"info_key": "dip_switch.matrix_grid", "value_type": "array.array.int", "to_json": false},
     "DIP_SWITCH_PINS": {"info_key": "dip_switch.pins", "value_type": "array"},

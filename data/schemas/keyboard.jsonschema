@@ -156,12 +156,18 @@
                 "enter": {"type": "boolean"},
                 "timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "timeout_per_key": {"type": "boolean"},
-                "no_alpha": {"type": "boolean"},
-                "no_numeric": {"type": "boolean"},
-                "no_tab": {"type": "boolean"},
-                "no_special": {"type": "boolean"},
-                "no_symbols": {"type": "boolean"},
                 "retro": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                "exclusions": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "no_alpha": {"type": "boolean"},
+                        "no_numeric": {"type": "boolean"},
+                        "no_tab": {"type": "boolean"},
+                        "no_special": {"type": "boolean"},
+                        "no_symbols": {"type": "boolean"},
+                    }
+                }
             }
         },
         "backlight": {
@@ -293,9 +299,41 @@
                 "enabled": {"type": "boolean"},
                 "count": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "term": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                "extra_short_combos": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                "extra_long_combos": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                "extra_extra_long_combos": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                "buffer": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "length": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                        "key_length": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                    }
+                },
+                "length": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "extra_long": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                        "long": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                        "short": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                    }
+                },
+                "modifiers": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "hold_mod": {"type": "boolean"},
+                        "hold_term": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                    }
+                },
+                "timing": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "hold": {"type": "boolean"},
+                        "press_in_order": {"type": "boolean"},
+                        "tap": {"type": "boolean"},
+                        "term": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                    }
+                }
             }
         },
         "community_layouts": {

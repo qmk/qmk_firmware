@@ -143,22 +143,7 @@ Configures the [Auto Shift](features/auto_shift) driver.
     * `enter`
         * Auto Shift the enter key.
         * Default: `false`
-    * `no_alpha`
-        * Disables Auto Shift on alpha characters, which include A through Z.
-        * Default: `false`
-    * `no_numeric`
-        * Disables Auto Shift on numeric keys, zero through nine.
-        * Default: `false`
-    * `no_tab`
-        * Disables Auto Shift on KC_TAB only.
-        * Default: `false`
-    * `no_special`
-        * Disables Auto Shift on special keys, which include -_, =+, [{, ]}, ;:, '", ,<, .>, /?, and the KC_TAB.
-        * Default: `false`
-    * `no_symbols`
-        * Disables Auto Shift on symbol keys, which include -_, =+, [{, ]}, ;:, '", ,<, .>, and /?.
-        * Default: `false`
-    * `retro`
+     * `retro`
         * Changes the behavior of Tap Hold keys, and produces a shifted version of the tap keycode when released.
         * Default: `200` (200ms)
     * `timeout`
@@ -167,6 +152,22 @@ Configures the [Auto Shift](features/auto_shift) driver.
     * `timeout_per_key`
         * Adjusts Auto Shift timeout for different key groups. Cannot override individual keys within a defined group ( e.g., `AUTO_SHIFT_ALPHA` is set)
         * Default: `false`
+    * `exclusions`:
+        * `no_alpha`
+            * Disables Auto Shift on alpha characters, which include A through Z.
+            * Default: `false`
+        * `no_numeric`
+            * Disables Auto Shift on numeric keys, zero through nine.
+            * Default: `false`
+        * `no_tab`
+            * Disables Auto Shift on KC_TAB only.
+            * Default: `false`
+        * `no_special`
+            * Disables Auto Shift on special keys, which include -_, =+, [{, ]}, ;:, '", ,<, .>, /?, and the KC_TAB.
+            * Default: `false`
+        * `no_symbols`
+            * Disables Auto Shift on symbol keys, which include -_, =+, [{, ]}, ;:, '", ,<, .>, and /?.
+            * Default: `false`
 
 ## Backlight {#backlight}
 
@@ -258,18 +259,47 @@ Configures the [Combo](features/combo) feature.
     * `enabled`
         * Enables the Combo feature.
         * Default: `false`
-    * `extra_short_combos`
-        * Uses upto 6 keys for combo.
-        * Default: `6`
-    * `extra_long_combos`
-        * Uses upto 16 keys for combo.
-        * Default: `16`
-    * `extra_extra_long_combos`
-        * Uses upto 32 keys for combo.
-        * Default: `32`
     * `term`
-        * The amount of time to recognize a combo in milliseconds.
+        * The amount of time to recognize a combos in milliseconds.
         * Default: `50` (50 ms)
+     * `buffer`
+        * `length`
+            * Sets the size of the buffer when combos being activated.
+            * Default: `4`
+        * `key_length`
+            * Sets the size of the buffer when key pressed.
+            * Default: `8`
+    * `length`
+        * `short`
+            * Uses upto 6 keys for combos.
+            * Default: `6`
+        * `long`
+            * Uses upto 16 keys for combos.
+            * Default: `16`
+        * `extra_long`
+            * Uses upto 32 keys for combos.
+            * Default: `32`
+    * `modifiers`
+        * `hold_mod`
+            * Extends the window for processing combo independently from normal combos.
+            * Default: `false`
+        * `hold_term`
+            * Sets the time window for processing the combo.
+            * Default: `200` (200ms)
+    * `timing`
+        * A time window per combo which can be configured.
+            * `hold`
+                * Controls if a given combo should fire only when it is held.
+                * Default: `false`
+            * `press_in_order`
+                * Controls if a given combo should fire only if its keys are pressed in order.
+                * Default: `true`
+            * `tap`
+                * Controls if a given combo should fire only if tapped within `COMBO_HOLD_TERM`.
+                * Default: `false`
+            * `term`
+                * Sets per combo timeout window.
+                * Default: `50` (50ms)
 
 ## DIP Switches {#dip-switch}
 
