@@ -248,13 +248,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void matrix_scan_kb(void) {
-    if (!is_oled_on()) {
-        m2s.cur_alp_index = 1;
-    }
-    matrix_scan_user();
-}
-
 void user_sync_alpa_slave_handler(uint8_t in_buflen, const void *in_data, uint8_t out_buflen, void *out_data) {
     const master_to_slave_t *m2s_p = (const master_to_slave_t *)in_data;
     s2m.cur_alp_index              = m2s_p->cur_alp_index;
@@ -270,6 +263,9 @@ void keyboard_post_init_kb(void) {
 
 void housekeeping_task_kb(void) {
     if (is_keyboard_master()) {
+        if (!is_oled_on()) {
+            m2s.cur_alp_index = 1;
+        }
         // Interact with slave every 200ms
         static uint32_t last_sync = 0;
         if (timer_elapsed32(last_sync) > 200) {
@@ -281,7 +277,6 @@ void housekeeping_task_kb(void) {
             }
         }
     }
-    housekeeping_task_user();
 }
 
 #endif

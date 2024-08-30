@@ -8,6 +8,12 @@
         "enabled": true,
         "bootmagic": {
             "matrix": [7, 0]
+        },
+        "serial": {
+            "driver": "usart"
+        },
+        "handedness": {
+            "pin": "B10"
         }
     },
     "development_board": "blackpill_f411",
@@ -17,5 +23,11 @@
         "extrakey": true,
         "console": true,
         "command": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     }
 }
