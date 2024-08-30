@@ -40,9 +40,9 @@
             ]
         }
     },
-    "config": {
-        "VENDOR_ID": "0xFEED",
-        "PRODUCT_ID": "0x0000",
-        "DEVICE_VER": "0x0001"
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0x0001"
     }
 }
