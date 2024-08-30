@@ -9,8 +9,7 @@ An 75%/TenKeyLess sized keyboard with 1 RGB.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make herevoland/buff75:default
-       
+    make herevoland/buff75:default   
 Flashing example for this keyboard:
 
     make herevoland/buff75:default:flash
