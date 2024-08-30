@@ -32,7 +32,9 @@
         "handedness": {
             "pin": "D2"
         },
-        "soft_serial_pin": "D0",
+        "serial": {
+            "pin": "D0"
+        },
         "matrix_pins": {
             "right": {
                 "cols": ["B6", "B2", "B3", "B1", "F7", "F6", "F5", "F4"],
