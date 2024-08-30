@@ -40,7 +40,10 @@
                     ["GP26", "GP16", "GP18", "GP17", null, null]
                 ]
             }
-        }
+        },
+        "serial": {
+            "driver": "vendor"
+        }        
     },
     "layouts": {
         "LAYOUT": {
