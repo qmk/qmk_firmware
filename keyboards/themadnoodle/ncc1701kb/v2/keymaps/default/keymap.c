@@ -33,8 +33,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     
     [1] = LAYOUT_ortho_3x3(
-      RGB_MOD, RGB_TOG, RGB_RMOD, 
-      RGB_VAD, RGB_M_P, RGB_VAI, 
+      UG_NEXT, UG_TOGG, UG_PREV,
+      UG_VALD, RGB_M_P, UG_VALU, 
       LT(3,RGB_M_SW), RGB_M_B, KC_TRNS
       ),
 
@@ -78,8 +78,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] =  { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [1] =  { ENCODER_CCW_CW(RGB_HUD, RGB_HUI) },
+    [1] =  { ENCODER_CCW_CW(UG_HUED, UG_HUEU) },
     [2] =  { ENCODER_CCW_CW(KC_LEFT, KC_RGHT) },
-    [3] =  { ENCODER_CCW_CW(RGB_SAD, RGB_SAI) },
+    [3] =  { ENCODER_CCW_CW(UG_SATD, UG_SATU) },
 };
 #endif
