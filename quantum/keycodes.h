@@ -72,6 +72,8 @@ enum qk_keycode_ranges {
     QK_STENO_MAX                   = 0x74FF,
     QK_MACRO                       = 0x7700,
     QK_MACRO_MAX                   = 0x777F,
+    QK_CONNECTION                  = 0x7780,
+    QK_CONNECTION_MAX              = 0x77BF,
     QK_LIGHTING                    = 0x7800,
     QK_LIGHTING_MAX                = 0x78FF,
     QK_QUANTUM                     = 0x7C00,
@@ -620,6 +622,20 @@ enum qk_keycode_defines {
     QK_MACRO_29 = 0x771D,
     QK_MACRO_30 = 0x771E,
     QK_MACRO_31 = 0x771F,
+    QK_OUTPUT_NEXT = 0x7780,
+    QK_OUTPUT_PREV = 0x7781,
+    QK_OUTPUT_NONE = 0x7782,
+    QK_OUTPUT_USB = 0x7783,
+    QK_OUTPUT_2P4GHZ = 0x7784,
+    QK_OUTPUT_BLUETOOTH = 0x7785,
+    QK_BLUETOOTH_PROFILE_NEXT = 0x7790,
+    QK_BLUETOOTH_PROFILE_PREV = 0x7791,
+    QK_BLUETOOTH_UNPAIR = 0x7792,
+    QK_BLUETOOTH_PROFILE1 = 0x7793,
+    QK_BLUETOOTH_PROFILE2 = 0x7794,
+    QK_BLUETOOTH_PROFILE3 = 0x7795,
+    QK_BLUETOOTH_PROFILE4 = 0x7796,
+    QK_BLUETOOTH_PROFILE5 = 0x7797,
     QK_BACKLIGHT_ON = 0x7800,
     QK_BACKLIGHT_OFF = 0x7801,
     QK_BACKLIGHT_TOGGLE = 0x7802,
@@ -690,9 +706,6 @@ enum qk_keycode_defines {
     QK_SPACE_CADET_LEFT_ALT_PARENTHESIS_OPEN = 0x7C1C,
     QK_SPACE_CADET_RIGHT_ALT_PARENTHESIS_CLOSE = 0x7C1D,
     QK_SPACE_CADET_RIGHT_SHIFT_ENTER = 0x7C1E,
-    QK_OUTPUT_AUTO = 0x7C20,
-    QK_OUTPUT_USB = 0x7C21,
-    QK_OUTPUT_BLUETOOTH = 0x7C22,
     QK_UNICODE_MODE_NEXT = 0x7C30,
     QK_UNICODE_MODE_PREVIOUS = 0x7C31,
     QK_UNICODE_MODE_MACOS = 0x7C32,
@@ -1296,6 +1309,21 @@ enum qk_keycode_defines {
     MC_29      = QK_MACRO_29,
     MC_30      = QK_MACRO_30,
     MC_31      = QK_MACRO_31,
+    OU_NEXT    = QK_OUTPUT_NEXT,
+    OU_AUTO    = QK_OUTPUT_NEXT,
+    OU_PREV    = QK_OUTPUT_PREV,
+    OU_NONE    = QK_OUTPUT_NONE,
+    OU_USB     = QK_OUTPUT_USB,
+    OU_2P4G    = QK_OUTPUT_2P4GHZ,
+    OU_BT      = QK_OUTPUT_BLUETOOTH,
+    BT_NEXT    = QK_BLUETOOTH_PROFILE_NEXT,
+    BT_PREV    = QK_BLUETOOTH_PROFILE_PREV,
+    BT_UNPR    = QK_BLUETOOTH_UNPAIR,
+    BT_PRF1    = QK_BLUETOOTH_PROFILE1,
+    BT_PRF2    = QK_BLUETOOTH_PROFILE2,
+    BT_PRF3    = QK_BLUETOOTH_PROFILE3,
+    BT_PRF4    = QK_BLUETOOTH_PROFILE4,
+    BT_PRF5    = QK_BLUETOOTH_PROFILE5,
     BL_ON      = QK_BACKLIGHT_ON,
     BL_OFF     = QK_BACKLIGHT_OFF,
     BL_TOGG    = QK_BACKLIGHT_TOGGLE,
@@ -1365,9 +1393,6 @@ enum qk_keycode_defines {
     SC_LAPO    = QK_SPACE_CADET_LEFT_ALT_PARENTHESIS_OPEN,
     SC_RAPC    = QK_SPACE_CADET_RIGHT_ALT_PARENTHESIS_CLOSE,
     SC_SENT    = QK_SPACE_CADET_RIGHT_SHIFT_ENTER,
-    OU_AUTO    = QK_OUTPUT_AUTO,
-    OU_USB     = QK_OUTPUT_USB,
-    OU_BT      = QK_OUTPUT_BLUETOOTH,
     UC_NEXT    = QK_UNICODE_MODE_NEXT,
     UC_PREV    = QK_UNICODE_MODE_PREVIOUS,
     UC_MAC     = QK_UNICODE_MODE_MACOS,
@@ -1444,6 +1469,7 @@ enum qk_keycode_defines {
 #define IS_QK_AUDIO(code) ((code) >= QK_AUDIO && (code) <= QK_AUDIO_MAX)
 #define IS_QK_STENO(code) ((code) >= QK_STENO && (code) <= QK_STENO_MAX)
 #define IS_QK_MACRO(code) ((code) >= QK_MACRO && (code) <= QK_MACRO_MAX)
+#define IS_QK_CONNECTION(code) ((code) >= QK_CONNECTION && (code) <= QK_CONNECTION_MAX)
 #define IS_QK_LIGHTING(code) ((code) >= QK_LIGHTING && (code) <= QK_LIGHTING_MAX)
 #define IS_QK_QUANTUM(code) ((code) >= QK_QUANTUM && (code) <= QK_QUANTUM_MAX)
 #define IS_QK_KB(code) ((code) >= QK_KB && (code) <= QK_KB_MAX)
@@ -1468,6 +1494,7 @@ enum qk_keycode_defines {
 #define IS_AUDIO_KEYCODE(code) ((code) >= QK_AUDIO_ON && (code) <= QK_AUDIO_VOICE_PREVIOUS)
 #define IS_STENO_KEYCODE(code) ((code) >= QK_STENO_BOLT && (code) <= QK_STENO_COMB_MAX)
 #define IS_MACRO_KEYCODE(code) ((code) >= QK_MACRO_0 && (code) <= QK_MACRO_31)
+#define IS_CONNECTION_KEYCODE(code) ((code) >= QK_OUTPUT_NEXT && (code) <= QK_BLUETOOTH_PROFILE5)
 #define IS_BACKLIGHT_KEYCODE(code) ((code) >= QK_BACKLIGHT_ON && (code) <= QK_BACKLIGHT_TOGGLE_BREATHING)
 #define IS_LED_MATRIX_KEYCODE(code) ((code) >= QK_LED_MATRIX_ON && (code) <= QK_LED_MATRIX_SPEED_DOWN)
 #define IS_UNDERGLOW_KEYCODE(code) ((code) >= QK_UNDERGLOW_TOGGLE && (code) <= QK_UNDERGLOW_SPEED_DOWN)
@@ -1493,6 +1520,7 @@ enum qk_keycode_defines {
 #define AUDIO_KEYCODE_RANGE                 QK_AUDIO_ON ... QK_AUDIO_VOICE_PREVIOUS
 #define STENO_KEYCODE_RANGE                 QK_STENO_BOLT ... QK_STENO_COMB_MAX
 #define MACRO_KEYCODE_RANGE                 QK_MACRO_0 ... QK_MACRO_31
+#define CONNECTION_KEYCODE_RANGE            QK_OUTPUT_NEXT ... QK_BLUETOOTH_PROFILE5
 #define BACKLIGHT_KEYCODE_RANGE             QK_BACKLIGHT_ON ... QK_BACKLIGHT_TOGGLE_BREATHING
 #define LED_MATRIX_KEYCODE_RANGE            QK_LED_MATRIX_ON ... QK_LED_MATRIX_SPEED_DOWN
 #define UNDERGLOW_KEYCODE_RANGE             QK_UNDERGLOW_TOGGLE ... QK_UNDERGLOW_SPEED_DOWN
