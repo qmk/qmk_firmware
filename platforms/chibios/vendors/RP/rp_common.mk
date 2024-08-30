@@ -1,7 +1,7 @@
 #
-# Raspberry Pi RP2040 specific drivers
+# Raspberry Pi specific drivers, same for all RP2xxx based boards
 ##############################################################################
-COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/vendor/$(MCU_FAMILY)/$(MCU_SERIES)
+COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/vendor/$(MCU_FAMILY)/rp2040
 
 ifeq ($(strip $(WS2812_DRIVER)), vendor)
     OPT_DEFS += -DRP_DMA_REQUIRED=TRUE
@@ -14,8 +14,7 @@ ADEFS  += -DCRT0_VTOR_INIT=1 \
 		  -DCRT0_EXTRA_CORES_NUMBER=0 \
           -DCRT0_INIT_VECTORS=1
 
-CFLAGS += -DNDEBUG \
-          -DPICO_RP2040=1
+CFLAGS += -DNDEBUG
 
 #
 # Pico SDK source and header files needed by QMK and ChibiOS
@@ -64,50 +63,10 @@ PICOSDKINC  = $(CHIBIOS)/os/various/pico_bindings/dumb/include \
               $(PICOSDKROOT)/src/rp2_common/pico_platform_panic/include \
               $(PICOSDKROOT)/src/rp2_common/pico_platform_sections/include \
               $(PICOSDKROOT)/src/rp2_common/pico_runtime_init/include \
-              $(PICOSDKROOT)/src/rp2_common/pico_runtime/include \
-              $(PICOSDKROOT)/src/rp2040/hardware_regs/include \
-              $(PICOSDKROOT)/src/rp2040/hardware_structs/include \
-              $(PICOSDKROOT)/src/rp2040/pico_platform/include
+              $(PICOSDKROOT)/src/rp2_common/pico_runtime/include
 
-PLATFORM_RP2040_PATH := $(PLATFORM_PATH)/$(PLATFORM_KEY)/vendors/$(MCU_FAMILY)
-
-PICOSDKSRC += $(PLATFORM_RP2040_PATH)/stage2_bootloaders.c \
-			  $(PLATFORM_RP2040_PATH)/pico_sdk_shims.c
-
-PICOSDKINC += $(PLATFORM_RP2040_PATH)
-
-#
-# RP2040 optimized compiler intrinsics
-##############################################################################
-
-# The RP2040 sdk provides optimized compiler intrinsics which override the GCC
-# built-ins. Some of these functions are located in the bootrom of the RP2040.
-# Execution of these functions is realized via a vtable that is populated on
-# bootup. This mechanism needs startup code and linker script support from
-# ChibiOS, which is currently not implemented thus these functions are disabled
-# ATM.
-PICOSDKSRC += $(PICOSDKROOT)/src/rp2_common/hardware_divider/divider.S \
-              $(PICOSDKROOT)/src/rp2_common/pico_divider/divider_hardware.S \
-              $(PICOSDKROOT)/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S
-
-PICOSDKINC += $(PICOSDKROOT)/src/rp2_common/hardware_divider/include \
-              $(PICOSDKROOT)/src/common/pico_divider_headers/include
-
-# integer division intrinsics utilizing the RP2040 hardware divider
-OPT_DEFS += -DPICO_DIVIDER_IN_RAM=1
-OPT_DEFS += -DPICO_DIVIDER_DISABLE_INTERRUPTS=1
-
-CFLAGS += -Wl,--wrap=__aeabi_idiv
-CFLAGS += -Wl,--wrap=__aeabi_idivmod
-CFLAGS += -Wl,--wrap=__aeabi_ldivmod
-CFLAGS += -Wl,--wrap=__aeabi_uidiv
-CFLAGS += -Wl,--wrap=__aeabi_uidivmod
-CFLAGS += -Wl,--wrap=__aeabi_uldivmod
-
-# 64bit integer intrinsics
-OPT_DEFS += -DPICO_INT64_OPS_IN_RAM=1
-
-CFLAGS += -Wl,--wrap=__aeabi_lmul
+PICOSDKSRC += $(PLATFORM_RP_PATH)/pico_sdk_shims.c
+PICOSDKINC += $(PLATFORM_RP_PATH)
 
 PLATFORM_SRC += $(PICOSDKSRC)
 EXTRAINCDIRS += $(PICOSDKINC)
