@@ -2,7 +2,7 @@
 
 This is a non-exhaustive checklist of what the QMK Collaborators will be checking when reviewing submitted PRs.
 
-If there are any inconsistencies with these recommendations, you're best off [creating an issue](https://github.com/qmk/qmk_firmware/issues/new) against this document, or getting in touch with a QMK Collaborator on [Discord](https://discord.gg/Uq7gcHh).
+If there are any inconsistencies with these recommendations, you're best off [creating an issue](https://github.com/qmk/qmk_firmware/issues/new) against this document, or getting in touch with a QMK Collaborator on [Discord](https://discord.gg/qmk).
 
 ## Requirements for all PRs
 
@@ -44,12 +44,14 @@ If there are any inconsistencies with these recommendations, you're best off [cr
 Note that personal keymap submissions will no longer be accepted. This section applies to manufacturer-supported keymaps. Please see this [issue](https://github.com/qmk/qmk_firmware/issues/22724) for more information.
 :::
 
-- PRs for vendor specific keymaps will be permitted. The naming convention for these should be `default_${vendor}`, `via_${vendor}` i.e. `via_clueboard`.
-    - vendor specific keymaps do not necessarily need to be "vanilla" and can be more richly featured than `default` or `via` stock keymaps.
+- PRs for vendor specific keymaps will be permitted. The naming convention for these should be `default_${vendor}` i.e. `default_clueboard`.
+    - vendor specific keymaps do not necessarily need to be "vanilla" and can be more richly featured than `default` stock keymaps.
 - `#include QMK_KEYBOARD_H` preferred to including specific board files
 - prefer layer enums to #defines
 - custom keycode enums must have first entry = `QK_USER`
 - some care with spacing (e.g., alignment on commas or first char of keycodes) makes for a much nicer-looking keymap. Spaces are preferred to tabs
+- keymaps should not enable VIA
+    - keymaps targeting VIA support should be submitted to the [VIA QMK Userspace](https://github.com/the-via/qmk_userspace_via) repository
 
 ## Keyboard PRs
 
@@ -88,7 +90,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
       - RGB Matrix Configuration
     - Run `qmk format-json` on this file before submitting your PR. Be sure to append the `-i` flag to directly modify the file, or paste the outputted code into the file. 
 - `readme.md`
-    - must follow the [template](https://github.com/qmk/qmk_firmware/blob/master/data/templates/keyboard/readme)
+    - must follow the [template](https://github.com/qmk/qmk_firmware/blob/master/data/templates/keyboard/readme.md)
     - flash command is present, and has `:flash` at end
     - valid hardware availability link (unless handwired) -- private groupbuys are okay, but one-off prototypes will be questioned. If open-source, a link to files should be provided.
     - clear instructions on how to reset the board into bootloader mode
@@ -126,7 +128,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - commented-out functions removed too
     - `matrix_init_board()` etc. migrated to `keyboard_pre_init_kb()`, see: [keyboard_pre_init*](custom_quantum_functions#keyboard_pre_init_-function-documentation)
     - prefer `CUSTOM_MATRIX = lite` if custom matrix used, allows for standard debounce, see [custom matrix 'lite'](custom_matrix#lite)
-    - prefer LED indicator [Configuration Options](feature_led_indicators#configuration-options) to custom `led_update_*()` implementations where possible
+    - prefer LED indicator [Configuration Options](features/led_indicators#configuration-options) to custom `led_update_*()` implementations where possible
     - hardware that's enabled at the keyboard level and requires configuration such as OLED displays or encoders should have basic functionality implemented here
 - `<keyboard>.h`
     - `#include "quantum.h"` appears at the top
@@ -135,13 +137,13 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - no duplication of `rules.mk` or `config.h` from keyboard
 - `keymaps/default/keymap.c`
     - `QMKBEST`/`QMKURL` example macros removed
-    - if using `MO(1)` and `MO(2)` keycodes together to access a third layer, the [Tri Layer](feature_tri_layer) feature should be used, rather than manually implementing this using `layer_on/off()` and `update_tri_layer()` functions in the keymap's `process_record_user()`.
-- default (and via) keymaps should be "pristine"
+    - if using `MO(1)` and `MO(2)` keycodes together to access a third layer, the [Tri Layer](features/tri_layer) feature should be used, rather than manually implementing this using `layer_on/off()` and `update_tri_layer()` functions in the keymap's `process_record_user()`.
+- default keymaps should be "pristine"
     - bare minimum to be used as a "clean slate" for another user to develop their own user-specific keymap
     - what does pristine mean? no custom keycodes. no advanced features like tap dance or macros. basic mod taps and home row mods would be acceptable where their use is necessary
     - standard layouts preferred in these keymaps, if possible
-    - should use [encoder map feature](feature_encoders#encoder-map), rather than `encoder_update_user()`
-    - default keymap should not enable VIA -- the VIA integration documentation requires a keymap called `via`
+    - should use [encoder map feature](features/encoders#encoder-map), rather than `encoder_update_user()`
+    - default keymap should not enable VIA -- keymaps targeting VIA support should be submitted to the [VIA QMK Userspace](https://github.com/the-via/qmk_userspace_via) repository
 - submitters can add an example (or bells-and-whistles) keymap showcasing capabilities in the same PR but it shouldn't be embedded in the 'default' keymap
 - submitters can also have a "manufacturer-matching" keymap that mirrors existing functionality of the commercial product, if porting an existing board
 - Do not include VIA json files in the PR. These do not belong in the QMK repository as they are not used by QMK firmware -- they belong in the [VIA Keyboard Repo](https://github.com/the-via/keyboards)
@@ -174,7 +176,7 @@ Also, specific to ChibiOS:
 - all core PRs must now target `develop` branch, which will subsequently be merged back to `master` on the breaking changes timeline
 - as indicated above, the smallest set of changes to core components should be included in each PR
     - PRs containing multiple areas of change will be asked to be split up and raised separately
-    - keyboard and keymap changes should only be included if they affect base keyboard builds, or the default-like `default`, `via`, `default_????` keymaps etc.
+    - keyboard and keymap changes should only be included if they affect base keyboard builds, or the default-like `default`, `default_????` keymaps etc.
         - keymap modifications for anything other than the default-like keymaps **should not be included in the initial PR** in order to simplify the review process
         - the core PR submitter should submit a followup PR affecting other keymaps after initial PR merge
         - large-scale refactoring or consolidation PRs that affect other keymaps (such as renaming keycodes) should always be raised separately
