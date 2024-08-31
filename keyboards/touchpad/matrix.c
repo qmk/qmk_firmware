@@ -127,32 +127,32 @@ void matrix_init(void) {
   i2c_init();
 
   //Motor enable
-  setPinOutput(E6);
+  gpio_set_pin_output(E6);
   //Motor PWM
-  setPinOutput(D7);
+  gpio_set_pin_output(D7);
 
   //Power LED
-  setPinOutput(B7);
-  writePinHigh(B7);
+  gpio_set_pin_output(B7);
+  gpio_write_pin_high(B7);
 
   //LEDs Columns
-  setPinOutput(F7);
-  setPinOutput(F6);
-  setPinOutput(F5);
-  setPinOutput(F4);
-  setPinOutput(F1);
-  setPinOutput(F0);
+  gpio_set_pin_output(F7);
+  gpio_set_pin_output(F6);
+  gpio_set_pin_output(F5);
+  gpio_set_pin_output(F4);
+  gpio_set_pin_output(F1);
+  gpio_set_pin_output(F0);
 
   //LEDs Rows
-  setPinOutput(D6);
-  setPinOutput(B4);
-  setPinOutput(B5);
-  setPinOutput(B6);
-  setPinOutput(C6);
-  setPinOutput(C7);
+  gpio_set_pin_output(D6);
+  gpio_set_pin_output(B4);
+  gpio_set_pin_output(B5);
+  gpio_set_pin_output(B6);
+  gpio_set_pin_output(C6);
+  gpio_set_pin_output(C7);
 
   //Capacitive Interrupt
-  setPinInput(D2);
+  gpio_set_pin_input(D2);
 
   capSetup();
   writeDataToTS(0x06, 0x12); //Calibrate capacitive touch IC
@@ -208,7 +208,7 @@ void touchClearCurrentDetections(void) {
 
 //Check interrupt pin
 uint8_t isTouchChangeDetected(void) {
-  return !readPin(D2);
+  return !gpio_read_pin(D2);
 }
 
 uint8_t matrix_scan(void) {
@@ -232,34 +232,34 @@ uint8_t matrix_scan(void) {
   for (uint8_t c = 0; c < 6; c++) {
     for (uint8_t r = 0; r < 6; r++) {
       switch (r) {
-        case 0: writePin(D6, matrix_is_on(r, c)); break;
-        case 1: writePin(B4, matrix_is_on(r, c)); break;
-        case 2: writePin(B5, matrix_is_on(r, c)); break;
-        case 3: writePin(B6, matrix_is_on(r, c)); break;
-        case 4: writePin(C6, matrix_is_on(r, c)); break;
-        case 5: writePin(C7, matrix_is_on(r, c)); break;
+        case 0: gpio_write_pin(D6, matrix_is_on(r, c)); break;
+        case 1: gpio_write_pin(B4, matrix_is_on(r, c)); break;
+        case 2: gpio_write_pin(B5, matrix_is_on(r, c)); break;
+        case 3: gpio_write_pin(B6, matrix_is_on(r, c)); break;
+        case 4: gpio_write_pin(C6, matrix_is_on(r, c)); break;
+        case 5: gpio_write_pin(C7, matrix_is_on(r, c)); break;
       }
 
       switch (c) {
-        case 0: writePin(F5, !matrix_is_on(r, c)); break;
-        case 1: writePin(F4, !matrix_is_on(r, c)); break;
-        case 2: writePin(F1, !matrix_is_on(r, c)); break;
-        case 3: writePin(F0, !matrix_is_on(r, c)); break;
-        case 4: writePin(F6, !matrix_is_on(r, c)); break;
-        case 5: writePin(F7, !matrix_is_on(r, c)); break;
+        case 0: gpio_write_pin(F5, !matrix_is_on(r, c)); break;
+        case 1: gpio_write_pin(F4, !matrix_is_on(r, c)); break;
+        case 2: gpio_write_pin(F1, !matrix_is_on(r, c)); break;
+        case 3: gpio_write_pin(F0, !matrix_is_on(r, c)); break;
+        case 4: gpio_write_pin(F6, !matrix_is_on(r, c)); break;
+        case 5: gpio_write_pin(F7, !matrix_is_on(r, c)); break;
       }
     }
   }
 
   if (vibrate == VIBRATE_LENGTH) {
-    writePinHigh(E6);
-    writePinHigh(D7);
+    gpio_write_pin_high(E6);
+    gpio_write_pin_high(D7);
     vibrate--;
   }  else if (vibrate > 0) {
     vibrate--;
   } else if (vibrate == 0) {
-    writePinLow(D7);
-    writePinLow(E6);
+    gpio_write_pin_low(D7);
+    gpio_write_pin_low(E6);
   }
 
   matrix_scan_kb();

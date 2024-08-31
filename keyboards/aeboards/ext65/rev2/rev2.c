@@ -69,33 +69,18 @@ bool oled_task_kb(void) {
 #else
 
 void keyboard_pre_init_kb(void) {
-    // Call the keyboard pre init code.
-    // Set our LED pins as output
-    setPinOutput(B4);
-    setPinOutput(B3);
-    setPinOutput(A15);
-    setPinOutput(A14);
+    gpio_set_pin_output(A14);
 
     keyboard_pre_init_user();
-}
-
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if (res) {
-        writePin(B4, led_state.num_lock);
-        writePin(B3, led_state.caps_lock);
-        writePin(A15, led_state.scroll_lock);
-    }
-    return res;
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
     switch (get_highest_layer(state)) {
         case 1:
-            writePinHigh(A14);
+            gpio_write_pin_high(A14);
             break;
         default: //  for any other layers, or the default layer
-            writePinLow(A14);
+            gpio_write_pin_low(A14);
             break;
     }
     return layer_state_set_user(state);

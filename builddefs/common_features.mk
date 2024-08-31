@@ -282,18 +282,17 @@ ifneq ($(strip $(WEAR_LEVELING_DRIVER)),none)
   endif
 endif
 
-VALID_FLASH_DRIVER_TYPES := spi
+VALID_FLASH_DRIVER_TYPES := spi custom
 FLASH_DRIVER ?= none
 ifneq ($(strip $(FLASH_DRIVER)), none)
     ifeq ($(filter $(FLASH_DRIVER),$(VALID_FLASH_DRIVER_TYPES)),)
         $(call CATASTROPHIC_ERROR,Invalid FLASH_DRIVER,FLASH_DRIVER="$(FLASH_DRIVER)" is not a valid flash driver)
     else
-        OPT_DEFS += -DFLASH_ENABLE
+        OPT_DEFS += -DFLASH_ENABLE -DFLASH_DRIVER -DFLASH_DRIVER_$(strip $(shell echo $(FLASH_DRIVER) | tr '[:lower:]' '[:upper:]'))
+		COMMON_VPATH += $(DRIVER_PATH)/flash
         ifeq ($(strip $(FLASH_DRIVER)),spi)
-            SPI_DRIVER_REQUIRED = yes
-            OPT_DEFS += -DFLASH_DRIVER -DFLASH_SPI
-            COMMON_VPATH += $(DRIVER_PATH)/flash
             SRC += flash_spi.c
+            SPI_DRIVER_REQUIRED = yes
         endif
     endif
 endif
@@ -353,7 +352,7 @@ ifeq ($(strip $(LED_MATRIX_ENABLE)), yes)
     COMMON_VPATH += $(QUANTUM_DIR)/led_matrix/animations
     COMMON_VPATH += $(QUANTUM_DIR)/led_matrix/animations/runners
     POST_CONFIG_H += $(QUANTUM_DIR)/led_matrix/post_config.h
-    SRC += $(QUANTUM_DIR)/process_keycode/process_backlight.c
+    SRC += $(QUANTUM_DIR)/process_keycode/process_led_matrix.c
     SRC += $(QUANTUM_DIR)/led_matrix/led_matrix.c
     SRC += $(QUANTUM_DIR)/led_matrix/led_matrix_drivers.c
     LIB8TION_ENABLE := yes
@@ -882,7 +881,7 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
     OPT_DEFS += -DBLUETOOTH_$(strip $(shell echo $(BLUETOOTH_DRIVER) | tr '[:lower:]' '[:upper:]'))
     NO_USB_STARTUP_CHECK := yes
     COMMON_VPATH += $(DRIVER_PATH)/bluetooth
-    SRC += outputselect.c
+    SRC += outputselect.c process_connection.c
 
     ifeq ($(strip $(BLUETOOTH_DRIVER)), bluefruit_le)
         SPI_DRIVER_REQUIRED = yes
