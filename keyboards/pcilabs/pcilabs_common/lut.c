@@ -35,7 +35,7 @@ void generate_lut(void) {
         for (uint16_t i = 0; i < ADC_RESOLUTION_MAX; i++) {
             printf("%d ", adc_to_distance(i, sw));
             luts[sw].values[i] = adc_to_distance(i, sw);
-        //}
+        }
         printf("/n/n/n");
     }
 }
