@@ -641,6 +641,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 ```
 
+
 ## Split Examples
 
 The following examples make use the `SPLIT_POINTING_ENABLE` functionality and show how to manipulate the mouse report for a scrolling mode.
