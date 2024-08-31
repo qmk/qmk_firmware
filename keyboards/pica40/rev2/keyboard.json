@@ -40,6 +40,10 @@
             "right": {
                 "rotary": []
             }
+        },
+        "serial": {
+            "driver": "vendor",
+            "pin": "GP0"
         }
     },
     "encoder": {

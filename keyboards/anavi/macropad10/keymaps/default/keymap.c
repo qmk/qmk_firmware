@@ -11,6 +11,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_mp10(
         KC_A   , KC_B   , KC_C   ,
 	KC_D   , KC_E   , KC_F   ,
-	RGB_M_R , RGB_MOD , RGB_TOG
+	RGB_M_R , UG_NEXT , UG_TOGG
     )
 };

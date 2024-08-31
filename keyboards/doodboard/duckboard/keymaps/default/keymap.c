@@ -31,11 +31,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TG(2),   KC_TRNS, KC_INS,  KC_DEL,  KC_TRNS),
 
     [2] = LAYOUT(
-                 KC_TRNS, RGB_TOG, RGB_MOD, KC_TRNS,
-                 RGB_HUI, RGB_SAI, RGB_VAI,
-                 RGB_HUD, RGB_SAD, RGB_VAD, KC_TRNS,
+                 KC_TRNS, UG_TOGG, UG_NEXT, KC_TRNS,
+                 UG_HUEU, UG_SATU, UG_VALU,
+                 UG_HUED, UG_SATD, UG_VALD, KC_TRNS,
                  KC_TRNS, KC_TRNS, KC_TRNS,
-        TG(2),   QK_BOOT,   KC_TRNS, KC_TRNS, KC_TRNS),
+        TG(2),   QK_BOOT, KC_TRNS, KC_TRNS, KC_TRNS),
 };
 
 bool encoder_update_user(uint8_t index, bool clockwise) {

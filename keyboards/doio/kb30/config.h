@@ -17,11 +17,6 @@
 
 #pragma once
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
 /* OLED */
 #ifdef OLED_ENABLE
 #    define OLED_BRIGHTNESS 5
@@ -31,8 +26,6 @@
 #    define I2C1_SDA_PIN B11
 #    define I2C_DRIVER I2CD2
 #endif
-
-#define RGB_MATRIX_LED_COUNT 36
 
 /*
  * Feature disable options

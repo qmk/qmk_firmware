@@ -17,7 +17,7 @@ Make example for this keyboard (after setting up your build environment):
     make keychron/q2/jis:default
     make keychron/q2/jis_encoder:default
 
-Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
+Flashing example for this keyboard:
 
     make keychron/q2/ansi:default:flash
     make keychron/q2/ansi_encoder:default:flash

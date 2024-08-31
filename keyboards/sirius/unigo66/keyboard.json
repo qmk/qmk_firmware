@@ -13,7 +13,6 @@
         "extrakey": true,
         "mousekey": false,
         "nkro": false,
-        "rgblight": false,
         "usb_hid": true
     },
     "processor": "atmega32u4",
