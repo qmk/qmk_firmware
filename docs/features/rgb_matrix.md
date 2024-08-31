@@ -4,542 +4,34 @@ This feature allows you to use RGB LED matrices driven by external drivers. It h
 
 If you want to use single color LED's you should use the [LED Matrix Subsystem](led_matrix) instead.
 
-## Driver configuration {#driver-configuration}
----
-### IS31FL3731 {#is31fl3731}
+## Driver Configuration {#driver-configuration}
 
-There is basic support for addressable RGB matrix lighting with the I2C IS31FL3731 RGB controller. To enable it, add this to your `rules.mk`:
+RGB Matrix is an abstraction layer on top of an underlying LED driver API. The list of supported LED drivers is below; see the respective documentation for information on how to configure the driver.
 
-```make
-RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = is31fl3731
-```
+|Driver                               |Max LEDs|
+|-------------------------------------|--------|
+|[APA102](../drivers/apa102)          |?       |
+|[AW20216S](../drivers/aw20216s)      |72      |
+|[IS31FL3218](../drivers/is31fl3218)  |6       |
+|[IS31FL3236](../drivers/is31fl3236)  |12      |
+|[IS31FL3729](../drivers/is31fl3729)  |45      |
+|[IS31FL3731](../drivers/is31fl3731)  |48      |
+|[IS31FL3733](../drivers/is31fl3733)  |64      |
+|[IS31FL3736](../drivers/is31fl3736)  |32      |
+|[IS31FL3737](../drivers/is31fl3737)  |48      |
+|[IS31FL3741](../drivers/is31fl3741)  |117     |
+|[IS31FL3742A](../drivers/is31fl3742a)|60      |
+|[IS31FL3743A](../drivers/is31fl3743a)|66      |
+|[IS31FL3745](../drivers/is31fl3745)  |48      |
+|[IS31FL3746A](../drivers/is31fl3746a)|24      |
+|[SNLED27351](../drivers/snled27351)  |64      |
+|[WS2812](../drivers/ws2812)          |?       |
 
-You can use between 1 and 4 IS31FL3731 IC's. Do not specify `DRIVER_ADDR_<N>` defines for IC's that are not present on your keyboard. You can define the following items in `config.h`:
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `IS31FL3731_I2C_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
-| `IS31FL3731_I2C_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
-| `IS31FL3731_DEGHOST` | (Optional) Set this define to enable de-ghosting by halving Vcc during blanking time | |
-| `RGB_MATRIX_LED_COUNT` | (Required) How many RGB lights are present across all drivers | |
-| `IS31FL3731_I2C_ADDRESS_1` | (Required) Address for the first RGB driver | |
-| `IS31FL3731_I2C_ADDRESS_2` | (Optional) Address for the second RGB driver | |
-| `IS31FL3731_I2C_ADDRESS_3` | (Optional) Address for the third RGB driver | |
-| `IS31FL3731_I2C_ADDRESS_4` | (Optional) Address for the fourth RGB driver | |
-
-Here is an example using 2 drivers.
-
-```c
-// This is a 7-bit address, that gets left-shifted and bit 0
-// set to 0 for write, 1 for read (as per I2C protocol)
-// The address will vary depending on your wiring:
-// 00 AD <-> GND
-// 01 AD <-> SCL
-// 10 AD <-> SDA
-// 11 AD <-> VCC
-// ADDR represents A1:A0 of the 7-bit address.
-// The result is: 0b11101(ADDR)
-#define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
-#define IS31FL3731_I2C_ADDRESS_2 IS31FL3731_I2C_ADDRESS_SDA
-
-#define DRIVER_1_LED_TOTAL 25
-#define DRIVER_2_LED_TOTAL 24
-#define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
-```
-
-::: warning
-Note the parentheses, this is so when `RGB_MATRIX_LED_COUNT` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)` will give very different results than `rand() % DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL`.
-:::
-
-For split keyboards using `RGB_MATRIX_SPLIT` with an LED driver, you can either have the same driver address or different driver addresses. If using different addresses, use `IS31FL3731_I2C_ADDRESS_1` for one and `IS31FL3731_I2C_ADDRESS_2` for the other one. Then, in `g_is31fl3731_leds`, fill out the correct driver index (0 or 1). If using one address, use `IS31FL3731_I2C_ADDRESS_1` for both, and use index 0 for `g_is31fl3731_leds`.
-
-Define these arrays listing all the LEDs in your `<keyboard>.c`:
-
-```c
-const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
-/* Refer to IS31 manual for these locations
- *   driver
- *   |  R location
- *   |  |      G location
- *   |  |      |      B location
- *   |  |      |      | */
-    {0, C1_3,  C2_3,  C3_3},
-    ....
-}
-```
-
-Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3731.pdf) and the header file `drivers/led/issi/is31fl3731.h`. The `driver` is the index of the driver you defined in your `config.h` (`0`, `1`, `2`, or `3`).
-
----
-### IS31FL3733 {#is31fl3733}
-
-There is basic support for addressable RGB matrix lighting with the I2C IS31FL3733 RGB controller. To enable it, add this to your `rules.mk`:
+To assign the RGB Matrix driver, add the following to your `rules.mk`, for example:
 
 ```make
-RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = is31fl3733
+RGB_MATRIX_DRIVER = is31fl3218
 ```
-
-You can use between 1 and 4 IS31FL3733 IC's. Do not specify `DRIVER_ADDR_<N>` defines for IC's that are not present on your keyboard. You can define the following items in `config.h`:
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `IS31FL3733_I2C_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
-| `IS31FL3733_I2C_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
-| `IS31FL3733_PWM_FREQUENCY` | (Optional) PWM Frequency Setting - IS31FL3733B only | 0 |
-| `IS31FL3733_GLOBALCURRENT` | (Optional) Configuration for the Global Current Register | 0xFF |
-| `IS31FL3733_SWPULLUP` | (Optional) Set the value of the SWx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
-| `IS31FL3733_CSPULLUP` | (Optional) Set the value of the CSx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
-| `RGB_MATRIX_LED_COUNT` | (Required) How many RGB lights are present across all drivers | |
-| `IS31FL3733_I2C_ADDRESS_1` | (Required) Address for the first RGB driver | |
-| `IS31FL3733_I2C_ADDRESS_2` | (Optional) Address for the second RGB driver | |
-| `IS31FL3733_I2C_ADDRESS_3` | (Optional) Address for the third RGB driver | |
-| `IS31FL3733_I2C_ADDRESS_4` | (Optional) Address for the fourth RGB driver | |
-| `IS31FL3733_SYNC_1` | (Optional) Sync configuration for the first RGB driver | 0 |
-| `IS31FL3733_SYNC_2` | (Optional) Sync configuration for the second RGB driver | 0 |
-| `IS31FL3733_SYNC_3` | (Optional) Sync configuration for the third RGB driver | 0 |
-| `IS31FL3733_SYNC_4` | (Optional) Sync configuration for the fourth RGB driver | 0 |
-
-The IS31FL3733 IC's have on-chip resistors that can be enabled to allow for de-ghosting of the RGB matrix. By default these resistors are not enabled (`IS31FL3733_SWPULLUP`/`IS31FL3733_CSPULLUP` are given the value of `IS31FL3733_PUR_0R`), the values that can be set to enable de-ghosting are as follows:
-
-| `IS31FL3733_SWPULLUP/IS31FL3733_CSPULLUP` | Description |
-|----------------------|-------------|
-| `IS31FL3733_PUR_0R` | (default) Do not use the on-chip resistors/enable de-ghosting |
-| `IS31FL3733_PUR_05KR` | The 0.5k Ohm resistor used during blanking period (t_NOL) |
-| `IS31FL3733_PUR_3KR` | The 3k Ohm resistor used at all times |
-| `IS31FL3733_PUR_4KR` | The 4k Ohm resistor used at all times |
-| `IS31FL3733_PUR_8KR` | The 8k Ohm resistor used at all times |
-| `IS31FL3733_PUR_16KR` | The 16k Ohm resistor used at all times |
-| `IS31FL3733_PUR_32KR` | The 32k Ohm resistor used during blanking period (t_NOL) |
-
-Here is an example using 2 drivers.
-
-```c
-// This is a 7-bit address, that gets left-shifted and bit 0
-// set to 0 for write, 1 for read (as per I2C protocol)
-// The address will vary depending on your wiring:
-// 00 ADDRn <-> GND
-// 01 ADDRn <-> SCL
-// 10 ADDRn <-> SDA
-// 11 ADDRn <-> VCC
-// ADDR1 represents A1:A0 of the 7-bit address.
-// ADDR2 represents A3:A2 of the 7-bit address.
-// The result is: 0b101(ADDR2)(ADDR1)
-#define IS31FL3733_I2C_ADDRESS_1 IS31FL3733_I2C_ADDRESS_GND_GND
-#define IS31FL3733_I2C_ADDRESS_2 IS31FL3733_I2C_ADDRESS_GND_VCC
-
-#define DRIVER_1_LED_TOTAL 58
-#define DRIVER_2_LED_TOTAL 10
-#define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
-```
-
-::: warning
-Note the parentheses, this is so when `RGB_MATRIX_LED_COUNT` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)` will give very different results than `rand() % DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL`.
-:::
-
-Currently only 4 drivers are supported, but it would be trivial to support all 8 combinations.
-
-Define these arrays listing all the LEDs in your `<keyboard>.c`:
-
-```c
-const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT] = {
-/* Refer to IS31 manual for these locations
- *   driver
- *   |  R location
- *   |  |        G location
- *   |  |        |        B location
- *   |  |        |        | */
-    {0, SW1_CS1, SW1_CS2, SW1_CS3},
-    ....
-}
-```
-
-Where `SWx_CSy` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3733.pdf) and the header file `drivers/led/issi/is31fl3733.h`. The `driver` is the index of the driver you defined in your `config.h` (`0`, `1`, `2`, or `3` for now).
-
----
-### IS31FL3736 {#is31fl3736}
-
-There is basic support for addressable RGB matrix lighting with the I2C IS31FL3736 RGB controller. To enable it, add this to your `rules.mk`:
-
-```make
-RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = is31fl3736
-```
-You can use between 1 and 4 IS31FL3736 IC's. Do not specify `DRIVER_ADDR_<N>` defines for IC's that are not present on your keyboard.
-
-Configure the hardware via your `config.h`:
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `IS31FL3736_I2C_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
-| `IS31FL3736_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
-| `IS31FL3736_PWM_FREQUENCY` | (Optional) PWM Frequency Setting - IS31FL3736B only | 0 |
-| `IS31FL3736_GLOBALCURRENT` | (Optional) Configuration for the Global Current Register | 0xFF |
-| `IS31FL3736_SWPULLUP` | (Optional) Set the value of the SWx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
-| `IS31FL3736_CSPULLUP` | (Optional) Set the value of the CSx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
-| `RGB_MATRIX_LED_COUNT` | (Required) How many RGB lights are present across all drivers | |
-| `IS31FL3736_I2C_ADDRESS_1` | (Required) Address for the first RGB driver | |
-| `IS31FL3736_I2C_ADDRESS_2` | (Optional) Address for the second RGB driver | |
-| `IS31FL3736_I2C_ADDRESS_3` | (Optional) Address for the third RGB driver | |
-| `IS31FL3736_I2C_ADDRESS_4` | (Optional) Address for the fourth RGB driver | |
-
-The IS31FL3736 IC's have on-chip resistors that can be enabled to allow for de-ghosting of the RGB matrix. By default these resistors are not enabled (`IS31FL3736_SWPULLUP`/`IS31FL3736_CSPULLUP` are given the value of `IS31FL3736_PUR_0R`), the values that can be set to enable de-ghosting are as follows:
-
-| `IS31FL3736_SWPULLUP/IS31FL3736_CSPULLUP` | Description |
-|----------------------|-------------|
-| `IS31FL3736_PUR_0R` | (default) Do not use the on-chip resistors/enable de-ghosting |
-| `IS31FL3736_PUR_05KR` | The 0.5k Ohm resistor used during blanking period (t_NOL) |
-| `IS31FL3736_PUR_1KR` | The 1k Ohm resistor used during blanking period (t_NOL) |
-| `IS31FL3736_PUR_2KR` | The 2k Ohm resistor used during blanking period (t_NOL) |
-| `IS31FL3736_PUR_4KR` | The 4k Ohm resistor used during blanking period (t_NOL) |
-| `IS31FL3736_PUR_8KR` | The 8k Ohm resistor during blanking period (t_NOL) |
-| `IS31FL3736_PUR_16KR` | The 16k Ohm resistor during blanking period (t_NOL) |
-| `IS31FL3736_PUR_32KR` | The 32k Ohm resistor used during blanking period (t_NOL) |
-
-Here is an example using 2 drivers.
-
-```c
-// This is a 7-bit address, that gets left-shifted and bit 0
-// set to 0 for write, 1 for read (as per I2C protocol)
-// The address will vary depending on your wiring:
-// 00 ADDRn <-> GND
-// 01 ADDRn <-> SCL
-// 10 ADDRn <-> SDA
-// 11 ADDRn <-> VCC
-// ADDR1 represents A1:A0 of the 7-bit address.
-// ADDR2 represents A3:A2 of the 7-bit address.
-// The result is: 0b101(ADDR2)(ADDR1)
-#define IS31FL3736_I2C_ADDRESS_1 IS31FL3736_I2C_ADDRESS_GND_GND
-#define IS31FL3736_I2C_ADDRESS_2 IS31FL3736_I2C_ADDRESS_GND_SCL
-
-#define DRIVER_1_LED_TOTAL 30
-#define DRIVER_2_LED_TOTAL 32
-#define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
-```
-::: warning
-Note the parentheses, this is so when `RGB_MATRIX_LED_COUNT` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)` will give very different results than `rand() % DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL`.
-:::
-
-Define these arrays listing all the LEDs in your `<keyboard>.c`:
-
-```c
-const is31fl3736_led_t PROGMEM g_is31fl3736_leds[IS31FL3736_LED_COUNT] = {
-/* Refer to IS31 manual for these locations
- *   driver
- *   |  R location
- *   |  |        G location
- *   |  |        |        B location
- *   |  |        |        | */
-    {0, SW1_CS1, SW1_CS2, SW1_CS3},
-    ....
-}
-```
-### IS31FL3737 {#is31fl3737}
-
-There is basic support for addressable RGB matrix lighting with the I2C IS31FL3737 RGB controller. To enable it, add this to your `rules.mk`:
-
-```make
-RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = is31fl3737
-```
-You can use between 1 and 4 IS31FL3737 IC's. Do not specify `DRIVER_ADDR_<N>` defines for IC's that are not present on your keyboard.
-
-Configure the hardware via your `config.h`:
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `IS31FL3737_I2C_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
-| `IS31FL3737_I2C_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
-| `IS31FL3737_PWM_FREQUENCY` | (Optional) PWM Frequency Setting - IS31FL3737B only | 0 |
-| `IS31FL3737_GLOBALCURRENT` | (Optional) Configuration for the Global Current Register | 0xFF |
-| `IS31FL3737_SWPULLUP` | (Optional) Set the value of the SWx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
-| `IS31FL3737_CSPULLUP` | (Optional) Set the value of the CSx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
-| `RGB_MATRIX_LED_COUNT` | (Required) How many RGB lights are present across all drivers | |
-| `IS31FL3737_I2C_ADDRESS_1` | (Required) Address for the first RGB driver | |
-| `IS31FL3737_I2C_ADDRESS_2` | (Optional) Address for the second RGB driver | |
-| `IS31FL3737_I2C_ADDRESS_3` | (Optional) Address for the third RGB driver | |
-| `IS31FL3737_I2C_ADDRESS_4` | (Optional) Address for the fourth RGB driver | |
-
-The IS31FL3737 IC's have on-chip resistors that can be enabled to allow for de-ghosting of the RGB matrix. By default these resistors are not enabled (`IS31FL3737_SWPULLUP`/`IS31FL3737_CSPULLUP` are given the value of `IS31FL3737_PUR_0R`), the values that can be set to enable de-ghosting are as follows:
-
-| `IS31FL3737_SWPULLUP/IS31FL3737_CSPULLUP` | Description |
-|----------------------|-------------|
-| `IS31FL3737_PUR_0R` | (default) Do not use the on-chip resistors/enable de-ghosting |
-| `IS31FL3737_PUR_05KR` | The 0.5k Ohm resistor used during blanking period (t_NOL) |
-| `IS31FL3737_PUR_1KR` | The 1k Ohm resistor used during blanking period (t_NOL) |
-| `IS31FL3737_PUR_2KR` | The 2k Ohm resistor used during blanking period (t_NOL) |
-| `IS31FL3737_PUR_4KR` | The 4k Ohm resistor used during blanking period (t_NOL) |
-| `IS31FL3737_PUR_8KR` | The 8k Ohm resistor during blanking period (t_NOL) |
-| `IS31FL3737_PUR_16KR` | The 16k Ohm resistor during blanking period (t_NOL) |
-| `IS31FL3737_PUR_32KR` | The 32k Ohm resistor used during blanking period (t_NOL) |
-
-Here is an example using 2 drivers.
-
-```c
-// This is a 7-bit address, that gets left-shifted and bit 0
-// set to 0 for write, 1 for read (as per I2C protocol)
-// The address will vary depending on your wiring:
-// 0000 ADDR <-> GND
-// 0101 ADDR <-> SCL
-// 1010 ADDR <-> SDA
-// 1111 ADDR <-> VCC
-// ADDR represents A3:A0 of the 7-bit address.
-// The result is: 0b101(ADDR)
-#define IS31FL3737_I2C_ADDRESS_1 IS31FL3737_I2C_ADDRESS_GND
-#define IS31FL3737_I2C_ADDRESS_2 IS31FL3737_I2C_ADDRESS_SCL
-
-#define DRIVER_1_LED_TOTAL 30
-#define DRIVER_2_LED_TOTAL 36
-#define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
-```
-::: warning
-Note the parentheses, this is so when `RGB_MATRIX_LED_COUNT` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)` will give very different results than `rand() % DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL`.
-:::
-
-Define these arrays listing all the LEDs in your `<keyboard>.c`:
-
-```c
-const is31fl3737_led_t PROGMEM g_is31fl3737_leds[IS31FL3737_LED_COUNT] = {
-/* Refer to IS31 manual for these locations
- *   driver
- *   |  R location
- *   |  |        G location
- *   |  |        |        B location
- *   |  |        |        | */
-    {0, SW1_CS1, SW1_CS2, SW1_CS3},
-    ....
-}
-```
-
-Where `SWx_CSy` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3737.pdf) and the header file `drivers/led/issi/is31fl3737.h`. The `driver` is the index of the driver you defined in your `config.h` (Only `0`, `1`, `2`, or `3` for now).
-
----
-### IS31FLCOMMON {#is31flcommon}
-
-There is basic support for addressable RGB matrix lighting with a selection of I2C ISSI Lumissil RGB controllers through a shared common driver. To enable it, add this to your `rules.mk`:
-
-```makefile
-RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = <driver name>
-```
-
-Where `<driver name>` is the applicable LED driver chip as below
-
-| Driver Name | Data Sheet | Capability |
-|-------------|------------|------------|
-| `IS31FL3742A` | [datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3742A_DS.pdf) | 60 RGB, 30x6 Matrix |
-| `IS31FL3743A` | [datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3743A_DS.pdf) | 66 RGB, 18x11 Matrix |
-| `IS31FL3745` | [datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3745_DS.pdf) | 48 RGB, 18x8 Matrix |
-| `IS31FL3746A` | [datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3746A_DS.pdf) | 24 RGB, 18x4 Matrix |
-
-You can use between 1 and 4 IC's. Do not specify `DRIVER_ADDR_<N>` define for IC's if not present on your keyboard. The `DRIVER_ADDR_1` default assumes that all Address pins on the controller have been connected to GND. Drivers that have SYNC functionality have the default settings to disable if 1 driver. If more than 1 drivers then `DRIVER_ADDR_1` will be set to Master and the remaining ones set to Slave.
-
-Configure the hardware via your `config.h`:
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `ISSI_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
-| `ISSI_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
-| `RGB_MATRIX_LED_COUNT` | (Required) How many RGB lights are present across all drivers | |
-| `DRIVER_ADDR_1` | (Optional) Address for the first RGB driver | |
-| `DRIVER_ADDR_<N>` | (Required) Address for the additional RGB drivers | |
-| `ISSI_SSR_<N>` | (Optional) Configuration for the Spread Spectrum Register | |
-| `ISSI_CONFIGURATION` | (Optional) Configuration for the Configuration Register | |
-| `ISSI_GLOBALCURRENT` | (Optional) Configuration for the Global Current Register | 0xFF |
-| `ISSI_PULLDOWNUP` | (Optional) Configuration for the Pull Up & Pull Down Register | |
-| `ISSI_TEMP` | (Optional) Configuration for the Temperature Register | |
-| `ISSI_PWM_ENABLE` | (Optional) Configuration for the PWM Enable Register | |
-| `ISSI_PWM_SET` | (Optional) Configuration for the PWM Setting Register | |
-| `ISSI_SCAL_RED` | (Optional) Configuration for the RED LEDs in Scaling Registers | 0xFF |
-| `ISSI_SCAL_BLUE` | (Optional) Configuration for the BLUE LEDs in Scaling Registers | 0xFF |
-| `ISSI_SCAL_GREEN` | (Optional) Configuration for the GREEN LEDs in Scaling Registers | 0xFF |
-| `ISSI_MANUAL_SCALING` | (Optional) If you wish to configure the Scaling Registers manually | |
-
-
-Defaults
-
-| Variable | IS31FL3742A | IS31FL3743A | IS31FL3745 | IS31FL3746 |
-|----------|-------------|-------------|------------|------------|
-| `DRIVER_ADDR_1` | 0b0110000 | 0b0100000 | 0b0100000 | 0b1100000 |
-| `ISSI_SSR_1` | 0x00 | 0x00 / 0x60 | 0x00 / 0xC0 | 0x00 |
-| `ISSI_SSR_<2-4>` | 0x00 | 0x40 | 0x80 | 0x00 |
-| `ISSI_CONFIGURATION` | 0x31 | 0x01 | 0x31 | 0x01 |
-| `ISSI_PULLDOWNUP` | 0x55 | 0x33 | 0x33 | 0x33 |
-| `ISSI_TEMP` | N/A | 0x00 | 0x00 | 0x00 |
-| `ISSI_PWM_ENABLE` | N/A | N/A | N/A | 0x00 |
-| `ISSI_PWM_SET` | 0x00 | N/A | N/A | 0x00 |
-
-Here is an example using 2 drivers.
-
-```c
-#define DRIVER_ADDR_2 0b0100001
-
-#define DRIVER_1_LED_TOTAL 66
-#define DRIVER_2_LED_TOTAL 42
-#define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
-```
-
-::: warning
-Note the parentheses, this is so when `RGB_MATRIX_LED_COUNT` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)` will give very different results than `rand() % DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL`.
-:::
-
-Currently only 4 drivers are supported, but it would be trivial to support for more. Note that using a combination of different drivers is not supported. All drivers must be of the same model.
-
-Define these arrays listing all the LEDs in your `<keyboard>.c`:
-
-```c
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
-/* Refer to IS31 manual for these locations
- *   driver
- *   |  R location
- *   |  |        G location
- *   |  |        |        B location
- *   |  |        |        | */
-    {0, SW1_CS1, SW1_CS2, SW1_CS3},
-    ....
-}
-```
-
-Where `CSx_SWx` is the location of the LED in the matrix defined by the datasheet. The `driver` is the index of the driver you defined in your `config.h` (`0`, `1`, `2`, or `3` for now).
-
-`ISSI_MANUAL_SCALING` is used to override the Scaling for individual LED's. By default they will be set as per `ISSI_SCAL_<colour>`. In `config.h` set how many LED's you want to manually set scaling for.
-Eg `#define ISSI_MANUAL_SCALING 3`
-
-Then Define the array listing all the LEDs you want to override in your `<keyboard>.c`:
-
-```c
-const is31_led PROGMEM g_is31_scaling[ISSI_MANUAL_SCALING] = {
-/*   LED Index
- *   |  R scaling
- *   |  |    G scaling
- *   |  |    |    B scaling
- *   |  |    |    | */
-    {5, 120, 155, 167},
-    {9, 120, 155, 167},
-    ....
-}
-```
-
-Where LED Index is the position of the LED in the `g_is31_leds` array. The `scaling` value between 0 and 255 to be written to the Scaling Register.
-
----
-
-### WS2812 {#ws2812}
-
-There is basic support for addressable RGB matrix lighting with a WS2811/WS2812{a,b,c} addressable LED strand. To enable it, add this to your `rules.mk`:
-
-```make
-RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = ws2812
-```
-
-Configure the hardware via your `config.h`:
-
-```c
-// The pin connected to the data pin of the LEDs
-#define WS2812_DI_PIN D7
-// The number of LEDs connected
-#define RGB_MATRIX_LED_COUNT 70
-```
-
-::: tip
-There are additional configuration options for ARM controllers that offer increased performance over the default bitbang driver. Please see [WS2812 Driver](../drivers/ws2812) for more information.
-:::
-
----
-
-### APA102 {#apa102}
-
-There is basic support for APA102 based addressable LED strands. To enable it, add this to your `rules.mk`:
-
-```make
-RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = apa102
-```
-
-Configure the hardware via your `config.h`:
-
-```c
-// The pin connected to the data pin of the LEDs
-#define APA102_DI_PIN D7
-// The pin connected to the clock pin of the LEDs
-#define APA102_CI_PIN D6
-// The number of LEDs connected
-#define RGB_MATRIX_LED_COUNT 70
-```
-
----
-### AW20216S {#aw20216s}
-There is basic support for addressable RGB matrix lighting with the SPI AW20216S RGB controller. To enable it, add this to your `rules.mk`:
-
-```make
-RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = aw20216s
-```
-
-You can use up to 2 AW20216S IC's. Do not specify `DRIVER_<N>_xxx` defines for IC's that are not present on your keyboard. You can define the following items in `config.h`:
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `AW20216S_CS_PIN_1` | (Required) MCU pin connected to first RGB driver chip select line  | B13 |
-| `AW20216S_CS_PIN_2` | (Optional) MCU pin connected to second RGB driver chip select line  | |
-| `AW20216S_EN_PIN_1` | (Required) MCU pin connected to first RGB driver hardware enable line  | C13 |
-| `AW20216S_EN_PIN_2` | (Optional) MCU pin connected to second RGB driver hardware enable line  | |
-| `DRIVER_1_LED_TOTAL` | (Required) How many RGB lights are connected to first RGB driver  | |
-| `DRIVER_2_LED_TOTAL` | (Optional) How many RGB lights are connected to second RGB driver  | |
-| `RGB_MATRIX_LED_COUNT` | (Required) How many RGB lights are present across all drivers | |
-| `AW20216S_SCALING_MAX` | (Optional) LED current scaling value (0-255, higher values mean LED is brighter at full PWM) | 150 |
-| `AW20216S_GLOBAL_CURRENT_MAX` | (Optional) Driver global current limit (0-255, higher values means the driver may consume more power) | 150 |
-| `AW20216S_SPI_MODE` | (Optional) Mode for SPI communication (0-3, defines polarity and phase of the clock) | 3 |
-| `AW20216S_SPI_DIVISOR` | (Optional) Clock divisor for SPI communication (powers of 2, smaller numbers means faster communication, should not be less than 4) | 4 |
-
-Here is an example using 2 drivers.
-
-```c
-#define AW20216S_CS_PIN_1 B13
-#define AW20216S_CS_PIN_2 B14
-// Hardware enable lines may be connected to the same pin
-#define AW20216S_EN_PIN_1 C13
-#define AW20216S_EN_PIN_2 C13
-
-#define DRIVER_1_LED_TOTAL 66
-#define DRIVER_2_LED_TOTAL 32
-#define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
-```
-
-::: warning
-Note the parentheses, this is so when `RGB_MATRIX_LED_COUNT` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)` will give very different results than `rand() % DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL`.
-:::
-
-Define these arrays listing all the LEDs in your `<keyboard>.c`:
-
-```c
-const aw20216s_led_t PROGMEM g_aw20216s_leds[AW20216S_LED_COUNT] = {
-/* Each AW20216S channel is controlled by a register at some offset between 0x00
- * and 0xD7 inclusive.
- * See drivers/led/aw20216s.h for the mapping between register offsets and
- * driver pin locations.
- *    driver
- *    |  R location
- *    |  |        G location
- *    |  |        |        B location
- *    |  |        |        | */
-    { 0, SW1_CS1, SW1_CS2, SW1_CS3 },
-    { 0, SW1_CS4, SW1_CS5, SW1_CS6 },
-    { 0, SW1_CS7, SW1_CS8, SW1_CS9 },
-    { 0, SW1_CS10, SW1_CS11, SW1_CS12 },
-    { 0, SW1_CS13, SW1_CS14, SW1_CS15 },
-    ...
-    { 1, SW1_CS1, SW1_CS2, SW1_CS3 },
-    { 1, SW1_CS13, SW1_CS14, SW1_CS15 },
-    { 1, SW1_CS16, SW1_CS17, SW1_CS18 },
-    { 1, SW2_CS4, SW2_CS5, SW2_CS6 },
-    ...
-};
-```
-
----
 
 ## Common Configuration {#common-configuration}
 
@@ -807,12 +299,6 @@ By setting `RGB_MATRIX_CUSTOM_USER = yes` in `rules.mk`, new effects can be defi
 Hardware maintainers who want to limit custom effects to a specific keyboard can create a `rgb_matrix_kb.inc` file in the root of the keyboard directory, and add `RGB_MATRIX_CUSTOM_KB = yes` to the keyboard level `rules.mk`.
 :::
 
-To use custom effects in your code, simply prepend `RGB_MATRIX_CUSTOM_` to the effect name specified in `RGB_MATRIX_EFFECT()`. For example, an effect declared as `RGB_MATRIX_EFFECT(my_cool_effect)` would be referenced with:
-
-```c
-rgb_matrix_mode(RGB_MATRIX_CUSTOM_my_cool_effect);
-```
-
 ```c
 // !!! DO NOT ADD #pragma once !!! //
 
@@ -854,6 +340,12 @@ static bool my_cool_effect2(effect_params_t* params) {
 }
 
 #endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
+```
+
+To switch to your custom effect programmatically, simply call `rgb_matrix_mode()` and prepend `RGB_MATRIX_CUSTOM_` to the effect name you specified in `RGB_MATRIX_EFFECT()`. For example, an effect declared as `RGB_MATRIX_EFFECT(my_cool_effect)` would be referenced with:
+
+```c
+rgb_matrix_mode(RGB_MATRIX_CUSTOM_my_cool_effect);
 ```
 
 For inspiration and examples, check out the built-in effects under `quantum/rgb_matrix/animations/`.
@@ -913,71 +405,6 @@ These are defined in [`color.h`](https://github.com/qmk/qmk_firmware/blob/master
 ## EEPROM storage {#eeprom-storage}
 
 The EEPROM for it is currently shared with the LED Matrix system (it's generally assumed only one feature would be used at a time).
-
-## Functions {#functions}
-
-### Direct Operation {#direct-operation}
-|Function                                    |Description  |
-|--------------------------------------------|-------------|
-|`rgb_matrix_set_color_all(r, g, b)`         |Set all of the LEDs to the given RGB value, where `r`/`g`/`b` are between 0 and 255 (not written to EEPROM) |
-|`rgb_matrix_set_color(index, r, g, b)`      |Set a single LED to the given RGB value, where `r`/`g`/`b` are between 0 and 255, and `index` is between 0 and `RGB_MATRIX_LED_COUNT` (not written to EEPROM) |
-
-### Disable/Enable Effects {#disable-enable-effects}
-|Function                                    |Description  |
-|--------------------------------------------|-------------|
-|`rgb_matrix_toggle()`                       |Toggle effect range LEDs between on and off |
-|`rgb_matrix_toggle_noeeprom()`              |Toggle effect range LEDs between on and off (not written to EEPROM) |
-|`rgb_matrix_enable()`                       |Turn effect range LEDs on, based on their previous state |
-|`rgb_matrix_enable_noeeprom()`              |Turn effect range LEDs on, based on their previous state (not written to EEPROM) |
-|`rgb_matrix_disable()`                      |Turn effect range LEDs off, based on their previous state |
-|`rgb_matrix_disable_noeeprom()`             |Turn effect range LEDs off, based on their previous state (not written to EEPROM) |
-
-### Change Effect Mode {#change-effect-mode}
-|Function                                    |Description  |
-|--------------------------------------------|-------------|
-|`rgb_matrix_mode(mode)`                     |Set the mode, if RGB animations are enabled |
-|`rgb_matrix_mode_noeeprom(mode)`            |Set the mode, if RGB animations are enabled (not written to EEPROM) |
-|`rgb_matrix_step()`                         |Change the mode to the next RGB animation in the list of enabled RGB animations |
-|`rgb_matrix_step_noeeprom()`                |Change the mode to the next RGB animation in the list of enabled RGB animations (not written to EEPROM) |
-|`rgb_matrix_step_reverse()`                 |Change the mode to the previous RGB animation in the list of enabled RGB animations |
-|`rgb_matrix_step_reverse_noeeprom()`        |Change the mode to the previous RGB animation in the list of enabled RGB animations (not written to EEPROM) |
-|`rgb_matrix_increase_speed()`               |Increase the speed of the animations |
-|`rgb_matrix_increase_speed_noeeprom()`      |Increase the speed of the animations (not written to EEPROM) |
-|`rgb_matrix_decrease_speed()`               |Decrease the speed of the animations |
-|`rgb_matrix_decrease_speed_noeeprom()`      |Decrease the speed of the animations (not written to EEPROM) |
-|`rgb_matrix_set_speed(speed)`               |Set the speed of the animations to the given value where `speed` is between 0 and 255 |
-|`rgb_matrix_set_speed_noeeprom(speed)`      |Set the speed of the animations to the given value where `speed` is between 0 and 255 (not written to EEPROM) |
-|`rgb_matrix_reload_from_eeprom()`           |Reload the effect configuration (enabled, mode and color) from EEPROM |
-
-### Change Color {#change-color}
-|Function                                    |Description  |
-|--------------------------------------------|-------------|
-|`rgb_matrix_increase_hue()`                 |Increase the hue for effect range LEDs. This wraps around at maximum hue |
-|`rgb_matrix_increase_hue_noeeprom()`        |Increase the hue for effect range LEDs. This wraps around at maximum hue (not written to EEPROM) |
-|`rgb_matrix_decrease_hue()`                 |Decrease the hue for effect range LEDs. This wraps around at minimum hue |
-|`rgb_matrix_decrease_hue_noeeprom()`        |Decrease the hue for effect range LEDs. This wraps around at minimum hue (not written to EEPROM) |
-|`rgb_matrix_increase_sat()`                 |Increase the saturation for effect range LEDs. This wraps around at maximum saturation |
-|`rgb_matrix_increase_sat_noeeprom()`        |Increase the saturation for effect range LEDs. This wraps around at maximum saturation (not written to EEPROM) |
-|`rgb_matrix_decrease_sat()`                 |Decrease the saturation for effect range LEDs. This wraps around at minimum saturation |
-|`rgb_matrix_decrease_sat_noeeprom()`        |Decrease the saturation for effect range LEDs. This wraps around at minimum saturation (not written to EEPROM) |
-|`rgb_matrix_increase_val()`                 |Increase the value for effect range LEDs. This wraps around at maximum value |
-|`rgb_matrix_increase_val_noeeprom()`        |Increase the value for effect range LEDs. This wraps around at maximum value (not written to EEPROM) |
-|`rgb_matrix_decrease_val()`                 |Decrease the value for effect range LEDs. This wraps around at minimum value |
-|`rgb_matrix_decrease_val_noeeprom()`        |Decrease the value for effect range LEDs. This wraps around at minimum value (not written to EEPROM) |
-|`rgb_matrix_sethsv(h, s, v)`                |Set LEDs to the given HSV value where `h`/`s`/`v` are between 0 and 255 |
-|`rgb_matrix_sethsv_noeeprom(h, s, v)`       |Set LEDs to the given HSV value where `h`/`s`/`v` are between 0 and 255 (not written to EEPROM) |
-
-### Query Current Status {#query-current-status}
-|Function                         |Description                |
-|---------------------------------|---------------------------|
-|`rgb_matrix_is_enabled()`        |Gets current on/off status |
-|`rgb_matrix_get_mode()`          |Gets current mode          |
-|`rgb_matrix_get_hue()`           |Gets current hue           |
-|`rgb_matrix_get_sat()`           |Gets current sat           |
-|`rgb_matrix_get_val()`           |Gets current val           |
-|`rgb_matrix_get_hsv()`           |Gets hue, sat, and val and returns a [`HSV` structure](https://github.com/qmk/qmk_firmware/blob/7ba6456c0b2e041bb9f97dbed265c5b8b4b12192/quantum/color.h#L56-L61)|
-|`rgb_matrix_get_speed()`         |Gets current speed         |
-|`rgb_matrix_get_suspend_state()` |Gets current suspend state |
 
 ## Callbacks {#callbacks}
 
@@ -1072,9 +499,9 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     HSV hsv = {0, 255, 255};
 
     if (layer_state_is(layer_state, 2)) {
-        hsv = {130, 255, 255};
+        hsv = (HSV){130, 255, 255};
     } else {
-        hsv = {30, 255, 255};
+        hsv = (HSV){30, 255, 255};
     }
 
     if (hsv.v > rgb_matrix_get_val()) {
@@ -1117,3 +544,409 @@ void keyboard_post_init_user(void) {
     rgb_matrix_sethsv_noeeprom(HSV_OFF);
 }
 ```
+
+## API {#api}
+
+### `void rgb_matrix_toggle(void)` {#api-rgb-matrix-toggle}
+
+Toggle RGB Matrix on or off.
+
+---
+
+### `void rgb_matrix_toggle_noeeprom(void)` {#api-rgb-matrix-toggle-noeeprom}
+
+Toggle RGB Matrix on or off. New state is not written to EEPROM.
+
+---
+
+### `void rgb_matrix_enable(void)` {#api-rgb-matrix-enable}
+
+Turn RGB Matrix on.
+
+---
+
+### `void rgb_matrix_enable_noeeprom(void)` {#api-rgb-matrix-enable-noeeprom}
+
+Turn RGB Matrix on. New state is not written to EEPROM.
+
+---
+
+### `void rgb_matrix_disable(void)` {#api-rgb-matrix-disable}
+
+Turn RGB Matrix off.
+
+---
+
+### `void rgb_matrix_disable_noeeprom(void)` {#api-rgb-matrix-disable-noeeprom}
+
+Turn RGB Matrix off. New state is not written to EEPROM.
+
+---
+
+### `bool rgb_matrix_is_enabled(void)` {#api-rgb-matrix-is-enabled}
+
+Get the current enabled state of RGB Matrix.
+
+#### Return Value {#api-rgb-matrix-is-enabled-return}
+
+`true` if RGB Matrix is enabled.
+
+---
+
+### `void rgb_matrix_set_color(uint8_t index, uint8_t r, uint8_t g, uint8_t b)` {#api-rgb-matrix-set-color}
+
+Set the color of a single LED.
+
+This function can only be run from within an effect or indicator callback, otherwise the currently running animation will simply overwrite it on the next frame.
+
+#### Arguments {#api-rgb-matrix-set-color-arguments}
+
+ - `uint8_t index`  
+   The LED index, from 0 to `RGB_MATRIX_LED_COUNT - 1`.
+ - `uint8_t r`  
+   The red value to set.
+ - `uint8_t g`  
+   The green value to set.
+ - `uint8_t b`  
+   The blue value to set.
+
+---
+
+### `void rgb_matrix_set_color_all(uint8_t r, uint8_t g, uint8_t b)` {#api-rgb-matrix-set-color-all}
+
+Set the color of all LEDs.
+
+This function can only be run from within an effect or indicator callback, otherwise the currently running animation will simply overwrite it on the next frame.
+
+#### Arguments {#api-rgb-matrix-set-color-all-arguments}
+
+ - `uint8_t r`  
+   The red value to set.
+ - `uint8_t g`  
+   The green value to set.
+ - `uint8_t b`  
+   The blue value to set.
+
+---
+
+### `void rgb_matrix_mode(uint8_t mode)` {#api-rgb-matrix-mode}
+
+Set the currently running effect.
+
+#### Arguments {#api-rgb-matrix-mode-arguments}
+
+ - `uint8_t mode`  
+   The effect to switch to.
+
+---
+
+### `void rgb_matrix_mode_noeeprom(uint8_t mode)` {#api-rgb-matrix-mode-noeeprom}
+
+Set the currently running effect. New state is not written to EEPROM.
+
+#### Arguments {#api-rgb-matrix-mode-noeeprom-arguments}
+
+ - `uint8_t mode`  
+   The effect to switch to.
+
+---
+
+### `void rgb_matrix_step(void)` {#api-rgb-matrix-step}
+
+Move to the next enabled effect.
+
+---
+
+### `void rgb_matrix_step_noeeprom(void)` {#api-rgb-matrix-step-noeeprom}
+
+Move to the next enabled effect. New state is not written to EEPROM.
+
+---
+
+### `void rgb_matrix_step_reverse(void)` {#api-rgb-matrix-step-reverse}
+
+Move to the previous enabled effect.
+
+---
+
+### `void rgb_matrix_step_reverse_noeeprom(void)` {#api-rgb-matrix-step-reverse-noeeprom}
+
+Move to the previous enabled effect. New state is not written to EEPROM.
+
+---
+
+### `uint8_t rgb_matrix_get_mode(void)` {#api-rgb-matrix-get-mode}
+
+Get the currently running effect.
+
+#### Return Value {#api-rgb-matrix-get-mode-return}
+
+The index of the currently running effect.
+
+---
+
+### `void rgb_matrix_increase_hue(void)` {#api-rgb-matrix-increase-hue}
+
+Increase the global effect hue.
+
+---
+
+### `void rgb_matrix_increase_hue_noeeprom(void)` {#api-rgb-matrix-increase-hue-noeeprom}
+
+Increase the global effect hue. New state is not written to EEPROM.
+
+---
+
+### `void rgb_matrix_decrease_hue(void)` {#api-rgb-matrix-decrease-hue}
+
+Decrease the global effect hue.
+
+---
+
+### `void rgb_matrix_decrease_hue_noeeprom(void)` {#api-rgb-matrix-decrease-hue-noeeprom}
+
+Decrease the global effect hue. New state is not written to EEPROM.
+
+---
+
+### `uint8_t rgb_matrix_get_hue(void)` {#api-rgb-matrix-get-hue}
+
+Get the current global effect hue.
+
+#### Return Value {#api-rgb-matrix-get-hue-return}
+
+The current hue value, from 0 to 255.
+
+---
+
+### `void rgb_matrix_increase_sat(void)` {#api-rgb-matrix-increase-sat}
+
+Increase the global effect saturation.
+
+---
+
+### `void rgb_matrix_increase_sat_noeeprom(void)` {#api-rgb-matrix-increase-sat-noeeprom}
+
+Increase the global effect saturation. New state is not written to EEPROM.
+
+---
+
+### `void rgb_matrix_decrease_sat(void)` {#api-rgb-matrix-decrease-sat}
+
+Decrease the global effect saturation.
+
+---
+
+### `void rgb_matrix_decrease_sat_noeeprom(void)` {#api-rgb-matrix-decrease-sat-noeeprom}
+
+Decrease the global effect saturation. New state is not written to EEPROM.
+
+---
+
+### `uint8_t rgb_matrix_get_sat(void)` {#api-rgb-matrix-get-sat}
+
+Get the current global effect saturation.
+
+#### Return Value {#api-rgb-matrix-get-sat-return}
+
+The current saturation value, from 0 to 255.
+
+---
+
+### `void rgb_matrix_increase_val(void)` {#api-rgb-matrix-increase-val}
+
+Increase the global effect value (brightness).
+
+---
+
+### `void rgb_matrix_increase_val_noeeprom(void)` {#api-rgb-matrix-increase-val-noeeprom}
+
+Increase the global effect value (brightness). New state is not written to EEPROM.
+
+---
+
+### `void rgb_matrix_decrease_val(void)` {#api-rgb-matrix-decrease-val}
+
+Decrease the global effect value (brightness).
+
+---
+
+### `void rgb_matrix_decrease_val_noeeprom(void)` {#api-rgb-matrix-decrease-val-noeeprom}
+
+Decrease the global effect value (brightness). New state is not written to EEPROM.
+
+---
+
+### `uint8_t rgb_matrix_get_val(void)` {#api-rgb-matrix-get-val}
+
+Get the current global effect value (brightness).
+
+#### Return Value {#api-rgb-matrix-get-val-return}
+
+The current brightness value, from 0 to 255.
+
+---
+
+### `void rgb_matrix_increase_speed(void)` {#api-rgb-matrix-increase-speed}
+
+Increase the effect speed.
+
+---
+
+### `void rgb_matrix_increase_speed_noeeprom(void)` {#api-rgb-matrix-increase-speed-noeeprom}
+
+Increase the effect speed. New state is not written to EEPROM.
+
+---
+
+### `void rgb_matrix_decrease_speed(void)` {#api-rgb-matrix-decrease-speed}
+
+Decrease the effect speed.
+
+---
+
+### `void rgb_matrix_decrease_speed_noeeprom(void)` {#api-rgb-matrix-decrease-speed-noeeprom}
+
+Decrease the effect speed. New state is not written to EEPROM.
+
+---
+
+### `void rgb_matrix_set_speed(uint8_t speed)` {#api-rgb-matrix-set-speed}
+
+Set the effect speed.
+
+#### Arguments {#api-rgb-matrix-set-speed-arguments}
+
+ - `uint8_t speed`  
+   The new speed to set, from 0 to 255.
+
+---
+
+### `void rgb_matrix_set_speed_noeeprom(uint8_t speed)` {#api-rgb-matrix-set-speed-noeeprom}
+
+Set the effect speed. New state is not written to EEPROM.
+
+#### Arguments {#api-rgb-matrix-set-speed-noeeprom-arguments}
+
+ - `uint8_t speed`  
+   The new speed to set, from 0 to 255.
+
+---
+
+### `uint8_t rgb_matrix_get_speed(void)` {#api-rgb-matrix-get-speed}
+
+Get the current effect speed.
+
+#### Return Value {#api-rgb-matrix-get-speed-return}
+
+The current effect speed, from 0 to 255.
+
+---
+
+### `void rgb_matrix_sethsv(uint8_t h, uint8_t s, uint8_t v)` {#api-rgb-matrix-sethsv}
+
+Set the global effect hue, saturation, and value (brightness).
+
+### Arguments {#api-rgb-matrix-sethsv-arguments}
+
+ - `uint8_t h`  
+   The hue to set, from 0 to 255.
+ - `uint8_t s`  
+   The saturation to set, from 0 to 255.
+ - `uint8_t v`  
+   The value (brightness) to set, from 0 to 255.
+
+---
+
+### `void rgb_matrix_sethsv_noeeprom(uint8_t h, uint8_t s, uint8_t v)` {#api-rgb-matrix-sethsv-noeeprom}
+
+Set the global effect hue, saturation, and value (brightness). New state is not written to EEPROM.
+
+#### Arguments {#api-rgb-matrix-sethsv-noeeprom-arguments}
+
+ - `uint8_t h`  
+   The hue to set, from 0 to 255.
+ - `uint8_t s`  
+   The saturation to set, from 0 to 255.
+ - `uint8_t v`  
+   The value (brightness) to set, from 0 to 255.
+
+---
+
+### `HSV rgb_matrix_get_hsv(void)` {#api-rgb-matrix-get-hsv}
+
+Get the current global effect hue, saturation, and value (brightness).
+
+#### Return Value {#api-rgb-matrix-get-hsv-return}
+
+The current effect HSV as an `HSV` struct.
+
+---
+
+### `void rgb_matrix_reload_from_eeprom(void)` {#api-rgb-matrix-reload-from-eeprom}
+
+Reload the effect configuration (enabled, mode and color) from EEPROM.
+
+---
+
+### `bool rgb_matrix_get_suspend_state(void)` {#api-rgb-matrix-get-suspend-state}
+
+Get the current suspend state of RGB Matrix.
+
+#### Return Value {#api-rgb-matrix-get-suspend-state-return}
+
+`true` if RGB Matrix is currently in the suspended state.
+
+---
+
+### `bool rgb_matrix_indicators_kb(void)` {#api-rgb-matrix-indicators-kb}
+
+Keyboard-level callback, invoked after current animation frame is rendered but before it is flushed to the LEDs.
+
+#### Return Value {#api-rgb-matrix-indicators-kb-return}
+
+Currently unused.
+
+---
+
+### `bool rgb_matrix_indicators_user(void)` {#api-rgb-matrix-indicators-user}
+
+Keymap-level callback, invoked after current animation frame is rendered but before it is flushed to the LEDs.
+
+#### Return Value {#api-rgb-matrix-indicators-user-return}
+
+`true` to continue running the keyboard-level callback.
+
+---
+
+### `bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max)` {#api-rgb-matrix-indicators-advanced-kb}
+
+Keyboard-level callback, invoked after current animation frame is rendered but before it is flushed to the LEDs.
+
+### Arguments {#api-rgb-matrix-indicators-advanced-kb-arguments}
+
+ - `uint8_t led_min`  
+   The index of the first LED in this batch.
+ - `uint8_t led_max`  
+   The index of the last LED in this batch.
+
+#### Return Value {#api-rgb-matrix-indicators-advanced-kb-return}
+
+Currently unused.
+
+---
+
+### `bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max)` {#api-rgb-matrix-indicators-advanced-user}
+
+Keymap-level callback, invoked after current animation frame is rendered but before it is flushed to the LEDs.
+
+### Arguments {#api-rgb-matrix-indicators-advanced-user-arguments}
+
+ - `uint8_t led_min`  
+   The index of the first LED in this batch.
+ - `uint8_t led_max`  
+   The index of the last LED in this batch.
+
+#### Return Value {#api-rgb-matrix-indicators-advanced-user-return}
+
+`true` to continue running the keyboard-level callback.

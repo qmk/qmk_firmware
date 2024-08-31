@@ -45,8 +45,12 @@
   },
   "processor": "atmega32u4",
   "bootloader": "atmel-dfu",
+  "layout_aliases": {
+    "LAYOUT_staggered": "LAYOUT_all",
+    "LAYOUT_staggered_big_boy": "LAYOUT_6u25_space"
+  },
   "layouts": {
-    "LAYOUT_staggered": {
+    "LAYOUT_all": {
       "layout": [
         {"matrix": [0, 0], "x": 0, "y": 0},
 
@@ -111,7 +115,7 @@
         {"matrix": [4, 12], "x": 12.25, "y": 4.5, "w": 1.25}
       ]
     },
-    "LAYOUT_staggered_big_boy": {
+    "LAYOUT_6u25_space": {
       "layout": [
         {"matrix": [0, 0], "x": 0, "y": 0},
 
