@@ -72,6 +72,11 @@
     "LED_KANA_PIN": {"info_key": "indicators.kana"},
     "LED_PIN_ON_STATE": {"info_key": "indicators.on_state", "value_type": "int"},
 
+    // Joystick
+    "JOYSTICK_AXIS_COUNT": {"info_key": "joystick.axis_count", "value_type": "int"},
+    "JOYSTICK_AXIS_RESOLUTION": {"info_key": "joystick.axis_resolution", "value_type": "int"},
+    "JOYSTICK_BUTTON_COUNT": {"info_key": "joystick.button_count", "value_type": "int"},
+
     // Leader Key
     "LEADER_PER_KEY_TIMING": {"info_key": "leader_key.timing", "value_type": "flag"},
     "LEADER_KEY_STRICT_KEY_PROCESSING": {"info_key": "leader_key.strict_processing", "value_type": "flag"},
@@ -171,7 +176,7 @@
     "SECURE_UNLOCK_TIMEOUT": {"info_key": "secure.unlock_timeout", "value_type": "int"},
 
     // Split Keyboard
-    "SOFT_SERIAL_PIN": {"info_key": "split.soft_serial_pin"},
+    "SOFT_SERIAL_PIN": {"info_key": "split.serial.pin"},
     "SOFT_SERIAL_SPEED": {"info_key": "split.soft_serial_speed"},
     "SPLIT_HAND_MATRIX_GRID": {"info_key": "split.handedness.matrix_grid", "value_type": "array", "to_c": false},
     "SPLIT_HAND_PIN": {"info_key": "split.handedness.pin"},

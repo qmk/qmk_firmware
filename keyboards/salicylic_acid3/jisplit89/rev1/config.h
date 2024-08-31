@@ -17,8 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define SPLIT_HAND_PIN B6
-
 #ifndef IOS_DEVICE_ENABLE
   #define RGBLIGHT_LIMIT_VAL 180
   #define RGBLIGHT_VAL_STEP 17
