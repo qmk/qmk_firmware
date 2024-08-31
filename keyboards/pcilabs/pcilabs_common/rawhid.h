@@ -11,7 +11,8 @@ typedef enum {
     EEPROM_RESET,
     SEND_RGB_SETTINGS,
     SEND_KEY_CONFIG,
-    SEND_KEY_REBIND
+    SEND_KEY_REBIND,
+    SWITCH_RGB_MODE
 } report_id_t;
 
 void raw_hid_send_rgb_settings(void);
