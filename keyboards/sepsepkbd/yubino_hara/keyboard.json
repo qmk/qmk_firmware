@@ -7,8 +7,6 @@
     "features": {
         "rgblight": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
@@ -16,6 +14,10 @@
     "split": {
         "enabled": true,
         "soft_serial_pin": "GP0",
+        "serial": {
+            "driver": "vendor",
+            "pin": "GP0"
+        },
         "transport": {
             "sync": {
                 "matrix_state": true
