@@ -9,7 +9,7 @@ A PCB for 65% keyboards. Uses a Left USB Type C connector or JST SH daughter boa
 
 * Keyboard Maintainer: [Trnthsn](https://github.com/trnthsn)
 * Hardware Supported: STM32, S6xty5, Bakeneko65, Krush65
-* Hardware Availability: [Trnthsn](https://www.facebook.com/ThanhSon.mech)
+* Hardware Availability: [ThanhSon.Mech](https://www.facebook.com/ThanhSon.mech)
 
 Make example for this keyboard (after setting up your build environment):
 

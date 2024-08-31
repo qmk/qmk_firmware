@@ -8,7 +8,7 @@ A Hiney H60 form factor PCB for 60% keyboards. Uses a Left USB Type C connector 
 
 * Keyboard Maintainer: [Trnthsn](https://github.com/trnthsn)
 * Hardware Supported: RP2040, Tyson60s PCB, Hiney H60
-* Hardware Availability: [Trnthsn](https://www.facebook.com/TrnThSn.Mech)
+* Hardware Availability: [ThanhSon.Mech](https://www.facebook.com/ThanhSon.mech)
 
 Make example for this keyboard (after setting up your build environment):
 
