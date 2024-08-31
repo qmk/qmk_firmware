@@ -43,4 +43,3 @@ The pixel graphics used here are from a combination of sources;
 #define I2C1_TIMINGR_SCLL 0x09U
 
 #define OLED_TIMEOUT 300000
-#define ENCODER_DIRECTION_FLIP
