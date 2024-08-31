@@ -173,9 +173,9 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             break;
         case SWITCH_RGB_MODE:;
             if (data[1] == 1)
-            rgb_matrix_step();
+                rgb_matrix_step();
             else if (data[1] == 2)
-            rgb_matrix_step_reverse();
+                rgb_matrix_step_reverse();
             break;
     }
 }
