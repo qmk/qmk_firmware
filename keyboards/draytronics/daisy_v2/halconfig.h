@@ -30,6 +30,6 @@ The pixel graphics used here are from a combination of sources;
 */
 #pragma once
 
-#define HAL_USE_I2C TRUE //Enable I2C
+#define HAL_USE_I2C TRUE
 
 #include_next <halconf.h>
