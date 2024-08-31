@@ -176,6 +176,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                 rgb_matrix_step();
             else if (data[1] == 2)
                 rgb_matrix_step_reverse();
+            raw_hid_send_rgb_settings();
             break;
     }
 }
