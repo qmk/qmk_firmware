@@ -57,7 +57,7 @@ extern usb_endpoint_out_t usb_endpoints_out[USB_ENDPOINT_OUT_COUNT];
 uint8_t _Alignas(2) keyboard_idle     = 0;
 uint8_t _Alignas(2) keyboard_protocol = 1;
 uint8_t keyboard_led_state            = 0;
-uint8_t hires_scroll_state  = 0;
+uint8_t hires_scroll_state            = 0;
 
 static bool __attribute__((__unused__)) send_report_buffered(usb_endpoint_in_lut_t endpoint, void *report, size_t size);
 static void __attribute__((__unused__)) flush_report_buffered(usb_endpoint_in_lut_t endpoint, bool padded);
