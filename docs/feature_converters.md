@@ -10,7 +10,7 @@ The following converters are available at this time:
 |------------|-------------------|
 | `promicro` | `proton_c`        |
 | `promicro` | `kb2040`          |
-| `promicro` | `promicro_rp2040` |
+| `promicro` | `sparkfun_pm2040` |
 | `promicro` | `blok`            |
 | `promicro` | `bit_c_pro`       |
 | `promicro` | `stemcell`        |
@@ -39,7 +39,7 @@ qmk flash -c -kb keebio/bdn9/rev1 -km default -e CONVERT_TO=proton_c
 You can also add the same `CONVERT_TO=<target>` to your keymap's `rules.mk`, which will accomplish the same thing.
 
 ::: tip
-If you get errors about `PORTB/DDRB`, etc not being defined, you'll need to convert the keyboard's code to use the [GPIO Controls](gpio_control) that will work for both ARM and AVR. This shouldn't affect the AVR builds at all.
+If you get errors about `PORTB/DDRB`, etc not being defined, you'll need to convert the keyboard's code to use the [GPIO Controls](drivers/gpio) that will work for both ARM and AVR. This shouldn't affect the AVR builds at all.
 :::
 
 ### Conditional Configuration
@@ -77,7 +77,7 @@ If a board currently supported in QMK uses a [Pro Micro](https://www.sparkfun.co
 |------------------------------------------------------------------------------------------|-------------------|
 | [Proton C](https://qmk.fm/proton-c/)                                                     | `proton_c`        |
 | [Adafruit KB2040](https://learn.adafruit.com/adafruit-kb2040)                            | `kb2040`          |
-| [SparkFun Pro Micro - RP2040](https://www.sparkfun.com/products/18288)                   | `promicro_rp2040` |
+| [SparkFun Pro Micro - RP2040](https://www.sparkfun.com/products/18288)                   | `sparkfun_pm2040` |
 | [Blok](https://boardsource.xyz/store/628b95b494dfa308a6581622)                           | `blok`            |
 | [Bit-C PRO](https://nullbits.co/bit-c-pro)                                               | `bit_c_pro`       |
 | [STeMCell](https://github.com/megamind4089/STeMCell)                                     | `stemcell`        |
@@ -94,7 +94,7 @@ Converter summary:
 |-------------------|---------------------------------|------------------------------|-------------------------------------|
 | `proton_c`        | `-e CONVERT_TO=proton_c`        | `CONVERT_TO=proton_c`        | `#ifdef CONVERT_TO_PROTON_C`        |
 | `kb2040`          | `-e CONVERT_TO=kb2040`          | `CONVERT_TO=kb2040`          | `#ifdef CONVERT_TO_KB2040`          |
-| `promicro_rp2040` | `-e CONVERT_TO=promicro_rp2040` | `CONVERT_TO=promicro_rp2040` | `#ifdef CONVERT_TO_PROMICRO_RP2040` |
+| `sparkfun_pm2040` | `-e CONVERT_TO=sparkfun_pm2040` | `CONVERT_TO=sparkfun_pm2040` | `#ifdef CONVERT_TO_SPARKFUN_PM2040` |
 | `blok`            | `-e CONVERT_TO=blok`            | `CONVERT_TO=blok`            | `#ifdef CONVERT_TO_BLOK`            |
 | `bit_c_pro`       | `-e CONVERT_TO=bit_c_pro`       | `CONVERT_TO=bit_c_pro`       | `#ifdef CONVERT_TO_BIT_C_PRO`       |
 | `stemcell`        | `-e CONVERT_TO=stemcell`        | `CONVERT_TO=stemcell`        | `#ifdef CONVERT_TO_STEMCELL`        |
@@ -118,11 +118,11 @@ The following defaults are based on what has been implemented for STM32 boards.
 
 | Feature                                      | Notes                                                                                                            |
 |----------------------------------------------|------------------------------------------------------------------------------------------------------------------|
-| [Audio](feature_audio)                    | Enabled                                                                                                          |
-| [RGB Lighting](feature_rgblight)          | Disabled                                                                                                         |
-| [Backlight](feature_backlight)            | Forces [task driven PWM](feature_backlight#software-pwm-driver) until ARM can provide automatic configuration |
+| [Audio](features/audio)                    | Enabled                                                                                                          |
+| [RGB Lighting](features/rgblight)          | Disabled                                                                                                         |
+| [Backlight](features/backlight)            | Forces [task driven PWM](features/backlight#software-pwm-driver) until ARM can provide automatic configuration |
 | USB Host (e.g. USB-USB converter)            | Not supported (USB host code is AVR specific and is not currently supported on ARM)                              |
-| [Split keyboards](feature_split_keyboard) | Partial - heavily dependent on enabled features                                                                  |
+| [Split keyboards](features/split_keyboard) | Partial - heavily dependent on enabled features                                                                  |
 
 ### Adafruit KB2040 {#kb2040}
 
@@ -130,12 +130,12 @@ The following defaults are based on what has been implemented for [RP2040](platf
 
 | Feature                                      | Notes                                                                                                            |
 |----------------------------------------------|------------------------------------------------------------------------------------------------------------------|
-| [RGB Lighting](feature_rgblight)          | Enabled via `PIO` vendor driver                                                                                  |
-| [Backlight](feature_backlight)            | Forces [task driven PWM](feature_backlight#software-pwm-driver) until ARM can provide automatic configuration |
+| [RGB Lighting](features/rgblight)          | Enabled via `PIO` vendor driver                                                                                  |
+| [Backlight](features/backlight)            | Forces [task driven PWM](features/backlight#software-pwm-driver) until ARM can provide automatic configuration |
 | USB Host (e.g. USB-USB converter)            | Not supported (USB host code is AVR specific and is not currently supported on ARM)                              |
-| [Split keyboards](feature_split_keyboard) | Partial via `PIO` vendor driver - heavily dependent on enabled features                                          |
+| [Split keyboards](features/split_keyboard) | Partial via `PIO` vendor driver - heavily dependent on enabled features                                          |
 
-### SparkFun Pro Micro - RP2040, Blok, Bit-C PRO and Michi {#promicro_rp2040 }
+### SparkFun Pro Micro - RP2040, Blok, Bit-C PRO and Michi {#sparkfun_pm2040 }
 
 Feature set is identical to [Adafruit KB2040](#kb2040).
 

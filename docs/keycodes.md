@@ -233,7 +233,7 @@ See also: [Quantum Keycodes](quantum_keycodes#qmk-keycodes)
 
 ## Audio Keys {#audio-keys}
 
-See also: [Audio](feature_audio)
+See also: [Audio](features/audio)
 
 |Key                      |Aliases  |Description                                |
 |-------------------------|---------|-------------------------------------------|
@@ -255,7 +255,7 @@ See also: [Audio](feature_audio)
 
 ## Auto Shift {#auto-shift}
 
-See also: [Auto Shift](feature_auto_shift)
+See also: [Auto Shift](features/auto_shift)
 
 |Key                   |Aliases  |Description                                 |
 |----------------------|---------|--------------------------------------------|
@@ -268,7 +268,7 @@ See also: [Auto Shift](feature_auto_shift)
 
 ## Autocorrect {#autocorrect}
 
-See also: [Autocorrect](feature_autocorrect)
+See also: [Autocorrect](features/autocorrect)
 
 |Key                    |Aliases  |Description                                   |
 |-----------------------|---------|----------------------------------------------|
@@ -278,7 +278,7 @@ See also: [Autocorrect](feature_autocorrect)
 
 ## Backlighting {#backlighting}
 
-See also: [Backlighting](feature_backlight)
+See also: [Backlighting](features/backlight)
 
 | Key                             | Aliases   | Description                         |
 |---------------------------------|-----------|-------------------------------------|
@@ -292,7 +292,7 @@ See also: [Backlighting](feature_backlight)
 
 ## Bluetooth {#bluetooth}
 
-See also: [Bluetooth](feature_bluetooth)
+See also: [Bluetooth](features/bluetooth)
 
 |Key                  |Aliases  |Description                                   |
 |---------------------|---------|----------------------------------------------|
@@ -302,7 +302,7 @@ See also: [Bluetooth](feature_bluetooth)
 
 ## Caps Word {#caps-word}
 
-See also: [Caps Word](feature_caps_word)
+See also: [Caps Word](features/caps_word)
 
 |Key                  |Aliases  |Description                   |
 |---------------------|---------|------------------------------|
@@ -310,7 +310,7 @@ See also: [Caps Word](feature_caps_word)
 
 ## Dynamic Macros {#dynamic-macros}
 
-See also: [Dynamic Macros](feature_dynamic_macros)
+See also: [Dynamic Macros](features/dynamic_macros)
 
 |Key                              |Aliases  |Description                                       |
 |---------------------------------|---------|--------------------------------------------------|
@@ -322,7 +322,7 @@ See also: [Dynamic Macros](feature_dynamic_macros)
 
 ## Grave Escape {#grave-escape}
 
-See also: [Grave Escape](feature_grave_esc)
+See also: [Grave Escape](features/grave_esc)
 
 |Key              |Aliases  |Description                                                       |
 |-----------------|---------|------------------------------------------------------------------|
@@ -330,7 +330,7 @@ See also: [Grave Escape](feature_grave_esc)
 
 ## Joystick {#joystick}
 
-See also: [Joystick](feature_joystick)
+See also: [Joystick](features/joystick)
 
 |Key                    |Aliases|Description|
 |-----------------------|-------|-----------|
@@ -369,7 +369,7 @@ See also: [Joystick](feature_joystick)
 
 ## Key Lock {#key-lock}
 
-See also: [Key Lock](feature_key_lock)
+See also: [Key Lock](features/key_lock)
 
 |Key      |Description                                                   |
 |---------|--------------------------------------------------------------|
@@ -392,7 +392,7 @@ See also: [Layer Switching](feature_layers#switching-and-toggling-layers)
 
 ## Leader Key {#leader-key}
 
-See also: [Leader Key](feature_leader_key)
+See also: [Leader Key](features/leader_key)
 
 |Key      |Description             |
 |---------|------------------------|
@@ -400,7 +400,7 @@ See also: [Leader Key](feature_leader_key)
 
 ## LED Matrix {#led-matrix}
 
-See also: [LED Matrix](feature_led_matrix)
+See also: [LED Matrix](features/led_matrix)
 
 |Key                            |Aliases  |Description                        |
 |-------------------------------|---------|-----------------------------------|
@@ -458,7 +458,7 @@ See also: [Magic Keycodes](keycodes_magic)
 
 ## MIDI {#midi}
 
-See also: [MIDI](feature_midi)
+See also: [MIDI](features/midi)
 
 |Key                            |Aliases           |Description                      |
 |-------------------------------|------------------|---------------------------------|
@@ -609,26 +609,29 @@ See also: [MIDI](feature_midi)
 
 ## Mouse Keys {#mouse-keys}
 
-See also: [Mouse Keys](feature_mouse_keys)
+See also: [Mouse Keys](features/mouse_keys)
 
-|Key             |Aliases  |Description                |
-|----------------|---------|---------------------------|
-|`KC_MS_UP`      |`KC_MS_U`|Mouse Cursor Up            |
-|`KC_MS_DOWN`    |`KC_MS_D`|Mouse Cursor Down          |
-|`KC_MS_LEFT`    |`KC_MS_L`|Mouse Cursor Left          |
-|`KC_MS_RIGHT`   |`KC_MS_R`|Mouse Cursor Right         |
-|`KC_MS_BTN1`    |`KC_BTN1`|Mouse Button 1             |
-|`KC_MS_BTN2`    |`KC_BTN2`|Mouse Button 2             |
-|`KC_MS_BTN3`    |`KC_BTN3`|Mouse Button 3             |
-|`KC_MS_BTN4`    |`KC_BTN4`|Mouse Button 4             |
-|`KC_MS_BTN5`    |`KC_BTN5`|Mouse Button 5             |
-|`KC_MS_WH_UP`   |`KC_WH_U`|Mouse Wheel Up             |
-|`KC_MS_WH_DOWN` |`KC_WH_D`|Mouse Wheel Down           |
-|`KC_MS_WH_LEFT` |`KC_WH_L`|Mouse Wheel Left           |
-|`KC_MS_WH_RIGHT`|`KC_WH_R`|Mouse Wheel Right          |
-|`KC_MS_ACCEL0`  |`KC_ACL0`|Set mouse acceleration to 0|
-|`KC_MS_ACCEL1`  |`KC_ACL1`|Set mouse acceleration to 1|
-|`KC_MS_ACCEL2`  |`KC_ACL2`|Set mouse acceleration to 2|
+|Key                      |Aliases  |Description                |
+|-------------------------|---------|---------------------------|
+|`QK_MOUSE_CURSOR_UP`     |`MS_UP`  |Mouse cursor up            |
+|`QK_MOUSE_CURSOR_DOWN`   |`MS_DOWN`|Mouse cursor down          |
+|`QK_MOUSE_CURSOR_LEFT`   |`MS_LEFT`|Mouse cursor left          |
+|`QK_MOUSE_CURSOR_RIGHT`  |`MS_RGHT`|Mouse cursor right         |
+|`QK_MOUSE_BUTTON_1`      |`MS_BTN1`|Mouse button 1             |
+|`QK_MOUSE_BUTTON_2`      |`MS_BTN2`|Mouse button 2             |
+|`QK_MOUSE_BUTTON_3`      |`MS_BTN3`|Mouse button 3             |
+|`QK_MOUSE_BUTTON_4`      |`MS_BTN4`|Mouse button 4             |
+|`QK_MOUSE_BUTTON_5`      |`MS_BTN5`|Mouse button 5             |
+|`QK_MOUSE_BUTTON_6`      |`MS_BTN6`|Mouse button 6             |
+|`QK_MOUSE_BUTTON_7`      |`MS_BTN7`|Mouse button 7             |
+|`QK_MOUSE_BUTTON_8`      |`MS_BTN8`|Mouse button 8             |
+|`QK_MOUSE_WHEEL_UP`      |`MS_WHLU`|Mouse wheel up             |
+|`QK_MOUSE_WHEEL_DOWN`    |`MS_WHLD`|Mouse wheel down           |
+|`QK_MOUSE_WHEEL_LEFT`    |`MS_WHLL`|Mouse wheel left           |
+|`QK_MOUSE_WHEEL_RIGHT`   |`MS_WHLR`|Mouse wheel right          |
+|`QK_MOUSE_ACCELERATION_0`|`MS_ACL0`|Set mouse acceleration to 0|
+|`QK_MOUSE_ACCELERATION_1`|`MS_ACL1`|Set mouse acceleration to 1|
+|`QK_MOUSE_ACCELERATION_2`|`MS_ACL2`|Set mouse acceleration to 2|
 
 ## Modifiers {#modifiers}
 
@@ -699,32 +702,35 @@ See also: [Dynamic Tapping Term](tap_hold#dynamic-tapping-term)
 
 ## RGB Lighting {#rgb-lighting}
 
-See also: [RGB Lighting](feature_rgblight)
+See also: [RGB Lighting](features/rgblight)
 
-|Key                |Aliases   |Description                                                         |
-|-------------------|----------|--------------------------------------------------------------------|
-|`RGB_TOG`          |          |Toggle RGB lighting on or off                                       |
-|`RGB_MODE_FORWARD` |`RGB_MOD` |Cycle through modes, reverse direction when Shift is held           |
-|`RGB_MODE_REVERSE` |`RGB_RMOD`|Cycle through modes in reverse, forward direction when Shift is held|
-|`RGB_HUI`          |          |Increase hue, decrease hue when Shift is held                       |
-|`RGB_HUD`          |          |Decrease hue, increase hue when Shift is held                       |
-|`RGB_SAI`          |          |Increase saturation, decrease saturation when Shift is held         |
-|`RGB_SAD`          |          |Decrease saturation, increase saturation when Shift is held         |
-|`RGB_VAI`          |          |Increase value (brightness), decrease value when Shift is held      |
-|`RGB_VAD`          |          |Decrease value (brightness), increase value when Shift is held      |
-|`RGB_MODE_PLAIN`   |`RGB_M_P `|Static (no animation) mode                                          |
-|`RGB_MODE_BREATHE` |`RGB_M_B` |Breathing animation mode                                            |
-|`RGB_MODE_RAINBOW` |`RGB_M_R` |Rainbow animation mode                                              |
-|`RGB_MODE_SWIRL`   |`RGB_M_SW`|Swirl animation mode                                                |
-|`RGB_MODE_SNAKE`   |`RGB_M_SN`|Snake animation mode                                                |
-|`RGB_MODE_KNIGHT`  |`RGB_M_K` |"Knight Rider" animation mode                                       |
-|`RGB_MODE_XMAS`    |`RGB_M_X` |Christmas animation mode                                            |
-|`RGB_MODE_GRADIENT`|`RGB_M_G` |Static gradient animation mode                                      |
-|`RGB_MODE_RGBTEST` |`RGB_M_T` |Red,Green,Blue test animation mode                                  |
+|Key                           |Aliases   |Description                                                          |
+|------------------------------|----------|---------------------------------------------------------------------|
+|`QK_UNDERGLOW_TOGGLE`         |`UG_TOGG` |Toggle RGB lighting on or off                                        |
+|`QK_UNDERGLOW_MODE_NEXT`      |`UG_NEXT` |Cycle through modes, reverse direction when Shift is held            |
+|`QK_UNDERGLOW_MODE_PREVIOUS`  |`UG_PREV` |Cycle through modes in reverse, forward direction when Shift is held |
+|`QK_UNDERGLOW_HUE_UP`         |`UG_HUEU` |Increase hue, decrease hue when Shift is held                        |
+|`QK_UNDERGLOW_HUE_DOWN`       |`UG_HUED` |Decrease hue, increase hue when Shift is held                        |
+|`QK_UNDERGLOW_SATURATION_UP`  |`UG_SATU` |Increase saturation, decrease saturation when Shift is held          |
+|`QK_UNDERGLOW_SATURATION_DOWN`|`UG_SATD` |Decrease saturation, increase saturation when Shift is held          |
+|`QK_UNDERGLOW_VALUE_UP`       |`UG_VALU` |Increase value (brightness), decrease value when Shift is held       |
+|`QK_UNDERGLOW_VALUE_DOWN`     |`UG_VALD` |Decrease value (brightness), increase value when Shift is held       |
+|`QK_UNDERGLOW_SPEED_UP`       |`UG_SPDU` |Increase effect speed (brightness), decrease speed when Shift is held|
+|`QK_UNDERGLOW_SPEED_DOWN`     |`UG_SPDD` |Decrease effect speed (brightness), increase speed when Shift is held|
+|`RGB_MODE_PLAIN`              |`RGB_M_P `|Static (no animation) mode (deprecated)                              |
+|`RGB_MODE_BREATHE`            |`RGB_M_B` |Breathing animation mode (deprecated)                                |
+|`RGB_MODE_RAINBOW`            |`RGB_M_R` |Rainbow animation mode (deprecated)                                  |
+|`RGB_MODE_SWIRL`              |`RGB_M_SW`|Swirl animation mode (deprecated)                                    |
+|`RGB_MODE_SNAKE`              |`RGB_M_SN`|Snake animation mode (deprecated)                                    |
+|`RGB_MODE_KNIGHT`             |`RGB_M_K` |"Knight Rider" animation mode (deprecated)                           |
+|`RGB_MODE_XMAS`               |`RGB_M_X` |Christmas animation mode (deprecated)                                |
+|`RGB_MODE_GRADIENT`           |`RGB_M_G` |Static gradient animation mode (deprecated)                          |
+|`RGB_MODE_RGBTEST`            |`RGB_M_T` |Red, Green, Blue test animation mode (deprecated)                    |
+|`RGB_MODE_TWINKLE`            |`RGB_M_TW`|Twinkle animation mode (deprecated)                                  |
 
 ## RGB Matrix Lighting {#rgb-matrix-lighting}
 
-See also: [RGB Matrix Lighting](feature_rgb_matrix)
+See also: [RGB Matrix Lighting](features/rgb_matrix)
 
 |Key                |Aliases   |Description                                                                           |
 |-------------------|----------|--------------------------------------------------------------------------------------|
@@ -782,7 +788,7 @@ See also: [One Shot Keys](one_shot_keys)
 
 ## Programmable Button Support {#programmable-button}
 
-See also: [Programmable Button](feature_programmable_button)
+See also: [Programmable Button](features/programmable_button)
 
 |Key                        |Aliases|Description           |
 |---------------------------|-------|----------------------|
@@ -821,7 +827,7 @@ See also: [Programmable Button](feature_programmable_button)
 
 ## Repeat Key {#repeat-key}
 
-See also: [Repeat Key](feature_repeat_key)
+See also: [Repeat Key](features/repeat_key)
 
 |Keycode                |Aliases  |Description                          |
 |-----------------------|---------|-------------------------------------|
@@ -830,7 +836,7 @@ See also: [Repeat Key](feature_repeat_key)
 
 ## Space Cadet {#space-cadet}
 
-See also: [Space Cadet](feature_space_cadet)
+See also: [Space Cadet](features/space_cadet)
 
 |Key                                           |Aliases  |Description                             |
 |----------------------------------------------|---------|----------------------------------------|
@@ -844,7 +850,7 @@ See also: [Space Cadet](feature_space_cadet)
 
 ## Swap Hands {#swap-hands}
 
-See also: [Swap Hands](feature_swap_hands)
+See also: [Swap Hands](features/swap_hands)
 
 |Key                          |Aliases  |Description                                         |
 |-----------------------------|---------|----------------------------------------------------|
@@ -859,7 +865,7 @@ See also: [Swap Hands](feature_swap_hands)
 
 ## Unicode Support {#unicode-support}
 
-See also: [Unicode Support](feature_unicode)
+See also: [Unicode Support](features/unicode)
 
 |Key                         |Aliases  |Description                                                     |
 |----------------------------|---------|----------------------------------------------------------------|

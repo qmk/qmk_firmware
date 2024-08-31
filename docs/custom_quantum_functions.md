@@ -184,7 +184,7 @@ Whenever possible you should customize your keyboard by using `process_record_*(
 
 ### Example `matrix_scan_*` Implementation
 
-This example has been deliberately omitted. You should understand enough about QMK internals to write this without an example before hooking into such a performance sensitive area. If you need help please [open an issue](https://github.com/qmk/qmk_firmware/issues/new) or [chat with us on Discord](https://discord.gg/Uq7gcHh).
+This example has been deliberately omitted. You should understand enough about QMK internals to write this without an example before hooking into such a performance sensitive area. If you need help please [open an issue](https://github.com/qmk/qmk_firmware/issues/new) or [chat with us on Discord](https://discord.gg/qmk).
 
 ### `matrix_scan_*` Function Documentation
 
@@ -206,7 +206,7 @@ Similar to `matrix_scan_*`, these are called as often as the MCU can handle. To 
 
 ### Example `void housekeeping_task_user(void)` implementation
 
-This example will show you how to use `void housekeeping_task_user(void)` to turn off [RGB Light](feature_rgblight). For RGB Matrix, the [builtin](feature_rgb_matrix#additional-configh-options) `RGB_MATRIX_TIMEOUT` should be used.
+This example will show you how to use `void housekeeping_task_user(void)` to turn off [RGB Light](features/rgblight). For RGB Matrix, the [builtin](features/rgb_matrix#additional-configh-options) `RGB_MATRIX_TIMEOUT` should be used.
 
 First, add the following lines to your keymap's `config.h`:
 

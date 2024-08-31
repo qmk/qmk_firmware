@@ -40,11 +40,7 @@
             "jellybean_raindrops": true,
             "hue_breathing": true,
             "hue_pendulum": true,
-            "hue_wave": true,
-            "pixel_rain": true,
-            "pixel_flow": true,
-            "pixel_fractal": true,
-            "typing_heatmap": true
+            "hue_wave": true
         },
         "driver": "is31fl3741",
         "led_flush_limit": 26,
