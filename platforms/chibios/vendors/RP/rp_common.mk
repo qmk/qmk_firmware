@@ -12,9 +12,11 @@ endif
 ##############################################################################
 ADEFS  += -DCRT0_VTOR_INIT=1 \
 		  -DCRT0_EXTRA_CORES_NUMBER=0 \
-          -DCRT0_INIT_VECTORS=1
+          -DCRT0_INIT_VECTORS=1 \
+          -DPICO_CONFIG_RTOS_ADAPTER_HEADER=$(PLATFORM_RP_PATH)/pico_sdk_shims.h
 
-CFLAGS += -DNDEBUG
+CFLAGS += -DNDEBUG \
+          -DPICO_CONFIG_RTOS_ADAPTER_HEADER=$(PLATFORM_RP_PATH)/pico_sdk_shims.h
 
 #
 # Pico SDK source and header files needed by QMK and ChibiOS
