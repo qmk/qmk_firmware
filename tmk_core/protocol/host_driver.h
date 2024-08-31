@@ -31,6 +31,7 @@ typedef struct {
     void (*send_extra)(report_extra_t *);
 } host_driver_t;
 
+bool is_hires_scroll_on(void);
 void send_joystick(report_joystick_t *report);
 void send_digitizer(report_digitizer_t *report);
 void send_programmable_button(report_programmable_button_t *report);

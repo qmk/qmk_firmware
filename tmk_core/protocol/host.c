@@ -129,6 +129,14 @@ void host_mouse_send(report_mouse_t *report) {
     (*driver->send_mouse)(report);
 }
 
+__attribute__((weak)) bool is_hires_scroll_on(void) {
+#ifdef POINTING_DEVICE_HIRES_SCROLL_ENABLE
+    return true;
+#else
+    return false;
+#endif
+}
+
 void host_system_send(uint16_t usage) {
     if (usage == last_system_usage) return;
     last_system_usage = usage;
