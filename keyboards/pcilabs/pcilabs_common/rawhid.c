@@ -171,5 +171,14 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
         case SEND_KEY_REBIND:;
             raw_hid_send_key_rebinds();
             break;
+        case SWITCH_RGB_MODE:;
+           switch (data[1]) {
+               case 1:;
+               rgb_matrix_step();
+               break;
+               case 2:;
+               rgb_matrix_step_reverse();     
+               break;
+           }
     }
 }
