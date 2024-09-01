@@ -1,7 +1,7 @@
 {
-    "manufacturer": "ThanhSon.Mech",
+    "manufacturer": "TrnThSnMech",
     "keyboard_name": "Tyson60s",
-    "maintainer": "trnthsn",
+    "maintainer": "TrnThSnMech",
     "bootloader": "rp2040",
     "build": {
         "debounce_type": "sym_defer_pk"
