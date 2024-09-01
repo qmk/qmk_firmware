@@ -86,6 +86,7 @@ _Static_assert(TOTAL_INTERFACES <= MAX_INTERFACES, "There are not enough availab
 #endif
 
 static uint8_t keyboard_led_state = 0;
+static uint8_t hires_scroll_state = 0;
 uint8_t        keyboard_idle      = 0;
 uint8_t        keyboard_protocol  = 1;
 
@@ -258,6 +259,10 @@ static void send_mouse(report_mouse_t *report) {
 #endif
 }
 
+bool is_hires_scroll_on(void) {
+    return hires_scroll_state > 0;
+}
+
 static void send_extra(report_extra_t *report) {
 #ifdef EXTRAKEY_ENABLE
     send_report(SHARED_IN_EPNUM, report, sizeof(report_extra_t));
@@ -287,7 +292,7 @@ void send_programmable_button(report_programmable_button_t *report) {
  *------------------------------------------------------------------*/
 static struct {
     uint16_t len;
-    enum { NONE, SET_LED } kind;
+    enum { NONE, SET_LED, SET_HIRES_SCROLL } kind;
 } last_req;
 
 usbMsgLen_t usbFunctionSetup(uchar data[8]) {
@@ -312,11 +317,33 @@ usbMsgLen_t usbFunctionSetup(uchar data[8]) {
                 return 1;
             case USBRQ_HID_SET_REPORT:
                 dprint("SET_REPORT:");
-                // Report Type: 0x02(Out)/ReportID: 0x00(none) && Interface: 0(keyboard)
-                if (rq->wValue.word == 0x0200 && rq->wIndex.word == KEYBOARD_INTERFACE) {
-                    dprint("SET_LED:");
-                    last_req.kind = SET_LED;
-                    last_req.len  = rq->wLength.word;
+                switch (rq->wIndex.word) {
+                    // note: when using vusb, the mouse always uses the shared endpoint, so we don't check for MOUSE_INTERFACE
+#if !defined(KEYBOARD_SHARED_EP)
+                    case KEYBOARD_INTERFACE:
+                        // Report Type: 0x02(Out) / ReportID: none
+                        if (rq->wValue.word == 0x0200) {
+                            dprint("SET_LED:");
+                            last_req.kind = SET_LED;
+                            last_req.len  = rq->wLength.word;
+                        }
+                        break;
+#endif
+#if defined(SHARED_EP_ENABLE)
+                    case SHARED_INTERFACE:
+                        // Report Type: 0x02(Out) / ReportID: keyboard OR nkro
+                        if (rq->wValue.word == 0x0200 + REPORT_ID_KEYBOARD || rq->wValue.word == 0x0200 + REPORT_ID_NKRO) {
+                            dprint("SET_LED:");
+                            last_req.kind = SET_LED;
+                            last_req.len  = rq->wLength.word;
+                        // Report Type: 0x02(Out) / ReportID: mouse
+                        } else if (rq->wValue.word == 0x0200 + REPORT_ID_MOUSE) {
+                            dprint("SET_HIRES_SCROLL:");
+                            last_req.kind = SET_HIRES_SCROLL;
+                            last_req.len  = rq->wLength.word;
+                        }
+                        break;
+#endif
                 }
                 return USB_NO_MSG; // to get data in usbFunctionWrite
             case USBRQ_HID_SET_IDLE:
@@ -349,6 +376,12 @@ uchar usbFunctionWrite(uchar *data, uchar len) {
         case SET_LED:
             dprintf("SET_LED: %02X\n", data[0]);
             keyboard_led_state = data[0];
+            last_req.len       = 0;
+            return 1;
+            break;
+        case SET_HIRES_SCROLL:
+            dprintf("SET_HIRES_SCROLL: %02X\n", data[0]);
+            hires_scroll_state = data[0];
             last_req.len       = 0;
             return 1;
             break;
@@ -524,21 +557,57 @@ const PROGMEM uchar shared_hid_report[] = {
 #    endif
     0x81, 0x06, //     Input (Data, Variable, Relative)
 
-    // Vertical wheel (1 byte)
-    0x09, 0x38, //     Usage (Wheel)
-    0x15, 0x81, //     Logical Minimum (-127)
-    0x25, 0x7F, //     Logical Maximum (127)
-    0x95, 0x01, //     Report Count (1)
-    0x75, 0x08, //     Report Size (8)
-    0x81, 0x06, //     Input (Data, Variable, Relative)
-    // Horizontal wheel (1 byte)
-    0x05, 0x0C,       //     Usage Page (Consumer)
-    0x0A, 0x38, 0x02, //     Usage (AC Pan)
+#    ifdef POINTING_DEVICE_HIRES_SCROLL_ENABLE
+    // Feature report and padding (1 byte)
+    0xA1, 0x02, //     Collection (Logical)
+    0x09, 0x48, //       Usage (Resolution Multiplier)
+    0x95, 0x01, //       Report Count (1)
+    0x75, 0x02, //       Report Size (2)
+    0x15, 0x00, //       Logical Minimum (0)
+    0x25, 0x01, //       Logical Maximum (1)
+    0x35, 0x01, //       Physical Minimum (1)
+    0x45, POINTING_DEVICE_HIRES_SCROLL_MULTIPLIER, // Physical Maximum (POINTING_DEVICE_HIRES_SCROLL_MULTIPLIER)
+    0x55, POINTING_DEVICE_HIRES_SCROLL_EXPONENT,  // Unit Exponent (POINTING_DEVICE_HIRES_SCROLL_EXPONENT)
+    0xB1, 0x02, //       Feature (Data, Variable, Absolute)
+    0x35, 0x00, //       Physical Minimum (0)
+    0x45, 0x00, //       Physical Maximum (0)
+    0x75, 0x06, //       Report Size (6)
+    0xB1, 0x03, //       Feature (Constant)
+#    endif
+
+    // Vertical wheel (1 or 2 bytes)
+    0x09, 0x38,       //     Usage (Wheel)
+#ifndef WHEEL_EXTENDED_REPORT
     0x15, 0x81,       //     Logical Minimum (-127)
     0x25, 0x7F,       //     Logical Maximum (127)
     0x95, 0x01,       //     Report Count (1)
     0x75, 0x08,       //     Report Size (8)
+#else
+    0x16, 0x01, 0x80, //     Logical Minimum (-32767)
+    0x26, 0xFF, 0x7F, //     Logical Maximum (32767)
+    0x95, 0x01,       //     Report Count (1)
+    0x75, 0x10,       //     Report Size (16)
+#endif
     0x81, 0x06,       //     Input (Data, Variable, Relative)
+
+    // Horizontal wheel (1 or 2 bytes)
+    0x05, 0x0C,       //     Usage Page (Consumer)
+    0x0A, 0x38, 0x02, //     Usage (AC Pan)
+#ifndef WHEEL_EXTENDED_REPORT
+    0x15, 0x81,       //     Logical Minimum (-127)
+    0x25, 0x7F,       //     Logical Maximum (127)
+    0x95, 0x01,       //     Report Count (1)
+    0x75, 0x08,       //     Report Size (8)
+#else
+    0x16, 0x01, 0x80, //     Logical Minimum (-32767)
+    0x26, 0xFF, 0x7F, //     Logical Maximum (32767)
+    0x95, 0x01,       //     Report Count (1)
+    0x75, 0x10,       //     Report Size (16)
+#endif
+    0x81, 0x06,       //     Input (Data, Variable, Relative)
+#    ifdef POINTING_DEVICE_HIRES_SCROLL_ENABLE
+    0xC0,             //   End Collection
+#    endif
     0xC0,             //   End Collection
     0xC0,             // End Collection
 #endif
