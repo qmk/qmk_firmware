@@ -48,17 +48,9 @@
         "pid": "0x5335",
         "device_version": "0.0.1"
     },
-    "layout_aliases": {
-        "LAYOUT": "LAYOUT_all"
-    },
-    "community_layouts": [
-        "65_ansi_blocker",
-        "65_ansi_blocker_split_bs",
-        "65_ansi_blocker_tsangan",
-        "65_ansi_blocker_tsangan_split_bs"
-    ],
+    "community_layouts": ["65_ansi_blocker", "65_ansi_blocker_split_bs", "65_ansi_blocker_tsangan", "65_ansi_blocker_tsangan_split_bs"],
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
