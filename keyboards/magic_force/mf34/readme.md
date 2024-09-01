@@ -1,5 +1,5 @@
 # DEPENDING ON WHERE OR WHEN YOU PURCHASED THIS KEYBOARD, YOU MAY HAVE A DIFFERENT MCU AND BOOTLOADER THAN WHAT THIS FIRMWARE IS LOOKING FOR
-This code was made for devices with the STM32F072 chip. Some are now being sold with the APM32F072 chip. The VID and PID on these variants are the same. There are 2 ways you find out which one you have. 1: you attempt to flash and get an error saying "device mismatch." 2: you open up the board and read "APM32F072 GEEHY" on the chip. If you have the Geehy chip, you must find and download Geehy Programmer and the APM DFU drivers. After that, the steps for flashing are the same. Put the keyboard into DFU mode, open Geehy Programmer, select your bin file, and click the "Update" button.
+This code was made for devices with the STM32F072 chip. Some are now being sold with the APM32F072 chip. The VID and PID on these variants are the same until put into DFU mode. There are 2 ways you find out which one you have. 1: you attempt to flash and get an error saying "device mismatch." 2: you open up the board and read "APM32F072 GEEHY" on the chip. If you have the Geehy chip, you must find and download Geehy Programmer and the APM DFU drivers. After that, the steps for flashing are the same. Put the keyboard into DFU mode, open Geehy Programmer, select your bin file, and click the "Update" button.
 
 # MF-34
 
