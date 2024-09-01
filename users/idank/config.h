@@ -23,7 +23,7 @@
     // A pimoroni on the left side can only go in this orientation.
     #define POINTING_DEVICE_ROTATION_270
 #elif defined(POINTING_DEVICE_CONFIGURATION_CIRQUE35_PIMORONI) || defined(POINTING_DEVICE_CONFIGURATION_CIRQUE40_PIMORONI)
-    #define MASTER_RIGHT
+    #define MASTER_LEFT
     // The pimoroni needs frequest updates, set a value so the Cirque configs don't set it to 10ms.
     #define POINTING_DEVICE_TASK_THROTTLE_MS 1
     // Determine right side rotation based on POINTING_DEVICE_POSITION flag.

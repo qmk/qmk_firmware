@@ -139,7 +139,7 @@ ifeq ($(strip $(POINTING_DEVICE)), cirque35_trackball)
 	endif
 
 	MSG_POINTING_DEVICE = cirque35 touchpad (left), trackball (right); built for side = $(SIDE)
-	MSG_MASTER_SIDE = right
+	MSG_MASTER_SIDE = left
 endif
 
 ifeq ($(strip $(POINTING_DEVICE)), trackball_cirque40)
@@ -181,7 +181,7 @@ ifeq ($(strip $(POINTING_DEVICE)), cirque40_trackball)
 	endif
 
 	MSG_POINTING_DEVICE = cirque40 touchpad (left), trackball (right); built for side = $(SIDE)
-	MSG_MASTER_SIDE = right
+	MSG_MASTER_SIDE = left
 endif
 
 ifeq ($(strip $(POINTING_DEVICE)), trackpoint)
