@@ -200,9 +200,9 @@ typedef int8_t mouse_xy_report_t;
 #endif
 
 #ifdef WHEEL_EXTENDED_REPORT
-typedef int16_t mouse_vh_report_t;
+typedef int16_t mouse_hv_report_t;
 #else
-typedef int8_t mouse_vh_report_t;
+typedef int8_t mouse_hv_report_t;
 #endif
 
 typedef struct {
@@ -216,8 +216,8 @@ typedef struct {
 #endif
     mouse_xy_report_t x;
     mouse_xy_report_t y;
-    mouse_vh_report_t v;
-    mouse_vh_report_t h;
+    mouse_hv_report_t v;
+    mouse_hv_report_t h;
 } PACKED report_mouse_t;
 
 typedef struct {
