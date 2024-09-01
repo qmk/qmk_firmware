@@ -22,5 +22,5 @@ Enter the bootloader in 2 ways:
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
-* **Depending on where or when you bought this keyboard, you may have a different mcu and bootloader.
+**Depending on where or when you bought this keyboard, you may have a different mcu and bootloader. **
 This code was made for devices with the STM32F072 chip. Some are now being sold with the APM32F072 chip. The VID and PID on these variants are the same until put into DFU mode. There are 2 ways you find out which one you have. 1: you attempt to flash and get an error saying "device mismatch." 2: you open up the board and read "APM32F072 GEEHY" on the chip. If you have the Geehy chip, you should use dfu-util to flash your bin file or find and download Geehy Programmer and use that.
