@@ -32,7 +32,7 @@ enum custom_keycodes {
 */
 
 /*  Base (alpha) Layer Hands Down Vibranuim-F
-            Building for Atreus44
+            Building for ZSA Voyager
     ⎋   tg      ⇥    cw  mt          num cw  (    )   v↓ v↑
     `   x   w   m    g   j           +=  .:  /    "!  '? \
     z   s⌃  c⌥  n⌘   t⇧  k           ,;  a⇧  e⌘   i⌥  h⌃ q
@@ -281,6 +281,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 
 // Key overrides
+const key_override_t plus_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_PLUS, KC_EQL);	/* shift + is = */
 const key_override_t dot_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_DOT, KC_COLN);		/* shift . is : */
 const key_override_t comm_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_COMM, KC_SCLN);	/* shift , is ; */
 const key_override_t slsh_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_SLSH, KC_ASTR);	/* shift / is * */
@@ -290,6 +291,7 @@ const key_override_t quot_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_QUOT, 
 
 // This globally defines all key overrides to be used
 const key_override_t *key_overrides[] = {
+    &plus_key_override,
     &dot_key_override,
     &comm_key_override,
     &slsh_key_override,
