@@ -7,6 +7,7 @@
 #include "host.h"
 #include "host_driver.h"
 #include "report.h"
+#include <string.h>
 #include "smart_ble.h"
 
 static uint8_t sc_ble_leds(void) {
