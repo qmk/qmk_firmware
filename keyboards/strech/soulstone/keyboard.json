@@ -17,6 +17,12 @@
         "command": false,
         "nkro": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "diode_direction": "COL2ROW",
     "matrix_pins": {
         "cols": ["B7", "F1", "B0", "F4", "E6", "F0", "D5", "D3", "D2", "D1", "B4", "D7", "D6"],

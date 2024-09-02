@@ -19,6 +19,12 @@
     "rgblight": true,
     "sleep_led": true
   },
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  },
   "matrix_pins": {
     "cols": ["B11", "B10", "B1", "B0", "A7", "A6", "A5", "B14", "A15", "A0", "C15", "C14"],
     "rows": ["B12", "C13", "A2", "A1"]
@@ -48,8 +54,7 @@
     "pin": "B15",
     "driver": "spi"
   },
-  "processor": "STM32F103",
-  "bootloader": "stm32duino",
+  "development_board": "bluepill",
   "community_layouts": ["ortho_4x12"],
   "layouts": {
     "LAYOUT_ortho_4x12": {

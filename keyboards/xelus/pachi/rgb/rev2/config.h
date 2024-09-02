@@ -33,7 +33,3 @@
 // RGB Matrix defines
 #define IS31FL3741_I2C_ADDRESS_1 IS31FL3741_I2C_ADDRESS_GND
 #define IS31FL3741_LED_COUNT RGB_MATRIX_LED_COUNT // is31fl3741.h does not set this for custom driver
-
-// VIA KB level
-#define VIA_FIRMWARE_VERSION 1
-#define VIA_EEPROM_CUSTOM_CONFIG_SIZE 17

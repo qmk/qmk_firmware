@@ -8,6 +8,18 @@
         "pid": "0x3505",
         "device_version": "0.0.1"
     },
+    "build": {
+        "lto": true
+    },
+    "features": {
+        "bootmagic": false,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": false,
+        "nkro": true,
+        "oled": true,
+        "rgb_matrix": true
+    },
     "rgblight": {
         "led_count": 98,
         "split_count": [49, 49],
@@ -102,13 +114,17 @@
         "tap_keycode_delay": 5
     },
     "split": {
-        "soft_serial_pin": "A9",
+        "enabled": true,
         "transport": {
             "sync": {
                 "indicators": true,
                 "layer_state": true,
                 "matrix_state": true
             }
+        },
+        "serial": {
+            "driver": "usart",
+            "pin": "A9"
         }
     },
     "processor": "STM32F303",
