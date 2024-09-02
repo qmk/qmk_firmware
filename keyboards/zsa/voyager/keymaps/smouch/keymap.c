@@ -175,8 +175,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-
-
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
 	    case LM1:
@@ -251,6 +249,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case SS_Ch:
             if (record->event.pressed) {
                 tap_code(KC_C); // send "C" honouring caps
+                add_h_digragh();
+            }
+            break;
+        case SS_Sh:
+            if (record->event.pressed) {
+                tap_code(KC_S); // send "C" honouring caps
                 add_h_digragh();
             }
             break;
