@@ -58,10 +58,6 @@ endif
 #---------------- C Compiler Options ----------------
 
 ifeq ($(strip $(LTO_ENABLE)), yes)
-    ifeq ($(PLATFORM),ARM_ATSAM)
-        $(info Enabling LTO on arm_atsam-targeting boards is known to have a high likelihood of failure.)
-        $(info If unsure, set LTO_ENABLE = no.)
-    endif
     CDEFS += -flto
     CDEFS += -DLTO_ENABLE
 endif
