@@ -36,6 +36,12 @@
         "oled": true,
         "rgblight": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "matrix_pins": {
         "cols": ["F4", "F5", "F6", "F7", "D4", "D5", "D3", "D2"],
         "rows": ["F1", "F0", "B7", "B0", "B6", "B5", "D7", "B4", "D6"]
