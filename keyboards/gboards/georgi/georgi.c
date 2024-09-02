@@ -7,17 +7,16 @@ void matrix_init_kb(void) {
   	steno_set_mode(STENO_MODE_GEMINI); // or STENO_MODE_BOLT
 
     // (tied to Vcc for hardware convenience)
-    //DDRB  &= ~(1<<4);  // set B(4) as input
-    //PORTB &= ~(1<<4);  // set B(4) internal pull-up disabled
+    //gpio_set_pin_input(B4);  // set B(4) as input, internal pull-up disabled
 
-    // unused pins - C7, D4, D5, D7, E6
+    // unused pins - C7, D4, D5, D6, D7, E6
     // set as input with internal pull-up enabled
-    DDRC  &= ~(1<<7);
-    DDRD  &= ~(1<<5 | 1<<4 | 1<<6 | 1<<7);
-    DDRE  &= ~(1<<6);
-    PORTC |=  (1<<7);
-    PORTD |=  (1<<5 | 1<<4 | 1<<6 | 1<<7);
-    PORTE |=  (1<<6);
+    gpio_set_pin_input_high(C7);
+    gpio_set_pin_input_high(D4);
+    gpio_set_pin_input_high(D5);
+    gpio_set_pin_input_high(D6);
+    gpio_set_pin_input_high(D7);
+    gpio_set_pin_input_high(E6);
 
     matrix_init_user();
 }
