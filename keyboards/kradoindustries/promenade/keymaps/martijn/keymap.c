@@ -33,27 +33,47 @@ enum td_keycodes {
     TAP_SHFT
 };
 
+// Generates a pseudorandom value in 0-255.
+static uint8_t simple_rand(void) {
+  static uint16_t random = 1;
+  random *= UINT16_C(36563);
+  return (uint8_t)(random >> 8);
+}
+
 enum custom_keycodes {
   C_HOME = SAFE_RANGE,
+  EMOJI
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-    case C_HOME:
-        if (record->event.pressed) {
-            SEND_STRING("~/");
-        }
-        break;
+bool process_record_user(uint16_t keycode, keyrecord_t * record) {
+  switch (keycode) {
+  case C_HOME:
+    if (record -> event.pressed) {
+      SEND_STRING("~/");
     }
-    return true;
-};
+    break;
+  case EMOJI:
+    if (record -> event.pressed) {
+      static
+      const char * emojis[] = {"🌞","👾", "💃", "🙌"};
+      const int NUM_EMOJIS = sizeof(emojis) / sizeof( * emojis);
 
-enum unicode_names {
-    THUMB,
-};
+      // Pseudorandomly pick an index between 0 and NUM_EMOJIS - 2.
+      uint8_t index = ((NUM_EMOJIS - 1) * simple_rand()) >> 8;
 
-const uint32_t PROGMEM unicode_map[] = {
-    [THUMB]  = 0x1F44D, // 🐍
+      // Don't pick the same emoji twice in a row.
+      static uint8_t last_index = 0;
+      if (index >= last_index) {
+        ++index;
+      }
+      last_index = index;
+
+      // Produce the emoji.
+      send_unicode_string(emojis[index]);
+    }
+    break;
+  }
+  return true;
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -73,11 +93,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_BASE] = LAYOUT_2x3u(
-  KC_ESC,   KC_1,    KC_2,       KC_3,    KC_4,    KC_5,    _______,   _______,      KC_6,    KC_7,    KC_8,    KC_9,       KC_0,    KC_BSPC,
-  KC_TAB,   KC_Q,    KC_W,       KC_E,    KC_R,    KC_T,    POKER,     TD(TAP_SHFT), KC_Y,    KC_U,    KC_I,    KC_O,       KC_P,    KC_BSLS,
-  POKER,    KC_A,    KC_S,       KC_D,    KC_F,    KC_G,                             KC_H,    KC_J,    KC_K,    KC_L,       KC_SCLN, KC_ENT,
-  SC_LSPO,  KC_Z,    KC_X,       KC_C,    KC_V,    KC_B,    KC_LALT,   KC_PSCR,      KC_N,    KC_M,    KC_COMM, KC_DOT,     KC_SLSH, SC_RSPC,
-  KC_LCTL,  EXTR,    KC_LGUI,    KC_LALT,                   PROG,      KC_SPC,                         KC_RALT, UM(THUMB),  KC_PSCR, KC_LCTL
+  KC_ESC,   KC_1,    KC_2,       KC_3,    KC_4,    KC_5,    _______,   _______,      KC_6,    KC_7,    KC_8,    KC_9,   KC_0,    KC_BSPC,
+  KC_TAB,   KC_Q,    KC_W,       KC_E,    KC_R,    KC_T,    POKER,     TD(TAP_SHFT), KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,    KC_BSLS,
+  POKER,    KC_A,    KC_S,       KC_D,    KC_F,    KC_G,                             KC_H,    KC_J,    KC_K,    KC_L,   KC_SCLN, KC_ENT,
+  SC_LSPO,  KC_Z,    KC_X,       KC_C,    KC_V,    KC_B,    KC_LALT,   KC_PSCR,      KC_N,    KC_M,    KC_COMM, KC_DOT, KC_SLSH, SC_RSPC,
+  KC_LCTL,  EXTR,    KC_LGUI,    KC_LALT,                   PROG,      KC_SPC,                         KC_RALT, EMOJI,  KC_PSCR, KC_LCTL
 ),
 
 
