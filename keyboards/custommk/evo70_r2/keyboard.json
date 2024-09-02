@@ -51,6 +51,9 @@
             "twinkle": true
         }
     },
+    "audio": {
+        "driver": "pwm_hardware"
+    },
     "ws2812": {
         "driver": "pwm",
         "pin": "A10"

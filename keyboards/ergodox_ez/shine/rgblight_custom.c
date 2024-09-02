@@ -25,7 +25,7 @@ void setleds_custom(rgb_led_t *led, uint16_t led_num) {
     uint16_t length = 0;
     int i = 0;
     int j = 0;
-#    ifdef RGBW
+#    ifdef WS2812_RGBW
     int bytes_per_led = 4;
 #    else
     int bytes_per_led = 3;
@@ -52,7 +52,7 @@ void setleds_custom(rgb_led_t *led, uint16_t led_num) {
         data[j++] = data_byte[0];
         data[j++] = data_byte[1];
         data[j++] = data_byte[2];
-#ifdef RGBW
+#ifdef WS2812_RGBW
         data[j++] = data_byte[3];
 #endif
     }

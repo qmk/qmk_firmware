@@ -99,8 +99,8 @@ led_config_t g_led_config = { {
 void matrix_init_kb(void) {
 
     // Turn status LED on
-    DDRD |= (1<<6);
-    PORTD |= (1<<6);
+    gpio_set_pin_output(D6);
+    gpio_write_pin_high(D6);
 
     matrix_init_user();
 }
@@ -113,18 +113,6 @@ uint8_t rgb_matrix_map_row_column_to_led_kb(uint8_t row, uint8_t column, uint8_t
         return 1;
     }
     return 0;
-}
-
-void suspend_power_down_kb(void)
-{
-    rgb_matrix_set_suspend_state(true);
-    suspend_power_down_user();
-}
-
-void suspend_wakeup_init_kb(void)
-{
-    rgb_matrix_set_suspend_state(false);
-    suspend_wakeup_init_user();
 }
 
 #ifdef SWAP_HANDS_ENABLE

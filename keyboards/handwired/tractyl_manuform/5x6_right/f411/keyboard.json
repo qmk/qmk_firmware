@@ -15,6 +15,17 @@
     "build": {
         "debounce_type": "asym_eager_defer_pk"
     },
+    "audio": {
+        "driver": "pwm_hardware"
+    },
+    "split": {
+        "handedness": {
+            "pin": "C14"
+        },
+        "serial": {
+            "driver": "usart"
+        },
+    },
     "ws2812": {
         "pin": "A1",
         "driver": "pwm"
@@ -24,10 +35,10 @@
             {"pin_a": "A13", "pin_b": "A14"}
         ]
     },
+    "development_board": "blackpill_f411",
     "processor": "STM32F411",
     "bootloader": "stm32-dfu",
     "features": {
         "console": true
-    },
-    "board": "BLACKPILL_STM32_F411"
+    }
 }

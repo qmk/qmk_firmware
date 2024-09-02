@@ -19,6 +19,10 @@
         ]
     },
     "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        },
         "tap_keycode_delay": 25
     },
     "indicators": {

@@ -16,6 +16,12 @@
         "mousekey": true,
         "nkro": false
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "matrix_pins": {
       "cols": ["F0", "F1", "F4", "F5", "F6", "D4", "D6", "D7", "B4", "B5", "B6", "C6", "C7", "F7"],
       "rows": ["D0", "D1", "D2", "D3", "D5"]
@@ -23,11 +29,14 @@
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "layout_aliases": {
+        "LAYOUT_60_tsangan_hhkb": "LAYOUT_60_ansi_tsangan_split_bs_rshift"
+    },
     "community_layouts": [
       "60_ansi",
       "60_ansi_split_bs_rshift",
       "60_ansi_tsangan",
-      "60_tsangan_hhkb",
+      "60_ansi_tsangan_split_bs_rshift",
       "60_ansi_wkl",
       "60_ansi_wkl_split_bs_rshift",
       "60_hhkb",
@@ -319,7 +328,7 @@
           {"label": "Ctrl", "matrix": [4, 13], "x": 13.5, "y": 4, "w": 1.5}
         ]
       },
-      "LAYOUT_60_tsangan_hhkb": {
+      "LAYOUT_60_ansi_tsangan_split_bs_rshift": {
         "layout": [
           {"label": "`", "matrix": [0, 0], "x": 0, "y": 0},
           {"label": "1", "matrix": [0, 1], "x": 1, "y": 0},
@@ -1007,7 +1016,7 @@
           {"label": "Space", "matrix": [4, 6], "x": 4, "y": 4, "w": 7},
           {"label": "Alt", "matrix": [4, 11], "x": 11, "y": 4, "w": 1.5},
           {"label": "Ctrl", "matrix": [4, 13], "x": 13.5, "y": 4, "w": 1.5}
-          ]
-        }
+        ]
+      }
     }
 }

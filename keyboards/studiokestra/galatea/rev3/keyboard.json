@@ -13,6 +13,12 @@
         "nkro": true,
         "rgblight": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "matrix_pins": {
         "cols": ["GP28", "GP27", "GP26", "GP25", "GP24", "GP23", "GP22", "GP14", "GP6"],
         "rows": ["GP3", "GP4", "GP1", "GP2", "GP5", "GP29", "GP20", "GP19", "GP17", "GP16", "GP13", "GP12"]

@@ -17,6 +17,9 @@
         "mousekey": true,
         "rgb_matrix": true
     },
+    "audio": {
+        "driver": "pwm_hardware"
+    },
     "matrix_pins": {
         "cols": ["GP8", "GP9", "GP10", "GP11", "GP12", "GP13", "GP14", "GP15", "GP16"],
         "rows": ["GP22", "GP21", "GP20", "GP19", "GP18", "GP17"]
@@ -185,6 +188,9 @@
     },
     "split": {
         "enabled": true,
+        "serial": {
+            "driver": "vendor"
+        },
         "transport": {
             "sync": {
                 "layer_state": true,
@@ -234,7 +240,7 @@
                 {"matrix": [1, 7], "x": 7.25, "y": 1.15},
                 {"matrix": [1, 8], "x": 8.25, "y": 1.15, "encoder": 0},
 
-                {"matrix": [7, 0], "x": 9.45, "y": 1.15},
+                {"matrix": [7, 0], "x": 9.45, "y": 1.15, "encoder": 1},
                 {"matrix": [7, 1], "x": 10.45, "y": 1.15},
                 {"matrix": [7, 2], "x": 11.45, "y": 1.08},
                 {"matrix": [7, 3], "x": 12.45, "y": 1},
