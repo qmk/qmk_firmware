@@ -1,13 +1,13 @@
 // Copyright 2024 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+#include "quantum.h"
 #include "uart.h"
 #include "ch.h"
 #include "hal.h"
 #include "host.h"
 #include "host_driver.h"
 #include "report.h"
-#include <string.h>
 #include <string.h>
 #include "smart_ble.h"
 
