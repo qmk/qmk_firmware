@@ -60,7 +60,18 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
-    "community_layouts": ["60_ansi", "60_ansi_arrow", "60_ansi_split_bs_rshift", "60_hhkb", "60_iso", "60_abnt2", "60_tsangan_hhkb"],
+    "community_layouts": [
+        "60_ansi",
+        "60_ansi_arrow",
+        "60_ansi_split_bs_rshift",
+        "60_ansi_tsangan_split_bs_rshift",
+        "60_hhkb",
+        "60_iso",
+        "60_abnt2"
+    ],
+    "layout_aliases": {
+        "LAYOUT_60_tsangan_hhkb": "LAYOUT_60_ansi_tsangan_split_bs_rshift"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -1425,7 +1436,7 @@
                 {"matrix": [4, 14], "x": 13.5, "y": 4, "w": 1.5}
             ]
         },
-        "LAYOUT_60_tsangan_hhkb": {
+        "LAYOUT_60_ansi_tsangan_split_bs_rshift": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},

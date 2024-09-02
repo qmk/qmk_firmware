@@ -130,7 +130,6 @@
                 "pins": ["A14", "B0"]
             }
         },
-        "soft_serial_pin": "A9",
         "encoder": {
             "right": {
                 "rotary": [
@@ -140,11 +139,18 @@
                 ]
             }
         },
+        "handedness": {
+            "pin": "C13"
+        },
         "matrix_pins": {
             "right": {
                 "cols": ["B9", "B8", "B4", "A6", "A3", "B10", "B12", "B11"],
                 "rows": ["B15", "B14", "A8", "A13", "A7", null]
             }
+        },
+        "serial": {
+            "driver": "usart",
+            "pin": "A9"
         },
         "transport": {
             "sync": {

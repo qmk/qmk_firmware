@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_5, KC_6, KC_7, MO(_FN)
     ),
     [_FN] = LAYOUT(
-        RGB_TOG, RGB_MOD, KC_TRNS, KC_TRNS,
+        UG_TOGG, UG_NEXT, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     )
 };
