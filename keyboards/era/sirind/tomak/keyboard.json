@@ -175,6 +175,9 @@
         "bootmagic": {
             "matrix": [6, 0]
         },
+        "handedness": {
+            "pin": "GP21"
+        },
         "enabled": true,
         "matrix_pins": {
             "right": {
@@ -182,8 +185,10 @@
                 "rows": ["GP10", "GP11", "GP12", "GP28", "GP19", "GP16"]
             }
         },
+        "serial": {
+            "driver": "vendor"
+        },
         "transport": {
-            "protocol": "serial_usart",
             "sync": {
                 "indicators": true,
                 "layer_state": true,

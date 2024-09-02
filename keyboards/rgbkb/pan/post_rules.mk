@@ -1,4 +1,10 @@
-# As long as the users rules.mk has include $(KEYBOARD)/post_rules.mk this will be run after to properly setup any keyboard features and defines
+RGB_MATRIX_KEYPRESSES ?= no          # Enable reactive per-key effects.
+RGB_MATRIX_FRAMEBUFFER_EFFECTS ?= no # Enable frame buffer effects like the typing heatmap.
+
+# RGB layout selection
+STAGGERED_LAYOUT ?= no # If you soldered R1-A12 and R4-A12, enable this.
+RGB_ENCODERS ?= yes    # For RGB encoders, solder on both WS2811 chips
+
 ifeq ($(strip $(RGB_MATRIX_KEYPRESSES)), yes)
     OPT_DEFS += -DRGB_MATRIX_KEYPRESSES
 endif

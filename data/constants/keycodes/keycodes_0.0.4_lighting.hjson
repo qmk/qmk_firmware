@@ -64,6 +64,86 @@
             ]
         },
 
+        "0x7820": {
+            "group": "underglow",
+            "key": "QK_UNDERGLOW_TOGGLE",
+            "aliases": [
+                "UG_TOGG"
+            ]
+        },
+        "0x7821": {
+            "group": "underglow",
+            "key": "QK_UNDERGLOW_MODE_NEXT",
+            "aliases": [
+                "!reset!",
+                "UG_NEXT"
+            ]
+        },
+        "0x7822": {
+            "group": "underglow",
+            "key": "QK_UNDERGLOW_MODE_PREVIOUS",
+            "aliases": [
+                "!reset!",
+                "UG_PREV"
+            ]
+        },
+        "0x7823": {
+            "group": "underglow",
+            "key": "QK_UNDERGLOW_HUE_UP",
+            "aliases": [
+                "UG_HUEU"
+            ]
+        },
+        "0x7824": {
+            "group": "underglow",
+            "key": "QK_UNDERGLOW_HUE_DOWN",
+            "aliases": [
+                "UG_HUED"
+            ]
+        },
+        "0x7825": {
+            "group": "underglow",
+            "key": "QK_UNDERGLOW_SATURATION_UP",
+            "aliases": [
+                "UG_SATU"
+            ]
+        },
+        "0x7826": {
+            "group": "underglow",
+            "key": "QK_UNDERGLOW_SATURATION_DOWN",
+            "aliases": [
+                "UG_SATD"
+            ]
+        },
+        "0x7827": {
+            "group": "underglow",
+            "key": "QK_UNDERGLOW_VALUE_UP",
+            "aliases": [
+                "UG_VALU"
+            ]
+        },
+        "0x7828": {
+            "group": "underglow",
+            "key": "QK_UNDERGLOW_VALUE_DOWN",
+            "aliases": [
+                "UG_VALD"
+            ]
+        },
+        "0x7829": {
+            "group": "underglow",
+            "key": "QK_UNDERGLOW_SPEED_UP",
+            "aliases": [
+                "UG_SPDU"
+            ]
+        },
+        "0x782A": {
+            "group": "underglow",
+            "key": "QK_UNDERGLOW_SPEED_DOWN",
+            "aliases": [
+                "UG_SPDD"
+            ]
+        },
+
         "0x7840": {
             "group": "rgb_matrix",
             "key": "QK_RGB_MATRIX_ON",

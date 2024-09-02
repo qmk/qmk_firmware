@@ -29,7 +29,11 @@
     },
     "processor": "atmega32a",
     "qmk": {
-        "tap_keycode_delay": 10
+        "tap_keycode_delay": 10,
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     },
     "haptic": {
         "driver": "solenoid"
