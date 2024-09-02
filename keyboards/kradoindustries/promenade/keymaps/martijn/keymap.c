@@ -34,8 +34,18 @@ enum td_keycodes {
 };
 
 enum custom_keycodes {
-  HEADP = SAFE_RANGE,
-  C_HOME,
+  C_HOME = SAFE_RANGE,
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+    case C_HOME:
+        if (record->event.pressed) {
+            SEND_STRING("~/");
+        }
+        break;
+    }
+    return true;
 };
 
 enum unicode_names {
@@ -73,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_POKER] = LAYOUT_2x3u(
   CW_TOGG, _______,      _______, _______, _______,  _______,   _______,  _______,   _______,   _______,   _______,   PUSH_2_TALK, _______,   KC_DEL,
-  _______, KC_MPRV,      KC_MPLY, KC_MNXT, KC_F5,    N_TAB,     _______,   _______,  KC_PAUSE,  T_PREV,    KC_UP,     T_NEXT,      KC_ENT,    W_QUIT,
+  _______, KC_MPRV,      KC_MPLY, KC_MNXT, KC_F5,    N_TAB,     _______,  _______,   KC_PAUSE,  T_PREV,    KC_UP,     T_NEXT,      KC_ENT,    W_QUIT,
   _______, TD(TAP_SHFT), KC_VOLD, KC_VOLU, KC_MUTE,  _______,                        KC_HOME,   KC_LEFT,   KC_DOWN,   KC_RGHT,     KC_BSPC,   KC_DEL,
   _______, _______,      _______, COPY,    PASTE,    _______,   _______,  _______,   KC_END,    _______,   _______,   _______,     ALL,       C_HOME,
   _______, _______,      _______, _______,                      _______,   KC_SPC,                         _______,   _______,   _______,     _______
@@ -98,9 +108,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_EXTRA] = LAYOUT_2x3u(
   _______,   QK_BOOT, EE_CLR,  QK_REBOOT, _______,   _______,   _______,   _______, _______,   KC_MINS, KC_EQL,  _______, _______, _______,
   _______,   _______, _______, _______,   _______,   _______,   _______,   _______, _______,   KC_7,    KC_8,    KC_9,    _______, _______,
-  _______,   _______, _______, _______,   _______,   _______,                       _______,   HEADP,   KC_4,    KC_5,    KC_6,    KC_DEL,
+  _______,   _______, _______, _______,   _______,   _______,                       _______,   KC_4,    KC_5,    KC_6,    KC_DEL,  _______,
   _______,   _______, _______, _______,   _______,   _______,   _______,   _______, _______,   KC_1,    KC_2,    KC_3,    _______, _______,
-  _______,   _______, _______, _______,                         _______,   _______,                     _______, KC_0,    KC_0,    KC_0
+  _______,   _______, _______, _______,                         _______,   _______,                     KC_0,    KC_0,    KC_0,    _______
 )
 };
 
