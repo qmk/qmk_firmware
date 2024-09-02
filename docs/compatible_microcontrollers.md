@@ -75,10 +75,6 @@ You can also use any ARM chip with USB that [ChibiOS](https://www.chibios.org) s
 
 For a detailed overview about the RP2040 support by QMK see the [dedicated RP2040 page](platformdev_rp2040).
 
-## Atmel ATSAM
-
-There is limited support for one of Atmel's ATSAM microcontrollers, that being the [ATSAMD51J18A](https://www.microchip.com/wwwproducts/en/ATSAMD51J18A) used by the [Massdrop keyboards](https://github.com/qmk/qmk_firmware/tree/master/keyboards/massdrop). However, it is not recommended to design a board with this microcontroller as the support is quite specialized to Massdrop hardware.
-
 ## RISC-V
 
 ### GigaDevice
