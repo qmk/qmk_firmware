@@ -86,15 +86,15 @@ bool nvm_eeconfig_read_handedness(void);
 void nvm_eeconfig_update_handedness(bool val);
 
 #if (EECONFIG_KB_DATA_SIZE) > 0
-bool nvm_eeconfig_is_kb_datablock_valid(void);
-void nvm_eeconfig_read_kb_datablock(void *data);
-void nvm_eeconfig_update_kb_datablock(const void *data);
-void nvm_eeconfig_init_kb_datablock(void);
+bool     nvm_eeconfig_is_kb_datablock_valid(void);
+uint32_t nvm_eeconfig_read_kb_datablock(void *data, uint32_t offset, uint32_t length);
+uint32_t nvm_eeconfig_update_kb_datablock(const void *data, uint32_t offset, uint32_t length);
+void     nvm_eeconfig_init_kb_datablock(void);
 #endif // (EECONFIG_KB_DATA_SIZE) > 0
 
 #if (EECONFIG_USER_DATA_SIZE) > 0
-bool nvm_eeconfig_is_user_datablock_valid(void);
-void nvm_eeconfig_read_user_datablock(void *data);
-void nvm_eeconfig_update_user_datablock(const void *data);
-void nvm_eeconfig_init_user_datablock(void);
+bool     nvm_eeconfig_is_user_datablock_valid(void);
+uint32_t nvm_eeconfig_read_user_datablock(void *data, uint32_t offset, uint32_t length);
+uint32_t nvm_eeconfig_update_user_datablock(const void *data, uint32_t offset, uint32_t length);
+void     nvm_eeconfig_init_user_datablock(void);
 #endif // (EECONFIG_USER_DATA_SIZE) > 0

@@ -72,16 +72,10 @@ void nvm_via_update_layout_options(uint32_t val) {
 
 uint32_t nvm_via_read_custom_config(void *buf, uint32_t offset, uint32_t length) {
 #if VIA_EEPROM_CUSTOM_CONFIG_SIZE > 0
-    void *   ee_start = (void *)(uintptr_t)(VIA_EEPROM_CUSTOM_CONFIG_ADDR + offset);
-    void *   ee_end   = (void *)(uintptr_t)(VIA_EEPROM_CUSTOM_CONFIG_ADDR + MIN(VIA_EEPROM_CUSTOM_CONFIG_SIZE, offset + length));
-    uint32_t counter  = 0;
-    uint8_t *source   = (uint8_t *)ee_start;
-    uint8_t *dest     = (uint8_t *)buf;
-    while (source != ee_end) {
-        *dest++ = eeprom_read_byte(source++);
-        counter++;
-    }
-    return counter;
+    void *ee_start = (void *)(uintptr_t)(VIA_EEPROM_CUSTOM_CONFIG_ADDR + offset);
+    void *ee_end   = (void *)(uintptr_t)(VIA_EEPROM_CUSTOM_CONFIG_ADDR + MIN(VIA_EEPROM_CUSTOM_CONFIG_SIZE, offset + length));
+    eeprom_read_block(buf, ee_start, ee_end - ee_start);
+    return ee_end - ee - start;
 #else
     return 0;
 #endif
@@ -89,16 +83,10 @@ uint32_t nvm_via_read_custom_config(void *buf, uint32_t offset, uint32_t length)
 
 uint32_t nvm_via_update_custom_config(const void *buf, uint32_t offset, uint32_t length) {
 #if VIA_EEPROM_CUSTOM_CONFIG_SIZE > 0
-    void *   ee_start = (void *)(uintptr_t)(VIA_EEPROM_CUSTOM_CONFIG_ADDR + offset);
-    void *   ee_end   = (void *)(uintptr_t)(VIA_EEPROM_CUSTOM_CONFIG_ADDR + MIN(VIA_EEPROM_CUSTOM_CONFIG_SIZE, offset + length));
-    uint32_t counter  = 0;
-    uint8_t *dest     = (uint8_t *)ee_start;
-    uint8_t *source   = (uint8_t *)buf;
-    while (dest != ee_end) {
-        eeprom_update_byte(dest++, *source++);
-        counter++;
-    }
-    return counter;
+    void *ee_start = (void *)(uintptr_t)(VIA_EEPROM_CUSTOM_CONFIG_ADDR + offset);
+    void *ee_end   = (void *)(uintptr_t)(VIA_EEPROM_CUSTOM_CONFIG_ADDR + MIN(VIA_EEPROM_CUSTOM_CONFIG_SIZE, offset + length));
+    eeprom_update_block(buf, ee_start, ee_end - ee_start);
+    return ee_end - ee_start;
 #else
     return 0;
 #endif

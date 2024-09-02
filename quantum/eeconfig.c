@@ -245,11 +245,11 @@ void eeconfig_update_handedness(bool val) {
 bool eeconfig_is_kb_datablock_valid(void) {
     return nvm_eeconfig_is_kb_datablock_valid();
 }
-void eeconfig_read_kb_datablock(void *data) {
-    nvm_eeconfig_read_kb_datablock(data);
+uint32_t eeconfig_read_kb_datablock(void *data, uint32_t offset, uint32_t length) {
+    return nvm_eeconfig_read_kb_datablock(data, offset, length);
 }
-void eeconfig_update_kb_datablock(const void *data) {
-    nvm_eeconfig_update_kb_datablock(data);
+uint32_t eeconfig_update_kb_datablock(const void *data, uint32_t offset, uint32_t length) {
+    return nvm_eeconfig_update_kb_datablock(data, offset, length);
 }
 __attribute__((weak)) void eeconfig_init_kb_datablock(void) {
     nvm_eeconfig_init_kb_datablock();
@@ -260,11 +260,11 @@ __attribute__((weak)) void eeconfig_init_kb_datablock(void) {
 bool eeconfig_is_user_datablock_valid(void) {
     return nvm_eeconfig_is_user_datablock_valid();
 }
-void eeconfig_read_user_datablock(void *data) {
-    nvm_eeconfig_read_user_datablock(data);
+uint32_t eeconfig_read_user_datablock(void *data, uint32_t offset, uint32_t length) {
+    return nvm_eeconfig_read_user_datablock(data, offset, length);
 }
-void eeconfig_update_user_datablock(const void *data) {
-    nvm_eeconfig_update_user_datablock(data);
+uint32_t eeconfig_update_user_datablock(const void *data, uint32_t offset, uint32_t length) {
+    return nvm_eeconfig_update_user_datablock(data, offset, length);
 }
 __attribute__((weak)) void eeconfig_init_user_datablock(void) {
     nvm_eeconfig_init_user_datablock();

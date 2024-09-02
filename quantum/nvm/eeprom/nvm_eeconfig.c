@@ -3,8 +3,9 @@
 #include <string.h>
 #include "nvm_eeconfig.h"
 #include "nvm_eeconfig_eeprom.h"
-#include "eeprom.h"
+#include "util.h"
 #include "eeconfig.h"
+#include "eeprom.h"
 
 #if defined(EEPROM_DRIVER)
 #    include "eeprom_driver.h"
@@ -176,22 +177,30 @@ bool nvm_eeconfig_is_kb_datablock_valid(void) {
     return eeprom_read_dword(EECONFIG_KEYBOARD) == (EECONFIG_KB_DATA_VERSION);
 }
 
-void nvm_eeconfig_read_kb_datablock(void *data) {
+uint32_t nvm_eeconfig_read_kb_datablock(void *data, uint32_t offset, uint32_t length) {
     if (eeconfig_is_kb_datablock_valid()) {
-        eeprom_read_block(data, EECONFIG_KB_DATABLOCK, (EECONFIG_KB_DATA_SIZE));
+        void *ee_start = (void *)(uintptr_t)(EECONFIG_KB_DATABLOCK + offset);
+        void *ee_end   = (void *)(uintptr_t)(EECONFIG_KB_DATABLOCK + MIN(EECONFIG_KB_DATA_SIZE, offset + length));
+        eeprom_read_block(data, ee_start, ee_end - ee_start);
+        return ee_end - ee_start;
     } else {
-        memset(data, 0, (EECONFIG_KB_DATA_SIZE));
+        memset(data, 0, length);
+        return length;
     }
 }
 
-void nvm_eeconfig_update_kb_datablock(const void *data) {
+uint32_t nvm_eeconfig_update_kb_datablock(const void *data, uint32_t offset, uint32_t length) {
     eeprom_update_dword(EECONFIG_KEYBOARD, (EECONFIG_KB_DATA_VERSION));
-    eeprom_update_block(data, EECONFIG_KB_DATABLOCK, (EECONFIG_KB_DATA_SIZE));
+
+    void *ee_start = (void *)(uintptr_t)(EECONFIG_KB_DATABLOCK + offset);
+    void *ee_end   = (void *)(uintptr_t)(EECONFIG_KB_DATABLOCK + MIN(EECONFIG_KB_DATA_SIZE, offset + length));
+    eeprom_update_block(data, ee_start, ee_end - ee_start);
+    return ee_end - ee_start;
 }
 
 void nvm_eeconfig_init_kb_datablock(void) {
     uint8_t dummy_kb[(EECONFIG_KB_DATA_SIZE)] = {0};
-    eeconfig_update_kb_datablock(dummy_kb);
+    eeconfig_update_kb_datablock(dummy_kb, 0, (EECONFIG_KB_DATA_SIZE));
 }
 
 #endif // (EECONFIG_KB_DATA_SIZE) > 0
@@ -202,22 +211,30 @@ bool nvm_eeconfig_is_user_datablock_valid(void) {
     return eeprom_read_dword(EECONFIG_USER) == (EECONFIG_USER_DATA_VERSION);
 }
 
-void nvm_eeconfig_read_user_datablock(void *data) {
+uint32_t nvm_eeconfig_read_user_datablock(void *data, uint32_t offset, uint32_t length) {
     if (eeconfig_is_user_datablock_valid()) {
-        eeprom_read_block(data, EECONFIG_USER_DATABLOCK, (EECONFIG_USER_DATA_SIZE));
+        void *ee_start = (void *)(uintptr_t)(EECONFIG_USER_DATABLOCK + offset);
+        void *ee_end   = (void *)(uintptr_t)(EECONFIG_USER_DATABLOCK + MIN(EECONFIG_USER_DATA_SIZE, offset + length));
+        eeprom_read_block(data, ee_start, ee_end - ee_start);
+        return ee_end - ee_start;
     } else {
-        memset(data, 0, (EECONFIG_USER_DATA_SIZE));
+        memset(data, 0, length);
+        return length;
     }
 }
 
-void nvm_eeconfig_update_user_datablock(const void *data) {
+uint32_t nvm_eeconfig_update_user_datablock(const void *data, uint32_t offset, uint32_t length) {
     eeprom_update_dword(EECONFIG_USER, (EECONFIG_USER_DATA_VERSION));
-    eeprom_update_block(data, EECONFIG_USER_DATABLOCK, (EECONFIG_USER_DATA_SIZE));
+
+    void *ee_start = (void *)(uintptr_t)(EECONFIG_USER_DATABLOCK + offset);
+    void *ee_end   = (void *)(uintptr_t)(EECONFIG_USER_DATABLOCK + MIN(EECONFIG_USER_DATA_SIZE, offset + length));
+    eeprom_update_block(data, ee_start, ee_end - ee_start);
+    return ee_end - ee_start;
 }
 
 void nvm_eeconfig_init_user_datablock(void) {
     uint8_t dummy_user[(EECONFIG_USER_DATA_SIZE)] = {0};
-    eeconfig_update_user_datablock(dummy_user);
+    eeconfig_update_user_datablock(dummy_user, 0, (EECONFIG_USER_DATA_SIZE));
 }
 
 #endif // (EECONFIG_USER_DATA_SIZE) > 0
