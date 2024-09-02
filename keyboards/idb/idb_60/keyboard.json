@@ -31,7 +31,8 @@
     "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT": "LAYOUT_all",
-        "LAYOUT_default": "LAYOUT_60_ansi_wkl_split_rshift"
+        "LAYOUT_default": "LAYOUT_60_ansi_wkl_split_rshift",
+        "LAYOUT_60_tsangan_hhkb": "LAYOUT_60_ansi_tsangan_split_bs_rshift"
     },
     "layouts": {
         "LAYOUT_all": {
@@ -173,7 +174,7 @@
                 {"matrix": [9, 6], "x": 13.5, "y": 4, "w": 1.5}
             ]
         },
-        "LAYOUT_60_tsangan_hhkb": {
+        "LAYOUT_60_ansi_tsangan_split_bs_rshift": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [1, 0], "x": 1, "y": 0},
