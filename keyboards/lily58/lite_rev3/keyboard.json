@@ -12,7 +12,10 @@
         "device_version": "1.0.0"
     },
     "split": {
-        "enabled": true
+        "enabled": true,
+        "serial": {
+            "driver": "vendor"
+        } 
     },
     "matrix_pins": {
         "cols": ["GP8", "GP7", "GP6", "GP5", "GP4", "GP3"],
