@@ -1,10 +1,6 @@
 CUSTOM_MATRIX = lite
 
-SERIAL_DRIVER = usart
-
 CIE1931_CURVE = yes
-
-AUDIO_DRIVER = pwm_software
 
 QUANTUM_PAINTER_DRIVERS = ili9341_spi
 

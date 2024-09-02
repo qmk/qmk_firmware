@@ -5,5 +5,13 @@
     },
     "eeprom": {
         "driver": "i2c"
+    },
+    "features": {
+        "pointing_device": true
+    },
+    "split": {
+        "handedness": {
+            "pin": "B3"
+        }
     }
 }

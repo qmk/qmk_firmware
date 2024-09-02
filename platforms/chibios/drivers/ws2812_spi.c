@@ -76,7 +76,7 @@
 #endif
 
 #define BYTES_FOR_LED_BYTE 4
-#ifdef RGBW
+#ifdef WS2812_RGBW
 #    define WS2812_CHANNELS 4
 #else
 #    define WS2812_CHANNELS 3
@@ -131,7 +131,7 @@ static void set_led_color_rgb(rgb_led_t color, int pos) {
     for (int j = 0; j < 4; j++)
         tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE * 2 + j] = get_protocol_eq(color.r, j);
 #endif
-#ifdef RGBW
+#ifdef WS2812_RGBW
     for (int j = 0; j < 4; j++)
         tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE * 4 + j] = get_protocol_eq(color.w, j);
 #endif
