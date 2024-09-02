@@ -44,7 +44,7 @@ Note that the tests are always compiled with the native compiler of your platfor
 
 If there are problems with the tests, you can find the executable in the `./build/test` folder. You should be able to run those with GDB or a similar debugger.
 
-To forward any [debug messages](unit_testing.md#debug-api) to `stderr`, the tests can run with `DEBUG=1`. For example
+To forward any [debug messages](unit_testing#debug-api) to `stderr`, the tests can run with `DEBUG=1`. For example
 
 ```
 make test:all DEBUG=1
@@ -58,7 +58,7 @@ It's not yet possible to do a full integration test, where you would compile the
 
 In that model you would emulate the input, and expect a certain output from the emulated keyboard.
 
-# Tracing Variables :id=tracing-variables
+# Tracing Variables {#tracing-variables}
 
 Sometimes you might wonder why a variable gets changed and where, and this can be quite tricky to track down without having a debugger. It's of course possible to manually add print statements to track it, but you can also enable the variable trace feature. This works for both variables that are changed by the code, and when the variable is changed by some memory corruption.
 

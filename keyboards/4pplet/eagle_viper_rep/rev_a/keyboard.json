@@ -76,8 +76,11 @@
         "60_iso_tsangan",
         "60_iso_tsangan_split_bs_rshift",
         "60_iso_wkl",
-        "60_iso_wkl_split_bs_rshift"
+        "60_iso_wkl_split_bs_rshiftt
     ],
+    "layout_aliases": {
+        "LAYOUT_60_tsangan_hhkb": "LAYOUT_60_ansi_tsangan_split_bs_rshift"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -1,2 +1,0 @@
-CAPS_WORD_ENABLE = yes
-VIA_ENABLE = yes

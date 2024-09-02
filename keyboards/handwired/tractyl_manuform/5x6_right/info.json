@@ -10,6 +10,14 @@
             "matrix": [6, 5]
         }
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true,
+        "swap_hands": true,
+        "pointing_device": true
+    },
     "layouts": {
         "LAYOUT_5x6_right": {
             "layout": [

@@ -19,13 +19,13 @@
 void led_init_ports(void) {
     // Initialize indicator LEDs to output
     if (isLeftHand) {
-        setPinOutput(C6);
-        setPinOutput(B6);
-        setPinOutput(B5);
+        gpio_set_pin_output(C6);
+        gpio_set_pin_output(B6);
+        gpio_set_pin_output(B5);
     } else {
-        setPinOutput(F6);
-        setPinOutput(F7);
-        setPinOutput(C7);
+        gpio_set_pin_output(F6);
+        gpio_set_pin_output(F7);
+        gpio_set_pin_output(C7);
     }
 
     set_layer_indicators(0);
@@ -40,15 +40,15 @@ void led_toggle(uint8_t id, bool on) {
         switch (id) {
             case 0:
                 // Left hand C6
-                writePin(C6, on);
+                gpio_write_pin(C6, on);
                 break;
             case 1:
                 // Left hand B6
-                writePin(B6, on);
+                gpio_write_pin(B6, on);
                 break;
             case 2:
                 // Left hand B5
-                writePin(B5, on);
+                gpio_write_pin(B5, on);
                 break;
             default:
                 break;
@@ -57,15 +57,15 @@ void led_toggle(uint8_t id, bool on) {
         switch (id) {
             case 3:
                 // Right hand F6
-                writePin(F6, on);
+                gpio_write_pin(F6, on);
                 break;
             case 4:
                 // Right hand F7
-                writePin(F7, on);
+                gpio_write_pin(F7, on);
                 break;
             case 5:
                 // Right hand C7
-                writePin(C7, on);
+                gpio_write_pin(C7, on);
                 break;
             default:
                 break;

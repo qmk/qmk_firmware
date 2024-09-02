@@ -1,0 +1,7 @@
+{
+    "keycodes": {
+        "0x7C20": "!delete!", // old QK_OUTPUT_AUTO
+        "0x7C21": "!delete!", // old QK_OUTPUT_USB
+        "0x7C22": "!delete!", // old QK_OUTPUT_BLUETOOTH
+    }
+}
