@@ -46,7 +46,8 @@
     "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT_60_ansi_arrow_split_bs_7u_spc": "LAYOUT_60_ansi_arrow_tsangan_split_bs",
-        "LAYOUT_60_ansi_arrow_7u_spc": "LAYOUT_60_ansi_arrow_tsangan"
+        "LAYOUT_60_ansi_arrow_7u_spc": "LAYOUT_60_ansi_arrow_tsangan",
+        "LAYOUT_60_tsangan_hhkb": "LAYOUT_60_ansi_tsangan_split_bs_rshift"
     },
     "community_layouts": ["60_ansi", "60_ansi_arrow"],
     "layouts": {
@@ -1114,7 +1115,7 @@
                 {"matrix": [9, 7], "x": 13.5, "y": 4, "w": 1.5}
             ]
         },
-        "LAYOUT_60_tsangan_hhkb": {
+        "LAYOUT_60_ansi_tsangan_split_bs_rshift": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [1, 0], "x": 1, "y": 0},

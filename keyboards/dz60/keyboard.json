@@ -2196,7 +2196,6 @@
                 {"matrix": [4, 14], "x": 13.75, "y": 4, "w": 1.25}
             ]
         },
-        
         "LAYOUT_60_iso_5x1u_split_bs_rshift_spc": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
