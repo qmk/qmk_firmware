@@ -17,7 +17,9 @@
     "processor": "atmega32u4",
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D0"
+        "serial": {
+            "pin": "D0"
+        }
     },
     "features": {
         "extrakey": true,

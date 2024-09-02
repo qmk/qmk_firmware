@@ -64,9 +64,14 @@ __attribute__((weak)) void spi_init(void) {
 }
 
 bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
+#if (SPI_USE_MUTUAL_EXCLUSION == TRUE)
+    spiAcquireBus(&SPI_DRIVER);
+#endif // (SPI_USE_MUTUAL_EXCLUSION == TRUE)
+
     if (spiStarted) {
         return false;
     }
+
 #if SPI_SELECT_MODE != SPI_SELECT_MODE_NONE
     if (slavePin == NO_PIN) {
         return false;
@@ -326,4 +331,8 @@ void spi_stop(void) {
         spiStop(&SPI_DRIVER);
         spiStarted = false;
     }
+
+#if (SPI_USE_MUTUAL_EXCLUSION == TRUE)
+    spiReleaseBus(&SPI_DRIVER);
+#endif // (SPI_USE_MUTUAL_EXCLUSION == TRUE)
 }

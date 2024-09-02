@@ -83,11 +83,6 @@ static uint32_t rgb_timer_buffer;
 static last_hit_t last_hit_buffer;
 #endif // RGB_MATRIX_KEYREACTIVE_ENABLED
 
-// split rgb matrix
-#if defined(RGB_MATRIX_SPLIT)
-const uint8_t k_rgb_matrix_split[2] = RGB_MATRIX_SPLIT;
-#endif
-
 EECONFIG_DEBOUNCE_HELPER(rgb_matrix, EECONFIG_RGB_MATRIX, rgb_matrix_config);
 
 void eeconfig_update_rgb_matrix(void) {
