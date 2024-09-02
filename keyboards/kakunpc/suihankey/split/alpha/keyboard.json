@@ -19,6 +19,12 @@
         "extrakey": false,
         "rgblight": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_split_3x5_3"
     },
