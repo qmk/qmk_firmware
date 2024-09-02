@@ -21,7 +21,6 @@ enum custom_keycodes {
     SS_Gh,
     SS_Wh,
     SS_Ph,
-    // SS_Prns,
 };
 
 /*  KEY POSITION Names
@@ -86,13 +85,13 @@ enum custom_keycodes {
 #define LH4 KC_LEFT
 #define LH3 KC_RGHT
 #define LH2 G(KC_TAB)
-#define LH1 LT(_SYM, KC_BSPC)
+#define LH1 KC_TAB
 #define LH0 LT(_NAV, KC_R)
-#define LH00 KC_TAB
+#define LH00 LT(_SYM, KC_BSPC)
 
-#define RH00 KC_ESC
+#define RH00 LT(_SYM, KC_ENT)
 #define RH0 LT(_NUM, KC_SPC)
-#define RH1 LT(_SYM, KC_ENT)
+#define RH1 KC_ESC
 #define RH2 TG(_NUM)
 #define RH3 KC_UP
 #define RH4 KC_DOWN
@@ -268,6 +267,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 add_h_digragh();
             }
             break;
+        case SS_Sh:
+            if (record->event.pressed) {
+                tap_code(KC_S); // send "S" honouring caps
+                add_h_digragh();
+            }
+            break;
         case SS_Gh:
             if (record->event.pressed) {
                 tap_code(KC_G); // send "G" honouring caps
@@ -294,7 +299,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case MY_PRNS:
             if (record->tap.count && record->event.pressed) {
                 tap_code16(KC_LPRN); // send "(" on tap
-            } else if (record->event.press
+            } else if (record->event.press) {c
                 tap_code16(KC_RPRN); // send ")" on hold
             }
             return false; */
