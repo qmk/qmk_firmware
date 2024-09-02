@@ -1,6 +1,6 @@
 {
     "manufacturer": "Cipulot",
-    "keyboard_name": "EC Type-K",
+    "keyboard_name": "Type-K EC",
     "maintainer": "Cipulot",
     "bootloader": "stm32-dfu",
     "build": {

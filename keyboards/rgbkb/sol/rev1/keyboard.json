@@ -8,6 +8,15 @@
         "pid": "0x3060",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": false,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": false,
+        "nkro": false,
+        "oled": false,
+        "rgblight": true
+    },
     "rgb_matrix": {
         "animations": {
             "alphas_mods": true,
@@ -83,7 +92,9 @@
     },
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D3"
+        "serial": {
+            "pin": "D3"
+        }
     },
     "tapping": {
         "term": 150

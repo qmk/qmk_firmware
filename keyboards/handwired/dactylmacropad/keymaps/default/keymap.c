@@ -87,8 +87,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
             // creates pivot table in excel
             SEND_STRING(SS_LALT("nvt"));
-        } else {
-            // when keycode QMKBEST is released
         }
         break;
     case snap:
