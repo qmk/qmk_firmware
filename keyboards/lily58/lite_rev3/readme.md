@@ -7,6 +7,7 @@
 * Keyboard Maintainer: [yuchi](https://github.com/kata0510)
 * Hardware Supported: RP2040-Zero
 * Hardware Availability: [PCB Link](https://github.com/kata0510/Lily58/tree/master/Lite_Rev3)
+* Other Information(ja) [Link](https://docs.liliums.net/lily58-lite-rev3/about/)
 
 Make example for this keyboard (after setting up your build environment):
 
