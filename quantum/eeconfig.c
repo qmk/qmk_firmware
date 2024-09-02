@@ -4,76 +4,93 @@
 #include "eeprom.h"
 #include "eeconfig.h"
 #include "action_layer.h"
+#include "nvm_eeconfig.h"
 
-#if defined(EEPROM_DRIVER)
+#ifdef EEPROM_DRIVER
 #    include "eeprom_driver.h"
-#endif
+#endif // EEPROM_DRIVER
 
-#if defined(HAPTIC_ENABLE)
+#ifdef HAPTIC_ENABLE
 #    include "haptic.h"
-#endif
+#endif // HAPTIC_ENABLE
 
-#if defined(VIA_ENABLE)
+#ifdef VIA_ENABLE
 bool via_eeprom_is_valid(void);
 void via_eeprom_set_valid(bool valid);
 void eeconfig_init_via(void);
-#endif
+#endif // VIA_ENABLE
 
-_Static_assert((intptr_t)EECONFIG_HANDEDNESS == 14, "EEPROM handedness offset is incorrect");
-
-/** \brief eeconfig enable
- *
- * FIXME: needs doc
- */
 __attribute__((weak)) void eeconfig_init_user(void) {
 #if (EECONFIG_USER_DATA_SIZE) == 0
     // Reset user EEPROM value to blank, rather than to a set value
     eeconfig_update_user(0);
-#endif
+#endif // (EECONFIG_USER_DATA_SIZE) == 0
 }
 
 __attribute__((weak)) void eeconfig_init_kb(void) {
 #if (EECONFIG_KB_DATA_SIZE) == 0
     // Reset Keyboard EEPROM value to blank, rather than to a set value
     eeconfig_update_kb(0);
-#endif
+#endif // (EECONFIG_KB_DATA_SIZE) == 0
 
     eeconfig_init_user();
 }
 
-/*
- * FIXME: needs doc
- */
 void eeconfig_init_quantum(void) {
-#if defined(EEPROM_DRIVER)
+#ifdef EEPROM_DRIVER
     eeprom_driver_format(false);
+#endif // EEPROM_DRIVER
+
+    eeconfig_enable();
+    eeconfig_update_debug(0);
+    default_layer_state = (layer_state_t)1 << 0;
+    eeconfig_update_default_layer(default_layer_state);
+    // Enable oneshot and autocorrect by default: 0b0001 0100 0000 0000
+    eeconfig_update_keymap(0x1400);
+
+#ifdef BACKLIGHT_ENABLE
+    eeconfig_update_backlight(0);
+#endif // BACKLIGHT_ENABLE
+
+#ifdef AUDIO_ENABLE
+    eeconfig_update_audio(0);
+#endif // AUDIO_ENABLE
+
+#ifdef RGBLIGHT_ENABLE
+    rgblight_config_t rgblight_config = {0};
+    eeconfig_update_rgblight(&rgblight_config);
+#endif // RGBLIGHT_ENABLE
+
+#ifdef UNICODE_COMMON_ENABLE
+    eeconfig_update_unicode_mode(0);
+#endif // UNICODE_COMMON_ENABLE
+
+#ifdef STENO_ENABLE
+    nvm_eeconfig_update_steno_mode(0);
+#endif // STENO_ENABLE
+
+#ifdef RGB_MATRIX_ENABLE
+    rgb_config_t rgb_matrix_config = {0};
+    eeconfig_update_rgb_matrix(&rgb_matrix_config);
 #endif
 
-    eeprom_update_word(EECONFIG_MAGIC, EECONFIG_MAGIC_NUMBER);
-    eeprom_update_byte(EECONFIG_DEBUG, 0);
-    default_layer_state = (layer_state_t)1 << 0;
-    eeprom_update_byte(EECONFIG_DEFAULT_LAYER, default_layer_state);
-    // Enable oneshot and autocorrect by default: 0b0001 0100 0000 0000
-    eeprom_update_word(EECONFIG_KEYMAP, 0x1400);
-    eeprom_update_byte(EECONFIG_BACKLIGHT, 0);
-    eeprom_update_byte(EECONFIG_AUDIO, 0);
-    eeprom_update_dword(EECONFIG_RGBLIGHT, 0);
-    eeprom_update_byte(EECONFIG_RGBLIGHT_EXTENDED, 0);
-    eeprom_update_byte(EECONFIG_UNICODEMODE, 0);
-    eeprom_update_byte(EECONFIG_STENOMODE, 0);
-    eeprom_write_qword(EECONFIG_RGB_MATRIX, 0);
-    eeprom_update_dword(EECONFIG_HAPTIC, 0);
-#if defined(HAPTIC_ENABLE)
+#ifdef LED_MATRIX_ENABLE
+    led_eeconfig_t led_matrix_config = {0};
+    eeconfig_update_led_matrix(&led_matrix_config);
+#endif // LED_MATRIX_ENABLE
+
+#ifdef HAPTIC_ENABLE
+    nvm_eeconfig_update_haptic(0);
     haptic_reset();
-#endif
+#endif // HAPTIC_ENABLE
 
 #if (EECONFIG_KB_DATA_SIZE) > 0
     eeconfig_init_kb_datablock();
-#endif
+#endif // (EECONFIG_KB_DATA_SIZE) > 0
 
 #if (EECONFIG_USER_DATA_SIZE) > 0
     eeconfig_init_user_datablock();
-#endif
+#endif // (EECONFIG_USER_DATA_SIZE) > 0
 
 #if defined(VIA_ENABLE)
     // Invalidate VIA eeprom config, and then reset.
@@ -86,255 +103,170 @@ void eeconfig_init_quantum(void) {
     eeconfig_init_kb();
 }
 
-/** \brief eeconfig initialization
- *
- * FIXME: needs doc
- */
 void eeconfig_init(void) {
     eeconfig_init_quantum();
 }
 
-/** \brief eeconfig enable
- *
- * FIXME: needs doc
- */
 void eeconfig_enable(void) {
-    eeprom_update_word(EECONFIG_MAGIC, EECONFIG_MAGIC_NUMBER);
+    nvm_eeconfig_enable();
 }
 
-/** \brief eeconfig disable
- *
- * FIXME: needs doc
- */
 void eeconfig_disable(void) {
-#if defined(EEPROM_DRIVER)
-    eeprom_driver_format(false);
-#endif
-    eeprom_update_word(EECONFIG_MAGIC, EECONFIG_MAGIC_NUMBER_OFF);
+    nvm_eeconfig_disable();
 }
 
-/** \brief eeconfig is enabled
- *
- * FIXME: needs doc
- */
 bool eeconfig_is_enabled(void) {
-    bool is_eeprom_enabled = (eeprom_read_word(EECONFIG_MAGIC) == EECONFIG_MAGIC_NUMBER);
-#ifdef VIA_ENABLE
-    if (is_eeprom_enabled) {
-        is_eeprom_enabled = via_eeprom_is_valid();
-    }
-#endif
-    return is_eeprom_enabled;
+    return nvm_eeconfig_is_enabled();
 }
 
-/** \brief eeconfig is disabled
- *
- * FIXME: needs doc
- */
 bool eeconfig_is_disabled(void) {
-    bool is_eeprom_disabled = (eeprom_read_word(EECONFIG_MAGIC) == EECONFIG_MAGIC_NUMBER_OFF);
-#ifdef VIA_ENABLE
-    if (!is_eeprom_disabled) {
-        is_eeprom_disabled = !via_eeprom_is_valid();
-    }
-#endif
-    return is_eeprom_disabled;
+    return nvm_eeconfig_is_disabled();
 }
 
-/** \brief eeconfig read debug
- *
- * FIXME: needs doc
- */
 uint8_t eeconfig_read_debug(void) {
-    return eeprom_read_byte(EECONFIG_DEBUG);
+    return nvm_eeconfig_read_debug();
 }
-/** \brief eeconfig update debug
- *
- * FIXME: needs doc
- */
 void eeconfig_update_debug(uint8_t val) {
-    eeprom_update_byte(EECONFIG_DEBUG, val);
+    nvm_eeconfig_update_debug(val);
 }
 
-/** \brief eeconfig read default layer
- *
- * FIXME: needs doc
- */
 uint8_t eeconfig_read_default_layer(void) {
-    return eeprom_read_byte(EECONFIG_DEFAULT_LAYER);
+    return nvm_eeconfig_read_default_layer();
 }
-/** \brief eeconfig update default layer
- *
- * FIXME: needs doc
- */
 void eeconfig_update_default_layer(uint8_t val) {
-    eeprom_update_byte(EECONFIG_DEFAULT_LAYER, val);
+    nvm_eeconfig_update_default_layer(val);
 }
 
-/** \brief eeconfig read keymap
- *
- * FIXME: needs doc
- */
 uint16_t eeconfig_read_keymap(void) {
-    return eeprom_read_word(EECONFIG_KEYMAP);
+    return nvm_eeconfig_read_keymap();
 }
-/** \brief eeconfig update keymap
- *
- * FIXME: needs doc
- */
 void eeconfig_update_keymap(uint16_t val) {
-    eeprom_update_word(EECONFIG_KEYMAP, val);
+    nvm_eeconfig_update_keymap(val);
 }
 
-/** \brief eeconfig read audio
- *
- * FIXME: needs doc
- */
+#ifdef AUDIO_ENABLE
 uint8_t eeconfig_read_audio(void) {
-    return eeprom_read_byte(EECONFIG_AUDIO);
+    return nvm_eeconfig_read_audio();
 }
-/** \brief eeconfig update audio
- *
- * FIXME: needs doc
- */
 void eeconfig_update_audio(uint8_t val) {
-    eeprom_update_byte(EECONFIG_AUDIO, val);
+    nvm_eeconfig_update_audio(val);
 }
+#endif // AUDIO_ENABLE
+
+#ifdef UNICODE_COMMON_ENABLE
+uint8_t eeconfig_read_unicode_mode(void) {
+    return nvm_eeconfig_read_unicode_mode();
+}
+void eeconfig_update_unicode_mode(uint8_t val) {
+    nvm_eeconfig_update_unicode_mode(val);
+}
+#endif // UNICODE_COMMON_ENABLE
+
+#ifdef BACKLIGHT_ENABLE
+uint8_t eeconfig_read_backlight(void) {
+    return nvm_eeconfig_read_backlight();
+}
+void eeconfig_update_backlight(uint8_t val) {
+    nvm_eeconfig_update_backlight(val);
+}
+#endif // BACKLIGHT_ENABLE
+
+#ifdef STENO_ENABLE
+uint8_t eeconfig_read_steno_mode(void) {
+    return nvm_eeconfig_read_steno_mode();
+}
+void eeconfig_update_steno_mode(uint8_t val) {
+    nvm_eeconfig_update_steno_mode(val);
+}
+#endif // STENO_ENABLE
+
+#ifdef RGB_MATRIX_ENABLE
+void eeconfig_read_rgb_matrix(rgb_config_t *rgb_matrix_config) {
+    nvm_eeconfig_read_rgb_matrix(rgb_matrix_config);
+}
+void eeconfig_update_rgb_matrix(const rgb_config_t *rgb_matrix_config) {
+    nvm_eeconfig_update_rgb_matrix(rgb_matrix_config);
+}
+#endif // RGB_MATRIX_ENABLE
+
+#ifdef LED_MATRIX_ENABLE
+void eeconfig_read_led_matrix(led_eeconfig_t *led_matrix_config) {
+    nvm_eeconfig_read_led_matrix(led_matrix_config);
+}
+void eeconfig_update_led_matrix(const led_eeconfig_t *led_matrix_config) {
+    nvm_eeconfig_update_led_matrix(led_matrix_config);
+}
+#endif // LED_MATRIX_ENABLE
+
+#ifdef RGBLIGHT_ENABLE
+void eeconfig_read_rgblight(rgblight_config_t *rgblight_config) {
+    nvm_eeconfig_read_rgblight(rgblight_config);
+}
+void eeconfig_update_rgblight(const rgblight_config_t *rgblight_config) {
+    nvm_eeconfig_update_rgblight(rgblight_config);
+}
+#endif // RGBLIGHT_ENABLE
 
 #if (EECONFIG_KB_DATA_SIZE) == 0
-/** \brief eeconfig read kb
- *
- * FIXME: needs doc
- */
 uint32_t eeconfig_read_kb(void) {
-    return eeprom_read_dword(EECONFIG_KEYBOARD);
+    return nvm_eeconfig_read_kb();
 }
-/** \brief eeconfig update kb
- *
- * FIXME: needs doc
- */
 void eeconfig_update_kb(uint32_t val) {
-    eeprom_update_dword(EECONFIG_KEYBOARD, val);
+    nvm_eeconfig_update_kb(val);
 }
 #endif // (EECONFIG_KB_DATA_SIZE) == 0
 
 #if (EECONFIG_USER_DATA_SIZE) == 0
-/** \brief eeconfig read user
- *
- * FIXME: needs doc
- */
 uint32_t eeconfig_read_user(void) {
-    return eeprom_read_dword(EECONFIG_USER);
+    return nvm_eeconfig_read_user();
 }
-/** \brief eeconfig update user
- *
- * FIXME: needs doc
- */
 void eeconfig_update_user(uint32_t val) {
-    eeprom_update_dword(EECONFIG_USER, val);
+    nvm_eeconfig_update_user(val);
 }
 #endif // (EECONFIG_USER_DATA_SIZE) == 0
 
-/** \brief eeconfig read haptic
- *
- * FIXME: needs doc
- */
+#ifdef HAPTIC_ENABLE
 uint32_t eeconfig_read_haptic(void) {
-    return eeprom_read_dword(EECONFIG_HAPTIC);
+    return nvm_eeconfig_read_haptic();
 }
-/** \brief eeconfig update haptic
- *
- * FIXME: needs doc
- */
 void eeconfig_update_haptic(uint32_t val) {
-    eeprom_update_dword(EECONFIG_HAPTIC, val);
+    nvm_eeconfig_update_haptic(val);
 }
+#endif // HAPTIC_ENABLE
 
-/** \brief eeconfig read split handedness
- *
- * FIXME: needs doc
- */
 bool eeconfig_read_handedness(void) {
-    return !!eeprom_read_byte(EECONFIG_HANDEDNESS);
+    return nvm_eeconfig_read_handedness();
 }
-/** \brief eeconfig update split handedness
- *
- * FIXME: needs doc
- */
 void eeconfig_update_handedness(bool val) {
-    eeprom_update_byte(EECONFIG_HANDEDNESS, !!val);
+    nvm_eeconfig_update_handedness(val);
 }
 
 #if (EECONFIG_KB_DATA_SIZE) > 0
-/** \brief eeconfig assert keyboard data block version
- *
- * FIXME: needs doc
- */
 bool eeconfig_is_kb_datablock_valid(void) {
-    return eeprom_read_dword(EECONFIG_KEYBOARD) == (EECONFIG_KB_DATA_VERSION);
+    return nvm_eeconfig_is_kb_datablock_valid();
 }
-/** \brief eeconfig read keyboard data block
- *
- * FIXME: needs doc
- */
 void eeconfig_read_kb_datablock(void *data) {
-    if (eeconfig_is_kb_datablock_valid()) {
-        eeprom_read_block(data, EECONFIG_KB_DATABLOCK, (EECONFIG_KB_DATA_SIZE));
-    } else {
-        memset(data, 0, (EECONFIG_KB_DATA_SIZE));
-    }
+    nvm_eeconfig_read_kb_datablock(data);
 }
-/** \brief eeconfig update keyboard data block
- *
- * FIXME: needs doc
- */
 void eeconfig_update_kb_datablock(const void *data) {
-    eeprom_update_dword(EECONFIG_KEYBOARD, (EECONFIG_KB_DATA_VERSION));
-    eeprom_update_block(data, EECONFIG_KB_DATABLOCK, (EECONFIG_KB_DATA_SIZE));
+    nvm_eeconfig_update_kb_datablock(data);
 }
-/** \brief eeconfig init keyboard data block
- *
- * FIXME: needs doc
- */
 __attribute__((weak)) void eeconfig_init_kb_datablock(void) {
-    uint8_t dummy_kb[(EECONFIG_KB_DATA_SIZE)] = {0};
-    eeconfig_update_kb_datablock(dummy_kb);
+    nvm_eeconfig_init_kb_datablock();
 }
 #endif // (EECONFIG_KB_DATA_SIZE) > 0
 
 #if (EECONFIG_USER_DATA_SIZE) > 0
-/** \brief eeconfig assert user data block version
- *
- * FIXME: needs doc
- */
 bool eeconfig_is_user_datablock_valid(void) {
-    return eeprom_read_dword(EECONFIG_USER) == (EECONFIG_USER_DATA_VERSION);
+    return nvm_eeconfig_is_user_datablock_valid();
 }
-/** \brief eeconfig read user data block
- *
- * FIXME: needs doc
- */
 void eeconfig_read_user_datablock(void *data) {
-    if (eeconfig_is_user_datablock_valid()) {
-        eeprom_read_block(data, EECONFIG_USER_DATABLOCK, (EECONFIG_USER_DATA_SIZE));
-    } else {
-        memset(data, 0, (EECONFIG_USER_DATA_SIZE));
-    }
+    nvm_eeconfig_read_user_datablock(data);
 }
-/** \brief eeconfig update user data block
- *
- * FIXME: needs doc
- */
 void eeconfig_update_user_datablock(const void *data) {
-    eeprom_update_dword(EECONFIG_USER, (EECONFIG_USER_DATA_VERSION));
-    eeprom_update_block(data, EECONFIG_USER_DATABLOCK, (EECONFIG_USER_DATA_SIZE));
+    nvm_eeconfig_update_user_datablock(data);
 }
-/** \brief eeconfig init user data block
- *
- * FIXME: needs doc
- */
 __attribute__((weak)) void eeconfig_init_user_datablock(void) {
-    uint8_t dummy_user[(EECONFIG_USER_DATA_SIZE)] = {0};
-    eeconfig_update_user_datablock(dummy_user);
+    nvm_eeconfig_init_user_datablock();
 }
 #endif // (EECONFIG_USER_DATA_SIZE) > 0

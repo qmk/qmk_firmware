@@ -168,7 +168,6 @@ enum RGBLIGHT_EFFECT_MODE {
 #include <stdbool.h>
 #include "rgblight_drivers.h"
 #include "progmem.h"
-#include "eeconfig.h"
 #include "ws2812.h"
 #include "color.h"
 
@@ -371,8 +370,6 @@ void     rgblight_suspend(void);
 void     rgblight_wakeup(void);
 uint64_t rgblight_read_qword(void);
 void     rgblight_update_qword(uint64_t qword);
-uint64_t eeconfig_read_rgblight(void);
-void     eeconfig_update_rgblight(uint64_t val);
 void     eeconfig_update_rgblight_current(void);
 void     eeconfig_update_rgblight_default(void);
 void     eeconfig_debug_rgblight(void);

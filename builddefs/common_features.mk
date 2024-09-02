@@ -29,6 +29,8 @@ QUANTUM_SRC += \
     $(QUANTUM_DIR)/logging/debug.c \
     $(QUANTUM_DIR)/logging/sendchar.c \
 
+include $(QUANTUM_DIR)/nvm/rules.mk
+
 VPATH += $(QUANTUM_DIR)/logging
 # Fall back to lib/printf if there is no platform provided print
 ifeq ("$(wildcard $(PLATFORM_PATH)/$(PLATFORM_KEY)/printf.mk)","")
@@ -625,6 +627,9 @@ ifeq ($(strip $(VIA_ENABLE)), yes)
     RAW_ENABLE := yes
     BOOTMAGIC_ENABLE := yes
     TRI_LAYER_ENABLE := yes
+
+    QUANTUM_SRC += \
+        nvm_via.c
 endif
 
 VALID_CUSTOM_MATRIX_TYPES:= yes lite no

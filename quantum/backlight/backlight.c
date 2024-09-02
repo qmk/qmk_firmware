@@ -16,7 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "backlight.h"
-#include "eeprom.h"
 #include "eeconfig.h"
 #include "debug.h"
 
@@ -174,14 +173,6 @@ void backlight_level_noeeprom(uint8_t level) {
 void backlight_level(uint8_t level) {
     backlight_level_noeeprom(level);
     eeconfig_update_backlight(backlight_config.raw);
-}
-
-uint8_t eeconfig_read_backlight(void) {
-    return eeprom_read_byte(EECONFIG_BACKLIGHT);
-}
-
-void eeconfig_update_backlight(uint8_t val) {
-    eeprom_update_byte(EECONFIG_BACKLIGHT, val);
 }
 
 void eeconfig_update_backlight_current(void) {

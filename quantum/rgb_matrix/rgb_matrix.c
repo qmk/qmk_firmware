@@ -83,9 +83,9 @@ static uint32_t rgb_timer_buffer;
 static last_hit_t last_hit_buffer;
 #endif // RGB_MATRIX_KEYREACTIVE_ENABLED
 
-EECONFIG_DEBOUNCE_HELPER(rgb_matrix, EECONFIG_RGB_MATRIX, rgb_matrix_config);
+EECONFIG_DEBOUNCE_HELPER(rgb_matrix, rgb_matrix_config);
 
-void eeconfig_update_rgb_matrix(void) {
+void eeconfig_force_flush_rgb_matrix(void) {
     eeconfig_flush_rgb_matrix(true);
 }
 

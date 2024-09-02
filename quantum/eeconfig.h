@@ -20,56 +20,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include <stdbool.h>
 #include <stddef.h> // offsetof
-#include "eeprom.h"
-#include "util.h"
 
-#ifndef EECONFIG_MAGIC_NUMBER
-#    define EECONFIG_MAGIC_NUMBER (uint16_t)0xFEE5 // When changing, decrement this value to avoid future re-init issues
+#ifdef RGB_MATRIX_ENABLE
+#    include "rgb_matrix_types.h"
 #endif
-#define EECONFIG_MAGIC_NUMBER_OFF (uint16_t)0xFFFF
 
-// Dummy struct only used to calculate offsets
-typedef struct PACKED {
-    uint16_t magic;
-    uint8_t  debug;
-    uint8_t  default_layer;
-    uint16_t keymap;
-    uint8_t  backlight;
-    uint8_t  audio;
-    uint32_t rgblight;
-    uint8_t  unicode;
-    uint8_t  steno;
-    uint8_t  handedness;
-    uint32_t keyboard;
-    uint32_t user;
-    union { // Mutually exclusive
-        uint32_t led_matrix;
-        uint64_t rgb_matrix;
-    };
-    uint32_t haptic;
-    uint8_t  rgblight_ext;
-} eeprom_core_t;
+#ifdef LED_MATRIX_ENABLE
+#    include "led_matrix_types.h"
+#endif
 
-/* EEPROM parameter address */
-#define EECONFIG_MAGIC (uint16_t *)(offsetof(eeprom_core_t, magic))
-#define EECONFIG_DEBUG (uint8_t *)(offsetof(eeprom_core_t, debug))
-#define EECONFIG_DEFAULT_LAYER (uint8_t *)(offsetof(eeprom_core_t, default_layer))
-#define EECONFIG_KEYMAP (uint16_t *)(offsetof(eeprom_core_t, keymap))
-#define EECONFIG_BACKLIGHT (uint8_t *)(offsetof(eeprom_core_t, backlight))
-#define EECONFIG_AUDIO (uint8_t *)(offsetof(eeprom_core_t, audio))
-#define EECONFIG_RGBLIGHT (uint32_t *)(offsetof(eeprom_core_t, rgblight))
-#define EECONFIG_UNICODEMODE (uint8_t *)(offsetof(eeprom_core_t, unicode))
-#define EECONFIG_STENOMODE (uint8_t *)(offsetof(eeprom_core_t, steno))
-#define EECONFIG_HANDEDNESS (uint8_t *)(offsetof(eeprom_core_t, handedness))
-#define EECONFIG_KEYBOARD (uint32_t *)(offsetof(eeprom_core_t, keyboard))
-#define EECONFIG_USER (uint32_t *)(offsetof(eeprom_core_t, user))
-#define EECONFIG_LED_MATRIX (uint32_t *)(offsetof(eeprom_core_t, led_matrix))
-#define EECONFIG_RGB_MATRIX (uint64_t *)(offsetof(eeprom_core_t, rgb_matrix))
-#define EECONFIG_HAPTIC (uint32_t *)(offsetof(eeprom_core_t, haptic))
-#define EECONFIG_RGBLIGHT_EXTENDED (uint8_t *)(offsetof(eeprom_core_t, rgblight_ext))
-
-// Size of EEPROM being used for core data storage
-#define EECONFIG_BASE_SIZE ((uint8_t)sizeof(eeprom_core_t))
+#ifdef RGBLIGHT_ENABLE
+#    include "rgblight.h"
+#endif
 
 // Size of EEPROM dedicated to keyboard- and user-specific data
 #ifndef EECONFIG_KB_DATA_SIZE
@@ -84,12 +46,6 @@ typedef struct PACKED {
 #ifndef EECONFIG_USER_DATA_VERSION
 #    define EECONFIG_USER_DATA_VERSION (EECONFIG_USER_DATA_SIZE)
 #endif
-
-#define EECONFIG_KB_DATABLOCK ((uint8_t *)(EECONFIG_BASE_SIZE))
-#define EECONFIG_USER_DATABLOCK ((uint8_t *)((EECONFIG_BASE_SIZE) + (EECONFIG_KB_DATA_SIZE)))
-
-// Size of EEPROM being used, other code can refer to this for available EEPROM
-#define EECONFIG_SIZE ((EECONFIG_BASE_SIZE) + (EECONFIG_KB_DATA_SIZE) + (EECONFIG_USER_DATA_SIZE))
 
 /* debug bit */
 #define EECONFIG_DEBUG_ENABLE (1 << 0)
@@ -116,7 +72,6 @@ void eeconfig_init_kb(void);
 void eeconfig_init_user(void);
 
 void eeconfig_enable(void);
-
 void eeconfig_disable(void);
 
 uint8_t eeconfig_read_debug(void);
@@ -131,7 +86,37 @@ void     eeconfig_update_keymap(uint16_t val);
 #ifdef AUDIO_ENABLE
 uint8_t eeconfig_read_audio(void);
 void    eeconfig_update_audio(uint8_t val);
-#endif
+#endif // AUDIO_ENABLE
+
+#ifdef UNICODE_COMMON_ENABLE
+uint8_t eeconfig_read_unicode_mode(void);
+void    eeconfig_update_unicode_mode(uint8_t val);
+#endif // UNICODE_COMMON_ENABLE
+
+#ifdef BACKLIGHT_ENABLE
+uint8_t eeconfig_read_backlight(void);
+void    eeconfig_update_backlight(uint8_t val);
+#endif // BACKLIGHT_ENABLE
+
+#ifdef STENO_ENABLE
+uint8_t eeconfig_read_steno_mode(void);
+void    eeconfig_update_steno_mode(uint8_t val);
+#endif // STENO_ENABLE
+
+#ifdef RGB_MATRIX_ENABLE
+void eeconfig_read_rgb_matrix(rgb_config_t *rgb_matrix_config);
+void eeconfig_update_rgb_matrix(const rgb_config_t *rgb_matrix_config);
+#endif // RGB_MATRIX_ENABLE
+
+#ifdef LED_MATRIX_ENABLE
+void eeconfig_read_led_matrix(led_eeconfig_t *led_matrix_config);
+void eeconfig_update_led_matrix(const led_eeconfig_t *led_matrix_config);
+#endif // LED_MATRIX_ENABLE
+
+#ifdef RGBLIGHT_ENABLE
+void eeconfig_read_rgblight(rgblight_config_t *rgblight_config);
+void eeconfig_update_rgblight(const rgblight_config_t *rgblight_config);
+#endif // RGBLIGHT_ENABLE
 
 #if (EECONFIG_KB_DATA_SIZE) == 0
 uint32_t eeconfig_read_kb(void);
@@ -168,7 +153,7 @@ void eeconfig_init_user_datablock(void);
 // Any "checked" debounce variant used requires implementation of:
 //    -- bool eeconfig_check_valid_##name(void)
 //    -- void eeconfig_post_flush_##name(void)
-#define EECONFIG_DEBOUNCE_HELPER_CHECKED(name, offset, config)          \
+#define EECONFIG_DEBOUNCE_HELPER_CHECKED(name, config)                  \
     static uint8_t dirty_##name = false;                                \
                                                                         \
     bool eeconfig_check_valid_##name(void);                             \
@@ -177,13 +162,13 @@ void eeconfig_init_user_datablock(void);
     static inline void eeconfig_init_##name(void) {                     \
         dirty_##name = true;                                            \
         if (eeconfig_check_valid_##name()) {                            \
-            eeprom_read_block(&config, offset, sizeof(config));         \
+            eeconfig_read_##name(&config);                              \
             dirty_##name = false;                                       \
         }                                                               \
     }                                                                   \
     static inline void eeconfig_flush_##name(bool force) {              \
         if (force || dirty_##name) {                                    \
-            eeprom_update_block(&config, offset, sizeof(config));       \
+            eeconfig_update_##name(&config);                            \
             eeconfig_post_flush_##name();                               \
             dirty_##name = false;                                       \
         }                                                               \
@@ -205,10 +190,10 @@ void eeconfig_init_user_datablock(void);
         }                                                               \
     }
 
-#define EECONFIG_DEBOUNCE_HELPER(name, offset, config)     \
-    EECONFIG_DEBOUNCE_HELPER_CHECKED(name, offset, config) \
-                                                           \
-    bool eeconfig_check_valid_##name(void) {               \
-        return true;                                       \
-    }                                                      \
+#define EECONFIG_DEBOUNCE_HELPER(name, config)     \
+    EECONFIG_DEBOUNCE_HELPER_CHECKED(name, config) \
+                                                   \
+    bool eeconfig_check_valid_##name(void) {       \
+        return true;                               \
+    }                                              \
     void eeconfig_post_flush_##name(void) {}
