@@ -77,10 +77,3 @@
 #define FN_KEY_1 MO(4)
 
 #define MATRIX_IO_DELAY 10
-
-
-#if 1
-#define UART_DEBUG_TRACE
-#define DEBUG_PORT  GPIOA
-#define DEBUG_PIN   2
-#endif
