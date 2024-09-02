@@ -77,7 +77,7 @@ __attribute__((weak)) bool combo_should_trigger(uint16_t combo_index, combo_t *c
 }
 #endif
 
-typedef enum { COMBO_KEY_NOT_PRESSED = 0b00, COMBO_KEY_PRESSED = 0b01, COMBO_KEY_REPRESSED = 0b10 } combo_key_action_t;
+typedef enum { COMBO_KEY_NOT_PRESSED, COMBO_KEY_PRESSED, COMBO_KEY_REPRESSED } combo_key_action_t;
 
 #ifndef COMBO_NO_TIMER
 static uint16_t timer = 0;
