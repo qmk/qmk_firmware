@@ -629,7 +629,8 @@ ifeq ($(strip $(VIA_ENABLE)), yes)
     TRI_LAYER_ENABLE := yes
 
     QUANTUM_SRC += \
-        nvm_via.c
+        nvm_via.c \
+		nvm_dynamic_keymap.c
 endif
 
 VALID_CUSTOM_MATRIX_TYPES:= yes lite no

@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include <string.h>
 #include "nvm_eeconfig.h"
-#include "nvm_eeconfig_eeprom.h"
+#include "nvm_eeprom_eeconfig_internal.h"
 #include "util.h"
 #include "eeconfig.h"
 #include "eeprom.h"

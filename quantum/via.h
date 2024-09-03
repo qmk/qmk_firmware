@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "nvm_eeconfig_eeprom.h" // for EECONFIG_SIZE
 #include "action.h"
 
 // Changing the layout options size after release will invalidate EEPROM,
