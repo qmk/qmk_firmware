@@ -94,7 +94,7 @@ void eeconfig_init_quantum(void) {
 
 #if defined(VIA_ENABLE)
     // Invalidate VIA eeprom config, and then reset.
-    // Just in case if power is lost mid init, this makes sure that it pets
+    // Just in case if power is lost mid init, this makes sure that it gets
     // properly re-initialized.
     via_eeprom_set_valid(false);
     eeconfig_init_via();
@@ -116,11 +116,23 @@ void eeconfig_disable(void) {
 }
 
 bool eeconfig_is_enabled(void) {
-    return nvm_eeconfig_is_enabled();
+    bool is_eeprom_enabled = nvm_eeconfig_is_enabled();
+    #ifdef VIA_ENABLE
+    if (is_eeprom_enabled) {
+        is_eeprom_enabled = via_eeprom_is_valid();
+    }
+#endif // VIA_ENABLE
+    return is_eeprom_enabled;
 }
 
 bool eeconfig_is_disabled(void) {
-    return nvm_eeconfig_is_disabled();
+    bool is_eeprom_disabled =  nvm_eeconfig_is_disabled();
+#ifdef VIA_ENABLE
+    if (!is_eeprom_disabled) {
+        is_eeprom_disabled = !via_eeprom_is_valid();
+    }
+#endif // VIA_ENABLE
+    return is_eeprom_disabled;
 }
 
 uint8_t eeconfig_read_debug(void) {

@@ -11,30 +11,12 @@
 #    include "eeprom_driver.h"
 #endif
 
-#if defined(VIA_ENABLE)
-bool via_eeprom_is_valid(void);
-void via_eeprom_set_valid(bool valid);
-void eeconfig_init_via(void);
-#endif
-
 bool nvm_eeconfig_is_enabled(void) {
-    bool is_eeprom_enabled = (eeprom_read_word(EECONFIG_MAGIC) == EECONFIG_MAGIC_NUMBER);
-#ifdef VIA_ENABLE
-    if (is_eeprom_enabled) {
-        is_eeprom_enabled = via_eeprom_is_valid();
-    }
-#endif // VIA_ENABLE
-    return is_eeprom_enabled;
+    return eeprom_read_word(EECONFIG_MAGIC) == EECONFIG_MAGIC_NUMBER;
 }
 
 bool nvm_eeconfig_is_disabled(void) {
-    bool is_eeprom_disabled = (eeprom_read_word(EECONFIG_MAGIC) == EECONFIG_MAGIC_NUMBER_OFF);
-#ifdef VIA_ENABLE
-    if (!is_eeprom_disabled) {
-        is_eeprom_disabled = !via_eeprom_is_valid();
-    }
-#endif // VIA_ENABLE
-    return is_eeprom_disabled;
+    return eeprom_read_word(EECONFIG_MAGIC) == EECONFIG_MAGIC_NUMBER_OFF;
 }
 
 void nvm_eeconfig_enable(void) {
