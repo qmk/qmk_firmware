@@ -627,9 +627,6 @@ ifeq ($(strip $(VIA_ENABLE)), yes)
     RAW_ENABLE := yes
     BOOTMAGIC_ENABLE := yes
     TRI_LAYER_ENABLE := yes
-
-    QUANTUM_SRC += \
-        nvm_via.c
 endif
 
 VALID_CUSTOM_MATRIX_TYPES:= yes lite no
@@ -983,9 +980,4 @@ ifeq ($(strip $(UART_DRIVER_REQUIRED)), yes)
     else
         QUANTUM_LIB_SRC += uart.c
     endif
-endif
-
-DYNAMIC_KEYMAP_ENABLE ?= no
-ifeq ($(strip $(DYNAMIC_KEYMAP_ENABLE)), yes)
-	QUANTUM_LIB_SRC += nvm_dynamic_keymap.c
 endif
