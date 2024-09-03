@@ -63,7 +63,7 @@ void via_config_set_value(uint8_t *data) {
                 uprintf("# Actuation Mode: Rapid Trigger #\n");
                 uprintf("#################################\n");
             }
-            EEPROM_KB_PARTIAL_UPDATE(eeprom_ec_config, actuation_mode);
+            eeconfig_update_kb_datablock_field(eeprom_ec_config, actuation_mode);
             break;
         }
         case id_mode_0_actuation_threshold: {
