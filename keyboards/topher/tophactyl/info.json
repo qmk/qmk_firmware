@@ -1,0 +1,71 @@
+{
+    "manufacturer": "Topher",
+    "keyboard_name": "tophactyl",
+    "maintainer": "TopherL2014",
+    "bootloader": "atmel-dfu",
+    "diode_direction": "ROW2COL",
+    "split": {
+        "enabled": true
+    },
+    "features": {
+        "bootmagic": false,
+        "command": false,
+        "console": false,
+        "extrakey": false,
+        "mousekey": true,
+        "nkro": true
+    },
+    "matrix_pins": {
+        "cols": ["D4", "C6", "D7", "E6", "B4"],
+        "rows": ["F4", "F5", "D3", "D2"]
+    },
+    "processor": "atmega32u4",
+    "url": "",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0000",
+        "vid": "0xFEED"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                { "matrix": [0, 0], "label": "L1", "w": 1.25, "x": 0, "y": 0 },
+                { "matrix": [0, 1], "label": "L2", "w": 1.25, "x": 1.5, "y": 0 },
+                { "matrix": [0, 2], "label": "L3", "w": 1.25, "x": 3, "y": 0 },
+                { "matrix": [0, 3], "label": "L4", "w": 1.25, "x": 4.5, "y": 0 },
+                { "matrix": [0, 4], "label": "L5", "w": 1.25, "x": 6, "y": 0 },
+                { "matrix": [4, 0], "label": "L6", "w": 1.25, "x": 0, "y": 1 },
+                { "matrix": [4, 1], "label": "L7", "w": 1.25, "x": 1.5, "y": 1 },
+                { "matrix": [4, 2], "label": "L8", "w": 1.25, "x": 3, "y": 1 },
+                { "matrix": [4, 3], "label": "L9", "w": 1.25, "x": 4.5, "y": 1 },
+                { "matrix": [4, 4], "label": "L10","w": 1.25,  "x": 6, "y": 1 },
+                { "matrix": [1, 0], "label": "L11", "w": 1.25, "x": 0, "y": 2 },
+                { "matrix": [1, 1], "label": "L12", "w": 1.25, "x": 1.5, "y": 2 },
+                { "matrix": [1, 2], "label": "L13", "w": 1.25, "x": 3, "y": 2 },
+                { "matrix": [1, 3], "label": "L14", "w": 1.25, "x": 4.5, "y": 2 },
+                { "matrix": [1, 4], "label": "L15", "w": 1.25, "x": 6, "y": 2 },
+                { "matrix": [5, 0], "label": "L16", "w": 1.25, "x": 3, "y": 3 },
+                { "matrix": [5, 1], "label": "L17", "w": 1.25, "x": 4.5, "y": 3 },
+                { "matrix": [5, 2], "label": "L18", "w": 1.25, "x": 6, "y": 3 },
+                { "matrix": [5, 3], "label": "R1", "w": 1.25, "x": 10, "y": 0 },
+                { "matrix": [5, 4], "label": "R2", "w": 1.25, "x": 11.5, "y": 0 },
+                { "matrix": [2, 0], "label": "R3", "w": 1.25, "x": 13, "y": 0 },
+                { "matrix": [2, 1], "label": "R4", "w": 1.25, "x": 14.5, "y": 0 },
+                { "matrix": [2, 2], "label": "R5", "w": 1.25, "x": 16, "y": 0 },
+                { "matrix": [2, 3], "label": "R6", "w": 1.25, "x": 10, "y": 1 },
+                { "matrix": [2, 4], "label": "R7", "w": 1.25, "x": 11.5, "y": 1 },
+                { "matrix": [6, 0], "label": "R8", "w": 1.25, "x": 13, "y": 1 },
+                { "matrix": [6, 1], "label": "R9", "w": 1.25, "x": 14.5, "y": 1 },
+                { "matrix": [6, 2], "label": "R10", "w": 1.25, "x": 16, "y": 1 },
+                { "matrix": [6, 3], "label": "R11", "w": 1.25, "x": 10, "y": 2 },
+                { "matrix": [6, 4], "label": "R12", "w": 1.25, "x": 11.5, "y": 2 },
+                { "matrix": [3, 2], "label": "R13", "w": 1.25, "x": 13, "y": 2 },
+                { "matrix": [3, 3], "label": "R14", "w": 1.25, "x": 14.5, "y": 2 },
+                { "matrix": [3, 4], "label": "R15", "w": 1.25, "x": 16, "y": 2 },
+                { "matrix": [7, 0], "label": "R16", "w": 1.25, "x": 10, "y": 3 },
+                { "matrix": [7, 1], "label": "R17", "w": 1.25, "x": 11.5, "y": 3 },
+                { "matrix": [7, 2], "label": "R18", "w": 1.25, "x": 13, "y": 3 }
+            ]
+        }
+    }
+}
