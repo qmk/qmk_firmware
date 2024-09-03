@@ -1,6 +1,7 @@
 #include <string.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include "debug.h"
 #include "eeprom.h"
 #include "eeconfig.h"
 #include "action_layer.h"
@@ -47,7 +48,10 @@ void eeconfig_init_quantum(void) {
 #endif // EEPROM_DRIVER
 
     eeconfig_enable();
-    eeconfig_update_debug(0);
+
+    debug_config_t debug_config = {0};
+    eeconfig_update_debug(&debug_config);
+
     default_layer_state = (layer_state_t)1 << 0;
     eeconfig_update_default_layer(default_layer_state);
 
@@ -69,11 +73,13 @@ void eeconfig_init_quantum(void) {
     eeconfig_update_keymap(&keymap_config);
 
 #ifdef BACKLIGHT_ENABLE
-    eeconfig_update_backlight(0);
+    backlight_config_t backlight_config = {0};
+    eeconfig_update_backlight(&backlight_config);
 #endif // BACKLIGHT_ENABLE
 
 #ifdef AUDIO_ENABLE
-    eeconfig_update_audio(0);
+    audio_config_t audio_config = {0};
+    eeconfig_update_audio(&audio_config);
 #endif // AUDIO_ENABLE
 
 #ifdef RGBLIGHT_ENABLE
@@ -82,11 +88,12 @@ void eeconfig_init_quantum(void) {
 #endif // RGBLIGHT_ENABLE
 
 #ifdef UNICODE_COMMON_ENABLE
-    eeconfig_update_unicode_mode(0);
+    unicode_config_t unicode_config = {0};
+    eeconfig_update_unicode_mode(&unicode_config);
 #endif // UNICODE_COMMON_ENABLE
 
 #ifdef STENO_ENABLE
-    nvm_eeconfig_update_steno_mode(0);
+    eeconfig_update_steno_mode(0);
 #endif // STENO_ENABLE
 
 #ifdef RGB_MATRIX_ENABLE
@@ -100,7 +107,8 @@ void eeconfig_init_quantum(void) {
 #endif // LED_MATRIX_ENABLE
 
 #ifdef HAPTIC_ENABLE
-    nvm_eeconfig_update_haptic(0);
+    haptic_config_t haptic_config = {0};
+    nvm_eeconfig_update_haptic(&hapitc_config);
     haptic_reset();
 #endif // HAPTIC_ENABLE
 

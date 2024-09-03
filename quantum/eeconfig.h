@@ -63,32 +63,32 @@ void eeconfig_enable(void);
 void eeconfig_disable(void);
 
 typedef union debug_config_t debug_config_t;
-void                         eeconfig_read_debug(debug_config_t *debug_config);
-void                         eeconfig_update_debug(const debug_config_t *debug_config);
+void                         eeconfig_read_debug(debug_config_t *debug_config) __attribute__((nonnull));
+void                         eeconfig_update_debug(const debug_config_t *debug_config) __attribute__((nonnull));
 
 uint8_t eeconfig_read_default_layer(void);
 void    eeconfig_update_default_layer(uint8_t val);
 
 typedef union keymap_config_t keymap_config_t;
-void                          eeconfig_read_keymap(keymap_config_t *keymap_config);
-void                          eeconfig_update_keymap(const keymap_config_t *keymap_config);
+void                          eeconfig_read_keymap(keymap_config_t *keymap_config) __attribute__((nonnull));
+void                          eeconfig_update_keymap(const keymap_config_t *keymap_config) __attribute__((nonnull));
 
 #ifdef AUDIO_ENABLE
 typedef union audio_config_t audio_config_t;
-void                         eeconfig_read_audio(audio_config_t *audio_config);
-void                         eeconfig_update_audio(const audio_config_t *audio_config);
+void                         eeconfig_read_audio(audio_config_t *audio_config) __attribute__((nonnull));
+void                         eeconfig_update_audio(const audio_config_t *audio_config) __attribute__((nonnull));
 #endif // AUDIO_ENABLE
 
 #ifdef UNICODE_COMMON_ENABLE
 typedef union unicode_config_t unicode_config_t;
-void                           eeconfig_read_unicode_mode(unicode_config_t *unicode_config);
-void                           eeconfig_update_unicode_mode(const unicode_config_t *unicode_config);
+void                           eeconfig_read_unicode_mode(unicode_config_t *unicode_config) __attribute__((nonnull));
+void                           eeconfig_update_unicode_mode(const unicode_config_t *unicode_config) __attribute__((nonnull));
 #endif // UNICODE_COMMON_ENABLE
 
 #ifdef BACKLIGHT_ENABLE
 typedef union backlight_config_t backlight_config_t;
-void                             eeconfig_read_backlight(backlight_config_t *backlight_config);
-void                             eeconfig_update_backlight(const backlight_config_t *backlight_config);
+void                             eeconfig_read_backlight(backlight_config_t *backlight_config) __attribute__((nonnull));
+void                             eeconfig_update_backlight(const backlight_config_t *backlight_config) __attribute__((nonnull));
 #endif // BACKLIGHT_ENABLE
 
 #ifdef STENO_ENABLE
@@ -98,20 +98,20 @@ void    eeconfig_update_steno_mode(uint8_t val);
 
 #ifdef RGB_MATRIX_ENABLE
 typedef struct rgb_config_t rgb_config_t;
-void                        eeconfig_read_rgb_matrix(rgb_config_t *rgb_matrix_config);
-void                        eeconfig_update_rgb_matrix(const rgb_config_t *rgb_matrix_config);
+void                        eeconfig_read_rgb_matrix(rgb_config_t *rgb_matrix_config) __attribute__((nonnull));
+void                        eeconfig_update_rgb_matrix(const rgb_config_t *rgb_matrix_config) __attribute__((nonnull));
 #endif // RGB_MATRIX_ENABLE
 
 #ifdef LED_MATRIX_ENABLE
 typedef struct led_eeconfig_t led_eeconfig_t;
-void                          eeconfig_read_led_matrix(led_eeconfig_t *led_matrix_config);
-void                          eeconfig_update_led_matrix(const led_eeconfig_t *led_matrix_config);
+void                          eeconfig_read_led_matrix(led_eeconfig_t *led_matrix_config) __attribute__((nonnull));
+void                          eeconfig_update_led_matrix(const led_eeconfig_t *led_matrix_config) __attribute__((nonnull));
 #endif // LED_MATRIX_ENABLE
 
 #ifdef RGBLIGHT_ENABLE
 typedef union rgblight_config_t rgblight_config_t;
-void                            eeconfig_read_rgblight(rgblight_config_t *rgblight_config);
-void                            eeconfig_update_rgblight(const rgblight_config_t *rgblight_config);
+void                            eeconfig_read_rgblight(rgblight_config_t *rgblight_config) __attribute__((nonnull));
+void                            eeconfig_update_rgblight(const rgblight_config_t *rgblight_config) __attribute__((nonnull));
 #endif // RGBLIGHT_ENABLE
 
 #if (EECONFIG_KB_DATA_SIZE) == 0
@@ -126,8 +126,8 @@ void     eeconfig_update_user(uint32_t val);
 
 #ifdef HAPTIC_ENABLE
 typedef union haptic_config_t haptic_config_t;
-void                          eeconfig_read_haptic(haptic_config_t *haptic_config);
-void                          eeconfig_update_haptic(const haptic_config_t *haptic_config);
+void                          eeconfig_read_haptic(haptic_config_t *haptic_config) __attribute__((nonnull));
+void                          eeconfig_update_haptic(const haptic_config_t *haptic_config) __attribute__((nonnull));
 #endif
 
 bool eeconfig_read_handedness(void);
@@ -135,8 +135,8 @@ void eeconfig_update_handedness(bool val);
 
 #if (EECONFIG_KB_DATA_SIZE) > 0
 bool     eeconfig_is_kb_datablock_valid(void);
-uint32_t eeconfig_read_kb_datablock(void *data, uint32_t offset, uint32_t length);
-uint32_t eeconfig_update_kb_datablock(const void *data, uint32_t offset, uint32_t length);
+uint32_t eeconfig_read_kb_datablock(void *data, uint32_t offset, uint32_t length) __attribute__((nonnull));
+uint32_t eeconfig_update_kb_datablock(const void *data, uint32_t offset, uint32_t length) __attribute__((nonnull));
 void     eeconfig_init_kb_datablock(void);
 #    define eeconfig_read_kb_datablock_field(__object, __field) eeconfig_read_kb_datablock(&(__object.__field), offsetof(__object, __field), sizeof(__object.__field))
 #    define eeconfig_update_kb_datablock_field(__object, __field) eeconfig_update_kb_datablock(&(__object.__field), offsetof(__object, __field), sizeof(__object.__field))
@@ -144,8 +144,8 @@ void     eeconfig_init_kb_datablock(void);
 
 #if (EECONFIG_USER_DATA_SIZE) > 0
 bool     eeconfig_is_user_datablock_valid(void);
-uint32_t eeconfig_read_user_datablock(void *data, uint32_t offset, uint32_t length);
-uint32_t eeconfig_update_user_datablock(const void *data, uint32_t offset, uint32_t length);
+uint32_t eeconfig_read_user_datablock(void *data, uint32_t offset, uint32_t length) __attribute__((nonnull));
+uint32_t eeconfig_update_user_datablock(const void *data, uint32_t offset, uint32_t length) __attribute__((nonnull));
 void     eeconfig_init_user_datablock(void);
 #    define eeconfig_read_user_datablock_field(__object, __field) eeconfig_read_user_datablock(&(__object.__field), offsetof(__object, __field), sizeof(__object.__field))
 #    define eeconfig_update_user_datablock_field(__object, __field) eeconfig_update_user_datablock(&(__object.__field), offsetof(__object, __field), sizeof(__object.__field))
