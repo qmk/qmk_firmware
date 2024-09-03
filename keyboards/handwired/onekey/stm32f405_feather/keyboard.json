@@ -1,9 +1,0 @@
-{
-    "keyboard_name": "Onekey Adafruit Feather STM32F405",
-    "processor": "STM32F405",
-    "bootloader": "stm32-dfu",
-    "matrix_pins": {
-        "cols": ["C2"],
-        "rows": ["C3"]
-    }
-}
