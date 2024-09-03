@@ -18,27 +18,27 @@ MOUSEKEY_ENABLE = yes
 
 In your keymap you can use the following keycodes to map key presses to mouse actions:
 
-|Key             |Aliases  |Description      |
-|----------------|---------|-----------------|
-|`KC_MS_UP`      |`KC_MS_U`|Move cursor up   |
-|`KC_MS_DOWN`    |`KC_MS_D`|Move cursor down |
-|`KC_MS_LEFT`    |`KC_MS_L`|Move cursor left |
-|`KC_MS_RIGHT`   |`KC_MS_R`|Move cursor right|
-|`KC_MS_BTN1`    |`KC_BTN1`|Press button 1   |
-|`KC_MS_BTN2`    |`KC_BTN2`|Press button 2   |
-|`KC_MS_BTN3`    |`KC_BTN3`|Press button 3   |
-|`KC_MS_BTN4`    |`KC_BTN4`|Press button 4   |
-|`KC_MS_BTN5`    |`KC_BTN5`|Press button 5   |
-|`KC_MS_BTN6`    |`KC_BTN6`|Press button 6   |
-|`KC_MS_BTN7`    |`KC_BTN7`|Press button 7   |
-|`KC_MS_BTN8`    |`KC_BTN8`|Press button 8   |
-|`KC_MS_WH_UP`   |`KC_WH_U`|Move wheel up    |
-|`KC_MS_WH_DOWN` |`KC_WH_D`|Move wheel down  |
-|`KC_MS_WH_LEFT` |`KC_WH_L`|Move wheel left  |
-|`KC_MS_WH_RIGHT`|`KC_WH_R`|Move wheel right |
-|`KC_MS_ACCEL0`  |`KC_ACL0`|Set speed to 0   |
-|`KC_MS_ACCEL1`  |`KC_ACL1`|Set speed to 1   |
-|`KC_MS_ACCEL2`  |`KC_ACL2`|Set speed to 2   |
+|Key                      |Aliases  |Description                |
+|-------------------------|---------|---------------------------|
+|`QK_MOUSE_CURSOR_UP`     |`MS_UP`  |Mouse cursor up            |
+|`QK_MOUSE_CURSOR_DOWN`   |`MS_DOWN`|Mouse cursor down          |
+|`QK_MOUSE_CURSOR_LEFT`   |`MS_LEFT`|Mouse cursor left          |
+|`QK_MOUSE_CURSOR_RIGHT`  |`MS_RGHT`|Mouse cursor right         |
+|`QK_MOUSE_BUTTON_1`      |`MS_BTN1`|Mouse button 1             |
+|`QK_MOUSE_BUTTON_2`      |`MS_BTN2`|Mouse button 2             |
+|`QK_MOUSE_BUTTON_3`      |`MS_BTN3`|Mouse button 3             |
+|`QK_MOUSE_BUTTON_4`      |`MS_BTN4`|Mouse button 4             |
+|`QK_MOUSE_BUTTON_5`      |`MS_BTN5`|Mouse button 5             |
+|`QK_MOUSE_BUTTON_6`      |`MS_BTN6`|Mouse button 6             |
+|`QK_MOUSE_BUTTON_7`      |`MS_BTN7`|Mouse button 7             |
+|`QK_MOUSE_BUTTON_8`      |`MS_BTN8`|Mouse button 8             |
+|`QK_MOUSE_WHEEL_UP`      |`MS_WHLU`|Mouse wheel up             |
+|`QK_MOUSE_WHEEL_DOWN`    |`MS_WHLD`|Mouse wheel down           |
+|`QK_MOUSE_WHEEL_LEFT`    |`MS_WHLL`|Mouse wheel left           |
+|`QK_MOUSE_WHEEL_RIGHT`   |`MS_WHLR`|Mouse wheel right          |
+|`QK_MOUSE_ACCELERATION_0`|`MS_ACL0`|Set mouse acceleration to 0|
+|`QK_MOUSE_ACCELERATION_1`|`MS_ACL1`|Set mouse acceleration to 1|
+|`QK_MOUSE_ACCELERATION_2`|`MS_ACL2`|Set mouse acceleration to 2|
 
 ## Configuring mouse keys
 
@@ -106,17 +106,17 @@ Tips:
 
 ### Constant mode
 
-In this mode you can define multiple different speeds for both the cursor and the mouse wheel. There is no acceleration. `KC_ACL0`, `KC_ACL1` and `KC_ACL2` change the cursor and scroll speed to their respective setting.
+In this mode you can define multiple different speeds for both the cursor and the mouse wheel. There is no acceleration. `MS_ACL0`, `MS_ACL1` and `MS_ACL2` change the cursor and scroll speed to their respective setting.
 
 You can choose whether speed selection is momentary or tap-to-select:
 
 * **Momentary:** The chosen speed is only active while you hold the respective key. When the key is raised, mouse keys returns to the unmodified speed.
-* **Tap-to-select:** The chosen speed is activated when you press the respective key and remains active even after the key has been raised. The default speed is that of `KC_ACL1`. There is no unmodified speed.
+* **Tap-to-select:** The chosen speed is activated when you press the respective key and remains active even after the key has been raised. The default speed is that of `MS_ACL1`. There is no unmodified speed.
 
 The default speeds from slowest to fastest are as follows:
 
-* **Momentary:** `KC_ACL0` < `KC_ACL1` < *unmodified* < `KC_ACL2`
-* **Tap-to-select:** `KC_ACL0` < `KC_ACL1` < `KC_ACL2`
+* **Momentary:** `MS_ACL0` < `MS_ACL1` < *unmodified* < `MS_ACL2`
+* **Tap-to-select:** `MS_ACL0` < `MS_ACL1` < `MS_ACL2`
 
 To use constant speed mode, you must at least define `MK_3_SPEED` in your keymap’s `config.h` file:
 
@@ -138,32 +138,32 @@ Use the following settings if you want to adjust cursor movement or scrolling:
 |`MK_MOMENTARY_ACCEL` |*Not defined*|Enable momentary speed selection           |
 |`MK_C_OFFSET_UNMOD`  |16           |Cursor offset per movement (unmodified)    |
 |`MK_C_INTERVAL_UNMOD`|16           |Time between cursor movements (unmodified) |
-|`MK_C_OFFSET_0`      |1            |Cursor offset per movement (`KC_ACL0`)     |
-|`MK_C_INTERVAL_0`    |32           |Time between cursor movements (`KC_ACL0`)  |
-|`MK_C_OFFSET_1`      |4            |Cursor offset per movement (`KC_ACL1`)     |
-|`MK_C_INTERVAL_1`    |16           |Time between cursor movements (`KC_ACL1`)  |
-|`MK_C_OFFSET_2`      |32           |Cursor offset per movement (`KC_ACL2`)     |
-|`MK_C_INTERVAL_2`    |16           |Time between cursor movements (`KC_ACL2`)  |
+|`MK_C_OFFSET_0`      |1            |Cursor offset per movement (`MS_ACL0`)     |
+|`MK_C_INTERVAL_0`    |32           |Time between cursor movements (`MS_ACL0`)  |
+|`MK_C_OFFSET_1`      |4            |Cursor offset per movement (`MS_ACL1`)     |
+|`MK_C_INTERVAL_1`    |16           |Time between cursor movements (`MS_ACL1`)  |
+|`MK_C_OFFSET_2`      |32           |Cursor offset per movement (`MS_ACL2`)     |
+|`MK_C_INTERVAL_2`    |16           |Time between cursor movements (`MS_ACL2`)  |
 |`MK_W_OFFSET_UNMOD`  |1            |Scroll steps per scroll action (unmodified)|
 |`MK_W_INTERVAL_UNMOD`|40           |Time between scroll steps (unmodified)     |
-|`MK_W_OFFSET_0`      |1            |Scroll steps per scroll action (`KC_ACL0`) |
-|`MK_W_INTERVAL_0`    |360          |Time between scroll steps (`KC_ACL0`)      |
-|`MK_W_OFFSET_1`      |1            |Scroll steps per scroll action (`KC_ACL1`) |
-|`MK_W_INTERVAL_1`    |120          |Time between scroll steps (`KC_ACL1`)      |
-|`MK_W_OFFSET_2`      |1            |Scroll steps per scroll action (`KC_ACL2`) |
-|`MK_W_INTERVAL_2`    |20           |Time between scroll steps (`KC_ACL2`)      |
+|`MK_W_OFFSET_0`      |1            |Scroll steps per scroll action (`MS_ACL0`) |
+|`MK_W_INTERVAL_0`    |360          |Time between scroll steps (`MS_ACL0`)      |
+|`MK_W_OFFSET_1`      |1            |Scroll steps per scroll action (`MS_ACL1`) |
+|`MK_W_INTERVAL_1`    |120          |Time between scroll steps (`MS_ACL1`)      |
+|`MK_W_OFFSET_2`      |1            |Scroll steps per scroll action (`MS_ACL2`) |
+|`MK_W_INTERVAL_2`    |20           |Time between scroll steps (`MS_ACL2`)      |
 
 ### Combined mode
 
-This mode functions like **Accelerated** mode, however, you can hold `KC_ACL0`, `KC_ACL1` and `KC_ACL2`
+This mode functions like **Accelerated** mode, however, you can hold `MS_ACL0`, `MS_ACL1` and `MS_ACL2`
 to momentarily (while held) set the cursor and scroll speeds to constant speeds. When no acceleration
 keys are held, this mode is identical to **Accelerated** mode, and can be modified using all of the
 relevant settings.
 
-* **KC_ACL0:** This acceleration sets your cursor to the slowest possible speed. This is useful for very
+* **MS_ACL0:** This acceleration sets your cursor to the slowest possible speed. This is useful for very
 small and detailed movements of the cursor.
-* **KC_ACL1:** This acceleration sets your cursor to half the maximum (user defined) speed.
-* **KC_ACL2:** This acceleration sets your cursor to the maximum (computer defined) speed. This is
+* **MS_ACL1:** This acceleration sets your cursor to half the maximum (user defined) speed.
+* **MS_ACL2:** This acceleration sets your cursor to the maximum (computer defined) speed. This is
 useful for moving the cursor large distances without much accuracy.
 
 To use combined speed mode, you must at least define `MK_COMBINED` in your keymap’s `config.h` file:
@@ -202,6 +202,19 @@ Tips:
 * Set `MOUSEKEY_FRICTION` to something between 1 and 255.  Lower makes the cursor glide longer. Values from 8 to 40 are the most effective.
 * Keep `MOUSEKEY_MOVE_DELTA` at 1.  This allows precise movements before the gliding effect starts.
 * Mouse wheel options are the same as the default accelerated mode, and do not use inertia.
+
+### Overlapping mouse key control
+
+When additional overlapping mouse key is pressed, the mouse cursor will continue in a new direction with the same acceleration. The following settings can be used to reset the acceleration with new overlapping keys for more precise control if desired:
+
+|Define                        |Default               |Description                                                            |
+|------------------------------|----------------------|-----------------------------------------------------------------------|
+|`MOUSEKEY_OVERLAP_RESET`      |undefined             |Enables overlapping mouse key control                                  |
+|`MOUSEKEY_OVERLAP_MOVE_DELTA` |`MOUSEKEY_MOVE_DELTA` |Step size of reset movement acceleration                               |
+|`MOUSEKEY_OVERLAP_WHEEL_DELTA`|`MOUSEKEY_WHEEL_DELTA`|Step size of reset mouse wheel acceleration                            |
+|`MOUSEKEY_OVERLAP_INTERVAL`   |`MOUSEKEY_INTERVAL`   |Reset time between cursor movements in milliseconds (Kinetic mode only)|
+
+?> This feature will not be applied on Inertial mode
 
 ## Use with PS/2 Mouse and Pointing Device
 
