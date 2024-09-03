@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "eeprom.h"
+#include "util.h"
 #include "via.h"
 #include "nvm_via.h"
 #include "nvm_eeprom_eeconfig_internal.h"
@@ -54,7 +55,7 @@ uint32_t nvm_via_read_custom_config(void *buf, uint32_t offset, uint32_t length)
     void *ee_start = (void *)(uintptr_t)(VIA_EEPROM_CUSTOM_CONFIG_ADDR + offset);
     void *ee_end   = (void *)(uintptr_t)(VIA_EEPROM_CUSTOM_CONFIG_ADDR + MIN(VIA_EEPROM_CUSTOM_CONFIG_SIZE, offset + length));
     eeprom_read_block(buf, ee_start, ee_end - ee_start);
-    return ee_end - ee - start;
+    return ee_end - ee_start;
 #else
     return 0;
 #endif

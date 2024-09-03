@@ -117,7 +117,7 @@ void eeconfig_disable(void) {
 
 bool eeconfig_is_enabled(void) {
     bool is_eeprom_enabled = nvm_eeconfig_is_enabled();
-    #ifdef VIA_ENABLE
+#ifdef VIA_ENABLE
     if (is_eeprom_enabled) {
         is_eeprom_enabled = via_eeprom_is_valid();
     }
@@ -126,7 +126,7 @@ bool eeconfig_is_enabled(void) {
 }
 
 bool eeconfig_is_disabled(void) {
-    bool is_eeprom_disabled =  nvm_eeconfig_is_disabled();
+    bool is_eeprom_disabled = nvm_eeconfig_is_disabled();
 #ifdef VIA_ENABLE
     if (!is_eeprom_disabled) {
         is_eeprom_disabled = !via_eeprom_is_valid();

@@ -180,4 +180,3 @@ void nvm_dynamic_keymap_macro_reset(void) {
         ++p;
     }
 }
-

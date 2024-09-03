@@ -131,14 +131,14 @@ void dynamic_keymap_macro_send(uint8_t id) {
     // If it's not zero, then we are in the middle
     // of buffer writing, possibly an aborted buffer
     // write. So do nothing.
-    if(dynamic_keymap_read_byte(nvm_dynamic_keymap_macro_size()-1) != 0) {
+    if (dynamic_keymap_read_byte(nvm_dynamic_keymap_macro_size() - 1) != 0) {
         return;
     }
 
     // Skip N null characters
     // p will then point to the Nth macro
     uint32_t offset = 0;
-    uint32_t end = nvm_dynamic_keymap_macro_size();
+    uint32_t end    = nvm_dynamic_keymap_macro_size();
     while (id > 0) {
         // If we are past the end of the buffer, then there is
         // no Nth macro in the buffer.
