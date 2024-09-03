@@ -5,10 +5,36 @@
 #include "nvm_eeprom_eeconfig_internal.h"
 #include "util.h"
 #include "eeconfig.h"
+#include "debug.h"
 #include "eeprom.h"
+#include "keycode_config.h"
 
-#if defined(EEPROM_DRIVER)
+#ifdef EEPROM_DRIVER
 #    include "eeprom_driver.h"
+#endif
+
+#ifdef AUDIO_ENABLE
+#    include "audio.h"
+#endif
+
+#ifdef BACKLIGHT_ENABLE
+#    include "backlight.h"
+#endif
+
+#ifdef RGBLIGHT_ENABLE
+#    include "rgblight.h"
+#endif
+
+#ifdef RGB_MATRIX_ENABLE
+#    include "rgb_matrix_types.h"
+#endif
+
+#ifdef LED_MATRIX_ENABLE
+#    include "led_matrix_types.h"
+#endif
+
+#ifdef UNICODE_COMMON_ENABLE
+#    include "unicode.h"
 #endif
 
 bool nvm_eeconfig_is_enabled(void) {
@@ -30,11 +56,11 @@ void nvm_eeconfig_disable(void) {
     eeprom_update_word(EECONFIG_MAGIC, EECONFIG_MAGIC_NUMBER_OFF);
 }
 
-uint8_t nvm_eeconfig_read_debug(void) {
-    return eeprom_read_byte(EECONFIG_DEBUG);
+void nvm_eeconfig_read_debug(debug_config_t *debug_config) {
+    debug_config->raw = eeprom_read_byte(EECONFIG_DEBUG);
 }
-void nvm_eeconfig_update_debug(uint8_t val) {
-    eeprom_update_byte(EECONFIG_DEBUG, val);
+void nvm_eeconfig_update_debug(const debug_config_t *debug_config) {
+    eeprom_update_byte(EECONFIG_DEBUG, debug_config->raw);
 }
 
 uint8_t nvm_eeconfig_read_default_layer(void) {
@@ -44,37 +70,37 @@ void nvm_eeconfig_update_default_layer(uint8_t val) {
     eeprom_update_byte(EECONFIG_DEFAULT_LAYER, val);
 }
 
-uint16_t nvm_eeconfig_read_keymap(void) {
-    return eeprom_read_word(EECONFIG_KEYMAP);
+void nvm_eeconfig_read_keymap(keymap_config_t *keymap_config) {
+    keymap_config->raw = eeprom_read_word(EECONFIG_KEYMAP);
 }
-void nvm_eeconfig_update_keymap(uint16_t val) {
-    eeprom_update_word(EECONFIG_KEYMAP, val);
+void nvm_eeconfig_update_keymap(const keymap_config_t *keymap_config) {
+    eeprom_update_word(EECONFIG_KEYMAP, keymap_config->raw);
 }
 
 #ifdef AUDIO_ENABLE
-uint8_t nvm_eeconfig_read_audio(void) {
-    return eeprom_read_byte(EECONFIG_AUDIO);
+void nvm_eeconfig_read_audio(audio_config_t *audio_config) {
+    audio_config->raw = eeprom_read_byte(EECONFIG_AUDIO);
 }
-void nvm_eeconfig_update_audio(uint8_t val) {
-    eeprom_update_byte(EECONFIG_AUDIO, val);
+void nvm_eeconfig_update_audio(const audio_config_t *audio_config) {
+    eeprom_update_byte(EECONFIG_AUDIO, audio_config->raw);
 }
 #endif // AUDIO_ENABLE
 
 #ifdef UNICODE_COMMON_ENABLE
-uint8_t nvm_eeconfig_read_unicode_mode(void) {
-    return eeprom_read_byte(EECONFIG_UNICODEMODE);
+void nvm_eeconfig_read_unicode_mode(unicode_config_t *unicode_config) {
+    unicode_config->raw = eeprom_read_byte(EECONFIG_UNICODEMODE);
 }
-void nvm_eeconfig_update_unicode_mode(uint8_t val) {
-    eeprom_update_byte(EECONFIG_UNICODEMODE, val);
+void nvm_eeconfig_update_unicode_mode(const unicode_config_t *unicode_config) {
+    eeprom_update_byte(EECONFIG_UNICODEMODE, unicode_config->raw);
 }
 #endif // UNICODE_COMMON_ENABLE
 
 #ifdef BACKLIGHT_ENABLE
-uint8_t nvm_eeconfig_read_backlight(void) {
-    return eeprom_read_byte(EECONFIG_BACKLIGHT);
+void nvm_eeconfig_read_backlight(backlight_config_t *backlight_config) {
+    backlight_config->raw = eeprom_read_byte(EECONFIG_BACKLIGHT);
 }
-void nvm_eeconfig_update_backlight(uint8_t val) {
-    eeprom_update_byte(EECONFIG_BACKLIGHT, val);
+void nvm_eeconfig_update_backlight(const backlight_config_t *backlight_config) {
+    eeprom_update_byte(EECONFIG_BACKLIGHT, backlight_config->raw);
 }
 #endif // BACKLIGHT_ENABLE
 

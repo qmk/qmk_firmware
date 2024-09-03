@@ -295,7 +295,7 @@ static void print_eeconfig(void) {
 #    ifdef BACKLIGHT_ENABLE
 
     backlight_config_t bc;
-    bc.raw = eeconfig_read_backlight();
+    eeconfig_read_backlight(&bc);
     xprintf(/* clang-format off */
         "backlight_config"
 

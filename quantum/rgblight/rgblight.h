@@ -248,7 +248,7 @@ extern const uint16_t RGBLED_RGBTEST_INTERVALS[1] PROGMEM;
 extern const uint8_t  RGBLED_TWINKLE_INTERVALS[3] PROGMEM;
 extern bool           is_rgblight_initialized;
 
-typedef union {
+typedef union rgblight_config_t {
     uint64_t raw;
     struct {
         bool    enable : 1;

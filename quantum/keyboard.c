@@ -386,8 +386,8 @@ void quantum_init(void) {
     }
 
     /* init globals */
-    debug_config.raw  = eeconfig_read_debug();
-    keymap_config.raw = eeconfig_read_keymap();
+    eeconfig_read_debug(&debug_config);
+    eeconfig_read_keymap(&keymap_config);
 
 #ifdef BOOTMAGIC_ENABLE
     bootmagic();

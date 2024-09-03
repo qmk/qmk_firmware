@@ -5,10 +5,15 @@
 #include "eeconfig.h"
 #include "action_layer.h"
 #include "nvm_eeconfig.h"
+#include "keycode_config.h"
 
 #ifdef EEPROM_DRIVER
 #    include "eeprom_driver.h"
 #endif // EEPROM_DRIVER
+
+#ifdef RGBLIGHT_ENABLE
+#    include "rgblight.h"
+#endif // RGBLIGHT_ENABLE
 
 #ifdef HAPTIC_ENABLE
 #    include "haptic.h"
@@ -45,8 +50,23 @@ void eeconfig_init_quantum(void) {
     eeconfig_update_debug(0);
     default_layer_state = (layer_state_t)1 << 0;
     eeconfig_update_default_layer(default_layer_state);
-    // Enable oneshot and autocorrect by default: 0b0001 0100 0000 0000
-    eeconfig_update_keymap(0x1400);
+
+    keymap_config_t keymap_config = {
+        .swap_control_capslock    = false,
+        .capslock_to_control      = false,
+        .swap_lalt_lgui           = false,
+        .swap_ralt_rgui           = false,
+        .no_gui                   = false,
+        .swap_grave_esc           = false,
+        .swap_backslash_backspace = false,
+        .nkro                     = false,
+        .swap_lctl_lgui           = false,
+        .swap_rctl_rgui           = false,
+        .oneshot_enable           = true, // Enable oneshot by default
+        .swap_escape_capslock     = false,
+        .autocorrect_enable       = true, // Enable autocorrect by default
+    };
+    eeconfig_update_keymap(&keymap_config);
 
 #ifdef BACKLIGHT_ENABLE
     eeconfig_update_backlight(0);
@@ -135,11 +155,11 @@ bool eeconfig_is_disabled(void) {
     return is_eeprom_disabled;
 }
 
-uint8_t eeconfig_read_debug(void) {
-    return nvm_eeconfig_read_debug();
+void eeconfig_read_debug(debug_config_t *debug_config) {
+    nvm_eeconfig_read_debug(debug_config);
 }
-void eeconfig_update_debug(uint8_t val) {
-    nvm_eeconfig_update_debug(val);
+void eeconfig_update_debug(const debug_config_t *debug_config) {
+    nvm_eeconfig_update_debug(debug_config);
 }
 
 uint8_t eeconfig_read_default_layer(void) {
@@ -149,37 +169,37 @@ void eeconfig_update_default_layer(uint8_t val) {
     nvm_eeconfig_update_default_layer(val);
 }
 
-uint16_t eeconfig_read_keymap(void) {
-    return nvm_eeconfig_read_keymap();
+void eeconfig_read_keymap(keymap_config_t *keymap_config) {
+    nvm_eeconfig_read_keymap(keymap_config);
 }
-void eeconfig_update_keymap(uint16_t val) {
-    nvm_eeconfig_update_keymap(val);
+void eeconfig_update_keymap(const keymap_config_t *keymap_config) {
+    nvm_eeconfig_update_keymap(keymap_config);
 }
 
 #ifdef AUDIO_ENABLE
-uint8_t eeconfig_read_audio(void) {
-    return nvm_eeconfig_read_audio();
+void eeconfig_read_audio(audio_config_t *audio_config) {
+    nvm_eeconfig_read_audio(audio_config);
 }
-void eeconfig_update_audio(uint8_t val) {
-    nvm_eeconfig_update_audio(val);
+void eeconfig_update_audio(const audio_config_t *audio_config) {
+    nvm_eeconfig_update_audio(audio_config);
 }
 #endif // AUDIO_ENABLE
 
 #ifdef UNICODE_COMMON_ENABLE
-uint8_t eeconfig_read_unicode_mode(void) {
-    return nvm_eeconfig_read_unicode_mode();
+void eeconfig_read_unicode_mode(unicode_config_t *unicode_config) {
+    return nvm_eeconfig_read_unicode_mode(unicode_config);
 }
-void eeconfig_update_unicode_mode(uint8_t val) {
-    nvm_eeconfig_update_unicode_mode(val);
+void eeconfig_update_unicode_mode(const unicode_config_t *unicode_config) {
+    nvm_eeconfig_update_unicode_mode(unicode_config);
 }
 #endif // UNICODE_COMMON_ENABLE
 
 #ifdef BACKLIGHT_ENABLE
-uint8_t eeconfig_read_backlight(void) {
-    return nvm_eeconfig_read_backlight();
+void eeconfig_read_backlight(backlight_config_t *backlight_config) {
+    nvm_eeconfig_read_backlight(backlight_config);
 }
-void eeconfig_update_backlight(uint8_t val) {
-    nvm_eeconfig_update_backlight(val);
+void eeconfig_update_backlight(const backlight_config_t *backlight_config) {
+    nvm_eeconfig_update_backlight(backlight_config);
 }
 #endif // BACKLIGHT_ENABLE
 
