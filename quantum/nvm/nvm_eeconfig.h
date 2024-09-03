@@ -46,15 +46,15 @@ void    nvm_eeconfig_update_steno_mode(uint8_t val);
 #endif // STENO_ENABLE
 
 #ifdef RGB_MATRIX_ENABLE
-typedef struct rgb_config_t rgb_config_t;
-void                        nvm_eeconfig_read_rgb_matrix(rgb_config_t *rgb_matrix_config);
-void                        nvm_eeconfig_update_rgb_matrix(const rgb_config_t *rgb_matrix_config);
+typedef union rgb_config_t rgb_config_t;
+void                       nvm_eeconfig_read_rgb_matrix(rgb_config_t *rgb_matrix_config);
+void                       nvm_eeconfig_update_rgb_matrix(const rgb_config_t *rgb_matrix_config);
 #endif
 
 #ifdef LED_MATRIX_ENABLE
-typedef struct led_eeconfig_t led_eeconfig_t;
-void                          nvm_eeconfig_read_led_matrix(led_eeconfig_t *led_matrix_config);
-void                          nvm_eeconfig_update_led_matrix(const led_eeconfig_t *led_matrix_config);
+typedef union led_eeconfig_t led_eeconfig_t;
+void                         nvm_eeconfig_read_led_matrix(led_eeconfig_t *led_matrix_config);
+void                         nvm_eeconfig_update_led_matrix(const led_eeconfig_t *led_matrix_config);
 #endif // LED_MATRIX_ENABLE
 
 #ifdef RGBLIGHT_ENABLE

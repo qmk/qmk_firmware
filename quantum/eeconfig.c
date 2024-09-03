@@ -12,9 +12,29 @@
 #    include "eeprom_driver.h"
 #endif // EEPROM_DRIVER
 
+#ifdef BACKLIGHT_ENABLE
+#    include "backlight.h"
+#endif // BACKLIGHT_ENABLE
+
+#ifdef AUDIO_ENABLE
+#    include "audio.h"
+#endif // AUDIO_ENABLE
+
 #ifdef RGBLIGHT_ENABLE
 #    include "rgblight.h"
 #endif // RGBLIGHT_ENABLE
+
+#ifdef RGB_MATRIX_ENABLE
+#    include "rgb_matrix_types.h"
+#endif // RGB_MATRIX_ENABLE
+
+#ifdef LED_MATRIX_ENABLE
+#    include "led_matrix_types.h"
+#endif // LED_MATRIX_ENABLE
+
+#ifdef UNICODE_COMMON_ENABLE
+#    include "unicode.h"
+#endif // UNICODE_COMMON_ENABLE
 
 #ifdef HAPTIC_ENABLE
 #    include "haptic.h"
@@ -108,7 +128,7 @@ void eeconfig_init_quantum(void) {
 
 #ifdef HAPTIC_ENABLE
     haptic_config_t haptic_config = {0};
-    nvm_eeconfig_update_haptic(&hapitc_config);
+    eeconfig_update_haptic(&haptic_config);
     haptic_reset();
 #endif // HAPTIC_ENABLE
 

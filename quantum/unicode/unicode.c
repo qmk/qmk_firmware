@@ -165,7 +165,7 @@ uint8_t get_unicode_input_mode(void) {
 }
 
 static void persist_unicode_input_mode(void) {
-    eeconfig_update_unicode_mode(unicode_config.input_mode);
+    eeconfig_update_unicode_mode(&unicode_config);
 }
 
 void set_unicode_input_mode(uint8_t mode) {
