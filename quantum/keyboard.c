@@ -458,7 +458,7 @@ void keyboard_init(void) {
 #endif
 #if defined(NKRO_ENABLE) && defined(FORCE_NKRO)
     keymap_config.nkro = 1;
-    eeconfig_update_keymap(keymap_config.raw);
+    eeconfig_update_keymap(&keymap_config);
 #endif
 #ifdef DIP_SWITCH_ENABLE
     dip_switch_init();

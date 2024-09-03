@@ -125,8 +125,9 @@ void     eeconfig_update_user(uint32_t val);
 #endif // (EECONFIG_USER_DATA_SIZE) == 0
 
 #ifdef HAPTIC_ENABLE
-uint32_t eeconfig_read_haptic(void);
-void     eeconfig_update_haptic(uint32_t val);
+typedef union haptic_config_t haptic_config_t;
+void                          eeconfig_read_haptic(haptic_config_t *haptic_config);
+void                          eeconfig_update_haptic(const haptic_config_t *haptic_config);
 #endif
 
 bool eeconfig_read_handedness(void);

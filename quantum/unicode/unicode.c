@@ -136,7 +136,7 @@ static void unicode_play_song(uint8_t mode) {
 #endif
 
 void unicode_input_mode_init(void) {
-    unicode_config.raw = eeconfig_read_unicode_mode();
+    eeconfig_read_unicode_mode(&unicode_config);
 #if UNICODE_SELECTED_MODES != -1
 #    if UNICODE_CYCLE_PERSIST
     // Find input_mode in selected modes

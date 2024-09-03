@@ -863,7 +863,7 @@ void via_qmk_audio_set_value(uint8_t *data) {
 }
 
 void via_qmk_audio_save(void) {
-    eeconfig_update_audio(audio_config.raw);
+    eeconfig_update_audio(&audio_config);
 }
 
 #endif // QMK_AUDIO_ENABLE

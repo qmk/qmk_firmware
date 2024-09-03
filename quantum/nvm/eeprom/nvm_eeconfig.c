@@ -37,6 +37,10 @@
 #    include "unicode.h"
 #endif
 
+#ifdef HAPTIC_ENABLE
+#    include "haptic.h"
+#endif
+
 bool nvm_eeconfig_is_enabled(void) {
     return eeprom_read_word(EECONFIG_MAGIC) == EECONFIG_MAGIC_NUMBER;
 }
@@ -164,11 +168,11 @@ void nvm_eeconfig_update_user(uint32_t val) {
 #endif // (EECONFIG_USER_DATA_SIZE) == 0
 
 #ifdef HAPTIC_ENABLE
-uint32_t nvm_eeconfig_read_haptic(void) {
-    return eeprom_read_dword(EECONFIG_HAPTIC);
+void nvm_eeconfig_read_haptic(haptic_config_t *haptic_config) {
+    haptic_config->raw = eeprom_read_dword(EECONFIG_HAPTIC);
 }
-void nvm_eeconfig_update_haptic(uint32_t val) {
-    eeprom_update_dword(EECONFIG_HAPTIC, val);
+void nvm_eeconfig_update_haptic(const haptic_config_t *haptic_config) {
+    eeprom_update_dword(EECONFIG_HAPTIC, haptic_config->raw);
 }
 #endif // HAPTIC_ENABLE
 
