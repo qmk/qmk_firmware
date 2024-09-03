@@ -8,8 +8,8 @@
 
 
 // Layer keys
-#define SYM LT(_SYM, KC_ENT)
-#define NAV LT(_NAV, KC_ESC)
+#define SYM MO(_SYM)
+#define NAV MO(_NAV)
 // FUN is both together
 
 // shortcuts
@@ -27,6 +27,11 @@
 #define LAU G(KC_SPC)    // Launcher for krunner 
 
 // awkward symbols to type
+#define TILDA S(UK_BSLS)
+#define PIPE S(UK_HASH)
+#define ATAT S(UK_2)
+#define MYHASH A(UK_3)
+#define KASHISH S(UK_3)
 
 //One Shot Modifiers
 #define CTRL OSM(MOD_LCTL)

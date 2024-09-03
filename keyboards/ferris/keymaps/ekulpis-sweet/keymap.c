@@ -24,9 +24,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
   [_SYM] = LAYOUT_split_3x5_2(
-      KC_ESC, UK_LBRC, UK_LCBR, UK_LPRN, UK_TILD,    UK_CIRC, UK_RPRN, UK_RCBR, UK_RBRC, UK_GRV,
-      UK_MINS, UK_ASTR, UK_EQL, UK_UNDS, UK_DLR,     UK_HASH, CMD, ALT, CTRL, SHFT,
-      UK_PLUS,  UK_BRKP, UK_AT, UK_SLSH, UK_PERC,    KC_NO, UK_BSLS, UK_AMPR, UK_QUES, UK_EXLM,
+      KC_ESC, UK_LBRC, UK_LCBR, UK_LPRN, TILDA,      UK_CIRC, UK_RPRN, UK_RCBR, UK_RBRC, UK_BSLS,
+      UK_MINS, UK_ASTR, UK_EQL, UK_UNDS, UK_DLR,     MYHASH, CMD, ALT, CTRL, SHFT,
+      UK_PLUS, PIPE, ATAT, UK_SLSH, UK_PERC,         KASHISH, KC_NUHS, UK_AMPR, UK_QUES, UK_EXLM,
                                 KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS
   ),
 
@@ -47,19 +47,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 enum combo_events {
-   // punctuation combos
-   MINS_COMBO, // C+D   -
-   USCR_COMBO, // H+,,  _
-   SCLN_COMBO, // .+/   ;
-   // braces
-   LCBR_COMBO, // F+S   {
-   LPRN_COMBO, // P+T    (
-   LBRC_COMBO, // B+G    [
-   RCBR_COMBO, // U+E    }
-   RPRN_COMBO, // L+N    )
-   RBRC_COMBO, // J+M    ]
-   PIPE_COMBO, // C+X    |
-   TILDE_COMBO, // ,+.   ~
+   LDESK_COMBO, // F+S MacOS switch desktop to left  
+   RDESK_COMBO, // P+T MacOS switch desktop to right
+   MCTRL_COMBO, // G+M MacOS Mission Control   
    // Other combos...
    COMBO_LENGTH
  };
@@ -68,35 +58,21 @@ enum combo_events {
  
  uint16_t COMBO_LEN = COMBO_LENGTH;
 // punctuation combos
- const uint16_t PROGMEM mins_combo[] = {UK_C, UK_D, COMBO_END};
- const uint16_t PROGMEM uscr_combo[] = {UK_H, UK_COMM, COMBO_END};
- const uint16_t PROGMEM scln_combo[] = {UK_DOT, UK_SLSH, COMBO_END};
- const uint16_t PROGMEM pipe_combo[] = {UK_X, UK_C, COMBO_END};
- const uint16_t PROGMEM tilde_combo[] = {UK_DOT, UK_COMM, COMBO_END};
 
 
  // braces - vertical combos
- const uint16_t PROGMEM lcbr_combo[] = {UK_F, UK_S, COMBO_END};
- const uint16_t PROGMEM lprn_combo[] = {UK_P, UK_T, COMBO_END};
- const uint16_t PROGMEM lbrc_combo[] = {UK_B, UK_G, COMBO_END};
- const uint16_t PROGMEM rbrc_combo[] = {UK_J, UK_M, COMBO_END};
- const uint16_t PROGMEM rprn_combo[] = {UK_L, UK_N, COMBO_END};
- const uint16_t PROGMEM rcbr_combo[] = {UK_U, UK_E, COMBO_END};
+ const uint16_t PROGMEM ldesk_combo[] = {UK_P, UK_T, COMBO_END};
+ const uint16_t PROGMEM rdesk_combo[] = {UK_L, UK_N, COMBO_END};
+ const uint16_t PROGMEM mctrl_combo[] = {UK_G, UK_M, COMBO_END};
+
 
  // system keys on combos
 
  combo_t key_combos[] = {
-   [MINS_COMBO] = COMBO(mins_combo, UK_MINS),
-   [USCR_COMBO] = COMBO(uscr_combo, LSFT(UK_MINS)),
-   [SCLN_COMBO] = COMBO(scln_combo, UK_SCLN),
-   [LCBR_COMBO] = COMBO(lcbr_combo, UK_LCBR),
-   [LPRN_COMBO] = COMBO(lprn_combo, UK_LPRN),
-   [LBRC_COMBO] = COMBO(lbrc_combo, UK_LBRC),
-   [RCBR_COMBO] = COMBO(rcbr_combo, UK_RCBR),
-   [RPRN_COMBO] = COMBO(rprn_combo, UK_RPRN),
-   [RBRC_COMBO] = COMBO(rbrc_combo, UK_RBRC),
-   [PIPE_COMBO] = COMBO(pipe_combo, UK_BRKP),
-   [TILDE_COMBO] = COMBO(tilde_combo, UK_TILD),
+   [LDESK_COMBO] = COMBO(ldesk_combo, C(KC_LEFT)),
+   [RDESK_COMBO] = COMBO(rdesk_combo, C(KC_RIGHT)),
+   [MCTRL_COMBO] = COMBO(mctrl_combo, C(KC_UP)),
+
  };
 
 layer_state_t layer_state_set_user(layer_state_t state) {
