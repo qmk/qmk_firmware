@@ -1,6 +1,7 @@
 // Copyright 2024 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+#include "keycodes.h"
 #include "eeprom.h"
 #include "dynamic_keymap.h"
 #include "nvm_dynamic_keymap.h"
@@ -115,10 +116,10 @@ void nvm_dynamic_keymap_update_encoder(uint8_t layer, uint8_t encoder_id, bool c
 #endif // ENCODER_MAP_ENABLE
 
 void nvm_dynamic_keymap_read_buffer(uint32_t offset, uint32_t size, uint8_t *data) {
-    uint16_t dynamic_keymap_eeprom_size = DYNAMIC_KEYMAP_LAYER_COUNT * MATRIX_ROWS * MATRIX_COLS * 2;
-    void *   source                     = (void *)(DYNAMIC_KEYMAP_EEPROM_ADDR + offset);
+    uint32_t dynamic_keymap_eeprom_size = DYNAMIC_KEYMAP_LAYER_COUNT * MATRIX_ROWS * MATRIX_COLS * 2;
+    void *   source                     = (void *)(uintptr_t)(DYNAMIC_KEYMAP_EEPROM_ADDR + offset);
     uint8_t *target                     = data;
-    for (uint16_t i = 0; i < size; i++) {
+    for (uint32_t i = 0; i < size; i++) {
         if (offset + i < dynamic_keymap_eeprom_size) {
             *target = eeprom_read_byte(source);
         } else {
@@ -130,10 +131,10 @@ void nvm_dynamic_keymap_read_buffer(uint32_t offset, uint32_t size, uint8_t *dat
 }
 
 void nvm_dynamic_keymap_update_buffer(uint32_t offset, uint32_t size, uint8_t *data) {
-    uint16_t dynamic_keymap_eeprom_size = DYNAMIC_KEYMAP_LAYER_COUNT * MATRIX_ROWS * MATRIX_COLS * 2;
-    void *   target                     = (void *)(DYNAMIC_KEYMAP_EEPROM_ADDR + offset);
+    uint32_t dynamic_keymap_eeprom_size = DYNAMIC_KEYMAP_LAYER_COUNT * MATRIX_ROWS * MATRIX_COLS * 2;
+    void *   target                     = (void *)(uintptr_t)(DYNAMIC_KEYMAP_EEPROM_ADDR + offset);
     uint8_t *source                     = data;
-    for (uint16_t i = 0; i < size; i++) {
+    for (uint32_t i = 0; i < size; i++) {
         if (offset + i < dynamic_keymap_eeprom_size) {
             eeprom_update_byte(target, *source);
         }
@@ -147,7 +148,7 @@ uint32_t nvm_dynamic_keymap_macro_size(void) {
 }
 
 void nvm_dynamic_keymap_macro_read_buffer(uint32_t offset, uint32_t size, uint8_t *data) {
-    void *   source = (void *)(DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR + offset);
+    void *   source = (void *)(uintptr_t)(DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR + offset);
     uint8_t *target = data;
     for (uint16_t i = 0; i < size; i++) {
         if (offset + i < DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE) {
@@ -161,7 +162,7 @@ void nvm_dynamic_keymap_macro_read_buffer(uint32_t offset, uint32_t size, uint8_
 }
 
 void nvm_dynamic_keymap_macro_update_buffer(uint32_t offset, uint32_t size, uint8_t *data) {
-    void *   target = (void *)(DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR + offset);
+    void *   target = (void *)(uintptr_t)(DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR + offset);
     uint8_t *source = data;
     for (uint16_t i = 0; i < size; i++) {
         if (offset + i < DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE) {
@@ -173,8 +174,8 @@ void nvm_dynamic_keymap_macro_update_buffer(uint32_t offset, uint32_t size, uint
 }
 
 void nvm_dynamic_keymap_macro_reset(void) {
-    void *p   = (void *)(DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR);
-    void *end = (void *)(DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR + DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE);
+    void *p   = (void *)(uintptr_t)(DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR);
+    void *end = (void *)(uintptr_t)(DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR + DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE);
     while (p != end) {
         eeprom_update_byte(p, 0);
         ++p;
