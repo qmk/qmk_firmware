@@ -144,22 +144,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     	/   1   2   3   +       ,   ⇧   ⌘   ⌥   ^
     :	,   4   5   6   =       -   ⌫
     	                0   .   ⏎   ␣
-    *
+    */
   [_NUM] = LAYOUT_voyager(
-    ___x___, ___x___, ___x___, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-    ___x___, ___x___, KC_7,    KC_8,    KC_9,    KC_MINUS,                  _______, _______, _______, _______, _______, ___x___,
+    ___x___, ___x___, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
+    ___x___, KC_ASTR, KC_7,    KC_8,    KC_9,    KC_MINUS,                  _______, _______, _______, _______, _______, ___x___,
     KC_COLN, KC_SLSH, KC_1,    KC_2,    KC_3,    KC_PLUS,                   _______, OSMSFT,  OSMCMD,  OSMOPT,  OSMCTL,  ___x___,
     ___x___, KC_COMM, KC_4,    KC_5,    KC_6,    KC_EQUAL,                  ___x___, KC_BSPC, ___x___, ___x___, ___x___, _______,
                                                  KC_0,     KC_DOT, _______, _______
   ),
-  */
+
 
   /*
     	*   7   4   3   -       +   .   /
     	/   2   1   0   +       ,   ⇧   ⌘   ⌥   ^
     :	,   8   6   5   =       -   ⌫
     	                9   .   ⏎   ␣
-    */
+    *
   [_NUM] = LAYOUT_voyager(
     ___x___, ___x___, ___x___, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
     ___x___, ___x___, KC_7,    KC_4,    KC_3,    KC_MINUS,                  _______, _______, _______, _______, _______, ___x___,
@@ -167,12 +167,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ___x___, KC_COMM, KC_8,    KC_6,    KC_5,    KC_EQUAL,                  ___x___, KC_BSPC, ___x___, ___x___, ___x___, _______,
                                                  KC_9,     KC_DOT, _______, _______
   ),
+  */
 
   [_SYM] = LAYOUT_voyager(
     _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, QK_BOOT,
-    _______, ___x___, KC_LABK, KC_RABK, KC_AT,   KC_GRV,                    KC_TILD, KC_AMPR, KC_LBRC, KC_RBRC, ___x___, _______,
-    _______, KC_EXLM, KC_MINS, KC_PLUS, KC_EQL,  KC_HASH,                   KC_PIPE, KC_COLN, KC_LPRN, KC_RPRN, KC_QUES, _______,
-    _______, KC_CIRC, KC_SLSH, KC_ASTR, KC_BSLS, _______,                   KC_UNDS, KC_DLR,  KC_LCBR, KC_RCBR, KC_PERC, _______,
+    _______, ___x___, KC_LABK, KC_RABK, KC_AT,   ___x___,                   ___x___, KC_AMPR, KC_LBRC, KC_RBRC, ___x___, _______,
+    _______, KC_EXLM, KC_MINS, KC_PLUS, KC_EQL,  KC_GRV,                    KC_BSLS, KC_COLN, KC_LPRN, KC_RPRN, KC_QUES, _______,
+    _______, KC_CIRC, KC_SLSH, KC_ASTR, KC_HASH, KC_TILD,                   KC_PIPE, KC_DLR,  KC_LCBR, KC_RCBR, KC_PERC, _______,
                                                  _______, _______, _______, _______
   ),
   [_NAV] = LAYOUT_voyager(
