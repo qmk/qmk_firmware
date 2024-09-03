@@ -630,7 +630,8 @@ ifeq ($(strip $(VIA_ENABLE)), yes)
 
     QUANTUM_SRC += \
         nvm_via.c \
-		nvm_dynamic_keymap.c
+        nvm_dynamic_keymap.c
+        # TODO: move `nvm_dynamic_keymap.c` to be guarded by `DYNAMIC_KEYMAP_ENABLE = yes`
 endif
 
 VALID_CUSTOM_MATRIX_TYPES:= yes lite no
