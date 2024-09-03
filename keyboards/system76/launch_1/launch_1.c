@@ -16,6 +16,7 @@
  */
 
 #include "quantum.h"
+#include "eeprom.h"
 
 #include "usb_mux.h"
 
@@ -73,30 +74,17 @@ led_config_t g_led_config = { {
 } };
 #endif // RGB_MATRIX_ENABLE
 
-typedef union launch_1_eeprom_t {
-    struct {
-        uint16_t magic;
-        uint8_t  version;
-    };
-    uint32_t raw;
-} launch_1_eeprom_t;
-
 bool eeprom_is_valid(void) {
-    launch_1_eeprom_t eeprom;
-    eeprom.raw = eeconfig_read_kb();
     return (
-        eeprom.magic == EEPROM_MAGIC &&
-        eeprom.version == EEPROM_VERSION
+        eeprom_read_word(((void *)EEPROM_MAGIC_ADDR)) == EEPROM_MAGIC &&
+        eeprom_read_byte(((void *)EEPROM_VERSION_ADDR)) == EEPROM_VERSION
     );
 }
 // clang-format on
 
 void eeprom_set_valid(bool valid) {
-    launch_1_eeprom_t eeprom = {
-        .magic   = valid ? EEPROM_MAGIC : 0xFFFF,
-        .version = valid ? EEPROM_VERSION : 0xFF,
-    };
-    eeconfig_update_kb(eeprom.raw);
+    eeprom_update_word(((void *)EEPROM_MAGIC_ADDR), valid ? EEPROM_MAGIC : 0xFFFF);
+    eeprom_update_byte(((void *)EEPROM_VERSION_ADDR), valid ? EEPROM_VERSION : 0xFF);
 }
 
 void bootmagic_lite_reset_eeprom(void) {
