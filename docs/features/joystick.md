@@ -18,6 +18,8 @@ By default the joystick driver is `analog`, but you can change this with:
 JOYSTICK_DRIVER = digital
 ```
 
+When using `analog` with ARM, [you must use 3.3v with your Joystick](../drivers/adc). Although ARM boards such as the [Helios](https://keeb.supply/products/0xcb-helios) have 5v pin output, the ADC driver does not support it.
+
 ## Configuration {#configuration}
 
 By default, two axes and eight buttons are defined, with a reported resolution of 8 bits (-127 to +127). This can be changed in your `config.h`:
