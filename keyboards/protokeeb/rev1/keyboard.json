@@ -40,11 +40,6 @@
         },
         "brightness_steps": 15,
         "default": {
-            "animation": "static_light",
-            "hue": 0,
-            "on": true,
-            "sat": 255,
-            "speed": 0,
             "val": 50
         },
         "hue_steps": 15,
