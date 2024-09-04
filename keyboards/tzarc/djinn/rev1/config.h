@@ -3,7 +3,6 @@
 #pragma once
 
 // Split configuration
-#define SPLIT_HAND_PIN B11
 #ifdef USE_PLUG_DETECT_PIN
 #    define USB_VBUS_PIN B12
 #endif
@@ -14,9 +13,6 @@
 #endif // SERIAL_USART_SPEED
 
 // RGB configuration
-#define RGB_MATRIX_LED_COUNT 84
-#define RGB_MATRIX_SPLIT \
-    { 42, 42 }
 #define RGB_POWER_ENABLE_PIN B1
 #define RGB_CURR_1500mA_OK_PIN B0
 #define RGB_CURR_3000mA_OK_PIN C5
