@@ -6,6 +6,7 @@
 #define T_NEXT      LCTL(KC_PGDN)
 #define N_TAB       LCTL(KC_T)
 #define W_QUIT      LALT(KC_F4)
+#define D_SUGGEST   LSFT(KC_DEL)
 
 #define ALL       LCTL(KC_A)
 
