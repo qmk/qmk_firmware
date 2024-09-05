@@ -75,7 +75,6 @@
                         {"label":"-_", "matrix": [1,11], "x":11, "y":1.25},
                         {"label":"=+", "matrix": [1,12], "x":12, "y":1.25},
                         {"label":"Backspace", "matrix": [1,13], "x":13, "y":1.25},
-                        {"label":"Backspace", "matrix": [3,12], "x":14, "y":1.25},
                         {"label":"Page Up", "matrix": [1,14], "x":15, "y":1.25},
 
                         {"label":"Tab", "matrix": [2,0], "x":0, "y":2.25, "w":1.5},
