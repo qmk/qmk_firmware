@@ -28,7 +28,6 @@
 
 #define pinmask(pin) (_BV((pin)&0xF))
 
-
 /*
   This routine writes an array of bytes with RGB values to the Dataout pin
   using the fast 800kHz clockless WS2811/2812 protocol.

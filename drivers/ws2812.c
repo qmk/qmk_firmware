@@ -1,3 +1,6 @@
+// Copyright 2024 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include "ws2812.h"
 
 void convert_rgb_to_rgbw(ws2812_led_t *led) {
