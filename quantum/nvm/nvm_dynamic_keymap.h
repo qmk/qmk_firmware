@@ -5,6 +5,9 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+void nvm_dynamic_keymap_erase(void);
+void nvm_dynamic_keymap_macro_erase(void);
+
 uint16_t nvm_dynamic_keymap_read_keycode(uint8_t layer, uint8_t row, uint8_t column);
 void     nvm_dynamic_keymap_update_keycode(uint8_t layer, uint8_t row, uint8_t column, uint16_t keycode);
 

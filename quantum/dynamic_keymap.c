@@ -56,6 +56,9 @@ void dynamic_keymap_set_encoder(uint8_t layer, uint8_t encoder_id, bool clockwis
 #endif // ENCODER_MAP_ENABLE
 
 void dynamic_keymap_reset(void) {
+    // Erase the keymaps, if necessary.
+    nvm_dynamic_keymap_erase();
+
     // Reset the keymaps in EEPROM to what is in flash.
     for (int layer = 0; layer < DYNAMIC_KEYMAP_LAYER_COUNT; layer++) {
         for (int row = 0; row < MATRIX_ROWS; row++) {
@@ -113,6 +116,8 @@ void dynamic_keymap_macro_set_buffer(uint16_t offset, uint16_t size, uint8_t *da
 }
 
 void dynamic_keymap_macro_reset(void) {
+    // Erase the macros, if necessary.
+    nvm_dynamic_keymap_macro_erase();
     nvm_dynamic_keymap_macro_reset();
 }
 

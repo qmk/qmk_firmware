@@ -71,6 +71,14 @@ _Static_assert((DYNAMIC_KEYMAP_EEPROM_MAX_ADDR) - (DYNAMIC_KEYMAP_MACRO_EEPROM_A
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+void nvm_dynamic_keymap_erase(void) {
+    // No-op, nvm_eeconfig_erase() will have already erased EEPROM if necessary.
+}
+
+void nvm_dynamic_keymap_macro_erase(void) {
+    // No-op, nvm_eeconfig_erase() will have already erased EEPROM if necessary.
+}
+
 static inline void *dynamic_keymap_key_to_eeprom_address(uint8_t layer, uint8_t row, uint8_t column) {
     return ((void *)DYNAMIC_KEYMAP_EEPROM_ADDR) + (layer * MATRIX_ROWS * MATRIX_COLS * 2) + (row * MATRIX_COLS * 2) + (column * 2);
 }
@@ -174,10 +182,14 @@ void nvm_dynamic_keymap_macro_update_buffer(uint32_t offset, uint32_t size, uint
 }
 
 void nvm_dynamic_keymap_macro_reset(void) {
-    void *p   = (void *)(uintptr_t)(DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR);
-    void *end = (void *)(uintptr_t)(DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR + DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE);
-    while (p != end) {
-        eeprom_update_byte(p, 0);
-        ++p;
+    void *  start     = (void *)(uintptr_t)(DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR);
+    void *  end       = (void *)(uintptr_t)(DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR + DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE);
+    long    remaining = end - start;
+    uint8_t dummy[16] = {0};
+    for (int i = 0; i < DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE; i += sizeof(dummy)) {
+        int this_loop = remaining < sizeof(dummy) ? remaining : sizeof(dummy);
+        eeprom_update_block(dummy, start, this_loop);
+        start += this_loop;
+        remaining -= this_loop;
     }
 }

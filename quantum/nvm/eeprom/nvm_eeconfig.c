@@ -41,6 +41,12 @@
 #    include "haptic.h"
 #endif
 
+void nvm_eeconfig_erase(void) {
+#ifdef EEPROM_DRIVER
+    eeprom_driver_format(false);
+#endif // EEPROM_DRIVER
+}
+
 bool nvm_eeconfig_is_enabled(void) {
     return eeprom_read_word(EECONFIG_MAGIC) == EECONFIG_MAGIC_NUMBER;
 }
@@ -211,8 +217,18 @@ uint32_t nvm_eeconfig_update_kb_datablock(const void *data, uint32_t offset, uin
 }
 
 void nvm_eeconfig_init_kb_datablock(void) {
-    uint8_t dummy_kb[(EECONFIG_KB_DATA_SIZE)] = {0};
-    eeconfig_update_kb_datablock(dummy_kb, 0, (EECONFIG_KB_DATA_SIZE));
+    eeprom_update_dword(EECONFIG_KEYBOARD, (EECONFIG_KB_DATA_VERSION));
+
+    void *  start     = (void *)(uintptr_t)(EECONFIG_KB_DATABLOCK);
+    void *  end       = (void *)(uintptr_t)(EECONFIG_KB_DATABLOCK + EECONFIG_KB_DATA_SIZE);
+    long    remaining = end - start;
+    uint8_t dummy[16] = {0};
+    for (int i = 0; i < EECONFIG_KB_DATA_SIZE; i += sizeof(dummy)) {
+        int this_loop = remaining < sizeof(dummy) ? remaining : sizeof(dummy);
+        eeprom_update_block(dummy, start, this_loop);
+        start += this_loop;
+        remaining -= this_loop;
+    }
 }
 
 #endif // (EECONFIG_KB_DATA_SIZE) > 0
@@ -245,8 +261,18 @@ uint32_t nvm_eeconfig_update_user_datablock(const void *data, uint32_t offset, u
 }
 
 void nvm_eeconfig_init_user_datablock(void) {
-    uint8_t dummy_user[(EECONFIG_USER_DATA_SIZE)] = {0};
-    eeconfig_update_user_datablock(dummy_user, 0, (EECONFIG_USER_DATA_SIZE));
+    eeprom_update_dword(EECONFIG_USER, (EECONFIG_USER_DATA_VERSION));
+
+    void *  start     = (void *)(uintptr_t)(EECONFIG_USER_DATABLOCK);
+    void *  end       = (void *)(uintptr_t)(EECONFIG_USER_DATABLOCK + EECONFIG_USER_DATA_SIZE);
+    long    remaining = end - start;
+    uint8_t dummy[16] = {0};
+    for (int i = 0; i < EECONFIG_USER_DATA_SIZE; i += sizeof(dummy)) {
+        int this_loop = remaining < sizeof(dummy) ? remaining : sizeof(dummy);
+        eeprom_update_block(dummy, start, this_loop);
+        start += this_loop;
+        remaining -= this_loop;
+    }
 }
 
 #endif // (EECONFIG_USER_DATA_SIZE) > 0

@@ -5,6 +5,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+void nvm_eeconfig_erase(void);
+
 bool nvm_eeconfig_is_enabled(void);
 bool nvm_eeconfig_is_disabled(void);
 

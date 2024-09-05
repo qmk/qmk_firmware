@@ -63,9 +63,7 @@ __attribute__((weak)) void eeconfig_init_kb(void) {
 }
 
 void eeconfig_init_quantum(void) {
-#ifdef EEPROM_DRIVER
-    eeprom_driver_format(false);
-#endif // EEPROM_DRIVER
+    nvm_eeconfig_erase();
 
     eeconfig_enable();
 
@@ -144,8 +142,9 @@ void eeconfig_init_quantum(void) {
     // Invalidate VIA eeprom config, and then reset.
     // Just in case if power is lost mid init, this makes sure that it gets
     // properly re-initialized.
-    via_eeprom_set_valid(false);
     eeconfig_init_via();
+#elif defined(DYNAMIC_KEYMAP_ENABLE)
+    dynamic_keymap_reset();
 #endif
 
     eeconfig_init_kb();

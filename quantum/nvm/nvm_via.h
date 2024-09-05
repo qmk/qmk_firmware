@@ -5,6 +5,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+void nvm_via_erase(void);
+
 void nvm_via_read_magic(uint8_t *magic0, uint8_t *magic1, uint8_t *magic2);
 void nvm_via_update_magic(uint8_t magic0, uint8_t magic1, uint8_t magic2);
 

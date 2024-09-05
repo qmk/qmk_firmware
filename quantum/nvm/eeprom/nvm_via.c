@@ -8,6 +8,10 @@
 #include "nvm_eeprom_eeconfig_internal.h"
 #include "nvm_eeprom_via_internal.h"
 
+void nvm_via_erase(void) {
+    // No-op, nvm_eeconfig_erase() will have already erased EEPROM if necessary.
+}
+
 void nvm_via_read_magic(uint8_t *magic0, uint8_t *magic1, uint8_t *magic2) {
     if (magic0) {
         *magic0 = eeprom_read_byte((void *)VIA_EEPROM_MAGIC_ADDR + 0);

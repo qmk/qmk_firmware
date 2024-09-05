@@ -111,6 +111,8 @@ void via_init(void) {
 }
 
 void eeconfig_init_via(void) {
+    // Erase any NVM storage if necessary
+    nvm_via_erase();
     // set the magic number to false, in case this gets interrupted
     via_eeprom_set_valid(false);
     // This resets the layout options
