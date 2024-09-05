@@ -152,7 +152,7 @@ static inline void ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t
     SREG = sreg_prev;
 }
 
-rgb_led_t ws2812_leds[WS2812_LED_COUNT];
+ws2812_led_t ws2812_leds[WS2812_LED_COUNT];
 
 void ws2812_init(void) {
     DDRx_ADDRESS(WS2812_DI_PIN) |= pinmask(WS2812_DI_PIN);
@@ -163,7 +163,7 @@ void ws2812_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     ws2812_leds[index].g = green;
     ws2812_leds[index].b = blue;
 #if defined(WS2812_RGBW)
-    convert_rgb_to_rgbw(ws2812_leds[index]);
+    convert_rgb_to_rgbw(&ws2812_leds[index]);
 #endif
 }
 
