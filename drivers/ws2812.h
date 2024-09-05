@@ -62,17 +62,26 @@
 #    define WS2812_LED_COUNT RGB_MATRIX_LED_COUNT
 #endif
 
-void ws2812_init(void);
+typedef struct PACKED ws2812_led_t {
+#if (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_GRB)
+    uint8_t g;
+    uint8_t r;
+    uint8_t b;
+#elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_RGB)
+    uint8_t r;
+    uint8_t g;
+    uint8_t b;
+#elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_BGR)
+    uint8_t b;
+    uint8_t g;
+    uint8_t r;
+#endif
+#ifdef WS2812_RGBW
+    uint8_t w;
+#endif
+} ws2812_led_t;
 
-/* User Interface
- *
- * Input:
- *         ledarray:           An array of GRB data describing the LED colors
- *         number_of_leds:     The number of LEDs to write
- *
- * The functions will perform the following actions:
- *         - Set the data-out pin as output
- *         - Send out the LED data
- *         - Wait 50us to reset the LEDs
- */
-void ws2812_setleds(rgb_led_t *ledarray, uint16_t number_of_leds);
+void ws2812_init(void);
+void ws2812_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
+void ws2812_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
+void ws2812_flush(void);
