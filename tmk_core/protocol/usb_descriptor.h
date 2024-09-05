@@ -52,6 +52,23 @@
 #    endif
 #endif
 
+#ifdef POINTING_DEVICE_HIRES_SCROLL_ENABLE
+#    ifdef POINTING_DEVICE_HIRES_SCROLL_MULTIPLIER
+#        if POINTING_DEVICE_HIRES_SCROLL_MULTIPLIER > 127 || POINTING_DEVICE_HIRES_SCROLL_MULTIPLIER < 1
+#             error "POINTING_DEVICE_HIRES_SCROLL_MULTIPLIER must be between 1 and 127, inclusive!"
+#        endif
+#    else
+#        define POINTING_DEVICE_HIRES_SCROLL_MULTIPLIER 120
+#    endif
+#    ifdef POINTING_DEVICE_HIRES_SCROLL_EXPONENT
+#        if POINTING_DEVICE_HIRES_SCROLL_EXPONENT > 127 || POINTING_DEVICE_HIRES_SCROLL_EXPONENT < 1
+#            error "POINTING_DEVICE_HIRES_SCROLL_EXPONENT must be between 1 and 127, inclusive!"
+#        endif
+#    else
+#        define POINTING_DEVICE_HIRES_SCROLL_EXPONENT 0
+#    endif
+#endif
+
 /*
  * USB descriptor structure
  */
