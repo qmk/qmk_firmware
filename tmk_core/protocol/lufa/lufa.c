@@ -76,7 +76,9 @@ uint8_t keyboard_idle = 0;
 /* 0: Boot Protocol, 1: Report Protocol(default) */
 uint8_t        keyboard_protocol  = 1;
 static uint8_t keyboard_led_state = 0;
+#ifdef POINTING_DEVICE_HIRES_SCROLL_ENABLE
 static uint8_t hires_scroll_state = 0;
+#endif
 
 static report_keyboard_t keyboard_report_sent;
 
@@ -451,7 +453,7 @@ void EVENT_USB_Device_ControlRequest(void) {
                         Endpoint_ClearStatusStage();
                         break;
 #endif
-#if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
+#if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP) && defined(POINTING_DEVICE_HIRES_SCROLL_ENABLE)
                     case MOUSE_INTERFACE:
                         Endpoint_ClearSETUP();
                         while (!(Endpoint_IsOUTReceived())) {
@@ -474,9 +476,11 @@ void EVENT_USB_Device_ControlRequest(void) {
                             case REPORT_ID_NKRO:
                                 keyboard_led_state = Endpoint_Read_8();
                                 break;
+#    if defined(POINTING_DEVICE_HIRES_SCROLL_ENABLE)
                             case REPORT_ID_MOUSE:
                                 hires_scroll_state = Endpoint_Read_8();
                                 break;
+#    endif
                         }
                         Endpoint_ClearOUT();
                         Endpoint_ClearStatusStage();
@@ -595,9 +599,11 @@ static void send_extra(report_extra_t *report) {
 #endif
 }
 
+#ifdef POINTING_DEVICE_HIRES_SCROLL_ENABLE
 bool is_hires_scroll_on(void) {
     return hires_scroll_state > 0;
 }
+#endif
 
 void send_joystick(report_joystick_t *report) {
 #ifdef JOYSTICK_ENABLE

@@ -57,7 +57,9 @@ extern usb_endpoint_out_t usb_endpoints_out[USB_ENDPOINT_OUT_COUNT];
 uint8_t _Alignas(2) keyboard_idle     = 0;
 uint8_t _Alignas(2) keyboard_protocol = 1;
 uint8_t keyboard_led_state            = 0;
+#ifdef POINTING_DEVICE_HIRES_SCROLL_ENABLE
 uint8_t hires_scroll_state            = 0;
+#endif
 
 static bool __attribute__((__unused__)) send_report_buffered(usb_endpoint_in_lut_t endpoint, void *report, size_t size);
 static void __attribute__((__unused__)) flush_report_buffered(usb_endpoint_in_lut_t endpoint, bool padded);
@@ -250,7 +252,7 @@ static void set_transfer_cb_keyboard(USBDriver *usbp) {
     keyboard_led_state = set_report_buf[0];
 }
 #endif
-#if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
+#if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP) && defined(POINTING_DEVICE_HIRES_SCROLL_ENABLE)
 static void set_transfer_cb_mouse(USBDriver *usbp) {
     hires_scroll_state = set_report_buf[0];
 }
@@ -263,9 +265,11 @@ static void set_transfer_cb_shared(USBDriver *usbp) {
         case REPORT_ID_NKRO:
             keyboard_led_state = set_report_buf[1];
             return;
+#    if defined(POINTING_DEVICE_HIRES_SCROLL_ENABLE)
         case REPORT_ID_MOUSE:
             hires_scroll_state = set_report_buf[1];
             return;
+#    endif
     }
 }
 #endif
@@ -300,7 +304,7 @@ static bool usb_requests_hook_cb(USBDriver *usbp) {
                                 usbSetupTransfer(usbp, set_report_buf, sizeof(set_report_buf), set_transfer_cb_keyboard);
                                 return true;
 #endif
-#if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
+#if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP) && defined(POINTING_DEVICE_HIRES_SCROLL_ENABLE)
                             case MOUSE_INTERFACE:
                                 usbSetupTransfer(usbp, set_report_buf, sizeof(set_report_buf), set_transfer_cb_mouse);
                                 return true;
@@ -504,9 +508,11 @@ void send_mouse(report_mouse_t *report) {
 #endif
 }
 
+#ifdef POINTING_DEVICE_HIRES_SCROLL_ENABLE
 bool is_hires_scroll_on(void) {
     return hires_scroll_state > 0;
 }
+#endif
 
 /* ---------------------------------------------------------
  *                   Extrakey functions
