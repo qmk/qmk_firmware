@@ -7,4 +7,4 @@
 f4xx_flash_size = 256k;
 f4xx_ram_size = 128k;
 
-INCLUDE stm32f4xx_tinyuf2_common.ld
+INCLUDE stm32f4xx_common.ld
