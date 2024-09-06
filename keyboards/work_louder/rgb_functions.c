@@ -26,13 +26,17 @@
 #define WS2812_DI_PIN RGBLIGHT_DI_PIN
 
 #define ws2812_init ws2812_rgb_init
-#define ws2812_setleds ws2812_rgb_setleds
+#define ws2812_set_color ws2812_rgb_set_color
+#define ws2812_set_color_all ws2812_rgb_set_color_all
+#define ws2812_flush ws2812_rgb_flush
 
 #include "ws2812_bitbang.c"
 
 const rgblight_driver_t rgblight_driver = {
-    .init    = ws2812_init,
-    .setleds = ws2812_setleds,
+    .init          = ws2812_init,
+    .set_color     = ws2812_set_color,
+    .set_color_all = ws2812_set_color_all,
+    .flush         = ws2812_flush,
 };
 #endif
 
