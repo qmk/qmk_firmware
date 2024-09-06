@@ -3,6 +3,9 @@
     "keyboard_name": "phac",
     "maintainer": "nonameCCC",
     "bootloader": "rp2040",
+    "bootmagic": {
+        "matrix": [0,5]
+    },
     "features": {
         "bootmagic": true,
         "command": false,
