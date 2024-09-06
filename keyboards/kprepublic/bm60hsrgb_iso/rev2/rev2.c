@@ -112,7 +112,7 @@ led_config_t g_led_config = { {
     {   3,  48 }, {  22,  48 }, {  33,  48 }, {  48,  48 }, {  63,  48 }, {  78,  48 }, {  93,  48 }, { 108,  48 }, { 123,  48 }, { 138,  48 }, { 153,  48 }, { 168,  48 }, { 194,  48 }, { 213,  48 },
     // Ctrl, GUI, Alt, Space, RAlt, FN, Left, Down, Right
     {   3,  64 }, {  22,  64 }, {  33,  64 }, { 101,  64 }, { 135,  64 }, { 153,  64 }, { 195,  64 }, { 210,  64 }, { 225,  64 }
-#    if WS2812_LED_TOTAL > 0
+#    if WS2812_LED_COUNT > 0
         ,{ 28, 40}, { 62, 40}, { 96, 40}, {130, 40}, {164, 40}, {198, 40}
 #    endif
 }, {
@@ -126,7 +126,7 @@ led_config_t g_led_config = { {
     1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1, 4,
     // Ctrl, GUI, Alt, Space, RAlt, FN, Left, Down, Right
     1, 1, 1, 4, 1, 1, 1, 1, 1
-#    if WS2812_LED_TOTAL > 0
+#    if WS2812_LED_COUNT > 0
         ,2, 2, 2, 2, 2, 2
 #    endif
 } };
@@ -160,7 +160,7 @@ static void rgb_matrix_driver_init(void) {
 
 static void rgb_matrix_driver_flush(void) {
     is31fl3733_update_pwm_buffers(0);
-#    if WS2812_LED_TOTAL > 0
+#    if WS2812_LED_COUNT > 0
     ws2812_flush();
 #    endif
 }
@@ -168,7 +168,7 @@ static void rgb_matrix_driver_flush(void) {
 static void rgb_matrix_driver_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     if (index < IS31FL3733_LED_COUNT) {
         is31fl3733_set_color(index, red, green, blue);
-#    if WS2812_LED_TOTAL > 0
+#    if WS2812_LED_COUNT > 0
     } else {
         ws2812_set_color(index - IS31FL3733_LED_COUNT, red, green, blue);
 #    endif
@@ -177,7 +177,7 @@ static void rgb_matrix_driver_set_color(int index, uint8_t red, uint8_t green, u
 
 static void rgb_matrix_driver_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
     is31fl3733_set_color_all(red, green, blue);
-#    if WS2812_LED_TOTAL > 0
+#    if WS2812_LED_COUNT > 0
     ws2812_set_color_all(red, green, blue);
 #    endif
 }
