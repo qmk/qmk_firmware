@@ -154,11 +154,16 @@ User callback, invoked when the leader sequence ends.
 
 ---
 
-### `bool leader_add_user(void)` {#api-leader-add-user}
+### `bool leader_add_user(uint16_t keycode)` {#api-leader-add-user}
 
 User callback, invoked when a keycode is added to the leader sequence.
 
-#### Return Value {#api-leader-sequence-add-return}
+#### Arguments {#api-leader-add-user-arguments}
+
+ - `uint16_t keycode`  
+   The keycode to added to the leader sequence.
+
+#### Return Value {#api-leader-add-user-return}
 
 `true` to finish the key sequence, `false` to continue.
 
