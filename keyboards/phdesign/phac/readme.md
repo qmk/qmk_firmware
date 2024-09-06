@@ -6,7 +6,7 @@
 
 * Keyboard Maintainer: [Xufeng Tao](https://github.com/nonameCCC)
 * Hardware Supported: RP2040 minimal system
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Availability: https://m.tb.cn/h.gLFXLaX?tk=7DpL3TuPVxx(currently not available outside China Mainland, as we could not afford the international express fee)
 
 Make example for this keyboard (using QMK MSYS):
 
