@@ -143,10 +143,6 @@ bool rgb_matrix_indicators_kb(void) {
 // Custom RGB Matrix driver that combines IS31FL3733 and WS2812
 // ==========================================================================
 
-#    if WS2812_LED_TOTAL > 0
-rgb_led_t rgb_matrix_ws2812_array[WS2812_LED_TOTAL];
-#    endif
-
 static void rgb_matrix_driver_init(void) {
     i2c_init();
     is31fl3733_init(0);
@@ -161,18 +157,16 @@ static void rgb_matrix_driver_init(void) {
 static void rgb_matrix_driver_flush(void) {
     is31fl3733_update_pwm_buffers(0);
 #    if WS2812_LED_TOTAL > 0
-    ws2812_setleds(rgb_matrix_ws2812_array, WS2812_LED_TOTAL);
+    ws2812_flush();
 #    endif
 }
 
 static void rgb_matrix_driver_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     if (index < IS31FL3733_LED_COUNT) {
         is31fl3733_set_color(index, red, green, blue);
-    } else {
 #    if WS2812_LED_TOTAL > 0
-        rgb_matrix_ws2812_array[index - IS31FL3733_LED_COUNT].r = red;
-        rgb_matrix_ws2812_array[index - IS31FL3733_LED_COUNT].g = green;
-        rgb_matrix_ws2812_array[index - IS31FL3733_LED_COUNT].b = blue;
+    } else {
+        ws2812_set_color(index - IS31FL3733_LED_COUNT, red, green, blue);
 #    endif
     }
 }
@@ -180,11 +174,7 @@ static void rgb_matrix_driver_set_color(int index, uint8_t red, uint8_t green, u
 static void rgb_matrix_driver_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
     is31fl3733_set_color_all(red, green, blue);
 #    if WS2812_LED_TOTAL > 0
-    for (uint8_t i = 0; i < WS2812_LED_TOTAL; i++) {
-        rgb_matrix_ws2812_array[i].r = red;
-        rgb_matrix_ws2812_array[i].g = green;
-        rgb_matrix_ws2812_array[i].b = blue;
-    }
+    ws2812_set_color_all(red, green, blue);
 #    endif
 }
 
