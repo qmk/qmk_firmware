@@ -21,7 +21,9 @@ __attribute__((weak)) void leader_start_user(void) {}
 
 __attribute__((weak)) void leader_end_user(void) {}
 
-__attribute__((weak)) bool leader_add_user(uint16_t keycode) { return false; }
+__attribute__((weak)) bool leader_add_user(uint16_t keycode) {
+    return false;
+}
 
 void leader_start(void) {
     if (leading) {
