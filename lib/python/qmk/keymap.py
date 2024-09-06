@@ -125,41 +125,6 @@ def _generate_macros_function(keymap_json):
     return macro_txt
 
 
-def template_json(keyboard):
-    """Returns a `keymap.json` template for a keyboard.
-
-    If a template exists in `keyboards/<keyboard>/templates/keymap.json` that text will be used instead of an empty dictionary.
-
-    Args:
-        keyboard
-            The keyboard to return a template for.
-    """
-    template_file = Path('keyboards/%s/templates/keymap.json' % keyboard)
-    template = {'keyboard': keyboard}
-    if template_file.exists():
-        template.update(json.load(template_file.open(encoding='utf-8')))
-
-    return template
-
-
-def template_c(keyboard):
-    """Returns a `keymap.c` template for a keyboard.
-
-    If a template exists in `keyboards/<keyboard>/templates/keymap.c` that text will be used instead of an empty dictionary.
-
-    Args:
-        keyboard
-            The keyboard to return a template for.
-    """
-    template_file = Path('keyboards/%s/templates/keymap.c' % keyboard)
-    if template_file.exists():
-        template = template_file.read_text(encoding='utf-8')
-    else:
-        template = DEFAULT_KEYMAP_C
-
-    return template
-
-
 def _strip_any(keycode):
     """Remove ANY() from a keycode.
     """
@@ -278,7 +243,7 @@ def generate_json(keymap, keyboard, layout, layers, macros=None):
         macros
             A sequence of strings containing macros to implement for this keyboard.
     """
-    new_keymap = template_json(keyboard)
+    new_keymap = {'keyboard': keyboard}
     new_keymap['keymap'] = keymap
     new_keymap['layout'] = layout
     new_keymap['layers'] = layers
@@ -305,7 +270,7 @@ def generate_c(keymap_json):
         macros
             A sequence of strings containing macros to implement for this keyboard.
     """
-    new_keymap = template_c(keymap_json['keyboard'])
+    new_keymap = DEFAULT_KEYMAP_C
     layer_txt = _generate_keymap_table(keymap_json)
     keymap = '\n'.join(layer_txt)
     new_keymap = new_keymap.replace('__KEYMAP_GOES_HERE__', keymap)
@@ -391,7 +356,7 @@ def write(keymap_json):
     return write_file(keymap_file, keymap_content)
 
 
-def locate_keymap(keyboard, keymap):
+def locate_keymap(keyboard, keymap, force_layout=None):
     """Returns the path to a keymap for a specific keyboard.
     """
     if not qmk.path.is_keyboard(keyboard):
@@ -430,7 +395,7 @@ def locate_keymap(keyboard, keymap):
             return keymap_path
 
     # Check community layouts as a fallback
-    info = info_json(keyboard)
+    info = info_json(keyboard, force_layout=force_layout)
 
     community_parents = list(Path('layouts').glob('*/'))
     if HAS_QMK_USERSPACE and (Path(QMK_USERSPACE) / "layouts").exists():
