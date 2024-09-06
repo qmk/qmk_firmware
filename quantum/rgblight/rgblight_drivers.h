@@ -4,11 +4,12 @@
 #pragma once
 
 #include <stdint.h>
-#include "color.h"
 
 typedef struct {
     void (*init)(void);
-    void (*setleds)(rgb_led_t *ledarray, uint16_t number_of_leds);
+    void (*set_color)(int index, uint8_t red, uint8_t green, uint8_t blue);
+    void (*set_color_all)(uint8_t red, uint8_t green, uint8_t blue);
+    void (*flush)(void);
 } rgblight_driver_t;
 
 extern const rgblight_driver_t rgblight_driver;
