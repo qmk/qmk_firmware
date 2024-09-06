@@ -89,8 +89,8 @@ static uint8_t keyboard_led_state = 0;
 #ifdef POINTING_DEVICE_HIRES_SCROLL_ENABLE
 static uint8_t hires_scroll_state = 0;
 #endif
-uint8_t        keyboard_idle      = 0;
-uint8_t        keyboard_protocol  = 1;
+uint8_t keyboard_idle     = 0;
+uint8_t keyboard_protocol = 1;
 
 static report_keyboard_t keyboard_report_sent;
 
@@ -361,7 +361,7 @@ usbMsgLen_t usbFunctionSetup(uchar data[8]) {
                 if (rq->wValue.word == 0x0200 && rq->wIndex.word == KEYBOARD_INTERFACE) {
                     dprint("SET_LED:");
                     last_req.kind = SET_LED;
-                    last_req.len  = rq->wLength.word;
+                    last_req.len = rq->wLength.word;
                 }
 #endif
                 return USB_NO_MSG; // to get data in usbFunctionWrite
@@ -580,57 +580,57 @@ const PROGMEM uchar shared_hid_report[] = {
 
 #    ifdef POINTING_DEVICE_HIRES_SCROLL_ENABLE
     // Feature report and padding (1 byte)
-    0xA1, 0x02, //     Collection (Logical)
-    0x09, 0x48, //       Usage (Resolution Multiplier)
-    0x95, 0x01, //       Report Count (1)
-    0x75, 0x02, //       Report Size (2)
-    0x15, 0x00, //       Logical Minimum (0)
-    0x25, 0x01, //       Logical Maximum (1)
-    0x35, 0x01, //       Physical Minimum (1)
+    0xA1, 0x02,                                    //     Collection (Logical)
+    0x09, 0x48,                                    //       Usage (Resolution Multiplier)
+    0x95, 0x01,                                    //       Report Count (1)
+    0x75, 0x02,                                    //       Report Size (2)
+    0x15, 0x00,                                    //       Logical Minimum (0)
+    0x25, 0x01,                                    //       Logical Maximum (1)
+    0x35, 0x01,                                    //       Physical Minimum (1)
     0x45, POINTING_DEVICE_HIRES_SCROLL_MULTIPLIER, // Physical Maximum (POINTING_DEVICE_HIRES_SCROLL_MULTIPLIER)
-    0x55, POINTING_DEVICE_HIRES_SCROLL_EXPONENT,  // Unit Exponent (POINTING_DEVICE_HIRES_SCROLL_EXPONENT)
-    0xB1, 0x02, //       Feature (Data, Variable, Absolute)
-    0x35, 0x00, //       Physical Minimum (0)
-    0x45, 0x00, //       Physical Maximum (0)
-    0x75, 0x06, //       Report Size (6)
-    0xB1, 0x03, //       Feature (Constant)
+    0x55, POINTING_DEVICE_HIRES_SCROLL_EXPONENT,   // Unit Exponent (POINTING_DEVICE_HIRES_SCROLL_EXPONENT)
+    0xB1, 0x02,                                    //       Feature (Data, Variable, Absolute)
+    0x35, 0x00,                                    //       Physical Minimum (0)
+    0x45, 0x00,                                    //       Physical Maximum (0)
+    0x75, 0x06,                                    //       Report Size (6)
+    0xB1, 0x03,                                    //       Feature (Constant)
 #    endif
 
     // Vertical wheel (1 or 2 bytes)
-    0x09, 0x38,       //     Usage (Wheel)
-#ifndef WHEEL_EXTENDED_REPORT
-    0x15, 0x81,       //     Logical Minimum (-127)
-    0x25, 0x7F,       //     Logical Maximum (127)
-    0x95, 0x01,       //     Report Count (1)
-    0x75, 0x08,       //     Report Size (8)
-#else
+    0x09, 0x38, //     Usage (Wheel)
+#    ifndef WHEEL_EXTENDED_REPORT
+    0x15, 0x81, //     Logical Minimum (-127)
+    0x25, 0x7F, //     Logical Maximum (127)
+    0x95, 0x01, //     Report Count (1)
+    0x75, 0x08, //     Report Size (8)
+#    else
     0x16, 0x01, 0x80, //     Logical Minimum (-32767)
     0x26, 0xFF, 0x7F, //     Logical Maximum (32767)
     0x95, 0x01,       //     Report Count (1)
     0x75, 0x10,       //     Report Size (16)
-#endif
-    0x81, 0x06,       //     Input (Data, Variable, Relative)
+#    endif
+    0x81, 0x06, //     Input (Data, Variable, Relative)
 
     // Horizontal wheel (1 or 2 bytes)
     0x05, 0x0C,       //     Usage Page (Consumer)
     0x0A, 0x38, 0x02, //     Usage (AC Pan)
-#ifndef WHEEL_EXTENDED_REPORT
-    0x15, 0x81,       //     Logical Minimum (-127)
-    0x25, 0x7F,       //     Logical Maximum (127)
-    0x95, 0x01,       //     Report Count (1)
-    0x75, 0x08,       //     Report Size (8)
-#else
+#    ifndef WHEEL_EXTENDED_REPORT
+    0x15, 0x81, //     Logical Minimum (-127)
+    0x25, 0x7F, //     Logical Maximum (127)
+    0x95, 0x01, //     Report Count (1)
+    0x75, 0x08, //     Report Size (8)
+#    else
     0x16, 0x01, 0x80, //     Logical Minimum (-32767)
     0x26, 0xFF, 0x7F, //     Logical Maximum (32767)
     0x95, 0x01,       //     Report Count (1)
     0x75, 0x10,       //     Report Size (16)
-#endif
-    0x81, 0x06,       //     Input (Data, Variable, Relative)
-#    ifdef POINTING_DEVICE_HIRES_SCROLL_ENABLE
-    0xC0,             //   End Collection
 #    endif
-    0xC0,             //   End Collection
-    0xC0,             // End Collection
+    0x81, 0x06, //     Input (Data, Variable, Relative)
+#    ifdef POINTING_DEVICE_HIRES_SCROLL_ENABLE
+    0xC0, //   End Collection
+#    endif
+    0xC0, //   End Collection
+    0xC0, // End Collection
 #endif
 
 #ifdef EXTRAKEY_ENABLE

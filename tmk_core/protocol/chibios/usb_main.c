@@ -58,7 +58,7 @@ uint8_t _Alignas(2) keyboard_idle     = 0;
 uint8_t _Alignas(2) keyboard_protocol = 1;
 uint8_t keyboard_led_state            = 0;
 #ifdef POINTING_DEVICE_HIRES_SCROLL_ENABLE
-uint8_t hires_scroll_state            = 0;
+uint8_t hires_scroll_state = 0;
 #endif
 
 static bool __attribute__((__unused__)) send_report_buffered(usb_endpoint_in_lut_t endpoint, void *report, size_t size);
@@ -87,7 +87,7 @@ static const USBDescriptor *usb_get_descriptor_cb(USBDriver *usbp, uint8_t dtype
 
     static USBDescriptor descriptor;
     descriptor.ud_string = NULL;
-    descriptor.ud_size   = get_usb_descriptor(setup->wValue.word, setup->wIndex, setup->wLength, (const void **const) & descriptor.ud_string);
+    descriptor.ud_size   = get_usb_descriptor(setup->wValue.word, setup->wIndex, setup->wLength, (const void **const)&descriptor.ud_string);
 
     if (descriptor.ud_string == NULL) {
         return NULL;
