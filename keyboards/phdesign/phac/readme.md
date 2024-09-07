@@ -1,6 +1,6 @@
 # phac
 
-https://imgur.com/a/iWBXsC0
+![phac](https://i.imgur.com/bQdYGMf.png)
 
 *A short description of the keyboard/project*
 
@@ -8,19 +8,19 @@ https://imgur.com/a/iWBXsC0
 * Hardware Supported: RP2040 minimal system
 * Hardware Availability: https://m.tb.cn/h.gLFXLaX?tk=7DpL3TuPVxx(currently not available outside China Mainland, as we could not afford the international express fee)
 
-Make example for this keyboard (using QMK MSYS):
+Make example for this keyboard (after setting up your build environment):
 
-    qmk compile -kb phdesign/phac -km via
+    make phdesign/phac:default
 
 Flashing example for this keyboard:
 
-    Just enter the bootloader and put the .uf2 file into the USB storage device that appeared
+    make phdesign/phac:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 ## Bootloader
 
-Enter the bootloader in 3 ways:
+Enter the bootloader in 2 ways:
 
 * **Bootmagic reset**: Hold down the key at (0,5) in the matrix (the START button) and plug in the controller
 * **Physical reset button**: Short pin hole SW1 on the back of the PCB (not recommended as the case is not easy to open)
