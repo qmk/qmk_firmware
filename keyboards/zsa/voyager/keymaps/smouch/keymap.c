@@ -175,7 +175,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     	/   6   9   8   ,       -   ⌫
     	                ␣   ⌫   ⏎   ␣
     */
-  [_NUM] = LAYOUT_voyager(
+  [_NUM] = LAYOUT_voyager( /* BEAKL 15 */
     ___x___, ___x___, KC_PLUS, KC_EQL,  KC_ASTR, ___x___,                    _______, _______, _______, _______, _______, _______,
     ___x___, ___x___, KC_5,    KC_2,    KC_3,    KC_COLN,                    _______, _______, _______, _______, _______, ___x___,
     KC_MINS, KC_7,    KC_DOT,  KC_1,    KC_0,    KC_4,                       _______, OSMSFT,  OSMCMD,  OSMOPT,  OSMCTL,  ___x___,
@@ -184,17 +184,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   /*
-    *
-    *		<   $   >				[	_	]
-    *   \   (   "   )   #       %   {   =   }	|
-    *   -   :   *   +   			&	^	~	;
+    *	⇥	@	$	#	⇥			~	^	`
+    *	⇥	<   =   >				[	_	]
+    *   \   (   -   )   +       %   {   ;   }	!
+    *       *   :   /   			|	~	&
   */
-  [_SYM] = LAYOUT( /* BEAKL */
-    _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, QK_BOOT,
-    _______, ___x___, KC_LABK, KC_DLR,  KC_RABK, ___x___,                   ___x___, KC_LBRC, KC_UNDS, KC_RBRC, ___x___, _______,
-    _______, KC_BSLS, KC_LPRN, KC_DQUO, KC_RPRN, KC_HASH,                   KC_PERC, KC_LCBR, KC_EQL,  KC_RCBR, KC_PIPE, _______,
-    _______, KC_MINS, KC_COLN, KC_ASTR, KC_PLUS, ___x___,                   ___x___, KC_AMPR, KC_CIRC, KC_TILD, KC_SCLN, _______,
-                                                 _______, _______, _______, _______
+  [_SYM] = LAYOUT_voyager(
+    _______, KC_TAB,  KC_AT,   KC_DLR,  KC_HASH, KC_TAB,                    _______, KC_TILD, KC_CIRC, KC_GRV,  _______, QK_BOOT,
+    _______, KC_TAB,  KC_LABK, KC_EQL,  KC_RABK, ___x___,                   ___x___, KC_LBRC, KC_UNDS, KC_RBRC, ___x___, _______,
+    _______, KC_BSLS, KC_LPRN, KC_MINS, KC_RPRN, KC_PLUS,                   KC_PERC, KC_LCBR, KC_SCLN, KC_RCBR, KC_EXLM, _______,
+    _______, _______, KC_ASTR, KC_COLN, KC_SLSH, ___x___,                   ___x___, KC_PIPE, KC_TILD, KC_AMPR, _______, _______,
+                                                 KC_SPC,  _______, _______, _______
   ),
 
   /*
