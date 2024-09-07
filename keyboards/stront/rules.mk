@@ -1,5 +1,3 @@
-SERIAL_DRIVER = vendor
-
 # choose pointing device driver:
 POINTING_DEVICE_DRIVER = cirque_pinnacle_spi
 # POINTING_DEVICE_DRIVER = cirque_pinnacle_i2c

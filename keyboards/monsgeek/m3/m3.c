@@ -136,15 +136,17 @@ enum __layers {
 };
 
 void matrix_init_kb(void) {
-    setPinOutput(LED_MAC_OS_PIN); // LDE2 MAC\WIN
-    writePinLow(LED_MAC_OS_PIN);
-    setPinOutput(LED_WIN_LOCK_PIN); // LED3 Win Lock
-    writePinLow(LED_WIN_LOCK_PIN);
+    gpio_set_pin_output(LED_MAC_OS_PIN); // LDE2 MAC\WIN
+    gpio_write_pin_low(LED_MAC_OS_PIN);
+    gpio_set_pin_output(LED_WIN_LOCK_PIN); // LED3 Win Lock
+    gpio_write_pin_low(LED_WIN_LOCK_PIN);
+
+    matrix_init_user();
 }
 
 void housekeeping_task_kb(void){
-    writePin(LED_MAC_OS_PIN, (get_highest_layer(default_layer_state) == 3));
-    writePin(LED_WIN_LOCK_PIN, keymap_config.no_gui);
+    gpio_write_pin(LED_MAC_OS_PIN, (get_highest_layer(default_layer_state) == 3));
+    gpio_write_pin(LED_WIN_LOCK_PIN, keymap_config.no_gui);
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
@@ -166,7 +168,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
             return false;
         case GU_TOGG:
             if (record->event.pressed) {
-                writePin(LED_WIN_LOCK_PIN, !keymap_config.no_gui);
+                gpio_write_pin(LED_WIN_LOCK_PIN, !keymap_config.no_gui);
             }
             return true;
         case RGB_TOG:

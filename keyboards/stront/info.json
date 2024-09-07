@@ -78,6 +78,9 @@
                 "matrix_state": true,
                 "modifiers": true
             }
+        },
+        "serial": {
+            "driver": "vendor"
         }
     },
     "url": "https://github.com/zzeneg/stront",

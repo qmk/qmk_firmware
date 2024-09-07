@@ -25,7 +25,7 @@ static void unselect_rows(void);
 void matrix_init_custom(void) {
     /* initialize row pins */
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        setPinOutput(row_pins[row]);
+        gpio_set_pin_output(row_pins[row]);
     }
     unselect_rows();
 
@@ -47,20 +47,20 @@ void matrix_init_custom(void) {
     spi_start(slavePin, lsbFirst, mode, divisor);
 
     /* Initialize pin controlling the shift register's SH/~LD pin */
-    setPinOutput(ROW_SHIFT_PIN);
+    gpio_set_pin_output(ROW_SHIFT_PIN);
 }
 
 static void select_row(uint8_t row) {
     pin_t pin = row_pins[row];
     if (pin != NO_PIN) {
-        writePinHigh(pin);
+        gpio_write_pin_high(pin);
     }
 }
 
 static void unselect_row(uint8_t row) {
     pin_t pin = row_pins[row];
     if (pin != NO_PIN) {
-        writePinLow(pin);
+        gpio_write_pin_low(pin);
     }
 }
 
@@ -75,12 +75,12 @@ bool matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     matrix_row_t current_row_value = 0;
 
     /* Set shift register SH/~LD pin to "load" mode */
-    writePinLow(ROW_SHIFT_PIN);
+    gpio_write_pin_low(ROW_SHIFT_PIN);
     select_row(current_row);
     matrix_output_select_delay();
 
     /* Set shift register SH/~LD pin to "shift" mode */
-    writePinHigh(ROW_SHIFT_PIN);
+    gpio_write_pin_high(ROW_SHIFT_PIN);
 
     /* For each octet of columns... */
     for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index += 8) {

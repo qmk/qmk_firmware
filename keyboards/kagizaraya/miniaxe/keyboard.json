@@ -10,7 +10,9 @@
     },
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D0"
+        "serial": {
+            "pin": "D0"
+        }
     },
     "rgblight": {
         "saturation_steps": 8,
@@ -41,6 +43,12 @@
         "extrakey": true,
         "mousekey": false,
         "nkro": false
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     },
     "matrix_pins": {
         "direct": [

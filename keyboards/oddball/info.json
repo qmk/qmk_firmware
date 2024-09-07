@@ -15,6 +15,12 @@
         "nkro": false,
         "pointing_device": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "split": {
         "enabled": true
     },

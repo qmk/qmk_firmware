@@ -25,6 +25,12 @@
         "mousekey": true,
         "extrakey": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "layout_aliases": {
         "LAYOUT_resume1800_ansi_all": "LAYOUT_ansi_all",
         "LAYOUT_resume1800_iso_all": "LAYOUT_iso_all"

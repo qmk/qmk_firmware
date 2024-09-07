@@ -18,6 +18,9 @@
     "oled": true,
     "rgblight": true
   },
+  "audio": {
+    "driver": "pwm_hardware"
+  },
   "rgblight": {
     "led_count": 8,
     "animations": {
