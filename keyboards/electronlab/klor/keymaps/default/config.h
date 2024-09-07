@@ -14,6 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 #pragma once
 
 /* The way how "handedness" is decided (which half is which),
@@ -35,13 +36,6 @@ for more options.
 #define AUTO_SHIFT_TIMEOUT TAPPING_TERM
 #define AUTO_SHIFT_NO_SETUP
 
-#undef LOCKING_SUPPORT_ENABLE
-#undef LOCKING_RESYNC_ENABLE
-#define NO_ACTION_ONESHOT
-//#define NO_ACTION_TAPPING
-//#define NO_MUSIC_MODE
-
-#define COMBO_COUNT 25
 // RGB matrix support
 #ifdef RGB_MATRIX_ENABLE
 // RGB Matrix Animation modes. Explicitly enabled
@@ -95,12 +89,6 @@ for more options.
 #    define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #endif
-
-// Bootmagic support
-#   define BOOTMAGIC_ROW 0
-#   define BOOTMAGIC_COLUMN 1
-#   define BOOTMAGIC_ROW_RIGHT 4
-#   define BOOTMAGIC_COLUMN_RIGHT 1
 
 // Haptic support
 #ifdef HAPTIC_ENABLE

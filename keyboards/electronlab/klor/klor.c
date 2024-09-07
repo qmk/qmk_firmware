@@ -15,8 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "klor.h"
-
+#include "quantum.h"
 
 oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
     return OLED_ROTATION_180;
@@ -92,6 +91,7 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] =
 // POLYDACTYL / YUBITSUME 
 // use this matrix if you use the polydactyl or yubitsume layout ────────────────────────────────────┐
 
+/*
 led_config_t g_led_config = { {
 //COL   00     01   02   03   04   05       ROW 
     { NO_LED,  18,  13,  12,   6,   5    },//00
@@ -128,7 +128,7 @@ led_config_t g_led_config = { {
     4, 4, 4, 4, 4, 1, 1
 } };
 // ────────────────────────────────────────────────────────────────────────────────────────────────────┘
-
+*/
 
 /*
 // KONRAD
@@ -216,15 +216,6 @@ led_config_t g_led_config = { {
 // ────────────────────────────────────────────────────────────────────────────────────────────────────┘
 */
 
-void suspend_power_down_kb(void) {
-    rgb_matrix_set_suspend_state(true);
-    suspend_power_down_user();
-}
-
-void suspend_wakeup_init_kb(void) {
-    rgb_matrix_set_suspend_state(false);
-    suspend_wakeup_init_user();
-}
 #endif //RGB_MATRIX_ENABLE
 
 

@@ -19,7 +19,6 @@
 #include QMK_KEYBOARD_H
 #include <stdio.h>
 #include <string.h>
-#include "klor.h"
 
 #ifdef HAPTIC_ENABLE
 #include "drivers/haptic/drv2605l.h"
@@ -112,10 +111,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
    [_QWERTY] = LAYOUT_polydactyl(
  //╷         ╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷         ╷
-                 KC_Q,    KC_W,    KC_E,     KC_R,      KC_T,                          KC_Y,    KC_U,      KC_I,     KC_O,    KC_P,
-LSFT_T(KC_TAB),  KC_A,    KC_S,    KC_D,   LSFT_T(KC_F),KC_G,                          KC_H, RSFT_T(KC_J), KC_K,     KC_L,    KC_SCLN,  KC_QUOT,
-        KC_LCTL, KC_Z,    KC_X,    KC_C,     KC_V,      KC_B,     KC_MUTE,   KC_MPLY,  KC_N,    KC_M,      KC_COMM,  KC_DOT,  KC_SLSH,  KC_BSLS,
-                                   KC_LALT,  LOWER,     KC_RALT,  KC_SPC,    KC_BSPC,  KC_ENT,  RAISE,     KC_DEL
+               KC_Q,    KC_W,      KC_E,       KC_R,    KC_T,                          KC_Y,    KC_U,      KC_I,     KC_O,    KC_P,
+      KC_TAB,  KC_A,    KC_S,      KC_D,       KC_F,    KC_G,                          KC_H,    KC_J,      KC_K,     KC_L,    KC_SCLN,  KC_QUOT,
+      KC_LCTL, KC_Z,    KC_X,      KC_C,       KC_V,    KC_B,     KC_MUTE,   KC_MPLY,  KC_N,    KC_M,      KC_COMM,  KC_DOT,  KC_SLSH,  KC_BSLS,
+                                   KC_LALT,    LOWER,   KC_RALT,  KC_SPC,    KC_BSPC,  KC_ENT,  RAISE,     KC_DEL
  ),
 
 /*
@@ -148,21 +147,21 @@ LSFT_T(KC_TAB),  KC_A,    KC_S,    KC_D,   LSFT_T(KC_F),KC_G,                   
    │ r a i s e                                                 │
    └───────────────────────────────────────────────────────────┘
              ┌─────────┬─────────┬─────────┬─────────┬─────────┐                    ┌─────────┬─────────┬─────────┬─────────┬─────────┐
-             │ RGB_SPI │ RGB_HUI │         │         │    {    │                    │    }    │   LEFT  │   UP    │  RIGHT  │   HOME  │
+             │ RGB_SPI │ RGB_HUI │ HF_NEXT │  CK_UP  │    {    │                    │    }    │   LEFT  │   UP    │  RIGHT  │   HOME  │
    ┌─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤                    ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┐
-   │ RGB_BRI │ RGB_EFF │         │         │         │    [    │                    │    ]    │         │  DOWN   │         │  PSCRN  │  P UP   │
+   │ RGB_VAI │ RGB_MOD │ RGB_M_B │ HF_TOGG │ CK_TOGG │    [    │                    │    ]    │         │  DOWN   │         │  PSCRN  │  P UP   │
    ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤╭────────╮╭────────╮├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-   │ RGB_BRD │ RGB_SPD │ RGB_HUD │         │         │    (    ││  MUTE  ││PLY/PASE││    )    │         │         │         │   END   │ P DOWN  │
+   │ RGB_VAD │ RGB_SPD │ RGB_HUD │ HF_PREV │ CK_DOWN │    (    ││  MUTE  ││PLY/PASE││    )    │         │         │         │   END   │ P DOWN  │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┼╰────────╯╰────────╯┼─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
-                                 │         │  ADJUST │         │  LSHIFT ││  RSHIFT │         │         │  ADJUST │  
+                                 │         │         │         │  LSHIFT ││  RSHIFT │         │         │         │  
                                  └─────────┴─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┴─────────┘ */ 
 
    [_RAISE] = LAYOUT_polydactyl(
  //╷         ╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷         ╷
                RGB_SPI,  RGB_HUI,  HF_NEXT,  CK_UP,    KC_LCBR,                       KC_RCBR,  KC_LEFT,  KC_UP,    KC_RGHT,  KC_HOME,
-     RGB_VAI,  RGB_MOD,  RGB_M_B,  HF_TOGG,  CK_TOGG,  KC_LBRC,                       KC_RBRC,  KC_TRNS,  KC_DOWN,  KC_TRNS,  KC_PSCR,  KC_PGUP,
-     RGB_VAD,  RGB_SPD,  RGB_HUD,  HF_PREV,  CK_DOWN,  KC_LPRN,  KC_MUTE,   KC_MPLY,  KC_RPRN,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_END,   KC_PGDN,
-                                   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_LSFT,   KC_RSFT,  KC_TRNS,  KC_TRNS,  ADJUST
+     RGB_VAI,  RGB_MOD,  RGB_M_B,  HF_TOGG,  CK_TOGG,  KC_LBRC,                       KC_RBRC,  XXXXXXX,  KC_DOWN,  XXXXXXX,  KC_PSCR,  KC_PGUP,
+     RGB_VAD,  RGB_SPD,  RGB_HUD,  HF_PREV,  CK_DOWN,  KC_LPRN,  KC_MUTE,   KC_MPLY,  KC_RPRN,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_END,   KC_PGDN,
+                                   XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_LSFT,   KC_RSFT, XXXXXXX,  XXXXXXX, XXXXXXX
  ),
  /*
    ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
@@ -177,15 +176,15 @@ LSFT_T(KC_TAB),  KC_A,    KC_S,    KC_D,   LSFT_T(KC_F),KC_G,                   
    ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤╭────────╮╭────────╮├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
    │  MAKE   │ OS SWAP │         │ RGB VAL │         │         ││  MUTE  ││PLY/PSE ││         │   F1    │   F2    │   F3    │   F10   │   F11   │
    └─────────┴─────────┴─────────┼─────────┼─────────┼─────────┼╰────────╯╰────────╯┼─────────┼─────────┼─────────┼─────────┴─────────┴─────────┘
-                                 │    ▼    │    ▼    │    ▼    │    ▼    ││    ▼    │    ▼    │    ▼    │    ▼    │  
+                                 │         │         │         │         ││         │         │         │         │  
                                  └─────────┴─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┴─────────┘ */ 
 
    [_ADJUST] = LAYOUT_polydactyl(
  //╷         ╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷         ╷
               AU_TOGG,   HF_TOGG,  RGB_HUI,  RGB_MOD,  XXXXXXX,                       XXXXXXX,  KC_F7,    KC_F8,    KC_F9,    KC_F14,   
     QK_BOOT,  DB_TOGG,   QWERTY,   RGB_SAI,  XXXXXXX,  XXXXXXX,                       XXXXXXX,  KC_F4,    KC_F5,    KC_F6,    KC_F12,   KC_F13,
-    MAKE_H,   OS_SWAP,   KC_TRNS,  RGB_VAI,  XXXXXXX,  XXXXXXX,  KC_MUTE,   KC_MPLY,  XXXXXXX,  KC_F1,    KC_F2,    KC_F3,    KC_F10,   KC_F11,
-                                  _______,  _______,  _______,  _______,   _______,  _______,  _______,  _______
+    MAKE_H,   OS_SWAP,   XXXXXXX,  RGB_VAI,  XXXXXXX,  XXXXXXX,  KC_MUTE,   KC_MPLY,  XXXXXXX,  KC_F1,    KC_F2,    KC_F3,    KC_F10,   KC_F11,
+                                   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
  ),
 
  /*
@@ -284,19 +283,6 @@ LSFT_T(KC_TAB),  KC_A,    KC_S,    KC_D,   LSFT_T(KC_F),KC_G,                   
 
  */
 };
-
-
-// ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-// │ H A P T I C   F E E D B A C K                                                                                                              │
-// └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
-// ▝▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▘
-
-//void keyboard_post_init_user(void) {
-//  // Call the post init code.
-//  #if HAPTIC_ENABLE
-//    haptic_disable(); // disables per key haptic feedback by default
-//  #endif //HAPTIC ENABLE
-//}
 
 // ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 // │ O L E D                                                                                                                                    │
@@ -722,7 +708,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),           ENCODER_CCW_CW(KC_LEFT, KC_RIGHT) },
+    [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),           ENCODER_CCW_CW(KC_WBAK, KC_WFWD) },
     [1] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),           ENCODER_CCW_CW(KC_MPRV, KC_MNXT) },
     [2] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),           ENCODER_CCW_CW(KC_MPRV, KC_MNXT) },
     [3] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),           ENCODER_CCW_CW(KC_MPRV, KC_MNXT) },
