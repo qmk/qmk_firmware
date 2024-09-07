@@ -2,7 +2,7 @@
 
 ![phac](https://i.imgur.com/bQdYGMf.png)
 
-*A short description of the keyboard/project*
+A rhythm game controller with 7 keys and 2 encoders on it.
 
 * Keyboard Maintainer: [Xufeng Tao](https://github.com/nonameCCC)
 * Hardware Supported: RP2040 minimal system
