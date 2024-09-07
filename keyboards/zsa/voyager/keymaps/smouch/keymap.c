@@ -183,6 +183,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                  KC_SPC,   _______, _______, _______
   ),
 
+  /*
+    *
+    *		<   $   >				[	_	]
+    *   \   (   "   )   #       %   {   =   }	|
+    *   -   :   *   +   			&	^	~	;
+  */
+  [_SYM] = LAYOUT( /* BEAKL */
+    _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, QK_BOOT,
+    _______, ___x___, KC_LABK, KC_DLR,  KC_RABK, ___x___,                   ___x___, KC_LBRC, KC_UNDS, KC_RBRC, ___x___, _______,
+    _______, KC_BSLS, KC_LPRN, KC_DQUO, KC_RPRN, KC_HASH,                   KC_PERC, KC_LCBR, KC_EQL,  KC_RCBR, KC_PIPE, _______,
+    _______, KC_MINS, KC_COLN, KC_ASTR, KC_PLUS, ___x___,                   ___x___, KC_AMPR, KC_CIRC, KC_TILD, KC_SCLN, _______,
+                                                 _______, _______, _______, _______
+  ),
+
+  /*
   [_SYM] = LAYOUT_voyager(
     _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, QK_BOOT,
     _______, ___x___, KC_LABK, KC_RABK, KC_AT,   ___x___,                   ___x___, KC_AMPR, KC_LBRC, KC_RBRC, ___x___, _______,
@@ -190,6 +205,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, KC_CIRC, KC_SLSH, KC_ASTR, KC_HASH, KC_TILD,                   KC_PIPE, KC_DLR,  KC_LCBR, KC_RCBR, KC_PERC, _______,
                                                  _______, _______, _______, _______
   ),
+  */
+
   [_NAV] = LAYOUT_voyager(
     _______, KC_F1,   KC_F2,   KC_F3,     KC_F4,         KC_F5,             KC_F6,   KC_F7,      KC_F8,   KC_F9,      KC_F10,  KC_F11,
     ___x___, ___x___, G(KC_Q), LSG(KC_4), C(S(G(KC_4))), ___x___,           KC_VOLU, G(KC_LEFT), KC_UP,   G(KC_RGHT), ___x___, KC_F12,
