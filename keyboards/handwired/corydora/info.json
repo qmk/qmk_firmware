@@ -1,6 +1,6 @@
 {
     "manufacturer": "Balu Babu",
-    "keyboard_name": "corydora",
+    "keyboard_name": "CoryDora",
     "maintainer": "Balu Babu",
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
@@ -20,8 +20,8 @@
     "url": "",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x0000",
-        "vid": "0xFEED"
+        "pid": "0x0001",
+        "vid": "0x4344"
     },
     "layouts": {
         "LAYOUT_ortho_3x3": {
