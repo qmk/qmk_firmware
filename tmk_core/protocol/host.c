@@ -55,7 +55,7 @@ host_driver_t *host_get_driver(void) {
 #ifdef SPLIT_KEYBOARD
 uint8_t split_led_state = 0;
 void    set_split_host_keyboard_leds(uint8_t led_state) {
-       split_led_state = led_state;
+    split_led_state = led_state;
 }
 #endif
 
