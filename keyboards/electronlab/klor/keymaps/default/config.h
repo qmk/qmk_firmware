@@ -23,9 +23,8 @@ for more options.
 
 #define EE_HANDS
 //#define MASTER_LEFT
-// #define MASTER_RIGHT
+//#define MASTER_RIGHT
 
-//#define TAPPING_TERM 170
 #define TAPPING_TERM 300
 
 // Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
@@ -42,8 +41,7 @@ for more options.
 //#define NO_ACTION_TAPPING
 //#define NO_MUSIC_MODE
 
-#define COMBO_COUNT 3
-//#define VIAL_COMBO_ENTRIES 3
+#define COMBO_COUNT 25
 // RGB matrix support
 #ifdef RGB_MATRIX_ENABLE
 // RGB Matrix Animation modes. Explicitly enabled

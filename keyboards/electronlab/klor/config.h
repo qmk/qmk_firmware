@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
 // ┌─────────────────────────────────────────────────┐
 // │ p i n   c o n f i g                             │
 // └─────────────────────────────────────────────────┘ 
@@ -29,9 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // │ k e y   m a t r i x                             │
 // └─────────────────────────────────────────────────┘ 
 
-//#define MATRIX_ROW_PINS { GP5, GP6, GP7, GP8 }
-//#define MATRIX_COL_PINS { GP27, GP26, GP22, GP20, GP23, GP21 }
-//#define DIODE_DIRECTION COL2ROW
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 6
 #define DEBOUNCE 5
@@ -54,17 +50,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define SERIAL_USART_FULL_DUPLEX
 //#define SERIAL_USART_PIN_SWAP
 
+
 // ┌─────────────────────────────────────────────────┐
 // │ e n c o d e r s                                 │
 // └─────────────────────────────────────────────────┘ 
 
-//#define ENCODERS_PAD_A       { GP28 }
-//#define ENCODERS_PAD_B       { GP29 }
-//#define ENCODERS_PAD_A_RIGHT { GP29 }
-//#define ENCODERS_PAD_B_RIGHT { GP28 }
 #define ENCODER_RESOLUTION { 2 }
 #define ENCODER_RESOLUTIONS_RIGHT { 2 }
-
 
 // ┌─────────────────────────────────────────────────┐
 // │ o l e d s                                       │
@@ -73,7 +65,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef OLED_ENABLE
 #    define OLED_DISPLAY_128X64
 #    define SPLIT_OLED_ENABLE
-#    define OLED_FONT_H  "./lib/glcdfont.c"
+#    define OLED_FONT_H  "./glcdfont.c"
 #endif
 
 
@@ -81,7 +73,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // │ r g b   l e d s                                 │
 // └─────────────────────────────────────────────────┘ 
 
-//#define WS2812_DI_PIN GP0
 #define RGBLED_NUM 42
 #define RGBLED_SPLIT { 21, 21 }
 #define RGB_MATRIX_LED_COUNT RGBLED_NUM
