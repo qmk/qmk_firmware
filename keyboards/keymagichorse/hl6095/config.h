@@ -25,6 +25,12 @@
 #   define UART_TX_PAL_MODE     7
 #   define UART_RX_PIN          A3
 #   define UART_RX_PAL_MODE	    7
+
+
 #endif
 
- 
+
+#define WS2812_BYTE_ORDER       WS2812_BYTE_ORDER_GRB
+#define RGBLIGHT_LAYERS_RETAIN_VAL
+#define WS2812_PWM_DRIVER PWMD4
+#define WS2812_PWM_CHANNEL 2

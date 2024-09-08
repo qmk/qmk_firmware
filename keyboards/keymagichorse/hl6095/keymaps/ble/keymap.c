@@ -75,7 +75,7 @@ static uint8_t ble_host_index = 0;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     lpm_timer_reset();
-        switch (keycode)
+    switch (keycode)
     {
         case BLE_TOG:
         {

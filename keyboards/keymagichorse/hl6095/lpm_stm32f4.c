@@ -24,6 +24,9 @@
 #include "report_buffer.h"
 #include "uart.h"
 
+#include "ws2812.h"
+
+
 static uint32_t     lpm_timer_buffer = 0;
 static bool         lpm_time_up               = false;
 
@@ -41,15 +44,29 @@ void lpm_timer_reset(void) {
 void lpm_init(void)
 {
     lpm_timer_reset();
-    // 在系统初始化代码中禁用SWD接口
-    palSetPadMode(GPIOA, 13, PAL_MODE_INPUT_ANALOG);
-    palSetPadMode(GPIOA, 14, PAL_MODE_INPUT_ANALOG);
-    // 禁用调试功能以降低功耗
-    DBGMCU->CR &= ~DBGMCU_CR_DBG_SLEEP;   // 禁用在Sleep模式下的调试
-    DBGMCU->CR &= ~DBGMCU_CR_DBG_STOP;    // 禁用在Stop模式下的调试
-    DBGMCU->CR &= ~DBGMCU_CR_DBG_STANDBY; // 禁用在Standby模式下的调试
-    
+
     gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
+
+// usb
+    gpio_set_pin_input_high(USB_POWER_SENSE_PIN);
+    palEnableLineEvent(USB_POWER_SENSE_PIN, PAL_EVENT_MODE_FALLING_EDGE);
+
+}
+
+void ws2812power_enabled(void)
+{
+    ws2812_init();
+    rgblight_setrgb_at(255, 60, 50, 0);
+    gpio_set_pin_output(B8);        // ws2812 power
+    gpio_write_pin_low(B8);
+}
+void ws2812power_Disabled(void)
+{
+    rgblight_setrgb_at(0, 0, 0, 0);
+    gpio_set_pin_output(B8);        // ws2812 power
+    gpio_write_pin_high(B8);
+
+    gpio_set_pin_input(WS2812_DI_PIN);  // 设置高阻输入
 }
 
 
@@ -64,6 +81,9 @@ void My_PWR_EnterSTOPMode(void)
     /* Set HSE off  */
     RCC->CR &= ~RCC_CR_HSEON;
     while ((RCC->CR & RCC_CR_HSERDY));
+
+    palSetLineMode(H1, PAL_MODE_INPUT_ANALOG); 
+    palSetLineMode(H0, PAL_MODE_INPUT_ANALOG); 
 #endif
     /* Wake source: Reset pin, all I/Os, BOR, PVD, PVM, RTC, LCD, IWDG,
     COMPx, USARTx, LPUART1, I2Cx, LPTIMx, USB, SWPMI */
@@ -81,10 +101,6 @@ void My_PWR_EnterSTOPMode(void)
 
 void enter_low_power_mode_prepare(void)
 {
-    if (usb_connected_state()) {
-        return ;
-    }
-
 
     uint8_t i = 0;
 #if (DIODE_DIRECTION == COL2ROW)
@@ -112,13 +128,19 @@ void enter_low_power_mode_prepare(void)
     palEnableLineEvent(BHQ_RUN_STATE_INPUT_PIN, PAL_EVENT_MODE_RISING_EDGE);
     gpio_write_pin_low(QMK_RUN_OUTPUT_PIN);
 
+// usb
+    gpio_set_pin_input_high(USB_POWER_SENSE_PIN);
+    palEnableLineEvent(USB_POWER_SENSE_PIN, PAL_EVENT_MODE_FALLING_EDGE);
+
 
     /* Usb unit is actived and running, stop and disconnect first */
     sdStop(&UART_DRIVER);
+
     usbStop(&USBD1);
     usbDisconnectBus(&USBD1);
-    bhq_Disable();
 
+    bhq_Disable();
+    ws2812power_Disabled();
     My_PWR_EnterSTOPMode();
 
     stm32_clock_init();
@@ -143,6 +165,9 @@ void enter_low_power_mode_prepare(void)
 
     clear_keyboard();
     layer_clear();
+
+    ws2812power_enabled();
+    
 
     gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
 }
