@@ -25,8 +25,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [1] = LAYOUT_60_ansi(
         KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_UNDS, KC_PLUS, _______,
-        _______, BL_TOGG, BL_DOWN, BL_UP,   BL_STEP, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, KC_LCBR, KC_RCBR, KC_PIPE,
-        _______, RGB_VAI, RGB_VAD, _______, _______, _______, _______, _______, _______, _______, KC_COLN, KC_DQUO, _______,
+        _______, BL_TOGG, BL_DOWN, BL_UP,   BL_STEP, UG_TOGG, UG_NEXT, UG_HUEU, UG_HUED, UG_SATU, UG_SATD, KC_LCBR, KC_RCBR, KC_PIPE,
+        _______, UG_VALU, UG_VALD, _______, _______, _______, _______, _______, _______, _______, KC_COLN, KC_DQUO, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, KC_LT,   KC_GT,   KC_QUES, _______,
         _______, _______, _______, _______, _______, _______, _______, _______
     )

@@ -99,7 +99,7 @@ To reset to the bootloader use `QK_BOOTLOADER` or `QK_BOOT` keycode or `reset_ke
 
 ## Wiping the EEPROM (Persistent Storage)
 
-If you're having issues with Audio, RGB Underglow, backlighting or keys acting weird, then you can reset the EEPROM (persistent setting storage). To force an EEPROM reset, use the [`EE_CLR` keycode](quantum_keycodes) or [Bootmagic Lite](features/bootmagic) functionality. If neither of those are an option, then you can use a custom macro to do so.
+If you're having issues with Audio, RGB Underglow, backlighting or keys acting weird, then you can reset the EEPROM (persistent setting storage). To force an EEPROM reset, use the [`EE_CLR` keycode](quantum_keycodes) or [Bootmagic](features/bootmagic) functionality. If neither of those are an option, then you can use a custom macro to do so.
 
 To wipe the EEPROM, run `eeconfig_init()` from your function or macro to reset most of the settings to default.
 

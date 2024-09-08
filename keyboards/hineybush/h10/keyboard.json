@@ -32,6 +32,10 @@
         "pin": "B7",
         "breathing": true
     },
+    "indicators": {
+        "caps_lock": "F7",
+        "on_state": 0
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "community_layouts": ["ortho_6x4", "numpad_6x4"],
