@@ -22,11 +22,15 @@
         "rgblight": true,
         "encoder": false
     },
-
+    "dynamic_keymap": {
+      "layer_count": 10
+    },
+    
     "bootmagic": {
       "matrix" : [0,0]
     },
-
+    
+    
     "matrix_pins": {
       "cols": ["B12", "B14", "B15", "A8"],
       "rows": ["A9", "A10", "A15",  "B3",  "B4"]
