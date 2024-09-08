@@ -4,7 +4,7 @@ These resources are aimed at giving new members in the QMK community more unders
 
 ### QMK resources
 
-* [Thomas Baart's QMK Basics Blog](https://thomasbaart.nl/category/mechanical-keyboards/firmware/qmk/qmk-basics/) – A user-created blog covering the basics of how to use QMK Firmware, as seen from a new user's perspective.
+* [Thomas Baart's QMK Basics Blog](https://thomasbaart.nl/category/mechanical-keyboards/firmware/qmk/qmk-basics/) — A user-created blog covering the basics of how to use QMK Firmware, as seen from a new user's perspective.
 
 ### Command Line resources
 
@@ -15,7 +15,7 @@ These resources are aimed at giving new members in the QMK community more unders
 ### Text Editor resources
 
 Not sure which text editor to use?
-* [a great introduction to the subject](https://learntocodewith.me/programming/basics/text-editors/)
+* [A Great Introduction to the Subject](https://learntocodewith.me/programming/basics/text-editors/)
 
 Editors specifically made for code:
 * [Sublime Text](https://www.sublimetext.com/)

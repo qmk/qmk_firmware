@@ -2,9 +2,9 @@
 
 QMK Firmware now officially supports storing user keymaps outside of the normal QMK Firmware repository, allowing users to maintain their own keymaps without having to fork, modify, and maintain a copy of QMK Firmware themselves.
 
-External Userspace mirrors the structure of the main QMK Firmware repository, but only contains the keymaps that you wish to build. You can still use `keyboards/<my keyboard>/keymaps/<my keymap>` to store your keymaps, or you can use the `layouts/<my layout>/<my keymap>` system as before -- they're just stored external to QMK Firmware.
+External Userspace mirrors the structure of the main QMK Firmware repository, but only contains the keymaps that you wish to build. You can still use `keyboards/<my keyboard>/keymaps/<my keymap>` to store your keymaps, or you can use the `layouts/<my layout>/<my keymap>` system as before — they're just stored external to QMK Firmware.
 
-The build system will still honor the use of `users/<my keymap>` if you rely on the traditional QMK Firmware [userspace feature](feature_userspace) -- it's now supported externally too, using the same location inside the External Userspace directory.
+The build system will still honor the use of `users/<my keymap>` if you rely on the traditional QMK Firmware [userspace feature](feature_userspace) — it's now supported externally too, using the same location inside the External Userspace directory.
 
 Additionally, there is first-class support for using GitHub Actions to build your keymaps, allowing you to automatically compile your keymaps whenever you push changes to your External Userspace repository.
 
@@ -13,7 +13,7 @@ External Userspace is new functionality and may have issues. Tighter integration
 :::
 
 ::: tip
-Historical keymap.json and GitHub-based firmware build instructions can be found [here](newbs_building_firmware_workflow). This document supersedes those instructions, but they should still function correctly.
+Historical `keymap.json` and GitHub-based firmware build instructions can be found [here](newbs_building_firmware_workflow). This document supersedes those instructions, but they should still function correctly.
 :::
 
 ## Setting up QMK Locally
@@ -60,7 +60,7 @@ _These instructions assume you have already set up QMK locally, and have a copy 
 
 Keymaps within External Userspace are defined in the same way as they are in the main QMK repository. You can either use the `qmk new-keymap` command to create a new keymap, or manually create a new directory in the `keyboards` directory.
 
-Alternatively, you can use the `layouts` directory to store your keymaps, using the same layout system as the main QMK repository -- if you choose to do so you'll want to use the path `layouts/<layout name>/<keymap name>/keymap.*` to store your keymap files, where `layout name` matches an existing layout in QMK, such as `tkl_ansi`.
+Alternatively, you can use the `layouts` directory to store your keymaps, using the same layout system as the main QMK repository — if you choose to do so you'll want to use the path `layouts/<layout name>/<keymap name>/keymap.*` to store your keymap files, where `layout name` matches an existing layout in QMK, such as `tkl_ansi`.
 
 After creating your new keymap, building the keymap matches normal QMK usage:
 

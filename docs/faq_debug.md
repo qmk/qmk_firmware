@@ -4,7 +4,7 @@ This page details various common questions people have about troubleshooting the
 
 ## Debugging {#debugging}
 
-Your keyboard will output debug information if you have `CONSOLE_ENABLE = yes` in your `rules.mk`. By default the output is very limited, but you can turn on debug mode to increase the amount of debug output. Use the `DB_TOGG` keycode in your keymap, use the [Command](features/command) feature to enable debug mode, or add the following code to your keymap.
+Your keyboard will output debug information if you have `CONSOLE_ENABLE = yes` in your `rules.mk`. By default the output is very limited, but you can turn on debug mode to increase the amount of debug output. Use the `DB_TOGG` keycode in your keymap, use the [Command](features/command) feature to enable debug mode, or add the following code to your keymap:
 
 ```c
 void keyboard_post_init_user(void) {
@@ -53,7 +53,7 @@ Below is a collection of real world debugging examples. For additional informati
 
 ### Which matrix position is this keypress?
 
-When porting, or when attempting to diagnose pcb issues, it can be useful to know if a keypress is scanned correctly. To enable logging for this scenario, add the following code to your keymaps `keymap.c`
+When porting, or when attempting to diagnose PCB issues, it can be useful to know if a keypress is scanned correctly. To enable logging for this scenario, add the following code to your keymap's `keymap.c`:
 
 ```c
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -65,7 +65,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
-Example output
+Example output:
 ```
 Waiting for device:.......
 Listening:
@@ -79,13 +79,13 @@ KL: kc: 172, col: 2, row: 0, pressed: 0, time: 16411, int: 0, count: 0
 
 ### How long did it take to scan for a keypress?
 
-When testing performance issues, it can be useful to know the frequency at which the switch matrix is being scanned. To enable logging for this scenario, add the following code to your keymaps `config.h`
+When testing performance issues, it can be useful to know the frequency at which the switch matrix is being scanned. To enable logging for this scenario, add the following code to your keymaps `config.h`:
 
 ```c
 #define DEBUG_MATRIX_SCAN_RATE
 ```
 
-Example output
+Example output:
 ```
   > matrix scan frequency: 315
   > matrix scan frequency: 313
@@ -102,14 +102,14 @@ When debug console of your device is not ready you will see like this:
 Waiting for device:.........
 ```
 
-Once the device is plugged in then *hid_listen* finds it you will get this message:
+Once the device is plugged in and *hid_listen* finds it, you will get this message:
 
 ```
 Waiting for new device:.........................
 Listening:
 ```
 
-If you can't get this 'Listening:' message try building with `CONSOLE_ENABLE=yes` in [Makefile]
+If you can't get this `Listening:` message, try building with `CONSOLE_ENABLE=yes` in [Makefile].
 
 You may need privileges to access the device an OS like Linux. Try `sudo hid_listen`.
 
@@ -121,7 +121,7 @@ the following content:
 SUBSYSTEM=="hidraw", ATTRS{idVendor}=="abcd", ATTRS{idProduct}=="def1", TAG+="uaccess", RUN{builtin}+="uaccess"
 ```
 
-Replace abcd and def1 with your keyboard's vendor and product id,
+Replace `abcd` and `def1` with your keyboard's vendor and product ID;
 letters must be lowercase. The `RUN{builtin}+="uaccess"` part is only
 needed for older distros.
 
@@ -130,7 +130,7 @@ needed for older distros.
 Check:
 - *hid_listen* finds your device. See above.
 - Enable debug by pressing **Magic**+d. See [Magic Commands](https://github.com/tmk/tmk_keyboard#magic-commands).
-- Set `debug_enable=true`. See [Debugging](#debugging)
-- Try using `print` function instead of debug print. See **common/print.h**.
+- Set `debug_enable=true`. See [Debugging](#debugging).
+- Try using the `print` function instead of debug print. See **common/print.h**.
 - Disconnect other devices with console function. See [Issue #97](https://github.com/tmk/tmk_keyboard/issues/97).
 - Ensure all strings end with a newline character (`\n`). QMK Toolbox prints console output on a per-line basis.

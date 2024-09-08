@@ -30,8 +30,8 @@ Size after:
       0   22396       0   22396    577c planck_rev4_cbbrowne.hex
 ```
 
-  - The above file is of size 22396/577ch, which is less than
-    28672/7000h
+  - The above file is of size 22396/577ch, which is less than 
+    28672/7000h <!-- to do: fix indenting after code block -->
   - As long as you have a suitable alternative .hex file around, you
     can retry, loading that one
   - Some of the options you might specify in your keyboard's Makefile
@@ -77,7 +77,7 @@ In Windows check `Allow this device to wake the computer` setting in **Power Man
 
 ## Using Arduino?
 
-**Note that Arduino pin naming is different from actual chip.** For example, Arduino pin `D0` is not `PD0`. Check circuit with its schematics yourself.
+**Note that Arduino pin naming is different from actual chip.** For example, the Arduino pin `D0` is not `PD0`. Check each circuit with its schematics yourself.
 
 - https://arduino.cc/en/uploads/Main/arduino-leonardo-schematic_3b.pdf
 - https://arduino.cc/en/uploads/Main/arduino-micro-schematic.pdf
@@ -104,9 +104,9 @@ See here: https://geekhack.org/index.php?topic=14290.msg1884034#msg1884034
 
 
 ## Problem in BIOS (UEFI) Setup/Resume (Sleep & Wake)/Power Cycles
-Some people reported their keyboard stops working in BIOS and/or after resume(power cycles).
+Some people reported their keyboard stops working in BIOS and/or after resume (power cycles).
 
-As of now the root cause is not clear, but some build options seem to be related. In Makefile, try to disable options like `CONSOLE_ENABLE`, `NKRO_ENABLE`, `SLEEP_LED_ENABLE` and/or others.
+As of now, the root cause is not clear, but some build options seem to be related. In Makefile, try to disable options like `CONSOLE_ENABLE`, `NKRO_ENABLE`, `SLEEP_LED_ENABLE` and/or others.
 
 More info:
 - https://github.com/tmk/tmk_keyboard/issues/266

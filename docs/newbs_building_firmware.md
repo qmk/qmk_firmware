@@ -1,6 +1,6 @@
 # Building Your First Firmware
 
-Now that you have set up your build environment you are ready to start building custom firmware. For this section of the guide we will bounce between 3 programs- your file manager, your text editor, and your terminal window. Keep all 3 open until you are done and happy with your keyboard firmware.
+Now that you have set up your build environment, you are ready to start building custom firmware. For this section of the guide we will bounce between 3 programs — your file manager, your text editor, and your terminal window. Keep all 3 open until you are done and happy with your keyboard firmware.
 
 ## Configure Your Build Environment Defaults (Optional)
 
@@ -13,7 +13,7 @@ qmk config user.keyboard=clueboard/66/rev4
 ```
 
 ::: tip
-The keyboard option is the path relative to the keyboard directory, the above example would be found in `qmk_firmware/keyboards/clueboard/66/rev4`. If you're unsure you can view a full list of supported keyboards with `qmk list-keyboards`.
+The keyboard option is the path relative to the keyboard directory; the above example would be found in `qmk_firmware/keyboards/clueboard/66/rev4`. If you're unsure, you can view a full list of supported keyboards with `qmk list-keyboards`.
 :::
 
 You can also set your default keymap name. Most people use their GitHub username like the keymap name from the previous steps:
@@ -24,13 +24,13 @@ qmk config user.keymap=<github_username>
 
 ## Create a New Keymap
 
-To create your own keymap you'll want to create a copy of the `default` keymap. If you configured your build environment in the last step you can do that easily with the QMK CLI:
+To create your own keymap, you'll want to create a copy of the `default` keymap. If you configured your build environment in the last step, you can do that easily with the QMK CLI:
 
 ```sh
 qmk new-keymap
 ```
 
-If you did not configure your environment, or you have multiple keyboards, you can specify a keyboard name:
+If you did not configure your environment or you have multiple keyboards, you can specify a keyboard name:
 
 ```sh
 qmk new-keymap -kb <keyboard_name>
@@ -39,7 +39,7 @@ qmk new-keymap -kb <keyboard_name>
 Look at the output from that command, you should see something like this:
 
 ```
-Ψ Created a new keymap called <github_username> in: /home/me/qmk_firmware/keyboards/clueboard/66/rev3/keymaps/<github_username>.
+Ψ Created a new keymap called <keyboard_name> in: /home/me/qmk_firmware/keyboards/clueboard/66/rev3/keymaps/<keyboard_name>.
 ```
 
 This is the location of your new `keymap.c` file.
@@ -60,7 +60,9 @@ When editing your keymap file be careful not to add or remove any commas. If you
 
 ## Customize The Layout To Your Liking
 
-How to complete this step is entirely up to you. Make the one change that's been bugging you, or completely rework everything. You can remove layers if you don't need all of them, or add layers up to a total of 32. There are a lot of features in QMK, explore the sidebar to the left under "Using QMK" to see the full list. To get you started here are a few of the easier to use features:
+How to complete this step is entirely up to you. Make the one change that's been bugging you, or completely rework everything. You can remove layers if you don't need all of them, or add layers up to a total of 32.
+
+There are a lot of features in QMK; explore the sidebar to the left under "Using QMK" to see the full list. To get you started, here are a few of the easier-to-use features:
 
 * [Basic Keycodes](keycodes_basic)
 * [Quantum Keycodes](quantum_keycodes)
@@ -68,12 +70,12 @@ How to complete this step is entirely up to you. Make the one change that's been
 * [Mouse keys](features/mouse_keys)
 
 ::: tip
-While you get a feel for how keymaps work, keep each change small. Bigger changes make it harder to debug any problems that arise.
+While you are getting a feel for how keymaps work, keep each change small. Bigger changes make it harder to debug any problems that arise.
 :::
 
 ## Build Your Firmware {#build-your-firmware}
 
-When your changes to the keymap are complete you will need to build the firmware. To do so go back to your terminal window and run the compile command:
+When your changes to the keymap are complete, you will need to build the firmware. To do so, go back to your terminal window and run the compile command:
 
 ```sh
 qmk compile
@@ -85,7 +87,7 @@ If you did not configure defaults for your environment, or you have multiple key
 qmk compile -kb <keyboard> -km <keymap>
 ```
 
-While this compiles you will have a lot of output going to the screen informing you of what files are being compiled. It should end with output that looks similar to this:
+While this compiles, you will have a lot of output going to the screen informing you of what files are being compiled. It should end with output that looks similar to this:
 
 ```
 Linking: .build/planck_rev5_default.elf                                                             [OK]

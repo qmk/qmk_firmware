@@ -1,6 +1,6 @@
 # Keymap FAQ
 
-This page covers questions people often have about keymaps. If you haven't you should read [Keymap Overview](keymap) first.
+This page covers questions people often have about keymaps. If you haven't already, you should read [Keymap Overview](keymap) first.
 
 ## What Keycodes Can I Use?
 
@@ -10,7 +10,7 @@ Keycodes are actually defined in [quantum/keycode.h](https://github.com/qmk/qmk_
 
 ## What Are the Default Keycodes?
 
-There are 3 standard keyboard layouts in use around the world- ANSI, ISO, and JIS. North America primarily uses ANSI, Europe and Africa primarily use ISO, and Japan uses JIS. Regions not mentioned typically use either ANSI or ISO. The keycodes corresponding to these layouts are shown here:
+There are 3 standard keyboard layouts in use around the world — ANSI, ISO, and JIS. North America primarily uses ANSI, Europe and Africa primarily use ISO, and Japan uses JIS. Regions not mentioned typically use either ANSI or ISO. The keycodes corresponding to these layouts are shown here:
 
 <!-- Source for this image: https://www.keyboard-layout-editor.com/#/gists/bf431647d1001cff5eff20ae55621e9a -->
 ![Keyboard Layout Image](https://i.imgur.com/5wsh5wM.png)
@@ -55,17 +55,18 @@ The key found on most modern keyboards that is located between `KC_RGUI` and `KC
 
 Somewhat confusingly, there are two "Power" keycodes in QMK: `KC_KB_POWER` in the Keyboard/Keypad HID usage page, and `KC_SYSTEM_POWER` (or `KC_PWR`) in the Consumer page.
 
-The former is only recognized on macOS, while the latter, `KC_SLEP` and `KC_WAKE` are supported by all three major operating systems, so it is recommended to use those instead. Under Windows, these keys take effect immediately, however on macOS they must be held down until a dialog appears.
+The former is only recognized on macOS, while the latter, `KC_SLEP` and `KC_WAKE` are supported by all three major operating systems, so it is recommended to use those instead. Under Windows, these keys take effect immediately; however, on macOS they must be held down until a dialog appears.
 
-## One Shot Modifier
+<!-- to do: move to `custom_quantum_functions.md` -->
+<!-- ## One Shot Modifier
 
 Solves my personal 'the' problem. I often got 'the' or 'THe' wrongly instead of 'The'.  One Shot Shift mitigates this for me.
-https://github.com/tmk/tmk_keyboard/issues/67
+https://github.com/tmk/tmk_keyboard/issues/67 -->
 
 ## Modifier/Layer Stuck
 
-Modifier keys or layers can be stuck unless layer switching is configured properly.
-For Modifier keys and layer actions you have to place `KC_TRNS` on same position of destination layer to  unregister the modifier key or return to previous layer on release event.
+Modifier keys or layers can be stuck when layer switching is misconfigured.
+For modifier keys and layer actions, you have to place `KC_TRNS` on same position of destination layer to unregister the modifier key or return to previous layer on release event. See also:
 
 * https://github.com/tmk/tmk_core/blob/master/doc/keymap.md#31-momentary-switching
 * https://geekhack.org/index.php?topic=57008.msg1492604#msg1492604
@@ -80,7 +81,7 @@ This feature is for *mechanical lock switch* like [this Alps one](https://deskth
 #define LOCKING_RESYNC_ENABLE
 ```
 
-After enabling this feature use keycodes `KC_LCAP`, `KC_LNUM` and `KC_LSCR` in your keymap instead.
+After enabling this feature, use keycodes `KC_LCAP`, `KC_LNUM` and `KC_LSCR` in your keymap instead.
 
 Old vintage mechanical keyboards occasionally have lock switches but modern ones don't have. ***You don't need this feature in most case and just use keycodes `KC_CAPS`, `KC_NUM` and `KC_SCRL`.***
 
@@ -90,7 +91,7 @@ See the [Unicode](features/unicode) feature.
 
 ## `Fn` Key on macOS
 
-Unlike most Fn keys, the one on Apple keyboards actually has its own keycode... sort of. It takes the place of the sixth keycode in a basic 6KRO HID report -- so an Apple keyboard is in fact only 5KRO.
+Unlike most Fn keys, the one on Apple keyboards actually has its own keycode... sort of. It takes the place of the sixth keycode in a basic 6KRO HID report — so an Apple keyboard is in fact only 5KRO.
 
 It is technically possible to get QMK to send this key. However, doing so requires modification of the report format to add the state of the Fn key.
 Even worse, it is not recognized unless the keyboard's VID and PID match that of a real Apple keyboard. The legal issues that official QMK support for this feature may create mean it is unlikely to happen.
@@ -111,7 +112,7 @@ https://opensource.apple.com/source/IOHIDFamily/IOHIDFamily-606.1.7/IOHIDFamily/
 
 ## JIS Keys in Mac OSX
 
-Japanese JIS keyboard specific keys like `無変換(Muhenkan)`, `変換(Henkan)`, `ひらがな(hiragana)` are not recognized on OSX. You can use **Seil** to enable those keys, try following options.
+Japanese JIS keyboard specific keys like `無変換(Muhenkan)`, `変換(Henkan)`, `ひらがな(hiragana)` are not recognized on OSX. You can use **Seil** to enable those keys, try following options:
 
 * Enable NFER Key on PC keyboard
 * Enable XFER Key on PC keyboard
@@ -121,12 +122,12 @@ https://pqrs.org/osx/karabiner/seil.html
 
 ## RN-42 Bluetooth Doesn't Work with Karabiner
 
-Karabiner - Keymapping tool on Mac OSX - ignores inputs from RN-42 module by default. You have to enable this option to make Karabiner working with your keyboard.
+Karabiner — Keymapping tool on Mac OSX — ignores inputs from RN-42 module by default. You have to enable this option to make Karabiner working with your keyboard:
 https://github.com/tekezo/Karabiner/issues/403#issuecomment-102559237
 
 See these for the detail of this problem.
-https://github.com/tmk/tmk_keyboard/issues/213
-https://github.com/tekezo/Karabiner/issues/403
+- https://github.com/tmk/tmk_keyboard/issues/213
+- https://github.com/tekezo/Karabiner/issues/403
 
 ## Esc and <code>&#96;</code> on a Single Key
 
@@ -134,10 +135,11 @@ See the [Grave Escape](features/grave_esc) feature.
 
 ## Eject on Mac OSX
 
-`KC_EJCT` keycode works on OSX. https://github.com/tmk/tmk_keyboard/issues/250
-It seems Windows 10 ignores the code and Linux/Xorg recognizes but has no mapping by default.
+`KC_EJCT` keycode works on OSX: https://github.com/tmk/tmk_keyboard/issues/250.
 
-Not sure what keycode Eject is on genuine Apple keyboard actually. HHKB uses `F20` for Eject key(`Fn+F`) on Mac mode but this is not same as Apple Eject keycode probably.
+It seems that Windows 10 ignores the code and Linux/Xorg recognizes but has no mapping by default.
+
+Not sure what keycode Eject is on genuine Apple keyboard actually. HHKB uses `F20` for Eject key (`Fn+F`) on Mac mode, but this is not same as Apple Eject keycode, probably.
 
 ## What are "Real" and "Weak" modifiers?
 

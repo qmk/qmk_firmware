@@ -4,7 +4,7 @@ Your computer keyboard has a processor inside of it, similar to the one inside y
 
 QMK tries to put a lot of power into your hands by making easy things easy, and hard things possible. You don't have to know how to program to create powerful keymaps — you only have to follow a few simple syntax rules.
 
-Not sure if your keyboard can run QMK? If it's a mechanical keyboard you built yourself chances are good it can. We support a [large number of hobbyist boards](https://qmk.fm/keyboards/). If your current keyboard can't run QMK there are a lot of choices out there for boards that do.
+Not sure if your keyboard can run QMK? If it's a mechanical keyboard you built yourself, chances are good that it can. We support a [large number of hobbyist boards](https://qmk.fm/keyboards/). If your current keyboard can't run QMK, there are a lot of choices out there for boards that do.
 
 ::: tip Is This Guide For Me?
 If the thought of programming intimidates you, please [take a look at our online GUI](newbs_building_firmware_configurator) instead.
@@ -12,7 +12,7 @@ If the thought of programming intimidates you, please [take a look at our online
 
 ## Overview
 
-This guide is suitable for everyone who wants to build a keyboard firmware using the source code. If you are already a programmer you will find the process very familiar and easier to follow. There are 3 main sections to this guide:
+This guide is suitable for everyone who wants to build a keyboard firmware using the source code. If you are already a programmer, you will find the process very familiar and easier to follow. There are 3 main sections to this guide:
 
 1. [Setup Your Environment](newbs_getting_started)
 2. [Building Your First Firmware](newbs_building_firmware)
@@ -22,4 +22,4 @@ This guide is focused on helping someone who has never compiled software before.
 
 ## Additional Resources
 
-Beyond this guide there are several resources you may find helpful while you learn QMK. We've collected them on the [Syllabus](syllabus) and [Learning Resources](newbs_learn_more_resources) pages.
+Beyond this guide, there are several resources you may find helpful while you learn QMK. We've collected them on the [Syllabus](syllabus) and [Learning Resources](newbs_learn_more_resources) pages.

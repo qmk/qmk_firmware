@@ -1,21 +1,21 @@
 # Flashing Your Keyboard
 
-Now that you've built a custom firmware file you'll want to flash your keyboard.
+Now that you've built a custom firmware file, you'll want to flash your keyboard.
 
 ## Put Your Keyboard into DFU (Bootloader) Mode
 
-In order to flash your custom firmware you must first put your keyboard into a special flashing mode. While it is in this mode you will not be able to type or otherwise use your keyboard. It is very important that you do not unplug the keyboard or otherwise interrupt the flashing process while the firmware is being written.
+In order to flash your custom firmware, you must first put your keyboard into a special flashing mode. While it is in this mode, you will not be able to type or otherwise use your keyboard. It is very important that you do not unplug the keyboard or otherwise interrupt the flashing process while the firmware is being written.
 
 Different keyboards have different ways to enter this special mode. If your PCB currently runs QMK, TMK, or PS2AVRGB (Bootmapper Client) and you have not been given specific instructions, try the following, in order:
 
-* Hold down both shift keys and press `Pause`
-* Hold down both shift keys and press `B`
-* Unplug your keyboard, hold down the Spacebar and `B` at the same time, plug in your keyboard and wait a second before releasing the keys
-* Unplug your keyboard, hold down the top or bottom left key (usually Escape or Left Control) and plug in your keyboard
-* Press the physical `RESET` button, usually located on the underside of the PCB
-* Locate header pins on the PCB labeled `RESET` and `GND`, and short them together while plugging your PCB in
+* Hold down both shift keys and press `Pause`.
+* Hold down both shift keys and press `B`.
+* Unplug your keyboard, hold down the Spacebar and `B` at the same time, plug in your keyboard and wait a second before releasing the keys.
+* Unplug your keyboard, hold down the top or bottom left key (usually Escape or Left Control) and plug in your keyboard.
+* Press the physical `RESET` button, usually located on the underside of the PCB.
+* Locate header pins on the PCB labeled `RESET` and `GND`, and short them together while plugging your PCB in.
 
-If you've attempted all of the above to no avail, and the main chip on the board says `STM32` or `RP2-B1` on it, this may be a bit more complicated. Generally your best bet is to ask on [Discord](https://discord.gg/qmk) for assistance. It's likely some photos of the board will be asked for -- if you can get them ready beforehand it'll help move things along!
+If you've attempted all of the above to no avail, and the main chip on the board says `STM32` or `RP2-B1` on it, this may be a bit more complicated. Generally your best bet is to ask on [Discord](https://discord.gg/qmk) for assistance. It's likely some photos of the board will be asked for — if you can get them ready beforehand, it'll help move things along!
 
 Otherwise, you should see a message in yellow, similar to this in QMK Toolbox:
 
@@ -37,7 +37,7 @@ QMK Toolbox is not necessary for flashing [RP2040 devices](flashing#raspberry-pi
 
 ### Load the File into QMK Toolbox
 
-Begin by opening the QMK Toolbox application. You'll want to locate the firmware file in Finder or Explorer. Your keyboard firmware may be in one of two formats- `.hex` or `.bin`. QMK tries to copy the appropriate one for your keyboard into the root `qmk_firmware` directory.
+Begin by opening the QMK Toolbox application. You'll want to locate the firmware file in Finder or Explorer. Your keyboard firmware may be in one of two formats — `.hex` or `.bin`. QMK tries to copy the appropriate one for your keyboard into the root `qmk_firmware` directory.
 
 If you are on Windows or macOS, there are commands you can use to easily open the current folder in Explorer or Finder.
 
@@ -108,15 +108,15 @@ If you did not configure your keyboard/keymap name in the CLI according to the [
 qmk flash -kb <my_keyboard> -km <my_keymap>
 ```
 
-This will check the keyboard's configuration, and then attempt to flash it based on the specified bootloader. This means that you don't need to know which bootloader that your keyboard uses. Just run the command, and let the command do the heavy lifting.
+This will check the keyboard's configuration and then attempt to flash it based on the specified bootloader. This means that you don't need to know which bootloader your keyboard uses. Just run the command and let it do the heavy lifting.
 
-However, this does rely on the bootloader being set by the keyboard. If this information is not configured, or you're using a board that doesn't have a supported target to flash it, you will see this error:
+However, this does rely on the bootloader being set by the keyboard; if this information is not configured, or you're using a board that doesn't have a supported target to flash it, you will see this error:
 
 ```
 WARNING: This board's bootloader is not specified or is not supported by the ":flash" target at this time.
 ```
 
-In this case, you'll have to fall back on specifying the bootloader. See the [Flashing Firmware](flashing) Guide for more details.
+In this case, you'll have to fall back on manually specifying the bootloader. See the [Flashing Firmware](flashing) guide for more details.
 
 ::: warning
 If your bootloader is not detected by `qmk flash`, try running `qmk doctor` for suggestions on how to fix common problems.
@@ -126,7 +126,7 @@ If your bootloader is not detected by `qmk flash`, try running `qmk doctor` for 
 
 Congrats! Your custom firmware has been programmed to your keyboard and you're ready to test it out!
 
-With a little bit of luck everything will work perfectly, but if not there are steps that will help you figure out what's wrong.
-Testing your keyboard is usually pretty straightforward. Press every single key and make sure it sends the keys you expect. You can use [QMK Configurator](https://config.qmk.fm/#/test/)'s test mode to check your keyboard, even if it doesn't run QMK.
+With a little bit of luck everything will work perfectly, but if not, there are steps that will help you figure out what's wrong.
+Testing your keyboard is usually pretty straightforward: press every single key and make sure it sends the keys you expect. You can use [QMK Configurator](https://config.qmk.fm/#/test/)'s test mode to check your keyboard, even if it doesn't run QMK.
 
-Still not working? Browse the FAQ topics for more information, or [chat with us on Discord](https://discord.gg/qmk).
+Still not working? Browse the [FAQ](https://docs.qmk.fm/faq_misc) [topics](https://docs.qmk.fm/faq_debug) for more information, or [chat with us on Discord](https://discord.gg/qmk).

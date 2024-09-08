@@ -4,7 +4,7 @@ This page helps you build up your QMK knowledge by introducing the basics first 
 
 # Beginning Topics
 
-If you read nothing else you should read the documents in this section. After reading the [Tutorial](newbs) you should be able to create a basic keymap, compile it, and flash it to your keyboard. The remaining documents will flesh out your knowledge of these basics.
+If you read nothing else, you should read the documents in this section. After reading the [Tutorial](newbs), you should be able to create a basic keymap, compile it, and flash it to your keyboard. The remaining documents will flesh out your knowledge of these basics.
 
 * **Learn How To Use QMK Tools**
     * [Tutorial](newbs)
@@ -45,7 +45,7 @@ These topics start to dig into some of the features that QMK supports. You don't
 
 # Advanced Topics
 
-Everything below here requires a lot of foundational knowledge. Besides being able to create keymaps using advanced features you should be familiar with using both `config.h` and `rules.mk` to configure options for your keyboard.
+Everything below here requires a lot of foundational knowledge. Besides being able to create keymaps using advanced features, you should be familiar with using both `config.h` and `rules.mk` to configure options for your keyboard.
 
 * **Maintaining Keyboards Within QMK**
     * [Handwiring a Keyboard](hand_wire)

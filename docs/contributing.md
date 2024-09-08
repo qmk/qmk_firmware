@@ -23,7 +23,7 @@ Please keep these things in mind:
 
 # Project Overview
 
-QMK is largely written in C, with specific features and parts written in C++. It targets embedded processors found in keyboards, particularly AVR ([LUFA](https://www.fourwalledcubicle.com/LUFA.php)) and ARM ([ChibiOS](https://www.chibios.org)). If you are already well versed in Arduino programming you'll find a lot of the concepts and limitations familiar. Prior experience with Arduino is not required to successfully contribute to QMK.
+QMK is largely written in C, with specific features and parts written in C++. It targets embedded processors found in keyboards, particularly AVR ([LUFA](https://www.fourwalledcubicle.com/LUFA.php)) and ARM ([ChibiOS](https://www.chibios.org)). If you are already well versed in Arduino programming, you'll find a lot of the concepts and limitations familiar. Prior experience with Arduino is not required to successfully contribute to QMK.
 
 <!-- FIXME: We should include a list of resources for learning C here. -->
 
@@ -47,7 +47,7 @@ Never made an open source contribution before? Wondering how contributions work 
 9. Push the changes to your repository on GitHub using `git push origin branch-name-here`.
 10. Submit a pull request to [QMK Firmware](https://github.com/qmk/qmk_firmware/pull/new/master).
 11. Title the pull request with a short description of the changes made and the issue or bug number associated with your change. For example, you can title an issue like so "Added more log outputting to resolve #4352".
-12. In the description of the pull request explain the changes that you made, any issues you think exist with the pull request you made, and any questions you have for the maintainer. It's OK if your pull request is not perfect (no pull request is), the reviewer will be able to help you fix any problems and improve it!
+12. In the description of the pull request explain the changes that you made, any issues you think exist with the pull request you made, and any questions you have for the maintainer. It's OK if your pull request is not perfect (no pull request is); the reviewer will be able to help you fix any problems and improve it!
 13. Wait for the pull request to be reviewed by a maintainer.
 14. Make changes to the pull request if the reviewing maintainer recommends them.
 15. Celebrate your success after your pull request is merged!
@@ -85,7 +85,7 @@ Limited experimentation on the devices I have available shows that 7 is high eno
 
 Documentation is one of the easiest ways to get started contributing to QMK. Finding places where the documentation is wrong or incomplete and fixing those is easy! We also very badly need someone to edit our documentation, so if you have editing skills but aren't sure where or how to jump in please [reach out for help](#where-can-i-go-for-help)!
 
-You'll find all our documentation in the `qmk_firmware/docs` directory, or if you'd rather use a web based workflow you can click the "Edit this page" link at the bottom of each page on https://docs.qmk.fm/.
+You'll find all our documentation in the `qmk_firmware/docs` directory.
 
 When providing code examples in your documentation, try to observe naming conventions used elsewhere in the docs. For example, standardizing enums as `my_layers` or `my_keycodes` for consistency:
 
@@ -120,9 +120,9 @@ We also ask that you follow these guidelines:
 * Write a `readme.md` using [the template](documentation_templates).
 * Include a `default` keymap that provides a clean slate for users to start with when creating their own keymaps.
 * Do not lump core features in with new keyboards. Submit the feature first and then submit a separate PR for the keyboard.
-* Name `.c`/`.h` file after the immediate parent folder, eg `/keyboards/<kb1>/<kb2>/<kb2>.[ch]`
-* Do not include `Makefile`s in your keyboard folder (they're no longer used)
-* Update copyrights in file headers (look for `%YOUR_NAME%`)
+* Name `.c`/`.h` file after the immediate parent folder, eg `/keyboards/<kb1>/<kb2>/<kb2>.[ch]`.
+* Do not include `Makefile`s in your keyboard folder (they're no longer used).
+* Update copyrights in file headers (look for `%YOUR_NAME%`).
 
 ## Quantum/TMK Core
 
@@ -131,18 +131,18 @@ Before you put a lot of work into building your new feature you should make sure
 * [Chat on Discord](https://discord.gg/qmk)
 * [Open an Issue](https://github.com/qmk/qmk_firmware/issues/new)
 
-Feature and Bug Fix PRs affect all keyboards. We are also in the process of restructuring QMK. For this reason it is especially important for significant changes to be discussed before implementation has happened. If you open a PR without talking to us first please be prepared to do some significant rework if your choices do not mesh well with our planned direction.
+Feature and Bug Fix PRs affect all keyboards. We are also in the process of restructuring QMK. For this reason it is especially important for significant changes to be discussed before implementation has happened. If you open a PR without talking to us first, please be prepared to do some significant rework if your choices do not mesh well with our planned direction.
 
 Here are some things to keep in mind when working on your feature or bug fix.
 
-* **Disabled by default** - memory is a pretty limited on most chips QMK supports, and it's important that current keymaps aren't broken, so please allow your feature to be turned **on**, rather than being turned off. If you think it should be on by default, or reduces the size of the code, please talk with us about it.
-* **Compile locally before submitting** - hopefully this one is obvious, but things need to compile! You should always make sure your changes compile before opening a pull request.
-* **Consider revisions and different chip-bases** - there are several keyboards that have revisions that allow for slightly different configurations, and even different chip-bases. Try to make a feature supported in ARM and AVR, or automatically disabled on platforms it doesn't work on.
-* **Explain your feature** - Document it in `docs/`, either as a new file or as part of an existing file. If you don't document it other people won't be able to benefit from your hard work.
+* **Disabled by default** — memory is a pretty limited resource on most chips that QMK supports, and it's important that current keymaps aren't broken, so please allow your feature to be turned **on**, rather than being turned off. If you think it should be on by default, or reduces the size of the code, please talk with us about it.
+* **Compile locally before submitting** — hopefully this one is obvious, but things need to compile! You should always make sure your changes compile before opening a pull request.
+* **Consider revisions and different chip-bases** — there are several keyboards that have revisions that allow for slightly different configurations, and even different chip-bases. Try to make a feature supported in ARM and AVR, or is automatically disabled on platforms it doesn't work on.
+* **Explain your feature** — Document it in `docs/`, either as a new file or as part of an existing file. If you don't document it, other people won't be able to benefit from your hard work.
 
 We also ask that you follow these guidelines:
 
-* Keep the number of commits reasonable or we will squash your PR
+* Keep the number of commits reasonable or we will squash your PR.
 * Do not lump keyboards or keymaps in with core changes. Submit your core changes first.
 * Write [Unit Tests](unit_testing) for your feature
 * Follow the style of the file you are editing. If the style is unclear or there are mixed styles you should conform to the [coding conventions](#coding-conventions) above.

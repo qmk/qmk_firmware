@@ -7,9 +7,9 @@ Before you can build keymaps, you need to install some software and set up your 
 There are a few pieces of software you'll need to get started.
 
 * [Text editor](newbs_learn_more_resources#text-editor-resources)
-  * You’ll need a program that can edit and save plain text files. The default editor that comes with many OS's does not save plain text files, so you'll need to make sure that whatever editor you chose does.
+  * You’ll need a program that can edit and save plain text files. The default editors that come with many OS's do not save plain text files, so you'll need to make sure that whatever editor you choose does.
 * [Toolbox (optional)](https://github.com/qmk/qmk_toolbox)
-  * A graphical program for Windows and macOS that allows you to both program and debug your custom keyboard
+  * A graphical program for Windows and macOS that allows you to both program and debug your custom keyboard.
 
 ::: tip
 If you haven't worked with the Linux/Unix command line before, there are a few basic concepts and commands you should learn. [These resources](newbs_learn_more_resources#command-line-resources) will teach you enough to be able to work with QMK.
@@ -23,7 +23,7 @@ We've tried to make QMK as easy to set up as possible. You only have to prepare 
 
 ==== Windows
 
-QMK maintains a Bundle of MSYS2, the CLI and all necessary dependencies. It also provides a handy `QMK MSYS` terminal shortcut to boot you directly into the correct environment.
+QMK maintains a Bundle of MSYS2, the CLI, and all necessary dependencies. It also provides a handy `QMK MSYS` terminal shortcut to boot you directly into the correct environment.
 
 #### Prerequisites
 
@@ -103,9 +103,9 @@ python3 -m pip install --user qmk
 
 #### Community Packages
 
-These packages are maintained by community members, so may not be up to date or completely functional. If you encounter problems, please report them to their respective maintainers.
+These packages are maintained by community members, so they may not be up to date or completely functional. If you encounter problems, please report them to their respective maintainers.
 
-On Arch-based distros you can install the CLI from the official repositories (NOTE: at the time of writing this package marks some dependencies as optional that should not be):
+On Arch-based distros you can install the CLI from the official repositories (NOTE: at the time of writing, this package marks some dependencies as optional that should not be):
 
 ```sh
 sudo pacman -S qmk
@@ -166,10 +166,10 @@ qmk setup
 In most situations you will want to answer `y` to all of the prompts.
 
 ::: info Note on Debian, Ubuntu and their derivatives:
-It's possible, that you will get an error saying something like: `bash: qmk: command not found`.
+It's possible that you will get an error saying something like: `bash: qmk: command not found`.
 This is due to a [bug](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=839155) Debian introduced with their Bash 4.4 release, which removed `$HOME/.local/bin` from the PATH. This bug was later fixed on Debian and Ubuntu.
 Sadly, Ubuntu reintroduced this bug and is [yet to fix it](https://bugs.launchpad.net/ubuntu/+source/bash/+bug/1588562).
-Luckily, the fix is easy. Run this as your user: `echo 'PATH="$HOME/.local/bin:$PATH"' >> $HOME/.bashrc && source $HOME/.bashrc`
+Luckily, the fix is easy; run this as your user: `echo 'PATH="$HOME/.local/bin:$PATH"' >> $HOME/.bashrc && source $HOME/.bashrc`
 :::
 
 === FreeBSD
@@ -185,11 +185,11 @@ In most situations you will want to answer `y` to all of the prompts.
 ::::
 
 ::: tip
-The qmk home folder can be specified at setup with `qmk setup -H <path>`, and modified afterwards using the [cli configuration](cli_configuration#single-key-example) and the variable `user.qmk_home`. For all available options run `qmk setup --help`.
+The qmk home folder can be specified at setup with `qmk setup -H <path>`, and modified afterwards using the [CLI configuration](cli_configuration#single-key-example) and the variable `user.qmk_home`. For all available options, run `qmk setup --help`.
 :::
 
 ::: tip
-If you already know how to use GitHub, [we recommend that you follow these instructions](getting_started_github) and use `qmk setup <github_username>/qmk_firmware` to clone your personal fork. If you don't know what that means you can safely ignore this message.
+If you already know how to use GitHub, we recommend that you follow [these instructions](getting_started_github) and use `qmk setup <github_username>/qmk_firmware` to clone your personal fork. If you don't know what that means, you can safely ignore this message.
 :::
 
 ## 4. Test Your Build Environment
@@ -207,10 +207,10 @@ qmk compile -kb clueboard/66/rev3 -km default
 ```
 
 ::: tip
-The keyboard option is the path relative to the keyboard directory, the above example would be found in `qmk_firmware/keyboards/clueboard/66/rev3`. If you're unsure you can view a full list of supported keyboards with `qmk list-keyboards`.
+The keyboard option is the path relative to the keyboard directory, the above example would be found in `qmk_firmware/keyboards/clueboard/66/rev3`. If you're unsure, you can view a full list of supported keyboards with `qmk list-keyboards`.
 :::
 
-When it is done you should have a lot of output that ends similar to this:
+When it is done you should have a lot of output that ends similarly to this:
 
 ```
 Linking: .build/clueboard_66_rev3_default.elf                                                       [OK]
