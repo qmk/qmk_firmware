@@ -176,12 +176,11 @@ key in layout macro | JSON object used
 `k40`   | `{"label":"0", "x":0, "y":4, "w":2}`
 `k42`   | `{"label":".", "x":2, "y":4}`
 
-When a user selects the top-left key in the Configurator, and assigns Num Lock to it, the Configurator builds a keymap file with `KC_NUM` as the first key, and so on as the keymap is built. The `label` keys are not used; they are only for the user's reference in identifying specific keys when debugging the `info.json` file.
-
+When a user selects the top-left key in the Configurator and assigns Num Lock to it, the Configurator builds a keymap file with `KC_NUM` as the first key, and so on as the keymap is built. The `label` keys are not used; they are only for the user's reference in identifying specific keys when debugging the `info.json` file.
 
 ## Issues and Hazards
 
-Currently, the Configurator does not support key rotation or non-rectangular key shapes like ISO Enter. Additionally, keys that are vertically-offset from their "row" &mdash; the arrow keys on 1800-layouts like the [TKC1800](https://github.com/qmk/qmk_firmware/tree/4ac48a61a66206beaf2fdd5f2939d8bbedd0004c/keyboards/tkc1800/) being a prominent example &mdash; confuse the KLE-to-JSON Converter, if not adjusted for by the contributor of the `info.json` file.
+Currently, the Configurator does not support key rotation or non-rectangular key shapes like ISO Enter. Additionally, keys that are vertically-offset from their "row" — the arrow keys on 1800-layouts like the [TKC1800](https://github.com/qmk/qmk_firmware/tree/4ac48a61a66206beaf2fdd5f2939d8bbedd0004c/keyboards/tkc1800/) being a prominent example — confuse the KLE-to-JSON Converter, if not adjusted for by the contributor of the `info.json` file.
 
 ### Workarounds
 

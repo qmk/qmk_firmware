@@ -22,7 +22,7 @@ qmk compile [-c] [-e <var>=<value>] [-j <num_jobs>] -kb <keyboard_name> -km <key
 
 **Usage in Keyboard Directory**:
 
-Must be in keyboard directory with a default keymap, or in keymap directory for keyboard, or supply one with `--keymap <keymap_name>`
+Must be in keyboard directory with a default keymap, or in keymap directory for keyboard, or supply one with `--keymap <keymap_name>`:
 ```
 qmk compile
 ```
@@ -41,7 +41,7 @@ $ qmk compile
 Ψ Compiling keymap with make planck/rev6:default
 ...
 ```
-or with optional keymap argument
+or with optional keymap argument:
 
 ```
 $ cd ~/qmk_firmware/keyboards/clueboard/66/rev4
@@ -49,7 +49,7 @@ $ qmk compile -km 66_iso
 Ψ Compiling keymap with make clueboard/66/rev4:66_iso
 ...
 ```
-or in keymap directory
+or in keymap directory:
 
 ```
 $ cd ~/qmk_firmware/keyboards/gh60/satan/keymaps/colemak
@@ -60,7 +60,7 @@ $ qmk compile
 
 **Usage in Layout Directory**:
 
-Must be under `qmk_firmware/layouts/`, and in a keymap folder.
+Must be under `qmk_firmware/layouts/`, and in a keymap folder:
 ```
 qmk compile -kb <keyboard_name>
 ```
@@ -75,7 +75,7 @@ $ qmk compile -kb dz60
 
 **Parallel Compilation**:
 
-It is possible to speed up compilation by adding the `-j`/`--parallel` flag.
+It is possible to speed up compilation by adding the `-j`/`--parallel` flag:
 ```
 qmk compile -j <num_jobs> -kb <keyboard_name>
 ```
@@ -159,7 +159,7 @@ For example, one could search for all keyboards using STM32F411:
 qmk find -f 'processor=STM32F411'
 ```
 
-...and one can further constrain the list to keyboards using STM32F411 as well as rgb_matrix support:
+One could further constrain the list to keyboards using STM32F411 as well as having RGB Matrix support:
 
 ```
 qmk find -f 'processor=STM32F411' -f 'features.rgb_matrix=true'
@@ -272,7 +272,7 @@ qmk doctor -n
 
 ## `qmk format-json`
 
-Formats a JSON file in a (mostly) human-friendly way. Will usually correctly detect the format of the JSON (info.json or keymap.json) but you can override this with `--format` if necessary.
+Formats a JSON file in a (mostly) human-friendly way. Will usually correctly detect the format of the JSON (`info.json` or `keymap.json`) but you can override this with `--format` if necessary.
 
 **Usage**:
 
@@ -314,7 +314,7 @@ qmk info -kb clueboard/california -km default
 
 ## `qmk json2c`
 
-Creates a keymap.c from a QMK Configurator export.
+Creates a `keymap.c` from a QMK Configurator export.
 
 **Usage**:
 
@@ -324,7 +324,7 @@ qmk json2c [-o OUTPUT] filename
 
 ## `qmk c2json`
 
-Creates a keymap.json from a keymap.c.
+Creates a `keymap.json` from a `keymap.c`.
 
 **Note:** Parsing C source files is not easy, therefore this subcommand may not work with your keymap. In some cases not using the C pre-processor helps.
 
@@ -434,7 +434,7 @@ qmk clean [-a]
 
 ## `qmk via2json`
 
-This command an generate a keymap.json from a VIA keymap backup. Both the layers and the macros are converted, enabling users to easily move away from a VIA-enabled firmware without writing any code or reimplementing their keymaps in QMK Configurator.
+This command can generate a `keymap.json` from a VIA keymap backup. Both the layers and the macros are converted, enabling users to easily move away from a VIA-enabled firmware without writing any code or reimplementing their keymaps in QMK Configurator.
 
 **Usage**:
 
@@ -791,7 +791,7 @@ qmk format-python
 
 ## `qmk pytest`
 
-This command runs the python test suite. If you make changes to python code you should ensure this runs successfully.
+This command runs the python test suite. If you make changes to python code, you should ensure this runs successfully.
 
 **Usage**:
 
@@ -834,7 +834,7 @@ This command converts an intermediate font image to the QFF File Format. See the
 
 ## `qmk test-c`
 
-This command runs the C unit test suite. If you make changes to C code you should ensure this runs successfully.
+This command runs the C unit test suite. If you make changes to C code, you should ensure this runs successfully.
 
 **Usage**:
 

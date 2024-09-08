@@ -8,7 +8,7 @@ Configuration for the QMK CLI is a key/value system. Each key consists of a subc
 
 ## Simple Example
 
-As an example let's look at the command `qmk compile --keyboard clueboard/66/rev4 --keymap default`.
+As an example, let's look at the command, `qmk compile --keyboard clueboard/66/rev4 --keymap default`.
 
 There are two command line arguments that could be read from configuration instead:
 
@@ -24,13 +24,11 @@ compile.keymap: None -> default
 Ψ Wrote configuration to '/Users/example/Library/Application Support/qmk/qmk.ini'
 ```
 
-Now I can run `qmk compile` without specifying my keyboard and keymap each time.
+Now, we can run `qmk compile` without specifying the keyboard and keymap each time.
 
 ## Setting User Defaults
 
-Sometimes you want to share a setting between multiple commands. For example, multiple commands take the argument `--keyboard`. Rather than setting this value for every command you can set a user value which will be used by any command that takes that argument.
-
-Example:
+Sometimes you want to share a setting between multiple commands. For example, multiple commands take the argument `--keyboard`. Rather than setting this value for every command, you can set a user value which will be used by any command that takes that argument:
 
 ```
 $ qmk config user.keyboard=clueboard/66/rev4 user.keymap=default
@@ -41,7 +39,7 @@ user.keymap: None -> default
 
 # CLI Documentation (`qmk config`)
 
-The `qmk config` command is used to interact with the underlying configuration. When run with no argument it shows the current configuration. When arguments are supplied they are assumed to be configuration tokens, which are strings containing no spaces with the following form:
+The `qmk config` command is used to interact with the underlying configuration. When run with no argument, it shows the current configuration. When arguments are supplied, they are assumed to be configuration tokens, which are strings containing no spaces with the following form:
 
 ```
 <subcommand|general|default>[.<key>][=<value>]
@@ -49,9 +47,7 @@ The `qmk config` command is used to interact with the underlying configuration. 
 
 ## Setting Configuration Values
 
-You can set configuration values by putting an equal sign (=) into your config key. The key must always be the full `<section>.<key>` form.
-
-Example:
+You can set configuration values by putting an equal sign (=) into your config key. The key must always be the full `<section>.<key>` form. For example:
 
 ```
 $ qmk config default.keymap=default
@@ -89,9 +85,7 @@ qmk config user compile.keyboard compile.keymap
 
 ## Deleting Configuration Values
 
-You can delete a configuration value by setting it to the special string `None`.
-
-Example:
+You can delete a configuration value by setting it to the special string `None`. For example:
 
 ```
 $ qmk config default.keymap=None
@@ -117,15 +111,15 @@ compile.keymap: skully -> None
 | Key | Default Value | Description |
 |-----|---------------|-------------|
 | user.keyboard | None | The keyboard path (Example: `clueboard/66/rev4`) |
-| user.keymap | None | The keymap name (Example: `default`) |
-| user.name | None | The user's GitHub username. |
+| user.keymap   | None | The keymap name (Example: `default`) |
+| user.name     | None | The user's GitHub username. |
 
 # All Configuration Options
 
 | Key | Default Value | Description |
 |-----|---------------|-------------|
-| compile.keyboard | None | The keyboard path (Example: `clueboard/66/rev4`) |
-| compile.keymap | None | The keymap name (Example: `default`) |
-| hello.name | None | The name to greet when run. |
+| compile.keyboard      | None | The keyboard path (Example: `clueboard/66/rev4`) |
+| compile.keymap        | None | The keymap name (Example: `default`) |
+| hello.name            | None | The name to greet when run. |
 | new_keyboard.keyboard | None | The keyboard path (Example: `clueboard/66/rev4`) |
-| new_keyboard.keymap | None | The keymap name (Example: `default`) |
+| new_keyboard.keymap   | None | The keymap name (Example: `default`) |

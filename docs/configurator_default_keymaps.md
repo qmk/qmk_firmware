@@ -5,7 +5,7 @@ This page covers how to add a default keymap for a keyboard to QMK Configurator.
 
 ## Technical Information {#technical-information}
 
-QMK Configurator uses JSON as its native file format for keymaps. As much as possible, these should be kept such that they behave the same as running `make <keyboard>:default` from `qmk_firmware`.
+QMK Configurator uses JSON as its native file format for keymaps. These should be kept, as much as possible, such that they behave the same as running `make <keyboard>:default` from `qmk_firmware`.
 
 Keymaps in this directory require four key-value pairs:
 
@@ -110,15 +110,15 @@ enum layer_names {
 };
 ```
 
-This works in C, but for Configurator, you *must* use the layer's numeric index – `MO(_FN)` would need to be `MO(2)` in the above example.
+This works in C, but for Configurator, you *must* use the layer's numeric index — `MO(_FN)` would need to be `MO(2)` in the above example.
 
 ### No support for custom code of any kind {#custom-code}
 
-Features that require adding functions to the keymap.c file, such as Tap Dance or Unicode, can not be compiled in Configurator **at all**. Even setting `TAP_DANCE_ENABLE = yes` in the `qmk_firmware` repository at the keyboard level will prevent Configurator from compiling **any** firmware for that keyboard. This is limited both by the API and the current spec of our JSON keymap format.
+Features that require adding functions to the `keymap.c` file — such as Tap Dance or Unicode — can not be compiled in Configurator **at all**. Even setting `TAP_DANCE_ENABLE = yes` in the `qmk_firmware` repository at the keyboard level will prevent Configurator from compiling **any** firmware for that keyboard. This is limited both by the API and the current spec of our JSON keymap format.
 
 ### Limited Support for Custom keycodes {#custom-keycodes}
 
-There is a way to support custom keycodes: if the logic for a custom keycode is implemented at the keyboard level instead of the keymap level in qmk_firmware, that keycode *can* be used in Configurator and it *will* compile and work. Instead of using the following in your `keymap.c`:
+There is a way to support custom keycodes: if the logic for a custom keycode is implemented at the keyboard level instead of the keymap level in qmk_firmware, then that keycode *can* be used in Configurator and it *will* compile and work. Instead of using the following in your `keymap.c`:
 
 ```c
 enum custom_keycodes {
@@ -149,7 +149,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 ```
 
-... add the keycode `enum` block to your keyboard's header file (`<keyboard>.h`) as follows (note that the `enum` is named `keyboard_keycodes` here):
+add the keycode `enum` block to your keyboard's header file (`<keyboard>.h`) as follows (note that the `enum` is named `keyboard_keycodes` here):
 
 ```c
 enum keyboard_keycodes {
@@ -159,7 +159,7 @@ enum keyboard_keycodes {
 };
 ```
 
-... then the logic to your `<keyboard>.c` through `process_record_kb()`:
+then the logic to your `<keyboard>.c` through `process_record_kb()`:
 
 ```c
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
