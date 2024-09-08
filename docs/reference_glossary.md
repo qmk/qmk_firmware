@@ -13,7 +13,7 @@ The standard Français (French) keyboard layout. Named for the first 6 keys on t
 A generic term for lighting on a keyboard. The backlight is typically, but not always, an array of LEDs that shine through keycaps and/or switches.
 
 ## Bluetooth
-A short range peer to peer wireless protocol. Most common wireless protocol for a keyboard.
+A short range peer-to-peer wireless protocol. Most common wireless protocol for a keyboard.
 
 ## Bootloader
 A special program that is written to a protected area of your MCU that allows the MCU to upgrade its own firmware, typically over USB.
@@ -47,7 +47,7 @@ An IDE that is popular with many C developers.
 The software that controls your MCU.
 
 ## git
-Versioning software used at the command line
+Versioning software used at the command line.
 
 ## GitHub
 The website that hosts most of the QMK project. It provides integration with git, issue tracking, and other features that help us run QMK.
@@ -56,7 +56,7 @@ The website that hosts most of the QMK project. It provides integration with git
 In-system programming, a method of programming an AVR chip using external hardware and the JTAG pins.
 
 ## hid_listen
-An interface for receiving debugging messages from your keyboard. You can view these messages using [QMK Flasher](https://github.com/qmk/qmk_flasher) or [PJRC's hid_listen](https://www.pjrc.com/teensy/hid_listen.html)
+An interface for receiving debugging messages from your keyboard. You can view these messages using [QMK Flasher](https://github.com/qmk/qmk_flasher) or [PJRC's hid_listen](https://www.pjrc.com/teensy/hid_listen.html).
 
 ## Keycode
 A 2-byte number that represents a particular key. `0x00`-`0xFF` are used for [Basic Keycodes](keycodes_basic) while `0x100`-`0xFFFF` are used for [Quantum Keycodes](quantum_keycodes).
@@ -68,7 +68,7 @@ An event that happens when a key is pressed down, but is completed before a key 
 An event that happens when a key is released.
 
 ## Keymap
-An array of keycodes mapped to a physical keyboard layout, which are processed on key presses and releases
+An array of keycodes mapped to a physical keyboard layout, which are processed on key presses and releases.
 
 ## Layer
 An abstraction used to allow a key to serve multiple purposes. The highest active layer takes precedence.
@@ -79,13 +79,13 @@ A feature that allows you to tap the leader key followed by a sequence of 1, 2, 
 * [Leader Key Documentation](features/leader_key)
 
 ## LED
-Light Emitting Diode, the most common device used for indicators on a keyboard.
+Light Emitting Diode. The most common device used for indicators on a keyboard.
 
 ## Make
 Software package that is used to compile all the source files. You run `make` with various options to compile your keyboard firmware.
 
 ## Matrix
-A wiring pattern of columns and rows that enables the MCU to detect keypresses with a fewer number of pins. The matrix often incorporates diodes to allow for NKRO.
+A wiring pattern of columns and rows that enables the MCU to detect keypresses with a fewer number of pins. The matrix often incorporates diodes to allow for [NKRO](reference_glossary#n-key-rollover-nkro).
 
 ## Macro
 A feature that lets you send multiple keypress events (hid reports) after having pressed only a single key.
@@ -93,7 +93,7 @@ A feature that lets you send multiple keypress events (hid reports) after having
 * [Macro Documentation](feature_macros)
 
 ## MCU
-Microcontrol Unit, the processor that powers your keyboard.
+Microcontroller Unit. The processor that powers your keyboard.
 
 ## Modifier
 A key that is held down while typing another key to modify the action of that key. Examples include Ctrl, Alt, and Shift.
@@ -110,7 +110,7 @@ A term that applies to keyboards that are capable of reporting any number of key
 A modifier that acts as if it is held down until another key is released, so you can press the mod and then press the key, rather than holding the mod while pressing the key. Also known as a Sticky key or a Dead key.
 
 ## ProMicro
-A low cost AVR development board. Clones of this device are often found on ebay very inexpensively (under $5) but people often struggle with flashing their pro micros.
+A low cost AVR development board. Clones of this device are often found on ebay very inexpensively (under $5), but people often struggle with flashing their Pro Micros.
 
 ## Pull Request
 A request to submit code to QMK. We encourage all users to submit Pull Requests for bugfixes and new features.
@@ -125,7 +125,7 @@ The standard Deutsche (German) keyboard layout. Named for the first 6 letters on
 The term for pressing a key while a key is already held down. Variants include 2KRO, 6KRO, and NKRO.
 
 ## Scancode
-A 1 byte number that is sent as part of a HID report over USB that represents a single key. These numbers are documented in the [HID Usage Tables](https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf) published by the [USB-IF](https://www.usb.org/).
+A 1-byte number that is sent as part of a HID report over USB that represents a single key. These numbers are documented in the [HID Usage Tables](https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf) published by the [USB-IF](https://www.usb.org/).
 
 ## Space Cadet Shift
 A special set of shift keys which allow you to type various types of braces by tapping the left or right shift one or more times.
@@ -133,7 +133,7 @@ A special set of shift keys which allow you to type various types of braces by t
 * [Space Cadet Shift Documentation](features/space_cadet)
 
 ## Tap
-Pressing and releasing a key. In some situations you will need to distinguish between a key down and a key up event, and Tap always refers to both at once.
+Pressing and releasing a key. In some situations you will need to distinguish between a key down and a key up event, while a Tap always refers to both at once.
 
 ## Tap Dance
 A feature that lets you assign multiple keycodes to the same key based on how many times you press it.
@@ -141,13 +141,13 @@ A feature that lets you assign multiple keycodes to the same key based on how ma
 * [Tap Dance Documentation](features/tap_dance)
 
 ## Teensy
-A low-cost AVR development board that is commonly used for hand-wired builds. A teensy is often chosen despite costing a few dollars more due to its halfkay bootloader, which makes flashing very simple.
+A low-cost AVR development board that is commonly used for hand-wired builds. A teensy is often chosen despite costing a few dollars more due to its halfkay bootloader which makes flashing very simple.
 
 ## Underlight
 A generic term for LEDs that light the underside of the board. These LEDs typically shine away from the bottom of the PCB and towards the surface the keyboard rests on.
 
 ## Unicode
-In the larger computer world Unicode is a set of encoding schemes for representing characters in any language. As it relates to QMK it means using various OS schemes to send unicode codepoints instead of scancodes.
+In the larger computer world, Unicode is a set of encoding schemes for representing characters in any language. As it relates to QMK, it means using various OS schemes to send unicode codepoints instead of scancodes.
 
 * [Unicode Documentation](features/unicode)
 

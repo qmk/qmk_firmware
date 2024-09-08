@@ -10,13 +10,13 @@ Click the drop down box and select the keyboard you want to create a keymap for.
 If your keyboard has several versions, make sure you select the correct one.
 :::
 
-I'll say that again because it's important:
+We'll say that again because it's important:
 
 ::: warning
 **MAKE SURE YOU SELECT THE RIGHT VERSION!**
 :::
 
-Unfortunately if your keyboard has been advertised to be powered by QMK but is not in the list, you will **not** be able to use Configurator to customize your keyboard.
+Unfortunately, if your keyboard has been advertised to be powered by QMK but is not in the list, you will **not** be able to use Configurator to customize your keyboard.
 
 Chances are a developer hasn't gotten round to adding support or we haven't had a chance to merge it in yet. If there is no active [Pull Request](https://github.com/qmk/qmk_firmware/pulls?q=is%3Aopen+is%3Apr+label%3Akeyboard), contact the manufacturer and encourage them to add support.
 
@@ -40,19 +40,19 @@ If you are running into issues when compiling, it may be worth changing this nam
 
 Keycode Entry is accomplished in one of 3 ways:
 
-1. Drag and drop
-2. Clicking on an empty spot on the layout, then clicking the keycode you desire
-3. Clicking on an empty spot on the layout, then pressing the physical key on your keyboard
+1. Drag and drop.
+2. Clicking on an empty spot on the layout, then clicking the keycode you desire.
+3. Clicking on an empty spot on the layout, then pressing the physical key on your keyboard.
 
 ::: tip
-Hover your mouse over a key and a short blurb will tell you what that keycode does. For a more verbose description please see:
+Hover your mouse over a key and a short blurb will tell you what that keycode does. For a more verbose description, please see:
 :::
 
 * [Basic Keycode Reference](keycodes_basic)
 * [Advanced Keycode Reference](feature_advanced_keycodes)
 
 ::: warning
-If your selected layout doesn't match your physical build leave the unused keys blank. If you're not sure which key is in use, for example you have a one backspace key but `LAYOUT_all` has 2 keys, put the same keycode in both locations.
+If your selected layout doesn't match your physical build, leave the unused keys blank. If you're not sure which key is in use — for example, you have one backspace key but `LAYOUT_all` has two keys — then put the same keycode in both locations.
 :::
 
 ## Step 5: Save Your Keymap for Future Changes

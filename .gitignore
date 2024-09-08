@@ -126,7 +126,3 @@ via*.json
 # ignore my keymap stuff
 /keyboards/crkbd/keymaps/
 /keyboards/sofle/keymaps/
-<<<<<<< HEAD
-/platforms/chibios/drivers/vendor/RP/RP2040/ps2_vendor.c
-=======
->>>>>>> a1a0f49ea6 (Update .gitignore)

@@ -9,17 +9,17 @@ First and foremost is enabling link time optimization. To do so, add this to you
 ```make
 LTO_ENABLE = yes
 ```
-This will cause the final step to take longer, but should get you a smaller compiled size. This also disables Action Functions, and Action Macros, both of which are deprecated.
+This will cause the final step to take longer, but should get you a smaller compiled size. This also disables Action Functions and Action Macros — both of which are deprecated.
 This will get you the most savings, in most situations.
 
-From there, disabling extraneous systems will help -- e.g.: 
+From there, disabling extraneous systems will help, e.g.: 
 ```make
 CONSOLE_ENABLE = no
 COMMAND_ENABLE = no
 MOUSEKEY_ENABLE = no
 EXTRAKEY_ENABLE = no
 ```
-This disables some of the functionality that you may not need. But note that extrakeys disables stuff like the media keys and system volume control.
+This disables some functionality that you may not need. Note that extrakeys disables stuff like the media keys and system volume control.
 
 If that isn't enough to get your firmware down to size, then there are some additional features that you can disable: 
 ```make
@@ -27,14 +27,14 @@ SPACE_CADET_ENABLE = no
 GRAVE_ESC_ENABLE = no 
 MAGIC_ENABLE = no
 ```
-These features are enabled by default, but they may not be needed. Double check to make sure. The [Magic Keycodes](keycodes_magic) are the largest and control things like NKRO toggling, GUI and ALT/CTRL swapping, etc. Disabling them will disable those functions. See [Magic Functions](#magic-functions) for disabling related functions.
+These features are enabled by default, but they may not be needed. Double check to make sure. The [Magic Keycodes](keycodes_magic) are the largest and control things like NKRO toggling, GUI and Alt/Ctrl swapping, etc. Disabling them will disable those functions. See [Magic Functions](#magic-functions) for disabling related functions.
 
-If you use `sprintf` or `snprintf` functions you can save around ~400 Bytes by enabling this option.
+If you use `sprintf` or `snprintf` functions you can save around ~400 bytes by enabling this option:
 ```make
 AVR_USE_MINIMAL_PRINTF = yes
 ```
 
-This will include smaller implementations from AVRs libc into your Firmware. They are [not fully featured](https://www.nongnu.org/avr-libc/user-manual/group__avr__stdio.html#gaa3b98c0d17b35642c0f3e4649092b9f1), for instance zero padding and field width specifiers are not supported. So if you use `sprintf` or `snprintf` like this:
+This will include smaller implementations from AVR-LibC into your firmware. They are [not fully featured](https://www.nongnu.org/avr-libc/user-manual/group__avr__stdio.html#gaa3b98c0d17b35642c0f3e4649092b9f1) — for instance, zero padding and field width specifiers are not supported. So, if you use `sprintf` or `snprintf` like this:
 ```c
 sprintf(wpm_str, "%03d", get_current_wpm());
 snprintf(keylog_str, sizeof(keylog_str), "%dx%d, k%2d : %c");
@@ -44,52 +44,52 @@ you will still need the standard implementation.
 
 ## `config.h` Settings
 
-If you've done all of that, and you don't want to disable features like RGB, Audio, OLEDs, etc, there are some additional options that you can add to your config.h that can help.
+If you've done all of that and you don't want to disable features like RGB, Audio, OLEDs, etc., there are some additional options that you can add to your `config.h` that can help.
 
-Starting with Lock Key support. If you have a Cherry MX Lock switch (lucky you!), you don't want to do this. But chances are, you don't. In that case, add this to your `config.h`:
+Start with Lock Key support. If you have a Cherry MX Lock switch (lucky you!), you don't want to do this, but chances are, you don't. In that case, add this to your `config.h`:
 ```c
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
 ```
-Oneshots. If you're not using these, you can disable the feature by adding this to your `config.h`: 
+Oneshots. If you're not using these, you can disable the feature by adding this to your `config.h`:
 ```c
 #define NO_ACTION_ONESHOT
 ```
-The same with tapping keys (mod tap, layer tap, etc)
+The same with tapping keys (mod-tap, layer-tap, etc.):
 ```c
 #define NO_ACTION_TAPPING
 ```
 ## Audio Settings
 
-If you're using the Audio feature, by default that includes the music mode feature. This tranlates matrix positions into notes. It's neat for sure, but most likely, you're not using it. You can disable it by adding this to your `config.h`:
+If you're using the Audio feature, by default that includes the Music Mode feature. This tranlates matrix positions into notes. It's neat for sure, but most likely, you're not using it. You can disable it by adding this to your `config.h`:
 ```c
 #define NO_MUSIC_MODE
 ```
-And by adding this to your `rules.mk`
+and by adding this to your `rules.mk`:
 ```make
 MUSIC_ENABLE = no
 ```
 
 ## Layers
 
-There are also some options for layers, that can reduce the firmware size. All of these settings are for your `config.h`.
+There are also some options for layers that can reduce the firmware size. All of these settings are for your `config.h`.
 
-You can limit the number of layers that the firmware uses -- if you're using up to 8 layers in total:
+You can limit the number of layers that the firmware uses — if you're using up to 8 layers in total, set:
 ```c
 #define LAYER_STATE_8BIT
 ```
-or if you require up to 16 layers instead:
+Or, if you require up to 16 layers, instead set:
 ```c
 #define LAYER_STATE_16BIT
 ```
-Or if you're not using layers at all, you can outright remove the functionality altogether:
+Or, if you're not using layers at all, you can outright remove this functionality altogether:
 ```c
 #define NO_ACTION_LAYER
 ```
 
 ## Magic Functions
 
-There are two `__attribute__ ((weak))` placeholder functions available to customize magic keycodes. If you are not using that feature to swap keycodes, such as backslash with backspace, add the following to your `keymap.c` or user space code:
+There are two `__attribute__ ((weak))` placeholder functions available to customize magic keycodes. If you are not using that feature to swap keycodes, such as backslash with backspace, add the following to your `keymap.c` or userspace code:
 ```c
 #ifndef MAGIC_ENABLE
 uint16_t keycode_config(uint16_t keycode) {
@@ -97,7 +97,7 @@ uint16_t keycode_config(uint16_t keycode) {
 }
 #endif
 ```
-Likewise, if you are not using magic keycodes to swap modifiers, such as Control with GUI, add the following to your `keymap.c` or user space code:
+Likewise, if you are not using magic keycodes to swap modifiers, such as Control with GUI, add the following to your `keymap.c` or userspace code:
 ```c
 #ifndef MAGIC_ENABLE
 uint8_t mod_config(uint8_t mod) {
@@ -105,7 +105,7 @@ uint8_t mod_config(uint8_t mod) {
 }
 #endif
 ```
-Both of them will overwrite the placeholder functions with a simple return statement to reduce firmware size.
+Both of these will overwrite the placeholder functions with a simple return statement to reduce firmware size.
 
 ## OLED tweaks
 
@@ -134,7 +134,7 @@ which outputs `WPM: 005`.
 
 ## RGB Settings
 
-If you're using RGB on your board, both RGB Light (Underglow) and RGB Matrix (per key RGB) now require defines to enable different animations -- some keyboards enable a lot of animations by default, so you can generally gain back some space by disabling specific animations if you don't use them. For RGB Light you can disable these in your keymap's `config.h`:
+If you're using RGB on your board, both RGB Light (Underglow) and RGB Matrix (per key RGB) now require defines to enable different animations — some keyboards enable a lot of animations by default so you can generally gain back some space by disabling specific animations if you don't use them. For RGB Light, you can disable these in your keymap's `config.h`:
 ```c
 #undef RGBLIGHT_ANIMATIONS
 #undef RGBLIGHT_EFFECT_BREATHING
@@ -201,7 +201,7 @@ For RGB Matrix, these need to be explicitly enabled as well. To disable any that
 
 # Final Thoughts
 
-If you've done all of this, and your firmware is still too large, then it is time to consider making the switch to ARM. There are a number of Pro Micro replacements with an ARM controller:
+If you've done all of this and your firmware is still too large, then it is time to consider making the switch to ARM. There are a number of Pro Micro replacements with an ARM controller:
 * [Bonsai C](https://github.com/customMK/Bonsai-C) (Open Source, DIY/PCBA)
 * [STeMCell](https://github.com/megamind4089/STeMCell) (Open Source, DIY/PCBA)
 * [Adafruit KB2040](https://learn.adafruit.com/adafruit-kb2040)
@@ -214,5 +214,5 @@ If you've done all of this, and your firmware is still too large, then it is tim
 * [Michi](https://github.com/ci-bus/michi-promicro-rp2040)
 * [Proton C](https://qmk.fm/proton-c/) (out of stock)
 
-There are other, non-Pro Micro compatible boards out there. The most popular being:
+There are other, non-Pro Micro compatible boards out there, the most popular being:
 * [WeAct Blackpill F411](https://www.aliexpress.com/item/1005001456186625.html) (~$6 USD)

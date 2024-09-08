@@ -2,7 +2,7 @@
 
 ## My .json file is not working
 
-If the .json file was generated with QMK Configurator, congratulations you have stumbled upon a bug. File an issue at [qmk_configurator](https://github.com/qmk/qmk_configurator/issues).
+If the .json file was generated with QMK Configurator, congratulations — you have stumbled upon a bug. File an issue at [qmk_configurator](https://github.com/qmk/qmk_configurator/issues).
 
 If not... how did you miss the big bold message at the top saying not to use other .json files?
 

@@ -1,10 +1,10 @@
 # QMK API
 
-This page describes using the QMK API. If you are an application developer you can use this API to compile firmware for any [QMK](https://qmk.fm) Keyboard.
+This page describes using the QMK API. If you are an application developer, you can use this API to compile firmware for any [QMK](https://qmk.fm) Keyboard.
 
 ## Overview
 
-This service is an asynchronous API for compiling custom keymaps. You POST some JSON to the API, periodically check the status, and when your firmware has finished compiling you can download the resulting firmware and (if desired) source code for that firmware.
+This service is an asynchronous API for compiling custom keymaps. You POST some JSON to the API, periodically check the status, and when your firmware has finished compiling, you can download the resulting firmware and (if desired) source code for that firmware.
 
 #### Example JSON Payload:
 
@@ -21,11 +21,11 @@ This service is an asynchronous API for compiling custom keymaps. You POST some 
 }
 ```
 
-As you can see the payload describes all aspects of a keyboard necessary to create and generate a firmware. Each layer is a single list of QMK keycodes the same length as the keyboard's `LAYOUT` macro. If a keyboard supports multiple `LAYOUT` macros you can specify which macro to use.
+As can be seen, the payload describes all aspects of a keyboard necessary to create and generate a firmware. Each layer is a single list of QMK keycodes the same length as the keyboard's `LAYOUT` macro. If a keyboard supports multiple `LAYOUT` macros, you can specify which macro to use.
 
 ## Submitting a Compile Job
 
-To compile your keymap into a firmware simply POST your JSON to the `/v1/compile` endpoint. In the following example we've placed the JSON payload into a file named `json_data`.
+To compile your keymap into a firmware, simply POST your JSON to the `/v1/compile` endpoint. In the following example, we've placed the JSON payload into a file named `json_data`:
 
 ```
 $ curl -H "Content-Type: application/json" -X POST -d "$(< json_data)" https://api.qmk.fm/v1/compile
@@ -37,7 +37,7 @@ $ curl -H "Content-Type: application/json" -X POST -d "$(< json_data)" https://a
 
 ## Checking The Status
 
-After submitting your keymap you can check the status using a simple HTTP GET call:
+After submitting your keymap, you can check the status using a simple HTTP GET call:
 
 ```
 $ curl https://api.qmk.fm/v1/compile/ea1514b3-bdfc-4a7b-9b5c-08752684f7f6
@@ -60,11 +60,11 @@ This shows us that the job has made it through the queue and is currently runnin
 
 ## Examining Finished Results
 
-Once your compile job has finished you'll check the `result` key. The value of this key is a hash containing several key bits of information:
+Once your compile job has finished, you can check the `result` key. The value of this key is a hash containing several key bits of information:
 
-* `firmware_binary_url`: A list of URLs for the flashable firmware
-* `firmware_keymap_url`: A list of URLs for the `keymap.c`
-* `firmware_source_url`: A list of URLs for the full firmware source code
+* `firmware_binary_url`: A list of URLs for the flashable firmware.
+* `firmware_keymap_url`: A list of URLs for the `keymap.c`.
+* `firmware_source_url`: A list of URLs for the full firmware source code.
 * `output`: The stdout and stderr for this compile job. Errors will be found here.
 
 ## Constants {#qmk-constants}
