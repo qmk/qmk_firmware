@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "matrix.h"
 #include "timer.h"
-#include "i2c_slave.h"
+#include "_slave.h"
 #include "lufa.h"
 
 #define SLAVE_I2C_ADDRESS 0x36
