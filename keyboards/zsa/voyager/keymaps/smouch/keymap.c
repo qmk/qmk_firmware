@@ -21,6 +21,7 @@ enum custom_keycodes {
     SS_Gh,
     SS_Wh,
     SS_Ph,
+    SS_Sch,
 };
 
 /*  KEY POSITION Names
@@ -321,6 +322,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case SS_Ph:
             if (record->event.pressed) {
                 tap_code(KC_P); // send "P" honouring caps
+                add_h_digragh();
+            }
+            break;
+        case SS_Sch:
+            if (record->event.pressed) {
+                tap_code(KC_S); // send "S" honouring caps
+                unregister_mods(MOD_MASK_SHIFT);
+                tap_code(KC_C); // send "c" honouring CAPSLK state
                 add_h_digragh();
             }
             break;

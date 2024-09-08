@@ -22,6 +22,7 @@ COMB(H_Th,              SS_Th,      LM2, LM1)
 COMB(H_Ch,              SS_Ch,      LM3, LM2)
 COMB(H_Sh,              SS_Sh,      LM4, LM3)
 COMB(H_Ph,              SS_Ph,      LB3, LB1)
+COMB(H_Sch,             SS_Sch,     LM4, LM3, LM2)
 
 /*---- commands ----*/
 COMB(Hesc,              KC_ESC,     LM4, LM1)
