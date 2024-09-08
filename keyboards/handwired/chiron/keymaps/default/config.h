@@ -17,7 +17,6 @@
 #pragma once
 
 #define MASTER_RIGHT
-//#define MASTER_LEFT
 
 #define PERMISSIVE_HOLD
 
@@ -30,8 +29,8 @@
 #define MOUSEKEY_WHEEL_MAX_SPEED   8
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 40
 
-#undef  RGBLED_NUM
-#define RGBLED_NUM 2
+#undef  RGBLIGHT_LED_COUNT
+#define RGBLIGHT_LED_COUNT 2
 #define RGBLED_SPLIT {1, 1}
 
 // Don't turn off lights when the host goes to sleep.

@@ -56,18 +56,14 @@ static void handle_backlight_caps_lock(led_t led_state) {
 #endif
 
 static uint32_t last_led_modification_time = 0;
-uint32_t        last_led_activity_time(void) {
+
+uint32_t last_led_activity_time(void) {
     return last_led_modification_time;
 }
+
 uint32_t last_led_activity_elapsed(void) {
     return timer_elapsed32(last_led_modification_time);
 }
-
-/** \brief Lock LED set callback - keymap/user level
- *
- * \deprecated Use led_update_user() instead.
- */
-__attribute__((weak)) void led_set_user(uint8_t usb_led) {}
 
 /** \brief Lock LED update callback - keymap/user level
  *
@@ -98,19 +94,19 @@ __attribute__((weak)) void led_update_ports(led_t led_state) {
 #endif
 
 #ifdef LED_NUM_LOCK_PIN
-    writePin(LED_NUM_LOCK_PIN, led_state.num_lock);
+    gpio_write_pin(LED_NUM_LOCK_PIN, led_state.num_lock);
 #endif
 #ifdef LED_CAPS_LOCK_PIN
-    writePin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
+    gpio_write_pin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
 #endif
 #ifdef LED_SCROLL_LOCK_PIN
-    writePin(LED_SCROLL_LOCK_PIN, led_state.scroll_lock);
+    gpio_write_pin(LED_SCROLL_LOCK_PIN, led_state.scroll_lock);
 #endif
 #ifdef LED_COMPOSE_PIN
-    writePin(LED_COMPOSE_PIN, led_state.compose);
+    gpio_write_pin(LED_COMPOSE_PIN, led_state.compose);
 #endif
 #ifdef LED_KANA_PIN
-    writePin(LED_KANA_PIN, led_state.kana);
+    gpio_write_pin(LED_KANA_PIN, led_state.kana);
 #endif
 }
 
@@ -118,24 +114,24 @@ __attribute__((weak)) void led_update_ports(led_t led_state) {
  */
 __attribute__((weak)) void led_init_ports(void) {
 #ifdef LED_NUM_LOCK_PIN
-    setPinOutput(LED_NUM_LOCK_PIN);
-    writePin(LED_NUM_LOCK_PIN, !LED_PIN_ON_STATE);
+    gpio_set_pin_output(LED_NUM_LOCK_PIN);
+    gpio_write_pin(LED_NUM_LOCK_PIN, !LED_PIN_ON_STATE);
 #endif
 #ifdef LED_CAPS_LOCK_PIN
-    setPinOutput(LED_CAPS_LOCK_PIN);
-    writePin(LED_CAPS_LOCK_PIN, !LED_PIN_ON_STATE);
+    gpio_set_pin_output(LED_CAPS_LOCK_PIN);
+    gpio_write_pin(LED_CAPS_LOCK_PIN, !LED_PIN_ON_STATE);
 #endif
 #ifdef LED_SCROLL_LOCK_PIN
-    setPinOutput(LED_SCROLL_LOCK_PIN);
-    writePin(LED_SCROLL_LOCK_PIN, !LED_PIN_ON_STATE);
+    gpio_set_pin_output(LED_SCROLL_LOCK_PIN);
+    gpio_write_pin(LED_SCROLL_LOCK_PIN, !LED_PIN_ON_STATE);
 #endif
 #ifdef LED_COMPOSE_PIN
-    setPinOutput(LED_COMPOSE_PIN);
-    writePin(LED_COMPOSE_PIN, !LED_PIN_ON_STATE);
+    gpio_set_pin_output(LED_COMPOSE_PIN);
+    gpio_write_pin(LED_COMPOSE_PIN, !LED_PIN_ON_STATE);
 #endif
 #ifdef LED_KANA_PIN
-    setPinOutput(LED_KANA_PIN);
-    writePin(LED_KANA_PIN, !LED_PIN_ON_STATE);
+    gpio_set_pin_output(LED_KANA_PIN);
+    gpio_write_pin(LED_KANA_PIN, !LED_PIN_ON_STATE);
 #endif
 }
 
@@ -146,7 +142,6 @@ __attribute__((weak)) void led_set(uint8_t usb_led) {
     handle_backlight_caps_lock((led_t)usb_led);
 #endif
 
-    led_set_user(usb_led);
     led_update_kb((led_t)usb_led);
 }
 
@@ -183,9 +178,7 @@ void led_task(void) {
         last_led_modification_time = timer_read32();
 
         if (debug_keyboard) {
-            debug("led_task: ");
-            debug_hex8(led_status);
-            debug("\n");
+            dprintf("led_task: %02X\n", led_status);
         }
         led_set(led_status);
     }
