@@ -1,3 +1,3 @@
-# Swagkeys SK60
+# integral
 
 A keyboard base on STM32F103C8T6 60 keyboard.
