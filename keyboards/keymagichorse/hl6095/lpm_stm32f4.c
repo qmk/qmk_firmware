@@ -69,10 +69,53 @@ void ws2812power_Disabled(void)
     gpio_set_pin_input(WS2812_DI_PIN);  // 设置高阻输入
 }
 
+void set_all_io_analog(void)
+{
+    // 禁用调试功能以降低功耗
+    DBGMCU->CR &= ~DBGMCU_CR_DBG_SLEEP;   // 禁用在Sleep模式下的调试
+    DBGMCU->CR &= ~DBGMCU_CR_DBG_STOP;    // 禁用在Stop模式下的调试
+    DBGMCU->CR &= ~DBGMCU_CR_DBG_STANDBY; // 禁用在Standby模式下的调试
+    // 在系统初始化代码中禁用SWD接口
+    palSetLineMode(A13, PAL_MODE_INPUT_ANALOG);
+    palSetLineMode(A14, PAL_MODE_INPUT_ANALOG);
+
+
+
+    palSetLineMode(A0, PAL_MODE_INPUT_ANALOG); 
+    palSetLineMode(A1, PAL_MODE_INPUT_ANALOG); 
+    palSetLineMode(A2, PAL_MODE_INPUT_ANALOG); 
+    palSetLineMode(A3, PAL_MODE_INPUT_ANALOG); 
+    palSetLineMode(A4, PAL_MODE_INPUT_ANALOG); 
+    palSetLineMode(A5, PAL_MODE_INPUT_ANALOG); 
+    palSetLineMode(A6, PAL_MODE_INPUT_ANALOG); 
+    palSetLineMode(A7, PAL_MODE_INPUT_ANALOG); 
+    palSetLineMode(A8, PAL_MODE_INPUT_ANALOG); 
+    palSetLineMode(A9, PAL_MODE_INPUT_ANALOG); 
+    palSetLineMode(A10, PAL_MODE_INPUT_ANALOG); 
+    palSetLineMode(A11, PAL_MODE_INPUT_ANALOG); 
+    palSetLineMode(A13, PAL_MODE_INPUT_ANALOG); 
+    palSetLineMode(A14, PAL_MODE_INPUT_ANALOG); 
+    palSetLineMode(A15, PAL_MODE_INPUT_ANALOG); 
+
+    palSetLineMode(B0, PAL_MODE_INPUT_ANALOG); 
+    palSetLineMode(B1, PAL_MODE_INPUT_ANALOG); 
+    palSetLineMode(B2, PAL_MODE_INPUT_ANALOG); 
+    palSetLineMode(B3, PAL_MODE_INPUT_ANALOG); 
+    palSetLineMode(B4, PAL_MODE_INPUT_ANALOG); 
+    palSetLineMode(B5, PAL_MODE_INPUT_ANALOG); 
+    palSetLineMode(B6, PAL_MODE_INPUT_ANALOG); 
+    palSetLineMode(B7, PAL_MODE_INPUT_ANALOG); 
+    palSetLineMode(B8, PAL_MODE_INPUT_ANALOG); 
+    palSetLineMode(B9, PAL_MODE_INPUT_ANALOG); 
+    palSetLineMode(B10, PAL_MODE_INPUT_ANALOG); 
+    palSetLineMode(B11, PAL_MODE_INPUT_ANALOG); 
+    palSetLineMode(B13, PAL_MODE_INPUT_ANALOG); 
+    palSetLineMode(B14, PAL_MODE_INPUT_ANALOG); 
+    palSetLineMode(B15, PAL_MODE_INPUT_ANALOG); 
+}
 
 void My_PWR_EnterSTOPMode(void)
 {
-
 #if STM32_HSE_ENABLED
     /* Switch to HSI */
     RCC->CFGR = (RCC->CFGR & (~STM32_SW_MASK)) | STM32_SW_HSI;
@@ -101,7 +144,7 @@ void My_PWR_EnterSTOPMode(void)
 
 void enter_low_power_mode_prepare(void)
 {
-
+set_all_io_analog();
     uint8_t i = 0;
 #if (DIODE_DIRECTION == COL2ROW)
     // TODO: Wait implementation

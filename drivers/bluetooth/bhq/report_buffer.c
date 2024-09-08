@@ -59,7 +59,7 @@ void report_buffer_init(void) {
     memset(&report_buffer_queue, 0, sizeof(report_buffer_queue));
     report_buffer_queue_head    = 0;
     report_buffer_queue_tail    = 0;
-    report_timer_buffer         = sync_timer_read32();
+    report_timer_buffer         = timer_read32();
     retry                       = 0;
     retry_time_buffer           = 0;
 }
@@ -90,11 +90,11 @@ bool report_buffer_is_empty() {
 }
 
 void report_buffer_update_timer(void) {
-    report_timer_buffer = sync_timer_read32();
+    report_timer_buffer = timer_read32();
 }
 
 bool report_buffer_next_inverval(void) {
-    return sync_timer_elapsed32(report_timer_buffer) > report_interval;
+    return timer_elapsed32(report_timer_buffer) > report_interval;
 }
 
 void report_buffer_set_inverval(uint8_t interval) {
@@ -107,58 +107,53 @@ uint8_t report_buffer_get_retry(void) {
 }
 
 void report_buffer_set_retry(uint8_t times) {
-    retry = times;
+    retry = 0;
 }
 
 void report_buffer_task(void) {
-    bool pending_data = false;
-    if (report_buffer_is_empty() || !report_buffer_next_inverval())
+    if ((!report_buffer_is_empty() || retry) && report_buffer_next_inverval()) 
     {
-        return;
-    }
-
-    // report_buffer_is_empty() == false) and (report_buffer_next_inverval() == true)
-
-    if (!retry) {
-        if (report_buffer_dequeue(&kb_rpt) && kb_rpt.type != REPORT_TYPE_NONE) {
-            if (sync_timer_read32() > 2) {
-                pending_data      = true;
-                retry             = RETPORT_RETRY_COUNT;
-                retry_time_buffer = sync_timer_read32();
+        bool pending_data = false;
+        if (!retry) {
+            if (report_buffer_dequeue(&kb_rpt) && kb_rpt.type != REPORT_TYPE_NONE) {
+                if (timer_read32() > 2) {
+                    pending_data      = true;
+                    retry             = RETPORT_RETRY_COUNT;
+                    retry_time_buffer = timer_read32();
+                }
+            }
+        } else {
+            if (timer_elapsed32(retry_time_buffer) > 10) {
+                pending_data = true;
+                --retry;
+                retry_time_buffer = timer_read32();
             }
         }
-    } else {
-        if (sync_timer_elapsed32(retry_time_buffer) > 7) {
-            pending_data = true;
-            --retry;
-            retry_time_buffer = sync_timer_read32();
-        }
-    }
-
-    if (pending_data) {
+       if (pending_data) {
 #if defined(NKRO_ENABLE)
-        // nkro 
-        if(kb_rpt.type == REPORT_TYPE_NKRO)
-        {
-            bhq_send_nkro(kb_rpt.report_data);
-        }
+            // nkro 
+            if(kb_rpt.type == REPORT_TYPE_NKRO)
+            {
+                bhq_send_nkro(kb_rpt.report_data);
+            }
 #endif
-        if(kb_rpt.type == REPORT_TYPE_KB)
-        {
-            bhq_send_keyboard(kb_rpt.report_data);
+            if(kb_rpt.type == REPORT_TYPE_KB)
+            {
+                bhq_send_keyboard(kb_rpt.report_data);
+            }
+            if(kb_rpt.type == REPORT_TYPE_CONSUMER)
+            {
+                bhq_send_consumer(kb_rpt.consumer);
+            }
+            if(kb_rpt.type == REPORT_TYPE_SYSTEM)
+            {
+                bhq_send_system(kb_rpt.consumer);
+            }
+            if(kb_rpt.type == REPORT_TYPE_HID_RAW)
+            {
+                bhq_send_hid_raw(kb_rpt.report_data, kb_rpt.length);
+            }
+            report_buffer_update_timer();
         }
-        if(kb_rpt.type == REPORT_TYPE_CONSUMER)
-        {
-            bhq_send_consumer(kb_rpt.consumer);
-        }
-        if(kb_rpt.type == REPORT_TYPE_SYSTEM)
-        {
-            bhq_send_system(kb_rpt.consumer);
-        }
-        if(kb_rpt.type == REPORT_TYPE_HID_RAW)
-        {
-            bhq_send_hid_raw(kb_rpt.report_data, kb_rpt.length);
-        }
-        report_buffer_update_timer();
     }
 }

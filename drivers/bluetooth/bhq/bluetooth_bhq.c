@@ -41,10 +41,21 @@ void bluetooth_bhq_task(void) {
  */
 void bluetooth_bhq_send_keyboard(report_keyboard_t *report)
 {
+    bool firstBuffer = false;
+    if (report_buffer_is_empty() && report_buffer_next_inverval() && report_buffer_get_retry() == 0) {
+        firstBuffer = true;
+    }
+
     report_buffer_t report_buffer;
     report_buffer.type = REPORT_TYPE_KB;
     memcpy(&report_buffer.report_data, report, sizeof(report_keyboard_t));
     report_buffer_enqueue(&report_buffer);
+
+    if (firstBuffer) {
+        report_buffer_set_retry(0);
+        report_buffer_task();
+    }
+
 }
 
 /**
