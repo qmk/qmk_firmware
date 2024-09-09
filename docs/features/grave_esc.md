@@ -22,7 +22,7 @@ On macOS, `Command`+<code>&#96;</code> is by default mapped to "Move focus to ne
 
 ## Configuration
 
-There are several possible key combinations this will break — among them being `Control`+`Shift`+`Escape` on Windows, and `Command`+`Option`+`Escape` on macOS. To work around this, you can `#define` these options in your `config.h`:
+There are several possible key combinations this will break — among them being `Ctrl`+`Shift`+`Escape` on Windows, and `Command`+`Option`+`Escape` on macOS. To work around this, you can `#define` these options in your `config.h`:
 
 |Define                    |Description                              |
 |--------------------------|-----------------------------------------|

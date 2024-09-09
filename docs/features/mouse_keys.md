@@ -82,7 +82,7 @@ Cursor acceleration uses the same algorithm as the X Window System MouseKeysAcce
 
 ### Kinetic Mode
 
-This is an extension of the accelerated mode. The kinetic mode uses a quadratic curve on the cursor speed which allows precise movements at the beginning and allows to cover large distances by increasing cursor speed quickly thereafter.  You can adjust the cursor and scrolling acceleration using the following settings in your keymap’s `config.h` file:
+This is an extension of the accelerated mode. The kinetic mode uses a quadratic curve on the cursor speed which allows precise movements at the beginning and allows to cover large distances by increasing cursor speed quickly thereafter. You can adjust the cursor and scrolling acceleration using the following settings in your keymap’s `config.h` file:
 
 |Define                                |Default  |Description                                                    |
 |--------------------------------------|---------|---------------------------------------------------------------|
@@ -101,8 +101,8 @@ This is an extension of the accelerated mode. The kinetic mode uses a quadratic 
 
 Tips:
 
-* The smoothness of the cursor movement depends on the `MOUSEKEY_INTERVAL` setting. The shorter the interval is set the smoother the movement will be.  Setting the value too low makes the cursor unresponsive.  Lower settings are possible if the micro processor is fast enough. For example: At an interval of `8` milliseconds, `125` movements per second will be initiated.  With a base speed of `1000` each movement will move the cursor by `8` pixels.
-* Mouse wheel movements are implemented differently from cursor movements. While it's okay for the cursor to move multiple pixels at once for the mouse wheel this would lead to jerky movements. Instead, the mouse wheel operates at step size `1`. Setting mouse wheel speed is done by adjusting the number of wheel movements per second.
+* The smoothness of the cursor movement depends on the `MOUSEKEY_INTERVAL` setting. The shorter the interval is set, the smoother the movement will be.  Setting the value too low makes the cursor unresponsive. Lower settings are possible if the micro processor is fast enough. For example: at an interval of `8` milliseconds, `125` movements per second will be initiated. With a base speed of `1000`, each movement will move the cursor by `8` pixels.
+* Mouse wheel movements are implemented differently from cursor movements. While it's okay for the cursor to move multiple pixels at once, this would lead to jerky movements for the mouse wheel. Instead, the mouse wheel operates at step size `1`. Setting mouse wheel speed is done by adjusting the number of wheel movements per second.
 
 ### Constant mode
 
@@ -214,7 +214,9 @@ When additional overlapping mouse key is pressed, the mouse cursor will continue
 |`MOUSEKEY_OVERLAP_WHEEL_DELTA`|`MOUSEKEY_WHEEL_DELTA`|Step size of reset mouse wheel acceleration                            |
 |`MOUSEKEY_OVERLAP_INTERVAL`   |`MOUSEKEY_INTERVAL`   |Reset time between cursor movements in milliseconds (Kinetic mode only)|
 
-?> This feature will not be applied on Inertial mode
+::: tip
+Note: this feature will not be applied on Inertial mode.
+:::
 
 ## Use with PS/2 Mouse and Pointing Device
 

@@ -76,7 +76,7 @@ if (leader_sequence_three_keys(KC_C, KC_C, KC_C)) {
 
 Sometimes your leader key may be too far away from the rest of the keys in the sequence. Imagine that your leader key is one of your outer top right keys — you may need to reposition your hand just to reach your leader key. This can make typing the entire sequence on time difficult even if you are able to type most of the sequence quickly.
 
-For example, if your sequence is `Leader + asd`, typing `asd` quickly is very easy once you have your hands in your home row, but starting the sequence in time after moving your hand out of the home row to reach the leader key and back may not be.
+For example, if your sequence is `Leader`+`asd`, typing `asd` quickly is very easy once you have your hands on the home row, but starting the sequence in time after moving your hand off the home row to reach the leader key and back may not be.
 
 To remove the stress that this situation adds to your hands, you can disable the timeout just for the leader key. To do so, add the following to your `config.h`:
 

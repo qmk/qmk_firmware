@@ -47,7 +47,7 @@ Size after:
 ## NKRO Doesn't work
 First you have to compile firmware with the build option `NKRO_ENABLE` in **Makefile**.
 
-Try `Magic` **N** command(`LShift+RShift+N` by default) when **NKRO** still doesn't work. You can use this command to toggle between **NKRO** and **6KRO** mode temporarily. In some situations **NKRO** doesn't work and you will need to switch to **6KRO** mode, in particular when you are in BIOS.
+Try `Magic` **N** command(`LShift`+`RShift`+`N` by default) when **NKRO** still doesn't work. You can use this command to toggle between **NKRO** and **6KRO** mode temporarily. In some situations **NKRO** doesn't work and you will need to switch to **6KRO** mode, in particular when you are in BIOS.
 
 
 ## TrackPoint Needs Reset Circuit (PS/2 Mouse Support)

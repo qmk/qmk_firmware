@@ -2,17 +2,15 @@
 
 The Repeat Key performs the action of the last pressed key. Tapping the Repeat
 Key after tapping the <kbd>Z</kbd> key types another "`z`." This is useful for
-typing doubled letters, like the `z` in "`dazzle`": a double tap on <kbd>Z</kbd>
-can instead be a roll from <kbd>Z</kbd> to <kbd>Repeat</kbd>, which is
+typing doubled letters, like the `z` in "`dazzle`": a double tap on <kbd>Z</kbd> can instead be a roll from <kbd>Z</kbd> to <kbd>Repeat</kbd>, which is
 potentially faster and more comfortable. The Repeat Key is also useful for
-hotkeys, like repeating Ctrl + Shift + Right Arrow to select by word. 
+hotkeys, like repeating `Ctrl`+`Shift`+`Right Arrow` to select by word. 
 
 Repeat Key remembers mods that were active with the last key press. These mods
-are combined with any additional mods while pressing the Repeat Key. If the last
-press key was <kbd>Ctrl</kbd> + <kbd>Z</kbd>, then <kbd>Shift</kbd> +
-<kbd>Repeat</kbd> performs Ctrl + Shift + `Z`.
+are combined with any additional mods while pressing the Repeat Key. If the last key pressed was <kbd>Ctrl</kbd> + <kbd>Z</kbd>, then <kbd>Shift</kbd> +
+<kbd>Repeat</kbd> performs `Ctrl`+`Shift`+`Z`.
 
-## How do I enable Repeat Key
+## How do I enable Repeat Key?
 
 In your `rules.mk`, add:
 
@@ -50,14 +48,14 @@ reduce firmware size, Alternate Repeat may be disabled by adding in config.h:
 The following alternate keys are defined by default. See
 `get_alt_repeat_key_keycode_user()` below for how to change or add to these
 definitions. Where it makes sense, these definitions also include combinations 
-with mods, like Ctrl + Left &harr; Ctrl + Right Arrow.
+with mods, like `Ctrl`+`Left Arrow` &harr; `Ctrl`+`Right Arrow`.
 
 **Navigation** 
 
 |Keycodes                           |Description                        |
 |-----------------------------------|-----------------------------------|
 |`KC_LEFT` &harr; `KC_RGHT`         | Left &harr; Right Arrow           |
-|`KC_UP` &harr; `KC_DOWN`           | Up &harr; Down Arrow              |
+|`KC_UP`   &harr; `KC_DOWN`         | Up &harr; Down Arrow              |
 |`KC_HOME` &harr; `KC_END`          | Home &harr; End                   |
 |`KC_PGUP` &harr; `KC_PGDN`         | Page Up &harr; Page Down          |
 |`MS_LEFT` &harr; `MS_RGHT`         | Mouse Cursor Left &harr; Right    |
@@ -96,15 +94,14 @@ with mods, like Ctrl + Left &harr; Ctrl + Right Arrow.
 |`KC_H` &harr; `KC_L`               | Left &harr; Right                 |
 |`KC_W` &harr; `KC_B`               | Forward &harr; Backward by Word   |
 
-(where above, "mod" is Ctrl, Alt, or GUI)
+where in the above, "mod" is `Ctrl`, `Alt`, or `GUI`.
 
 
 ## Defining alternate keys
 
 Use the `get_alt_repeat_key_keycode_user()` callback to define the "alternate"
 for additional keys or override the default definitions. For example, to define
-Ctrl + Y as the alternate of Ctrl + Z, and vice versa, add the following in
-keymap.c:
+`Ctrl` + `Y` as the alternate of `Ctrl` + `Z`, and vice versa, add the following in `keymap.c`:
 
 ```c
 uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
@@ -122,12 +119,12 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
 The `keycode` and `mods` args are the keycode and mods that were active with the
 last pressed key. The meaning of the return value from this function is:
 
-* `KC_NO` &ndash; do nothing (any predefined alternate key is not used);
-* `KC_TRNS` &ndash; use the default alternate key if it exists;
-* anything else &ndash; use the specified keycode. Any keycode may be returned
+* `KC_NO` — do nothing (any predefined alternate key is not used);
+* `KC_TRNS` — use the default alternate key if it exists;
+* anything else — use the specified keycode. Any keycode may be returned
   as an alternate key, including custom keycodes.
 
-Another example, defining Shift + Tab as the alternate of Tab, and vice versa:
+Another example, defining `Shift`+`Tab` as the alternate of `Tab`, and vice versa:
 
 ```c
 uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
@@ -178,7 +175,7 @@ dedicate keys to them. The following defines a couple shortcuts.
 * Typing <kbd>K</kbd>, <kbd>Alt Repeat</kbd> produces "`keyboard`," with the
   initial "`k`" typed as usual and the "`eybord`" produced by the macro. 
 * Typing <kbd>.</kbd>, <kbd>Alt Repeat</kbd> produces "`../`," handy for "up
-  directory" on the shell. Similary, <kbd>.</kbd> types the initial "`.`" and 
+  directory" on the shell. Similarly, <kbd>.</kbd> types the initial "`.`" and 
   "`./`" is produced by the macro.
 
 ```c
@@ -213,7 +210,7 @@ modifier and layer switch keys are always ignored. This makes it possible to set
 some mods and change layers between pressing a key and repeating it. By default,
 all other (non-modifier, non-layer switch) keys are remembered so that they are
 eligible for repeating. To configure additional keys to be ignored, define
-`remember_last_key_user()` in your keymap.c.
+`remember_last_key_user()` in your `keymap.c`.
 
 #### Ignoring a key
 
@@ -369,14 +366,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
 ## Functions
 
-| Function                       | Description                                                            |
-|--------------------------------|------------------------------------------------------------------------|
-| `get_last_keycode()`           | The last key's keycode, the key to be repeated.                        |
-| `get_last_mods()`              | Mods to apply when repeating.                                          |
-| `set_last_keycode(kc)`         | Set the keycode to be repeated.                                        |
-| `set_last_mods(mods)`          | Set the mods to apply when repeating.                                  |
-| `get_repeat_key_count()`       | Signed count of times the key has been repeated or alternate repeated. |
-| `get_alt_repeat_key_keycode()` | Keycode to be used for alternate repeating.                            |
+| Function                       | Description                                                           |
+|--------------------------------|-----------------------------------------------------------------------|
+| `get_last_keycode()`           | The last key's keycode, the key to be repeated                        |
+| `get_last_mods()`              | Mods to apply when repeating                                          |
+| `set_last_keycode(kc)`         | Set the keycode to be repeated                                        |
+| `set_last_mods(mods)`          | Set the mods to apply when repeating                                  |
+| `get_repeat_key_count()`       | Signed count of times the key has been repeated or alternate repeated |
+| `get_alt_repeat_key_keycode()` | Keycode to be used for alternate repeating                            |
  
 
 ## Additional "Alternate" keys

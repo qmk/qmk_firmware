@@ -24,7 +24,7 @@ These allow you to combine a modifier with a keycode. When pressed, the keydown 
 |`MEH(kc)` |                                  |Hold Left Control, Shift and Alt and press `kc`       |
 |`HYPR(kc)`|                                  |Hold Left Control, Shift, Alt and GUI and press `kc`  |
 
-You can also chain them; for example, `LCTL(LALT(KC_DEL))` or `C(A(KC_DEL))` makes a key that sends Control+Alt+Delete with a single keypress.
+You can also chain them; for example, `LCTL(LALT(KC_DEL))` or `C(A(KC_DEL))` makes a key that sends `Ctrl`+`Alt`+`Delete` with a single keypress.
 
 # Checking Modifier State {#checking-modifier-state}
 
@@ -32,7 +32,7 @@ The current modifier state can mainly be accessed with two functions: `get_mods(
 
 The presence of one or more specific modifiers in the current modifier state can be detected by ANDing the modifier state with a mod mask corresponding to the set of modifiers you want to match for. The reason why bitwise operators are used is that the modifier state is stored as a single byte in the format (GASC)<sub>R</sub>(GASC)<sub>L</sub>.
 
-Thus, for example, `01000010` would be the internal representation of LShift+RAlt.
+Thus, for example, `01000010` would be the internal representation of `LShift`+`RAlt` (or `AltGr`).
 For more information on bitwise operators in C, click [here](https://en.wikipedia.org/wiki/Bitwise_operations_in_C) to open the Wikipedia page on the topic.
 
 In practice, this means that you can check whether a given modifier is active with `get_mods() & MOD_BIT(KC_<modifier>)` (see the [list of modifier keycodes](keycodes_basic#modifiers)) or with `get_mods() & MOD_MASK_<modifier>` if the difference between left and right hand modifiers is not important and you want to match both. Same thing can be done for one-shot modifiers if you replace `get_mods()` with `get_oneshot_mods()`.
@@ -87,7 +87,7 @@ The following examples use [advanced macro functions](feature_macros#advanced-ma
 
 A simple example where chording Left Alt with `KC_ESC` makes it behave like `KC_TAB` for alt-tabbing between applications.
 
-This example strictly checks if only Left Alt is active, meaning you can't do Alt+Shift+Esc to switch between applications in reverse order. Also keep in mind that this removes the ability to trigger the actual Alt+Escape keyboard shortcut, though it keeps the ability to do AltGr+Escape.
+This example strictly checks if only Left Alt is active, meaning you can't do `Alt`+`Shift`+`Escape` to switch between applications in reverse order. Also keep in mind that this removes the ability to trigger the actual `Alt`+`Escape` keyboard shortcut, though it keeps the ability to do `AltGr`+`Escape`.
 
 ```c
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -120,7 +120,7 @@ Advanced example where the original behaviour of shift is cancelled when chorded
 
 Two main variables are created to make this work well: `mod_state` and `delkey_registered`. The first one stores the modifier state and is used to restore it after registering `KC_DEL`. The second variable is a boolean variable (true or false) which keeps track of the status of `KC_DEL` to manage the release of the whole Backspace/Delete key correctly.
 
-As opposed to the previous example, this doesn't use strict modifier checking; pressing `KC_BSPC` while one or both shifts are active is enough to trigger this custom code, regardless of the state of other modifiers. This approach offers some perks: Ctrl+Shift+Backspace lets us delete the next word (Ctrl+Delete) and Ctrl+Alt+Shift+Backspace lets us execute the Ctrl+Alt+Del keyboard shortcut.
+As opposed to the previous example, this doesn't use strict modifier checking; pressing `KC_BSPC` while one or both shifts are active is enough to trigger this custom code, regardless of the state of other modifiers. This approach offers some perks: `Ctrl`+`Shift`+`Backspace` lets us delete the next word (`Ctrl`+`Delete`) and `Ctrl`+`Alt`+`Shift`+`Backspace` lets us execute the `Ctrl`+`Alt`+`Delete` keyboard shortcut.
 
 ```c
 // Initialize variable holding the binary

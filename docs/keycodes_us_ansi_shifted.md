@@ -4,11 +4,11 @@ These keycodes correspond to characters that are "shifted" on a standard US ANSI
 
 ## Caveats
 
-Unfortunately, these keycodes cannot be used in Mod-Taps or Layer-Taps, since any modifiers specified in the keycode are ignored.
+Unfortunately, these keycodes cannot be used in Mod-Taps or Layer-Taps, since any modifiers specified in the keycode are ignored. However, this functionality may still be implemented with more manual work by [intercepting the tap hold decision](https://docs.qmk.fm/mod_tap#intercepting-mod-taps) of the key.
 
-Additionally, you may run into issues when using Remote Desktop Connection on Windows. Because these codes send shift very fast, Remote Desktop may miss the codes.
+Additionally, you may run into issues when using Remote Desktop Connection on Windows. Because these codes send shift very rapidly, Remote Desktop may miss the codes.
 
-To fix this, open Remote Desktop Connection, click on "Show Options", open the "Local Resources" tab. In the keyboard section, change the drop down to "On this Computer". This will fix the issue, and allow the characters to work correctly.
+To fix this, open Remote Desktop Connection, click on "Show Options", and open the "Local Resources" tab. In the keyboard section, change the drop down to "On this Computer". This will fix the issue and allow the characters to work correctly.
 
 ## Keycodes
 
