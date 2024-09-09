@@ -59,21 +59,27 @@ void spi_init(void) {
 }
 
 bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
-    return spi_start_extended(slavePin, lsbFirst, mode, divisor, true);
+    spi_start_config_t start_config = {0};
+    start_config.slavePin           = slavePin;
+    start_config.lsbFirst           = lsbFirst;
+    start_config.mode               = mode;
+    start_config.divisor            = divisor;
+    start_config.cs_active_low      = true;
+    return spi_start_extended(&start_config);
 }
 
-bool spi_start_extended(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor, bool cs_active_low) {
-    if (currentSlavePin != NO_PIN || slavePin == NO_PIN) {
+bool spi_start_extended(spi_start_config_t *start_config) {
+    if (currentSlavePin != NO_PIN || start_config->slavePin == NO_PIN) {
         return false;
     }
 
     currentSlaveConfig = 0;
 
-    if (lsbFirst) {
+    if (start_config->lsbFirst) {
         currentSlaveConfig |= _BV(DORD);
     }
 
-    switch (mode) {
+    switch (start_config->mode) {
         case 1:
             currentSlaveConfig |= _BV(CPHA);
             break;
@@ -86,7 +92,7 @@ bool spi_start_extended(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t di
     }
 
     uint16_t roundedDivisor = 1;
-    while (roundedDivisor < divisor) {
+    while (roundedDivisor < start_config->divisor) {
         roundedDivisor <<= 1;
     }
 
@@ -117,8 +123,8 @@ bool spi_start_extended(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t di
     if (currentSlave2X) {
         SPSR |= _BV(SPI2X);
     }
-    currentSlavePin       = slavePin;
-    current_cs_active_low = cs_active_low;
+    currentSlavePin       = start_config->slavePin;
+    current_cs_active_low = start_config->cs_active_low;
     gpio_set_pin_output(currentSlavePin);
     spi_select();
 

@@ -83,7 +83,7 @@ __attribute__((weak)) void spi_init(void) {
     }
 }
 
-bool spi_start_extended(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor, bool cs_active_low) {
+bool spi_start_extended(spi_start_config_t *start_config) {
 #if (SPI_USE_MUTUAL_EXCLUSION == TRUE)
     spiAcquireBus(&SPI_DRIVER);
 #endif // (SPI_USE_MUTUAL_EXCLUSION == TRUE)
@@ -92,14 +92,14 @@ bool spi_start_extended(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t di
         return false;
     }
 #if SPI_SELECT_MODE != SPI_SELECT_MODE_NONE
-    if (slavePin == NO_PIN) {
+    if (start_config->slavePin == NO_PIN) {
         return false;
     }
 #endif
 
 #if !(defined(WB32F3G71xx) || defined(WB32FQ95xx))
     uint16_t roundedDivisor = 2;
-    while (roundedDivisor < divisor) {
+    while (roundedDivisor < start_config->divisor) {
         roundedDivisor <<= 1;
     }
 
@@ -111,11 +111,11 @@ bool spi_start_extended(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t di
 #if defined(K20x) || defined(KL2x)
     spiConfig.tar0 = SPIx_CTARn_FMSZ(7) | SPIx_CTARn_ASC(1);
 
-    if (lsbFirst) {
+    if (start_config->lsbFirst) {
         spiConfig.tar0 |= SPIx_CTARn_LSBFE;
     }
 
-    switch (mode) {
+    switch (start_config->mode) {
         case 0:
             break;
         case 1:
@@ -160,11 +160,11 @@ bool spi_start_extended(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t di
     spiConfig.cr0 = SPI_CR0_SELOEN;
     spiConfig.cr1 = SPI_CR1_MODE | 8; // 8 bits and in master mode
 
-    if (lsbFirst) {
+    if (start_config->lsbFirst) {
         spiConfig.cr1 |= SPI_CR1_FIRSTBIT;
     }
 
-    switch (mode) {
+    switch (start_config->mode) {
         case 0:
             spiConfig.cr1 |= SPI_CR1_FORMAT_MODE0;
             break;
@@ -182,17 +182,17 @@ bool spi_start_extended(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t di
     spiConfig.cpr = (roundedDivisor - 1) >> 1;
 
 #elif defined(WB32F3G71xx) || defined(WB32FQ95xx)
-    if (!lsbFirst) {
-        osalDbgAssert(lsbFirst != FALSE, "unsupported lsbFirst");
+    if (!start_config->lsbFirst) {
+        osalDbgAssert(start_config->lsbFirst != FALSE, "unsupported lsbFirst");
     }
 
-    if (divisor < 1) {
+    if (start_config->divisor < 1) {
         return false;
     }
 
-    spiConfig.SPI_BaudRatePrescaler = (divisor << 2);
+    spiConfig.SPI_BaudRatePrescaler = (start_config->divisor << 2);
 
-    switch (mode) {
+    switch (start_config->mode) {
         case 0:
             spiConfig.SPI_CPHA = SPI_CPHA_1Edge;
             spiConfig.SPI_CPOL = SPI_CPOL_Low;
@@ -211,8 +211,8 @@ bool spi_start_extended(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t di
             break;
     }
 #elif defined(MCU_RP)
-    if (lsbFirst) {
-        osalDbgAssert(lsbFirst == false, "RP2040s PrimeCell SPI implementation does not support sending LSB first.");
+    if (start_config->lsbFirst) {
+        osalDbgAssert(start_config->lsbFirst == false, "RP2040s PrimeCell SPI implementation does not support sending LSB first.");
     }
 
     // Motorola frame format and 8bit transfer data size.
@@ -222,7 +222,7 @@ bool spi_start_extended(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t di
     // passed divisor to be the only value to divide the input clock by.
     spiConfig.SSPCPSR = roundedDivisor; // Even number from 2 to 254
 
-    switch (mode) {
+    switch (start_config->mode) {
         case 0:
             spiConfig.SSPCR0 &= ~SPI_SSPCR0_SPO; // Clock polarity: low
             spiConfig.SSPCR0 &= ~SPI_SSPCR0_SPH; // Clock phase: sample on first edge
@@ -243,11 +243,11 @@ bool spi_start_extended(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t di
 #else
     spiConfig.cr1 = 0;
 
-    if (lsbFirst) {
+    if (start_config->lsbFirst) {
         spiConfig.cr1 |= SPI_CR1_LSBFIRST;
     }
 
-    switch (mode) {
+    switch (start_config->mode) {
         case 0:
             break;
         case 1:
@@ -290,16 +290,16 @@ bool spi_start_extended(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t di
 
     spiStarted = true;
 #if SPI_SELECT_MODE == SPI_SELECT_MODE_NONE
-    currentSlavePin       = slavePin;
-    current_cs_active_low = cs_active_low;
+    currentSlavePin       = start_config->slavePin;
+    current_cs_active_low = start_config->cs_active_low;
 #endif
 #if SPI_SELECT_MODE == SPI_SELECT_MODE_PAD
-    spiConfig.ssport = PAL_PORT(slavePin);
-    spiConfig.sspad  = PAL_PAD(slavePin);
-    gpio_set_pin_output(slavePin);
+    spiConfig.ssport = PAL_PORT(start_config->slavePin);
+    spiConfig.sspad  = PAL_PAD(start_config->slavePin);
+    gpio_set_pin_output(start_config->slavePin);
 #elif SPI_SELECT_MODE == SPI_SELECT_MODE_NONE
-    if (slavePin != NO_PIN) {
-        gpio_set_pin_output(slavePin);
+    if (start_config->slavePin != NO_PIN) {
+        gpio_set_pin_output(start_config->slavePin);
     }
 #else
 #    error "Unsupported SPI_SELECT_MODE"
@@ -312,7 +312,13 @@ bool spi_start_extended(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t di
 }
 
 bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
-    return spi_start_extended(slavePin, lsbFirst, mode, divisor, true);
+    spi_start_config_t start_config = {0};
+    start_config.slavePin           = slavePin;
+    start_config.lsbFirst           = lsbFirst;
+    start_config.mode               = mode;
+    start_config.divisor            = divisor;
+    start_config.cs_active_low      = true;
+    return spi_start_extended(&start_config);
 }
 
 spi_status_t spi_write(uint8_t data) {
