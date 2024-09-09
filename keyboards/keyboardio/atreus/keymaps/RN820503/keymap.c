@@ -37,7 +37,7 @@ enum custom_keycodes {
     x   w   m    g   j           +=  .:  /    "!  '?
     s⌃  c⌥  n⌘   t⇧  k           ,;  a⇧  e⌘   i⌥  h⌃
     f   p   l    d   v	 `   \	 -   u   o    y   b
-    ←   →  app   ⌫   r   ⇥   ⎋   ␣   ⏎  num   ↑   ↓
+    ←   →  app   ⇥   r   ⌫   ⏎   ␣   ⎋  num   ↑   ↓
 */
 
 // top row
@@ -54,7 +54,7 @@ enum custom_keycodes {
 #define RT4 KC_QUOT
 
 // middle row
-#define LM4 LCTL_T(KC_S)
+#define LM4 LT(_SYM, KC_S)
 #define LM3 LALT_T(KC_C)
 #define LM2 LGUI_T(KC_N)
 #define LM1 LSFT_T(KC_T)
@@ -64,10 +64,10 @@ enum custom_keycodes {
 #define RM1 RSFT_T(KC_A)
 #define RM2 RGUI_T(KC_E)
 #define RM3 RALT_T(KC_I)
-#define RM4 RCTL_T(KC_H)
+#define RM4 LT(_SYM, KC_H)
 
 // bottom row
-#define LB4 KC_F
+#define LB4 LCTL_T(KC_F)
 #define LB3 KC_P
 #define LB2 KC_L
 #define LB1 KC_D
@@ -79,18 +79,18 @@ enum custom_keycodes {
 #define RB1 KC_U
 #define RB2 KC_O
 #define RB3 KC_Y
-#define RB4 KC_B
+#define RB4 RCTL_T(KC_B)
 
 // thumb row
 #define LH4 KC_LEFT
 #define LH3 KC_RGHT
 #define LH2 G(KC_TAB)
 #define LH1 KC_TAB
-#define LH0 LT(_NAV, KC_R)
-#define LH00 LT(_SYM, KC_BSPC)
+#define LH0 LSFT_T(KC_R)
+#define LH00 LT(_NAV, KC_BSPC)
 
-#define RH00 LT(_SYM, KC_ENT)
-#define RH0 LT(_NUM, KC_SPC)
+#define RH00 LT(_NUM, KC_ENT)
+#define RH0 RSFT_T(KC_SPC)
 #define RH1 KC_ESC
 #define RH2 TG(_NUM)
 #define RH3 KC_UP
@@ -121,10 +121,10 @@ static uint16_t keyhold_timer; // for handling Qu combo
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	/*
-        x   w   m    g   j           +=  .:  /    "!  '?
+        x   w   m    g   j           #$  .:  /    "!  '?
         s⌃  c⌥  n⌘   t⇧  k           ,;  a⇧  e⌘   i⌥  h⌃
-        f   p   l    d   v	 `   \	 -   u   o    y   b
-        ←   →  app   ⌫   r   ⇥   ⎋   ␣   ⏎  num   ↑   ↓
+        f   p   l    d   v	 `   \	 -+  u   o    y   b
+        ←   →  app   ⇥   r   ⌫   ⏎   ␣   ⎋  num   ↑   ↓
     */
 
   	[_DEF] = LAYOUT(
@@ -139,39 +139,40 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     	/   1   2   3   +       ,   ⇧   ⌘   ⌥   ^
     	,   4   5   6   =       -
     	←   →       .   0   ␣
-    */
+    *
     [_NUM] = LAYOUT(
     KC_ASTR, KC_7,    KC_8,    KC_9,    KC_MINS,                   _______, _______, _______, _______, _______,
     KC_SLSH, KC_1,    KC_2,    KC_3,    KC_PLUS,                   _______, OSMSFT,  OSMCMD,  OSMOPT,  OSMCTL,
     KC_COMM, KC_4,    KC_5,    KC_6,    KC_EQL,  _______, _______, _______, _______, ___x___, ___x___, _______,
     _______, _______, _______, KC_DOT,  KC_0,    KC_SPC,  _______, _______, _______, _______, _______, _______
     ),
+    */
 
     /*
-    *       <   >   @   			&	[	]
-    *   !   -   +   =   `       \   :   (   )	?
-    *   ^   /   *   #   ~		|	$	{	}	%
+    	-   5   2   3   :           +   /	*
+    	7   .   1   0   4       ,   ⇧   ⌘   ⌥   ^
+    	/   6   9   8   ,       -
+    	←   →           ␣   ⌫
+    */
+    [_NUM] = LAYOUT(
+    KC_MINS, KC_5,    KC_2,    KC_3,    KC_COLN,                   _______, KC_PLUS, _______, KC_ASTR, _______,
+    KC_7,    KC_DOT,  KC_1,    KC_0,    KC_4,                      _______, OSMSFT,  OSMCMD,  OSMOPT,  OSMCTL,
+    KC_SLSH, KC_6,    KC_9,    KC_8,    KC_COMM, _______, _______, _______, _______, ___x___, ___x___, _______,
+    _______, _______, _______, _______, KC_SPC,  _______, _______, _______, _______, _______, _______, _______
+    ),
+
+
+    /*
+    *       <   >   @      			[	&   ]
+    *   !   -   +   =   `       \   (   :   )	?
+    *   ⌃   /   *   #   ~		|	{	$	}	%
     */
     [_SYM] = LAYOUT( // Pascal Getreuer Mod
-    ___x___, KC_LABK, KC_RABK, KC_AT,   ___x___,                   ___x___, KC_AMPR, KC_LBRC, KC_RBRC, ___x___,
-    KC_EXLM, KC_MINS, KC_PLUS, KC_EQL,  KC_GRV,                    KC_BSLS, KC_COLN, KC_LPRN, KC_RPRN, KC_QUES,
-    KC_CIRC, KC_SLSH, KC_ASTR, KC_HASH, KC_TILD, _______, _______, KC_PIPE, KC_DLR,  KC_LCBR, KC_RCBR, KC_PERC,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+    ___x___, KC_LABK, KC_RABK, KC_AT,   ___x___,                   ___x___, KC_LBRC, KC_AMPR, KC_RBRC, ___x___,
+    KC_EXLM, KC_MINS, KC_PLUS, KC_EQL,  KC_GRV,                    KC_BSLS, KC_LPRN, KC_COLN, KC_RPRN, KC_QUES,
+    KC_CIRC, KC_SLSH, KC_ASTR, KC_HASH, KC_TILD, _______, _______, KC_PIPE, KC_LCBR, KC_DLR,  KC_RCBR, KC_PERC,
+    _______, _______, _______, _______, KC_SPC,  _______, _______, _______, _______, _______, _______, _______
     ),
-
-    /*
-		{   &   *   (   }
-    	:   !   @   #   +       ⇧   ⌘   ⌥   ^
-    	~   $   %   ^   |
-    	←   →       (   )   _
-    *
-    [_SYM] = LAYOUT(
-    KC_LCBR, KC_AMPR, KC_ASTR, KC_LPRN, KC_RCBR,                   _______, _______, _______, _______, _______,
-    KC_COLN, KC_EXLM, KC_AT,   KC_HASH, KC_PLUS,                   _______, OSMSFT,  OSMCMD,  OSMOPT,  OSMCTL,
-    KC_TILD, KC_DLR,  KC_PERC, KC_CIRC, KC_PIPE, _______, _______, _______, ___x___, ___x___, ___x___, ___x___,
-    _______, _______, _______, KC_LPRN, KC_RPRN, KC_UNDS, _______, _______, _______, _______, _______, _______
-    ),
-	*/
 
     /*
                quit    Scap    Sclp                            vol+    home    up	end
@@ -190,13 +191,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-	    case LM1:
-        case RM1:
+	    case LH0:
+        case RH0:
             return TAPPING_TERM - 25;
 
     	case LB4:
         case LM3:
         case LM2:
+		case LM1:
+		case RM1:
         case RM2:
         case RM3:
         case RB4:
@@ -209,8 +212,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 
 bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case LM1:
-        case RM1:
+        case LH0:
+        case RH0:
             return true;    // Immediately select the hold action when another key is tapped.
 
         default:
