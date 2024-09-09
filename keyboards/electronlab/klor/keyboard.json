@@ -98,10 +98,7 @@
         "default": {
             "animation": "breathing",
             "on": true,
-            "hue": 128,
-            "sat": 255,
-            "val": 255,
-            "speed": 128
+            "hue": 128
         },
         "driver": "ws2812",
         "layout": [
@@ -149,15 +146,9 @@
             {"matrix": [7, 1], "x": 166, "y": 48, "flags": 1}
         ],
         "split_count": [21, 21],
-        "led_flush_limit": 16,
         "led_process_limit": 10,
-        "max_brightness": 255,
-        "react_on_keyup": false,
-        "sat_steps": 16,
         "sleep": true,
-        "speed_steps": 16,
         "timeout": 120000,
-        "val_steps": 16,
         "hue_steps": 3
     },
     "split": {
