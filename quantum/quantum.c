@@ -477,12 +477,16 @@ bool process_record_quantum(keyrecord_t *record) {
     return process_action_kb(record);
 }
 
-void set_single_persistent_default_layer(uint8_t default_layer) {
+void set_single_default_layer(uint8_t default_layer) {
 #if defined(AUDIO_ENABLE) && defined(DEFAULT_LAYER_SONGS)
     PLAY_SONG(default_layer_songs[default_layer]);
 #endif
-    eeconfig_update_default_layer((layer_state_t)1 << default_layer);
     default_layer_set((layer_state_t)1 << default_layer);
+}
+
+void set_single_persistent_default_layer(uint8_t default_layer) {
+    eeconfig_update_default_layer((layer_state_t)1 << default_layer);
+    set_single_default_layer(default_layer);
 }
 
 //------------------------------------------------------------------------------
