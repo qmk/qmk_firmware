@@ -41,11 +41,11 @@ Yes, unfortunately.
    shifted version, but we did not. On the other hand, we may think we are tapping
    the keys, but really we have held it for a little longer than anticipated.
 2. Additionally, with keyrepeat the desired shift state can get mixed up. It will
-   always 'belong' to the last key pressed. For example, keyrepeating a capital
+   always "belong" to the last key pressed. For example, keyrepeating a capital
    and then tapping something lowercase (whether or not it's an Auto Shift key)
    will result in the capital's *key* still being held, but shift not.
-3. Auto Shift does not apply to Tap Hold keys. For automatic shifting of Tap Hold
-   keys see [Retro Shift](#retro-shift).
+3. Auto Shift does not apply to tap-hold keys. For automatic shifting of tap-hold
+   keys, see [Retro Shift](#retro-shift).
 
 ## How Do I Enable Auto Shift?
 
@@ -57,13 +57,13 @@ AUTO_SHIFT_ENABLE = yes
 
 If no `rules.mk` exists, you can create one.
 
-Then compile and install your new firmware with Auto Key enabled! That's it!
+Then, compile and install your new firmware with Auto Key enabled! That's it!
 
 ## Modifiers
 
 By default, Auto Shift is disabled for any key press that is accompanied by one or more
-modifiers. Thus, Ctrl+A that you hold for a really long time is not the same
-as Ctrl+Shift+A.
+modifiers. Thus, `Ctrl`+`A` that you hold for a really long time is not the same
+as `Ctrl`+`Shift`+`A`.
 
 You can re-enable Auto Shift for modifiers by adding a define to your `config.h`
 
@@ -71,7 +71,7 @@ You can re-enable Auto Shift for modifiers by adding a define to your `config.h`
 #define AUTO_SHIFT_MODIFIERS
 ```
 
-In which case, Ctrl+A held past the `AUTO_SHIFT_TIMEOUT` will be sent as Ctrl+Shift+A
+In this case, `Ctrl`+`A` held past the `AUTO_SHIFT_TIMEOUT` will be sent as `Ctrl`+`Shift`+`A`
 
 
 ## Configuring Auto Shift
@@ -80,7 +80,7 @@ If desired, there is some configuration that can be done to change the
 behavior of Auto Shift. This is done by setting various variables the
 `config.h` file located in your keymap folder. If no `config.h` file exists, you can create one.
 
-A sample is
+For example:
 
 ```c
 #pragma once
@@ -92,18 +92,19 @@ A sample is
 ### AUTO_SHIFT_TIMEOUT (Value in ms)
 
 This controls how long you have to hold a key before you get the shifted state.
-Obviously, this is different for everyone. For the common person, a setting of
-135 to 150 works great. However, one should start with a value of at least 175, which
-is the default value. Then work down from there. The idea is to have the shortest time required to get the shifted state without having false positives.
+Obviously, this is different for everyone. For most people, a setting of 135 
+to 150 works great. However, one should start with a value of at least 175, 
+which is the default value, and then work down from there. The idea is to have 
+the shortest time required to get the shifted state without having false positives.
 
-Play with this value until things are perfect. Many find that all will work well
-at a given value, but one or two keys will still emit the shifted state on
-occasion. This is simply due to habit and holding some keys a little longer
-than others. Once you find this value, work on tapping your problem keys a little
-quicker than normal and you will be set.
+Play with this value until things are perfect. Many find that almost all keys 
+will work well at a given value, but one or two keys will still emit the 
+shifted state on occasion. This is simply due to habit and holding some keys a 
+little longer than others. Once you find this value, work on tapping your 
+problem keys a little quicker than normal and you will be set.
 
 ::: tip
-Auto Shift has three special keys that can help you get this value right very quick. See "Auto Shift Setup" for more details!
+Auto Shift has three special keys that can help you get this value right very quickly: see [Auto Shift Setup](#using-auto-shift-setup) for more details!
 :::
 
 For more granular control of this feature, you can add the following to your `config.h`:
@@ -137,11 +138,11 @@ groups in the below fallback switch.
 ### NO_AUTO_SHIFT_SPECIAL (simple define)
 
 Do not Auto Shift special keys, which include -\_, =+, [{, ]}, ;:, '", ,<, .>,
-/?, and the KC_TAB.
+/?, and `KC_TAB`.
 
 ### NO_AUTO_SHIFT_TAB (simple define)
 
-Do not Auto Shift KC_TAB but leave Auto Shift enabled for the other special
+Do not Auto Shift `KC_TAB` but leave Auto Shift enabled for the other special
 characters.
 
 ### NO_AUTO_SHIFT_SYMBOLS (simple define)
@@ -163,7 +164,7 @@ Auto Shift the enter key.
 
 ### Auto Shift Per Key
 
-There are functions that allows you to determine which keys should be autoshifted, much like the tap-hold keys.
+There are functions that allows you to determine which keys should be Auto Shifted, much like the tap-hold keys.
 
 The first of these, used to simply add a key to Auto Shift, is `get_custom_auto_shifted_key`:
 
@@ -239,16 +240,17 @@ A predefined group of keys that combines AUTO_SHIFT_SYMBOLS and KC_TAB.
 
 Especially on small keyboards, the default shifted value for many keys is not
 optimal. To provide more customizability, there are two user-definable
-functions, `autoshift_press/release_user`. These register or unregister the
+functions, `autoshift_press` and `release_user`. These register or unregister the
 correct value for the passed key. Below is an example adding period to Auto
-Shift and making its shifted value exclamation point. Make sure to use weak
-mods - setting real would make any keys following it use their shifted values
-as if you were holding the key. Clearing of modifiers is handled by Auto Shift,
-and the OS-sent shift value if keyrepeating multiple keys is always that of
-the last key pressed (whether or not it's an Auto Shift key).
+Shift and making its shifted value exclamation point. Make sure to use
+[weak mods](../faq_keymap#what-are-real-and-weak-modifiers), as setting real 
+would make any keys following it use their shifted values as if you were 
+holding the key. Clearing of modifiers is handled by Auto Shift, and the 
+OS-sent shift value if keyrepeating multiple keys is always that of the last 
+key pressed (whether or not it's an Auto Shift key).
 
 You can also have non-shifted keys for the shifted values (or even no shifted
-value), just don't set a shift modifier!
+value): just don't set a shift modifier!
 
 ```c
 bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
@@ -290,12 +292,12 @@ void autoshift_release_user(uint16_t keycode, bool shifted, keyrecord_t *record)
 
 ## Retro Shift
 
-Holding and releasing a Tap Hold key without pressing another key will ordinarily
-result in only the hold. With `retro shift` enabled this action will instead
+Holding and releasing a tap-hold key without pressing another key will ordinarily
+result in only the hold action. With `retro shift` enabled, this action will instead
 produce a shifted version of the tap keycode on release.
 
-It does not require [Retro Tapping](../tap_hold#retro-tapping) to be enabled, and
-if both are enabled the state of `retro tapping` will only apply if the tap keycode
+This does not require [Retro Tapping](../tap_hold#retro-tapping) to be enabled, 
+and if both are enabled, the state of `retro tapping` will only apply if the tap keycode
 is not matched by Auto Shift. `RETRO_TAPPING_PER_KEY` and its corresponding
 function, however, are checked before `retro shift` is applied.
 
@@ -316,17 +318,17 @@ generating taps on release. For example:
 
 Without a value set, holds of any length without an interrupting key will produce the shifted value.
 
-This value (if set) must be greater than one's `TAPPING_TERM`, as the key press
-must be designated as a 'hold' by `process_tapping` before we send the modifier.
+This value (if set) must be greater than your `TAPPING_TERM`, as the key press
+must be designated as a hold by `process_tapping` before we send the modifier.
 [Per-key tapping terms](../tap_hold#tapping-term) can be used as a workaround.
 There is no such limitation in regards to `AUTO_SHIFT_TIMEOUT` for normal keys.
 
-**Note:** Tap Holds must be added to Auto Shift, see [here.](auto_shift#auto-shift-per-key)
+**Note:** Tap-holds must be added to Auto Shift, see [here](auto_shift#auto-shift-per-key). 
 `IS_RETRO` may be helpful if one wants all Tap Holds retro shifted.
 
-### Retro Shift and Tap Hold Configurations
+### Retro Shift and Tap-Hold Configurations
 
-Tap Hold Configurations work a little differently when using Retro Shift.
+Tap-hold Configurations work a little differently when using Retro Shift.
 Referencing `TAPPING_TERM` makes little sense, as holding longer would result in
 shifting one of the keys.
 
@@ -334,7 +336,7 @@ shifting one of the keys.
 
 ## Using Auto Shift Setup
 
-This will enable you to define three keys temporarily to increase, decrease and report your `AUTO_SHIFT_TIMEOUT`.
+This will enable you to define three keys temporarily to increase, decrease, and report your `AUTO_SHIFT_TIMEOUT`.
 
 ### Setup
 
@@ -394,5 +396,5 @@ keyboarDs right now.
 ```
 
 The keyboard typed `115` which represents your current `AUTO_SHIFT_TIMEOUT`
-value. You are now set! Practice on the *D* key a little bit that showed up
+value. You are now set! Practice on the `D` key a little bit that showed up
 in the testing and you'll be golden.

@@ -4,7 +4,7 @@ These keycodes correspond to characters that are "shifted" on a standard US ANSI
 
 ## Caveats
 
-Unfortunately, these keycodes cannot be used in Mod-Taps or Layer-Taps, since any modifiers specified in the keycode are ignored. However, this functionality may still be implemented with more manual work by [intercepting the tap hold decision](https://docs.qmk.fm/mod_tap#intercepting-mod-taps) of the key.
+Unfortunately, these keycodes cannot be used in Mod-Taps or Layer-Taps, since any modifiers specified in the keycode will be ignored. However, this functionality may still be implemented with slightly more work by [intercepting the tap-hold decision](mod_tap#intercepting-mod-taps) of the key.
 
 Additionally, you may run into issues when using Remote Desktop Connection on Windows. Because these codes send shift very rapidly, Remote Desktop may miss the codes.
 

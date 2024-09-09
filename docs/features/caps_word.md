@@ -1,17 +1,17 @@
 # Caps Word
 
-It is often useful to type a single word in all capitals, for instance
-abbreviations like "QMK", or in code, identifiers like `KC_SPC`. "Caps Word" is
+It is often useful to type a single word in all capitals — for instance, in
+abbreviations like "QMK"; or in code, identifiers like `KC_SPC`. "Caps Word" is
 a modern alternative to Caps Lock:
 
 * While active, letters are capitalized and `-` becomes `_`. The `_` makes it easier
-  to type constant names (eg 'PROGRAM\_CONSTANTS').
+  to type constant names (e.g. "PROGRAM\_CONSTANTS").
 
 * Caps Word automatically disables
   itself at the end of the word. That is, it stops by default once a space or
-  any key other than `KC_A`--`KC_Z`, `KC_0`--`KC_9`, `KC_MINS`, `KC_UNDS`,
+  any key other than `KC_A`-`KC_Z`, `KC_0`-`KC_9`, `KC_MINS`, `KC_UNDS`,
   `KC_DELETE`, or `KC_BACKSPACE` is pressed. Caps Word also disables itself if
-  the keyboard is idle for 5 seconds. This is configurable, see below.
+  the keyboard is idle for 5 seconds. This is configurable; see below.
 
 * To avoid requiring a dedicated key for Caps Word, there is an option
   (`BOTH_SHIFTS_TURNS_ON_CAPS_WORD`) to activate Caps Word by simultaneously
@@ -22,14 +22,13 @@ a modern alternative to Caps Lock:
   else, as Emacs and Vim users often do. As a consequence, Caps Word does not
   follow the typical Caps Lock behaviour and may thus act in potentially
   unexpected ways, especially when using an *OS* keyboard layout other than US
-  or UK. For example, Dvorak's <kbd>, <</kbd> key (`DV_COMM` aka `KC_W`) will
+  or UK. For example, Dvorak's <kbd>, <</kbd> key (`DV_COMM`, aka `KC_W`) will
   get shifted because Caps Word interprets that keycode as the letter 'W' by
-  default, the Spanish <kbd>Ñ</kbd> key (`ES_NTIL` aka `KC_SCLN`) will not get
+  default, the Spanish <kbd>Ñ</kbd> key (`ES_NTIL`, aka `KC_SCLN`) will not get
   capitalized because Caps Word interprets it as the semicolon ';' punctuation
   character, and the US hyphen key (`KC_MINS`), while unaffected by Caps Lock,
   is shifted by Caps Word. However, this is not really a problem because you can
-  [configure which keys should Caps Word
-  shift](#configure-which-keys-are-word-breaking).
+  [configure which keys Caps Word should shift](#configure-which-keys-are-word-breaking).
 
 
 ## How do I enable Caps Word {#how-do-i-enable-caps-word}
@@ -54,7 +53,7 @@ Next, use one the following methods to activate Caps Word:
   the tapping term, then release them.
 
 * **Activate by double tapping Left Shift**: Add `#define
-  DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD` config.h. Then, double tapping Left Shift
+  DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD` in `config.h`. Then, double tapping Left Shift
   turns on Caps Word. This method works with `KC_LSFT` or one-shot Left Shift
   `OSM(MOD_LSFT)`. To count as a double tap, the maximum time in milliseconds
   between taps is `TAPPING_TERM`, or if using `TAPPING_TERM_PER_KEY`, the time
@@ -62,8 +61,7 @@ Next, use one the following methods to activate Caps Word:
 
 * **Custom activation**: You can activate Caps Word from code by calling
   `caps_word_on()`. This may be used to activate Caps Word through [a
-  combo](combo) or [tap dance](tap_dance) or any means
-  you like.
+  combo](combo), a [tap dance](tap_dance), or any other means you like.
 
 ### Troubleshooting: Command {#troubleshooting-command}
 
@@ -72,15 +70,15 @@ When using `BOTH_SHIFTS_TURNS_ON_CAPS_WORD`, you might see a compile message
 time, since both use the Left Shift + Right Shift key combination."**
 
 Many keyboards enable the [Command feature](command), which by
-default is also activated using the Left Shift + Right Shift key combination. To
-fix this conflict, please disable Command by adding in rules.mk:
+default is also activated using the `Left Shift`+`Right Shift` key combination. 
+To fix this conflict, please disable Command by adding in `rules.mk`:
 
 ```make
 COMMAND_ENABLE = no
 ```
 
-Or configure Command to use another key combination like Left Ctrl + Right Ctrl
-by defining `IS_COMMAND()` in config.h:
+Or alternatively, configure Command to use another key combination like 
+`Left Ctrl`+`Right Ctrl` by defining `IS_COMMAND()` in `config.h`:
 
 ```c
 // Activate Command with Left Ctrl + Right Ctrl.
@@ -96,10 +94,10 @@ By default, Caps Word turns off when Shift keys are pressed, considering them as
 word-breaking. Alternatively with the `CAPS_WORD_INVERT_ON_SHIFT` option,
 pressing the Shift key continues Caps Word and inverts the shift state. This
 is convenient for uncapitalizing one or a few letters within a word, for
-example with Caps Word on, typing "D, B, Shift+A, Shift+A, S" produces "DBaaS",
-or typing "P, D, F, Shift+S" produces "PDFs".
+example with Caps Word on, typing "`D`, `B`, `Shift`+`A`, `Shift`+`A`, `S`" produces "DBaaS",
+and typing "`P`, `D`, `F`, `Shift`+`S`" produces "PDFs".
 
-Enable it by adding in config.h
+Enable this by adding in `config.h`:
 
 ```c
 #define CAPS_WORD_INVERT_ON_SHIFT
@@ -128,12 +126,12 @@ Caps Word then remains active indefinitely until a word breaking key is pressed.
 
 Functions to manipulate Caps Word:
 
-| Function                | Description                                    |
-|-------------------------|------------------------------------------------|
-| `caps_word_on()`        | Turns Caps Word on.                            |
-| `caps_word_off()`       | Turns Caps Word off.                           |
-| `caps_word_toggle()`    | Toggles Caps Word.                             |
-| `is_caps_word_on()`     | Returns true if Caps Word is currently on.     |
+| Function                | Description                               |
+|-------------------------|-------------------------------------------|
+| `caps_word_on()`        | Turns Caps Word on                        |
+| `caps_word_off()`       | Turns Caps Word off                       |
+| `caps_word_toggle()`    | Toggles Caps Word                         |
+| `is_caps_word_on()`     | Returns true if Caps Word is currently on |
 
 
 ### Configure which keys are "word breaking" {#configure-which-keys-are-word-breaking}
@@ -175,7 +173,7 @@ bool caps_word_press_user(uint16_t keycode) {
 
 Define `caps_word_set_user(bool active)` to get callbacks when Caps Word turns
 on or off. This is useful to represent the current Caps Word state, e.g. by
-setting an LED or playing a sound. In your keymap, define
+setting an LED or playing a sound. Enable this by defining in `keymap.c`:
 
 ```c
 void caps_word_set_user(bool active) {
