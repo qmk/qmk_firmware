@@ -74,28 +74,35 @@ static volatile bool         debouncing = false;
 static volatile fast_timer_t last_time  = 0;
 
 void os_detection_task(void) {
+#ifdef OS_DETECTION_KEYBOARD_RESET
+    // resetting the keyboard on the USB device state change callback results in instability, so delegate that to this task
+    // only take action if it's been stable at least once, to avoid issues with some KVMs
+    if (current_usb_device_state == USB_DEVICE_STATE_INIT && !first_report) {
+        soft_reset_keyboard();
+        return;
+    }
+#endif
+#ifdef OS_DETECTION_SINGLE_REPORT
+    if (!first_report) {
+        return;
+    }
+#endif
     if (current_usb_device_state == USB_DEVICE_STATE_CONFIGURED) {
         // debouncing goes for both the detected OS as well as the USB state
         if (debouncing && timer_elapsed_fast(last_time) >= OS_DETECTION_DEBOUNCE) {
             debouncing = false;
-#ifndef OS_DETECTION_SINGLE_REPORT
-            if (detected_os != reported_os || first_report) {
-                reported_os = detected_os;
+#ifdef OS_DETECTION_SINGLE_REPORT
+            first_report = false;
+            process_detected_host_os_kb(detected_os);
 #else
-            if (first_report) {
-#endif
+            if (detected_os != reported_os || first_report) {
                 first_report = false;
+                reported_os  = detected_os;
                 process_detected_host_os_kb(detected_os);
             }
+#endif
         }
     }
-#ifdef OS_DETECTION_KEYBOARD_RESET
-    // resetting the keyboard on the USB device state change callback results in instability, so delegate that to this task
-    // only take action if it's been stable at least once, to avoid issues with some KVMs
-    else if (current_usb_device_state == USB_DEVICE_STATE_INIT && !first_report) {
-        soft_reset_keyboard();
-    }
-#endif
 }
 
 __attribute__((weak)) bool process_detected_host_os_kb(os_variant_t detected_os) {
@@ -110,6 +117,11 @@ __attribute__((weak)) bool process_detected_host_os_user(os_variant_t detected_o
 void process_wlength(const uint16_t w_length) {
 #ifdef OS_DETECTION_DEBUG_ENABLE
     usb_setups[setups_data.count] = w_length;
+#endif
+#ifdef OS_DETECTION_SINGLE_REPORT
+    if (!first_report) {
+        return;
+    }
 #endif
     setups_data.count++;
     setups_data.last_wlength = w_length;
@@ -172,8 +184,13 @@ void erase_wlength_data(void) {
 void os_detection_notify_usb_device_state_change(enum usb_device_state usb_device_state) {
     // treat this like any other source of instability
     current_usb_device_state = usb_device_state;
-    last_time                = timer_read_fast();
-    debouncing               = true;
+#ifdef OS_DETECTION_SINGLE_REPORT
+    if (!first_report) {
+        return;
+    }
+#endif
+    last_time  = timer_read_fast();
+    debouncing = true;
 }
 
 #if defined(SPLIT_KEYBOARD) && defined(SPLIT_DETECTED_OS_ENABLE)
