@@ -162,7 +162,7 @@ void ws2812_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     ws2812_leds[index].g = green;
     ws2812_leds[index].b = blue;
 #if defined(WS2812_RGBW)
-    convert_rgb_to_rgbw(&ws2812_leds[index]);
+    ws2812_rgb_to_rgbw(&ws2812_leds[index]);
 #endif
 }
 

@@ -94,4 +94,4 @@ void ws2812_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
 void ws2812_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
 void ws2812_flush(void);
 
-void convert_rgb_to_rgbw(ws2812_led_t *led);
+void ws2812_rgb_to_rgbw(ws2812_led_t *led);

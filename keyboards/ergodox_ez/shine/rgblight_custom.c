@@ -36,7 +36,7 @@ void set_color_left(int index, uint8_t red, uint8_t green, uint8_t blue) {
     ws2812_leds_left[index].g = green;
     ws2812_leds_left[index].b = blue;
 #if defined(WS2812_RGBW)
-    convert_rgb_to_rgbw(&ws2812_leds_left[index]);
+    ws2812_rgb_to_rgbw(&ws2812_leds_left[index]);
 #endif
 }
 
