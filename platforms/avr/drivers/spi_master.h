@@ -42,8 +42,8 @@ typedef int16_t spi_status_t;
 extern "C" {
 #endif
 typedef struct spi_start_config_t {
-    pin_t    slavePin;
-    bool     lsbFirst;
+    pin_t    slave_pin;
+    bool     lsb_first;
     uint8_t  mode;
     uint16_t divisor;
     bool     cs_active_low;
