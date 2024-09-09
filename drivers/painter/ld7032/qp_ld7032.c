@@ -56,7 +56,7 @@ uint32_t ld7032_comms_i2c_send_command_and_databuf(painter_device_t device, uint
 
 // Power control
 bool qp_ld7032_power(painter_device_t device, bool power_on) {
-    painter_driver_t *                  driver       = (painter_driver_t *)device;
+    painter_driver_t                   *driver       = (painter_driver_t *)device;
     ld7032_comms_with_command_vtable_t *comms_vtable = (ld7032_comms_with_command_vtable_t *)driver->comms_vtable;
 
     comms_vtable->send_command_data(device, LD7032_DISP_ON_OFF, power_on ? 0x01 : 0x00);
@@ -76,8 +76,8 @@ bool qp_ld7032_clear(painter_device_t device) {
 // Flush helpers
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void ld7032_flush_rot0(painter_device_t device, surface_dirty_data_t *dirty, const uint8_t *framebuffer) {
-    painter_driver_t *                  driver       = (painter_driver_t *)device;
+void ld7032_flush_0(painter_device_t device, surface_dirty_data_t *dirty, const uint8_t *framebuffer, bool inverted) {
+    painter_driver_t                   *driver       = (painter_driver_t *)device;
     ld7032_comms_with_command_vtable_t *comms_vtable = (ld7032_comms_with_command_vtable_t *)driver->comms_vtable;
 
     int     x_start       = dirty->l >> 3;
@@ -89,13 +89,17 @@ void ld7032_flush_rot0(painter_device_t device, surface_dirty_data_t *dirty, con
     uint8_t y_view_offset = driver->offset_y;
 
     for (int y_pos = y_start; y_pos <= y_end; y_pos++) {
+        int y_new_pos = y_pos;
+        if (inverted) {
+            y_new_pos = y_end - y_pos;
+        }
         uint8_t packet[x_length];
         memset(packet, 0, sizeof(packet));
         memcpy(packet, &framebuffer[(y_pos * (driver->panel_width >> 3)) + x_start], x_length);
         uint8_t x_write_start = MIN(x_start + x_view_offset, (128 >> 3));
         uint8_t x_write_end   = MIN(x_end + x_view_offset, (128 >> 3));
-        uint8_t y_write_start = MIN(y_pos + y_view_offset, 39);
-        uint8_t y_write_end   = MIN(y_pos + y_view_offset, 39);
+        uint8_t y_write_start = MIN(y_new_pos + y_view_offset, 39);
+        uint8_t y_write_end   = MIN(y_new_pos + y_view_offset, 39);
 
         comms_vtable->send_command_data(device, LD7032_X_BOX_ADR_START, x_write_start);
         comms_vtable->send_command_data(device, LD7032_X_BOX_ADR_END, x_write_end);
@@ -105,8 +109,8 @@ void ld7032_flush_rot0(painter_device_t device, surface_dirty_data_t *dirty, con
     }
 }
 
-void ld7032_flush_rot90(painter_device_t device, surface_dirty_data_t *dirty, const uint8_t *framebuffer) {
-    painter_driver_t *                  driver       = (painter_driver_t *)device;
+void ld7032_flush_90(painter_device_t device, surface_dirty_data_t *dirty, const uint8_t *framebuffer, bool inverted) {
+    painter_driver_t                   *driver       = (painter_driver_t *)device;
     ld7032_comms_with_command_vtable_t *comms_vtable = (ld7032_comms_with_command_vtable_t *)driver->comms_vtable;
 
     int     x_start       = dirty->t >> 3;
@@ -118,6 +122,10 @@ void ld7032_flush_rot90(painter_device_t device, surface_dirty_data_t *dirty, co
     uint8_t y_view_offset = driver->offset_y;
 
     for (int y_pos = y_start; y_pos <= y_end; y_pos++) {
+        int y_new_pos = y_pos;
+        if (inverted) {
+            y_new_pos = y_end - y_pos;
+        }
         uint8_t packet[x_length];
         memset(packet, 0, sizeof(packet));
         int count = 0;
@@ -133,78 +141,8 @@ void ld7032_flush_rot90(painter_device_t device, surface_dirty_data_t *dirty, co
         uint8_t x_width       = (driver->panel_width >> 3) - 1;
         uint8_t x_write_start = MAX((int)x_width - x_end - x_view_offset, 0);
         uint8_t x_write_end   = MAX((int)x_width - x_start - x_view_offset, 0);
-        uint8_t y_write_start = MIN(y_pos + y_view_offset, 39);
-        uint8_t y_write_end   = MIN(y_pos + y_view_offset, 39);
-
-        comms_vtable->send_command_data(device, LD7032_X_BOX_ADR_START, x_write_start);
-        comms_vtable->send_command_data(device, LD7032_X_BOX_ADR_END, x_write_end);
-        comms_vtable->send_command_data(device, LD7032_Y_BOX_ADR_START, y_write_start);
-        comms_vtable->send_command_data(device, LD7032_Y_BOX_ADR_END, y_write_end);
-        comms_vtable->send_command_databuf(device, LD7032_DATA_RW, packet, x_length);
-    }
-}
-
-void ld7032_flush_rot180(painter_device_t device, surface_dirty_data_t *dirty, const uint8_t *framebuffer) {
-    painter_driver_t *                  driver       = (painter_driver_t *)device;
-    ld7032_comms_with_command_vtable_t *comms_vtable = (ld7032_comms_with_command_vtable_t *)driver->comms_vtable;
-
-    int     x_start       = dirty->l >> 3;
-    int     x_end         = dirty->r >> 3;
-    int     y_start       = dirty->t;
-    int     y_end         = dirty->b;
-    int     x_length      = (x_end - x_start) + 1;
-    uint8_t x_view_offset = driver->offset_x >> 3;
-    uint8_t y_view_offset = driver->offset_y;
-
-    for (int y_pos = y_end; y_pos >= y_start; y_pos--) {
-        uint8_t packet[x_length];
-        memset(packet, 0, sizeof(packet));
-        memcpy(packet, &framebuffer[((y_pos) * (driver->panel_width >> 3)) + x_start], x_length);
-        uint8_t y_offset      = (driver->panel_height - 1) - y_pos;
-        uint8_t x_offset      = (driver->panel_width >> 3) - 1 - x_start;
-        uint8_t x_write_start = MAX((int)x_offset - x_length - x_view_offset, 0);
-        uint8_t x_write_end   = MAX((int)x_offset - x_view_offset, 0);
-        uint8_t y_write_start = MAX((int)y_offset - y_view_offset, 0);
-        uint8_t y_write_end   = MAX((int)y_offset - y_view_offset, 0);
-
-        comms_vtable->send_command_data(device, LD7032_X_BOX_ADR_START, x_write_start);
-        comms_vtable->send_command_data(device, LD7032_X_BOX_ADR_END, x_write_end);
-        comms_vtable->send_command_data(device, LD7032_Y_BOX_ADR_START, y_write_start);
-        comms_vtable->send_command_data(device, LD7032_Y_BOX_ADR_END, y_write_end);
-        comms_vtable->send_command_databuf(device, LD7032_DATA_RW, packet, sizeof(packet));
-    }
-}
-
-void ld7032_flush_rot270(painter_device_t device, surface_dirty_data_t *dirty, const uint8_t *framebuffer) {
-    painter_driver_t *                  driver       = (painter_driver_t *)device;
-    ld7032_comms_with_command_vtable_t *comms_vtable = (ld7032_comms_with_command_vtable_t *)driver->comms_vtable;
-
-    int     x_start       = dirty->t >> 3;
-    int     x_end         = dirty->b >> 3;
-    int     y_start       = dirty->l;
-    int     y_end         = dirty->r;
-    int     x_length      = (x_end - x_start) + 1;
-    uint8_t x_view_offset = driver->offset_x >> 3;
-    uint8_t y_view_offset = driver->offset_y;
-
-    for (int y_pos = y_start; y_pos <= y_end; y_pos++) {
-        uint8_t packet[x_length];
-        memset(packet, 0, sizeof(packet));
-        int count = 0;
-        for (int x_pos = x_start; x_pos <= x_end; x_pos++) {
-            for (int x = 0; x < 8; ++x) {
-                uint32_t pixel_num   = ((((x_end - x_pos) << 3) + x) * driver->panel_height) + (y_pos);
-                uint32_t byte_offset = pixel_num / 8;
-                uint8_t  bit_offset  = pixel_num % 8;
-                packet[count] |= ((framebuffer[byte_offset] & (1 << bit_offset)) >> bit_offset) << x;
-            }
-            count++;
-        }
-        uint8_t y_width       = driver->panel_height - 1;
-        uint8_t x_write_start = MIN((int)x_start + x_view_offset, 128 >> 3);
-        uint8_t x_write_end   = MIN((int)x_end + x_view_offset, 128 >> 3);
-        uint8_t y_write_start = MAX((int)y_width - y_pos - y_view_offset, 0);
-        uint8_t y_write_end   = MAX((int)y_width - y_pos - y_view_offset, 0);
+        uint8_t y_write_start = MIN(y_new_pos + y_view_offset, 39);
+        uint8_t y_write_end   = MIN(y_new_pos + y_view_offset, 39);
 
         comms_vtable->send_command_data(device, LD7032_X_BOX_ADR_START, x_write_start);
         comms_vtable->send_command_data(device, LD7032_X_BOX_ADR_END, x_write_end);
@@ -296,11 +234,11 @@ __attribute__((weak)) bool qp_ld7032_init(painter_device_t device, painter_rotat
             write_direction = 0b00000001;
             break;
         case QP_ROTATION_270:
-            write_direction = 0b00001001;
+            write_direction = 0b00001000;
             break;
     }
 
-    painter_driver_t *                  pdriver      = (painter_driver_t *)device;
+    painter_driver_t                   *pdriver      = (painter_driver_t *)device;
     ld7032_comms_with_command_vtable_t *comms_vtable = (ld7032_comms_with_command_vtable_t *)pdriver->comms_vtable;
 
     comms_vtable->send_command_data(device, LD7032_WRITE_DIRECTION, write_direction);
@@ -321,16 +259,16 @@ bool qp_ld7032_flush(painter_device_t device) {
     switch (driver->oled.base.rotation) {
         default:
         case QP_ROTATION_0:
-            ld7032_flush_rot0(device, &driver->oled.surface.dirty, driver->framebuffer);
+            ld7032_flush_0(device, &driver->oled.surface.dirty, driver->framebuffer, false);
             break;
         case QP_ROTATION_180:
-            ld7032_flush_rot180(device, &driver->oled.surface.dirty, driver->framebuffer);
+            ld7032_flush_0(device, &driver->oled.surface.dirty, driver->framebuffer, true);
             break;
         case QP_ROTATION_90:
-            ld7032_flush_rot90(device, &driver->oled.surface.dirty, driver->framebuffer);
+            ld7032_flush_90(device, &driver->oled.surface.dirty, driver->framebuffer, false);
             break;
         case QP_ROTATION_270:
-            ld7032_flush_rot270(device, &driver->oled.surface.dirty, driver->framebuffer);
+            ld7032_flush_90(device, &driver->oled.surface.dirty, driver->framebuffer, true);
             break;
     }
 
