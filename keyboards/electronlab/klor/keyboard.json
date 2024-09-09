@@ -5,9 +5,6 @@
     "bootmagic": {
         "matrix": [0, 1]
     },
-    "build": {
-        "lto": false
-    },
     "development_board": "elite_pi",
     "diode_direction": "COL2ROW",
     "encoder": {
@@ -15,13 +12,19 @@
             {"pin_a": "GP28", "pin_b": "GP29", "resolution": 2}
         ]
     },
+    "tapping": {
+        "term": 250
+    },
+    "combo": {
+        "term": 150
+    },
     "features": {
         "audio": true,
         "bootmagic": true,
         "encoder": true,
         "extrakey": true,
         "haptic": true,
-        "mousekey": false,
+        "mousekey": true,
         "oled": true,
         "pointing_device": false,
         "rgb_matrix": true
@@ -60,6 +63,7 @@
             "cycle_up_down": true,
             "digital_rain": true,
             "dual_beacon": true,
+            "flower_blooming": true,
             "gradient_left_right": true,
             "gradient_up_down": true,
             "hue_breathing": true,
@@ -74,6 +78,7 @@
             "rainbow_moving_chevron": true,
             "rainbow_pinwheels": true,
             "raindrops": true,
+            "riverflow": true,
             "solid_multisplash": true,
             "solid_reactive": true,
             "solid_reactive_cross": true,
@@ -85,6 +90,9 @@
             "solid_reactive_wide": true,
             "solid_splash": true,
             "splash": true,
+            "starlight": true,
+            "starlight_dual_hue": true,
+            "starlight_dual_sat": true,
             "typing_heatmap": true
         },
         "default": {
