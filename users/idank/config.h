@@ -57,6 +57,12 @@
     #elif defined(POINTING_DEVICE_POSITION_THUMB) || defined(POINTING_DEVICE_POSITION_THUMB_INNER) || defined(POINTING_DEVICE_POSITION_MIDDLE)
         #define MASTER_RIGHT
     #endif
+#elif defined(POINTING_DEVICE_CONFIGURATION_CIRQUE40) || defined(POINTING_DEVICE_CONFIGURATION_CIRQUE35) || defined(POINTING_DEVICE_CONFIGURATION_TRACKPOINT)
+    #ifdef POINTING_DEVICE_POSITION_LEFT
+        #define MASTER_LEFT
+    #elif POINTING_DEVICE_POSITION_RIGHT
+        #define MASTER_RIGHT
+    #endif
 #else
     // No pointing device, default to right.
     #define MASTER_RIGHT
