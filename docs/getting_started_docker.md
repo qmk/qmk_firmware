@@ -43,8 +43,8 @@ util/docker_build.sh
 # Reads parameters as input (leave blank for all keyboards/keymaps)
 ```
 
-You can manually set which container runtime you want to use by setting the `RUNTIME` environment variable to it's name or path.
-By default docker or podman are automatically detected and docker is preferred over podman.
+You can manually set which container runtime you want to use by setting the `RUNTIME` environment variable to its name or path.
+By default, docker and podman are automatically detected, and docker is preferred over podman.
 
 ```
 RUNTIME="podman" util/docker_build.sh keyboard:keymap:target

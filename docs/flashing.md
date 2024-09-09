@@ -1,10 +1,10 @@
 # Flashing Instructions and Bootloader Information
 
-There are quite a few different types of bootloaders that keyboards use, and almost all of them use their own flashing method and tools. Luckily, projects like the [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) aim to support as many of them as possible, but this article will describe the different types of bootloaders, and available methods for flashing them.
+There are quite a few different types of bootloaders that keyboards use and almost all of them use their own flashing method and tools. Luckily, projects like the [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) aim to support as many of them as possible, but this article will describe the different types of bootloaders, and available methods for flashing them.
 
 For AVR-based keyboards, QMK will automatically calculate if your `.hex` file is the right size to be flashed to the device based on the `BOOTLOADER` value set in `rules.mk`, and output the total size in bytes (along with the max).
 
-You will also be able to use the CLI to flash your keyboard, by running:
+You will also be able to use the CLI to flash your keyboard by running:
 ```
 $ qmk flash -kb <keyboard> -km <keymap>
 ```
@@ -12,7 +12,7 @@ See the [`qmk flash`](cli_commands#qmk-flash) documentation for more information
 
 ## Atmel DFU
 
-Atmel's DFU bootloader comes on all USB AVRs by default (except for 16/32U4RC), and is used by many keyboards that have their own ICs on their PCBs (older OLKB boards, Clueboards). Some keyboards may also use LUFA's DFU bootloader, or QMK's fork of it (newer OLKB boards), that adds in additional features specific to that hardware.
+Atmel's DFU bootloader comes on all USB AVRs by default (except for 16/32U4RC), and is used by many keyboards that have their own ICs on their PCBs (older OLKB boards, Clueboards). Some keyboards may also use LUFA's DFU bootloader, or QMK's fork of it (newer OLKB boards) that adds in additional features specific to that hardware.
 
 To ensure compatibility with the DFU bootloader, make sure this block is present in your `rules.mk` (optionally with `lufa-dfu` or `qmk-dfu` instead):
 
@@ -34,13 +34,13 @@ Compatible flashers:
 Flashing sequence:
 
 1. Enter the bootloader using any of the following methods:
-    * Press the `QK_BOOT` keycode
-    * Press the `RESET` button on the PCB if available
-    * Short RST to GND quickly
-2. Wait for the OS to detect the device
-3. Erase the flash memory (will be done automatically if using the Toolbox or CLI/`make` command)
-4. Flash a .hex file
-5. Reset the device into application mode (will be done automatically as above)
+    * Press the `QK_BOOT` keycode;
+    * Press the `RESET` button on the PCB if available;
+    * Short RST to GND quickly.
+2. Wait for the OS to detect the device.
+3. Erase the flash memory (will be done automatically if using the Toolbox or CLI/`make` command).
+4. Flash a .hex file.
+5. Reset the device into application mode (will be done automatically as above).
 
 ### QMK DFU
 
@@ -57,7 +57,7 @@ Currently we do not recommend making `QMK_ESC` the same key as the one designate
 
 The manufacturer and product strings are automatically pulled from `config.h`, with " Bootloader" appended to the product string.
 
-To generate this bootloader, use the `bootloader` target, eg. `make planck/rev4:default:bootloader`. To generate a production-ready .hex file (combining QMK and the bootloader), use the `production` target, eg. `make planck/rev4:default:production`.
+To generate this bootloader, use the `bootloader` target, e.g. `make planck/rev4:default:bootloader`. To generate a production-ready .hex file (combining QMK and the bootloader), use the `production` target, e.g. `make planck/rev4:default:production`.
 
 ### `make` Targets
 
@@ -87,12 +87,12 @@ Compatible flashers:
 Flashing sequence:
 
 1. Enter the bootloader using any of the following methods (you only have 7 seconds to flash once it enters; some variants may require you to reset twice within 750 milliseconds):
-    * Press the `QK_BOOT` keycode
-    * Press the `RESET` button on the PCB if available
-    * Short RST to GND quickly
-2. Wait for the OS to detect the device
-3. Flash a .hex file
-4. Wait for the device to reset automatically
+    * Press the `QK_BOOT` keycode;
+    * Press the `RESET` button on the PCB if available;
+    * Short RST to GND quickly.
+2. Wait for the OS to detect the device.
+3. Flash a .hex file.
+4. Wait for the device to reset automatically.
 
 ### `make` Targets
 
@@ -123,12 +123,12 @@ Compatible flashers:
 Flashing sequence:
 
 1. Enter the bootloader using any of the following methods (you only have 7 seconds to flash once it enters):
-    * Press the `QK_BOOT` keycode
-    * Press the `RESET` button on the Teensy or PCB if available
-    * short RST to GND quickly
-2. Wait for the OS to detect the device
-3. Flash a .hex file
-4. Reset the device into application mode (may be done automatically)
+    * Press the `QK_BOOT` keycode;
+    * Press the `RESET` button on the Teensy or PCB if available;
+    * Short RST to GND quickly.
+2. Wait for the OS to detect the device.
+3. Flash a .hex file.
+4. Reset the device into application mode (may be done automatically).
 
 ## USBasploader
 
@@ -153,11 +153,11 @@ Compatible flashers:
 Flashing sequence:
 
 1. Enter the bootloader using any of the following methods:
-    * Press the `QK_BOOT` keycode
-    * Keep the `BOOT` button held while quickly tapping the `RESET` button on the PCB
-2. Wait for the OS to detect the device
-3. Flash a .hex file
-4. Press the `RESET` button on the PCB or short RST to GND
+    * Press the `QK_BOOT` keycode;
+    * Keep the `BOOT` button held while quickly tapping the `RESET` button on the PCB.
+2. Wait for the OS to detect the device.
+3. Flash a .hex file.
+4. Press the `RESET` button on the PCB or short RST to GND.
 
 ## BootloadHID
 
@@ -182,11 +182,11 @@ Compatible flashers:
 Flashing sequence:
 
 1. Enter the bootloader using any of the following methods:
-    * Tap the `QK_BOOT` keycode
-    * Hold the salt key while plugging the keyboard in - for PS2AVRGB boards, this is usually the key connected to MCU pins A0 and B0, otherwise it will be documented in your keyboard's readme
-2. Wait for the OS to detect the device
-3. Flash a .hex file
-4. Reset the device into application mode (may be done automatically)
+    * Tap the `QK_BOOT` keycode;
+    * Hold the salt key while plugging the keyboard in — for PS2AVRGB boards, this is usually the key connected to MCU pins A0 and B0; otherwise it will be documented in your keyboard's README.
+2. Wait for the OS to detect the device.
+3. Flash a .hex file.
+4. Reset the device into application mode (may be done automatically).
 
 ### QMK HID
 
@@ -223,12 +223,12 @@ Compatible flashers:
 Flashing sequence:
 
 1. Enter the bootloader using any of the following methods:
-    * Press the `QK_BOOT` keycode
-    * Press the `RESET` button on the PCB if available
-    * short RST to GND quickly
-2. Wait for the OS to detect the device
-3. Flash a .hex file
-4. Reset the device into application mode (may be done automatically)
+    * Press the `QK_BOOT` keycode;
+    * Press the `RESET` button on the PCB if available;
+    * Short RST to GND quickly.
+2. Wait for the OS to detect the device.
+3. Flash a .hex file.
+4. Reset the device into application mode (may be done automatically).
 
 ### `make` Targets
 
@@ -236,7 +236,7 @@ Flashing sequence:
 
 ## STM32/APM32 DFU
 
-All USB-capable STM32 and APM32 MCUs, except for a small handful (such as STM32F103 -- see the [STM32duino section](#stm32duino)) come preloaded with a factory bootloader that cannot be modified nor deleted.
+All USB-capable STM32 and APM32 MCUs, except for a small handful (such as STM32F103 — see the [STM32duino section](#stm32duino)) come preloaded with a factory bootloader that cannot be modified nor deleted.
 
 To ensure compatibility with the STM32-DFU bootloader, make sure this block is present in your `rules.mk` (optionally with `apm32-dfu` instead):
 
@@ -256,17 +256,17 @@ Compatible flashers:
 Flashing sequence:
 
 1. Enter the bootloader using any of the following methods:
-    * Tap the `QK_BOOT` keycode (may not work on STM32F042 devices)
-    * If a reset circuit is present, tap the `RESET` button on the PCB; some boards may also have a toggle switch that must be flipped
-    * Otherwise, you need to bridge `BOOT0` to VCC (via `BOOT0` button or jumper), short `RESET` to GND (via `RESET` button or jumper), and then let go of the `BOOT0` bridge
-2. Wait for the OS to detect the device
-3. Flash a .bin file
-4. Reset the device into application mode (may be done automatically)
+    * Tap the `QK_BOOT` keycode (may not work on STM32F042 devices);
+    * If a reset circuit is present, tap the `RESET` button on the PCB; some boards may also have a toggle switch that must be flipped;
+    * Otherwise, you need to bridge `BOOT0` to VCC (via `BOOT0` button or jumper), short `RESET` to GND (via `RESET` button or jumper), and then let go of the `BOOT0` bridge.
+2. Wait for the OS to detect the device.
+3. Flash a .bin file.
+4. Reset the device into application mode (may be done automatically).
 
 ### `make` Targets
 
 * `:dfu-util`: Waits until an STM32 bootloader device is available, and then flashes the firmware.
-* `:dfu-util-split-left` and `:dfu-util-split-right`: Flashes the firmware as with `:dfu-util`, but also sets the handedness setting in EEPROM. This is ideal for Proton-C-based split keyboards.
+* `:dfu-util-split-left` and `:dfu-util-split-right`: Flashes the firmware as with `:dfu-util`, but also sets the handedness setting in EEPROM. This is iHdeal for Proton-C-based split keyboards.
 * `:st-link-cli`: Allows you to flash the firmware via the ST-Link CLI utility, rather than dfu-util. Requires an ST-Link dongle.
 * `:st-flash`: Allows you to flash the firmware via the `st-flash` utility from [STLink Tools](https://github.com/stlink-org/stlink), rather than dfu-util. Requires an ST-Link dongle.
 
@@ -292,16 +292,16 @@ Compatible flashers:
 Flashing sequence:
 
 1. Enter the bootloader using any of the following methods:
-    * Tap the `QK_BOOT` keycode
-    * If a reset circuit is present, tap the `RESET` button on the PCB
-    * Otherwise, you need to bridge `BOOT0` to VCC (via `BOOT0` button or jumper), short `RESET` to GND (via `RESET` button or jumper), and then let go of the `BOOT0` bridge
-2. Wait for the OS to detect the device
-3. Flash a .bin file
-4. Reset the device into application mode (may be done automatically)
+    * Tap the `QK_BOOT` keycode;
+    * If a reset circuit is present, tap the `RESET` button on the PCB;
+    * Otherwise, you need to bridge `BOOT0` to VCC (via `BOOT0` button or jumper), short `RESET` to GND (via `RESET` button or jumper), and then let go of the `BOOT0` bridge.
+2. Wait for the OS to detect the device.
+3. Flash a .bin file.
+4. Reset the device into application mode (may be done automatically).
 
 ## Kiibohd DFU
 
-Keyboards produced by Input Club use NXP Kinetis microcontrollers rather than STM32, and come with their own [custom bootloader](https://github.com/kiibohd/controller/tree/master/Bootloader), however the process and protocol is largely the same.
+Keyboards produced by Input Club use NXP Kinetis microcontrollers rather than STM32, and come with their own [custom bootloader](https://github.com/kiibohd/controller/tree/master/Bootloader). However, the process and protocol is largely the same.
 
 The `rules.mk` setting for this bootloader is `kiibohd`, but since this bootloader is limited to Input Club boards, it should not be necessary to set at keymap or user level.
 
@@ -316,11 +316,11 @@ Compatible flashers:
 Flashing sequence:
 
 1. Enter the bootloader using any of the following methods:
-    * Tap the `QK_BOOT` keycode
-    * Press the `RESET` button on the PCB
-2. Wait for the OS to detect the device
-3. Flash a .bin file
-4. Reset the device into application mode (may be done automatically)
+    * Tap the `QK_BOOT` keycode;
+    * Press the `RESET` button on the PCB.
+2. Wait for the OS to detect the device.
+3. Flash a .bin file.
+4. Reset the device into application mode (may be done automatically).
 
 ## WB32 DFU
 
@@ -339,11 +339,11 @@ Compatible flashers:
 Flashing sequence:
 
 1. Enter the bootloader using any of the following methods:
-    * Tap the `QK_BOOT` keycode
-    * Press the `RESET` button on the PCB
-2. Wait for the OS to detect the device
-3. Flash a .bin file
-4. Reset the device into application mode (may be done automatically)
+    * Tap the `QK_BOOT` keycode;
+    * Press the `RESET` button on the PCB.
+2. Wait for the OS to detect the device.
+3. Flash a .bin file.
+4. Reset the device into application mode (may be done automatically).
 
 ## tinyuf2
 
@@ -365,22 +365,22 @@ Compatible flashers:
 Flashing sequence:
 
 1. Enter the bootloader using any of the following methods:
-    * Tap the `QK_BOOT` keycode
+    * Tap the `QK_BOOT` keycode;
     * Double-tap the `nRST` button on the PCB.
-2. Wait for the OS to detect the device
-3. Copy the .uf2 file to the new USB disk
-4. Wait for the keyboard to become available
+2. Wait for the OS to detect the device.
+3. Copy the .uf2 file to the new USB disk.
+4. Wait for the keyboard to become available.
 
 or
 
 CLI Flashing sequence:
 
 1. Enter the bootloader using any of the following methods:
-    * Tap the `QK_BOOT` keycode
+    * Tap the `QK_BOOT` keycode;
     * Double-tap the `nRST` button on the PCB.
-2. Wait for the OS to detect the device
-3. Flash via QMK CLI eg. `qmk flash --keyboard handwired/onekey/blackpill_f411_tinyuf2 --keymap default`
-4. Wait for the keyboard to become available
+2. Wait for the OS to detect the device.
+3. Flash via QMK CLI e.g. `qmk flash --keyboard handwired/onekey/blackpill_f411_tinyuf2 --keymap default`.
+4. Wait for the keyboard to become available.
 
 ### `make` Targets
 
@@ -406,22 +406,22 @@ Compatible flashers:
 Flashing sequence:
 
 1. Enter the bootloader using any of the following methods:
-    * Tap the `QK_BOOT` keycode
+    * Tap the `QK_BOOT` keycode;
     * Double-tap the `nRST` button on the PCB.
-2. Wait for the OS to detect the device
-3. Copy the .uf2 file to the new USB disk
-4. Wait for the keyboard to become available
+2. Wait for the OS to detect the device.
+3. Copy the .uf2 file to the new USB disk.
+4. Wait for the keyboard to become available.
 
 or
 
 CLI Flashing sequence:
 
 1. Enter the bootloader using any of the following methods:
-    * Tap the `QK_BOOT` keycode
+    * Tap the `QK_BOOT` keycode;
     * Double-tap the `nRST` button on the PCB.
-2. Wait for the OS to detect the device
-3. Flash via QMK CLI eg. `qmk flash --keyboard handwired/onekey/bluepill_uf2boot --keymap default`
-4. Wait for the keyboard to become available
+2. Wait for the OS to detect the device.
+3. Flash via QMK CLI eg. `qmk flash --keyboard handwired/onekey/bluepill_uf2boot --keymap default`.
+4. Wait for the keyboard to become available.
 
 ### `make` Targets
 
@@ -445,23 +445,23 @@ Compatible flashers:
 Flashing sequence:
 
 1. Enter the bootloader using any of the following methods:
-    * Tap the `QK_BOOT` keycode
-    * Hold the `BOOTSEL` button on the PCB while plugin in the usb cable.
+    * Tap the `QK_BOOT` keycode;
+    * Hold the `BOOTSEL` button on the PCB while plugin in the usb cable;
     * Double-tap the `RESET` button on the PCB<sup>1</sup>.
-2. Wait for the OS to detect the device
-3. Copy the .uf2 file to the new USB disk
-4. Wait for the keyboard to become available
+2. Wait for the OS to detect the device.
+3. Copy the .uf2 file to the new USB disk.
+4. Wait for the keyboard to become available.
 
 or
 
 CLI Flashing sequence:
 
 1. Enter the bootloader using any of the following methods:
-    * Tap the `QK_BOOT` keycode
-    * Hold the `BOOTSEL` button on the PCB while plugin in the usb cable.
-    * Double-tap the `RESET` button on the PCB<sup>1</sup>.
-2. Wait for the OS to detect the device
-3. Flash via QMK CLI eg. `qmk flash --keyboard handwired/onekey/rpi_pico --keymap default`
-4. Wait for the keyboard to become available
+    * Tap the `QK_BOOT` keycode;
+    * Hold the `BOOTSEL` button on the PCB while plugin in the usb cable;
+    * Double-tap the `RESET` button on the PCB.<sup>1</sup>
+2. Wait for the OS to detect the device.
+3. Flash via QMK CLI eg. `qmk flash --keyboard handwired/onekey/rpi_pico --keymap default`.
+4. Wait for the keyboard to become available.
 
-<sup>1</sup>: This works only if the controller has been flashed with QMK Firmware with `RP2040_BOOTLOADER_DOUBLE_TAP_RESET` defined.
+<sup>1</sup> This works only if the controller has been flashed with QMK Firmware with `RP2040_BOOTLOADER_DOUBLE_TAP_RESET` defined.

@@ -2,7 +2,7 @@
 
 It is highly recommended for QMK development, regardless of what is being done or where, to keep your `master` branch updated, but ***never*** commit to it. Instead, do all your changes in a development branch and issue pull requests from your branches when you're developing.
 
-To reduce the chances of merge conflicts &mdash; instances where two or more users have edited the same part of a file concurrently &mdash; keep your `master` branch relatively up-to-date, and start any new developments by creating a new branch.
+To reduce the chances of merge conflicts — instances where two or more users have edited the same part of a file concurrently — keep your `master` branch relatively up-to-date, and start any new developments by creating a new branch.
 
 ## Updating your master branch
 
@@ -26,9 +26,9 @@ upstream        https://github.com/qmk/qmk_firmware.git (fetch)
 upstream        https://github.com/qmk/qmk_firmware.git (push)
 ```
 
-Now that this is done, you can check for updates to the repo by running `git fetch upstream`. This retrieves the branches and tags &mdash; collectively referred to as "refs" &mdash; from the QMK repo, which now has the nickname `upstream`. We can now compare the data on our fork `origin` to that held by QMK.
+Now that this is done, you can check for updates to the repo by running `git fetch upstream`. This retrieves the branches and tags — collectively referred to as "refs" — from the QMK repo, which now has the nickname `upstream`. We can now compare the data on our fork `origin` to that held by QMK.
 
-To update your fork's master, run the following, hitting the Enter key after each line:
+To update your fork's `master` branch, run the following, hitting the Enter key after each line:
 
 ```
 git checkout master
@@ -51,7 +51,7 @@ git push --set-upstream origin dev_branch
 This creates a new branch named `dev_branch`, checks it out, and then saves the new branch to your fork. The `--set-upstream` argument tells git to use your fork and the `dev_branch` branch every time you use `git push` or `git pull` from this branch. It only needs to be used on the first push; after that, you can safely use `git push` or `git pull`, without the rest of the arguments.
 
 ::: tip
-With `git push`, you can use `-u` in place of `--set-upstream` &mdash; `-u` is an alias for `--set-upstream`.
+With `git push`, you can use `-u` in place of `--set-upstream` — `-u` is an alias for `--set-upstream`.
 :::
 
 You can name your branch nearly anything you want, though it is recommended to name it something related to the changes you are going to make.

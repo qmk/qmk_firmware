@@ -1,8 +1,8 @@
 # Language-specific Keycodes
 
-Keyboards are able to support a wide range of languages. However, this support is not actually achieved within the keyboard itself - instead, it sends numerical codes, which the operating system maps to the appropriate characters depending on the user's configured keyboard layout. By default (and per the HID spec), this is the US ANSI layout. For example, when a Swedish person presses the key with the `å` character printed on it, the keyboard is *actually* sending the keycode for `[`.
+Keyboards are able to support a wide range of languages. However, this support is not actually achieved within the keyboard itself — instead, it sends numerical codes which the operating system maps to the appropriate characters, depending on the user's configured keyboard layout. By default (and per the HID spec), this is the US ANSI layout. For example, when a Swedish person presses the key with the `å` character printed on it, the keyboard is *actually* sending the keycode for `[`.
 
-Obviously, this can get confusing, so QMK provides language-specific keycode aliases for many keyboard layouts. These won't do much on their own - you still have to set the matching keyboard layout in your OS settings. Think of them more as keycap labels for your keymap.
+Obviously, this can get confusing, so QMK provides language-specific keycode aliases for many keyboard layouts. These won't do much on their own — you still have to set the matching keyboard layout in your OS settings. Think of them more as keycap labels for your keymap.
 
 Simply `#include` one of the keycode headers below at the top of your `keymap.c`, and assign the keycodes defined in the header in place of the `KC_` prefixed ones.
 
@@ -10,8 +10,10 @@ Simply `#include` one of the keycode headers below at the top of your `keymap.c`
 
 By default, `SEND_STRING()` assumes a US ANSI keyboard layout is set. If you are using a different layout, you can include one of the Sendstring LUT headers below in your `keymap.c` to override the lookup tables used for mapping ASCII characters to keycodes. You do not need to include the corresponding `keymap_*.h` header, as it is implicit when including the Sendstring header.
 
-An important thing to note here is that `SEND_STRING()` only operates on [ASCII text](https://en.wikipedia.org/wiki/ASCII#Character_set). This means that you cannot pass it a string containing Unicode characters - this unfortunately includes accented characters that may be present in your desired layout.  
-Many layouts make certain characters, such as Grave or Tilde, available only as [dead keys](https://en.wikipedia.org/wiki/Dead_key), so you must add a space immediately after it in the string you want to send, to prevent it from potentially combining with the next character.  
+An important thing to note here is that `SEND_STRING()` only operates on [ASCII text](https://en.wikipedia.org/wiki/ASCII#Character_set). This means that you cannot pass it a string containing Unicode characters — this unfortunately includes accented characters that may be present in your desired layout.
+
+Many layouts make certain characters, such as Grave or Tilde, available only as [dead keys](https://en.wikipedia.org/wiki/Dead_key), so you must add a space immediately after it in the string you want to send, to prevent it from potentially combining with the next character.
+
 Certain other layouts have no Sendstring header as they do not use a Latin-derived alphabet (for example Greek and Russian), and thus there is no way to input most of the ASCII character set.
 
 ## Header Files

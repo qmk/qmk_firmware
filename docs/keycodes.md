@@ -272,9 +272,9 @@ See also: [Autocorrect](features/autocorrect)
 
 |Key                    |Aliases  |Description                                   |
 |-----------------------|---------|----------------------------------------------|
-|`QK_AUTOCORRECT_ON`    |`AC_ON`  |Turns on the Autocorrect feature.             |
-|`QK_AUTOCORRECT_OFF`   |`AC_OFF` |Turns off the Autocorrect feature.            |
-|`QK_AUTOCORRECT_TOGGLE`|`AC_TOGG`|Toggles the status of the Autocorrect feature.|
+|`QK_AUTOCORRECT_ON`    |`AC_ON`  |Turns on the Autocorrect feature              |
+|`QK_AUTOCORRECT_OFF`   |`AC_OFF` |Turns off the Autocorrect feature             |
+|`QK_AUTOCORRECT_TOGGLE`|`AC_TOGG`|Toggles the status of the Autocorrect feature |
 
 ## Backlighting {#backlighting}
 
@@ -318,7 +318,7 @@ See also: [Dynamic Macros](features/dynamic_macros)
 |`QK_DYNAMIC_MACRO_RECORD_START_2`|`DM_REC2`|Start recording Macro 2                           |
 |`QK_DYNAMIC_MACRO_PLAY_1`        |`DM_PLY1`|Replay Macro 1                                    |
 |`QK_DYNAMIC_MACRO_PLAY_2`        |`DM_PLY2`|Replay Macro 2                                    |
-|`QK_DYNAMIC_MACRO_RECORD_STOP`   |`DM_RSTP`|Finish the macro that is currently being recorded.|
+|`QK_DYNAMIC_MACRO_RECORD_STOP`   |`DM_RSTP`|Finish the macro that is currently being recorded |
 
 ## Grave Escape {#grave-escape}
 
@@ -688,7 +688,7 @@ See also: [Mod-Tap](mod_tap)
 |`RCAG_T(kc)` |                                                                 |Right Control, Alt and GUI when held, `kc` when tapped        |
 |`C_S_T(kc)`  |                                                                 |Left Control and Shift when held, `kc` when tapped            |
 |`MEH_T(kc)`  |                                                                 |Left Control, Shift and Alt when held, `kc` when tapped       |
-|`HYPR_T(kc)` |`ALL_T(kc)`                                                      |Left Control, Shift, Alt and GUI when held, `kc` when tapped - more info [here](https://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)|
+|`HYPR_T(kc)` |`ALL_T(kc)`                                                      |Left Control, Shift, Alt and GUI when held, `kc` when tapped — more info [here](https://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)|
 
 ## Tapping Term Keys {#tapping-term-keys}
 
