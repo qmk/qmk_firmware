@@ -14,10 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <stdint.h>
-#include <stdbool.h>
 #include "matrix.h"
-#include "quantum.h"
 
 #define ROW_SHIFTER ((uint16_t)1)
 
@@ -25,24 +22,24 @@ static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 
 static void select_row(uint8_t row) {
-    setPinOutput(row_pins[row]);
-    writePinLow(row_pins[row]);
+    gpio_set_pin_output(row_pins[row]);
+    gpio_write_pin_low(row_pins[row]);
 }
 
 static void unselect_row(uint8_t row) {
-    setPinInputHigh(row_pins[row]);
+    gpio_set_pin_input_high(row_pins[row]);
 }
 
 static void unselect_rows(void) {
     for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
-        setPinInputHigh(row_pins[x]);
+        gpio_set_pin_input_high(row_pins[x]);
     }
 }
 
 static void init_pins(void) {
     unselect_rows();
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-        setPinInputHigh(col_pins[x]);
+        gpio_set_pin_input_high(col_pins[x]);
     }
 }
 
@@ -63,7 +60,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
         // skip reading when index equals (= pin itself)
         if (col_index != current_row) {
             // Check col pin pin_state
-            if (readPin(col_pins[col_index]) == 0) {
+            if (gpio_read_pin(col_pins[col_index]) == 0) {
                 // Pin LO, set col bit
                 current_matrix[current_row] |= (ROW_SHIFTER << col_index);
             } else {
@@ -82,8 +79,6 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 void matrix_init_custom(void) {
     // initialize key pins
     init_pins();
-
-    matrix_init_kb();
 }
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
@@ -94,6 +89,5 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         changed |= read_cols_on_row(current_matrix, current_row);
     }
 
-    matrix_scan_kb();
     return changed;
 }

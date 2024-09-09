@@ -2,7 +2,7 @@
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
+ * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -27,28 +27,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_P0,  KC_P0,   KC_PDOT, KC_PENT),
 
     [1] = LAYOUT_all(
-        RGB_TOG, RGB_VAD, RGB_VAI, _______,
+        UG_TOGG, UG_VALD, UG_VALU, _______,
+        _______, _______, _______, NK_TOGG,
         _______, _______, _______, _______,
         _______, _______, _______, _______,
         _______, _______, _______, _______,
-        _______, _______, _______, _______,
-        _______, _______, QK_BOOT, _______),
-
-
-    [2] = LAYOUT_all(
-        _______, _______, _______, _______,
-        _______, _______, _______, _______,
-        _______, _______, _______, _______,
-        _______, _______, _______, _______,
-        _______, _______, _______, _______,
-        _______, _______, _______, _______),
-
-    [3] = LAYOUT_all(
-        _______, _______, _______, _______,
-        _______, _______, _______, _______,
-        _______, _______, _______, _______,
-        _______, _______, _______, _______,
-        _______, _______, _______, _______,
-        _______, _______, _______, _______)
+        _______, _______, QK_BOOT, _______)
     // clang-format on
 };

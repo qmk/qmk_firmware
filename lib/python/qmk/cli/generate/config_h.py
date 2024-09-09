@@ -108,6 +108,8 @@ def generate_config_items(kb_info_json, config_h_lines):
         elif key_type.startswith('array'):
             config_h_lines.append(generate_define(config_key, f'{{ {", ".join(map(str, config_value))} }}'))
         elif key_type == 'bool':
+            config_h_lines.append(generate_define(config_key, 'true' if config_value else 'false'))
+        elif key_type == 'flag':
             if config_value:
                 config_h_lines.append(generate_define(config_key))
         elif key_type == 'mapping':
@@ -133,8 +135,8 @@ def generate_encoder_config(encoder_json, config_h_lines, postfix=''):
         b_pads.append(encoder["pin_b"])
         resolutions.append(encoder.get("resolution", None))
 
-    config_h_lines.append(generate_define(f'ENCODERS_PAD_A{postfix}', f'{{ {", ".join(a_pads)} }}'))
-    config_h_lines.append(generate_define(f'ENCODERS_PAD_B{postfix}', f'{{ {", ".join(b_pads)} }}'))
+    config_h_lines.append(generate_define(f'ENCODER_A_PINS{postfix}', f'{{ {", ".join(a_pads)} }}'))
+    config_h_lines.append(generate_define(f'ENCODER_B_PINS{postfix}', f'{{ {", ".join(b_pads)} }}'))
 
     if None in resolutions:
         cli.log.debug(f"Unable to generate ENCODER_RESOLUTION{postfix} configuration")

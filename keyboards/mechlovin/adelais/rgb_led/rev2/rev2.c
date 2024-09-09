@@ -17,7 +17,7 @@
 #include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
-const is31fl3731_led_t PROGMEM g_is31fl3731_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 
     {0, C2_1,   C3_1,   C4_1}, //D102-A0-0
     {0, C5_1,   C6_1,   C7_1}, //D108-A1-1
@@ -131,6 +131,10 @@ bool rgb_matrix_indicators_kb(void) {
 #endif
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (!process_record_user(keycode, record)) {
+        return false;
+    }
+
   if (record->event.pressed) {
     switch(keycode) {
     #ifdef RGBLIGHT_ENABLE
