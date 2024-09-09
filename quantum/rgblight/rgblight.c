@@ -142,9 +142,9 @@ __attribute__((weak)) RGB rgblight_hsv_to_rgb(HSV hsv) {
 
 uint8_t rgblight_led_index(uint8_t index) {
 #if defined(RGBLIGHT_LED_MAP)
-    return pgm_read_byte(&led_map[index]);
+    return pgm_read_byte(&led_map[index]) - rgblight_ranges.clipping_start_pos;
 #else
-    return index;
+    return index - rgblight_ranges.clipping_start_pos;
 #endif
 }
 
