@@ -207,10 +207,15 @@ __attribute__((weak)) bool qp_ld7032_init(painter_device_t device, painter_rotat
     uint8_t display_y_start = 40 - driver->oled.base.panel_height;
     uint8_t display_x_start = (128 - driver->oled.base.panel_width) / 2;
 
+    // clang-format off
     uint8_t ld7032_memory_setup[] = {
-        // Command,                    Delay,  N, Data[N]
-        LD7032_DISP_SIZE_X, 0, 2, 0x00, 0x7F, LD7032_DISP_SIZE_Y, 0, 2, 0x00, 0x27, LD7032_X_DISP_START, 0, 1, 0x0, LD7032_Y_DISP_START, 0, 1, 0x0,
+        // Command,        Delay,  N, Data[N]
+        LD7032_DISP_SIZE_X,     0, 2, 0x00, 0x7F,
+        LD7032_DISP_SIZE_Y,     0, 2, 0x00, 0x27,
+        LD7032_X_DISP_START,    0, 1, 0x0,
+        LD7032_Y_DISP_START,    0, 1, 0x0,
     };
+    // clang-format on
 
     ld7032_memory_setup[3]  = display_x_start;
     ld7032_memory_setup[4]  = display_x_start + driver->oled.base.panel_width - 1;
