@@ -10,7 +10,7 @@ COMMAND_ENABLE = yes
 
 ## Usage
 
-To use Command, hold down the key combination defined by the `IS_COMMAND()` macro. By default this is Left Shift+Right Shift. Then, press the key corresponding to the command you want. For example, to output the current QMK version to the QMK Toolbox console, press Left Shift+Right Shift+`V`.
+To use Command, hold down the key combination defined by the `IS_COMMAND()` macro. By default this is `Left Shift`+`Right Shift`. Then, press the key corresponding to the command you want. For example, to output the current QMK version to the QMK Toolbox console, press `Left Shift`+`Right Shift`+`V`.
 
 ## Configuration
 

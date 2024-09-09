@@ -4,11 +4,11 @@ If you're using a 60% keyboard, or any other layout with no F-row, you will have
 
 ## Usage
 
-Replace the `KC_GRV` key in your keymap (usually to the left of the `1` key) with `QK_GESC`. Most of the time this key will output `KC_ESC` when pressed. However, when Shift or GUI are held down it will output `KC_GRV` instead.
+Replace the `KC_GRV` key in your keymap (usually to the left of the `1` key) with `QK_GESC`. Most of the time, this key will output `KC_ESC` when pressed. However, when Shift or GUI are held down, it will output `KC_GRV` instead.
 
 ## What Your OS Sees
 
-If Mary presses `QK_GESC` on her keyboard, the OS will see an KC_ESC character. Now if Mary holds Shift down and presses `QK_GESC` it will output `~`, or a shifted backtick. Now if she holds GUI/CMD/WIN, it will output a simple <code>&#96;</code> character.
+If you press `QK_GESC` on your keyboard, the OS will see an `KC_ESC` character. If you hold `Shift` down and press `QK_GESC`, it will output `~` (shifted backtick). If you hold `GUI`/`CMD`/`WIN`, it will instead output a simple <code>&#96;</code> (backtick) character.
 
 ## Keycodes
 
@@ -18,11 +18,11 @@ If Mary presses `QK_GESC` on her keyboard, the OS will see an KC_ESC character. 
 
 ### Caveats
 
-On macOS, Command+<code>&#96;</code> is by default mapped to "Move focus to next window" so it will not output a backtick. Additionally, Terminal always recognises this shortcut to cycle between windows, even if the shortcut is changed in the Keyboard preferences.
+On macOS, `Command`+<code>&#96;</code> is by default mapped to "Move focus to next window", so it will not output a backtick. Additionally, Terminal always recognises this shortcut to cycle between windows, even if the shortcut is changed in the Keyboard preferences.
 
 ## Configuration
 
-There are several possible key combinations this will break, among them Control+Shift+Escape on Windows and Command+Option+Escape on macOS. To work around this, you can `#define` these options in your `config.h`:
+There are several possible key combinations this will break — among them being `Control`+`Shift`+`Escape` on Windows, and `Command`+`Option`+`Escape` on macOS. To work around this, you can `#define` these options in your `config.h`:
 
 |Define                    |Description                              |
 |--------------------------|-----------------------------------------|

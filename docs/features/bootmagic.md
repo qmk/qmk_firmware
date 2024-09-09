@@ -1,6 +1,6 @@
 # Bootmagic {#bootmagic}
 
-The Bootmagic feature that only handles jumping into the bootloader. This is great for boards that don't have a physical reset button, giving you a way to jump into the bootloader
+The Bootmagic feature that only handles jumping into the bootloader. This is great for boards that don't have a physical reset button, giving you a way to jump into the bootloader.
 
 On some keyboards Bootmagic is disabled by default. If this is the case, it must be explicitly enabled in your `rules.mk` with:
 

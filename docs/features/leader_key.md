@@ -1,6 +1,6 @@
 # The Leader Key: A New Kind of Modifier {#the-leader-key}
 
-If you're a Vim user, you probably know what a Leader key is. In contrast to [Combos](combo), the Leader key allows you to hit a *sequence* of up to five keys instead, which triggers some custom functionality once complete.
+If you're a Vim user, you probably know what a Leader key is. In contrast to [Combos](combo) which require pressing multiple keys *simultaneously* to activate, the Leader key allows you to press a *sequence* of up to five keys instead, which then triggers some custom functionality once complete.
 
 ## Usage {#usage}
 
@@ -10,11 +10,11 @@ Add the following to your `rules.mk`:
 LEADER_ENABLE = yes
 ```
 
-Then add the `QK_LEAD` keycode to your keymap.
+then add the `QK_LEAD` keycode to your keymap.
 
 ## Callbacks {#callbacks}
 
-These callbacks are invoked when the leader sequence begins and ends. In the latter you can implement your custom functionality based on the contents of the sequence buffer.
+These callbacks are invoked when the leader sequence begins and ends. In the latter, you can implement your custom functionality based on the contents of the sequence buffer.
 
 ```c
 void leader_start_user(void) {
@@ -42,7 +42,7 @@ void leader_end_user(void) {
 
 ### Timeout {#timeout}
 
-This is the amount of time you have to complete a sequence once the leader key has been pressed. The default value is 300 milliseconds, but you can change this by adding the following to your `config.h`:
+This is the amount of time you have to complete a sequence once the leader key has been pressed. The default value is `300` milliseconds, but you can change this by adding the following to your `config.h`:
 
 ```c
 #define LEADER_TIMEOUT 350
@@ -50,7 +50,7 @@ This is the amount of time you have to complete a sequence once the leader key h
 
 ### Per-Key Timeout {#per-key-timeout}
 
-Rather than relying on an incredibly high timeout for long leader key strings or those of us without 200 wpm typing skills, you can enable per-key timing to ensure that each key pressed provides you with more time to finish the sequence. This is incredibly helpful with leader key emulation of tap dance (such as multiple taps of the same key like C, C, C).
+Rather than relying on an incredibly high timeout for long leader key strings, or for those of us without 200 wpm typing skills, you can enable per-key timing to ensure that each key pressed provides you with more time to finish the sequence. This is incredibly helpful with leader key emulation of [Tap Dance](tap_dance) features (such as multiple taps of the same key like `C`, `C`, `C`).
 
 To enable this, add the following to your `config.h`:
 
@@ -74,23 +74,23 @@ if (leader_sequence_three_keys(KC_C, KC_C, KC_C)) {
 
 ### Disabling Initial Timeout {#disabling-initial-timeout}
 
-Sometimes your leader key may be too far away from the rest of the keys in the sequence. Imagine that your leader key is one of your outer top right keys - you may need to reposition your hand just to reach your leader key. This can make typing the entire sequence on time hard difficult if you are able to type most of the sequence fast. For example, if your sequence is `Leader + asd`, typing `asd` fast is very easy once you have your hands in your home row, but starting the sequence in time after moving your hand out of the home row to reach the leader key and back is not.
+Sometimes your leader key may be too far away from the rest of the keys in the sequence. Imagine that your leader key is one of your outer top right keys — you may need to reposition your hand just to reach your leader key. This can make typing the entire sequence on time difficult even if you are able to type most of the sequence quickly.
 
-To remove the stress this situation produces to your hands, you can disable the timeout just for the leader key. Add the following to your `config.h`:
+For example, if your sequence is `Leader + asd`, typing `asd` quickly is very easy once you have your hands in your home row, but starting the sequence in time after moving your hand out of the home row to reach the leader key and back may not be.
+
+To remove the stress that this situation adds to your hands, you can disable the timeout just for the leader key. To do so, add the following to your `config.h`:
 
 ```c
 #define LEADER_NO_TIMEOUT
 ```
 
-Now, after you hit the leader key, you will have an infinite amount of time to start the rest of the sequence, allowing you to properly position your hands to type the rest of the sequence comfortably. This way you can configure a very short `LEADER_TIMEOUT`, but still have plenty of time to position your hands.
+Now, after you hit the leader key, you will have an infinite amount of time to start the rest of the sequence, allowing you to properly position your hands to type the rest of the sequence comfortably. This way, you can configure a very short `LEADER_TIMEOUT`, but still have plenty of time to position your hands.
 
 ### Strict Key Processing {#strict-key-processing}
 
-By default, only the "tap keycode" portions of [Mod-Taps](../mod_tap) and [Layer Taps](../feature_layers#switching-and-toggling-layers) are added to the sequence buffer. This means if you press eg. `LT(3, KC_A)` as part of a sequence, `KC_A` will be added to the buffer, rather than the entire `LT(3, KC_A)` keycode.
+By default, only the "tap keycode" portions of [Mod-Taps](../mod_tap) and [Layer Taps](../feature_layers#switching-and-toggling-layers) are added to the sequence buffer. This means if you press say `LT(3, KC_A)` as part of a sequence, `KC_A` will be added to the buffer, rather than the entire `LT(3, KC_A)` keycode.
 
-This gives a more expected behaviour for most users, however you may want to change this.
-
-To enable this, add the following to your `config.h`:
+This gives a more expected behaviour for most users. However, you may want to change this. To enable this, add the following to your `config.h`:
 
 ```c
 #define LEADER_KEY_STRICT_KEY_PROCESSING
@@ -98,7 +98,7 @@ To enable this, add the following to your `config.h`:
 
 ## Example {#example}
 
-This example will play the Mario "One Up" sound when you hit `QK_LEAD` to start the leader sequence. When the sequence ends, it will play "All Star" if it completes successfully or "Rick Roll" you if it fails (in other words, no sequence matched).
+This example will play the Mario "One Up" sound when you hit `QK_LEAD` to start the leader sequence. When the sequence ends, it will play "All Star" if it completes successfully, or "Rick Roll" you if it fails (in other words, no sequence matched).
 
 ```c
 #ifdef AUDIO_ENABLE

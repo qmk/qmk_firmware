@@ -12,7 +12,7 @@ To enable them, first include `DYNAMIC_MACRO_ENABLE = yes` in your `rules.mk`. T
 |`QK_DYNAMIC_MACRO_RECORD_START_2`|`DM_REC2`|Start recording Macro 2                           |
 |`QK_DYNAMIC_MACRO_PLAY_1`        |`DM_PLY1`|Replay Macro 1                                    |
 |`QK_DYNAMIC_MACRO_PLAY_2`        |`DM_PLY2`|Replay Macro 2                                    |
-|`QK_DYNAMIC_MACRO_RECORD_STOP`   |`DM_RSTP`|Finish the macro that is currently being recorded.|
+|`QK_DYNAMIC_MACRO_RECORD_STOP`   |`DM_RSTP`|Finish the macro that is currently being recorded |
 
 That should be everything necessary. 
 
@@ -34,10 +34,10 @@ There are a number of options added that should allow some additional degree of 
 
 |Define                      |Default         |Description                                                                                                      |
 |----------------------------|----------------|-----------------------------------------------------------------------------------------------------------------|
-|`DYNAMIC_MACRO_SIZE`        |128             |Sets the amount of memory that Dynamic Macros can use. This is a limited resource, dependent on the controller.  |
-|`DYNAMIC_MACRO_USER_CALL`   |*Not defined*   |Defining this falls back to using the user `keymap.c` file to trigger the macro behavior.                        |
-|`DYNAMIC_MACRO_NO_NESTING`  |*Not Defined*   |Defining this disables the ability to call a macro from another macro (nested macros).                           | 
-|`DYNAMIC_MACRO_DELAY`        |*Not Defined*   |Sets the waiting time (ms unit) when sending each key.                                                           |
+|`DYNAMIC_MACRO_SIZE`        |128             |Sets the amount of memory that Dynamic Macros can use. This is a limited resource, dependent on the controller   |
+|`DYNAMIC_MACRO_USER_CALL`   |*Not defined*   |Defining this falls back to using the user `keymap.c` file to trigger the macro behavior                         |
+|`DYNAMIC_MACRO_NO_NESTING`  |*Not Defined*   |Defining this disables the ability to call a macro from another macro (nested macros)                            | 
+|`DYNAMIC_MACRO_DELAY`       |*Not Defined*   |Sets the waiting time (ms unit) when sending each key                                                            |
 
 
 If the LEDs start blinking during the recording with each keypress, it means there is no more space for the macro in the macro buffer. To fit the macro in, either make the other macro shorter (they share the same buffer) or increase the buffer size by adding the `DYNAMIC_MACRO_SIZE` define in your `config.h` (default value: 128; please read the comments for it in the header).
@@ -57,13 +57,13 @@ For users of the earlier versions of dynamic macros: It is still possible to fin
 
 ### User Hooks
 
-There are a number of hooks that you can use to add custom functionality and feedback options to Dynamic Macro feature.  This allows for some additional degree of customization. 
+There are a number of hooks that you can use to add custom functionality and feedback options to the Dynamic Macro feature. This allows for some additional degree of customization. 
 
-Note, that direction indicates which macro it is, with `1` being Macro 1, `-1` being Macro 2, and 0 being no macro. 
+Note that direction indicates which macro it is, with `1` being Macro 1, `-1` being Macro 2, and `0` being no macro.
 
-* `dynamic_macro_record_start_user(int8_t direction)` - Triggered when you start recording a macro.
-* `dynamic_macro_play_user(int8_t direction)` - Triggered when you play back a macro.
-* `dynamic_macro_record_key_user(int8_t direction, keyrecord_t *record)` - Triggered on each keypress while recording a macro.
-* `dynamic_macro_record_end_user(int8_t direction)` - Triggered when the macro recording is stopped. 
+* `dynamic_macro_record_start_user(int8_t direction)` — Triggered when you start recording a macro.
+* `dynamic_macro_play_user(int8_t direction)` — Triggered when you play back a macro.
+* `dynamic_macro_record_key_user(int8_t direction, keyrecord_t *record)` — Triggered on each keypress while recording a macro.
+* `dynamic_macro_record_end_user(int8_t direction)` — Triggered when the macro recording is stopped. 
 
 Additionally, you can call `dynamic_macro_led_blink()` to flash the backlights if that feature is enabled. 
