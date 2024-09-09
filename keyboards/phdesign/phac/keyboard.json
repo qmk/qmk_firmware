@@ -3,18 +3,24 @@
     "keyboard_name": "phac",
     "maintainer": "nonameCCC",
     "bootloader": "rp2040",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "GP7", "pin_b": "GP8", "resolution": 1},
+            {"pin_a": "GP10", "pin_b": "GP9", "resolution": 1}
+        ]
+    },
     "features": {
         "bootmagic": true,
         "command": false,
         "console": false,
+        "encoder": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
-        "encoder": true
+        "nkro": true
     },
     "matrix_pins": {
         "direct": [
-            ["GP1","GP6","GP5","GP4","GP3","GP2","GP0"]
+            ["GP1", "GP6", "GP5", "GP4", "GP3", "GP2", "GP0"]
         ]
     },
     "processor": "RP2040",
@@ -36,19 +42,5 @@
                 {"matrix": [0, 6], "x": 3.375, "y": 2, "w": 2.25}
             ]
         }
-    },
-    "encoder": {
-        "rotary": [
-            {
-                "pin_a": "GP7",
-                "pin_b": "GP8",
-                "resolution": 1
-            },
-            {
-                "pin_a": "GP10",
-                "pin_b": "GP9",
-                "resolution": 1
-            }
-        ]
     }
 }
