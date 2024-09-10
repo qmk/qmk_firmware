@@ -173,6 +173,12 @@
 #    define PAL_OUTPUT_SPEED_HIGHEST 0
 #endif
 
+// AT32 compatibility
+#if defined(MCU_AT32)
+#    include "at32_compatibility.h"
+#    define CPU_CLOCK AT32_SYSCLK
+#endif
+
 #if !defined(REALTIME_COUNTER_CLOCK)
 #    define REALTIME_COUNTER_CLOCK CPU_CLOCK
 #endif

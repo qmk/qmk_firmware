@@ -12,6 +12,8 @@
 // or associated `stm32_registry.h` for the MCU in question (or equivalent for the family).
 #    if defined(QMK_MCU_SERIES_GD32VF103)
 #        define BACKING_STORE_WRITE_SIZE 2 // from hal_efl_lld.c
+#    elif defined(QMK_MCU_FAMILY_AT32)
+#        define BACKING_STORE_WRITE_SIZE 2 // from hal_efl_lld.c
 #    elif defined(QMK_MCU_FAMILY_NUC123)
 #        define BACKING_STORE_WRITE_SIZE 4 // from hal_efl_lld.c
 #    elif defined(QMK_MCU_FAMILY_WB32)
