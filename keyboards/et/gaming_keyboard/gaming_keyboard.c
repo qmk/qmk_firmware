@@ -126,8 +126,7 @@ bool bat_full_flag       = false;
 bool enable_bat_indicators = true;
 uint32_t bat_indicator_cnt = true;
 static uint32_t ee_clr_timer = 0;
-bool test_flag;
-bool sense_filp;
+
 
 void eeconfig_confinfo_update(uint32_t raw) {
 
@@ -356,98 +355,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 #endif
 
     switch (keycode) {
-        case KC_W:{
-            if (record->event.pressed) {
-                if (sense_filp) 
-                {
-                    register_code(KC_UP);
-                    return false;
-                }
-            }
-            else
-            {
-                if (sense_filp) 
-                {
-                    unregister_code(KC_UP);
-                    return false;
-                }
-            }  
-            return true;
-            break;
-        }
-        case KC_A:{
-            if (record->event.pressed) {
-                if (sense_filp) {
-                    register_code(KC_LEFT);
-                    return false;
-                }
-            }  
-            else
-            {
-                if (sense_filp) {
-                    unregister_code(KC_LEFT);
-                    return false;
-                }
-            }
-            return true;
-            break;
-        }
-        case KC_S:{
-            if (record->event.pressed) {
-                if (sense_filp) 
-                {
-                    register_code(KC_DOWN);
-                    return false;
-                }
-            }  
-            else
-            {
-                if (sense_filp) {
-                    unregister_code(KC_DOWN);
-                    return false;
-                }
-            }
-            return true;
-            break;
-        }
-        case KC_D:{
-            if (record->event.pressed) {
-                if (sense_filp) {
-                    register_code(KC_RIGHT);
-                    return false;
-                }
-            }  
-            else
-            {
-                if (sense_filp) {
-                    unregister_code(KC_RIGHT);
-                    return false;
-                }
-            }
-            return true;
-            break;
-        }
-        case KC_SENSE:{
-            if (record->event.pressed) {
-                if (!sense_filp)  
-                {
-                    sense_filp = true;
-                }
-                else{
-                    sense_filp = false;
-                }
-            }
-            return false;
-            break;
-        }
-        case KC_TEST:{
-            if (record->event.pressed) {
-            
-                test_flag = !test_flag;
-            }
-            return false;
-            break;
-        }
         case EE_CLR:{
             if (record->event.pressed) {
                 ee_clr_timer = timer_read32(); 

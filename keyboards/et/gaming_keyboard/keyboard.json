@@ -50,12 +50,6 @@
         },
         {
             "key": "KC_2G4"
-        },
-        {
-            "key": "KC_TEST"
-        },
-        {
-            "key": "KC_SENSE"
         }
     ],
     "matrix_pins": {
