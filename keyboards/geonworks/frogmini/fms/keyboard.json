@@ -37,6 +37,10 @@
     },
     "processor": "STM32F401",
     "bootloader": "stm32-dfu",
+    "layout_aliases": {
+        "LAYOUT_60_tsangan_hhkb": "LAYOUT_60_ansi_tsangan_split_bs_rshift",
+        "LAYOUT_60_tsangan_hhkb_10u_space": "LAYOUT_60_ansi_tsangan_split_bs_rshift_10u_space"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -319,7 +323,7 @@
                 {"matrix": [5, 12], "x": 13.5, "y": 4, "w": 1.5}
             ]
         },
-        "LAYOUT_60_tsangan_hhkb": {
+        "LAYOUT_60_ansi_tsangan_split_bs_rshift": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
@@ -591,7 +595,7 @@
                 {"matrix": [5, 11], "x": 12.5, "y": 4}
             ]
         },
-        "LAYOUT_60_tsangan_hhkb_10u_space": {
+        "LAYOUT_60_ansi_tsangan_split_bs_rshift_10u_space": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},

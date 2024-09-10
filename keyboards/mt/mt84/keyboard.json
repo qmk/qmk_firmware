@@ -43,7 +43,6 @@
             "hue_wave": true,
             "pixel_rain": true,
             "pixel_flow": true,
-            "pixel_fractal": true,
             "solid_reactive_simple": true,
             "solid_reactive": true,
             "solid_reactive_wide": true,
