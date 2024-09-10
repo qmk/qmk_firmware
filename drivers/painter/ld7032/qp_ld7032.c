@@ -94,7 +94,6 @@ void ld7032_flush_0(painter_device_t device, surface_dirty_data_t *dirty, const 
             y_new_pos = y_end - y_pos;
         }
         uint8_t packet[x_length];
-        memset(packet, 0, sizeof(packet));
         memcpy(packet, &framebuffer[(y_pos * (driver->panel_width >> 3)) + x_start], x_length);
         uint8_t x_write_start = MIN(x_start + x_view_offset, (128 >> 3));
         uint8_t x_write_end   = MIN(x_end + x_view_offset, (128 >> 3));
@@ -379,7 +378,6 @@ painter_device_t qp_ld7032_make_i2c_device(uint16_t panel_width, uint16_t panel_
     for (uint32_t i = 0; i < LD7032_NUM_DEVICES; ++i) {
         ld7032_device_t *driver = &ld7032_drivers[i];
         if (!driver->oled.base.driver_vtable) {
-            // Instantiate the surface, intentional swap of width/high due to transpose
             painter_device_t surface = qp_make_mono1bpp_surface_advanced(&driver->oled.surface, 1, panel_width, panel_height, driver->framebuffer);
             if (!surface) {
                 return NULL;
