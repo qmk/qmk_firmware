@@ -74,7 +74,7 @@ void timer_clear(void) {
     chSysUnlock();
 }
 
-void timer_restore(void) {
+void timer_restore(void) __attribute__((weak)) {
     chSysLock();
     ticks_offset = get_system_time_ticks();
     last_ticks   = 0;
@@ -82,7 +82,7 @@ void timer_restore(void) {
     chSysUnlock();
 }
 
-void timer_save(void) {
+void timer_save(void) __attribute__((weak)) {
     saved_ms = timer_read32();
 }
 
