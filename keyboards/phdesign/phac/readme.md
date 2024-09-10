@@ -6,7 +6,7 @@ A rhythm game controller with 7 keys and 2 encoders on it.
 
 * Keyboard Maintainer: [Xufeng Tao](https://github.com/nonameCCC)
 * Hardware Supported: RP2040 minimal system
-* Hardware Availability: https://m.tb.cn/h.gLFXLaX?tk=7DpL3TuPVxx(currently not available outside China Mainland, as we could not afford the international express fee)
+* Hardware Availability: https://m.tb.cn/h.gLFXLaX?tk=7DpL3TuPVxx (currently not available outside of mainland China)
 
 Make example for this keyboard (after setting up your build environment):
 
