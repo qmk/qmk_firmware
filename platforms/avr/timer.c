@@ -91,7 +91,7 @@ void timer_save(void) {
  *
  * Set timer_count to saved_ms
  */
-void timer_restore(uint32_t time_ms) {
+void timer_restore(void) {
     ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
         timer_count = saved_ms;
     }
