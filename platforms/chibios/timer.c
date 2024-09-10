@@ -74,12 +74,12 @@ void timer_clear(void) {
     chSysUnlock();
 }
 
-void platform_timer_save_value(uint32_t value) __attribute__((weak)) {
-	saved_ms = value;
+__attribute__((weak)) void platform_timer_save_value(uint32_t value) {
+    saved_ms = value;
 }
 
-uint32_t platform_timer_restore_value(void) __attribute__((weak)) {
-	return saved_ms;
+__attribute__((weak)) uint32_t platform_timer_restore_value(void) {
+    return saved_ms;
 }
 
 void timer_restore(void) {
