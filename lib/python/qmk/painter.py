@@ -3,6 +3,7 @@
 import datetime
 import math
 import re
+from pathlib import Path
 from string import Template
 from PIL import Image, ImageOps
 
@@ -137,9 +138,33 @@ def _render_image_metadata(metadata):
     return "\n".join(lines)
 
 
-def generate_subs(cli, out_bytes, *, font_metadata=None, image_metadata=None, command):
+def generate_command_str(cli, command_name):
+    """Given a command name, introspect milc to get the arguments passed in."""
+
+    args = []
+    for arg_name, was_passed in cli.args_passed[command_name].items():
+        # we might ignore a value if it was not passed in
+        # but not doing so (for now?)
+
+        val = getattr(cli.args, arg_name.replace("-", "_"))
+
+        # do not leak full paths, keep just file name
+        if isinstance(val, Path):
+            val = val.name
+
+        args.append(f"--{arg_name} {val}")
+
+    command_name = command_name.replace("_", "-")
+    args_str = " ".join(args)
+
+    return f"qmk {command_name} {args_str}"
+
+
+def generate_subs(cli, out_bytes, *, font_metadata=None, image_metadata=None, command_name):
     if font_metadata is not None and image_metadata is not None:
         raise ValueError("Cant generate subs for font and image at the same time")
+
+    command = generate_command_str(cli, command_name)
 
     subs = {
         "year": datetime.date.today().strftime("%Y"),
