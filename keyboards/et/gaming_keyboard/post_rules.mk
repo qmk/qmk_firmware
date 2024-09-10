@@ -1,1 +1,1 @@
-include keyboards/et/linker/wireless/wireless.mk
+include keyboards/linker/wireless/wireless.mk
