@@ -495,9 +495,9 @@ QUANTUM_PAINTER_DRIVERS += ld7032_i2c
 Creating a SH1106 device in firmware can then be done with the following APIs:
 
 ```c
-// SPI-based SH1106:
+// SPI-based LD7032:
 painter_device_t qp_ld7032_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode);
-// I2C-based SH1106:
+// I2C-based LD7032:
 painter_device_t qp_ld7032_make_i2c_device(uint16_t panel_width, uint16_t panel_height, uint8_t i2c_address);
 ```
 
@@ -512,7 +512,7 @@ The maximum number of displays of each type can be configured by changing the fo
 #define LD7032_NUM_I2C_DEVICES 3
 ```
 
-Native color format mono2 is compatible with LD7032
+Native color format mono2 is compatible with LD7032.
 
 :::::
 
