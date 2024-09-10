@@ -23,3 +23,9 @@
 #define I2C1_SDA_PIN B1 // A3 on pinout = B1
 #define I2C1_SCL_PAL_MODE PAL_MODE_ALTERNATIVE_2
 #define I2C1_SDA_PAL_MODE PAL_MODE_ALTERNATIVE_2
+
+// uart defines - these are untested
+#define UART_RX_PIN B16
+#define UART_TX_PIN B17
+#define UART_TX_PAL_MODE PAL_MODE_ALTERNATIVE_3
+#define UART_RX_PAL_MODE PAL_MODE_ALTERNATIVE_3
