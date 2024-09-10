@@ -81,6 +81,7 @@ LSFT_T(KC_TAB),  KC_A,    KC_S,    KC_D,   LSFT_T(KC_F),KC_G,                   
                                    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
  ),
 
+};
 
 #ifdef OLED_ENABLE
 
