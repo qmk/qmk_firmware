@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # define OLED_DISPLAY_128X64
 # define SPLIT_OLED_ENABLE
-# define OLED_FONT_H  "./glcdfont.c"
+# define OLED_FONT_H  "./lib/glcdfont.c"
 
 #define AUDIO_PWM_DRIVER PWMD4
 #define AUDIO_PWM_CHANNEL RP2040_PWM_CHANNEL_B

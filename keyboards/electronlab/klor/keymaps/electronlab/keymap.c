@@ -121,10 +121,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
    [_QWERTY] = LAYOUT_polydactyl(
  //╷         ╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷         ╷
-               KC_Q,    KC_W,      KC_E,       KC_R,    KC_T,                          KC_Y,    KC_U,      KC_I,     KC_O,    KC_P,
-      KC_TAB,  KC_A,    KC_S,      KC_D,       KC_F,    KC_G,                          KC_H,    KC_J,      KC_K,     KC_L,    KC_SCLN,  KC_QUOT,
-      KC_LCTL, KC_Z,    KC_X,      KC_C,       KC_V,    KC_B,     KC_MUTE,   KC_MPLY,  KC_N,    KC_M,      KC_COMM,  KC_DOT,  KC_SLSH,  KC_BSLS,
-                                   KC_LALT,    LOWER,   KC_RALT,  KC_SPC,    KC_BSPC,  KC_ENT,  RAISE,     KC_DEL
+                 KC_Q,    KC_W,    KC_E,     KC_R,      KC_T,                          KC_Y,    KC_U,      KC_I,     KC_O,    KC_P,
+LSFT_T(KC_TAB),  KC_A,    KC_S,    KC_D,   LSFT_T(KC_F),KC_G,                          KC_H, RSFT_T(KC_J), KC_K,     KC_L,    KC_SCLN,  KC_QUOT,
+        KC_LCTL, KC_Z,    KC_X,    KC_C,     KC_V,      KC_B,     KC_MUTE,   KC_MPLY,  KC_N,    KC_M,      KC_COMM,  KC_DOT,  KC_SLSH,  KC_BSLS,
+                                   KC_LALT,  LOWER,     KC_RALT,  KC_SPC,    KC_BSPC,  KC_ENT,  RAISE,     KC_DEL
  ),
 
 /*
