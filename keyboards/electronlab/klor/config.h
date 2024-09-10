@@ -17,13 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* The way how "handedness" is decided (which half is which), see https://docs.qmk.fm/#/feature_split_keyboard?id=setting-handedness for more options.*/
-//#define EE_HANDS
-#define MASTER_LEFT
-//#define MASTER_RIGHT
-//#define SPLIT_HAND_PIN GP10 //If handedness jumpers are bridged on KLOR REV 1.5 PCB onward
-
-
 #define I2C1_SCL_PIN GP3
 #define I2C1_SDA_PIN GP2
 
