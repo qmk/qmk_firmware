@@ -12,12 +12,6 @@
             {"pin_a": "GP28", "pin_b": "GP29", "resolution": 2}
         ]
     },
-    "tapping": {
-        "term": 250
-    },
-    "combo": {
-        "term": 150
-    },
     "features": {
         "audio": true,
         "bootmagic": true,
@@ -178,9 +172,6 @@
                 "modifiers": true,
                 "oled": true
             }
-        },
-        "usb_detect": {
-            "enabled": true
         },
     },
     "url": "https://github.com/Lefuneste83/KLOR",
