@@ -1,6 +1,6 @@
 # Combos
 
-The Combo feature is a chording type solution for adding custom actions. It lets you hit multiple keys at once and produce a different effect. For instance, hitting `A` and `B` within the combo term would hit `ESC` instead, or have it perform even more complex tasks.
+The Combo feature is a chording-type solution for adding custom actions. It lets you hit multiple keys at once to produce a different effect. For instance, hitting `A` and `B` could instead output `ESC`, or perform even more complex tasks.
 
 To enable this feature, you need to add `COMBO_ENABLE = yes` to your `rules.mk`.
 
@@ -15,7 +15,7 @@ combo_t key_combos[] = {
 };
 ```
 
-This will send "Escape" if you hit the A and B keys, and Ctrl+Z when you hit the C and D keys.
+This will send `Escape` if you hit the `A` and `B` keys simultaneously, and `Ctrl`+`Z` when you hit the `C` and `D` keys simultaneously.
 
 ## Advanced Keycodes Support
 Advanced keycodes, such as [Mod-Tap](../mod_tap) and [Tap Dance](tap_dance) are also supported together with combos. If you use these advanced keycodes in your keymap, you will need to place the full keycode in the combo definition, e.g.:
@@ -26,7 +26,7 @@ const uint16_t PROGMEM test_combo2[] = {TD(TD_ESC_CAPS), KC_F1, COMBO_END};
 ```
 
 ## Overlapping Combos
-It is possible to overlap combos. Before, with the example below both combos would activate when all three keys were pressed. Now only the three key combo will activate.
+It is possible to overlap combos; in the example below, only the three key combo will activate when all three keys are pressed:
 
 ```c
 const uint16_t PROGMEM test_combo1[] = {LSFT_T(KC_A), LT(1, KC_B), COMBO_END};
@@ -62,7 +62,7 @@ combo_t key_combos[] = {
 };
 ```
 
-For a more complicated implementation, you can use the `process_combo_event` function to add custom handling.
+For a more complicated implementation, you can use the `process_combo_event` function to add custom handling:
 
 ```c
 enum combo_events {
@@ -97,12 +97,12 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 }
 ```
 
-This will send "john.doe@example.com" if you chord E and M together, and clear the current line with Backspace and Left-Shift. You could change this to do stuff like play sounds or change settings.
+This will send `"john.doe@example.com"` if you chord `E` and `M` together, and clear the current line with `Backspace` and `Left Shift`. You could change this to do stuff like play sounds or change settings.
 
 It is worth noting that `COMBO_ACTION`s are not needed anymore. As of [PR#8591](https://github.com/qmk/qmk_firmware/pull/8591/), it is possible to run your own custom keycodes from combos. Just define the custom keycode, program its functionality in `process_record_user`, and define a combo with `COMBO(<key_array>, <your_custom_keycode>)`. See the first example in [Macros](../feature_macros).
 
 ## Keycodes
-You can enable, disable and toggle the Combo feature on the fly. This is useful if you need to disable them temporarily, such as for a game. The following keycodes are available for use in your `keymap.c`
+You can enable, disable, and toggle the Combo feature on the fly. This is useful if you need to disable them temporarily, such as for a game. The following keycodes are available for use in your `keymap.c`:
 
 |Keycode          |Aliases  |Description                     |
 |-----------------|---------|--------------------------------|
@@ -130,7 +130,7 @@ To configure the amount of keys a combo can be composed of, change the following
 
 Defining `EXTRA_SHORT_COMBOS` combines a combo's internal state into just one byte. This can, in some cases, save some memory. If it doesn't, no point using it. If you do, you also have to make sure you don't define combos with more than 6 keys.
 
-Processing combos has two buffers, one for the key presses, another for the combos being activated. Use the following options to configure the sizes of these buffers:
+Processing combos has two buffers: one for the key presses, and another for the combos being activated. Use the following options to configure the sizes of these buffers:
 
 | Define                              | Default                                              |
 |-------------------------------------|------------------------------------------------------|
@@ -138,15 +138,15 @@ Processing combos has two buffers, one for the key presses, another for the comb
 | `#define COMBO_BUFFER_LENGTH 4`     | 4                                                    |
 
 ### Modifier Combos
-If a combo resolves to a Modifier, the window for processing the combo can be extended independently from normal combos. By default, this is disabled but can be enabled with `#define COMBO_MUST_HOLD_MODS`, and the time window can be configured with `#define COMBO_HOLD_TERM 150` (default: `TAPPING_TERM`). With `COMBO_MUST_HOLD_MODS`, you cannot tap the combo any more which makes the combo less prone to misfires.
+If a combo resolves to a Modifier, the window for processing the combo can be extended independently from normal combos. By default, this is disabled but can be enabled with `#define COMBO_MUST_HOLD_MODS`, and the time window can be configured with `#define COMBO_HOLD_TERM 150` (default: `TAPPING_TERM`). With `COMBO_MUST_HOLD_MODS`, the combo cannot be tapped anymore, which makes the combo less prone to misfires.
 
 ### Strict key press order
-By defining `COMBO_MUST_PRESS_IN_ORDER` combos only activate when the keys are pressed in the same order as they are defined in the key array.
+By defining `COMBO_MUST_PRESS_IN_ORDER`, combos only activate when the keys are pressed in the same order as they are defined in the key array.
 
-### Per Combo Timing, Holding, Tapping and Key Press Order
+### Per Combo Timing, Holding, Tapping, and Key Press Order
 For each combo, it is possible to configure the time window it has to pressed in, if it needs to be held down, if it needs to be tapped, or if its keys need to be pressed in order.
 
-For example, tap-only combos are useful if any (or all) of the underlying keys are mod-tap or layer-tap keys. When you tap the combo, you get the combo result. When you press the combo and hold it down, the combo doesn't activate. Instead the keys are processed separately as if the combo wasn't even there.
+For example, tap-only combos are useful if any (or all) of the underlying keys are mod-tap or layer-tap keys. When you tap the combo, you get the combo result. When you press the combo and hold it down, the combo doesn't activate. Instead, the keys are processed separately as if the combo wasn't even there.
 
 In order to use these features, the following configuration options and functions need to be defined. Coming up with useful timings and configuration is left as an exercise for the reader.
 
@@ -235,8 +235,8 @@ bool get_combo_must_press_in_order(uint16_t combo_index, combo_t *combo) {
 
 ### Generic hook to (dis)allow a combo activation
 
-By defining `COMBO_SHOULD_TRIGGER` and its companying function `bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record)` you can block or allow combos to activate on the conditions of your choice.
-For example, you could disallow some combos on the base layer and allow them on another. Or disable combos on the home row when a timer is running.
+By defining `COMBO_SHOULD_TRIGGER` and its companying function `bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record)`, you can block or allow combos to activate on conditions of your choice.
+For example, you could disallow some combos on the base layer and allow them on another, or disable combos on the home row when a timer is running.
 
 Examples:
 ```c
@@ -264,7 +264,7 @@ The next two options alter the behaviour of the timer.
 
 With `COMBO_STRICT_TIMER`, the timer is started only on the first key press.
 Inputting combos is now less relaxed; you need to make sure the full chord is pressed within the `COMBO_TERM`.
-Misfires are less common but if you type multiple combos fast, there is a
+Misfires are less common, but if you type multiple combos fast, there is a
 chance that the latter ones might not activate properly.
 
 #### `#define COMBO_NO_TIMER`
@@ -274,11 +274,11 @@ This also disables the "must hold" functionalities as they just wouldn't work at
 
 ### Customizable key releases
 
-By defining `COMBO_PROCESS_KEY_RELEASE` and implementing the function `bool process_combo_key_release(uint16_t combo_index, combo_t *combo, uint8_t key_index, uint16_t keycode)`, you can run your custom code on each key release after a combo was activated. For example you could change the RGB colors, activate haptics, or alter the modifiers.
+By defining `COMBO_PROCESS_KEY_RELEASE` and implementing the function `bool process_combo_key_release(uint16_t combo_index, combo_t *combo, uint8_t key_index, uint16_t keycode)`, you can run your custom code on each key release after a combo was activated. For example, you could change the RGB colors, activate haptics, or alter the modifiers.
 
 You can also release a combo early by returning `true` from the function.
 
-Here's an example where a combo resolves to two modifiers, and on key releases the modifiers are unregistered one by one, depending on which key was released.
+Here's an example where a combo resolves to two modifiers, and on key releases the modifiers are unregistered one by one, depending on which key was released:
 
 ```c
 enum combos {
@@ -315,22 +315,22 @@ With `#define COMBO_ONLY_FROM_LAYER 0` in config.h, the combos' keys are always 
 
 #### Combo reference layers by layer.
 
-If not using `COMBO_ONLY_FROM_LAYER` it is possible to specify a
+If not using `COMBO_ONLY_FROM_LAYER`, it is possible to specify a
 combo reference layer for any layer using the `combo_ref_from_layer` hook. 
 The combo macros automatically create this function from the `COMBO_REF_LAYER()`
 entries given.
 
 This function returns the assigned reference layer for the current layer.
-if there is no match, it returns the  default reference layer if set, 
-or the current layer otherwise. A default layer can be set with
-`DEFAULT_REF_LAYER(_MY_COMBO_REF_LAYER)`
+If there is no match, it returns the default reference layer if set, 
+and the current layer otherwise. A default layer can be set with
+`DEFAULT_REF_LAYER(_MY_COMBO_REF_LAYER)`.
 
 If not set, the default reference layer selection from the automatically generated 
 `combo-ref-from-layer()` will be the current layer.
 
 The following `combo_ref_from_layer` function 
 will give a reference layer of _QWERTY for the _DVORAK layer and
-will give the _NAV layer as a reference to it's self. All other layers
+will give the _NAV layer as a reference to its self. All other layers
 will have the default for their combo reference layer. If the default
 is not set, all other layers will reference themselves.
 
@@ -396,3 +396,5 @@ SUBS(TH_THE,   "the",    KC_T, KC_H) // SUBS uses SEND_STRING to output the give
 ```
 
 For small to huge ready made dictionaries of combos, you can check out http://combos.gboards.ca/.
+
+<!-- This linked page doesn't render well for me; any newer databases? -->

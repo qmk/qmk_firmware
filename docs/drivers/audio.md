@@ -117,7 +117,7 @@ Additionally, in the board config, you'll want to make changes to enable the DAC
 
 | Define                           | Defaults                   | Description                                                                                                                                                           |
 | -------------------------------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `AUDIO_DAC_SAMPLE_MAX`           | `4095U`                    | Highest value allowed. Lower value means lower volume. And 4095U is the upper limit, since this is limited to a 12 bit value. Only effects non-pregenerated samples.  |
+| `AUDIO_DAC_SAMPLE_MAX`           | `4095U`                    | Highest value allowed. Lower value means lower volume. And 4095U is the upper limit, since this is limited to a 12-bit value. Only effects non-pregenerated samples.  |
 | `AUDIO_DAC_OFF_VALUE`            | `AUDIO_DAC_SAMPLE_MAX / 2` | The value of the DAC when not playing anything. Some setups may require a high (`AUDIO_DAC_SAMPLE_MAX`) or low (`0`) value here.                                      |
 | `AUDIO_MAX_SIMULTANEOUS_TONES`   | __see next table__         | The number of tones that can be played simultaneously.  A value that is too high may freeze the controller or glitch out when too many tones are being played.        |
 | `AUDIO_DAC_SAMPLE_RATE`          | __see next table__         | Effective bit rate of the DAC (in hertz), higher limits simultaneous tones, and lower sacrifices quality.                                                             |
