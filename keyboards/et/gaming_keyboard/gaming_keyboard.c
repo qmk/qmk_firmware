@@ -676,9 +676,6 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 #ifdef BAT_FULL_PIN
     bat_full_flag = readPin(BAT_FULL_PIN);
 #endif
-    if (test_flag){
-        rgb_matrix_set_color_all(150,150,150);
-    }
     return true;
 }
 
