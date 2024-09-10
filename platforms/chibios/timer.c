@@ -74,16 +74,24 @@ void timer_clear(void) {
     chSysUnlock();
 }
 
-void timer_restore(void) __attribute__((weak)) {
+void platform_timer_save_value(uint32_t value) __attribute__((weak)) {
+	saved_ms = value;
+}
+
+uint32_t platform_timer_restore_value(void) __attribute__((weak)) {
+	return saved_ms;
+}
+
+void timer_restore(void) {
     chSysLock();
     ticks_offset = get_system_time_ticks();
     last_ticks   = 0;
-    ms_offset    = saved_ms;
+    ms_offset    = platform_timer_restore_value();
     chSysUnlock();
 }
 
-void timer_save(void) __attribute__((weak)) {
-    saved_ms = timer_read32();
+void timer_save(void) {
+    platform_timer_save_value(timer_read32());
 }
 
 uint16_t timer_read(void) {
