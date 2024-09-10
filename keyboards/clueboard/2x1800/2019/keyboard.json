@@ -32,6 +32,12 @@
       {"pin_a": "A1", "pin_b": "A0"}
     ]
   },
+  "indicators": {
+    "caps_lock": "B5",
+    "num_lock": "B4",
+    "scroll_lock": "B6",
+    "on_state": 0
+  },
   "layout_aliases": {
     "LAYOUT": "LAYOUT_all"
   },

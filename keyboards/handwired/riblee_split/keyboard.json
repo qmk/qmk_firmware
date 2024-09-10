@@ -25,6 +25,12 @@
     },
     "split": {
         "enabled": true,
+        "handedness": {
+            "pin": "C15"
+        },
+        "serial": {
+            "driver": "usart"
+        },
         "transport": {
             "sync_matrix_state": true
         }
