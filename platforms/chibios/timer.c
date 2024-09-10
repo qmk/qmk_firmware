@@ -5,6 +5,7 @@
 static uint32_t ticks_offset = 0;
 static uint32_t last_ticks   = 0;
 static uint32_t ms_offset    = 0;
+static uint32_t saved_ms     = 0;
 #if CH_CFG_ST_RESOLUTION < 32
 static uint32_t last_systime = 0;
 static uint32_t overflow     = 0;
@@ -73,12 +74,16 @@ void timer_clear(void) {
     chSysUnlock();
 }
 
-void timer_set(uint32_t time_ms) {
+void timer_restore(void) {
     chSysLock();
     ticks_offset = get_system_time_ticks();
     last_ticks   = 0;
-    ms_offset    = time_ms;
+    ms_offset    = saved_ms;
     chSysUnlock();
+}
+
+void timer_save(void) {
+    saved_ms = timer_read32();
 }
 
 uint16_t timer_read(void) {
