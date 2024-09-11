@@ -42,18 +42,18 @@ enum custom_keycodes {
 
 // Num row
 #define LN5 KC_ESC
-#define LN4 KC_3
-#define LN3 KC_2
-#define LN2 KC_1
-#define LN1 KC_0
-#define LN0 KC_4
+#define LN4 KC_NO
+#define LN3 KC_NO
+#define LN2 KC_TAB
+#define LN1 KC_NO
+#define LN0 TG(_SNTH)
 
-#define RN0 KC_7
-#define RN1 KC_6
-#define RN2 KC_5
-#define RN3 KC_9
-#define RN4 KC_8
-#define RN5 KC_MUTE
+#define RN0 TG(_NUM)
+#define RN1 KC_LPRN
+#define RN2 KC_DEL
+#define RN3 KC_RPRN
+#define RN4 KC_VOLD
+#define RN5 KC_VOLU
 
 // top row
 #define LT5 KC_GRV
@@ -71,7 +71,7 @@ enum custom_keycodes {
 #define RT5 KC_BSLS
 
 // middle row
-#define LM5 TG(_NUM)
+#define LM5 KC_Z
 #define LM4 LT(_SYM, KC_S)
 #define LM3 LALT_T(KC_C)
 #define LM2 LGUI_T(KC_N)
@@ -83,7 +83,7 @@ enum custom_keycodes {
 #define RM2 RGUI_T(KC_E)
 #define RM3 RALT_T(KC_I)
 #define RM4 LT(_SYM, KC_H)
-#define RM5 CW_TOGG
+#define RM5 KC_Q
 
 // bottom row
 #define LB5 KC_NO
@@ -101,11 +101,11 @@ enum custom_keycodes {
 #define RB5 KC_NO
 
 // thumb row
-#define LH1 LSFT_T(KC_R)
-#define LH0 LT(_NAV, KC_BSPC)
+#define LH1 LT(_NAV, KC_R)
+#define LH0 KC_BSPC
 
-#define RH0 LT(_NUM, KC_ENT)
-#define RH1 RSFT_T(KC_SPC)
+#define RH0 KC_ENT
+#define RH1 LT(_NUM, KC_SPC)
 
 #define ___x___ KC_NO  // visual aid to null keys
 
@@ -133,9 +133,9 @@ static uint16_t keyhold_timer; // for handling Qu combo
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*  Base (alpha) Layer Hands Down Vibranuim-F
             Building for ZSA Voyager
-    ⎋   3   2   1    0   4           7   6   5   9   8
+    ⎋          tab                       (  del  )   vol↓↑
     `   x   w   m    g   j           +=  .:  /   "!  '? \
-    tg  s⌃  c⌥  n⌘   t⇧  k           ,;  a⇧  e⌘  i⌥  h⌃ cw
+    z   s⌃  c⌥  n⌘   t⇧  k           ,;  a⇧  e⌘  i⌥  h⌃ q
         f   p   l    d   v      	 -   u   o   y   b
                          r   ⌫   ⏎   ␣
   */
@@ -162,18 +162,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 */
 
-/*          +   =   *
-    	-   5   2   3   :       +   .   /
-    	7   .   1   0   4       ,   ⇧   ⌘   ⌥   ^
-    	/   6   9   8   ,       -   ⌫
-    	                ␣   ⌫   ⏎   ␣
+/*              ⇥  					tg
+    	-   7   8   9   *       	+   .   /
+    	+   1   2   3   /       	,   ⇧   ⌘   ⌥   ^
+    	=   4   5   6   ,       	-   ⌫
+    	                0   .   ⏎   ␣
     */
-  [_NUM] = LAYOUT_voyager( /* BEAKL 15 */
-    ___x___, ___x___, KC_PLUS, KC_EQL,  KC_ASTR, ___x___,                    _______, _______, _______, _______, _______, _______,
-    ___x___, KC_MINS, KC_5,    KC_2,    KC_3,    KC_COLN,                    _______, _______, _______, _______, _______, ___x___,
-    _______, KC_7,    KC_DOT,  KC_1,    KC_0,    KC_4,                       _______, OSMSFT,  OSMCMD,  OSMOPT,  OSMCTL,  ___x___,
-    ___x___, KC_SLSH, KC_6,    KC_9,    KC_8,    KC_COMM,                    ___x___, KC_BSPC, ___x___, ___x___, ___x___, _______,
-                                                 KC_SPC,   _______, _______, _______
+  [_NUM] = LAYOUT_voyager(
+    _______, _______, _______, _______, _______, _______,                  _______, _______, _______, _______, _______, _______,
+    _______, KC_MINS, KC_7,    KC_8,    KC_9,    KC_ASTR,                  _______, _______, _______, _______, _______, ___x___,
+    _______, KC_PLUS, KC_1,    KC_2,    KC_3,    KC_SLSH,                  _______, OSMSFT,  OSMCMD,  OSMOPT,  OSMCTL,  ___x___,
+    _______, KC_EQL,  KC_4,    KC_5,    KC_6,    KC_COMM,                  ___x___, KC_BSPC, ___x___, ___x___, ___x___, _______,
+                                                 KC_0,    KC_DOT, _______, _______
   ),
 
   /*
@@ -199,11 +199,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                          _______, _______, C(KC_LEFT),  C(KC_RIGHT)
   ),
   [_SNTH] = LAYOUT_voyager(
-    _______, TO(_DEF),     _______,      _______,      _______,      _______, _______, _______,      _______,      _______,      _______,      _______,
-    _______, KC_X,         KC_P,         KC_D,         KC_M,         KC_Q,    KC_EQL,  KC_Y,         KC_O,         KC_U,         KC_COMM,      _______,
-    _______, LCTL_T(KC_S), LALT_T(KC_N), LGUI_T(KC_T), LSFT_T(KC_H), KC_V,    KC_G,    RSFT_T(KC_C), RGUI_T(KC_A), RALT_T(KC_E), RCTL_T(KC_I), _______,
-    ___x___, KC_F,         KC_B,         KC_K,         KC_L,         KC_J,    KC_Z,    KC_W,         KC_QUOT,      KC_SLSH,       KC_DOT,      _______,
-                                                       _______,      _______, _______, _______
+    _______, _______,        _______,      _______,      _______,      TO(_DEF), _______, _______,      _______,      _______,      _______,        _______,
+    _______, KC_X,           KC_P,         LCTL_T(KC_D), KC_M,         KC_Q,     KC_EQL,  KC_Y,         RCTL_T(KC_O), KC_U,         KC_COMM,        _______,
+    _______, LT(_SYM, KC_S), LALT_T(KC_N), LGUI_T(KC_T), LSFT_T(KC_H), KC_V,     KC_G,    RSFT_T(KC_C), RGUI_T(KC_A), RALT_T(KC_E), LT(_SYM, KC_I), _______,
+    ___x___, KC_F,           KC_B,         KC_K,         KC_L,         KC_J,     KC_Z,    KC_W,         KC_QUOT,      KC_SLSH,      KC_DOT,         _______,
+                                                         _______,      _______,  _______, _______
   ),
 };
 
