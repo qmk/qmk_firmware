@@ -34,6 +34,8 @@ static bool         lpm_time_up               = false;
 static const pin_t wakeUpRow_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const pin_t wakeUpCol_pins[MATRIX_COLS]   = MATRIX_COL_PINS;
 
+void ws2812power_enabled(void);
+void ws2812power_Disabled(void);
 
 void lpm_timer_reset(void) {
     lpm_time_up      = false;
@@ -51,6 +53,7 @@ void lpm_init(void)
     gpio_set_pin_input_high(USB_POWER_SENSE_PIN);
     palEnableLineEvent(USB_POWER_SENSE_PIN, PAL_EVENT_MODE_FALLING_EDGE);
 
+    ws2812power_enabled();
 }
 
 void ws2812power_enabled(void)
@@ -114,6 +117,14 @@ void set_all_io_analog(void)
     palSetLineMode(B15, PAL_MODE_INPUT_ANALOG); 
 }
 
+__attribute__((weak)) bool usb_power_connected(void) {
+#ifdef USB_POWER_SENSE_PIN
+    return readPin(USB_POWER_SENSE_PIN) == USB_POWER_CONNECTED_LEVEL;
+#else
+    return true;
+#endif
+}
+
 void My_PWR_EnterSTOPMode(void)
 {
 #if STM32_HSE_ENABLED
@@ -144,7 +155,9 @@ void My_PWR_EnterSTOPMode(void)
 
 void enter_low_power_mode_prepare(void)
 {
-set_all_io_analog();
+
+
+    set_all_io_analog();
     uint8_t i = 0;
 #if (DIODE_DIRECTION == COL2ROW)
     // TODO: Wait implementation
@@ -178,6 +191,8 @@ set_all_io_analog();
 
     /* Usb unit is actived and running, stop and disconnect first */
     sdStop(&UART_DRIVER);
+    palSetLineMode(UART_TX_PIN, PAL_MODE_INPUT_ANALOG);
+    palSetLineMode(UART_RX_PIN, PAL_MODE_INPUT_ANALOG);
 
     usbStop(&USBD1);
     usbDisconnectBus(&USBD1);
@@ -204,7 +219,7 @@ set_all_io_analog();
 
     lpm_timer_reset();
     report_buffer_init();
-    bhq_init();
+    bhq_init();     // uart_init
 
     clear_keyboard();
     layer_clear();
