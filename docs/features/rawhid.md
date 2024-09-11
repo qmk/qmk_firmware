@@ -2,7 +2,7 @@
 
 The Raw HID feature allows for bidirectional communication between QMK and the host computer over an HID interface. This has many potential use cases, such as switching keymaps on the fly or sending useful metrics like CPU/RAM usage.
 
-In order to communicate with the keyboard using this feature, you will need to write a program that runs on the host. As such, some basic programming skills are required - more if you intend to implement complex behaviour.
+In order to communicate with the keyboard using this feature, you will need to write a program that runs on the host. As such, some basic programming skills are required — more if you intend to implement complex behaviour.
 
 ## Usage {#usage}
 
@@ -32,9 +32,9 @@ To send data to the keyboard, you must first find a library for communicating wi
 
 Please refer to these libraries' own documentation for instructions on usage. Remember to close the device once you are finished with it!
 
-Next, you will need to know the USB Vendor and Product IDs of the device. These can easily be found by looking at your keyboard's `info.json`, under the `usb` object (alternatively, you can also use Device Manager on Windows, System Information on macOS, or `lsusb` on Linux). For example, the Vendor ID for the Planck Rev 6 is `0x03A8`, and the Product ID is `0xA4F9`.
+Next, you will need to know the USB Vendor and Product IDs of the device. These can easily be found by looking at your keyboard's `info.json`, under the `usb` object. (Alternatively, you can also use Device Manager on Windows, System Information on macOS, or `lsusb` on Linux.) For example, the Vendor ID for the Planck Rev 6 is `0x03A8`, and the Product ID is `0xA4F9`.
 
-It's also a good idea to narrow down the list of potential HID devices the library may give you by filtering on the usage page and usage ID, to avoid accidentally opening the interface on the same device for the keyboard, or mouse, or media keys, etc.
+It's also a good idea to narrow down the list of potential HID devices the library may give you by filtering on the usage page and usage ID to avoid accidentally opening the interface on the same device for the keyboard, or mouse, or media keys, etc.
 
 Once you are able to open the HID device and send reports to it, it's time to handle them on the keyboard side. Implement the following function in your `keymap.c` and start coding:
 
@@ -52,7 +52,7 @@ Because the HID specification does not support variable length reports, all repo
 
 ## Receiving Data from the Keyboard {#receiving-data-from-the-keyboard}
 
-If you need the keyboard to send data back to the host, simply call the `raw_hid_send()` function. It requires two arguments - a pointer to a 32-byte buffer containing the data you wish to send, and the length (which should always be `RAW_EPSIZE`).
+If you need the keyboard to send data back to the host, simply call the `raw_hid_send()` function. It requires two arguments: a pointer to a 32-byte buffer containing the data you wish to send, and the length (which should always be `RAW_EPSIZE`).
 
 The received report can then be handled in whichever way your HID library provides.
 

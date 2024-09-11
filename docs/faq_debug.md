@@ -30,7 +30,7 @@ Prefer a terminal based solution? The [QMK CLI console command](cli_commands#qmk
 
 ### Debugging With hid_listen
 
-Something stand-alone? [hid_listen](https://www.pjrc.com/teensy/hid_listen.html), provided by PJRC, can also be used to display debug messages. Prebuilt binaries for Windows,Linux,and MacOS are available.
+Something stand-alone? [hid_listen](https://www.pjrc.com/teensy/hid_listen.html), provided by PJRC, can also be used to display debug messages. Prebuilt binaries for Windows,Linux,and macOS are available.
 
 ## Sending Your Own Debug Messages {#debug-api}
 

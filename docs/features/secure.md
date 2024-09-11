@@ -3,20 +3,20 @@
 The secure feature aims to prevent unwanted interaction without user intervention.
 
 ::: tip
-Secure does **not** currently implement encryption/decryption/etc and should not be a replacement where a strong hardware/software based solution is required.
+Secure does **not** currently implement encryption/decryption/etc. and should not be used as a replacement where a strong hardware/software based solution is required.
 :::
 
 ### Unlock sequence
 
 To unlock, the user must perform a set of actions. This can optionally be configured to be multiple keys.
 
-* While unlocking all keyboard input is ignored
-* Incorrect attempts will revert back to the previously locked state
+* While unlocking all keyboard input is ignored.
+* Incorrect attempts will revert back to the previously locked state.
 
 ### Automatic Locking
 
 Once unlocked, the keyboard will revert back to a locked state after the configured timeout.
-The timeout can be refreshed by using the `secure_activity_event` function, for example from one of the various [hooks](../custom_quantum_functions).
+The timeout can be refreshed by using the `secure_activity_event` function from, for example, one of the various [hooks](../custom_quantum_functions).
 
 ## Usage
 
@@ -37,11 +37,11 @@ SECURE_ENABLE = yes
 
 ## Configuration
 
-| Define                  | Default        | Description                                                                     |
-|-------------------------|----------------|---------------------------------------------------------------------------------|
-|`SECURE_UNLOCK_TIMEOUT`  | `5000`         | Timeout for the user to perform the configured unlock sequence - `0` to disable |
-|`SECURE_IDLE_TIMEOUT`    | `60000`        | Timeout while unlocked before returning to locked - `0` to disable              |
-|`SECURE_UNLOCK_SEQUENCE` | `{ { 0, 0 } }` | Array of matrix locations describing a sequential sequence of keypresses        |
+| Define                  | Default        | Description                                                                    |
+|-------------------------|----------------|--------------------------------------------------------------------------------|
+|`SECURE_UNLOCK_TIMEOUT`  | `5000`         | Timeout for the user to perform the configured unlock sequence; `0` to disable |
+|`SECURE_IDLE_TIMEOUT`    | `60000`        | Timeout while unlocked before returning to locked; `0` to disable              |
+|`SECURE_UNLOCK_SEQUENCE` | `{ { 0, 0 } }` | Array of matrix locations describing a sequential sequence of keypresses       |
 
 ## Functions
 
@@ -51,6 +51,6 @@ SECURE_ENABLE = yes
 | `secure_is_unlocking()`   | Check if an unlock sequence is currently in progress                       |
 | `secure_is_unlocked()`    | Check if the device is currently unlocked                                  |
 | `secure_lock()`           | Lock down the device                                                       |
-| `secure_unlock()`         | Force unlock the device - bypasses user unlock sequence                    |
+| `secure_unlock()`         | Force unlock the device — bypasses user unlock sequence                    |
 | `secure_request_unlock()` | Begin listening for an unlock sequence                                     |
 | `secure_activity_event()` | Flag that user activity has happened and the device should remain unlocked |

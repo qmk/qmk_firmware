@@ -28,18 +28,18 @@ You can also chain them; for example, `LCTL(LALT(KC_DEL))` or `C(A(KC_DEL))` mak
 
 # Checking Modifier State {#checking-modifier-state}
 
-The current modifier state can mainly be accessed with two functions: `get_mods()` for normal modifiers and modtaps and `get_oneshot_mods()` for one-shot modifiers (unless they're held, in which case they act like normal modifier keys).
+The current modifier state can mainly be accessed with two functions: `get_mods()` for normal modifiers and modtaps and `get_oneshot_mods()` for One Shot modifiers (unless they're held, in which case they act like normal modifier keys).
 
 The presence of one or more specific modifiers in the current modifier state can be detected by ANDing the modifier state with a mod mask corresponding to the set of modifiers you want to match for. The reason why bitwise operators are used is that the modifier state is stored as a single byte in the format (GASC)<sub>R</sub>(GASC)<sub>L</sub>.
 
 Thus, for example, `01000010` would be the internal representation of `LShift`+`RAlt` (or `AltGr`).
 For more information on bitwise operators in C, click [here](https://en.wikipedia.org/wiki/Bitwise_operations_in_C) to open the Wikipedia page on the topic.
 
-In practice, this means that you can check whether a given modifier is active with `get_mods() & MOD_BIT(KC_<modifier>)` (see the [list of modifier keycodes](keycodes_basic#modifiers)) or with `get_mods() & MOD_MASK_<modifier>` if the difference between left and right hand modifiers is not important and you want to match both. Same thing can be done for one-shot modifiers if you replace `get_mods()` with `get_oneshot_mods()`.
+In practice, this means that you can check whether a given modifier is active with `get_mods() & MOD_BIT(KC_<modifier>)` (see the [list of modifier keycodes](keycodes_basic#modifiers)) or with `get_mods() & MOD_MASK_<modifier>` if the difference between left and right hand modifiers is not important and you want to match both. Same thing can be done for One Shot modifiers if you replace `get_mods()` with `get_oneshot_mods()`.
 
 To check that *only* a specific set of mods is active at a time, use a simple equality operator: `get_mods() == <mod mask>`.
 
-For example, let's say you want to trigger a piece of custom code if one-shot left control and one-shot left shift are on, but every other one-shot mod is off. To do so, you can compose the desired mod mask by combining the mod bits for left control and shift with `(MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT))` and then plug it in: `get_oneshot_mods() == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT))`.
+For example, let's say you want to trigger a piece of custom code if One Shot left control and One Shot left shift are on, but every other One Shot mod is off. To do so, you can compose the desired mod mask by combining the mod bits for left control and shift with `(MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT))` and then plug it in: `get_oneshot_mods() == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT))`.
 
 Using `MOD_MASK_CS` instead for the mod bitmask would have forced you to press four modifier keys (both versions of control and shift) to fulfill the condition.
 
@@ -72,12 +72,12 @@ Aside from accessing the currently active modifiers using `get_mods()`, there ex
 * `set_mods(mods)`: Overwrite current modifier state with `mods`.
 * `clear_mods()`: Reset the modifier state by disabling all modifiers.
 
-Similarly, in addition to `get_oneshot_mods()`, there also exists these functions for one-shot mods:
+Similarly, in addition to `get_oneshot_mods()`, there also exists these functions for One Shot mods:
 
-* `add_oneshot_mods(mods)`: Enable `mods` without affecting any other one-shot modifiers.
-* `del_oneshot_mods(mods)`: Disable `mods` without affecting any other one-shot modifiers.
-* `set_oneshot_mods(mods)`: Overwrite current one-shot modifier state with `mods`.
-* `clear_oneshot_mods()`: Reset the one-shot modifier state by disabling all one-shot modifiers.
+* `add_oneshot_mods(mods)`: Enable `mods` without affecting any other One Shot modifiers.
+* `del_oneshot_mods(mods)`: Disable `mods` without affecting any other One Shot modifiers.
+* `set_oneshot_mods(mods)`: Overwrite current One Shot modifier state with `mods`.
+* `clear_oneshot_mods()`: Reset the One Shot modifier state by disabling all One Shot modifiers.
 
 ## Examples {#examples}
 
