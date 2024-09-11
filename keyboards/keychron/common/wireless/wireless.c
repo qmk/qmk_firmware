@@ -361,6 +361,9 @@ void wireless_send_keyboard(report_keyboard_t *report) {
             report_buffer.type = REPORT_TYPE_KB;
             memcpy(&report_buffer.keyboard, report, sizeof(report_keyboard_t));
             report_buffer_enqueue(&report_buffer);
+
+            if (empty)
+                report_buffer_task();
 #else
             wireless_transport.send_keyboard(&report->mods);
 #endif
@@ -378,10 +381,15 @@ void wireless_send_nkro(report_nkro_t *report) {
     if (wireless_state == WT_CONNECTED || (wireless_state == WT_PARING && pincodeEntry)) {
         if (wireless_transport.send_nkro) {
 #ifndef DISABLE_REPORT_BUFFER
+            bool empty = report_buffer_is_empty();
+
             report_buffer_t report_buffer;
             report_buffer.type = REPORT_TYPE_NKRO;
             memcpy(&report_buffer.nkro, report, sizeof(report_nkro_t));
             report_buffer_enqueue(&report_buffer);
+
+            if (empty)
+                report_buffer_task();
 #else
             wireless_transport.send_nkro(&report->mods);
 #endif
