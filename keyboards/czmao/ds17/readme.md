@@ -1,5 +1,9 @@
 # mao ds 17
 
+3D  print case , taobao link below
+
+[link](https://item.taobao.com/item.htm?ft=t&id=819874589305&sku_properties=5919063:3266779;122216346:21959;122216808:10491261)
+
 
     make czmao/ds17:default
 
