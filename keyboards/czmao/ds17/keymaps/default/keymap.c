@@ -45,7 +45,7 @@ MO(1),   KC_NUM,  MO(2),   KC_CALC,
 KC_HOME, KC_UP,   KC_PGUP, KC_TRNS,
 KC_LEFT, KC_TRNS, KC_RGHT,   
 KC_END,  KC_DOWN, KC_PGDN, KC_TRNS,
-KC_TRNS,          KC_TRNS
+QK_RBT,          KC_TRNS
 
 
     ),
@@ -56,6 +56,56 @@ RGB_TOG, RGB_SAI, KC_TRNS, RGB_VAD,
 RGB_HUD, KC_TRNS, RGB_HUI,   
 KC_TRNS, RGB_SAD, KC_TRNS, KC_TRNS,
 RGB_MOD,          KC_TRNS
+
+
+    ),
+        [3] = LAYOUT(
+        //1      2        3        4        5        6        7        8        9        10       11       12       13       14       15       16       17       18       19       20       21
+KC_TRNS, KC_TRNS, KC_TRNS, RGB_VAI,
+KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+KC_TRNS, KC_TRNS, KC_TRNS,  
+KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+KC_TRNS,          KC_TRNS
+
+
+    ),
+        [4] = LAYOUT(
+        //1      2        3        4        5        6        7        8        9        10       11       12       13       14       15       16       17       18       19       20       21
+KC_TRNS, KC_TRNS, KC_TRNS, RGB_VAI,
+KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+KC_TRNS, KC_TRNS, KC_TRNS,  
+KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+KC_TRNS,          KC_TRNS
+
+
+    ),
+        [5] = LAYOUT(
+        //1      2        3        4        5        6        7        8        9        10       11       12       13       14       15       16       17       18       19       20       21
+KC_TRNS, KC_TRNS, KC_TRNS, RGB_VAI,
+KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+KC_TRNS, KC_TRNS, KC_TRNS,  
+KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+KC_TRNS,          KC_TRNS
+
+
+    ),
+        [6] = LAYOUT(
+        //1      2        3        4        5        6        7        8        9        10       11       12       13       14       15       16       17       18       19       20       21
+KC_TRNS, KC_TRNS, KC_TRNS, RGB_VAI,
+KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+KC_TRNS, KC_TRNS, KC_TRNS,  
+KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+KC_TRNS,          KC_TRNS
+
+
+    ),
+        [7] = LAYOUT(
+        //1      2        3        4        5        6        7        8        9        10       11       12       13       14       15       16       17       18       19       20       21
+KC_TRNS, KC_TRNS, KC_TRNS, RGB_VAI,
+KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+KC_TRNS, KC_TRNS, KC_TRNS,  
+KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+KC_TRNS,          KC_TRNS
 
 
     )
