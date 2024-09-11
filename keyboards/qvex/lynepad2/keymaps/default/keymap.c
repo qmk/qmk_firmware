@@ -71,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         QK_RBT,    EE_CLR,    QK_BOOT,
 
         XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   //joystick up, down, left, right
-        RGB_TOG,   XXXXXXX                          //joystick center push, thumbwheel push
+        UG_TOGG,   XXXXXXX                          //joystick center push, thumbwheel push
     )
 };
 
@@ -98,7 +98,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     },
 
     [4] = { 
-        ENCODER_CCW_CW(RGB_VAD, RGB_VAI), 
+        ENCODER_CCW_CW(UG_VALD, UG_VALU), 
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX)  
     }
 };

@@ -55,7 +55,7 @@ Everything below here requires a lot of foundational knowledge. Besides being ab
 * **Advanced Features**
     * [Unicode](features/unicode)
     * [API](api_overview)
-    * [Bootmagic Lite](features/bootmagic)
+    * [Bootmagic](features/bootmagic)
 * **Hardware**
     * [How Keyboards Work](how_keyboards_work)
     * [How A Keyboard Matrix Works](how_a_matrix_works)
