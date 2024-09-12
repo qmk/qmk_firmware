@@ -34,8 +34,8 @@ enum custom_keycodes {
 /*  Base (alpha) Layer Hands Down Vibranuim-F
             Building for Atreus44
 
-    x   w   m    g   j           +=  .:  /    "!  '?
-    s⌃  c⌥  n⌘   t⇧  k           ,;  a⇧  e⌘   i⌥  h⌃
+    x   w   m⌃   g   j           +=  .:  /⌃   "!  '?
+    s   c⌥  n⌘   t⇧  k           ,;  a⇧  e⌘   i⌥  h
     f   p   l    d   v	 `   \	 -   u   o    y   b
     ←   →  app   ⇥   r   ⌫   ⏎   ␣   ⎋  num   ↑   ↓
 */
@@ -43,13 +43,13 @@ enum custom_keycodes {
 // top row
 #define LT4 KC_X
 #define LT3 KC_W
-#define LT2 KC_M
+#define LT2 LCTL_T(KC_M)
 #define LT1 KC_G
 #define LT0 KC_J
 
 #define RT0 KC_PLUS
 #define RT1 KC_DOT
-#define RT2 KC_SLSH
+#define RT2 RCTL_T(KC_SLSH)
 #define RT3 KC_DQUO
 #define RT4 KC_QUOT
 
@@ -67,7 +67,7 @@ enum custom_keycodes {
 #define RM4 LT(_SYM, KC_H)
 
 // bottom row
-#define LB4 LCTL_T(KC_F)
+#define LB4 KC_F
 #define LB3 KC_P
 #define LB2 KC_L
 #define LB1 KC_D
@@ -79,18 +79,18 @@ enum custom_keycodes {
 #define RB1 KC_U
 #define RB2 KC_O
 #define RB3 KC_Y
-#define RB4 RCTL_T(KC_B)
+#define RB4 KC_B
 
 // thumb row
 #define LH4 KC_LEFT
 #define LH3 KC_RGHT
 #define LH2 G(KC_TAB)
 #define LH1 KC_TAB
-#define LH0 LSFT_T(KC_R)
-#define LH00 LT(_NAV, KC_BSPC)
+#define LH0 LT(_NAV, KC_R)
+#define LH00 KC_BSPC
 
-#define RH00 LT(_NUM, KC_ENT)
-#define RH0 RSFT_T(KC_SPC)
+#define RH00 KC_ENT
+#define RH0 LT(_NUM, KC_SPC)
 #define RH1 KC_ESC
 #define RH2 TG(_NUM)
 #define RH3 KC_UP
@@ -108,10 +108,10 @@ enum custom_keycodes {
 // #define MY_PRNS LT(0, KC_1)
 
 // One Shots
-#define OSMSFT OSM(MOD_LSFT)
-#define OSMCMD OSM(MOD_LGUI)
-#define OSMOPT OSM(MOD_LALT)
-#define OSMCTL OSM(MOD_LCTL)
+// #define OSMSFT OSM(MOD_LSFT)
+// #define OSMCMD OSM(MOD_LGUI)
+// #define OSMOPT OSM(MOD_LALT)
+// #define OSMCTL OSM(MOD_LCTL)
 
 #include "g/keymap_combo.h"
 
@@ -121,9 +121,9 @@ static uint16_t keyhold_timer; // for handling Qu combo
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	/*
-        x   w   m    g   j           #$  .:  /    "!  '?
-        s⌃  c⌥  n⌘   t⇧  k           ,;  a⇧  e⌘   i⌥  h⌃
-        f   p   l    d   v	 `   \	 -+  u   o    y   b
+        x   w   m⌃   g   j           +=  .:  /⌃   "!  '?
+        s   c⌥  n⌘   t⇧  k           ,;  a⇧  e⌘   i⌥  h
+        f   p   l    d   v	 `   \	 -   u   o    y   b
         ←   →  app   ⇥   r   ⌫   ⏎   ␣   ⎋  num   ↑   ↓
     */
 
@@ -135,71 +135,54 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     /*
-    	*   7   8   9   -       +   .   /
-    	/   1   2   3   +       ,   ⇧   ⌘   ⌥   ^
-    	,   4   5   6   =       -
+    	-   7   8   9   *       +   .   ^
+    	+   1   2   3   /       ,   ⇧   ⌘   ⌥
+    	=   4   5   6   ,       -
     	←   →       .   0   ␣
-    *
+    */
     [_NUM] = LAYOUT(
-    KC_ASTR, KC_7,    KC_8,    KC_9,    KC_MINS,                   _______, _______, _______, _______, _______,
-    KC_SLSH, KC_1,    KC_2,    KC_3,    KC_PLUS,                   _______, OSMSFT,  OSMCMD,  OSMOPT,  OSMCTL,
-    KC_COMM, KC_4,    KC_5,    KC_6,    KC_EQL,  _______, _______, _______, _______, ___x___, ___x___, _______,
+    KC_MINS, KC_7,    KC_8,    KC_9,    KC_ASTR,                   _______, _______, KC_RCTL, _______, _______,
+    KC_PLUS, KC_1,    KC_2,    KC_3,    KC_SLSH,                   _______, KC_RSFT, KC_RGUI, KC_RALT, _______,
+    KC_EQL,  KC_4,    KC_5,    KC_6,    KC_COMM, _______, _______, _______, _______, ___x___, ___x___, _______,
     _______, _______, _______, KC_DOT,  KC_0,    KC_SPC,  _______, _______, _______, _______, _______, _______
     ),
-    */
 
     /*
-    	-   5   2   3   :           +   /	*
-    	7   .   1   0   4       ,   ⇧   ⌘   ⌥   ^
-    	/   6   9   8   ,       -
-    	←   →           ␣   ⌫
-    */
-    [_NUM] = LAYOUT(
-    KC_MINS, KC_5,    KC_2,    KC_3,    KC_COLN,                   _______, KC_PLUS, _______, KC_ASTR, _______,
-    KC_7,    KC_DOT,  KC_1,    KC_0,    KC_4,                      _______, OSMSFT,  OSMCMD,  OSMOPT,  OSMCTL,
-    KC_SLSH, KC_6,    KC_9,    KC_8,    KC_COMM, _______, _______, _______, _______, ___x___, ___x___, _______,
-    _______, _______, _______, _______, KC_SPC,  _______, _______, _______, _______, _______, _______, _______
-    ),
-
-
-    /*
-    *       <   >   @      			[	&   ]
-    *   !   -   +   =   `       \   (   :   )	?
-    *   ⌃   /   *   #   ~		|	{	$	}	%
+    *       <   >   @      			&	[   ]
+    *   !   -   +   =   `       \   :   (   )	?
+    *   ⌃   /   *   #   ~		|	$	{	}	%
     */
     [_SYM] = LAYOUT( // Pascal Getreuer Mod
-    ___x___, KC_LABK, KC_RABK, KC_AT,   ___x___,                   ___x___, KC_LBRC, KC_AMPR, KC_RBRC, ___x___,
-    KC_EXLM, KC_MINS, KC_PLUS, KC_EQL,  KC_GRV,                    KC_BSLS, KC_LPRN, KC_COLN, KC_RPRN, KC_QUES,
-    KC_CIRC, KC_SLSH, KC_ASTR, KC_HASH, KC_TILD, _______, _______, KC_PIPE, KC_LCBR, KC_DLR,  KC_RCBR, KC_PERC,
+    ___x___, KC_LABK, KC_RABK, KC_AT,   ___x___,                   ___x___, KC_AMPR, KC_LBRC, KC_RBRC, ___x___,
+    KC_EXLM, KC_MINS, KC_PLUS, KC_EQL,  KC_GRV,                    KC_BSLS, KC_COLN, KC_LPRN, KC_RPRN, KC_QUES,
+    KC_CIRC, KC_SLSH, KC_ASTR, KC_HASH, KC_TILD, _______, _______, KC_PIPE, KC_DLR,  KC_LCBR, KC_RCBR, KC_PERC,
     _______, _______, _______, _______, KC_SPC,  _______, _______, _______, _______, _______, _______, _______
     ),
 
     /*
-               quit    Scap    Sclp                            vol+    home    up	end
-    	^      ⌥       ⌘       ⇧      sall       		       vol-    left    dn	rght	del
+               ⌘Q      ⌃       Sclp   Scap                     vol+    home    up	end
+    	       ⌥       ⌘       ⇧             		           vol-    left    dn	rght	del
     	undo   cut     cpy     pst    redo                     mute    bspc
                                                                dsk-    dsk+
     */
     [_NAV] = LAYOUT(
-    ___x___, G(KC_Q), LSG(KC_4), C(S(G(KC_4))), ___x___,                     KC_VOLU,    G(KC_LEFT), KC_UP,   G(KC_RGHT), ___x___,
-    KC_LCTL, KC_LALT, KC_LGUI,   KC_LSFT,       G(KC_A),                     KC_VOLD,    KC_LEFT,    KC_DOWN, KC_RGHT,    KC_DEL,
-    G(KC_Z), G(KC_X), G(KC_C),   G(KC_V),       LSG(KC_Z), _______, _______, KC_MUTE,    KC_BSPC,	 ___x___, ___x___,    ___x___,
-    _______, _______, _______,   _______,       _______,   _______, _______, C(KC_LEFT), C(KC_RGHT), _______, _______,    _______
+    ___x___, G(KC_Q), KC_LCTL, C(S(G(KC_4))), LSG(KC_4),                   KC_VOLU,    G(KC_LEFT), KC_UP,   G(KC_RGHT), ___x___,
+    _______, KC_LALT, KC_LGUI, KC_LSFT,       G(KC_A),                     KC_VOLD,    KC_LEFT,    KC_DOWN, KC_RGHT,    KC_DEL,
+    G(KC_Z), G(KC_X), G(KC_C), G(KC_V),       LSG(KC_Z), _______, _______, KC_MUTE,    KC_BSPC,	   ___x___, ___x___,    ___x___,
+    _______, _______, _______, _______,       _______,   _______, _______, C(KC_LEFT), C(KC_RGHT), _______, _______,    _______
     ),
 
 };
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-	    case LH0:
-        case RH0:
+	    case LM1:
+        case RM1:
             return TAPPING_TERM - 25;
 
     	case LB4:
         case LM3:
         case LM2:
-		case LM1:
-		case RM1:
         case RM2:
         case RM3:
         case RB4:
@@ -212,8 +195,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 
 bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case LH0:
-        case RH0:
+        case LM1:
+        case RM1:
             return true;    // Immediately select the hold action when another key is tapped.
 
         default:
@@ -302,7 +285,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case MY_PRNS:
             if (record->tap.count && record->event.pressed) {
                 tap_code16(KC_LPRN); // send "(" on tap
-            } else if (record->event.press) {c
+            } else if (record->event.press) {c∑∑∑∑∑∑∑
                 tap_code16(KC_RPRN); // send ")" on hold
             }
             return false; */
@@ -314,7 +297,7 @@ const custom_shift_key_t custom_shift_keys[] = {
     {KC_PLUS, KC_EQL},	/* shift + is = */
     {KC_DOT, KC_COLN},  /* shift . is : */
     {KC_COMM, KC_SCLN}, /* shift , is ; */
-    {KC_SLSH, KC_ASTR}, /* shift / is * */
+    {LCTL_T(KC_SLSH), KC_ASTR}, /* shift / is * */
     {KC_DQUO, KC_EXLM}, /* shift " is ! */
     {KC_QUOT, KC_QUES}, /* shift ' is ? */
 	{KC_BSPC, KC_DEL},  /* shift ⌫ is ⌦ */

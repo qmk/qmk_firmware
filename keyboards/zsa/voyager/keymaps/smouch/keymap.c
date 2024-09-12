@@ -33,9 +33,9 @@ enum custom_keycodes {
 
 /*  Base (alpha) Layer Hands Down Vibranuim-F
             Building for ZSA Voyager
-    ⎋   3   2   1    0   4           7   6   5    9   8
-    `   x   w   m    g   j           +=  .:  /    "!  '? \
-    tg  s⌃  c⌥  n⌘   t⇧  k           ,;  a⇧  e⌘   i⌥  h⌃ cw
+    ⎋           ⇥        tg          tg  (   ⌦    )   vol↓↑
+    `   x   w   m⌃   g   j           +=  .:  /⌃   "!  '? \
+    z   s   c⌥  n⌘   t⇧  k           ,;  a⇧  e⌘   i⌥  h  q
         f   p   l    d   v      	 -   u   o    y   b
                          r   ⌫   ⏎   ␣
 */
@@ -119,10 +119,10 @@ enum custom_keycodes {
 // #define MY_PRNS LT(0, KC_1)
 
 // One Shots
-#define OSMSFT OSM(MOD_LSFT)
-#define OSMCMD OSM(MOD_LGUI)
-#define OSMOPT OSM(MOD_LALT)
-#define OSMCTL OSM(MOD_LCTL)
+// #define OSMSFT OSM(MOD_LSFT)
+// #define OSMCMD OSM(MOD_LGUI)
+// #define OSMOPT OSM(MOD_LALT)
+// #define OSMCTL OSM(MOD_LCTL)
 
 #include "g/keymap_combo.h"
 
@@ -133,9 +133,9 @@ static uint16_t keyhold_timer; // for handling Qu combo
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*  Base (alpha) Layer Hands Down Vibranuim-F
             Building for ZSA Voyager
-    ⎋          tab                       (  del  )   vol↓↑
-    `   x   w   m    g   j           +=  .:  /   "!  '? \
-    z   s⌃  c⌥  n⌘   t⇧  k           ,;  a⇧  e⌘  i⌥  h⌃ q
+    ⎋           ⇥                        (   ⌦   )   vol↓↑
+    `   x   w   m⌃   g   j           +=  .:  /⌃  "!  '? \
+    z   s   c⌥  n⌘   t⇧  k           ,;  a⇧  e⌘  i⌥  h  q
         f   p   l    d   v      	 -   u   o   y   b
                          r   ⌫   ⏎   ␣
   */
@@ -147,31 +147,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LH1, LH0, RH0, RH1
   ),
 
-   /*
-    	*   7   8   9   -       +   .   /
-    	/   1   2   3   +       ,   ⇧   ⌘   ⌥   ^
-    :	,   4   5   6   =       -   ⌫
+  /*        ⇥  					tg
+    -   7   8   9   *       	+   .   ⌃
+    +   1   2   3   /       	,   ⇧   ⌘   ⌥
+    =   4   5   6   ,       	-   ⌫
     	                0   .   ⏎   ␣
-    *
-  [_NUM] = LAYOUT_voyager(
-    ___x___, ___x___, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-    ___x___, KC_ASTR, KC_7,    KC_8,    KC_9,    KC_MINUS,                  _______, _______, _______, _______, _______, ___x___,
-    KC_COLN, KC_SLSH, KC_1,    KC_2,    KC_3,    KC_PLUS,                   _______, OSMSFT,  OSMCMD,  OSMOPT,  OSMCTL,  ___x___,
-    ___x___, KC_COMM, KC_4,    KC_5,    KC_6,    KC_EQUAL,                  ___x___, KC_BSPC, ___x___, ___x___, ___x___, _______,
-                                                 KC_0,     KC_DOT, _______, _______
-  ),
-*/
-
-/*              ⇥  					tg
-    	-   7   8   9   *       	+   .   /
-    	+   1   2   3   /       	,   ⇧   ⌘   ⌥   ^
-    	=   4   5   6   ,       	-   ⌫
-    	                0   .   ⏎   ␣
-    */
+  */
   [_NUM] = LAYOUT_voyager(
     _______, _______, _______, _______, _______, _______,                  _______, _______, _______, _______, _______, _______,
-    _______, KC_MINS, KC_7,    KC_8,    KC_9,    KC_ASTR,                  _______, _______, _______, _______, _______, ___x___,
-    _______, KC_PLUS, KC_1,    KC_2,    KC_3,    KC_SLSH,                  _______, OSMSFT,  OSMCMD,  OSMOPT,  OSMCTL,  ___x___,
+    _______, KC_MINS, KC_7,    KC_8,    KC_9,    KC_ASTR,                  _______, _______, KC_RCTL, _______, _______, ___x___,
+    _______, KC_PLUS, KC_1,    KC_2,    KC_3,    KC_SLSH,                  _______, KC_RSFT, KC_RGUI, KC_RALT, _______, ___x___,
     _______, KC_EQL,  KC_4,    KC_5,    KC_6,    KC_COMM,                  ___x___, KC_BSPC, ___x___, ___x___, ___x___, _______,
                                                  KC_0,    KC_DOT, _______, _______
   ),
@@ -192,11 +177,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
   [_NAV] = LAYOUT_voyager(
-    _______, KC_F1,   KC_F2,   KC_F3,     KC_F4,         KC_F5,             KC_F6,   KC_F7,      KC_F8,   KC_F9,      KC_F10,  KC_F11,
-    ___x___, ___x___, G(KC_Q), LSG(KC_4), C(S(G(KC_4))), ___x___,           KC_VOLU, G(KC_LEFT), KC_UP,   G(KC_RGHT), ___x___, KC_F12,
-    _______, KC_LCTL, KC_LALT, KC_LGUI,   KC_LSFT,       ___x___,           KC_VOLD, KC_LEFT,    KC_DOWN, KC_RGHT,    KC_DEL,  ___x___,
-    _______, G(KC_Z), G(KC_X), G(KC_C),   G(KC_V),       LSG(KC_Z),         KC_MUTE, KC_BSPC,    KC_TAB,  KC_ENT,     ___x___, ___x___,
-                                                         _______, _______, C(KC_LEFT),  C(KC_RIGHT)
+    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,         KC_F5,                          KC_F6,   KC_F7,      KC_F8,   KC_F9,      KC_F10,  KC_F11,
+    ___x___, ___x___, G(KC_Q), KC_LCTL, C(S(G(KC_4))), LSG(KC_4),                      KC_VOLU, G(KC_LEFT), KC_UP,   G(KC_RGHT), ___x___, KC_F12,
+    _______, _______, KC_LALT, KC_LGUI, KC_LSFT,       ___x___,                        KC_VOLD, KC_LEFT,    KC_DOWN, KC_RGHT,    KC_DEL,  ___x___,
+    _______, G(KC_Z), G(KC_X), G(KC_C), G(KC_V),       LSG(KC_Z),                      KC_MUTE, KC_BSPC,    KC_TAB,  KC_ENT,     ___x___, ___x___,
+                                                         _______, _______, C(KC_LEFT), C(KC_RIGHT)
   ),
   [_SNTH] = LAYOUT_voyager(
     _______, _______,        _______,      _______,      _______,      TO(_DEF), _______, _______,      _______,      _______,      _______,        _______,
@@ -209,15 +194,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-	    case LH1:
-        case RH1:
+	    case LM1:
+        case RM1:
             return TAPPING_TERM - 25;
 
     	case LB4:
         case LM3:
         case LM2:
-        case LM1:
-        case RM1:
         case RM2:
         case RM3:
         case RB4:
@@ -230,8 +213,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 
 bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case LH1:
-        case RH1:
+        case LM1:
+        case RM1:
             return true;    // Immediately select the hold action when another key is tapped.
 
         default:
@@ -315,12 +298,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 
 // Key overrides
-const key_override_t two_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_2, KC_AT);	        /* shift 2 is @ */
-const key_override_t one_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_1, KC_DLR);	    /* shift 1 is $ */
-const key_override_t zero_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_0, KC_HASH);	    /* shift 0 is # */
-const key_override_t six_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_6, KC_LPRN);	    /* shift 6 is ( */
-const key_override_t five_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_5, KC_UNDS);	    /* shift 5 is _ */
-const key_override_t nine_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_9, KC_RPRN);	    /* shift 9 is ) */
 const key_override_t plus_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_PLUS, KC_EQL);	/* shift + is = */
 const key_override_t dot_key_override = ko_make_basic(MOD_MASK_SHIFT,  KC_DOT, KC_COLN);	/* shift . is : */
 const key_override_t comm_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_COMM, KC_SCLN);	/* shift , is ; */
@@ -331,12 +308,6 @@ const key_override_t quot_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_QUOT, 
 
 // This globally defines all key overrides to be used
 const key_override_t *key_overrides[] = {
-    &two_key_override,
-    &one_key_override,
-    &zero_key_override,
-    &six_key_override,
-    &five_key_override,
-    &nine_key_override,
     &plus_key_override,
     &dot_key_override,
     &comm_key_override,
