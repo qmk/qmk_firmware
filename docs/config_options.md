@@ -413,7 +413,7 @@ Use these to enable or disable building certain features. The more you have enab
 * `MAGIC_ENABLE`
   * MAGIC actions (BOOTMAGIC without the boot)
 * `BOOTMAGIC_ENABLE`
-  * Enable Bootmagic Lite
+  * Enable Bootmagic
 * `MOUSEKEY_ENABLE`
   * Mouse keys
 * `EXTRAKEY_ENABLE`

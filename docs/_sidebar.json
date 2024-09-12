@@ -167,7 +167,7 @@
                     },
                     { "text": "Audio", "link": "/features/audio" },
                     { "text": "Bluetooth", "link": "/features/bluetooth" },
-                    { "text": "Bootmagic Lite", "link": "/features/bootmagic" },
+                    { "text": "Bootmagic", "link": "/features/bootmagic" },
                     { "text": "Converters", "link": "/feature_converters" },
                     { "text": "Custom Matrix", "link": "/custom_matrix" },
                     { "text": "DIP Switch", "link": "/features/dip_switch" },
@@ -204,7 +204,7 @@
                     { "text": "My Pull Request Was Flagged", "link": "/breaking_changes_instructions" },
                     {
                         "text": "Most Recent ChangeLog",
-                        "link": "/ChangeLog/20240526"
+                        "link": "/ChangeLog/20240825"
                     },
                     { "text": "Past Breaking Changes", "link": "/breaking_changes_history" },
                     { "text": "Deprecation Policy", "link": "/support_deprecation_policy" }

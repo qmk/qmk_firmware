@@ -231,7 +231,7 @@ Once you have confirmed that the keyboard is working, if you have used a seperat
 
 If you found this fullfilling you could experiment by adding additional features such as [in switch LEDs](https://geekhack.org/index.php?topic=94258.0), [in switch RGB](https://www.reddit.com/r/MechanicalKeyboards/comments/5s1l5u/photoskeyboard_science_i_made_a_handwired_rgb/), [RGB underglow](https://medium.com/@DavidNZ/hand-wired-custom-keyboard-cdd14429c7b3#.7a1ovebsk) or even an [OLED display!](https://www.reddit.com/r/olkb/comments/5zy7og/adding_ssd1306_oled_display_to_your_build/) 
 
-There are a lot of possibilities inside the firmware - explore [docs.qmk.fm](https://docs.qmk.fm) for a full feature list, and dive into the different keyboards to see how people use all of them. You can always stop by [the OLKB subreddit](https://reddit.com/r/olkb) or [QMK Discord](https://discord.gg/Uq7gcHh) for help!
+There are a lot of possibilities inside the firmware - explore [docs.qmk.fm](https://docs.qmk.fm) for a full feature list, and dive into the different keyboards to see how people use all of them. You can always stop by [the OLKB subreddit](https://reddit.com/r/olkb) or [QMK Discord](https://discord.gg/qmk) for help!
 
 ## Links to Other Guides
 
