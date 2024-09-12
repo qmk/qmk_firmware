@@ -45,7 +45,7 @@ STENO_PROTOCOL = txbolt
 
 Each byte of the packet represents a different group of steno keys. Determining the group of a certain byte of the packet is done by checking the first two bits, the remaining bits are set if the corresponding steno key was pressed for the stroke. The last set of keys (as indicated by leading `11`) needs to keep track of less keys than there are bits so one of the bits is constantly 0.
 
-The start of a new packet can be detected by comparing the group “ID” (the two MSBs) of the current byte to that of the previously received byte. If the group “ID” of the current byte is smaller or equal to that of the previous byte, it means that the current byte is the beginning of a new packet.
+The start of a new packet can be detected by comparing the group "ID" (the two MSBs) of the current byte to that of the previously received byte. If the group "ID" of the current byte is smaller or equal to that of the previous byte, it means that the current byte is the beginning of a new packet.
 
 The format of TX Bolt packets is shown below.
 ```

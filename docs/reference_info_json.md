@@ -255,7 +255,7 @@ Configures the [EEPROM](drivers/eeprom) driver.
         * `backing_size`
             * Number of bytes used by the wear-leveling algorithm for its underlying storage, and needs to be a multiple of the logical size.
         * `logical_size`
-            * Number of bytes “exposed” to the rest of QMK and denotes the size of the usable EEPROM.
+            * Number of bytes "exposed" to the rest of QMK and denotes the size of the usable EEPROM.
 
 ## Encoder {#encoder}
 

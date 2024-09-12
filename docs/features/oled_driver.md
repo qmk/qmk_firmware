@@ -297,7 +297,7 @@ However the local buffer is stored as if it was Height x Width display instead o
 
 So those precalculated arrays just index the memory offsets in the order in which each one iterates its data.
 
-Rotation on SH1106 and SH1107 is noticeably less efficient than on SSD1306, because these controllers do not support the “horizontal addressing mode”, which allows transferring the data for the whole rotated block at once; instead, separate address setup commands for every page in the block are required.  The screen refresh time for SH1107 is therefore about 45% higher than for a same size screen with SSD1306 when using STM32 MCUs (on AVR the slowdown is about 20%, because the code which actually rotates the bitmap consumes more time).
+Rotation on SH1106 and SH1107 is noticeably less efficient than on SSD1306, because these controllers do not support the "horizontal addressing mode", which allows transferring the data for the whole rotated block at once; instead, separate address setup commands for every page in the block are required.  The screen refresh time for SH1107 is therefore about 45% higher than for a same size screen with SSD1306 when using STM32 MCUs (on AVR the slowdown is about 20%, because the code which actually rotates the bitmap consumes more time).
 
 ## OLED API
 

@@ -140,7 +140,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - if using `MO(1)` and `MO(2)` keycodes together to access a third layer, the [Tri Layer](features/tri_layer) feature should be used, rather than manually implementing this using `layer_on/off()` and `update_tri_layer()` functions in the keymap's `process_record_user()`.
 - default keymaps should be "pristine"
     - bare minimum to be used as a "clean slate" for another user to develop their own user-specific keymap
-    - what does pristine mean? no custom keycodes. no advanced features like tap dance or macros. basic mod taps and home row mods would be acceptable where their use is necessary
+    - what does pristine mean? no custom keycodes. no advanced features like tap dance or macros. Basic Mod-Taps and home row mods would be acceptable where their use is necessary
     - standard layouts preferred in these keymaps, if possible
     - should use [encoder map feature](features/encoders#encoder-map), rather than `encoder_update_user()`
     - default keymap should not enable VIA -- keymaps targeting VIA support should be submitted to the [VIA QMK Userspace](https://github.com/the-via/qmk_userspace_via) repository

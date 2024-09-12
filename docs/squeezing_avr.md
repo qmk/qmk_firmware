@@ -55,7 +55,7 @@ Oneshots. If you're not using these, you can disable the feature by adding this 
 ```c
 #define NO_ACTION_ONESHOT
 ```
-The same with tapping keys (mod-tap, layer-tap, etc.):
+The same with tapping keys (Mod-Tap, Layer-Tap, etc.):
 ```c
 #define NO_ACTION_TAPPING
 ```

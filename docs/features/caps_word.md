@@ -48,20 +48,20 @@ Next, use one the following methods to activate Caps Word:
   BOTH_SHIFTS_TURNS_ON_CAPS_WORD` to config.h. You may also need to disable or
   reconfigure Command, details below. Then, simultaneously pressing both left
   and right shifts turns on Caps Word. This method works with the plain
-  `KC_LSFT` and `KC_RSFT` keycodes as well as one-shot shifts and Space Cadet
-  shifts. If your shift keys are mod-taps, hold both shift mod-tap keys until
+  `KC_LSFT` and `KC_RSFT` keycodes as well as One Shot shifts and Space Cadet
+  shifts. If your shift keys are Mod-Taps, hold both shift Mod-Tap keys until
   the tapping term, then release them.
 
 * **Activate by double tapping Left Shift**: Add `#define
   DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD` in `config.h`. Then, double tapping Left Shift
-  turns on Caps Word. This method works with `KC_LSFT` or one-shot Left Shift
+  turns on Caps Word. This method works with `KC_LSFT` or One Shot Left Shift
   `OSM(MOD_LSFT)`. To count as a double tap, the maximum time in milliseconds
   between taps is `TAPPING_TERM`, or if using `TAPPING_TERM_PER_KEY`, the time
   returned by `get_tapping_term()` for the shift keycode being tapped.
 
 * **Custom activation**: You can activate Caps Word from code by calling
   `caps_word_on()`. This may be used to activate Caps Word through [a
-  combo](combo), a [tap dance](tap_dance), or any other means you like.
+  combo](combo), a [Tap Dance](tap_dance), or any other means you like.
 
 ### Troubleshooting: Command {#troubleshooting-command}
 
@@ -103,8 +103,8 @@ Enable this by adding in `config.h`:
 #define CAPS_WORD_INVERT_ON_SHIFT
 ```
 
-This option works with regular Shift keys `KC_LSFT` and `KC_RSFT`, mod-tap Shift
-keys, and one-shot Shift keys. Note that while Caps Word is on, one-shot Shift
+This option works with regular Shift keys `KC_LSFT` and `KC_RSFT`, Mod-Tap Shift
+keys, and One Shot Shift keys. Note that while Caps Word is on, One Shot Shift
 keys behave like regular Shift keys, and have effect only while they are held.
 
 

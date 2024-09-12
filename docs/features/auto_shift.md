@@ -308,7 +308,7 @@ To enable `retro shift`, add the following to your `config.h`:
 ```
 
 If `RETRO_SHIFT` is defined to a value, hold times greater than that value will
-not produce a tap on release for Mod Taps, and instead triggers the hold action.
+not produce a tap on release for Mod-Taps, and instead triggers the hold action.
 This enables modifiers to be held for combining with mouse clicks without
 generating taps on release. For example:
 
@@ -332,7 +332,7 @@ Tap-hold Configurations work a little differently when using Retro Shift.
 Referencing `TAPPING_TERM` makes little sense, as holding longer would result in
 shifting one of the keys.
 
-`RETRO_SHIFT` enables [`PERMISSIVE_HOLD`-like behaviour](../tap_hold#permissive-hold) (even if not explicitly enabled) on all mod-taps for which `RETRO_SHIFT` applies.
+`RETRO_SHIFT` enables [`PERMISSIVE_HOLD`-like behaviour](../tap_hold#permissive-hold) (even if not explicitly enabled) on all Mod-Taps for which `RETRO_SHIFT` applies.
 
 ## Using Auto Shift Setup
 

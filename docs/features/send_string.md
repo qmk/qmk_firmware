@@ -2,10 +2,10 @@
 
 The Send String API is part of QMK's macro system. It allows for sequences of keystrokes to be sent automatically.
 
-The full ASCII character set is supported, along with all of the keycodes in the Basic Keycode range (as these are the only ones that will actually be sent to the host).
+The full ASCII character set is supported, along with all of the keycodes in the [Basic Keycode range](../keycodes_basic) (as these are the only ones that will actually be sent to the host).
 
 ::: tip
-Unicode characters are **not** supported with this API -- see the [Unicode](unicode) feature instead.
+Unicode characters are **not** supported with this API — see the [Unicode](unicode) feature instead.
 :::
 
 ## Usage {#usage}
@@ -74,13 +74,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 ### Keycode Injection {#example-keycode-injection}
 
-This example types out opening and closing curly braces, then taps the left arrow key to move the cursor between the two.
+This example types out opening and closing curly braces, `{}`, then taps the `Left arrow` key to move the cursor between the two:
 
 ```c
 SEND_STRING("{}" SS_TAP(X_LEFT));
 ```
 
-This example types Ctrl+A, then Ctrl+C, without releasing Ctrl.
+This example types `Ctrl`+`A`, then `Ctrl`+`C`, without releasing `Ctrl` in between:
 
 ```c
 SEND_STRING(SS_LCTL("ac"));

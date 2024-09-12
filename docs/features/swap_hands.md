@@ -1,6 +1,6 @@
 # Swap-Hands Action
 
-The swap-hands action allows support for one-handed typing without requiring a separate layer. Set `SWAP_HANDS_ENABLE = yes` in your keymap's `rules.mk` (creating it if needed), and define a `hand_swap_config` entry in your keymap. Now whenever the `ACTION_SWAP_HANDS` command key is pressed the keyboard is mirrored. For instance, to type "Hello, World" on QWERTY you would type `^Ge^s^s^w^c W^wr^sd`
+The swap-hands action allows support for one-handed typing without requiring a separate layer. Set `SWAP_HANDS_ENABLE = yes` in your keymap's `rules.mk` (creating it if needed), and define a `hand_swap_config` entry in your keymap. Now, whenever the `ACTION_SWAP_HANDS` command key is pressed, the keyboard will be mirrored. For instance, to type "Hello, World" on a QWERTY layout, you would type `^Ge^s^s^w^c W^wr^sd`
 
 ## Configuration
 
@@ -15,7 +15,7 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 };
 ```
 
-Note that the array indices are reversed same as the matrix and the values are of type `keypos_t` which is `{col, row}` and all values are zero-based. In the example above, `hand_swap_config[2][4]` (third row, fifth column) would return `{7, 2}` (third row, eighth column). Yes, this is confusing.
+Note that the array indices are reversed — same as the matrix — and the values are of type `keypos_t`, which is `{col, row}`, and all values are zero-based. In the example above, `hand_swap_config[2][4]` (third row, fifth column) would return `{7, 2}` (third row, eighth column). Yes, this is confusing.
 
 ## Swap Keycodes
 
@@ -30,7 +30,7 @@ Note that the array indices are reversed same as the matrix and the values are o
 |`QK_SWAP_HANDS_TAP_TOGGLE`   |`SH_TT`  |Momentary swap when held, toggle when tapped        |
 |`QK_SWAP_HANDS_ONE_SHOT`     |`SH_OS`  |Turn on hand swap while held or until next key press|
 
-`SH_TT` swap-hands tap-toggle key is similar to [layer tap-toggle](../feature_layers#switching-and-toggling-layers). Tapping repeatedly (5 taps by default) will toggle swap-hands on or off, like `SH_TOGG`. Tap-toggle count can be changed by defining a value for `TAPPING_TOGGLE`.
+`SH_TT` swap-hands tap-toggle key is similar to [Layer Tap-Toggle](../feature_layers#switching-and-toggling-layers). Tapping repeatedly (5 taps by default) will toggle swap-hands on or off, like `SH_TOGG`. Tap-toggle count can be changed by defining a value for `TAPPING_TOGGLE`.
 
 ## Encoder Mapping
 
@@ -49,9 +49,9 @@ const uint8_t PROGMEM encoder_hand_swap_config[NUM_ENCODERS] = { 1, 0 };
 
 User callback functions to manipulate Swap-Hands:
 
-| Function              | Description                                 |
-|-----------------------|---------------------------------------------|
-| `swap_hands_on()`     | Turns Swap-Hands on.                        |
-| `swap_hands_off()`    | Turns Swap-Hands off.                       |
-| `swap_hands_toggle()` | Toggles Swap-Hands.                         |
-| `is_swap_hands_on()`  | Returns true if Swap-Hands is currently on. |
+| Function              | Description                                |
+|-----------------------|--------------------------------------------|
+| `swap_hands_on()`     | Turns Swap-Hands on                        |
+| `swap_hands_off()`    | Turns Swap-Hands off                       |
+| `swap_hands_toggle()` | Toggles Swap-Hands                         |
+| `is_swap_hands_on()`  | Returns true if Swap-Hands is currently on |

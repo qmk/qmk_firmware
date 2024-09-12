@@ -130,9 +130,9 @@ If you define these options you will disable the associated feature, which can s
 * `#define NO_ACTION_LAYER`
   * disable layers
 * `#define NO_ACTION_TAPPING`
-  * disable tap dance and other tapping features
+  * disable Tap Dance and other tapping features
 * `#define NO_ACTION_ONESHOT`
-  * disable one-shot modifiers
+  * disable One Shot modifiers
 
 ## Features That Can Be Enabled
 
@@ -209,7 +209,7 @@ If you define these options you will enable the associated feature, which may in
 * `#define KEY_OVERRIDE_REPEAT_DELAY 500`
   * Sets the key repeat interval for [key overrides](features/key_overrides).
 * `#define LEGACY_MAGIC_HANDLING`
-  * Enables magic configuration handling for advanced keycodes (such as Mod Tap and Layer Tap)
+  * Enables magic configuration handling for advanced keycodes (such as Mod-Tap and Layer-Tap)
 
 
 ## RGB Light Configuration

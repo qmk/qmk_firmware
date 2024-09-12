@@ -88,7 +88,7 @@ Now, after you hit the leader key, you will have an infinite amount of time to s
 
 ### Strict Key Processing {#strict-key-processing}
 
-By default, only the "tap keycode" portions of [Mod-Taps](../mod_tap) and [Layer Taps](../feature_layers#switching-and-toggling-layers) are added to the sequence buffer. This means if you press say `LT(3, KC_A)` as part of a sequence, `KC_A` will be added to the buffer, rather than the entire `LT(3, KC_A)` keycode.
+By default, only the "tap keycode" portions of [Mod-Taps](../mod_tap) and [Layer-Taps](../feature_layers#switching-and-toggling-layers) are added to the sequence buffer. This means if you press say `LT(3, KC_A)` as part of a sequence, `KC_A` will be added to the buffer, rather than the entire `LT(3, KC_A)` keycode.
 
 This gives a more expected behaviour for most users. However, you may want to change this. To enable this, add the following to your `config.h`:
 
