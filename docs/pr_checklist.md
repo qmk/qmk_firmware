@@ -8,7 +8,7 @@ If there are any inconsistencies with these recommendations, you're best off [cr
 
 - PR should be submitted using a non-`master` branch on the source repository
     - this does not mean you target a different branch for your PR, rather that you're not working out of your own master branch
-    - if submitter _does_ use their own `master` branch, they'll be given a link to the ["how to git"](newbs_git_using_your_master_branch) page after merging -- (end of this document will contain the contents of the message)
+    - if submitter _does_ use their own `master` branch, they'll be given a link to the ["how to git"](newbs_git_using_your_master_branch) page after merging — (end of this document will contain the contents of the message)
     - Note, frequently merging upstream with your branch is not needed and is discouraged. Valid reason for updating your branch may be resolving merge conflicts and pulling in new changes relevant to your PR.
 - PRs should contain the smallest amount of modifications required for a single change to the codebase
     - multiple keyboards at the same time is not acceptable
@@ -26,10 +26,10 @@ If there are any inconsistencies with these recommendations, you're best off [cr
 - QMK Codebase "best practices" followed
     - this is not an exhaustive list, and will likely get amended as time goes by
     - `#pragma once` instead of `#ifndef` include guards in header files
-    - no "old-school" or other low-level GPIO/I2C/SPI functions may be used -- must use QMK abstractions unless justifiable (and laziness is not valid justification)
+    - no "old-school" or other low-level GPIO/I2C/SPI functions may be used — must use QMK abstractions unless justifiable (and laziness is not valid justification)
     - timing abstractions should be followed too:
         - `wait_ms()` instead of `_delay_ms()` (remove `#include <util/delay.h>` too)
-        - `timer_read()` and `timer_read32()` etc. -- see [timer.h](https://github.com/qmk/qmk_firmware/blob/master/platforms/timer.h) for the timing APIs
+        - `timer_read()` and `timer_read32()` etc. — see [timer.h](https://github.com/qmk/qmk_firmware/blob/master/platforms/timer.h) for the timing APIs
     - if you think a new abstraction is useful, you're encouraged to:
         - prototype it in your own keyboard until it's feature-complete
         - discuss it with QMK Collaborators on Discord
@@ -61,7 +61,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
 - keyboard moves within the repository *must* go through the `develop` branch instead of `master`, so as to ensure compatibility for users
     - `data/mappings/keyboard_aliases.hjson` must be updated to reflect the move, so users with pre-created configurator keymap.json files continue to detect the correct keyboard
 - keyboard updates and refactors (eg. to data driven) *must* go through `develop` to reduce `master` -> `develop` merge conflicts
-- PR submissions from a `kbfirmware` export (or equivalent) will not be accepted unless converted to new QMK standards -- try `qmk import-kbfirmware` first
+- PR submissions from a `kbfirmware` export (or equivalent) will not be accepted unless converted to new QMK standards — try `qmk import-kbfirmware` first
 - `info.json`
     - With the move to [data driven](data_driven_config) keyboard configuration, we encourage contributors to utilise as many features as possible of the info.json [schema](https://github.com/qmk/qmk_firmware/blob/master/data/schemas/keyboard.jsonschema).
     - the mandatory elements for a minimally complete `info.json` at present are:
@@ -92,12 +92,12 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
 - `readme.md`
     - must follow the [template](https://github.com/qmk/qmk_firmware/blob/master/data/templates/keyboard/readme.md)
     - flash command is present, and has `:flash` at end
-    - valid hardware availability link (unless handwired) -- private groupbuys are okay, but one-off prototypes will be questioned. If open-source, a link to files should be provided.
+    - valid hardware availability link (unless handwired) — private groupbuys are okay, but one-off prototypes will be questioned. If open-source, a link to files should be provided.
     - clear instructions on how to reset the board into bootloader mode
     - a picture about the keyboard and preferably about the PCB, too
         - images are not to be placed in the `qmk_firmware` repository
         - images should be uploaded to an external image hosting service, such as [imgur](https://imgur.com/).
-        - image links should link directly to the image, not a "preview" -- i.e. [https://imgur.com/vqgE7Ok](https://imgur.com/vqgE7Ok) should be [https://i.imgur.com/vqgE7Ok.jpg](https://i.imgur.com/vqgE7Ok.jpg) when using imgur
+        - image links should link directly to the image, not a "preview" — i.e. [https://imgur.com/vqgE7Ok](https://imgur.com/vqgE7Ok) should be [https://i.imgur.com/vqgE7Ok.jpg](https://i.imgur.com/vqgE7Ok.jpg) when using imgur
 - `rules.mk`
     - removed `MIDI_ENABLE`, `FAUXCLICKY_ENABLE` and `HD44780_ENABLE`
     - modified `# Enable Bluetooth with the Adafruit EZ-Key HID` -> `# Enable Bluetooth`
@@ -114,7 +114,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - default values should not be redefined, such as `DEBOUNCE`, RGB related settings, etc.
       - feature specific documentation contains most default values
       - `grep` or alternative tool can be used to search for default values in core directories (e.g. `grep -r "define DEBOUNCE" quantum`)
-    - no copy/pasted comment blocks explaining a feature and/or its caveats -- this is what the docs are for
+    - no copy/pasted comment blocks explaining a feature and/or its caveats — this is what the docs are for
       - `Force NKRO to be enabled ... toggled again during a power-up`
       - commented-out unused defines, such as RGB effects
     - no `#include "config_common.h`
@@ -143,10 +143,10 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - what does pristine mean? no custom keycodes. no advanced features like tap dance or macros. Basic Mod-Taps and home row mods would be acceptable where their use is necessary
     - standard layouts preferred in these keymaps, if possible
     - should use [encoder map feature](features/encoders#encoder-map), rather than `encoder_update_user()`
-    - default keymap should not enable VIA -- keymaps targeting VIA support should be submitted to the [VIA QMK Userspace](https://github.com/the-via/qmk_userspace_via) repository
+    - default keymap should not enable VIA — keymaps targeting VIA support should be submitted to the [VIA QMK Userspace](https://github.com/the-via/qmk_userspace_via) repository
 - submitters can add an example (or bells-and-whistles) keymap showcasing capabilities in the same PR but it shouldn't be embedded in the 'default' keymap
 - submitters can also have a "manufacturer-matching" keymap that mirrors existing functionality of the commercial product, if porting an existing board
-- Do not include VIA json files in the PR. These do not belong in the QMK repository as they are not used by QMK firmware -- they belong in the [VIA Keyboard Repo](https://github.com/the-via/keyboards)
+- Do not include VIA json files in the PR. These do not belong in the QMK repository as they are not used by QMK firmware — they belong in the [VIA Keyboard Repo](https://github.com/the-via/keyboards)
 - Do not include KLE json files in the PR. These have no use within QMK.
 - Do not include source files from another keyboard or vendors keyboard folder. Including core files is fine.
   - For instance, only `wilba_tech` boards shall include `keyboards/wilba_tech/wt_main.c` and  `keyboards/wilba_tech/wt_rgb_backlight.c`. But including `drivers/sensors/pmw3360.c` is absolutely fine for any and all boards that require it.
@@ -155,7 +155,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
 Wireless-capable boards:
 - Given license abuse from vendors, QMK does not accept any vendor PRs for wireless- or Bluetooth-capable keyboards without wireless and/or Bluetooth code
     - Historically, vendors have done this in bad faith in order to attain downstream VIA compatibility with no intention of releasing wireless sources
-    - QMK's license, the GPL2+, requires full source disclosure for any distributed binary -- including full sources for any keyboard shipped by vendors containing QMK and/or firmware-side VIA code
+    - QMK's license, the GPL2+, requires full source disclosure for any distributed binary — including full sources for any keyboard shipped by vendors containing QMK and/or firmware-side VIA code
     - If a vendor's wireless-capable keyboard PR submission is lacking wireless capability, then the PR will be left on-hold and unmergeable until wireless bindings are provided
     - If a vendor's wireless-capable keyboard is merged into QMK before it's known that the board is wireless, then all existing and future PRs from the same vendor will be put on hold until wireless bindings for the offending keyboard are provided
 
@@ -183,10 +183,10 @@ Also, specific to ChibiOS:
 - any new boards adding support for new hardware now requires a corresponding test board under `keyboards/handwired/onekey`
     - for new MCUs, a new "child" keyboard should be added that targets your newly-added MCU, so that builds can be verified
     - for new hardware support such as display panels, core-side matrix implementations, or other peripherals, an associated keymap should be provided
-    - if an existing keymap exists that can leverage this functionality this may not be required (e.g. a new RGB driver chip, supported by the `rgb` keymap) -- consult with the QMK Collaborators on Discord to determine if there is sufficient overlap already
+    - if an existing keymap exists that can leverage this functionality this may not be required (e.g. a new RGB driver chip, supported by the `rgb` keymap) — consult with the QMK Collaborators on Discord to determine if there is sufficient overlap already
 - any features adding `_kb`/`_user` callbacks must return a `bool`, to allow for user override of keyboard-level callbacks.
-- where relevant, unit tests are strongly recommended -- they boost the confidence level that changes behave correctly
-    - critical areas of the code -- such as the keycode handling pipeline -- will almost certainly require unit tests accompanying them to ensure current and future correctness
+- where relevant, unit tests are strongly recommended — they boost the confidence level that changes behave correctly
+    - critical areas of the code — such as the keycode handling pipeline — will almost certainly require unit tests accompanying them to ensure current and future correctness
     - you should not be surprised if a QMK collaborator requests unit tests to be included in your PR if it's critical functionality
 - other requirements are at the discretion of QMK collaborators
     - core is a lot more subjective given the breadth of posted changes
@@ -210,7 +210,7 @@ Thanks for contributing!
 
 ## Review Process
 
-In general, we want to see two (or more) approvals that are meaningful (e.g. that have inspected code) before a PR will be considered for merge. These reviews are not limited to collaborators -- any community member willing to put in the time is welcomed (and encouraged). The only difference is that your checkmark won't be green, and that's fine!
+In general, we want to see two (or more) approvals that are meaningful (e.g. that have inspected code) before a PR will be considered for merge. These reviews are not limited to collaborators — any community member willing to put in the time is welcomed (and encouraged). The only difference is that your checkmark won't be green, and that's fine!
 
 Additionally, PR reviews are something that is done in our free time. We are not paid nor compensated for the time we spend reviewing, as it is a labor of love. As such, this means that it can take time for us to get to your Pull Request.  Things like family, or life can get in the way of us getting to PRs, and burnout is a serious concern. The QMK firmware repository averages 200 PRs opened and 200 PRs merged every month, so please have patience.
 

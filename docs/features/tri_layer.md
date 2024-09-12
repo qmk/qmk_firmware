@@ -6,7 +6,7 @@ This enables support for the OLKB style "Tri Layer" keycodes.  These function si
 TRI_LAYER_ENABLE = yes
 ```
 
-Note that the "upper", "lower" and "adjust" names don't have a particular significance, they are just used to identify and clarify the behavior. Layers are processed from highest numeric value to lowest, however the values are not required to be consecutive.
+Note that the "upper", "lower", and "adjust" names don't have a particular significance; they are just used to identify and clarify the behavior. Layers are processed from highest numeric value to lowest; however, the values are not required to be consecutive.
 
 For a detailed explanation of how the layer stack works, check out [Keymap Overview](../keymap#keymap-and-layers).
 
@@ -19,7 +19,7 @@ For a detailed explanation of how the layer stack works, check out [Keymap Overv
 
 ## Configuration
 
-To change the default values for the layers, you can change these defines, in your `config.h`
+To change the default values for the layers, you can change these defines in your `config.h`:
 
 | Config name              | Default | Description                              |
 |--------------------------|---------|------------------------------------------|
@@ -27,7 +27,7 @@ To change the default values for the layers, you can change these defines, in yo
 | `TRI_LAYER_UPPER_LAYER`  | `2`     | Sets the default for the "upper" layer.  |
 | `TRI_LAYER_ADJUST_LAYER` | `3`     | Sets the default for the "adjust" layer. |
 
-Eg, if you wanted to set the "Adjust" layer to be layer 5, you'd add this to your `config.h`: 
+For instance, if you wanted to set the "adjust" layer to be layer 5, you would add this to your `config.h`:
 
 ```c
 #define TRI_LAYER_ADJUST_LAYER 5
@@ -37,14 +37,14 @@ Eg, if you wanted to set the "Adjust" layer to be layer 5, you'd add this to you
 
 | Function name                                |  Description                                    |
 |----------------------------------------------|-------------------------------------------------|
-| `set_tri_layer_lower_layer(layer)`           | Changes the "lower" layer*.                     |
-| `set_tri_layer_upper_layer(layer)`           | Changes the "upper" layer*.                     |
-| `set_tri_layer_adjust_layer(layer)`          | Changes the "adjust" layer*.                    |
-| `set_tri_layer_layers(lower, upper, adjust)` | Sets the "lower", "upper" and "adjust" layers*. |
+| `set_tri_layer_lower_layer(layer)`           | Changes the "lower" layer.*                     |
+| `set_tri_layer_upper_layer(layer)`           | Changes the "upper" layer.*                     |
+| `set_tri_layer_adjust_layer(layer)`          | Changes the "adjust" layer.*                    |
+| `set_tri_layer_layers(lower, upper, adjust)` | Sets the "lower", "upper" and "adjust" layers.* |
 | `get_tri_layer_lower_layer()`                | Gets the current "lower" layer.                 |
 | `get_tri_layer_upper_layer()`                | Gets the current "upper" layer.                 |
 | `get_tri_layer_adjust_layer()`               | Gets the current "adjust" layer.                |
 
 ::: warning
-Note: these settings are not persistent, and will be reset to the default on power loss or power cycling of the controller.
+*Note: these settings are not persistent, and will be reset to the default on power loss or power cycling of the controller.
 :::

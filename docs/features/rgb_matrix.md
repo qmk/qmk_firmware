@@ -35,7 +35,7 @@ RGB_MATRIX_DRIVER = is31fl3218
 
 ## Common Configuration {#common-configuration}
 
-From this point forward the configuration is the same for all the drivers. The `led_config_t` struct provides a key electrical matrix to led index lookup table, what the physical position of each LED is on the board, and what type of key or usage the LED if the LED represents. Here is a brief example:
+From this point forward, the configuration is the same for all the drivers. The `led_config_t` struct provides a key electrical matrix to led index lookup table, what the physical position of each LED is on the board, and what type of key or usage the LED if the LED represents. Here is a brief example:
 
 ```c
 led_config_t g_led_config = { {
@@ -60,11 +60,11 @@ x = 224 / (NUMBER_OF_COLS - 1) * COL_POSITION
 y =  64 / (NUMBER_OF_ROWS - 1) * ROW_POSITION
 ```
 
-Where NUMBER_OF_COLS, NUMBER_OF_ROWS, COL_POSITION, & ROW_POSITION are all based on the physical layout of your keyboard, not the electrical layout.
+Where `NUMBER_OF_COLS`, `NUMBER_OF_ROWS`, `COL_POSITION`, & `ROW_POSITION` are all based on the physical layout of your keyboard, not the electrical layout.
 
-As mentioned earlier, the center of the keyboard by default is expected to be `{ 112, 32 }`, but this can be changed if you want to more accurately calculate the LED's physical `{ x, y }` positions. Keyboard designers can implement `#define RGB_MATRIX_CENTER { 112, 32 }` in their config.h file with the new center point of the keyboard, or where they want it to be allowing more possibilities for the `{ x, y }` values. Do note that the maximum value for x or y is 255, and the recommended maximum is 224 as this gives animations runoff room before they reset.
+As mentioned earlier, the center of the keyboard by default is expected to be `{ 112, 32 }`, but this can be changed if you want to more accurately calculate the LED's physical `{ x, y }` positions. Keyboard designers can implement `#define LED_MATRIX_CENTER { 112, 32 }` in their `config.h` file with the new center point of the keyboard, or where they want it to be, allowing more possibilities for the `{ x, y }` values. Do note that the maximum value for `x` and `y` is 255, and the recommended maximum is 224 as this gives animations runoff room before they reset.
 
-`// LED Index to Flag` is a bitmask, whether or not a certain LEDs is of a certain type. It is recommended that LEDs are set to only 1 type.
+`// LED Index to Flag` is a bitmask of whether or not a certain LEDs is of a certain type. It is recommended that LEDs are set to only 1 type.
 
 ## Flags {#flags}
 
@@ -106,7 +106,7 @@ All RGB keycodes are currently shared with the RGBLIGHT system:
 `RGB_MODE_PLAIN`, `RGB_MODE_BREATHE`, `RGB_MODE_RAINBOW`, and `RGB_MODE_SWIRL` are the only ones that are mapped properly. The rest don't have a direct equivalent, and are not mapped.
 
 ::: tip
-`RGB_*` keycodes cannot be used with functions like `tap_code16(RGB_HUD)` as they're not USB HID keycodes. If you wish to replicate similar behaviour in custom code within your firmware (e.g. inside `encoder_update_user()` or `process_record_user()`), the equivalent [RGB functions](#functions) should be used instead.
+`RGB_*` keycodes cannot be used with functions like `tap_code16()` as they are not USB HID keycodes. If you wish to replicate similar behaviour in custom code within your firmware (e.g. inside `encoder_update_user()` or `process_record_user()`), the equivalent [RGB functions](#functions) should be used instead.
 :::
 
 
@@ -245,7 +245,7 @@ These modes introduce additional logic that can increase firmware size.
 
 ### RGB Matrix Effect Typing Heatmap {#rgb-matrix-effect-typing-heatmap}
 
-This effect will color the RGB matrix according to a heatmap of recently pressed keys. Whenever a key is pressed its "temperature" increases as well as that of its neighboring keys. The temperature of each key is then decreased automatically every 25 milliseconds by default.
+This effect will color the RGB matrix according to a heatmap of recently pressed keys. Whenever a key is pressed, its "temperature" increases as well as that of its neighboring keys. The temperature of each key is then decreased automatically every 25 milliseconds by default.
 
 In order to change the delay of temperature decrease define `RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS`:
 
@@ -253,9 +253,9 @@ In order to change the delay of temperature decrease define `RGB_MATRIX_TYPING_H
 #define RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS 50
 ```
 
-As heatmap uses the physical position of the leds set in the g_led_config, you may need to tweak the following options to get the best effect for your keyboard. Note the size of this grid is `224x64`.
+As heatmap uses the physical position of the leds set in the `g_led_config`, you may need to tweak the following options to get the best effect for your keyboard. Note the size of this grid is `224x64`.
 
-Limit the distance the effect spreads to surrounding keys. 
+Limit the distance the effect spreads to surrounding keys.
 
 ```c
 #define RGB_MATRIX_TYPING_HEATMAP_SPREAD 40
@@ -293,10 +293,10 @@ Gradient mode will loop through the color wheel hues over time and its duration 
 
 ## Custom RGB Matrix Effects {#custom-rgb-matrix-effects}
 
-By setting `RGB_MATRIX_CUSTOM_USER = yes` in `rules.mk`, new effects can be defined directly from your keymap or userspace, without having to edit any QMK core files. To declare new effects, create a `rgb_matrix_user.inc` file in the user keymap directory or userspace folder.
+By setting `RGB_MATRIX_CUSTOM_USER = yes` in `rules.mk`, new effects can be defined directly from your keymap or userspace without having to edit any QMK core files. To declare new effects, create a `rgb_matrix_user.inc` file in the user keymap directory or userspace folder.
 
 ::: tip
-Hardware maintainers who want to limit custom effects to a specific keyboard can create a `rgb_matrix_kb.inc` file in the root of the keyboard directory, and add `RGB_MATRIX_CUSTOM_KB = yes` to the keyboard level `rules.mk`.
+Hardware maintainers who want to limit custom effects to a specific keyboard can create a `rgb_matrix_kb.inc` file in the root of the keyboard directory and add `RGB_MATRIX_CUSTOM_KB = yes` to the keyboard level `rules.mk`.
 :::
 
 ```c
@@ -404,7 +404,7 @@ These are defined in [`color.h`](https://github.com/qmk/qmk_firmware/blob/master
 
 ## EEPROM storage {#eeprom-storage}
 
-The EEPROM for it is currently shared with the LED Matrix system (it's generally assumed only one feature would be used at a time).
+The EEPROM for this feature is currently shared with the LED Matrix system (as it is generally assumed that only one of these features would be used at a time).
 
 ## Callbacks {#callbacks}
 

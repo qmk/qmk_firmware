@@ -16,17 +16,17 @@ Tested combinations:
 |SH1107   |64x128 |Arm     |No scrolling            |
 |SH1107   |128x128|Arm     |No scrolling            |
 
-Hardware configurations using Arm-based microcontrollers or different sizes of OLED modules may be compatible, but are untested.
+Hardware configurations using ARM-based microcontrollers or different sizes of OLED modules may be compatible, but are untested.
 
 ## Usage
 
-To enable the OLED feature, there are two steps. First, when compiling your keyboard, you'll need to add the following to your `rules.mk`:
+To enable the OLED feature, there are two steps. First, when compiling your keyboard, you'll need to add the three following lines to your `rules.mk`:
 
 ```make
 OLED_ENABLE = yes
 ```
 
-## OLED type
+### OLED type
 
 |OLED Driver        |Supported Device                    |
 |-------------------|------------------------------------|
@@ -47,7 +47,7 @@ e.g.
 OLED_TRANSPORT = i2c
 ```
 
-Then in your `keymap.c` file, implement the OLED task call. This example assumes your keymap has three layers named `_QWERTY`, `_FN` and `_ADJ`:
+Then, in your `keymap.c` file, implement the OLED task call. This example assumes your keymap has three layers named `_QWERTY`, `_FN` and `_ADJ`:
 
 ```c
 #ifdef OLED_ENABLE
@@ -145,7 +145,7 @@ static void fade_display(void) {
 
 ## Other Examples
 
-In split keyboards, it is very common to have two OLED displays that each render different content and are oriented or flipped differently. You can do this by switching which content to render by using the return value from `is_keyboard_master()` or `is_keyboard_left()` found in `split_util.h`, e.g:
+In split keyboards, it is very common to have two OLED displays that each render different content and are oriented or flipped differently. You can do this by switching which content to render by using the return value from `is_keyboard_master()` or `is_keyboard_left()` found in `split_util.h`, e.g.:
 
 ```c
 #ifdef OLED_ENABLE
@@ -169,7 +169,7 @@ bool oled_task_user(void) {
 #endif
 ```
 
-Render a message before booting into bootloader mode.
+Example: rendering a message before booting into bootloader mode:
 ```c
 void oled_render_boot(bool bootloader) {
     oled_clear();
@@ -203,11 +203,11 @@ These configuration options should be placed in `config.h`. Example:
 |`OLED_BRIGHTNESS`          |`255`                          |The default brightness level of the OLED, from 0 to 255.                                                             |
 |`OLED_COLUMN_OFFSET`       |`0`                            |Shift output to the right this many pixels.<br />Useful for 128x64 displays centered on a 132x64 SH1106 IC.          |
 |`OLED_DISPLAY_CLOCK`       |`0x80`                         |Set the display clock divide ratio/oscillator frequency.                                                             |
-|`OLED_FONT_H`              |`"glcdfont.c"`                 |The font code file to use for custom fonts                                                                           |
-|`OLED_FONT_START`          |`0`                            |The starting character index for custom fonts                                                                        |
-|`OLED_FONT_END`            |`223`                          |The ending character index for custom fonts                                                                          |
-|`OLED_FONT_WIDTH`          |`6`                            |The font width                                                                                                       |
-|`OLED_FONT_HEIGHT`         |`8`                            |The font height (untested)                                                                                           |
+|`OLED_FONT_H`              |`"glcdfont.c"`                 |The font code file to use for custom fonts.                                                                          |
+|`OLED_FONT_START`          |`0`                            |The starting character index for custom fonts.                                                                       |
+|`OLED_FONT_END`            |`223`                          |The ending character index for custom fonts.                                                                         |
+|`OLED_FONT_WIDTH`          |`6`                            |The font width.                                                                                                      |
+|`OLED_FONT_HEIGHT`         |`8`                            |The font height (untested).                                                                                          |
 |`OLED_IC`                  |`OLED_IC_SSD1306`              |Set to `OLED_IC_SH1106` or `OLED_IC_SH1107` if the corresponding controller chip is used.                            |
 |`OLED_FADE_OUT`            |*Not defined*                  |Enables fade out animation. Use together with `OLED_TIMEOUT`.                                                        |
 |`OLED_FADE_OUT_INTERVAL`   |`0`                            |The speed of fade out animation, from 0 to 15. Larger values are slower.                                             |
@@ -220,7 +220,7 @@ These configuration options should be placed in `config.h`. Example:
 ### I2C Configuration
 |Define                     |Default          |Description                                                                                                               |
 |---------------------------|-----------------|--------------------------------------------------------------------------------------------------------------------------|
-|`OLED_DISPLAY_ADDRESS`     |`0x3C`           |The i2c address of the OLED Display                                                                                       |
+|`OLED_DISPLAY_ADDRESS`     |`0x3C`           |The I2C address of the OLED Display.                                                                                      |
 
 ### SPI Configuration
 
@@ -234,7 +234,7 @@ These configuration options should be placed in `config.h`. Example:
 
 ## 128x64 & Custom sized OLED Displays
 
- The default display size for this feature is 128x32, and the defaults are set with that in mind.  However, there are a number of additional presets for common sizes that we have added.  You can define one of these values to use the presets.  If your display doesn't match one of these presets, you can define `OLED_DISPLAY_CUSTOM` to manually specify all of the values.
+The default display size for this feature is 128x32, and the defaults are set with that in mind. However, there are a number of additional presets for common sizes that we have added. You can define one of these values to use the presets. If your display doesn't match one of these presets, you can define `OLED_DISPLAY_CUSTOM` to manually specify all of the values.
 
 |Define                |Default        |Description                                                                                                                            |
 |----------------------|---------------|---------------------------------------------------------------------------------------------------------------------------------------|
@@ -275,9 +275,9 @@ typedef enum {
 } oled_rotation_t;
 ```
 
-OLED displays driven by SSD1306, SH1106 or SH1107 drivers only natively support in hardware 0 degree and 180 degree rendering. This feature is done in software and not free. Using this feature will increase the time to calculate what data to send over i2c to the OLED. If you are strapped for cycles, this can cause keycodes to not register. In testing however, the rendering time on an ATmega32U4 board only went from 2ms to 5ms and keycodes not registering was only noticed once we hit 15ms.
+OLED displays driven by SSD1306, SH1106 or SH1107 drivers only natively support in hardware 0 degree and 180 degree rendering. This feature is done in software and is not free; using this feature will increase the time to calculate what data to send over I2C to the OLED. If you are strapped for cycles, this can cause keycodes to not register. In testing however, the rendering time on an ATmega32U4 board only went from 2ms to 5ms, and keycodes not registering was only noticed once we hit 15ms.
 
-90 degree rotation is achieved by using bitwise operations to rotate each 8 block of memory and uses two precalculated arrays to remap buffer memory to OLED memory. The memory map defines are precalculated for remap performance and are calculated based on the display height, width, and block size. For example, in the 128x32 implementation with a `uint8_t` block type, we have a 64 byte block size. This gives us eight 8 byte blocks that need to be rotated and rendered. The OLED renders horizontally two 8 byte blocks before moving down a page, e.g:
+90 degree rotation is achieved by using bitwise operations to rotate each 8 block of memory and uses two precalculated arrays to remap buffer memory to OLED memory. The memory map defines are precalculated for remap performance and are calculated based on the display height, width, and block size. For example, in the 128x32 implementation with a `uint8_t` block type, we have a 64-byte block size. This gives us eight 8-byte blocks that need to be rotated and rendered. The OLED renders horizontally two 8-byte blocks before moving down a page, e.g.:
 
 |   |   |   |   |   |   |
 |---|---|---|---|---|---|
@@ -286,7 +286,7 @@ OLED displays driven by SSD1306, SH1106 or SH1107 drivers only natively support 
 | 4 | 5 |   |   |   |   |
 | 6 | 7 |   |   |   |   |
 
-However the local buffer is stored as if it was Height x Width display instead of Width x Height, e.g:
+However, the local buffer is stored as if it was Height x Width display instead of Width x Height, e.g:
 
 |   |   |   |   |   |   |
 |---|---|---|---|---|---|
@@ -297,7 +297,7 @@ However the local buffer is stored as if it was Height x Width display instead o
 
 So those precalculated arrays just index the memory offsets in the order in which each one iterates its data.
 
-Rotation on SH1106 and SH1107 is noticeably less efficient than on SSD1306, because these controllers do not support the "horizontal addressing mode", which allows transferring the data for the whole rotated block at once; instead, separate address setup commands for every page in the block are required.  The screen refresh time for SH1107 is therefore about 45% higher than for a same size screen with SSD1306 when using STM32 MCUs (on AVR the slowdown is about 20%, because the code which actually rotates the bitmap consumes more time).
+Rotation on SH1106 and SH1107 is noticeably less efficient than on SSD1306 because these controllers do not support the "horizontal addressing mode", which allows transferring the data for the whole rotated block at once; instead, separate address setup commands for every page in the block are required. The screen refresh time for SH1107 is therefore about 45% higher than for a same size screen with SSD1306 when using STM32 MCUs (on AVR, the slowdown is about 20%, because the code which actually rotates the bitmap consumes more time).
 
 ## OLED API
 
@@ -451,8 +451,7 @@ bool oled_scroll_left(void);
 // Returns true if the screen was not scrolling or stops scrolling
 bool oled_scroll_off(void);
 
-// Returns true if the oled is currently scrolling, false if it is
-// not
+// Returns true if the oled is currently scrolling, false if it is not
 bool is_oled_scrolling(void);
 
 // Inverts the display

@@ -8,13 +8,14 @@ There are some limitations to this feature. Because there is no "standard" metho
 
 ## Usage {#usage}
 
-The core Unicode API can be used purely programmatically. However, there are also additional subsystems which build on top of it and come with keycodes to make things easier. See below for more details.
-
 Add the following to your keymap's `rules.mk`:
 
 ```make
 UNICODE_COMMON = yes
 ```
+
+The core Unicode API can be used purely programmatically. However, there are also additional subsystems which build on top of it and come with keycodes to make things easier. See below for more details.
+
 
 ## Basic Configuration {#basic-configuration}
 
@@ -51,7 +52,7 @@ Each of these subsystems have their own pros and cons in terms of flexibility an
 
 === Basic
 
-This is the easiest to use, albeit somewhat limited. It supports code points up to `U+7FFF`, which covers characters for most modern languages (including East Asian), as well as many symbols, but does not include emoji.
+This is the easiest to use, albeit somewhat limited in features. It supports code points up to `U+7FFF`, which covers characters for most modern languages (including East Asian) as well as many other symbols, but does not include emoji.
 
 To enable Basic Unicode, add the following to your `rules.mk`:
 
@@ -59,7 +60,7 @@ To enable Basic Unicode, add the following to your `rules.mk`:
 UNICODE_ENABLE = yes
 ```
 
-You can then add `UC(c)` keycodes to your keymap, where *c* is the code point of the desired character (in hexadecimal - the `U+` prefix will not work). For example, `UC(0x40B)` will output [Ћ](https://unicode-table.com/en/040B/), and `UC(0x30C4)` will output [ツ](https://unicode-table.com/en/30C4).
+You can then add `UC(c)` keycodes to your keymap, where `c` is the code point of the desired character (in hexadecimal — the `U+` prefix will not work). For example, `UC(0x40B)` will output [Ћ](https://unicode-table.com/en/040B/), and `UC(0x30C4)` will output [ツ](https://unicode-table.com/en/30C4).
 
 === Unicode Map
 
@@ -87,11 +88,11 @@ const uint32_t PROGMEM unicode_map[] = {
 };
 ```
 
-Finally, add `UM(i)` keycodes to your keymap, where *i* is an index into the `unicode_map[]` array. If you defined the enum above, you can use those names instead, for example `UM(BANG)` or `UM(SNEK)`.
+Finally, add `UM(i)` keycodes to your keymap, where `i` is an index into the `unicode_map[]` array. If you defined the enum above, you can use those names instead, for example `UM(BANG)` or `UM(SNEK)`.
 
 #### Lower and Upper Case Pairs {#unicodemap-pairs}
 
-Some writing systems have lowercase and uppercase variants of each character, such as å and Å. To make inputting these characters easier, you can use the `UP(i, j)` keycode in your keymap, where *i* and *j* are the mapping table indices of the lowercase and uppercase characters, respectively. If you're holding down Shift or have Caps Lock turned on when you press the key, the uppercase character will be inserted; otherwise, the lowercase character will be inserted.
+Some writing systems have lowercase and uppercase variants of each character, such as å and Å. To make inputting these characters easier, you can use the `UP(i, j)` keycode in your keymap, where `i` and `j` are the mapping table indices of the lowercase and uppercase characters, respectively. If you're holding down Shift or have Caps Lock turned on when you press the key, the uppercase character will be inserted; otherwise, the lowercase character will be inserted.
 
 ```c
 const uint32_t PROGMEM unicode_map[] = {
@@ -102,11 +103,11 @@ const uint32_t PROGMEM unicode_map[] = {
 
 This is most useful when creating a keymap for an international layout with special characters. Instead of having to put the lower and upper case versions of a character on separate keys, you can have them both on the same key. This helps blend Unicode keys in with regular keycodes.
 
-Due to keycode size constraints, *i* and *j* can each only refer to one of the first 128 characters in your `unicode_map`. In other words, 0 ≤ *i* ≤ 127 and 0 ≤ *j* ≤ 127.
+Due to keycode size constraints, the indices `i` and `j` can each only refer to one of the first 128 characters in your `unicode_map`. That is, 0 ≤ `i` ≤ 127, and 0 ≤ `j` ≤ 127.
 
 === UCIS
 
-As with Unicode Map, the UCIS method also supports all possible code points, and requires the use of a mapping table. However, it works much differently - Unicode characters are input by replacing a typed mnemonic.
+As with Unicode Map, the UCIS method also supports all possible code points, and requires the use of a mapping table. However, it works much differently — Unicode characters are input by replacing a typed mnemonic.
 
 To enable UCIS, add the following to your keymap's `rules.mk`:
 
@@ -133,7 +134,7 @@ To invoke UCIS input, the `ucis_start()` function must first be called (for exam
 
 ## Input Modes {#input-modes}
 
-Unicode input works by typing a sequence of characters, similar to a macro. However, since this sequence depends on your OS, you will need to prepare both your host machine and QMK to recognise and send the correct Unicode input sequences respectively.
+Unicode input works by typing a sequence of characters, similar to a macro. However, since this sequence depends on your OS, you will need to prepare both your host machine and QMK to recognise and send the correct Unicode input sequences, respectively.
 
 To set the list of enabled input modes, add the `UNICODE_SELECTED_MODES` define to your keymap's `config.h`, for example:
 
@@ -282,9 +283,9 @@ Begin the Unicode input sequence. The exact behavior depends on the currently se
 
  - **macOS**: Hold `UNICODE_KEY_MAC`
  - **Linux**: Tap `UNICODE_KEY_LNX`
- - **WinCompose**: Tap `UNICODE_KEY_WINC`, then U
- - **HexNumpad**: Hold Left Alt, then tap Numpad +
- - **Emacs**: Tap Ctrl+X, then 8, then Enter
+ - **WinCompose**: Tap `UNICODE_KEY_WINC`, then `U`
+ - **HexNumpad**: Hold `Left Alt`, then tap `Numpad +`
+ - **Emacs**: Tap `Ctrl`+`X`, then `8`, then `Enter`
 
 This function is weakly defined, and can be overridden in user code.
 
@@ -295,10 +296,10 @@ This function is weakly defined, and can be overridden in user code.
 Complete the Unicode input sequence. The exact behavior depends on the currently selected input mode:
 
  - **macOS**: Release `UNICODE_KEY_MAC`
- - **Linux**: Tap Space
- - **WinCompose**: Tap Enter
- - **HexNumpad**: Release Left Alt
- - **Emacs**: Tap Enter
+ - **Linux**: Tap `Space`
+ - **WinCompose**: Tap `Enter`
+ - **HexNumpad**: Release `Left Alt`
+ - **Emacs**: Tap `Enter`
 
 This function is weakly defined, and can be overridden in user code.
 
@@ -309,10 +310,10 @@ This function is weakly defined, and can be overridden in user code.
 Cancel the Unicode input sequence. The exact behavior depends on the currently selected input mode:
 
  - **macOS**: Release `UNICODE_KEY_MAC`
- - **Linux**: Tap Escape
- - **WinCompose**: Tap Escape
- - **HexNumpad**: Release Left Alt
- - **Emacs**: Tap Ctrl+G
+ - **Linux**: Tap `Escape`
+ - **WinCompose**: Tap `Escape`
+ - **HexNumpad**: Release `Left Alt`
+ - **Emacs**: Tap `Ctrl`+`G`
 
 This function is weakly defined, and can be overridden in user code.
 

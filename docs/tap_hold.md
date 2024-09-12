@@ -42,7 +42,20 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 
 ### Example
 
-You can also use functions like `QK_MOD_TAP_GET_MODS`, `QK_LAYER_MOD_GET_MODS`, and `QK_ONE_SHOT_MOD_GET_MODS` to filter Mod-Tap/Layer-Mod/One Shot keys by their mods, rather than checking such keys manually in a switch-case.
+You can compare keycodes to `QK_MOD_TAP`/`QK_MOD_TAP_MAX` and `QK_LAYER_TAP`/`QK_LAYER_TAP_MAX` to filter out Mod-Tap/Layer-Tap keys, rather than checking such keys manually in a switch-case. For instance, this example sets all Mod-Tap keys to have a higher tapping term, while leaving all other tap-hold keys unchanged:
+
+```c
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+            return TAPPING_TERM + 100;
+        default:
+            return TAPPING_TERM;
+    }
+}
+```
+
+You can also use functions like `QK_MOD_TAP_GET_MODS`, `QK_LAYER_MOD_GET_MODS`, and `QK_ONE_SHOT_MOD_GET_MODS` to filter Mod-Tap/Layer-Mod/One Shot keys by their mods.
 
 For instance, this example sets a higher tapping term for `AltGr` Mod-Taps and lower tapping terms for `Shift` Mod-Taps:
 

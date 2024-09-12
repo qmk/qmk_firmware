@@ -4,7 +4,7 @@ QMK has the ability to control RGB LEDs attached to your keyboard. This is commo
 
 ![Planck with RGB Underglow](https://raw.githubusercontent.com/qmk/qmk_firmware/3774a7fcdab5544fc787f4c200be05fcd417e31f/keyboards/planck/keymaps/yang/planck-with-rgb-underglow.jpg)
 
-Some keyboards come with RGB LEDs preinstalled. Others must have them installed after the fact. See the [Hardware Modification](#hardware-modification) section for information on adding RGB lighting to your keyboard.
+Some keyboards come with RGB LEDs preinstalled; others must have them installed after the fact. See the [Hardware Modification](#hardware-modification) section for information on adding RGB lighting to your keyboard.
 
 Currently QMK supports the following addressable LEDs:
 
@@ -16,7 +16,7 @@ These LEDs are called "addressable" because instead of using a wire per color, e
 
 ## Usage
 
-On keyboards with onboard RGB LEDs, it is usually enabled by default. If it is not working for you, check that your `rules.mk` includes the following:
+On keyboards with onboard RGB LEDs, it is usually enabled by default, but if it is not working for you (or you have added support), check that your `rules.mk` includes the following:
 
 ```make
 RGBLIGHT_ENABLE = yes
@@ -33,7 +33,7 @@ RGBLIGHT_ENABLE = yes
 RGBLIGHT_DRIVER = apa102
 ```
 
-At minimum you must define the data pin your LED strip is connected to, and the number of LEDs in the strip, in your `config.h`. For APA102 LEDs, you must also define the clock pin. If your keyboard has onboard RGB LEDs, and you are simply creating a keymap, you usually won't need to modify these.
+At minimum, you must define the data pin that your LED strip is connected to and the number of LEDs in the strip in your `config.h`. For APA102 LEDs, you must also define the clock pin. If your keyboard has onboard RGB LEDs and you are simply creating a keymap, you usually won't need to modify these.
 
 |Define              |Description                                                              |
 |--------------------|-------------------------------------------------------------------------|
@@ -43,11 +43,11 @@ At minimum you must define the data pin your LED strip is connected to, and the 
 |`RGBLIGHT_LED_COUNT`|The number of LEDs connected                                             |
 |`RGBLED_SPLIT`      |(Optional) For split keyboards, the number of LEDs connected on each half|
 
-Then you should be able to use the keycodes below to change the RGB lighting to your liking.
+Then, you should be able to use the keycodes below to change the RGB lighting to your liking.
 
 ### Color Selection
 
-QMK uses [Hue, Saturation, and Value](https://en.wikipedia.org/wiki/HSL_and_HSV) to select colors rather than RGB. The color wheel below demonstrates how this works.
+QMK uses [Hue, Saturation, and Value](https://en.wikipedia.org/wiki/HSL_and_HSV) (HSV) to select colors rather than RGB. The color wheel below demonstrates how this works.
 
 <img src="../public/color-wheel.svg" alt="HSV Color Wheel" width="250"/>
 
@@ -133,26 +133,26 @@ if `RGBLIGHT_EFFECT_xxxx` is defined, you also have a number of animation modes 
 
 Check out [this video](https://youtube.com/watch?v=VKrpPAHlisY) for a demonstration.
 
-Note: For versions older than 0.6.117, The mode numbers were written directly. In `quantum/rgblight/rgblight.h` there is a contrast table between the old mode number and the current symbol.
+Note: for versions older than 0.6.117, The mode numbers were written directly. In `quantum/rgblight/rgblight.h` there is a contrast table between the old mode number and the current symbol.
 
 
 ### Effect and Animation Toggles
 
 Use these defines to add or remove animations from the firmware. When you are running low on flash space, it can be helpful to disable animations you are not using.
 
-|Define                              |Default      |Description                                                              |
-|------------------------------------|-------------|-------------------------------------------------------------------------|
-|`RGBLIGHT_ANIMATIONS`               |*Not defined*|Enable all additional animation modes.  (deprecated)                     |
-|`RGBLIGHT_EFFECT_ALTERNATING`       |*Not defined*|Enable alternating animation mode.                                       |
-|`RGBLIGHT_EFFECT_BREATHING`         |*Not defined*|Enable breathing animation mode.                                         |
-|`RGBLIGHT_EFFECT_CHRISTMAS`         |*Not defined*|Enable christmas animation mode.                                         |
-|`RGBLIGHT_EFFECT_KNIGHT`            |*Not defined*|Enable knight animation mode.                                            |
-|`RGBLIGHT_EFFECT_RAINBOW_MOOD`      |*Not defined*|Enable rainbow mood animation mode.                                      |
-|`RGBLIGHT_EFFECT_RAINBOW_SWIRL`     |*Not defined*|Enable rainbow swirl animation mode.                                     |
-|`RGBLIGHT_EFFECT_RGB_TEST`          |*Not defined*|Enable RGB test animation mode.                                          |
-|`RGBLIGHT_EFFECT_SNAKE`             |*Not defined*|Enable snake animation mode.                                             |
-|`RGBLIGHT_EFFECT_STATIC_GRADIENT`   |*Not defined*|Enable static gradient mode.                                             |
-|`RGBLIGHT_EFFECT_TWINKLE`           |*Not defined*|Enable twinkle animation mode.                                           |
+|Define                              |Default      |Description                                                             |
+|------------------------------------|-------------|------------------------------------------------------------------------|
+|`RGBLIGHT_ANIMATIONS`               |*Not defined*|Enable all additional animation modes (deprecated)                      |
+|`RGBLIGHT_EFFECT_ALTERNATING`       |*Not defined*|Enable alternating animation mode                                       |
+|`RGBLIGHT_EFFECT_BREATHING`         |*Not defined*|Enable breathing animation mode                                         |
+|`RGBLIGHT_EFFECT_CHRISTMAS`         |*Not defined*|Enable christmas animation mode                                         |
+|`RGBLIGHT_EFFECT_KNIGHT`            |*Not defined*|Enable knight animation mode                                            |
+|`RGBLIGHT_EFFECT_RAINBOW_MOOD`      |*Not defined*|Enable rainbow mood animation mode                                      |
+|`RGBLIGHT_EFFECT_RAINBOW_SWIRL`     |*Not defined*|Enable rainbow swirl animation mode                                     |
+|`RGBLIGHT_EFFECT_RGB_TEST`          |*Not defined*|Enable RGB test animation mode                                          |
+|`RGBLIGHT_EFFECT_SNAKE`             |*Not defined*|Enable snake animation mode                                             |
+|`RGBLIGHT_EFFECT_STATIC_GRADIENT`   |*Not defined*|Enable static gradient mode                                             |
+|`RGBLIGHT_EFFECT_TWINKLE`           |*Not defined*|Enable twinkle animation mode                                           |
 
 ::: warning
 `RGBLIGHT_ANIMATIONS` is being deprecated and animation modes should be explicitly defined.
@@ -162,19 +162,19 @@ Use these defines to add or remove animations from the firmware. When you are ru
 
 The following options are used to tweak the various animations:
 
-|Define                              |Default             |Description                                                                                    |
-|------------------------------------|--------------------|-----------------------------------------------------------------------------------------------|
-|`RGBLIGHT_EFFECT_BREATHE_CENTER`    |*Not defined*       |If defined, used to calculate the curve for the breathing animation. Valid values are 1.0 to 2.7 |
-|`RGBLIGHT_EFFECT_BREATHE_MAX`       |`255`               |The maximum brightness for the breathing mode. Valid values are 1 to 255                       |
-|`RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL`|`40`                |How long (in milliseconds) to wait between animation steps for the "Christmas" animation       |
-|`RGBLIGHT_EFFECT_CHRISTMAS_STEP`    |`2`                 |The number of LEDs to group the red/green colors by for the "Christmas" animation              |
-|`RGBLIGHT_EFFECT_KNIGHT_LED_NUM`    |`RGBLIGHT_LED_COUNT`|The number of LEDs to have the "Knight" animation travel                                       |
-|`RGBLIGHT_EFFECT_KNIGHT_LENGTH`     |`3`                 |The number of LEDs to light up for the "Knight" animation                                      |
-|`RGBLIGHT_EFFECT_KNIGHT_OFFSET`     |`0`                 |The number of LEDs to start the "Knight" animation from the start of the strip by              |
-|`RGBLIGHT_RAINBOW_SWIRL_RANGE`      |`255`               |Range adjustment for the rainbow swirl effect to get different swirls                          |
-|`RGBLIGHT_EFFECT_SNAKE_LENGTH`      |`4`                 |The number of LEDs to light up for the "Snake" animation                                       |
-|`RGBLIGHT_EFFECT_TWINKLE_LIFE`      |`200`               |Adjusts how quickly each LED brightens and dims when twinkling (in animation steps)            |
-|`RGBLIGHT_EFFECT_TWINKLE_PROBABILITY`|`1/127`            |Adjusts how likely each LED is to twinkle (on each animation step)                             |
+|Define                              |Default             |Description                                                                                      |
+|------------------------------------|--------------------|-------------------------------------------------------------------------------------------------|
+|`RGBLIGHT_EFFECT_BREATHE_CENTER`    |*Not defined*       |If defined, used to calculate the curve for the breathing animation; valid values are 1.0 to 2.7 |
+|`RGBLIGHT_EFFECT_BREATHE_MAX`       |`255`               |The maximum brightness for the breathing mode; valid values are 1 to 255                         |
+|`RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL`|`40`                |How long (in milliseconds) to wait between animation steps for the "Christmas" animation         |
+|`RGBLIGHT_EFFECT_CHRISTMAS_STEP`    |`2`                 |The number of LEDs to group the red/green colors by for the "Christmas" animation                |
+|`RGBLIGHT_EFFECT_KNIGHT_LED_NUM`    |`RGBLIGHT_LED_COUNT`|The number of LEDs to have the "Knight" animation travel                                         |
+|`RGBLIGHT_EFFECT_KNIGHT_LENGTH`     |`3`                 |The number of LEDs to light up for the "Knight" animation                                        |
+|`RGBLIGHT_EFFECT_KNIGHT_OFFSET`     |`0`                 |The number of LEDs to start the "Knight" animation from the start of the strip by                |
+|`RGBLIGHT_RAINBOW_SWIRL_RANGE`      |`255`               |Range adjustment for the rainbow swirl effect to get different swirls                            |
+|`RGBLIGHT_EFFECT_SNAKE_LENGTH`      |`4`                 |The number of LEDs to light up for the "Snake" animation                                         |
+|`RGBLIGHT_EFFECT_TWINKLE_LIFE`      |`200`               |Adjusts how quickly each LED brightens and dims when twinkling (in animation steps)              |
+|`RGBLIGHT_EFFECT_TWINKLE_PROBABILITY`|`1/127`            |Adjusts how likely each LED is to twinkle (on each animation step)                               |
 
 ### Example Usage to Reduce Memory Footprint
   1. Use `#undef` to selectively disable animations. The following would disable two animations and save about 4KiB:
@@ -192,7 +192,7 @@ The following options are used to tweak the various animations:
 
 You can also modify the speeds that the different modes animate at:
 
-Here is a quick demo on Youtube (with NPKC KC60) (https://www.youtube.com/watch?v=VKrpPAHlisY).
+Check out [this video](https://www.youtube.com/watch?v=VKrpPAHlisY) for a quick demo (with NPKC KC60).
 
 ```c
 // How long (in milliseconds) to wait between animation steps for each of the "Solid color breathing" animations
@@ -223,7 +223,7 @@ const uint8_t RGBLED_GRADIENT_RANGES[] PROGMEM = {255, 170, 127, 85, 64};
 **Note:** Lighting Layers is an RGB Light feature, it will not work for RGB Matrix. See [RGB Matrix Indicators](rgb_matrix#indicators) for details on how to do so.
 :::
 
-By including `#define RGBLIGHT_LAYERS` in your `config.h` file you can enable lighting layers. These make
+By including `#define RGBLIGHT_LAYERS` in your `config.h` file, you can enable lighting layers. These make
 it easy to use your underglow LEDs as status indicators to show which keyboard layer is currently active, or the state of caps lock, all without disrupting any animations. [Here's a video](https://youtu.be/uLGE1epbmdY) showing an example of what you can do.
 
 ### Defining Lighting Layers {#defining-lighting-layers}
@@ -269,7 +269,7 @@ void keyboard_post_init_user(void) {
     rgblight_layers = my_rgb_layers;
 }
 ```
-Note: For split keyboards with two controllers, both sides need to be flashed when updating the contents of rgblight_layers.
+Note: for split keyboards with two controllers, both sides need to be flashed when updating the contents of `rgblight_layers`.
 
 ### Enabling and disabling lighting layers {#enabling-lighting-layers}
 
@@ -296,9 +296,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 ### Lighting layer blink {#lighting-layer-blink}
 
-By including `#define RGBLIGHT_LAYER_BLINK` in your `config.h` file you can turn a lighting
-layer on for a specified duration. Once the specified number of milliseconds has elapsed
-the layer will be turned off. This is useful, e.g., if you want to acknowledge some
+By including `#define RGBLIGHT_LAYER_BLINK` in your `config.h` file, you can turn a lighting
+layer on for a specified duration. Once the specified number of milliseconds has elapsed,
+the layer will be turned off. This is useful if, for example, you want to acknowledge some
 action (e.g. toggling some setting):
 
 ```c
@@ -342,7 +342,7 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 would turn the layer 0 (or 1) on and off again three times when `DB_TOGG` is pressed.
 
 Blinking accumulates layers so if multiple layers are set blinking at the same time they will all blink for the duration and repeat times of the last layer to be blinked.
-To stop these other layers from blinking use `rgblight_unblink_layer` or `rgblight_unblink_all_but_layer`:
+To stop these other layers from blinking, use `rgblight_unblink_layer` or `rgblight_unblink_all_but_layer`:
 
 ```c
 rgblight_blink_layer(1, 500);
@@ -355,7 +355,7 @@ rgblight_blink_layer(2, 500);
 ```
 
 ::: warning
-Lighting layers on split keyboards will require layer state synced to the slave half (e.g. `#define SPLIT_LAYER_STATE_ENABLE`). See [data sync options](split_keyboard#data-sync-options) for more details.
+Lighting layers on split keyboards will require layer state to synced to the slave half (e.g. `#define SPLIT_LAYER_STATE_ENABLE`). See [data sync options](split_keyboard#data-sync-options) for more details.
 :::
 
 ### Overriding RGB Lighting on/off status
@@ -364,7 +364,7 @@ Normally lighting layers are not shown when RGB Lighting is disabled (e.g. with 
 
 ### Retain brightness
 
-Usually lighting layers apply their configured brightness once activated. If you would like lighting layers to retain the currently used brightness (as returned by `rgblight_get_val()`), add `#define RGBLIGHT_LAYERS_RETAIN_VAL` to your `config.h`.
+Usually, lighting layers apply their configured brightness once activated. If you would like lighting layers to retain the currently-used brightness (as returned by `rgblight_get_val()`), add `#define RGBLIGHT_LAYERS_RETAIN_VAL` to your `config.h`.
 
 ## Functions
 
@@ -374,7 +374,7 @@ If you need to change your RGB lighting in code, for example in a macro to chang
 |Function                                    |Description                                |
 |--------------------------------------------|-------------------------------------------|
 |`rgblight_set()`                            |Flush out led buffers to LEDs              |
-|`rgblight_set_clipping_range(pos, num)`     |Set clipping Range. see [Clipping Range](#clipping-range) |
+|`rgblight_set_clipping_range(pos, num)`     |Set clipping Range. See [Clipping Range](#clipping-range) |
 
 ### Effects and Animations Functions
 #### effect range setting
@@ -385,13 +385,13 @@ If you need to change your RGB lighting in code, for example in a macro to chang
 #### direct operation
 |Function                                    |Description  |
 |--------------------------------------------|-------------|
-|`rgblight_setrgb_at(r, g, b, index)`          |Set a single LED to the given RGB value, where `r`/`g`/`b` are between 0 and 255 and `index` is between 0 and `RGBLIGHT_LED_COUNT` (not written to EEPROM) |
-|`rgblight_sethsv_at(h, s, v, index)`          |Set a single LED to the given HSV value, where `h`/`s`/`v` are between 0 and 255, and `index` is between 0 and `RGBLIGHT_LED_COUNT` (not written to EEPROM) |
+|`rgblight_setrgb_at(r, g, b, index)`        |Set a single LED to the given RGB value, where `r`/`g`/`b` are between 0 and 255 and `index` is between 0 and `RGBLIGHT_LED_COUNT` (not written to EEPROM) |
+|`rgblight_sethsv_at(h, s, v, index)`        |Set a single LED to the given HSV value, where `h`/`s`/`v` are between 0 and 255, and `index` is between 0 and `RGBLIGHT_LED_COUNT` (not written to EEPROM) |
 |`rgblight_setrgb_range(r, g, b, start, end)`|Set a continuous range of LEDs to the given RGB value, where `r`/`g`/`b` are between 0 and 255 and `start`(included) and `stop`(excluded) are between 0 and `RGBLIGHT_LED_COUNT` (not written to EEPROM)|
 |`rgblight_sethsv_range(h, s, v, start, end)`|Set a continuous range of LEDs to the given HSV value, where `h`/`s`/`v` are between 0 and 255, and `start`(included) and `stop`(excluded) are between 0 and `RGBLIGHT_LED_COUNT` (not written to EEPROM)|
 |`rgblight_setrgb(r, g, b)`                  |Set effect range LEDs to the given RGB value where `r`/`g`/`b` are between 0 and 255 (not written to EEPROM) |
-|`rgblight_setrgb_master(r, g, b)`           |Set the LEDs on the master side  to the given RGB value, where `r`/`g`/`b` are between 0 and 255 (not written to EEPROM) |
-|`rgblight_setrgb_slave(r, g, b)`            |Set the LEDs on the slave side  to the given RGB value, where `r`/`g`/`b` are between 0 and 255 (not written to EEPROM) |
+|`rgblight_setrgb_master(r, g, b)`           |Set the LEDs on the master side to the given RGB value, where `r`/`g`/`b` are between 0 and 255 (not written to EEPROM) |
+|`rgblight_setrgb_slave(r, g, b)`            |Set the LEDs on the slave side to the given RGB value, where `r`/`g`/`b` are between 0 and 255 (not written to EEPROM) |
 |`rgblight_sethsv_master(h, s, v)`           |Set the LEDs on the master side to the given HSV value, where `h`/`s`/`v` are between 0 and 255 (not written to EEPROM) |
 |`rgblight_sethsv_slave(h, s, v)`            |Set the LEDs on the slave side to the given HSV value, where `h`/`s`/`v` are between 0 and 255 (not written to EEPROM) |
 
@@ -528,7 +528,7 @@ By defining `RGBLIGHT_LED_MAP` as in the example below, you can specify the LED 
 
 Using the `rgblight_set_clipping_range()` function, you can prepare more buffers than the actual number of LEDs, and output some of the buffers to the LEDs. This is useful if you want the split keyboard to treat left and right LEDs as logically contiguous.
 
-You can set the Clipping Range by executing the following code.
+You can set the Clipping Range by executing the following code:
 
 ```c
 // some source
@@ -536,7 +536,7 @@ rgblight_set_clipping_range(3, 4);
 ```
 <img src="https://user-images.githubusercontent.com/2170248/55743785-2bd82a00-5a6e-11e9-9d4b-1b4ffaf4932b.JPG" alt="clip direct" width="70%"/>
 
-In addition to setting the Clipping Range, you can use `RGBLIGHT_LED_MAP` together.
+In addition to setting the Clipping Range, you can use `RGBLIGHT_LED_MAP` together:
 
 ```c
 // config.h
@@ -557,13 +557,10 @@ If your keyboard lacks onboard underglow LEDs, you may often be able to solder o
 Velocikey is a feature that lets you control the speed of lighting effects (like the Rainbow Swirl effect) with the speed of your typing. The faster you type, the faster the lights will go!
 
 ### Usage
-For Velocikey to take effect, there are two steps. First, when compiling your keyboard, you'll need to set `VELOCIKEY_ENABLE=yes` in `rules.mk`, e.g.:
+For Velocikey to take effect, there are two steps. First, when compiling your keyboard, add the following to your `rules.mk`:
 
-```
-MOUSEKEY_ENABLE = no
-STENO_ENABLE = no
-EXTRAKEY_ENABLE = yes
-VELOCIKEY_ENABLE = yes
+```make
+VELOCIKEY_ENABLE=yes
 ```
 
 Then, while using your keyboard, you need to also turn it on with the `VK_TOGG` keycode, which toggles the feature on and off.

@@ -2,7 +2,7 @@
 
 Quantum Painter is the standardised API for graphical displays. It currently includes support for basic drawing primitives, as well as custom images, animations, and fonts.
 
-Due to the complexity, there is no support for Quantum Painter on AVR-based boards.
+Due to its complexity, there is no support for Quantum Painter on AVR-based boards.
 
 To enable overall Quantum Painter to be built into your firmware, add the following to `rules.mk`:
 
@@ -11,10 +11,10 @@ QUANTUM_PAINTER_ENABLE = yes
 QUANTUM_PAINTER_DRIVERS += ......
 ```
 
-You will also likely need to select an appropriate driver in `rules.mk`, which is listed below.
+You will also likely need to select an appropriate driver in `rules.mk`, as listed below.
 
 ::: warning
-Quantum Painter is not currently integrated with system-level operations such as when the keyboard goes into suspend. Users will need to handle this manually at the current time.
+Quantum Painter is not currently integrated with system-level operations, such as when the keyboard goes into suspend. Users will need to handle this manually at the current time.
 :::
 
 The QMK CLI can be used to convert from normal images such as PNG files or animated GIFs, as well as fonts from TTF files.
@@ -50,7 +50,7 @@ Supported devices:
 | `QUANTUM_PAINTER_PIXDATA_BUFFER_SIZE`             | `1024`  | The limit of the amount of pixel data that can be transmitted in one transaction to the display. Higher values require more RAM on the MCU.                                                  |
 | `QUANTUM_PAINTER_SUPPORTS_256_PALETTE`            | `FALSE` | If 256-color palettes are supported. Requires significantly more RAM on the MCU.                                                                                                             |
 | `QUANTUM_PAINTER_SUPPORTS_NATIVE_COLORS`          | `FALSE` | If native color range is supported. Requires significantly more RAM on the MCU.                                                                                                              |
-| `QUANTUM_PAINTER_DEBUG`                           | _unset_ | Prints out significant amounts of debugging information to CONSOLE output. Significant performance degradation, use only for debugging.                                                      |
+| `QUANTUM_PAINTER_DEBUG`                           | _unset_ | Prints out significant amounts of debugging information to CONSOLE output. Significant performance degradation; use only for debugging.                                                      |
 | `QUANTUM_PAINTER_DEBUG_ENABLE_FLUSH_TASK_OUTPUT`  | _unset_ | By default, debug output is disabled while the internal task is flushing the display(s). If you want to keep it enabled, add this to your `config.h`. Note: Console will get clogged.        |
 
 
@@ -83,9 +83,9 @@ options:
   -v, --verbose         Turns on verbose output.
 ```
 
-The `INPUT` argument can be any image file loadable by Python's Pillow module. Common formats include PNG, or Animated GIF.
+The `INPUT` argument can be any image file loadable by Python's [Pillow module](https://pillow.readthedocs.io/en/stable/). Common formats include PNG or Animated GIF.
 
-The `OUTPUT` argument needs to be a directory, and will default to the same directory as the input argument.
+The `OUTPUT` argument needs to be a directory and will default to the same directory as the input argument.
 
 The `FORMAT` argument can be any of the following:
 
@@ -151,11 +151,11 @@ This command converts an intermediate font image to the QFF File Format.
 This command expects an image that conforms to the following format:
 
 * Top-left pixel (at `0,0`) is the "delimiter" color:
-    * Each glyph in the font starts when a pixel of this color is found on the first row
-    * The first row is discarded when converting to the QFF format
+    * Each glyph in the font starts when a pixel of this color is found on the first row.
+    * The first row is discarded when converting to the QFF format.
 * The number of delimited glyphs must match the supplied arguments to the command:
-    * The full ASCII set `0x20..0x7E` (if `--no-ascii` was not specified)
-    * The corresponding number of unicode glyphs if any were specified with `--unicode-glyphs`
+    * The full ASCII set `0x20..0x7E` (if `--no-ascii` was not specified).
+    * The corresponding number of unicode glyphs if any were specified with `--unicode-glyphs`.
 * The order of the glyphs matches the ASCII set, if any, followed by the Unicode glyph set, if any.
 
 **Usage**:
@@ -197,7 +197,7 @@ Writing /home/qmk/qmk_firmware/keyboards/my_keeb/generated/noto11.qff.c...
 
 ===== LCD
 
-Most TFT display panels use a 5-pin interface -- SPI SCK, SPI MOSI, SPI CS, D/C, and RST pins.
+Most TFT display panels use a 5-pin interface — SPI SCK, SPI MOSI, SPI CS, D/C, and RST pins.
 
 For these displays, QMK's `spi_master` must already be correctly configured for the platform you're building for.
 
@@ -229,7 +229,7 @@ The maximum number of displays can be configured by changing the following in yo
 #define GC9A01_NUM_DEVICES 3
 ```
 
-Native color format rgb565 is compatible with GC9A01
+Native color format rgb565 is compatible with GC9A01.
 
 ==== ILI9163
 
@@ -255,7 +255,7 @@ The maximum number of displays can be configured by changing the following in yo
 #define ILI9163_NUM_DEVICES 3
 ```
 
-Native color format rgb565 is compatible with ILI9163
+Native color format rgb565 is compatible with ILI9163.
 
 ==== ILI9341
 
@@ -281,7 +281,7 @@ The maximum number of displays can be configured by changing the following in yo
 #define ILI9341_NUM_DEVICES 3
 ```
 
-Native color format rgb565 is compatible with ILI9341
+Native color format rgb565 is compatible with ILI9341.
 
 ==== ILI9486
 
@@ -313,8 +313,8 @@ The maximum number of displays can be configured by changing the following in yo
 #define ILI9486_NUM_DEVICES 3
 ```
 
-Native color format rgb888 is compatible with ILI9486
-Native color format rgb565 is compatible with ILI9486 Waveshare
+Native color format rgb888 is compatible with ILI9486.
+Native color format rgb565 is compatible with ILI9486 Waveshare.
 
 ==== ILI9488
 
@@ -340,7 +340,7 @@ The maximum number of displays can be configured by changing the following in yo
 #define ILI9488_NUM_DEVICES 3
 ```
 
-Native color format rgb888 is compatible with ILI9488
+Native color format rgb888 is compatible with ILI9488.
 
 ==== ST7735
 
@@ -366,10 +366,10 @@ The maximum number of displays can be configured by changing the following in yo
 #define ST7735_NUM_DEVICES 3
 ```
 
-Native color format rgb565 is compatible with ST7735
+Native color format rgb565 is compatible with ST7735.
 
 ::: warning
-Some ST7735 devices are known to have different drawing offsets -- despite being a 132x162 pixel display controller internally, some display panels are only 80x160, or smaller. These may require an offset to be applied; see `qp_set_viewport_offsets` above for information on how to override the offsets if they aren't correctly rendered.
+Some ST7735 devices are known to have different drawing offsets compatible despite being a 132x162 pixel display controller internally, some display panels are only 80x160 or smaller. These may require an offset to be applied; see `qp_set_viewport_offsets` above for information on how to override the offsets if they aren't correctly rendered.
 :::
 
 ==== ST7789
@@ -399,18 +399,18 @@ The maximum number of displays can be configured by changing the following in yo
 Native color format rgb565 is compatible with ST7789
 
 ::: warning
-Some ST7789 devices are known to have different drawing offsets -- despite being a 240x320 pixel display controller internally, some display panels are only 240x240, or smaller. These may require an offset to be applied; see `qp_set_viewport_offsets` above for information on how to override the offsets if they aren't correctly rendered.
+Some ST7789 devices are known to have different drawing offsets — despite being a 240x320 pixel display controller internally, some display panels are only 240x240 or smaller. These may require an offset to be applied; see `qp_set_viewport_offsets` above for information on how to override the offsets if they aren't correctly rendered.
 :::
 
 :::::
 
 ===== OLED
 
-OLED displays tend to use 5-pin SPI when at larger resolutions, or when using color -- SPI SCK, SPI MOSI, SPI CS, D/C, and RST pins. Smaller OLEDs may use I2C instead.
+OLED displays tend to use 5-pin SPI when at larger resolutions, or when using color — SPI SCK, SPI MOSI, SPI CS, D/C, and RST pins. Smaller OLEDs may use I2C instead.
 
 When using these displays, either `spi_master` or `i2c_master` must already be correctly configured for both the platform and panel you're building for.
 
-For SPI, the pin assignments for SPI CS, D/C, and RST are specified during device construction -- for I2C the panel's address is specified instead.
+For SPI, the pin assignments for SPI CS, D/C, and RST are specified during device construction; for I2C, the panel's address is specified instead.
 
 :::::tabs
 
@@ -438,7 +438,7 @@ The maximum number of displays can be configured by changing the following in yo
 #define SSD1351_NUM_DEVICES 3
 ```
 
-Native color format rgb565 is compatible with SSD1351
+Native color format rgb565 is compatible with SSD1351.
 
 ==== SH1106
 
@@ -472,7 +472,7 @@ The maximum number of displays of each type can be configured by changing the fo
 #define SH1106_NUM_I2C_DEVICES 3
 ```
 
-Native color format mono2 is compatible with SH1106
+Native color format mono2 is compatible with SH1106.
 
 ==== SSD1306
 
@@ -482,7 +482,7 @@ SSD1306 and SH1106 are almost entirely identical, to the point of being indising
 
 ===== Surface
 
-Quantum Painter has a surface driver which is able to target a buffer in RAM. In general, surfaces keep track of the "dirty" region -- the area that has been drawn to since the last flush -- so that when transferring to the display they can transfer the minimal amount of data to achieve the end result.
+Quantum Painter has a surface driver which is able to target a buffer in RAM. In general, surfaces keep track of the "dirty" region — the area that has been drawn to since the last flush — so that, when transferring to the display, they can transfer the minimal amount of data to achieve the end result.
 
 ::: warning
 These generally require significant amounts of RAM, so at large sizes and/or higher bit depths, they may not be usable on all MCUs.
@@ -538,7 +538,7 @@ To transfer the contents of the surface to another display of the same pixel for
 bool qp_surface_draw(painter_device_t surface, painter_device_t display, uint16_t x, uint16_t y, bool entire_surface);
 ```
 
-The `surface` is the surface to copy out from. The `display` is the target display to draw into. `x` and `y` are the target location to draw the surface pixel data. Under normal circumstances, the location should be consistent, as the dirty region is calculated with respect to the `x` and `y` coordinates -- changing those will result in partial, overlapping draws. `entire_surface` whether the entire surface should be drawn, instead of just the dirty region.
+The `surface` is the surface to copy out from. The `display` is the target display to draw into. `x` and `y` are the target location to draw the surface pixel data. Under normal circumstances, the location should be consistent, as the dirty region is calculated with respect to the `x` and `y` coordinates — changing those will result in partial, overlapping draws. `entire_surface` whether the entire surface should be drawn, instead of just the dirty region.
 
 ::: warning
 The surface and display panel must have the same native pixel format.
@@ -552,7 +552,7 @@ Calling `qp_flush()` on the surface resets its dirty region. Copying the surface
 
 ## Quantum Painter Drawing API {#quantum-painter-api}
 
-All APIs require a `painter_device_t` object as their first parameter -- this object comes from the specific device initialisation, and instructions on creating it can be found in each driver's respective section.
+All APIs require a `painter_device_t` object as their first parameter — this object comes from the specific device initialisation, and instructions on creating it can be found in each driver's respective section.
 
 To use any of the APIs, you need to include `qp.h`:
 ```c
@@ -563,7 +563,7 @@ To use any of the APIs, you need to include `qp.h`:
 
 ===== General Notes
 
-The coordinate system used in Quantum Painter generally accepts `left`, `top`, `right`, and `bottom` instead of x/y/width/height, and each coordinate is inclusive of where pixels should be drawn. This is required as some datatypes used by display panels have a maximum value of `255` -- for any value or geometry extent that matches `256`, this would be represented as a `0`, instead.
+The coordinate system used in Quantum Painter generally accepts `left`, `top`, `right`, and `bottom` instead of x/y/width/height, and each coordinate is inclusive of where pixels should be drawn. This is required as some datatypes used by display panels have a maximum value of `255` — for any value or geometry extent that matches `256`, this would be represented as a `0`, instead.
 
 ::: tip
 Drawing a horizontal line 8 pixels long, starting from 4 pixels inside the left side of the display, will need `left=4`, `right=11`.
@@ -646,10 +646,10 @@ The `qp_clear` function clears the display's screen.
 bool qp_flush(painter_device_t device);
 ```
 
-The `qp_flush` function ensures that all drawing operations are "pushed" to the display. This should be done as the last operation whenever a sequence of draws occur, and guarantees that any changes are applied.
+The `qp_flush` function ensures that all drawing operations are "pushed" to the display. This should be done as the last operation whenever a sequence of draws occur to guarantee that any changes are applied.
 
 ::: warning
-Some display panels may seem to work even without a call to `qp_flush` -- this may be because the driver cannot queue drawing operations and needs to display them immediately when invoked. In general, calling `qp_flush` at the end is still considered "best practice".
+Some display panels may seem to work even without a call to `qp_flush` — this may be because the driver cannot queue drawing operations and needs to display them immediately when invoked. In general, calling `qp_flush` at the end is still considered "best practice".
 :::
 
 ```c
@@ -794,7 +794,7 @@ Making an image available for use requires compiling it into your firmware. To d
 SRC += my_image.qgf.c
 ```
 
-...and in your `keymap.c`, you'd add to the top of the file:
+and in your `keymap.c`, you'd add to the top of the file:
 ```c
 #include "my_image.qgf.h"
 ```
@@ -1029,7 +1029,7 @@ void qp_get_geometry(painter_device_t device, uint16_t *width, uint16_t *height,
 void qp_set_viewport_offsets(painter_device_t device, uint16_t offset_x, uint16_t offset_y);
 ```
 
-The `qp_set_viewport_offsets` function can be used to offset all subsequent drawing operations. For example, if a display controller is internally 240x320, but the display panel is 240x240 and has a Y offset of 80 pixels, you could invoke `qp_set_viewport_offsets(display, 0, 80);` and the drawing positioning would be corrected.
+The `qp_set_viewport_offsets` function can be used to offset all subsequent drawing operations. For example, if a display controller is internally 240x320, but the display panel is 240x240 and has a Y offset of 80 pixels, you could invoke `qp_set_viewport_offsets(display, 0, 80);` to correct the drawing positioning.
 
 ==== Set Viewport
 
@@ -1045,12 +1045,15 @@ The `qp_viewport` function controls where raw pixel data is written to.
 bool qp_pixdata(painter_device_t device, const void *pixel_data, uint32_t native_pixel_count);
 ```
 
-The `qp_pixdata` function allows raw pixel data to be streamed to the display. It requires a native pixel count rather than the number of bytes to transfer, to ensure display panel data alignment is respected. E.g. for display panels using RGB565 internal format, sending 10 pixels will result in 20 bytes of transfer.
+The `qp_pixdata` function allows raw pixel data to be streamed to the display. It requires a native pixel count rather than the number of bytes to transfer, to ensure display panel data alignment is respected. For example, for display panels using RGB565 internal format, sending 10 pixels will result in 20 bytes of transfer.
 
 ::: warning
-Under normal circumstances, users will not need to manually call either `qp_viewport` or `qp_pixdata`. These allow for writing of raw pixel information, in the display panel's native format, to the area defined by the viewport.
+Under normal circumstances, users will not need to manually call either `qp_viewport` or `qp_pixdata`. These allow for writing of raw pixel information in the display panel's native format to the area defined by the viewport.
 :::
 
 :::::
 
 ::::::
+
+
+<!-- The `previous page` link is missing, and the `next page` link links to introduction (newbs) instead, but I don't know how to fix that. -->

@@ -2,11 +2,11 @@
 
 This feature allows you to use LED matrices driven by external drivers. It hooks into the backlight system so you can use the same keycodes as backlighting to control it.
 
-If you want to use RGB LED's you should use the [RGB Matrix Subsystem](rgb_matrix) instead.
+If you want to use RGB LEDs, you should use the [RGB Matrix Subsystem](rgb_matrix) instead.
 
 ## Driver Configuration {#driver-configuration}
 
-LED Matrix is an abstraction layer on top of an underlying LED driver API. The list of supported LED drivers is below; see the respective documentation for information on how to configure the driver.
+LED Matrix is an abstraction layer on top of an underlying LED driver API. The list of supported LED drivers is given below; see the respective documentation for information on how to configure the driver.
 
 |Driver                               |Max LEDs|
 |-------------------------------------|--------|
@@ -57,11 +57,11 @@ x = 224 / (NUMBER_OF_COLS - 1) * COL_POSITION
 y =  64 / (NUMBER_OF_ROWS - 1) * ROW_POSITION
 ```
 
-Where NUMBER_OF_COLS, NUMBER_OF_ROWS, COL_POSITION, & ROW_POSITION are all based on the physical layout of your keyboard, not the electrical layout.
+Where `NUMBER_OF_COLS`, `NUMBER_OF_ROWS`, `COL_POSITION`, & `ROW_POSITION` are all based on the physical layout of your keyboard, not the electrical layout.
 
-As mentioned earlier, the center of the keyboard by default is expected to be `{ 112, 32 }`, but this can be changed if you want to more accurately calculate the LED's physical `{ x, y }` positions. Keyboard designers can implement `#define LED_MATRIX_CENTER { 112, 32 }` in their config.h file with the new center point of the keyboard, or where they want it to be allowing more possibilities for the `{ x, y }` values. Do note that the maximum value for x or y is 255, and the recommended maximum is 224 as this gives animations runoff room before they reset.
+As mentioned earlier, the center of the keyboard by default is expected to be `{ 112, 32 }`, but this can be changed if you want to more accurately calculate the LED's physical `{ x, y }` positions. Keyboard designers can implement `#define LED_MATRIX_CENTER { 112, 32 }` in their `config.h` file with the new center point of the keyboard, or where they want it to be, allowing more possibilities for the `{ x, y }` values. Do note that the maximum value for `x` and `y` is 255, and the recommended maximum is 224 as this gives animations runoff room before they reset.
 
-`// LED Index to Flag` is a bitmask, whether or not a certain LEDs is of a certain type. It is recommended that LEDs are set to only 1 type.
+`// LED Index to Flag` is a bitmask of whether or not a certain LEDs is of a certain type. It is recommended that LEDs are set to only 1 type.
 
 ## Flags {#flags}
 
@@ -156,10 +156,10 @@ These modes introduce additional logic that can increase firmware size.
 
 ## Custom LED Matrix Effects {#custom-led-matrix-effects}
 
-By setting `LED_MATRIX_CUSTOM_USER = yes` in `rules.mk`, new effects can be defined directly from your keymap or userspace, without having to edit any QMK core files. To declare new effects, create a `led_matrix_user.inc` file in the user keymap directory or userspace folder.
+By setting `LED_MATRIX_CUSTOM_USER = yes` in `rules.mk`, new effects can be defined directly from your keymap or userspace without having to edit any QMK core files. To declare new effects, create a `led_matrix_user.inc` file in the user keymap directory or userspace folder.
 
 ::: tip
-Hardware maintainers who want to limit custom effects to a specific keyboard can create a `led_matrix_kb.inc` file in the root of the keyboard directory, and add `LED_MATRIX_CUSTOM_KB = yes` to the keyboard level `rules.mk`.
+Hardware maintainers who want to limit custom effects to a specific keyboard can create a `led_matrix_kb.inc` file in the root of the keyboard directory and add `LED_MATRIX_CUSTOM_KB = yes` to the keyboard level `rules.mk`.
 :::
 
 ```c
@@ -234,7 +234,7 @@ For inspiration and examples, check out the built-in effects under `quantum/led_
 
 ## EEPROM storage {#eeprom-storage}
 
-The EEPROM for it is currently shared with the RGB Matrix system (it's generally assumed only one feature would be used at a time).
+The EEPROM for this feature is currently shared with the RGB Matrix system (as it is generally assumed that only one of these features would be used at a time).
 
 ## Callbacks {#callbacks}
 
@@ -251,7 +251,7 @@ bool led_matrix_indicators_kb(void) {
 }
 ```
 
-In addition, there are the advanced indicator functions.  These are aimed at those with heavily customized displays, where rendering every LED per cycle is expensive.  This includes a special macro to help make this easier to use: `LED_MATRIX_INDICATOR_SET_VALUE(i, v)`.
+In addition, there are the advanced indicator functions. These are aimed at those with heavily customized displays, where rendering every LED per cycle is expensive. This includes a special macro to help make this easier to use: `LED_MATRIX_INDICATOR_SET_VALUE(i, v)`.
 
 ```c
 void led_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {

@@ -18,13 +18,17 @@ If you use more than one keyboard with a similar keymap, you might see the benef
 
 All this only happens when you build a keymap named `<name>`, like this:
 
-    make planck:<name>
+```
+make planck:<name>
+```
 
 For example,
 
-    make planck:jack
+```
+make planck:jack
+```
 
-Will include the `/users/jack/` folder in the path, along with `/users/jack/rules.mk`.  
+will include the `/users/jack/` folder in the path, along with `/users/jack/rules.mk`.  
 
 ::: warning
 This `name` can be [overridden](#override-default-userspace), if needed.  
@@ -32,13 +36,15 @@ This `name` can be [overridden](#override-default-userspace), if needed.
 
 ## `Rules.mk`
 
-The `rules.mk` is one of the two files that gets processed automatically.  This is how you add additional source files (such as  `<name>.c`) will be added when compiling.
+The `rules.mk` is one of the two files that gets processed automatically.  This is how you add additional source files (such as `<name>.c`) that will be added when compiling.
 
-It's highly recommended that you use `<name>.c` as the default source file to be added. And to add it, you need to add it the SRC in `rules.mk` like this:
+It's highly recommended that you use `<name>.c` as the default source file to be added. To add it, you need to add it the SRC in `rules.mk` like this:
 
-    SRC += <name>.c
+```make
+SRC += <name>.c
+```
 
-Additional files may be added in the same way - it's recommended you have one named `<name>`.c/.h to start off with, though. 
+Additional files may be added in the same way — it's recommended you have one named `<name>.c`/`.h` to start off with, though. 
 
 The `/users/<name>/rules.mk` file will be included in the build _after_ the `rules.mk` from your keymap. This allows you to have features in your userspace `rules.mk` that depend on individual QMK features that may or may not be available on a specific keyboard. 
 
@@ -60,7 +66,7 @@ endif
 
 ### Override default userspace
 
-By default the userspace used will be the same as the keymap name. In some situations this isn't desirable. For instance, if you use the [layout](feature_layouts) feature you can't use the same name for different keymaps (e.g. ANSI and ISO). You can name your layouts `mylayout-ansi` and `mylayout-iso` and add the following line to your layout's `rules.mk`:
+By default, the userspace used will be the same as the keymap name. In some situations, this isn't desirable. For instance, if you use the [layout](feature_layouts) feature, you can't use the same name for different keymaps (e.g. ANSI and ISO). You can name your layouts `mylayout-ansi` and `mylayout-iso` and add the following line to your layout's `rules.mk`:
 
 ```
 USER_NAME := mylayout
@@ -70,12 +76,13 @@ This is also useful if you have multiple different keyboards with different feat
 
 ## Configuration Options (`config.h`)
 
-Additionally, `config.h` here will be processed like the same file in your keymap folder.  This is handled separately from the `<name>.h` file.
+Additionally, `config.h` here will be processed like the same file in your keymap folder. This is handled separately from the `<name>.h` file.
 
-The reason for this, is that `<name>.h` won't be added in time to add settings (such as `#define TAPPING_TERM 100`), and including the `<name.h>` file in any `config.h` files will result in compile issues.
+The reason for this is that `<name>.h` won't be added in time to add settings (such as `#define TAPPING_TERM 100`), and including the `<name.h>` file in any `config.h` files will result in compile issues.
 
-!>You should use the `config.h` for [configuration options](config_options), and the `<name>.h` file for user or keymap specific settings (such as the enum for layer or keycodes)
-
+::: tip
+You should use the `config.h` for [configuration options](config_options), and the `<name>.h` file for user or keymap specific settings (such as the enum for layer or keycodes).
+:::
 
 ## Readme (`readme.md`)
 
@@ -101,34 +108,37 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 You'd want to replace the year, name, email and GitHub username with your info. 
 
-Additionally, this is a good place to document your code, if you wish to share it with others. 
+Additionally, this is a good place to document your code if you wish to share it with others. 
 
 ## Build All Keyboards That Support a Specific Keymap
 
 Want to check all your keymaps build in a single command? You can run:
 
-    make all:<name>
+```
+make all:<name>
+```
 
 For example,
 
-    make all:jack
+```
+make all:jack
+```
 
-This is ideal for when you want ensure everything compiles successfully when preparing a [_Pull request_](https://github.com/qmk/qmk_firmware/pulls).
+This is ideal for when you want ensure everything compiles successfully when preparing a [_Pull Request_](https://github.com/qmk/qmk_firmware/pulls).
 
 ## Examples
 
-For a brief example, checkout [`/users/_example/`](https://github.com/qmk/qmk_firmware/tree/master/users/_example).  
-For a more complicated example, checkout [`/users/drashna/`](https://github.com/qmk/qmk_firmware/tree/master/users/drashna)'s userspace.
+For a brief example, check out [`/users/_example/`](https://github.com/qmk/qmk_firmware/tree/master/users/_example). 
+For a more complicated example, check out [`/users/drashna/`](https://github.com/qmk/qmk_firmware/tree/master/users/drashna)'s userspace.
 
 
 ### Customized Functions
 
-QMK has a bunch of [functions](custom_quantum_functions) that have [`_quantum`, `_kb`, and `_user` versions](custom_quantum_functions#a-word-on-core-vs-keyboards-vs-keymap) that you can use.  You will pretty much always want to use the user version of these functions.  But the problem is that if you use them in your userspace, then you don't have a version that you can use in your keymap. 
+QMK has a bunch of [functions](custom_quantum_functions) that have [`_quantum`, `_kb`, and `_user` versions](custom_quantum_functions#a-word-on-core-vs-keyboards-vs-keymap) that you can use. You will pretty much always want to use the user version of these functions, but the problem is that if you use them in your userspace, then you don't have a version that you can use in your keymap. 
 
 However, you can actually add support for keymap version, so that you can use it in both your userspace and your keymap! 
 
-
-For instance, let's look at the `layer_state_set_user()` function.  You can enable the [Tri Layer State](ref_functions#olkb-tri-layers) functionality on all of your boards, while also retaining the Tri Layer functionality in your `keymap.c` files. 
+For instance, let's look at the `layer_state_set_user()` function. You can enable the [Tri Layer State](ref_functions#olkb-tri-layers) functionality on all of your boards whilst also retaining the Tri Layer functionality in your `keymap.c` files.
 
 In your `<name.c>` file, you'd want to add this: 
 ```c
@@ -142,27 +152,27 @@ layer_state_t layer_state_set_user (layer_state_t state) {
   return layer_state_set_keymap (state);
 }
 ```
-The `__attribute__ ((weak))` part tells the compiler that this is a placeholder function that can then be replaced by a version in your `keymap.c`.  That way, you don't need to add it to your `keymap.c`, but if you do, you won't get any conflicts because the function is the same name. 
+The `__attribute__ ((weak))` part tells the compiler that this is a placeholder function that can then be replaced by a version in your `keymap.c`. That way, you don't *need* to add it to your `keymap.c`, but if you do, you won't get any conflicts because the function is the same name. 
 
-The `_keymap` part here doesn't matter, it just needs to be something other than `_quantum`, `_kb`, or `_user`, since those are already in use. So you could use `layer_state_set_mine`, `layer_state_set_fn`, or anything else.
+The `_keymap` part here doesn't matter, it just needs to be something other than `_quantum`, `_kb`, and `_user`, since those are already in use. So you could use `layer_state_set_mine`, `layer_state_set_fn`, or anything else.
 
-You can see a list of this and other common functions in [`template.c`](https://github.com/qmk/qmk_firmware/blob/master/users/drashna/template.c) in [`users/drashna`](https://github.com/qmk/qmk_firmware/tree/master/users/drashna).
+You can see a list of this, and other common functions, in [`template.c`](https://github.com/qmk/qmk_firmware/blob/master/users/drashna/template.c) in [`users/drashna`](https://github.com/qmk/qmk_firmware/tree/master/users/drashna).
 
 ### Custom Features
 
 Since the Userspace feature can support a staggering number of boards, you may have boards that you want to enable certain functionality for, but not for others. And you can actually create "features" that you can enable or disable in your own userspace.  
 
-For instance, if you wanted to have a bunch of macros available, but only on certain boards (to save space), you could "hide" them being a `#ifdef MACROS_ENABLED`, and then enable it per board.  To do this, add this to your rules.mk
+For instance, if you wanted to have a bunch of macros available, but only on certain boards (to save space), you could "hide" them being a `#ifdef MACROS_ENABLED`, and then enable it per board. To do this, add this to your `rules.mk`:
 ```make
 ifeq ($(strip $(MACROS_ENABLED)), yes)
     OPT_DEFS += -DMACROS_ENABLED
 endif
 ```
-The `OPT_DEFS` setting causes `MACROS_ENABLED` to be defined for your keyboards (note the `-D` in front of the name), and you could use `#ifdef MACROS_ENABLED` to check the status in your c/h files, and handle that code based on that. 
+The `OPT_DEFS` setting causes `MACROS_ENABLED` to be defined for your keyboards (note the `-D` in front of the name), and you could use `#ifdef MACROS_ENABLED` to check the status in your `.c`/`.h` files, and handle that code based on that.
 
-Then you add `MACROS_ENABLED = yes` to the `rules.mk` for you keymap to enable this feature and the code in your userspace.
+Then, add `MACROS_ENABLED = yes` to `rules.mk` for your keymap to enable this feature and the code in your userspace.
 
-And in your `process_record_user` function, you'd do something like this: 
+In your `process_record_user` function, you'd then do something like this:
 ```c
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -183,16 +193,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
-
 ### Consolidated Macros
 
-If you wanted to consolidate macros and other functions into your userspace for all of your keymaps, you can do that.  This builds upon the [Customized Functions](#customized-functions) example above. This lets you maintain a bunch of macros that are shared between the different keyboards, and allow for keyboard specific macros, too. 
+If you wanted to consolidate macros and other functions into your userspace for all of your keymaps, you can do that. This builds upon the [Customized Functions](#customized-functions) example above. This lets you maintain a bunch of macros that are shared between the different keyboards, but still allow for keyboard-specific macros, too. 
 
-First, you'd want to go through all of your `keymap.c` files and replace `process_record_user` with `process_record_keymap` instead.   This way, you can still use keyboard specific codes on those boards, and use your custom "global" keycodes as well.   You'll also want to replace `SAFE_RANGE` with `NEW_SAFE_RANGE` so that you wont have any overlapping keycodes
+First, you'd want to go through all of your `keymap.c` files and replace `process_record_user` with `process_record_keymap` instead. This way, you can still use keyboard-specific codes on those boards, and use your custom "global" keycodes as well. You'll also want to replace `SAFE_RANGE` with `NEW_SAFE_RANGE` so that you won't have any overlapping keycodes.
 
-Then add `#include "<name>.h"` to all of your keymap.c files.  This allows you to use these new keycodes without having to redefine them in each keymap.
+Then, add `#include "<name>.h"` to all of your `keymap.c` files. This allows you to use these new keycodes without having to redefine them in each keymap.
 
-Once you've done that, you'll want to set the keycode definitions that you need to the `<name>.h`  file. For instance:
+Once you've done that, you'll want to set the keycode definitions that you need to the `<name>.h` file. For instance:
 ```c
 #pragma once
 
@@ -207,7 +216,7 @@ enum custom_keycodes {
 };
 ```
 
-Now you want to create the `<name>.c` file, and add this content to it:
+Now, you want to create the `<name>.c` file, and add this content to it:
 
 ```c
 #include "<name>.h"
@@ -244,7 +253,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
-For boards that may not have a shift button (such as on a macro pad), we need a way to always include the bootloader option.  To do that, add the following to the `rules.mk` in your userspace folder: 
+For boards that may not have a shift button (such as on a macro pad), we need a way to always include the bootloader option. To do that, add the following to the `rules.mk` in your userspace folder:
 
 ```make
 ifeq ($(strip $(FLASH_BOOTLOADER)), yes)
@@ -252,12 +261,12 @@ ifeq ($(strip $(FLASH_BOOTLOADER)), yes)
 endif
 ```
 
-This will add a new `KC_MAKE` keycode that can be used in any of your keymaps.  And this keycode will output `make <keyboard>:<keymap>`, making frequent compiling easier.  And this will work with any keyboard and any keymap as it will output the current boards info, so that you don't have to type this out every time.
+This will add a new `KC_MAKE` keycode that can be used in any of your keymaps. This keycode will output `make <keyboard>:<keymap>`, making frequent compiling easier. This will work with any keyboard and any keymap, as it will output the current board's info, so that you don't have to type this out every time.
 
-Also, holding Shift will add the flash target (`:flash`) to the command.  Holding Control will add some commands that will speed up compiling time by processing multiple files at once. 
+Also, holding shift will add the flash target (`:flash`) to the command.  Holding control will add some commands that will speed up compiling time by processing multiple files at once. 
 
-And for the boards that lack a shift key, or that you want to always attempt the flashing part, you can add `FLASH_BOOTLOADER = yes` to the `rules.mk` of that keymap.
+For the boards that lack a shift key, or that you want to always attempt the flashing part, you can additionally add `FLASH_BOOTLOADER = yes` to the `rules.mk` of that keymap.
 
 ::: tip
-This should flash the newly compiled firmware automatically, using the correct utility, based on the bootloader settings (or default to just generating the HEX file). However, it should be noted that this may not work on all systems. AVRDUDE doesn't work on WSL, namely.
+This should flash the newly compiled firmware automatically, using the correct utility, based on the bootloader settings (or default to just generating the HEX file). However, it should be noted that this may not work on all systems; AVRDUDE doesn't work on WSL, namely.
 :::
