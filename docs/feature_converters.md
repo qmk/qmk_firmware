@@ -77,7 +77,7 @@ If a board currently supported in QMK uses a [Pro Micro](https://www.sparkfun.co
 |------------------------------------------------------------------------------------------|-------------------|
 | [Proton C](https://qmk.fm/proton-c/)                                                     | `proton_c`        |
 | [Adafruit KB2040](https://learn.adafruit.com/adafruit-kb2040)                            | `kb2040`          |
-| [SparkFun Pro Micro - RP2040](https://www.sparkfun.com/products/18288)                   | `sparkfun_pm2040` |
+| [SparkFun Pro Micro — RP2040](https://www.sparkfun.com/products/18288)                   | `sparkfun_pm2040` |
 | [Blok](https://boardsource.xyz/store/628b95b494dfa308a6581622)                           | `blok`            |
 | [Bit-C PRO](https://nullbits.co/bit-c-pro)                                               | `bit_c_pro`       |
 | [STeMCell](https://github.com/megamind4089/STeMCell)                                     | `stemcell`        |
@@ -122,7 +122,7 @@ The following defaults are based on what has been implemented for STM32 boards.
 | [RGB Lighting](features/rgblight)          | Disabled                                                                                                         |
 | [Backlight](features/backlight)            | Forces [task driven PWM](features/backlight#software-pwm-driver) until ARM can provide automatic configuration |
 | USB Host (e.g. USB-USB converter)            | Not supported (USB host code is AVR specific and is not currently supported on ARM)                              |
-| [Split keyboards](features/split_keyboard) | Partial - heavily dependent on enabled features                                                                  |
+| [Split keyboards](features/split_keyboard) | Partial — heavily dependent on enabled features                                                                  |
 
 ### Adafruit KB2040 {#kb2040}
 
@@ -133,7 +133,7 @@ The following defaults are based on what has been implemented for [RP2040](platf
 | [RGB Lighting](features/rgblight)          | Enabled via `PIO` vendor driver                                                                                  |
 | [Backlight](features/backlight)            | Forces [task driven PWM](features/backlight#software-pwm-driver) until ARM can provide automatic configuration |
 | USB Host (e.g. USB-USB converter)            | Not supported (USB host code is AVR specific and is not currently supported on ARM)                              |
-| [Split keyboards](features/split_keyboard) | Partial via `PIO` vendor driver - heavily dependent on enabled features                                          |
+| [Split keyboards](features/split_keyboard) | Partial via `PIO` vendor driver — heavily dependent on enabled features                                          |
 
 ### SparkFun Pro Micro - RP2040, Blok, Bit-C PRO and Michi {#sparkfun_pm2040 }
 
@@ -158,7 +158,7 @@ STeMCell has support to swap UART and I2C pins to enable single-wire uart commun
 
 ### Bonsai C4 {#bonsai_c4}
 
-The Bonsai C4 only has one on-board LED (B2), and by default, both the Pro Micro TXLED (D5) and RXLED (B0) are mapped to it. If you want only one of them mapped, you can undefine one and redefine it to another pin by adding these line to your `config.h`:
+The Bonsai C4 only has one on-board LED (B2), and by default, both the Pro Micro TXLED (D5) and RXLED (B0) are mapped to it. If you want only one of them mapped, you can undefine one and redefine it to another pin by adding these lines to your `config.h`:
 
 ```c
 #undef B0
@@ -194,8 +194,8 @@ Converter summary:
 
 ### STeMCell {#stemcell}_elite
 
-Identical to [Pro Micro - STeMCell](#stemcell) with support for the additional bottom row of pins.
+Identical to [Pro Micro — STeMCell](#stemcell), with support for the additional bottom row of pins.
 
 ### RP2040 Community Edition {#rp2040_ce_elite}
 
-Identical to [Pro Micro - RP2040 Community Edition](#rp2040_ce) with support for the additional bottom row of pins.
+Identical to [Pro Micro — RP2040 Community Edition](#rp2040_ce), with support for the additional bottom row of pins.

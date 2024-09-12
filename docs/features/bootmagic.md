@@ -1,8 +1,8 @@
 # Bootmagic {#bootmagic}
 
-The Bootmagic feature that only handles jumping into the bootloader. This is great for boards that don't have a physical reset button, giving you a way to jump into the bootloader.
+The Bootmagic feature handles jumping into the bootloader. This is great for boards that don't have a physical reset button, giving you a way to jump into the bootloader.
 
-On some keyboards Bootmagic is disabled by default. If this is the case, it must be explicitly enabled in your `rules.mk` with:
+On some keyboards, Bootmagic is disabled by default. If this is the case, it must be explicitly enabled in your `rules.mk` with:
 
 ```make
 BOOTMAGIC_ENABLE = yes
@@ -15,9 +15,9 @@ Additionally, you may want to specify which key to use. This is especially usefu
 #define BOOTMAGIC_COLUMN 1
 ```
 
-By default, these are set to 0 and 0, which is usually the "ESC" key on a majority of keyboards.
+By default, these are set to 0 and 0, which is usually the `ESC` key on a majority of keyboards.
 
-And to trigger the bootloader, you hold this key down when plugging the keyboard in. Just the single key.
+To trigger the bootloader, hold this key down when plugging the keyboard in. Just the single key.
 
 ::: warning
 Using Bootmagic will **always reset** the EEPROM, so you will lose any settings that have been saved.
@@ -59,9 +59,9 @@ These values are not set by default.
 
 ## Advanced Bootmagic
 
-The `bootmagic_scan` function is defined weakly, so that you can replace this in your code, if you need. A great example of this is the Zeal60 boards that have some additional handling needed.
+The `bootmagic_scan` function is defined weakly so that you can replace this in your code if you need. A great example of this is the Zeal60 boards that have some additional handling needed.
 
-To replace the function, all you need to do is add something like this to your code:
+To replace this function, all you need to do is to add something like this to your code:
 
 ```c
 void bootmagic_scan(void) {
@@ -76,7 +76,7 @@ void bootmagic_scan(void) {
 }
 ```
 
-You can define additional logic here. For instance, resetting the EEPROM or requiring additional keys to be pressed to trigger Bootmagic. Keep in mind that `bootmagic_scan` is called before a majority of features are initialized in the firmware.
+You can define additional logic here, for instance, resetting the EEPROM or requiring additional keys to be pressed to trigger Bootmagic. Keep in mind that `bootmagic_scan` is called before a majority of features are initialized in the firmware.
 
 ## Addenda
 

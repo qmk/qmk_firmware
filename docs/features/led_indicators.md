@@ -36,7 +36,7 @@ To configure the indicators, `#define` these in your `config.h`:
 |`LED_SCROLL_LOCK_PIN`|*Not defined*|The pin that controls the `Scroll Lock` LED|
 |`LED_COMPOSE_PIN`    |*Not defined*|The pin that controls the `Compose` LED    |
 |`LED_KANA_PIN`       |*Not defined*|The pin that controls the `Kana` LED       |
-|`LED_PIN_ON_STATE`   |`1`          |The state of the indicator pins when the LED is "on" - `1` for high, `0` for low|
+|`LED_PIN_ON_STATE`   |`1`          |The state of the indicator pins when the LED is "on" — `1` for high, `0` for low|
 
 Unless you are designing your own keyboard, you generally should not need to change the above config options.
 
@@ -74,7 +74,7 @@ bool led_update_kb(led_t led_state) {
 
 ### Example of user LED update implementation
 
-This is an incomplete example will play a sound if Caps Lock is turned on or off. It returns `true` to allow keyboard LED function to maintain their state.
+This is an incomplete example that will play a sound if Caps Lock is turned on or off. It returns `true` to allow keyboard LED function to maintain their state.
 
 ```c
 #ifdef AUDIO_ENABLE
@@ -106,8 +106,7 @@ bool caps = host_keyboard_led_state().caps_lock;
 
 This function writes the LED state to the actual hardware. Call it manually
 from your `led_update_*()` callbacks to modify the handling of the standard
-keyboard LEDs.
-For example when repurposing a standard LED indicator as layer indicator.
+keyboard LEDs, for example, when repurposing a standard LED indicator as layer indicator.
 
 ## Setting Physical LED State
 
@@ -117,6 +116,6 @@ Some keyboard implementations provide convenient methods for setting the state o
 
 The Ergodox implementations provide `ergodox_right_led_1`/`2`/`3_on`/`off()` to turn individual LEDs on or off, as well as `ergodox_right_led_on`/`off(uint8_t led)` to turn them on or off by their index.
 
-In addition, it is possible to specify the brightness level of all LEDs with `ergodox_led_all_set(uint8_t n)`; of individual LEDs with `ergodox_right_led_1`/`2`/`3_set(uint8_t n)`; or by index with `ergodox_right_led_set(uint8_t led, uint8_t n)`.
+It is also possible to specify the brightness level of all LEDs with `ergodox_led_all_set(uint8_t n)`; of individual LEDs with `ergodox_right_led_1`/`2`/`3_set(uint8_t n)`; or by index with `ergodox_right_led_set(uint8_t led, uint8_t n)`.
 
 Ergodox boards also define `LED_BRIGHTNESS_LO` for the lowest brightness and `LED_BRIGHTNESS_HI` for the highest brightness (which is the default).

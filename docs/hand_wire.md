@@ -4,7 +4,7 @@
 
 You will need: (where *x* is the number of keys on your planned keyboard)
 
-* QMK compatible microcontroller board (Teensy, Pro-Micro, QMK Proton C etc.)
+* QMK compatible microcontroller board (Teensy, Pro Micro, QMK Proton C etc.)
 * *x* keyswitches (MX, Matias, Gateron, etc)
 * *x* through hole diodes
 * Keyboard plate and plate mount stabilisers

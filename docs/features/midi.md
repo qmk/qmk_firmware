@@ -8,11 +8,11 @@ First, enable MIDI by adding the following to your `rules.mk`:
 MIDI_ENABLE = yes
 ```
 
-There are two MIDI systems in QMK: basic and advanced. With basic MIDI you will only be able to send Note On and Note Off messages using the note keycodes, meaning that keycodes like `MI_OCTU` and `MI_OCTD` will not work. Advanced MIDI allows you to do things like octave shifts, channel changes, velocity changes, modulation, and more.
+There are two MIDI systems in QMK: basic and advanced. With basic MIDI, you will only be able to send Note On and Note Off messages using the note keycodes, meaning that keycodes like `MI_OCTU` and `MI_OCTD` will not work. Advanced MIDI allows you to do things like octave shifts, channel changes, velocity changes, modulation, and more.
 
 ### Caveats
 
-MIDI requires 2 USB endpoints and as such may not work on some hardware such as V-USB controllers.
+MIDI requires 2 USB endpoints and as such, may not work on some hardware, such as V-USB controllers.
 
 ### Basic MIDI
 
@@ -32,12 +32,12 @@ To enable advanced MIDI, add the following to your `config.h`:
 
 #### Sending Control Change (CC) Messages
 
-If you're aiming to emulate the features of something like a Launchpad or other MIDI controller you'll need to access the internal MIDI device directly.
+If you're aiming to emulate the features of something like a Launchpad or other MIDI controllers, you'll need to access the internal MIDI device directly.
 
-Because there are so many possible CC messages, not all of them are implemented as keycodes. Additionally, you might need to provide more than just two values that you would get from a keycode (pressed and released) - for example, the analog values from a fader or a potentiometer. So, you will need to implement [custom keycodes](../feature_macros) if you want to use them in your keymap directly using `process_record_user()`.
+Because there are so many possible CC messages, not all of them are implemented as keycodes. Additionally, you might need to provide more than just two values that you would get from a keycode (pressed and released) — for example, the analog values from a fader or a potentiometer. So, you will need to implement [custom keycodes](../feature_macros) if you want to use them in your keymap directly using `process_record_user()`.
 
 
-For reference of all the possible control code numbers see [MIDI Specification](#midi-specification)
+For reference of all the possible control code numbers, see [MIDI Specification](#midi-specification).
 
 #### Example code for using Generic On Off Switches as per MIDI Specification.
 ```c

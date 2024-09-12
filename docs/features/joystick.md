@@ -12,7 +12,7 @@ Add the following to your `rules.mk`:
 JOYSTICK_ENABLE = yes
 ```
 
-By default the joystick driver is `analog`, but you can change this with:
+By default, the joystick driver is `analog`, but you can change this with:
 
 ```make
 JOYSTICK_DRIVER = digital
@@ -34,7 +34,7 @@ By default, two axes and eight buttons are defined, with a reported resolution o
 ```
 
 ::: tip
-You must define at least one button or axis. Also note that the maximum ADC resolution of the supported AVR MCUs is 10-bit, and 12-bit for most STM32 MCUs.
+You must define at least one button or axis. Also note that the maximum ADC resolution is 10-bit for the supported AVR MCUs, and 12-bit for most STM32 MCUs.
 :::
 
 ### Axes {#axes}

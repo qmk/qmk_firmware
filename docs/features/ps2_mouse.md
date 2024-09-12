@@ -4,7 +4,7 @@ Its possible to hook up a PS/2 mouse (for example touchpads or trackpoints) to y
 
 To hook up a Trackpoint, you need to obtain a Trackpoint module (i.e. harvest from a Thinkpad keyboard), identify the function of each pin of the module, and make the necessary circuitry between controller and Trackpoint module. For more information, please refer to [Trackpoint Hardware](https://deskthority.net/wiki/TrackPoint_Hardware) page on Deskthority Wiki.
 
-There are three available modes for hooking up PS/2 devices: USART (best), interrupts (better) or busywait (not recommended).
+There are three available modes for hooking up PS/2 devices: USART (best), interrupts (better), and busywait (not recommended).
 
 ## The Circuitry between Trackpoint and Controller {#the-circuitry-between-trackpoint-and-controller}
 
@@ -26,9 +26,9 @@ MODULE    5+  --------+--+--------- PWR   CONTROLLER
 
 ## Busywait Version {#busywait-version}
 
-Note: This is not recommended, you may encounter jerky movement or unsent inputs. Please use interrupt or USART version if possible.
+Note: this mode is not recommended; you may encounter jerky movement or unsent inputs. Please use interrupt or USART version if possible.
 
-In rules.mk:
+In `rules.mk`:
 
 ```make
 PS2_MOUSE_ENABLE = yes
@@ -36,7 +36,7 @@ PS2_ENABLE = yes
 PS2_DRIVER = busywait
 ```
 
-In your keyboard config.h:
+In your keyboard `config.h`:
 
 ```c
 #ifdef PS2_DRIVER_BUSYWAIT
@@ -49,7 +49,7 @@ In your keyboard config.h:
 
 The following example uses D2 for clock and D5 for data. You can use any INT or PCINT pin for clock, and any pin for data.
 
-In rules.mk:
+In `rules.mk`:
 
 ```make
 PS2_MOUSE_ENABLE = yes
@@ -57,7 +57,7 @@ PS2_ENABLE = yes
 PS2_DRIVER = interrupt
 ```
 
-In your keyboard config.h:
+In your keyboard `config.h`:
 
 ```c
 #ifdef PS2_DRIVER_INTERRUPT
@@ -78,11 +78,11 @@ In your keyboard config.h:
 #endif
 ```
 
-### Interrupt Version (ARM chibios) {#interrupt-version-chibios}
+### Interrupt Version (ARM ChibiOS) {#interrupt-version-chibios}
 
 Pretty much any two pins can be used for the (software) interrupt variant on ARM cores. The example below uses A8 for clock, and A9 for data.
 
-In rules.mk:
+In `rules.mk`:
 
 ```
 PS2_MOUSE_ENABLE = yes
@@ -90,14 +90,14 @@ PS2_ENABLE = yes
 PS2_DRIVER = interrupt
 ```
 
-In your keyboard config.h:
+In your keyboard `config.h`:
 
 ```c
 #define PS2_CLOCK_PIN A8
 #define PS2_DATA_PIN  A9
 ```
 
-And in the chibios specifig halconf.h:
+and in the ChibiOS specific `halconf.h`:
 ```c
 #define PAL_USE_CALLBACKS TRUE
 ```
@@ -107,7 +107,7 @@ And in the chibios specifig halconf.h:
 
 To use USART on the ATMega32u4, you have to use PD5 for clock and PD2 for data. If one of those are unavailable, you need to use interrupt version.
 
-In rules.mk:
+In `rules.mk`:
 
 ```make
 PS2_MOUSE_ENABLE = yes
@@ -115,7 +115,7 @@ PS2_ENABLE = yes
 PS2_DRIVER = usart
 ```
 
-In your keyboard config.h:
+In your keyboard `config.h`:
 
 ```c
 #ifdef PS2_DRIVER_USART
@@ -157,16 +157,16 @@ In your keyboard config.h:
 
 ### RP2040 PIO Version {#rp2040-pio-version}
 
-The `PIO` subsystem is a Raspberry Pi RP2040 specific implementation, using the integrated PIO peripheral and is therefore only available on this MCU.
+The `PIO` subsystem is a Raspberry Pi RP2040-specific implementation, using the integrated PIO peripheral, and is therefore only available on this MCU.
 
-There are strict requirements for pin ordering but any pair of GPIO pins can be used. The GPIO used for clock must be directly after data, see the included info.json snippet for an example of correct order.
+There are strict requirements for pin ordering, but any pair of GPIO pins can be used. The GPIO used for clock must be directly after data; see the included `info.json` snippet for an example of correct order.
 
-You may optionally switch the PIO peripheral used with the following define in config.h:
+You may optionally switch the PIO peripheral used with the following define in `config.h`:
 ```c
 #define PS2_PIO_USE_PIO1 // Force the usage of PIO1 peripheral, by default the PS2 implementation uses the PIO0 peripheral
 ```
 
-Example info.json content:
+Example `info.json` content:
 
 ```json
     "ps2": {
@@ -182,7 +182,7 @@ Example info.json content:
 
 ### PS/2 Mouse Features {#ps2-mouse-features}
 
-These enable settings supported by the PS/2 mouse protocol.
+These enable settings supported by the PS/2 mouse protocol:
 
 ```c
 /* Use remote mode instead of the default stream mode (see link) */
@@ -201,7 +201,7 @@ These enable settings supported by the PS/2 mouse protocol.
 #define PS2_MOUSE_INIT_DELAY 1000 /* Default */
 ```
 
-You can also call the following functions from ps2_mouse.h
+You can also call the following functions from `ps2_mouse.h`:
 
 ```c
 void ps2_mouse_disable_data_reporting(void);
@@ -235,8 +235,8 @@ Note: you can also use `ps2_mouse_set_resolution` for the same effect (not suppo
 ### Scroll Button {#scroll-button}
 
 If you're using a trackpoint, you will likely want to be able to use it for scrolling.
-It's possible to enable a "scroll button/s" that when pressed will cause the mouse to scroll instead of moving.
-To enable the feature, you must set a scroll button mask as follows:
+It's possible to enable a "scroll button/s" that, when pressed, will cause the mouse to scroll instead of move.
+To enable this feature, you must set a scroll button mask as follows:
 
 ```c
 #define PS2_MOUSE_SCROLL_BTN_MASK (1<<PS2_MOUSE_BTN_MIDDLE) /* Default */
@@ -281,33 +281,28 @@ Fine control over the scrolling is supported with the following defines:
 
 ### Invert Mouse buttons {#invert-buttons}
 
-To invert the left & right buttons you can put:
+To invert the left & right buttons you can put into `config.h`:
 
 ```c
 #define PS2_MOUSE_INVERT_BUTTONS
 ```
 
-into config.h.
-
 ### Invert Mouse and Scroll Axes {#invert-mouse-and-scroll-axes}
 
-To invert the X and Y axes you can put:
+To invert the X and Y axes you can put into `config.h`:
 
 ```c
 #define PS2_MOUSE_INVERT_X
 #define PS2_MOUSE_INVERT_Y
 ```
 
-into config.h.
-
-To reverse the scroll axes you can put:
+To reverse the scroll axes you can put into `config.h`:
 
 ```c
 #define PS2_MOUSE_INVERT_H
 #define PS2_MOUSE_INVERT_V
 ```
 
-into config.h.
 
 ### Rotate Mouse Axes {#rotate-mouse-axes}
 
@@ -315,7 +310,7 @@ Transform the output of the device with a clockwise rotation of 90, 180, or 270
 degrees.
 
 When compensating for device orientation, rotate the output the same amount in
-the opposite direction.  E.g. if the normal device orientation is considered to
+the opposite direction, e.g. if the normal device orientation is considered to
 be North-facing, compensate as follows:
 
 ```c
@@ -340,9 +335,9 @@ To debug the mouse, add `debug_mouse = true` or enable via bootmagic.
 
 ### Movement Hook {#movement-hook}
 
-Process mouse movement in the keymap before it is sent to the host.  Example
+Process mouse movement in the keymap before it is sent to the host. Example
 uses include filtering noise, adding acceleration, and automatically activating
-a layer.  To use, define the following function in your keymap:
+a layer. To use, define the following function in your keymap:
 
 ```c
 void ps2_mouse_moved_user(report_mouse_t *mouse_report);

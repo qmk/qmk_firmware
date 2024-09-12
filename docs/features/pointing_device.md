@@ -1,8 +1,8 @@
 # Pointing Device {#pointing-device}
 
-Pointing Device is a generic name for a feature intended to be generic: moving the system pointer around.  There are certainly other options for it - like mousekeys - but this aims to be easily modifiable and hardware driven.  You can implement custom keys to control functionality, or you can gather information from other peripherals and insert it directly here - let QMK handle the processing for you.
+Pointing Device is a generic name for a feature intended to be generic: moving the system pointer around.  There are certainly other options for it — like mousekeys — but this aims to be easily modifiable and hardware driven. You can implement custom keys to control functionality, or you can gather information from other peripherals and insert it directly here — let QMK handle the processing for you.
 
-To enable Pointing Device, add the following line in your rules.mk and specify one of the driver options below.
+To enable Pointing Device, add the following line in your `rules.mk` and specify one of the driver options below:
 
 ```make
 POINTING_DEVICE_ENABLE = yes
@@ -10,17 +10,17 @@ POINTING_DEVICE_ENABLE = yes
 
 ## Sensor Drivers
 
-There are a number of sensors that are supported by default. Note that only one sensor can be enabled by `POINTING_DEVICE_DRIVER` at a time.  If you need to enable more than one sensor, then you need to implement it manually, using the `custom` driver.
+There are a number of sensors that are supported by default. Note that only one sensor can be enabled by `POINTING_DEVICE_DRIVER` at a time. If you need to enable more than one sensor, then you need to implement it manually using the `custom` driver.
 
 ### ADNS 5050 Sensor
 
-To use the ADNS 5050 sensor, add this to your `rules.mk`
+To use the ADNS 5050 sensor, add this to your `rules.mk`:
 
 ```make
 POINTING_DEVICE_DRIVER = adns5050
 ```
 
-The ADNS 5050 sensor uses a serial type protocol for communication, and requires an additional light source.
+The ADNS 5050 sensor uses a serial-type protocol for communication, and requires an additional light source.
 
 | Setting (`config.h`) | Description                                                        | Default                    |
 | -------------------- | ------------------------------------------------------------------ | -------------------------- |
@@ -34,13 +34,13 @@ The CPI range is 125-1375, in increments of 125. Defaults to 500 CPI.
 
 ### ADNS 9800 Sensor
 
-To use the ADNS 9800 sensor, add this to your `rules.mk`
+To use the ADNS 9800 sensor, add this to your `rules.mk`:
 
 ```make
 POINTING_DEVICE_DRIVER = adns9800
 ```
 
-The ADNS 9800 is an SPI driven optical sensor, that uses laser output for surface tracking.
+The ADNS 9800 is an SPI-driven optical sensor that uses laser output for surface tracking.
 
 | Setting (`config.h`)    | Description                                                            | Default                  |
 | ----------------------- | ---------------------------------------------------------------------- | ------------------------ |
@@ -55,13 +55,13 @@ The CPI range is 800-8200, in increments of 200. Defaults to 1800 CPI.
 
 ### Analog Joystick
 
-To use an analog joystick to control the pointer, add this to your `rules.mk`
+To use an analog joystick to control the pointer, add this to your `rules.mk`:
 
 ```make
 POINTING_DEVICE_DRIVER = analog_joystick
 ```
 
-The Analog Joystick is an analog (ADC) driven sensor.  There are a variety of joysticks that you can use for this.
+The Analog Joystick is an analog (ADC) driven sensor. There are a variety of joysticks that you can use for this.
 
 | Setting (`config.h`)              | Description                                                                | Default       |
 | --------------------------------- | -------------------------------------------------------------------------- | ------------- |
@@ -79,9 +79,9 @@ The Analog Joystick is an analog (ADC) driven sensor.  There are a variety of jo
 
 If `ANALOG_JOYSTICK_AUTO_AXIS` is used, then `ANALOG_JOYSTICK_AXIS_MIN` and `ANALOG_JOYSTICK_AXIS_MAX` are ignored.
 
-By default analog joystick implementation uses `x^2` weighting for lever positions. `ANALOG_JOYSTICK_WEIGHTS` allows to experiment with different configurations that might feel better.
+By default, analog joystick implementation uses `x^2` weighting for lever positions. `ANALOG_JOYSTICK_WEIGHTS` allows you to experiment with different configurations that might feel better.
 
-E.g. This is weights for `((x-0.4)^3+0.064)/0.282`:
+e.g. These are the weights for `((x-0.4)^3+0.064)/0.282`:
 
 ```c
 #define ANALOG_JOYSTICK_WEIGHTS {0,2,4,5,7,8,9,10,12,13,14,15,15,16,17,18,18,19,19,20,20,21,21,21,22,22,22,22,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,24,24,24,24,24,24,25,25,25,26,26,26,27,28,28,29,29,30,31,32,33,34,35,36,37,38,40,41,43,44,46,48,49,51,53,56,58,60,62,65,68,70,73,76,79,82,85,89,92,96,100}
@@ -101,7 +101,7 @@ To use a Azoteq IQS5XX trackpad, add this to your `rules.mk`:
 POINTING_DEVICE_DRIVER = azoteq_iqs5xx
 ```
 
-This supports the  IQS525, IQS550 and IQS572 controllers, with the latter two being used in the TPS43 and TPS65 trackpads.
+This supports the IQS525, IQS550, and IQS572 controllers, with the latter two being used in the TPS43 and TPS65 trackpads.
 
 #### Device settings
 
@@ -113,7 +113,7 @@ Specific device profiles are provided which set the required values for dimensio
 | `AZOTEQ_IQS5XX_TPS65`            | (Pick One) Sets resolution/mm to TPS65 specifications.     |
 
 ::: tip
-If using one of the above defines you can skip to gesture settings.
+If using one of the above defines, you can skip to gesture settings.
 :::
 
 | Setting                          | Description                                                | Default       |
@@ -137,9 +137,9 @@ If using one of the above defines you can skip to gesture settings.
 | `AZOTEQ_IQS5XX_TAP_ENABLE`                | (Optional) Enable single finger tap. (Left click)                                    | `true`      |
 | `AZOTEQ_IQS5XX_TWO_FINGER_TAP_ENABLE`     | (Optional) Enable two finger tap. (Right click)                                      | `true`      |
 | `AZOTEQ_IQS5XX_PRESS_AND_HOLD_ENABLE`     | (Optional) Emulates holding left click to select text.                               | `false`     |
-| `AZOTEQ_IQS5XX_SWIPE_X_ENABLE`            | (Optional) Enable swipe gestures X+ (Mouse Button 5) / X- (Mouse Button 4)           | `false`     |
-| `AZOTEQ_IQS5XX_SWIPE_Y_ENABLE`            | (Optional) Enable swipe gestures Y+ (Mouse Button 3) / Y- (Mouse Button 6)           | `false`     |
-| `AZOTEQ_IQS5XX_ZOOM_ENABLE`               | (Optional) Enable zoom gestures Zoom Out (Mouse Button 7) / Zoom In (Mouse Button 8) | `false`     |
+| `AZOTEQ_IQS5XX_SWIPE_X_ENABLE`            | (Optional) Enable swipe gestures X+ (Mouse Button 5) / X- (Mouse Button 4).          | `false`     |
+| `AZOTEQ_IQS5XX_SWIPE_Y_ENABLE`            | (Optional) Enable swipe gestures Y+ (Mouse Button 3) / Y- (Mouse Button 6).          | `false`     |
+| `AZOTEQ_IQS5XX_ZOOM_ENABLE`               | (Optional) Enable zoom gestures Zoom Out (Mouse Button 7) / Zoom In (Mouse Button 8).| `false`     |
 | `AZOTEQ_IQS5XX_SCROLL_ENABLE`             | (Optional) Enable scrolling using two fingers.                                       | `true`      |
 | `AZOTEQ_IQS5XX_TAP_TIME`                  | (Optional) Maximum time in ms for tap to be registered.                              | `150`       |
 | `AZOTEQ_IQS5XX_TAP_DISTANCE`              | (Optional) Maximum deviation in pixels before single tap is no longer valid.         | `25`        |
@@ -175,7 +175,7 @@ POINTING_DEVICE_DRIVER = cirque_pinnacle_spi
 ```
 
 
-This supports the Cirque Pinnacle 1CA027 Touch Controller, which is used in the TM040040, TM035035 and the TM023023 trackpads. These are I2C or SPI compatible, and both configurations are supported.
+This supports the Cirque Pinnacle 1CA027 Touch Controller, which is used in the TM040040, TM035035, and the TM023023 trackpads. These are I2C or SPI compatible, and both configurations are supported.
 
 #### Common settings
 
@@ -189,7 +189,7 @@ This supports the Cirque Pinnacle 1CA027 Touch Controller, which is used in the 
 
 **`CIRQUE_PINNACLE_ATTENUATION`** is a measure of how much data is suppressed in regards to sensitivity. The higher the attenuation, the less sensitive the touchpad will be.
 
-Default attenuation is set to 4X, although if you are using a thicker overlay (such as the curved overlay) you will want a lower attenuation such as 2X. The possible values are:
+Default attenuation is set to 4X, although if you are using a thicker overlay (such as the curved overlay) you will want a lower attenuation, such as 2X. The possible values are:
 * `EXTREG__TRACK_ADCCONFIG__ADC_ATTENUATE_4X`: Least sensitive
 * `EXTREG__TRACK_ADCCONFIG__ADC_ATTENUATE_3X`
 * `EXTREG__TRACK_ADCCONFIG__ADC_ATTENUATE_2X`
@@ -202,7 +202,7 @@ Default attenuation is set to 4X, although if you are using a thicker overlay (s
 
 | I2C Setting               | Description                                                                     | Default |
 | ------------------------- | ------------------------------------------------------------------------------- | ------- |
-| `CIRQUE_PINNACLE_ADDR`    | (Required) Sets the I2C Address for the Cirque Trackpad                         | `0x2A`  |
+| `CIRQUE_PINNACLE_ADDR`    | (Required) Sets the I2C Address for the Cirque Trackpad.                        | `0x2A`  |
 | `CIRQUE_PINNACLE_TIMEOUT` | (Optional) The timeout for i2c communication with the trackpad in milliseconds. | `20`    |
 
 | SPI Setting                    | Description                                                            | Default                  |
@@ -219,13 +219,13 @@ Also see the `POINTING_DEVICE_TASK_THROTTLE_MS`, which defaults to 10ms when usi
 
 #### Absolute mode settings
 
-| Setting                                 | Description                                                             | Default     |
-|-----------------------------------------|-------------------------------------------------------------------------|-------------|
-| `CIRQUE_PINNACLE_X_LOWER`               | (Optional) The minimum reachable X value on the sensor.                 | `127`       |
-| `CIRQUE_PINNACLE_X_UPPER`               | (Optional) The maximum reachable X value on the sensor.                 | `1919`      |
-| `CIRQUE_PINNACLE_Y_LOWER`               | (Optional) The minimum reachable Y value on the sensor.                 | `63`        |
-| `CIRQUE_PINNACLE_Y_UPPER`               | (Optional) The maximum reachable Y value on the sensor.                 | `1471`      |
-| `CIRQUE_PINNACLE_REACHABLE_CALIBRATION` | (Optional) Enable console messages to aide in calibrating above values. | not defined |
+| Setting                                 | Description                                                             | Default       |
+|-----------------------------------------|-------------------------------------------------------------------------|---------------|
+| `CIRQUE_PINNACLE_X_LOWER`               | (Optional) The minimum reachable X value on the sensor.                 | `127`         |
+| `CIRQUE_PINNACLE_X_UPPER`               | (Optional) The maximum reachable X value on the sensor.                 | `1919`        |
+| `CIRQUE_PINNACLE_Y_LOWER`               | (Optional) The minimum reachable Y value on the sensor.                 | `63`          |
+| `CIRQUE_PINNACLE_Y_UPPER`               | (Optional) The maximum reachable Y value on the sensor.                 | `1471`        |
+| `CIRQUE_PINNACLE_REACHABLE_CALIBRATION` | (Optional) Enable console messages to aide in calibrating above values. | _not defined_ |
 
 #### Absolute mode gestures
 
@@ -252,20 +252,20 @@ Tapping term and debounce are not configurable in this mode since it's handled b
 
 ### PAW 3204 Sensor
 
-To use the paw 3204 sensor, add this to your `rules.mk`
+To use the paw 3204 sensor, add this to your `rules.mk`:
 
 ```make
 POINTING_DEVICE_DRIVER = paw3204
 ```
 
-The paw 3204 sensor uses a serial type protocol for communication, and requires an additional light source. 
+The paw 3204 sensor uses a serial-type protocol for communication, and requires an additional light source.
 
 | Setting (`config.h`) | Description                                                    | Default                    |
 | -------------------- |--------------------------------------------------------------- | -------------------------- |
 | `PAW3204_SCLK_PIN`   | (Required) The pin connected to the clock pin of the sensor.   | `POINTING_DEVICE_SCLK_PIN` |
 | `PAW3204_SDIO_PIN`   | (Required) The pin connected to the data pin of the sensor.    | `POINTING_DEVICE_SDIO_PIN` |
 
-The CPI range is 400-1600, with supported values of (400, 500, 600, 800, 1000, 1200 and 1600).  Defaults to 1000 CPI.
+The CPI range is 400-1600, with supported values of (400, 500, 600, 800, 1000, 1200 and 1600). Defaults to 1000 CPI.
 
 ### Pimoroni Trackball
 
@@ -275,7 +275,7 @@ To use the Pimoroni Trackball module, add this to your `rules.mk`:
 POINTING_DEVICE_DRIVER = pimoroni_trackball
 ```
 
-The Pimoroni Trackball module is a I2C based breakout board with an RGB enable trackball. 
+The Pimoroni Trackball module is a I2C based breakout board with an RGB enabled trackball.
 
 | Setting (`config.h`)                 | Description                                                                        | Default |
 | ------------------------------------ | ---------------------------------------------------------------------------------- | ------- |
@@ -287,13 +287,13 @@ The Pimoroni Trackball module is a I2C based breakout board with an RGB enable t
 
 ### PMW3320 Sensor
 
-To use the PMW3320 sensor, add this to your `rules.mk`
+To use the PMW3320 sensor, add this to your `rules.mk`:
 
 ```make
 POINTING_DEVICE_DRIVER = pmw3320
 ```
 
-The PMW3320 sensor uses a serial type protocol for communication, and requires an additional light source (it could work without one, but expect it to be out of service early).
+The PMW3320 sensor uses a serial-type protocol for communication, and requires an additional light source (it could work without one, but expect it to be out of service early).
 
 | Setting             | Description                                                         | Default                    |
 | ------------------- | ------------------------------------------------------------------- | -------------------------- |
@@ -307,7 +307,7 @@ The CPI range is 500-3500, in increments of 250. Defaults to 1000 CPI.
 
 This drivers supports both the PMW 3360 and PMW 3389 sensor as well as multiple sensors of the same type _per_ controller, so 2 can be attached at the same side for split keyboards (or unsplit keyboards).
 
-To use the **PMW 3360** sensor, add this to your `rules.mk`
+To use the **PMW 3360** sensor, add this to your `rules.mk`:
 
 ```make
 POINTING_DEVICE_DRIVER = pmw3360
@@ -315,7 +315,7 @@ POINTING_DEVICE_DRIVER = pmw3360
 
 The CPI range is 100-12000, in increments of 100. Defaults to 1600 CPI.
 
-To use the **PMW 3389** sensor, add this to your `rules.mk`
+To use the **PMW 3389** sensor, add this to your `rules.mk`:
 
 ```make
 POINTING_DEVICE_DRIVER = pmw3389
@@ -323,8 +323,8 @@ POINTING_DEVICE_DRIVER = pmw3389
 
 The CPI range is 50-16000, in increments of 50. Defaults to 2000 CPI.
 
-Both PMW 3360 and PMW 3389 are SPI driven optical sensors, that use a built in IR LED for surface tracking.
-If you have different CS wiring on each half you can use `PMW33XX_CS_PIN_RIGHT` or `PMW33XX_CS_PINS_RIGHT` in combination with `PMW33XX_CS_PIN` or `PMW33XX_CS_PINS` to configure both sides independently. If `_RIGHT` values aren't provided, they default to be the same as the left ones.
+Both PMW 3360 and PMW 3389 are SPI driven optical sensors, that use a built-in IR LED for surface tracking.
+If you have different CS wiring on each half, you can use `PMW33XX_CS_PIN_RIGHT` or `PMW33XX_CS_PINS_RIGHT` in combination with `PMW33XX_CS_PIN` or `PMW33XX_CS_PINS` to configure both sides independently. If `_RIGHT` values aren't provided, they default to be the same as the left ones.
 
 | Setting (`config.h`)         | Description                                                                                 | Default                  |
 | ---------------------------- | ------------------------------------------------------------------------------------------- | ------------------------ |
@@ -370,7 +370,7 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
 
 ### Custom Driver
 
-If you have a sensor type that isn't supported above, a custom option is available by adding the following to your `rules.mk`
+If you have a sensor type that isn't supported above, a custom option is available by adding the following to your `rules.mk`:
 
 ```make
 POINTING_DEVICE_DRIVER = custom
@@ -386,7 +386,7 @@ void           pointing_device_driver_set_cpi(uint16_t cpi) {}
 ```
 
 ::: warning
-Ideally, new sensor hardware should be added to `drivers/sensors/` and `quantum/pointing_device_drivers.c`, but there may be cases where it's very specific to the hardware.  So these functions are provided, just in case. 
+Ideally, new sensor hardware should be added to `drivers/sensors/` and `quantum/pointing_device_drivers.c`, but there may be cases where it's very specific to the hardware, so these functions are provided, just in case. 
 :::
 
 ## Common Configuration
@@ -409,24 +409,24 @@ Ideally, new sensor hardware should be added to `drivers/sensors/` and `quantum/
 | `POINTING_DEVICE_SCLK_PIN`                     | (Optional) Provides a default SCLK pin, useful for supporting multiple sensor configs.                                           | _not defined_ |
 
 ::: warning
-When using `SPLIT_POINTING_ENABLE` the `POINTING_DEVICE_MOTION_PIN` functionality is not supported and `POINTING_DEVICE_TASK_THROTTLE_MS` will default to `1`. Increasing this value will increase transport performance at the cost of possible mouse responsiveness.
+When using `SPLIT_POINTING_ENABLE`, the `POINTING_DEVICE_MOTION_PIN` functionality is not supported and `POINTING_DEVICE_TASK_THROTTLE_MS` will default to `1`. Increasing this value will increase transport performance at the cost of possible mouse responsiveness.
 :::
 
-The `POINTING_DEVICE_CS_PIN`, `POINTING_DEVICE_SDIO_PIN`, and `POINTING_DEVICE_SCLK_PIN` provide a convenient way to define a single pin that can be used for an interchangeable sensor config.  This allows you to have a single config, without defining each device.  Each sensor allows for this to be overridden with their own defines. 
+The `POINTING_DEVICE_CS_PIN`, `POINTING_DEVICE_SDIO_PIN`, and `POINTING_DEVICE_SCLK_PIN` settings provide a convenient way to define a single pin that can be used for an interchangeable sensor config. This allows you to have a single config without defining each device. Each sensor allows for this to be overridden with their own defines. 
 
 ::: warning
-Any pointing device with a lift/contact status can integrate inertial cursor feature into its driver, controlled by `POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE`. e.g. PMW3360 can use Lift_Stat from Motion register. Note that `POINTING_DEVICE_MOTION_PIN` cannot be used with this feature; continuous polling of `get_report()` is needed to generate glide reports.
+Any pointing device with a lift/contact status can integrate the inertial cursor feature into its driver, controlled by `POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE`. e.g., PMW3360 can use `Lift_Stat` from Motion register. Note that `POINTING_DEVICE_MOTION_PIN` cannot be used with this feature; continuous polling of `get_report()` is needed to generate glide reports.
 :::
 
 ## Split Keyboard Configuration
 
-The following configuration options are only available when using `SPLIT_POINTING_ENABLE` see [data sync options](split_keyboard#data-sync-options). The rotation and invert `*_RIGHT` options are only used with `POINTING_DEVICE_COMBINED`. If using `POINTING_DEVICE_LEFT` or `POINTING_DEVICE_RIGHT` use the common configuration above to configure your pointing device.
+The following configuration options are only available when using `SPLIT_POINTING_ENABLE`; see [data sync options](split_keyboard#data-sync-options). The rotation and invert `*_RIGHT` options are only used with `POINTING_DEVICE_COMBINED`. If using `POINTING_DEVICE_LEFT` or `POINTING_DEVICE_RIGHT`, use the common configuration above to configure your pointing device.
 
 | Setting                              | Description                                                                                           | Default       |
 | ------------------------------------ | ----------------------------------------------------------------------------------------------------- | ------------- |
-| `POINTING_DEVICE_LEFT`               | Pointing device on the left side (Required - pick one only)                                           | _not defined_ |
-| `POINTING_DEVICE_RIGHT`              | Pointing device on the right side (Required - pick one only)                                          | _not defined_ |
-| `POINTING_DEVICE_COMBINED`           | Pointing device on both sides (Required - pick one only)                                              | _not defined_ |
+| `POINTING_DEVICE_LEFT`               | Pointing device on the left side. (Required — pick one only)                                           | _not defined_ |
+| `POINTING_DEVICE_RIGHT`              | Pointing device on the right side. (Required — pick one only)                                          | _not defined_ |
+| `POINTING_DEVICE_COMBINED`           | Pointing device on both sides. (Required — pick one only)                                              | _not defined_ |
 | `POINTING_DEVICE_ROTATION_90_RIGHT`  | (Optional) Rotates the X and Y data by  90 degrees.                                                   | _not defined_ |
 | `POINTING_DEVICE_ROTATION_180_RIGHT` | (Optional) Rotates the X and Y data by 180 degrees.                                                   | _not defined_ |
 | `POINTING_DEVICE_ROTATION_270_RIGHT` | (Optional) Rotates the X and Y data by 270 degrees.                                                   | _not defined_ |
@@ -458,7 +458,7 @@ If there is a `_RIGHT` configuration option or callback, the [common configurati
 
 ## Split Keyboard Callbacks and Functions
 
-The combined functions below are only available when using `SPLIT_POINTING_ENABLE` and `POINTING_DEVICE_COMBINED`. The 2 callbacks `pointing_device_task_combined_*` replace the single sided equivalents above. See the [combined pointing devices example](pointing_device#combined-pointing-devices)
+The combined functions below are only available when using `SPLIT_POINTING_ENABLE` and `POINTING_DEVICE_COMBINED`. The 2 callbacks `pointing_device_task_combined_*` replace the single sided equivalents above. See the [combined pointing devices example](pointing_device#combined-pointing-devices).
 
 | Function                                                        | Description                                                                                                              |
 | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
@@ -474,21 +474,21 @@ The combined functions below are only available when using `SPLIT_POINTING_ENABL
 
 The report_mouse_t (here "mouseReport") has the following properties:
 
-* `mouseReport.x` - this is a signed int from -127 to 127 (not 128, this is defined in USB HID spec) representing movement (+ to the right, - to the left) on the x axis.
-* `mouseReport.y` - this is a signed int from -127 to 127 (not 128, this is defined in USB HID spec) representing movement (+ upward, - downward) on the y axis.
-* `mouseReport.v` - this is a signed int from -127 to 127 (not 128, this is defined in USB HID spec) representing vertical scrolling (+ upward, - downward).
-* `mouseReport.h` - this is a signed int from -127 to 127 (not 128, this is defined in USB HID spec) representing horizontal scrolling (+ right, - left).
-* `mouseReport.buttons` - this is a uint8_t in which all 8 bits are used.  These bits represent the mouse button state - bit 0 is mouse button 1, and bit 7 is mouse button 8.
+* `mouseReport.x` — this is a signed int from -127 to 127 (not 128, this is defined in USB HID spec) representing movement (+ to the right, - to the left) on the x axis.
+* `mouseReport.y` — this is a signed int from -127 to 127 (not 128, this is defined in USB HID spec) representing movement (+ upward, - downward) on the y axis.
+* `mouseReport.v` — this is a signed int from -127 to 127 (not 128, this is defined in USB HID spec) representing vertical scrolling (+ upward, - downward).
+* `mouseReport.h` — this is a signed int from -127 to 127 (not 128, this is defined in USB HID spec) representing horizontal scrolling (+ right, - left).
+* `mouseReport.buttons` — this is a uint8_t in which all 8 bits are used.  These bits represent the mouse button state — bit 0 is mouse button 1, and bit 7 is mouse button 8.
 
 To manually manipulate the mouse reports outside of the `pointing_device_task_*` functions, you can use:
 
-* `pointing_device_get_report()` - Returns the current report_mouse_t that represents the information sent to the host computer
-* `pointing_device_set_report(report_mouse_t mouse_report)` - Overrides and saves the report_mouse_t to be sent to the host computer
-* `pointing_device_send()` - Sends the mouse report to the host and zeroes out the report. 
+* `pointing_device_get_report()` — Returns the current report_mouse_t that represents the information sent to the host computer
+* `pointing_device_set_report(report_mouse_t mouse_report)` — Overrides and saves the report_mouse_t to be sent to the host computer
+* `pointing_device_send()` — Sends the mouse report to the host and zeroes out the report. 
 
-When the mouse report is sent, the x, y, v, and h values are set to 0 (this is done in `pointing_device_send()`, which can be overridden to avoid this behavior).  This way, button states persist, but movement will only occur once.  For further customization, both `pointing_device_init` and `pointing_device_task` can be overridden.
+When the mouse report is sent, the x, y, v, and h values are set to 0 (this is done in `pointing_device_send()`, which can be overridden to avoid this behavior). This way, button states persist, but movement will only occur once. For further customization, both `pointing_device_init` and `pointing_device_task` can be overridden.
 
-Additionally, by default, `pointing_device_send()` will only send a report when the report has actually changed.  This prevents it from continuously sending mouse reports, which will keep the host system awake.  This behavior can be changed by creating your own `pointing_device_send()` function.
+Additionally, by default, `pointing_device_send()` will only send a report when the report has actually changed. This prevents it from continuously sending mouse reports which will keep the host system awake. This behavior can be changed by creating your own `pointing_device_send()` function.
 
 Also, you use the `has_mouse_report_changed(new_report, old_report)` function to check to see if the report has changed.
 
@@ -496,7 +496,7 @@ Also, you use the `has_mouse_report_changed(new_report, old_report)` function to
 
 ### Custom Mouse Keycode
 
-In this example, a custom key is used to click the mouse and scroll 127 units vertically and horizontally, then undo all of that when released - because that's a totally useful function.
+In this example, a custom key is used to click the mouse and scroll 127 units vertically and horizontally, then undo all of that when released — because that's a totally useful function:
 
 ```c
 case MS_SPECIAL:
@@ -519,7 +519,7 @@ Recall that the mouse report is set to zero (except the buttons) whenever it is 
 
 ### Drag Scroll or Mouse Scroll
 
-A very common implementation is to use the mouse movement to scroll instead of moving the cursor on the system.  This uses the `pointing_device_task_user` callback to intercept and modify the mouse report before it's sent to the host system. 
+A very common implementation is to use the mouse movement to scroll instead of moving the cursor on the system. This uses the `pointing_device_task_user` callback to intercept and modify the mouse report before it's sent to the host system:
 
 ```c
 enum custom_keycodes {
@@ -546,13 +546,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
-This allows you to toggle between scrolling and cursor movement by pressing the DRAG_SCROLL key.  
+This allows you to toggle between scrolling and cursor movement by pressing the `DRAG_SCROLL` key.
 
 ### Advanced Drag Scroll
 
 Sometimes, like with the Cirque trackpad, you will run into issues where the scrolling may be too fast.
 
-Here is a slightly more advanced example of drag scrolling. You will be able to change the scroll speed based on the values in set in `SCROLL_DIVISOR_H` and `SCROLL_DIVISOR_V`. This bit of code is also set up so that instead of toggling the scrolling state with set_scrolling = !set_scrolling, the set_scrolling variable is set directly to record->event.pressed. This way, the drag scrolling will only be active while the DRAG_SCROLL button is held down.
+Here is a slightly more advanced example of drag scrolling. You will be able to change the scroll speed based on the values in set in `SCROLL_DIVISOR_H` and `SCROLL_DIVISOR_V`. This bit of code is also set up so that instead of toggling the scrolling state with `set_scrolling = !set_scrolling`, the `set_scrolling` variable is set directly to `record->event.pressed`. This way, the drag scrolling will only be active while the `DRAG_SCROLL` button is held down.
 
 ```c
 enum custom_keycodes {
@@ -619,11 +619,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 ## Split Examples
 
-The following examples make use the `SPLIT_POINTING_ENABLE` functionality and show how to manipulate the mouse report for a scrolling mode.
+The following examples make use of the `SPLIT_POINTING_ENABLE` functionality and show how to manipulate the mouse report for a scrolling mode.
 
 ### Single Pointing Device
 
-The following example will work with either `POINTING_DEVICE_LEFT` or `POINTING_DEVICE_RIGHT` and enables scrolling mode while on a particular layer.
+The following example will work with either `POINTING_DEVICE_LEFT` or `POINTING_DEVICE_RIGHT`, and enables scrolling mode while on a particular layer:
 
 ```c
 
@@ -658,7 +658,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 
 ### Combined Pointing Devices
 
-The following example requires `POINTING_DEVICE_COMBINED` and sets the left side pointing device to scroll only.
+The following example requires `POINTING_DEVICE_COMBINED`, and sets the left side pointing device to scroll only:
 
 ```c
 void keyboard_post_init_user(void) {
@@ -677,7 +677,7 @@ report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, re
 
 # Troubleshooting
 
-If you are having issues with pointing device drivers debug messages can be enabled that will give you insights in the inner workings. To enable these add to your keyboards `config.h` file:
+If you are having issues with pointing device drivers, debug messages can be enabled that will give you insights into the inner workings. To enable these, add to your keyboard's `config.h` file:
 
 ```c
 #define POINTING_DEVICE_DEBUG
@@ -691,11 +691,11 @@ The messages will be printed out to the `CONSOLE` output. For additional informa
 ---
 # Automatic Mouse Layer {#pointing-device-auto-mouse}
 
-When using a pointing device combined with a keyboard the mouse buttons are often kept on a separate layer from the default keyboard layer, which requires pressing or holding a key to change layers before using the mouse. To make this easier and more efficient an additional pointing device feature may be enabled that will automatically activate a target layer as soon as the pointing device is active _(in motion, mouse button pressed etc.)_ and deactivate the target layer after a set time.   
+When using a pointing device combined with a keyboard, the mouse buttons are often kept on a separate layer from the default keyboard layer, which requires pressing or holding a key to change layers before using the mouse. To make this easier and more efficient, an additional pointing device feature may be enabled that will automatically activate a target layer as soon as the pointing device is active (i.e. in motion, mouse button pressed, etc.) and deactivate the target layer after a set time.
 
-Additionally if any key that is defined as a mouse key is pressed then the layer will be held as long as the key is pressed and the timer will be reset on key release. When a non-mouse key is pressed then the layer is deactivated early _(with some exceptions see below)_.  Mod, Mod-Tap, and One Shot mod keys are ignored _(i.e. don't hold or activate layer but do not deactivate the layer either)_ when sending a modifier keycode _(e.g. hold for Mod-Tap)_ allowing for mod keys to be used with the mouse without activating the target layer when typing.
+Additionally, if any key that is defined as a mouse key is pressed, then the layer will be held as long as the key is pressed and the timer will be reset on key release. When a non-mouse key is pressed, then the layer is deactivated early (with some exceptions; see below).  Mod, Mod-Tap, and One Shot mod keys are ignored (i.e. don't hold or activate layer, but do not deactivate the layer either) when sending a modifier keycode (e.g. hold for Mod-Tap), allowing for mod keys to be used with the mouse without activating the target layer when typing.
 
-All of the standard layer keys (tap toggling, toggle, toggle on, One Shot, Layer-Tap, Layer-Mod) that activate the current target layer are uniquely handled to ensure they behave as expected _(see layer key table below)_. The target layer that can be changed at any point during by calling the `set_auto_mouse_layer(<new_target_layer>);` function.
+All of the standard layer keys (tap toggling, toggle, toggle on, One Shot, Layer-Tap, Layer-Mod) that activate the current target layer are uniquely handled to ensure they behave as expected (see layer key table below). The target layer can be changed at any point by calling the `set_auto_mouse_layer(<new_target_layer>);` function.
 
 ### Behaviour of Layer keys that activate the target layer
 | Layer key as in `keymap.c` | Auto Mouse specific behaviour                                                                                         |
@@ -725,9 +725,11 @@ void pointing_device_init_user(void) {
 }
 ```
 
-Because the auto mouse feature can be disabled/enabled during runtime and starts as disabled by default it must be enabled by calling `set_auto_mouse_enable(true);` somewhere in firmware before the feature will work.   
-_Note: for setting the target layer during initialization either setting `AUTO_MOUSE_DEFAULT_LAYER` in `config.h` or calling `set_auto_mouse_layer(<mouse_layer>)` can be used._   
+Because the auto mouse feature can be disabled/enabled during runtime and starts as disabled by default, it must be enabled by calling `set_auto_mouse_enable(true);` somewhere in firmware before the feature will work.   
 
+::: tip
+Note: for setting the target layer during initialization, either setting `AUTO_MOUSE_DEFAULT_LAYER` in `config.h` or calling `set_auto_mouse_layer(<mouse_layer>)` can be used.
+:::
 
 ## How to Customize:
 
@@ -745,7 +747,7 @@ There are a few ways to control the auto mouse feature with both `config.h` opti
 
 ### Adding mouse keys
 
-While all default mouse keys and layer keys(for current mouse layer) are treated as mouse keys, additional Keyrecords can be added to mouse keys by adding them to the is_mouse_record_* stack. 
+While all default mouse keys and layer keys (for current mouse layer) are treated as mouse keys, additional Keyrecords can be added to mouse keys by adding them to the `is_mouse_record_*` stack. 
 
 #### Callbacks for setting up additional key codes as mouse keys:
 | Callback                                                             | Description                                        |
@@ -755,7 +757,7 @@ While all default mouse keys and layer keys(for current mouse layer) are treated
 
 ##### To use the callback function to add mouse keys:   
 
-The following code will cause the enter key and all of the arrow keys to be treated as mouse keys (hold target layer while they are pressed and reset active layer timer).
+The following code will cause the enter key and all of the arrow keys to be treated as mouse keys (hold target layer while they are pressed and reset active layer timer):
 ```c
 
 // in <keyboard>.c:
@@ -775,26 +777,26 @@ bool is_mouse_record_kb(uint16_t keycode, keyrecord_t* record) {
 
 ## Advanced control
 
-There are several functions that allow for more advanced interaction with the auto mouse feature allowing for greater control.
+There are several functions that allow for more advanced interaction with the auto mouse feature, allowing for greater control.
 
 ### Functions to control auto mouse enable and target layer:   
-| Function                                                   | Description                                                                          | Aliases                   |     Return type |
-| :--------------------------------------------------------- | ------------------------------------------------------------------------------------ | ------------------------- | --------------: |
-| `set_auto_mouse_enable(bool enable)`                       | Enable or disable auto mouse (true:enable, false:disable)                            |                           |    `void`(None) |
-| `get_auto_mouse_enable(void)`                              | Return auto mouse enable state (true:enabled, false:disabled)                        | `AUTO_MOUSE_ENABLED`      |          `bool` |
-| `set_auto_mouse_layer(uint8_t LAYER)`                      | Change/set the target layer for auto mouse                                           |                           |    `void`(None) |
-| `get_auto_mouse_layer(void)`                               | Return auto mouse target layer index                                                 | `AUTO_MOUSE_TARGET_LAYER` |       `uint8_t` |
-| `remove_auto_mouse_layer(layer_state_t state, bool force)` | Return `state` with target layer removed if appropriate (ignore criteria if `force`) |                           | `layer_state_t` |
-| `auto_mouse_layer_off(void)`                               | Disable target layer if appropriate will call (makes call to `layer_state_set`)      |                           |   `void`(None)  |
-| `auto_mouse_toggle(void)`                                  | Toggle on/off target toggle state (disables layer deactivation when true)            |                           |    `void`(None) |
-| `get_auto_mouse_toggle(void)`                              | Return value of toggling state variable                                              |                           |          `bool` |
-| `set_auto_mouse_timeout(uint16_t timeout)`                 | Change/set the timeout for turing off the layer                                      |                           |    `void`(None) |
-| `get_auto_mouse_timeout(void)`                             | Return the current timeout for turing off the layer                                  |                           |      `uint16_t` |
-| `set_auto_mouse_debounce(uint16_t timeout)`                | Change/set the debounce for preventing layer activation                              |                           |    `void`(None) |
-| `get_auto_mouse_debounce(void)`                            | Return the current debounce for preventing layer activation                          |                           |       `uint8_t` |
-| `is_auto_mouse_active(void)`                               | Returns the active state of the auto mouse layer (eg if the layer has been triggered)|                           |          `bool` |
-| `get_auto_mouse_key_tracker(void)`                         | Gets the current count for the auto mouse key tracker.                               |                           |        `int8_t` |
-| `set_auto_mouse_key_tracker(int8_t key_tracker)`           | Sets/Overrides the current count for the auto mouse key tracker.                     |                           |    `void`(None) |
+| Function                                                   | Description                                                                            | Aliases                   |     Return type |
+| :--------------------------------------------------------- | -------------------------------------------------------------------------------------- | ------------------------- | --------------: |
+| `set_auto_mouse_enable(bool enable)`                       | Enable or disable auto mouse (true:enable, false:disable)                              |                           |    `void`(None) |
+| `get_auto_mouse_enable(void)`                              | Return auto mouse enable state (true:enabled, false:disabled)                          | `AUTO_MOUSE_ENABLED`      |          `bool` |
+| `set_auto_mouse_layer(uint8_t LAYER)`                      | Change/set the target layer for auto mouse                                             |                           |    `void`(None) |
+| `get_auto_mouse_layer(void)`                               | Return auto mouse target layer index                                                   | `AUTO_MOUSE_TARGET_LAYER` |       `uint8_t` |
+| `remove_auto_mouse_layer(layer_state_t state, bool force)` | Return `state` with target layer removed if appropriate (ignore criteria if `force`)   |                           | `layer_state_t` |
+| `auto_mouse_layer_off(void)`                               | Disable target layer if appropriate will call (makes call to `layer_state_set`)        |                           |   `void`(None)  |
+| `auto_mouse_toggle(void)`                                  | Toggle on/off target toggle state (disables layer deactivation when true)              |                           |    `void`(None) |
+| `get_auto_mouse_toggle(void)`                              | Return value of toggling state variable                                                |                           |          `bool` |
+| `set_auto_mouse_timeout(uint16_t timeout)`                 | Change/set the timeout for turing off the layer                                        |                           |    `void`(None) |
+| `get_auto_mouse_timeout(void)`                             | Return the current timeout for turing off the layer                                    |                           |      `uint16_t` |
+| `set_auto_mouse_debounce(uint16_t timeout)`                | Change/set the debounce for preventing layer activation                                |                           |    `void`(None) |
+| `get_auto_mouse_debounce(void)`                            | Return the current debounce for preventing layer activation                            |                           |       `uint8_t` |
+| `is_auto_mouse_active(void)`                               | Return the active state of the auto mouse layer (e.g. if the layer has been triggered)|                           |          `bool` |
+| `get_auto_mouse_key_tracker(void)`                         | Gets the current count for the auto mouse key tracker.                                 |                           |        `int8_t` |
+| `set_auto_mouse_key_tracker(int8_t key_tracker)`           | Sets/overrides the current count for the auto mouse key tracker.                       |                           |    `void`(None) |
 
 _NOTES:_   
     - _Due to the nature of how some functions work, the `auto_mouse_trigger_reset`, and `auto_mouse_layer_off` functions should never be called in the `layer_state_set_*` stack as this can cause indefinite loops._   
@@ -814,7 +816,9 @@ _NOTE: Generally it would be preferable to use the `is_mouse_record_*` functions
 
 #### Disable auto mouse on certain layers:   
 
-The auto mouse feature can be disabled any time and this can be helpful if you want to disable the auto mouse feature under certain circumstances such as when particular layers are active. One issue however is the handling of the target layer, it needs to be removed appropriately **before** disabling auto mouse _(see notes under control functions above)_. The following function would disable the auto_mouse feature whenever the layers `_LAYER5` through `_LAYER7` are active as the top most layer _(ignoring target layer)_.   
+The auto mouse feature can be disabled any time. This can be helpful if you want to disable the auto mouse feature under certain circumstances, such as when particular layers are active. One issue, however, is the handling of the target layer; it needs to be removed appropriately **before** disabling auto mouse (see notes under control functions above).
+
+For example, the following function would disable the auto mouse feature whenever the layers `_LAYER5` through `_LAYER7` are active as the top most layer (ignoring target layer):
 
 ```c
 // in keymap.c:
@@ -865,7 +869,7 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 
 ### Use custom keys to control auto mouse:  
 Custom key records could also be created that control the auto mouse feature.   
-The code example below would create a custom key that would toggle the auto mouse feature on and off when pressed while also setting a bool that could be used to disable other code that may turn it on such as the layer code above.   
+The code example below would create a custom key that would toggle the auto mouse feature on and off when pressed while also setting a bool that could be used to disable other code that may turn it on, such as the layer code above:
 
 ```c
 // in config.h:
@@ -894,10 +898,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
 ## Customize Target Layer Activation
 
-Layer activation can be customized by overwriting the `auto_mouse_activation` function. This function is checked every time `pointing_device_task` is called when inactive and every `AUTO_MOUSE_DEBOUNCE` ms when active, and will evaluate pointing device level conditions that trigger target layer activation. When it returns true, the target layer will be activated barring the usual exceptions _(e.g. delay time has not expired)_.   
+Layer activation can be customized by overwriting the `auto_mouse_activation` function. This function is checked every time `pointing_device_task` is called when inactive and every `AUTO_MOUSE_DEBOUNCE` ms when active, and will evaluate pointing device level conditions that trigger target layer activation. When it returns true, the target layer will be activated barring the usual exceptions (e.g. delay time has not expired).
 
-By default it will return true if any of the `mouse_report` axes `x`,`y`,`h`,`v` are non zero, or if there is any mouse buttons active in `mouse_report`.
-_Note: The Cirque pinnacle track pad already implements a custom activation function that will activate on touchdown as well as movement all of the default conditions, currently this only works for the master side of split keyboards._
+By default, it will return true if any of the `mouse_report` axes `x`,`y`,`h`,`v` are non zero, or if there is any mouse buttons active in `mouse_report`.
+
+Note: The Cirque pinnacle track pad already implements a custom activation function that will activate on touchdown as well as movement all of the default conditions, currently this only works for the master side of split keyboards.
  
 | Function                                                   | Description                                                                      |     Return type |
 | :--------------------------------------------------------- | -------------------------------------------------------------------------------- | --------------: |
@@ -905,7 +910,7 @@ _Note: The Cirque pinnacle track pad already implements a custom activation func
 
 ## Auto Mouse for Custom Pointing Device Task
 
-When using a custom pointing device (overwriting `pointing_device_task`) the following code should be somewhere in the `pointing_device_task_*` stack:
+When using a custom pointing device (overwriting `pointing_device_task`), the following code should be somewhere in the `pointing_device_task_*` stack:
 
 ```c
 bool pointing_device_task(void) {
@@ -920,7 +925,7 @@ bool pointing_device_task(void) {
 }
 ```
 
-In general the following two functions must be implemented in appropriate locations for auto mouse to function:
+In general, the following two functions must be implemented in appropriate locations for auto mouse to function:
 
 | Function                                                       | Description                                                  |           Suggested location |
 | -------------------------------------------------------------- | ------------------------------------------------------------ | ---------------------------: |

@@ -2,7 +2,9 @@
 
 DIP switches are supported by adding this to your `rules.mk`:
 
-    DIP_SWITCH_ENABLE = yes
+```make
+DIP_SWITCH_ENABLE = yes
+```
 
 and this to your `config.h`:
 
@@ -22,7 +24,7 @@ or
 
 ## DIP Switch map {#dip-switch-map}
 
-DIP Switch mapping may be added to your `keymap.c`, which replicates the normal keyswitch functionality, but with dip switches. Add this to your keymap's `rules.mk`:
+DIP switch mapping may be added to your `keymap.c`, which replicates the normal keyswitch functionality, but with dip switches. Add this to your keymap's `rules.mk`:
 
 ```make
 DIP_SWITCH_MAP_ENABLE = yes
@@ -53,7 +55,6 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
     return true;
 }
 ```
-
 
 or `keymap.c`:
 
@@ -87,8 +88,7 @@ bool dip_switch_update_user(uint8_t index, bool active) {
 }
 ```
 
-Additionally, we support bit mask functions which allow for more complex handling. 
-
+Additionally, we support bit mask functions which allow for more complex handling:
 
 ```c
 bool dip_switch_update_mask_kb(uint32_t state) { 
@@ -96,7 +96,6 @@ bool dip_switch_update_mask_kb(uint32_t state) {
     return true;
 }
 ```
-
 
 or `keymap.c`:
 
@@ -125,7 +124,7 @@ bool dip_switch_update_mask_user(uint32_t state) {
 
 ### Connects each switch in the dip switch to the GPIO pin of the MCU
 
-One side of the DIP switch should be wired directly to the pin on the MCU, and the other side to ground.  It should not matter which side is connected to which, as it should be functionally the same. 
+One side of the DIP switch should be wired directly to the pin on the MCU, and the other side to ground. It should not matter which side is connected to which, as it should be functionally the same. 
 
 ### Connect each switch in the DIP switch to an unused intersections in the key matrix.
 
