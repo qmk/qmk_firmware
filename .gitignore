@@ -120,9 +120,3 @@ compile_commands.json
 via*.json
 /keyboards/**/keymaps/via/*
 /keyboards/**/keymaps/vial/*
-
-
-
-# ignore my keymap stuff
-/keyboards/crkbd/keymaps/
-/keyboards/sofle/keymaps/
