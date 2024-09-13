@@ -7,6 +7,6 @@ OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
 
 
 
-SRC+= ble/lpm_stm32f4.c
+SRC+= lpm_stm32f4.c
 
-VPATH += keyboards/keymagichorse/hl6095/ble
+VPATH += keyboards/keymagichorse/hl6095
