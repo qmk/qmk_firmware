@@ -22,13 +22,13 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     #ifndef TESTMODE
     // MEH - hold down ctrl, alt, shift, and press key
-    [0] = LAYOUT(
+    [0] = LAYOUT_ortho_3x3(
         MEH(KC_1), MEH(KC_2), MEH(KC_3),
         MEH(KC_4), MEH(KC_5), MEH(KC_6),
         MEH(KC_7), MEH(KC_8), LT(1, MEH(KC_9))
     ),
     #else
-    [0] = LAYOUT(
+    [0] = LAYOUT_ortho_3x3(
         KC_A, KC_B, KC_C,
         KC_D, KC_E, KC_F,
         KC_G, KC_H, KC_I
@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * | Backlight Tgl  | Use Bluetooth for output       | (currently pressed) |
      * ------------------------------------------------------------------------
      */
-    [1] = LAYOUT(
+    [1] = LAYOUT_ortho_3x3(
         _______, OU_AUTO, QK_BOOT,
         BL_STEP, OU_USB,  _______,
         BL_TOGG, OU_BT,   _______

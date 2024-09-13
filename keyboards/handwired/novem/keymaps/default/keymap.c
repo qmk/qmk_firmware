@@ -31,12 +31,12 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
-    [_BASE] = LAYOUT(
+    [_BASE] = LAYOUT_ortho_3x3(
         KC_ESCAPE,    KC_HOME, KC_DEL,
         MO(_FN)  ,    KC_UP  , KC_ENTER,
         KC_LEFT  ,    KC_DOWN, KC_RIGHT
     ),
-    [_FN] = LAYOUT(
+    [_FN] = LAYOUT_ortho_3x3(
         KC_TRNS, GITCOM,   GITPUSH,
         KC_TRNS, GITSTTS,  GITPULL,
         KC_TRNS, KC_TRNS,  KC_TRNS
