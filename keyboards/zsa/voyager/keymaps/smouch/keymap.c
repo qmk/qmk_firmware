@@ -183,11 +183,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, G(KC_Z), G(KC_X), G(KC_C), G(KC_V),       LSG(KC_Z),                      KC_MUTE, KC_BSPC,    KC_TAB,  KC_ENT,     ___x___, ___x___,
                                                          _______, _______, C(KC_LEFT), C(KC_RIGHT)
   ),
+
+  /*  Base (alpha) Layer SNTH
+    ⎋           ⇥        tg              (   ⌦   )   vol↓↑
+    `   x   p   d⌃   m   q           =   y   o⌃  u!  .  \
+    z   s   n⌥  t⌘   h⇧  v           g   c⇧  a⌘  e⌥  i  q
+        f   b   k    l   j      	 z   w   '   /   ,
+                         r   ⌫   ⏎   ␣
+  */
   [_SNTH] = LAYOUT_voyager(
     _______, _______,        _______,      _______,      _______,      TO(_DEF), _______, _______,      _______,      _______,      _______,        _______,
-    _______, KC_X,           KC_P,         LCTL_T(KC_D), KC_M,         KC_Q,     KC_EQL,  KC_Y,         RCTL_T(KC_O), KC_U,         KC_COMM,        _______,
+    _______, KC_X,           KC_P,         LCTL_T(KC_D), KC_M,         KC_Q,     KC_EQL,  KC_Y,         RCTL_T(KC_O), KC_U,         KC_DOT,         _______,
     _______, LT(_SYM, KC_S), LALT_T(KC_N), LGUI_T(KC_T), LSFT_T(KC_H), KC_V,     KC_G,    RSFT_T(KC_C), RGUI_T(KC_A), RALT_T(KC_E), LT(_SYM, KC_I), _______,
-    ___x___, KC_F,           KC_B,         KC_K,         KC_L,         KC_J,     KC_Z,    KC_W,         KC_QUOT,      KC_SLSH,      KC_DOT,         _______,
+    ___x___, KC_F,           KC_B,         KC_K,         KC_L,         KC_J,     KC_Z,    KC_W,         KC_QUOT,      KC_SLSH,      KC_COMM,        ___x___,
                                                          _______,      _______,  _______, _______
   ),
 };
@@ -305,6 +313,7 @@ const key_override_t slsh_key_override = ko_make_basic(MOD_MASK_SHIFT, RT2, KC_A
 const key_override_t bsls_key_override = ko_make_basic(MOD_MASK_ALT,   RT2, KC_BSLS);		/* alt   / is \ */
 const key_override_t dquo_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_DQUO, KC_QUES);	/* shift " is ? */
 const key_override_t quot_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_QUOT, KC_EXLM);	/* shift ' is ! */
+const key_override_t bspc_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);	/* shift ⌫ is ⌦ */
 
 // This globally defines all key overrides to be used
 const key_override_t *key_overrides[] = {
@@ -315,5 +324,6 @@ const key_override_t *key_overrides[] = {
     &bsls_key_override,
     &dquo_key_override,
     &quot_key_override,
+    &bspc_key_override,
 };
 
