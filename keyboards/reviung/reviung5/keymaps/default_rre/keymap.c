@@ -23,11 +23,11 @@ enum layer_names {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
-    [_BASE] = LAYOUT_reviung5(
+    [_BASE] = LAYOUT(
         KC_MUTE,       KC_MPRV,       KC_MPLY,       KC_MNXT,      TG(_LOWER)
     ),
-    [_LOWER] = LAYOUT_reviung5(
-        RGB_TOG,       LCTL(KC_X),    LCTL(KC_C),    LCTL(KC_V),    _______
+    [_LOWER] = LAYOUT(
+        UG_TOGG,       LCTL(KC_X),    LCTL(KC_C),    LCTL(KC_V),    _______
     )
 };
 

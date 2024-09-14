@@ -53,13 +53,13 @@ For convenience, QMK includes some Mod-Tap shortcuts to make common combinations
 
 ## Caveats
 
-Currently, the `kc` argument of `MT()` is limited to the [Basic Keycode set](keycodes_basic.md), meaning you can't use keycodes like `LCTL()`, `KC_TILD`, or anything greater than `0xFF`. This is because QMK uses 16-bit keycodes, of which 3 bits are used for the function identifier, 1 bit for selecting right or left mods, and 4 bits to tell which mods are used, leaving only 8 bits for the keycode. Additionally, if at least one right-handed modifier is specified in a Mod-Tap, it will cause all modifiers specified to become right-handed, so it is not possible to mix and match the two - for example, Left Control and Right Shift would become Right Control and Right Shift.
+Currently, the `kc` argument of `MT()` is limited to the [Basic Keycode set](keycodes_basic), meaning you can't use keycodes like `LCTL()`, `KC_TILD`, or anything greater than `0xFF`. This is because QMK uses 16-bit keycodes, of which 3 bits are used for the function identifier, 1 bit for selecting right or left mods, and 4 bits to tell which mods are used, leaving only 8 bits for the keycode. Additionally, if at least one right-handed modifier is specified in a Mod-Tap, it will cause all modifiers specified to become right-handed, so it is not possible to mix and match the two - for example, Left Control and Right Shift would become Right Control and Right Shift.
 
-Expanding this would be complicated, at best. Moving to a 32-bit keycode would solve a lot of this, but would double the amount of space that the keymap matrix uses. And it could potentially cause issues, too. If you need to apply modifiers to your tapped keycode, [Tap Dance](feature_tap_dance.md#example-5-using-tap-dance-for-advanced-mod-tap-and-layer-tap-keys) can be used to accomplish this.
+Expanding this would be complicated, at best. Moving to a 32-bit keycode would solve a lot of this, but would double the amount of space that the keymap matrix uses. And it could potentially cause issues, too. If you need to apply modifiers to your tapped keycode, [Tap Dance](features/tap_dance#example-5-using-tap-dance-for-advanced-mod-tap-and-layer-tap-keys) can be used to accomplish this.
 
 You may also run into issues when using Remote Desktop Connection on Windows. Because these keycodes send key events faster than a human, Remote Desktop could miss them.
 To fix this, open Remote Desktop Connection, click on "Show Options", open the "Local Resources" tab, and in the keyboard section, change the drop down to "On this Computer". This will fix the issue, and allow the characters to work correctly.
-It can also be mitigated by increasing [`TAP_CODE_DELAY`](config_options.md#behaviors-that-can-be-configured).
+It can also be mitigated by increasing [`TAP_CODE_DELAY`](config_options#behaviors-that-can-be-configured).
 
 ## Intercepting Mod-Taps
 
@@ -111,8 +111,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
-Enabling `IGNORE_MOD_TAP_INTERRUPT` is recommended when using Mod-Tap on alphanumeric keys to avoid hold function taking precendence when the next key is pressed quickly. See [Ignore Mod Tap Interrupt](tap_hold.md#ignore-mod-tap-interrupt) for more details.
-
 ### Changing both tap and hold
 
 This last example implements custom tap and hold function with `LT(0,KC_NO)` to create a single copy-on-tap, paste-on-hold key:
@@ -134,4 +132,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 ## Other Resources
 
-See the [Tap-Hold Configuration Options](tap_hold.md) for additional flags that tweak Mod-Tap behavior.
+See the [Tap-Hold Configuration Options](tap_hold) for additional flags that tweak Mod-Tap behavior.

@@ -57,7 +57,10 @@ led_config_t g_led_config = {
     }
 };
 
-void rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
+    if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) {
+        return false;
+    }
     if (rgb_matrix_is_enabled()) {
         if (kb_cums.underground_rgb_sw == 1) {
             for (uint8_t i = led_min; i < led_max; ++i) {
@@ -75,20 +78,29 @@ void rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     } else {
         rgb_matrix_set_color_all(0,0,0);
     }
+    return true;
 }
 
 void eeconfig_init_kb(void) {
     kb_cums.raw = 0;
     eeconfig_update_kb(kb_cums.raw);
+
+    eeconfig_init_user();
 }
 
 void keyboard_post_init_kb(void) {
     kb_cums.underground_rgb_sw = eeconfig_read_kb();
+
+    keyboard_post_init_user();
 }
 
 #endif
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (!process_record_user(keycode, record)) {
+        return false;
+    }
+
     switch(keycode) {
 #ifdef RGB_MATRIX_ENABLE
         case URGB_K:
@@ -99,9 +111,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             eeconfig_update_kb(kb_cums.raw);
             return false;
 #endif
-        case LOCK_GUI:
-            process_magic(GUI_TOG, record);
-            return false;
         default:
             return true;
     }

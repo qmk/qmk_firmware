@@ -4,8 +4,6 @@
 // refer to documentation: Gen2 and Gen3 (Pinnacle ASIC) at https://www.cirque.com/documentation
 
 #include "cirque_pinnacle.h"
-#include "print.h"
-#include "debug.h"
 #include "wait.h"
 #include "timer.h"
 
@@ -26,12 +24,6 @@ void cirque_pinnacle_clear_flags(void);
 void cirque_pinnacle_enable_feed(bool feedEnable);
 void RAP_ReadBytes(uint8_t address, uint8_t* data, uint8_t count);
 void RAP_Write(uint8_t address, uint8_t data);
-
-#ifdef CONSOLE_ENABLE
-void print_byte(uint8_t byte) {
-    xprintf("%c%c%c%c%c%c%c%c|", (byte & 0x80 ? '1' : '0'), (byte & 0x40 ? '1' : '0'), (byte & 0x20 ? '1' : '0'), (byte & 0x10 ? '1' : '0'), (byte & 0x08 ? '1' : '0'), (byte & 0x04 ? '1' : '0'), (byte & 0x02 ? '1' : '0'), (byte & 0x01 ? '1' : '0'));
-}
-#endif
 
 #if CIRQUE_PINNACLE_POSITION_MODE
 /*  Logical Scaling Functions */
@@ -95,7 +87,7 @@ void cirque_pinnacle_scale_data(pinnacle_data_t* coordinates, uint16_t xResoluti
 }
 
 // Clears Status1 register flags (SW_CC and SW_DR)
-void cirque_pinnacle_clear_flags() {
+void cirque_pinnacle_clear_flags(void) {
     RAP_Write(HOSTREG__STATUS1, HOSTREG__STATUS1_DEFVAL & ~(HOSTREG__STATUS1__COMMAND_COMPLETE | HOSTREG__STATUS1__DATA_READY));
     wait_us(50);
 }
@@ -224,6 +216,20 @@ void cirque_pinnacle_cursor_smoothing(bool enable) {
     RAP_Write(HOSTREG__FEEDCONFIG3, feedconfig3);
 }
 
+// Check sensor is connected
+bool cirque_pinnacle_connected(void) {
+    uint8_t current_zidle = 0;
+    uint8_t temp_zidle    = 0;
+    RAP_ReadBytes(HOSTREG__ZIDLE, &current_zidle, 1);
+    RAP_Write(HOSTREG__ZIDLE, HOSTREG__ZIDLE_DEFVAL);
+    RAP_ReadBytes(HOSTREG__ZIDLE, &temp_zidle, 1);
+    if (temp_zidle == HOSTREG__ZIDLE_DEFVAL) {
+        RAP_Write(HOSTREG__ZIDLE, current_zidle);
+        return true;
+    }
+    return false;
+}
+
 /*  Pinnacle-based TM040040/TM035035/TM023023 Functions  */
 void cirque_pinnacle_init(void) {
 #if defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_spi)
@@ -282,6 +288,10 @@ void cirque_pinnacle_init(void) {
     }
 
     cirque_pinnacle_enable_feed(true);
+
+#ifndef CIRQUE_PINNACLE_SKIP_SENSOR_CHECK
+    touchpad_init = cirque_pinnacle_connected();
+#endif
 }
 
 pinnacle_data_t cirque_pinnacle_read_data(void) {
@@ -326,6 +336,15 @@ pinnacle_data_t cirque_pinnacle_read_data(void) {
         result.yDelta = -((int16_t)data[2]);
     }
     result.wheelCount = ((int8_t*)data)[3];
+#endif
+
+#ifdef CIRQUE_PINNACLE_REACHABLE_CALIBRATION
+    static uint16_t xMin = UINT16_MAX, yMin = UINT16_MAX, yMax = 0, xMax = 0;
+    if (result.xValue < xMin) xMin = result.xValue;
+    if (result.xValue > xMax) xMax = result.xValue;
+    if (result.yValue < yMin) yMin = result.yValue;
+    if (result.yValue > yMax) yMax = result.yValue;
+    pd_dprintf("%s: xLo=%3d xHi=%3d yLo=%3d yHi=%3d\n", __FUNCTION__, xMin, xMax, yMin, yMax);
 #endif
 
     result.valid = true;

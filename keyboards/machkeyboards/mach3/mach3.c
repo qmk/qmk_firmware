@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "mach3.h"
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {
@@ -35,8 +35,8 @@ led_config_t g_led_config = { {
 #endif
 
 void keyboard_pre_init_kb(void) {
-  setPinOutput(F5);
-  writePinHigh(F5);
+  gpio_set_pin_output(F5);
+  gpio_write_pin_high(F5);
   
   keyboard_pre_init_user();
 }

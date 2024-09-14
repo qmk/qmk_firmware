@@ -23,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       //,-----------------------------------|
 LT(_ADJUST,KC_ESC),  KC_F2,  KC_EQL,  KC_DEL,
       //|--------+--------+--------+--------|
-          KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS,
+          KC_NUM,  KC_PSLS, KC_PAST, KC_PMNS,
       //|--------+--------+--------+--------|
             KC_P7,   KC_P8,   KC_P9,         
       //|--------+--------+--------+--------|
@@ -57,13 +57,13 @@ LT(_ARROW, KC_P0),          KC_PDOT,KC_PENT
       //|--------+--------+--------+--------|
           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
       //|--------+--------+--------+--------|
-          RGB_SAD, RGB_SAI, XXXXXXX,         
+          UG_SATD, UG_SATU, XXXXXXX,         
       //|--------+--------+--------+--------|
-          RGB_HUD, RGB_HUI, XXXXXXX, RGB_TOG,
+          UG_HUED, UG_HUEU, XXXXXXX, UG_TOGG,
       //|--------+--------+--------+--------|
-          RGB_VAD, RGB_VAI, XXXXXXX,         
+          UG_VALD, UG_VALU, XXXXXXX,         
       //|--------+--------+--------+--------|
-          XXXXXXX,          XXXXXXX, RGB_MOD 
+          XXXXXXX,          XXXXXXX, UG_NEXT 
       //`-----------------------------------'
   )
 };

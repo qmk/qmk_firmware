@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______, _______, _______,
         _______,  _______, _______, TG(_MUSIC_4_LIFE),
         MU_OFF,   _______, _______, _______,
-        MU_ON,    _______, _______, MU_MOD
+        MU_ON,    _______, _______, MU_NEXT
     ),
     /* MUSIC_4_LIFE
      * ,-----------------------.
@@ -151,7 +151,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------------------------------------'
      */
     [_ADMIN] = LAYOUT_ortho_4x4(
-        QK_BOOT,       _______, _______, _______,
+        QK_BOOT,     _______, _______, _______,
         CKEYS_ABOUT, _______, _______, _______,
         _______,     _______, _______, CK_OFF,
         _______,     _______, _______, CK_ON

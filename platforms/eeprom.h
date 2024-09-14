@@ -22,6 +22,15 @@ void     eeprom_update_dword(uint32_t *__p, uint32_t __value);
 void     eeprom_update_block(const void *__src, void *__dst, size_t __n);
 #endif
 
+// While newer avr-libc versions may have an implementation
+//   use preprocessor as to not cause conflicts
+#undef eeprom_write_qword
+#define eeprom_write_qword(__p, __value)                  \
+    do {                                                  \
+        uint64_t tmp = __value;                           \
+        eeprom_update_block(&tmp, __p, sizeof(uint64_t)); \
+    } while (0)
+
 #if defined(EEPROM_CUSTOM)
 #    ifndef EEPROM_SIZE
 #        error EEPROM_SIZE has not been defined for custom driver.
@@ -41,11 +50,11 @@ void     eeprom_update_block(const void *__src, void *__dst, size_t __n);
 #elif defined(EEPROM_STM32_L0_L1)
 #    include "eeprom_stm32_L0_L1.h"
 #    define TOTAL_EEPROM_BYTE_COUNT (STM32_ONBOARD_EEPROM_SIZE)
-#elif defined(EEPROM_TEENSY)
-#    include "eeprom_teensy.h"
+#elif defined(EEPROM_KINETIS_FLEXRAM)
+#    include "eeprom_kinetis_flexram.h"
 #    define TOTAL_EEPROM_BYTE_COUNT (EEPROM_SIZE)
-#elif defined(EEPROM_STM32_FLASH_EMULATED)
-#    include "eeprom_stm32_defs.h"
+#elif defined(EEPROM_LEGACY_EMULATED_FLASH)
+#    include "eeprom_legacy_emulated_flash_defs.h"
 #    define TOTAL_EEPROM_BYTE_COUNT (FEE_DENSITY_BYTES)
 #elif defined(EEPROM_SAMD)
 #    include "eeprom_samd.h"
@@ -59,12 +68,12 @@ void     eeprom_update_block(const void *__src, void *__dst, size_t __n);
 #elif defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__)
 #    define TOTAL_EEPROM_BYTE_COUNT 4096
 #elif defined(EEPROM_TEST_HARNESS)
-#    ifndef FLASH_STM32_MOCKED
+#    ifndef LEGACY_FLASH_OPS_MOCKED
 // Normal tests
 #        define TOTAL_EEPROM_BYTE_COUNT 32
 #    else
 // Flash wear-leveling testing
-#        include "eeprom_stm32_tests.h"
+#        include "eeprom_legacy_emulated_flash_tests.h"
 #        define TOTAL_EEPROM_BYTE_COUNT (EEPROM_SIZE)
 #    endif
 #else

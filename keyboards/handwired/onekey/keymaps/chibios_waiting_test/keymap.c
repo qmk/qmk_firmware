@@ -13,20 +13,20 @@ static inline void chThdSleepMicroseconds(uint32_t us) {
 #endif
 
 void keyboard_post_init_user(void) {
-    setPinOutput(QMK_WAITING_TEST_BUSY_PIN);
-    setPinOutput(QMK_WAITING_TEST_YIELD_PIN);
+    gpio_set_pin_output(QMK_WAITING_TEST_BUSY_PIN);
+    gpio_set_pin_output(QMK_WAITING_TEST_YIELD_PIN);
 }
 
 static inline void wait_us_polling_with_strobe(uint32_t us) {
-    writePinHigh(QMK_WAITING_TEST_BUSY_PIN);
+    gpio_write_pin_high(QMK_WAITING_TEST_BUSY_PIN);
     wait_us(us);
-    writePinLow(QMK_WAITING_TEST_BUSY_PIN);
+    gpio_write_pin_low(QMK_WAITING_TEST_BUSY_PIN);
 }
 
 static inline void wait_us_yield_with_strobe(uint32_t us) {
-    writePinHigh(QMK_WAITING_TEST_YIELD_PIN);
+    gpio_write_pin_high(QMK_WAITING_TEST_YIELD_PIN);
     chThdSleepMicroseconds(us);
-    writePinLow(QMK_WAITING_TEST_YIELD_PIN);
+    gpio_write_pin_low(QMK_WAITING_TEST_YIELD_PIN);
 }
 
 static const uint32_t waiting_values[] = {0, 1, 5, 10, 25, 50, 100, 150, 200, 500, 1000};
@@ -34,11 +34,11 @@ static const uint32_t waiting_values[] = {0, 1, 5, 10, 25, 50, 100, 150, 200, 50
 void housekeeping_task_user(void) {
     static uint32_t last_bench = 0;
     if (timer_elapsed32(last_bench) > 500) {
-        for (int i = 0; i < (sizeof(waiting_values) / sizeof(waiting_values[0])); i++) {
+        for (int i = 0; i < ARRAY_SIZE(waiting_values); i++) {
             wait_us_polling_with_strobe(waiting_values[i]);
             wait_us(10);
         }
-        for (int i = 0; i < (sizeof(waiting_values) / sizeof(waiting_values[0])); i++) {
+        for (int i = 0; i < ARRAY_SIZE(waiting_values); i++) {
             wait_us_yield_with_strobe(waiting_values[i]);
             wait_us(10);
         }

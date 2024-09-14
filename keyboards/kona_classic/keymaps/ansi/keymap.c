@@ -15,7 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 
-#define MODS_SHIFT_GUI_MASK (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)|MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
+#define MODS_SHIFT_GUI_MASK (MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT)|MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
 #define MODS_GUI_MASK   (MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
 
 enum custom_keycodes {
@@ -24,8 +24,6 @@ enum custom_keycodes {
 
 #define _DEFAULT 0
 #define _FN 1
-
-//RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_DEFAULT] = LAYOUT_ansi(
@@ -36,11 +34,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_F9,   KC_F10,  KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_LALT, KC_RGUI, MO(_FN), KC_RCTL
   ),
   [_FN] = LAYOUT_ansi(
-    RGB_TOG, RGB_MOD, KC_TILD, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, QK_BOOT,
+    UG_TOGG, UG_NEXT, KC_TILD, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, QK_BOOT,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    RGB_HUI, RGB_HUD, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    RGB_SAI, RGB_SAD, _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    RGB_VAI, RGB_VAD, _______, _______, _______,                            _______,                            _______, _______, _______, _______
+    UG_HUEU, UG_HUED, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    UG_SATU, UG_SATD, _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    UG_VALU, UG_VALD, _______, _______, _______,                            _______,                            _______, _______, _______, _______
   )
 };
 

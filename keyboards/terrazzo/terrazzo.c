@@ -17,11 +17,7 @@
 #include "terrazzo.h"
 
 #ifdef LED_MATRIX_ENABLE
-    #include <math.h>
-    #include "print.h"
-    #include "quantum.h"
-
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  * https://cdn-learn.adafruit.com/downloads/pdf/adafruit-15x7-7x15-charlieplex-led-matrix-charliewing-featherwing.pdf
  */
@@ -43,39 +39,6 @@ const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
     {0, C2_15},{0, C2_14},{0, C2_13},{0, C2_12},{0, C2_11},{0, C2_10},{0, C2_9}
 };
 
-led_config_t g_led_config = {
-    {
-        // Key Matrix to LED Index
-        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
-        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
-        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
-        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
-        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
-        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
-        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
-        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
-        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED }
-    }, {
-        // LED Index to Physical Position
-        {   0,  0 }, {  16,  0 }, {  32,  0 }, {  48,  0 }, {  64,  0 }, {  80,  0 }, {  96,  0 }, { 112,  0 }, { 128,  0 }, { 144,  0 }, { 160,  0 }, { 176,  0 }, { 192,  0 }, { 208,  0 }, { 224,  0 },
-        {   0, 11 }, {  16, 11 }, {  32, 11 }, {  48, 11 }, {  64, 11 }, {  80, 11 }, {  96, 11 }, { 112, 11 }, { 128, 11 }, { 144, 11 }, { 160, 11 }, { 176, 11 }, { 192, 11 }, { 208, 11 }, { 224, 11 },
-        {   0, 21 }, {  16, 21 }, {  32, 21 }, {  48, 21 }, {  64, 21 }, {  80, 21 }, {  96, 21 }, { 112, 21 }, { 128, 21 }, { 144, 21 }, { 160, 21 }, { 176, 21 }, { 192, 21 }, { 208, 21 }, { 224, 21 },
-        {   0, 32 }, {  16, 32 }, {  32, 32 }, {  48, 32 }, {  64, 32 }, {  80, 32 }, {  96, 32 }, { 112, 32 }, { 128, 32 }, { 144, 32 }, { 160, 32 }, { 176, 32 }, { 192, 32 }, { 208, 32 }, { 224, 32 },
-        {   0, 43 }, {  16, 43 }, {  32, 43 }, {  48, 43 }, {  64, 43 }, {  80, 43 }, {  96, 43 }, { 112, 43 }, { 128, 43 }, { 144, 43 }, { 160, 43 }, { 176, 43 }, { 192, 43 }, { 208, 43 }, { 224, 43 },
-        {   0, 53 }, {  16, 53 }, {  32, 53 }, {  48, 53 }, {  64, 53 }, {  80, 53 }, {  96, 53 }, { 112, 53 }, { 128, 53 }, { 144, 53 }, { 160, 53 }, { 176, 53 }, { 192, 53 }, { 208, 53 }, { 224, 53 },
-        {   0, 64 }, {  16, 64 }, {  32, 64 }, {  48, 64 }, {  64, 64 }, {  80, 64 }, {  96, 64 }, { 112, 64 }, { 128, 64 }, { 144, 64 }, { 160, 64 }, { 176, 64 }, { 192, 64 }, { 208, 64 }, { 224, 64 }
-    }, {
-        // LED Index to Flag
-        4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
-        4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
-        4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
-        4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
-        4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
-        4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
-        4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4
-    }
-};
-
 #define TERRAZZO_EFFECT(name)
 #define TERRAZZO_EFFECT_IMPLS
 
@@ -90,7 +53,7 @@ uint8_t terrazzo_effect = 1;
 
 void terrazzo_set_pixel(uint8_t x, uint8_t y, uint8_t value) {
     uint8_t target = y * LED_MATRIX_COLS + x;
-    if (target < DRIVER_LED_TOTAL && target >= 0) {
+    if (target < LED_MATRIX_LED_COUNT && target >= 0) {
       led_matrix_set_value(y * LED_MATRIX_COLS + x, value);
     }
 }
@@ -115,12 +78,12 @@ void terrazzo_scroll_pixel(bool clockwise) {
         terrazzo_led_index = terrazzo_led_index + 1;
     } else {
         terrazzo_led_index = terrazzo_led_index - 1;
-    } 
-    
-    if (terrazzo_led_index >= DRIVER_LED_TOTAL) {
+    }
+
+    if (terrazzo_led_index >= LED_MATRIX_LED_COUNT) {
         terrazzo_led_index = 0;
     } else if (terrazzo_led_index <= 0 ) {
-        terrazzo_led_index = DRIVER_LED_TOTAL - 1;
+        terrazzo_led_index = LED_MATRIX_LED_COUNT - 1;
     }
 }
 
@@ -156,8 +119,12 @@ void terrazzo_render(void) {
     }
 }
 
-void led_matrix_indicators_kb(void) {
+bool led_matrix_indicators_kb(void) {
+    if (!led_matrix_indicators_user()) {
+        return false;
+    }
     terrazzo_render();
+    return true;
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {

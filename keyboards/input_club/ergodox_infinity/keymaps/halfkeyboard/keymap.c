@@ -1,8 +1,5 @@
 #include QMK_KEYBOARD_H
-#include "debug.h"
-#include "action_layer.h"
 #include "version.h"
-#include "keymap_steno.h"
 #ifndef MIDI_ENABLE
 #error "Midi is not enabled"
 #endif
@@ -55,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   KC_EQL,
         KC_BSPC,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        KC_Z,  		  KC_X,   KC_C,   KC_V,   KC_B,   KC_MINUS,
-        KC_LCTRL, 		KC_LALT,	  LCTL(LSFT(KC_TAB)),LCTL(KC_TAB),  MO(SHORTCUTS),
+        KC_LCTL, 		KC_LALT,	  LCTL(LSFT(KC_TAB)),LCTL(KC_TAB),  MO(SHORTCUTS),
                                               KC_LGUI,  KC_BTN1,
                                                               MU_ON,
                                          KC_SPACE,KC_DEL,KC_END,
@@ -64,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_RBRC,    KC_Y,   KC_U,  KC_I,   KC_O,   KC_P,             KC_SLASH,
                           KC_H,   KC_J,  KC_K,   KC_L,   KC_SCLN,		   KC_ENT,
              KC_EQL,KC_N,   KC_M,  KC_COMM,KC_DOT, KC_SLASH,   	   KC_RSFT,
-                                  MO(SHORTCUTS), KC_UP,KC_DOWN,KC_RALT,           KC_RCTRL,
+                                  MO(SHORTCUTS), KC_UP,KC_DOWN,KC_RALT,           KC_RCTL,
              KC_BTN1,        KC_RGUI,
              MU_OFF,
              KC_PGDN,KC_TAB, LT(HALFQWERTY, KC_ENT)
@@ -98,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_BSLS,         KC_P,         KC_O,   KC_I,   KC_U,   KC_Y,   KC_LBRC,
         KC_ENT,        KC_SCLN,      KC_L,   KC_K,   KC_J,   KC_H,
         KC_LSFT,        KC_SLASH,  	  KC_DOT, KC_COMM,KC_M,   KC_N,   KC_RBRC,
-        KC_LCTRL, 		KC_LALT,	   LCTL(LSFT(KC_TAB)),LCTL(KC_TAB),  KC_TRNS,
+        KC_LCTL, 		KC_LALT,	   LCTL(LSFT(KC_TAB)),LCTL(KC_TAB),  KC_TRNS,
                                               KC_TRNS,  KC_TRNS,
                                                               KC_TRNS,
                                          KC_TRANSPARENT,KC_DEL,KC_END,
@@ -107,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_MINUS,    KC_T,   KC_R,  KC_E,   KC_W,   KC_Q,             KC_BSLS,
                           KC_G,   KC_F,  KC_D,   KC_S,   KC_A,  		   KC_ENT,
              KC_EQL,KC_B,   KC_V,  KC_C,   KC_X,   KC_Z,		   	   KC_RSFT,
-                                  KC_TRNS, KC_UP,KC_DOWN,KC_RALT,           KC_RCTRL,
+                                  KC_TRNS, KC_UP,KC_DOWN,KC_RALT,           KC_RCTL,
              KC_TRANSPARENT,        KC_TRNS,
              KC_TRNS,
              KC_PGDN,KC_TAB, KC_TRANSPARENT
@@ -141,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,         KC_QUOTE,	  KC_COMM,KC_DOT, KC_P,   KC_Y,   KC_MINUS,
         KC_BSPC,        KC_A,         KC_O,   KC_E,   KC_U,   KC_I,
         KC_LSFT,        KC_SCLN,	  KC_Q,   KC_J,   KC_K,   KC_X,   KC_EQL,
-        KC_LCTRL, 		KC_LALT,	  LCTL(LSFT(KC_TAB)),LCTL(KC_TAB),  KC_TRNS,
+        KC_LCTL, 		KC_LALT,	  LCTL(LSFT(KC_TAB)),LCTL(KC_TAB),  KC_TRNS,
                                               KC_TRNS,  KC_TRANSPARENT,
                                                               KC_UP,
                               LT(HALFDVORAK, KC_SPACE),KC_DEL,KC_DOWN,
@@ -150,7 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_LBRC,    KC_F,   KC_G,  KC_C,   KC_R,   KC_L,             KC_SLASH,
                           KC_D,   KC_H,  KC_T,   KC_N,   KC_S,		   KC_ENT,
              KC_RBRC,KC_B,   KC_M,  KC_W,	 KC_V,	 KC_Z,		   	   KC_RSFT,
-                                  KC_TRNS, KC_UP,KC_DOWN,KC_RALT,           KC_RCTRL,
+                                  KC_TRNS, KC_UP,KC_DOWN,KC_RALT,           KC_RCTL,
              KC_TRANSPARENT,        KC_TRANSPARENT,
              KC_PGUP,
              KC_PGDN,KC_TAB, LT(HALFDVORAK, KC_ENT)
@@ -184,7 +181,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_SLASH,         KC_L,         KC_R,   KC_C,   KC_G,   KC_F,   KC_LBRC,
         KC_ENT,        KC_S,         KC_N,   KC_T,   KC_H,   KC_D,
         KC_LSFT,        KC_Z,  		  KC_V,   KC_W,   KC_M,   KC_B,   KC_RBRC,
-        KC_LCTRL, 		KC_LALT,	  LCTL(LSFT(KC_TAB)),LCTL(KC_TAB),  KC_TRNS,
+        KC_LCTL, 		KC_LALT,	  LCTL(LSFT(KC_TAB)),LCTL(KC_TAB),  KC_TRNS,
                                               KC_TRANSPARENT,  KC_TRANSPARENT,
                                                               KC_TRNS,
                                          KC_TRANSPARENT,KC_ENT,KC_TRNS,
@@ -193,7 +190,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_MINUS,    KC_Y,   KC_P,  KC_DOT, KC_COMM,KC_P,             KC_TAB,
                           KC_I,   KC_U,  KC_E,   KC_O,   KC_A,		 	   KC_BSPC,
              KC_EQL,KC_X,   KC_K,  KC_J,	 KC_Q,   KC_SCLN,	   	   KC_RSFT,
-                                  KC_TRNS, KC_UP,KC_DOWN,KC_RALT,           KC_RCTRL,
+                                  KC_TRNS, KC_UP,KC_DOWN,KC_RALT,           KC_RCTL,
              KC_TRANSPARENT,        KC_TRNS,
              KC_TRNS,
              KC_TRNS,KC_TAB, KC_TRANSPARENT
@@ -236,8 +233,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_DOWN, KC_KP_4, KC_KP_5,  KC_KP_6,  KC_KP_MINUS, KC_KP_ENTER,
        KC_NO,KC_AMPR,KC_KP_1, KC_KP_2,  KC_KP_3,   KC_KP_PLUS, KC_NO,
                          KC_TRNS,KC_DOT,  KC_0,    KC_KP_EQUAL,  KC_NO,
-       BL_OFF, KC_TRNS,
-       BL_ON,
+       LM_OFF, KC_TRNS,
+       LM_ON,
        KC_NO, KC_NO, LT(HALFSYMB, KC_ENT)
 ),
 /* Keymap 6: Mirrored Symbol Layer
@@ -350,7 +347,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [SHORTCUTS] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
-        RGB_MODE_KNIGHT,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_LEFT,
+        RGB_M_K,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_LEFT,
         KC_TAB,   LCTL(KC_Q),   LCTL(KC_W),LCTL(KC_E),LCTL(KC_R),LCTL(KC_T),   KC_NO,
         KC_BSPC,  LCTL(KC_A),   LCTL(KC_S),LCTL(KC_D),LCTL(KC_F),LCTL(KC_G),
         KC_LSFT,  LCTL(KC_Z),  	LCTL(KC_X),LCTL(KC_C),LCTL(KC_V),LCTL(KC_B),   KC_MINUS,

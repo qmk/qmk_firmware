@@ -26,7 +26,7 @@ enum layers{
 #define KC_CMD_ET    LT(COMMAND,KC_ENTER)
 #define KC_NUM_ALT   LT(NUMBER,KC_LALT)
 #define KC_NUM_BS    LT(NUMBER,KC_BSPC)
-#define KC_SET_CTRL  LT(FUNCTION,KC_LCTRL)
+#define KC_SET_CTRL  LT(FUNCTION,KC_LCTL)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT( /* Base */
@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [FUNCTION] = LAYOUT( /* Base */
           KC_F1,  KC_F2,  KC_F3,   KC_F4,   KC_F5,
           KC_F6,  KC_F7,  KC_F8,   KC_F9,   KC_F10,
-          KC_F11, KC_F12, RGB_TOG, RGB_MOD, RGB_RMOD,
+          KC_F11, KC_F12, UG_TOGG, UG_NEXT, UG_PREV,
                           KC_NO,   KC_NO,   KC_NO
   ),
 };
@@ -77,9 +77,10 @@ bool oled_task_user(void) {
   }
 
   // Host Keyboard LED Status
-  oled_write_P(IS_HOST_LED_ON(USB_LED_NUM_LOCK) ? PSTR("NUMLCK ") : PSTR("       "), false);
-  oled_write_P(IS_HOST_LED_ON(USB_LED_CAPS_LOCK) ? PSTR("CAPLCK ") : PSTR("       "), false);
-  oled_write_P(IS_HOST_LED_ON(USB_LED_SCROLL_LOCK) ? PSTR("SCRLCK ") : PSTR("       "), false);
+  led_t led_state = host_keyboard_led_state();
+  oled_write_P(led_state.num_lock ? PSTR("NUMLCK ") : PSTR("       "), false);
+  oled_write_P(led_state.caps_lock ? PSTR("CAPLCK ") : PSTR("       "), false);
+  oled_write_P(led_state.scroll_lock ? PSTR("SCRLCK ") : PSTR("       "), false);
 
     return false;
 }

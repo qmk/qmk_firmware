@@ -36,11 +36,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       )
 };
 
-void rgb_matrix_indicators_user(void) {
-    if (layer_state_is(1)) {
-        rgb_matrix_set_color(77,0xFF, 0x80, 0x00);
-    }
+bool rgb_matrix_indicators_user(void) {
     if (host_keyboard_led_state().caps_lock) {
           rgb_matrix_set_color(28, 0xFF, 0xFF, 0xFF);
     }
+    return false;
 }

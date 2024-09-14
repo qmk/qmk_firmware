@@ -13,16 +13,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "rev0.h"
+#include "quantum.h"
 
 void matrix_init_kb(void) {
   // put your keyboard start-up code here
   // runs once when the firmware starts up
 
   //set the indicator LED pin to Output
-  setPinOutput(B5);
+  gpio_set_pin_output(B5);
   //set HIGH for off.
-  writePinHigh(B5);
+  gpio_write_pin_high(B5);
 
   //call any user functions
   matrix_init_user();

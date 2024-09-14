@@ -1,9 +1,0 @@
-{
-    "keyboard_name": "Ferris sweep",
-    "manufacturer": "DPB",
-    "usb": {
-        "vid": "0xC2AB",
-        "pid": "0x3939",
-        "device_version": "0.0.1"
-    }
-}

@@ -15,7 +15,7 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "launch_1.h"
+#include "quantum.h"
 
 #include "usb_mux.h"
 
@@ -139,12 +139,12 @@ void matrix_init_kb(void) {
     }
 
     system76_ec_rgb_layer(layer_state);
+
+    matrix_init_user();
 }
 
-void matrix_scan_kb(void) {
+void housekeeping_task_kb(void) {
     usb_mux_event();
-
-    matrix_scan_user();
 }
 
 #define LEVEL(value) (uint8_t)(((uint16_t)value) * ((uint16_t)RGB_MATRIX_MAXIMUM_BRIGHTNESS) / ((uint16_t)255))
@@ -238,9 +238,11 @@ layer_state_t layer_state_set_kb(layer_state_t layer_state) {
 }
 
 #ifdef CONSOLE_ENABLE
-void keyboard_post_init_user(void) {
+void keyboard_post_init_kb(void) {
     debug_enable   = true;
     debug_matrix   = false;
     debug_keyboard = false;
+
+    keyboard_post_init_user();
 }
 #endif  // CONSOLE_ENABLE

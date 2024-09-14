@@ -14,10 +14,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+#include "pointing_device_internal.h"
 #include "pimoroni_trackball.h"
 #include "i2c_master.h"
-#include "print.h"
-#include "debug.h"
 #include "timer.h"
 
 // clang-format off
@@ -56,22 +56,19 @@ void pimoroni_trackball_set_cpi(uint16_t cpi) {
 
 void pimoroni_trackball_set_rgbw(uint8_t r, uint8_t g, uint8_t b, uint8_t w) {
     uint8_t                              data[4] = {r, g, b, w};
-    __attribute__((unused)) i2c_status_t status  = i2c_writeReg(PIMORONI_TRACKBALL_ADDRESS << 1, PIMORONI_TRACKBALL_REG_LED_RED, data, sizeof(data), PIMORONI_TRACKBALL_TIMEOUT);
+    __attribute__((unused)) i2c_status_t status  = i2c_write_register(PIMORONI_TRACKBALL_ADDRESS << 1, PIMORONI_TRACKBALL_REG_LED_RED, data, sizeof(data), PIMORONI_TRACKBALL_TIMEOUT);
 
-#ifdef CONSOLE_ENABLE
-    if (debug_mouse) dprintf("Trackball RGBW i2c_status_t: %d\n", status);
-#endif
+    pd_dprintf("Trackball RGBW i2c_status_t: %d\n", status);
 }
 
 i2c_status_t read_pimoroni_trackball(pimoroni_data_t* data) {
-    i2c_status_t status = i2c_readReg(PIMORONI_TRACKBALL_ADDRESS << 1, PIMORONI_TRACKBALL_REG_LEFT, (uint8_t*)data, sizeof(*data), PIMORONI_TRACKBALL_TIMEOUT);
-#ifdef CONSOLE_ENABLE
-    if (debug_mouse) {
-        static uint16_t d_timer;
-        if (timer_elapsed(d_timer) > PIMORONI_TRACKBALL_DEBUG_INTERVAL) {
-            dprintf("Trackball READ i2c_status_t: %d L: %d R: %d Up: %d D: %d SW: %d\n", status, data->left, data->right, data->up, data->down, data->click);
-            d_timer = timer_read();
-        }
+    i2c_status_t status = i2c_read_register(PIMORONI_TRACKBALL_ADDRESS << 1, PIMORONI_TRACKBALL_REG_LEFT, (uint8_t*)data, sizeof(*data), PIMORONI_TRACKBALL_TIMEOUT);
+
+#ifdef POINTING_DEVICE_DEBUG
+    static uint16_t d_timer;
+    if (timer_elapsed(d_timer) > PIMORONI_TRACKBALL_DEBUG_INTERVAL) {
+        pd_dprintf("Trackball READ i2c_status_t: %d L: %d R: %d Up: %d D: %d SW: %d\n", status, data->left, data->right, data->up, data->down, data->click);
+        d_timer = timer_read();
     }
 #endif
 

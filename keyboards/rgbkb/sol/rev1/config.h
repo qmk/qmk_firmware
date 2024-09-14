@@ -18,18 +18,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* ws2812 RGB LED */
-#define RGB_DI_PIN B3
-
 #ifdef LED_MIRRORED
-  #define RGBLED_NUM 35
+  #define RGBLIGHT_LED_COUNT 35
 #else
-  #define RGBLED_NUM 70
+  #define RGBLIGHT_LED_COUNT 70
 #endif
-#define DRIVER_LED_TOTAL  RGBLED_NUM
-
-#define RGB_MATRIX_CENTER { 112, 35 }
-
-// Encoder support
-#define ENCODERS_PAD_A { D2 }
-#define ENCODERS_PAD_B { D6 }
+#define RGB_MATRIX_LED_COUNT  RGBLIGHT_LED_COUNT

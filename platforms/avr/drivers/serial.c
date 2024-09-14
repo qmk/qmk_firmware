@@ -239,28 +239,28 @@ inline static void serial_delay_half2(void) {
 
 inline static void serial_output(void) ALWAYS_INLINE;
 inline static void serial_output(void) {
-    setPinOutput(SOFT_SERIAL_PIN);
+    gpio_set_pin_output(SOFT_SERIAL_PIN);
 }
 
 // make the serial pin an input with pull-up resistor
 inline static void serial_input_with_pullup(void) ALWAYS_INLINE;
 inline static void serial_input_with_pullup(void) {
-    setPinInputHigh(SOFT_SERIAL_PIN);
+    gpio_set_pin_input_high(SOFT_SERIAL_PIN);
 }
 
 inline static uint8_t serial_read_pin(void) ALWAYS_INLINE;
 inline static uint8_t serial_read_pin(void) {
-    return !!readPin(SOFT_SERIAL_PIN);
+    return !!gpio_read_pin(SOFT_SERIAL_PIN);
 }
 
 inline static void serial_low(void) ALWAYS_INLINE;
 inline static void serial_low(void) {
-    writePinLow(SOFT_SERIAL_PIN);
+    gpio_write_pin_low(SOFT_SERIAL_PIN);
 }
 
 inline static void serial_high(void) ALWAYS_INLINE;
 inline static void serial_high(void) {
-    writePinHigh(SOFT_SERIAL_PIN);
+    gpio_write_pin_high(SOFT_SERIAL_PIN);
 }
 
 void soft_serial_initiator_init(void) {
