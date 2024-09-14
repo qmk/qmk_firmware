@@ -146,7 +146,11 @@
                 "rows": ["B15", "B14", "A8", "A13", "A7", null]
             }
         },
+        "usb_detect": {
+            "timeout": 2000
+        },
         "transport": {
+            "watchdog": true,
             "sync": {
                 "indicators": true,
                 "layer_state": true,
