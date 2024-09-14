@@ -141,9 +141,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     	←   →       .   0   ␣
     */
     [_NUM] = LAYOUT(
-    KC_MINS, KC_7,    KC_8,    KC_9,    KC_ASTR,                   _______, _______, KC_RCTL, _______, _______,
-    KC_PLUS, KC_1,    KC_2,    KC_3,    KC_SLSH,                   _______, KC_RSFT, KC_RGUI, KC_RALT, _______,
-    KC_EQL,  KC_4,    KC_5,    KC_6,    KC_COMM, _______, _______, _______, _______, ___x___, ___x___, _______,
+    KC_ASTR, KC_7,    KC_8,    KC_9,    KC_MINS,                   _______, _______, KC_RCTL, _______, _______,
+    KC_SLSH, KC_1,    KC_2,    KC_3,    KC_PLUS,                   _______, KC_RSFT, KC_RGUI, KC_RALT, _______,
+    KC_COMM, KC_4,    KC_5,    KC_6,    KC_EQL,  _______, _______, _______, KC_BSPC, KC_TAB,  KC_ENT,  _______,
     _______, _______, _______, KC_DOT,  KC_0,    KC_SPC,  _______, _______, _______, _______, _______, _______
     ),
 
@@ -168,7 +168,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NAV] = LAYOUT(
     ___x___, G(KC_Q), KC_LCTL, C(S(G(KC_4))), LSG(KC_4),                   KC_VOLU,    G(KC_LEFT), KC_UP,   G(KC_RGHT), ___x___,
     _______, KC_LALT, KC_LGUI, KC_LSFT,       G(KC_A),                     KC_VOLD,    KC_LEFT,    KC_DOWN, KC_RGHT,    KC_DEL,
-    G(KC_Z), G(KC_X), G(KC_C), G(KC_V),       LSG(KC_Z), _______, _______, KC_MUTE,    KC_BSPC,	   ___x___, ___x___,    ___x___,
+    G(KC_Z), G(KC_X), G(KC_C), G(KC_V),       LSG(KC_Z), _______, _______, KC_MUTE,    KC_BSPC,	   KC_TAB,  KC_ENT,     ___x___,
     _______, _______, _______, _______,       _______,   _______, _______, C(KC_LEFT), C(KC_RGHT), _______, _______,    _______
     ),
 
