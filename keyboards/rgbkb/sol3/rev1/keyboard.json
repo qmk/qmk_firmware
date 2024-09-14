@@ -151,6 +151,7 @@
         },
         "transport": {
             "watchdog": true,
+            "watchdog_timeout": 3000,
             "sync": {
                 "indicators": true,
                 "layer_state": true,
