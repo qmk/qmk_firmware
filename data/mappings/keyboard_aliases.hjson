@@ -306,13 +306,13 @@
         "target": "jacky_studio/piggy60/rev1"
     },
     "jj40": {
-        "target": "kprepublic/jj40"
+        "target": "kprepublic/jj40/rev1"
     },
     "jj4x4": {
         "target": "kprepublic/jj4x4"
     },
     "jj50": {
-        "target": "kprepublic/jj50"
+        "target": "kprepublic/jj50/rev1"
     },
     "jm60": {
         "target": "kbdfans/jm60"
@@ -562,6 +562,15 @@
     },
     "plain60": {
         "target": "evyd13/plain60"
+    },
+    "planck/ez": {
+        "target": "zsa/planck_ez/base"
+    },
+    "planck/ez/base": {
+        "target": "zsa/planck_ez/base"
+    },
+    "planck/ez/glow": {
+        "target": "zsa/planck_ez/glow"
     },
     "ploopyco/trackball": {
         "target": "ploopyco/trackball/rev1_005"
@@ -1060,7 +1069,7 @@
         "target": "lyso1/lefishe"
     },
     "lets_split_eh/eh": {
-        "target": "maple_computing/lets_split_eh/eh"
+        "target": "maple_computing/lets_split_eh"
     },
     "ls_60": {
         "target": "weirdo/ls_60"
@@ -1079,6 +1088,9 @@
     },
     "macro1": {
         "target": "laneware/macro1"
+    },
+    "maple_computing/lets_split_eh/eh": {
+        "target": "maple_computing/lets_split_eh"
     },
     "massdrop/thekey": {
         "target": "drop/thekey/v1"
@@ -1136,6 +1148,12 @@
     },
     "mt980": {
         "target": "mt/mt980"
+    },
+    "mt/ncr80/hotswap": {
+        "target": "mt/ncr80/r2/hotswap"
+    },
+    "mt/ncr80/solder": {
+        "target": "mt/ncr80/r2/solder"
     },
     "nafuda": {
         "target": "salicylic_acid3/nafuda"
@@ -1518,5 +1536,15 @@
     // Moved during 2023 Q4 cycle
     "ymdk/melody96": {
         "target": "ymdk/melody96/soldered"
+    },
+    // Moved during 2024 Q2 cycle
+    "kprepublic/jj40": {
+        "target": "kprepublic/jj40/rev1"
+    },
+    "kprepublic/jj50": {
+        "target": "kprepublic/jj50/rev1"
+    },
+    "dnworks/9973": {
+        "target": "dnworks/tkl87"
     }
 }
