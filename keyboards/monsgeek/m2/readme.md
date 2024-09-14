@@ -5,7 +5,7 @@ A customizable 95% keyboard
 
 * Keyboard Maintainer: [jonylee@hfd](https://github.com/jonylee1986)
 * Hardware Supported: MonsGeek M2 PCB
-* Hardware Availability: [monsgeek](https://www.monsgeek.com/)
+* Hardware Availability: [monsgeek](https://www.monsgeek.com/product/m2/)
 
 Make example for this keyboard (after setting up your build environment):
 
