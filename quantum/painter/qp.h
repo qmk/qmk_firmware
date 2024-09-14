@@ -557,6 +557,12 @@ int16_t qp_drawtext_recolor(painter_device_t device, uint16_t x, uint16_t y, pai
 #    define SH1106_NUM_DEVICES 0
 #endif // QUANTUM_PAINTER_SH1106_ENABLE
 
+#ifdef QUANTUM_PAINTER_LS0XX_ENABLE
+#    include "qp_ls0xx.h"
+#else // QUANTUM_PAINTER_LS0XX_ENABLE
+#    define LS0XX_NUM_DEVICES 0
+#endif // QUANTUM_PAINTER_LS0XX_ENABLE
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Quantum Painter Extras
 

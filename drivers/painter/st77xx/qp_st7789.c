@@ -128,6 +128,7 @@ painter_device_t qp_st7789_make_spi_device(uint16_t panel_width, uint16_t panel_
             // SPI and other pin configuration
             driver->base.comms_config                                   = &driver->spi_dc_reset_config;
             driver->spi_dc_reset_config.spi_config.chip_select_pin      = chip_select_pin;
+            driver->spi_dc_reset_config.spi_config.cs_active_low        = true;
             driver->spi_dc_reset_config.spi_config.divisor              = spi_divisor;
             driver->spi_dc_reset_config.spi_config.lsb_first            = false;
             driver->spi_dc_reset_config.spi_config.mode                 = spi_mode;
