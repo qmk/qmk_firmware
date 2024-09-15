@@ -45,7 +45,7 @@ void set_color_custom(int index, uint8_t red, uint8_t green, uint8_t blue) {
     if (index < WS2812_LED_COUNT_LEFT) {
         ws2812_set_color(index, red, green, blue);
     } else {
-        set_color_left(RGBLIGHT_LED_COUNT - (index + 1), red, green, blue);
+        set_color_left(RGBLIGHT_LED_COUNT - index - 1, red, green, blue);
     }
 #elif defined(ERGODOX_LED_15_MIRROR)
     ws2812_set_color(index, red, green, blue);
