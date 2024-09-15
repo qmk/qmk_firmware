@@ -72,6 +72,21 @@ int compose_compare_input(uint16_t* input, uint8_t input_len, uint16_t* seq, uin
         { SEND_STRING(SS_LCTL(SS_LSFT(ACTION_KEY))); } \
     )
 
+#define COMPOSE_MAPPING_CTL_ALT(KEY1, KEY2, ACTION_KEY) \
+    COMPOSE_MAPPING( \
+        COMPOSE_INPUT(KEY1, KEY2), \
+        { SEND_STRING(SS_LCTL(SS_LALT(ACTION_KEY))); } \
+    )
 
+#define COMPOSE_MAPPING_MEH(KEY1, KEY2, ACTION_KEY) \
+    COMPOSE_MAPPING( \
+        COMPOSE_INPUT(KEY1, KEY2), \
+        { SEND_STRING(SS_LCTL(SS_LSFT(SS_LALT(ACTION_KEY)))); } \
+    )
 
+#define COMPOSE_MAPPING_HYPER(KEY1, KEY2, ACTION_KEY) \
+    COMPOSE_MAPPING( \
+        COMPOSE_INPUT(KEY1, KEY2), \
+        { SEND_STRING(SS_LCTL(SS_LSFT(SS_LALT(SS_LGUI(ACTION_KEY))))); } \
+    )
 

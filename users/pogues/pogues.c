@@ -1,7 +1,7 @@
 #include "pogues.h"
 
 
-static bool vscode = false;
+static bool vscode = true;
 uint8_t vscode_compose_mapping(uint16_t* sequence, uint8_t sequence_len);
 uint8_t qzdev_compose_mapping(uint16_t* sequence, uint8_t sequence_len);
 
@@ -162,6 +162,10 @@ uint8_t compose_mapping(uint16_t* sequence, uint8_t sequence_len) {
         COMPOSE_INPUT(MOV_SPC),
         { SEND_STRING(SS_LGUI(SS_LSFT("l"))); }
     )
+    COMPOSE_MAPPING(
+        COMPOSE_INPUT(KC_SPC),
+        { SEND_STRING(SS_LGUI(SS_LSFT("l"))); }
+    )
 
     // set the mode to qzdev or vscode
     COMPOSE_MAPPING(
@@ -180,6 +184,10 @@ uint8_t vscode_compose_mapping(uint16_t* sequence, uint8_t sequence_len) {
     // open file (quick open/goto file)
     COMPOSE_MAPPING(
         COMPOSE_INPUT(KC_O),
+        { SEND_STRING(SS_LCTL(SS_LALT("o"))); }
+    )
+    COMPOSE_MAPPING(
+        COMPOSE_INPUT(KC_Y),
         { SEND_STRING(SS_LCTL("p")); }
     )
     // command pallet
@@ -194,14 +202,48 @@ uint8_t vscode_compose_mapping(uint16_t* sequence, uint8_t sequence_len) {
         { tap_code(KC_F7); }
     )
     // run selected text
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_R, KC_T),
-        { SEND_STRING(SS_LSFT(SS_TAP(X_ENT))); }
-    )
+    //COMPOSE_MAPPING(
+        //COMPOSE_INPUT(KC_R, KC_T),
+        //{ SEND_STRING(SS_LSFT(SS_TAP(X_ENT))); }
+    //)
+    COMPOSE_MAPPING_MEH(KC_R, KC_T, "r")    // run text
+
+    // Guesses that we can add shortcuts to vscode for these...
+    // diff current
+    COMPOSE_MAPPING_MEH(KC_D, KC_C, "g")
+    // diff approved
+    COMPOSE_MAPPING_MEH(KC_D, KC_A, "v")
+    // diff prod
+    COMPOSE_MAPPING_MEH(KC_D, KC_P, "p")
+    // diff head
+    COMPOSE_MAPPING_MEH(KC_D, KC_H, "h")  // note "e" did not work as a mapping in vscode somehow
+    // diff against version
+    COMPOSE_MAPPING_MEH(KC_D, KC_V, "d")
+
+    // vc blame
+    COMPOSE_MAPPING_MEH(KC_V, KC_B, "b")
+    // vc log
+    COMPOSE_MAPPING_MEH(KC_V, KC_L, "l")    // not set up yet
+    // vc commit
+    COMPOSE_MAPPING_MEH(KC_V, KC_C, "c")    // not set up yet
+    // vc request review
+    COMPOSE_MAPPING_MEH(KC_V, KC_R, "w")    // not set up yet
+    // push to
+    COMPOSE_MAPPING_MEH(KC_V, KC_P, "s")    // not set up yet
+    // vc update
+    COMPOSE_MAPPING_MEH(KC_V, KC_U, "u")    // not set up yet
+
     // focus on the shell
     COMPOSE_MAPPING_CTL_SFT(KC_F, KC_S, "d")
     // focus on the editor
     COMPOSE_MAPPING_CTL(KC_F, KC_E, SS_TAP(X_1))
+    // toggle between shell/editor
+    COMPOSE_MAPPING_CTL(KC_F, KC_F, "`")
+    // search the open buffers (ctrl-tab)
+    COMPOSE_MAPPING_CTL(KC_F, KC_B, SS_TAP(X_TAB))
+    // switch (focus) between code/test
+    COMPOSE_MAPPING_CTL(KC_F, KC_T, "t")
+
     // assume we are called last
     return COMPOSE_ERROR;
 }
