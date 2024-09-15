@@ -152,6 +152,19 @@ void matrix_scan_user(void) {
     achordion_task();
 }
 
+
+/*******************************************************************************
+ * need dynamic tapping term to stop pressing yv when want ctrl-y
+ *******************************************************************************/
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case CTL_Y:
+            return TAPPING_TERM - 40;
+        default:
+            return TAPPING_TERM;
+    }
+}
+
 /******************************************************************************
  * combo keys
  ******************************************************************************/
