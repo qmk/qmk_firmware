@@ -1,5 +1,6 @@
 /*
 Copyright 2011 Jun Wako <wakojun@gmail.com>
+Copyright 2023 Johannes H. Jensen <joh@pseudoberries.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,14 +21,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #include "debug.h"
 #include "report.h"
+#include "pointing_device_internal.h"
 
-#define PS2_MOUSE_SEND(command, message)                                                \
-    do {                                                                                \
-        __attribute__((unused)) uint8_t rcv = ps2_host_send(command);                   \
-        if (debug_mouse) {                                                              \
-            print((message));                                                           \
-            xprintf(" command: %X, result: %X, error: %X \n", command, rcv, ps2_error); \
-        }                                                                               \
+#define PS2_MOUSE_SEND(command, message)                                                          \
+    do {                                                                                          \
+        __attribute__((unused)) uint8_t rcv = ps2_host_send(command);                             \
+        pd_dprintf("%s command: %X, result: %X, error: %X \n", message, command, rcv, ps2_error); \
     } while (0)
 
 #define PS2_MOUSE_SEND_SAFE(command, message)          \
@@ -53,13 +52,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         }                                              \
     } while (0)
 
-#define PS2_MOUSE_RECEIVE(message)                                      \
-    do {                                                                \
-        __attribute__((unused)) uint8_t rcv = ps2_host_recv_response(); \
-        if (debug_mouse) {                                              \
-            print((message));                                           \
-            xprintf(" result: %X, error: %X \n", rcv, ps2_error);       \
-        }                                                               \
+#define PS2_MOUSE_RECEIVE(message)                                          \
+    do {                                                                    \
+        __attribute__((unused)) uint8_t rcv = ps2_host_recv_response();     \
+        pd_dprintf("%s result: %X, error: %X \n", message, rcv, ps2_error); \
     } while (0)
 
 __attribute__((unused)) static enum ps2_mouse_mode_e {
@@ -74,31 +70,38 @@ __attribute__((unused)) static enum ps2_mouse_mode_e {
  *    0|[Yovflw][Xovflw][Ysign ][Xsign ][ 1    ][Middle][Right ][Left  ]
  *    1|[                    X movement(0-255)                         ]
  *    2|[                    Y movement(0-255)                         ]
+ *
+ * if PS2_MOUSE_ENABLE_SCROLLING:
+ *    3|[                    Z movement(0-255)                         ]
  */
-#define PS2_MOUSE_BTN_MASK 0x07
-#define PS2_MOUSE_BTN_LEFT 0
-#define PS2_MOUSE_BTN_RIGHT 1
-#define PS2_MOUSE_BTN_MIDDLE 2
-#define PS2_MOUSE_X_SIGN 4
-#define PS2_MOUSE_Y_SIGN 5
-#define PS2_MOUSE_X_OVFLW 6
-#define PS2_MOUSE_Y_OVFLW 7
+typedef struct __attribute__((packed)) {
+    union {
+        struct {
+            bool left_button : 1;
+            bool right_button : 1;
+            bool middle_button : 1;
+            bool always_one : 1;
+            bool x_sign : 1;
+            bool y_sign : 1;
+            bool x_overflow : 1;
+            bool y_overflow : 1;
+        } b;
+        uint8_t w;
+    } head;
+    uint8_t x;
+    uint8_t y;
+#ifdef PS2_MOUSE_ENABLE_SCROLLING
+    uint8_t z;
+#endif
+} ps2_mouse_report_t;
 
-/* mouse button to start scrolling; set 0 to disable scroll */
-#ifndef PS2_MOUSE_SCROLL_BTN_MASK
-#    define PS2_MOUSE_SCROLL_BTN_MASK (1 << PS2_MOUSE_BTN_MIDDLE)
+#ifdef PS2_MOUSE_ENABLE_SCROLLING
+_Static_assert(sizeof(ps2_mouse_report_t) == 4, "ps2_mouse_report_t must be 4 bytes in size");
+#else
+_Static_assert(sizeof(ps2_mouse_report_t) == 3, "ps2_mouse_report_t must be 3 bytes in size");
 #endif
-/* send button event when button is released within this value(ms); set 0 to disable  */
-#ifndef PS2_MOUSE_SCROLL_BTN_SEND
-#    define PS2_MOUSE_SCROLL_BTN_SEND 300
-#endif
-/* divide virtical and horizontal mouse move by this to convert to scroll move */
-#ifndef PS2_MOUSE_SCROLL_DIVISOR_V
-#    define PS2_MOUSE_SCROLL_DIVISOR_V 2
-#endif
-#ifndef PS2_MOUSE_SCROLL_DIVISOR_H
-#    define PS2_MOUSE_SCROLL_DIVISOR_H 2
-#endif
+_Static_assert(sizeof((ps2_mouse_report_t){0}.head) == 1, "ps2_mouse_report_t.head must be 1 byte in size");
+
 /* multiply reported mouse values by these */
 #ifndef PS2_MOUSE_X_MULTIPLIER
 #    define PS2_MOUSE_X_MULTIPLIER 1
@@ -154,10 +157,6 @@ typedef enum ps2_mouse_sample_rate_e {
 
 void ps2_mouse_init(void);
 
-void ps2_mouse_init_user(void);
-
-void ps2_mouse_task(void);
-
 void ps2_mouse_disable_data_reporting(void);
 
 void ps2_mouse_enable_data_reporting(void);
@@ -174,4 +173,8 @@ void ps2_mouse_set_resolution(ps2_mouse_resolution_t resolution);
 
 void ps2_mouse_set_sample_rate(ps2_mouse_sample_rate_t sample_rate);
 
-void ps2_mouse_moved_user(report_mouse_t *mouse_report);
+report_mouse_t ps2_mouse_get_report(report_mouse_t mouse_report);
+
+uint16_t ps2_mouse_get_cpi(void);
+
+void ps2_mouse_set_cpi(uint16_t cpi);
