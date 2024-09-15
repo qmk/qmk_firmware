@@ -170,8 +170,11 @@ void enter_deep_sleep(void) {
  *       This is mostly Nuphy's unreleased logic with cleanup/refactoring by me.
  */
 void exit_deep_sleep(void) {
-    extern void matrix_init(void);
-    matrix_init();
+    extern void matrix_init_custom(void);
+    matrix_init_custom();
+
+    // extern void matrix_init(void);
+    // matrix_init();
 
     // connection mode switch pin
     gpio_set_pin_input_high(DEV_MODE_PIN);
