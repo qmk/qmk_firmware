@@ -78,6 +78,9 @@ uint16_t pointing_device_get_shared_cpi(void) {
 
 static report_mouse_t local_mouse_report         = {};
 static bool           pointing_device_force_send = false;
+#ifdef POINTING_DEVICE_HIRES_SCROLL_ENABLE
+static uint16_t hires_scroll_resolution;
+#endif
 
 extern const pointing_device_driver_t pointing_device_driver;
 
@@ -155,6 +158,12 @@ __attribute__((weak)) void pointing_device_init(void) {
 #    endif
 #endif
     }
+#ifdef POINTING_DEVICE_HIRES_SCROLL_ENABLE
+    hires_scroll_resolution = POINTING_DEVICE_HIRES_SCROLL_MULTIPLIER;
+    for (int i = 0; i < POINTING_DEVICE_HIRES_SCROLL_EXPONENT; i++) {
+        hires_scroll_resolution *= 10;
+    }
+#endif
 
     pointing_device_init_kb();
     pointing_device_init_user();
@@ -502,3 +511,9 @@ __attribute__((weak)) void pointing_device_keycode_handler(uint16_t keycode, boo
         pointing_device_send();
     }
 }
+
+#ifdef POINTING_DEVICE_HIRES_SCROLL_ENABLE
+uint16_t pointing_device_get_hires_scroll_resolution(void) {
+    return hires_scroll_resolution;
+}
+#endif
