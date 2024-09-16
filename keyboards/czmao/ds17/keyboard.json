@@ -108,7 +108,7 @@
     },
 
     "layouts": {
-      "LAYOUT": {
+      "LAYOUT_numberpad_5x4": {
         "layout": [
           {"label":"FN","matrix": [ 0,0],"x":0,"y":0},
           {"label":"PSLS","matrix": [ 0,1],"x":1,"y":0},

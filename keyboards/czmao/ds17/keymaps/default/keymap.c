@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT(
+    [0] = LAYOUT_numberpad_5x4(
         //1      2        3        4        5        6        7        8        9        10       11       12       13       14       15       16       17       18       19       20       21
 MO(1), KC_PSLS, KC_PAST, KC_PMNS,
 KC_P7, KC_P8,   KC_P9,   KC_PPLS,
@@ -39,7 +39,7 @@ KC_P0,          KC_PDOT
 
 
     ),
-    [1] = LAYOUT(
+    [1] = LAYOUT_numberpad_5x4(
         //1      2        3        4        5        6        7        8        9        10       11       12       13       14       15       16       17       18       19       20       21
 MO(1),   KC_NUM,  MO(2),   KC_CALC,
 KC_HOME, KC_UP,   KC_PGUP, KC_TRNS,
@@ -49,7 +49,7 @@ QK_RBT,          KC_TRNS
 
 
     ),
-        [2] = LAYOUT(
+        [2] = LAYOUT_numberpad_5x4(
         //1      2        3        4        5        6        7        8        9        10       11       12       13       14       15       16       17       18       19       20       21
 KC_TRNS, KC_TRNS, KC_TRNS, RGB_VAI,
 RGB_TOG, RGB_SAI, KC_TRNS, RGB_VAD,
@@ -59,47 +59,7 @@ RGB_MOD,          KC_TRNS
 
 
     ),
-        [3] = LAYOUT(
-        //1      2        3        4        5        6        7        8        9        10       11       12       13       14       15       16       17       18       19       20       21
-KC_TRNS, KC_TRNS, KC_TRNS, RGB_VAI,
-KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-KC_TRNS, KC_TRNS, KC_TRNS,  
-KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-KC_TRNS,          KC_TRNS
-
-
-    ),
-        [4] = LAYOUT(
-        //1      2        3        4        5        6        7        8        9        10       11       12       13       14       15       16       17       18       19       20       21
-KC_TRNS, KC_TRNS, KC_TRNS, RGB_VAI,
-KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-KC_TRNS, KC_TRNS, KC_TRNS,  
-KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-KC_TRNS,          KC_TRNS
-
-
-    ),
-        [5] = LAYOUT(
-        //1      2        3        4        5        6        7        8        9        10       11       12       13       14       15       16       17       18       19       20       21
-KC_TRNS, KC_TRNS, KC_TRNS, RGB_VAI,
-KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-KC_TRNS, KC_TRNS, KC_TRNS,  
-KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-KC_TRNS,          KC_TRNS
-
-
-    ),
-        [6] = LAYOUT(
-        //1      2        3        4        5        6        7        8        9        10       11       12       13       14       15       16       17       18       19       20       21
-KC_TRNS, KC_TRNS, KC_TRNS, RGB_VAI,
-KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-KC_TRNS, KC_TRNS, KC_TRNS,  
-KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-KC_TRNS,          KC_TRNS
-
-
-    ),
-        [7] = LAYOUT(
+        [3] = LAYOUT_numberpad_5x4(
         //1      2        3        4        5        6        7        8        9        10       11       12       13       14       15       16       17       18       19       20       21
 KC_TRNS, KC_TRNS, KC_TRNS, RGB_VAI,
 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
