@@ -68,7 +68,6 @@ bool  is_drag_scroll       = false;
 float scroll_accumulated_h = 0;
 float scroll_accumulated_v = 0;
 
-
 #ifdef ENCODER_ENABLE
 uint16_t lastScroll        = 0; // Previous confirmed wheel event
 uint16_t lastMidClick      = 0; // Stops scrollwheel from being read if it was pressed
@@ -129,7 +128,6 @@ void encoder_driver_task(void) {
 }
 #endif
 
-
 void toggle_drag_scroll(void) {
     is_drag_scroll ^= 1;
 }
@@ -139,7 +137,6 @@ void cycle_dpi(void) {
     eeconfig_update_kb(keyboard_config.raw);
     pointing_device_set_cpi(dpi_array[keyboard_config.dpi_config]);
 }
-
 
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
     if (is_drag_scroll) {

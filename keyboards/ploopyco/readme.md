@@ -16,7 +16,6 @@ There are a number of behavioral settings that you can use to help customize you
 | `PLOOPY_SCROLL_DEBOUNCE`        | `5`               | Number of milliseconds between scroll events.                                                                                                         |
 | `PLOOPY_SCROLL_BUTTON_DEBOUNCE` | `100`             | Time to ignore scroll events after pressing scroll wheel.                                                                                             |
 
-
 ## DPI
 
 You can change the DPI/CPI or speed of the trackball by calling `pointing_device_set_cpi` at any time. Additionally, there is a `DPI_CONFIG` macro that will cycle through an array of options for the DPI.  This is set to 1200, 1600, and 2400, but can be changed.  1600 is also set to the default.
