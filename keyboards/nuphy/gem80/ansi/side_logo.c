@@ -38,7 +38,7 @@ void logo_light_level_control(uint8_t brighten) {
     save_config_to_eeprom();
 }
 
-void logo_light_speed_contol(uint8_t fast) {
+void logo_light_speed_control(uint8_t fast) {
     if ((g_config.logo_speed) > LIGHT_SPEED_MAX) (g_config.logo_speed) = LIGHT_SPEED_MAX / 2;
 
     if (fast) {

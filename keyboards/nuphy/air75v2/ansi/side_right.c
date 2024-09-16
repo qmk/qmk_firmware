@@ -38,7 +38,7 @@ void right_side_light_level_control(uint8_t brighten) {
     save_config_to_eeprom();
 }
 
-void right_side_light_speed_contol(uint8_t fast) {
+void right_side_light_speed_control(uint8_t fast) {
     if ((g_config.right_side_speed) > LIGHT_SPEED_MAX) (g_config.right_side_speed) = LIGHT_SPEED_MAX / 2;
 
     if (fast) {

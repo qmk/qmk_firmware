@@ -52,7 +52,6 @@ RGB  side_leds[SIDE_LED_NUM] = {0};
 void side_ws2812_setleds(RGB *ledarray, uint16_t leds);
 void rgb_matrix_update_pwm_buffers(void);
 void logo_led_loop(void);
-void set_logo_rgb(uint8_t r, uint8_t g, uint8_t b);
 
 /**
  * @brief  side leds set color vaule.
@@ -101,7 +100,7 @@ void light_level_control(uint8_t brighten) {
  * @param  dir: 0 - decrease, 1 - increase.
  * @note  save to eeprom.
  */
-void light_speed_contol(uint8_t fast) {
+void light_speed_control(uint8_t fast) {
     if ((g_config.side_speed) > LIGHT_SPEED_MAX) (g_config.side_speed) = LIGHT_SPEED_MAX / 2;
 
     if (fast) {

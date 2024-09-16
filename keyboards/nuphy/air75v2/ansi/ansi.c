@@ -47,11 +47,11 @@ extern uint16_t        rf_linking_time;
 extern DEV_INFO_STRUCT dev_info;
 extern uint8_t         rf_blink_cnt;
 
-extern void light_speed_contol(uint8_t fast);
+extern void light_speed_control(uint8_t fast);
 extern void light_level_control(uint8_t brighten);
 extern void side_color_control(uint8_t dir);
 extern void side_mode_control(uint8_t dir);
-extern void right_side_light_speed_contol(uint8_t fast);
+extern void right_side_light_speed_control(uint8_t fast);
 extern void right_side_light_level_control(uint8_t brighten);
 extern void right_side_side_color_control(uint8_t dir);
 extern void right_side_side_mode_control(uint8_t dir);
@@ -260,13 +260,13 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
         case SIDE_SPI:
             if (record->event.pressed) {
-                light_speed_contol(1);
+                light_speed_control(1);
             }
             return false;
 
         case SIDE_SPD:
             if (record->event.pressed) {
-                light_speed_contol(0);
+                light_speed_control(0);
             }
             return false;
 
@@ -292,12 +292,12 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             return false;
         case RIGHT_SIDE_SPI:
             if (record->event.pressed) {
-                right_side_light_speed_contol(1);
+                right_side_light_speed_control(1);
             }
             return false;
         case RIGHT_SIDE_SPD:
             if (record->event.pressed) {
-                right_side_light_speed_contol(0);
+                right_side_light_speed_control(0);
             }
             return false;
 

@@ -137,7 +137,7 @@ void light_level_control(uint8_t brighten) {
  * @param  dir: 0 - decrease, 1 - increase.
  * @note  save to eeprom.
  */
-void light_speed_contol(uint8_t fast) {
+void light_speed_control(uint8_t fast) {
     if ((g_config.side_speed) > LIGHT_SPEED_MAX) (g_config.side_speed) = LIGHT_SPEED_MAX / 2;
 
     if (fast) {
@@ -246,11 +246,6 @@ void side_mode_b_control(uint8_t dir) {
 void set_left_rgb(uint8_t r, uint8_t g, uint8_t b) {
     for (int i = 0; i < 5; i++)
         user_set_side_rgb_color(SIDE_INDEX + i, r, g, b);
-}
-
-void set_logo_rgb(uint8_t r, uint8_t g, uint8_t b) {
-    for (int i = 35; i < 37; i++)
-        rgb_matrix_set_color(SIDE_INDEX + i, r, g, b);
 }
 
 void set_all_side_off(void) {
