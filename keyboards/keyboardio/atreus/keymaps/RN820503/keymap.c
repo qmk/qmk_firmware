@@ -135,9 +135,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     /*
-    	-   7   8   9   *       +   .   ^
-    	+   1   2   3   /       ,   ⇧   ⌘   ⌥
-    	=   4   5   6   ,       -
+    	*   7   8   9   -       +   .   ^
+    	/   1   2   3   +       ,   ⇧   ⌘   ⌥
+    	,   4   5   6   =       -   ⌫   ⇥   ⏎
     	←   →       .   0   ␣
     */
     [_NUM] = LAYOUT(
@@ -162,7 +162,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
                ⌘Q      ⌃       Sclp   Scap                     vol+    home    up	end
     	       ⌥       ⌘       ⇧             		           vol-    left    dn	rght	del
-    	undo   cut     cpy     pst    redo                     mute    bspc
+    	undo   cut     cpy     pst    redo                     mute     ⌫      ⇥     ⏎
                                                                dsk-    dsk+
     */
     [_NAV] = LAYOUT(

@@ -10,7 +10,7 @@ enum layer_names {
     _NUM,
     _SYM,
     _NAV,
-    //_SNTH,
+    _SNTH,
 };
 
 enum custom_keycodes {
@@ -46,7 +46,7 @@ enum custom_keycodes {
 #define LN3 KC_NO
 #define LN2 KC_TAB
 #define LN1 KC_NO
-#define LN0 KC_NO //TG(_SNTH)
+#define LN0 TO(_SNTH)
 
 #define RN0 TG(_NUM)
 #define RN1 KC_LPRN
@@ -133,7 +133,7 @@ static uint16_t keyhold_timer; // for handling Qu combo
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*  Base (alpha) Layer Hands Down Vibranuim-F
             Building for ZSA Voyager
-    ⎋           ⇥                        (   ⌦   )   vol↓↑
+    ⎋           ⇥        tg          tg  (   ⌦   )   vol↓↑
     `   x   w   m⌃   g   j           +=  .:  /⌃  "!  '? \
     z   s   c⌥  n⌘   t⇧  k           ,;  a⇧  e⌘  i⌥  h  q
         f   p   l    d   v      	 -   u   o   y   b
@@ -175,7 +175,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                  _______, _______, _______, _______
   ),
 
-
+  /*    F1     F2      F3	   F4	  F5			           F6	   F7	   F8	F9	    F10	    F11
+    	       ⌘Q      ⌃       Sclp   Scap                     vol+    home    up	end             F12
+    	       ⌥       ⌘       ⇧             		           vol-    left    dn	rght	del
+    	undo   cut     cpy     pst    redo                     mute     ⌫      ⇥     ⏎
+                                                               dsk-    dsk+
+  */
   [_NAV] = LAYOUT_voyager(
     _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,         KC_F5,                          KC_F6,   KC_F7,      KC_F8,   KC_F9,      KC_F10,  KC_F11,
     ___x___, ___x___, G(KC_Q), KC_LCTL, C(S(G(KC_4))), LSG(KC_4),                      KC_VOLU, G(KC_LEFT), KC_UP,   G(KC_RGHT), ___x___, KC_F12,
@@ -190,14 +195,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     z   s   n⌥  t⌘   h⇧  v           g   c⇧  a⌘  e⌥  i  q
         f   b   k    l   j      	 z   w   '   /   ,
                          r   ⌫   ⏎   ␣
-  *
+  */
   [_SNTH] = LAYOUT_voyager(
-    _______, _______,        _______,      _______,      _______,      TO(_DEF), _______, _______,      _______,      _______,      _______,        _______,
-    _______, KC_X,           KC_P,         LCTL_T(KC_D), KC_M,         KC_Q,     KC_EQL,  KC_Y,         RCTL_T(KC_O), KC_U,         KC_DOT,         _______,
-    _______, LT(_SYM, KC_S), LALT_T(KC_N), LGUI_T(KC_T), LSFT_T(KC_H), KC_V,     KC_G,    RSFT_T(KC_C), RGUI_T(KC_A), RALT_T(KC_E), LT(_SYM, KC_I), _______,
-    ___x___, KC_F,           KC_B,         KC_K,         KC_L,         KC_J,     KC_Z,    KC_W,         KC_QUOT,      KC_SLSH,      KC_COMM,        ___x___,
-                                                         _______,      _______,  _______, _______
-  ),*/
+    _______, _______,        _______,      _______,      _______,      TO(_DEF), 					_______, _______,      _______,      _______,      _______,        _______,
+    _______, KC_X,           KC_P,         LCTL_T(KC_D), KC_M,         KC_Q,     					KC_EQL,  KC_Y,         RCTL_T(KC_O), KC_U,         KC_DOT,         _______,
+    _______, LT(_SYM, KC_S), LALT_T(KC_N), LGUI_T(KC_T), LSFT_T(KC_H), KC_V,     					KC_G,    RSFT_T(KC_C), RGUI_T(KC_A), RALT_T(KC_E), LT(_SYM, KC_I), _______,
+    ___x___, KC_F,           KC_B,         KC_K,         KC_L,         KC_J,     					KC_Z,    KC_W,         KC_QUOT,      KC_SLSH,      KC_COMM,        ___x___,
+                                                                       _______,  _______,  _______, _______
+  ),
 };
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
