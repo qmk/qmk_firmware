@@ -63,6 +63,7 @@ void bhq_Disable(void);
 void bhq_SetPairingMode(uint8_t host_index, uint8_t timeout_10s);
 void bhq_OpenBleAdvertising(uint8_t host_index, uint8_t timeout_10s);
 void bhq_CloseBleAdvertising(void);
+void bhq_update_battery_percent(uint8_t percent);
 
 
 

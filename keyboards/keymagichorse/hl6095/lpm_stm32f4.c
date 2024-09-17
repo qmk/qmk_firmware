@@ -27,7 +27,6 @@
 
 #include "ws2812.h"
 
-
 static uint32_t     lpm_timer_buffer = 0;
 static bool         lpm_time_up               = false;
 
@@ -232,9 +231,9 @@ void enter_low_power_mode_prepare(void)
 }
 
 
-
 void lpm_task(void)
 {
+
     if(report_buffer_is_empty() == false)
     {
         lpm_time_up = false;
@@ -251,6 +250,6 @@ void lpm_task(void)
     if (lpm_time_up == true && sync_timer_elapsed32(lpm_timer_buffer) > RUN_MODE_PROCESS_TIME) {
         lpm_time_up = false;
         lpm_timer_buffer = 0;
-        enter_low_power_mode_prepare();
+        // enter_low_power_mode_prepare();
     }
 }

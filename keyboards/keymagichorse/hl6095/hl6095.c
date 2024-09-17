@@ -14,25 +14,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "quantum.h"
-void board_init(void) {
-
-
-
-
-
-
+#include "battery.h"
+#include "SEGGER_RTT.h"
+void board_init(void) 
+{
+    SEGGER_RTT_Init();
+    battery_init();
+    SEGGER_RTT_printf(0,"hello rtt log????\r\n");
 }
 
 
-#ifdef RGBLIGHT_ENABLE
-
-
-
-bool led_update_kb(led_t led_state) {
-    return true;
+void housekeeping_task_kb(void) {
+    battery_task();
 }
 
-void keyboard_post_init_kb(void) {
-}
 
-#endif
+
+void keyboard_post_init_kb(void)
+{
+}

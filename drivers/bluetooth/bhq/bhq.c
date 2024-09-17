@@ -154,6 +154,16 @@ void bhq_CloseBleAdvertising(void)
     bhkBuff[index++] = 0;
     BHQ_SendCmd(BHQ_NOT_ACK, bhkBuff,index);
 }
+void bhq_update_battery_percent(uint8_t percent) {
+    uint8_t index = 0;
+    memset(bhkBuff, 0, PACKET_MAX_LEN);
+
+    bhkBuff[index++] = 0x18;
+    bhkBuff[index++] = percent;
+
+    BHQ_SendCmd(BHQ_ACK, bhkBuff,index);
+}
+
 
 void bhq_send_keyboard(uint8_t* report) {
     uint8_t index = 0;
@@ -228,6 +238,7 @@ void bhq_send_hid_raw(uint8_t *data, uint8_t length)
 
     BHQ_SendCmd(BHQ_ACK, bhkBuff,index);
 }
+
 
 
 
