@@ -13,33 +13,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "quantum.h"
 
-#if defined(BLUETOOTH_BHQ)
-#   include "battery.h"
-#   include "km_printf.h"
+#pragma once
+
+
+#ifdef KM_DEBUG
+#    include "SEGGER_RTT.h"
+#    define km_printf(format, ...) SEGGER_RTT_printf(0, format, ##__VA_ARGS__)
+#else
+#    define km_printf(format, ...)
 #endif
 
-
-void board_init(void) 
-{
-#if defined(BLUETOOTH_BHQ)
-    battery_init();
-
-    km_printf_init();
-    km_printf("hello rtt log1111111\r\n");
+#ifdef KM_DEBUG
+#    define km_printf_init() SEGGER_RTT_Init()
+#else
+#    define km_printf_init()
 #endif
-}
 
-
-void housekeeping_task_kb(void) {
-#if defined(BLUETOOTH_BHQ)
-    battery_task();
-#endif
-}
-
-
-
-void keyboard_post_init_kb(void)
-{
-}

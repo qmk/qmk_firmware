@@ -17,7 +17,8 @@
 #include "battery.h"
 #include "gpio.h"
 #include "analog.h"
-#include "SEGGER_RTT.h"
+
+#include "km_printf.h"
 
 #include "bhq.h"
 
@@ -96,7 +97,7 @@ void battery_task(void)
         uint16_t voltage_mV_Fenya = (adc * 3300) / 1023;
         uint16_t voltage_mV_actual = voltage_mV_Fenya  * (1 + (R_UPPER / R_LOWER));
         uint8_t percent = battery_percent_read(voltage_mV_actual);
-        SEGGER_RTT_printf(0,"newnewnew !!!666hello rtt log adc:%d   fymv:%d  sjmv:%d  bfb:%d\r\n",adc,voltage_mV_Fenya,voltage_mV_actual,percent);
+        km_printf("1111111 newnewnew !!!666hello rtt log adc:%d   fymv:%d  sjmv:%d  bfb:%d\r\n",adc,voltage_mV_Fenya,voltage_mV_actual,percent);
 
         bhq_update_battery_percent(percent);
     }

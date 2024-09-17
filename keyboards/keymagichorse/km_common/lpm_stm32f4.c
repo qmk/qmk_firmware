@@ -1,5 +1,4 @@
-/* Copyright 2022~2024 @ lokher (https://www.keychron.com)
- * Adapted from  keymagichorse
+/* Copyright 2024 keymagichorse
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,6 +25,8 @@
 #include "uart.h"
 
 #include "ws2812.h"
+
+#include "battery.h"
 
 static uint32_t     lpm_timer_buffer = 0;
 static bool         lpm_time_up               = false;
@@ -188,6 +189,7 @@ void enter_low_power_mode_prepare(void)
     gpio_set_pin_input_high(USB_POWER_SENSE_PIN);
     palEnableLineEvent(USB_POWER_SENSE_PIN, PAL_EVENT_MODE_FALLING_EDGE);
 
+    battery_stop();
 
     /* Usb unit is actived and running, stop and disconnect first */
     sdStop(&UART_DRIVER);
@@ -231,9 +233,9 @@ void enter_low_power_mode_prepare(void)
 }
 
 
+
 void lpm_task(void)
 {
-
     if(report_buffer_is_empty() == false)
     {
         lpm_time_up = false;
@@ -250,6 +252,6 @@ void lpm_task(void)
     if (lpm_time_up == true && sync_timer_elapsed32(lpm_timer_buffer) > RUN_MODE_PROCESS_TIME) {
         lpm_time_up = false;
         lpm_timer_buffer = 0;
-        // enter_low_power_mode_prepare();
+        enter_low_power_mode_prepare();
     }
 }
