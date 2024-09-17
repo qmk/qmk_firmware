@@ -1,4 +1,6 @@
 qmk json2c -o keymap1.c keymap.json
+
+
 qmk compile -kb splitkb/aurora/lily58 -km smierx-colemak-dh -e CONVERT_TO=promicro_rp2040
 
 # Aurora Lily58's Default Keymap

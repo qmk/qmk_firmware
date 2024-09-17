@@ -1,4 +1,4 @@
-/* Copyright 2022 splitkb.com <support@splitkb.com>
+/* Copyright 2020 QMK
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,19 +15,23 @@
  */
 
 
-
-
 #pragma once
-#define RGB_MATRIX_SPLIT { 34, 34 }
-#define SPLIT_TRANSPORT_MIRROR
-#define SPLIT_LAYER_STATE_ENABLE
-#define SPLIT_LED_STATE_ENABLE
-#define SPLIT_OLED_ENABLE
-#define MASTER_RIGHT
-#define OLED_TIMEOUT 60000
-// Tapping term
-#define TAPPING_TERM 300
 
-//#define AUTO_SHIFT_TIMEOUT 200
-#define NO_AUTO_SHIFT_SPECIAL
+#include_next <mcuconf.h>
 
+/* Set HCLK to 48 MHz as tradeoff of USB lowest clockand and
+ * lower power comsumption for bluetooth. Will use dynamic
+ * clock when STM32L4 is supported in ChibiOS */
+#undef STM32_PLLM_VALUE
+#define STM32_PLLM_VALUE 2
+
+#undef STM32_PLLN_VALUE
+#define STM32_PLLN_VALUE 12
+
+#undef STM32_I2C_USE_I2C1
+#define STM32_I2C_USE_I2C1 TRUE
+
+#ifdef KC_BLUETOOTH_ENABLE
+#    undef STM32_SERIAL_USE_USART2
+#    define STM32_SERIAL_USE_USART2 TRUE
+#endif

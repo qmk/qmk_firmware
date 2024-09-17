@@ -1,4 +1,4 @@
-/* Copyright 2022 splitkb.com <support@splitkb.com>
+/* Copyright 2020 QMK
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,20 +14,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-
-
 #pragma once
-#define RGB_MATRIX_SPLIT { 34, 34 }
-#define SPLIT_TRANSPORT_MIRROR
-#define SPLIT_LAYER_STATE_ENABLE
-#define SPLIT_LED_STATE_ENABLE
-#define SPLIT_OLED_ENABLE
-#define MASTER_RIGHT
-#define OLED_TIMEOUT 60000
-// Tapping term
-#define TAPPING_TERM 300
 
-//#define AUTO_SHIFT_TIMEOUT 200
-#define NO_AUTO_SHIFT_SPECIAL
+#define HAL_USE_I2C TRUE
 
+#define _CHIBIOS_HAL_CONF_VER_8_0_
+
+#ifdef KC_BLUETOOTH_ENABLE
+#    define PAL_USE_CALLBACKS TRUE
+#    define HAL_USE_SERIAL TRUE
+#    define HAL_USE_RTC TRUE
+#endif
+
+#include_next <halconf.h>

@@ -2,6 +2,7 @@ import subprocess
 import json
 from replacement import data
 
+import os
 result = subprocess.run([
     "qmk",
     "c2json",
@@ -58,20 +59,32 @@ layers = [
 ]#TODO aus yml auslesen
 
 for layer in layers:
-    result = subprocess.run([
-        "keymap","draw","debug.yml","-s",layer
-    ],capture_output=True,text=True)
+    with open(f"images/lily58/single/{layer}.svg","w") as file:
+        result = subprocess.run([
+            "keymap","draw","debug.yml","-s",layer
+        ],stdout=file)
+with open("images/lily58/complete.svg", "w") as file:
+    result = subprocess.run(["keymap","draw","debug.yml"],stdout=file)
+counter = 0
+for layer in range(0,len(layers),4):
+    with open(f"images/lily58/block/{counter}.svg","w") as file:
+        result = subprocess.run([
+            "keymap", "draw", "debug.yml", "-s", f"L{layer}",f"L{layer+1}",f"L{layer+2}",f"L{layer+3}"
+        ],stdout=file)
+    counter += 1
+"""base_path = "images/lily58/block"
+for file in os.listdir(base_path):
+    if file.endswith(".svg"):
+        # Pfad zur SVG-Datei
+        input_svg = base_path + "/" + file
 
-    with open(f"{layer}.svg","w") as file:
-        file.write(result.stdout)
+        # Pfad zur Ausgabe-PNG-Datei
+        output_png = base_path + "/" + file.split(".svg")[0] + ".pdf"
+        print(input_svg)
+        # Konvertierung von SVG zu PNG
+        cairosvg.svg2pdf(url=input_svg, write_to=output_png)
 
-
-
-
-
-
-
-
+"""
 
 
 

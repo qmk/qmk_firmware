@@ -114,6 +114,7 @@ typedef struct {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case TOGGLE_HID:
+        // Ich will das drin lassen als erinnerung wie ich custom Keycodes und co mache
         if (record->event.pressed) {
             // when keycod QMKBEST is pressed
             if (HID_TOOL==0) {
@@ -159,22 +160,17 @@ const key_override_t space_override  = ko_make_basic(MOD_MASK_SHIFT, KC_SPC, KC_
 const key_override_t **key_overrides = (const key_override_t *[]){
     &left_thumb_override,
 	&right_thumb_override,
-	&space_override,
+	&space_override, 
     NULL // Null terminate the array of overrides!R%
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-	//MO(SPECIAL)
-	//Daumentasten außen
-	//Rechts Space + Shift = Tab
-	//L4
-	//; : mit Shift
 	[BASE] = LAYOUT(
-		KC_ESC,	KC_1,	KC_2, 				KC_3, 				KC_4, 	 			KC_5, 								KC_6, 					KC_7, 				KC_8,   			KC_9,  				KC_0,   		TOGGLE_HID,
-		KC_NO,	KC_Q,	KC_W, 				KC_F, 				KC_P,   			KC_B,    							KC_J, 					KC_L, 				KC_U,   			DE_Y,  				TD(TD_QUOTES),	KC_NO,
+		KC_ESC,	KC_1,	KC_2, 				KC_3, 				KC_4, 	 			KC_5, 								KC_6, 					KC_7, 				KC_8,   			KC_9,  				KC_0,   		KC_NO,
+		KC_NO,	KC_Q,	KC_W, 				KC_F, 				KC_P,   			KC_B,    							KC_J, 					KC_L, 				KC_U,   			DE_Y,  				TD(TD_QUOTES),	TG(MOUSE),
 		KC_NO,	KC_A,	MT(MOD_LALT,KC_R), 	MT(MOD_LGUI,KC_S), 	MT(MOD_LCTL,KC_T), 	KC_G,    							KC_M, 					MT(MOD_RCTL,KC_N), 	MT(MOD_RGUI,KC_E),  MT(MOD_RALT,KC_I),  KC_O,         	KC_NO,
-		KC_NO,	DE_Z,	KC_X, 				KC_C, 				KC_D,   			KC_V,  			 	KC_NO,	KC_NO,	KC_K, 					KC_H, 				KC_COMM,			KC_DOT,				TD(TD_SLASH),		KC_NO,
-						KC_NO,				KC_NO,				KC_LSFT,			LT(SPECIAL,KC_ENT), 				LT(SPECIAL2,KC_BSPC),	KC_SPC,				KC_TAB,				KC_NO),
+		KC_NO,	DE_Z,	KC_X, 				KC_C, 				KC_D,   			KC_V,  			 	KC_NO,	KC_NO,	KC_K, 					KC_H, 				KC_COMM,			KC_DOT,				TD(TD_SLASH),	KC_NO,
+						KC_NO,				KC_DEL,				KC_LSFT,			LT(SPECIAL,KC_ENT), 				LT(SPECIAL2,KC_BSPC),	KC_SPC,				KC_TAB,				KC_NO),
 
 	[SPECIAL] = LAYOUT(
 		KC_NO,	KC_NO,			KC_NO,	  	KC_NO, 			KC_NO, 			KC_NO, 						KC_NO, 	 	KC_NO, 				KC_NO,  			KC_NO,  		KC_NO, 			KC_NO,
@@ -184,18 +180,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 								KC_NO,		MO(MOUSE), 		KC_NO, 			KC_NO, 						KC_NO,		KC_NO,		 		KC_NO, 	 			KC_NO),
 	[SPECIAL2] = LAYOUT(
 		KC_NO, KC_NO,	KC_NO, 	KC_NO, 	KC_NO, 	KC_NO, 				KC_NO, KC_NO, 	KC_NO,KC_NO,KC_NO, KC_NO,
-		KC_NO, KC_NO,   KC_NO,  KC_NO,  KC_NO,  KC_NO, 				KC_NO, KC_1,	KC_2, KC_3,	KC_NO, KC_NO,
-		KC_NO, KC_NO,   KC_NO,  KC_NO,  KC_NO,  KC_NO, 				KC_NO, KC_4,	KC_5, KC_6, KC_0, KC_NO,
-		KC_NO, KC_NO,	KC_NO, 	KC_NO, 	KC_NO, 	KC_NO, KC_NO, KC_NO,KC_NO, KC_7,	KC_8, KC_9, KC_NO, KC_NO,
+		KC_NO, KC_NO,   KC_F1,  KC_F2,  KC_F3,  KC_F10, 			KC_NO, KC_1,	KC_2, KC_3,	KC_NO, KC_NO,
+		KC_NO, KC_NO,   KC_F4,  KC_F5,  KC_F6,  KC_F11, 			KC_NO, KC_4,	KC_5, KC_6, KC_0, KC_NO,
+		KC_NO, KC_NO,	KC_F7, 	KC_F8, 	KC_F9, 	KC_F12,KC_NO, KC_NO,KC_NO, KC_7,	KC_8, KC_9, KC_NO, KC_NO,
 					  	KC_NO, 	KC_NO, 	KC_NO, 	KC_NO, 				KC_NO, KC_NO, 	KC_NO,KC_NO),
 
 
 	[MOUSE] = LAYOUT(
-		KC_NO, KC_NO, 	KC_NO, 	 KC_NO,   KC_NO,   KC_NO, 			    KC_NO, KC_NO, 	KC_NO,   KC_NO,   KC_NO, KC_NO,
-		KC_NO, KC_NO, 	KC_NO, 	 KC_NO,   KC_WH_U, KC_NO, 				KC_NO, KC_NO, 	KC_MS_U, KC_NO,   KC_NO, KC_NO,
-		KC_NO, KC_BTN5, KC_BTN4, KC_BTN2, KC_BTN1, KC_NO, 				KC_NO, KC_MS_L, KC_MS_D, KC_MS_R, KC_NO, KC_NO,
-		KC_NO, KC_NO, 	KC_NO, 	 KC_NO,   KC_WH_D, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 	KC_NO, 	 KC_NO,   KC_NO, KC_NO,
-						KC_NO, 	 KC_NO,   KC_NO,   KC_NO, 				KC_NO, KC_NO, 	KC_NO,   KC_NO),
+		KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO, 			  KC_NO,   KC_NO, 	KC_NO,   KC_NO,   KC_NO,   KC_NO,
+		KC_NO, KC_NO, KC_NO,   KC_MS_U, KC_NO,   KC_NO, 			  KC_NO,   KC_NO, 	KC_NO,   KC_NO,   KC_NO,   TG(MOUSE),
+		KC_NO, KC_NO, KC_MS_L, KC_MS_D, KC_MS_R, KC_NO, 			  KC_NO,   KC_BTN1, KC_BTN2, KC_BTN3, KC_BTN3, KC_BTN4,
+		KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO,   KC_BTN5, KC_BTN6, KC_BTN7, KC_BTN8, KC_NO,
+					  KC_NO,   KC_NO,   KC_LSFT, KC_NO, 			  KC_WH_U, KC_WH_D, KC_NO,   KC_NO),
 
 
 	[FKEYS] = LAYOUT(KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, TO(0), KC_NO, KC_NO, KC_NO, KC_NO),
@@ -220,105 +216,64 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[15] = LAYOUT(KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, TO(0), KC_NO, KC_NO, KC_NO, KC_NO)
 };
 
-void layer_hid_send(layer_state_t state) {
-	switch (get_highest_layer(state)) {
-	case SPECIAL:
-		memset(response,0,32);
-		//raw_hid_receive888888897
-		response[0] = 's';
-		raw_hid_send(response,32);
-		break;
-	case MOUSE:
-		memset(response,0,32);
-		//raw_hid_receive
-		response[0] = 'm';
-		raw_hid_send(response,32);
-		break;
-	case SPECIAL2:
-		memset(response,0,32);
-		response[0] = 's';
-		response[1] = '2';
-		raw_hid_send(response,32);
-		break;
-	case NUMBERS:
-		memset(response,0,32);
-		response[0] = 'n';
-		raw_hid_send(response,32);
-		break;
-	default:
-		memset(response,0,32);
-		//raw_hid_receive
-		response[0] = 'd';
-		raw_hid_send(response,32);
-		break;
-	}
-	/**/
-}
-
-
 // FARBEN FÜR LAYER
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
     case SPECIAL:
-		if (HID_TOOL==1) {
-			layer_hid_send(state);
-		}
-        rgblight_sethsv(HSV_ORANGE);
+        //rgblight_sethsv_noeeprom(HSV_ORANGE);
+        //rgb_matrix_set_color_all(HSV_ORANGE);
+        //rgb_matrix_set_color(25,80,80,80);
         break;
     case MOUSE:
-		if (HID_TOOL==1) {
-			layer_hid_send(state);
-		}
-        rgblight_sethsv(0,  100, 100);
+        //rgb_matrix_set_color_all(0,  100, 100);
         break;
 	case NUMBERS:
-		if (HID_TOOL==1){
-			layer_hid_send(state);
-		}
-        rgblight_sethsv(0,  100, 100);
+        //rgb_matrix_set_color_all(0,  100, 100);
         break;
 	case MEDIA:
-        rgblight_sethsv(0,  100, 100);
+        //rgb_matrix_set_color_all(0,  100, 100);
         break;
 	case SPECIAL2:
-		if (HID_TOOL==1) {
-			layer_hid_send(state);
-		}
-		rgblight_sethsv(HSV_MAGENTA);
+		//rgb_matrix_set_color_all(HSV_MAGENTA);
 		break;
     default: //  for any other layers, or the default layer
-		if (HID_TOOL==1) {
-			layer_hid_send(state);
-		}
-		rgblight_sethsv(HSV_GREEN);
+		//rgb_matrix_set_color_all(HSV_GREEN);
+        //rgb_matrix_set_color(25,80,80,80);
         break;
     }
   return state;
 }
 
-bool process_detected_host_os_kb(os_variant_t detected_os) {
-    if (!process_detected_host_os_user(detected_os)) {
-        return false;
-    }
-    switch (detected_os) {
-        case OS_MACOS:
-        case OS_IOS:
-            rgblight_sethsv(HSV_YELLOW);
-            break;
-        case OS_WINDOWS:
-            rgblight_sethsv(HSV_YELLOW);
-            break;
-        case OS_LINUX:
-            rgblight_sethsv(HSV_RED);
-            break;
-        case OS_UNSURE:
-            rgblight_sethsv(HSV_AZURE);
-            break;
-    }
 
-    return true;
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+	for (uint8_t i = led_min; i < led_max; i++) {
+		switch(get_highest_layer(layer_state)) {
+			case SPECIAL:
+				rgb_matrix_set_color(i, RGB_BLUE);
+				break;
+			case SPECIAL2:
+                /*
+                if (i - led_min == 0) {
+                    rgb_matrix_set_color(i,RGB_RED);
+                } else if (i - led_min==1) {
+					rgb_matrix_set_color(i, RGB_YELLOW);
+                } else if(i - led_min==2) {
+                	rgb_matrix_set_color(i, RGB_GREEN);
+                } else if(i - led_min==3) {
+                	rgb_matrix_set_color(i, RGB_PURPLE);
+                } else if(i - led_min==4) {
+                	rgb_matrix_set_color(i, RGB_GOLD);
+                } else{
+                	rgb_matrix_set_color(i, RGB_TURQUOISE);
+                }*/
+				break;
+			default:
+				rgb_matrix_set_color(i, RGB_AZURE);
+				break;
+		}
+	}
+	return false;
 }
-
 #ifdef OLED_ENABLE
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -356,8 +311,6 @@ bool oled_task_user(void) {
 				// Or use the write_ln shortcut over adding '\n' to the end of your string
 				oled_write_ln_P(PSTR("Undefined"), false);
 		}
-		oled_write_P(PSTR("HID-TOOL:"), false);
-		oled_write(get_u8_str(HID_TOOL,' '),false);
 		// Host Keyboard LED Status
 		led_t led_state = host_keyboard_led_state();
 		oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
