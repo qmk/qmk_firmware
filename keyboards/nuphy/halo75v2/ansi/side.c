@@ -685,24 +685,15 @@ static void side_static_mode_show(void) {
 
     if (side_play_point >= SIDE_COLOR_MAX) side_play_point = 0;
 
-    if (g_config.side_use_custom_color) {
-        HSV hsv = g_config.side_custom_color;
-        hsv.v   = rgb_matrix_config.hsv.v;
-        RGB rgb = hsv_to_rgb(hsv);
-        r_temp  = rgb.r;
-        g_temp  = rgb.g;
-        b_temp  = rgb.b;
-    } else {
+    for (int i = 0; i < side_line; i++) {
         r_temp = side_color_lib[g_config.side_color][0];
         g_temp = side_color_lib[g_config.side_color][1];
         b_temp = side_color_lib[g_config.side_color][2];
-    }
 
-    for (int i = 0; i < side_line; i++) {
         if ((side_led_index_tab[i] <= SIDE_INDEX + 9) && (side_led_index_tab[i] >= SIDE_INDEX)) {
-            r_temp = r_temp * 0.7;
-            g_temp = g_temp * 0.7;
-            b_temp = b_temp * 0.7;
+            r_temp = side_color_lib_1[g_config.side_color][0] * 0.7;
+            g_temp = side_color_lib_1[g_config.side_color][1] * 0.7;
+            b_temp = side_color_lib_1[g_config.side_color][2] * 0.7;
         }
 
         count_rgb_light(side_light_table[g_config.side_brightness]);
