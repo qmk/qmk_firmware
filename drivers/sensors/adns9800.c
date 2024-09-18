@@ -67,14 +67,15 @@
 #define REG_SROM_Load_Burst              0x62
 #define REG_Pixel_Burst                  0x64
 
-#define MIN_CPI           200
-#define MAX_CPI           8200
-#define CPI_STEP          200
-#define CLAMP_CPI(value)  value<MIN_CPI ? MIN_CPI : value> MAX_CPI ? MAX_CPI : value
-#define US_BETWEEN_WRITES 120
-#define US_BETWEEN_READS  20
-#define US_BEFORE_MOTION  100
-#define MSB1              0x80
+#define MIN_CPI             200
+#define MAX_CPI             8200
+#define CPI_STEP            200
+#define CLAMP_CPI(value)    value<MIN_CPI ? MIN_CPI : value> MAX_CPI ? MAX_CPI : value
+#define US_BETWEEN_WRITES   120
+#define US_BETWEEN_READS    20
+#define US_DELAY_AFTER_ADDR 100
+#define US_BEFORE_MOTION    100
+#define MSB1                0x80
 // clang-format on
 
 void adns9800_spi_start(void) {
@@ -92,6 +93,7 @@ void adns9800_write(uint8_t reg_addr, uint8_t data) {
 uint8_t adns9800_read(uint8_t reg_addr) {
     adns9800_spi_start();
     spi_write(reg_addr & 0x7f);
+    wait_us(US_DELAY_AFTER_ADDR);
     uint8_t data = spi_read();
     spi_stop();
     wait_us(US_BETWEEN_READS);
