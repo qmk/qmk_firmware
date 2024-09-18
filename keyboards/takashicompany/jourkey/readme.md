@@ -1,12 +1,28 @@
-# takashicompany/jourkey
+# Joukey
 
-![takashicompany/jourkey](imgur.com image replace me!)
+![takashicompany/jourkey](https://i.imgur.com/pCrTbKnh.jpeg)
 
-*A short description of the keyboard/project*
+Jourkey was designed as “a keyboard for taking pictures with scenery while traveling.
+
+The layout is like a smaller version of a traditional keyboard.
+Decorate it with your favorite keycaps and case to make it your travel companion.
+
+Of course, it can also be used as a macro pad.
+Both layouts with and without ISO-Enter are supported.
+
+---
+
+Jourkeyは「旅先で景色と写真を撮るためのキーボード」としてデザインされました。
+
+従来のキーボードを小さくしたようなレイアウトです。
+お気に入りのキーキャップやケースでデコレーションして貴方の旅のお供になります。
+
+もちろん、マクロパッドとして使用することも可能です。
+ISO-Enterを採用/非採用した両方のレイアウトに対応しています。
 
 * Keyboard Maintainer: [takashicompany](https://github.com/takashicompany)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: Jourkey PCB, Pro Micro
+* Hardware Availability: https://github.com/takashicompany/jourkey
 
 Make example for this keyboard (after setting up your build environment):
 
