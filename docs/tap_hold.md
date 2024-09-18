@@ -505,7 +505,7 @@ bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
 If the programs you use bind an action to taps of modifier keys (e.g. tapping left GUI to bring up the applications menu or tapping left Alt to focus the menu bar), you may find that using retro-tapping falsely triggers those actions. To counteract this, you can define a `DUMMY_MOD_NEUTRALIZER_KEYCODE` in `config.h` that will get sent in between the register and unregister events of a held Mod-Tap key. That way, the programs on your computer will no longer interpret the mod suppression induced by retro-tapping as a lone tap of a modifier key and will thus not falsely trigger the undesired action.
 
 Naturally, for this technique to be effective, you must choose a `DUMMY_MOD_NEUTRALIZER_KEYCODE` for which no keyboard shortcuts are bound to. Recommended values are: `KC_RIGHT_CTRL` or `KC_F18`. 
-Please note that `DUMMY_MOD_NEUTRALIZER_KEYCODE` must be a basic, unmodified, HID keycode, so values like `KC_NO`, `KC_TRANSPARENT`, or `KC_PIPE` (i.e. `S(KC_BACKSLASH)`) are not permitted.
+Please note that `DUMMY_MOD_NEUTRALIZER_KEYCODE` must be a basic, unmodified, HID keycode, so values like `KC_NO`, `KC_TRANSPARENT`, or `KC_PIPE` (aka `S(KC_BACKSLASH)`) are not permitted.
 
 By default, only left Alt and left GUI are neutralized. If you want to change the list of applicable modifier masks, use the following in your `config.h`:
 
