@@ -24,7 +24,7 @@
         "cols": ["B0", "B1", "A8", "A9", "B5", "A6", "C14", "C15", "A0", "A5", "A4", "A3", "A2", "A1"],
         "rows": ["B4", "B3", "A15", "A14", "A7"]
     },
-    "community_layouts": ["60_ansi", "60_ansi_split_bs_rshift", "60_ansi_tsangan", "60_tsangan_hhkb", "60_ansi_wkl", "60_ansi_wkl_split_bs_rshift", "60_hhkb"],
+    "community_layouts": ["60_ansi", "60_ansi_split_bs_rshift", "60_ansi_tsangan", "60_ansi_tsangan_split_bs_rshift", "60_ansi_wkl", "60_ansi_wkl_split_bs_rshift", "60_hhkb"],
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [
@@ -234,7 +234,7 @@
                 {"matrix": [4, 13], "x": 13.5, "y": 4, "w": 1.5}
             ]
         },
-        "LAYOUT_60_tsangan_hhkb": {
+        "LAYOUT_60_ansi_tsangan_split_bs_rshift": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
