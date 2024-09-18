@@ -30,7 +30,7 @@
         },
         "vid": "0x6369"
     },
-    "community_layouts": ["60_ansi_tsangan", "60_tsangan_hhkb", "60_ansi_wkl", "60_ansi_wkl_split_bs_rshift", "60_hhkb", "60_iso_tsangan", "60_iso_tsangan_split_bs_rshift", "60_iso_wkl", "60_iso_wkl_split_bs_rshift", "60_jis"],
+    "community_layouts": ["60_ansi_tsangan", "60_ansi_tsangan_split_bs_rshift", "60_ansi_wkl", "60_ansi_wkl_split_bs_rshift", "60_hhkb", "60_iso_tsangan", "60_iso_tsangan_split_bs_rshift", "60_iso_wkl", "60_iso_wkl_split_bs_rshift", "60_jis"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -171,7 +171,7 @@
                 {"label": "4,12", "matrix": [4, 12], "w": 1.5, "x": 13.5, "y": 4}
             ]
         },
-        "LAYOUT_60_tsangan_hhkb": {
+        "LAYOUT_60_ansi_tsangan_split_bs_rshift": {
             "layout": [
                 {"label": "0,0", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "0,1", "matrix": [0, 1], "x": 1, "y": 0},
