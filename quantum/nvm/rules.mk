@@ -23,7 +23,7 @@ else
     OPT_DEFS += -DNVM_DRIVER_$(NVM_DRIVER_UPPER) -DNVM_DRIVER="$(NVM_DRIVER)"
 
     ifneq ("$(wildcard $(QUANTUM_DIR)/nvm/$(NVM_DRIVER_LOWER))","")
-        VPATH += $(QUANTUM_DIR)/nvm/$(NVM_DRIVER_LOWER)
+        COMMON_VPATH += $(QUANTUM_DIR)/nvm/$(NVM_DRIVER_LOWER)
     endif
 
     QUANTUM_SRC += nvm_eeconfig.c
