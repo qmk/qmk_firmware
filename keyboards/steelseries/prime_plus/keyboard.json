@@ -32,6 +32,9 @@
             "breathing": true,
             "rainbow_mood": true
         },
+        "default": {
+            "animation": "rainbow_mood"
+        },
         "driver": "custom",
         "led_count": 1
     },
