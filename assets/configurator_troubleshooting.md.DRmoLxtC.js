@@ -1,0 +1,15 @@
+import { _ as _export_sfc, c as createElementBlock, o as openBlock, a8 as createStaticVNode } from "./chunks/framework.Clpp4x2N.js";
+const __pageData = JSON.parse('{"title":"Configurator Troubleshooting","description":"","frontmatter":{},"headers":[],"relativePath":"configurator_troubleshooting.md","filePath":"configurator_troubleshooting.md"}');
+const _sfc_main = { name: "configurator_troubleshooting.md" };
+const _hoisted_1 = /* @__PURE__ */ createStaticVNode('<h1 id="configurator-troubleshooting" tabindex="-1">Configurator Troubleshooting <a class="header-anchor" href="#configurator-troubleshooting" aria-label="Permalink to &quot;Configurator Troubleshooting&quot;">​</a></h1><h2 id="my-json-file-is-not-working" tabindex="-1">My .json file is not working <a class="header-anchor" href="#my-json-file-is-not-working" aria-label="Permalink to &quot;My .json file is not working&quot;">​</a></h2><p>If the .json file was generated with QMK Configurator, congratulations you have stumbled upon a bug. File an issue at <a href="https://github.com/qmk/qmk_configurator/issues" target="_blank" rel="noreferrer">qmk_configurator</a>.</p><p>If not... how did you miss the big bold message at the top saying not to use other .json files?</p><h2 id="there-are-extra-spaces-in-my-layout-what-do-i-do" tabindex="-1">There are extra spaces in my layout? What do I do? <a class="header-anchor" href="#there-are-extra-spaces-in-my-layout-what-do-i-do" aria-label="Permalink to &quot;There are extra spaces in my layout? What do I do?&quot;">​</a></h2><p>If you&#39;re referring to having three spots for space bar, the best course of action is to just fill them all with Space. The same can be done for Backspace and Shift keys.</p><h2 id="what-is-the-keycode-for" tabindex="-1">What is the keycode for... <a class="header-anchor" href="#what-is-the-keycode-for" aria-label="Permalink to &quot;What is the keycode for...&quot;">​</a></h2><p>Please see:</p><ul><li><a href="./keycodes_basic">Basic Keycode Reference</a></li><li><a href="./feature_advanced_keycodes">Advanced Keycode Reference</a></li></ul><h2 id="it-won-t-compile" tabindex="-1">It won&#39;t compile <a class="header-anchor" href="#it-won-t-compile" aria-label="Permalink to &quot;It won&#39;t compile&quot;">​</a></h2><p>Please double check the other layers of your keymap to make sure there are no random keys present.</p><h2 id="problems-and-bugs" tabindex="-1">Problems and Bugs <a class="header-anchor" href="#problems-and-bugs" aria-label="Permalink to &quot;Problems and Bugs&quot;">​</a></h2><p>We are always accepting customer requests and bug reports. Please file them at <a href="https://github.com/qmk/qmk_configurator/issues" target="_blank" rel="noreferrer">qmk_configurator</a>.</p>', 13);
+const _hoisted_14 = [
+  _hoisted_1
+];
+function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createElementBlock("div", null, _hoisted_14);
+}
+const configurator_troubleshooting = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);
+export {
+  __pageData,
+  configurator_troubleshooting as default
+};
