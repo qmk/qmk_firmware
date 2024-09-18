@@ -355,7 +355,7 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
-As in [the earlier example](#Example), you can filter Mod-Tap/Layer-Mod/One Shot keys by their mods rather than checking such keys manually in a switch-case. (Also applicable to the other following `PER_KEY` functions.)
+As in the earlier example, you can filter Mod-Tap/Layer-Mod/One Shot keys by their mods rather than checking such keys manually in a switch-case. (Also applicable to the other following `PER_KEY` functions.)
 
 ### Hold On Other Key Press
 
