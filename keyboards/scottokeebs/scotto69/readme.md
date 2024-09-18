@@ -1,6 +1,6 @@
 # Scotto69 (PCB Edition)
 
-![Scotto69 (PCB Edition)](https://i.imgur.com/WNtAzcGh.jpg)
+![Scotto69 (PCB Edition)](https://i.imgur.com/WNtAzcG.jpeg)
 
 The Scotto69 (PCB Edition) is a standard 4x12 ortholinear keyboard with a numpad on the right and 5 macro keys on the left with an optional encoder.
 
