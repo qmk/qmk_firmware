@@ -5,6 +5,7 @@
 #define _GAM 1
 #define _ENG 2
 #define _FN 3
+#define _NUM 4
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		[_DEF] = LAYOUT_65_ansi_blocker( /* Base */
@@ -29,11 +30,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 			KC_LCTL, KC_LGUI, KC_LALT,                                     KC_SPC,                    KC_CAPS,          KC_RALT, KC_LEFT,          KC_DOWN, KC_RIGHT
 		),
 		[_FN] = LAYOUT_65_ansi_blocker( /* FN */
-			KC_TRNS, KC_F1,   KC_F2,         KC_F3,         KC_F4,         KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  KC_PSCR,
-			KC_TRNS, KC_TRNS, KC_TRNS,       KC_WBAK,       KC_WFWD,       KC_TRNS, KC_TRNS, KC_PGDN, KC_UP,   KC_PGUP, KC_INS,  KC_SCRL, KC_PAUS, QK_BOOT, KC_PAUS,
-			KC_TRNS, KC_TRNS, OSM(MOD_LALT), OSM(MOD_LSFT), OSM(MOD_LCTL), KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT, KC_DEL,  KC_TRNS,          EE_CLR,  KC_PGDN,
-			KC_TRNS, KC_TRNS, KC_TRNS,       RGB_TOG,       RGB_MOD,       RGB_SPI, RGB_HUI, RGB_SAI, RGB_VAI, KC_TRNS, KC_TRNS, KC_TRNS,          KC_VOLU, KC_MUTE,
-			KC_TRNS, KC_TRNS, KC_TRNS,                                     KC_TRNS,                   KC_TRNS,          KC_TRNS, KC_MPRV,          KC_VOLD, KC_MNXT
+			KC_NO,   KC_F1,   KC_F2,         KC_F3,         KC_F4,         KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  KC_PSCR,
+			KC_NO,   KC_NO,   KC_NO,         KC_WBAK,       KC_WFWD,       KC_NO,   KC_NO,   KC_PGDN, KC_UP,   KC_PGUP, KC_INS,  KC_SCRL, KC_PAUS, QK_BOOT, KC_PAUS,
+			KC_NO,   KC_NO,   OSM(MOD_LALT), OSM(MOD_LSFT), OSM(MOD_LCTL), KC_NO,   KC_NO,   KC_LEFT, KC_DOWN, KC_RGHT, KC_DEL,  KC_NO,            EE_CLR,  KC_PGDN,
+			KC_NO,   KC_NO,   KC_NO,         RGB_TOG,       RGB_MOD,       RGB_SPI, RGB_HUI, RGB_SAI, RGB_VAI, KC_NO,   KC_NO,   KC_NO,            KC_VOLU, KC_MUTE,
+			KC_NO,   KC_NO,   KC_NO,                                       KC_NO,                     KC_NO,            KC_NO,   KC_MPRV,          KC_VOLD, KC_MNXT
+		),
+        [_NUM] = LAYOUT_65_ansi_blocker( /* FN */
+			KC_NO,   KC_NO,   KC_NO,         KC_NO,         KC_NO,         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_BSPC, KC_NO,
+			KC_NO,   KC_NO,   KC_NO,         KC_NO,         KC_NO,         KC_NO,   KC_TAB,  KC_P7,   KC_P8,   KC_P9,   KC_PPLS, KC_PAST, KC_NO,   KC_NO,   KC_NO,
+			KC_NO,   KC_NO,   KC_NO,         KC_NO,         KC_NO,         KC_NO,   KC_NO,   KC_P4,   KC_P5,   KC_P6,   KC_PMNS, KC_PSLS,          KC_ENT,  KC_NO,
+			KC_NO,   KC_NO,   KC_NO,         KC_NO,         KC_NO,         KC_NO,   KC_NO,   KC_P1,   KC_P2,   KC_P3,   KC_PDOT, KC_RSFT,          KC_NO,   KC_NO,
+			KC_NO,   KC_NO,   KC_NO,                                       KC_P0,                     KC_NO,            KC_NO,   KC_NO,            KC_NO,   KC_NO
 		),
 
 };
