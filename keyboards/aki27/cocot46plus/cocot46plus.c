@@ -185,7 +185,7 @@ void eeconfig_init_kb(void) {
 }
 
 
-void matrix_init_kb(void) {
+void keyboard_post_init_kb(void) {
     // is safe to just read CPI setting since matrix init
     // comes before pointing device init.
     cocot_config.raw = eeconfig_read_kb();
@@ -193,7 +193,7 @@ void matrix_init_kb(void) {
     {
         eeconfig_init_kb();
     }
-    matrix_init_user();
+    keyboard_post_init_user();
 }
 
 
