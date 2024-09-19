@@ -15,4 +15,6 @@ AUDIO_ENABLE = no               # Audio output
 RGB_MATRIX_ENABLE = yes         # Use RGB matrix
 LTO_ENABLE = yes
 
-CAPS_WORD_ENABLE = yes
+CAPS_WORD_ENABLE = yes			# Enable Caps Word
+
+TAP_DANCE_ENABLE = yes		# Enable Tap Dance
