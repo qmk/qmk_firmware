@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "quantum.h"
 #include <stdint.h>
 
 #define _DEF 0
@@ -11,9 +10,7 @@
 typedef enum {
     TD_NONE,
     TD_UNKNOWN,
-    TD_SINGLE_TAP,
     TD_SINGLE_HOLD,
-    TD_DOUBLE_TAP,
     TD_DOUBLE_HOLD
 } td_state_t;
 
@@ -96,11 +93,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Determine the current tap dance state
 td_state_t cur_dance(tap_dance_state_t *state) {
     if (state->count == 1) {
-        if (!state->pressed) return TD_SINGLE_TAP;
-        else return TD_SINGLE_HOLD;
+        if (state->pressed) return TD_SINGLE_HOLD;
     } else if (state->count == 2) {
         if(state->pressed) return TD_DOUBLE_HOLD;
-        else return TD_DOUBLE_TAP;
     }
     else return TD_UNKNOWN;
 }
@@ -115,14 +110,8 @@ static td_tap_t fn_tap_state = {
 void fn_finished(tap_dance_state_t *state, void *user_data) {
     fn_tap_state.state = cur_dance(state);
     switch (fn_tap_state.state) {
-        case TD_SINGLE_TAP:
-            layer_on(_FN);
-            break;
         case TD_SINGLE_HOLD:
             layer_on(_FN);
-            break;
-        case TD_DOUBLE_TAP:
-            layer_on(_NUM);
             break;
         case TD_DOUBLE_HOLD:
             layer_on(_NUM);
