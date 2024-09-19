@@ -123,12 +123,3 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     #endif
       return state;
 };
-
-
-#ifdef OLED_ENABLE
-bool oled_task_user(void) {
-    render_logo();
-    oled_write_layer_state();
-    return false;
-}
-#endif
