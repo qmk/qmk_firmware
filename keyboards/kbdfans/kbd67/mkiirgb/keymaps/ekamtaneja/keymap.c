@@ -6,6 +6,29 @@
 #define _ENG 2
 #define _FN 3
 
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    for (uint8_t i = led_min; i < led_max; i++) {
+        switch(get_highest_layer(layer_state|default_layer_state)) {
+            case _DEF:
+                rgb_matrix_mode(RGB_MATRIX_CYCLE_ALL);
+                break;
+            case _GAM:
+                rgb_matrix_mode(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
+                break;
+            case _ENG:
+                rgb_matrix_mode(RGB_MATRIX_CYCLE_OUT_IN_DUAL);
+                break;
+            case _FN:
+                rgb_matrix_mode(RGB_MATRIX_PIXEL_FRACTAL);
+                break;
+            default:
+                rgb_matrix_mode(RGB_MATRIX_CYCLE_ALL);
+                break;
+        }
+    }
+    return false;
+}
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		[_DEF] = LAYOUT_65_ansi_blocker( /* Base */
 			QK_GESC, KC_1,    KC_2,          KC_3,          KC_4,          KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_TRNS,
