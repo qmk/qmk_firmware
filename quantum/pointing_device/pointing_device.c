@@ -25,6 +25,10 @@
 #    include "mousekey.h"
 #endif
 
+#ifdef POINTING_DEVICE_HIRES_SCROLL_ENABLE
+#    include "usb_descriptor_common.h"
+#endif
+
 #if (defined(POINTING_DEVICE_ROTATION_90) + defined(POINTING_DEVICE_ROTATION_180) + defined(POINTING_DEVICE_ROTATION_270)) > 1
 #    error More than one rotation selected.  This is not supported.
 #endif
