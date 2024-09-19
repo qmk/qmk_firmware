@@ -44,6 +44,8 @@
 bool via_eeprom_is_valid(void);
 void via_eeprom_set_valid(bool valid);
 void eeconfig_init_via(void);
+#else
+void dynamic_keymap_reset(void);
 #endif // VIA_ENABLE
 
 __attribute__((weak)) void eeconfig_init_user(void) {
