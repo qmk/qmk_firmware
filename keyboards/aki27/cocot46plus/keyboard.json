@@ -5,8 +5,8 @@
   "tags": ["unibody","ergo","corne","trackball","encoder","rgb"],
   "usb": {
     "device_version": "1.0.0",
-    "pid": "0x0003",
-    "vid": "0x1727"
+    "pid": "0x4600",
+    "vid": "0x4600"
   },
   "development_board": "promicro_rp2040",
   "matrix_pins": {
