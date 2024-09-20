@@ -31,16 +31,16 @@ void fn_reset(tap_dance_state_t *state, void *user_data);
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
         case _NUM:
-            rgb_matrix_mode(RGB_MATRIX_JELLYBEAN_RAINDROPS);
+            rgb_matrix_mode(RGB_MATRIX_PIXEL_RAIN);
             break;
         case _FN:
-            rgb_matrix_mode(RGB_MATRIX_PIXEL_FRACTAL);
+            rgb_matrix_mode(RGB_MATRIX_JELLYBEAN_RAINDROPS);
             break;
         case _ENG:
             rgb_matrix_mode(RGB_MATRIX_RIVERFLOW);
             break;
         case _GAM:
-            rgb_matrix_mode(RGB_MATRIX_TYPING_HEATMAP);
+            rgb_matrix_mode(RGB_MATRIX_MULTISPLASH);
             break;
         case _DEF:
             rgb_matrix_mode(RGB_MATRIX_CYCLE_ALL);
@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_DEF] = LAYOUT_65_ansi_blocker( /* Base */
 		QK_GESC,    KC_1,    KC_2,          KC_3,          KC_4,          KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_TRNS,
 		KC_TAB,     KC_Q,    KC_W,          KC_E,          KC_R,          KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_TRNS,
-		TD(FN_NUM), KC_A,    KC_S,          KC_D,          KC_F,          KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,  DF(_ENG),
+		TD(FN_NUM), KC_A,    KC_S,          KC_D,          KC_F,          KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,  TG(_ENG),
 		KC_LSFT,    KC_Z,    KC_X,          KC_C,          KC_V,          KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,          KC_UP,   TG(_GAM),
 		KC_LCTL,    KC_LGUI, KC_LALT,                                     KC_SPC,                    KC_CAPS,          KC_RALT, KC_LEFT,          KC_DOWN, KC_RIGHT
 	),
@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_ENG] = LAYOUT_65_ansi_blocker( /* Engrammer */
 		QK_GESC,    KC_1,    KC_2,          KC_3,          KC_4,          KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_LBRC, KC_RBRC, KC_BSPC, KC_TRNS,
 		KC_TAB,     KC_B,    KC_Y,          KC_O,          KC_U,          KC_QUOT, KC_SCLN, KC_L,    KC_D,    KC_W,    KC_V,    KC_Z,    KC_EQL,  KC_BSLS, KC_TRNS,
-		TD(FN_NUM), KC_C,    KC_I,          KC_E,          KC_A,          KC_COMM, KC_DOT,  KC_H,    KC_T,    KC_S,    KC_N,    KC_Q,             KC_ENT,  DF(_DEF),
+		TD(FN_NUM), KC_C,    KC_I,          KC_E,          KC_A,          KC_COMM, KC_DOT,  KC_H,    KC_T,    KC_S,    KC_N,    KC_Q,             KC_ENT,  TG(_ENG),
 		KC_LSFT,    KC_G,    KC_X,          KC_J,          KC_K,          KC_MINS, KC_SLSH, KC_R,    KC_M,    KC_F,    KC_P,    KC_RSFT,          KC_UP,   TG(_GAM),
 		KC_LCTL,    KC_LGUI, KC_LALT,                                     KC_SPC,                    KC_CAPS,          KC_RALT, KC_LEFT,          KC_DOWN, KC_RIGHT
 	),
