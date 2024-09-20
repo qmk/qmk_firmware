@@ -14,16 +14,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
 #include "wt_mono_backlight.h"
 #include "wt_rgb_backlight_api.h" // reuse these for now
 #include "wt_rgb_backlight_keycodes.h" // reuse these for now
 
+#include <stdlib.h>
 #include <avr/interrupt.h>
 #include "i2c_master.h"
-
+#include "host.h"
 #include "progmem.h"
-#include "quantum/color.h"
 #include "eeprom.h"
 
 #include "via.h" // uses EEPROM address, lighting value IDs

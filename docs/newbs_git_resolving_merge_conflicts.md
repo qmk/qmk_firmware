@@ -2,7 +2,9 @@
 
 Sometimes when your work in a branch takes a long time to complete, changes that have been made by others conflict with changes you have made to your branch when you open a pull request. This is called a *merge conflict*, and is what happens when multiple people edit the same parts of the same files.
 
-?> This document builds upon the concepts detailed in [Your Fork's Master: Update Often, Commit Never](newbs_git_using_your_master_branch.md). If you are not familiar with that document, please read it first, then return here.
+::: tip
+This document builds upon the concepts detailed in [Your Fork's Master: Update Often, Commit Never](newbs_git_using_your_master_branch). If you are not familiar with that document, please read it first, then return here.
+:::
 
 ## Rebasing Your Changes
 

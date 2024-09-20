@@ -11,7 +11,6 @@ enum custom_layers {
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
   VRSN,
-  RGB_SLD
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -87,18 +86,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,KC_HASH,KC_DLR, KC_LPRN,KC_RPRN,KC_GRV,
        KC_TRNS,KC_PERC,KC_CIRC,KC_LBRC,KC_RBRC,KC_TILD,KC_TRNS,
        EE_CLR, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-                                       RGB_MOD,KC_TRNS,
+                                       LM_NEXT,KC_TRNS,
                                                KC_TRNS,
-                               RGB_VAD,RGB_VAI,KC_TRNS,
+                               LM_BRID,LM_BRIU,KC_TRNS,
        // right hand
        KC_TRNS, KC_F6,   KC_F7,  KC_F8,   KC_F9,   KC_F10,  KC_F11,
        KC_TRNS, KC_UP,   KC_7,   KC_8,    KC_9,    KC_ASTR, KC_F12,
                 KC_DOWN, KC_4,   KC_5,    KC_6,    KC_PLUS, KC_TRNS,
        KC_TRNS, KC_AMPR, KC_1,   KC_2,    KC_3,    KC_BSLS, KC_TRNS,
                          KC_TRNS,KC_DOT,  KC_0,    KC_EQL,  KC_TRNS,
-       RGB_TOG, RGB_SLD,
+       LM_TOGG, KC_TRNS,
        KC_TRNS,
-       KC_TRNS, RGB_HUD, RGB_HUI
+       KC_TRNS, KC_TRNS, KC_TRNS
 ),
 /* Keymap 2: Media and mouse keys
  *
@@ -149,14 +148,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case VRSN:
       if (record->event.pressed) {
         SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-      }
-      return false;
-      break;
-    case RGB_SLD:
-      if (record->event.pressed) {
-        #ifdef RGBLIGHT_ENABLE
-          rgblight_mode(1);
-        #endif
       }
       return false;
       break;

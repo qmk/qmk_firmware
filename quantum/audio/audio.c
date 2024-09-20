@@ -20,6 +20,7 @@
 #include "debug.h"
 #include "wait.h"
 #include "util.h"
+#include "gpio.h"
 
 /* audio system:
  *
@@ -120,6 +121,32 @@ float audio_off_song[][2] = AUDIO_OFF_SONG;
 static bool    audio_initialized    = false;
 static bool    audio_driver_stopped = true;
 audio_config_t audio_config;
+
+#ifndef AUDIO_POWER_CONTROL_PIN_ON_STATE
+#    define AUDIO_POWER_CONTROL_PIN_ON_STATE 1
+#endif
+
+void audio_driver_initialize(void) {
+#ifdef AUDIO_POWER_CONTROL_PIN
+    gpio_set_pin_output_push_pull(AUDIO_POWER_CONTROL_PIN);
+    gpio_write_pin(AUDIO_POWER_CONTROL_PIN, !AUDIO_POWER_CONTROL_PIN_ON_STATE);
+#endif
+    audio_driver_initialize_impl();
+}
+
+void audio_driver_stop(void) {
+    audio_driver_stop_impl();
+#ifdef AUDIO_POWER_CONTROL_PIN
+    gpio_write_pin(AUDIO_POWER_CONTROL_PIN, !AUDIO_POWER_CONTROL_PIN_ON_STATE);
+#endif
+}
+
+void audio_driver_start(void) {
+#ifdef AUDIO_POWER_CONTROL_PIN
+    gpio_write_pin(AUDIO_POWER_CONTROL_PIN, AUDIO_POWER_CONTROL_PIN_ON_STATE);
+#endif
+    audio_driver_start_impl();
+}
 
 void eeconfig_update_audio_current(void) {
     eeconfig_update_audio(audio_config.raw);

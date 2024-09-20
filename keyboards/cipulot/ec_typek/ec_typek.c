@@ -35,8 +35,8 @@ void eeconfig_init_kb(void) {
     eeprom_ec_config.mode_0_actuation_threshold     = DEFAULT_MODE_0_ACTUATION_LEVEL;
     eeprom_ec_config.mode_0_release_threshold       = DEFAULT_MODE_0_RELEASE_LEVEL;
     eeprom_ec_config.mode_1_initial_deadzone_offset = DEFAULT_MODE_1_INITIAL_DEADZONE_OFFSET;
-    eeprom_ec_config.mode_1_actuation_offset   = DEFAULT_MODE_1_ACTUATION_OFFSET;
-    eeprom_ec_config.mode_1_release_offset     = DEFAULT_MODE_1_RELEASE_OFFSET;
+    eeprom_ec_config.mode_1_actuation_offset        = DEFAULT_MODE_1_ACTUATION_OFFSET;
+    eeprom_ec_config.mode_1_release_offset          = DEFAULT_MODE_1_RELEASE_OFFSET;
 
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         for (uint8_t col = 0; col < MATRIX_COLS; col++) {
@@ -59,8 +59,8 @@ void keyboard_post_init_kb(void) {
     ec_config.mode_0_actuation_threshold     = eeprom_ec_config.mode_0_actuation_threshold;
     ec_config.mode_0_release_threshold       = eeprom_ec_config.mode_0_release_threshold;
     ec_config.mode_1_initial_deadzone_offset = eeprom_ec_config.mode_1_initial_deadzone_offset;
-    ec_config.mode_1_actuation_offset   = eeprom_ec_config.mode_1_actuation_offset;
-    ec_config.mode_1_release_offset     = eeprom_ec_config.mode_1_release_offset;
+    ec_config.mode_1_actuation_offset        = eeprom_ec_config.mode_1_actuation_offset;
+    ec_config.mode_1_release_offset          = eeprom_ec_config.mode_1_release_offset;
     ec_config.bottoming_calibration          = false;
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         for (uint8_t col = 0; col < MATRIX_COLS; col++) {
@@ -82,12 +82,14 @@ void keyboard_post_init_kb(void) {
 
 // This function gets called when caps, num, scroll change
 bool led_update_kb(led_t led_state) {
-    indicators_callback();
+    if(led_update_user(led_state)) {
+        indicators_callback();
+    }
     return true;
 }
 
 // This function is called when layers change
-layer_state_t layer_state_set_user(layer_state_t state) {
+__attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
     indicators_callback();
     return state;
 }
@@ -101,19 +103,20 @@ layer_state_t layer_state_set_user(layer_state_t state) {
  */
 bool indicators_callback(void) {
     if ((eeprom_ec_config.num.enabled) && (host_keyboard_led_state().num_lock))
-        sethsv(eeprom_ec_config.num.h, eeprom_ec_config.num.s, eeprom_ec_config.num.v, (rgb_led_t *)&led[NUM_INDICATOR_INDEX]);
+        rgblight_sethsv_at(eeprom_ec_config.num.h, eeprom_ec_config.num.s, eeprom_ec_config.num.v, NUM_INDICATOR_INDEX);
     else
-        sethsv(0, 0, 0, (rgb_led_t *)&led[NUM_INDICATOR_INDEX]);
+        rgblight_sethsv_at(0, 0, 0, NUM_INDICATOR_INDEX);
 
     if ((eeprom_ec_config.caps.enabled) && (host_keyboard_led_state().caps_lock))
-        sethsv(eeprom_ec_config.caps.h, eeprom_ec_config.caps.s, eeprom_ec_config.caps.v, (rgb_led_t *)&led[CAPS_INDICATOR_INDEX]);
+        rgblight_sethsv_at(eeprom_ec_config.caps.h, eeprom_ec_config.caps.s, eeprom_ec_config.caps.v, CAPS_INDICATOR_INDEX);
     else
-        sethsv(0, 0, 0, (rgb_led_t *)&led[CAPS_INDICATOR_INDEX]);
+        rgblight_sethsv_at(0, 0, 0, CAPS_INDICATOR_INDEX);
 
     if ((eeprom_ec_config.scroll.enabled) && (host_keyboard_led_state().scroll_lock))
-        sethsv(eeprom_ec_config.scroll.h, eeprom_ec_config.scroll.s, eeprom_ec_config.scroll.v, (rgb_led_t *)&led[SCROLL_INDICATOR_INDEX]);
+        rgblight_sethsv_at(eeprom_ec_config.scroll.h, eeprom_ec_config.scroll.s, eeprom_ec_config.scroll.v, SCROLL_INDICATOR_INDEX);
     else
-        sethsv(0, 0, 0, (rgb_led_t *)&led[SCROLL_INDICATOR_INDEX]);
+        rgblight_sethsv_at(0, 0, 0, SCROLL_INDICATOR_INDEX);
 
+    rgblight_set();
     return true;
 }

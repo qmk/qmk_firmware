@@ -3,6 +3,15 @@
   "manufacturer": "LFKeyboards",
   "url": "",
   "maintainer": "qmk",
+  "features": {
+    "audio": true,
+    "bootmagic": false,
+    "command": false,
+    "console": false,
+    "extrakey": true,
+    "mousekey": false,
+    "nkro": true
+  },
   "usb": {
     "vid": "0xFEED",
     "pid": "0x6060",

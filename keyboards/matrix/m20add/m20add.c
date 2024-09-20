@@ -34,11 +34,10 @@ void matrix_init_kb(void) {
     matrix_init_user();
 }
 
-void matrix_scan_kb(void) {
+void housekeeping_task_kb(void) {
 #ifdef RGBLIGHT_ENABLE
     rgb_ring_task();
 #endif
-    matrix_scan_user();
 }
 
 static uint16_t caps_lock_pin = DEF_PIN(TCA6424_PORT2, 3);

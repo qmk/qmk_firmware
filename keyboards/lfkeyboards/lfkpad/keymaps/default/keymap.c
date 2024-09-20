@@ -21,11 +21,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             XXXXXXX,      XXXXXXX, RGB_TOG
     )
 };
-
-void matrix_init_user(void) {
-    // This keymap only has a single base layer, so reset the default if needed
-    if (eeconfig_read_default_layer() > 1) {
-        eeconfig_update_default_layer(1);
-        default_layer_set(1);
-    }
-}

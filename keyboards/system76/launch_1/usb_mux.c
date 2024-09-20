@@ -79,7 +79,7 @@ i2c_status_t usb7206_read_reg(struct USB7206* self, uint32_t addr, uint8_t* data
 
     uint16_t read = 0x0006; // Buffer address 6 to skip header
     uint8_t data_with_buffer_length[length];
-    status = i2c_readReg16((self->addr << 1), read, data_with_buffer_length, length, I2C_TIMEOUT);
+    status = i2c_read_register16((self->addr << 1), read, data_with_buffer_length, length, I2C_TIMEOUT);
 
     for (uint16_t i = 0; i < (length - 1) && status >= 0; i++) {
         data[i] = data_with_buffer_length[i+1];

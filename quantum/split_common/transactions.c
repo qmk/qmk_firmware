@@ -419,6 +419,10 @@ static bool mods_handlers_master(matrix_row_t master_matrix[], matrix_row_t slav
     if (!mods_need_sync && new_mods.oneshot_mods != split_shmem->mods.oneshot_mods) {
         mods_need_sync = true;
     }
+    new_mods.oneshot_locked_mods = get_oneshot_locked_mods();
+    if (!mods_need_sync && new_mods.oneshot_locked_mods != split_shmem->mods.oneshot_locked_mods) {
+        mods_need_sync = true;
+    }
 #    endif // NO_ACTION_ONESHOT
 
     bool okay = true;
@@ -442,6 +446,7 @@ static void mods_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave
     set_weak_mods(mods.weak_mods);
 #    ifndef NO_ACTION_ONESHOT
     set_oneshot_mods(mods.oneshot_mods);
+    set_oneshot_locked_mods(mods.oneshot_locked_mods);
 #    endif
 }
 
@@ -710,16 +715,17 @@ static bool pointing_handlers_master(matrix_row_t master_matrix[], matrix_row_t 
         return true;
     }
 #    endif
-    static uint32_t last_update = 0;
-    static uint16_t last_cpi    = 0;
+    static uint32_t last_update     = 0;
+    static uint32_t last_cpi_update = 0;
+    static uint16_t last_cpi        = 0;
     report_mouse_t  temp_state;
     uint16_t        temp_cpi;
     bool            okay = read_if_checksum_mismatch(GET_POINTING_CHECKSUM, GET_POINTING_DATA, &last_update, &temp_state, &split_shmem->pointing.report, sizeof(temp_state));
     if (okay) pointing_device_set_shared_report(temp_state);
     temp_cpi = pointing_device_get_shared_cpi();
-    if (temp_cpi && last_cpi != temp_cpi) {
+    if (temp_cpi) {
         split_shmem->pointing.cpi = temp_cpi;
-        okay                      = transport_write(PUT_POINTING_CPI, &split_shmem->pointing.cpi, sizeof(split_shmem->pointing.cpi));
+        okay                      = send_if_condition(PUT_POINTING_CPI, &last_cpi_update, last_cpi != temp_cpi, &split_shmem->pointing.cpi, sizeof(split_shmem->pointing.cpi));
         if (okay) {
             last_cpi = temp_cpi;
         }

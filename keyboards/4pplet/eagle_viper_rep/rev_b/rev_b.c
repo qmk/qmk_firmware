@@ -17,11 +17,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "rev_b.h"
 
 void keyboard_pre_init_kb(void) {
-    setPinOutput(LAYER_1);
-    setPinOutput(LAYER_2);
-    setPinOutput(LAYER_3);
-    setPinOutput(LAYER_4);
-    setPinOutput(LAYER_5);
+    gpio_set_pin_output(LAYER_1);
+    gpio_set_pin_output(LAYER_2);
+    gpio_set_pin_output(LAYER_3);
+    gpio_set_pin_output(LAYER_4);
+    gpio_set_pin_output(LAYER_5);
     keyboard_pre_init_user();
 }
 
@@ -32,26 +32,26 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 }
 /* Set indicator leds to indicate which layer is active */
 void setLayerLed(layer_state_t state){
-    writePinLow(LAYER_1);
-    writePinLow(LAYER_2);
-    writePinLow(LAYER_3);
-    writePinLow(LAYER_4);
-    writePinLow(LAYER_5);
+    gpio_write_pin_low(LAYER_1);
+    gpio_write_pin_low(LAYER_2);
+    gpio_write_pin_low(LAYER_3);
+    gpio_write_pin_low(LAYER_4);
+    gpio_write_pin_low(LAYER_5);
     switch (get_highest_layer(state)) {
         case 0:
-            writePinHigh(LAYER_1);
+            gpio_write_pin_high(LAYER_1);
             break;
         case 1:
-            writePinHigh(LAYER_2);
+            gpio_write_pin_high(LAYER_2);
             break;
         case 2:
-            writePinHigh(LAYER_3);
+            gpio_write_pin_high(LAYER_3);
             break;
         case 3:
-            writePinHigh(LAYER_4);
+            gpio_write_pin_high(LAYER_4);
             break;
         case 4:
-            writePinHigh(LAYER_5);
+            gpio_write_pin_high(LAYER_5);
             break;
     }
 }

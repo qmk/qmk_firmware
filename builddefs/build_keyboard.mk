@@ -34,10 +34,13 @@ ifeq ($(strip $(DUMP_CI_METADATA)),yes)
 endif
 
 # Force expansion
-TARGET := $(TARGET)
+override TARGET := $(TARGET)
 
 ifneq ($(FORCE_LAYOUT),)
-    TARGET := $(TARGET)_$(FORCE_LAYOUT)
+    override TARGET := $(TARGET)_$(FORCE_LAYOUT)
+endif
+ifneq ($(CONVERT_TO),)
+    override TARGET := $(TARGET)_$(CONVERT_TO)
 endif
 
 # Object files and generated keymap directory
@@ -57,9 +60,6 @@ endif
 ifdef SKIP_GIT
 VERSION_H_FLAGS += --skip-git
 endif
-
-# Generate the board's version.h file.
-$(shell $(QMK_BIN) generate-version-h $(VERSION_H_FLAGS) -q -o $(INTERMEDIATE_OUTPUT)/src/version.h)
 
 # Determine which subfolders exist.
 KEYBOARD_FOLDER_PATH_1 := $(KEYBOARD)
@@ -119,7 +119,7 @@ MAIN_KEYMAP_PATH_3 := $(KEYBOARD_PATH_3)/keymaps/$(KEYMAP)
 MAIN_KEYMAP_PATH_4 := $(KEYBOARD_PATH_4)/keymaps/$(KEYMAP)
 MAIN_KEYMAP_PATH_5 := $(KEYBOARD_PATH_5)/keymaps/$(KEYMAP)
 
-# Pull in rules from info.json
+# Pull in rules from DD keyboard config
 INFO_RULES_MK = $(shell $(QMK_BIN) generate-rules-mk --quiet --escape --keyboard $(KEYBOARD) --output $(INTERMEDIATE_OUTPUT)/src/info_rules.mk)
 include $(INFO_RULES_MK)
 
@@ -212,16 +212,24 @@ $(INTERMEDIATE_OUTPUT)/src/config.h: $(KEYMAP_JSON)
 	$(eval CMD=$(QMK_BIN) generate-config-h --quiet --output $(KEYMAP_H) $(KEYMAP_JSON))
 	@$(BUILD_CMD)
 
-generated-files: $(INTERMEDIATE_OUTPUT)/src/config.h $(INTERMEDIATE_OUTPUT)/src/keymap.c
+$(INTERMEDIATE_OUTPUT)/src/keymap.h: $(KEYMAP_JSON)
+	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
+	$(eval CMD=$(QMK_BIN) generate-keymap-h --quiet --output $(INTERMEDIATE_OUTPUT)/src/keymap.h $(KEYMAP_JSON))
+	@$(BUILD_CMD)
+
+generated-files: $(INTERMEDIATE_OUTPUT)/src/config.h $(INTERMEDIATE_OUTPUT)/src/keymap.c $(INTERMEDIATE_OUTPUT)/src/keymap.h
 
 endif
 
 include $(BUILDDEFS_PATH)/converters.mk
 
+# Generate the board's version.h file.
+$(shell $(QMK_BIN) generate-version-h $(VERSION_H_FLAGS) -q -o $(INTERMEDIATE_OUTPUT)/src/version.h)
+
 MCU_ORIG := $(MCU)
 include $(wildcard $(PLATFORM_PATH)/*/mcu_selection.mk)
 
-# PLATFORM_KEY should be detected in info.json via key 'processor' (or rules.mk 'MCU')
+# PLATFORM_KEY should be detected in DD keyboard config via key 'processor' (or rules.mk 'MCU')
 ifeq ($(PLATFORM_KEY),)
     $(call CATASTROPHIC_ERROR,Platform not defined)
 endif
@@ -335,38 +343,54 @@ ifneq ("$(wildcard $(KEYBOARD_PATH_5)/post_config.h)","")
     POST_CONFIG_H += $(KEYBOARD_PATH_5)/post_config.h
 endif
 
-# Pull in stuff from info.json
-INFO_JSON_FILES :=
+# Create dependencies on DD keyboard config - structure validated elsewhere
+DD_CONFIG_FILES :=
 ifneq ("$(wildcard $(KEYBOARD_PATH_1)/info.json)","")
-    INFO_JSON_FILES += $(KEYBOARD_PATH_1)/info.json
+    DD_CONFIG_FILES += $(KEYBOARD_PATH_1)/info.json
 endif
 ifneq ("$(wildcard $(KEYBOARD_PATH_2)/info.json)","")
-    INFO_JSON_FILES += $(KEYBOARD_PATH_2)/info.json
+    DD_CONFIG_FILES += $(KEYBOARD_PATH_2)/info.json
 endif
 ifneq ("$(wildcard $(KEYBOARD_PATH_3)/info.json)","")
-    INFO_JSON_FILES += $(KEYBOARD_PATH_3)/info.json
+    DD_CONFIG_FILES += $(KEYBOARD_PATH_3)/info.json
 endif
 ifneq ("$(wildcard $(KEYBOARD_PATH_4)/info.json)","")
-    INFO_JSON_FILES += $(KEYBOARD_PATH_4)/info.json
+    DD_CONFIG_FILES += $(KEYBOARD_PATH_4)/info.json
 endif
 ifneq ("$(wildcard $(KEYBOARD_PATH_5)/info.json)","")
-    INFO_JSON_FILES += $(KEYBOARD_PATH_5)/info.json
+    DD_CONFIG_FILES += $(KEYBOARD_PATH_5)/info.json
+endif
+
+ifneq ("$(wildcard $(KEYBOARD_PATH_1)/keyboard.json)","")
+    DD_CONFIG_FILES += $(KEYBOARD_PATH_1)/keyboard.json
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_2)/keyboard.json)","")
+    DD_CONFIG_FILES += $(KEYBOARD_PATH_2)/keyboard.json
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_3)/keyboard.json)","")
+    DD_CONFIG_FILES += $(KEYBOARD_PATH_3)/keyboard.json
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_4)/keyboard.json)","")
+    DD_CONFIG_FILES += $(KEYBOARD_PATH_4)/keyboard.json
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_5)/keyboard.json)","")
+    DD_CONFIG_FILES += $(KEYBOARD_PATH_5)/keyboard.json
 endif
 
 CONFIG_H += $(INTERMEDIATE_OUTPUT)/src/info_config.h
 KEYBOARD_SRC += $(INTERMEDIATE_OUTPUT)/src/default_keyboard.c
 
-$(INTERMEDIATE_OUTPUT)/src/info_config.h: $(INFO_JSON_FILES)
+$(INTERMEDIATE_OUTPUT)/src/info_config.h: $(DD_CONFIG_FILES)
 	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
 	$(eval CMD=$(QMK_BIN) generate-config-h --quiet --keyboard $(KEYBOARD) --output $(INTERMEDIATE_OUTPUT)/src/info_config.h)
 	@$(BUILD_CMD)
 
-$(INTERMEDIATE_OUTPUT)/src/default_keyboard.c: $(INFO_JSON_FILES)
+$(INTERMEDIATE_OUTPUT)/src/default_keyboard.c: $(DD_CONFIG_FILES)
 	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
 	$(eval CMD=$(QMK_BIN) generate-keyboard-c --quiet --keyboard $(KEYBOARD) --output $(INTERMEDIATE_OUTPUT)/src/default_keyboard.c)
 	@$(BUILD_CMD)
 
-$(INTERMEDIATE_OUTPUT)/src/default_keyboard.h: $(INFO_JSON_FILES)
+$(INTERMEDIATE_OUTPUT)/src/default_keyboard.h: $(DD_CONFIG_FILES)
 	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
 	$(eval CMD=$(QMK_BIN) generate-keyboard-h --quiet --keyboard $(KEYBOARD) --include $(FOUND_KEYBOARD_H) --output $(INTERMEDIATE_OUTPUT)/src/default_keyboard.h)
 	@$(BUILD_CMD)
@@ -505,22 +529,14 @@ ifeq ($(strip $(KEEP_INTERMEDIATES)), yes)
     OPT_DEFS += -save-temps=obj
 endif
 
-# TODO: remove this bodge?
-PROJECT_DEFS := $(OPT_DEFS)
-PROJECT_INC := $(VPATH) $(EXTRAINCDIRS) $(KEYBOARD_PATHS)
-PROJECT_CONFIG := $(CONFIG_H)
-
-CONFIG_H += $(POST_CONFIG_H)
-ALL_CONFIGS := $(PROJECT_CONFIG) $(CONFIG_H)
-
 OUTPUTS := $(INTERMEDIATE_OUTPUT)
 $(INTERMEDIATE_OUTPUT)_SRC := $(SRC) $(PLATFORM_SRC)
-$(INTERMEDIATE_OUTPUT)_DEFS := $(OPT_DEFS) \
+$(INTERMEDIATE_OUTPUT)_DEFS := \
 	-DQMK_KEYBOARD=\"$(KEYBOARD)\" -DQMK_KEYBOARD_H=\"$(INTERMEDIATE_OUTPUT)/src/default_keyboard.h\" \
 	-DQMK_KEYMAP=\"$(KEYMAP)\" -DQMK_KEYMAP_H=\"$(KEYMAP).h\" -DQMK_KEYMAP_CONFIG_H=\"$(KEYMAP_PATH)/config.h\" \
-	$(PROJECT_DEFS)
-$(INTERMEDIATE_OUTPUT)_INC :=  $(VPATH) $(EXTRAINCDIRS) $(PROJECT_INC)
-$(INTERMEDIATE_OUTPUT)_CONFIG := $(CONFIG_H) $(PROJECT_CONFIG)
+	$(OPT_DEFS)
+$(INTERMEDIATE_OUTPUT)_INC :=  $(VPATH) $(EXTRAINCDIRS) $(KEYBOARD_PATHS)
+$(INTERMEDIATE_OUTPUT)_CONFIG := $(CONFIG_H) $(POST_CONFIG_H)
 
 # Default target.
 all: build check-size
