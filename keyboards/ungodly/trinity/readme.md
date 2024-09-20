@@ -1,8 +1,9 @@
 # Trinity
 
-A semi-assembled hotswap PCB for the Rama U-80 that offers expanded layout options. No backlight or underglow support at this time.
+A semi-assembled hotswap PCB for the Rama U-80 that offers expanded layout options.
 
-![Trinity Back](https://i.imgur.com/SWThMA8.jpg)
+![Trinity Front](https://i.imgur.com/IFj2u8y.jpg)
+![Trinity Back](https://i.imgur.com/B2NldmR.jpg)
 ![Trinity Layouts](https://i.imgur.com/8sz5NnT.jpg)
 
 * Keyboard Maintainer: [Luis Godinez](https://github.com/luis-Godinez)
