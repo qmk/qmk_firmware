@@ -1,0 +1,1 @@
+#define RGB_MATRIX_CUSTOM_KB_INCLUDE "rgb_matrix_kb.inc"
