@@ -5,10 +5,6 @@
  */
 
 f4xx_flash_size = 512k;
-f4xx_ram0_size = 128k;
-f4xx_ram1_size = 0;
-f4xx_ram2_size = 0;
-f4xx_ram4_size = 0;
-f4xx_ram5_size = 0;
+f4xx_ram_size = 128k;
 
 INCLUDE stm32f4xx_tinyuf2_common.ld
