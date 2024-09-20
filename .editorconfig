@@ -12,7 +12,7 @@ trim_trailing_whitespace = true
 insert_final_newline = true
 
  # To match GitHub Actions formatting
-[{*.yaml,*.yml}]
+[*.{yaml,yml}]
 indent_size = 2
 
 [*.md]
