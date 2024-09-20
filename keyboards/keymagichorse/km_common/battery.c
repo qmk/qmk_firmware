@@ -31,8 +31,8 @@ void battery_init(void)
 
 void battery_stop(void)
 {
-    adcStop(&ADCD1);
-    battery_timer_buffer = 0;
+    // adcStop(&ADCD1);
+    // battery_timer_buffer = 0;
 }
 
 uint16_t battery_adc_read(void)
@@ -84,22 +84,22 @@ uint8_t battery_percent_read(uint16_t voltage_mV) {
 void battery_task(void)
 {
 
-    if(battery_timer_buffer == 0)
-    {
-        battery_timer_buffer = sync_timer_read32();
-    }
+    // if(battery_timer_buffer == 0)
+    // {
+    //     battery_timer_buffer = sync_timer_read32();
+    // }
 
-    if (sync_timer_elapsed32(battery_timer_buffer) > VOLTAGE_MEASURE_INTERVAL) 
-    {
-        battery_timer_buffer = 0;
-        uint16_t adc = battery_adc_read();
-        adc = battery_adc_read();
-        uint16_t voltage_mV_Fenya = (adc * 3300) / 1023;
-        uint16_t voltage_mV_actual = voltage_mV_Fenya  * (1 + (R_UPPER / R_LOWER));
-        uint8_t percent = battery_percent_read(voltage_mV_actual);
-        km_printf("1111111 newnewnew !!!666hello rtt log adc:%d   fymv:%d  sjmv:%d  bfb:%d\r\n",adc,voltage_mV_Fenya,voltage_mV_actual,percent);
+    // if (sync_timer_elapsed32(battery_timer_buffer) > VOLTAGE_MEASURE_INTERVAL) 
+    // {
+    //     battery_timer_buffer = 0;
+    //     uint16_t adc = battery_adc_read();
+    //     adc = battery_adc_read();
+    //     uint16_t voltage_mV_Fenya = (adc * 3300) / 1023;
+    //     uint16_t voltage_mV_actual = voltage_mV_Fenya  * (1 + (R_UPPER / R_LOWER));
+    //     uint8_t percent = battery_percent_read(voltage_mV_actual);
+    //     km_printf("1111111 newnewnew !!!666hello rtt log adc:%d   fymv:%d  sjmv:%d  bfb:%d\r\n",adc,voltage_mV_Fenya,voltage_mV_actual,percent);
 
-        bhq_update_battery_percent(percent);
-    }
+    //     bhq_update_battery_percent(percent);
+    // }
  
 }
