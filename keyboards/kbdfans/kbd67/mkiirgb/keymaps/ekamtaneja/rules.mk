@@ -17,4 +17,6 @@ LTO_ENABLE = yes
 
 CAPS_WORD_ENABLE = yes			# Enable Caps Word
 
-TAP_DANCE_ENABLE = yes		# Enable Tap Dance
+TAP_DANCE_ENABLE = yes			# Enable Tap Dance
+
+RGB_MATRIX_DRIVER = is31fl3741 	# Enable RGB Matrix driver

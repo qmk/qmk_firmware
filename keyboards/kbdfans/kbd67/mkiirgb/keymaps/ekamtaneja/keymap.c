@@ -27,32 +27,29 @@ td_state_t cur_dance(tap_dance_state_t *state);
 
 void fn_finished(tap_dance_state_t *state, void *user_data);
 void fn_reset(tap_dance_state_t *state, void *user_data);
-   
 
-bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    for (uint8_t i = led_min; i < led_max; i++) {
-        switch(get_highest_layer(layer_state|default_layer_state)) {
-            case _DEF:
-                rgb_matrix_mode(RGB_MATRIX_CYCLE_ALL);
-                break;
-            case _GAM:
-                rgb_matrix_mode(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
-                break;
-            case _ENG:
-                rgb_matrix_mode(RGB_MATRIX_CYCLE_OUT_IN_DUAL);
-                break;
-            case _FN:
-                rgb_matrix_mode(RGB_MATRIX_PIXEL_FRACTAL);
-                break;
-            case _NUM:
-                rgb_matrix_mode(RGB_MATRIX_JELLYBEAN_RAINDROPS);
-                break;
-            default:
-                rgb_matrix_mode(RGB_MATRIX_CYCLE_ALL);
-                break;
-        }
+layer_state_t layer_state_set_user(layer_state_t state) {
+    switch (get_highest_layer(state)) {
+        case _NUM:
+            rgb_matrix_mode(RGB_MATRIX_JELLYBEAN_RAINDROPS);
+            break;
+        case _FN:
+            rgb_matrix_mode(RGB_MATRIX_PIXEL_FRACTAL);
+            break;
+        case _ENG:
+            rgb_matrix_mode(RGB_MATRIX_RIVERFLOW);
+            break;
+        case _GAM:
+            rgb_matrix_mode(RGB_MATRIX_TYPING_HEATMAP);
+            break;
+        case _DEF:
+            rgb_matrix_mode(RGB_MATRIX_CYCLE_ALL);
+            break;
+        default:
+            rgb_matrix_mode(RGB_MATRIX_CYCLE_ALL);
+            break;
     }
-    return false;
+    return state;
 }
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
