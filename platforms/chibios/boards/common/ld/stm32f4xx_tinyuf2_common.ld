@@ -27,12 +27,12 @@ MEMORY
     flash5 (rx) : org = 0x00000000, len = 0
     flash6 (rx) : org = 0x00000000, len = 0
     flash7 (rx) : org = 0x00000000, len = 0
-    ram0   (wx) : org = 0x20000000, len = f4xx_ram_size
-    ram1   (wx) : org = 0x00000000, len = 0
-    ram2   (wx) : org = 0x00000000, len = 0
+    ram0   (wx) : org = 0x20000000, len = f4xx_ram0_size
+    ram1   (wx) : org = 0x20000000, len = f4xx_ram1_size
+    ram2   (wx) : org = 0x20000000, len = f4xx_ram2_size
     ram3   (wx) : org = 0x00000000, len = 0
-    ram4   (wx) : org = 0x00000000, len = 0
-    ram5   (wx) : org = 0x00000000, len = 0
+    ram4   (wx) : org = 0x00000000, len = f4xx_ram3_size
+    ram5   (wx) : org = 0x00000000, len = f4xx_ram4_size
     ram6   (wx) : org = 0x00000000, len = 0
     ram7   (wx) : org = 0x00000000, len = 0
 }
@@ -86,5 +86,3 @@ INCLUDE rules.ld
 
 /* TinyUF2 bootloader reset support */
 _board_dfu_dbl_tap = ORIGIN(ram0) + 64k - 4; /* this is based off the linker file for tinyuf2 */
-
-
