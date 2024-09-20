@@ -13,7 +13,6 @@ const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
   {{0, 0}, {2, 0}, {1, 0}}
 };
 
-// works
 TEST_F(SH, SwapHandsTapLongHoldSwaps) {
     TestDriver driver;
     auto       key_sh_t = KeymapKey(0, 0, 0, SH_T(KC_SPACE));
@@ -39,7 +38,6 @@ TEST_F(SH, SwapHandsTapLongHoldSwaps) {
     keyboard_task();
 }
 
-// fails
 TEST_F(SH, SwapHandsTapShortHoldSwaps) {
     TestDriver driver;
     auto       key_sh_t = KeymapKey(0, 0, 0, SH_T(KC_SPACE));

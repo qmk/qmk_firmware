@@ -17,3 +17,4 @@
 #include "test_common.h"
 
 #define ACTION_DEBUG
+#define HOLD_ON_OTHER_KEY_PRESS
