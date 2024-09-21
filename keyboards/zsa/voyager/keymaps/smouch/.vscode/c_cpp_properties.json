@@ -11,7 +11,7 @@
             ],
             "cStandard": "c17",
             "cppStandard": "c++17",
-            "intelliSenseMode": "${default}"
+            "intelliSenseMode": "macos-gcc-x64"
         }
     ],
     "version": 4

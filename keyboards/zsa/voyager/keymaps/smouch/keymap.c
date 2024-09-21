@@ -1,5 +1,4 @@
-#pragma once
-
+#include "keycodes.h"
 #include QMK_KEYBOARD_H
 #include "version.h"
 
@@ -8,17 +7,17 @@ enum layer_names {
     _NUM,
     _SYM,
     _NAV,
-    _SNTH,
+    _SNTH
 };
 
 enum custom_keycodes {
-    SS_Qu,
+    SS_Qu = SAFE_RANGE,
     SS_Th,
     SS_Ch,
     SS_Sh,
     SS_Gh,
     SS_Wh,
-    SS_Ph,
+    SS_Ph
 };
 
 /*  KEY POSITION Names
@@ -189,7 +188,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /*  Base (alpha) Layer SNTH
     ⎋           ⇥        tg              (   ⌦   )   vol↓↑
-    `   x   p   d⌃   m   q           =   y   o⌃  u!  .  \
+    `   x   p   d⌃   m   q           =   y   o⌃  u   .  \
     z   s   n⌥  t⌘   h⇧  v           g   c⇧  a⌘  e⌥  i  q
         f   b   k    l   j      	 z   w   '   /   ,
                          r   ⌫   ⏎   ␣
@@ -312,8 +311,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 const key_override_t plus_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_PLUS, KC_EQL);	/* shift + is = */
 const key_override_t dot_key_override = ko_make_basic(MOD_MASK_SHIFT,  KC_DOT, KC_COLN);	/* shift . is : */
 const key_override_t comm_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_COMM, KC_SCLN);	/* shift , is ; */
-const key_override_t slsh_key_override = ko_make_basic(MOD_MASK_SHIFT, RT2, KC_ASTR);	    /* shift / is * */
-const key_override_t bsls_key_override = ko_make_basic(MOD_MASK_ALT,   RT2, KC_BSLS);		/* alt   / is \ */
+const key_override_t slsh_key_override = ko_make_basic(MOD_MASK_SHIFT, RCTL_T(KC_SLSH), KC_ASTR);	    /* shift / is * */
 const key_override_t dquo_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_DQUO, KC_QUES);	/* shift " is ? */
 const key_override_t quot_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_QUOT, KC_EXLM);	/* shift ' is ! */
 const key_override_t bspc_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);	/* shift ⌫ is ⌦ */
@@ -324,7 +322,6 @@ const key_override_t *key_overrides[] = {
     &dot_key_override,
     &comm_key_override,
     &slsh_key_override,
-    &bsls_key_override,
     &dquo_key_override,
     &quot_key_override,
     &bspc_key_override,
