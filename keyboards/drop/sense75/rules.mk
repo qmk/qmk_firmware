@@ -1,0 +1,1 @@
+SRC += lib/common.c

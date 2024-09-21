@@ -1,0 +1,31 @@
+{
+    "keyboard_name": "Tractyl Manuform (5x6) Proton-C",
+    "matrix_pins": {
+        "cols": ["B0", "B1", "B2", "B3", "B4", "B5"],
+        "rows": ["B10", "B11", "B12", "A14", "A13", "A15"]
+    },
+    "diode_direction": "COL2ROW",
+    "eeprom": {
+        "driver": "spi"
+    },
+    "rgblight": {
+        "led_count": 20,
+        "split_count": [10, 10]
+    },
+    "audio": {
+        "driver": "dac_additive"
+    },
+    "ws2812": {
+        "pin": "A6",
+        "driver": "pwm"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "A7", "pin_b": "A8"}
+        ]
+    },
+    "development_board": "proton_c",
+    "features": {
+        "console": true
+    }
+}

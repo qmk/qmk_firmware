@@ -1,0 +1,1 @@
+DIGITIZER_ENABLE = yes

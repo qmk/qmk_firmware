@@ -1,0 +1,62 @@
+{
+    "manufacturer": "Bastard Keyboards",
+    "url": "https://bastardkb.com/charybdis-nano",
+    "usb": {
+        "pid": "0x1832",
+        "vid": "0xA8F8"
+    },
+    "rgb_matrix": {
+        "split_count": [18, 18]
+    },
+    "layout_aliases": {
+        "LAYOUT_charybdis_3x5": "LAYOUT"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+                {"matrix": [0, 4], "x": 4, "y": 0},
+
+                {"matrix": [4, 4], "x": 11, "y": 0},
+                {"matrix": [4, 3], "x": 12, "y": 0},
+                {"matrix": [4, 2], "x": 13, "y": 0},
+                {"matrix": [4, 1], "x": 14, "y": 0},
+                {"matrix": [4, 0], "x": 15, "y": 0},
+
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [1, 3], "x": 3, "y": 1},
+                {"matrix": [1, 4], "x": 4, "y": 1},
+
+                {"matrix": [5, 4], "x": 11, "y": 1},
+                {"matrix": [5, 3], "x": 12, "y": 1},
+                {"matrix": [5, 2], "x": 13, "y": 1},
+                {"matrix": [5, 1], "x": 14, "y": 1},
+                {"matrix": [5, 0], "x": 15, "y": 1},
+
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2},
+                {"matrix": [2, 3], "x": 3, "y": 2},
+                {"matrix": [2, 4], "x": 4, "y": 2},
+
+                {"matrix": [6, 4], "x": 11, "y": 2},
+                {"matrix": [6, 3], "x": 12, "y": 2},
+                {"matrix": [6, 2], "x": 13, "y": 2},
+                {"matrix": [6, 1], "x": 14, "y": 2},
+                {"matrix": [6, 0], "x": 15, "y": 2},
+
+                {"matrix": [3, 2], "x": 4, "y": 3},
+                {"matrix": [3, 3], "x": 5, "y": 3},
+                {"matrix": [3, 0], "x": 6, "y": 3},
+
+                {"matrix": [7, 0], "x": 9, "y": 3},
+                {"matrix": [7, 2], "x": 10, "y": 3}
+            ]
+        }
+    }
+}

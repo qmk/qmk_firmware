@@ -1,0 +1,1 @@
+ENCODER_ENABLE = no

@@ -1,0 +1,27 @@
+{
+    "matrix_pins": {
+        "cols": ["B1", "B0", "A7", "A6", "A5", "A4"],
+        "rows": ["B12", "B13", "B14", "B15", "A8", "A9", "A10"]
+    },
+    "diode_direction": "COL2ROW",
+    "split": {
+        "enabled": true,
+        "bootmagic": {
+            "matrix": [7, 0]
+        }
+    },
+    "development_board": "blackpill_f411",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "console": true,
+        "command": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    }
+}

@@ -1,0 +1,3 @@
+#define TAPPING_TOGGLE 1
+#define ONESHOT_TAP_TOGGLE 1
+#define PCBDOWN 1
