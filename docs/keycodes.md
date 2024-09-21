@@ -611,24 +611,27 @@ See also: [MIDI](features/midi)
 
 See also: [Mouse Keys](features/mouse_keys)
 
-|Key             |Aliases  |Description                |
-|----------------|---------|---------------------------|
-|`KC_MS_UP`      |`KC_MS_U`|Mouse Cursor Up            |
-|`KC_MS_DOWN`    |`KC_MS_D`|Mouse Cursor Down          |
-|`KC_MS_LEFT`    |`KC_MS_L`|Mouse Cursor Left          |
-|`KC_MS_RIGHT`   |`KC_MS_R`|Mouse Cursor Right         |
-|`KC_MS_BTN1`    |`KC_BTN1`|Mouse Button 1             |
-|`KC_MS_BTN2`    |`KC_BTN2`|Mouse Button 2             |
-|`KC_MS_BTN3`    |`KC_BTN3`|Mouse Button 3             |
-|`KC_MS_BTN4`    |`KC_BTN4`|Mouse Button 4             |
-|`KC_MS_BTN5`    |`KC_BTN5`|Mouse Button 5             |
-|`KC_MS_WH_UP`   |`KC_WH_U`|Mouse Wheel Up             |
-|`KC_MS_WH_DOWN` |`KC_WH_D`|Mouse Wheel Down           |
-|`KC_MS_WH_LEFT` |`KC_WH_L`|Mouse Wheel Left           |
-|`KC_MS_WH_RIGHT`|`KC_WH_R`|Mouse Wheel Right          |
-|`KC_MS_ACCEL0`  |`KC_ACL0`|Set mouse acceleration to 0|
-|`KC_MS_ACCEL1`  |`KC_ACL1`|Set mouse acceleration to 1|
-|`KC_MS_ACCEL2`  |`KC_ACL2`|Set mouse acceleration to 2|
+|Key                      |Aliases  |Description                |
+|-------------------------|---------|---------------------------|
+|`QK_MOUSE_CURSOR_UP`     |`MS_UP`  |Mouse cursor up            |
+|`QK_MOUSE_CURSOR_DOWN`   |`MS_DOWN`|Mouse cursor down          |
+|`QK_MOUSE_CURSOR_LEFT`   |`MS_LEFT`|Mouse cursor left          |
+|`QK_MOUSE_CURSOR_RIGHT`  |`MS_RGHT`|Mouse cursor right         |
+|`QK_MOUSE_BUTTON_1`      |`MS_BTN1`|Mouse button 1             |
+|`QK_MOUSE_BUTTON_2`      |`MS_BTN2`|Mouse button 2             |
+|`QK_MOUSE_BUTTON_3`      |`MS_BTN3`|Mouse button 3             |
+|`QK_MOUSE_BUTTON_4`      |`MS_BTN4`|Mouse button 4             |
+|`QK_MOUSE_BUTTON_5`      |`MS_BTN5`|Mouse button 5             |
+|`QK_MOUSE_BUTTON_6`      |`MS_BTN6`|Mouse button 6             |
+|`QK_MOUSE_BUTTON_7`      |`MS_BTN7`|Mouse button 7             |
+|`QK_MOUSE_BUTTON_8`      |`MS_BTN8`|Mouse button 8             |
+|`QK_MOUSE_WHEEL_UP`      |`MS_WHLU`|Mouse wheel up             |
+|`QK_MOUSE_WHEEL_DOWN`    |`MS_WHLD`|Mouse wheel down           |
+|`QK_MOUSE_WHEEL_LEFT`    |`MS_WHLL`|Mouse wheel left           |
+|`QK_MOUSE_WHEEL_RIGHT`   |`MS_WHLR`|Mouse wheel right          |
+|`QK_MOUSE_ACCELERATION_0`|`MS_ACL0`|Set mouse acceleration to 0|
+|`QK_MOUSE_ACCELERATION_1`|`MS_ACL1`|Set mouse acceleration to 1|
+|`QK_MOUSE_ACCELERATION_2`|`MS_ACL2`|Set mouse acceleration to 2|
 
 ## Modifiers {#modifiers}
 

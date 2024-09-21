@@ -28,10 +28,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [1] = LAYOUT(
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4, KC_F5, KC_F6,  KC_F7, KC_F8, KC_F9,    KC_F10,  KC_F11,  KC_F12,   KC_BSPC,  KC_DEL,
-        _______, KC_BTN1, KC_MS_U, KC_BTN2, KC_R,  KC_T,  KC_Y,   KC_U,  KC_I,  KC_O,     KC_P,    KC_LBRC, KC_RBRC,  KC_BSLS,  RGB_SPI,
-        KC_WH_U, KC_MS_L, KC_MS_D, KC_MS_R, KC_F,  KC_G,  KC_H,   KC_J,  KC_K,  KC_L,     KC_SCLN, KC_QUOT, KC_ENTER,           RGB_SPD,
-        KC_WH_D, KC_BSLS, KC_Z,    KC_X,    KC_C,  KC_V,  KC_B,   KC_N,  KC_M,  KC_COMMA, KC_DOT,  KC_SLSH, KC_RSFT,            RGB_VAI, RGB_TOG,
-        _______, _______, _______,                        KC_SPC,                         MO(2),   _______,      	  RGB_RMOD, RGB_VAD, RGB_MOD
+        _______, KC_BTN1, KC_MS_U, KC_BTN2, KC_R,  KC_T,  KC_Y,   KC_U,  KC_I,  KC_O,     KC_P,    KC_LBRC, KC_RBRC,  KC_BSLS,  UG_SPDU,
+        KC_WH_U, KC_MS_L, KC_MS_D, KC_MS_R, KC_F,  KC_G,  KC_H,   KC_J,  KC_K,  KC_L,     KC_SCLN, KC_QUOT, KC_ENTER,           UG_SPDD,
+        KC_WH_D, KC_BSLS, KC_Z,    KC_X,    KC_C,  KC_V,  KC_B,   KC_N,  KC_M,  KC_COMMA, KC_DOT,  KC_SLSH, KC_RSFT,            UG_VALU, UG_TOGG,
+        _______, _______, _______,                        KC_SPC,                         MO(2),   _______,      	  UG_PREV,  UG_VALD, UG_NEXT
     ),
 
     [2] = LAYOUT(

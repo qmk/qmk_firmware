@@ -174,6 +174,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif /* #ifndef MK_3_SPEED */
 
+#ifndef MOUSEKEY_OVERLAP_MOVE_DELTA
+#    define MOUSEKEY_OVERLAP_MOVE_DELTA MOUSEKEY_MOVE_DELTA
+#endif
+#ifndef MOUSEKEY_OVERLAP_WHEEL_DELTA
+#    define MOUSEKEY_OVERLAP_WHEEL_DELTA MOUSEKEY_WHEEL_DELTA
+#endif
+#ifndef MOUSEKEY_OVERLAP_INTERVAL
+#    define MOUSEKEY_OVERLAP_INTERVAL MOUSEKEY_INTERVAL
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
