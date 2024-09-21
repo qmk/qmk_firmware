@@ -1,0 +1,40 @@
+{
+    "usb": {
+        "device_version": "0.0.2"
+    },
+    "matrix_pins": {
+        "cols": ["F1", "F4", "E2", "B6", "D7", "D6"],
+        "rows": ["F5", "F6", "C7", "F7"]
+    },
+    "diode_direction": "COL2ROW",
+    "qmk_lufa_bootloader": {
+        "esc_input": "F5",
+        "esc_output": "F1",
+        "led": "D5",
+        "speaker": "C6"
+    },
+    "split": {
+        "enabled": true,
+        "soft_serial_pin": "D0"
+    },
+    "rgblight": {
+        "led_count": 12,
+        "split_count": [6, 6],
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "ws2812": {
+        "pin": "F0"
+    },
+    "bootloader": "qmk-dfu"
+}
