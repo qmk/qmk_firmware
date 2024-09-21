@@ -26,8 +26,8 @@ void init_custom(void) {
 
 void set_color_custom(int index, uint8_t red, uint8_t green, uint8_t blue) {
     prime_leds[index].r = red;
-    prime_leds[index].r = green;
-    prime_leds[index].r = blue;
+    prime_leds[index].g = green;
+    prime_leds[index].b = blue;
 }
 
 void set_color_all_custom(uint8_t red, uint8_t green, uint8_t blue) {
