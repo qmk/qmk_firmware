@@ -699,9 +699,9 @@ static void side_static_mode_show(void) {
         count_rgb_light(side_light_table[g_config.side_brightness]);
 
         if (is_side_rgb_on(i))
-            user_set_side_rgb_color(side_led_index_tab[i], r_temp, g_temp, b_temp);
+            rgb_matrix_set_color(side_led_index_tab[i], r_temp, g_temp, b_temp);
         else
-            user_set_side_rgb_color(side_led_index_tab[i], 0, 0, 0);
+            rgb_matrix_set_color(side_led_index_tab[i], 0, 0, 0);
     }
 }
 
