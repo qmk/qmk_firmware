@@ -1,0 +1,22 @@
+{
+    "manufacturer": "Keebio",
+    "url": "https://keeb.io",
+    "maintainer": "nooges",
+    "usb": {
+        "vid": "0xCB10"
+    },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": false,
+        "nkro": false
+    },
+    "split": {
+        "enabled": true
+    },
+    "build": {
+        "lto": true
+    }
+}

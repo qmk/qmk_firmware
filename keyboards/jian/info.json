@@ -1,0 +1,12 @@
+{
+    "manufacturer": "KgOfHedgehogs",
+    "url": "t.me/s/kgofhedgehogs",
+    "maintainer": "KGOH",
+    "usb": {
+        "vid": "0xC0DE",
+        "pid": "0x1337"
+    },
+    "build": {
+        "lto": true
+    }
+}

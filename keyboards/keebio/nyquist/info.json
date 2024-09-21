@@ -1,0 +1,8 @@
+{
+  "manufacturer": "Keebio",
+  "maintainer": "qmk",
+  "usb": {
+    "vid": "0xCB10"
+  },
+  "community_layouts": ["ortho_5x12", "ortho_4x12"]
+}

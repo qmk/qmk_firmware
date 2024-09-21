@@ -1,0 +1,14 @@
+{
+    "manufacturer": "Keebio",
+    "url": "https://keeb.io",
+    "maintainer": "nooges",
+    "usb": {
+        "vid": "0xCB10"
+    },
+    "split": {
+        "enabled": true
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "community_layouts": ["ortho_5x14"]
+}
