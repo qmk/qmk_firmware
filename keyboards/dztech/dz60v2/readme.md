@@ -1,14 +1,16 @@
-# DZ60 60% Mechanical Keyboard PCB
+# DZ60 V2 60% Mechanical Keyboard PCB
+
+![dz60v2](https://i.imgur.com/TZBNGQQ.jpeg)
 
 ## A Customizable 60% Mechanical Keyboard PCB
 
 * Keyboard Maintainer: QMK Community
-* Hardware Supported: DZ60 60% Mechanical Keyboard PCB
+* Hardware Supported: DZ60v2 60% Mechanical Keyboard PCB
 * Hardware Availability: [KBDfans](https://kbdfans.com/collections/60/products/dz60-60-pcb)
 
 There are two versions of the DZ60 PCB. Please use the appropriate firmware for your board.
 
-* V1: 1.6mm thickness PCB;
+* V1: 1.6mm thickness PCB
 * V2: 1.2mm thickness PCB
 
 ## Bootloader
