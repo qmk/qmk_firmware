@@ -1,0 +1,75 @@
+// Copyright 2024 yangzheng20003 (@yangzheng20003)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+#pragma once
+
+#ifdef WIRELESS_ENABLE
+#    define LPWR_TIMEOUT RGB_MATRIX_TIMEOUT
+#endif
+
+#define USB_POWER_EN_PIN B1 //USB ENABLE pin
+#define LED_POWER_EN_PIN A5 //LED ENABLE pin
+#define HS_BAT_CABLE_PIN A7 //USB insertion detection pin
+#define HS_LED_CAPS_PIN C4
+
+#define BAT_FULL_PIN A15
+#define BAT_FULL_STATE 1
+
+/* Battery */
+#define BATTERY_CAPACITY_LOW 15 
+#define BATTERY_CAPACITY_STOP 0 
+
+#define HS_RGB_INDICATOR_COUNT 65
+#define HS_RGB_BAT_COUNT 1
+
+
+/* Device Connection RGB Indicator Light Index And Color */
+#define HS_RGB_BLINK_INDEX_BT1 0
+#define HS_RGB_BLINK_INDEX_BT2 1 
+#define HS_RGB_BLINK_INDEX_BT3 2 
+#define HS_RGB_BLINK_INDEX_2G4 3 
+#define HS_RGB_BLINK_INDEX_USB 39
+
+#define HS_LBACK_COLOR_BT1 RGB_BLUE
+#define HS_LBACK_COLOR_BT2 RGB_CYAN
+#define HS_LBACK_COLOR_BT3 RGB_PINK
+#define HS_LBACK_COLOR_2G4 RGB_YELLOW
+#define HS_LBACK_COLOR_USB RGB_WHITE
+
+#define HS_PAIR_COLOR_BT1 RGB_BLUE
+#define HS_PAIR_COLOR_BT2 RGB_CYAN
+#define HS_PAIR_COLOR_BT3 RGB_PINK
+#define HS_PAIR_COLOR_2G4 RGB_YELLOW
+
+/* Status Indicator Lamp */
+#define HS_MATRIX_BLINK_INDEX_BAT 57
+#define HS_RGB_INDEX_CAPS 8
+#define HS_RGB_INDEX_WIN_LOCK 52
+#define HS_RGB_BLINK_INDEX_WIN 44
+#define HS_RGB_BLINK_INDEX_MAC 45
+
+/* UART */
+#define SERIAL_DRIVER SD3
+#define SD1_TX_PIN C10
+#define SD1_RX_PIN C11
+
+/* Encoder */
+#define ENCODER_MAP_KEY_DELAY 1
+
+/* SPI */
+#define SPI_DRIVER SPIDQ
+#define SPI_SCK_PIN B3
+#define SPI_MOSI_PIN B5
+#define SPI_MISO_PIN B4
+
+/* Flash */
+#define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN C12
+#define WEAR_LEVELING_LOGICAL_SIZE (WEAR_LEVELING_BACKING_SIZE / 2)
+
+/* RGB Matrix */
+#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+#define RGB_MATRIX_KEYPRESSES
+
+
+#define AW20216S_CS_PIN_1 D2
+#define AW20216S_EN_PIN B9
