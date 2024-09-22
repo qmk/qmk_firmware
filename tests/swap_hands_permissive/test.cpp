@@ -97,10 +97,10 @@ TEST_F(SwapHands, HoldAfterOSM_Swaps) {
     idle_for(1);
     key_a.release();
     EXPECT_REPORT(driver, (key_b.report_code, KC_LEFT_SHIFT));
+    EXPECT_EMPTY_REPORT(driver);
     idle_for(1);
     key_sh_t.release();
 
-    EXPECT_EMPTY_REPORT(driver);
     keyboard_task();
 }
 
