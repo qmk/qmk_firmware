@@ -1,26 +1,47 @@
-# Klor
+```text
+█         █    █            ▄▄▄▀▀▀▀▀▀▄▄▄        █▀▀▀▀▀▀▀▀▀▀█
+█        █     █          ▄▀            ▀▄      █          █
+█       █      █        ▄▀                ▀▄    █          █
+█      █       █        █                  █    █          █
+█     █        █       █                    █   █          █
+█    █         █       █                    █   █▄▄▄▄▄▄▄▄▄▄█
+█   █ █        █       █                    █   █      █
+█  █   █       █        █                  █    █       █
+█ █     █      █        ▀▄                ▄▀    █        █
+██       █     █          ▀▄            ▄▀      █         █
+█         █    █▄▄▄▄▄▄▄▄    ▀▀▀▄▄▄▄▄▄▀▀▀        █          █
+```
 
-![keyboard_image](https://i.imgur.com/1cx62B2.jpeg)
+# KLOR split keyboard
 
-* Keyboard Maintainer: [waffle87](https://github.com/waffle87)
-* Hardware Supported: Klor PCBs w/ Pro-Micro compatible microcontrollers
-* Hardware Availability: [github:geigeigeist/klor](https://github.com/geigeigeist/klor)
-
-**Note**: Audio and Pointing Device features are disabled by default to conserve firmware space on AVR
+KLOR is 42 keys column-staggered split keyboard made by @geigeigeist. It supports a per key RGB matrix, encoders, OLED displays, haptic feedback, audio, a Pixart Paw3204 trackball and four different layouts, through brake off parts.
+It's schematics are based on the Sofle, while the layout is based on the Yacc46.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make geigeigeist/klor:default
+```text
+make geigeigeist/klor/<layout>:default
+```
+
+where `<layout>` is one of `polydactyl`, `konrad`, `yubitsume`, `saegewerk`
 
 Flashing example for this keyboard:
 
-    make geigeigeist/klor:default:flash
+```text
+make geigeigeist/klor/<layout>:default:flash
+```
 
-See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+Note: This code is a modernized take on @geigeigeist's original KLOR code. The original is not currently compatible with modern QMK. @geigeigeist's repo can be found [here](https://github.com/GEIGEIGEIST/qmk-config-klor)
+
+Improvements
+
+- Put as much configuration as possible in `.json` files to align with future QMK Firmware objectives
+- KLOR is now Pro-Micro RP2040 native as there are many cost-effective and easy to obtain variants available and eliminates firmware size constraints
+- Only has RGB Matrix
 
 ## Bootloader
 
-Enter the bootloader in 2 ways:
+Enter the bootloader in two ways:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix
-* **Physical reset button**: Briefly press the button on the PCB
+- **Keycode in layout**: Press the key mapped to `QK_BOOTLOADER` if it is configured.
+- **Physical reset button**: Quick double-tap on the reset button soldered on the PCB.

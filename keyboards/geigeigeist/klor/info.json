@@ -1,0 +1,114 @@
+{
+    "manufacturer": "GEIST",
+    "maintainer": "t4corun",
+    "url": "https://github.com/GEIGEIGEIST/KLOR",
+    "usb": {
+        "vid": "0x3A3C"
+    },
+
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+
+    "matrix_pins": {
+        "cols": [ "GP27", "GP26", "GP22", "GP20", "GP23", "GP21" ],
+        "rows": [ "GP5", "GP6", "GP7", "GP8" ]
+    },
+    "diode_direction": "COL2ROW",
+
+    "features": {
+        "audio": false,
+        "backlight": false,
+        "command": false,
+        "console": false,
+        "encoder": true,
+        "extrakey": false,
+        "grave_esc": false,
+        "haptic": false,
+        "magic": false,
+        "music": false,
+        "oled": true,
+        "rgb_matrix": false,
+        "rgblight": false,
+        "space_cadet": false,
+        "swap_hands": true
+    },
+
+    "mouse_key": {
+        "enabled": false
+    },
+
+	"split": {
+		"enabled": true,
+		"encoder": {
+			"right": {
+				"rotary": [
+					{
+						"pin_a": "GP29",
+						"pin_b": "GP28",
+						"resolution": 2
+					}
+				]
+			}
+		},
+        "serial": {
+            "driver": "vendor",
+            "pin": "GP1"
+        },
+		"transport": {
+			"protocol": "serial",
+			"sync": {
+				"matrix_state": true,
+				"oled": true,
+				"haptic": true
+			}
+		}
+	},
+
+	"encoder": {
+		"rotary": [
+			{
+				"pin_a": "GP28",
+				"pin_b": "GP29",
+				"resolution": 2
+			}
+		]
+	},
+
+    "ws2812": {
+        "pin": "GP0",
+        "driver": "vendor"
+    },
+
+    "rgb_matrix": {
+        "driver": "ws2812",
+		"max_brightness": 180,
+		"sleep": true,
+        "timeout": 60000,
+        "animations": {
+            "breathing": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "cycle_pinwheel": true,
+            "hue_breathing": true,
+            "typing_heatmap": true,
+            "digital_rain": true,
+            "splash": true
+        },
+        "default": {
+            "animation": "cycle_pinwheel",
+            "hue": 4,
+            "sat": 79,
+            "val": 59,
+            "speed": 32
+        }
+    },
+
+    "haptic": {
+        "driver": "drv2605l"
+    },
+
+    "audio": {
+        "driver": "pwm_hardware",
+        "voices": true
+    }
+}
