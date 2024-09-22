@@ -24,6 +24,26 @@
 #    error "BT driver activated but no USART/UART peripheral assigned"
 #endif
 
+typedef struct bhkDevConfigInfo_t
+{
+    uint8_t  vendor_id_source; /* 0: From Bluetooth SIG, 1: From USB-IF */
+    uint16_t verndor_id;       /* No effect, the vendor ID is 0x3434 */
+    uint16_t product_id;
+
+    uint16_t le_connection_interval_min;        // Minimum Connection interval Connection interval (unit: 1.25ms)
+    uint16_t le_connection_interval_max;        // Maximum Connection interval Connection interval (unit: 1.25ms)
+    uint16_t le_connection_interval_timeout;    // Connection interval timeout
+    uint8_t  tx_poweer;                         // tx power
+
+    uint8_t     mk_is_read_battery_voltage;     // Whether the battery voltage is read by the module.
+    uint8_t     mk_adc_pga;                     // ADC pag
+    uint16_t    mk_rvd_r1;                      // resistive voltage divider  
+    uint16_t    mk_rvd_r2;
+
+    uint8_t bleNameStrLength;                   // ble name max length: 31
+    uint8_t bleNameStr[32];
+} bhkDevConfigInfo_t;
+
 
 #define PACKECT_HEADER_LEN 4
 #define PACKET_MAX_LEN 256
@@ -59,6 +79,7 @@
 void bhq_init(void);
 void bhq_Disable(void);
 
+void bhq_ConfigRunParam(bhkDevConfigInfo_t parma);
 
 void bhq_SetPairingMode(uint8_t host_index, uint8_t timeout_10s);
 void bhq_OpenBleAdvertising(uint8_t host_index, uint8_t timeout_10s);

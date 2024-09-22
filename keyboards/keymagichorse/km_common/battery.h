@@ -19,29 +19,35 @@
 #include "gpio.h"
 #include "analog.h"
 
-/* Battery voltage resistive voltage divider setting of MCU */
-#ifndef R_UPPER                        
-#   define R_UPPER 100  // Upper side resitor value (uint: KΩ)
-#endif
-
-#ifndef R_LOWER                       
-#   define R_LOWER 100          // Lower side resitor value (uint: KΩ)
-#endif
 
 
-#ifndef BATTER_ADC_PIN                       
-#    define BATTER_ADC_PIN     B1
+// Configure the BHQ module to read the battery voltage
+#ifndef BHQ_READ_VOLTAGE_ENABLED          
+#   define BHQ_READ_VOLTAGE_ENABLED TRUE
 #endif
-// https://docs.qmk.fm/drivers/adc#stm32
-#ifndef BATTER_ADC_DRIVER                      
-#    define BATTER_ADC_DRIVER     ADCD1
+// BHUpper side resitor value (uint: KΩ)
+#ifndef BHQ_R_UPPER                        
+#   define BHQ_R_UPPER 100 
+#endif
+// Lower side resitor value (uint: KΩ)
+#ifndef BHQ_R_LOWER                       
+#   define BHQ_R_LOWER 100          
 #endif
 
 
+// #ifndef BATTER_ADC_PIN                       
+// #    define BATTER_ADC_PIN     B1
+// #endif
+// // https://docs.qmk.fm/drivers/adc#stm32
+// #ifndef BATTER_ADC_DRIVER                      
+// #    define BATTER_ADC_DRIVER     ADCD1
+// #endif
 
-#ifndef VOLTAGE_MEASURE_INTERVAL
-#    define VOLTAGE_MEASURE_INTERVAL 3000
-#endif
+
+
+// #ifndef VOLTAGE_MEASURE_INTERVAL
+// #    define VOLTAGE_MEASURE_INTERVAL 3000
+// #endif
 
 
 

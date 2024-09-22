@@ -113,7 +113,46 @@ void BHQ_SendCmd(uint8_t isack, uint8_t *dat, uint8_t datLength)
     BHQ_SendData(pkt, index);
 }
 
+void bhq_ConfigRunParam(bhkDevConfigInfo_t parma)
+{
+    uint8_t i = 0;
+    uint8_t index = 0;
+    bhkBuff[index++] = 0x11;    
+    bhkBuff[index++] = parma.vendor_id_source;    
+    bhkBuff[index++] = BHQ_L_UINT16(parma.verndor_id);  
+    bhkBuff[index++] = BHQ_H_UINT16(parma.verndor_id);  
 
+    bhkBuff[index++] = BHQ_L_UINT16(parma.product_id);  
+    bhkBuff[index++] = BHQ_H_UINT16(parma.product_id);  
+
+    bhkBuff[index++] = BHQ_L_UINT16(parma.le_connection_interval_min);  
+    bhkBuff[index++] = BHQ_H_UINT16(parma.le_connection_interval_min);  
+
+    bhkBuff[index++] = BHQ_L_UINT16(parma.le_connection_interval_max);  
+    bhkBuff[index++] = BHQ_H_UINT16(parma.le_connection_interval_max); 
+
+    bhkBuff[index++] = BHQ_L_UINT16(parma.le_connection_interval_timeout);  
+    bhkBuff[index++] = BHQ_H_UINT16(parma.le_connection_interval_timeout); 
+
+    bhkBuff[index++] = parma.tx_poweer; 
+    bhkBuff[index++] = parma.mk_is_read_battery_voltage; 
+    bhkBuff[index++] = parma.mk_adc_pga; 
+
+    bhkBuff[index++] = BHQ_L_UINT16(parma.mk_rvd_r1);  
+    bhkBuff[index++] = BHQ_H_UINT16(parma.mk_rvd_r1); 
+
+    bhkBuff[index++] = BHQ_L_UINT16(parma.mk_rvd_r2);  
+    bhkBuff[index++] = BHQ_H_UINT16(parma.mk_rvd_r2); 
+    
+    bhkBuff[index++] = parma.bleNameStrLength; 
+
+    for(i= 0; i < parma.bleNameStrLength; i++)
+    {
+        bhkBuff[index++] = parma.bleNameStr[i]; 
+    }
+
+    BHQ_SendCmd(BHQ_NOT_ACK, bhkBuff,index);
+}
 
 // common Not data Ack
 void ackCommonNotData(uint8_t cmdid, uint8_t sta)
