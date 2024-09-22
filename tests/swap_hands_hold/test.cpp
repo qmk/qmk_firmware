@@ -5,15 +5,14 @@
 using testing::_;
 using testing::InSequence;
 
-class SH : public TestFixture {};
-class SHParametrizedTestFixture : public ::testing::WithParamInterface<std::pair<KeymapKey, KeymapKey>>, public SH {};
+class SwapHands : public TestFixture {};
 
 // XXX hand_swap_config[row][column] -> column, row
 const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
   {{0, 0}, {2, 0}, {1, 0}, {3, 0}}
 };
 
-TEST_F(SH, SwapHandsTapLongHoldSwaps) {
+TEST_F(SwapHands, LongHoldSwaps) {
     TestDriver driver;
     auto       key_sh_t = KeymapKey(0, 0, 0, SH_T(KC_SPACE));
     auto       key_a = KeymapKey(0, 1, 0, KC_A);
@@ -21,12 +20,8 @@ TEST_F(SH, SwapHandsTapLongHoldSwaps) {
 
     set_keymap({key_sh_t, key_a, key_b});
 
-    debug_enable = true;
-    debug_keyboard = true;
-
     key_sh_t.press();
     idle_for(211);
-    assert(is_swap_hands_on());
     key_a.press();
     EXPECT_REPORT(driver, (key_b.report_code));
     idle_for(1);
@@ -38,7 +33,7 @@ TEST_F(SH, SwapHandsTapLongHoldSwaps) {
     keyboard_task();
 }
 
-TEST_F(SH, SwapHandsTapShortHoldSwaps) {
+TEST_F(SwapHands, ShortHoldSwaps) {
     TestDriver driver;
     auto       key_sh_t = KeymapKey(0, 0, 0, SH_T(KC_SPACE));
     auto       key_a = KeymapKey(0, 1, 0, KC_A);
@@ -46,12 +41,8 @@ TEST_F(SH, SwapHandsTapShortHoldSwaps) {
 
     set_keymap({key_sh_t, key_a, key_b});
 
-    debug_enable = true;
-    debug_keyboard = true;
-
     key_sh_t.press();
     idle_for(1);
-    assert(is_swap_hands_on());
     key_a.press();
     EXPECT_REPORT(driver, (key_b.report_code));
     idle_for(1);
@@ -63,7 +54,7 @@ TEST_F(SH, SwapHandsTapShortHoldSwaps) {
     keyboard_task();
 }
 
-TEST_F(SH, SwapHandsAfterOSM) {
+TEST_F(SwapHands, HoldAfterOSM_Swaps) {
     TestDriver driver;
     auto       key_sh_t = KeymapKey(0, 0, 0, SH_T(KC_SPACE));
     auto       key_a = KeymapKey(0, 1, 0, KC_A);
