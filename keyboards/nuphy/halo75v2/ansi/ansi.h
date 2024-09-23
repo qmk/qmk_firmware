@@ -90,8 +90,6 @@ typedef struct {
     uint8_t side_speed;
     uint8_t side_rgb;
     uint8_t side_color;
-    uint8_t side_use_custom_color : 1;
-    HSV     side_custom_color;
     uint8_t power_show : 1;
     uint8_t battery_indicator_brightness;
     // custom keys highlight
@@ -116,8 +114,6 @@ enum via_indicator_value {
     id_side_light_speed             = 12,
     id_side_light_color             = 13,
     id_side_light_brightness        = 14,
-    id_side_use_custom_color        = 15,
-    id_side_custom_color            = 16,
     id_power_on_animation           = 20,
     id_battery_indicator_brightness = 21,
     id_toggle_custom_keys_highlight = 22,

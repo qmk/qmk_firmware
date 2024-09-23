@@ -274,28 +274,8 @@
                             ]
                         },
                         {
-                            "label": "Use custom color",
-                            "showIf": "{id_side_light_mode} == 2",
-                            "type": "toggle",
-                            "content": [
-                                "id_side_light_use_custom_color",
-                                0,
-                                14
-                            ]
-                        },
-                        {
-                            "label": "Custom Color",
-                            "showIf": "{id_side_light_mode} == 2 && {id_side_light_use_custom_color} == 1",
-                            "type": "color",
-                            "content": [
-                                "id_side_light_custom_color",
-                                0,
-                                15
-                            ]
-                        },
-                        {
                             "label": "Color",
-                            "showIf": "{id_side_light_mode} != 4 && {id_side_light_use_custom_color} == 0",
+                            "showIf": "{id_side_light_mode} != 4",
                             "type": "dropdown",
                             "content": [
                                 "id_side_light_color",
@@ -366,28 +346,8 @@
                             ]
                         },
                         {
-                            "label": "Use custom color",
-                            "showIf": "{id_right_side_light_mode} == 2",
-                            "type": "toggle",
-                            "content": [
-                                "id_right_side_light_use_custom_color",
-                                0,
-                                24
-                            ]
-                        },
-                        {
-                            "label": "Custom Color",
-                            "showIf": "{id_right_side_light_mode} == 2 && {id_right_side_light_use_custom_color} == 1",
-                            "type": "color",
-                            "content": [
-                                "id_right_side_light_custom_color",
-                                0,
-                                25
-                            ]
-                        },
-                        {
                             "label": "Color",
-                            "showIf": "{id_right_side_light_mode} != 4 && {id_right_side_light_use_custom_color} == 0",
+                            "showIf": "{id_right_side_light_mode} != 4",
                             "type": "dropdown",
                             "content": [
                                 "id_right_side_light_color",

@@ -613,10 +613,6 @@ void init_g_config(void) {
     g_config.logo_rgb                     = DEFAULT_LOGO_RGB;
     g_config.logo_color                   = DEFAULT_LOGO_COLOR;
     g_config.detect_numlock_state         = DEFAULT_DETECT_NUMLOCK;
-    g_config.side_use_custom_color        = DEFAULT_SIDE_USE_CUSTOM_COLOR;
-    g_config.logo_use_custom_color        = DEFAULT_LOGO_USE_CUSTOM_COLOR;
-    g_config.side_custom_color            = rgb_matrix_get_hsv();
-    g_config.logo_custom_color            = rgb_matrix_get_hsv();
     g_config.battery_indicator_numeric    = DEFAULT_BATTERY_INDICATOR_NUMERIC;
     g_config.show_socd_indicator          = DEFAULT_SHOW_SOCD_INDICATOR;
 }
@@ -715,18 +711,6 @@ void via_config_set_value(uint8_t *data)
         case id_toggle_detect_numlock_state:
             g_config.detect_numlock_state = *value_data;
             break;
-        case id_side_use_custom_color:
-            g_config.side_use_custom_color = *value_data;
-            break;
-        case id_logo_use_custom_color:
-            g_config.logo_use_custom_color = *value_data;
-            break;
-        case id_side_custom_color:
-            _set_color(&(g_config.side_custom_color), value_data);
-            break;
-        case id_logo_custom_color:
-            _set_color(&(g_config.logo_custom_color), value_data);
-            break;
         case id_battery_indicator_numeric:
             g_config.battery_indicator_numeric = *value_data;
             break;
@@ -797,18 +781,6 @@ void via_config_get_value(uint8_t *data) {
             *value_data = g_config.detect_numlock_state;
             break;
 
-        case id_side_use_custom_color:
-            *value_data = g_config.side_use_custom_color;
-            break;
-        case id_logo_use_custom_color:
-            *value_data = g_config.logo_use_custom_color;
-            break;
-        case id_side_custom_color:
-            _get_color(&(g_config.side_custom_color), value_data);
-            break;
-        case id_logo_custom_color:
-            _get_color(&(g_config.logo_custom_color), value_data);
-            break;
         case id_battery_indicator_numeric:
             *value_data = g_config.battery_indicator_numeric;
             break;
@@ -856,14 +828,3 @@ void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
     // DO NOT call raw_hid_send(data,length) here, let caller do this
 }
 #endif
-
-// Some helpers for setting/getting HSV
-void _set_color(HSV *color, uint8_t *data) {
-    color->h = data[0];
-    color->s = data[1];
-}
-
-void _get_color(HSV *color, uint8_t *data) {
-    data[0] = color->h;
-    data[1] = color->s;
-}

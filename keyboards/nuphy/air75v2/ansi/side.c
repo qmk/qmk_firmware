@@ -507,18 +507,9 @@ static void side_breathe_mode_show(void) {
 static void side_static_mode_show(void) {
     if (side_play_point >= SIDE_COLOR_MAX) side_play_point = 0;
 
-    if (g_config.side_use_custom_color) {
-        HSV hsv = g_config.side_custom_color;
-        hsv.v   = rgb_matrix_config.hsv.v;
-        RGB rgb = hsv_to_rgb(hsv);
-        r_temp  = rgb.r;
-        g_temp  = rgb.g;
-        b_temp  = rgb.b;
-    } else {
-        r_temp = side_color_lib[g_config.side_color][0] >> 2;
-        g_temp = side_color_lib[g_config.side_color][1] >> 2;
-        b_temp = side_color_lib[g_config.side_color][2] >> 2;
-    }
+    r_temp = side_color_lib[g_config.side_color][0] >> 2;
+    g_temp = side_color_lib[g_config.side_color][1] >> 2;
+    b_temp = side_color_lib[g_config.side_color][2] >> 2;
 
     count_rgb_light(side_light_table[g_config.side_brightness]);
 

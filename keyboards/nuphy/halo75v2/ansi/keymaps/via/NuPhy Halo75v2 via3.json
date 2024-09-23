@@ -337,26 +337,6 @@
                             ]
                         },
                         {
-                            "label": "Use custom color",
-                            "showIf": "{id_side_light_mode_a} != 2",
-                            "type": "toggle",
-                            "content": [
-                                "id_side_use_custom_color",
-                                0,
-                                15
-                            ]
-                        },
-                        {
-                            "label": "Custom Color",
-                            "showIf": "{id_side_light_mode_a} != 2 && {id_side_use_custom_color} == 1",
-                            "type": "color",
-                            "content": [
-                                "id_side_custom_color",
-                                0,
-                                16
-                            ]
-                        },
-                        {
                             "label": "Brightness",
                             "type": "range",
                             "content": [

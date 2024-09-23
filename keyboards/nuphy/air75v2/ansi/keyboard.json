@@ -171,8 +171,7 @@
             {"matrix": [5, 6], "x": 38, "y": 50, "flags": 4},
             {"matrix": [5, 2], "x": 25, "y": 50, "flags": 4},
             {"matrix": [5, 1], "x": 13, "y": 50, "flags": 4},
-            {"matrix": [5, 0], "x": 0, "y": 50, "flags": 4},
-            {"flags": 4}
+            {"matrix": [5, 0], "x": 0, "y": 50, "flags": 4}
         ]
     },
     "layout_aliases": {
