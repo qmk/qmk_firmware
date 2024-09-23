@@ -57,7 +57,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGB_MATRIX_LED_COUNT
 #    undef RGB_MATRIX_LED_COUNT
 #endif
-#define RGB_MATRIX_LED_COUNT 101 // 93  // RGB总灯数 (88轴灯+5侧灯) 88 + 5 + 7
+#define RGB_MATRIX_LED_COUNT 84  // sides 6 + 6, not included here
 
 #define RGB_MATRIX_SLEEP
 
