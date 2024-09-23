@@ -53,7 +53,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef VIA_ENABLE
 #    define VIA_EEPROM_CUSTOM_CONFIG_SIZE 22 // sizeof via_config
 #else
-#define EECONFIG_KB_DATA_SIZE 20
+#    define EECONFIG_KB_DATA_SIZE 20
 #endif
 #ifdef RGB_MATRIX_LED_COUNT
 #    undef RGB_MATRIX_LED_COUNT

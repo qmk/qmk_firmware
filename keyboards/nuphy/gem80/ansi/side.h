@@ -33,9 +33,8 @@ enum {
 #define RFLINK_BLINK 1
 #define LOW_BAT_BLINK_PRIOD 500
 
-
 // data tables lengths
 #define WAVE_TAB_LEN 112
-#define LIGHT_TAB_LEN           101
+#define LIGHT_TAB_LEN 101
 #define BREATHE_TAB_LEN 128
 #define FLOW_COLOR_TAB_LEN 224

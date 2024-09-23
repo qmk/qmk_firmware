@@ -21,9 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // ================================================================================
 // ================================================================================
 
-typedef enum { ST_RESET = 0,
-               ST_SET   = !ST_RESET } ST_FlagStatus,
-    ST_ITStatus;
+typedef enum { ST_RESET = 0, ST_SET = !ST_RESET } ST_FlagStatus, ST_ITStatus;
 
 //////////////////////////////////////////////////////////////////////////////
 // PWR
@@ -32,19 +30,16 @@ typedef enum { ST_RESET = 0,
  * @{
  */
 
-#define PWR_PVDLevel_0          PWR_CR_PLS_LEV0
-#define PWR_PVDLevel_1          PWR_CR_PLS_LEV1
-#define PWR_PVDLevel_2          PWR_CR_PLS_LEV2
-#define PWR_PVDLevel_3          PWR_CR_PLS_LEV3
-#define PWR_PVDLevel_4          PWR_CR_PLS_LEV4
-#define PWR_PVDLevel_5          PWR_CR_PLS_LEV5
-#define PWR_PVDLevel_6          PWR_CR_PLS_LEV6
-#define PWR_PVDLevel_7          PWR_CR_PLS_LEV7
+#define PWR_PVDLevel_0 PWR_CR_PLS_LEV0
+#define PWR_PVDLevel_1 PWR_CR_PLS_LEV1
+#define PWR_PVDLevel_2 PWR_CR_PLS_LEV2
+#define PWR_PVDLevel_3 PWR_CR_PLS_LEV3
+#define PWR_PVDLevel_4 PWR_CR_PLS_LEV4
+#define PWR_PVDLevel_5 PWR_CR_PLS_LEV5
+#define PWR_PVDLevel_6 PWR_CR_PLS_LEV6
+#define PWR_PVDLevel_7 PWR_CR_PLS_LEV7
 
-#define IS_PWR_PVD_LEVEL(LEVEL) (((LEVEL) == PWR_PVDLevel_0) || ((LEVEL) == PWR_PVDLevel_1) || \
-                                 ((LEVEL) == PWR_PVDLevel_2) || ((LEVEL) == PWR_PVDLevel_3) || \
-                                 ((LEVEL) == PWR_PVDLevel_4) || ((LEVEL) == PWR_PVDLevel_5) || \
-                                 ((LEVEL) == PWR_PVDLevel_6) || ((LEVEL) == PWR_PVDLevel_7))
+#define IS_PWR_PVD_LEVEL(LEVEL) (((LEVEL) == PWR_PVDLevel_0) || ((LEVEL) == PWR_PVDLevel_1) || ((LEVEL) == PWR_PVDLevel_2) || ((LEVEL) == PWR_PVDLevel_3) || ((LEVEL) == PWR_PVDLevel_4) || ((LEVEL) == PWR_PVDLevel_5) || ((LEVEL) == PWR_PVDLevel_6) || ((LEVEL) == PWR_PVDLevel_7))
 /**
  * @}
  */
@@ -53,10 +48,9 @@ typedef enum { ST_RESET = 0,
  * @{
  */
 
-#define PWR_WakeUpPin_1        PWR_CSR_EWUP1
-#define PWR_WakeUpPin_2        PWR_CSR_EWUP2
-#define IS_PWR_WAKEUP_PIN(PIN) (((PIN) == PWR_WakeUpPin_1) || \
-                                ((PIN) == PWR_WakeUpPin_2))
+#define PWR_WakeUpPin_1 PWR_CSR_EWUP1
+#define PWR_WakeUpPin_2 PWR_CSR_EWUP2
+#define IS_PWR_WAKEUP_PIN(PIN) (((PIN) == PWR_WakeUpPin_1) || ((PIN) == PWR_WakeUpPin_2))
 /**
  * @}
  */
@@ -65,10 +59,9 @@ typedef enum { ST_RESET = 0,
  * @{
  */
 
-#define PWR_Regulator_ON            ((uint32_t)0x00000000)
-#define PWR_Regulator_LowPower      ((uint32_t)0x00000001)
-#define IS_PWR_REGULATOR(REGULATOR) (((REGULATOR) == PWR_Regulator_ON) || \
-                                     ((REGULATOR) == PWR_Regulator_LowPower))
+#define PWR_Regulator_ON ((uint32_t)0x00000000)
+#define PWR_Regulator_LowPower ((uint32_t)0x00000001)
+#define IS_PWR_REGULATOR(REGULATOR) (((REGULATOR) == PWR_Regulator_ON) || ((REGULATOR) == PWR_Regulator_LowPower))
 /**
  * @}
  */
@@ -77,8 +70,8 @@ typedef enum { ST_RESET = 0,
  * @{
  */
 
-#define PWR_SLEEPEntry_WFI        ((uint8_t)0x01)
-#define PWR_SLEEPEntry_WFE        ((uint8_t)0x02)
+#define PWR_SLEEPEntry_WFI ((uint8_t)0x01)
+#define PWR_SLEEPEntry_WFE ((uint8_t)0x02)
 #define IS_PWR_SLEEP_ENTRY(ENTRY) (((ENTRY) == PWR_SLEEPEntry_WFI) || ((ENTRY) == PWR_SLEEPEntry_WFE))
 
 /**
@@ -89,9 +82,9 @@ typedef enum { ST_RESET = 0,
  * @{
  */
 
-#define PWR_STOPEntry_WFI         ((uint8_t)0x01)
-#define PWR_STOPEntry_WFE         ((uint8_t)0x02)
-#define IS_PWR_STOP_ENTRY(ENTRY)  (((ENTRY) == PWR_STOPEntry_WFI) || ((ENTRY) == PWR_STOPEntry_WFE))
+#define PWR_STOPEntry_WFI ((uint8_t)0x01)
+#define PWR_STOPEntry_WFE ((uint8_t)0x02)
+#define IS_PWR_STOP_ENTRY(ENTRY) (((ENTRY) == PWR_STOPEntry_WFI) || ((ENTRY) == PWR_STOPEntry_WFE))
 
 /**
  * @}
@@ -101,13 +94,12 @@ typedef enum { ST_RESET = 0,
  * @{
  */
 
-#define PWR_FLAG_WU               PWR_CSR_WUF
-#define PWR_FLAG_SB               PWR_CSR_SBF
-#define PWR_FLAG_PVDO             PWR_CSR_PVDO
-#define PWR_FLAG_VREFINTRDY       PWR_CSR_VREFINTRDYF
+#define PWR_FLAG_WU PWR_CSR_WUF
+#define PWR_FLAG_SB PWR_CSR_SBF
+#define PWR_FLAG_PVDO PWR_CSR_PVDO
+#define PWR_FLAG_VREFINTRDY PWR_CSR_VREFINTRDYF
 
-#define IS_PWR_GET_FLAG(FLAG)     (((FLAG) == PWR_FLAG_WU) || ((FLAG) == PWR_FLAG_SB) || \
-                               ((FLAG) == PWR_FLAG_PVDO) || ((FLAG) == PWR_FLAG_VREFINTRDY))
+#define IS_PWR_GET_FLAG(FLAG) (((FLAG) == PWR_FLAG_WU) || ((FLAG) == PWR_FLAG_SB) || ((FLAG) == PWR_FLAG_PVDO) || ((FLAG) == PWR_FLAG_VREFINTRDY))
 
 #define IS_PWR_CLEAR_FLAG(FLAG) (((FLAG) == PWR_FLAG_WU) || ((FLAG) == PWR_FLAG_SB))
 /**
@@ -141,7 +133,7 @@ void PWR_EnterSTANDBYMode(void);
 
 /* Flags management functions *************************************************/
 FlagStatus PWR_GetFlagStatus(uint32_t PWR_FLAG);
-void PWR_ClearFlag(uint32_t PWR_FLAG);
+void       PWR_ClearFlag(uint32_t PWR_FLAG);
 
 //////////////////////////////////////////////////////////////////////////////
 // EXTI
@@ -149,10 +141,7 @@ void PWR_ClearFlag(uint32_t PWR_FLAG);
  * @brief  EXTI mode enumeration
  */
 
-typedef enum {
-    EXTI_Mode_Interrupt = 0x00,
-    EXTI_Mode_Event     = 0x04
-} EXTIMode_TypeDef;
+typedef enum { EXTI_Mode_Interrupt = 0x00, EXTI_Mode_Event = 0x04 } EXTIMode_TypeDef;
 
 #define IS_EXTI_MODE(MODE) (((MODE) == EXTI_Mode_Interrupt) || ((MODE) == EXTI_Mode_Event))
 
@@ -160,21 +149,14 @@ typedef enum {
  * @brief  EXTI Trigger enumeration
  */
 
-typedef enum {
-    EXTI_Trigger_Rising         = 0x08,
-    EXTI_Trigger_Falling        = 0x0C,
-    EXTI_Trigger_Rising_Falling = 0x10
-} EXTITrigger_TypeDef;
+typedef enum { EXTI_Trigger_Rising = 0x08, EXTI_Trigger_Falling = 0x0C, EXTI_Trigger_Rising_Falling = 0x10 } EXTITrigger_TypeDef;
 
-#define IS_EXTI_TRIGGER(TRIGGER) (((TRIGGER) == EXTI_Trigger_Rising) ||  \
-                                  ((TRIGGER) == EXTI_Trigger_Falling) || \
-                                  ((TRIGGER) == EXTI_Trigger_Rising_Falling))
+#define IS_EXTI_TRIGGER(TRIGGER) (((TRIGGER) == EXTI_Trigger_Rising) || ((TRIGGER) == EXTI_Trigger_Falling) || ((TRIGGER) == EXTI_Trigger_Rising_Falling))
 /**
  * @brief  EXTI Init Structure definition
  */
 
-typedef struct
-{
+typedef struct {
     uint32_t EXTI_Line; /*!< Specifies the EXTI lines to be enabled or disabled.
                              This parameter can be any combination of @ref EXTI_Lines */
 
@@ -197,59 +179,57 @@ typedef struct
  * @{
  */
 
-#define EXTI_Line0             ((uint32_t)0x00000001) /*!< External interrupt line 0  */
-#define EXTI_Line1             ((uint32_t)0x00000002) /*!< External interrupt line 1  */
-#define EXTI_Line2             ((uint32_t)0x00000004) /*!< External interrupt line 2  */
-#define EXTI_Line3             ((uint32_t)0x00000008) /*!< External interrupt line 3  */
-#define EXTI_Line4             ((uint32_t)0x00000010) /*!< External interrupt line 4  */
-#define EXTI_Line5             ((uint32_t)0x00000020) /*!< External interrupt line 5  */
-#define EXTI_Line6             ((uint32_t)0x00000040) /*!< External interrupt line 6  */
-#define EXTI_Line7             ((uint32_t)0x00000080) /*!< External interrupt line 7  */
-#define EXTI_Line8             ((uint32_t)0x00000100) /*!< External interrupt line 8  */
-#define EXTI_Line9             ((uint32_t)0x00000200) /*!< External interrupt line 9  */
-#define EXTI_Line10            ((uint32_t)0x00000400) /*!< External interrupt line 10 */
-#define EXTI_Line11            ((uint32_t)0x00000800) /*!< External interrupt line 11 */
-#define EXTI_Line12            ((uint32_t)0x00001000) /*!< External interrupt line 12 */
-#define EXTI_Line13            ((uint32_t)0x00002000) /*!< External interrupt line 13 */
-#define EXTI_Line14            ((uint32_t)0x00004000) /*!< External interrupt line 14 */
-#define EXTI_Line15            ((uint32_t)0x00008000) /*!< External interrupt line 15 */
-#define EXTI_Line16            ((uint32_t)0x00010000) /*!< External interrupt line 16 \
-                                                           Connected to the PVD Output */
-#define EXTI_Line17            ((uint32_t)0x00020000) /*!< Internal interrupt line 17 \
-                                                           Connected to the RTC Alarm \
-                                                           event */
-#define EXTI_Line19            ((uint32_t)0x00080000) /*!< Internal interrupt line 19  \
-                                                           Connected to the RTC Tamper \
-                                                           and Time Stamp events */
-#define EXTI_Line21            ((uint32_t)0x00200000) /*!< Internal interrupt line 21    \
-                                                           Connected to the Comparator 1 \
-                                                           event */
-#define EXTI_Line22            ((uint32_t)0x00400000) /*!< Internal interrupt line 22    \
-                                                           Connected to the Comparator 2 \
-                                                           event */
-#define EXTI_Line23            ((uint32_t)0x00800000) /*!< Internal interrupt line 23   \
-                                                           Connected to the I2C1 wakeup \
-                                                           event */
-#define EXTI_Line25            ((uint32_t)0x02000000) /*!< Internal interrupt line 25     \
-                                                           Connected to the USART1 wakeup \
-                                                           event */
-#define EXTI_Line27            ((uint32_t)0x08000000) /*!< Internal interrupt line 27  \
-                                                           Connected to the CEC wakeup \
-                                                           event */
+#define EXTI_Line0 ((uint32_t)0x00000001)  /*!< External interrupt line 0  */
+#define EXTI_Line1 ((uint32_t)0x00000002)  /*!< External interrupt line 1  */
+#define EXTI_Line2 ((uint32_t)0x00000004)  /*!< External interrupt line 2  */
+#define EXTI_Line3 ((uint32_t)0x00000008)  /*!< External interrupt line 3  */
+#define EXTI_Line4 ((uint32_t)0x00000010)  /*!< External interrupt line 4  */
+#define EXTI_Line5 ((uint32_t)0x00000020)  /*!< External interrupt line 5  */
+#define EXTI_Line6 ((uint32_t)0x00000040)  /*!< External interrupt line 6  */
+#define EXTI_Line7 ((uint32_t)0x00000080)  /*!< External interrupt line 7  */
+#define EXTI_Line8 ((uint32_t)0x00000100)  /*!< External interrupt line 8  */
+#define EXTI_Line9 ((uint32_t)0x00000200)  /*!< External interrupt line 9  */
+#define EXTI_Line10 ((uint32_t)0x00000400) /*!< External interrupt line 10 */
+#define EXTI_Line11 ((uint32_t)0x00000800) /*!< External interrupt line 11 */
+#define EXTI_Line12 ((uint32_t)0x00001000) /*!< External interrupt line 12 */
+#define EXTI_Line13 ((uint32_t)0x00002000) /*!< External interrupt line 13 */
+#define EXTI_Line14 ((uint32_t)0x00004000) /*!< External interrupt line 14 */
+#define EXTI_Line15 ((uint32_t)0x00008000) /*!< External interrupt line 15 */
+#define EXTI_Line16                                        \
+    ((uint32_t)0x00010000) /*!< External interrupt line 16 \
+                                Connected to the PVD Output */
+#define EXTI_Line17                                        \
+    ((uint32_t)0x00020000) /*!< Internal interrupt line 17 \
+                                Connected to the RTC Alarm \
+                                event */
+#define EXTI_Line19                                         \
+    ((uint32_t)0x00080000) /*!< Internal interrupt line 19  \
+                                Connected to the RTC Tamper \
+                                and Time Stamp events */
+#define EXTI_Line21                                           \
+    ((uint32_t)0x00200000) /*!< Internal interrupt line 21    \
+                                Connected to the Comparator 1 \
+                                event */
+#define EXTI_Line22                                           \
+    ((uint32_t)0x00400000) /*!< Internal interrupt line 22    \
+                                Connected to the Comparator 2 \
+                                event */
+#define EXTI_Line23                                          \
+    ((uint32_t)0x00800000) /*!< Internal interrupt line 23   \
+                                Connected to the I2C1 wakeup \
+                                event */
+#define EXTI_Line25                                            \
+    ((uint32_t)0x02000000) /*!< Internal interrupt line 25     \
+                                Connected to the USART1 wakeup \
+                                event */
+#define EXTI_Line27                                         \
+    ((uint32_t)0x08000000) /*!< Internal interrupt line 27  \
+                                Connected to the CEC wakeup \
+                                event */
 
-#define IS_EXTI_LINE(LINE)     ((((LINE) & (uint32_t)0xF5140000) == 0x00) && ((LINE) != (uint16_t)0x00))
+#define IS_EXTI_LINE(LINE) ((((LINE) & (uint32_t)0xF5140000) == 0x00) && ((LINE) != (uint16_t)0x00))
 
-#define IS_GET_EXTI_LINE(LINE) (((LINE) == EXTI_Line0) || ((LINE) == EXTI_Line1) ||   \
-                                ((LINE) == EXTI_Line2) || ((LINE) == EXTI_Line3) ||   \
-                                ((LINE) == EXTI_Line4) || ((LINE) == EXTI_Line5) ||   \
-                                ((LINE) == EXTI_Line6) || ((LINE) == EXTI_Line7) ||   \
-                                ((LINE) == EXTI_Line8) || ((LINE) == EXTI_Line9) ||   \
-                                ((LINE) == EXTI_Line10) || ((LINE) == EXTI_Line11) || \
-                                ((LINE) == EXTI_Line12) || ((LINE) == EXTI_Line13) || \
-                                ((LINE) == EXTI_Line14) || ((LINE) == EXTI_Line15) || \
-                                ((LINE) == EXTI_Line16) || ((LINE) == EXTI_Line17) || \
-                                ((LINE) == EXTI_Line19) || ((LINE) == EXTI_Line21) || \
-                                ((LINE) == EXTI_Line22))
+#define IS_GET_EXTI_LINE(LINE) (((LINE) == EXTI_Line0) || ((LINE) == EXTI_Line1) || ((LINE) == EXTI_Line2) || ((LINE) == EXTI_Line3) || ((LINE) == EXTI_Line4) || ((LINE) == EXTI_Line5) || ((LINE) == EXTI_Line6) || ((LINE) == EXTI_Line7) || ((LINE) == EXTI_Line8) || ((LINE) == EXTI_Line9) || ((LINE) == EXTI_Line10) || ((LINE) == EXTI_Line11) || ((LINE) == EXTI_Line12) || ((LINE) == EXTI_Line13) || ((LINE) == EXTI_Line14) || ((LINE) == EXTI_Line15) || ((LINE) == EXTI_Line16) || ((LINE) == EXTI_Line17) || ((LINE) == EXTI_Line19) || ((LINE) == EXTI_Line21) || ((LINE) == EXTI_Line22))
 
 /**
  * @}
@@ -271,62 +251,62 @@ void EXTI_GenerateSWInterrupt(uint32_t EXTI_Line);
 
 /* Interrupts and flags management functions **********************************/
 FlagStatus EXTI_GetFlagStatus(uint32_t EXTI_Line);
-void EXTI_ClearFlag(uint32_t EXTI_Line);
-ITStatus EXTI_GetITStatus(uint32_t EXTI_Line);
-void EXTI_ClearITPendingBit(uint32_t EXTI_Line);
+void       EXTI_ClearFlag(uint32_t EXTI_Line);
+ITStatus   EXTI_GetITStatus(uint32_t EXTI_Line);
+void       EXTI_ClearITPendingBit(uint32_t EXTI_Line);
 
 //////////////////////////////////////////////////////////////////////////////
 // RCC
 static __I uint8_t APBAHBPrescTable[16] = {0, 0, 0, 0, 1, 2, 3, 4, 1, 2, 3, 4, 6, 7, 8, 9};
 
-#define RCC_AHBPeriph_GPIOA   RCC_AHBENR_GPIOAEN
-#define RCC_AHBPeriph_GPIOB   RCC_AHBENR_GPIOBEN
-#define RCC_AHBPeriph_GPIOC   RCC_AHBENR_GPIOCEN
-#define RCC_AHBPeriph_GPIOD   RCC_AHBENR_GPIODEN
-#define RCC_AHBPeriph_GPIOF   RCC_AHBENR_GPIOFEN
-#define RCC_AHBPeriph_TS      RCC_AHBENR_TSEN
-#define RCC_AHBPeriph_CRC     RCC_AHBENR_CRCEN
-#define RCC_AHBPeriph_FLITF   RCC_AHBENR_FLITFEN
-#define RCC_AHBPeriph_SRAM    RCC_AHBENR_SRAMEN
-#define RCC_AHBPeriph_DMA1    RCC_AHBENR_DMA1EN
+#define RCC_AHBPeriph_GPIOA RCC_AHBENR_GPIOAEN
+#define RCC_AHBPeriph_GPIOB RCC_AHBENR_GPIOBEN
+#define RCC_AHBPeriph_GPIOC RCC_AHBENR_GPIOCEN
+#define RCC_AHBPeriph_GPIOD RCC_AHBENR_GPIODEN
+#define RCC_AHBPeriph_GPIOF RCC_AHBENR_GPIOFEN
+#define RCC_AHBPeriph_TS RCC_AHBENR_TSEN
+#define RCC_AHBPeriph_CRC RCC_AHBENR_CRCEN
+#define RCC_AHBPeriph_FLITF RCC_AHBENR_FLITFEN
+#define RCC_AHBPeriph_SRAM RCC_AHBENR_SRAMEN
+#define RCC_AHBPeriph_DMA1 RCC_AHBENR_DMA1EN
 
 #define RCC_APB2Periph_SYSCFG RCC_APB2ENR_SYSCFGEN
-#define RCC_APB2Periph_ADC1   RCC_APB2ENR_ADC1EN
-#define RCC_APB2Periph_TIM1   RCC_APB2ENR_TIM1EN
-#define RCC_APB2Periph_SPI1   RCC_APB2ENR_SPI1EN
+#define RCC_APB2Periph_ADC1 RCC_APB2ENR_ADC1EN
+#define RCC_APB2Periph_TIM1 RCC_APB2ENR_TIM1EN
+#define RCC_APB2Periph_SPI1 RCC_APB2ENR_SPI1EN
 #define RCC_APB2Periph_USART1 RCC_APB2ENR_USART1EN
-#define RCC_APB2Periph_TIM15  RCC_APB2ENR_TIM15EN
-#define RCC_APB2Periph_TIM16  RCC_APB2ENR_TIM16EN
-#define RCC_APB2Periph_TIM17  RCC_APB2ENR_TIM17EN
+#define RCC_APB2Periph_TIM15 RCC_APB2ENR_TIM15EN
+#define RCC_APB2Periph_TIM16 RCC_APB2ENR_TIM16EN
+#define RCC_APB2Periph_TIM17 RCC_APB2ENR_TIM17EN
 #define RCC_APB2Periph_DBGMCU RCC_APB2ENR_DBGMCUEN
 
-#define RCC_APB1Periph_TIM2   RCC_APB1ENR_TIM2EN
-#define RCC_APB1Periph_TIM3   RCC_APB1ENR_TIM3EN
-#define RCC_APB1Periph_TIM6   RCC_APB1ENR_TIM6EN
-#define RCC_APB1Periph_TIM14  RCC_APB1ENR_TIM14EN
-#define RCC_APB1Periph_WWDG   RCC_APB1ENR_WWDGEN
-#define RCC_APB1Periph_SPI2   RCC_APB1ENR_SPI2EN
+#define RCC_APB1Periph_TIM2 RCC_APB1ENR_TIM2EN
+#define RCC_APB1Periph_TIM3 RCC_APB1ENR_TIM3EN
+#define RCC_APB1Periph_TIM6 RCC_APB1ENR_TIM6EN
+#define RCC_APB1Periph_TIM14 RCC_APB1ENR_TIM14EN
+#define RCC_APB1Periph_WWDG RCC_APB1ENR_WWDGEN
+#define RCC_APB1Periph_SPI2 RCC_APB1ENR_SPI2EN
 #define RCC_APB1Periph_USART2 RCC_APB1ENR_USART2EN
-#define RCC_APB1Periph_I2C1   RCC_APB1ENR_I2C1EN
-#define RCC_APB1Periph_I2C2   RCC_APB1ENR_I2C2EN
-#define RCC_APB1Periph_PWR    RCC_APB1ENR_PWREN
-#define RCC_APB1Periph_DAC    RCC_APB1ENR_DACEN
-#define RCC_APB1Periph_CEC    RCC_APB1ENR_CECEN
+#define RCC_APB1Periph_I2C1 RCC_APB1ENR_I2C1EN
+#define RCC_APB1Periph_I2C2 RCC_APB1ENR_I2C2EN
+#define RCC_APB1Periph_PWR RCC_APB1ENR_PWREN
+#define RCC_APB1Periph_DAC RCC_APB1ENR_DACEN
+#define RCC_APB1Periph_CEC RCC_APB1ENR_CECEN
 
-#define HSI_VALUE             ((uint32_t)8000000)
-#define HSE_VALUE             ((uint32_t)8000000)
-#define LSE_VALUE             ((uint32_t)32768)
+#define HSI_VALUE ((uint32_t)8000000)
+#define HSE_VALUE ((uint32_t)8000000)
+#define LSE_VALUE ((uint32_t)32768)
 
-#define RCC_CFGR_PLLMULL      ((uint32_t)0x003C0000) /*!< PLLMUL[3:0] bits (PLL multiplication factor) */
+#define RCC_CFGR_PLLMULL ((uint32_t)0x003C0000) /*!< PLLMUL[3:0] bits (PLL multiplication factor) */
 // #define  RCC_CFGR_PLLSRC                     ((uint32_t)0x00010000)        /*!< PLL entry clock source */
 
 /*******************  Bit definition for RCC_CFGR2 register  ******************/
 /*!< PREDIV1 configuration */
-#define RCC_CFGR2_PREDIV1     ((uint32_t)0x0000000F) /*!< PREDIV1[3:0] bits */
-#define RCC_CFGR2_PREDIV1_0   ((uint32_t)0x00000001) /*!< Bit 0 */
-#define RCC_CFGR2_PREDIV1_1   ((uint32_t)0x00000002) /*!< Bit 1 */
-#define RCC_CFGR2_PREDIV1_2   ((uint32_t)0x00000004) /*!< Bit 2 */
-#define RCC_CFGR2_PREDIV1_3   ((uint32_t)0x00000008) /*!< Bit 3 */
+#define RCC_CFGR2_PREDIV1 ((uint32_t)0x0000000F)   /*!< PREDIV1[3:0] bits */
+#define RCC_CFGR2_PREDIV1_0 ((uint32_t)0x00000001) /*!< Bit 0 */
+#define RCC_CFGR2_PREDIV1_1 ((uint32_t)0x00000002) /*!< Bit 1 */
+#define RCC_CFGR2_PREDIV1_2 ((uint32_t)0x00000004) /*!< Bit 2 */
+#define RCC_CFGR2_PREDIV1_3 ((uint32_t)0x00000008) /*!< Bit 3 */
 
 /*******************  Bit definition for RCC_CFGR3 register  ******************/
 /*!< USART1 Clock source selection */
@@ -336,14 +316,14 @@ static __I uint8_t APBAHBPrescTable[16] = {0, 0, 0, 0, 1, 2, 3, 4, 1, 2, 3, 4, 6
 /*!< I2C1 Clock source selection */
 // #define  RCC_CFGR3_I2C1SW                    ((uint32_t)0x00000010)        /*!< I2C1SW bits */
 // #define  RCC_CFGR3_CECSW                     ((uint32_t)0x00000040)        /*!< CECSW bits */
-#define RCC_CFGR3_ADCSW       ((uint32_t)0x00000100) /*!< ADCSW bits */
+#define RCC_CFGR3_ADCSW ((uint32_t)0x00000100) /*!< ADCSW bits */
 
-#define HSI14_VALUE           ((uint32_t)14000000) /*!< Value of the Internal High Speed oscillator for ADC in Hz. \
-                                                       The real value may vary depending on the variations         \
-                                                       in voltage and temperature.  */
+#define HSI14_VALUE                                                                      \
+    ((uint32_t)14000000) /*!< Value of the Internal High Speed oscillator for ADC in Hz. \
+                             The real value may vary depending on the variations         \
+                             in voltage and temperature.  */
 
-typedef struct
-{
+typedef struct {
     uint32_t SYSCLK_Frequency;
     uint32_t HCLK_Frequency;
     uint32_t PCLK_Frequency;
@@ -367,8 +347,7 @@ typedef struct
  *         This parameter can be: ENABLE or DISABLE.
  * @retval None
  */
-void RCC_AHBPeriphResetCmd(uint32_t RCC_AHBPeriph, FunctionalState NewState)
-{
+void RCC_AHBPeriphResetCmd(uint32_t RCC_AHBPeriph, FunctionalState NewState) {
     if (NewState != DISABLE) {
         RCC->AHBRSTR |= RCC_AHBPeriph;
     } else {
@@ -393,8 +372,7 @@ void RCC_AHBPeriphResetCmd(uint32_t RCC_AHBPeriph, FunctionalState NewState)
  *         This parameter can be: ENABLE or DISABLE.
  * @retval None
  */
-void RCC_APB2PeriphResetCmd(uint32_t RCC_APB2Periph, FunctionalState NewState)
-{
+void RCC_APB2PeriphResetCmd(uint32_t RCC_APB2Periph, FunctionalState NewState) {
     if (NewState != DISABLE) {
         RCC->APB2RSTR |= RCC_APB2Periph;
     } else {
@@ -422,8 +400,7 @@ void RCC_APB2PeriphResetCmd(uint32_t RCC_APB2Periph, FunctionalState NewState)
  *         This parameter can be: ENABLE or DISABLE.
  * @retval None
  */
-void RCC_APB1PeriphResetCmd(uint32_t RCC_APB1Periph, FunctionalState NewState)
-{
+void RCC_APB1PeriphResetCmd(uint32_t RCC_APB1Periph, FunctionalState NewState) {
     if (NewState != DISABLE) {
         RCC->APB1RSTR |= RCC_APB1Periph;
     } else {
@@ -452,8 +429,7 @@ void RCC_APB1PeriphResetCmd(uint32_t RCC_APB1Periph, FunctionalState NewState)
  *         This parameter can be: ENABLE or DISABLE.
  * @retval None
  */
-void RCC_AHBPeriphClockCmd(uint32_t RCC_AHBPeriph, FunctionalState NewState)
-{
+void RCC_AHBPeriphClockCmd(uint32_t RCC_AHBPeriph, FunctionalState NewState) {
     if (NewState != DISABLE) {
         RCC->AHBENR |= RCC_AHBPeriph;
     } else {
@@ -461,8 +437,7 @@ void RCC_AHBPeriphClockCmd(uint32_t RCC_AHBPeriph, FunctionalState NewState)
     }
 }
 
-void RCC_APB2PeriphClockCmd(uint32_t RCC_APB2Periph, FunctionalState NewState)
-{
+void RCC_APB2PeriphClockCmd(uint32_t RCC_APB2Periph, FunctionalState NewState) {
     if (NewState != DISABLE) {
         RCC->APB2ENR |= RCC_APB2Periph;
     } else {
@@ -493,8 +468,7 @@ void RCC_APB2PeriphClockCmd(uint32_t RCC_APB2Periph, FunctionalState NewState)
  *         This parameter can be: ENABLE or DISABLE.
  * @retval None
  */
-void RCC_APB1PeriphClockCmd(uint32_t RCC_APB1Periph, FunctionalState NewState)
-{
+void RCC_APB1PeriphClockCmd(uint32_t RCC_APB1Periph, FunctionalState NewState) {
     if (NewState != DISABLE) {
         RCC->APB1ENR |= RCC_APB1Periph;
     } else {
@@ -538,8 +512,7 @@ void RCC_APB1PeriphClockCmd(uint32_t RCC_APB1Periph, FunctionalState NewState)
  *
  * @retval None
  */
-void RCC_GetClocksFreq(RCC_ClocksTypeDef* RCC_Clocks)
-{
+void RCC_GetClocksFreq(RCC_ClocksTypeDef* RCC_Clocks) {
     uint32_t tmp = 0, pllmull = 0, pllsource = 0, prediv1factor = 0, presc = 0;
 
     /* Get SYSCLK source -------------------------------------------------------*/
@@ -562,7 +535,7 @@ void RCC_GetClocksFreq(RCC_ClocksTypeDef* RCC_Clocks)
                 /* HSI oscillator clock divided by 2 selected as PLL clock entry */
                 RCC_Clocks->SYSCLK_Frequency = (HSI_VALUE >> 1) * pllmull;
             } else {
-                prediv1factor                = (RCC->CFGR2 & RCC_CFGR2_PREDIV1) + 1;
+                prediv1factor = (RCC->CFGR2 & RCC_CFGR2_PREDIV1) + 1;
                 /* HSE oscillator clock selected as PREDIV1 clock entry */
                 RCC_Clocks->SYSCLK_Frequency = (HSE_VALUE / prediv1factor) * pllmull;
             }
@@ -573,16 +546,16 @@ void RCC_GetClocksFreq(RCC_ClocksTypeDef* RCC_Clocks)
     }
     /* Compute HCLK, PCLK clocks frequencies -----------------------------------*/
     /* Get HCLK prescaler */
-    tmp                        = RCC->CFGR & RCC_CFGR_HPRE;
-    tmp                        = tmp >> 4;
-    presc                      = APBAHBPrescTable[tmp];
+    tmp   = RCC->CFGR & RCC_CFGR_HPRE;
+    tmp   = tmp >> 4;
+    presc = APBAHBPrescTable[tmp];
     /* HCLK clock frequency */
     RCC_Clocks->HCLK_Frequency = RCC_Clocks->SYSCLK_Frequency >> presc;
 
     /* Get PCLK prescaler */
-    tmp                        = RCC->CFGR & RCC_CFGR_PPRE;
-    tmp                        = tmp >> 8;
-    presc                      = APBAHBPrescTable[tmp];
+    tmp   = RCC->CFGR & RCC_CFGR_PPRE;
+    tmp   = tmp >> 8;
+    presc = APBAHBPrescTable[tmp];
     /* PCLK clock frequency */
     RCC_Clocks->PCLK_Frequency = RCC_Clocks->HCLK_Frequency >> presc;
 
@@ -634,7 +607,7 @@ void RCC_GetClocksFreq(RCC_ClocksTypeDef* RCC_Clocks)
     }
 }
 
-#define CR_DS_MASK  ((uint32_t)0xFFFFFFFC)
+#define CR_DS_MASK ((uint32_t)0xFFFFFFFC)
 #define CR_PLS_MASK ((uint32_t)0xFFFFFF1F)
 /**
  * @brief  Enters STOP mode.
@@ -655,8 +628,7 @@ void RCC_GetClocksFreq(RCC_ClocksTypeDef* RCC_Clocks)
  *             @arg PWR_STOPEntry_WFE: enter STOP mode with WFE instruction
  * @retval None
  */
-void PWR_EnterSTOPMode(uint32_t PWR_Regulator, uint8_t PWR_STOPEntry)
-{
+void PWR_EnterSTOPMode(uint32_t PWR_Regulator, uint8_t PWR_STOPEntry) {
     uint32_t tmpreg = 0;
 
     /* Check the parameters */
@@ -696,8 +668,7 @@ void PWR_EnterSTOPMode(uint32_t PWR_Regulator, uint8_t PWR_STOPEntry)
  *             @arg PWR_SLEEPEntry_WFE: enter SLEEP mode with WFE instruction
  * @retval None
  */
-void PWR_EnterSleepMode(uint8_t PWR_SLEEPEntry)
-{
+void PWR_EnterSleepMode(uint8_t PWR_SLEEPEntry) {
     /* Clear SLEEPDEEP bit of Cortex-M0 System Control Register */
     SCB->SCR &= (uint32_t) ~((uint32_t)SCB_SCR_SLEEPDEEP_Msk);
 
@@ -724,8 +695,7 @@ typedef enum {
     GPIO_Mode_AN  = 0x03  /*!< GPIO Analog In/Out Mode      */
 } GPIOMode_TypeDef;
 
-#define IS_GPIO_MODE(MODE) (((MODE) == GPIO_Mode_IN) || ((MODE) == GPIO_Mode_OUT) || \
-                            ((MODE) == GPIO_Mode_AF) || ((MODE) == GPIO_Mode_AN))
+#define IS_GPIO_MODE(MODE) (((MODE) == GPIO_Mode_IN) || ((MODE) == GPIO_Mode_OUT) || ((MODE) == GPIO_Mode_AF) || ((MODE) == GPIO_Mode_AN))
 /**
  * @}
  */
@@ -733,10 +703,7 @@ typedef enum {
 /** @defgroup Output_type_enumeration
  * @{
  */
-typedef enum {
-    GPIO_OType_PP = 0x00,
-    GPIO_OType_OD = 0x01
-} GPIOOType_TypeDef;
+typedef enum { GPIO_OType_PP = 0x00, GPIO_OType_OD = 0x01 } GPIOOType_TypeDef;
 
 #define IS_GPIO_OTYPE(OTYPE) (((OTYPE) == GPIO_OType_PP) || ((OTYPE) == GPIO_OType_OD))
 
@@ -753,8 +720,7 @@ typedef enum {
     GPIO_Speed_Level_3 = 0x03  /*!< High Speed   */
 } GPIOSpeed_TypeDef;
 
-#define IS_GPIO_SPEED(SPEED) (((SPEED) == GPIO_Speed_Level_1) || ((SPEED) == GPIO_Speed_Level_2) || \
-                              ((SPEED) == GPIO_Speed_Level_3))
+#define IS_GPIO_SPEED(SPEED) (((SPEED) == GPIO_Speed_Level_1) || ((SPEED) == GPIO_Speed_Level_2) || ((SPEED) == GPIO_Speed_Level_3))
 /**
  * @}
  */
@@ -762,14 +728,9 @@ typedef enum {
 /** @defgroup Configuration_Pull-Up_Pull-Down_enumeration
  * @{
  */
-typedef enum {
-    GPIO_PuPd_NOPULL = 0x00,
-    GPIO_PuPd_UP     = 0x01,
-    GPIO_PuPd_DOWN   = 0x02
-} GPIOPuPd_TypeDef;
+typedef enum { GPIO_PuPd_NOPULL = 0x00, GPIO_PuPd_UP = 0x01, GPIO_PuPd_DOWN = 0x02 } GPIOPuPd_TypeDef;
 
-#define IS_GPIO_PUPD(PUPD) (((PUPD) == GPIO_PuPd_NOPULL) || ((PUPD) == GPIO_PuPd_UP) || \
-                            ((PUPD) == GPIO_PuPd_DOWN))
+#define IS_GPIO_PUPD(PUPD) (((PUPD) == GPIO_PuPd_NOPULL) || ((PUPD) == GPIO_PuPd_UP) || ((PUPD) == GPIO_PuPd_DOWN))
 /**
  * @}
  */
@@ -777,16 +738,12 @@ typedef enum {
 /** @defgroup Bit_SET_and_Bit_RESET_enumeration
  * @{
  */
-typedef enum {
-    Bit_RESET = 0,
-    Bit_SET
-} BitAction;
+typedef enum { Bit_RESET = 0, Bit_SET } BitAction;
 
 /**
  * @brief  GPIO Init structure definition
  */
-typedef struct
-{
+typedef struct {
     uint32_t GPIO_Pin; /*!< Specifies the GPIO pins to be configured.
                             This parameter can be any value of @ref GPIO_pins_define */
 
@@ -812,42 +769,27 @@ typedef struct
 /** @defgroup GPIO_pins_define
  * @{
  */
-#define GPIO_Pin_0           ((uint16_t)0x0001) /*!< Pin 0 selected    */
-#define GPIO_Pin_1           ((uint16_t)0x0002) /*!< Pin 1 selected    */
-#define GPIO_Pin_2           ((uint16_t)0x0004) /*!< Pin 2 selected    */
-#define GPIO_Pin_3           ((uint16_t)0x0008) /*!< Pin 3 selected    */
-#define GPIO_Pin_4           ((uint16_t)0x0010) /*!< Pin 4 selected    */
-#define GPIO_Pin_5           ((uint16_t)0x0020) /*!< Pin 5 selected    */
-#define GPIO_Pin_6           ((uint16_t)0x0040) /*!< Pin 6 selected    */
-#define GPIO_Pin_7           ((uint16_t)0x0080) /*!< Pin 7 selected    */
-#define GPIO_Pin_8           ((uint16_t)0x0100) /*!< Pin 8 selected    */
-#define GPIO_Pin_9           ((uint16_t)0x0200) /*!< Pin 9 selected    */
-#define GPIO_Pin_10          ((uint16_t)0x0400) /*!< Pin 10 selected   */
-#define GPIO_Pin_11          ((uint16_t)0x0800) /*!< Pin 11 selected   */
-#define GPIO_Pin_12          ((uint16_t)0x1000) /*!< Pin 12 selected   */
-#define GPIO_Pin_13          ((uint16_t)0x2000) /*!< Pin 13 selected   */
-#define GPIO_Pin_14          ((uint16_t)0x4000) /*!< Pin 14 selected   */
-#define GPIO_Pin_15          ((uint16_t)0x8000) /*!< Pin 15 selected   */
-#define GPIO_Pin_All         ((uint16_t)0xFFFF) /*!< All pins selected */
+#define GPIO_Pin_0 ((uint16_t)0x0001)   /*!< Pin 0 selected    */
+#define GPIO_Pin_1 ((uint16_t)0x0002)   /*!< Pin 1 selected    */
+#define GPIO_Pin_2 ((uint16_t)0x0004)   /*!< Pin 2 selected    */
+#define GPIO_Pin_3 ((uint16_t)0x0008)   /*!< Pin 3 selected    */
+#define GPIO_Pin_4 ((uint16_t)0x0010)   /*!< Pin 4 selected    */
+#define GPIO_Pin_5 ((uint16_t)0x0020)   /*!< Pin 5 selected    */
+#define GPIO_Pin_6 ((uint16_t)0x0040)   /*!< Pin 6 selected    */
+#define GPIO_Pin_7 ((uint16_t)0x0080)   /*!< Pin 7 selected    */
+#define GPIO_Pin_8 ((uint16_t)0x0100)   /*!< Pin 8 selected    */
+#define GPIO_Pin_9 ((uint16_t)0x0200)   /*!< Pin 9 selected    */
+#define GPIO_Pin_10 ((uint16_t)0x0400)  /*!< Pin 10 selected   */
+#define GPIO_Pin_11 ((uint16_t)0x0800)  /*!< Pin 11 selected   */
+#define GPIO_Pin_12 ((uint16_t)0x1000)  /*!< Pin 12 selected   */
+#define GPIO_Pin_13 ((uint16_t)0x2000)  /*!< Pin 13 selected   */
+#define GPIO_Pin_14 ((uint16_t)0x4000)  /*!< Pin 14 selected   */
+#define GPIO_Pin_15 ((uint16_t)0x8000)  /*!< Pin 15 selected   */
+#define GPIO_Pin_All ((uint16_t)0xFFFF) /*!< All pins selected */
 
-#define IS_GPIO_PIN(PIN)     ((PIN) != (uint16_t)0x00)
+#define IS_GPIO_PIN(PIN) ((PIN) != (uint16_t)0x00)
 
-#define IS_GET_GPIO_PIN(PIN) (((PIN) == GPIO_Pin_0) ||  \
-                              ((PIN) == GPIO_Pin_1) ||  \
-                              ((PIN) == GPIO_Pin_2) ||  \
-                              ((PIN) == GPIO_Pin_3) ||  \
-                              ((PIN) == GPIO_Pin_4) ||  \
-                              ((PIN) == GPIO_Pin_5) ||  \
-                              ((PIN) == GPIO_Pin_6) ||  \
-                              ((PIN) == GPIO_Pin_7) ||  \
-                              ((PIN) == GPIO_Pin_8) ||  \
-                              ((PIN) == GPIO_Pin_9) ||  \
-                              ((PIN) == GPIO_Pin_10) || \
-                              ((PIN) == GPIO_Pin_11) || \
-                              ((PIN) == GPIO_Pin_12) || \
-                              ((PIN) == GPIO_Pin_13) || \
-                              ((PIN) == GPIO_Pin_14) || \
-                              ((PIN) == GPIO_Pin_15))
+#define IS_GET_GPIO_PIN(PIN) (((PIN) == GPIO_Pin_0) || ((PIN) == GPIO_Pin_1) || ((PIN) == GPIO_Pin_2) || ((PIN) == GPIO_Pin_3) || ((PIN) == GPIO_Pin_4) || ((PIN) == GPIO_Pin_5) || ((PIN) == GPIO_Pin_6) || ((PIN) == GPIO_Pin_7) || ((PIN) == GPIO_Pin_8) || ((PIN) == GPIO_Pin_9) || ((PIN) == GPIO_Pin_10) || ((PIN) == GPIO_Pin_11) || ((PIN) == GPIO_Pin_12) || ((PIN) == GPIO_Pin_13) || ((PIN) == GPIO_Pin_14) || ((PIN) == GPIO_Pin_15))
 
 /**
  * @}
@@ -856,39 +798,24 @@ typedef struct
 /** @defgroup GPIO_Pin_sources
  * @{
  */
-#define GPIO_PinSource0               ((uint8_t)0x00)
-#define GPIO_PinSource1               ((uint8_t)0x01)
-#define GPIO_PinSource2               ((uint8_t)0x02)
-#define GPIO_PinSource3               ((uint8_t)0x03)
-#define GPIO_PinSource4               ((uint8_t)0x04)
-#define GPIO_PinSource5               ((uint8_t)0x05)
-#define GPIO_PinSource6               ((uint8_t)0x06)
-#define GPIO_PinSource7               ((uint8_t)0x07)
-#define GPIO_PinSource8               ((uint8_t)0x08)
-#define GPIO_PinSource9               ((uint8_t)0x09)
-#define GPIO_PinSource10              ((uint8_t)0x0A)
-#define GPIO_PinSource11              ((uint8_t)0x0B)
-#define GPIO_PinSource12              ((uint8_t)0x0C)
-#define GPIO_PinSource13              ((uint8_t)0x0D)
-#define GPIO_PinSource14              ((uint8_t)0x0E)
-#define GPIO_PinSource15              ((uint8_t)0x0F)
+#define GPIO_PinSource0 ((uint8_t)0x00)
+#define GPIO_PinSource1 ((uint8_t)0x01)
+#define GPIO_PinSource2 ((uint8_t)0x02)
+#define GPIO_PinSource3 ((uint8_t)0x03)
+#define GPIO_PinSource4 ((uint8_t)0x04)
+#define GPIO_PinSource5 ((uint8_t)0x05)
+#define GPIO_PinSource6 ((uint8_t)0x06)
+#define GPIO_PinSource7 ((uint8_t)0x07)
+#define GPIO_PinSource8 ((uint8_t)0x08)
+#define GPIO_PinSource9 ((uint8_t)0x09)
+#define GPIO_PinSource10 ((uint8_t)0x0A)
+#define GPIO_PinSource11 ((uint8_t)0x0B)
+#define GPIO_PinSource12 ((uint8_t)0x0C)
+#define GPIO_PinSource13 ((uint8_t)0x0D)
+#define GPIO_PinSource14 ((uint8_t)0x0E)
+#define GPIO_PinSource15 ((uint8_t)0x0F)
 
-#define IS_GPIO_PIN_SOURCE(PINSOURCE) (((PINSOURCE) == GPIO_PinSource0) ||  \
-                                       ((PINSOURCE) == GPIO_PinSource1) ||  \
-                                       ((PINSOURCE) == GPIO_PinSource2) ||  \
-                                       ((PINSOURCE) == GPIO_PinSource3) ||  \
-                                       ((PINSOURCE) == GPIO_PinSource4) ||  \
-                                       ((PINSOURCE) == GPIO_PinSource5) ||  \
-                                       ((PINSOURCE) == GPIO_PinSource6) ||  \
-                                       ((PINSOURCE) == GPIO_PinSource7) ||  \
-                                       ((PINSOURCE) == GPIO_PinSource8) ||  \
-                                       ((PINSOURCE) == GPIO_PinSource9) ||  \
-                                       ((PINSOURCE) == GPIO_PinSource10) || \
-                                       ((PINSOURCE) == GPIO_PinSource11) || \
-                                       ((PINSOURCE) == GPIO_PinSource12) || \
-                                       ((PINSOURCE) == GPIO_PinSource13) || \
-                                       ((PINSOURCE) == GPIO_PinSource14) || \
-                                       ((PINSOURCE) == GPIO_PinSource15))
+#define IS_GPIO_PIN_SOURCE(PINSOURCE) (((PINSOURCE) == GPIO_PinSource0) || ((PINSOURCE) == GPIO_PinSource1) || ((PINSOURCE) == GPIO_PinSource2) || ((PINSOURCE) == GPIO_PinSource3) || ((PINSOURCE) == GPIO_PinSource4) || ((PINSOURCE) == GPIO_PinSource5) || ((PINSOURCE) == GPIO_PinSource6) || ((PINSOURCE) == GPIO_PinSource7) || ((PINSOURCE) == GPIO_PinSource8) || ((PINSOURCE) == GPIO_PinSource9) || ((PINSOURCE) == GPIO_PinSource10) || ((PINSOURCE) == GPIO_PinSource11) || ((PINSOURCE) == GPIO_PinSource12) || ((PINSOURCE) == GPIO_PinSource13) || ((PINSOURCE) == GPIO_PinSource14) || ((PINSOURCE) == GPIO_PinSource15))
 /**
  * @}
  */
@@ -900,45 +827,44 @@ typedef struct
 /**
  * @brief  AF 0 selection
  */
-#define GPIO_AF_0      ((uint8_t)0x00) /* WKUP, EVENTOUT, TIM15, SPI1, TIM17, \
-                                          MCO, SWDAT, SWCLK, TIM14, BOOT,     \
-                                          USART1, CEC, IR_OUT, SPI2 */
+#define GPIO_AF_0                                          \
+    ((uint8_t)0x00) /* WKUP, EVENTOUT, TIM15, SPI1, TIM17, \
+                       MCO, SWDAT, SWCLK, TIM14, BOOT,     \
+                       USART1, CEC, IR_OUT, SPI2 */
 /**
  * @brief  AF 1 selection
  */
-#define GPIO_AF_1      ((uint8_t)0x01) /* USART2, CEC, Tim3, USART1, USART2, \
-                                          EVENTOUT, I2C1, I2C2, TIM15 */
+#define GPIO_AF_1                                         \
+    ((uint8_t)0x01) /* USART2, CEC, Tim3, USART1, USART2, \
+                       EVENTOUT, I2C1, I2C2, TIM15 */
 /**
  * @brief  AF 2 selection
  */
-#define GPIO_AF_2      ((uint8_t)0x02) /* TIM2, TIM1, EVENTOUT, TIM16, TIM17 */
+#define GPIO_AF_2 ((uint8_t)0x02) /* TIM2, TIM1, EVENTOUT, TIM16, TIM17 */
 /**
  * @brief  AF 3 selection
  */
-#define GPIO_AF_3      ((uint8_t)0x03) /* TS, I2C1, TIM15, EVENTOUT */
+#define GPIO_AF_3 ((uint8_t)0x03) /* TS, I2C1, TIM15, EVENTOUT */
 
 /**
  * @brief  AF 4 selection
  */
-#define GPIO_AF_4      ((uint8_t)0x04) /* TIM14 */
+#define GPIO_AF_4 ((uint8_t)0x04) /* TIM14 */
 /**
  * @brief  AF 5 selection
  */
-#define GPIO_AF_5      ((uint8_t)0x05) /* TIM16, TIM17 */
+#define GPIO_AF_5 ((uint8_t)0x05) /* TIM16, TIM17 */
 
 /**
  * @brief  AF 6 selection
  */
-#define GPIO_AF_6      ((uint8_t)0x06) /* EVENTOUT */
+#define GPIO_AF_6 ((uint8_t)0x06) /* EVENTOUT */
 /**
  * @brief  AF 7 selection
  */
-#define GPIO_AF_7      ((uint8_t)0x07) /* COMP1 OUT and COMP2 OUT */
+#define GPIO_AF_7 ((uint8_t)0x07) /* COMP1 OUT and COMP2 OUT */
 
-#define IS_GPIO_AF(AF) (((AF) == GPIO_AF_0) || ((AF) == GPIO_AF_1) || \
-                        ((AF) == GPIO_AF_2) || ((AF) == GPIO_AF_3) || \
-                        ((AF) == GPIO_AF_4) || ((AF) == GPIO_AF_5) || \
-                        ((AF) == GPIO_AF_6) || ((AF) == GPIO_AF_7))
+#define IS_GPIO_AF(AF) (((AF) == GPIO_AF_0) || ((AF) == GPIO_AF_1) || ((AF) == GPIO_AF_2) || ((AF) == GPIO_AF_3) || ((AF) == GPIO_AF_4) || ((AF) == GPIO_AF_5) || ((AF) == GPIO_AF_6) || ((AF) == GPIO_AF_7))
 
 /**
  * @}
@@ -949,7 +875,7 @@ typedef struct
  */
 
 #define GPIO_Speed_10MHz GPIO_Speed_Level_1 /*!< Fast Speed:10MHz   */
-#define GPIO_Speed_2MHz  GPIO_Speed_Level_2 /*!< Medium Speed:2MHz  */
+#define GPIO_Speed_2MHz GPIO_Speed_Level_2  /*!< Medium Speed:2MHz  */
 #define GPIO_Speed_50MHz GPIO_Speed_Level_3 /*!< High Speed:50MHz   */
 
 /**
@@ -966,8 +892,7 @@ typedef struct
  * @param  GPIOx: where x can be (A, B, C, D or F) to select the GPIO peripheral.
  * @retval None
  */
-void GPIO_DeInit(GPIO_TypeDef* GPIOx)
-{
+void GPIO_DeInit(GPIO_TypeDef* GPIOx) {
     if (GPIOx == (GPIO_TypeDef*)GPIOA) {
         RCC_AHBPeriphResetCmd(RCC_AHBPeriph_GPIOA, ENABLE);
         RCC_AHBPeriphResetCmd(RCC_AHBPeriph_GPIOA, DISABLE);
@@ -998,8 +923,7 @@ void GPIO_DeInit(GPIO_TypeDef* GPIOx)
  *         GPIO_Pin_0 -> GPIO_Pin_2 for GPIOD, GPIO_Pin_0 -> GPIO_Pin_3 for GPIOF.
  * @retval None
  */
-void GPIO_Init(GPIO_TypeDef* GPIOx, GPIO_InitTypeDef* GPIO_InitStruct)
-{
+void GPIO_Init(GPIO_TypeDef* GPIOx, GPIO_InitTypeDef* GPIO_InitStruct) {
     uint32_t pinpos = 0x00, pos = 0x00, currentpin = 0x00;
 
     /*-------------------------- Configure the port pins -----------------------*/
@@ -1038,8 +962,7 @@ void GPIO_Init(GPIO_TypeDef* GPIOx, GPIO_InitTypeDef* GPIO_InitStruct)
  *         be initialized.
  * @retval None
  */
-void GPIO_StructInit(GPIO_InitTypeDef* GPIO_InitStruct)
-{
+void GPIO_StructInit(GPIO_InitTypeDef* GPIO_InitStruct) {
     /* Reset GPIO init structure parameters values */
     GPIO_InitStruct->GPIO_Pin   = GPIO_Pin_All;
     GPIO_InitStruct->GPIO_Mode  = GPIO_Mode_IN;
@@ -1056,8 +979,7 @@ void GPIO_StructInit(GPIO_InitTypeDef* GPIO_InitStruct)
  *         GPIOB or GPIOC,(0..2) for GPIOD and(0..3) for GPIOF.
  * @retval None
  */
-void GPIO_SetBits(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)
-{
+void GPIO_SetBits(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin) {
     GPIOx->BSRR = GPIO_Pin;
 }
 
@@ -1069,8 +991,7 @@ void GPIO_SetBits(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)
  *         GPIOB or GPIOC,(0..2) for GPIOD and(0..3) for GPIOF.
  * @retval None
  */
-void GPIO_ResetBits(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)
-{
+void GPIO_ResetBits(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin) {
     GPIOx->BRR = GPIO_Pin;
 }
 
@@ -1086,8 +1007,7 @@ void GPIO_ResetBits(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)
  *         GPIOB or GPIOC,(0..2) for GPIOD and(0..3) for GPIOF.
  * @retval None
  */
-void GPIO_WriteBit(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin, BitAction BitVal)
-{
+void GPIO_WriteBit(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin, BitAction BitVal) {
     if (BitVal != Bit_RESET) {
         GPIOx->BSRR = GPIO_Pin;
     } else {
@@ -1118,8 +1038,7 @@ void GPIO_WriteBit(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin, BitAction BitVal)
  *        function I/O pins.
  * @retval None
  */
-void GPIO_PinAFConfig(GPIO_TypeDef* GPIOx, uint16_t GPIO_PinSource, uint8_t GPIO_AF)
-{
+void GPIO_PinAFConfig(GPIO_TypeDef* GPIOx, uint16_t GPIO_PinSource, uint8_t GPIO_AF) {
     uint32_t temp   = 0x00;
     uint32_t temp_2 = 0x00;
 
@@ -1131,8 +1050,7 @@ void GPIO_PinAFConfig(GPIO_TypeDef* GPIOx, uint16_t GPIO_PinSource, uint8_t GPIO
 
 //////////////////////////////////////////////////////////////////////////////
 // ????
-typedef struct
-{
+typedef struct {
     uint32_t USART_BaudRate; /*!< This member configures the USART communication baud rate.
                                   The baud rate is computed using the following formula:
                                    - IntegerDivider = ((PCLKx) / (16 * (USART_InitStruct->USART_BaudRate)))
@@ -1159,77 +1077,74 @@ typedef struct
                                              This parameter can be a value of @ref USART_Hardware_Flow_Control */
 } USART_InitTypeDef;
 
-#define USART_WordLength_8b               ((uint32_t)0x00000000)
+#define USART_WordLength_8b ((uint32_t)0x00000000)
 
-#define USART_StopBits_1                  ((uint32_t)0x00000000)
-#define USART_StopBits_2                  ((uint32_t)USART_CR2_STOP_1)
-#define USART_StopBits_1_5                ((uint32_t)USART_CR2_STOP_0 | USART_CR2_STOP_1)
+#define USART_StopBits_1 ((uint32_t)0x00000000)
+#define USART_StopBits_2 ((uint32_t)USART_CR2_STOP_1)
+#define USART_StopBits_1_5 ((uint32_t)USART_CR2_STOP_0 | USART_CR2_STOP_1)
 
-#define USART_Parity_No                   ((uint32_t)0x00000000)
-#define USART_Parity_Even                 ((uint32_t)USART_CR1_PCE)
-#define USART_Parity_Odd                  ((uint32_t)USART_CR1_PCE | USART_CR1_PS)
+#define USART_Parity_No ((uint32_t)0x00000000)
+#define USART_Parity_Even ((uint32_t)USART_CR1_PCE)
+#define USART_Parity_Odd ((uint32_t)USART_CR1_PCE | USART_CR1_PS)
 
-#define USART_HardwareFlowControl_None    ((uint32_t)0x00000000)
-#define USART_HardwareFlowControl_RTS     ((uint32_t)USART_CR3_RTSE)
-#define USART_HardwareFlowControl_CTS     ((uint32_t)USART_CR3_CTSE)
+#define USART_HardwareFlowControl_None ((uint32_t)0x00000000)
+#define USART_HardwareFlowControl_RTS ((uint32_t)USART_CR3_RTSE)
+#define USART_HardwareFlowControl_CTS ((uint32_t)USART_CR3_CTSE)
 #define USART_HardwareFlowControl_RTS_CTS ((uint32_t)USART_CR3_RTSE | USART_CR3_CTSE)
 
-#define USART_Mode_Rx                     USART_CR1_RE
-#define USART_Mode_Tx                     USART_CR1_TE
+#define USART_Mode_Rx USART_CR1_RE
+#define USART_Mode_Tx USART_CR1_TE
 
-#define USART_FLAG_REACK                  USART_ISR_REACK
-#define USART_FLAG_TEACK                  USART_ISR_TEACK
-#define USART_FLAG_WU                     USART_ISR_WUF
-#define USART_FLAG_RWU                    USART_ISR_RWU
-#define USART_FLAG_SBK                    USART_ISR_SBKF
-#define USART_FLAG_CM                     USART_ISR_CMF
-#define USART_FLAG_BUSY                   USART_ISR_BUSY
-#define USART_FLAG_ABRF                   USART_ISR_ABRF
-#define USART_FLAG_ABRE                   USART_ISR_ABRE
-#define USART_FLAG_EOB                    USART_ISR_EOBF
-#define USART_FLAG_RTO                    USART_ISR_RTOF
-#define USART_FLAG_nCTSS                  USART_ISR_CTS
-#define USART_FLAG_CTS                    USART_ISR_CTSIF
-#define USART_FLAG_LBD                    USART_ISR_LBD
-#define USART_FLAG_TXE                    USART_ISR_TXE
-#define USART_FLAG_TC                     USART_ISR_TC
-#define USART_FLAG_RXNE                   USART_ISR_RXNE
-#define USART_FLAG_IDLE                   USART_ISR_IDLE
-#define USART_FLAG_ORE                    USART_ISR_ORE
-#define USART_FLAG_NE                     USART_ISR_NE
-#define USART_FLAG_FE                     USART_ISR_FE
-#define USART_FLAG_PE                     USART_ISR_PE
+#define USART_FLAG_REACK USART_ISR_REACK
+#define USART_FLAG_TEACK USART_ISR_TEACK
+#define USART_FLAG_WU USART_ISR_WUF
+#define USART_FLAG_RWU USART_ISR_RWU
+#define USART_FLAG_SBK USART_ISR_SBKF
+#define USART_FLAG_CM USART_ISR_CMF
+#define USART_FLAG_BUSY USART_ISR_BUSY
+#define USART_FLAG_ABRF USART_ISR_ABRF
+#define USART_FLAG_ABRE USART_ISR_ABRE
+#define USART_FLAG_EOB USART_ISR_EOBF
+#define USART_FLAG_RTO USART_ISR_RTOF
+#define USART_FLAG_nCTSS USART_ISR_CTS
+#define USART_FLAG_CTS USART_ISR_CTSIF
+#define USART_FLAG_LBD USART_ISR_LBD
+#define USART_FLAG_TXE USART_ISR_TXE
+#define USART_FLAG_TC USART_ISR_TC
+#define USART_FLAG_RXNE USART_ISR_RXNE
+#define USART_FLAG_IDLE USART_ISR_IDLE
+#define USART_FLAG_ORE USART_ISR_ORE
+#define USART_FLAG_NE USART_ISR_NE
+#define USART_FLAG_FE USART_ISR_FE
+#define USART_FLAG_PE USART_ISR_PE
 
-#define USART_IT_WU                       ((uint32_t)0x00140316)
-#define USART_IT_CM                       ((uint32_t)0x0011010E)
-#define USART_IT_EOB                      ((uint32_t)0x000C011B)
-#define USART_IT_RTO                      ((uint32_t)0x000B011A)
-#define USART_IT_PE                       ((uint32_t)0x00000108)
-#define USART_IT_TXE                      ((uint32_t)0x00070107)
-#define USART_IT_TC                       ((uint32_t)0x00060106)
-#define USART_IT_RXNE                     ((uint32_t)0x00050105)
-#define USART_IT_IDLE                     ((uint32_t)0x00040104)
-#define USART_IT_LBD                      ((uint32_t)0x00080206)
-#define USART_IT_CTS                      ((uint32_t)0x0009030A)
-#define USART_IT_ERR                      ((uint32_t)0x00000300)
-#define USART_IT_ORE                      ((uint32_t)0x00030300)
-#define USART_IT_NE                       ((uint32_t)0x00020300)
-#define USART_IT_FE                       ((uint32_t)0x00010300)
+#define USART_IT_WU ((uint32_t)0x00140316)
+#define USART_IT_CM ((uint32_t)0x0011010E)
+#define USART_IT_EOB ((uint32_t)0x000C011B)
+#define USART_IT_RTO ((uint32_t)0x000B011A)
+#define USART_IT_PE ((uint32_t)0x00000108)
+#define USART_IT_TXE ((uint32_t)0x00070107)
+#define USART_IT_TC ((uint32_t)0x00060106)
+#define USART_IT_RXNE ((uint32_t)0x00050105)
+#define USART_IT_IDLE ((uint32_t)0x00040104)
+#define USART_IT_LBD ((uint32_t)0x00080206)
+#define USART_IT_CTS ((uint32_t)0x0009030A)
+#define USART_IT_ERR ((uint32_t)0x00000300)
+#define USART_IT_ORE ((uint32_t)0x00030300)
+#define USART_IT_NE ((uint32_t)0x00020300)
+#define USART_IT_FE ((uint32_t)0x00010300)
 
 /*!< USART CR1 register clear Mask ((~(uint32_t)0xFFFFE6F3)) */
-#define CR1_CLEAR_MASK                    ((uint32_t)(USART_CR1_M | USART_CR1_PCE | \
-                                   USART_CR1_PS | USART_CR1_TE |                    \
-                                   USART_CR1_RE))
+#define CR1_CLEAR_MASK ((uint32_t)(USART_CR1_M | USART_CR1_PCE | USART_CR1_PS | USART_CR1_TE | USART_CR1_RE))
 
 /*!< USART CR2 register clock bits clear Mask ((~(uint32_t)0xFFFFF0FF)) */
-#define CR2_CLOCK_CLEAR_MASK ((uint32_t)(USART_CR2_CLKEN | USART_CR2_CPOL | \
-                                         USART_CR2_CPHA | USART_CR2_LBCL))
+#define CR2_CLOCK_CLEAR_MASK ((uint32_t)(USART_CR2_CLKEN | USART_CR2_CPOL | USART_CR2_CPHA | USART_CR2_LBCL))
 
 /*!< USART CR3 register clear Mask ((~(uint32_t)0xFFFFFCFF)) */
 #define CR3_CLEAR_MASK ((uint32_t)(USART_CR3_RTSE | USART_CR3_CTSE))
 
 /*!< USART Interrupts mask */
-#define IT_MASK        ((uint32_t)0x000000FF)
+#define IT_MASK ((uint32_t)0x000000FF)
 
 /**
  * @brief  Initializes the USARTx peripheral according to the specified
@@ -1239,11 +1154,10 @@ typedef struct
  *   that contains the configuration information for the specified USART peripheral.
  * @retval None
  */
-void USART_Init(USART_TypeDef* USARTx, USART_InitTypeDef* USART_InitStruct)
-{
-    uint32_t tmpreg = 0, apbclock = 0;
-    uint32_t integerdivider    = 0;
-    uint32_t fractionaldivider = 0;
+void USART_Init(USART_TypeDef* USARTx, USART_InitTypeDef* USART_InitStruct) {
+    uint32_t          tmpreg = 0, apbclock = 0;
+    uint32_t          integerdivider    = 0;
+    uint32_t          fractionaldivider = 0;
     RCC_ClocksTypeDef RCC_ClocksStatus;
 
     /* Disable USART */
@@ -1270,8 +1184,7 @@ void USART_Init(USART_TypeDef* USARTx, USART_InitTypeDef* USART_InitStruct)
     /* Set the M bits according to USART_WordLength value */
     /* Set PCE and PS bits according to USART_Parity value */
     /* Set TE and RE bits according to USART_Mode value */
-    tmpreg |= (uint32_t)USART_InitStruct->USART_WordLength | USART_InitStruct->USART_Parity |
-              USART_InitStruct->USART_Mode;
+    tmpreg |= (uint32_t)USART_InitStruct->USART_WordLength | USART_InitStruct->USART_Parity | USART_InitStruct->USART_Mode;
 
     /* Write to USART CR1 */
     USARTx->CR1 = tmpreg;
@@ -1330,8 +1243,7 @@ void USART_Init(USART_TypeDef* USARTx, USART_InitTypeDef* USART_InitStruct)
  *   This parameter can be: ENABLE or DISABLE.
  * @retval None
  */
-void USART_Cmd(USART_TypeDef* USARTx, FunctionalState NewState)
-{
+void USART_Cmd(USART_TypeDef* USARTx, FunctionalState NewState) {
     if (NewState != DISABLE) {
         /* Enable the selected USART by setting the UE bit in the CR1 register */
         USARTx->CR1 |= USART_CR1_UE;
@@ -1370,8 +1282,7 @@ void USART_Cmd(USART_TypeDef* USARTx, FunctionalState NewState)
  *     @arg USART_FLAG_PE:  Parity Error flag.
  * @retval The new state of USART_FLAG (SET or RESET).
  */
-ST_FlagStatus USART_GetFlagStatus(USART_TypeDef* USARTx, uint32_t USART_FLAG)
-{
+ST_FlagStatus USART_GetFlagStatus(USART_TypeDef* USARTx, uint32_t USART_FLAG) {
     ST_FlagStatus bitstatus = ST_RESET;
 
     if ((USARTx->ISR & USART_FLAG) != (uint16_t)ST_RESET) {
@@ -1412,8 +1323,7 @@ ST_FlagStatus USART_GetFlagStatus(USART_TypeDef* USARTx, uint32_t USART_FLAG)
  *           (USART_RequestCmd()).
  * @retval None
  */
-void USART_ClearFlag(USART_TypeDef* USARTx, uint32_t USART_FLAG)
-{
+void USART_ClearFlag(USART_TypeDef* USARTx, uint32_t USART_FLAG) {
     USARTx->ICR = USART_FLAG;
 }
 
@@ -1438,8 +1348,7 @@ void USART_ClearFlag(USART_TypeDef* USARTx, uint32_t USART_FLAG)
  *   This parameter can be: ENABLE or DISABLE.
  * @retval None
  */
-void USART_ITConfig(USART_TypeDef* USARTx, uint32_t USART_IT, FunctionalState NewState)
-{
+void USART_ITConfig(USART_TypeDef* USARTx, uint32_t USART_IT, FunctionalState NewState) {
     uint32_t usartreg = 0, itpos = 0, itmask = 0;
     uint32_t usartxbase = 0;
 
@@ -1473,8 +1382,7 @@ void USART_ITConfig(USART_TypeDef* USARTx, uint32_t USART_IT, FunctionalState Ne
  * @param  USARTx: where x can be 1 or 2 to select the USART peripheral.
  * @retval The received data.
  */
-uint16_t USART_ReceiveData(USART_TypeDef* USARTx)
-{
+uint16_t USART_ReceiveData(USART_TypeDef* USARTx) {
     /* Receive Data */
     return (uint16_t)(USARTx->RDR & (uint16_t)0x01FF);
 }
@@ -1482,8 +1390,7 @@ uint16_t USART_ReceiveData(USART_TypeDef* USARTx)
 //////////////////////////////////////////////////////////////////////////////
 // NVIC
 
-typedef struct
-{
+typedef struct {
     uint8_t NVIC_IRQChannel; /*!< Specifies the IRQ channel to be enabled or disabled.
                                   This parameter can be a value of @ref IRQn_Type
                                   (For the complete STM32 Devices IRQ Channels list,
@@ -1507,8 +1414,7 @@ typedef struct
  *         the configuration information for the specified NVIC peripheral.
  * @retval None
  */
-void NVIC_Init(NVIC_InitTypeDef* NVIC_InitStruct)
-{
+void NVIC_Init(NVIC_InitTypeDef* NVIC_InitStruct) {
     uint32_t tmppriority = 0x00;
 
     if (NVIC_InitStruct->NVIC_IRQChannelCmd != DISABLE) {
@@ -1530,39 +1436,38 @@ void NVIC_Init(NVIC_InitTypeDef* NVIC_InitStruct)
 //////////////////////////////////////////////////////////////////////////////
 // TIMER
 
-#define TIM_PSCReloadMode_Update       ((uint16_t)0x0000)
-#define TIM_PSCReloadMode_Immediate    ((uint16_t)0x0001)
+#define TIM_PSCReloadMode_Update ((uint16_t)0x0000)
+#define TIM_PSCReloadMode_Immediate ((uint16_t)0x0001)
 
-#define TIM_FLAG_Update                ((uint16_t)0x0001)
-#define TIM_FLAG_CC1                   ((uint16_t)0x0002)
-#define TIM_FLAG_CC2                   ((uint16_t)0x0004)
-#define TIM_FLAG_CC3                   ((uint16_t)0x0008)
-#define TIM_FLAG_CC4                   ((uint16_t)0x0010)
-#define TIM_FLAG_COM                   ((uint16_t)0x0020)
-#define TIM_FLAG_Trigger               ((uint16_t)0x0040)
-#define TIM_FLAG_Break                 ((uint16_t)0x0080)
-#define TIM_FLAG_CC1OF                 ((uint16_t)0x0200)
-#define TIM_FLAG_CC2OF                 ((uint16_t)0x0400)
-#define TIM_FLAG_CC3OF                 ((uint16_t)0x0800)
-#define TIM_FLAG_CC4OF                 ((uint16_t)0x1000)
+#define TIM_FLAG_Update ((uint16_t)0x0001)
+#define TIM_FLAG_CC1 ((uint16_t)0x0002)
+#define TIM_FLAG_CC2 ((uint16_t)0x0004)
+#define TIM_FLAG_CC3 ((uint16_t)0x0008)
+#define TIM_FLAG_CC4 ((uint16_t)0x0010)
+#define TIM_FLAG_COM ((uint16_t)0x0020)
+#define TIM_FLAG_Trigger ((uint16_t)0x0040)
+#define TIM_FLAG_Break ((uint16_t)0x0080)
+#define TIM_FLAG_CC1OF ((uint16_t)0x0200)
+#define TIM_FLAG_CC2OF ((uint16_t)0x0400)
+#define TIM_FLAG_CC3OF ((uint16_t)0x0800)
+#define TIM_FLAG_CC4OF ((uint16_t)0x1000)
 
-#define TIM_CounterMode_Up             ((uint16_t)0x0000)
-#define TIM_CounterMode_Down           ((uint16_t)0x0010)
+#define TIM_CounterMode_Up ((uint16_t)0x0000)
+#define TIM_CounterMode_Down ((uint16_t)0x0010)
 #define TIM_CounterMode_CenterAligned1 ((uint16_t)0x0020)
 #define TIM_CounterMode_CenterAligned2 ((uint16_t)0x0040)
 #define TIM_CounterMode_CenterAligned3 ((uint16_t)0x0060)
 
-#define TIM_IT_Update                  ((uint16_t)0x0001)
-#define TIM_IT_CC1                     ((uint16_t)0x0002)
-#define TIM_IT_CC2                     ((uint16_t)0x0004)
-#define TIM_IT_CC3                     ((uint16_t)0x0008)
-#define TIM_IT_CC4                     ((uint16_t)0x0010)
-#define TIM_IT_COM                     ((uint16_t)0x0020)
-#define TIM_IT_Trigger                 ((uint16_t)0x0040)
-#define TIM_IT_Break                   ((uint16_t)0x0080)
+#define TIM_IT_Update ((uint16_t)0x0001)
+#define TIM_IT_CC1 ((uint16_t)0x0002)
+#define TIM_IT_CC2 ((uint16_t)0x0004)
+#define TIM_IT_CC3 ((uint16_t)0x0008)
+#define TIM_IT_CC4 ((uint16_t)0x0010)
+#define TIM_IT_COM ((uint16_t)0x0020)
+#define TIM_IT_Trigger ((uint16_t)0x0040)
+#define TIM_IT_Break ((uint16_t)0x0080)
 
-typedef struct
-{
+typedef struct {
     uint16_t TIM_Prescaler; /*!< Specifies the prescaler value used to divide the TIM clock.
                                  This parameter can be a number between 0x0000 and 0xFFFF */
 
@@ -1596,8 +1501,7 @@ typedef struct
  *         the specified TIM peripheral.
  * @retval None
  */
-void TIM_TimeBaseInit(TIM_TypeDef* TIMx, TIM_TimeBaseInitTypeDef* TIM_TimeBaseInitStruct)
-{
+void TIM_TimeBaseInit(TIM_TypeDef* TIMx, TIM_TimeBaseInitTypeDef* TIM_TimeBaseInitStruct) {
     uint16_t tmpcr1 = 0;
 
     tmpcr1 = TIMx->CR1;
@@ -1656,8 +1560,7 @@ void TIM_TimeBaseInit(TIM_TypeDef* TIMx, TIM_TimeBaseInitTypeDef* TIM_TimeBaseIn
  *   This parameter can be: ENABLE or DISABLE.
  * @retval None
  */
-void TIM_ITConfig(TIM_TypeDef* TIMx, uint16_t TIM_IT, FunctionalState NewState)
-{
+void TIM_ITConfig(TIM_TypeDef* TIMx, uint16_t TIM_IT, FunctionalState NewState) {
     if (NewState != DISABLE) {
         /* Enable the Interrupt sources */
         TIMx->DIER |= TIM_IT;
@@ -1693,8 +1596,7 @@ void TIM_ITConfig(TIM_TypeDef* TIMx, uint16_t TIM_IT, FunctionalState NewState)
  *   - TIM_FLAG_COM is used only with TIM1 TIM15, TIM16 and TIM17.
  * @retval The new state of TIM_FLAG (SET or RESET).
  */
-ST_FlagStatus TIM_GetFlagStatus(TIM_TypeDef* TIMx, uint16_t TIM_FLAG)
-{
+ST_FlagStatus TIM_GetFlagStatus(TIM_TypeDef* TIMx, uint16_t TIM_FLAG) {
     ST_FlagStatus bitstatus = ST_RESET;
 
     if ((TIMx->SR & TIM_FLAG) != (uint16_t)ST_RESET) {
@@ -1731,8 +1633,7 @@ ST_FlagStatus TIM_GetFlagStatus(TIM_TypeDef* TIMx, uint16_t TIM_FLAG)
  *   - TIM_FLAG_COM is used only with TIM1, TIM15, TIM16 and TIM17.
  * @retval None
  */
-void TIM_ClearFlag(TIM_TypeDef* TIMx, uint16_t TIM_FLAG)
-{
+void TIM_ClearFlag(TIM_TypeDef* TIMx, uint16_t TIM_FLAG) {
     /* Clear the flags */
     TIMx->SR = (uint16_t)~TIM_FLAG;
 }
@@ -1745,8 +1646,7 @@ void TIM_ClearFlag(TIM_TypeDef* TIMx, uint16_t TIM_FLAG)
  *         This parameter can be: ENABLE or DISABLE.
  * @retval None
  */
-void TIM_Cmd(TIM_TypeDef* TIMx, FunctionalState NewState)
-{
+void TIM_Cmd(TIM_TypeDef* TIMx, FunctionalState NewState) {
     if (NewState != DISABLE) {
         /* Enable the TIM Counter */
         TIMx->CR1 |= TIM_CR1_CEN;
@@ -1755,4 +1655,3 @@ void TIM_Cmd(TIM_TypeDef* TIMx, FunctionalState NewState)
         TIMx->CR1 &= (uint16_t)(~((uint16_t)TIM_CR1_CEN));
     }
 }
-

@@ -140,11 +140,11 @@ typedef struct {
     uint8_t sys_sw_state;
 } DEV_INFO_STRUCT;
 
-extern bool          f_wakeup_prepare;
-extern bool          f_sleep_show;
-extern bool          f_usb_sleep_show;
-extern bool          f_deep_sleep_show;
-extern bool          f_dial_sw_init_ok;
+extern bool f_wakeup_prepare;
+extern bool f_sleep_show;
+extern bool f_usb_sleep_show;
+extern bool f_deep_sleep_show;
+extern bool f_dial_sw_init_ok;
 
 void    dev_sts_sync(void);
 void    rf_uart_init(void);

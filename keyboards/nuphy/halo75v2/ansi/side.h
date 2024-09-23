@@ -328,4 +328,3 @@ const uint8_t side_color_lib_1[9][3] =
 	{0x00, 0x00, 0x00},
 };
 // clang-format on
-
