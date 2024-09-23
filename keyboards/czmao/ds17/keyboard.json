@@ -1,14 +1,14 @@
 {
-    "keyboard_name": "mao_10_DS17_ST",
+    "keyboard_name": "mao_11_DS17R2_A14",
     "manufacturer": "CZMAO",
-    "url": "NONE",
+    "url": "https://github.com/micahyy/czmao/tree/main/ds17_solder",
     "maintainer": "MAOKB",
     "diode_direction": "COL2ROW",
     "processor": "STM32F103",
     "bootloader": "stm32duino",
     "usb": {
-      "vid": "0x4E17",
-      "pid": "0x4E17",
+      "vid": "0x4A14",
+      "pid": "0x4A14",
       "device_version": "1.0.0"
     },
     "features": {
@@ -18,17 +18,13 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgb_matrix": true,
-        "rgblight": false,
-        "encoder": false
+        "rgb_matrix": true
     },
     "dynamic_keymap": {
       "layer_count": 10
     },
     
-    "bootmagic": {
-      "matrix" : [0,0]
-    },
+
     
     
     "matrix_pins": {
@@ -119,19 +115,21 @@
           {"label":"P7","matrix": [ 1,0],"x":0,"y":1},
           {"label":"P8","matrix": [ 1,1],"x":1,"y":1},
           {"label":"P9","matrix": [ 1,2],"x":2,"y":1},
-          {"label":"PPLS","matrix": [ 1,3],"x":3,"y":1},
+
           
           {"label":"P4","matrix": [ 2,0],"x":2,"y":1},
           {"label":"P5","matrix": [ 2,1],"x":3,"y":1},
           {"label":"P6","matrix": [ 2,2],"x":4,"y":1},
+          {"label":"PPLS","matrix": [ 1,3],"x":3,"y":1,"h":2},
           
           {"label":"P1","matrix": [ 3,0],"x":0,"y":2},
           {"label":"P2","matrix": [ 3,1],"x":1,"y":2},
           {"label":"P3","matrix": [ 3,2],"x":2,"y":2},
-          {"label":"PENT","matrix": [ 3,3],"x":3,"y":2},
+
           
           {"label":"P0","matrix": [ 4,0],"x":0,"y":3},
-          {"label":"PDOT","matrix": [ 4,2],"x":1,"y":3}
+          {"label":"PDOT","matrix": [ 4,2],"x":1,"y":3},
+          {"label":"PENT","matrix": [ 3,3],"x":3,"y":2,"h":2}
           
           
           
