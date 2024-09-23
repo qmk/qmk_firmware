@@ -38,7 +38,6 @@ void housekeeping_task_kb(void) {
 #endif
 }
 
-
 // After initializing the peripheral
 void keyboard_post_init_kb(void)
 {

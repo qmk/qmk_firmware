@@ -19,6 +19,20 @@
 #include "bhq.h"
 #include "outputselect.h"
 #include "usb_main.h"
+
+#if defined(BLUETOOTH_BHQ)
+#   include "bhq.h"
+#   include "km_printf.h"
+#   ifdef KM_DEBUG
+#       include "km_printf.h"
+#   endif
+#endif
+
+
+
+
+
+
 enum keyboard_user_keycodes {
     BT_1 = QK_USER,
     BT_2,
@@ -188,3 +202,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
+

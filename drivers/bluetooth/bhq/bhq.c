@@ -22,7 +22,7 @@
 #include "uart.h"
 #include "quantum.h"
 
-
+#include "km_printf.h"
 uint8_t bhkBuff[PACKET_MAX_LEN] = {0};
 uint32_t uartTimeoutBuffer = 0;         // uart timeout 
 
@@ -278,6 +278,34 @@ void bhq_send_hid_raw(uint8_t *data, uint8_t length)
     BHQ_SendCmd(BHQ_ACK, bhkBuff,index);
 }
 
+// BHQ Status callback
+void BHQ_State_Call(uint8_t cmdid, uint8_t *dat) {
+
+    uint8_t advertSta = BHQ_GET_BLE_ADVERT_STA(dat[1]);
+    uint8_t connectSta = BHQ_GET_BLE_CONNECT_STA(dat[1]);
+    uint8_t pairingSta = BHQ_GET_BLE_PAIRING_STA(dat[1]);
+
+    advertSta = BHQ_GET_BLE_ADVERT_STA(dat[1]);
+    connectSta = BHQ_GET_BLE_CONNECT_STA(dat[1]);
+    pairingSta = BHQ_GET_BLE_PAIRING_STA(dat[1]);
+
+    km_printf("cmdid:%d",cmdid);
+    if(cmdid == BHQ_ACK_RUN_STA_CMDID)
+    {
+
+        km_printf("[RSSI:%d]\t",dat[0]);
+        km_printf("[advertSta: %d]\t", advertSta);
+        km_printf("[connectSta: %d]\t", connectSta); // 0 = 断开, 1 = 已连接, 2 = 超时
+        km_printf("[pairingSta: %d]\t", pairingSta);
+        km_printf("[host_index:%d]\n",dat[2]);
+    }
+    else if(cmdid == BHQ_ACK_LED_LOCK_CMDID)
+    {
+        km_printf("[%s] Num Lock\t", (dat[0] & (1<<0)) ? "*" : " ");
+        km_printf("[%s] Caps Lock\t", (dat[0] & (1<<1)) ? "*" : " ");
+        km_printf("[%s] Scroll Lock\n", (dat[0] & (1<<2)) ? "*" : " ");
+    }
+}
 
 
 
@@ -287,15 +315,19 @@ void BHQ_Protocol_Process(uint8_t *dat, uint16_t length)
     uint8_t cmdid = 0;
     uint8_t buff_sta = 0;
     cmdid = dat[4];
+    uint8_t i = 0 ;
+    km_printf("BHQ_Protocol_Process: cmdid:%d\r\n",cmdid);
+    
     switch(cmdid)
     {
         case 0x26:  // BHQ model return hid led lock sta
             dat[5] = dat[5];    // led lock sta
             ackCommonNotData(cmdid,0);
+            BHQ_State_Call(cmdid, &dat[5]);
             break;
         case 0x27:  // BHQ model return hid raw data 
             // data and length
-            raw_hid_receive(&dat[4],dat[3]);  
+            // raw_hid_receive(&dat[5],dat[3]);  
             break;
         case 0xA1:
         case 0xA2:
@@ -319,9 +351,17 @@ void BHQ_Protocol_Process(uint8_t *dat, uint16_t length)
                 break;
             }
             break;
+
+        case 0x93:  //  BHQ model return [ble connect sta , ble pair sta...]
+            BHQ_State_Call(cmdid, &dat[5]);
+            for (i = 0; i < length; i++)
+            {
+                km_printf("%02x ",dat[i]);
+            }
+            km_printf("\r\n");
+            break;
     }
 }
-
 
 
 void bhq_task(void)

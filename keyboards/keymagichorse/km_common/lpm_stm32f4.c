@@ -157,7 +157,6 @@ void My_PWR_EnterSTOPMode(void)
 void enter_low_power_mode_prepare(void)
 {
 
-
     set_all_io_analog();
     uint8_t i = 0;
 #if (DIODE_DIRECTION == COL2ROW)
@@ -236,6 +235,7 @@ void enter_low_power_mode_prepare(void)
 
 void lpm_task(void)
 {
+return;
     if(report_buffer_is_empty() == false)
     {
         lpm_time_up = false;

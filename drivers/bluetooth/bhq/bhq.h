@@ -43,6 +43,10 @@ typedef struct bhkDevConfigInfo_t
     uint8_t bleNameStrLength;                   // ble name max length: 31
     uint8_t bleNameStr[32];
 } bhkDevConfigInfo_t;
+enum { 
+    BHQ_ACK_RUN_STA_CMDID = 0x93,
+    BHQ_ACK_LED_LOCK_CMDID = 0x26
+};
 
 
 #define PACKECT_HEADER_LEN 4
@@ -65,7 +69,13 @@ typedef struct bhkDevConfigInfo_t
 
 #define BHQ_SET_BIT_VALUE(var, xbit, value) ((value) ? ((var) |= (1 << (xbit))) : ((var) &= ~(1 << (xbit))))
 
+#define BHQ_GET_BLE_ADVERT_STA(var) ((var) & 0x01)          // 0x13->0x93:bat[1]->bit0:     ble Advert state
+#define BHQ_GET_BLE_CONNECT_STA(var) (((var) >> 1) & 0x03)  // 0x13->0x93:bat[1]->bit1~2:   ble connect state
+#define BHQ_GET_BLE_PAIRING_STA(var) (((var) >> 3) & 0x01)  // 0x13->0x93:bat[1]->bit3:     ble Pairing state
+
 #define BHQ_SUCCESS     0
+
+
 // -------------------- bhq protocol Small terminal mode --------------------
 #define BHQ_RUN_OR_INT_LEVEL       1             // Module operating status and qmk have the level status of data transmission       
 #ifndef BHQ_RUN_STATE_INPUT_PIN
@@ -80,6 +90,10 @@ void bhq_init(void);
 void bhq_Disable(void);
 
 void bhq_ConfigRunParam(bhkDevConfigInfo_t parma);
+
+
+void BHQ_State_Call(uint8_t cmdid, uint8_t *dat);
+
 
 void bhq_SetPairingMode(uint8_t host_index, uint8_t timeout_10s);
 void bhq_OpenBleAdvertising(uint8_t host_index, uint8_t timeout_10s);
