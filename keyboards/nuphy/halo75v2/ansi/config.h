@@ -28,8 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NRF_TEST_PIN B5
 #define NRF_WAKEUP_PIN C4
 
-#define RGB_DRIVER_SDB1             C6
-#define RGB_DRIVER_SDB2             C7
+#define RGB_DRIVER_SDB1 C6
+#define RGB_DRIVER_SDB2 C7
 
 #define SERIAL_DRIVER SD1
 #define SD1_TX_PIN B6
@@ -44,31 +44,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // 0b1110111 AD <-> VCC
 // 0b1110101 AD <-> SCL
 // 0b1110110 AD <-> SDA
-#define DRIVER_ADDR_1              0b1010000
-#define DRIVER_ADDR_2              0b1010011
+#define DRIVER_ADDR_1 0b1010000
+#define DRIVER_ADDR_2 0b1010011
 
-#define ISSI_TIMEOUT               1
+#define ISSI_TIMEOUT 1
 
 /* I2C Alternate function settings */
-#define I2C_DRIVER                 I2CD1
-#define I2C1_SCL_PIN               B8
-#define I2C1_SDA_PIN               B9
-#define I2C1_CLOCK_SPEED           1000000
+#define I2C_DRIVER I2CD1
+#define I2C1_SCL_PIN B8
+#define I2C1_SDA_PIN B9
+#define I2C1_CLOCK_SPEED 1000000
 
-#define I2C1_SCL_PAL_MODE          1
-#define I2C1_SDA_PAL_MODE          1
+#define I2C1_SCL_PAL_MODE 1
+#define I2C1_SDA_PAL_MODE 1
 
-#define I2C1_TIMINGR_PRESC         0U
-#define I2C1_TIMINGR_SCLDEL        0U
-#define I2C1_TIMINGR_SDADEL        0U
-#define I2C1_TIMINGR_SCLH          0U
-#define I2C1_TIMINGR_SCLL          0U
-#define I2C1_DUTY_CYCLE            FAST_DUTY_CYCLE_16_9
+#define I2C1_TIMINGR_PRESC 0U
+#define I2C1_TIMINGR_SCLDEL 0U
+#define I2C1_TIMINGR_SDADEL 0U
+#define I2C1_TIMINGR_SCLH 0U
+#define I2C1_TIMINGR_SCLL 0U
+#define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_16_9
 
-#define DRIVER_COUNT               2
-#define DRIVER_1_LED_TOTAL         64
-#define DRIVER_2_LED_TOTAL         64
-#define RGB_MATRIX_LED_COUNT       (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
+#define DRIVER_COUNT 2
+#define DRIVER_1_LED_TOTAL 64
+#define DRIVER_2_LED_TOTAL 64
+#define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 
 #define IS31FL3733_SW_PULLUP PUR_05KR
 #define IS31FL3733_CS_PULLDOWN PUR_05KR
@@ -77,9 +77,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_KEYRELEASES
 
-#define EECONFIG_KB_DATA_SIZE 17
 #ifdef VIA_ENABLE
 #    define VIA_EEPROM_CUSTOM_CONFIG_SIZE 19 // sizeof via_config
+#else
+#    define EECONFIG_KB_DATA_SIZE 17
 #endif
 
 #define RGB_MATRIX_SLEEP
@@ -108,7 +109,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // use dedicated timer for wait_us interrupts instead on ChibiOS defaulting to minimum 100us even if you sleep for 10us
 #define WAIT_US_TIMER GPTD14
 #define USB_POLLING_INTERVAL_MS 1
-
 
 /*
  * DEFAULT VALUES FOR INITIAL CONFIG to allow override in user keymap
