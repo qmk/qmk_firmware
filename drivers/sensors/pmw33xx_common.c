@@ -122,7 +122,6 @@ bool pmw33xx_upload_firmware(uint8_t sensor) {
     wait_us(15);
 
     for (size_t i = 0; i < pmw33xx_srom_get_length(); i++) {
-        //uint8_t __attribute__((unused)) byte = pmw33xx_srom_get_byte(i);
         spi_write(pmw33xx_srom_get_byte(i));
         wait_us(15);
     }
