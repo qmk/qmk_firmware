@@ -17,20 +17,19 @@
 
     "features": {
         "audio": false,
-        "backlight": false,
         "command": false,
         "console": false,
         "encoder": true,
         "extrakey": false,
-        "grave_esc": false,
         "haptic": false,
-        "magic": false,
-        "music": false,
         "oled": true,
         "rgb_matrix": false,
         "rgblight": false,
-        "space_cadet": false,
         "swap_hands": true
+    },
+
+    "bootmagic": {
+        "enabled": true
     },
 
     "mouse_key": {
