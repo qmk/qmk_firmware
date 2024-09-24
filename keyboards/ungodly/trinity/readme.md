@@ -7,7 +7,7 @@ A semi-assembled hotswap PCB for the Rama U-80 that offers multiple layout optio
 ![Trinity Layouts](https://i.imgur.com/8sz5NnT.jpg)
 
 * Keyboard Maintainer: [Luis Godinez](https://github.com/luis-Godinez)
-* Hardware Supported: RAMA WORKS U80-A PCB  
+* Hardware Supported: Compatible cases for RAMA WORKS U80-A PCB
 * Hardware Availability: [Ungodly Design](https://ungodly.design/products/trinity-pcb)
 
 Make example for this keyboard (after setting up your build environment):
