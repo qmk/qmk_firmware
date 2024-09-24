@@ -19,13 +19,6 @@
     },
     "processor": "RP2040",
     "rgb_matrix": {
-        "driver": "ws2812",
-        "led_count": 101,
-        "max_brightness": 150,
-        "startup_mode": "EEPROM",
-        "default_on": true,
-        "default_mode": "CYCLE_PINWHEEL",
-        "disable_when_usb_suspended": true,
         "animations": {
             "alphas_mods": true,
             "band_pinwheel_sat": true,
@@ -71,6 +64,10 @@
             "splash": true,
             "typing_heatmap": true
         },
+        "default_mode": "CYCLE_PINWHEEL",
+        "default_on": true,
+        "disable_when_usb_suspended": true,
+        "driver": "ws2812",
         "layout": [
             {"matrix": [4, 16], "x": 214, "y": 93, "flags": 4},
             {"matrix": [5, 17], "x": 227, "y": 113, "flags": 4},
@@ -173,7 +170,10 @@
             {"matrix": [0, 15], "x": 227, "y": 0, "flags": 4},
             {"matrix": [0, 16], "x": 240, "y": 0, "flags": 4},
             {"matrix": [0, 17], "x": 253, "y": 0, "flags": 4}
-        ]
+        ],
+        "led_count": 101,
+        "max_brightness": 150,
+        "startup_mode": "EEPROM"
     },
     "usb": {
         "device_version": "0.0.1",
