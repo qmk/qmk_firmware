@@ -1,6 +1,6 @@
 # Trinity
 
-A semi-assembled hotswap PCB for the Rama U-80 that offers expanded layout options.
+A semi-assembled hotswap PCB for the Rama U-80 that offers multiple layout options.
 
 ![Trinity Front](https://i.imgur.com/IFj2u8y.jpg)
 ![Trinity Back](https://i.imgur.com/B2NldmR.jpg)
