@@ -132,6 +132,7 @@ typedef struct {
     uint8_t mode_id;
     mouse_xy_report_t x;
     mouse_xy_report_t y;
+    uint16_t held_key[2];
 } pointing_mode_device_t;
 
 /* ----------Controlling active device pointing mode-------------------------------------------------------------- */
