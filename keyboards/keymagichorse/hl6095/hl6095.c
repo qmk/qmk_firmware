@@ -63,7 +63,7 @@ void keyboard_post_init_kb(void)
         .mk_rvd_r1 = 0,
         .mk_rvd_r2 = 0,
 #endif
-        .bleNameStrLength = sizeof(PRODUCT),
+        .bleNameStrLength = strlen(PRODUCT),
         .bleNameStr = PRODUCT
     };
 

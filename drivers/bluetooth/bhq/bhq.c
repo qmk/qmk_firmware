@@ -46,6 +46,7 @@ uint16_t bhkSumCrc(uint8_t *data, uint16_t length) ;
 // bhq model send uart data
 void BHQ_SendData(uint8_t *dat, uint16_t length)
 {
+    // uint16_t i = 0;
     uint32_t wait_bhq_ack_timeout = 0;
     uint32_t last_toggle_time = 0;
     uint32_t bhq_wakeup = 0;
@@ -81,6 +82,13 @@ void BHQ_SendData(uint8_t *dat, uint16_t length)
     }
     gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
     uart_transmit(dat, length);
+
+    // km_printf("mcu send data:");
+    // for (i = 0; i < length; i++)
+    // {
+    //     km_printf("%02x ",dat[i]);
+    // }
+    // km_printf("\r\n");
 }
 int16_t BHQ_ReadData(void) {
     if (uart_available()) {
@@ -267,19 +275,19 @@ void bhq_send_mouse(uint8_t* report) {
 
 void bhq_send_hid_raw(uint8_t *data, uint8_t length)
 {
-
+    km_printf("mcu send hid raw length:%d\r\n",length);
     uint8_t index = 0;
     memset(bhkBuff, 0, PACKET_MAX_LEN);
 
     bhkBuff[index++] = 0x27;
+    bhkBuff[index++] = length;
     memcpy(bhkBuff + index, data, length);
     index += length;
-
     BHQ_SendCmd(BHQ_ACK, bhkBuff,index);
 }
 
 // BHQ Status callback
-void BHQ_State_Call(uint8_t cmdid, uint8_t *dat) {
+__attribute__((weak)) void BHQ_State_Call(uint8_t cmdid, uint8_t *dat) {
 
     uint8_t advertSta = BHQ_GET_BLE_ADVERT_STA(dat[1]);
     uint8_t connectSta = BHQ_GET_BLE_CONNECT_STA(dat[1]);
@@ -327,7 +335,13 @@ void BHQ_Protocol_Process(uint8_t *dat, uint16_t length)
             break;
         case 0x27:  // BHQ model return hid raw data 
             // data and length
-            // raw_hid_receive(&dat[5],dat[3]);  
+            raw_hid_receive(&dat[6],dat[5]);  
+            // km_printf("bhq return hid raw data:length:%d[%02x %02x %02x]\r\n",dat[5],dat[6],dat[7],dat[8]);
+            // for (i = 0; i < length; i++)
+            // {
+            //     km_printf("%02x ",dat[i]);
+            // }
+            // km_printf("\r\n");
             break;
         case 0xA1:
         case 0xA2:

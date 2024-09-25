@@ -203,3 +203,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+// BHQ Status callback
+void BHQ_State_Call(uint8_t cmdid, uint8_t *dat) {
+
+    uint8_t advertSta = BHQ_GET_BLE_ADVERT_STA(dat[1]);
+    uint8_t connectSta = BHQ_GET_BLE_CONNECT_STA(dat[1]);
+    uint8_t pairingSta = BHQ_GET_BLE_PAIRING_STA(dat[1]);
+
+    advertSta = BHQ_GET_BLE_ADVERT_STA(dat[1]);
+    connectSta = BHQ_GET_BLE_CONNECT_STA(dat[1]);
+    pairingSta = BHQ_GET_BLE_PAIRING_STA(dat[1]);
+
+    km_printf("keymape:cmdid:%d\r\n",cmdid);
+    if(cmdid == BHQ_ACK_RUN_STA_CMDID)
+    {
+
+        km_printf("[RSSI:%d]\t",dat[0]);
+        km_printf("[advertSta: %d]\t", advertSta);
+        km_printf("[connectSta: %d]\t", connectSta); // 0 = 断开, 1 = 已连接, 2 = 超时
+        km_printf("[pairingSta: %d]\t", pairingSta);
+        km_printf("[host_index:%d]\n",dat[2]);
+    }
+    else if(cmdid == BHQ_ACK_LED_LOCK_CMDID)
+    {
+        km_printf("[%s] Num Lock\t", (dat[0] & (1<<0)) ? "*" : " ");
+        km_printf("[%s] Caps Lock\t", (dat[0] & (1<<1)) ? "*" : " ");
+        km_printf("[%s] Scroll Lock\n", (dat[0] & (1<<2)) ? "*" : " ");
+    }
+}

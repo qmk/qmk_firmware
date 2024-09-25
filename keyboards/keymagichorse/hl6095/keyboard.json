@@ -42,11 +42,11 @@
         },
         "default": {
             "animation": "rgb_test"
+        },
+        "layers": {
+            "enabled": true,
+            "override_rgb": true
         }
-        // "layers": {
-        //     "enabled": true,
-        //     "override_rgb": true
-        // }
     },
     "ws2812": {
         "pin": "B7"

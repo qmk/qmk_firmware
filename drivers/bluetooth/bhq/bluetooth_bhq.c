@@ -140,6 +140,7 @@ void bluetooth_bhq_send_nkro(report_nkro_t *report)
         report_buffer_task();
     }
 }
+#include "km_printf.h"
 
 /**
  * \brief Send a hid_raw report.
@@ -148,18 +149,20 @@ void bluetooth_bhq_send_nkro(report_nkro_t *report)
  */
 void bluetooth_bhq_send_hid_raw(uint8_t *data, uint8_t length)
 {
-    bool firstBuffer = false;
-    if (report_buffer_is_empty() && report_buffer_next_inverval()) {
-        firstBuffer = true;
-    }
+    bhq_send_hid_raw(data,length);
+    // bool firstBuffer = false;
+    // if (report_buffer_is_empty() && report_buffer_next_inverval()) {
+    //     firstBuffer = true;
+    // }
 
-    report_buffer_t report_buffer;
-    report_buffer.type = REPORT_TYPE_HID_RAW;
-    report_buffer.length = length;
-    memcpy(&report_buffer.report_data, data, length);
-    report_buffer_enqueue(&report_buffer);
+    // report_buffer_t report_buffer;
+    // report_buffer.type = REPORT_TYPE_HID_RAW;
+    // report_buffer.length = length;
+    // memcpy(&report_buffer.report_data, data, length);
+    // report_buffer_enqueue(&report_buffer);
+    // km_printf("bluetooth_bhq_send_hid_raw length:%d",report_buffer.length);
 
-    if (firstBuffer) {
-        report_buffer_task();
-    }
+    // if (firstBuffer) {
+    //     report_buffer_task();
+    // }
 }

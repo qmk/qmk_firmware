@@ -110,6 +110,7 @@ uint8_t report_buffer_get_retry(void) {
 void report_buffer_set_retry(uint8_t times) {
     retry = 0;
 }
+#include "km_printf.h"
 
 void report_buffer_task(void) {
     if ((!report_buffer_is_empty() || retry) && report_buffer_next_inverval()) 
@@ -152,6 +153,8 @@ void report_buffer_task(void) {
             }
             if(kb_rpt.type == REPORT_TYPE_HID_RAW)
             {
+                km_printf("report hid raw mcu send length:%d\r\n",kb_rpt.length);
+
                 bhq_send_hid_raw(kb_rpt.report_data, kb_rpt.length);
             }
             report_buffer_update_timer();
