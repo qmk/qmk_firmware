@@ -32,10 +32,6 @@
         "vid": "0x4069"
     },
     "community_layouts": ["tkl_f13_ansi", "tkl_f13_ansi_split_bs_rshift", "tkl_f13_ansi_tsangan", "tkl_f13_ansi_tsangan_split_bs_rshift", "tkl_f13_iso", "tkl_f13_iso_split_bs_rshift","tkl_f13_iso_tsangan","tkl_f13_iso_tsangan_split_bs_rshift","tkl_f13_iso_wkl","tkl_f13_iso_wkl_split_bs_rshift"],
-    "layout_aliases": {
-        "LAYOUT_all": "LAYOUT_tkl_ansi_split_bs_rshift",
-        "LAYOUT": "LAYOUT_tkl_ansi_tsangan"
-    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
