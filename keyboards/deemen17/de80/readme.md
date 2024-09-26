@@ -25,32 +25,3 @@ Enter the bootloader in 3 ways:
 * **Bootmagic reset**: Hold down the key at (0,0) in the matrix (ESC/Escape) and plug in the keyboard
 * **Physical reset button**: Double tap the button RESET on the back of the PCB
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
-
-**Step 3:** Flash the.uf2 file in 2 ways
-
-A new "DEEMEN17" drive should show up for your keyboard.
-
-* Copy and paste the uf2 file to "DEEMEN17" drive
-* Simply drag and drop the UF2 file into "DEEMEN17" drive
-
-## DE80 Hardware Information
-
-* MCU: **STM32F103C8T6**
-* Crystal: **8 Mhz**
-* Caps Lock LED: **B10**
-* Scroll Lock LED: **B3**
-* RGB Data Pin: **B15**
-
-### The DE80 PCB utilizes COL2ROW matrix organization.
-
-### Column Pin Configuration
-
-| Column | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 |
-| -------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- |
-| Pin | B14 | B13 | B12 | B2 | B1 | B0 | A7 | A6 | A5 | A4 | A3 | A2 | A1 | A0 | A15 | B7 | B6 |
-
-### Row Pin Configuration
-
-| Row | 0 | 1 | 2 | 3 | 4 | 5 |
-| ------- | ------- | ------- | ------- | ------- | ------- | ------- |
-| Pin | A8 | A10 | A9 | B11 | C14 | C13 |
