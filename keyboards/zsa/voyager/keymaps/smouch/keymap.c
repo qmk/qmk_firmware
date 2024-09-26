@@ -6,7 +6,8 @@ enum layer_names {
     _DEF,
     _NUM,
     _SYM,
-    _NAV
+    _NAV,
+    _PM
 };
 
 enum custom_keycodes {
@@ -42,7 +43,7 @@ enum custom_keycodes {
 #define LN3 KC_NO
 #define LN2 KC_TAB
 #define LN1 KC_NO
-#define LN0 CW_TOGG
+#define LN0 TG(_PM)
 
 #define RN0 TG(_NUM)
 #define RN1 KC_LPRN
@@ -183,6 +184,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, KC_LALT, KC_LGUI, KC_LSFT,       ___x___,                        KC_VOLD, KC_LEFT,    KC_DOWN, KC_RGHT,    KC_DEL,  ___x___,
     _______, G(KC_Z), G(KC_X), G(KC_C), G(KC_V),       LSG(KC_Z),                      KC_MUTE, KC_BSPC,    KC_TAB,  KC_ENT,     ___x___, ___x___,
                                                          _______, _______, C(KC_LEFT), C(KC_RIGHT)
+  ),
+
+  /*  Base (alpha) Layer Hands Down Promethium
+            Building for ZSA Voyager
+    ⎋           ⇥        tg          tg  (   ⌦   )   vol↓↑
+    `   x   w   g⌃   m   j           +=  .:  /⌃  "!  '? \
+    z   s   n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘  i⌥  c  q
+        f   p   d    l   v      	 -   u   o   y   b
+                         r   ⌫   ⏎   ␣
+  */
+  [_PM] = LAYOUT_voyager(
+    _______, _______, _______,      _______,      _______,      TO(_DEF),                 _______, _______, _______, _______, _______,        _______,
+    _______, _______, _______,      LCTL_T(KC_G), KC_M,         _______,                  _______, _______, _______, _______, _______,        _______,
+    _______, _______, LALT_T(KC_N), LGUI_T(KC_T), LSFT_T(KC_H), _______,                  _______, _______, _______, _______, LT(_SYM, KC_C), _______,
+    _______, _______, _______,      KC_D,         KC_L,         _______,                  _______, _______, _______, _______, _______,        _______,
+                                                 _______, _______, _______, _______
   ),
 
 };
