@@ -26,6 +26,7 @@
     "indicators": {
         "num_lock": "B4"
     },
+    "community_layouts": ["numpad_6x4", "ortho_6x4"],
     "layouts": {
         "LAYOUT_numpad_6x4": {
             "layout": [
