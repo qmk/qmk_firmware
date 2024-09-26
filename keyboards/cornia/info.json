@@ -1,0 +1,11 @@
+{
+    "manufacturer": "Vaarai",
+    "maintainer": "Vaarai",
+    "url": "https://github.com/Vaarai/Cornia",
+    "usb": {
+        "vid": "0xFEED"
+    },
+    "split": {
+        "enabled": true
+    }
+}
