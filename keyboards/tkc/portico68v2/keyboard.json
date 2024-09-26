@@ -77,6 +77,7 @@
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "debounce": 3,
+    "community_layouts": ["65_ansi_blocker"],
     "layouts": {
         "LAYOUT_65_ansi_blocker": {
             "layout": [
