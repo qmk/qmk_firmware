@@ -9,7 +9,8 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgblight": true
+        "rgblight": true,
+        "encoder": true
     },
     "matrix_pins": {
         "rows": ["A8", "A10", "A9", "B11", "C14", "C13"],
@@ -45,6 +46,11 @@
     "ws2812": {
         "driver": "spi",
         "pin": "B15"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B5", "pin_b": "B4"}
+        ]
     },
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_tkl_f13_ansi_tsangan_split_bs_rshift"
