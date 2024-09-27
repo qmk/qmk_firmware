@@ -30,7 +30,15 @@ void board_init(void)
     km_printf("hello rtt log1111111\r\n");
 #endif
 }
+void eeconfig_init_kb(void) {
+#ifdef RGBLIGHT_ENABLE
+    rgblight_enable(); // Enable RGB underglow by default
+    rgblight_sethsv(0, 0, 255);
+#endif
 
+    eeconfig_update_kb(0);
+    eeconfig_init_user();
+}
 
 void housekeeping_task_kb(void) {
 #if defined(BLUETOOTH_BHQ)
