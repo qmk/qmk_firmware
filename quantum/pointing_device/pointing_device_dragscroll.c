@@ -177,10 +177,6 @@ static void dragscroll_scroll_task(dragscroll_state_t* d, report_mouse_t* mouse_
     }
 #    endif
 
-    // apply any previously recorded rounding errors
-    h += d->rounding_error_h;
-    v += d->rounding_error_v;
-
     // zero out the accumulators
     d->accumulator_h = 0;
     d->accumulator_v = 0;
@@ -289,6 +285,8 @@ static void dragscroll_scroll_task(dragscroll_state_t* d, report_mouse_t* mouse_
     v *= DRAGSCROLL_MULTIPLIER_V;
 
     // save rounding errors
+    h += d->rounding_error_h;
+    v += d->rounding_error_v;
     mouse_report->h     = (mouse_hv_report_t)h;
     mouse_report->v     = (mouse_hv_report_t)v;
     d->rounding_error_h = h - mouse_report->h;
