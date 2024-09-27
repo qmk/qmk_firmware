@@ -1,7 +1,7 @@
   {
     "name": "SoyuzXL_Encoder",
     "vendorId": "0x5757",
-    "productId": "0x007",
+    "productId": "0x0007",
     "matrix": {
       "rows": 3,
       "cols": 7
