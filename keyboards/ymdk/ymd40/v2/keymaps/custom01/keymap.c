@@ -173,10 +173,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	),
     
 	[_RAISE]=LAYOUT_ortho_4x12(
-		X(HAMMER_SICKLE),	X(SMAILING),	X(GRINNING),	X(BEAMING),		X(ROLLING),		KC_NO,			KC_NO,			KC_NO,	X(EYEBROW),		X(SAD),			X(ANGRY),		KC_NO,
-		X(CHESS),			X(WINKING),		X(KISS),		X(HEARTS),		X(HEARTEYES),	KC_NO,			KC_NO,			KC_NO,	X(ASTONISHED),	X(HANDMOUTH),	X(PEEKINGEYE),	KC_NO,
-		X(CUP),				X(SUNGLASES),	X(HALO),		X(ZANY),		X(SPLODING),	KC_NO,			KC_NO,			KC_NO,	X(OPENHANDS),	KC_NO,			KC_NO,			KC_NO,
-		X(SALUTING),		X(THINKING),	X(SHUSHING),	X(YAWNING),		MO(_OTHERS),	SH_T(KC_SPACE),	SH_T(KC_SPACE),	KC_NO,	KC_NO,			KC_NO,			KC_NO,			KC_NO
+		X(HAMMER_SICKLE),	X(SMAILING),	X(GRINNING),	X(BEAMING),		X(ROLLING),		KC_NO,			KC_NO,			KC_NO,		X(EYEBROW),		X(SAD),			X(ANGRY),		KC_NO,
+		X(CHESS),			X(WINKING),		X(KISS),		X(HEARTS),		X(HEARTEYES),	KC_NO,			KC_NO,			KC_NO,		X(ASTONISHED),	X(HANDMOUTH),	X(PEEKINGEYE),	KC_NO,
+		X(CUP),				X(SUNGLASES),	X(HALO),		X(ZANY),		X(SPLODING),	KC_NO,			KC_NO,			KC_NO,		X(OPENHANDS),	KC_NO,			KC_NO,			KC_NO,
+		X(SALUTING),		X(THINKING),	X(SHUSHING),	X(YAWNING),		MO(_OTHERS),	SH_T(KC_SPACE),	SH_T(KC_SPACE),	KC_TRNS,	KC_NO,			KC_NO,			KC_NO,			KC_NO
 	),
     
     [_LOWER]=LAYOUT_ortho_4x12(
@@ -223,14 +223,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	
 	
 	[_RNUM_PAD]=LAYOUT_ortho_4x12(
-			KC_TRNS,						KC_PMNS,	KC_PAST,	KC_PSLS,	KC_NUM,		KC_ESC,				KC_ESC,			KC_P7,	KC_P8,	KC_P9,		KC_PPLS,	KC_BSPC,
+			TD(TD_RHAND_LAYER),				KC_PMNS,	KC_PAST,	KC_PSLS,	KC_NUM,		KC_ESC,				KC_ESC,			KC_P7,	KC_P8,	KC_P9,		KC_PPLS,	KC_BSPC,
 			LM(_QWERTY2,MOD_LALT),			KC_NO,		KC_NO,		KC_NO,		KC_AT,		KC_TAB,				KC_TAB,			KC_P4,	KC_P5,	KC_P6,		KC_PPLS,	KC_DEL,
 			LM(_QWERTY2,MOD_LCTL),			KC_NO,		KC_NO,		KC_NO,		KC_PERC,	KC_COMM,			KC_COMM,		KC_P1,	KC_P2,	KC_P3,		KC_PENT,	KC_PEQL,
 			LM(_QWERTY2,MOD_LCTL|MOD_LALT),	KC_NO,		KC_NO,		KC_NO,		KC_ENT,		SH_T(KC_SPACE),		SH_T(KC_SPACE),	KC_P0,	KC_P0,	KC_PDOT,	KC_PENT,	KC_PEQL
 	),
 
 	[_NUM_PAD]=LAYOUT_ortho_4x12(
-			KC_TRNS,						KC_DEL,	KC_7,		KC_8,	KC_9,		KC_ESC,		KC_ESC,		KC_7,	KC_8,	KC_9,	KC_DEL,	KC_BSPC,
+			TD(TD_RHAND_LAYER),				KC_DEL,	KC_7,		KC_8,	KC_9,		KC_ESC,		KC_ESC,		KC_7,	KC_8,	KC_9,	KC_DEL,	KC_BSPC,
 			LM(_QWERTY2,MOD_LALT),			KC_NO,	KC_4,		KC_5,	KC_6,		KC_TAB,		KC_TAB,		KC_4,	KC_5,	KC_6,	KC_ENT,	KC_NO,
 			LM(_QWERTY2,MOD_LCTL),			KC_ENT,	KC_1,		KC_2,	KC_3,		KC_COMM,	KC_COMM,	KC_1,	KC_2,	KC_3,	KC_ENT,	KC_NO,
 			LM(_QWERTY2,MOD_LCTL|MOD_LALT),	KC_ENT,	KC_DOT,		KC_0,	KC_0,		KC_SPACE,	KC_SPACE,	KC_0,	KC_0,	KC_DOT,	KC_ENT,	KC_NO
@@ -623,11 +623,15 @@ void numpad_finished(tap_dance_state_t *state, void *user_data) {
 		case TD_SINGLE_TAP:
 			
 			if (layer_state_is(_QWERTY)) {
-				layer_on(_NUM_PAD);
+				layer_move(_NUM_PAD);
 			}   
+
+			else if (layer_state_is(_NUM_PAD)) {
+				layer_move(_RNUM_PAD);
+			} 
 			
-			else if (layer_state_is(_RNUM_PAD) || (layer_state_is(_NUM_PAD))){
-				layer_clear();
+			else {
+				layer_move(_QWERTY);
 			}    		
 			
 			break;
@@ -641,19 +645,12 @@ void numpad_finished(tap_dance_state_t *state, void *user_data) {
 			
 		case TD_DOUBLE_TAP:
 			
-			if (layer_state_is(_RNUM_PAD)) { 
+			layer_move(_QWERTY);
 			
-				layer_off(_RNUM_PAD);
-			} 
-			
-			else {
-			
-				layer_on(_RNUM_PAD);
-				
-				if (!(host_keyboard_led_state().num_lock)) {
-					tap_code(KC_NUM);
-				}	
-			}
+			if (host_keyboard_led_state().caps_lock) {
+				tap_code(KC_CAPS);
+			}				
+
 			break;
 
 		case TD_DOUBLE_HOLD:
@@ -675,12 +672,6 @@ void numpad_finished(tap_dance_state_t *state, void *user_data) {
 
 void numpad_reset(tap_dance_state_t *state, void *user_data) {
 
-    if ((numpad_tap_state.state == TD_SINGLE_HOLD) || (numpad_tap_state.state == TD_DOUBLE_HOLD)) {
-		
-		layer_clear();
-		
-	}
-
     numpad_tap_state.state = TD_NONE;
 }
 
@@ -692,15 +683,22 @@ void capslock_finished(tap_dance_state_t *state, void *user_data) {
     numpad_tap_state.state = cur_dance(state);
     
     switch (numpad_tap_state.state) {
-        
-        case TD_SINGLE_TAP:
+ 
+		case TD_SINGLE_TAP:		
+			if (layer_state_is(_QWERTY)	&& (host_keyboard_led_state().caps_lock)) {
+				tap_code(KC_CAPS);
+			}
+
+			break;
+			
+        case TD_DOUBLE_TAP:
         	
-        	if (layer_state_is(_QWERTY)) {
+        	if (layer_state_is(_QWERTY)	&& !(host_keyboard_led_state().caps_lock)) {
 				tap_code(KC_CAPS);
 			}
 			
             break;
-        
+		
         case TD_SINGLE_HOLD:
 			
 			SEND_STRING(SS_DOWN(X_LSFT));
