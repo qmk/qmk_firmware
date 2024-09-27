@@ -5,6 +5,31 @@
     "backlight": {
         "pin": "A6"
     },
+    "ws2812": {
+        "pin": "D3"
+    },
+    "rgblight": {
+        "default": {
+            "val": 128
+        },
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 24,
+        "max_brightness": 200,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
     "bootloader": "stm32-dfu",
     "diode_direction": "COL2ROW",
     "features": {
@@ -14,12 +39,14 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "rgblight": true
     },
     "indicators": {
         "caps_lock": "B12",
         "scroll_lock": "B14"
     },
+    
     "matrix_pins": {
         "cols": ["B11", "B10", "B2", "B1", "B0", "A7", "A5", "A4", "A3", "F1", "C15", "C14", "F0", "C13", "B9", "B8", "B5"],
         "rows": ["A15", "B3", "B4", "A0", "B6", "B7"]
