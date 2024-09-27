@@ -21,6 +21,7 @@ The following converters are available at this time:
 | `promicro` | `liatris`         |
 | `promicro` | `imera`           |
 | `promicro` | `michi`           |
+| `promicro` | `svlinky`         |
 | `elite_c`  | `stemcell`        |
 | `elite_c`  | `rp2040_ce`       |
 | `elite_c`  | `elite_pi`        |
@@ -87,6 +88,7 @@ If a board currently supported in QMK uses a [Pro Micro](https://www.sparkfun.co
 | [Liatris](https://splitkb.com/products/liatris)                                          | `liatris`         |
 | [Imera](https://splitkb.com/products/imera)                                              | `imera`           |
 | [Michi](https://github.com/ci-bus/michi-promicro-rp2040)                                 | `michi`           |
+| [Svlinky](https://github.com/sadekbaroudi/svlinky)                                       | `svlinky`         |
 
 Converter summary:
 
@@ -105,6 +107,7 @@ Converter summary:
 | `liatris`         | `-e CONVERT_TO=liatris`         | `CONVERT_TO=liatris`         | `#ifdef CONVERT_TO_LIATRIS`         |
 | `imera`           | `-e CONVERT_TO=imera`           | `CONVERT_TO=imera`           | `#ifdef CONVERT_TO_IMERA`           |
 | `michi`           | `-e CONVERT_TO=michi`           | `CONVERT_TO=michi`           | `#ifdef CONVERT_TO_MICHI`           |
+| `svlinky`         | `-e CONVERT_TO=svlinky`         | `CONVERT_TO=svlinky`         | `#ifdef CONVERT_TO_SVLINKY`         |
 
 ### Proton C {#proton_c}
 
