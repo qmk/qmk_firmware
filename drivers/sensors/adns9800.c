@@ -225,8 +225,8 @@ report_adns9800_t adns9800_get_report(void) {
         uint8_t delta_y_l = spi_read();
         uint8_t delta_y_h = spi_read();
 
-        report.x = CONSTRAIN_HID_XY(convertDeltaToInt(delta_x_h, delta_x_l));
-        report.y = CONSTRAIN_HID_XY(convertDeltaToInt(delta_y_h, delta_y_l));
+        report.x = convertDeltaToInt(delta_x_h, delta_x_l);
+        report.y = convertDeltaToInt(delta_y_h, delta_y_l);
     }
 
     // clear residual motion
