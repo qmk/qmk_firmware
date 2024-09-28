@@ -86,7 +86,7 @@
             "processor": "STM32F411"
         },
         "svlinky": {
-            "board": "SVLINKY",
+            "board": "QMK_PM2040",
             "bootloader": "rp2040",
             "processor": "RP2040"
         }
