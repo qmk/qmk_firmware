@@ -3,10 +3,10 @@
     "keyboard_name": "h88_g2",
     "maintainer": "hineybush",
     "backlight": {
-        "pin": "B15"
+        "pin": "A6"
     },
     "ws2812": {
-        "pin": "D3"
+        "pin": "B15"
     },
     "rgblight": {
         "default": {
