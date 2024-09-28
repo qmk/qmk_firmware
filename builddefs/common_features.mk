@@ -135,7 +135,7 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
             OPT_DEFS += -DPOINTING_DEVICE_DRIVER_$(strip $(shell echo $(POINTING_DEVICE_DRIVER) | tr '[:lower:]' '[:upper:]'))
         endif
         OPT_DEFS += -DPOINTING_DEVICE_DRIVER_$(strip $(POINTING_DEVICE_DRIVER))
-		OPT_DEFS += -DPOINTING_DEVICE_DRIVER_NAME=$(strip $(POINTING_DEVICE_DRIVER))
+        OPT_DEFS += -DPOINTING_DEVICE_DRIVER_NAME=$(strip $(POINTING_DEVICE_DRIVER))
         ifeq ($(strip $(POINTING_DEVICE_DRIVER)), adns9800)
             SPI_DRIVER_REQUIRED = yes
         else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), analog_joystick)
