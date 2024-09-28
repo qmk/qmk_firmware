@@ -21,6 +21,21 @@
 #   include "km_printf.h"
 #endif
 
+#if defined(RGBLIGHT_ENABLE) && defined(BLUETOOTH_BHQ) 
+const rgblight_segment_t PROGMEM bt_conn1[] = RGBLIGHT_LAYER_SEGMENTS( {0, 1, HSV_RED} );   // 红
+const rgblight_segment_t PROGMEM bt_conn2[] = RGBLIGHT_LAYER_SEGMENTS( {0, 1, HSV_GREEN} ); // 绿
+const rgblight_segment_t PROGMEM bt_conn3[] = RGBLIGHT_LAYER_SEGMENTS( {0, 1, HSV_BLUE} );  // 蓝
+const rgblight_segment_t PROGMEM caps_lock_[] = RGBLIGHT_LAYER_SEGMENTS( {0, 1, HSV_PURPLE} );  // 紫色
+const rgblight_segment_t* const PROGMEM _rgb_layers[] =
+    RGBLIGHT_LAYERS_LIST( 
+        bt_conn1, bt_conn2,  bt_conn3,caps_lock_
+    );
+void keyboard_post_init_user(void) {
+#if defined(RGBLIGHT_ENABLE) 
+    rgblight_layers = _rgb_layers;
+#endif
+}
+#endif
 
 void board_init(void) 
 {
@@ -30,16 +45,6 @@ void board_init(void)
     km_printf("hello rtt log1111111\r\n");
 #endif
 }
-void eeconfig_init_kb(void) {
-#ifdef RGBLIGHT_ENABLE
-    rgblight_enable(); // Enable RGB underglow by default
-    rgblight_sethsv(0, 0, 255);
-#endif
-
-    eeconfig_update_kb(0);
-    eeconfig_init_user();
-}
-
 void housekeeping_task_kb(void) {
 #if defined(BLUETOOTH_BHQ)
     battery_task();
@@ -49,7 +54,13 @@ void housekeeping_task_kb(void) {
 // After initializing the peripheral
 void keyboard_post_init_kb(void)
 {
-#if defined(BLUETOOTH_BHQ)
+#if defined(RGBLIGHT_ENABLE) 
+    rgblight_disable();
+    rgblight_layers = _rgb_layers;
+#endif
+
+#if defined(RGBLIGHT_ENABLE) && defined(BLUETOOTH_BHQ) 
+
     bhkDevConfigInfo_t model_parma = {
         .vendor_id_source   = 1,
         .verndor_id         = VENDOR_ID,

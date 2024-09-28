@@ -165,6 +165,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case BL_SW_2:
             if(record->event.pressed)
             {
+                // rgblight_blink_layer_repeat(1 , 500, 20);
                 ble_switch_press_time = timer_read32();
                 // gpio_write_pin_low(QMK_RUN_OUTPUT_PIN);
             }
@@ -203,24 +204,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 #if defined(RGBLIGHT_ENABLE) && defined(BLUETOOTH_BHQ) 
-const rgblight_segment_t PROGMEM bt_conn1[] = RGBLIGHT_LAYER_SEGMENTS( {0, 1, HSV_RED} );   // 红
-const rgblight_segment_t PROGMEM bt_conn2[] = RGBLIGHT_LAYER_SEGMENTS( {0, 1, HSV_GREEN} ); // 绿
-const rgblight_segment_t PROGMEM bt_conn3[] = RGBLIGHT_LAYER_SEGMENTS( {0, 1, HSV_BLUE} );  // 蓝
-const rgblight_segment_t* const PROGMEM _rgb_layers[] =
-    RGBLIGHT_LAYERS_LIST( 
-        bt_conn1, bt_conn2,  bt_conn3
-    );
 
 void rgb_adv_unblink_all_layer(void) {
-    for (uint8_t i = 0; i < 2; i++) {
+    for (uint8_t i = 0; i < 3; i++) {
         rgblight_unblink_layer(i);
     }
 }
-void keyboard_post_init_user(void) {
-    rgblight_layers = _rgb_layers;
+
+
+bool led_update_user(led_t led_state) {
+    rgblight_set_layer_state(3, led_state.caps_lock);
+    km_printf("led_update_user\r\n");
+    return true;
 }
+
+
 // BHQ Status callback
 void BHQ_State_Call(uint8_t cmdid, uint8_t *dat) {
+    rgblight_disable();
     rgb_adv_unblink_all_layer();
 
 
@@ -247,17 +248,17 @@ void BHQ_State_Call(uint8_t cmdid, uint8_t *dat) {
             km_printf("if host_index 1\r\n");
             if(advertSta == 1 && pairingSta == 1)
             {
-                rgblight_blink_layer_repeat(0 , 500, 20);
+                rgblight_blink_layer_repeat(0 , 500, 50);
                 km_printf("1\r\n");
             }
             else if(advertSta == 1 && pairingSta == 0)
             {
-                rgblight_blink_layer_repeat(0 , 2000, 3);
+                rgblight_blink_layer_repeat(0 , 2000, 50);
                 km_printf("2\r\n");
             }
             else if(connectSta == 1)
             {
-                rgblight_blink_layer_repeat(0 , 200, 3);
+                rgblight_blink_layer_repeat(0 , 200, 50);
                 km_printf("3\r\n");
             }
         }
@@ -266,17 +267,17 @@ void BHQ_State_Call(uint8_t cmdid, uint8_t *dat) {
             km_printf("if host_index 2\r\n");
             if(advertSta == 1 && pairingSta == 1)
             {
-                rgblight_blink_layer_repeat(1 , 500, 20);
+                rgblight_blink_layer_repeat(1 , 500, 50);
                 km_printf("4\r\n");
             }
             else if(advertSta == 1 && pairingSta == 0)
             {
-                rgblight_blink_layer_repeat(1 , 2000, 3);
+                rgblight_blink_layer_repeat(1 , 2000, 50);
                 km_printf("5\r\n");
             }
             else if(connectSta == 1)
             {
-                rgblight_blink_layer_repeat(1 , 200, 3);
+                rgblight_blink_layer_repeat(1 , 200, 50);
                 km_printf("6\r\n");
             }
         }    
@@ -285,15 +286,15 @@ void BHQ_State_Call(uint8_t cmdid, uint8_t *dat) {
             km_printf("if host_index 3\r\n");
             if(advertSta == 1 && pairingSta == 1)
             {
-                rgblight_blink_layer_repeat(2 , 500, 20);
+                rgblight_blink_layer_repeat(2 , 500, 50);
             }
             else if(advertSta == 1 && pairingSta == 0)
             {
-                rgblight_blink_layer_repeat(2 , 2000, 3);
+                rgblight_blink_layer_repeat(2 , 2000, 50);
             }
             else if(connectSta == 1)
             {
-                rgblight_blink_layer_repeat(2 , 200, 3);
+                rgblight_blink_layer_repeat(2 , 200, 50);
             }
         }
         
