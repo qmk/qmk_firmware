@@ -1,23 +1,30 @@
-/* Copyright 2022 GEIST (@geigeigeist)
- * Copyright 2024 t4corun (@t4corun)
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+/*
+Copyright 2022 GEIST <@geigeigeist>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 #pragma once
 
 // Most configuration will be found in info.json
+
+// ┌─────────────────────────────────────────────────┐
+// │ g e n e r a l                                   │
+// └─────────────────────────────────────────────────┘
+
+#define MASTER_LEFT
+#define NO_ACTION_ONESHOT
 
 // ┌─────────────────────────────────────────────────┐
 // │ o l e d s                                       │
@@ -62,7 +69,7 @@
 #define DRV2605L_V_RMS 2.0
 #define DRV2605L_F_LRA 150 // resonance freq
 #define DRV2605L_GREETING DRV2605L_EFFECT_750_MS_ALERT_100
-#define DRV2605L_DEFAULT_MODE DRV2605L_EFFECT_SOFT_BUMP_100
+#define DRV2605L_DEFAULT_MODE DRV2605L_EFFECT_STRONG_CLICK_30
 #endif // HAPTIC_ENABLE && HAPTIC_DRV2605L
 
 // ┌─────────────────────────────────────────────────┐

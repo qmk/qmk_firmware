@@ -1,113 +1,120 @@
 {
     "manufacturer": "GEIST",
     "maintainer": "t4corun",
-    "url": "https://github.com/GEIGEIGEIST/KLOR",
-    "usb": {
-        "vid": "0x3A3C"
+    "audio": {
+        "driver": "pwm_hardware",
+        "voices": true
     },
-
-    "processor": "RP2040",
     "bootloader": "rp2040",
-
-    "matrix_pins": {
-        "cols": [ "GP27", "GP26", "GP22", "GP20", "GP23", "GP21" ],
-        "rows": [ "GP5", "GP6", "GP7", "GP8" ]
+    "bootmagic": {
+        "enabled": true
     },
     "diode_direction": "COL2ROW",
-
+    "encoder": {
+        "rotary": [
+            {"pin_a": "GP28", "pin_b": "GP29", "resolution": 2}
+        ]
+    },
     "features": {
         "audio": false,
-        "command": false,
         "console": false,
         "encoder": true,
-        "extrakey": false,
+        "extrakey": true,
         "haptic": false,
         "oled": true,
         "rgb_matrix": false,
         "rgblight": false,
         "swap_hands": true
     },
-
-    "bootmagic": {
-        "enabled": true
+    "haptic": {
+        "driver": "drv2605l"
     },
-
+    "matrix_pins": {
+        "cols": ["GP27", "GP26", "GP22", "GP20", "GP23", "GP21"],
+        "rows": ["GP5", "GP6", "GP7", "GP8"]
+    },
     "mouse_key": {
         "enabled": false
     },
-
-	"split": {
-		"enabled": true,
-		"encoder": {
-			"right": {
-				"rotary": [
-					{
-						"pin_a": "GP29",
-						"pin_b": "GP28",
-						"resolution": 2
-					}
-				]
-			}
-		},
-        "serial": {
-            "driver": "vendor",
-            "pin": "GP1"
-        },
-		"transport": {
-			"protocol": "serial",
-			"sync": {
-				"matrix_state": true,
-				"oled": true,
-				"haptic": true
-			}
-		}
-	},
-
-	"encoder": {
-		"rotary": [
-			{
-				"pin_a": "GP28",
-				"pin_b": "GP29",
-				"resolution": 2
-			}
-		]
-	},
-
-    "ws2812": {
-        "pin": "GP0",
-        "driver": "vendor"
+    "processor": "RP2040",
+    "qmk": {
+        "locking": {
+            "enabled": false,
+            "resync": false
+        }
     },
-
-    "rgb_matrix": {
+    "rgblight": {
+        "led_count": 100,
+        "animations": {
+            "breathing": true,
+            "snake": true
+        },
+        "default": {
+            "animation": "breathing",
+            "hue": 4,
+            "sat": 79,
+            "speed": 32,
+            "val": 59
+        },
         "driver": "ws2812",
-		"max_brightness": 180,
-		"sleep": true,
-        "timeout": 60000,
+        "sleep": true,
+        "split": true
+    },
+    "rgb_matrix": {
         "animations": {
             "breathing": true,
             "cycle_left_right": true,
-            "cycle_up_down": true,
             "cycle_pinwheel": true,
-            "hue_breathing": true,
-            "typing_heatmap": true,
+            "cycle_up_down": true,
             "digital_rain": true,
-            "splash": true
+            "hue_breathing": true,
+            "splash": true,
+            "typing_heatmap": true
         },
         "default": {
             "animation": "cycle_pinwheel",
             "hue": 4,
             "sat": 79,
-            "val": 59,
-            "speed": 32
+            "speed": 32,
+            "val": 59
+        },
+        "driver": "ws2812",
+        "max_brightness": 180,
+        "sleep": true,
+        "timeout": 60000
+    },
+    "split": {
+        "enabled": true,
+        "encoder": {
+            "right": {
+                "rotary": [
+                    {"pin_a": "GP29", "pin_b": "GP28", "resolution": 2}
+                ]
+            }
+        },
+        "serial": {
+            "driver": "vendor",
+            "pin": "GP1"
+        },
+        "transport": {
+            "protocol": "serial",
+            "sync": {
+                "haptic": true,
+                "matrix_state": true,
+                "oled": true
+            }
         }
     },
-
-    "haptic": {
-        "driver": "drv2605l"
+    "tapping": {
+        "term": 170,
+        "term_per_key": true
     },
-
-    "audio": {
-        "driver": "pwm_hardware",
-        "voices": true
+    "url": "https://github.com/GEIGEIGEIST/KLOR",
+    "usb": {
+        "vid": "0x3A3C"
+    },
+    "ws2812": {
+        "driver": "vendor",
+        "pin": "GP0"
     }
 }
