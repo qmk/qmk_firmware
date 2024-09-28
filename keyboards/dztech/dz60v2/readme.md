@@ -1,6 +1,7 @@
 # DZ60 V2 60% Mechanical Keyboard PCB
 
-![dz60v2](https://i.imgur.com/TZBNGQQ.jpeg)
+![Front](https://i.imgur.com/h3Sjf7C.png)
+![Back](https://i.imgur.com/dh3djVO.png)
 
 ## A Customizable 60% Mechanical Keyboard PCB
 
