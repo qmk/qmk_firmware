@@ -1,0 +1,16 @@
+{
+    routes: {
+        0x01: {
+            type: command
+            name: Capabilities Query
+            define: CAPABILITIES_QUERY_KB
+            description:
+                '''
+                KB subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem.
+                '''
+            return_type: u32
+            return_purpose: capabilities
+            return_constant: XAP_ROUTE_KB_CAPABILITIES
+        }
+    }
+}

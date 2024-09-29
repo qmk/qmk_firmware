@@ -55,6 +55,11 @@ int main(void) {
         raw_hid_task();
 #endif
 
+#ifdef XAP_ENABLE
+        void xap_task(void);
+        xap_task();
+#endif
+
 #ifdef CONSOLE_ENABLE
         void console_task(void);
         console_task();

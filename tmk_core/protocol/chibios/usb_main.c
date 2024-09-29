@@ -38,6 +38,10 @@
 extern keymap_config_t keymap_config;
 #endif
 
+#ifdef XAP_ENABLE
+#    include "xap.h"
+#endif
+
 /* ---------------------------------------------------------
  *       Global interface variables and declarations
  * ---------------------------------------------------------
@@ -550,6 +554,65 @@ void raw_hid_task(void) {
 }
 
 #endif
+
+#ifdef XAP_ENABLE
+extern void xap_receive(xap_token_t token, const uint8_t *data, size_t length);
+
+void xap_send_base(uint8_t *data, uint8_t length) {
+    if (length != XAP_EPSIZE) {
+        return;
+    }
+
+    send_report(USB_ENDPOINT_IN_XAP, data, length);
+}
+
+void xap_send(xap_token_t token, xap_response_flags_t response_flags, const void *data, size_t length) {
+    uint8_t                rdata[XAP_EPSIZE] = {0};
+    xap_response_header_t *header            = (xap_response_header_t *)&rdata[0];
+    header->token                            = token;
+
+    if (length > (XAP_EPSIZE - sizeof(xap_response_header_t))) response_flags &= ~(XAP_RESPONSE_FLAG_SUCCESS);
+    header->flags = response_flags;
+
+    if (response_flags & (XAP_RESPONSE_FLAG_SUCCESS)) {
+        header->length = (uint8_t)length;
+        if (data != NULL) {
+            memcpy(&rdata[sizeof(xap_response_header_t)], data, length);
+        }
+    }
+    xap_send_base(rdata, sizeof(rdata));
+}
+
+void xap_broadcast(uint8_t type, const void *data, size_t length) {
+    uint8_t                 rdata[XAP_EPSIZE] = {0};
+    xap_broadcast_header_t *header            = (xap_broadcast_header_t *)&rdata[0];
+    header->token                             = XAP_BROADCAST_TOKEN;
+    header->type                              = type;
+
+    if (length > (XAP_EPSIZE - sizeof(xap_broadcast_header_t))) return;
+
+    header->length = (uint8_t)length;
+    if (data != NULL) {
+        memcpy(&rdata[sizeof(xap_broadcast_header_t)], data, length);
+    }
+    xap_send_base(rdata, sizeof(rdata));
+}
+
+void xap_receive_base(const void *data) {
+    const uint8_t *       u8data = (const uint8_t *)data;
+    xap_request_header_t *header = (xap_request_header_t *)&u8data[0];
+    if (header->length <= (XAP_EPSIZE - sizeof(xap_request_header_t))) {
+        xap_receive(header->token, &u8data[sizeof(xap_request_header_t)], header->length);
+    }
+}
+
+void xap_task(void) {
+    uint8_t buffer[XAP_EPSIZE];
+    while (receive_report(USB_ENDPOINT_OUT_XAP, buffer, sizeof(buffer))) {
+        xap_receive_base(buffer);
+    }
+}
+#endif // XAP_ENABLE
 
 #ifdef MIDI_ENABLE
 

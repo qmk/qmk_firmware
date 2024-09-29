@@ -404,7 +404,6 @@ struct rgb_matrix_limits_t rgb_matrix_get_limits(uint8_t iter) {
     limits.led_min_index = RGB_MATRIX_LED_PROCESS_LIMIT * (iter);
     limits.led_max_index = limits.led_min_index + RGB_MATRIX_LED_PROCESS_LIMIT;
     if (limits.led_max_index > RGB_MATRIX_LED_COUNT) limits.led_max_index = RGB_MATRIX_LED_COUNT;
-    uint8_t k_rgb_matrix_split[2] = RGB_MATRIX_SPLIT;
     if (is_keyboard_left() && (limits.led_max_index > k_rgb_matrix_split[0])) limits.led_max_index = k_rgb_matrix_split[0];
     if (!(is_keyboard_left()) && (limits.led_min_index < k_rgb_matrix_split[0])) limits.led_min_index = k_rgb_matrix_split[0];
 #    else
@@ -414,9 +413,8 @@ struct rgb_matrix_limits_t rgb_matrix_get_limits(uint8_t iter) {
 #    endif
 #else
 #    if defined(RGB_MATRIX_SPLIT)
-    limits.led_min_index                = 0;
-    limits.led_max_index                = RGB_MATRIX_LED_COUNT;
-    const uint8_t k_rgb_matrix_split[2] = RGB_MATRIX_SPLIT;
+    limits.led_min_index = 0;
+    limits.led_max_index = RGB_MATRIX_LED_COUNT;
     if (is_keyboard_left() && (limits.led_max_index > k_rgb_matrix_split[0])) limits.led_max_index = k_rgb_matrix_split[0];
     if (!(is_keyboard_left()) && (limits.led_min_index < k_rgb_matrix_split[0])) limits.led_min_index = k_rgb_matrix_split[0];
 #    else

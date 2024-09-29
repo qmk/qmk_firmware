@@ -36,6 +36,7 @@ jobs:
 
     - name: Install dependencies
       run: |
+        pip3 install -r requirements-dev.txt
         apt-get update && apt-get install -y rsync doxygen
         # install nvm
         touch $HOME/.bashrc

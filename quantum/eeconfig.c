@@ -17,6 +17,10 @@
 bool via_eeprom_is_valid(void);
 void via_eeprom_set_valid(bool valid);
 void eeconfig_init_via(void);
+#elif defined(DYNAMIC_KEYMAP_ENABLE)
+bool dynamic_keymap_is_valid(void);
+void dynamic_keymap_reset(void);
+void dynamic_keymap_macro_reset(void);
 #endif
 
 _Static_assert((intptr_t)EECONFIG_HANDEDNESS == 14, "EEPROM handedness offset is incorrect");
@@ -81,6 +85,9 @@ void eeconfig_init_quantum(void) {
     // properly re-initialized.
     via_eeprom_set_valid(false);
     eeconfig_init_via();
+#elif defined(DYNAMIC_KEYMAP_ENABLE)
+    dynamic_keymap_reset();
+    dynamic_keymap_macro_reset();
 #endif
 
     eeconfig_init_kb();
@@ -119,9 +126,13 @@ void eeconfig_disable(void) {
  */
 bool eeconfig_is_enabled(void) {
     bool is_eeprom_enabled = (eeprom_read_word(EECONFIG_MAGIC) == EECONFIG_MAGIC_NUMBER);
-#ifdef VIA_ENABLE
+#if defined(VIA_ENABLE)
     if (is_eeprom_enabled) {
         is_eeprom_enabled = via_eeprom_is_valid();
+    }
+#elif defined(DYNAMIC_KEYMAP_ENABLE)
+    if (is_eeprom_enabled) {
+        is_eeprom_enabled = dynamic_keymap_is_valid();
     }
 #endif
     return is_eeprom_enabled;
@@ -133,9 +144,13 @@ bool eeconfig_is_enabled(void) {
  */
 bool eeconfig_is_disabled(void) {
     bool is_eeprom_disabled = (eeprom_read_word(EECONFIG_MAGIC) == EECONFIG_MAGIC_NUMBER_OFF);
-#ifdef VIA_ENABLE
+#if defined(VIA_ENABLE)
     if (!is_eeprom_disabled) {
         is_eeprom_disabled = !via_eeprom_is_valid();
+    }
+#elif defined(DYNAMIC_KEYMAP_ENABLE)
+    if (!is_eeprom_disabled) {
+        is_eeprom_disabled = !dynamic_keymap_is_valid();
     }
 #endif
     return is_eeprom_disabled;

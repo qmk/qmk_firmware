@@ -898,9 +898,6 @@ def arm_processor_rules(info_data, rules):
         info_data['platform'] = 'STM32'
     elif 'MCU_SERIES' in rules:
         info_data['platform'] = rules['MCU_SERIES']
-    elif 'ARM_ATSAM' in rules:
-        info_data['platform'] = 'ARM_ATSAM'
-        info_data['platform_key'] = 'arm_atsam'
 
     return info_data
 
@@ -1022,7 +1019,13 @@ def keymap_json_config(keyboard, keymap, force_layout=None):
     keymap_folder = locate_keymap(keyboard, keymap, force_layout=force_layout).parent
 
     km_info_json = parse_configurator_json(keymap_folder / 'keymap.json')
-    return km_info_json.get('config', {})
+    ret = km_info_json.get('config', {})
+
+    # TODO: dummy code is only to PoC kb/user keycodes
+    if 'keycodes' in km_info_json:
+        ret['user_keycodes'] = km_info_json['keycodes']
+
+    return ret
 
 
 def keymap_json(keyboard, keymap, force_layout=None):

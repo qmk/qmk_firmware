@@ -294,11 +294,11 @@ See also: [Backlighting](features/backlight)
 
 See also: [Bluetooth](features/bluetooth)
 
-|Key                  |Aliases  |Description                                   |
-|---------------------|---------|----------------------------------------------|
-|`QK_OUTPUT_AUTO`     |`OU_AUTO`|Automatically switch between USB and Bluetooth|
-|`QK_OUTPUT_USB`      |`OU_USB` |USB only                                      |
-|`QK_OUTPUT_BLUETOOTH`|`OU_BT`  |Bluetooth only                                |
+| Key                   | Aliases              | Description                                    |
+|-----------------------|----------------------|------------------------------------------------|
+| `QK_OUTPUT_NEXT`      | `OU_NEXT`, `OU_AUTO` | Automatically switch between USB and Bluetooth |
+| `QK_OUTPUT_USB`       | `OU_USB`             | USB only                                       |
+| `QK_OUTPUT_BLUETOOTH` | `OU_BT`              | Bluetooth only                                 |
 
 ## Caps Word {#caps-word}
 

@@ -22,6 +22,10 @@
 #include "send_string.h"
 #include "keycodes.h"
 
+#ifdef FNV_ENABLE
+#    include "fnv.h"
+#endif
+
 #ifdef VIA_ENABLE
 #    include "via.h"
 #    define DYNAMIC_KEYMAP_EEPROM_START (VIA_EEPROM_CONFIG_END)
@@ -150,6 +154,50 @@ void dynamic_keymap_set_encoder(uint8_t layer, uint8_t encoder_id, bool clockwis
 }
 #endif // ENCODER_MAP_ENABLE
 
+static uint32_t dynamic_keymap_compute_hash(void) {
+#ifdef FNV_ENABLE
+    Fnv32_t hash = FNV1_32A_INIT;
+
+    uint16_t keycode;
+    for (int layer = 0; layer < DYNAMIC_KEYMAP_LAYER_COUNT; layer++) {
+        for (int row = 0; row < MATRIX_ROWS; row++) {
+            for (int column = 0; column < MATRIX_COLS; column++) {
+                keycode = keycode_at_keymap_location_raw(layer, row, column);
+                hash    = fnv_32a_buf(&keycode, sizeof(keycode), hash);
+            }
+        }
+#    ifdef ENCODER_MAP_ENABLE
+        for (int encoder = 0; encoder < NUM_ENCODERS; encoder++) {
+            keycode = keycode_at_encodermap_location_raw(layer, encoder, true);
+            hash    = fnv_32a_buf(&keycode, sizeof(keycode), hash);
+
+            keycode = keycode_at_encodermap_location_raw(layer, encoder, false);
+            hash    = fnv_32a_buf(&keycode, sizeof(keycode), hash);
+        }
+#    endif // ENCODER_MAP_ENABLE
+    }
+    return hash;
+#else
+    return 0;
+#endif
+}
+
+static uint32_t dynamic_keymap_hash(void) {
+    static uint32_t hash = 0;
+
+    static uint8_t s_init = 0;
+    if (!s_init) {
+        s_init = 1;
+
+        hash = dynamic_keymap_compute_hash();
+    }
+    return hash;
+}
+
+bool dynamic_keymap_is_valid(void) {
+    return eeprom_read_dword(EECONFIG_KEYMAP_HASH) == dynamic_keymap_hash();
+}
+
 void dynamic_keymap_reset(void) {
     // Reset the keymaps in EEPROM to what is in flash.
     for (int layer = 0; layer < DYNAMIC_KEYMAP_LAYER_COUNT; layer++) {
@@ -165,6 +213,7 @@ void dynamic_keymap_reset(void) {
         }
 #endif // ENCODER_MAP_ENABLE
     }
+    eeprom_update_dword(EECONFIG_KEYMAP_HASH, dynamic_keymap_hash());
 }
 
 void dynamic_keymap_get_buffer(uint16_t offset, uint16_t size, uint8_t *data) {
