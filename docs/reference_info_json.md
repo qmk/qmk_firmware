@@ -732,8 +732,12 @@ Configures the [Split Keyboard](features/split_keyboard) feature.
     * `matrix_pins`
         * `right`
             * See [Matrix](#matrix) config.
-    * `soft_serial_pin`
-        * The GPIO pin to use (`serial` transport protocol only).
+    * `serial`
+        * `driver`
+            * The driver to use. Must be one of `bitbang`, `usart`, `vendor`.
+            * Default: `"bitbang"`
+        * `pin`
+            * The GPIO pin to use for transmit and receive.
     * `soft_serial_speed`
         * The protocol speed, from `0` to `5` (`serial` transport protocol only).
         * Default: `1`
