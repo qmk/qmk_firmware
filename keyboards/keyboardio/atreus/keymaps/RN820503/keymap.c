@@ -3,6 +3,7 @@
 // this is the style you want to emulate.
 // This is the canonical layout file for the Quantum project. If you want to add another keyboard,
 
+#include "quantum_keycodes.h"
 #include QMK_KEYBOARD_H
 #include "features/custom_shift_keys.h"
 
@@ -11,10 +12,11 @@ enum layer_names {
     _NUM,
     _SYM,
     _NAV,
+    _PM,
 };
 
 enum custom_keycodes {
-    SS_Qu,
+    SS_Qu = SAFE_RANGE,
     SS_Th,
     SS_Ch,
     SS_Sh,
@@ -82,7 +84,7 @@ enum custom_keycodes {
 #define RB4 KC_B
 
 // thumb row
-#define LH4 KC_LEFT
+#define LH4 TG(_PM)
 #define LH3 KC_RGHT
 #define LH2 G(KC_TAB)
 #define LH1 KC_TAB
@@ -170,6 +172,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, KC_LALT, KC_LGUI, KC_LSFT,       G(KC_A),                     KC_VOLD,    KC_LEFT,    KC_DOWN, KC_RGHT,    KC_DEL,
     G(KC_Z), G(KC_X), G(KC_C), G(KC_V),       LSG(KC_Z), _______, _______, KC_MUTE,    KC_BSPC,	   KC_TAB,  KC_ENT,     ___x___,
     _______, _______, _______, _______,       _______,   _______, _______, C(KC_LEFT), C(KC_RGHT), _______, _______,    _______
+    ),
+
+    /*
+        v   w   g⌃   m   j           +=  .:  /⌃   "!  '?
+        s   n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘   i⌥  c
+        f   p   d    l   x	 `   \	 -   u   o    y   b
+        ←   →  app   ⇥   r   ⌫   ⏎   ␣   ⎋  num   ↑   ↓
+    */
+
+  	[_PM] = LAYOUT(
+    KC_V, LT3,  LT2,  LT1,  LT0,              RT0, RT1, RT2, RT3, RT4,
+    LM4,  KC_N, KC_T, KC_H, LM0,              RM0, RM1, RM2, RM3, KC_C,
+    LB4,  LB3,  KC_D, KC_L, KC_X, LB00, RB00, RB0, RB1, RB2, RB3, RB4,
+    LH4,  LH3,  LH2,  LH1,  LH0,  LH00, RH00, RH0, RH1, RH2, RH3, RH4
     ),
 
 };
