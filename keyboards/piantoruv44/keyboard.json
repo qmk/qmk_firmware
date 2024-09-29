@@ -3,6 +3,9 @@
     "keyboard_name": "PIANTORUV44",
     "maintainer": "azhizhinov",
     "bootloader": "rp2040",
+    "bootmagic": {
+        "matrix": [0, 5]
+    },
     "features": {
         "bootmagic": true,
         "command": false,
@@ -10,16 +13,6 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true
-    },
-    "processor": "RP2040",
-    "url": "https://github.com/azhizhinov/PIANTORUV44",
-    "usb": {
-        "device_version": "1.0.0",
-        "pid": "0x0004",
-        "vid": "0x415A"
-    },
-    "bootmagic": {
-        "matrix": [0, 5]
     },
     "matrix_pins": {
         "direct": [
@@ -29,6 +22,7 @@
             ["GP17", "GP18", "GP16", "GP26", null, null]
         ]
     },
+    "processor": "RP2040",
     "split": {
         "enabled": true,
         "matrix_pins": {
@@ -43,7 +37,13 @@
         },
         "serial": {
             "driver": "vendor"
-        }        
+        }
+    },
+    "url": "https://github.com/azhizhinov/PIANTORUV44",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0004",
+        "vid": "0x415A"
     },
     "layouts": {
         "LAYOUT": {
