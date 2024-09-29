@@ -619,8 +619,19 @@ void numpad_finished(tap_dance_state_t *state, void *user_data) {
     numpad_tap_state.state = cur_dance(state);
     
     switch (numpad_tap_state.state) {
-        
+       
 		case TD_SINGLE_TAP:
+			
+			layer_move(_QWERTY);
+			
+			if (host_keyboard_led_state().caps_lock) {
+				tap_code(KC_CAPS);
+			}				
+
+			break;
+			
+			        
+		case TD_DOUBLE_TAP:
 			
 			if (layer_state_is(_QWERTY)) {
 				layer_move(_NUM_PAD);
@@ -642,17 +653,6 @@ void numpad_finished(tap_dance_state_t *state, void *user_data) {
 			layer_on(_NUM_PAD);
 			break;
 
-			
-		case TD_DOUBLE_TAP:
-			
-			layer_move(_QWERTY);
-			
-			if (host_keyboard_led_state().caps_lock) {
-				tap_code(KC_CAPS);
-			}				
-
-			break;
-
 		case TD_DOUBLE_HOLD:
 			
 			layer_on(_RNUM_PAD);
@@ -672,6 +672,12 @@ void numpad_finished(tap_dance_state_t *state, void *user_data) {
 
 void numpad_reset(tap_dance_state_t *state, void *user_data) {
 
+    if ((numpad_tap_state.state == TD_SINGLE_HOLD) || (numpad_tap_state.state == TD_DOUBLE_HOLD)) {
+		
+		layer_clear();
+		
+	}
+	
     numpad_tap_state.state = TD_NONE;
 }
 
@@ -1183,4 +1189,31 @@ void matrix_scan_user(void) {
 	macrokeys_reset_tokens();
 	running_boot();
 		
+}
+
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case RGUI_T(KC_Q):
+		case RALT_T(KC_W):
+		case RCTL_T(KC_E):
+		case LT(_MOUSE,KC_T):
+		case RCTL_T(KC_I):
+		case RALT_T(KC_O):
+		case RGUI_T(KC_P):
+		case LT(_MOV,KC_A):
+		case LALT_T(KC_S):
+		case LCTL_T(KC_D):
+		case LT(_MOV2,KC_G):
+		case LCTL_T(KC_K):
+		case LALT_T(KC_L):
+		case LT(_FUNCTION_KEYS,KC_SCLN):
+		case LT(_FUNCTION2_KEYS,KC_QUOT):
+		case LGUI_T(KC_Z):
+		
+			return TAPPING_TERM + 100;
+			
+        default:
+            return TAPPING_TERM;
+    }
 }
