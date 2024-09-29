@@ -20,6 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+
+#define TAPPING_TERM 175
+#define TAPPING_TERM_PER_KEY
+
+#define SPLIT_USB_DETECT
+#define SPLIT_WATCHDOG_ENABLE
 //#define USE_MATRIX_I2C
 
 //#define QUICK_TAP_TERM 0
