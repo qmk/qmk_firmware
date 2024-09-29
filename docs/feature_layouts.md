@@ -1,123 +1,118 @@
-# Layouts: Using a Keymap with Multiple Keyboards
+# Community Layouts
 
-The `layouts/` folder contains different physical key layouts that can apply to different keyboards.
+This feature allows a keymap to be shared with and compiled on keyboards that have the same, community-established, physical layout.
 
+#### Example
+You have a QMK powered, TKL ANSI keyboard flashed with a keymap of your new experimental functional layout. Your friend/"partner in keyboard layout crime" also has a QMK powered, TKL ANSI physical layout keyboard but it's a different manufacturer and/or model to your keyboard and therefore would require your friend to recreate your experimental keymap exclusively for their keyboard.
+In this example, although both keyboards have an identical physical layout, this same keymap would have to be defined twice; once for each specfic keyboard. By placing your experimental keymap within the respective `tkl_ansi` Community Layout directory, the keymap in question has been defined once so it can be compiled for your keyboard, your friend's keyboard, and every QMK powered keyboard with `tkl_ansi` Community Layout support.
+
+[Miryoku](https://github.com/manna-harbour/miryoku) functional layout is a prominent utiliser of this feature.
+
+?> Community Layouts also function in conjunction with the [Userspace](./feature_userspace.md) feature.
+
+## Directory Structure
+The `layouts/` directory acts as the parent directory for this feature.
+The `layouts/default/` and `layouts/community/` sub-directories are two examples of Community Layout "repositories":
+- `default/` contains reference information regarding each Community Layout, which includes a default keymap for testing Community Layout support.  
+- `community/` is typically used for storing local (to GitHub Repository) keymaps and community/user shared keymaps (e.g. Miryoku) for each respective Community Layout.
+
+To assist explanation of concepts, terms encapsulated in angled brackets are used.
 ```
 layouts/
-+ default/
-| + 60_ansi/
-| | + readme.md
-| | + layout.json
-| | + a_good_keymap/
-| | | + keymap.c
-| | | + readme.md
-| | | + config.h
-| | | + rules.mk
-| | + <keymap folder>/
-| | + ...
-| + <layout folder>/
-+ community/
-| + <layout folder>/
-| + ...
+├── default/
+│   └── <community_layout>/
+│       └── <community_layout_keymap>/
+│           └── keymap.c
+└── community/
+    └── <community_layout>/
+        └── <community_layout_keymap>/
+            └── keymap.c
 ```
+**<community_layout>**: As well as sub-directory name, this serves as the Community Layout name  
+**<community_layout_keymap>**: As well as sub-directory name, this serves as keymap name
 
-The `layouts/default/` and `layouts/community/` are two examples of layout "repositories" - currently `default` will contain all of the information concerning the layout, and one default keymap named `default_<layout>`, for users to use as a reference. `community` contains all of the community keymaps, with the eventual goal of being split-off into a separate repo for users to clone into `layouts/`. QMK searches through all folders in `layouts/`, so it's possible to have multiple repositories here.
+## Add Community Layout support to keyboard
 
-Each layout folder is named (`[a-z0-9_]`) after the physical aspects of the layout, in the most generic way possible, and contains a `readme.md` with the layout to be defined by the keyboard:
-
-```markdown
-# 60_ansi
-
-   LAYOUT_60_ansi
-```
-
-New names should try to stick to the standards set by existing layouts, and can be discussed in the PR/Issue.
-
-## Supporting a Layout
-
-For a keyboard to support a layout, the variable must be defined in it's `<keyboard>.h`, and match the number of arguments/keys (and preferably the physical layout):
-
-```c
-#define LAYOUT_60_ansi KEYMAP_ANSI
-```
-
-The name of the layout must match this regex: `[a-z0-9_]+`
-
-The folder name must be added to the keyboard's `rules.mk`:
-
-```
-LAYOUTS = 60_ansi
-```
-
-`LAYOUTS` can be set in any keyboard folder level's `rules.mk`:
-
-```
-LAYOUTS = 60_iso
-```
-
-but the `LAYOUT_<layout>` variable must be defined in `<folder>.h` as well.
-
-## Building a Keymap
-
-You should be able to build the keyboard keymap with a command in this format:
-
-```
-make <keyboard>:<layout>
-```
-
-### Conflicting layouts
-When a keyboard supports multiple layout options,
-
-```
-LAYOUTS = ortho_4x4 ortho_4x12
-```
-
-And a layout exists for both options,
+For a keyboard to support one or more Community Layouts, the keyboard's `info.json`/`keyboard.json` file must include:
+1. A `"community_layouts"` array containing the name(s) of the respective Community Layout(s) the keyboard in question supports. Name(s) must be identical to *<community_layout>*.
+#### `layouts/` directory example:
 ```
 layouts/
-+ community/
-| + ortho_4x4/
-| | + <layout>/
-| | | + ...
-| + ortho_4x12/
-| | + <layout>/
-| | | + ...
-| + ...
+└── default/
+    ├── 60_ansi/
+    │   └── <...>
+    └── 60_iso/
+        └── <...>
 ```
-
-The FORCE_LAYOUT argument can be used to specify which layout to build
-
+#### keyboard's `info.json`/`keyboard.json`file:
+```json
+    "community_layouts": ["60_ansi", "60_iso"]
 ```
-make <keyboard>:<layout> FORCE_LAYOUT=ortho_4x4
-make <keyboard>:<layout> FORCE_LAYOUT=ortho_4x12
-```
+2. Within `"layouts"` object literal, for each Community Layout supported, add layout information with macro name that is identical to the respective Community Layout's macro name; macro name is specified in keymap file (`keymap.c`/`keymap.json`) of *<community_layout_keymap>*.
 
-## Tips for Making Layouts Keyboard-Agnostic
-
-### Includes
-
-Instead of using `#include "planck.h"`, you can use this line to include whatever `<keyboard>.h` (`<folder>.h` should not be included here) file that is being compiled:
-
+#### Macro name example for Community Layout `60_ansi`
+`layouts/default/60_ansi/default_60_ansi/keymap.c`:
 ```c
-#include QMK_KEYBOARD_H
+    [0] = LAYOUT_60_ansi(
+        ...
+    )
 ```
 
-If you want to keep some keyboard-specific code, you can use these variables to escape it with an `#ifdef` statement:
-
-* `KEYBOARD_<folder1>_<folder2>`
-
-For example:
-
-```c
-#ifdef KEYBOARD_planck
-    #ifdef KEYBOARD_planck_rev4
-        planck_rev4_function();
-    #endif
-#endif
+#### Keyboard's `info.json`/`keyboard.json` file:
+```json
+    "layouts": {
+        "LAYOUT_60_ansi": {
+            "layout": [
+                {...}
+            ]
+        }
+    }
 ```
 
-Note that the names are lowercase and match the folder/file names for the keyboard/revision exactly.
+Additionally, for each Community Layout being added to `"layouts"`:
+- Array length of `"layout"` **must** match array length of respective Community Layout
+- key sequence (i.e. order of keys from top to bottom) and graphical properties of each key (i.e. `"x":`, `"y":`, `"w":`, `"h":`) should be identical to respective Community Layout
 
-### Keymaps
+Array length and key sequence for each Community Layout are located in `layouts/default/`*<community_layout>*`/info.json`.
 
-In order to support both split and non-split keyboards with the same layout, you need to use the keyboard agnostic `LAYOUT_<layout name>` macro in your keymap. For instance, in order for a Let's Split and Planck to share the same layout file, you need to use `LAYOUT_ortho_4x12` instead of `LAYOUT_planck_grid` or just `{}` for a C array.
+## Compiling Community Layout keymap
+Compiling keyboard firmware with a keymap inside either Community Layout repository is identical to regular keymap compilation, with the difference of the keymap argument being *<community_layout_keymap>*: 
+
+    qmk compile -kb <keyboard> -km <community_layout_keymap>
+
+The following examples compile the "default" keymap for the repsective Community Layouts; generally used to test if Community Layout support has been implemented correctly for the given keyboard:
+
+    qmk compile -kb dztech/pluto -km default_tkl_nofrow_ansi
+    qmk compile -kb dz60 -km default_60_iso
+
+### Conflicting Keymaps
+When compiling a <community_layout_keymap> that has the same name in two or more <community_layouts> the target keyboard supports, this can result in the undesired keymap being compiled.
+
+#### Example Scenario:
+Using the `contra` keyboard in this scenario, as it supports `ortho_4x12` and `planck_mit` Community Layouts.
+
+**keyboard's `info.json`/`keyboard.json`**
+```json
+"community_layouts": ["ortho_4x12", "planck_mit"]
+```
+
+**layouts/ directory example**
+```
+layouts/
+└── community/
+    ├── ortho_4x12/
+    │   └── jondough/
+    │       └── keymap.c
+    └── planck_mit/
+        └── jondough/
+            └── keymap.c
+```
+Running `qmk compile -kb contra -km jondough` without additional context doesn't determine which `jondough` keymap is being specified for compilation.
+
+In this scenario the `FORCE_LAYOUT` argument is included, to specify from which <community_layout> the specified keymap is located:
+
+    qmk compile -kb <keyboard> -km <community_layout_keymap> -e FORCE_LAYOUT=<community_layout>
+
+Example:
+
+    qmk compile -kb contra -km jondough -e FORCE_LAYOUT=planck_mit
