@@ -186,8 +186,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                          _______, _______, C(KC_LEFT), C(KC_RIGHT)
   ),
 
-  /*  Base (alpha) Layer Hands Down Promethium
-            Building for ZSA Voyager
+  /*  Hands Down Promethium (canonical)
     ⎋           ⇥        tg          tg  (   ⌦   )   vol↓↑
     `   v   w   g⌃   m   j           +=  .:  /⌃  "!  '? \
     z   s   n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘  i⌥  c  q
