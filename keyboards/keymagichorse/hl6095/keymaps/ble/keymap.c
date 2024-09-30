@@ -205,6 +205,50 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 #if defined(RGBLIGHT_ENABLE) && defined(BLUETOOTH_BHQ) 
 
+const rgblight_segment_t PROGMEM bt_conn1[] = RGBLIGHT_LAYER_SEGMENTS( {0, 1, HSV_RED} );   // 红
+const rgblight_segment_t PROGMEM bt_conn2[] = RGBLIGHT_LAYER_SEGMENTS( {0, 1, HSV_GREEN} ); // 绿
+const rgblight_segment_t PROGMEM bt_conn3[] = RGBLIGHT_LAYER_SEGMENTS( {0, 1, HSV_BLUE} );  // 蓝
+const rgblight_segment_t PROGMEM caps_lock_[] = RGBLIGHT_LAYER_SEGMENTS( {0, 1, HSV_PURPLE} );  // 紫色
+const rgblight_segment_t* const PROGMEM _rgb_layers[] =
+    RGBLIGHT_LAYERS_LIST( 
+        bt_conn1, bt_conn2,  bt_conn3,caps_lock_
+    );
+
+
+// After initializing the peripheral
+void keyboard_post_init_kb(void)
+{
+    rgblight_disable();
+    rgblight_layers = _rgb_layers;
+    bhkDevConfigInfo_t model_parma = {
+        .vendor_id_source   = 1,
+        .verndor_id         = VENDOR_ID,
+        .product_id         = PRODUCT_ID,
+
+        .le_connection_interval_min = 6,
+        .le_connection_interval_max = 10,
+        .le_connection_interval_timeout = 500,
+        .tx_poweer = 0x3D,    
+
+#if BHQ_READ_VOLTAGE_ENABLED == TRUE
+        .mk_is_read_battery_voltage = TRUE,
+        .mk_adc_pga = 1,
+        .mk_rvd_r1 = BHQ_R_UPPER,
+        .mk_rvd_r2 = BHQ_R_LOWER,
+#else
+        .mk_is_read_battery_voltage = FALSE,
+        .mk_adc_pga = 1,
+        .mk_rvd_r1 = 0,
+        .mk_rvd_r2 = 0,
+#endif
+        .bleNameStrLength = strlen(PRODUCT),
+        .bleNameStr = PRODUCT
+    };
+
+    bhq_ConfigRunParam(model_parma);
+}
+
+
 void rgb_adv_unblink_all_layer(void) {
     for (uint8_t i = 0; i < 3; i++) {
         rgblight_unblink_layer(i);
@@ -246,55 +290,55 @@ void BHQ_State_Call(uint8_t cmdid, uint8_t *dat) {
         if(host_index == 0)
         {
             km_printf("if host_index 1\r\n");
-            if(advertSta == 1 && pairingSta == 1)
+            if(connectSta != 1 && advertSta == 1 && pairingSta == 1)
             {
                 rgblight_blink_layer_repeat(0 , 500, 50);
                 km_printf("1\r\n");
             }
-            else if(advertSta == 1 && pairingSta == 0)
+            else if(connectSta != 1 && advertSta == 1 && pairingSta == 0)
             {
                 rgblight_blink_layer_repeat(0 , 2000, 50);
                 km_printf("2\r\n");
             }
-            else if(connectSta == 1)
+            if(connectSta == 1)
             {
-                rgblight_blink_layer_repeat(0 , 200, 50);
+                rgblight_blink_layer_repeat(0 , 200, 2);
                 km_printf("3\r\n");
             }
         }
         else if(host_index == 1)
         {
             km_printf("if host_index 2\r\n");
-            if(advertSta == 1 && pairingSta == 1)
+            if(connectSta != 1 && advertSta == 1 && pairingSta == 1)
             {
                 rgblight_blink_layer_repeat(1 , 500, 50);
                 km_printf("4\r\n");
             }
-            else if(advertSta == 1 && pairingSta == 0)
+            else if(connectSta != 1 && advertSta == 1 && pairingSta == 0)
             {
                 rgblight_blink_layer_repeat(1 , 2000, 50);
                 km_printf("5\r\n");
             }
-            else if(connectSta == 1)
+            if(connectSta == 1)
             {
-                rgblight_blink_layer_repeat(1 , 200, 50);
+                rgblight_blink_layer_repeat(1 , 200, 2);
                 km_printf("6\r\n");
             }
         }    
         else if(host_index == 2)
         {
             km_printf("if host_index 3\r\n");
-            if(advertSta == 1 && pairingSta == 1)
+            if(connectSta != 1 && advertSta == 1 && pairingSta == 1)
             {
                 rgblight_blink_layer_repeat(2 , 500, 50);
             }
-            else if(advertSta == 1 && pairingSta == 0)
+            else if(connectSta != 1 && advertSta == 1 && pairingSta == 0)
             {
                 rgblight_blink_layer_repeat(2 , 2000, 50);
             }
-            else if(connectSta == 1)
+            if(connectSta == 1)
             {
-                rgblight_blink_layer_repeat(2 , 200, 50);
+                rgblight_blink_layer_repeat(2 , 200, 2);
             }
         }
         
