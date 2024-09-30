@@ -94,3 +94,14 @@ void bluetooth_send_hid_raw(uint8_t *data, uint8_t length) {
     bluetooth_bhq_send_hid_raw(data, length);
 #endif
 }
+
+void bluetooth_set_keyboard_leds(uint8_t led_sta) {
+#if defined(BLUETOOTH_BHQ)
+    bluetooth_bhq_set_keyboard_leds(led_sta);
+#endif
+}
+uint8_t bluetooth_get_keyboard_leds(void) {
+#if defined(BLUETOOTH_BHQ)
+    return bluetooth_bhq_get_keyboard_leds();
+#endif
+}

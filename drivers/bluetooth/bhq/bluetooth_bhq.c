@@ -19,7 +19,7 @@
 #include "report_buffer.h"
 #include "lpm.h"
 
-
+uint8_t bhq_led_sta = 0;
 
 void bluetooth_bhq_init(void) {
     bhq_init();
@@ -166,3 +166,15 @@ void bluetooth_bhq_send_hid_raw(uint8_t *data, uint8_t length)
     //     report_buffer_task();
     // }
 }
+
+
+void bluetooth_bhq_set_keyboard_leds(uint8_t led_sta)
+{
+    bhq_led_sta = led_sta;
+}
+
+uint8_t bluetooth_bhq_get_keyboard_leds(void)
+{
+    return bhq_led_sta;
+}
+

@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "host.h"
 #include "util.h"
 #include "debug.h"
+#include "km_printf.h"
 
 #ifdef DIGITIZER_ENABLE
 #    include "digitizer.h"
@@ -63,6 +64,14 @@ uint8_t host_keyboard_leds(void) {
 #ifdef SPLIT_KEYBOARD
     if (!is_keyboard_master()) return split_led_state;
 #endif
+
+#ifdef BLUETOOTH_ENABLE
+    if (where_to_send() == OUTPUT_BLUETOOTH) {
+        // km_printf("host ble led sta:%d\r\n",bluetooth_get_keyboard_leds());
+        return bluetooth_get_keyboard_leds();
+    }
+#endif
+
     if (!driver) return 0;
     return (*driver->keyboard_leds)();
 }

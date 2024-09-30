@@ -72,3 +72,17 @@ void bluetooth_send_nkro(report_nkro_t *report);
  * \param report The hid_raw report to send.
  */
 void bluetooth_send_hid_raw(uint8_t *data, uint8_t length) ;
+
+/**
+ * \brief Set Bluetooth led state.
+ *
+ * \param report Set Bluetooth led state.
+ */
+void bluetooth_set_keyboard_leds(uint8_t led_sta);
+
+/**
+ * \brief Get Bluetooth led state.
+ *
+ * \param report Get Bluetooth led state.
+ */
+uint8_t bluetooth_get_keyboard_leds(void);
