@@ -1,6 +1,6 @@
 # dyz60_hs
 
-![dyz60 pcb](https://i.imgur.com/l9z5KuJh.jpg)
+![dyz60_hs pcb](https://i.imgur.com/d4PeuAe.jpg)
 
 60% layout has flexcut with multiple layout and mounting support.
 
