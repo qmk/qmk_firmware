@@ -178,11 +178,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         v   w   g⌃   m   j           +=  .:  /⌃   "!  '?
         s   n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘   i⌥  c
         f   p   d    l   x	 `   \	 -   u   o    y   b
-        ←   →  app   ⇥   r   ⌫   ⏎   ␣   ⎋  num   ↑   ↓
+        tg  →  app   ⇥   r   ⌫   ⏎   ␣   ⎋  num   ↑   ↓
     */
 
   	[_PM] = LAYOUT(
-    KC_V, LT3,  LT2,  LT1,  LT0,              RT0, RT1, RT2, RT3, RT4,
+    KC_V, LT3,  KC_G, KC_M, LT0,              RT0, RT1, RT2, RT3, RT4,
     LM4,  KC_N, KC_T, KC_H, LM0,              RM0, RM1, RM2, RM3, KC_C,
     LB4,  LB3,  KC_D, KC_L, KC_X, LB00, RB00, RB0, RB1, RB2, RB3, RB4,
     LH4,  LH3,  LH2,  LH1,  LH0,  LH00, RH00, RH0, RH1, RH2, RH3, RH4

@@ -130,7 +130,7 @@ static uint16_t keyhold_timer; // for handling Qu combo
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*  Base (alpha) Layer Hands Down Vibranuim-F
             Building for ZSA Voyager
-    ⎋           ⇥                    tg  (   ⌦   )   vol↓↑
+    ⎋           ⇥        tg          tg  (   ⌦   )   vol↓↑
     `   x   w   m⌃   g   j           +=  .:  /⌃  "!  '? \
     z   s   c⌥  n⌘   t⇧  k           ,;  a⇧  e⌘  i⌥  h  q
         f   p   l    d   v      	 -   u   o   y   b
