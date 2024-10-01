@@ -5,7 +5,9 @@
 A split keyboard with 3x6 column strongly staggered keys and 3 thumb keys
 
 Keyboard Maintainer: [Vaarai](https://github.com/Vaarai) 
+
 Hardware Supported: Cornia PCB, RP2040 / 0xCB-Helios
+
 Hardware Availability: [PCB Data](https://github.com/Vaarai/Cornia)
 
 Make example for this keyboard (after setting up your build environment):

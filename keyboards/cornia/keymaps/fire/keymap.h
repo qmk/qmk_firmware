@@ -39,6 +39,8 @@ enum layers {
 #define CK_QMRK LSFT(KC_SLSH)
 #define CK_SSHT LSG(KC_S)
 #define CK_UNSC LSFT(KC_MINS)
+#define CK_SELL LSFT(LCTL(KC_LEFT))
+#define CK_SELR LSFT(LCTL(KC_RIGHT))
 
 typedef enum {
     CK_RKJMP = SAFE_RANGE, /* Warframe rocket/bullet jump */
@@ -46,3 +48,10 @@ typedef enum {
     CK_DPID,
     CK_SCRL,
 } cornia_custom_keycodes_t;
+
+#define SS_ACCENT_A_GRAVE SS_DOWN(X_LALT) SS_TAP(X_P1) SS_TAP(X_P3) SS_TAP(X_P3) SS_UP(X_LALT) /* à */
+#define SS_ACCENT_C_CEDIL SS_DOWN(X_LALT) SS_TAP(X_P1) SS_TAP(X_P3) SS_TAP(X_P5) SS_UP(X_LALT) /* ç */
+#define SS_ACCENT_E_ACUTE SS_DOWN(X_LALT) SS_TAP(X_P1) SS_TAP(X_P3) SS_TAP(X_P0) SS_UP(X_LALT) /* é */
+#define SS_ACCENT_E_GRAVE SS_DOWN(X_LALT) SS_TAP(X_P1) SS_TAP(X_P3) SS_TAP(X_P8) SS_UP(X_LALT) /* è */
+#define SS_ACCENT_O_CIRCU SS_DOWN(X_LALT) SS_TAP(X_P1) SS_TAP(X_P4) SS_TAP(X_P7) SS_UP(X_LALT) /* ô */
+#define SS_ACCENT_U_GRAVE SS_DOWN(X_LALT) SS_TAP(X_P0) SS_TAP(X_P2) SS_TAP(X_P4) SS_TAP(X_P9) SS_UP(X_LALT) /* ù */

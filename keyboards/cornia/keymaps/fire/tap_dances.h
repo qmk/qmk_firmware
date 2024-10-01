@@ -21,10 +21,27 @@
 /* Tap dances definitions */
 enum tap_dances {
   TD_SFT_CAPSW,
+  TD_NAV_ACCENT,
+  TD_NUM_ACCENT,
   TAP_DANCE_ACTIONS_COUNT /* Utility to get TD_xxx count */
 };
+
+/* Accented letters */
+typedef enum {
+  ACCENT_NONE,
+  ACCENT_LEFT,
+  ACCENT_RIGHT
+} accent_state_t;
+
+extern accent_state_t accent_state;
 
 extern tap_dance_action_t tap_dance_actions[TAP_DANCE_ACTIONS_COUNT];
 
 void dance_shift_capsword_finished (tap_dance_state_t *state, void *user_data);
 void dance_shift_capsword_reset (tap_dance_state_t *state, void *user_data);
+
+void dance_nav_accent_finished (tap_dance_state_t *state, void *user_data);
+void dance_nav_accent_reset (tap_dance_state_t *state, void *user_data);
+
+void dance_num_accent_finished (tap_dance_state_t *state, void *user_data);
+void dance_num_accent_reset (tap_dance_state_t *state, void *user_data);

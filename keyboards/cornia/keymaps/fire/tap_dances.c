@@ -17,6 +17,7 @@
 #include QMK_KEYBOARD_H
 
 #include "./tap_dances.h"
+#include "./keymap.h"
 
 /* define a type containing as many tapdance states as you need */
 typedef enum {
@@ -29,15 +30,18 @@ typedef enum {
 
 /* Create a global instance of the tapdance state type */
 static td_state_t td_state;
+accent_state_t accent_state = ACCENT_NONE;
 
 tap_dance_action_t tap_dance_actions[TAP_DANCE_ACTIONS_COUNT] = {
-  [TD_SFT_CAPSW] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_shift_capsword_finished, dance_shift_capsword_reset)
+  [TD_SFT_CAPSW]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_shift_capsword_finished, dance_shift_capsword_reset),
+  [TD_NAV_ACCENT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_nav_accent_finished,     dance_nav_accent_reset),
+  [TD_NUM_ACCENT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_num_accent_finished,     dance_num_accent_reset)
 };
 
 int cur_dance (tap_dance_state_t *state) {
     if (state->count == 1) {
         if (state->interrupted || !state->pressed) 
-        { 
+        {
             return SINGLE_TAP;
         } else { 
             return SINGLE_HOLD;
@@ -79,6 +83,68 @@ void dance_shift_capsword_reset (tap_dance_state_t *state, void *user_data)
         case SINGLE_TAP:
         case SINGLE_HOLD:
             unregister_code(KC_LSFT);
+            break;
+        case DOUBLE_TAP:
+        case DOUBLE_HOLD:
+        case OTHER_TAP:
+            break;
+    }
+}
+
+void dance_nav_accent_finished (tap_dance_state_t *state, void *user_data)
+{
+    td_state = cur_dance(state);
+    switch (td_state) {
+        case SINGLE_TAP:
+        case SINGLE_HOLD:
+            layer_on(_NAV);
+            break;
+        case DOUBLE_TAP:
+        case DOUBLE_HOLD:
+            accent_state = ACCENT_LEFT;
+            break;
+        case OTHER_TAP:
+            break;
+    }
+}
+
+void dance_nav_accent_reset (tap_dance_state_t *state, void *user_data)
+{
+    switch (td_state) {
+        case SINGLE_TAP:
+        case SINGLE_HOLD:
+            layer_off(_NAV);
+            break;
+        case DOUBLE_TAP:
+        case DOUBLE_HOLD:
+        case OTHER_TAP:
+            break;
+    }
+}
+
+void dance_num_accent_finished (tap_dance_state_t *state, void *user_data)
+{
+    td_state = cur_dance(state);
+    switch (td_state) {
+        case SINGLE_TAP:
+        case SINGLE_HOLD:
+            layer_on(_NUM);
+            break;
+        case DOUBLE_TAP:
+        case DOUBLE_HOLD:
+            accent_state = ACCENT_RIGHT;
+            break;
+        case OTHER_TAP:
+            break;
+    }
+}
+
+void dance_num_accent_reset (tap_dance_state_t *state, void *user_data)
+{
+    switch (td_state) {
+        case SINGLE_TAP:
+        case SINGLE_HOLD:
+            layer_off(_NUM);
             break;
         case DOUBLE_TAP:
         case DOUBLE_HOLD:

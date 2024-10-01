@@ -17,6 +17,7 @@
 #include QMK_KEYBOARD_H
 
 #include "./keymap.h"
+#include "./tap_dances.h"
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -40,6 +41,35 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case CK_SCRL: /* Toggle set_scrolling when CK_SCRL key is pressed or released */
             set_scrolling = record->event.pressed;
             return false;
+    }
+    /* Accented letters */
+    if (accent_state != ACCENT_NONE && record->event.pressed)
+    {
+        switch (keycode) {
+            case KC_A:
+                SEND_STRING(SS_ACCENT_A_GRAVE);
+                return false;
+            case KC_C:
+                SEND_STRING(SS_ACCENT_C_CEDIL);
+                return false;
+            case KC_E:
+                switch (accent_state) {
+                    case ACCENT_LEFT:
+                        SEND_STRING(SS_ACCENT_E_ACUTE); break;
+                    case ACCENT_RIGHT:
+                        SEND_STRING(SS_ACCENT_E_GRAVE); break;
+                    case ACCENT_NONE:
+                        break;
+                }
+                return false;
+            case KC_O:
+                SEND_STRING(SS_ACCENT_O_CIRCU);
+                return false;
+            case KC_U:
+                SEND_STRING(SS_ACCENT_U_GRAVE);
+                return false;
+        }
+        accent_state = ACCENT_NONE;
     }
     return true;
 }
