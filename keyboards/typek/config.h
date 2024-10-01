@@ -24,9 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define WS2812_DMA_STREAM STM32_DMA2_STREAM5
 #define WS2812_DMA_CHANNEL 6
 
-#define EECONFIG_KB_DATA_SIZE (3*6)
-
-
 /* LED MAP
 		0 , 1 , 2														Three indicators
 		3 , 4 , 5														Three RGBs on left side
