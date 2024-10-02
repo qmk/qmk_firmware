@@ -14,18 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#pragma once
+
 #include QMK_KEYBOARD_H
 
-#include "./keymap.h"
-
-bool shutdown_user(bool jump_to_bootloader) {
-    oled_clear();
-    oled_set_cursor(0, 2);
-    if (jump_to_bootloader) {
-        oled_write_P(PSTR("FLASH"), false);
-    } else {
-        oled_write_P(PSTR("RESET"), false);
-    }
-    oled_render_dirty(true);
-    return false;
-}
+void cornia_render_logo(void);

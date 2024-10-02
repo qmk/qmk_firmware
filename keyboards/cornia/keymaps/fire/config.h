@@ -16,11 +16,6 @@
 
 #pragma once
 
-/* I²C config */
-#define I2C_DRIVER I2CD1
-#define I2C1_SDA_PIN GP10
-#define I2C1_SCL_PIN GP11
-
 /* Split */
 #define SPLIT_ACTIVITY_ENABLE
 #define SPLIT_LAYER_STATE_ENABLE

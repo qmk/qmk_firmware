@@ -17,16 +17,37 @@
 #include QMK_KEYBOARD_H
 
 #include "./keymap.h"
-#include "./oled_routines.h"
+#include "./cornia.h"
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_270;
 }
 
 bool oled_task_user(void) {
-    oled_set_cursor(0, 0);
-    render_logo();
+    /* Print cornia logo */
+    cornia_render_logo();
+
+    /* Print layer status */
     oled_set_cursor(0, 7);
-    render_layer_status();
+    switch (get_highest_layer(layer_state)) {
+        case _ALPHA:
+            oled_write_ln("ALPHA", 0);
+            break;
+        case _NAV:
+            oled_write_ln("NAV", 0);
+            break;
+        case _NUM:
+            oled_write_ln("NUM", 0);
+            break;
+        case _ADJUST:
+            oled_write_ln("ADJUS", 0);
+            break;
+        case _G0:
+            oled_write_ln("GAME0", 0);
+            break;
+        case _G1:
+            oled_write_ln("GAME1", 0);
+            break;
+    }
     return false;
 }

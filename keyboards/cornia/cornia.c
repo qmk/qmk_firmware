@@ -14,10 +14,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
-
 #include QMK_KEYBOARD_H
-#include "./keymap.h"
+
+#include "./cornia.h"
 
 // 'Cornia', 32x32px
 #define OLED_LOGO_CORNIA {\
@@ -31,6 +30,9 @@
         0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x0e, 0x00  \
     }
 
-void render_logo(void);
-void render_layer_status(void);
-void render_boot(bool bootloader);
+void cornia_render_logo(void) {
+#ifdef OLED_ENABLE
+    static const char PROGMEM logo[] = OLED_LOGO_CORNIA;
+    oled_write_raw_P(logo, sizeof(logo));
+#endif
+}
