@@ -1,18 +1,5 @@
-/* Copyright 2023 splitkb.com <support@splitkb.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2024 splitkb.com (support@splitkb.com)
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
 
@@ -37,8 +24,6 @@ typedef struct __attribute__((__packed__)) {
 } identity_record_t;
 
 static bool myriad_reader(uint8_t *data, uint16_t length) {
-    i2c_init();
-
     const uint8_t eeprom_address = 0x50; // 1010 000 - NOT shifted for R/W bit
     const uint16_t i2c_timeout = 100; // in milliseconds
 
@@ -53,7 +38,7 @@ static bool myriad_reader(uint8_t *data, uint16_t length) {
         } else {
             read_length = 256;
         }
-        i2c_status_t s = i2c_readReg((eeprom_address + i) << 1, reg, &(data[i*256]), read_length, i2c_timeout);
+        i2c_status_t s = i2c_read_register((eeprom_address + i) << 1, reg, &(data[i*256]), read_length, i2c_timeout);
         if (s != I2C_STATUS_SUCCESS) { return false; }
     }
     return true;
@@ -154,11 +139,11 @@ static bool read_card_identity(uint8_t *data, uint16_t length, identity_record_t
 }
 
 static myriad_card_t _detect_myriad(void) {
-    setPinInput(MYRIAD_PRESENT);
+    gpio_set_pin_input(MYRIAD_PRESENT);
     wait_ms(100);
     // The pin has an external pull-up, and a Myriad card shorts it to ground.
     #ifndef MYRIAD_OVERRIDE_PRESENCE
-    if (readPin(MYRIAD_PRESENT)) {
+    if (gpio_read_pin(MYRIAD_PRESENT)) {
         return NONE;
     }
     #endif
@@ -195,6 +180,7 @@ myriad_card_t detect_myriad(void) {
     static myriad_card_t card = UNINITIALIZED;
 
     if (card == UNINITIALIZED) {
+        i2c_init();
         card = _detect_myriad();
     }
 
@@ -202,21 +188,21 @@ myriad_card_t detect_myriad(void) {
 }
 
 static void myr_switches_init(void) {
-    setPinInputHigh(MYRIAD_GPIO1); // S4
-    setPinInputHigh(MYRIAD_GPIO2); // S2
-    setPinInputHigh(MYRIAD_GPIO3); // S1
-    setPinInputHigh(MYRIAD_GPIO4); // S3
+    gpio_set_pin_input_high(MYRIAD_GPIO1); // S4
+    gpio_set_pin_input_high(MYRIAD_GPIO2); // S2
+    gpio_set_pin_input_high(MYRIAD_GPIO3); // S1
+    gpio_set_pin_input_high(MYRIAD_GPIO4); // S3
 }
 
 static void myr_encoder_init(void) {
-    setPinInputHigh(MYRIAD_GPIO1); // Press
-    setPinInputHigh(MYRIAD_GPIO2); // A
-    setPinInputHigh(MYRIAD_GPIO3); // B
+    gpio_set_pin_input_high(MYRIAD_GPIO1); // Press
+    gpio_set_pin_input_high(MYRIAD_GPIO2); // A
+    gpio_set_pin_input_high(MYRIAD_GPIO3); // B
 }
 
 static uint16_t myr_joystick_timer;
 static void myr_joystick_init(void) {
-    setPinInputHigh(MYRIAD_GPIO1); // Press
+    gpio_set_pin_input_high(MYRIAD_GPIO1); // Press
 
     myr_joystick_timer = timer_read();
 }
@@ -252,14 +238,14 @@ bool myriad_hook_matrix(matrix_row_t current_matrix[]) {
     uint8_t word = 0;
 
     if (card == SKB_SWITCHES) {
-        word |= ((!readPin(MYRIAD_GPIO3)) & 1) << 0;
-        word |= ((!readPin(MYRIAD_GPIO2)) & 1) << 1;
-        word |= ((!readPin(MYRIAD_GPIO4)) & 1) << 2;
-        word |= ((!readPin(MYRIAD_GPIO1)) & 1) << 3;
+        word |= ((!gpio_read_pin(MYRIAD_GPIO3)) & 1) << 0;
+        word |= ((!gpio_read_pin(MYRIAD_GPIO2)) & 1) << 1;
+        word |= ((!gpio_read_pin(MYRIAD_GPIO4)) & 1) << 2;
+        word |= ((!gpio_read_pin(MYRIAD_GPIO1)) & 1) << 3;
     } else if (card == SKB_ENCODER) {
-        word |= ((!readPin(MYRIAD_GPIO1)) & 1) << 4;
+        word |= ((!gpio_read_pin(MYRIAD_GPIO1)) & 1) << 4;
     } else if (card == SKB_JOYSTICK) {
-        word |= ((!readPin(MYRIAD_GPIO1)) & 1) << 4;
+        word |= ((!gpio_read_pin(MYRIAD_GPIO1)) & 1) << 4;
     } else {
         return false;
     }
@@ -271,12 +257,16 @@ bool myriad_hook_matrix(matrix_row_t current_matrix[]) {
     return matrix_has_changed;
 }
 
-void myriad_hook_encoder(uint8_t count, bool pads[]) {
-    if (myriad_card_init() != SKB_ENCODER) { return; }
+static pin_t encoders_pad_a[NUM_ENCODERS_MAX_PER_SIDE];
+static pin_t encoders_pad_b[NUM_ENCODERS_MAX_PER_SIDE];
+
+uint8_t myriad_hook_encoder(uint8_t index, bool pad_b) {
+    if (myriad_card_init() != SKB_ENCODER) { return 0; }
     // 3 onboard encoders, so we are number 4
-    // pads goes in pairs, which means we are index 6 & 7
-    pads[6] = !readPin(MYRIAD_GPIO2);
-    pads[7] = !readPin(MYRIAD_GPIO3);
+    pin_t pin = pad_b ? encoders_pad_b[index] : encoders_pad_a[index];
+    encoders_pad_a[3] = MYRIAD_GPIO2;
+    encoders_pad_b[3] = MYRIAD_GPIO3;
+    return gpio_read_pin(pin) ? 1 : 0;
 }
 
 report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
@@ -320,8 +310,8 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
 }
 
 void pointing_device_driver_init(void) {
-    setPinInput(MYRIAD_ADC1); // Y
-    setPinInput(MYRIAD_ADC2); // X
+    gpio_set_pin_input(MYRIAD_ADC1); // Y
+    gpio_set_pin_input(MYRIAD_ADC2); // X
 }
 
 void myriad_task(void) {

@@ -1,18 +1,5 @@
-/* Copyright 2023 splitkb.com <support@splitkb.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2024 splitkb.com (support@splitkb.com)
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
 
@@ -26,7 +13,6 @@
 #define I2C1_SCL_PIN GP1
 // We need to slow down the I2C clock because the default of 400.000
 // fails to communicate with Zetta ZD24C02A EEPROM on a Myriad card.
-// This somehow results in a clock of 127kHz, but that's okay
 #define I2C1_CLOCK_SPEED 100000
 
 // SPI1, both for onboard matrix data and SPI to Myriad module
@@ -48,22 +34,8 @@
 #define SPLIT_POINTING_ENABLE
 #define POINTING_DEVICE_COMBINED
 
-// Watchdog
-#define SPLIT_WATCHDOG_ENABLE
-#define SPLIT_WATCHDOG_TIMEOUT 3000
-
 // VBUS detection
 #define USB_VBUS_PIN GP25
-
-// Handedness
-#define SPLIT_HAND_PIN GP14
-
-// Matrix size
-// Note that the rows are doubled,
-// because this is a split
-// 5 rows for the keeb, 1 row for Myriad
-#define MATRIX_COLS  8
-#define MATRIX_ROWS  12
 
 // Encoders
 // 3 onboard, 1 for Myriad
@@ -72,8 +44,13 @@
 #define ENCODER_RESOLUTION 2
 
 // OLED display
-#ifdef OLED_ENABLE
-#    define OLED_DISPLAY_128X64
-#    undef SPLIT_OLED_ENABLE
-#    define OLED_TIMEOUT 0
-#endif
+#define OLED_DISPLAY_128X64
+// If someone has only one OLED display
+// and that display was on the slave side. 
+// It wouldn't work at all. This fixes that 
+// including some code in rev1.c but makes 
+// it so the timeout's are not synced
+// between halves.
+#undef SPLIT_OLED_ENABLE
+#define OLED_TIMEOUT 0
+

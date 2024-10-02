@@ -1,18 +1,5 @@
-/* Copyright 2023 splitkb.com <support@splitkb.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2024 splitkb.com (support@splitkb.com)
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
 
@@ -24,48 +11,7 @@
 
 #include "myriad.h"
 
-// Needed for early boot
-#include "hardware/xosc.h"
-
 bool is_oled_enabled = true;
-
-//// Early boot
-
-// The Elora has support for Myriad Controller Modules.
-// Essentially, this is a plug-in controller which takes over all functionality from the onboard MCU.
-// This makes it possible to convert the keyboard into a wireless board, for example.
-// In order for this to work, we need to prevent QMK from booting.
-static void enter_standby_mode(void) {
-    while (true) {
-        // Todo: Look into more approaches to save power
-        // - deinit PLL
-        // - MEMPOWERDOWN
-        // - QSPI power-down (idle use is 10-50 uA)
-    
-        // The RP2040 *should* be able to power-down to about 180uA,
-        // while the QSPI chip can do 1-15 uA.
-    
-        // Additional 3V3 power usage which can't be disabled:
-        // - Matrix SPI NOT gate: 0.1-4 uA
-        // - Matrix SPI tri-state buffer: 0.1-10 uA
-        // - Shift registers: 5x 0.1-2 uA
-    
-        // Turns off the crystal oscillator until the core is woken by an interrupt.
-        // This will block and hence the entire system will stop, until an interrupt wakes it up.
-        // This function will continue to block until the oscillator becomes stable after its wakeup. 
-        xosc_dormant();
-    }
-}
-
-void early_hardware_init_pre(void) {
-    // GP2 has an external pullup. It is shorted to ground when a controller module is connected.
-    setPinInput(GP2);
-    if (!readPin(GP2)) {
-        // A Myriad Controller Module is present,
-        // so we are not needed to run QMK.
-        enter_standby_mode();
-    }
-}
 
 //// HW init
 
@@ -74,17 +20,17 @@ void early_hardware_init_pre(void) {
 void keyboard_pre_init_kb(void) {
     /// SPI Chip Select pins for various hardware
     // Matrix CS
-    setPinOutput(GP13);
-    writePinHigh(GP13);
+    gpio_set_pin_output(GP13);
+    gpio_write_pin_high(GP13);
     // Myriad Module CS
-    setPinOutput(GP9);
-    writePinHigh(GP9);
+    gpio_set_pin_output(GP9);
+    gpio_write_pin_high(GP9);
 
-    setPinOutput(ELORA_CC1_PIN);
-    writePinLow(ELORA_CC1_PIN);
+    gpio_set_pin_output(ELORA_CC1_PIN);
+    gpio_write_pin_low(ELORA_CC1_PIN);
 
-    setPinOutput(ELORA_CC2_PIN);
-    writePinLow(ELORA_CC2_PIN);
+    gpio_set_pin_output(ELORA_CC2_PIN);
+    gpio_write_pin_low(ELORA_CC2_PIN);
 
     // We have to get the SPI interface working quite early,
     // So make sure it is available well before we need it
@@ -167,7 +113,7 @@ bool mat_is_on(matrix_row_t mat[], uint8_t row, uint8_t col) {
     return (mat[row] & ((matrix_row_t)1 << col));
 }
 
-void encoder_read_pads_from(bool pads[], matrix_row_t mat[]) {
+uint8_t encoder_read_pads_from(uint8_t index, bool pad_b, matrix_row_t mat[]) {
     // First two matrix rows:
     //
     // Pin  A   B   C   D   E   F   G   H
@@ -180,123 +126,58 @@ void encoder_read_pads_from(bool pads[], matrix_row_t mat[]) {
     //
     // See also rev1.h
 
+    bool pad_value = false;
+
     if (is_keyboard_left()) {
-        pads[0] = mat_is_on(mat, 0, 6);
-        pads[1] = mat_is_on(mat, 0, 7);
-        pads[2] = mat_is_on(mat, 1, 2);
-        pads[3] = mat_is_on(mat, 1, 3);
-        pads[4] = mat_is_on(mat, 1, 0);
-        pads[5] = mat_is_on(mat, 1, 1);
+        if (index == 0) {
+            pad_value = pad_b ? mat_is_on(mat, 0, 7) : mat_is_on(mat, 0, 6); // B1, A1 
+        } else if (index == 1) {
+            pad_value = pad_b ? mat_is_on(mat, 1, 3) : mat_is_on(mat, 1, 2); // B2, A2
+        } else if (index == 2) {
+            pad_value = pad_b ? mat_is_on(mat, 1, 1) : mat_is_on(mat, 1, 0); // B3, A3
+        }
     } else {
-        pads[0] = mat_is_on(mat, 0, 0);
-        pads[1] = mat_is_on(mat, 0, 1);
-        pads[2] = mat_is_on(mat, 1, 4);
-        pads[3] = mat_is_on(mat, 1, 5);
-        pads[4] = mat_is_on(mat, 1, 6);
-        pads[5] = mat_is_on(mat, 1, 7);
+        if (index == 0) {
+            pad_value = pad_b ? mat_is_on(mat, 0, 1) : mat_is_on(mat, 0, 0); // B1, A1
+        } else if (index == 1) {
+            pad_value = pad_b ? mat_is_on(mat, 1, 5) : mat_is_on(mat, 1, 4); // B2, A2
+        } else if (index == 2) {
+            pad_value = pad_b ? mat_is_on(mat, 1, 7) : mat_is_on(mat, 1, 6); // B3, A3
+        }
     }
+
+    return pad_value ? 1 : 0;
 }
 
-void encoder_init_pads(uint8_t count, bool pads[]) {
+void encoder_quadrature_init_pin(uint8_t index, bool pad_b) {
     // At this point the first matrix scan hasn't happened yet,
     // so we can't use raw_matrix to initialize our encoder state
     // as it contains all zeroes - so we have to do our own first scan
+    // The pins for myriad are initialized in myriad.c
+
     matrix_row_t mat[MATRIX_ROWS];
     matrix_scan_custom(mat);
 
-    encoder_read_pads_from(pads, mat);
-
-    // Make sure the Myriad pads are in a well-defined state
-    pads[6] = 0;
-    pads[7] = 0;
-    #ifdef MYRIAD_ENABLE
-    myriad_hook_encoder(count, pads);
-    #endif
+    encoder_read_pads_from(index, pad_b, mat);
 }
 
 extern matrix_row_t raw_matrix[MATRIX_ROWS]; // From quantum/matrix_common.c
-void encoder_read_pads(uint8_t count, bool pads[]) {
+
+uint8_t encoder_quadrature_read_pin(uint8_t index, bool pad_b) {
     // The matrix code already keeps the raw matrix up-to-date,
     // so we only have to read the values from it
-    encoder_read_pads_from(pads, raw_matrix);
-
-    // Make sure the Myriad pads are in a well-defined state
-    pads[6] = 0;
-    pads[7] = 0;
-    #ifdef MYRIAD_ENABLE
-    myriad_hook_encoder(count, pads);
-    #endif
+    if(index <= 2) {
+        return encoder_read_pads_from(index, pad_b, raw_matrix);
+    } else {
+        #ifdef MYRIAD_ENABLE
+            return myriad_hook_encoder(index, pad_b);
+        #endif
+        return 0;
+    }
+    return 0;
 }
 
 //// Default functionality
-
-// RGB Matrix definition for Elora
-#ifdef RGB_MATRIX_ENABLE
-
-#define NLD NO_LED
-
-// Layout
-//     2                          1                            0                  6                            7                          8
-//     ┌───────────────────────────────────────────┐                                          ┌───────────────────────────────────────────┐
-//     │ MX101, MX105, MX109, MX113, MX117, MX121, │                                          │ MX221, MX217, MX213, MX209, MX205, MX201, │
-//     ├───────────────────────────────────────────┤                                          ├───────────────────────────────────────────┤
-//     │ MX102, MX106, MX110, MX114, MX118, MX122, │                                          │ MX222, MX218, MX214, MX210, MX206, MX202, │
-//     ├───────────────────────────────────────────┤                                          ├───────────────────────────────────────────┤
-//     │ MX103, MX107, MX111, MX115, MX119, MX123, │                                          │ MX223, MX219, MX215, MX211, MX207, MX203, │
-//     ├───────────────────────────────────────────┴─────────────┐              ┌─────────────┴───────────────────────────────────────────┤
-//     │ MX104, MX108, MX112, MX116, MX120, MX124, MX131, MX130, │              │ MX230, MX231, MX224, MX220, MX216, MX212, MX208, MX204, │
-//     └────────────────────┬────────────────────────────────────┤              ├───────────────────────────────────┬─────────────────────┘
-//     3                    │ MX125, MX126, MX127, MX128, MX129, │              │ MX229, MX228, MX227, MX226, MX225 │                     9
-//                          └────────────────────────────────────┘              └───────────────────────────────────┘
-//                                4                            5                 11                           10
-
-// #define LAYOUT_myr(
-//     2 2 2 1 1 0        NLD NLD         6  7  7 8 8 8
-//     2 2 2 1 1 0        NLD NLD         6  7  7 8 8 8
-//     3 3 3 4 4 0        NLD NLD         6 10 10 9 9 9
-//     3 3 3 4 4 4 5 5             11 11 10 10 10 9 9 9
-//             3 4 4 5 5        11 11 10 10  9
-//     NLD NLD NLD NLD NLD          NLD NLD NLD NLD NLD
-// )
-
-
-led_config_t g_led_config = { 
-    {
-    //COL  01   02   03   04   05   011   010   09    ROW
-        {   5, NLD, NLD, NLD,   5,   5, NLD, NLD }, // 00
-        { NLD, NLD, NLD, NLD,   5,   4,   4,   3 }, // 01
-        {   1,   1,   0,   0,   0,   4,   4,   4 }, // 02
-        {   2,   2,   1,   1,   4,   4,   3,   3 }, // 03
-        {   2,   2,   2,   2,   3,   3,   3,   3 }, // 04
-        { NLD, NLD, NLD, NLD, NLD, NLD, NLD, NLD }, // 05
-
-        { NLD, NLD,  11,  11, NLD, NLD, NLD,  11 }, // 06
-        {   9,  10,  10,  11, NLD, NLD, NLD, NLD }, // 07
-        {   10, 10,  10,   6,   6,   6,   7,   7,}, // 08
-        {   9,   9,  10,  10,   7,   7,   8,   8 }, // 09
-        {   9,   9,   9,   9,   8,   8,   8,   8 }, // 10
-        { NLD, NLD, NLD, NLD, NLD, NLD, NLD, NLD }, // 11
-    }, 
-    {
-        // { 112, 32 } is the center
-        {90 , 0},  // 0
-        {45 , 0},  // 1
-        {0  , 0},  // 2
-        {0  , 64}, // 3
-        {45 , 64}, // 4
-        {90 , 64}, // 5
-        {134, 0},  // 6
-        {179, 0},  // 7
-        {224, 0},  // 8
-        {224, 64}, // 9
-        {179, 64}, // 10
-        {134, 64}   // 11
-    }, 
-    {
-        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
-    } 
-};
-#endif
 
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
