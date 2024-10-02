@@ -1,6 +1,6 @@
 # Cornia Keyboard
 
-![Cornia v1](https://raw.githubusercontent.com/Vaarai/Cornia/refs/heads/main/images/Cornia_v1.jpg)
+![Cornia v1](https://imgur.com/3vRlvi3)
 
 A split keyboard with 3x6 column strongly staggered keys and 3 thumb keys
 
