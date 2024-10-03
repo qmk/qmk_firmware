@@ -16,6 +16,6 @@
 
 #pragma once
 
-#include QMK_KEYBOARD_H
+#include "quantum.h"
 
 void cornia_render_logo(void);
