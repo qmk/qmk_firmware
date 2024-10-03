@@ -195,8 +195,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   */
   [_PM] = LAYOUT_voyager(
     LN5, LN4,  LN3,  LN2,  LN1,  LN0,    RN0, RN1, RN2, RN3, RN4, RN5,
-    LT5, KC_V, LT3,  KC_G, KC_M, LT0,    RT0, RT1, RT2, RT3, RT4, RT5,
-    LM5, LM4,  KC_N, KC_T, KC_H, LM0,    RM0, RM1, RM2, RM3, KC_C, RM5,
+    LT5, KC_V, LT3,  LCTL_T(KC_G), KC_M, LT0,    RT0, RT1, RT2, RT3, RT4, RT5,
+    LM5, LM4,  LALT_T(KC_N), LGUI_T(KC_T), LSFT_T(KC_H), LM0,    RM0, RM1, RM2, RM3, LT(_SYM, KC_C), RM5,
     LB5, LB4,  LB3,  KC_D, KC_L, KC_X,   RB0, RB1, RB2, RB3, RB4, RB5,
     LH1, LH0,  RH0,  RH1
   ),
