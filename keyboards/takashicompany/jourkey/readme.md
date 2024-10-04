@@ -1,6 +1,6 @@
 # Joukey
 
-![takashicompany/jourkey](https://i.imgur.com/pCrTbKnh.jpeg)
+![takashicompany/jourkey](https://i.imgur.com/pCrTbKn.jpeg)
 
 Jourkey was designed as “a keyboard for taking pictures with scenery while traveling.
 
