@@ -78,6 +78,13 @@
 #define MSB1                0x80
 // clang-format on
 
+const pointing_device_driver_t adns9800_pointing_device_driver = {
+    .init       = adns9800_init,
+    .get_report = adns9800_get_report_driver,
+    .set_cpi    = adns9800_set_cpi,
+    .get_cpi    = adns9800_get_cpi,
+};
+
 void adns9800_spi_start(void) {
     spi_start(ADNS9800_CS_PIN, false, ADNS9800_SPI_MODE, ADNS9800_SPI_DIVISOR);
 }
@@ -228,4 +235,13 @@ report_adns9800_t adns9800_get_report(void) {
     spi_stop();
 
     return report;
+}
+
+report_mouse_t adns9800_get_report_driver(report_mouse_t mouse_report) {
+    report_adns9800_t sensor_report = adns9800_get_report();
+
+    mouse_report.x = CONSTRAIN_HID_XY(sensor_report.x);
+    mouse_report.y = CONSTRAIN_HID_XY(sensor_report.y);
+
+    return mouse_report;
 }
