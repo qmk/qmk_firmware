@@ -97,19 +97,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Adjust (Lower + Raise)
  *                      v------------------------RGB CONTROL--------------------v
  * ,-----------------------------------------------------------------------------------.
- * |Reset |DF(QW)|DF(CM)|      |      |TG(GM)| Play |Mouse1|Mouse2|Mouse4|Mouse5|Ms Ac1|
+ * |Reset |DF(QW)|      |      |      |TG(GM)| Play | Prev | Next |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | RGB  | Hue+ | Sat+ |Brite+| Eff+ |AGSWAP|Vol U | Ms L | Ms D | Ms U | Ms R |Ms Ac2|
+ * | RGB  |      |      |Mouse2|Mouse1|      | Vol+ | Ms L | Ms D | Ms U | Ms R |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |RGB Md| Hue- | Sat- |Brite-| Eff- |AGNORM|Vol D |MsWl L|MsWl D|MsWl U|MwWL R|Ms Ac3|
+ * |RGB Md|      |      |Mouse4|Mouse5|      | Vol- |MsWl L|MsWl D|MsWl U|MwWL R|      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |Trans |      |      |Trans |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid(
-    RESET,   DF(_QWERTY),XXXXXXX, XXXXXXX, XXXXXXX, TG(_GAME),KC_MPLY, KC_BTN1, KC_BTN2,  KC_BTN4, KC_BTN5, KC_ACL0,
-    RGB_TOG, RGB_HUI,    RGB_SAI, RGB_VAI, RGB_SPI, AG_SWAP,  KC_VOLU, KC_MS_L, KC_MS_D,  KC_MS_U, KC_MS_R, KC_ACL1,
-    RGB_MOD, RGB_HUD,    RGB_SAD, RGB_VAD, RGB_SPD, AG_NORM,  KC_VOLD, KC_WH_L, KC_WH_D,  KC_WH_U, KC_WH_R, KC_ACL2,
+    RESET,   DF(_QWERTY),XXXXXXX, XXXXXXX, XXXXXXX, TG(_GAME),KC_MPLY, KC_MPRV, KC_MNXT,  XXXXXXX, XXXXXXX, XXXXXXX,
+    RGB_TOG, XXXXXXX,    XXXXXXX, KC_BTN2, KC_BTN1, XXXXXXX,  KC_VOLU, KC_MS_L, KC_MS_D,  KC_MS_U, KC_MS_R, XXXXXXX,
+    RGB_MOD, XXXXXXX,    XXXXXXX, KC_BTN4, KC_BTN5, XXXXXXX,  KC_VOLD, KC_WH_L, KC_WH_D,  KC_WH_U, KC_WH_R, XXXXXXX,
     XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, KC_TRNS, XXXXXXX,  XXXXXXX, KC_TRNS, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX
 ),
 
@@ -179,7 +179,7 @@ uint16_t muse_counter = 0;
 uint8_t muse_offset = 70;
 uint16_t muse_tempo = 50;
 
-bool encoder_update(bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   if (muse_mode) {
     if (IS_LAYER_ON(_RAISE)) {
       if (clockwise) {
@@ -212,7 +212,7 @@ bool encoder_update(bool clockwise) {
     return true;
 }
 
-void dip_switch_update_user(uint8_t index, bool active) {
+bool dip_switch_update_user(uint8_t index, bool active) {
     switch (index) {
         case 0: {
 #ifdef AUDIO_ENABLE
@@ -241,6 +241,7 @@ void dip_switch_update_user(uint8_t index, bool active) {
                 muse_mode = false;
             }
     }
+    return true;
 }
 
 void matrix_scan_user(void) {
