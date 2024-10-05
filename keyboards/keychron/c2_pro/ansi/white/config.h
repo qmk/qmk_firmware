@@ -18,26 +18,11 @@
 
 /* LED Matrix Driver Configuration */
 #define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_GND
-
-/* Set LED driver current */
 #define SNLED27351_CURRENT_TUNE \
     { 0xA0, 0xA0, 0xA0, 0xA0, 0xA0, 0xA0, 0xA0, 0xA0, 0xA0, 0xA0, 0xA0, 0xA0 }
-
-/* LED Matrix Configuration */
-#define LED_MATRIX_LED_COUNT 108
 
 /* Enable indicator LED*/
 #define NUM_LED_INDEX 16
 #define CAPS_LED_INDEX 17
 #define MAC_LED_INDEX 18
 #define WIN_LED_INDEX 19
-
-/* turn off effects when suspended */
-#define LED_DISABLE_WHEN_USB_SUSPENDED
-
-// LED Matrix Animation modes. Explicitly enabled
-// For full list of effects, see:
-// https://docs.qmk.fm/#/feature_led_matrix?id=led-matrix-effects
-// #if defined(LED_MATRIX_KEYPRESSES) || defined(LED_MATRIX_KEYRELEASES)
-#define LED_MATRIX_KEYPRESSES
-#define LED_MATRIX_KEYRELEASES

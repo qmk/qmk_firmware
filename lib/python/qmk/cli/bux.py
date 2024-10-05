@@ -19,7 +19,7 @@ def bux(cli):
     config.set_config('user', 'bux', bux + 1)
     cli.save_config()
 
-    buck = """
+    buck = r"""
 @@BBBBBBBBBBBBBBBBBBBBK    `vP8#####BE2~   x###g_     `S###q  n##}  -j#Bl.   vBBBBBBBBBBBBBBBBBBBB@@
 @B   `:!:                 ^#@#]-   `!t@@&. 7@@B@#^   _Q@Q@@R  y@@l:P@#1'                   `!!_   B@
 @B  r@@@B                 g@@|      ` N@@u 7@@iv@@u *#@z"@@R  y@@&@@Q-                    l@@@D   B@
@@ -34,7 +34,7 @@ def bux(cli):
 @B        _y   ]#   ,c       vUWNWWPsfsssN9WyccnckAfUfWb0DR0&R5RRRddq2_  `@D`jr@2U@#c3@1@Qc-      B@
 @B         !7!    .r]`       }AE0RdRqNd9dNR9fUIzzosPqqAddNNdER9EE9dPy!    BQ!zy@iU@.Q@@y@8x-      B@
 @B           :****>.         '7adddDdR&gRNdRbd&dNNbbRdNdd5NdRRD0RSf}-     .k0&EW`xR .8Q=NRRx      B@
-@B        =**-rx*r}r~}"        ;n2jkzsf3N3zsKsP5dddRddddRddNNqPzy\\"            '~****"            B@
+@B        =**-rx*r}r~}"        ;n2jkzsf3N3zsKsP5dddRddddRddNNqPzy\"            '~****"            B@
 @B        :!!~!;=~r>:*_         `:^vxikylulKfHkyjzzozoIoklix|^!-`                                 B@
 @B                                    ```'-_""::::!:_-.``                                         B@
 @B   `-                                                                                       .`  B@

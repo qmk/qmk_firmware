@@ -76,29 +76,29 @@ __attribute__((weak)) void matrix_init_pins(void);
 __attribute__((weak)) void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row);
 __attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col, matrix_row_t row_shifter);
 
-static inline void setPinOutput_writeLow(pin_t pin) {
+static inline void gpio_atomic_set_pin_output_low(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
-        setPinOutput(pin);
-        writePinLow(pin);
+        gpio_set_pin_output(pin);
+        gpio_write_pin_low(pin);
     }
 }
 
-static inline void setPinOutput_writeHigh(pin_t pin) {
+static inline void gpio_atomic_set_pin_output_high(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
-        setPinOutput(pin);
-        writePinHigh(pin);
+        gpio_set_pin_output(pin);
+        gpio_write_pin_high(pin);
     }
 }
 
-static inline void setPinInputHigh_atomic(pin_t pin) {
+static inline void gpio_atomic_set_pin_input_high(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
-        setPinInputHigh(pin);
+        gpio_set_pin_input_high(pin);
     }
 }
 
 static inline uint8_t readMatrixPin(pin_t pin) {
     if (pin != NO_PIN) {
-        return (readPin(pin) == MATRIX_INPUT_PRESSED_STATE) ? 0 : 1;
+        return (gpio_read_pin(pin) == MATRIX_INPUT_PRESSED_STATE) ? 0 : 1;
     } else {
         return 1;
     }
@@ -113,7 +113,7 @@ __attribute__((weak)) void matrix_init_pins(void) {
         for (int col = 0; col < MATRIX_COLS; col++) {
             pin_t pin = direct_pins[row][col];
             if (pin != NO_PIN) {
-                setPinInputHigh(pin);
+                gpio_set_pin_input_high(pin);
             }
         }
     }
@@ -140,7 +140,7 @@ __attribute__((weak)) void matrix_read_cols_on_row(matrix_row_t current_matrix[]
 static bool select_row(uint8_t row) {
     pin_t pin = row_pins[row];
     if (pin != NO_PIN) {
-        setPinOutput_writeLow(pin);
+        gpio_atomic_set_pin_output_low(pin);
         return true;
     }
     return false;
@@ -150,9 +150,9 @@ static void unselect_row(uint8_t row) {
     pin_t pin = row_pins[row];
     if (pin != NO_PIN) {
 #            ifdef MATRIX_UNSELECT_DRIVE_HIGH
-        setPinOutput_writeHigh(pin);
+        gpio_atomic_set_pin_output_high(pin);
 #            else
-        setPinInputHigh_atomic(pin);
+        gpio_atomic_set_pin_input_high(pin);
 #            endif
     }
 }
@@ -167,7 +167,7 @@ __attribute__((weak)) void matrix_init_pins(void) {
     unselect_rows();
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
         if (col_pins[x] != NO_PIN) {
-            setPinInputHigh_atomic(col_pins[x]);
+            gpio_atomic_set_pin_input_high(col_pins[x]);
         }
     }
 }
@@ -203,7 +203,7 @@ __attribute__((weak)) void matrix_read_cols_on_row(matrix_row_t current_matrix[]
 static bool select_col(uint8_t col) {
     pin_t pin = col_pins[col];
     if (pin != NO_PIN) {
-        setPinOutput_writeLow(pin);
+        gpio_atomic_set_pin_output_low(pin);
         return true;
     }
     return false;
@@ -213,9 +213,9 @@ static void unselect_col(uint8_t col) {
     pin_t pin = col_pins[col];
     if (pin != NO_PIN) {
 #            ifdef MATRIX_UNSELECT_DRIVE_HIGH
-        setPinOutput_writeHigh(pin);
+        gpio_atomic_set_pin_output_high(pin);
 #            else
-        setPinInputHigh_atomic(pin);
+        gpio_atomic_set_pin_input_high(pin);
 #            endif
     }
 }
@@ -230,7 +230,7 @@ __attribute__((weak)) void matrix_init_pins(void) {
     unselect_cols();
     for (uint8_t x = 0; x < ROWS_PER_HAND; x++) {
         if (row_pins[x] != NO_PIN) {
-            setPinInputHigh_atomic(row_pins[x]);
+            gpio_atomic_set_pin_input_high(row_pins[x]);
         }
     }
 }

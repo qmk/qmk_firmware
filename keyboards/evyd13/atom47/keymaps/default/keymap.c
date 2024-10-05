@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LCTL,  KC_LGUI,  KC_LALT,  MO(_PN),            KC_SPC,             KC_SPC,             MO(_FN),  KC_RALT,  KC_APP,   KC_RCTL),
  
 [_FN] = LAYOUT_split_space(
-  _______,  KC_VOLD,  KC_VOLU,  KC_MUTE,  QK_BOOT,    _______,  KC_CALC,  KC_PGUP,  KC_UP,    KC_PGDN,  KC_PSCR,  KC_SCRL,  KC_PAUS,
+  _______,  KC_VOLD,  KC_VOLU,  KC_MUTE,  QK_BOOT,  _______,  KC_CALC,  KC_PGUP,  KC_UP,    KC_PGDN,  KC_PSCR,  KC_SCRL,  KC_PAUS,
   KC_CAPS,  KC_MPRV,  KC_MPLY,  KC_MNXT,  _______,  _______,  KC_HOME,  KC_LEFT,  KC_DOWN,  KC_RIGHT, KC_INS,             _______,
   _______,            _______,  _______,  _______,  _______,  _______,  _______,  BL_TOGG,  BL_DOWN,  BL_UP,    _______,  _______,
   _______,  _______,  _______,  _______,            _______,            _______,            _______,  _______,  _______,  _______),

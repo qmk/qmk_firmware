@@ -18,10 +18,17 @@ def _detect_json_format(file, json_data):
     """
     json_encoder = None
     try:
-        validate(json_data, 'qmk.user_repo.v1')
+        validate(json_data, 'qmk.user_repo.v1_1')
         json_encoder = UserspaceJSONEncoder
     except ValidationError:
         pass
+
+    if json_encoder is None:
+        try:
+            validate(json_data, 'qmk.user_repo.v1')
+            json_encoder = UserspaceJSONEncoder
+        except ValidationError:
+            pass
 
     if json_encoder is None:
         try:
@@ -92,8 +99,8 @@ def format_json(cli):
     output = json.dumps(json_data, cls=json_encoder, sort_keys=True)
 
     if cli.args.inplace:
-        with open(cli.args.json_file, 'w+', encoding='utf-8') as outfile:
-            outfile.write(output)
+        with open(cli.args.json_file, 'w+', encoding='utf-8', newline='\n') as outfile:
+            outfile.write(output + '\n')
 
     # Display the results if print was set
     # We don't operate in-place by default, so also display to stdout

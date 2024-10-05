@@ -19,13 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* Select hand configuration */
-#define MASTER_LEFT
-// #define MASTER_RIGHT
-// #define EE_HANDS
-
 #ifndef IOS_DEVICE_ENABLE
-  #if RGBLED_NUM <= 7
+  #if RGBLIGHT_LED_COUNT <= 7
     #define RGBLIGHT_LIMIT_VAL 255
     #define RGBLIGHT_VAL_STEP 17
   #endif

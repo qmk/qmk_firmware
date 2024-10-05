@@ -87,19 +87,24 @@ static void render_logo(void) {
 
 static void render_rgbled_status(bool full) {
 #ifdef RGBLIGHT_ENABLE
-  char buf[30];
-  if (RGBLIGHT_MODES > 1 && rgblight_is_enabled()) {
-      if (full) {
-          snprintf(buf, sizeof(buf), " LED %2d: %d,%d,%d ",
-                   rgblight_get_mode(),
-                   rgblight_get_hue()/RGBLIGHT_HUE_STEP,
-                   rgblight_get_sat()/RGBLIGHT_SAT_STEP,
-                   rgblight_get_val()/RGBLIGHT_VAL_STEP);
-      } else {
-          snprintf(buf, sizeof(buf), "[%2d] ", rgblight_get_mode());
-      }
-      oled_write(buf, false);
-  }
+    if (RGBLIGHT_MODES > 1 && rgblight_is_enabled()) {
+        if (full) {
+            // " LED %d:%d,%d,%d"
+            oled_write_P(PSTR(" LED"), false);
+            oled_write(get_u8_str(rgblight_get_mode(), ' '), false);
+            oled_write_char(':', false);
+            oled_write(get_u8_str(rgblight_get_hue() / RGBLIGHT_HUE_STEP, ' '), false);
+            oled_write_char(',', false);
+            oled_write(get_u8_str(rgblight_get_sat() / RGBLIGHT_SAT_STEP, ' '), false);
+            oled_write_char(',', false);
+            oled_write(get_u8_str(rgblight_get_val() / RGBLIGHT_VAL_STEP, ' '), false);
+        } else {
+            // "[%2d]"
+            oled_write_char('[', false);
+            oled_write(get_u8_str(rgblight_get_mode(), ' '), false);
+            oled_write_char(']', false);
+        }
+    }
 #endif
 }
 

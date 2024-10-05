@@ -114,7 +114,7 @@ uint8_t matrix_scan(void)
 #ifdef RIGHT_HALF
     uint8_t data = 0x7F;
     // Receive the columns from right half
-    i2c_receive(I2C_ADDR_WRITE, &data, 1, MCP23018_I2C_TIMEOUT);
+    i2c_receive(I2C_ADDR, &data, 1, MCP23018_I2C_TIMEOUT);
     cols |= ((~(data) & 0x7F) << 7);
 #endif
 
@@ -162,7 +162,7 @@ static void matrix_select_row(uint8_t row)
   //Set the remote row on port A
   txdata[0] = GPIOA;
   txdata[1] = 0xFF & ~(1<<row);
-  mcp23018_status = i2c_transmit(I2C_ADDR_WRITE, (uint8_t *)txdata, 2, MCP23018_I2C_TIMEOUT);
+  mcp23018_status = i2c_transmit(I2C_ADDR, (uint8_t *)txdata, 2, MCP23018_I2C_TIMEOUT);
 #endif
 
   // select other half

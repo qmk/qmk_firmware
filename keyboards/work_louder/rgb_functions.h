@@ -16,64 +16,34 @@
 
 #pragma once
 
-#include "quantum.h"
+#include "keycodes.h"
 
-#ifndef VIA_ENABLE
-#    ifndef RGB_MATRIX_TOGGLE
-#        define RGB_MATRIX_TOGGLE KC_F15
-#    endif
-#    ifndef RGB_MATRIX_MODE_INC
-#        define RGB_MATRIX_MODE_INC KC_F16
-#    endif
-#    ifndef RGB_MATRIX_MODE_DEC
-#        define RGB_MATRIX_MODE_DEC KC_F17
-#    endif
-#    ifndef RGB_MATRIX_HUE_INC
-#        define RGB_MATRIX_HUE_INC KC_F18
-#    endif
-#    ifndef RGB_MATRIX_HUE_DEC
-#        define RGB_MATRIX_HUE_DEC KC_F19
-#    endif
-#    ifndef RGB_MATRIX_SAT_INC
-#        define RGB_MATRIX_SAT_INC KC_F20
-#    endif
-#    ifndef RGB_MATRIX_SAT_DEC
-#        define RGB_MATRIX_SAT_DEC KC_F21
-#    endif
-#    ifndef RGB_MATRIX_VAL_INC
-#        define RGB_MATRIX_VAL_INC KC_F22
-#    endif
-#    ifndef RGB_MATRIX_VAL_DEC
-#        define RGB_MATRIX_VAL_DEC KC_F23
-#    endif
-#else
-#    ifndef RGB_MATRIX_TOGGLE
-#        define RGB_MATRIX_TOGGLE QK_KB_0
-#    endif
-#    ifndef RGB_MATRIX_MODE_INC
-#        define RGB_MATRIX_MODE_INC QK_KB_1
-#    endif
-#    ifndef RGB_MATRIX_MODE_DEC
-#        define RGB_MATRIX_MODE_DEC QK_KB_2
-#    endif
-#    ifndef RGB_MATRIX_HUE_INC
-#        define RGB_MATRIX_HUE_INC QK_KB_3
-#    endif
-#    ifndef RGB_MATRIX_HUE_DEC
-#        define RGB_MATRIX_HUE_DEC QK_KB_4
-#    endif
-#    ifndef RGB_MATRIX_SAT_INC
-#        define RGB_MATRIX_SAT_INC QK_KB_5
-#    endif
-#    ifndef RGB_MATRIX_SAT_DEC
-#        define RGB_MATRIX_SAT_DEC QK_KB_6
-#    endif
-#    ifndef RGB_MATRIX_VAL_INC
-#        define RGB_MATRIX_VAL_INC QK_KB_7
-#    endif
-#    ifndef RGB_MATRIX_VAL_DEC
-#        define RGB_MATRIX_VAL_DEC QK_KB_8
-#    endif
+#ifndef RGB_MATRIX_TOGGLE
+#    define RGB_MATRIX_TOGGLE QK_KB_0
+#endif
+#ifndef RGB_MATRIX_MODE_INC
+#    define RGB_MATRIX_MODE_INC QK_KB_1
+#endif
+#ifndef RGB_MATRIX_MODE_DEC
+#    define RGB_MATRIX_MODE_DEC QK_KB_2
+#endif
+#ifndef RGB_MATRIX_HUE_INC
+#    define RGB_MATRIX_HUE_INC QK_KB_3
+#endif
+#ifndef RGB_MATRIX_HUE_DEC
+#    define RGB_MATRIX_HUE_DEC QK_KB_4
+#endif
+#ifndef RGB_MATRIX_SAT_INC
+#    define RGB_MATRIX_SAT_INC QK_KB_5
+#endif
+#ifndef RGB_MATRIX_SAT_DEC
+#    define RGB_MATRIX_SAT_DEC QK_KB_6
+#endif
+#ifndef RGB_MATRIX_VAL_INC
+#    define RGB_MATRIX_VAL_INC QK_KB_7
+#endif
+#ifndef RGB_MATRIX_VAL_DEC
+#    define RGB_MATRIX_VAL_DEC QK_KB_8
 #endif
 
 #define R_M_TOG RGB_MATRIX_TOGGLE

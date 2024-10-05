@@ -17,6 +17,7 @@
 
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
 
+#    include <stdlib.h>
 #    include <string.h>
 #    include "pointing_device_auto_mouse.h"
 #    include "debug.h"
@@ -44,7 +45,7 @@ static inline bool layer_hold_check(void) {
 }
 
 /* check all layer activation criteria */
-static inline bool is_auto_mouse_active(void) {
+bool is_auto_mouse_active(void) {
     return auto_mouse_context.status.is_activated || auto_mouse_context.status.mouse_key_tracker || layer_hold_check();
 }
 
@@ -95,6 +96,15 @@ uint8_t get_auto_mouse_debounce(void) {
  */
 bool get_auto_mouse_toggle(void) {
     return auto_mouse_context.status.is_toggled;
+}
+
+/**
+ * @brief get key tracker value
+ *
+ * @return bool of current layer_toggled state
+ */
+int8_t get_auto_mouse_key_tracker(void) {
+    return auto_mouse_context.status.mouse_key_tracker;
 }
 
 /**
@@ -163,6 +173,15 @@ void set_auto_mouse_debounce(uint8_t debounce) {
 }
 
 /**
+ * @brief Changes the timeout for the mouse auto layer to be disabled
+ *
+ * @param key_tracker
+ */
+void set_auto_mouse_key_tracker(int8_t key_tracker) {
+    auto_mouse_context.status.mouse_key_tracker = key_tracker;
+}
+
+/**
  * @brief toggle mouse layer setting
  *
  * Change state of local layer_toggled bool meant to track when the mouse layer is toggled on by other means
@@ -217,7 +236,11 @@ void auto_mouse_layer_off(void) {
  * @return bool of pointing_device activation
  */
 __attribute__((weak)) bool auto_mouse_activation(report_mouse_t mouse_report) {
-    return mouse_report.x != 0 || mouse_report.y != 0 || mouse_report.h != 0 || mouse_report.v != 0 || mouse_report.buttons;
+    auto_mouse_context.total_mouse_movement.x += mouse_report.x;
+    auto_mouse_context.total_mouse_movement.y += mouse_report.y;
+    auto_mouse_context.total_mouse_movement.h += mouse_report.h;
+    auto_mouse_context.total_mouse_movement.v += mouse_report.v;
+    return abs(auto_mouse_context.total_mouse_movement.x) > AUTO_MOUSE_THRESHOLD || abs(auto_mouse_context.total_mouse_movement.y) > AUTO_MOUSE_THRESHOLD || abs(auto_mouse_context.total_mouse_movement.h) > AUTO_MOUSE_THRESHOLD || abs(auto_mouse_context.total_mouse_movement.v) > AUTO_MOUSE_THRESHOLD || mouse_report.buttons;
 }
 
 /**
@@ -235,14 +258,16 @@ void pointing_device_task_auto_mouse(report_mouse_t mouse_report) {
     // update activation and reset debounce
     auto_mouse_context.status.is_activated = auto_mouse_activation(mouse_report);
     if (is_auto_mouse_active()) {
-        auto_mouse_context.timer.active = timer_read();
-        auto_mouse_context.timer.delay  = 0;
+        auto_mouse_context.total_mouse_movement = (total_mouse_movement_t){.x = 0, .y = 0, .h = 0, .v = 0};
+        auto_mouse_context.timer.active         = timer_read();
+        auto_mouse_context.timer.delay          = 0;
         if (!layer_state_is((AUTO_MOUSE_TARGET_LAYER))) {
             layer_on((AUTO_MOUSE_TARGET_LAYER));
         }
     } else if (layer_state_is((AUTO_MOUSE_TARGET_LAYER)) && timer_elapsed(auto_mouse_context.timer.active) > auto_mouse_context.config.timeout) {
         layer_off((AUTO_MOUSE_TARGET_LAYER));
-        auto_mouse_context.timer.active = 0;
+        auto_mouse_context.timer.active         = 0;
+        auto_mouse_context.total_mouse_movement = (total_mouse_movement_t){.x = 0, .y = 0, .h = 0, .v = 0};
     }
 }
 

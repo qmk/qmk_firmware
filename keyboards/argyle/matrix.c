@@ -24,29 +24,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const pin_t col_pins[MATRIX_COLS]   = MATRIX_COL_PINS;
 
-static inline void setPinOutput_writeLow(pin_t pin) {
+static inline void gpio_atomic_set_pin_output_low(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
-        setPinOutput(pin);
-        writePinLow(pin);
+        gpio_set_pin_output(pin);
+        gpio_write_pin_low(pin);
     }
 }
 
-static inline void setPinOutput_writeHigh(pin_t pin) {
+static inline void gpio_atomic_set_pin_output_high(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
-        setPinOutput(pin);
-        writePinHigh(pin);
+        gpio_set_pin_output(pin);
+        gpio_write_pin_high(pin);
     }
 }
 
-static inline void setPinInputHigh_atomic(pin_t pin) {
+static inline void gpio_atomic_set_pin_input_high(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
-        setPinInputHigh(pin);
+        gpio_set_pin_input_high(pin);
     }
 }
 
 static inline uint8_t readMatrixPin(pin_t pin) {
     if (pin != NO_PIN) {
-        return (readPin(pin) == 0) ? 0 : 1;
+        return (gpio_read_pin(pin) == 0) ? 0 : 1;
     } else {
         return 1;
     }
@@ -55,7 +55,7 @@ static inline uint8_t readMatrixPin(pin_t pin) {
 static bool select_row(uint8_t row) {
     pin_t pin = row_pins[row];
     if (pin != NO_PIN) {
-        setPinOutput_writeLow(pin);
+        gpio_atomic_set_pin_output_low(pin);
         return true;
     }
     return false;
@@ -64,7 +64,7 @@ static bool select_row(uint8_t row) {
 static void unselect_row(uint8_t row) {
     pin_t pin = row_pins[row];
     if (pin != NO_PIN) {
-        setPinInputHigh_atomic(pin);
+        gpio_atomic_set_pin_input_high(pin);
     }
 }
 
@@ -78,13 +78,13 @@ static void init_pins(void) {
     unselect_rows();
     // Set I/O
     uint8_t send_data = 0xFF;
-    i2c_writeReg((PORT_EXPANDER_ADDRESS << 1), 0x00, &send_data, 1, 20);
+    i2c_write_register((PORT_EXPANDER_ADDRESS << 1), 0x00, &send_data, 1, 20);
     // Set Pull-up
-    i2c_writeReg((PORT_EXPANDER_ADDRESS << 1), 0x06, &send_data, 1, 20);
+    i2c_write_register((PORT_EXPANDER_ADDRESS << 1), 0x06, &send_data, 1, 20);
 
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
         if (col_pins[x] != NO_PIN) {
-            setPinInputHigh_atomic(col_pins[x]);
+            gpio_atomic_set_pin_input_high(col_pins[x]);
         }
     }
 }
@@ -111,7 +111,7 @@ static bool matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t curre
     matrix_output_select_delay();
 
     uint8_t port_expander_buffer;
-    i2c_readReg((PORT_EXPANDER_ADDRESS << 1), 0x09, &port_expander_buffer, 1, 20);
+    i2c_read_register((PORT_EXPANDER_ADDRESS << 1), 0x09, &port_expander_buffer, 1, 20);
 
     // For each col...
     // matrix_row_t row_shifter = MATRIX_ROW_SHIFTER;

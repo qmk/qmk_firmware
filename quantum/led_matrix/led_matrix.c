@@ -74,9 +74,6 @@ static uint8_t         led_last_enable   = UINT8_MAX;
 static uint8_t         led_last_effect   = UINT8_MAX;
 static effect_params_t led_effect_params = {0, LED_FLAG_ALL, false};
 static led_task_states led_task_state    = SYNCING;
-#if LED_MATRIX_TIMEOUT > 0
-static uint32_t led_anykey_timer;
-#endif // LED_MATRIX_TIMEOUT > 0
 
 // double buffers
 static uint32_t led_timer_buffer;
@@ -85,7 +82,7 @@ static last_hit_t last_hit_buffer;
 #endif // LED_MATRIX_KEYREACTIVE_ENABLED
 
 // split led matrix
-#if defined(LED_MATRIX_ENABLE) && defined(LED_MATRIX_SPLIT)
+#if defined(LED_MATRIX_SPLIT)
 const uint8_t k_led_matrix_split[2] = LED_MATRIX_SPLIT;
 #endif
 
@@ -101,7 +98,7 @@ void eeconfig_update_led_matrix_default(void) {
     led_matrix_eeconfig.mode   = LED_MATRIX_DEFAULT_MODE;
     led_matrix_eeconfig.val    = LED_MATRIX_DEFAULT_VAL;
     led_matrix_eeconfig.speed  = LED_MATRIX_DEFAULT_SPD;
-    led_matrix_eeconfig.flags  = LED_FLAG_ALL;
+    led_matrix_eeconfig.flags  = LED_MATRIX_DEFAULT_FLAGS;
     eeconfig_flush_led_matrix(true);
 }
 
@@ -112,6 +109,16 @@ void eeconfig_debug_led_matrix(void) {
     dprintf("led_matrix_eeconfig.val = %d\n", led_matrix_eeconfig.val);
     dprintf("led_matrix_eeconfig.speed = %d\n", led_matrix_eeconfig.speed);
     dprintf("led_matrix_eeconfig.flags = %d\n", led_matrix_eeconfig.flags);
+}
+
+void led_matrix_reload_from_eeprom(void) {
+    led_matrix_disable_noeeprom();
+    /* Reset back to what we have in eeprom */
+    eeconfig_init_led_matrix();
+    eeconfig_debug_led_matrix(); // display current eeprom values
+    if (led_matrix_eeconfig.enable) {
+        led_matrix_mode_noeeprom(led_matrix_eeconfig.mode);
+    }
 }
 
 __attribute__((weak)) uint8_t led_matrix_map_row_column_to_led_kb(uint8_t row, uint8_t column, uint8_t *led_i) {
@@ -140,7 +147,7 @@ void led_matrix_set_value(int index, uint8_t value) {
 }
 
 void led_matrix_set_value_all(uint8_t value) {
-#if defined(LED_MATRIX_ENABLE) && defined(LED_MATRIX_SPLIT)
+#if defined(LED_MATRIX_SPLIT)
     for (uint8_t i = 0; i < LED_MATRIX_LED_COUNT; i++)
         led_matrix_set_value(i, value);
 #else
@@ -152,13 +159,10 @@ void led_matrix_set_value_all(uint8_t value) {
 #endif
 }
 
-void process_led_matrix(uint8_t row, uint8_t col, bool pressed) {
+void led_matrix_handle_key_event(uint8_t row, uint8_t col, bool pressed) {
 #ifndef LED_MATRIX_SPLIT
     if (!is_keyboard_master()) return;
 #endif
-#if LED_MATRIX_TIMEOUT > 0
-    led_anykey_timer = 0;
-#endif // LED_MATRIX_TIMEOUT > 0
 
 #ifdef LED_MATRIX_KEYREACTIVE_ENABLED
     uint8_t led[LED_HITS_TO_REMEMBER];
@@ -208,21 +212,10 @@ static bool led_matrix_none(effect_params_t *params) {
 }
 
 static void led_task_timers(void) {
-#if defined(LED_MATRIX_KEYREACTIVE_ENABLED) || LED_MATRIX_TIMEOUT > 0
+#if defined(LED_MATRIX_KEYREACTIVE_ENABLED)
     uint32_t deltaTime = sync_timer_elapsed32(led_timer_buffer);
-#endif // defined(LED_MATRIX_KEYREACTIVE_ENABLED) || LED_MATRIX_TIMEOUT > 0
+#endif // defined(LED_MATRIX_KEYREACTIVE_ENABLED)
     led_timer_buffer = sync_timer_read32();
-
-    // Update double buffer timers
-#if LED_MATRIX_TIMEOUT > 0
-    if (led_anykey_timer < UINT32_MAX) {
-        if (UINT32_MAX - deltaTime < led_anykey_timer) {
-            led_anykey_timer = UINT32_MAX;
-        } else {
-            led_anykey_timer += deltaTime;
-        }
-    }
-#endif // LED_MATRIX_TIMEOUT > 0
 
     // Update double buffer last hit timers
 #ifdef LED_MATRIX_KEYREACTIVE_ENABLED
@@ -329,7 +322,7 @@ void led_matrix_task(void) {
     // while suspended and just do a software shutdown. This is a cheap hack for now.
     bool suspend_backlight = suspend_state ||
 #if LED_MATRIX_TIMEOUT > 0
-                             (led_anykey_timer > (uint32_t)LED_MATRIX_TIMEOUT) ||
+                             (last_input_activity_elapsed() > (uint32_t)LED_MATRIX_TIMEOUT) ||
 #endif // LED_MATRIX_TIMEOUT > 0
                              false;
 
@@ -432,12 +425,6 @@ void led_matrix_init(void) {
     }
 #endif // LED_MATRIX_KEYREACTIVE_ENABLED
 
-    if (!eeconfig_is_enabled()) {
-        dprintf("led_matrix_init_drivers eeconfig is not enabled.\n");
-        eeconfig_init();
-        eeconfig_update_led_matrix_default();
-    }
-
     eeconfig_init_led_matrix();
     if (!led_matrix_eeconfig.mode) {
         dprintf("led_matrix_init_drivers led_matrix_eeconfig.mode = 0. Write default values to EEPROM.\n");
@@ -447,7 +434,7 @@ void led_matrix_init(void) {
 }
 
 void led_matrix_set_suspend_state(bool state) {
-#ifdef LED_DISABLE_WHEN_USB_SUSPENDED
+#ifdef LED_MATRIX_SLEEP
     if (state && !suspend_state && is_keyboard_master()) { // only run if turning off, and only once
         led_task_render(0);                                // turn off all LEDs when suspending
         led_task_flush(0);                                 // and actually flash led state to LEDs

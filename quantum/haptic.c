@@ -96,10 +96,10 @@ void haptic_init(void) {
 #endif
     eeconfig_debug_haptic();
 #ifdef HAPTIC_ENABLE_PIN
-    setPinOutput(HAPTIC_ENABLE_PIN);
+    gpio_set_pin_output(HAPTIC_ENABLE_PIN);
 #endif
 #ifdef HAPTIC_ENABLE_STATUS_LED
-    setPinOutput(HAPTIC_ENABLE_STATUS_LED);
+    gpio_set_pin_output(HAPTIC_ENABLE_STATUS_LED);
 #endif
 }
 
@@ -356,9 +356,9 @@ void haptic_shutdown(void) {
 void haptic_notify_usb_device_state_change(void) {
     update_haptic_enable_gpios();
 #if defined(HAPTIC_ENABLE_PIN)
-    setPinOutput(HAPTIC_ENABLE_PIN);
+    gpio_set_pin_output(HAPTIC_ENABLE_PIN);
 #endif
 #if defined(HAPTIC_ENABLE_STATUS_LED)
-    setPinOutput(HAPTIC_ENABLE_STATUS_LED);
+    gpio_set_pin_output(HAPTIC_ENABLE_STATUS_LED);
 #endif
 }

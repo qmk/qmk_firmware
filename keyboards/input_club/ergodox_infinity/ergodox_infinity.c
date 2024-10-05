@@ -95,11 +95,6 @@ __attribute__ ((weak)) void matrix_scan_user(void) {}
 
 
 void keyboard_pre_init_kb(void) {
-#ifdef LED_MATRIX_ENABLE
-    // Turn on LED controller
-    setPinOutput(B16);
-    writePinHigh(B16);
-#endif
     // The backlight always has to be initialized, otherwise it will stay lit
     lcd_backlight_hal_init();
 #ifdef ST7565_ENABLE
@@ -171,7 +166,7 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 #endif
 
 #ifdef LED_MATRIX_ENABLE
-const is31fl3731_led_t PROGMEM g_is31fl3731_leds[LED_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 // The numbers in the comments are the led numbers DXX on the PCB
 /* Refer to IS31 manual for these locations
  *  driver
@@ -213,72 +208,6 @@ const is31fl3731_led_t PROGMEM g_is31fl3731_leds[LED_MATRIX_LED_COUNT] = {
                                                                                               { 0, C5_6 },
 //                                                                       71           70           69
                                                                     { 0, C3_7 }, { 0, C2_7 }, { 0, C1_7 },
-};
-
-led_config_t g_led_config = {
-    {
-        // Key Matrix to LED Index
-        // Left half
-        { NO_LED, NO_LED, NO_LED,     33,     34 },
-        { NO_LED, NO_LED, NO_LED,     32,     37 },
-        {      6,     13, NO_LED,     26,     36 },
-        {      5,     12,     19,     25,     35 },
-        {      4,     11,     18,     24,     31 },
-        {      3,     10,     17,     23,     30 },
-        {      2,      9,     16,     22,     29 },
-        {      1,      8,     15,     21,     28 },
-        {      0,      7,     14,     20,     27 },
-        // Right half
-        { NO_LED, NO_LED, NO_LED,     71,     72 },
-        { NO_LED, NO_LED, NO_LED,     70,     75 },
-        {     44,     51, NO_LED,     64,     74 },
-        {     43,     50,     57,     63,     73 },
-        {     42,     49,     56,     62,     69 },
-        {     41,     48,     55,     61,     68 },
-        {     40,     47,     54,     60,     67 },
-        {     39,     46,     53,     59,     66 },
-        {     38,     45,     52,     58,     65 },
-    }, {
-        // LED Index to Physical Position (assumes a reasonable gap between halves)
-	// Left half
-        {   0,  3 }, {  15,  3 }, {  27,  1 }, {  39,  0 }, {  51,  1 }, {  63,  2 }, {  75,  2 },
-        {   0, 13 }, {  15, 13 }, {  27, 11 }, {  39, 10 }, {  51, 11 }, {  63, 12 }, {  78, 17 },
-        {   0, 23 }, {  15, 23 }, {  27, 21 }, {  39, 20 }, {  51, 21 }, {  63, 22 },
-        {   0, 33 }, {  15, 33 }, {  27, 31 }, {  39, 30 }, {  51, 31 }, {  63, 32 }, {  78, 32 },
-        {   4, 43 }, {  15, 43 }, {  27, 41 }, {  39, 40 }, {  51, 41 },
-                                                                                      {  89, 41 }, { 100, 46 },
-                                                                                                   {  95, 55 },
-                                                                         {  72, 54 }, {  83, 59 }, {  90, 64 },
-        // Right half (mirrored)
-        { 224,  3 }, { 209,  3 }, { 197,  1 }, { 185,  0 }, { 173,  1 }, { 161,  2 }, { 149,  2 },
-        { 224, 13 }, { 209, 13 }, { 197, 11 }, { 185, 10 }, { 173, 11 }, { 161, 12 }, { 146, 17 },
-        { 224, 23 }, { 209, 23 }, { 197, 21 }, { 185, 20 }, { 173, 21 }, { 161, 22 },
-        { 224, 33 }, { 209, 33 }, { 197, 31 }, { 185, 30 }, { 173, 31 }, { 161, 32 }, { 146, 32 },
-        { 220, 43 }, { 209, 43 }, { 197, 41 }, { 185, 40 }, { 173, 41 },
-                                                                                      { 135, 41 }, { 124, 46 },
-                                                                                                   { 129, 55 },
-                                                                         { 152, 54 }, { 141, 59 }, { 134, 64 },
-    }, {
-        // LED Index to Flag
-        // Left half
-        1, 4, 4, 4, 4, 4, 1,
-        1, 4, 4, 4, 4, 4, 1,
-        1, 4, 4, 4, 4, 4,
-        1, 4, 4, 4, 4, 4, 1,
-        1, 1, 1, 1, 1,
-                          1, 1,
-                             1,
-                       1, 1, 1,
-        // Right half (mirrored)
-        1, 4, 4, 4, 4, 4, 1,
-        1, 4, 4, 4, 4, 4, 1,
-        1, 4, 4, 4, 4, 4,
-        1, 4, 4, 4, 4, 4, 1,
-        1, 1, 1, 1, 1,
-                          1, 1,
-                             1,
-                       1, 1, 1,
-    }
 };
 #endif
 
