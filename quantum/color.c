@@ -109,8 +109,8 @@ RGB hsv_to_rgb_nocie(HSV hsv) {
     return hsv_to_rgb_impl(hsv, false);
 }
 
-#ifdef RGBW
-void convert_rgb_to_rgbw(LED_TYPE *led) {
+#ifdef WS2812_RGBW
+void convert_rgb_to_rgbw(rgb_led_t *led) {
     // Determine lowest value in all three colors, put that into
     // the white channel and then shift all colors by that amount
     led->w = MIN(led->r, MIN(led->g, led->b));

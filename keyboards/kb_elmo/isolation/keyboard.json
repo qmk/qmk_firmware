@@ -1,0 +1,51 @@
+{
+    "keyboard_name": "ISOlation",
+    "manufacturer": "kb-elmo",
+    "url": "",
+    "maintainer": "kb-elmo",
+    "usb": {
+        "vid": "0xA68C",
+        "pid": "0x4EE6",
+        "device_version": "0.0.1"
+    },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 3,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "ws2812": {
+        "pin": "B2"
+    },
+    "processor": "atmega328p",
+    "bootloader": "usbasploader",
+    "features": {
+        "bootmagic": true,
+        "mousekey": false,
+        "extrakey": true,
+        "rgblight": true
+    },
+    "matrix_pins": {
+        "direct": [
+            ["B0"]
+        ]
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"x": 0.25, "y": 0, "w": 1.25, "h": 2, "matrix": [0, 0]}
+            ]
+        }
+    }
+}

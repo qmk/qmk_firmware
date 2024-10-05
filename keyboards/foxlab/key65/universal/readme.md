@@ -19,4 +19,4 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## RGB LED support
 
-The universal PCB supports RGB LEDs as an LED strip, but is not supplied with one. To use RGB LEDs, you should configure the RGBLED_NUM to match the number of LEDs on your strip.
+The universal PCB supports RGB LEDs as an LED strip, but is not supplied with one. To use RGB LEDs, you should configure the RGBLIGHT_LED_COUNT to match the number of LEDs on your strip.

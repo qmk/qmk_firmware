@@ -1,2 +1,0 @@
-# RGB Matrix
-RGB_MATRIX_ENABLE = yes

@@ -13,39 +13,53 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SPACE_CADET_ENABLE ?= yes
 GRAVE_ESC_ENABLE ?= yes
+MAGIC_ENABLE ?= yes
+SEND_STRING_ENABLE ?= yes
+SPACE_CADET_ENABLE ?= yes
 
 GENERIC_FEATURES = \
+    AUTO_SHIFT \
     AUTOCORRECT \
+    BOOTMAGIC \
     CAPS_WORD \
     COMBO \
     COMMAND \
+    CRC \
     DEFERRED_EXEC \
     DIGITIZER \
     DIP_SWITCH \
     DYNAMIC_KEYMAP \
     DYNAMIC_MACRO \
+    DYNAMIC_TAPPING_TERM \
     GRAVE_ESC \
     HAPTIC \
     KEY_LOCK \
     KEY_OVERRIDE \
     LEADER \
+    MAGIC \
+    MOUSEKEY \
+    MUSIC \
+    OS_DETECTION \
     PROGRAMMABLE_BUTTON \
     REPEAT_KEY \
     SECURE \
+    SEND_STRING \
+    SEQUENCER \
     SPACE_CADET \
     SWAP_HANDS \
     TAP_DANCE \
-    VELOCIKEY \
+    TRI_LAYER \
+    VIA \
+    VIRTSER \
     WPM \
-    DYNAMIC_TAPPING_TERM \
-    TRI_LAYER
 
 define HANDLE_GENERIC_FEATURE
     # $$(info "Processing: $1_ENABLE $2.c")
     SRC += $$(wildcard $$(QUANTUM_DIR)/process_keycode/process_$2.c)
+    SRC += $$(wildcard $$(QUANTUM_DIR)/$2/$2.c)
     SRC += $$(wildcard $$(QUANTUM_DIR)/$2.c)
+    VPATH += $$(wildcard $$(QUANTUM_DIR)/$2/)
     OPT_DEFS += -D$1_ENABLE
 endef
 

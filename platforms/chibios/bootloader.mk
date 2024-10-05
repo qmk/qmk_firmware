@@ -107,6 +107,7 @@ ifeq ($(strip $(BOOTLOADER)), tinyuf2)
 endif
 ifeq ($(strip $(BOOTLOADER)), uf2boot)
     OPT_DEFS += -DBOOTLOADER_UF2BOOT
+    BOARD = STM32_F103_STM32DUINO
     BOOTLOADER_TYPE = uf2boot
     FIRMWARE_FORMAT = uf2
 endif

@@ -16,25 +16,6 @@
 
 #include "quantum.h"
 
-// Mask out handedness diode to prevent it
-// from keeping the keyboard awake
-// - just mirroring `KC_NO` in the `LAYOUT`
-//   macro to keep it simple
-const matrix_row_t matrix_mask[] = {
-    0b011111111,
-    0b011111111,
-    0b011011111,
-    0b001111111,
-    0b011111111,
-    0b001011111,
-    0b111111111,
-    0b101111111,
-    0b111111111,
-    0b110111111,
-    0b010111111,
-    0b111011110,
-};
-
 #ifdef DIP_SWITCH_ENABLE
 bool dip_switch_update_kb(uint8_t index, bool active) {
     if (!dip_switch_update_user(index, active)) {
@@ -149,12 +130,12 @@ void keyboard_post_init_kb(void) {
     // and disable USB connectivity when the ADC value exceeds 1000,
     // to avoid affecting the serial usart communication between the left hand and the right hand.
     if (is_keyboard_left()) {
-        setPinOutput(A0);
-        writePinHigh(A0);
+        gpio_set_pin_output(A0);
+        gpio_write_pin_high(A0);
     } else {
         if ((analogReadPin_my(B0) > 1000) || (analogReadPin_my(B1) > 1000)) {
-            setPinInput(A11);
-            setPinInput(A12);
+            gpio_set_pin_input(A11);
+            gpio_set_pin_input(A12);
         }
     }
 

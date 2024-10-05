@@ -73,7 +73,7 @@ You can also use any ARM chip with USB that [ChibiOS](https://www.chibios.org) s
 
 * [RP2040](https://www.raspberrypi.com/documentation/microcontrollers/rp2040.html)
 
-For a detailed overview about the RP2040 support by QMK see the [dedicated RP2040 page](platformdev_rp2040.md).
+For a detailed overview about the RP2040 support by QMK see the [dedicated RP2040 page](platformdev_rp2040).
 
 ## Atmel ATSAM
 

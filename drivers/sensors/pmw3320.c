@@ -24,9 +24,9 @@
 
 void pmw3320_init(void) {
     // Initialize sensor serial pins.
-    setPinOutput(PMW3320_SCLK_PIN);
-    setPinOutput(PMW3320_SDIO_PIN);
-    setPinOutput(PMW3320_CS_PIN);
+    gpio_set_pin_output(PMW3320_SCLK_PIN);
+    gpio_set_pin_output(PMW3320_SDIO_PIN);
+    gpio_set_pin_output(PMW3320_CS_PIN);
 
     // reboot the sensor.
     pmw3320_write_reg(REG_Power_Up_Reset, 0x5a);
@@ -54,30 +54,30 @@ void pmw3320_init(void) {
 // Just as with the serial protocol, this is used by the slave to send a
 // synchronization signal to the master.
 void pmw3320_sync(void) {
-    writePinLow(PMW3320_CS_PIN);
+    gpio_write_pin_low(PMW3320_CS_PIN);
     wait_us(1);
-    writePinHigh(PMW3320_CS_PIN);
+    gpio_write_pin_high(PMW3320_CS_PIN);
 }
 
 void pmw3320_cs_select(void) {
-    writePinLow(PMW3320_CS_PIN);
+    gpio_write_pin_low(PMW3320_CS_PIN);
 }
 
 void pmw3320_cs_deselect(void) {
-    writePinHigh(PMW3320_CS_PIN);
+    gpio_write_pin_high(PMW3320_CS_PIN);
 }
 
 uint8_t pmw3320_serial_read(void) {
-    setPinInput(PMW3320_SDIO_PIN);
+    gpio_set_pin_input(PMW3320_SDIO_PIN);
     uint8_t byte = 0;
 
     for (uint8_t i = 0; i < 8; ++i) {
-        writePinLow(PMW3320_SCLK_PIN);
+        gpio_write_pin_low(PMW3320_SCLK_PIN);
         wait_us(1);
 
-        byte = (byte << 1) | readPin(PMW3320_SDIO_PIN);
+        byte = (byte << 1) | gpio_read_pin(PMW3320_SDIO_PIN);
 
-        writePinHigh(PMW3320_SCLK_PIN);
+        gpio_write_pin_high(PMW3320_SCLK_PIN);
         wait_us(1);
     }
 
@@ -85,19 +85,19 @@ uint8_t pmw3320_serial_read(void) {
 }
 
 void pmw3320_serial_write(uint8_t data) {
-    setPinOutput(PMW3320_SDIO_PIN);
+    gpio_set_pin_output(PMW3320_SDIO_PIN);
 
     for (int8_t b = 7; b >= 0; b--) {
-        writePinLow(PMW3320_SCLK_PIN);
+        gpio_write_pin_low(PMW3320_SCLK_PIN);
 
         if (data & (1 << b))
-            writePinHigh(PMW3320_SDIO_PIN);
+            gpio_write_pin_high(PMW3320_SDIO_PIN);
         else
-            writePinLow(PMW3320_SDIO_PIN);
+            gpio_write_pin_low(PMW3320_SDIO_PIN);
 
         wait_us(2);
 
-        writePinHigh(PMW3320_SCLK_PIN);
+        gpio_write_pin_high(PMW3320_SCLK_PIN);
     }
 
     // This was taken from ADNS5050 driver.
@@ -178,7 +178,7 @@ uint16_t pmw3320_get_cpi(void) {
 }
 
 void pmw3320_set_cpi(uint16_t cpi) {
-    uint8_t cpival = constrain((cpi / PMW3320_CPI_STEP) - 1U, 0, (PMW3320_CPI_MAX / PMW3320_CPI_STEP) - 1U);
+    uint8_t cpival = constrain((cpi / PMW3320_CPI_STEP), (PMW3320_CPI_MIN / PMW3320_CPI_STEP), (PMW3320_CPI_MAX / PMW3320_CPI_STEP)) - 1U;
     // Fifth bit is probably a control bit.
     // PMW3320 datasheet don't have any info on this, so this is a pure guess.
     pmw3320_write_reg(REG_Resolution, 0x20 | cpival);

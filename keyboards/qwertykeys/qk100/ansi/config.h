@@ -17,27 +17,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#    define RGBLIGHT_LAYERS                   
-#    define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF 
-#    define RGBLIGHT_LAYERS_RETAIN_VAL      
-#    define RGBLIGHT_DEFAULT_VAL 10
-#    define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL + 5
-#    define RGBLIGHT_SLEEP
+#define RGBLIGHT_LAYERS_RETAIN_VAL      
+#define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL + 5
+
 /*== customize breathing effect ==*/
-#    define RGBLIGHT_BREATHE_TABLE_SIZE 128
-#    define RGBLIGHT_EFFECT_BREATHE_CENTER 1.0
-#    define RGBLIGHT_EFFECT_BREATHE_MAX    60
+#define RGBLIGHT_BREATHE_TABLE_SIZE 128
+#define RGBLIGHT_EFFECT_BREATHE_CENTER 1.0
+#define RGBLIGHT_EFFECT_BREATHE_MAX    60
 
 /* RGB matrix */
 #define I2C1_CLOCK_SPEED 400000  
-#define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2  
-#    define RGB_MATRIX_DISABLE_KEYCODES 
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended
-#    define RGB_MATRIX_KEYPRESSES           // reacts to keypresses
-#    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#    define RGB_MATRIX_LED_PROCESS_LIMIT  4
-#    define RGB_MATRIX_LED_FLUSH_LIMIT    26
-#    define RGB_MATRIX_STARTUP_VAL        128
-#    define DRIVER_ADDR_1                 0b0110000
-#    define DRIVER_COUNT                  1
-#    define RGB_MATRIX_LED_COUNT          101 
+#define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2
+
+#define IS31FL3741_I2C_ADDRESS_1 IS31FL3741_I2C_ADDRESS_GND
+
+#define RGB_MATRIX_DISABLE_KEYCODES 

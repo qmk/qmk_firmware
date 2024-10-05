@@ -16,6 +16,12 @@
 
 #pragma once
 
+// DEPRECATED DEFINES - DO NOT USE
+#if defined(RGBLED_NUM)
+#    define RGBLIGHT_LED_COUNT RGBLED_NUM
+#endif
+// ========
+
 /***** rgblight_mode(mode)/rgblight_mode_noeeprom(mode) ****
 
  old mode number (before 0.6.117) to new mode name table
@@ -160,6 +166,7 @@ enum RGBLIGHT_EFFECT_MODE {
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "rgblight_drivers.h"
 #include "progmem.h"
 #include "eeconfig.h"
 #include "ws2812.h"
@@ -233,8 +240,6 @@ void rgblight_unblink_all_but_layer(uint8_t layer);
 
 #endif
 
-extern LED_TYPE led[RGBLED_NUM];
-
 extern const uint8_t  RGBLED_BREATHING_INTERVALS[4] PROGMEM;
 extern const uint8_t  RGBLED_RAINBOW_MOOD_INTERVALS[3] PROGMEM;
 extern const uint8_t  RGBLED_RAINBOW_SWIRL_INTERVALS[3] PROGMEM;
@@ -248,7 +253,8 @@ typedef union {
     uint64_t raw;
     struct {
         bool    enable : 1;
-        uint8_t mode : 7;
+        bool    velocikey : 1;
+        uint8_t mode : 6;
         uint8_t hue : 8;
         uint8_t sat : 8;
         uint8_t val : 8;
@@ -281,11 +287,6 @@ typedef struct _rgblight_ranges_t {
 } rgblight_ranges_t;
 
 extern rgblight_ranges_t rgblight_ranges;
-
-/* === Utility Functions ===*/
-void sethsv(uint8_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1);
-void sethsv_raw(uint8_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1); // without RGBLIGHT_LIMIT_VAL check
-void setrgb(uint8_t r, uint8_t g, uint8_t b, LED_TYPE *led1);
 
 /* === Low level Functions === */
 void rgblight_set(void);
@@ -385,14 +386,15 @@ void rgblight_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom);
 #define EZ_RGB(val) rgblight_show_solid_color((val >> 16) & 0xFF, (val >> 8) & 0xFF, val & 0xFF)
 void rgblight_show_solid_color(uint8_t r, uint8_t g, uint8_t b);
 
-#ifdef RGBLIGHT_USE_TIMER
+void preprocess_rgblight(void);
 void rgblight_task(void);
+
+#ifdef RGBLIGHT_USE_TIMER
 void rgblight_timer_init(void);
 void rgblight_timer_enable(void);
 void rgblight_timer_disable(void);
 void rgblight_timer_toggle(void);
 #else
-#    define rgblight_task()
 #    define rgblight_timer_init()
 #    define rgblight_timer_enable()
 #    define rgblight_timer_disable()
@@ -445,4 +447,15 @@ void rgblight_effect_rgbtest(animation_status_t *anim);
 void rgblight_effect_alternating(animation_status_t *anim);
 void rgblight_effect_twinkle(animation_status_t *anim);
 
+#endif
+
+#ifdef VELOCIKEY_ENABLE
+bool    rgblight_velocikey_enabled(void);
+void    rgblight_velocikey_toggle(void);
+void    rgblight_velocikey_accelerate(void);
+void    rgblight_velocikey_decelerate(void);
+uint8_t rgblight_velocikey_match_speed(uint8_t minValue, uint8_t maxValue);
+
+#    define velocikey_enabled rgblight_velocikey_enabled
+#    define velocikey_toggle rgblight_velocikey_toggle
 #endif

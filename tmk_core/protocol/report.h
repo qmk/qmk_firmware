@@ -20,11 +20,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include <stdbool.h>
 #include "keycode.h"
+#include "util.h"
+
+#ifdef JOYSTICK_ENABLE
+#    include "joystick.h"
+#endif
 
 // clang-format off
 
 /* HID report IDs */
-enum hid_report_ids {
+enum hid_report_ids { 
+    REPORT_ID_ALL = 0,
     REPORT_ID_KEYBOARD = 1,
     REPORT_ID_MOUSE,
     REPORT_ID_SYSTEM,
@@ -32,8 +38,11 @@ enum hid_report_ids {
     REPORT_ID_PROGRAMMABLE_BUTTON,
     REPORT_ID_NKRO,
     REPORT_ID_JOYSTICK,
-    REPORT_ID_DIGITIZER
+    REPORT_ID_DIGITIZER,
+    REPORT_ID_COUNT = REPORT_ID_DIGITIZER
 };
+
+#define IS_VALID_REPORT_ID(id) ((id) >= REPORT_ID_ALL && (id) <= REPORT_ID_COUNT)
 
 /* Mouse buttons */
 #define MOUSE_BTN_MASK(n) (1 << (n))
@@ -54,9 +63,9 @@ enum mouse_buttons {
  */
 enum consumer_usages {
     // 15.5 Display Controls
-    SNAPSHOT               = 0x065,
-    BRIGHTNESS_UP          = 0x06F, // https://www.usb.org/sites/default/files/hutrr41_0.pdf
-    BRIGHTNESS_DOWN        = 0x070,
+    SNAPSHOT        = 0x065,
+    BRIGHTNESS_UP   = 0x06F, // https://www.usb.org/sites/default/files/hutrr41_0.pdf
+    BRIGHTNESS_DOWN = 0x070,
     // 15.7 Transport Controls
     TRANSPORT_RECORD       = 0x0B2,
     TRANSPORT_FAST_FORWARD = 0x0B3,
@@ -69,43 +78,44 @@ enum consumer_usages {
     TRANSPORT_STOP_EJECT   = 0x0CC,
     TRANSPORT_PLAY_PAUSE   = 0x0CD,
     // 15.9.1 Audio Controls - Volume
-    AUDIO_MUTE             = 0x0E2,
-    AUDIO_VOL_UP           = 0x0E9,
-    AUDIO_VOL_DOWN         = 0x0EA,
+    AUDIO_MUTE     = 0x0E2,
+    AUDIO_VOL_UP   = 0x0E9,
+    AUDIO_VOL_DOWN = 0x0EA,
     // 15.15 Application Launch Buttons
-    AL_CC_CONFIG           = 0x183,
-    AL_EMAIL               = 0x18A,
-    AL_CALCULATOR          = 0x192,
-    AL_LOCAL_BROWSER       = 0x194,
-    AL_LOCK                = 0x19E,
-    AL_CONTROL_PANEL       = 0x19F,
-    AL_ASSISTANT           = 0x1CB,
-    AL_KEYBOARD_LAYOUT     = 0x1AE,
+    AL_CC_CONFIG       = 0x183,
+    AL_EMAIL           = 0x18A,
+    AL_CALCULATOR      = 0x192,
+    AL_LOCAL_BROWSER   = 0x194,
+    AL_LOCK            = 0x19E,
+    AL_CONTROL_PANEL   = 0x19F,
+    AL_ASSISTANT       = 0x1CB,
+    AL_KEYBOARD_LAYOUT = 0x1AE,
     // 15.16 Generic GUI Application Controls
-    AC_NEW                 = 0x201,
-    AC_OPEN                = 0x202,
-    AC_CLOSE               = 0x203,
-    AC_EXIT                = 0x204,
-    AC_MAXIMIZE            = 0x205,
-    AC_MINIMIZE            = 0x206,
-    AC_SAVE                = 0x207,
-    AC_PRINT               = 0x208,
-    AC_PROPERTIES          = 0x209,
-    AC_UNDO                = 0x21A,
-    AC_COPY                = 0x21B,
-    AC_CUT                 = 0x21C,
-    AC_PASTE               = 0x21D,
-    AC_SELECT_ALL          = 0x21E,
-    AC_FIND                = 0x21F,
-    AC_SEARCH              = 0x221,
-    AC_HOME                = 0x223,
-    AC_BACK                = 0x224,
-    AC_FORWARD             = 0x225,
-    AC_STOP                = 0x226,
-    AC_REFRESH             = 0x227,
-    AC_BOOKMARKS           = 0x22A,
-    AC_MISSION_CONTROL     = 0x29F,
-    AC_LAUNCHPAD           = 0x2A0
+    AC_NEW                         = 0x201,
+    AC_OPEN                        = 0x202,
+    AC_CLOSE                       = 0x203,
+    AC_EXIT                        = 0x204,
+    AC_MAXIMIZE                    = 0x205,
+    AC_MINIMIZE                    = 0x206,
+    AC_SAVE                        = 0x207,
+    AC_PRINT                       = 0x208,
+    AC_PROPERTIES                  = 0x209,
+    AC_UNDO                        = 0x21A,
+    AC_COPY                        = 0x21B,
+    AC_CUT                         = 0x21C,
+    AC_PASTE                       = 0x21D,
+    AC_SELECT_ALL                  = 0x21E,
+    AC_FIND                        = 0x21F,
+    AC_SEARCH                      = 0x221,
+    AC_HOME                        = 0x223,
+    AC_BACK                        = 0x224,
+    AC_FORWARD                     = 0x225,
+    AC_STOP                        = 0x226,
+    AC_REFRESH                     = 0x227,
+    AC_BOOKMARKS                   = 0x22A,
+    AC_NEXT_KEYBOARD_LAYOUT_SELECT = 0x29D,
+    AC_DESKTOP_SHOW_ALL_WINDOWS    = 0x29F,
+    AC_SOFT_KEY_LEFT               = 0x2A0
 };
 
 /* Generic Desktop Page (0x01)
@@ -124,21 +134,7 @@ enum desktop_usages {
 
 // clang-format on
 
-#define NKRO_SHARED_EP
-/* key report size(NKRO or boot mode) */
-#if defined(NKRO_ENABLE)
-#    if defined(PROTOCOL_LUFA) || defined(PROTOCOL_CHIBIOS)
-#        include "protocol/usb_descriptor.h"
-#        define KEYBOARD_REPORT_BITS (SHARED_EPSIZE - 2)
-#    elif defined(PROTOCOL_ARM_ATSAM)
-#        include "protocol/arm_atsam/usb/udi_device_epsize.h"
-#        define KEYBOARD_REPORT_BITS (NKRO_EPSIZE - 1)
-#        undef NKRO_SHARED_EP
-#        undef MOUSE_SHARED_EP
-#    else
-#        error "NKRO not supported with this protocol"
-#    endif
-#endif
+#define NKRO_REPORT_BITS 30
 
 #ifdef KEYBOARD_SHARED_EP
 #    define KEYBOARD_REPORT_SIZE 9
@@ -172,36 +168,30 @@ extern "C" {
  * desc |Lcontrol|Lshift  |Lalt    |Lgui    |Rcontrol|Rshift  |Ralt    |Rgui
  *
  */
-typedef union {
-    uint8_t raw[KEYBOARD_REPORT_SIZE];
-    struct {
+typedef struct {
 #ifdef KEYBOARD_SHARED_EP
-        uint8_t report_id;
+    uint8_t report_id;
 #endif
-        uint8_t mods;
-        uint8_t reserved;
-        uint8_t keys[KEYBOARD_REPORT_KEYS];
-    };
-#ifdef NKRO_ENABLE
-    struct nkro_report {
-#    ifdef NKRO_SHARED_EP
-        uint8_t report_id;
-#    endif
-        uint8_t mods;
-        uint8_t bits[KEYBOARD_REPORT_BITS];
-    } nkro;
-#endif
-} __attribute__((packed)) report_keyboard_t;
+    uint8_t mods;
+    uint8_t reserved;
+    uint8_t keys[KEYBOARD_REPORT_KEYS];
+} PACKED report_keyboard_t;
+
+typedef struct {
+    uint8_t report_id;
+    uint8_t mods;
+    uint8_t bits[NKRO_REPORT_BITS];
+} PACKED report_nkro_t;
 
 typedef struct {
     uint8_t  report_id;
     uint16_t usage;
-} __attribute__((packed)) report_extra_t;
+} PACKED report_extra_t;
 
 typedef struct {
     uint8_t  report_id;
     uint32_t usage;
-} __attribute__((packed)) report_programmable_button_t;
+} PACKED report_programmable_button_t;
 
 #ifdef MOUSE_EXTENDED_REPORT
 typedef int16_t mouse_xy_report_t;
@@ -222,7 +212,7 @@ typedef struct {
     mouse_xy_report_t y;
     int8_t            v;
     int8_t            h;
-} __attribute__((packed)) report_mouse_t;
+} PACKED report_mouse_t;
 
 typedef struct {
 #ifdef DIGITIZER_SHARED_EP
@@ -234,24 +224,26 @@ typedef struct {
     uint8_t  reserved : 5;
     uint16_t x;
     uint16_t y;
-} __attribute__((packed)) report_digitizer_t;
+} PACKED report_digitizer_t;
+
+#if JOYSTICK_AXIS_RESOLUTION > 8
+typedef int16_t joystick_axis_t;
+#else
+typedef int8_t joystick_axis_t;
+#endif
 
 typedef struct {
 #ifdef JOYSTICK_SHARED_EP
     uint8_t report_id;
 #endif
 #if JOYSTICK_AXIS_COUNT > 0
-#    if JOYSTICK_AXIS_RESOLUTION > 8
-    int16_t axes[JOYSTICK_AXIS_COUNT];
-#    else
-    int8_t axes[JOYSTICK_AXIS_COUNT];
-#    endif
+    joystick_axis_t axes[JOYSTICK_AXIS_COUNT];
 #endif
 
 #if JOYSTICK_BUTTON_COUNT > 0
     uint8_t buttons[(JOYSTICK_BUTTON_COUNT - 1) / 8 + 1];
 #endif
-} __attribute__((packed)) report_joystick_t;
+} PACKED report_joystick_t;
 
 /* keycode to system usage */
 static inline uint16_t KEYCODE2SYSTEM(uint8_t key) {
@@ -321,28 +313,28 @@ static inline uint16_t KEYCODE2CONSUMER(uint8_t key) {
         case KC_WWW_FAVORITES:
             return AC_BOOKMARKS;
         case KC_MISSION_CONTROL:
-            return AC_MISSION_CONTROL;
+            return AC_DESKTOP_SHOW_ALL_WINDOWS;
         case KC_LAUNCHPAD:
-            return AC_LAUNCHPAD;
+            return AC_SOFT_KEY_LEFT;
         default:
             return 0;
     }
 }
 
-uint8_t has_anykey(report_keyboard_t* keyboard_report);
-uint8_t get_first_key(report_keyboard_t* keyboard_report);
-bool    is_key_pressed(report_keyboard_t* keyboard_report, uint8_t key);
+uint8_t has_anykey(void);
+uint8_t get_first_key(void);
+bool    is_key_pressed(uint8_t key);
 
 void add_key_byte(report_keyboard_t* keyboard_report, uint8_t code);
 void del_key_byte(report_keyboard_t* keyboard_report, uint8_t code);
 #ifdef NKRO_ENABLE
-void add_key_bit(report_keyboard_t* keyboard_report, uint8_t code);
-void del_key_bit(report_keyboard_t* keyboard_report, uint8_t code);
+void add_key_bit(report_nkro_t* nkro_report, uint8_t code);
+void del_key_bit(report_nkro_t* nkro_report, uint8_t code);
 #endif
 
-void add_key_to_report(report_keyboard_t* keyboard_report, uint8_t key);
-void del_key_from_report(report_keyboard_t* keyboard_report, uint8_t key);
-void clear_keys_from_report(report_keyboard_t* keyboard_report);
+void add_key_to_report(uint8_t key);
+void del_key_from_report(uint8_t key);
+void clear_keys_from_report(void);
 
 #ifdef MOUSE_ENABLE
 bool has_mouse_report_changed(report_mouse_t* new_report, report_mouse_t* old_report);

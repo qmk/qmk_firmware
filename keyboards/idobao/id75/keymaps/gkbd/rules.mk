@@ -1,1 +1,0 @@
-UNICODE_ENABLE = yes

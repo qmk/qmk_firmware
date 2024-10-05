@@ -54,7 +54,7 @@ LAYOUT_ortho_5x6( \
       KC_TAB,  _10,     _11,     _12,     _13,     _14, \
       FN_CAPS, _20,     _21,     _22,     _23,     _24, \
       KC_LSFT, _30,     _31,     _32,     _33,     _34, \
-      KC_LCTL, KC_LGUI, KC_LALT, RGB_TOG, ADJ,  KC_SPC \
+      KC_LCTL, KC_LGUI, KC_LALT, UG_TOGG, ADJ,  KC_SPC \
 )
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -77,15 +77,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, KC_PGDN, KC_UP,   KC_PGUP, _______, _______,
       _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
       _______, _______, _______, _______, _______, _______,
-      _______, _______, _______, RGB_MOD, _______, _______
+      _______, _______, _______, UG_NEXT, _______, _______
       ),
 
   [_ADJ] =  LAYOUT_ortho_5x6(
       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,
-      _______, RGB_SAD, RGB_VAI, RGB_SAI, QK_BOOT, _______,
-      _______, RGB_HUD, RGB_VAD, RGB_HUI, RGBRST,  _______,
+      _______, UG_SATD, UG_VALU, UG_SATU, QK_BOOT, _______,
+      _______, UG_HUED, UG_VALD, UG_HUEU, RGBRST,  _______,
       _______, _______, _______, _______, _______, _______,
-      _______, _______, _______, RGB_MOD, _______, _______
+      _______, _______, _______, UG_NEXT, _______, _______
       )
 };
 

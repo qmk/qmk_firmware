@@ -634,11 +634,6 @@ void via_qmk_rgblight_save(void) {
 
 #if defined(RGB_MATRIX_ENABLE)
 
-#    if !defined(RGB_MATRIX_MAXIMUM_BRIGHTNESS) || RGB_MATRIX_MAXIMUM_BRIGHTNESS > UINT8_MAX
-#        undef RGB_MATRIX_MAXIMUM_BRIGHTNESS
-#        define RGB_MATRIX_MAXIMUM_BRIGHTNESS UINT8_MAX
-#    endif
-
 void via_qmk_rgb_matrix_command(uint8_t *data, uint8_t length) {
     // data = [ command_id, channel_id, value_id, value_data ]
     uint8_t *command_id        = &(data[0]);
@@ -726,11 +721,6 @@ void via_qmk_rgb_matrix_save(void) {
 #endif // RGB_MATRIX_ENABLE
 
 #if defined(LED_MATRIX_ENABLE)
-
-#    if !defined(LED_MATRIX_MAXIMUM_BRIGHTNESS) || LED_MATRIX_MAXIMUM_BRIGHTNESS > UINT8_MAX
-#        undef LED_MATRIX_MAXIMUM_BRIGHTNESS
-#        define LED_MATRIX_MAXIMUM_BRIGHTNESS UINT8_MAX
-#    endif
 
 void via_qmk_led_matrix_command(uint8_t *data, uint8_t length) {
     // data = [ command_id, channel_id, value_id, value_data ]

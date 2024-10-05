@@ -16,15 +16,6 @@
 
 #include "quantum.h"
 
-const matrix_row_t matrix_mask[] = {
-    0b111111111111111,
-    0b111111111111111,
-    0b111111111111111,
-    0b111111111111111,
-    0b111111111111111,
-    0b111111111101111,
-};
-
 #ifdef DIP_SWITCH_ENABLE
 
 bool dip_switch_update_kb(uint8_t index, bool active) {
@@ -87,7 +78,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_user(keycode, record)) { return false; }
     switch (keycode) {
 #ifdef LED_MATRIX_ENABLE
-        case BL_TOGG:
+        case LM_TOGG:
             if (record->event.pressed) {
                 switch (led_matrix_get_flags()) {
                     case LED_FLAG_ALL: {

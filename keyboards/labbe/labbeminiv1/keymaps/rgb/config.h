@@ -18,7 +18,7 @@
 // ws2812 options
 #define WS2812_DI_PIN C7 // pin the DI on the ws2812 is hooked-up to
 
-#define RGBLED_NUM 4 // number of LEDs
+#define RGBLIGHT_LED_COUNT 4 // number of LEDs
 #define RGBLIGHT_DEFAULT_MODE 6 // set the rainbow mode
 #define RGBLIGHT_HUE_STEP 12 // units to step when in/decreasing hue
 #define RGBLIGHT_SAT_STEP 25 // units to step when in/decresing saturation

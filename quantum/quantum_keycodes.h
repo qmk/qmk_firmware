@@ -190,6 +190,10 @@
 #define SH_T(kc) (QK_SWAP_HANDS | ((kc)&0xFF))
 #define QK_SWAP_HANDS_GET_TAP_KEYCODE(kc) ((kc)&0xFF)
 
+// Tap dance
+#define TD(i) (QK_TAP_DANCE | ((i)&0xFF))
+#define QK_TAP_DANCE_GET_INDEX(kc) ((kc)&0xFF)
+
 // MIDI aliases
 #define MIDI_TONE_MIN QK_MIDI_NOTE_C_0
 #define MIDI_TONE_MAX QK_MIDI_NOTE_B_5
