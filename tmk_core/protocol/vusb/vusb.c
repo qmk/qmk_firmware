@@ -524,6 +524,24 @@ const PROGMEM uchar shared_hid_report[] = {
 #    endif
     0x81, 0x06, //     Input (Data, Variable, Relative)
 
+#    ifdef POINTING_DEVICE_HIRES_SCROLL_ENABLE
+    // Feature report and padding (1 byte)
+    0xA1, 0x02,                                    //     Collection (Logical)
+    0x09, 0x48,                                    //       Usage (Resolution Multiplier)
+    0x95, 0x01,                                    //       Report Count (1)
+    0x75, 0x02,                                    //       Report Size (2)
+    0x15, 0x00,                                    //       Logical Minimum (0)
+    0x25, 0x01,                                    //       Logical Maximum (1)
+    0x35, 0x01,                                    //       Physical Minimum (1)
+    0x45, POINTING_DEVICE_HIRES_SCROLL_MULTIPLIER, // Physical Maximum (POINTING_DEVICE_HIRES_SCROLL_MULTIPLIER)
+    0x55, POINTING_DEVICE_HIRES_SCROLL_EXPONENT,   // Unit Exponent (POINTING_DEVICE_HIRES_SCROLL_EXPONENT)
+    0xB1, 0x02,                                    //       Feature (Data, Variable, Absolute)
+    0x35, 0x00,                                    //       Physical Minimum (0)
+    0x45, 0x00,                                    //       Physical Maximum (0)
+    0x75, 0x06,                                    //       Report Size (6)
+    0xB1, 0x03,                                    //       Feature (Constant)
+#    endif
+
     // Vertical wheel (1 byte)
     0x09, 0x38, //     Usage (Wheel)
     0x15, 0x81, //     Logical Minimum (-127)
@@ -541,6 +559,10 @@ const PROGMEM uchar shared_hid_report[] = {
     0x81, 0x06,       //     Input (Data, Variable, Relative)
     0xC0,             //   End Collection
     0xC0,             // End Collection
+#endif
+
+#ifdef POINTING_DEVICE_HIRES_SCROLL_ENABLE
+    0xC0, // End Collection
 #endif
 
 #ifdef EXTRAKEY_ENABLE
