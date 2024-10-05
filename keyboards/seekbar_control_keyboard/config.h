@@ -15,6 +15,11 @@
 #define ENCODERS_PAD_A { F7 }
 #define ENCODERS_PAD_B { B1 }
 
+/* rgb-led */
+#define WS2812_DI_PIN D7
+#define RGBLIGHT_LED_COUNT 5
+
+
 /* disable debug print */
 //#define NO_DEBUG
 
