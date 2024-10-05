@@ -82,12 +82,14 @@ void keyboard_post_init_kb(void) {
 
 // This function gets called when caps, num, scroll change
 bool led_update_kb(led_t led_state) {
-    indicators_callback();
+    if(led_update_user(led_state)) {
+        indicators_callback();
+    }
     return true;
 }
 
 // This function is called when layers change
-layer_state_t layer_state_set_user(layer_state_t state) {
+__attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
     indicators_callback();
     return state;
 }
