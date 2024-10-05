@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 enum layers {
     _QWERTY,
-    _COLEMAKDH,
     _LOWER,
     _UPPER,
     _ADJUST,
@@ -33,93 +32,136 @@ enum custom_keycodes {
     LOWER,
     UPPER,
     ADJUST,
-    DF_QWRT,
-    DF_CMDH,
-    TG_GAME,
+    GAME,
 };
 
+/* Layer Keys */
 #define LOWER MO(_LOWER)
 #define UPPER MO(_UPPER)
 #define ADJUST MO(_ADJUST)
 #define DF_QWRT DF(_QWERTY)
-#define DF_CMDH DF(_COLEMAKDH)
 #define TG_GAME TG(_GAME)
+
+/* Mod Tap Keys for Qwerty Layer */
+#define A_LGUI LGUI_T(KC_A)
+#define S_LALT LALT_T(KC_S)
+#define D_LCTL LCTL_T(KC_D)
+#define F_LSFT LSFT_T(KC_F)
+#define J_RSFT RSFT_T(KC_J)
+#define K_RCTL RCTL_T(KC_K)
+#define L_RALT RALT_T(KC_L)
+#define SC_RGUI RGUI_T(KC_SCLN)
+
+/* Mod Tap Keys for Lower Layer */
+#define MIN_RSFT RSFT_T(KC_MINS)
+#define EQL_RCTL RCTL_T(KC_EQL)
+#define LBC_RALT RALT_T(KC_LBRC)
+#define RBC_RGUI RGUI_T(KC_RBRC)
+
+/* Mod Tap Keys for Upper Layer */
+#define F1_LGUI LGUI_T(KC_F1)
+#define F2_LALT LALT_T(KC_F2)
+#define F3_LCTL LCTL_T(KC_F3)
+#define F4_LSFT LSFT_T(KC_F4)
+
+
+static bool a_pressed = false;
+static bool d_pressed = false;
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (layer_state_is(_GAME)) {
+        switch (keycode) {
+            case KC_A:
+                if (record->event.pressed) {
+                    if (d_pressed) {
+                        unregister_code(KC_D);
+                    }
+                    register_code(KC_A);
+                    a_pressed = true;
+                } else {
+                    unregister_code(KC_A);
+                    a_pressed = false;
+                    if (d_pressed) {
+                        register_code(KC_D);
+                    }
+                }
+                return false;  // Skip default handling for this key
+
+            case KC_D:
+                if (record->event.pressed) {
+                    if (a_pressed) {
+                        unregister_code(KC_A);
+                    }
+                    register_code(KC_D);
+                    d_pressed = true;
+                } else {
+                    unregister_code(KC_D);
+                    d_pressed = false;
+                    if (a_pressed) {
+                        register_code(KC_A);
+                    }
+                }
+                return false;  // Skip default handling for this key
+        }
+    }
+    return true;  // Process all other keycodes normally
+}
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Qwerty
    * ,-----------------------------------------------------.  ,-----------------------------------------------------.
-   * |  Tab   |    Q   |    W   |    E   |    R   |    T   |  |    Y   |    U   |    I   |    O   |    P   |  Bksp  |
+   * |  Tab   |    Q   |    W   |    E   |    R   |    T   |  |    Y   |    U   |    I   |    O   |    P   |  Del   |
    * |--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
-   * |  Esc   |    A   |    S   |    D   |    F   |    G   |  |    H   |    J   |    K   |    L   |    ;   |   ""   |
+   * |  Esc   | A,LGUI | S,LALT | D,LCTL | F,LSFT |    G   |  |    H   | J,RSFT | K,RCTL | L,RALT | ;,RGUI |   ""   |
    * |--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
-   * |  Alt   |    Z   |    X   |    C   |    V   |    B   |  |    N   |    M   |    ,   |    .   |    /   | Enter  |
-   * |--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
-   *                            |  Ctrl  | Lower  | Space  |  | Shift  | Upper  |  GUI   |
+   * |  CAPS  |    Z   |    X   |    C   |    V   |    B   |  |    N   |    M   |    ,   |    .   |    /   | Enter  |
+   * `--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------'
+   *                            |  Hyper | Lower  | Space  |  |  Bksp  | Upper  |        |
    *                            `--------------------------'  `--------------------------'
    */
   [_QWERTY] = LAYOUT_split_3x6_3(
-       KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,       KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
-       KC_ESC,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,       KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
-      KC_LALT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,       KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_ENT,
-                                 KC_LCTL,   LOWER,  KC_SPC,    KC_RSFT,   UPPER,  KC_RGUI
-  ),
-
-  /* Colemak Mod-DH
-   * ,-----------------------------------------------------.  ,-----------------------------------------------------.
-   * |  Tab   |    Q   |    W   |    F   |    P   |    B   |  |    J   |    L   |    U   |    Y   |    ;   |  Bksp  |
-   * |--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
-   * |  Esc   |    A   |    R   |    S   |    T   |    G   |  |    M   |    N   |    E   |    I   |    O   |   ""   |
-   * |--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
-   * |  Alt   |    Z   |    X   |    C   |    D   |    V   |  |    K   |    H   |    ,   |    .   |    /   | Enter  |
-   * |--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
-   *                            |  Ctrl  | Lower  | Space  |  | Shift  | Upper  |  GUI   |
-   *                            `--------------------------'  `--------------------------'
-   */
-  [_COLEMAKDH] = LAYOUT_split_3x6_3(
-       KC_TAB,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,       KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN, KC_BSPC,
-       KC_ESC,    KC_A,    KC_R,    KC_S,    KC_T,    KC_G,       KC_M,    KC_N,    KC_E,    KC_I,    KC_O, KC_QUOT,
-      KC_LALT,    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,       KC_K,    KC_H, KC_COMM,  KC_DOT, KC_SLSH,  KC_ENT,
-                                 KC_LCTL,   LOWER,  KC_SPC,    KC_RSFT,   UPPER, KC_RGUI
+       KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_DEL,
+       KC_ESC,  A_LGUI,  S_LALT,  D_LCTL,  F_LSFT,    KC_G,       KC_H,  J_RSFT,  K_RCTL,  L_RALT, SC_RGUI, KC_QUOT,
+      KC_CAPS,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,       KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_ENT,
+                                 KC_HYPR,   LOWER,  KC_SPC,    KC_BSPC,   UPPER, XXXXXXX
   ),
 
   /* Lower
    * ,-----------------------------------------------------.  ,-----------------------------------------------------.
-   * |  Tab   |    !   |    @   |    #   |    $   |    %   |  |    ^   |    &   |    *   |    (   |    )   |  Bksp  |
+   * |  Tab   |    !   |    @   |    #   |    $   |    %   |  |    ^   |    &   |    *   |    (   |    )   |  Del   |
    * |--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
-   * |  Esc   |        |        |        |        |        |  |    `   |    -   |    =   |    [   |    ]   |   \    |
+   * |  Esc   |  GUI   |  Alt   |  Ctrl  | Shift  |        |  |    `   | -,RSFT | =,RCTL | [,RALT | ],RGUI |   \    |
    * |--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
-   * |  Alt   |        |        |        |        |        |  |    ~   |    _   |    +   |    {   |    }   |   |    |
-   * |--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
-   *                            |  Ctrl  | Trans  |  Alt   |  | Shift  | Adjust |  GUI   |
+   * |        |        |        |        |        |        |  |    ~   |    _   |    +   |    {   |    }   |   |    |
+   * `--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------'
+   *                            |  Hyper | Trans  | Space  |  |  Bksp  | Adjust |        |
    *                            `--------------------------'  `--------------------------'
    */
   [_LOWER] = LAYOUT_split_3x6_3(
-       KC_TAB, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,    KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
-       KC_ESC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     KC_GRV, KC_MINS,  KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS,
-      KC_LALT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_TILD, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
-                                 KC_LCTL, KC_TRNS, KC_LALT,    KC_RSFT,  ADJUST, KC_RGUI
+       KC_TAB, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,    KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,  KC_DEL,
+       KC_ESC, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX,     KC_GRV,MIN_RSFT,EQL_RCTL,LBC_RALT,RBC_RGUI, KC_BSLS,
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_TILD, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
+                                 KC_HYPR, KC_TRNS,  KC_SPC,    KC_BSPC,  ADJUST, XXXXXXX
   ),
-
 
   /* Upper
    * ,-----------------------------------------------------.  ,-----------------------------------------------------.
-   * |  Tab   |    1   |    2   |    3   |    4   |    5   |  |    6   |    7   |    8   |    9   |    0   |  Bksp  |
+   * |  Tab   |    1   |    2   |    3   |    4   |    5   |  |    6   |    7   |    8   |    9   |    0   |  Del   |
    * |--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
-   * |   F11  |   F1   |   F2   |   F3   |   F4   |   F5   |  |  Ins   |  Left  |  Down  |   Up   | Right  |  Del   |
+   * |   F11  |F1,LGUI |F2,LALT |F3,LCTL |F4,LSFT |   F5   |  |  Ins   |  Left  |  Down  |   Up   | Right  |   \    |
    * +--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
    * |   F12  |   F6   |   F7   |   F8   |   F9   |  F10   |  |PrntScrn|  Home  |Pg Down | Pg Up  |  End   | Enter  |
-   * |--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
-   *                            |  Ctrl  | Adjust |  Alt   |  | Shift  | Trans  |  GUI   |
+   * `--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------'
+   *                            |  Hyper | Adjust | Space  |  |  Bksp  | Trans  |        |
    *                            `--------------------------'  `--------------------------'
    */
   [_UPPER] = LAYOUT_split_3x6_3(
-       KC_TAB,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,       KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
-       KC_F11,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,     KC_INS, KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT,  KC_DEL,
+       KC_TAB,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,       KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_DEL,
+       KC_F11, F1_LGUI, F2_LALT, F3_LCTL, F4_LSFT,   KC_F5,     KC_INS, KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, KC_BSLS,
        KC_F12,   KC_F5,   KC_F7,   KC_F8,   KC_F9,  KC_F10,    KC_PSCR, KC_HOME, KC_PGDN, KC_PGUP,  KC_END,  KC_ENT,
-                                 KC_LCTL,  ADJUST, KC_LALT,    KC_RSFT, KC_TRNS, KC_RGUI
+                                 KC_HYPR,  ADJUST,  KC_SPC,    KC_BSPC, KC_TRNS, XXXXXXX
   ),
-
 
   /* Adjust
    * ,-----------------------------------------------------.  ,-----------------------------------------------------.
@@ -127,18 +169,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
    * |DF(QWRT)|        |        | Mouse2 | Mouse1 |        |  |  Vol+  |Ms Left |Ms Down | Ms Up  |Ms Right|        |
    * |--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
-   * |DF(CMDH)|        |        | Mouse4 | Mouse5 |        |  |  Vol-  | MsWl L | MsWl D | MsWl U | MsWl R |        |
-   * |--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
-   *                            |        | Trans  |        |  |        | Trans  |        |
+   * |        |        |        | Mouse4 | Mouse5 |        |  |  Vol-  | MsWl L | MsWl D | MsWl U | MsWl R |        |
+   * `--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------'
+   *                            |  Hyper | Lower  |        |  |        | Upper  |        |
    *                            `--------------------------'  `--------------------------'
    */
   [_ADJUST] = LAYOUT_split_3x6_3(
-      QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TG_GAME,    KC_MPLY, KC_MPRV, KC_MNXT, XXXXXXX, XXXXXXX, XXXXXXX,
-      DF_QWRT, XXXXXXX, XXXXXXX, KC_BTN2, KC_BTN1, XXXXXXX,    KC_VOLU, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, XXXXXXX,
-      DF_CMDH, XXXXXXX, XXXXXXX, KC_BTN4, KC_BTN5, XXXXXXX,    KC_VOLD, KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, XXXXXXX,
-                                 XXXXXXX, KC_TRNS, XXXXXXX,    XXXXXXX, KC_TRNS, XXXXXXX
+      QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TG_GAME,     KC_MPLY, KC_MPRV, KC_MNXT, XXXXXXX, XXXXXXX, XXXXXXX,
+      DF_QWRT, XXXXXXX, XXXXXXX, KC_BTN2, KC_BTN1, XXXXXXX,     KC_VOLU, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX, KC_BTN4, KC_BTN5, XXXXXXX,     KC_VOLD, KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, XXXXXXX,
+                                 KC_HYPR, KC_TRNS, XXXXXXX,     XXXXXXX, KC_TRNS, XXXXXXX
   ),
-
 
   /* Game
    * ,-----------------------------------------------------.  ,-----------------------------------------------------.
@@ -147,14 +188,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |    G   |  Shift |    A   |    S   |    D   |    F   |  |    H   |    J   |    K   |    L   |    ;   |   ""   |
    * |--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
    * |    B   |  Ctrl  |    Z   |    X   |    C   |    V   |  |    N   |    M   |    ,   |    .   |    /   | Enter  |
-   * |--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
+   * `--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------'
    *                            |   Esc  |  Alt   | Space  |  |        |        |TG(GAME)|
    *                            `--------------------------'  `--------------------------'
    */
   [_GAME] = LAYOUT_split_3x6_3(
-         KC_T,  KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSPC,
-         KC_G,  KC_LSFT,   KC_A,    KC_S,    KC_D,    KC_F,       KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
-         KC_B,  KC_LCTL,   KC_Z,    KC_X,    KC_C,    KC_V,       KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_ENT,
-                                  KC_ESC, KC_LALT,  KC_SPC,    XXXXXXX, XXXXXXX, TG_GAME
+         KC_T,  KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,        KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
+         KC_G,  KC_LSFT,   KC_A,    KC_S,    KC_D,    KC_F,        KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
+         KC_B,  KC_LCTL,   KC_Z,    KC_X,    KC_C,    KC_V,        KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_ENT,
+                                  KC_ESC, KC_LALT,  KC_SPC,     XXXXXXX, XXXXXXX, TG_GAME
   ),
 };

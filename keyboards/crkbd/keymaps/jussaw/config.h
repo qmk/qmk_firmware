@@ -20,12 +20,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+//#define USE_MATRIX_I2C
+
 /* Select hand configuration */
 #define MASTER_LEFT
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
-// Mouse key speed and acceleration.
+/* Mod Tap */
+#define TAP_CODE_DELAY 50
+#define TAPPING_TERM 200
+#define QUICK_TAP_TERM 0
+#define PERMISSIVE_HOLD_PER_KEY
+#define TAPPING_FORCE_HOLD
+
+/* Mouse key speed and acceleration. */
 #undef MOUSEKEY_DELAY
 #define MOUSEKEY_DELAY          0
 #undef MOUSEKEY_INTERVAL
