@@ -60,7 +60,6 @@
 
 #if defined(RGB_BACKLIGHT_DAWN60)
 #include "ws2812.h"
-rgb_led_t g_ws2812_leds[WS2812_LED_TOTAL];
 #endif
 
 #include "progmem.h"
@@ -1011,6 +1010,9 @@ void backlight_update_pwm_buffers(void)
         driver = 0;
     }
 #else
+#if defined(RGB_BACKLIGHT_DAWN60)
+    ws2812_flush();
+#endif
     is31fl3731_update_pwm_buffers( 0 );
     is31fl3731_update_pwm_buffers( 1 );
     is31fl3731_update_led_control_registers( 0 );
@@ -1037,10 +1039,7 @@ void backlight_set_color( int index, uint8_t red, uint8_t green, uint8_t blue )
     if( index < IS31FL3731_LED_COUNT ) {
         is31fl3731_set_color( index, red, green, blue );
     } else {
-        g_ws2812_leds[index - IS31FL3731_LED_COUNT].r = red;
-        g_ws2812_leds[index - IS31FL3731_LED_COUNT].g = green;
-        g_ws2812_leds[index - IS31FL3731_LED_COUNT].b = blue;
-        ws2812_setleds(g_ws2812_leds, WS2812_LED_TOTAL);
+        ws2812_set_color( index - IS31FL3731_LED_COUNT, red, green, blue );
     }
 #else
     is31fl3731_set_color( index, red, green, blue );
@@ -1075,12 +1074,7 @@ void backlight_set_color_all( uint8_t red, uint8_t green, uint8_t blue )
     }
 #elif defined(RGB_BACKLIGHT_DAWN60)
     is31fl3731_set_color_all( red, green, blue );
-    for (uint8_t i = 0; i < WS2812_LED_TOTAL; i++) {
-        g_ws2812_leds[i].r = red;
-        g_ws2812_leds[i].g = green;
-        g_ws2812_leds[i].b = blue;
-    }
-    ws2812_setleds(g_ws2812_leds, WS2812_LED_TOTAL);
+    ws2812_set_color_all( red, green, blue );
 #else
     is31fl3731_set_color_all( red, green, blue );
 #endif
@@ -1325,7 +1319,7 @@ void backlight_effect_alphas_mods(void)
         }
     }
 #if defined(RGB_BACKLIGHT_DAWN60)
-    for (int i = 0; i < WS2812_LED_TOTAL; i++) {
+    for (int i = 0; i < WS2812_LED_COUNT; i++) {
         if ((RGB_UNDERGLOW_ALPHA_TOP_START <= i && i <= RGB_UNDERGLOW_ALPHA_TOP_END) ||
             (RGB_UNDERGLOW_ALPHA_BOT_START <= i && i <= RGB_UNDERGLOW_ALPHA_BOT_END)) {
             backlight_set_color(i + IS31FL3731_LED_COUNT, rgb1.r, rgb1.g, rgb1.b);

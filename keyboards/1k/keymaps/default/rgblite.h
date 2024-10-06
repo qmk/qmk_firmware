@@ -11,8 +11,8 @@ static inline void rgblite_init(void) {
 }
 
 static inline void rgblite_setrgb(RGB rgb) {
-    rgb_led_t leds[RGBLIGHT_LED_COUNT] = {{.r = rgb.r, .g = rgb.g, .b = rgb.b}};
-    ws2812_setleds(leds, RGBLIGHT_LED_COUNT);
+    ws2812_set_color_all(rgb.r, rgb.g, rgb.b);
+    ws2812_flush();
 }
 
 static void rgblite_increase_hue(void) {
