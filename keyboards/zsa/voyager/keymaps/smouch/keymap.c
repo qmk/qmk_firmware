@@ -1,4 +1,6 @@
 
+#include "color.h"
+#include "keycodes.h"
 #include QMK_KEYBOARD_H
 #include "version.h"
 
@@ -39,21 +41,21 @@ enum custom_keycodes {
 
 // Num row
 #define LN5 KC_ESC
-#define LN4 KC_NO
-#define LN3 KC_NO
-#define LN2 KC_TAB
-#define LN1 KC_NO
-#define LN0 TG(_PM)
+#define LN4 KC_3
+#define LN3 KC_2
+#define LN2 KC_1
+#define LN1 KC_0
+#define LN0 KC_4
 
-#define RN0 TG(_NUM)
-#define RN1 KC_LPRN
-#define RN2 KC_DEL
-#define RN3 KC_RPRN
-#define RN4 KC_VOLD
-#define RN5 KC_VOLU
+#define RN0 KC_7
+#define RN1 KC_6
+#define RN2 KC_5
+#define RN3 KC_9
+#define RN4 KC_8
+#define RN5 KC_CAPS
 
 // top row
-#define LT5 KC_GRV
+#define LT5 KC_TAB
 #define LT4 KC_X
 #define LT3 KC_W
 #define LT2 LCTL_T(KC_M)
@@ -65,7 +67,7 @@ enum custom_keycodes {
 #define RT2 RCTL_T(KC_SLSH)
 #define RT3 KC_DQUO
 #define RT4 KC_QUOT
-#define RT5 KC_BSLS
+#define RT5 KC_GRV
 
 // middle row
 #define LM5 KC_Z
@@ -83,7 +85,7 @@ enum custom_keycodes {
 #define RM5 KC_Q
 
 // bottom row
-#define LB5 KC_NO
+#define LB5 DF(_PM)
 #define LB4 KC_F
 #define LB3 KC_P
 #define LB2 KC_L
@@ -95,7 +97,7 @@ enum custom_keycodes {
 #define RB2 KC_O
 #define RB3 KC_Y
 #define RB4 KC_B
-#define RB5 KC_NO
+#define RB5 KC_BSLS
 
 // thumb row
 #define LH1 LT(_NAV, KC_R)
@@ -130,10 +132,10 @@ static uint16_t keyhold_timer; // for handling Qu combo
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*  Base (alpha) Layer Hands Down Vibranuim-F
             Building for ZSA Voyager
-    ⎋           ⇥        tg          tg  (   ⌦   )   vol↓↑
-    `   x   w   m⌃   g   j           +=  .:  /⌃  "!  '? \
+    ⎋   3   2   1    0   4           7   6   5   9   8  Cap
+    ⇥   x   w   m⌃   g   j           +=  .:  /⌃  "!  '? `
     z   s   c⌥  n⌘   t⇧  k           ,;  a⇧  e⌘  i⌥  h  q
-        f   p   l    d   v      	 -   u   o   y   b
+    tg  f   p   l    d   v      	 -   u   o   y   b  \
                          r   ⌫   ⏎   ␣
   */
   [_DEF] = LAYOUT_voyager(
@@ -144,18 +146,49 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LH1, LH0, RH0, RH1
   ),
 
-  /*        ⇥  					tg
-    *   7   8   9   -       	+   .   ⌃
-    /   1   2   3   +       	,   ⇧   ⌘   ⌥
-    ,   4   5   6   =       	-   ⌫
-    	            0   .   ⏎   ␣
+  /*  Hands Down Promethium (canonical)
+    ⎋   3   2   1    0   4           7   6   5   9   8  Cap
+    ⇥   v   w   g⌃   m   j           +=  .:  /⌃  "!  '? `
+    z   s   n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘  i⌥  c  q
+    tg  f   p   d    l   x      	 -   u   o   y   b  \
+                         r   ⌫   ⏎   ␣
   */
+  [_PM] = LAYOUT_voyager(
+    LN5, LN4,  LN3,  LN2,  LN1,  LN0,    RN0, RN1, RN2, RN3, RN4, RN5,
+    LT5, KC_V, LT3,  LCTL_T(KC_G), KC_M, LT0,    RT0, RT1, RT2, RT3, RT4, RT5,
+    LM5, LM4,  LALT_T(KC_N), LGUI_T(KC_T), LSFT_T(KC_H), LM0,    RM0, RM1, RM2, RM3, LT(_SYM, KC_C), RM5,
+    DF(_DEF), LB4,  LB3,  KC_D, KC_L, KC_X,   RB0, RB1, RB2, RB3, RB4, RB5,
+    LH1, LH0,  RH0,  RH1
+  ),
+
+  /*
+    ⇥   *   7   8   9   -       	+   .   ⌃
+        /   1   2   3   +       	,   ⇧   ⌘   ⌥
+        ,   4   5   6   =       	-   ⌫
+    	                0   .   ⏎   ␣
+  *
   [_NUM] = LAYOUT_voyager(
     _______, _______, _______, _______, _______, _______,                  _______, _______, _______, _______, _______, _______,
     _______, KC_ASTR, KC_7,    KC_8,    KC_9,    KC_MINS,                  _______, _______, KC_RCTL, _______, _______, ___x___,
     _______, KC_SLSH, KC_1,    KC_2,    KC_3,    KC_PLUS,                  _______, KC_RSFT, KC_RGUI, KC_RALT, _______, ___x___,
     _______, KC_COMM, KC_4,    KC_5,    KC_6,    KC_EQL,                   ___x___, KC_BSPC, KC_TAB,  KC_ENT,  ___x___, _______,
                                                  KC_0,    KC_DOT, _______, _______
+  ),
+  */
+
+ /*
+			+	/	*	=
+    ⇥   -   5   2   3   :       	+   .   ⌃
+        7   .   1   0   4       	,   ⇧   ⌘   ⌥
+        ,   6   9   8   ⏎       	-   ⌫
+    	                ␣   ⌫   ⏎   ␣
+  */
+  [_NUM] = LAYOUT_voyager(
+    _______, _______, KC_PLUS, KC_SLSH, KC_ASTR, _______,                   _______, _______, _______, _______, _______, _______,
+    _______, KC_MINS, KC_7,    KC_8,    KC_9,    KC_COLN,                   _______, _______, KC_RCTL, _______, _______, ___x___,
+    _______, KC_7,    KC_DOT,  KC_1,    KC_0,    KC_4,                      _______, KC_RSFT, KC_RGUI, KC_RALT, _______, ___x___,
+    _______, KC_COMM, KC_4,    KC_5,    KC_6,    KC_ENT,                    ___x___, KC_BSPC, KC_TAB,  KC_ENT,  ___x___, _______,
+                                                 KC_SPC,  _______, _______, _______
   ),
 
   /* Pascal Getreuer Mod
@@ -186,27 +219,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                          _______, _______, C(KC_LEFT), C(KC_RIGHT)
   ),
 
-  /*  Hands Down Promethium (canonical)
-    ⎋           ⇥        tg          tg  (   ⌦   )   vol↓↑
-    `   v   w   g⌃   m   j           +=  .:  /⌃  "!  '? \
-    z   s   n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘  i⌥  c  q
-        f   p   d    l   x      	 -   u   o   y   b
-                         r   ⌫   ⏎   ␣
-  */
-  [_PM] = LAYOUT_voyager(
-    LN5, LN4,  LN3,  LN2,  LN1,  LN0,    RN0, RN1, RN2, RN3, RN4, RN5,
-    LT5, KC_V, LT3,  LCTL_T(KC_G), KC_M, LT0,    RT0, RT1, RT2, RT3, RT4, RT5,
-    LM5, LM4,  LALT_T(KC_N), LGUI_T(KC_T), LSFT_T(KC_H), LM0,    RM0, RM1, RM2, RM3, LT(_SYM, KC_C), RM5,
-    LB5, LB4,  LB3,  KC_D, KC_L, KC_X,   RB0, RB1, RB2, RB3, RB4, RB5,
-    LH1, LH0,  RH0,  RH1
-  ),
-
 };
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
 	    case LM1:
         case RM1:
+        case LSFT_T(KC_H):
             return TAPPING_TERM - 25;
 
     	case LB4:
@@ -215,6 +234,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case RM2:
         case RM3:
         case RB4:
+        case LALT_T(KC_N):
+        case LGUI_T(KC_T):
             return TAPPING_TERM + 75;
 
         default:
@@ -309,16 +330,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 
 // Key overrides
-const key_override_t plus_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_PLUS, KC_EQL);	/* shift + is = */
-const key_override_t dot_key_override = ko_make_basic(MOD_MASK_SHIFT,  KC_DOT, KC_COLN);	/* shift . is : */
-const key_override_t comm_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_COMM, KC_SCLN);	/* shift , is ; */
-const key_override_t slsh_key_override = ko_make_basic(MOD_MASK_SHIFT, RCTL_T(KC_SLSH), KC_ASTR);	    /* shift / is * */
-const key_override_t dquo_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_DQUO, KC_QUES);	/* shift " is ? */
-const key_override_t quot_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_QUOT, KC_EXLM);	/* shift ' is ! */
-const key_override_t bspc_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);	/* shift ⌫ is ⌦ */
+const key_override_t two_key_override  = ko_make_basic(MOD_MASK_SHIFT, KC_2, KC_AT);				/* shift 2 is @ */
+const key_override_t one_key_override  = ko_make_basic(MOD_MASK_SHIFT, KC_1, KC_DLR);				/* shift 1 is $ */
+const key_override_t zero_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_0, KC_HASH);				/* shift 0 is # */
+const key_override_t plus_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_PLUS, KC_EQL);			/* shift + is = */
+const key_override_t dot_key_override  = ko_make_basic(MOD_MASK_SHIFT, KC_DOT, KC_COLN);			/* shift . is : */
+const key_override_t comm_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_COMM, KC_SCLN);			/* shift , is ; */
+const key_override_t slsh_key_override = ko_make_basic(MOD_MASK_SHIFT, RCTL_T(KC_SLSH), KC_ASTR);	/* shift / is * */
+const key_override_t dquo_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_DQUO, KC_QUES);			/* shift " is ? */
+const key_override_t quot_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_QUOT, KC_EXLM);			/* shift ' is ! */
+const key_override_t bspc_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);			/* shift ⌫ is ⌦ */
 
 // This globally defines all key overrides to be used
 const key_override_t *key_overrides[] = {
+	&two_key_override,
+	&one_key_override,
+	&zero_key_override,
     &plus_key_override,
     &dot_key_override,
     &comm_key_override,
