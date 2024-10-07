@@ -6,7 +6,3 @@
 
 #undef STM32_SPI_USE_SPI2
 #define STM32_SPI_USE_SPI2 TRUE
-
-#undef STM32_SPI_USE_DMA
-#define STM32_SPI_USE_DMA TRUE
-
