@@ -238,10 +238,6 @@ else
         OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_TRANSIENT
         SRC += eeprom_driver.c eeprom_transient.c
       endif
-    else ifeq ($(PLATFORM),ARM_ATSAM)
-      # arm_atsam EEPROM
-      OPT_DEFS += -DEEPROM_SAMD
-      SRC += eeprom_samd.c
     else ifeq ($(PLATFORM),TEST)
       # Test harness "EEPROM"
       OPT_DEFS += -DEEPROM_TEST_HARNESS
@@ -936,7 +932,7 @@ ifeq ($(strip $(WS2812_DRIVER_REQUIRED)), yes)
 
     OPT_DEFS += -DWS2812_$(strip $(shell echo $(WS2812_DRIVER) | tr '[:lower:]' '[:upper:]'))
 
-    SRC += ws2812_$(strip $(WS2812_DRIVER)).c
+    SRC += ws2812.c ws2812_$(strip $(WS2812_DRIVER)).c
 
     ifeq ($(strip $(PLATFORM)), CHIBIOS)
         ifeq ($(strip $(WS2812_DRIVER)), pwm)
