@@ -47,7 +47,8 @@
 
 /* LED Indication */
 #    define CAPS_LOCK_INDEX 48
-#    define PROFILE_LED_MATRIX_LIST { 64, 65, 66 }
+#    define PROFILE_LED_MATRIX_LIST \
+        { 64, 65, 66 }
 
 #    define RGB_MATRIX_KEYPRESSES
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS

@@ -40,7 +40,6 @@
 
 static uint32_t power_on_indicator_timer;
 
-
 #ifdef DIP_SWITCH_ENABLE
 bool dip_switch_update_kb(uint8_t index, bool active) {
     if (index == 0) {

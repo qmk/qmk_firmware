@@ -35,7 +35,7 @@
 #endif
 
 #ifndef POWER_ON_LED_DURATION
-#define POWER_ON_LED_DURATION 3000
+#    define POWER_ON_LED_DURATION 3000
 #endif
 
 static uint32_t power_on_indicator_timer;

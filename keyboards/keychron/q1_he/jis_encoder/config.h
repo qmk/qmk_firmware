@@ -49,7 +49,8 @@
 #    define CAPS_LOCK_INDEX 44
 #    define LOW_BAT_IND_INDEX \
         { 77 }
-#    define PROFILE_LED_MATRIX_LIST { 60, 61, 62 }
+#    define PROFILE_LED_MATRIX_LIST \
+        { 60, 61, 62 }
 
 #    define RGB_MATRIX_KEYPRESSES
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
