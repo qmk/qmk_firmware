@@ -16,6 +16,12 @@
         "extrakey": true,
         "nkro": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "debounce": 0,
     "layouts": {
         "LAYOUT_ansi": {

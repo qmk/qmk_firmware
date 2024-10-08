@@ -27,7 +27,6 @@ Example:
 For full documentation, see QMK Docs
 """
 
-import sys
 import textwrap
 from typing import Any, Dict, Iterator, List, Tuple
 
@@ -38,6 +37,7 @@ from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
 from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.keymap import keymap_completer, locate_keymap
 from qmk.path import normpath
+from qmk.util import maybe_exit
 
 KC_A = 4
 KC_SPC = 0x2c
@@ -88,16 +88,16 @@ def parse_file(file_name: str) -> List[Tuple[str, str]]:
         # Check that `typo` is valid.
         if not (all([c in TYPO_CHARS for c in typo])):
             cli.log.error('{fg_red}Error:%d:{fg_reset} Typo "{fg_cyan}%s{fg_reset}" has characters other than a-z, \' and :.', line_number, typo)
-            sys.exit(1)
+            maybe_exit(1)
         for other_typo in typos:
             if typo in other_typo or other_typo in typo:
                 cli.log.error('{fg_red}Error:%d:{fg_reset} Typos may not be substrings of one another, otherwise the longer typo would never trigger: "{fg_cyan}%s{fg_reset}" vs. "{fg_cyan}%s{fg_reset}".', line_number, typo, other_typo)
-                sys.exit(1)
+                maybe_exit(1)
         if len(typo) < 5:
             cli.log.warning('{fg_yellow}Warning:%d:{fg_reset} It is suggested that typos are at least 5 characters long to avoid false triggers: "{fg_cyan}%s{fg_reset}"', line_number, typo)
         if len(typo) > 127:
             cli.log.error('{fg_red}Error:%d:{fg_reset} Typo exceeds 127 chars: "{fg_cyan}%s{fg_reset}"', line_number, typo)
-            sys.exit(1)
+            maybe_exit(1)
 
         check_typo_against_dictionary(typo, line_number, correct_words)
 
@@ -136,7 +136,7 @@ def parse_file_lines(file_name: str) -> Iterator[Tuple[int, str, str]]:
             tokens = [token.strip() for token in line.split('->', 1)]
             if len(tokens) != 2 or not tokens[0]:
                 print(f'Error:{line_number}: Invalid syntax: "{line}"')
-                sys.exit(1)
+                maybe_exit(1)
 
             typo, correction = tokens
             typo = typo.lower()  # Force typos to lowercase.
@@ -237,7 +237,7 @@ def encode_link(link: Dict[str, Any]) -> List[int]:
     byte_offset = link['byte_offset']
     if not (0 <= byte_offset <= 0xffff):
         cli.log.error('{fg_red}Error:{fg_reset} The autocorrection table is too large, a node link exceeds 64KB limit. Try reducing the autocorrection dict to fewer entries.')
-        sys.exit(1)
+        maybe_exit(1)
     return [byte_offset & 255, byte_offset >> 8]
 
 

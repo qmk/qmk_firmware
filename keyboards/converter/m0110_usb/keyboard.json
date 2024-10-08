@@ -17,6 +17,12 @@
     "extrakey": true,
     "usb_hid": true
   },
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  },
   "layouts": {
     "LAYOUT_ansi": {
       "layout": [

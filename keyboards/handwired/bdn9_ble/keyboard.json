@@ -27,6 +27,12 @@
     "backlight": true,
     "bluetooth": true
   },
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  },
   "matrix_pins": {
     "direct": [
       ["D1", "D0", "C6"],

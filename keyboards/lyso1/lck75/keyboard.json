@@ -29,6 +29,12 @@
         "encoder": true,
         "wpm": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": false,
+            "resync": false
+        }
+    },
     "layouts": {
         "LAYOUT_default": {
             "layout": [

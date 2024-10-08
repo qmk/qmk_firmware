@@ -15,7 +15,6 @@
         "mousekey": true,
         "nkro": false,
         "pointing_device": true,
-        "rgblight": false,
         "encoder": true
     },
     "bootmagic": {

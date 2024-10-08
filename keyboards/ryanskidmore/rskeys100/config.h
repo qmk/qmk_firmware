@@ -25,11 +25,3 @@
  * switch and a diode towards the row. The row is then connected to the AVR as an input. This means
  * the diode direction is COL(umn) to ROW */
 #define DIODE_DIRECTION COL2ROW
-
-/* The number of RGB LEDs connected */
-#define RGB_MATRIX_LED_COUNT 105
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE

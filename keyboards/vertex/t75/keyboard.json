@@ -1,6 +1,6 @@
 {
     "manufacturer": "vertex",
-    "keyboard_name": "T75",
+    "keyboard_name": "Part.1-75-HS",
     "board": "STM32_F103_STM32DUINO",
     "bootloader": "stm32duino",
     "diode_direction": "ROW2COL",

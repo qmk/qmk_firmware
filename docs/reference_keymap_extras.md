@@ -23,6 +23,8 @@ These headers are located in [`quantum/keymap_extras/`](https://github.com/qmk/q
 |Canadian Multilingual (CSA)      |`keymap_canadian_multilingual.h` |`sendstring_canadian_multilingual.h`|
 |Croatian                         |`keymap_croatian.h`              |`sendstring_croatian.h`             |
 |Czech                            |`keymap_czech.h`                 |`sendstring_czech.h`                |
+|Czech (macOS, ANSI)              |`keymap_czech_mac_ansi.h`        |`sendstring_czech_mac_ansi.h`       |
+|Czech (macOS, ISO)               |`keymap_czech_mac_iso.h`         |`sendstring_czech_mac_iso.h`        |
 |Danish                           |`keymap_danish.h`                |`sendstring_danish.h`               |
 |Dutch (Belgium)                  |`keymap_belgian.h`               |`sendstring_belgian.h`              |
 |English (Ireland)                |`keymap_irish.h`                 |                                    |
@@ -31,6 +33,7 @@ These headers are located in [`quantum/keymap_extras/`](https://github.com/qmk/q
 |English (US International)       |`keymap_us_international.h`      |`sendstring_us_international.h`     |
 |English (US International, Linux)|`keymap_us_international_linux.h`|                                    |
 |Estonian                         |`keymap_estonian.h`              |`sendstring_estonian.h`             |
+|Farsi                            |`keymap_farsi.h`                 |                                    |
 |Finnish                          |`keymap_finnish.h`               |`sendstring_finnish.h`              |
 |French                           |`keymap_french.h`                |`sendstring_french.h`               |
 |French (AFNOR)                   |`keymap_french_afnor.h`          |`sendstring_french_afnor.h`         |

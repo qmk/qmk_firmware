@@ -387,13 +387,29 @@ void ws2812_write_led_rgbw(uint16_t led_number, uint8_t r, uint8_t g, uint8_t b,
     }
 }
 
-// Setleds for standard RGB
-void ws2812_setleds(rgb_led_t* ledarray, uint16_t leds) {
-    for (uint16_t i = 0; i < leds; i++) {
-#ifdef WS2812_RGBW
-        ws2812_write_led_rgbw(i, ledarray[i].r, ledarray[i].g, ledarray[i].b, ledarray[i].w);
+ws2812_led_t ws2812_leds[WS2812_LED_COUNT];
+
+void ws2812_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
+    ws2812_leds[index].r = red;
+    ws2812_leds[index].g = green;
+    ws2812_leds[index].b = blue;
+#if defined(WS2812_RGBW)
+    ws2812_rgb_to_rgbw(&ws2812_leds[index]);
+#endif
+}
+
+void ws2812_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
+    for (int i = 0; i < WS2812_LED_COUNT; i++) {
+        ws2812_set_color(i, red, green, blue);
+    }
+}
+
+void ws2812_flush(void) {
+    for (int i = 0; i < WS2812_LED_COUNT; i++) {
+#if defined(WS2812_RGBW)
+        ws2812_write_led_rgbw(i, ws2812_leds[i].r, ws2812_leds[i].g, ws2812_leds[i].b, ws2812_leds[i].w);
 #else
-        ws2812_write_led(i, ledarray[i].r, ledarray[i].g, ledarray[i].b);
+        ws2812_write_led(i, ws2812_leds[i].r, ws2812_leds[i].g, ws2812_leds[i].b);
 #endif
     }
 }

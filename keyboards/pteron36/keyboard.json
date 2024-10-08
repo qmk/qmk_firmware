@@ -19,6 +19,12 @@
         "oled": true,
         "rgblight": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "matrix_pins": {
         "cols": ["F6", "F7", "B1", "B3", "B2"],
         "rows": ["E6", "D7", "B4", "B5"]
@@ -34,13 +40,15 @@
     },
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D3",
         "encoder": {
             "right": {
                 "rotary": [
                     {"pin_a": "F4", "pin_b": "F5"}
                 ]
             }
+        },
+        "serial": {
+            "pin": "D3"
         }
     },
     "rgblight": {

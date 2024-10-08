@@ -18,6 +18,12 @@
         "nkro": true,
         "sleep_led": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

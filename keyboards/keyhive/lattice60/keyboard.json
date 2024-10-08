@@ -20,6 +20,12 @@
         "mousekey": true,
         "extrakey": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "community_layouts": ["60_hhkb"],
     "layouts": {
         "LAYOUT_all": {

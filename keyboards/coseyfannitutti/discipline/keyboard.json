@@ -21,6 +21,12 @@
         "mousekey": true,
         "extrakey": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "layout_aliases": {
         "LAYOUT_65_ansi_2_right_mods": "LAYOUT_65_ansi_blocker",
         "LAYOUT_65_iso_2_right_mods": "LAYOUT_65_iso_blocker",
