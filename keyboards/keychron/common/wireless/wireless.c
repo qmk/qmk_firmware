@@ -357,6 +357,8 @@ void wireless_send_keyboard(report_keyboard_t *report) {
     if (wireless_state == WT_CONNECTED || (wireless_state == WT_PARING && pincodeEntry)) {
         if (wireless_transport.send_keyboard) {
 #ifndef DISABLE_REPORT_BUFFER
+            uint8_t empty = report_buffer_is_empty();
+
             report_buffer_t report_buffer;
             report_buffer.type = REPORT_TYPE_KB;
             memcpy(&report_buffer.keyboard, report, sizeof(report_keyboard_t));

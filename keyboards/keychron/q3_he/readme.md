@@ -1,20 +1,19 @@
-# Keychron Q1 HE
+# Keychron Q3 HE
 
-![Keychron Q1 HE](https://cdn.shopify.com/s/files/1/0059/0630/1017/files/Keychron-Q1-HE-Email-2.jpg)
+![Keychron Q3 HE](https://cdn.shopify.com/s/files/1/0059/0630/1017/files/Keychron-Q3-HE-page1.jpg)
 
-A customizable 75% hall effect keyboard.
+A customizable 80% hall effect keyboard.
 
 * Keyboard Maintainer: [Keychron](https://github.com/keychron)
-* Hardware Supported: Keychron Q1 HE
-* Hardware Availability: [Keychron Q1 HE QMK/VIA Wireless Custom Mechanical Keyboard](https://www.keychron.com/products/keychron-q1-he-qmk-wireless-custom-keyboard)
+* Hardware Supported: Keychron Q3 HE
+* Hardware Availability: [Keychron Q3 HE QMK/VIA Wireless Custom Mechanical Keyboard](https://www.keychron.com/products/keychron-q3-he-qmk-wireless-custom-keyboard)
+  Make example for this keyboard (after setting up your build environment):
 
-Make example for this keyboard (after setting up your build environment):
-
-    make keychron/q1_he/ansi_encoder:default
+    make keychron/q3_he/ansi_encoder:default
 
 Flashing example for this keyboard:
 
-    make keychron/q1_he/ansi_encoder:default:flash
+    make keychron/q3_he/ansi_encoder:default:flash
 
 **Reset Key**: Disconnect the USB cable, toggle mode switch to "Cable", hold down the *Esc* key or reset button underneath space bar, then connect the USB cable.
 
