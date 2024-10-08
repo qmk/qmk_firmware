@@ -31,6 +31,7 @@ safe_commands = [
 ]
 
 subcommands = [
+    'qmk.cli.resolve_alias',
     'qmk.cli.ci.validate_aliases',
     'qmk.cli.bux',
     'qmk.cli.c2json',
