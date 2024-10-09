@@ -36,19 +36,19 @@ __attribute__((weak)) uint8_t combo_ref_from_layer(uint8_t layer) {
 #endif
 
 #ifdef COMBO_MUST_HOLD_PER_COMBO
-__attribute__((weak)) bool get_combo_must_hold(uint16_t index, combo_t *combo) {
+__attribute__((weak)) bool get_combo_must_hold(uint16_t combo_index, combo_t *combo) {
     return false;
 }
 #endif
 
 #ifdef COMBO_MUST_TAP_PER_COMBO
-__attribute__((weak)) bool get_combo_must_tap(uint16_t index, combo_t *combo) {
+__attribute__((weak)) bool get_combo_must_tap(uint16_t combo_index, combo_t *combo) {
     return false;
 }
 #endif
 
 #ifdef COMBO_TERM_PER_COMBO
-__attribute__((weak)) uint16_t get_combo_term(uint16_t index, combo_t *combo) {
+__attribute__((weak)) uint16_t get_combo_term(uint16_t combo_index, combo_t *combo) {
     return COMBO_TERM;
 }
 #endif
