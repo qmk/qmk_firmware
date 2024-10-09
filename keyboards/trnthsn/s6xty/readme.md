@@ -2,7 +2,7 @@
 
 ![trnthsn/s6xty](https://i.imgur.com/YJZxxqY.png)
 
-*A short description of the keyboard/project*
+A 60% keyboard PCB compatible with various keyboard cases. Supports a left USB Type-C connector or 3 JST SH positions for a daughter board
 
 * Keyboard Maintainer: [ThanhSon.Mech](https://github.com/trnthsn)
 * Hardware Supported: s6xty PCB, STM32F072
