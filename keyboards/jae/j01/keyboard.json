@@ -33,6 +33,10 @@
         "levels": 4,
         "breathing": true
     },
+    "indicators": {
+        "caps_lock": "E6",
+        "on_state": 0
+    },
     "bootmagic": {
         "matrix": [0, 2]
     },

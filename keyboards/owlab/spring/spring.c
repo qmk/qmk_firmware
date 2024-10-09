@@ -76,7 +76,7 @@ void set_caps_mode(uint8_t mode){
 }
 
 
-void matrix_scan_kb(void) {
+void housekeeping_task_kb(void) {
 	if(caps_in){
 		if(timer_elapsed32(caps_timer) > 3000){
             rgblight_sethsv(pre_rgb.hue, pre_rgb.sat, pre_rgb.val);	
@@ -84,8 +84,6 @@ void matrix_scan_kb(void) {
             caps_in = false;
 		}
 	}
-
-    matrix_scan_user();
 }
 
 

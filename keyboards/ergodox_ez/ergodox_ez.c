@@ -382,15 +382,23 @@ static bool is_on = false;
 static bool is_dynamic_recording = false;
 static uint16_t dynamic_loop_timer;
 
-void dynamic_macro_record_start_user(int8_t direction) {
+bool dynamic_macro_record_start_kb(int8_t direction) {
+    if (!dynamic_macro_record_start_user(direction)) {
+        return false;
+    }
     is_dynamic_recording = true;
     dynamic_loop_timer = timer_read();
     ergodox_right_led_1_on();
+    return true;
 }
 
-void dynamic_macro_record_end_user(int8_t direction) {
+bool dynamic_macro_record_end_kb(int8_t direction) {
+    if (!dynamic_macro_record_end_user(direction)) {
+        return false;
+    }
     is_dynamic_recording = false;
     layer_state_set_user(layer_state);
+    return true;
 }
 #endif
 

@@ -20,12 +20,12 @@ led_config_t g_led_config = {
         { 13, 12, 11, 10,  9,  8,  7         },
         {   0, 1,  2,   3, 4,  5,  6         },
         /*right*/
-        { NO_LED, 72, 71, 70, 73, 75, 74     },
-        { 65, 66, 67, 68, 69, NO_LED, NO_LED },
-        { 64, 63, 62, 61, 60, 59, 58         },
-        { 52, 53, 54, 55, 56, 57, NO_LED     },
-        { 51, 50, 49, 48, 47, 46, 45         },
-        { 38, 39, 40, 41, 42, 43, 44         }
+        { NO_LED, 77, 76, 75, 78, 80, 79     },
+        { 70, 71, 72, 73, 74, NO_LED, NO_LED },
+        { 69, 68, 67, 66, 65, 64, 63         },
+        { 57, 58, 59, 60, 61, 62, NO_LED     },
+        { 56, 55, 54, 53, 52, 51, 50         },
+        { 43, 44, 45, 46, 47, 48, 49         }
     },
     {
         // LED Index to Physical Position
@@ -248,13 +248,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void matrix_scan_kb(void) {
-    if (!is_oled_on()) {
-        m2s.cur_alp_index = 1;
-    }
-    matrix_scan_user();
-}
-
 void user_sync_alpa_slave_handler(uint8_t in_buflen, const void *in_data, uint8_t out_buflen, void *out_data) {
     const master_to_slave_t *m2s_p = (const master_to_slave_t *)in_data;
     s2m.cur_alp_index              = m2s_p->cur_alp_index;
@@ -270,6 +263,9 @@ void keyboard_post_init_kb(void) {
 
 void housekeeping_task_kb(void) {
     if (is_keyboard_master()) {
+        if (!is_oled_on()) {
+            m2s.cur_alp_index = 1;
+        }
         // Interact with slave every 200ms
         static uint32_t last_sync = 0;
         if (timer_elapsed32(last_sync) > 200) {
@@ -281,7 +277,6 @@ void housekeeping_task_kb(void) {
             }
         }
     }
-    housekeeping_task_user();
 }
 
 #endif

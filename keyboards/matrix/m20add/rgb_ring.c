@@ -361,26 +361,21 @@ static void custom_effects(void)
     effect_funcs[rgb_ring.effect]();
 }
 
-void setleds_custom(rgb_led_t *start_led, uint16_t num_leds)
-{
+void flush_custom(void) {
     if (rgb_ring.state != RING_STATE_QMK) {
         return;
     }
 
-    for (uint8_t i = 0; i < num_leds; i++) {
-        is31fl3731_set_color(i, start_led[i].r, start_led[i].g, start_led[i].b);
-    }
+    is31fl3731_flush();
 }
 
 const rgblight_driver_t rgblight_driver = {
-    .setleds = setleds_custom,
+    .init          = is31fl3731_init_drivers,
+    .set_color     = is31fl3731_set_color,
+    .set_color_all = is31fl3731_set_color_all,
+    .flush         = flush_custom,
 };
 
-
-void rgb_ring_init(void)
-{
-    is31fl3731_init_drivers();
-}
 
 void rgb_ring_task(void)
 {
@@ -397,8 +392,6 @@ void rgb_ring_task(void)
         default:
             break;
     };
-
-    is31fl3731_flush();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record)

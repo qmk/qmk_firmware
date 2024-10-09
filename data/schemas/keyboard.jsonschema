@@ -342,6 +342,36 @@
                 "on_state": {"$ref": "qmk.definitions.v1#/bit"}
             }
         },
+        "joystick": {
+            "type": "object",
+            "properties": {
+                "enabled": {"type": "boolean"},
+                "driver": {"type": "string"},
+                "button_count": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "axis_resolution": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "axes": {
+                    "type": "object",
+                    "propertyNames": {"enum": ["x", "y", "z", "rx", "ry", "rz"]}
+                    "additionalProperties": {
+                        "oneOf": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "input_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                                    "low": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                                    "rest": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                                    "high": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                                }
+                            },
+                            {
+                                "type": "string",
+                                "enum": ["virtual"]
+                            }
+                        ]
+                    }
+                }
+            }
+        },
         "keycodes": {"$ref": "qmk.definitions.v1#/keycode_decl_array"},
         "layout_aliases": {
             "type": "object",
@@ -515,8 +545,8 @@
                                     "minimum": 0
                                 }
                             },
-                            "x": {"$ref": "qmk.definitions.v1#/key_unit"},
-                            "y": {"$ref": "qmk.definitions.v1#/key_unit"},
+                            "x": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                            "y": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                             "flags": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
                         }
                     }
@@ -601,8 +631,8 @@
                                     "minimum": 0
                                 }
                             },
-                            "x": {"$ref": "qmk.definitions.v1#/key_unit"},
-                            "y": {"$ref": "qmk.definitions.v1#/key_unit"},
+                            "x": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                            "y": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                             "flags": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
                         }
                     }
@@ -793,11 +823,25 @@
                         }
                     }
                 },
-                "soft_serial_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "soft_serial_pin": {
+                    "$ref": "qmk.definitions.v1#/mcu_pin",
+                    "$comment": "Deprecated: use split.serial.pin instead"
+                },
                 "soft_serial_speed": {
                     "type": "integer",
                     "minimum": 0,
                     "maximum": 5
+                },
+                "serial": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "driver": {
+                            "type": "string",
+                            "enum": ["bitbang", "usart", "vendor"]
+                        },
+                        "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"}
+                    }
                 },
                 "transport": {
                     "type": "object",

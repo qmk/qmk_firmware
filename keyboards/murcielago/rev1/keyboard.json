@@ -35,7 +35,6 @@
   },
   "split": {
     "enabled": true,
-    "soft_serial_pin": "E6",
     "encoder": {
       "right": {
         "rotary": [
@@ -48,6 +47,9 @@
         "cols": ["D6", "D7", "D3", "B2", "B1", "B0"],
         "rows": ["B3", "B7", "D4", "B6", "C6", "C7"]
       }
+    },
+    "serial": {
+      "pin": "E6"
     }
   },
   "processor": "atmega32u4",

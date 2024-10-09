@@ -238,10 +238,6 @@ else
         OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_TRANSIENT
         SRC += eeprom_driver.c eeprom_transient.c
       endif
-    else ifeq ($(PLATFORM),ARM_ATSAM)
-      # arm_atsam EEPROM
-      OPT_DEFS += -DEEPROM_SAMD
-      SRC += eeprom_samd.c
     else ifeq ($(PLATFORM),TEST)
       # Test harness "EEPROM"
       OPT_DEFS += -DEEPROM_TEST_HARNESS
@@ -282,18 +278,17 @@ ifneq ($(strip $(WEAR_LEVELING_DRIVER)),none)
   endif
 endif
 
-VALID_FLASH_DRIVER_TYPES := spi
+VALID_FLASH_DRIVER_TYPES := spi custom
 FLASH_DRIVER ?= none
 ifneq ($(strip $(FLASH_DRIVER)), none)
     ifeq ($(filter $(FLASH_DRIVER),$(VALID_FLASH_DRIVER_TYPES)),)
         $(call CATASTROPHIC_ERROR,Invalid FLASH_DRIVER,FLASH_DRIVER="$(FLASH_DRIVER)" is not a valid flash driver)
     else
-        OPT_DEFS += -DFLASH_ENABLE
+        OPT_DEFS += -DFLASH_ENABLE -DFLASH_DRIVER -DFLASH_DRIVER_$(strip $(shell echo $(FLASH_DRIVER) | tr '[:lower:]' '[:upper:]'))
+		COMMON_VPATH += $(DRIVER_PATH)/flash
         ifeq ($(strip $(FLASH_DRIVER)),spi)
-            SPI_DRIVER_REQUIRED = yes
-            OPT_DEFS += -DFLASH_DRIVER -DFLASH_SPI
-            COMMON_VPATH += $(DRIVER_PATH)/flash
             SRC += flash_spi.c
+            SPI_DRIVER_REQUIRED = yes
         endif
     endif
 endif
@@ -878,7 +873,7 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
     OPT_DEFS += -DBLUETOOTH_$(strip $(shell echo $(BLUETOOTH_DRIVER) | tr '[:lower:]' '[:upper:]'))
     NO_USB_STARTUP_CHECK := yes
     COMMON_VPATH += $(DRIVER_PATH)/bluetooth
-    SRC += outputselect.c
+    SRC += outputselect.c process_connection.c
 
     ifeq ($(strip $(BLUETOOTH_DRIVER)), bluefruit_le)
         SPI_DRIVER_REQUIRED = yes
@@ -933,7 +928,7 @@ ifeq ($(strip $(WS2812_DRIVER_REQUIRED)), yes)
 
     OPT_DEFS += -DWS2812_$(strip $(shell echo $(WS2812_DRIVER) | tr '[:lower:]' '[:upper:]'))
 
-    SRC += ws2812_$(strip $(WS2812_DRIVER)).c
+    SRC += ws2812.c ws2812_$(strip $(WS2812_DRIVER)).c
 
     ifeq ($(strip $(PLATFORM)), CHIBIOS)
         ifeq ($(strip $(WS2812_DRIVER)), pwm)

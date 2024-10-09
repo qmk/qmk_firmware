@@ -546,9 +546,6 @@ ifneq ($(findstring STM32G431, $(MCU)),)
 
   # Bootloader address for STM32 DFU
   STM32_BOOTLOADER_ADDRESS ?= 0x1FFF0000
-
-  # Default to transient driver as ChibiOS EFL is currently broken for single-bank G4xx devices
-  EEPROM_DRIVER ?= transient
 endif
 
 ifneq ($(findstring STM32G474, $(MCU)),)

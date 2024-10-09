@@ -37,6 +37,9 @@
                     ["GP18", "GP17", null, null, null]
                 ]
             }
+        },
+        "serial": {
+            "driver": "vendor"
         }
     },
     "community_layouts": ["split_3x5_2"],

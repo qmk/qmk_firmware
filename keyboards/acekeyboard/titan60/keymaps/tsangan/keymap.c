@@ -27,7 +27,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [1] = LAYOUT_60_tsangan(
         KC_SLEP,  KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_INS, KC_DEL,
-        RGB_TOG,  RGB_RMOD, RGB_MOD, RGB_M_R, RGB_M_T, KC_TRNS, KC_TRNS, KC_TRNS, KC_PSCR, KC_SCRL, KC_PAUS, KC_UP,   KC_TRNS, KC_CLR,
+        UG_TOGG,  UG_PREV,  UG_NEXT, RGB_M_R, RGB_M_T, KC_TRNS, KC_TRNS, KC_TRNS, KC_PSCR, KC_SCRL, KC_PAUS, KC_UP,   KC_TRNS, KC_CLR,
         KC_TRNS,  KC_VOLD,  KC_VOLU, KC_MUTE, KC_EJCT, KC_TRNS, KC_PAST, KC_PSLS, KC_HOME, KC_PGUP, KC_LEFT, KC_RIGHT,         KC_TRNS,
         BL_TOGG,  BL_DOWN,  BL_UP,   KC_CALC, KC_MPLY, KC_MNXT, KC_PPLS, KC_PMNS, KC_END,  KC_PGDN, KC_DOWN,          KC_TRNS, KC_TRNS,
         KC_TRNS,  QK_BOOT,  KC_TRNS,                            KC_TRNS,                                     KC_STOP, KC_TRNS, KC_TRNS

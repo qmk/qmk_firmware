@@ -23,6 +23,8 @@ void keyboard_post_init_kb(void)
     gpio_set_pin_output(C11); // middle led, always off on Spacesaver M
     gpio_write_pin(C11, 0);
     gpio_set_pin_output(C10); // right-most led, normally Scroll Lock, but on Spacesaver M indicates function layer
+
+    keyboard_post_init_user();
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {

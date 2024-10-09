@@ -31,6 +31,11 @@
     "levels": 5,
     "breathing": true
   },
+  "indicators": {
+    "caps_lock": "F1",
+    "num_lock": "F4",
+    "scroll_lock": "F5"
+  },
   "processor": "atmega32u4",
   "bootloader": "atmel-dfu",
   "layouts": {
