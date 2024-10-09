@@ -85,7 +85,41 @@ static void    send_keyboard(report_keyboard_t *report);
 static void    send_nkro(report_nkro_t *report);
 static void    send_mouse(report_mouse_t *report);
 static void    send_extra(report_extra_t *report);
-host_driver_t  lufa_driver = {keyboard_leds, send_keyboard, send_nkro, send_mouse, send_extra};
+#ifdef JOYSTICK_ENABLE
+static void send_joystick(report_joystick_t *report);
+#endif // JOYSTICK_ENABLE
+#ifdef DIGITIZER_ENABLE
+static void send_digitizer(report_digitizer_t *report);
+#endif // DIGITIZER_ENABLE
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+static void send_programmable_button(report_programmable_button_t *report);
+#endif // PROGRAMMABLE_BUTTON_ENABLE
+
+static host_driver_t lufa_driver = {
+    .has_init_executed = false,
+    .init              = NULL,
+    .connect           = NULL,
+    .disconnect        = NULL,
+    .is_connected      = NULL,
+    .keyboard_leds     = keyboard_leds,
+    .send_keyboard     = send_keyboard,
+    .send_nkro         = send_nkro,
+    .send_mouse        = send_mouse,
+    .send_extra        = send_extra,
+#ifdef JOYSTICK_ENABLE
+    .send_joystick = send_joystick,
+#endif // JOYSTICK_ENABLE
+#ifdef DIGITIZER_ENABLE
+    .send_digitizer = send_digitizer,
+#endif // DIGITIZER_ENABLE
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+    .send_programmable_button = send_programmable_button,
+#endif // PROGRAMMABLE_BUTTON_ENABLE
+};
+
+host_driver_t *host_usb_driver(void) {
+    return &lufa_driver;
+}
 
 void send_report(uint8_t endpoint, void *report, size_t size) {
     uint8_t timeout = 255;
@@ -827,7 +861,7 @@ void protocol_pre_init(void) {
 }
 
 void protocol_post_init(void) {
-    host_set_driver(&lufa_driver);
+    host_set_driver(host_usb_driver());
 }
 
 void protocol_pre_task(void) {
