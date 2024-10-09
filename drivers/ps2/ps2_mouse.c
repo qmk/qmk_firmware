@@ -44,7 +44,9 @@ void ps2_mouse_init(void) {
 
     wait_ms(PS2_MOUSE_INIT_DELAY); // wait for powering up
 
+#ifndef PS2_MOUSE_DISABLE_RESET
     PS2_MOUSE_SEND(PS2_MOUSE_RESET, "ps2_mouse_init: sending reset");
+#endif
 
     PS2_MOUSE_RECEIVE("ps2_mouse_init: read BAT");
     PS2_MOUSE_RECEIVE("ps2_mouse_init: read DevID");
