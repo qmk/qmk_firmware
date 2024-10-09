@@ -18,3 +18,8 @@
 #define WIN_LOCK_INDEX 93
 #define CAPS_LOCK_INDEX 58
 #define SCR_LOCK_INDEX 14
+
+#define MATRIX_ROWS 6
+#define MATRIX_COLS 16
+#define MATRIX_ROW_PINS {A0, A1, A2, A3, A4, B0}
+#define MATRIX_COL_PINS {}

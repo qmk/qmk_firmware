@@ -35,10 +35,6 @@
     "dip_switch":{
         "pins":["A15"]
     },
-    "matrix_pins": {
-        "cols": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,null],
-        "rows": ["A0", "A1", "A2", "A3", "A4", "B0"]
-    },
     "processor": "STM32F103",
     "rgb_matrix": {
         "animations": {
