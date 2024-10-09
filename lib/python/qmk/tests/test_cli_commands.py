@@ -390,7 +390,7 @@ def test_find_contains():
 def test_find_multiple_conditions():
     # this is intended to match at least 'crkbd/rev1'
     result = check_subcommand(
-        'find', '-f', 'exists(rgb_matrix.split_count)', '-f', 'contains(matrix_pins.cols, B1)', '-f', 'length(matrix_pins.cols, 6)', '-f', 'absent(eeprom.driver)', '-f', 'ws2812.pin=D3', '-p', 'rgb_matrix.split_count', '-p', 'matrix_pins.cols', '-p',
+        'find', '-f', 'exists(rgb_matrix.split_count)', '-f', 'contains(matrix_pins.cols, B1)', '-f', 'length(matrix_pins.cols, 6)', '-f', 'absent(eeprom.driver)', '-f', 'ws2812.pin == D3', '-p', 'rgb_matrix.split_count', '-p', 'matrix_pins.cols', '-p',
         'eeprom.driver', '-p', 'ws2812.pin'
     )
     check_returncode(result)
