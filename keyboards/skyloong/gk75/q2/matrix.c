@@ -102,7 +102,7 @@ __attribute__((weak)) void matrix_init_pins(void) {
     unselect_cols();
     for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
         if (row_pins[x] != NO_PIN) {
-            setPinInputHigh_atomic(row_pins[x]);
+            gpio_atomic_set_pin_input_high(row_pins[x]);
         }
     }
 }
