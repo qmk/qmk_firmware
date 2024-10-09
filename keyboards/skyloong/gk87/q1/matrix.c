@@ -90,9 +90,9 @@ static void unselect_col(uint8_t col) {
 }
 
 static void unselect_cols(void) {
-    setPinOutput_writeLow(HC595_SH_PIN);
-    setPinOutput_writeLow(HC595_ST_PIN);
-    setPinOutput_writeHigh(HC595_DS_PIN);
+    gpio_atomic_set_pin_output_low(HC595_SH_PIN);
+    gpio_atomic_set_pin_output_low(HC595_ST_PIN);
+    gpio_atomic_set_pin_output_high(HC595_DS_PIN);
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
         clockPulse(ClOCK_TIME);
     }
