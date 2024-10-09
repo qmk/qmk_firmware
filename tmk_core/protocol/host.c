@@ -55,7 +55,7 @@ host_driver_t *host_get_driver(void) {
 #ifdef SPLIT_KEYBOARD
 uint8_t split_led_state = 0;
 void    set_split_host_keyboard_leds(uint8_t led_state) {
-    split_led_state = led_state;
+       split_led_state = led_state;
 }
 #endif
 
@@ -127,6 +127,14 @@ void host_mouse_send(report_mouse_t *report) {
     report->boot_y = (report->y > 127) ? 127 : ((report->y < -127) ? -127 : report->y);
 #endif
     (*driver->send_mouse)(report);
+}
+
+__attribute__((weak)) bool is_hires_scroll_on(void) {
+#ifdef POINTING_DEVICE_HIRES_SCROLL_ENABLE
+    return true;
+#else
+    return false;
+#endif
 }
 
 void host_system_send(uint16_t usage) {

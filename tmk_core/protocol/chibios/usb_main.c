@@ -57,6 +57,9 @@ extern usb_endpoint_out_t usb_endpoints_out[USB_ENDPOINT_OUT_COUNT];
 uint8_t _Alignas(2) keyboard_idle     = 0;
 uint8_t _Alignas(2) keyboard_protocol = 1;
 uint8_t keyboard_led_state            = 0;
+#ifdef POINTING_DEVICE_HIRES_SCROLL_ENABLE
+uint8_t hires_scroll_state = 0;
+#endif
 
 static bool __attribute__((__unused__)) send_report_buffered(usb_endpoint_in_lut_t endpoint, void *report, size_t size);
 static void __attribute__((__unused__)) flush_report_buffered(usb_endpoint_in_lut_t endpoint, bool padded);
@@ -84,7 +87,7 @@ static const USBDescriptor *usb_get_descriptor_cb(USBDriver *usbp, uint8_t dtype
 
     static USBDescriptor descriptor;
     descriptor.ud_string = NULL;
-    descriptor.ud_size   = get_usb_descriptor(setup->wValue.word, setup->wIndex, setup->wLength, (const void **const) & descriptor.ud_string);
+    descriptor.ud_size   = get_usb_descriptor(setup->wValue.word, setup->wIndex, setup->wLength, (const void **const)&descriptor.ud_string);
 
     if (descriptor.ud_string == NULL) {
         return NULL;
@@ -244,18 +247,32 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
 
 static uint8_t _Alignas(4) set_report_buf[2];
 
-static void set_led_transfer_cb(USBDriver *usbp) {
-    usb_control_request_t *setup = (usb_control_request_t *)usbp->setup;
-
-    if (setup->wLength == 2) {
-        uint8_t report_id = set_report_buf[0];
-        if ((report_id == REPORT_ID_KEYBOARD) || (report_id == REPORT_ID_NKRO)) {
+#if !defined(KEYBOARD_SHARED_EP)
+static void set_transfer_cb_keyboard(USBDriver *usbp) {
+    keyboard_led_state = set_report_buf[0];
+}
+#endif
+#if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP) && defined(POINTING_DEVICE_HIRES_SCROLL_ENABLE)
+static void set_transfer_cb_mouse(USBDriver *usbp) {
+    hires_scroll_state = set_report_buf[0];
+}
+#endif
+#if defined(SHARED_EP_ENABLE)
+static void set_transfer_cb_shared(USBDriver *usbp) {
+    uint8_t report_id = set_report_buf[0];
+    switch (report_id) {
+        case REPORT_ID_KEYBOARD:
+        case REPORT_ID_NKRO:
             keyboard_led_state = set_report_buf[1];
-        }
-    } else {
-        keyboard_led_state = set_report_buf[0];
+            return;
+#    if defined(POINTING_DEVICE_HIRES_SCROLL_ENABLE)
+        case REPORT_ID_MOUSE:
+            hires_scroll_state = set_report_buf[1];
+            return;
+#    endif
     }
 }
+#endif
 
 static bool usb_requests_hook_cb(USBDriver *usbp) {
     usb_control_request_t *setup = (usb_control_request_t *)usbp->setup;
@@ -282,12 +299,21 @@ static bool usb_requests_hook_cb(USBDriver *usbp) {
                 switch (setup->bRequest) {
                     case HID_REQ_SetReport:
                         switch (setup->wIndex) {
+#if !defined(KEYBOARD_SHARED_EP)
                             case KEYBOARD_INTERFACE:
-#if defined(SHARED_EP_ENABLE) && !defined(KEYBOARD_SHARED_EP)
-                            case SHARED_INTERFACE:
-#endif
-                                usbSetupTransfer(usbp, set_report_buf, sizeof(set_report_buf), set_led_transfer_cb);
+                                usbSetupTransfer(usbp, set_report_buf, sizeof(set_report_buf), set_transfer_cb_keyboard);
                                 return true;
+#endif
+#if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP) && defined(POINTING_DEVICE_HIRES_SCROLL_ENABLE)
+                            case MOUSE_INTERFACE:
+                                usbSetupTransfer(usbp, set_report_buf, sizeof(set_report_buf), set_transfer_cb_mouse);
+                                return true;
+#endif
+#if defined(SHARED_EP_ENABLE)
+                            case SHARED_INTERFACE:
+                                usbSetupTransfer(usbp, set_report_buf, sizeof(set_report_buf), set_transfer_cb_shared);
+                                return true;
+#endif
                         }
                         break;
                     case HID_REQ_SetProtocol:
@@ -481,6 +507,12 @@ void send_mouse(report_mouse_t *report) {
     send_report(USB_ENDPOINT_IN_MOUSE, report, sizeof(report_mouse_t));
 #endif
 }
+
+#ifdef POINTING_DEVICE_HIRES_SCROLL_ENABLE
+bool is_hires_scroll_on(void) {
+    return hires_scroll_state > 0;
+}
+#endif
 
 /* ---------------------------------------------------------
  *                   Extrakey functions

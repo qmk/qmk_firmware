@@ -76,6 +76,9 @@ uint8_t keyboard_idle = 0;
 /* 0: Boot Protocol, 1: Report Protocol(default) */
 uint8_t        keyboard_protocol  = 1;
 static uint8_t keyboard_led_state = 0;
+#ifdef POINTING_DEVICE_HIRES_SCROLL_ENABLE
+static uint8_t hires_scroll_state = 0;
+#endif
 
 static report_keyboard_t keyboard_report_sent;
 
@@ -439,29 +442,50 @@ void EVENT_USB_Device_ControlRequest(void) {
             if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE)) {
                 // Interface
                 switch (USB_ControlRequest.wIndex) {
+#if !defined(KEYBOARD_SHARED_EP)
                     case KEYBOARD_INTERFACE:
-#if defined(SHARED_EP_ENABLE) && !defined(KEYBOARD_SHARED_EP)
-                    case SHARED_INTERFACE:
-#endif
                         Endpoint_ClearSETUP();
-
                         while (!(Endpoint_IsOUTReceived())) {
                             if (USB_DeviceState == DEVICE_STATE_Unattached) return;
                         }
-
-                        if (Endpoint_BytesInEndpoint() == 2) {
-                            uint8_t report_id = Endpoint_Read_8();
-
-                            if (report_id == REPORT_ID_KEYBOARD || report_id == REPORT_ID_NKRO) {
-                                keyboard_led_state = Endpoint_Read_8();
-                            }
-                        } else {
-                            keyboard_led_state = Endpoint_Read_8();
-                        }
-
+                        keyboard_led_state = Endpoint_Read_8();
                         Endpoint_ClearOUT();
                         Endpoint_ClearStatusStage();
                         break;
+#endif
+#if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP) && defined(POINTING_DEVICE_HIRES_SCROLL_ENABLE)
+                    case MOUSE_INTERFACE:
+                        Endpoint_ClearSETUP();
+                        while (!(Endpoint_IsOUTReceived())) {
+                            if (USB_DeviceState == DEVICE_STATE_Unattached) return;
+                        }
+                        hires_scroll_state = Endpoint_Read_8();
+                        Endpoint_ClearOUT();
+                        Endpoint_ClearStatusStage();
+                        break;
+#endif
+#if defined(SHARED_EP_ENABLE)
+                    case SHARED_INTERFACE:
+                        Endpoint_ClearSETUP();
+                        while (!(Endpoint_IsOUTReceived())) {
+                            if (USB_DeviceState == DEVICE_STATE_Unattached) return;
+                        }
+                        uint8_t report_id = Endpoint_Read_8();
+                        switch (report_id) {
+                            case REPORT_ID_KEYBOARD:
+                            case REPORT_ID_NKRO:
+                                keyboard_led_state = Endpoint_Read_8();
+                                break;
+#    if defined(POINTING_DEVICE_HIRES_SCROLL_ENABLE)
+                            case REPORT_ID_MOUSE:
+                                hires_scroll_state = Endpoint_Read_8();
+                                break;
+#    endif
+                        }
+                        Endpoint_ClearOUT();
+                        Endpoint_ClearStatusStage();
+                        break;
+#endif
                 }
             }
 
@@ -574,6 +598,12 @@ static void send_extra(report_extra_t *report) {
     send_report(SHARED_IN_EPNUM, report, sizeof(report_extra_t));
 #endif
 }
+
+#ifdef POINTING_DEVICE_HIRES_SCROLL_ENABLE
+bool is_hires_scroll_on(void) {
+    return hires_scroll_state > 0;
+}
+#endif
 
 void send_joystick(report_joystick_t *report) {
 #ifdef JOYSTICK_ENABLE
