@@ -1,5 +1,6 @@
 /* Copyright 2018 Jack Humbert
  * Copyright 2018 Yiancar
+ * Copyright 2024 Nick Brassel (@tzarc)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,6 +26,7 @@
 #pragma once
 
 #include <stdint.h>
+#include <hal.h>
 
 // ### DEPRECATED - DO NOT USE ###
 #define i2c_writeReg(devaddr, regaddr, data, length, timeout) i2c_write_register(devaddr, regaddr, data, length, timeout)
@@ -39,6 +41,8 @@ typedef int16_t i2c_status_t;
 #define I2C_STATUS_ERROR (-1)
 #define I2C_STATUS_TIMEOUT (-2)
 
+#ifndef I2C_MULTI_BUS
+
 void         i2c_init(void);
 i2c_status_t i2c_transmit(uint8_t address, const uint8_t* data, uint16_t length, uint16_t timeout);
 i2c_status_t i2c_receive(uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout);
@@ -47,3 +51,83 @@ i2c_status_t i2c_write_register16(uint8_t devaddr, uint16_t regaddr, const uint8
 i2c_status_t i2c_read_register(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout);
 i2c_status_t i2c_read_register16(uint8_t devaddr, uint16_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout);
 i2c_status_t i2c_ping_address(uint8_t address, uint16_t timeout);
+
+#else
+
+#    if defined(RP_I2C_USE_I2C0) && RP_I2C_USE_I2C0 == TRUE
+#        define HAS_I2C0
+#    endif
+
+#    if (defined(STM32_I2C_USE_I2C1) && STM32_I2C_USE_I2C1 == TRUE) || (defined(RP_I2C_USE_I2C1) && RP_I2C_USE_I2C1 == TRUE)
+#        define HAS_I2C1
+#    endif
+
+#    if defined(STM32_I2C_USE_I2C2) && STM32_I2C_USE_I2C2 == TRUE
+#        define HAS_I2C2
+#    endif
+
+#    ifdef HAS_I2C0
+void         i2c0_init(void);
+i2c_status_t i2c0_transmit(uint8_t address, const uint8_t* data, uint16_t length, uint16_t timeout);
+i2c_status_t i2c0_receive(uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout);
+i2c_status_t i2c0_write_register(uint8_t devaddr, uint8_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout);
+i2c_status_t i2c0_write_register16(uint8_t devaddr, uint16_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout);
+i2c_status_t i2c0_read_register(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout);
+i2c_status_t i2c0_read_register16(uint8_t devaddr, uint16_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout);
+i2c_status_t i2c0_ping_address(uint8_t address, uint16_t timeout);
+#    endif // HAS_I2C0
+
+#    ifdef HAS_I2C1
+void         i2c1_init(void);
+i2c_status_t i2c1_transmit(uint8_t address, const uint8_t* data, uint16_t length, uint16_t timeout);
+i2c_status_t i2c1_receive(uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout);
+i2c_status_t i2c1_write_register(uint8_t devaddr, uint8_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout);
+i2c_status_t i2c1_write_register16(uint8_t devaddr, uint16_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout);
+i2c_status_t i2c1_read_register(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout);
+i2c_status_t i2c1_read_register16(uint8_t devaddr, uint16_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout);
+i2c_status_t i2c1_ping_address(uint8_t address, uint16_t timeout);
+#    endif // HAS_I2C1
+
+#    ifdef HAS_I2C2
+void         i2c2_init(void);
+i2c_status_t i2c2_transmit(uint8_t address, const uint8_t* data, uint16_t length, uint16_t timeout);
+i2c_status_t i2c2_receive(uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout);
+i2c_status_t i2c2_write_register(uint8_t devaddr, uint8_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout);
+i2c_status_t i2c2_write_register16(uint8_t devaddr, uint16_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout);
+i2c_status_t i2c2_read_register(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout);
+i2c_status_t i2c2_read_register16(uint8_t devaddr, uint16_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout);
+i2c_status_t i2c2_ping_address(uint8_t address, uint16_t timeout);
+#    endif // HAS_I2C2
+
+#    ifdef I2C_DEFAULT_BUS
+#        if I2C_DEFAULT_BUS == 0
+#            define i2c_init i2c0_init
+#            define i2c_transmit i2c0_transmit
+#            define i2c_receive i2c0_receive
+#            define i2c_write_register i2c0_write_register
+#            define i2c_write_register16 i2c0_write_register16
+#            define i2c_read_register i2c0_read_register
+#            define i2c_read_register16 i2c0_read_register16
+#            define i2c_ping_address i2c0_ping_address
+#        elif I2C_DEFAULT_BUS == 1
+#            define i2c_init i2c1_init
+#            define i2c_transmit i2c1_transmit
+#            define i2c_receive i2c1_receive
+#            define i2c_write_register i2c1_write_register
+#            define i2c_write_register16 i2c1_write_register16
+#            define i2c_read_register i2c1_read_register
+#            define i2c_read_register16 i2c1_read_register16
+#            define i2c_ping_address i2c1_ping_address
+#        elif I2C_DEFAULT_BUS == 2
+#            define i2c_init i2c2_init
+#            define i2c_transmit i2c2_transmit
+#            define i2c_receive i2c2_receive
+#            define i2c_write_register i2c2_write_register
+#            define i2c_write_register16 i2c2_write_register16
+#            define i2c_read_register i2c2_read_register
+#            define i2c_read_register16 i2c2_read_register16
+#            define i2c_ping_address i2c2_ping_address
+#        endif // I2C_DEFAULT_BUS == ?
+#    endif     // I2C_DEFAULT_BUS
+
+#endif // I2C_MULTI_BUS
