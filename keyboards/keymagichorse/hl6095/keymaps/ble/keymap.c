@@ -350,4 +350,36 @@ void BHQ_State_Call(uint8_t cmdid, uint8_t *dat) {
         km_printf("[%s] Scroll Lock\n", (dat[0] & (1<<2)) ? "*" : " ");
     }
 }
+
+
+
+// Keyboard level code can override this, but shouldn't need to.
+// Controlling custom features should be done by overriding
+// via_custom_value_command_kb() instead.
+__attribute__((weak)) bool via_command_kb(uint8_t *data, uint8_t length) {
+    uint8_t command_id   = data[0];
+    uint8_t i = 0;
+    km_printf("cmdid:%02x  length:%d\r\n",command_id,length);
+
+    km_printf("read host app of data \r\n[");
+    for (i = 0; i < length; i++)
+    {
+        km_printf("%02x ",data[i]);
+    }
+    km_printf("]\r\n");
+
+    if(command_id == 0xF1)
+    {
+      
+        // cmdid + 2 frame headers 
+        // The third one is isack the fourth one is length and the fifth one is data frame
+        BHQ_SendCmd(data[3], &data[5], data[4]);
+        return true;
+    }
+    return false;
+}
+
+
+
+
 #endif

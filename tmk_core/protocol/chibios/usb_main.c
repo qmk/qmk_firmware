@@ -39,6 +39,7 @@ extern keymap_config_t keymap_config;
 #endif
 
 #if defined(BLUETOOTH_BHQ)
+#   include "outputselect.h"
 #   include "bluetooth.h"
 #endif
 
@@ -537,8 +538,12 @@ void raw_hid_send(uint8_t *data, uint8_t length) {
     if (length != RAW_EPSIZE) {
         return;
     }
+
+    if (where_to_send() == OUTPUT_BLUETOOTH) {
+        bluetooth_send_hid_raw(data, length);
+        // return ;
+    }
     send_report(USB_ENDPOINT_IN_RAW, data, length);
-    bluetooth_send_hid_raw(data, length);
 }
 
 __attribute__((weak)) void raw_hid_receive(uint8_t *data, uint8_t length) {

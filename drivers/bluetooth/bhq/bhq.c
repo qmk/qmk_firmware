@@ -48,7 +48,7 @@ uint16_t bhkSumCrc(uint8_t *data, uint16_t length) ;
 // bhq model send uart data
 void BHQ_SendData(uint8_t *dat, uint16_t length)
 {
-    // uint16_t i = 0;
+    uint16_t i = 0;
     uint32_t wait_bhq_ack_timeout = 0;
     uint32_t last_toggle_time = 0;
     uint32_t bhq_wakeup = 0;
@@ -85,12 +85,12 @@ void BHQ_SendData(uint8_t *dat, uint16_t length)
     gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
     uart_transmit(dat, length);
 
-    // km_printf("mcu send data:");
-    // for (i = 0; i < length; i++)
-    // {
-    //     km_printf("%02x ",dat[i]);
-    // }
-    // km_printf("\r\n");
+    km_printf("mcu send data:");
+    for (i = 0; i < length; i++)
+    {
+        km_printf("%02x ",dat[i]);
+    }
+    km_printf("\r\n");
 }
 int16_t BHQ_ReadData(void) {
     if (uart_available()) {
@@ -339,7 +339,8 @@ void BHQ_Protocol_Process(uint8_t *dat, uint16_t length)
     cmdid = dat[4];
     uint8_t i = 0 ;
     km_printf("BHQ_Protocol_Process: cmdid:%d\r\n",cmdid);
-    
+    uint8_t hid_data[32] = {0};
+
     switch(cmdid)
     {
         case 0x26:  // BHQ model return hid led lock sta
@@ -387,6 +388,17 @@ void BHQ_Protocol_Process(uint8_t *dat, uint16_t length)
                 km_printf("%02x ",dat[i]);
             }
             km_printf("\r\n");
+            break;
+        case 0xB1:
+        case 0xB2:
+            km_printf("ota:[");
+            for (i = 0; i < length; i++)
+            {
+                hid_data[i] = dat[i];
+                km_printf("%02x ",dat[i]);
+            }
+            km_printf("]\r\n");
+            raw_hid_send(hid_data, 32);
             break;
     }
 }
