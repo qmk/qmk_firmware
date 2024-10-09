@@ -8,7 +8,6 @@ The layout is like a smaller version of a traditional keyboard.
 Decorate it with your favorite keycaps and case to make it your travel companion.
 
 Of course, it can also be used as a macro pad.
-Both layouts with and without ISO-Enter are supported.
 
 ---
 
@@ -18,7 +17,6 @@ Jourkeyは「旅先で景色と写真を撮るためのキーボード」とし�
 お気に入りのキーキャップやケースでデコレーションして貴方の旅のお供になります。
 
 もちろん、マクロパッドとして使用することも可能です。
-ISO-Enterを採用/非採用した両方のレイアウトに対応しています。
 
 * Keyboard Maintainer: [takashicompany](https://github.com/takashicompany)
 * Hardware Supported: Jourkey PCB, Pro Micro
