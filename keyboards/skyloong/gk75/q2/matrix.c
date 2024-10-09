@@ -68,7 +68,7 @@ static inline void clockPulse(uint16_t n) {
 // matrix code
 
 static bool select_col(uint8_t col) {
-    setPinOutput_writeHigh(HC595_DS_PIN);
+    gpio_atomic_set_pin_output_high(HC595_DS_PIN);
         for (uint8_t m = 0; m <= col; m++) {
            if(m == 0){
                gpio_write_pin_low(HC595_DS_PIN);
