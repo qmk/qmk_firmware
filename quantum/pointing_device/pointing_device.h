@@ -25,6 +25,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "pointing_device_auto_mouse.h"
 #endif
 
+#ifdef POINTING_DEVICE_DRAGSCROLL_ENABLE
+#    include "pointing_device_dragscroll.h"
+#endif
+
 #if defined(POINTING_DEVICE_DRIVER_adns5050)
 #    include "drivers/sensors/adns5050.h"
 #    define POINTING_DEVICE_MOTION_PIN_ACTIVE_LOW
