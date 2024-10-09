@@ -46,8 +46,7 @@
         "pin": "F4"
     },
     "layout_aliases": {
-        "LAYOUT_ansi": "LAYOUT_65_ansi_blocker",
-        "LAYOUT_iso": "LAYOUT_65_iso_blocker"
+        "LAYOUT_ansi": "LAYOUT_65_ansi_blocker"
     },
     "layouts": {
         "LAYOUT_65_ansi_blocker": {
