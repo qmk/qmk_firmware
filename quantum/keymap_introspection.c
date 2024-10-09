@@ -127,6 +127,8 @@ __attribute__((weak)) uint16_t tap_dance_count(void) {
     return tap_dance_count_raw();
 }
 
+_Static_assert(ARRAY_SIZE(tap_dance_actions) <= (QK_TAP_DANCE_MAX - QK_TAP_DANCE), "Number of tap dance actions exceeds maximum. Are you using SAFE_RANGE in tap dance enum?");
+
 tap_dance_action_t* tap_dance_get_raw(uint16_t tap_dance_idx) {
     if (tap_dance_idx >= tap_dance_count_raw()) {
         return NULL;
