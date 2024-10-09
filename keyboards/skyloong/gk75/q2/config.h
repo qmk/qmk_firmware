@@ -3,16 +3,10 @@
 
 #pragma once
 
-#ifdef ENCODER_ENABLE
-#    define ENCODER_MAP_KEY_DELAY 10
-#endif
+#define ENCODER_MAP_KEY_DELAY 10
 
-#ifdef RGB_MATRIX_ENABLE
-#    define AW20216S_CS_PIN_1 B12
-#    define AW20216S_CS_PIN_2 B11
+#define AW20216S_CS_PIN_1 B12
+#define AW20216S_CS_PIN_2 B11
 // Hardware enable lines may be connected to the same pin
-#    define AW20216S_EN_PIN B5
-#    define CAPS_LOCK_INDEX 43
-#endif // RGB_MATRIX_ENABLE
-
-
+#define AW20216S_EN_PIN B5
+#define CAPS_LOCK_INDEX 43
