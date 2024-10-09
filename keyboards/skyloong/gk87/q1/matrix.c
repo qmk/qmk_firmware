@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 //Matrix read rows set col:DIODE_DIRECTION == ROW2COL
 
+#include "matrix.h"
 #include <string.h>
 #include "atomic_util.h"
-#include "debounce.h"
 
 #define CLOCK_TIME 15
 #define MATRIX_INPUT_PRESSED_STATE 0
