@@ -32,11 +32,6 @@
         "on_state": 0,
         "caps_lock": "C15"
     },
-
-    "matrix_pins": {
-        "cols": [null, null, null, null, null, null, null, null, null, null, null, null, null],
-        "rows": ["A8", "A9", "A10", "A15", "B6", "B7","B9"]
-    },
     "processor": "STM32F103",
     "rgb_matrix": {
         "animations": {

@@ -10,3 +10,10 @@
 // Hardware enable lines may be connected to the same pin
 #define AW20216S_EN_PIN B5
 #define CAPS_LOCK_INDEX 43
+
+#define MATRIX_ROWS 7
+#define MATRIX_COLS 13
+#define MATRIX_ROW_PINS {A8, A9, A10, A15, B6, B7,B9}
+#define MATRIX_COL_PINS {}
+
+
