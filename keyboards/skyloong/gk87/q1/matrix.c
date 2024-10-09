@@ -74,7 +74,7 @@ static bool select_col(uint8_t col) {
             }else{
                gpio_write_pin_high(HC595_DS_PIN);
             }
-           clockPulse(ClOCK_TIME);
+           clockPulse(CLOCK_TIME);
         }
         return true;
 
@@ -84,7 +84,7 @@ static void unselect_col(uint8_t col) {
     uint8_t x = (MATRIX_COLS - col);
     gpio_atomic_set_pin_output_high(HC595_DS_PIN);
      for (uint8_t y = 0; y < x ; y++) {
-        clockPulse(ClOCK_TIME);
+        clockPulse(CLOCK_TIME);
     }
 }
 
@@ -93,7 +93,7 @@ static void unselect_cols(void) {
     gpio_atomic_set_pin_output_low(HC595_ST_PIN);
     gpio_atomic_set_pin_output_high(HC595_DS_PIN);
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-        clockPulse(ClOCK_TIME);
+        clockPulse(CLOCK_TIME);
     }
 }
 
