@@ -1,6 +1,7 @@
 //  Copyright 2023 NaturalZh (@NaturalZh)
 // SPDX-License-Identifier: GPL-2.0-or-later
-#include "quantum.h"
+#include "gpio.h"
+#include "atomic_util.h"
 
 #ifndef HC595_ST_PIN
 #    error hc595: no storage register clock pins defined!
