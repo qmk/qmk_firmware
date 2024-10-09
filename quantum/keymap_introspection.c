@@ -102,6 +102,8 @@ __attribute__((weak)) uint16_t combo_count(void) {
     return combo_count_raw();
 }
 
+_Static_assert(ARRAY_SIZE(key_combos) <= (QK_KB), "Number of combos is abnormally high. Are you using SAFE_RANGE in an enum for combos?");
+
 combo_t* combo_get_raw(uint16_t combo_idx) {
     if (combo_idx >= combo_count_raw()) {
         return NULL;
@@ -154,6 +156,8 @@ uint16_t key_override_count_raw(void) {
 __attribute__((weak)) uint16_t key_override_count(void) {
     return key_override_count_raw();
 }
+
+_Static_assert(ARRAY_SIZE(key_overrides) <= (QK_KB), "Number of key overrides is abnormally high. Are you using SAFE_RANGE in an enum for key overrides?");
 
 const key_override_t* key_override_get_raw(uint16_t key_override_idx) {
     if (key_override_idx >= key_override_count_raw()) {
