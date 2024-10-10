@@ -100,11 +100,11 @@ enum custom_keycodes {
 #define RB5 KC_BSLS
 
 // thumb row
-#define LH1 LT(_SYM, KC_R)
-#define LH0 LT(_NAV, KC_BSPC)
+#define LH1 LT(_NAV, KC_R)
+#define LH0 LT(_SYM, KC_BSPC)
 
-#define RH0 LT(_NUM, KC_ENT)
-#define RH1 LT(_SYM, KC_SPC)
+#define RH0 LT(_SYM, KC_ENT)
+#define RH1 LT(_NUM, KC_SPC)
 
 #define ___x___ KC_NO  // visual aid to null keys
 
@@ -147,7 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   /*  Hands Down Promethium (canonical)
-    ⎋   3   2@  1$   0#  4           7   6   5   9   8  Cap
+    ⎋   3   2@  1$   0#  4           7   6(  5   9)  8  Cap
     ⇥   v   w   g    m   j           +=  .:  /   "!  '? `
     num s⌃  n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘  i⌥  c⌃ ⌦
     tg  f   p   d    l   x      	 -   u   o   y   b  \
@@ -163,10 +163,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
   /*
-    ⇥   *   7   8   9   -       	+   .   ⌃
+    ⇥   *   7   8   9   -       	+   .   /
         /   1   2   3   +       	,   ⇧   ⌘   ⌥
         ,   4   5   6   =       	-   ⌫
-    	                0   .   ⏎   ␣
+    	                0   .   ⏎   mo
   *
   [_NUM] = LAYOUT_voyager(
     _______, _______, _______, _______, _______, _______,                  _______, _______, _______, _______, _______, _______,
@@ -182,7 +182,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ⇥   -   5   2   3   :
         7   .   1   0   4       	,   ⇧   ⌘   ⌥	⌃
         ,   6   9   8   ⏎       	-
-    	                ␣   ⌫   ⏎   ␣
+    	                ␣   ⌫   ⏎   mo
   */
   [_NUM] = LAYOUT_voyager(
     _______, _______, KC_PLUS, KC_SLSH, KC_ASTR, KC_EQL,                    _______, _______, _______, _______, _______, _______,
@@ -197,6 +197,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *		<   >	@			       &   [   ]
     *   !   -   +   =   `          \   :   (   )   ?
     *   ^   /   *   #   ~		   |   $   {   }   %
+	* 					mo		mo
   */
   [_SYM] = LAYOUT_voyager(
     _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, QK_BOOT,
@@ -350,6 +351,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 const key_override_t two_key_override  = ko_make_basic(MOD_MASK_SHIFT, KC_2, KC_AT);		/* shift 2 is @ */
 const key_override_t one_key_override  = ko_make_basic(MOD_MASK_SHIFT, KC_1, KC_DLR);		/* shift 1 is $ */
 const key_override_t zero_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_0, KC_HASH);		/* shift 0 is # */
+const key_override_t six_key_override =  ko_make_basic(MOD_MASK_SHIFT, KC_6, KC_LPRN);		/* shift 6 is ( */
+const key_override_t five_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_5, KC_AMPR);		/* shift 5 is & */
+const key_override_t nine_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_9, KC_RPRN);		/* shift 9 is ) */
 const key_override_t plus_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_PLUS, KC_EQL);	/* shift + is = */
 const key_override_t dot_key_override  = ko_make_basic(MOD_MASK_SHIFT, KC_DOT, KC_COLN);	/* shift . is : */
 const key_override_t comm_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_COMM, KC_SCLN);	/* shift , is ; */
@@ -363,6 +367,9 @@ const key_override_t *key_overrides[] = {
 	&two_key_override,
 	&one_key_override,
 	&zero_key_override,
+    &six_key_override,
+    &five_key_override,
+    &nine_key_override,
     &plus_key_override,
     &dot_key_override,
     &comm_key_override,
