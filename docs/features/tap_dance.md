@@ -165,10 +165,11 @@ With a little effort, powerful tap-hold configurations can be implemented as tap
 
 ```c
 typedef struct {
-    uint16_t tap;
-    uint16_t hold;
-    uint16_t held;
-} tap_dance_tap_hold_t;
+    uint16_t on_tap;  // key to send on tap
+    uint16_t on_hold; // key to send on hold
+    uint16_t chosen;  // key to "release" when finished
+                      // the value for it is set in td_tap_hold_finished
+} td_tap_hold_t;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     tap_dance_action_t *action;
@@ -176,16 +177,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case TD(CT_CLN):  // list all tap dance keycodes with tap-hold configurations
             action = &tap_dance_actions[QK_TAP_DANCE_GET_INDEX(keycode)];
-            if (!record->event.pressed && action->state.count && !action->state.finished) {
-                tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
-                tap_code16(tap_hold->tap);
+            if (!record->event.pressed &&
+                action->state.count &&
+                !action->state.finished) {
+                td_tap_hold_t *tap_hold = (td_tap_hold_t *)action->user_data;
+                tap_code16(tap_hold->on_tap);
             }
     }
     return true;
 }
 
-void tap_dance_tap_hold_finished(tap_dance_state_t *state, void *user_data) {
-    tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)user_data;
+void td_tap_hold_finished(tap_dance_state_t *state, void *user_data) {
+    td_tap_hold_t *tap_hold = (td_tap_hold_t *)user_data;
 
     if (state->pressed) {
         if (state->count == 1
@@ -193,26 +196,34 @@ void tap_dance_tap_hold_finished(tap_dance_state_t *state, void *user_data) {
             && !state->interrupted
 #endif
         ) {
-            register_code16(tap_hold->hold);
-            tap_hold->held = tap_hold->hold;
+            // "press" the key specified on_hold
+            register_code16(tap_hold->on_hold);
+            // keep track of which key was used
+            tap_hold->chosen = tap_hold->on_hold;
         } else {
-            register_code16(tap_hold->tap);
-            tap_hold->held = tap_hold->tap;
+            // "press" the key specified on_tap
+            register_code16(tap_hold->on_tap);
+            // keep track of which key was used
+            tap_hold->chosen = tap_hold->on_tap;
         }
     }
 }
 
-void tap_dance_tap_hold_reset(tap_dance_state_t *state, void *user_data) {
-    tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)user_data;
+void td_tap_hold_reset(tap_dance_state_t *state, void *user_data) {
+    td_tap_hold_t *tap_hold = (td_tap_hold_t *)user_data;
 
-    if (tap_hold->held) {
-        unregister_code16(tap_hold->held);
-        tap_hold->held = 0;
+    if (tap_hold->chosen) {
+        // there is something to cleanup
+        // release the key that was "pressed"
+        unregister_code16(tap_hold->chosen);
+
+        // reset the key to 0 to signify nothing is selected
+        tap_hold->chosen = 0;
     }
 }
 
-#define ACTION_TAP_DANCE_TAP_HOLD(tap, hold) \
-    { .fn = {NULL, tap_dance_tap_hold_finished, tap_dance_tap_hold_reset}, .user_data = (void *)&((tap_dance_tap_hold_t){tap, hold, 0}), }
+#define ACTION_TAP_DANCE_TAP_HOLD(on_tap, on_hold) \
+    { .fn = {NULL, td_tap_hold_finished, td_tap_hold_reset}, .user_data = (void *)&((td_tap_hold_t){on_tap, on_hold, 0}), }
 
 tap_dance_action_t tap_dance_actions[] = {
     [CT_CLN] = ACTION_TAP_DANCE_TAP_HOLD(KC_COLN, KC_SCLN),
