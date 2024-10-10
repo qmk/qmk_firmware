@@ -21,6 +21,7 @@ The following converters are available at this time:
 | `promicro` | `liatris`         |
 | `promicro` | `imera`           |
 | `promicro` | `michi`           |
+| `promicro` | `svlinky`         |
 | `elite_c`  | `stemcell`        |
 | `elite_c`  | `rp2040_ce`       |
 | `elite_c`  | `elite_pi`        |
@@ -87,6 +88,7 @@ If a board currently supported in QMK uses a [Pro Micro](https://www.sparkfun.co
 | [Liatris](https://splitkb.com/products/liatris)                                          | `liatris`         |
 | [Imera](https://splitkb.com/products/imera)                                              | `imera`           |
 | [Michi](https://github.com/ci-bus/michi-promicro-rp2040)                                 | `michi`           |
+| [Svlinky](https://github.com/sadekbaroudi/svlinky)                                       | `svlinky`         |
 
 Converter summary:
 
@@ -105,6 +107,7 @@ Converter summary:
 | `liatris`         | `-e CONVERT_TO=liatris`         | `CONVERT_TO=liatris`         | `#ifdef CONVERT_TO_LIATRIS`         |
 | `imera`           | `-e CONVERT_TO=imera`           | `CONVERT_TO=imera`           | `#ifdef CONVERT_TO_IMERA`           |
 | `michi`           | `-e CONVERT_TO=michi`           | `CONVERT_TO=michi`           | `#ifdef CONVERT_TO_MICHI`           |
+| `svlinky`         | `-e CONVERT_TO=svlinky`         | `CONVERT_TO=svlinky`         | `#ifdef CONVERT_TO_SVLINKY`         |
 
 ### Proton C {#proton_c}
 
@@ -170,6 +173,9 @@ The Bonsai C4 only has one on-board LED (B2), and by default, both the Pro Micro
 
 Feature set is identical to [Adafruit KB2040](#kb2040). VBUS detection is enabled by default for superior split keyboard support. For more information, refer to the [Community Edition pinout](platformdev_rp2040#rp2040_ce) docs.
 
+### Svlinky {#svlinky}
+
+Feature set is a pro micro equivalent of the [RP2040 Community Edition](#rp2040_ce), except that two of the analog GPIO have been replaced with digital only GPIO. These two were moved to the FPC connector to support the [VIK specification](https://github.com/sadekbaroudi/vik). This means that if you are expecting analog support on all 4 pins as provided on a RP2040 Community Edition pinout, you will not have that. Please see the [Svlinky github page](https://github.com/sadekbaroudi/svlinky) for more details.
 
 ## Elite-C
 
