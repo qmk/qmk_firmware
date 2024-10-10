@@ -1,0 +1,20 @@
+{
+    "keyboard_name": "Onekey AT-START-F415",
+    "processor": "AT32F415",
+    "bootloader": "at32-dfu",
+    "usb": {
+        "shared_endpoint": {
+            "keyboard": true
+        }
+    },
+    "matrix_pins": {
+        "cols": ["B3"],
+        "rows": ["B4"]
+    },
+    "backlight": {
+        "pin": "A0"
+    },
+    "ws2812": {
+        "pin": "B0"
+    }
+}
