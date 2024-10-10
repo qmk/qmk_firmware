@@ -1,5 +1,5 @@
 {
-    "manufacturer": "saevus",
+    "manufacturer": "concreteflowers",
     "keyboard_name": "cor",
     "maintainer": "ramonimbao",
     "bootloader": "atmel-dfu",
@@ -45,7 +45,7 @@
                 {"label": "=", "matrix": [0, 13], "x": 13.25, "y": 0},
                 {"label": "Backspace", "matrix": [0, 14], "x": 14.25, "y": 0, "w": 2},
                 {"label": "Delete", "matrix": [0, 16], "x": 16.75, "y": 0},
-                                             
+
                 {"label": "F2", "matrix": [1, 0], "x": 0, "y": 1},
                 {"label": "Tab", "matrix": [1, 1], "x": 1.25, "y": 1, "w": 1.5},
                 {"label": "Q", "matrix": [1, 2], "x": 2.75, "y": 1},
@@ -62,7 +62,7 @@
                 {"label": "]", "matrix": [1, 13], "x": 13.75, "y": 1},
                 {"label": "\\", "matrix": [1, 15], "x": 14.75, "y": 1, "w": 1.5},
                 {"label": "Page Up", "matrix": [1, 16], "x": 16.75, "y": 1},
-                                             
+
                 {"label": "F3", "matrix": [2, 0], "x": 0, "y": 2},
                 {"label": "Caps Lock", "matrix": [2, 1], "x": 1.25, "y": 2, "w": 1.75},
                 {"label": "A", "matrix": [2, 2], "x": 3, "y": 2},
@@ -78,7 +78,7 @@
                 {"label": "'", "matrix": [2, 12], "x": 13, "y": 2},
                 {"label": "Enter", "matrix": [2, 14], "x": 14, "y": 2, "w": 2.25},
                 {"label": "Page Down", "matrix": [2, 16], "x": 16.75, "y": 2},
-                                             
+
                 {"label": "F4", "matrix": [3, 0], "x": 0, "y": 3},
                 {"label": "Shift", "matrix": [3, 1], "x": 1.25, "y": 3, "w": 2.25},
                 {"label": "Z", "matrix": [3, 3], "x": 3.5, "y": 3},
@@ -94,7 +94,7 @@
                 {"label": "Shift", "matrix": [3, 13], "x": 13.5, "y": 3, "w": 1.75},
                 {"label": "\u2191", "matrix": [3, 15], "x": 15.5, "y": 3.25},
                 {"label": "Fn", "matrix": [3, 16], "x": 16.75, "y": 3},
-                                             
+
                 {"label": "F5", "matrix": [4, 0], "x": 0, "y": 4},
                 {"label": "Ctrl", "matrix": [4, 1], "x": 1.25, "y": 4, "w": 1.25},
                 {"label": "GUI", "matrix": [4, 2], "x": 2.5, "y": 4, "w": 1.25},
@@ -126,7 +126,7 @@
                 {"label": "Backspace", "matrix": [0, 14], "x": 14.25, "y": 0},
                 {"label": "Backspace", "matrix": [0, 15], "x": 15.25, "y": 0},
                 {"label": "Delete", "matrix": [0, 16], "x": 16.75, "y": 0},
-                                             
+
                 {"label": "F2", "matrix": [1, 0], "x": 0, "y": 1},
                 {"label": "Tab", "matrix": [1, 1], "x": 1.25, "y": 1, "w": 1.5},
                 {"label": "Q", "matrix": [1, 2], "x": 2.75, "y": 1},
@@ -143,7 +143,7 @@
                 {"label": "]", "matrix": [1, 13], "x": 13.75, "y": 1},
                 {"label": "\\", "matrix": [1, 15], "x": 14.75, "y": 1, "w": 1.5},
                 {"label": "Page Up", "matrix": [1, 16], "x": 16.75, "y": 1},
-                                             
+
                 {"label": "F3", "matrix": [2, 0], "x": 0, "y": 2},
                 {"label": "Caps Lock", "matrix": [2, 1], "x": 1.25, "y": 2, "w": 1.75},
                 {"label": "A", "matrix": [2, 2], "x": 3, "y": 2},
@@ -159,7 +159,7 @@
                 {"label": "'", "matrix": [2, 12], "x": 13, "y": 2},
                 {"label": "Enter", "matrix": [2, 14], "x": 14, "y": 2, "w": 2.25},
                 {"label": "Page Down", "matrix": [2, 16], "x": 16.75, "y": 2},
-                                             
+
                 {"label": "F4", "matrix": [3, 0], "x": 0, "y": 3},
                 {"label": "Shift", "matrix": [3, 1], "x": 1.25, "y": 3, "w": 2.25},
                 {"label": "Z", "matrix": [3, 3], "x": 3.5, "y": 3},
@@ -175,7 +175,7 @@
                 {"label": "Shift", "matrix": [3, 13], "x": 13.5, "y": 3, "w": 1.75},
                 {"label": "\u2191", "matrix": [3, 15], "x": 15.5, "y": 3.25},
                 {"label": "Fn", "matrix": [3, 16], "x": 16.75, "y": 3},
-                                             
+
                 {"label": "F5", "matrix": [4, 0], "x": 0, "y": 4},
                 {"label": "Ctrl", "matrix": [4, 1], "x": 1.25, "y": 4, "w": 1.25},
                 {"label": "GUI", "matrix": [4, 2], "x": 2.5, "y": 4, "w": 1.25},
@@ -206,7 +206,7 @@
                 {"label": "=", "matrix": [0, 13], "x": 13.25, "y": 0},
                 {"label": "Backspace", "matrix": [0, 14], "x": 14.25, "y": 0, "w": 2},
                 {"label": "Delete", "matrix": [0, 16], "x": 16.75, "y": 0},
-                                             
+
                 {"label": "F2", "matrix": [1, 0], "x": 0, "y": 1},
                 {"label": "Tab", "matrix": [1, 1], "x": 1.25, "y": 1, "w": 1.5},
                 {"label": "Q", "matrix": [1, 2], "x": 2.75, "y": 1},
@@ -223,7 +223,7 @@
                 {"label": "]", "matrix": [1, 13], "x": 13.75, "y": 1},
                 {"label": "\\", "matrix": [1, 15], "x": 14.75, "y": 1, "w": 1.5},
                 {"label": "Page Up", "matrix": [1, 16], "x": 16.75, "y": 1},
-                                             
+
                 {"label": "F3", "matrix": [2, 0], "x": 0, "y": 2},
                 {"label": "Caps Lock", "matrix": [2, 1], "x": 1.25, "y": 2, "w": 1.75},
                 {"label": "A", "matrix": [2, 2], "x": 3, "y": 2},
@@ -239,7 +239,7 @@
                 {"label": "'", "matrix": [2, 12], "x": 13, "y": 2},
                 {"label": "Enter", "matrix": [2, 14], "x": 14, "y": 2, "w": 2.25},
                 {"label": "Page Down", "matrix": [2, 16], "x": 16.75, "y": 2},
-                                             
+
                 {"label": "F4", "matrix": [3, 0], "x": 0, "y": 3},
                 {"label": "Shift", "matrix": [3, 1], "x": 1.25, "y": 3, "w": 2.25},
                 {"label": "Z", "matrix": [3, 3], "x": 3.5, "y": 3},
@@ -255,7 +255,7 @@
                 {"label": "Shift", "matrix": [3, 13], "x": 13.5, "y": 3, "w": 1.75},
                 {"label": "\u2191", "matrix": [3, 15], "x": 15.5, "y": 3.25},
                 {"label": "Fn", "matrix": [3, 16], "x": 16.75, "y": 3},
-                                             
+
                 {"label": "F5", "matrix": [4, 0], "x": 0, "y": 4},
                 {"label": "Ctrl", "matrix": [4, 1], "x": 1.25, "y": 4, "w": 1.5},
                 {"label": "GUI", "matrix": [4, 2], "x": 2.75, "y": 4},
@@ -286,7 +286,7 @@
                 {"label": "Backspace", "matrix": [0, 14], "x": 14.25, "y": 0},
                 {"label": "Backspace", "matrix": [0, 15], "x": 15.25, "y": 0},
                 {"label": "Delete", "matrix": [0, 16], "x": 16.75, "y": 0},
-                                             
+
                 {"label": "F2", "matrix": [1, 0], "x": 0, "y": 1},
                 {"label": "Tab", "matrix": [1, 1], "x": 1.25, "y": 1, "w": 1.5},
                 {"label": "Q", "matrix": [1, 2], "x": 2.75, "y": 1},
@@ -303,7 +303,7 @@
                 {"label": "]", "matrix": [1, 13], "x": 13.75, "y": 1},
                 {"label": "\\", "matrix": [1, 15], "x": 14.75, "y": 1, "w": 1.5},
                 {"label": "Page Up", "matrix": [1, 16], "x": 16.75, "y": 1},
-                                             
+
                 {"label": "F3", "matrix": [2, 0], "x": 0, "y": 2},
                 {"label": "Caps Lock", "matrix": [2, 1], "x": 1.25, "y": 2, "w": 1.75},
                 {"label": "A", "matrix": [2, 2], "x": 3, "y": 2},
@@ -319,7 +319,7 @@
                 {"label": "'", "matrix": [2, 12], "x": 13, "y": 2},
                 {"label": "Enter", "matrix": [2, 14], "x": 14, "y": 2, "w": 2.25},
                 {"label": "Page Down", "matrix": [2, 16], "x": 16.75, "y": 2},
-                                             
+
                 {"label": "F4", "matrix": [3, 0], "x": 0, "y": 3},
                 {"label": "Shift", "matrix": [3, 1], "x": 1.25, "y": 3, "w": 2.25},
                 {"label": "Z", "matrix": [3, 3], "x": 3.5, "y": 3},
@@ -335,7 +335,7 @@
                 {"label": "Shift", "matrix": [3, 13], "x": 13.5, "y": 3, "w": 1.75},
                 {"label": "\u2191", "matrix": [3, 15], "x": 15.5, "y": 3.25},
                 {"label": "Fn", "matrix": [3, 16], "x": 16.75, "y": 3},
-                                             
+
                 {"label": "F5", "matrix": [4, 0], "x": 0, "y": 4},
                 {"label": "Ctrl", "matrix": [4, 1], "x": 1.25, "y": 4, "w": 1.5},
                 {"label": "GUI", "matrix": [4, 2], "x": 2.75, "y": 4},
