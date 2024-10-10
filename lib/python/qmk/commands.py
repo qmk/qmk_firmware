@@ -3,6 +3,7 @@
 import os
 import sys
 import shutil
+from itertools import islice
 from pathlib import Path
 
 from milc import cli
@@ -96,6 +97,13 @@ def in_virtualenv():
     """
     active_prefix = getattr(sys, "base_prefix", None) or getattr(sys, "real_prefix", None) or sys.prefix
     return active_prefix != sys.prefix
+
+
+def get_chunks(it, size):
+    """Break down a collection into smaller parts
+    """
+    it = iter(it)
+    return iter(lambda: tuple(islice(it, size)), ())
 
 
 def dump_lines(output_file, lines, quiet=True):

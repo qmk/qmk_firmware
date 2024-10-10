@@ -44,6 +44,10 @@ else ifeq ($(strip $(DEBUG_MATRIX_SCAN_RATE_ENABLE)), api)
     OPT_DEFS += -DDEBUG_MATRIX_SCAN_RATE
 endif
 
+ifeq ($(strip $(XAP_ENABLE)), yes)
+    include $(BUILDDEFS_PATH)/xap.mk
+endif
+
 AUDIO_ENABLE ?= no
 ifeq ($(strip $(AUDIO_ENABLE)), yes)
     ifeq ($(PLATFORM),CHIBIOS)
@@ -625,6 +629,22 @@ ifeq ($(strip $(VIA_ENABLE)), yes)
     RAW_ENABLE := yes
     BOOTMAGIC_ENABLE := yes
     TRI_LAYER_ENABLE := yes
+endif
+
+ifeq ($(strip $(XAP_ENABLE)), yes)
+    ifeq ($(strip $(VIA_ENABLE)), yes)
+        $(error 'XAP_ENABLE = $(XAP_ENABLE)' deprecates 'VIA_ENABLE = $(VIA_ENABLE)'. Please set 'VIA_ENABLE = no')
+    endif
+
+    DYNAMIC_KEYMAP_ENABLE := yes
+    FNV_ENABLE := yes
+    SECURE_ENABLE := yes
+    BOOTMAGIC_ENABLE := yes
+
+    OPT_DEFS += -DXAP_ENABLE
+    OPT_DEFS += -DBOOTLOADER_JUMP_SUPPORTED
+    VPATH += $(QUANTUM_DIR)/xap
+    SRC += $(QUANTUM_DIR)/xap/xap.c $(QUANTUM_DIR)/xap/xap_handlers.c
 endif
 
 VALID_CUSTOM_MATRIX_TYPES:= yes lite no
