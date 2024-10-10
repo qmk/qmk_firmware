@@ -21,4 +21,3 @@
 #define ENCODERS_PAD_A { GP4 }
 #define ENCODERS_PAD_B { GP5 }
 #define DIP_SWITCH_PINS { GP6 }
-

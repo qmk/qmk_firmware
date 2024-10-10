@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
-#include "timer.h" 
+#include "timer.h"
 
 #define NUM_LAYERS 4           // Constant for the number of layers
 #define DEBOUNCE_TIME 200      // Debounce time in milliseconds
@@ -62,6 +62,15 @@ bool oled_task_user() {
     return false;
 }
 
+#endif
+
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [0] = { ENCODER_CCW_CW(KC_BRID, KC_BRIU)},
+    [1] = { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)},
+    [2] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+    [3] = { ENCODER_CCW_CW(KC_MNXT, KC_MPRV)}
+};
 #endif
 
 // Encode Knob

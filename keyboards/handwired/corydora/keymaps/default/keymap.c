@@ -11,10 +11,10 @@ uint8_t current_layer = 0;     // Tracks the current layer
 uint16_t last_switch_time = 0; // Tracks the last time the layer was switched
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT_ortho_3x3(KC_3, KC_2, KC_1, KC_6, KC_5, KC_4, KC_9, KC_8, KC_7),
-    [1] = LAYOUT_ortho_3x3(KC_C, KC_B, KC_A, KC_F, KC_E, KC_D, KC_I, KC_H, KC_G),
-    [2] = LAYOUT_ortho_3x3(KC_3, KC_2, KC_1, KC_6, KC_5, KC_4, KC_9, KC_8, KC_7),
-    [3] = LAYOUT_ortho_3x3(KC_C, KC_B, KC_A, KC_F, KC_E, KC_D, KC_I, KC_H, KC_G),
+    [0] = LAYOUT_ortho_3x3(KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9),
+    [1] = LAYOUT_ortho_3x3(KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9),
+    [2] = LAYOUT_ortho_3x3(KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9),
+    [3] = LAYOUT_ortho_3x3(KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, QK_BOOT),
 };
 
 // OLED
@@ -62,6 +62,15 @@ bool oled_task_user() {
     return false;
 }
 
+#endif
+
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [0] = { ENCODER_CCW_CW(KC_BRID, KC_BRIU)},
+    [1] = { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)},
+    [2] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+    [3] = { ENCODER_CCW_CW(KC_MNXT, KC_MPRV)}
+};
 #endif
 
 // Encode Knob
