@@ -211,7 +211,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 ap2_led_reset_foreground_color();
                 return false;
             #ifdef RGB_MATRIX_ENABLE
-            case RGB_TOG:
+            case QK_RGB_MATRIX_TOGGLE:
                 if(rgb_matrix_is_enabled()) ap2_led_disable();
                 else ap2_led_enable();
                 return true;

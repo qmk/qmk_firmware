@@ -28,7 +28,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
     if (!record->event.pressed) {
         switch (keycode) {
-            case RGB_TOG:
+            case QK_RGB_MATRIX_TOGGLE:
                 switch (rgb_matrix_get_flags()) {
                     case LED_FLAG_ALL:
                         rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR);

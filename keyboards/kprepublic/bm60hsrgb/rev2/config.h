@@ -18,10 +18,6 @@
 #define IS31FL3733_I2C_ADDRESS_1 IS31FL3733_I2C_ADDRESS_GND_GND
 #define IS31FL3733_LED_COUNT 63
 
-#if defined(RGB_MATRIX_ENABLE) && defined(RGBLIGHT_ENABLE)
-    #define RGB_MATRIX_DISABLE_KEYCODES
-#endif
-
 // Underglow LEDs are WS2812, but someone might want to use RGBLIGHT for them;
 // don't use those LEDs in RGB Matrix in that case.
 #ifdef RGBLIGHT_ENABLE

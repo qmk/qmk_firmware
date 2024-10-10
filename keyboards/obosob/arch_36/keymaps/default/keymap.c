@@ -107,14 +107,14 @@ uint16_t last_rgb_char = 0;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch(keycode) {
-    case RGB_TOG:
-    case RGB_MOD:
-    case RGB_HUD:
-    case RGB_HUI:
-    case RGB_SAD:
-    case RGB_SAI:
-    case RGB_VAI:
-    case RGB_VAD:
+    case QK_UNDERGLOW_TOGGLE:
+    case QK_UNDERGLOW_MODE_NEXT:
+    case QK_UNDERGLOW_HUE_DOWN:
+    case QK_UNDERGLOW_HUE_UP:
+    case QK_UNDERGLOW_SATURATION_DOWN:
+    case QK_UNDERGLOW_SATURATION_UP:
+    case QK_UNDERGLOW_VALUE_UP:
+    case QK_UNDERGLOW_VALUE_DOWN:
       rgb_edit_timer = timer_read();
       last_rgb_char = keycode;
       return true;
@@ -152,9 +152,9 @@ void render_rgb_state(void) {
     uint8_t hue = (rgblight_get_hue()*width/255),
         sat = (rgblight_get_sat()*width/255),
         val = (rgblight_get_val()*width/255);
-    bool changing_hue = timer_elapsed(rgb_edit_timer) < 1000 && (last_rgb_char == RGB_HUI || last_rgb_char == RGB_HUD);
-    bool changing_sat =  timer_elapsed(rgb_edit_timer) < 1000 && (last_rgb_char == RGB_SAI || last_rgb_char == RGB_SAD);
-    bool changing_val =  timer_elapsed(rgb_edit_timer) < 1000 && (last_rgb_char == RGB_VAI || last_rgb_char == RGB_VAD);
+    bool changing_hue = timer_elapsed(rgb_edit_timer) < 1000 && (last_rgb_char == QK_UNDERGLOW_HUE_UP || last_rgb_char == QK_UNDERGLOW_HUE_DOWN);
+    bool changing_sat =  timer_elapsed(rgb_edit_timer) < 1000 && (last_rgb_char == QK_UNDERGLOW_SATURATION_UP || last_rgb_char == QK_UNDERGLOW_SATURATION_DOWN);
+    bool changing_val =  timer_elapsed(rgb_edit_timer) < 1000 && (last_rgb_char == QK_UNDERGLOW_VALUE_UP || last_rgb_char == QK_UNDERGLOW_VALUE_DOWN);
 
     uint8_t i;
 
