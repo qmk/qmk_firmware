@@ -84,11 +84,11 @@ typedef struct PACKED rgb_t {
 typedef rgb_t RGB;
 typedef rgb_t rgb_led_t;
 
-typedef struct PACKED HSV {
+typedef struct PACKED hsv_t {
     uint8_t h;
     uint8_t s;
     uint8_t v;
-} HSV;
+} hsv_t;
 
 // DEPRECATED
 typedef hsv_t HSV;
