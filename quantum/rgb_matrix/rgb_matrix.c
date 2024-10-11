@@ -35,7 +35,7 @@ const led_point_t k_rgb_matrix_center = {112, 32};
 const led_point_t k_rgb_matrix_center = RGB_MATRIX_CENTER;
 #endif
 
-__attribute__((weak)) RGB rgb_matrix_hsv_to_rgb(HSV hsv) {
+__attribute__((weak)) rgb_t rgb_matrix_hsv_to_rgb(hsv_t hsv) {
     return hsv_to_rgb(hsv);
 }
 
@@ -98,7 +98,7 @@ void eeconfig_update_rgb_matrix_default(void) {
     dprintf("eeconfig_update_rgb_matrix_default\n");
     rgb_matrix_config.enable = RGB_MATRIX_DEFAULT_ON;
     rgb_matrix_config.mode   = RGB_MATRIX_DEFAULT_MODE;
-    rgb_matrix_config.hsv    = (HSV){RGB_MATRIX_DEFAULT_HUE, RGB_MATRIX_DEFAULT_SAT, RGB_MATRIX_DEFAULT_VAL};
+    rgb_matrix_config.hsv    = (hsv_t){RGB_MATRIX_DEFAULT_HUE, RGB_MATRIX_DEFAULT_SAT, RGB_MATRIX_DEFAULT_VAL};
     rgb_matrix_config.speed  = RGB_MATRIX_DEFAULT_SPD;
     rgb_matrix_config.flags  = RGB_MATRIX_DEFAULT_FLAGS;
     eeconfig_flush_rgb_matrix(true);
@@ -591,7 +591,7 @@ void rgb_matrix_sethsv(uint16_t hue, uint8_t sat, uint8_t val) {
     rgb_matrix_sethsv_eeprom_helper(hue, sat, val, true);
 }
 
-HSV rgb_matrix_get_hsv(void) {
+hsv_t rgb_matrix_get_hsv(void) {
     return rgb_matrix_config.hsv;
 }
 uint8_t rgb_matrix_get_hue(void) {
