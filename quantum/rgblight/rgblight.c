@@ -1349,7 +1349,7 @@ void rgblight_effect_rgbtest(animation_status_t *anim) {
 
     if (maxval == 0) {
         rgb_t rgb = hsv_to_rgb((hsv_t){0, 255, RGBLIGHT_LIMIT_VAL});
-        maxval  = rgb.r;
+        maxval    = rgb.r;
     }
     g = r = b = 0;
     switch (anim->pos) {
