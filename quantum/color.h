@@ -74,19 +74,24 @@
 
 // clang-format on
 
-typedef struct PACKED rgb_led_t {
+typedef struct PACKED rgb_t {
     uint8_t r;
     uint8_t g;
     uint8_t b;
-} rgb_led_t;
+} rgb_t;
 
-typedef rgb_led_t RGB;
+// DEPRECATED
+typedef rgb_t RGB;
+typedef rgb_t rgb_led_t;
 
-typedef struct PACKED HSV {
+typedef struct PACKED hsv_t {
     uint8_t h;
     uint8_t s;
     uint8_t v;
-} HSV;
+} hsv_t;
 
-RGB hsv_to_rgb(HSV hsv);
-RGB hsv_to_rgb_nocie(HSV hsv);
+// DEPRECATED
+typedef hsv_t HSV;
+
+rgb_t hsv_to_rgb(hsv_t hsv);
+rgb_t hsv_to_rgb_nocie(hsv_t hsv);

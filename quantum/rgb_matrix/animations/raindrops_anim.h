@@ -4,7 +4,7 @@ RGB_MATRIX_EFFECT(RAINDROPS)
 
 static void raindrops_set_color(int i, effect_params_t* params) {
     if (!HAS_ANY_FLAGS(g_led_config.flags[i], params->flags)) return;
-    HSV hsv = {0, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v};
+    hsv_t hsv = {0, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v};
 
     // Take the shortest path between hues
     int16_t deltaH = ((rgb_matrix_config.hsv.h + 180) % 360 - rgb_matrix_config.hsv.h) / 4;
@@ -14,8 +14,8 @@ static void raindrops_set_color(int i, effect_params_t* params) {
         deltaH += 256;
     }
 
-    hsv.h   = rgb_matrix_config.hsv.h + (deltaH * (random8() & 0x03));
-    RGB rgb = rgb_matrix_hsv_to_rgb(hsv);
+    hsv.h     = rgb_matrix_config.hsv.h + (deltaH * (random8() & 0x03));
+    rgb_t rgb = rgb_matrix_hsv_to_rgb(hsv);
     rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
 }
 

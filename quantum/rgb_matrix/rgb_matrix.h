@@ -186,7 +186,7 @@ void        rgb_matrix_step_reverse(void);
 void        rgb_matrix_step_reverse_noeeprom(void);
 void        rgb_matrix_sethsv(uint16_t hue, uint8_t sat, uint8_t val);
 void        rgb_matrix_sethsv_noeeprom(uint16_t hue, uint8_t sat, uint8_t val);
-HSV         rgb_matrix_get_hsv(void);
+hsv_t       rgb_matrix_get_hsv(void);
 uint8_t     rgb_matrix_get_hue(void);
 uint8_t     rgb_matrix_get_sat(void);
 uint8_t     rgb_matrix_get_val(void);
