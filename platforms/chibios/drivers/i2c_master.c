@@ -32,6 +32,7 @@
 #include <string.h>
 #include <ch.h>
 #include <hal.h>
+#include <math.h>
 
 #ifndef I2C1_SCL_PIN
 #    define I2C1_SCL_PIN B6
@@ -70,8 +71,23 @@
 #    endif
 #endif
 
-#ifndef I2C_DRIVER
-#    define I2C_DRIVER I2CD1
+#if defined(SW_I2C_USE_I2C1) || defined(SW_I2C_USE_I2C2) || defined(SW_I2C_USE_I2C3) || defined(SW_I2C_USE_I2C4)
+#    define USE_I2C_FALLBACK
+#    ifndef I2C_DRIVER
+#        ifdef SW_I2C_USE_I2C1
+#            define I2C_DRIVER I2CD1
+#        elif defined(SW_I2C_USE_I2C2)
+#            define I2C_DRIVER I2CD2
+#        elif defined(SW_I2C_USE_I2C3)
+#            define I2C_DRIVER I2CD3
+#        elif defined(SW_I2C_USE_I2C4)
+#            define I2C_DRIVER I2CD4
+#        endif
+#    endif
+#else
+#    ifndef I2C_DRIVER
+#        define I2C_DRIVER I2CD1
+#    endif
 #endif
 
 #ifdef USE_GPIOV1
@@ -91,8 +107,32 @@
 #    endif
 #endif
 
+#ifdef USE_I2C_FALLBACK
+#    ifndef I2C1_CLOCK_SPEED
+#        define I2C1_CLOCK_SPEED 100000 /* 400000 */
+#    endif
+#    ifndef SW_I2C_DELAY
+#        define SW_I2C_DELAY ceil((CH_CFG_ST_FREQUENCY / I2C1_CLOCK_SPEED) / 2)
+#    endif
+#    ifndef SW_I2C_USE_OSAL_DELAY
+#        define SW_I2C_USE_OSAL_DELAY TRUE
+#    endif
+#    if (SW_I2C_USE_OSAL_DELAY == FALSE)
+__attribute__((weak)) void i2c_sw_delay(void) {}
+#    endif
+#endif
+
 static const I2CConfig i2cconfig = {
-#if defined(USE_I2CV1_CONTRIB)
+#if defined(USE_I2C_FALLBACK)
+    0,
+    I2C1_SCL_PIN,
+    I2C1_SDA_PIN,
+#    if (SW_I2C_USE_OSAL_DELAY == FALSE)
+    &i2c_sw_delay,
+#    else
+    SW_I2C_DELAY,
+#    endif
+#elif defined(USE_I2CV1_CONTRIB)
     I2C1_CLOCK_SPEED,
 #elif defined(USE_I2CV1)
     I2C1_OPMODE,
