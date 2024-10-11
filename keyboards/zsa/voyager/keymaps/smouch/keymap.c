@@ -1,6 +1,4 @@
 
-#include "color.h"
-#include "keycodes.h"
 #include QMK_KEYBOARD_H
 #include "version.h"
 
@@ -147,7 +145,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   /*  Hands Down Promethium (canonical)
-    ⎋   3   2@  1$   0#  4           7   6(  5   9)  8  Cap
+    ⎋   3   2@  1$   0#  4           7   6(  5&  9)  8  Cap
     ⇥   v   w   g    m   j           +=  .:  /   "!  '? `
     num s⌃  n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘  i⌥  c⌃ ⌦
     tg  f   p   d    l   x      	 -   u   o   y   b  \
@@ -198,7 +196,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *   !   -   +   =   `          \   :   (   )   ?
     *   ^   /   *   #   ~		   |   $   {   }   %
 	* 					mo		mo
-  */
+  *
   [_SYM] = LAYOUT_voyager(
     _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, QK_BOOT,
     _______, ___x___, KC_LABK, KC_RABK, KC_AT,   ___x___,                   ___x___, KC_AMPR, KC_LBRC, KC_RBRC, ___x___, _______,
@@ -206,21 +204,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, KC_CIRC, KC_SLSH, KC_ASTR, KC_HASH, KC_TILD,                   KC_PIPE, KC_DLR,  KC_LCBR, KC_RCBR, KC_PERC, _______,
                                                  _______, _______, _______, _______
   ),
+  */
 
   /* BEAKL Symbols
-    *		@	$	#						^
+    *		@	$	#					~	^	`
     *		<   =	>			       	[   _   ]
     *   \   (   -   )   +          	%   {   ;   }   !
     *       *   :	/   		      	|   ~   &
-  *
+  */
   [_SYM] = LAYOUT_voyager(
-    _______, _______, KC_AT,   KC_DLR,  KC_HASH, _______,                   _______, _______, KC_CIRC, _______, _______, QK_BOOT,
+    _______, _______, KC_AT,   KC_DLR,  KC_HASH, _______,                   _______, KC_TILD, KC_CIRC, KC_GRV,  _______, QK_BOOT,
     _______, ___x___, KC_LABK, KC_EQL,  KC_RABK, ___x___,                   ___x___, KC_LBRC, KC_UNDS, KC_RBRC, ___x___, _______,
     _______, KC_BSLS, KC_LPRN, KC_MINS, KC_RPRN, KC_PLUS,                   KC_PERC, KC_LCBR, KC_LPRN, KC_RCBR, KC_EXLM, _______,
     _______, ___x___, KC_ASTR, KC_COLN, KC_SLSH, ___x___,                   ___x___, KC_PIPE, KC_TILD, KC_AMPR, ___x___, _______,
                                                  _______, _______, _______, _______
   ),
-  */
 
   /*    F1     F2      F3	   F4	  F5			           F6	   F7	   F8	F9	    F10	    F11
     	       ⌘Q      Scap    Sclp                            vol+    home    up	end             F12
@@ -230,9 +228,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   */
   [_NAV] = LAYOUT_voyager(
     _______, KC_F1,   KC_F2,   KC_F3,     KC_F4,         KC_F5,                          KC_F6,   KC_F7,      KC_F8,   KC_F9,      KC_F10,  KC_F11,
-    ___x___, ___x___, G(KC_Q), LSG(KC_4), C(S(G(KC_4))), ___x___,                        KC_VOLU, G(KC_LEFT), KC_UP,   G(KC_RGHT), ___x___, KC_F12,
-    _______, KC_LCTL, KC_LALT, KC_LGUI,   KC_LSFT,       ___x___,                        KC_VOLD, KC_LEFT,    KC_DOWN, KC_RGHT,    KC_DEL,  ___x___,
-    _______, G(KC_Z), G(KC_X), G(KC_C),   G(KC_V),       LSG(KC_Z),                      KC_MUTE, KC_BSPC,    KC_TAB,  KC_ENT,     ___x___, ___x___,
+    _______, ___x___, G(KC_Q), LSG(KC_4), C(S(G(KC_4))), ___x___,                        KC_VOLU, G(KC_LEFT), KC_UP,   G(KC_RGHT), ___x___, KC_F12,
+    ___x___, KC_LCTL, KC_LALT, KC_LGUI,   KC_LSFT,       ___x___,                        KC_VOLD, KC_LEFT,    KC_DOWN, KC_RGHT,    KC_DEL,  ___x___,
+    ___x___, G(KC_Z), G(KC_X), G(KC_C),   G(KC_V),       LSG(KC_Z),                      KC_MUTE, KC_BSPC,    KC_TAB,  KC_ENT,     ___x___, ___x___,
                                                          _______,   _______, C(KC_LEFT), C(KC_RIGHT)
   )
 
