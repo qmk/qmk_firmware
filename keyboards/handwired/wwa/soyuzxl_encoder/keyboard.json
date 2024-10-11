@@ -6,19 +6,10 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "consumer_enable": false,
-        "via_enable": true,
-        "encoder_enable": true,
-        "encoder_map_enable": true,
-        "midi_enable": true,
-        "audio_enable": false,
-        "analog_enable": true,
-        "analog_driver_required": true
+        "encoder": true,
     },
     
     "matrix_pins": {
