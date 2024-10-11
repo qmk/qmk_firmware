@@ -35,7 +35,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 };
 #endif
 
-void matrix_scan_user(void) {
+void housekeeping_task_user(void) {
     slider();
 }
 
