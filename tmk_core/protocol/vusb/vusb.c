@@ -524,23 +524,37 @@ const PROGMEM uchar shared_hid_report[] = {
 #    endif
     0x81, 0x06, //     Input (Data, Variable, Relative)
 
-    // Vertical wheel (1 byte)
+    // Vertical wheel (1 or 2 bytes)
     0x09, 0x38, //     Usage (Wheel)
+#    ifndef WHEEL_EXTENDED_REPORT
     0x15, 0x81, //     Logical Minimum (-127)
     0x25, 0x7F, //     Logical Maximum (127)
     0x95, 0x01, //     Report Count (1)
     0x75, 0x08, //     Report Size (8)
+#    else
+    0x16, 0x01, 0x80, //     Logical Minimum (-32767)
+    0x26, 0xFF, 0x7F, //     Logical Maximum (32767)
+    0x95, 0x01,       //     Report Count (1)
+    0x75, 0x10,       //     Report Size (16)
+#    endif
     0x81, 0x06, //     Input (Data, Variable, Relative)
-    // Horizontal wheel (1 byte)
+    // Horizontal wheel (1 or 2 bytes)
     0x05, 0x0C,       //     Usage Page (Consumer)
     0x0A, 0x38, 0x02, //     Usage (AC Pan)
-    0x15, 0x81,       //     Logical Minimum (-127)
-    0x25, 0x7F,       //     Logical Maximum (127)
+#    ifndef WHEEL_EXTENDED_REPORT
+    0x15, 0x81, //     Logical Minimum (-127)
+    0x25, 0x7F, //     Logical Maximum (127)
+    0x95, 0x01, //     Report Count (1)
+    0x75, 0x08, //     Report Size (8)
+#    else
+    0x16, 0x01, 0x80, //     Logical Minimum (-32767)
+    0x26, 0xFF, 0x7F, //     Logical Maximum (32767)
     0x95, 0x01,       //     Report Count (1)
-    0x75, 0x08,       //     Report Size (8)
-    0x81, 0x06,       //     Input (Data, Variable, Relative)
-    0xC0,             //   End Collection
-    0xC0,             // End Collection
+    0x75, 0x10,       //     Report Size (16)
+#    endif
+    0x81, 0x06, //     Input (Data, Variable, Relative)
+    0xC0,       //   End Collection
+    0xC0,       // End Collection
 #endif
 
 #ifdef EXTRAKEY_ENABLE

@@ -21,7 +21,7 @@
 #endif
 
 #ifdef BLUETOOTH_ENABLE
-#    include "outputselect.h"
+#    include "process_connection.h"
 #endif
 
 #ifdef GRAVE_ESC_ENABLE
@@ -393,6 +393,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef TRI_LAYER_ENABLE
             process_tri_layer(keycode, record) &&
 #endif
+#ifdef BLUETOOTH_ENABLE
+            process_connection(keycode, record) &&
+#endif
             true)) {
         return false;
     }
@@ -428,17 +431,6 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef VELOCIKEY_ENABLE
             case QK_VELOCIKEY_TOGGLE:
                 velocikey_toggle();
-                return false;
-#endif
-#ifdef BLUETOOTH_ENABLE
-            case QK_OUTPUT_AUTO:
-                set_output(OUTPUT_AUTO);
-                return false;
-            case QK_OUTPUT_USB:
-                set_output(OUTPUT_USB);
-                return false;
-            case QK_OUTPUT_BLUETOOTH:
-                set_output(OUTPUT_BLUETOOTH);
                 return false;
 #endif
 #ifndef NO_ACTION_ONESHOT
@@ -485,12 +477,16 @@ bool process_record_quantum(keyrecord_t *record) {
     return process_action_kb(record);
 }
 
-void set_single_persistent_default_layer(uint8_t default_layer) {
+void set_single_default_layer(uint8_t default_layer) {
 #if defined(AUDIO_ENABLE) && defined(DEFAULT_LAYER_SONGS)
     PLAY_SONG(default_layer_songs[default_layer]);
 #endif
-    eeconfig_update_default_layer((layer_state_t)1 << default_layer);
     default_layer_set((layer_state_t)1 << default_layer);
+}
+
+void set_single_persistent_default_layer(uint8_t default_layer) {
+    eeconfig_update_default_layer((layer_state_t)1 << default_layer);
+    set_single_default_layer(default_layer);
 }
 
 //------------------------------------------------------------------------------
