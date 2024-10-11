@@ -1,5 +1,5 @@
 {
-    "keyboard": "mykeyclub/jris65",
+    "keyboard": "mykeyclub/jris65/hotswap",
     "keymap": "default",
     "layout": "LAYOUT_all",
     "layers": [
