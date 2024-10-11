@@ -136,7 +136,7 @@ void rgblight_set_effect_range(uint8_t start_pos, uint8_t num_leds) {
     rgblight_ranges.effect_num_leds  = num_leds;
 }
 
-__attribute__((weak)) RGB rgblight_hsv_to_rgb(HSV hsv) {
+__attribute__((weak)) rgb_t rgblight_hsv_to_rgb(hsv_t hsv) {
     return hsv_to_rgb(hsv);
 }
 
@@ -153,8 +153,8 @@ void setrgb(uint8_t r, uint8_t g, uint8_t b, int index) {
 }
 
 void sethsv_raw(uint8_t hue, uint8_t sat, uint8_t val, int index) {
-    HSV hsv = {hue, sat, val};
-    RGB rgb = rgblight_hsv_to_rgb(hsv);
+    hsv_t hsv = {hue, sat, val};
+    rgb_t rgb = rgblight_hsv_to_rgb(hsv);
     setrgb(rgb.r, rgb.g, rgb.b, index);
 }
 
@@ -513,7 +513,7 @@ void rgblight_decrease_speed_noeeprom(void) {
 
 void rgblight_sethsv_noeeprom_old(uint8_t hue, uint8_t sat, uint8_t val) {
     if (rgblight_config.enable) {
-        RGB rgb = hsv_to_rgb((HSV){hue, sat, val > RGBLIGHT_LIMIT_VAL ? RGBLIGHT_LIMIT_VAL : val});
+        rgb_t rgb = hsv_to_rgb((hsv_t){hue, sat, val > RGBLIGHT_LIMIT_VAL ? RGBLIGHT_LIMIT_VAL : val});
         rgblight_setrgb(rgb.r, rgb.g, rgb.b);
     }
 }
@@ -532,7 +532,7 @@ void rgblight_sethsv_eeprom_helper(uint8_t hue, uint8_t sat, uint8_t val, bool w
             // needed for rgblight_layers_write() to get the new val, since it reads rgblight_config.val
             rgblight_config.val = val;
 #endif
-            RGB rgb = hsv_to_rgb((HSV){hue, sat, val > RGBLIGHT_LIMIT_VAL ? RGBLIGHT_LIMIT_VAL : val});
+            rgb_t rgb = hsv_to_rgb((hsv_t){hue, sat, val > RGBLIGHT_LIMIT_VAL ? RGBLIGHT_LIMIT_VAL : val});
             rgblight_setrgb(rgb.r, rgb.g, rgb.b);
         } else {
             // all LEDs in same color
@@ -635,8 +635,8 @@ uint8_t rgblight_get_val(void) {
     return rgblight_config.val;
 }
 
-HSV rgblight_get_hsv(void) {
-    return (HSV){rgblight_config.hue, rgblight_config.sat, rgblight_config.val};
+hsv_t rgblight_get_hsv(void) {
+    return (hsv_t){rgblight_config.hue, rgblight_config.sat, rgblight_config.val};
 }
 
 void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b) {
@@ -664,7 +664,7 @@ void rgblight_sethsv_at(uint8_t hue, uint8_t sat, uint8_t val, uint8_t index) {
         return;
     }
 
-    RGB rgb = hsv_to_rgb((HSV){hue, sat, val > RGBLIGHT_LIMIT_VAL ? RGBLIGHT_LIMIT_VAL : val});
+    rgb_t rgb = hsv_to_rgb((hsv_t){hue, sat, val > RGBLIGHT_LIMIT_VAL ? RGBLIGHT_LIMIT_VAL : val});
     rgblight_setrgb_at(rgb.r, rgb.g, rgb.b, index);
 }
 
@@ -696,7 +696,7 @@ void rgblight_sethsv_range(uint8_t hue, uint8_t sat, uint8_t val, uint8_t start,
         return;
     }
 
-    RGB rgb = hsv_to_rgb((HSV){hue, sat, val > RGBLIGHT_LIMIT_VAL ? RGBLIGHT_LIMIT_VAL : val});
+    rgb_t rgb = hsv_to_rgb((hsv_t){hue, sat, val > RGBLIGHT_LIMIT_VAL ? RGBLIGHT_LIMIT_VAL : val});
     rgblight_setrgb_range(rgb.r, rgb.g, rgb.b, start, end);
 }
 
@@ -1348,8 +1348,8 @@ void rgblight_effect_rgbtest(animation_status_t *anim) {
     uint8_t        b;
 
     if (maxval == 0) {
-        RGB rgb = hsv_to_rgb((HSV){0, 255, RGBLIGHT_LIMIT_VAL});
-        maxval  = rgb.r;
+        rgb_t rgb = hsv_to_rgb((hsv_t){0, 255, RGBLIGHT_LIMIT_VAL});
+        maxval    = rgb.r;
     }
     g = r = b = 0;
     switch (anim->pos) {
@@ -1388,7 +1388,7 @@ void rgblight_effect_alternating(animation_status_t *anim) {
 __attribute__((weak)) const uint8_t RGBLED_TWINKLE_INTERVALS[] PROGMEM = {30, 15, 5};
 
 typedef struct PACKED {
-    HSV     hsv;
+    hsv_t   hsv;
     uint8_t life;
     uint8_t max_life;
 } TwinkleState;
@@ -1414,7 +1414,7 @@ void rgblight_effect_twinkle(animation_status_t *anim) {
 
     for (uint8_t i = 0; i < rgblight_ranges.effect_num_leds; i++) {
         TwinkleState *t = &(led_twinkle_state[i]);
-        HSV *         c = &(t->hsv);
+        hsv_t *       c = &(t->hsv);
 
         if (!random_color) {
             c->h = rgblight_config.hue;
