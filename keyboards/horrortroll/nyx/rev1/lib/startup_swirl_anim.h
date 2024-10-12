@@ -98,7 +98,7 @@ static void swirl_set_color(hsv_t hsv) {
                 v_values[v] = 0;
         }
         hsv.v     =  v_values[v];
-        hsv_t rgb = hsv_to_rgb(hsv);
+        rgb_t rgb = hsv_to_rgb(hsv);
         rgb_matrix_set_color(v, rgb.r, rgb.g, rgb.b);
     }
 
