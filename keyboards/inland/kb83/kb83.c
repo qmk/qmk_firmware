@@ -302,7 +302,7 @@ static uint16_t scancode         = 0;
 static uint8_t  alarm_cnt        = 0;
 static uint8_t  RGB_HSV_level;
 
-HSV hsv;
+hsv_t hsv;
 
 void led_test(uint8_t color);
 void clear_eeprom(void);

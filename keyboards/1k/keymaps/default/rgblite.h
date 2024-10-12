@@ -10,7 +10,7 @@ static inline void rgblite_init(void) {
     ws2812_init();
 }
 
-static inline void rgblite_setrgb(RGB rgb) {
+static inline void rgblite_setrgb(rgb_t rgb) {
     ws2812_set_color_all(rgb.r, rgb.g, rgb.b);
     ws2812_flush();
 }
@@ -18,7 +18,7 @@ static inline void rgblite_setrgb(RGB rgb) {
 static void rgblite_increase_hue(void) {
     static uint8_t state = 0;
 
-    HSV hsv = { 255, 255, 255 };
+    hsv_t hsv = { 255, 255, 255 };
     hsv.h = state;
     state = (state + 8) % 256;
 

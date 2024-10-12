@@ -73,10 +73,10 @@ bool rgb_matrix_indicators_kb(void) {
         return false;
     }
 
-    HSV      hsv = rgb_matrix_config.hsv;
+    hsv_t    hsv = rgb_matrix_config.hsv;
     uint8_t time = scale16by8(g_rgb_timer, qadd8(32, 1));
     hsv.h        = time;
-    RGB      rgb = hsv_to_rgb(hsv);
+    rgb_t    rgb = hsv_to_rgb(hsv);
 
     if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(40, rgb.r, rgb.g, rgb.b);

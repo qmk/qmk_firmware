@@ -124,10 +124,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool rgb_matrix_indicators_user(void) {
-    HSV      hsv = rgb_matrix_config.hsv;
+    hsv_t    hsv = rgb_matrix_config.hsv;
     uint8_t time = scale16by8(g_rgb_timer, qadd8(32, 1));
     hsv.h        = time;
-    RGB      rgb = hsv_to_rgb(hsv);
+    rgb_t    rgb = hsv_to_rgb(hsv);
 
     if ((rgb_matrix_get_flags() & LED_FLAG_KEYLIGHT)) {
         if (host_keyboard_led_state().caps_lock) {
