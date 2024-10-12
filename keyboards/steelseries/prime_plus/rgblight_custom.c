@@ -12,7 +12,7 @@ static PWMConfig pwmCFG = {
     .period    = 256,
 };
 
-rgb_led_t prime_leds[RGBLIGHT_LED_COUNT];
+rgb_t prime_leds[RGBLIGHT_LED_COUNT];
 
 void init_custom(void) {
     palSetPadMode(PAL_PORT(RGB_RED_PIN), PAL_PAD(RGB_RED_PIN), PAL_MODE_ALTERNATE_PUSHPULL);

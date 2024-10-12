@@ -478,18 +478,18 @@ This example sets the modifiers to be a specific color based on the layer state.
 
 ```c
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    HSV hsv = {0, 255, 255};
+    hsv_t hsv = {0, 255, 255};
 
     if (layer_state_is(layer_state, 2)) {
-        hsv = (HSV){130, 255, 255};
+        hsv = (hsv_t){130, 255, 255};
     } else {
-        hsv = (HSV){30, 255, 255};
+        hsv = (hsv_t){30, 255, 255};
     }
 
     if (hsv.v > rgb_matrix_get_val()) {
         hsv.v = rgb_matrix_get_val();
     }
-    RGB rgb = hsv_to_rgb(hsv);
+    rgb_t rgb = hsv_to_rgb(hsv);
 
     for (uint8_t i = led_min; i < led_max; i++) {
         if (HAS_FLAGS(g_led_config.flags[i], 0x01)) { // 0x01 == LED_FLAG_MODIFIER
@@ -855,13 +855,13 @@ Set the global effect hue, saturation, and value (brightness). New state is not 
 
 ---
 
-### `HSV rgb_matrix_get_hsv(void)` {#api-rgb-matrix-get-hsv}
+### `hsv_t rgb_matrix_get_hsv(void)` {#api-rgb-matrix-get-hsv}
 
 Get the current global effect hue, saturation, and value (brightness).
 
 #### Return Value {#api-rgb-matrix-get-hsv-return}
 
-The current effect HSV as an `HSV` struct.
+The current effect HSV as an `hsv_t` struct.
 
 ---
 

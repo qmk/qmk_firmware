@@ -27,7 +27,7 @@ const encodermap_t touch_encoder_map[NUMBER_OF_TOUCH_ENCODERS][TOUCH_ENCODER_OPT
 
 static bool limit_lightning = true;
 
-RGB rgb_matrix_hsv_to_rgb(HSV hsv) {
+RGB rgb_matrix_hsv_to_rgb(hsv_t hsv) {
     if (limit_lightning) hsv.v /= 2;
     return hsv_to_rgb(hsv);
 }
