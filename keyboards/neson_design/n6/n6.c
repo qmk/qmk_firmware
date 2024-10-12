@@ -104,12 +104,12 @@ static void update_ticks(void)
 static void self_testing(void)
 {
     if (timer_elapsed(rgb_state.ticks) < ST_INTERVAL) return;
-    HSV hsv;
+    hsv_t hsv;
     hsv.h = rgblight_config.hue;
     hsv.s = rgblight_config.sat;
     hsv.v = rgblight_config.val;
 
-    RGB led = hsv_to_rgb(hsv);
+    rgb_t led = hsv_to_rgb(hsv);
     switch(rgb_state.testing) {
         case ST_STAGE_1:
             if (rgb_state.index !=0 ) {
