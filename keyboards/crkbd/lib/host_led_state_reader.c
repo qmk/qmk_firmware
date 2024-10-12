@@ -1,6 +1,5 @@
 #include <stdio.h>
-#include "led.h"
-#include "host.h"
+#include "quantum.h"
 
 char host_led_state_str[24];
 

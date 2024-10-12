@@ -1,43 +1,47 @@
 {
+    "keyboard_name": "Corne",
+    "maintainer": "foostan",
+    "manufacturer": "foostan",
+    "url": "https://github.com/foostan/crkbd",
+    "usb": {
+        "vid": "0x4653",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
     "features": {
-        "rgb_matrix": true
+        "bootmagic": true,
+        "extrakey": true,
+        "nkro": true,
+        "oled": true,
+        "rgblight": true,
+        "rgb_matrix": false
+    },
+    "build": {
+        "lto": true
+    },
+    "diode_direction": "COL2ROW",
+    "matrix_pins": {
+        "cols": [ "F4", "F5", "F6", "F7", "B1", "B3" ],
+        "rows": [ "D4", "C6", "D7", "E6" ]
+    },
+    "bootmagic": {
+        "enabled": true,
+        "matrix": [ 0, 1 ]
     },
     "split": {
-        "serial": {
-            "pin": "D2"
+        "enabled": true,
+        "bootmagic": {
+            "matrix": [ 4, 1 ]
         },
+        "soft_serial_pin": "D2",
         "transport": {
             "sync": {
                 "matrix_state": true
             }
-        },
-        "usb_detect": {
-            "enabled": true
         }
     },
-    "rgblight": {
-        "led_count": 54,
-        "split_count": [27, 27],
-        "animations": {
-            "breathing": true,
-            "rainbow_mood": true,
-            "rainbow_swirl": true,
-            "snake": true,
-            "knight": true,
-            "christmas": true,
-            "static_gradient": true,
-            "rgb_test": true,
-            "alternating": true,
-            "twinkle": true
-        }
-    },
-    "ws2812": {
-        "pin": "D3"
-    },
-    "bootloader": "atmel-dfu",
-    "layout_aliases": {
-        "LAYOUT": "LAYOUT_split_3x6_3"
-    },
+    "community_layouts": [ "split_3x5_3", "split_3x6_3" ],
     "layouts": {
         "LAYOUT_split_3x5_3": {
             "layout": [
@@ -140,24 +144,76 @@
             ]
         }
     },
-    "rgb_matrix": {
-        "animations": {
-            "alphas_mods": true,
-            "gradient_up_down": true,
-            "gradient_left_right": true,
-            "breathing": true,
-            "band_sat": true,
-            "band_val": true,
-            "band_spiral_sat": true,
-            "band_spiral_val": true,
-            "cycle_all": true,
-            "rainbow_moving_chevron": true,
-            "cycle_spiral": true,
-            "raindrops": true,
-            "hue_breathing": true,
-            "pixel_fractal": true
-        },
+    "rgblight": {
+        "led_count": 54,
+        "split": true,
         "split_count": [27, 27],
+        "max_brightness": 50,
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        }
+    },
+    "ws2812": {
+        "pin": "D3"
+    },
+    "rgb_matrix": {
+        "driver": "ws2812",
+        "max_brightness": 50,
+        "split_count": [27, 27],
+        "animations": {
+            "alphas_mods": false,
+            "gradient_up_down": false,
+            "gradient_left_right": false,
+            "breathing": false,
+            "band_sat": false,
+            "band_val": false,
+            "band_pinwheel_sat": false,
+            "band_pinwheel_val": false,
+            "band_spiral_sat": false,
+            "band_spiral_val": false,
+            "cycle_all": false,
+            "cycle_left_right": false,
+            "cycle_up_down": false,
+            "rainbow_moving_chevron": false,
+            "cycle_out_in": false,
+            "cycle_out_in_dual": false,
+            "cycle_pinwheel": false,
+            "cycle_spiral": false,
+            "dual_beacon": false,
+            "rainbow_beacon": false,
+            "rainbow_pinwheels": false,
+            "raindrops": false,
+            "jellybean_raindrops": false,
+            "hue_breathing": false,
+            "hue_pendulum": false,
+            "hue_wave": false,
+            "pixel_fractal": false,
+            "pixel_flow": false,
+            "pixel_rain": false,
+            "typing_heatmap": false,
+            "digital_rain": false,
+            "solid_reactive_simple": false,
+            "solid_reactive": false,
+            "solid_reactive_wide": false,
+            "solid_reactive_multiwide": false,
+            "solid_reactive_cross": false,
+            "solid_reactive_multicross": false,
+            "solid_reactive_nexus": false,
+            "solid_reactive_multinexus": false,
+            "splash": false,
+            "multisplash": false,
+            "solid_splash": false,
+            "solid_multisplash": false
+        },
         "layout": [
             {"x": 85, "y": 16, "flags": 2},
             {"x": 50, "y": 13, "flags": 2},
@@ -214,5 +270,6 @@
             {"matrix": [5, 0], "x": 224, "y": 24, "flags": 1},
             {"matrix": [6, 0], "x": 224, "y": 41, "flags": 1}
         ]
-    }
+    },
+    "development_board": "promicro"
 }

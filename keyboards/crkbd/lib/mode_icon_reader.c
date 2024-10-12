@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "quantum.h"
 
 char mode_icon[24];
 

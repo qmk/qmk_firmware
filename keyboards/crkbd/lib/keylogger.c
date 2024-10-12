@@ -1,6 +1,5 @@
 #include <stdio.h>
-#include <stdint.h>
-#include "action.h"
+#include "quantum.h"
 
 char keylog_str[24] = {};
 char keylogs_str[21] = {};
