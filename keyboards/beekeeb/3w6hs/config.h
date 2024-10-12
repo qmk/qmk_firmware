@@ -16,3 +16,7 @@
 
 #define MATRIX_ROW_PINS_R { P10, P11, P12, P05 }
 #define MATRIX_COL_PINS_R { P06, P13, P14, P01, P00 }
+
+#define I2C_DRIVER I2CD0
+#define I2C1_SDA_PIN GP0
+#define I2C1_SCL_PIN GP1
