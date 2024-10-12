@@ -16,9 +16,8 @@
 
 #include QMK_KEYBOARD_H
 
-enum layers
-{
-    _ALPHA_QWERTY = 0,
+enum layers {
+    _ALPHA_QWERTY,
     _ALPHA_COLEMAK,
     _SYM,
     _NAV,
