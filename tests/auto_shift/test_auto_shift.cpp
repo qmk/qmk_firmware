@@ -73,7 +73,7 @@ TEST_F(AutoShift, key_release_after_timeout) {
 // press shift, press key, release shift, release key
 // the right interaction is we only get the shifted key
 // the wrong interaction is we get a bracket and a shifted key
-TEST_F(AutoShift, key_release_after_timeout) {
+TEST_F(AutoShift, auto_shift_with_space_cadet) {
     TestDriver driver;
     InSequence s;
     auto       left_shift = KeymapKey(0, 0, 0, SC_LSPO);
