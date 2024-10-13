@@ -77,7 +77,7 @@ TEST_F(AutoShift, key_release_after_timeout) {
     TestDriver driver;
     InSequence s;
     auto       left_shift = KeymapKey(0, 0, 0, SC_LSPO);
-    auto       key_a = KeymapKey(0, 1, 0, KC_A);
+    auto       key_a      = KeymapKey(0, 1, 0, KC_A);
 
     set_keymap({regular_key});
 
