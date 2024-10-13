@@ -69,7 +69,6 @@ TEST_F(AutoShift, key_release_after_timeout) {
     VERIFY_AND_CLEAR(driver);
 }
 
-
 // test auto shift and space cadet interaction
 // press shift, press key, release shift, release key
 // the right interaction is we only get the shifted key
