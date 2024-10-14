@@ -24,4 +24,6 @@ void matrix_read_cols_static_actuation(matrix_row_t *current_row, uint8_t curren
 
 void lut_init(void);
 
+void key_init(void);
+
 extern void (*matrix_read_mode_array[7])(matrix_row_t*, uint8_t, analog_key_t*); // 3 bits for modes
