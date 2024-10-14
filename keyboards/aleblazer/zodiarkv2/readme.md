@@ -24,7 +24,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Bootloader
 
-Enter the bootloader in 4 ways:
+Enter the bootloader in 3 ways:
 
 * **BOOT Button**: Hold down the BOOT button on the top of the PCB and plug in the keyboard 
 * **Physical reset button**: Double tap the button RESET on the top of the PCB
