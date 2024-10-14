@@ -26,6 +26,7 @@ analog_key_t keys[MATRIX_ROWS][MATRIX_COLS] = {0};
 void matrix_init_common(void){
     generate_lut();
     lut_init();
+    key_init();
     get_sensor_offsets();
     wait_ms(500);
     get_sensor_offsets();
