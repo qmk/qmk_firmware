@@ -4,7 +4,7 @@
 
 A split keyboard with 5x7 including a thumbcluster, encoders on each side, per key RGB, and 2x I2C headers per side, supporiting 1.3"/.96" 128x64 OLEDs (the 1.3" is an SSH1106 OLED, refer to QMK documentation for limitations), .91" 128x32 OLEDs.
 
-The V2 updates the platform with dedicated left and right PCBs, [an updated all-in-one Pro Micro footprint](https://github.com/Aleblazer/TheOneProMicro) to take advantage of the extra pins, a VIK connector and an optional dual axis encoder when using the Aliexpress 35 pin RP2040 Pro Micro.
+The V2 updates the platform with dedicated left and right PCBs, [an updated all-in-one Pro Micro footprint](https://github.com/Aleblazer/TheOneProMicro) to take advantage of the extra pins, a VIK connector and an optional dual axis encoder when using the generic 35 pin RP2040 Pro Micro, and 10 additional underglow LEDs. The V2 also supports normal AVR/RP2040 Pro Micros using original Zodiark Firmware.
 
 * Keyboard Maintainer: [Aleblazer](https://github.com/Aleblazer/), [Discord Link](https://discord.gg/BCSbXwskVt)
 * Hardware Supported: Generic 35 pin RP2040 Pro Micro
