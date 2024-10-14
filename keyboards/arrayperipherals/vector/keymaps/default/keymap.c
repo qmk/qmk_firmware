@@ -17,19 +17,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { //button closest to usb is first
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   
-  [0] = LAYOUT_ortho_1x5(
+  [0] = LAYOUT(
      KC_MPRV, KC_MPLY, KC_MNXT, KC_AUDIO_MUTE, TG(1)
    ),
 
-  [1] = LAYOUT_ortho_1x5(
+  [1] = LAYOUT(
      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, TG(1)
   ),
 };
 
 #if defined(ENCODER_MAP_ENABLE)
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
     [1] = {ENCODER_CCW_CW(KC_TRNS, KC_TRNS)},
 };
