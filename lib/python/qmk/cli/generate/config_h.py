@@ -22,9 +22,11 @@ def generate_define(define, value=None):
 #undef {define}
 #define {define}{value}"""
     return f"""
-#ifndef {define}
-#    define {define}{value}
-#endif // {define}"""
+#ifdef {define}
+#    error {define} is set in config.h
+#endif // {define}
+#define {define}{value}
+"""
 
 
 def direct_pins(direct_pins, postfix):
