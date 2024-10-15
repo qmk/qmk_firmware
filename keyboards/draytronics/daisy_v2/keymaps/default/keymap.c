@@ -36,7 +36,7 @@ enum layers {
 };
 
 enum my_keycodes {
-  ENCODER_PRESS = QK_KB,
+  ENCODER_PRESS = QK_USER,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
