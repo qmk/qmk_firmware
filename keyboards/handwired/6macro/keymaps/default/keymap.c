@@ -24,7 +24,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * |  F16  |  F17  |  F18  |
   * `-------+-------+-------'
   */
-  [0] = LAYOUT(
+  [0] = LAYOUT_ortho_2x3(
     KC_F13, KC_F14, LT(1, KC_F15),
     KC_F16, KC_F17, KC_F18
   ),
@@ -36,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * |RGBHUE+|RGBBRI+|Spec FN|   Hold along with previous to access special funtions (QK_BOOT)
   * `-------+-------+-------'
   */
-  [1] = LAYOUT(
+  [1] = LAYOUT_ortho_2x3(
     UG_TOGG, UG_NEXT, KC_TRNS,
     UG_HUEU, UG_VALU, MO(2)
   ),
@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * |RGBHUE-|RGBBRI-|       |
   * `-------+-------+-------'
   */
-  [2] = LAYOUT(
+  [2] = LAYOUT_ortho_2x3(
     QK_BOOT, UG_PREV, KC_NO,
     UG_HUED, UG_VALD, KC_TRNS
   )
