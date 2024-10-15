@@ -17,7 +17,7 @@ bool STARLIGHT_SMOOTH(effect_params_t* params) {
         RGB_MATRIX_TEST_LED_FLAGS();
 
         uint16_t time = scale16by8((g_rgb_timer / 2) + time_offsets[i], rgb_matrix_config.speed / 16);
-        HSV hsv       = rgb_matrix_config.hsv;
+        HSV      hsv  = rgb_matrix_config.hsv;
         hsv.v         = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
         RGB rgb       = rgb_matrix_hsv_to_rgb(hsv);
 
