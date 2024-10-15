@@ -5,5 +5,9 @@
     "maintainer": "Aplyard",
     "usb": {
         "vid": "0xE0E0"
-    }
+    },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_ortho_2x3"
+    },
+    "community_layouts": ["ortho_2x3"]
 }
