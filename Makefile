@@ -110,8 +110,27 @@ define TRY_TO_MATCH_RULE_FROM_LIST_HELPER
     endif
 endef
 
+define TRY_TO_MATCH_RULE_FROM_LIST_HELPER_KB
+    # Split on ":", padding with empty strings to avoid indexing issues
+    TOKEN1:=$$(shell python3 -c "import sys; print((sys.argv[1].split(':',1)+[''])[0])" $$(RULE))
+    TOKENr:=$$(shell python3 -c "import sys; print((sys.argv[1].split(':',1)+[''])[1])" $$(RULE))
+
+    TOKEN1:=$$(shell $(QMK_BIN) resolve-alias $$(TOKEN1))
+
+    FOUNDx:=$$(shell echo $1 | tr " " "\n" | grep -Fx $$(TOKEN1))
+    ifneq ($$(FOUNDx),)
+        RULE := $$(TOKENr)
+        RULE_FOUND := true
+        MATCHED_ITEM := $$(TOKEN1)
+    else
+        RULE_FOUND := false
+        MATCHED_ITEM :=
+    endif
+endef
+
 # Make it easier to call TRY_TO_MATCH_RULE_FROM_LIST
 TRY_TO_MATCH_RULE_FROM_LIST = $(eval $(call TRY_TO_MATCH_RULE_FROM_LIST_HELPER,$1))$(RULE_FOUND)
+TRY_TO_MATCH_RULE_FROM_LIST_KB = $(eval $(call TRY_TO_MATCH_RULE_FROM_LIST_HELPER_KB,$1))$(RULE_FOUND)
 
 define ALL_IN_LIST_LOOP
     OLD_RULE$1 := $$(RULE)
@@ -138,7 +157,7 @@ define PARSE_RULE
         $$(eval $$(call PARSE_TEST))
     # If the rule starts with the name of a known keyboard, then continue
     # the parsing from PARSE_KEYBOARD
-    else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(shell $(QMK_BIN) list-keyboards --no-resolve-defaults)),true)
+    else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST_KB,$$(shell $(QMK_BIN) list-keyboards)),true)
         KEYBOARD_RULE=$$(MATCHED_ITEM)
         $$(eval $$(call PARSE_KEYBOARD,$$(MATCHED_ITEM)))
     else
@@ -171,15 +190,6 @@ define PARSE_KEYBOARD
     CURRENT_KB := $1
 
     # KEYBOARD_FOLDERS := $$(subst /, , $(CURRENT_KB))
-
-    DEFAULT_FOLDER := $$(CURRENT_KB)
-
-    # We assume that every rules.mk will contain the full default value
-    $$(eval include $(ROOT_DIR)/keyboards/$$(CURRENT_KB)/rules.mk)
-    ifneq ($$(DEFAULT_FOLDER),$$(CURRENT_KB))
-        $$(eval include $(ROOT_DIR)/keyboards/$$(DEFAULT_FOLDER)/rules.mk)
-    endif
-    CURRENT_KB := $$(DEFAULT_FOLDER)
 
     # 5/4/3/2/1
     KEYBOARD_FOLDER_PATH_1 := $$(CURRENT_KB)
@@ -242,7 +252,7 @@ endef
 # if we are going to compile all keyboards, match the rest of the rule
 # for each of them
 define PARSE_ALL_KEYBOARDS
-    $$(eval $$(call PARSE_ALL_IN_LIST,PARSE_KEYBOARD,$(shell $(QMK_BIN) list-keyboards --no-resolve-defaults)))
+    $$(eval $$(call PARSE_ALL_IN_LIST,PARSE_KEYBOARD,$(shell $(QMK_BIN) list-keyboards)))
 endef
 
 # Prints a list of all known keymaps for the given keyboard
@@ -434,7 +444,7 @@ git-submodules: git-submodule
 
 .PHONY: list-keyboards
 list-keyboards:
-	$(QMK_BIN) list-keyboards --no-resolve-defaults | tr '\n' ' '
+	$(QMK_BIN) list-keyboards | tr '\n' ' '
 
 .PHONY: list-tests
 list-tests:
@@ -442,7 +452,7 @@ list-tests:
 
 .PHONY: generate-keyboards-file
 generate-keyboards-file:
-	$(QMK_BIN) list-keyboards --no-resolve-defaults
+	$(QMK_BIN) list-keyboards
 
 .PHONY: clean
 clean:
