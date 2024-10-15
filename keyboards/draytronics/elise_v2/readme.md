@@ -19,6 +19,7 @@ Entering DFU mode (to allow flashing):
  - If you have one of the provided keymaps flashed, then pressing FN-Tab will enter DFU.
     
 Make example for this keyboard (after setting up your build environment):
+
     make draytronics/elise_v2:default
 
 Flashing example for this keyboard:
