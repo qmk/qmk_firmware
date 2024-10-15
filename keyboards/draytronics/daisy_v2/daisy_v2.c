@@ -31,7 +31,7 @@ The pixel graphics used here are from a combination of sources;
 #include "daisy_v2.h"
 
 enum my_keycodes {
-  ENCODER_PRESS = QK_KB,
+  ENCODER_PRESS = QK_USER,
 };
 
 void board_init(void) {
