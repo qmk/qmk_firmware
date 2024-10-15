@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   
   [0] = LAYOUT(
-     KC_MPRV, KC_MPLY, KC_MNXT, KC_AUDIO_MUTE, TG(1)
+     KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, TG(1)
    ),
 
   [1] = LAYOUT(
