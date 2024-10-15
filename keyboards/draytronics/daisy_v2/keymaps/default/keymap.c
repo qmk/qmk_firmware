@@ -90,3 +90,29 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_CODE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
 };
 #endif
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch(keycode) {
+        case LT(0, ENCODER_PRESS):
+            if (record->event.pressed) {
+                // on tap
+                if (record->tap.count) {
+                    tap_code(KC_MUTE);
+                }
+                #ifdef OLED_ENABLE
+                // on hold
+                else {
+                    void oled_display_mode_step(void);
+                    oled_display_mode_step();
+                    // hidden = false;
+                    // current_display_mode = (current_display_mode + 1) % 5;
+                    // // When mode changes update EEPROM.
+                    // kb_config.oled_mode = current_display_mode;
+                    // eeconfig_update_kb(kb_config.raw);
+                }
+                #endif
+            }
+            return false;
+    }
+    return true;
+}

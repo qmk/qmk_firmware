@@ -28,9 +28,21 @@ The pixel graphics used here are from a combination of sources;
 3. Key press indicator graphics were commissioned for this project and were designed by the
    amazing https://corteximplant.com/@jadedtwin / https://www.jadedtwin.com/
 */
-#include "daisy_v2.h"
+#include "quantum.h"
 
 #ifdef OLED_ENABLE
+
+static uint8_t key_pressed = 0;
+
+// for changing oled display mode
+static uint8_t current_display_mode = 0;
+
+// for hidden animation toggle
+static bool hidden = false;
+
+static uint32_t flash_timer = 0;
+static bool layer_changed = false;
+
 static void flash_current_layer(void);
 
 uint8_t FRAME_DURATION = 100;
@@ -40,6 +52,34 @@ uint8_t current_frame = 0;
 
 static bool glitch = true;
 static bool dirty = false;
+
+/* EEPROM Stuct and function to allow init / saving of OLED mode */
+typedef union {
+uint32_t raw;
+struct {
+    uint8_t oled_mode :8;
+};
+} kb_config_t;
+
+kb_config_t kb_config;
+
+void eeconfig_init_kb(void) {
+        //Init initial value and save to EEPROM.
+        kb_config.raw = 0;
+        eeconfig_update_kb(kb_config.raw);
+}
+/* End */
+
+void keyboard_post_init_user(void) {
+    //Read user value and set current_display_mode.
+    kb_config.oled_mode = eeconfig_read_kb();
+    current_display_mode = kb_config.oled_mode;
+
+    //This is an adjustment to resolve the issue that occurs when there is a
+    //static colour underglow the first LED can be a different colour on first init.
+    rgblight_disable_noeeprom();
+    rgblight_enable_noeeprom();
+}
 
 static void render_CortexImplant_animation(void){
 
@@ -2310,6 +2350,13 @@ static void render_daisy_logo(void){
 
 bool logo_rendered = false;
 
+void oled_display_mode_step(void) {
+    hidden = false;
+    current_display_mode = (current_display_mode + 1) % 5;
+    kb_config.oled_mode = current_display_mode;
+    eeconfig_update_kb(kb_config.raw);
+}
+
 bool oled_task_kb(void) {
     if (!oled_task_user()) {
         return false;
@@ -2353,4 +2400,18 @@ bool oled_task_kb(void) {
     }
     return false;
 }
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    key_pressed = record->event.pressed;
+
+    return process_record_user(keycode, record);
+}
+
+// when the layer is changed, flash the layer number on the screen
+layer_state_t layer_state_set_kb(layer_state_t state) {
+    flash_timer = timer_read();
+    layer_changed = true;
+    return layer_state_set_user(state);
+}
+
 #endif
