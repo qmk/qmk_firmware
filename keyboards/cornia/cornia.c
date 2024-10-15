@@ -16,8 +16,6 @@
 
 #include QMK_KEYBOARD_H
 
-#include "./cornia.h"
-
 // 'Cornia', 32x32px
 #define OLED_LOGO_CORNIA {\
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xe0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, \
@@ -35,4 +33,12 @@ void cornia_render_logo(void) {
     static const char PROGMEM logo[] = OLED_LOGO_CORNIA;
     oled_write_raw_P(logo, sizeof(logo));
 #endif
+}
+
+bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
+    }
+    cornia_render_logo();
+    return true;
 }
