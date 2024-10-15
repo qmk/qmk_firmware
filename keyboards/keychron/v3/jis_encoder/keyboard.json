@@ -24,8 +24,12 @@
         "encoder": true,
         "dip_switch": true
     },
+    "layout_aliases": {
+        "LAYOUT_jis_92": "LAYOUT_tkl_f13_jis"
+    },
+    "community_layouts": ["tkl_f13_jis"],
     "layouts": {
-        "LAYOUT_jis_92": {
+        "LAYOUT_tkl_f13_jis": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1.25, "y": 0},
