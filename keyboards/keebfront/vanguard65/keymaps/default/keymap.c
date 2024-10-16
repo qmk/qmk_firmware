@@ -13,6 +13,12 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
+#include "analog.h"
+#include "string.h"
+
+uint8_t last_val = 0;
+uint8_t current_val = 0;
+extern MidiDevice midi_device;
 
 enum layers {
     _LAYER0,
@@ -44,3 +50,17 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_LAYER1] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
 };
 #endif
+
+void slider(void) {
+    current_val = analogReadPin(SLIDER_PINA) >>3;
+
+    if ( last_val - current_val < -1 || last_val - current_val > 1 ) { 
+        midi_send_cc(&midi_device, 0, 90, current_val );
+    }
+
+    last_val = current_val;
+}
+
+void housekeeping_task_user(void) {
+    slider();
+}
