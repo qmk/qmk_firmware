@@ -243,7 +243,7 @@ void rgblight_init(void) {
 
     rgblight_timer_init(); // setup the timer
 
-    rgblight_driver.init();
+    // rgblight_driver.init();
 
     if (rgblight_config.enable) {
         rgblight_mode_noeeprom(rgblight_config.mode);
@@ -896,50 +896,54 @@ void rgblight_wakeup(void) {
 
 #endif
 
+#ifndef RGBLIGHT_CUSTOM_DRIVER
+
 void rgblight_set(void) {
     rgb_led_t *start_led;
-    uint8_t    num_leds = rgblight_ranges.clipping_num_leds;
+    uint8_t num_leds = rgblight_ranges.clipping_num_leds;
 
     if (!rgblight_config.enable) {
         for (uint8_t i = rgblight_ranges.effect_start_pos; i < rgblight_ranges.effect_end_pos; i++) {
             led[i].r = 0;
             led[i].g = 0;
             led[i].b = 0;
-#ifdef WS2812_RGBW
+#    ifdef WS2812_RGBW
             led[i].w = 0;
-#endif
+#    endif
         }
     }
 
-#ifdef RGBLIGHT_LAYERS
+#    ifdef RGBLIGHT_LAYERS
     if (rgblight_layers != NULL
-#    if !defined(RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF)
+#        if !defined(RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF)
         && rgblight_config.enable
-#    elif defined(RGBLIGHT_SLEEP)
+#        elif defined(RGBLIGHT_SLEEP)
         && !is_suspended
-#    endif
+#        endif
     ) {
         rgblight_layers_write();
     }
-#endif
+#    endif
 
-#ifdef RGBLIGHT_LED_MAP
+#    ifdef RGBLIGHT_LED_MAP
     rgb_led_t led0[RGBLIGHT_LED_COUNT];
     for (uint8_t i = 0; i < RGBLIGHT_LED_COUNT; i++) {
         led0[i] = led[pgm_read_byte(&led_map[i])];
     }
     start_led = led0 + rgblight_ranges.clipping_start_pos;
-#else
+#    else
     start_led = led + rgblight_ranges.clipping_start_pos;
-#endif
+#    endif
 
-#ifdef WS2812_RGBW
+#    ifdef WS2812_RGBW
     for (uint8_t i = 0; i < num_leds; i++) {
         convert_rgb_to_rgbw(&start_led[i]);
     }
-#endif
+#    endif
     rgblight_driver.setleds(start_led, num_leds);
 }
+
+#endif
 
 #ifdef RGBLIGHT_SPLIT
 /* for split keyboard master side */
@@ -1193,7 +1197,7 @@ static uint8_t breathe_calc(uint8_t pos) {
 
 __attribute__((weak)) const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {30, 20, 10, 5};
 
-void rgblight_effect_breathing(animation_status_t *anim) {
+__attribute__((weak)) void rgblight_effect_breathing(animation_status_t *anim) {
     uint8_t val = breathe_calc(anim->pos);
     rgblight_sethsv_noeeprom_old(rgblight_config.hue, rgblight_config.sat, val);
     anim->pos = (anim->pos + 1);
@@ -1203,7 +1207,7 @@ void rgblight_effect_breathing(animation_status_t *anim) {
 #ifdef RGBLIGHT_EFFECT_RAINBOW_MOOD
 __attribute__((weak)) const uint8_t RGBLED_RAINBOW_MOOD_INTERVALS[] PROGMEM = {120, 60, 30};
 
-void rgblight_effect_rainbow_mood(animation_status_t *anim) {
+__attribute__((weak)) void rgblight_effect_rainbow_mood(animation_status_t *anim) {
     rgblight_sethsv_noeeprom_old(anim->current_hue, rgblight_config.sat, rgblight_config.val);
     anim->current_hue++;
 }
@@ -1216,10 +1220,17 @@ void rgblight_effect_rainbow_mood(animation_status_t *anim) {
 
 __attribute__((weak)) const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[] PROGMEM = {100, 50, 20};
 
+__attribute__((weak)) bool rgblight_effect_custom_rainbow_swirl(animation_status_t *anim);
+
 void rgblight_effect_rainbow_swirl(animation_status_t *anim) {
     uint8_t hue;
     uint8_t i;
 
+    if (rgblight_effect_custom_rainbow_swirl(anim) != true){
+    
+        return;
+    }
+   
     for (i = 0; i < rgblight_ranges.effect_num_leds; i++) {
         hue = (RGBLIGHT_RAINBOW_SWIRL_RANGE / rgblight_ranges.effect_num_leds * i + anim->current_hue);
         sethsv(hue, rgblight_config.sat, rgblight_config.val, (rgb_led_t *)&led[i + rgblight_ranges.effect_start_pos]);

@@ -33,9 +33,6 @@
     },
     "keycodes": [
         {
-            "key": "KC_USB"
-        },
-        {
             "key": "KC_BT1"
         },
         {
@@ -45,16 +42,31 @@
             "key": "KC_BT3"
         },
         {
-            "key": "KC_BT4"
-        },
-        {
-            "key": "KC_BT5"
-        },
-        {
             "key": "KC_2G4"
         },
         {
-            "key": "KC_BATQ"
+            "key": "KC_USB"
+        },
+        {
+            "key": "RP_P0"
+        },
+        {
+            "key": "RP_P1"
+        },
+        {
+            "key": "RP_P2"
+        },
+        {
+            "key": "RP_END"
+        },
+        {
+            "key": "RL_MOD"
+        },
+        {
+            "key": "HS_BATQ"
+        },
+        {
+            "key": "KC_TESTW"
         },
         {
             "key": "KC_FTOG"
@@ -188,19 +200,37 @@
             {"matrix": [3, 1], "x": 16, "y": 48, "flags": 4}
         ],
         "max_brightness": 200,
-        "val_steps": 40,
+        "val_steps": 38,
         "speed_steps": 51,
         "default": {
-            "val" :153,
+            "animation": "cycle_left_right",
+            "val" :114,
             "speed" :204
         },
-        "sleep": true,
-        "timeout": 60000
+        "sleep": true
+    },
+    "rgblight": {
+        "animations": {
+            "alternatin":true,
+            "breathing": true,
+            "christmas":true,
+            "knight":true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        },
+        "default": {
+            "animation": "rainbow_swirl",
+            "val": 60
+        }
     },
     "tap_keycode_delay": 10,
     "url": "https://www.epomaker.com",
     "usb": {
-        "device_version": "0.3.0",
+        "device_version": "0.4.0",
         "force_nkro": true,
         "pid": "0xE463",
         "suspend_wakeup_delay": 1000,
