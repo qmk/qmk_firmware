@@ -509,7 +509,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 bootloader_jump();
             } 
         } break;
-        case KC_TESTW: {
+        case KC_W_T: {
             if (rgbrec_is_started()) {
 
                 return false;

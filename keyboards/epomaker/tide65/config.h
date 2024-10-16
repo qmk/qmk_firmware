@@ -15,7 +15,6 @@
 #define HS_RGB_BAT_COUNT                    1
 
 /* Device Name Definition */
-#define PRODUCT "EPOMAKER TIDE65"
 #define MD_BT1_NAME "EPOMAKER TIDE65"
 #define MD_BT2_NAME "EPOMAKER TIDE65"
 #define MD_BT3_NAME "EPOMAKER TIDE65"
