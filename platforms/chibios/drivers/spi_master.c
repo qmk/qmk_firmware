@@ -14,6 +14,8 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+// Info about DCache hacks for STM32H7 found at: <https://community.st.com/t5/stm32-mcus/dma-is-not-working-on-stm32h7-devices/ta-p/49498>
+
 #include "spi_master.h"
 
 #include "timer.h"
@@ -240,6 +242,55 @@ bool spi_start_extended(spi_start_config_t *start_config) {
             spiConfig.SSPCR0 |= SPI_SSPCR0_SPH; // Clock phase: sample on second edge transition
             break;
     }
+#elif defined(QMK_MCU_SERIES_STM32H7XX)
+    spiConfig.cfg1 = 0;
+    spiConfig.cfg2 = 0;
+
+    if (lsbFirst) {
+        spiConfig.cfg2 |= SPI_CFG2_LSBFRST;
+    }
+
+    switch (mode) {
+        case 0:
+            break;
+        case 1:
+            spiConfig.cfg2 |= SPI_CFG2_CPHA;
+            break;
+        case 2:
+            spiConfig.cfg2 |= SPI_CFG2_CPOL;
+            break;
+        case 3:
+            spiConfig.cfg2 |= SPI_CFG2_CPHA | SPI_CFG2_CPOL;
+            break;
+    }
+
+    switch (roundedDivisor) {
+        case 2:
+            break;
+        case 4:
+            spiConfig.cfg1 |= SPI_CFG1_MBR_0;
+            break;
+        case 8:
+            spiConfig.cfg1 |= SPI_CFG1_MBR_1;
+            break;
+        case 16:
+            spiConfig.cfg1 |= SPI_CFG1_MBR_1 | SPI_CFG1_MBR_0;
+            break;
+        case 32:
+            spiConfig.cfg1 |= SPI_CFG1_MBR_2;
+            break;
+        case 64:
+            spiConfig.cfg1 |= SPI_CFG1_MBR_2 | SPI_CFG1_MBR_0;
+            break;
+        case 128:
+            spiConfig.cfg1 |= SPI_CFG1_MBR_2 | SPI_CFG1_MBR_1;
+            break;
+        case 256:
+            spiConfig.cfg1 |= SPI_CFG1_MBR_2 | SPI_CFG1_MBR_1 | SPI_CFG1_MBR_0;
+            break;
+    }
+
+    spiConfig.cfg1 |= SPI_CFG1_DSIZE_2 | SPI_CFG1_DSIZE_1 | SPI_CFG1_DSIZE_0; // 8bit data frame
 #else
     spiConfig.cr1 = 0;
 
@@ -322,6 +373,10 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
 }
 
 spi_status_t spi_write(uint8_t data) {
+#if defined(QMK_MCU_SERIES_STM32H7XX)
+    SCB_CleanDCache_by_Addr((uint32_t *)(((uint32_t)&data) & ~(uint32_t)0x1F), 1 + 32);
+#endif
+
     uint8_t rxData;
     spiExchange(&SPI_DRIVER, 1, &data, &rxData);
 
@@ -330,17 +385,30 @@ spi_status_t spi_write(uint8_t data) {
 
 spi_status_t spi_read(void) {
     uint8_t data = 0;
+
+#if defined(QMK_MCU_SERIES_STM32H7XX)
+    SCB_InvalidateDCache_by_Addr((uint32_t *)(((uint32_t)&data) & ~(uint32_t)0x1F), 1 + 32);
+#endif
+
     spiReceive(&SPI_DRIVER, 1, &data);
 
     return data;
 }
 
 spi_status_t spi_transmit(const uint8_t *data, uint16_t length) {
+#if defined(QMK_MCU_SERIES_STM32H7XX)
+    SCB_CleanDCache_by_Addr((uint32_t *)(((uint32_t)data) & ~(uint32_t)0x1F), length + 32);
+#endif
+
     spiSend(&SPI_DRIVER, length, data);
     return SPI_STATUS_SUCCESS;
 }
 
 spi_status_t spi_receive(uint8_t *data, uint16_t length) {
+#if defined(QMK_MCU_SERIES_STM32H7XX)
+    SCB_InvalidateDCache_by_Addr((uint32_t *)(((uint32_t)data) & ~(uint32_t)0x1F), length + 32);
+#endif
+
     spiReceive(&SPI_DRIVER, length, data);
     return SPI_STATUS_SUCCESS;
 }
