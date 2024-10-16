@@ -10,12 +10,11 @@ A small (1x4) macropad with a rotary. [More info at arrayperipherals.com](https:
 
 Make example for this keyboard (after setting up your build environment):
 
-	make arrayperipherals/vector:default
+    make arrayperipherals/vector:default
 
 Flashing example for this keyboard:
 
     make arrayperipherals/vector:default:flash
-
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
