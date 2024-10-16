@@ -79,7 +79,7 @@ TEST_F(AutoShift, auto_shift_with_space_cadet) {
     auto       left_shift = KeymapKey(0, 0, 0, SC_LSPO);
     auto       key_a      = KeymapKey(0, 1, 0, KC_A);
 
-    set_keymap({regular_key});
+    set_keymap({left_shift, key_a});
 
     /* Press regular key */
     EXPECT_NO_REPORT(driver);
