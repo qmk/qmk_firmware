@@ -162,6 +162,12 @@ __attribute__((weak)) void raw_hid_receive(uint8_t *data, uint8_t length) {
 }
 
 void raw_hid_task(void) {
+    usbPoll();
+
+    if (!usbConfiguration || !usbInterruptIsReady4()) {
+        return;
+    }
+
     if (raw_output_received_bytes == RAW_BUFFER_SIZE) {
         raw_hid_receive(raw_output_buffer, RAW_BUFFER_SIZE);
         raw_output_received_bytes = 0;
@@ -182,7 +188,9 @@ int8_t sendchar(uint8_t c) {
 }
 
 void console_task(void) {
-    if (!usbConfiguration) {
+    usbPoll();
+
+    if (!usbConfiguration || !usbInterruptIsReady3()) {
         return;
     }
 
@@ -651,7 +659,7 @@ const PROGMEM uchar shared_hid_report[] = {
     0x26, 0xFF, 0x7F, //     Logical Maximum (32767)
     0x95, 0x02,       //     Report Count (2)
     0x75, 0x10,       //     Report Size (16)
-    0x65, 0x33,       //     Unit (Inch, English Linear)
+    0x65, 0x13,       //     Unit (Inch, English Linear)
     0x55, 0x0E,       //     Unit Exponent (-2)
     0x81, 0x02,       //     Input (Data, Variable, Absolute)
     0xC0,             //   End Collection

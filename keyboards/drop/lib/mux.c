@@ -22,8 +22,8 @@
 #define C2_B5_SENSE B0
 
 static inline void digital_write(pin_t pin, uint8_t level) {
-    setPinOutput(pin);
-    writePin(pin, level);
+    gpio_set_pin_output(pin);
+    gpio_write_pin(pin, level);
 }
 
 uint16_t v_con_1 = 0;
@@ -42,10 +42,10 @@ void keyboard_USB_enable(void) {
     digital_write(SRC_1, 1);
     digital_write(SRC_2, 1);
 
-    setPinInput(C1_A5_SENSE);
-    setPinInput(C1_B5_SENSE);
-    setPinInput(C2_A5_SENSE);
-    setPinInput(C2_B5_SENSE);
+    gpio_set_pin_input(C1_A5_SENSE);
+    gpio_set_pin_input(C1_B5_SENSE);
+    gpio_set_pin_input(C2_A5_SENSE);
+    gpio_set_pin_input(C2_B5_SENSE);
 
     // reset hub
     digital_write(HUB_RESET_N, 0);

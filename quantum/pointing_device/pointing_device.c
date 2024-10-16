@@ -368,7 +368,7 @@ void pointing_device_set_cpi(uint16_t cpi) {
  * @param[in] cpi uint16_t value.
  */
 void pointing_device_set_cpi_on_side(bool left, uint16_t cpi) {
-    bool local = (is_keyboard_left() & left) ? true : false;
+    bool local = (is_keyboard_left() == left);
     if (local) {
         pointing_device_driver.set_cpi(cpi);
     } else {
@@ -498,7 +498,7 @@ __attribute__((weak)) report_mouse_t pointing_device_task_combined_user(report_m
 
 __attribute__((weak)) void pointing_device_keycode_handler(uint16_t keycode, bool pressed) {
     if IS_MOUSEKEY_BUTTON (keycode) {
-        local_mouse_report.buttons = pointing_device_handle_buttons(local_mouse_report.buttons, pressed, keycode - KC_MS_BTN1);
+        local_mouse_report.buttons = pointing_device_handle_buttons(local_mouse_report.buttons, pressed, keycode - QK_MOUSE_BUTTON_1);
         pointing_device_send();
     }
 }

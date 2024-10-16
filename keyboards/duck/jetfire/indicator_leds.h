@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdint.h>
+#include <stdbool.h>
 #include "duck_led/duck_led.h"
 
 void backlight_init_ports(void);

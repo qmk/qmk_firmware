@@ -14,8 +14,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include QMK_KEYBOARD_H
 #include "pimoroni_trackball.h"
 #include "i2c_master.h"
+#include "action.h"
+#include "timer.h"
+#include "print.h"
 
 static uint8_t scrolling      = 0;
 static int16_t x_offset       = 0;

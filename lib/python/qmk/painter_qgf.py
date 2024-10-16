@@ -327,8 +327,9 @@ def _compress_image(frame, last_frame, *, use_rle, use_deltas, format_, **_kwarg
 
 
 # Helper function to save each frame to the output file
-def _write_frame(idx, frame, last_frame, *, fp, frame_offsets, **kwargs):
-    # Not an argument of the function as it would consume from **kwargs
+def _write_frame(idx, frame, last_frame, *, fp, frame_offsets, metadata, **kwargs):
+    # Not an argument of the function as it would then not be part of kwargs
+    # This would cause an issue with `_compress_image(**kwargs)` missing an argument
     format_ = kwargs["format_"]
 
     # (potentially) Apply RLE and/or delta, and work out output image's information
@@ -370,6 +371,21 @@ def _write_frame(idx, frame, last_frame, *, fp, frame_offsets, **kwargs):
         vprint(f'{f"Frame {idx:3d} delta":26s} {fp.tell():5d}d / {fp.tell():04X}h')
         delta_descriptor.write(fp)
 
+    # Store metadata, showed later in a comment in the generated file
+    frame_metadata = {
+        "compression": frame_descriptor.compression,
+        "delta": frame_descriptor.is_delta,
+        "delay": frame_descriptor.delay,
+    }
+    if frame_metadata["delta"]:
+        frame_metadata.update({"delta_rect": [
+            delta_descriptor.left,
+            delta_descriptor.top,
+            delta_descriptor.right,
+            delta_descriptor.bottom,
+        ]})
+    metadata.append(frame_metadata)
+
     # Write out the data for this frame to the output
     data_descriptor = QGFFrameDataDescriptorV1()
     data_descriptor.data = image_data
@@ -382,6 +398,10 @@ def _save(im, fp, _filename):
     """
     # Work out from the parameters if we need to do anything special
     encoderinfo = im.encoderinfo.copy()
+
+    # Store image file in metadata structure
+    metadata = encoderinfo.get("metadata", [])
+    metadata.append({"width": im.width, "height": im.height})
 
     # Helper for prints, noop taking any args if not verbose
     global vprint
@@ -417,7 +437,7 @@ def _save(im, fp, _filename):
     frame_offsets.write(fp)
 
     # Iterate over each if the input frames, writing it to the output in the process
-    write_frame = functools.partial(_write_frame, format_=encoderinfo["qmk_format"], fp=fp, use_deltas=encoderinfo.get("use_deltas", True), use_rle=encoderinfo.get("use_rle", True), frame_offsets=frame_offsets)
+    write_frame = functools.partial(_write_frame, format_=encoderinfo["qmk_format"], fp=fp, use_deltas=encoderinfo.get("use_deltas", True), use_rle=encoderinfo.get("use_rle", True), frame_offsets=frame_offsets, metadata=metadata)
     for_all_frames(write_frame)
 
     # Go back and update the graphics descriptor now that we can determine the final file size

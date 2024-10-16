@@ -296,8 +296,8 @@ const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 
 void matrix_init_kb(void)
 {
-    setPinOutput(LED_CAPS_LOCK_PIN);
-    writePinLow(LED_CAPS_LOCK_PIN);
+    gpio_set_pin_output(LED_CAPS_LOCK_PIN);
+    gpio_write_pin_low(LED_CAPS_LOCK_PIN);
 
     is31fl3731_init_drivers();
 
@@ -335,8 +335,6 @@ void housekeeping_task_kb(void)
     }
 
     is31fl3731_flush();
-
-    housekeeping_task_user();
 }
 
 void setleds_custom(rgb_led_t *start_led, uint16_t num_leds)
@@ -350,6 +348,7 @@ void setleds_custom(rgb_led_t *start_led, uint16_t num_leds)
 }
 
 const rgblight_driver_t rgblight_driver = {
+    .init    = ws2812_init,
     .setleds = setleds_custom,
 };
 
@@ -357,7 +356,7 @@ bool led_update_kb(led_t led_state)
 {
     bool res = led_update_user(led_state);
     if (res) {
-        writePin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
+        gpio_write_pin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
 
         if (rgb_state.state != SELF_TESTING) {
             if (led_state.caps_lock) {

@@ -60,9 +60,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     state = update_tri_layer_state(state, _4, X_PAUSE, X_PAUSE);
-    writePin(IND_1, layer_state_cmp(state, 1));
-    writePin(IND_2, layer_state_cmp(state, 2));
-    writePin(IND_3, layer_state_cmp(state, 3));
+    gpio_write_pin(IND_1, layer_state_cmp(state, 1));
+    gpio_write_pin(IND_2, layer_state_cmp(state, 2));
+    gpio_write_pin(IND_3, layer_state_cmp(state, 3));
     return state;
 }
 
@@ -89,13 +89,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void matrix_init_user(void) {
     //init the Pro Micro on-board LEDs
-    setPinOutput(IND_1);
-    setPinOutput(IND_2);
-    setPinOutput(IND_3);
+    gpio_set_pin_output(IND_1);
+    gpio_set_pin_output(IND_2);
+    gpio_set_pin_output(IND_3);
     //set to off
-    writePinHigh(IND_1);
-    writePinHigh(IND_2);
-    writePinHigh(IND_3);
+    gpio_write_pin_high(IND_1);
+    gpio_write_pin_high(IND_2);
+    gpio_write_pin_high(IND_3);
 }
 
 bool encoder_update_user(uint8_t index, bool clockwise) {

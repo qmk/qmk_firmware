@@ -6,7 +6,9 @@ In general, feature development is encouraged to support as many hardware config
 
 The most frequently-hit constraint is the amount of code that can be flashed onto an ATmega32U4 -- users almost always need to pick and choose included functionality due to the size constraints.
 
-!> [Squeezing AVR](https://docs.qmk.fm/#/squeezing_avr) has some steps that users can take in order to minimise the overall firmware size, which in some cases enables the ability for users to include other desired features.
+::: warning
+[Squeezing AVR](squeezing_avr) has some steps that users can take in order to minimise the overall firmware size, which in some cases enables the ability for users to include other desired features.
+:::
 
 ## Deprecation & Removal Policy
 
@@ -27,7 +29,9 @@ There may be several motivations behind the deprecation or removal of functional
 
 When a feature is selected for deprecation, future changes to that area will cease to be developed by the QMK team, and Pull Requests submitted against those areas will be declined.
 
-?> As QMK does not gather metrics from its users, the only way the QMK team can gauge the level of usage is to refer to the main QMK Firmware repository -- searching through forks is not practical due to the sheer number of them.
+::: tip
+As QMK does not gather metrics from its users, the only way the QMK team can gauge the level of usage is to refer to the main QMK Firmware repository -- searching through forks is not practical due to the sheer number of them.
+:::
 
 ### How much advance notice will be given?
 

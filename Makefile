@@ -465,3 +465,18 @@ distclean_userspace: clean
 	rm -f $(QMK_USERSPACE)/*.bin $(QMK_USERSPACE)/*.hex $(QMK_USERSPACE)/*.uf2
 	echo 'done.'
 endif
+
+# Extra targets for formatting and/or pytest, running within the qmk/qmk_cli container to match GHA.
+CONTAINER_PREAMBLE := export HOME="/tmp"; export PATH="/tmp/.local/bin:\$$PATH"; python3 -m pip install --upgrade pip; python3 -m pip install -r requirements-dev.txt
+
+.PHONY: format-core
+format-core:
+	RUNTIME=docker ./util/docker_cmd.sh bash -lic "$(CONTAINER_PREAMBLE); qmk format-c --core-only -a && qmk format-python -a"
+
+.PHONY: pytest
+pytest:
+	RUNTIME=docker ./util/docker_cmd.sh bash -lic "$(CONTAINER_PREAMBLE); qmk pytest"
+
+.PHONY: format-and-pytest
+format-and-pytest:
+	RUNTIME=docker ./util/docker_cmd.sh bash -lic "$(CONTAINER_PREAMBLE); qmk format-c --core-only -a && qmk format-python -a && qmk pytest"

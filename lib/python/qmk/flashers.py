@@ -206,6 +206,8 @@ def _flash_uf2(file):
 
 
 def flasher(mcu, file):
+    # Avoid "expected string or bytes-like object, got 'WindowsPath" issues
+    file = file.as_posix()
     bl, details = _find_bootloader()
     # Add a small sleep to avoid race conditions
     time.sleep(1)

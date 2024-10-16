@@ -18,9 +18,13 @@
 
 #include "rgb_ring.h"
 
+#include <stdint.h>
+#include <stdbool.h>
 #include <string.h>
 #include "quantum.h"
 #include "rgblight.h"
+#include "timer.h"
+#include "action.h"
 #include "drivers/led/issi/is31fl3731.h"
 #include "i2c_master.h"
 
@@ -401,7 +405,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record)
 {
     if (record->event.pressed) {
         switch(keycode) {
-            case RGB_MODE_FORWARD:
+            case RGB_MOD:
                 if (rgb_ring.state == RING_STATE_INIT) {
                     // in testing mode, do nothing
                     return false;
@@ -419,7 +423,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record)
                     }
                 }
                 break;
-            case RGB_MODE_REVERSE:
+            case RGB_RMOD:
                 if (rgb_ring.state == RING_STATE_INIT) {
                     // in testing mode, do nothing
                     return false;

@@ -96,7 +96,7 @@ typedef struct PACKED rgb_led_t {
     uint8_t g;
     uint8_t r;
 #endif
-#ifdef RGBW
+#ifdef WS2812_RGBW
     uint8_t w;
 #endif
 } rgb_led_t;
@@ -111,6 +111,6 @@ typedef struct PACKED HSV {
 
 RGB hsv_to_rgb(HSV hsv);
 RGB hsv_to_rgb_nocie(HSV hsv);
-#ifdef RGBW
+#ifdef WS2812_RGBW
 void convert_rgb_to_rgbw(rgb_led_t *led);
 #endif

@@ -15,16 +15,23 @@
  */
 
 #include "rgb_functions.h"
+#include <stdint.h>
+#include "quantum.h"
+#include "action.h"
+#include "rgblight.h"
+#include "rgb_matrix.h"
 
 #ifdef RGBLIGHT_ENABLE
 #undef WS2812_DI_PIN
 #define WS2812_DI_PIN RGBLIGHT_DI_PIN
 
+#define ws2812_init ws2812_rgb_init
 #define ws2812_setleds ws2812_rgb_setleds
 
 #include "ws2812_bitbang.c"
 
 const rgblight_driver_t rgblight_driver = {
+    .init    = ws2812_init,
     .setleds = ws2812_setleds,
 };
 #endif
