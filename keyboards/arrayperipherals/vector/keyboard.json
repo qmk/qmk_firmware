@@ -30,10 +30,10 @@
         "LAYOUT": {
             "layout": [
                 {"label": "k01", "matrix": [0, 0], "x": 0, "y": 0},
-                {"label": "k02", "matrix": [0, 1], "x": 1.25, "y": 0},
-                {"label": "k03", "matrix": [0, 2], "x": 2.25, "y": 0},
-                {"label": "k04", "matrix": [0, 3], "x": 3.25, "y": 0},
-                {"label": "k05", "matrix": [0, 4], "x": 4.5, "y": 0}
+                {"label": "k02", "matrix": [0, 1], "x": 1, "y": 0},
+                {"label": "k03", "matrix": [0, 2], "x": 2, "y": 0},
+                {"label": "k04", "matrix": [0, 3], "x": 3, "y": 0},
+                {"label": "k05", "matrix": [0, 4], "x": 4.25, "y": 0}
             ]
         }
     }
