@@ -151,7 +151,7 @@ qmk cd
 
 ## `qmk find`
 
-This command allows for searching through keyboard/keymap targets, filtering by specific criteria. `info.json` and `rules.mk` files contribute to the search data, as well as keymap configurations, and the results can be filtered using "dotty" syntax matching the overall `info.json` file format.
+This command allows for searching through keyboard/keymap targets, filtering by specific criteria. `keyboard.json` and `rules.mk` files contribute to the search data, as well as keymap configurations, and the results can be filtered using "dotty" syntax matching the overall `keyboard.json` file format.
 
 For example, one could search for all keyboards using STM32F411:
 
@@ -187,9 +187,9 @@ options:
   -km KEYMAP, --keymap KEYMAP
                         The keymap name to build. Default is 'default'.
   -p PRINT, --print PRINT
-                        For each matched target, print the value of the supplied info.json key. May be passed multiple times.
+                        For each matched target, print the value of the supplied keyboard.json key. May be passed multiple times.
   -f FILTER, --filter FILTER
-                        Filter the list of keyboards based on their info.json data. Accepts the formats key=value, function(key), or function(key,value), eg. 'features.rgblight=true'. Valid functions are 'absent', 'contains', 'exists' and 'length'. May be passed multiple times; all filters need to match. Value may include wildcards such as '*' and '?'.
+                        Filter the list of keyboards based on their keyboard.json data. Accepts the formats key=value, function(key), or function(key,value), eg. 'features.rgblight=true'. Valid functions are 'absent', 'contains', 'exists' and 'length'. May be passed multiple times; all filters need to match. Value may include wildcards such as '*' and '?'.
 ```
 
 ## `qmk console`
@@ -272,7 +272,7 @@ qmk doctor -n
 
 ## `qmk format-json`
 
-Formats a JSON file in a (mostly) human-friendly way. Will usually correctly detect the format of the JSON (info.json or keymap.json) but you can override this with `--format` if necessary.
+Formats a JSON file in a (mostly) human-friendly way. Will usually correctly detect the format of the JSON (keyboard.json or keymap.json) but you can override this with `--format` if necessary.
 
 **Usage**:
 
@@ -390,7 +390,7 @@ qmk list-keymaps -kb planck/ez
 
 ## `qmk migrate`
 
-This command searches for legacy code that can be converted to the new `info.json` format and adds it to the specified keyboard's `info.json`.
+This command searches for legacy code that can be converted to the new `keyboard.json` format and adds it to the specified keyboard's `keyboard.json`.
 
 **Usage**:
 
@@ -451,7 +451,7 @@ $ qmk via2json -kb ai03/polaris -o polaris_keymap.json polaris_via_backup.json
 
 ## `qmk import-keyboard`
 
-This command imports a data-driven `info.json` keyboard into the repo.
+This command imports a data-driven `keyboard.json` keyboard into the repo.
 
 **Usage**:
 
@@ -759,7 +759,7 @@ qmk generate-rgb-breathe-table [-q] [-o OUTPUT] [-m MAX] [-c CENTER]
 
 ## `qmk kle2json`
 
-This command allows you to convert from raw KLE data to QMK Configurator JSON. It accepts either an absolute file path, or a file name in the current directory. By default it will not overwrite `info.json` if it is already present. Use the `-f` or `--force` flag to overwrite.
+This command allows you to convert from raw KLE data to QMK Configurator JSON. It accepts either an absolute file path, or a file name in the current directory. By default it will not overwrite `keyboard.json` if it is already present. Use the `-f` or `--force` flag to overwrite.
 
 **Usage**:
 
@@ -771,12 +771,12 @@ qmk kle2json [-f] <filename>
 
 ```
 $ qmk kle2json kle.txt
-☒ File info.json already exists, use -f or --force to overwrite.
+☒ File keyboard.json already exists, use -f or --force to overwrite.
 ```
 
 ```
 $ qmk kle2json -f kle.txt -f
-Ψ Wrote out to info.json
+Ψ Wrote out to keyboard.json
 ```
 
 ## `qmk format-python`

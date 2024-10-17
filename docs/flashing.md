@@ -326,7 +326,7 @@ Flashing sequence:
 
 Some keyboards produced for several commercial brands (GMMK, Akko, MonsGeek, Inland) use this bootloader. The `wb32-dfu-updater` utility is bundled with [QMK MSYS](https://msys.qmk.fm/) and [Glorious's build of QMK Toolbox](https://www.gloriousgaming.com/blogs/guides-resources/gmmk-2-qmk-installation-guide). If neither of these flashing methods is available for your OS, you will likely need to [compile the CLI version from source](https://github.com/WestberryTech/wb32-dfu-updater).
 
-The `info.json` setting for this bootloader is `wb32-dfu`.
+The `keyboard.json` setting for this bootloader is `wb32-dfu`.
 
 Compatible flashers:
 

@@ -287,7 +287,7 @@
                     { "text": "Community Layouts", "link": "/feature_layouts" },
                     { "text": "Unit Testing", "link": "/unit_testing" },
                     { "text": "Useful Functions", "link": "/ref_functions" },
-                    { "text": "info.json Format", "link": "/reference_info_json" }
+                    { "text": "keyboard.json Format", "link": "/reference_info_json" }
                 ]
             },
 
