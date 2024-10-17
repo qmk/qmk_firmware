@@ -1,8 +1,4 @@
-/* Copyright 2017 Jason Williams
- * Copyright 2018 Jack Humbert
- * Copyright 2018 Yiancar
- * Copyright 2020 MelGeek
- * Copyright 2024 TAB
+/* Copyright 2024 TAB
  * Copyright 2024 OWLab
  * Copyright 2024 Qwertykeys
  *
@@ -25,9 +21,17 @@
 #include "gpio.h"
 #include "wait.h"
 
-#include "rgb_matrix.h"
+/**
+ * @brief Sample:
+ * #include "rgb_matrix.h"
+ * const rgb_matrix_driver_t rgb_matrix_driver = {
+ *     .init          = is31fl3761_init_drivers,
+ *     .flush         = is31fl3761_flush,
+ *     .set_color     = is31fl3761_set_color,
+ *     .set_color_all = is31fl3761_set_color_all,
+ * };
+ */
 
-/** 保证数据结构对齐到3761寄存器 */
 #define IS31FL3761_PWM_0_REGISTER_COUNT 252
 #define IS31FL3761_PWM_1_REGISTER_COUNT 252
 #define IS31FL3761_PWM_2_REGISTER_COUNT 90
@@ -47,15 +51,15 @@
 #endif
 
 #ifndef IS31FL3761_PWM_FREQUENCY
-#    define IS31FL3761_PWM_FREQUENCY IS31FL3761_PWM_FREQUENCY_92K_HZ
+#    define IS31FL3761_PWM_FREQUENCY IS31FL3761_PWM_FREQUENCY_26K_HZ
 #endif
 
-#ifndef IS31FL3761_SW_PULLUP
-#    define IS31FL3761_SW_PULLUP IS31FL3761_PUR_16K_OHM
+#ifndef IS31FL3761_SW_PULLDOWN
+#    define IS31FL3761_SW_PULLDOWN IS31FL3761_PDR_2V6
 #endif
 
-#ifndef IS31FL3761_CS_PULLDOWN
-#    define IS31FL3761_CS_PULLDOWN IS31FL3761_PDR_0K5_OHM
+#ifndef IS31FL3761_CS_PULLUP
+#    define IS31FL3761_CS_PULLUP IS31FL3761_PUR_VCC_SUB_0V8
 #endif
 
 #ifndef IS31FL3761_GLOBAL_CURRENT
@@ -90,7 +94,7 @@ typedef struct is31fl3761_driver_t {
     bool    scaling_buffer_dirty;
 } PACKED is31fl3761_driver_t;
 
-is31fl3761_driver_t driver_buffers[IS31FL3761_DRIVER_COUNT] = {{
+static is31fl3761_driver_t driver_buffers[IS31FL3761_DRIVER_COUNT] = {{
     .pwm_buffer_0         = {0},
     .pwm_buffer_1         = {0},
     .pwm_buffer_2         = {0},
@@ -134,7 +138,7 @@ void is31fl3761_write_pwm_buffer(uint8_t index) {
     is31fl3761_write_pwm_page_buffer(index, IS31FL3761_COMMAND_PAGE_0, IS31FL3761_PWM_0_REGISTER_COUNT, driver_buffers[index].pwm_buffer_0);
     is31fl3761_write_pwm_page_buffer(index, IS31FL3761_COMMAND_PAGE_1, IS31FL3761_PWM_1_REGISTER_COUNT, driver_buffers[index].pwm_buffer_1);
     is31fl3761_write_pwm_page_buffer(index, IS31FL3761_COMMAND_PAGE_2, IS31FL3761_PWM_2_REGISTER_COUNT, driver_buffers[index].pwm_buffer_2);
-    // 提交PWM数据更新
+    // Update pwm data
     is31fl3761_write_register(index, IS31FL3761_REG_PWM_UPDATE, 0x00);
 }
 
@@ -176,7 +180,7 @@ void is31fl3761_init(uint8_t index) {
     // Set Golbal Current Control Register
     is31fl3761_write_register(index, IS31FL3761_FUNCTION_REG_GLOBAL_CURRENT, IS31FL3761_GLOBAL_CURRENT);
     // Set Pull up & Down for SWx CSy
-    is31fl3761_write_register(index, IS31FL3761_FUNCTION_REG_PULLDOWNUP, ((IS31FL3761_CS_PULLDOWN << 4) | IS31FL3761_SW_PULLUP));
+    is31fl3761_write_register(index, IS31FL3761_FUNCTION_REG_PULLDOWNUP, ((IS31FL3761_SW_PULLDOWN << 4) | IS31FL3761_CS_PULLUP));
     // Set PWM frequency
     is31fl3761_write_register(index, IS31FL3761_FUNCTION_REG_PWM_FREQUENCY, (IS31FL3761_PWM_FREQUENCY & 0b111));
 
@@ -290,10 +294,3 @@ void is31fl3761_flush(void) {
         is31fl3761_update_pwm_buffers(i);
     }
 }
-
-const rgb_matrix_driver_t rgb_matrix_driver = {
-    .init          = is31fl3761_init_drivers,
-    .flush         = is31fl3761_flush,
-    .set_color     = is31fl3761_set_color,
-    .set_color_all = is31fl3761_set_color_all,
-};

@@ -1,8 +1,4 @@
-/* Copyright 2017 Jason Williams
- * Copyright 2018 Jack Humbert
- * Copyright 2018 Yiancar
- * Copyright 2020 MelGeek
- * Copyright 2024 TAB
+/* Copyright 2024 TAB
  * Copyright 2024 OWLab
  * Copyright 2024 Qwertykeys
  *
@@ -26,7 +22,7 @@
 #include <stdbool.h>
 #include "progmem.h"
 #include "util.h"
-// 0xb0110000
+
 // ======== DEPRECATED DEFINES - DO NOT USE ========
 #ifdef DRIVER_ADDR_1
 #    define IS31FL3761_I2C_ADDRESS_1 DRIVER_ADDR_1
@@ -43,33 +39,10 @@
 #ifdef ISSI_TIMEOUT
 #    define IS31FL3761_I2C_TIMEOUT ISSI_TIMEOUT
 #endif
-#ifdef ISSI_PERSISTENCE
-#    define IS31FL3761_I2C_PERSISTENCE ISSI_PERSISTENCE
-#endif
-#ifdef ISSI_CONFIGURATION
-#    define IS31FL3761_CONFIGURATION ISSI_CONFIGURATION
-#endif
-#ifdef ISSI_SWPULLUP
-#    define IS31FL3761_SW_PULLUP ISSI_SWPULLUP
-#endif
-#ifdef ISSI_CSPULLUP
-#    define IS31FL3761_CS_PULLDOWN ISSI_CSPULLUP
-#endif
-#ifdef ISSI_GLOBALCURRENT
-#    define IS31FL3761_GLOBAL_CURRENT ISSI_GLOBALCURRENT
-#endif
 
 #define is31_led is31fl3761_led_t
 #define g_is31_leds g_is31fl3761_leds
 
-#define PUR_0R IS31FL3761_PUR_0_OHM
-#define PUR_05KR IS31FL3761_PUR_0K5_OHM
-#define PUR_1KR IS31FL3761_PUR_1K_OHM
-#define PUR_2KR IS31FL3761_PUR_2K_OHM
-#define PUR_4KR IS31FL3761_PUR_4K_OHM
-#define PUR_8KR IS31FL3761_PUR_8K_OHM
-#define PUR_16KR IS31FL3761_PUR_16K_OHM
-#define PUR_32KR IS31FL3761_PUR_32K_OHM
 // ========
 
 #define IS31FL3761_COMMAND_PAGE_0 0x00
@@ -153,29 +126,33 @@ void is31fl3761_set_pwm_buffer(const is31fl3761_led_t *pled, uint8_t red, uint8_
 void is31fl3761_flush(void);
 
 // SWPDR SWx Pull down Resister Selection Bit
-#define IS31FL3761_PDR_0_OHM 0b000   // No pull up
-#define IS31FL3761_PDR_0K5_OHM 0b001 // 2.6V
-#define IS31FL3761_PDR_1K_OHM 0b010  // 2.2V
-#define IS31FL3761_PDR_2K_OHM 0b011  // 1.9V
-#define IS31FL3761_PDR_4K_OHM 0b100  // 1.6V
-#define IS31FL3761_PDR_8K_OHM 0b101  // 1.2V
-#define IS31FL3761_PDR_16K_OHM 0b110 // 0.9V
-#define IS31FL3761_PDR_32K_OHM 0b111 // GND
+#define IS31FL3761_PDR_NO 0b000  // No pull up
+#define IS31FL3761_PDR_2V6 0b001 // 2.6V
+#define IS31FL3761_PDR_2V2 0b010 // 2.2V
+#define IS31FL3761_PDR_1V9 0b011 // 1.9V
+#define IS31FL3761_PDR_1V6 0b100 // 1.6V
+#define IS31FL3761_PDR_1V2 0b101 // 1.2V
+#define IS31FL3761_PDR_0V9 0b110 // 0.9V
+#define IS31FL3761_PDR_GND 0b111 // GND
 
 // CSPUR  CSy Pull up Resister Selection Bit
-#define IS31FL3761_PUR_0_OHM 0b000   // No pull up
-#define IS31FL3761_PUR_0K5_OHM 0b001 // PVCC-2.3V
-#define IS31FL3761_PUR_1K_OHM 0b010  // PVCC-2.0V
-#define IS31FL3761_PUR_2K_OHM 0b011  // PVCC-1.7V
-#define IS31FL3761_PUR_4K_OHM 0b100  // PVCC-1.4V
-#define IS31FL3761_PUR_8K_OHM 0b101  // PVCC-1.1V
-#define IS31FL3761_PUR_16K_OHM 0b110 // PVCC-0.8V
-#define IS31FL3761_PUR_32K_OHM 0b111 // PVCC
+#define IS31FL3761_PUR_NO 0b000          // No pull up
+#define IS31FL3761_PUR_VCC_SUB_2V3 0b001 // PVCC-2.3V
+#define IS31FL3761_PUR_VCC_SUB_2V0 0b010 // PVCC-2.0V
+#define IS31FL3761_PUR_VCC_SUB_1V7 0b011 // PVCC-1.7V
+#define IS31FL3761_PUR_VCC_SUB_1V4 0b100 // PVCC-1.4V
+#define IS31FL3761_PUR_VCC_SUB_1V1 0b101 // PVCC-1.1V
+#define IS31FL3761_PUR_VCC_SUB_0V8 0b110 // PVCC-0.8V
+#define IS31FL3761_PUR_VCC 0b111         // PVCC
 
-#define IS31FL3761_PWM_FREQUENCY_92K_HZ 0b000  // 92kHz for 8-bit mode
-#define IS31FL3761_PWM_FREQUENCY_46k_HZ 0b001  // 46kHz for 8-bit mode
-#define IS31FL3761_PWM_FREQUENCY_23k_HZ 0b110  // 23kHz for 8-bit mode
-#define IS31FL3761_PWM_FREQUENCY_11k5_HZ 0b011 // 11.5kHz for 8-bit mode
+// 6+2-bit Mode
+#define IS31FL3761_PWM_FREQUENCY_26K_HZ 0b000   // 26kHz for 6+2-bit Mode
+#define IS31FL3761_PWM_FREQUENCY_13k_HZ 0b001   // 13kHz for 6+2-bit Mode
+#define IS31FL3761_PWM_FREQUENCY_6k5k_HZ 0b010  // 6.5kHz for 6+2-bit Mode
+#define IS31FL3761_PWM_FREQUENCY_3k25_HZ 0b011  // 3.25kHz for 6+2-bit Mode
+#define IS31FL3761_PWM_FREQUENCY_1k625_HZ 0b100 // 1.625kHz for 6+2-bit Mode
+#define IS31FL3761_PWM_FREQUENCY_810_HZ 0b101   // 810Hz for 6+2-bit Mode
+#define IS31FL3761_PWM_FREQUENCY_400_HZ 0b110   // 400Hz for 6+2-bit Mode
 
 /** page 0 */
 #define CS1_SW1 0x01
