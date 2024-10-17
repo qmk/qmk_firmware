@@ -86,8 +86,11 @@ _Static_assert(TOTAL_INTERFACES <= MAX_INTERFACES, "There are not enough availab
 #endif
 
 static uint8_t keyboard_led_state = 0;
-uint8_t        keyboard_idle      = 0;
-uint8_t        keyboard_protocol  = 1;
+#ifdef POINTING_DEVICE_HIRES_SCROLL_ENABLE
+static uint8_t hires_scroll_state = 0;
+#endif
+uint8_t keyboard_idle     = 0;
+uint8_t keyboard_protocol = 1;
 
 static report_keyboard_t keyboard_report_sent;
 
@@ -258,6 +261,12 @@ static void send_mouse(report_mouse_t *report) {
 #endif
 }
 
+#ifdef POINTING_DEVICE_HIRES_SCROLL_ENABLE
+bool is_hires_scroll_on(void) {
+    return hires_scroll_state > 0;
+}
+#endif
+
 static void send_extra(report_extra_t *report) {
 #ifdef EXTRAKEY_ENABLE
     send_report(SHARED_IN_EPNUM, report, sizeof(report_extra_t));
@@ -287,7 +296,11 @@ void send_programmable_button(report_programmable_button_t *report) {
  *------------------------------------------------------------------*/
 static struct {
     uint16_t len;
+#ifdef POINTING_DEVICE_HIRES_SCROLL_ENABLE
+    enum { NONE, SET_LED, SET_HIRES_SCROLL } kind;
+#else
     enum { NONE, SET_LED } kind;
+#endif
 } last_req;
 
 usbMsgLen_t usbFunctionSetup(uchar data[8]) {
@@ -312,12 +325,45 @@ usbMsgLen_t usbFunctionSetup(uchar data[8]) {
                 return 1;
             case USBRQ_HID_SET_REPORT:
                 dprint("SET_REPORT:");
-                // Report Type: 0x02(Out)/ReportID: 0x00(none) && Interface: 0(keyboard)
+#ifdef POINTING_DEVICE_HIRES_SCROLL_ENABLE
+                // note: when using vusb, the mouse always uses the shared endpoint, so we don't check for MOUSE_INTERFACE
+                switch (rq->wIndex.word) {
+#    ifndef KEYBOARD_SHARED_EP
+                    case KEYBOARD_INTERFACE:
+                        // Report Type: 0x02(Out) / ReportID: none
+                        if (rq->wValue.word == 0x0200) {
+                            dprint("SET_LED:");
+                            last_req.kind = SET_LED;
+                            last_req.len  = rq->wLength.word;
+                        }
+                        break;
+#    endif
+#    ifdef SHARED_EP_ENABLE
+                    case SHARED_INTERFACE:
+                        switch (rq->wValue.word) {
+                            // 0x02XX indicates output from computer
+                            case 0x0200 + REPORT_ID_KEYBOARD:
+                            case 0x0200 + REPORT_ID_NKRO:
+                                dprint("SET_LED:");
+                                last_req.kind = SET_LED;
+                                last_req.len  = rq->wLength.word;
+                                break;
+                            case 0x0200 + REPORT_ID_MOUSE:
+                                dprint("SET_HIRES_SCROLL:");
+                                last_req.kind = SET_HIRES_SCROLL;
+                                last_req.len  = rq->wLength.word;
+                                break;
+                        }
+                        break;
+#    endif
+                }
+#else
                 if (rq->wValue.word == 0x0200 && rq->wIndex.word == KEYBOARD_INTERFACE) {
                     dprint("SET_LED:");
                     last_req.kind = SET_LED;
-                    last_req.len  = rq->wLength.word;
+                    last_req.len = rq->wLength.word;
                 }
+#endif
                 return USB_NO_MSG; // to get data in usbFunctionWrite
             case USBRQ_HID_SET_IDLE:
                 keyboard_idle = (rq->wValue.word & 0xFF00) >> 8;
@@ -352,6 +398,14 @@ uchar usbFunctionWrite(uchar *data, uchar len) {
             last_req.len       = 0;
             return 1;
             break;
+#ifdef POINTING_DEVICE_HIRES_SCROLL_ENABLE
+        case SET_HIRES_SCROLL:
+            dprintf("SET_HIRES_SCROLL: %02X\n", data[0]);
+            hires_scroll_state = data[0];
+            last_req.len       = 0;
+            return 1;
+            break;
+#endif
         case NONE:
         default:
             return -1;
