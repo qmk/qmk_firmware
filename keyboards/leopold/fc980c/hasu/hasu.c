@@ -15,17 +15,22 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#include "fc980c.h"
 
-#include "quantum.h"
+void matrix_init_kb(void) {
+    fc980c_matrix_init_kb();
 
-#ifdef ACTUATION_DEPTH_ADJUSTMENT
-#    include "ad5258.h"
+    matrix_init_user();
+}
 
-// see keymaps/actuation-point-example to see how these functions can be used.
-void actuation_point_up(void);
-void actuation_point_down(void);
+void eeconfig_init_kb(void) {
+    fc980c_eeconfig_init_kb();
 
-// be careful with this.
-void adjust_actuation_point(int offset);
-#endif
+    eeconfig_init_user();
+}
+
+void keyboard_post_init_kb(void) {
+    fc980c_keyboard_post_init_kb();
+
+    keyboard_post_init_user();
+}
