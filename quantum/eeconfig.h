@@ -48,6 +48,7 @@ typedef struct PACKED {
     };
     uint32_t haptic;
     uint8_t  rgblight_ext;
+    uint32_t keymap_hash;
 } eeprom_core_t;
 
 /* EEPROM parameter address */
@@ -67,6 +68,7 @@ typedef struct PACKED {
 #define EECONFIG_RGB_MATRIX (uint64_t *)(offsetof(eeprom_core_t, rgb_matrix))
 #define EECONFIG_HAPTIC (uint32_t *)(offsetof(eeprom_core_t, haptic))
 #define EECONFIG_RGBLIGHT_EXTENDED (uint8_t *)(offsetof(eeprom_core_t, rgblight_ext))
+#define EECONFIG_KEYMAP_HASH (uint32_t *)(offsetof(eeprom_core_t, keymap_hash))
 
 // Size of EEPROM being used for core data storage
 #define EECONFIG_BASE_SIZE ((uint8_t)sizeof(eeprom_core_t))
