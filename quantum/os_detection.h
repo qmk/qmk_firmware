@@ -31,7 +31,7 @@ typedef enum {
 void         process_wlength(const uint16_t w_length);
 os_variant_t detected_host_os(void);
 void         erase_wlength_data(void);
-void         os_detection_notify_usb_device_state_change(enum usb_device_state usb_device_state);
+void         os_detection_notify_usb_device_state_change(struct usb_device_state usb_device_state);
 
 void os_detection_task(void);
 

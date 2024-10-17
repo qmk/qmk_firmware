@@ -65,8 +65,8 @@ static volatile os_variant_t reported_os = OS_UNSURE;
 static volatile bool first_report = true;
 
 // to react on USB state changes
-static volatile enum usb_device_state current_usb_device_state = USB_DEVICE_STATE_NO_INIT;
-static volatile enum usb_device_state maxprev_usb_device_state = USB_DEVICE_STATE_NO_INIT;
+static volatile struct usb_device_state current_usb_device_state = {.configure_state = USB_DEVICE_STATE_NO_INIT};
+static volatile struct usb_device_state maxprev_usb_device_state = {.configure_state = USB_DEVICE_STATE_NO_INIT};
 
 // the OS detection might be unstable for a while, "debounce" it
 static volatile bool         debouncing = false;
@@ -88,7 +88,7 @@ void os_detection_task(void) {
         return;
     }
 #endif
-    if (current_usb_device_state == USB_DEVICE_STATE_CONFIGURED) {
+    if (current_usb_device_state.configure_state == USB_DEVICE_STATE_CONFIGURED) {
         // debouncing goes for both the detected OS as well as the USB state
         if (debouncing && timer_elapsed_fast(last_time) >= OS_DETECTION_DEBOUNCE) {
             debouncing = false;
@@ -163,19 +163,19 @@ os_variant_t detected_host_os(void) {
 
 void erase_wlength_data(void) {
     memset(&setups_data, 0, sizeof(setups_data));
-    detected_os              = OS_UNSURE;
-    reported_os              = OS_UNSURE;
-    current_usb_device_state = USB_DEVICE_STATE_NO_INIT;
-    maxprev_usb_device_state = USB_DEVICE_STATE_NO_INIT;
-    debouncing               = false;
-    last_time                = 0;
-    first_report             = true;
+    detected_os                              = OS_UNSURE;
+    reported_os                              = OS_UNSURE;
+    current_usb_device_state.configure_state = USB_DEVICE_STATE_NO_INIT;
+    maxprev_usb_device_state.configure_state = USB_DEVICE_STATE_NO_INIT;
+    debouncing                               = false;
+    last_time                                = 0;
+    first_report                             = true;
 }
 
-void os_detection_notify_usb_device_state_change(enum usb_device_state usb_device_state) {
+void os_detection_notify_usb_device_state_change(struct usb_device_state usb_device_state) {
     // treat this like any other source of instability
-    if (maxprev_usb_device_state < current_usb_device_state) {
-        maxprev_usb_device_state = current_usb_device_state;
+    if (maxprev_usb_device_state.configure_state < current_usb_device_state.configure_state) {
+        maxprev_usb_device_state.configure_state = current_usb_device_state.configure_state;
     }
     current_usb_device_state = usb_device_state;
     last_time                = timer_read_fast();
