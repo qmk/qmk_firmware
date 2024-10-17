@@ -159,6 +159,9 @@
                 ]
             }
         },
+        "serial": {
+            "driver": "vendor"
+        },
         "transport": {
             "sync": {
                 "layer_state": true
