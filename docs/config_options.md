@@ -6,12 +6,12 @@ There are three main types of configuration files in QMK:
 
 * `config.h`, which contains various preprocessor directives (`#define`, `#ifdef`)
 * `rules.mk`, which contains additional variables
-* `info.json`, which is utilized for [data-driven configuration](data_driven_config)
+* `keyboard.json`, which is utilized for [data-driven configuration](data_driven_config)
 
 This page will only discuss the first two types, `config.h` and `rules.mk`.
 
 ::: tip
-While not all settings have data-driven equivalents yet, keyboard makers are encouraged to utilize the `info.json` file to set the metadata for their boards when possible. See the [`info.json` Format](reference_info_json) page for more details.
+While not all settings have data-driven equivalents yet, keyboard makers are encouraged to utilize the `keyboard.json` file to set the metadata for their boards when possible. See the [`keyboard.json` Format](reference_info_json) page for more details.
 :::
 
 These files exist at various levels in QMK and all files of the same type are combined to build the final configuration. The levels, from lowest priority to highest priority, are:
