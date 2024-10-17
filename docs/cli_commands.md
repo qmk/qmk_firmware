@@ -153,20 +153,26 @@ qmk cd
 
 This command allows for searching through keyboard/keymap targets, filtering by specific criteria. `info.json` and `rules.mk` files contribute to the search data, as well as keymap configurations, and the results can be filtered using "dotty" syntax matching the overall `info.json` file format.
 
-For example, one could search for all keyboards using STM32F411:
+For example, one could search for all keyboards powered by the STM32F411 microcontroller:
 
 ```
-qmk find -f 'processor=STM32F411'
+qmk find -f 'processor==STM32F411'
 ```
 
-...and one can further constrain the list to keyboards using STM32F411 as well as rgb_matrix support:
+The list can be further constrained by passing additional filter expressions:
 
 ```
-qmk find -f 'processor=STM32F411' -f 'features.rgb_matrix=true'
+qmk find -f 'processor==STM32F411' -f 'features.rgb_matrix==true'
 ```
 
-The following filter expressions are also supported:
+The following filter expressions are supported:
 
+ - `key == value`: Match targets where `key` is equal to `value`. May include wildcards such as `*` and `?`.
+ - `key != value`: Match targets where `key` is not `value`. May include wildcards such as `*` and `?`.
+ - `key < value`: Match targets where `key` is a number less than `value`.
+ - `key > value`: Match targets where `key` is a number greater than `value`.
+ - `key <= value`: Match targets where `key` is a number less than or equal to `value`.
+ - `key >= value`: Match targets where `key` is a number greater than or equal to `value`.
  - `exists(key)`: Match targets where `key` is present.
  - `absent(key)`: Match targets where `key` is not present.
  - `contains(key, value)`: Match targets where `key` contains `value`. Can be used for strings, arrays and object keys.
@@ -175,7 +181,7 @@ The following filter expressions are also supported:
 You can also list arbitrary values for each matched target with `--print`:
 
 ```
-qmk find -f 'processor=STM32F411' -p 'keyboard_name' -p 'features.rgb_matrix'
+qmk find -f 'processor==STM32F411' -p 'keyboard_name' -p 'features.rgb_matrix'
 ```
 
 **Usage**:
