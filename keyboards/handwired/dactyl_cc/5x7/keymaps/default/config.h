@@ -21,15 +21,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_USB_DETECT
 #define SPLIT_USB_TIMEOUT 2500
 #define SPLIT_TRANSPORT_MIRROR
-#define RGBLIGHT_SPLIT
-#define RGBLED_SPLIT { 33, 33 }
-//#define MASTER_RIGHT
+//#define RGBLIGHT_SPLIT
+//#define RGBLED_SPLIT { 33, 33 }
 
 //#define EE_HANDS
 
-//#define RGBLIGHT_SPLIT true
-//#define RGBLIGHT_DEFAULT_ON true
-
+/*
 #ifdef RGBLIGHT_ENABLE
 #    define RGBLIGHT_EFFECT_BREATHING
 #    define RGBLIGHT_EFFECT_RAINBOW_MOOD
@@ -46,3 +43,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_VAL_STEP 6 // number of steps to increment the brightness by
 #    define RGBLIGHT_SLEEP      //  the RGB lighting will be switched off when the host goes to sleep
 #endif
+*/

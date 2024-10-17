@@ -1546,5 +1546,9 @@
     },
     "dnworks/9973": {
         "target": "dnworks/tkl87"
+    },
+    //
+    "handwired/dactyl_cc": {
+        "target": "handwired/dactyl_cc/5x6"
     }
 }
