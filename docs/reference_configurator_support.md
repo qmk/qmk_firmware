@@ -93,7 +93,7 @@ Once the layout is as desired, move to the Raw Data tab in KLE, and copy the con
 [{w:2},"0\nIns",".\nDel"]
 ```
 
-To convert this data into our JSON, go to the [QMK KLE-JSON Converter](https://qmk.fm/converter/), paste the Raw Data into the Input field, and click the Convert button. After a moment, our JSON data will appear in the Output field. Copy the contents to a new text document, and name the document `info.json`, saving it in the same folder that contains `numpad.h`.
+To convert this data into our JSON, go to the [QMK KLE-JSON Converter](https://qmk.fm/converter/), paste the Raw Data into the Input field, and click the Convert button. After a moment, our JSON data will appear in the Output field. Copy the contents to a new text document, and name the document `keyboard.json`, saving it in the same folder that contains `numpad.h`.
 
 Use the `keyboard_name` object to set the name of the keyboard. For instruction purposes, we will put each key's object on its own line. This is only to make the file more human-readable, and does not affect the Configurator's functionality.
 
@@ -148,7 +148,7 @@ The `layouts` object contains the data that represents the physical layout of th
 Some objects will also have `"w"` and `"h"` keys, which represent a key's width and height, respectively.
 
 ::: tip
-For more on the `info.json` files, see [`info.json` Format](reference_info_json).
+For more on the `keyboard.json` files, see [`keyboard.json` Format](reference_info_json).
 :::
 
 
@@ -176,12 +176,12 @@ k33   | {"label":"Enter", "x":3, "y":3, "h":2}
 k40   | {"label":"0", "x":0, "y":4, "w":2}
 k42   | {"label":".", "x":2, "y":4}
 
-When a user selects the top-left key in the Configurator, and assigns Num Lock to it, the Configurator builds a keymap file with `KC_NUM` as the first key, and so on as the keymap is built. The `label` keys are not used; they are only for the user's reference in identifying specific keys when debugging the `info.json` file.
+When a user selects the top-left key in the Configurator, and assigns Num Lock to it, the Configurator builds a keymap file with `KC_NUM` as the first key, and so on as the keymap is built. The `label` keys are not used; they are only for the user's reference in identifying specific keys when debugging the `keyboard.json` file.
 
 
 ## Issues and Hazards
 
-Currently, the Configurator does not support key rotation or non-rectangular key shapes like ISO Enter. Additionally, keys that are vertically-offset from their "row" &mdash; the arrow keys on 1800-layouts like the [TKC1800](https://github.com/qmk/qmk_firmware/tree/4ac48a61a66206beaf2fdd5f2939d8bbedd0004c/keyboards/tkc1800/) being a prominent example &mdash; confuse the KLE-to-JSON Converter, if not adjusted for by the contributor of the `info.json` file.
+Currently, the Configurator does not support key rotation or non-rectangular key shapes like ISO Enter. Additionally, keys that are vertically-offset from their "row" &mdash; the arrow keys on 1800-layouts like the [TKC1800](https://github.com/qmk/qmk_firmware/tree/4ac48a61a66206beaf2fdd5f2939d8bbedd0004c/keyboards/tkc1800/) being a prominent example &mdash; confuse the KLE-to-JSON Converter, if not adjusted for by the contributor of the `keyboard.json` file.
 
 ### Workarounds
 

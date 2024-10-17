@@ -64,7 +64,7 @@ Clueboard uses sub-folders for both purposes, organization and keyboard revision
 Your keyboard should be located in `qmk_firmware/keyboards/` and the folder name should be your keyboard's name as described in the previous section. Inside this folder should be several files:
 
 * `readme.md`
-* `info.json`
+* `keyboard.json`
 * `config.h`
 * `rules.mk`
 * `<keyboard_name>.c`
@@ -74,7 +74,7 @@ Your keyboard should be located in `qmk_firmware/keyboards/` and the folder name
 
 All projects need to have a `readme.md` file that explains what the keyboard is, who made it and where it's available. If applicable, it should also contain links to more information, such as the maker's website. Please follow the [published template](documentation_templates#keyboard-readmemd-template).
 
-### `info.json`
+### `keyboard.json`
 
 This file is used by the [QMK API](https://github.com/qmk/qmk_api). It contains the information [QMK Configurator](https://config.qmk.fm/) needs to display a representation of your keyboard. You can also set metadata here. For more information see the [reference page](reference_info_json).
 

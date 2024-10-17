@@ -62,9 +62,9 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - `data/mappings/keyboard_aliases.hjson` must be updated to reflect the move, so users with pre-created configurator keymap.json files continue to detect the correct keyboard
 - keyboard updates and refactors (eg. to data driven) *must* go through `develop` to reduce `master` -> `develop` merge conflicts
 - PR submissions from a `kbfirmware` export (or equivalent) will not be accepted unless converted to new QMK standards -- try `qmk import-kbfirmware` first
-- `info.json`
-    - With the move to [data driven](data_driven_config) keyboard configuration, we encourage contributors to utilise as many features as possible of the info.json [schema](https://github.com/qmk/qmk_firmware/blob/master/data/schemas/keyboard.jsonschema).
-    - the mandatory elements for a minimally complete `info.json` at present are:
+- `keyboard.json`
+    - With the move to [data driven](data_driven_config) keyboard configuration, we encourage contributors to utilise as many features as possible of the keyboard.json [schema](https://github.com/qmk/qmk_firmware/blob/master/data/schemas/keyboard.jsonschema).
+    - the mandatory elements for a minimally complete `keyboard.json` at present are:
         - valid URL
         - valid maintainer
         - valid USB VID/PID and device version
@@ -79,7 +79,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
                 - use alternate layout names for all other possible layouts, preferring community layout names if an equivalent is available (e.g. `LAYOUT_tkl_ansi`, `LAYOUT_ortho_4x4` etc.)
         - Microcontroller and bootloader
         - Diode Direction (if not using direct pins)
-    - the following are required to be configured in `info.json` if necessary
+    - the following are required to be configured in `keyboard.json` if necessary
       - Direct pin configuration
       - Backlight Configuration (where applicable)
       - Split keyboard configuration (where applicable)
@@ -132,7 +132,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - hardware that's enabled at the keyboard level and requires configuration such as OLED displays or encoders should have basic functionality implemented here
 - `<keyboard>.h`
     - `#include "quantum.h"` appears at the top
-    - `LAYOUT` macros are no longer accepted and should instead be moved to `info.json`
+    - `LAYOUT` macros are no longer accepted and should instead be moved to `keyboard.json`
 - keymap `config.h`
     - no duplication of `rules.mk` or `config.h` from keyboard
 - `keymaps/default/keymap.c`

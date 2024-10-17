@@ -32,7 +32,7 @@ To send data to the keyboard, you must first find a library for communicating wi
 
 Please refer to these libraries' own documentation for instructions on usage. Remember to close the device once you are finished with it!
 
-Next, you will need to know the USB Vendor and Product IDs of the device. These can easily be found by looking at your keyboard's `info.json`, under the `usb` object (alternatively, you can also use Device Manager on Windows, System Information on macOS, or `lsusb` on Linux). For example, the Vendor ID for the Planck Rev 6 is `0x03A8`, and the Product ID is `0xA4F9`.
+Next, you will need to know the USB Vendor and Product IDs of the device. These can easily be found by looking at your keyboard's `keyboard.json`, under the `usb` object (alternatively, you can also use Device Manager on Windows, System Information on macOS, or `lsusb` on Linux). For example, the Vendor ID for the Planck Rev 6 is `0x03A8`, and the Product ID is `0xA4F9`.
 
 It's also a good idea to narrow down the list of potential HID devices the library may give you by filtering on the usage page and usage ID, to avoid accidentally opening the interface on the same device for the keyboard, or mouse, or media keys, etc.
 
