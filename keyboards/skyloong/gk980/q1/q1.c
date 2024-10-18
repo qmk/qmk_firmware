@@ -127,7 +127,7 @@ const aw20216s_led_t PROGMEM g_aw20216s_leds[AW20216S_LED_COUNT] = {
 
 void suspend_power_down_kb() {
 #    ifdef RGB_MATRIX_ENABLE
-    writePinLow(AW20216S_EN_PIN_1);
+    gpio_write_pin_low(AW20216S_EN_PIN);
 #    endif
     writePinLow(MAC_PIN);
     suspend_power_down_user();
