@@ -7,17 +7,8 @@
 #define DEBOUNCE 10
 #define WIN_LOCK_INDEX 75
 
-#ifdef ENCODER_ENABLE
-#    define ENCODER_MAP_KEY_DELAY 20
-#endif
+#define ENCODER_MAP_KEY_DELAY 20
 
-#ifdef RGB_MATRIX_ENABLE
-#    define AW20216S_CS_PIN_1 B12
-#    define AW20216S_CS_PIN_2 B11
-// Hardware enable lines may be connected to the same pin
-#    define AW20216S_EN_PIN_1 B5
-#    define AW20216S_EN_PIN_2 B5
-#    define RGB_MATRIX_KEYPRESSES
-#    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#endif // RGB_MATRIX_ENABLE
-
+#define AW20216S_CS_PIN_1 B12
+#define AW20216S_CS_PIN_2 B11
+#define AW20216S_EN_PIN B5
