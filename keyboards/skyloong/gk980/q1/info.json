@@ -31,7 +31,6 @@
     },
     "indicators": {
         "num_lock": "C15",
-        "on_state": 1,
         "caps_lock": "C14"
     },
     "matrix_pins": {
