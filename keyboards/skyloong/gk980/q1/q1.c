@@ -129,7 +129,7 @@ void suspend_power_down_kb() {
 #    ifdef RGB_MATRIX_ENABLE
     gpio_write_pin_low(AW20216S_EN_PIN);
 #    endif
-    writePinLow(MAC_PIN);
+    gpio_write_pin_low(MAC_PIN);
     suspend_power_down_user();
 }
 
