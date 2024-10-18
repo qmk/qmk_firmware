@@ -36,27 +36,27 @@ enum custom_keycodes {
 /*  Base (alpha) Layer Hands Down Vibranuim-F
             Building for Atreus44
 
-    x   w   m⌃   g   j           +=  .:  /⌃   "!  '?
-    s   c⌥  n⌘   t⇧  k           ,;  a⇧  e⌘   i⌥  h
-    f   p   l    d   v	 `   \	 -   u   o    y   b
+    x   w   m    g   j           #$  .:  /    "!  '?
+    s⌃  c⌥  n⌘   t⇧  k           ,;  a⇧  e⌘   i⌥  h⌃
+    f   p   l    d   v	 `   \	 -+  u   o    y   b
     ←   →  app   ⇥   r   ⌫   ⏎   ␣   ⎋  num   ↑   ↓
 */
 
 // top row
 #define LT4 KC_X
 #define LT3 KC_W
-#define LT2 LCTL_T(KC_M)
+#define LT2 KC_M
 #define LT1 KC_G
 #define LT0 KC_J
 
-#define RT0 KC_PLUS
+#define RT0 KC_HASH
 #define RT1 KC_DOT
-#define RT2 RCTL_T(KC_SLSH)
+#define RT2 KC_SLSH
 #define RT3 KC_DQUO
 #define RT4 KC_QUOT
 
 // middle row
-#define LM4 LT(_SYM, KC_S)
+#define LM4 LCTL_T(KC_S)
 #define LM3 LALT_T(KC_C)
 #define LM2 LGUI_T(KC_N)
 #define LM1 LSFT_T(KC_T)
@@ -66,7 +66,7 @@ enum custom_keycodes {
 #define RM1 RSFT_T(KC_A)
 #define RM2 RGUI_T(KC_E)
 #define RM3 RALT_T(KC_I)
-#define RM4 LT(_SYM, KC_H)
+#define RM4 LCTL_T(KC_H)
 
 // bottom row
 #define LB4 KC_F
@@ -89,9 +89,9 @@ enum custom_keycodes {
 #define LH2 G(KC_TAB)
 #define LH1 KC_TAB
 #define LH0 LT(_NAV, KC_R)
-#define LH00 KC_BSPC
+#define LH00 LT(_SYM, KC_BSPC)
 
-#define RH00 KC_ENT
+#define RH00 LT(_SYM, KC_ENT)
 #define RH0 LT(_NUM, KC_SPC)
 #define RH1 KC_ESC
 #define RH2 TG(_NUM)
@@ -136,48 +136,49 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LH4, LH3, LH2, LH1, LH0, LH00, RH00, RH0, RH1, RH2, RH3, RH4
     ),
 
-    /*
-    	*   7   8   9   -       +   .   ^
-    	/   1   2   3   +       ,   ⇧   ⌘   ⌥
-    	,   4   5   6   =       -   ⌫   ⇥   ⏎
-    	←   →       .   0   ␣
+    /*  BEAKL 19
+    	-   5   2   3   :       #$  +   /   *
+    	7   .   1   0   4       ,   ⇧   ⌘   ⌥   ⌃
+    	,   6   9   8   ⏎       -+  =
+    	            /   ␣   ⌫
     */
     [_NUM] = LAYOUT(
-    KC_ASTR, KC_7,    KC_8,    KC_9,    KC_MINS,                   _______, _______, KC_RCTL, _______, _______,
-    KC_SLSH, KC_1,    KC_2,    KC_3,    KC_PLUS,                   _______, KC_RSFT, KC_RGUI, KC_RALT, _______,
-    KC_COMM, KC_4,    KC_5,    KC_6,    KC_EQL,  _______, _______, _______, KC_BSPC, KC_TAB,  KC_ENT,  _______,
-    _______, _______, _______, KC_DOT,  KC_0,    KC_SPC,  _______, _______, _______, _______, _______, _______
+    KC_MINS, KC_5,    KC_2,    KC_3,    KC_COLN,                   _______, KC_PLUS, _______, KC_ASTR, _______,
+    KC_7,    KC_DOT,  KC_1,    KC_0,    KC_4,                      _______, KC_RSFT, KC_RGUI, KC_RALT, KC_RCTL,
+    KC_COMM, KC_6,    KC_9,    KC_8,    KC_ENT,  _______, _______, _______, KC_EQL,  _______, _______, _______,
+    _______, _______, _______, KC_SLSH, KC_SPC,  _______, _______, _______, _______, _______, _______, _______
     ),
 
-    /*
-    *       <   >   @      			&	[   ]
-    *   !   -   +   =   `       \   :   (   )	?
-    *   ⌃   /   *   #   ~		|	$	{	}	%
+    /*  BEAKL 19
+    *       <   =   >      		^	[	_   ]
+    *   \   (   -   )   +       %   {   ;   }	!
+    *       *   :   /   			|	~	&
+    *                   ␣
     */
-    [_SYM] = LAYOUT( // Pascal Getreuer Mod
-    ___x___, KC_LABK, KC_RABK, KC_AT,   ___x___,                   ___x___, KC_AMPR, KC_LBRC, KC_RBRC, ___x___,
-    KC_EXLM, KC_MINS, KC_PLUS, KC_EQL,  KC_GRV,                    KC_BSLS, KC_COLN, KC_LPRN, KC_RPRN, KC_QUES,
-    KC_CIRC, KC_SLSH, KC_ASTR, KC_HASH, KC_TILD, _______, _______, KC_PIPE, KC_DLR,  KC_LCBR, KC_RCBR, KC_PERC,
+    [_SYM] = LAYOUT(
+    ___x___, KC_LABK, KC_EQL,  KC_RABK, ___x___,                   KC_CIRC, KC_LBRC, KC_UNDS, KC_RBRC, ___x___,
+    KC_BSLS, KC_LPRN, KC_MINS, KC_RPRN, KC_PLUS,                   KC_PERC, KC_LCBR, KC_SCLN, KC_RCBR, KC_EXLM,
+    ___x___, KC_ASTR, KC_COLN, KC_SLSH, ___x___, _______, _______, ___x___, KC_PIPE, KC_TILD, KC_AMPR, ___x___,
     _______, _______, _______, _______, KC_SPC,  _______, _______, _______, _______, _______, _______, _______
     ),
 
     /*
-               ⌘Q      ⌃       Sclp   Scap                     vol+    home    up	end
-    	       ⌥       ⌘       ⇧             		           vol-    left    dn	rght	del
-    	undo   cut     cpy     pst    redo                     mute     ⌫      ⇥     ⏎
+                ⌘Q     Scap    Sclp                            vol+    home    up	end
+    	⌃       ⌥       ⌘       ⇧     Sall        		       vol-    left    dn	rght	del
+    	undo   cut     cpy     pst    redo                     mute
                                                                dsk-    dsk+
     */
     [_NAV] = LAYOUT(
-    ___x___, G(KC_Q), KC_LCTL, C(S(G(KC_4))), LSG(KC_4),                   KC_VOLU,    G(KC_LEFT), KC_UP,   G(KC_RGHT), ___x___,
-    _______, KC_LALT, KC_LGUI, KC_LSFT,       G(KC_A),                     KC_VOLD,    KC_LEFT,    KC_DOWN, KC_RGHT,    KC_DEL,
-    G(KC_Z), G(KC_X), G(KC_C), G(KC_V),       LSG(KC_Z), _______, _______, KC_MUTE,    KC_BSPC,	   KC_TAB,  KC_ENT,     ___x___,
-    _______, _______, _______, _______,       _______,   _______, _______, C(KC_LEFT), C(KC_RGHT), _______, _______,    _______
+    ___x___, G(KC_Q), LSG(KC_4), C(S(G(KC_4))), ___x___,                     KC_VOLU,    G(KC_LEFT), KC_UP,   G(KC_RGHT), ___x___,
+    KC_LCTL, KC_LALT, KC_LGUI,   KC_LSFT,       G(KC_A),                     KC_VOLD,    KC_LEFT,    KC_DOWN, KC_RGHT,    KC_DEL,
+    G(KC_Z), G(KC_X), G(KC_C),   G(KC_V),       LSG(KC_Z), _______, _______, KC_MUTE,    ___x___,	 ___x___, ___x___,    ___x___,
+    _______, _______, _______,   _______,       _______,   _______, _______, C(KC_LEFT), C(KC_RGHT), _______, _______,    _______
     ),
 
     /*
-        v   w   g⌃   m   j           +=  .:  /⌃   "!  '?
-        s   n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘   i⌥  c
-        f   p   d    l   x	 `   \	 -   u   o    y   b
+        v   w   g    m   j           #$  .:  /    "!  '?
+        s⌃  n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘   i⌥  c⌃
+        f   p   d    l   x	 `   \	 -+  u   o    y   b
         tg  →  app   ⇥   r   ⌫   ⏎   ␣   ⎋  num   ↑   ↓
     */
 
@@ -310,12 +311,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 
 const custom_shift_key_t custom_shift_keys[] = {
-    {KC_PLUS, KC_EQL},	/* shift + is = */
+    {KC_HASH, KC_DLR},	/* shift # is $ */
     {KC_DOT, KC_COLN},  /* shift . is : */
     {KC_COMM, KC_SCLN}, /* shift , is ; */
-    {RCTL_T(KC_SLSH), KC_ASTR}, /* shift / is * */
+    {KC_SLSH, KC_ASTR}, /* shift / is * */
     {KC_DQUO, KC_EXLM}, /* shift " is ! */
     {KC_QUOT, KC_QUES}, /* shift ' is ? */
+	{KC_MINS, KC_PLUS},	/* shift - is + */
 	{KC_BSPC, KC_DEL},  /* shift ⌫ is ⌦ */
 };
 uint8_t NUM_CUSTOM_SHIFT_KEYS =
