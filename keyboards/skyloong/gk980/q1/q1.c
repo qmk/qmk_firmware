@@ -151,7 +151,7 @@ layer_state_t default_layer_state_set_kb(layer_state_t state) {
         gpio_write_pin_low(MAC_PIN);
         break;
     case 1:
-        writePinHigh(MAC_PIN);
+        gpio_write_pin_high(MAC_PIN);
         break;
     }
   return state;
@@ -162,9 +162,9 @@ void board_init(void) {
     // JTAG-DP Disabled and SW-DP Disabled
     AFIO->MAPR = (AFIO->MAPR & ~AFIO_MAPR_SWJ_CFG_Msk) | AFIO_MAPR_SWJ_CFG_DISABLE;
 #   ifdef RGB_MATRIX_ENABLE
-    setPinOutput(AW20216S_EN_PIN_1);
-    writePinHigh(AW20216S_EN_PIN_1);
+    gpio_set_pin_output(AW20216S_EN_PIN);
+    gpio_write_pin_high(AW20216S_EN_PIN);
 #   endif
-    setPinOutput(MAC_PIN);
-    writePinHigh(MAC_PIN);
+    gpio_set_pin_output(MAC_PIN);
+    gpio_write_pin_high(MAC_PIN);
 }
