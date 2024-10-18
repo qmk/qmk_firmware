@@ -1,0 +1,27 @@
+# Mini-AT
+
+![Mini-AT](https://i.imgur.com/yOZCWYwl.png)
+
+A 40% version based on the geonworks W1-AT. The PCB supports both base kit and forties kit compatibility, but the firmware only supports one. This firmware supports the 40s kit layout compatibility only.
+
+* Keyboard Maintainer: [Ramon Imbao](https://github.com/ramonimbao)
+* Hardware Supported: RP2040
+* Hardware Availability: https://www.rmi-kb.com/
+
+Make example for this keyboard (after setting up your build environment):
+
+    make rmi_kb/mini_at/rev1/base:default
+
+Flashing example for this keyboard:
+
+    make rmi_kb/mini_at/rev1/base:default:flash
+
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
+## Bootloader
+
+Enter the bootloader in 3 ways:
+
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
+* **Physical reset button**: Quickly double press the reset button on the daughterboard PCB
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
