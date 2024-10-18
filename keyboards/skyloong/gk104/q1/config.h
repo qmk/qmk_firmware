@@ -5,6 +5,10 @@
 
 #define MAC_PIN C13
 
+#define MATRIX_ROWS 7
+#define MATRIX_COLS 16
+#define MATRIX_ROW_PINS {A8, A9, A10, A15, B6, B7, B9}
+
 #ifdef ENCODER_ENABLE
 #    define ENCODER_MAP_KEY_DELAY 10
 #endif
