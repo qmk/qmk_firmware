@@ -58,10 +58,6 @@ extern keymap_config_t keymap_config;
 extern usb_endpoint_in_t  usb_endpoints_in[USB_ENDPOINT_IN_COUNT];
 extern usb_endpoint_out_t usb_endpoints_out[USB_ENDPOINT_OUT_COUNT];
 
-uint8_t _Alignas(2) keyboard_idle     = 0;
-uint8_t _Alignas(2) keyboard_protocol = 1;
-uint8_t keyboard_led_state            = 0;
-
 static bool __attribute__((__unused__)) send_report_buffered(usb_endpoint_in_lut_t endpoint, void *report, size_t size);
 static void __attribute__((__unused__)) flush_report_buffered(usb_endpoint_in_lut_t endpoint, bool padded);
 static bool __attribute__((__unused__)) receive_report(usb_endpoint_out_lut_t endpoint, void *report, size_t size);
@@ -172,6 +168,7 @@ void usb_event_queue_task(void) {
                 break;
             case USB_EVENT_RESET:
                 usb_device_state_set_reset();
+                usb_device_state_set_protocol(USB_PROTOCOL_REPORT);
                 break;
             default:
                 // Nothing to do, we don't handle it.
@@ -254,10 +251,10 @@ static void set_led_transfer_cb(USBDriver *usbp) {
     if (setup->wLength == 2) {
         uint8_t report_id = set_report_buf[0];
         if ((report_id == REPORT_ID_KEYBOARD) || (report_id == REPORT_ID_NKRO)) {
-            keyboard_led_state = set_report_buf[1];
+            usb_device_state_set_leds(set_report_buf[1]);
         }
     } else {
-        keyboard_led_state = set_report_buf[0];
+        usb_device_state_set_leds(set_report_buf[0]);
     }
 }
 
@@ -273,7 +270,9 @@ static bool usb_requests_hook_cb(USBDriver *usbp) {
                         return usb_get_report_cb(usbp);
                     case HID_REQ_GetProtocol:
                         if (setup->wIndex == KEYBOARD_INTERFACE) {
-                            usbSetupTransfer(usbp, &keyboard_protocol, sizeof(uint8_t), NULL);
+                            static uint8_t keyboard_protocol;
+                            keyboard_protocol = usb_device_state_get_protocol();
+                            usbSetupTransfer(usbp, &keyboard_protocol, sizeof(keyboard_protocol), NULL);
                             return true;
                         }
                         break;
@@ -296,12 +295,12 @@ static bool usb_requests_hook_cb(USBDriver *usbp) {
                         break;
                     case HID_REQ_SetProtocol:
                         if (setup->wIndex == KEYBOARD_INTERFACE) {
-                            keyboard_protocol = setup->wValue.word;
+                            usb_device_state_set_protocol(setup->wValue.lbyte);
                         }
                         usbSetupTransfer(usbp, NULL, 0, NULL);
                         return true;
                     case HID_REQ_SetIdle:
-                        keyboard_idle = setup->wValue.hbyte;
+                        usb_device_state_set_idle_rate(setup->wValue.hbyte);
                         return usb_set_idle_cb(usbp);
                 }
                 break;
@@ -400,11 +399,6 @@ __attribute__((weak)) void restart_usb_driver(USBDriver *usbp) {
  * ---------------------------------------------------------
  */
 
-/* LED status */
-uint8_t keyboard_leds(void) {
-    return keyboard_led_state;
-}
-
 /**
  * @brief Send a report to the host, the report is enqueued into an output
  * queue and send once the USB endpoint becomes empty.
@@ -462,7 +456,7 @@ static bool receive_report(usb_endpoint_out_lut_t endpoint, void *report, size_t
 
 void send_keyboard(report_keyboard_t *report) {
     /* If we're in Boot Protocol, don't send any report ID or other funky fields */
-    if (!keyboard_protocol) {
+    if (usb_device_state_get_protocol() == USB_PROTOCOL_BOOT) {
         send_report(USB_ENDPOINT_IN_KEYBOARD, &report->mods, 8);
     } else {
         send_report(USB_ENDPOINT_IN_KEYBOARD, report, KEYBOARD_REPORT_SIZE);
