@@ -373,7 +373,7 @@ __attribute__((weak)) bool via_command_kb(uint8_t *data, uint8_t length) {
       
         // cmdid + 2 frame headers 
         // The third one is isack the fourth one is length and the fifth one is data frame
-        BHQ_SendCmd(data[3], &data[5], data[4]);
+        BHQ_SendCmd(0, &data[4], data[3]);
         return true;
     }
     return false;

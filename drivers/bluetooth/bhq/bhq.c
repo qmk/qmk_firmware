@@ -107,10 +107,10 @@ void BHQ_SendCmd(uint8_t isack, uint8_t *dat, uint8_t datLength)
     uint8_t i = 0;
     uint8_t pkt[128] = {0};
     memset(pkt, 0, 128);
+    isack = isack;
 
     pkt[index++] = BHQ_FRAME_HEADER_1;          
     pkt[index++] = BHQ_FRAME_HEADER_2;          
-    pkt[index++] = isack;            
     pkt[index++] = datLength;                  
     for(i = 0; i < datLength; i++) 
     {
@@ -336,7 +336,7 @@ void BHQ_Protocol_Process(uint8_t *dat, uint16_t length)
 {
     uint8_t cmdid = 0;
     uint8_t buff_sta = 0;
-    cmdid = dat[4];
+    cmdid = dat[3];
     uint8_t i = 0 ;
     km_printf("BHQ_Protocol_Process: cmdid:%d\r\n",cmdid);
     uint8_t hid_data[32] = {0};
@@ -344,13 +344,13 @@ void BHQ_Protocol_Process(uint8_t *dat, uint16_t length)
     switch(cmdid)
     {
         case 0x26:  // BHQ model return hid led lock sta
-            dat[5] = dat[5];    // led lock sta
+            dat[4] = dat[4];    // led lock sta
             ackCommonNotData(cmdid,0);
-            BHQ_Sta_Handel(cmdid,&dat[5]);
+            BHQ_Sta_Handel(cmdid,&dat[4]);
             break;
         case 0x27:  // BHQ model return hid raw data 
             // data and length
-            raw_hid_receive(&dat[6],dat[5]);  
+            raw_hid_receive(&dat[5],dat[4]);  
             // km_printf("bhq return hid raw data:length:%d[%02x %02x %02x]\r\n",dat[5],dat[6],dat[7],dat[8]);
             // for (i = 0; i < length; i++)
             // {
@@ -364,7 +364,7 @@ void BHQ_Protocol_Process(uint8_t *dat, uint16_t length)
         case 0xA4:
         case 0xA5:
         case 0xA7:
-            buff_sta = dat[5];
+            buff_sta = dat[4];
             switch(buff_sta)
             {
                 case 0:
@@ -382,7 +382,7 @@ void BHQ_Protocol_Process(uint8_t *dat, uint16_t length)
             break;
 
         case 0x93:  //  BHQ model return [ble connect sta , ble pair sta...]
-            BHQ_Sta_Handel(cmdid, &dat[5]);
+            BHQ_Sta_Handel(cmdid, &dat[4]);
             for (i = 0; i < length; i++)
             {
                 km_printf("%02x ",dat[i]);
@@ -446,6 +446,7 @@ void bhq_task(void)
     wait_for_new_pkt = false;
     bytedata = (uint8_t)temp;
     uartTimeoutBuffer = sync_timer_read32();
+    km_printf("%02x ",bytedata);
     switch (u_sta)
     {
         case 0:
@@ -454,6 +455,7 @@ void bhq_task(void)
                 index = 0;
                 buf[index++] = bytedata;
                 u_sta++;  
+                km_printf("read 0x5d\r\n");
             }
             break;
         case 1:
@@ -461,22 +463,18 @@ void bhq_task(void)
             {
                 buf[index++] = bytedata;
                 u_sta++;  
+                km_printf("read 0x7E\r\n");
             }
             break;
         case 2:
-            if(bytedata == 0x50 || bytedata == 0x51)
-            {
-                buf[index++] = bytedata;
-                u_sta++;  
-            }
+            buf[index++] = bytedata;
+            dataLength = 2 + 1 + bytedata + 2 + 1;  //  Frame Header2  + length1 + dataN + crc2 + Frame end1
+            u_sta++;  
+            km_printf("read bytedata:%d\r\n",dataLength);
             break;
         case 3:
             buf[index++] = bytedata;
-            dataLength = 2 + 1 + 1 + bytedata + 2 + 1;  //  Frame Header2 + isack1 + length1 + dataN + crc2 + Frame end1
-            u_sta++;  
-            break;
-        case 4:
-            buf[index++] = bytedata;
+            km_printf("%02x ",bytedata);
             if(index == dataLength && buf[dataLength - 1] == 0x5E)
             {
                 if(bhkVerify(buf, index) == 0x00)
@@ -487,6 +485,7 @@ void bhq_task(void)
                 u_sta = 0;
                 dataLength = 0;
                 memset(buf, 0, PACKET_MAX_LEN);
+                km_printf("\r\n");
             }
             break;
     }
@@ -496,36 +495,36 @@ void bhq_task(void)
 // 验证数据是否有效
 uint8_t bhkVerify(uint8_t *dat, uint16_t length)
 {
-    uint8_t dataRead_length = 4 + dat[3];    // 两个帧头 一个应答使能 一个长度 = 4 不包括帧头的长度
-//    PRINT("dataRead_length:%d \r\n",dataRead_length);
+    uint8_t dataRead_length = 3 + dat[2];    // 两个帧头  一个长度 = 4 不包括帧头的长度
+   km_printf("dataRead_length:%d \r\n",dataRead_length);
 
     uint16_t dataReadCrc = BHQ_BUILD_UINT16(dat[dataRead_length],dat[dataRead_length + 1]);
-//    PRINT("readCRCL %02x  readCRCH %02x \r\n",dat[dataRead_length],dat[dataRead_length + 1]);
+   km_printf("readCRCL %02x  readCRCH %02x \r\n",dat[dataRead_length],dat[dataRead_length + 1]);
 
     uint16_t dataSumCrc = bhkSumCrc(dat,dataRead_length) ;
-//    PRINT("readCRC %04x    sumCRC %04x \r\n", dataReadCrc, dataSumCrc);
-//    PRINT("readCRC %d    sumCRC %d \r\n", dataReadCrc, dataSumCrc);
+   km_printf("readCRC %04x    sumCRC %04x \r\n", dataReadCrc, dataSumCrc);
+   km_printf("readCRC %d    sumCRC %d \r\n", dataReadCrc, dataSumCrc);
 
 
     if(dat[0] != BHQ_FRAME_HEADER_1 || dat[1] != BHQ_FRAME_HEADER_2)
     {
-//        PRINT("Verify: FRAME_HEADER error !! \r\n");
+       km_printf("Verify: FRAME_HEADER error !! \r\n");
         return 0x01;
     }
 
     if(dataReadCrc != dataSumCrc)
     {
-//        PRINT("Verify: CRC error !! \r\n");
+       km_printf("Verify: CRC error !! \r\n");
 
         return 0x02;
     }
 
     if(dat[dataRead_length + 2] != BHQ_FRAME_END_1)  // 跳过两个校验和就到帧尾了
     {
-//        PRINT("Verify: FRAME_END error !! \r\n");
+       km_printf("Verify: FRAME_END error !! \r\n");
         return 0x03;
     }
-//    PRINT("Verify: data success !! \r\n");
+   km_printf("Verify: data success !! \r\n");
     return 0;
 }
 
