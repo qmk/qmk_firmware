@@ -8,7 +8,13 @@
     "features": {
         "pointing_device": true,
         "rgb_matrix": true,
-        "rgblight": false
+        "rgblight": false,
+        "encoder": true,
+        "oled": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nrko": true,
+        "audio": false
     },
     "matrix_size": {
         "cols": 8,
@@ -93,7 +99,6 @@
             "driver": "usart"
         },
         "transport": {
-            "protocol": "serial",
             "watchdog": true,
             "watchdog_timeout": 3000
         }
