@@ -1,0 +1,2 @@
+ENCODER_MAP_ENABLE = yes
+XAP_ENABLE = yes
