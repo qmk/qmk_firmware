@@ -1,7 +1,5 @@
 // Copyright 2023 NaturaZh (@NaturalZh)
 // SPDX-License-Identifier: GPL-2.0-or-later
-//Matrix read rows set col:DIODE_DIRECTION == ROW2COL
-
 #include "matrix.h"
 
 #define CLOCK_TIME 15
