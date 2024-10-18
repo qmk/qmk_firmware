@@ -154,7 +154,7 @@ layer_state_t default_layer_state_set_kb(layer_state_t state) {
         gpio_write_pin_high(MAC_PIN);
         break;
     }
-  return state;
+    return default_layer_state_set_user(state);
 }
 
 

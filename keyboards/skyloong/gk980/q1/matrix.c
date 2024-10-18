@@ -14,9 +14,6 @@
 pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 
-// user-defined overridable functions
-__attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col, matrix_row_t row_shifter);
-
 static inline void select_delay(uint16_t n) {
     while (n-- > 0) {
         asm volatile("nop" ::: "memory");
