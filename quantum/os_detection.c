@@ -76,7 +76,7 @@ void os_detection_task(void) {
 #ifdef OS_DETECTION_KEYBOARD_RESET
     // resetting the keyboard on the USB device state change callback results in instability, so delegate that to this task
     // only take action if it's been stable at least once, to avoid issues with some KVMs
-    if (current_usb_device_state <= USB_DEVICE_STATE_INIT && maxprev_usb_device_state >= USB_DEVICE_STATE_CONFIGURED) {
+    if (current_usb_device_state.configure_state <= USB_DEVICE_STATE_INIT && maxprev_usb_device_state.configure_state >= USB_DEVICE_STATE_CONFIGURED) {
         if (debouncing && timer_elapsed_fast(last_time) >= OS_DETECTION_DEBOUNCE) {
             soft_reset_keyboard();
         }
