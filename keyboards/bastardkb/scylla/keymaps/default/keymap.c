@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [2] = LAYOUT_split_4x6_5(KC_F12, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11,
                              //---------------------------------------------------------//--------------------------------------------------------------//
-                             _______, _______, RGB_RMOD, RGB_TOG, RGB_MOD, KC_LBRC, KC_RBRC, _______, KC_NUM, KC_INS, KC_SCRL, KC_MUTE,
+                             _______, _______, RM_PREV,  RM_TOGG, RM_NEXT, KC_LBRC, KC_RBRC, _______, KC_NUM, KC_INS, KC_SCRL, KC_MUTE,
                              //---------------------------------------------------------//--------------------------------------------------------------//
                              _______, KC_LEFT, KC_UP, KC_DOWN, KC_RGHT, KC_LPRN, KC_RPRN, KC_MPRV, KC_MPLY, KC_MNXT, _______, KC_VOLU,
                              //---------------------------------------------------------//--------------------------------------------------------------//
