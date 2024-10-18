@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |Prv|Ply|Nxt|
      * `-----------'
      */
-  [_BL] = LAYOUT( /* Base */
+  [_BL] = LAYOUT_ortho_2x3( /* Base */
     MO(_FN), KC_VOLD, KC_VOLU,
     KC_MPRV, KC_MPLY, KC_MNXT
   ),
@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |Prv|Ply|Nxt|
      * `-----------'
      */
-  [_FN] = LAYOUT(
+  [_FN] = LAYOUT_ortho_2x3(
     KC_TRNS, SS_LON, SS_LOFF,
     KC_NO,   KC_NO,  KC_NO
   ),
