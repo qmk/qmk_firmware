@@ -9,12 +9,8 @@
         "oled": true,
         "extrakey": true,
         "mousekey": true,
-        "nrko": true,
+        "nkro": true,
         "audio": false
-    },
-    "matrix_size": {
-        "cols": 8,
-        "rows": 12
     },
     "processor": "RP2040",
     "rgb_matrix": {

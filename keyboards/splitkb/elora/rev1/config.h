@@ -37,6 +37,10 @@
 // VBUS detection
 #define USB_VBUS_PIN GP25
 
+// Define matrix size
+#define MATRIX_COLS 8
+#define MATRIX_ROWS 12
+
 // Encoders
 // 3 onboard, 1 for Myriad
 #define NUM_ENCODERS_LEFT 4
