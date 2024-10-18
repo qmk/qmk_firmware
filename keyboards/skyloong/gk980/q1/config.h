@@ -4,7 +4,6 @@
 #pragma once
 
 #define MAC_PIN C13
-#define DEBOUNCE 10
 #define WIN_LOCK_INDEX 75
 
 #define ENCODER_MAP_KEY_DELAY 20
