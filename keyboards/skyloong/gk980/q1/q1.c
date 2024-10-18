@@ -135,7 +135,7 @@ void suspend_power_down_kb() {
 
 void suspend_wakeup_init_kb() {
 #    ifdef RGB_MATRIX_ENABLE
-    writePinHigh(AW20216S_EN_PIN_1);
+    gpio_write_pin_high(AW20216S_EN_PIN);
 #    endif
     suspend_wakeup_init_user();
 }
