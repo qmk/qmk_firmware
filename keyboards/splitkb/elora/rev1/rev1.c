@@ -1,13 +1,9 @@
 // Copyright 2024 splitkb.com (support@splitkb.com)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include QMK_KEYBOARD_H
-
 #include "rev1.h"
 #include "spi_master.h"
-#include "keyboard.h"
 #include "myriad.h"
-#include "matrix.h"
 
 bool is_oled_enabled = true;
 

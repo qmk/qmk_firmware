@@ -313,21 +313,3 @@ void pointing_device_driver_init(void) {
     gpio_set_pin_input(MYRIAD_ADC1); // Y
     gpio_set_pin_input(MYRIAD_ADC2); // X
 }
-
-void myriad_task(void) {
-    myriad_card_t card = myriad_card_init();
-
-    switch (card) {
-        case SKB_SWITCHES:
-            // Handled via hook
-            break;
-        case SKB_ENCODER:
-            // Handled via hook
-            break;
-        case SKB_JOYSTICK:
-            // Handled via pointing_device_driver_get_report
-            break;
-        default:
-            break;
-    }
-}

@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include "quantum.h"
+
 //// Custom pins, might be useful in a keymap
 // Wired to input of last shift register, overrides 10k pullup/pulldown
 #define ELORA_SELFTEST_PIN GP14

@@ -3,9 +3,12 @@
 
 #pragma once
 
+#include <stdint.h>
+#include <stdbool.h>
+#include "matrix.h"
+
 typedef enum { UNINITIALIZED, NONE, INVALID, UNKNOWN, SKB_SWITCHES, SKB_ENCODER, SKB_JOYSTICK } myriad_card_t;
 
-void          myriad_task(void);
 bool          myriad_hook_matrix(matrix_row_t current_matrix[]);
 uint8_t       myriad_hook_encoder(uint8_t index, bool pad_b);
 myriad_card_t detect_myriad(void);

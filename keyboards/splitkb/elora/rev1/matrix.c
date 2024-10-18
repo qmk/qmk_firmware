@@ -1,8 +1,6 @@
 // Copyright 2024 splitkb.com (support@splitkb.com)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include QMK_KEYBOARD_H
-
 #include "matrix.h"
 #include "spi_master.h"
 #include "myriad.h"
@@ -29,7 +27,6 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     // Enough to hold the shift registers
     uint16_t length = 5;
     uint8_t data[length];
-    spi_status_t res;
 
     // Matrix SPI config
     // 1) Pin
@@ -40,11 +37,8 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     // 4) Divisor: 2 is the fastest possible, at Fclk / 2.
     //      range is 2-128
     spi_start(GP13, false, 0, 128);
-    res = spi_receive(data, length);
+    spi_receive(data, length);
     spi_stop();
-    if (res != SPI_STATUS_SUCCESS) {
-        dprint("ERROR: SPI timed out while reading matrix!");
-    }
 
     bool matrix_has_changed = false;
     for (uint8_t i = 0; i < length; i++) {
@@ -56,9 +50,6 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         current_matrix[i] = word;
     }
     #ifdef MYRIAD_ENABLE
-    // It's a bit of a weird place to call a `_task`,
-    // but we want to do it relatively early because we mess with a lot of functionality
-    myriad_task();
     return matrix_has_changed || myriad_hook_matrix(current_matrix);
     #else
     return matrix_has_changed;
