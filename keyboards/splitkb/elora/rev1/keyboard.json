@@ -1,10 +1,6 @@
 {
     "keyboard_name": "Elora rev1",
     "bootloader": "rp2040",
-    "encoder": {
-        "driver": "quadrature",
-        "enabled": true
-    },
     "features": {
         "pointing_device": true,
         "rgb_matrix": true,
