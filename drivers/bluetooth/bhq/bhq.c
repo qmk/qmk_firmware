@@ -389,6 +389,7 @@ void BHQ_Protocol_Process(uint8_t *dat, uint16_t length)
             }
             km_printf("\r\n");
             break;
+        case 0x92:  // read module Info
         case 0xB1:
         case 0xB2:
             km_printf("ota:[");
