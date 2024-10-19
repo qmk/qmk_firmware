@@ -31,6 +31,20 @@
 extern bool    playing_note;
 extern bool    playing_melody;
 extern uint8_t note_timbre;
+static bool channel_1_stopped = true;
+
+void channel_1_stop(void);
+void channel_1_start(void);
+
+void audio_wait_for_pin(pin_t pin, uint8_t target_state) {
+    rtcnt_t start = chSysGetRealtimeCounterX();
+    rtcnt_t end   = start + 5000;
+    while (chSysIsCounterWithinX(chSysGetRealtimeCounterX(), start, end)) {
+        if (gpio_read_pin(pin) == target_state) {
+            break;
+        }
+    }
+}
 
 static PWMConfig pwmCFG = {.frequency = AUDIO_PWM_COUNTER_FREQUENCY, /* PWM clock frequency  */
                            .period    = 2,
@@ -44,7 +58,11 @@ void channel_1_set_frequency(float freq) {
 
     if (freq <= 0.0) {
         // a pause/rest has freq=0
+        channel_1_stop();
         return;
+    }
+    if (channel_1_stopped) {
+        channel_1_start();
     }
 
     pwmcnt_t period = (pwmCFG.frequency / freq);
@@ -63,12 +81,32 @@ float channel_1_get_frequency(void) {
 void channel_1_start(void) {
     pwmStop(&AUDIO_PWM_DRIVER);
     pwmStart(&AUDIO_PWM_DRIVER, &pwmCFG);
+    channel_1_stopped = false;
 }
 
 void channel_1_stop(void) {
-    pwmStop(&AUDIO_PWM_DRIVER);
-}
+    // only certain timers will disable the output (set to zero) when the pwm is stopped.
+    // to ensure the pin is low (without having changing the pin modes), set the
+    // frequency to the highest valid value and wait for the pin to be zero
+    chSysLockFromISR();
+    pwmChangePeriodI(&AUDIO_PWM_DRIVER, 2);
+    pwmEnableChannelI(&AUDIO_PWM_DRIVER, AUDIO_PWM_CHANNEL - 1,
+                      // adjust the duty-cycle so that the output is for 'note_timbre' duration HIGH
+                      PWM_PERCENTAGE_TO_WIDTH(&AUDIO_PWM_DRIVER, 5000));
+    chSysUnlockFromISR();
 
+    // try stopping now if the pin is currently low
+    audio_wait_for_pin(AUDIO_PIN,0);
+    pwmStop(&AUDIO_PWM_DRIVER);
+
+    // if it isn't actively low, it was stopped a little too late, so keep trying (should only need one more attempt)
+    while (gpio_read_pin(AUDIO_PIN) == 1) {
+        pwmStart(&AUDIO_PWM_DRIVER, &pwmCFG);
+        audio_wait_for_pin(AUDIO_PIN,0);
+        pwmStop(&AUDIO_PWM_DRIVER);
+    }
+    channel_1_stopped = true;
+}
 static virtual_timer_t audio_vt;
 static void            audio_callback(virtual_timer_t *vtp, void *p);
 
