@@ -152,10 +152,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                          r   ⌫   ⏎   ␣
   */
   [_PM] = LAYOUT_voyager(
-    LN5, LN4,  LN3,  LN2,  LN1,  LN0,    RN0, RN1, RN2, RN3, RN4, RN5,
-    LT5, KC_V, LT3,  LCTL_T(KC_G), KC_M, LT0,    RT0, RT1, RT2, RT3, RT4, RT5,
-    LM5, LM4,  LALT_T(KC_N), LGUI_T(KC_T), LSFT_T(KC_H), LM0,    RM0, RM1, RM2, RM3, LT(_SYM, KC_C), RM5,
-    DF(_DEF), LB4,  LB3,  KC_D, KC_L, KC_X,   RB0, RB1, RB2, RB3, RB4, RB5,
+    LN5,       LN4,  LN3,  LN2,  LN1,  LN0,    RN0, RN1, RN2, RN3, RN4, RN5,
+    LT5,       KC_V, LT3,  KC_G, KC_M, LT0,    RT0, RT1, RT2, RT3, RT4, RT5,
+    LM5,       LM4,  KC_N, KC_T, KC_H, LM0,    RM0, RM1, RM2, RM3, KC_C, RM5,
+    DF(_DEF),  LB4,  LB3,  KC_D, KC_L, KC_X,   RB0, RB1, RB2, RB3, RB4, RB5,
     LH1, LH0,  RH0,  RH1
   ),
 
@@ -217,7 +217,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, ___x___, KC_LABK, KC_EQL,  KC_RABK, ___x___,                   ___x___, KC_LBRC, KC_UNDS, KC_RBRC, ___x___, _______,
     _______, KC_BSLS, KC_LPRN, KC_MINS, KC_RPRN, KC_PLUS,                   KC_PERC, KC_LCBR, KC_LPRN, KC_RCBR, KC_EXLM, _______,
     _______, ___x___, KC_ASTR, KC_COLN, KC_SLSH, ___x___,                   ___x___, KC_PIPE, KC_TILD, KC_AMPR, ___x___, _______,
-                                                 _______, _______, _______, _______
+                                                 KC_SPC,  _______, _______, _______
   ),
 
   /*    F1     F2      F3	   F4	  F5			           F6	   F7	   F8	F9	    F10	    F11
@@ -240,7 +240,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
 	    case LM1:
         case RM1:
-        case LSFT_T(KC_H):
             return TAPPING_TERM - 25;
 
     	case LB4:
@@ -249,8 +248,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case RM2:
         case RM3:
         case RB4:
-        case LALT_T(KC_N):
-        case LGUI_T(KC_T):
             return TAPPING_TERM + 75;
 
         default:
@@ -262,7 +259,6 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LM1:
         case RM1:
-		case LSFT_T(KC_H):
             return true;    // Immediately select the hold action when another key is tapped.
 
         default:
