@@ -15,8 +15,7 @@
 #include "spi_master.h"
 #include "progmem.h"
 
-extern const uint8_t pmw33xx_firmware_data[PMW33XX_FIRMWARE_LENGTH] PROGMEM;
-extern const uint8_t pmw33xx_firmware_signature[3] PROGMEM;
+extern const uint8_t pmw33xx_firmware_signature[2] PROGMEM;
 
 static const pin_t cs_pins_left[]  = PMW33XX_CS_PINS;
 static const pin_t cs_pins_right[] = PMW33XX_CS_PINS_RIGHT;
@@ -33,6 +32,14 @@ const pointing_device_driver_t pmw33xx_pointing_device_driver = {
     .set_cpi    = pmw33xx_set_cpi_wrapper,
     .get_cpi    = pmw33xx_get_cpi_wrapper,
 };
+
+uint16_t __attribute__((weak)) pmw33xx_srom_get_length(void) {
+    return 0;
+}
+
+uint8_t __attribute__((weak)) pmw33xx_srom_get_byte(uint16_t position) {
+    return 0;
+}
 
 void pmw33xx_set_cpi_all_sensors(uint16_t cpi) {
     for (uint8_t sensor = 0; sensor < pmw33xx_number_of_sensors; sensor++) {
@@ -96,10 +103,9 @@ uint8_t pmw33xx_read(uint8_t sensor, uint8_t reg_addr) {
 }
 
 bool pmw33xx_check_signature(uint8_t sensor) {
-    uint8_t signature_dump[3] = {
+    uint8_t signature_dump[2] = {
         pmw33xx_read(sensor, REG_Product_ID),
         pmw33xx_read(sensor, REG_Inverse_Product_ID),
-        pmw33xx_read(sensor, REG_SROM_ID),
     };
 
     return memcmp(pmw33xx_firmware_signature, signature_dump, sizeof(signature_dump)) == 0;
@@ -122,10 +128,12 @@ bool pmw33xx_upload_firmware(uint8_t sensor) {
     spi_write(REG_SROM_Load_Burst | 0x80);
     wait_us(15);
 
-    for (size_t i = 0; i < PMW33XX_FIRMWARE_LENGTH; i++) {
-        spi_write(pgm_read_byte(pmw33xx_firmware_data + i));
+    for (size_t i = 0; i < pmw33xx_srom_get_length(); i++) {
+        spi_write(pmw33xx_srom_get_byte(i));
         wait_us(15);
     }
+
+    spi_stop();
     wait_us(200);
 
     pmw33xx_read(sensor, REG_SROM_ID);
@@ -161,12 +169,14 @@ bool pmw33xx_init(uint8_t sensor) {
     pmw33xx_read(sensor, REG_Delta_Y_L);
     pmw33xx_read(sensor, REG_Delta_Y_H);
 
-#ifdef PMW33XX_UPLOAD_SROM
-    if (!pmw33xx_upload_firmware(sensor)) {
-        pd_dprintf("PMW33XX (%d): firmware upload failed!\n", sensor);
-        return false;
+    if (pmw33xx_srom_get_length() != 0) {
+        if (!pmw33xx_upload_firmware(sensor)) {
+            pd_dprintf("PMW33XX (%d): firmware upload failed!\n", sensor);
+            return false;
+        }
+    } else {
+        pd_dprintf("PMW33XX (%d): firmware upload skipped.\n", sensor);
     }
-#endif
 
     spi_stop();
 

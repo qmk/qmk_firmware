@@ -139,11 +139,20 @@ void led_matrix_update_pwm_buffers(void) {
     led_matrix_driver.flush();
 }
 
+__attribute__((weak)) int led_matrix_led_index(int index) {
+#if defined(LED_MATRIX_SPLIT)
+    if (!is_keyboard_left() && index >= k_led_matrix_split[0]) {
+        return index - k_led_matrix_split[0];
+    }
+#endif
+    return index;
+}
+
 void led_matrix_set_value(int index, uint8_t value) {
 #ifdef USE_CIE1931_CURVE
     value = pgm_read_byte(&CIE1931_CURVE[value]);
 #endif
-    led_matrix_driver.set_value(index, value);
+    led_matrix_driver.set_value(led_matrix_led_index(index), value);
 }
 
 void led_matrix_set_value_all(uint8_t value) {
