@@ -13,6 +13,7 @@
 
 #include "audio.h"
 #include "gpio.h"
+#include "timer.h"
 
 #if !defined(AUDIO_PIN)
 #    error "Audio feature enabled, but no pin selected - see docs/feature_audio under the ARM PWM settings"
@@ -37,9 +38,9 @@ void channel_1_stop(void);
 void channel_1_start(void);
 
 void audio_wait_for_pin(pin_t pin, uint8_t target_state) {
-    rtcnt_t start = chSysGetRealtimeCounterX();
-    rtcnt_t end   = start + 5000;
-    while (chSysIsCounterWithinX(chSysGetRealtimeCounterX(), start, end)) {
+    uint16_t wait_limiter_timer;
+    wait_limiter_timer = timer_read();
+    while (timer_elapsed(wait_limiter_timer) < 2) {
         if (gpio_read_pin(pin) == target_state) {
             break;
         }
@@ -99,8 +100,11 @@ void channel_1_stop(void) {
     audio_wait_for_pin(AUDIO_PIN,0);
     pwmStop(&AUDIO_PWM_DRIVER);
 
-    // if it isn't actively low, it was stopped a little too late, so keep trying (should only need one more attempt)
-    while (gpio_read_pin(AUDIO_PIN) == 1) {
+    uint16_t wait_limiter_timer;
+    wait_limiter_timer = timer_read();
+    // if it isn't actively low, it may have been stopped a little too late, so keep trying
+    // it should not require very many attempts, so limit to 2ms maximum wait time as a failsafe
+    while ((gpio_read_pin(AUDIO_PIN) == 1) && (timer_elapsed(wait_limiter_timer) < 2)) {
         pwmStart(&AUDIO_PWM_DRIVER, &pwmCFG);
         audio_wait_for_pin(AUDIO_PIN,0);
         pwmStop(&AUDIO_PWM_DRIVER);
