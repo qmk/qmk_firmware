@@ -17,7 +17,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL,  KC_A,   KC_S,    KC_D,    KC_F,      KC_G,    KC_HOME,                             KC_PGUP, KC_H,     KC_J,      KC_K,    KC_L,    KC_SCLN, KC_QUOT,
         KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,      KC_B,    KC_END,                              KC_PGDN, KC_N,     KC_M,      KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
                                    KC_LGUI, MO(_LOWER),KC_SPC,  KC_NO,                               KC_NO,   KC_SPC,   MO(_RAISE),KC_LALT,
-                                                                      RGB_RMOD,              RGB_MOD,
+                                                                      RM_PREV,               RM_NEXT,
                                                        KC_UP,                                                 KC_UP,
                                             KC_LEFT,   _______, KC_RIGHT,                            KC_LEFT, _______, KC_RIGHT,
                                                        KC_DOWN,                                               KC_DOWN
@@ -64,9 +64,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format off
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_QWERTY] = { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
-    [_LOWER]  = { ENCODER_CCW_CW(RGB_HUD, RGB_HUI),           ENCODER_CCW_CW(RGB_SAD, RGB_SAI)  },
-    [_RAISE]  = { ENCODER_CCW_CW(RGB_VAD, RGB_VAI),           ENCODER_CCW_CW(RGB_SPD, RGB_SPI)  },
-    [_ADJUST] = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD),          ENCODER_CCW_CW(KC_LEFT, KC_RIGHT) },
+    [_LOWER]  = { ENCODER_CCW_CW(RM_HUED, RM_HUEU),           ENCODER_CCW_CW(RM_SATD, RM_SATU)  },
+    [_RAISE]  = { ENCODER_CCW_CW(RM_VALD, RM_VALU),           ENCODER_CCW_CW(RM_SPDD, RM_SPDU)  },
+    [_ADJUST] = { ENCODER_CCW_CW(RM_PREV, RM_NEXT),           ENCODER_CCW_CW(KC_LEFT, KC_RIGHT) },
 };
 // clang-format on
 
