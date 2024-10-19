@@ -89,6 +89,11 @@ __attribute__((weak)) bool dynamic_macro_valid_key_user(uint16_t keycode, keyrec
 #define DYNAMIC_MACRO_CURRENT_LENGTH(BEGIN, POINTER) ((int)(direction * ((POINTER) - (BEGIN))))
 #define DYNAMIC_MACRO_CURRENT_CAPACITY(BEGIN, END2) ((int)(direction * ((END2) - (BEGIN)) + 1))
 
+#ifdef DYNAMIC_MACRO_KEEP_ORIGINAL_LAYER_STATE
+static layer_state_t dm1_layer_state;
+static layer_state_t dm2_layer_state;
+#endif
+
 /**
  * Start recording of the dynamic macro.
  *
@@ -100,8 +105,16 @@ void dynamic_macro_record_start(keyrecord_t **macro_pointer, keyrecord_t *macro_
 
     dynamic_macro_record_start_kb(direction);
 
-    clear_keyboard();
+#ifdef DYNAMIC_MACRO_KEEP_ORIGINAL_LAYER_STATE
+    if (direction == 1) {
+        dm1_layer_state = layer_state;
+    } else if (direction == -1) {
+        dm2_layer_state = layer_state;
+    }
+#else
     layer_clear();
+#endif
+    clear_keyboard();
     *macro_pointer = macro_buffer;
 }
 
@@ -118,7 +131,15 @@ void dynamic_macro_play(keyrecord_t *macro_buffer, keyrecord_t *macro_end, int8_
     layer_state_t saved_layer_state = layer_state;
 
     clear_keyboard();
+#ifdef DYNAMIC_MACRO_KEEP_ORIGINAL_LAYER_STATE
+    if (direction == 1) {
+        layer_state_set(dm1_layer_state);
+    } else if (direction == -1) {
+        layer_state_set(dm2_layer_state);
+    }
+#else
     layer_clear();
+#endif
 
     while (macro_buffer != macro_end) {
         process_record(macro_buffer);
