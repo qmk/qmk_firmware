@@ -30,3 +30,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2
 
 #define IS31FL3741_I2C_ADDRESS_1 IS31FL3741_I2C_ADDRESS_GND
+
+#define RGB_MATRIX_DISABLE_SHARED_KEYCODES
