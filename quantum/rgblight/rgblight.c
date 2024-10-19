@@ -1342,29 +1342,13 @@ void rgblight_effect_christmas(animation_status_t *anim) {
 __attribute__((weak)) const uint16_t RGBLED_RGBTEST_INTERVALS[] PROGMEM = {1024};
 
 void rgblight_effect_rgbtest(animation_status_t *anim) {
-    static uint8_t maxval = 0;
-    uint8_t        g;
-    uint8_t        r;
-    uint8_t        b;
+    uint8_t val = rgblight_get_val();
 
-    if (maxval == 0) {
-        rgb_t rgb = hsv_to_rgb((hsv_t){0, 255, RGBLIGHT_LIMIT_VAL});
-        maxval    = rgb.r;
-    }
-    g = r = b = 0;
-    switch (anim->pos) {
-        case 0:
-            r = maxval;
-            break;
-        case 1:
-            g = maxval;
-            break;
-        case 2:
-            b = maxval;
-            break;
-    }
+    uint8_t r = anim->pos & 1 ? val : 0;
+    uint8_t g = anim->pos & 2 ? val : 0;
+    uint8_t b = anim->pos & 4 ? val : 0;
     rgblight_setrgb(r, g, b);
-    anim->pos = (anim->pos + 1) % 3;
+    anim->pos = (anim->pos + 1) % 8;
 }
 #endif
 
