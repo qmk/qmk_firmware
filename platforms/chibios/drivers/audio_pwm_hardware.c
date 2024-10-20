@@ -13,7 +13,6 @@
 
 #include "audio.h"
 #include "gpio.h"
-#include "timer.h"
 
 #if !defined(AUDIO_PIN)
 #    error "Audio feature enabled, but no pin selected - see docs/feature_audio under the ARM PWM settings"
@@ -32,20 +31,6 @@
 extern bool    playing_note;
 extern bool    playing_melody;
 extern uint8_t note_timbre;
-static bool channel_1_stopped = true;
-
-void channel_1_stop(void);
-void channel_1_start(void);
-
-void audio_wait_for_pin(pin_t pin, uint8_t target_state) {
-    uint16_t wait_limiter_timer;
-    wait_limiter_timer = timer_read();
-    while (timer_elapsed(wait_limiter_timer) < 2) {
-        if (gpio_read_pin(pin) == target_state) {
-            break;
-        }
-    }
-}
 
 static PWMConfig pwmCFG = {.frequency = AUDIO_PWM_COUNTER_FREQUENCY, /* PWM clock frequency  */
                            .period    = 2,
@@ -56,22 +41,19 @@ static float channel_1_frequency = 0.0f;
 
 void channel_1_set_frequency(float freq) {
     channel_1_frequency = freq;
+    pwmcnt_t period;
+    pwmcnt_t width;
 
     if (freq <= 0.0) {
-        // a pause/rest has freq=0
-        channel_1_stop();
-        return;
+        period = 2;
+        width = 0;
+    } else {
+        period = (pwmCFG.frequency / freq);
+        width = PWM_PERCENTAGE_TO_WIDTH(&AUDIO_PWM_DRIVER, (100 - note_timbre) * 100);
     }
-    if (channel_1_stopped) {
-        channel_1_start();
-    }
-
-    pwmcnt_t period = (pwmCFG.frequency / freq);
     chSysLockFromISR();
     pwmChangePeriodI(&AUDIO_PWM_DRIVER, period);
-    pwmEnableChannelI(&AUDIO_PWM_DRIVER, AUDIO_PWM_CHANNEL - 1,
-                      // adjust the duty-cycle so that the output is for 'note_timbre' duration HIGH
-                      PWM_PERCENTAGE_TO_WIDTH(&AUDIO_PWM_DRIVER, (100 - note_timbre) * 100));
+    pwmEnableChannelI(&AUDIO_PWM_DRIVER, AUDIO_PWM_CHANNEL - 1, width);
     chSysUnlockFromISR();
 }
 
@@ -82,35 +64,15 @@ float channel_1_get_frequency(void) {
 void channel_1_start(void) {
     pwmStop(&AUDIO_PWM_DRIVER);
     pwmStart(&AUDIO_PWM_DRIVER, &pwmCFG);
-    channel_1_stopped = false;
 }
 
 void channel_1_stop(void) {
-    // only certain timers will disable the output (set to zero) when the pwm is stopped.
-    // to ensure the pin is low (without having changing the pin modes), set the
-    // frequency to the highest valid value and wait for the pin to be zero
-    chSysLockFromISR();
-    pwmChangePeriodI(&AUDIO_PWM_DRIVER, 2);
-    pwmEnableChannelI(&AUDIO_PWM_DRIVER, AUDIO_PWM_CHANNEL - 1,
-                      // adjust the duty-cycle so that the output is for 'note_timbre' duration HIGH
-                      PWM_PERCENTAGE_TO_WIDTH(&AUDIO_PWM_DRIVER, 5000));
-    chSysUnlockFromISR();
-
-    // try stopping now if the pin is currently low
-    audio_wait_for_pin(AUDIO_PIN,0);
     pwmStop(&AUDIO_PWM_DRIVER);
-
-    uint16_t wait_limiter_timer;
-    wait_limiter_timer = timer_read();
-    // if it isn't actively low, it may have been stopped a little too late, so keep trying
-    // it should not require very many attempts, so limit to 2ms maximum wait time as a failsafe
-    while ((gpio_read_pin(AUDIO_PIN) == 1) && (timer_elapsed(wait_limiter_timer) < 2)) {
-        pwmStart(&AUDIO_PWM_DRIVER, &pwmCFG);
-        audio_wait_for_pin(AUDIO_PIN,0);
-        pwmStop(&AUDIO_PWM_DRIVER);
-    }
-    channel_1_stopped = true;
+    pwmStart(&AUDIO_PWM_DRIVER, &pwmCFG);
+    pwmEnableChannelI(&AUDIO_PWM_DRIVER, AUDIO_PWM_CHANNEL - 1, 0);
+    pwmStop(&AUDIO_PWM_DRIVER);
 }
+
 static virtual_timer_t audio_vt;
 static void            audio_callback(virtual_timer_t *vtp, void *p);
 
