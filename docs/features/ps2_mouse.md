@@ -347,3 +347,26 @@ a layer.  To use, define the following function in your keymap:
 ```c
 void ps2_mouse_moved_user(report_mouse_t *mouse_report);
 ```
+
+### PS/2 device fails to initialize {#ps2-device-fails-to-initialize}
+
+Some PS/2 pointer devices (specifically, Logitech T-SBC12-CPQ Trackball, which is
+installed in Compaq MX-11800 keyboard) may do not work if "Reset" command is sent
+during the init sequence.
+
+To make the things working without hacking PS/2 driver, the following configuration
+option is available:
+
+```c
+#define PS2_MOUSE_DISABLE_RESET
+```
+
+The same for data-driver JSON config:
+
+```json
+    "ps2": {
+        ...
+        "no_mouse_reset": true,
+        ...
+    }
+```
