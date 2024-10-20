@@ -17,7 +17,7 @@
 #include QMK_KEYBOARD_H
 
 enum layers {
-    _QWERTY = 0,
+    _QWERTY,
     _SYMBOLS,
     _NUMBERS,
     _FUNCTION,
@@ -150,31 +150,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                        KC_NO,                     KC_NO,
                          KC_NO  , KC_NO,   KC_NO,   KC_NO,                           KC_NO  , KC_NO,   KC_NO,   KC_NO,
                          KC_NO  , KC_NO,   KC_NO,   KC_NO,                           KC_NO  , KC_NO,   KC_NO,   KC_NO
-    ),
-    /*
-     * ┌─────┬─────┬─────┬─────┬─────┬─────┐                                      ┌─────┬─────┬─────┬─────┬─────┬─────┐
-     * │     │     │     │     │     │     │                                      │     │     │     │     │     │     │
-     * ├─────┼─────┼─────┼─────┼─────┼─────┤                                      ├─────┼─────┼─────┼─────┼─────┼─────┤
-     * │     │     │     │     │     │     │                                      │     │     │     │     │     │     │
-     * ├─────┼─────┼─────┼─────┼─────┼─────┤                                      ├─────┼─────┼─────┼─────┼─────┼─────┤
-     * │     │     │     │     │     │     │                                      │     │     │     │     │     │     │
-     * └─────┴─────┴─────┴─────┴─────┴─────┘    ┌─────┐                 ┌─────┐   └─────┴─────┴─────┴─────┴─────┴─────┘
-     *               ┌─────┐                    │     │                 │     │                   ┌─────┐
-     *               │     ├─────┐              └─────┘                 └─────┘             ┌─────┤     │
-     *               ├─────┤     ├─────┐                                              ┌─────┤     ├─────┤
-     *               │     ├─────┤     ├─────┐                                  ┌─────┤     ├─────┤     │
-     *               └─────┤     ├─────┤     │                                  │     ├─────┤     ├─────┘
-     *                     └─────┤     ├─────┤                                  ├─────┤     ├─────┘
-     *                           └─────┤     │                                  │     ├─────┘
-     *                                 └─────┘                                  └─────┘
-     */
-//    [_EMPTY] = LAYOUT(
-//       KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-//       KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-//       KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-//                                                       KC_NO,                     KC_NO,
-//                         KC_NO  , KC_NO,   KC_NO,   KC_NO,                           KC_NO  , KC_NO,   KC_NO,   KC_NO,
-//                         KC_NO  , KC_NO,   KC_NO,   KC_NO,                           KC_NO  , KC_NO,   KC_NO,   KC_NO
-//    ),
+    )
 };
 // clang-format on
