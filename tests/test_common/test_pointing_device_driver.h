@@ -17,10 +17,10 @@ void clear_x(void);
 void set_y(int16_t y);
 void clear_y(void);
 
-void set_h(int8_t h);
+void set_h(int16_t h);
 void clear_h(void);
 
-void set_v(int8_t v);
+void set_v(int16_t v);
 void clear_v(void);
 
 void clear_movement(void);

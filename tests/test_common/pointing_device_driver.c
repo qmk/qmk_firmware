@@ -71,14 +71,14 @@ void clear_y(void) {
     set_y(0);
 }
 
-void set_h(int8_t h) {
+void set_h(int16_t h) {
     test_report.h = h;
 }
 void clear_h(void) {
     set_h(0);
 }
 
-void set_v(int8_t v) {
+void set_v(int16_t v) {
     test_report.v = v;
 }
 void clear_v(void) {
