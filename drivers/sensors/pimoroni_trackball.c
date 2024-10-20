@@ -100,7 +100,7 @@ int16_t pimoroni_trackball_get_offsets(uint8_t negative_dir, uint8_t positive_di
     return isnegative ? -(int16_t)(magnitude) : (int16_t)(magnitude);
 }
 
-mouse_xy_report_t pimoroni_trackball_adapt_values(clamp_range_t *offset) {
+mouse_xy_report_t pimoroni_trackball_adapt_values(xy_clamp_range_t *offset) {
     if (*offset > XY_REPORT_MAX) {
         *offset -= XY_REPORT_MAX;
         return (mouse_xy_report_t)XY_REPORT_MAX;
@@ -115,10 +115,10 @@ mouse_xy_report_t pimoroni_trackball_adapt_values(clamp_range_t *offset) {
 }
 
 report_mouse_t pimoroni_trackball_get_report(report_mouse_t mouse_report) {
-    static uint16_t      debounce      = 0;
-    static uint8_t       error_count   = 0;
-    pimoroni_data_t      pimoroni_data = {0};
-    static clamp_range_t x_offset = 0, y_offset = 0;
+    static uint16_t         debounce      = 0;
+    static uint8_t          error_count   = 0;
+    pimoroni_data_t         pimoroni_data = {0};
+    static xy_clamp_range_t x_offset = 0, y_offset = 0;
 
     if (error_count < PIMORONI_TRACKBALL_ERROR_COUNT) {
         i2c_status_t status = read_pimoroni_trackball(&pimoroni_data);
