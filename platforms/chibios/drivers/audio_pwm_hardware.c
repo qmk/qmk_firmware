@@ -46,10 +46,10 @@ void channel_1_set_frequency(float freq) {
 
     if (freq <= 0.0) {
         period = 2;
-        width = 0;
+        width  = 0;
     } else {
         period = (pwmCFG.frequency / freq);
-        width = PWM_PERCENTAGE_TO_WIDTH(&AUDIO_PWM_DRIVER, (100 - note_timbre) * 100);
+        width  = PWM_PERCENTAGE_TO_WIDTH(&AUDIO_PWM_DRIVER, (100 - note_timbre) * 100);
     }
     chSysLockFromISR();
     pwmChangePeriodI(&AUDIO_PWM_DRIVER, period);
