@@ -104,7 +104,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if(timer_elapsed32(output_mode_press_time) >= 500) 
                 {
                     ble_host_index = 0;
-                    bhq_OpenBleAdvertising(ble_host_index, 50);
+                    bhq_OpenBleAdvertising(ble_host_index, 10);
                     set_output(OUTPUT_BLUETOOTH);
                 }
             }
@@ -188,14 +188,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 {
                     if(where_to_send() == OUTPUT_BLUETOOTH)
                     {
-                        bhq_OpenBleAdvertising(ble_host_index, 50);
+                        bhq_OpenBleAdvertising(ble_host_index, 10);
                     }
                 }
                 else if(timer_elapsed32(ble_switch_press_time) >= 3000)
                 {
                     if(where_to_send() == OUTPUT_BLUETOOTH)
                     {
-                        bhq_SetPairingMode(ble_host_index, 50);
+                        bhq_SetPairingMode(ble_host_index, 10);
                     }
                 }
             }

@@ -96,8 +96,8 @@ void bhq_ConfigRunParam(bhkDevConfigInfo_t parma);
 void BHQ_State_Call(uint8_t cmdid, uint8_t *dat);
 
 
-void bhq_SetPairingMode(uint8_t host_index, uint8_t timeout_10s);
-void bhq_OpenBleAdvertising(uint8_t host_index, uint8_t timeout_10s);
+void bhq_SetPairingMode(uint8_t host_index, uint16_t timeout_1S);
+void bhq_OpenBleAdvertising(uint8_t host_index, uint16_t timeout_1S);
 void bhq_CloseBleAdvertising(void);
 void bhq_update_battery_percent(uint8_t percent);
 

@@ -175,39 +175,44 @@ void ackCommonNotData(uint8_t cmdid, uint8_t sta)
     BHQ_SendCmd(BHQ_NOT_ACK, bhkBuff,index);
 }
 
-void bhq_SetPairingMode(uint8_t host_index, uint8_t timeout_10s)
+void bhq_SetPairingMode(uint8_t host_index,uint16_t timeout_1S)
 {
     uint8_t index = 0;
 
     bhkBuff[index++] = 0x14;
+    bhkBuff[index++] = 1;                        
     bhkBuff[index++] = host_index;                        
-    bhkBuff[index++] = timeout_10s;      
-
+    bhkBuff[index++] = BHQ_L_UINT16(timeout_1S);      
+    bhkBuff[index++] = BHQ_H_UINT16(timeout_1S);      
     BHQ_SendCmd(BHQ_NOT_ACK, bhkBuff,index);
 }
-void bhq_OpenBleAdvertising(uint8_t host_index, uint8_t timeout_10s)
+void bhq_OpenBleAdvertising(uint8_t host_index,uint16_t timeout_1S)
 {
     uint8_t index = 0;
 
-    bhkBuff[index++] = 0x15;
+    bhkBuff[index++] = 0x14;
+    bhkBuff[index++] = 2;                        
     bhkBuff[index++] = host_index;                        
-    bhkBuff[index++] = timeout_10s;      
-
+    bhkBuff[index++] = BHQ_L_UINT16(timeout_1S);      
+    bhkBuff[index++] = BHQ_H_UINT16(timeout_1S);  
     BHQ_SendCmd(BHQ_NOT_ACK, bhkBuff,index);
 }
 void bhq_CloseBleAdvertising(void)
 {
     uint8_t index = 0;
 
-    bhkBuff[index++] = 0x16;
-    bhkBuff[index++] = 0;
+    bhkBuff[index++] = 0x14;
+    bhkBuff[index++] = 3;                        
+    bhkBuff[index++] = 0;                        
+    bhkBuff[index++] = 0;      
+    bhkBuff[index++] = 0;      
     BHQ_SendCmd(BHQ_NOT_ACK, bhkBuff,index);
 }
 void bhq_update_battery_percent(uint8_t percent) {
     uint8_t index = 0;
     memset(bhkBuff, 0, PACKET_MAX_LEN);
 
-    bhkBuff[index++] = 0x18;
+    bhkBuff[index++] = 0x16;
     bhkBuff[index++] = percent;
 
     BHQ_SendCmd(BHQ_ACK, bhkBuff,index);
