@@ -32,15 +32,7 @@ std::ostream& operator<<(std::ostream& os, const report_mouse_t& report) {
         return os << "empty" << std::endl;
     }
 
-    os << "(";
-
-    os << (int)report.x << ", ";
-    os << (int)report.y << ", ";
-    os << (int)report.h << ", ";
-    os << (int)report.v << ", ";
-    os << (int)report.buttons;
-
-    os << ")";
+    os << "(X:" << (int)report.x << ", Y:" << (int)report.y << ", H:" << (int)report.h << ", V:" << (int)report.v << ", B:" << (int)report.buttons << ")";
     return os << std::endl;
 }
 
