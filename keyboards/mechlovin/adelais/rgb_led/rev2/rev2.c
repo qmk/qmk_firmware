@@ -131,6 +131,10 @@ bool rgb_matrix_indicators_kb(void) {
 #endif
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (!process_record_user(keycode, record)) {
+        return false;
+    }
+
   if (record->event.pressed) {
     switch(keycode) {
     #ifdef RGBLIGHT_ENABLE

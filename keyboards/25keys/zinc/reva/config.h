@@ -19,11 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define QUICK_TAP_TERM 0
 
-/* Select hand configuration */
-#define MASTER_LEFT
-//#define MASTER_RIGHT
-//#define EE_HANDS
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
