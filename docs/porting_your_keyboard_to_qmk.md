@@ -58,13 +58,13 @@ This will create all the files needed to support your new keyboard, and populate
 
 This is where you'll describe your keyboard. Please follow the [Keyboard Readme Template](documentation_templates#keyboard-readmemd-template) when writing your `readme.md`. You're encouraged to place an image at the top of your `readme.md`, please use an external service such as [Imgur](https://imgur.com) to host the images.
 
-## `info.json`
+## `keyboard.json`
 
-The `info.json` file is where you configure the hardware and feature set for your keyboard. There are a lot of options that can be placed in that file, too many to list here. For a complete overview of available options see the [Data Driven Configuration Options](reference_info_json) page.
+The `keyboard.json` file is where you configure the hardware and feature set for your keyboard. There are a lot of options that can be placed in that file, too many to list here. For a complete overview of available options see the [Data Driven Configuration Options](reference_info_json) page.
 
 ### Hardware Configuration
 
-At the top of the `info.json` you'll find USB related settings. These control how your keyboard appears to the Operating System. If you don't have a good reason to change you should leave the `usb.vid` as `0xFEED`. For the `usb.pid` you should pick a number that is not yet in use.
+At the top of the `keyboard.json` you'll find USB related settings. These control how your keyboard appears to the Operating System. If you don't have a good reason to change you should leave the `usb.vid` as `0xFEED`. For the `usb.pid` you should pick a number that is not yet in use.
 
 Do change the `manufacturer` and `keyboard_name` lines to accurately reflect your keyboard.
 
@@ -158,7 +158,7 @@ See also: [Split Keyboard Layout Macro](features/split_keyboard#layout-macro) an
 
 ## Additional Configuration
 
-There are a lot of features that can be turned on or off, configured or tuned. Some of these have yet to be migrated over to [Data Driven Configuration](data_driven_config). The following sections cover the process for when an `info.json` option is unavailable.
+There are a lot of features that can be turned on or off, configured or tuned. Some of these have yet to be migrated over to [Data Driven Configuration](data_driven_config). The following sections cover the process for when an `keyboard.json` option is unavailable.
 
 ### Configuration Options
 For available options for `config.h`, you should see the [Config Options](config_options#the-configh-file) page for more details.
