@@ -26,6 +26,13 @@ static bool in_burst_right[ARRAY_SIZE(cs_pins_right)] = {0};
 bool __attribute__((cold)) pmw33xx_upload_firmware(uint8_t sensor);
 bool __attribute__((cold)) pmw33xx_check_signature(uint8_t sensor);
 
+const pointing_device_driver_t pmw33xx_pointing_device_driver = {
+    .init       = pmw33xx_init_wrapper,
+    .get_report = pmw33xx_get_report,
+    .set_cpi    = pmw33xx_set_cpi_wrapper,
+    .get_cpi    = pmw33xx_get_cpi_wrapper,
+};
+
 uint16_t __attribute__((weak)) pmw33xx_srom_get_length(void) {
     return 0;
 }
@@ -227,4 +234,39 @@ pmw33xx_report_t pmw33xx_read_burst(uint8_t sensor) {
     report.delta_y *= -1;
 
     return report;
+}
+
+void pmw33xx_init_wrapper(void) {
+    pmw33xx_init(0);
+}
+
+void pmw33xx_set_cpi_wrapper(uint16_t cpi) {
+    pmw33xx_set_cpi(0, cpi);
+}
+
+uint16_t pmw33xx_get_cpi_wrapper(void) {
+    return pmw33xx_get_cpi(0);
+}
+
+report_mouse_t pmw33xx_get_report(report_mouse_t mouse_report) {
+    pmw33xx_report_t report    = pmw33xx_read_burst(0);
+    static bool      in_motion = false;
+
+    if (report.motion.b.is_lifted) {
+        return mouse_report;
+    }
+
+    if (!report.motion.b.is_motion) {
+        in_motion = false;
+        return mouse_report;
+    }
+
+    if (!in_motion) {
+        in_motion = true;
+        pd_dprintf("PWM3360 (0): starting motion\n");
+    }
+
+    mouse_report.x = CONSTRAIN_HID_XY(report.delta_x);
+    mouse_report.y = CONSTRAIN_HID_XY(report.delta_y);
+    return mouse_report;
 }
