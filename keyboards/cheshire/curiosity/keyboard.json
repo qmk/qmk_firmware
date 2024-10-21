@@ -7,6 +7,12 @@
         "pid": "0x0FAD",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "A9",
+        "num_lock": "A8",
+        "scroll_lock": "A10",
+        "on_state": 0
+    },
     "rgblight": {
         "led_count": 14,
         "animations": {
@@ -33,6 +39,12 @@
         "mousekey": true,
         "nkro": false,
         "rgblight": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     },
     "matrix_pins": {
         "cols": ["B11", "B10", "B2", "B1", "B0", "A7", "A6", "A5", "B9", "B8", "B7", "B6", "B5", "B4", "B3", "A15"],

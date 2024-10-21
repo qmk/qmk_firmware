@@ -91,9 +91,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `---------------------------------------------------------------------'
  */
 [_FOURTH] = LAYOUT_ortho_4x10(
-  RGB_MOD, RGB_HUD, RGB_HUI, KC_NO,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,
-  RGB_RMOD,RGB_SAD, RGB_SAI, KC_NO,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
-  RGB_TOG, RGB_VAD, RGB_VAI, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+  UG_NEXT, UG_HUED, UG_HUEU, KC_NO,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,
+  UG_PREV, UG_SATD, UG_SATU, KC_NO,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
+  UG_TOGG, UG_VALD, UG_VALU, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
   TO(0),   _______, _______, _______, _______, _______, _______, _______, _______, _______
 )
 };

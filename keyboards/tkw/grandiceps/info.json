@@ -52,20 +52,21 @@
     },
     "split": {
         "enabled": true,
-        "soft_serial_pin": "A15",
         "matrix_pins": {
             "right": {
                 "cols": ["B0", "A7", "A3", "A5", "A4", "A2"],
                 "rows": ["B12", "A6", "B13", "B9", "B8"]
             }
+        },
+        "serial": {
+            "driver": "usart",
+            "pin": "A15"
         }
     },
     "qmk": {
         "tap_keycode_delay": 10
     },
-    "processor": "STM32F411",
-    "bootloader": "stm32-dfu",
-    "board": "BLACKPILL_STM32_F411",
+    "development_board": "blackpill_f411",
     "layouts": {
         "LAYOUT": {
             "layout": [

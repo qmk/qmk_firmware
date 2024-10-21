@@ -17,6 +17,9 @@
         "encoder": true,
         "audio": true
     },
+    "audio": {
+        "driver": "pwm_hardware"
+    },
     "matrix_pins": {
         "cols": ["B0", "A1", "A2", "A3", "A6", "B6", "B10"],
         "rows": ["C13", "C14", "C15", "B1", "A7", "A5"]

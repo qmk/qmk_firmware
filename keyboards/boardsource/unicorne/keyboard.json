@@ -20,7 +20,10 @@
     },
     "split": {
         "enabled": true,
-        "soft_serial_pin": "GP0",
+        "serial": {
+            "driver": "vendor",
+            "pin": "GP0"
+        },
         "transport": {
             "sync": {
                 "layer_state": true
@@ -31,6 +34,9 @@
         "device_version": "1.0.0",
         "pid": "0x7563",
         "vid": "0x4273"
+    },
+    "audio": {
+        "driver": "pwm_hardware"
     },
     "ws2812": {
         "driver": "vendor",

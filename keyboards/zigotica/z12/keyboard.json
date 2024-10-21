@@ -29,6 +29,12 @@
         "nkro": false,
         "oled": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "matrix_pins": {
         "direct": [
             [null, "E6", "C6", null],

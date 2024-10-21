@@ -7,10 +7,12 @@
     "diode_direction": "COL2ROW",
     "split": {
         "enabled": true,
-        "soft_serial_pin": "A9"
+        "serial": {
+            "driver": "usart",
+            "pin": "A9"
+        }
     },
-    "processor": "STM32F303",
-    "bootloader": "stm32-dfu",
+    "development_board": "proton_c",
     "features": {
         "bootmagic": false,
         "mousekey": false,
@@ -18,7 +20,6 @@
         "audio": true,
         "oled": true
     },
-    "board": "QMK_PROTON_C",
     "layouts": {
         "LAYOUT": {
             "layout": [

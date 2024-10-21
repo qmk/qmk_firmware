@@ -19,11 +19,11 @@
 #define WASD_MASK 0b10
 
 void backlight_init_ports(void) {
-    setPinOutput(B1);
-    setPinOutput(B2);
-    setPinOutput(B3);
-    setPinOutput(B4);
-    setPinOutput(D7);
+    gpio_set_pin_output(B1);
+    gpio_set_pin_output(B2);
+    gpio_set_pin_output(B3);
+    gpio_set_pin_output(B4);
+    gpio_set_pin_output(D7);
 }
 
 /* Backlight pin configuration
@@ -36,21 +36,21 @@ void backlight_init_ports(void) {
 void backlight_set(uint8_t level) {
     // F-row
     if (level & F_ROW_MASK) {
-        writePinHigh(B1);
+        gpio_write_pin_high(B1);
     } else {
-        writePinLow(B1);
+        gpio_write_pin_low(B1);
     }
 
     // WASD
     if (level & WASD_MASK) {
-        writePinLow(B2);
-        writePinLow(B3);
-        writePinLow(B4);
-        writePinLow(D7);
+        gpio_write_pin_low(B2);
+        gpio_write_pin_low(B3);
+        gpio_write_pin_low(B4);
+        gpio_write_pin_low(D7);
     } else {
-        writePinHigh(B2);
-        writePinHigh(B3);
-        writePinHigh(B4);
-        writePinHigh(D7);
+        gpio_write_pin_high(B2);
+        gpio_write_pin_high(B3);
+        gpio_write_pin_high(B4);
+        gpio_write_pin_high(D7);
     }
 }

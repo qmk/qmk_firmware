@@ -2,7 +2,9 @@
 
 Suppose you have committed to your `master` branch, and now need to update your QMK repository. You could `git pull` QMK's `master` branch into your own, but GitHub will tell you that your branch is a number of commits ahead of `qmk:master`, which can create issues if you want to make a pull request to QMK.
 
-?> This document builds upon the concepts detailed in [Your Fork's Master: Update Often, Commit Never](newbs_git_using_your_master_branch.md). If you are not familiar with that document, please read it first, then return here.
+::: tip
+This document builds upon the concepts detailed in [Your Fork's Master: Update Often, Commit Never](newbs_git_using_your_master_branch). If you are not familiar with that document, please read it first, then return here.
+:::
 
 ## Backing Up the Changes on Your Own Master Branch (Optional)
 
@@ -66,6 +68,8 @@ These steps will update the repository on your computer, but your GitHub fork wi
 git push --recurse-submodules=on-demand --force-with-lease
 ```
 
-!> **DO NOT** run `git push --recurse-submodules=on-demand --force-with-lease` on a fork to which other users post commits. This will erase their commits.
+::: warning
+**DO NOT** run `git push --recurse-submodules=on-demand --force-with-lease` on a fork to which other users post commits. This will erase their commits.
+:::
 
-Now your GitHub fork, your local files, and QMK's repository are all the same. From here you can make further needed changes ([use a branch!](newbs_git_using_your_master_branch.md#making-changes)) and post them as normal.
+Now your GitHub fork, your local files, and QMK's repository are all the same. From here you can make further needed changes ([use a branch!](newbs_git_using_your_master_branch#making-changes)) and post them as normal.

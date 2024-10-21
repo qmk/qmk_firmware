@@ -47,7 +47,10 @@
         "max_brightness": 255
     },
     "split": {
-        "enabled": true
+        "enabled": true,
+        "serial": {
+            "driver": "vendor"
+        }
     },
     "ws2812": {
         "pin": "GP6",

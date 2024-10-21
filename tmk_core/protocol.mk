@@ -54,16 +54,16 @@ ifeq ($(strip $(NKRO_ENABLE)), yes)
     endif
 endif
 
-ifeq ($(strip $(RING_BUFFERED_6KRO_REPORT_ENABLE)), yes)
-    OPT_DEFS += -DRING_BUFFERED_6KRO_REPORT_ENABLE
-endif
-
 ifeq ($(strip $(NO_SUSPEND_POWER_DOWN)), yes)
     OPT_DEFS += -DNO_SUSPEND_POWER_DOWN
 endif
 
 ifeq ($(strip $(NO_USB_STARTUP_CHECK)), yes)
     OPT_DEFS += -DNO_USB_STARTUP_CHECK
+endif
+
+ifeq ($(strip $(USB_WAIT_FOR_ENUMERATION)), yes)
+    OPT_DEFS += -DUSB_WAIT_FOR_ENUMERATION
 endif
 
 ifeq ($(strip $(JOYSTICK_SHARED_EP)), yes)

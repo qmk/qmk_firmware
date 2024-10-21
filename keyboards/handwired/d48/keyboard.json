@@ -42,8 +42,7 @@
     "qmk": {
         "tap_keycode_delay": 10
     },
-    "processor": "STM32F303",
-    "bootloader": "stm32-dfu",
+    "development_board": "proton_c",
     "features": {
         "bootmagic": false,
         "mousekey": false,
@@ -56,7 +55,6 @@
         "oled": true,
         "unicode": true
     },
-    "board": "QMK_PROTON_C",
     "layouts": {
         "LAYOUT": {
             "layout": [

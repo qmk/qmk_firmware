@@ -11,6 +11,12 @@
         "nkro": true,
         "rgblight": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "eeprom": {
         "driver": "i2c"
     },

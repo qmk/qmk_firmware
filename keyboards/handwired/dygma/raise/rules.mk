@@ -4,7 +4,6 @@ CUSTOM_MATRIX = lite
 # in the usb driver this triggers that allows mousekeys to work. The same side
 # effect happens if console or midi is enabled -- so something to do with
 # alternate usb endpoints.
-RAW_ENABLE = yes
 
 I2C_DRIVER_REQUIRED = yes
 SRC += matrix.c

@@ -12,8 +12,7 @@
     "ws2812": {
         "driver": "pwm"
     },
-    "processor": "STM32F401",
-    "bootloader": "stm32-dfu",
+    "development_board": "blackpill_f401",
     "features": {
         "bootmagic": true,
         "mousekey": true,
@@ -21,5 +20,10 @@
         "nkro": true,
         "rgblight": true
     },
-    "board": "BLACKPILL_STM32_F401"
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    }
 }

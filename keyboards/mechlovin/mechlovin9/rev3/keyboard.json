@@ -6,6 +6,11 @@
         "pid": "0x6509",
         "device_version": "0.0.3"
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true
+    },
     "bootmagic": {
         "matrix": [0, 13]
     },

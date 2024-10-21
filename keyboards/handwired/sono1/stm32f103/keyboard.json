@@ -13,6 +13,5 @@
         "kana": "A2",
         "on_state": 0
     },
-    "processor": "STM32F103",
-    "bootloader": "stm32duino"
+    "development_board": "bluepill"
 }

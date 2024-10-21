@@ -1,7 +1,5 @@
 CUSTOM_MATRIX = lite
 
-UART_DEBUG = no
-
 SRC += matrix.c
 UART_DRIVER_REQUIRED = yes
 SPI_DRIVER_REQUIRED = yes

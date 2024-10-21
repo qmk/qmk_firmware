@@ -23,17 +23,17 @@ static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 
 static void unselect_rows(void) {
     for(uint8_t x = 0; x < MATRIX_ROWS; x++) {
-        setPinInputHigh(row_pins[x]);
+        gpio_set_pin_input_high(row_pins[x]);
     }
 }
 
 static void select_row(uint8_t row) {
-    setPinOutput(row_pins[row]);
-    writePinLow(row_pins[row]);
+    gpio_set_pin_output(row_pins[row]);
+    gpio_write_pin_low(row_pins[row]);
 }
 
 static void unselect_row(uint8_t row) {
-    setPinInputHigh(row_pins[row]);
+    gpio_set_pin_input_high(row_pins[row]);
 }
 
 static void init_pins(void) {
@@ -46,7 +46,7 @@ static void init_pins(void) {
 
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
         if ( x < 10 ) {
-            setPinInputHigh(col_pins[x]);
+            gpio_set_pin_input_high(col_pins[x]);
         }
     }
 }
@@ -96,7 +96,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
                 pin_state = port_expander_col_buffer & (1 << 4);
                 break;
             default :
-                pin_state = readPin(col_pins[col_index]);
+                pin_state = gpio_read_pin(col_pins[col_index]);
         }
 
         // Populate the matrix row with the state of the col pin

@@ -3,8 +3,5 @@
   "maintainer": "qmk",
   "processor": "atmega32u4",
   "bootloader": "caterina",
-  "split": {
-    "enabled": true
-  },
   "community_layouts": ["ortho_4x12"]
 }

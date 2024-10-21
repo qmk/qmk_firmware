@@ -15,6 +15,12 @@
     "nkro": true,
     "backlight": true
   },
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  },
   "community_layouts": ["ortho_3x10"],
   "layouts": {
     "LAYOUT_ortho_3x10": {

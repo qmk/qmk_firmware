@@ -1,8 +1,8 @@
 # Adding Your Keyboard to QMK
 
-This page describes the support for [Compatible Microcontrollers](compatible_microcontrollers.md) in QMK.
+This page describes the support for [Compatible Microcontrollers](compatible_microcontrollers) in QMK.
 
-If you have not yet you should read the [Keyboard Guidelines](hardware_keyboard_guidelines.md) to get a sense of how keyboards fit into QMK.
+If you have not yet you should read the [Keyboard Guidelines](hardware_keyboard_guidelines) to get a sense of how keyboards fit into QMK.
 
 
 QMK has a number of features to simplify working with keyboards. For most, you don't have to write a single line of code. To get started, run `qmk new-keyboard`:
@@ -13,7 +13,7 @@ $ qmk new-keyboard
 
 Name Your Keyboard Project
 For more infomation, see:
-https://docs.qmk.fm/#/hardware_keyboard_guidelines?id=naming-your-keyboardproject
+https://docs.qmk.fm/hardware_keyboard_guidelines#naming-your-keyboardproject
 
 keyboard Name? mycoolkeeb
 
@@ -56,11 +56,11 @@ This will create all the files needed to support your new keyboard, and populate
 
 ## `readme.md`
 
-This is where you'll describe your keyboard. Please follow the [Keyboard Readme Template](documentation_templates.md#keyboard-readmemd-template) when writing your `readme.md`. You're encouraged to place an image at the top of your `readme.md`, please use an external service such as [Imgur](https://imgur.com) to host the images.
+This is where you'll describe your keyboard. Please follow the [Keyboard Readme Template](documentation_templates#keyboard-readmemd-template) when writing your `readme.md`. You're encouraged to place an image at the top of your `readme.md`, please use an external service such as [Imgur](https://imgur.com) to host the images.
 
 ## `info.json`
 
-The `info.json` file is where you configure the hardware and feature set for your keyboard. There are a lot of options that can be placed in that file, too many to list here. For a complete overview of available options see the [Data Driven Configuration Options](reference_info_json.md) page.
+The `info.json` file is where you configure the hardware and feature set for your keyboard. There are a lot of options that can be placed in that file, too many to list here. For a complete overview of available options see the [Data Driven Configuration Options](reference_info_json) page.
 
 ### Hardware Configuration
 
@@ -78,7 +78,9 @@ Do change the `manufacturer` and `keyboard_name` lines to accurately reflect you
     },
 ```
 
-?> Windows and macOS will display the `manufacturer` and `keyboard_name` in the list of USB devices. `lsusb` on Linux instead prefers the values in the list maintained by the [USB ID Repository](http://www.linux-usb.org/usb-ids.html). By default, it will only use `manufacturer` and `keyboard_name` if the list does not contain that `usb.vid` / `usb.pid`. `sudo lsusb -v` will show the values reported by the device, and they are also present in kernel logs after plugging it in.
+::: tip
+Windows and macOS will display the `manufacturer` and `keyboard_name` in the list of USB devices. `lsusb` on Linux instead prefers the values in the list maintained by the [USB ID Repository](http://www.linux-usb.org/usb-ids.html). By default, it will only use `manufacturer` and `keyboard_name` if the list does not contain that `usb.vid` / `usb.pid`. `sudo lsusb -v` will show the values reported by the device, and they are also present in kernel logs after plugging it in.
+:::
 
 
 ### Matrix Configuration
@@ -147,18 +149,20 @@ Next is configuring Layout Macro(s). These define the physical arrangement of ke
 In the above example, 
 
 * `LAYOUT_ortho_4x4` defines the name of the layout macro
-  * It must conform to the [layout guidelines](hardware_keyboard_guidelines.md#ltkeyboard_namehgt)
+  * It must conform to the [layout guidelines](hardware_keyboard_guidelines#keyboard-name-h)
 * `"matrix": [0, 0]` defines the electrical position
 
-?> See also: [Split Keyboard Layout Macro](https://docs.qmk.fm/#/feature_split_keyboard?id=layout-macro) and [Matrix to Physical Layout](https://docs.qmk.fm/#/understanding_qmk?id=matrix-to-physical-layout-map).
+::: tip
+See also: [Split Keyboard Layout Macro](features/split_keyboard#layout-macro) and [Matrix to Physical Layout](understanding_qmk#matrix-to-physical-layout-map).
+:::
 
 ## Additional Configuration
 
-There are a lot of features that can be turned on or off, configured or tuned. Some of these have yet to be migrated over to [Data Driven Configuration](data_driven_config.md). The following sections cover the process for when an `info.json` option is unavailable.
+There are a lot of features that can be turned on or off, configured or tuned. Some of these have yet to be migrated over to [Data Driven Configuration](data_driven_config). The following sections cover the process for when an `info.json` option is unavailable.
 
 ### Configuration Options
-For available options for `config.h`, you should see the [Config Options](config_options.md#the-configh-file) page for more details.
+For available options for `config.h`, you should see the [Config Options](config_options#the-configh-file) page for more details.
 
 ### Build Options
 
-For available options for `rules.mk`, see the [Config Options](config_options.md#feature-options) page for a detailed list and description.
+For available options for `rules.mk`, see the [Config Options](config_options#feature-options) page for a detailed list and description.

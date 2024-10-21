@@ -9,7 +9,5 @@
         "rows": ["B4", "B3", "A15", "B13", "B5"]
     },
     "diode_direction": "COL2ROW",
-    "processor": "STM32F401",
-    "bootloader": "stm32-dfu",
-    "board": "BLACKPILL_STM32_F401"
+    "development_board": "blackpill_f401"
 }
