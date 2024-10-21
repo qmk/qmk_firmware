@@ -3,6 +3,7 @@
     "bootloader": "stm32-dfu",
     "diode_direction": "COL2ROW",
     "features": {
+        "bootmagic": true,
         "extrakey": true,
         "mousekey": true,
         "rgb_matrix": true
@@ -22,6 +23,9 @@
                 "cols": ["C11", "C13", "B6", "B9", "B12", "B2"],
                 "rows": ["C4", "A7", "A6", "B5", "F1"]
             }
+        },
+        "serial": {
+            "driver": "usart"
         },
         "transport": {
             "sync" :{

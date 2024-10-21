@@ -3,12 +3,13 @@
     "bootloader": "stm32-dfu",
     "diode_direction": "COL2ROW",
     "features": {
+        "bootmagic": true,
+        "encoder": true,
         "extrakey": true,
         "mousekey": true,
         "rgb_matrix": true
     },
     "encoder": {
-        "enabled": true,
         "rotary": [
             {"pin_a": "A15", "pin_b": "C10"},
             {"pin_a": "B13", "pin_b": "B12"}
@@ -37,6 +38,9 @@
                 "cols": ["C11", "C13", "B6", "B9", "B12", "B2"],
                 "rows": ["C4", "A7", "B14", "B5", "F1"]
             }
+        },
+        "serial": {
+            "driver": "usart"
         },
         "transport": {
             "sync" :{
