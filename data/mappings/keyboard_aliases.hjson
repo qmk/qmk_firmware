@@ -575,6 +575,9 @@
     "ploopyco/trackball": {
         "target": "ploopyco/trackball/rev1_005"
     },
+    "plywkrs/ply8x": {
+        "target": "plywrks/ply8xs/solder"
+    },
     "polilla": {
         "target": "polilla/rev1"
     },
