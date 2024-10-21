@@ -208,6 +208,18 @@ void bhq_CloseBleAdvertising(void)
     bhkBuff[index++] = 0;      
     BHQ_SendCmd(BHQ_NOT_ACK, bhkBuff,index);
 }
+void bhq_switch_rf_easy_kb(void)
+{
+    uint8_t index = 0;
+
+    bhkBuff[index++] = 0x14;
+    bhkBuff[index++] = 4;                        
+    bhkBuff[index++] = 0;                        
+    bhkBuff[index++] = 0;      
+    bhkBuff[index++] = 0;      
+    BHQ_SendCmd(BHQ_NOT_ACK, bhkBuff,index);
+}
+
 void bhq_update_battery_percent(uint8_t percent) {
     uint8_t index = 0;
     memset(bhkBuff, 0, PACKET_MAX_LEN);
