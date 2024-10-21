@@ -73,7 +73,7 @@
 #define DEFAULT_LIGHT_CUSTOM_KEYS 1
 #define DEFAULT_SLEEP_TIMEOUT 15
 #define DEBOUNCE 5
-#define RELEASE_DEBOUNCE 10
+#define RELEASE_DEBOUNCE 5
 #define DEFAULT_DETECT_NUMLOCK 0
 #define DEFAULT_SHOW_SOCD_INDICATOR 1
 ||||||| parent of 945d249a2c (feat(gem80,ryodeushii): adjust settings for personal keymap)
