@@ -1,5 +1,5 @@
 {
-    "keyboard_name": "Iris LM Rev. K1",
+    "keyboard_name": "Iris LM-K Rev. 1",
     "bootloader": "stm32-dfu",
     "diode_direction": "COL2ROW",
     "features": {
