@@ -17,7 +17,6 @@
 
 /* Defines for the RGB matrix */
 #ifdef RGB_MATRIX_ENABLE
-#   define NOP_FUDGE 0.4
 #   define WS2812_PWM_DRIVER PWMD3
 #   define WS2812_PWM_CHANNEL 4
 #   define WS2812_PWM_PAL_MODE 10
