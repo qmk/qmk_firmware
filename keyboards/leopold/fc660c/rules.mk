@@ -4,4 +4,4 @@
 I2C_DRIVER_REQUIRED = yes
 
 CUSTOM_MATRIX = yes
-SRC += matrix.c ad5258.c
+SRC += matrix.c ad5258.c actuation_point.c
