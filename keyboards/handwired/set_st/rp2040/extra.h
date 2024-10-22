@@ -56,7 +56,8 @@ bool oled_task_kb(void) {
       default:
         break;
     }
-    oled_write_ln("", false);
+    oled_advance_page(true);
+#endif // OS_DETECTION_ENABLE
 
     for (int i = 0; i < MATRIX_ROWS; i++) {
         for (int j = 0; j < MATRIX_COLS; j++) {
