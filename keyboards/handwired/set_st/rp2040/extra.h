@@ -39,7 +39,6 @@ bool oled_task_kb(void) {
     }
     
 
-    oled_set_cursor(0, 1);
     oled_write(PSTR("Keys: "), false);
 
     os_variant_t os = detected_host_os();
