@@ -49,7 +49,7 @@ void channel_1_set_frequency(float freq) {
         width  = 0;
     } else {
         period = (pwmCFG.frequency / freq);
-        width  = PWM_PERCENTAGE_TO_WIDTH(&AUDIO_PWM_DRIVER, (100 - note_timbre) * 100);
+        width  = (pwmcnt_t)(((period) * (pwmcnt_t)((100 - note_timbre) * 100)) / (pwmcnt_t)(10000));
     }
     chSysLockFromISR();
     pwmChangePeriodI(&AUDIO_PWM_DRIVER, period);
@@ -69,7 +69,7 @@ void channel_1_start(void) {
 void channel_1_stop(void) {
     pwmStop(&AUDIO_PWM_DRIVER);
     pwmStart(&AUDIO_PWM_DRIVER, &pwmCFG);
-    pwmEnableChannelI(&AUDIO_PWM_DRIVER, AUDIO_PWM_CHANNEL - 1, 0);
+    pwmEnableChannel(&AUDIO_PWM_DRIVER, AUDIO_PWM_CHANNEL - 1, 0);
     pwmStop(&AUDIO_PWM_DRIVER);
 }
 
