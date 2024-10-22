@@ -404,7 +404,7 @@ void keyboard_post_init_kb(void) {
     is_launching = true;
     defer_exec(500, startup_exec, NULL);
 #endif
-    matrix_init_user();
+    keyboard_post_init_user();
 }
 
 void eeconfig_init_kb(void) {  // EEPROM is getting reset!
