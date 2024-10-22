@@ -67,7 +67,7 @@ bool oled_task_kb(void) {
             }
             else{
               oled_write("(", false);
-              if (KEYCODE2CONSUMER(keycode)) {
+              if (IS_CONSUMER_KEYCODE(keycode) || IS_SYSTEM_KEYCODE(keycode)) {
                     oled_write("M", false);
               }
               else if (IS_ANY(keycode))
