@@ -167,7 +167,7 @@
                     },
                     { "text": "Audio", "link": "/features/audio" },
                     { "text": "Bluetooth", "link": "/features/bluetooth" },
-                    { "text": "Bootmagic Lite", "link": "/features/bootmagic" },
+                    { "text": "Bootmagic", "link": "/features/bootmagic" },
                     { "text": "Converters", "link": "/feature_converters" },
                     { "text": "Custom Matrix", "link": "/custom_matrix" },
                     { "text": "DIP Switch", "link": "/features/dip_switch" },

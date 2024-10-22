@@ -53,8 +53,8 @@
         io_wait;                                          \
     } while (0)
 
-rgb_led_t apa102_leds[APA102_LED_COUNT];
-uint8_t   apa102_led_brightness = APA102_DEFAULT_BRIGHTNESS;
+rgb_t   apa102_leds[APA102_LED_COUNT];
+uint8_t apa102_led_brightness = APA102_DEFAULT_BRIGHTNESS;
 
 static void apa102_send_byte(uint8_t byte) {
     APA102_SEND_BIT(byte, 7);

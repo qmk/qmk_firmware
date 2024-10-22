@@ -69,7 +69,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 Do you want to set the default layer, so that it's retained even after you unplug the board?  If so, this is the function for you.
 
-To use this, you would use `set_single_persistent_default_layer(layer)`.  If you have a name defined for your layer, you can use that instead (such as _QWERTY, _DVORAK or _COLEMAK).
+To do this, you would use `set_single_persistent_default_layer(layer)`.  If you have a name defined for your layer, you can use that instead (such as _QWERTY, _DVORAK or _COLEMAK).
 
 This will set the default layer, update the persistent settings, and play a tune if you have [Audio](features/audio) enabled on your board, and the default layer sounds set.
 
@@ -81,6 +81,8 @@ To configure the default layer sounds, you would want to define this in your `co
                               SONG(DVORAK_SOUND) \
                             }
 ```
+
+If you do not require it to be retained after you unplug the board, use `set_single_default_layer(layer)` instead.
 
 
 ::: tip
@@ -99,7 +101,7 @@ To reset to the bootloader use `QK_BOOTLOADER` or `QK_BOOT` keycode or `reset_ke
 
 ## Wiping the EEPROM (Persistent Storage)
 
-If you're having issues with Audio, RGB Underglow, backlighting or keys acting weird, then you can reset the EEPROM (persistent setting storage). To force an EEPROM reset, use the [`EE_CLR` keycode](quantum_keycodes) or [Bootmagic Lite](features/bootmagic) functionality. If neither of those are an option, then you can use a custom macro to do so.
+If you're having issues with Audio, RGB Underglow, backlighting or keys acting weird, then you can reset the EEPROM (persistent setting storage). To force an EEPROM reset, use the [`EE_CLR` keycode](quantum_keycodes) or [Bootmagic](features/bootmagic) functionality. If neither of those are an option, then you can use a custom macro to do so.
 
 To wipe the EEPROM, run `eeconfig_init()` from your function or macro to reset most of the settings to default.
 
