@@ -15,8 +15,7 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgb_matrix": true,
-        "rgblight": false
+        "rgb_matrix": true
     },
     "matrix_pins": {
         "cols": ["GP19", "GP20", "GP25", "GP4", "GP9", "GP10", "GP5"],
@@ -141,10 +140,6 @@
         "max_brightness": 128,
         "sleep": true,
         "split_count": [31, 31]
-    },
-    "rgblight": {
-        "led_count": 62,
-        "split": true
     },
     "split": {
         "enabled": true,
