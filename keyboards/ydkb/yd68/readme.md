@@ -1,6 +1,6 @@
 # yd68
 
-[yd68](https://imgur.com/gallery/Ygo668L)
+![yd68](https://i.imgur.com/4Wyl8igh.jpeg)
 
 A 68-key board with RGB underlighting and bluetooth.
 
