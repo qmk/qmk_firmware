@@ -18,7 +18,10 @@
 
 #ifdef OLED_ENABLE
 
-bool oled_task_user(void) {
+bool oled_task_kb(void) {
+    if (!oled_task_user()) { 
+        return false;
+    }
     // Switch on current active layer
     switch (get_highest_layer(layer_state)) {
         case BASE :
