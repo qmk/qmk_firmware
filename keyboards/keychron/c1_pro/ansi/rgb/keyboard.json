@@ -6,6 +6,7 @@
     "features": {
         "rgb_matrix": true
     },
+    "community_layouts": ["tkl_ansi"],
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [
