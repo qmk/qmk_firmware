@@ -6,6 +6,12 @@
         "vid": "0x3297",
         "device_version": "0.0.1"
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "rgblight": {
         "hue_steps": 12,
         "brightness_steps": 12,

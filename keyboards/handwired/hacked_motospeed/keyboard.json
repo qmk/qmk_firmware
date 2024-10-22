@@ -31,6 +31,12 @@
     "backlight": true,
     "bluetooth": true
   },
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

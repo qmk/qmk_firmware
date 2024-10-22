@@ -8,6 +8,10 @@
         "pid": "0x0001",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "B1",
+        "scroll_lock": "B3"
+    },
     "rgblight": {
         "led_count": 17,
         "animations": {
@@ -34,6 +38,12 @@
         "mousekey": true,
         "nkro": false,
         "rgblight": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     },
     "matrix_pins": {
         "cols": ["F0", "F1", "F4", "F5", "F6", "F7", "C7", "D1"],

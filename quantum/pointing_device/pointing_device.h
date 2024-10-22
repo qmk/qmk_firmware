@@ -95,11 +95,21 @@ typedef enum {
 #ifdef MOUSE_EXTENDED_REPORT
 #    define XY_REPORT_MIN INT16_MIN
 #    define XY_REPORT_MAX INT16_MAX
-typedef int32_t clamp_range_t;
+typedef int32_t xy_clamp_range_t;
 #else
 #    define XY_REPORT_MIN INT8_MIN
 #    define XY_REPORT_MAX INT8_MAX
-typedef int16_t clamp_range_t;
+typedef int16_t xy_clamp_range_t;
+#endif
+
+#ifdef WHEEL_EXTENDED_REPORT
+#    define HV_REPORT_MIN INT16_MIN
+#    define HV_REPORT_MAX INT16_MAX
+typedef int32_t hv_clamp_range_t;
+#else
+#    define HV_REPORT_MIN INT8_MIN
+#    define HV_REPORT_MAX INT8_MAX
+typedef int16_t hv_clamp_range_t;
 #endif
 
 void           pointing_device_init(void);

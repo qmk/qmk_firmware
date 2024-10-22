@@ -60,6 +60,12 @@
         "rgblight": true,
         "encoder": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "layout_aliases": {
         "LAYOUT_7u": "LAYOUT_60_ansi_tsangan_split_bs_rshift",
         "LAYOUT_2x3u": "LAYOUT_60_ansi_tsangan_split_bs_rshift_space"

@@ -76,33 +76,49 @@ void sendByte(uint8_t byte) {
     }
 }
 
+ws2812_led_t ws2812_leds[WS2812_LED_COUNT];
+
 void ws2812_init(void) {
     palSetLineMode(WS2812_DI_PIN, WS2812_OUTPUT_MODE);
 }
 
-// Setleds for standard RGB
-void ws2812_setleds(rgb_led_t *ledarray, uint16_t leds) {
+void ws2812_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
+    ws2812_leds[index].r = red;
+    ws2812_leds[index].g = green;
+    ws2812_leds[index].b = blue;
+#if defined(WS2812_RGBW)
+    ws2812_rgb_to_rgbw(&ws2812_leds[index]);
+#endif
+}
+
+void ws2812_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
+    for (int i = 0; i < WS2812_LED_COUNT; i++) {
+        ws2812_set_color(i, red, green, blue);
+    }
+}
+
+void ws2812_flush(void) {
     // this code is very time dependent, so we need to disable interrupts
     chSysLock();
 
-    for (uint8_t i = 0; i < leds; i++) {
+    for (int i = 0; i < WS2812_LED_COUNT; i++) {
         // WS2812 protocol dictates grb order
 #if (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_GRB)
-        sendByte(ledarray[i].g);
-        sendByte(ledarray[i].r);
-        sendByte(ledarray[i].b);
+        sendByte(ws2812_leds[i].g);
+        sendByte(ws2812_leds[i].r);
+        sendByte(ws2812_leds[i].b);
 #elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_RGB)
-        sendByte(ledarray[i].r);
-        sendByte(ledarray[i].g);
-        sendByte(ledarray[i].b);
+        sendByte(ws2812_leds[i].r);
+        sendByte(ws2812_leds[i].g);
+        sendByte(ws2812_leds[i].b);
 #elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_BGR)
-        sendByte(ledarray[i].b);
-        sendByte(ledarray[i].g);
-        sendByte(ledarray[i].r);
+        sendByte(ws2812_leds[i].b);
+        sendByte(ws2812_leds[i].g);
+        sendByte(ws2812_leds[i].r);
 #endif
 
 #ifdef WS2812_RGBW
-        sendByte(ledarray[i].w);
+        sendByte(ws2812_leds[i].w);
 #endif
     }
 

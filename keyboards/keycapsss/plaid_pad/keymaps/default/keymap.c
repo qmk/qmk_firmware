@@ -28,7 +28,7 @@ LAYOUT_ortho_4x4(
 // Only for Rev1 & Rev2
 #ifdef LED_RED
 void keyboard_post_init_user(void) {
-    writePinHigh(LED_RED);
+    gpio_write_pin_high(LED_RED);
 }
 #endif
 

@@ -24,6 +24,12 @@
         "rgb_matrix": true,
         "oled": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "matrix_pins": {
         "rows": ["GP20", "GP15", "GP19", "GP14", "GP18", "GP13", "GP17", "GP12", "GP16", "GP21"],
         "cols": ["GP1",  "GP2",  "GP3",  "GP4",  "GP5",  "GP6",  "GP9"]

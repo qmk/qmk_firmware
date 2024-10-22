@@ -20,6 +20,3 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 /* key combination for magic key command */
 #define KEYBOARD_LOCK_ENABLE
 #define MAGIC_KEY_LOCK L
-
-#define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 3
-#define VIA_EEPROM_CUSTOM_CONFIG_SIZE 1

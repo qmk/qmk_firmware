@@ -4,6 +4,7 @@
     "maintainer": "nooges",
     "bootloader": "atmel-dfu",
     "encoder": {
+        "enabled": true,
         "rotary": [
             {"pin_a": "C7", "pin_b": "B5"},
             {"pin_a": "D7", "pin_b": "D4"}

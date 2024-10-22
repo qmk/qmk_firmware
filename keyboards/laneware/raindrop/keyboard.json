@@ -23,6 +23,12 @@
         "command": false,
         "nkro": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_64_ansi_split_bs"
     },

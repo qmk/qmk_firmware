@@ -10,5 +10,11 @@
         "nkro": false,
         "rgblight": true,
         "encoder": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     }
 }

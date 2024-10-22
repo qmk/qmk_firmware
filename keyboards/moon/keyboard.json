@@ -17,6 +17,12 @@
         "nkro": true,
         "backlight": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "backlight": {
         "pin": "C6"
     },

@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *      `---------------'
   */
   [ONE] = LAYOUT(
-    QK_BOOT,                      KC_CAD,
+    QK_BOOT,                    KC_CAD,
     TO(BASE), TO(TWO), MAKE1,   MAKE2,
     DIR,      MAIL1,   MAIL2,   OBUWUN,
     SELWP,    KC_AF4,  SELWN,

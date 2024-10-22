@@ -171,19 +171,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [0] = LAYOUT_all(
+  [0] = LAYOUT(
       TD(TD_CUT_REDO), TD(TD_MPRV_LEFT), TD(TD_PLAY_PAUSE_MUTE), TD(TD_MNXT_RIGHT), TD(QUAD_CVXA), TD(QUAD_LAYER_SWITCH)
       ),
 
-  [1] = LAYOUT_all(
+  [1] = LAYOUT(
       YOUTUBE, KC_WBAK, TD(TD_SEARCH_REFRESH), KC_WFWD, FACEBOOK, TD(QUAD_LAYER_SWITCH)
       ),
 
-  [2] = LAYOUT_all(
+  [2] = LAYOUT(
       A(KC_F4), SGUI(KC_S), KC_MYCM, LCA(KC_DEL), KC_CALC, TD(QUAD_LAYER_SWITCH)
       ),
   
-  [3] = LAYOUT_all(
+  [3] = LAYOUT(
       C(KC_SLSH), VALORANT, VSCODE, DISCORD, LSA(KC_A), TD(QUAD_LAYER_SWITCH)
       ),
 };
