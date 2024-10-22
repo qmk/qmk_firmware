@@ -170,6 +170,7 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
             } else {
                 default_layer_set((layer_state_t)1 << WIN_B);
             }
+            break;
         default:
             break;
     }
