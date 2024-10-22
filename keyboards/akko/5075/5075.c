@@ -166,9 +166,9 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
     switch (index) {
         case 0:
             if (active) {
-                default_layer_set((layer_state_t)1 << MAC_B);
+                set_single_persistent_default_layer(3);
             } else {
-                default_layer_set((layer_state_t)1 << WIN_B);
+                set_single_persistent_default_layer(0);
             }
             break;
         default:
