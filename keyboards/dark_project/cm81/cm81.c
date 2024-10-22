@@ -115,7 +115,7 @@ const snled27351_led_t PROGMEM g_snled27351_leds[SNLED27351_LED_COUNT] = {
 #endif
 // clang-format on
 
-void matrix_init_kb(void){
+void keyboard_pre_init_kb(void){
     // set our LED pings as output
     // gpio_set_pin_output(LED_CAPS_LOCK_PIN); // LED1 Num Lock
     // gpio_write_pin_low(LED_CAPS_LOCK_PIN);
@@ -123,7 +123,8 @@ void matrix_init_kb(void){
     gpio_write_pin_low(LED_MAC_OS_PIN);
     gpio_set_pin_output(LED_WIN_LOCK_PIN); // LED3 Win Lock
     gpio_write_pin_low(LED_WIN_LOCK_PIN);
-    matrix_init_user();
+
+    housekeeping_task_kb();
 }
 void matrix_scan_kb(void) {
     gpio_write_pin(LED_MAC_OS_PIN, ((get_highest_layer(default_layer_state | layer_state) == 2) || (get_highest_layer(default_layer_state | layer_state) == 3)));
