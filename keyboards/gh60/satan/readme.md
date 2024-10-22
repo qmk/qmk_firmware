@@ -1,5 +1,7 @@
 # Satan GH60
 
+![Satan_GH60](https://i.imgur.com/9zf233Xh.jpeg)
+
 A clone of the GH60 60% keyboard, with full backlighting support.
 
 Keyboard Maintainer: QMK Community  
