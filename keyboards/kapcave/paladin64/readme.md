@@ -1,5 +1,8 @@
 # Paladin64 ALPS PCB
 
+![Front](https://i.imgur.com/ZsIXGW5h.png)
+![Back](https://i.imgur.com/OatdFdzh.png)
+
 Firmware for the Paladin64 ALPS64 PCB, with underglow and an optional
 trackpoint module.
 
