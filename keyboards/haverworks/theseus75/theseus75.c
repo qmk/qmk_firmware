@@ -45,60 +45,61 @@ void kb_state_slave_handler(uint8_t m2s_size, const void* m2s_buffer, uint8_t s2
     if (m2s_size == sizeof(kb_state_t)) {
         memcpy(&kb_state, m2s_buffer, sizeof(kb_state_t));
     } else {
-        printf("Unexpected response in slave handler\n"); // TODO: add split debug logging
+        dprintf("Unexpected response in slave handler\n"); // TODO: add split debug logging
     }
 }
 
 void keyboard_pre_init_kb(void) {
+    // Customise these values to desired behaviour:
+    // debug_enable = true;
+    // debug_matrix = true;
+    // debug_keyboard = true;
+    // debug_mouse = true;
+
     // Disable the PD peripheral in pre-init because its pins are being used in the matrix:
     PWR->CR3 |= PWR_CR3_UCPD_DBDIS;
     // Call the corresponding _user() function (see https://docs.qmk.fm/#/custom_quantum_functions)
     keyboard_pre_init_user();
-    // Customise these values to desired behaviour:
-    debug_enable = true;
-    // debug_matrix = true;
-    // debug_keyboard = true;
-    // debug_mouse = true;
 }
 
 void keyboard_post_init_kb(void) {
-    // Register keyboard state transaction
+    // Register keyboard state transaction:
     transaction_register_rpc(RPC_ID_KB_STATE, kb_state_slave_handler);
 
-    // Set default state values
+    // Set default state values:
     kb_state.allowance = USBPD_500MA;
 
-    // If the keyboard is master
+    // If the keyboard is master,
     if (is_keyboard_master()) {
-        // Turn on power to the split half and to underglow LEDs
+        // Turn on power to the split half and to underglow LEDs:
         gpio_set_pin_output(PSW_PIN);
         gpio_write_pin_high(PSW_PIN);
 
-        // Enable inputs used for current negotiation
+        // Enable inputs used for current negotiation:
         gpio_set_pin_input_high(USBPD_1_PIN);
         gpio_set_pin_input_high(USBPD_2_PIN);
 
         // Not needed in this mode (always high-Z with pull-up on PCB if port controller is sink)
         gpio_set_pin_input_high(ID_PIN);
     } else {
-        // Prepare output to enable power for USB output after negotiation
+        // Prepare output to enable power for USB output after negotiation:
         gpio_set_pin_output(PSW_PIN);
 
-        // Switch the USB MUXes between hub and ports
+        // Switch the USB MUXes between hub and ports:
         gpio_set_pin_output(USBSW_PIN);
         gpio_write_pin_high(USBSW_PIN);
 
-        // Enable outputs used for current negotiation and default to 500mA
+        // Enable outputs used for current negotiation and default to 500mA:
         gpio_set_pin_output(USBPD_1_PIN);
         gpio_write_pin_high(USBPD_1_PIN);
         gpio_set_pin_output(USBPD_2_PIN);
         gpio_write_pin_high(USBPD_2_PIN);
 
-        // Use ID pin to check if client is detected (if low: USB source port powered)
+        // Use ID pin to check if client is detected (if low: USB source port powered):
         gpio_set_pin_input_high(ID_PIN);
 
-        // Default to indicating the hub is bus-powered, and that high-powered devices should not try to connect or fast charge
-        // TODO: make this configurable for users who would rather always have their device connect, regardless of whether they meet the specs
+        // Indicate that the hub is either self-powered or bus-powered based on whether the bus-power mode flag is enabled
+        // (configurable for users who would rather always have their device connect, regardless of whether they meet the specs):
         gpio_set_pin_output(BUS_B_PIN);
         if (DISABLE_BUS_POWER_MODE == TRUE) {
             gpio_write_pin_high(BUS_B_PIN);
@@ -119,8 +120,8 @@ void housekeeping_task_kb(void) {
     static uint32_t last_usbpd_allowance_check_time = 0;
     if (timer_elapsed32(last_usbpd_allowance_check_time) > USBPD_ALLOWANCE_CHECK_INTERVAL) {
         // On master side: check USBPD_1_PIN and USBPD_2_PIN to determine current negotiated with host
-        // (Can't use the usbpd_get_allowance() function this uses this uses the native CC PD interface
-        //  of the G series MCU, while we're using dedicated port controllers instead)
+        // (Can't use the usbpd_get_allowance() function, as this uses this uses the native CC PD interface
+        // of the G series MCU, while we're using dedicated port controllers instead):
         if (is_keyboard_master()) {
             usbpd_allowance_t allowance;
 
@@ -137,15 +138,14 @@ void housekeeping_task_kb(void) {
                 kb_state.allowance = allowance;
             }
         } else {
-            printf("Im slave, you shouldn't see this\n");
             // On peripheral side - If ID_PIN is low: USB client negotiated 5V successfully -> enable power routing
             // Check if PSW_PIN is not already high to avoid wasting time
             if (!gpio_read_pin(ID_PIN) && !gpio_read_pin(PSW_PIN)) {
                 gpio_write_pin_high(PSW_PIN);
-                printf("USB downstream device detected\n");
+                dprintf("USB downstream device connected\n"); // TODO: add split debug logging
             } else if (gpio_read_pin(ID_PIN) && gpio_read_pin(PSW_PIN)) {
                 gpio_write_pin_low(PSW_PIN);
-                printf("USB downstream device disconnected\n");
+                dprintf("USB downstream device disconnected\n"); // TODO: add split debug logging
             }
         };
         last_usbpd_allowance_check_time = timer_read32();
@@ -157,13 +157,13 @@ void housekeeping_task_kb(void) {
         static uint32_t   last_kb_state_sync_time;
         static kb_state_t last_kb_state;
 
-        // Check if the state values are different
+        // Check if the state values are different:
         if (memcmp(&kb_state, &last_kb_state, sizeof(kb_state_t))) {
             needs_sync = true;
             memcpy(&last_kb_state, &kb_state, sizeof(kb_state_t));
         }
 
-        // Sync state every so often regardless
+        // Sync state every so often regardless:
         if (timer_elapsed32(last_kb_state_sync_time) > KB_STATE_SYNC_INTERVAL) {
             needs_sync = true;
         }
@@ -186,7 +186,7 @@ void housekeeping_task_kb(void) {
         if (last_allowance != kb_state.allowance) {
             last_allowance = kb_state.allowance;
 
-            printf("Setting USB-PD output to %s (%s-powered)\n", usbpd_str(kb_state.allowance), kb_state.allowance == USBPD_500MA ? "bus" : "self");
+            printf("Setting USB-PD output to %s (%s-powered)\n", usbpd_str(kb_state.allowance), kb_state.allowance == USBPD_500MA ? "bus" : "self"); // TODO: add split debug logging
 
             switch (kb_state.allowance) {
                 default:
@@ -194,10 +194,11 @@ void housekeeping_task_kb(void) {
                     // Set USBPD output to 500 mA:
                     gpio_write_pin_high(USBPD_1_PIN);
                     gpio_write_pin_high(USBPD_2_PIN);
-                    // Indicate hub is bus-powered and devices should not try to connect or fast charge:
                     if (DISABLE_BUS_POWER_MODE == TRUE) {
+                        // Indicate hub is self-powered and devices can try to connect or fast charge:
                         gpio_write_pin_high(BUS_B_PIN);
                     } else {
+                        // Indicate hub is bus-powered and devices should not try to connect or fast charge:
                         gpio_write_pin_low(BUS_B_PIN);
                     }
                     break;
