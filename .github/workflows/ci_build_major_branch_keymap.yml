@@ -108,7 +108,7 @@ jobs:
       - name: Build targets
         continue-on-error: true
         run: |
-          export NCPUS=$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || getconf _NPROCESSORS_ONLN 2>/dev/null)
+          export NCPUS=$(( $(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || getconf _NPROCESSORS_ONLN 2>/dev/null) -1 ))
           qmk mass-compile -t -j $NCPUS -e DUMP_CI_METADATA=yes $(jq -r '.["${{ matrix.target }}"].targets' targets.json) || touch .failed
 
       - name: Upload binaries
@@ -172,10 +172,10 @@ jobs:
             targets-${{ inputs.keymap }}
 
       - name: 'CI Discord Notification'
-        if: always()
+        if: always() && !cancelled()
         working-directory: util/ci/
         env:
           DISCORD_WEBHOOK: ${{ secrets.CI_DISCORD_WEBHOOK }}
         run: |
           python3 -m pip install -r requirements.txt
-          python3 ./discord-results.py --branch ${{ inputs.branch || github.ref_name }} --keymap ${{ inputs.keymap }} --url ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          python3 ./discord-results.py --branch ${{ inputs.branch || github.ref_name }} --sha $(git rev-parse HEAD) --keymap ${{ inputs.keymap }} --url ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}

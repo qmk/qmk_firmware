@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [3] = LAYOUT_ortho_3x3(
-        RGB_TOG, RGB_M_P, RGB_M_B,
+        UG_TOGG, RGB_M_P, RGB_M_B,
         RGB_M_R, RGB_M_SW, RGB_M_G,
         _______, _______, _______
     )

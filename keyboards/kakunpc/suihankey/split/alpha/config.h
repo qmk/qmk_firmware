@@ -19,8 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define USE_I2C
 
-#define SPLIT_HAND_PIN D2
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

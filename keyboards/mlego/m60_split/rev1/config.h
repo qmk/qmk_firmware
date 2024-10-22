@@ -15,6 +15,4 @@
  */
 #pragma once
 
-#define SPLIT_HAND_PIN B9
-#define SERIAL_USART_TX_PIN B6
 #define SERIAL_USART_SPEED 921600

@@ -187,6 +187,8 @@ void st7565_render(void) {
 
     st7565_send_data(&st7565_buffer[ST7565_BLOCK_SIZE * update_start], ST7565_BLOCK_SIZE);
 
+    spi_stop();
+
     // Turn on display if it is off
     st7565_on();
 

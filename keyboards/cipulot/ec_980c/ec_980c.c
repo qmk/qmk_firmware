@@ -86,6 +86,10 @@ void keyboard_post_init_kb(void) {
  * Num  | Caps | Scroll |
  */
 bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
+    }
+
     if (eeprom_ec_config.num.enabled) {
         // The rgb_matrix_set_color function needs an RGB code to work, so first the indicator color is cast to an HSV value and then translated to RGB
         HSV hsv_num_indicator_color = {eeprom_ec_config.num.h, eeprom_ec_config.num.s, eeprom_ec_config.num.v};
