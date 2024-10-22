@@ -130,14 +130,6 @@ const snled27351_led_t PROGMEM g_snled27351_leds[SNLED27351_LED_COUNT] = {
 };
 #endif //RGB_MATRIX_ENABLE
 
-enum __layers {
-    WIN_B,
-    WIN_WASD,
-    WIN_FN,
-    MAC_B,
-    MAC_WASD,
-    MAC_FN
-};
 void led_init_ports(void){
     //set our LED pings as output
     gpio_set_pin_output(LED_NUM_LOCK_PIN); // LED1 Num Lock
