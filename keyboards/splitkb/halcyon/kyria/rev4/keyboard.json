@@ -12,9 +12,6 @@
         ]
     },
     "features": {
-        "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
@@ -150,9 +147,6 @@
         "split": true
     },
     "split": {
-        "bootmagic": {
-            "matrix": [4, 6]
-        },
         "enabled": true,
         "handedness": {
             "pin": "GP24"
