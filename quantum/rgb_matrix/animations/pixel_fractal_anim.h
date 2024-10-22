@@ -30,23 +30,23 @@ static bool PIXEL_FRACTAL(effect_params_t* params) {
         for (uint8_t h = 0; h < MATRIX_ROWS; ++h) {
             // Light and copy columns outward
             for (uint8_t l = 0; l < MID_COL - 1; ++l) {
-                if (led[h][l]) {
-                    rgb_matrix_set_color(g_led_config.matrix_co[h][l], rgb.r, rgb.g, rgb.b);
-                    rgb_matrix_set_color(g_led_config.matrix_co[h][MATRIX_COLS - 1 - l], rgb.r, rgb.g, rgb.b);
-                } else {
-                    rgb_matrix_set_color(g_led_config.matrix_co[h][l], 0, 0, 0);
-                    rgb_matrix_set_color(g_led_config.matrix_co[h][MATRIX_COLS - 1 - l], 0, 0, 0);
+                RGB index_rgb = led[h][l] ? (RGB){rgb.r, rgb.g, rgb.b} : (RGB){0, 0, 0};
+                if (HAS_ANY_FLAGS(g_led_config.flags[g_led_config.matrix_co[h][l]], params->flags)) {
+                    rgb_matrix_set_color(g_led_config.matrix_co[h][l], index_rgb.r, index_rgb.g, index_rgb.b);
+                }
+                if (HAS_ANY_FLAGS(g_led_config.flags[g_led_config.matrix_co[h][MATRIX_COLS - 1 - l]], params->flags)) {
+                    rgb_matrix_set_color(g_led_config.matrix_co[h][MATRIX_COLS - 1 - l], index_rgb.r, index_rgb.g, index_rgb.b);
                 }
                 led[h][l] = led[h][l + 1];
             }
 
             // Light both middle columns
-            if (led[h][MID_COL - 1]) {
-                rgb_matrix_set_color(g_led_config.matrix_co[h][MID_COL - 1], rgb.r, rgb.g, rgb.b);
-                rgb_matrix_set_color(g_led_config.matrix_co[h][MATRIX_COLS - MID_COL], rgb.r, rgb.g, rgb.b);
-            } else {
-                rgb_matrix_set_color(g_led_config.matrix_co[h][MID_COL - 1], 0, 0, 0);
-                rgb_matrix_set_color(g_led_config.matrix_co[h][MATRIX_COLS - MID_COL], 0, 0, 0);
+            RGB index_rgb = led[h][MID_COL - 1] ? (RGB){rgb.r, rgb.g, rgb.b} : (RGB){0, 0, 0};
+            if (HAS_ANY_FLAGS(g_led_config.flags[g_led_config.matrix_co[h][MID_COL - 1]], params->flags)) {
+                rgb_matrix_set_color(g_led_config.matrix_co[h][MID_COL - 1], index_rgb.r, index_rgb.g, index_rgb.b);
+            }
+            if (HAS_ANY_FLAGS(g_led_config.flags[g_led_config.matrix_co[h][MATRIX_COLS - MID_COL]], params->flags)) {
+                rgb_matrix_set_color(g_led_config.matrix_co[h][MATRIX_COLS - MID_COL], index_rgb.r, index_rgb.g, index_rgb.b);
             }
 
             // Generate new random fractal column

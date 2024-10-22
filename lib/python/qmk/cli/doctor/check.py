@@ -53,11 +53,6 @@ def _check_avr_gcc_version():
     version_number = ESSENTIAL_BINARIES['avr-gcc']['output'].strip()
     cli.log.info('Found avr-gcc version %s', version_number)
 
-    parsed_version = _parse_gcc_version(version_number)
-    if parsed_version['major'] > 8:
-        cli.log.warning('{fg_yellow}We do not recommend avr-gcc newer than 8. Downgrading to 8.x is recommended.')
-        return CheckStatus.WARNING
-
     return CheckStatus.OK
 
 

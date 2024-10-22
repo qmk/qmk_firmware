@@ -37,6 +37,9 @@
                     ["B12", "A0", "A1", "A2", null, null]
                 ]
             }
+        },
+        "serial": {
+            "driver": "usart"
         }
     },
     "layouts": {

@@ -20,7 +20,7 @@
     The size used by the STM32 L0/L1 EEPROM driver.
 */
 #ifndef STM32_ONBOARD_EEPROM_SIZE
-#    ifdef VIA_ENABLE
+#    ifdef DYNAMIC_KEYMAP_ENABLE
 #        define STM32_ONBOARD_EEPROM_SIZE 1024
 #    else
 #        include "eeconfig.h"

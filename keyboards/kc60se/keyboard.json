@@ -27,6 +27,10 @@
         "pin": "F5",
         "levels": 6
     },
+    "indicators": {
+        "caps_lock": "B2",
+        "on_state": 0
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "community_layouts": ["60_ansi", "60_ansi_split_bs_rshift", "60_iso", "60_iso_split_bs_rshift"],
