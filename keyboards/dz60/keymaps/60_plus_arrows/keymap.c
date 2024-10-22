@@ -18,7 +18,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------------'
  */
 
-  LAYOUT_directional(
+  LAYOUT_64_ansi_split_bs_space(
       KC_GRV, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, ______, KC_BSPC,
       KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS,
       KC_CAPS, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT,
@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------------'
  */
 
-  LAYOUT_directional(
+  LAYOUT_64_ansi_split_bs_space(
       KC_ESC, BL_TOGG, BL_STEP, BL_DOWN,BL_UP,  ______, ______, QK_BOOT, ______, ______, ______, ______, ______, ______, ______,
       ______, UG_NEXT, ______, ______, ______, ______, ______, ______, ______, ______, ______, UG_VALU, UG_VALD, UG_TOGG,
       ______, UG_HUEU, UG_HUED, UG_SATU, UG_SATD, ______, ______, ______, ______, ______, ______, ______,
