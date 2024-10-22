@@ -100,7 +100,11 @@ void keyboard_post_init_kb(void) {
         // Default to indicating the hub is bus-powered, and that high-powered devices should not try to connect or fast charge
         // TODO: make this configurable for users who would rather always have their device connect, regardless of whether they meet the specs
         gpio_set_pin_output(BUS_B_PIN);
-        gpio_write_pin_low(BUS_B_PIN);
+        if (DISABLE_BUS_POWER_MODE == TRUE) {
+            gpio_write_pin_high(BUS_B_PIN);
+        } else {
+            gpio_write_pin_low(BUS_B_PIN);
+        }
     }
     // Call the corresponding _user() function (see https://docs.qmk.fm/#/custom_quantum_functions)
     keyboard_post_init_user();
@@ -191,7 +195,11 @@ void housekeeping_task_kb(void) {
                     gpio_write_pin_high(USBPD_1_PIN);
                     gpio_write_pin_high(USBPD_2_PIN);
                     // Indicate hub is bus-powered and devices should not try to connect or fast charge:
-                    gpio_write_pin_low(BUS_B_PIN);
+                    if (DISABLE_BUS_POWER_MODE == TRUE) {
+                        gpio_write_pin_high(BUS_B_PIN);
+                    } else {
+                        gpio_write_pin_low(BUS_B_PIN);
+                    }
                     break;
                 case USBPD_1500MA:
                     // Set USBPD output to 500 mA:

@@ -16,6 +16,8 @@
 
 #pragma once
 
+#define DISABLE_BUS_POWER_MODE TRUE
+
 /* Defines for the split keyboard setup */
 #define SERIAL_USART_DRIVER SD3         // USART 3
 #define SOFT_SERIAL_PIN B10             // The GPIO pin that is used split communication.
