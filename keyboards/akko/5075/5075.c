@@ -143,35 +143,20 @@ const snled27351_led_t PROGMEM g_snled27351_leds[SNLED27351_LED_COUNT] = {
 };
 
 #endif
-
-enum __layers {
-    WIN_B,
-    WIN_W,
-    WIN_FN,
-    MAC_B,
-    MAC_W,
-    MAC_FN
-};
-
 // clang-format on
-void led_init_ports(void) {
+void keyboard_pre_init_kb(void) {
     // set our LED pings as output
-    gpio_set_pin_output(LED_CAPS_LOCK_PIN); // LED1 Num Lock
-    gpio_write_pin_low(LED_CAPS_LOCK_PIN);
     gpio_set_pin_output(LED_MAC_OS_PIN); // LDE2 MAC\WIN
     gpio_write_pin_low(LED_MAC_OS_PIN);
     gpio_set_pin_output(LED_WIN_LOCK_PIN); // LED3 Win Lock
     gpio_write_pin_low(LED_WIN_LOCK_PIN);
+
+    housekeeping_task_kb();
 }
 
 void housekeeping_task_kb(void) {
-    /* Execute every 1ms */
-    static uint32_t last_time = 0;
-    if (timer_elapsed32(last_time) >= 1) {
-        last_time = timer_read32();
-        gpio_write_pin(LED_MAC_OS_PIN, default_layer_state & ((1<<MAC_B)|(1<<MAC_W)));
-        gpio_write_pin(LED_WIN_LOCK_PIN, keymap_config.no_gui);
-    }
+    gpio_write_pin(LED_MAC_OS_PIN, ((get_highest_layer(default_layer_state | layer_state) == 2) || (get_highest_layer(default_layer_state | layer_state) == 3)));
+    gpio_write_pin(LED_WIN_LOCK_PIN, keymap_config.no_gui);
 }
 
 bool dip_switch_update_kb(uint8_t index, bool active) {
@@ -189,32 +174,4 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
             break;
     }
     return true;
-}
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_user(keycode, record)) {
-        return false;
-    }
-    switch (keycode) {
-#ifndef DISABLE_CA5075_KEYCODES
-        case RGB_TOG:
-            if (record->event.pressed) {
-                switch (rgb_matrix_get_flags()) {
-                    case LED_FLAG_ALL: {
-                        rgb_matrix_set_flags(LED_FLAG_NONE);
-                    } break;
-                    default: {
-                        rgb_matrix_set_flags(LED_FLAG_ALL);
-                    } break;
-                }
-            }
-            if (!rgb_matrix_is_enabled()) {
-                rgb_matrix_set_flags(LED_FLAG_ALL);
-                rgb_matrix_enable();
-            }
-            return false;
-#endif//DISABLE_CA5075_KEYCODES
-        default:
-            return true;
-    }
 }
