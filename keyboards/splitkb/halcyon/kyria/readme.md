@@ -1,6 +1,6 @@
 # Halcyon Kyria
 
-![splitkb/halcyon/kyria](WIP)
+![splitkb/halcyon/kyria](https://i.imgur.com/n7WuUs9.jpg)
 
 * Keyboard Maintainer: [splitkb.com](https://github.com/splitkb.com)
 * Hardware Availability: [splitkb.com](https://splitkb.com).
