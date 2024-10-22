@@ -130,14 +130,11 @@ const snled27351_led_t PROGMEM g_snled27351_leds[SNLED27351_LED_COUNT] = {
 };
 #endif //RGB_MATRIX_ENABLE
 
-void led_init_ports(void){
-    //set our LED pings as output
-    gpio_set_pin_output(LED_NUM_LOCK_PIN); // LED1 Num Lock
-    gpio_write_pin_low(LED_NUM_LOCK_PIN);
-    gpio_set_pin_output(LED_CAPS_LOCK_PIN); // LDE2 Caps Lock
-    gpio_write_pin_low(LED_CAPS_LOCK_PIN);
+void keyboard_pre_init_kb(void) {
     gpio_set_pin_output(LED_WIN_LOCK_PIN); // LED3 Win Lock
     gpio_write_pin_low(LED_WIN_LOCK_PIN);
+
+    keyboard_pre_init_user();
 }
 
 void housekeeping_task_kb(void) {
