@@ -41,6 +41,7 @@ bool oled_task_kb(void) {
 
     oled_write(PSTR("Keys: "), false);
 
+#ifdef OS_DETECTION_ENABLE
     os_variant_t os = detected_host_os();
     switch (os){
       case OS_MACOS:
