@@ -80,7 +80,7 @@ bool oled_task_kb(void) {
               oled_write(") ", false);
             }
         }
-        oled_write_ln("", false);
+        oled_advance_page(true);
     }
   
   return false;
