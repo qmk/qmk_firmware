@@ -19,8 +19,6 @@
 #ifdef OLED_ENABLE
 
 bool oled_task_user(void) {
-    // Set cursor position
-    oled_set_cursor(0, 0);
     // Switch on current active layer
     switch (get_highest_layer(layer_state)) {
         case BASE :
