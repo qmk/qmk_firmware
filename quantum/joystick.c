@@ -150,7 +150,7 @@ void joystick_set_axis(uint8_t axis, int16_t value) {
 
 #ifdef JOYSTICK_HAS_HAT
 void joystick_set_hat(int8_t value) {
-    joystick_state.hat = value;
+    joystick_state.hat   = value;
     joystick_state.dirty = true;
 }
 #endif

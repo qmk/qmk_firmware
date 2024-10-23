@@ -633,9 +633,9 @@ const PROGMEM uchar shared_hid_report[] = {
     0x75, 0x04,       //     Report Size (4)
     0x81, 0x42,       //     Input (Data, Variable, Absolute, Null State)
     // Padding (4 bits)
-    0x95, 0x04,       //     Report Count (4)
-    0x75, 0x01,       //     Report Size (1)
-    0x81, 0x01,       //     Input (Constant)
+    0x95, 0x04, //     Report Count (4)
+    0x75, 0x01, //     Report Size (1)
+    0x81, 0x01, //     Input (Constant)
 #    endif
 
 #    if JOYSTICK_BUTTON_COUNT > 0

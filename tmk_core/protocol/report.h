@@ -247,7 +247,7 @@ typedef struct {
 #endif
 
 #ifdef JOYSTICK_HAS_HAT
-    int8_t hat : 4;
+    int8_t  hat : 4;
     uint8_t reserved : 4;
 #endif
 

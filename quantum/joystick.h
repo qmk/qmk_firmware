@@ -86,7 +86,7 @@ typedef struct {
 #ifdef JOYSTICK_HAS_HAT
     int8_t hat;
 #endif
-    bool    dirty;
+    bool dirty;
 } joystick_t;
 
 extern joystick_t joystick_state;
