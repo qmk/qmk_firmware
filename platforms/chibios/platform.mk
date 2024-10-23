@@ -454,6 +454,24 @@ ifneq ("$(wildcard $(PLATFORM_COMMON_DIR)/vendors/$(MCU_FAMILY)/config.h)","")
 endif
 CONFIG_H += $(PLATFORM_COMMON_DIR)/config.h
 
+
+################################################################################
+
+generated-files: $(INTERMEDIATE_OUTPUT)/chibios-overrides/config.h
+
+# This command also generates board.h, chconf.h, halconf.h, and mcuconf.h
+$(INTERMEDIATE_OUTPUT)/chibios-overrides/config.h: $(KEYMAP_JSON)
+	[ -d $(INTERMEDIATE_OUTPUT)/chibios-overrides ] || mkdir -p $(INTERMEDIATE_OUTPUT)/chibios-overrides
+	@$(SILENT) || printf "$(MSG_GENERATING) ChibiOS board.h, chconf.h, halconf.h, mcuconf.h, config.h" | $(AWK_CMD)
+	$(eval CMD=$(QMK_BIN) generate-chibios-headers --keyboard $(KEYBOARD)  --quiet --output $(INTERMEDIATE_OUTPUT)/chibios-overrides)
+	@$(BUILD_CMD)
+
+OPT_DEFS += -I$(INTERMEDIATE_OUTPUT)/chibios-overrides
+
+CONFIG_H += $(INTERMEDIATE_OUTPUT)/chibios-overrides/config.h
+
+################################################################################
+
 # Assembler flags
 ASFLAGS  += $(SHARED_ASFLAGS) $(TOOLCHAIN_ASFLAGS)
 

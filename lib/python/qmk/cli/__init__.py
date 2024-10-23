@@ -48,6 +48,7 @@ subcommands = [
     'qmk.cli.format.text',
     'qmk.cli.generate.api',
     'qmk.cli.generate.autocorrect_data',
+    'qmk.cli.generate.chibios_headers',
     'qmk.cli.generate.compilation_database',
     'qmk.cli.generate.config_h',
     'qmk.cli.generate.develop_pr_list',
