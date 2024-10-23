@@ -1,10 +1,10 @@
-# haverworks Theseus75
-![Theseus Render](https://i.imgur.com/yzCfVSth.png)
+# Haverworks Theseus75
 
-The Theseus 75 is a 75% row-stagger split keyboard with a macro column + encoder on both sides. It features one USB-C dual role port per side, and USB hubs, that allow the unused port to turn into a USB-C 2.0 High-Speed host port to connect flash drives, cell phones and similar. Up to 5V 1.5A current are offered, depending on negotiations with the host.
+![Theseus75 HS PCB v1](https://imgur.com/xwFV8i6.png)
+The Theseus75 is a 75% row-stagger split keyboard with a macro column + encoder on both sides. It features one USB-C dual role port per side, and USB hubs, that allow the unused port to turn into a USB-C 2.0 High-Speed host port to connect flash drives, cell phones, and similar devices. Up to 5V 1.5A current is offered, depending on negotiations with the host.
 
-* Keyboard Maintainer: [ebastler](https://github.com/ebastler)
-* Hardware Supported: Haverworks Theseus75 r1 PCBs (Hotswap and solder)
+* Keyboard Maintainers: [ebastler](https://github.com/ebastler), [haversnail](https://github.com/haversnail)
+* Hardware Supported: Haverworks Theseus75 v1 PCBs (Hot-swap and solder)
 * Hardware Availability: Groupbuy
 
 How to enter the Bootloader:
