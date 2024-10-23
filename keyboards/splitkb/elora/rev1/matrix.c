@@ -3,7 +3,6 @@
 
 #include "matrix.h"
 #include "spi_master.h"
-#include "myriad.h"
 
 // The matrix is hooked up to a chain of 74xx165 shift registers.
 // Pin F0 acts as Chip Select (active-low)
@@ -26,7 +25,7 @@ void matrix_init_custom(void) {
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     // Enough to hold the shift registers
     uint16_t length = 5;
-    uint8_t data[length];
+    uint8_t  data[length];
 
     // Matrix SPI config
     // 1) Pin
@@ -49,9 +48,10 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         matrix_has_changed |= current_matrix[i] ^ word;
         current_matrix[i] = word;
     }
-    #ifdef MYRIAD_ENABLE
+#ifdef MYRIAD_ENABLE
+    bool myriad_hook_matrix(matrix_row_t current_matrix[]);
     return matrix_has_changed || myriad_hook_matrix(current_matrix);
-    #else
+#else
     return matrix_has_changed;
-    #endif
+#endif
 }
