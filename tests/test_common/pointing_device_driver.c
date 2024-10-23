@@ -8,86 +8,102 @@
 typedef struct {
     bool state;
     bool set;
-} test_buttons_t;
+} pd_button_state_t;
 
-static report_mouse_t test_report           = {0};
-static uint16_t       test_cpi              = {0};
-static test_buttons_t test_button_events[8] = {0};
+typedef struct {
+    int16_t           x;
+    int16_t           y;
+    int16_t           h;
+    int16_t           v;
+    pd_button_state_t button_state[8];
+    uint16_t          cpi;
+    bool              initiated;
+} pd_config_t;
 
-void pointing_device_driver_init(void) {}
+static pd_config_t pd_config = {0};
+
+void pointing_device_driver_init(void) {
+    pd_set_init(true);
+}
 
 report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
-    test_report.buttons = 0;
-    test_report.buttons = mouse_report.buttons; // buttons must currently be preserved by pointing device driver
     for (uint8_t i = 0; i < 8; i++) {
-        if (test_button_events[i].set) {
-            test_button_events[i].set = false;
-            if (test_button_events[i].state) {
-                test_report.buttons |= 1 << (i);
+        if (pd_config.button_state[i].set) {
+            pd_config.button_state[i].set = false;
+            if (pd_config.button_state[i].state) {
+                mouse_report.buttons |= 1 << (i);
             } else {
-                test_report.buttons &= ~(1 << (i));
+                mouse_report.buttons &= ~(1 << (i));
             }
         }
     }
-    return test_report;
+    mouse_report.x = pd_config.x;
+    mouse_report.y = pd_config.y;
+    mouse_report.h = pd_config.h;
+    mouse_report.v = pd_config.v;
+    return mouse_report;
 }
 
 __attribute__((weak)) uint16_t pointing_device_driver_get_cpi(void) {
-    return test_cpi;
+    return pd_config.cpi;
 }
 
 __attribute__((weak)) void pointing_device_driver_set_cpi(uint16_t cpi) {
-    test_cpi = cpi;
+    pd_config.cpi = cpi;
 }
 
-void press_button(uint8_t btn) {
-    test_button_events[btn].set   = true;
-    test_button_events[btn].state = true;
+void pd_press_button(uint8_t btn) {
+    pd_config.button_state[btn].set   = true;
+    pd_config.button_state[btn].state = true;
 }
-void release_button(uint8_t btn) {
-    test_button_events[btn].set   = true;
-    test_button_events[btn].state = false;
+void pd_release_button(uint8_t btn) {
+    pd_config.button_state[btn].set   = true;
+    pd_config.button_state[btn].state = false;
 }
 
-void clear_all_buttons(void) {
+void pd_clear_all_buttons(void) {
     for (uint8_t i = 0; i < 8; i++) {
-        test_button_events[i].set   = true;
-        test_button_events[i].state = false;
+        pd_config.button_state[i].set   = true;
+        pd_config.button_state[i].state = false;
     }
 }
 
-void set_x(int16_t x) {
-    test_report.x = x;
+void pd_set_x(int16_t x) {
+    pd_config.x = x;
 }
 
-void clear_x(void) {
-    set_x(0);
+void pd_clear_x(void) {
+    pd_set_x(0);
 }
 
-void set_y(int16_t y) {
-    test_report.y = y;
+void pd_set_y(int16_t y) {
+    pd_config.y = y;
 }
-void clear_y(void) {
-    set_y(0);
-}
-
-void set_h(int16_t h) {
-    test_report.h = h;
-}
-void clear_h(void) {
-    set_h(0);
+void pd_clear_y(void) {
+    pd_set_y(0);
 }
 
-void set_v(int16_t v) {
-    test_report.v = v;
+void pd_set_h(int16_t h) {
+    pd_config.h = h;
 }
-void clear_v(void) {
-    set_v(0);
+void pd_clear_h(void) {
+    pd_set_h(0);
 }
 
-void clear_movement(void) {
-    set_x(0);
-    set_y(0);
-    set_h(0);
-    set_v(0);
+void pd_set_v(int16_t v) {
+    pd_config.v = v;
+}
+void pd_clear_v(void) {
+    pd_set_v(0);
+}
+
+void pd_clear_movement(void) {
+    pd_set_x(0);
+    pd_set_y(0);
+    pd_set_h(0);
+    pd_set_v(0);
+}
+
+void pd_set_init(bool success) {
+    pd_config.initiated = success;
 }

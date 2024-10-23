@@ -16,23 +16,23 @@ struct SimpleReport {
 };
 
 class Pointing : public TestFixture {};
-class PointingRotateParametrizedTestFixture : public ::testing::WithParamInterface<std::pair<SimpleReport, SimpleReport>>, public Pointing {};
+class PointingRotateParametrized : public ::testing::WithParamInterface<std::pair<SimpleReport, SimpleReport>>, public Pointing {};
 
-TEST_P(PointingRotateParametrizedTestFixture, PointingRotateXY) {
+TEST_P(PointingRotateParametrized, PointingRotateXY) {
     TestDriver   driver;
     SimpleReport input        = GetParam().first;
     SimpleReport expectations = GetParam().second;
 
-    set_x(input.x);
-    set_y(input.y);
-    set_h(input.h);
-    set_v(input.v);
+    pd_set_x(input.x);
+    pd_set_y(input.y);
+    pd_set_h(input.h);
+    pd_set_v(input.v);
 
     EXPECT_MOUSE_REPORT(driver, (expectations.x, expectations.y, expectations.h, expectations.v, 0));
     run_one_scan_loop();
 
     // EXPECT_EMPTY_MOUSE_REPORT(driver);
-    clear_movement();
+    pd_clear_movement();
     run_one_scan_loop();
 
     EXPECT_NO_MOUSE_REPORT(driver);
@@ -42,8 +42,8 @@ TEST_P(PointingRotateParametrizedTestFixture, PointingRotateXY) {
 }
 // clang-format off
 INSTANTIATE_TEST_CASE_P(
-    Rotate90Tests,
-    PointingRotateParametrizedTestFixture,
+    Rotate90,
+    PointingRotateParametrized,
     ::testing::Values(
         //                      Input                       Expected
         // Actual Result - Rotate Anticlockwise

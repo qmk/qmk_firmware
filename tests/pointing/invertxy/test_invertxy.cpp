@@ -16,23 +16,23 @@ struct SimpleReport {
 };
 
 class Pointing : public TestFixture {};
-class PointingInvertXYParametrizedTestFixture : public ::testing::WithParamInterface<std::pair<SimpleReport, SimpleReport>>, public Pointing {};
+class PointingInvertXYParametrized : public ::testing::WithParamInterface<std::pair<SimpleReport, SimpleReport>>, public Pointing {};
 
-TEST_P(PointingInvertXYParametrizedTestFixture, PointingMouseKeysViaPointingDriver) {
+TEST_P(PointingInvertXYParametrized, PointingInvertXY) {
     TestDriver   driver;
     SimpleReport input        = GetParam().first;
     SimpleReport expectations = GetParam().second;
 
-    set_x(input.x);
-    set_y(input.y);
-    set_h(input.h);
-    set_v(input.v);
+    pd_set_x(input.x);
+    pd_set_y(input.y);
+    pd_set_h(input.h);
+    pd_set_v(input.v);
 
     EXPECT_MOUSE_REPORT(driver, (expectations.x, expectations.y, expectations.h, expectations.v, 0));
     run_one_scan_loop();
 
     // EXPECT_EMPTY_MOUSE_REPORT(driver);
-    clear_movement();
+    pd_clear_movement();
     run_one_scan_loop();
 
     EXPECT_NO_MOUSE_REPORT(driver);
@@ -42,12 +42,12 @@ TEST_P(PointingInvertXYParametrizedTestFixture, PointingMouseKeysViaPointingDriv
 }
 // clang-format off
 INSTANTIATE_TEST_CASE_P(
-    PointingInvertXYTests,
-    PointingInvertXYParametrizedTestFixture,
+    X_Y_XY,
+    PointingInvertXYParametrized,
     ::testing::Values(
         //                      Input                       Expected
-        std::make_pair(SimpleReport{ 33, 0, 0, 0}, SimpleReport{ -33, 0, 0, 0}),
-        std::make_pair(SimpleReport{  0, -127, 0, 0}, SimpleReport{ 0, 127, 0, 0}),
-        std::make_pair(SimpleReport{  10, -20, 0, 0}, SimpleReport{ -10, 20, 0, 0})
+        std::make_pair(SimpleReport{ 33,    0, 0, 0}, SimpleReport{ -33,   0, 0, 0}),
+        std::make_pair(SimpleReport{  0, -127, 0, 0}, SimpleReport{   0, 127, 0, 0}),
+        std::make_pair(SimpleReport{  10, -20, 0, 0}, SimpleReport{ -10,  20, 0, 0})
         ));
 // clang-format on

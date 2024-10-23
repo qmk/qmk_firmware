@@ -7,23 +7,25 @@
 extern "C" {
 #endif
 
-void press_button(uint8_t btn);
-void release_button(uint8_t btn);
-void clear_all_buttons(void);
+void pd_press_button(uint8_t btn);
+void pd_release_button(uint8_t btn);
+void pd_clear_all_buttons(void);
 
-void set_x(int16_t x);
+void pd_set_x(int16_t x);
 void clear_x(void);
 
-void set_y(int16_t y);
-void clear_y(void);
+void pd_set_y(int16_t y);
+void pd_clear_y(void);
 
-void set_h(int16_t h);
-void clear_h(void);
+void pd_set_h(int16_t h);
+void pd_clear_h(void);
 
-void set_v(int16_t v);
-void clear_v(void);
+void pd_set_v(int16_t v);
+void pd_clear_v(void);
 
-void clear_movement(void);
+void pd_clear_movement(void);
+
+void pd_set_init(bool success);
 
 #ifdef __cplusplus
 }
