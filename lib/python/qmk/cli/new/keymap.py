@@ -1,5 +1,6 @@
 """This script automates the copying of the default keymap into your own keymap.
 """
+import re
 import shutil
 
 from milc import cli
@@ -11,6 +12,13 @@ from qmk.git import git_get_username
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.userspace import UserspaceDefs
+
+
+def validate_keymap_name(name):
+    """Returns True if the given keymap name contains only a-z, 0-9 and underscore characters.
+    """
+    regex = re.compile(r'^[a-zA-Z0-9][a-zA-Z0-9_]+$')
+    return bool(regex.match(name))
 
 
 def prompt_keyboard():
@@ -58,6 +66,10 @@ def new_keymap(cli):
 
     if not keymap_path_default.exists():
         cli.log.error(f'Default keymap {{fg_cyan}}{keymap_path_default}{{fg_reset}} does not exist!')
+        return False
+
+    if not validate_keymap_name(user_name):
+        cli.log.error('Keymap names must contain only {fg_cyan}a-z{fg_reset}, {fg_cyan}0-9{fg_reset} and {fg_cyan}_{fg_reset}! Please choose a different name.')
         return False
 
     if keymap_path_new.exists():
