@@ -4,7 +4,7 @@
     "features": {
         "bootmagic": true,
         "command": false,
-        "console": false,
+        "console": true,
         "dynamic_tapping_term": true,
         "encoder": false,
         "extrakey": true,
@@ -15,8 +15,8 @@
         "wpm": false
     },
     "matrix_pins": {
-        "rows": ["GP5","GP26","GP27","GP28","GP29"],
-        "cols": ["GP0","GP1" ,"GP2" ,"GP3" , "GP4"]
+        "cols": ["GP5","GP26","GP27","GP28","GP29"],
+        "rows": ["GP4","GP3" ,"GP2" ,"GP1", "GP0"]
     },
     "diode_direction": "ROW2COL",
     "processor": "RP2040",
