@@ -22,6 +22,7 @@ void keyboard_pre_init_kb(void) {
     gpio_set_pin_output(LAYER_3);
     gpio_set_pin_output(LAYER_4);
     gpio_set_pin_output(LAYER_5);
+    rgblight_set_effect_range(0, 16);
     keyboard_pre_init_user();
 }
 
