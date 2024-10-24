@@ -193,6 +193,10 @@ void host_joystick_send(joystick_t *joystick) {
             },
 #    endif
 
+#    ifdef JOYSTICK_HAS_HAT
+        .hat = joystick->hat,
+#    endif
+
 #    if JOYSTICK_BUTTON_COUNT > 0
         .buttons =
             {

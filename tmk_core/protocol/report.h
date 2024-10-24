@@ -246,6 +246,11 @@ typedef struct {
     joystick_axis_t axes[JOYSTICK_AXIS_COUNT];
 #endif
 
+#ifdef JOYSTICK_HAS_HAT
+    int8_t  hat : 4;
+    uint8_t reserved : 4;
+#endif
+
 #if JOYSTICK_BUTTON_COUNT > 0
     uint8_t buttons[(JOYSTICK_BUTTON_COUNT - 1) / 8 + 1];
 #endif

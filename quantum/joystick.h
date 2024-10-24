@@ -52,6 +52,16 @@
 
 #define JOYSTICK_MAX_VALUE ((1L << (JOYSTICK_AXIS_RESOLUTION - 1)) - 1)
 
+#define JOYSTICK_HAT_CENTER -1
+#define JOYSTICK_HAT_NORTH 0
+#define JOYSTICK_HAT_NORTHEAST 1
+#define JOYSTICK_HAT_EAST 2
+#define JOYSTICK_HAT_SOUTHEAST 3
+#define JOYSTICK_HAT_SOUTH 4
+#define JOYSTICK_HAT_SOUTHWEST 5
+#define JOYSTICK_HAT_WEST 6
+#define JOYSTICK_HAT_NORTHWEST 7
+
 // configure on input_pin of the joystick_axes array entry to NO_PIN
 // to prevent it from being read from the ADC. This allows outputting forged axis value.
 #define JOYSTICK_AXIS_VIRTUAL \
@@ -73,7 +83,10 @@ extern joystick_config_t joystick_axes[JOYSTICK_AXIS_COUNT];
 typedef struct {
     uint8_t buttons[(JOYSTICK_BUTTON_COUNT - 1) / 8 + 1];
     int16_t axes[JOYSTICK_AXIS_COUNT];
-    bool    dirty;
+#ifdef JOYSTICK_HAS_HAT
+    int8_t hat;
+#endif
+    bool dirty;
 } joystick_t;
 
 extern joystick_t joystick_state;
@@ -128,5 +141,12 @@ void joystick_read_axes(void);
  * \param value The value to set.
  */
 void joystick_set_axis(uint8_t axis, int16_t value);
+
+/**
+ * \brief Set the position of the hat switch.
+ *
+ * \param value The hat switch position to set.
+ */
+void joystick_set_hat(int8_t value);
 
 /** \} */
