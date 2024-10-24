@@ -3,6 +3,6 @@
 
 #pragma once
 
-#define HAL_USE_I2C TRUE
-
-#include_next <halconf.h>
+#define LCD_DC_PIN GP27
+#define LCD_RST_PIN GP12
+#define BACKLIGHT_PWM_DRIVER PWMD6
