@@ -65,13 +65,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 bool oled_task_user(void) {
     // A 128x32 OLED rotated 90 degrees is 5 characters wide and 16 characters tall
     // This example string should fill that neatly
-    const char *text = PSTR("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789!@#$%^&*()[]{}-=_+?");
-
-    if (is_keyboard_master()) {
-        oled_write_P(text, true);
-    } else {
-        oled_write_P(text, false);
-    }
+    oled_write_P(PSTR("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789!@#$%^&*()[]{}-=_+?"), is_keyboard_master());
     return false;
 }
 #endif
