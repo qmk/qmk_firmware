@@ -1,4 +1,4 @@
- /* Copyright Spaceman 2021
+ /* Copyright Spaceboards 2021
   * 
   * This program is free software: you can redistribute it and/or modify 
   * it under the terms of the GNU General Public License as published by 
@@ -52,14 +52,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |   [  |   ]  | Vol- |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |      |      | Vol+ |      |
+ * |      |      |      |      |      |      | Play |      |      | Prev | Vol+ | Next |
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_ortho_4x12(
     KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
     _______, _______, _______, _______, _______, _______, _______, _______, KC_MINS, KC_EQL,  _______, KC_BSLS,
     _______, _______, _______, _______, _______, _______, _______, _______, KC_LBRC, KC_RBRC, KC_VOLU, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_VOLD, _______ 
+    _______, _______, _______, _______, _______, _______, KC_MPLY, _______, _______, KC_MPRV, KC_VOLD, KC_MNXT 
 ),
  
  /* FN
