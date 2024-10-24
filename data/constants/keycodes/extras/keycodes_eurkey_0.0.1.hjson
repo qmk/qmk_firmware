@@ -320,7 +320,7 @@
             "label": "¡",
         }
         "ALGR(EU_2)": {
-            "key": "EU_SUPA",
+            "key": "EU_FORD",
             "label": "ª",
         }
         "ALGR(EU_3)": {
@@ -341,7 +341,7 @@
         }
         "ALGR(EU_7)": {
             "key": "EU_RNGA",
-            "label": "º (dead)",
+            "label": "˚ (dead)",
         }
         "ALGR(EU_8)": {
             "key": "EU_DLQU",
