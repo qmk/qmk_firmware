@@ -1,2 +1,2 @@
 ENCODER_MAP_ENABLE = yes
-SRC += analog.c
+ANALOG_DRIVER_REQUIRED = yes

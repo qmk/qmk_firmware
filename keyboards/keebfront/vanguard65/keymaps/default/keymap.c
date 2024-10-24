@@ -14,10 +14,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 #include "analog.h"
-#include "string.h"
-
 uint8_t last_val = 0;
-uint8_t current_val = 0;
 extern MidiDevice midi_device;
 
 enum layers {
@@ -35,13 +32,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                    KC_RALT, MO(1),            KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
-    [_LAYER1] = LAYOUT_ansi_blocker_split_bs(
+    [_LAYER1] = LAYOUT_all(
         _______, QK_GESC, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, KC_END,
                  _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, KC_PSCR, KC_SCRL, KC_PAUS, QK_BOOT,          _______,
                  _______, RGB_SPI, RGB_SPD, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,          _______,
-                 _______,          _______, _______, _______, _______, _______, NK_TOGG, _______, _______, _______, _______, _______, KC_VOLU,
+                 _______, _______, _______, _______, _______, _______, _______, NK_TOGG, _______, _______, _______, _______, _______, KC_VOLU,
                  _______, _______, _______,                            _______,                   _______, _______,          KC_MPRV, KC_VOLD, KC_MNXT
-    ),
+    )
 };
 
 #if defined(ENCODER_MAP_ENABLE)
@@ -52,7 +49,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 #endif
 
 void slider(void) {
-    current_val = analogReadPin(SLIDER_PINA) >>3;
+    uint8_t current_val = analogReadPin(SLIDER_PINA) >>3;
 
     if ( last_val - current_val < -1 || last_val - current_val > 1 ) { 
         midi_send_cc(&midi_device, 0, 90, current_val );
