@@ -22,9 +22,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [1] = LAYOUT_65xt(
-    RGB_HUI, RGB_HUD, QK_GESC, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______,
-    RGB_SAI, RGB_SAD, RGB_TOG, RGB_MOD, _______, KC_UP,   QK_BOOT, EE_CLR,  _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    RGB_VAI, RGB_VAD, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, _______, _______, _______,          _______, _______,
+    RM_HUEU, RM_HUED, QK_GESC, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______,
+    RM_SATU, RM_SATD, RM_TOGG, RM_NEXT, _______, KC_UP,   QK_BOOT, EE_CLR,  _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    RM_VALU, RM_VALD, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, _______, _______, _______,          _______, _______,
     _______, _______, _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______, _______, _______
   ),
@@ -34,6 +34,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 	[0] = { ENCODER_CCW_CW(KC_VOLU, KC_VOLD), ENCODER_CCW_CW(KC_PGUP, KC_PGDN) },
-	[1] = { ENCODER_CCW_CW(RGB_MOD, RGB_RMOD), ENCODER_CCW_CW(KC_MNXT, KC_MPRV) },
+	[1] = { ENCODER_CCW_CW(RM_NEXT, RM_PREV), ENCODER_CCW_CW(KC_MNXT, KC_MPRV) },
 };
 #endif
