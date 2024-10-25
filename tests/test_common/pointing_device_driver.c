@@ -6,8 +6,8 @@
 #include <string.h>
 
 typedef struct {
-    bool state;
-    bool set;
+    bool pressed;
+    bool dirty;
 } pd_button_state_t;
 
 typedef struct {
@@ -28,9 +28,9 @@ void pointing_device_driver_init(void) {
 
 report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
     for (uint8_t i = 0; i < 8; i++) {
-        if (pd_config.button_state[i].set) {
-            pd_config.button_state[i].set = false;
-            if (pd_config.button_state[i].state) {
+        if (pd_config.button_state[i].dirty) {
+            pd_config.button_state[i].dirty = false;
+            if (pd_config.button_state[i].pressed) {
                 mouse_report.buttons |= 1 << (i);
             } else {
                 mouse_report.buttons &= ~(1 << (i));
@@ -53,18 +53,18 @@ __attribute__((weak)) void pointing_device_driver_set_cpi(uint16_t cpi) {
 }
 
 void pd_press_button(uint8_t btn) {
-    pd_config.button_state[btn].set   = true;
-    pd_config.button_state[btn].state = true;
+    pd_config.button_state[btn].dirty   = true;
+    pd_config.button_state[btn].pressed = true;
 }
 void pd_release_button(uint8_t btn) {
-    pd_config.button_state[btn].set   = true;
-    pd_config.button_state[btn].state = false;
+    pd_config.button_state[btn].dirty   = true;
+    pd_config.button_state[btn].pressed = false;
 }
 
 void pd_clear_all_buttons(void) {
     for (uint8_t i = 0; i < 8; i++) {
-        pd_config.button_state[i].set   = true;
-        pd_config.button_state[i].state = false;
+        pd_config.button_state[i].dirty   = true;
+        pd_config.button_state[i].pressed = false;
     }
 }
 
