@@ -21,7 +21,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * │ 0 │00 │ . │Ent│
      * └───┴───┴───┴───┘
      */
-    [0] = LAYOUT_madjax(
+    [0] = LAYOUT(
                                    KC_PMNS,
         KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
         KC_P4,   KC_P5,   KC_P6,   KC_PERC,
@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * │Ins│   │Del│Ent│
      * └───┴───┴───┘───┘
      */
-    [1] = LAYOUT_madjax(
+    [1] = LAYOUT(
                                    _______,
         KC_HOME, KC_UP,   KC_PGUP, _______,
         KC_LEFT, XXXXXXX, KC_RGHT, _______,

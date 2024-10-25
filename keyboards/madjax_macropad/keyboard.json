@@ -10,11 +10,16 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
     },
     "matrix_pins": {
         "cols": ["GP26", "GP27", "GP28", "GP29"],
         "rows": ["GP6", "GP7", "GP0", "GP4", "GP3"]
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "GP1", "pin_b": "GP2"}
+        ]
     },
     "processor": "RP2040",
     "url": "https://github.com/guidoism/madjax_macropad",
@@ -24,7 +29,7 @@
         "vid": "0xFEED"
     },
     "layouts": {
-        "LAYOUT_madjax": {
+        "LAYOUT": {
             "layout": [
                 {"matrix": [0, 3], "x": 3, "y": 0},
                 {"matrix": [1, 0], "x": 0, "y": 1},

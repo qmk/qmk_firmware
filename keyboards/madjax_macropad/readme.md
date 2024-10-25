@@ -1,7 +1,5 @@
 # MadJax Macropad
 
-*A short description of the keyboard/project*
-
 * Keyboard Maintainer: [Guido Bartolucci](https://github.com/guidoism)
 * Hardware Supported: Seeed Studio XIAO RP2040
 * Hardware Availability: https://github.com/guidoism/madjax_macropad
