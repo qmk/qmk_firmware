@@ -76,6 +76,7 @@
 #define RELEASE_DEBOUNCE 5
 #define DEFAULT_DETECT_NUMLOCK 0
 #define DEFAULT_SHOW_SOCD_INDICATOR 1
+<<<<<<< HEAD
 ||||||| parent of 945d249a2c (feat(gem80,ryodeushii): adjust settings for personal keymap)
 =======
 #undef ENABLE_RGB_MATRIX_ALPHAS_MODS
@@ -162,5 +163,4 @@
 #define DEFAULT_SHOW_SOCD_INDICATOR 1
 
 
-// dev stuff
-#define DEBUG_MATRIX_SCAN_RATE
+#define DEBUG_MATRIX_SCAN_RATE 1
