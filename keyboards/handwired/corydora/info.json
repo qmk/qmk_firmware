@@ -12,16 +12,6 @@
         "mousekey": true,
         "nkro": true
     },
-    "encoder": {
-        "enabled": true,
-        "rotary": [
-            {"pin_a": "GP4", "pin_b": "GP5"}
-        ]
-    },
-    "dip_switch" : {
-        "enabled": true,
-        "pins": ["GP6"]
-    },
     "matrix_pins": {
         "rows": ["GP14", "GP15", "GP26"],
         "cols": ["GP29", "GP28", "GP27"]
