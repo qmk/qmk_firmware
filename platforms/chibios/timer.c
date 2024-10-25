@@ -78,7 +78,7 @@ uint16_t timer_read(void) {
 }
 
 uint32_t timer_read32(void) {
-    syssts_t sts = chSysGetStatusAndLockX();
+    syssts_t sts   = chSysGetStatusAndLockX();
     uint32_t ticks = get_system_time_ticks() - ticks_offset;
     if (ticks < last_ticks) {
         // The 32-bit tick counter overflowed and wrapped around.  We cannot just extend the counter to 64 bits here,
