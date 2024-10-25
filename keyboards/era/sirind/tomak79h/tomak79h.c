@@ -8,15 +8,9 @@ bool rgb_matrix_indicators_kb(void) {
          return false;
     }
     if (host_keyboard_led_state().caps_lock) {
-        rgb_matrix_set_color(87, 0, 128, 128);
-        rgb_matrix_set_color(88, 0, 128, 128);
-        rgb_matrix_set_color(89, 0, 128, 128);
-        rgb_matrix_set_color(90, 0, 128, 128);
-        rgb_matrix_set_color(91, 0, 128, 128);
-        rgb_matrix_set_color(92, 0, 128, 128);
-        rgb_matrix_set_color(93, 0, 128, 128);
-        rgb_matrix_set_color(94, 0, 128, 128);
-        rgb_matrix_set_color(95, 0, 128, 128);
+        for (uint8_t i = 87; i <= 95; i++) {
+            rgb_matrix_set_color(i, 0, 128, 128);
+        }
     }
     return true;
 }
