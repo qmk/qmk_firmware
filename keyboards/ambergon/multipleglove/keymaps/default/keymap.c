@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_I  ,   KC_J  ,   KC_K  ,   KC_L  ,
         KC_NO ,   KC_NO ,   KC_NO ,   KC_NO ,
         KC_Q  ,   KC_R
-    ),
+    )
 };
 
 
@@ -128,8 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // rules.mkで有効化された関数
 // ここで各ロータリーエンコーダの挙動を指定する。
 #if defined(ENCODER_MAP_ENABLE)
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-/* const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = { */
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     // レイヤー数
     // エンコーダー数
     // 配列の先頭のエンコーダから指定する。
@@ -149,7 +148,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [12] = { ENCODER_CCW_CW( KC_P , KC_Q ) , ENCODER_CCW_CW( KC_R , KC_S ) , ENCODER_CCW_CW( KC_T , KC_U ) },
     [13] = { ENCODER_CCW_CW( KC_P , KC_Q ) , ENCODER_CCW_CW( KC_R , KC_S ) , ENCODER_CCW_CW( KC_T , KC_U ) },
     [14] = { ENCODER_CCW_CW( KC_P , KC_Q ) , ENCODER_CCW_CW( KC_R , KC_S ) , ENCODER_CCW_CW( KC_T , KC_U ) },
-    [15] = { ENCODER_CCW_CW( KC_P , KC_Q ) , ENCODER_CCW_CW( KC_R , KC_S ) , ENCODER_CCW_CW( KC_T , KC_U ) },
+    [15] = { ENCODER_CCW_CW( KC_P , KC_Q ) , ENCODER_CCW_CW( KC_R , KC_S ) , ENCODER_CCW_CW( KC_T , KC_U ) }
 };
 #endif
 
