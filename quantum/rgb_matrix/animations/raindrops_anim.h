@@ -28,6 +28,7 @@ bool RAINDROPS(effect_params_t* params) {
         }
     } else {
         for (int i = led_min; i < led_max; i++) {
+            RGB_MATRIX_TEST_LED_FLAGS();
             raindrops_set_color(i, params);
         }
     }
