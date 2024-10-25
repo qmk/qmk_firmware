@@ -13,6 +13,7 @@
         ]
     },
     "features": {
+        "bootmagic": true,
         "extrakey": true,
         "midi": true,
         "rgblight": true,
