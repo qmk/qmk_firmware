@@ -27,27 +27,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_P4,   KC_P5,   KC_P6,   KC_PERC,
         KC_P1,   KC_P2,   KC_P3,   KC_EQL,
         KC_P0,   KC_P00,  KC_PDOT, KC_PENT
-    ),
-
-    /*
-     *             ┌───┐
-     *             │ - │
-     * ┌───┬───┬───┼───┤
-     * │Hom│ ↑ │PgU│ + │
-     * ├───┼───┼───┤───┤
-     * │ ← │   │ → │ % │
-     * ├───┼───┼───┤───┤
-     * │End│ ↓ │PgD│ = │
-     * ├───┼───┼───┤───┤
-     * │Ins│   │Del│Ent│
-     * └───┴───┴───┘───┘
-     */
-    [1] = LAYOUT(
-                                   _______,
-        KC_HOME, KC_UP,   KC_PGUP, _______,
-        KC_LEFT, XXXXXXX, KC_RGHT, _______,
-        KC_END,  KC_DOWN, KC_PGDN, _______,
-        KC_INS,  XXXXXXX, KC_DEL,  _______
     )
 };
 
@@ -65,7 +44,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [0] = { ENCODER_CCW_CW(KC_PGUP, KC_PGDN)  },
-    [1] = { ENCODER_CCW_CW(KC_PGUP, KC_PGDN)  },
+    [0] = { ENCODER_CCW_CW(KC_PGUP, KC_PGDN)  }
 };
 #endif
