@@ -1,15 +1,12 @@
 //  Copyright 2023 NaturalZh (@NaturalZh)
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "quantum.h"
+#include "led_hc595.h"
 
-#define HC595_ST_PIN B1  //74HC595 storage register clock input
-#define HC595_SH_PIN B0  //74HC595 shift register clock input
-#define HC595_DS B3   // 74HC595 serial data input
-#include "led_hc595.c"
 uint8_t IND = 0;  //buffer of LED Display
 
 int FN_ON = 0;
-_Bool WIN_LOCK = 0;
+bool WIN_LOCK = 0;
 
 #if defined(RGB_MATRIX_ENABLE)  /*&& defined(CAPS_LOCK_INDEX)*/
 const aw20216s_led_t PROGMEM g_aw20216s_leds[AW20216S_LED_COUNT] = {
