@@ -1,3 +1,1 @@
-ifeq ($(strip $(VIA_ENABLE)), yes)
-    SRC += keyboards/cipulot/common/via_ec.c
-endif
+include keyboards/cipulot/common/post_rules.mk
