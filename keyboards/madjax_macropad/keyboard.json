@@ -11,7 +11,7 @@
         "encoder": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
+        "nkro": true
     },
     "matrix_pins": {
         "cols": ["GP26", "GP27", "GP28", "GP29"],
