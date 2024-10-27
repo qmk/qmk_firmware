@@ -82,3 +82,7 @@ void     ec_print_matrix(void);
 
 uint16_t rescale(uint16_t x, uint16_t in_min, uint16_t in_max, uint16_t out_min, uint16_t out_max);
 bool indicators_callback(void);
+
+#ifdef UNUSED_POSITIONS_LIST
+bool is_unused_position(uint8_t row, uint8_t col);
+#endif
