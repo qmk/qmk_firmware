@@ -1,6 +1,6 @@
 # macroflow_original
 
-<blockquote class="imgur-embed-pub" lang="en" data-id="a/lA0W1GW"><a href="//imgur.com/lA0W1GW">Macroflow Original White</a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+![macroflow_original](https://imgur.com/a/lA0W1GW)
 
 *A 2x4 macropad with a built in encoder and OLED screen*
 
