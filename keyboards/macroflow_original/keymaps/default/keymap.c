@@ -1,5 +1,7 @@
-#include QMK_KEYBOARD_H
+// Copyright 2024 Patrick Mathern (@Patrickemm)
+// SPDX-License-Identifier: GPL-2.0-or-later
 
+#include QMK_KEYBOARD_H
 
 // Define the keycode, `QK_USER` avoids collisions with existing keycodes
 enum keycodes {
