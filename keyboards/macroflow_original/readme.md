@@ -1,7 +1,6 @@
 # macroflow_original
 
-![macroflow_original](https://imgur.com/a/lA0W1GW)
-i.imgur.com/macroflow-original-white-lA0W1GW?third_party=1.png
+![Imgur](https://i.imgur.com/kDNVTI4l.jpeg)
 
 *A 2x4 macropad with a built in encoder and OLED screen*
 
