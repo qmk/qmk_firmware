@@ -1,0 +1,19 @@
+# QMK specific
+.qmk_firmware/
+*.hex
+*.bin
+
+# Build directories
+.build/
+build/
+
+# IDE specific
+.vscode/
+.idea/
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Local configuration
+config.local.h
