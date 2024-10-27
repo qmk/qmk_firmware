@@ -14,7 +14,7 @@ def _get_subcommand_name():
     """
     try:
         return cli.subcommand_name
-    except:
+    except AttributeError:
         return cli._subcommand.__name__
 
 
