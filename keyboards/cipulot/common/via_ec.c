@@ -396,7 +396,7 @@ void ec_clear_bottoming_calibration_data(void) {
 
 #    ifdef SPLIT_KEYBOARD
 void via_cmd_slave_handler(uint8_t m2s_size, const void *m2s_buffer, uint8_t s2m_size, void *s2m_buffer) {
-    if (m2s_size == 30) {
+    if (m2s_size == (RAW_EPSIZE-2)) {
         via_config_set_value((uint8_t *)m2s_buffer);
     } else {
         uprintf("Unexpected response in slave handler\n");
