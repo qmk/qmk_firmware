@@ -25,6 +25,12 @@
         "command": true,
         "nkro": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "community_layouts": ["65_ansi_blocker"],
     "layouts": {
         "LAYOUT_65_ansi_blocker": {

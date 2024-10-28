@@ -24,7 +24,11 @@
     },
     "processor": "RP2040",
     "qmk": {
-        "tap_keycode_delay": 10
+        "tap_keycode_delay": 10,
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     },
     "url": "https://qmk.fm/keyboards",
     "usb": {

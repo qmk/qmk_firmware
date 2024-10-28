@@ -15,12 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-  QMKBEST = SAFE_RANGE,
-  QMKURL
-};
-
 //R1:7 + 8 = 15
 //R2:7 + 8 = 15
 //R3:6 + 7 = 13
@@ -52,28 +46,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 			KC_LCTL,KC_LGUI,KC_LALT,KC_INT5,KC_BSPC,KC_SPC,  KC_ENT,KC_ESC,KC_INT4,KC_RALT,KC_RGUI,KC_RCTL
 			),
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case QMKBEST:
-      if (record->event.pressed) {
-        // when keycode QMKBEST is pressed
-        SEND_STRING("QMK is the best thing ever!");
-      } else {
-        // when keycode QMKBEST is released
-      }
-      break;
-    case QMKURL:
-      if (record->event.pressed) {
-        // when keycode QMKURL is pressed
-        SEND_STRING("https://qmk.fm/" SS_TAP(X_ENTER));
-      } else {
-        // when keycode QMKURL is released
-      }
-      break;
-  }
-  return true;
-}
 
 layer_state_t layer_state_set_user(layer_state_t state)
 {

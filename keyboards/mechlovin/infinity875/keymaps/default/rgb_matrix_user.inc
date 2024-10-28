@@ -59,7 +59,7 @@ bool effect_runner_all(effect_params_t* params, i_f effect_func) {
     uint8_t time = scale16by8(g_rgb_timer, qadd8(rgb_matrix_config.speed / 4, 1));
     for (uint8_t i = led_min; i < led_max; i++) {
         RGB_MATRIX_TEST_LED_FLAGS();
-        RGB rgb = rgb_matrix_hsv_to_rgb(effect_func(rgb_matrix_config.hsv, i, time));
+        rgb_t rgb = rgb_matrix_hsv_to_rgb(effect_func(rgb_matrix_config.hsv, i, time));
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
     return led_max < RGB_MATRIX_LED_COUNT;
@@ -71,7 +71,7 @@ bool effect_runner_esc(effect_params_t* params, i_f effect_func) {
     uint8_t time = scale16by8(g_rgb_timer, qadd8(rgb_matrix_config.speed / 4, 1));
     for (uint8_t i = led_min; i < led_max; i++) {
         RGB_MATRIX_TEST_LED_FLAGS();
-        RGB rgb = rgb_matrix_hsv_to_rgb(effect_func(rgb_matrix_config.hsv, i, time));
+        rgb_t rgb = rgb_matrix_hsv_to_rgb(effect_func(rgb_matrix_config.hsv, i, time));
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
     for (uint8_t i = 1; i < 18; i++) {
@@ -85,7 +85,7 @@ bool effect_runner_f13(effect_params_t* params, i_f effect_func) {
     uint8_t time = scale16by8(g_rgb_timer, qadd8(rgb_matrix_config.speed / 4, 1));
     for (uint8_t i = led_min; i < led_max; i++) {
         RGB_MATRIX_TEST_LED_FLAGS();
-        RGB rgb = rgb_matrix_hsv_to_rgb(effect_func(rgb_matrix_config.hsv, i, time));
+        rgb_t rgb = rgb_matrix_hsv_to_rgb(effect_func(rgb_matrix_config.hsv, i, time));
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
         rgb_matrix_set_color(15, 0x00, 0x00, 0x00);
         rgb_matrix_set_color(16, 0x00, 0x00, 0x00);
@@ -103,7 +103,7 @@ bool effect_runner_clus(effect_params_t* params, i_f effect_func) {
     uint8_t time = scale16by8(g_rgb_timer, qadd8(rgb_matrix_config.speed / 4, 1));
     for (uint8_t i = led_min; i < led_max; i++) {
         RGB_MATRIX_TEST_LED_FLAGS();
-        RGB rgb = rgb_matrix_hsv_to_rgb(effect_func(rgb_matrix_config.hsv, i, time));
+        rgb_t rgb = rgb_matrix_hsv_to_rgb(effect_func(rgb_matrix_config.hsv, i, time));
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
     for (uint8_t i = 0; i < 15; i++) {
@@ -120,7 +120,7 @@ bool effect_runner_dx_dy_all(effect_params_t* params, dx_dy_f effect_func) {
         RGB_MATRIX_TEST_LED_FLAGS();
         int16_t dx  = g_led_config.point[i].x - k_rgb_matrix_center.x;
         int16_t dy  = g_led_config.point[i].y - k_rgb_matrix_center.y;
-        RGB     rgb = rgb_matrix_hsv_to_rgb(effect_func(rgb_matrix_config.hsv, dx, dy, time));
+        rgb_t   rgb = rgb_matrix_hsv_to_rgb(effect_func(rgb_matrix_config.hsv, dx, dy, time));
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
     return led_max < RGB_MATRIX_LED_COUNT;
@@ -134,7 +134,7 @@ bool effect_runner_dx_dy_esc(effect_params_t* params, dx_dy_f effect_func) {
         RGB_MATRIX_TEST_LED_FLAGS();
         int16_t dx  = g_led_config.point[i].x - k_rgb_matrix_center.x;
         int16_t dy  = g_led_config.point[i].y - k_rgb_matrix_center.y;
-        RGB     rgb = rgb_matrix_hsv_to_rgb(effect_func(rgb_matrix_config.hsv, dx, dy, time));
+        rgb_t   rgb = rgb_matrix_hsv_to_rgb(effect_func(rgb_matrix_config.hsv, dx, dy, time));
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
     for (uint8_t i = 1; i < 18; i++) {
@@ -151,7 +151,7 @@ bool effect_runner_dx_dy_f13(effect_params_t* params, dx_dy_f effect_func) {
         RGB_MATRIX_TEST_LED_FLAGS();
         int16_t dx  = g_led_config.point[i].x - k_rgb_matrix_center.x;
         int16_t dy  = g_led_config.point[i].y - k_rgb_matrix_center.y;
-        RGB     rgb = rgb_matrix_hsv_to_rgb(effect_func(rgb_matrix_config.hsv, dx, dy, time));
+        rgb_t   rgb = rgb_matrix_hsv_to_rgb(effect_func(rgb_matrix_config.hsv, dx, dy, time));
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
         rgb_matrix_set_color(15, 0x00, 0x00, 0x00);
         rgb_matrix_set_color(16, 0x00, 0x00, 0x00);
@@ -171,7 +171,7 @@ bool effect_runner_dx_dy_clus(effect_params_t* params, dx_dy_f effect_func) {
         RGB_MATRIX_TEST_LED_FLAGS();
         int16_t dx  = g_led_config.point[i].x - k_rgb_matrix_center.x;
         int16_t dy  = g_led_config.point[i].y - k_rgb_matrix_center.y;
-        RGB     rgb = rgb_matrix_hsv_to_rgb(effect_func(rgb_matrix_config.hsv, dx, dy, time));
+        rgb_t   rgb = rgb_matrix_hsv_to_rgb(effect_func(rgb_matrix_config.hsv, dx, dy, time));
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
     for (uint8_t i = 0; i < 15; i++) {
@@ -188,7 +188,7 @@ bool effect_runner_sin_cos_all(effect_params_t* params, sin_cos_i_f effect_func)
     int8_t   sin_value = sin8(time) - 128;
     for (uint8_t i = led_min; i < led_max; i++) {
         RGB_MATRIX_TEST_LED_FLAGS();
-        RGB rgb = rgb_matrix_hsv_to_rgb(effect_func(rgb_matrix_config.hsv, cos_value, sin_value, i, time));
+        rgb_t rgb = rgb_matrix_hsv_to_rgb(effect_func(rgb_matrix_config.hsv, cos_value, sin_value, i, time));
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
     return led_max < RGB_MATRIX_LED_COUNT;
@@ -202,7 +202,7 @@ bool effect_runner_sin_cos_esc(effect_params_t* params, sin_cos_i_f effect_func)
     int8_t   sin_value = sin8(time) - 128;
     for (uint8_t i = led_min; i < led_max; i++) {
         RGB_MATRIX_TEST_LED_FLAGS();
-        RGB rgb = rgb_matrix_hsv_to_rgb(effect_func(rgb_matrix_config.hsv, cos_value, sin_value, i, time));
+        rgb_t rgb = rgb_matrix_hsv_to_rgb(effect_func(rgb_matrix_config.hsv, cos_value, sin_value, i, time));
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
     for (uint8_t i = 1; i < 18; i++) {
@@ -219,7 +219,7 @@ bool effect_runner_sin_cos_f13(effect_params_t* params, sin_cos_i_f effect_func)
     int8_t   sin_value = sin8(time) - 128;
     for (uint8_t i = led_min; i < led_max; i++) {
         RGB_MATRIX_TEST_LED_FLAGS();
-        RGB rgb = rgb_matrix_hsv_to_rgb(effect_func(rgb_matrix_config.hsv, cos_value, sin_value, i, time));
+        rgb_t rgb = rgb_matrix_hsv_to_rgb(effect_func(rgb_matrix_config.hsv, cos_value, sin_value, i, time));
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
         rgb_matrix_set_color(15, 0x00, 0x00, 0x00);
         rgb_matrix_set_color(16, 0x00, 0x00, 0x00);
@@ -239,7 +239,7 @@ bool effect_runner_sin_cos_clus(effect_params_t* params, sin_cos_i_f effect_func
     int8_t   sin_value = sin8(time) - 128;
     for (uint8_t i = led_min; i < led_max; i++) {
         RGB_MATRIX_TEST_LED_FLAGS();
-        RGB rgb = rgb_matrix_hsv_to_rgb(effect_func(rgb_matrix_config.hsv, cos_value, sin_value, i, time));
+        rgb_t rgb = rgb_matrix_hsv_to_rgb(effect_func(rgb_matrix_config.hsv, cos_value, sin_value, i, time));
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
     for (uint8_t i = 0; i < 15; i++) {
@@ -250,7 +250,7 @@ bool effect_runner_sin_cos_clus(effect_params_t* params, sin_cos_i_f effect_func
 
 static void raindrops_set_color_all(int i, effect_params_t* params) {
     if (!HAS_ANY_FLAGS(g_led_config.flags[i], params->flags)) return;
-    HSV hsv = {0, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v};
+    hsv_t hsv = {0, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v};
 
     // Take the shortest path between hues
     int16_t deltaH = ((rgb_matrix_config.hsv.h + 180) % 360 - rgb_matrix_config.hsv.h) / 4;
@@ -260,14 +260,14 @@ static void raindrops_set_color_all(int i, effect_params_t* params) {
         deltaH += 256;
     }
 
-    hsv.h   = rgb_matrix_config.hsv.h + (deltaH * (rand() & 0x03));
-    RGB rgb = rgb_matrix_hsv_to_rgb(hsv);
+    hsv.h     = rgb_matrix_config.hsv.h + (deltaH * (rand() & 0x03));
+    rgb_t rgb = rgb_matrix_hsv_to_rgb(hsv);
     rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
 }
 
 static void raindrops_set_color_esc(int i, effect_params_t* params) {
     if (!HAS_ANY_FLAGS(g_led_config.flags[i], params->flags)) return;
-    HSV hsv = {0, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v};
+    hsv_t hsv = {0, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v};
 
     // Take the shortest path between hues
     int16_t deltaH = ((rgb_matrix_config.hsv.h + 180) % 360 - rgb_matrix_config.hsv.h) / 4;
@@ -277,8 +277,8 @@ static void raindrops_set_color_esc(int i, effect_params_t* params) {
         deltaH += 256;
     }
 
-    hsv.h   = rgb_matrix_config.hsv.h + (deltaH * (rand() & 0x03));
-    RGB rgb = rgb_matrix_hsv_to_rgb(hsv);
+    hsv.h     = rgb_matrix_config.hsv.h + (deltaH * (rand() & 0x03));
+    rgb_t rgb = rgb_matrix_hsv_to_rgb(hsv);
     rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     for (uint8_t i = 1; i < 18; i++) {
         rgb_matrix_set_color(i, 0x00, 0x00, 0x00);
@@ -287,7 +287,7 @@ static void raindrops_set_color_esc(int i, effect_params_t* params) {
 
 static void raindrops_set_color_f13(int i, effect_params_t* params) {
     if (!HAS_ANY_FLAGS(g_led_config.flags[i], params->flags)) return;
-    HSV hsv = {0, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v};
+    hsv_t hsv = {0, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v};
 
     // Take the shortest path between hues
     int16_t deltaH = ((rgb_matrix_config.hsv.h + 180) % 360 - rgb_matrix_config.hsv.h) / 4;
@@ -297,8 +297,8 @@ static void raindrops_set_color_f13(int i, effect_params_t* params) {
         deltaH += 256;
     }
 
-    hsv.h   = rgb_matrix_config.hsv.h + (deltaH * (rand() & 0x03));
-    RGB rgb = rgb_matrix_hsv_to_rgb(hsv);
+    hsv.h     = rgb_matrix_config.hsv.h + (deltaH * (rand() & 0x03));
+    rgb_t rgb = rgb_matrix_hsv_to_rgb(hsv);
     rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
         rgb_matrix_set_color(15, 0x00, 0x00, 0x00);
         rgb_matrix_set_color(16, 0x00, 0x00, 0x00);
@@ -310,7 +310,7 @@ static void raindrops_set_color_f13(int i, effect_params_t* params) {
 
 static void raindrops_set_color_clus(int i, effect_params_t* params) {
     if (!HAS_ANY_FLAGS(g_led_config.flags[i], params->flags)) return;
-    HSV hsv = {0, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v};
+    hsv_t hsv = {0, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v};
 
     // Take the shortest path between hues
     int16_t deltaH = ((rgb_matrix_config.hsv.h + 180) % 360 - rgb_matrix_config.hsv.h) / 4;
@@ -320,43 +320,43 @@ static void raindrops_set_color_clus(int i, effect_params_t* params) {
         deltaH += 256;
     }
 
-    hsv.h   = rgb_matrix_config.hsv.h + (deltaH * (rand() & 0x03));
-    RGB rgb = rgb_matrix_hsv_to_rgb(hsv);
+    hsv.h     = rgb_matrix_config.hsv.h + (deltaH * (rand() & 0x03));
+    rgb_t rgb = rgb_matrix_hsv_to_rgb(hsv);
     rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     for (uint8_t i = 0; i < 15; i++) {
         rgb_matrix_set_color(i, 0x00, 0x00, 0x00);
     }
 }
 
-static HSV BAND_VAL_CUSTOM(HSV hsv, uint8_t i, uint8_t time) {
+static hsv_t BAND_VAL_CUSTOM(hsv_t hsv, uint8_t i, uint8_t time) {
     int16_t v = hsv.v - abs(scale8(g_led_config.point[i].x, 228) + 28 - time) * 8;
     hsv.v     = scale8(v < 0 ? 0 : v, hsv.v);
     return hsv;
 }
 
-static HSV CYCLE_UP_DOWN_CUSTOM(HSV hsv, uint8_t i, uint8_t time) {
+static hsv_t CYCLE_UP_DOWN_CUSTOM(hsv_t hsv, uint8_t i, uint8_t time) {
         hsv.h = g_led_config.point[i].y - time;
     return hsv;
 }
 
-static HSV CYCLE_OUT_IN_DUAL_CUSTOM(HSV hsv, int16_t dx, int16_t dy, uint8_t time) {
+static hsv_t CYCLE_OUT_IN_DUAL_CUSTOM(hsv_t hsv, int16_t dx, int16_t dy, uint8_t time) {
     dx           = (k_rgb_matrix_center.x / 2) - abs8(dx);
     uint8_t dist = sqrt16(dx * dx + dy * dy);
     hsv.h        = 3 * dist + time;
     return hsv;
 }
 
-static HSV RAINBOW_MOVING_CHEVRON_CUSTOM(HSV hsv, uint8_t i, uint8_t time) {
+static hsv_t RAINBOW_MOVING_CHEVRON_CUSTOM(hsv_t hsv, uint8_t i, uint8_t time) {
     hsv.h += abs8(g_led_config.point[i].y - k_rgb_matrix_center.y) + (g_led_config.point[i].x - time);
     return hsv;
 }
 
-static HSV CYCLE_PINWHEEL_CUSTOM(HSV hsv, int16_t dx, int16_t dy, uint8_t time) {
+static hsv_t CYCLE_PINWHEEL_CUSTOM(hsv_t hsv, int16_t dx, int16_t dy, uint8_t time) {
     hsv.h = atan2_8(dy, dx) + time;
     return hsv;
 }
 
-static HSV RAINBOW_BEACON_CUSTOM(HSV hsv, int8_t sin, int8_t cos, uint8_t i, uint8_t time) {
+static hsv_t RAINBOW_BEACON_CUSTOM(hsv_t hsv, int8_t sin, int8_t cos, uint8_t i, uint8_t time) {
     hsv.h += ((g_led_config.point[i].y - k_rgb_matrix_center.y) * 2 * cos + (g_led_config.point[i].x - k_rgb_matrix_center.x) * 2 * sin) / 128;
     return hsv;
 }
@@ -365,8 +365,8 @@ static HSV RAINBOW_BEACON_CUSTOM(HSV hsv, int8_t sin, int8_t cos, uint8_t i, uin
 
 // Solid ESC
 static bool solid_esc(effect_params_t* params) {
-    HSV hsv = rgb_matrix_config.hsv;
-    RGB rgb = hsv_to_rgb(hsv);
+    hsv_t hsv = rgb_matrix_config.hsv;
+    rgb_t rgb = hsv_to_rgb(hsv);
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
     for (uint8_t i = led_min ; i < led_max; i++) {
         rgb_matrix_set_color(i, 0x00, 0x00, 0x00);
@@ -380,8 +380,8 @@ static bool solid_esc(effect_params_t* params) {
 
 // Solid F13
 static bool solid_f13(effect_params_t* params) {
-    HSV hsv = rgb_matrix_config.hsv;
-    RGB rgb = hsv_to_rgb(hsv);
+    hsv_t hsv = rgb_matrix_config.hsv;
+    rgb_t rgb = hsv_to_rgb(hsv);
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
     for (uint8_t i = led_min ; i < led_max; i++) {
         rgb_matrix_set_color(i, 0x00, 0x00, 0x00);
@@ -395,8 +395,8 @@ static bool solid_f13(effect_params_t* params) {
 
 // Solid cluster
 static bool solid_clus(effect_params_t* params) {
-    HSV hsv = rgb_matrix_config.hsv;
-    RGB rgb = hsv_to_rgb(hsv);
+    hsv_t hsv = rgb_matrix_config.hsv;
+    rgb_t rgb = hsv_to_rgb(hsv);
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
     for (uint8_t i = led_min ; i < led_max; i++) {
         rgb_matrix_set_color(i, 0x00, 0x00, 0x00);
@@ -412,10 +412,10 @@ static bool solid_clus(effect_params_t* params) {
 bool breathing_all(effect_params_t* params) {
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
 
-    HSV      hsv  = rgb_matrix_config.hsv;
+    hsv_t    hsv  = rgb_matrix_config.hsv;
     uint16_t time = scale16by8(g_rgb_timer, rgb_matrix_config.speed / 8);
     hsv.v         = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
-    RGB rgb       = rgb_matrix_hsv_to_rgb(hsv);
+    rgb_t rgb     = rgb_matrix_hsv_to_rgb(hsv);
     for (uint8_t i = led_min; i < led_max; i++) {
         RGB_MATRIX_TEST_LED_FLAGS();
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
@@ -427,10 +427,10 @@ bool breathing_all(effect_params_t* params) {
 static bool breathing_esc(effect_params_t* params) {
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
 
-    HSV      hsv  = rgb_matrix_config.hsv;
+    hsv_t    hsv  = rgb_matrix_config.hsv;
     uint16_t time = scale16by8(g_rgb_timer, rgb_matrix_config.speed / 8);
     hsv.v         = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
-    RGB rgb       = rgb_matrix_hsv_to_rgb(hsv);
+    rgb_t rgb     = rgb_matrix_hsv_to_rgb(hsv);
     for (uint8_t i = led_min ; i < led_max; i++) {
         rgb_matrix_set_color(i, 0x00, 0x00, 0x00);
     }
@@ -446,10 +446,10 @@ static bool breathing_esc(effect_params_t* params) {
 static bool breathing_f13(effect_params_t* params) {
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
 
-    HSV      hsv  = rgb_matrix_config.hsv;
+    hsv_t    hsv  = rgb_matrix_config.hsv;
     uint16_t time = scale16by8(g_rgb_timer, rgb_matrix_config.speed / 8);
     hsv.v         = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
-    RGB rgb       = rgb_matrix_hsv_to_rgb(hsv);
+    rgb_t rgb     = rgb_matrix_hsv_to_rgb(hsv);
     for (uint8_t i = led_min ; i < led_max; i++) {
         rgb_matrix_set_color(i, 0x00, 0x00, 0x00);
     }
@@ -465,10 +465,10 @@ static bool breathing_f13(effect_params_t* params) {
 static bool breathing_clus(effect_params_t* params) {
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
 
-    HSV      hsv  = rgb_matrix_config.hsv;
+    hsv_t    hsv  = rgb_matrix_config.hsv;
     uint16_t time = scale16by8(g_rgb_timer, rgb_matrix_config.speed / 8);
     hsv.v         = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
-    RGB rgb       = rgb_matrix_hsv_to_rgb(hsv);
+    rgb_t rgb     = rgb_matrix_hsv_to_rgb(hsv);
     for (uint8_t i = led_min ; i < led_max; i++) {
         rgb_matrix_set_color(i, 0x00, 0x00, 0x00);
     }

@@ -13,8 +13,8 @@ jobs:
     if: github.repository == 'qmk/qmk_firmware'
 
     steps:
-    - uses: mheap/automatic-approve-action@v1
+    - uses: zvecr/automatic-approve-action@safe_files
       with:
         token: ${{ secrets.QMK_BOT_TOKEN }}
-        workflows: "format.yml,lint.yml,unit_test.yml"
-        dangerous_files: "lib/python/,Makefile,paths.mk,builddefs/"
+        workflows: "labeler.yml,lint.yml,docs.yml"
+        safe_files: "keyboards/,docs/"

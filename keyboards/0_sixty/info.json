@@ -20,6 +20,12 @@
     "build": {
         "lto": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "processor": "atmega32u4",
     "bootloader": "caterina",
     "layouts": {

@@ -15,7 +15,9 @@
     },
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D2"
+        "serial": {
+            "pin": "D2"
+        }
     },
     "rgblight": {
         "saturation_steps": 8,
@@ -33,6 +35,12 @@
         "bootmagic": false,
         "mousekey": false,
         "extrakey": false
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     },
     "layouts": {
         "LAYOUT": {

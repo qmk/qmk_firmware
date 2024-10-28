@@ -11,7 +11,7 @@ RGB_MATRIX_EFFECT(SOLID_REACTIVE_MULTICROSS)
 
 #        ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-static HSV SOLID_REACTIVE_CROSS_math(HSV hsv, int16_t dx, int16_t dy, uint8_t dist, uint16_t tick) {
+static hsv_t SOLID_REACTIVE_CROSS_math(hsv_t hsv, int16_t dx, int16_t dy, uint8_t dist, uint16_t tick) {
     uint16_t effect = tick + dist;
     dx              = dx < 0 ? dx * -1 : dx;
     dy              = dy < 0 ? dy * -1 : dy;

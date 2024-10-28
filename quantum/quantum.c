@@ -21,7 +21,7 @@
 #endif
 
 #ifdef BLUETOOTH_ENABLE
-#    include "outputselect.h"
+#    include "process_connection.h"
 #endif
 
 #ifdef GRAVE_ESC_ENABLE
@@ -56,8 +56,12 @@
 #    include "process_programmable_button.h"
 #endif
 
-#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-#    include "process_rgb.h"
+#if defined(RGB_MATRIX_ENABLE)
+#    include "process_rgb_matrix.h"
+#endif
+
+#if defined(RGBLIGHT_ENABLE)
+#    include "process_underglow.h"
 #endif
 
 #ifdef SECURE_ENABLE
@@ -246,10 +250,9 @@ uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache) {
 
 /* Get keycode, and then process pre tapping functionality */
 bool pre_process_record_quantum(keyrecord_t *record) {
-    uint16_t keycode = get_record_keycode(record, true);
-    return pre_process_record_kb(keycode, record) &&
+    return pre_process_record_kb(get_record_keycode(record, true), record) &&
 #ifdef COMBO_ENABLE
-           process_combo(keycode, record) &&
+           process_combo(get_record_keycode(record, true), record) &&
 #endif
            true;
 }
@@ -379,8 +382,11 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef GRAVE_ESC_ENABLE
             process_grave_esc(keycode, record) &&
 #endif
-#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-            process_rgb(keycode, record) &&
+#if defined(RGBLIGHT_ENABLE)
+            process_underglow(keycode, record) &&
+#endif
+#if defined(RGB_MATRIX_ENABLE)
+            process_rgb_matrix(keycode, record) &&
 #endif
 #ifdef JOYSTICK_ENABLE
             process_joystick(keycode, record) &&
@@ -393,6 +399,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
 #ifdef TRI_LAYER_ENABLE
             process_tri_layer(keycode, record) &&
+#endif
+#ifdef BLUETOOTH_ENABLE
+            process_connection(keycode, record) &&
 #endif
             true)) {
         return false;
@@ -429,17 +438,6 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef VELOCIKEY_ENABLE
             case QK_VELOCIKEY_TOGGLE:
                 velocikey_toggle();
-                return false;
-#endif
-#ifdef BLUETOOTH_ENABLE
-            case QK_OUTPUT_AUTO:
-                set_output(OUTPUT_AUTO);
-                return false;
-            case QK_OUTPUT_USB:
-                set_output(OUTPUT_USB);
-                return false;
-            case QK_OUTPUT_BLUETOOTH:
-                set_output(OUTPUT_BLUETOOTH);
                 return false;
 #endif
 #ifndef NO_ACTION_ONESHOT
@@ -486,12 +484,16 @@ bool process_record_quantum(keyrecord_t *record) {
     return process_action_kb(record);
 }
 
-void set_single_persistent_default_layer(uint8_t default_layer) {
+void set_single_default_layer(uint8_t default_layer) {
 #if defined(AUDIO_ENABLE) && defined(DEFAULT_LAYER_SONGS)
     PLAY_SONG(default_layer_songs[default_layer]);
 #endif
-    eeconfig_update_default_layer((layer_state_t)1 << default_layer);
     default_layer_set((layer_state_t)1 << default_layer);
+}
+
+void set_single_persistent_default_layer(uint8_t default_layer) {
+    eeconfig_update_default_layer((layer_state_t)1 << default_layer);
+    set_single_default_layer(default_layer);
 }
 
 //------------------------------------------------------------------------------

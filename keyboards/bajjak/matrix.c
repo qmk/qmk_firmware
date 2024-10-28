@@ -146,7 +146,7 @@ static matrix_row_t read_cols(uint8_t row) {
             // reading GPIOB (column port) since in mcp23018's sequential mode
             // it is addressed directly after writing to GPIOA in select_row()
             mcp23018_status = i2c_receive(I2C_ADDR, &data, 1, BAJJAK_EZ_I2C_TIMEOUT);
-            return data;
+            return ~data;
         }
     } else {
         /* read from teensy

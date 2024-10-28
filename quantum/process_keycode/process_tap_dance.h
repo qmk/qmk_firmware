@@ -35,7 +35,7 @@ typedef struct {
 
 typedef void (*tap_dance_user_fn_t)(tap_dance_state_t *state, void *user_data);
 
-typedef struct {
+typedef struct tap_dance_action_t {
     tap_dance_state_t state;
     struct {
         tap_dance_user_fn_t on_each_tap;
@@ -77,8 +77,6 @@ typedef struct {
 
 #define TD_INDEX(code) QK_TAP_DANCE_GET_INDEX(code)
 #define TAP_DANCE_KEYCODE(state) TD(((tap_dance_action_t *)state) - tap_dance_actions)
-
-extern tap_dance_action_t tap_dance_actions[];
 
 void reset_tap_dance(tap_dance_state_t *state);
 

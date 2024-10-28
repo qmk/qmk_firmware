@@ -51,6 +51,12 @@
         "unicode": true,
         "encoder": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "community_layouts": ["ortho_4x12", "planck_mit"],
     "layouts": {
         "LAYOUT_ortho_5x12_2x225u": {

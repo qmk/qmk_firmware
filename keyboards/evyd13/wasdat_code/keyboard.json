@@ -39,6 +39,12 @@
         "nkro": true,
         "backlight": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "community_layouts": ["fullsize_ansi", "fullsize_iso", "tkl_ansi", "tkl_iso"],
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_fullsize_iso"

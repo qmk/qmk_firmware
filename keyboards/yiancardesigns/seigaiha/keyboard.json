@@ -14,6 +14,12 @@
         "extrakey": true,
         "mousekey": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "bootmagic": {
         "matrix": [1, 0]
     },

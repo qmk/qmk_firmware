@@ -49,5 +49,11 @@
         "extrakey": true,
         "encoder": true,
         "rgblight": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     }
 }

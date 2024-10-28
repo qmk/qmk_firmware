@@ -22,6 +22,12 @@
         "oled": true,
         "wpm": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "matrix_pins": {
         "cols": ["F4", "F5", "F6", "F7", "C6", "B2", "B3", "B7", "D3", "D5", "D4", "D6", "D7", "B4"],
         "rows": ["C7", "B5", "B6", "B0", "B1", "F1"]
