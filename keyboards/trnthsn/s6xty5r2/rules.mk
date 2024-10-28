@@ -1,0 +1,1 @@
+DEFAULT_FOLDER = trnthsn/okayu/stm32f072

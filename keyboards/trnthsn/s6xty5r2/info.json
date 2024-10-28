@@ -14,7 +14,6 @@
     "manufacturer": "ThanhSon.Mech",
     "keyboard_name": "S6xty5 Rev.2",
     "maintainer": "trnthsn",
-    "bootloader": "stm32-dfu",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
@@ -52,7 +51,6 @@
     "indicators": {
         "caps_lock": "A5"
     },
-    "processor": "STM32F072",
     "url": "",
     "usb": {
         "vid": "0x5453",

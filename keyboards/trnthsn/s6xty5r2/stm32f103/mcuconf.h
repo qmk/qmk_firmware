@@ -16,7 +16,7 @@
 
 #pragma once
 
-#define HAL_USE_SPI TRUE
-#define SPI_USE_WAIT TRUE
-#define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
-#include_next <halconf.h>
+#include_next <mcuconf.h>
+
+#undef STM32_SPI_USE_SPI2
+#define STM32_SPI_USE_SPI2 TRUE
