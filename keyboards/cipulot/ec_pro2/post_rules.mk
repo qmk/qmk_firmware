@@ -1,1 +1,1 @@
-include keyboards/cipulot/common/post_rules.mk
+include keyboards/cipulot/common/common_cipulot.mk
