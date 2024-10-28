@@ -12,7 +12,7 @@ The following is the QMK Firmware for the Destop 85% keylayout -  designed by Do
 
 * Keyboard Maintainer: [NaturalZh](https://github.com/NaturalZh)
 * Hardware Supported: DestopPCB for Skyloong keylayout 85%, STM32F103C8T6
-* Hardware Availability: http://www.skyloong.com.cn  https://skyloong.vip
+* Hardware Availability: [Skyloong CN](http://www.skyloong.com.cn) & [Skyloong HK](https://skyloongtech.com)
 
 Make example for this keyboard (after setting up your build environment):
 
