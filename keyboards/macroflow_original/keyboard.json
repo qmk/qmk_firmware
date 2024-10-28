@@ -2,32 +2,31 @@
     "manufacturer": "Customacros",
     "keyboard_name": "Macroflow Original",
     "maintainer": "Patrickemm",
-    "bootloader": "caterina",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
         "encoder": true,
-        "oled": true,
-        "encodermap": true
+        "oled": true
     },
     "matrix_pins": {
         "cols": ["B1", "B3", "B2", "F7"],
         "rows": ["E6", "B4", "B5"]
     },
-    "processor": "atmega32u4",
+    "development_board": "promicro",
     "url": "https://github.com/Patrickemm",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0002",
         "vid": "0x504D"
     },
+    "dynamic_keymap": {
+        "layer_count": 8
+    },
     "layouts": {
-        "LAYOUT_macroflow_2x4": {
+        "LAYOUT": {
             "layout": [
 
                 {"matrix": [0, 0], "x": 0, "y": 0},

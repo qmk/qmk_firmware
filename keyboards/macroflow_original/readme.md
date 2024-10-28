@@ -6,7 +6,7 @@
 
 * Keyboard Maintainer: [Patrickemm](https://github.com/Patrickemm)
 * Hardware Supported: *ATmega32U4*
-* Hardware Availability: *https://www.microchip.com/en-us/product/atmega32u4*
+* Hardware Availability: *https://keeb.io/products/pro-micro-usb-c-version-5v-16mhz-arduino-compatible-atmega32u4*
 
 Make example for this keyboard (after setting up your build environment):
 
