@@ -1,12 +1,14 @@
 # takashicompany/klec_01
 
-![takashicompany/klec_01](imgur.com image replace me!)
+![takashicompany/klec_01](https://imgur.com/92257811-aa51-487b-bb8c-c491ac9b24d2)
 
-*A short description of the keyboard/project*
+46-key integrated keyboard.
+
+The layout is similar to a conventional keyboard, making it a good introduction to 40% keyboards.
 
 * Keyboard Maintainer: [takashicompany](https://github.com/takashicompany)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: PCB, Pro Micro
+* Hardware Availability: https://github.com/takashicompany/klec_01
 
 Make example for this keyboard (after setting up your build environment):
 
