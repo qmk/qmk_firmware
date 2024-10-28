@@ -98,12 +98,12 @@
 #define EU_QUES S(EU_SLSH) // ?
 #define EU_DGRV ALGR(EU_GRV)  // ` (dead)
 #define EU_IEXL ALGR(EU_1)    // ¡
-#define EU_SUPA ALGR(EU_2)    // ª
+#define EU_FORD ALGR(EU_2)    // ª
 #define EU_MORD ALGR(EU_3)    // º
 #define EU_PND  ALGR(EU_4)    // £
 #define EU_EURO ALGR(EU_5)    // €
 #define EU_DCIR ALGR(EU_6)    // ^ (dead)
-#define EU_RNGA ALGR(EU_7)    // º (dead)
+#define EU_RNGA ALGR(EU_7)    // ˚ (dead)
 #define EU_DLQU ALGR(EU_8)    // „
 #define EU_LDQU ALGR(EU_9)    // “
 #define EU_RDQU ALGR(EU_0)    // ”
@@ -139,7 +139,7 @@
 #define EU_IGRV ALGR(EU_V)    // Ì
 #define EU_IACU ALGR(EU_B)    // Í
 #define EU_NTIL ALGR(EU_N)    // Ñ
-#define EU_GRK  ALGR(EU_M)    // one shot greek letter (dead)
+#define EU_DGRK ALGR(EU_M)    // μ (dead Greek key)
 #define EU_OGRV ALGR(EU_COMM) // Ò
 #define EU_OACU ALGR(EU_DOT)  // Ó
 #define EU_IQUE ALGR(EU_SLSH) // ¿
