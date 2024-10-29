@@ -1,3 +1,6 @@
+// Copyright 2024 Patrick Mathern (@Patrickemm)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include "quantum.h"
 
 static uint16_t oled_logo_timer = 0;
