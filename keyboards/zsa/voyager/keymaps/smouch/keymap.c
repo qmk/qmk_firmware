@@ -69,7 +69,7 @@ enum custom_keycodes {
 
 // middle row
 #define LM5 TG(_NUM)
-#define LM4 LCTL_T(KC_S)
+#define LM4 LT(_SYM, KC_S)
 #define LM3 LALT_T(KC_C)
 #define LM2 LGUI_T(KC_N)
 #define LM1 LSFT_T(KC_T)
@@ -79,12 +79,12 @@ enum custom_keycodes {
 #define RM1 RSFT_T(KC_A)
 #define RM2 RGUI_T(KC_E)
 #define RM3 RALT_T(KC_I)
-#define RM4 RCTL_T(KC_H)
+#define RM4 LT(_SYM, KC_H)
 #define RM5 KC_DEL
 
 // bottom row
 #define LB5 DF(_PM)
-#define LB4 KC_F
+#define LB4 LCTL_T(KC_F)
 #define LB3 KC_P
 #define LB2 KC_L
 #define LB1 KC_D
@@ -94,14 +94,14 @@ enum custom_keycodes {
 #define RB1 KC_U
 #define RB2 KC_O
 #define RB3 KC_Y
-#define RB4 KC_B
+#define RB4 RCTL_T(KC_B)
 #define RB5 KC_BSLS
 
 // thumb row
 #define LH1 LT(_NAV, KC_R)
-#define LH0 LT(_SYM, KC_BSPC)
+#define LH0 KC_BSPC
 
-#define RH0 LT(_SYM, KC_ENT)
+#define RH0 KC_ENT
 #define RH1 LT(_NUM, KC_SPC)
 
 #define ___x___ KC_NO  // visual aid to null keys
@@ -130,10 +130,10 @@ static uint16_t keyhold_timer; // for handling Qu combo
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*  Base (alpha) Layer Hands Down Vibranuim-F
             Building for ZSA Voyager
-    ⎋   3   2@  1$   0#  4           7   6   5   9   8  Cap
+    ⎋   3   2@  1$   0#  4           7   6(  5&  9)  8  Cap
     ⇥   x   w   m    g   j           +=  .:  /   "!  '? `
-    num s⌃  c⌥  n⌘   t⇧  k           ,;  a⇧  e⌘  i⌥  h⌃ ⌦
-    tg  f   p   l    d   v      	 -   u   o   y   b  \
+    num s   c⌥  n⌘   t⇧  k           ,;  a⇧  e⌘  i⌥  h  ⌦
+    tg  f⌃  p   l    d   v      	 -   u   o   y   b⌃ \
                          r   ⌫   ⏎   ␣
   */
   [_DEF] = LAYOUT_voyager(
@@ -147,8 +147,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*  Hands Down Promethium (canonical)
     ⎋   3   2@  1$   0#  4           7   6(  5&  9)  8  Cap
     ⇥   v   w   g    m   j           +=  .:  /   "!  '? `
-    num s⌃  n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘  i⌥  c⌃ ⌦
-    tg  f   p   d    l   x      	 -   u   o   y   b  \
+    num s   n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘  i⌥  c  ⌦
+    tg  f⌃  p   d    l   x      	 -   u   o   y   b⌃ \
                          r   ⌫   ⏎   ␣
   */
   [_PM] = LAYOUT_voyager(
@@ -175,7 +175,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   */
 
- /*	BEAKL Numpad
+ /*	BEAKL-19 Numpad
 			+	/	*	=
     ⇥   -   5   2   3   :
         7   .   1   0   4       	,   ⇧   ⌘   ⌥	⌃
