@@ -1,9 +1,6 @@
 {
     "keyboard_name": "Halcyon Kyria rev4",
     "bootloader": "rp2040",
-    "build": {
-        "lto": true
-    },
     "diode_direction": "COL2ROW",
     "encoder": {
         "enabled": true,
@@ -156,8 +153,9 @@
             "driver": "vendor"
         },
         "transport": {
-            "watchdog": true,
-            "watchdog_timeout": 3000
+            "sync": {
+                "matrix_state": true
+            }
         }
     },
     "usb": {

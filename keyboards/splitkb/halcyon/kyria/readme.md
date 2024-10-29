@@ -2,6 +2,15 @@
 
 ![splitkb/halcyon/kyria](https://i.imgur.com/n7WuUs9.jpg)
 
+The Halcyon Kyria rev4 is the fourth Kyria revision and the first keyboard in our Halcyon range. Similar to Aurora, all keyboards in the series share the same feature set. The key highlights:
+
+- Halcyon keyboards come preassembled! You won't need a soldering iron.
+- You'll be able to install [VIK](https://github.com/sadekbaroudi/vik) modules.
+- It'll come fully documented, which includes the unboxing, assembly (with only a screwdriver), first installation and some advanced use cases.
+- Both the connection to the host device as well as the interconnect between the keyboard halves use USB C.
+- The controller has full ESD protection on all USB C ports, as well as all switch matrix GPIO!
+- The controller is interchangable. If part of your keyboard ever breaks, we can replace just the bits that need replacing.
+
 * Keyboard Maintainer: [splitkb.com](https://github.com/splitkb.com)
 * Hardware Availability: [splitkb.com](https://splitkb.com).
 
