@@ -347,3 +347,68 @@ def test_format_json_keymap_auto():
     result = check_subcommand('format-json', '--format', 'auto', 'lib/python/qmk/tests/minimal_keymap.json')
     check_returncode(result)
     assert result.stdout == '{\n    "keyboard": "handwired/pytest/basic",\n    "keymap": "test",\n    "layers": [\n        ["KC_A"]\n    ],\n    "layout": "LAYOUT_ortho_1x1",\n    "version": 1\n}\n'
+
+
+def test_find_exists():
+    result = check_subcommand('find', '-f', 'exists(rgb_matrix.split_count)', '-p', 'rgb_matrix.split_count')
+    check_returncode(result)
+    values = [s for s in result.stdout.splitlines() if 'rgb_matrix.split_count=' in s]
+    assert len(values) > 0
+    for s in values:
+        assert '=None' not in s
+        assert '=[' in s
+
+
+def test_find_absent():
+    result = check_subcommand('find', '-f', 'absent(rgb_matrix.split_count)', '-p', 'rgb_matrix.split_count')
+    check_returncode(result)
+    values = [s for s in result.stdout.splitlines() if 'rgb_matrix.split_count=' in s]
+    assert len(values) > 0
+    for s in values:
+        assert '=None' in s
+        assert '=[' not in s
+
+
+def test_find_length():
+    result = check_subcommand('find', '-f', 'length(matrix_pins.cols, 6)', '-p', 'matrix_pins.cols')
+    check_returncode(result)
+    values = [s for s in result.stdout.splitlines() if 'matrix_pins.cols=' in s]
+    assert len(values) > 0
+    for s in values:
+        assert s.count(',') == 5
+
+
+def test_find_contains():
+    result = check_subcommand('find', '-f', 'contains(matrix_pins.cols, B1)', '-p', 'matrix_pins.cols')
+    check_returncode(result)
+    values = [s for s in result.stdout.splitlines() if 'matrix_pins.cols=' in s]
+    assert len(values) > 0
+    for s in values:
+        assert "'B1'" in s
+
+
+def test_find_multiple_conditions():
+    # this is intended to match at least 'crkbd/rev1'
+    result = check_subcommand(
+        'find', '-f', 'exists(rgb_matrix.split_count)', '-f', 'contains(matrix_pins.cols, B1)', '-f', 'length(matrix_pins.cols, 6)', '-f', 'absent(eeprom.driver)', '-f', 'ws2812.pin=D3', '-p', 'rgb_matrix.split_count', '-p', 'matrix_pins.cols', '-p',
+        'eeprom.driver', '-p', 'ws2812.pin'
+    )
+    check_returncode(result)
+    rgb_matrix_split_count_values = [s for s in result.stdout.splitlines() if 'rgb_matrix.split_count=' in s]
+    assert len(rgb_matrix_split_count_values) > 0
+    for s in rgb_matrix_split_count_values:
+        assert '=None' not in s
+        assert '=[' in s
+    matrix_pins_cols_values = [s for s in result.stdout.splitlines() if 'matrix_pins.cols=' in s]
+    assert len(matrix_pins_cols_values) > 0
+    for s in matrix_pins_cols_values:
+        assert s.count(',') == 5
+        assert "'B1'" in s
+    eeprom_driver_values = [s for s in result.stdout.splitlines() if 'eeprom.driver=' in s]
+    assert len(eeprom_driver_values) > 0
+    for s in eeprom_driver_values:
+        assert '=None' in s
+    ws2812_pin_values = [s for s in result.stdout.splitlines() if 'ws2812.pin=' in s]
+    assert len(ws2812_pin_values) > 0
+    for s in ws2812_pin_values:
+        assert '=D3' in s
