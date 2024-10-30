@@ -3,6 +3,37 @@
 
 #include QMK_KEYBOARD_H
 
+/* Keymap for 3x4 Macropad
+ *
+ * Layer 0 (Base Layer) - Numpad layout with mute button and layer toggle:
+ * ,----------------------,
+ * |   7   |   8   |   9   |  MUTE  |
+ * |-------+-------+-------+--------|
+ * |   4   |   5   |   6   | Layer1 |
+ * |-------+-------+-------+--------|
+ * |   1   |   2   |   3   |   0   |
+ * `-----------------------^--------'
+ *
+ * Layer 1 (Function Layer) - Accessed by holding MO(1):
+ * ,----------------------,
+ * | BKSP  |   /   |   -   |  ----  |
+ * |-------+-------+-------+--------|
+ * |   =   |   *   |   +   |  ----  |
+ * |-------+-------+-------+--------|
+ * | ENTER |  ---- |  ---- |   .    |
+ * `-----------------------^--------'
+ *
+ * The base layer (0) provides standard numpad functionality with:
+ * - Numbers 0-9 in traditional numpad layout
+ * - Mute button in top right
+ * - Layer 1 momentary toggle (MO1) in middle right
+ *
+ * The function layer (1) adds:
+ * - Basic mathematical operators (+, -, *, /)
+ * - Backspace, Enter, and decimal point
+ * - Equal sign for calculations
+ * - Empty slots marked as ---- (KC_NO)
+ */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [0] = LAYOUT_ortho_3x4(
@@ -19,6 +50,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
+/*
+ * Handle rotary encoder rotation events
+ *
+ * Maps encoder rotation to volume control:
+ * - Clockwise rotation increases volume (KC_VOLU)
+ * - Counter-clockwise rotation decreases volume (KC_VOLD)
+ */
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (clockwise) {
         tap_code(KC_VOLU);
@@ -29,6 +67,14 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 
 
+/*
+ * Handle layer state changes by updating RGB matrix colors
+ *
+ * Sets RGB matrix colors based on active layer:
+ * - Layer 0: Light green (#88FB7A)
+ * - Layer 1: Red
+ * - Other layers: Red (fallback)
+ */
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
     case 0:
@@ -44,9 +90,16 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
-
+/*
+ * Initialize keyboard settings after firmware startup
+ *
+ * Performs initial setup operations:
+ * 1. Enables the RGB matrix
+ * 2. Sets initial layer state colors
+ * 3. Initializes VIA support
+ */
 void keyboard_post_init_user(void) {
-  rgb_matrix_enable();
-  layer_state_set_user(layer_state);  // This will set the initial color based on the default layer
-  via_init();
+    rgb_matrix_enable();
+    layer_state_set_user(layer_state);
+    via_init();
 }
