@@ -149,17 +149,17 @@ bool process_underglow(uint16_t keycode, keyrecord_t *record) {
             case QK_UNDERGLOW_VALUE_DOWN:
 #if defined(RGBLIGHT_ENABLE)
                 if (shifted) {
-                    rgblight_increase_hue();
+                    rgblight_increase_val();
                 } else {
-                    rgblight_decrease_hue();
+                    rgblight_decrease_val();
                 }
 #endif
 
 #if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_SHARED_KEYCODES)
                 if (shifted) {
-                    rgb_matrix_increase_hue();
+                    rgb_matrix_increase_val();
                 } else {
-                    rgb_matrix_decrease_hue();
+                    rgb_matrix_decrease_val();
                 }
 #endif
                 return false;
