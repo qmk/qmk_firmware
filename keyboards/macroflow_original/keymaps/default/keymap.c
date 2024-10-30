@@ -1,7 +1,6 @@
 // Copyright 2024 Patrick Mathern (@Patrickemm)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "quantum.h"
 #include QMK_KEYBOARD_H
 
 // Define the keycode, `QK_USER` avoids collisions with existing keycodes
@@ -99,12 +98,4 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [6] = { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)  },
     [7] = { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)  }
 };
-#endif
-
-#ifdef OLED_ENABLE
-
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    return OLED_ROTATION_180;
-  }
-
 #endif

@@ -9,7 +9,6 @@
         "mousekey": true,
         "nkro": true,
         "encoder": true,
-        "encodermap": true,
         "oled": true
     },
     "matrix_pins": {

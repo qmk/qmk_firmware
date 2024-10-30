@@ -5,8 +5,8 @@
 *A 2x4 macropad with a built in encoder and OLED screen*
 
 * Keyboard Maintainer: [Patrickemm](https://github.com/Patrickemm)
-* Hardware Supported: *ATmega32U4*
-* Hardware Availability: *https://keeb.io/products/pro-micro-usb-c-version-5v-16mhz-arduino-compatible-atmega32u4*
+* Hardware Supported: *Pro Micro compatible development board*
+* Hardware Availability: *https://www.ebay.com/usr/handycache*
 
 Make example for this keyboard (after setting up your build environment):
 
