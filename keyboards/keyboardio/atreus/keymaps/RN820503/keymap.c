@@ -36,10 +36,10 @@ enum custom_keycodes {
 /*  Base (alpha) Layer Hands Down Vibranuim-F
             Building for Atreus44
 
-    x   w   m    g   j           #$  .:  /    "!  '?
-    s⌃  c⌥  n⌘   t⇧  k           ,;  a⇧  e⌘   i⌥  h⌃
-    f   p   l    d   v	 `   \	 -+  u   o    y   b
-    ←   →  app   ⇥   r   ⌫   ⏎   ␣   ⎋  num   ↑   ↓
+    x   w   m    g   j           +=  .:  /    "!  '?
+    s2  c⌥  n⌘   t⇧  k           ,;  a⇧  e⌘   i⌥  h2
+    f⌃  p   l    d   v	 `   \	 -   u   o    y   b⌃
+    tg  →  app   ⇥   r   ⌫   ⏎   ␣   ⎋  num   ↑   ↓
 */
 
 // top row
@@ -49,14 +49,14 @@ enum custom_keycodes {
 #define LT1 KC_G
 #define LT0 KC_J
 
-#define RT0 KC_HASH
+#define RT0 KC_PLUS
 #define RT1 KC_DOT
 #define RT2 KC_SLSH
 #define RT3 KC_DQUO
 #define RT4 KC_QUOT
 
 // middle row
-#define LM4 LCTL_T(KC_S)
+#define LM4 LT(_SYM, KC_S)
 #define LM3 LALT_T(KC_C)
 #define LM2 LGUI_T(KC_N)
 #define LM1 LSFT_T(KC_T)
@@ -66,10 +66,10 @@ enum custom_keycodes {
 #define RM1 RSFT_T(KC_A)
 #define RM2 RGUI_T(KC_E)
 #define RM3 RALT_T(KC_I)
-#define RM4 LCTL_T(KC_H)
+#define RM4 LT(_SYM, KC_H)
 
 // bottom row
-#define LB4 KC_F
+#define LB4 LCTL_T(KC_F)
 #define LB3 KC_P
 #define LB2 KC_L
 #define LB1 KC_D
@@ -81,7 +81,7 @@ enum custom_keycodes {
 #define RB1 KC_U
 #define RB2 KC_O
 #define RB3 KC_Y
-#define RB4 KC_B
+#define RB4 RCTL_T(KC_B)
 
 // thumb row
 #define LH4 TG(_PM)
@@ -89,9 +89,9 @@ enum custom_keycodes {
 #define LH2 G(KC_TAB)
 #define LH1 KC_TAB
 #define LH0 LT(_NAV, KC_R)
-#define LH00 LT(_SYM, KC_BSPC)
+#define LH00 KC_BSPC
 
-#define RH00 LT(_SYM, KC_ENT)
+#define RH00 KC_ENT
 #define RH0 LT(_NUM, KC_SPC)
 #define RH1 KC_ESC
 #define RH2 TG(_NUM)
@@ -123,10 +123,10 @@ static uint16_t keyhold_timer; // for handling Qu combo
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	/*
-        x   w   m⌃   g   j           +=  .:  /⌃   "!  '?
-        s   c⌥  n⌘   t⇧  k           ,;  a⇧  e⌘   i⌥  h
-        f   p   l    d   v	 `   \	 -   u   o    y   b
-        ←   →  app   ⇥   r   ⌫   ⏎   ␣   ⎋  num   ↑   ↓
+        x   w   m    g   j           +=  .:  /    "!  '?
+        s2  c⌥  n⌘   t⇧  k           ,;  a⇧  e⌘   i⌥  h2
+        f⌃  p   l    d   v	 `   \	 -   u   o    y   b⌃
+		←   →  app   ⇥   r   ⌫   ⏎   ␣   ⎋  num   ↑   ↓
     */
 
   	[_DEF] = LAYOUT(
@@ -136,10 +136,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LH4, LH3, LH2, LH1, LH0, LH00, RH00, RH0, RH1, RH2, RH3, RH4
     ),
 
-    /*  BEAKL 19
-    	-   5   2   3   :       #$  +   /   *
-    	7   .   1   0   4       ,   ⇧   ⌘   ⌥   ⌃
-    	,   6   9   8   ⏎       -+  =
+    /*  BEAKL-19 numpad
+    	-   5   2   3   :           +   /   *
+    	7   .   1   0   4       ,   ⇧   ⌘   ⌥	L3
+    	,   6   9   8   ⏎       -   =			⌃
     	            /   ␣   ⌫
     */
     [_NUM] = LAYOUT(
@@ -149,16 +149,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, KC_SLSH, KC_SPC,  _______, _______, _______, _______, _______, _______, _______
     ),
 
-    /*  BEAKL 19
-    *       <   =   >      		^	[	_   ]
+    /*  BEAKL-19 symbols
+    *       <   =   >   @   	^	[	_   ]
     *   \   (   -   )   +       %   {   ;   }	!
-    *       *   :   /   			|	~	&
+    *       *   :   /   #		$	&	~	|
     *                   ␣
     */
     [_SYM] = LAYOUT(
-    ___x___, KC_LABK, KC_EQL,  KC_RABK, ___x___,                   KC_CIRC, KC_LBRC, KC_UNDS, KC_RBRC, ___x___,
+    ___x___, KC_LABK, KC_EQL,  KC_RABK, KC_AT,                     KC_CIRC, KC_LBRC, KC_UNDS, KC_RBRC, ___x___,
     KC_BSLS, KC_LPRN, KC_MINS, KC_RPRN, KC_PLUS,                   KC_PERC, KC_LCBR, KC_SCLN, KC_RCBR, KC_EXLM,
-    ___x___, KC_ASTR, KC_COLN, KC_SLSH, ___x___, _______, _______, ___x___, KC_PIPE, KC_TILD, KC_AMPR, ___x___,
+	___x___, KC_ASTR, KC_COLN, KC_SLSH, KC_HASH, _______, _______, KC_DLR,  KC_AMPR, KC_TILD, KC_PIPE, ___x___,
     _______, _______, _______, _______, KC_SPC,  _______, _______, _______, _______, _______, _______, _______
     ),
 
@@ -176,9 +176,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     /*
-        v   w   g    m   j           #$  .:  /    "!  '?
-        s⌃  n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘   i⌥  c⌃
-        f   p   d    l   x	 `   \	 -+  u   o    y   b
+        v   w   g    m   j           +=  .:  /    "!  '?
+        s2  n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘   i⌥  c2
+        f⌃  p   d    l   x	 `   \	 -   u   o    y   b⌃
         tg  →  app   ⇥   r   ⌫   ⏎   ␣   ⎋  num   ↑   ↓
     */
 
@@ -302,7 +302,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case MY_PRNS:
             if (record->tap.count && record->event.pressed) {
                 tap_code16(KC_LPRN); // send "(" on tap
-            } else if (record->event.press) {c∑∑∑∑∑∑∑
+            } else if (record->event.press) {
                 tap_code16(KC_RPRN); // send ")" on hold
             }
             return false; */
@@ -311,13 +311,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 
 const custom_shift_key_t custom_shift_keys[] = {
-    {KC_HASH, KC_DLR},	/* shift # is $ */
+    {KC_PLUS, KC_EQL},	/* shift + is = */
     {KC_DOT, KC_COLN},  /* shift . is : */
     {KC_COMM, KC_SCLN}, /* shift , is ; */
     {KC_SLSH, KC_ASTR}, /* shift / is * */
     {KC_DQUO, KC_EXLM}, /* shift " is ! */
     {KC_QUOT, KC_QUES}, /* shift ' is ? */
-	{KC_MINS, KC_PLUS},	/* shift - is + */
 	{KC_BSPC, KC_DEL},  /* shift ⌫ is ⌦ */
 };
 uint8_t NUM_CUSTOM_SHIFT_KEYS =
