@@ -31,8 +31,8 @@ enum custom_keycodes {
 /*  Base (alpha) Layer Hands Down Vibranuim-F
             Building for ZSA Voyager
     ⎋   3   2   1    0   4           7   6   5    9   8   Cap
-    ⇥   x   w   m⌃   g   j           +=  .:  /    "!  '?  `
-    num s   c⌥  n⌘   t⇧  k           ,;  a⇧  e⌘   i⌥  h⌃  ⌦
+    ⇥   x   w   m    g   j           +=  .:  /    "!  '?  `
+    num s⌃  c⌥  n⌘   t⇧  k           ,;  a⇧  e⌘   i⌥  h⌃  ⌦
     tg  f   p   l    d   v      	 -   u   o    y   b   \
                          r   ⌫   ⏎   ␣
 */
@@ -132,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             Building for ZSA Voyager
     ⎋   3   2@  1$   0#  4           7   6(  5&  9)  8  Cap
     ⇥   x   w   m    g   j           +=  .:  /   "!  '? `
-    num s   c⌥  n⌘   t⇧  k           ,;  a⇧  e⌘  i⌥  h  ⌦
+    num s3  c⌥  n⌘   t⇧  k           ,;  a⇧  e⌘  i⌥  h3 ⌦
     tg  f⌃  p   l    d   v      	 -   u   o   y   b⌃ \
                          r   ⌫   ⏎   ␣
   */
