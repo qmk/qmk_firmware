@@ -1,0 +1,21 @@
+{
+  "development_board": "promicro_rp2040",
+  "ws2812": {
+    "driver": "vendor",
+    "pin": "GP9"
+  },
+  "encoder": {
+    "rotary": [
+      {"pin_a": "GP0", "pin_b": "GP28", "resolution": 2},
+      {"pin_a": "GP27", "pin_b": "GP1", "resolution": 2},
+      {"pin_a": "GP26", "pin_b": "GP2", "resolution": 2},
+      {"pin_a": "GP4", "pin_b": "GP3", "resolution": 2},
+      {"pin_a": "GP5", "pin_b": "GP7", "resolution": 2}
+    ]
+  },
+  "matrix_pins": {
+    "direct": [
+      ["GP29", "GP21", "GP23", "GP6", "GP8"]
+    ]
+  }
+}
