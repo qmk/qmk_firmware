@@ -1,12 +1,12 @@
-# shorty
+# Shorty Zero
 
-![shorty](imgur.com image replace me!)
+![Shorty Zero by hawtkeys.com](https://i.imgur.com/hoMHYLW.png)
 
-*A short description of the keyboard/project*
+The Shorty Zero is a 3x3 customizable macropad designed for productivity, gaming, and creative workflows, featuring programmable keys and rotary knobs.
 
 * Keyboard Maintainer: [Hawtkeys](https://github.com/hawtkeys)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: Raspberry Pi Pico, Hawtkeys Shorty Zero PCB
+* Hardware Availability: [Available @ hawtkeys.com](https://hawtkeys.com)
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -25,11 +25,3 @@ Enter the bootloader in 3 ways:
 * **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
 * **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
-
-
- "encoder": {
-        "rotary": [
-            {"pin_a": "GP28", "pin_b": "GP27"},
-            {"pin_a": "GP3", "pin_b": "GP4"}
-        ]
-    },

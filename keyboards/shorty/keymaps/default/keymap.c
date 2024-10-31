@@ -7,15 +7,6 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     //                  Encoder 1                                     Encoder 2
 };
 #endif
-
-/* void keyboard_post_init_user(void) {
-  // Customise these values to desired behaviour
-  debug_enable=true;
-  debug_matrix=true;
-//   debug_keyboard=true;
-//   debug_mouse=true;
-
-} */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
         KC_P7,   KC_P8,   KC_P9,    
