@@ -1,0 +1,11 @@
+{
+    "name": "5keys",
+    "vendorId": "0x4D4B",
+    "productId": "0x0001",
+    "matrix": { "rows": 1, "cols": 5 },
+    "layouts": {
+      "keymap": [
+        [{"a":7},"","","","","",{"x":-0.75,"a":4,"f":4,"w":14,"h":5,"d":true}]
+      ]
+    }
+  }
