@@ -1,6 +1,6 @@
 # sdrakb00
 
-![sdrakb00](https://raw.githubusercontent.com/drabaioli/SdraKb00/refs/heads/main/img/assembled_leds_on.jpg)
+![sdrakb00](https://i.imgur.com/0HfpFqW.jpeg)
 
 11 keys hot-swap macropad with rotary encoder and VIA support.
 
