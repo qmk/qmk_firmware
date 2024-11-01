@@ -56,15 +56,18 @@ void render_oled_display(void) {
     }
 }
 // Rotate 180 degrees
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
     return OLED_ROTATION_180;
 }
-bool oled_task_user(void) {
+bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
+    }
     render_oled_display();
     return false;
 }
 // Record keypress
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case KC_ESC:
             if (record->event.pressed) {
@@ -82,6 +85,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
     }
-    return true;
+    return process_record_user(keycode, record);
 }
 #endif
