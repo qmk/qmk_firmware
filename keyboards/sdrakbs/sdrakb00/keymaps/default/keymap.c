@@ -43,9 +43,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [1] = LAYOUT_ortho_3x4(
-        KC_BACKSPACE, KC_KP_SLASH,    KC_KP_MINUS, KC_NO,
-        KC_EQUAL,     KC_KP_ASTERISK, KC_KP_PLUS,  KC_NO,
-        KC_ENTER,     KC_NO,          KC_NO,       KC_KP_DOT
+        KC_BACKSPACE, KC_KP_SLASH,    KC_KP_MINUS, _______,
+        KC_EQUAL,     KC_KP_ASTERISK, KC_KP_PLUS,  _______,
+        KC_ENTER,     _______,          _______,       KC_KP_DOT
     )
 };
 
