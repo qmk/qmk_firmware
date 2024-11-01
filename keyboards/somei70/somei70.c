@@ -1,3 +1,5 @@
+// Copyright 2024 James Gzowski
+// SPDX-License-Identifier: GPL-2.0-or-later
 #include QMK_KEYBOARD_H
 #ifdef OLED_ENABLE
 static uint8_t  oled_mode       = 0;
