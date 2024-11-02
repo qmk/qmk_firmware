@@ -1,12 +1,13 @@
-# takashicompany/klec_02
+# KLEC-02
 
-![takashicompany/klec_02](imgur.com image replace me!)
+![takashicompany/klec_02](https://i.imgur.com/1w6agBI.jpeg)
 
-*A short description of the keyboard/project*
+The KLEC-02 is a 36-key segmented keyboard.
+The PCB can be fitted with key switch sockets, allowing easy replacement of key switches.
 
 * Keyboard Maintainer: [takashicompany](https://github.com/takashicompany)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: PCB, Pro Micro
+* Hardware Availability: https://github.com/takashicompany/klec_02
 
 Make example for this keyboard (after setting up your build environment):
 
