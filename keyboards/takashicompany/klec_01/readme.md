@@ -1,6 +1,6 @@
 # takashicompany/klec_01
 
-![takashicompany/klec_01](https://imgur.com/92257811-aa51-487b-bb8c-c491ac9b24d2)
+![takashicompany/klec_01](https://i.imgur.com/oFZHNFJ.jpeg)
 
 46-key integrated keyboard.
 
