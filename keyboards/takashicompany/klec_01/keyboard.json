@@ -2,7 +2,7 @@
     "manufacturer": "takashicompany",
     "keyboard_name": "KLEC-01",
     "maintainer": "takashicompany",
-    "bootloader": "atmel-dfu",
+    "development_board": "promicro",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
