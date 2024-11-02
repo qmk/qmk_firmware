@@ -79,15 +79,15 @@
 #    endif
 #endif
 
-#ifndef WS2812_PWM_TARGET_PERIOD
-//#    define WS2812_PWM_TARGET_PERIOD 800000 // Original code is 800k...?
-#    define WS2812_PWM_TARGET_PERIOD 80000 // TODO: work out why 10x less on f303/f4x1
+// Default is 800000Hz, which has a period of 1.25us
+#ifndef WS2812_PWM_FREQUENCY
+#    define WS2812_PWM_FREQUENCY (1000000000 / WS2812_TIMING)
 #endif
 
 /* --- PRIVATE CONSTANTS ---------------------------------------------------- */
 
-#define WS2812_PWM_FREQUENCY (CPU_CLOCK / 2)                                /**< Clock frequency of PWM, must be valid with respect to system clock! */
-#define WS2812_PWM_PERIOD (WS2812_PWM_FREQUENCY / WS2812_PWM_TARGET_PERIOD) /**< Clock period in ticks. 1 / 800kHz = 1.25 uS (as per datasheet) */
+#define WS2812_PWM_TICK_FREQUENCY (CPU_CLOCK / 2)                            /**< Clock frequency of PWM ticks, must be valid with respect to system clock! */
+#define WS2812_PWM_PERIOD (WS2812_PWM_TICK_FREQUENCY / WS2812_PWM_FREQUENCY) /**< Clock period in PWM ticks. */
 
 /**
  * @brief   Number of bit-periods to hold the data line low at the end of a frame
@@ -102,37 +102,16 @@
 
 /**
  * @brief   High period for a zero, in ticks
- *
- * Per the datasheet:
- * WS2812:
- * - T0H: 200 nS to 500 nS, inclusive
- * - T0L: 650 nS to 950 nS, inclusive
- * WS2812B:
- * - T0H: 200 nS to 500 nS, inclusive
- * - T0L: 750 nS to 1050 nS, inclusive
- *
- * The duty cycle is calculated for a high period of 350 nS.
  */
-#define WS2812_DUTYCYCLE_0 (WS2812_PWM_FREQUENCY / (1000000000 / 350))
+#define WS2812_DUTYCYCLE_0 (WS2812_PWM_TICK_FREQUENCY / (1000000000 / WS2812_T0H))
 #if (WS2812_DUTYCYCLE_0 > 255)
 #    error WS2812 PWM driver: High period for a 0 is more than a byte
 #endif
 
 /**
  * @brief   High period for a one, in ticks
- *
- * Per the datasheet:
- * WS2812:
- * - T1H: 550 nS to 850 nS, inclusive
- * - T1L: 450 nS to 750 nS, inclusive
- * WS2812B:
- * - T1H: 750 nS to 1050 nS, inclusive
- * - T1L: 200 nS to 500 nS, inclusive
- *
- * The duty cycle is calculated for a high period of 800 nS.
- * This is in the middle of the specifications of the WS2812 and WS2812B.
  */
-#define WS2812_DUTYCYCLE_1 (WS2812_PWM_FREQUENCY / (1000000000 / 800))
+#define WS2812_DUTYCYCLE_1 (WS2812_PWM_TICK_FREQUENCY / (1000000000 / WS2812_T1H))
 #if (WS2812_DUTYCYCLE_1 > 255)
 #    error WS2812 PWM driver: High period for a 1 is more than a byte
 #endif
@@ -322,7 +301,7 @@ void ws2812_init(void) {
     // PWM Configuration
     //#pragma GCC diagnostic ignored "-Woverride-init"  // Turn off override-init warning for this struct. We use the overriding ability to set a "default" channel config
     static const PWMConfig ws2812_pwm_config = {
-        .frequency = WS2812_PWM_FREQUENCY,
+        .frequency = WS2812_PWM_TICK_FREQUENCY,
         .period    = WS2812_PWM_PERIOD, // Mit dieser Periode wird UDE-Event erzeugt und ein neuer Wert (Länge WS2812_BIT_N) vom DMA ins CCR geschrieben
         .callback  = NULL,
         .channels =
@@ -387,13 +366,29 @@ void ws2812_write_led_rgbw(uint16_t led_number, uint8_t r, uint8_t g, uint8_t b,
     }
 }
 
-// Setleds for standard RGB
-void ws2812_setleds(rgb_led_t* ledarray, uint16_t leds) {
-    for (uint16_t i = 0; i < leds; i++) {
-#ifdef WS2812_RGBW
-        ws2812_write_led_rgbw(i, ledarray[i].r, ledarray[i].g, ledarray[i].b, ledarray[i].w);
+ws2812_led_t ws2812_leds[WS2812_LED_COUNT];
+
+void ws2812_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
+    ws2812_leds[index].r = red;
+    ws2812_leds[index].g = green;
+    ws2812_leds[index].b = blue;
+#if defined(WS2812_RGBW)
+    ws2812_rgb_to_rgbw(&ws2812_leds[index]);
+#endif
+}
+
+void ws2812_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
+    for (int i = 0; i < WS2812_LED_COUNT; i++) {
+        ws2812_set_color(i, red, green, blue);
+    }
+}
+
+void ws2812_flush(void) {
+    for (int i = 0; i < WS2812_LED_COUNT; i++) {
+#if defined(WS2812_RGBW)
+        ws2812_write_led_rgbw(i, ws2812_leds[i].r, ws2812_leds[i].g, ws2812_leds[i].b, ws2812_leds[i].w);
 #else
-        ws2812_write_led(i, ledarray[i].r, ledarray[i].g, ledarray[i].b);
+        ws2812_write_led(i, ws2812_leds[i].r, ws2812_leds[i].g, ws2812_leds[i].b);
 #endif
     }
 }
