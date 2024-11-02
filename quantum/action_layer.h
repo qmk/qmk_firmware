@@ -159,7 +159,9 @@ layer_state_t update_tri_layer_state(layer_state_t state, uint8_t layer1, uint8_
 #if !defined(NO_ACTION_LAYER) && !defined(STRICT_LAYER_RELEASE)
 
 void    update_source_layers_cache(keypos_t key, uint8_t layer);
+void    update_keycode_map(keypos_t key, uint16_t keycode);
 uint8_t read_source_layers_cache(keypos_t key);
+uint16_t read_keycode_map(keypos_t key);
 #endif
 action_t store_or_get_action(bool pressed, keypos_t key);
 
