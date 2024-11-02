@@ -9,8 +9,8 @@
 - PCB can be manufactured with top-side USB-C for compatibility with legacy alice PCBs. 
 
 Keyboard Maintainer: [Alexander Lee](https://github.com/gaclee3b)
-Hardware Supported: chlx PCB piche60.x.x.x
-Hardware Availability: for top-side USB version, most keyboard cases that accept legacy alice format PCBs (i.e. lubrigante)
+Hardware Supported: chlx PCB piche60.x.x.x; top-side USB version compatible with most keyboard cases using legacy alice format PCBs (i.e. lubrigante)
+Hardware Availability: sales are typically done in-stock as bulk listings on reddit's mechanical keyboard market (r/mechmarket)
 
 Make example for this keyboard (after setting up your build environment):
 
