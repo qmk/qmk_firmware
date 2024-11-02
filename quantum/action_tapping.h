@@ -46,6 +46,82 @@ bool     get_permissive_hold(uint16_t keycode, keyrecord_t *record);
 bool     get_retro_tapping(uint16_t keycode, keyrecord_t *record);
 bool     get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record);
 
+#ifdef CHORDAL_HOLD
+/**
+ * Callback to say when a key chord before the tapping term is considered held.
+ *
+ * In keymap.c, define the callback
+ *
+ *     bool get_chordal_hold(uint16_t tap_hold_keycode,
+ *                           keyrecord_t* tap_hold_record,
+ *                           uint16_t other_keycode,
+ *                           keyrecord_t* other_record) {
+ *        // Conditions...
+ *     }
+ *
+ * This callback is called when:
+ *
+ * 1. `tap_hold_keycode` is pressed.
+ * 2. `other_keycode` is pressed while `tap_hold_keycode` is still held,
+ *     provided `other_keycode` is *not* also a tap-hold key and it is pressed
+ *     before the tapping term.
+ *
+ * Returning true indicates that the tap-hold key should be considered held, or
+ * false to consider it tapped.
+ *
+ * @param tap_hold_keycode   Keycode of the tap-hold key.
+ * @param tap_hold_record    Record from the tap-hold press event.
+ * @param other_keycode      Keycode of the other key.
+ * @param other_record       Record from the other key's press event.
+ * @return True if the tap-hold key is considered held; false if tapped.
+ */
+bool get_chordal_hold(
+    uint16_t tap_hold_keycode, keyrecord_t* tap_hold_record,
+    uint16_t other_keycode, keyrecord_t* other_record);
+
+/**
+ * Default "opposite hands rule" for whether a key chord should settle as held.
+ *
+ * This function returns true when the tap-hold key and other key are on
+ * "opposite hands." In detail, handedness of the two keys are compared. If
+ * handedness values differ, or if either handedness is zero, the function
+ * returns true, indicating a hold. Otherwise, it returns false, indicating that
+ * the tap-hold key should settle as tapped.
+ *
+ * "Handedness" is determined as follows, in order of decending precedence:
+ * 1. `chordal_hold_handedness_user()`, if defined.
+ * 2. `chordal_hold_layout`, if CHORDAL_HOLD_LAYOUT is defined.
+ * 3. `chordal_hold_handedness_kb()`, if defined.
+ * 4. fallback assumption based on keyboard matrix dimensions.
+ *
+ * @param tap_hold_record  Record of the active tap-hold key press.
+ * @param other_record     Record of the other, interrupting key press.
+ * @return True if the tap-hold key is considered held; false if tapped.
+ */
+bool get_chordal_hold_default(
+    keyrecord_t* tap_hold_record, keyrecord_t* other_record);
+
+/**
+ * Keyboard-level callback to determine handedness of a key.
+ *
+ * This function should return:
+ *   1 for keys pressed by the left hand,
+ *   2 for keys on the right hand,
+ *   0 for keys exempt from the "opposite hands rule." This could be used
+ *     perhaps on thumb keys or keys that might be pressed by either hand.
+ *
+ * @param key   A key matrix position.
+ * @return Handedness value.
+ */
+uint8_t chordal_hold_handedness_kb(keypos_t key);
+/** User callback to determine handedness of a key. */
+uint8_t chordal_hold_handedness_user(keypos_t key);
+
+#    ifdef CHORDAL_HOLD_LAYOUT
+extern const uint8_t chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM;
+#    endif
+#endif
+
 #ifdef DYNAMIC_TAPPING_TERM_ENABLE
 extern uint16_t g_tapping_term;
 #endif

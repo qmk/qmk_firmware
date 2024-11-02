@@ -49,6 +49,47 @@ __attribute__((weak)) bool get_permissive_hold(uint16_t keycode, keyrecord_t *re
 }
 #    endif
 
+#    ifdef CHORDAL_HOLD
+__attribute__((weak)) bool get_chordal_hold(
+        uint16_t tap_hold_keycode, keyrecord_t* tap_hold_record,
+        uint16_t other_keycode, keyrecord_t* other_record) {
+    return get_chordal_hold_default(tap_hold_record, other_record);
+}
+
+bool get_chordal_hold_default(
+        keyrecord_t* tap_hold_record, keyrecord_t* other_record) {
+    uint8_t tap_hold_hand = chordal_hold_handedness_user(tap_hold_record->event.key);
+    if (tap_hold_hand == 0) {
+        return true;
+    }
+    uint8_t other_hand = chordal_hold_handedness_user(other_record->event.key);
+    return other_hand == 0 || tap_hold_hand != other_hand;
+}
+
+__attribute__((weak)) uint8_t chordal_hold_handedness_kb(keypos_t key) {
+#        if defined(SPLIT_KEYBOARD) || ((MATRIX_ROWS) > (MATRIX_COLS))
+#pragma message "Inferred handedness rows"
+    // If the keyboard is split or if MATRIX_ROWS > MATRIX_COLS, assume that the
+    // first half of the rows are left and the latter half are right.
+    return (key.row < (MATRIX_ROWS) / 2) ? /*left*/ 1 : /*right*/ 2;
+#        else
+#pragma message "Inferred handedness cols"
+    // Otherwise, assume the first half of the cols are left, others are right.
+    return (key.col < (MATRIX_COLS) / 2) ? /*left*/ 1 : /*right*/ 2;
+#        endif
+}
+
+__attribute__((weak)) uint8_t chordal_hold_handedness_user(keypos_t key) {
+#        if defined(CHORDAL_HOLD_LAYOUT)
+#        pragma message "Using chordal_hold_layout"
+    // If given, read handedness from `chordal_hold_layout` array.
+    return pgm_read_byte(&chordal_hold_layout[key.row][key.col]);
+#        else
+    return chordal_hold_handedness_kb(key);
+#        endif
+}
+#    endif  // CHORDAL_HOLD
+
 #    ifdef HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 __attribute__((weak)) bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     return false;
@@ -188,7 +229,7 @@ bool process_tapping(keyrecord_t *keyp) {
         return true;
     }
 
-#    if (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)) || defined(PERMISSIVE_HOLD_PER_KEY) || defined(HOLD_ON_OTHER_KEY_PRESS_PER_KEY)
+#    if (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)) || defined(PERMISSIVE_HOLD_PER_KEY) || defined(CHORDAL_HOLD) || defined(HOLD_ON_OTHER_KEY_PRESS_PER_KEY)
     TAP_DEFINE_KEYCODE;
 #    endif
 
@@ -271,6 +312,22 @@ bool process_tapping(keyrecord_t *keyp) {
                     // set interrupted flag when other key pressed during tapping
                     if (event.pressed) {
                         tapping_key.tap.interrupted = true;
+
+#   if defined(CHORDAL_HOLD)
+                        if (!is_tap_record(keyp) &&
+                            !get_chordal_hold(tapping_keycode, &tapping_key,
+                                    get_record_keycode(keyp, true), keyp)) {
+                            // Settle the tapping key as *tapped*, since it is
+                            // not considered a held chord with keyp.
+                            ac_dprintf("Tapping: End. Tap in non-chord\n");
+                            tapping_key.tap.count = 1;
+                            // In process_action(), HOLD_ON_OTHER_KEY_PRESS will
+                            // revert interrupted events to holds, so this needs
+                            // to be set false.
+                            tapping_key.tap.interrupted = false;
+                            process_record(&tapping_key);
+                        } else
+#    endif
                         if (TAP_GET_HOLD_ON_OTHER_KEY_PRESS
 #    if defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)
                             // Auto Shift cannot evaluate this early
@@ -278,6 +335,8 @@ bool process_tapping(keyrecord_t *keyp) {
                             && !(MAYBE_RETRO_SHIFTING(event, keyp) && get_auto_shifted_key(get_record_keycode(keyp, false), keyp))
 #    endif
                         ) {
+                            // Settle the tapping key as *held*, since
+                            // HOLD_ON_OTHER_KEY_PRESS is enabled for this key.
                             ac_dprintf("Tapping: End. No tap. Interfered by pressed key\n");
                             process_record(&tapping_key);
                             tapping_key = (keyrecord_t){0};
