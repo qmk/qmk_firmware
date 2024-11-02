@@ -368,7 +368,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 eeconfig_update_kb(keyboard_config.raw);
             }
             break;
-        case RGB_TOG:
+        case QK_RGB_MATRIX_TOGGLE:
             if (record->event.pressed) {
                 switch (rgb_matrix_get_flags()) {
                     case LED_FLAG_ALL: {
@@ -404,7 +404,7 @@ void keyboard_post_init_kb(void) {
     is_launching = true;
     defer_exec(500, startup_exec, NULL);
 #endif
-    matrix_init_user();
+    keyboard_post_init_user();
 }
 
 void eeconfig_init_kb(void) {  // EEPROM is getting reset!

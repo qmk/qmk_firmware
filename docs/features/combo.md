@@ -152,14 +152,15 @@ In order to use these features, the following configuration options and function
 
 | Config Flag                 | Function                                                  | Description                                                                                            |
 |-----------------------------|-----------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
-| `COMBO_TERM_PER_COMBO`      | uint16_t get_combo_term(uint16_t index, combo_t \*combo)  | Optional per-combo timeout window. (default: `COMBO_TERM`)                                             |
-| `COMBO_MUST_HOLD_PER_COMBO` | bool get_combo_must_hold(uint16_t index, combo_t \*combo) | Controls if a given combo should fire immediately on tap or if it needs to be held. (default: `false`) |
-| `COMBO_MUST_TAP_PER_COMBO`  | bool get_combo_must_tap(uint16_t index, combo_t \*combo)  | Controls if a given combo should fire only if tapped within `COMBO_HOLD_TERM`. (default: `false`)      |
-| `COMBO_MUST_PRESS_IN_ORDER_PER_COMBO` | bool get_combo_must_press_in_order(uint16_t index, combo_t \*combo) | Controls if a given combo should fire only if its keys are pressed in order. (default: `true`) |
+| `COMBO_TERM_PER_COMBO`      | `uint16_t get_combo_term(uint16_t combo_index, combo_t *combo)`  | Optional per-combo timeout window. (default: `COMBO_TERM`)                                             |
+| `COMBO_MUST_HOLD_PER_COMBO` | `bool get_combo_must_hold(uint16_t combo_index, combo_t *combo)` | Controls if a given combo should fire immediately on tap or if it needs to be held. (default: `false`) |
+| `COMBO_MUST_TAP_PER_COMBO`  | `bool get_combo_must_tap(uint16_t combo_index, combo_t *combo)`  | Controls if a given combo should fire only if tapped within `COMBO_HOLD_TERM`. (default: `false`)      |
+| `COMBO_MUST_PRESS_IN_ORDER_PER_COMBO` | `bool get_combo_must_press_in_order(uint16_t combo_index, combo_t *combo)` | Controls if a given combo should fire only if its keys are pressed in order. (default: `true`) |
 
 Examples:
 ```c
-uint16_t get_combo_term(uint16_t index, combo_t *combo) {
+#ifdef COMBO_TERM_PER_COMBO
+uint16_t get_combo_term(uint16_t combo_index, combo_t *combo) {
     // decide by combo->keycode
     switch (combo->keycode) {
         case KC_X:
@@ -167,7 +168,7 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     }
 
     // or with combo index, i.e. its name from enum.
-    switch (index) {
+    switch (combo_index) {
         case COMBO_NAME_HERE:
             return 9001;
     }
@@ -182,8 +183,10 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
 
     return COMBO_TERM;
 }
+#endif
 
-bool get_combo_must_hold(uint16_t index, combo_t *combo) {
+#ifdef COMBO_MUST_HOLD_PER_COMBO
+bool get_combo_must_hold(uint16_t combo_index, combo_t *combo) {
     // Same as above, decide by keycode, the combo index, or by the keys in the chord.
 
     if (KEYCODE_IS_MOD(combo->keycode) || 
@@ -192,15 +195,17 @@ bool get_combo_must_hold(uint16_t index, combo_t *combo) {
         return true;
     }
 
-    switch (index) {
+    switch (combo_index) {
         case COMBO_NAME_HERE:
             return true;
     }
 
     return false;
 }
+#endif
 
-bool get_combo_must_tap(uint16_t index, combo_t *combo) {
+#ifdef COMBO_MUST_TAP_PER_COMBO
+bool get_combo_must_tap(uint16_t combo_index, combo_t *combo) {
     // If you want all combos to be tap-only, just uncomment the next line
     // return true
 
@@ -219,7 +224,9 @@ bool get_combo_must_tap(uint16_t index, combo_t *combo) {
     return false;
 
 }
+#endif
 
+#ifdef COMBO_MUST_PRESS_IN_ORDER_PER_COMBO
 bool get_combo_must_press_in_order(uint16_t combo_index, combo_t *combo) {
     switch (combo_index) {
         /* List combos here that you want to only activate if their keys
@@ -231,6 +238,7 @@ bool get_combo_must_press_in_order(uint16_t combo_index, combo_t *combo) {
             return false;
     }
 }
+#endif
 ```
 
 ### Generic hook to (dis)allow a combo activation
