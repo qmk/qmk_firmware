@@ -30,34 +30,97 @@ TEST_F(ChordalHoldAndHoldOnOtherKeypress, chord_with_mod_tap_settled_as_hold) {
     TestDriver driver;
     InSequence s;
     // Mod-tap key on the left hand.
-    auto       mod_tap_hold_key = KeymapKey(0, 1, 0, SFT_T(KC_P));
+    auto mod_tap_key = KeymapKey(0, 1, 0, SFT_T(KC_P));
     // Regular key on the right hand.
-    auto       regular_key      = KeymapKey(0, MATRIX_COLS - 1, 0, KC_A);
+    auto regular_key = KeymapKey(0, MATRIX_COLS - 1, 0, KC_A);
 
-    set_keymap({mod_tap_hold_key, regular_key});
+    set_keymap({mod_tap_key, regular_key});
 
-    /* Press mod-tap-hold key. */
+    // Press mod-tap-hold key.
     EXPECT_NO_REPORT(driver);
-    mod_tap_hold_key.press();
+    mod_tap_key.press();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 
-    /* Press regular key. */
+    // Press regular key.
     EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
     EXPECT_REPORT(driver, (KC_LEFT_SHIFT, KC_A));
     regular_key.press();
-    idle_for(TAPPING_TERM);
+    run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 
-    /* Release regular key. */
+    // Release regular key.
     EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
     regular_key.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 
-    /* Release mod-tap-hold key. */
+    // Release mod-tap-hold key.
     EXPECT_EMPTY_REPORT(driver);
-    mod_tap_hold_key.release();
+    mod_tap_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
+
+TEST_F(ChordalHoldAndHoldOnOtherKeypress, chord_nested_press_settled_as_hold) {
+    TestDriver driver;
+    InSequence s;
+    // Mod-tap key on the left hand.
+    auto mod_tap_key = KeymapKey(0, 1, 0, SFT_T(KC_P));
+    // Regular key on the right hand.
+    auto regular_key = KeymapKey(0, MATRIX_COLS - 1, 0, KC_A);
+
+    set_keymap({mod_tap_key, regular_key});
+
+    // Press mod-tap-hold key.
+    EXPECT_NO_REPORT(driver);
+    mod_tap_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Tap regular key.
+    EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
+    EXPECT_REPORT(driver, (KC_LEFT_SHIFT, KC_A));
+    EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
+    tap_key(regular_key);
+    VERIFY_AND_CLEAR(driver);
+
+    // Release mod-tap-hold key.
+    EXPECT_EMPTY_REPORT(driver);
+    mod_tap_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
+
+TEST_F(ChordalHoldAndHoldOnOtherKeypress, chord_rolled_press_settled_as_hold) {
+    TestDriver driver;
+    InSequence s;
+    // Mod-tap key on the left hand.
+    auto mod_tap_key = KeymapKey(0, 1, 0, SFT_T(KC_P));
+    // Regular key on the right hand.
+    auto regular_key = KeymapKey(0, MATRIX_COLS - 1, 0, KC_A);
+
+    set_keymap({mod_tap_key, regular_key});
+
+    // Press mod-tap key.
+    EXPECT_NO_REPORT(driver);
+    mod_tap_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Press regular key and release mod-tap key.
+    EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
+    EXPECT_REPORT(driver, (KC_LEFT_SHIFT, KC_A));
+    EXPECT_REPORT(driver, (KC_A));
+    regular_key.press();
+    run_one_scan_loop();
+    mod_tap_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Release regular key.
+    EXPECT_EMPTY_REPORT(driver);
+    regular_key.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 }
@@ -66,33 +129,33 @@ TEST_F(ChordalHoldAndHoldOnOtherKeypress, non_chord_with_mod_tap_settled_as_tap)
     TestDriver driver;
     InSequence s;
     // Mod-tap key and regular key both on the left hand.
-    auto       mod_tap_hold_key = KeymapKey(0, 1, 0, SFT_T(KC_P));
-    auto       regular_key      = KeymapKey(0, 2, 0, KC_A);
+    auto mod_tap_key = KeymapKey(0, 1, 0, SFT_T(KC_P));
+    auto regular_key = KeymapKey(0, 2, 0, KC_A);
 
-    set_keymap({mod_tap_hold_key, regular_key});
+    set_keymap({mod_tap_key, regular_key});
 
-    /* Press mod-tap-hold key. */
+    // Press mod-tap-hold key.
     EXPECT_NO_REPORT(driver);
-    mod_tap_hold_key.press();
+    mod_tap_key.press();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 
-    /* Press regular key. */
+    // Press regular key.
     EXPECT_REPORT(driver, (KC_P));
     EXPECT_REPORT(driver, (KC_P, KC_A));
     regular_key.press();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 
-    /* Release regular key. */
+    // Release regular key.
     EXPECT_REPORT(driver, (KC_P));
     regular_key.release();
-    idle_for(TAPPING_TERM);
+    run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 
-    /* Release mod-tap-hold key. */
+    // Release mod-tap-hold key.
     EXPECT_EMPTY_REPORT(driver);
-    mod_tap_hold_key.release();
+    mod_tap_key.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 }
@@ -100,7 +163,7 @@ TEST_F(ChordalHoldAndHoldOnOtherKeypress, non_chord_with_mod_tap_settled_as_tap)
 TEST_F(ChordalHoldAndHoldOnOtherKeypress, tap_mod_tap_key) {
     TestDriver driver;
     InSequence s;
-    auto mod_tap_key = KeymapKey(0, 1, 0, SFT_T(KC_P));
+    auto       mod_tap_key = KeymapKey(0, 1, 0, SFT_T(KC_P));
 
     set_keymap({mod_tap_key});
 
@@ -119,7 +182,7 @@ TEST_F(ChordalHoldAndHoldOnOtherKeypress, tap_mod_tap_key) {
 TEST_F(ChordalHoldAndHoldOnOtherKeypress, hold_mod_tap_key) {
     TestDriver driver;
     InSequence s;
-    auto mod_tap_key = KeymapKey(0, 1, 0, SFT_T(KC_P));
+    auto       mod_tap_key = KeymapKey(0, 1, 0, SFT_T(KC_P));
 
     set_keymap({mod_tap_key});
 
@@ -142,20 +205,20 @@ TEST_F(ChordalHoldAndHoldOnOtherKeypress, chordal_hold_ignores_multiple_mod_taps
 
     set_keymap({mod_tap_key1, mod_tap_key2});
 
-    /* Press mod-tap-hold key. */
+    // Press mod-tap-hold key.
     EXPECT_NO_REPORT(driver);
     mod_tap_key1.press();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 
-    /* Press second mod-tap key. */
+    // Press second mod-tap key.
     EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
     EXPECT_REPORT(driver, (KC_LEFT_SHIFT, KC_RIGHT_SHIFT));
     mod_tap_key2.press();
     idle_for(TAPPING_TERM + 1);
     VERIFY_AND_CLEAR(driver);
 
-    /* Release keys. */
+    // Release keys.
     EXPECT_REPORT(driver, (KC_RIGHT_SHIFT));
     EXPECT_EMPTY_REPORT(driver);
     mod_tap_key1.release();
@@ -164,4 +227,3 @@ TEST_F(ChordalHoldAndHoldOnOtherKeypress, chordal_hold_ignores_multiple_mod_taps
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 }
-

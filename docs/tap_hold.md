@@ -425,6 +425,167 @@ uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
 If `QUICK_TAP_TERM` is set higher than `TAPPING_TERM`, it will default to `TAPPING_TERM`.
 :::
 
+## Chordal Hold
+
+Chordal Hold is intended to be used together with either Permissive Hold or Hold
+On Other Key Press. Chordal Hold is enabled by adding to your `config.h`:
+
+```c
+#define CHORDAL_HOLD
+```
+
+Chordal Hold implements, by default, an "opposite hands" rule. Suppose a
+tap-hold key is pressed and then, before the tapping term, another key is
+pressed. With Chordal Hold, the tap-hold key is settled as tapped if the two
+keys are on the same hand. This behavior may be useful to avoid accidental
+modifier activation with mod-taps, particularly in rolled keypresses when using
+home row mods.
+
+Notes:
+
+* In the case that the keys are on opposite hands, Chordal Hold alone does not
+  yet settle the tap-hold key. Chordal Hold may be used in combination with Hold
+  On Other Key Press or Permissive Hold to determine the behavior. With Hold On
+  Other Key Press, an opposite hands chord is settled immediately as held. Or
+  with Permissive Hold, an opposite hands chord is settled as held provided the
+  other key is pressed and released (nested press) before releasing the tap-hold
+  key.
+
+* Chordal Hold has no effect after the tapping term. 
+
+* Chordal Hold has no effect when the other key is also a tap-hold key. This is
+  so that multiple tap-hold keys may be held on the same hand, which is common
+  to do with home row mods.
+
+* Combos are exempt from the opposite hands rule, since "handedness" is
+  ill-defined in this case. Even so, Chordal Hold's behavior involving combos
+  may be customized through the `get_chordal_hold()` callback.
+
+An example of a sequence that is affected by “chordal hold”: 
+
+- `SFT_T(KC_A)` Down
+- `KC_C` Down
+- `KC_C` Up
+- `SFT_T(KC_A)` Up
+
+```
+                         TAPPING_TERM   
+  +---------------------------|--------+
+  | +----------------------+  |        |
+  | | SFT_T(KC_A)          |  |        |
+  | +----------------------+  |        |
+  |    +--------------+       |        |
+  |    | KC_C         |       |        |
+  |    +--------------+       |        |
+  +---------------------------|--------+
+```
+
+If the two keys are on the same hand, then this will produce `ac` with 
+`SFT_T(KC_A)` settled as tapped the moment that `KC_C` is pressed. 
+
+If the two keys are on opposite hands and the `HOLD_ON_OTHER_KEY_PRESS`
+option enabled, this will produce `C` with `SFT_T(KC_A)` settled as held the
+moment that `KC_C` is pressed.
+
+Or if the two keys are on opposite hands and the `PERMISSIVE_HOLD` option is
+enabled, this will produce `C` with `SFT_T(KC_A)` settled as held the
+moment that `KC_C` is released.
+
+### Chordal Hold Handedness
+
+Determining whether keys are on the same or opposite hands involves defining the
+"handedness" of each key position. By default, if nothing is specified,
+handedness is guessed based on keyboard matrix dimensions. If this is
+inaccurate, handedness may be specified in several ways.
+
+The easiest way to specify handedness is by `chordal_hold_layout`. Define in
+config.h:
+
+```c
+#define CHORDAL_HOLD_LAYOUT
+```
+
+Then in keymap.c, define `chordal_hold_layout` in the following form:
+
+```c
+const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
+    LAYOUT(
+        'L', 'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R', 'R', 
+        'L', 'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R', 'R', 
+        'L', 'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R', 'R', 
+                       'L', 'L', 'L',  'R', 'R', 'R'
+    );
+```
+
+Use the same `LAYOUT` macro as used to define your keymap layers. Each entry is
+a character, either `'L'` for left, `'R'` for right, or `'*'` to exempt keys
+from the "opposite hands rule." When a key has `'*'` handedness, pressing it
+with either hand results in a hold. This could be used perhaps on thumb keys or
+other places where you want to allow same-hand chords.
+
+Alternatively, handedness may be defined functionally with
+`chordal_hold_handedness_user()`. For example, in keymap.c define:
+
+```c
+char chordal_hold_handedness_user(keypos_t key) {
+    if (key.col == 0 || key.col == MATRIX_COLS - 1) {
+        return '*';  // Exempt the outer columns.
+    }
+    // On split keyboards, typically, the first half of the rows are on the
+    // left, and the other half are on the right.
+    return key.row < MATRIX_ROWS / 2 ? 'L' : 'R';
+}
+```
+
+Given the matrix position of a key, the function should return `'L'`, `'R'`, or
+`'*'`. Adapt the logic in this function according to the keyboard's matrix.
+Similarly at the keyboard level, `chordal_hold_handedness_kb()` may be defined
+to specify handedness.
+
+::: warning
+Note the matrix may have irregularities around larger keys, around the edges of
+the board, and around thumb clusters. You may find it helpful to use [this
+debugging example](faq_debug#which-matrix-position-is-this-keypress) to
+correspond physical keys to matrix positions.
+:::
+
+
+### Per-chord customization
+
+Beyond the per-key configuration possible through handedness, Chordal Hold may
+be configured at a *per-chord* granularity for detailed tuning. In keymap.c,
+define `get_chordal_hold()`. Returning true settles the chord as held, while
+returning false settles as tapped.
+
+For example:
+
+```c
+bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t* tap_hold_record,
+                      uint16_t other_keycode, keyrecord_t* other_record) {
+    // Exceptionally allow some one-handed chords for hotkeys.
+    switch (tap_hold_keycode) {
+        case LCTL_T(KC_A):
+           if (other_keycode == KC_C || other_keycode == KC_V) {
+               return true;
+           }
+           break;
+
+        case RCTL_T(KC_SCLN):
+           if (other_keycode == KC_N) {
+               return true;
+           }
+           break;
+    }
+    // Otherwise defer to the opposite hands rule.
+    return get_chordal_hold_default(tap_hold_record, other_record);
+}
+```
+
+As shown above, the function may call `get_chordal_hold_default(tap_hold_record,
+other_record)` to get the default tap vs. hold decision according to the
+opposite hands rule.
+
+
 ## Retro Tapping
 
 To enable `retro tapping`, add the following to your `config.h`:
