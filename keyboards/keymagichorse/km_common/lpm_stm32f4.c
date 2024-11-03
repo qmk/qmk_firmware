@@ -235,7 +235,6 @@ void enter_low_power_mode_prepare(void)
 
 void lpm_task(void)
 {
-return;
     if(report_buffer_is_empty() == false)
     {
         lpm_time_up = false;

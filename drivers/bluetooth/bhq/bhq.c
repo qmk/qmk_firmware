@@ -308,23 +308,23 @@ void bhq_send_hid_raw(uint8_t *data, uint8_t length)
 // BHQ Status callback
 __attribute__((weak)) void BHQ_State_Call(uint8_t cmdid, uint8_t *dat) {
 
-    uint8_t advertSta = BHQ_GET_BLE_ADVERT_STA(dat[1]);
-    uint8_t connectSta = BHQ_GET_BLE_CONNECT_STA(dat[1]);
-    uint8_t pairingSta = BHQ_GET_BLE_PAIRING_STA(dat[1]);
+    // uint8_t advertSta = BHQ_GET_BLE_ADVERT_STA(dat[1]);
+    // uint8_t connectSta = BHQ_GET_BLE_CONNECT_STA(dat[1]);
+    // uint8_t pairingSta = BHQ_GET_BLE_PAIRING_STA(dat[1]);
 
-    advertSta = BHQ_GET_BLE_ADVERT_STA(dat[1]);
-    connectSta = BHQ_GET_BLE_CONNECT_STA(dat[1]);
-    pairingSta = BHQ_GET_BLE_PAIRING_STA(dat[1]);
+    // advertSta = BHQ_GET_BLE_ADVERT_STA(dat[1]);
+    // connectSta = BHQ_GET_BLE_CONNECT_STA(dat[1]);
+    // pairingSta = BHQ_GET_BLE_PAIRING_STA(dat[1]);
 
-    km_printf("cmdid:%d",cmdid);
-    if(cmdid == BHQ_ACK_RUN_STA_CMDID)
-    {
-        km_printf("[RSSI:%d]\t",dat[0]);
-        km_printf("[advertSta: %d]\t", advertSta);
-        km_printf("[connectSta: %d]\t", connectSta); // 0 = 断开, 1 = 已连接, 2 = 超时
-        km_printf("[pairingSta: %d]\t", pairingSta);
-        km_printf("[host_index:%d]\n",dat[2]);
-    }
+    // km_printf("cmdid:%d",cmdid);
+    // if(cmdid == BHQ_ACK_RUN_STA_CMDID)
+    // {
+    //     km_printf("[RSSI:%d]\t",dat[0]);
+    //     km_printf("[advertSta: %d]\t", advertSta);
+    //     km_printf("[connectSta: %d]\t", connectSta); // 0 = 断开, 1 = 已连接, 2 = 超时
+    //     km_printf("[pairingSta: %d]\t", pairingSta);
+    //     km_printf("[host_index:%d]\n",dat[2]);
+    // }
 }
 
 void BHQ_Led_Lock(uint8_t led_sta)
