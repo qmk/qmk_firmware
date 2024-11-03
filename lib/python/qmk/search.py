@@ -119,8 +119,11 @@ def filter_help() -> str:
 
 def _set_log_level(level):
     cli.acquire_lock()
-    old = cli.log_level
-    cli.log_level = level
+    try:
+        old = cli.log_level
+        cli.log_level = level
+    except AttributeError:
+        old = cli.log.level
     cli.log.setLevel(level)
     logging.root.setLevel(level)
     cli.release_lock()
