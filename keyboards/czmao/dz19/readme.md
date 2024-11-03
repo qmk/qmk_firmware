@@ -14,12 +14,12 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 
 * Keyboard Maintainer: [CZMAO](https://github.com/smollchungus)
-* Hardware Supported: *Project W PCB*
+* Hardware Supported: *CZMAO*
 * Hardware Availability: *CZMAO Keyboards*
 
 Make example for this keyboard (after setting up your build environment):
 
-    make czmao/ds17:default
+    make czmao/ds17r2:default
 
 
 
