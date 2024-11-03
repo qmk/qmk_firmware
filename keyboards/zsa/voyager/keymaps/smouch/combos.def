@@ -41,7 +41,7 @@ COMB(Hrsft,             OSM(MOD_RSFT), 	RM2, RM3)
 
 /*---- semantic functions ----*/
 COMB(Hundo,             G(KC_Z),    LB4, LB3)
-COMB(Hcut,              G(KC_X),    LB4, LB2)
+COMB(Hcut,              G(KC_X),    LB3, LB1)
 COMB(Hcopy,             G(KC_C),    LB3, LB2)
 COMB(Hpste,             G(KC_V),    LB2, LB1)
 COMB(Hsall,             G(KC_A),    LB4, LB1)

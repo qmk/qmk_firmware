@@ -12,17 +12,10 @@ enum layer_names {
     _NUM,
     _SYM,
     _NAV,
-    _PM,
 };
 
 enum custom_keycodes {
     SS_Qu = SAFE_RANGE,
-    SS_Th,
-    SS_Ch,
-    SS_Sh,
-    SS_Gh,
-    SS_Wh,
-    SS_Ph,
 };
 
 /*  KEY POSITION Names
@@ -33,20 +26,19 @@ enum custom_keycodes {
     LH4 LH3 LH2 LH1 LH0 LH00 RH00 RH0 RH1 RH2 RH3 RH4
 */
 
-/*  Base (alpha) Layer Hands Down Vibranuim-F
-            Building for Atreus44
+/*  Hands Down Promethium
 
-    x   w   m    g   j           +=  .:  /    "!  '?
-    s2  c⌥  n⌘   t⇧  k           ,;  a⇧  e⌘   i⌥  h2
-    f⌃  p   l    d   v	 `   \	 -   u   o    y   b⌃
-    tg  →  app   ⇥   r   ⌫   ⏎   ␣   ⎋  num   ↑   ↓
+    v   w   g    m   j           +=  .:  /    "!  '?
+    s2  n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘   i⌥  c2
+    f⌃  p   d    l   x	 `   \	 -   u   o    y   b⌃
+    ←   →  app   ⇥   r   ⌫   ⏎   ␣   ⎋  num   ↑   ↓
 */
 
 // top row
-#define LT4 KC_X
+#define LT4 KC_V
 #define LT3 KC_W
-#define LT2 KC_M
-#define LT1 KC_G
+#define LT2 KC_G
+#define LT1 KC_M
 #define LT0 KC_J
 
 #define RT0 KC_PLUS
@@ -57,23 +49,23 @@ enum custom_keycodes {
 
 // middle row
 #define LM4 LT(_SYM, KC_S)
-#define LM3 LALT_T(KC_C)
-#define LM2 LGUI_T(KC_N)
-#define LM1 LSFT_T(KC_T)
+#define LM3 LALT_T(KC_N)
+#define LM2 LGUI_T(KC_T)
+#define LM1 LSFT_T(KC_H)
 #define LM0 KC_K
 
 #define RM0 KC_COMM
 #define RM1 RSFT_T(KC_A)
 #define RM2 RGUI_T(KC_E)
 #define RM3 RALT_T(KC_I)
-#define RM4 LT(_SYM, KC_H)
+#define RM4 LT(_SYM, KC_C)
 
 // bottom row
 #define LB4 LCTL_T(KC_F)
 #define LB3 KC_P
-#define LB2 KC_L
-#define LB1 KC_D
-#define LB0 KC_V
+#define LB2 KC_D
+#define LB1 KC_L
+#define LB0 KC_X
 #define LB00 KC_GRV
 
 #define RB00 KC_BSLS
@@ -84,7 +76,7 @@ enum custom_keycodes {
 #define RB4 RCTL_T(KC_B)
 
 // thumb row
-#define LH4 TG(_PM)
+#define LH4 KC_LEFT
 #define LH3 KC_RGHT
 #define LH2 G(KC_TAB)
 #define LH1 KC_TAB
@@ -100,21 +92,6 @@ enum custom_keycodes {
 
 #define ___x___ KC_NO  // visual aid to null keys
 
-// layer momentaries
-// #define OS_SYM OSL(_SYM)
-
-// layer tap
-// #define SPC_NUM LT(_NUM, KC_SPC)
-// #define R_NAV LT(_NAV, KC_R)
-// #define ENT_SYM LT(_SYM, KC_ENT)
-// #define MY_PRNS LT(0, KC_1)
-
-// One Shots
-// #define OSMSFT OSM(MOD_LSFT)
-// #define OSMCMD OSM(MOD_LGUI)
-// #define OSMOPT OSM(MOD_LALT)
-// #define OSMCTL OSM(MOD_LCTL)
-
 #include "g/keymap_combo.h"
 
 uint8_t  saved_mods = 0;
@@ -123,10 +100,10 @@ static uint16_t keyhold_timer; // for handling Qu combo
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	/*
-        x   w   m    g   j           +=  .:  /    "!  '?
-        s2  c⌥  n⌘   t⇧  k           ,;  a⇧  e⌘   i⌥  h2
-        f⌃  p   l    d   v	 `   \	 -   u   o    y   b⌃
-		←   →  app   ⇥   r   ⌫   ⏎   ␣   ⎋  num   ↑   ↓
+        v   w   g    m   j           +=  .:  /    "!  '?
+        s2  n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘   i⌥  c2
+        f⌃  p   d    l   x	 `   \	 -   u   o    y   b⌃
+        ←   →  app   ⇥   r   ⌫   ⏎   ␣   ⎋  num   ↑   ↓
     */
 
   	[_DEF] = LAYOUT(
@@ -175,20 +152,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______,   _______,       _______,   _______, _______, C(KC_LEFT), C(KC_RGHT), _______, _______,    _______
     ),
 
-    /*
-        v   w   g    m   j           +=  .:  /    "!  '?
-        s2  n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘   i⌥  c2
-        f⌃  p   d    l   x	 `   \	 -   u   o    y   b⌃
-        tg  →  app   ⇥   r   ⌫   ⏎   ␣   ⎋  num   ↑   ↓
-    */
-
-  	[_PM] = LAYOUT(
-    KC_V, LT3,  KC_G, KC_M, LT0,              RT0, RT1, RT2, RT3, RT4,
-    LM4,  KC_N, KC_T, KC_H, LM0,              RM0, RM1, RM2, RM3, KC_C,
-    LB4,  LB3,  KC_D, KC_L, KC_X, LB00, RB00, RB0, RB1, RB2, RB3, RB4,
-    LH4,  LH3,  LH2,  LH1,  LH0,  LH00, RH00, RH0, RH1, RH2, RH3, RH4
-    ),
-
 };
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
@@ -221,10 +184,12 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     }
 };
 
+/*
 void add_h_digragh(void) {
     unregister_mods(MOD_MASK_SHIFT);
     tap_code(KC_H); // send "h" honouring CAPSLK state
 };
+*/
 
 // program custom keycode functions
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -257,7 +222,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return true;  // Didn't handle this
             break;
 
-     // the H digraphs
+        /* the H digraphs
         case SS_Th:
             if (record->event.pressed) {
                 tap_code(KC_T); // send "T" honouring caps
@@ -294,7 +259,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 add_h_digragh();
             }
             break;
-        /* case SS_Prns:
+         case SS_Prns:
             if (record->event.pressed) {
             	SEND_STRING("()"SS_TAP(X_LEFT));
             }
