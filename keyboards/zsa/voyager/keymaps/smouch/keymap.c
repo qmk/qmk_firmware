@@ -4,7 +4,6 @@
 
 enum layer_names {
     _DEF,
-    _PM,
     _NUM,
     _SYM,
     _NAV
@@ -12,12 +11,6 @@ enum layer_names {
 
 enum custom_keycodes {
     SS_Qu = SAFE_RANGE,
-    SS_Th,
-    SS_Ch,
-    SS_Sh,
-    SS_Gh,
-    SS_Wh,
-    SS_Ph
 };
 
 /*  KEY POSITION Names
@@ -28,14 +21,13 @@ enum custom_keycodes {
                     LH1 LH0     RH0 RH1
 */
 
-/*  Base (alpha) Layer Hands Down Vibranuim-F
-            Building for ZSA Voyager
-    ⎋   3   2   1    0   4           7   6   5    9   8   Cap
-    ⇥   x   w   m    g   j           +=  .:  /    "!  '?  `
-    num s⌃  c⌥  n⌘   t⇧  k           ,;  a⇧  e⌘   i⌥  h⌃  ⌦
-    tg  f   p   l    d   v      	 -   u   o    y   b   \
+/*  Hands Down Promethium (canonical)
+    ⎋   3   2@  1$   0#  4           7   6(  5&  9)  8  Cap
+    ⇥   v   w   g    m   j           +=  .:  /   "!  '? `
+    z   s   n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘  i⌥  c  q
+    tg  f⌃  p   d    l   x      	 -   u   o   y   b⌃ \
                          r   ⌫   ⏎   ␣
-*/
+  */
 
 // Num row
 #define LN5 KC_ESC
@@ -68,7 +60,7 @@ enum custom_keycodes {
 #define RT5 KC_GRV
 
 // middle row
-#define LM5 TG(_NUM)
+#define LM5 KC_Z
 #define LM4 LT(_SYM, KC_S)
 #define LM3 LALT_T(KC_C)
 #define LM2 LGUI_T(KC_N)
@@ -79,16 +71,16 @@ enum custom_keycodes {
 #define RM1 RSFT_T(KC_A)
 #define RM2 RGUI_T(KC_E)
 #define RM3 RALT_T(KC_I)
-#define RM4 LT(_SYM, KC_H)
-#define RM5 KC_DEL
+#define RM4 LT(_SYM, KC_C)
+#define RM5 KC_Q
 
 // bottom row
-#define LB5 DF(_PM)
+#define LB5 TG(_NUM)
 #define LB4 LCTL_T(KC_F)
 #define LB3 KC_P
 #define LB2 KC_L
 #define LB1 KC_D
-#define LB0 KC_V
+#define LB0 KC_X
 
 #define RB0 KC_MINS
 #define RB1 KC_U
@@ -106,21 +98,6 @@ enum custom_keycodes {
 
 #define ___x___ KC_NO  // visual aid to null keys
 
-// layer momentaries
-// #define OS_SYM OSL(_SYM)
-
-// layer tap
-// #define SPC_NUM LT(_NUM, KC_SPC)
-// #define R_NAV LT(_NAV, KC_R)
-// #define ENT_SYM LT(_SYM, KC_ENT)
-// #define MY_PRNS LT(0, KC_1)
-
-// One Shots
-// #define OSMSFT OSM(MOD_LSFT)
-// #define OSMCMD OSM(MOD_LGUI)
-// #define OSMOPT OSM(MOD_LALT)
-// #define OSMCTL OSM(MOD_LCTL)
-
 #include "g/keymap_combo.h"
 
 uint8_t  saved_mods = 0;
@@ -128,52 +105,20 @@ static uint16_t keyhold_timer; // for handling Qu combo
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  /*  Base (alpha) Layer Hands Down Vibranuim-F
-            Building for ZSA Voyager
-    ⎋   3   2@  1$   0#  4           7   6(  5&  9)  8  Cap
-    ⇥   x   w   m    g   j           +=  .:  /   "!  '? `
-    num s3  c⌥  n⌘   t⇧  k           ,;  a⇧  e⌘  i⌥  h3 ⌦
-    tg  f⌃  p   l    d   v      	 -   u   o   y   b⌃ \
-                         r   ⌫   ⏎   ␣
-  */
-  [_DEF] = LAYOUT_voyager(
-    LN5, LN4, LN3, LN2, LN1, LN0,   RN0, RN1, RN2, RN3, RN4, RN5,
-    LT5, LT4, LT3, LT2, LT1, LT0,   RT0, RT1, RT2, RT3, RT4, RT5,
-    LM5, LM4, LM3, LM2, LM1, LM0,   RM0, RM1, RM2, RM3, RM4, RM5,
-    LB5, LB4, LB3, LB2, LB1, LB0,   RB0, RB1, RB2, RB3, RB4, RB5,
-    LH1, LH0, RH0, RH1
-  ),
-
   /*  Hands Down Promethium (canonical)
     ⎋   3   2@  1$   0#  4           7   6(  5&  9)  8  Cap
     ⇥   v   w   g    m   j           +=  .:  /   "!  '? `
-    num s   n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘  i⌥  c  ⌦
+    z   s   n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘  i⌥  c  q
     tg  f⌃  p   d    l   x      	 -   u   o   y   b⌃ \
                          r   ⌫   ⏎   ␣
   */
-  [_PM] = LAYOUT_voyager(
-    LN5,       LN4,  LN3,  LN2,  LN1,  LN0,    RN0, RN1, RN2, RN3, RN4, RN5,
-    LT5,       KC_V, LT3,  KC_G, KC_M, LT0,    RT0, RT1, RT2, RT3, RT4, RT5,
-    LM5,       LM4,  KC_N, KC_T, KC_H, LM0,    RM0, RM1, RM2, RM3, KC_C, RM5,
-    DF(_DEF),  LB4,  LB3,  KC_D, KC_L, KC_X,   RB0, RB1, RB2, RB3, RB4, RB5,
-    LH1, LH0,  RH0,  RH1
+  [_DEF] = LAYOUT_voyager(
+    LN5, LN4, LN3, LN2, LN1, LN0,           RN0, RN1, RN2, RN3, RN4, RN5,
+    LT5, LT4, LT3, LT2, LT1, LT0,           RT0, RT1, RT2, RT3, RT4, RT5,
+    LM5, LM4, LM3, LM2, LM1, LM0,           RM0, RM1, RM2, RM3, RM4, RM5,
+    LB5, LB4, LB3, LB2, LB1, LB0,           RB0, RB1, RB2, RB3, RB4, RB5,
+                             LH1, LH0, RH0, RH1
   ),
-
-
-  /*
-    ⇥   *   7   8   9   -       	+   .   /
-        /   1   2   3   +       	,   ⇧   ⌘   ⌥
-        ,   4   5   6   =       	-   ⌫
-    	                0   .   ⏎   mo
-  *
-  [_NUM] = LAYOUT_voyager(
-    _______, _______, _______, _______, _______, _______,                  _______, _______, _______, _______, _______, _______,
-    _______, KC_ASTR, KC_7,    KC_8,    KC_9,    KC_MINS,                  _______, _______, _______, _______, _______, _______,
-    _______, KC_SLSH, KC_1,    KC_2,    KC_3,    KC_PLUS,                  _______, KC_RSFT, KC_RGUI, KC_RALT, KC_RCTL, ___x___,
-    _______, KC_COMM, KC_4,    KC_5,    KC_6,    KC_EQL,                   _______, KC_BSPC, KC_TAB,  KC_ENT,  ___x___, _______,
-                                                 KC_0,    KC_DOT, _______, _______
-  ),
-  */
 
  /*	BEAKL-19 Numpad
 			+	/	*	=
@@ -189,22 +134,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, KC_COMM, KC_6,    KC_9,    KC_8,    KC_ENT,                    _______, ___x___, ___x___, ___x___, ___x___, _______,
                                                  KC_SPC,  _______, _______, _______
   ),
-
-  /* Pascal Getreuer Mod
-    *
-    *		<   >	@			       &   [   ]
-    *   !   -   +   =   `          \   :   (   )   ?
-    *   ^   /   *   #   ~		   |   $   {   }   %
-	* 					mo		mo
-  *
-  [_SYM] = LAYOUT_voyager(
-    _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, QK_BOOT,
-    _______, ___x___, KC_LABK, KC_RABK, KC_AT,   ___x___,                   ___x___, KC_AMPR, KC_LBRC, KC_RBRC, ___x___, _______,
-    _______, KC_EXLM, KC_MINS, KC_PLUS, KC_EQL,  KC_GRV,                    KC_BSLS, KC_COLN, KC_LPRN, KC_RPRN, KC_QUES, _______,
-    _______, KC_CIRC, KC_SLSH, KC_ASTR, KC_HASH, KC_TILD,                   KC_PIPE, KC_DLR,  KC_LCBR, KC_RCBR, KC_PERC, _______,
-                                                 _______, _______, _______, _______
-  ),
-  */
 
   /* BEAKL Symbols
     *		@	$	#					~	^	`
@@ -266,10 +195,12 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     }
 };
 
+/*
 void add_h_digragh(void) {
     unregister_mods(MOD_MASK_SHIFT);
     tap_code(KC_H); // send "h" honouring CAPSLK state
 };
+*/
 
 // program custom keycode functions
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -300,7 +231,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return true;  // Didn't handle this
             break;
 
-     // the H digraphs
+        /* the H digraphs
         case SS_Th:
             if (record->event.pressed) {
                 tap_code(KC_T); // send "T" honouring caps
@@ -337,6 +268,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 add_h_digragh();
             }
             break;
+        */
     }
     return true;
 };
