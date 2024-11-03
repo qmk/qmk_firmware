@@ -70,7 +70,8 @@ void ws2812power_Disabled(void)
     gpio_set_pin_output(B8);        // ws2812 power
     gpio_write_pin_high(B8);
 
-    gpio_set_pin_input(WS2812_DI_PIN);  // 设置高阻输入
+    gpio_set_pin_output(WS2812_DI_PIN);        // ws2812 DI Pin
+    gpio_write_pin_low(WS2812_DI_PIN);
 }
 
 void set_all_io_analog(void)
