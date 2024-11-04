@@ -2,7 +2,7 @@
     "manufacturer": "Diego Andres Rabaioli",
     "keyboard_name": "sdrakb00",
     "maintainer": "drabaioli",
-    "bootloader": "caterina",
+    "bootloader": "atmel-dfu",
     "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
