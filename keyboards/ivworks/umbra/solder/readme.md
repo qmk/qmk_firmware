@@ -1,9 +1,9 @@
-# ivworks / umbra / hotswap
+# IV WORKS
 
 Hotswap 60% for Umbra.
 
-* Keyboard Maintainer: [4pplet](https://github.com/josephawilliamsiv)
-* Hardware Supported: [waffling60](https://www.iv-works.com)
+* Keyboard Maintainer: [IV Works](https://github.com/josephawilliamsiv)
+* Hardware Supported: [UMBRA](https://www.iv-works.com)
 
 Make example for this keyboard (after setting up your build environment):
 
