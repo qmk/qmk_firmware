@@ -1,8 +1,8 @@
-# IV WORKS
+# UMBRA
 
 ![UMBRA](https://i.imgur.com/2d94i6H.jpg)
 
-Multi-mount 60% keyboard with sodler pcb featuring popular layouts, underglow, and rotary option.
+A multi-mount 60% keyboard with PCB choice featuring popular layouts, underglow, and rotary option.
 
 * Keyboard Maintainer: [IV Works](https://github.com/josephawilliamsiv)
 * Hardware Supported: [UMBRA](https://www.iv-works.com)
