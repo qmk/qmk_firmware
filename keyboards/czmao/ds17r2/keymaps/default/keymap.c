@@ -38,7 +38,7 @@ KC_P1, KC_P2,   KC_P3,
 KC_P0,          KC_PDOT, KC_PENT
     ),
     [1] = LAYOUT_numberpad_5x4(
-MO(1),   KC_NUM,  MO(2),   KC_CALC,
+KC_TRNS,   KC_NUM,  MO(2),   KC_CALC,
 KC_HOME, KC_UP,   KC_PGUP, 
 KC_LEFT, KC_TRNS, KC_RGHT, KC_TRNS,  
 KC_END,  KC_DOWN, KC_PGDN, 
