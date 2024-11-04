@@ -69,12 +69,10 @@ bool get_chordal_hold_default(keyrecord_t *tap_hold_record, keyrecord_t *other_r
 
 __attribute__((weak)) char chordal_hold_handedness_kb(keypos_t key) {
 #        if defined(SPLIT_KEYBOARD) || ((MATRIX_ROWS) > (MATRIX_COLS))
-#            pragma message "Inferred handedness rows"
     // If the keyboard is split or if MATRIX_ROWS > MATRIX_COLS, assume that the
     // first half of the rows are left and the latter half are right.
     return (key.row < (MATRIX_ROWS) / 2) ? /*left*/ 'L' : /*right*/ 'R';
 #        else
-#            pragma message "Inferred handedness cols"
     // Otherwise, assume the first half of the cols are left, others are right.
     return (key.col < (MATRIX_COLS) / 2) ? /*left*/ 'L' : /*right*/ 'R';
 #        endif
@@ -82,7 +80,6 @@ __attribute__((weak)) char chordal_hold_handedness_kb(keypos_t key) {
 
 __attribute__((weak)) char chordal_hold_handedness_user(keypos_t key) {
 #        if defined(CHORDAL_HOLD_LAYOUT)
-#            pragma message "Using chordal_hold_layout"
     // If given, read handedness from `chordal_hold_layout` array.
     return (char)pgm_read_byte(&chordal_hold_layout[key.row][key.col]);
 #        else

@@ -437,19 +437,19 @@ On Other Key Press. Chordal Hold is enabled by adding to your `config.h`:
 Chordal Hold implements, by default, an "opposite hands" rule. Suppose a
 tap-hold key is pressed and then, before the tapping term, another key is
 pressed. With Chordal Hold, the tap-hold key is settled as tapped if the two
-keys are on the same hand. This behavior may be useful to avoid accidental
-modifier activation with mod-taps, particularly in rolled keypresses when using
-home row mods.
+keys are on the same hand.
+
+Otherwise, if the keys are on opposite hands, Chordal Hold introduces no new
+behavior. Hold On Other Key Press or Permissive Hold may be used together with
+Chordal Hold to configure the behavior in the opposite hands case. With Hold On
+Other Key Press, an opposite hands chord is settled immediately as held. Or with
+Permissive Hold, an opposite hands chord is settled as held provided the other
+key is pressed and released (nested press) before releasing the tap-hold key.
+
+Chordal Hold may be useful to avoid accidental modifier activation with
+mod-taps, particularly in rolled keypresses when using home row mods.
 
 Notes:
-
-* In the case that the keys are on opposite hands, Chordal Hold alone does not
-  yet settle the tap-hold key. Chordal Hold may be used in combination with Hold
-  On Other Key Press or Permissive Hold to determine the behavior. With Hold On
-  Other Key Press, an opposite hands chord is settled immediately as held. Or
-  with Permissive Hold, an opposite hands chord is settled as held provided the
-  other key is pressed and released (nested press) before releasing the tap-hold
-  key.
 
 * Chordal Hold has no effect after the tapping term. 
 
