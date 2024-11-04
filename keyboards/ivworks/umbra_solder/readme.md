@@ -1,6 +1,6 @@
 # IV WORKS
 
-![UMBRA](https://i.imgur.com/CaHxKBJ.jpg)
+![UMBRA](https://i.imgur.com/2d94i6H.jpg)
 
 Multi-mount 60% keyboard with sodler pcb featuring popular layouts, underglow, and rotary option.
 
