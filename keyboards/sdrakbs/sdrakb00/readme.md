@@ -2,7 +2,7 @@
 
 ![sdrakb00](https://i.imgur.com/0HfpFqW.jpeg)
 
-11 keys hot-swap macropad with rotary encoder and VIA support.
+11 keys hot-swap macropad with rotary encoder.
 
 Macropad features:
 - 11 hot-swap keys
@@ -50,7 +50,3 @@ Enter the bootloader in 3 ways:
 - NumPad operators (+, -, *, /)
 - Enter, "=" and backspace keys
 - Decimal point
-
-## VIA Support
-
-This keyboard supports VIA for easy keymap customization without flashing new firmware.
