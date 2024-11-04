@@ -16,7 +16,7 @@ KC_TRNS,   KC_NUM,  MO(2),   KC_CALC,
 KC_HOME, KC_UP,   KC_PGUP, 
 KC_LEFT, KC_TRNS, KC_RGHT, KC_TRNS,  
 KC_END,  KC_DOWN, KC_PGDN, 
-QK_RBT,           KC_TRNS, KC_TRNS
+KC_TRNS,           KC_TRNS, KC_TRNS
     ),
         [2] = LAYOUT_numberpad_5x4(
 KC_TRNS, KC_TRNS, KC_TRNS, RGB_VAI,
