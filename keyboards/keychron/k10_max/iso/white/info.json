@@ -1,0 +1,33 @@
+{
+    "usb": {
+        "pid": "0x0AA4",
+        "device_version": "1.0.0"
+    },
+    "features": {
+        "led_matrix": true
+    },
+    "indicators": {
+        "num_lock": "B2"
+    },
+    "led_matrix": {
+        "driver": "snled27351_spi",
+        "sleep": true,
+        "animations": {
+            "none": true,
+            "solid": true,
+            "breathing": true,
+            "band_pinwheel": true,
+            "band_spiral": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "cycle_out_in": true,
+            "dual_beacon": true,
+            "solid_reactive_simple": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_multinexus": true,
+            "solid_splash": true,
+            "wave_left_right": true,
+            "wave_up_down": true
+        }
+    }
+}
