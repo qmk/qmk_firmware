@@ -2,16 +2,17 @@
 
 ![teton_78](https://imgur.com/IwQgOy3.jpg)
 
-* This is my first keyboard design, and has a unique 68 xt layout. I hope you enjoy! 
+A 68 XT designed by me (Bennett Balogh)! Sold at mountainmechdesigns.com
 
-* Keyboard Maintainer: [Bennett Balogh](https://github.com/AwesomeBalogh)
-* Hardware Supported: *TAtmega34u4 mcu for teton_78's Hotswap and Solder PCBs*
+* Keyboard Maintainer: [Bennett Balogh (https://github.com/AwesomeBalogh)
+* Hardware Supported:Atmega34u4 for Teton 78s' Hotswap and Solder PCBs
 * Hardware Availability: *N/A questions direct to Mountain Mech Designs discord: https://discord.gg/h9dMwRNfVy*
 
 Make example for this keyboard (after setting up your build environment):
 
     make teton_78:default
     make teton_78:via
+    qmk compile -kb teton_78/ -km default
 
 Flashing example for this keyboard:
 
