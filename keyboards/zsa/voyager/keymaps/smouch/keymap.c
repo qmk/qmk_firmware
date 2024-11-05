@@ -46,10 +46,10 @@ enum custom_keycodes {
 
 // top row
 #define LT5 KC_TAB
-#define LT4 KC_X
+#define LT4 KC_V
 #define LT3 KC_W
-#define LT2 KC_M
-#define LT1 KC_G
+#define LT2 KC_G
+#define LT1 KC_M
 #define LT0 KC_J
 
 #define RT0 KC_PLUS
@@ -62,9 +62,9 @@ enum custom_keycodes {
 // middle row
 #define LM5 KC_Z
 #define LM4 LT(_SYM, KC_S)
-#define LM3 LALT_T(KC_C)
-#define LM2 LGUI_T(KC_N)
-#define LM1 LSFT_T(KC_T)
+#define LM3 LALT_T(KC_N)
+#define LM2 LGUI_T(KC_T)
+#define LM1 LSFT_T(KC_H)
 #define LM0 KC_K
 
 #define RM0 KC_COMM
@@ -78,8 +78,8 @@ enum custom_keycodes {
 #define LB5 TG(_NUM)
 #define LB4 LCTL_T(KC_F)
 #define LB3 KC_P
-#define LB2 KC_L
-#define LB1 KC_D
+#define LB2 KC_D
+#define LB1 KC_L
 #define LB0 KC_X
 
 #define RB0 KC_MINS
