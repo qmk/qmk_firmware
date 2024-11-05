@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Wind X",
-    "manufacturer": "Wind",
+    "manufacturer": "Windstudio",
     "url": "",
     "maintainer": "chrisgve",
+    "keyboard_name": "Wind X R1",
     "features": {
         "bootmagic": true,
         "command": false,
