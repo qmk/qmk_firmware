@@ -1,30 +1,17 @@
-# teton_78
+# Teton 78 QMK Firmware
 
-![teton_78](https://imgur.com/IwQgOy3.jpg)
+## Introduction
 
-A 68 XT designed by me (Bennett Balogh)! Sold at mountainmechdesigns.com
+This is the QMK firmware repository for the Teton78, a 68XT solder and hotswao keyboard designed by Mountain Mech Designs - Bennett Balogh.
 
-* Keyboard Maintainer: [Bennett Balogh (https://github.com/AwesomeBalogh)
-* Hardware Supported:Atmega34u4 for Teton 78s' Hotswap and Solder PCBs
-* Hardware Availability: *N/A questions direct to Mountain Mech Designs discord: https://discord.gg/h9dMwRNfVy*
+The Teton 78 has entered GB and sucessfully finalized in November 2024 The IC page for the keyboard can be found [here](https://geekhack.org/index.php?topic=123275.0).
+The sale page can be found [here](https://www.mountainmechdesigns.com/)
+Discord link can be found [here](https://discord.gg/h9dMwRNfVy)
 
-Make example for this keyboard (after setting up your build environment):
+## How to compile
+
+After setting up your build environment, you can compile the Teton 78 default keymap by using:
 
     make teton_78:default
-    make teton_78:via
-    qmk compile -kb teton_78/ -km default
-
-Flashing example for this keyboard:
-
-    make teton_78:default:flash
-    make teton_78:via:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
-
-## Bootloader
-
-Enter the bootloader in 3 ways:
-
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
-* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
