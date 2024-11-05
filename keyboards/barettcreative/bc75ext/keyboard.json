@@ -23,7 +23,6 @@
         "command": false,
         "nkro": true,
 		"encoder": true,
-		"encoder_map": true
     },	
 	"encoder": {
         "rotary": [
