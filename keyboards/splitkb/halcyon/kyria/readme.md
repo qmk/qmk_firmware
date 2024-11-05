@@ -16,7 +16,7 @@ The Halcyon Kyria rev4 is the fourth Kyria revision and the first keyboard in ou
 
 Make example for this keyboard (after setting up your build environment):
 
-    make splitkb/halcyon/kyria:default
+    make splitkb/halcyon/kyria/rev4:default
 
 The keyboard can be flashed by copying the resulting `.uf2` file onto the `RPI-RP2` flash drive.
 
