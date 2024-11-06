@@ -2,28 +2,28 @@
     "manufacturer": "Zykrah",
     "keyboard_name": "Pizza Pad",
     "maintainer": "zykrah",
-    "usb": {
-        "vid": "0x7A79",
-        "pid": "0x5050",
-        "device_version": "0.0.1"
-    },
     "diode_direction": "COL2ROW",
     "matrix_pins": {
-        "rows": ["GP6", "GP29", "GP28"],
-        "cols": ["GP1", "GP0", "GP7"]
+        "cols": ["GP1", "GP0", "GP7"],
+        "rows": ["GP6", "GP29", "GP28"]
+    },
+    "usb": {
+        "device_version": "0.0.1",
+        "pid": "0x5050",
+        "vid": "0x7A79"
     },
     "layouts": {
         "LAYOUT": {
             "layout": [
-                { "matrix": [0, 0], "x": 0, "y": 0 },
-                { "matrix": [0, 1], "x": 1, "y": 0 },
-                { "matrix": [0, 2], "x": 2, "y": 0 },
-                { "matrix": [1, 0], "x": 0, "y": 1 },
-                { "matrix": [1, 1], "x": 1, "y": 1 },
-                { "matrix": [1, 2], "x": 2, "y": 1 },
-                { "matrix": [2, 0], "x": 0, "y": 2 },
-                { "matrix": [2, 1], "x": 1, "y": 2 },
-                { "matrix": [2, 2], "x": 2, "y": 2 }
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2}
             ]
         }
     }
