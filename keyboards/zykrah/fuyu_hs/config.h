@@ -19,6 +19,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 500U
-
-/* Caps locks LED index default is 0 (LED1 on PCB) */
-#define CAPS_LOCK_LED_INDEX 0

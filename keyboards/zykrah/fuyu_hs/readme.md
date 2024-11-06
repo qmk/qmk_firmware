@@ -1,6 +1,6 @@
 # FUYU HOTSWAP
 
-![FUYU HS 7U](https://i.imgur.com/8zjDNJTh.jpg)
+![FUYU HS 7U](https://i.imgur.com/8zjDNJT.jpg)
 
 An F12 TKL Hotswappable H87-Compat Type-C PCB for the Geon F1-8K
 
