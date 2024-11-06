@@ -1,6 +1,6 @@
 # Pizza Pad PCB
 
-![Pizza Pad PCB](https://i.imgur.com/eJLuaZYh.jpg)
+![Pizza Pad PCB](https://i.imgur.com/eJLuaZY.jpg)
 
 A 3x3 PCB designed for the Idyllic Pretty Pad.
 

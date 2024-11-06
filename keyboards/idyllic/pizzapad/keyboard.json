@@ -17,8 +17,9 @@
         "pid": "0x5050",
         "vid": "0x7A79"
     },
+    "community_layouts": ["ortho_3x3"],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_ortho_3x3": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
