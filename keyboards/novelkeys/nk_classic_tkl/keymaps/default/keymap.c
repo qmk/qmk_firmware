@@ -43,6 +43,10 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         for (uint8_t i = 50; i <= 55; i++) {
             rgb_matrix_set_color(i, 255, 86, 0);
         }
+    } else if ((rgb_matrix_get_mode() == RGB_MATRIX_TYPING_HEATMAP) || (rgb_matrix_get_mode() == RGB_MATRIX_DIGITAL_RAIN)) {
+        for (uint8_t i = 50; i <= 55; i++) {
+            rgb_matrix_set_color(i, 0, 0, 0);
+        }
     }
     return false;
 }

@@ -54,6 +54,9 @@
         ]
       }
     },
+    "serial": {
+      "driver": "usart"
+    },
     "transport": {
       "sync": {
           "activity": true,

@@ -32,6 +32,12 @@
     "backlight": {
         "pin": "B7"
     },
+    "indicators": {
+        "caps_lock": "B2",
+        "num_lock": "B1",
+        "scroll_lock": "B3",
+        "on_state": 0
+    },
     "rgblight": {
         "saturation_steps": 8,
         "brightness_steps": 8,
@@ -54,8 +60,11 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "layout_aliases": {
+        "LAYOUT_60_tsangan_hhkb": "LAYOUT_60_ansi_tsangan_split_bs_rshift"
+    },
     "layouts": {
-        "LAYOUT_60_tsangan_hhkb": {
+        "LAYOUT_60_ansi_tsangan_split_bs_rshift": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},

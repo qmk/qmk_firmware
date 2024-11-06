@@ -115,18 +115,6 @@ uint8_t rgb_matrix_map_row_column_to_led_kb(uint8_t row, uint8_t column, uint8_t
     return 0;
 }
 
-void suspend_power_down_kb(void)
-{
-    rgb_matrix_set_suspend_state(true);
-    suspend_power_down_user();
-}
-
-void suspend_wakeup_init_kb(void)
-{
-    rgb_matrix_set_suspend_state(false);
-    suspend_wakeup_init_user();
-}
-
 #ifdef SWAP_HANDS_ENABLE
 __attribute__ ((weak))
 const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
