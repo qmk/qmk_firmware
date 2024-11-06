@@ -175,6 +175,8 @@ static void joystick_action(void) {
             else
                 joystick_set_axis(i, axis_value[i]);
         }
+
+        joystick_flush();
     }
 }
 
