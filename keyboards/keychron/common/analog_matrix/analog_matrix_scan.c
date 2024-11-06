@@ -39,6 +39,9 @@
 extern matrix_row_t raw_matrix[MATRIX_ROWS];
 extern matrix_row_t matrix[MATRIX_ROWS];
 extern matrix_row_t game_controller_matrix[MATRIX_ROWS];
+extern matrix_row_t okmc_matrix[MATRIX_ROWS];
+matrix_row_t analog_raw_matrix[MATRIX_ROWS];
+matrix_row_t changed_matrix[MATRIX_ROWS];
 
 pin_t        row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 pin_t        col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
@@ -67,7 +70,7 @@ ADCConversionGroup adcgrpcfg = {
     ADC_SMPR1_SMP_AN11(ADC_SAMPLE_56)  |
     ADC_SMPR1_SMP_AN12(ADC_SAMPLE_56)  |
     ADC_SMPR1_SMP_AN13(ADC_SAMPLE_56),          /* SMPR1*/
-    ADC_SMPR2_SMP_AN0(ADC_SAMPLE_56)   | 
+    ADC_SMPR2_SMP_AN0(ADC_SAMPLE_56)   |
     ADC_SMPR2_SMP_AN1(ADC_SAMPLE_56),           /* SMPR2*/
     0,                                          /* HTR */
     0,                                          /* LTR */
@@ -135,9 +138,9 @@ static void unselect_cols(void) { }
 void matrix_read_rows_on_col(uint8_t current_col, matrix_row_t row_shifter) {
 
     // Select col
-    if (!select_col(current_col)) { // select col
+    if (!select_col(current_col)) {
         return;                     // skip NO_PIN col
-    } 
+    }
 
     wait_us(40);
 
@@ -155,7 +158,7 @@ void matrix_read_rows_on_col(uint8_t current_col, matrix_row_t row_shifter) {
 
             bool pressed = analog_matrix_get_key_state(row_index, current_col);
             if (pressed) {
-                if ((raw_matrix[row_index] & row_mask) == 0)
+                if ((analog_raw_matrix[row_index] & row_mask) == 0)
                     changed = true;
 
                 if (debouce_times == ANALOG_DEBOUCE_TIME) {
@@ -163,14 +166,14 @@ void matrix_read_rows_on_col(uint8_t current_col, matrix_row_t row_shifter) {
                 } else {
                     row_value_recheck |= (0x01 << row_index);
                 }
-            } else if (raw_matrix[row_index] & row_mask) {
+            } else if (analog_raw_matrix[row_index] & row_mask) {
                 changed = true;
             }
         }
 
         if (debouce_times != ANALOG_DEBOUCE_TIME && row_value != row_value_recheck) {
             // Clear state when bounce occurs
-            changed = false; 
+            changed = false;
         }
 
     } while (--debouce_times && changed);
@@ -178,10 +181,13 @@ void matrix_read_rows_on_col(uint8_t current_col, matrix_row_t row_shifter) {
     if (changed) {
         matrix_changed = true;
         for (uint8_t row_index = 0; row_index < MATRIX_ROWS; row_index++) {
-            if (row_value & (0x01 << row_index))
-                raw_matrix[row_index] |= row_shifter;
-            else
-                raw_matrix[row_index] &= ~row_shifter;
+            if (row_value & (0x01 << row_index))  {
+                if ((analog_raw_matrix[row_index] & row_shifter) == 0) changed_matrix[row_index] |= row_shifter;   // Mark changed matrix position
+                analog_raw_matrix[row_index] |= row_shifter;    // Update matrix
+            } else {
+                if ((analog_raw_matrix[row_index] & row_shifter)) changed_matrix[row_index] |= row_shifter;
+                analog_raw_matrix[row_index] &= ~row_shifter;
+            }
         }
     }
 
@@ -190,7 +196,7 @@ void matrix_read_rows_on_col(uint8_t current_col, matrix_row_t row_shifter) {
 }
 
 void matrix_init_custom(void) {
-#ifdef ANALOG_MATRIX_POWER_PIN    
+#ifdef ANALOG_MATRIX_POWER_PIN
    setPinOutput(ANALOG_MATRIX_POWER_PIN);
    writePin(ANALOG_MATRIX_POWER_PIN, ANALOG_MATRIX_POWER_ENABLE_LEVEL);
 #endif
@@ -206,7 +212,7 @@ void matrix_init_custom(void) {
     setPinOutput(HC164_CP);
     setPinOutput(HC164_MR);
     writePinLow(HC164_MR);
-    
+
     for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
         if (row_pins[x] != NO_PIN) {
             palSetLineMode(row_pins[x], PAL_MODE_INPUT_ANALOG);
@@ -226,12 +232,20 @@ void matrix_init_custom(void) {
             matrix_read_rows_on_col(current_col, 0);
         }
 
+    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+         analog_raw_matrix[i] = 0;
+         changed_matrix[i] = 0;
+    }
+
     analog_matrix_init();
 }
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
+    matrix_row_t last_raw_matrix[MATRIX_ROWS];
 
+    memcpy(last_raw_matrix, raw_matrix, sizeof(raw_matrix));
     memcpy(virtual_matrix, matrix, sizeof(matrix));
+    memset(changed_matrix, 0, sizeof(changed_matrix));
     matrix_changed = false;
 
     // Set col, read rows
@@ -260,22 +274,21 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     }
 #endif
 
-//    bool changed = memcmp(raw_matrix, curr_matrix, sizeof(curr_matrix)) != 0;
-//    if (changed) memcpy(raw_matrix, curr_matrix, sizeof(curr_matrix));
-
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-       virtual_matrix[row] |= game_controller_matrix[row];
+       virtual_matrix[row] |= (game_controller_matrix[row] | okmc_matrix[row]);
     }
+
+    bool changed = memcmp(raw_matrix, last_raw_matrix, sizeof(last_raw_matrix)) != 0;
     //changed = debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
 
     matrix_scan_kb();
 
-    return matrix_changed;
+    return matrix_changed | changed;
 }
 
-void  matrix_lpm(void) { 
+void  matrix_lpm(void) {
     adcStop(&ADCD1);
-    
+
 #ifdef HC164_DS
     setPinInputLow(HC164_DS);
 #endif
@@ -286,7 +299,7 @@ void  matrix_lpm(void) {
     setPinInputLow(HC164_MR);
 #endif
 
-#ifdef ANALOG_MATRIX_POWER_PIN    
+#ifdef ANALOG_MATRIX_POWER_PIN
        writePin(ANALOG_MATRIX_POWER_PIN, !ANALOG_MATRIX_POWER_ENABLE_LEVEL);
 #endif
 

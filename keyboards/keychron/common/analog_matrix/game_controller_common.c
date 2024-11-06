@@ -24,7 +24,7 @@ matrix_row_t game_controller_matrix[MATRIX_ROWS] = {0};
 
 void game_controller_curve_init(point_t *pt) {
     memcpy(curve, pt, CURVE_POINTS_COUNT * SIZE_OF_POINT_T);
-    
+
     if (curve[0].y == 0 && curve[1].y == 0 && curve[2].y == 0 && curve[3].y == 0) {
         point_t default_curve[CURVE_POINTS_COUNT] = {{0, 0}, {10, 31}, {30, 95}, {40, 127}};
         memcpy(curve, default_curve, sizeof(default_curve));

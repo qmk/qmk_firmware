@@ -1,4 +1,4 @@
-/* Copyright 2023 @ Keychron (https://www.keychron.com)
+/* Copyright 2024 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,11 +13,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 #include "quantum.h"
 #include "keychron_common.h"
 #include "analog_matrix.h"
 #include "game_controller_common.h"
+#include "profile.h"
+#include "action_socd.h"
 
 #ifdef ANANLOG_MATRIX
 #    ifndef PROF_TRIG_KEY_ROW
@@ -74,25 +76,7 @@ static uint32_t pro_ind_timer  = 0;
 void profile_init(bool reset) {
     if (reset) {
         // Write default profile setting
-        for (uint8_t i = 0; i < PROFILE_COUNT; i++) {
-            memset(&profile[i], 0, sizeof(profile[0]));
-            // Default setting
-            profile[i].global.mode               = profile_gobal_mode[i];
-            profile[i].global.act_pt             = DEFAULT_ACTUATION_POINT;
-            profile[i].global.rpd_trig_sen_deact = profile[i].global.rpd_trig_sen = DEFAULT_RAPID_TRIGGER_SENSITIVITY;
-
-            for (uint8_t r = 0; r < MATRIX_ROWS; r++)
-                for (uint8_t c = 0; c < MATRIX_COLS; c++) {
-                    profile[i].key_config[r][c].mode     = default_profiles[i][r][c] & 0x3;
-                    profile[i].key_config[r][c].adv_mode = (default_profiles[i][r][c] >> 2) & 0x07;
-                    if (profile[i].key_config[r][c].adv_mode == AKM_GAMEPAD) {
-                        profile[i].key_config[r][c].js_axis = default_profiles[i][r][c] >> 5;
-                    }
-                }
-
-            uint32_t addr = EECONFIG_BASE_SIZE + OFFSET_PROFILES_START + i * sizeof(analog_matrix_profile_t);
-            eeprom_update_block(&profile[i], (uint8_t *)addr, sizeof(profile[0]));
-        }
+        for (uint8_t i = 0; i < PROFILE_COUNT; i++) profile_reset(i);
     } else {
         uint8_t *buf = (uint8_t *)malloc(EECONFIG_KB_DATA_SIZE);
         memset(buf, 0, EECONFIG_KB_DATA_SIZE);
@@ -163,10 +147,10 @@ bool profile_get_raw_data(uint8_t prof_idx, uint16_t offset, uint8_t size, uint8
     if (prof_idx >= PROFILE_COUNT || offset + size > sizeof(profile)) return false;
 
     memset(data, 0, size);
-    
+
     if (offset + size > PROFILE_SIZE) size = PROFILE_SIZE - offset;
     memcpy(data, (uint8_t *)(&profile[prof_idx]) + offset, size);
-    
+
     return true;
 }
 
@@ -258,12 +242,70 @@ bool profile_set_adv_mode(uint8_t *data) {
     return true;
 }
 
+bool profile_set_socd(uint8_t *data) {
+    uint8_t prof_idx = data[0];
+    uint8_t row1  = data[1];
+    uint8_t col1  = data[2];
+    uint8_t row2  = data[3];
+    uint8_t col2  = data[4];
+    uint8_t index = data[5];
+    uint8_t type  = data[6];
+
+    if (prof_idx >= PROFILE_COUNT || row1 >= MATRIX_ROWS || col1 >= MATRIX_COLS
+        || row2 >= MATRIX_ROWS || col2 >= MATRIX_COLS || index >= SOCD_COUNT || type >= SOCD_PRI_MAX) return false;
+    // Same key is not allowed
+    if (type && row1 == row2 && col1 == col2) return false;
+
+
+    analog_matrix_profile_t *prof = &profile[prof_idx];
+
+    if (type) {
+        prof->socd[index].key_1_row = row1;
+        prof->socd[index].key_1_col = col1;
+        prof->socd[index].key_2_row = row2;
+        prof->socd[index].key_2_col = col2;
+        prof->socd[index].type = type;
+    } else {
+        memset(&prof->socd[index], 0, sizeof(socd_config_t));
+    }
+
+    return true;
+}
+
+bool profile_reset(uint8_t prof_index) {
+    if (prof_index >= PROFILE_COUNT) return false;
+
+    analog_matrix_profile_t *prof = &profile[prof_index];
+
+
+    memset(prof, 0, sizeof(profile[0]));
+    // Default
+    prof->global.mode               = profile_gobal_mode[prof_index];
+    prof->global.act_pt             = DEFAULT_ACTUATION_POINT;
+    prof->global.rpd_trig_sen_deact = prof->global.rpd_trig_sen = DEFAULT_RAPID_TRIGGER_SENSITIVITY;
+
+    for (uint8_t r = 0; r < MATRIX_ROWS; r++)
+        for (uint8_t c = 0; c < MATRIX_COLS; c++) {
+            prof->key_config[r][c].mode     = default_profiles[prof_index][r][c] & 0x3;
+            prof->key_config[r][c].adv_mode = (default_profiles[prof_index][r][c] >> 2) & 0x07;
+            if (prof->key_config[r][c].adv_mode == AKM_GAMEPAD) {
+                prof->key_config[r][c].js_axis = default_profiles[prof_index][r][c] >> 5;
+
+            }
+        }
+
+    uint32_t addr = EECONFIG_BASE_SIZE + OFFSET_PROFILES_START + prof_index * sizeof(analog_matrix_profile_t);
+    eeprom_update_block(prof, (uint8_t *)addr, sizeof(profile[0]));
+
+    return true;
+}
+
 bool profile_save(uint8_t prof_index) {
     if (prof_index >= PROFILE_COUNT) return false;
 
     analog_matrix_profile_t *prof = &profile[prof_index];
     uint32_t addr = EECONFIG_BASE_SIZE + OFFSET_PROFILES_START + prof_index * sizeof(analog_matrix_profile_t);
-    
+
     if (!eeconfig_is_kb_datablock_valid()) eeprom_update_dword(EECONFIG_KEYBOARD, (EECONFIG_KB_DATA_VERSION));
     eeprom_update_block(prof, (uint8_t *)addr, sizeof(analog_matrix_profile_t));
 

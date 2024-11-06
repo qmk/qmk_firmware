@@ -1,4 +1,4 @@
-/* Copyright 2023 @ Keychron (https://www.keychron.com)
+/* Copyright 2024 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,9 +20,9 @@
 
 // OKMC action type
 enum {
-    OKMC_ACTION_RELEASE = 0b001,
-    OKMC_ACTION_PRESS = 0b010,
-    OKMC_ACTION_TAP = 0b110,
+    OKMC_ACTION_RELEASE  = 0b001,
+    OKMC_ACTION_PRESS    = 0b010,
+    OKMC_ACTION_TAP      = 0b110,
     OKMC_ACTION_RE_PRESS = 0b111,
 };
 
@@ -34,6 +34,8 @@ enum {
     OKMC_DEEP_DEACTUATED,
     OKMC_MAX,
 };
+
+matrix_row_t okmc_matrix[MATRIX_ROWS] = {0};
 
 static void report_action(bool add, uint16_t keycode) {
     if (add) {
@@ -67,7 +69,7 @@ static void release_okmc_keys(okmc_config_t *okmc) {
 
 static void inline shallow_actuate(okmc_config_t *okmc) {
     bool any_action;
-    
+
     for (uint8_t bit = 0; bit < 3; bit++) {
         any_action = false;
 
@@ -86,7 +88,7 @@ static void inline shallow_actuate(okmc_config_t *okmc) {
 
 static void inline shallow_deactuate(okmc_config_t *okmc) {
     bool any_action;
-    
+
     for (uint8_t bit = 0; bit < 3; bit++) {
         any_action = false;
 
@@ -108,7 +110,7 @@ static void inline shallow_deactuate(okmc_config_t *okmc) {
 
 static void inline deep_actuate(okmc_config_t *okmc) {
     bool any_action;
-    
+
     for (uint8_t bit = 0; bit < 3; bit++) {
         any_action = false;
 
@@ -127,7 +129,7 @@ static void inline deep_actuate(okmc_config_t *okmc) {
 
 static void inline deep_deactuate(okmc_config_t *okmc) {
     bool any_action;
-    
+
     for (uint8_t bit = 0; bit < 3; bit++) {
         any_action = false;
 
@@ -147,7 +149,7 @@ static void inline deep_deactuate(okmc_config_t *okmc) {
 bool okmc_action(analog_key_t *key) {
     bool                     changed    = false;
     analog_matrix_profile_t *cur_prof   = profile_get_current();
-    okmc_traval_config_t     *travel_cfg = &cur_prof->okmc[key->okmc_idx].travel;
+    okmc_traval_config_t    *travel_cfg = &cur_prof->okmc[key->okmc_idx].travel;
 
     switch (key->state) {
         case OKMC_RELEASED:
@@ -203,6 +205,13 @@ bool okmc_action(analog_key_t *key) {
 
         default:
             break;
+    }
+
+    if (changed) {
+        if (key->state >= OKMC_SHALLOW_ACTUATED && key->state <= OKMC_DEEP_DEACT_READY)
+            okmc_matrix[key->r] |= 0x01 << key->c;
+        else
+            okmc_matrix[key->r] &= ~(0x01 << key->c);
     }
 
     return changed;

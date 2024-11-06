@@ -85,9 +85,9 @@ enum {
     AMC_SET_PROFILE_NAME,
     AMC_SET_TRAVAL,
     AMC_SET_ADVANCE_MODE,
-    AMC_CLEAR_PROFILE = 0x1E,
+    AMC_SET_SOCD,
+    AMC_RESET_PROFILE = 0x1E,
     AMC_SAVE_PROFILE  = 0x1F,
-
     AMC_GET_CURVE = 0x20,
     AMC_SET_CURVE,
     AMC_GET_GAME_CONTROLLER_MODE,
@@ -101,6 +101,8 @@ enum {
 };
 
 extern const matrix_row_t analog_matrix_mask[];
+extern const matrix_row_t okmc_matrix[MATRIX_ROWS];
+extern matrix_row_t virtual_matrix[MATRIX_ROWS];
 
 extern bool regular_trigger_action(analog_key_t *key);
 extern bool okmc_action(analog_key_t *key);
@@ -108,6 +110,7 @@ extern bool rapid_trigger_action(analog_key_t *key);
 extern bool toggle_action(analog_key_t *key);
 extern bool xinput_update(analog_key_t *key);
 extern bool joystick_update(analog_key_t *key);
+extern void socd_action(void);
 
 static calibrated_value_t calib_values[MATRIX_ROWS][MATRIX_COLS];
 static calibrated_value_t saved_calib_values[MATRIX_ROWS][MATRIX_COLS];
@@ -121,6 +124,8 @@ static uint8_t       cur_calib = 0;
 traval_config_t      regular;
 static float         scale_factor[MATRIX_ROWS][MATRIX_COLS];
 static matrix_row_t  calib_state_matrix[MATRIX_ROWS];
+// Mark invalid key on abnormal value of manual zero travel calibration, for manufacturing use
+static matrix_row_t  manual_calib_zero_invalid[MATRIX_ROWS];
 
 uint8_t calibrated, rapid_actuation, rapid_sensitivity;
 
@@ -129,6 +134,10 @@ static uint8_t  last_calib_row  = 0xFF;
 static uint8_t  last_calib_col  = 0xFF;
 
 uint32_t debug_interval = 0;
+
+uint8_t  analog_matrix_get_travel(uint8_t row, uint8_t col) {
+    return analog_key_matrix[row][col].travel;
+}
 
 static uint8_t convert_to_travel(uint8_t row, uint8_t col, uint16_t value) {
 #define DEAD_ZONE 30
@@ -142,7 +151,8 @@ static uint8_t convert_to_travel(uint8_t row, uint8_t col, uint16_t value) {
     int16_t offset = p_calib->zero_travel - REF_ZERO_TRAVEL;
     uint16_t x = value - offset;
 
-    if (x > REF_ZERO_TRAVEL) x = REF_ZERO_TRAVEL;
+    if (x > REF_ZERO_TRAVEL) return 0;
+
     travel = (uint16_t)((TRAVEL_POLYNOMIAL(x) - TRAVEL_POLYNOMIAL(REF_ZERO_TRAVEL)) * scale_factor[row][col] * TRAVEL_SCALE + 0.5);
     if (travel > (FULL_TRAVEL_UNIT + 1) * TRAVEL_SCALE - 1) travel = (FULL_TRAVEL_UNIT + 1) * TRAVEL_SCALE - 1;
 
@@ -380,7 +390,8 @@ static bool calibrate(void) {
 
                 // Check validity
                 if (avg_val > VALID_ANALOG_RAW_VALUE_MAX || avg_val < DEFAULT_ZERO_TRAVEL_VALUE - DEFAULT_FULL_RANGE / 5) {
-                    valid = false;
+                    if (cali_state == CALIB_ZERO_TRAVEL_POWER_ON) valid = false;
+                    manual_calib_zero_invalid[r] |= 0x01 << c;
                     if (avg_val < DEFAULT_ZERO_TRAVEL_VALUE - DEFAULT_FULL_RANGE / 5 && cali_state == CALIB_ZERO_TRAVEL_POWER_ON) {
                         auto_calib[r][c].pressed = true;
                     }
@@ -621,6 +632,17 @@ void analog_matrix_eeconfig_init(void) {
         }
     }
 
+    // Reset to default if calibrated data is invalid
+    for (uint8_t r=0; r<MATRIX_ROWS; r++)
+        for (uint8_t c=0; c<MATRIX_COLS; c++) {
+            if ((analog_matrix_mask[r] & (0x01U << c)) == 0) continue;
+            if (saved_calib_values[r][c].zero_travel > VALID_ANALOG_RAW_VALUE_MAX || saved_calib_values[r][c].zero_travel < DEFAULT_ZERO_TRAVEL_VALUE - 300)
+                saved_calib_values[r][c].zero_travel = DEFAULT_ZERO_TRAVEL_VALUE;
+
+            if (saved_calib_values[r][c].full_travel > DEFAULT_FULL_TRAVEL_VALUE + 400 || saved_calib_values[r][c].full_travel < VALID_ANALOG_RAW_VALUE_MIN)
+                saved_calib_values[r][c].full_travel = saved_calib_values[r][c].zero_travel - DEFAULT_FULL_RANGE;
+        }
+
     if (calibrated) {
         calibration_validate();
         update_default_travel();
@@ -749,6 +771,7 @@ bool set_calibrate(uint8_t *data) {
 
             memset(calib_values, 0, sizeof(calib_values));
             memset(calib_state_matrix, 0, sizeof(calib_state_matrix));
+            memset(manual_calib_zero_invalid, 0, sizeof(manual_calib_zero_invalid));
             break;
 
         case CALIB_SAVE_AND_EXIT:
@@ -766,13 +789,15 @@ bool set_calibrate(uint8_t *data) {
 }
 
 bool get_realtime_travel(uint8_t *data) {
-    uint8_t             i   = 0;
+    uint8_t             i   = 1;
     uint8_t             row = data[0];
     uint8_t             col = data[1];
-    extern matrix_row_t raw_matrix[MATRIX_ROWS];
+    extern matrix_row_t analog_raw_matrix[MATRIX_ROWS];
 
     if (row >= MATRIX_ROWS || col >= MATRIX_COLS) return false;
 
+    data[i++] = row;
+    data[i++] = col;
     data[i++] = analog_key_matrix[row][col].travel / TRAVEL_SCALE;
     data[i++] = analog_key_matrix[row][col].travel;
     data[i++] = analog_key_matrix[row][col].value & 0xFF;
@@ -781,7 +806,7 @@ bool get_realtime_travel(uint8_t *data) {
     data[i++] = (calib_values[row][col].zero_travel >> 8) & 0xFF;
     data[i++] = calib_values[row][col].full_travel & 0xFF;
     data[i++] = (calib_values[row][col].full_travel >> 8) & 0xFF;
-    data[i++] = raw_matrix[row] & (0x01 << col) ? 0x11 : 0x10;
+    data[i++] = analog_raw_matrix[row] & (0x01 << col) ? 0x11 : 0x10;
 
     return true;
 }
@@ -789,6 +814,7 @@ bool get_realtime_travel(uint8_t *data) {
 void analog_matrix_task(void) {
     calibrate();
     profile_indication_timer_check();
+    socd_action();
 #ifdef JOYSTICK_ENABLE
     extern void joystick_task(void);
     joystick_task();
@@ -854,6 +880,8 @@ void analog_matrix_rx(uint8_t *data, uint8_t length) {
             data[3] = PROFILE_COUNT;
             data[4] = PROFILE_SIZE & 0xFF;
             data[5] = (PROFILE_SIZE >> 8) & 0xFF;
+            data[6] = OKMC_COUNT;
+            data[7] = SOCD_COUNT;
             break;
 
         case AMC_GET_PROFILE_RAW: {
@@ -893,10 +921,23 @@ void analog_matrix_rx(uint8_t *data, uint8_t length) {
 
         case AMC_SET_ADVANCE_MODE:
             success = profile_set_adv_mode(&data[2]);
+            data[2] = success ? 0 : 1;
+            break;
+
+        case AMC_SET_SOCD:
+            success = profile_set_socd(&data[2]);
+            data[2] = success ? 0 : 1;
             break;
 
         case AMC_GET_REALTIME_TRAVEL:
             success = get_realtime_travel(&data[2]);
+            data[2] = success ? 0 : 1;
+            break;
+
+        case AMC_RESET_PROFILE:
+            success = profile_reset(data[2]);
+            update_travel_configs();
+            data[2] = success ? 0 : 1;
             break;
 
         case AMC_SAVE_PROFILE:
@@ -942,7 +983,7 @@ void analog_matrix_rx(uint8_t *data, uint8_t length) {
 
 void analog_matrix_indicator(void) {
     if (cali_state == CALIB_FULL_TRAVEL_MANUAL) {
-        rgb_matrix_set_color_all(255, 0, 150);
+        rgb_matrix_set_color_all(150, 0, 150);
 
         for (uint8_t r = 0; r < MATRIX_ROWS; r++)
             for (uint8_t c = 0; c < MATRIX_COLS; c++) {
@@ -955,9 +996,17 @@ void analog_matrix_indicator(void) {
 
                     uint8_t index = g_led_config.matrix_co[r][c];
                     rgb_matrix_set_color(index, 0, 255, 0);
+                } else if (manual_calib_zero_invalid[r] & (0x01 << c)) {
+                    uint8_t index = g_led_config.matrix_co[r][c];
+                    rgb_matrix_set_color(index, 255, 0, 0);
                 }
             }
         return;
     }
     profile_indication();
 }
+
+inline matrix_row_t analog_matrix_get_row(uint8_t row) {
+    return virtual_matrix[row];
+}
+

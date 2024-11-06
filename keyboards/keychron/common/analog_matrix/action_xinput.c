@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 #include "quantum.h"
 #include "analog_matrix.h"
 #include "game_controller_common.h"
@@ -69,18 +69,22 @@ bool xinput_update(analog_key_t *key) {
         axis_changed[key->js_axis] = true;
     }
 
-    if (regular_trigger_action(key) && key->js_axis >= GC_BUTTON_0 && key->js_axis < GC_BUTTON_0 + 16) {
+    if (regular_trigger_action(key)) {
         static uint8_t xinput_buttons_map[16] = {12, 13, 14, 15, 8, 9, 5, 4, 6, 7, 0, 1, 2, 3, 10, 11};
         uint8_t        idx                    = key->js_axis - GC_BUTTON_0;
 
         if (key->state == AKS_REGULAR_PRESSED) {
-            xinput.buttons |= (0x01 << xinput_buttons_map[idx]);
+            if (key->js_axis >= GC_BUTTON_0 && key->js_axis < GC_BUTTON_0 + 16) {
+                xinput.buttons |= (0x01 << xinput_buttons_map[idx]);
+                xinput_changed = true;
+            }
             game_controller_matrix[key->r] |= 0x01 << key->c;
-            xinput_changed = true;
         } else {
-            xinput.buttons &= (~(0x01 << xinput_buttons_map[idx]));
+            if (key->js_axis >= GC_BUTTON_0 && key->js_axis < GC_BUTTON_0 + 16) {
+                xinput.buttons &= (~(0x01 << xinput_buttons_map[idx]));
+                xinput_changed = true;
+            }
             game_controller_matrix[key->r] &= ~(0x01 << key->c);
-            xinput_changed = true;
         }
 
         if (game_controller_type_enabled()) return true;

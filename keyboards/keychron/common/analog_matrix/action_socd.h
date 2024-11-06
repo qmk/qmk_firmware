@@ -14,14 +14,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-uint32_t sqrt_uint32(uint32_t n) {
-    uint32_t x = n;
-    uint32_t y = (x + 1) / 2;
-
-    while (y < x) {
-        x = y;
-        y = (x + n / x) / 2;
-    }
-
-    return x;
-}
+// SOCD Prioritization
+enum {
+    SOCD_PRI_NONE = 0,
+    SOCD_PRI_DEEPER_TRAVEL,
+    SOCD_PRI_DEEPER_TRAVEL_SINGLE,
+    SOCD_PRI_LAST_KEYSTROKE,
+    SOCD_PRI_KEY_1,
+    SOCD_PRI_KEY_2,
+    SOCD_PRI_NEUTRAL,
+    SOCD_PRI_MAX,
+};

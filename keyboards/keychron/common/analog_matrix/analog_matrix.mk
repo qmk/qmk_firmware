@@ -13,6 +13,7 @@ SRC += \
      $(ANALOG_MATRX_DIR)/action_toggle.c \
      $(ANALOG_MATRX_DIR)/action_joystick.c \
      $(ANALOG_MATRX_DIR)/action_xinput.c \
+     $(ANALOG_MATRX_DIR)/action_socd.c \
      $(ANALOG_MATRX_DIR)/sqrt.c \
      $(ANALOG_MATRX_DIR)/game_controller_common.c \
      $(ANALOG_MATRX_DIR)/analog_matrix.c

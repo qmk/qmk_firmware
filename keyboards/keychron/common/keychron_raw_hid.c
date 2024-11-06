@@ -35,6 +35,9 @@ enum {
     KC_GET_FIRMWARE_VERSION = 0xA1,
     KC_GET_SUPPORT_FEATURE  = 0xA2,
     KC_GET_DEFAULT_LAYER    = 0xA3,
+    KC_ANALOG_MATRIX        = 0xA9,
+    KC_WIRELESS_DFU         = 0xAA,
+    KC_FACTORY_TEST         = 0xAB
 };
 
 enum {
@@ -58,7 +61,36 @@ void get_support_feature(uint8_t *data) {
         ;
 }
 
+#ifdef ANANLOG_MATRIX
+void send_analog_matrix(uint8_t *data, uint8_t length) {
+    uint8_t offset = data[2];
+    uint8_t rows = 28 / ((MATRIX_COLS + 7) / 8);
+    uint8_t i    = 3;
+    for (uint8_t row = 0; row < rows && row + offset < MATRIX_ROWS; row++) {
+        matrix_row_t value = analog_matrix_get_row(row + offset);
+#    if (MATRIX_COLS > 24)
+        data[i++] = (value >> 24) & 0xFF;
+#    endif
+#    if (MATRIX_COLS > 16)
+        data[i++] = (value >> 16) & 0xFF;
+#    endif
+#    if (MATRIX_COLS > 8)
+        data[i++] = (value >> 8) & 0xFF;
+#    endif
+        data[i++] = value & 0xFF;
+    }
+    raw_hid_send(data, length);
+}
+#endif
+
 bool kc_raw_hid_rx(uint8_t *data, uint8_t length) {
+#ifdef ANANLOG_MATRIX
+    if (data[0] == id_get_keyboard_value && data[1] == id_switch_matrix_state) {
+        send_analog_matrix(data, length);
+        return false;
+    }
+#endif
+
     switch (data[0]) {
         case KC_GET_PROTOCOL_VERSION:
             data[1] = PROTOCOL_VERSION;
@@ -87,24 +119,24 @@ bool kc_raw_hid_rx(uint8_t *data, uint8_t length) {
             break;
 
 #ifdef ANANLOG_MATRIX
-        case 0xA9:
+        case KC_ANALOG_MATRIX:
             analog_matrix_rx(data, length);
             return true;
 #endif
 #ifdef LK_WIRELESS_ENABLE
-        case 0xAA:
+        case KC_WIRELESS_DFU:
             lkbt51_dfu_rx(data, length);
             return true;
 #endif
 #ifdef FACTORY_TEST_ENABLE
-        case 0xAB:
+        case KC_FACTORY_TEST:
             factory_test_rx(data, length);
             return true;
 #endif
         default:
             return false;
     }
-    
+
     raw_hid_send(data, length);
     return true;
 }

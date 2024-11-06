@@ -1,4 +1,4 @@
-/* Copyright 2023 @ Keychron (https://www.keychron.com)
+/* Copyright 2024 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -118,6 +118,15 @@ typedef struct __attribute__((__packed__)) {
 // size  = 19 bytes
 
 typedef struct __attribute__((__packed__)) {
+    uint8_t key_1_row:3;
+    uint8_t key_1_col:5;
+    uint8_t key_2_row:3;
+    uint8_t key_2_col:5;
+    uint8_t type;
+} socd_config_t;
+// size  = 3 bytes
+
+typedef struct __attribute__((__packed__)) {
     uint8_t x;                              // 1
     uint8_t y;;                             // 1
 } point_t;
@@ -127,6 +136,7 @@ typedef struct __attribute__((__packed__)) {
     analog_key_config_t global;
     analog_key_config_t key_config[MATRIX_ROWS][MATRIX_COLS];
     okmc_config_t okmc[OKMC_COUNT];
+    socd_config_t socd[SOCD_COUNT];
     uint8_t name[PROFILE_NAME_LEN];
     uint16_t crc16;
 } analog_matrix_profile_t;

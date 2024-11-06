@@ -19,6 +19,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "keycodes.h"
+#include "matrix.h"
 #include "analog_matrix_eeconfig.h"
 #include "analog_matrix_type.h"
 
@@ -39,6 +40,8 @@
 #ifndef DEFAULT_FULL_RANGE
 #    define DEFAULT_FULL_RANGE 900
 #endif
+
+#define DEFAULT_FULL_TRAVEL_VALUE (DEFAULT_ZERO_TRAVEL_VALUE - DEFAULT_FULL_RANGE)
 
 #ifndef VALID_ANALOG_RAW_VALUE_MIN
 #    define VALID_ANALOG_RAW_VALUE_MIN 1200
@@ -113,10 +116,11 @@ void update_key_config(uint8_t row, uint8_t col);
 void analog_matrix_set_mins(uint16_t *min);
 void analog_matrix_set_maxs(uint16_t *max);
 
+uint8_t  analog_matrix_get_travel(uint8_t row, uint8_t col);
 uint8_t analog_matrix_get_key_mode(uint8_t row, uint8_t col);
 bool    analog_matrix_get_key_state(uint8_t row, uint8_t col);
 bool    analog_matrix_calibrating(void);
-bool    profile_select(uint8_t profile_index, bool indication);
+matrix_row_t analog_matrix_get_row(uint8_t row);
 void    analog_matrix_rx(uint8_t *data, uint8_t length);
 void    analog_matrix_task(void);
 void    analog_matrix_indicator(void);

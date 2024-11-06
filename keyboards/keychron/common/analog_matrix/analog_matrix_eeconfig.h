@@ -1,4 +1,4 @@
-/* Copyright 2023 @ Keychron (https://www.keychron.com)
+/* Copyright 2024 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,16 +24,24 @@
 #    define OKMC_COUNT 20
 #endif
 
+#ifndef SOCD_COUNT
+#    define SOCD_COUNT 20
+#endif
+
 #define CURVE_POINTS_COUNT  4
 
-#define KC_ANALOG_MATRIX_VERSION 0x34340002
+#define KC_ANALOG_MATRIX_VERSION 0x34340004
 #define SIZE_OF_CALIB_VALUE_T 3             // Size of calibrated_value_t
 #define SIZE_OF_ANALOG_KEY_CONFIG_T 4       // Size of analog_key_config_t
 #define SIZE_OF_OKMC_CONFIG_T 19            // Size of okmc_config_t
+#define SIZE_OF_SOCD_CONFIG_T 3             // Size of socd_config_t
 #define SIZE_OF_POINT_T 2                   // Size of point_t
 #define PROFILE_NAME_LEN 30
 
-#define PROFILE_SIZE (2 + SIZE_OF_ANALOG_KEY_CONFIG_T*(MATRIX_ROWS*MATRIX_COLS+1) + PROFILE_NAME_LEN + SIZE_OF_OKMC_CONFIG_T*OKMC_COUNT)
+#define PROFILE_SIZE (2 + SIZE_OF_ANALOG_KEY_CONFIG_T*(MATRIX_ROWS*MATRIX_COLS+1) + \
+                    PROFILE_NAME_LEN + \
+                    SIZE_OF_OKMC_CONFIG_T*OKMC_COUNT+   \
+                    SIZE_OF_SOCD_CONFIG_T * SOCD_COUNT)
 
 #define OFFSET_CALIBRATION 0
 #define OFFSET_CURRENT_PROFILE (OFFSET_CALIBRATION+1)

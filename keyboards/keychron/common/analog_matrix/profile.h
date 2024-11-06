@@ -28,6 +28,8 @@ bool profile_select(uint8_t prof_idx, bool indication);
 bool profile_get_raw_data(uint8_t prof_idx, uint16_t offset, uint8_t size, uint8_t *data);
 bool profile_set_traval(uint8_t prof_idx, uint8_t mode, uint8_t act_pt, uint8_t sens, uint8_t rls_sens, bool global, uint32_t row[]);
 bool profile_set_name(uint8_t prof_idx, uint8_t len, uint8_t *name);
+bool profile_set_socd(uint8_t *data);
+bool profile_reset(uint8_t prof_index);
 bool profile_save(uint8_t prof_index);
 bool profile_set_adv_mode(uint8_t *data);
 void process_profile_select_combo(void);
