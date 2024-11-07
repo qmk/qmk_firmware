@@ -23,6 +23,12 @@
     },
     "split": {
         "enabled": true
+        "serial": {
+            "driver": "vendor"
+        },
+        "transport": {
+            "protocol": "serial"
+        }
     },
     "layouts": {
         "LAYOUT_split_3x6_5": {
