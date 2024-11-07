@@ -3,9 +3,11 @@
 
 #include QMK_KEYBOARD_H
 
-#define LSYM 1
-#define LNUM 2
-#define LNAV 3
+enum layers {
+    LSYM = 1,
+    LNUM,
+    LNAV
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_split_2_3x5_4_3(

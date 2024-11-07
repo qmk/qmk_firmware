@@ -30,7 +30,10 @@
         "enabled": true,
         "handedness": {
             "pin": "GP23"
-        }
+        },
+        "serial": {
+            "driver": "vendor"
+        },
         "matrix_pins": {
             "right": {
                 "direct": [
@@ -41,6 +44,9 @@
                 ]
             }
         }
+    },
+    "tapping": {
+        "toggle": 2
     },
     "layouts": {
         "LAYOUT_split_2_3x5_4_3": {

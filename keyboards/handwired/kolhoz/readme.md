@@ -9,11 +9,11 @@ The layout is inspired by the [corne](https://github.com/foostan/crkbd), but has
 
 Make example for this keyboard (after setting up your build environment):
 
-    qmk clean -a && qmk compile -kb handwired/kolhoz -km default
+    make handwired/kolhoz:default
 
 Flashing example for this keyboard:
 
-    qmk flash -kb handwired/kolhoz -km default
+    make handwired/kolhoz:default:flash
 
 ## Bootloader
 

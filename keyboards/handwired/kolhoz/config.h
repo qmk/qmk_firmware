@@ -8,5 +8,3 @@
 
 #define SERIAL_USART_TX_PIN GP0
 
-#define TAPPING_TOGGLE 2
-
