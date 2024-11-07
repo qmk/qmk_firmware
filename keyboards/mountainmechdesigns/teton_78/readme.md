@@ -12,9 +12,9 @@ Discord link can be found [here](https://discord.gg/h9dMwRNfVy)
 
 ## About
 
-Keyboard Maintainer: [Bennett Balogh](https://github.com/AwesomeBalogh)
-Hardware Supported: Atmega32u4
-Hardware Availability: N/A
+* Keyboard Maintainer: [Bennett Balogh](https://github.com/AwesomeBalogh)
+* Hardware Supported: Atmega32u4
+* Hardware Availability: N/A
 
 ## How to compile
 
