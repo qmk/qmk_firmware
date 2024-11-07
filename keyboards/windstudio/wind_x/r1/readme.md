@@ -1,6 +1,7 @@
 # WindX R1 by Windstudio
 
-![Compact, yes feature full working or gaming keyboard](https://i.imgur.com/FEVczwG.jpg)
+![WindX R1](https://i.imgur.com/FEVczwG.jpg)
+_Compact, yet feature full working or gaming keyboard_
 
 A large layout keyboard without the function keys. [More info on geekhack.org](https://geekhack.org/index.php?topic=114767.0)
 
