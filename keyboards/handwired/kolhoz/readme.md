@@ -1,6 +1,6 @@
 # handwired/kolhoz
 
-![handwired/kolhoz](https://github.com/vf1/kolhoz_kbd/blob/main/IMG20241107173135.jpg)
+![handwired/kolhoz](https://i.imgur.com/XXT1MdY.jpeg)
 
 The layout is inspired by the [corne](https://github.com/foostan/crkbd), but has four additional vertical keys.
 
