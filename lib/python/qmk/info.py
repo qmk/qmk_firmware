@@ -15,7 +15,7 @@ from qmk.keyboard import config_h, rules_mk
 from qmk.commands import parse_configurator_json
 from qmk.makefile import parse_rules_mk_file
 from qmk.math import compute
-from qmk.util import maybe_exit
+from qmk.util import maybe_exit, truthy
 
 true_values = ['1', 'on', 'yes']
 false_values = ['0', 'off', 'no']
@@ -264,7 +264,7 @@ def info_json(keyboard, force_layout=None):
 
     # Validate
     # Skip processing if necessary
-    if not os.environ.get('SKIP_SCHEMA_VALIDATION', None):
+    if not truthy(os.environ.get('SKIP_SCHEMA_VALIDATION'), False):
         _validate(keyboard, info_data)
 
     # Check that the reported matrix size is consistent with the actual matrix size
@@ -947,7 +947,7 @@ def merge_info_jsons(keyboard, info_data):
             _log_error(info_data, "Invalid file %s, root object should be a dictionary." % (str(info_file),))
             continue
 
-        if not os.environ.get('SKIP_SCHEMA_VALIDATION', None):
+        if not truthy(os.environ.get('SKIP_SCHEMA_VALIDATION'), False):
             try:
                 validate(new_info_data, 'qmk.keyboard.v1')
             except jsonschema.ValidationError as e:
