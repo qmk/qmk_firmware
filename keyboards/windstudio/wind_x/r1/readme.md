@@ -4,8 +4,9 @@
 
 A large layout keyboard without the function keys. [More info on geekhack.org](https://geekhack.org/index.php?topic=114767.0)
 
--   Keyboard Maintainer: [Christian C. Berclaz](https://github.com/chrisgve)
--   Hardware Supported: Wind X R1
+* Keyboard Maintainer: [Christian C. Berclaz](https://github.com/chrisgve)
+* Hardware Supported: Wind X R1 w/ ATmega32U4 microcontroller
+* Hardware Availability: [windstudio.store](https://windstudio.store/collections/wind-x)
 
 Make example for this keyboard (after setting up your build environment):
 
