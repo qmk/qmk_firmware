@@ -2,7 +2,7 @@
 
 ## Introduction
 
-[Teton 78](https://imgur.com/a/alexotos-pictures-of-teton-78-A39gN9e)
+![Teton 78](https://i.imgur.com/MnASIrv.jpeg)
 
 This is the QMK firmware repository for the Teton78, a 68XT solder and hotswao keyboard designed by Mountain Mech Designs - Bennett Balogh.
 
