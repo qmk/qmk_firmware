@@ -1,12 +1,12 @@
 # WindX R1 by Windstudio
 
-![Windstudio](https://windstudio.store)
+![Windstudio](https://windstudio.store/cdn/shop/files/20220831191615_4833cd38-da74-4ed2-bd46-80bcb02336b8.jpg?v=1679464964&width=240)
 
 A large layout keyboard without the function keys. [More info on geekhack.org](https://geekhack.org/index.php?topic=114767.0)
 
-* Keyboard Maintainer: [Christian C. Berclaz](https://github.com/chrisgve)
-* Hardware Supported: Wind X R1 w/ ATmega32U4 microcontroller
-* Hardware Availability: [windstudio.store](https://windstudio.store/collections/wind-x)
+-   Keyboard Maintainer: [Christian C. Berclaz](https://github.com/chrisgve)
+-   Hardware Supported: Wind X R1 w/ ATmega32U4 microcontroller
+-   Hardware Availability: [windstudio.store](https://windstudio.store/collections/wind-x)
 
 Make example for this keyboard (after setting up your build environment):
 
