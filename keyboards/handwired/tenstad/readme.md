@@ -1,6 +1,6 @@
 # tenstad
 
-![tenstad](https://raw.githubusercontent.com/tenstad/keyboard/refs/heads/main/media/keyboard.webp)
+![tenstad](https://i.imgur.com/Lh4TAUF.png)
 
 [tenstad/keyboard](https://github.com/tenstad/keyboard) - hand-soldered ergonomic split 3x6 keyboard with 5 thumb keys
 
