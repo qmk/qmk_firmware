@@ -1,6 +1,6 @@
 # WindX R1 by Windstudio
 
-![Windstudio](https://windstudio.store/cdn/shop/files/20220831191615_4833cd38-da74-4ed2-bd46-80bcb02336b8.jpg?v=1679464964&width=240)
+![Compact, yes feature full working or gaming keyboard](https://i.imgur.com/FEVczwG.jpg)
 
 A large layout keyboard without the function keys. [More info on geekhack.org](https://geekhack.org/index.php?topic=114767.0)
 
