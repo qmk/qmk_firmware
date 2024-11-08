@@ -648,7 +648,7 @@ static uint8_t waiting_buffer_find_chordal_hold_tap(void) {
     uint8_t      first_tap    = WAITING_BUFFER_SIZE;
 
     for (uint8_t i = waiting_buffer_tail; i != waiting_buffer_head; i = (i + 1) % WAITING_BUFFER_SIZE) {
-        keyrecord_t   *cur         = &waiting_buffer[i];
+        keyrecord_t *  cur         = &waiting_buffer[i];
         const uint16_t cur_keycode = get_record_keycode(cur, false);
 
         if (!cur->event.pressed || !is_tap_record(prev) || is_one_shot(prev_keycode)) {
