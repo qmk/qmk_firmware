@@ -1,6 +1,7 @@
 """Functions that help us generate and use info.json files.
 """
 import re
+import os
 from pathlib import Path
 import jsonschema
 from dotty_dict import dotty
@@ -14,7 +15,7 @@ from qmk.keyboard import config_h, rules_mk
 from qmk.commands import parse_configurator_json
 from qmk.makefile import parse_rules_mk_file
 from qmk.math import compute
-from qmk.util import maybe_exit
+from qmk.util import maybe_exit, truthy
 
 true_values = ['1', 'on', 'yes']
 false_values = ['0', 'off', 'no']
@@ -262,7 +263,9 @@ def info_json(keyboard, force_layout=None):
         info_data["community_layouts"] = [force_layout]
 
     # Validate
-    _validate(keyboard, info_data)
+    # Skip processing if necessary
+    if not truthy(os.environ.get('SKIP_SCHEMA_VALIDATION'), False):
+        _validate(keyboard, info_data)
 
     # Check that the reported matrix size is consistent with the actual matrix size
     _check_matrix(info_data)
@@ -941,13 +944,14 @@ def merge_info_jsons(keyboard, info_data):
             _log_error(info_data, "Invalid file %s, root object should be a dictionary." % (str(info_file),))
             continue
 
-        try:
-            validate(new_info_data, 'qmk.keyboard.v1')
-        except jsonschema.ValidationError as e:
-            json_path = '.'.join([str(p) for p in e.absolute_path])
-            cli.log.error('Not including data from file: %s', info_file)
-            cli.log.error('\t%s: %s', json_path, e.message)
-            continue
+        if not truthy(os.environ.get('SKIP_SCHEMA_VALIDATION'), False):
+            try:
+                validate(new_info_data, 'qmk.keyboard.v1')
+            except jsonschema.ValidationError as e:
+                json_path = '.'.join([str(p) for p in e.absolute_path])
+                cli.log.error('Not including data from file: %s', info_file)
+                cli.log.error('\t%s: %s', json_path, e.message)
+                continue
 
         # Merge layout data in
         if 'layout_aliases' in new_info_data:
