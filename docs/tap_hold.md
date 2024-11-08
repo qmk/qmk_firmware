@@ -453,10 +453,6 @@ Notes:
 
 * Chordal Hold has no effect after the tapping term. 
 
-* Chordal Hold has no effect when the other key is also a tap-hold key. This is
-  so that multiple tap-hold keys may be held on the same hand, which is common
-  to do with home row mods.
-
 * Combos are exempt from the opposite hands rule, since "handedness" is
   ill-defined in this case. Even so, Chordal Hold's behavior involving combos
   may be customized through the `get_chordal_hold()` callback.
