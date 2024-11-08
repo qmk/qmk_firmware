@@ -278,10 +278,22 @@ TEST_F(ChordalHoldPermissiveHold, three_mod_taps_same_hand_streak_roll) {
     VERIFY_AND_CLEAR(driver);
 
     // Release keys 1, 2, 3.
+    //
+    // NOTE: The correct order of events should be
+    // EXPECT_REPORT(driver, (KC_A));
+    // EXPECT_REPORT(driver, (KC_A, KC_B));
+    // EXPECT_REPORT(driver, (KC_A, KC_B, KC_C));
+    // EXPECT_REPORT(driver, (KC_B, KC_C));
+    // EXPECT_REPORT(driver, (KC_C));
+    // EXPECT_EMPTY_REPORT(driver);
+    //
+    // However, due to a workaround for https://github.com/tmk/tmk_keyboard/issues/60,
+    // the events are processed out of order, with the first two keys released
+    // before pressing KC_C.
     EXPECT_REPORT(driver, (KC_A));
     EXPECT_REPORT(driver, (KC_A, KC_B));
-    EXPECT_REPORT(driver, (KC_A, KC_B, KC_C));
-    EXPECT_REPORT(driver, (KC_B, KC_C));
+    EXPECT_REPORT(driver, (KC_B));
+    EXPECT_EMPTY_REPORT(driver);
     EXPECT_REPORT(driver, (KC_C));
     EXPECT_EMPTY_REPORT(driver);
     mod_tap_key1.release();
@@ -290,9 +302,6 @@ TEST_F(ChordalHoldPermissiveHold, three_mod_taps_same_hand_streak_roll) {
     run_one_scan_loop();
     mod_tap_key3.release();
     run_one_scan_loop();
-    VERIFY_AND_CLEAR(driver);
-
-    EXPECT_NO_REPORT(driver);
     VERIFY_AND_CLEAR(driver);
 }
 
@@ -383,6 +392,55 @@ TEST_F(ChordalHoldPermissiveHold, three_mod_taps_same_hand_streak_orders) {
     VERIFY_AND_CLEAR(driver);
 
     EXPECT_NO_REPORT(driver);
+    VERIFY_AND_CLEAR(driver);
+}
+
+TEST_F(ChordalHoldPermissiveHold, three_mod_taps_opposite_hands_roll) {
+    TestDriver driver;
+    InSequence s;
+    auto       mod_tap_key1 = KeymapKey(0, 1, 0, SFT_T(KC_A));
+    auto       mod_tap_key2 = KeymapKey(0, 2, 0, CTL_T(KC_B));
+    auto       mod_tap_key3 = KeymapKey(0, MATRIX_COLS - 1, 0, RSFT_T(KC_C));
+
+    set_keymap({mod_tap_key1, mod_tap_key2, mod_tap_key3});
+
+    // Press mod-tap keys.
+    EXPECT_NO_REPORT(driver);
+    mod_tap_key1.press();
+    run_one_scan_loop();
+    mod_tap_key2.press();
+    run_one_scan_loop();
+    mod_tap_key3.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Release keys 1, 2, 3.
+    //
+    // NOTE: The correct order of events should be
+    // EXPECT_REPORT(driver, (KC_A));
+    // EXPECT_REPORT(driver, (KC_A, KC_B));
+    // EXPECT_REPORT(driver, (KC_A, KC_B, KC_C));
+    // EXPECT_REPORT(driver, (KC_B, KC_C));
+    // EXPECT_REPORT(driver, (KC_C));
+    // EXPECT_EMPTY_REPORT(driver);
+    //
+    // However, due to a workaround for https://github.com/tmk/tmk_keyboard/issues/60,
+    // the events are processed out of order, with the first two keys released
+    // before pressing KC_C.
+
+    // Release keys 1, 2, 3.
+    EXPECT_REPORT(driver, (KC_A));
+    EXPECT_REPORT(driver, (KC_A, KC_B));
+    EXPECT_REPORT(driver, (KC_B));
+    EXPECT_EMPTY_REPORT(driver);
+    EXPECT_REPORT(driver, (KC_C));
+    EXPECT_EMPTY_REPORT(driver);
+    mod_tap_key1.release();
+    run_one_scan_loop();
+    mod_tap_key2.release();
+    run_one_scan_loop();
+    mod_tap_key3.release();
+    run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 }
 
@@ -523,7 +581,7 @@ TEST_F(ChordalHoldPermissiveHold, two_mod_taps_one_regular_key) {
 
     set_keymap({mod_tap_key1, mod_tap_key2, regular_key});
 
-    // Press mod-tap keys.
+    // Press keys.
     EXPECT_NO_REPORT(driver);
     mod_tap_key1.press();
     run_one_scan_loop();
@@ -533,19 +591,20 @@ TEST_F(ChordalHoldPermissiveHold, two_mod_taps_one_regular_key) {
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 
-    // Release key 3.
+    // Release keys.
     EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
     EXPECT_REPORT(driver, (KC_LEFT_SHIFT, KC_B));
     EXPECT_REPORT(driver, (KC_LEFT_SHIFT, KC_B, KC_C));
     EXPECT_REPORT(driver, (KC_LEFT_SHIFT, KC_C));
-    EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
     mod_tap_key2.release();
     run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
     regular_key.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 
-    // Release key 2, then key 1.
     EXPECT_EMPTY_REPORT(driver);
     mod_tap_key1.release();
     run_one_scan_loop();

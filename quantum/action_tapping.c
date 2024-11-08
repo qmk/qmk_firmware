@@ -50,17 +50,12 @@ __attribute__((weak)) bool get_permissive_hold(uint16_t keycode, keyrecord_t *re
 #    endif
 
 #    ifdef CHORDAL_HOLD
-// Tracks whether multiple tap-hold keys are simultaenously unsettled.
-static bool multi_tap_sequence = false;
-
 static bool is_one_shot(uint16_t keycode) {
     return IS_QK_ONE_SHOT_MOD(keycode) || IS_QK_ONE_SHOT_LAYER(keycode);
 }
-static uint8_t waiting_buffer_find_chordal_hold_tap(void);
+static uint8_t waiting_buffer_find_chordal_hold(void);
 static void    waiting_buffer_process_until(uint8_t new_tail);
 static void    waiting_buffer_process_regular(void);
-#    else
-#        define multi_tap_sequence false
 #    endif // CHORDAL_HOLD
 
 #    ifdef HOLD_ON_OTHER_KEY_PRESS_PER_KEY
@@ -124,11 +119,6 @@ void action_tapping_process(keyrecord_t record) {
     if (IS_EVENT(record.event)) {
         ac_dprintf("\n");
     }
-#    ifdef CHORDAL_HOLD
-    if (waiting_buffer_tail == waiting_buffer_head) {
-        multi_tap_sequence = false;
-    }
-#    endif
 }
 
 /* Some conditionally defined helper macros to keep process_tapping more
@@ -199,20 +189,6 @@ bool process_tapping(keyrecord_t *keyp) {
             waiting_buffer_scan_tap();
             debug_tapping_key();
         } else {
-#    if defined(CHORDAL_HOLD)
-            // If keyp is a tap-hold key release, and the tail waiting buffer
-            // is the corresponding press, settle the key as tapped.
-            if (waiting_buffer_tail != waiting_buffer_head && is_tap_record(keyp)) {
-                keyrecord_t *tail = &waiting_buffer[waiting_buffer_tail];
-                if (IS_EVENT(tail->event) && KEYEQ(tail->event.key, keyp->event.key) && tail->event.pressed) {
-                    tail->tap.count = 1;
-                    keyp->tap.count = 1;
-                    process_record(tail);
-                    // Pop tail from the queue.
-                    waiting_buffer_tail = (waiting_buffer_tail + 1) % WAITING_BUFFER_SIZE;
-                }
-            }
-#    endif
             // the current key is just a regular key, pass it on for regular
             // processing
             process_record(keyp);
@@ -232,25 +208,8 @@ bool process_tapping(keyrecord_t *keyp) {
                 // early return for tick events
                 return true;
             }
-#    ifdef CHORDAL_HOLD
-            if (!event.pressed && multi_tap_sequence && waiting_buffer_typed(event)) {
-                const uint8_t first_tap = waiting_buffer_find_chordal_hold_tap();
 
-                // Settle and process the tapping key and waiting events
-                // preceding first_tap as *held*.
-                if (first_tap < WAITING_BUFFER_SIZE) {
-                    ac_dprintf("Tapping: End. No tap. Interfered by typing key\n");
-                    process_record(&tapping_key);
-                    tapping_key = (keyrecord_t){0};
-                    debug_tapping_key();
-
-                    waiting_buffer_process_until(first_tap);
-                }
-                // enqueue
-                return false;
-            } else
-#    endif
-                if (tapping_key.tap.count == 0) {
+            if (tapping_key.tap.count == 0) {
                 if (IS_TAPPING_RECORD(keyp) && !event.pressed) {
                     // first tap!
                     ac_dprintf("Tapping: First tap(0->1).\n");
@@ -263,6 +222,28 @@ bool process_tapping(keyrecord_t *keyp) {
                     // enqueue
                     return false;
                 }
+#    ifdef CHORDAL_HOLD
+                else if (!TAP_GET_RETRO_TAPPING(keyp) && waiting_buffer_tail != waiting_buffer_head && is_tap_record(&waiting_buffer[waiting_buffer_tail]) && !event.pressed && waiting_buffer_typed(event)) {
+                    /* (!event.pressed || !is_tap_record(keyp)) && !is_one_shot(get_record_keycode(keyp, false))) { */
+                    const uint8_t new_tail = waiting_buffer_find_chordal_hold();
+                    ac_dprintf("Chordal hold: new tail = %u\n", new_tail);
+
+                    // Settle and process the tapping key and waiting events
+                    // preceding first_tap as *held*.
+                    if (new_tail < WAITING_BUFFER_SIZE) {
+                        ac_dprintf("Tapping: End. No tap. Chord considered held\n");
+                        process_record(&tapping_key);
+                        tapping_key = (keyrecord_t){0};
+                        debug_tapping_key();
+
+                        waiting_buffer_process_until(new_tail);
+                        waiting_buffer_process_regular();
+                    }
+
+                    // enqueue
+                    return false;
+                }
+#    endif
                 /* Process a key typed within TAPPING_TERM
                  * This can register the key before settlement of tapping,
                  * useful for long TAPPING_TERM but may prevent fast typing.
@@ -288,8 +269,21 @@ bool process_tapping(keyrecord_t *keyp) {
                 /* Process release event of a key pressed before tapping starts
                  * Without this unexpected repeating will occur with having fast repeating setting
                  * https://github.com/tmk/tmk_keyboard/issues/60
+                 *
+                 * NOTE: This workaround causes events to process out of order,
+                 * e.g. in a rolled press of three tap-hold keys like
+                 *
+                 *   "A down, B down, C down, A up, B up, C up"
+                 *
+                 * events are processed as
+                 *
+                 *   "A down, B down, A up, B up, C down, C up"
+                 *
+                 * It seems incorrect to process keyp before the tapping key.
+                 * This workaround is old, from 2013. This might no longer
+                 * be needed for the original problem it was meant to address.
                  */
-                else if (!multi_tap_sequence && !event.pressed && !waiting_buffer_typed(event)) {
+                else if (!event.pressed && !waiting_buffer_typed(event)) {
                     // Modifier/Layer should be retained till end of this tapping.
                     action_t action = layer_switch_get_action(event.key);
                     switch (action.kind.id) {
@@ -330,10 +324,7 @@ bool process_tapping(keyrecord_t *keyp) {
                             // this needs to be set false.
                             tapping_key.tap.interrupted = false;
 
-                            if (is_tap_record(keyp)) {
-                                // Multiple tap-hold keys are unsettled.
-                                multi_tap_sequence = true;
-                            } else {
+                            if (!is_tap_record(keyp)) {
                                 // Settle the tapping key as *tapped*, since it
                                 // is not considered a held chord with keyp.
                                 ac_dprintf("Tapping: End. Chord considered a tap\n");
@@ -357,7 +348,17 @@ bool process_tapping(keyrecord_t *keyp) {
                             // HOLD_ON_OTHER_KEY_PRESS is enabled for this key.
                             ac_dprintf("Tapping: End. No tap. Interfered by pressed key\n");
                             process_record(&tapping_key);
-                            tapping_key = (keyrecord_t){0};
+
+#    ifdef CHORDAL_HOLD
+                            if (waiting_buffer_tail != waiting_buffer_head && is_tap_record(&waiting_buffer[waiting_buffer_tail])) {
+                                tapping_key = waiting_buffer[waiting_buffer_tail];
+                                // Pop tail from the queue.
+                                waiting_buffer_tail = (waiting_buffer_tail + 1) % WAITING_BUFFER_SIZE;
+                            } else
+#    endif
+                            {
+                                tapping_key = (keyrecord_t){0};
+                            }
                             debug_tapping_key();
                         }
                     }
@@ -636,32 +637,28 @@ __attribute__((weak)) char chordal_hold_handedness_user(keypos_t key) {
 /** \brief Finds which queued events should be held according to Chordal Hold.
  *
  * In a situation with multiple unsettled tap-hold key presses, scan the queue
- * up until the first release, non-tap-hold, or one-shot event and find the
- * lastest event in the queue that settles as held according to
+ * for a successive pair of keys that settles as held according to
  * get_chordal_hold().
  *
- * \return Index of the first tap, or equivalently, one past the latest hold.
+ * \return Buffer index of the hold, or WAITING_BUFFER_SIZE if none is found.
  */
-static uint8_t waiting_buffer_find_chordal_hold_tap(void) {
+static uint8_t waiting_buffer_find_chordal_hold(void) {
     keyrecord_t *prev         = &tapping_key;
     uint16_t     prev_keycode = get_record_keycode(&tapping_key, false);
-    uint8_t      first_tap    = WAITING_BUFFER_SIZE;
 
     for (uint8_t i = waiting_buffer_tail; i != waiting_buffer_head; i = (i + 1) % WAITING_BUFFER_SIZE) {
-        keyrecord_t *  cur         = &waiting_buffer[i];
+        keyrecord_t   *cur         = &waiting_buffer[i];
         const uint16_t cur_keycode = get_record_keycode(cur, false);
 
-        if (!cur->event.pressed || !is_tap_record(prev) || is_one_shot(prev_keycode)) {
-            break;
-        } else if (get_chordal_hold(prev_keycode, prev, cur_keycode, cur)) {
-            first_tap = i; // Track one index past the latest hold.
+        if (get_chordal_hold(prev_keycode, prev, cur_keycode, cur)) {
+            return i;
         }
 
         prev         = cur;
         prev_keycode = cur_keycode;
     }
 
-    return first_tap;
+    return WAITING_BUFFER_SIZE;
 }
 
 /** \brief Processes and pops buffered events preceding `new_tail`. */
