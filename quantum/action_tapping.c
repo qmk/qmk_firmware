@@ -647,7 +647,7 @@ static uint8_t waiting_buffer_find_chordal_hold(void) {
     uint16_t     prev_keycode = get_record_keycode(&tapping_key, false);
 
     for (uint8_t i = waiting_buffer_tail; i != waiting_buffer_head; i = (i + 1) % WAITING_BUFFER_SIZE) {
-        keyrecord_t   *cur         = &waiting_buffer[i];
+        keyrecord_t *  cur         = &waiting_buffer[i];
         const uint16_t cur_keycode = get_record_keycode(cur, false);
 
         if (get_chordal_hold(prev_keycode, prev, cur_keycode, cur)) {
