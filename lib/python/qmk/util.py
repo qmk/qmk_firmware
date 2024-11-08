@@ -70,13 +70,20 @@ def parallelize():
 
     # Prefer mpire's `WorkerPool` if it's available
     with contextlib.suppress(ImportError):
+        style = 'std'
+        try:
+            import rich  # noqa: F401 -- we're just testing if it's available
+            style = 'rich'
+        except ImportError:
+            pass
+
         from mpire import WorkerPool
         from mpire.utils import make_single_arguments
         with WorkerPool() as pool:
 
             def _worker(func, *args):
                 # Ensure we don't unpack tuples -- mpire's `WorkerPool` tries to do so normally so we tell it not to.
-                for r in pool.imap_unordered(func, make_single_arguments(*args, generator=False), progress_bar=True):
+                for r in pool.imap_unordered(func, make_single_arguments(*args, generator=False), progress_bar=True, progress_bar_style=style):
                     yield r
 
             yield _worker
