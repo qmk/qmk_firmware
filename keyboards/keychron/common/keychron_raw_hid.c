@@ -84,7 +84,7 @@ void send_analog_matrix(uint8_t *data, uint8_t length) {
 #endif
 
 bool kc_raw_hid_rx(uint8_t *data, uint8_t length) {
-#ifdef ANANLOG_MATRIX
+#if defined(ANANLOG_MATRIX) && defined(VIA_ENABLE)
     if (data[0] == id_get_keyboard_value && data[1] == id_switch_matrix_state) {
         send_analog_matrix(data, length);
         return false;
