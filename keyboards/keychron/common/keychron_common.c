@@ -146,7 +146,7 @@ void get_support_feature(uint8_t *data) {
         ;
 }
 
-bool via_command_kb(uint8_t *data, uint8_t length) {
+bool kc_raw_hid_rx(uint8_t *data, uint8_t length) {
     // if (!raw_hid_receive_keychron(data, length))
     //     return false;
     switch (data[0]) {
@@ -202,12 +202,13 @@ bool via_command_kb(uint8_t *data, uint8_t length) {
     return true;
 }
 
-#if !defined(VIA_ENABLE)
+#if defined(VIA_ENABLE)
+bool via_command_kb(uint8_t *data, uint8_t length) {
+    return kc_raw_hid_rx(data, length);
+}
+#else
 void raw_hid_receive(uint8_t *data, uint8_t length) {
-    switch (data[0]) {
-        case RAW_HID_CMD:
-            via_command_kb(data, length);
-            break;
-    }
+    kc_raw_hid_rx(data, length);
 }
 #endif
+
