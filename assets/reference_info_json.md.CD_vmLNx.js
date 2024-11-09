@@ -1,7 +1,7 @@
 import { _ as _export_sfc, c as createElementBlock, l as createBaseVNode, a as createTextVNode, I as createVNode, w as withCtx, a8 as createStaticVNode, D as resolveComponent, o as openBlock } from "./chunks/framework.B9AX-CPi.js";
 const __pageData = JSON.parse('{"title":"info.json Reference","description":"","frontmatter":{},"headers":[],"relativePath":"reference_info_json.md","filePath":"reference_info_json.md"}');
 const _sfc_main = { name: "reference_info_json.md" };
-const _hoisted_1 = /* @__PURE__ */ createStaticVNode("", 4);
+const _hoisted_1 = /* @__PURE__ */ createStaticVNode('<h1 id="info-json-reference" tabindex="-1"><code>info.json</code> Reference <a class="header-anchor" href="#info-json-reference" aria-label="Permalink to &quot;`info.json` Reference {#info-json-reference}&quot;">​</a></h1><p>The information contained in <code>info.json</code> is combined with the <code>config.h</code> and <code>rules.mk</code> files, dynamically generating the necessary configuration for your keyboard at compile time. It is also used by the <a href="https://github.com/qmk/qmk_api" target="_blank" rel="noreferrer">QMK API</a>, and contains the information <a href="https://config.qmk.fm/" target="_blank" rel="noreferrer">QMK Configurator</a> needs to display a representation of your keyboard. Its key/value pairs are ruled by the <a href="https://github.com/qmk/qmk_firmware/blob/master/data/schemas/keyboard.jsonschema" target="_blank" rel="noreferrer"><code>data/schemas/keyboard.jsonschema</code></a> file. To learn more about the why and how of the schema file see the <a href="./data_driven_config">Data Driven Configuration</a> page.</p><p>You can create <code>info.json</code> files at every level under <code>qmk_firmware/keyboards/&lt;keyboard_name&gt;</code>. These files are combined, with more specific files overriding keys in less specific files. This means you do not need to duplicate your metadata information. For example, <code>qmk_firmware/keyboards/clueboard/info.json</code> specifies information common to all Clueboard products, such as <code>manufacturer</code> and <code>maintainer</code>, while <code>qmk_firmware/keyboards/clueboard/66/info.json</code> contains more specific information about Clueboard 66%.</p><h2 id="general-metadata" tabindex="-1">General Metadata <a class="header-anchor" href="#general-metadata" aria-label="Permalink to &quot;General Metadata {#general-metadata}&quot;">​</a></h2>', 4);
 const _hoisted_5 = /* @__PURE__ */ createBaseVNode("code", null, "keyboard_name", -1);
 const _hoisted_6 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, [
@@ -43,10 +43,10 @@ const _hoisted_12 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("A URL to the keyboard's product page, "),
     /* @__PURE__ */ createBaseVNode("a", {
-      href: "https://qmk.fm/keyboards",
+      href: "https://browse.qmk.fm/",
       target: "_blank",
       rel: "noreferrer"
-    }, "QMK.fm/keyboards"),
+    }, "QMK Keyboards"),
     /* @__PURE__ */ createTextVNode(" page, or other page describing information about the keyboard.")
   ]),
   /* @__PURE__ */ createBaseVNode("li", null, [
@@ -136,7 +136,7 @@ const _hoisted_28 = /* @__PURE__ */ createBaseVNode("h2", {
 ], -1);
 const _hoisted_29 = /* @__PURE__ */ createBaseVNode("code", null, "build", -1);
 const _hoisted_30 = /* @__PURE__ */ createBaseVNode("code", null, "debounce_type", -1);
-const _hoisted_31 = /* @__PURE__ */ createStaticVNode("", 1);
+const _hoisted_31 = /* @__PURE__ */ createStaticVNode("<ul><li>The debounce algorithm to use. Must be one of <code>asym_eager_defer_pk</code>, <code>custom</code>, <code>sym_defer_g</code>, <code>sym_defer_pk</code>, <code>sym_defer_pr</code>, <code>sym_eager_pk</code>, <code>sym_eager_pr</code>.</li></ul>", 1);
 const _hoisted_32 = /* @__PURE__ */ createBaseVNode("code", null, "firmware_format", -1);
 const _hoisted_33 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, [
@@ -158,7 +158,7 @@ const _hoisted_35 = /* @__PURE__ */ createBaseVNode("ul", null, [
   ])
 ], -1);
 const _hoisted_36 = /* @__PURE__ */ createBaseVNode("code", null, "features", -1);
-const _hoisted_37 = /* @__PURE__ */ createStaticVNode("", 2);
+const _hoisted_37 = /* @__PURE__ */ createStaticVNode('<ul><li>A dictionary of features to enable or disable.</li><li>Example:</li></ul><div class="language-json vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang">json</span><pre class="shiki shiki-themes github-light github-dark vp-code"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">{</span></span>\n<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    &quot;rgb_matrix&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">true</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>\n<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    &quot;rgblight&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">false</span></span>\n<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></div>', 2);
 const _hoisted_39 = /* @__PURE__ */ createBaseVNode("code", null, "qmk", -1);
 const _hoisted_40 = /* @__PURE__ */ createBaseVNode("code", null, "locking", -1);
 const _hoisted_41 = /* @__PURE__ */ createBaseVNode("code", null, "enabled", -1);
@@ -714,7 +714,7 @@ const _hoisted_166 = /* @__PURE__ */ createBaseVNode("p", null, [
 ], -1);
 const _hoisted_167 = /* @__PURE__ */ createBaseVNode("code", null, "eeprom", -1);
 const _hoisted_168 = /* @__PURE__ */ createBaseVNode("code", null, "driver", -1);
-const _hoisted_169 = /* @__PURE__ */ createStaticVNode("", 1);
+const _hoisted_169 = /* @__PURE__ */ createStaticVNode("<ul><li>The EEPROM backend to use. Must be one of <code>custom</code>, <code>i2c</code>, <code>legacy_stm32_flash</code>, <code>spi</code>, <code>transient</code>, <code>vendor</code>, <code>wear_leveling</code>.</li><li>Default: <code>&quot;vendor&quot;</code></li></ul>", 1);
 const _hoisted_170 = /* @__PURE__ */ createBaseVNode("code", null, "wear_leveling", -1);
 const _hoisted_171 = /* @__PURE__ */ createBaseVNode("code", null, "driver", -1);
 const _hoisted_172 = /* @__PURE__ */ createBaseVNode("ul", null, [
@@ -828,7 +828,7 @@ const _hoisted_200 = /* @__PURE__ */ createBaseVNode("code", null, "scroll_lock"
 const _hoisted_201 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The GPIO pin connected to the Scroll Lock LED.")
 ], -1);
-const _hoisted_202 = /* @__PURE__ */ createStaticVNode("", 5);
+const _hoisted_202 = /* @__PURE__ */ createStaticVNode('<h2 id="layouts" tabindex="-1">Layouts <a class="header-anchor" href="#layouts" aria-label="Permalink to &quot;Layouts {#layouts}&quot;">​</a></h2><p>The <code>layouts</code> portion of the dictionary contains several nested dictionaries. The outer layer consists of QMK layout names, for example <code>LAYOUT_60_ansi</code> or <code>LAYOUT_60_iso</code>.</p><p>Each key dictionary in a layout describes the physical properties of a key. If you are familiar with the Raw Data format for <a href="https://keyboard-layout-editor.com" target="_blank" rel="noreferrer">Keyboard Layout Editor</a>, you will find many of the concepts the same. Key names and layout choices are reused wherever possible, but unlike KLE each key is stateless, inheriting no properties from the keys that came before it.</p><p>All key positions and rotations are specified in relation to the top-left corner of the keyboard, and the top-left corner of each key.</p><p>The ISO enter key is represented by a 1.25u×2uh key. Renderers which utilize info.json layout data (such as <code>qmk info -l</code> and the QMK Configurator) should display this key as expected.</p>', 5);
 const _hoisted_207 = /* @__PURE__ */ createBaseVNode("code", null, "community_layouts", -1);
 const _hoisted_208 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "A list of community layouts supported by the keyboard."),
@@ -838,7 +838,7 @@ const _hoisted_208 = /* @__PURE__ */ createBaseVNode("ul", null, [
   ])
 ], -1);
 const _hoisted_209 = /* @__PURE__ */ createBaseVNode("code", null, "layout_aliases", -1);
-const _hoisted_210 = /* @__PURE__ */ createStaticVNode("", 2);
+const _hoisted_210 = /* @__PURE__ */ createStaticVNode('<ul><li>A mapping of layout aliases to layout definitions.</li><li>Example:</li></ul><div class="language-json vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang">json</span><pre class="shiki shiki-themes github-light github-dark vp-code"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">{</span></span>\n<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    &quot;LAYOUT_ansi&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;LAYOUT_60_ansi&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>\n<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    &quot;LAYOUT_iso&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;LAYOUT_60_iso&quot;</span></span>\n<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></div>', 2);
 const _hoisted_212 = /* @__PURE__ */ createBaseVNode("code", null, "layouts", -1);
 const _hoisted_213 = /* @__PURE__ */ createBaseVNode("li", null, "A dictionary of layouts supported by the keyboard.", -1);
 const _hoisted_214 = /* @__PURE__ */ createBaseVNode("code", null, "LAYOUT_<layout_name>", -1);
@@ -974,7 +974,7 @@ const _hoisted_247 = /* @__PURE__ */ createBaseVNode("p", null, [
 ], -1);
 const _hoisted_248 = /* @__PURE__ */ createBaseVNode("code", null, "led_matrix", -1);
 const _hoisted_249 = /* @__PURE__ */ createBaseVNode("code", null, "animations", -1);
-const _hoisted_250 = /* @__PURE__ */ createStaticVNode("", 2);
+const _hoisted_250 = /* @__PURE__ */ createStaticVNode('<ul><li>A dictionary of effects to enable or disable. Effects which are absent default to <code>false</code>.</li><li>Example:</li></ul><div class="language-json vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang">json</span><pre class="shiki shiki-themes github-light github-dark vp-code"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">{</span></span>\n<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    &quot;alphas_mods&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">true</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>\n<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    &quot;breathing&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">true</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>\n<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    &quot;cycle_left_right&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">false</span></span>\n<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></div>', 2);
 const _hoisted_252 = /* @__PURE__ */ createBaseVNode("code", null, "center_point", -1);
 const _hoisted_253 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The centroid (geometric center) of the LEDs. Used for certain effects."),
@@ -1020,7 +1020,7 @@ const _hoisted_262 = /* @__PURE__ */ createBaseVNode("ul", null, [
   ])
 ], -1);
 const _hoisted_263 = /* @__PURE__ */ createBaseVNode("code", null, "driver", -1);
-const _hoisted_264 = /* @__PURE__ */ createStaticVNode("", 1);
+const _hoisted_264 = /* @__PURE__ */ createStaticVNode("<ul><li>The driver to use. Must be one of <code>custom</code>, <code>is31fl3218</code>, <code>is31fl3731</code>, <code>is31fl3733</code>, <code>is31fl3736</code>, <code>is31fl3737</code>, <code>is31fl3741</code>, <code>is31fl3742a</code>, <code>is31fl3743a</code>, <code>is31fl3745</code>, <code>is31fl3746a</code>, <code>snled27351</code>.</li></ul>", 1);
 const _hoisted_265 = /* @__PURE__ */ createBaseVNode("code", null, "layout", -1);
 const _hoisted_266 = /* @__PURE__ */ createBaseVNode("code", null, "flags", -1);
 const _hoisted_267 = /* @__PURE__ */ createBaseVNode("ul", null, [
@@ -1177,7 +1177,7 @@ const _hoisted_304 = /* @__PURE__ */ createBaseVNode("ul", null, [
   ])
 ], -1);
 const _hoisted_305 = /* @__PURE__ */ createBaseVNode("code", null, "direct", -1);
-const _hoisted_306 = /* @__PURE__ */ createStaticVNode("", 2);
+const _hoisted_306 = /* @__PURE__ */ createStaticVNode('<ul><li>A 2-dimensional list of GPIO pins connected to each keyswitch, forming the &quot;matrix&quot; rows and columns.</li><li>Example:</li></ul><div class="language-json vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang">json</span><pre class="shiki shiki-themes github-light github-dark vp-code"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">[</span></span>\n<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    [</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;A0&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;A1&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;A2&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">],</span></span>\n<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    [</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;B0&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;B1&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;B2&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">],</span></span>\n<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    [</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;C0&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;C1&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;C2&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">]</span></span>\n<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">]</span></span></code></pre></div>', 2);
 const _hoisted_308 = /* @__PURE__ */ createBaseVNode("code", null, "ghost", -1);
 const _hoisted_309 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Whether the matrix has no anti-ghosting diodes."),
@@ -1392,7 +1392,7 @@ const _hoisted_360 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The number of LEDs in the chain.")
 ], -1);
 const _hoisted_361 = /* @__PURE__ */ createBaseVNode("code", null, "animations", -1);
-const _hoisted_362 = /* @__PURE__ */ createStaticVNode("", 2);
+const _hoisted_362 = /* @__PURE__ */ createStaticVNode('<ul><li>A dictionary of effects to enable or disable. Effects which are absent default to <code>false</code>.</li><li>Example:</li></ul><div class="language-json vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang">json</span><pre class="shiki shiki-themes github-light github-dark vp-code"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">{</span></span>\n<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    &quot;breathing&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">true</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>\n<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    &quot;rainbow_mood&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">true</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>\n<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    &quot;snake&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">false</span></span>\n<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></div>', 2);
 const _hoisted_364 = /* @__PURE__ */ createBaseVNode("code", null, "brightness_steps", -1);
 const _hoisted_365 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The number of brightness adjustment steps."),
@@ -1572,7 +1572,7 @@ const _hoisted_403 = /* @__PURE__ */ createBaseVNode("p", null, [
 ], -1);
 const _hoisted_404 = /* @__PURE__ */ createBaseVNode("code", null, "rgb_matrix", -1);
 const _hoisted_405 = /* @__PURE__ */ createBaseVNode("code", null, "animations", -1);
-const _hoisted_406 = /* @__PURE__ */ createStaticVNode("", 2);
+const _hoisted_406 = /* @__PURE__ */ createStaticVNode('<ul><li>A dictionary of effects to enable or disable. Effects which are absent default to <code>false</code>.</li><li>Example:</li></ul><div class="language-json vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang">json</span><pre class="shiki shiki-themes github-light github-dark vp-code"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">{</span></span>\n<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    &quot;alphas_mods&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">true</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>\n<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    &quot;breathing&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">true</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>\n<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    &quot;cycle_left_right&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">false</span></span>\n<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></div>', 2);
 const _hoisted_408 = /* @__PURE__ */ createBaseVNode("code", null, "center_point", -1);
 const _hoisted_409 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The centroid (geometric center) of the LEDs. Used for certain effects."),
@@ -1634,7 +1634,7 @@ const _hoisted_422 = /* @__PURE__ */ createBaseVNode("ul", null, [
   ])
 ], -1);
 const _hoisted_423 = /* @__PURE__ */ createBaseVNode("code", null, "driver", -1);
-const _hoisted_424 = /* @__PURE__ */ createStaticVNode("", 1);
+const _hoisted_424 = /* @__PURE__ */ createStaticVNode("<ul><li>The driver to use. Must be one of <code>aw20216s</code>, <code>custom</code>, <code>is31fl3218</code>, <code>is31fl3236</code>, <code>is31fl3729</code>, <code>is31fl3731</code>, <code>is31fl3733</code>, <code>is31fl3736</code>, <code>is31fl3737</code>, <code>is31fl3741</code>, <code>is31fl3742a</code>, <code>is31fl3743a</code>, <code>is31fl3745</code>, <code>is31fl3746a</code>, <code>snled27351</code>, <code>ws2812</code>.</li></ul>", 1);
 const _hoisted_425 = /* @__PURE__ */ createBaseVNode("code", null, "hue_steps", -1);
 const _hoisted_426 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The number of hue adjustment steps."),
@@ -1825,7 +1825,7 @@ const _hoisted_469 = /* @__PURE__ */ createBaseVNode("p", null, [
   /* @__PURE__ */ createTextVNode(" feature.")
 ], -1);
 const _hoisted_470 = /* @__PURE__ */ createBaseVNode("code", null, "split", -1);
-const _hoisted_471 = /* @__PURE__ */ createStaticVNode("", 2);
+const _hoisted_471 = /* @__PURE__ */ createStaticVNode('<li><code>bootmagic</code><ul><li><code>matrix</code><ul><li>See <a href="#bootmagic">Bootmagic</a> config.</li></ul></li></ul></li><li><code>dip_switch</code><ul><li><code>right</code><ul><li><code>pins</code><ul><li>See <a href="#dip-switch">DIP Switches</a> config.</li></ul></li></ul></li></ul></li>', 2);
 const _hoisted_473 = /* @__PURE__ */ createBaseVNode("code", null, "enabled", -1);
 const _hoisted_474 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Enable the Split Keyboard feature."),
@@ -2221,7 +2221,7 @@ const _hoisted_557 = /* @__PURE__ */ createBaseVNode("p", null, [
 ], -1);
 const _hoisted_558 = /* @__PURE__ */ createBaseVNode("code", null, "ws2812", -1);
 const _hoisted_559 = /* @__PURE__ */ createBaseVNode("code", null, "driver", -1);
-const _hoisted_560 = /* @__PURE__ */ createStaticVNode("", 1);
+const _hoisted_560 = /* @__PURE__ */ createStaticVNode("<ul><li>The driver to use. Must be one of <code>bitbang</code>, <code>custom</code>, <code>i2c</code>, <code>pwm</code>, <code>spi</code>, <code>vendor</code>.</li><li>Default: <code>&quot;bitbang&quot;</code></li></ul>", 1);
 const _hoisted_561 = /* @__PURE__ */ createBaseVNode("code", null, "pin", -1);
 const _hoisted_562 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, [
