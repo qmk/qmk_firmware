@@ -12,3 +12,4 @@ CUSTOM_MATRIX = lite
 SRC += matrix.c
 
 SRC += common/features/socd_cleaner.c
+SLEEP_LED_ENABLE = no

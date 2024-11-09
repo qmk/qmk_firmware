@@ -30,7 +30,6 @@ static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 extern DEV_INFO_STRUCT dev_info;
 
 // static bool f_usb_deinit         = 0;
-static bool rgb_led_powered_off = 0;
 static bool tim6_enabled        = false;
 static bool sleeping            = false;
 
@@ -186,8 +185,6 @@ void exit_deep_sleep(void) {
     gpio_write_pin_high(NRF_WAKEUP_PIN);
 
     // // power on LEDs This is missing from Nuphy's logic.
-    // rgb_led_powered_off = 1;
-    // sleeping            = false;
     led_pwr_wake_handle();
 
     // 重新初始化系统时钟
@@ -231,8 +228,6 @@ void enter_light_sleep(void) {
  */
 void exit_light_sleep(void) {
     sleeping = false;
-    // // NOTE: hack to force enable all leds
-    // rgb_led_powered_off  = 1;
 
     led_pwr_wake_handle();
     uart_send_cmd(CMD_HAND, 0, 1);
@@ -246,21 +241,20 @@ void exit_light_sleep(void) {
 }
 
 void led_pwr_sleep_handle(void) {
-    // reset the flags.
-    rgb_led_powered_off = 0;
-
-    // power off leds if they were enabled
-    if (is_rgb_led_on()) {
-        rgb_led_powered_off = 1;
+    if (rgb_led_on) {
         pwr_rgb_led_off();
     }
 }
 
+void side_rgb_refresh(void);
+
 void led_pwr_wake_handle(void) {
-    if (rgb_led_powered_off) {
+    if (!rgb_led_on) {
         pwr_rgb_led_on();
+        rgb_matrix_update_pwm_buffers();
     }
 }
+
 
 void pwr_rgb_led_off(void) {
     if (!rgb_led_on) return;

@@ -13,3 +13,5 @@ SRC += matrix.c
 
 # socd cleaner source code
 SRC += common/features/socd_cleaner.c
+
+SLEEP_LED_ENABLE = no

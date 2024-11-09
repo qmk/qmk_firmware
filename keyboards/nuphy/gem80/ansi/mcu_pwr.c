@@ -31,10 +31,8 @@ extern DEV_INFO_STRUCT dev_info;
 // extern bool            flush_side_leds;
 
 // static bool f_usb_deinit         = 0;
-static bool side_led_powered_off = 0;
-static bool rgb_led_powered_off  = 0;
-static bool tim6_enabled         = false;
-static bool sleeping             = false;
+static bool tim6_enabled = false;
+static bool sleeping     = false;
 
 static bool rgb_led_on  = 0;
 static bool side_led_on = 0;
@@ -197,7 +195,7 @@ void exit_deep_sleep(void) {
     /* TIM6 使能 */
     if (tim6_enabled) TIM_Cmd(TIM6, ENABLE);
 
-        // Should re-init USB regardless probably if it was deinitialized.
+    // Should re-init USB regardless probably if it was deinitialized.
 #if (WORK_MODE == THREE_MODE)
     uart_send_cmd(CMD_HAND, 0, 1);
 #endif
@@ -238,9 +236,6 @@ void enter_light_sleep(void) {
  */
 void exit_light_sleep(void) {
     sleeping = false;
-    // // NOTE: hack to force enable all leds
-    // rgb_led_powered_off  = 1;
-    // side_led_powered_off = 1;
 
     led_pwr_wake_handle();
 #if (WORK_MODE == THREE_MODE)
@@ -258,17 +253,10 @@ void exit_light_sleep(void) {
 }
 
 void led_pwr_sleep_handle(void) {
-    // reset the flags.
-    side_led_powered_off = 0;
-    rgb_led_powered_off  = 0;
-
-    // power off leds if they were enabled
-    if (is_rgb_led_on()) {
-        rgb_led_powered_off = 1;
+    if (rgb_led_on) {
         pwr_rgb_led_off();
     }
-    if (is_side_led_on()) {
-        side_led_powered_off = 1;
+    if (side_led_on) {
         pwr_side_led_off();
     }
 }
@@ -276,17 +264,13 @@ void led_pwr_sleep_handle(void) {
 void side_rgb_refresh(void);
 
 void led_pwr_wake_handle(void) {
-    if (rgb_led_powered_off) {
+    if (!rgb_led_on) {
         pwr_rgb_led_on();
-        // Change any LED's state so the LED driver flushes after turning on for solid colors.
-        // Without doing this, the WS2812 driver wouldn't flush as the previous state is the same as current.
-        // rgb_matrix_set_color_all(0, 0, 0);
         rgb_matrix_update_pwm_buffers();
     }
-    if (side_led_powered_off) {
+    if (!side_led_on) {
         pwr_side_led_on();
         side_rgb_refresh();
-        // flush_side_leds = true;
     }
 }
 
