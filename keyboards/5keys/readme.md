@@ -5,8 +5,8 @@
 *A short description of the keyboard/project*
 
 * Keyboard Maintainer: [mikiya418](https://github.com/mikiya418)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: 5keys PCBs, Pro Micro
+* Hardware Availability: 
 
 Make example for this keyboard (after setting up your build environment):
 
