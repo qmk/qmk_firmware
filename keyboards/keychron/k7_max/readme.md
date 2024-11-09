@@ -12,11 +12,19 @@ Make example for this keyboard (after setting up your build environment):
 
     make keychron/k7_max/ansi/rgb:default
     make keychron/k7_max/ansi/white:default
+    make keychron/k7_max/iso/rgb:default
+    make keychron/k7_max/iso/white:default
+    make keychron/k7_max/jis/rgb:default
+    make keychron/k7_max/jis/white:default
 
 Flashing example for this keyboard:
 
     make keychron/k7_max/ansi/rgb:default:flash
     make keychron/k7_max/ansi/white:default:flash
+    make keychron/k7_max/iso/rgb:default:flash
+    make keychron/k7_max/iso/white:default:flash
+    make keychron/k7_max/jis/rgb:default:flash
+    make keychron/k7_max/jis/white:default:flash
 
 **Reset Key**: Disconnect the USB cable, toggle mode switch to "Cable", hold down the *Esc* key or reset button underneath space bar, then connect the USB cable.
 

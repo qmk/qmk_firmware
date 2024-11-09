@@ -31,7 +31,6 @@
 #define POWER_ON_LED_DURATION 3000
 static uint32_t power_on_indicator_timer;
 
-
 bool dip_switch_update_kb(uint8_t index, bool active) {
     if (index == 0) {
         default_layer_set(1UL << (active ? 0 : 1));
@@ -51,10 +50,6 @@ void keyboard_post_init_kb(void) {
 #endif
 
     power_on_indicator_timer = timer_read32();
-#ifdef ENCODER_ENABLE
-    encoder_cb_init();
-#endif
-
     keyboard_post_init_user();
 }
 
@@ -62,7 +57,6 @@ bool keychron_task_kb(void) {
     if (power_on_indicator_timer) {
         if (timer_elapsed32(power_on_indicator_timer) > POWER_ON_LED_DURATION) {
             power_on_indicator_timer = 0;
-
 #ifdef LK_WIRELESS_ENABLE
             writePin(BAT_LOW_LED_PIN, !BAT_LOW_LED_PIN_ON_STATE);
 #endif

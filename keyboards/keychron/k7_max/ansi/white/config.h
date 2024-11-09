@@ -18,21 +18,13 @@
 
 #ifdef LED_MATRIX_ENABLE
 /* LED matrix driver configuration */
-#    define DRIVER_COUNT 1
 #    define LED_MATRIX_LED_COUNT 68
-
-#    define SPI_SCK_PIN A5
-#    define SPI_MISO_PIN A6
-#    define SPI_MOSI_PIN A7
-
+#    define DRIVER_COUNT 1
 #    define DRIVER_CS_PINS \
         { B9 }
-#    define SNLED23751_SPI_DIVISOR 16
-#    define SPI_DRIVER SPID1
 
 /* Use first 6 channels of LED driver */
 #    define SNLED27351_PHASE_CHANNEL MSKPHASE_6CHANNEL
-
 /* Set LED driver current */
 #    define SNLED27351_CURRENT_TUNE \
         { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 }
@@ -47,8 +39,13 @@
 /* Indications */
 #    define DIM_CAPS_LOCK
 #    define CAPS_LOCK_INDEX 30
+#    define BT_HOST_LED_MATRIX_LIST \
+        { 16, 17, 18 }
+#    define P2P4G_HOST_LED_MATRIX_LIST \
+        { 19 }
 #    define LOW_BAT_IND_INDEX \
-                { 61 }
+        { 61 }
 
+#    define LED_MATRIX_VAL_STEP 16
 #    define LED_MATRIX_KEYPRESSES
 #endif

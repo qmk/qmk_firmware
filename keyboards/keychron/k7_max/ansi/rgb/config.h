@@ -18,28 +18,19 @@
 
 #ifdef RGB_MATRIX_ENABLE
 /* RGB Matrix driver configuration */
-#    define DRIVER_COUNT 2
 #    define RGB_MATRIX_LED_COUNT 68
-
-#    define SPI_SCK_PIN A5
-#    define SPI_MISO_PIN A6
-#    define SPI_MOSI_PIN A7
-
+#    define DRIVER_COUNT 2
 #    define DRIVER_CS_PINS \
         { B8, B9 }
-#    define SNLED23751_SPI_DIVISOR 16
-#    define SPI_DRIVER SPID1
 
 /* Scan phase of led driver set as MSKPHASE_9CHANNEL(defined as 0x03 in snled27351.h) */
 #    define SNLED27351_PHASE_CHANNEL MSKPHASE_9CHANNEL
-
 /* Set LED driver current */
 #    define SNLED27351_CURRENT_TUNE \
         { 0x14, 0x14, 0x14, 0x14, 0x14, 0x14, 0x14, 0x14, 0x14, 0x14, 0x14, 0x14 }
 
 /* Set to infinit, which is use in USB mode by default */
 #    define RGB_MATRIX_TIMEOUT RGB_MATRIX_TIMEOUT_INFINITE
-
 /* Allow shutdown of led driver to save power */
 #    define RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE
 /* Turn off backlight on low brightness to save power */
@@ -48,10 +39,13 @@
 /* Indications */
 #    define DIM_CAPS_LOCK
 #    define CAPS_LOCK_INDEX 30
+#    define BT_HOST_LED_MATRIX_LIST \
+        { 16, 17, 18 }
+#    define P2P4G_HOST_LED_MATRIX_LIST \
+        { 19 }
 #    define LOW_BAT_IND_INDEX \
         { 61 }
 
 #    define RGB_MATRIX_KEYPRESSES
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-
 #endif

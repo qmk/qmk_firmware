@@ -22,9 +22,6 @@
 
 #ifdef LK_WIRELESS_ENABLE
 #    define HAL_USE_RTC TRUE
-#endif
-
-#if defined(LK_WIRELESS_ENABLE) || defined(ENCODER_ENABLE)
 #    define PAL_USE_CALLBACKS TRUE
 #endif
 

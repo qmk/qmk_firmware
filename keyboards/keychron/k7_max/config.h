@@ -16,9 +16,18 @@
 
 #pragma once
 
-/* Caps lock LED */
-#define LED_CAPS_LOCK_PIN A13
-#define LED_PIN_ON_STATE 1
+#if defined(RGB_MATRIX_ENABLE) || defined(LED_MATRIX_ENABLE) || defined(LK_WIRELESS_ENABLE)
+/* SPI configuration */
+#    define SPI_DRIVER SPID1
+#    define SPI_SCK_PIN A5
+#    define SPI_MISO_PIN A6
+#    define SPI_MOSI_PIN A7
+#endif
+
+#if defined(RGB_MATRIX_ENABLE) || defined(LED_MATRIX_ENABLE)
+#    define LED_DRIVER_SHUTDOWN_PIN B7
+#    define SNLED23751_SPI_DIVISOR 16
+#endif
 
 #ifdef LK_WIRELESS_ENABLE
 /* Hardware configuration */
@@ -41,15 +50,6 @@
 #    define BT_HOST_DEVICES_COUNT 3
 
 #    if defined(RGB_MATRIX_ENABLE) || defined(LED_MATRIX_ENABLE)
-
-#        define LED_DRIVER_SHUTDOWN_PIN B7
-
-#        define BT_HOST_LED_MATRIX_LIST \
-            { 16, 17, 18 }
-
-#        define P2P4G_HOST_LED_MATRIX_LIST \
-            { 19 }
-
 #        define BAT_LEVEL_LED_LIST \
             { 1,  2,  3,  4,  5,  6,  7,  8,  9, 10 }
 
@@ -61,7 +61,6 @@
 
 /* Reinit LED driver on tranport changed */
 #        define REINIT_LED_DRIVER 1
-
 #    endif
 
 /* Keep USB connection in blueooth mode */
@@ -69,12 +68,6 @@
 
 /* Enable bluetooth NKRO */
 #    define WIRELESS_NKRO_ENABLE
-
-/* Raw hid command for factory test and bluetooth DFU */
-#    define RAW_HID_CMD 0xAA ... 0xAB
-#else
-/* Raw hid command for factory test */
-#    define RAW_HID_CMD 0xAB
 #endif
 
 /* Factory test keys */
