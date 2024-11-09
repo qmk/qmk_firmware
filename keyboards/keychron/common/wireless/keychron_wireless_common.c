@@ -100,7 +100,7 @@ void wireless_enter_reset_kb(uint8_t reason) {
     lkbt51_param_init();
 }
 
-void wireless_enter_disconnected_kb(uint8_t host_idx) {
+void wireless_enter_disconnected_kb(uint8_t host_idx, uint8_t reason) {
     /* CKBT51 bluetooth module boot time is slower, it enters disconnected after boot,
        so we place initialization here. */
     if (firstDisconnect && timer_read32() < 1000) {

@@ -84,7 +84,7 @@ void wireless_enter_reset_kb(uint8_t reason);
 void wireless_enter_discoverable_kb(uint8_t host_idx);
 void wireless_enter_reconnecting_kb(uint8_t host_idx);
 void wireless_enter_connected_kb(uint8_t host_idx);
-void wireless_enter_disconnected_kb(uint8_t host_idx);
+void wireless_enter_disconnected_kb(uint8_t host_idx, uint8_t reason);
 void wireless_enter_bluetooth_pin_code_entry_kb(void);
 void wireless_exit_bluetooth_pin_code_entry_kb(void);
 void wireless_enter_sleep_kb(void);

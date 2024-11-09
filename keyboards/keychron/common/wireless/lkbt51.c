@@ -25,9 +25,9 @@
 
 extern void factory_test_send(uint8_t* payload, uint8_t length);
 
-#    ifndef RAW_EPSIZE
-#        define RAW_EPSIZE 32
-#    endif
+#ifndef RAW_EPSIZE
+#    define RAW_EPSIZE 32
+#endif
 
 #ifndef SPI_SCK_PIN
 #    define SPI_SCK_PIN A5
@@ -147,6 +147,7 @@ static uint8_t  reg_offset          = 0xFF;
 static uint8_t  expect_len          = 22;
 static uint16_t connection_interval = 1;
 static uint32_t wake_time;
+static uint32_t factory_reset = 0;
 
 // clang-format off
 wt_func_t wireless_transport = {
@@ -434,6 +435,8 @@ void lkbt51_disconnect(void) {
     payload[i++] = LKBT51_CMD_DISCONNECT;
     payload[i++] = 0; // Sleep mode
 
+    if (WT_DRIVER.state != SPI_READY)
+        spiStart(&WT_DRIVER, &spicfg);
     spiSelect(&SPID1);
     wait_ms(30);
     // spiUnselect(&SPID1);
@@ -539,6 +542,7 @@ void lkbt51_factory_reset(uint8_t p2p4g_clr_msk) {
 
     lkbt51_wake();
     lkbt51_send_cmd(payload, i, false, false);
+    factory_reset = timer_read32();
 }
 
 void lkbt51_int_pin_test(bool enable) {
@@ -791,6 +795,10 @@ void lkbt51_task(void) {
                         break;
                     case LKBT51_DISCONNECTED:
                         event.evt_type = EVT_DISCONNECTED;
+                        if (factory_reset && timer_elapsed32(factory_reset) < 3000) {
+                            factory_reset = 0;
+                            event.data = 1;
+                        }
                         break;
                     case LKBT51_PINCODE_ENTRY:
                         event.evt_type = EVT_BT_PINCODE_ENTRY;

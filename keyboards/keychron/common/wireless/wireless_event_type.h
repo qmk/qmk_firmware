@@ -41,4 +41,5 @@ typedef struct {
         uint8_t protocol;  /* Parameters to EVT_HID_SET_PROTOCOL event */
         uint8_t interval;  /* Parameters to EVT_CONECTION_INTERVAL event */
     } params;
+    uint8_t data;
 } wireless_event_t;

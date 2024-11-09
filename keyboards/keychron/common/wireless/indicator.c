@@ -28,7 +28,6 @@
 #    include "factory_test.h"
 #endif
 #include "lpm.h"
-
 #include "keychron_task.h"
 #if defined(LED_MATRIX_ENABLE) || defined(RGB_MATRIX_ENABLE)
 #    ifdef LED_MATRIX_ENABLE
@@ -71,12 +70,7 @@ static uint16_t           next_period;
 static indicator_type_t   type;
 static uint32_t           indicator_timer_buffer = 0;
 
-#if defined(BAT_LOW_LED_PIN)
-static uint32_t bat_low_pin_indicator  = 0;
-static uint32_t bat_low_blink_duration = 0;
-#endif
-
-#if defined(LOW_BAT_IND_INDEX)
+#if defined(BAT_LOW_LED_PIN) || defined(SPACE_KEY_LOW_BAT_IND)
 static uint32_t bat_low_backlit_indicator = 0;
 static uint8_t  bat_low_ind_state         = 0;
 static uint32_t rtc_time                  = 0;
@@ -177,8 +171,13 @@ void indicator_init(void) {
 #endif
 
 #ifdef BAT_LOW_LED_PIN
-    setPinOutput(BAT_LOW_LED_PIN);
-    writePin(BAT_LOW_LED_PIN, !BAT_LOW_LED_PIN_ON_STATE);
+#ifdef POWER_ON_LED_DURATION
+    if (timer_read32() > POWER_ON_LED_DURATION)
+#endif
+    {
+        setPinOutput(BAT_LOW_LED_PIN);
+        writePin(BAT_LOW_LED_PIN, !BAT_LOW_LED_PIN_ON_STATE);
+    }
 #endif
 }
 
@@ -213,10 +212,7 @@ void indicator_eeconfig_reload(void) {
 
 bool indicator_is_running(void) {
     return
-#if defined(BAT_LOW_LED_PIN)
-        bat_low_blink_duration ||
-#endif
-#if defined(LOW_BAT_IND_INDEX)
+#if defined(BAT_LOW_LED_PIN) || defined(SPACE_KEY_LOW_BAT_IND)
         bat_low_ind_state ||
 #endif
         !!indicator_config.value;
@@ -342,6 +338,7 @@ static void indicator_timer_cb(void *arg) {
 void indicator_set(wt_state_t state, uint8_t host_index) {
     if (get_transport() == TRANSPORT_USB) return;
 
+    static uint8_t pre_state = 0;
     static uint8_t current_state      = 0;
     static uint8_t current_host       = 0;
     bool           host_index_changed = false;
@@ -354,6 +351,10 @@ void indicator_set(wt_state_t state, uint8_t host_index) {
     }
 
     if (current_state != state || host_index_changed || state == WT_RECONNECTING) {
+        // Some BT chips need to reset to enter sleep mode, ignore it.
+        if (current_state == WT_SUSPEND && state == WT_DISCONNECTED) return;
+
+        pre_state = current_state;
         current_state = state;
     } else {
         return;
@@ -385,6 +386,9 @@ void indicator_set(wt_state_t state, uint8_t host_index) {
                 indicator_set_backlit_timeout(1000);
 
             } else {
+                if (pre_state == WT_CONNECTED)
+                    indicator_set_backlit_timeout(1000);
+                else
                 /* Set timer so that user has chance to turn on the backlight when is off */
                 indicator_set_backlit_timeout(DECIDE_TIME(DISCONNECTED_BACKLIGHT_DISABLE_TIMEOUT * 1000, indicator_config.duration));
             }
@@ -465,22 +469,11 @@ void indicator_stop(void) {
 #endif
 }
 
-#ifdef BAT_LOW_LED_PIN
 void indicator_battery_low_enable(bool enable) {
-    if (enable) {
-        if (bat_low_blink_duration == 0) {
-            bat_low_blink_duration = bat_low_pin_indicator = timer_read32();
-        } else
-            bat_low_blink_duration = timer_read32();
-    } else
-        writePin(BAT_LOW_LED_PIN, !BAT_LOW_LED_PIN_ON_STATE);
-}
-#endif
-
-#if defined(LOW_BAT_IND_INDEX)
-void indicator_battery_low_backlit_enable(bool enable) {
+#if defined(BAT_LOW_LED_PIN) || defined(SPACE_KEY_LOW_BAT_IND)
     if (enable) {
         uint32_t t = rtc_timer_read_ms();
+
         /* Check overflow */
         if (rtc_time > t) {
             if (bat_low_ind_state == 0)
@@ -489,55 +482,62 @@ void indicator_battery_low_backlit_enable(bool enable) {
                 rtc_time += t;
             }
         }
+
         /* Indicating at first time or after the interval */
         if ((rtc_time == 0 || t - rtc_time > LOW_BAT_LED_TRIG_INTERVAL) && bat_low_ind_state == 0) {
             bat_low_backlit_indicator = enable ? timer_read32() : 0;
             rtc_time                  = rtc_timer_read_ms();
             bat_low_ind_state         = 1;
-
+#    if defined(SPACE_KEY_LOW_BAT_IND)
             indicator_enable();
+#    endif
         }
     } else {
         rtc_time          = 0;
         bat_low_ind_state = 0;
-
+#    if defined(SPACE_KEY_LOW_BAT_IND)
         indicator_eeconfig_reload();
         if (!LED_DRIVER_IS_ENABLED()) indicator_disable();
+#    endif
     }
-}
 #endif
+}
 
 void indicator_battery_low(void) {
-#ifdef BAT_LOW_LED_PIN
-    if (bat_low_pin_indicator && timer_elapsed32(bat_low_pin_indicator) > (LOW_BAT_LED_BLINK_PERIOD)) {
-        togglePin(BAT_LOW_LED_PIN);
-        bat_low_pin_indicator = timer_read32();
-        // Turn off low battery indication if we reach the duration
-        if (timer_elapsed32(bat_low_blink_duration) > LOW_BAT_LED_BLINK_DURATION && palReadLine(BAT_LOW_LED_PIN) != BAT_LOW_LED_PIN_ON_STATE) {
-            bat_low_blink_duration = bat_low_pin_indicator = 0;
-        }
-    }
-#endif
-#if defined(LOW_BAT_IND_INDEX)
+#if defined(BAT_LOW_LED_PIN) || defined(SPACE_KEY_LOW_BAT_IND)
     if (bat_low_ind_state) {
         if ((bat_low_ind_state & 0x0F) <= (LOW_BAT_LED_BLINK_TIMES) && timer_elapsed32(bat_low_backlit_indicator) > (LOW_BAT_LED_BLINK_PERIOD)) {
             if (bat_low_ind_state & 0x80) {
                 bat_low_ind_state &= 0x7F;
                 bat_low_ind_state++;
+#    if defined(BAT_LOW_LED_PIN)
+                writePin(BAT_LOW_LED_PIN, !BAT_LOW_LED_PIN_ON_STATE);
+#    endif
             } else {
                 bat_low_ind_state |= 0x80;
+#    if defined(BAT_LOW_LED_PIN)
+                writePin(BAT_LOW_LED_PIN, BAT_LOW_LED_PIN_ON_STATE);
+#    endif
             }
 
             bat_low_backlit_indicator = timer_read32();
 
             /*  Restore backligth state */
             if ((bat_low_ind_state & 0x0F) > (LOW_BAT_LED_BLINK_TIMES)) {
-#    if defined(NUM_LOCK_INDEX) || defined(CAPS_LOCK_INDEX) || defined(SCROLL_LOCK_INDEX) || defined(COMPOSE_LOCK_INDEX) || defined(KANA_LOCK_INDEX)
-                if (LED_DRIVER_ALLOW_SHUTDOWN())
+#    if defined(BAT_LOW_LED_PIN)
+                writePin(BAT_LOW_LED_PIN, !BAT_LOW_LED_PIN_ON_STATE);
 #    endif
+#    if defined(SPACE_KEY_LOW_BAT_IND)
+#        if defined(NUM_LOCK_INDEX) || defined(CAPS_LOCK_INDEX) || defined(SCROLL_LOCK_INDEX) || defined(COMPOSE_LOCK_INDEX) || defined(KANA_LOCK_INDEX)
+                if (LED_DRIVER_ALLOW_SHUTDOWN())
+#        endif
                     indicator_disable();
+#    endif
             }
         } else if ((bat_low_ind_state & 0x0F) > (LOW_BAT_LED_BLINK_TIMES)) {
+#    if defined(BAT_LOW_LED_PIN)
+            writePin(BAT_LOW_LED_PIN, !BAT_LOW_LED_PIN_ON_STATE);
+#    endif
             bat_low_ind_state = 0;
             lpm_timer_reset();
         }
@@ -546,9 +546,7 @@ void indicator_battery_low(void) {
 }
 
 void indicator_task(void) {
-#if (defined(LED_MATRIX_ENABLE) || defined(RGB_MATRIX_ENABLE)) && defined(BAT_LEVEL_LED_LIST)
     bat_level_animiation_task();
-#endif
     if (indicator_config.value && timer_elapsed32(indicator_timer_buffer) >= next_period) {
         indicator_timer_cb((void *)&type);
         indicator_timer_buffer = timer_read32();
@@ -606,7 +604,6 @@ bool LED_INDICATORS_KB(void) {
             return true;
         }
 
-#    if defined(LED_MATRIX_ENABLE) || defined(RGB_MATRIX_ENABLE)
         if (battery_is_empty()) SET_ALL_LED_OFF();
 #        if defined(LOW_BAT_IND_INDEX)
         if (bat_low_ind_state && (bat_low_ind_state & 0x0F) <= LOW_BAT_LED_BLINK_TIMES) {
@@ -619,8 +616,8 @@ bool LED_INDICATORS_KB(void) {
                 }
             }
         }
-#        endif
 #    endif
+
 #    if (defined(LED_MATRIX_ENABLE) || defined(RGB_MATRIX_ENABLE)) && defined(BAT_LEVEL_LED_LIST)
         if (bat_level_animiation_actived()) {
             bat_level_animiation_indicate();
@@ -690,10 +687,7 @@ bool led_update_kb(led_t led_state) {
 }
 
 void LED_NONE_INDICATORS_KB(void) {
-#    if defined(RGB_DISABLE_WHEN_USB_SUSPENDED)
-    if (get_transport() == TRANSPORT_USB && USB_DRIVER.state == USB_SUSPENDED) return;
-#    endif
-#    if defined(LED_DISABLE_WHEN_USB_SUSPENDED)
+#    if defined(RGB_DISABLE_WHEN_USB_SUSPENDED) || defined(LED_DISABLE_WHEN_USB_SUSPENDED)
     if (get_transport() == TRANSPORT_USB && USB_DRIVER.state == USB_SUSPENDED) return;
 #    endif
 
