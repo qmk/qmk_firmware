@@ -53,7 +53,11 @@ bool leader_sequence_add(uint16_t keycode) {
     }
 
 #if defined(LEADER_NO_TIMEOUT)
+#   if defined(LEADER_NO_TIMEOUT_N)
+    if (leader_sequence_size < LEADER_NO_TIMEOUT_N - 1) {
+#   else
     if (leader_sequence_size == 0) {
+#   endif
         leader_reset_timer();
     }
 #endif
@@ -66,7 +70,11 @@ bool leader_sequence_add(uint16_t keycode) {
 
 bool leader_sequence_timed_out(void) {
 #if defined(LEADER_NO_TIMEOUT)
+#   if defined(LEADER_NO_TIMEOUT_N)
+    return leader_sequence_size > LEADER_NO_TIMEOUT_N - 1 && timer_elapsed(leader_time) > LEADER_TIMEOUT;
+#   else
     return leader_sequence_size > 0 && timer_elapsed(leader_time) > LEADER_TIMEOUT;
+#   endif
 #else
     return timer_elapsed(leader_time) > LEADER_TIMEOUT;
 #endif
