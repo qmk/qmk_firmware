@@ -225,11 +225,6 @@ uint8_t source_layers_cache[((MATRIX_ROWS * MATRIX_COLS) + (CHAR_BIT)-1) / (CHAR
 uint8_t encoder_source_layers_cache[(NUM_ENCODERS + (CHAR_BIT)-1) / (CHAR_BIT)][MAX_LAYER_BITS] = {{0}};
 #    endif // ENCODER_MAP_ENABLE
 
-uint16_t keycode_map[((MATRIX_ROWS * MATRIX_COLS) + (CHAR_BIT)-1) / (CHAR_BIT)][16] = {{KC_NO}};
-#    ifdef ENCODER_MAP_ENABLE
-uint16_t encoder_keycode_map[(NUM_ENCODERS + (CHAR_BIT)-1) / (CHAR_BIT)][16] = {{KC_NO}};
-#    endif // ENCODER_MAP_ENABLE
-
 /** \brief update source layers cache impl
  *
  * Updates the supplied cache when changing layers
@@ -240,14 +235,6 @@ void update_source_layers_cache_impl(uint8_t layer, uint16_t entry_number, uint8
     for (uint8_t bit_number = 0; bit_number < MAX_LAYER_BITS; bit_number++) {
         cache[storage_idx][bit_number] ^= (-((layer & (1U << bit_number)) != 0) ^ cache[storage_idx][bit_number]) & (1U << storage_bit);
     }
-}
-
-/** \brief update encoder keycode map
- *
- * Updates map of keycodes when pressing a key down
- */
-void update_keycode_map_impl(uint16_t entry_number, uint16_t keycode, uint16_t cache[][16]) {
-    cache[entry_number / 16][entry_number % 16] = keycode;
 }
 
 /** \brief read source layers cache
@@ -266,14 +253,6 @@ uint8_t read_source_layers_cache_impl(uint16_t entry_number, uint8_t cache[][MAX
     return layer;
 }
 
-/** \brief read keycode map
- *
- * reads map of keycodes when unpressing a key
- */
-uint16_t read_keycode_map_impl(uint16_t entry_number, uint16_t cache[][16]) {
-    return cache[entry_number / 16][entry_number % 16];
-}
-
 /** \brief update encoder source layers cache
  *
  * Updates the cached encoders when changing layers
@@ -289,6 +268,45 @@ void update_source_layers_cache(keypos_t key, uint8_t layer) {
         update_source_layers_cache_impl(layer, entry_number, encoder_source_layers_cache);
     }
 #    endif // ENCODER_MAP_ENABLE
+}
+
+/** \brief read source layers cache
+ *
+ * reads the cached keys stored when the layer was changed
+ */
+uint8_t read_source_layers_cache(keypos_t key) {
+    if (key.row < MATRIX_ROWS && key.col < MATRIX_COLS) {
+        const uint16_t entry_number = (uint16_t)(key.row * MATRIX_COLS) + key.col;
+        return read_source_layers_cache_impl(entry_number, source_layers_cache);
+    }
+#    ifdef ENCODER_MAP_ENABLE
+    else if (key.row == KEYLOC_ENCODER_CW || key.row == KEYLOC_ENCODER_CCW) {
+        const uint16_t entry_number = key.col;
+        return read_source_layers_cache_impl(entry_number, encoder_source_layers_cache);
+    }
+#    endif // ENCODER_MAP_ENABLE
+    return 0;
+}
+
+uint16_t keycode_map[((MATRIX_ROWS * MATRIX_COLS) + (CHAR_BIT)-1) / (CHAR_BIT)][16] = {{KC_NO}};
+#    ifdef ENCODER_MAP_ENABLE
+uint16_t encoder_keycode_map[(NUM_ENCODERS + (CHAR_BIT)-1) / (CHAR_BIT)][16] = {{KC_NO}};
+#    endif // ENCODER_MAP_ENABLE
+
+/** \brief update encoder keycode map
+ *
+ * Updates map of keycodes when pressing a key down
+ */
+void update_keycode_map_impl(uint16_t entry_number, uint16_t keycode, uint16_t cache[][16]) {
+    cache[entry_number / 16][entry_number % 16] = keycode;
+}
+
+/** \brief read keycode map
+ *
+ * reads map of keycodes when releasing a key
+ */
+uint16_t read_keycode_map_impl(uint16_t entry_number, uint16_t cache[][16]) {
+    return cache[entry_number / 16][entry_number % 16];
 }
 
 /** \brief update encoder keycode map
@@ -324,24 +342,6 @@ uint16_t read_keycode_map(keypos_t key) {
     }
 #    endif // ENCODER_MAP_ENABLE
     return KC_NO;
-}
-
-/** \brief read source layers cache
- *
- * reads the cached keys stored when the layer was changed
- */
-uint8_t read_source_layers_cache(keypos_t key) {
-    if (key.row < MATRIX_ROWS && key.col < MATRIX_COLS) {
-        const uint16_t entry_number = (uint16_t)(key.row * MATRIX_COLS) + key.col;
-        return read_source_layers_cache_impl(entry_number, source_layers_cache);
-    }
-#    ifdef ENCODER_MAP_ENABLE
-    else if (key.row == KEYLOC_ENCODER_CW || key.row == KEYLOC_ENCODER_CCW) {
-        const uint16_t entry_number = key.col;
-        return read_source_layers_cache_impl(entry_number, encoder_source_layers_cache);
-    }
-#    endif // ENCODER_MAP_ENABLE
-    return 0;
 }
 #endif
 

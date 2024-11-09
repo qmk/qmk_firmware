@@ -239,11 +239,9 @@ uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache) {
             keycode = keymap_key_to_keycode(layer, event.key);
             update_keycode_map(event.key, keycode);
         } else {
-            layer = read_source_layers_cache(event.key);
             keycode = read_keycode_map(event.key);
         }
         return keycode;
-        // return keymap_key_to_keycode(layer, event.key);
     } else
 #endif
         return keymap_key_to_keycode(layer_switch_get_layer(event.key), event.key);
