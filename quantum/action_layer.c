@@ -293,9 +293,9 @@ uint16_t keycode_map[((MATRIX_ROWS * MATRIX_COLS) + (CHAR_BIT)-1) / (CHAR_BIT)][
 uint16_t encoder_keycode_map[(NUM_ENCODERS + (CHAR_BIT)-1) / (CHAR_BIT)][16] = {{KC_NO}};
 #    endif // ENCODER_MAP_ENABLE
 
-/** \brief update encoder keycode map
+/** \brief update keycode map
  *
- * Updates map of keycodes when pressing a key down
+ * Updates map of keycodes when a key is pressed down
  */
 void update_keycode_map_impl(uint16_t entry_number, uint16_t keycode, uint16_t cache[][16]) {
     cache[entry_number / 16][entry_number % 16] = keycode;
@@ -303,15 +303,15 @@ void update_keycode_map_impl(uint16_t entry_number, uint16_t keycode, uint16_t c
 
 /** \brief read keycode map
  *
- * reads map of keycodes when releasing a key
+ * reads from map of keycodes when a key is released
  */
 uint16_t read_keycode_map_impl(uint16_t entry_number, uint16_t cache[][16]) {
     return cache[entry_number / 16][entry_number % 16];
 }
 
-/** \brief update encoder keycode map
+/** \brief update keycode map
  *
- * Updates map of keycodes when pressing a key down
+ * Updates map of keycodes when a key is pressed down
  */
 void update_keycode_map(keypos_t key, uint16_t keycode) {
     if (key.row < MATRIX_ROWS && key.col < MATRIX_COLS) {
@@ -328,7 +328,7 @@ void update_keycode_map(keypos_t key, uint16_t keycode) {
 
 /** \brief read keycode map
  *
- * reads map of keycodes when unpressing a key
+ * reads from map of keycodes when a key is released
  */
 uint16_t read_keycode_map(keypos_t key) {
     if (key.row < MATRIX_ROWS && key.col < MATRIX_COLS) {
