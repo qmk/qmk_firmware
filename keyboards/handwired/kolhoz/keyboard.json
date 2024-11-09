@@ -33,6 +33,7 @@
         },
         "serial": {
             "driver": "vendor",
+            "pin": "GP0"
         },
         "matrix_pins": {
             "right": {
