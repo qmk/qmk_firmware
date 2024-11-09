@@ -32,7 +32,7 @@
             "pin": "GP23"
         },
         "serial": {
-            "driver": "vendor"
+            "driver": "vendor",
         },
         "matrix_pins": {
             "right": {
