@@ -24,10 +24,24 @@
     "pin": "B5"
   },
   "split": {
-    "soft_serial_pin": "D2"
+    "enabled": true,
+    "serial": {
+      "pin": "D2"
+    }
   },
   "processor": "atmega32u4",
   "bootloader": "caterina",
+  "features": {
+    "bootmagic": false,
+    "mousekey": true,
+    "extrakey": true
+  },
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

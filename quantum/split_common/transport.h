@@ -101,6 +101,7 @@ typedef struct _split_mods_sync_t {
     uint8_t weak_mods;
 #    ifndef NO_ACTION_ONESHOT
     uint8_t oneshot_mods;
+    uint8_t oneshot_locked_mods;
 #    endif // NO_ACTION_ONESHOT
 } split_mods_sync_t;
 #endif // SPLIT_MODS_ENABLE

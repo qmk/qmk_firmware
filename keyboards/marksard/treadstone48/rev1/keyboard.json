@@ -14,7 +14,10 @@
   },
   "diode_direction": "COL2ROW",
   "split": {
-    "soft_serial_pin": "D2"
+    "enabled": true,
+    "serial": {
+      "pin": "D2"
+    }
   },
   "ws2812": {
     "pin": "D3"
@@ -33,6 +36,19 @@
   },
   "processor": "atmega32u4",
   "bootloader": "caterina",
+    "features": {
+        "bootmagic": false,
+        "mousekey": true,
+        "extrakey": false,
+        "rgblight": true,
+        "oled": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "layouts": {
         "LAYOUT_base": {
             "layout": [

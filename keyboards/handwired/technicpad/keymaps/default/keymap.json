@@ -1,5 +1,5 @@
 {
-    "keyboard": "technicpad",
+    "keyboard": "handwired/technicpad",
     "keymap": "default",
     "layers": [
         ["KC_A", "KC_B", "KC_C", "KC_D"]

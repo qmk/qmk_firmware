@@ -53,8 +53,11 @@
                 "rows": ["B5", "B4", "B3", "A15", "A14", "A13"]
             }
         },
+        "serial": {
+            "driver": "usart",
+            "pin": "A9"
+        },
         "transport": {
-            "protocol": "serial_usart",
             "sync" :{
                 "matrix_state": true
             }

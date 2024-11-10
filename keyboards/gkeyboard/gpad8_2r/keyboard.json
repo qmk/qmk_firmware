@@ -20,6 +20,12 @@
         "nkro": true,
         "rgb_matrix": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "matrix_pins": {
         "cols": ["GP12", "GP11", "GP10", "GP9"],
         "rows": ["GP4", "GP5", "GP6"]

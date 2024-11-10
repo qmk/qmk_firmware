@@ -2,15 +2,6 @@
     "manufacturer": "dELIKEEb",
     "url": "",
     "maintainer": "noclew",
-    "features": {
-        "bootmagic": true,
-        "command": false,
-        "console": false,
-        "encoder": true,
-        "extrakey": true,
-        "mousekey": true,
-        "nkro": false
-    },
     "usb": {
         "vid": "0x9906",
         "pid": "0x0013"

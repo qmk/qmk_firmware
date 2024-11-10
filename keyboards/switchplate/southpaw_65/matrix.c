@@ -13,15 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <stdint.h>
-#include <stdbool.h>
-#include <avr/io.h>
-#include <string.h>
 #include "matrix.h"
 #include "pca9555.h"
-#include "quantum.h"
-
-#include "debug.h"
 
 // PCA9555 slave addresses
 #define IC1 0x20

@@ -1,1 +1,0 @@
-# The M0116, M0330 and IIc Plus (default) keymap for the ASK55

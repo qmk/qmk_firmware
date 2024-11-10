@@ -14,10 +14,10 @@
     },
     "diode_direction": "COL2ROW",
     "split": {
-        "soft_serial_pin": "D2"
-    },
-    "features": {
-      "encoder": true
+        "enabled": true,
+        "serial": {
+            "pin": "D2"
+        }
     },
     "encoder": {
         "rotary": [
@@ -27,6 +27,18 @@
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",
+    "features": {
+        "bootmagic": true,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "layout_aliases": {
         "LAYOUT_split_3x6_3_2": "LAYOUT_split_3x6_3"
     },

@@ -213,8 +213,12 @@ static void  init_cols(void)
 
     // init on teensy
     // Input with pull-up(DDR:0, PORT:1)
-    DDRF  &= ~(1<<7 | 1<<6 | 1<<5 | 1<<4 | 1<<1 | 1<<0);
-    PORTF |=  (1<<7 | 1<<6 | 1<<5 | 1<<4 | 1<<1 | 1<<0);
+    gpio_set_pin_input_high(F0);
+    gpio_set_pin_input_high(F1);
+    gpio_set_pin_input_high(F4);
+    gpio_set_pin_input_high(F5);
+    gpio_set_pin_input_high(F6);
+    gpio_set_pin_input_high(F7);
 }
 
 static matrix_row_t read_cols(uint8_t row)
@@ -265,12 +269,14 @@ static void unselect_rows(void)
 
     // unselect on teensy
     // Hi-Z(DDR:0, PORT:0) to unselect
-    DDRB  &= ~(1<<0 | 1<<1 | 1<<2 | 1<<3);
-    PORTB &= ~(1<<0 | 1<<1 | 1<<2 | 1<<3);
-    DDRD  &= ~(1<<2 | 1<<3);
-    PORTD &= ~(1<<2 | 1<<3);
-    DDRC  &= ~(1<<6 | 1<<7);
-    PORTC &= ~(1<<6 | 1<<7);
+    gpio_set_pin_input(B0);
+    gpio_set_pin_input(B1);
+    gpio_set_pin_input(B2);
+    gpio_set_pin_input(B3);
+    gpio_set_pin_input(D2);
+    gpio_set_pin_input(D3);
+    gpio_set_pin_input(C6);
+    gpio_set_pin_input(C7);
 }
 
 static void select_row(uint8_t row)
@@ -290,36 +296,36 @@ static void select_row(uint8_t row)
         // Output low(DDR:1, PORT:0) to select
         switch (row) {
             case 8:
-                DDRB  |= (1<<0);
-                PORTB &= ~(1<<0);
+                gpio_set_pin_output(B0);
+                gpio_write_pin_low(B0);
                 break;
             case 9:
-                DDRB  |= (1<<1);
-                PORTB &= ~(1<<1);
+                gpio_set_pin_output(B1);
+                gpio_write_pin_low(B1);
                 break;
             case 10:
-                DDRB  |= (1<<2);
-                PORTB &= ~(1<<2);
+                gpio_set_pin_output(B2);
+                gpio_write_pin_low(B2);
                 break;
             case 11:
-                DDRB  |= (1<<3);
-                PORTB &= ~(1<<3);
+                gpio_set_pin_output(B3);
+                gpio_write_pin_low(B3);
                 break;
             case 12:
-                DDRD  |= (1<<2);
-                PORTD &= ~(1<<3);
+                gpio_set_pin_output(D2);
+                gpio_write_pin_low(D2);
                 break;
             case 13:
-                DDRD  |= (1<<3);
-                PORTD &= ~(1<<3);
+                gpio_set_pin_output(D3);
+                gpio_write_pin_low(D3);
                 break;
             case 14:
-                DDRC  |= (1<<6);
-                PORTC &= ~(1<<6);
+                gpio_set_pin_output(C6);
+                gpio_write_pin_low(C6);
                 break;
             case 15:
-                DDRC  |= (1<<7);
-                PORTC &= ~(1<<7);
+                gpio_set_pin_output(C7);
+                gpio_write_pin_low(C7);
                 break;
         }
     }

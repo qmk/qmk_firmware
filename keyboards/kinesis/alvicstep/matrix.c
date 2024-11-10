@@ -28,7 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "matrix.h"
 #include "led.h"
-#include "config.h"
 
 #ifndef DEBOUNCE
 #   define DEBOUNCE	5

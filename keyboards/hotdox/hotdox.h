@@ -4,17 +4,46 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#define HOTDOX_BOARD_LED_PIN B7
+#define HOTDOX_RIGHT_LED_1_PIN B5
+#define HOTDOX_RIGHT_LED_2_PIN B6
+#define HOTDOX_RIGHT_LED_3_PIN B4
+
 void init_ergodox(void);
 
-inline void ergodox_board_led_on(void)    { DDRB |= (1<<PB7); PORTB |= (1<<PB7);  }
-inline void ergodox_right_led_1_on(void)  { DDRB |= (1<<PB5); PORTB &= ~(1<<PB5); }
-inline void ergodox_right_led_2_on(void)  { DDRB |= (1<<PB6); PORTB &= ~(1<<PB6); }
-inline void ergodox_right_led_3_on(void)  { DDRB |= (1<<PB4); PORTB &= ~(1<<PB4); }
+inline void ergodox_board_led_on(void) {
+    gpio_set_pin_output(HOTDOX_BOARD_LED_PIN);
+    gpio_write_pin_high(HOTDOX_BOARD_LED_PIN);
+}
+inline void ergodox_right_led_1_on(void) {
+    gpio_set_pin_output(HOTDOX_RIGHT_LED_1_PIN);
+    gpio_write_pin_low(HOTDOX_RIGHT_LED_1_PIN);
+}
+inline void ergodox_right_led_2_on(void) {
+    gpio_set_pin_output(HOTDOX_RIGHT_LED_2_PIN);
+    gpio_write_pin_low(HOTDOX_RIGHT_LED_2_PIN);
+}
+inline void ergodox_right_led_3_on(void) {
+    gpio_set_pin_output(HOTDOX_RIGHT_LED_3_PIN);
+    gpio_write_pin_low(HOTDOX_RIGHT_LED_3_PIN);
+}
 
-inline void ergodox_board_led_off(void)   { DDRB |= (1<<PB7); PORTB &= ~(1<<PB7); }
-inline void ergodox_right_led_1_off(void) { DDRB |= (1<<PB5); PORTB |= (1<<PB5);  }
-inline void ergodox_right_led_2_off(void) { DDRB |= (1<<PB6); PORTB |= (1<<PB6);  }
-inline void ergodox_right_led_3_off(void) { DDRB |= (1<<PB4); PORTB |= (1<<PB4);  }
+inline void ergodox_board_led_off(void) {
+    gpio_set_pin_output(HOTDOX_BOARD_LED_PIN);
+    gpio_write_pin_low(HOTDOX_BOARD_LED_PIN);
+}
+inline void ergodox_right_led_1_off(void) {
+    gpio_set_pin_output(HOTDOX_RIGHT_LED_1_PIN);
+    gpio_write_pin_high(HOTDOX_RIGHT_LED_1_PIN);
+}
+inline void ergodox_right_led_2_off(void) {
+    gpio_set_pin_output(HOTDOX_RIGHT_LED_2_PIN);
+    gpio_write_pin_high(HOTDOX_RIGHT_LED_2_PIN);
+}
+inline void ergodox_right_led_3_off(void) {
+    gpio_set_pin_output(HOTDOX_RIGHT_LED_3_PIN);
+    gpio_write_pin_high(HOTDOX_RIGHT_LED_3_PIN);
+}
 
 inline void ergodox_right_led_on(uint8_t l) {
     switch (l) {

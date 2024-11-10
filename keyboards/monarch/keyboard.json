@@ -19,6 +19,12 @@
         "nkro": true,
         "sleep_led": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "matrix_pins": {
         "cols": ["A10", "A9", "A8", "B15", "B14", "B13", "B12", "B10", "B2", "B1", "B0", "A5", "A7", "A4", "A3", "B6"],
         "rows": ["A15", "B3", "B11", "A2", "A1", "B9"]

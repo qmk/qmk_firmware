@@ -58,7 +58,8 @@ void TestFixture::TearDownTestCase() {}
 TestFixture::TestFixture() {
     m_this = this;
     timer_clear();
-    test_logger.info() << "tapping term is " << +GET_TAPPING_TERM(KC_TRANSPARENT, &(keyrecord_t){}) << "ms" << std::endl;
+    keyrecord_t empty_keyrecord = {0};
+    test_logger.info() << "tapping term is " << +GET_TAPPING_TERM(KC_TRANSPARENT, &empty_keyrecord) << "ms" << std::endl;
 }
 
 TestFixture::~TestFixture() {
@@ -175,6 +176,7 @@ void TestFixture::idle_for(unsigned time) {
     test_logger.trace() << +time << " keyboard task " << (time > 1 ? "loops" : "loop") << std::endl;
     for (unsigned i = 0; i < time; i++) {
         keyboard_task();
+        housekeeping_task();
         advance_time(1);
     }
 }

@@ -8,6 +8,12 @@
         "pid": "0x8703",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": false,
+        "mousekey": false,
+        "extrakey": false,
+        "backlight": true
+    },
     "community_layouts": [
         "tkl_ansi_tsangan",
         "tkl_iso_tsangan"

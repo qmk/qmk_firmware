@@ -34,10 +34,13 @@ ifeq ($(strip $(DUMP_CI_METADATA)),yes)
 endif
 
 # Force expansion
-TARGET := $(TARGET)
+override TARGET := $(TARGET)
 
 ifneq ($(FORCE_LAYOUT),)
-    TARGET := $(TARGET)_$(FORCE_LAYOUT)
+    override TARGET := $(TARGET)_$(FORCE_LAYOUT)
+endif
+ifneq ($(CONVERT_TO),)
+    override TARGET := $(TARGET)_$(CONVERT_TO)
 endif
 
 # Object files and generated keymap directory
@@ -57,9 +60,6 @@ endif
 ifdef SKIP_GIT
 VERSION_H_FLAGS += --skip-git
 endif
-
-# Generate the board's version.h file.
-$(shell $(QMK_BIN) generate-version-h $(VERSION_H_FLAGS) -q -o $(INTERMEDIATE_OUTPUT)/src/version.h)
 
 # Determine which subfolders exist.
 KEYBOARD_FOLDER_PATH_1 := $(KEYBOARD)
@@ -212,11 +212,19 @@ $(INTERMEDIATE_OUTPUT)/src/config.h: $(KEYMAP_JSON)
 	$(eval CMD=$(QMK_BIN) generate-config-h --quiet --output $(KEYMAP_H) $(KEYMAP_JSON))
 	@$(BUILD_CMD)
 
-generated-files: $(INTERMEDIATE_OUTPUT)/src/config.h $(INTERMEDIATE_OUTPUT)/src/keymap.c
+$(INTERMEDIATE_OUTPUT)/src/keymap.h: $(KEYMAP_JSON)
+	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
+	$(eval CMD=$(QMK_BIN) generate-keymap-h --quiet --output $(INTERMEDIATE_OUTPUT)/src/keymap.h $(KEYMAP_JSON))
+	@$(BUILD_CMD)
+
+generated-files: $(INTERMEDIATE_OUTPUT)/src/config.h $(INTERMEDIATE_OUTPUT)/src/keymap.c $(INTERMEDIATE_OUTPUT)/src/keymap.h
 
 endif
 
 include $(BUILDDEFS_PATH)/converters.mk
+
+# Generate the board's version.h file.
+$(shell $(QMK_BIN) generate-version-h $(VERSION_H_FLAGS) -q -o $(INTERMEDIATE_OUTPUT)/src/version.h)
 
 MCU_ORIG := $(MCU)
 include $(wildcard $(PLATFORM_PATH)/*/mcu_selection.mk)
@@ -521,22 +529,14 @@ ifeq ($(strip $(KEEP_INTERMEDIATES)), yes)
     OPT_DEFS += -save-temps=obj
 endif
 
-# TODO: remove this bodge?
-PROJECT_DEFS := $(OPT_DEFS)
-PROJECT_INC := $(VPATH) $(EXTRAINCDIRS) $(KEYBOARD_PATHS)
-PROJECT_CONFIG := $(CONFIG_H)
-
-CONFIG_H += $(POST_CONFIG_H)
-ALL_CONFIGS := $(PROJECT_CONFIG) $(CONFIG_H)
-
 OUTPUTS := $(INTERMEDIATE_OUTPUT)
 $(INTERMEDIATE_OUTPUT)_SRC := $(SRC) $(PLATFORM_SRC)
-$(INTERMEDIATE_OUTPUT)_DEFS := $(OPT_DEFS) \
+$(INTERMEDIATE_OUTPUT)_DEFS := \
 	-DQMK_KEYBOARD=\"$(KEYBOARD)\" -DQMK_KEYBOARD_H=\"$(INTERMEDIATE_OUTPUT)/src/default_keyboard.h\" \
 	-DQMK_KEYMAP=\"$(KEYMAP)\" -DQMK_KEYMAP_H=\"$(KEYMAP).h\" -DQMK_KEYMAP_CONFIG_H=\"$(KEYMAP_PATH)/config.h\" \
-	$(PROJECT_DEFS)
-$(INTERMEDIATE_OUTPUT)_INC :=  $(VPATH) $(EXTRAINCDIRS) $(PROJECT_INC)
-$(INTERMEDIATE_OUTPUT)_CONFIG := $(CONFIG_H) $(PROJECT_CONFIG)
+	$(OPT_DEFS)
+$(INTERMEDIATE_OUTPUT)_INC :=  $(VPATH) $(EXTRAINCDIRS) $(KEYBOARD_PATHS)
+$(INTERMEDIATE_OUTPUT)_CONFIG := $(CONFIG_H) $(POST_CONFIG_H)
 
 # Default target.
 all: build check-size

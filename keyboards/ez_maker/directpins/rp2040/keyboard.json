@@ -38,8 +38,11 @@
         "pid": "0x2326",
         "vid": "0xFEED"
     },
+    "layout_aliases": {
+        "LAYOUT_all": "LAYOUT"
+    },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT": {
             "layout": [
                 {"label": "GP0", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "GP1", "matrix": [1, 0], "x": 0, "y": 1},

@@ -215,18 +215,18 @@ led_config_t led_config;
 //Set leds to saved state during powerup
 void keyboard_post_init_user(void) {
   // set LED pin modes
-  setPinOutput(LED_RED);
-  setPinOutput(LED_GREEN);
+  gpio_set_pin_output(LED_RED);
+  gpio_set_pin_output(LED_GREEN);
 
   // Call the post init code.
   led_config.raw = eeconfig_read_user();
 
   if(led_config.red_mode == LEDMODE_ON) {
-      writePinHigh(LED_RED);
+      gpio_write_pin_high(LED_RED);
   }
 
   if(led_config.green_mode == LEDMODE_ON) {
-      writePinHigh(LED_GREEN);
+      gpio_write_pin_high(LED_GREEN);
   }
 }
 
@@ -248,10 +248,10 @@ void led_keypress_update(uint8_t led, uint8_t led_mode, uint16_t keycode, keyrec
         for (int i=0;i<ARRAY_SIZE(modifiers);i++) {
           if(keycode==modifiers[i]) {
             if (record->event.pressed) {
-              writePinHigh(led);
+              gpio_write_pin_high(led);
             }
             else {
-              writePinLow(led);
+              gpio_write_pin_low(led);
             }
           }
         }
@@ -260,30 +260,30 @@ void led_keypress_update(uint8_t led, uint8_t led_mode, uint16_t keycode, keyrec
         if (record->event.pressed) {
           if(rand() % 2 == 1) {
             if(rand() % 2 == 0) {
-              writePinLow(led);
+              gpio_write_pin_low(led);
             }
             else {
-              writePinHigh(led);
+              gpio_write_pin_high(led);
             }
           }
         }
         break;
       case LEDMODE_KEY:
         if (record->event.pressed) {
-          writePinHigh(led);
+          gpio_write_pin_high(led);
           return;
         }
         else {
-          writePinLow(led);
+          gpio_write_pin_low(led);
           return;
         }
         break;
       case LEDMODE_ENTER:
         if (keycode==KC_ENT) {
-          writePinHigh(led);
+          gpio_write_pin_high(led);
         }
         else {
-          writePinLow(led);
+          gpio_write_pin_low(led);
         }
         break;
 
@@ -345,11 +345,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         if (led_config.red_mode==LEDMODE_ON) {
             led_config.red_mode=LEDMODE_OFF;
-            writePinLow(LED_RED);
+            gpio_write_pin_low(LED_RED);
         }
         else {
             led_config.red_mode=LEDMODE_ON;
-            writePinHigh(LED_RED);
+            gpio_write_pin_high(LED_RED);
         }
       }
       eeconfig_update_user(led_config.raw);
@@ -359,11 +359,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         if (led_config.green_mode==LEDMODE_ON) {
             led_config.green_mode=LEDMODE_OFF;
-            writePinLow(LED_GREEN);
+            gpio_write_pin_low(LED_GREEN);
         }
         else {
             led_config.green_mode=LEDMODE_ON;
-            writePinHigh(LED_GREEN);
+            gpio_write_pin_high(LED_GREEN);
         }
       }
       eeconfig_update_user(led_config.raw);

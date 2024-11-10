@@ -58,7 +58,8 @@
             "solid_multisplash": true
         },
         "driver": "ws2812",
-        "max_brightness": 128
+        "max_brightness": 128,
+        "sleep": true
     },
     "features": {
         "bootmagic": true,
@@ -74,8 +75,7 @@
         "rows": ["C14", "C15", "A0", "A1", "A2", "A3"]
     },
     "diode_direction": "COL2ROW",
-    "processor": "STM32F103",
-    "bootloader": "stm32duino",
+    "development_board": "bluepill",
     "layout_aliases": {
         "LAYOUT": "LAYOUT_default"
     },

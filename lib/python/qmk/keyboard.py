@@ -99,6 +99,8 @@ def find_keyboard_from_dir():
             keymap_index = len(current_path.parts) - current_path.parts.index('keymaps') - 1
             current_path = current_path.parents[keymap_index]
 
+        current_path = resolve_keyboard(current_path)
+
         if qmk.path.is_keyboard(current_path):
             return str(current_path)
 

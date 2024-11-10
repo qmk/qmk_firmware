@@ -19,6 +19,12 @@
     "mousekey": true,
     "nkro": true
   },
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  },
   "matrix_pins": {
     "cols": ["B5", "B4", "B3", "B2", "B1", "B0"],
     "rows": ["A2", "A1", "A0", "B8"]
@@ -29,9 +35,7 @@
       {"pin_a": "B13", "pin_b": "B15"}
     ]
   },
-  "processor": "STM32F303",
-  "bootloader": "stm32-dfu",
-  "board": "QMK_PROTON_C",
+  "development_board": "proton_c",
   "layouts": {
     "LAYOUT": {
       "layout": [

@@ -16,6 +16,12 @@
     "mousekey": true,
     "nkro": false
   },
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  },
   "matrix_pins": {
     "cols": ["B5", "B4", "B3", "B2", "B1", "B0", "E7", "E6", "F0", "F1", "F2", "F3", "F4", "F5"],
     "rows": ["D0", "D1", "D2", "D3", "D4"]

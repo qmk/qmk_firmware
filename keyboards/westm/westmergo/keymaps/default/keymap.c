@@ -27,9 +27,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [1] = LAYOUT_alice( /* FN */
         _______, KC_GRAVE, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,
-        _______, KC_CAPS_LOCK, _______, KC_UP,   RGB_TOG, RGB_MOD, RGB_RMOD, RGB_VAI, RGB_VAD, _______, _______, _______, _______, _______, _______,
-        _______,  _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, KC_MUTE, RGB_HUI, RGB_HUD, _______, _______, _______, _______, _______,
-                 _______, KC_MPRV, KC_MPLY, KC_MNXT, KC_VOLD, KC_VOLU, RGB_SAI, RGB_SAD, _______, _______, _______, _______, _______, _______,
+        _______, KC_CAPS_LOCK, _______, KC_UP,   UG_TOGG, UG_NEXT, UG_PREV, UG_VALU, UG_VALD, _______, _______, _______, _______, _______, _______,
+        _______,  _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, KC_MUTE, UG_HUEU, UG_HUED, _______, _______, _______, _______, _______,
+                 _______, KC_MPRV, KC_MPLY, KC_MNXT, KC_VOLD, KC_VOLU, UG_SATU, UG_SATD, _______, _______, _______, _______, _______, _______,
                  _______,          _______,          _______, _______,          _______, _______,                            _______
     )
 };

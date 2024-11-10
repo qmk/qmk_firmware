@@ -14,8 +14,8 @@ If you're referring to having three spots for space bar, the best course of acti
 
 Please see:
 
-* [Basic Keycode Reference](keycodes_basic.md)
-* [Advanced Keycode Reference](feature_advanced_keycodes.md)
+* [Basic Keycode Reference](keycodes_basic)
+* [Advanced Keycode Reference](feature_advanced_keycodes)
 
 ## It won't compile
 
