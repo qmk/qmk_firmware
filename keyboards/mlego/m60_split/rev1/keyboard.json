@@ -63,11 +63,18 @@
         "bootmagic": {
             "matrix": [5, 0]
         },
+        "handedness": {
+            "pin": "B9"
+        },
         "matrix_pins": {
             "right": {
                 "cols": ["B0", "A3", "A2", "A1", "B7", "B5"],
                 "rows": ["B1", "A4", "A5", "A6", "A7"]
             }
+        },
+        "serial": {
+            "driver": "usart",
+            "pin": "B6"
         },
         "transport": {
             "sync": {

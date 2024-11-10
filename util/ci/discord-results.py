@@ -11,6 +11,7 @@ parser = argparse.ArgumentParser(prog='discord-results.py', description='Sends a
 parser.add_argument('-b', '--branch')
 parser.add_argument('-k', '--keymap')
 parser.add_argument('-u', '--url')
+parser.add_argument('-s', '--sha')
 args = parser.parse_args()
 
 qmk_dir = Path(__file__).resolve().parents[2].resolve()
@@ -43,6 +44,7 @@ else:
 
 embed.add_embed_field(name='Build Target', value=f'[**{args.branch}**](https://github.com/qmk/qmk_firmware/tree/{args.branch}) / **{args.keymap}** keymap')
 embed.add_embed_field(name='Workflow Run', value=f'[**Link**]({args.url})')
+embed.add_embed_field(name='Firmware Binaries', value=f'[**ci.qmk.fm**](https://ci.qmk.fm/{args.branch}/{args.sha}/index.html)')
 embed.set_timestamp()
 
 webhook.add_embed(embed)

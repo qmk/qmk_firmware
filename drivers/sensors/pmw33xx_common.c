@@ -154,10 +154,12 @@ bool pmw33xx_init(uint8_t sensor) {
     pmw33xx_read(sensor, REG_Delta_Y_L);
     pmw33xx_read(sensor, REG_Delta_Y_H);
 
+#ifdef PMW33XX_UPLOAD_SROM
     if (!pmw33xx_upload_firmware(sensor)) {
         pd_dprintf("PMW33XX (%d): firmware upload failed!\n", sensor);
         return false;
     }
+#endif
 
     spi_stop();
 
@@ -200,7 +202,7 @@ pmw33xx_report_t pmw33xx_read_burst(uint8_t sensor) {
     spi_write(REG_Motion_Burst);
     wait_us(35); // waits for tSRAD_MOTBR
 
-    spi_receive((uint8_t*)&report, sizeof(report));
+    spi_receive((uint8_t *)&report, sizeof(report));
 
     // panic recovery, sometimes burst mode works weird.
     if (report.motion.w & 0b111) {

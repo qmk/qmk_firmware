@@ -52,6 +52,12 @@ static inline void STM32_L0_L1_EEPROM_Lock(void) {
 
 void eeprom_driver_init(void) {}
 
+void eeprom_driver_format(bool erase) {
+    if (erase) {
+        eeprom_driver_erase();
+    }
+}
+
 void eeprom_driver_erase(void) {
     STM32_L0_L1_EEPROM_Unlock();
 
