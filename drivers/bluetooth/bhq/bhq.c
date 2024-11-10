@@ -154,6 +154,12 @@ void bhq_ConfigRunParam(bhkDevConfigInfo_t parma)
     bhkBuff[index++] = BHQ_L_UINT16(parma.mk_rvd_r2);  
     bhkBuff[index++] = BHQ_H_UINT16(parma.mk_rvd_r2); 
     
+    bhkBuff[index++] = BHQ_L_UINT16(parma.sleep_1_s);  
+    bhkBuff[index++] = BHQ_H_UINT16(parma.sleep_1_s); 
+
+    bhkBuff[index++] = BHQ_L_UINT16(parma.sleep_2_s);  
+    bhkBuff[index++] = BHQ_H_UINT16(parma.sleep_2_s); 
+
     bhkBuff[index++] = parma.bleNameStrLength; 
 
     for(i= 0; i < parma.bleNameStrLength; i++)

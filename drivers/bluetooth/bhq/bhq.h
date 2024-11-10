@@ -40,6 +40,9 @@ typedef struct bhkDevConfigInfo_t
     uint16_t    mk_rvd_r1;                      // resistive voltage divider  
     uint16_t    mk_rvd_r2;
 
+    uint16_t sleep_1_s;                         // light sleep (unit: 1s)
+    uint16_t sleep_2_s;                         // deep  sleep (unit: 1s)
+
     uint8_t bleNameStrLength;                   // ble name max length: 31
     uint8_t bleNameStr[32];
 } bhkDevConfigInfo_t;

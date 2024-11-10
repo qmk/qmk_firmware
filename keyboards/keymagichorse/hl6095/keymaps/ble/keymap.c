@@ -243,6 +243,9 @@ void keyboard_post_init_kb(void)
         .mk_rvd_r1 = 0,
         .mk_rvd_r2 = 0,
 #endif
+        .sleep_1_s = 30,
+        .sleep_2_s = 300,       
+
         .bleNameStrLength = strlen(PRODUCT),
         .bleNameStr = PRODUCT
     };
