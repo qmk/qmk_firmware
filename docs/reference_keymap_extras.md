@@ -4,7 +4,7 @@ Keyboards are able to support a wide range of languages. However, this support i
 
 Obviously, this can get confusing, so QMK provides language-specific keycode aliases for many keyboard layouts. These won't do much on their own - you still have to set the matching keyboard layout in your OS settings. Think of them more as keycap labels for your keymap.
 
-Simply `#include` one of the keycode headers below at the top of your `keymap.c`, and assign the keycodes defined in the header in place of the `KC_` prefixed ones.
+Simply `#include` one of the keycode headers below at the top of your `keymap.c`, or set the `host_language` field in your `keymap.json` to the corresponding language. Then assign the keycodes defined in the header in place of the `KC_` prefixed ones.
 
 ## Sendstring Support
 
