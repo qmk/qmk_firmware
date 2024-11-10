@@ -35,9 +35,6 @@
         "vid": "0x444E"
     },
     "community_layouts": ["tkl_ansi"],
-    "layout_aliases": {
-        "LAYOUT": "LAYOUT_tkl_ansi"
-    },
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [
