@@ -24,7 +24,7 @@
 #    define USB_POWER_SENSE_PIN     A10
 #endif
 #ifndef USB_POWER_CONNECTED_LEVEL                   // active level
-#    define USB_POWER_CONNECTED_LEVEL 0    
+#    define USB_POWER_CONNECTED_LEVEL 1    
 #endif
 
 #ifndef BHQ_MCU_WAKEUP_PIN                          // QMK_MCU wake up BHQ_MCU

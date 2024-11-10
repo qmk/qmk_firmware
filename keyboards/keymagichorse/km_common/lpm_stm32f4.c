@@ -51,8 +51,8 @@ void lpm_init(void)
     gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
 
 // usb
-    gpio_set_pin_input_high(USB_POWER_SENSE_PIN);
-    palEnableLineEvent(USB_POWER_SENSE_PIN, PAL_EVENT_MODE_FALLING_EDGE);
+    gpio_set_pin_input(USB_POWER_SENSE_PIN);
+    palEnableLineEvent(USB_POWER_SENSE_PIN, PAL_EVENT_MODE_RISING_EDGE);
 
     ws2812power_enabled();
 }
@@ -129,18 +129,18 @@ __attribute__((weak)) bool usb_power_connected(void) {
 
 void My_PWR_EnterSTOPMode(void)
 {
-#if STM32_HSE_ENABLED
-    /* Switch to HSI */
-    RCC->CFGR = (RCC->CFGR & (~STM32_SW_MASK)) | STM32_SW_HSI;
-    while ((RCC->CFGR & RCC_CFGR_SWS) != (STM32_SW_HSI << 2));
+// #if STM32_HSE_ENABLED
+//     /* Switch to HSI */
+//     RCC->CFGR = (RCC->CFGR & (~STM32_SW_MASK)) | STM32_SW_HSI;
+//     while ((RCC->CFGR & RCC_CFGR_SWS) != (STM32_SW_HSI << 2));
 
-    /* Set HSE off  */
-    RCC->CR &= ~RCC_CR_HSEON;
-    while ((RCC->CR & RCC_CR_HSERDY));
+//     /* Set HSE off  */
+//     RCC->CR &= ~RCC_CR_HSEON;
+//     while ((RCC->CR & RCC_CR_HSERDY));
 
-    palSetLineMode(H1, PAL_MODE_INPUT_ANALOG); 
-    palSetLineMode(H0, PAL_MODE_INPUT_ANALOG); 
-#endif
+//     palSetLineMode(H1, PAL_MODE_INPUT_ANALOG); 
+//     palSetLineMode(H0, PAL_MODE_INPUT_ANALOG); 
+// #endif
     /* Wake source: Reset pin, all I/Os, BOR, PVD, PVM, RTC, LCD, IWDG,
     COMPx, USARTx, LPUART1, I2Cx, LPTIMx, USB, SWPMI */
     SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
@@ -166,7 +166,11 @@ void enter_low_power_mode_prepare(void)
 
     // Set col(low valid), read rows
     for (i = 0; i < matrix_rows(); i++)
-    { // set row pull-up input 
+    { // set row pull-up input
+        if(wakeUpRow_pins[i] == NO_PIN)
+        {
+            continue;
+        } 
         ATOMIC_BLOCK_FORCEON {
             gpio_set_pin_input_high(wakeUpRow_pins[i]);
             palEnableLineEvent(wakeUpRow_pins[i], PAL_EVENT_MODE_BOTH_EDGES);
@@ -174,6 +178,10 @@ void enter_low_power_mode_prepare(void)
     }
     for (i = 0; i < matrix_cols(); i++)
     { // set col output low level
+        if(wakeUpRow_pins[i] == NO_PIN)
+        {
+            continue;
+        } 
         ATOMIC_BLOCK_FORCEON {
             gpio_set_pin_output(wakeUpCol_pins[i]);
             gpio_write_pin_low(wakeUpCol_pins[i]);
@@ -181,13 +189,14 @@ void enter_low_power_mode_prepare(void)
     }
 #endif
 
+
     gpio_set_pin_input_low(BHQ_RUN_STATE_INPUT_PIN);
     palEnableLineEvent(BHQ_RUN_STATE_INPUT_PIN, PAL_EVENT_MODE_RISING_EDGE);
     gpio_write_pin_low(QMK_RUN_OUTPUT_PIN);
 
-// usb
-    gpio_set_pin_input_high(USB_POWER_SENSE_PIN);
-    palEnableLineEvent(USB_POWER_SENSE_PIN, PAL_EVENT_MODE_FALLING_EDGE);
+// usb 插入检测
+    gpio_set_pin_input(USB_POWER_SENSE_PIN);
+    palEnableLineEvent(USB_POWER_SENSE_PIN, PAL_EVENT_MODE_RISING_EDGE);
 
     battery_stop();
 
@@ -203,17 +212,21 @@ void enter_low_power_mode_prepare(void)
     ws2812power_Disabled();
     My_PWR_EnterSTOPMode();
 
-    stm32_clock_init();
-    // Set col(low valid), read rows
-    for (i = 0; i < matrix_rows(); i++)
-    { // set row pull-up input 
-        ATOMIC_BLOCK_FORCEON {
-            palDisableLineEvent(wakeUpRow_pins[i]);
-        }
+    chSysLock();
+        stm32_clock_init();
+        halInit();
+        stInit();
+        timer_init();
+    chSysUnlock();
+
+    /*  USB D+/D- */
+    palSetLineMode(A11, PAL_STM32_OTYPE_PUSHPULL | PAL_STM32_OSPEED_HIGHEST | PAL_STM32_PUPDR_FLOATING | PAL_MODE_ALTERNATE(10U));
+    palSetLineMode(A12, PAL_STM32_OTYPE_PUSHPULL | PAL_STM32_OSPEED_HIGHEST | PAL_STM32_PUPDR_FLOATING | PAL_MODE_ALTERNATE(10U));
+    if (usb_power_connected()) {
+        usb_event_queue_init();
+        init_usb_driver(&USBD1);
     }
-    halInit();
-
-
+ 
     /* Call debounce_free() to avoiding memory leak of debounce_counters as debounce_init()
     invoked in matrix_init() alloc new memory to debounce_counters */
     debounce_free();
@@ -227,15 +240,22 @@ void enter_low_power_mode_prepare(void)
     layer_clear();
 
     ws2812power_enabled();
-    
-
+  
     gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
+
+
 }
 
 
 
 void lpm_task(void)
 {
+    if (usb_power_connected() && USBD1.state == USB_STOP) {
+        usb_event_queue_init();
+        init_usb_driver(&USBD1);
+    }
+
+
     if(report_buffer_is_empty() == false)
     {
         lpm_time_up = false;

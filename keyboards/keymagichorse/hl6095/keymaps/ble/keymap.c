@@ -102,7 +102,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             else 
             {
                 // gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
-                if(timer_elapsed32(output_mode_press_time) >= 500) 
+                if(timer_elapsed32(output_mode_press_time) >= 300) 
                 {
                     ble_host_index = 0;
                     bhq_OpenBleAdvertising(ble_host_index, 10);
@@ -121,7 +121,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             else 
             {
                 // gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
-                if(timer_elapsed32(output_mode_press_time) >= 500) 
+                if(timer_elapsed32(output_mode_press_time) >= 300) 
                 {
                     // TODO: 等待bhq驱动完善
                     bhq_switch_rf_easy_kb();
@@ -138,7 +138,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             else
             {
-                if(timer_elapsed32(output_mode_press_time) >= 500) 
+                if(timer_elapsed32(output_mode_press_time) >= 300) 
                 {
                     set_output(OUTPUT_USB);
                 }
@@ -186,14 +186,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         ble_host_index = 2;
                         break;  
                 }
-                if(timer_elapsed32(ble_switch_press_time) >= 500 && timer_elapsed32(ble_switch_press_time) <= 3000)
+                if(timer_elapsed32(ble_switch_press_time) >= 300 && timer_elapsed32(ble_switch_press_time) <= 1500)
                 {
                     if(where_to_send() == OUTPUT_BLUETOOTH)
                     {
                         bhq_OpenBleAdvertising(ble_host_index, 10);
                     }
                 }
-                else if(timer_elapsed32(ble_switch_press_time) >= 3000)
+                else if(timer_elapsed32(ble_switch_press_time) >= 1500)
                 {
                     if(where_to_send() == OUTPUT_BLUETOOTH)
                     {
