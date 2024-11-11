@@ -21,7 +21,7 @@ Alternatively, if using `keymap.json`, add the `host_language` key as shown in t
     "host_language": "swedish",
     "layout": "LAYOUT_all",
     "layers": [
-        ["SE_A"]
+        ["SE_ARNG"]
     ]
 }
 ```
