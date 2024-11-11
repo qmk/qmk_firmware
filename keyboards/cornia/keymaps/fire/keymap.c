@@ -55,9 +55,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_DEL,
   //|--------+-- / ---+-- { ---+-- ( ---+-- [ ---+-- - ---|                    |--- _ --+--- ] --+-- ) ---+-- } ---+-- \ ---+--------|
-      _______, KC_SLSH, CK_LCBR, CK_LPAR, KC_LBRC, KC_MINS,                      CK_UNSC, KC_RBRC, CK_RPAR, CK_RCBR, KC_BSLS, _______,
+      _______, KC_SLSH, KC_LCBR, KC_LPRN, KC_LBRC, KC_MINS,                      KC_UNDS, KC_RBRC, KC_RPRN, KC_RCBR, KC_BSLS, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, XXXXXXX,  KC_GRV, CK_QMRK,  KC_EQL, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+      _______, XXXXXXX,  KC_GRV, KC_QUES,  KC_EQL, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                         _______,MO(_ADJUST),_______,    _______, _______, KC_RGUI
                                       //`--------------------------'  `--------------------------'
