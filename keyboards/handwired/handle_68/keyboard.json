@@ -1,6 +1,6 @@
 {
     "manufacturer": "Alden Johnson",
-    "keyboard_name": "handwired/handle_68",
+    "keyboard_name": "Handle 68",
     "maintainer": "Alden Johnson",
     "bootloader": "stm32-dfu",
     "diode_direction": "COL2ROW",
