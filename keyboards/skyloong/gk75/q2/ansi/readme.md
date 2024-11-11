@@ -8,11 +8,11 @@
 * Mechanical switches Keyboard and supporting up to 4 encoders which are can be replaced with switches.
 
 
-The following is the QMK Firmware for the Destop 75% keylayout -  designed by Dongguan Jizhi Electronic Technology Co., Ltd
+The following is the QMK Firmware for the Desktop 75% keylayout -  designed by Dongguan Jizhi Electronic Technology Co., Ltd
 
 * Keyboard Maintainer: [NaturalZh](https://github.com/NaturalZh)
-* Hardware Supported: DestopPCB for Skyloong keylayout 75%, STM32F103C8T6
-* Hardware Availability: http://www.skyloong.com.cn  https://skyloongtech.com
+* Hardware Supported: Desktop PCB for Skyloong key layout 75%, STM32F103C8T6
+* Hardware Availability:[Skyloong_CN]( http://www.skyloong.com.cn) OR [Skyloong_HK](https://skyloongtech.com)
 
 Make example for this keyboard (after setting up your build environment):
 
