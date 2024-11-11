@@ -8,7 +8,7 @@
 * Mechanical switches Keyboard with LED display.
 
 
-The following is the QMK Firmware for the Destop 85% keylayout -  designed by Dongguan Jizhi Electronic Technology Co., Ltd
+The following is the QMK Firmware for the Desktop 85% keylayout -  designed by Dongguan Jizhi Electronic Technology Co., Ltd
 
 * Keyboard Maintainer: [NaturalZh](https://github.com/NaturalZh)
 * Hardware Supported: DestopPCB for Skyloong keylayout 85%, STM32F103C8T6
