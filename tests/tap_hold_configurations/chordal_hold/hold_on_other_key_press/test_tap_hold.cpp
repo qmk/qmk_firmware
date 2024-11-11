@@ -107,12 +107,15 @@ TEST_F(ChordalHoldHoldOnOtherKeyPress, chord_rolled_press_settled_as_hold) {
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 
-    // Press regular key and release mod-tap key.
+    // Press regular key.
     EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
     EXPECT_REPORT(driver, (KC_LEFT_SHIFT, KC_A));
-    EXPECT_REPORT(driver, (KC_A));
     regular_key.press();
     run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Release mod-tap key.
+    EXPECT_REPORT(driver, (KC_A));
     mod_tap_key.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
@@ -210,16 +213,21 @@ TEST_F(ChordalHoldHoldOnOtherKeyPress, two_mod_taps_nested_press_opposite_hands)
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 
-    // Tap second mod-tap key.
+    // Press second mod-tap key.
     EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
-    EXPECT_REPORT(driver, (KC_LEFT_SHIFT, KC_B));
-    EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
-    EXPECT_EMPTY_REPORT(driver);
     mod_tap_key2.press();
     run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Release second mod-tap key.
+    EXPECT_REPORT(driver, (KC_LEFT_SHIFT, KC_B));
+    EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
     mod_tap_key2.release();
     run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
     // Release first mod-tap key.
+    EXPECT_EMPTY_REPORT(driver);
     mod_tap_key1.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
@@ -237,6 +245,8 @@ TEST_F(ChordalHoldHoldOnOtherKeyPress, two_mod_taps_nested_press_same_hand) {
     EXPECT_NO_REPORT(driver);
     mod_tap_key1.press();
     run_one_scan_loop();
+    mod_tap_key2.press();
+    run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 
     // Release mod-tap keys.
@@ -244,8 +254,6 @@ TEST_F(ChordalHoldHoldOnOtherKeyPress, two_mod_taps_nested_press_same_hand) {
     EXPECT_REPORT(driver, (KC_A, KC_B));
     EXPECT_REPORT(driver, (KC_A));
     EXPECT_EMPTY_REPORT(driver);
-    mod_tap_key2.press();
-    run_one_scan_loop();
     mod_tap_key2.release();
     run_one_scan_loop();
     mod_tap_key1.release();
