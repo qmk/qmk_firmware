@@ -37,18 +37,6 @@ Two keymaps are available for now, below are their [KLE](https://www.keyboard-la
 - [Default QWERTY layout for Cornia keyboard](https://www.keyboard-layout-editor.com/#/gists/5af136790cefe4b35cdf02ca52c1fccc)
 - [Fire layout for Cornia keyboard](https://www.keyboard-layout-editor.com/#/gists/a40345c92e1f3f326426ef890ebf4d1c) (Based on [Fire (Oxey)](https://docs.google.com/document/d/1Ic-h8UxGe5-Q0bPuYNgE3NoWiI8ekeadvSQ5YysrwII) layout)
 
-## Disable RGB Matrix
-
-The Corne Keyboard use the RGB Matrix feature by default. To disable it please make with the following command:
-```sh
-    make cornia/v1_no_led:default
-```
-
-And flash with:
-```sh
-    make cornia/v1_no_led:default:flash
-```
-
 ## OLED Display & Cirque Trackpad
 
 The Corne Keyboard also support OLED Display and Cirque Trackpad through I²C, an implementation is available in `fire` keymap.
