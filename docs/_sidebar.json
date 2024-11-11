@@ -166,7 +166,6 @@
                         ]
                     },
                     { "text": "Audio", "link": "/features/audio" },
-                    { "text": "Bluetooth", "link": "/features/bluetooth" },
                     { "text": "Bootmagic", "link": "/features/bootmagic" },
                     { "text": "Converters", "link": "/feature_converters" },
                     { "text": "Custom Matrix", "link": "/custom_matrix" },
@@ -179,7 +178,8 @@
                     { "text": "Pointing Device", "link": "/features/pointing_device" },
                     { "text": "PS/2 Mouse", "link": "/features/ps2_mouse" },
                     { "text": "Split Keyboard", "link": "/features/split_keyboard" },
-                    { "text": "Stenography", "link": "/features/stenography" }
+                    { "text": "Stenography", "link": "/features/stenography" },
+                    { "text": "Wireless", "link": "/features/wireless" }
                 ]
             },
             {
