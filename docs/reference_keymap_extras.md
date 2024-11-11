@@ -6,7 +6,11 @@ Obviously, this can get confusing, so QMK provides language-specific keycode ali
 
 ## Selecting Your Host Keyboard Layout
 
-To select a host keyboard layout, simply `#include` one of the [keycode headers](#header-files) below at the top of your `keymap.c`.
+To select a host keyboard layout, simply `#include` one of the [keycode headers](#header-files) below at the top of your `keymap.c`. Example:
+
+```c
+#include keymap_japanese.h
+```
 
 Alternatively, if using `keymap.json`, add the `host_language` key as shown in the following example. The available languages are those with a _Sendstring LUT Header_ entry in one of the [Header Files](#header-files) tables.
 
