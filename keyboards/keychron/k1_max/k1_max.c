@@ -56,10 +56,6 @@ void keyboard_post_init_kb(void) {
 #endif
 
     power_on_indicator_timer = timer_read32();
-#ifdef ENCODER_ENABLE
-    encoder_cb_init();
-#endif
-
     keyboard_post_init_user();
 }
 
@@ -87,7 +83,6 @@ bool keychron_task_kb(void) {
             if (get_transport() != TRANSPORT_BLUETOOTH)
                 for (uint8_t i = 0; i < sizeof(p24g_led_pins) / sizeof(pin_t); i++)
                     writePin(p24g_led_pins[i], 0);
-
 #endif
         }
     }
