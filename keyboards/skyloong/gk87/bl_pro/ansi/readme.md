@@ -11,7 +11,7 @@
 The following is the QMK Firmware for the Desktop 85% keylayout -  designed by Dongguan Jizhi Electronic Technology Co., Ltd
 
 * Keyboard Maintainer: [NaturalZh](https://github.com/NaturalZh)
-* Hardware Supported: DestopPCB for Skyloong keylayout 85%, STM32F103C8T6
+* Hardware Supported: DesktopPCB for Skyloong keylayout 85%, STM32F103C8T6
 * Hardware Availability: [Skyloong CN](http://www.skyloong.com.cn) & [Skyloong HK](https://skyloongtech.com)
 
 Make example for this keyboard (after setting up your build environment):
