@@ -14,13 +14,10 @@ Alternatively, if using `keymap.json`, add the `host_language` key as shown in t
 {
     "keyboard": "handwired/my_macropad",
     "keymap": "my_keymap",
-    "host_language": "dvorak",
-    "macros": [
-        ["Hello, World!"]
-    ],
+    "host_language": "swedish",
     "layout": "LAYOUT_all",
     "layers": [
-        ["QK_MACRO_0"]
+        ["SE_A"]
     ]
 }
 ```
