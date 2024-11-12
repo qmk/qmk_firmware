@@ -546,7 +546,9 @@ void indicator_battery_low(void) {
 }
 
 void indicator_task(void) {
+#if defined(BAT_LEVEL_LED_LIST)
     bat_level_animiation_task();
+#endif
     if (indicator_config.value && timer_elapsed32(indicator_timer_buffer) >= next_period) {
         indicator_timer_cb((void *)&type);
         indicator_timer_buffer = timer_read32();
