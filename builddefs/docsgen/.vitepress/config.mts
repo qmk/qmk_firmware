@@ -39,6 +39,11 @@ export default defineConfig(({ mode }) => {
                 provider: "local",
             },
 
+            editLink: {
+                pattern: 'https://github.com/qmk/qmk_firmware/edit/master/docs/:path'
+            },
+            lastUpdated: true,
+
             sidebar: sidebar,
 
             externalLinkIcon: true,
