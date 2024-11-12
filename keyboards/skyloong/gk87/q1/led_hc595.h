@@ -1,7 +1,7 @@
 //  Copyright 2023 NaturalZh (@NaturalZh)
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
-//#include "quantum.h"
+
 #include "atomic_util.h"
 #include "gpio.h"
 
