@@ -25,8 +25,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         case DF(MAC_B):
             if (record->event.pressed) {
                 set_single_persistent_default_layer(MAC_B);
-                keymap_config.no_gui     = 0;
-                eeconfig_update_keymap(keymap_config.raw);
             }
             return false;
         default:
