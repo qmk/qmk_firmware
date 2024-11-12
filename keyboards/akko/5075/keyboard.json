@@ -32,7 +32,7 @@
         "dip_switch": true,
         "encoder": true,
         "extrakey": true,
-        "mousekey": false,
+        "mousekey": true,
         "nkro": true,
         "rgb_matrix": true
     },
