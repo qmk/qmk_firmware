@@ -18,7 +18,7 @@ Alternatively, if using `keymap.json`, add the `host_language` key as shown in t
 {
     "keyboard": "handwired/my_macropad",
     "keymap": "my_keymap",
-    "host_language": "swedish",
+    "host_language": "swedish", // [!code focus]
     "layout": "LAYOUT_all",
     "layers": [
         ["SE_ARNG"]
