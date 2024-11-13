@@ -49,10 +49,7 @@
     "ws2812": {
         "pin": "A8"
     },
-    "community_layouts": [
-        "60_tsangan_hhkb",
-        "60_hhkb"
-    ],
+    "community_layouts": ["60_ansi_tsangan_split_bs_rshift", "60_hhkb"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -122,7 +119,7 @@
                 {"label": "Ctrl", "matrix": [4, 13], "x": 13.5, "y": 4, "w": 1.5}
             ]
         },
-        "LAYOUT_60_tsangan_hhkb": {
+        "LAYOUT_60_ansi_tsangan_split_bs_rshift": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "!", "matrix": [0, 1], "x": 1, "y": 0},
@@ -249,7 +246,7 @@
                 {"label": "Win", "matrix": [4, 2], "x": 2.5, "y": 4, "w": 1.5},
                 {"label": "Space", "matrix": [4, 6], "x":4, "y":4, "w": 7},
                 {"label": "Win", "matrix": [4, 11], "x": 11, "y": 4, "w": 1.5},
-                {"label": "Alt", "matrix": [4, 12], "x": 12.5, "y": 4},
+                {"label": "Alt", "matrix": [4, 12], "x": 12.5, "y": 4}
             ]
         }
     }
