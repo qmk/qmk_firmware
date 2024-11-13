@@ -69,12 +69,13 @@
     "ws2812": {
         "pin": "C15"
     },
+    "community_layouts": ["ortho_3x3"],
     "layouts": {
         "LAYOUT_ortho_3x3": {
             "layout": [
                 {"label": "1", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "2", "matrix": [0, 1], "x": 1, "y": 0},
-                {"label": "Knob", "matrix": [0, 2], "x": 2, "y": 0},
+                {"label": "Knob", "matrix": [0, 2], "x": 2, "y": 0, "encoder": 0},
                 {"label": "3", "matrix": [1, 0], "x": 0, "y": 1},
                 {"label": "4", "matrix": [1, 1], "x": 1, "y": 1},
                 {"label": "5", "matrix": [1, 2], "x": 2, "y": 1},
