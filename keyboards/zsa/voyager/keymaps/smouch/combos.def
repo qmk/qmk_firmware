@@ -48,11 +48,11 @@ COMB(Hsall,             G(KC_A),    LB4, LB1)
 COMB(Hpstm,             A(S(G(KC_V))), LB4, LB0)
 
 /* --- parens and brackets --- */
-COMB(Hlbrc,             KC_LBRC,    LT3, LM3)
-COMB(Hlcbr,             KC_LCBR,    LT2, LM2)
-COMB(Hlprn,             KC_LPRN,    LT1, LM1)
-COMB(Hlabk,             KC_LABK,    LT0, LM0)
-COMB(Hrabk,             KC_RABK,    RT0, RM0)
-COMB(Hrprn,             KC_RPRN,    RT1, RM1)
-COMB(Hrcbr,             KC_RCBR,    RT2, RM2)
-COMB(Hrbrc,             KC_RBRC,    RT3, RM3)
+/* COMB(Hlbrc,             KC_LBRC,    LT3, LM3) */
+/* COMB(Hlcbr,             KC_LCBR,    LT2, LM2) */
+/* COMB(Hlprn,             KC_LPRN,    LT1, LM1) */
+/* COMB(Hlabk,             KC_LABK,    LT0, LM0) */
+/* COMB(Hrabk,             KC_RABK,    RT0, RM0) */
+/* COMB(Hrprn,             KC_RPRN,    RT1, RM1) */
+/* COMB(Hrcbr,             KC_RCBR,    RT2, RM2) */
+/* COMB(Hrbrc,             KC_RBRC,    RT3, RM3) */
