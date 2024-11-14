@@ -1,12 +1,13 @@
 {
     "manufacturer": "ATSUTO_NAKAYAMA",
-    "keyboard_name": "ambergon/MultipleGlove",
+    "keyboard_name": "MultipleGlove",
     "maintainer": "ambergon",
     "bootloader": "atmel-dfu",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
         "command": false,
+        "encoder": true,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
@@ -28,6 +29,9 @@
             { "pin_a" : "B2" , "pin_b" : "B6" , "resolution" : 4 } ,
             { "pin_a" : "D3" , "pin_b" : "D2" , "resolution" : 4 }
         ]
+    },
+    "dynamic_keymap": {
+        "layer_count": 16
     },
     "layouts": {
         "LAYOUT": {
@@ -54,16 +58,3 @@
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
