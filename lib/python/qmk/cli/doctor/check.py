@@ -58,14 +58,18 @@ def _check_arm_gcc_installation():
 
         args = ['arm-none-eabi-gcc', '-mcpu=cortex-m0', '-mthumb', '-mno-thumb-interwork', '--specs=nosys.specs', '--specs=nano.specs', '-x', 'c', '-o', str(temp_file), '-']
         result = cli.run(args, stdin=None, stdout=None, stderr=None, input='#include <newlib.h>\nint main() { return __NEWLIB__ * __NEWLIB_MINOR__ * __NEWLIB_PATCHLEVEL__; }')
-        if result.returncode != 0:
+        if result.returncode == 0:
+            cli.log.info('Successfully compiled using arm-none-eabi-gcc')
+        else:
             cli.log.error(f'Failed to compile a simple program with arm-none-eabi-gcc, return code {result.returncode}')
             cli.log.error(f'Command: {" ".join(args)}')
             return CheckStatus.ERROR
 
         args = ['arm-none-eabi-size', str(temp_file)]
-        result = cli.run(args, stdin=None, stdout=None, stderr=None, input='int main() { return 0; }')
-        if result.returncode != 0:
+        result = cli.run(args, stdin=None, stdout=None, stderr=None)
+        if result.returncode == 0:
+            cli.log.info('Successfully tested arm-none-eabi-binutils using arm-none-eabi-size')
+        else:
             cli.log.error(f'Failed to execute arm-none-eabi-size, perhaps corrupt arm-none-eabi-binutils, return code {result.returncode}')
             cli.log.error(f'Command: {" ".join(args)}')
             return CheckStatus.ERROR
@@ -91,14 +95,18 @@ def _check_avr_gcc_installation():
 
         args = ['avr-gcc', '-mmcu=atmega32u4', '-x', 'c', '-o', str(temp_file), '-']
         result = cli.run(args, stdin=None, stdout=None, stderr=None, input='int main() { return 0; }')
-        if result.returncode != 0:
+        if result.returncode == 0:
+            cli.log.info('Successfully compiled using avr-gcc')
+        else:
             cli.log.error(f'Failed to compile a simple program with avr-gcc, return code {result.returncode}')
             cli.log.error(f'Command: {" ".join(args)}')
             return CheckStatus.ERROR
 
         args = ['avr-size', str(temp_file)]
-        result = cli.run(args, stdin=None, stdout=None, stderr=None, input='int main() { return 0; }')
-        if result.returncode != 0:
+        result = cli.run(args, stdin=None, stdout=None, stderr=None)
+        if result.returncode == 0:
+            cli.log.info('Successfully tested avr-binutils using avr-size')
+        else:
             cli.log.error(f'Failed to execute avr-size, perhaps corrupt avr-binutils, return code {result.returncode}')
             cli.log.error(f'Command: {" ".join(args)}')
             return CheckStatus.ERROR
