@@ -1,0 +1,71 @@
+{
+    "manufacturer": "Diego Andres Rabaioli",
+    "keyboard_name": "sdrakb00",
+    "maintainer": "drabaioli",
+    "bootloader": "atmel-dfu",
+    "diode_direction": "COL2ROW",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B5", "pin_b": "B6", "resolution": 2}
+        ]
+    },
+    "features": {
+        "bootmagic": true,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgb_matrix": true
+    },
+    "matrix_pins": {
+        "cols": ["F0", "F1", "F4", "F5"],
+        "rows": ["D4", "D6", "D7"]
+    },
+    "processor": "atmega32u4",
+    "rgb_matrix": {
+        "driver": "ws2812",
+        "layout": [
+            {"matrix": [0, 0], "x": 0, "y": 0, "flags": 4},
+            {"matrix": [0, 1], "x": 16, "y": 0, "flags": 4},
+            {"matrix": [0, 2], "x": 32, "y": 0, "flags": 4},
+            {"matrix": [1, 0], "x": 0, "y": 16, "flags": 4},
+            {"matrix": [1, 1], "x": 16, "y": 16, "flags": 4},
+            {"matrix": [1, 2], "x": 32, "y": 16, "flags": 4},
+            {"matrix": [1, 3], "x": 48, "y": 16, "flags": 4},
+            {"matrix": [2, 0], "x": 0, "y": 32, "flags": 4},
+            {"matrix": [2, 1], "x": 16, "y": 32, "flags": 4},
+            {"matrix": [2, 2], "x": 32, "y": 32, "flags": 4},
+            {"matrix": [2, 3], "x": 48, "y": 32, "flags": 4}
+        ],
+        "max_brightness": 100,
+        "sleep": true,
+        "timeout": 300000
+    },
+    "url": "https://github.com/drabaioli/SdraKb00",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x4200",
+        "vid": "0x7331"
+    },
+    "ws2812": {
+        "pin": "B0"
+    },
+    "layouts": {
+        "LAYOUT_ortho_3x4": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0, "encoder": 0},
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [1, 3], "x": 3, "y": 1},
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2},
+                {"matrix": [2, 3], "x": 3, "y": 2}
+            ]
+        }
+    }
+}
