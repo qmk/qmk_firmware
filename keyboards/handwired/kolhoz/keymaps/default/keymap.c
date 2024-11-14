@@ -18,7 +18,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 OSM(MOD_LSFT), OSM(MOD_LCTL), OSM(MOD_LGUI),  OSM(MOD_LALT),   OSL(LNUM), LT(LSYM,KC_SPC), TT(LNAV),  KC_NO, LT(LSYM,KC_SPC),  KC_NO,  OSM(MOD_RALT), OSM(MOD_RGUI), OSM(MOD_RCTL),  OSM(MOD_RSFT)
     ),
     [LSYM] = LAYOUT_split_2_3x5_4_3(
-        KC_NO,       KC_TILDE,        KC_GRV,         KC_NO,          KC_NO,       KC_NO,                                            KC_PEQL,      KC_LBRC,       KC_RBRC,       KC_QUES,      KC_SLASH,       KC_TRNS,
+        KC_NO,       KC_TILDE,        KC_GRV,         KC_NO,          KC_NO,     KC_BSLS,                                            KC_PEQL,      KC_LBRC,       KC_RBRC,       KC_QUES,      KC_SLASH,       KC_TRNS,
         KC_NO,          KC_AT,       KC_HASH,     KC_DOLLAR,     KC_PERCENT,     KC_CIRC,                                            KC_AMPR,      KC_ASTR,       KC_LPRN,       KC_RPRN,      KC_COLON,       KC_BSPC,
                    KC_EXCLAIM, KC_UNDERSCORE,      KC_MINUS,        KC_PLUS,     KC_PIPE,                                            KC_LCBR,      KC_RCBR,         KC_LT,         KC_GT,       KC_DQUO,
                       KC_TRNS,       KC_TRNS,       KC_TRNS,        KC_TRNS,     KC_TRNS,  TO(LDEF),    KC_NO,       KC_NO,   KC_NO,   KC_NO,      KC_TRNS,       KC_TRNS,       KC_TRNS,       KC_TRNS
