@@ -19,6 +19,8 @@ jobs:
       run: git config --global --add safe.directory '*'
     - name: setup qmk
       uses: actions/checkout@v4
+    - name: fucking python dependencies broken
+      run: /usr/bin/python3 -m pip install -r /__w/qmk_firmware/qmk_firmware/requirements.txt
     - name: deploy submodules
       run: qmk git-submodule -f
     - name: compile firmware for all keyboards
