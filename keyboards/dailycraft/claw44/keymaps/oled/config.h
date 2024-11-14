@@ -18,5 +18,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define MASTER_LEFT
 #define OLED_FONT_H "claw44/lib/glcdfont.c"

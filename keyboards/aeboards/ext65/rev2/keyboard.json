@@ -22,6 +22,11 @@
         "levels": 6,
         "breathing": true
     },
+    "indicators": {
+        "caps_lock": "B3",
+        "num_lock": "B4",
+        "scroll_lock": "A15"
+    },
     "rgblight": {
         "led_count": 24,
         "animations": {

@@ -212,7 +212,12 @@ $(INTERMEDIATE_OUTPUT)/src/config.h: $(KEYMAP_JSON)
 	$(eval CMD=$(QMK_BIN) generate-config-h --quiet --output $(KEYMAP_H) $(KEYMAP_JSON))
 	@$(BUILD_CMD)
 
-generated-files: $(INTERMEDIATE_OUTPUT)/src/config.h $(INTERMEDIATE_OUTPUT)/src/keymap.c
+$(INTERMEDIATE_OUTPUT)/src/keymap.h: $(KEYMAP_JSON)
+	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
+	$(eval CMD=$(QMK_BIN) generate-keymap-h --quiet --output $(INTERMEDIATE_OUTPUT)/src/keymap.h $(KEYMAP_JSON))
+	@$(BUILD_CMD)
+
+generated-files: $(INTERMEDIATE_OUTPUT)/src/config.h $(INTERMEDIATE_OUTPUT)/src/keymap.c $(INTERMEDIATE_OUTPUT)/src/keymap.h
 
 endif
 

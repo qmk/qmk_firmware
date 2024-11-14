@@ -147,13 +147,69 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid(
-    _______, QK_BOOT, DB_TOGG, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DEL ,
+    _______, QK_BOOT, DB_TOGG, UG_TOGG, UG_NEXT, UG_HUEU, UG_HUED, UG_SATU, UG_SATD, UG_SPDU, UG_SPDD, KC_DEL ,
     _______, EE_CLR,  MU_NEXT, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  PLOVER,  _______,
     _______, AU_PREV, AU_NEXT, MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 )
 
 };
+
+#ifdef ENCODER_MAP_ENABLE
+/* Rotary Encoders
+ */
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    /* Qwerty
+     *    v- (index) Clockwise / Counter Clockwise                        v- (index) Clockwise / Counter Clockwise
+     * ,---------------------------------------------------------------------------------------.
+     * | (0) Vol-    / Vol+    |   |   |   |   |   |   |   |   |   |   | (4) Vol-    / Vol+    |
+     * |-----------------------+---+---+---+---+---+---+---+---+---+---+-----------------------|
+     * | (1) KC_MNXT / KC_MPRV |   |   |   |   |   |   |   |   |   |   | (5) KC_MNXT / KC_MPRV |
+     * |-----------------------+---+---+---+---+---+---+---+---+---+---+-----------------------|
+     * | (2) KC_WBAK / KC_WFWD |   |   |   |   |   |   |   |   |   |   | (6) KC_SPC  / KC_ENT  |
+     * |-----------------------+---+---+---+---+---+---+---+---+---+---+-----------------------|
+     * | (3) KC_LEFT / KC_RGHT |   |   |   |   |       |   |   |   |   | (7) KC_DOWN / KC_UP   |
+     * `---------------------------------------------------------------------------------------'
+     */
+    [_QWERTY] = {
+        // LEFT SIDE (index 0 to 3)
+        ENCODER_CCW_CW(KC_VOLU, KC_VOLD),
+        ENCODER_CCW_CW(KC_MNXT, KC_MPRV),
+        ENCODER_CCW_CW(KC_WBAK, KC_WFWD),
+        ENCODER_CCW_CW(KC_LEFT, KC_RGHT),
+        // RIGHT SIDE (index 4 to 7)
+        ENCODER_CCW_CW(KC_VOLU, KC_VOLD),
+        ENCODER_CCW_CW(KC_MNXT, KC_MPRV),
+        ENCODER_CCW_CW(KC_SPC,  KC_ENT),
+        ENCODER_CCW_CW(KC_DOWN, KC_UP)
+    },
+
+    /* Adjust (Lower + Raise)
+     *    v- (index) Clockwise / Counter Clockwise                        v- (index) Clockwise / Counter Clockwise
+     * ,---------------------------------------------------------------------------------------.
+     * | (0) _______ / _______ |   |   |   |   |   |   |   |   |   |   | (4) _______ / _______ |
+     * |-----------------------+---+---+---+---+---+---+---+---+---+---+-----------------------|
+     * | (1) _______ / _______ |   |   |   |   |   |   |   |   |   |   | (5) _______ / _______ |
+     * |-----------------------+---+---+---+---+---+---+---+---+---+---+-----------------------|
+     * | (2) UG_NEXT / UG_PREV |   |   |   |   |   |   |   |   |   |   | (6) SAT- / SAT+       |
+     * |-----------------------+---+---+---+---+---+---+---+---+---+---+-----------------------|
+     * | (3) UG_VALD / UG_VALU |   |   |   |   |       |   |   |   |   | (7) HUE- / HUE+       |
+     * `---------------------------------------------------------------------------------------'
+     */
+    [_ADJUST] = {
+        // LEFT SIDE (index 0 to 3)
+        ENCODER_CCW_CW(_______, _______),
+        ENCODER_CCW_CW(_______, _______),
+        ENCODER_CCW_CW(UG_NEXT, UG_PREV),
+        ENCODER_CCW_CW(UG_VALD, UG_VALU),
+        // RIGHT SIDE (index 4 to 7)
+        ENCODER_CCW_CW(_______, _______),
+        ENCODER_CCW_CW(_______, _______),
+        ENCODER_CCW_CW(UG_SATD,  UG_SATU),
+        ENCODER_CCW_CW(UG_HUEU,  UG_HUED)
+    }
+};
+#endif
 /* clang-format on */
 
 #ifdef AUDIO_ENABLE
@@ -161,11 +217,18 @@ float plover_song[][2]    = SONG(PLOVER_SOUND);
 float plover_gb_song[][2] = SONG(PLOVER_GOODBYE_SOUND);
 #endif
 
+bool play_encoder_melody(uint8_t index, bool clockwise);
+
 layer_state_t layer_state_set_user(layer_state_t state) {
     return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+#ifdef ENCODER_MAP_ENABLE
+    if (IS_ENCODEREVENT(record->event) && record->event.pressed) {
+        play_encoder_melody(record->event.key.col, record->event.type == ENCODER_CCW_EVENT);
+    }
+#endif
     switch (keycode) {
         case QWERTY:
             if (record->event.pressed) {
@@ -228,13 +291,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 /* clang-format off */
 float melody[8][2][2] = {
-    {{440.0f, 8}, {440.0f, 24}}, 
-    {{440.0f, 8}, {440.0f, 24}}, 
-    {{440.0f, 8}, {440.0f, 24}}, 
-    {{440.0f, 8}, {440.0f, 24}}, 
-    {{440.0f, 8}, {440.0f, 24}}, 
-    {{440.0f, 8}, {440.0f, 24}}, 
-    {{440.0f, 8}, {440.0f, 24}}, 
+    {{440.0f, 8}, {440.0f, 24}},
+    {{440.0f, 8}, {440.0f, 24}},
+    {{440.0f, 8}, {440.0f, 24}},
+    {{440.0f, 8}, {440.0f, 24}},
+    {{440.0f, 8}, {440.0f, 24}},
+    {{440.0f, 8}, {440.0f, 24}},
+    {{440.0f, 8}, {440.0f, 24}},
     {{440.0f, 8}, {440.0f, 24}},
 };
 /* clang-format on */
@@ -251,7 +314,7 @@ float melody[8][2][2] = {
 #define ET12_MAJOR_THIRD 1.259921
 #define ET12_PERFECT_FOURTH 1.33484
 #define ET12_TRITONE 1.414214
-#define ET12_PERFECT_FIFTH 1.498307	
+#define ET12_PERFECT_FIFTH 1.498307
 
 deferred_token tokens[8];
 
@@ -260,7 +323,7 @@ uint32_t reset_note(uint32_t trigger_time, void *note) {
     return 0;
 }
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
+bool play_encoder_melody(uint8_t index, bool clockwise) {
     cancel_deferred_exec(tokens[index]);
     if (clockwise) {
         melody[index][1][0] = melody[index][1][0] * ET12_MINOR_SECOND;
@@ -273,6 +336,10 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     }
     tokens[index] = defer_exec(1000, reset_note, &melody[index][1][0]);
     return false;
+}
+
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    return play_encoder_melody(index, clockwise);
 }
 
 bool dip_switch_update_user(uint8_t index, bool active) {

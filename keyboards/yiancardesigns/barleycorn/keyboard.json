@@ -19,6 +19,10 @@
             "resync": true
         }
     },
+    "indicators": {
+      "caps_lock": "B5",
+      "num_lock": "C0"
+    },
     "processor": "atmega328p",
     "bootloader": "usbasploader",
     "layouts": {
