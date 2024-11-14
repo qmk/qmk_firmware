@@ -204,6 +204,40 @@ TEST_F(ChordalHoldPermissiveHold, hold_mod_tap_key) {
     VERIFY_AND_CLEAR(driver);
 }
 
+TEST_F(ChordalHoldPermissiveHold, two_mod_taps_same_hand_hold_til_timeout) {
+    TestDriver driver;
+    InSequence s;
+    auto       mod_tap_key1 = KeymapKey(0, MATRIX_COLS - 2, 0, RCTL_T(KC_A));
+    auto       mod_tap_key2 = KeymapKey(0, MATRIX_COLS - 1, 0, RSFT_T(KC_B));
+
+    set_keymap({mod_tap_key1, mod_tap_key2});
+
+    // Press mod-tap keys.
+    EXPECT_NO_REPORT(driver);
+    mod_tap_key1.press();
+    run_one_scan_loop();
+    mod_tap_key2.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Continue holding til the tapping term.
+    EXPECT_REPORT(driver, (KC_RIGHT_CTRL));
+    EXPECT_REPORT(driver, (KC_RIGHT_CTRL, KC_RIGHT_SHIFT));
+    idle_for(TAPPING_TERM);
+    VERIFY_AND_CLEAR(driver);
+
+    // Release mod-tap keys.
+    EXPECT_REPORT(driver, (KC_RIGHT_SHIFT));
+    mod_tap_key1.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_EMPTY_REPORT(driver);
+    mod_tap_key2.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
+
 TEST_F(ChordalHoldPermissiveHold, two_mod_taps_nested_press_opposite_hands) {
     TestDriver driver;
     InSequence s;
