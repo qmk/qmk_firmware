@@ -16,6 +16,7 @@ SPDX-License-Identifier: GPL-2.0-or-later
 #include <hal.h>
 #include "gpio.h"
 #include "sma.h"
+#include "rawhid.h";
 
 #if MUXES == 0
 pin_t matrix_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
@@ -49,6 +50,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
             SMA_filter(key);
             key->value = (*key->lut)[key->offset + key->raw];
             matrix_read_mode_array[key->mode](&current_matrix[current_row], current_col, key);
+            raw_hid_send_debug_key_state(current_row, current_col, key->raw, key->value, &current_matrix[current_row] & (1 << current_col));
         }
     }
     return memcmp(previous_matrix, current_matrix, sizeof(previous_matrix)) != 0;

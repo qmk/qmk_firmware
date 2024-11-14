@@ -102,6 +102,20 @@ void raw_hid_send_all_key_configs(void) {
     }
 }
 
+void raw_hid_send_debug_key_state(uint8_t row, uint8_t col, uint16_t raw, uint16_t value, bool state){
+    /* debug report structure: id, row, col, raw_low, raw_high, value_low, value_high, state */
+    uint8_t data[32];
+    data[0] = SEND_DEBUG_KEY_STATE;
+    data[1] = row;
+    data[2] = col;
+    data[3] = (uint8_t) raw & 255;
+    data[4] = (uint8_t) raw >> 8;
+    data[5] = (uint8_t) value & 255;
+    data[6] = (uint8_t) value >> 8;
+    data[7] = state;
+    raw_hid_send(data, 32);
+}
+
 void raw_hid_receive(uint8_t *data, uint8_t length) {
     report_id_t report_id = data[0];
     switch (report_id) {
