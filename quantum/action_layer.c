@@ -288,10 +288,11 @@ uint8_t read_source_layers_cache(keypos_t key) {
     return 0;
 }
 
+#    ifdef KEYCODE_CACHE_ENABLE
 uint16_t keycode_map[((MATRIX_ROWS * MATRIX_COLS) + (CHAR_BIT)-1) / (CHAR_BIT)][16] = {{KC_NO}};
-#    ifdef ENCODER_MAP_ENABLE
+#        ifdef ENCODER_MAP_ENABLE
 uint16_t encoder_keycode_map[(NUM_ENCODERS + (CHAR_BIT)-1) / (CHAR_BIT)][16] = {{KC_NO}};
-#    endif // ENCODER_MAP_ENABLE
+#        endif // ENCODER_MAP_ENABLE
 
 /** \brief update keycode map
  *
@@ -318,12 +319,12 @@ void update_keycode_map(keypos_t key, uint16_t keycode) {
         const uint16_t entry_number = (uint16_t)(key.row * MATRIX_COLS) + key.col;
         update_keycode_map_impl(entry_number, keycode, keycode_map);
     }
-#    ifdef ENCODER_MAP_ENABLE
+#        ifdef ENCODER_MAP_ENABLE
     else if (key.row == KEYLOC_ENCODER_CW || key.row == KEYLOC_ENCODER_CCW) {
         const uint16_t entry_number = key.col;
         update_keycode_map_impl(entry_number, keycode, encoder_keycode_map);
     }
-#    endif // ENCODER_MAP_ENABLE
+#        endif // ENCODER_MAP_ENABLE
 }
 
 /** \brief read keycode map
@@ -335,14 +336,15 @@ uint16_t read_keycode_map(keypos_t key) {
         const uint16_t entry_number = (uint16_t)(key.row * MATRIX_COLS) + key.col;
         return read_keycode_map_impl(entry_number, keycode_map);
     }
-#    ifdef ENCODER_MAP_ENABLE
+#        ifdef ENCODER_MAP_ENABLE
     else if (key.row == KEYLOC_ENCODER_CW || key.row == KEYLOC_ENCODER_CCW) {
         const uint16_t entry_number = key.col;
         return read_keycode_map_impl(entry_number, encoder_keycode_map);
     }
-#    endif // ENCODER_MAP_ENABLE
+#        endif // ENCODER_MAP_ENABLE
     return KC_NO;
 }
+#    endif
 #endif
 
 /** \brief Store or get action (FIXME: Needs better summary)
@@ -359,14 +361,27 @@ action_t store_or_get_action(bool pressed, keypos_t key) {
     }
 
     uint8_t layer;
-
+#    ifdef KEYCODE_CACHE_ENABLE
+    uint16_t keycode;
+#    endif
     if (pressed) {
         layer = layer_switch_get_layer(key);
         update_source_layers_cache(key, layer);
+#    ifdef KEYCODE_CACHE_ENABLE
+        keycode = keymap_key_to_keycode(layer, key);
+        update_keycode_map(key, keycode);
+#    endif
     } else {
         layer = read_source_layers_cache(key);
+#    ifdef KEYCODE_CACHE_ENABLE
+        keycode = read_keycode_map(key);
+#    endif
     }
+#    ifndef KEYCODE_CACHE_ENABLE
     return action_for_key(layer, key);
+#    else
+    return action_for_keycode(keycode);
+#    endif
 #else
     return layer_switch_get_action(key);
 #endif
