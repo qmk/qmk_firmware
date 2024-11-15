@@ -7,7 +7,6 @@
     "features": {
         "bootmagic": true,
         "encoder": true,
-        "encoder": true,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
@@ -25,9 +24,9 @@
     },
     "encoder": {
         "rotary": [
-            { "pin_a" : "B4" , "pin_b" : "B5" , "resolution" : 4 } ,
-            { "pin_a" : "B2" , "pin_b" : "B6" , "resolution" : 4 } ,
-            { "pin_a" : "D3" , "pin_b" : "D2" , "resolution" : 4 }
+            { "pin_a" : "B4" , "pin_b" : "B5" } ,
+            { "pin_a" : "B2" , "pin_b" : "B6" } ,
+            { "pin_a" : "D3" , "pin_b" : "D2" }
         ]
     },
     "dynamic_keymap": {

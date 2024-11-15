@@ -4,7 +4,7 @@
 ![MultipleGlove](https://github.com/ambergon/MultipeGlove/blob/master/img/2.jpg)
 ![MultipleGlove](https://github.com/ambergon/MultipeGlove/blob/master/img/6.jpg)
 
-This keyboard was strongly influenced by the text editor Vim and the Keyball61 by Hakugin Labs.
+This keyboard was strongly influenced by the text editor Vim and the Keyball61 by Shirogane Labs.
 The emphasis is on the home position of the left hand and access to the three rotary encoders without moving the hand significantly.
 this keyboard specialize in 0-15 layer switching.
 
