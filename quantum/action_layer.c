@@ -295,25 +295,9 @@ static uint16_t keycode_map[MATRIX_ROWS][MATRIX_COLS] = {{KC_NO}};
  *
  * Updates map of keycodes when a key is pressed down
  */
-void update_keycode_map_impl(uint8_t row, uint8_t col, uint16_t keycode) {
-    keycode_map[row][col] = keycode;
-}
-
-/** \brief read keycode map
- *
- * reads from map of keycodes when a key is released
- */
-uint16_t read_keycode_map_impl(uint8_t row, uint8_t col) {
-    return keycode_map[row][col];
-}
-
-/** \brief update keycode map
- *
- * Updates map of keycodes when a key is pressed down
- */
 void update_keycode_map(keypos_t key, uint16_t keycode) {
     if (key.row < MATRIX_ROWS && key.col < MATRIX_COLS) {
-        update_keycode_map_impl(key.row, key.col, keycode);
+        keycode_map[key.row][key.col] = keycode;
     }
 }
 
@@ -323,7 +307,7 @@ void update_keycode_map(keypos_t key, uint16_t keycode) {
  */
 uint16_t read_keycode_map(keypos_t key) {
     if (key.row < MATRIX_ROWS && key.col < MATRIX_COLS) {
-        return read_keycode_map_impl(key.row, key.col);
+        return keycode_map[key.row][key.col];
     }
     return KC_NO;
 }
