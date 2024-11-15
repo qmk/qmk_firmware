@@ -289,25 +289,22 @@ uint8_t read_source_layers_cache(keypos_t key) {
 }
 
 #    ifdef KEYCODE_CACHE_ENABLE
-uint16_t keycode_map[((MATRIX_ROWS * MATRIX_COLS) + (CHAR_BIT)-1) / (CHAR_BIT)][16] = {{KC_NO}};
-#        ifdef ENCODER_MAP_ENABLE
-uint16_t encoder_keycode_map[(NUM_ENCODERS + (CHAR_BIT)-1) / (CHAR_BIT)][16] = {{KC_NO}};
-#        endif // ENCODER_MAP_ENABLE
+static uint16_t keycode_map[MATRIX_ROWS][MATRIX_COLS] = {{KC_NO}};
 
 /** \brief update keycode map
  *
  * Updates map of keycodes when a key is pressed down
  */
-void update_keycode_map_impl(uint16_t entry_number, uint16_t keycode, uint16_t cache[][16]) {
-    cache[entry_number / 16][entry_number % 16] = keycode;
+void update_keycode_map_impl(uint16_t entry_number, uint16_t keycode) {
+    keycode_map[entry_number / 16][entry_number % 16] = keycode;
 }
 
 /** \brief read keycode map
  *
  * reads from map of keycodes when a key is released
  */
-uint16_t read_keycode_map_impl(uint16_t entry_number, uint16_t cache[][16]) {
-    return cache[entry_number / 16][entry_number % 16];
+uint16_t read_keycode_map_impl(uint16_t entry_number) {
+    return keycode_map[entry_number / 16][entry_number % 16];
 }
 
 /** \brief update keycode map
@@ -317,14 +314,8 @@ uint16_t read_keycode_map_impl(uint16_t entry_number, uint16_t cache[][16]) {
 void update_keycode_map(keypos_t key, uint16_t keycode) {
     if (key.row < MATRIX_ROWS && key.col < MATRIX_COLS) {
         const uint16_t entry_number = (uint16_t)(key.row * MATRIX_COLS) + key.col;
-        update_keycode_map_impl(entry_number, keycode, keycode_map);
+        update_keycode_map_impl(entry_number, keycode);
     }
-#        ifdef ENCODER_MAP_ENABLE
-    else if (key.row == KEYLOC_ENCODER_CW || key.row == KEYLOC_ENCODER_CCW) {
-        const uint16_t entry_number = key.col;
-        update_keycode_map_impl(entry_number, keycode, encoder_keycode_map);
-    }
-#        endif // ENCODER_MAP_ENABLE
 }
 
 /** \brief read keycode map
@@ -334,14 +325,8 @@ void update_keycode_map(keypos_t key, uint16_t keycode) {
 uint16_t read_keycode_map(keypos_t key) {
     if (key.row < MATRIX_ROWS && key.col < MATRIX_COLS) {
         const uint16_t entry_number = (uint16_t)(key.row * MATRIX_COLS) + key.col;
-        return read_keycode_map_impl(entry_number, keycode_map);
+        return read_keycode_map_impl(entry_number);
     }
-#        ifdef ENCODER_MAP_ENABLE
-    else if (key.row == KEYLOC_ENCODER_CW || key.row == KEYLOC_ENCODER_CCW) {
-        const uint16_t entry_number = key.col;
-        return read_keycode_map_impl(entry_number, encoder_keycode_map);
-    }
-#        endif // ENCODER_MAP_ENABLE
     return KC_NO;
 }
 #    endif
