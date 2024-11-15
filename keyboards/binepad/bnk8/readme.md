@@ -6,7 +6,7 @@ A compact 8-key 3x3 macropad with a rotary encoder at the top right.
 
 * Keyboard Maintainer: [binepad](https://github.com/binepad)
 * Hardware Supported: BINPAD BNK8
-* Hardware Availability: [binepad.com](https://www.binepad.com/product-page/bnk8)
+* Hardware Availability: [binepad.com](https://binepad.com/products/bnk8)
 
 Make example for this keyboard (after setting up your build environment):
 
