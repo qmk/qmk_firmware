@@ -13,10 +13,10 @@
     },
     "matrix_pins": {
         "direct": [
-            ["GP14", "GP2", "GP6", "GP10", "GP27", "GP20", null, null],
-            ["GP15", "GP3", "GP7", "GP11", "GP28", "GP21", null, null],
-            [null, "GP4", "GP8", "GP12", "GP22", "GP18", null, null],
-            [null, "GP5", "GP9", "GP13", "GP26", "GP19", "GP16", "GP17"]
+            ["GP14", "GP2", "GP6", "GP10", "GP27", "GP20"],
+            ["GP15", "GP3", "GP7", "GP11", "GP28", "GP21"],
+            ["GP16", "GP4", "GP8", "GP12", "GP22", "GP18"],
+            ["GP17", "GP5", "GP9", "GP13", "GP26", "GP19"]
         ]
     },
     "split": {
@@ -27,10 +27,10 @@
         "matrix_pins": {
             "right": {
                 "direct": [
-                    ["GP27", "GP20", "GP16", "GP10", "GP6", "GP2", null, null],
-                    ["GP28", "GP21", "GP17", "GP11", "GP7", "GP3", null, null],
-                    [null, "GP22", "GP18", "GP12", "GP8", "GP4", null, null],
-                    [null, "GP26", "GP19", "GP13", "GP9", "GP5", "GP14", "GP15"]
+                    ["GP27", "GP20", "GP16", "GP10", "GP6", "GP2"],
+                    ["GP28", "GP21", "GP17", "GP11", "GP7", "GP3"],
+                    ["GP14", "GP22", "GP18", "GP12", "GP8", "GP4"],
+                    ["GP15", "GP26", "GP19", "GP13", "GP9", "GP5"]
                 ]
             }
         },
@@ -90,10 +90,10 @@
                 {"matrix": [3, 3], "x": 3, "y": 3.25},
                 {"matrix": [3, 4], "x": 4, "y": 3.25},
                 {"matrix": [3, 5], "x": 5.25, "y": 3.5},
-                {"matrix": [3, 6], "x": 6.25, "y": 3.75},
-                {"matrix": [3, 7], "x": 7.25, "y": 4},
-                {"matrix": [7, 7], "x": 13, "y": 3.25},
-                {"matrix": [7, 6], "x": 14, "y": 3.25},
+                {"matrix": [2, 0], "x": 6.25, "y": 3.75},
+                {"matrix": [3, 0], "x": 7.25, "y": 4},
+                {"matrix": [7, 0], "x": 13, "y": 3.25},
+                {"matrix": [6, 0], "x": 14, "y": 3.25},
                 {"matrix": [7, 5], "x": 15, "y": 3.25},
                 {"matrix": [7, 4], "x": 16, "y": 3.25},
                 {"matrix": [7, 3], "x": 9.75, "y": 4},
