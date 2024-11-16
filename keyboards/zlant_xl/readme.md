@@ -3,9 +3,9 @@
 ![ZLANT XL](https://1upkeyboards.com/wp-content/uploads/2021/06/ZlantXL-scaled.jpeg)
 _A unique 50% mechanical keyboard that uses a slanted ortholinear layout_
 
-- Keyboard Maintainer: [chrisgve](https://github.com/chrisgve)
-- Hardware Supported: Zlant XL w/Ziptyze's atmega32u2 powered controller [The Rune](https://1upkeyboards.com/shop/controllers/the-rune-by-ziptyze/)
-- Hardware Availability: [1UP Keyboards](https://1upkeyboards.com/shop/keyboard-kits/diy-40-kits/zlantxl-50-mechanical-keyboard-kit/)
+* Keyboard Maintainer: [chrisgve](https://github.com/chrisgve)
+* Hardware Supported: Zlant XL w/Ziptyze's atmega32u2 powered controller [The Rune](https://1upkeyboards.com/shop/controllers/the-rune-by-ziptyze/)
+* Hardware Availability: [1UP Keyboards](https://1upkeyboards.com/shop/keyboard-kits/diy-40-kits/zlantxl-50-mechanical-keyboard-kit/)
 
 Make example for this keyboard (after setting up your build environment):
 
