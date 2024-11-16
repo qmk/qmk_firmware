@@ -4,9 +4,6 @@
     "maintainer": "kbd0",
     "bootloader": "rp2040",
     "bootloader_instructions": "Hold the top left key of the keyboard while plugging in the keyboard",
-    "build": {
-        "firmware_format": "uf2"
-    },
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,

@@ -1,6 +1,6 @@
 # kbd0/curve0/60_ansi
 
-![Curve0](https://i.imgur.com/y5ZIbWI.jpeg[])
+![Curve0](https://i.imgur.com/y5ZIbWI.jpeg)
 
 Curve0 - Curved stainless steel keyboard by kbd0
 
