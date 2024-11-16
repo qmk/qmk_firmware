@@ -12,10 +12,10 @@ enum layers {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [LDEF] = LAYOUT_split_2_3x5_4_3(
-        KC_TAB,          KC_Q,          KC_W,          KC_E,           KC_R,        KC_T,                                               KC_Y,           KC_U,          KC_I,          KC_O,          KC_P,    KC_BSPC,
-        KC_ESC,          KC_A,          KC_S,          KC_D,           KC_F,        KC_G,                                               KC_H,           KC_J,          KC_K,          KC_L,       KC_SCLN,   KC_ENTER,
-                         KC_Z,          KC_X,          KC_C,           KC_V,        KC_B,                                               KC_N,           KC_M,      KC_COMMA,        KC_DOT,      KC_QUOTE,
-                OSM(MOD_LSFT), OSM(MOD_LCTL), OSM(MOD_LGUI),  OSM(MOD_LALT),   OSL(LNUM), LT(LNAV,KC_SPC), OSL(LSYM),  OSL(LSYM), LT(LNAV,KC_SPC),  KC_NO,  OSM(MOD_RALT), OSM(MOD_RGUI), OSM(MOD_RCTL),  OSM(MOD_RSFT)
+        KC_TAB,            KC_Q,            KC_W,            KC_E,            KC_R,        KC_T,                                                                                   KC_Y,            KC_U,           KC_I,            KC_O,            KC_P,        KC_BSPC,
+        KC_ESC,            KC_A,            KC_S,            KC_D,            KC_F,        KC_G,                                                                                   KC_H,            KC_J,           KC_K,            KC_L,         KC_SCLN,       KC_ENTER,
+                           KC_Z,            KC_X,            KC_C,            KC_V,        KC_B,                                                                                   KC_N,            KC_M,       KC_COMMA,          KC_DOT,        KC_QUOTE,
+                  OSM(MOD_LSFT),   OSM(MOD_LCTL),   OSM(MOD_LGUI),   OSM(MOD_LALT),   OSL(LNUM),   LT(LNAV,KC_SPC),   OSL(LSYM),            OSL(LSYM),   LT(LNAV,KC_SPC),         KC_NO,   OSM(MOD_RALT),  OSM(MOD_RGUI),   OSM(MOD_RCTL),   OSM(MOD_RSFT)
     ),
     [LSYM] = LAYOUT_split_2_3x5_4_3(
         KC_NO,       KC_TILDE,        KC_GRV,         KC_NO,       KC_SLASH,     KC_BSLS,                                            KC_PEQL,      KC_LBRC,       KC_RBRC,       KC_QUES,         KC_NO,       KC_TRNS,
