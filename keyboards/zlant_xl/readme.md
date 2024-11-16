@@ -1,6 +1,6 @@
 # ZLANT XL
 
-![ZLANT XL](<https://1upkeyboards.com/wp-content/uploads/2021/06/ZlantXL-scaled.jpeg>
+![ZLANT XL](https://1upkeyboards.com/wp-content/uploads/2021/06/ZlantXL-scaled.jpeg)
 _A unique 50% mechanical keyboard that uses a slanted ortholinear layout_
 
 - Keyboard Maintainer: [chrisgve](https://github.com/chrisgve)
