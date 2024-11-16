@@ -211,13 +211,15 @@ TEST_F(ChordalHoldHoldOnOtherKeyPress, two_mod_taps_same_hand_hold_til_timeout) 
     EXPECT_NO_REPORT(driver);
     mod_tap_key1.press();
     run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_REPORT(driver, (KC_A));
     mod_tap_key2.press();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 
     // Continue holding til the tapping term.
-    EXPECT_REPORT(driver, (KC_RIGHT_CTRL));
-    EXPECT_REPORT(driver, (KC_RIGHT_CTRL, KC_RIGHT_SHIFT));
+    EXPECT_REPORT(driver, (KC_A, KC_RIGHT_SHIFT));
     idle_for(TAPPING_TERM);
     VERIFY_AND_CLEAR(driver);
 
@@ -279,12 +281,14 @@ TEST_F(ChordalHoldHoldOnOtherKeyPress, two_mod_taps_nested_press_same_hand) {
     EXPECT_NO_REPORT(driver);
     mod_tap_key1.press();
     run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_REPORT(driver, (KC_A));
     mod_tap_key2.press();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 
     // Release mod-tap keys.
-    EXPECT_REPORT(driver, (KC_A));
     EXPECT_REPORT(driver, (KC_A, KC_B));
     EXPECT_REPORT(driver, (KC_A));
     EXPECT_EMPTY_REPORT(driver);
@@ -308,8 +312,14 @@ TEST_F(ChordalHoldHoldOnOtherKeyPress, three_mod_taps_same_hand_streak_roll) {
     EXPECT_NO_REPORT(driver);
     mod_tap_key1.press();
     run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_REPORT(driver, (KC_A));
     mod_tap_key2.press();
     run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_REPORT(driver, (KC_A, KC_B));
     mod_tap_key3.press();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
@@ -327,8 +337,6 @@ TEST_F(ChordalHoldHoldOnOtherKeyPress, three_mod_taps_same_hand_streak_roll) {
     // However, due to a workaround for https://github.com/tmk/tmk_keyboard/issues/60,
     // the events are processed out of order, with the first two keys released
     // before pressing KC_C.
-    EXPECT_REPORT(driver, (KC_A));
-    EXPECT_REPORT(driver, (KC_A, KC_B));
     EXPECT_REPORT(driver, (KC_B));
     EXPECT_EMPTY_REPORT(driver);
     EXPECT_REPORT(driver, (KC_C));
@@ -399,9 +407,20 @@ TEST_F(ChordalHoldHoldOnOtherKeyPress, three_mod_taps_same_hand_streak_orders) {
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 
+    // NOTE: The correct order of events should be
+    // EXPECT_REPORT(driver, (KC_A));
+    // EXPECT_REPORT(driver, (KC_A, KC_B));
+    // EXPECT_REPORT(driver, (KC_A, KC_B, KC_C));
+    // EXPECT_REPORT(driver, (KC_A, KC_C));
+    // EXPECT_REPORT(driver, (KC_A));
+    // EXPECT_EMPTY_REPORT(driver);
+    //
+    // However, due to a workaround for https://github.com/tmk/tmk_keyboard/issues/60,
+    // the events are processed out of order, with the first two keys released
+    // before pressing KC_C.
     EXPECT_REPORT(driver, (KC_A));
     EXPECT_REPORT(driver, (KC_A, KC_B));
-    EXPECT_REPORT(driver, (KC_A, KC_B, KC_C));
+    EXPECT_REPORT(driver, (KC_A));
     EXPECT_REPORT(driver, (KC_A, KC_C));
     EXPECT_REPORT(driver, (KC_A));
     EXPECT_EMPTY_REPORT(driver);
@@ -423,7 +442,7 @@ TEST_F(ChordalHoldHoldOnOtherKeyPress, three_mod_taps_same_hand_streak_orders) {
     VERIFY_AND_CLEAR(driver);
 }
 
-TEST_F(ChordalHoldHoldOnOtherKeyPress, three_mod_taps_two_held_one_tapped) {
+TEST_F(ChordalHoldHoldOnOtherKeyPress, three_mod_taps_two_left_one_right) {
     TestDriver driver;
     InSequence s;
     auto       mod_tap_key1 = KeymapKey(0, 1, 0, SFT_T(KC_A));
@@ -433,25 +452,30 @@ TEST_F(ChordalHoldHoldOnOtherKeyPress, three_mod_taps_two_held_one_tapped) {
     set_keymap({mod_tap_key1, mod_tap_key2, mod_tap_key3});
 
     // Press mod-tap keys.
-    EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
-    EXPECT_REPORT(driver, (KC_LEFT_SHIFT, KC_LEFT_CTRL));
+    EXPECT_NO_REPORT(driver);
     mod_tap_key1.press();
     run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_REPORT(driver, (KC_A));
     mod_tap_key2.press();
     run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_REPORT(driver, (KC_A, KC_LEFT_CTRL));
     mod_tap_key3.press();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 
     // Release key 3.
-    EXPECT_REPORT(driver, (KC_LEFT_SHIFT, KC_LEFT_CTRL, KC_C));
-    EXPECT_REPORT(driver, (KC_LEFT_SHIFT, KC_LEFT_CTRL));
+    EXPECT_REPORT(driver, (KC_A, KC_LEFT_CTRL, KC_C));
+    EXPECT_REPORT(driver, (KC_A, KC_LEFT_CTRL));
     mod_tap_key3.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 
     // Release key 2, then key 1.
-    EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
+    EXPECT_REPORT(driver, (KC_A));
     EXPECT_EMPTY_REPORT(driver);
     mod_tap_key2.release();
     run_one_scan_loop();
@@ -460,20 +484,24 @@ TEST_F(ChordalHoldHoldOnOtherKeyPress, three_mod_taps_two_held_one_tapped) {
     VERIFY_AND_CLEAR(driver);
 
     // Press mod-tap keys.
-    EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
-    EXPECT_REPORT(driver, (KC_LEFT_SHIFT, KC_LEFT_CTRL));
-    idle_for(TAPPING_TERM);
+    EXPECT_NO_REPORT(driver);
     mod_tap_key1.press();
     run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_REPORT(driver, (KC_A));
     mod_tap_key2.press();
     run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_REPORT(driver, (KC_A, KC_LEFT_CTRL));
     mod_tap_key3.press();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 
     // Release key 3.
-    EXPECT_REPORT(driver, (KC_LEFT_SHIFT, KC_LEFT_CTRL, KC_C));
-    EXPECT_REPORT(driver, (KC_LEFT_SHIFT, KC_LEFT_CTRL));
+    EXPECT_REPORT(driver, (KC_A, KC_LEFT_CTRL, KC_C));
+    EXPECT_REPORT(driver, (KC_A, KC_LEFT_CTRL));
     mod_tap_key3.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
