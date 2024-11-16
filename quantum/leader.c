@@ -11,6 +11,10 @@
 #    define LEADER_TIMEOUT 300
 #endif
 
+#if defined(LEADER_NO_TIMEOUT) && !defined(LEADER_NO_TIMEOUT_FOR_N_KEYSTOKES)
+#   define LEADER_NO_TIMEOUT_FOR_N_KEYSTOKES 1
+#endif
+
 // Leader key stuff
 bool     leading              = false;
 uint16_t leader_time          = 0;
@@ -53,11 +57,7 @@ bool leader_sequence_add(uint16_t keycode) {
     }
 
 #if defined(LEADER_NO_TIMEOUT)
-#   if defined(LEADER_NO_TIMEOUT_N)
-    if (leader_sequence_size < LEADER_NO_TIMEOUT_N - 1) {
-#   else
-    if (leader_sequence_size == 0) {
-#   endif
+    if (leader_sequence_size < LEADER_NO_TIMEOUT_FOR_N_KEYSTOKES) {
         leader_reset_timer();
     }
 #endif
@@ -70,11 +70,7 @@ bool leader_sequence_add(uint16_t keycode) {
 
 bool leader_sequence_timed_out(void) {
 #if defined(LEADER_NO_TIMEOUT)
-#   if defined(LEADER_NO_TIMEOUT_N)
-    return leader_sequence_size > LEADER_NO_TIMEOUT_N - 1 && timer_elapsed(leader_time) > LEADER_TIMEOUT;
-#   else
-    return leader_sequence_size > 0 && timer_elapsed(leader_time) > LEADER_TIMEOUT;
-#   endif
+    return leader_sequence_size >= LEADER_NO_TIMEOUT_FOR_N_KEYSTOKES  && timer_elapsed(leader_time) > LEADER_TIMEOUT;
 #else
     return timer_elapsed(leader_time) > LEADER_TIMEOUT;
 #endif
