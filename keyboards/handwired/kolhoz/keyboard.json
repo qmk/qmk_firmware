@@ -9,7 +9,8 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "rgblight": true
     },
     "matrix_pins": {
         "direct": [
@@ -38,6 +39,19 @@
             "driver": "vendor",
             "pin": "GP0"
         }
+    },
+    "rgblight":{
+        "led_count": 2,
+        "split": true,
+        "split_count": [1, 1],
+        "layers": {
+            "enabled": true
+        },
+        "max_brightness": 127
+    },
+    "ws2812": {
+        "driver": "vendor",
+        "pin": "GP23"
     },
     "tapping": {
         "toggle": 2

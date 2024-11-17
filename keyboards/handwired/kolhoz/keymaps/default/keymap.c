@@ -51,3 +51,31 @@ combo_t key_combos[] = {
     COMBO(mouse_layer_enable_combo, TG(LNAV)),
     COMBO(mouse_layer_disable_combo, TG(LNAV)),
 };
+
+const rgblight_segment_t PROGMEM rgb_layer_0[] = RGBLIGHT_LAYER_SEGMENTS({0, 2, HSV_OFF});
+const rgblight_segment_t PROGMEM rgb_layer_1[] = RGBLIGHT_LAYER_SEGMENTS({0, 2, HSV_GREEN});
+const rgblight_segment_t PROGMEM rgb_layer_2[] = RGBLIGHT_LAYER_SEGMENTS({0, 2, HSV_RED});
+const rgblight_segment_t PROGMEM rgb_layer_3[] = RGBLIGHT_LAYER_SEGMENTS({0, 2, HSV_BLUE});
+
+const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+    rgb_layer_0,
+    rgb_layer_1,
+    rgb_layer_2,
+    rgb_layer_3
+);
+
+layer_state_t default_layer_state_set_user(layer_state_t state) {
+    rgblight_set_layer_state(0, layer_state_cmp(state, LDEF));
+    return state;
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    rgblight_set_layer_state(1, layer_state_cmp(state, LSYM));
+    rgblight_set_layer_state(2, layer_state_cmp(state, LNUM));
+    rgblight_set_layer_state(3, layer_state_cmp(state, LNAV));
+    return state;
+}
+
+void keyboard_post_init_user(void) {
+    rgblight_layers = rgb_layers;
+}
