@@ -9,7 +9,6 @@
 
 #define MOUSE_SCROLL_V_REVERSE_BIT (1 << 0) // 0000 0001
 #define MOUSE_SCROLL_H_REVERSE_BIT (1 << 1) // 0000 0010
-#define IS_OLED_LOGO_BIT           (1 << 2) // 0000 0100
 
 enum click_state {
     NONE = 0,
@@ -38,7 +37,8 @@ uint16_t click_timer;       // タイマー。状態に応じて時間で判定�
 // uint16_t to_clickable_time = 50;   // この秒数(千分の一秒)、WAITING状態ならクリックレイヤーが有効になる。  For this number of seconds (milliseconds), if in WAITING state, the click layer is activated.
 uint16_t to_reset_time = 1000; // この秒数(千分の一秒)、CLICKABLE状態ならクリックレイヤーが無効になる。 For this number of seconds (milliseconds), the click layer is disabled if in CLICKABLE state.
 
-const uint16_t click_layer = 8;   // マウス入力が可能になった際に有効になるレイヤー。Layers enabled when mouse input is enabled
+const uint16_t click_layer = 6;   // マウス入力が可能になった際に有効になるレイヤー。Layers enabled when mouse input is enabled
+const uint16_t setting_layer = 7;
 
 int16_t scroll_v_mouse_interval_counter;   // 垂直スクロールの入力をカウントする。　Counting Vertical Scroll Inputs
 int16_t scroll_h_mouse_interval_counter;   // 水平スクロールの入力をカウントする。  Counts horizontal scrolling inputs.
@@ -54,7 +54,6 @@ int16_t mouse_move_count_ratio = 5;     // ポインターの動きを再生す�
 const uint16_t ignore_disable_mouse_layer_keys[] = {KC_LGUI, KC_LCTL};   // この配列で指定されたキーはマウスレイヤー中に押下してもマウスレイヤーを解除しない
 
 int16_t mouse_movement;
-uint32_t press_count;
 
 void eeconfig_init_kb(void) {
     user_config.raw = 0;
@@ -65,7 +64,6 @@ void eeconfig_init_kb(void) {
     user_config.settings = 0; // 初期化
     user_config.settings |= MOUSE_SCROLL_V_REVERSE_BIT * false; // ここでfalseなので実際にはセットしない
     user_config.settings |= MOUSE_SCROLL_H_REVERSE_BIT * false; // 同上
-    user_config.settings |= IS_OLED_LOGO_BIT * false; // 同上
     
     eeconfig_update_kb(user_config.raw);
 }
@@ -76,10 +74,6 @@ bool get_mouse_scroll_v_reverse(void) {
 
 bool get_mouse_scroll_h_reverse(void) {
     return user_config.settings & MOUSE_SCROLL_H_REVERSE_BIT;
-}
-
-bool get_is_oled_logo(void) {
-    return user_config.settings & IS_OLED_LOGO_BIT;
 }
 
 void set_mouse_scroll_v_reverse(bool value) {
@@ -98,17 +92,9 @@ void set_mouse_scroll_h_reverse(bool value) {
     }
 }
 
-void set_is_oled_logo(bool value) {
-    if (value) {
-        user_config.settings |= IS_OLED_LOGO_BIT;
-    } else {
-        user_config.settings &= ~IS_OLED_LOGO_BIT;
-    }
-}
-
 void keyboard_post_init_kb(void) {
     user_config.raw = eeconfig_read_kb();
-    // joystick_ratio = user_config.joystick_ratio;
+    joystick_ratio = user_config.joystick_ratio;
 }
 
 // クリック用のレイヤーを有効にする。　Enable layers for clicks
@@ -126,6 +112,29 @@ void disable_click_layer(void) {
     scroll_h_mouse_interval_counter = 0;
 }
 
+bool setting_flags[4] = { false, false, false, false };
+
+void enable_setting_layer(void) {
+    for (int i = 0; i < 4; i++)
+    {
+        setting_flags[i] = false;
+    }
+    layer_on(setting_layer);
+
+    SEND_STRING("Setting Layer Start.");
+}
+
+void disable_setting_layer(void) {
+
+    for (int i = 0; i < 4; i++)
+    {
+        setting_flags[i] = false;
+    }
+
+    layer_off(setting_layer);
+    SEND_STRING("Setting Layer End.");
+}
+
 // 自前の絶対数を返す関数。 Functions that return absolute numbers.
 int8_t my_abs(int8_t num) {
     if (num < 0) {
@@ -141,20 +150,51 @@ bool is_clickable_mode(void) {
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-
-    if (record->event.pressed) {
-        press_count++;
-    }
     
+    if (record->event.key.row == 0 && record->event.key.col == 0)
+    {
+        setting_flags[0] = record->event.pressed;
+    }
+
+    if (record->event.key.row == 0 && record->event.key.col == 2)
+    {
+        setting_flags[1] = record->event.pressed;
+    }
+
+    if (record->event.key.row == 5 && record->event.key.col == 0)
+    {
+        setting_flags[2] = record->event.pressed;
+    }
+
+    if (record->event.key.row == 5 && record->event.key.col == 2)
+    {
+        setting_flags[3] = record->event.pressed;
+    }
+
+    for (int i = 0; i < 4; i++)
+    {
+        if (!setting_flags[i])
+        {
+            break;
+        }
+
+        if (i == 3)
+        {
+            enable_setting_layer();
+            return true;
+        }
+    }
+
+
     switch (keycode) {
-        case KC_MY_BTN1:
-        case KC_MY_BTN2:
-        case KC_MY_BTN3:
+        case MY_BTN1:
+        case MY_BTN2:
+        case MY_BTN3:
         {
             report_mouse_t currentReport = pointing_device_get_report();
 
             // どこのビットを対象にするか。 Which bits are to be targeted?
-            uint8_t btn = 1 << (keycode - KC_MY_BTN1);
+            uint8_t btn = 1 << (keycode - MY_BTN1);
             
             if (record->event.pressed) {
                 // ビットORは演算子の左辺と右辺の同じ位置にあるビットを比較して、両方のビットのどちらかが「1」の場合に「1」にします。
@@ -175,7 +215,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             return false;
         }
 
-        case KC_MY_SCR:
+        case MY_SCRL:
             if (record->event.pressed) {
                 state = SCROLLING;
             } else {
@@ -183,14 +223,14 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             }
          return false;
         
-        case KC_TO_CLICKABLE_INC:
+        case MY_CLKI:
             if (record->event.pressed) {
                 user_config.to_clickable_movement += 5; // user_config.to_clickable_time += 10;
                 eeconfig_update_kb(user_config.raw);
             }
             return false;
 
-        case KC_TO_CLICKABLE_DEC:
+        case MY_CLKD:
             if (record->event.pressed) {
 
                 user_config.to_clickable_movement -= 5; // user_config.to_clickable_time -= 10;
@@ -208,43 +248,50 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
         
-        case KC_SCROLL_DIR_V:
+        case MY_SCDV:
             if (record->event.pressed) {
                 set_mouse_scroll_v_reverse(!get_mouse_scroll_v_reverse()); // user_config.mouse_scroll_v_reverse = !user_config.mouse_scroll_v_reverse;
                 eeconfig_update_kb(user_config.raw);
             }
             return false;
         
-        case KC_SCROLL_DIR_H:
+        case MY_SCDH:
             if (record->event.pressed) {
                 set_mouse_scroll_h_reverse(!get_mouse_scroll_h_reverse()); // user_config.mouse_scroll_h_reverse = !user_config.mouse_scroll_h_reverse;
                 eeconfig_update_kb(user_config.raw);
             }
             return false;
-        
-        case KC_OLED:
-            if  (record->event.pressed) {
-                set_is_oled_logo(!get_is_oled_logo());
-                eeconfig_update_kb(user_config.raw);
-            }
-            break;
 
-        case KC_JS_INC:
+        case MY_JSDI:
             if  (record->event.pressed) {
-                joystick_ratio = joystick_ratio + 10;
+                joystick_ratio = joystick_ratio + 5;
                 user_config.joystick_ratio = joystick_ratio;
                 eeconfig_update_kb(user_config.raw);
+
+                // char str[256];
+                // sprintf(str, "%d", joystick_ratio);
+                // SEND_STRING(str);
             }
             
             break;
 
-        case KC_JS_DEC:
+        case MY_JSDD:
             if  (record->event.pressed) {
-                joystick_ratio = joystick_ratio - 10;
+                joystick_ratio = joystick_ratio - 5;
                 user_config.joystick_ratio = joystick_ratio;
                 eeconfig_update_kb(user_config.raw);
+
+                // char str[256];
+                // sprintf(str, "%d", joystick_ratio);
+                // SEND_STRING(str);
             }
             
+            break;
+
+        case MY_STGE:
+            if  (record->event.pressed) {
+                disable_setting_layer();
+            }
             break;
 
          default:

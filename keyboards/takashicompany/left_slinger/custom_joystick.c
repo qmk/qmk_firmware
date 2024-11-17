@@ -38,8 +38,17 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
 
     if (timer_elapsed(lastCursor) > ANALOG_JOYSTICK_READ_INTERVAL) {    // 多分、指定のミリ秒経過したかを見て処理を走らせている
         lastCursor = timer_read();
-        mouse_report.x = axisCoordinate_custom(ANALOG_JOYSTICK_X_AXIS_PIN, xOrigin) / joystick_ratio;
-        mouse_report.y = axisCoordinate_custom(ANALOG_JOYSTICK_Y_AXIS_PIN, yOrigin) / joystick_ratio;
+		
+        int16_t jsr = joystick_ratio;
+        if (0 <= jsr && jsr < 10) {
+            jsr = 10;
+        }
+        else if (-10 < jsr && jsr < 0) {
+            jsr = -10;
+        }
+
+        mouse_report.x = axisCoordinate_custom(ANALOG_JOYSTICK_X_AXIS_PIN, xOrigin) / jsr;
+        mouse_report.y = axisCoordinate_custom(ANALOG_JOYSTICK_Y_AXIS_PIN, yOrigin) / jsr;
     }
 
     return mouse_report;
