@@ -50,6 +50,8 @@ __attribute__((weak)) bool get_permissive_hold(uint16_t keycode, keyrecord_t *re
 #    endif
 
 #    ifdef CHORDAL_HOLD
+extern const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM;
+
 #        define REGISTERED_TAPS_SIZE 8
 // Array of tap-hold keys that have been settled as tapped but not yet released.
 static keypos_t registered_taps[REGISTERED_TAPS_SIZE] = {};
@@ -609,32 +611,16 @@ bool get_chordal_hold_default(keyrecord_t *tap_hold_record, keyrecord_t *other_r
         return true; // Return true on combos or other non-key events.
     }
 
-    char tap_hold_hand = chordal_hold_handedness_user(tap_hold_record->event.key);
+    char tap_hold_hand = chordal_hold_handedness(tap_hold_record->event.key);
     if (tap_hold_hand == '*') {
         return true;
     }
-    char other_hand = chordal_hold_handedness_user(other_record->event.key);
+    char other_hand = chordal_hold_handedness(other_record->event.key);
     return other_hand == '*' || tap_hold_hand != other_hand;
 }
 
-__attribute__((weak)) char chordal_hold_handedness_kb(keypos_t key) {
-#        if defined(SPLIT_KEYBOARD) || ((MATRIX_ROWS) > (MATRIX_COLS))
-    // If the keyboard is split or if MATRIX_ROWS > MATRIX_COLS, assume that the
-    // first half of the rows are left and the latter half are right.
-    return (key.row < (MATRIX_ROWS) / 2) ? /*left*/ 'L' : /*right*/ 'R';
-#        else
-    // Otherwise, assume the first half of the cols are left, others are right.
-    return (key.col < (MATRIX_COLS) / 2) ? /*left*/ 'L' : /*right*/ 'R';
-#        endif
-}
-
-__attribute__((weak)) char chordal_hold_handedness_user(keypos_t key) {
-#        if defined(CHORDAL_HOLD_LAYOUT)
-    // If given, read handedness from `chordal_hold_layout` array.
+__attribute__((weak)) char chordal_hold_handedness(keypos_t key) {
     return (char)pgm_read_byte(&chordal_hold_layout[key.row][key.col]);
-#        else
-    return chordal_hold_handedness_kb(key);
-#        endif
 }
 
 static void registered_taps_add(keypos_t key) {

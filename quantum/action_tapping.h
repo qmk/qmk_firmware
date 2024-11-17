@@ -88,12 +88,6 @@ bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t *tap_hold_record, u
  * returns true, indicating that it may be held. Otherwise, it returns false,
  * in which case the tap-hold key is immediately settled at tapped.
  *
- * "Handedness" is determined as follows, in order of decending precedence:
- * 1. `chordal_hold_handedness_user()`, if defined.
- * 2. `chordal_hold_layout`, if CHORDAL_HOLD_LAYOUT is defined.
- * 3. `chordal_hold_handedness_kb()`, if defined.
- * 4. fallback assumption based on keyboard matrix dimensions.
- *
  * @param tap_hold_record  Record of the active tap-hold key press.
  * @param other_record     Record of the other, interrupting key press.
  * @return True if the tap-hold key may be considered held; false if tapped.
@@ -101,9 +95,9 @@ bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t *tap_hold_record, u
 bool get_chordal_hold_default(keyrecord_t *tap_hold_record, keyrecord_t *other_record);
 
 /**
- * Keyboard-level callback to determine handedness of a key.
+ * Gets the handedness of a key.
  *
- * This function should return:
+ * This function returns:
  *   'L' for keys pressed by the left hand,
  *   'R' for keys on the right hand,
  *   '*' for keys exempt from the "opposite hands rule." This could be used
@@ -112,9 +106,7 @@ bool get_chordal_hold_default(keyrecord_t *tap_hold_record, keyrecord_t *other_r
  * @param key   A key matrix position.
  * @return Handedness value.
  */
-char chordal_hold_handedness_kb(keypos_t key);
-/** User callback to determine handedness of a key. */
-char chordal_hold_handedness_user(keypos_t key);
+char chordal_hold_handedness(keypos_t key);
 
 #    ifdef CHORDAL_HOLD_LAYOUT
 extern const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM;

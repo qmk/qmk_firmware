@@ -1,5 +1,7 @@
 """Used by the make system to generate keyboard.c from info.json.
 """
+import statistics
+
 from milc import cli
 
 from qmk.info import info_json
@@ -87,6 +89,55 @@ def _gen_matrix_mask(info_data):
         lines.append(f'    0b{"".join(reversed(mask[i]))},')
     lines.append('};')
     lines.append('#endif')
+    lines.append('')
+
+    return lines
+
+
+def _gen_chordal_hold_layout(info_data):
+    keys_x = []
+    keys_hand = []
+
+    # Get x-coordinate for the center of each key.
+    # NOTE: If there are multiple layouts, only the first is read.
+    for layout_name, layout_data in info_data['layouts'].items():
+        for key_data in layout_data['layout']:
+            keys_x.append(key_data['x'] + key_data.get('w', 1.0) / 2)
+            keys_hand.append(key_data.get('hand', ''))
+        break
+
+    x_midline = statistics.median(keys_x)
+    x_prev = None
+
+    layout_handedness = [[]]
+
+    for x, hand in zip(keys_x, keys_hand):
+        if x_prev is not None and x < x_prev:
+            layout_handedness.append([])
+
+        if not hand:
+            # Where unspecified, assume handedness based on the key's location
+            # relative to the midline.
+            if abs(x - x_midline) > 0.25:
+                hand = 'L' if x < x_midline else 'R'
+            else:
+                hand = '*'
+
+        layout_handedness[-1].append(hand)
+        x_prev = x
+
+    lines = []
+    lines.append('#ifdef CHORDAL_HOLD')
+    lines.append('__attribute__((weak)) const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = ' + layout_name + '(')
+
+    for i, row in enumerate(layout_handedness):
+        line = '  ' + ', '.join(f"'{c}'" for c in row)
+        if i < len(layout_handedness) - 1:
+            line += ','
+        lines.append(line)
+
+    lines.append(');')
+    lines.append('#endif')
 
     return lines
 
@@ -101,10 +152,11 @@ def generate_keyboard_c(cli):
     kb_info_json = info_json(cli.args.keyboard)
 
     # Build the layouts.h file.
-    keyboard_h_lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE, '#include QMK_KEYBOARD_H', '']
+    keyboard_c_lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE, '#include QMK_KEYBOARD_H', '']
 
-    keyboard_h_lines.extend(_gen_led_configs(kb_info_json))
-    keyboard_h_lines.extend(_gen_matrix_mask(kb_info_json))
+    keyboard_c_lines.extend(_gen_led_configs(kb_info_json))
+    keyboard_c_lines.extend(_gen_matrix_mask(kb_info_json))
+    keyboard_c_lines.extend(_gen_chordal_hold_layout(kb_info_json))
 
     # Show the results
-    dump_lines(cli.args.output, keyboard_h_lines, cli.args.quiet)
+    dump_lines(cli.args.output, keyboard_c_lines, cli.args.quiet)

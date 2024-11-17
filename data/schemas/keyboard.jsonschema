@@ -384,7 +384,11 @@
                                 "h": {"$ref": "qmk.definitions.v1#/key_unit"},
                                 "w": {"$ref": "qmk.definitions.v1#/key_unit"},
                                 "x": {"$ref": "qmk.definitions.v1#/key_unit"},
-                                "y": {"$ref": "qmk.definitions.v1#/key_unit"}
+                                "y": {"$ref": "qmk.definitions.v1#/key_unit"},
+                                "hand": {
+                                    "type": "string",
+                                    "pattern": "[LR*]",
+                                }
                             }
                         }
                     }

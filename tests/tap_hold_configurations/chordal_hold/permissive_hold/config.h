@@ -18,5 +18,4 @@
 
 #include "test_common.h"
 #define CHORDAL_HOLD
-#define CHORDAL_HOLD_LAYOUT
 #define PERMISSIVE_HOLD

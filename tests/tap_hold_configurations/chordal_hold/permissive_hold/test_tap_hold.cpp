@@ -26,9 +26,9 @@ using testing::InSequence;
 class ChordalHoldPermissiveHold : public TestFixture {};
 
 TEST_F(ChordalHoldPermissiveHold, chordal_hold_handedness) {
-    EXPECT_EQ(chordal_hold_handedness_user({.col = 0, .row = 0}), 'L');
-    EXPECT_EQ(chordal_hold_handedness_user({.col = MATRIX_COLS - 1, .row = 0}), 'R');
-    EXPECT_EQ(chordal_hold_handedness_user({.col = 0, .row = 2}), '*');
+    EXPECT_EQ(chordal_hold_handedness({.col = 0, .row = 0}), 'L');
+    EXPECT_EQ(chordal_hold_handedness({.col = MATRIX_COLS - 1, .row = 0}), 'R');
+    EXPECT_EQ(chordal_hold_handedness({.col = 0, .row = 2}), '*');
 }
 
 TEST_F(ChordalHoldPermissiveHold, get_chordal_hold_default) {
