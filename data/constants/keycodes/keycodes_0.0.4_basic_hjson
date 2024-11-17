@@ -1,0 +1,12 @@
+{
+    "keycodes": {
+        "0x00C3": {
+            "group": "media",
+            "key": "KC_GLOBE",
+            "label": "Apple Globe/FN Key",
+            "aliases": [
+                "KC_GLB"
+            ]
+        }
+    }
+}
