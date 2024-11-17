@@ -23,7 +23,14 @@
     "diode_direction": "COL2ROW",
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
-    "community_layouts": ["60_ansi", "60_tsangan_hhkb", "60_iso"],
+    "community_layouts": [
+        "60_ansi",
+        "60_ansi_tsangan_split_bs_rshift",
+        "60_iso"
+    ],
+    "layout_aliases": {
+        "LAYOUT_60_tsangan_hhkb": "LAYOUT_60_ansi_tsangan_split_bs_rshift"
+    },
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [
@@ -94,7 +101,7 @@
                 {"x": 13.75, "y": 4, "w": 1.25, "matrix": [4, 14]}
             ]
         },
-        "LAYOUT_60_tsangan_hhkb": {
+        "LAYOUT_60_ansi_tsangan_split_bs_rshift": {
             "layout": [
                 {"x": 0, "y": 0, "matrix": [0, 0]},
                 {"x": 1, "y": 0, "matrix": [0, 1]},

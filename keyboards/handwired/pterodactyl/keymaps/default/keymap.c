@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                               |      |ace   | End  |  | PgDn |      |      |
  *                               `--------------------'  `--------------------'
  */
-[_BL] = LAYOUT_pterodactyl(  // layer 0 : default
+[_BL] = LAYOUT(  // layer 0 : default
         // left hand
           KC_EQL,          KC_1,           KC_2,     KC_3,     KC_4,  KC_5,                             KC_6,   KC_7,     KC_8,     KC_9,               KC_0,         KC_MINS,
           KC_DEL,          KC_Q,           KC_W,     KC_E,     KC_R,  KC_T,                             KC_Y,   KC_U,     KC_I,     KC_O,               KC_P,         KC_BSLS,
@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                               `--------------------'  `--------------------'
  */
 // SYMBOLS
-[_SYMB] = LAYOUT_pterodactyl(
+[_SYMB] = LAYOUT(
        // left hand
        KC_TRNS,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,                KC_F6,      KC_F7,   KC_F8, KC_F9,  KC_F10,   KC_F11,
        KC_TRNS,  KC_EXLM,    KC_AT,  KC_LCBR,  KC_RCBR,  KC_PIPE,                KC_UP,       KC_7,    KC_8,  KC_9, KC_ASTR,   KC_F12,
@@ -99,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *
  */
 // MEDIA AND MOUSE
-[_MDIA] = LAYOUT_pterodactyl(
+[_MDIA] = LAYOUT(
        KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,                KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
        KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_MS_U,  KC_TRNS,  KC_TRNS,                KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
        KC_TRNS,  KC_TRNS,  KC_MS_L,  KC_MS_D,  KC_MS_R,  KC_TRNS,                KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_MPLY,

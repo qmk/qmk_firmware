@@ -4,6 +4,7 @@
     "/cli_dev_configuration": "/cli_configuration",
     "/dynamic_macros": "/feature_dynamic_macros",
     "/feature_common_shortcuts": "/feature_advanced_keycodes",
+    "/flashing_bootloadhid": "/flashing",
     "/getting_started_build_tools": "/newbs_getting_started",
     "/getting_started_getting_help": "/support",
     "/glossary": "/reference_glossary",
@@ -15,6 +16,8 @@
     "/tutorial": "/newbs",
     "/unicode": "/feature_unicode",
 
+    "/features/bluetooth": "/features/wireless",
+
     "/adc_driver": "/drivers/adc",
     "/apa102_driver": "/drivers/apa102",
     "/audio_driver": "/drivers/audio",
@@ -23,7 +26,7 @@
     "/feature_auto_shift": "/features/auto_shift",
     "/feature_autocorrect": "/features/autocorrect",
     "/feature_backlight": "/features/backlight",
-    "/feature_bluetooth": "/features/bluetooth",
+    "/feature_bluetooth": "/features/wireless",
     "/feature_bootmagic": "/features/bootmagic",
     "/feature_caps_word": "/features/caps_word",
     "/feature_combo": "/features/combo",

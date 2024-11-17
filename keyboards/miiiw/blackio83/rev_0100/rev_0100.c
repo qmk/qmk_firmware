@@ -165,7 +165,6 @@ uint32_t loop_10Hz(uint32_t trigger_time, void *cb_arg) {
             wait_ms(50);
             eeconfig_init();
     #ifdef RGB_MATRIX_ENABLE
-            extern void rgb_matrix_update_pwm_buffers(void);
             for(int i = 0; i < 5; i++) {
                 rgb_matrix_set_color_all(RGB_WHITE);
                 rgb_matrix_update_pwm_buffers();

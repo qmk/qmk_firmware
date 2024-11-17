@@ -22,7 +22,7 @@
 #endif
 
 #undef ENCODER_DEFAULT_PIN_API_IMPL
-#if defined(ENCODERS_PAD_A) && defined(ENCODERS_PAD_B)
+#if defined(ENCODER_A_PINS) && defined(ENCODER_B_PINS)
 // Inform the quadrature driver that it needs to implement pin init/read functions
 #    define ENCODER_DEFAULT_PIN_API_IMPL
 #endif
@@ -34,8 +34,8 @@ __attribute__((weak)) uint8_t encoder_quadrature_read_pin(uint8_t index, bool pa
 
 #ifdef ENCODER_DEFAULT_PIN_API_IMPL
 
-static pin_t encoders_pad_a[NUM_ENCODERS_MAX_PER_SIDE] = ENCODERS_PAD_A;
-static pin_t encoders_pad_b[NUM_ENCODERS_MAX_PER_SIDE] = ENCODERS_PAD_B;
+static pin_t encoders_pad_a[NUM_ENCODERS_MAX_PER_SIDE] = ENCODER_A_PINS;
+static pin_t encoders_pad_b[NUM_ENCODERS_MAX_PER_SIDE] = ENCODER_B_PINS;
 
 __attribute__((weak)) void encoder_wait_pullup_charge(void) {
     wait_us(100);
@@ -123,25 +123,25 @@ void encoder_driver_init(void) {
     // here, but it's the simplest solution.
     memset(encoder_state, 0, sizeof(encoder_state));
     memset(encoder_pulses, 0, sizeof(encoder_pulses));
-    const pin_t encoders_pad_a_left[] = ENCODERS_PAD_A;
-    const pin_t encoders_pad_b_left[] = ENCODERS_PAD_B;
+    const pin_t encoders_pad_a_left[] = ENCODER_A_PINS;
+    const pin_t encoders_pad_b_left[] = ENCODER_B_PINS;
     for (uint8_t i = 0; i < thisCount; i++) {
         encoders_pad_a[i] = encoders_pad_a_left[i];
         encoders_pad_b[i] = encoders_pad_b_left[i];
     }
 #endif
 
-#if defined(SPLIT_KEYBOARD) && defined(ENCODERS_PAD_A_RIGHT) && defined(ENCODERS_PAD_B_RIGHT)
+#if defined(SPLIT_KEYBOARD) && defined(ENCODER_A_PINS_RIGHT) && defined(ENCODER_B_PINS_RIGHT)
     // Re-initialise the pads if it's the right-hand side
     if (!isLeftHand) {
-        const pin_t encoders_pad_a_right[] = ENCODERS_PAD_A_RIGHT;
-        const pin_t encoders_pad_b_right[] = ENCODERS_PAD_B_RIGHT;
+        const pin_t encoders_pad_a_right[] = ENCODER_A_PINS_RIGHT;
+        const pin_t encoders_pad_b_right[] = ENCODER_B_PINS_RIGHT;
         for (uint8_t i = 0; i < thisCount; i++) {
             encoders_pad_a[i] = encoders_pad_a_right[i];
             encoders_pad_b[i] = encoders_pad_b_right[i];
         }
     }
-#endif // defined(SPLIT_KEYBOARD) && defined(ENCODERS_PAD_A_RIGHT) && defined(ENCODERS_PAD_B_RIGHT)
+#endif // defined(SPLIT_KEYBOARD) && defined(ENCODER_A_PINS_RIGHT) && defined(ENCODER_B_PINS_RIGHT)
 
     // Encoder resolutions is defined differently in config.h, so concatenate
 #if defined(SPLIT_KEYBOARD) && defined(ENCODER_RESOLUTIONS)

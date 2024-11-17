@@ -8,7 +8,7 @@ from qmk.info import info_json
 from qmk.commands import dump_lines
 from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.path import normpath
-from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
+from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE, JOYSTICK_AXES
 
 
 def _gen_led_configs(info_data):
@@ -94,7 +94,45 @@ def _gen_matrix_mask(info_data):
     return lines
 
 
+def _gen_joystick_axes(info_data):
+    """Convert info.json content to joystick_axes
+    """
+    if 'axes' not in info_data.get('joystick', {}):
+        return []
+
+    axes = info_data['joystick']['axes']
+    axes_keys = list(axes.keys())
+
+    lines = []
+    lines.append('#ifdef JOYSTICK_ENABLE')
+    lines.append('joystick_config_t joystick_axes[JOYSTICK_AXIS_COUNT] = {')
+
+    # loop over all available axes - injecting virtual axis for those not specified
+    for index, cur in enumerate(JOYSTICK_AXES):
+        # bail out if we have generated all requested axis
+        if len(axes_keys) == 0:
+            break
+
+        axis = 'virtual'
+        if cur in axes:
+            axis = axes[cur]
+            axes_keys.remove(cur)
+
+        if axis == 'virtual':
+            lines.append(f"    [{index}] = JOYSTICK_AXIS_VIRTUAL,")
+        else:
+            lines.append(f"    [{index}] = JOYSTICK_AXIS_IN({axis['input_pin']}, {axis['low']}, {axis['rest']}, {axis['high']}),")
+
+    lines.append('};')
+    lines.append('#endif')
+    lines.append('')
+
+    return lines
+
+
 def _gen_chordal_hold_layout(info_data):
+    """Convert info.json content to chordal_hold_layout
+    """
     keys_x = []
     keys_hand = []
 
@@ -156,6 +194,7 @@ def generate_keyboard_c(cli):
 
     keyboard_c_lines.extend(_gen_led_configs(kb_info_json))
     keyboard_c_lines.extend(_gen_matrix_mask(kb_info_json))
+    keyboard_c_lines.extend(_gen_joystick_axes(kb_info_json))
     keyboard_c_lines.extend(_gen_chordal_hold_layout(kb_info_json))
 
     # Show the results

@@ -33,10 +33,12 @@
         "split_3x5_2"
     ],
     "layout_aliases": {
-        "LAYOUT_split_3x5_2": "LAYOUT_reviung34"
+        "LAYOUT_split_3x5_2": "LAYOUT_2x1u_left",
+        "LAYOUT_reviung34": "LAYOUT_2x1u_left",
+        "LAYOUT_reviung34_2u": "LAYOUT_1x2u_left",
     },
     "layouts": {
-        "LAYOUT_reviung34": {
+        "LAYOUT_2x1u_left": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
@@ -81,7 +83,7 @@
                 {"matrix": [3, 8], "x": 6, "y": 3, "w": 2}
             ]
         },
-        "LAYOUT_reviung34_2u": {
+        "LAYOUT_1x2u_left": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},

@@ -14,7 +14,7 @@ from qmk.git import git_get_username
 from qmk.json_schema import load_jsonschema
 from qmk.path import keyboard
 from qmk.json_encoders import InfoJSONEncoder
-from qmk.json_schema import deep_update, json_load
+from qmk.json_schema import deep_update
 from qmk.constants import MCU2BOOTLOADER, QMK_FIRMWARE
 
 COMMUNITY = Path('layouts/default/')
@@ -78,7 +78,7 @@ def replace_string(src, token, value):
     src.write_text(src.read_text().replace(token, value))
 
 
-def augment_community_info(src, dest):
+def augment_community_info(config, src, dest):
     """Splice in any additional data into info.json
     """
     info = json.loads(src.read_text())
@@ -86,6 +86,7 @@ def augment_community_info(src, dest):
 
     # merge community with template
     deep_update(info, template)
+    deep_update(info, config)
 
     # avoid assumptions on macro name by using the first available
     first_layout = next(iter(info["layouts"].values()))["layout"]
@@ -105,7 +106,7 @@ def augment_community_info(src, dest):
     for item in first_layout:
         item["matrix"] = [int(item["y"]), int(item["x"])]
 
-    # finally write out the updated info.json
+    # finally write out the updated json
     dest.write_text(json.dumps(info, cls=InfoJSONEncoder, sort_keys=True))
 
 
@@ -212,15 +213,12 @@ def new_keyboard(cli):
     default_layout = cli.args.layout if cli.args.layout else prompt_layout()
     mcu = cli.args.type if cli.args.type else prompt_mcu()
 
-    # Preprocess any development_board presets
+    config = {}
     if mcu in dev_boards:
-        defaults_map = json_load(Path('data/mappings/defaults.hjson'))
-        board = defaults_map['development_board'][mcu]
-
-        mcu = board['processor']
-        bootloader = board['bootloader']
+        config['development_board'] = mcu
     else:
-        bootloader = select_default_bootloader(mcu)
+        config['processor'] = mcu
+        config['bootloader'] = select_default_bootloader(mcu)
 
     detach_layout = False
     if default_layout == 'none of the above':
@@ -231,16 +229,8 @@ def new_keyboard(cli):
         'YEAR': str(date.today().year),
         'KEYBOARD': kb_name,
         'USER_NAME': user_name,
-        'REAL_NAME': real_name,
-        'LAYOUT': default_layout,
-        'MCU': mcu,
-        'BOOTLOADER': bootloader
+        'REAL_NAME': real_name
     }
-
-    if cli.config.general.verbose:
-        cli.log.info("Creating keyboard with:")
-        for key, value in tokens.items():
-            cli.echo(f"    {key.ljust(10)}:   {value}")
 
     # begin with making the deepest folder in the tree
     keymaps_path = keyboard(kb_name) / 'keymaps/'
@@ -256,7 +246,7 @@ def new_keyboard(cli):
 
     # merge in infos
     community_info = Path(COMMUNITY / f'{default_layout}/info.json')
-    augment_community_info(community_info, keyboard(kb_name) / 'keyboard.json')
+    augment_community_info(config, community_info, keyboard(kb_name) / 'keyboard.json')
 
     # detach community layout and rename to just "LAYOUT"
     if detach_layout:
@@ -265,5 +255,5 @@ def new_keyboard(cli):
 
     cli.log.info(f'{{fg_green}}Created a new keyboard called {{fg_cyan}}{kb_name}{{fg_green}}.{{fg_reset}}')
     cli.log.info(f"Build Command: {{fg_yellow}}qmk compile -kb {kb_name} -km default{{fg_reset}}.")
-    cli.log.info(f'Project Location: {{fg_cyan}}{QMK_FIRMWARE}/{keyboard(kb_name)}{{fg_reset}},')
-    cli.log.info("{{fg_yellow}}Now update the config files to match the hardware!{{fg_reset}}")
+    cli.log.info(f'Project Location: {{fg_cyan}}{QMK_FIRMWARE}/{keyboard(kb_name)}{{fg_reset}}.')
+    cli.log.info("{fg_yellow}Now update the config files to match the hardware!{fg_reset}")

@@ -33,6 +33,11 @@
         "levels": 6,
         "breathing": true
     },
+    "indicators": {
+        "caps_lock": "A0",
+        "num_lock": "A2",
+        "scroll_lock": "A1"
+    },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "layouts": {
