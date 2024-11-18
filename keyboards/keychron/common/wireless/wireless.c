@@ -253,8 +253,10 @@ static void wireless_enter_disconnected(uint8_t host_idx, uint8_t reason) {
         indicator_set(WT_SUSPEND, host_idx);
     } else {
         indicator_set(wireless_state, host_idx);
+#if defined(RGB_MATRIX) || defined(LED_MATRIX) 
         if (reason && (get_transport() & TRANSPORT_WIRELESS))
             indicator_set_backlit_timeout(DISCONNECTED_BACKLIGHT_DISABLE_TIMEOUT*1000);
+#endif
     }
 
 #ifndef DISABLE_REPORT_BUFFER

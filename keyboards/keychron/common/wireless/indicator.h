@@ -41,12 +41,12 @@
 
 /* Uint: Second */
 #ifndef DISCONNECTED_BACKLIGHT_DISABLE_TIMEOUT
-#    define DISCONNECTED_BACKLIGHT_OFF_DELAY_TIME 40
+#    define DISCONNECTED_BACKLIGHT_DISABLE_TIMEOUT 40
 #endif
 
 /* Uint: Second, the timer restarts on key activities. */
 #ifndef CONNECTED_BACKLIGHT_DISABLE_TIMEOUT
-#    define CONNECTED_BACKLIGHT_OFF_DELAY_TIME 600
+#    define CONNECTED_BACKLIGHT_DISABLE_TIMEOUT 600
 #endif
 
 /* Uint: ms */
@@ -68,6 +68,10 @@
 
 #if BT_HOST_MAX_COUNT > 6
 #    pragma error("HOST_COUNT max value is 6")
+#endif
+
+#ifndef P24G_HOST_DEVICES_COUNT
+#    define P24G_HOST_DEVICES_COUNT 1
 #endif
 
 typedef enum {

@@ -1,0 +1,6 @@
+{
+    "usb": {
+        "pid": "0x0AAA",
+        "device_version": "1.0.0"
+    }
+}

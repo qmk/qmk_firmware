@@ -31,9 +31,27 @@
 bool     is_siri_active = false;
 uint32_t siri_timer     = 0;
 
-static uint8_t mac_keycode[4] = {KC_LOPT, KC_ROPT, KC_LCMD, KC_RCMD};
+static uint8_t mac_keycode[4] = {
+    KC_LOPT,
+    KC_ROPT,
+    KC_LCMD,
+    KC_RCMD,
+};
 
-static key_combination_t key_comb_list[4] = {{2, {KC_LWIN, KC_TAB}}, {2, {KC_LWIN, KC_E}}, {3, {KC_LSFT, KC_LCMD, KC_4}}, {2, {KC_LWIN, KC_C}}};
+// clang-format off
+static key_combination_t key_comb_list[] = {
+    {2, {KC_LWIN, KC_TAB}},
+    {2, {KC_LWIN, KC_E}},
+    {3, {KC_LSFT, KC_LCMD, KC_4}},
+    {2, {KC_LWIN, KC_C}},
+#ifdef WIN_LOCK_SCREEN_ENABLE
+    {2, {KC_LWIN, KC_L}},
+#endif
+#ifdef MAC_LOCK_SCREEN_ENABLE
+    {3, {KC_LCTL, KC_LCMD, KC_Q}},
+#endif
+};
+// clang-format on
 
 bool process_record_keychron_common(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -77,6 +95,12 @@ bool process_record_keychron_common(uint16_t keycode, keyrecord_t *record) {
         case KC_FILE:
         case KC_SNAP:
         case KC_CTANA:
+#ifdef WIN_LOCK_SCREEN_ENABLE
+        case KC_WLCK:
+#endif
+#ifdef MAC_LOCK_SCREEN_ENABLE
+        case KC_MLCK:
+#endif
             if (record->event.pressed) {
                 for (uint8_t i = 0; i < key_comb_list[keycode - KC_TASK].len; i++) {
                     register_code(key_comb_list[keycode - KC_TASK].keycode[i]);
