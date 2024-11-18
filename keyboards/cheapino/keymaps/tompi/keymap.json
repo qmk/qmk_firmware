@@ -53,7 +53,7 @@
       "KC_NO",
       "KC_NO",
       "KC_NO",
-      "KC_NO",
+      "QK_CLEAR_EEPROM",
       "ANY(QK_RBT)",
       "KC_MS_L",
       "KC_BTN2",
