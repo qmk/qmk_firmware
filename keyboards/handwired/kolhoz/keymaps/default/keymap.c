@@ -56,13 +56,51 @@ const rgblight_segment_t PROGMEM rgb_layer_0[] = RGBLIGHT_LAYER_SEGMENTS({0, 2, 
 const rgblight_segment_t PROGMEM rgb_layer_1[] = RGBLIGHT_LAYER_SEGMENTS({0, 2, HSV_GREEN});
 const rgblight_segment_t PROGMEM rgb_layer_2[] = RGBLIGHT_LAYER_SEGMENTS({0, 2, HSV_RED});
 const rgblight_segment_t PROGMEM rgb_layer_3[] = RGBLIGHT_LAYER_SEGMENTS({0, 2, HSV_BLUE});
+const rgblight_segment_t PROGMEM rgb_layer_4[] = RGBLIGHT_LAYER_SEGMENTS({0, 2, HSV_SPRINGGREEN});
+const rgblight_segment_t PROGMEM rgb_layer_5[] = RGBLIGHT_LAYER_SEGMENTS({0, 2, HSV_CHARTREUSE});
+const rgblight_segment_t PROGMEM rgb_layer_6[] = RGBLIGHT_LAYER_SEGMENTS({0, 2, HSV_PINK});
+const rgblight_segment_t PROGMEM rgb_layer_7[] = RGBLIGHT_LAYER_SEGMENTS({0, 2, HSV_CYAN});
 
 const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     rgb_layer_0,
     rgb_layer_1,
     rgb_layer_2,
-    rgb_layer_3
+    rgb_layer_3,
+    rgb_layer_4,
+    rgb_layer_5,
+    rgb_layer_6,
+    rgb_layer_7
 );
+
+const uint16_t MOD_BLINK_DELAY = 50;
+const uint8_t MOD_BLINK_COUNT = 4;
+
+void oneshot_mods_changed_user(uint8_t mods) {
+    if(mods & MOD_MASK_CTRL) {
+        rgblight_blink_layer_repeat(4, MOD_BLINK_DELAY, MOD_BLINK_COUNT);
+    }
+    else {
+        rgblight_unblink_layer(4);
+    }
+    if(mods & MOD_MASK_SHIFT) {
+        rgblight_blink_layer_repeat(5, MOD_BLINK_DELAY, MOD_BLINK_COUNT);
+    }
+    else {
+        rgblight_unblink_layer(5);
+    }
+    if(mods & MOD_MASK_GUI) {
+        rgblight_blink_layer_repeat(6, MOD_BLINK_DELAY, MOD_BLINK_COUNT);
+    }
+    else {
+        rgblight_unblink_layer(6);
+    }
+    if(mods & MOD_MASK_ALT) {
+        rgblight_blink_layer_repeat(7, MOD_BLINK_DELAY, MOD_BLINK_COUNT);
+    }
+    else {
+        rgblight_unblink_layer(7);
+    }
+}
 
 layer_state_t default_layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(0, layer_state_cmp(state, LDEF));
