@@ -11,8 +11,9 @@
 /// miniZoneの実装 ここから ///
 ////////////////////////////
 
-#define MOUSE_SCROLL_V_REVERSE_BIT (1 << 0) // 0000 0001
-#define MOUSE_SCROLL_H_REVERSE_BIT (1 << 1) // 0000 0010
+#define MOUSE_SCROLL_V_REVERSE_BIT  (1 << 0) // 0000 0001
+#define MOUSE_SCROLL_H_REVERSE_BIT  (1 << 1) // 0000 0010
+#define JOYSTICK_KEY_DEFAULT_ENABLE (1 << 2) // 0000 0100
 
 enum click_state {
     NONE = 0,
@@ -59,6 +60,8 @@ const uint16_t ignore_disable_mouse_layer_keys[] = {KC_LGUI, KC_LCTL};   // こ�
 
 int16_t mouse_movement;
 
+bool joystick_key_flag = false;
+
 void eeconfig_init_kb(void) {
     user_config.raw = 0;
     user_config.joystick_ratio = 100;
@@ -68,6 +71,7 @@ void eeconfig_init_kb(void) {
     user_config.settings = 0; // 初期化
     user_config.settings |= MOUSE_SCROLL_V_REVERSE_BIT * false; // ここでfalseなので実際にはセットしない
     user_config.settings |= MOUSE_SCROLL_H_REVERSE_BIT * false; // 同上
+    user_config.settings |= JOYSTICK_KEY_DEFAULT_ENABLE * false;
     
     eeconfig_update_kb(user_config.raw);
 }
@@ -93,6 +97,18 @@ void set_mouse_scroll_h_reverse(bool value) {
         user_config.settings |= MOUSE_SCROLL_H_REVERSE_BIT;
     } else {
         user_config.settings &= ~MOUSE_SCROLL_H_REVERSE_BIT;
+    }
+}
+
+bool get_joystick_key_default_enable(void) {
+    return user_config.settings & JOYSTICK_KEY_DEFAULT_ENABLE;
+}
+
+void set_joystick_key_default_enable(bool value) {
+    if (value) {
+        user_config.settings |= JOYSTICK_KEY_DEFAULT_ENABLE;
+    } else {
+        user_config.settings &= ~JOYSTICK_KEY_DEFAULT_ENABLE;
     }
 }
 
@@ -125,7 +141,7 @@ void enable_setting_layer(void) {
     }
     layer_on(setting_layer);
 
-    SEND_STRING("Setting Layer Start.");
+    SEND_STRING(" Setting Layer Start.");
 }
 
 void disable_setting_layer(void) {
@@ -136,7 +152,7 @@ void disable_setting_layer(void) {
     }
 
     layer_off(setting_layer);
-    SEND_STRING("Setting Layer End.");
+    SEND_STRING(" Setting Layer End.");
 }
 
 // 自前の絶対数を返す関数。 Functions that return absolute numbers.
@@ -162,10 +178,6 @@ bool is_clickable_mode(void) {
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    
-#ifdef CONSOLE_ENABLE
-    uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
-#endif 
 
     if (record->event.key.row == 0 && record->event.key.col == 0)
     {
@@ -241,7 +253,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         
         case MY_CLKI:
             if (record->event.pressed) {
-                user_config.to_clickable_movement += 5; // user_config.to_clickable_time += 10;
+                user_config.to_clickable_movement += 5;
                 eeconfig_update_kb(user_config.raw);
             }
             return false;
@@ -249,16 +261,11 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         case MY_CLKD:
             if (record->event.pressed) {
 
-                user_config.to_clickable_movement -= 5; // user_config.to_clickable_time -= 10;
+                user_config.to_clickable_movement -= 5;
 
-                if (user_config.to_clickable_movement < 5)
-                {
+                if (user_config.to_clickable_movement < 5) {
                     user_config.to_clickable_movement = 5;
                 }
-
-                // if (user_config.to_clickable_time < 10) {
-                //     user_config.to_clickable_time = 10;
-                // }
 
                 eeconfig_update_kb(user_config.raw);
             }
@@ -266,14 +273,14 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         
         case MY_SCDV:
             if (record->event.pressed) {
-                set_mouse_scroll_v_reverse(!get_mouse_scroll_v_reverse()); // user_config.mouse_scroll_v_reverse = !user_config.mouse_scroll_v_reverse;
+                set_mouse_scroll_v_reverse(!get_mouse_scroll_v_reverse());
                 eeconfig_update_kb(user_config.raw);
             }
             return false;
         
         case MY_SCDH:
             if (record->event.pressed) {
-                set_mouse_scroll_h_reverse(!get_mouse_scroll_h_reverse()); // user_config.mouse_scroll_h_reverse = !user_config.mouse_scroll_h_reverse;
+                set_mouse_scroll_h_reverse(!get_mouse_scroll_h_reverse());
                 eeconfig_update_kb(user_config.raw);
             }
             return false;
@@ -283,10 +290,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 joystick_ratio = joystick_ratio + 5;
                 user_config.joystick_ratio = joystick_ratio;
                 eeconfig_update_kb(user_config.raw);
-
-                // char str[256];
-                // sprintf(str, "%d", joystick_ratio);
-                // SEND_STRING(str);
             }
             
             break;
@@ -296,10 +299,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 joystick_ratio = joystick_ratio - 5;
                 user_config.joystick_ratio = joystick_ratio;
                 eeconfig_update_kb(user_config.raw);
-
-                // char str[256];
-                // sprintf(str, "%d", joystick_ratio);
-                // SEND_STRING(str);
             }
             
             break;
@@ -308,6 +307,17 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             if  (record->event.pressed) {
                 disable_setting_layer();
             }
+            break;
+        
+        case MY_JSKD:
+            if (record->event.pressed) {
+                set_joystick_key_default_enable(!get_joystick_key_default_enable());
+                eeconfig_update_kb(user_config.raw);
+            }
+            break;
+        
+        case MY_JSKE:
+            joystick_key_flag = record->event.pressed;
             break;
 
          default:
@@ -335,54 +345,59 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     return process_record_user(keycode, record);
 }
 
+int8_t joystick_key_column = -1;
+uint16_t joystick_key_timer;
+
+void reset_joystick_key(void) {
+    if (joystick_key_column >= 0) {
+        action_exec(MAKE_KEYEVENT(6, joystick_key_column, false));
+    }
+
+    joystick_key_column = -1;
+}
+
+void press_joystick_key(int8_t column) {
+
+    if (joystick_key_column != -1 || timer_elapsed(joystick_key_timer) < 200) {
+        return;
+    }
+    joystick_key_column = column;
+    joystick_key_timer = timer_read();
+    action_exec(MAKE_KEYEVENT(6, column, true));
+}
 
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
     int8_t current_x = mouse_report.x;
     int8_t current_y = mouse_report.y;
     int8_t current_h = 0;
     int8_t current_v = 0;
-
-#ifdef CONSOLE_ENABLE
-  // uprintf("pointing x: %d y:%d \n", current_x, current_y);
-#endif
     
-    int16_t range = 100;
-
-    if (true) {
+    if (get_joystick_key_default_enable() != joystick_key_flag) {
+#ifdef CONSOLE_ENABLE
         uprintf("x: %d, y: %d, raw_x: %d, raw_y: %d \n", current_x, current_y, joystick_raw_x, joystick_raw_y);
+#endif
         if ((current_x != 0 || current_y != 0) &&
-            (joystick_raw_x > range || joystick_raw_y > range) == false &&
+            (joystick_raw_x > 100 || joystick_raw_y > 100) == false &&
             (my_abs_16(joystick_raw_x) + my_abs_16(joystick_raw_y) > 200)){
            
-            if (joystick_raw_y < joystick_raw_x * 3) {
+            if (joystick_raw_y < joystick_raw_x * 4) {
                 // 上
-                uprintf("up\n");
-            } else if (joystick_raw_x < joystick_raw_y * 3) {
-                uprintf("left\n");
+                press_joystick_key(1);
+            } else if (joystick_raw_x < joystick_raw_y * 5) {
+                press_joystick_key(2);
             } else {
-                uprintf("left-up\n");
+                press_joystick_key(0);
             }
-
-            // if (current_y < 0) {
-            //     if (current_y < current_x * 2) {
-            //         // 上
-            //         uprintf("up d: %d, x: %d, y: %d, raw_x: %d, raw_y: %d \n", joystick_ratio, current_x, current_y, joystick_raw_x, joystick_raw_y);
-            //     } else {
-            //         // 左上
-            //         uprintf("UL d: %d, x: %d, y: %d, raw_x: %d, raw_y: %d \n", joystick_ratio, current_x, current_y, joystick_raw_x, joystick_raw_y);
-            //     }
-            // } else if (current_y == 0 && current_x < 0) {
-            //     // 左
-            //     uprintf("left d: %d, x: %d, y: %d, raw_x: %d, raw_y: %d \n", joystick_ratio, current_x, current_y, joystick_raw_x, joystick_raw_y);
-            // }
-
-            mouse_report.x = 0;
-            mouse_report.y = 0;
-            mouse_report.h = 0;
-            mouse_report.v = 0;
-
-            
         }
+        else {
+            reset_joystick_key();
+        }
+
+        mouse_report.x = 0;
+        mouse_report.y = 0;
+        mouse_report.h = 0;
+        mouse_report.v = 0;
+
         return mouse_report;
     }
 

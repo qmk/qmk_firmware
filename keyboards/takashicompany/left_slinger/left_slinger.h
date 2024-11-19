@@ -14,4 +14,6 @@ enum custom_keycodes_kb {
     MY_JSDI,	// Joy stick movement divisor increase
     MY_JSDD,	// Joy stick movement divisor decrease
     MY_STGE,    // Setting End
+    MY_JSKD,    // Joy stick key default
+    MY_JSKE,    // Joy stick key enable
 };
