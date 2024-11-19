@@ -3,6 +3,10 @@
 #include "left_slinger.h"
 #include "custom_joystick.h"
 
+#if CONSOLE_ENABLE
+#include <print.h>
+#endif
+
 /////////////////////////////
 /// miniZoneの実装 ここから ///
 ////////////////////////////
@@ -151,6 +155,10 @@ bool is_clickable_mode(void) {
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     
+#ifdef CONSOLE_ENABLE
+    uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
+#endif 
+
     if (record->event.key.row == 0 && record->event.key.col == 0)
     {
         setting_flags[0] = record->event.pressed;
@@ -326,6 +334,9 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
     int8_t current_h = 0;
     int8_t current_v = 0;
 
+#ifdef CONSOLE_ENABLE
+  uprintf("pointing x: %d y:%d \n", current_x, current_y);
+#endif
     if (current_x != 0 || current_y != 0) {
         
         switch (state) {
