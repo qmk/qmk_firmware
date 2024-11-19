@@ -1,12 +1,12 @@
 # takashicompany/left_slinger
 
-![takashicompany/left_slinger](imgur.com image replace me!)
+![takashicompany/left_slinger](https://i.imgur.com/7U0BMuT.jpeg)
 
-*A short description of the keyboard/project*
+Left Slinger is a left hand only macro pad & gaming device with joystick and rotary encoder.
 
 * Keyboard Maintainer: [takashicompany](https://github.com/takashicompany)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: PCB, RP2040-Zero
+* Hardware Availability: https://github.com/takashicompany/left_slinger
 
 Make example for this keyboard (after setting up your build environment):
 
