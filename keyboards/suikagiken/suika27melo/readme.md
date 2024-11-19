@@ -2,12 +2,11 @@
 (English Follows Japanese)
 
 ## 概要
-![suika27melo1](https://github.com/suikagiken/suika27melo/blob/main/img/suika27melo_1.jpg)
-![suika27melo2](https://github.com/suikagiken/suika27melo/blob/main/img/suika27melo_2.jpg)
+![suika27melo1](https://i.imgur.com/iFz3c1U.jpg)
+![suika27melo2](https://i.imgur.com/xR7KpVR.jpg)
 
 suika27meloは2オクターブのピアノ鍵盤型マクロキーパッドです。
 通常のマクロキーパッドとしても使えるほか、MIDIキーボードとしてDAWソフトの入力や演奏に使用できます。
-VIA/REMAPに対応していますので、組み立て後すぐにキーアサインのカスタマイズが可能です。
 
 * 制作 : すいか技研 （Website: https://suikagiken.net GitHub: [suikagiken](https://github.com/suikagiken) ）
 * 販売 : すいか技研の[booth](https://suikagiken.booth.pm/)にて販売予定です
