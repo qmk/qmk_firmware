@@ -30,6 +30,8 @@ COMB(Htab,            	KC_TAB,     LT4, LT3)
 /* COMB(Hdel,              KC_DEL,      RT2, RT3) */
 /* COMB(Hbspw,             A(KC_BSPC), RT1, RT3) */
 COMB(Hent,              KC_ENT, 	RM1, RM2)
+COMB(Hlsft,             OSM(MOD_LSFT), 	LM2, LM3)
+COMB(Hrsft,             OSM(MOD_RSFT), 	RM2, RM3)
 
 
 /*---- directional ----*/
