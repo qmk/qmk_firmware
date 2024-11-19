@@ -10,7 +10,7 @@
         "command": false,
         "console": false,
         "extrakey": true,
-        "midi":true,
+        "midi": true,
         "mousekey": true,
         "nkro": true
     },
