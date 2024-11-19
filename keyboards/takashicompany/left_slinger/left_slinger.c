@@ -358,11 +358,9 @@ void reset_joystick_key(void) {
 
 void press_joystick_key(int8_t column) {
 
-    // if (joystick_key_column != -1 || timer_elapsed(joystick_key_timer) < 200) {
-    //     return;
-    // }
+    joystick_key_timer = timer_read();
     
-    if (joystick_key_column == column || timer_elapsed(joystick_key_timer) < 200) {
+    if (joystick_key_column == column /* || timer_elapsed(joystick_key_timer) < 200*/) {
         return;
     }
 
@@ -397,7 +395,7 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
             }
         }
         else {
-            if (timer_elapsed(joystick_key_timer) > 50) {
+            if (timer_elapsed(joystick_key_timer) > 100) {
                 reset_joystick_key();
             }
         }
