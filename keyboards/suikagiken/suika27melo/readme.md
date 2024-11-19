@@ -22,7 +22,6 @@ VIA/REMAPに対応していますので、組み立て後すぐにキーアサ�
 
 suika27melo is a 2-octave piano shaped macro keypad.
 You can use it as a normal macro keypad, or use it as a MIDI keyboard for DAW software input and musical performance.
-It supports VIA/REMAP for changing key assignments, so it can be easily customized after assembly.
 
 * Keyboard Maintainer: [suikagiken](https://github.com/suikagiken)
 * Hardware Availability: Available at [booth](https://suikagiken.booth.pm/) soon.
