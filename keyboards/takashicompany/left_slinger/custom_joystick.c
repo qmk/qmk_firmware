@@ -1,3 +1,6 @@
+// Copyright 2024 takashicompany (@takashicompany)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 #include "analog.h"
 #include "gpio.h"
