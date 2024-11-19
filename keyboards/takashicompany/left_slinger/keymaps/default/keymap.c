@@ -8,64 +8,64 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  KC_Q   , KC_W   , KC_E   ,
         KC_TAB , KC_A   , KC_S   , KC_D   ,
         KC_LSFT, KC_Z   , KC_X   , KC_C   , KC_V   ,
-                 KC_LCTL, KC_UP  , KC_LALT,
-                 KC_LEFT, KC_DOWN, KC_RGHT
+                 KC_LCTL, KC_UP  , KC_LALT, KC_1   , KC_2   ,
+                 KC_LEFT, KC_DOWN, KC_RGHT, KC_3   
     ),
 
     [1] = LAYOUT(
                  KC_NO  , KC_NO  , KC_NO  ,
         KC_NO  , KC_NO  , KC_NO  , KC_NO  ,
         KC_NO  , KC_NO  , KC_NO  , KC_NO  , KC_NO  ,
-                 KC_NO  , KC_NO  , KC_NO  ,
-                 KC_NO  , KC_NO  , KC_NO  
+                 KC_NO  , KC_NO  , KC_NO  , KC_NO  , KC_NO  ,
+                 KC_NO  , KC_NO  , KC_NO  , KC_NO  
     ),
 
     [2] = LAYOUT(
                  KC_NO  , KC_NO  , KC_NO  ,
         KC_NO  , KC_NO  , KC_NO  , KC_NO  ,
         KC_NO  , KC_NO  , KC_NO  , KC_NO  , KC_NO  ,
-                 KC_NO  , KC_NO  , KC_NO  ,
-                 KC_NO  , KC_NO  , KC_NO  
+                 KC_NO  , KC_NO  , KC_NO  , KC_NO  , KC_NO  ,
+                 KC_NO  , KC_NO  , KC_NO  , KC_NO  
     ),
 
     [3] = LAYOUT(
                  KC_NO  , KC_NO  , KC_NO  ,
         KC_NO  , KC_NO  , KC_NO  , KC_NO  ,
         KC_NO  , KC_NO  , KC_NO  , KC_NO  , KC_NO  ,
-                 KC_NO  , KC_NO  , KC_NO  ,
-                 KC_NO  , KC_NO  , KC_NO  
+                 KC_NO  , KC_NO  , KC_NO  , KC_NO  , KC_NO  ,
+                 KC_NO  , KC_NO  , KC_NO  , KC_NO  
     ),
 
     [4] = LAYOUT(
                  KC_NO  , KC_NO  , KC_NO  ,
         KC_NO  , KC_NO  , KC_NO  , KC_NO  ,
         KC_NO  , KC_NO  , KC_NO  , KC_NO  , KC_NO  ,
-                 KC_NO  , KC_NO  , KC_NO  ,
-                 KC_NO  , KC_NO  , KC_NO  
+                 KC_NO  , KC_NO  , KC_NO  , KC_NO  , KC_NO  ,
+                 KC_NO  , KC_NO  , KC_NO  , KC_NO  
     ),
 
     [5] = LAYOUT(
                  KC_NO  , KC_NO  , KC_NO  ,
         KC_NO  , KC_NO  , KC_NO  , KC_NO  ,
         KC_NO  , KC_NO  , KC_NO  , KC_NO  , KC_NO  ,
-                 KC_NO  , KC_NO  , KC_NO  ,
-                 KC_NO  , KC_NO  , KC_NO  
+                 KC_NO  , KC_NO  , KC_NO  , KC_NO  , KC_NO  ,
+                 KC_NO  , KC_NO  , KC_NO  , KC_NO  
     ),
 
     [6] = LAYOUT(
                  KC_NO  , KC_NO  , KC_NO  ,
         KC_NO  , MY_BTN2, MY_SCRL, MY_BTN1,
         KC_NO  , KC_NO  , KC_NO  , KC_NO  , KC_NO  ,
-                 KC_NO  , KC_NO  , KC_NO  ,
-                 KC_NO  , KC_NO  , KC_NO  
+                 KC_NO  , KC_NO  , KC_NO  , KC_NO  , KC_NO  ,
+                 KC_NO  , KC_NO  , KC_NO  , KC_NO  
     ),
 
     [7] = LAYOUT(
                  KC_NO  , KC_NO  , KC_NO  ,
         KC_NO  , KC_NO  , MY_CLKD, MY_CLKI,
         QK_BOOT, KC_NO  , MY_SCDV, MY_SCDH, KC_NO  ,
-                 KC_NO  , MY_JSDD, MY_JSDI,
-                 KC_NO  , MY_STGE, KC_NO  
+                 KC_NO  , MY_JSDD, MY_JSDI, KC_NO  , KC_NO  ,
+                 KC_NO  , MY_STGE, KC_NO  , KC_NO  
     ),
 };
 

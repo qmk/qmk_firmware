@@ -10,6 +10,8 @@
 int16_t xOrigin, yOrigin;
 uint16_t lastCursor = 0;
 int16_t joystick_ratio = 100;
+int16_t joystick_raw_x = 0;
+int16_t joystick_raw_y = 0;
 
 int16_t axisCoordinate_custom(pin_t pin, uint16_t origin) {
     int8_t  direction;              // 符号
@@ -34,6 +36,7 @@ void pointing_device_driver_init(void) {
     xOrigin = analogReadPin(ANALOG_JOYSTICK_X_AXIS_PIN);
     yOrigin = analogReadPin(ANALOG_JOYSTICK_Y_AXIS_PIN);
 }
+
 report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
 
     if (timer_elapsed(lastCursor) > ANALOG_JOYSTICK_READ_INTERVAL) {    // 多分、指定のミリ秒経過したかを見て処理を走らせている
@@ -47,8 +50,11 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
             jsr = -10;
         }
 
-        mouse_report.x = axisCoordinate_custom(ANALOG_JOYSTICK_X_AXIS_PIN, xOrigin) / jsr;
-        mouse_report.y = axisCoordinate_custom(ANALOG_JOYSTICK_Y_AXIS_PIN, yOrigin) / jsr;
+        joystick_raw_x = axisCoordinate_custom(ANALOG_JOYSTICK_X_AXIS_PIN, xOrigin);
+        joystick_raw_y = axisCoordinate_custom(ANALOG_JOYSTICK_Y_AXIS_PIN, yOrigin);
+
+        mouse_report.x = joystick_raw_x / jsr;
+        mouse_report.y = joystick_raw_y / jsr;
     }
 
     return mouse_report;

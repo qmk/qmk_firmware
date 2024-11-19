@@ -148,6 +148,14 @@ int8_t my_abs(int8_t num) {
     return num;
 }
 
+int16_t my_abs_16(int16_t num) {
+    if (num < 0) {
+        num = -num;
+    }
+
+    return num;
+}
+
 // 現在クリックが可能な状態か。 Is it currently clickable?
 bool is_clickable_mode(void) {
     return state == CLICKABLE || state == CLICKING || state == SCROLLING;
@@ -335,8 +343,49 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
     int8_t current_v = 0;
 
 #ifdef CONSOLE_ENABLE
-  uprintf("pointing x: %d y:%d \n", current_x, current_y);
+  // uprintf("pointing x: %d y:%d \n", current_x, current_y);
 #endif
+    
+    int16_t range = 100;
+
+    if (true) {
+        uprintf("x: %d, y: %d, raw_x: %d, raw_y: %d \n", current_x, current_y, joystick_raw_x, joystick_raw_y);
+        if ((current_x != 0 || current_y != 0) &&
+            (joystick_raw_x > range || joystick_raw_y > range) == false &&
+            (my_abs_16(joystick_raw_x) + my_abs_16(joystick_raw_y) > 200)){
+           
+            if (joystick_raw_y < joystick_raw_x * 3) {
+                // 上
+                uprintf("up\n");
+            } else if (joystick_raw_x < joystick_raw_y * 3) {
+                uprintf("left\n");
+            } else {
+                uprintf("left-up\n");
+            }
+
+            // if (current_y < 0) {
+            //     if (current_y < current_x * 2) {
+            //         // 上
+            //         uprintf("up d: %d, x: %d, y: %d, raw_x: %d, raw_y: %d \n", joystick_ratio, current_x, current_y, joystick_raw_x, joystick_raw_y);
+            //     } else {
+            //         // 左上
+            //         uprintf("UL d: %d, x: %d, y: %d, raw_x: %d, raw_y: %d \n", joystick_ratio, current_x, current_y, joystick_raw_x, joystick_raw_y);
+            //     }
+            // } else if (current_y == 0 && current_x < 0) {
+            //     // 左
+            //     uprintf("left d: %d, x: %d, y: %d, raw_x: %d, raw_y: %d \n", joystick_ratio, current_x, current_y, joystick_raw_x, joystick_raw_y);
+            // }
+
+            mouse_report.x = 0;
+            mouse_report.y = 0;
+            mouse_report.h = 0;
+            mouse_report.v = 0;
+
+            
+        }
+        return mouse_report;
+    }
+
     if (current_x != 0 || current_y != 0) {
         
         switch (state) {
