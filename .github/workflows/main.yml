@@ -72,6 +72,10 @@ jobs:
             git remote remove "$remote"
             git status
           done
+      - name: Requirements
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install -r requirements.txt
       - name: Submodules
         run: |
           git config --global --add safe.directory '*'
