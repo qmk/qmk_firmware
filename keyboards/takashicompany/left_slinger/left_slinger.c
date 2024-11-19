@@ -358,9 +358,16 @@ void reset_joystick_key(void) {
 
 void press_joystick_key(int8_t column) {
 
-    if (joystick_key_column != -1 || timer_elapsed(joystick_key_timer) < 200) {
+    // if (joystick_key_column != -1 || timer_elapsed(joystick_key_timer) < 200) {
+    //     return;
+    // }
+    
+    if (joystick_key_column == column || timer_elapsed(joystick_key_timer) < 200) {
         return;
     }
+
+    reset_joystick_key();
+
     joystick_key_column = column;
     joystick_key_timer = timer_read();
     action_exec(MAKE_KEYEVENT(6, column, true));
@@ -378,7 +385,7 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
 #endif
         if ((current_x != 0 || current_y != 0) &&
             (joystick_raw_x > 100 || joystick_raw_y > 100) == false &&
-            (my_abs_16(joystick_raw_x) + my_abs_16(joystick_raw_y) > 200)){
+            (my_abs_16(joystick_raw_x) + my_abs_16(joystick_raw_y) > 350)){
            
             if (joystick_raw_y < joystick_raw_x * 4) {
                 // 上
@@ -390,7 +397,9 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
             }
         }
         else {
-            reset_joystick_key();
+            if (timer_elapsed(joystick_key_timer) > 50) {
+                reset_joystick_key();
+            }
         }
 
         mouse_report.x = 0;
@@ -399,6 +408,9 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
         mouse_report.v = 0;
 
         return mouse_report;
+    }
+    else {
+        reset_joystick_key();
     }
 
     if (current_x != 0 || current_y != 0) {
