@@ -383,7 +383,7 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
 #endif
         if ((current_x != 0 || current_y != 0) &&
             (joystick_raw_x > 100 || joystick_raw_y > 100) == false &&
-            (my_abs_16(joystick_raw_x) + my_abs_16(joystick_raw_y) > 350)){
+            (my_abs_16(joystick_raw_x) + my_abs_16(joystick_raw_y) > 200)){
            
             if (joystick_raw_y < joystick_raw_x * 4) {
                 // 上
