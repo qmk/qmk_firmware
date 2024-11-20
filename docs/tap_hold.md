@@ -508,9 +508,9 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
 
 Use the same `LAYOUT` macro as used to define your keymap layers. Each entry is
 a character indicating the handedness of one key, either `'L'` for left, `'R'`
-for right, or `'*'` to exempt keys from the "opposite hands rule." When a key
-has `'*'` handedness, pressing it with either hand results in a hold. This could
-be used perhaps on thumb keys or other places where you want to allow same-hand
+for right, or `'*'` to exempt keys from the "opposite hands rule." A key with
+`'*'` handedness may settle as held in chords with any other key. This could be
+used perhaps on thumb keys or other places where you want to allow same-hand
 chords.
 
 Keyboard makers may specify handedness in keyboard.json. Under `"layouts"`,
@@ -521,6 +521,34 @@ layouts, only the first one is read. For example:
 ```json
 {"matrix": [5, 6], "x": 0, "y": 5.5, "w": 1.25, "hand", "*"},
 ```
+
+Alternatively, handedness may be defined functionally with
+`chordal_hold_handedness()`. For example, in keymap.c define:
+
+```c
+char chordal_hold_handedness(keypos_t key) {
+    if (key.col == 0 || key.col == MATRIX_COLS - 1) {
+        return '*';  // Exempt the outer columns.
+    }
+    // On split keyboards, typically, the first half of the rows are on the
+    // left, and the other half are on the right.
+    return key.row < MATRIX_ROWS / 2 ? 'L' : 'R';
+}
+```
+
+Given the matrix position of a key, the function should return `'L'`, `'R'`, or
+`'*'`. Adapt the logic in this function according to the keyboard's matrix.
+
+::: warning
+Note the matrix may have irregularities around larger keys, around the edges of
+the board, and around thumb clusters. You may find it helpful to use [this
+debugging example](faq_debug#which-matrix-position-is-this-keypress) to
+correspond physical keys to matrix positions.
+:::
+
+::: tip If you define both `chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS]` and
+`chordal_hold_handedness(keypos_t key)` for handedness, the latter takes
+precedence.
 
 
 ### Per-chord customization
