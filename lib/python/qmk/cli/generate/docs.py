@@ -27,8 +27,8 @@ def generate_docs(cli):
         return False
 
     cli.log.info('Building vitepress docs')
-    run_docs_command('run', 'docs:build')
+    run_docs_command('run', ['docs:build'])
     cli.log.info('Successfully generated docs to %s.', BUILD_DOCS_PATH)
 
     if cli.args.serve:
-        run_docs_command('run', 'docs:preview')
+        run_docs_command('run', ['docs:preview'])

@@ -17,7 +17,7 @@ BUILD_DOCS_PATH = BUILD_PATH / 'docs'
 DOXYGEN_PATH = BUILD_DOCS_PATH / 'static' / 'doxygen'
 
 
-def run_docs_command(verb, cmd=None):
+def run_docs_command(verb, cmd_args=None):
     environ['PATH'] += pathsep + str(NODE_MODULES_PATH / '.bin')
 
     args = {'capture_output': False, 'check': True}
@@ -27,8 +27,8 @@ def run_docs_command(verb, cmd=None):
     args['env'] = docs_env
 
     arg_list = ['yarn', verb]
-    if cmd:
-        arg_list += cmd
+    if cmd_args:
+        arg_list.extend(cmd_args)
 
     chdir(BUILDDEFS_PATH)
     cli.run(arg_list, **args)
