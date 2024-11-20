@@ -31,6 +31,4 @@ def generate_docs(cli):
     cli.log.info('Successfully generated docs to %s.', BUILD_DOCS_PATH)
 
     if cli.args.serve:
-        if not cli.config.general.verbose:
-            cli.log.info('Serving docs at http://localhost:4173/ (Ctrl+C to stop)')
         run_docs_command('run', 'docs:preview')
