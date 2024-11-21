@@ -242,7 +242,7 @@ extern layer_state_t layer_state;
 
 #ifdef LAYER_LOCK_ENABLE
 #    include "layer_lock.h"
-#endif // LAYER_LOCK_ENABLE
+#endif
 
 void set_single_default_layer(uint8_t default_layer);
 void set_single_persistent_default_layer(uint8_t default_layer);
