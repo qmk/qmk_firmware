@@ -140,9 +140,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef OS_DETECTION_ENABLE
 #    include "os_detection.h"
 #endif
-#if defined(LAYER_LOCK_ENABLE) && LAYER_LOCK_IDLE_TIMEOUT > 0
+#ifdef LAYER_LOCK_ENABLE
 #    include "layer_lock.h"
-#endif // LAYER_LOCK_ENABLE
+#endif
 
 static uint32_t last_input_modification_time = 0;
 uint32_t        last_input_activity_time(void) {
@@ -659,7 +659,7 @@ void quantum_task(void) {
     secure_task();
 #endif
 
-#if defined(LAYER_LOCK_ENABLE) && LAYER_LOCK_IDLE_TIMEOUT > 0
+#ifdef LAYER_LOCK_ENABLE
     layer_lock_task();
 #endif
 }

@@ -49,13 +49,6 @@
  *
  *     #define LAYER_LOCK_IDLE_TIMEOUT 60000  // Turn off after 60 seconds.
  *
- * and call `layer_lock_task()` from your `matrix_scan_user()` in keymap.c:
- *
- *     void matrix_scan_user(void) {
- *       layer_lock_task();
- *       // Other tasks...
- *     }
- *
  * For full documentation, see
  * <https://getreuer.info/posts/keyboards/layer-lock>
  */
@@ -67,24 +60,6 @@
 #include "action_layer.h"
 #include "action_util.h"
 
-/**
- * Handler function for Layer Lock.
- *
- * In your keymap, define a custom keycode to use for Layer Lock. Then handle
- * Layer Lock from your `process_record_user` function by calling
- * `process_layer_lock`, passing your custom keycode for the `lock_keycode` arg:
- *
- *     #include "features/layer_lock.h"
- *
- *     bool process_record_user(uint16_t keycode, keyrecord_t* record) {
- *       if (!process_layer_lock(keycode, record, LLOCK)) { return false; }
- *       // Your macros ...
- *
- *       return true;
- *     }
- */
-
-#ifndef NO_ACTION_LAYER
 /** Returns true if `layer` is currently locked. */
 bool is_layer_locked(uint8_t layer);
 
@@ -116,20 +91,8 @@ void layer_lock_invert(uint8_t layer);
 bool layer_lock_set_kb(layer_state_t locked_layers);
 bool layer_lock_set_user(layer_state_t locked_layers);
 
+/** Handle various background tasks */
 void layer_lock_task(void);
-#else  // NO_ACTION_LAYER
-static inline bool is_layer_locked(uint8_t layer) {
-    return false;
-}
-static inline void layer_lock_on(uint8_t layer) {}
-static inline void layer_lock_off(uint8_t layer) {}
-static inline void layer_lock_all_off(void) {}
-static inline void layer_lock_invert(uint8_t layer) {}
-static inline bool layer_lock_set_kb(layer_state_t locked_layers) {
-    return true;
-}
-static inline bool layer_lock_set_user(layer_state_t locked_layers) {
-    return true;
-}
-static inline void layer_lock_task(void) {}
-#endif // NO_ACTION_LAYER
+
+/** Update any configured timeouts */
+void layer_lock_activity_trigger(void);

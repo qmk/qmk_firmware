@@ -78,7 +78,7 @@
 
 #ifdef LAYER_LOCK_ENABLE
 #    include "process_layer_lock.h"
-#endif // LAYER_LOCK_ENABLE
+#endif
 
 #ifdef AUDIO_ENABLE
 #    ifndef GOODBYE_SONG
