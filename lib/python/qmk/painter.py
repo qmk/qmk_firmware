@@ -154,10 +154,7 @@ def command_args_str(cli, command_name):
 
         args[arg_name] = val
 
-    return "\n".join(
-        f"//    {arg_name.ljust(max_length)} | {val}"
-        for arg_name, val in args.items()
-    )
+    return "\n".join(f"//    {arg_name.ljust(max_length)} | {val}" for arg_name, val in args.items())
 
 
 def generate_subs(cli, out_bytes, *, font_metadata=None, image_metadata=None, command_name):
