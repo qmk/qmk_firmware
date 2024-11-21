@@ -14,8 +14,7 @@
         "encoder": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
-        "via": true
+        "nkro": true
     },
     "matrix_pins": {
         "cols": ["GP9", "GP10", "GP11", "GP12"],
