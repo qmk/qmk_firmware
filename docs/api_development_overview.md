@@ -4,7 +4,7 @@ This page attempts to introduce developers to the QMK Compiler. It does not go i
 
 # Overview
 
-The QMK Compile API consists of a few movings parts:
+The QMK Compile API consists of a few moving parts:
 
 ![Architecture Diagram](https://raw.githubusercontent.com/qmk/qmk_api/master/docs/architecture.svg)
 

@@ -139,11 +139,20 @@ void led_matrix_update_pwm_buffers(void) {
     led_matrix_driver.flush();
 }
 
+__attribute__((weak)) int led_matrix_led_index(int index) {
+#if defined(LED_MATRIX_SPLIT)
+    if (!is_keyboard_left() && index >= k_led_matrix_split[0]) {
+        return index - k_led_matrix_split[0];
+    }
+#endif
+    return index;
+}
+
 void led_matrix_set_value(int index, uint8_t value) {
 #ifdef USE_CIE1931_CURVE
     value = pgm_read_byte(&CIE1931_CURVE[value]);
 #endif
-    led_matrix_driver.set_value(index, value);
+    led_matrix_driver.set_value(led_matrix_led_index(index), value);
 }
 
 void led_matrix_set_value_all(uint8_t value) {
@@ -387,7 +396,6 @@ struct led_matrix_limits_t led_matrix_get_limits(uint8_t iter) {
     limits.led_min_index = LED_MATRIX_LED_PROCESS_LIMIT * (iter);
     limits.led_max_index = limits.led_min_index + LED_MATRIX_LED_PROCESS_LIMIT;
     if (limits.led_max_index > LED_MATRIX_LED_COUNT) limits.led_max_index = LED_MATRIX_LED_COUNT;
-    uint8_t k_led_matrix_split[2] = LED_MATRIX_SPLIT;
     if (is_keyboard_left() && (limits.led_max_index > k_led_matrix_split[0])) limits.led_max_index = k_led_matrix_split[0];
     if (!(is_keyboard_left()) && (limits.led_min_index < k_led_matrix_split[0])) limits.led_min_index = k_led_matrix_split[0];
 #    else
@@ -397,9 +405,8 @@ struct led_matrix_limits_t led_matrix_get_limits(uint8_t iter) {
 #    endif
 #else
 #    if defined(LED_MATRIX_SPLIT)
-    limits.led_min_index                = 0;
-    limits.led_max_index                = LED_MATRIX_LED_COUNT;
-    const uint8_t k_led_matrix_split[2] = LED_MATRIX_SPLIT;
+    limits.led_min_index = 0;
+    limits.led_max_index = LED_MATRIX_LED_COUNT;
     if (is_keyboard_left() && (limits.led_max_index > k_led_matrix_split[0])) limits.led_max_index = k_led_matrix_split[0];
     if (!(is_keyboard_left()) && (limits.led_min_index < k_led_matrix_split[0])) limits.led_min_index = k_led_matrix_split[0];
 #    else

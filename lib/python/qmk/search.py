@@ -74,28 +74,30 @@ class Exists(FilterFunction):
     func_name = "exists"
 
     def apply(self, target_info: KeyboardKeymapDesc) -> bool:
-        return self.key in target_info.data
+        return self.key in target_info.dotty
 
 
 class Absent(FilterFunction):
     func_name = "absent"
 
     def apply(self, target_info: KeyboardKeymapDesc) -> bool:
-        return self.key not in target_info.data
+        return self.key not in target_info.dotty
 
 
 class Length(FilterFunction):
     func_name = "length"
 
     def apply(self, target_info: KeyboardKeymapDesc) -> bool:
-        return (self.key in target_info.data and len(target_info.data[self.key]) == int(self.value))
+        info_dotty = target_info.dotty
+        return (self.key in info_dotty and len(info_dotty[self.key]) == int(self.value))
 
 
 class Contains(FilterFunction):
     func_name = "contains"
 
     def apply(self, target_info: KeyboardKeymapDesc) -> bool:
-        return (self.key in target_info.data and self.value in target_info.data[self.key])
+        info_dotty = target_info.dotty
+        return (self.key in info_dotty and self.value in info_dotty[self.key])
 
 
 def _get_filter_class(func_name: str, key: str, value: str) -> Optional[FilterFunction]:
@@ -117,8 +119,11 @@ def filter_help() -> str:
 
 def _set_log_level(level):
     cli.acquire_lock()
-    old = cli.log_level
-    cli.log_level = level
+    try:
+        old = cli.log_level
+        cli.log_level = level
+    except AttributeError:
+        old = cli.log.level
     cli.log.setLevel(level)
     logging.root.setLevel(level)
     cli.release_lock()
