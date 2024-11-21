@@ -12,14 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * @file layer_lock.c
- * @brief Layer Lock implementation
- *
- * For full documentation, see
- * <https://getreuer.info/posts/keyboards/layer-lock>
- */
-
 #include "layer_lock.h"
 #include "process_layer_lock.h"
 #include "quantum_keycodes.h"
@@ -27,12 +19,9 @@
 
 // The current lock state. The kth bit is on if layer k is locked.
 extern layer_state_t locked_layers;
-#if defined(LAYER_LOCK_IDLE_TIMEOUT) && LAYER_LOCK_IDLE_TIMEOUT > 0
-extern uint32_t layer_lock_timer;
-#endif
 
 // Handles an event on an `MO` or `TT` layer switch key.
-static bool handle_mo_or_tt(uint8_t layer, keyrecord_t* record) {
+static inline bool handle_mo_or_tt(uint8_t layer, keyrecord_t* record) {
     if (is_layer_locked(layer)) {
         if (record->event.pressed) { // On press, unlock the layer.
             layer_lock_invert(layer);
@@ -44,9 +33,7 @@ static bool handle_mo_or_tt(uint8_t layer, keyrecord_t* record) {
 
 bool process_layer_lock(uint16_t keycode, keyrecord_t* record) {
 #ifndef NO_ACTION_LAYER
-#    if defined(LAYER_LOCK_IDLE_TIMEOUT) && LAYER_LOCK_IDLE_TIMEOUT > 0
-    layer_lock_timer = timer_read32();
-#    endif // LAYER_LOCK_IDLE_TIMEOUT > 0
+    layer_lock_activity_trigger();
 
     // The intention is that locked layers remain on. If something outside of
     // this feature turned any locked layers off, unlock them.
