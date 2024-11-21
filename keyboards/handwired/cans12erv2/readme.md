@@ -2,7 +2,6 @@
 ![Cans12erV2](https://raw.githubusercontent.com/canbaytok/Cans12erV2/refs/heads/main/assets/Cans12erV2.png)
 
 New version of my 12-key orthogonal macro keypad with hot swappable keyswitch support and an encoder knob.
-Programming is planned to be possible with [QMK/VIA](https://usevia.app/)
 
 * Keyboard Maintainer: [Can Baytok](https://github.com/canbaytok)
 * Build Instructions: [Github](https://github.com/canbaytok/Cans12erV2)
