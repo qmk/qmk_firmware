@@ -123,6 +123,7 @@
                     { "text": "Key Lock", "link": "/features/key_lock" },
                     { "text": "Key Overrides", "link": "/features/key_overrides" },
                     { "text": "Layers", "link": "/feature_layers" },
+                    { "text": "Layer Lock", "link": "/features/layer_lock" },
                     { "text": "One Shot Keys", "link": "/one_shot_keys" },
                     { "text": "OS Detection", "link": "/features/os_detection" },
                     { "text": "Raw HID", "link": "/features/rawhid" },

@@ -375,6 +375,12 @@
             }
         },
         "keycodes": {"$ref": "qmk.definitions.v1#/keycode_decl_array"},
+        "layer_lock": {
+            "type": "object",
+            "properties": {
+                "timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+            }
+        },
         "layout_aliases": {
             "type": "object",
             "additionalProperties": {"$ref": "qmk.definitions.v1#/layout_macro"}
