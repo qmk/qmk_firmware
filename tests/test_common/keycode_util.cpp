@@ -95,7 +95,7 @@ std::string generate_identifier(uint16_t kc) {
     } else if (IS_QK_DEF_LAYER(kc)) {
         s << "DF(" << +QK_DEF_LAYER_GET_LAYER(kc) << ")";
     } else if (IS_QK_PERSISTENT_DEF_LAYER(kc)) {
-        s << "PD(" << +QK_PERSISTENT_DEF_LAYER_GET_LAYER(kc) << ")";
+        s << "PDF(" << +QK_PERSISTENT_DEF_LAYER_GET_LAYER(kc) << ")";
     } else if (IS_QK_TOGGLE_LAYER(kc)) {
         s << "TG(" << +QK_TOGGLE_LAYER_GET_LAYER(kc) << ")";
     } else if (IS_QK_LAYER_TAP_TOGGLE(kc)) {
