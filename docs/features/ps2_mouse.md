@@ -90,18 +90,22 @@ PS2_ENABLE = yes
 PS2_DRIVER = interrupt
 ```
 
-In your keyboard config.h:
+In your keyboard `config.h`:
 
 ```c
 #define PS2_CLOCK_PIN A8
 #define PS2_DATA_PIN  A9
 ```
 
-And in the chibios specifig halconf.h:
-```c
-#define PAL_USE_CALLBACKS TRUE
-```
+And in the ChibiOS specific `halconf.h`:
 
+```c
+#pragma once
+
+#define PAL_USE_CALLBACKS TRUE // [!code focus]
+
+#include_next <halconf.h>
+```
 
 ### USART Version {#usart-version}
 
