@@ -12,9 +12,9 @@
             "KC_P6", "KC_P7", "LT(1, KC_P8)"
         ],
         [
-            "RGB_HUI", "RGB_SAI", "RGB_SPI",
-            "RGB_HUD", "RGB_SAD", "RGB_SPD",
-            "RGB_TOG", "RGB_MOD", "_______"
+            "RM_HUEU", "RM_SATU", "RM_SPDU",
+            "RM_HUED", "RM_SATD", "RM_SPDD",
+            "RM_TOGG", "RM_NEXT", "_______"
 
         ]
     ],
@@ -32,8 +32,8 @@
         ],
         [
             {
-                "ccw": "RGB_VAD",
-                "cw": "RGB_VAI"
+                "ccw": "RM_VALD",
+                "cw": "RM_VALU"
             }
         ]
     ]
