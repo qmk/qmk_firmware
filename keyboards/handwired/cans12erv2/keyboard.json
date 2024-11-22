@@ -20,6 +20,7 @@
         "cols": ["GP9", "GP10", "GP11", "GP12"],
         "rows": ["GP13", "GP7", "GP8"]
     },
+    "host_language": "german",
     "processor": "RP2040",
     "url": "https://github.com/canbaytok/Cans12erV2",
     "usb": {
