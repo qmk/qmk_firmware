@@ -11,6 +11,7 @@ enum layer_names {
 
 enum custom_keycodes {
     SS_Qu = SAFE_RANGE,
+    SS_Prns
 };
 
 /*  KEY POSITION Names
@@ -39,7 +40,7 @@ enum custom_keycodes {
 
 #define RN0 KC_7
 #define RN1 KC_6
-#define RN2 KC_5
+#define RN2 LT(0, KC_5)
 #define RN3 KC_9
 #define RN4 KC_8
 #define RN5 KC_CAPS
@@ -206,7 +207,7 @@ void add_h_digragh(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     switch (keycode) {
-        case SS_Qu:  // send "qu" if held
+        case SS_Qu:  // send "qu" on tap, bspc "u" if held
 		    saved_mods = get_mods();
             if (record->event.pressed) {
                 keyhold_timer = 0;
@@ -231,44 +232,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return true;  // Didn't handle this
             break;
 
-        /* the H digraphs
-        case SS_Th:
-            if (record->event.pressed) {
-                tap_code(KC_T); // send "T" honouring caps
-			    add_h_digragh();
-            }
-            break;
-        case SS_Ch:
-            if (record->event.pressed) {
-                tap_code(KC_C); // send "C" honouring caps
-                add_h_digragh();
-            }
-            break;
-        case SS_Sh:
-            if (record->event.pressed) {
-                tap_code(KC_S); // send "C" honouring caps
-                add_h_digragh();
-            }
-            break;
-        case SS_Gh:
-            if (record->event.pressed) {
-                tap_code(KC_G); // send "G" honouring caps
-                add_h_digragh();
-            }
-            break;
-        case SS_Wh:
-            if (record->event.pressed) {
-                tap_code(KC_W); // send "W" honouring caps
-                add_h_digragh();
-            }
-            break;
-        case SS_Ph:
-            if (record->event.pressed) {
-                tap_code(KC_P); // send "P" honouring caps
-                add_h_digragh();
-            }
-            break;
-        */
+        case RN2:
+            // Unmatched return on tap
+            if (record->tap.count) { return true; }
+            // Send macro string on hold
+            else if (record->event.pressed) { SEND_STRING("()" SS_TAP(X_LEFT)); }
+            return false;
     }
     return true;
 };
@@ -278,7 +247,6 @@ const key_override_t two_key_override  = ko_make_basic(MOD_MASK_SHIFT, KC_2, KC_
 const key_override_t one_key_override  = ko_make_basic(MOD_MASK_SHIFT, KC_1, KC_DLR);		/* shift 1 is $ */
 const key_override_t zero_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_0, KC_HASH);		/* shift 0 is # */
 const key_override_t six_key_override =  ko_make_basic(MOD_MASK_SHIFT, KC_6, KC_LPRN);		/* shift 6 is ( */
-const key_override_t five_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_5, KC_AMPR);		/* shift 5 is & */
 const key_override_t nine_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_9, KC_RPRN);		/* shift 9 is ) */
 const key_override_t plus_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_PLUS, KC_EQL);	/* shift + is = */
 const key_override_t dot_key_override  = ko_make_basic(MOD_MASK_SHIFT, KC_DOT, KC_COLN);	/* shift . is : */
@@ -294,7 +262,6 @@ const key_override_t *key_overrides[] = {
 	&one_key_override,
 	&zero_key_override,
     &six_key_override,
-    &five_key_override,
     &nine_key_override,
     &plus_key_override,
     &dot_key_override,
