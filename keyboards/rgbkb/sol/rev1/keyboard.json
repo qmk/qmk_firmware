@@ -15,7 +15,6 @@
         "mousekey": false,
         "nkro": false,
         "oled": false,
-        "rgb_matrix": false,
         "rgblight": true
     },
     "rgb_matrix": {
@@ -93,7 +92,9 @@
     },
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D3"
+        "serial": {
+            "pin": "D3"
+        }
     },
     "tapping": {
         "term": 150

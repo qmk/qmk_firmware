@@ -25,6 +25,12 @@
         "command": true,
         "nkro": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "layouts": {
         "LAYOUT_60_ansi_wkl": {
             "layout": [

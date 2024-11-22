@@ -86,7 +86,7 @@
             "group": "midi",
             "key": "QK_MIDI_NOTE_G_SHARP_0",
             "aliases": [
-                "MI_Gs"
+                "MI_Gs",
                 "MI_Ab"
             ]
         },
@@ -101,7 +101,7 @@
             "group": "midi",
             "key": "QK_MIDI_NOTE_A_SHARP_0",
             "aliases": [
-                "MI_As"
+                "MI_As",
                 "MI_Bb"
             ]
         },

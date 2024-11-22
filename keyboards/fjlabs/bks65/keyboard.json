@@ -44,6 +44,12 @@
         "nkro": true,
         "rgblight": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "community_layouts": ["65_ansi"],
     "layouts": {
         "LAYOUT_65_ansi": {

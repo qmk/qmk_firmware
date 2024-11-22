@@ -15,7 +15,9 @@
   "diode_direction": "COL2ROW",
   "split": {
     "enabled": true,
-    "soft_serial_pin": "D2"
+    "serial": {
+      "pin": "D2"
+    }
   },
   "ws2812": {
     "pin": "D3"
@@ -40,6 +42,12 @@
         "extrakey": false,
         "rgblight": true,
         "oled": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     },
     "layouts": {
         "LAYOUT_base": {

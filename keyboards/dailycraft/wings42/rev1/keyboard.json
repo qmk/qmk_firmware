@@ -15,7 +15,9 @@
     "diode_direction": "COL2ROW",
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D2"
+        "serial": {
+            "pin": "D2"
+        }
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",
@@ -23,6 +25,12 @@
         "bootmagic": true,
         "mousekey": true,
         "extrakey": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     },
     "community_layouts": [
         "split_3x6_3"

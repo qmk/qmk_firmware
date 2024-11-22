@@ -15,7 +15,9 @@
     "diode_direction": "COL2ROW",
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D2"
+        "serial": {
+            "pin": "D2"
+        }
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
@@ -23,6 +25,12 @@
         "bootmagic": false,
         "mousekey": false,
         "extrakey": false
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     },
     "layouts": {
         "LAYOUT": {

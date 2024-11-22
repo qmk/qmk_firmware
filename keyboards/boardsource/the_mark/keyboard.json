@@ -8,8 +8,7 @@
     "bootmagic": true,
     "extrakey": true,
     "mousekey": true,
-    "rgblight": true,
-    "rgb_matrix": false
+    "rgblight": true
   },
   "matrix_pins": {
     "cols": ["B5", "B6", "B7", "F5", "C7", "D0", "D1", "D2", "D3", "D4", "D5", "D6", "D7", "F0", "F1", "F4"],

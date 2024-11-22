@@ -59,18 +59,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case MANUAL:
       if (record->event.pressed) {
-        // when keycode QMKBEST is pressed
         SEND_STRING("https://kb.ai03.me/redir/lunar/index.html");
-      } else {
-        // when keycode QMKBEST is released
       }
       break;
     case SWPLURL:
       if (record->event.pressed) {
-        // when keycode QMKURL is pressed
         SEND_STRING("https://switchplate.co/collections/lunar-group-buy");
-      } else {
-        // when keycode QMKURL is released
       }
       break;
   }

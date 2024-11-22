@@ -22,6 +22,12 @@
         "nkro": true,
         "rgblight": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "matrix_pins": {
         "cols": ["D2", "D1", "D0", "D3", "D5", "B5", "B6", "B7", "D4", "C6", "C7", "F0", "F1", "F4", "F7"],
         "rows": ["B4", "D7", "D6", "B3", "B0"]
@@ -65,11 +71,15 @@
         "60_ansi",
         "60_ansi_split_bs_rshift",
         "60_ansi_tsangan",
-        "60_tsangan_hhkb",
+        "60_ansi_tsangan_split_bs_rshift",
         "60_iso",
         "60_iso_split_bs_rshift",
-        "60_iso_tsangan"
+        "60_iso_tsangan",
+        "60_iso_tsangan_split_bs_rshift"
     ],
+    "layout_aliases": {
+        "LAYOUT_60_tsangan_hhkb": "LAYOUT_60_ansi_tsangan_split_bs_rshift"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -421,7 +431,7 @@
                 {"label": "Ctrl", "matrix": [4, 13], "x": 13.5, "y": 4, "w": 1.5}
             ]
         },
-        "LAYOUT_60_tsangan_hhkb": {
+        "LAYOUT_60_ansi_tsangan_split_bs_rshift": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "1", "matrix": [0, 1], "x": 1, "y": 0},

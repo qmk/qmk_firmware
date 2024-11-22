@@ -15,7 +15,8 @@
         "console": false,
         "extrakey": true,
         "key_lock": true,
-        "mousekey": false,
+        "mousekey": true,
+        "encoder": true,
         "nkro": true,
         "rgblight": true
     },
@@ -48,7 +49,19 @@
     "ws2812": {
         "pin": "A8"
     },
-    "community_layouts": ["60_ansi", "60_ansi_split_bs_rshift", "60_ansi_tsangan", "60_hhkb", "60_iso", "60_iso_split_bs_rshift", "60_iso_tsangan", "60_tsangan_hhkb"],
+    "community_layouts": [
+        "60_ansi",
+        "60_ansi_split_bs_rshift",
+        "60_ansi_tsangan",
+        "60_ansi_tsangan_split_bs_rshift",
+        "60_hhkb",
+        "60_iso",
+        "60_iso_split_bs_rshift",
+        "60_iso_tsangan"
+    ],
+    "layout_aliases": {
+        "LAYOUT_60_tsangan_hhkb": "LAYOUT_60_ansi_tsangan_split_bs_rshift"
+    },
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [
@@ -509,7 +522,7 @@
                 {"label": "Ctrl", "matrix": [4, 12], "x": 13.5, "y": 4, "w": 1.5}
             ]
         },
-        "LAYOUT_60_tsangan_hhkb": {
+        "LAYOUT_60_ansi_tsangan_split_bs_rshift": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "!", "matrix": [0, 1], "x": 1, "y": 0},

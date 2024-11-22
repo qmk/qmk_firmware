@@ -23,5 +23,11 @@
         "nkro": true,
         "rgblight": true,
         "audio": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     }
 }

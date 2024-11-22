@@ -16,6 +16,12 @@
     "backlight": true,
     "rgblight": true
   },
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  },
   "matrix_pins": {
     "cols": ["F0", "F1", "F4", "F5", "F6", "F7", "B3", "B1", "B0", "D5", "B7", "C7"],
     "rows": ["D0", "D1", "D2", "D3"]

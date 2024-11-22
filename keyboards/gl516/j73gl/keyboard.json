@@ -34,6 +34,12 @@
         "extrakey": true,
         "rgblight": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

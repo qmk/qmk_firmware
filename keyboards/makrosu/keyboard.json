@@ -28,7 +28,11 @@
         ]
     },
     "qmk": {
-        "tap_keycode_delay": 10
+        "tap_keycode_delay": 10,
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     },
     "bootmagic": {
         "matrix": [0, 5]

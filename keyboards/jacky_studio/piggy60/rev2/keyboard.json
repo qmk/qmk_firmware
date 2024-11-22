@@ -1,7 +1,6 @@
 {
     "bootloader": "uf2boot",
     "diode_direction": "ROW2COL",
-    "community_layouts": ["60_hhkb", "60_tsangan_hhkb"],
     "features": {
         "bootmagic": true,
         "extrakey": true,
@@ -79,6 +78,10 @@
         "device_version": "2.0.0",
         "pid": "0x1002"
     },
+    "layout_aliases": {
+        "LAYOUT_60_tsangan_hhkb": "LAYOUT_60_ansi_tsangan_split_bs_rshift"
+    },
+    "community_layouts": ["60_hhkb", "60_ansi_tsangan_split_bs_rshift"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -213,7 +216,7 @@
                 {"label": "Alt", "matrix": [4, 12], "x": 12.5, "y": 4}
             ]
         },
-        "LAYOUT_60_tsangan_hhkb": {
+        "LAYOUT_60_ansi_tsangan_split_bs_rshift": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "1!", "matrix": [0, 1], "x": 1, "y": 0},
