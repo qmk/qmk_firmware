@@ -43,15 +43,7 @@
         "pid": "0x3830",
         "device_version": "0.0.1"
     },
-    "layout_aliases": {
-        "LAYOUT": "LAYOUT_all"
-    },
-    "community_layouts": [
-        "tkl_f13_ansi_tsangan_split_bs_rshift",
-        "tkl_f13_ansi_tsangan",
-        "tkl_ansi_tsangan",
-        "tkl_ansi_tsangan_split_bs_rshift"
-    ],
+    "community_layouts": ["tkl_ansi_tsangan", "tkl_ansi_tsangan_split_bs_rshift", "tkl_f13_ansi_tsangan", "tkl_f13_ansi_tsangan_split_bs_rshift"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
