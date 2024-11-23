@@ -103,8 +103,8 @@ def augment_community_info(config, src, dest):
     if matrix_type == 'direct':
         info["matrix_pins"] = {
             "direct": [
-                ["C2"] * cols
-            ] * rows
+                ["C2"] * cols,
+            ] * rows,
         }
     elif matrix_type in ['COL2ROW', 'ROW2COL']:
         info["diode_direction"] = matrix_type
