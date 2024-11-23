@@ -2,9 +2,7 @@
 
 ![S6xty5Neo Rev.2](https://imgur.com/C6X3fCI.png)
 
-
 A 65% keyboard PCB compatible with Neo65. Supports Neo65 keyboard like an out-of-the-box PCB without any modification.
-
 
 * Keyboard Maintainer: [Trnthsn](https://github.com/trnthsn)
 * Hardware Supported: STM32, S6xty5Neo Rev.2, Neo65

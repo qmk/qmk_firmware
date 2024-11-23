@@ -24,9 +24,6 @@
         "pid": "0x4E45",
         "device_version": "0.0.1"
     },
-    "layout_aliases": {
-        "LAYOUT": "LAYOUT_all"
-    },
     "community_layouts": ["65_ansi_blocker_tsangan", "65_ansi_blocker_tsangan_split_bs"],
     "layouts": {
         "LAYOUT_all": {
