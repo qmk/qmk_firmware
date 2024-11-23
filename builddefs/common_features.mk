@@ -238,10 +238,6 @@ else
         OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_TRANSIENT
         SRC += eeprom_driver.c eeprom_transient.c
       endif
-    else ifeq ($(PLATFORM),ARM_ATSAM)
-      # arm_atsam EEPROM
-      OPT_DEFS += -DEEPROM_SAMD
-      SRC += eeprom_samd.c
     else ifeq ($(PLATFORM),TEST)
       # Test harness "EEPROM"
       OPT_DEFS += -DEEPROM_TEST_HARNESS
@@ -310,11 +306,11 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
         POST_CONFIG_H += $(QUANTUM_DIR)/rgblight/rgblight_post_config.h
         OPT_DEFS += -DRGBLIGHT_ENABLE
         OPT_DEFS += -DRGBLIGHT_$(strip $(shell echo $(RGBLIGHT_DRIVER) | tr '[:lower:]' '[:upper:]'))
+        SRC += $(QUANTUM_DIR)/process_keycode/process_underglow.c
         SRC += $(QUANTUM_DIR)/color.c
         SRC += $(QUANTUM_DIR)/rgblight/rgblight.c
         SRC += $(QUANTUM_DIR)/rgblight/rgblight_drivers.c
         CIE1931_CURVE := yes
-        RGB_KEYCODES_ENABLE := yes
     endif
 
     ifeq ($(strip $(RGBLIGHT_DRIVER)), ws2812)
@@ -460,12 +456,12 @@ ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
     COMMON_VPATH += $(QUANTUM_DIR)/rgb_matrix/animations
     COMMON_VPATH += $(QUANTUM_DIR)/rgb_matrix/animations/runners
     POST_CONFIG_H += $(QUANTUM_DIR)/rgb_matrix/post_config.h
+    SRC += $(QUANTUM_DIR)/process_keycode/process_rgb_matrix.c
     SRC += $(QUANTUM_DIR)/color.c
     SRC += $(QUANTUM_DIR)/rgb_matrix/rgb_matrix.c
     SRC += $(QUANTUM_DIR)/rgb_matrix/rgb_matrix_drivers.c
     LIB8TION_ENABLE := yes
     CIE1931_CURVE := yes
-    RGB_KEYCODES_ENABLE := yes
 
     ifeq ($(strip $(RGB_MATRIX_DRIVER)), aw20216s)
         SPI_DRIVER_REQUIRED = yes
@@ -566,10 +562,6 @@ ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
     ifeq ($(strip $(RGB_MATRIX_CUSTOM_USER)), yes)
         OPT_DEFS += -DRGB_MATRIX_CUSTOM_USER
     endif
-endif
-
-ifeq ($(strip $(RGB_KEYCODES_ENABLE)), yes)
-    SRC += $(QUANTUM_DIR)/process_keycode/process_rgb.c
 endif
 
 VARIABLE_TRACE ?= no
@@ -936,7 +928,7 @@ ifeq ($(strip $(WS2812_DRIVER_REQUIRED)), yes)
 
     OPT_DEFS += -DWS2812_$(strip $(shell echo $(WS2812_DRIVER) | tr '[:lower:]' '[:upper:]'))
 
-    SRC += ws2812_$(strip $(WS2812_DRIVER)).c
+    SRC += ws2812.c ws2812_$(strip $(WS2812_DRIVER)).c
 
     ifeq ($(strip $(PLATFORM)), CHIBIOS)
         ifeq ($(strip $(WS2812_DRIVER)), pwm)

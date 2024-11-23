@@ -377,28 +377,28 @@ void pointing_device_set_cpi_on_side(bool left, uint16_t cpi) {
 }
 
 /**
- * @brief clamps int16_t to int8_t
+ * @brief clamps int16_t to int8_t, or int32_t to int16_t
  *
- * @param[in] int16_t value
- * @return int8_t clamped value
+ * @param[in] hv_clamp_range_t value
+ * @return mouse_hv_report_t clamped value
  */
-static inline int8_t pointing_device_hv_clamp(int16_t value) {
-    if (value < INT8_MIN) {
-        return INT8_MIN;
-    } else if (value > INT8_MAX) {
-        return INT8_MAX;
+static inline mouse_hv_report_t pointing_device_hv_clamp(hv_clamp_range_t value) {
+    if (value < HV_REPORT_MIN) {
+        return HV_REPORT_MIN;
+    } else if (value > HV_REPORT_MAX) {
+        return HV_REPORT_MAX;
     } else {
         return value;
     }
 }
 
 /**
- * @brief clamps int16_t to int8_t
+ * @brief clamps int16_t to int8_t, or int32_t to int16_t
  *
- * @param[in] clamp_range_t value
+ * @param[in] xy_clamp_range_t value
  * @return mouse_xy_report_t clamped value
  */
-static inline mouse_xy_report_t pointing_device_xy_clamp(clamp_range_t value) {
+static inline mouse_xy_report_t pointing_device_xy_clamp(xy_clamp_range_t value) {
     if (value < XY_REPORT_MIN) {
         return XY_REPORT_MIN;
     } else if (value > XY_REPORT_MAX) {
@@ -419,10 +419,10 @@ static inline mouse_xy_report_t pointing_device_xy_clamp(clamp_range_t value) {
  * @return combined report_mouse_t of left_report and right_report
  */
 report_mouse_t pointing_device_combine_reports(report_mouse_t left_report, report_mouse_t right_report) {
-    left_report.x = pointing_device_xy_clamp((clamp_range_t)left_report.x + right_report.x);
-    left_report.y = pointing_device_xy_clamp((clamp_range_t)left_report.y + right_report.y);
-    left_report.h = pointing_device_hv_clamp((int16_t)left_report.h + right_report.h);
-    left_report.v = pointing_device_hv_clamp((int16_t)left_report.v + right_report.v);
+    left_report.x = pointing_device_xy_clamp((xy_clamp_range_t)left_report.x + right_report.x);
+    left_report.y = pointing_device_xy_clamp((xy_clamp_range_t)left_report.y + right_report.y);
+    left_report.h = pointing_device_hv_clamp((hv_clamp_range_t)left_report.h + right_report.h);
+    left_report.v = pointing_device_hv_clamp((hv_clamp_range_t)left_report.v + right_report.v);
     left_report.buttons |= right_report.buttons;
     return left_report;
 }

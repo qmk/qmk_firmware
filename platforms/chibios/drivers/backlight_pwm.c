@@ -25,7 +25,7 @@
 #    define BACKLIGHT_PWM_CHANNEL 3
 #endif
 
-// Support for pins which are on TIM1_CH1N - requires STM32_PWM_USE_ADVANCED
+// Support for pins which are on TIM1_CH1N
 #ifdef BACKLIGHT_PWM_COMPLEMENTARY_OUTPUT
 #    if BACKLIGHT_ON_STATE == 1
 #        define PWM_OUTPUT_MODE PWM_COMPLEMENTARY_OUTPUT_ACTIVE_LOW;
