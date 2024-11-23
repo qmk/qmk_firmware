@@ -184,14 +184,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             }
       return true;  // continue all further processing of this key
 
-    case TO(0):
-       set_single_persistent_default_layer(0);
-       return true;
-
-    case TO(1):
-       set_single_persistent_default_layer(1);
-       return true;
-
     default:
       return true;
     }
