@@ -18,5 +18,4 @@
 # --------------------------------------------------------------------------------
 
 TAP_DANCE_ENABLE = yes
-
-SRC += examples.c
+INTROSPECTION_KEYMAP_C = examples.c

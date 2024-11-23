@@ -15,7 +15,7 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "pointing_device": true,
+        "pointing_device": true
     },
     "layouts": {
         "LAYOUT": {
@@ -31,5 +31,5 @@
     },
     "dynamic_keymap": {
         "layer_count": 8
-    },
+    }
 }

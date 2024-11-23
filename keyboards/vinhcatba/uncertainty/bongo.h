@@ -3,4 +3,6 @@
 
 #pragma once
 
+#include <stdbool.h>
+
 void draw_bongo(bool minimal);

@@ -423,8 +423,8 @@ TEST_P(CapsWordBothShifts, PressLRLR) {
     run_one_scan_loop();
     right_shift.press();
 
-    // For mod-tap and Space Cadet keys, wait for the tapping term.
-    if (left_shift.code == LSFT_T(KC_A) || left_shift.code == QK_SPACE_CADET_LEFT_SHIFT_PARENTHESIS_OPEN) {
+    // For mod-tap, wait for the tapping term.
+    if (left_shift.code == LSFT_T(KC_A)) {
         idle_for(TAPPING_TERM);
     }
 
@@ -461,7 +461,7 @@ TEST_P(CapsWordBothShifts, PressLRRL) {
     run_one_scan_loop();
     right_shift.press();
 
-    if (left_shift.code == LSFT_T(KC_A) || left_shift.code == QK_SPACE_CADET_LEFT_SHIFT_PARENTHESIS_OPEN) {
+    if (left_shift.code == LSFT_T(KC_A)) {
         idle_for(TAPPING_TERM);
     }
     run_one_scan_loop();

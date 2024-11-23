@@ -1,0 +1,139 @@
+name: CI Build Major Branch
+
+permissions:
+  contents: read
+  actions: write
+
+on:
+  push:
+    branches: [master, develop]
+  workflow_dispatch:
+    inputs:
+      branch:
+        type: choice
+        description: "Branch to build"
+        options: [master, develop]
+
+env:
+  # https://docs.github.com/en/actions/learn-github-actions/usage-limits-billing-and-administration#usage-limits
+  # We've decreased it from 20 to 15 to allow for other GHA to run unimpeded
+  CONCURRENT_JOBS: 15
+
+# Ensure we only have one build running at a time, cancelling any active builds if a new commit is pushed to the respective branch
+concurrency:
+  group: ci_build-${{ github.event.inputs.branch || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  determine_concurrency:
+    name: "Determine concurrency"
+    if: github.repository == 'qmk/qmk_firmware'
+    runs-on: ubuntu-latest
+    container: ghcr.io/qmk/qmk_cli
+
+    outputs:
+      slice_length: ${{ steps.generate_slice_length.outputs.slice_length }}
+
+    steps:
+      - name: Install prerequisites
+        run: |
+          apt-get update
+          apt-get install -y jq
+
+      - name: Disable safe.directory check
+        run: |
+          git config --global --add safe.directory '*'
+
+      - name: Checkout QMK Firmware
+        uses: actions/checkout@v4
+
+      - name: Determine concurrency
+        id: generate_slice_length
+        run: |
+          target_count=$( {
+            qmk find -km default 2>/dev/null
+            # qmk find -km xap 2>/dev/null
+          } | sort | uniq | wc -l)
+          slice_length=$((target_count / ($CONCURRENT_JOBS - 1))) # Err on the side of caution
+          echo "slice_length=$slice_length" >> $GITHUB_OUTPUT
+
+  build_targets:
+    name: "Compile keymap ${{ matrix.keymap }}"
+    needs: determine_concurrency
+    strategy:
+      fail-fast: false
+      matrix:
+        keymap: [default]
+        # keymap: [default, xap]
+    uses: ./.github/workflows/ci_build_major_branch_keymap.yml
+    with:
+      branch: ${{ inputs.branch || github.ref_name }}
+      keymap: ${{ matrix.keymap }}
+      slice_length: ${{ needs.determine_concurrency.outputs.slice_length }}
+    secrets: inherit
+
+  rollup_tasks:
+    name: "Consolidation"
+    needs: build_targets
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Disable safe.directory check
+        run: |
+          git config --global --add safe.directory '*'
+
+      - name: Checkout QMK Firmware
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download firmwares
+        uses: actions/download-artifact@v4
+        with:
+          pattern: firmware-*
+          path: .
+          merge-multiple: true
+
+      - name: Generate index page
+        run: |
+          python3 -m pip install -r ./util/ci/requirements.txt
+          ./util/ci/index_generator.py > index.html
+          ./util/ci/firmware_list_generator.py > firmware_list.json
+
+      - name: Upload to https://ci.qmk.fm/${{ inputs.branch || github.ref_name }}/${{ github.sha }}
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --acl public-read --follow-symlinks --delete --exclude '*' --include 'index.html' --include 'firmware_list.json' --include '*.hex' --include '*.bin' --include '*.uf2'
+        env:
+          AWS_S3_BUCKET: ${{ vars.CI_QMK_FM_SPACES_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.CI_QMK_FM_SPACES_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.CI_QMK_FM_SPACES_SECRET }}
+          AWS_REGION: ${{ vars.CI_QMK_FM_SPACES_REGION }}
+          AWS_S3_ENDPOINT: ${{ vars.CI_QMK_FM_SPACES_ENDPOINT }}
+          SOURCE_DIR: .
+          DEST_DIR: ${{ inputs.branch || github.ref_name }}/${{ github.sha }}
+
+      - name: Upload to https://ci.qmk.fm/${{ inputs.branch || github.ref_name }}/latest
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --acl public-read --follow-symlinks --delete --exclude '*' --include 'index.html' --include 'firmware_list.json' --include '*.hex' --include '*.bin' --include '*.uf2'
+        env:
+          AWS_S3_BUCKET: ${{ vars.CI_QMK_FM_SPACES_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.CI_QMK_FM_SPACES_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.CI_QMK_FM_SPACES_SECRET }}
+          AWS_REGION: ${{ vars.CI_QMK_FM_SPACES_REGION }}
+          AWS_S3_ENDPOINT: ${{ vars.CI_QMK_FM_SPACES_ENDPOINT }}
+          SOURCE_DIR: .
+          DEST_DIR: ${{ inputs.branch || github.ref_name }}/latest
+
+      - name: Check if failure marker file exists
+        id: check_failure_marker
+        uses: andstor/file-existence-action@v3
+        with:
+          files: ./.failed
+
+      - name: Fail build if needed
+        if: steps.check_failure_marker.outputs.files_exists == 'true'
+        run: |
+          # Exit with failure if the compilation stage failed
+          exit 1

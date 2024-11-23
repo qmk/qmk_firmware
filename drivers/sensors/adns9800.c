@@ -67,14 +67,15 @@
 #define REG_SROM_Load_Burst              0x62
 #define REG_Pixel_Burst                  0x64
 
-#define MIN_CPI           200
-#define MAX_CPI           8200
-#define CPI_STEP          200
-#define CLAMP_CPI(value)  value<MIN_CPI ? MIN_CPI : value> MAX_CPI ? MAX_CPI : value
-#define US_BETWEEN_WRITES 120
-#define US_BETWEEN_READS  20
-#define US_BEFORE_MOTION  100
-#define MSB1              0x80
+#define MIN_CPI             200
+#define MAX_CPI             8200
+#define CPI_STEP            200
+#define CLAMP_CPI(value)    value<MIN_CPI ? MIN_CPI : value> MAX_CPI ? MAX_CPI : value
+#define US_BETWEEN_WRITES   120
+#define US_BETWEEN_READS    20
+#define US_DELAY_AFTER_ADDR 100
+#define US_BEFORE_MOTION    100
+#define MSB1                0x80
 // clang-format on
 
 void adns9800_spi_start(void) {
@@ -92,6 +93,7 @@ void adns9800_write(uint8_t reg_addr, uint8_t data) {
 uint8_t adns9800_read(uint8_t reg_addr) {
     adns9800_spi_start();
     spi_write(reg_addr & 0x7f);
+    wait_us(US_DELAY_AFTER_ADDR);
     uint8_t data = spi_read();
     spi_stop();
     wait_us(US_BETWEEN_READS);
@@ -100,7 +102,7 @@ uint8_t adns9800_read(uint8_t reg_addr) {
 }
 
 void adns9800_init(void) {
-    setPinOutput(ADNS9800_CS_PIN);
+    gpio_set_pin_output(ADNS9800_CS_PIN);
 
     spi_init();
 
@@ -115,6 +117,7 @@ void adns9800_init(void) {
     adns9800_read(REG_Delta_Y_L);
     adns9800_read(REG_Delta_Y_H);
 
+#ifdef ADNS9800_UPLOAD_SROM
     // upload firmware
 
     // 3k firmware mode
@@ -145,6 +148,16 @@ void adns9800_init(void) {
     spi_stop();
 
     wait_ms(10);
+#else
+    // write reset value to REG_Configuration_IV
+    adns9800_write(REG_Configuration_IV, 0x0);
+
+    // write reset value to REG_SROM_Enable
+    adns9800_write(REG_SROM_Enable, 0x0);
+
+    // wait a frame
+    wait_ms(10);
+#endif
 
     // enable laser
     uint8_t laser_ctrl0 = adns9800_read(REG_LASER_CTRL0);

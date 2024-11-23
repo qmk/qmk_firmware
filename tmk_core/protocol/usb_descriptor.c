@@ -281,7 +281,7 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
             HID_RI_LOGICAL_MAXIMUM(16, 0x7FFF),
             HID_RI_REPORT_COUNT(8, 0x02),
             HID_RI_REPORT_SIZE(8, 0x10),
-            HID_RI_UNIT(8, 0x33),          // Inch, English Linear
+            HID_RI_UNIT(8, 0x13),          // Inch, English Linear
             HID_RI_UNIT_EXPONENT(8, 0x0E), // -2
             HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
         HID_RI_END_COLLECTION(0),
@@ -420,14 +420,6 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM ConsoleReport[] = {
         HID_RI_REPORT_COUNT(8, CONSOLE_EPSIZE),
         HID_RI_REPORT_SIZE(8, 0x08),
         HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
-
-        // Data from host
-        HID_RI_USAGE(8, 0x76),     // Vendor Defined
-        HID_RI_LOGICAL_MINIMUM(8, 0x00),
-        HID_RI_LOGICAL_MAXIMUM(16, 0x00FF),
-        HID_RI_REPORT_COUNT(8, CONSOLE_EPSIZE),
-        HID_RI_REPORT_SIZE(8, 0x08),
-        HID_RI_OUTPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE),
     HID_RI_END_COLLECTION(0),
 };
 #endif
@@ -677,7 +669,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
         },
         .InterfaceNumber        = CONSOLE_INTERFACE,
         .AlternateSetting       = 0x00,
-        .TotalEndpoints         = 2,
+        .TotalEndpoints         = 1,
         .Class                  = HID_CSCP_HIDClass,
         .SubClass               = HID_CSCP_NonBootSubclass,
         .Protocol               = HID_CSCP_NonBootProtocol,
@@ -700,16 +692,6 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
             .Type               = DTYPE_Endpoint
         },
         .EndpointAddress        = (ENDPOINT_DIR_IN | CONSOLE_IN_EPNUM),
-        .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
-        .EndpointSize           = CONSOLE_EPSIZE,
-        .PollingIntervalMS      = 0x01
-    },
-    .Console_OUTEndpoint = {
-        .Header = {
-            .Size               = sizeof(USB_Descriptor_Endpoint_t),
-            .Type               = DTYPE_Endpoint
-        },
-        .EndpointAddress        = (ENDPOINT_DIR_OUT | CONSOLE_OUT_EPNUM),
         .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
         .EndpointSize           = CONSOLE_EPSIZE,
         .PollingIntervalMS      = 0x01
@@ -1008,7 +990,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
         .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
         .EndpointSize           = JOYSTICK_EPSIZE,
         .PollingIntervalMS      = USB_POLLING_INTERVAL_MS
-    }
+    },
 #endif
 
 #if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)

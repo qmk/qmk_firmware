@@ -8,6 +8,14 @@
         "pid": "0x0048",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": true,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgblight": true
+    },
     "matrix_pins": {
         "cols": ["B15", "B10", "B0", "A5", "A4", "A3"],
         "rows": ["A10", "A15", "B3", "B4"],
@@ -41,9 +49,16 @@
         }
     },
     "split": {
-        "soft_serial_pin": "B6",
+        "enabled": true,
         "bootmagic": {
             "matrix": [4, 0]
+        },
+        "handedness": {
+            "pin": "B9"
+        },
+        "serial": {
+            "driver": "usart",
+            "pin": "B6"
         },
         "matrix_pins": {
             "right": {
@@ -56,7 +71,7 @@
     "layouts": {
         "LAYOUT_ortho_4x12": {
             "layout": [
-                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 0], "x": 0, "y": 0, "encoder": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
                 {"matrix": [0, 2], "x": 2, "y": 0},
                 {"matrix": [0, 3], "x": 3, "y": 0},
@@ -67,7 +82,7 @@
                 {"matrix": [4, 3], "x": 8, "y": 0},
                 {"matrix": [4, 2], "x": 9, "y": 0},
                 {"matrix": [4, 1], "x": 10, "y": 0},
-                {"matrix": [4, 0], "x": 11, "y": 0},
+                {"matrix": [4, 0], "x": 11, "y": 0, "encoder": 1},
 
                 {"matrix": [1, 0], "x": 0, "y": 1},
                 {"matrix": [1, 1], "x": 1, "y": 1},

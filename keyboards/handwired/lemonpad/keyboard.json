@@ -1,0 +1,49 @@
+{
+    "keyboard_name": "lemonpad",
+    "manufacturer": "dari-studios",
+    "url": "",
+    "maintainer": "dari-studios",
+    "usb": {
+        "vid": "0x6473",
+        "pid": "0x4C50",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "build": {
+        "lto": true
+    },
+    "features": {
+        "bootmagic": true,
+        "command": true,
+        "console": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
+    "matrix_pins": {
+        "direct": [
+            ["E6", "D7", "C6"],
+            ["B4", "B5", "D4"]
+        ]
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"x": 0, "y": 0, "matrix": [0, 0]},
+                {"x": 1, "y": 0, "matrix": [0, 1]},
+                {"x": 2, "y": 0, "matrix": [0, 2]},
+
+                {"x": 0, "y": 1, "matrix": [1, 0]},
+                {"x": 1, "y": 1, "matrix": [1, 1]},
+                {"x": 2, "y": 1, "matrix": [1, 2]}
+            ]
+        }
+    }
+}

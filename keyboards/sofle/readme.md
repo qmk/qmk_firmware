@@ -1,6 +1,6 @@
 # Sofle Keyboard
 
-![SofleKeyboard version 1](https://raw.githubusercontent.com/josefadamcik/SofleKeyboard/master/Images/IMG_20200126_114622.jpg)
+![SofleKeyboard version 1](https://i.imgur.com/S5GTKth.jpeg)
 
 Sofle is 6×4+5 keys column-staggered split keyboard. Based on Lily58, Corne and Helix keyboards.
 

@@ -17,8 +17,10 @@
 #include "audio.h"
 #include "eeconfig.h"
 #include "timer.h"
+#include "debug.h"
 #include "wait.h"
 #include "util.h"
+#include "gpio.h"
 
 /* audio system:
  *
@@ -61,6 +63,13 @@
  * musical_notes.h, OR in ms; keyboards create SONGs with the former, while
  * the internal state of the audio system does its calculations with the later - ms
  */
+
+#ifndef AUDIO_DEFAULT_ON
+#    define AUDIO_DEFAULT_ON true
+#endif
+#ifndef AUDIO_DEFAULT_CLICKY_ON
+#    define AUDIO_DEFAULT_CLICKY_ON true
+#endif
 
 #ifndef AUDIO_TONE_STACKSIZE
 #    define AUDIO_TONE_STACKSIZE 8
@@ -113,7 +122,40 @@ static bool    audio_initialized    = false;
 static bool    audio_driver_stopped = true;
 audio_config_t audio_config;
 
+#ifndef AUDIO_POWER_CONTROL_PIN_ON_STATE
+#    define AUDIO_POWER_CONTROL_PIN_ON_STATE 1
+#endif
+
+void audio_driver_initialize(void) {
+#ifdef AUDIO_POWER_CONTROL_PIN
+    gpio_set_pin_output_push_pull(AUDIO_POWER_CONTROL_PIN);
+    gpio_write_pin(AUDIO_POWER_CONTROL_PIN, !AUDIO_POWER_CONTROL_PIN_ON_STATE);
+#endif
+    audio_driver_initialize_impl();
+}
+
+void audio_driver_stop(void) {
+    audio_driver_stop_impl();
+#ifdef AUDIO_POWER_CONTROL_PIN
+    gpio_write_pin(AUDIO_POWER_CONTROL_PIN, !AUDIO_POWER_CONTROL_PIN_ON_STATE);
+#endif
+}
+
+void audio_driver_start(void) {
+#ifdef AUDIO_POWER_CONTROL_PIN
+    gpio_write_pin(AUDIO_POWER_CONTROL_PIN, AUDIO_POWER_CONTROL_PIN_ON_STATE);
+#endif
+    audio_driver_start_impl();
+}
+
 void eeconfig_update_audio_current(void) {
+    eeconfig_update_audio(audio_config.raw);
+}
+
+void eeconfig_update_audio_default(void) {
+    audio_config.valid         = true;
+    audio_config.enable        = AUDIO_DEFAULT_ON;
+    audio_config.clicky_enable = AUDIO_DEFAULT_CLICKY_ON;
     eeconfig_update_audio(audio_config.raw);
 }
 
@@ -122,27 +164,19 @@ void audio_init(void) {
         return;
     }
 
-    // Check EEPROM
-#ifdef EEPROM_ENABLE
-    if (!eeconfig_is_enabled()) {
-        eeconfig_init();
-    }
     audio_config.raw = eeconfig_read_audio();
-#else // EEPROM settings
-    audio_config.enable        = true;
-#    ifdef AUDIO_CLICKY_ON
-    audio_config.clicky_enable = true;
-#    endif
-#endif // EEPROM settings
+    if (!audio_config.valid) {
+        dprintf("audio_init audio_config.valid = 0. Write default values to EEPROM.\n");
+        eeconfig_update_audio_default();
+    }
 
     for (uint8_t i = 0; i < AUDIO_TONE_STACKSIZE; i++) {
         tones[i] = (musical_tone_t){.time_started = 0, .pitch = -1.0f, .duration = 0};
     }
 
-    if (!audio_initialized) {
-        audio_driver_initialize();
-        audio_initialized = true;
-    }
+    audio_driver_initialize();
+    audio_initialized = true;
+
     stop_all_notes();
 #ifndef AUDIO_INIT_DELAY
     audio_startup();

@@ -18,7 +18,7 @@
 
 // Not yet available in `keymap.json` format
 #ifdef RGB_MATRIX_ENABLE
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED
+#    define RGB_MATRIX_SLEEP
 #    define RGB_MATRIX_KEYPRESSES
 #    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
 #    define ENABLE_RGB_MATRIX_SOLID_SPLASH

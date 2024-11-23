@@ -1,0 +1,61 @@
+{
+    "keyboard_name": "Tukey",
+    "manufacturer": "Keebio",
+    "url": "https://keeb.io",
+    "maintainer": "nooges",
+    "usb": {
+      "vid": "0xCB10",
+      "pid": "0x1112",
+      "device_version": "1.0.0"
+    },
+    "rgblight": {
+      "saturation_steps": 8,
+      "brightness_steps": 8,
+      "led_count": 8,
+      "animations": {
+        "breathing": true,
+        "rainbow_mood": true,
+        "rainbow_swirl": true,
+        "snake": true,
+        "knight": true,
+        "christmas": true,
+        "static_gradient": true,
+        "rgb_test": true,
+        "alternating": true,
+        "twinkle": true
+      }
+    },
+    "ws2812": {
+      "pin": "D3"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "features": {
+        "bootmagic": false,
+        "command": true,
+        "console": true,
+        "extrakey": true,
+        "mousekey": false,
+        "nkro": false,
+        "rgblight": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
+    "matrix_pins": {
+      "direct": [
+        ["D4", "F6"]
+      ]
+    },
+    "layouts": {
+      "LAYOUT": {
+        "layout": [
+          {"x": 0, "y": 0, "matrix": [0, 0]},
+          {"x": 1, "y": 0, "matrix": [0, 1]}
+        ]
+      }
+    }
+  }
