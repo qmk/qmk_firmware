@@ -40,7 +40,7 @@ bool         i2c_initialized = 0;
 i2c_status_t tca9555_status = I2C_ADDR;
 
 uint8_t init_tca9555(void) {
-    print("starting init");
+    dprint("starting init\n");
     tca9555_status = I2C_ADDR;
 
     // I2C subsystem
