@@ -134,7 +134,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             }
         }
         return false;
-    case RGB_VAI:
+    case RM_VALU:
        rgb_matrix_set_flags(LED_FLAG_ALL);
        return true;
 #    endif
