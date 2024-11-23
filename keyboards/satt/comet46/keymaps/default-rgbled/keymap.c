@@ -171,8 +171,7 @@ void matrix_init_user(void) {
 }
 
 void matrix_scan_user(void) {
-  uint8_t layer = get_highest_layer(layer_state);
-  uint8_t default_layer = biton32(eeconfig_read_default_layer());
+  uint8_t layer = get_highest_layer(layer_state | default_layer_state);
   switch (layer) {
     case _LOWER:
       set_led_red;
@@ -183,18 +182,14 @@ void matrix_scan_user(void) {
     case _ADJUST:
       set_led_magenta;
       break;
+    case _COLEMAK:
+      set_led_white;
+      break;
+    case _DVORAK:
+      set_led_yellow;
+      break;
     default:
-      switch (default_layer) {
-        case _COLEMAK:
-          set_led_white;
-          break;
-        case _DVORAK:
-          set_led_yellow;
-          break;
-        default:
-          set_led_green;
-          break;
-      }
+      set_led_green;
       break;
   }
 };

@@ -153,24 +153,16 @@ bool oled_task_user(void) {
   // Layer state
   char layer_str[22];
   oled_write_P(PSTR("Layer: "), false);
-  uint8_t layer = get_highest_layer(layer_state);
-  uint8_t default_layer = get_highest_layer(eeconfig_read_default_layer());
+  uint8_t layer = get_highest_layer(layer_state | default_layer_state);
   switch (layer) {
     case _QWERTY:
-      switch (default_layer) {
-        case _QWERTY:
-          snprintf(layer_str, sizeof(layer_str), "Qwerty");
-          break;
-        case _COLEMAK:
-          snprintf(layer_str, sizeof(layer_str), "Colemak");
-          break;
-        case _DVORAK:
-          snprintf(layer_str, sizeof(layer_str), "Dvorak");
-          break;
-        default:
-          snprintf(layer_str, sizeof(layer_str), "Undef-%d", default_layer);
-          break;
-      }
+      snprintf(layer_str, sizeof(layer_str), "Qwerty");
+      break;
+    case _COLEMAK:
+      snprintf(layer_str, sizeof(layer_str), "Colemak");
+      break;
+    case _DVORAK:
+      snprintf(layer_str, sizeof(layer_str), "Dvorak");
       break;
     case _RAISE:
       snprintf(layer_str, sizeof(layer_str), "Raise");
