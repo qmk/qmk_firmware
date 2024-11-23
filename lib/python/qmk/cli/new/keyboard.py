@@ -91,12 +91,6 @@ def augment_community_info(config, src, dest):
     # avoid assumptions on macro name by using the first available
     first_layout = next(iter(info["layouts"].values()))["layout"]
 
-    # guess at width and height now its optional
-    width, height = (0, 0)
-    for item in first_layout:
-        width = max(width, int(item["x"]) + 1)
-        height = max(height, int(item["y"]) + 1)
-
     matrix_type = prompt_matrix_type()
     (rows, cols) = prompt_matrix_size(len(first_layout))
 
