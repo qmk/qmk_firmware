@@ -39,11 +39,12 @@ enum layer_names {
 #define OS_GUI  OSM(MOD_LGUI)
 #define OS_ALT  OSM(MOD_LALT)
 
+#define QWERTY PDF(_QWERTY)
+#define COLEMAK PDF(_COLMAK)
+
 enum keycodes {
-  QWERTY = SAFE_RANGE,
-  COLEMAK,
 // layers
-  SYM,
+  SYM = SAFE_RANGE,
   MISC,
 // special keys
   ENC_PRS,
@@ -233,16 +234,6 @@ uint16_t last_rgb_char = 0;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case QWERTY:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_QWERTY);
-            }
-            return false;
-        case COLEMAK:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_COLMAK);
-            }
-            return false;
         case SYM:
             if (record->event.pressed) {
                 layer_on(_SYM);
