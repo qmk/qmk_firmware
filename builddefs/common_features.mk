@@ -129,13 +129,13 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
         MOUSE_ENABLE := yes
         VPATH += $(QUANTUM_DIR)/pointing_device
         SRC += $(QUANTUM_DIR)/pointing_device/pointing_device.c
-        SRC += $(QUANTUM_DIR)/pointing_device/pointing_device_drivers.c
         SRC += $(QUANTUM_DIR)/pointing_device/pointing_device_auto_mouse.c
         ifneq ($(strip $(POINTING_DEVICE_DRIVER)), custom)
             SRC += drivers/sensors/$(strip $(POINTING_DEVICE_DRIVER)).c
             OPT_DEFS += -DPOINTING_DEVICE_DRIVER_$(strip $(shell echo $(POINTING_DEVICE_DRIVER) | tr '[:lower:]' '[:upper:]'))
         endif
         OPT_DEFS += -DPOINTING_DEVICE_DRIVER_$(strip $(POINTING_DEVICE_DRIVER))
+        OPT_DEFS += -DPOINTING_DEVICE_DRIVER_NAME=$(strip $(POINTING_DEVICE_DRIVER))
         ifeq ($(strip $(POINTING_DEVICE_DRIVER)), adns9800)
             SPI_DRIVER_REQUIRED = yes
         else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), analog_joystick)
@@ -215,7 +215,7 @@ else
         COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/flash
         COMMON_VPATH += $(DRIVER_PATH)/flash
         SRC += eeprom_driver.c eeprom_legacy_emulated_flash.c legacy_flash_ops.c
-      else ifneq ($(filter $(MCU_SERIES),STM32F1xx STM32F3xx STM32F4xx STM32L4xx STM32G4xx WB32F3G71xx WB32FQ95xx GD32VF103),)
+      else ifneq ($(filter $(MCU_SERIES),STM32F1xx STM32F3xx STM32F4xx STM32L4xx STM32G4xx WB32F3G71xx WB32FQ95xx AT32F415 GD32VF103),)
         # Wear-leveling EEPROM implementation, backed by MCU flash
         OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_WEAR_LEVELING
         SRC += eeprom_driver.c eeprom_wear_leveling.c
@@ -456,6 +456,10 @@ ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
     COMMON_VPATH += $(QUANTUM_DIR)/rgb_matrix/animations
     COMMON_VPATH += $(QUANTUM_DIR)/rgb_matrix/animations/runners
     POST_CONFIG_H += $(QUANTUM_DIR)/rgb_matrix/post_config.h
+
+    # TODO: Remove this
+    SRC += $(QUANTUM_DIR)/process_keycode/process_underglow.c
+
     SRC += $(QUANTUM_DIR)/process_keycode/process_rgb_matrix.c
     SRC += $(QUANTUM_DIR)/color.c
     SRC += $(QUANTUM_DIR)/rgb_matrix/rgb_matrix.c

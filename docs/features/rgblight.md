@@ -59,6 +59,10 @@ Changing the **Value** sets the overall brightness.<br>
 
 ## Keycodes
 
+::: warning
+These keycodes also simultaneously control [RGB Matrix](rgb_matrix), if enabled. This behaviour is in the process of being deprecated, so during this time it is recommended to additionally include the dedicated RGB Matrix keycodes to your keymap, and add `#define RGB_MATRIX_DISABLE_SHARED_KEYCODES` to `config.h`.
+:::
+
 |Key                           |Aliases   |Description                                                          |
 |------------------------------|----------|---------------------------------------------------------------------|
 |`QK_UNDERGLOW_TOGGLE`         |`UG_TOGG` |Toggle RGB lighting on or off                                        |

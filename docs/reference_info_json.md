@@ -16,7 +16,7 @@ You can create `info.json` files at every level under `qmk_firmware/keyboards/<k
     * A free-form text string describing the keyboard's manufacturer. This will be used as the USB manufacturer string. Can include Unicode characters, escaped to ASCII eg. `\u03A8` (Ψ).
     * Example: `"Clueboard"`
 * `url` <Badge type="info">String</Badge> <Badge>Required</Badge>
-    * A URL to the keyboard's product page, [QMK.fm/keyboards](https://qmk.fm/keyboards) page, or other page describing information about the keyboard.
+    * A URL to the keyboard's product page, [QMK Keyboards](https://browse.qmk.fm/) page, or other page describing information about the keyboard.
     * Example: `"https://clueboard.co"`
 * `bootloader_instructions` <Badge type="info">String</Badge>
     * Instructions for putting the keyboard into a mode that allows for firmware flashing.
@@ -177,9 +177,9 @@ Configures the [Backlight](features/backlight) feature.
     * `pins` <Badge type="info">Array: Pin</Badge>
         * A list of GPIO pins connected to the backlight LEDs (`software` and `timer` drivers only).
 
-## Bluetooth {#bluetooth}
+## Wireless/Bluetooth {#bluetooth}
 
-Configures the [Bluetooth](features/bluetooth) feature.
+Configures the [Wireless](features/wireless) feature.
 
 * `bluetooth`
     * `driver` <Badge type="info">String</Badge>
