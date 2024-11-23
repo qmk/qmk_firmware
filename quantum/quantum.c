@@ -60,7 +60,7 @@
 #    include "process_rgb_matrix.h"
 #endif
 
-#if defined(RGBLIGHT_ENABLE)
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
 #    include "process_underglow.h"
 #endif
 
@@ -74,6 +74,10 @@
 
 #ifdef UNICODE_COMMON_ENABLE
 #    include "process_unicode_common.h"
+#endif
+
+#ifdef LAYER_LOCK_ENABLE
+#    include "process_layer_lock.h"
 #endif
 
 #ifdef AUDIO_ENABLE
@@ -382,7 +386,7 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef GRAVE_ESC_ENABLE
             process_grave_esc(keycode, record) &&
 #endif
-#if defined(RGBLIGHT_ENABLE)
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
             process_underglow(keycode, record) &&
 #endif
 #if defined(RGB_MATRIX_ENABLE)
@@ -399,6 +403,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
 #ifdef TRI_LAYER_ENABLE
             process_tri_layer(keycode, record) &&
+#endif
+#ifdef LAYER_LOCK_ENABLE
+            process_layer_lock(keycode, record) &&
 #endif
 #ifdef BLUETOOTH_ENABLE
             process_connection(keycode, record) &&
