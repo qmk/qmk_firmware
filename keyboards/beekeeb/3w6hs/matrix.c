@@ -179,7 +179,7 @@ static matrix_row_t read_cols(uint8_t row) {
         } else {
             uint8_t data    = 0;
             uint8_t port0   = 0;
-            tca9555_status  = i2c_readReg(I2C_ADDR, IREGP0, &port0, 1, I2C_TIMEOUT);
+            tca9555_status  = i2c_read_register(I2C_ADDR, IREGP0, &port0, 1, I2C_TIMEOUT);
             if (tca9555_status) {  // if there was an error
                 // do nothing
                 return 0;
