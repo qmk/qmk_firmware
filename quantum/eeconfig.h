@@ -124,7 +124,7 @@ uint8_t eeconfig_read_debug(void);
 void    eeconfig_update_debug(uint8_t val);
 
 layer_state_t eeconfig_read_default_layer(void);
-void    eeconfig_update_default_layer(layer_state_t val);
+void          eeconfig_update_default_layer(layer_state_t val);
 
 uint16_t eeconfig_read_keymap(void);
 void     eeconfig_update_keymap(uint16_t val);
