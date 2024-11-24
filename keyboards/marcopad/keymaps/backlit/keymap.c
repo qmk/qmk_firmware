@@ -19,3 +19,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_P1,   KC_P2,   KC_P3
     )
 };
+
+const uint16_t PROGMEM backlight_combo[] = {KC_P7, KC_P8, COMBO_END};
+combo_t key_combos[] = {
+    COMBO(backlight_combo, UG_NEXT)
+};

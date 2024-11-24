@@ -6,13 +6,7 @@
 	"diode_direction": "ROW2COL",
 	"features": {
 		"bootmagic": true,
-		"rgblight": true,
-		"combo": true,
-		"command": false,
-		"console": false,
-		"extrakey": false,
-		"mousekey": false,
-		"nkro": false
+		"rgblight": false
 	},
 	"matrix_pins": {
 		"cols": ["GP4", "GP26", "GP27"],
