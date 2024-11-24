@@ -1,12 +1,12 @@
 # Marcopad
 
-![macropad](imgur.com image replace me!)
+![marcopad](https://pelegrini.ca/assets/img/marcopad/hardware/macropad.png)
 
 *A compact 3x3 keys macropad built with RP-2040 Zero*
 
-* Keyboard Maintainer: [Marco Pelegrini](https://pelegrini.ca/marcopad)
-* Hardware Supported: [Macropad PCB](https://pelegrini.ca/marcopad/hardware)
-* Hardware Availability: [Macropad](https://pelegrini.ca/marcopad)
+* Keyboard Maintainer: [pelegrini.ca](https://pelegrini.ca/marcopad)
+* Hardware Supported: [Marcopad](https://pelegrini.ca/marcopad)
+* Hardware Availability: [Marcopad](https://pelegrini.ca/marcopad)
 
 Make example for this keyboard (after setting up your build environment):
 
