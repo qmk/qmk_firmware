@@ -1,18 +1,19 @@
 {
-	"manufacturer": "pelegrini.ca",
 	"keyboard_name": "Marcopad",
+	"manufacturer": "pelegrini.ca",
+	"url": "https://pelegrini.ca/marcopad",
 	"maintainer": "Marco Pelegrini",
 	"bootloader": "rp2040",
 	"processor": "RP2040",
 	"diode_direction": "ROW2COL",
 	"features": {
-		"bootmagic": true
+		"bootmagic": true,
+		"rgb_matrix": true
 	},
 	"matrix_pins": {
 		"cols": ["GP4", "GP26", "GP27"],
 		"rows": ["GP15", "GP14", "GP29"]
 	},
-	"url": "https://pelegrini.ca/marcopad",
 	"usb": {
 		"device_version": "1.0.0",
 		"pid": "0x0000",
@@ -22,22 +23,43 @@
 		"driver": "vendor",
 		"pin": "GP28"
 	},
-	"rgblight": {
-		"led_count": 9,
-        "saturation_steps": 8,
-        "brightness_steps": 8,
+	"rgb_matrix": {
+		"driver": "ws2812",
 		"animations": {
 			"breathing": true,
-			"rainbow_mood": true,
-			"rainbow_swirl": true,
-			"snake": true,
-			"knight": true,
-			"christmas": true,
-			"static_gradient": true,
-			"rgb_test": true,
-			"alternating": true,
-			"twinkle": true
-		}
+			"cycle_all": true,
+			"cycle_left_right": true,
+			"cycle_up_down": true,
+			"rainbow_moving_chevron": true,
+			"dual_beacon": true,
+			"rainbow_beacon": true,
+			"pixel_rain": true,
+			"typing_heatmap": true,
+			"solid_reactive": true,
+			"solid_reactive_multiwide": true,
+			"solid_reactive_multicross": true,
+			"solid_reactive_multinexus": true,
+			"splash": true
+		},
+		"layout": [
+			{ "flags": 4, "matrix": [0, 0], "x": 0, "y": 0 },
+			{ "flags": 4, "matrix": [0, 1], "x": 0, "y": 32 },
+			{ "flags": 4, "matrix": [0, 2], "x": 0, "y": 64 },
+			{ "flags": 4, "matrix": [1, 0], "x": 112, "y": 0 },
+			{ "flags": 4, "matrix": [1, 1], "x": 112, "y": 32 },
+			{ "flags": 4, "matrix": [1, 2], "x": 112, "y": 64 },
+			{ "flags": 4, "matrix": [2, 0], "x": 224, "y": 0 },
+			{ "flags": 4, "matrix": [2, 1], "x": 224, "y": 32 },
+			{ "flags": 4, "matrix": [2, 2], "x": 224, "y": 64 }
+		],
+		"default": {
+			"animation": "splash",
+			"hue": 132,
+			"sat": 102,
+			"val": 255,
+			"speed": 80
+		},
+		"sleep": true
 	},
 	"community_layouts": ["ortho_3x3"],
 	"layouts": {
