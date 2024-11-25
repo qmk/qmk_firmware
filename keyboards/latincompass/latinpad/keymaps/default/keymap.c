@@ -17,13 +17,13 @@
    * .---------------.
    * |NUMLOCK|Calc.  |
    * |--------------------------------.
-   * |RGB_TOG|RGB_MOD|RGB_M_K|RGB_M_X |
+   * |RM_TOGG|RM_NEXT|RGB_M_K|RGB_M_X |
    * |-------|-------|-------|--------|
-   * |RGB_SAI|RGB_SAD|RGB_HUI|RGB_HUD |
+   * |RM_SATU|RM_SATD|RM_HUEU|RM_HUED |
    * |-------|-------|-------|--------|
-   * |RGB_VAI|RGB_VAD|RGB_SPI|RGB_SPD |
+   * |RM_VALU|RM_VALD|RM_SPDU|RM_SPDD |
    * |-------|-------|-------|--------|
-   * |RGB_SPI|RGB_SPD|RGB_TOG|KC_TRNS |
+   * |RM_SPDU|RM_SPDD|RM_TOGG|KC_TRNS |
    * .--------------------------------.
 */
 
@@ -37,10 +37,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_P0, KC_PDOT,KC_DELETE, KC_KP_ENTER),
     [1] = LAYOUT(
         KC_NUM, KC_CALCULATOR,
-        RGB_TOG, RGB_MOD, RGB_M_K, RGB_M_X,
-        RGB_SAI, RGB_SAD, RGB_HUI, RGB_HUD,
-        RGB_VAI, RGB_VAD, RGB_SPI, RGB_SPD,
-        RGB_SPI, RGB_SPD, RGB_TOG, KC_TRNS),
+        RM_TOGG, RM_NEXT, RGB_M_K, RGB_M_X,
+        RM_SATU, RM_SATD, RM_HUEU, RM_HUED,
+        RM_VALU, RM_VALD, RM_SPDU, RM_SPDD,
+        RM_SPDU, RM_SPDD, RM_TOGG, KC_TRNS),
 };
 
 static void render_logo(void) {

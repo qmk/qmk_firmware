@@ -57,6 +57,10 @@ You can also use any ARM chip with USB that [ChibiOS](https://www.chibios.org) s
  * [WB32F3G71xx](http://www.westberrytech.com)
  * [WB32FQ95xx](http://www.westberrytech.com)
 
+### Artery (AT32)
+
+ * [AT32F415](https://www.arterychip.com/en/product/AT32F415.jsp)
+
 ### NXP (Kinetis)
 
  * [MKL26Z64](https://www.nxp.com/products/processors-and-microcontrollers/arm-microcontrollers/general-purpose-mcus/kl-series-cortex-m0-plus/kinetis-kl2x-72-96-mhz-usb-ultra-low-power-microcontrollers-mcus-based-on-arm-cortex-m0-plus-core:KL2x)

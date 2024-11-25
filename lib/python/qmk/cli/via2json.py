@@ -29,6 +29,7 @@ def _convert_macros(via_macros):
     if len(via_macros) == 0:
         return list()
     split_regex = re.compile(r'(}\,)|(\,{)')
+    macro_group_regex = re.compile(r'({.+?})')
     macros = list()
     for via_macro in via_macros:
         # Split VIA macro to its elements
@@ -38,13 +39,28 @@ def _convert_macros(via_macros):
         macro_data = list()
         for m in macro:
             if '{' in m or '}' in m:
-                # Found keycode(s)
-                keycodes = m.split(',')
-                # Remove whitespaces and curly braces from around keycodes
-                keycodes = list(map(lambda s: s.strip(' {}'), keycodes))
-                # Remove the KC prefix
-                keycodes = list(map(lambda s: s.replace('KC_', ''), keycodes))
-                macro_data.append({"action": "tap", "keycodes": keycodes})
+                # Split macro groups
+                macro_groups = macro_group_regex.findall(m)
+                for macro_group in macro_groups:
+                    # Remove whitespaces and curly braces from around group
+                    macro_group = macro_group.strip(' {}')
+
+                    macro_action = 'tap'
+                    macro_keycodes = []
+
+                    if macro_group[0] == '+':
+                        macro_action = 'down'
+                        macro_keycodes.append(macro_group[1:])
+                    elif macro_group[0] == '-':
+                        macro_action = 'up'
+                        macro_keycodes.append(macro_group[1:])
+                    else:
+                        macro_keycodes.extend(macro_group.split(',') if ',' in macro_group else [macro_group])
+
+                    # Remove the KC prefixes
+                    macro_keycodes = list(map(lambda s: s.replace('KC_', ''), macro_keycodes))
+
+                    macro_data.append({"action": macro_action, "keycodes": macro_keycodes})
             else:
                 # Found text
                 macro_data.append(m)
@@ -54,13 +70,13 @@ def _convert_macros(via_macros):
 
 
 def _fix_macro_keys(keymap_data):
-    macro_no = re.compile(r'MACRO0?([0-9]{1,2})')
+    macro_no = re.compile(r'MACRO0?\(([0-9]{1,2})\)')
     for i in range(0, len(keymap_data)):
         for j in range(0, len(keymap_data[i])):
             kc = keymap_data[i][j]
             m = macro_no.match(kc)
             if m:
-                keymap_data[i][j] = f'MACRO_{m.group(1)}'
+                keymap_data[i][j] = f'MC_{m.group(1)}'
     return keymap_data
 
 

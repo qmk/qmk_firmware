@@ -19,7 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdint.h>
 #include <stdbool.h>
-#include <stddef.h> // offsetof
+#include <stddef.h>       // offsetof
+#include "action_layer.h" // layer_state_t
 
 // Size of EEPROM dedicated to keyboard- and user-specific data
 #ifndef EECONFIG_KB_DATA_SIZE
@@ -66,8 +67,8 @@ typedef union debug_config_t debug_config_t;
 void                         eeconfig_read_debug(debug_config_t *debug_config) __attribute__((nonnull));
 void                         eeconfig_update_debug(const debug_config_t *debug_config) __attribute__((nonnull));
 
-uint8_t eeconfig_read_default_layer(void);
-void    eeconfig_update_default_layer(uint8_t val);
+layer_state_t eeconfig_read_default_layer(void);
+void          eeconfig_update_default_layer(layer_state_t state);
 
 typedef union keymap_config_t keymap_config_t;
 void                          eeconfig_read_keymap(keymap_config_t *keymap_config) __attribute__((nonnull));

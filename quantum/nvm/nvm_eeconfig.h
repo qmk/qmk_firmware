@@ -4,6 +4,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "action_layer.h" // layer_state_t
 
 #ifndef EECONFIG_MAGIC_NUMBER
 #    define EECONFIG_MAGIC_NUMBER (uint16_t)0xFEE3 // When changing, decrement this value to avoid future re-init issues
@@ -22,8 +23,8 @@ typedef union debug_config_t debug_config_t;
 void                         nvm_eeconfig_read_debug(debug_config_t *debug_config);
 void                         nvm_eeconfig_update_debug(const debug_config_t *debug_config);
 
-uint8_t nvm_eeconfig_read_default_layer(void);
-void    nvm_eeconfig_update_default_layer(uint8_t val);
+layer_state_t nvm_eeconfig_read_default_layer(void);
+void          nvm_eeconfig_update_default_layer(layer_state_t state);
 
 typedef union keymap_config_t keymap_config_t;
 void                          nvm_eeconfig_read_keymap(keymap_config_t *keymap_config);

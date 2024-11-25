@@ -191,11 +191,11 @@ void eeconfig_update_debug(const debug_config_t *debug_config) {
     nvm_eeconfig_update_debug(debug_config);
 }
 
-uint8_t eeconfig_read_default_layer(void) {
+layer_state_t eeconfig_read_default_layer(void) {
     return nvm_eeconfig_read_default_layer();
 }
-void eeconfig_update_default_layer(uint8_t val) {
-    nvm_eeconfig_update_default_layer(val);
+void eeconfig_update_default_layer(layer_state_t state) {
+    nvm_eeconfig_update_default_layer(state);
 }
 
 void eeconfig_read_keymap(keymap_config_t *keymap_config) {

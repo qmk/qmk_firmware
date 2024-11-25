@@ -73,10 +73,24 @@ void nvm_eeconfig_update_debug(const debug_config_t *debug_config) {
     eeprom_update_byte(EECONFIG_DEBUG, debug_config->raw);
 }
 
-uint8_t nvm_eeconfig_read_default_layer(void) {
-    return eeprom_read_byte(EECONFIG_DEFAULT_LAYER);
+layer_state_t nvm_eeconfig_read_default_layer(void) {
+    uint8_t val = eeprom_read_byte(EECONFIG_DEFAULT_LAYER);
+#ifdef DEFAULT_LAYER_STATE_IS_VALUE_NOT_BITMASK
+    // stored as a layer number, so convert back to bitmask
+    return (layer_state_t)1 << val;
+#else
+    // stored as 8-bit-wide bitmask, so read the value directly - handling padding to 16/32 bit layer_state_t
+    return (layer_state_t)val;
+#endif
 }
-void nvm_eeconfig_update_default_layer(uint8_t val) {
+void nvm_eeconfig_update_default_layer(layer_state_t state) {
+#ifdef DEFAULT_LAYER_STATE_IS_VALUE_NOT_BITMASK
+    // stored as a layer number, so only store the highest layer
+    uint8_t val = get_highest_layer(state);
+#else
+    // stored as 8-bit-wide bitmask, so write the value directly - handling truncation from 16/32 bit layer_state_t
+    uint8_t val = (uint8_t)state;
+#endif
     eeprom_update_byte(EECONFIG_DEFAULT_LAYER, val);
 }
 

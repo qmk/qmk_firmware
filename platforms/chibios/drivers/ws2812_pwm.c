@@ -40,6 +40,9 @@
 #if (STM32_DMA_SUPPORTS_DMAMUX == TRUE) && !defined(WS2812_PWM_DMAMUX_ID)
 #    error "please consult your MCU's datasheet and specify in your config.h: #define WS2812_PWM_DMAMUX_ID STM32_DMAMUX1_TIM?_UP"
 #endif
+#if (AT32_DMA_SUPPORTS_DMAMUX == TRUE) && !defined(WS2812_PWM_DMAMUX_CHANNEL) && !defined(WS2812_PWM_DMAMUX_ID)
+#    error "please consult your MCU's datasheet and specify in your config.h: #define WS2812_PWM_DMAMUX_CHANNEL 1, #define WS2812_PWM_DMAMUX_ID AT32_DMAMUX_TMR?_OVERFLOW"
+#endif
 
 /* Summarize https://www.st.com/resource/en/application_note/an4013-stm32-crossseries-timer-overview-stmicroelectronics.pdf to
  * figure out if we are using a 32bit timer. This is needed to setup the DMA controller correctly.
@@ -269,6 +272,14 @@ typedef uint32_t ws2812_buffer_t;
 #        define WS2812_PWM_DMA_PERIPHERAL_WIDTH STM32_DMA_CR_PSIZE_HWORD
 typedef uint16_t ws2812_buffer_t;
 #    endif
+#elif defined(AT32F415)
+#    define WS2812_PWM_DMA_MEMORY_WIDTH AT32_DMA_CCTRL_MWIDTH_BYTE
+#    if defined(WS2812_PWM_TIMER_32BIT)
+#        define WS2812_PWM_DMA_PERIPHERAL_WIDTH AT32_DMA_CCTRL_PWIDTH_WORD
+#    else
+#        define WS2812_PWM_DMA_PERIPHERAL_WIDTH AT32_DMA_CCTRL_PWIDTH_HWORD
+#    endif
+typedef uint8_t ws2812_buffer_t;
 #else
 #    define WS2812_PWM_DMA_MEMORY_WIDTH STM32_DMA_CR_MSIZE_BYTE
 #    if defined(WS2812_PWM_TIMER_32BIT)
@@ -309,8 +320,13 @@ void ws2812_init(void) {
                 [0 ... 3]                = {.mode = PWM_OUTPUT_DISABLED, .callback = NULL},    // Channels default to disabled
                 [WS2812_PWM_CHANNEL - 1] = {.mode = WS2812_PWM_OUTPUT_MODE, .callback = NULL}, // Turn on the channel we care about
             },
+#if defined(AT32F415)
+        .ctrl2 = 0,
+        .iden  = AT32_TMR_IDEN_OVFDEN, // DMA on update event for next period
+#else
         .cr2  = 0,
         .dier = TIM_DIER_UDE, // DMA on update event for next period
+#endif
     };
     //#pragma GCC diagnostic pop  // Restore command-line warning options
 
@@ -321,6 +337,11 @@ void ws2812_init(void) {
     dmaStreamSetSource(WS2812_PWM_DMA_STREAM, ws2812_frame_buffer);
     dmaStreamSetDestination(WS2812_PWM_DMA_STREAM, &(WS2812_PWM_DRIVER.tim->CCR[WS2812_PWM_CHANNEL - 1])); // Ziel ist der An-Zeit im Cap-Comp-Register
     dmaStreamSetMode(WS2812_PWM_DMA_STREAM, WB32_DMA_CHCFG_HWHIF(WS2812_PWM_DMA_CHANNEL) | WB32_DMA_CHCFG_DIR_M2P | WB32_DMA_CHCFG_PSIZE_WORD | WB32_DMA_CHCFG_MSIZE_WORD | WB32_DMA_CHCFG_MINC | WB32_DMA_CHCFG_CIRC | WB32_DMA_CHCFG_TCIE | WB32_DMA_CHCFG_PL(3));
+#elif defined(AT32F415)
+    dmaStreamAlloc(WS2812_PWM_DMA_STREAM - AT32_DMA_STREAM(0), 10, NULL, NULL);
+    dmaStreamSetPeripheral(WS2812_PWM_DMA_STREAM, &(WS2812_PWM_DRIVER.tmr->CDT[WS2812_PWM_CHANNEL - 1])); // Ziel ist der An-Zeit im Cap-Comp-Register
+    dmaStreamSetMemory0(WS2812_PWM_DMA_STREAM, ws2812_frame_buffer);
+    dmaStreamSetMode(WS2812_PWM_DMA_STREAM, AT32_DMA_CCTRL_DTD_M2P | WS2812_PWM_DMA_PERIPHERAL_WIDTH | WS2812_PWM_DMA_MEMORY_WIDTH | AT32_DMA_CCTRL_MINCM | AT32_DMA_CCTRL_LM | AT32_DMA_CCTRL_CHPL(3));
 #else
     dmaStreamAlloc(WS2812_PWM_DMA_STREAM - STM32_DMA_STREAM(0), 10, NULL, NULL);
     dmaStreamSetPeripheral(WS2812_PWM_DMA_STREAM, &(WS2812_PWM_DRIVER.tim->CCR[WS2812_PWM_CHANNEL - 1])); // Ziel ist der An-Zeit im Cap-Comp-Register
@@ -333,6 +354,11 @@ void ws2812_init(void) {
 #if (STM32_DMA_SUPPORTS_DMAMUX == TRUE)
     // If the MCU has a DMAMUX we need to assign the correct resource
     dmaSetRequestSource(WS2812_PWM_DMA_STREAM, WS2812_PWM_DMAMUX_ID);
+#endif
+
+#if (AT32_DMA_SUPPORTS_DMAMUX == TRUE)
+    // If the MCU has a DMAMUX we need to assign the correct resource
+    dmaSetRequestSource(WS2812_PWM_DMA_STREAM, WS2812_PWM_DMAMUX_CHANNEL, WS2812_PWM_DMAMUX_ID);
 #endif
 
     // Start DMA
