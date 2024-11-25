@@ -67,3 +67,10 @@ https://github.com/9R/replicazeron_schematics
 |          VCC  |           VCC  | VCC | red   |
 |           D4  |           B10  | SDA | green |
 |           C6  |           B11  | SCL | yellow|
+
+### LIGHTING
+| promicro gpio | stm32F103 gpio | pin  | LED    |
+|---------------|----------------|------|--------|
+|           D2  |           B13  | GND  | LED0   |
+|           D3  |           B12  | VCC  | LED1   |
+|               |           B14  | Data | WS2812 |
