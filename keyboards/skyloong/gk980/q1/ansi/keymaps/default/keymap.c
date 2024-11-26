@@ -16,18 +16,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [1] = LAYOUT_all(
         _______,             KC_F14,   KC_F15, G(KC_TAB),  KC_WSCH,  G(C(KC_S)),   KC_SLEP,   KC_MPRV,  KC_MPLY,   KC_MNXT,   KC_MUTE,  KC_VOLD,     KC_VOLU,   G(KC_SPC), RCS(KC_SPC), G(RCS(KC_4)), KC_PGUP, KC_PGDN,
-        _______,  _______,  _______,  _______,   _______,  _______,     _______,   _______,   _______,  _______,   RGB_TOG,  RGB_RMOD,  RGB_MOD,      KC_DEL,                   KC_NUM,      KC_PSLS, KC_PAST, KC_PMNS,
+        _______,  _______,  _______,  _______,   _______,  _______,     _______,   _______,   _______,  _______,   RM_TOGG,   RM_PREV,  RM_NEXT,      KC_DEL,                   KC_NUM,      KC_PSLS, KC_PAST, KC_PMNS,
         _______,  _______,  _______,  _______,   _______,  _______,     _______,   _______,   _______,  _______,   _______,   _______,  _______,     _______,                    KC_P7,        KC_P8,   KC_P9, KC_PPLS,
         _______,  _______,  _______,  _______,   _______,  _______,     _______,   _______,   _______,  _______,   _______,   _______,               _______,                    KC_P4,        KC_P5,   KC_P6,
-        _______,  _______,  _______,  _______,   _______,  _______,     _______,   _______,   _______,  _______,   _______,                          _______,  RGB_VAI,          KC_P1,        KC_P2,   KC_P3, KC_PENT,
-        _______,  _______,  _______,             _______,  _______,                _______,             _______,   _______,   _______,               RGB_SPD,  RGB_VAD,      RGB_SPI,          KC_P0, KC_PDOT
+        _______,  _______,  _______,  _______,   _______,  _______,     _______,   _______,   _______,  _______,   _______,                          _______,   RM_VALU,         KC_P1,        KC_P2,   KC_P3, KC_PENT,
+        _______,  _______,  _______,             _______,  _______,                _______,             _______,   _______,   _______,               RM_SPDD,   RM_VALD,       RM_SPDU,          KC_P0, KC_PDOT
     ),
 };
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(RGB_VAD, RGB_VAI), ENCODER_CCW_CW(RGB_HUD, RGB_HUI), ENCODER_CCW_CW(RGB_SPD, RGB_SPI), ENCODER_CCW_CW(C(KC_WH_D), C(KC_WH_U))},
-    [1] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(RGB_VAD, RGB_VAI), ENCODER_CCW_CW(RGB_HUD, RGB_HUI), ENCODER_CCW_CW(RGB_SPD, RGB_SPI), ENCODER_CCW_CW(C(KC_WH_D), C(KC_WH_U))}
+    [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(RM_VALD, RM_VALU), ENCODER_CCW_CW(RM_HUED, RM_HUEU), ENCODER_CCW_CW(RM_SPDD, RM_SPDU), ENCODER_CCW_CW(C(MS_WHLD), C(MS_WHLU))},
+    [1] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(RM_VALD, RM_VALU), ENCODER_CCW_CW(RM_HUED, RM_HUEU), ENCODER_CCW_CW(RM_SPDD, RM_SPDU), ENCODER_CCW_CW(C(MS_WHLD), C(MS_WHLU))}
 };
 #endif
 
