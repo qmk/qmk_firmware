@@ -11,11 +11,11 @@ A low cost Raspberry Pi Pico based keyboard inspired originally by the CFTKB Mys
 
 Make example for this keyboard (after setting up your build environment):
 
-    make enviousdesign/60f/V2:default
+    make enviousdesign/60f/v2:default
 
 Flashing example for this keyboard:
 
-    make enviousdesign/60f/V2:default:flash
+    make enviousdesign/60f/v2:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 

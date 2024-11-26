@@ -1,6 +1,6 @@
 # EnvKB 60F
 
-![Image of the EnvKB 60F PCB](https://i.imgur.com/c5xMEg0h.png)
+![Image of the EnvKB 60F PCB](https://i.imgur.com/c5xMEg0.png)
 
 
 A low cost Standard 60% Design which takes inspiration from the CFTKB Mysterium.
@@ -11,11 +11,11 @@ A low cost Standard 60% Design which takes inspiration from the CFTKB Mysterium.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make enviousdesign/60f/V1:default
+    make enviousdesign/60f/v1:default
 
 Flashing example for this keyboard:
 
-    make enviousdesign/60f/V1:default
+    make enviousdesign/60f/v1:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
