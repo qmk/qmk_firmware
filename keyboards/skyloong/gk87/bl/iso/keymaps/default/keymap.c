@@ -16,7 +16,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [1] = LAYOUT_all(
         _______,             KC_F14,   KC_F15,  G(KC_TAB),  KC_WSCH,  G(C(KC_S)),    KC_SLEP,  KC_MPRV,  KC_MPLY,  KC_MNXT,   KC_MUTE,  KC_VOLD,  KC_VOLU,     KC_PSCR,  KC_SCRL,  KC_PAUS,
-        _______,  _______,  _______,  _______,    _______,  _______,     _______,    _______,  _______,  _______,  RGB_TOG,  RGB_RMOD,  RGB_MOD,   KC_DEL,      KC_INS,  KC_HOME,  KC_PGUP,
+        _______,  _______,  _______,  _______,    _______,  _______,     _______,    _______,  _______,  _______,  BL_TOGG,   BL_BRTG,  BL_BRTG,   KC_DEL,      KC_INS,  KC_HOME,  KC_PGUP,
         _______,  _______,  _______,  _______,    _______,  _______,     _______,    _______,  _______,  _______,  _______,   _______,  _______,                KC_DEL,   KC_END,  KC_PGDN,
         _______,  _______,  _______,  _______,    _______,  _______,     _______,    _______,  _______,  _______,  _______,   _______,  _______,  _______,
         _______,  _______,  _______,  _______,    _______,  _______,     _______,    _______,  _______,  _______,  _______,   _______,            _______,                 BL_UP,
@@ -26,8 +26,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(BL_DOWN, BL_UP), ENCODER_CCW_CW(C(KC_WH_D), C(KC_WH_U))},
-    [1] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(BL_DOWN, BL_UP), ENCODER_CCW_CW(C(KC_WH_D), C(KC_WH_U))}
+    [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(BL_DOWN, BL_UP), ENCODER_CCW_CW(C(MS_WHLD), C(MS_WHLU))},
+    [1] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(BL_DOWN, BL_UP), ENCODER_CCW_CW(C(MS_WHLD), C(MS_WHLU))}
 };
 #endif
 
