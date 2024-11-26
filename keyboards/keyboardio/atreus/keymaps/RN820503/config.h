@@ -64,6 +64,9 @@
 // Apply the modifier on keys that are tapped during a short hold of a modtap
 #define PERMISSIVE_HOLD_PER_KEY
 
+// Don't apply custom shift keys when any non-shift mod is held.
+#define CUSTOM_SHIFT_KEYS_NEGMODS ~MOD_MASK_SHIFT
+
 #define COMBO_TERM 25        // how quickly all combo keys must be pressed in succession to trigger
 #define COMBO_TERM_PER_KEY   // reduce for combos that misfire on rolls
 // #define COMBO_MUST_HOLD_MODS // if a combo triggers a modifier, only trigger when the combo is held

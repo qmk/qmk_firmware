@@ -1,5 +1,6 @@
 
 VPATH += keyboards/gboards/ # using gboards combo code: see https://combos.gboards.ca/
+SRC += features/custom_shift_keys.c
 
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 LTO_ENABLE = yes			# link time optimisation
@@ -7,7 +8,7 @@ CONSOLE_ENABLE = yes        # Console for debug
 NKRO_ENABLE = yes           # Enable N-Key Rollover
 CAPS_WORD_ENABLE = yes
 COMBO_ENABLE = yes
-KEY_OVERRIDE_ENABLE = yes
+KEY_OVERRIDE_ENABLE = no
 
 AUTO_SHIFT_ENABLE = no
 MOUSEKEY_ENABLE = no       	# Mouse keys

@@ -1,6 +1,6 @@
 
 #include QMK_KEYBOARD_H
-#include "version.h"
+#include "features/custom_shift_keys.h"
 
 enum layer_names {
     _DEF,
@@ -196,15 +196,11 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     }
 };
 
-/*
-void add_h_digragh(void) {
-    unregister_mods(MOD_MASK_SHIFT);
-    tap_code(KC_H); // send "h" honouring CAPSLK state
-};
-*/
 
 // program custom keycode functions
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+    if (!process_custom_shift_keys(keycode, record)) { return false; }
 
     switch (keycode) {
         case SS_Qu:  // send "qu" on tap, bspc "u" if held
@@ -242,32 +238,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 };
 
-// Key overrides
-const key_override_t two_key_override  = ko_make_basic(MOD_MASK_SHIFT, KC_2, KC_AT);		/* shift 2 is @ */
-const key_override_t one_key_override  = ko_make_basic(MOD_MASK_SHIFT, KC_1, KC_DLR);		/* shift 1 is $ */
-const key_override_t zero_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_0, KC_HASH);		/* shift 0 is # */
-const key_override_t six_key_override =  ko_make_basic(MOD_MASK_SHIFT, KC_6, KC_LPRN);		/* shift 6 is ( */
-const key_override_t nine_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_9, KC_RPRN);		/* shift 9 is ) */
-const key_override_t plus_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_PLUS, KC_EQL);	/* shift + is = */
-const key_override_t dot_key_override  = ko_make_basic(MOD_MASK_SHIFT, KC_DOT, KC_COLN);	/* shift . is : */
-const key_override_t comm_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_COMM, KC_SCLN);	/* shift , is ; */
-const key_override_t slsh_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_SLSH, KC_ASTR);	/* shift / is * */
-const key_override_t dquo_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_DQUO, KC_QUES);	/* shift " is ? */
-const key_override_t quot_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_QUOT, KC_EXLM);	/* shift ' is ! */
-const key_override_t bspc_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);	/* shift ⌫ is ⌦ */
-
-// This globally defines all key overrides to be used
-const key_override_t *key_overrides[] = {
-	&two_key_override,
-	&one_key_override,
-	&zero_key_override,
-    &six_key_override,
-    &nine_key_override,
-    &plus_key_override,
-    &dot_key_override,
-    &comm_key_override,
-    &slsh_key_override,
-    &dquo_key_override,
-    &quot_key_override,
-    &bspc_key_override,
+const custom_shift_key_t custom_shift_keys[] = {
+    {KC_1,    KC_AT},   /* shift 1 is $ */
+    {KC_0,    KC_HASH}, /* shift 0 is # */
+    {KC_6,    KC_LPRN}, /* shift 6 is ( */
+    {KC_9,    KC_RPRN}, /* shift 9 is ) */
+    {KC_DOT,  KC_COLN}, /* shift . is : */
+    {KC_COMM, KC_SCLN}, /* shift , is ; */
+    {KC_SLSH, KC_ASTR}, /* shift / is * */
+    {KC_DQUO, KC_EXLM}, /* shift " is ! */
+    {KC_QUOT, KC_QUES}, /* shift ' is ? */
+	{KC_BSPC, KC_DEL},  /* shift ⌫ is ⌦ */
 };
+uint8_t NUM_CUSTOM_SHIFT_KEYS =
+    sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);

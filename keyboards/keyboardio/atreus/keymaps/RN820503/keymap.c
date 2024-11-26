@@ -221,56 +221,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return true;  // Didn't handle this
             break;
-
-        /* the H digraphs
-        case SS_Th:
-            if (record->event.pressed) {
-                tap_code(KC_T); // send "T" honouring caps
-			    add_h_digragh();
-            }
-            break;
-        case SS_Ch:
-            if (record->event.pressed) {
-                tap_code(KC_C); // send "C" honouring caps
-                add_h_digragh();
-            }
-            break;
-        case SS_Sh:
-            if (record->event.pressed) {
-                tap_code(KC_S); // send "S" honouring caps
-                add_h_digragh();
-            }
-            break;
-        case SS_Gh:
-            if (record->event.pressed) {
-                tap_code(KC_G); // send "G" honouring caps
-                add_h_digragh();
-            }
-            break;
-        case SS_Wh:
-            if (record->event.pressed) {
-                tap_code(KC_W); // send "W" honouring caps
-                add_h_digragh();
-            }
-            break;
-        case SS_Ph:
-            if (record->event.pressed) {
-                tap_code(KC_P); // send "P" honouring caps
-                add_h_digragh();
-            }
-            break;
-         case SS_Prns:
-            if (record->event.pressed) {
-            	SEND_STRING("()"SS_TAP(X_LEFT));
-            }
-            break;
-        case MY_PRNS:
-            if (record->tap.count && record->event.pressed) {
-                tap_code16(KC_LPRN); // send "(" on tap
-            } else if (record->event.press) {
-                tap_code16(KC_RPRN); // send ")" on hold
-            }
-            return false; */
     }
     return true;
 };
