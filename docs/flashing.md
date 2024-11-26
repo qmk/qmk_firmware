@@ -53,7 +53,7 @@ QMK maintains [a fork of the LUFA DFU bootloader](https://github.com/qmk/lufa/tr
 //#define QMK_LED E6
 //#define QMK_SPEAKER C6
 ```
-Currently we do not recommend making `QMK_ESC` the same key as the one designated for [Bootmagic Lite](features/bootmagic), as holding it down will cause the MCU to loop back and forth between entering and exiting the bootloader.
+Currently we do not recommend making `QMK_ESC` the same key as the one designated for [Bootmagic](features/bootmagic), as holding it down will cause the MCU to loop back and forth between entering and exiting the bootloader.
 
 The manufacturer and product strings are automatically pulled from `config.h`, with " Bootloader" appended to the product string.
 
@@ -209,7 +209,7 @@ To enable the additional features, add the following defines to your `config.h`:
 //#define QMK_SPEAKER C6
 ```
 
-Currently we do not recommend making `QMK_ESC` the same key as the one designated for [Bootmagic Lite](features/bootmagic), as holding it down will cause the MCU to loop back and forth between entering and exiting the bootloader.
+Currently we do not recommend making `QMK_ESC` the same key as the one designated for [Bootmagic](features/bootmagic), as holding it down will cause the MCU to loop back and forth between entering and exiting the bootloader.
 
 The manufacturer and product strings are automatically pulled from `config.h`, with " Bootloader" appended to the product string.
 
@@ -344,6 +344,39 @@ Flashing sequence:
 2. Wait for the OS to detect the device
 3. Flash a .bin file
 4. Reset the device into application mode (may be done automatically)
+
+## AT32 DFU
+
+All AT32 MCUs come preloaded with a factory bootloader that cannot be modified nor deleted.
+
+To ensure compatibility with the AT32-DFU bootloader, make sure this block is present in your `rules.mk`:
+
+```make
+# Bootloader selection
+BOOTLOADER = at32-dfu
+```
+
+Compatible flashers:
+
+* [dfu-util](https://dfu-util.sourceforge.net/) / `:dfu-util` target in QMK (recommended command line)
+  ```
+  dfu-util -a 0 -d 2E3C:DF11 -s 0x8000000:leave -D <filename>
+  ```
+
+Flashing sequence:
+
+1. Enter the bootloader using any of the following methods:
+    * Tap the `QK_BOOT` keycode
+    * If a reset circuit is present, tap the `RESET` button on the PCB; some boards may also have a toggle switch that must be flipped
+    * Otherwise, you need to bridge `BOOT0` to VCC (via `BOOT0` button or jumper), short `RESET` to GND (via `RESET` button or jumper), and then let go of the `BOOT0` bridge
+2. Wait for the OS to detect the device
+3. Flash a .bin file
+4. Reset the device into application mode (may be done automatically)
+
+### `make` Targets
+
+* `:dfu-util`: Waits until an AT32 bootloader device is available, and then flashes the firmware.
+* `:dfu-util-split-left` and `:dfu-util-split-right`: Flashes the firmware as with `:dfu-util`, but also sets the handedness setting in EEPROM.
 
 ## tinyuf2
 
