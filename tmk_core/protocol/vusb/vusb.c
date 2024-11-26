@@ -659,7 +659,7 @@ const PROGMEM uchar shared_hid_report[] = {
     0x26, 0xFF, 0x7F, //     Logical Maximum (32767)
     0x95, 0x02,       //     Report Count (2)
     0x75, 0x10,       //     Report Size (16)
-    0x65, 0x33,       //     Unit (Inch, English Linear)
+    0x65, 0x13,       //     Unit (Inch, English Linear)
     0x55, 0x0E,       //     Unit Exponent (-2)
     0x81, 0x02,       //     Input (Data, Variable, Absolute)
     0xC0,             //   End Collection

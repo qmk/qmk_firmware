@@ -15,5 +15,8 @@
         }
     },
     "processor": "atmega32u4",
-    "bootloader": "caterina"
+    "bootloader": "caterina",
+    "build": {
+        "lto": true
+    }
 }

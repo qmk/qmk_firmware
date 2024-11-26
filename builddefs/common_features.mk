@@ -282,18 +282,17 @@ ifneq ($(strip $(WEAR_LEVELING_DRIVER)),none)
   endif
 endif
 
-VALID_FLASH_DRIVER_TYPES := spi
+VALID_FLASH_DRIVER_TYPES := spi custom
 FLASH_DRIVER ?= none
 ifneq ($(strip $(FLASH_DRIVER)), none)
     ifeq ($(filter $(FLASH_DRIVER),$(VALID_FLASH_DRIVER_TYPES)),)
         $(call CATASTROPHIC_ERROR,Invalid FLASH_DRIVER,FLASH_DRIVER="$(FLASH_DRIVER)" is not a valid flash driver)
     else
-        OPT_DEFS += -DFLASH_ENABLE
+        OPT_DEFS += -DFLASH_ENABLE -DFLASH_DRIVER -DFLASH_DRIVER_$(strip $(shell echo $(FLASH_DRIVER) | tr '[:lower:]' '[:upper:]'))
+		COMMON_VPATH += $(DRIVER_PATH)/flash
         ifeq ($(strip $(FLASH_DRIVER)),spi)
-            SPI_DRIVER_REQUIRED = yes
-            OPT_DEFS += -DFLASH_DRIVER -DFLASH_SPI
-            COMMON_VPATH += $(DRIVER_PATH)/flash
             SRC += flash_spi.c
+            SPI_DRIVER_REQUIRED = yes
         endif
     endif
 endif

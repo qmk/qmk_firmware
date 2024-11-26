@@ -49,12 +49,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Encoder support
 #ifndef EXTRA_ENCODERS_ENABLE
-#define ENCODERS_PAD_A { D2 }
-#define ENCODERS_PAD_B { D6 }
+#define ENCODER_A_PINS { D2 }
+#define ENCODER_B_PINS { D6 }
 #else
 #ifdef OLED_ENABLE
     #error Extra encoders cannot be enabled at the same time as the OLED Driver as they use the same pins.
 #endif
-#define ENCODERS_PAD_A { D2, D1, B0 }
-#define ENCODERS_PAD_B { D6, B1, D0 }
+#define ENCODER_A_PINS { D2, D1, B0 }
+#define ENCODER_B_PINS { D6, B1, D0 }
 #endif

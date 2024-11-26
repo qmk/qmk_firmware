@@ -18,6 +18,10 @@
         "levels": 6,
         "breathing": true
     },
+    "indicators": {
+        "caps_lock": "C7",
+        "scroll_lock": "B5"
+    },
     "rgblight": {
         "saturation_steps": 8,
         "brightness_steps": 8,

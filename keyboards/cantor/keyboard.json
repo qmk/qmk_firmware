@@ -39,6 +39,9 @@
                     ["A0", "A1", "A2", null, null, null]
                 ]
             }
+        },
+        "serial": {
+            "driver": "usart"
         }
     },
     "community_layouts": ["split_3x6_3"],

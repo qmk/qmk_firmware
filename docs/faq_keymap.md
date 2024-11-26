@@ -34,7 +34,7 @@ On first run, the VIA code in the firmware will copy the keymap from flash memor
 
 The simple fix for this is to clear the EEPROM. You can do this in several ways:
 
-* Hold the Bootmagic Lite key (usually top left/Escape) while plugging the board in, which will also place the board into bootloader mode; then unplug and replug the board.
+* Hold the Bootmagic key (usually top left/Escape) while plugging the board in, which will also place the board into bootloader mode; then unplug and replug the board.
 * Press the `QK_CLEAR_EEPROM`/`EE_CLR` keycode if it is accessible on your keymap.
 * Place the board into bootloader mode and hit the "Clear EEPROM" button. This may not be available for all bootloaders, and you may need to reflash the board afterwards.
 

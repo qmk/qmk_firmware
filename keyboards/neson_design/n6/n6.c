@@ -335,8 +335,6 @@ void housekeeping_task_kb(void)
     }
 
     is31fl3731_flush();
-
-    housekeeping_task_user();
 }
 
 void setleds_custom(rgb_led_t *start_led, uint16_t num_leds)
