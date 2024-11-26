@@ -1,12 +1,10 @@
 //  Copyright 2023 NaturalZh (@NaturalZh)
 // SPDX-License-Identifier: GPL-2.0-or-later
-#pragma once
-//#include "quantum.h"
 #include "atomic_util.h"
 #include "gpio.h"
 
-#define HC595_ST_PIN B1  //74HC595 storage register clock input
-#define HC595_SH_PIN B0  //74HC595 shift register clock input
+#define HC595_ST_PIN B5  //74HC595 storage register clock input
+#define HC595_SH_PIN B4  //74HC595 shift register clock input
 #define HC595_DS B3   // 74HC595 serial data input
 
 /*

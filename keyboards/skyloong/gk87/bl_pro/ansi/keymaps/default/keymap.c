@@ -50,14 +50,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_WIN] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
     [_MAC] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
-    [_WIN_INDEX] = { ENCODER_CCW_CW(RGB_HUD, RGB_HUI)},
-    [_MAC_INDEX] = { ENCODER_CCW_CW(RGB_HUD, RGB_HUI)}
+    [_WIN_INDEX] = { ENCODER_CCW_CW(BL_DOWN, BL_UP)},
+    [_MAC_INDEX] = { ENCODER_CCW_CW(BL_DOWN, BL_UP)}
 };
 #endif
 
 #if defined(DIP_SWITCH_MAP_ENABLE)
 const uint16_t PROGMEM dip_switch_map[NUM_DIP_SWITCHES][NUM_DIP_STATES] = {
-    DIP_SWITCH_OFF_ON(DF(0), DF(1)),
+    DIP_SWITCH_OFF_ON(DF(0), DF(1))
 };
 #endif
 
