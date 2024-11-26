@@ -1,7 +1,7 @@
 # Sofle Pico Keyboard
 
-![Sofle Pico](https://raw.githubusercontent.com/JellyTitan/Sofle-Pico/main/docs/images/qmk/sofle_pico_hero_image.jpeg)
-![Sofle Pico PCB](https://raw.githubusercontent.com/JellyTitan/Sofle-Pico/main/docs/images/qmk/sofle_pico_pcb_hero_image.jpeg)
+![Sofle Pico](https://i.imgur.com/9VBj3T5.jpeg)
+![Sofle Pico PCB](https://i.imgur.com/8SDTm4h.jpeg)
 Sofle Pico is a 60% Raspberry Pi Pico powered split keyboard boasting a 4x6 layout with an aggressive columnar stagger. It has 5 "thumb" keys on either side, support for 2-4 rotary encoders, per-key RGB lighting, 128x64 OLEDs and a tenting puck mount.
 
 - Keyboard Maintainer: [Ryan Neff](https://github.com/JellyTitan)
