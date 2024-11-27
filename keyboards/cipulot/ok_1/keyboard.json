@@ -70,6 +70,9 @@
             "splash": true,
             "typing_heatmap": true
         },
+        "default": {
+            "animation": "rainbow_moving_chevron"
+        },
         "driver": "ws2812",
         "layout": [
             {"matrix": [0, 13], "x": 205, "y": 0, "flags": 1},
