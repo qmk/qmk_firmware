@@ -18,7 +18,6 @@
     "features": {
         "caps_word": true,
         "encoder": true,
-        "encoder_map": true,
         "rgblight": true,
         "extrakey": true,
         "mousekey": true,
