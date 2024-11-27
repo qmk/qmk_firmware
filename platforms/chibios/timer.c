@@ -5,6 +5,7 @@
 static uint32_t ticks_offset = 0;
 static uint32_t last_ticks   = 0;
 static uint32_t ms_offset    = 0;
+static uint32_t saved_ms     = 0;
 #if CH_CFG_ST_RESOLUTION < 32
 static uint32_t last_systime = 0;
 static uint32_t overflow     = 0;
@@ -71,6 +72,26 @@ void timer_clear(void) {
     last_ticks   = 0;
     ms_offset    = 0;
     chSysUnlock();
+}
+
+__attribute__((weak)) void platform_timer_save_value(uint32_t value) {
+    saved_ms = value;
+}
+
+__attribute__((weak)) uint32_t platform_timer_restore_value(void) {
+    return saved_ms;
+}
+
+void timer_restore(void) {
+    chSysLock();
+    ticks_offset = get_system_time_ticks();
+    last_ticks   = 0;
+    ms_offset    = platform_timer_restore_value();
+    chSysUnlock();
+}
+
+void timer_save(void) {
+    platform_timer_save_value(timer_read32());
 }
 
 uint16_t timer_read(void) {
