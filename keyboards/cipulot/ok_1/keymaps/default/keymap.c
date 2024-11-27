@@ -75,58 +75,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case MAC:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_MAC_BASE);
-            }
-            return false;
-
-        case WIN:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_WIN_BASE);
-            }
-            return false;
-
-        case MACFN:
-            if (record->event.pressed) {
-                layer_on(_MAC_FN);
-            } else {
-                layer_off(_MAC_FN);
-            }
-            return false;
-
-        case WINFN:
-            if (record->event.pressed) {
-                layer_on(_WIN_FN);
-            } else {
-                layer_off(_WIN_FN);
-            }
-            return false;
-
-        case OPT:
-            if (record->event.pressed) {
-                register_code(KC_LALT);
-            } else {
-                unregister_code(KC_LALT);
-            }
-            return false;
-
-        case CTLR:
-            if (record->event.pressed) {
-                register_code(KC_LCTL);
-            } else {
-                unregister_code(KC_LCTL);
-            }
-            return false;
-
-        case CMD:
-            if (record->event.pressed) {
-                register_code(KC_LGUI);
-            } else {
-                unregister_code(KC_LGUI);
-            }
-            return false;
-
         case SNIP:
             if (record->event.pressed) {
                 if (IS_LAYER_ON(_WIN_FN)) {
