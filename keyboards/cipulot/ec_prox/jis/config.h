@@ -19,6 +19,8 @@
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
 
+#define UNUSED_POSITIONS_LIST { {4, 6} }
+
 #define MATRIX_ROW_PINS \
     { A7, B0, A4, A5, A6 }
 
