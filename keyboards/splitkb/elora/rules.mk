@@ -1,1 +1,0 @@
-DEFAULT_FOLDER = splitkb/elora/rev1
