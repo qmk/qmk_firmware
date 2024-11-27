@@ -689,6 +689,8 @@ enum qk_keycode_defines {
     QK_RGB_MATRIX_VALUE_DOWN = 0x784A,
     QK_RGB_MATRIX_SPEED_UP = 0x784B,
     QK_RGB_MATRIX_SPEED_DOWN = 0x784C,
+    QK_RGB_MATRIX_FLAG_NEXT = 0x784D,
+    QK_RGB_MATRIX_FLAG_PREVIOUS = 0x784E,
     QK_BOOTLOADER = 0x7C00,
     QK_REBOOT = 0x7C01,
     QK_DEBUG_TOGGLE = 0x7C02,
@@ -1378,6 +1380,8 @@ enum qk_keycode_defines {
     RM_VALD    = QK_RGB_MATRIX_VALUE_DOWN,
     RM_SPDU    = QK_RGB_MATRIX_SPEED_UP,
     RM_SPDD    = QK_RGB_MATRIX_SPEED_DOWN,
+    RM_FLGN    = QK_RGB_MATRIX_FLAG_NEXT,
+    RM_FLGP    = QK_RGB_MATRIX_FLAG_PREVIOUS,
     QK_BOOT    = QK_BOOTLOADER,
     QK_RBT     = QK_REBOOT,
     DB_TOGG    = QK_DEBUG_TOGGLE,
@@ -1505,7 +1509,7 @@ enum qk_keycode_defines {
 #define IS_LED_MATRIX_KEYCODE(code) ((code) >= QK_LED_MATRIX_ON && (code) <= QK_LED_MATRIX_SPEED_DOWN)
 #define IS_UNDERGLOW_KEYCODE(code) ((code) >= QK_UNDERGLOW_TOGGLE && (code) <= QK_UNDERGLOW_SPEED_DOWN)
 #define IS_RGB_KEYCODE(code) ((code) >= RGB_MODE_PLAIN && (code) <= RGB_MODE_TWINKLE)
-#define IS_RGB_MATRIX_KEYCODE(code) ((code) >= QK_RGB_MATRIX_ON && (code) <= QK_RGB_MATRIX_SPEED_DOWN)
+#define IS_RGB_MATRIX_KEYCODE(code) ((code) >= QK_RGB_MATRIX_ON && (code) <= QK_RGB_MATRIX_FLAG_PREVIOUS)
 #define IS_QUANTUM_KEYCODE(code) ((code) >= QK_BOOTLOADER && (code) <= QK_LAYER_LOCK)
 #define IS_KB_KEYCODE(code) ((code) >= QK_KB_0 && (code) <= QK_KB_31)
 #define IS_USER_KEYCODE(code) ((code) >= QK_USER_0 && (code) <= QK_USER_31)
@@ -1531,7 +1535,7 @@ enum qk_keycode_defines {
 #define LED_MATRIX_KEYCODE_RANGE            QK_LED_MATRIX_ON ... QK_LED_MATRIX_SPEED_DOWN
 #define UNDERGLOW_KEYCODE_RANGE             QK_UNDERGLOW_TOGGLE ... QK_UNDERGLOW_SPEED_DOWN
 #define RGB_KEYCODE_RANGE                   RGB_MODE_PLAIN ... RGB_MODE_TWINKLE
-#define RGB_MATRIX_KEYCODE_RANGE            QK_RGB_MATRIX_ON ... QK_RGB_MATRIX_SPEED_DOWN
+#define RGB_MATRIX_KEYCODE_RANGE            QK_RGB_MATRIX_ON ... QK_RGB_MATRIX_FLAG_PREVIOUS
 #define QUANTUM_KEYCODE_RANGE               QK_BOOTLOADER ... QK_LAYER_LOCK
 #define KB_KEYCODE_RANGE                    QK_KB_0 ... QK_KB_31
 #define USER_KEYCODE_RANGE                  QK_USER_0 ... QK_USER_31
