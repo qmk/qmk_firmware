@@ -41,9 +41,18 @@ typedef int16_t spi_status_t;
 #ifdef __cplusplus
 extern "C" {
 #endif
+typedef struct spi_start_config_t {
+    pin_t    slave_pin;
+    bool     lsb_first;
+    uint8_t  mode;
+    uint16_t divisor;
+    bool     cs_active_low;
+} spi_start_config_t;
+
 void spi_init(void);
 
 bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor);
+bool spi_start_extended(spi_start_config_t *start_config);
 
 spi_status_t spi_write(uint8_t data);
 
