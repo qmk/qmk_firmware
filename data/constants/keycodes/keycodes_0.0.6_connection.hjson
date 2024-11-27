@@ -1,0 +1,115 @@
+{
+    "ranges": {
+        "0x7780/0x003F": {
+            "define": "QK_CONNECTION"
+        }
+    }
+    "keycodes": {
+        "0x7780": {
+            "group": "connection",
+            "key": "QK_OUTPUT_AUTO",
+            "aliases": [
+                "OU_AUTO"
+            ]
+        },
+        "0x7781": {
+            "group": "connection",
+            "key": "QK_OUTPUT_NEXT",
+            "aliases": [
+                "OU_NEXT"
+            ]
+        },
+        "0x7782": {
+            "group": "connection",
+            "key": "QK_OUTPUT_PREV",
+            "aliases": [
+                "OU_PREV"
+            ]
+        },
+        "0x7783": {
+            "group": "connection",
+            "key": "QK_OUTPUT_NONE",
+            "aliases": [
+                "OU_NONE"
+            ]
+        },
+        "0x7784": {
+            "group": "connection",
+            "key": "QK_OUTPUT_USB",
+            "aliases": [
+                "OU_USB"
+            ]
+        },
+        "0x7785": {
+            "group": "connection",
+            "key": "QK_OUTPUT_2P4GHZ",
+            "aliases": [
+                "OU_2P4G"
+            ]
+        },
+        "0x7786": {
+            "group": "connection",
+            "key": "QK_OUTPUT_BLUETOOTH",
+            "aliases": [
+                "OU_BT"
+            ]
+        },
+
+        "0x7790": {
+            "group": "connection",
+            "key": "QK_BLUETOOTH_PROFILE_NEXT",
+            "aliases": [
+                "BT_NEXT"
+            ]
+        },
+        "0x7791": {
+            "group": "connection",
+            "key": "QK_BLUETOOTH_PROFILE_PREV",
+            "aliases": [
+                "BT_PREV"
+            ]
+        },
+        "0x7792": {
+            "group": "connection",
+            "key": "QK_BLUETOOTH_UNPAIR",
+            "aliases": [
+                "BT_UNPR"
+            ]
+        }
+        "0x7793": {
+            "group": "connection",
+            "key": "QK_BLUETOOTH_PROFILE1",
+            "aliases": [
+                "BT_PRF1"
+            ]
+        },
+        "0x7794": {
+            "group": "connection",
+            "key": "QK_BLUETOOTH_PROFILE2",
+            "aliases": [
+                "BT_PRF2"
+            ]
+        },
+        "0x7795": {
+            "group": "connection",
+            "key": "QK_BLUETOOTH_PROFILE3",
+            "aliases": [
+                "BT_PRF3"
+            ]
+        },
+        "0x7796": {
+            "group": "connection",
+            "key": "QK_BLUETOOTH_PROFILE4",
+            "aliases": [
+                "BT_PRF4"
+            ]
+        },
+        "0x7797": {
+            "group": "connection",
+            "key": "QK_BLUETOOTH_PROFILE5",
+            "aliases": [
+                "BT_PRF5"
+            ]
+        },
+    }
+}
