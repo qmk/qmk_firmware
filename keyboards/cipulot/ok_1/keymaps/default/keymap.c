@@ -25,14 +25,7 @@ enum layers{
 };
 
 enum custom_keycodes {
-    MAC = QK_KB_0,
-    WIN = QK_KB_1,
-    MACFN = QK_KB_2,
-    WINFN = QK_KB_3,
-    SNIP = QK_KB_4,
-    OPT = QK_KB_5,
-    CTLR = QK_KB_6,
-    CMD = QK_KB_7
+    SNIP = SAFE_RANGE,
 };
 // clang-format on
 
