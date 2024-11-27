@@ -36,6 +36,12 @@ enum custom_keycodes {
 };
 // clang-format on
 
+#define MAC PDF(_MAC_BASE)
+#define WIN PDF(_WIN_BASE)
+
+#define MACFN MO(_MAC_FN)
+#define WINFN MO(_WIN_FN)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // clang-format off
     [_MAC_BASE] = LAYOUT(
