@@ -52,6 +52,10 @@
 #    include "process_midi.h"
 #endif
 
+#if !defined(NO_ACTION_LAYER)
+#    include "process_default_layer.h"
+#endif
+
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
 #    include "process_programmable_button.h"
 #endif
@@ -403,6 +407,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
 #ifdef TRI_LAYER_ENABLE
             process_tri_layer(keycode, record) &&
+#endif
+#if !defined(NO_ACTION_LAYER)
+            process_default_layer(keycode, record) &&
 #endif
 #ifdef LAYER_LOCK_ENABLE
             process_layer_lock(keycode, record) &&
