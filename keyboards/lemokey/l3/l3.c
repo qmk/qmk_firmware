@@ -1,4 +1,4 @@
-/* Copyright 2023 @ Lemokey (https://www.lemokey.com)
+/* Copyright 2023 ~ 2024 @ Lemokey (https://www.lemokey.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,8 +32,7 @@
 static uint32_t power_on_indicator_timer_buffer;
 
 #ifdef LK_WIRELESS_ENABLE
-pin_t bt_led_pins[]   = BT_HOST_LED_PIN_LIST;
-pin_t p24g_led_pins[] = P24G_HOST_LED_PIN_LIST;
+pin_t bt_led_pins[]   = BT_INDICATION_LED_PIN_LIST;
 #endif
 
 bool process_record_lemokey_kb(uint16_t keycode, keyrecord_t *record) {
@@ -69,9 +68,8 @@ bool lemokey_task_kb(void) {
 #ifdef LK_WIRELESS_ENABLE
             writePin(BAT_LOW_LED_PIN, !BAT_LOW_LED_PIN_ON_STATE);
             for (uint8_t i = 0; i < sizeof(bt_led_pins) / sizeof(pin_t); i++)
-                writePin(bt_led_pins[i], 1);
-            for (uint8_t i = 0; i < sizeof(p24g_led_pins) / sizeof(pin_t); i++)
-                writePin(p24g_led_pins[i], 1);
+                writePin(bt_led_pins[i], !BT_INDICATION_LED_ON_STATE);
+            writePin(P24G_INDICATION_LED_PIN, !BT_INDICATION_LED_ON_STATE);
 #endif
 
         } else {
@@ -80,10 +78,9 @@ bool lemokey_task_kb(void) {
             writePin(BAT_LOW_LED_PIN, BAT_LOW_LED_PIN_ON_STATE);
             if (get_transport() != TRANSPORT_P2P4)
                 for (uint8_t i = 0; i < sizeof(bt_led_pins) / sizeof(pin_t); i++)
-                    writePin(bt_led_pins[i], 0);
+                    writePin(bt_led_pins[i], BT_INDICATION_LED_ON_STATE);
             if (get_transport() != TRANSPORT_BLUETOOTH)
-                for (uint8_t i = 0; i < sizeof(p24g_led_pins) / sizeof(pin_t); i++)
-                    writePin(p24g_led_pins[i], 0);
+                    writePin(P24G_INDICATION_LED_PIN, BT_INDICATION_LED_ON_STATE);
 
 #endif
         }
