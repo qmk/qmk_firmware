@@ -1,12 +1,10 @@
 # dztech/mellow
 
-![dztech/mellow](imgur.com image replace me!)
-
-*A short description of the keyboard/project*
+A customizable 60% keyboard.
 
 * Keyboard Maintainer: [dztech](https://github.com/moyi4681)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: mellow
+* Hardware Availability: [KBDfans](https://kbdfans.com/)
 
 Make example for this keyboard (after setting up your build environment):
 
