@@ -425,7 +425,7 @@
                                 "y": {"$ref": "qmk.definitions.v1#/key_unit"},
                                 "hand": {
                                     "type": "string",
-                                    "pattern": "[LR*]",
+                                    "enum": ["L", "R", "*"]
                                 }
                             }
                         }
