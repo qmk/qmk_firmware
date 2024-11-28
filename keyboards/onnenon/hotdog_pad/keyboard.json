@@ -13,13 +13,10 @@
         "vid": "0x4F4E"
     },
     "features": {
-        "caps_word": true,
         "encoder": true,
         "rgblight": true,
         "extrakey": true,
-        "mousekey": true,
-        "nkro": true,
-        "combos": true
+        "mousekey": true
     },
     "encoder": {
         "rotary": [{ "pin_a": "GP28", "pin_b": "GP29" }]
