@@ -25,7 +25,7 @@
         "pid": "0x0007",
         "vid": "0x445A"
     },
-	"community_layouts": [
+    "community_layouts": [
         "60_ansi",
         "60_hhkb",
         "60_iso"
