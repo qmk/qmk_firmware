@@ -1,4 +1,5 @@
 
+#include "keymap_us.h"
 #include QMK_KEYBOARD_H
 #include "features/custom_shift_keys.h"
 
@@ -23,7 +24,7 @@ enum custom_keycodes {
 */
 
 /*  Hands Down Promethium (canonical)
-    ⎋   3   2@  1$   0#  4           7   6(  5&  9)  8  Cap
+    ⎋   3   2@  1$   0#  4           7   6(  5() 9)  8  Cap
     ⇥   v   w   g    m   j           +=  .:  /   "!  '? `
     z   s   n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘  i⌥  c  q
     tg  f⌃  p   d    l   x      	 -   u   o   y   b⌃ \
@@ -107,7 +108,7 @@ static uint16_t keyhold_timer; // for handling Qu combo
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*  Hands Down Promethium (canonical)
-    ⎋   3   2@  1$   0#  4           7   6(  5&  9)  8  Cap
+    ⎋   3   2@  1$   0#  4           7   6(  5() 9)  8  Cap
     ⇥   v   w   g    m   j           +=  .:  /   "!  '? `
     z   s   n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘  i⌥  c  q
     tg  f⌃  p   d    l   x      	 -   u   o   y   b⌃ \
@@ -140,13 +141,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *		@	$	#					~	^	`
     *		<   =	>			       	[   _   ]
     *   \   (   -   )   +          	%   {   ;   }   !
-    *       *   :	/   		      	|   ~   &
+    *       *   :	/   		      	&   ~   |
   */
   [_SYM] = LAYOUT_voyager(
     _______, _______, KC_AT,   KC_DLR,  KC_HASH, _______,                   _______, KC_TILD, KC_CIRC, KC_GRV,  _______, QK_BOOT,
     _______, ___x___, KC_LABK, KC_EQL,  KC_RABK, ___x___,                   ___x___, KC_LBRC, KC_UNDS, KC_RBRC, ___x___, _______,
-    _______, KC_BSLS, KC_LPRN, KC_MINS, KC_RPRN, KC_PLUS,                   KC_PERC, KC_LCBR, KC_LPRN, KC_RCBR, KC_EXLM, _______,
-    _______, ___x___, KC_ASTR, KC_COLN, KC_SLSH, ___x___,                   ___x___, KC_PIPE, KC_TILD, KC_AMPR, ___x___, _______,
+    _______, KC_BSLS, KC_LPRN, KC_MINS, KC_RPRN, KC_PLUS,                   KC_PERC, KC_LCBR, KC_SCLN, KC_RCBR, KC_EXLM, _______,
+    _______, ___x___, KC_ASTR, KC_COLN, KC_SLSH, ___x___,                   ___x___, KC_AMPR, KC_TILD, KC_PIPE, ___x___, _______,
                                                  KC_SPC,  _______, _______, _______
   ),
 
@@ -239,7 +240,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 
 const custom_shift_key_t custom_shift_keys[] = {
-    {KC_1,    KC_AT},   /* shift 1 is $ */
+    {KC_1,    KC_DLR},  /* shift 1 is $ */
     {KC_0,    KC_HASH}, /* shift 0 is # */
     {KC_6,    KC_LPRN}, /* shift 6 is ( */
     {KC_9,    KC_RPRN}, /* shift 9 is ) */
