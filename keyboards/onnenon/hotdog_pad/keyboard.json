@@ -4,9 +4,6 @@
     "maintainer": "onnenon",
     "processor": "RP2040",
     "bootloader": "rp2040",
-    "dynamic_keymap": {
-        "layer_count": 4
-    },
     "matrix_pins": {
         "direct": [["GP1", "GP2", "GP4", "GP6", "GP0"]]
     },
