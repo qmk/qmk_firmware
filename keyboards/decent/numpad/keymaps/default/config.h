@@ -1,0 +1,7 @@
+#pragma once
+
+#define BOOTMAGIC_ROW 1
+#define BOOTMAGIC_COLUMN 0
+#define RGB_MATRIX_SLEEP
+
+#define RGB_MATRIX_LED_COUNT 22
