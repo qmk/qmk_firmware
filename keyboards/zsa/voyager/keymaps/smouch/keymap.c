@@ -44,7 +44,7 @@ enum custom_keycodes {
 #define RN2 LT(0, KC_5)
 #define RN3 KC_9
 #define RN4 KC_8
-#define RN5 KC_CAPS
+#define RN5 CW_TOGG
 
 // top row
 #define LT5 KC_TAB

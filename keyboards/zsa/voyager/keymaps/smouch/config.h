@@ -36,7 +36,5 @@
 // Don't apply custom shift keys when any non-shift mod is held.
 #define CUSTOM_SHIFT_KEYS_NEGMODS ~MOD_MASK_SHIFT
 
-#define ACHORDION_STREAK
-
 // #define RGB_MATRIX_STARTUP_SPD 60
 
