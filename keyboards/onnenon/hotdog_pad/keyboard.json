@@ -19,7 +19,7 @@
         "mousekey": true
     },
     "encoder": {
-        "rotary": [{ "pin_a": "GP28", "pin_b": "GP29" }]
+        "rotary": [{ "pin_a": "GP29", "pin_b": "GP28" }]
     },
     "layouts": {
         "LAYOUT": {
