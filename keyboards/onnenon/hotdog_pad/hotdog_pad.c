@@ -3,10 +3,10 @@
 
 #include "quantum.h"
 
-void matrix_init_kb(void) {
+void keyboard_pre_init_kb(void) {
     // Enable the power pin for the Xiao Seeed rp2040 onboard NeoPixel
     gpio_set_pin_output(GP11);
     gpio_write_pin_high(GP11);
 
-    matrix_init_user();
+    keyboard_pre_init_user();
 }
