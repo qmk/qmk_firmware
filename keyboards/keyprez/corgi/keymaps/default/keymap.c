@@ -26,14 +26,12 @@ enum layer_names {
     _CMD,
 };
 
-enum corgi_keycodes {
-    QWERTY = SAFE_RANGE,
-    COLEMAK
-};
-
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 #define CMD   MO(_CMD)
+
+#define QWERTY PDF(_QWERTY)
+#define COLEMAK PDF(_COLEMAK)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Qwerty
@@ -134,23 +132,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
     tap_code(clockwise ? KC_VOLU : KC_VOLD);
-    return true;
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case QWERTY:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_QWERTY);
-            }
-            return false;
-            break;
-        case COLEMAK:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_COLEMAK);
-            }
-            return false;
-            break;
-    }
     return true;
 }

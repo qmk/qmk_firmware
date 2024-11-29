@@ -67,6 +67,25 @@ class TestDriver {
 #define EXPECT_REPORT(driver, report) EXPECT_CALL((driver), send_keyboard_mock(KeyboardReport report))
 
 /**
+ * @brief Sets gmock expectation that a mouse report of `report` will be sent.
+ * For this macro to parse correctly, the `report` arg must be surrounded by
+ * parentheses ( ). For instance,
+ *
+ *   // Expect that a report of "X:-10 Y:0 H:0 V:10 BTN:1 " is sent to the host.
+ *   EXPECT_REPORT(driver, (-10, 0, 0, 0, 1));
+ *
+ * is shorthand for
+ *
+ *   EXPECT_CALL(driver, send_mouse_mock(MouseReport(-10, 0, 0, 0, 1)));
+ *
+ * It is possible to use .Times() and other gmock APIS with EXPECT_REPORT, for instance,
+ * allow only single report to be sent:
+ *
+ *    EXPECT_REPORT(driver, (-10, 0, 0, 0, 1)).Times(1);
+ */
+#define EXPECT_MOUSE_REPORT(driver, report) EXPECT_CALL((driver), send_mouse_mock(MouseReport report))
+
+/**
  * @brief Sets gmock expectation that Unicode `code_point` is sent with UNICODE_MODE_LINUX input
  * mode. For instance for U+2013,
  *
@@ -88,6 +107,15 @@ class TestDriver {
 #define EXPECT_EMPTY_REPORT(driver) EXPECT_REPORT(driver, ())
 
 /**
+ * @brief Sets gmock expectation that a empty keyboard report will be sent.
+ * It is possible to use .Times() and other gmock APIS with EXPECT_EMPTY_MOUSE_REPORT, for instance,
+ * allow any number of empty reports with:
+ *
+ *   EXPECT_EMPTY_MOUSE_REPORT(driver).Times(AnyNumber());
+ */
+#define EXPECT_EMPTY_MOUSE_REPORT(driver) EXPECT_MOUSE_REPORT(driver, (0, 0, 0, 0, 0))
+
+/**
  * @brief Sets gmock expectation that a keyboard report will be sent, without matching its content.
  * It is possible to use .Times() and other gmock APIS with EXPECT_ANY_REPORT, for instance,
  * allow a single arbitrary report with:
@@ -97,9 +125,23 @@ class TestDriver {
 #define EXPECT_ANY_REPORT(driver) EXPECT_CALL((driver), send_keyboard_mock(_))
 
 /**
+ * @brief Sets gmock expectation that a mouse report will be sent, without matching its content.
+ * It is possible to use .Times() and other gmock APIS with EXPECT_ANY_MOUSE_REPORT, for instance,
+ * allow a single arbitrary report with:
+ *
+ *   EXPECT_ANY_MOUSE_REPORT(driver).Times(1);
+ */
+#define EXPECT_ANY_MOUSE_REPORT(driver) EXPECT_CALL((driver), send_mouse_mock(_))
+
+/**
  * @brief Sets gmock expectation that no keyboard report will be sent at all.
  */
 #define EXPECT_NO_REPORT(driver) EXPECT_ANY_REPORT(driver).Times(0)
+
+/**
+ * @brief Sets gmock expectation that no keyboard report will be sent at all.
+ */
+#define EXPECT_NO_MOUSE_REPORT(driver) EXPECT_ANY_MOUSE_REPORT(driver).Times(0)
 
 /** @brief Tests whether keycode `actual` is equal to `expected`. */
 #define EXPECT_KEYCODE_EQ(actual, expected) EXPECT_THAT((actual), KeycodeEq((expected)))
