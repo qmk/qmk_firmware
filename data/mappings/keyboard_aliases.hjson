@@ -563,6 +563,15 @@
     "plain60": {
         "target": "evyd13/plain60"
     },
+    "planck/ez": {
+        "target": "zsa/planck_ez/base"
+    },
+    "planck/ez/base": {
+        "target": "zsa/planck_ez/base"
+    },
+    "planck/ez/glow": {
+        "target": "zsa/planck_ez/glow"
+    },
     "ploopyco/trackball": {
         "target": "ploopyco/trackball/rev1_005"
     },
@@ -1355,6 +1364,12 @@
     },
     "runner3680/5x8": {
         "target": "omkbd/runner3680/5x8"
+    },
+    "saevus/cor": {
+        "target": "concreteflowers/cor"
+    },
+    "saevus/cor_tkl": {
+        "target": "concreteflowers/cor_tkl"
     },
     "scarletbandana": {
         "target": "woodkeys/scarletbandana"

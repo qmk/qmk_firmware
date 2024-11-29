@@ -34,10 +34,13 @@ ifeq ($(strip $(DUMP_CI_METADATA)),yes)
 endif
 
 # Force expansion
-TARGET := $(TARGET)
+override TARGET := $(TARGET)
 
 ifneq ($(FORCE_LAYOUT),)
-    TARGET := $(TARGET)_$(FORCE_LAYOUT)
+    override TARGET := $(TARGET)_$(FORCE_LAYOUT)
+endif
+ifneq ($(CONVERT_TO),)
+    override TARGET := $(TARGET)_$(CONVERT_TO)
 endif
 
 # Object files and generated keymap directory
@@ -57,9 +60,6 @@ endif
 ifdef SKIP_GIT
 VERSION_H_FLAGS += --skip-git
 endif
-
-# Generate the board's version.h file.
-$(shell $(QMK_BIN) generate-version-h $(VERSION_H_FLAGS) -q -o $(INTERMEDIATE_OUTPUT)/src/version.h)
 
 # Determine which subfolders exist.
 KEYBOARD_FOLDER_PATH_1 := $(KEYBOARD)
@@ -186,7 +186,10 @@ endif
 # Have we found a keymap.json?
 ifneq ("$(wildcard $(KEYMAP_JSON))", "")
     ifneq ("$(wildcard $(KEYMAP_C))", "")
-        $(call WARNING_MESSAGE,Keymap is specified as both keymap.json and keymap.c -- keymap.json file wins.)
+        # Allow a separately-found keymap.c next to keymap.json -- the keymap.c
+        # generator will include the other keymap.c in the process, if supplied.
+        OTHER_KEYMAP_C := $(KEYMAP_C)
+        OPT_DEFS += -DOTHER_KEYMAP_C=\"$(OTHER_KEYMAP_C)\"
     endif
 
     KEYMAP_PATH := $(KEYMAP_JSON_PATH)
@@ -222,6 +225,9 @@ generated-files: $(INTERMEDIATE_OUTPUT)/src/config.h $(INTERMEDIATE_OUTPUT)/src/
 endif
 
 include $(BUILDDEFS_PATH)/converters.mk
+
+# Generate the board's version.h file.
+$(shell $(QMK_BIN) generate-version-h $(VERSION_H_FLAGS) -q -o $(INTERMEDIATE_OUTPUT)/src/version.h)
 
 MCU_ORIG := $(MCU)
 include $(wildcard $(PLATFORM_PATH)/*/mcu_selection.mk)

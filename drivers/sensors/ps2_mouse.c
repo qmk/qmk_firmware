@@ -27,6 +27,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "pointing_device.h"
 #include "pointing_device_internal.h"
 
+const pointing_device_driver_t ps2_mouse_pointing_device_driver = {
+    .init         = ps2_mouse_init,
+    .get_report   = ps2_mouse_get_report,
+    .set_cpi      = ps2_mouse_set_cpi,
+    .get_cpi      = ps2_mouse_get_cpi,
+};
+
 /* ============================= HELPERS ============================ */
 
 static inline void ps2_mouse_convert_report_to_hid(ps2_mouse_report_t *ps2_report, report_mouse_t *mouse_report);

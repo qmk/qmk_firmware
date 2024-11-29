@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "bits.h"
 #include "bitwise.h"
 
 // convert to string
