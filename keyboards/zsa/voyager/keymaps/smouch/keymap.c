@@ -24,7 +24,7 @@ enum custom_keycodes {
 */
 
 /*  Hands Down Promethium (canonical)
-    ⎋   3   2@  1$   0#  4           7   6(  5() 9)  8  Cap
+    ⎋   3   2@  1$   0#  4           7   6(  5() 9)  8  CW
     ⇥   v   w   g    m   j           +=  .:  /   "!  '? `
     z   s   n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘  i⌥  c  q
     tg  f⌃  p   d    l   x      	 -   u   o   y   b⌃ \
@@ -108,7 +108,7 @@ static uint16_t keyhold_timer; // for handling Qu combo
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*  Hands Down Promethium (canonical)
-    ⎋   3   2@  1$   0#  4           7   6(  5() 9)  8  Cap
+    ⎋   3   2@  1$   0#  4           7   6(  5() 9)  8  CW
     ⇥   v   w   g    m   j           +=  .:  /   "!  '? `
     z   s   n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘  i⌥  c  q
     tg  f⌃  p   d    l   x      	 -   u   o   y   b⌃ \
