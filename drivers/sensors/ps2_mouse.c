@@ -66,6 +66,10 @@ void ps2_mouse_init(void) {
 #ifdef PS2_MOUSE_USE_2_1_SCALING
     ps2_mouse_set_scaling_2_1();
 #endif
+
+#ifdef PS2_MOUSE_SAMPLE_RATE
+    ps2_mouse_set_sample_rate(PS2_MOUSE_SAMPLE_RATE);
+#endif
 }
 
 report_mouse_t ps2_mouse_get_report(report_mouse_t mouse_report) {
