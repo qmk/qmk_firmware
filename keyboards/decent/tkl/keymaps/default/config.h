@@ -7,6 +7,5 @@
 #define I2C1_SCL_PIN GP27
 
 #define RGB_MATRIX_LED_COUNT 82
-#define RGB_MATRIX_SLEEP
-
+#define RGB_MATRIX_CENTER {77, 32}
 #define OLED_FONT_H "atari-font.c"
