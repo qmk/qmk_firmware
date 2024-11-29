@@ -1,5 +1,22 @@
 {
+    "manufacturer": "Glorious",
+    "url": "https://www.gloriousgaming.com/products/glorious-gmmk-pro-75-barebone-black",
+    "maintainer": "GloriousThrall",
+    "usb": {
+        "vid": "0x320F"
+    },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgb_matrix": true
+    },
     "qmk": {
+        "tap_keycode_delay": 10,
         "locking": {
             "enabled": true,
             "resync": true
@@ -51,7 +68,6 @@
             "solid_splash": true,
             "solid_multisplash": true
         },
-        "driver": "aw20216s",
         "sleep": true
     }
 }

@@ -16,6 +16,12 @@
 
 #pragma once
 
-
 /* SPI Config for LED Driver */
 #define SPI_DRIVER SPID1
+#define SPI_SCK_PIN A5
+#define SPI_MOSI_PIN A6
+#define SPI_MISO_PIN A7
+
+#define AW20216S_CS_PIN_1 B13
+#define AW20216S_CS_PIN_2 B14
+#define AW20216S_EN_PIN C13
