@@ -20,6 +20,19 @@
 #define ENCODER_DEFAULT_POS 0x3
 #define ENCODER_MAP_KEY_DELAY 2
 
+#if defined(RGB_MATRIX_ENABLE) || defined(LED_MATRIX_ENABLE) || defined(LK_WIRELESS_ENABLE)
+/* SPI configuration */
+#    define SPI_DRIVER SPID1
+#    define SPI_SCK_PIN A5
+#    define SPI_MISO_PIN A6
+#    define SPI_MOSI_PIN A7
+#endif
+
+#if defined(RGB_MATRIX_ENABLE) || defined(LED_MATRIX_ENABLE)
+#    define LED_DRIVER_SHUTDOWN_PIN B9
+#    define SNLED23751_SPI_DIVISOR 16
+#endif
+
 #ifdef LK_WIRELESS_ENABLE
 /* Hardware configuration */
 
@@ -39,8 +52,6 @@
 #    define BT_HOST_DEVICES_COUNT 3
 
 #    if defined(RGB_MATRIX_ENABLE)
-
-#        define LED_DRIVER_SHUTDOWN_PIN B9
 
 #        define BT_HOST_LED_MATRIX_LIST \
             { 17, 18, 19 }
@@ -67,12 +78,6 @@
 
 /* Enable bluetooth NKRO */
 #    define WIRELESS_NKRO_ENABLE
-
-/* Raw hid command for factory test and bluetooth DFU */
-#    define RAW_HID_CMD 0xAA ... 0xAB
-#else
-/* Raw hid command for factory test */
-#    define RAW_HID_CMD 0xAB
 #endif
 
 /* Factory test keys */
