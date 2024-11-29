@@ -54,18 +54,25 @@ The ATmega16/32U2 does not possess I2C functionality, and so cannot use this dri
 
 You'll need to determine which pins can be used for I2C -- a an example, STM32 parts generally have multiple I2C peripherals, labeled I2C1, I2C2, I2C3 etc.
 
-To enable I2C, modify your board's `halconf.h` to enable I2C:
+To enable I2C, modify your board's `halconf.h` to enable I2C, then modify your board's `mcuconf.h` to enable the peripheral you've chosen:
 
-```c
-#define HAL_USE_I2C TRUE
+::: code-group
+```c [halconf.h]
+#pragma once
+
+#define HAL_USE_I2C TRUE // [!code focus]
+
+#include_next <halconf.h>
 ```
+```c [mcuconf.h]
+#pragma once
 
-Then, modify your board's `mcuconf.h` to enable the peripheral you've chosen, for example:
+#include_next <mcuconf.h>
 
-```c
-#undef STM32_I2C_USE_I2C2
-#define STM32_I2C_USE_I2C2 TRUE
+#undef STM32_I2C_USE_I2C2 // [!code focus]
+#define STM32_I2C_USE_I2C2 TRUE // [!code focus]
 ```
+:::
 
 |`mcuconf.h` Setting         |Description                                                                       |Default|
 |----------------------------|----------------------------------------------------------------------------------|-------|

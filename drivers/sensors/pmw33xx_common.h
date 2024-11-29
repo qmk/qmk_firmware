@@ -14,6 +14,7 @@
 #include <stdint.h>
 #include "spi_master.h"
 #include "util.h"
+#include "pointing_device.h"
 
 #if defined(POINTING_DEVICE_DRIVER_pmw3360)
 #    include "pmw3360.h"
@@ -102,6 +103,10 @@ _Static_assert(sizeof((pmw33xx_report_t){0}.motion) == 1, "pmw33xx_report_t.moti
 
 #define CONSTRAIN(amt, low, high) ((amt) < (low) ? (low) : ((amt) > (high) ? (high) : (amt)))
 
+#define pmw3360_pointing_device_driver pmw33xx_pointing_device_driver;
+#define pmw3389_pointing_device_driver pmw33xx_pointing_device_driver;
+const pointing_device_driver_t pmw33xx_pointing_device_driver;
+
 /**
  * @brief Initializes the given sensor so it is in a working state and ready to
  * be polled for data.
@@ -170,3 +175,8 @@ uint8_t pmw33xx_read(uint8_t sensor, uint8_t reg_addr);
  * @return false Write failed, do not proceed operation
  */
 bool pmw33xx_write(uint8_t sensor, uint8_t reg_addr, uint8_t data);
+
+void           pmw33xx_init_wrapper(void);
+void           pmw33xx_set_cpi_wrapper(uint16_t cpi);
+uint16_t       pmw33xx_get_cpi_wrapper(void);
+report_mouse_t pmw33xx_get_report(report_mouse_t mouse_report);
