@@ -177,9 +177,9 @@ Configures the [Backlight](features/backlight) feature.
     * `pins` <Badge type="info">Array: Pin</Badge>
         * A list of GPIO pins connected to the backlight LEDs (`software` and `timer` drivers only).
 
-## Bluetooth {#bluetooth}
+## Wireless/Bluetooth {#bluetooth}
 
-Configures the [Bluetooth](features/bluetooth) feature.
+Configures the [Wireless](features/wireless) feature.
 
 * `bluetooth`
     * `driver` <Badge type="info">String</Badge>
