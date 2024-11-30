@@ -184,12 +184,6 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     }
 };
 
-/*
-void add_h_digragh(void) {
-    unregister_mods(MOD_MASK_SHIFT);
-    tap_code(KC_H); // send "h" honouring CAPSLK state
-};
-*/
 
 // program custom keycode functions
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
