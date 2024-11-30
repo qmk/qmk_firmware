@@ -4,15 +4,14 @@ SRC +=	\
 	$(PROTOCOL_DIR)/usb_device_state.c \
 	$(PROTOCOL_DIR)/usb_util.c \
 
-SHARED_EP_ENABLE = no
-MOUSE_SHARED_EP ?= yes
-
 ifeq ($(strip $(GLOBE_KEY_ENABLE)), yes)
     OPT_DEFS += -DGLOBE_KEY_ENABLE
-    # The globe key requires SHARED_EP
-    SHARED_EP_ENABLE = yes
+    # The globe key requires KEYBOARD_SHARED_EP
+    KEYBOARD_SHARED_EP = yes
 endif
 
+SHARED_EP_ENABLE = no
+MOUSE_SHARED_EP ?= yes
 ifeq ($(strip $(KEYBOARD_SHARED_EP)), yes)
     OPT_DEFS += -DKEYBOARD_SHARED_EP
     SHARED_EP_ENABLE = yes
