@@ -184,7 +184,8 @@ uint8_t vscode_compose_mapping(uint16_t* sequence, uint8_t sequence_len) {
     // open file (quick open/goto file)
     COMPOSE_MAPPING(
         COMPOSE_INPUT(KC_O),
-        { SEND_STRING(SS_LCTL(SS_LALT("o"))); }
+        // for some reason this does not wor{ SEND_STRING(SS_LCTL(SS_LALT("o"))); }
+        { tap_code(KC_F13); }
     )
     COMPOSE_MAPPING(
         COMPOSE_INPUT(KC_Y),
@@ -199,7 +200,7 @@ uint8_t vscode_compose_mapping(uint16_t* sequence, uint8_t sequence_len) {
     // run script
     COMPOSE_MAPPING(
         COMPOSE_INPUT(KC_R, KC_S),
-        { tap_code(KC_F7); }
+        { tap_code(KC_F9); }   // changed to match qzdev
     )
     // run selected text
     //COMPOSE_MAPPING(
