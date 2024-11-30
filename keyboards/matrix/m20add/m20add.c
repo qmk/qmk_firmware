@@ -27,13 +27,6 @@ uint8_t read_pin(uint16_t pin)
     return (data & (1<<GET_PIN(pin))) ? 1 : 0;
 }
 
-void matrix_init_kb(void) {
-#ifdef RGBLIGHT_ENABLE
-    rgb_ring_init();
-#endif
-    matrix_init_user();
-}
-
 void housekeeping_task_kb(void) {
 #ifdef RGBLIGHT_ENABLE
     rgb_ring_task();

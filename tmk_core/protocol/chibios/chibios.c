@@ -62,7 +62,6 @@
  */
 
 /* declarations */
-extern uint8_t keyboard_leds(void);
 extern void    send_keyboard(report_keyboard_t *report);
 extern void    send_nkro(report_nkro_t *report);
 extern void    send_mouse(report_mouse_t *report);
@@ -84,7 +83,7 @@ host_driver_t chibios_driver = {
     .connect           = NULL,
     .disconnect        = NULL,
     .is_connected      = NULL,
-    .keyboard_leds     = keyboard_leds,
+    .keyboard_leds     = usb_device_state_get_leds,
     .send_keyboard     = send_keyboard,
     .send_nkro         = send_nkro,
     .send_mouse        = send_mouse,

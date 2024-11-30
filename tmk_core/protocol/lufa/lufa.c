@@ -72,15 +72,9 @@
 #    define USB_WAIT_FOR_ENUMERATION
 #endif
 
-uint8_t keyboard_idle = 0;
-/* 0: Boot Protocol, 1: Report Protocol(default) */
-uint8_t        keyboard_protocol  = 1;
-static uint8_t keyboard_led_state = 0;
-
 static report_keyboard_t keyboard_report_sent;
 
 /* Host driver */
-static uint8_t keyboard_leds(void);
 static void    send_keyboard(report_keyboard_t *report);
 static void    send_nkro(report_nkro_t *report);
 static void    send_mouse(report_mouse_t *report);
@@ -101,7 +95,7 @@ static host_driver_t lufa_driver = {
     .connect           = NULL,
     .disconnect        = NULL,
     .is_connected      = NULL,
-    .keyboard_leds     = keyboard_leds,
+    .keyboard_leds     = usb_device_state_get_leds,
     .send_keyboard     = send_keyboard,
     .send_nkro         = send_nkro,
     .send_mouse        = send_mouse,
@@ -305,6 +299,7 @@ void EVENT_USB_Device_Disconnect(void) {
 void EVENT_USB_Device_Reset(void) {
     print("[R]");
     usb_device_state_set_reset();
+    usb_device_state_set_protocol(USB_PROTOCOL_REPORT);
 }
 
 /** \brief Event USB Device Connect
@@ -487,10 +482,10 @@ void EVENT_USB_Device_ControlRequest(void) {
                             uint8_t report_id = Endpoint_Read_8();
 
                             if (report_id == REPORT_ID_KEYBOARD || report_id == REPORT_ID_NKRO) {
-                                keyboard_led_state = Endpoint_Read_8();
+                                usb_device_state_set_leds(Endpoint_Read_8());
                             }
                         } else {
-                            keyboard_led_state = Endpoint_Read_8();
+                            usb_device_state_set_leds(Endpoint_Read_8());
                         }
 
                         Endpoint_ClearOUT();
@@ -507,7 +502,7 @@ void EVENT_USB_Device_ControlRequest(void) {
                     Endpoint_ClearSETUP();
                     while (!(Endpoint_IsINReady()))
                         ;
-                    Endpoint_Write_8(keyboard_protocol);
+                    Endpoint_Write_8(usb_device_state_get_protocol());
                     Endpoint_ClearIN();
                     Endpoint_ClearStatusStage();
                 }
@@ -520,7 +515,7 @@ void EVENT_USB_Device_ControlRequest(void) {
                     Endpoint_ClearSETUP();
                     Endpoint_ClearStatusStage();
 
-                    keyboard_protocol = (USB_ControlRequest.wValue & 0xFF);
+                    usb_device_state_set_protocol(USB_ControlRequest.wValue & 0xFF);
                     clear_keyboard();
                 }
             }
@@ -531,7 +526,7 @@ void EVENT_USB_Device_ControlRequest(void) {
                 Endpoint_ClearSETUP();
                 Endpoint_ClearStatusStage();
 
-                keyboard_idle = ((USB_ControlRequest.wValue & 0xFF00) >> 8);
+                usb_device_state_set_idle_rate(USB_ControlRequest.wValue >> 8);
             }
 
             break;
@@ -540,7 +535,7 @@ void EVENT_USB_Device_ControlRequest(void) {
                 Endpoint_ClearSETUP();
                 while (!(Endpoint_IsINReady()))
                     ;
-                Endpoint_Write_8(keyboard_idle);
+                Endpoint_Write_8(usb_device_state_get_idle_rate());
                 Endpoint_ClearIN();
                 Endpoint_ClearStatusStage();
             }
@@ -556,13 +551,6 @@ void EVENT_USB_Device_ControlRequest(void) {
 /*******************************************************************************
  * Host driver
  ******************************************************************************/
-/** \brief Keyboard LEDs
- *
- * FIXME: Needs doc
- */
-static uint8_t keyboard_leds(void) {
-    return keyboard_led_state;
-}
 
 /** \brief Send Keyboard
  *
@@ -570,7 +558,7 @@ static uint8_t keyboard_leds(void) {
  */
 static void send_keyboard(report_keyboard_t *report) {
     /* If we're in Boot Protocol, don't send any report ID or other funky fields */
-    if (!keyboard_protocol) {
+    if (usb_device_state_get_protocol() == USB_PROTOCOL_BOOT) {
         send_report(KEYBOARD_IN_EPNUM, &report->mods, 8);
     } else {
         send_report(KEYBOARD_IN_EPNUM, report, KEYBOARD_REPORT_SIZE);

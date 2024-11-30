@@ -35,8 +35,12 @@ You'll need to determine which pins can be used for UART -- as an example, STM32
 To enable UART, modify your board's `mcuconf.h` to enable the peripheral you've chosen, for example:
 
 ```c
-#undef STM32_SERIAL_USE_USART2
-#define STM32_SERIAL_USE_USART2 TRUE
+#pragma once
+
+#include_next <mcuconf.h>
+
+#undef STM32_SERIAL_USE_USART2 // [!code focus]
+#define STM32_SERIAL_USE_USART2 TRUE // [!code focus]
 ```
 
 Configuration-wise, you'll need to set up the peripheral as per your MCU's datasheet -- the defaults match the pins for a Proton-C, i.e. STM32F303.

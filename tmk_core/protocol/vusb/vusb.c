@@ -30,6 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "wait.h"
 #include "usb_descriptor_common.h"
+#include "usb_device_state.h"
 
 #ifdef RAW_ENABLE
 #    include "raw_hid.h"
@@ -212,7 +213,6 @@ void console_task(void) {
 /*------------------------------------------------------------------*
  * Host driver
  *------------------------------------------------------------------*/
-static uint8_t keyboard_leds(void);
 static void    send_keyboard(report_keyboard_t *report);
 static void    send_nkro(report_nkro_t *report);
 static void    send_mouse(report_mouse_t *report);
@@ -233,7 +233,7 @@ static host_driver_t vusb_driver = {
     .connect           = NULL,
     .disconnect        = NULL,
     .is_connected      = NULL,
-    .keyboard_leds     = keyboard_leds,
+    .keyboard_leds     = usb_device_state_get_leds,
     .send_keyboard     = send_keyboard,
     .send_nkro         = send_nkro,
     .send_mouse        = send_mouse,
@@ -251,10 +251,6 @@ static host_driver_t vusb_driver = {
 
 host_driver_t *host_usb_driver(void) {
     return &vusb_driver;
-}
-
-static uint8_t keyboard_leds(void) {
-    return keyboard_led_state;
 }
 
 static void send_keyboard(report_keyboard_t *report) {
