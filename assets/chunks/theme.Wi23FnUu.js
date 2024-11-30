@@ -1,4 +1,4 @@
-const __vite__fileDeps=["assets/chunks/VPLocalSearchBox.B9TLhK3l.js","assets/chunks/framework.B9AX-CPi.js"],__vite__mapDeps=i=>i.map(i=>__vite__fileDeps[i]);
+const __vite__fileDeps=["assets/chunks/VPLocalSearchBox.DH-YfdOm.js","assets/chunks/framework.B9AX-CPi.js"],__vite__mapDeps=i=>i.map(i=>__vite__fileDeps[i]);
 import { d as defineComponent, o as openBlock, c as createElementBlock, r as renderSlot, n as normalizeClass, a as createTextVNode, t as toDisplayString, b as createBlock, w as withCtx, e as createCommentVNode, T as Transition, _ as _export_sfc, u as useData$1, i as isExternal, f as treatAsHtml, g as withBase, h as computed, j as ref, k as onMounted, l as createBaseVNode, m as unref, p as pushScopeId, q as popScopeId, s as isActive, v as useMediaQuery, x as watch, y as watchEffect, z as onUnmounted, A as watchPostEffect, B as onUpdated, C as getScrollOffset, D as resolveComponent, F as Fragment, E as renderList, G as shallowRef, H as onContentUpdated, I as createVNode, J as resolveDynamicComponent, K as EXTERNAL_URL_RE, L as useRoute, M as mergeProps, N as inject, O as useWindowSize, P as normalizeStyle, Q as onClickOutside, R as onKeyStroke, S as nextTick, U as useWindowScroll, V as inBrowser, W as readonly, X as defineAsyncComponent, Y as __vitePreload, Z as useScrollLock, $ as provide, a0 as toHandlers, a1 as withKeys, a2 as withModifiers, a3 as useSlots, a4 as reactive, a5 as toRef, a6 as useRouter, a7 as onBeforeMount } from "./framework.B9AX-CPi.js";
 const _sfc_main$Z = /* @__PURE__ */ defineComponent({
   __name: "VPBadge",
@@ -2225,7 +2225,7 @@ const _hoisted_3$6 = {
 const _sfc_main$l = /* @__PURE__ */ defineComponent({
   __name: "VPNavBarSearch",
   setup(__props) {
-    const VPLocalSearchBox = defineAsyncComponent(() => __vitePreload(() => import("./VPLocalSearchBox.B9TLhK3l.js"), true ? __vite__mapDeps([0,1]) : void 0));
+    const VPLocalSearchBox = defineAsyncComponent(() => __vitePreload(() => import("./VPLocalSearchBox.DH-YfdOm.js"), true ? __vite__mapDeps([0,1]) : void 0));
     const VPAlgoliaSearchBox = () => null;
     const { theme: theme2 } = useData();
     const loaded = ref(false);
