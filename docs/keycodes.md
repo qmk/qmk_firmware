@@ -211,7 +211,8 @@ See also: [Basic Keycodes](keycodes_basic)
 |`KC_ASSISTANT`          |`KC_ASST`                      |Launch Context-Aware Assistant         |✔            |             |                 |
 |`KC_MISSION_CONTROL`    |`KC_MCTL`                      |Open Mission Control                   |             |✔            |                 |
 |`KC_LAUNCHPAD`          |`KC_LPAD`                      |Open Launchpad                         |             |✔            |                 |
-|`KC_GLOBE`              |`KC_GLB`                       |Apple Globe Key                        |             |✔<sup>7</sup>|                 |
+|`KC_GLOBE`              |`KC_GLB`                       |Apple Globe/Fn                         |             |✔<sup>7</sup>|                 |
+
 <sup>1. The Linux kernel HID driver recognizes [nearly all keycodes](https://github.com/torvalds/linux/blob/master/drivers/hid/hid-input.c), but the default bindings depend on the DE/WM.</sup><br/>
 <sup>2. Treated as F13-F15.</sup><br/>
 <sup>3. Must be held for about three seconds, and will display a prompt instead.</sup><br/>
