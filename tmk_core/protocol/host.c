@@ -254,6 +254,42 @@ void host_programmable_button_send(uint32_t data) {
 }
 #endif
 
+#ifdef CONSOLE_ENABLE
+int8_t host_console_send(uint8_t c) {
+    if (!driver || !driver->send_console) return -1;
+    return (*driver->send_console)(c);
+}
+
+// Original API
+int8_t sendchar(uint8_t c) {
+    return host_console_send(c);
+}
+#endif // CONSOLE_ENABLE
+
+#ifdef VIRTSER_ENABLE
+void host_virtser_send(const uint8_t c) {
+    if (!driver || !driver->send_virtser) return;
+    (*driver->send_virtser)(c);
+}
+
+// Original API
+void virtser_send(const uint8_t c) {
+    host_virtser_send(c);
+}
+#endif // VIRTSER_ENABLE
+
+#ifdef RAW_ENABLE
+void host_raw_hid_send(uint8_t *data, uint8_t length) {
+    if (!driver || !driver->send_raw_hid) return;
+    (*driver->send_raw_hid)(data, length);
+}
+
+// Original API
+void raw_hid_send(uint8_t *data, uint8_t length) {
+    host_raw_hid_send(data, length);
+}
+#endif // RAW_ENABLE
+
 uint16_t host_last_system_usage(void) {
     return last_system_usage;
 }

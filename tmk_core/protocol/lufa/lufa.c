@@ -75,10 +75,10 @@
 static report_keyboard_t keyboard_report_sent;
 
 /* Host driver */
-static void    send_keyboard(report_keyboard_t *report);
-static void    send_nkro(report_nkro_t *report);
-static void    send_mouse(report_mouse_t *report);
-static void    send_extra(report_extra_t *report);
+static void send_keyboard(report_keyboard_t *report);
+static void send_nkro(report_nkro_t *report);
+static void send_mouse(report_mouse_t *report);
+static void send_extra(report_extra_t *report);
 #ifdef JOYSTICK_ENABLE
 static void send_joystick(report_joystick_t *report);
 #endif // JOYSTICK_ENABLE
@@ -88,6 +88,15 @@ static void send_digitizer(report_digitizer_t *report);
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
 static void send_programmable_button(report_programmable_button_t *report);
 #endif // PROGRAMMABLE_BUTTON_ENABLE
+#ifdef CONSOLE_ENABLE
+static int8_t send_console(uint8_t c);
+#endif // CONSOLE_ENABLE
+#ifdef VIRTSER_ENABLE
+static void send_virtser(uint8_t c);
+#endif // VIRTSER_ENABLE
+#ifdef RAW_ENABLE
+static void send_raw_hid(uint8_t *data, uint8_t length);
+#endif // RAW_ENABLE
 
 static host_driver_t lufa_driver = {
     .has_init_executed = false,
@@ -109,6 +118,16 @@ static host_driver_t lufa_driver = {
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
     .send_programmable_button = send_programmable_button,
 #endif // PROGRAMMABLE_BUTTON_ENABLE
+#ifdef CONSOLE_ENABLE
+    .send_console = send_console,
+#endif // CONSOLE_ENABLE
+#ifdef VIRTSER_ENABLE
+    .send_virtser = send_virtser,
+#endif // VIRTSER_ENABLE
+#ifdef RAW_ENABLE
+    .send_raw_hid = send_raw_hid,
+#endif // RAW_ENABLE
+
 };
 
 host_driver_t *host_usb_driver(void) {
@@ -165,7 +184,7 @@ USB_ClassInfo_CDC_Device_t cdc_device = {
  *
  * FIXME: Needs doc
  */
-void raw_hid_send(uint8_t *data, uint8_t length) {
+void send_raw_hid(uint8_t *data, uint8_t length) {
     if (length != RAW_EPSIZE) return;
     send_report(RAW_IN_EPNUM, data, RAW_EPSIZE);
 }
@@ -624,7 +643,7 @@ void send_digitizer(report_digitizer_t *report) {
  *
  * FIXME: Needs doc
  */
-int8_t sendchar(uint8_t c) {
+int8_t send_console(uint8_t c) {
     // Do not wait if the previous write has timed_out.
     // Because sendchar() is called so many times, waiting each call causes big lag.
     // The `timed_out` state is an approximation of the ideal `is_listener_disconnected?` state.
@@ -756,7 +775,7 @@ void virtser_task(void) {
  *
  * FIXME: Needs doc
  */
-void virtser_send(const uint8_t byte) {
+void send_virtser(const uint8_t byte) {
     uint8_t timeout = 255;
     uint8_t ep      = Endpoint_GetCurrentEndpoint();
 

@@ -41,7 +41,7 @@ static host_driver_t ap2_ble_driver = {
     .send_nkro     = NULL,
     .send_mouse    = ap2_ble_mouse,
     .send_extra    = ap2_ble_extra,
-    #ifdef JOYSTICK_ENABLE
+#ifdef JOYSTICK_ENABLE
     .send_joystick = NULL,
 #endif // JOYSTICK_ENABLE
 #ifdef DIGITIZER_ENABLE

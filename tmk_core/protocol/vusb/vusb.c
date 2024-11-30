@@ -148,7 +148,7 @@ static void send_report(uint8_t endpoint, void *report, size_t size) {
 static uint8_t raw_output_buffer[RAW_BUFFER_SIZE];
 static uint8_t raw_output_received_bytes = 0;
 
-void raw_hid_send(uint8_t *data, uint8_t length) {
+void send_raw_hid(uint8_t *data, uint8_t length) {
     if (length != RAW_BUFFER_SIZE) {
         return;
     }
@@ -183,7 +183,7 @@ void raw_hid_task(void) {
 #    define CONSOLE_BUFFER_SIZE 32
 #    define CONSOLE_EPSIZE 8
 
-int8_t sendchar(uint8_t c) {
+int8_t send_console(uint8_t c) {
     rbuf_enqueue(c);
     return 0;
 }
@@ -213,10 +213,10 @@ void console_task(void) {
 /*------------------------------------------------------------------*
  * Host driver
  *------------------------------------------------------------------*/
-static void    send_keyboard(report_keyboard_t *report);
-static void    send_nkro(report_nkro_t *report);
-static void    send_mouse(report_mouse_t *report);
-static void    send_extra(report_extra_t *report);
+static void send_keyboard(report_keyboard_t *report);
+static void send_nkro(report_nkro_t *report);
+static void send_mouse(report_mouse_t *report);
+static void send_extra(report_extra_t *report);
 #ifdef JOYSTICK_ENABLE
 static void send_joystick(report_joystick_t *report);
 #endif // JOYSTICK_ENABLE
@@ -226,6 +226,12 @@ static void send_digitizer(report_digitizer_t *report);
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
 static void send_programmable_button(report_programmable_button_t *report);
 #endif // PROGRAMMABLE_BUTTON_ENABLE
+#ifdef CONSOLE_ENABLE
+static int8_t send_console(uint8_t c);
+#endif // CONSOLE_ENABLE
+#ifdef RAW_ENABLE
+static void send_raw_hid(uint8_t *data, uint8_t length);
+#endif // RAW_ENABLE
 
 static host_driver_t vusb_driver = {
     .has_init_executed = false,
@@ -247,6 +253,15 @@ static host_driver_t vusb_driver = {
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
     .send_programmable_button = send_programmable_button,
 #endif // PROGRAMMABLE_BUTTON_ENABLE
+#ifdef CONSOLE_ENABLE
+    .send_console = send_console,
+#endif // CONSOLE_ENABLE
+#ifdef VIRTSER_ENABLE
+    .send_virtser = NULL, // unsupported
+#endif // VIRTSER_ENABLE
+#ifdef RAW_ENABLE
+    .send_raw_hid = send_raw_hid,
+#endif // RAW_ENABLE
 };
 
 host_driver_t *host_usb_driver(void) {
