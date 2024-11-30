@@ -292,7 +292,7 @@ def _extract_features(info_data, rules):
                 info_data['features'] = {}
 
             if key in info_data['features']:
-                _log_warning(info_data, 'Feature %s is specified in both info.json and rules.mk, the rules.mk value wins.' % (key,))
+                _log_warning(info_data, 'Feature %s is specified in both info.json (%s) and rules.mk (%s). The rules.mk value wins.' % (key, info_data['features'], value))
 
             info_data['features'][key] = value
             info_data['config_h_features'][key] = value
@@ -415,7 +415,7 @@ def _extract_encoders(info_data, config_c):
             info_data['encoder'] = {}
 
         if 'rotary' in info_data['encoder']:
-            _log_warning(info_data, 'Encoder config is specified in both config.h and info.json (encoder.rotary) (Value: %s), the config.h value wins.' % info_data['encoder']['rotary'])
+            _log_warning(info_data, 'Encoder config is specified in both config.h (%s) and info.json (%s). The config.h value wins.' % (encoders, info_data['encoder']['rotary']))
 
         info_data['encoder']['rotary'] = encoders
 
