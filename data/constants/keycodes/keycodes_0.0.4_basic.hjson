@@ -3,7 +3,7 @@
         "0x00C3": {
             "group": "media",
             "key": "KC_GLOBE",
-            "label": "Apple Globe/FN Key",
+            "label": "Apple Globe/Fn",
             "aliases": [
                 "KC_GLB"
             ]
