@@ -84,7 +84,11 @@
 #    error POINTING_MODE_NUM_DEVICES set too low
 #endif
 
+/* macros */
+#define member_size(t, m) (sizeof(((t *)0)-> m))
+
 /* enums */
+// These are for setting directions (Note many of these are reserved for 8-way modes)
 enum pointing_mode_directions {
     PMD_NONE  = 0x00, // [0000]
     PMD_DOWN  = 0x01, // [0001]
@@ -92,18 +96,19 @@ enum pointing_mode_directions {
     PMD_LEFT  = 0x04, // [0100]
     PMD_RIGHT = 0x08, // [1000]
     PMD_VERT  = 0x03, // [0011]
-    PMD_HORI  = 0x0C // [1100]
-    //PMD_DNLT  = 0x05, // [0101]
-    //PMD_UPLT  = 0x06, // [0110]
-    //PMD_DNRT  = 0x09, // [1001]
-    //PMD_UPRT  = 0x0A  // [1010]
+    PMD_HORI  = 0x0C, // [1100]
+    PMD_DNLT  = 0x05, // [0101]
+    PMD_UPLT  = 0x06, // [0110]
+    PMD_DNRT  = 0x09, // [1001]
+    PMD_UPRT  = 0x0A  // [1010]
 };
 
-enum pointing_mode_4_key_directions {
-    PMK_UP    = 0,
-    PMK_LEFT  = 1,
-    PMK_RIGHT = 2,
-    PMK_DOWN  = 3
+enum pointing_mode_4_key_map {
+    PMK_UP    = 0,   // [0000]
+    PMK_LEFT  = 1,   // [0001]
+    PMK_RIGHT = 2,   // [0010]
+    PMK_DOWN  = 3,   // [0011]
+    PMK_NONE  = 0x08 // [1000]
 };
 
 enum pointing_mode_types {
@@ -127,13 +132,14 @@ enum pointing_mode_devices {
 
 /* local pointing device data structures */
 typedef struct {
-    uint8_t precision;
-    uint8_t toggle_id;
-    uint8_t mode_id;
     mouse_xy_report_t x;
     mouse_xy_report_t y;
-    uint16_t held_key[2];
-} pointing_mode_device_t;
+} pointing_mode_residuals_t;
+
+typedef struct {
+    uint8_t v;
+    uint8_t h;
+} pointing_mode_held_keys_t;
 
 /* ----------Controlling active device pointing mode-------------------------------------------------------------- */
 void    pointing_mode_set_precision(uint8_t precision); // set active device precision divisor
@@ -158,29 +164,24 @@ uint8_t           current_pointing_mode_direction(void);            // access cu
 void pointing_tap_codes(uint16_t kc_left, uint16_t kc_down, uint16_t kc_up, uint16_t kc_right); // pointing_mode x/y to keycode taps
 
 /* ----------Callbacks for modifying and adding pointing modes---------------------------------------------------- */
-bool process_pointing_mode_kb(pointing_mode_t pointing_mode, report_mouse_t* mouse_report);   // keyboard level
-bool process_pointing_mode_user(pointing_mode_t pointing_mode, report_mouse_t* mouse_report); // user/keymap level
-uint8_t get_pointing_mode_type_kb(uint8_t mode_id);                                           // setting mode type at keyboard level
-uint8_t get_pointing_mode_type_user(uint8_t mode_id);                                         // setting mode type at user level
-uint8_t get_pointing_mode_divisor_kb(uint8_t mode_id, uint8_t direction);                     // setting divisors at keyboard level
-uint8_t get_pointing_mode_divisor_user(uint8_t mode_id, uint8_t direction);                   // setting divisors at user/keymap level
+bool process_pointing_mode_kb(pointing_mode_residuals_t* residuals, report_mouse_t* mouse_report);   // keyboard level
+bool process_pointing_mode_user(pointing_mode_residuals_t* residuals, report_mouse_t* mouse_report); // user/keymap level
+uint8_t get_pointing_mode_type_kb(uint8_t mode_id);                                                  // setting mode type at keyboard level
+uint8_t get_pointing_mode_type_user(uint8_t mode_id);                                                // setting mode type at user level
+uint8_t get_pointing_mode_divisor_kb(uint8_t mode_id, uint8_t direction);                            // setting divisors at keyboard level
+uint8_t get_pointing_mode_divisor_user(uint8_t mode_id, uint8_t direction);                          // setting divisors at user/keymap level
 
 /* ----------Core functions (only used in custom pointing devices or key processing)------------------------------ */
-void           pointing_mode_set_device_settings(pointing_mode_device_t device); // set active device settings
 report_mouse_t pointing_device_modes_task(report_mouse_t mouse_report); // intercepts mouse_report (in pointing_device_task_* stack)
 
 /* ----------Pointing Device mode Mapping------------------------------------------------------------------------- */
-#ifdef POINTING_MODE_MAP_ENABLE
-#    define POINTING_MODE_LAYOUT(Y_POS, X_NEG, X_POS, Y_NEG) \
-        { Y_NEG, Y_POS, X_NEG, X_POS }
-#    ifndef POINTING_MODE_MAP_START
-#        define POINTING_MODE_MAP_START PM_SAFE_RANGE
-#    endif
+#ifndef POINTING_MODE_MAP_START
+#    define POINTING_MODE_MAP_START PM_SAFE_RANGE
+#endif
 
 extern const uint16_t PROGMEM pointing_mode_maps[][POINTING_MODE_NUM_DIRECTIONS];
 
 #endif // POINTING_MODE_MAP_ENABLE
 /* ----------For multiple pointing devices------------------------------------------------------------------------ */
-pointing_mode_device_t pointing_mode_get_device_settings(uint8_t device_id) // access device status
-uint8_t                pointing_mode_get_active_device(void);            // get active device id
-void                   pointing_mode_set_active_device(uint8_t device_id);  // set active device (PM_LEFT_SIDE, PM_RIGHT_SIDE, etc.)
+uint8_t                pointing_mode_get_active_device(void);                            // get active device id
+void                   pointing_mode_set_active_device(uint8_t device_id);               // set active device (PM_LEFT_SIDE, PM_RIGHT_SIDE, etc.)
