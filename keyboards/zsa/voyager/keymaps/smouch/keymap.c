@@ -63,7 +63,7 @@ enum custom_keycodes {
 
 // middle row
 #define LM5 KC_Z
-#define LM4 LT(_SYM, KC_S)
+#define LM4 LCTL_T(KC_S)
 #define LM3 LALT_T(KC_N)
 #define LM2 LGUI_T(KC_T)
 #define LM1 LSFT_T(KC_H)
@@ -73,12 +73,12 @@ enum custom_keycodes {
 #define RM1 RSFT_T(KC_A)
 #define RM2 RGUI_T(KC_E)
 #define RM3 RALT_T(KC_I)
-#define RM4 LT(_SYM, KC_C)
+#define RM4 RCTL_T(KC_C)
 #define RM5 KC_Q
 
 // bottom row
 #define LB5 TG(_NUM)
-#define LB4 LCTL_T(KC_F)
+#define LB4 KC_F
 #define LB3 KC_P
 #define LB2 KC_D
 #define LB1 KC_L
@@ -88,14 +88,14 @@ enum custom_keycodes {
 #define RB1 KC_U
 #define RB2 KC_O
 #define RB3 KC_Y
-#define RB4 RCTL_T(KC_B)
+#define RB4 KC_B
 #define RB5 KC_BSLS
 
 // thumb row
 #define LH1 LT(_NAV, KC_R)
-#define LH0 KC_BSPC
+#define LH0 LT(_SYM, KC_BSPC)
 
-#define RH0 KC_ENT
+#define RH0 LT(_SYM, KC_ENT)
 #define RH1 LT(_NUM, KC_SPC)
 
 #define ___x___ KC_NO  // visual aid to null keys
@@ -107,11 +107,11 @@ static uint16_t keyhold_timer; // for handling Qu combo
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  /*  Hands Down Promethium (canonical)
+  /*  Hands Down Promethium
     ⎋   3   2@  1$   0#  4           7   6(  5() 9)  8  CW
     ⇥   v   w   g    m   j           +=  .:  /   "!  '? `
-    z   s   n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘  i⌥  c  q
-    tg  f⌃  p   d    l   x      	 -   u   o   y   b⌃ \
+    z   s⌃  n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘  i⌥  c⌃ q
+    tg  f   p   d    l   x      	 -   u   o   y   b  \
                          r   ⌫   ⏎   ␣
   */
   [_DEF] = LAYOUT_voyager(
@@ -173,12 +173,12 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case RM1:
             return TAPPING_TERM - 25;
 
-    	case LB4:
+    	case LM4:
         case LM3:
         case LM2:
         case RM2:
         case RM3:
-        case RB4:
+        case RM4:
             return TAPPING_TERM + 75;
 
         default:
