@@ -8,9 +8,9 @@ SHARED_EP_ENABLE = no
 MOUSE_SHARED_EP ?= yes
 
 ifeq ($(strip $(GLOBE_KEY_ENABLE)), yes)
-	OPT_DEFS += -DGLOBE_KEY_ENABLE
-	# The globe key require SHARED_EP
-	SHARED_EP_ENABLE = yes
+    OPT_DEFS += -DGLOBE_KEY_ENABLE
+    # The globe key requires SHARED_EP
+    SHARED_EP_ENABLE = yes
 endif
 
 ifeq ($(strip $(KEYBOARD_SHARED_EP)), yes)
