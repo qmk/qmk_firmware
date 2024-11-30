@@ -218,7 +218,7 @@ See also: [Basic Keycodes](keycodes_basic)
 <sup>4. Holding Shift+Option allows for finer control of volume level.</sup><br/>
 <sup>5. Skips the entire track in iTunes when tapped, seeks within the current track when held.</sup><br/>
 <sup>6. WMP does not recognize the Rewind key, but both alter playback speed in VLC.</sup>
-<sup>7. The Globe key requires `GLOBE_KEY_ENABLE = yes` to be set in `rules.mk`. When pressed it will reveal the emoji picker, and it can be combined with other keys. Note however that Globe+F-keys or Globe+arrow do not work.
+<sup>7. The Globe key requires `GLOBE_KEY_ENABLE = yes` to be set in `rules.mk`. When pressed it will reveal the emoji picker, and it can be combined with other keys. Note however that Globe+F-keys or Globe+arrow do not work.</sup>
 
 ## Quantum Keycodes {#quantum-keycodes}
 
