@@ -2,7 +2,7 @@
 
 ![Micropad 4x4](https://imgur.com/ugfJLXJ.jpg)
 
-A budget-friendly F-rowless TKL with a rotary encoder
+A budget-friendly 4x4 Macropad
 
 * Keyboard Maintainer: [nibell](https://github.com/Nibell)
 Hardware Supported: Raspberry Pi Pico 
