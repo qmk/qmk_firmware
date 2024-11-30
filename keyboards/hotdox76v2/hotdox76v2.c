@@ -20,12 +20,12 @@ led_config_t g_led_config = {
         { 13, 12, 11, 10,  9,  8,  7         },
         {   0, 1,  2,   3, 4,  5,  6         },
         /*right*/
-        { NO_LED, 72, 71, 70, 73, 75, 74     },
-        { 65, 66, 67, 68, 69, NO_LED, NO_LED },
-        { 64, 63, 62, 61, 60, 59, 58         },
-        { 52, 53, 54, 55, 56, 57, NO_LED     },
-        { 51, 50, 49, 48, 47, 46, 45         },
-        { 38, 39, 40, 41, 42, 43, 44         }
+        { NO_LED, 77, 76, 75, 78, 80, 79     },
+        { 70, 71, 72, 73, 74, NO_LED, NO_LED },
+        { 69, 68, 67, 66, 65, 64, 63         },
+        { 57, 58, 59, 60, 61, 62, NO_LED     },
+        { 56, 55, 54, 53, 52, 51, 50         },
+        { 43, 44, 45, 46, 47, 48, 49         }
     },
     {
         // LED Index to Physical Position
@@ -60,7 +60,7 @@ led_config_t g_led_config = {
 
 #ifdef OLED_ENABLE
 
-#    define UNC (94 + 0x21)
+#    define UNC (' ')
 typedef struct _master_to_slave_t {
     int  cur_alp_index;
     char current_alp[7];
@@ -115,8 +115,8 @@ void render_layer_helper_fun(uint8_t start_line, const char *data, uint8_t gap_w
     for (j = 0; j < l; ++j) {      // font index
         for (k = 0; k < 12; ++k) { // font byte index
             //                                        base + logo_w(32) + gap_w(12) +l*font_w(12)+current_byte_index
-            oled_write_raw_byte(pgm_read_byte(&ext_big_font[pgm_read_byte(&data[j]) - 0x21][k]), start_line * 2 * 128 + 32 + gap_w + j * 12 + k);
-            oled_write_raw_byte(pgm_read_byte(&ext_big_font[pgm_read_byte(&data[j]) - 0x21][k + 12]), start_line * 2 * 128 + 128 + 32 + gap_w + j * 12 + k);
+            oled_write_raw_byte(pgm_read_byte(&ext_big_font[pgm_read_byte(&data[j]) - 0x20][k]), start_line * 2 * 128 + 32 + gap_w + j * 12 + k);
+            oled_write_raw_byte(pgm_read_byte(&ext_big_font[pgm_read_byte(&data[j]) - 0x20][k + 12]), start_line * 2 * 128 + 128 + 32 + gap_w + j * 12 + k);
         }
     }
     for (j = 0; j < gap_w; ++j) {
@@ -151,8 +151,8 @@ void render_cur_input_helper_fun(uint8_t start_line, const char *data, uint8_t g
     for (j = 0; j < l; ++j) {      // font index
         for (k = 0; k < 12; ++k) { // font byte index
             //                                        base + logo_w(0) + gap_w(12) +l*font_w(12)+current_byte_index
-            oled_write_raw_byte(pgm_read_byte(&ext_big_font[data[j] - 0x21][k]), start_line * 2 * 128 + gap_w + j * 12 + k);
-            oled_write_raw_byte(pgm_read_byte(&ext_big_font[data[j] - 0x21][12 + k]), start_line * 2 * 128 + 128 + gap_w + j * 12 + k);
+            oled_write_raw_byte(pgm_read_byte(&ext_big_font[data[j] - 0x20][k]), start_line * 2 * 128 + gap_w + j * 12 + k);
+            oled_write_raw_byte(pgm_read_byte(&ext_big_font[data[j] - 0x20][12 + k]), start_line * 2 * 128 + 128 + gap_w + j * 12 + k);
         }
     }
     for (j = 0; j < gap_w; ++j) {

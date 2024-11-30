@@ -16,6 +16,7 @@
 
 
 /* RGB CONFIG - WS2812 DRIVER */
+/*
 #define WS2812_DI_PIN A1
 #define RGB_MATRIX_LED_COUNT 36
 #define RGBLED_SPLIT \
@@ -28,7 +29,7 @@
 #define WS2812_DMA_STREAM STM32_DMA1_STREAM1
 // Without the following configurations the WS2812 would not light up
 #define WS2812_PWM_TARGET_PERIOD 800000
-
+*/
 
 /* CRC DRIVER 
 #define CRC8_USE_TABLE
