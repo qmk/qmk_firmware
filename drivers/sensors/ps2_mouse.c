@@ -28,10 +28,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "pointing_device_internal.h"
 
 const pointing_device_driver_t ps2_mouse_pointing_device_driver = {
-    .init         = ps2_mouse_init,
-    .get_report   = ps2_mouse_get_report,
-    .set_cpi      = ps2_mouse_set_cpi,
-    .get_cpi      = ps2_mouse_get_cpi,
+    .init       = ps2_mouse_init,
+    .get_report = ps2_mouse_get_report,
+    .set_cpi    = ps2_mouse_set_cpi,
+    .get_cpi    = ps2_mouse_get_cpi,
 };
 
 /* ============================= HELPERS ============================ */
@@ -97,7 +97,7 @@ report_mouse_t ps2_mouse_get_report(report_mouse_t mouse_report) {
         ps2_report.x      = ps2_host_recv_response();
         ps2_report.y      = ps2_host_recv_response();
 #    ifdef PS2_MOUSE_ENABLE_SCROLLING
-        ps2_report.z      = ps2_host_recv_response();
+        ps2_report.z = ps2_host_recv_response();
 #    endif
     }
 #endif
