@@ -32,7 +32,7 @@
 #include <lib/lib8tion/lib8tion.h>
 
 #ifdef LED_MATRIX_DOUBLE_BUFFER
-#define led_matrix_driver led_matrix_driver_wrapper
+#    define led_matrix_driver led_matrix_driver_wrapper
 #endif
 
 #ifndef LED_MATRIX_CENTER
@@ -637,5 +637,5 @@ void led_matrix_set_flags_noeeprom(led_flags_t flags) {
 }
 
 #ifdef LED_MATRIX_DOUBLE_BUFFER
-#undef led_matrix_driver
+#    undef led_matrix_driver
 #endif
