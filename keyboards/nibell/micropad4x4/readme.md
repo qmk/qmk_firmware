@@ -5,8 +5,15 @@
 A budget-friendly 4x4 Macropad
 
 * Keyboard Maintainer: [nibell](https://github.com/Nibell)
-Hardware Supported: Raspberry Pi Pico 
+* Hardware Supported: Raspberry Pi Pico 
 * Hardware Availability: [GitHub](https://github.com/Nibell/Keyboards/tree/main/micropad4x4)
+
+## Bootloader
+
+Enter the bootloader in 2 ways:
+
+* **Physical reset button**: Hold the button down on the raspberry pi pico while plugging it in. There is no reset button on the pcb.
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
 
 Make example for this keyboard (after setting up your build environment):
 
