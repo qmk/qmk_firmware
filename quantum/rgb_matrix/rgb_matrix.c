@@ -721,7 +721,3 @@ void rgb_matrix_set_flags(led_flags_t flags) {
 void rgb_matrix_set_flags_noeeprom(led_flags_t flags) {
     rgb_matrix_set_flags_eeprom_helper(flags, false);
 }
-
-#ifdef RGB_MATRIX_DOUBLE_BUFFER
-#    undef rgb_matrix_driver
-#endif

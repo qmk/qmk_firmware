@@ -1403,7 +1403,7 @@ void rgblight_effect_twinkle(animation_status_t *anim) {
 
     for (uint8_t i = 0; i < rgblight_ranges.effect_num_leds; i++) {
         TwinkleState *t = &(led_twinkle_state[i]);
-        hsv_t        *c = &(t->hsv);
+        hsv_t *       c = &(t->hsv);
 
         if (!random_color) {
             c->h = rgblight_config.hue;
@@ -1495,8 +1495,4 @@ uint8_t rgblight_velocikey_match_speed(uint8_t minValue, uint8_t maxValue) {
     return MAX(minValue, maxValue - (maxValue - minValue) * ((float)typing_speed / TYPING_SPEED_MAX_VALUE));
 }
 
-#endif
-
-#ifdef RGBLIGHT_DOUBLE_BUFFER
-#    undef rgblight_driver
 #endif
