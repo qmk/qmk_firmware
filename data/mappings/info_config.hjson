@@ -100,6 +100,7 @@
     "LED_MATRIX_DEFAULT_ON": {"info_key": "led_matrix.default.on", "value_type": "bool"},
     "LED_MATRIX_DEFAULT_VAL": {"info_key": "led_matrix.default.val", "value_type": "int"},
     "LED_MATRIX_DEFAULT_SPD": {"info_key": "led_matrix.default.speed", "value_type": "int"},
+    "LED_MATRIX_DOUBLE_BUFFER": {"info_key": "led_matrix.double_buffer", "value_type": "flag"},
 
     // Locking Switch
     "LOCKING_SUPPORT_ENABLE": {"info_key": "qmk.locking.enabled", "value_type": "flag"},
@@ -152,6 +153,7 @@
     "RGB_MATRIX_DEFAULT_SAT": {"info_key": "rgb_matrix.default.sat", "value_type": "int"},
     "RGB_MATRIX_DEFAULT_VAL": {"info_key": "rgb_matrix.default.val", "value_type": "int"},
     "RGB_MATRIX_DEFAULT_SPD": {"info_key": "rgb_matrix.default.speed", "value_type": "int"},
+    "RGB_MATRIX_DOUBLE_BUFFER": {"info_key": "rgb_matrix.double_buffer", "value_type": "flag"},
 
     // RGBLight
     "RGBLED_SPLIT": {"info_key": "rgblight.split_count", "value_type": "array.int"},
@@ -172,6 +174,7 @@
     "RGBLIGHT_DEFAULT_SAT": {"info_key": "rgblight.default.sat", "value_type": "int"},
     "RGBLIGHT_DEFAULT_VAL": {"info_key": "rgblight.default.val", "value_type": "int"},
     "RGBLIGHT_DEFAULT_SPD": {"info_key": "rgblight.default.speed", "value_type": "int"},
+    "RGBLIGHT_DOUBLE_BUFFER": {"info_key": "rgblight.double_buffer", "value_type": "flag"},
 
     // Secure
     "SECURE_IDLE_TIMEOUT": {"info_key": "secure.idle_timeout", "value_type": "int"},
