@@ -157,8 +157,6 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
 
 #ifdef RGB_MATRIX_DOUBLE_BUFFER
 
-// #undef rgb_matrix_driver
-
 static rgb_t led_buffer[RGB_MATRIX_LED_COUNT];
 
 void rgb_matrix_driver_init(void) {
@@ -181,8 +179,6 @@ void rgb_matrix_driver_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
         rgb_matrix_driver_set_color(i, red, green, blue);
     }
 }
-
-#    undef rgb_matrix_driver
 
 const rgb_matrix_driver_t rgb_matrix_driver_wrapper = {
     .init          = rgb_matrix_driver_init,
