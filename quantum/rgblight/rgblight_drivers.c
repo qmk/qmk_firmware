@@ -24,3 +24,37 @@ const rgblight_driver_t rgblight_driver = {
 };
 
 #endif
+
+#ifdef RGBLIGHT_DOUBLE_BUFFER
+
+static rgb_t led_buffer[RGBLIGHT_LED_COUNT];
+
+void rgblight_driver_init(void) {
+    rgblight_driver.init();
+}
+
+void rgblight_driver_flush(void) {
+    for (uint16_t i = 0; i < RGBLIGHT_LED_COUNT; i++) {
+        rgblight_driver.set_color(i, led_buffer[i].r, led_buffer[i].g, led_buffer[i].b);
+    }
+    rgblight_driver.flush();
+}
+
+void rgblight_driver_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
+    led_buffer[index] = (rgb_t){.r = red, .g = green, .b = blue};
+}
+
+void rgblight_driver_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
+    for (uint16_t i = 0; i < RGBLIGHT_LED_COUNT; i++) {
+        rgb_matrix_driver_set_color(i, red, green, blue);
+    }
+}
+
+const rgblight_driver_t rgblight_driver_wrapper = {
+    .init          = rgblight_driver_init,
+    .flush         = rgblight_driver_flush,
+    .set_color     = rgblight_driver_set_color,
+    .set_color_all = rgblight_driver_set_color_all,
+};
+
+#endif

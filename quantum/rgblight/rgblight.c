@@ -24,6 +24,11 @@
 #include "util.h"
 #include "led_tables.h"
 #include <lib/lib8tion/lib8tion.h>
+
+#ifdef RGBLIGHT_DOUBLE_BUFFER
+#define rgblight_driver rgblight_driver_wrapper
+#endif
+
 #ifdef EEPROM_ENABLE
 #    include "eeprom.h"
 #endif
@@ -1490,4 +1495,8 @@ uint8_t rgblight_velocikey_match_speed(uint8_t minValue, uint8_t maxValue) {
     return MAX(minValue, maxValue - (maxValue - minValue) * ((float)typing_speed / TYPING_SPEED_MAX_VALUE));
 }
 
+#endif
+
+#ifdef RGBLIGHT_DOUBLE_BUFFER
+#undef rgblight_driver
 #endif
