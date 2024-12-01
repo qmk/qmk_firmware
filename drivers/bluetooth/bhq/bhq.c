@@ -203,12 +203,23 @@ void bhq_OpenBleAdvertising(uint8_t host_index,uint16_t timeout_1S)
     bhkBuff[index++] = BHQ_H_UINT16(timeout_1S);  
     BHQ_SendCmd(BHQ_NOT_ACK, bhkBuff,index);
 }
-void bhq_CloseBleAdvertising(void)
+void bhq_AnewOpenBleAdvertising(uint8_t host_index,uint16_t timeout_1S)
 {
     uint8_t index = 0;
 
     bhkBuff[index++] = 0x14;
     bhkBuff[index++] = 3;                        
+    bhkBuff[index++] = host_index;                        
+    bhkBuff[index++] = BHQ_L_UINT16(timeout_1S);      
+    bhkBuff[index++] = BHQ_H_UINT16(timeout_1S);  
+    BHQ_SendCmd(BHQ_NOT_ACK, bhkBuff,index);
+}
+void bhq_CloseBleAdvertising(void)
+{
+    uint8_t index = 0;
+
+    bhkBuff[index++] = 0x14;
+    bhkBuff[index++] = 4;                        
     bhkBuff[index++] = 0;                        
     bhkBuff[index++] = 0;      
     bhkBuff[index++] = 0;      
@@ -219,7 +230,7 @@ void bhq_switch_rf_easy_kb(void)
     uint8_t index = 0;
 
     bhkBuff[index++] = 0x14;
-    bhkBuff[index++] = 4;                        
+    bhkBuff[index++] = 5;                        
     bhkBuff[index++] = 0;                        
     bhkBuff[index++] = 0;      
     bhkBuff[index++] = 0;      

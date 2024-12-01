@@ -157,7 +157,10 @@ void My_PWR_EnterSTOPMode(void)
 
 void enter_low_power_mode_prepare(void)
 {
-
+    if (usb_power_connected()) 
+    {
+       return;
+    }
     set_all_io_analog();
     uint8_t i = 0;
 #if (DIODE_DIRECTION == COL2ROW)
@@ -242,7 +245,6 @@ void enter_low_power_mode_prepare(void)
     ws2812power_enabled();
   
     gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
-
 
 }
 

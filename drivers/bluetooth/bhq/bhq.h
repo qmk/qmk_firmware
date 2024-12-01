@@ -101,6 +101,7 @@ void BHQ_State_Call(uint8_t cmdid, uint8_t *dat);
 
 void bhq_SetPairingMode(uint8_t host_index, uint16_t timeout_1S);
 void bhq_OpenBleAdvertising(uint8_t host_index, uint16_t timeout_1S);
+void bhq_AnewOpenBleAdvertising(uint8_t host_index, uint16_t timeout_1S);
 void bhq_CloseBleAdvertising(void);
 void bhq_switch_rf_easy_kb(void);
 

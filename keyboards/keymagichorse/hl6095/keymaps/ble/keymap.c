@@ -22,10 +22,8 @@
 
 #if defined(BLUETOOTH_BHQ)
 #   include "bhq.h"
+#   include "battery.h"
 #   include "km_printf.h"
-#   ifdef KM_DEBUG
-#       include "km_printf.h"
-#   endif
 #endif
 
 
@@ -61,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_all(
     QK_GESC, KC_1,    KC_2,     KC_3,     KC_4,    KC_5,    KC_6,    KC_7,    KC_8,      KC_9,     KC_0,     KC_MINS,  KC_EQL,  KC_BSLS, KC_BSPC,
     KC_TAB,  BL_SW_0, BL_SW_1,  RF_TOG,     KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,      KC_O,     KC_P,     KC_LBRC,  KC_RBRC, KC_BSLS,
-    KC_CAPS, BLE_TOG, USB_TOG,  KC_D,     KC_F,    KC_G,    KC_H,    KC_J,    KC_K,      KC_L,     KC_SCLN,  KC_QUOT,  KC_BSLS, KC_ENT,
+    KC_CAPS, BLE_TOG, USB_TOG,  NK_TOGG,     KC_F,    KC_G,    KC_H,    KC_J,    KC_K,      KC_L,     KC_SCLN,  KC_QUOT,  KC_BSLS, KC_ENT,
     KC_LSFT, KC_Z,    KC_X,     KC_C,     KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM,   KC_DOT,   KC_SLSH,  KC_RSFT,  KC_UP,   KC_DEL,
     KC_LCTL, KC_LGUI, KC_LALT,  KC_SPC,   KC_SPC,  KC_SPC,                    KC_SPC,    KC_RALT,  MO(1),    KC_LEFT,  KC_DOWN, KC_RIGHT),
   [1] = LAYOUT_all(
@@ -88,8 +86,31 @@ static uint32_t output_mode_press_time = 0;
 static uint32_t ble_switch_press_time = 0;
 static uint8_t ble_host_index = 0;
 
+uint8_t advertSta = 0;
+uint8_t connectSta = 0;
+uint8_t pairingSta = 0;
+uint8_t host_index = 255;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     lpm_timer_reset();
+
+    // 如果广播没有打开 那么 重新打开一下广播
+    if(where_to_send() == OUTPUT_BLUETOOTH)
+    {
+        if(record->event.pressed)
+        {
+            output_mode_press_time = timer_read32();
+        }
+        else 
+        {
+            if(timer_elapsed32(output_mode_press_time) >= 300) 
+            {
+                ble_host_index = 0xff;
+                bhq_AnewOpenBleAdvertising(ble_host_index,10);
+            }
+        }
+    }
+
     switch (keycode)
     {
         case BLE_TOG:
@@ -251,6 +272,12 @@ void keyboard_post_init_kb(void)
     };
 
     bhq_ConfigRunParam(model_parma);
+
+    if(where_to_send() == OUTPUT_BLUETOOTH)
+    {
+        // 上电的时候可以打开一下蓝牙广播
+        bhq_AnewOpenBleAdvertising(0xff,10);
+    }
 }
 
 
@@ -274,10 +301,6 @@ void BHQ_State_Call(uint8_t cmdid, uint8_t *dat) {
     rgb_adv_unblink_all_layer();
 
 
-    uint8_t advertSta = BHQ_GET_BLE_ADVERT_STA(dat[1]);
-    uint8_t connectSta = BHQ_GET_BLE_CONNECT_STA(dat[1]);
-    uint8_t pairingSta = BHQ_GET_BLE_PAIRING_STA(dat[1]);
-    uint8_t host_index = 255;
     advertSta = BHQ_GET_BLE_ADVERT_STA(dat[1]);
     connectSta = BHQ_GET_BLE_CONNECT_STA(dat[1]);
     pairingSta = BHQ_GET_BLE_PAIRING_STA(dat[1]);
