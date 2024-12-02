@@ -250,8 +250,8 @@ void keyboard_post_init_kb(void)
         .verndor_id         = VENDOR_ID,
         .product_id         = PRODUCT_ID,
 
-        .le_connection_interval_min = 6,
-        .le_connection_interval_max = 10,
+        .le_connection_interval_min = 10,   // 6 10 上报速度过快更丝滑 功耗更大
+        .le_connection_interval_max = 30,
         .le_connection_interval_timeout = 500,
         .tx_poweer = 0x3D,    
 
