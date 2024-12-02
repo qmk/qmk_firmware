@@ -29,8 +29,8 @@ enum custom_keycodes {
 /*  Hands Down Promethium
 
     v   w   g    m   j           +=  .:  /    "!  '?
-    s2  n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘   i⌥  c2
-    f⌃  p   d    l   x	 `   \	 -   u   o    y   b⌃
+    s⌃  n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘   i⌥  c⌃
+    f   p   d    l   x	 `   \	 -   u   o    y   b
     ←   →  app   ⇥   r   ⌫   ⏎   ␣   ⎋  num   ↑   ↓
 */
 
@@ -48,7 +48,7 @@ enum custom_keycodes {
 #define RT4 KC_QUOT
 
 // middle row
-#define LM4 LT(_SYM, KC_S)
+#define LM4 LCTL_T(KC_S)
 #define LM3 LALT_T(KC_N)
 #define LM2 LGUI_T(KC_T)
 #define LM1 LSFT_T(KC_H)
@@ -58,10 +58,10 @@ enum custom_keycodes {
 #define RM1 RSFT_T(KC_A)
 #define RM2 RGUI_T(KC_E)
 #define RM3 RALT_T(KC_I)
-#define RM4 LT(_SYM, KC_C)
+#define RM4 RCTL_T(KC_C)
 
 // bottom row
-#define LB4 LCTL_T(KC_F)
+#define LB4 KC_F
 #define LB3 KC_P
 #define LB2 KC_D
 #define LB1 KC_L
@@ -73,7 +73,7 @@ enum custom_keycodes {
 #define RB1 KC_U
 #define RB2 KC_O
 #define RB3 KC_Y
-#define RB4 RCTL_T(KC_B)
+#define RB4 KC_B
 
 // thumb row
 #define LH4 KC_LEFT
@@ -81,9 +81,9 @@ enum custom_keycodes {
 #define LH2 G(KC_TAB)
 #define LH1 KC_TAB
 #define LH0 LT(_NAV, KC_R)
-#define LH00 KC_BSPC
+#define LH00 LT(_SYM, KC_BSPC)
 
-#define RH00 KC_ENT
+#define RH00 LT(_SYM, KC_ENT)
 #define RH0 LT(_NUM, KC_SPC)
 #define RH1 KC_ESC
 #define RH2 TG(_NUM)
@@ -101,9 +101,9 @@ static uint16_t keyhold_timer; // for handling Qu combo
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	/*
         v   w   g    m   j           +=  .:  /    "!  '?
-        s2  n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘   i⌥  c2
-        f⌃  p   d    l   x	 `   \	 -   u   o    y   b⌃
-        ←   →  app   ⇥   r   ⌫   ⏎   ␣   ⎋  num   ↑   ↓
+        s⌃  n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘   i⌥  c⌃
+        f   p   d    l   x	 `   \	 -   u   o    y   b
+        ←   →  app   ⇥   r3  ⌫2  ⏎2  ␣1  ⎋  num   ↑   ↓
     */
 
   	[_DEF] = LAYOUT(
@@ -115,8 +115,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /*  BEAKL-19 numpad
     	-   5   2   3   :           +   /   *
-    	7   .   1   0   4       ,   ⇧   ⌘   ⌥	L3
-    	,   6   9   8   ⏎       -   =			⌃
+    	7   .   1   0   4       ,   ⇧   ⌘   ⌥	⌃
+    	,   6   9   8   ⏎       -   =
     	            /   ␣   ⌫
     */
     [_NUM] = LAYOUT(
@@ -141,14 +141,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /*
                 ⌘Q     Scap    Sclp                            vol+    home    up	end
-    	⌃       ⌥       ⌘       ⇧     Sall        		       vol-    left    dn	rght	del
-    	undo   cut     cpy     pst    redo                     mute
+    	⌃       ⌥       ⌘       ⇧     Sall        		       vol-    left    dn	rght    ⌦
+    	undo   cut     cpy     pst    redo                     mute     ⌫
                                                                dsk-    dsk+
     */
     [_NAV] = LAYOUT(
     ___x___, G(KC_Q), LSG(KC_4), C(S(G(KC_4))), ___x___,                     KC_VOLU,    G(KC_LEFT), KC_UP,   G(KC_RGHT), ___x___,
     KC_LCTL, KC_LALT, KC_LGUI,   KC_LSFT,       G(KC_A),                     KC_VOLD,    KC_LEFT,    KC_DOWN, KC_RGHT,    KC_DEL,
-    G(KC_Z), G(KC_X), G(KC_C),   G(KC_V),       LSG(KC_Z), _______, _______, KC_MUTE,    ___x___,	 ___x___, ___x___,    ___x___,
+    G(KC_Z), G(KC_X), G(KC_C),   G(KC_V),       LSG(KC_Z), _______, _______, KC_MUTE,    KC_BSPC,	 ___x___, ___x___,    ___x___,
     _______, _______, _______,   _______,       _______,   _______, _______, C(KC_LEFT), C(KC_RGHT), _______, _______,    _______
     ),
 
@@ -160,12 +160,12 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case RM1:
             return TAPPING_TERM - 25;
 
-    	case LB4:
+    	case LM4:
         case LM3:
         case LM2:
         case RM2:
         case RM3:
-        case RB4:
+        case RM4:
             return TAPPING_TERM + 75;
 
         default:
