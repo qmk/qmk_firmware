@@ -1,24 +1,20 @@
 # Cornia Keyboard
 
-![Cornia v1](https://imgur.com/3vRlvi3)
+![Cornia v1](https://i.imgur.com/3vRlvi3.jpeg)
 
 A split keyboard with 3x6 column strongly staggered keys and 3 thumb keys
 
-Keyboard Maintainer: [Vaarai](https://github.com/Vaarai) 
-
-Hardware Supported: Cornia PCB, RP2040 / 0xCB-Helios
-
-Hardware Availability: [PCB Data](https://github.com/Vaarai/Cornia)
+* Keyboard Maintainer: [Vaarai](https://github.com/Vaarai) 
+* Hardware Supported: Cornia PCB, RP2040 / 0xCB-Helios
+* Hardware Availability: [PCB Data](https://github.com/Vaarai/Cornia)
 
 Make example for this keyboard (after setting up your build environment):
-```sh
+
     make cornia/v1:default
-```
 
 Flashing example for this keyboard:
-```sh
+
     make cornia/v1:default:flash
-```
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK ? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
@@ -39,14 +35,12 @@ Two keymaps are available for now, below are their [KLE](https://www.keyboard-la
 
 ## OLED Display & Cirque Trackpad
 
-The Corne Keyboard also support OLED Display and Cirque Trackpad through I²C, an implementation is available in `fire` keymap.
+The Cornia Keyboard also support OLED Display and Cirque Trackpad through I²C, an implementation is available in `fire` keymap.
 
 To use it please make with the following command:
-```sh
-    make cornia:fire
-```
+
+    make cornia/v1:fire
 
 And flash with:
-```sh
-    make cornia:fire:flash
-```
+
+    make cornia/v1:fire:flash
