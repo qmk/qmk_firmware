@@ -21,12 +21,6 @@
 #define MASTER_RIGHT
 // #define EE_HANDS
 
-#undef RP_I2C_USE_I2C0
-#define RP_I2C_USE_I2C0 FALSE
-
-#undef RP_I2C_USE_I2C1
-#define RP_I2C_USE_I2C1 TRUE
-
 /* I²C config */
 #define I2C_DRIVER I2CD1
 #define I2C1_SDA_PIN GP10
