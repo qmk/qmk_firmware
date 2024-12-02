@@ -898,6 +898,7 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
     endif
 
     ifeq ($(strip $(BLUETOOTH_DRIVER)), bhq)
+        UART_DRIVER_REQUIRED = yes
         NO_USB_STARTUP_CHECK = yes
         COMMON_VPATH += $(DRIVER_PATH)/bluetooth/bhq
         SRC += $(DRIVER_PATH)/bluetooth/bluetooth.c
