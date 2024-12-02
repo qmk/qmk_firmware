@@ -16,15 +16,12 @@
 #include "bhq.h"
 #include "bluetooth.h"
 #include "bluetooth_bhq.h"
-
+#include "config.h"
 #include "raw_hid.h"
 #include "report_buffer.h"
-#include "config.h"
-
 #include "uart.h"
 #include "quantum.h"
 
-#include "km_printf.h"
 uint8_t bhkBuff[PACKET_MAX_LEN] = {0};
 uint32_t uartTimeoutBuffer = 0;         // uart timeout 
 
@@ -48,7 +45,7 @@ uint16_t bhkSumCrc(uint8_t *data, uint16_t length) ;
 // bhq model send uart data
 void BHQ_SendData(uint8_t *dat, uint16_t length)
 {
-    uint16_t i = 0;
+    // uint16_t i = 0;
     uint32_t wait_bhq_ack_timeout = 0;
     uint32_t last_toggle_time = 0;
     uint32_t bhq_wakeup = 0;
@@ -85,12 +82,12 @@ void BHQ_SendData(uint8_t *dat, uint16_t length)
     gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
     uart_transmit(dat, length);
 
-    km_printf("mcu send data:");
-    for (i = 0; i < length; i++)
-    {
-        km_printf("%02x ",dat[i]);
-    }
-    km_printf("\r\n");
+    // km_printf("mcu send data:");
+    // for (i = 0; i < length; i++)
+    // {
+    //     km_printf("%02x ",dat[i]);
+    // }
+    // km_printf("\r\n");
 }
 int16_t BHQ_ReadData(void) {
     if (uart_available()) {
@@ -311,7 +308,7 @@ void bhq_send_mouse(uint8_t* report) {
 
 void bhq_send_hid_raw(uint8_t *data, uint8_t length)
 {
-    km_printf("mcu send hid raw length:%d\r\n",length);
+    // km_printf("mcu send hid raw length:%d\r\n",length);
     uint8_t index = 0;
     memset(bhkBuff, 0, PACKET_MAX_LEN);
 
@@ -346,11 +343,11 @@ __attribute__((weak)) void BHQ_State_Call(uint8_t cmdid, uint8_t *dat) {
 
 void BHQ_Led_Lock(uint8_t led_sta)
 {
-    km_printf("[%s] Num Lock\t", (led_sta & (1<<0)) ? "*" : " ");
-    km_printf("[%s] Caps Lock\t", (led_sta & (1<<1)) ? "*" : " ");
-    km_printf("[%s] Scroll Lock\n", (led_sta & (1<<2)) ? "*" : " ");
+    // km_printf("[%s] Num Lock\t", (led_sta & (1<<0)) ? "*" : " ");
+    // km_printf("[%s] Caps Lock\t", (led_sta & (1<<1)) ? "*" : " ");
+    // km_printf("[%s] Scroll Lock\n", (led_sta & (1<<2)) ? "*" : " ");
+    // km_printf("bhq led sta:%d\n",led_sta);
     bluetooth_bhq_set_keyboard_leds(led_sta);
-    km_printf("bhq led sta:%d\n",led_sta);
 }
 void BHQ_Sta_Handel(uint8_t cmdid, uint8_t *dat) 
 {
@@ -372,7 +369,7 @@ void BHQ_Protocol_Process(uint8_t *dat, uint16_t length)
     uint8_t buff_sta = 0;
     cmdid = dat[3];
     uint8_t i = 0 ;
-    km_printf("BHQ_Protocol_Process: cmdid:%d\r\n",cmdid);
+    // km_printf("BHQ_Protocol_Process: cmdid:%d\r\n",cmdid);
     uint8_t hid_data[32] = {0};
 
     switch(cmdid)
@@ -417,22 +414,22 @@ void BHQ_Protocol_Process(uint8_t *dat, uint16_t length)
 
         case 0x93:  //  BHQ model return [ble connect sta , ble pair sta...]
             BHQ_Sta_Handel(cmdid, &dat[4]);
-            for (i = 0; i < length; i++)
-            {
-                km_printf("%02x ",dat[i]);
-            }
-            km_printf("\r\n");
+            // for (i = 0; i < length; i++)
+            // {
+            //     km_printf("%02x ",dat[i]);
+            // }
+            // km_printf("\r\n");
             break;
         case 0x92:  // read module Info
         case 0xB1:
         case 0xB2:
-            km_printf("ota:[");
+            // km_printf("ota:[");
             for (i = 0; i < length; i++)
             {
                 hid_data[i] = dat[i];
-                km_printf("%02x ",dat[i]);
+                // km_printf("%02x ",dat[i]);
             }
-            km_printf("]\r\n");
+            // km_printf("]\r\n");
             raw_hid_send(hid_data, 32);
             break;
     }
@@ -480,7 +477,7 @@ void bhq_task(void)
     wait_for_new_pkt = false;
     bytedata = (uint8_t)temp;
     uartTimeoutBuffer = sync_timer_read32();
-    km_printf("%02x ",bytedata);
+    // km_printf("%02x ",bytedata);
     switch (u_sta)
     {
         case 0:
@@ -489,7 +486,7 @@ void bhq_task(void)
                 index = 0;
                 buf[index++] = bytedata;
                 u_sta++;  
-                km_printf("read 0x5d\r\n");
+                // km_printf("read 0x5d\r\n");
             }
             break;
         case 1:
@@ -497,18 +494,18 @@ void bhq_task(void)
             {
                 buf[index++] = bytedata;
                 u_sta++;  
-                km_printf("read 0x7E\r\n");
+                // km_printf("read 0x7E\r\n");
             }
             break;
         case 2:
             buf[index++] = bytedata;
             dataLength = 2 + 1 + bytedata + 2 + 1;  //  Frame Header2  + length1 + dataN + crc2 + Frame end1
             u_sta++;  
-            km_printf("read bytedata:%d\r\n",dataLength);
+            // km_printf("read bytedata:%d\r\n",dataLength);
             break;
         case 3:
             buf[index++] = bytedata;
-            km_printf("%02x ",bytedata);
+            // km_printf("%02x ",bytedata);
             if(index == dataLength && buf[dataLength - 1] == 0x5E)
             {
                 if(bhkVerify(buf, index) == 0x00)
@@ -519,7 +516,7 @@ void bhq_task(void)
                 u_sta = 0;
                 dataLength = 0;
                 memset(buf, 0, PACKET_MAX_LEN);
-                km_printf("\r\n");
+                // km_printf("\r\n");
             }
             break;
     }
@@ -530,35 +527,35 @@ void bhq_task(void)
 uint8_t bhkVerify(uint8_t *dat, uint16_t length)
 {
     uint8_t dataRead_length = 3 + dat[2];    // 两个帧头  一个长度 = 4 不包括帧头的长度
-   km_printf("dataRead_length:%d \r\n",dataRead_length);
+//    km_printf("dataRead_length:%d \r\n",dataRead_length);
 
     uint16_t dataReadCrc = BHQ_BUILD_UINT16(dat[dataRead_length],dat[dataRead_length + 1]);
-   km_printf("readCRCL %02x  readCRCH %02x \r\n",dat[dataRead_length],dat[dataRead_length + 1]);
+//    km_printf("readCRCL %02x  readCRCH %02x \r\n",dat[dataRead_length],dat[dataRead_length + 1]);
 
     uint16_t dataSumCrc = bhkSumCrc(dat,dataRead_length) ;
-   km_printf("readCRC %04x    sumCRC %04x \r\n", dataReadCrc, dataSumCrc);
-   km_printf("readCRC %d    sumCRC %d \r\n", dataReadCrc, dataSumCrc);
+//    km_printf("readCRC %04x    sumCRC %04x \r\n", dataReadCrc, dataSumCrc);
+//    km_printf("readCRC %d    sumCRC %d \r\n", dataReadCrc, dataSumCrc);
 
 
     if(dat[0] != BHQ_FRAME_HEADER_1 || dat[1] != BHQ_FRAME_HEADER_2)
     {
-       km_printf("Verify: FRAME_HEADER error !! \r\n");
+    //    km_printf("Verify: FRAME_HEADER error !! \r\n");
         return 0x01;
     }
 
     if(dataReadCrc != dataSumCrc)
     {
-       km_printf("Verify: CRC error !! \r\n");
+    //    km_printf("Verify: CRC error !! \r\n");
 
         return 0x02;
     }
 
     if(dat[dataRead_length + 2] != BHQ_FRAME_END_1)  // 跳过两个校验和就到帧尾了
     {
-       km_printf("Verify: FRAME_END error !! \r\n");
+    //    km_printf("Verify: FRAME_END error !! \r\n");
         return 0x03;
     }
-   km_printf("Verify: data success !! \r\n");
+//    km_printf("Verify: data success !! \r\n");
     return 0;
 }
 

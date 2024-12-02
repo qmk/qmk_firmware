@@ -18,17 +18,19 @@
 #if defined(BLUETOOTH_BHQ)
 #   include "bhq.h"
 #   include "km_printf.h"
+#   include "lpm.h"
 #endif
 
 
 
 void board_init(void) 
 {
+    lpm_init();
 #if defined(BLUETOOTH_BHQ)
     km_printf_init();
     km_printf("hello rtt log1111111\r\n");
 #endif
 }
 void housekeeping_task_kb(void) {
-
+    lpm_task();
 }

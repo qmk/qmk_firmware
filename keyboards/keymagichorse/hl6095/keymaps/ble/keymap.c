@@ -95,7 +95,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     lpm_timer_reset();
 
     // 如果广播没有打开 那么 重新打开一下广播
-    if(where_to_send() == OUTPUT_BLUETOOTH)
+    if(where_to_send() == OUTPUT_BLUETOOTH &&
+        (keycode < BT_1 || keycode > BT_9)
+    )
     {
         if(record->event.pressed)
         {
