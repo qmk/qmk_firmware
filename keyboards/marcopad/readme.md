@@ -1,6 +1,6 @@
 # MarcoPad
 
-![marcopad](https://pelegrini.ca/assets/img/marcopad/hardware/macropad.png)
+![marcopad](https://i.imgur.com/AnC9SeW.png)
 
 *A compact 3x3 keys macropad built with RP-2040 Zero*
 
