@@ -28,10 +28,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * └──────┴─────┴──────┴───────┘
      */
     [0] = LAYOUT_ortho_4x4(
-        KC_NUM, KC_NO,  KC_NO,          QK_BOOT,
-        TO(1),  TO(2),  TO(3),          KC_NO,
-        KC_1,   KC_2,   KC_3,           KC_4,
-        KC_NO,  KC_NO,  KC_RIGHT_SHIFT, KC_RIGHT_CTRL
+        KC_NUM, KC_NO,  KC_NO,      QK_BOOT,
+        TO(1),  TO(2),  TO(3),      KC_NO,
+        KC_1,   KC_2,   KC_3,       KC_4,
+        KC_NO,  KC_NO,  KC_RSFT,    KC_RCTL
     ),
 
     /* Numpad
