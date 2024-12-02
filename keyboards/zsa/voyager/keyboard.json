@@ -27,10 +27,6 @@
         "matrix": [0, 1]
     },
     "diode_direction": "ROW2COL",
-    "matrix_size": {
-        "cols": 7,
-        "rows": 12
-    },
     "mousekey": {
         "delay": 0,
         "interval": 20,

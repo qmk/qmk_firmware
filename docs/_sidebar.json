@@ -64,13 +64,7 @@
                         "text": "Development Environments",
                         "items": [{ "text": "Docker Guide", "link": "/getting_started_docker" }]
                     },
-                    {
-                        "text": "Flashing",
-                        "items": [
-                            { "text": "Flashing", "link": "/flashing" },
-                            { "text": "Flashing ATmega32A (ps2avrgb)", "link": "/flashing_bootloadhid" }
-                        ]
-                    },
+                    { "text": "Flashing", "link": "/flashing" },
                     {
                         "text": "IDEs",
                         "items": [
@@ -129,6 +123,7 @@
                     { "text": "Key Lock", "link": "/features/key_lock" },
                     { "text": "Key Overrides", "link": "/features/key_overrides" },
                     { "text": "Layers", "link": "/feature_layers" },
+                    { "text": "Layer Lock", "link": "/features/layer_lock" },
                     { "text": "One Shot Keys", "link": "/one_shot_keys" },
                     { "text": "OS Detection", "link": "/features/os_detection" },
                     { "text": "Raw HID", "link": "/features/rawhid" },
@@ -172,8 +167,7 @@
                         ]
                     },
                     { "text": "Audio", "link": "/features/audio" },
-                    { "text": "Bluetooth", "link": "/features/bluetooth" },
-                    { "text": "Bootmagic Lite", "link": "/features/bootmagic" },
+                    { "text": "Bootmagic", "link": "/features/bootmagic" },
                     { "text": "Converters", "link": "/feature_converters" },
                     { "text": "Custom Matrix", "link": "/custom_matrix" },
                     { "text": "DIP Switch", "link": "/features/dip_switch" },
@@ -185,7 +179,8 @@
                     { "text": "Pointing Device", "link": "/features/pointing_device" },
                     { "text": "PS/2 Mouse", "link": "/features/ps2_mouse" },
                     { "text": "Split Keyboard", "link": "/features/split_keyboard" },
-                    { "text": "Stenography", "link": "/features/stenography" }
+                    { "text": "Stenography", "link": "/features/stenography" },
+                    { "text": "Wireless", "link": "/features/wireless" }
                 ]
             },
             {
@@ -210,9 +205,10 @@
                     { "text": "My Pull Request Was Flagged", "link": "/breaking_changes_instructions" },
                     {
                         "text": "Most Recent ChangeLog",
-                        "link": "/ChangeLog/20240526"
+                        "link": "/ChangeLog/20241124"
                     },
-                    { "text": "Past Breaking Changes", "link": "/breaking_changes_history" }
+                    { "text": "Past Breaking Changes", "link": "/breaking_changes_history" },
+                    { "text": "Deprecation Policy", "link": "/support_deprecation_policy" }
                 ]
             },
 

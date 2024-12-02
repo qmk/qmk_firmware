@@ -79,7 +79,28 @@ uint16_t pointing_device_get_shared_cpi(void) {
 static report_mouse_t local_mouse_report         = {};
 static bool           pointing_device_force_send = false;
 
-extern const pointing_device_driver_t pointing_device_driver;
+#define POINTING_DEVICE_DRIVER_CONCAT(name) name##_pointing_device_driver
+#define POINTING_DEVICE_DRIVER(name) POINTING_DEVICE_DRIVER_CONCAT(name)
+
+#ifdef POINTING_DEVICE_DRIVER_custom
+__attribute__((weak)) void           pointing_device_driver_init(void) {}
+__attribute__((weak)) report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
+    return mouse_report;
+}
+__attribute__((weak)) uint16_t pointing_device_driver_get_cpi(void) {
+    return 0;
+}
+__attribute__((weak)) void pointing_device_driver_set_cpi(uint16_t cpi) {}
+
+const pointing_device_driver_t custom_pointing_device_driver = {
+    .init       = pointing_device_driver_init,
+    .get_report = pointing_device_driver_get_report,
+    .get_cpi    = pointing_device_driver_get_cpi,
+    .set_cpi    = pointing_device_driver_set_cpi,
+};
+#endif
+
+const pointing_device_driver_t *pointing_device_driver = &POINTING_DEVICE_DRIVER(POINTING_DEVICE_DRIVER_NAME);
 
 /**
  * @brief Keyboard level code pointing device initialisation
@@ -146,7 +167,7 @@ __attribute__((weak)) void pointing_device_init(void) {
     if ((POINTING_DEVICE_THIS_SIDE))
 #endif
     {
-        pointing_device_driver.init();
+        pointing_device_driver->init();
 #ifdef POINTING_DEVICE_MOTION_PIN
 #    ifdef POINTING_DEVICE_MOTION_PIN_ACTIVE_LOW
         gpio_set_pin_input_high(POINTING_DEVICE_MOTION_PIN);
@@ -258,15 +279,15 @@ __attribute__((weak)) bool pointing_device_task(void) {
 #    if defined(POINTING_DEVICE_COMBINED)
         static uint8_t old_buttons = 0;
         local_mouse_report.buttons = old_buttons;
-        local_mouse_report         = pointing_device_driver.get_report(local_mouse_report);
+        local_mouse_report         = pointing_device_driver->get_report(local_mouse_report);
         old_buttons                = local_mouse_report.buttons;
 #    elif defined(POINTING_DEVICE_LEFT) || defined(POINTING_DEVICE_RIGHT)
-        local_mouse_report = POINTING_DEVICE_THIS_SIDE ? pointing_device_driver.get_report(local_mouse_report) : shared_mouse_report;
+        local_mouse_report = POINTING_DEVICE_THIS_SIDE ? pointing_device_driver->get_report(local_mouse_report) : shared_mouse_report;
 #    else
 #        error "You need to define the side(s) the pointing device is on. POINTING_DEVICE_COMBINED / POINTING_DEVICE_LEFT / POINTING_DEVICE_RIGHT"
 #    endif
 #else
-    local_mouse_report = pointing_device_driver.get_report(local_mouse_report);
+    local_mouse_report = pointing_device_driver->get_report(local_mouse_report);
 #endif // defined(SPLIT_POINTING_ENABLE)
 
 #ifdef POINTING_DEVICE_MOTION_PIN
@@ -331,9 +352,9 @@ void pointing_device_set_report(report_mouse_t mouse_report) {
  */
 uint16_t pointing_device_get_cpi(void) {
 #if defined(SPLIT_POINTING_ENABLE)
-    return POINTING_DEVICE_THIS_SIDE ? pointing_device_driver.get_cpi() : shared_cpi;
+    return POINTING_DEVICE_THIS_SIDE ? pointing_device_driver->get_cpi() : shared_cpi;
 #else
-    return pointing_device_driver.get_cpi();
+    return pointing_device_driver->get_cpi();
 #endif
 }
 
@@ -347,12 +368,12 @@ uint16_t pointing_device_get_cpi(void) {
 void pointing_device_set_cpi(uint16_t cpi) {
 #if defined(SPLIT_POINTING_ENABLE)
     if (POINTING_DEVICE_THIS_SIDE) {
-        pointing_device_driver.set_cpi(cpi);
+        pointing_device_driver->set_cpi(cpi);
     } else {
         shared_cpi = cpi;
     }
 #else
-    pointing_device_driver.set_cpi(cpi);
+    pointing_device_driver->set_cpi(cpi);
 #endif
 }
 
@@ -370,35 +391,35 @@ void pointing_device_set_cpi(uint16_t cpi) {
 void pointing_device_set_cpi_on_side(bool left, uint16_t cpi) {
     bool local = (is_keyboard_left() == left);
     if (local) {
-        pointing_device_driver.set_cpi(cpi);
+        pointing_device_driver->set_cpi(cpi);
     } else {
         shared_cpi = cpi;
     }
 }
 
 /**
- * @brief clamps int16_t to int8_t
+ * @brief clamps int16_t to int8_t, or int32_t to int16_t
  *
- * @param[in] int16_t value
- * @return int8_t clamped value
+ * @param[in] hv_clamp_range_t value
+ * @return mouse_hv_report_t clamped value
  */
-static inline int8_t pointing_device_hv_clamp(int16_t value) {
-    if (value < INT8_MIN) {
-        return INT8_MIN;
-    } else if (value > INT8_MAX) {
-        return INT8_MAX;
+static inline mouse_hv_report_t pointing_device_hv_clamp(hv_clamp_range_t value) {
+    if (value < HV_REPORT_MIN) {
+        return HV_REPORT_MIN;
+    } else if (value > HV_REPORT_MAX) {
+        return HV_REPORT_MAX;
     } else {
         return value;
     }
 }
 
 /**
- * @brief clamps int16_t to int8_t
+ * @brief clamps int16_t to int8_t, or int32_t to int16_t
  *
- * @param[in] clamp_range_t value
+ * @param[in] xy_clamp_range_t value
  * @return mouse_xy_report_t clamped value
  */
-static inline mouse_xy_report_t pointing_device_xy_clamp(clamp_range_t value) {
+static inline mouse_xy_report_t pointing_device_xy_clamp(xy_clamp_range_t value) {
     if (value < XY_REPORT_MIN) {
         return XY_REPORT_MIN;
     } else if (value > XY_REPORT_MAX) {
@@ -419,10 +440,10 @@ static inline mouse_xy_report_t pointing_device_xy_clamp(clamp_range_t value) {
  * @return combined report_mouse_t of left_report and right_report
  */
 report_mouse_t pointing_device_combine_reports(report_mouse_t left_report, report_mouse_t right_report) {
-    left_report.x = pointing_device_xy_clamp((clamp_range_t)left_report.x + right_report.x);
-    left_report.y = pointing_device_xy_clamp((clamp_range_t)left_report.y + right_report.y);
-    left_report.h = pointing_device_hv_clamp((int16_t)left_report.h + right_report.h);
-    left_report.v = pointing_device_hv_clamp((int16_t)left_report.v + right_report.v);
+    left_report.x = pointing_device_xy_clamp((xy_clamp_range_t)left_report.x + right_report.x);
+    left_report.y = pointing_device_xy_clamp((xy_clamp_range_t)left_report.y + right_report.y);
+    left_report.h = pointing_device_hv_clamp((hv_clamp_range_t)left_report.h + right_report.h);
+    left_report.v = pointing_device_hv_clamp((hv_clamp_range_t)left_report.v + right_report.v);
     left_report.buttons |= right_report.buttons;
     return left_report;
 }
@@ -498,7 +519,7 @@ __attribute__((weak)) report_mouse_t pointing_device_task_combined_user(report_m
 
 __attribute__((weak)) void pointing_device_keycode_handler(uint16_t keycode, bool pressed) {
     if IS_MOUSEKEY_BUTTON (keycode) {
-        local_mouse_report.buttons = pointing_device_handle_buttons(local_mouse_report.buttons, pressed, keycode - KC_MS_BTN1);
+        local_mouse_report.buttons = pointing_device_handle_buttons(local_mouse_report.buttons, pressed, keycode - QK_MOUSE_BUTTON_1);
         pointing_device_send();
     }
 }

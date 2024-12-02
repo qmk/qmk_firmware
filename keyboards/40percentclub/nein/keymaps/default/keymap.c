@@ -23,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [1] = LAYOUT_ortho_3x3(
         QK_BOOT, _______, KC_STOP,
-        _______, _______, RGB_MOD,
+        _______, _______, _______,
         KC_MPRV, _______, KC_MNXT
     ),
 };

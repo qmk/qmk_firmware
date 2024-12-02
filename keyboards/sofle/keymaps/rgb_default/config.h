@@ -22,11 +22,6 @@
 
 ///https://thomasbaart.nl/2018/12/01/reducing-firmware-size-in-qmk/
 
-
-#define MASTER_LEFT
-// #define MASTER_RIGHT
-// #define EE_HANDS
-
 #define CUSTOM_FONT
 
 #define CUSTOM_LAYER_READ //if you remove this it causes issues - needs better guarding
@@ -69,10 +64,11 @@
 	//#define RGBLIGHT_EFFECT_TWINKLE
 
     #define RGBLIGHT_LED_COUNT 70
-	//#define RGBLED_SPLIT
+	#undef RGBLED_SPLIT
 	#define RGBLED_SPLIT { 35, 35 } // haven't figured out how to use this yet
 
 	//#define RGBLIGHT_LED_COUNT 30
+    #undef RGBLIGHT_LIMIT_VAL
     #define RGBLIGHT_LIMIT_VAL 120
     #define RGBLIGHT_HUE_STEP 10
     #define RGBLIGHT_SAT_STEP 17

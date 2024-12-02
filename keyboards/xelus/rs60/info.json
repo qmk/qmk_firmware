@@ -13,5 +13,13 @@
             "resync": true
         }
     },
-    "community_layouts": ["60_ansi_split_bs_rshift", "60_ansi", "60_ansi_tsangan", "60_tsangan_hhkb"]
+    "community_layouts": [
+        "60_ansi",
+        "60_ansi_split_bs_rshift",
+        "60_ansi_tsangan",
+        "60_ansi_tsangan_split_bs_rshift"
+    ],
+    "layout_aliases": {
+        "LAYOUT_60_tsangan_hhkb": "LAYOUT_60_ansi_tsangan_split_bs_rshift"
+    }
 }
