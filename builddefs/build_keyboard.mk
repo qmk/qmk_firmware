@@ -197,8 +197,10 @@ ifneq ("$(wildcard $(KEYMAP_JSON))", "")
     KEYMAP_C := $(INTERMEDIATE_OUTPUT)/src/keymap.c
     KEYMAP_H := $(INTERMEDIATE_OUTPUT)/src/config.h
 
-    # Load the keymap-level rules.mk if exists
-    -include $(KEYMAP_PATH)/rules.mk
+    ifeq ($(OTHER_KEYMAP_C),)
+        # Load the keymap-level rules.mk if exists (and we havent already loaded it for keymap.c)
+        -include $(KEYMAP_PATH)/rules.mk
+    endif
 
     # Load any rules.mk content from keymap.json
     INFO_RULES_MK = $(shell $(QMK_BIN) generate-rules-mk --quiet --escape --output $(INTERMEDIATE_OUTPUT)/src/rules.mk $(KEYMAP_JSON))
