@@ -22,15 +22,11 @@
 // GPIO2 = GP26
 // CS = GP13
 
-#if HAL_USE_I2C == TRUE
-#   define I2C_DRIVER I2C0
-#   define I2C1_SDA_PIN GP16
-#   define I2C1_SCL_PIN GP17
-#endif
+#define I2C_DRIVER I2C0
+#define I2C1_SDA_PIN GP16
+#define I2C1_SCL_PIN GP17
 
-#if HAL_USE_SPI == TRUE
-#   define SPI_DRIVER SPID1
-#   define SPI_SCK_PIN GP14
-#   define SPI_MOSI_PIN GP15
-#   define SPI_MISO_PIN GP12
-#endif
+#define SPI_DRIVER SPID1
+#define SPI_SCK_PIN GP14
+#define SPI_MOSI_PIN GP15
+#define SPI_MISO_PIN GP12

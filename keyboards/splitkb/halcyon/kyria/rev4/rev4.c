@@ -1,7 +1,7 @@
 // Copyright 2024 splitkb.com (support@splitkb.com)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include QMK_KEYBOARD_H
+#include "quantum.h"
 
 #ifdef ENCODER_ENABLE
 bool encoder_update_kb(uint8_t index, bool clockwise) {

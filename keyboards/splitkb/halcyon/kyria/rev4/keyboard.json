@@ -3,12 +3,12 @@
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
     "encoder": {
-        "enabled": true,
         "rotary": [
             {"pin_a": "GP23", "pin_b": "GP22", "resolution": 2}
         ]
     },
     "features": {
+        "encoder": true,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
