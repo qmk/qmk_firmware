@@ -404,10 +404,10 @@ void BHQ_Protocol_Process(uint8_t *dat, uint16_t length)
                 break;
                 case 1:
                     report_buffer_set_retry(0);
-                    report_buffer_set_inverval(DEFAULT_REPORT_INVERVAL_MS + 5);
+                    report_buffer_set_inverval(DEFAULT_REPORT_INVERVAL_MS + 80);
                 break;
                 case 2:
-                    report_buffer_set_inverval(DEFAULT_REPORT_INVERVAL_MS + 10);
+                    report_buffer_set_inverval(DEFAULT_REPORT_INVERVAL_MS + 100);
                 break;
             }
             break;

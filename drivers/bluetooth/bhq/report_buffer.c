@@ -125,7 +125,7 @@ void report_buffer_task(void) {
                 }
             }
         } else {
-            if (timer_elapsed32(retry_time_buffer) > 50) {  // retry interval
+            if (timer_elapsed32(retry_time_buffer) > 80) {  // retry interval
                 pending_data = true;
                 --retry;
                 retry_time_buffer = timer_read32();
