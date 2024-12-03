@@ -14,6 +14,10 @@ Make examples for this keyboard (after setting up your build environment):
 
     make salane/starryfrl:default
 
+Flashing example for this keyboard:
+
+    make salane/starryfrl:default:flash
+
 ## Bootloader
 
 Enter the bootloader in 3 ways:
