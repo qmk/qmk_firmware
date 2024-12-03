@@ -18,11 +18,7 @@
     "features": {
         "bootmagic": true,
         "mousekey": true,
-        "extrakey": true,
-        "console": false,
-        "command": false,
-        "nkro": false,
-        "rgblight": false
+        "extrakey": true
     },
     "indicators": {
         "num_lock": "GP0",
