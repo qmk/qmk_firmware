@@ -1,1 +1,0 @@
-DEFAULT_FOLDER = splitkb/halcyon/elora/rev2
