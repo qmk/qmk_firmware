@@ -4,6 +4,7 @@
 // refer to documentation: Gen2 and Gen3 (Pinnacle ASIC) at https://www.cirque.com/documentation
 
 #include "cirque_pinnacle.h"
+#include "cirque_pinnacle_gestures.h"
 #include "wait.h"
 #include "timer.h"
 
@@ -350,3 +351,144 @@ pinnacle_data_t cirque_pinnacle_read_data(void) {
     result.valid = true;
     return result;
 }
+
+#ifdef POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE
+static bool cursor_glide_enable = true;
+
+static cursor_glide_context_t glide = {.config = {
+                                           .coef       = 102, /* Good default friction coef */
+                                           .interval   = 10,  /* 100sps */
+                                           .trigger_px = 10,  /* Default threshold in case of hover, set to 0 if you'd like */
+                                       }};
+
+void cirque_pinnacle_enable_cursor_glide(bool enable) {
+    cursor_glide_enable = enable;
+}
+
+void cirque_pinnacle_configure_cursor_glide(float trigger_px) {
+    glide.config.trigger_px = trigger_px;
+}
+#endif
+
+#if CIRQUE_PINNACLE_POSITION_MODE
+
+#    ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+static bool is_touch_down;
+
+bool auto_mouse_activation(report_mouse_t mouse_report) {
+    return is_touch_down || mouse_report.x != 0 || mouse_report.y != 0 || mouse_report.h != 0 || mouse_report.v != 0 || mouse_report.buttons;
+}
+#    endif
+
+report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
+    uint16_t          scale     = cirque_pinnacle_get_scale();
+    pinnacle_data_t   touchData = cirque_pinnacle_read_data();
+    mouse_xy_report_t report_x = 0, report_y = 0;
+    static uint16_t   x = 0, y = 0, last_scale = 0;
+
+#    if defined(CIRQUE_PINNACLE_TAP_ENABLE)
+    mouse_report.buttons = pointing_device_handle_buttons(mouse_report.buttons, false, POINTING_DEVICE_BUTTON1);
+#    endif
+#    ifdef POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE
+    cursor_glide_t glide_report = {0};
+
+    if (cursor_glide_enable) {
+        glide_report = cursor_glide_check(&glide);
+    }
+#    endif
+
+    if (!touchData.valid) {
+#    ifdef POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE
+        if (cursor_glide_enable && glide_report.valid) {
+            report_x = glide_report.dx;
+            report_y = glide_report.dy;
+            goto mouse_report_update;
+        }
+#    endif
+        return mouse_report;
+    }
+
+    if (touchData.touchDown) {
+        pd_dprintf("cirque_pinnacle touchData x=%4d y=%4d z=%2d\n", touchData.xValue, touchData.yValue, touchData.zValue);
+    }
+
+#    ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+    is_touch_down = touchData.touchDown;
+#    endif
+
+    // Scale coordinates to arbitrary X, Y resolution
+    cirque_pinnacle_scale_data(&touchData, scale, scale);
+
+    if (!cirque_pinnacle_gestures(&mouse_report, touchData)) {
+        if (last_scale && scale == last_scale && x && y && touchData.xValue && touchData.yValue) {
+            report_x = CONSTRAIN_HID_XY((int16_t)(touchData.xValue - x));
+            report_y = CONSTRAIN_HID_XY((int16_t)(touchData.yValue - y));
+        }
+        x          = touchData.xValue;
+        y          = touchData.yValue;
+        last_scale = scale;
+
+#    ifdef POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE
+        if (cursor_glide_enable) {
+            if (touchData.touchDown) {
+                cursor_glide_update(&glide, report_x, report_y, touchData.zValue);
+            } else if (!glide_report.valid) {
+                glide_report = cursor_glide_start(&glide);
+                if (glide_report.valid) {
+                    report_x = glide_report.dx;
+                    report_y = glide_report.dy;
+                }
+            }
+        }
+#    endif
+    }
+
+#    ifdef POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE
+mouse_report_update:
+#    endif
+    mouse_report.x = report_x;
+    mouse_report.y = report_y;
+
+    return mouse_report;
+}
+
+uint16_t cirque_pinnacle_get_cpi(void) {
+    return CIRQUE_PINNACLE_PX_TO_INCH(cirque_pinnacle_get_scale());
+}
+void cirque_pinnacle_set_cpi(uint16_t cpi) {
+    cirque_pinnacle_set_scale(CIRQUE_PINNACLE_INCH_TO_PX(cpi));
+}
+
+// clang-format off
+const pointing_device_driver_t cirque_pinnacle_pointing_device_driver = {
+    .init       = cirque_pinnacle_init,
+    .get_report = cirque_pinnacle_get_report,
+    .set_cpi    = cirque_pinnacle_set_cpi,
+    .get_cpi    = cirque_pinnacle_get_cpi
+};
+// clang-format on
+#else
+report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
+    pinnacle_data_t touchData = cirque_pinnacle_read_data();
+
+    // Scale coordinates to arbitrary X, Y resolution
+    cirque_pinnacle_scale_data(&touchData, cirque_pinnacle_get_scale(), cirque_pinnacle_get_scale());
+
+    if (touchData.valid) {
+        mouse_report.buttons = touchData.buttons;
+        mouse_report.x = CONSTRAIN_HID_XY(touchData.xDelta);
+        mouse_report.y = CONSTRAIN_HID_XY(touchData.yDelta);
+        mouse_report.v = touchData.wheelCount;
+    }
+    return mouse_report;
+}
+
+// clang-format off
+const pointing_device_driver_t cirque_pinnacle_pointing_device_driver = {
+    .init       = cirque_pinnacle_init,
+    .get_report = cirque_pinnacle_get_report,
+    .set_cpi    = cirque_pinnacle_set_scale,
+    .get_cpi    = cirque_pinnacle_get_scale
+};
+// clang-format on
+#endif

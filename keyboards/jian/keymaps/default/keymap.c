@@ -11,15 +11,13 @@ enum jian_layers {
   _BCKLT_ADJ
 };
 
-enum jian_keycodes {
-  QWERTY = SAFE_RANGE,
-  DVORAK,
-  COLEMAK,
-  WORKMAN
-};
-
 #define RAISE_T(kc) LT(_RAISE, kc)
 #define LOWER_T(kc) LT(_LOWER, kc)
+
+#define QWERTY PDF(_QWERTY)
+#define COLEMAK PDF(_COLEMAK)
+#define DVORAK PDF(_DVORAK)
+#define WORKMAN PDF(_WORKMAN)
 
 #ifdef SWAP_HANDS_ENABLE
 #define SW_TG SH_TOGG
@@ -91,30 +89,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      return false;
-    case DVORAK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_DVORAK);
-      }
-      return false;
-    case COLEMAK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_COLEMAK);
-      }
-      return false;
-    case WORKMAN:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_WORKMAN);
-      }
-      return false;
-  }
-  return true;
 }
