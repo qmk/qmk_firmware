@@ -1,5 +1,5 @@
 /*
-Copyright 2020 elagil
+Copyright 2024 ThanhSon.Mech
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -14,26 +14,10 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 #pragma once
 
-
-/* split options, use EEPROM for side detection */
-#define EE_HANDS
-#define SPLIT_USB_DETECT
-#define SPLIT_WATCHDOG_ENABLE
-
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-//#define NO_DEBUG
-
-/* disable print */
-//#define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
+#define WS2812_SPI_DRIVER SPID2
+#define WS2812_SPI_MOSI_PAL_MODE 0
+#define WS2812_SPI_SCK_PAL_MODE 0
+#define WS2812_SPI_SCK_PIN B13
