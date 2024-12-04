@@ -49,8 +49,6 @@
 #    define RGB_MATRIX_DEFAULT_SPD 127                                // Sets the default animation speed, if none has been set
 #    define RGB_MATRIX_DISABLE_KEYCODES                               // Disables control of rgb matrix by keycodes (must use code functions to control the feature)
 
-#    define RGB_MATRIX_HUE_WAVE
-
 #    define ENABLE_RGB_MATRIX_CYCLE_ALL
 #    define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
 #    define ENABLE_RGB_MATRIX_CYCLE_UP_DOWN
@@ -60,14 +58,8 @@
 #    define ENABLE_RGB_MATRIX_CYCLE_PINWHEEL
 #    define ENABLE_RGB_MATRIX_CYCLE_SPIRAL
 #    define ENABLE_RGB_MATRIX_RAINDROPS
-
 #    define ENABLE_RGB_MATRIX_SPLASH
 #    define ENABLE_RGB_MATRIX_MULTISPLASH
-#    define ENABLE_RGB_MATRIX_SOLID_SPLASH
-#    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-
-#    define ENABLE_RGB_MATRIX_FLOWER_BLOOMING
-#    define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
 #endif // RGB_MATRIX_ENABLE
 
 // Mechanical locking support; use KC_LCAP, KC_LNUM, or KC_LSCR instead in keymap
