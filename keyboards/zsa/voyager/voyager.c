@@ -21,18 +21,26 @@ static uint32_t dynamic_macro_led(uint32_t trigger_time, void *cb_arg) {
     return 100;
 }
 
-void dynamic_macro_record_start_user(int8_t direction) {
+bool dynamic_macro_record_start_kb(int8_t direction) {
+    if (!dynamic_macro_record_start_user(direction)) {
+        return false;
+    }
     if (dynamic_macro_token == INVALID_DEFERRED_TOKEN) {
         STATUS_LED_3(true);
         dynamic_macro_token = defer_exec(100, dynamic_macro_led, NULL);
     }
+    return true;
 }
 
-void dynamic_macro_record_end_user(int8_t direction) {
+bool dynamic_macro_record_end_kb(int8_t direction) {
+    if (!dynamic_macro_record_end_user(direction)) {
+        return false;
+    }
     if (cancel_deferred_exec(dynamic_macro_token)) {
         dynamic_macro_token = INVALID_DEFERRED_TOKEN;
         STATUS_LED_3(false);
     }
+    return true;
 }
 #    endif
 
@@ -241,7 +249,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 if (keyboard_config.disable_layer_led) rgb_matrix_set_color_all(0, 0, 0);
             }
             break;
-        case RGB_TOG:
+        case QK_RGB_MATRIX_TOGGLE:
             if (record->event.pressed) {
                 switch (rgb_matrix_get_flags()) {
                     case LED_FLAG_ALL: {

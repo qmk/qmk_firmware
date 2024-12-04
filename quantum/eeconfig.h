@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stddef.h> // offsetof
 #include "eeprom.h"
 #include "util.h"
+#include "action_layer.h" // layer_state_t
 
 #ifndef EECONFIG_MAGIC_NUMBER
 #    define EECONFIG_MAGIC_NUMBER (uint16_t)0xFEE5 // When changing, decrement this value to avoid future re-init issues
@@ -122,8 +123,8 @@ void eeconfig_disable(void);
 uint8_t eeconfig_read_debug(void);
 void    eeconfig_update_debug(uint8_t val);
 
-uint8_t eeconfig_read_default_layer(void);
-void    eeconfig_update_default_layer(uint8_t val);
+layer_state_t eeconfig_read_default_layer(void);
+void          eeconfig_update_default_layer(layer_state_t val);
 
 uint16_t eeconfig_read_keymap(void);
 void     eeconfig_update_keymap(uint16_t val);

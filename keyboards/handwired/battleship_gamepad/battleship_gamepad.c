@@ -19,4 +19,6 @@
 /* joystick button code (thumbstick pressed) */
 void keyboard_pre_init_kb(void) {
 	gpio_set_pin_input_high(F6);
+
+	keyboard_pre_init_user();
 }

@@ -155,7 +155,8 @@ void housekeeping_task_kb(void) {
     gpio_write_pin(C15, keymap_config.no_gui);
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (!process_record_user(keycode, record)) { return false; }
 
     switch (keycode) {
 
@@ -166,8 +167,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 host_consumer_send(0);
             }
             return false; /* Skip all further processing of this key */
-
-        default:
-            return true; /* Process all other keycodes normally */
     }
+
+    return true; /* Process all other keycodes normally */
 };

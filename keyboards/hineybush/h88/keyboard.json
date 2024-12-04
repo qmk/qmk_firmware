@@ -41,6 +41,9 @@
         "on_state": 0
     },
     "rgblight": {
+        "default": {
+            "val": 128
+        },
         "saturation_steps": 8,
         "brightness_steps": 8,
         "led_count": 24,
