@@ -18,7 +18,9 @@
 /* Author: Wojciech Siewierski < wojciech dot siewierski at onet dot pl > */
 #pragma once
 
-#include "quantum.h"
+#include <stdint.h>
+#include <stdbool.h>
+#include "action.h"
 
 /* May be overridden with a custom value. Be aware that the effective
  * macro length is half of this value: each keypress is recorded twice
@@ -35,7 +37,14 @@
 
 void dynamic_macro_led_blink(void);
 bool process_dynamic_macro(uint16_t keycode, keyrecord_t *record);
-void dynamic_macro_record_start_user(void);
-void dynamic_macro_play_user(int8_t direction);
-void dynamic_macro_record_key_user(int8_t direction, keyrecord_t *record);
-void dynamic_macro_record_end_user(int8_t direction);
+bool dynamic_macro_record_start_kb(int8_t direction);
+bool dynamic_macro_record_start_user(int8_t direction);
+bool dynamic_macro_play_kb(int8_t direction);
+bool dynamic_macro_play_user(int8_t direction);
+bool dynamic_macro_record_key_kb(int8_t direction, keyrecord_t *record);
+bool dynamic_macro_record_key_user(int8_t direction, keyrecord_t *record);
+bool dynamic_macro_record_end_kb(int8_t direction);
+bool dynamic_macro_record_end_user(int8_t direction);
+bool dynamic_macro_valid_key_kb(uint16_t keycode, keyrecord_t *record);
+bool dynamic_macro_valid_key_user(uint16_t keycode, keyrecord_t *record);
+void dynamic_macro_stop_recording(void);

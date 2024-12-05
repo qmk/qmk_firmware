@@ -39,7 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Addressing Setting Commands
 #define PAM_SETCOLUMN_LSB 0x00
 #define PAM_SETCOLUMN_MSB 0x10
-#define PAM_PAGE_ADDR 0xB0  // 0xb0 -- 0xb7
+#define PAM_PAGE_ADDR 0xB0 // 0xb0 -- 0xb7
 
 // Hardware Configuration Commands
 #define DISPLAY_START_LINE 0x40
@@ -92,10 +92,10 @@ static void InvertCharacter(uint8_t *cursor) {
 }
 
 bool st7565_init(display_rotation_t rotation) {
-    setPinOutput(ST7565_A0_PIN);
-    writePinHigh(ST7565_A0_PIN);
-    setPinOutput(ST7565_RST_PIN);
-    writePinHigh(ST7565_RST_PIN);
+    gpio_set_pin_output(ST7565_A0_PIN);
+    gpio_write_pin_high(ST7565_A0_PIN);
+    gpio_set_pin_output(ST7565_RST_PIN);
+    gpio_write_pin_high(ST7565_RST_PIN);
 
     st7565_rotation = st7565_init_user(rotation);
 
@@ -138,7 +138,9 @@ bool st7565_init(display_rotation_t rotation) {
     return true;
 }
 
-__attribute__((weak)) display_rotation_t st7565_init_user(display_rotation_t rotation) { return rotation; }
+__attribute__((weak)) display_rotation_t st7565_init_user(display_rotation_t rotation) {
+    return rotation;
+}
 
 void st7565_clear(void) {
     memset(st7565_buffer, 0, sizeof(st7565_buffer));
@@ -185,6 +187,8 @@ void st7565_render(void) {
 
     st7565_send_data(&st7565_buffer[ST7565_BLOCK_SIZE * update_start], ST7565_BLOCK_SIZE);
 
+    spi_stop();
+
     // Turn on display if it is off
     st7565_on();
 
@@ -212,7 +216,8 @@ void st7565_advance_page(bool clearPageRemainder) {
         remaining = remaining / ST7565_FONT_WIDTH;
 
         // Write empty character until next line
-        while (remaining--) st7565_write_char(' ', false);
+        while (remaining--)
+            st7565_write_char(' ', false);
     } else {
         // Next page index out of bounds?
         if (index + remaining >= ST7565_MATRIX_SIZE) {
@@ -263,7 +268,7 @@ void st7565_write_char(const char data, bool invert) {
     _Static_assert(sizeof(font) >= ((ST7565_FONT_END + 1 - ST7565_FONT_START) * ST7565_FONT_WIDTH), "ST7565_FONT_END references outside array");
 
     // set the reder buffer data
-    uint8_t cast_data = (uint8_t)data;  // font based on unsigned type for index
+    uint8_t cast_data = (uint8_t)data; // font based on unsigned type for index
     if (cast_data < ST7565_FONT_START || cast_data > ST7565_FONT_END) {
         memset(st7565_cursor, 0x00, ST7565_FONT_WIDTH);
     } else {
@@ -389,7 +394,7 @@ void st7565_write_raw_P(const char *data, uint16_t size) {
         st7565_dirty |= ((ST7565_BLOCK_TYPE)1 << (i / ST7565_BLOCK_SIZE));
     }
 }
-#endif  // defined(__AVR__)
+#endif // defined(__AVR__)
 
 bool st7565_on(void) {
     if (!st7565_initialized) {
@@ -429,7 +434,9 @@ bool st7565_off(void) {
 
 __attribute__((weak)) void st7565_off_user(void) {}
 
-bool st7565_is_on(void) { return st7565_active; }
+bool st7565_is_on(void) {
+    return st7565_active;
+}
 
 bool st7565_invert(bool invert) {
     if (!st7565_initialized) {
@@ -445,9 +452,13 @@ bool st7565_invert(bool invert) {
     return st7565_inverted;
 }
 
-uint8_t st7565_max_chars(void) { return ST7565_DISPLAY_WIDTH / ST7565_FONT_WIDTH; }
+uint8_t st7565_max_chars(void) {
+    return ST7565_DISPLAY_WIDTH / ST7565_FONT_WIDTH;
+}
 
-uint8_t st7565_max_lines(void) { return ST7565_DISPLAY_HEIGHT / ST7565_FONT_HEIGHT; }
+uint8_t st7565_max_lines(void) {
+    return ST7565_DISPLAY_HEIGHT / ST7565_FONT_HEIGHT;
+}
 
 void st7565_task(void) {
     if (!st7565_initialized) {
@@ -479,18 +490,18 @@ void st7565_task(void) {
 __attribute__((weak)) void st7565_task_user(void) {}
 
 void st7565_reset(void) {
-    writePinLow(ST7565_RST_PIN);
+    gpio_write_pin_low(ST7565_RST_PIN);
     wait_ms(20);
-    writePinHigh(ST7565_RST_PIN);
+    gpio_write_pin_high(ST7565_RST_PIN);
     wait_ms(20);
 }
 
 spi_status_t st7565_send_cmd(uint8_t cmd) {
-    writePinLow(ST7565_A0_PIN);
+    gpio_write_pin_low(ST7565_A0_PIN);
     return spi_write(cmd);
 }
 
 spi_status_t st7565_send_data(uint8_t *data, uint16_t length) {
-    writePinHigh(ST7565_A0_PIN);
+    gpio_write_pin_high(ST7565_A0_PIN);
     return spi_transmit(data, length);
 }

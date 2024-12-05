@@ -111,7 +111,7 @@ void matrix_init(void)
         matrix_debouncing[i] = 0;
     }
 
-    matrix_init_quantum();
+    matrix_init_kb();
 }
 
 void matrix_power_up(void) {
@@ -151,7 +151,7 @@ uint8_t matrix_scan(void)
         if (matrix_debouncing[i] != cols) {
             matrix_debouncing[i] = cols;
             if (debouncing) {
-                debug("bounce!: "); debug_hex(debouncing); debug("\n");
+                dprintf("bounce!: %02X\n", debouncing);
             }
             debouncing = DEBOUNCE;
         }
@@ -169,15 +169,9 @@ uint8_t matrix_scan(void)
         }
     }
 
-    matrix_scan_quantum();
+    matrix_scan_kb();
 
     return 1;
-}
-
-bool matrix_is_modified(void)
-{
-    if (debouncing) return false;
-    return true;
 }
 
 inline
@@ -202,15 +196,6 @@ void matrix_print(void)
     }
 }
 
-uint8_t matrix_key_count(void)
-{
-    uint8_t count = 0;
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        count += bitpop16(matrix[i]);
-    }
-    return count;
-}
-
 /* Column pin configuration
  *
  * Teensy
@@ -228,8 +213,12 @@ static void  init_cols(void)
 
     // init on teensy
     // Input with pull-up(DDR:0, PORT:1)
-    DDRF  &= ~(1<<7 | 1<<6 | 1<<5 | 1<<4 | 1<<1 | 1<<0);
-    PORTF |=  (1<<7 | 1<<6 | 1<<5 | 1<<4 | 1<<1 | 1<<0);
+    gpio_set_pin_input_high(F0);
+    gpio_set_pin_input_high(F1);
+    gpio_set_pin_input_high(F4);
+    gpio_set_pin_input_high(F5);
+    gpio_set_pin_input_high(F6);
+    gpio_set_pin_input_high(F7);
 }
 
 static matrix_row_t read_cols(uint8_t row)
@@ -239,15 +228,9 @@ static matrix_row_t read_cols(uint8_t row)
             return 0;
         } else {
             uint8_t data = 0;
-            mcp23018_status = i2c_start(I2C_ADDR_WRITE, I2C_TIMEOUT);   if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(GPIOB, I2C_TIMEOUT);            if (mcp23018_status) goto out;
-            mcp23018_status = i2c_start(I2C_ADDR_READ, I2C_TIMEOUT);    if (mcp23018_status) goto out;
-            data = i2c_read_nack(I2C_TIMEOUT);                         if (mcp23018_status < 0) goto out;
-            data = ~((uint8_t)mcp23018_status);
-            mcp23018_status = I2C_STATUS_SUCCESS;
-        out:
-            i2c_stop();
-            return data;
+            mcp23018_status = i2c_read_register(I2C_ADDR, GPIOB, &data, 1, I2C_TIMEOUT);
+
+            return ~data;
         }
     } else {
         // read from teensy
@@ -278,21 +261,22 @@ static void unselect_rows(void)
         // do nothing
     } else {
         // set all rows hi-Z : 1
-        mcp23018_status = i2c_start(I2C_ADDR_WRITE, I2C_TIMEOUT);    if (mcp23018_status) goto out;
-        mcp23018_status = i2c_write(GPIOA, I2C_TIMEOUT);             if (mcp23018_status) goto out;
-        mcp23018_status = i2c_write( 0xFF & ~(0<<8), I2C_TIMEOUT);   if (mcp23018_status) goto out;
-    out:
-        i2c_stop();
+        uint8_t data;
+        data = 0xFF & ~(0<<8);
+        mcp23018_status = i2c_write_register(I2C_ADDR, GPIOA, &data, 1, I2C_TIMEOUT);
+
     }
 
     // unselect on teensy
     // Hi-Z(DDR:0, PORT:0) to unselect
-    DDRB  &= ~(1<<0 | 1<<1 | 1<<2 | 1<<3);
-    PORTB &= ~(1<<0 | 1<<1 | 1<<2 | 1<<3);
-    DDRD  &= ~(1<<2 | 1<<3);
-    PORTD &= ~(1<<2 | 1<<3);
-    DDRC  &= ~(1<<6 | 1<<7);
-    PORTC &= ~(1<<6 | 1<<7);
+    gpio_set_pin_input(B0);
+    gpio_set_pin_input(B1);
+    gpio_set_pin_input(B2);
+    gpio_set_pin_input(B3);
+    gpio_set_pin_input(D2);
+    gpio_set_pin_input(D3);
+    gpio_set_pin_input(C6);
+    gpio_set_pin_input(C7);
 }
 
 static void select_row(uint8_t row)
@@ -304,47 +288,44 @@ static void select_row(uint8_t row)
         } else {
             // set active row low  : 0
             // set other rows hi-Z : 1
-            mcp23018_status = i2c_start(I2C_ADDR_WRITE, I2C_TIMEOUT);                          if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(GPIOA, I2C_TIMEOUT);                                   if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write( 0xFF & ~(1<<row) & ~(0<<8), I2C_TIMEOUT);             if (mcp23018_status) goto out;
-        out:
-            i2c_stop();
+            uint8_t data = 0xFF & ~(1<<row) & ~(0<<8);
+            mcp23018_status = i2c_write_register(I2C_ADDR, GPIOA, &data, 1, I2C_TIMEOUT);
         }
     } else {
         // select on teensy
         // Output low(DDR:1, PORT:0) to select
         switch (row) {
             case 8:
-                DDRB  |= (1<<0);
-                PORTB &= ~(1<<0);
+                gpio_set_pin_output(B0);
+                gpio_write_pin_low(B0);
                 break;
             case 9:
-                DDRB  |= (1<<1);
-                PORTB &= ~(1<<1);
+                gpio_set_pin_output(B1);
+                gpio_write_pin_low(B1);
                 break;
             case 10:
-                DDRB  |= (1<<2);
-                PORTB &= ~(1<<2);
+                gpio_set_pin_output(B2);
+                gpio_write_pin_low(B2);
                 break;
             case 11:
-                DDRB  |= (1<<3);
-                PORTB &= ~(1<<3);
+                gpio_set_pin_output(B3);
+                gpio_write_pin_low(B3);
                 break;
             case 12:
-                DDRD  |= (1<<2);
-                PORTD &= ~(1<<3);
+                gpio_set_pin_output(D2);
+                gpio_write_pin_low(D2);
                 break;
             case 13:
-                DDRD  |= (1<<3);
-                PORTD &= ~(1<<3);
+                gpio_set_pin_output(D3);
+                gpio_write_pin_low(D3);
                 break;
             case 14:
-                DDRC  |= (1<<6);
-                PORTC &= ~(1<<6);
+                gpio_set_pin_output(C6);
+                gpio_write_pin_low(C6);
                 break;
             case 15:
-                DDRC  |= (1<<7);
-                PORTC &= ~(1<<7);
+                gpio_set_pin_output(C7);
+                gpio_write_pin_low(C7);
                 break;
         }
     }

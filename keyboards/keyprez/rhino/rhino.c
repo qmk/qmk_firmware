@@ -14,19 +14,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "rhino.h"
-
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) { return false; }
-    tap_code(clockwise ? KC_VOLU : KC_VOLD);
-    return true;
-}
+#include "quantum.h"
 
 __attribute__ ((weak))
-const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_ortho_2x2u(
-    0,
-    0, 0, 0, 0, 0, 0, 0,  0, 0,  0,  0,  0,  0,  0,
-    0, 1, 3, 0, 6, 8, 10, 0, 13, 15, 0,  18, 20, 0,
-    0, 0, 2, 4, 5, 7, 9, 11, 12, 14, 16, 17, 19, 0,
-       0, 0, 0, 0,    0,     0,  0,  0,  0,  0
-);
+const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = {
+    { 0,  0,  0,  0,  0,  0,  0},
+    { 0,  1,  3,  0,  6,  8, 10},
+    { 0,  0,  2,  4,  5,  7,  9},
+    { 0,  0,  0,  0,  0,  0,  0},
+    { 0,  0,  0,  0,  0,  0,  0},
+    { 0, 13, 15,  0, 18, 20,  0},
+    {11, 12, 14, 16, 17, 19,  0},
+    { 0,  0,  0,  0,  0,  0,  0}
+};

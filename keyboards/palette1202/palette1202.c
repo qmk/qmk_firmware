@@ -13,11 +13,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "palette1202.h"
+#include "quantum.h"
 
 // initialize OLED if OLED is enabled
 #ifdef OLED_ENABLE
-  oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
     return OLED_ROTATION_180;
-  }
+}
 #endif

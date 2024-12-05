@@ -85,7 +85,7 @@
  */
 #define STM32_GPT_USE_TIM1                  FALSE
 #define STM32_GPT_USE_TIM2                  FALSE
-#define STM32_GPT_USE_TIM3                  FALSE
+#define STM32_GPT_USE_TIM3                  TRUE
 #define STM32_GPT_USE_TIM14                 FALSE
 #define STM32_GPT_TIM1_IRQ_PRIORITY         2
 #define STM32_GPT_TIM2_IRQ_PRIORITY         2

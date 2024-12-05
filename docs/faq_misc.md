@@ -1,6 +1,6 @@
 # Miscellaneous FAQ
 
-## How do I test my keyboard? :id=testing
+## How do I test my keyboard? {#testing}
 
 Testing your keyboard is usually pretty straightforward. Press every single key and make sure it sends the keys you expect. You can use [QMK Configurator](https://config.qmk.fm/#/test/)'s test mode to check your keyboard, even if it doesn't run QMK.
 
@@ -10,7 +10,7 @@ You probably don't want to "brick" your keyboard, making it impossible
 to rewrite firmware onto it.  Here are some of the parameters to show
 what things are (and likely aren't) too risky.
 
-- If your keyboard map does not include RESET, then, to get into DFU
+- If your keyboard map does not include QK_BOOT, then, to get into DFU
   mode, you will need to press the reset button on the PCB, which
   requires unscrewing the bottom.
 - Messing with tmk_core / common files might make the keyboard
@@ -36,7 +36,7 @@ Size after:
     can retry, loading that one
   - Some of the options you might specify in your keyboard's Makefile
     consume extra memory; watch out for BOOTMAGIC_ENABLE,
-    MOUSEKEY_ENABLE, EXTRAKEY_ENABLE, CONSOLE_ENABLE, API_SYSEX_ENABLE
+    MOUSEKEY_ENABLE, EXTRAKEY_ENABLE, CONSOLE_ENABLE
 - DFU tools do /not/ allow you to write into the bootloader (unless
   you throw in an extra fruit salad of options), so there is little risk
   there.
@@ -48,10 +48,6 @@ Size after:
 First you have to compile firmware with the build option `NKRO_ENABLE` in **Makefile**.
 
 Try `Magic` **N** command(`LShift+RShift+N` by default) when **NKRO** still doesn't work. You can use this command to toggle between **NKRO** and **6KRO** mode temporarily. In some situations **NKRO** doesn't work and you will need to switch to **6KRO** mode, in particular when you are in BIOS.
-
-If your firmware was built with `BOOTMAGIC_ENABLE` you need to turn its switch on by `BootMagic` **N** command(`Space+N` by default). This setting is stored in EEPROM and kept over power cycles.
-
-https://github.com/tmk/tmk_keyboard#boot-magic-configuration---virtual-dip-switch
 
 
 ## TrackPoint Needs Reset Circuit (PS/2 Mouse Support)

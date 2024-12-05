@@ -26,10 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "util.h"
 #include "matrix.h"
-#ifdef LED_ENABLE
-    #include "protocol/serial.h"
-#endif
-
 
 #ifndef DEBOUNCE
 #   define DEBOUNCE	5
@@ -69,10 +65,6 @@ void matrix_init(void)
         matrix[i] = 0;
         matrix_debouncing[i] = 0;
     }
-  
-#ifdef LED_ENABLE
-    serial_init();
-#endif
 }
 
 uint8_t matrix_scan(void)
@@ -84,7 +76,7 @@ uint8_t matrix_scan(void)
         if (matrix_debouncing[i] != cols) {
             matrix_debouncing[i] = cols;
             if (debouncing) {
-                debug("bounce!: "); debug_hex(debouncing); debug("\n");
+                dprintf("bounce!: %02X\n", debouncing);
             }
             debouncing = DEBOUNCE;
         }
@@ -102,12 +94,6 @@ uint8_t matrix_scan(void)
     }
 
     return 1;
-}
-
-bool matrix_is_modified(void)
-{
-    if (debouncing) return false;
-    return true;
 }
 
 inline
@@ -132,15 +118,6 @@ void matrix_print(void)
     }
 }
 
-uint8_t matrix_key_count(void)
-{
-    uint8_t count = 0;
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        count += bitpop16(matrix[i]);
-    }
-    return count;
-}
-
 /* Column pin configuration
  * col: 0   1   2   3   4   5   6   7   8   9   10  11
  * pin: D7  E6  B4  B5  B6  B2  B3  B1  F7  F6  F5  F4
@@ -149,14 +126,18 @@ uint8_t matrix_key_count(void)
 static void  init_cols(void)
 {
     // Input with pull-up(DDR:0, PORT:1)
-    DDRF  &= ~(1<<4 | 1<<5 | 1<<6 | 1<<7);
-    PORTF |=  (1<<4 | 1<<5 | 1<<6 | 1<<7);
-    DDRE  &= ~(1<<6);
-    PORTE |=  (1<<6);
-    DDRD  &= ~(1<<7);
-    PORTD |=  (1<<7);
-    DDRB  &= ~(1<<1 | 1<<2 | 1<<3 | 1<<4 | 1<<5 | 1<<6);
-    PORTB |=  (1<<1 | 1<<2 | 1<<3 | 1<<4 | 1<<5 | 1<<6);
+    gpio_set_pin_input_high(F4);
+    gpio_set_pin_input_high(F5);
+    gpio_set_pin_input_high(F6);
+    gpio_set_pin_input_high(F7);
+    gpio_set_pin_input_high(E6);
+    gpio_set_pin_input_high(D7);
+    gpio_set_pin_input_high(B1);
+    gpio_set_pin_input_high(B2);
+    gpio_set_pin_input_high(B3);
+    gpio_set_pin_input_high(B4);
+    gpio_set_pin_input_high(B5);
+    gpio_set_pin_input_high(B6);
 }
 
 static matrix_row_t read_cols(void)
@@ -183,10 +164,10 @@ static matrix_row_t read_cols(void)
 static void unselect_rows(void)
 {
     // Hi-Z(DDR:0, PORT:0) to unselect
-    DDRD  &= ~0b00010011;
-    PORTD &= ~0b00010011;
-    DDRC  &= ~0b01000000;
-    PORTC &= ~0b01000000;
+    gpio_set_pin_input(C6);
+    gpio_set_pin_input(D0);
+    gpio_set_pin_input(D1);
+    gpio_set_pin_input(D4);
 }
 
 static void select_row(uint8_t row)
@@ -194,20 +175,20 @@ static void select_row(uint8_t row)
     // Output low(DDR:1, PORT:0) to select
     switch (row) {
         case 0:
-            DDRD  |= (1<<1);
-            PORTD &= ~(1<<1);
+            gpio_set_pin_output(D1);
+            gpio_write_pin_low(D1);
             break;
         case 1:
-            DDRD  |= (1<<0);
-            PORTD &= ~(1<<0);
+            gpio_set_pin_output(D0);
+            gpio_write_pin_low(D0);
             break;
         case 2:
-            DDRD  |= (1<<4);
-            PORTD &= ~(1<<4);
+            gpio_set_pin_output(D4);
+            gpio_write_pin_low(D4);
             break;
         case 3:
-            DDRC  |= (1<<6);
-            PORTC &= ~(1<<6);
+            gpio_set_pin_output(C6);
+            gpio_write_pin_low(C6);
             break;
     }
 }

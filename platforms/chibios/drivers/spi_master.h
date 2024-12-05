@@ -33,7 +33,7 @@
 
 #ifndef SPI_SCK_PAL_MODE
 #    if defined(USE_GPIOV1)
-#        define SPI_SCK_PAL_MODE PAL_MODE_STM32_ALTERNATE_PUSHPULL
+#        define SPI_SCK_PAL_MODE PAL_MODE_ALTERNATE_PUSHPULL
 #    else
 #        define SPI_SCK_PAL_MODE 5
 #    endif
@@ -45,7 +45,7 @@
 
 #ifndef SPI_MOSI_PAL_MODE
 #    if defined(USE_GPIOV1)
-#        define SPI_MOSI_PAL_MODE PAL_MODE_STM32_ALTERNATE_PUSHPULL
+#        define SPI_MOSI_PAL_MODE PAL_MODE_ALTERNATE_PUSHPULL
 #    else
 #        define SPI_MOSI_PAL_MODE 5
 #    endif
@@ -57,7 +57,7 @@
 
 #ifndef SPI_MISO_PAL_MODE
 #    if defined(USE_GPIOV1)
-#        define SPI_MISO_PAL_MODE PAL_MODE_STM32_ALTERNATE_PUSHPULL
+#        define SPI_MISO_PAL_MODE PAL_MODE_ALTERNATE_PUSHPULL
 #    else
 #        define SPI_MISO_PAL_MODE 5
 #    endif
@@ -75,9 +75,18 @@ typedef int16_t spi_status_t;
 #ifdef __cplusplus
 extern "C" {
 #endif
+typedef struct spi_start_config_t {
+    pin_t    slave_pin;
+    bool     lsb_first;
+    uint8_t  mode;
+    uint16_t divisor;
+    bool     cs_active_low;
+} spi_start_config_t;
+
 void spi_init(void);
 
 bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor);
+bool spi_start_extended(spi_start_config_t *start_config);
 
 spi_status_t spi_write(uint8_t data);
 

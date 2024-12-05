@@ -8,7 +8,7 @@ Unfortunately, these keycodes cannot be used in Mod-Taps or Layer-Taps, since an
 
 Additionally, you may run into issues when using Remote Desktop Connection on Windows. Because these codes send shift very fast, Remote Desktop may miss the codes.
 
-To fix this, open Remote Desktop Connection, click on "Show Options", open the the "Local Resources" tab. In the keyboard section, change the drop down to "On this Computer". This will fix the issue, and allow the characters to work correctly.
+To fix this, open Remote Desktop Connection, click on "Show Options", open the "Local Resources" tab. In the keyboard section, change the drop down to "On this Computer". This will fix the issue, and allow the characters to work correctly.
 
 ## Keycodes
 

@@ -14,60 +14,69 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+#include <limits.h>
+
 #include "host.h"
 #include "keycode.h"
 #include "keyboard.h"
 #include "mousekey.h"
+#include "programmable_button.h"
 #include "command.h"
 #include "led.h"
 #include "action_layer.h"
 #include "action_tapping.h"
-#include "action_macro.h"
 #include "action_util.h"
 #include "action.h"
 #include "wait.h"
+#include "keycode_config.h"
+#include "debug.h"
+#include "quantum.h"
 
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
-#endif
-
-#ifdef DEBUG_ACTION
-#    include "debug.h"
-#else
-#    include "nodebug.h"
 #endif
 
 #ifdef POINTING_DEVICE_ENABLE
 #    include "pointing_device.h"
 #endif
 
+#if defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE) && defined(SWAP_HANDS_ENABLE)
+#    include "encoder.h"
+#endif
+
 int tp_buttons;
 
-#if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY)
+#if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY) || (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
 int retro_tapping_counter = 0;
 #endif
 
-#ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
-__attribute__((weak)) bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) { return false; }
+#if defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT) && !defined(NO_ACTION_TAPPING)
+#    include "process_auto_shift.h"
+#endif
+
+#ifdef HOLD_ON_OTHER_KEY_PRESS_PER_KEY
+__attribute__((weak)) bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+    return false;
+}
 #endif
 
 #ifdef RETRO_TAPPING_PER_KEY
-__attribute__((weak)) bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) { return false; }
+__attribute__((weak)) bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
+    return false;
+}
 #endif
-
-__attribute__((weak)) bool pre_process_record_quantum(keyrecord_t *record) { return true; }
 
 /** \brief Called to execute an action.
  *
  * FIXME: Needs documentation.
  */
 void action_exec(keyevent_t event) {
-    if (!IS_NOEVENT(event)) {
-        dprint("\n---- action_exec: start -----\n");
-        dprint("EVENT: ");
+    if (IS_EVENT(event)) {
+        ac_dprintf("\n---- action_exec: start -----\n");
+        ac_dprintf("EVENT: ");
         debug_event(event);
-        dprintln();
-#if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY)
+        ac_dprintf("\n");
+#if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY) || (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
         retro_tapping_counter++;
 #endif
     }
@@ -78,7 +87,8 @@ void action_exec(keyevent_t event) {
     }
 
 #ifdef SWAP_HANDS_ENABLE
-    if (!IS_NOEVENT(event)) {
+    // Swap hands handles both keys and encoders, if ENCODER_MAP_ENABLE is defined.
+    if (IS_EVENT(event)) {
         process_hand_swap(&event);
     }
 #endif
@@ -86,22 +96,29 @@ void action_exec(keyevent_t event) {
     keyrecord_t record = {.event = event};
 
 #ifndef NO_ACTION_ONESHOT
+    if (keymap_config.oneshot_enable) {
 #    if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
-    if (has_oneshot_layer_timed_out()) {
-        clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
-    }
-    if (has_oneshot_mods_timed_out()) {
-        clear_oneshot_mods();
-    }
+        if (has_oneshot_layer_timed_out()) {
+            clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+        }
+        if (has_oneshot_mods_timed_out()) {
+            clear_oneshot_mods();
+        }
 #        ifdef SWAP_HANDS_ENABLE
-    if (has_oneshot_swaphands_timed_out()) {
-        clear_oneshot_swaphands();
-    }
+        if (has_oneshot_swaphands_timed_out()) {
+            clear_oneshot_swaphands();
+        }
 #        endif
 #    endif
+    }
 #endif
 
 #ifndef NO_ACTION_TAPPING
+#    if defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)
+    if (event.pressed) {
+        retroshift_poll_time(&event);
+    }
+#    endif
     if (IS_NOEVENT(record.event) || pre_process_record_quantum(&record)) {
         action_tapping_process(record);
     }
@@ -109,8 +126,8 @@ void action_exec(keyevent_t event) {
     if (IS_NOEVENT(record.event) || pre_process_record_quantum(&record)) {
         process_record(&record);
     }
-    if (!IS_NOEVENT(record.event)) {
-        dprint("processed: ");
+    if (IS_EVENT(record.event)) {
+        ac_dprintf("processed: ");
         debug_record(record);
         dprintln();
     }
@@ -118,27 +135,81 @@ void action_exec(keyevent_t event) {
 }
 
 #ifdef SWAP_HANDS_ENABLE
+extern const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS];
+#    ifdef ENCODER_MAP_ENABLE
+extern const uint8_t PROGMEM encoder_hand_swap_config[NUM_ENCODERS];
+#    endif // ENCODER_MAP_ENABLE
+
 bool swap_hands = false;
 bool swap_held  = false;
+
+bool should_swap_hands(size_t index, uint8_t *swap_state, bool pressed) {
+    size_t  array_index = index / (CHAR_BIT);
+    size_t  bit_index   = index % (CHAR_BIT);
+    uint8_t bit_val     = 1 << bit_index;
+    bool    do_swap     = pressed ? swap_hands : swap_state[array_index] & bit_val;
+    return do_swap;
+}
+
+void set_swap_hands_state(size_t index, uint8_t *swap_state, bool on) {
+    size_t  array_index = index / (CHAR_BIT);
+    size_t  bit_index   = index % (CHAR_BIT);
+    uint8_t bit_val     = 1 << bit_index;
+    if (on) {
+        swap_state[array_index] |= bit_val;
+    } else {
+        swap_state[array_index] &= ~bit_val;
+    }
+}
+
+void swap_hands_on(void) {
+    swap_hands = true;
+}
+
+void swap_hands_off(void) {
+    swap_hands = false;
+}
+
+void swap_hands_toggle(void) {
+    swap_hands = !swap_hands;
+}
+
+bool is_swap_hands_on(void) {
+    return swap_hands;
+}
 
 /** \brief Process Hand Swap
  *
  * FIXME: Needs documentation.
  */
 void process_hand_swap(keyevent_t *event) {
-    static swap_state_row_t swap_state[MATRIX_ROWS];
-
-    keypos_t         pos     = event->key;
-    swap_state_row_t col_bit = (swap_state_row_t)1 << pos.col;
-    bool             do_swap = event->pressed ? swap_hands : swap_state[pos.row] & (col_bit);
-
-    if (do_swap) {
-        event->key.row = pgm_read_byte(&hand_swap_config[pos.row][pos.col].row);
-        event->key.col = pgm_read_byte(&hand_swap_config[pos.row][pos.col].col);
-        swap_state[pos.row] |= col_bit;
-    } else {
-        swap_state[pos.row] &= ~(col_bit);
+    keypos_t pos = event->key;
+    if (IS_KEYEVENT(*event) && pos.row < MATRIX_ROWS && pos.col < MATRIX_COLS) {
+        static uint8_t matrix_swap_state[((MATRIX_ROWS * MATRIX_COLS) + (CHAR_BIT)-1) / (CHAR_BIT)];
+        size_t         index   = (size_t)(pos.row * MATRIX_COLS) + pos.col;
+        bool           do_swap = should_swap_hands(index, matrix_swap_state, event->pressed);
+        if (do_swap) {
+            event->key.row = pgm_read_byte(&hand_swap_config[pos.row][pos.col].row);
+            event->key.col = pgm_read_byte(&hand_swap_config[pos.row][pos.col].col);
+            set_swap_hands_state(index, matrix_swap_state, true);
+        } else {
+            set_swap_hands_state(index, matrix_swap_state, false);
+        }
     }
+#    ifdef ENCODER_MAP_ENABLE
+    else if (IS_ENCODEREVENT(*event) && (pos.row == KEYLOC_ENCODER_CW || pos.row == KEYLOC_ENCODER_CCW)) {
+        static uint8_t encoder_swap_state[((NUM_ENCODERS) + (CHAR_BIT)-1) / (CHAR_BIT)];
+        size_t         index   = pos.col;
+        bool           do_swap = should_swap_hands(index, encoder_swap_state, event->pressed);
+        if (do_swap) {
+            event->key.row = pos.row;
+            event->key.col = pgm_read_byte(&encoder_hand_swap_config[pos.col]);
+            set_swap_hands_state(index, encoder_swap_state, true);
+        } else {
+            set_swap_hands_state(index, encoder_swap_state, false);
+        }
+    }
+#    endif // ENCODER_MAP_ENABLE
 }
 #endif
 
@@ -151,10 +222,14 @@ void process_record_nocache(keyrecord_t *record) {
     disable_action_cache = false;
 }
 #else
-void process_record_nocache(keyrecord_t *record) { process_record(record); }
+void process_record_nocache(keyrecord_t *record) {
+    process_record(record);
+}
 #endif
 
-__attribute__((weak)) bool process_record_quantum(keyrecord_t *record) { return true; }
+__attribute__((weak)) bool process_record_quantum(keyrecord_t *record) {
+    return true;
+}
 
 __attribute__((weak)) void post_process_record_quantum(keyrecord_t *record) {}
 
@@ -164,6 +239,10 @@ __attribute__((weak)) void post_process_record_quantum(keyrecord_t *record) {}
  * FIXME: Needs documentation.
  */
 void process_record_tap_hint(keyrecord_t *record) {
+    if (!IS_KEYEVENT(record->event)) {
+        return;
+    }
+
     action_t action = layer_switch_get_action(record->event.key);
 
     switch (action.kind.id) {
@@ -194,7 +273,7 @@ void process_record(keyrecord_t *record) {
 
     if (!process_record_quantum(record)) {
 #ifndef NO_ACTION_ONESHOT
-        if (is_oneshot_layer_active() && record->event.pressed) {
+        if (is_oneshot_layer_active() && record->event.pressed && keymap_config.oneshot_enable) {
             clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
         }
 #endif
@@ -206,7 +285,7 @@ void process_record(keyrecord_t *record) {
 }
 
 void process_record_handler(keyrecord_t *record) {
-#ifdef COMBO_ENABLE
+#if defined(COMBO_ENABLE) || defined(REPEAT_KEY_ENABLE)
     action_t action;
     if (record->keycode) {
         action = action_for_keycode(record->keycode);
@@ -216,31 +295,68 @@ void process_record_handler(keyrecord_t *record) {
 #else
     action_t action = store_or_get_action(record->event.pressed, record->event.key);
 #endif
-    dprint("ACTION: ");
+    ac_dprintf("ACTION: ");
     debug_action(action);
 #ifndef NO_ACTION_LAYER
-    dprint(" layer_state: ");
+    ac_dprintf(" layer_state: ");
     layer_debug();
-    dprint(" default_layer_state: ");
+    ac_dprintf(" default_layer_state: ");
     default_layer_debug();
 #endif
-    dprintln();
+    ac_dprintf("\n");
 
     process_action(record, action);
 }
 
-#if defined(PS2_MOUSE_ENABLE) || defined(POINTING_DEVICE_ENABLE)
-void register_button(bool pressed, enum mouse_buttons button) {
-#    ifdef PS2_MOUSE_ENABLE
-    tp_buttons = pressed ? tp_buttons | button : tp_buttons & ~button;
+/**
+ * @brief handles all the messy mouse stuff
+ *
+ * Handles all the edgecases and special stuff that is needed for coexistense
+ * of the multiple mouse subsystems.
+ *
+ * @param mouse_keycode[in] uint8_t mouse keycode
+ * @param pressed[in] bool
+ */
+
+void register_mouse(uint8_t mouse_keycode, bool pressed) {
+#ifdef MOUSEKEY_ENABLE
+    // if mousekeys is enabled, let it do the brunt of the work
+    if (pressed) {
+        mousekey_on(mouse_keycode);
+    } else {
+        mousekey_off(mouse_keycode);
+    }
+    // should mousekeys send report, or does something else handle this?
+    switch (mouse_keycode) {
+#    if defined(PS2_MOUSE_ENABLE) || defined(POINTING_DEVICE_ENABLE)
+        case QK_MOUSE_BUTTON_1 ... QK_MOUSE_BUTTON_8:
+            // let pointing device handle the buttons
+            // expand if/when it handles more of the code
+#        if defined(POINTING_DEVICE_ENABLE)
+            pointing_device_keycode_handler(mouse_keycode, pressed);
+#        endif
+            break;
 #    endif
-#    ifdef POINTING_DEVICE_ENABLE
-    report_mouse_t currentReport = pointing_device_get_report();
-    currentReport.buttons        = pressed ? currentReport.buttons | button : currentReport.buttons & ~button;
-    pointing_device_set_report(currentReport);
-#    endif
-}
+        default:
+            mousekey_send();
+            break;
+    }
+#elif defined(POINTING_DEVICE_ENABLE)
+    // if mousekeys isn't enabled, and pointing device is enabled, then
+    // let pointing device do all the heavy lifting, then
+    if (IS_MOUSE_KEYCODE(mouse_keycode)) {
+        pointing_device_keycode_handler(mouse_keycode, pressed);
+    }
 #endif
+
+#ifdef PS2_MOUSE_ENABLE
+    // make sure that ps2 mouse has button report synced
+    if (QK_MOUSE_BUTTON_1 <= mouse_keycode && mouse_keycode <= QK_MOUSE_BUTTON_3) {
+        uint8_t tmp_button_msk = MOUSE_BTN_MASK(mouse_keycode - QK_MOUSE_BUTTON_1);
+        tp_buttons             = pressed ? tp_buttons | tmp_button_msk : tp_buttons & ~tmp_button_msk;
+    }
+#endif
+}
 
 /** \brief Take an action and processes it.
  *
@@ -255,11 +371,16 @@ void process_action(keyrecord_t *record, action_t action) {
 #ifndef NO_ACTION_ONESHOT
     bool do_release_oneshot = false;
     // notice we only clear the one shot layer if the pressed key is not a modifier.
-    if (is_oneshot_layer_active() && event.pressed && (action.kind.id == ACT_USAGE || !IS_MOD(action.key.code))
+    if (is_oneshot_layer_active() && event.pressed &&
+        (action.kind.id == ACT_USAGE || !(IS_MODIFIER_KEYCODE(action.key.code)
+#    ifndef NO_ACTION_TAPPING
+                                          || ((action.kind.id == ACT_LMODS_TAP || action.kind.id == ACT_RMODS_TAP) && (action.layer_tap.code <= MODS_TAP_TOGGLE || tap_count == 0))
+#    endif
+                                              ))
 #    ifdef SWAP_HANDS_ENABLE
         && !(action.kind.id == ACT_SWAP_HANDS && action.swap.code == OP_SH_ONESHOT)
 #    endif
-    ) {
+        && keymap_config.oneshot_enable) {
         clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
         do_release_oneshot = !is_oneshot_layer_active();
     }
@@ -272,9 +393,9 @@ void process_action(keyrecord_t *record, action_t action) {
             uint8_t mods = (action.kind.id == ACT_LMODS) ? action.key.mods : action.key.mods << 4;
             if (event.pressed) {
                 if (mods) {
-                    if (IS_MOD(action.key.code) || action.key.code == KC_NO) {
-                        // e.g. LSFT(KC_LGUI): we don't want the LSFT to be weak as it would make it useless.
-                        // This also makes LSFT(KC_LGUI) behave exactly the same as LGUI(KC_LSFT).
+                    if (IS_MODIFIER_KEYCODE(action.key.code) || action.key.code == KC_NO) {
+                        // e.g. LSFT(KC_LEFT_GUI): we don't want the LSFT to be weak as it would make it useless.
+                        // This also makes LSFT(KC_LEFT_GUI) behave exactly the same as LGUI(KC_LEFT_SHIFT).
                         // Same applies for some keys like KC_MEH which are declared as MEH(KC_NO).
                         add_mods(mods);
                     } else {
@@ -286,7 +407,7 @@ void process_action(keyrecord_t *record, action_t action) {
             } else {
                 unregister_code(action.key.code);
                 if (mods) {
-                    if (IS_MOD(action.key.code) || action.key.code == KC_NO) {
+                    if (IS_MODIFIER_KEYCODE(action.key.code) || action.key.code == KC_NO) {
                         del_mods(mods);
                     } else {
                         del_weak_mods(mods);
@@ -295,49 +416,69 @@ void process_action(keyrecord_t *record, action_t action) {
                 }
             }
         } break;
-#ifndef NO_ACTION_TAPPING
         case ACT_LMODS_TAP:
         case ACT_RMODS_TAP: {
+#ifndef NO_ACTION_TAPPING
             uint8_t mods = (action.kind.id == ACT_LMODS_TAP) ? action.key.mods : action.key.mods << 4;
             switch (action.layer_tap.code) {
 #    ifndef NO_ACTION_ONESHOT
                 case MODS_ONESHOT:
                     // Oneshot modifier
-                    if (event.pressed) {
-                        if (tap_count == 0) {
-                            dprint("MODS_TAP: Oneshot: 0\n");
-                            register_mods(mods | get_oneshot_mods());
-                        } else if (tap_count == 1) {
-                            dprint("MODS_TAP: Oneshot: start\n");
-                            set_oneshot_mods(mods | get_oneshot_mods());
-#        if defined(ONESHOT_TAP_TOGGLE) && ONESHOT_TAP_TOGGLE > 1
-                        } else if (tap_count == ONESHOT_TAP_TOGGLE) {
-                            dprint("MODS_TAP: Toggling oneshot");
-                            clear_oneshot_mods();
-                            set_oneshot_locked_mods(mods);
-                            register_mods(mods);
-#        endif
+                    if (!keymap_config.oneshot_enable) {
+                        if (event.pressed) {
+                            if (mods) {
+                                if (IS_MODIFIER_KEYCODE(action.key.code) || action.key.code == KC_NO) {
+                                    // e.g. LSFT(KC_LGUI): we don't want the LSFT to be weak as it would make it useless.
+                                    // This also makes LSFT(KC_LGUI) behave exactly the same as LGUI(KC_LSFT).
+                                    // Same applies for some keys like KC_MEH which are declared as MEH(KC_NO).
+                                    add_mods(mods);
+                                } else {
+                                    add_weak_mods(mods);
+                                }
+                                send_keyboard_report();
+                            }
+                            register_code(action.key.code);
                         } else {
-                            register_mods(mods | get_oneshot_mods());
+                            unregister_code(action.key.code);
+                            if (mods) {
+                                if (IS_MODIFIER_KEYCODE(action.key.code) || action.key.code == KC_NO) {
+                                    del_mods(mods);
+                                } else {
+                                    del_weak_mods(mods);
+                                }
+                                send_keyboard_report();
+                            }
                         }
                     } else {
-                        if (tap_count == 0) {
-                            clear_oneshot_mods();
-                            unregister_mods(mods);
-                        } else if (tap_count == 1) {
-                            // Retain Oneshot mods
+                        if (event.pressed) {
+                            if (tap_count == 0) {
+                                // Not a tap, but a hold: register the held mod
+                                ac_dprintf("MODS_TAP: Oneshot: 0\n");
+                                register_mods(mods);
+                            } else if (tap_count == 1) {
+                                ac_dprintf("MODS_TAP: Oneshot: start\n");
+                                add_oneshot_mods(mods);
 #        if defined(ONESHOT_TAP_TOGGLE) && ONESHOT_TAP_TOGGLE > 1
-                            if (mods & get_mods()) {
-                                clear_oneshot_locked_mods();
-                                clear_oneshot_mods();
-                                unregister_mods(mods);
-                            }
-                        } else if (tap_count == ONESHOT_TAP_TOGGLE) {
-                            // Toggle Oneshot Layer
+                            } else if (tap_count == ONESHOT_TAP_TOGGLE) {
+                                ac_dprintf("MODS_TAP: Toggling oneshot");
+                                register_mods(mods);
+                                del_oneshot_mods(mods);
+                                add_oneshot_locked_mods(mods);
 #        endif
+                            }
                         } else {
-                            clear_oneshot_mods();
-                            unregister_mods(mods);
+                            if (tap_count == 0) {
+                                // Release hold: unregister the held mod and its variants
+                                unregister_mods(mods);
+                                del_oneshot_mods(mods);
+                                del_oneshot_locked_mods(mods);
+#        if defined(ONESHOT_TAP_TOGGLE) && ONESHOT_TAP_TOGGLE > 1
+                            } else if (tap_count == 1 && (mods & get_mods())) {
+                                unregister_mods(mods);
+                                del_oneshot_mods(mods);
+                                del_oneshot_locked_mods(mods);
+#        endif
+                            }
                         }
                     }
                     break;
@@ -356,89 +497,68 @@ void process_action(keyrecord_t *record, action_t action) {
                 default:
                     if (event.pressed) {
                         if (tap_count > 0) {
-#    if !defined(IGNORE_MOD_TAP_INTERRUPT) || defined(IGNORE_MOD_TAP_INTERRUPT_PER_KEY)
+#    ifdef HOLD_ON_OTHER_KEY_PRESS
                             if (
-#        ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
-                                !get_ignore_mod_tap_interrupt(get_event_keycode(record->event, false), record) &&
+#        ifdef HOLD_ON_OTHER_KEY_PRESS_PER_KEY
+                                get_hold_on_other_key_press(get_event_keycode(record->event, false), record) &&
 #        endif
                                 record->tap.interrupted) {
-                                dprint("mods_tap: tap: cancel: add_mods\n");
+                                ac_dprintf("mods_tap: tap: cancel: add_mods\n");
                                 // ad hoc: set 0 to cancel tap
                                 record->tap.count = 0;
                                 register_mods(mods);
                             } else
 #    endif
                             {
-                                dprint("MODS_TAP: Tap: register_code\n");
+                                ac_dprintf("MODS_TAP: Tap: register_code\n");
                                 register_code(action.key.code);
                             }
                         } else {
-                            dprint("MODS_TAP: No tap: add_mods\n");
+                            ac_dprintf("MODS_TAP: No tap: add_mods\n");
                             register_mods(mods);
                         }
                     } else {
                         if (tap_count > 0) {
-                            dprint("MODS_TAP: Tap: unregister_code\n");
-                            if (action.layer_tap.code == KC_CAPS) {
+                            ac_dprintf("MODS_TAP: Tap: unregister_code\n");
+                            if (action.layer_tap.code == KC_CAPS_LOCK) {
                                 wait_ms(TAP_HOLD_CAPS_DELAY);
                             } else {
                                 wait_ms(TAP_CODE_DELAY);
                             }
                             unregister_code(action.key.code);
                         } else {
-                            dprint("MODS_TAP: No tap: add_mods\n");
+                            ac_dprintf("MODS_TAP: No tap: add_mods\n");
+#    if defined(RETRO_TAPPING) && defined(DUMMY_MOD_NEUTRALIZER_KEYCODE)
+                            // Send a dummy keycode to neutralize flashing modifiers
+                            // if the key was held and then released with no interruptions.
+                            if (retro_tapping_counter == 2) {
+                                neutralize_flashing_modifiers(get_mods());
+                            }
+#    endif
                             unregister_mods(mods);
                         }
                     }
                     break;
             }
+#endif // NO_ACTION_TAPPING
         } break;
-#endif
 #ifdef EXTRAKEY_ENABLE
         /* other HID usage */
         case ACT_USAGE:
             switch (action.usage.page) {
                 case PAGE_SYSTEM:
-                    if (event.pressed) {
-                        host_system_send(action.usage.code);
-                    } else {
-                        host_system_send(0);
-                    }
+                    host_system_send(event.pressed ? action.usage.code : 0);
                     break;
                 case PAGE_CONSUMER:
-                    if (event.pressed) {
-                        host_consumer_send(action.usage.code);
-                    } else {
-                        host_consumer_send(0);
-                    }
+                    host_consumer_send(event.pressed ? action.usage.code : 0);
                     break;
             }
             break;
-#endif
-#ifdef MOUSEKEY_ENABLE
+#endif // EXTRAKEY_ENABLE
         /* Mouse key */
         case ACT_MOUSEKEY:
-            if (event.pressed) {
-                mousekey_on(action.key.code);
-            } else {
-                mousekey_off(action.key.code);
-            }
-            switch (action.key.code) {
-#    if defined(PS2_MOUSE_ENABLE) || defined(POINTING_DEVICE_ENABLE)
-#        ifdef POINTING_DEVICE_ENABLE
-                case KC_MS_BTN1 ... KC_MS_BTN8:
-#        else
-                case KC_MS_BTN1 ... KC_MS_BTN3:
-#        endif
-                    register_button(event.pressed, MOUSE_BTN_MASK(action.key.code - KC_MS_BTN1));
-                    break;
-#    endif
-                default:
-                    mousekey_send();
-                    break;
-            }
+            register_mouse(action.key.code, event.pressed);
             break;
-#endif
 #ifndef NO_ACTION_LAYER
         case ACT_LAYER:
             if (action.layer_bitop.on == 0) {
@@ -494,10 +614,10 @@ void process_action(keyrecord_t *record, action_t action) {
                 layer_off(action.layer_mods.layer);
             }
             break;
-#    ifndef NO_ACTION_TAPPING
         case ACT_LAYER_TAP:
         case ACT_LAYER_TAP_EXT:
             switch (action.layer_tap.code) {
+#    ifndef NO_ACTION_TAPPING
                 case OP_TAP_TOGGLE:
                     /* tap toggle */
                     if (event.pressed) {
@@ -510,6 +630,7 @@ void process_action(keyrecord_t *record, action_t action) {
                         }
                     }
                     break;
+#    endif
                 case OP_ON_OFF:
                     event.pressed ? layer_on(action.layer_tap.val) : layer_off(action.layer_tap.val);
                     break;
@@ -519,79 +640,96 @@ void process_action(keyrecord_t *record, action_t action) {
                 case OP_SET_CLEAR:
                     event.pressed ? layer_move(action.layer_tap.val) : layer_clear();
                     break;
-#        ifndef NO_ACTION_ONESHOT
+#    if !defined(NO_ACTION_ONESHOT) && !defined(NO_ACTION_TAPPING)
                 case OP_ONESHOT:
                     // Oneshot modifier
-#            if defined(ONESHOT_TAP_TOGGLE) && ONESHOT_TAP_TOGGLE > 1
-                    do_release_oneshot = false;
-                    if (event.pressed) {
-                        del_mods(get_oneshot_locked_mods());
-                        if (get_oneshot_layer_state() == ONESHOT_TOGGLED) {
-                            reset_oneshot_layer();
-                            layer_off(action.layer_tap.val);
-                            break;
-                        } else if (tap_count < ONESHOT_TAP_TOGGLE) {
+                    if (!keymap_config.oneshot_enable) {
+                        if (event.pressed) {
                             layer_on(action.layer_tap.val);
-                            set_oneshot_layer(action.layer_tap.val, ONESHOT_START);
+                        } else {
+                            layer_off(action.layer_tap.val);
                         }
                     } else {
-                        add_mods(get_oneshot_locked_mods());
-                        if (tap_count >= ONESHOT_TAP_TOGGLE) {
-                            reset_oneshot_layer();
-                            clear_oneshot_locked_mods();
-                            set_oneshot_layer(action.layer_tap.val, ONESHOT_TOGGLED);
+#        if defined(ONESHOT_TAP_TOGGLE) && ONESHOT_TAP_TOGGLE > 1
+                        do_release_oneshot = false;
+                        if (event.pressed) {
+                            if (get_oneshot_layer_state() == ONESHOT_TOGGLED) {
+                                reset_oneshot_layer();
+                                layer_off(action.layer_tap.val);
+                                break;
+                            } else if (tap_count < ONESHOT_TAP_TOGGLE) {
+                                set_oneshot_layer(action.layer_tap.val, ONESHOT_START);
+                            }
+                        } else {
+                            if (tap_count >= ONESHOT_TAP_TOGGLE) {
+                                reset_oneshot_layer();
+                                set_oneshot_layer(action.layer_tap.val, ONESHOT_TOGGLED);
+                            } else {
+                                clear_oneshot_layer_state(ONESHOT_PRESSED);
+                            }
+                        }
+#        else
+                        if (event.pressed) {
+                            set_oneshot_layer(action.layer_tap.val, ONESHOT_START);
                         } else {
                             clear_oneshot_layer_state(ONESHOT_PRESSED);
+                            if (tap_count > 1) {
+                                clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+                            }
                         }
+#        endif
                     }
-#            else
+#    else  // NO_ACTION_ONESHOT && NO_ACTION_TAPPING
                     if (event.pressed) {
                         layer_on(action.layer_tap.val);
-                        set_oneshot_layer(action.layer_tap.val, ONESHOT_START);
                     } else {
-                        clear_oneshot_layer_state(ONESHOT_PRESSED);
-                        if (tap_count > 1) {
-                            clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
-                        }
+                        layer_off(action.layer_tap.val);
                     }
-#            endif
+#    endif // !defined(NO_ACTION_ONESHOT) && !defined(NO_ACTION_TAPPING)
                     break;
-#        endif
                 default:
-                    /* tap key */
+#    ifndef NO_ACTION_TAPPING /* tap key */
                     if (event.pressed) {
                         if (tap_count > 0) {
-                            dprint("KEYMAP_TAP_KEY: Tap: register_code\n");
+                            ac_dprintf("KEYMAP_TAP_KEY: Tap: register_code\n");
                             register_code(action.layer_tap.code);
                         } else {
-                            dprint("KEYMAP_TAP_KEY: No tap: On on press\n");
+                            ac_dprintf("KEYMAP_TAP_KEY: No tap: On on press\n");
                             layer_on(action.layer_tap.val);
                         }
                     } else {
                         if (tap_count > 0) {
-                            dprint("KEYMAP_TAP_KEY: Tap: unregister_code\n");
-                            if (action.layer_tap.code == KC_CAPS) {
+                            ac_dprintf("KEYMAP_TAP_KEY: Tap: unregister_code\n");
+                            if (action.layer_tap.code == KC_CAPS_LOCK) {
                                 wait_ms(TAP_HOLD_CAPS_DELAY);
                             } else {
                                 wait_ms(TAP_CODE_DELAY);
                             }
                             unregister_code(action.layer_tap.code);
                         } else {
-                            dprint("KEYMAP_TAP_KEY: No tap: Off on release\n");
+                            ac_dprintf("KEYMAP_TAP_KEY: No tap: Off on release\n");
                             layer_off(action.layer_tap.val);
                         }
                     }
+#    else
+                    if (event.pressed) {
+                        ac_dprintf("KEYMAP_TAP_KEY: Tap: register_code\n");
+                        register_code(action.layer_tap.code);
+                    } else {
+                        ac_dprintf("KEYMAP_TAP_KEY: Tap: unregister_code\n");
+                        if (action.layer_tap.code == KC_CAPS) {
+                            wait_ms(TAP_HOLD_CAPS_DELAY);
+                        } else {
+                            wait_ms(TAP_CODE_DELAY);
+                        }
+                        unregister_code(action.layer_tap.code);
+                    }
+#    endif
                     break;
             }
             break;
-#    endif
-#endif
-            /* Extentions */
-#ifndef NO_ACTION_MACRO
-        case ACT_MACRO:
-            action_macro_play(action_get_macro(record, action.func.id, action.func.opt));
-            break;
-#endif
+#endif // NO_ACTION_LAYER
+
 #ifdef SWAP_HANDS_ENABLE
         case ACT_SWAP_HANDS:
             switch (action.swap.code) {
@@ -646,7 +784,7 @@ void process_action(keyrecord_t *record, action_t action) {
                     /* tap key */
                     if (tap_count > 0) {
                         if (swap_held) {
-                            swap_hands = !swap_hands;  // undo hold set up in _tap_hint
+                            swap_hands = !swap_hands; // undo hold set up in _tap_hint
                             swap_held  = false;
                         }
                         if (event.pressed) {
@@ -654,21 +792,16 @@ void process_action(keyrecord_t *record, action_t action) {
                         } else {
                             wait_ms(TAP_CODE_DELAY);
                             unregister_code(action.swap.code);
-                            *record = (keyrecord_t){};  // hack: reset tap mode
+                            *record = (keyrecord_t){}; // hack: reset tap mode
                         }
                     } else {
                         if (swap_held && !event.pressed) {
-                            swap_hands = !swap_hands;  // undo hold set up in _tap_hint
+                            swap_hands = !swap_hands; // undo hold set up in _tap_hint
                             swap_held  = false;
                         }
                     }
 #    endif
             }
-#endif
-#ifndef NO_ACTION_FUNCTION
-        case ACT_FUNCTION:
-            action_function(record, action.func.id, action.func.opt);
-            break;
 #endif
         default:
             break;
@@ -691,7 +824,7 @@ void process_action(keyrecord_t *record, action_t action) {
 #endif
 
 #ifndef NO_ACTION_TAPPING
-#    if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY)
+#    if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY) || (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
     if (!is_tap_action(action)) {
         retro_tapping_counter = 0;
     } else {
@@ -708,7 +841,11 @@ void process_action(keyrecord_t *record, action_t action) {
                     get_retro_tapping(get_event_keycode(record->event, false), record) &&
 #        endif
                     retro_tapping_counter == 2) {
+#        if defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)
+                    process_auto_shift(action.layer_tap.code, record);
+#        else
                     tap_code(action.layer_tap.code);
+#        endif
                 }
                 retro_tapping_counter = 0;
             }
@@ -742,153 +879,127 @@ void process_action(keyrecord_t *record, action_t action) {
  *
  * FIXME: Needs documentation.
  */
-void register_code(uint8_t code) {
+__attribute__((weak)) void register_code(uint8_t code) {
     if (code == KC_NO) {
         return;
-    }
+
 #ifdef LOCKING_SUPPORT_ENABLE
-    else if (KC_LOCKING_CAPS == code) {
+    } else if (KC_LOCKING_CAPS_LOCK == code) {
 #    ifdef LOCKING_RESYNC_ENABLE
         // Resync: ignore if caps lock already is on
-        if (host_keyboard_leds() & (1 << USB_LED_CAPS_LOCK)) return;
+        if (host_keyboard_led_state().caps_lock) return;
 #    endif
-        add_key(KC_CAPSLOCK);
+        add_key(KC_CAPS_LOCK);
         send_keyboard_report();
-        wait_ms(100);
-        del_key(KC_CAPSLOCK);
+        wait_ms(TAP_HOLD_CAPS_DELAY);
+        del_key(KC_CAPS_LOCK);
         send_keyboard_report();
-    }
 
-    else if (KC_LOCKING_NUM == code) {
+    } else if (KC_LOCKING_NUM_LOCK == code) {
 #    ifdef LOCKING_RESYNC_ENABLE
-        if (host_keyboard_leds() & (1 << USB_LED_NUM_LOCK)) return;
+        if (host_keyboard_led_state().num_lock) return;
 #    endif
-        add_key(KC_NUMLOCK);
+        add_key(KC_NUM_LOCK);
         send_keyboard_report();
         wait_ms(100);
-        del_key(KC_NUMLOCK);
+        del_key(KC_NUM_LOCK);
         send_keyboard_report();
-    }
 
-    else if (KC_LOCKING_SCROLL == code) {
+    } else if (KC_LOCKING_SCROLL_LOCK == code) {
 #    ifdef LOCKING_RESYNC_ENABLE
-        if (host_keyboard_leds() & (1 << USB_LED_SCROLL_LOCK)) return;
+        if (host_keyboard_led_state().scroll_lock) return;
 #    endif
-        add_key(KC_SCROLLLOCK);
+        add_key(KC_SCROLL_LOCK);
         send_keyboard_report();
         wait_ms(100);
-        del_key(KC_SCROLLLOCK);
+        del_key(KC_SCROLL_LOCK);
         send_keyboard_report();
-    }
 #endif
 
-    else if IS_KEY (code) {
+    } else if (IS_BASIC_KEYCODE(code)) {
         // TODO: should push command_proc out of this block?
         if (command_proc(code)) return;
 
-#ifndef NO_ACTION_ONESHOT
-/* TODO: remove
-        if (oneshot_state.mods && !oneshot_state.disabled) {
-            uint8_t tmp_mods = get_mods();
-            add_mods(oneshot_state.mods);
-
-            add_key(code);
-            send_keyboard_report();
-
-            set_mods(tmp_mods);
-            send_keyboard_report();
-            oneshot_cancel();
-        } else
-*/
-#endif
-        {
-            // Force a new key press if the key is already pressed
-            // without this, keys with the same keycode, but different
-            // modifiers will be reported incorrectly, see issue #1708
-            if (is_key_pressed(keyboard_report, code)) {
-                del_key(code);
-                send_keyboard_report();
-            }
-            add_key(code);
+        // Force a new key press if the key is already pressed
+        // without this, keys with the same keycode, but different
+        // modifiers will be reported incorrectly, see issue #1708
+        if (is_key_pressed(code)) {
+            del_key(code);
             send_keyboard_report();
         }
-    } else if IS_MOD (code) {
+        add_key(code);
+        send_keyboard_report();
+    } else if (IS_MODIFIER_KEYCODE(code)) {
         add_mods(MOD_BIT(code));
         send_keyboard_report();
-    }
+
 #ifdef EXTRAKEY_ENABLE
-    else if IS_SYSTEM (code) {
+    } else if (IS_SYSTEM_KEYCODE(code)) {
         host_system_send(KEYCODE2SYSTEM(code));
-    } else if IS_CONSUMER (code) {
+    } else if (IS_CONSUMER_KEYCODE(code)) {
         host_consumer_send(KEYCODE2CONSUMER(code));
-    }
 #endif
-#ifdef MOUSEKEY_ENABLE
-    else if IS_MOUSEKEY (code) {
-        mousekey_on(code);
-        mousekey_send();
+
+    } else if (IS_MOUSE_KEYCODE(code)) {
+        register_mouse(code, true);
     }
-#endif
 }
 
 /** \brief Utilities for actions. (FIXME: Needs better description)
  *
  * FIXME: Needs documentation.
  */
-void unregister_code(uint8_t code) {
+__attribute__((weak)) void unregister_code(uint8_t code) {
     if (code == KC_NO) {
         return;
-    }
+
 #ifdef LOCKING_SUPPORT_ENABLE
-    else if (KC_LOCKING_CAPS == code) {
+    } else if (KC_LOCKING_CAPS_LOCK == code) {
 #    ifdef LOCKING_RESYNC_ENABLE
         // Resync: ignore if caps lock already is off
-        if (!(host_keyboard_leds() & (1 << USB_LED_CAPS_LOCK))) return;
+        if (!host_keyboard_led_state().caps_lock) return;
 #    endif
-        add_key(KC_CAPSLOCK);
+        add_key(KC_CAPS_LOCK);
         send_keyboard_report();
-        del_key(KC_CAPSLOCK);
+        del_key(KC_CAPS_LOCK);
         send_keyboard_report();
-    }
 
-    else if (KC_LOCKING_NUM == code) {
+    } else if (KC_LOCKING_NUM_LOCK == code) {
 #    ifdef LOCKING_RESYNC_ENABLE
-        if (!(host_keyboard_leds() & (1 << USB_LED_NUM_LOCK))) return;
+        if (!host_keyboard_led_state().num_lock) return;
 #    endif
-        add_key(KC_NUMLOCK);
+        add_key(KC_NUM_LOCK);
         send_keyboard_report();
-        del_key(KC_NUMLOCK);
+        del_key(KC_NUM_LOCK);
         send_keyboard_report();
-    }
 
-    else if (KC_LOCKING_SCROLL == code) {
+    } else if (KC_LOCKING_SCROLL_LOCK == code) {
 #    ifdef LOCKING_RESYNC_ENABLE
-        if (!(host_keyboard_leds() & (1 << USB_LED_SCROLL_LOCK))) return;
+        if (!host_keyboard_led_state().scroll_lock) return;
 #    endif
-        add_key(KC_SCROLLLOCK);
+        add_key(KC_SCROLL_LOCK);
         send_keyboard_report();
-        del_key(KC_SCROLLLOCK);
+        del_key(KC_SCROLL_LOCK);
         send_keyboard_report();
-    }
 #endif
 
-    else if IS_KEY (code) {
+    } else if (IS_BASIC_KEYCODE(code)) {
         del_key(code);
         send_keyboard_report();
-    } else if IS_MOD (code) {
+    } else if (IS_MODIFIER_KEYCODE(code)) {
         del_mods(MOD_BIT(code));
         send_keyboard_report();
-    } else if IS_SYSTEM (code) {
+
+#ifdef EXTRAKEY_ENABLE
+    } else if (IS_SYSTEM_KEYCODE(code)) {
         host_system_send(0);
-    } else if IS_CONSUMER (code) {
+    } else if (IS_CONSUMER_KEYCODE(code)) {
         host_consumer_send(0);
-    }
-#ifdef MOUSEKEY_ENABLE
-    else if IS_MOUSEKEY (code) {
-        mousekey_off(code);
-        mousekey_send();
-    }
 #endif
+
+    } else if (IS_MOUSE_KEYCODE(code)) {
+        register_mouse(code, false);
+    }
 }
 
 /** \brief Tap a keycode with a delay.
@@ -896,25 +1007,25 @@ void unregister_code(uint8_t code) {
  * \param code The basic keycode to tap.
  * \param delay The amount of time in milliseconds to leave the keycode registered, before unregistering it.
  */
-void tap_code_delay(uint8_t code, uint16_t delay) {
+__attribute__((weak)) void tap_code_delay(uint8_t code, uint16_t delay) {
     register_code(code);
-    for (uint16_t i = delay; i > 0; i--) {
-        wait_ms(1);
-    }
+    wait_ms(delay);
     unregister_code(code);
 }
 
 /** \brief Tap a keycode with the default delay.
  *
- * \param code The basic keycode to tap. If `code` is `KC_CAPS`, the delay will be `TAP_HOLD_CAPS_DELAY`, otherwise `TAP_CODE_DELAY`, if defined.
+ * \param code The basic keycode to tap. If `code` is `KC_CAPS_LOCK`, the delay will be `TAP_HOLD_CAPS_DELAY`, otherwise `TAP_CODE_DELAY`, if defined.
  */
-void tap_code(uint8_t code) { tap_code_delay(code, code == KC_CAPS ? TAP_HOLD_CAPS_DELAY : TAP_CODE_DELAY); }
+__attribute__((weak)) void tap_code(uint8_t code) {
+    tap_code_delay(code, code == KC_CAPS_LOCK ? TAP_HOLD_CAPS_DELAY : TAP_CODE_DELAY);
+}
 
 /** \brief Adds the given physically pressed modifiers and sends a keyboard report immediately.
  *
  * \param mods A bitfield of modifiers to register.
  */
-void register_mods(uint8_t mods) {
+__attribute__((weak)) void register_mods(uint8_t mods) {
     if (mods) {
         add_mods(mods);
         send_keyboard_report();
@@ -925,7 +1036,7 @@ void register_mods(uint8_t mods) {
  *
  * \param mods A bitfield of modifiers to unregister.
  */
-void unregister_mods(uint8_t mods) {
+__attribute__((weak)) void unregister_mods(uint8_t mods) {
     if (mods) {
         del_mods(mods);
         send_keyboard_report();
@@ -936,7 +1047,7 @@ void unregister_mods(uint8_t mods) {
  *
  * \param mods A bitfield of modifiers to register.
  */
-void register_weak_mods(uint8_t mods) {
+__attribute__((weak)) void register_weak_mods(uint8_t mods) {
     if (mods) {
         add_weak_mods(mods);
         send_keyboard_report();
@@ -947,7 +1058,7 @@ void register_weak_mods(uint8_t mods) {
  *
  * \param mods A bitfield of modifiers to unregister.
  */
-void unregister_weak_mods(uint8_t mods) {
+__attribute__((weak)) void unregister_weak_mods(uint8_t mods) {
     if (mods) {
         del_weak_mods(mods);
         send_keyboard_report();
@@ -976,27 +1087,20 @@ void clear_keyboard_but_mods(void) {
  *
  * FIXME: Needs documentation.
  */
-void clear_keyboard_but_mods_and_keys() {
+void clear_keyboard_but_mods_and_keys(void) {
 #ifdef EXTRAKEY_ENABLE
     host_system_send(0);
     host_consumer_send(0);
 #endif
     clear_weak_mods();
-    clear_macro_mods();
     send_keyboard_report();
 #ifdef MOUSEKEY_ENABLE
     mousekey_clear();
     mousekey_send();
 #endif
-}
-
-/** \brief Utilities for actions. (FIXME: Needs better description)
- *
- * FIXME: Needs documentation.
- */
-bool is_tap_key(keypos_t key) {
-    action_t action = layer_switch_get_action(key);
-    return is_tap_action(action);
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+    programmable_button_clear();
+#endif
 }
 
 /** \brief Utilities for actions. (FIXME: Needs better description)
@@ -1004,7 +1108,11 @@ bool is_tap_key(keypos_t key) {
  * FIXME: Needs documentation.
  */
 bool is_tap_record(keyrecord_t *record) {
-#ifdef COMBO_ENABLE
+    if (IS_NOEVENT(record->event)) {
+        return false;
+    }
+
+#if defined(COMBO_ENABLE) || defined(REPEAT_KEY_ENABLE)
     action_t action;
     if (record->keycode) {
         action = action_for_keycode(record->keycode);
@@ -1028,7 +1136,7 @@ bool is_tap_action(action_t action) {
         case ACT_LAYER_TAP:
         case ACT_LAYER_TAP_EXT:
             switch (action.layer_tap.code) {
-                case KC_NO ... KC_RGUI:
+                case KC_NO ... KC_RIGHT_GUI:
                 case OP_TAP_TOGGLE:
                 case OP_ONESHOT:
                     return true;
@@ -1036,15 +1144,9 @@ bool is_tap_action(action_t action) {
             return false;
         case ACT_SWAP_HANDS:
             switch (action.swap.code) {
-                case KC_NO ... KC_RGUI:
+                case KC_NO ... KC_RIGHT_GUI:
                 case OP_SH_TAP_TOGGLE:
                     return true;
-            }
-            return false;
-        case ACT_MACRO:
-        case ACT_FUNCTION:
-            if (action.func.opt & FUNC_TAP) {
-                return true;
             }
             return false;
     }
@@ -1055,7 +1157,9 @@ bool is_tap_action(action_t action) {
  *
  * FIXME: Needs documentation.
  */
-void debug_event(keyevent_t event) { dprintf("%04X%c(%u)", (event.key.row << 8 | event.key.col), (event.pressed ? 'd' : 'u'), event.time); }
+void debug_event(keyevent_t event) {
+    ac_dprintf("%04X%c(%u)", (event.key.row << 8 | event.key.col), (event.pressed ? 'd' : 'u'), event.time);
+}
 /** \brief Debug print (FIXME: Needs better description)
  *
  * FIXME: Needs documentation.
@@ -1063,7 +1167,7 @@ void debug_event(keyevent_t event) { dprintf("%04X%c(%u)", (event.key.row << 8 |
 void debug_record(keyrecord_t record) {
     debug_event(record.event);
 #ifndef NO_ACTION_TAPPING
-    dprintf(":%u%c", record.tap.count, (record.tap.interrupted ? '-' : ' '));
+    ac_dprintf(":%u%c", record.tap.count, (record.tap.interrupted ? '-' : ' '));
 #endif
 }
 
@@ -1074,47 +1178,41 @@ void debug_record(keyrecord_t record) {
 void debug_action(action_t action) {
     switch (action.kind.id) {
         case ACT_LMODS:
-            dprint("ACT_LMODS");
+            ac_dprintf("ACT_LMODS");
             break;
         case ACT_RMODS:
-            dprint("ACT_RMODS");
+            ac_dprintf("ACT_RMODS");
             break;
         case ACT_LMODS_TAP:
-            dprint("ACT_LMODS_TAP");
+            ac_dprintf("ACT_LMODS_TAP");
             break;
         case ACT_RMODS_TAP:
-            dprint("ACT_RMODS_TAP");
+            ac_dprintf("ACT_RMODS_TAP");
             break;
         case ACT_USAGE:
-            dprint("ACT_USAGE");
+            ac_dprintf("ACT_USAGE");
             break;
         case ACT_MOUSEKEY:
-            dprint("ACT_MOUSEKEY");
+            ac_dprintf("ACT_MOUSEKEY");
             break;
         case ACT_LAYER:
-            dprint("ACT_LAYER");
+            ac_dprintf("ACT_LAYER");
             break;
         case ACT_LAYER_MODS:
-            dprint("ACT_LAYER_MODS");
+            ac_dprintf("ACT_LAYER_MODS");
             break;
         case ACT_LAYER_TAP:
-            dprint("ACT_LAYER_TAP");
+            ac_dprintf("ACT_LAYER_TAP");
             break;
         case ACT_LAYER_TAP_EXT:
-            dprint("ACT_LAYER_TAP_EXT");
-            break;
-        case ACT_MACRO:
-            dprint("ACT_MACRO");
-            break;
-        case ACT_FUNCTION:
-            dprint("ACT_FUNCTION");
+            ac_dprintf("ACT_LAYER_TAP_EXT");
             break;
         case ACT_SWAP_HANDS:
-            dprint("ACT_SWAP_HANDS");
+            ac_dprintf("ACT_SWAP_HANDS");
             break;
         default:
-            dprint("UNKNOWN");
+            ac_dprintf("UNKNOWN");
             break;
     }
-    dprintf("[%X:%02X]", action.kind.param >> 8, action.kind.param & 0xff);
+    ac_dprintf("[%X:%02X]", action.kind.param >> 8, action.kind.param & 0xff);
 }

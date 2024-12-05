@@ -1,0 +1,35 @@
+{
+    "manufacturer": "will-hedges",
+    "url": "https://github.com/will-hedges",
+    "maintainer": "will-hedges",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x09F5"
+    },
+    "features": {
+        "backlight": true,
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": false
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
+    "matrix_pins": {
+        "cols": ["B5", "C7", "C6", "F0", "E6", "B7", "D0", "D1", "D2", "D3", "D5", "D4", "D6", "D7", "B4"],
+        "rows": ["F5", "F6", "F4", "F1", "B0", "B6"]
+    },
+    "diode_direction": "COL2ROW",
+    "backlight": {
+        "as_caps_lock": true,
+        "driver": "software",
+        "pin": "F7"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu"
+}

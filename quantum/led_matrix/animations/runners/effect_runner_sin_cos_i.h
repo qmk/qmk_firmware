@@ -12,5 +12,5 @@ bool effect_runner_sin_cos_i(effect_params_t* params, sin_cos_i_f effect_func) {
         LED_MATRIX_TEST_LED_FLAGS();
         led_matrix_set_value(i, effect_func(led_matrix_eeconfig.val, cos_value, sin_value, i, time));
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return led_matrix_check_finished_leds(led_max);
 }

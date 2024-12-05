@@ -1,0 +1,19 @@
+{
+    "keyboard_name": "Onekey STM32F3 Discovery",
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
+    "matrix_pins": {
+        "cols": ["B4"],
+        "rows": ["B5"]
+    },
+    "backlight": {
+        "pin": "E8"
+    },
+    "ws2812": {
+        "pin": "A0"
+    },
+    "apa102": {
+        "data_pin": "A0",
+        "clock_pin": "B13"
+    }
+}

@@ -14,21 +14,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "sono1.h"
+#include "quantum.h"
 
 void matrix_init_kb(void) {
   /* LED pins setup */
-  setPinOutput(LED_KANA_PIN);
-  setPinOutput(LED_CAPS_LOCK_PIN);
-  setPinOutput(LED_CTRL_XFER_PIN);
-  setPinOutput(LED_NUM_LOCK_PIN);
-  setPinOutput(LED_KB_LOCK_PIN);
+  gpio_set_pin_output(LED_KANA_PIN);
+  gpio_set_pin_output(LED_CAPS_LOCK_PIN);
+  gpio_set_pin_output(LED_CTRL_XFER_PIN);
+  gpio_set_pin_output(LED_NUM_LOCK_PIN);
+  gpio_set_pin_output(LED_KB_LOCK_PIN);
   
-  writePinHigh(LED_KANA_PIN);
-  writePinHigh(LED_CAPS_LOCK_PIN);
-  writePinHigh(LED_CTRL_XFER_PIN);
-  writePinHigh(LED_NUM_LOCK_PIN);
-  writePinHigh(LED_KB_LOCK_PIN);
+  gpio_write_pin_high(LED_KANA_PIN);
+  gpio_write_pin_high(LED_CAPS_LOCK_PIN);
+  gpio_write_pin_high(LED_CTRL_XFER_PIN);
+  gpio_write_pin_high(LED_NUM_LOCK_PIN);
+  gpio_write_pin_high(LED_KB_LOCK_PIN);
 
     matrix_init_user();
 }
@@ -36,9 +36,9 @@ void matrix_init_kb(void) {
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if(res) {
-        writePin(LED_NUM_LOCK_PIN, !led_state.num_lock);
-        writePin(LED_CAPS_LOCK_PIN, !led_state.caps_lock);
-        writePin(LED_CTRL_XFER_PIN, !led_state.scroll_lock);
+        gpio_write_pin(LED_NUM_LOCK_PIN, !led_state.num_lock);
+        gpio_write_pin(LED_CAPS_LOCK_PIN, !led_state.caps_lock);
+        gpio_write_pin(LED_CTRL_XFER_PIN, !led_state.scroll_lock);
     }
     return res;
 }

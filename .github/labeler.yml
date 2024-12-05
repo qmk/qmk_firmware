@@ -1,42 +1,56 @@
 core:
-  - quantum/**/*
-  - tmk_core/**/*
-  - drivers/**/*
-  - tests/**/*
-  - util/**/*
-  - platforms/**/*
-  - Makefile
-  - '*.mk'
+  - changed-files:
+    - any-glob-to-any-file:
+      - quantum/**
+      - tmk_core/**
+      - drivers/**
+      - tests/**
+      - util/**
+      - platforms/**
+      - builddefs/*.mk
+      - Makefile
+      - '*.mk'
 dependencies:
-  - any:
-    - 'lib/**/*'
-    - '!lib/python/**/*'
+  - changed-files:
+    - all-globs-to-any-file:
+      - lib/**
+      - '!lib/python/**'
 keyboard:
-  - any:
-    - 'keyboards/**/*'
-    - '!keyboards/**/keymaps/**/*'
+  - changed-files:
+    - all-globs-to-any-file:
+      - keyboards/**
+      - '!keyboards/**/keymaps/**'
 keymap:
-  - users/**/*
-  - layouts/**/*
-  - keyboards/**/keymaps/**/*
+  - changed-files:
+    - any-glob-to-any-file:
+      - users/**
+      - layouts/**
+      - keyboards/**/keymaps/**
 via:
-  - keyboards/**/keymaps/via/*
+  - changed-files:
+    - any-glob-to-any-file:
+      - keyboards/**/keymaps/via/*
 cli:
-  - bin/qmk
-  - requirements.txt
-  - lib/python/**/*
+  - changed-files:
+    - any-glob-to-any-file:
+      - requirements.txt
+      - lib/python/**
 python:
-  - '**/*.py'
+  - changed-files:
+    - any-glob-to-any-file:
+      - '**/*.py'
 documentation:
-  - docs/**/*
-translation:
-  - docs/fr-fr/**/*
-  - docs/es/**/*
-  - docs/ja/**/*
-  - docs/he-il/**/*
-  - docs/pt-br/**/*
-  - docs/zh-cn/**/*
-  - docs/de/**/*
-  - docs/ru-ru/**/*
+  - changed-files:
+    - any-glob-to-any-file:
+      - docs/**
+      - builddefs/docsgen/**
 CI:
-  - .github/**/*
+  - changed-files:
+    - any-glob-to-any-file:
+      - .github/**
+dd:
+  - changed-files:
+    - any-glob-to-any-file:
+      - data/constants/**
+      - data/mappings/**
+      - data/schemas/**

@@ -17,8 +17,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include QMK_KEYBOARD_H
-#include "protocol/serial.h"
+#include "matrix.h"
+#include "debug.h"
+#include "wait.h"
+#include "uart.h"
 #include "timer.h"
 
 
@@ -58,8 +60,6 @@ static uint16_t disconnect_counter = 0;
 #define COL(code)    ((code & COL_MASK) )
 #define KEYUP(code) ((code & KEY_MASK) >>7 )
 
-static bool is_modified = false;
-
 __attribute__ ((weak))
 void matrix_init_kb(void) {
     matrix_init_user();
@@ -95,27 +95,27 @@ void pins_init(void) {
  // set pins for pullups, Rts , power &etc. 
 
     //print ("pins setup\n");
-    setPinOutput(VCC_PIN);
-    writePinLow(VCC_PIN);
+    gpio_set_pin_output(VCC_PIN);
+    gpio_write_pin_low(VCC_PIN);
 
 #if ( HANDSPRING == 0)
 
 #ifdef CY835
-    setPinOutput(GND_PIN);
-    writePinLow(GND_PIN);
+    gpio_set_pin_output(GND_PIN);
+    gpio_write_pin_low(GND_PIN);
 
-    setPinOutput(PULLDOWN_PIN);
-    writePinLow(PULLDOWN_PIN);
+    gpio_set_pin_output(PULLDOWN_PIN);
+    gpio_write_pin_low(PULLDOWN_PIN);
 #endif
 
-    setPinInput(DCD_PIN);
-    setPinInput(RTS_PIN);
+    gpio_set_pin_input(DCD_PIN);
+    gpio_set_pin_input(RTS_PIN);
 #endif
 
 /* check that the other side isn't powered up. 
-    test=readPin(DCD_PIN);
+    test=gpio_read_pin(DCD_PIN);
     xprintf("b%02X:", test);
-    test=readPin(RTS_PIN);
+    test=gpio_read_pin(RTS_PIN);
     xprintf("%02X\n", test);
 */
  
@@ -128,22 +128,22 @@ uint8_t rts_reset(void) {
 // On boot, we keep rts as input, then switch roles here
 // on leaving sleep, we toggle the same way
 
-    firstread=readPin(RTS_PIN);
+    firstread=gpio_read_pin(RTS_PIN);
    // printf("r%02X:", firstread);
 
-    setPinOutput(RTS_PIN);
+    gpio_set_pin_output(RTS_PIN);
 
     if (firstread) {
-        writePinLow(RTS_PIN);
+        gpio_write_pin_low(RTS_PIN);
     } 
-     _delay_ms(10);
-    writePinHigh(RTS_PIN);
+     wait_ms(10);
+    gpio_write_pin_high(RTS_PIN);
     
 
 /* the future is Arm 
     if (!palReadPad(RTS_PIN_IOPRT))
   {
-    _delay_ms(10);
+    wait_ms(10);
     palSetPadMode(RTS_PINn_IOPORT, PinDirectionOutput_PUSHPULL);
     palSetPad(RTS_PORT, RTS_PIN);
   }
@@ -152,13 +152,13 @@ uint8_t rts_reset(void) {
     palSetPadMode(RTS_PIN_RTS_PORT, PinDirectionOutput_PUSHPULL);
     palSetPad(RTS_PORT, RTS_PIN);
     palClearPad(RTS_PORT, RTS_PIN);
-    _delay_ms(10);
+    wait_ms(10);
     palSetPad(RTS_PORT, RTS_PIN);
   }
 */
 
 
- _delay_ms(5);  
+ wait_ms(5);  
  //print("rts\n");
  return 1;
 }
@@ -166,9 +166,9 @@ uint8_t rts_reset(void) {
 uint8_t get_serial_byte(void) {
     static uint8_t code;
     while(1) {
-        code = serial_recv();
+        code = uart_read();
         if (code) { 
-            debug_hex(code); debug(" ");
+            dprintf("%02X ", code);
             return code;
         }
     }
@@ -223,9 +223,9 @@ uint8_t handspring_handshake(void) {
 }
 
 uint8_t handspring_reset(void) {
-    writePinLow(VCC_PIN);
-    _delay_ms(5);
-    writePinHigh(VCC_PIN);
+    gpio_write_pin_low(VCC_PIN);
+    wait_ms(5);
+    gpio_write_pin_high(VCC_PIN);
 
     if ( handspring_handshake() ) {
         last_activity = timer_read();
@@ -242,14 +242,14 @@ void matrix_init(void)
     debug_enable = true;
     //debug_matrix =true;
     
-    serial_init(); // arguments all #defined 
+    uart_init(9600); // arguments all #defined 
  
 #if (HANDSPRING == 0)
     pins_init(); // set all inputs and outputs. 
 #endif
 
     print("power up\n");
-    writePinHigh(VCC_PIN);
+    gpio_write_pin_high(VCC_PIN);
 
     // wait for DCD strobe from keyboard - it will do this 
     // up to 3 times, then the board needs the RTS toggled to try again
@@ -259,12 +259,12 @@ void matrix_init(void)
         last_activity = timer_read();
     } else { 
         print("failed handshake");
-        _delay_ms(1000);
+        wait_ms(1000);
         //BUG /should/ power cycle or toggle RTS & reset, but this usually works. 
     }
 
 #else  /// Palm / HP  device with DCD
-    while( !readPin(DCD_PIN) ) {;} 
+    while( !gpio_read_pin(DCD_PIN) ) {;} 
     print("dcd\n");
 
     rts_reset(); // at this point the keyboard should think all is well. 
@@ -273,7 +273,7 @@ void matrix_init(void)
         last_activity = timer_read();
     } else { 
         print("failed handshake");
-        _delay_ms(1000);
+        wait_ms(1000);
         //BUG /should/ power cycle or toggle RTS & reset, but this usually works. 
     }
 
@@ -282,7 +282,7 @@ void matrix_init(void)
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) matrix[i] = 0x00;
 
-    matrix_init_quantum();
+    matrix_init_kb();
     return;
     
     
@@ -292,7 +292,7 @@ void matrix_init(void)
 uint8_t matrix_scan(void)
 {
     uint8_t code;
-    code = serial_recv();
+    code = uart_read();
     if (!code) {
 /*         
         disconnect_counter ++;
@@ -316,8 +316,7 @@ uint8_t matrix_scan(void)
    last_activity = timer_read();
    disconnect_counter=0; // if we are getting serial data, we're connected. 
 
-    debug_hex(code); debug(" ");
-
+    dprintf("%02X ", code);
 
     switch (code) {
         case 0xFD:  // unexpected reset byte 2
@@ -350,13 +349,8 @@ uint8_t matrix_scan(void)
         }
     }
 
-    matrix_scan_quantum();
+    matrix_scan_kb();
     return code;
-}
-
-bool matrix_is_modified(void)
-{
-    return is_modified;
 }
 
 inline
@@ -385,13 +379,4 @@ void matrix_print(void)
         print_bin_reverse8(matrix_get_row(row));
         print("\n");
     }
-}
-
-uint8_t matrix_key_count(void)
-{
-    uint8_t count = 0;
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        count += bitpop(matrix[i]);
-    }
-    return count;
 }

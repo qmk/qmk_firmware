@@ -3,11 +3,12 @@
 from enum import Enum
 import re
 import shutil
-from subprocess import DEVNULL
+from subprocess import DEVNULL, TimeoutExpired
+from tempfile import TemporaryDirectory
+from pathlib import Path
 
 from milc import cli
 from qmk import submodules
-from qmk.constants import QMK_FIRMWARE
 
 
 class CheckStatus(Enum):
@@ -26,7 +27,6 @@ ESSENTIAL_BINARIES = {
     'arm-none-eabi-gcc': {
         'version_arg': '-dumpversion'
     },
-    'bin/qmk': {},
 }
 
 
@@ -43,54 +43,97 @@ def _parse_gcc_version(version):
 def _check_arm_gcc_version():
     """Returns True if the arm-none-eabi-gcc version is not known to cause problems.
     """
-    if 'output' in ESSENTIAL_BINARIES['arm-none-eabi-gcc']:
-        version_number = ESSENTIAL_BINARIES['arm-none-eabi-gcc']['output'].strip()
-        cli.log.info('Found arm-none-eabi-gcc version %s', version_number)
+    version_number = ESSENTIAL_BINARIES['arm-none-eabi-gcc']['output'].strip()
+    cli.log.info('Found arm-none-eabi-gcc version %s', version_number)
 
-    return CheckStatus.OK  # Right now all known arm versions are ok
+    # Right now all known ARM versions are ok, so check that it can produce binaries
+    return _check_arm_gcc_installation()
+
+
+def _check_arm_gcc_installation():
+    """Returns OK if the arm-none-eabi-gcc is fully installed and can produce binaries.
+    """
+    with TemporaryDirectory() as temp_dir:
+        temp_file = Path(temp_dir) / 'test.elf'
+
+        args = ['arm-none-eabi-gcc', '-mcpu=cortex-m0', '-mthumb', '-mno-thumb-interwork', '--specs=nosys.specs', '--specs=nano.specs', '-x', 'c', '-o', str(temp_file), '-']
+        result = cli.run(args, stdin=None, stdout=None, stderr=None, input='#include <newlib.h>\nint main() { return __NEWLIB__ * __NEWLIB_MINOR__ * __NEWLIB_PATCHLEVEL__; }')
+        if result.returncode == 0:
+            cli.log.info('Successfully compiled using arm-none-eabi-gcc')
+        else:
+            cli.log.error(f'Failed to compile a simple program with arm-none-eabi-gcc, return code {result.returncode}')
+            cli.log.error(f'Command: {" ".join(args)}')
+            return CheckStatus.ERROR
+
+        args = ['arm-none-eabi-size', str(temp_file)]
+        result = cli.run(args, stdin=None, stdout=None, stderr=None)
+        if result.returncode == 0:
+            cli.log.info('Successfully tested arm-none-eabi-binutils using arm-none-eabi-size')
+        else:
+            cli.log.error(f'Failed to execute arm-none-eabi-size, perhaps corrupt arm-none-eabi-binutils, return code {result.returncode}')
+            cli.log.error(f'Command: {" ".join(args)}')
+            return CheckStatus.ERROR
+
+        return CheckStatus.OK
 
 
 def _check_avr_gcc_version():
     """Returns True if the avr-gcc version is not known to cause problems.
     """
-    rc = CheckStatus.ERROR
-    if 'output' in ESSENTIAL_BINARIES['avr-gcc']:
-        version_number = ESSENTIAL_BINARIES['avr-gcc']['output'].strip()
+    version_number = ESSENTIAL_BINARIES['avr-gcc']['output'].strip()
+    cli.log.info('Found avr-gcc version %s', version_number)
 
-        cli.log.info('Found avr-gcc version %s', version_number)
-        rc = CheckStatus.OK
+    # Right now all known AVR versions are ok, so check that it can produce binaries
+    return _check_avr_gcc_installation()
 
-        parsed_version = _parse_gcc_version(version_number)
-        if parsed_version['major'] > 8:
-            cli.log.warning('{fg_yellow}We do not recommend avr-gcc newer than 8. Downgrading to 8.x is recommended.')
-            rc = CheckStatus.WARNING
 
-    return rc
+def _check_avr_gcc_installation():
+    """Returns OK if the avr-gcc is fully installed and can produce binaries.
+    """
+    with TemporaryDirectory() as temp_dir:
+        temp_file = Path(temp_dir) / 'test.elf'
+
+        args = ['avr-gcc', '-mmcu=atmega32u4', '-x', 'c', '-o', str(temp_file), '-']
+        result = cli.run(args, stdin=None, stdout=None, stderr=None, input='int main() { return 0; }')
+        if result.returncode == 0:
+            cli.log.info('Successfully compiled using avr-gcc')
+        else:
+            cli.log.error(f'Failed to compile a simple program with avr-gcc, return code {result.returncode}')
+            cli.log.error(f'Command: {" ".join(args)}')
+            return CheckStatus.ERROR
+
+        args = ['avr-size', str(temp_file)]
+        result = cli.run(args, stdin=None, stdout=None, stderr=None)
+        if result.returncode == 0:
+            cli.log.info('Successfully tested avr-binutils using avr-size')
+        else:
+            cli.log.error(f'Failed to execute avr-size, perhaps corrupt avr-binutils, return code {result.returncode}')
+            cli.log.error(f'Command: {" ".join(args)}')
+            return CheckStatus.ERROR
+
+        return CheckStatus.OK
 
 
 def _check_avrdude_version():
-    if 'output' in ESSENTIAL_BINARIES['avrdude']:
-        last_line = ESSENTIAL_BINARIES['avrdude']['output'].split('\n')[-2]
-        version_number = last_line.split()[2][:-1]
-        cli.log.info('Found avrdude version %s', version_number)
+    last_line = ESSENTIAL_BINARIES['avrdude']['output'].split('\n')[-2]
+    version_number = last_line.split()[2][:-1]
+    cli.log.info('Found avrdude version %s', version_number)
 
     return CheckStatus.OK
 
 
 def _check_dfu_util_version():
-    if 'output' in ESSENTIAL_BINARIES['dfu-util']:
-        first_line = ESSENTIAL_BINARIES['dfu-util']['output'].split('\n')[0]
-        version_number = first_line.split()[1]
-        cli.log.info('Found dfu-util version %s', version_number)
+    first_line = ESSENTIAL_BINARIES['dfu-util']['output'].split('\n')[0]
+    version_number = first_line.split()[1]
+    cli.log.info('Found dfu-util version %s', version_number)
 
     return CheckStatus.OK
 
 
 def _check_dfu_programmer_version():
-    if 'output' in ESSENTIAL_BINARIES['dfu-programmer']:
-        first_line = ESSENTIAL_BINARIES['dfu-programmer']['output'].split('\n')[0]
-        version_number = first_line.split()[1]
-        cli.log.info('Found dfu-programmer version %s', version_number)
+    first_line = ESSENTIAL_BINARIES['dfu-programmer']['output'].split('\n')[0]
+    version_number = first_line.split()[1]
+    cli.log.info('Found dfu-programmer version %s', version_number)
 
     return CheckStatus.OK
 
@@ -98,11 +141,16 @@ def _check_dfu_programmer_version():
 def check_binaries():
     """Iterates through ESSENTIAL_BINARIES and tests them.
     """
-    ok = True
+    ok = CheckStatus.OK
 
     for binary in sorted(ESSENTIAL_BINARIES):
-        if not is_executable(binary):
-            ok = False
+        try:
+            if not is_executable(binary):
+                ok = CheckStatus.ERROR
+        except TimeoutExpired:
+            cli.log.debug('Timeout checking %s', binary)
+            if ok != CheckStatus.ERROR:
+                ok = CheckStatus.WARNING
 
     return ok
 
@@ -110,8 +158,22 @@ def check_binaries():
 def check_binary_versions():
     """Check the versions of ESSENTIAL_BINARIES
     """
+    checks = {
+        'arm-none-eabi-gcc': _check_arm_gcc_version,
+        'avr-gcc': _check_avr_gcc_version,
+        'avrdude': _check_avrdude_version,
+        'dfu-util': _check_dfu_util_version,
+        'dfu-programmer': _check_dfu_programmer_version,
+    }
+
     versions = []
-    for check in (_check_arm_gcc_version, _check_avr_gcc_version, _check_avrdude_version, _check_dfu_util_version, _check_dfu_programmer_version):
+    for binary in sorted(ESSENTIAL_BINARIES):
+        if 'output' not in ESSENTIAL_BINARIES[binary]:
+            cli.log.warning('Unknown version for %s', binary)
+            versions.append(CheckStatus.WARNING)
+            continue
+
+        check = checks[binary]
         versions.append(check())
     return versions
 
@@ -121,10 +183,8 @@ def check_submodules():
     """
     for submodule in submodules.status().values():
         if submodule['status'] is None:
-            cli.log.error('Submodule %s has not yet been cloned!', submodule['name'])
             return CheckStatus.ERROR
         elif not submodule['status']:
-            cli.log.warning('Submodule %s is not up to date!', submodule['name'])
             return CheckStatus.WARNING
 
     return CheckStatus.OK
@@ -153,12 +213,19 @@ def is_executable(command):
     return False
 
 
-def check_git_repo():
-    """Checks that the .git directory exists inside QMK_HOME.
-
-    This is a decent enough indicator that the qmk_firmware directory is a
-    proper Git repository, rather than a .zip download from GitHub.
+def release_info(file='/etc/os-release'):
+    """Parse release info to dict
     """
-    dot_git = QMK_FIRMWARE / '.git'
+    ret = {}
+    try:
+        with open(file) as f:
+            for line in f:
+                if '=' in line:
+                    key, value = map(str.strip, line.split('=', 1))
+                    if value.startswith('"') and value.endswith('"'):
+                        value = value[1:-1]
+                    ret[key] = value
+    except (PermissionError, FileNotFoundError):
+        pass
 
-    return CheckStatus.OK if dot_git.exists() else CheckStatus.WARNING
+    return ret

@@ -91,22 +91,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [SYMB] = LAYOUT_ergodox(
        // left hand
        VRSN,   KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_TRNS,
-       RESET,  KC_EXLM,KC_AT,  KC_LCBR,KC_RCBR,KC_PIPE,KC_TRNS,
+       QK_BOOT,KC_EXLM,KC_AT,  KC_LCBR,KC_RCBR,KC_PIPE,KC_TRNS,
        KC_TRNS,KC_HASH,KC_DLR, KC_LPRN,KC_RPRN,KC_GRV,
        EPRM,KC_PERC,KC_CIRC,KC_LBRC,KC_RBRC,KC_TILD,KC_TRNS,
           KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-                                       RGB_MOD,RGB_LYR,
+                                       UG_NEXT,RGB_LYR,
                                                KC_TRNS,
-                               RGB_VAD,RGB_VAI,KC_TRNS,
+                               UG_VALD,UG_VALU,KC_TRNS,
        // right hand
        KC_TRNS, KC_F6,   KC_F7,  KC_F8,   KC_F9,   KC_F10,  KC_F11,
        KC_TRNS, KC_UP,   KC_7,   KC_8,    KC_9,    KC_ASTR, KC_F12,
                 KC_DOWN, KC_4,   KC_5,    KC_6,    KC_PLUS, KC_TRNS,
        KC_TRNS, KC_AMPR, KC_1,   KC_2,    KC_3,    KC_BSLS, KC_TRNS,
                          KC_TRNS,KC_DOT,  KC_0,    KC_EQL,  KC_TRNS,
-       RGB_TOG, RGB_SLD,
+       UG_TOGG, RGB_SLD,
        KC_TRNS,
-       KC_TRNS, RGB_HUD, RGB_HUI
+       KC_TRNS, UG_HUED, UG_HUEU
 ),
 /* Keymap 2: Media and mouse keys
  *
@@ -151,14 +151,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 };
 
+#ifdef RGBLIGHT_ENABLE
 void eeconfig_init_user(void) {
   rgblight_enable();
-  rgblight_sethsv_cyan();
+  rgblight_sethsv(HSV_CYAN);
   rgblight_mode(1);
   user_config.rgb_layer_change = true;
   eeconfig_update_user(user_config.raw);
 }
-
+#endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -168,21 +169,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         eeconfig_init();
       }
       return false;
-      break;
     case VRSN:
       if (record->event.pressed) {
         SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
       }
       return false;
-      break;
+#ifdef RGBLIGHT_ENABLE
     case RGB_SLD:
       if (record->event.pressed) {
-        #ifdef RGBLIGHT_ENABLE
           rgblight_mode(1);
-        #endif
       }
       return false;
-      break;
      case RGB_LYR:  // This allows me to use underglow as layer indication, or as normal
         if (record->event.pressed) {
             user_config.rgb_layer_change ^= 1; // Toggles the status
@@ -191,19 +188,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_state_set(layer_state);   // then immediately update the layer color
             }
         }
-        return false; break;
-    case RGB_MODE_FORWARD ... RGB_MODE_GRADIENT: // For any of the RGB codes (see quantum_keycodes.h, L400 for reference)
+        return false;
+    case UNDERGLOW_KEYCODE_RANGE: // For any of the RGB codes (see quantum_keycodes.h, L400 for reference)
         if (record->event.pressed) { //This disables layer indication, as it's assumed that if you're changing this ... you want that disabled
             if (user_config.rgb_layer_change) {        // only if this is enabled
                 user_config.rgb_layer_change = false;  // disable it, and
                 eeconfig_update_user(user_config.raw); // write the setings to EEPROM
             }
         }
-        return true; break;
+        return true;
+#endif
  }
   return true;
 }
 
+#ifdef RGBLIGHT_ENABLE
 void matrix_init_user(void) {
   // Call the keymap level matrix init.
 
@@ -213,59 +212,70 @@ void matrix_init_user(void) {
   // Set default layer, if enabled
   if (user_config.rgb_layer_change) {
     rgblight_enable_noeeprom();
-    rgblight_sethsv_noeeprom_cyan();
+    rgblight_sethsv_noeeprom(HSV_CYAN);
     rgblight_mode_noeeprom(1);
   }
 }
-
-// Runs constantly in the background, in a loop.
-void matrix_scan_user(void) {
-
-};
+#endif
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   ergodox_board_led_off();
   ergodox_right_led_1_off();
   ergodox_right_led_2_off();
   ergodox_right_led_3_off();
-  switch (biton32(state)) {
+  switch (get_highest_layer(state)) {
     case SYMB:
         ergodox_right_led_1_on();
-        if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom_red(); rgblight_mode_noeeprom(1); }
+#ifdef RGBLIGHT_ENABLE
+        if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom(HSV_RED); rgblight_mode_noeeprom(1); }
+#endif
         break;
     case MDIA:
         ergodox_right_led_2_on();
-        if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom_green(); rgblight_mode_noeeprom(1); }
+#ifdef RGBLIGHT_ENABLE
+        if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom(HSV_GREEN); rgblight_mode_noeeprom(1); }
+#endif
         break;
     case 3:
         ergodox_right_led_3_on();
-        if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom_blue(); rgblight_mode_noeeprom(1); }
+#ifdef RGBLIGHT_ENABLE
+        if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom(HSV_BLUE); rgblight_mode_noeeprom(1); }
+#endif
         break;
     case 4:
         ergodox_right_led_1_on();
         ergodox_right_led_2_on();
-        if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom_orange(); rgblight_mode_noeeprom(1); }
+#ifdef RGBLIGHT_ENABLE
+        if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom(HSV_ORANGE); rgblight_mode_noeeprom(1); }
+#endif
         break;
     case 5:
         ergodox_right_led_1_on();
         ergodox_right_led_3_on();
-        if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom_yellow(); rgblight_mode_noeeprom(1); }
+#ifdef RGBLIGHT_ENABLE
+        if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom(HSV_YELLOW); rgblight_mode_noeeprom(1); }
+#endif
         break;
     case 6:
         ergodox_right_led_2_on();
         ergodox_right_led_3_on();
-        if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom_pink(); rgblight_mode_noeeprom(1); }
+#ifdef RGBLIGHT_ENABLE
+        if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom(HSV_PINK); rgblight_mode_noeeprom(1); }
+#endif
         break;
     case 7:
         ergodox_right_led_1_on();
         ergodox_right_led_2_on();
         ergodox_right_led_3_on();
-        if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom_white(); rgblight_mode_noeeprom(1); }
+#ifdef RGBLIGHT_ENABLE
+        if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom(HSV_WHITE); rgblight_mode_noeeprom(1); }
+#endif
         break;
     default: //  for any other layers, or the default layer
-        if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom_cyan(); rgblight_mode_noeeprom(1); }
+#ifdef RGBLIGHT_ENABLE
+        if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom(HSV_CYAN); rgblight_mode_noeeprom(1); }
+#endif
         break;
     }
   return state;
 }
-

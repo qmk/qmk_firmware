@@ -1,5 +1,5 @@
 /*
-    ChibiOS - Copyright (C) 2006..2018 Giovanni Di Sirio
+    ChibiOS - Copyright (C) 2006..2020 Giovanni Di Sirio
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@
 #define HALCONF_H
 
 #define _CHIBIOS_HAL_CONF_
-#define _CHIBIOS_HAL_CONF_VER_7_1_
+#define _CHIBIOS_HAL_CONF_VER_8_4_
 
 #include <mcuconf.h>
 
@@ -335,15 +335,18 @@
 /*===========================================================================*/
 
 /**
- * @brief   Delays insertions.
- * @details If enabled this options inserts delays into the MMC waiting
- *          routines releasing some extra CPU time for the threads with
- *          lower priority, this may slow down the driver a bit however.
- *          This option is recommended also if the SPI driver does not
- *          use a DMA channel and heavily loads the CPU.
+ * @brief   Timeout before assuming a failure while waiting for card idle.
+ * @note    Time is in milliseconds.
  */
-#if !defined(MMC_NICE_WAITING) || defined(__DOXYGEN__)
-#define MMC_NICE_WAITING                    TRUE
+#if !defined(MMC_IDLE_TIMEOUT_MS) || defined(__DOXYGEN__)
+#define MMC_IDLE_TIMEOUT_MS                 1000
+#endif
+
+/**
+ * @brief   Mutual exclusion on the SPI bus.
+ */
+#if !defined(MMC_USE_MUTUAL_EXCLUSION) || defined(__DOXYGEN__)
+#define MMC_USE_MUTUAL_EXCLUSION            TRUE
 #endif
 
 /*===========================================================================*/
@@ -416,6 +419,26 @@
 #endif
 
 /*===========================================================================*/
+/* SIO driver related settings.                                              */
+/*===========================================================================*/
+
+/**
+ * @brief   Default bit rate.
+ * @details Configuration parameter, this is the baud rate selected for the
+ *          default configuration.
+ */
+#if !defined(SIO_DEFAULT_BITRATE) || defined(__DOXYGEN__)
+#define SIO_DEFAULT_BITRATE                 38400
+#endif
+
+/**
+ * @brief   Support for thread synchronization API.
+ */
+#if !defined(SIO_USE_SYNCHRONIZATION) || defined(__DOXYGEN__)
+#define SIO_USE_SYNCHRONIZATION             TRUE
+#endif
+
+/*===========================================================================*/
 /* SERIAL_USB driver related setting.                                        */
 /*===========================================================================*/
 
@@ -451,11 +474,10 @@
 #endif
 
 /**
- * @brief   Enables circular transfers APIs.
- * @note    Disabling this option saves both code and data space.
+ * @brief   Inserts an assertion on function errors before returning.
  */
-#if !defined(SPI_USE_CIRCULAR) || defined(__DOXYGEN__)
-#define SPI_USE_CIRCULAR                    FALSE
+#if !defined(SPI_USE_ASSERT_ON_ERROR) || defined(__DOXYGEN__)
+#define SPI_USE_ASSERT_ON_ERROR             TRUE
 #endif
 
 /**

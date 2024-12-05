@@ -18,3 +18,12 @@
 #ifndef EARLY_INIT_PERFORM_BOOTLOADER_JUMP
 #    define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
 #endif
+
+#ifdef CONVERT_TO_PROTON_C
+#    ifndef I2C1_SDA_PIN
+#        define I2C1_SDA_PIN D1
+#    endif
+#    ifndef I2C1_SCL_PIN
+#        define I2C1_SCL_PIN D0
+#    endif
+#endif

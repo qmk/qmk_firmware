@@ -5,6 +5,6 @@
 #    endif
 
 #    ifndef F_SCL
-#        define F_SCL 100000UL  // SCL frequency
+#        define F_SCL 100000UL // SCL frequency
 #    endif
 #endif

@@ -1,0 +1,138 @@
+{
+    "keyboard_name": "TR60W",
+    "manufacturer": "Triangle Lab",
+    "url": "",
+    "maintainer": "qmk",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x4140",
+        "device_version": "0.0.1"
+    },
+    "features": {
+        "backlight": true,
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgblight": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
+    "matrix_pins": {
+        "cols": ["F5", "F4", "F1", "F0", "B0", "D5", "D3", "D6", "D7", "B4", "B5", "B6", "C6", "D2"],
+        "rows": ["D0", "D1", "B1", "B2", "E6", "B3"]
+    },
+    "diode_direction": "COL2ROW",
+    "backlight": {
+        "pin": "B7"
+    },
+    "indicators": {
+        "caps_lock": "B2",
+        "num_lock": "B1",
+        "scroll_lock": "B3",
+        "on_state": 0
+    },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 4,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "ws2812": {
+        "pin": "F7"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "layout_aliases": {
+        "LAYOUT_60_tsangan_hhkb": "LAYOUT_60_ansi_tsangan_split_bs_rshift"
+    },
+    "layouts": {
+        "LAYOUT_60_ansi_tsangan_split_bs_rshift": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+                {"matrix": [0, 4], "x": 4, "y": 0},
+                {"matrix": [0, 5], "x": 5, "y": 0},
+                {"matrix": [0, 6], "x": 6, "y": 0},
+                {"matrix": [0, 7], "x": 7, "y": 0},
+                {"matrix": [0, 8], "x": 8, "y": 0},
+                {"matrix": [0, 9], "x": 9, "y": 0},
+                {"matrix": [0, 10], "x": 10, "y": 0},
+                {"matrix": [0, 11], "x": 11, "y": 0},
+                {"matrix": [0, 12], "x": 12, "y": 0},
+                {"matrix": [0, 13], "x": 13, "y": 0},
+                {"matrix": [1, 13], "x": 14, "y": 0},
+
+                {"matrix": [1, 0], "x": 0, "y": 1, "w": 1.5},
+                {"matrix": [1, 1], "x": 1.5, "y": 1},
+                {"matrix": [1, 2], "x": 2.5, "y": 1},
+                {"matrix": [1, 3], "x": 3.5, "y": 1},
+                {"matrix": [1, 4], "x": 4.5, "y": 1},
+                {"matrix": [1, 5], "x": 5.5, "y": 1},
+                {"matrix": [1, 6], "x": 6.5, "y": 1},
+                {"matrix": [1, 7], "x": 7.5, "y": 1},
+                {"matrix": [1, 8], "x": 8.5, "y": 1},
+                {"matrix": [1, 9], "x": 9.5, "y": 1},
+                {"matrix": [1, 10], "x": 10.5, "y": 1},
+                {"matrix": [1, 11], "x": 11.5, "y": 1},
+                {"matrix": [1, 12], "x": 12.5, "y": 1},
+                {"matrix": [2, 13], "x": 13.5, "y": 1, "w": 1.5},
+
+                {"matrix": [2, 0], "x": 0, "y": 2, "w": 1.75},
+                {"matrix": [2, 1], "x": 1.75, "y": 2},
+                {"matrix": [2, 2], "x": 2.75, "y": 2},
+                {"matrix": [2, 3], "x": 3.75, "y": 2},
+                {"matrix": [2, 4], "x": 4.75, "y": 2},
+                {"matrix": [2, 5], "x": 5.75, "y": 2},
+                {"matrix": [2, 6], "x": 6.75, "y": 2},
+                {"matrix": [2, 7], "x": 7.75, "y": 2},
+                {"matrix": [2, 8], "x": 8.75, "y": 2},
+                {"matrix": [2, 9], "x": 9.75, "y": 2},
+                {"matrix": [2, 10], "x": 10.75, "y": 2},
+                {"matrix": [2, 11], "x": 11.75, "y": 2},
+                {"matrix": [2, 12], "x": 12.75, "y": 2, "w": 2.25},
+
+                {"matrix": [3, 0], "x": 0, "y": 3, "w": 2.25},
+                {"matrix": [3, 1], "x": 2.25, "y": 3},
+                {"matrix": [3, 2], "x": 3.25, "y": 3},
+                {"matrix": [3, 3], "x": 4.25, "y": 3},
+                {"matrix": [3, 4], "x": 5.25, "y": 3},
+                {"matrix": [3, 5], "x": 6.25, "y": 3},
+                {"matrix": [3, 6], "x": 7.25, "y": 3},
+                {"matrix": [3, 7], "x": 8.25, "y": 3},
+                {"matrix": [3, 8], "x": 9.25, "y": 3},
+                {"matrix": [3, 9], "x": 10.25, "y": 3},
+                {"matrix": [3, 10], "x": 11.25, "y": 3},
+                {"matrix": [3, 11], "x": 12.25, "y": 3, "w": 1.75},
+                {"matrix": [3, 12], "x": 14, "y": 3},
+
+                {"matrix": [4, 0], "x": 0, "y": 4, "w": 1.5},
+                {"matrix": [4, 1], "x": 1.5, "y": 4},
+                {"matrix": [4, 2], "x": 2.5, "y": 4, "w": 1.5},
+                {"matrix": [5, 5], "x": 4, "y": 4, "w": 7},
+                {"matrix": [5, 10], "x": 11, "y": 4, "w": 1.5},
+                {"matrix": [5, 11], "x": 12.5, "y": 4},
+                {"matrix": [5, 12], "x": 13.5, "y": 4, "w": 1.5}
+            ]
+        }
+    }
+}

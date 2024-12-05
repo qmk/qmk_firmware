@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
          KC_F6,    KC_F7,    KC_F8,    KC_F9,   KC_F10,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_SCLN,  KC_QUOT,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       KC_11SF,   KC_F12,   KC_ESC,   KC_TAB,    KANJI,   KC_DEL,  XXXXXXX,  XXXXXXX,    KC_RO,  KC_GRSF,
+       KC_11SF,   KC_F12,   KC_ESC,   KC_TAB,    KANJI,   KC_DEL,  XXXXXXX,  XXXXXXX,  KC_INT1,  KC_GRSF,
   //`---------+---------+---------+---------+---------+---------+---------+---------+---------+---------'
        _______,  _______,  _______,  _______,   KC_DEL,  _______,  _______,  _______,  _______,  _______
   //,---------------------------------------------------------------------------------------------------.
@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
        KC_LSFT,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_LEFT,  KC_DOWN,    KC_UP,  KC_RGHT,  KC_RSFT,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_MINS,    KC_RO,  KC_COMM,   KC_DOT,  KC_SLSF,
+       XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_MINS,  KC_INT1,  KC_COMM,   KC_DOT,  KC_SLSF,
   //`---------+---------+---------+---------+---------+---------+---------+---------+---------+---------'
        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______
   //,---------------------------------------------------------------------------------------------------.
@@ -78,11 +78,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT_ortho_4x10(
   //,---------------------------------------------------------------------------------------------------.
-         RESET,   RGBRST,  AG_NORM,  AG_SWAP,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   KC_INS,  KC_PSCR,
+       QK_BOOT,   RGBRST,  AG_NORM,  AG_SWAP,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   KC_INS,  KC_PSCR,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       RGB_TOG,  RGB_HUI,  RGB_SAI,  RGB_VAI,  XXXXXXX,  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,  KC_NLCK,
+       UG_TOGG,  UG_HUEU,  UG_SATU,  UG_VALU,  XXXXXXX,  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,  KC_NUM,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       RGB_MOD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  XXXXXXX,  KC_BTN1,  KC_BTN2,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+       UG_NEXT,  UG_HUED,  UG_SATD,  UG_VALD,  XXXXXXX,  KC_BTN1,  KC_BTN2,  XXXXXXX,  XXXXXXX,  XXXXXXX,
   //`---------+---------+---------+---------+---------+---------+---------+---------+---------+---------'
        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______
   //,---------------------------------------------------------------------------------------------------.
@@ -158,13 +158,14 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   return rotation;
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
 
   if (is_keyboard_master()) {
     render_status();
   } else {
     render_logo();
   }
+    return false;
 }
 
 #else
@@ -200,12 +201,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KANJI:
       if (record->event.pressed) {
         if (keymap_config.swap_lalt_lgui == false) {
-          register_code(KC_LANG2);
+          register_code(KC_LNG2);
         } else {
           register_code16(A(KC_GRV));
         }
       } else {
-        unregister_code(KC_LANG2);
+        unregister_code(KC_LNG2);
       }
       break;
     #ifdef RGBLIGHT_ENABLE

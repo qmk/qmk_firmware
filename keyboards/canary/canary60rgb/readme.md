@@ -1,13 +1,13 @@
-# CANARY60RGB
+# Canary60RGB
 
 ![canary60rgb1](https://github.com/AnthonyNguyen168/keyboards/blob/main/2.jpg)
 ![canary60rgb2](https://github.com/AnthonyNguyen168/keyboards/blob/main/3.jpg)
 
 A hotswap 60% RGB keyboard.
 
-* Keyboard Maintainer: [AnthonyNguyen168](https://github.com/AnthonyNguyen168)
-* Hardware Supported: CanaryTeam CANARY60RGB V1
-* Hardware Availability: [CanaryTeam](https://www.facebook.com/CanaryTeam/) (https://shopee.vn/M%E1%BA%A1ch-b%C3%A0n-ph%C3%ADm-Canary60RGB-PCB-Layout-60--i.196623820.5093520199)
+* Keyboard Maintainer: [tuananhnguyen204](https://github.com/AnthonyNguyen168) (tuananhnguyen204@gmail.com)
+* Hardware Supported: CanaryTeam Canary60RGB V1
+* Hardware Availability: [CanaryTeam](https://www.facebook.com/CanaryTeam/), [Shopee](https://shopee.vn/search?keyword=canary60rgb)
 * To reset the board into bootloader mode: press Reset hardware button or hold FN + Backslash (layer 1 RESET key)
 
 

@@ -17,7 +17,7 @@ Flashing example for this keyboard:
 To reset the board into bootloader mode, do one of the following:
 
 * Hold Esc while plugging the PCB in, if Bootmagic Lite is enabled (also erases persistent settings).
-* Press the RESET keycode, if programmed on the keymap (Fn+R by default).
+* Press the `QK_BOOT` keycode, if programmed on the keymap (Fn+R by default).
 * Slide the switch just below the reset button to the left and press the reset button.
   * Please note that you must slide it back to the right for the PCB to boot QMK again.
 

@@ -3,15 +3,25 @@
 set -eEuo pipefail
 umask 022
 
+#####################
+# You will need to get an older JDK -- JDK 8
+#
+# !!!!!!!! DO NOT INSTALL THIS IF YOU HAVE AN EXISTING JDK OR JRE INSTALLED !!!!!!!!
+#
+# For Debian 10-ish distro's:
+#   wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | sudo apt-key add -
+#   sudo add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/
+#   sudo apt-get update && sudo apt-get install adoptopenjdk-8-hotspot
+#
+# For Fedora 37-ish distros:
+#  sudo dnf install -y ant java-1.8.0-openjdk.x86_64
+
 sinfo() { echo "$@" >&2 ; }
 shead() { sinfo "" ; sinfo "---------------------------------" ; sinfo "-- $@" ; sinfo "---------------------------------" ; }
-havecmd()  { command command type "${1}" >/dev/null 2>&1 || return 1 ; }
 
 this_script="$(realpath "${BASH_SOURCE[0]}")"
 script_dir="$(realpath "$(dirname "$this_script")")"
 qmk_firmware_dir="$(realpath "$script_dir/../")"
-
-declare -A file_hashes
 
 export PATH="$PATH:$script_dir/fmpp/bin"
 
@@ -22,7 +32,7 @@ build_fmpp() {
         || { mkdir "$script_dir/fmpp" && tar xf "$script_dir/fmpp.tar.gz" -C "$script_dir/fmpp" --strip-components=1 ; }
     pushd "$script_dir/fmpp" >/dev/null 2>&1
     sed -e "s#bootclasspath.path=.*#bootclasspath.path=$(find /usr/lib/jvm -name 'rt.jar' | sort | tail -n1)#g" \
-        -e "s#ant.jar.path=.*#ant.jar.path=$(find /usr/share/java -name 'ant-1*.jar' | sort | tail -n1)#g" \
+        -e "s#ant.jar.path=.*#ant.jar.path=$(find /usr/share/java -name 'ant-1*.jar' -or -name 'ant.jar' | sort | tail -n1)#g" \
         build.properties.sample > build.properties
     sed -e 's#source="1.5"#source="1.8"#g' \
         -e 's#target="1.5"#target="1.8"#g' \
@@ -38,71 +48,10 @@ find_chibi_files() {
     local search_path="$1"
     shift
     local conditions=( "$@" )
-    for file in $(find -L "$search_path" -not -path '*/lib/chibios*' -and -not -path '*/lib/ugfx*' -and -not -path '*/util/*' -and \( "${conditions[@]}" \) | sort) ; do
+    for file in $(find -L "$search_path" -not -path '*/lib/chibios*' -and -not -path '*/util/*' -and \( "${conditions[@]}" \) | sort) ; do
         if [ -z "$(grep 'include_next' "$file")" ] ; then
             echo $file
         fi
-    done
-}
-
-revert_chibi_files() {
-    local search_path="$1"
-    shead "Reverting ChibiOS config/board files..."
-    for file in $(find_chibi_files "$search_path" -name chconf.h -or -name halconf.h -or -name mcuconf.h -or -name board.c -or -name board.h -or -name board.mk -or -name board.chcfg) ; do
-        pushd "$search_path" >/dev/null 2>&1
-        local relpath=$(realpath --relative-to="$search_path" "$file")
-        git checkout upstream/develop -- "$relpath" || git checkout origin/develop -- "$relpath" || true
-        popd >/dev/null 2>&1
-    done
-}
-
-populate_file_hashes() {
-    local search_path="$1"
-    shead "Determining duplicate config/board files..."
-    for file in $(find_chibi_files "$search_path" -name chconf.h -or -name halconf.h -or -name mcuconf.h -or -name board.c -or -name board.h) ; do
-        local key="file_$(clang-format "$file" | sha1sum | cut -d' ' -f1)"
-        local relpath=$(realpath --relative-to="$search_path" "$file")
-        file_hashes[$key]="${file_hashes[$key]:-} $relpath"
-    done
-    for file in $(find_chibi_files "$search_path" -name board.mk -or -name board.chcfg) ; do
-        local key="file_$(cat "$file" | sha1sum | cut -d' ' -f1)"
-        local relpath=$(realpath --relative-to="$search_path" "$file")
-        file_hashes[$key]="${file_hashes[$key]:-} $relpath"
-    done
-}
-
-determine_equivalent_files() {
-    local search_file="$1"
-    for K in "${!file_hashes[@]}"; do
-        for V in ${file_hashes[$K]}; do
-            if [[ "$V" == "$search_file" ]] ; then
-                for V in ${file_hashes[$K]}; do
-                    echo "$V"
-                done
-                return 0
-            fi
-        done
-    done
-    return 1
-}
-
-deploy_staged_files() {
-    shead "Deploying staged files..."
-    for file in $(find "$qmk_firmware_dir/util/chibios-upgrade-staging" -type f) ; do
-        local relpath=$(realpath --relative-to="$qmk_firmware_dir/util/chibios-upgrade-staging" "$file")
-        sinfo "Deploying staged file: $relpath"
-        for other in $(determine_equivalent_files "$relpath") ; do
-            sinfo "    => $other"
-            cp "$qmk_firmware_dir/util/chibios-upgrade-staging/$relpath" "$qmk_firmware_dir/$other"
-        done
-    done
-}
-
-swap_mcuconf_f3xx_f303() {
-    shead "Swapping STM32F3xx_MCUCONF -> STM32F303_MCUCONF..."
-    for file in $(find_chibi_files "$qmk_firmware_dir" -name mcuconf.h) ; do
-        sed -i 's#STM32F3xx_MCUCONF#STM32F303_MCUCONF#g' "$file"
-        dos2unix "$file" >/dev/null 2>&1
     done
 }
 
@@ -150,35 +99,9 @@ upgrade_mcuconf_files() {
     popd >/dev/null 2>&1
 }
 
-update_staged_files() {
-    shead "Updating staged files with ChibiOS upgraded versions..."
-    for file in $(find "$qmk_firmware_dir/util/chibios-upgrade-staging" -type f) ; do
-        local relpath=$(realpath --relative-to="$qmk_firmware_dir/util/chibios-upgrade-staging" "$file")
-        sinfo "Updating staged file: $relpath"
-        cp "$qmk_firmware_dir/$relpath" "$qmk_firmware_dir/util/chibios-upgrade-staging/$relpath"
-    done
-}
+hash -r
+[[ -n "$(which fmpp 2>/dev/null)" ]] || build_fmpp
 
-havecmd fmpp || build_fmpp
-revert_chibi_files "$qmk_firmware_dir"
-populate_file_hashes "$qmk_firmware_dir"
-
-shead "Showing duplicate ChibiOS files..."
-for K in "${!file_hashes[@]}"; do
-    sinfo ${K#file_}:
-    for V in ${file_hashes[$K]}; do
-        sinfo "    $V"
-    done
-done
-
-if [ "${1:-}" == "-r" ] ; then
-    exit 0
-fi
-
-swap_mcuconf_f3xx_f303
-
-deploy_staged_files
 upgrade_mcuconf_files
 upgrade_chconf_files
 upgrade_halconf_files
-update_staged_files

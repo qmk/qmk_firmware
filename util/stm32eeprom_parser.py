@@ -197,7 +197,6 @@ def dumpBinary(data, canonical):
         print("")
 
     size = len(data)
-    empty_rows = 0
     prev_row = ''
     first_repeat = True
     for pos in range(0, size, 16):

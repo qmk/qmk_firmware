@@ -17,9 +17,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "portico.h"
 
-#ifdef RGB_MATRIX_ENABLE
+#ifdef RGB_BACKLIGHT_PORTICO
+#    include "drivers/led/issi/is31fl3731.h"
+#endif
 
-const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
+#if defined(RGB_MATRIX_ENABLE) || defined(RGB_BACKLIGHT_PORTICO)
+
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
     { 0, C2_1,  C3_1,  C4_1  },
     { 0, C1_1,  C3_2,  C4_2  },
     { 0, C1_2,  C2_2,  C4_3  },
@@ -92,7 +96,9 @@ const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
     { 1, C9_16, C7_15, C6_15 },
     { 1, C8_16, C7_16, C6_16 }
 };
+#endif
 
+#ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = {
     {
         {  0,      1,  2,      3,      4,      5,  6,      7,      8,      9, 10, 11, 12,     13, 14 },
@@ -115,25 +121,20 @@ led_config_t g_led_config = {
     }
 };
 
-void suspend_power_down_kb(void) {
-    rgb_matrix_set_suspend_state(true);
-    suspend_power_down_user();
-}
-
-void suspend_wakeup_init_kb(void) {
-    rgb_matrix_set_suspend_state(false);
-    suspend_wakeup_init_user();
-}
-
-void rgb_matrix_indicators_kb(void) {
+bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
+    }
 	if (host_keyboard_led_state().caps_lock) {
 		rgb_matrix_set_color(30, 0xFF, 0xFF, 0xFF);
 	}
-	else { 
+	else {
 		rgb_matrix_set_color(30, 0x00, 0x00, 0x00);
 	}
 	if (!rgb_matrix_is_enabled()) {
 		rgb_matrix_driver.flush();
     }
+    return true;
 }
 #endif
+

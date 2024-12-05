@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "led_matrix.h"
+#include "led_matrix_drivers.h"
 
 /* Each driver needs to define a struct:
  *
@@ -25,129 +25,108 @@
  * in their own files.
  */
 
-#if defined(IS31FL3731) || defined(IS31FL3733)
-
-#    include "i2c_master.h"
-
-static void init(void) {
-    i2c_init();
-#    ifdef IS31FL3731
-#        ifdef LED_DRIVER_ADDR_1
-    IS31FL3731_init(LED_DRIVER_ADDR_1);
-#        endif
-#        ifdef LED_DRIVER_ADDR_2
-    IS31FL3731_init(LED_DRIVER_ADDR_2);
-#        endif
-#        ifdef LED_DRIVER_ADDR_3
-    IS31FL3731_init(LED_DRIVER_ADDR_3);
-#        endif
-#        ifdef LED_DRIVER_ADDR_4
-    IS31FL3731_init(LED_DRIVER_ADDR_4);
-#        endif
-#    else
-#        ifdef LED_DRIVER_ADDR_1
-#            ifndef LED_DRIVER_SYNC_1
-#                define LED_DRIVER_SYNC_1 0
-#            endif
-    IS31FL3733_init(LED_DRIVER_ADDR_1, LED_DRIVER_SYNC_1);
-#        endif
-#        ifdef LED_DRIVER_ADDR_2
-#            ifndef LED_DRIVER_SYNC_2
-#                define LED_DRIVER_SYNC_2 0
-#            endif
-    IS31FL3733_init(LED_DRIVER_ADDR_2, LED_DRIVER_SYNC_2);
-#        endif
-#        ifdef LED_DRIVER_ADDR_3
-#            ifndef LED_DRIVER_SYNC_3
-#                define LED_DRIVER_SYNC_3 0
-#            endif
-    IS31FL3733_init(LED_DRIVER_ADDR_3, LED_DRIVER_SYNC_3);
-#        endif
-#        ifdef LED_DRIVER_ADDR_4
-#            ifndef LED_DRIVER_SYNC_4
-#                define LED_DRIVER_SYNC_4 0
-#            endif
-    IS31FL3733_init(LED_DRIVER_ADDR_4, LED_DRIVER_SYNC_4);
-#        endif
-#    endif
-
-    for (int index = 0; index < DRIVER_LED_TOTAL; index++) {
-#    ifdef IS31FL3731
-        IS31FL3731_set_led_control_register(index, true);
-#    else
-        IS31FL3733_set_led_control_register(index, true);
-#    endif
-    }
-// This actually updates the LED drivers
-#    ifdef IS31FL3731
-#        ifdef LED_DRIVER_ADDR_1
-    IS31FL3731_update_led_control_registers(LED_DRIVER_ADDR_1, 0);
-#        endif
-#        ifdef LED_DRIVER_ADDR_2
-    IS31FL3731_update_led_control_registers(LED_DRIVER_ADDR_2, 1);
-#        endif
-#        ifdef LED_DRIVER_ADDR_3
-    IS31FL3731_update_led_control_registers(LED_DRIVER_ADDR_3, 2);
-#        endif
-#        ifdef LED_DRIVER_ADDR_4
-    IS31FL3731_update_led_control_registers(LED_DRIVER_ADDR_4, 3);
-#        endif
-#    else
-#        ifdef LED_DRIVER_ADDR_1
-    IS31FL3733_update_led_control_registers(LED_DRIVER_ADDR_1, 0);
-#        endif
-#        ifdef LED_DRIVER_ADDR_2
-    IS31FL3733_update_led_control_registers(LED_DRIVER_ADDR_2, 1);
-#        endif
-#        ifdef LED_DRIVER_ADDR_3
-    IS31FL3733_update_led_control_registers(LED_DRIVER_ADDR_3, 2);
-#        endif
-#        ifdef LED_DRIVER_ADDR_4
-    IS31FL3733_update_led_control_registers(LED_DRIVER_ADDR_4, 3);
-#        endif
-#    endif
-}
-
-static void flush(void) {
-#    ifdef IS31FL3731
-#        ifdef LED_DRIVER_ADDR_1
-    IS31FL3731_update_pwm_buffers(LED_DRIVER_ADDR_1, 0);
-#        endif
-#        ifdef LED_DRIVER_ADDR_2
-    IS31FL3731_update_pwm_buffers(LED_DRIVER_ADDR_2, 1);
-#        endif
-#        ifdef LED_DRIVER_ADDR_3
-    IS31FL3731_update_pwm_buffers(LED_DRIVER_ADDR_3, 2);
-#        endif
-#        ifdef LED_DRIVER_ADDR_4
-    IS31FL3731_update_pwm_buffers(LED_DRIVER_ADDR_4, 3);
-#        endif
-#    else
-#        ifdef LED_DRIVER_ADDR_1
-    IS31FL3733_update_pwm_buffers(LED_DRIVER_ADDR_1, 0);
-#        endif
-#        ifdef LED_DRIVER_ADDR_2
-    IS31FL3733_update_pwm_buffers(LED_DRIVER_ADDR_2, 1);
-#        endif
-#        ifdef LED_DRIVER_ADDR_3
-    IS31FL3733_update_pwm_buffers(LED_DRIVER_ADDR_3, 2);
-#        endif
-#        ifdef LED_DRIVER_ADDR_4
-    IS31FL3733_update_pwm_buffers(LED_DRIVER_ADDR_4, 3);
-#        endif
-#    endif
-}
-
+#if defined(LED_MATRIX_IS31FL3218)
 const led_matrix_driver_t led_matrix_driver = {
-    .init  = init,
-    .flush = flush,
-#    ifdef IS31FL3731
-    .set_value     = IS31FL3731_set_value,
-    .set_value_all = IS31FL3731_set_value_all,
-#    else
-    .set_value = IS31FL3733_set_value,
-    .set_value_all = IS31FL3733_set_value_all,
-#    endif
+    .init          = is31fl3218_init,
+    .flush         = is31fl3218_update_pwm_buffers,
+    .set_value     = is31fl3218_set_value,
+    .set_value_all = is31fl3218_set_value_all,
+};
+
+#elif defined(LED_MATRIX_IS31FL3236)
+const led_matrix_driver_t led_matrix_driver = {
+    .init          = is31fl3236_init_drivers,
+    .flush         = is31fl3236_flush,
+    .set_value     = is31fl3236_set_value,
+    .set_value_all = is31fl3236_set_value_all,
+};
+
+#elif defined(LED_MATRIX_IS31FL3729)
+const led_matrix_driver_t led_matrix_driver = {
+    .init          = is31fl3729_init_drivers,
+    .flush         = is31fl3729_flush,
+    .set_value     = is31fl3729_set_value,
+    .set_value_all = is31fl3729_set_value_all,
+};
+
+#elif defined(LED_MATRIX_IS31FL3731)
+const led_matrix_driver_t led_matrix_driver = {
+    .init          = is31fl3731_init_drivers,
+    .flush         = is31fl3731_flush,
+    .set_value     = is31fl3731_set_value,
+    .set_value_all = is31fl3731_set_value_all,
+};
+
+#elif defined(LED_MATRIX_IS31FL3733)
+const led_matrix_driver_t led_matrix_driver = {
+    .init          = is31fl3733_init_drivers,
+    .flush         = is31fl3733_flush,
+    .set_value     = is31fl3733_set_value,
+    .set_value_all = is31fl3733_set_value_all,
+};
+
+#elif defined(LED_MATRIX_IS31FL3736)
+const led_matrix_driver_t led_matrix_driver = {
+    .init          = is31fl3736_init_drivers,
+    .flush         = is31fl3736_flush,
+    .set_value     = is31fl3736_set_value,
+    .set_value_all = is31fl3736_set_value_all,
+};
+
+#elif defined(LED_MATRIX_IS31FL3737)
+const led_matrix_driver_t led_matrix_driver = {
+    .init          = is31fl3737_init_drivers,
+    .flush         = is31fl3737_flush,
+    .set_value     = is31fl3737_set_value,
+    .set_value_all = is31fl3737_set_value_all,
+};
+
+#elif defined(LED_MATRIX_IS31FL3741)
+const led_matrix_driver_t led_matrix_driver = {
+    .init          = is31fl3741_init_drivers,
+    .flush         = is31fl3741_flush,
+    .set_value     = is31fl3741_set_value,
+    .set_value_all = is31fl3741_set_value_all,
+};
+
+#elif defined(LED_MATRIX_IS31FL3742A)
+const led_matrix_driver_t led_matrix_driver = {
+    .init          = is31fl3742a_init_drivers,
+    .flush         = is31fl3742a_flush,
+    .set_value     = is31fl3742a_set_value,
+    .set_value_all = is31fl3742a_set_value_all,
+};
+
+#elif defined(LED_MATRIX_IS31FL3743A)
+const led_matrix_driver_t led_matrix_driver = {
+    .init          = is31fl3743a_init_drivers,
+    .flush         = is31fl3743a_flush,
+    .set_value     = is31fl3743a_set_value,
+    .set_value_all = is31fl3743a_set_value_all,
+};
+
+#elif defined(LED_MATRIX_IS31FL3745)
+const led_matrix_driver_t led_matrix_driver = {
+    .init          = is31fl3745_init_drivers,
+    .flush         = is31fl3745_flush,
+    .set_value     = is31fl3745_set_value,
+    .set_value_all = is31fl3745_set_value_all,
+};
+
+#elif defined(LED_MATRIX_IS31FL3746A)
+const led_matrix_driver_t led_matrix_driver = {
+    .init          = is31fl3746a_init_drivers,
+    .flush         = is31fl3746a_flush,
+    .set_value     = is31fl3746a_set_value,
+    .set_value_all = is31fl3746a_set_value_all,
+};
+
+#elif defined(LED_MATRIX_SNLED27351)
+const led_matrix_driver_t led_matrix_driver = {
+    .init          = snled27351_init_drivers,
+    .flush         = snled27351_flush,
+    .set_value     = snled27351_set_value,
+    .set_value_all = snled27351_set_value_all,
 };
 
 #endif

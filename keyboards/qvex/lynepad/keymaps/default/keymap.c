@@ -82,7 +82,7 @@ void matrix_scan_user(void) {
             unregister_code16(KC_MS_BTN3);
         }
         /*
-         * Encoder sets ALL values when center is pressed so bail out at this point\
+         * Encoder sets ALL values when center is pressed so bail out at this point
          * to avoid the rest of the encoder buttons registering events
          */
         return;

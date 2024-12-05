@@ -9,9 +9,11 @@ from milc import cli
 from milc.questions import yesno
 
 from qmk import submodules
-from qmk.constants import QMK_FIRMWARE, QMK_FIRMWARE_UPSTREAM
+from qmk.constants import QMK_FIRMWARE, QMK_FIRMWARE_UPSTREAM, QMK_USERSPACE, HAS_QMK_USERSPACE
 from .check import CheckStatus, check_binaries, check_binary_versions, check_submodules
-from qmk.commands import git_check_repo, git_get_branch, git_is_dirty, git_get_remotes, git_check_deviation, in_virtualenv
+from qmk.git import git_check_repo, git_get_branch, git_get_tag, git_get_last_log_entry, git_get_common_ancestor, git_is_dirty, git_get_remotes, git_check_deviation
+from qmk.commands import in_virtualenv
+from qmk.userspace import qmk_userspace_paths, qmk_userspace_validate, UserspaceValidationError
 
 
 def os_tests():
@@ -47,6 +49,11 @@ def git_tests():
         git_branch = git_get_branch()
         if git_branch:
             cli.log.info('Git branch: %s', git_branch)
+
+            repo_version = git_get_tag()
+            if repo_version:
+                cli.log.info('Repo version: %s', repo_version)
+
             git_dirty = git_is_dirty()
             if git_dirty:
                 cli.log.warning('{fg_yellow}Git has unstashed/uncommitted changes.')
@@ -60,8 +67,49 @@ def git_tests():
                 if git_branch in ['master', 'develop'] and git_deviation:
                     cli.log.warning('{fg_yellow}The local "%s" branch contains commits not found in the upstream branch.', git_branch)
                     status = CheckStatus.WARNING
+                for branch in [git_branch, 'upstream/master', 'upstream/develop']:
+                    cli.log.info('- Latest %s: %s', branch, git_get_last_log_entry(branch))
+                for branch in ['upstream/master', 'upstream/develop']:
+                    cli.log.info('- Common ancestor with %s: %s', branch, git_get_common_ancestor(branch, 'HEAD'))
 
     return status
+
+
+def output_submodule_status():
+    """Prints out information related to the submodule status.
+    """
+    cli.log.info('Submodule status:')
+    sub_status = submodules.status()
+    for s in sub_status.keys():
+        sub_info = sub_status[s]
+        if 'name' in sub_info:
+            sub_name = sub_info['name']
+            sub_shorthash = sub_info['shorthash'] if 'shorthash' in sub_info else ''
+            sub_describe = sub_info['describe'] if 'describe' in sub_info else ''
+            sub_last_log_timestamp = sub_info['last_log_timestamp'] if 'last_log_timestamp' in sub_info else ''
+            if sub_last_log_timestamp != '':
+                cli.log.info(f'- {sub_name}: {sub_last_log_timestamp} -- {sub_describe} ({sub_shorthash})')
+            else:
+                cli.log.error(f'- {sub_name}: <<< missing or unknown >>>')
+
+
+def userspace_tests(qmk_firmware):
+    if qmk_firmware:
+        cli.log.info(f'QMK home: {{fg_cyan}}{qmk_firmware}')
+
+    for path in qmk_userspace_paths():
+        try:
+            qmk_userspace_validate(path)
+            cli.log.info(f'Testing userspace candidate: {{fg_cyan}}{path}{{fg_reset}} -- {{fg_green}}Valid `qmk.json`')
+        except FileNotFoundError:
+            cli.log.warn(f'Testing userspace candidate: {{fg_cyan}}{path}{{fg_reset}} -- {{fg_red}}Missing `qmk.json`')
+        except UserspaceValidationError as err:
+            cli.log.warn(f'Testing userspace candidate: {{fg_cyan}}{path}{{fg_reset}} -- {{fg_red}}Invalid `qmk.json`')
+            cli.log.warn(f' -- {{fg_cyan}}{path}/qmk.json{{fg_reset}} validation error: {err}')
+
+    if QMK_USERSPACE is not None:
+        cli.log.info(f'QMK userspace: {{fg_cyan}}{QMK_USERSPACE}')
+    cli.log.info(f'Userspace enabled: {{fg_cyan}}{HAS_QMK_USERSPACE}')
 
 
 @cli.argument('-y', '--yes', action='store_true', arg_only=True, help='Answer yes to all questions.')
@@ -79,24 +127,30 @@ def doctor(cli):
     cli.log.info('CLI version: %s', cli.version)
     cli.log.info('QMK home: {fg_cyan}%s', QMK_FIRMWARE)
 
-    status = os_tests()
+    status = os_status = os_tests()
 
-    status = git_tests()
+    userspace_tests(None)
 
-    venv = in_virtualenv()
-    if venv:
+    git_status = git_tests()
+
+    if git_status == CheckStatus.ERROR or (os_status == CheckStatus.OK and git_status == CheckStatus.WARNING):
+        status = git_status
+
+    if in_virtualenv():
         cli.log.info('CLI installed in virtualenv.')
 
     # Make sure the basic CLI tools we need are available and can be executed.
     bin_ok = check_binaries()
 
-    if not bin_ok:
+    if bin_ok == CheckStatus.ERROR:
         if yesno('Would you like to install dependencies?', default=True):
             cli.run(['util/qmk_install.sh', '-y'], stdin=DEVNULL, capture_output=False)
             bin_ok = check_binaries()
 
-    if bin_ok:
+    if bin_ok == CheckStatus.OK:
         cli.log.info('All dependencies are installed.')
+    elif bin_ok == CheckStatus.WARNING:
+        cli.log.warning('Issues encountered while checking dependencies.')
     else:
         status = CheckStatus.ERROR
 
@@ -113,7 +167,7 @@ def doctor(cli):
     if sub_ok == CheckStatus.OK:
         cli.log.info('Submodules are up to date.')
     else:
-        if yesno('Would you like to clone the submodules?', default=True):
+        if git_check_repo() and yesno('Would you like to clone the submodules?', default=True):
             submodules.update()
             sub_ok = check_submodules()
 
@@ -121,6 +175,8 @@ def doctor(cli):
             status = CheckStatus.ERROR
         elif sub_ok == CheckStatus.WARNING and status == CheckStatus.OK:
             status = CheckStatus.WARNING
+
+    output_submodule_status()
 
     # Report a summary of our findings to the user
     if status == CheckStatus.OK:
@@ -131,5 +187,5 @@ def doctor(cli):
         return 1
     else:
         cli.log.info('{fg_red}Major problems detected, please fix these problems before proceeding.')
-        cli.log.info('{fg_blue}Check out the FAQ (https://docs.qmk.fm/#/faq_build) or join the QMK Discord (https://discord.gg/Uq7gcHh) for help.')
+        cli.log.info('{fg_blue}Check out the FAQ (https://docs.qmk.fm/#/faq_build) or join the QMK Discord (https://discord.gg/qmk) for help.')
         return 2

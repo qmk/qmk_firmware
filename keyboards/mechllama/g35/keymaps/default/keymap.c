@@ -37,13 +37,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_ADJUST] = LAYOUT(
     //┌────────┬────────┬────────┬────────┬────────┬────────┬────────┐
-       RGB_TOG,TO(_BASE),XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  RESET,
+       UG_TOGG,TO(_BASE),XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  QK_BOOT,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-       RGB_M_K, XXXXXXX, RGB_RMOD,RGB_HUI, RGB_MOD, XXXXXXX, XXXXXXX,
+       RGB_M_K, XXXXXXX, UG_PREV, UG_HUEU, UG_NEXT, XXXXXXX, XXXXXXX,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-       XXXXXXX, XXXXXXX, RGB_SAD, RGB_HUD, RGB_SAI, XXXXXXX, XXXXXXX,
+       XXXXXXX, XXXXXXX, UG_SATD, UG_HUED, UG_SATU, XXXXXXX, XXXXXXX,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼
-       XXXXXXX, XXXXXXX, RGB_VAD, XXXXXXX, RGB_VAI, XXXXXXX, XXXXXXX,
+       XXXXXXX, XXXXXXX, UG_VALD, XXXXXXX, UG_VALU, XXXXXXX, XXXXXXX,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼
     //
        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
@@ -66,7 +66,8 @@ const char* get_layer_name(uint8_t layer) {
     }
 }
 
-void oled_task_user(void) {
-    oled_write_ln_P(get_layer_name(biton32(layer_state)), false);
+bool oled_task_user(void) {
+    oled_write_ln_P(get_layer_name(get_highest_layer(layer_state)), false);
+    return false;
 }
 #endif

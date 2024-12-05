@@ -4,12 +4,12 @@ RGB_MATRIX_EFFECT(SOLID_COLOR)
 bool SOLID_COLOR(effect_params_t* params) {
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
 
-    RGB rgb = rgb_matrix_hsv_to_rgb(rgb_matrix_config.hsv);
+    rgb_t rgb = rgb_matrix_hsv_to_rgb(rgb_matrix_config.hsv);
     for (uint8_t i = led_min; i < led_max; i++) {
         RGB_MATRIX_TEST_LED_FLAGS();
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return rgb_matrix_check_finished_leds(led_max);
 }
 
-#endif  // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
+#endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS

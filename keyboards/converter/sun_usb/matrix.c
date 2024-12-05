@@ -15,8 +15,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include QMK_KEYBOARD_H
-#include "protocol/serial.h"
+#include "matrix.h"
+#include "host.h"
+#include "led.h"
+#include "debug.h"
+#include "wait.h"
+#include "uart.h"
 
 /*
  * Matrix Array usage:
@@ -37,8 +41,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 static uint8_t matrix[MATRIX_ROWS];
 #define ROW(code)      ((code>>3)&0xF)
 #define COL(code)      (code&0x07)
-
-static bool is_modified = false;
 
 __attribute__ ((weak))
 void matrix_init_kb(void) {
@@ -72,11 +74,11 @@ uint8_t matrix_cols(void)
 
 void matrix_init(void)
 {
-    /* DDRD |= (1<<6); */
-    /* PORTD |= (1<<6); */
+    /* gpio_set_pin_output(D6); */
+    /* gpio_write_pin_high(D6); */
     debug_enable = true;
 
-    serial_init();
+    uart_init(1200);
 
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) matrix[i] = 0x00;
@@ -86,36 +88,36 @@ void matrix_init(void)
     /* print("Reseting "); */
     /* while (1) { */
     /*     print("."); */
-    /*     while (serial_recv()); */
-    /*     serial_send(0x01); */
-    /*     _delay_ms(500); */
-    /*     if (serial_recv() == 0xFF) { */
-    /*         _delay_ms(500); */
-    /*         if (serial_recv() == 0x04) */
+    /*     while (uart_read()); */
+    /*     uart_write(0x01); */
+    /*     wait_ms(500); */
+    /*     if (uart_read() == 0xFF) { */
+    /*         wait_ms(500); */
+    /*         if (uart_read() == 0x04) */
     /*             break; */
     /*     } */
     /* } */
     /* print(" Done\n"); */
 
-    /* PORTD &= ~(1<<6); */
+    /* gpio_write_pin_low(D6) */
 
-    matrix_init_quantum();
+    matrix_init_kb();
     return;
 }
 
 uint8_t matrix_scan(void)
 {
     uint8_t code;
-    code = serial_recv();
+    code = uart_read();
     if (!code) return 0;
 
-    debug_hex(code); debug(" ");
+    dprintf("%02X ", code);
 
     switch (code) {
         case 0xFF:  // reset success: FF 04
             print("reset: ");
-            _delay_ms(500);
-            code = serial_recv();
+            wait_ms(500);
+            code = uart_read();
             xprintf("%02X\n", code);
             if (code == 0x04) {
                 // LED status
@@ -124,13 +126,13 @@ uint8_t matrix_scan(void)
             return 0;
         case 0xFE:  // layout: FE <layout>
             print("layout: ");
-            _delay_ms(500);
-            xprintf("%02X\n", serial_recv());
+            wait_ms(500);
+            xprintf("%02X\n", uart_read());
             return 0;
         case 0x7E:  // reset fail: 7E 01
             print("reset fail: ");
-            _delay_ms(500);
-            xprintf("%02X\n", serial_recv());
+            wait_ms(500);
+            xprintf("%02X\n", uart_read());
             return 0;
         case 0x7F:
             // all keys up
@@ -150,13 +152,8 @@ uint8_t matrix_scan(void)
         }
     }
 
-    matrix_scan_quantum();
+    matrix_scan_kb();
     return code;
-}
-
-bool matrix_is_modified(void)
-{
-    return is_modified;
 }
 
 inline
@@ -185,13 +182,4 @@ void matrix_print(void)
         print_bin_reverse8(matrix_get_row(row));
         print("\n");
     }
-}
-
-uint8_t matrix_key_count(void)
-{
-    uint8_t count = 0;
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        count += bitpop(matrix[i]);
-    }
-    return count;
 }

@@ -1,2 +1,0 @@
-RGBLIGHT_ENABLE = yes
-LAYOUTS = split_3x5_3
