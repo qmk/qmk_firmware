@@ -1,6 +1,7 @@
 """Used by the make system to generate keyboard.c from info.json.
 """
-import statistics
+import bisect
+import dataclasses
 
 from milc import cli
 
@@ -130,50 +131,122 @@ def _gen_joystick_axes(info_data):
     return lines
 
 
+@dataclasses.dataclass
+class LayoutKey:
+    """Geometric info for one key in a layout."""
+    row: int
+    col: int
+    x: float
+    y: float
+    w: float = 1.0
+    h: float = 1.0
+    hand: str | None = None
+
+    @staticmethod
+    def from_json(key_json):
+        row, col = key_json['matrix']
+        return LayoutKey(
+            row=row,
+            col=col,
+            x=key_json['x'],
+            y=key_json['y'],
+            w=key_json.get('w', 1.0),
+            h=key_json.get('h', 1.0),
+            hand=key_json.get('hand', None),
+        )
+
+    @property
+    def cx(self):
+        """Center x coordinate of the key."""
+        return self.x + self.w / 2.0
+
+    @property
+    def cy(self):
+        """Center y coordinate of the key."""
+        return self.y + self.h / 2.0
+
+
+class Layout:
+    """Geometric info of a layout."""
+    def __init__(self, layout_json):
+        self.keys = [LayoutKey.from_json(key_json) for key_json in layout_json['layout']]
+        self.x_min = min(key.cx for key in self.keys)
+        self.x_max = max(key.cx for key in self.keys)
+        self.x_mid = (self.x_min + self.x_max) / 2
+        # If there is one key with width >= 6u, it is probably the spacebar.
+        i = [i for i, key in enumerate(self.keys) if key.w >= 6.0]
+        self.spacebar = self.keys[i[0]] if len(i) == 1 else None
+
+    def is_symmetric(self, tol: float = 0.01):
+        """Whether the key positions are symmetric about x_mid."""
+        x = sorted([key.cx for key in self.keys])
+        for i in range(len(x)):
+            x_i_mirrored = 2.0 * self.x_mid - x[i]
+            # Find leftmost x element greater than or equal to (x_i_mirrored - tol).
+            j = bisect.bisect_left(x, x_i_mirrored - tol)
+            if j == len(x) or abs(x[j] - x_i_mirrored) > tol:
+                return False
+
+        return True
+
+    def widest_horizontal_gap(self):
+        """Finds the x midpoint of the widest horizontal gap between keys."""
+        x = sorted([key.cx for key in self.keys])
+        x_mid = self.x_mid
+        max_sep = 0
+        for i in range(len(x) - 1):
+            sep = x[i + 1] - x[i]
+            if sep > max_sep:
+                max_sep = sep
+                x_mid = (x[i + 1] + x[i]) / 2
+
+        return x_mid
+
+
 def _gen_chordal_hold_layout(info_data):
     """Convert info.json content to chordal_hold_layout
     """
-    keys_x = []
-    keys_hand = []
-
-    # Get x-coordinate for the center of each key.
     # NOTE: If there are multiple layouts, only the first is read.
-    for layout_name, layout_data in info_data['layouts'].items():
-        for key_data in layout_data['layout']:
-            keys_x.append(key_data['x'] + key_data.get('w', 1.0) / 2)
-            keys_hand.append(key_data.get('hand', ''))
+    for layout_name, layout_json in info_data['layouts'].items():
+        layout = Layout(layout_json)
         break
 
-    x_midline = statistics.median(keys_x)
-    x_prev = None
+    if layout.is_symmetric():
+        # If the layout is symmetric (e.g. most split keyboards), guess the
+        # handedness based on the sign of (x - layout.x_mid).
+        hand_fun = lambda x, _: x - layout.x_mid
+    elif layout.spacebar is not None:
+        # If the layout has a spacebar, form a dividing line through the spacebar,
+        # nearly vertical but with a slight angle to follow typical row stagger.
+        x0 = layout.spacebar.cx - 0.05
+        y0 = layout.spacebar.cy - 1.0
+        hand_fun = lambda x, y: (x - x0) - (y - y0) / 3.0
+    else:
+        # Fallback: assume handedness based on the widest horizontal separation.
+        x_mid = layout.widest_horizontal_gap()
+        hand_fun = lambda x, _: x - x_mid
 
-    layout_handedness = [[]]
-
-    for x, hand in zip(keys_x, keys_hand):
-        if x_prev is not None and x < x_prev:
-            layout_handedness.append([])
-
-        if not hand:
-            # Where unspecified, assume handedness based on the key's location
-            # relative to the midline.
-            if abs(x - x_midline) > 0.25:
-                hand = 'L' if x < x_midline else 'R'
+    for key in layout.keys:
+        if key.hand is None:
+            value = hand_fun(key.cx, key.cy)
+            if key == layout.spacebar or abs(value) <= 0.02:
+                key.hand = '*'
             else:
-                hand = '*'
-
-        layout_handedness[-1].append(hand)
-        x_prev = x
+                key.hand = 'L' if value < 0.0 else 'R'
 
     lines = []
     lines.append('#ifdef CHORDAL_HOLD')
-    lines.append('__attribute__((weak)) const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = ' + layout_name + '(')
+    line = ('__attribute__((weak)) const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = ' + layout_name + '(')
 
-    for i, row in enumerate(layout_handedness):
-        line = '  ' + ', '.join(f"'{c}'" for c in row)
-        if i < len(layout_handedness) - 1:
-            line += ','
-        lines.append(line)
+    x_prev = None
+    for key in layout.keys:
+        if x_prev is None or key.x < x_prev:
+            lines.append(line)
+            line = '  '
+        line += f"'{key.hand}',"
+        x_prev = key.x
 
+    lines.append(line)
     lines.append(');')
     lines.append('#endif')
 
