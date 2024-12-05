@@ -168,7 +168,7 @@ void matrix_print(void) {
 // Remember this means ROWS
 static void init_cols(void) {
     for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-      setPinInputHigh(col_pins[col]);
+      gpio_set_pin_input_high(col_pins[col]);
     }
 }
 
@@ -177,20 +177,12 @@ static matrix_row_t read_cols(uint8_t row) {
         if (mcp23018_status) {  // if there was an error
             return 0;
         } else {
-            uint8_t data    = 0;
-            mcp23018_status = i2c_start(I2C_ADDR_READ, I2C_TIMEOUT);
-            if (mcp23018_status) goto out;
-            mcp23018_status = i2c_read_nack(I2C_TIMEOUT);
-            if (mcp23018_status < 0) goto out;
-            data            = ~((uint8_t)mcp23018_status);
-            mcp23018_status = I2C_STATUS_SUCCESS;
-        out:
-            i2c_stop();
-
+            uint8_t data = 0;
+            mcp23018_status = i2c_receive(I2C_ADDR, &data, 1, I2C_TIMEOUT);
 #ifdef DEBUG_MATRIX
-            if (data != 0x00) xprintf("I2C: %d\n", data);
+            if (~data != 0x00) xprintf("I2C: %d\n", ~data);
 #endif
-            return data;
+            return ~data;
         }
     } else {
         return ~((((PINF & COL4) >> 1) | ((PINF & (COL1 | COL2 | COL3)) >> 3)) & 0xF);
@@ -203,8 +195,8 @@ static void unselect_rows(void) {
     // the other row bits high, and it's not changing to a different direction
 
     for (uint8_t row = 0; row < MATRIX_ROWS_PER_SIDE; row++) {
-      setPinInput(row_pins[row]);
-      writePinLow(row_pins[row]);
+      gpio_set_pin_input(row_pins[row]);
+      gpio_write_pin_low(row_pins[row]);
     }
 }
 
@@ -213,17 +205,13 @@ static void select_row(uint8_t row) {
         // select on mcp23018
         if (mcp23018_status) {  // do nothing on error
         } else {                // set active row low  : 0 // set other rows hi-Z : 1
-            mcp23018_status = i2c_start(I2C_ADDR_WRITE, I2C_TIMEOUT);
-            if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(GPIOA, I2C_TIMEOUT);
-            if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(0xFF & ~(1 << (row + 1)), I2C_TIMEOUT);
-            if (mcp23018_status) goto out;
-        out:
-            i2c_stop();
+            uint8_t data;
+            data = 0xFF & ~(1 << (row + 1));
+            mcp23018_status = i2c_write_register(I2C_ADDR, GPIOA, &data, 1, I2C_TIMEOUT);
+
         }
     } else {
-        setPinOutput(row_pins[row - MATRIX_ROWS_PER_SIDE]);
-        writePinLow(row_pins[row - MATRIX_ROWS_PER_SIDE]);
+        gpio_set_pin_output(row_pins[row - MATRIX_ROWS_PER_SIDE]);
+        gpio_write_pin_low(row_pins[row - MATRIX_ROWS_PER_SIDE]);
     }
 }

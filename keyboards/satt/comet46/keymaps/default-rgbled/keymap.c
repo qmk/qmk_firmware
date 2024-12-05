@@ -17,16 +17,12 @@ enum comet46_layers
   _ADJUST,
 };
 
-enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  COLEMAK,
-  DVORAK,
-  LOWER,
-  RAISE,
-};
-
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
+
+#define QWERTY PDF(_QWERTY)
+#define COLEMAK PDF(_COLEMAK)
+#define DVORAK PDF(_DVORAK)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -134,7 +130,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_ADJUST] = LAYOUT(
     _______, _______, _______, _______, _______, _______,                          _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, QWERTY,         COLEMAK, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, QK_BOOT,          DVORAK,  _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, QK_BOOT,        DVORAK,  _______, _______, _______, _______, _______, _______,
                                         _______, _______, _______,        _______, _______, _______
   )
 };
@@ -146,18 +142,20 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 // settings for LED on receiver
 void led_init(void) {
-	DDRD  |= (1<<1);
-	PORTD |= (1<<1);
-	DDRF  |= (1<<4) | (1<<5);
-	PORTF |= (1<<4) | (1<<5);
+  gpio_set_pin_output(D1);
+  gpio_write_pin_high(D1);
+  gpio_set_pin_output(F4);
+  gpio_write_pin_high(F4);
+  gpio_set_pin_output(F5);
+  gpio_write_pin_high(F5);
 }
 
-#define red_led_off   PORTF |= (1<<5)
-#define red_led_on    PORTF &= ~(1<<5)
-#define blu_led_off   PORTF |= (1<<4)
-#define blu_led_on    PORTF &= ~(1<<4)
-#define grn_led_off   PORTD |= (1<<1)
-#define grn_led_on    PORTD &= ~(1<<1)
+#define red_led_off   gpio_write_pin_high(F5)
+#define red_led_on    gpio_write_pin_low(F5)
+#define blu_led_off   gpio_write_pin_high(F4)
+#define blu_led_on    gpio_write_pin_low(F4)
+#define grn_led_off   gpio_write_pin_high(D1)
+#define grn_led_on    gpio_write_pin_low(D1)
 
 #define set_led_off     red_led_off; grn_led_off; blu_led_off
 #define set_led_red     red_led_on;  grn_led_off; blu_led_off
@@ -173,8 +171,7 @@ void matrix_init_user(void) {
 }
 
 void matrix_scan_user(void) {
-  uint8_t layer = get_highest_layer(layer_state);
-  uint8_t default_layer = biton32(eeconfig_read_default_layer());
+  uint8_t layer = get_highest_layer(layer_state | default_layer_state);
   switch (layer) {
     case _LOWER:
       set_led_red;
@@ -185,39 +182,14 @@ void matrix_scan_user(void) {
     case _ADJUST:
       set_led_magenta;
       break;
+    case _COLEMAK:
+      set_led_white;
+      break;
+    case _DVORAK:
+      set_led_yellow;
+      break;
     default:
-      switch (default_layer) {
-        case _COLEMAK:
-          set_led_white;
-          break;
-        case _DVORAK:
-          set_led_yellow;
-          break;
-        default:
-          set_led_green;
-          break;
-      }
+      set_led_green;
       break;
   }
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      break;
-    case COLEMAK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_COLEMAK);
-      }
-      break;
-    case DVORAK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_DVORAK);
-      }
-      break;
-  }
-  return true;
-}

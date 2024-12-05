@@ -15,11 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-// Defines the keycodes used by our macros in process_record_user
-//enum custom_keycodes {
-//  QMKBEST = SAFE_RANGE,
-//  QMKURL
-//};
 enum layer {
     _QWERTY,
     _CURSOL,
@@ -110,8 +105,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT(
   _______, XXXXXXX, XXXXXXX, CK_RST,  XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, _______,
-  XXXXXXX, XXXXXXX, MU_TOGG, CK_UP,   AU_TOGG, XXXXXXX,                      RGB_SPI, RGB_MOD,  RGB_VAI, RGB_SAI, RGB_HUI, XXXXXXX,
-  XXXXXXX, XXXXXXX, MU_NEXT, CK_DOWN, XXXXXXX, XXXXXXX,                      RGB_SPD, RGB_RMOD, RGB_VAD, RGB_SAD, RGB_HUD, XXXXXXX,
+  XXXXXXX, XXXXXXX, MU_TOGG, CK_UP,   AU_TOGG, XXXXXXX,                      UG_SPDU, UG_NEXT,  UG_VALU, UG_SATU, UG_HUEU, XXXXXXX,
+  XXXXXXX, XXXXXXX, MU_NEXT, CK_DOWN, XXXXXXX, XXXXXXX,                      UG_SPDD, UG_PREV,  UG_VALD, UG_SATD, UG_HUED, XXXXXXX,
                              XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
   )
 };

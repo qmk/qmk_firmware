@@ -16,6 +16,12 @@
 
 #pragma once
 
+// DEPRECATED DEFINES - DO NOT USE
+#if defined(RGBLED_NUM)
+#    define RGBLIGHT_LED_COUNT RGBLED_NUM
+#endif
+// ========
+
 /***** rgblight_mode(mode)/rgblight_mode_noeeprom(mode) ****
 
  old mode number (before 0.6.117) to new mode name table
@@ -160,9 +166,9 @@ enum RGBLIGHT_EFFECT_MODE {
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "rgblight_drivers.h"
 #include "progmem.h"
 #include "eeconfig.h"
-#include "ws2812.h"
 #include "color.h"
 
 #ifdef RGBLIGHT_LAYERS
@@ -233,8 +239,6 @@ void rgblight_unblink_all_but_layer(uint8_t layer);
 
 #endif
 
-extern rgb_led_t led[RGBLED_NUM];
-
 extern const uint8_t  RGBLED_BREATHING_INTERVALS[4] PROGMEM;
 extern const uint8_t  RGBLED_RAINBOW_MOOD_INTERVALS[3] PROGMEM;
 extern const uint8_t  RGBLED_RAINBOW_SWIRL_INTERVALS[3] PROGMEM;
@@ -282,11 +286,6 @@ typedef struct _rgblight_ranges_t {
 } rgblight_ranges_t;
 
 extern rgblight_ranges_t rgblight_ranges;
-
-/* === Utility Functions ===*/
-void sethsv(uint8_t hue, uint8_t sat, uint8_t val, rgb_led_t *led1);
-void sethsv_raw(uint8_t hue, uint8_t sat, uint8_t val, rgb_led_t *led1); // without RGBLIGHT_LIMIT_VAL check
-void setrgb(uint8_t r, uint8_t g, uint8_t b, rgb_led_t *led1);
 
 /* === Low level Functions === */
 void rgblight_set(void);
@@ -363,7 +362,7 @@ uint8_t rgblight_get_hue(void);
 uint8_t rgblight_get_sat(void);
 uint8_t rgblight_get_val(void);
 bool    rgblight_is_enabled(void);
-HSV     rgblight_get_hsv(void);
+hsv_t   rgblight_get_hsv(void);
 
 /* === qmk_firmware (core)internal Functions === */
 void     rgblight_init(void);

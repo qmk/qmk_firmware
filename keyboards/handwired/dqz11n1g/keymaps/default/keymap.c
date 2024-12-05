@@ -54,12 +54,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Show "Fun Lock" layer state via the "Fun Lock" LED */
 layer_state_t layer_state_set_user(layer_state_t state) {
    
-    setPinOutput(LED_FUN_LOCK_PIN);
+    gpio_set_pin_output(LED_FUN_LOCK_PIN);
    
     if (layer_state_cmp(state, _FUNCTION))
-        writePinHigh(LED_FUN_LOCK_PIN);
+        gpio_write_pin_high(LED_FUN_LOCK_PIN);
     else
-        writePinLow(LED_FUN_LOCK_PIN);
+        gpio_write_pin_low(LED_FUN_LOCK_PIN);
 
     return state;
 }

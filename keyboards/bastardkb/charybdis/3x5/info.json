@@ -5,6 +5,9 @@
         "pid": "0x1832",
         "vid": "0xA8F8"
     },
+    "rgb_matrix": {
+        "split_count": [18, 18]
+    },
     "layout_aliases": {
         "LAYOUT_charybdis_3x5": "LAYOUT"
     },

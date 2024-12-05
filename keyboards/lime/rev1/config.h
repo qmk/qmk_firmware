@@ -16,11 +16,6 @@
 
 #pragma once
 
-/* joystick support */
-#ifdef JOYSTICK_ENABLE
-#   define JOYSTICK_AXIS_COUNT 2
-#   define JOYSTICK_BUTTON_COUNT 1
-#   define JOYSTICK_AXIS_RESOLUTION 8
-#endif
+#define JOYSTICK_BUTTON_COUNT 1
 
 #define SPLIT_USB_DETECT

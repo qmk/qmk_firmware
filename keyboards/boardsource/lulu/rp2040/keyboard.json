@@ -1,0 +1,22 @@
+{
+  "bootloader": "rp2040",
+  "matrix_pins": {
+    "cols": ["GP2", "GP3", "GP4", "GP5", "GP6", "GP7"],
+    "rows": ["GP14", "GP15", "GP16", "GP17", "GP18"]
+  },
+  "processor": "RP2040",
+  "encoder": {
+    "rotary": [
+      {"pin_a": "GP8", "pin_b": "GP9"}
+    ]
+  },
+  "split": {
+    "serial": {
+      "driver": "vendor"
+    }
+  },
+  "ws2812": {
+    "pin": "GP29",
+    "driver": "vendor"
+  }
+}

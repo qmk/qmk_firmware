@@ -9,6 +9,3 @@
 
 // EEPROM configuration
 #define EEPROM_SPI_MB85RS64V
-
-// RGB configuration
-#define RGB_MATRIX_LED_COUNT 40

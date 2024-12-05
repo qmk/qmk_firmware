@@ -16,18 +16,6 @@
 
 #include "quantum.h"
 
-// clang-format off
-const matrix_row_t matrix_mask[] = {
-    0b11111111111111111111,
-    0b11111111111111111111,
-    0b11111111111111111111,
-    0b11111111111111111111,
-    0b11111111111111111111,
-    0b11111111111111101111,
-};
-
-// clang-format on
-
 #ifdef DIP_SWITCH_ENABLE
 
 bool dip_switch_update_kb(uint8_t index, bool active) {
@@ -43,6 +31,7 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
 #endif // DIP_SWITCH_ENABLE
 
 #    ifdef RGB_MATRIX_ENABLE
+#        define LED_TOGGLE_KEYCODE QK_RGB_MATRIX_TOGGLE
 #        define LED_SET_FLAGS rgb_matrix_set_flags
 #        define LED_GET_FLAGS rgb_matrix_get_flags
 #        define LED_SET_ALL_OFF rgb_matrix_set_color_all(COLOR_BLACK)
@@ -59,6 +48,7 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
 #    endif
 
 #    ifdef LED_MATRIX_ENABLE
+#        define LED_TOGGLE_KEYCODE QK_LED_MATRIX_TOGGLE
 #        define LED_SET_FLAGS led_matrix_set_flags
 #        define LED_GET_FLAGS led_matrix_get_flags
 #        define LED_SET_ALL_OFF led_matrix_set_value_all(COLOR_BLACK)
@@ -78,7 +68,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
     switch (keycode) {
-        case RGB_TOG:
+        case LED_TOGGLE_KEYCODE:
             if (record->event.pressed) {
                 switch (LED_GET_FLAGS()) {
                     case LED_FLAG_ALL: {

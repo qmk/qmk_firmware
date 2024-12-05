@@ -9,13 +9,17 @@ VALID_QUANTUM_PAINTER_DRIVERS := \
     surface \
     ili9163_spi \
     ili9341_spi \
+    ili9486_spi \
     ili9488_spi \
     st7735_spi \
     st7789_spi \
     gc9a01_spi \
+    gc9107_spi \
     ssd1351_spi \
     sh1106_i2c \
-    sh1106_spi
+    sh1106_spi \
+    ld7032_i2c \
+    ld7032_spi
 
 #-------------------------------------------------------------------------------
 
@@ -80,6 +84,17 @@ define handle_quantum_painter_driver
             $(DRIVER_PATH)/painter/tft_panel/qp_tft_panel.c \
             $(DRIVER_PATH)/painter/ili9xxx/qp_ili9341.c \
 
+    else ifeq ($$(strip $$(CURRENT_PAINTER_DRIVER)),ili9486_spi)
+        QUANTUM_PAINTER_NEEDS_COMMS_SPI := yes
+        QUANTUM_PAINTER_NEEDS_COMMS_SPI_DC_RESET := yes
+        OPT_DEFS += -DQUANTUM_PAINTER_ILI9486_ENABLE -DQUANTUM_PAINTER_ILI9486_SPI_ENABLE
+        COMMON_VPATH += \
+            $(DRIVER_PATH)/painter/tft_panel \
+            $(DRIVER_PATH)/painter/ili9xxx
+        SRC += \
+            $(DRIVER_PATH)/painter/tft_panel/qp_tft_panel.c \
+            $(DRIVER_PATH)/painter/ili9xxx/qp_ili9486.c \
+
     else ifeq ($$(strip $$(CURRENT_PAINTER_DRIVER)),ili9488_spi)
         QUANTUM_PAINTER_NEEDS_COMMS_SPI := yes
         QUANTUM_PAINTER_NEEDS_COMMS_SPI_DC_RESET := yes
@@ -119,10 +134,21 @@ define handle_quantum_painter_driver
         OPT_DEFS += -DQUANTUM_PAINTER_GC9A01_ENABLE -DQUANTUM_PAINTER_GC9A01_SPI_ENABLE
         COMMON_VPATH += \
             $(DRIVER_PATH)/painter/tft_panel \
-            $(DRIVER_PATH)/painter/gc9a01
+            $(DRIVER_PATH)/painter/gc9xxx
         SRC += \
             $(DRIVER_PATH)/painter/tft_panel/qp_tft_panel.c \
-            $(DRIVER_PATH)/painter/gc9a01/qp_gc9a01.c
+            $(DRIVER_PATH)/painter/gc9xxx/qp_gc9a01.c
+
+    else ifeq ($$(strip $$(CURRENT_PAINTER_DRIVER)),gc9107_spi)
+        QUANTUM_PAINTER_NEEDS_COMMS_SPI := yes
+        QUANTUM_PAINTER_NEEDS_COMMS_SPI_DC_RESET := yes
+        OPT_DEFS += -DQUANTUM_PAINTER_GC9107_ENABLE -DQUANTUM_PAINTER_GC9107_SPI_ENABLE
+        COMMON_VPATH += \
+            $(DRIVER_PATH)/painter/tft_panel \
+            $(DRIVER_PATH)/painter/gc9xxx
+        SRC += \
+            $(DRIVER_PATH)/painter/tft_panel/qp_tft_panel.c \
+            $(DRIVER_PATH)/painter/gc9xxx/qp_gc9107.c
 
     else ifeq ($$(strip $$(CURRENT_PAINTER_DRIVER)),ssd1351_spi)
         QUANTUM_PAINTER_NEEDS_COMMS_SPI := yes
@@ -157,6 +183,29 @@ define handle_quantum_painter_driver
         SRC += \
             $(DRIVER_PATH)/painter/oled_panel/qp_oled_panel.c \
             $(DRIVER_PATH)/painter/sh1106/qp_sh1106.c
+
+    else ifeq ($$(strip $$(CURRENT_PAINTER_DRIVER)),ld7032_spi)
+        QUANTUM_PAINTER_NEEDS_SURFACE := yes
+        QUANTUM_PAINTER_NEEDS_COMMS_SPI := yes
+        QUANTUM_PAINTER_NEEDS_COMMS_SPI_DC_RESET := yes
+        OPT_DEFS += -DQUANTUM_PAINTER_LD7032_ENABLE -DQUANTUM_PAINTER_LD7032_SPI_ENABLE
+        COMMON_VPATH += \
+            $(DRIVER_PATH)/painter/oled_panel \
+            $(DRIVER_PATH)/painter/ld7032
+        SRC += \
+            $(DRIVER_PATH)/painter/oled_panel/qp_oled_panel.c \
+            $(DRIVER_PATH)/painter/ld7032/qp_ld7032.c
+
+    else ifeq ($$(strip $$(CURRENT_PAINTER_DRIVER)),ld7032_i2c)
+        QUANTUM_PAINTER_NEEDS_SURFACE := yes
+        QUANTUM_PAINTER_NEEDS_COMMS_I2C := yes
+        OPT_DEFS += -DQUANTUM_PAINTER_LD7032_ENABLE -DQUANTUM_PAINTER_LD7032_I2C_ENABLE
+        COMMON_VPATH += \
+            $(DRIVER_PATH)/painter/oled_panel \
+            $(DRIVER_PATH)/painter/ld7032
+        SRC += \
+            $(DRIVER_PATH)/painter/oled_panel/qp_oled_panel.c \
+            $(DRIVER_PATH)/painter/ld7032/qp_ld7032.c
 
     endif
 endef

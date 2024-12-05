@@ -9,7 +9,7 @@ Keyboard with 96 Keys & RGB LED Underglow
 
 * Keyboard Maintainer: QMK Community
 * Hardware Supported: XD96
-* Hardware Availability: [KPrepublic](https://kprepublic.com/products/xd96-pcb-90-custom-mechanical-keyboard-supports-tkg-tools-underglow-rgb-programmed); [AliExpress](https://aliexpress.com/item/cospad-Custom-Mechanical-Keyboard-Kit-up-tp-24-keys-Supports-TKG-TOOLS-Underglow-RGB-PCB-20/32818383873.html)
+* Hardware Availability: [KPrepublic](https://kprepublic.com/products/xd96-pcb-90-custom-mechanical-keyboard-supports-tkg-tools-underglow-rgb-programmed); [AliExpress](https://www.aliexpress.com/i/2251832661406145.html)
 
 Make example for this keyboard (after setting up your build environment):
 
