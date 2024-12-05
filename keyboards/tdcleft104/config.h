@@ -56,7 +56,7 @@
 //#define MATRIX_HAS_GHOST
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
+#define DEBOUNCE 3
 
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
