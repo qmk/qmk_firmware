@@ -9,7 +9,13 @@ The hotswap PCB does not support per-key LEDs and has reduced layout support (no
 
 Make example for this keyboard (after setting up your build environment):
 
-    make cannonkeys/cerberus:solderable:default
+    make cannonkeys/cerberus/hotswap:default
+    make cannonkeys/cerberus/solderable:default
+    
+Flashing example for this keyboard:
+
+    make cannonkeys/cerberus/hotswap:default:flash
+    make cannonkeys/cerberus/solderable:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
