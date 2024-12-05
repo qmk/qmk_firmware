@@ -2,6 +2,7 @@
 """
 import bisect
 import dataclasses
+from typing import Optional
 
 from milc import cli
 
@@ -140,7 +141,7 @@ class LayoutKey:
     y: float
     w: float = 1.0
     h: float = 1.0
-    hand: str | None = None
+    hand: Optional[str] = None
 
     @staticmethod
     def from_json(key_json):
