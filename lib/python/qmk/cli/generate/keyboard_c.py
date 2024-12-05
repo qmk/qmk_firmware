@@ -178,7 +178,7 @@ class Layout:
         i = [i for i, key in enumerate(self.keys) if key.w >= 6.0]
         self.spacebar = self.keys[i[0]] if len(i) == 1 else None
 
-    def is_symmetric(self, tol: float = 0.01):
+    def is_symmetric(self, tol: float = 0.02):
         """Whether the key positions are symmetric about x_mid."""
         x = sorted([key.cx for key in self.keys])
         for i in range(len(x)):
@@ -215,25 +215,24 @@ def _gen_chordal_hold_layout(info_data):
     if layout.is_symmetric():
         # If the layout is symmetric (e.g. most split keyboards), guess the
         # handedness based on the sign of (x - layout.x_mid).
-        hand_fun = lambda x, _: x - layout.x_mid
+        hand_signs = [key.x - layout.x_mid for key in layout.keys]
     elif layout.spacebar is not None:
         # If the layout has a spacebar, form a dividing line through the spacebar,
         # nearly vertical but with a slight angle to follow typical row stagger.
         x0 = layout.spacebar.cx - 0.05
         y0 = layout.spacebar.cy - 1.0
-        hand_fun = lambda x, y: (x - x0) - (y - y0) / 3.0
+        hand_signs = [(key.x - x0) - (key.y - y0) / 3.0 for key in layout.keys]
     else:
         # Fallback: assume handedness based on the widest horizontal separation.
         x_mid = layout.widest_horizontal_gap()
-        hand_fun = lambda x, _: x - x_mid
+        hand_signs = [key.x - x_mid for key in layout.keys]
 
-    for key in layout.keys:
+    for key, hand_sign in zip(layout.keys, hand_signs):
         if key.hand is None:
-            value = hand_fun(key.cx, key.cy)
-            if key == layout.spacebar or abs(value) <= 0.02:
+            if key == layout.spacebar or abs(hand_sign) <= 0.02:
                 key.hand = '*'
             else:
-                key.hand = 'L' if value < 0.0 else 'R'
+                key.hand = 'L' if hand_sign < 0.0 else 'R'
 
     lines = []
     lines.append('#ifdef CHORDAL_HOLD')
