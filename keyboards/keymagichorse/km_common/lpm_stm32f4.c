@@ -129,18 +129,18 @@ __attribute__((weak)) bool usb_power_connected(void) {
 
 void My_PWR_EnterSTOPMode(void)
 {
-// #if STM32_HSE_ENABLED
-//     /* Switch to HSI */
-//     RCC->CFGR = (RCC->CFGR & (~STM32_SW_MASK)) | STM32_SW_HSI;
-//     while ((RCC->CFGR & RCC_CFGR_SWS) != (STM32_SW_HSI << 2));
+#if STM32_HSE_ENABLED
+    /* Switch to HSI */
+    RCC->CFGR = (RCC->CFGR & (~STM32_SW_MASK)) | STM32_SW_HSI;
+    while ((RCC->CFGR & RCC_CFGR_SWS) != (STM32_SW_HSI << 2));
 
-//     /* Set HSE off  */
-//     RCC->CR &= ~RCC_CR_HSEON;
-//     while ((RCC->CR & RCC_CR_HSERDY));
+    /* Set HSE off  */
+    RCC->CR &= ~RCC_CR_HSEON;
+    while ((RCC->CR & RCC_CR_HSERDY));
 
-//     palSetLineMode(H1, PAL_MODE_INPUT_ANALOG); 
-//     palSetLineMode(H0, PAL_MODE_INPUT_ANALOG); 
-// #endif
+    palSetLineMode(H1, PAL_MODE_INPUT_ANALOG); 
+    palSetLineMode(H0, PAL_MODE_INPUT_ANALOG); 
+#endif
     /* Wake source: Reset pin, all I/Os, BOR, PVD, PVM, RTC, LCD, IWDG,
     COMPx, USARTx, LPUART1, I2Cx, LPTIMx, USB, SWPMI */
     SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
