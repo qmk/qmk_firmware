@@ -63,8 +63,9 @@ uint8_t auto_detect_output(void) {
  * FIXME: Needs doc
  */
 uint8_t where_to_send(void) {
-    if (desired_output == OUTPUT_AUTO) {
-        return auto_detect_output();
-    }
+    // 在驱动内删除自动切换逻辑
+    // if (desired_output == OUTPUT_AUTO) {
+    //     return auto_detect_output();
+    // }
     return desired_output;
 }

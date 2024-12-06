@@ -128,6 +128,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if(timer_elapsed32(output_mode_press_time) >= 300) 
                 {
                     ble_host_index = 0;
+                    // 打开非配对模式蓝牙广播 10 = 10S
                     bhq_OpenBleAdvertising(ble_host_index, 10);
                     set_output(OUTPUT_BLUETOOTH);
                 }
@@ -146,7 +147,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 // gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
                 if(timer_elapsed32(output_mode_press_time) >= 300) 
                 {
-                    // TODO: 等待bhq驱动完善
+                    // TODO: 等待bhq驱动完善，这里还是用蓝牙输出来作为qmk的模式切换，在蓝牙模块内会切换成2.4ghz私有连接
                     bhq_switch_rf_easy_kb();
                     set_output(OUTPUT_BLUETOOTH);
                 }
@@ -163,7 +164,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             {
                 if(timer_elapsed32(output_mode_press_time) >= 300) 
                 {
+                    // 切换到usb模式 并 关闭蓝牙广播
                     set_output(OUTPUT_USB);
+                    bhq_CloseBleAdvertising();
                 }
             }
             return false;
@@ -180,6 +183,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 // gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
                 if(timer_elapsed32(output_mode_press_time) >= 500) 
                 {
+                    // 关闭蓝牙广播
                     bhq_CloseBleAdvertising();
                 }
             }
@@ -213,6 +217,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 {
                     if(where_to_send() == OUTPUT_BLUETOOTH)
                     {
+                        // 打开非配对模式蓝牙广播 10 = 10S
                         bhq_OpenBleAdvertising(ble_host_index, 10);
                     }
                 }
@@ -220,6 +225,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 {
                     if(where_to_send() == OUTPUT_BLUETOOTH)
                     {
+                        // 打开 配对模式蓝牙广播 10 = 10S
                         bhq_SetPairingMode(ble_host_index, 10);
                     }
                 }
@@ -266,8 +272,8 @@ void keyboard_post_init_kb(void)
         .mk_rvd_r1 = 0,
         .mk_rvd_r2 = 0,
 #endif
-        .sleep_1_s = 30,
-        .sleep_2_s = 300,       
+        .sleep_1_s = 30,            // 一级休眠功耗 （蓝牙保持连接 唤醒后发送按键有一定的延时）
+        .sleep_2_s = 300,           // 二级休眠功耗（相当于关机模式 蓝牙会断开）
 
         .bleNameStrLength = strlen(PRODUCT),
         .bleNameStr = PRODUCT
@@ -275,11 +281,6 @@ void keyboard_post_init_kb(void)
 
     bhq_ConfigRunParam(model_parma);
 
-    if(where_to_send() == OUTPUT_BLUETOOTH)
-    {
-        // 上电的时候可以打开一下蓝牙广播
-        bhq_AnewOpenBleAdvertising(0xff,10);
-    }
 }
 
 
@@ -320,22 +321,26 @@ void BHQ_State_Call(uint8_t cmdid, uint8_t *dat) {
         if(host_index == 0)
         {
             km_printf("if host_index 1\r\n");
+            // 蓝牙没有连接 && 蓝牙广播开启  && 蓝牙配对模式
             if(connectSta != 1 && advertSta == 1 && pairingSta == 1)
             {
                 rgblight_blink_layer_repeat(0 , 500, 50);
                 km_printf("1\r\n");
             }
+            // 蓝牙没有连接 && 蓝牙广播开启  && 蓝牙非配对模式
             else if(connectSta != 1 && advertSta == 1 && pairingSta == 0)
             {
                 rgblight_blink_layer_repeat(0 , 2000, 50);
                 km_printf("2\r\n");
             }
+            // 蓝牙已连接
             if(connectSta == 1)
             {
                 rgblight_blink_layer_repeat(0 , 200, 2);
                 km_printf("3\r\n");
             }
         }
+        // 注释同上的host_index == 0 
         else if(host_index == 1)
         {
             km_printf("if host_index 2\r\n");
@@ -389,8 +394,9 @@ void BHQ_State_Call(uint8_t cmdid, uint8_t *dat) {
 __attribute__((weak)) bool via_command_kb(uint8_t *data, uint8_t length) {
     uint8_t command_id   = data[0];
     uint8_t i = 0;
-    km_printf("cmdid:%02x  length:%d\r\n",command_id,length);
 
+    // 此逻辑删除 会失去蓝牙模块升级功能 以及蓝牙改键功能！！！！！！！
+    km_printf("cmdid:%02x  length:%d\r\n",command_id,length);
     km_printf("read host app of data \r\n[");
     for (i = 0; i < length; i++)
     {
@@ -400,7 +406,6 @@ __attribute__((weak)) bool via_command_kb(uint8_t *data, uint8_t length) {
 
     if(command_id == 0xF1)
     {
-      
         // cmdid + 2 frame headers 
         // The third one is isack the fourth one is length and the fifth one is data frame
         BHQ_SendCmd(0, &data[4], data[3]);
@@ -408,8 +413,5 @@ __attribute__((weak)) bool via_command_kb(uint8_t *data, uint8_t length) {
     }
     return false;
 }
-
-
-
 
 #endif
