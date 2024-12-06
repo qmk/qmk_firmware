@@ -215,19 +215,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
                 if(timer_elapsed32(ble_switch_press_time) >= 300 && timer_elapsed32(ble_switch_press_time) <= 1500)
                 {
-                    if(where_to_send() == OUTPUT_BLUETOOTH)
-                    {
-                        // 打开非配对模式蓝牙广播 10 = 10S
-                        bhq_OpenBleAdvertising(ble_host_index, 10);
-                    }
+                    // 打开非配对模式蓝牙广播 10 = 10S
+                    bhq_OpenBleAdvertising(ble_host_index, 10);
+                    set_output(OUTPUT_BLUETOOTH);
                 }
                 else if(timer_elapsed32(ble_switch_press_time) >= 1500)
                 {
-                    if(where_to_send() == OUTPUT_BLUETOOTH)
-                    {
-                        // 打开 配对模式蓝牙广播 10 = 10S
-                        bhq_SetPairingMode(ble_host_index, 10);
-                    }
+                    // 打开 配对模式蓝牙广播 10 = 10S
+                    bhq_SetPairingMode(ble_host_index, 10);
+                    set_output(OUTPUT_BLUETOOTH);
                 }
             }
             return false;
