@@ -16,12 +16,10 @@
 
 #include "rev0.h"
 
-#define MTNS 0
-#define INFO 1
-#define LOGO 2
-#define MEW  3
-#define CEL  4
-#define RAY  5
+enum oled_modes {
+    MTNS, INFO, LOGO, MEW, CEL, RAY
+};
+
 #define NUM_MODES 6
 uint8_t display_mode = INFO;    // defaults to 1 in case of no value
 
@@ -34,8 +32,8 @@ typedef union {
     struct {
         uint8_t display_mode_saved :NUM_MODES;
     };
-} user_config_t;
-user_config_t user_config;
+} keyboard_config_t;
+keyboard_config_t keyboard_config;
 
 // oled stuff below
 #ifdef OLED_ENABLE
@@ -520,9 +518,12 @@ static void logo_with_layer(void) {
 }
 
 // run this whenever the oled needs to update
-bool oled_task_user(void) {
-    user_config.raw = eeconfig_read_user(); // read saved config
-    display_mode = user_config.display_mode_saved;
+bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
+    }
+    keyboard_config.raw = eeconfig_read_user(); // read saved config
+    display_mode = keyboard_config.display_mode_saved;
     switch (display_mode) {
         case MTNS:
             mountains();
@@ -548,10 +549,6 @@ bool oled_task_user(void) {
     return false;
 }
 
-// what happens on sleep/power down
-void suspend_power_down_user(void) {
-    oled_off();
-}
 
 // render this on boot/reset
 void oled_render_boot(bool bootloader) {
@@ -561,13 +558,18 @@ void oled_render_boot(bool bootloader) {
 }
 
 // run this on boot/reset
-bool shutdown_user(bool jump_to_bootloader) {
-    oled_render_boot(jump_to_bootloader);
+bool shutdown_kb(bool jump_to_bootloader) {
+    if (!shutdown_user(jump_to_bootloader)) {
+        return false;
+    }
     return false;
 }
 
 // change depending on if OLED_MOD is pressed
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (!process_record_user(keycode, record)) {
+        return false;
+    }
     if (keycode == OLED_MOD) {
         if (record->event.pressed) {
             oled_clear();
@@ -577,8 +579,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             else {
                 display_mode++;
             }
-            user_config.display_mode_saved = display_mode;
-            eeconfig_update_user(user_config.raw);  // update config when screen changes
+            keyboard_config.display_mode_saved = display_mode;
+            eeconfig_update_user(keyboard_config.raw);  // update config when screen changes
         }
     }
     return true;
