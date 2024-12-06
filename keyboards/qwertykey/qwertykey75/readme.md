@@ -1,6 +1,6 @@
 # qwertykey
 
-![qwertykey](https://imgur.com/w09bmLo)
+![qwertykey](https://imgur.com/w09bmLo.jpg)
 
 A customizable 81key keyboard.
 
