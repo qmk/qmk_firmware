@@ -106,7 +106,7 @@ With the introduction of [PEP 668](https://peps.python.org/pep-0668), Python pac
 tools like `pip` are no longer permitted to install Python packages globally on Linux
 distributions that have adopted this PEP. As a result, the above command may not work in such
 environments. To address this, recommended alternatives include using a Python virtual
-environment or utilising [QMK's Docker container](getting_started_docker FIXME) for managing
+environment or utilising [QMK's Docker container](getting_started_docker) for managing
 dependencies.
 :::
 
