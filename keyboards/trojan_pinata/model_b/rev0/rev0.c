@@ -522,7 +522,7 @@ bool oled_task_kb(void) {
     if (!oled_task_user()) {
         return false;
     }
-    keyboard_config.raw = eeconfig_read_user(); // read saved config
+    keyboard_config.raw = eeconfig_read_kb(); // read saved config
     display_mode = keyboard_config.display_mode_saved;
     switch (display_mode) {
         case MTNS:
@@ -580,7 +580,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 display_mode++;
             }
             keyboard_config.display_mode_saved = display_mode;
-            eeconfig_update_user(keyboard_config.raw);  // update config when screen changes
+            eeconfig_update_kb(keyboard_config.raw);  // update config when screen changes
         }
     }
     return true;
