@@ -281,7 +281,7 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
             HID_RI_LOGICAL_MAXIMUM(16, 0x7FFF),
             HID_RI_REPORT_COUNT(8, 0x02),
             HID_RI_REPORT_SIZE(8, 0x10),
-            HID_RI_UNIT(8, 0x33),          // Inch, English Linear
+            HID_RI_UNIT(8, 0x13),          // Inch, English Linear
             HID_RI_UNIT_EXPONENT(8, 0x0E), // -2
             HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
         HID_RI_END_COLLECTION(0),
