@@ -91,8 +91,8 @@ You may want to disable the timeout for additional keystrokes after the leader k
 ```c
 #define LEADER_NO_TIMEOUT_FOR_N_KEYSTOKES <Number of keystrokes including leader>
 ```
-Use with care, since sequences shorter than LEADER_NO_TIMEOUT_FOR_N_KEYSTOKES will not timeout, and thus will not terminate unless leader_end() is called.
 
+Use with care, since sequences shorter than `LEADER_NO_TIMEOUT_FOR_N_KEYSTROKES` will not timeout, and thus will not terminate unless `leader_end()` is called.
 
 ### Strict Key Processing {#strict-key-processing}
 
