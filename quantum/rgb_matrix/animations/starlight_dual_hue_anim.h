@@ -4,10 +4,10 @@ RGB_MATRIX_EFFECT(STARLIGHT_DUAL_HUE)
 
 void set_starlight_dual_hue_color(uint8_t i, effect_params_t* params) {
     uint16_t time = scale16by8(g_rgb_timer, rgb_matrix_config.speed / 8);
-    HSV      hsv  = rgb_matrix_config.hsv;
+    hsv_t    hsv  = rgb_matrix_config.hsv;
     hsv.v         = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
     hsv.h         = hsv.h + random8_max((30 + 1 - -30) + -30);
-    RGB rgb       = rgb_matrix_hsv_to_rgb(hsv);
+    rgb_t rgb     = rgb_matrix_hsv_to_rgb(hsv);
     rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
 }
 

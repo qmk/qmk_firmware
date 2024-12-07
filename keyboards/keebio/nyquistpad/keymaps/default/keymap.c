@@ -13,7 +13,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MO(2),   KC_LCTL, KC_LGUI, KC_LALT, MO(1),   KC_SPC
     ),
     [1] = LAYOUT_ortho_5x6(
-        RGB_MOD, _______, _______, _______, _______, _______,
+        RM_NEXT, _______, _______, _______, _______, _______,
         _______, _______, KC_UP,   _______, KC_VOLU, KC_PGUP,
         _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_VOLD, KC_PGDN,
         _______, _______, _______, _______, _______, _______,

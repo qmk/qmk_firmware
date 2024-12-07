@@ -28,6 +28,8 @@ Supported devices:
 | ILI9341        | RGB LCD            | 240x320          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ili9341_spi` |
 | ILI9486        | RGB LCD            | 320x480          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ili9486_spi` |
 | ILI9488        | RGB LCD            | 320x480          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ili9488_spi` |
+| LD7032 (SPI)   | Monochrome OLED    | 128x40           | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ld7032_spi`  |
+| LD7032 (I2C)   | Monochrome OLED    | 128x40           | I2C             | `QUANTUM_PAINTER_DRIVERS += ld7032_i2c`  |
 | SSD1351        | RGB OLED           | 128x128          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ssd1351_spi` |
 | ST7735         | RGB LCD            | 132x162, 80x160  | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += st7735_spi`  |
 | ST7789         | RGB LCD            | 240x320, 240x240 | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += st7789_spi`  |
@@ -477,6 +479,40 @@ Native color format mono2 is compatible with SH1106
 ==== SSD1306
 
 SSD1306 and SH1106 are almost entirely identical, to the point of being indisinguishable by Quantum Painter. Enable SH1106 support in Quantum Painter and create SH1106 devices in firmware to perform drawing operations on SSD1306 displays.
+
+==== LD7032
+
+Enabling support for the LD7032 in Quantum Painter is done by adding the following to `rules.mk`:
+
+```make
+QUANTUM_PAINTER_ENABLE = yes
+# For SPI:
+QUANTUM_PAINTER_DRIVERS += ld7032_spi
+# For I2C:
+QUANTUM_PAINTER_DRIVERS += ld7032_i2c
+```
+
+Creating a SH1106 device in firmware can then be done with the following APIs:
+
+```c
+// SPI-based LD7032:
+painter_device_t qp_ld7032_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode);
+// I2C-based LD7032:
+painter_device_t qp_ld7032_make_i2c_device(uint16_t panel_width, uint16_t panel_height, uint8_t i2c_address);
+```
+
+The device handle returned from the `qp_ld7032_make_???_device` function can be used to perform all other drawing operations.
+
+The maximum number of displays of each type can be configured by changing the following in your `config.h` (default is 1):
+
+```c
+// 3 SPI displays:
+#define LD7032_NUM_SPI_DEVICES 3
+// 3 I2C displays:
+#define LD7032_NUM_I2C_DEVICES 3
+```
+
+Native color format mono2 is compatible with LD7032.
 
 :::::
 
