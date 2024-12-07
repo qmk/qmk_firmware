@@ -84,7 +84,7 @@ To remove the stress this situation produces to your hands, you can disable the 
 
 Now, after you hit the leader key, you will have an infinite amount of time to start the rest of the sequence, allowing you to properly position your hands to type the rest of the sequence comfortably. This way you can configure a very short `LEADER_TIMEOUT`, but still have plenty of time to position your hands.
 
-### Disabling Timeout for aditional keystrokes {#disabling-timeout-more-keystrokes}
+### Disabling Timeout for Additional Keystrokes {#disabling-timeout-more-keystrokes}
 
 Aditionally, you may want to disable the timeout for additional keystrokes after the leader key.
 Add the following to your `config.h`:
