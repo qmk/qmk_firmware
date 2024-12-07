@@ -2,7 +2,7 @@
 
 Compact 60% with arrows.
 
-![Top View of a pair of XD60 Keyboard](https://i.imgur.com/3Jq2743.jpg)
+![Top View of a pair of XD60 Keyboard](https://i.imgur.com/3Jq2743h.jpg)
 
 * Keyboard Maintainer: QMK Community
 * Hardware Supported: XD60 PCB rev2 & rev3

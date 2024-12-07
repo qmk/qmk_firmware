@@ -1,6 +1,6 @@
 # DZ60 60% Mechanical Keyboard PCB
 
-![DZ60](https://cdn.shopify.com/s/files/1/1473/3902/products/c_1.jpg)
+![DZ60](https://i.imgur.com/pcOSIHn.png)
 
 ## A Customizable 60% Mechanical Keyboard PCB
 

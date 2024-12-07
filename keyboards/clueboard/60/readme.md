@@ -1,5 +1,7 @@
 # Clueboard 60%
 
+![Clueboard60](https://i.imgur.com/CKP5PM6.jpeg)
+
 A fully customizable 60% keyboard.
 
 * Keyboard Maintainer: [Zach White](https://github.com/skullydazed)

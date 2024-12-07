@@ -1,8 +1,8 @@
-# The YMDK Bface
+# YMDK B.face
 
-![ymdk_bface](https://i.imgur.com/qhFxN0g.jpg)
+![ymdk_bface](https://i.imgur.com/qhFxN0gh.jpg)
 
-A 60% keyboard that runs ps2avrgb natively and fits the popular GH60 form factor. Another "bfake" or clone of the original B.face PCB by [Winkeyless](https://winkeyless.kr/product/b-face-x2-pcb/). This PCB has slightly different switch matrix than the origninal B.face, and is also different than the bfake. It commonly comes as the PCB in 60% keyboard kits sold by YMDK on Aliexpress.
+A 60% keyboard that runs ps2avrgb natively and fits the popular GH60 form factor. Another "bfake" or clone of the original B.face PCB by [Winkeyless](https://winkeyless.kr/product/b-face-x2-pcb/). This PCB has a different switch matrix from the original B.face, and is also different than the bfake. It commonly comes as the PCB in 60% keyboard kits sold by YMDK on AliExpress.
 
 * Keyboard Maintainer: QMK Community
 * Hardware Supported: White Bface Mini USB PCB with 12 RGB LEDs on the bottom.

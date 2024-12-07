@@ -1,5 +1,7 @@
 # GON NerD 60
 
+![GON_NerD_60](https://i.imgur.com/dN769HMh.jpg)
+
 A Korean Custom 60%.
 
 * Keyboard Maintainer: QMK Community
