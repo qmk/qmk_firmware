@@ -6,4 +6,4 @@
 #include "test_common.h"
 
 #define LEADER_NO_TIMEOUT
-#define LEADER_NO_TIMEOUT_FOR_N_KEYSTOKES 2
+#define LEADER_NO_TIMEOUT_FOR_N_KEYSTROKES 2
