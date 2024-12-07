@@ -102,12 +102,7 @@ python3 -m pip install --user qmk
 ```
 
 ::: tip
-With the introduction of [PEP 668](https://peps.python.org/pep-0668), Python package management
-tools like `pip` are no longer permitted to install Python packages globally on Linux
-distributions that have adopted this PEP. As a result, the above command may not work in such
-environments. To address this, recommended alternatives include using a Python virtual
-environment or utilising [QMK's Docker container](getting_started_docker) for managing
-dependencies.
+With the introduction of [PEP 668](https://peps.python.org/pep-0668), Python package management tools like `pip` are no longer permitted to install Python packages globally on Linux distributions that have adopted this PEP. As a result, the above command may not work in such environments. To address this, recommended alternatives include using a Python virtual environment or utilising [QMK's Docker container](getting_started_docker) for managing dependencies.
 :::
 
 :::: details Virtual Environment Setup
@@ -118,17 +113,13 @@ git clone --recurse-submodules https://github.com/qmk/qmk_firmware.git
 cd qmk_firmware
 ```
 
-Create a virtual environment. The following command will create a `.venv` directory in your
-current working directory. If you'd prefer to store the virtual environment elsewhere, adjust
-the path accordingly:
+Create a virtual environment. The following command will create a `.venv` directory in your current working directory. If you'd prefer to store the virtual environment elsewhere, adjust the path accordingly:
 
 ```
 python3 -m venv .venv
 ```
 
-Activate the virtual environment. The following command works for most commonly used shells like
-Bash, ZSH, sh, etc. If you are using Fish, Nu, or something else, see the alternate activation
-scripts in `.venv/bin/`:
+Activate the virtual environment. The following command works for most commonly used shells like Bash, ZSH, sh, etc. If you are using Fish, Nu, or something else, see the alternate activation scripts in `.venv/bin/`:
 
 ```
 source .venv/bin/activate
@@ -140,9 +131,9 @@ Install the QMK CLI package:
 pip install qmk
 ```
 ::: tip
-Using a virtual environment means it will need to be activated each time you plan to use the
-utilities it provides (eg. `qmk` commands in this case).
+Using a virtual environment means it will need to be activated each time you plan to use the utilities it provides (eg. `qmk` commands in this case).
 :::
+
 ::::
 
 ==== FreeBSD
