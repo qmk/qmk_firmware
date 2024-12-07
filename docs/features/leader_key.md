@@ -86,11 +86,13 @@ Now, after you hit the leader key, you will have an infinite amount of time to s
 
 ### Disabling Timeout for aditional keystrokes {#disabling-timeout-more-keystrokes}
 
-Aditionally, you may want to disable the timeout for additional keystrokes after the leader key.
+You may want to disable the timeout for additional keystrokes after the leader key.
 Add the following to your `config.h`:
 ```c
-#define LEADER_NO_TIMEOUT_FOR_N_KEYSTROKES <Number of keystrokes including leader>
+#define LEADER_NO_TIMEOUT_FOR_N_KEYSTROKES n
 ```
+Where `n` is the number of keystrokes *including* the leader key itself.
+
 Use with care, since sequences shorter than LEADER_NO_TIMEOUT_FOR_N_KEYSTROKES will not timeout, and thus will not terminate unless leader_end() is called.
 
 
