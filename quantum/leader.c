@@ -57,7 +57,7 @@ bool leader_sequence_add(uint16_t keycode) {
     }
 
 #if defined(LEADER_NO_TIMEOUT)
-    if (leader_sequence_size < LEADER_NO_TIMEOUT_FOR_N_KEYSTOKES) {
+    if (leader_sequence_size < LEADER_NO_TIMEOUT_FOR_N_KEYSTROKES) {
         leader_reset_timer();
     }
 #endif
