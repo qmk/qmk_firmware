@@ -11,8 +11,8 @@
 #    define LEADER_TIMEOUT 300
 #endif
 
-#if defined(LEADER_NO_TIMEOUT) && !defined(LEADER_NO_TIMEOUT_FOR_N_KEYSTOKES)
-#   define LEADER_NO_TIMEOUT_FOR_N_KEYSTOKES 1
+#if defined(LEADER_NO_TIMEOUT) && !defined(LEADER_NO_TIMEOUT_FOR_N_KEYSTROKES)
+#   define LEADER_NO_TIMEOUT_FOR_N_KEYSTROKES 1
 #endif
 
 // Leader key stuff
@@ -57,7 +57,7 @@ bool leader_sequence_add(uint16_t keycode) {
     }
 
 #if defined(LEADER_NO_TIMEOUT)
-    if (leader_sequence_size < LEADER_NO_TIMEOUT_FOR_N_KEYSTOKES) {
+    if (leader_sequence_size < LEADER_NO_TIMEOUT_FOR_N_KEYSTROKES) {
         leader_reset_timer();
     }
 #endif
@@ -70,7 +70,7 @@ bool leader_sequence_add(uint16_t keycode) {
 
 bool leader_sequence_timed_out(void) {
 #if defined(LEADER_NO_TIMEOUT)
-    return leader_sequence_size >= LEADER_NO_TIMEOUT_FOR_N_KEYSTOKES  && timer_elapsed(leader_time) > LEADER_TIMEOUT;
+    return leader_sequence_size >= LEADER_NO_TIMEOUT_FOR_N_KEYSTROKES  && timer_elapsed(leader_time) > LEADER_TIMEOUT;
 #else
     return timer_elapsed(leader_time) > LEADER_TIMEOUT;
 #endif

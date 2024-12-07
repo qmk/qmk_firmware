@@ -89,9 +89,9 @@ Now, after you hit the leader key, you will have an infinite amount of time to s
 Aditionally, you may want to disable the timeout for additional keystrokes after the leader key.
 Add the following to your `config.h`:
 ```c
-#define LEADER_NO_TIMEOUT_FOR_N_KEYSTOKES <Number of keystrokes including leader>
+#define LEADER_NO_TIMEOUT_FOR_N_KEYSTROKES <Number of keystrokes including leader>
 ```
-Use with care, since sequences shorter than LEADER_NO_TIMEOUT_FOR_N_KEYSTOKES will not timeout, and thus will not terminate unless leader_end() is called.
+Use with care, since sequences shorter than LEADER_NO_TIMEOUT_FOR_N_KEYSTROKES will not timeout, and thus will not terminate unless leader_end() is called.
 
 
 ### Strict Key Processing {#strict-key-processing}
