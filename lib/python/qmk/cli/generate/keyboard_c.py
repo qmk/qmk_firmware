@@ -243,10 +243,10 @@ def _gen_chordal_hold_layout(info_data):
         if x_prev is None or key.x < x_prev:
             lines.append(line)
             line = '  '
-        line += f"'{key.hand}',"
+        line += f"'{key.hand}', "
         x_prev = key.x
 
-    lines.append(line)
+    lines.append(line[:-2])
     lines.append(');')
     lines.append('#endif')
 
