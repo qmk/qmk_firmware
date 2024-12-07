@@ -11,8 +11,8 @@
 #    define LEADER_TIMEOUT 300
 #endif
 
-#if defined(LEADER_NO_TIMEOUT) && !defined(LEADER_NO_TIMEOUT_FOR_N_KEYSTOKES)
-#   define LEADER_NO_TIMEOUT_FOR_N_KEYSTOKES 1
+#if defined(LEADER_NO_TIMEOUT) && !defined(LEADER_NO_TIMEOUT_FOR_N_KEYSTROKES)
+#   define LEADER_NO_TIMEOUT_FOR_N_KEYSTROKES 1
 #endif
 
 // Leader key stuff
