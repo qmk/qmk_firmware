@@ -191,7 +191,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_custom_shift_keys(keycode, record)) { return false; }
 
     switch (keycode) {
-        case SS_Qu:  // send "qu" if held
+        case SS_Qu:  // send "qu" on tap
 		    saved_mods = get_mods();
             if (record->event.pressed) {
                 keyhold_timer = 0;
