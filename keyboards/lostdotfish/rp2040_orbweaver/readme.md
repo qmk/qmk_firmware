@@ -1,7 +1,7 @@
 # rp2040_orbweaver
 QMK firmware for RP2040 based MCU replacement PCB for the Razer Orbweaver gaming keypad
 
-![alt text](https://github.com/Lostdotfish/pcb_images/blob/main/Screenshot%202024-12-07%20163218.png?raw=true)
+![RP2040 Orbweaver](https://i.imgur.com/GCPRUbs.png))
 
 
 This firmware is for the Razer Orbweaver Chroma keypad with a custom, plug and play, RP2040 MCU PCB. For installation instructions and board availability see [geekhack](https://geekhack.org/index.php?topic=124092.0).
