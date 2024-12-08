@@ -6,11 +6,7 @@ QMK firmware for RP2040 based MCU replacement PCB for the Razer Orbweaver gaming
 
 This firmware is for the Razer Orbweaver Chroma keypad with a custom, plug and play, RP2040 MCU PCB. For installation instructions and board availability see [geekhack](https://geekhack.org/index.php?topic=124092.0).
 
-The firmware controls a 6x5 key matrix (4x5 keypad + 6 additional keys
-on the thumb pad and up to 4 additional keys added by user). It also controls a
-IS31FL3731 RGB Matrix controller (on the Chroma model) via I2C interface. This requires
-a single I2C Driver with 20 common anode RGB LEDs. a_marmot found that the I2C clock speed must be slowed down to 100 kHz for the IS31 chip to keep up (the default for RP2040 seems to
-be 400 kHz unless specified otherwise).
+The firmware controls a 6x5 key matrix (4x5 keypad + 6 additional keys on the thumb pad and up to 4 additional keys added by user). It also controls a IS31FL3731 RGB Matrix controller (on the Chroma model) via I2C interface. This requires a single I2C Driver with 20 common anode RGB LEDs. a_marmot found that the I2C clock speed must be slowed down to 100 kHz for the IS31 chip to keep up (the default for RP2040 seems to be 400 kHz unless specified otherwise).
 
 Key 20 (bottom right) is used to switch layers.  
 
