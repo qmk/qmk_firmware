@@ -62,31 +62,3 @@ const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
     {0, C9_12,  C8_12,  C7_12} //lower right key
 
 };
-
-led_config_t g_led_config = {
-     // Matrix location to LED index
-     {
-         { 0, 2, 3, 4, 5 },
-         { 6, 7, 8, 9, 10 },
-         { 11, 12, 13, 14, 15 },
-         { 16, 17, 18, 19, 19 },
-         { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
-         { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED }
-     },
-
-     // LED index to physical location
-     {
-         {0,0}, {20,0}, {40,0}, {60,0}, {80,0},
-         {0,20}, {20,20}, {40,20}, {60,20}, {80,20},
-         {0,40}, {20,40}, {40,40}, {60,40}, {80,40},
-         {0,60}, {20,60}, {40,60}, {60,60}, {80,60}
-     },
-
-     // LED index to flags
-     {
-         4, 4, 4, 4, 4,
-         4, 4, 4, 4, 4,
-         4, 4, 4, 4, 4,
-         4, 4, 4, 4, 4
-     }
- };
