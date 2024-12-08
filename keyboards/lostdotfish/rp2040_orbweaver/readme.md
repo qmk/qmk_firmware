@@ -11,6 +11,7 @@ The firmware controls a 6x5 key matrix (4x5 keypad + 6 additional keys on the th
 Key 20 (bottom right) is used to switch layers.  
 
 The default key map provides 3 preset layers.  
+
 (layer 0) is a generic layer based on the original Razer defaults.  
 (layer 1) replaces modifier keys with letter keys.   
 (layer 2) replaces the 2 top rows with RGB control keys.  
