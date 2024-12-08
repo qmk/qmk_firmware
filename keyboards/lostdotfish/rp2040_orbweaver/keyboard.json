@@ -28,7 +28,11 @@
         "sleep": true,
         "center_point": [40, 30],
         "default": {
-            "val": 127
+            "val": 127,
+            "on": true,
+            "hue": 0,
+            "sat": 255,
+            "spd": 127
         },
         "timeout": 1000000
         "animations": {
