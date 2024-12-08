@@ -55,6 +55,7 @@ These headers are located in [`quantum/keymap_extras/`](https://github.com/qmk/q
 |English (US International)       |`keymap_us_international.h`      |`sendstring_us_international.h`     |
 |English (US International, Linux)|`keymap_us_international_linux.h`|                                    |
 |Estonian                         |`keymap_estonian.h`              |`sendstring_estonian.h`             |
+|EurKEY                           |`keymap_eurkey.h`                |                                    |
 |Farsi                            |`keymap_farsi.h`                 |                                    |
 |Finnish                          |`keymap_finnish.h`               |`sendstring_finnish.h`              |
 |French                           |`keymap_french.h`                |`sendstring_french.h`               |
