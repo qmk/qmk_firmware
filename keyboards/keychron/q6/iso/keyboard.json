@@ -21,8 +21,12 @@
     "build": {
         "lto": true
     },
+    "layout_aliases": {
+        "LAYOUT_iso_109": "LAYOUT_fullsize_extended_iso"
+    },
+    "community_layouts": ["fullsize_extended_iso"],
     "layouts": {
-        "LAYOUT_iso_109": {
+        "LAYOUT_fullsize_extended_iso": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 2, "y": 0},
