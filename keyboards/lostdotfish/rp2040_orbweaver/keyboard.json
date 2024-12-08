@@ -27,6 +27,10 @@
         "max_brightness": 220,
         "sleep": true,
         "center_point": [40, 30],
+        "default": {
+            "val": 127
+        },
+        "timeout": 1000000
         "animations": {
             "alphas_mods": true,
             "gradient_up_down": true,
