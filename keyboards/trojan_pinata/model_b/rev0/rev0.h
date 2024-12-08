@@ -18,7 +18,4 @@
 
 #include "quantum.h"
 
-bool oled_task_kb(void);
 void oled_render_boot(bool bootloader);
-bool shutdown_kb(bool jump_to_bootloader);
-bool process_record_kb(uint16_t keycode, keyrecord_t *record);
