@@ -7,7 +7,3 @@
 #define IS31FL3743A_SDB_PIN A4
 
 #define CAPS_LOCK_INDEX 28
-#define WIN_MOD_INDEX 16
-#define MAC_MOD_INDEX 17
-
-#define g_suspend_state rgb_matrix_get_suspend_state()
