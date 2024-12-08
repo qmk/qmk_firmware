@@ -1,3 +1,4 @@
+
 {
     "manufacturer": "Lostdotfish",
     "keyboard_name": "rp2040_orbweaver",
@@ -22,19 +23,33 @@
     },
     "rgb_matrix": {
         "driver": "is31fl3731",
+        "layout": [
+            {"matrix": [0, 0], "x": 0, "y": 0, "flags": 4},
+            {"x": 20, "y": 0, "flags": 4},
+            {"matrix": [0, 1], "x": 40, "y": 0, "flags": 4},
+            {"matrix": [0, 2], "x": 60, "y": 0, "flags": 4},
+            {"matrix": [0, 3], "x": 80, "y": 0, "flags": 4},
+            {"matrix": [0, 4], "x": 0, "y": 20, "flags": 4},
+            {"matrix": [1, 0], "x": 20, "y": 20, "flags": 4},
+            {"matrix": [1, 1], "x": 40, "y": 20, "flags": 4},
+            {"matrix": [1, 2], "x": 60, "y": 20, "flags": 4},
+            {"matrix": [1, 3], "x": 80, "y": 20, "flags": 4},
+            {"matrix": [1, 4], "x": 0, "y": 40, "flags": 4},
+            {"matrix": [2, 0], "x": 20, "y": 40, "flags": 4},
+            {"matrix": [2, 1], "x": 40, "y": 40, "flags": 4},
+            {"matrix": [2, 2], "x": 60, "y": 40, "flags": 4},
+            {"matrix": [2, 3], "x": 80, "y": 40, "flags": 4},
+            {"matrix": [2, 4], "x": 0, "y": 60, "flags": 4},
+            {"matrix": [3, 0], "x": 20, "y": 60, "flags": 4},
+            {"matrix": [3, 1], "x": 40, "y": 60, "flags": 4},
+            {"matrix": [3, 2], "x": 60, "y": 60, "flags": 4},
+            {"matrix": [3, 4], "x": 80, "y": 60, "flags": 4}
+        ],
         "led_flush_limit": 26,
         "led_process_limit": 5,
         "max_brightness": 220,
         "sleep": true,
         "center_point": [40, 30],
-        "default": {
-            "val": 127,
-            "on": true,
-            "hue": 0,
-            "sat": 255,
-            "spd": 127
-        },
-        "timeout": 1000000
         "animations": {
             "alphas_mods": true,
             "gradient_up_down": true,
