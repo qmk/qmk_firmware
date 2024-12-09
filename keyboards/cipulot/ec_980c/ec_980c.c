@@ -69,6 +69,8 @@ void keyboard_post_init_kb(void) {
             ec_config.rescaled_mode_0_actuation_threshold[row][col]     = rescale(ec_config.mode_0_actuation_threshold, 0, 1023, ec_config.noise_floor[row][col], eeprom_ec_config.bottoming_reading[row][col]);
             ec_config.rescaled_mode_0_release_threshold[row][col]       = rescale(ec_config.mode_0_release_threshold, 0, 1023, ec_config.noise_floor[row][col], eeprom_ec_config.bottoming_reading[row][col]);
             ec_config.rescaled_mode_1_initial_deadzone_offset[row][col] = rescale(ec_config.mode_1_initial_deadzone_offset, 0, 1023, ec_config.noise_floor[row][col], eeprom_ec_config.bottoming_reading[row][col]);
+            ec_config.rescaled_mode_1_actuation_offset[row][col]        = rescale(ec_config.mode_1_actuation_offset, 0, 1023, ec_config.noise_floor[row][col], eeprom_ec_config.bottoming_reading[row][col]);
+            ec_config.rescaled_mode_1_release_offset[row][col]          = rescale(ec_config.mode_1_release_offset, 0, 1023, ec_config.noise_floor[row][col], eeprom_ec_config.bottoming_reading[row][col]);
         }
     }
 
@@ -86,26 +88,30 @@ void keyboard_post_init_kb(void) {
  * Num  | Caps | Scroll |
  */
 bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
+    }
+
     if (eeprom_ec_config.num.enabled) {
         // The rgb_matrix_set_color function needs an RGB code to work, so first the indicator color is cast to an HSV value and then translated to RGB
-        HSV hsv_num_indicator_color = {eeprom_ec_config.num.h, eeprom_ec_config.num.s, eeprom_ec_config.num.v};
-        RGB rgb_num_indicator_color = hsv_to_rgb(hsv_num_indicator_color);
+        hsv_t hsv_num_indicator_color = {eeprom_ec_config.num.h, eeprom_ec_config.num.s, eeprom_ec_config.num.v};
+        rgb_t rgb_num_indicator_color = hsv_to_rgb(hsv_num_indicator_color);
         if (host_keyboard_led_state().num_lock)
             rgb_matrix_set_color(NUM_INDICATOR_INDEX, rgb_num_indicator_color.r, rgb_num_indicator_color.g, rgb_num_indicator_color.b);
         else
             rgb_matrix_set_color(NUM_INDICATOR_INDEX, 0, 0, 0);
     }
     if (eeprom_ec_config.caps.enabled) {
-        HSV hsv_caps_indicator_color = {eeprom_ec_config.caps.h, eeprom_ec_config.caps.s, eeprom_ec_config.caps.v};
-        RGB rgb_caps_indicator_color = hsv_to_rgb(hsv_caps_indicator_color);
+        hsv_t hsv_caps_indicator_color = {eeprom_ec_config.caps.h, eeprom_ec_config.caps.s, eeprom_ec_config.caps.v};
+        rgb_t rgb_caps_indicator_color = hsv_to_rgb(hsv_caps_indicator_color);
         if (host_keyboard_led_state().caps_lock)
             rgb_matrix_set_color(CAPS_INDICATOR_INDEX, rgb_caps_indicator_color.r, rgb_caps_indicator_color.g, rgb_caps_indicator_color.b);
         else
             rgb_matrix_set_color(CAPS_INDICATOR_INDEX, 0, 0, 0);
     }
     if (eeprom_ec_config.scroll.enabled) {
-        HSV hsv_scroll_indicator_color = {eeprom_ec_config.scroll.h, eeprom_ec_config.scroll.s, eeprom_ec_config.scroll.v};
-        RGB rgb_scroll_indicator_color = hsv_to_rgb(hsv_scroll_indicator_color);
+        hsv_t hsv_scroll_indicator_color = {eeprom_ec_config.scroll.h, eeprom_ec_config.scroll.s, eeprom_ec_config.scroll.v};
+        rgb_t rgb_scroll_indicator_color = hsv_to_rgb(hsv_scroll_indicator_color);
         if (host_keyboard_led_state().scroll_lock)
             rgb_matrix_set_color(SCROLL_INDICATOR_INDEX, rgb_scroll_indicator_color.r, rgb_scroll_indicator_color.g, rgb_scroll_indicator_color.b);
         else

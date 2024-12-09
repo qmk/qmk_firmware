@@ -6,8 +6,6 @@
 #define IS31FL3737_I2C_ADDRESS_1 IS31FL3737_I2C_ADDRESS_GND
 #define IS31FL3737_I2C_ADDRESS_2 IS31FL3737_I2C_ADDRESS_VCC
 
-#define RGB_MATRIX_LED_COUNT 84
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

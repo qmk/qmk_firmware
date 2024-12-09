@@ -62,14 +62,13 @@
  */
 
 /* declarations */
-uint8_t keyboard_leds(void);
-void    send_keyboard(report_keyboard_t *report);
-void    send_nkro(report_nkro_t *report);
-void    send_mouse(report_mouse_t *report);
-void    send_extra(report_extra_t *report);
+void send_keyboard(report_keyboard_t *report);
+void send_nkro(report_nkro_t *report);
+void send_mouse(report_mouse_t *report);
+void send_extra(report_extra_t *report);
 
 /* host struct */
-host_driver_t chibios_driver = {keyboard_leds, send_keyboard, send_nkro, send_mouse, send_extra};
+host_driver_t chibios_driver = {.keyboard_leds = usb_device_state_get_leds, .send_keyboard = send_keyboard, .send_nkro = send_nkro, .send_mouse = send_mouse, .send_extra = send_extra};
 
 #ifdef VIRTSER_ENABLE
 void virtser_task(void);
@@ -184,7 +183,7 @@ void protocol_pre_task(void) {
             /* Do this in the suspended state */
             suspend_power_down(); // on AVR this deep sleeps for 15ms
             /* Remote wakeup */
-            if ((USB_DRIVER.status & USB_GETSTATUS_REMOTE_WAKEUP_ENABLED) && suspend_wakeup_condition()) {
+            if (suspend_wakeup_condition() && (USB_DRIVER.status & USB_GETSTATUS_REMOTE_WAKEUP_ENABLED)) {
                 usbWakeupHost(&USB_DRIVER);
 #    if USB_SUSPEND_WAKEUP_DELAY > 0
                 // Some hubs, kvm switches, and monitors do

@@ -34,6 +34,10 @@
         "pin": "B7",
         "levels": 12
     },
+    "indicators": {
+        "caps_lock": "C6",
+        "on_state": 0
+    },
     "rgblight": {
         "saturation_steps": 8,
         "brightness_steps": 8,
@@ -57,7 +61,15 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
-    "community_layouts": ["60_ansi", "60_ansi_split_bs_rshift", "60_hhkb", "60_tsangan_hhkb"],
+    "community_layouts": [
+        "60_ansi",
+        "60_ansi_split_bs_rshift",
+        "60_ansi_tsangan_split_bs_rshift",
+        "60_hhkb"
+    ],
+    "layout_aliases": {
+        "LAYOUT_60_tsangan_hhkb": "LAYOUT_60_ansi_tsangan_split_bs_rshift"
+    },
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [
@@ -267,7 +279,7 @@
                 {"matrix": [4, 11], "x": 12.5, "y": 4}
             ]
         },
-        "LAYOUT_60_tsangan_hhkb": {
+        "LAYOUT_60_ansi_tsangan_split_bs_rshift": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},

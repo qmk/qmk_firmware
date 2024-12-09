@@ -30,7 +30,9 @@
         "levels": 7
     },
     "split": {
-        "soft_serial_pin": "D0"
+        "serial": {
+            "pin": "D0"
+        }
     },
     "tapping": {
         "term": 120

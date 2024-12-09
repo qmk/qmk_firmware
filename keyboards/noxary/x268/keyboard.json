@@ -32,6 +32,9 @@
   "backlight": {
     "pin": "B7"
   },
+  "indicators": {
+    "caps_lock": "B0"
+  },
   "rgblight": {
     "hue_steps": 16,
     "saturation_steps": 16,

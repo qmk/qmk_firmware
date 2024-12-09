@@ -14,15 +14,16 @@ from qmk.c_parse import c_source_files
 
 CHIBIOS_CONF_CHECKS = ['chconf.h', 'halconf.h', 'mcuconf.h', 'board.h']
 INVALID_KB_FEATURES = set(['encoder_map', 'dip_switch_map', 'combo', 'tap_dance', 'via'])
+INVALID_KM_NAMES = ['via', 'vial']
 
 
 def _list_defaultish_keymaps(kb):
     """Return default like keymaps for a given keyboard
     """
-    defaultish = ['ansi', 'iso', 'via']
+    defaultish = ['ansi', 'iso']
 
     # This is only here to flag it as "testable", so it doesn't fly under the radar during PR
-    defaultish.append('vial')
+    defaultish.extend(INVALID_KM_NAMES)
 
     keymaps = set()
     for x in list_keymaps(kb):
@@ -134,6 +135,11 @@ def keymap_check(kb, km):
     if not keymap_path:
         ok = False
         cli.log.error("%s: Can't find %s keymap.", kb, km)
+        return ok
+
+    if km in INVALID_KM_NAMES:
+        ok = False
+        cli.log.error("%s: The keymap %s should not exist!", kb, km)
         return ok
 
     # Additional checks

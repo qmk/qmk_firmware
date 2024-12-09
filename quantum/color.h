@@ -74,43 +74,24 @@
 
 // clang-format on
 
-#define WS2812_BYTE_ORDER_RGB 0
-#define WS2812_BYTE_ORDER_GRB 1
-#define WS2812_BYTE_ORDER_BGR 2
-
-#ifndef WS2812_BYTE_ORDER
-#    define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_GRB
-#endif
-
-typedef struct PACKED rgb_led_t {
-#if (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_GRB)
-    uint8_t g;
-    uint8_t r;
-    uint8_t b;
-#elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_RGB)
+typedef struct PACKED rgb_t {
     uint8_t r;
     uint8_t g;
     uint8_t b;
-#elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_BGR)
-    uint8_t b;
-    uint8_t g;
-    uint8_t r;
-#endif
-#ifdef WS2812_RGBW
-    uint8_t w;
-#endif
-} rgb_led_t;
+} rgb_t;
 
-typedef rgb_led_t RGB;
+// DEPRECATED
+typedef rgb_t RGB;
+typedef rgb_t rgb_led_t;
 
-typedef struct PACKED HSV {
+typedef struct PACKED hsv_t {
     uint8_t h;
     uint8_t s;
     uint8_t v;
-} HSV;
+} hsv_t;
 
-RGB hsv_to_rgb(HSV hsv);
-RGB hsv_to_rgb_nocie(HSV hsv);
-#ifdef WS2812_RGBW
-void convert_rgb_to_rgbw(rgb_led_t *led);
-#endif
+// DEPRECATED
+typedef hsv_t HSV;
+
+rgb_t hsv_to_rgb(hsv_t hsv);
+rgb_t hsv_to_rgb_nocie(hsv_t hsv);

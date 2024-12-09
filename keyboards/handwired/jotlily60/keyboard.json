@@ -24,7 +24,9 @@
     },
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D3"
+        "serial": {
+            "pin": "D3"
+        }
     },
     "layouts": {
         "LAYOUT": {

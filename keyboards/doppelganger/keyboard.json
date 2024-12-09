@@ -8,6 +8,10 @@
         "pid": "0x4447",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "C6",
+        "on_state": 0
+    },
     "matrix_pins": {
         "cols": ["F4", "F0", "B7", "B3", "B2", "B1", "D5", "D3", "D2"],
         "rows": ["E6", "F1", "C7", "F7", "F6"]
@@ -15,7 +19,12 @@
     "diode_direction": "COL2ROW",
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D1",
+        "handedness": {
+            "pin": "D4"
+        },
+        "serial": {
+            "pin": "D1"
+        },
         "matrix_pins": {
             "right": {
                 "cols": ["F1", "F0", "F4", "F5", "F6", "F7", "C7", "C6", "B6"],
