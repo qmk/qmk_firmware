@@ -41,6 +41,7 @@
     "processor": "STM32F401",
     "bootloader": "stm32-dfu",
     "board": "BLACKPILL_STM32_F401",
+    "community_layouts": ["ergodox"],
     "layouts": {
         "LAYOUT_ergodox": {
             "layout": [
