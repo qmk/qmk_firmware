@@ -21,7 +21,8 @@ enum outputs {
 
     OUTPUT_NONE,
     OUTPUT_USB,
-    OUTPUT_BLUETOOTH
+    OUTPUT_BLUETOOTH,
+    OUTPUT_2P4GHZ,
 };
 
 #ifndef OUTPUT_DEFAULT
