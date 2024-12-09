@@ -42,7 +42,7 @@ void keyboard_pre_init_kb(void) {
 
 void eeconfig_init_kb(void) {
     keyboard_config.raw = 0;
-    keyboard_config.display_mode_saved = 2;
+    keyboard_config.display_mode_saved = INFO;
     eeconfig_update_kb(keyboard_config.raw);
     eeconfig_init_user();
 }
@@ -270,9 +270,6 @@ static const char PROGMEM rayq_disp[] = {
 // invert display based on layer
 static void inv_display(void) {
     switch (get_highest_layer(layer_state)) {
-        case 0:
-            oled_invert(false);
-            break;
         case 1:
             oled_invert(true);
             break;
