@@ -21,14 +21,12 @@ _qmk_install_prepare() {
 _qmk_install() {
     echo "Installing dependencies"
 
-    # All macOS dependencies are managed in the Homebrew package:
-    # https://github.com/qmk/homebrew-qmk
+    # All macOS & Python dependencies are managed in the Homebrew package:
+    #   https://github.com/qmk/homebrew-qmk
     brew install qmk/qmk/qmk
 
     # Keg-only, so need to be manually linked
     brew link --force avr-gcc@8
     brew link --force arm-none-eabi-binutils
     brew link --force arm-none-eabi-gcc@8
-
-    python3 -m pip install -r $QMK_FIRMWARE_DIR/requirements.txt
 }
