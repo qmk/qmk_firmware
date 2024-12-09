@@ -12,7 +12,7 @@
 
     /* The main list of aliases for moved keyboards within QMK. */
     "2_milk": {
-        "target": "spaceman/2_milk"
+        "target": "spaceboards/2_milk"
     },
     "absinthe": {
         "target": "keyhive/absinthe"
@@ -540,10 +540,10 @@
         "target": "pabile/p20/ver1"
     },
     "pancake/feather": {
-        "target": "spaceman/pancake/rev1/feather"
+        "target": "spaceboards/pancake/rev1/feather"
     },
     "pancake/promicro": {
-        "target": "spaceman/pancake/rev1/promicro"
+        "target": "spaceboards/pancake/rev1/promicro"
     },
     "peiorisboards/ixora": {
         "target": "coarse/ixora"
