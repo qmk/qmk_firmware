@@ -42,7 +42,7 @@ Look at the output from that command, you should see something like this:
 Ψ Created a new keymap called <github_username> in: /home/me/qmk_firmware/keyboards/clueboard/66/rev3/keymaps/<github_username>.
 ```
 
-This is the location of your new `keymap.c` file.
+This is the location of your new `keymap.c` file. If your particular keyboards default keymap is a `.json` file there will be a `keymap.json` located in the generated folder instead of a `keymap.c` file. The `keymap.json` file can be converted to a `keymap.c` file using QMK's [`json2c`](cli_commands#qmk-json2c) utility. 
 
 ## Open `keymap.c` In Your Favorite Text Editor
 
