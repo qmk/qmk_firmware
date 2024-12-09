@@ -99,7 +99,7 @@
             "starlight_dual_sat": true,
             "starlight_dual_hue": true,
             "riverflow": true
-},
+        }
 },
     "matrix_pins": {
         "rows": ["GP0", "GP1", "GP2", "GP3", "GP10", "GP9"],
