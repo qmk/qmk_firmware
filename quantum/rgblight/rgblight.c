@@ -24,6 +24,11 @@
 #include "util.h"
 #include "led_tables.h"
 #include <lib/lib8tion/lib8tion.h>
+
+#ifdef RGBLIGHT_DOUBLE_BUFFER
+#    define rgblight_driver rgblight_driver_wrapper
+#endif
+
 #ifdef EEPROM_ENABLE
 #    include "eeprom.h"
 #endif

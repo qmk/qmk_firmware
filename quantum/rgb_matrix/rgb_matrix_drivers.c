@@ -154,3 +154,37 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
 };
 
 #endif
+
+#ifdef RGB_MATRIX_DOUBLE_BUFFER
+
+static rgb_t led_buffer[RGB_MATRIX_LED_COUNT];
+
+void rgb_matrix_driver_init(void) {
+    rgb_matrix_driver.init();
+}
+
+void rgb_matrix_driver_flush(void) {
+    for (uint16_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
+        rgb_matrix_driver.set_color(i, led_buffer[i].r, led_buffer[i].g, led_buffer[i].b);
+    }
+    rgb_matrix_driver.flush();
+}
+
+void rgb_matrix_driver_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
+    led_buffer[index] = (rgb_t){.r = red, .g = green, .b = blue};
+}
+
+void rgb_matrix_driver_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
+    for (uint16_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
+        rgb_matrix_driver_set_color(i, red, green, blue);
+    }
+}
+
+const rgb_matrix_driver_t rgb_matrix_driver_wrapper = {
+    .init          = rgb_matrix_driver_init,
+    .flush         = rgb_matrix_driver_flush,
+    .set_color     = rgb_matrix_driver_set_color,
+    .set_color_all = rgb_matrix_driver_set_color_all,
+};
+
+#endif
