@@ -144,6 +144,8 @@ If you define these options you will enable the associated feature, which may in
   * NKRO by default requires to be turned on, this forces it on during keyboard startup regardless of EEPROM setting. NKRO can still be turned off but will be turned on again if the keyboard reboots.
 * `#define STRICT_LAYER_RELEASE`
   * force a key release to be evaluated using the current layer stack instead of remembering which layer it came from (used for advanced cases)
+* `#define KEYCODE_CACHE_ENABLE`
+  * Cache keycode for pressed keys, to be used on key release, across entire physical keyboard layout.
 
 ## Behaviors That Can Be Configured
 
