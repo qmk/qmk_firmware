@@ -76,3 +76,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     }
     return state;
 }
+void suspend_power_down_kb(void) {
+    // code will run multiple times while keyboard is suspended
+    gpio_write_pin_high(GP23);
+    gpio_write_pin_high(GP24);
+    gpio_write_pin_high(GP25);   
+}
+
+void suspend_wakeup_init_user(void) {
+    layer_state_set_user(layer_state);
+}
