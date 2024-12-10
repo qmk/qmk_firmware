@@ -66,4 +66,4 @@ def userspace_list(cli):
         if is_all_keyboards(keyboard) or is_keymap_target(keyboard_folder(keyboard), keymap):
             cli.log.info(f'Keyboard: {{fg_cyan}}{keyboard}{{fg_reset}}, keymap: {{fg_cyan}}{keymap}{{fg_reset}}{extra_args_str}')
         else:
-            cli.log.warn(f'Keyboard: {{fg_cyan}}{keyboard}{{fg_reset}}, keymap: {{fg_cyan}}{keymap}{{fg_reset}}{extra_args_str} -- not found!')
+            cli.log.warning(f'Keyboard: {{fg_cyan}}{keyboard}{{fg_reset}}, keymap: {{fg_cyan}}{keymap}{{fg_reset}}{extra_args_str} -- not found!')
