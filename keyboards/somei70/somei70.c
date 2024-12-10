@@ -7,9 +7,8 @@ static uint8_t  esc_press_count = 0;
 static uint16_t esc_timer       = 0;
 // Stats display
 void render_stats(void) {
-    char wpm_str[10];
-    snprintf(wpm_str, sizeof(wpm_str), "WPM: %03u", get_current_wpm());
-    oled_write_ln(wpm_str, false);
+    oled_write_P(PSTR("WPM: "), false);
+    oled_write_ln(get_u8_str(get_current_wpm(), '0'), false);
     if (host_keyboard_led_state().caps_lock) {
         oled_write_P(PSTR("CAPS: On   "), false);
     } else {
@@ -20,10 +19,8 @@ void render_stats(void) {
     } else {
         oled_write_ln("NKRO: Off", false);
     }
-    uint8_t brightness = rgblight_get_val();
-    char    brightness_str[255];
-    snprintf(brightness_str, sizeof(brightness_str), "LED Brightness: %03u", brightness);
-    oled_write_ln(brightness_str, false);
+    oled_write_P(PSTR("LED Brightness: "), false);
+    oled_write_ln(get_u8_str(rgblight_get_val(), '0'), false);
     oled_write_ln(PSTR("P: 0x6F64  V: 0x73CA"), false);
 }
 // Static images
