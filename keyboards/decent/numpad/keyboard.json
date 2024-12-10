@@ -13,7 +13,8 @@
         "console": false,
         "extrakey": false,
         "mousekey": false,
-        "nkro": false
+        "nkro": false,
+        "joystick": true
     },
     "matrix_pins": {
         "cols": ["GP0", "GP1", "GP2", "GP3"],
@@ -27,14 +28,15 @@
         "pid": "0x0000",
         "vid": "0xFEED"
     },
-    "i2c": {
-    },
     "ws2812": {
         "pin": "GP20",
         "driver": "vendor"
     },
+    "bootmagic": {
+        "matrix": [1, 0]
+    },
     "layouts": {
-        "LAYOUT_default": {
+        "LAYOUT": {
             "layout": [
                 {"matrix": [0, 0], "x": 0.75, "y": 0, "label": "F11"},
                 {"matrix": [0, 1], "x": 2.25, "y": 0, "label": "F12"},
@@ -64,6 +66,7 @@
         }
     },
     "rgb_matrix": {
+        "center_point": [37, 42],
         "max_brightness": 125,
         "sleep": true,
         "animations": {

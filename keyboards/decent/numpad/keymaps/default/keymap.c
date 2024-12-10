@@ -21,7 +21,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * │ 0     │ . │   │
     * └───────┴───┴───┘
     */
-    [0] = LAYOUT_default(
+    [0] = LAYOUT(
         KC_F11,  KC_F12,
 
         MO(1),   KC_KP_SLASH, KC_KP_ASTERISK, KC_KP_MINUS,
@@ -30,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_KP_1, KC_KP_2,     KC_KP_3,        KC_KP_ENTER,
         KC_KP_0,              KC_KP_DOT
     ),
-    [1] = LAYOUT_default(
+    [1] = LAYOUT(
         S(KC_F11), S(KC_F12),
         
         _______,   RGB_M_B,  RGB_M_R, RGB_VAD,

@@ -1,11 +1,7 @@
+// Copyright 2023 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #pragma once
-
-#define BOOTMAGIC_ROW 1
-#define BOOTMAGIC_COLUMN 0
-#define RGB_MATRIX_SLEEP
-
-#define RGB_MATRIX_LED_COUNT 22
-#define RGB_MATRIX_CENTER {37, 42}
 
 #define JOYSTICK_AXIS_COUNT 4
 #define JOYSTICK_BUTTON_COUNT 10

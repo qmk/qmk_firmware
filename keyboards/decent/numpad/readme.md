@@ -1,7 +1,5 @@
 # DecenTKL NumPad
 
-![decentkl](https://github.com/bleroy/3d-junkyard/blob/main/DecenTKL/Media/DecenTKL-logo.png)
-
 *A numeric pad to go with the DecenTKL keyboard*
 
 This numeric pad also includes a 3-port USB hub, enabling the connection of the TKL
