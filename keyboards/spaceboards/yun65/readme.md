@@ -2,12 +2,12 @@
 
 65% Keyboard designed by Saurabh
 
-Keyboard Maintainer: [Spaceman](https://github.com/Spaceman)
+Keyboard Maintainer: [Spaceboards](https://github.com/Spaceboards)
 
 Hardware Availability: TBA
 
 Make example for this keyboard (after setting up your build environment):
 
-    make spaceman/yun65:default
+    make spaceboards/yun65:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
