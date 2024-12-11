@@ -15,6 +15,7 @@ enum layers {
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
+#define ADJUST MO(_ADJUST)
 #define QWERTY PDF(_QWERTY)
 #define COLEMAK PDF(_COLEMAK)
 #define DVORAK PDF(_DVORAK)
@@ -101,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------|------+------+------+------+------+------|
    * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |ISO # |ISO / |Pg Up |Pg Dn |      |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
-   * |      |      |      |      |      |      |      |      | Next | Vol- | Vol+ | Play |
+   * |ADJUST|      |      |      |      |      |      |      | Next | Vol- | Vol+ | Play |
    * `-----------------------------------------------------------------------------------'
    */
   [_RAISE] = LAYOUT_ortho_4x12(
