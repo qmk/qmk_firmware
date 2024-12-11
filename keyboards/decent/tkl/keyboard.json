@@ -2,8 +2,10 @@
     "manufacturer": "Bertrand Le roy",
     "keyboard_name": "DecenTKL",
     "maintainer": "bleroy",
+    "url": "https://github.com/bleroy/3d-junkyard/blob/main/DecenTKL/",
+    "tags": ["ansi", "tkl", "rgb", "oled", "encoder", "atari"],
     "bootloader": "rp2040",
-    "diode_direction": "COL2ROW",
+    "processor": "RP2040",
     "features": {
         "encoder": true,
         "bootmagic": true,
@@ -15,13 +17,14 @@
         "mousekey": false,
         "nkro": true
     },
+    "diode_direction": "COL2ROW",
     "matrix_pins": {
         "cols": ["GP1", "GP2", "GP3", "GP4", "GP5", "GP6", "GP7", "GP8", "GP9"],
         "rows": ["GP11", "GP12", "GP13", "GP14", "GP15", "GP16", "GP17", "GP18", "GP19", "GP20"]
     },
-    "processor": "RP2040",
-    "url": "https://github.com/bleroy/3d-junkyard/blob/main/DecenTKL/",
-    "tags": ["ansi", "tkl", "rgb", "oled", "encoder", "atari"],
+    "bootmagic": {
+        "matrix": [0, 6]
+    },
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0000",
@@ -45,7 +48,7 @@
         "driver": "vendor"
     },
     "layouts": {
-        "LAYOUT_tkl_ansi": {
+        "LAYOUT": {
             "layout": [
                 {"matrix": [0, 6], "x": 0.5, "y": 0, "label": "Esc"},
                 {"matrix": [0, 5], "x": 3.5, "y": 0, "label": "F1"},
@@ -140,6 +143,7 @@
     "rgb_matrix": {
         "max_brightness": 125,
         "sleep": true,
+        "center_point": [77, 32],
         "default": {
             "animation": "typing_heatmap"
         },
