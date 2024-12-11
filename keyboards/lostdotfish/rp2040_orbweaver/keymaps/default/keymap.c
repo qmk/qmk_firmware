@@ -83,6 +83,7 @@ void suspend_power_down_kb(void) {
     gpio_write_pin_high(GP25);   
 }
 
-void suspend_wakeup_init_user(void) {
-    layer_state_set_user(layer_state);
+void suspend_wakeup_init_kb(void) {
+    layer_state_set_kb(layer_state);
+    suspend_wakeup_init_user();
 }
