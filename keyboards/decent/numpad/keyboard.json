@@ -2,6 +2,8 @@
     "manufacturer": "Bertrand Le roy",
     "keyboard_name": "DecenTKL NumPad",
     "maintainer": "bleroy",
+    "url": "https://github.com/bleroy/3d-junkyard/blob/main/DecenTKL/",
+    "tags": ["ansi", "numpad", "rgb", "atari", "joystick"],
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
     "features": {
@@ -21,8 +23,6 @@
         "rows": ["GP4", "GP5", "GP6", "GP7", "GP8", "GP9"]
     },
     "processor": "RP2040",
-    "url": "https://github.com/bleroy/3d-junkyard/blob/main/DecenTKL/",
-    "tags": ["ansi", "numpad", "rgb", "atari", "joystick"],
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0000",

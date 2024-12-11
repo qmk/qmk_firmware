@@ -33,11 +33,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [1] = LAYOUT(
         S(KC_F11), S(KC_F12),
         
-        _______,   RGB_M_B,  RGB_M_R, RGB_VAD,
-        _______,   RGB_HUI,  _______, RGB_VAI,
-        RGB_SPD,   RGB_M_SW, RGB_SPI,
-        RGB_RMOD,  RGB_HUD,  RGB_MOD, QK_BOOT,
-        RGB_TOG,             _______
+        _______, _______, _______, RM_VALD,
+        _______, RM_HUEU, _______, RM_VALU,
+        RM_SPDD, _______, RM_SPDU,
+        RM_PREV, RM_HUED, RM_NEXT, QK_BOOT,
+        RM_TOGG,          _______
     ),
 };
 
