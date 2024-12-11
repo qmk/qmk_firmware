@@ -4,7 +4,7 @@
 #include QMK_KEYBOARD_H
 
 
-enum planck_layers {
+enum layers {
   _QWERTY,
   _COLEMAK,
   _DVORAK,
