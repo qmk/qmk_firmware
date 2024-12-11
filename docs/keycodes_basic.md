@@ -227,6 +227,7 @@ Some of these keycodes may behave differently depending on the OS. For example, 
 |`KC_ASSISTANT`         |`KC_ASST`|Launch Assistant    |
 |`KC_MISSION_CONTROL`   |`KC_MCTL`|Open Mission Control|
 |`KC_LAUNCHPAD`         |`KC_LPAD`|Open Launchpad      |
+|`KC_GLOBE`             |`KC_GLB` |Apple Globe/Fn      |
 
 ## Number Pad
 
