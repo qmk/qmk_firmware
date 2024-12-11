@@ -375,14 +375,14 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef LEADER_ENABLE
             process_leader(keycode, record) &&
 #endif
+#ifdef SPACE_CADET_ENABLE
+            process_space_cadet(keycode, record) &&
+#endif
 #ifdef AUTO_SHIFT_ENABLE
             process_auto_shift(keycode, record) &&
 #endif
 #ifdef DYNAMIC_TAPPING_TERM_ENABLE
             process_dynamic_tapping_term(keycode, record) &&
-#endif
-#ifdef SPACE_CADET_ENABLE
-            process_space_cadet(keycode, record) &&
 #endif
 #ifdef MAGIC_ENABLE
             process_magic(keycode, record) &&
