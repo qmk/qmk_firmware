@@ -1,23 +1,21 @@
 # EnvKB 60F
 
-![Image of the EnvKB 60F PCB](https://i.imgur.com/AHA7vgS.png)
+![Image of the EnvKB 60F PCB](https://i.imgur.com/c5xMEg0.png)
 
 
-A low cost Raspberry Pi Pico based keyboard inspired originally by the CFTKB Mysterium.
+A low cost Standard 60% Design which takes inspiration from the CFTKB Mysterium.
 
 * Keyboard Maintainer: [Envious-Data](https://github.com/envious-data)
-* Hardware Supported:
-  * EnvKB 60F V1(`60f/v1`)
-  * EnvKB 60F V2(`60f/v2`)
+* Hardware Supported: EnvKB 60F (Pi Pico)
 * Hardware Availability: [GitHub](https://github.com/Envious-Data/Env-KB60F)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make enviousdesign/60f/v2:default
+    make enviousdesign/60f/v1:default
 
 Flashing example for this keyboard:
 
-    make enviousdesign/60f/v2:default:flash
+    make enviousdesign/60f/v1:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
