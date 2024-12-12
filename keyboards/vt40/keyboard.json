@@ -14,8 +14,7 @@
         "nkro": true
     },
     "matrix_pins": {
-        "cols": ["GP6", "GP7", "GP8", "GP9", "GP10", "GP11", "GP12",
-                 "GP13", "GP21", "GP20", "GP19", "GP18", "GP22"],
+        "cols": ["GP6", "GP7", "GP8", "GP9", "GP10", "GP11", "GP12", "GP13", "GP21", "GP20", "GP19", "GP18", "GP22"],
         "rows": ["GP2", "GP3", "GP4", "GP5"]
     },
     "encoder": {
