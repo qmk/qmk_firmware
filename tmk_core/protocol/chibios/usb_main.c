@@ -532,11 +532,12 @@ void raw_hid_send(uint8_t *data, uint8_t length) {
     if (length != RAW_EPSIZE) {
         return;
     }
-
+#if defined(BLUETOOTH_BHQ)
     if (where_to_send() == OUTPUT_BLUETOOTH) {
         bluetooth_send_hid_raw(data, length);
         // return ;
     }
+#endif
     send_report(USB_ENDPOINT_IN_RAW, data, length);
 }
 

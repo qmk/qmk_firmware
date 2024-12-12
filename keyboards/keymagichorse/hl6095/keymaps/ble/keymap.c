@@ -15,7 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 #include "config.h"
-#include "lpm.h"
 #include "bhq.h"
 #include "outputselect.h"
 #include "usb_main.h"
@@ -26,7 +25,9 @@
 #   include "km_printf.h"
 #endif
 
-
+#   if defined(KB_LPM_ENABLED)
+#   include "lpm.h"
+#endif
 
 
 
@@ -92,8 +93,9 @@ uint8_t pairingSta = 0;
 uint8_t host_index = 255;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+#   if defined(KB_LPM_ENABLED)
     lpm_timer_reset();
-
+#endif
     // 如果广播没有打开 那么 重新打开一下广播
     if(where_to_send() == OUTPUT_BLUETOOTH &&
         (keycode < BT_1 || keycode > BT_9)
