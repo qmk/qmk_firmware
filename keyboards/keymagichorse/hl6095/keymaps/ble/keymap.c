@@ -96,25 +96,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #   if defined(KB_LPM_ENABLED)
     lpm_timer_reset();
 #endif
-    // 如果广播没有打开 那么 重新打开一下广播
-    if(where_to_send() == OUTPUT_BLUETOOTH &&
-        (keycode < BT_1 || keycode > BT_9)
-    )
-    {
-        if(record->event.pressed)
-        {
-            output_mode_press_time = timer_read32();
-        }
-        else 
-        {
-            if(timer_elapsed32(output_mode_press_time) >= 300) 
-            {
-                ble_host_index = 0xff;
-                bhq_AnewOpenBleAdvertising(ble_host_index,10);
-            }
-        }
-    }
-
     switch (keycode)
     {
         case BLE_TOG:
