@@ -45,6 +45,10 @@ If you own a board from one of the following vendors already, consider asking th
 | Wuque Studio                 | Selling wired and tri-mode boards based on QMK without sources, just `via.json` provided.                                                                                                                                                                                                                                           |
 | Zuoya                        | Selling tri-mode boards based on QMK without sources, just `via.json` provided.                                                                                                                                                                                                                                                     |
 
+::: danger Violations
+Links are not provided above as the QMK team does not wish to inadvertently promote purchases of boards in violation of QMK's license.
+:::
+
 ## Licensing
 
 QMK Firmware's license requires full disclosure of source code for any firmware which is based on QMK. This includes any of the following scenarios:
