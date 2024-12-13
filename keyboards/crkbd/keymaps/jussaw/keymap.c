@@ -104,6 +104,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;  // Skip default handling for this key
         }
     }
+
+    switch (keycode) {
+        // makes scroll lock a hold instead of toggle
+        // enables momentary drag scroll on ploopy nano
+        case KC_SCRL:
+            record->event.pressed ? tap_code(KC_SCRL) : tap_code(KC_SCRL);
+            return false;
+        // makes num lock a hold instead of toggle
+        // prevents accidental ploopy nano going into bootloader
+        case KC_NUM:
+            record->event.pressed ? tap_code(KC_NUM) : tap_code(KC_NUM);
+            return false;
+    }
     return true;  // Process all other keycodes normally
 }
 
@@ -131,17 +144,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,-----------------------------------------------------.  ,-----------------------------------------------------.
    * |  Tab   |    !   |    @   |    #   |    $   |    %   |  |    ^   |    &   |    *   |    (   |    )   |  Del   |
    * |--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
-   * |  Esc   |  GUI   |  Alt   |  Ctrl  | Shift  |        |  |    `   | -,RSFT | =,RCTL | [,RALT | ],RGUI |   \    |
+   * |  Esc   |        |SCRL_LCK| Mouse2 | Mouse1 |NUM_LOCK|  |    `   | -,RSFT | =,RCTL | [,RALT | ],RGUI |   \    |
    * |--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
-   * |        |        |        |        |        |        |  |    ~   |    _   |    +   |    {   |    }   |   |    |
+   * |  CAPS  |        |        | Mouse4 | Mouse5 |        |  |    ~   |    _   |    +   |    {   |    }   |   |    |
    * `--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------'
    *                            |  Hyper | Trans  | Space  |  |  Bksp  | Adjust |        |
    *                            `--------------------------'  `--------------------------'
    */
   [_LOWER] = LAYOUT_split_3x6_3(
        KC_TAB, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,    KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,  KC_DEL,
-       KC_ESC, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX,     KC_GRV,MIN_RSFT,EQL_RCTL,LBC_RALT,RBC_RGUI, KC_BSLS,
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_TILD, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
+       KC_ESC, XXXXXXX, KC_SCRL, KC_BTN2, KC_BTN1,  KC_NUM,     KC_GRV,MIN_RSFT,EQL_RCTL,LBC_RALT,RBC_RGUI, KC_BSLS,
+      KC_CAPS, XXXXXXX, XXXXXXX, KC_BTN4, KC_BTN5, XXXXXXX,    KC_TILD, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
                                  KC_HYPR, KC_TRNS,  KC_SPC,    KC_BSPC,  ADJUST, XXXXXXX
   ),
 
@@ -159,7 +172,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_UPPER] = LAYOUT_split_3x6_3(
        KC_TAB,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,       KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_DEL,
        KC_F11, F1_LGUI, F2_LALT, F3_LCTL, F4_LSFT,   KC_F5,     KC_INS, KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, KC_BSLS,
-       KC_F12,   KC_F5,   KC_F7,   KC_F8,   KC_F9,  KC_F10,    KC_PSCR, KC_HOME, KC_PGDN, KC_PGUP,  KC_END,  KC_ENT,
+       KC_F12,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,    KC_PSCR, KC_HOME, KC_PGDN, KC_PGUP,  KC_END,  KC_ENT,
                                  KC_HYPR,  ADJUST,  KC_SPC,    KC_BSPC, KC_TRNS, XXXXXXX
   ),
 
@@ -199,3 +212,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                   KC_ESC, KC_LALT,  KC_SPC,     XXXXXXX, XXXXXXX, TG_GAME
   ),
 };
+
