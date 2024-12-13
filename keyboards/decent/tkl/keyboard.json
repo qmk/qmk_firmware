@@ -30,10 +30,6 @@
         "pid": "0x0000",
         "vid": "0xFEED"
     },
-    "oled": {
-        "driver": "ssd1306",
-        "transport": "i2c"
-    },
     "encoder": {
         "rotary": [
             {
