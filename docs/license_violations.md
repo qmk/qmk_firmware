@@ -17,26 +17,33 @@ The QMK team cannot tell you which boards you should or should not purchase, but
 
 If you own a board from one of the following vendors already, consider asking them for the equivalent QMK source code if it's not already available. With enough customers demanding corresponding source code, vendors may start to change their policies.
 
-* BBB Keyboard
-* Chillkey
-* CIDOO
-* Darmoshark
-* Epomaker
-* KiiBOOM
-* Luminkey
-* Meletrix
-* mmd
-* owlab
-* qwertykeys
-* Royal Kludge
-* Shortcut Studio
-* Tacworks
-* TKD / Vertex
-* WOBKEY
-* Weikav
-* Womier
-* Wuque Studio
-* Zuoya
+| Vendor                       | Reason                                                                                                                                                                                                                                                                                                                              |
+|------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| BBB Keyboard                 | Selling tri-mode boards based on QMK without sources, attempted upstreaming crippled firmware without wireless.                                                                                                                                                                                                                     |
+| Chillkey                     |                                                                                                                                                                                                                                                                                                                                     |
+| CIDOO                        | Selling wired boards based on QMK without sources, just `via.json` provided.                                                                                                                                                                                                                                                        |
+| Darmoshark                   | Selling wired boards based on QMK without sources, just `via.json` provided.                                                                                                                                                                                                                                                        |
+| Epomaker                     | Lots of historical keyboards with `via.json` but no corresponding sources. Wireless code for a small handful provided, pending core cleanup for QMK upstreaming. Most other boards have source nowhere to be seen.                                                                                                                  |
+| Ergokbd (IFKB)               | At least their crkbd clone ships with QMK+Vial, seemingly refuses to disclose sources despite multiple customers requesting them.                                                                                                                                                                                                   |
+| iLovBee                      | Official 30-day copyright source code request issued Sep 11 2024 due to deception on PR, no response received. Ambiguity on PRs -- marketing says wireless, PR author said wired-only, then included wireless code anyway. Seemingly intentionally deceptive.                                                                       |
+| KiiBOOM                      | Seems to use the same OEM as Epomaker, same problems.                                                                                                                                                                                                                                                                               |
+| Luminkey                     | Selling tri-mode boards based on QMK without sources, just `via.json` provided.                                                                                                                                                                                                                                                     |
+| Meletrix                     | Selling tri-mode boards based on QMK without sources, just `via.json` provided.                                                                                                                                                                                                                                                     |
+| mmd / Smartmmd / i-game.tech | Ambiguity on PRs -- marketing says wireless, PR author said wired-only, then included wireless code anyway. Seemingly intentionally deceptive.                                                                                                                                                                                      |
+| MyKeyClub                    | Community-supported JRIS75, vendor was contacted by community members and refused to cooperate.                                                                                                                                                                                                                                     |
+| owlab                        | Selling wired based on QMK without sources, just `via.json` provided. Ambiguous as to whether or not wireless firmware is based on QMK, given that their configuration tool looks very similar to VIA.                                                                                                                              |
+| qwertykeys                   | Selling wired and tri-mode boards based on QMK without sources, just `via.json` provided.                                                                                                                                                                                                                                           |
+| Redragon                     | Selling tri-mode boards based on QMK without sources, attempted upstreaming crippled firmware without wireless.                                                                                                                                                                                                                     |
+| Royal Kludge                 | PRs for fake boards in order to attain VIA compatibility identified. Lots of other keyboards with `via.json` but no corresponding sources, attempted upstreaming crippled firmware without wireless. Wireless code for some provided, pending core cleanup for QMK upstreaming. PRs including different manufacturer names as well. |
+| Shenzhen Hangsheng           | PR submissions with crippled firmware, debating with maintainers about wireless despite marketing material clearly stating tri-mode.                                                                                                                                                                                                |
+| Shortcut Studio              | Selling tri-mode boards based on QMK without sources, just `via.json` provided.                                                                                                                                                                                                                                                     |
+| Tacworks                     | Selling tri-mode boards based on QMK, crippled firmware already merged into QMK without wireless without QMK team realising.                                                                                                                                                                                                        |
+| TKD / Vertex                 | Selling tri-mode boards based on QMK without sources, attempted upstreaming crippled firmware without wireless.                                                                                                                                                                                                                     |
+| WOBKEY                       | Selling tri-mode boards based on QMK without sources, attempted upstreaming crippled firmware without wireless.                                                                                                                                                                                                                     |
+| Weikav                       | Selling tri-mode boards based on QMK without sources, just `via.json` provided.                                                                                                                                                                                                                                                     |
+| Womier                       | Selling tri-mode boards based on QMK without sources, attempted upstreaming crippled firmware without wireless.                                                                                                                                                                                                                     |
+| Wuque Studio                 | Selling wired and tri-mode boards based on QMK without sources, just `via.json` provided.                                                                                                                                                                                                                                           |
+| Zuoya                        | Selling tri-mode boards based on QMK without sources, just `via.json` provided.                                                                                                                                                                                                                                                     |
 
 ## Licensing
 
