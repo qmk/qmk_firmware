@@ -476,16 +476,16 @@ An example of a sequence that is affected by “chordal hold”:
   +---------------------------|--------+
 ```
 
-If the two keys are on the same hand, then this will produce `ac` with 
+If the two keys are on the same hand, then this will produce `ac` with
 `SFT_T(KC_A)` settled as tapped the moment that `KC_C` is pressed. 
 
-If the two keys are on opposite hands and the `HOLD_ON_OTHER_KEY_PRESS`
-option enabled, this will produce `C` with `SFT_T(KC_A)` settled as held the
-moment that `KC_C` is pressed.
+If the two keys are on opposite hands and the `HOLD_ON_OTHER_KEY_PRESS` option
+enabled, this will produce `C` with `SFT_T(KC_A)` settled as held when `KC_C` is
+pressed.
 
 Or if the two keys are on opposite hands and the `PERMISSIVE_HOLD` option is
-enabled, this will produce `C` with `SFT_T(KC_A)` settled as held the
-moment that `KC_C` is released.
+enabled, this will produce `C` with `SFT_T(KC_A)` settled as held when that
+`KC_C` is released.
 
 ### Chordal Hold Handedness
 
@@ -549,14 +549,15 @@ correspond physical keys to matrix positions.
 ::: tip If you define both `chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS]` and
 `chordal_hold_handedness(keypos_t key)` for handedness, the latter takes
 precedence.
+:::
 
 
 ### Per-chord customization
 
 Beyond the per-key configuration possible through handedness, Chordal Hold may
 be configured at a *per-chord* granularity for detailed tuning. In keymap.c,
-define `get_chordal_hold()`. Returning true settles the chord as held, while
-returning false settles as tapped.
+define `get_chordal_hold()`. Returning `true` allows the chord to be held, while
+returning `false` settles as tapped.
 
 For example:
 
