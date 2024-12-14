@@ -1,8 +1,11 @@
 {
     "manufacturer": "CZMAO",
     "keyboard_name": "Swagkeys Eave",
-    "maintainer": "MAOKB",
+    "maintainer": "Swagkeys",
     "bootloader": "stm32duino",
+    "build": {
+        "lto": true
+    },
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
@@ -10,9 +13,6 @@
         "mousekey": true,
         "nkro": true,
         "rgblight": true
-    },
-    "build": {
-        "lto": true
     },
     "indicators": {
         "caps_lock": "B15",
