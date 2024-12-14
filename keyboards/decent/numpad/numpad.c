@@ -22,6 +22,8 @@ void keyboard_post_init_kb(void) {
     gpio_set_pin_input_high(GP17);
     gpio_set_pin_input_high(GP18);
     gpio_set_pin_input_high(GP19);
+
+    keyboard_post_init_user();
 }
 
 void set_button_state(int btn, bool state) {
@@ -33,7 +35,7 @@ void set_button_state(int btn, bool state) {
     }
 }
 
-void matrix_scan_kb(void) {
+void housekeeping_task_kb(void) {
     set_button_state(0, gpio_read_pin(GP16));
     set_button_state(1, gpio_read_pin(GP18));
     set_button_state(2, gpio_read_pin(GP17));
@@ -83,9 +85,15 @@ void matrix_scan_kb(void) {
     joystick_set_axis(2, analog);
     analog = analogReadPin(GP29);
     joystick_set_axis(3, analog);
+
+    housekeeping_task_user();
 }
 
 bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
+    if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) {
+        return false;
+    }
+    
     if (get_highest_layer(layer_state) > 0) {
         uint8_t layer = get_highest_layer(layer_state);
 
