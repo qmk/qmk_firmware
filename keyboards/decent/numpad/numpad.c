@@ -85,8 +85,6 @@ void housekeeping_task_kb(void) {
     joystick_set_axis(2, analog);
     analog = analogReadPin(GP29);
     joystick_set_axis(3, analog);
-
-    housekeeping_task_user();
 }
 
 bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
