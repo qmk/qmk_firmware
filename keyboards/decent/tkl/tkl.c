@@ -1,6 +1,8 @@
 // Copyright 2024 B. Le Roy
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+#include "quantum.h"
+
 static void render_logo(void) {
     static const char PROGMEM qmk_logo[] = {
         // 0     1     2     3     4     5     6     7     8     9    10    11    12    13    14    15    16    17    18    19    20
@@ -21,6 +23,10 @@ static const char PROGMEM caps_on[] = { 0x9C, 0x9D, 0x9E, 0x9F };
 static const char PROGMEM caps_off[] = { 0xBC, 0xBD, 0xBE, 0xBF };
 
 bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
+    }
+
     render_logo();
 
     bool caps = host_keyboard_led_state().caps_lock;
@@ -33,6 +39,10 @@ bool oled_task_kb(void) {
 }
 
 bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
+    if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) {
+        return false;
+    }
+
     bool caps = host_keyboard_led_state().caps_lock;
 
     if (caps) {
