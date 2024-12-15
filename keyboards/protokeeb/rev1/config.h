@@ -33,6 +33,7 @@
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 200U
 
 /* LED to blink when entering bootloader mode */
+// Raspberry Pi Pico's on board LED
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP25
 
 #define ENCODER_MAP_KEY_DELAY 10
