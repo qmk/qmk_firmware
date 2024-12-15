@@ -23,9 +23,6 @@
 #define ENCODER_BUTTON_ROW 0
 #define ENCODER_BUTTON_COL 4
 
-/* Peripheral used */
-#define WS2812_PIO_USE_PIO1
-
 /* RGB lighting effects and animations settings */
 #define RGBLIGHT_EFFECT_BREATHE_MAX 127
 
