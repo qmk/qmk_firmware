@@ -25,4 +25,5 @@ void matrix_scan_kb(void) {
     } else {
         matrix[ENCODER_BUTTON_ROW] &= ~(1 << ENCODER_BUTTON_COL);
     }
+    matrix_scan_user();
 }
