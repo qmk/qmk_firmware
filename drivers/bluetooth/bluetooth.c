@@ -61,7 +61,7 @@ void bluetooth_send_mouse(report_mouse_t *report) {
 #elif defined(BLUETOOTH_RN42)
     rn42_send_mouse(report);
 #elif defined(BLUETOOTH_BHQ)
-
+    bluetooth_bhq_send_mouse(report);
 #endif
 }
 

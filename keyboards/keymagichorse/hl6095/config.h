@@ -26,7 +26,6 @@
 #   define UART_RX_PIN          A3
 #   define UART_RX_PAL_MODE	    7
 
-
 #endif
 
 

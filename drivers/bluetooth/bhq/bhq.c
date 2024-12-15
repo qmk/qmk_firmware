@@ -292,16 +292,59 @@ void bhq_send_system(uint16_t report) {
 
 void bhq_send_mouse(uint8_t* report) {
     uint8_t index = 0;
+    uint8_t report_i = 0;
     memset(bhkBuff, 0, PACKET_MAX_LEN);
-
     bhkBuff[index++] = 0x25;            // Cmd type
-    bhkBuff[index++] = report[1];                        // Button
-    bhkBuff[index++] = report[2];                        // X
-    bhkBuff[index++] = (report[2] & 0x80) ? 0xff : 0x00; // BHQ use 16bit report, set high byte
-    bhkBuff[index++] = report[3];                        // Y
-    bhkBuff[index++] = (report[3] & 0x80) ? 0xff : 0x00; // BHQ use 16bit report, set high byte
-    bhkBuff[index++] = report[4];                        // V wheel
-    bhkBuff[index++] = report[5];                        // H wheel
+
+#ifdef MOUSE_SHARED_EP
+    report_i = 1;
+#endif
+#ifndef MOUSE_SHARED_EP
+    report_i = 0;
+#endif
+
+    bhkBuff[index++] = report[report_i++];   // Button
+
+#ifdef MOUSE_EXTENDED_REPORT
+    // be sure that MOUSE_EXTENDED_REPORT,Compatible with boot + extension mode xy is 16bit and vh is 8bit
+    bhkBuff[index++] = report[report_i++];   // boot_x
+    bhkBuff[index++] = report[report_i++];   // boot_y
+
+    bhkBuff[index++] = report[report_i++];   // x
+    bhkBuff[index++] = report[report_i++];   // x bit16
+    
+    bhkBuff[index++] = report[report_i++];   // y
+    bhkBuff[index++] = report[report_i++];   // y bit16
+#endif
+
+#ifndef MOUSE_EXTENDED_REPORT 
+    // not WHEEL_EXTENDED_REPORT when, neet 8bit to 16bit
+    int8_t boot_x  = report[report_i++];
+    int8_t boot_y  = report[report_i++];
+    bhkBuff[index++] = boot_x;      // boot_x
+    bhkBuff[index++] = boot_y;      // boot_y
+
+
+    bhkBuff[index++] = boot_x;                        // X
+    bhkBuff[index++] = (boot_x & 0x80) ? 0xff : 0x00; 
+    bhkBuff[index++] = boot_y;                        // Y
+    bhkBuff[index++] = (boot_y & 0x80) ? 0xff : 0x00; 
+#endif 
+
+#ifdef WHEEL_EXTENDED_REPORT
+    // BHQ model not supported 16bit of vh
+    // neet bit16 to bit8  
+    int16_t v = 0;
+    v = hid_report[report_i++] << 8;  
+    v |= hid_report[report_i++];      
+    int16_t h = 0;
+    h = hid_report[report_i++] << 8;
+    h |= hid_report[report_i++];    
+#endif
+#ifndef WHEEL_EXTENDED_REPORT
+    bhkBuff[index++] = report[report_i++];   // v bit8
+    bhkBuff[index++] = report[report_i++];   // h bit8   
+#endif
 
     BHQ_SendCmd(BHQ_ACK, bhkBuff,index);
 }
