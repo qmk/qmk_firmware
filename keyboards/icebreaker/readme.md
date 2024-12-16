@@ -4,13 +4,12 @@
 
 
 
-* Keyboard Maintainer: [Matthijs Muller](https://github.com/%SmollChungus%)
-* Hardware Supported: Icebreaker HS PCB
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [Matthijs Muller](https://github.com/SmollChungus)
+* Hardware Supported: Icebreaker Hotswap PCB
 
 Make example for this keyboard (after setting up your build environment):
 
-    make Icebreaker:default
+    make ccebreaker:default
 
 Flashing example for this keyboard:
 
