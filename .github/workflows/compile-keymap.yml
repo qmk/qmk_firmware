@@ -37,7 +37,6 @@ jobs:
       - name: Set up QMK Firmware
         run: |
           qmk setup --yes
-          qmk doctor
 
       # Step 5: Compile Firmware
       - name: Compile Firmware
