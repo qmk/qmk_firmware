@@ -1,3 +1,3 @@
 # This file is mostly left blank
 
-DEFAULT_FOLDER = at1/r1
+DEFAULT_FOLDER = atr1/r1
