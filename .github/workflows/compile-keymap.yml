@@ -70,14 +70,21 @@ jobs:
           cp .build/*.uf2 build_artifacts/ || echo "No .uf2 files found."
           cp .build/*.bin build_artifacts/ || echo "No .bin files found."
           cp .build/*.hex build_artifacts/ || echo "No .hex files found."
-
-      # Step 8: Upload Firmware Artifact
+          
+      - name: Sanitize Artifact Name and Upload
+        run: |
+          SANITIZED_KEYBOARD=$(echo "${{ env.keyboard }}" | tr '/' '-')
+          ARTIFACT_NAME="firmware-${SANITIZED_KEYBOARD}-${{ env.keymap }}"
+          echo "Sanitized Artifact Name: $ARTIFACT_NAME"
+          mv build_artifacts/* ./firmware/
+      
       - name: Upload Firmware Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: firmware-${{ env.keyboard.replace('/', '-') }}-${{ env.keymap }}
-          path: build_artifacts/
+          name: ${{ steps.sanitize.outputs.ARTIFACT_NAME }}
+          path: firmware/
           if-no-files-found: warn
+
 
   release:
     needs: build-and-release
