@@ -2,7 +2,7 @@
 # https://github.com/manna-harbour/miryoku
 
 MIRYOKU_NAV=VI
-MIRYOKU_ALPHAS=STURDY
+MIRYOKU_ALPHAS=GALLIUMV2VIM
 
 # https://docs.qmk.fm/#/custom_quantum_functions?id=deferred-execution
 # DEFERRED_EXEC_ENABLE=yes
