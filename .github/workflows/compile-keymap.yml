@@ -75,10 +75,9 @@ jobs:
       - name: Upload Firmware Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: firmware-${{ env.keyboard }}-${{ env.keymap }}
+          name: firmware-${{ env.keyboard.replace('/', '-') }}-${{ env.keymap }}
           path: build_artifacts/
           if-no-files-found: warn
-
 
   release:
     needs: build-and-release
