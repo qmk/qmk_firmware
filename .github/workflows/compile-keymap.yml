@@ -63,8 +63,9 @@ jobs:
         with:
           name: firmware-${{ env.keyboard }}-${{ env.keymap }}
           path: |
-            .build/*.hex
+            .build/*.uf2
             .build/*.bin
+            .build/*.hex
 
   release:
     needs: build-and-test
