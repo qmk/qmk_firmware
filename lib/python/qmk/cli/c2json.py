@@ -16,6 +16,7 @@ from qmk.commands import dump_lines
 
 
 @cli.argument('--no-cpp', arg_only=True, action='store_false', help='Do not use \'cpp\' on keymap.c')
+@cli.argument('--export-layer-names', arg_only=True, action='store_true', help='Export layer names when they are defined as enum')
 @cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
 @cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='The keyboard\'s name')
@@ -51,7 +52,7 @@ def c2json(cli):
         return False
 
     try:
-        keymap_json = c2json_impl(keyboard, keymap, filename, use_cpp=cli.args.no_cpp)
+        keymap_json = c2json_impl(keyboard, keymap, filename, use_cpp=cli.args.no_cpp, export_layer_names=cli.args.export_layer_names)
     except CppError as e:
         if cli.config.general.verbose:
             cli.log.debug('The C pre-processor ran into a fatal error: %s', e)
@@ -60,7 +61,7 @@ def c2json(cli):
 
     # Generate the keymap.json
     try:
-        keymap_json = generate_json(keymap_json['keymap'], keymap_json['keyboard'], keymap_json['layout'], keymap_json['layers'])
+        keymap_json = generate_json(keymap_json['keymap'], keymap_json['keyboard'], keymap_json['layout'], keymap_json['layers'], keymap_json['layer_names'] if cli.args.export_layer_names else None)
     except KeyError:
         cli.log.error('Something went wrong. Try to use --no-cpp.')
         return False
