@@ -109,7 +109,7 @@ jobs:
       - name: Download Firmware Artifact
         uses: actions/download-artifact@v3
         with:
-          name: ${{ needs.build-and-upload.outputs.artifact_name }}
+          name: ${{ needs.build-and-release.outputs.artifact_name }}
           path: ./firmware
 
       # Step 2: Create GitHub Release
@@ -118,8 +118,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ needs.build-and-upload.outputs.tag_name }}
-          release_name: Firmware for ${{ needs.build-and-upload.outputs.artifact_name }}
+          tag_name: ${{ needs.build-and-release.outputs.tag_name }}
+          release_name: Firmware for ${{ needs.build-and-release.outputs.artifact_name }}
           body: |
             Compiled firmware for:
             - **Keyboard:** ${{ env.keyboard }}
