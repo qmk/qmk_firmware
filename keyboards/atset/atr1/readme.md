@@ -4,24 +4,19 @@
 
 A 9% macropad.
 
-* Keyboard Maintainer: [binepad](https://github.com/binepad)
+* Keyboard Maintainer: [atset]
 * Hardware Supported:
    
-    * AT1 R2 *(ft. STM32F103)*
+    * ATR1 R1 *(ft. STM32F103)*
 * Hardware Availability: 
 
 Make example for this keyboard (after setting up your build environment):
 
-    make at1/r1:default
-
-..or..
-
-    make at1/r2:default
-
+    make atr1/r1:default
+    
 Flashing example for this keyboard:
 
-
-    make at1/r2:default:flash
+    make atr1/r1:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
