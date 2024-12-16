@@ -1,0 +1,58 @@
+{
+    "manufacturer": "SteelSeries",
+    "keyboard_name": "Prime",
+    "maintainer": "Dasky",
+    "bootloader": "uf2boot",
+    "build": {
+        "debounce_type": "asym_eager_defer_pk",
+        "lto": true
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B5", "pin_b": "B4", "resolution": 2}
+        ]
+    },
+    "features": {
+        "bootmagic": true,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "pointing_device": true,
+        "rgblight": true
+    },
+    "matrix_pins": {
+        "direct": [
+            ["A0", "C15", "A1", "C13", "C14", "A3"]
+        ]
+    },
+    "processor": "STM32F103",
+    "rgblight": {
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true
+        },
+        "default": {
+            "animation": "rainbow_mood"
+        },
+        "driver": "custom",
+        "led_count": 1
+    },
+    "url": "https://steelseries.com/gaming-mice/prime",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0000",
+        "vid": "0xFEED"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label": "Left Click", "matrix": [0, 0], "x": 0, "y": 0},
+                {"label": "Middle Click", "matrix": [0, 1], "x": 1, "y": 0},
+                {"label": "Right Click", "matrix": [0, 2], "x": 2, "y": 0},
+                {"label": "Side forward", "matrix": [0, 3], "x": 0, "y": 2},
+                {"label": "Side back", "matrix": [0, 4], "x": 0, "y": 3},
+                {"label": "boot", "matrix": [0, 5], "x": 1, "y": 1}
+            ]
+        }
+    }
+}
