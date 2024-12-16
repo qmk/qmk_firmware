@@ -1,5 +1,5 @@
 {
-    "keyboard_name": "AT1 R2",
+    "keyboard_name": "ATR1 R1",
     "bootloader": "stm32duino",
     "diode_direction": "COL2ROW",
     "matrix_pins": {
