@@ -22,9 +22,9 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      # Step 2: Extract keyboard and keymap from branch name
-      - name: Extract Keyboard and Keymap from Branch Name
-        id: extract
+      # Step 2: Extract Keyboard and Keymap
+      - name: Extract Keyboard and Keymap
+        if: github.event_name == 'push'
         run: |
           BRANCH_NAME=${GITHUB_REF##*/}
           IFS='/' read -r -a PARTS <<< "$BRANCH_NAME"
@@ -34,6 +34,12 @@ jobs:
           fi
           echo "keyboard=${PARTS[1]}" >> $GITHUB_ENV
           echo "keymap=${PARTS[2]}" >> $GITHUB_ENV
+
+      - name: Use Inputs for Manual Trigger
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          echo "keyboard=${{ github.event.inputs.keyboard }}" >> $GITHUB_ENV
+          echo "keymap=${{ github.event.inputs.keymap }}" >> $GITHUB_ENV
 
 
       # Step 3: Install QMK dependencies
