@@ -5,6 +5,13 @@ on:
     branches:
       - 'keyboard/*'  # Trigger workflow for branches prefixed with 'keyboard/'
   workflow_dispatch: # Allow manual triggering of the workflow
+    inputs:
+      keyboard:
+        description: 'Keyboard path (e.g., splitkb/aurora/lily58/rev1)'
+        required: true
+      keymap:
+        description: 'Keymap name (e.g., Symphony)'
+        required: true
 
 jobs:
   build-and-test:
@@ -16,15 +23,18 @@ jobs:
         uses: actions/checkout@v3
 
       # Step 2: Extract keyboard and keymap from branch name
-      - name: Extract Keyboard and Keymap
+      - name: Extract Keyboard and Keymap from Branch Name
         id: extract
         run: |
           BRANCH_NAME=${GITHUB_REF##*/}
           IFS='/' read -r -a PARTS <<< "$BRANCH_NAME"
+          if [ ${#PARTS[@]} -ne 3 ]; then
+            echo "Invalid branch format. Expected keyboard/<keyboard>/<keymap>"
+            exit 1
+          fi
           echo "keyboard=${PARTS[1]}" >> $GITHUB_ENV
           echo "keymap=${PARTS[2]}" >> $GITHUB_ENV
-        env:
-          GITHUB_REF: ${{ github.ref }}
+
 
       # Step 3: Install QMK dependencies
       - name: Install QMK Dependencies
