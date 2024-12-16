@@ -72,6 +72,7 @@ jobs:
           cp .build/*.hex build_artifacts/ || echo "No .hex files found."
           
       - name: Sanitize Artifact Name and Upload
+        id: sanitize
         run: |
           SANITIZED_KEYBOARD=$(echo "${{ env.keyboard }}" | tr '/' '-')
           ARTIFACT_NAME="firmware-${SANITIZED_KEYBOARD}-${{ env.keymap }}"
