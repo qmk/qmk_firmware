@@ -41,7 +41,6 @@ jobs:
           echo "keyboard=${{ github.event.inputs.keyboard }}" >> $GITHUB_ENV
           echo "keymap=${{ github.event.inputs.keymap }}" >> $GITHUB_ENV
 
-
       # Step 3: Install QMK dependencies
       - name: Install QMK Dependencies
         run: |
@@ -66,3 +65,31 @@ jobs:
           path: |
             .build/*.hex
             .build/*.bin
+
+  release:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Download Firmware Artifact
+      - name: Download Firmware Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: firmware-${{ env.keyboard }}-${{ env.keymap }}
+          path: ./firmware
+
+      # Step 2: Create GitHub Release
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: firmware-${{ env.keyboard }}-${{ env.keymap }}
+          release_name: Firmware for ${{ env.keyboard }} - ${{ env.keymap }}
+          body: |
+            Compiled firmware for:
+            - **Keyboard:** ${{ env.keyboard }}
+            - **Keymap:** ${{ env.keymap }}
+          draft: false
+          prerelease: false
+          files: ./firmware/*
