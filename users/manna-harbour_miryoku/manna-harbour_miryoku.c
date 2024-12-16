@@ -7,6 +7,34 @@
 
 #include "manna-harbour_miryoku.h"
 
+// Achordion mod ----------------------
+#include "features/achordion.h"
+
+bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+  if (!process_achordion(keycode, record)) { return false; }
+  // Your macros ...
+
+  return true;
+}
+
+void matrix_scan_user(void) {
+  achordion_task();
+}
+
+bool achordion_eager_mod(uint8_t mod) {
+  switch (mod) {
+    case MOD_LSFT:
+    case MOD_RSFT:
+    case MOD_LCTL:
+    case MOD_RCTL:
+      return true;  // Eagerly apply Shift and Ctrl mods.
+
+    default:
+      return false;
+  }
+}
+// ------------------------------------
+
 enum layers { MIRYOKU_LAYER_NAMES };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -48,3 +76,4 @@ combo_t key_combos[COMBO_COUNT] = {
   COMBO(thumbcombos_fun, KC_APP)
 };
 #endif
+

@@ -9,3 +9,11 @@
 /*#define TAPPING_TERM 200*/
 /*#define IGNORE_MOD_TAP_INTERRUPT /* for rolling on mod-tap keys */*/
 
+// Achordion mod ----------------------
+#define ACHORDION_STREAK
+
+// Tap-hold configuration for home row mods.
+#define TAPPING_TERM 175
+#define PERMISSIVE_HOLD
+#define QUICK_TAP_TERM_PER_KEY
+// ------------------------------------
