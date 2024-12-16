@@ -9,7 +9,7 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make ccebreaker:default
+    make icebreaker:default
 
 Flashing example for this keyboard:
 
