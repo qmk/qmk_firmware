@@ -5,3 +5,7 @@
 
 #pragma once
 
+/* Enable if issues with mod keys arise */
+/*#define TAPPING_TERM 200*/
+/*#define IGNORE_MOD_TAP_INTERRUPT /* for rolling on mod-tap keys */*/
+

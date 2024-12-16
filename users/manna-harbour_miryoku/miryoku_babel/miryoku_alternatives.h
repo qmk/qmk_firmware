@@ -7,6 +7,24 @@
 
 #pragma once
 
+#define MIRYOKU_ALTERNATIVES_BASE_GALLIUMV2VIM_FLIP \
+KC_B,              KC_L,              KC_D,              KC_C,              KC_V,                 KC_J,                 KC_F,              KC_O,              KC_U,              KC_COMM,             \
+LGUI_T(KC_N),      LALT_T(KC_R),      LCTL_T(KC_T),      LSFT_T(KC_S),      KC_G,                 KC_Y,                 LSFT_T(KC_H),      LCTL_T(KC_A),      LALT_T(KC_E),      LGUI_T(KC_I),        \
+LT(U_BUTTON,KC_X), ALGR_T(QC_K),      KC_M,              KC_W,              KC_Z,                 KC_K,                 KC_P,              KC_QUOT,           ALGR_T(KC_SCLN),   LT(U_BUTTON,KC_DOT), \
+U_NP,              U_NP,              LT(U_FUN,KC_DEL),  LT(U_NUM,KC_BSPC), LT(U_SYM,KC_ENT),     LT(U_MOUSE,KC_TAB),   LT(U_NAV,KC_SPC),  LT(U_MEDIA,KC_ESC),U_NP,              U_NP
+
+#define MIRYOKU_ALTERNATIVES_BASE_STURDY_FLIP \
+KC_V,              KC_M,              KC_L,              KC_C,              KC_P,                 KC_X,                 KC_F,              KC_O,              KC_U,              KC_J,             \
+LGUI_T(KC_S),      LALT_T(KC_T),      LCTL_T(KC_R),      LSFT_T(KC_D),      KC_Y,                 KC_DOT,               LSFT_T(KC_N),      LCTL_T(KC_A),      LALT_T(KC_E),      LGUI_T(KC_I),     \
+LT(U_BUTTON,KC_Z), ALGR_T(KC_K),      KC_Q,              KC_G,              KC_W,                 KC_B,                 KC_H,              KC_QUOT,           ALGR_T(KC_SCLN),   LT(U_BUTTON,KC_COMM),\
+U_NP,              U_NP,              LT(U_FUN,KC_DEL),  LT(U_NUM,KC_BSPC), LT(U_SYM,KC_ENT),     LT(U_MOUSE,KC_TAB),   LT(U_NAV,KC_SPC),  LT(U_MEDIA,KC_ESC),U_NP,              U_NP
+
+#define MIRYOKU_ALTERNATIVES_BASE_ENGRAMMER_FLIP \
+KC_B,              KC_Y,              KC_O,              KC_U,              KC_QUOT,              KC_SCLN,              KC_L,              KC_D,              KC_W,              KC_V,             \
+LGUI_T(KC_C),      LALT_T(KC_I),      LCTL_T(KC_E),      LSFT_T(KC_A),      KC_COMM,              KC_DOT,               LSFT_T(KC_H),      LCTL_T(KC_T),      LALT_T(KC_S),      LGUI_T(KC_N),     \
+LT(U_BUTTON,KC_G), ALGR_T(KC_X),      KC_J,              KC_K,              KC_MINS,              KC_SLSH,              KC_R,              KC_M,              ALGR_T(KC_F),      LT(U_BUTTON,KC_P),\
+U_NP,              U_NP,              LT(U_FUN,KC_DEL),  LT(U_NUM,KC_BSPC), LT(U_SYM,KC_ENT),     LT(U_MOUSE,KC_TAB),   LT(U_NAV,KC_SPC),  LT(U_MEDIA,KC_ESC),U_NP,              U_NP
+
 #define MIRYOKU_ALTERNATIVES_BASE_AZERTY_FLIP \
 KC_A,              KC_Z,              KC_E,              KC_R,              KC_T,              KC_Y,              KC_U,              KC_I,              KC_O,              KC_P,              \
 LGUI_T(KC_Q),      LALT_T(KC_S),      LCTL_T(KC_D),      LSFT_T(KC_F),      KC_G,              KC_H,              LSFT_T(KC_J),      LCTL_T(KC_K),      LALT_T(KC_L),      LGUI_T(KC_M),      \
@@ -66,6 +84,24 @@ KC_Q,              KC_W,              KC_E,              KC_R,              KC_T
 LGUI_T(KC_A),      LALT_T(KC_S),      LCTL_T(KC_D),      LSFT_T(KC_F),      KC_G,              KC_H,              LSFT_T(KC_J),      LCTL_T(KC_K),      LALT_T(KC_L),      LGUI_T(KC_QUOT),   \
 LT(BUTTON, KC_Y),  ALGR_T(KC_X),      KC_C,              KC_V,              KC_B,              KC_N,              KC_M,              KC_COMM,           ALGR_T(KC_DOT),    LT(BUTTON, KC_SLSH), \
 U_NP,              U_NP,              LT(FUN, KC_DEL),   LT(NUM, KC_BSPC),  LT(SYM, KC_ENT),   LT(MOUSE, KC_TAB), LT(NAV, KC_SPC),   LT(MEDIA, KC_ESC), U_NP,              U_NP
+
+#define MIRYOKU_ALTERNATIVES_BASE_GALLIUMV2VIM \
+KC_B,              KC_L,              KC_D,              KC_C,              KC_V,                 KC_J,                 KC_F,              KC_O,              KC_U,              KC_COMM,             \
+LGUI_T(KC_N),      LALT_T(KC_R),      LCTL_T(KC_T),      LSFT_T(KC_S),      KC_G,                 KC_Y,                 LSFT_T(KC_H),      LCTL_T(KC_A),      LALT_T(KC_E),      LGUI_T(KC_I),        \
+LT(U_BUTTON,KC_X), ALGR_T(QC_K),      KC_M,              KC_W,              KC_Z,                 KC_K,                 KC_P,              KC_QUOT,           ALGR_T(KC_SCLN),   LT(U_BUTTON,KC_DOT), \
+U_NP,              U_NP,              LT(U_MEDIA,KC_ESC),LT(U_NAV,KC_SPC),  LT(U_MOUSE,KC_TAB),   LT(U_SYM,KC_ENT),     LT(U_NUM,KC_BSPC), LT(U_FUN,KC_DEL),  U_NP,              U_NP
+
+#define MIRYOKU_ALTERNATIVES_BASE_STURDY \
+KC_V,              KC_M,              KC_L,              KC_C,              KC_P,                 KC_X,                 KC_F,              KC_O,              KC_U,              KC_J,             \
+LGUI_T(KC_S),      LALT_T(KC_T),      LCTL_T(KC_R),      LSFT_T(KC_D),      KC_Y,                 KC_DOT,               LSFT_T(KC_N),      LCTL_T(KC_A),      LALT_T(KC_E),      LGUI_T(KC_I),     \
+LT(U_BUTTON,KC_Z), ALGR_T(KC_K),      KC_Q,              KC_G,              KC_W,                 KC_B,                 KC_H,              KC_QUOT,           ALGR_T(KC_SCLN),   LT(U_BUTTON,KC_COMM),\
+U_NP,              U_NP,              LT(U_MEDIA,KC_ESC),LT(U_NAV,KC_SPC),  LT(U_MOUSE,KC_TAB),   LT(U_SYM,KC_ENT),     LT(U_NUM,KC_BSPC), LT(U_FUN,KC_DEL),  U_NP,              U_NP
+
+#define MIRYOKU_ALTERNATIVES_BASE_ENGRAMMER \
+KC_B,              KC_Y,              KC_O,              KC_U,              KC_QUOT,              KC_SCLN,              KC_L,              KC_D,              KC_W,              KC_V,             \
+LGUI_T(KC_C),      LALT_T(KC_I),      LCTL_T(KC_E),      LSFT_T(KC_A),      KC_COMM,              KC_DOT,               LSFT_T(KC_H),      LCTL_T(KC_T),      LALT_T(KC_S),      LGUI_T(KC_N),     \
+LT(U_BUTTON,KC_G), ALGR_T(KC_X),      KC_J,              KC_K,              KC_MINS,              KC_SLSH,              KC_R,              KC_M,              ALGR_T(KC_F),      LT(U_BUTTON,KC_P),\
+U_NP,              U_NP,              LT(U_MEDIA,KC_ESC),LT(U_NAV,KC_SPC),  LT(U_MOUSE,KC_TAB),   LT(U_SYM,KC_ENT),     LT(U_NUM,KC_BSPC), LT(U_FUN,KC_DEL),  U_NP,              U_NP
 
 #define MIRYOKU_ALTERNATIVES_BASE_AZERTY \
 KC_A,              KC_Z,              KC_E,              KC_R,              KC_T,              KC_Y,              KC_U,              KC_I,              KC_O,              KC_P,              \
