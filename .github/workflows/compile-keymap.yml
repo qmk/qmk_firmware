@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - 'keyboard/*'  # Trigger workflow for branches prefixed with 'keyboard/'
+  workflow_dispatch: # Allow manual triggering of the workflow
 
 jobs:
   build-and-test:
