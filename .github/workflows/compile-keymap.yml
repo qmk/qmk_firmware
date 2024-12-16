@@ -76,6 +76,7 @@ jobs:
           SANITIZED_KEYBOARD=$(echo "${{ env.keyboard }}" | tr '/' '-')
           ARTIFACT_NAME="firmware-${SANITIZED_KEYBOARD}-${{ env.keymap }}"
           echo "Sanitized Artifact Name: $ARTIFACT_NAME"
+          mkdir -p firmware
           mv build_artifacts/* ./firmware/
       
       - name: Upload Firmware Artifact
