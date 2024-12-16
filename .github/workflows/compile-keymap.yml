@@ -14,16 +14,30 @@ on:
         required: true
 
 jobs:
-  build-and-upload:
+  build-and-release:
     runs-on: ubuntu-latest
-
+    
     outputs:
+      artifact_name: ${{ steps.sanitize.outputs.artifact_name }}
       tag_name: ${{ steps.version_tag.outputs.tag_name }}
-
+      
     steps:
+      # Step 1: Check out repository
       - name: Checkout Repository
         uses: actions/checkout@v3
 
+      # Step 2: Extract Keyboard and Keymap
+      - name: Extract Keyboard and Keymap
+        if: github.event_name == 'push'
+        run: |
+          BRANCH_NAME=${GITHUB_REF##*/}
+          IFS='/' read -r -a PARTS <<< "$BRANCH_NAME"
+          if [ ${#PARTS[@]} -ne 3 ]; then
+            echo "Invalid branch format. Expected keyboard/<keyboard>/<keymap>"
+            exit 1
+          fi
+          echo "keyboard=${PARTS[1]}" >> $GITHUB_ENV
+          echo "keymap=${PARTS[2]}" >> $GITHUB_ENV
       - name: Generate Version Tag
         id: version_tag
         run: |
@@ -31,38 +45,85 @@ jobs:
           echo "Generated Tag Name: $TAG_NAME"
           echo "::set-output name=tag_name::$TAG_NAME"
 
-      - name: Prepare Firmware Directory
-        run: |
-          mkdir -p firmware
-          mv build_artifacts/* firmware/
 
+      - name: Use Inputs for Manual Trigger
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          echo "keyboard=${{ github.event.inputs.keyboard }}" >> $GITHUB_ENV
+          echo "keymap=${{ github.event.inputs.keymap }}" >> $GITHUB_ENV
+
+      # Step 3: Install QMK dependencies
+      - name: Install QMK Dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y python3 python3-pip git gcc-avr avr-libc gcc-arm-none-eabi binutils-arm-none-eabi libusb-dev dfu-programmer dfu-util
+          pip install qmk
+
+      # Step 4: Modify .gitignore for Build Artifacts
+      - name: Modify .gitignore for Build Artifacts
+        run: |
+          echo "!.build/*.uf2" >> .gitignore
+          echo "!.build/*.bin" >> .gitignore
+          echo "!.build/*.hex" >> .gitignore
+
+      # Step 5: Set up QMK firmware
+      - name: Set up QMK Firmware
+        run: qmk setup --yes
+
+      # Step 6: Compile Firmware
+      - name: Compile Firmware
+        run: qmk compile -e CONVERT_TO=promicro_rp2040 -kb ${{ env.keyboard }} -km ${{ env.keymap }}
+
+      # Step 7: Move Generated Files
+      - name: Move Generated Files
+        run: |
+          mkdir -p build_artifacts
+          cp ./*.uf2 build_artifacts/ || echo "No .uf2 files found."
+          cp ./*.bin build_artifacts/ || echo "No .bin files found."
+          cp ./*.hex build_artifacts/ || echo "No .hex files found."
+          
+      - name: Sanitize Artifact Name and Upload
+        id: sanitize
+        run: |
+          SANITIZED_KEYBOARD=$(echo "${{ env.keyboard }}" | tr '/' '-')
+          ARTIFACT_NAME="firmware-${SANITIZED_KEYBOARD}-${{ env.keymap }}"
+          echo "Sanitized Artifact Name: $ARTIFACT_NAME"
+          echo "::set-output name=artifact_name::$ARTIFACT_NAME"
+          mkdir -p firmware
+          mv build_artifacts/* ./firmware/
+      
       - name: Upload Firmware Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: firmware
+          name: ${{ steps.sanitize.outputs.artifact_name }}
           path: firmware/
           if-no-files-found: warn
 
+
   release:
-    needs: build-and-upload
+    needs: build-and-release
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Download Firmware Artifact
       - name: Download Firmware Artifact
         uses: actions/download-artifact@v3
         with:
-          name: firmware
+          name: ${{ needs.build-and-release.outputs.artifact_name }}
           path: ./firmware
 
+      # Step 2: Create GitHub Release
       - name: Create GitHub Release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ needs.build-and-upload.outputs.tag_name }}
-          release_name: Firmware Release - ${{ needs.build-and-upload.outputs.tag_name }}
+          tag_name: ${{ needs.build-and-release.outputs.tag_name }}
+          release_name: Firmware for ${{ needs.build-and-release.outputs.artifact_name }}
           body: |
-            Compiled firmware released on ${{ needs.build-and-upload.outputs.tag_name }}.
+            Compiled firmware for:
+            - **Keyboard:** ${{ env.keyboard }}
+            - **Keymap:** ${{ env.keymap }}
           draft: false
           prerelease: false
           files: ./firmware/*
