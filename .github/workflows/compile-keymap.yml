@@ -77,13 +77,14 @@ jobs:
           SANITIZED_KEYBOARD=$(echo "${{ env.keyboard }}" | tr '/' '-')
           ARTIFACT_NAME="firmware-${SANITIZED_KEYBOARD}-${{ env.keymap }}"
           echo "Sanitized Artifact Name: $ARTIFACT_NAME"
+          echo "::set-output name=artifact_name::$ARTIFACT_NAME"
           mkdir -p firmware
           mv build_artifacts/* ./firmware/
       
       - name: Upload Firmware Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ steps.sanitize.outputs.ARTIFACT_NAME }}
+          name: ${{ steps.sanitize.outputs.artifact_name }}
           path: firmware/
           if-no-files-found: warn
 
