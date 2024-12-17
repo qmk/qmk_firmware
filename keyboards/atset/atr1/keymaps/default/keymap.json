@@ -1,8 +1,6 @@
 {
     "keyboard": "at1/r2",
-    "version": 1,
     "author": "atset",
-    "notes": "This file is a keymap.json file for binepad/bn009r2",
     "keymap": "default",
     "layout": "LAYOUT_ortho_3x3",
     "layers": [
