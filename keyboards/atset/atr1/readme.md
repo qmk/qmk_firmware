@@ -8,7 +8,7 @@ A 9% macropad.
 * Hardware Supported:
    
     * ATR1 R1 *(ft. STM32F103)*
-* Hardware Availability: 
+* Hardware Availability: atsetmediscience.com
 
 Make example for this keyboard (after setting up your build environment):
 
