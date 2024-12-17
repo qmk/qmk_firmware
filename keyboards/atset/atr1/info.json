@@ -3,9 +3,6 @@
   "keyboard_name": "AT1",
   "maintainer": "atset",
   "features": {
-      "bootmagic": true,
-      "command": false,
-      "console": false,
       "extrakey": true,
       "mousekey": true,
       "nkro": false
