@@ -91,6 +91,9 @@
             "driver": "usart"
         },
         "transport": {
+            "sync": {
+                "matrix_state": true
+            },
             "watchdog": true,
             "watchdog_timeout": 3000
         }
