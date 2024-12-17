@@ -4,8 +4,7 @@
   "maintainer": "atset",
   "features": {
       "extrakey": true,
-      "mousekey": true,
-      "nkro": false
+      "mousekey": true
   },
   "url": "http://atsetmediscience.com",
   "usb": {
