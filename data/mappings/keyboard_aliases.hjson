@@ -1515,6 +1515,9 @@
     "ymd96": {
         "target": "ymdk/ymd96"
     },
+    "ymdk/id75": {
+        "target": "ymdk/id75/f103"
+    },
     "ymdk_np21": {
         "target": "ymdk/np21"
     },
