@@ -45,4 +45,8 @@ typedef struct {
     void (*flush)(void);
 } led_matrix_driver_t;
 
+#ifdef LED_MATRIX_DOUBLE_BUFFER
+extern const led_matrix_driver_t led_matrix_driver_wrapper;
+#endif
+
 extern const led_matrix_driver_t led_matrix_driver;

@@ -130,3 +130,37 @@ const led_matrix_driver_t led_matrix_driver = {
 };
 
 #endif
+
+#ifdef LED_MATRIX_DOUBLE_BUFFER
+
+static uint8_t led_buffer[LED_MATRIX_LED_COUNT];
+
+void led_matrix_driver_init(void) {
+    led_matrix_driver.init();
+}
+
+void led_matrix_driver_flush(void) {
+    for (uint16_t i = 0; i < led_matrix_LED_COUNT; i++) {
+        led_matrix_driver.set_color(i, led_buffer[i]);
+    }
+    led_matrix_driver.flush();
+}
+
+void led_matrix_driver_set_color(int index, uint8_t value) {
+    led_buffer[index] = value;
+}
+
+void led_matrix_driver_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
+    for (uint16_t i = 0; i < LED_MATRIX_LED_COUNT; i++) {
+        led_matrix_driver_set_color(i, red, green, blue);
+    }
+}
+
+const led_matrix_driver_t led_matrix_driver_wrapper = {
+    .init          = led_matrix_driver_init,
+    .flush         = led_matrix_driver_flush,
+    .set_color     = led_matrix_driver_set_color,
+    .set_color_all = led_matrix_driver_set_color_all,
+};
+
+#endif
