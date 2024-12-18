@@ -1,0 +1,18 @@
+{
+    "keycodes": {
+        "0x784D": {
+            "group": "rgb_matrix",
+            "key": "QK_RGB_MATRIX_FLAG_NEXT",
+            "aliases": [
+                "RM_FLGN"
+            ]
+        },
+        "0x784E": {
+            "group": "rgb_matrix",
+            "key": "QK_RGB_MATRIX_FLAG_PREVIOUS",
+            "aliases": [
+                "RM_FLGP"
+            ]
+        }
+    }
+}
