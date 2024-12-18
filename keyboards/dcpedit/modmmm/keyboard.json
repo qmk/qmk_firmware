@@ -1,0 +1,34 @@
+{
+    "manufacturer": "dcpedit",
+    "maintainer": "dcpedit",
+    "development_board": "blackpill_f411",
+    "diode_direction": "COL2ROW",
+    "dynamic_keymap": {
+        "layer_count": 2
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "A2", "pin_b": "A13"},
+            {"pin_a": "A2", "pin_b": "A14"},
+            {"pin_a": "A13", "pin_b": "A14"}
+        ]
+    },
+    "features": {
+        "audio": true,
+        "bootmagic": true,
+        "encoder": true,
+        "extrakey": true,
+        "haptic": true,
+        "mousekey": true
+    },
+    "indicators": {
+        "caps_lock": "B12",
+        "num_lock": "A1",
+        "scroll_lock": "A0"
+    },
+    "matrix_pins": {
+        "cols": ["B13", "B14", "B15", "A15", "B1", "A3", "B9", "C15", "C14", "C13"],
+        "rows": ["B10", "B3", "B0", "B4", "A7", "B5", "A4", "A6", "B6", "A5", "B7", "B8"]
+    },
+    "url": "https://github.com/dcpedit/mod-mmm"
+}
