@@ -25,4 +25,4 @@ Enter the bootloader in 3 ways:
 
 * **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key) and plug in the keyboard
 * **Physical reset button**: Briefly press the button under the small hole on the back of the macropad
-* **Keycode in layout**: Press the key mapped to `QK_BOOT` or `RESET` if it is available
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
