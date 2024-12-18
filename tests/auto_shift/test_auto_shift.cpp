@@ -68,3 +68,29 @@ TEST_F(AutoShift, key_release_after_timeout) {
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 }
+// test auto shift and space cadet interaction
+// press shift, press key, release shift, release key
+// the right interaction is we only get the shifted key
+// the wrong interaction is we get a bracket and a shifted key
+TEST_F(AutoShift, auto_shift_with_space_cadet) {
+    TestDriver driver;
+    InSequence s;
+    auto       left_shift = KeymapKey(0, 0, 0, SC_LSPO);
+    auto       key_a      = KeymapKey(0, 1, 0, KC_A);
+
+    set_keymap({left_shift, key_a});
+
+    /* Press regular key */
+    EXPECT_NO_REPORT(driver);
+    left_shift.press();
+    key_a.press();
+    left_shift.release();
+    key_a.release();
+    VERIFY_AND_CLEAR(driver);
+
+    /* Release regular key */
+    EXPECT_REPORT(driver, (KC_LSFT, KC_A));
+    EXPECT_EMPTY_REPORT(driver);
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
