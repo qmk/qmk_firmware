@@ -278,7 +278,14 @@ const key_override_t right_parenth_override = ko_make_with_layers(MOD_MASK_SHIFT
 const key_override_t nine_override = ko_make_with_layers(MOD_MASK_SHIFT, KC_9, KC_DOT, 1 << _NUMBER);
 
 // This globally defines all key overrides to be used
-const key_override_t **key_overrides = (const key_override_t *[]){
+// const key_override_t **key_overrides = (const key_override_t *[]){
+//     &left_parenth_override,
+//     &right_parenth_override,
+//     &nine_override,
+//     NULL // Null terminate the array of overrides
+// };
+
+const key_override_t *key_overrides[] = {
     &left_parenth_override,
     &right_parenth_override,
     &nine_override,

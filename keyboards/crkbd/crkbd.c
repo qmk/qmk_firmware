@@ -104,17 +104,17 @@ __attribute__((weak)) const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRI
 //     return depad_str;
 // }
 
-static void oled_render_keylog(void) {
-    oled_write_char('0' + last_row, false);
-    oled_write_P(PSTR("x"), false);
-    oled_write_char('0' + last_col, false);
-    oled_write_P(PSTR(", k"), false);
-    const char *last_keycode_str = get_u16_str(last_keycode, ' ');
-    oled_write(depad_str(last_keycode_str, ' '), false);
-    oled_write_P(PSTR(":"), false);
-    oled_write_char(key_name, false);
-    oled_advance_page(true);
-}
+// static void oled_render_keylog(void) {
+//     oled_write_char('0' + last_row, false);
+//     oled_write_P(PSTR("x"), false);
+//     oled_write_char('0' + last_col, false);
+//     oled_write_P(PSTR(", k"), false);
+//     const char *last_keycode_str = get_u16_str(last_keycode, ' ');
+//     oled_write(depad_str(last_keycode_str, ' '), false);
+//     oled_write_P(PSTR(":"), false);
+//     oled_write_char(key_name, false);
+//     oled_advance_page(true);
+// }
 
 // static void render_bootmagic_status(bool status) {
 //     /* Show Ctrl-Gui Swap options */
