@@ -1,14 +1,14 @@
 # YD60MQ
 
-![YD60MQ PCB](https://ae01.alicdn.com/kf/HTB1PVQ2X_HuK1RkSndVq6xVwpXaO.jpg)
+![YD60MQ PCB](https://i.imgur.com/4X8km1q.jpeg)
 
-Customizable 60% PCB by [YMDK](https://ymdk.aliexpress.com/store/429151?spm=2114.10010108.0.0.3ab23641lIkgzm).
+Multi-layout, Soldered, 60% PCB compatible with GH60 cases.
 
 * Keyboard Maintainer: QMK Community
 * Hardware Supported: YD60MQ PCB
     * 12led (unknown revision number, has 12 RGB LEDs on the back) – _default variant_
     * 16led (unknown revision number, has 16 RGB LEDs on the back)
-* Hardware Availability: [YMDK on AliExpress](https://www.aliexpress.com/i/32869207240.html)
+* Hardware Availability: [YMDK](https://ymdkey.com/)
 
 Make example for this keyboard (after setting up your build environment):
 
