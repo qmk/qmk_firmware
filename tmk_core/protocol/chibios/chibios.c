@@ -62,13 +62,64 @@
  */
 
 /* declarations */
-void send_keyboard(report_keyboard_t *report);
-void send_nkro(report_nkro_t *report);
-void send_mouse(report_mouse_t *report);
-void send_extra(report_extra_t *report);
+extern void send_keyboard(report_keyboard_t *report);
+extern void send_nkro(report_nkro_t *report);
+extern void send_mouse(report_mouse_t *report);
+extern void send_extra(report_extra_t *report);
+#ifdef JOYSTICK_ENABLE
+extern void send_joystick(report_joystick_t *report);
+#endif // JOYSTICK_ENABLE
+#ifdef DIGITIZER_ENABLE
+extern void send_digitizer(report_digitizer_t *report);
+#endif // DIGITIZER_ENABLE
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+extern void send_programmable_button(report_programmable_button_t *report);
+#endif // PROGRAMMABLE_BUTTON_ENABLE
+#ifdef CONSOLE_ENABLE
+extern int8_t send_console(uint8_t c);
+#endif // CONSOLE_ENABLE
+#ifdef VIRTSER_ENABLE
+extern void send_virtser(uint8_t c);
+#endif // VIRTSER_ENABLE
+#ifdef RAW_ENABLE
+extern void send_raw_hid(uint8_t *data, uint8_t length);
+#endif // RAW_ENABLE
 
 /* host struct */
-host_driver_t chibios_driver = {.keyboard_leds = usb_device_state_get_leds, .send_keyboard = send_keyboard, .send_nkro = send_nkro, .send_mouse = send_mouse, .send_extra = send_extra};
+host_driver_t chibios_driver = {
+    .has_init_executed = false,
+    .init              = NULL,
+    .connect           = NULL,
+    .disconnect        = NULL,
+    .is_connected      = NULL,
+    .keyboard_leds     = usb_device_state_get_leds,
+    .send_keyboard     = send_keyboard,
+    .send_nkro         = send_nkro,
+    .send_mouse        = send_mouse,
+    .send_extra        = send_extra,
+#ifdef JOYSTICK_ENABLE
+    .send_joystick = send_joystick,
+#endif // JOYSTICK_ENABLE
+#ifdef DIGITIZER_ENABLE
+    .send_digitizer = send_digitizer,
+#endif // DIGITIZER_ENABLE
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+    .send_programmable_button = send_programmable_button,
+#endif // PROGRAMMABLE_BUTTON_ENABLE
+#ifdef CONSOLE_ENABLE
+    .send_console = send_console,
+#endif // CONSOLE_ENABLE
+#ifdef VIRTSER_ENABLE
+    .send_virtser = send_virtser,
+#endif // VIRTSER_ENABLE
+#ifdef RAW_ENABLE
+    .send_raw_hid = send_raw_hid,
+#endif // RAW_ENABLE
+};
+
+host_driver_t *host_usb_driver(void) {
+    return &chibios_driver;
+}
 
 #ifdef VIRTSER_ENABLE
 void virtser_task(void);
@@ -134,8 +185,6 @@ void protocol_setup(void) {
     // chThdCreateStatic(waThread1, sizeof(waThread1), NORMALPRIO, Thread1, NULL);
 }
 
-static host_driver_t *driver = NULL;
-
 void protocol_pre_init(void) {
     /* Init USB */
     usb_event_queue_init();
@@ -146,18 +195,14 @@ void protocol_pre_init(void) {
 #endif
 
     /* Wait until USB is active */
-    while (true) {
 #if defined(USB_WAIT_FOR_ENUMERATION)
+    while (true) {
         if (USB_DRIVER.state == USB_ACTIVE) {
-            driver = &chibios_driver;
             break;
         }
-#else
-        driver = &chibios_driver;
-        break;
-#endif
         wait_ms(50);
     }
+#endif
 
     /* Do need to wait here!
      * Otherwise the next print might start a transfer on console EP
@@ -170,7 +215,7 @@ void protocol_pre_init(void) {
 }
 
 void protocol_post_init(void) {
-    host_set_driver(driver);
+    host_set_driver(host_usb_driver());
 }
 
 void protocol_pre_task(void) {
