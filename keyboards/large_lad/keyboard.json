@@ -3,7 +3,6 @@
     "keyboard_name": "Large Lad",
     "maintainer": "Hyphen-ated",
     "bootmagic": {
-        "enabled": true,
         "matrix": [11, 12]
     },
     "development_board": "blackpill_f411",
