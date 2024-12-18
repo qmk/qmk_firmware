@@ -5,9 +5,7 @@
 A 9% macropad.
 
 * Keyboard Maintainer: [atset]
-* Hardware Supported:
-   
-    * ATR1 R1 *(ft. STM32F103)*
+* Hardware Supported: ATR1 R1 PCB with STM32F103
 * Hardware Availability: atsetmediscience.com
 
 Make example for this keyboard (after setting up your build environment):
