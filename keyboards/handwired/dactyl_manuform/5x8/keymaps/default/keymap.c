@@ -4,9 +4,6 @@
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-#define _QWERTY 0
-#define _FN     1
-#define _NUMPAD 2
 
 // Some basic macros
 #define TASK   LCTL(LSFT(KC_ESC))
@@ -14,8 +11,28 @@
 #define TAB_L  LCTL(LSFT(KC_TAB))
 #define TAB_RO LCTL(LSFT(KC_T))
 
+/* Base (qwerty)
+     * ,-------------------------------------------------------,   ,-------------------------------------------------------,
+     * |      |  Esc |   1  |   2  |   3  |   4  |   5  |   6  |   |   7  |   8  |   9  |   0  |   -  |   =  |   -  |  BS  |
+     * |------+------+------+------+------+------+------+------|   |------+------+------+------+------+------+------+------|
+     * |      |  Tab |   q  |   w  |   e  |   r  |   t  |      |   |      |   y  |   u  |   i  |   o  |   p  |   [  |   ]  |
+     * |------+------+------+------+------+------+------+------|   |------+------+------+------+------+------+------+------|
+     * |      | Caps |   a  |   s  |   d  |   f  |   g  |      |   |      |   h  |   j  |   k  |   l  |   ;  |   "  |ENTER |
+     * |------+------+------+------+------+------+------+------'   '------+------+------+------+------+------+------+------|
+     * |      | Shift|   z  |   x  |   c  |   v  |   b  |                 |   n  |   m  |   ,  |   .  |   '  |Shift | Ctrl |
+     * |------+------+------+------+------+------+------'                 '------+------+------+------+------+------+------'
+     *        | Ctrl | Wint |  Alt |  Fn  |                                             |  Up  | Down | Left | Right|
+     *        '------+------+------+------+------,                               ,------+------+------+------+------'
+     *                             |      |SPACE |                               | SPACE|  BS  |
+     *                             '------+------+------'                 ,------+------+------'
+     *                                    | ESC  |ENTER |                 | HOME | END  |
+     *                                    '------+------'                 '------+------'
+     *                                    |  DEL |  F2  |                 | PGUP | PGDN |
+     *                                    '------+------'                 '------+------'
+     */
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_QWERTY] = LAYOUT_5x8(
+    [0] = LAYOUT_5x8(
         // left hand
         KC_A,   KC_B,    KC_1,    KC_2,    KC_3,   KC_4,   KC_5,   KC_6,
         KC_C,   KC_D,    KC_Q,    KC_W,    KC_E,   KC_R,   KC_T,   KC_LBRC,
