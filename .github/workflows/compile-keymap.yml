@@ -78,9 +78,9 @@ jobs:
       - name: Move Generated Files
         run: |
           mkdir -p build_artifacts
-          cp ./*.uf2 build_artifacts/ || echo "No .uf2 files found."
-          cp ./*.bin build_artifacts/ || echo "No .bin files found."
-          cp ./*.hex build_artifacts/ || echo "No .hex files found."
+          cp *.uf2 build_artifacts/ || echo "No .uf2 files found."
+          cp *.bin build_artifacts/ || echo "No .bin files found."
+          cp *.hex build_artifacts/ || echo "No .hex files found."
           
       - name: Sanitize Artifact Name and Upload
         id: sanitize
@@ -96,7 +96,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: ${{ steps.sanitize.outputs.artifact_name }}
-          path: ./build_artifacts/
+          path: firmware/
           if-no-files-found: warn
 
 
@@ -110,7 +110,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: ${{ needs.build-and-release.outputs.artifact_name }}
-          path: ./build_artifacts/
+          path: ./firmware
 
       # Step 2: Create GitHub Release
       - name: Create GitHub Release
