@@ -126,4 +126,4 @@ jobs:
             - **Keymap:** ${{ env.keymap }}
           draft: false
           prerelease: false
-          files: ./firmware/*
+          files: ./firmware/*.*
