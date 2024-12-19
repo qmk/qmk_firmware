@@ -96,7 +96,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: ${{ steps.sanitize.outputs.artifact_name }}
-          path: firmware/
+          path: ./build_artifacts/
           if-no-files-found: warn
 
 
@@ -110,7 +110,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: ${{ needs.build-and-release.outputs.artifact_name }}
-          path: ./firmware
+          path: ./build_artifacts/
 
       # Step 2: Create GitHub Release
       - name: Create GitHub Release
