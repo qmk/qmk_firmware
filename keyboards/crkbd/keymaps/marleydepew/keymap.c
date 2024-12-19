@@ -27,11 +27,11 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_COLEMAK_DH] = LAYOUT_split_3x6_3(                                                        // Colemak DH Layer
+    [_COLEMAK_DH] = LAYOUT_split_3x6_3_ex2(                                                        // Colemak DH Layer
     // |---------------+---------------+---------------+---------------+---------------+---------------|   |---------------+---------------+---------------+---------------+---------------+---------------|
-        XXXXXXX,        KC_Q,           KC_W,           KC_F,           KC_P,           KC_B,               KC_J,           KC_L,           KC_U,           KC_Y,           XXXXXXX,        XXXXXXX,
+        XXXXXXX,        KC_Q,           KC_W,           KC_F,           KC_P,           KC_B,MACRO_1,       MACRO_3,KC_J,   KC_L,           KC_U,           KC_Y,           XXXXXXX,        XXXXXXX,
     // |---------------+---------------+---------------+---------------+---------------+---------------|   |---------------+---------------+---------------+---------------+---------------+---------------|
-        KC_CAPS,        LGUI_T(KC_A),   LALT_T(KC_R),   LSFT_T(KC_S),   LCTL_T(KC_T),   KC_G,               KC_M,           LCTL_T(KC_N),   LSFT_T(KC_E),   LALT_T(KC_I),   LGUI_T(KC_O),   KC_QUOT,
+        KC_CAPS,        LGUI_T(KC_A),   LALT_T(KC_R),   LSFT_T(KC_S),   LCTL_T(KC_T),   KC_G,MACRO_2,       MACRO_4,KC_M,   LCTL_T(KC_N),   LSFT_T(KC_E),   LALT_T(KC_I),   LGUI_T(KC_O),   KC_QUOT,
     // |---------------+---------------+---------------+---------------+---------------+---------------|   |---------------+---------------+---------------+---------------+---------------+---------------|
         KC_ESC,         KC_Z,           KC_X,           KC_C,           KC_D,           KC_V,               KC_K,           KC_H,           KC_COMM,        KC_DOT,         KC_SLSH,        QK_LEAD,
     // |---------------+---------------+---------------+---------------+---------------+---------------|   |---------------+---------------+---------------+---------------+---------------+---------------|
@@ -175,7 +175,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 // when keycode MACRO_1 is pressed
                 // Open Python in Command Prompt
-                SEND_STRING(SS_RGUI('r') SS_DELAY(500) 'cmd.exe' SS_DELAY(1000) 'python.exe')
+                SEND_STRING(SS_RGUI("r") SS_DELAY(500) "cmd.exe" SS_TAP(X_ENT) SS_DELAY(1000) "python.exe" SS_TAP(X_ENT));
             } else {
                 // when keycode MACRO_1 is released
             }
@@ -185,7 +185,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 // when keycode MACRO_2 is pressed
                 // The string is defined in "../../macro.h"
-                SEND_STRING(SS_RGUI('r') SS_DELAY(500) 'chrome.exe' SS_DELAY(1000) 'https://amgensbx-rim-test.veevavault.com')
+                SEND_STRING(SS_RGUI("r") SS_DELAY(500) "chrome.exe" SS_TAP(X_ENT) SS_DELAY(1000) "https://amgensbx-rim-test.veevavault.com" SS_TAP(X_ENT));
             } else {
                 // when keycode MACRO_2 is released
             }
@@ -194,8 +194,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case MACRO_3:
             if (record->event.pressed) {
                 // when keycode MACRO_3 is pressed
-                // The string is defined in "../../macro.h"
-                SEND_STRING(M3_STRING);
             } else {
                 // when keycode MACRO_3 is released
             }
@@ -204,8 +202,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case MACRO_4:
             if (record->event.pressed) {
                 // when keycode MACRO_4 is pressed
-                // The string is defined in "../../macro.h"
-                SEND_STRING(M4_STRING);
             } else {
                 // when keycode MACRO_4 is released
             }
