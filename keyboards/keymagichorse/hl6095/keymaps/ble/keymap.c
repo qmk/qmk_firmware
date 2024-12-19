@@ -29,8 +29,22 @@
 #   include "lpm.h"
 #endif
 
+// 键盘传输模式枚举
+enum  kb_transfer_mode_enum {
+    KB_USB_MODE = 1,
+    KB_BLE_1_MODE,
+    KB_BLE_2_MODE,
+    KB_BLE_3_MODE,
+    KB_RF_MODE,
+};
 
-
+typedef union {
+  uint32_t raw;
+  struct {
+     uint8_t transfer_mode :8;  // 保存 键盘传输模式
+  };
+} user_config_t;
+user_config_t user_config = {0};
 
 enum keyboard_user_keycodes {
     BT_1 = QK_USER,
@@ -83,6 +97,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,                    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS)
 };
 
+
+void eeconfig_init_kb(void)
+{
+    // 上电先读取一次
+    user_config.raw = eeconfig_read_user();
+    // 判断传输模式有没有被初始化过
+    if(user_config.transfer_mode == 0 || user_config.transfer_mode == 0xff)
+    {
+        // 表示没有被初始化过
+        user_config.transfer_mode = KB_USB_MODE;    // 默认先初始化为USB
+        set_output(OUTPUT_USB);
+        return;
+    }
+    
+    if(user_config.transfer_mode == KB_USB_MODE)
+    {
+        set_output(OUTPUT_USB);
+    }
+
+    if(user_config.transfer_mode > KB_USB_MODE && user_config.transfer_mode != 0xff)
+    {
+        set_output(OUTPUT_BLUETOOTH);
+    }
+
+}
+
+
 static uint32_t output_mode_press_time = 0;
 static uint32_t ble_switch_press_time = 0;
 static uint8_t ble_host_index = 0;
@@ -114,6 +155,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     // 打开非配对模式蓝牙广播 10 = 10S
                     bhq_OpenBleAdvertising(ble_host_index, 10);
                     set_output(OUTPUT_BLUETOOTH);
+
+                    // 这里切换蓝牙模式，默认是打开第一个蓝牙通道
+                    user_config.transfer_mode = KB_BLE_1_MODE;  
+                    eeconfig_update_user(user_config.raw);
                 }
             }
             return false;
@@ -133,6 +178,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     // TODO: 等待bhq驱动完善，这里还是用蓝牙输出来作为qmk的模式切换，在蓝牙模块内会切换成2.4ghz私有连接
                     bhq_switch_rf_easy_kb();
                     set_output(OUTPUT_BLUETOOTH);
+                
+                    user_config.transfer_mode = KB_RF_MODE;  
+                    eeconfig_update_user(user_config.raw);
                 }
             }
             return false;
@@ -150,6 +198,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     // 切换到usb模式 并 关闭蓝牙广播
                     set_output(OUTPUT_USB);
                     bhq_CloseBleAdvertising();
+
+                    user_config.transfer_mode = KB_USB_MODE;  
+                    eeconfig_update_user(user_config.raw);
                 }
             }
             return false;
@@ -188,12 +239,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 {
                     case BL_SW_0:
                         ble_host_index = 0;
+                        
+                       
                         break;  
                     case BL_SW_1:
                         ble_host_index = 1;
+
+                        user_config.transfer_mode = KB_BLE_2_MODE;  
+                        eeconfig_update_user(user_config.raw);
                         break;  
                     case BL_SW_2:
                         ble_host_index = 2;
+
+                        user_config.transfer_mode = KB_BLE_3_MODE;  
+                        eeconfig_update_user(user_config.raw);
                         break;  
                 }
                 if(timer_elapsed32(ble_switch_press_time) >= 300 && timer_elapsed32(ble_switch_press_time) <= 1500)
@@ -201,12 +260,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     // 打开非配对模式蓝牙广播 10 = 10S
                     bhq_OpenBleAdvertising(ble_host_index, 10);
                     set_output(OUTPUT_BLUETOOTH);
+
+                    // 这里枚举 + 蓝牙通道就能计算出 KB_BLE_1_MODE、KB_BLE_2_MODE、KB_BLE_3_MODE
+                    user_config.transfer_mode = KB_BLE_1_MODE + ble_host_index;  
+                    eeconfig_update_user(user_config.raw);
                 }
                 else if(timer_elapsed32(ble_switch_press_time) >= 1500)
                 {
                     // 打开 配对模式蓝牙广播 10 = 10S
                     bhq_SetPairingMode(ble_host_index, 10);
                     set_output(OUTPUT_BLUETOOTH);
+                    
+                    user_config.transfer_mode = KB_BLE_1_MODE + ble_host_index;  
+                    eeconfig_update_user(user_config.raw);
                 }
             }
             return false;
