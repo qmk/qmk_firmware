@@ -21,9 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USE_I2C
 #define SCL_CLOCK  800000UL
 
-/* Select hand configuration */
-#define MASTER_LEFT
-
 //#define DEBUG_MATRIX_SCAN_RATE //Use this to determine scan-rate.
 
 #ifdef AUDIO_ENABLE

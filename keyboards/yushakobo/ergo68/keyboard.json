@@ -127,14 +127,16 @@
         "handedness": {
             "pin": "B6"
         },
+        "serial": {
+            "pin": "D0"
+        },
         "transport": {
             "sync": {
                 "indicators": true,
                 "layer_state": true,
                 "matrix_state": true
             }
-        },
-        "soft_serial_pin": "D0"
+        }
     },
     "layouts": {
         "LAYOUT": {

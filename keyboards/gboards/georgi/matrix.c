@@ -255,6 +255,7 @@ static matrix_row_t read_cols(uint8_t row)
         } else {
             uint8_t data = 0;
             mcp23018_status = i2c_read_register(I2C_ADDR, GPIOB, &data, 1, ERGODOX_EZ_I2C_TIMEOUT);
+            data = ~data;
 
 #ifdef DEBUG_MATRIX
             if (data != 0x00) xprintf("I2C: %d\n", data);

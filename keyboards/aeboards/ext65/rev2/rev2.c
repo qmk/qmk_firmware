@@ -69,24 +69,9 @@ bool oled_task_kb(void) {
 #else
 
 void keyboard_pre_init_kb(void) {
-    // Call the keyboard pre init code.
-    // Set our LED pins as output
-    gpio_set_pin_output(B4);
-    gpio_set_pin_output(B3);
-    gpio_set_pin_output(A15);
     gpio_set_pin_output(A14);
 
     keyboard_pre_init_user();
-}
-
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if (res) {
-        gpio_write_pin(B4, led_state.num_lock);
-        gpio_write_pin(B3, led_state.caps_lock);
-        gpio_write_pin(A15, led_state.scroll_lock);
-    }
-    return res;
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {

@@ -16,11 +16,13 @@
     "diode_direction": "COL2ROW",
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D3",
         "matrix_pins": {
             "right": {
                 "cols": ["F5", "B3", "F7", "B1", "F6", "B2", "B6"]
             }
+        },
+        "serial": {
+            "pin": "D3"
         }
     },
     "processor": "atmega32u4",

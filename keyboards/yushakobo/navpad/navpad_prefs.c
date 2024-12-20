@@ -37,10 +37,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-bool led_update_kb(led_t led_state) {
-    return led_update_user(led_state);
-}
-
 #ifdef ENCODER_ENABLE
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) { return false; }

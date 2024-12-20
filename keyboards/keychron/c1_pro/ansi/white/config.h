@@ -25,7 +25,7 @@
 #define SNLED27351_CURRENT_TUNE \
     { 0x9D, 0x9D, 0x44, 0x9D, 0x9D, 0x44, 0x9D, 0x9D, 0x44, 0x9D, 0x9D, 0x44 }
 
-/* Enbale caps_lcok, win os and mac os indicator */
+/* Enbale caps_lock, win os and mac os indicator */
 #define CAPS_LOCK_LED_INDEX 63
 #define MAC_LOCK_LED_INDEX 64
 #define WIN_LOCK_LED_INDEX 65

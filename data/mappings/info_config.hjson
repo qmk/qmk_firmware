@@ -64,6 +64,9 @@
     "WEAR_LEVELING_BACKING_SIZE": {"info_key": "eeprom.wear_leveling.backing_size", "value_type": "int", "to_json": false},
     "WEAR_LEVELING_LOGICAL_SIZE": {"info_key": "eeprom.wear_leveling.logical_size", "value_type": "int", "to_json": false},
 
+    // Layer locking
+    "LAYER_LOCK_IDLE_TIMEOUT": {"info_key": "layer_lock.timeout", "value_type": "int"},
+
     // Indicators
     "LED_CAPS_LOCK_PIN": {"info_key": "indicators.caps_lock"},
     "LED_NUM_LOCK_PIN": {"info_key": "indicators.num_lock"},
@@ -71,6 +74,11 @@
     "LED_COMPOSE_PIN": {"info_key": "indicators.compose"},
     "LED_KANA_PIN": {"info_key": "indicators.kana"},
     "LED_PIN_ON_STATE": {"info_key": "indicators.on_state", "value_type": "int"},
+
+    // Joystick
+    "JOYSTICK_AXIS_COUNT": {"info_key": "joystick.axis_count", "value_type": "int"},
+    "JOYSTICK_AXIS_RESOLUTION": {"info_key": "joystick.axis_resolution", "value_type": "int"},
+    "JOYSTICK_BUTTON_COUNT": {"info_key": "joystick.button_count", "value_type": "int"},
 
     // Leader Key
     "LEADER_PER_KEY_TIMING": {"info_key": "leader_key.timing", "value_type": "flag"},
@@ -171,7 +179,7 @@
     "SECURE_UNLOCK_TIMEOUT": {"info_key": "secure.unlock_timeout", "value_type": "int"},
 
     // Split Keyboard
-    "SOFT_SERIAL_PIN": {"info_key": "split.soft_serial_pin"},
+    "SOFT_SERIAL_PIN": {"info_key": "split.serial.pin"},
     "SOFT_SERIAL_SPEED": {"info_key": "split.soft_serial_speed"},
     "SPLIT_HAND_MATRIX_GRID": {"info_key": "split.handedness.matrix_grid", "value_type": "array", "to_c": false},
     "SPLIT_HAND_PIN": {"info_key": "split.handedness.pin"},

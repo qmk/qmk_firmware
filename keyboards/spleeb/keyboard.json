@@ -29,7 +29,6 @@
     },
     "split": {
         "enabled": true,
-        "soft_serial_pin": "GP1",
         "encoder": {
             "right": {
                 "rotary": [
@@ -43,6 +42,10 @@
                 "layer_state": true,
                 "modifiers": true
             }
+        },
+        "serial": {
+            "driver": "vendor",
+            "pin": "GP1"
         }
     },
     "url": "https://github.com/chrishoage/spleeb",
