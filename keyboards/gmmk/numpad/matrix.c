@@ -4,15 +4,12 @@
 /*
  * scan matrix
  */
-#include <stdint.h>
-#include <stdbool.h>
+#include "matrix.h"
+#include <string.h>
+#include "atomic_util.h"
 #include "wait.h"
 #include "print.h"
 #include "debug.h"
-#include "util.h"
-#include "matrix.h"
-#include "debounce.h"
-#include "quantum.h"
 
 /* matrix state(1:on, 0:off) */
 extern matrix_row_t matrix[MATRIX_ROWS];     // debounced values
@@ -22,29 +19,29 @@ static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 #define MATRIX_ROW_SHIFTER ((matrix_row_t)1)
 
-static inline void setPinOutput_writeLow(pin_t pin) {
+static inline void gpio_atomic_set_pin_output_low(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
-        setPinOutput(pin);
-        writePinLow(pin);
+        gpio_set_pin_output(pin);
+        gpio_write_pin_low(pin);
     }
 }
 
-static inline void setPinOutput_writeHigh(pin_t pin) {
+static inline void gpio_atomic_set_pin_output_high(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
-        setPinOutput(pin);
-        writePinHigh(pin);
+        gpio_set_pin_output(pin);
+        gpio_write_pin_high(pin);
     }
 }
 
-static inline void setPinInputHigh_atomic(pin_t pin) {
+static inline void gpio_atomic_set_pin_input_high(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
-        setPinInputHigh(pin);
+        gpio_set_pin_input_high(pin);
     }
 }
 
 static inline uint8_t readMatrixPin(pin_t pin) {
     if (pin != NO_PIN) {
-        return readPin(pin);
+        return gpio_read_pin(pin);
     } else {
         return 1;
     }
@@ -53,7 +50,7 @@ static inline uint8_t readMatrixPin(pin_t pin) {
 static bool select_col(uint8_t col) {
     pin_t pin = col_pins[col];
     if (pin != NO_PIN) {
-        setPinOutput_writeLow(pin);
+        gpio_atomic_set_pin_output_low(pin);
         return true;
     }
     return false;
@@ -63,9 +60,9 @@ static void unselect_col(uint8_t col) {
     pin_t pin = col_pins[col];
     if (pin != NO_PIN) {
 #            ifdef MATRIX_UNSELECT_DRIVE_HIGH
-        setPinOutput_writeHigh(pin);
+        gpio_atomic_set_pin_output_high(pin);
 #            else
-        setPinInputHigh_atomic(pin);
+        gpio_atomic_set_pin_input_high(pin);
 #            endif
     }
 }
@@ -81,10 +78,10 @@ __attribute__((weak)) void matrix_init_custom(void) {
     unselect_cols();
     for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
         if (row_pins[x] != NO_PIN) {
-            setPinInputHigh_atomic(row_pins[x]);
+            gpio_atomic_set_pin_input_high(row_pins[x]);
         }
     }
-    setPinInputHigh_atomic(B8);
+    gpio_atomic_set_pin_input_high(B8);
 }
 
 __attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col, matrix_row_t row_shifter) {    // Start with a clear matrix row

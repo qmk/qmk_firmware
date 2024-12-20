@@ -17,9 +17,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "rev_a.h"
 
 void board_init(void) {
-    setPinInputHigh(CAPS_PIN);
-    setPinInputHigh(SCROLL_PIN);
-    setPinInputHigh(NUM_PIN);
+    gpio_set_pin_input_high(CAPS_PIN);
+    gpio_set_pin_input_high(SCROLL_PIN);
+    gpio_set_pin_input_high(NUM_PIN);
 }
 
 /* Set indicator leds to indicate lock states */
@@ -27,23 +27,23 @@ bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if(res && LOCK_LIGHTS) {
         if(led_state.caps_lock){
-            setPinOutput(CAPS_PIN);
-            writePin(CAPS_PIN, 0);
+            gpio_set_pin_output(CAPS_PIN);
+            gpio_write_pin(CAPS_PIN, 0);
         }
         else
-            setPinInputHigh(CAPS_PIN);
+            gpio_set_pin_input_high(CAPS_PIN);
         if(led_state.scroll_lock){
-            setPinOutput(SCROLL_PIN);
-            writePin(SCROLL_PIN, 0);
+            gpio_set_pin_output(SCROLL_PIN);
+            gpio_write_pin(SCROLL_PIN, 0);
         }
         else
-            setPinInputHigh(SCROLL_PIN);
+            gpio_set_pin_input_high(SCROLL_PIN);
         if(led_state.num_lock){
-            setPinOutput(NUM_PIN);
-            writePin(NUM_PIN, 0);
+            gpio_set_pin_output(NUM_PIN);
+            gpio_write_pin(NUM_PIN, 0);
         }
         else
-            setPinInputHigh(NUM_PIN);
+            gpio_set_pin_input_high(NUM_PIN);
     }
     return res;
 }
@@ -59,50 +59,50 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 void setLayerLed(layer_state_t state){
     switch(get_highest_layer(state)){
         case 0 :
-            setPinOutput(LAYER_1);
-            writePin(LAYER_1, 0);
-            setPinInputHigh(LAYER_2);
-            setPinInputHigh(LAYER_3);
-            setPinInputHigh(LAYER_4);
-            setPinInputHigh(LAYER_5);
+            gpio_set_pin_output(LAYER_1);
+            gpio_write_pin(LAYER_1, 0);
+            gpio_set_pin_input_high(LAYER_2);
+            gpio_set_pin_input_high(LAYER_3);
+            gpio_set_pin_input_high(LAYER_4);
+            gpio_set_pin_input_high(LAYER_5);
             break;
         case 1 :
-            setPinOutput(LAYER_2);
-            writePin(LAYER_2, 0);
-            setPinInputHigh(LAYER_1);
-            setPinInputHigh(LAYER_3);
-            setPinInputHigh(LAYER_4);
-            setPinInputHigh(LAYER_5);
+            gpio_set_pin_output(LAYER_2);
+            gpio_write_pin(LAYER_2, 0);
+            gpio_set_pin_input_high(LAYER_1);
+            gpio_set_pin_input_high(LAYER_3);
+            gpio_set_pin_input_high(LAYER_4);
+            gpio_set_pin_input_high(LAYER_5);
             break;
         case 2 :
-            setPinOutput(LAYER_3);
-            writePin(LAYER_3, 0);
-            setPinInputHigh(LAYER_1);
-            setPinInputHigh(LAYER_2);
-            setPinInputHigh(LAYER_4);
-            setPinInputHigh(LAYER_5);
+            gpio_set_pin_output(LAYER_3);
+            gpio_write_pin(LAYER_3, 0);
+            gpio_set_pin_input_high(LAYER_1);
+            gpio_set_pin_input_high(LAYER_2);
+            gpio_set_pin_input_high(LAYER_4);
+            gpio_set_pin_input_high(LAYER_5);
             break;
         case 3 :
-            writePin(LAYER_4, 0);
-            setPinInputHigh(LAYER_5);
-            setPinInputHigh(LAYER_1);
-            setPinInputHigh(LAYER_2);
-            setPinInputHigh(LAYER_3);
-            setPinOutput(LAYER_4);
+            gpio_write_pin(LAYER_4, 0);
+            gpio_set_pin_input_high(LAYER_5);
+            gpio_set_pin_input_high(LAYER_1);
+            gpio_set_pin_input_high(LAYER_2);
+            gpio_set_pin_input_high(LAYER_3);
+            gpio_set_pin_output(LAYER_4);
             break;
         case 4 :
-            setPinOutput(LAYER_5);
-            writePin(LAYER_5, 0);
-            setPinInputHigh(LAYER_1);
-            setPinInputHigh(LAYER_2);
-            setPinInputHigh(LAYER_3);
-            setPinInputHigh(LAYER_4);
+            gpio_set_pin_output(LAYER_5);
+            gpio_write_pin(LAYER_5, 0);
+            gpio_set_pin_input_high(LAYER_1);
+            gpio_set_pin_input_high(LAYER_2);
+            gpio_set_pin_input_high(LAYER_3);
+            gpio_set_pin_input_high(LAYER_4);
             break;
         default :
-            setPinInputHigh(LAYER_1);
-            setPinInputHigh(LAYER_2);
-            setPinInputHigh(LAYER_3);
-            setPinInputHigh(LAYER_4);
-            setPinInputHigh(LAYER_5);
+            gpio_set_pin_input_high(LAYER_1);
+            gpio_set_pin_input_high(LAYER_2);
+            gpio_set_pin_input_high(LAYER_3);
+            gpio_set_pin_input_high(LAYER_4);
+            gpio_set_pin_input_high(LAYER_5);
     }
 }

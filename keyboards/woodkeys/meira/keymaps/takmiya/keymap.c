@@ -26,8 +26,7 @@ extern rgblight_config_t rgblight_config;
 #define _ADJUST 3
 
 enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  LOWER,
+  LOWER = SAFE_RANGE,
   RAISE,
   ADJUST,
 };
@@ -104,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          */
         [_ADJUST] =  LAYOUT(
                 BL_TOGG, QK_BOOT, _______, KC_MRWD, KC_MPLY, KC_MFFD, KC_PSCR, _______, KC_MUTE, KC_VOLD, KC_VOLU, KC_DEL,
-                BL_STEP, RGB_MOD, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  _______, _______,  _______, _______,
+                BL_STEP, UG_NEXT, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, _______, _______,  _______, _______,
                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                 _______, KC_PSCR, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
         )
@@ -124,15 +123,6 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_qwerty);
-        #endif
-//        persistent_default_layer_set(1UL<<_QWERTY);
-      }
-      return false;
-      break;
     case LOWER:
         if (record->event.pressed) {
             //not sure how to have keyboard check mode and set it to a variable, so my work around
@@ -201,7 +191,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
         //led operations - RGB mode change now updates the RGB_current_mode to allow the right RGB mode to be set after reactive keys are released
 #ifdef RGBLIGHT_ENABLE
-    case RGB_MOD:
+    case QK_UNDERGLOW_MODE_NEXT:
         if (record->event.pressed) {
             rgblight_mode(RGB_current_mode);
             rgblight_step();

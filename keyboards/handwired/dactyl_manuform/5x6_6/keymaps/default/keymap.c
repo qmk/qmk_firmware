@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,  KC_TRNS,       KC_TRNS,   KC_TRNS,     KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,    KC_F12,
         KC_TRNS,   KC_TRNS,   KC_PSCR,   KC_DOWN,  KC_UP,         KC_HOME,   KC_END,      KC_LEFT,    KC_RIGHT,    KC_TRNS,     KC_TRNS,    KC_TRNS,
         KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,  KC_TRNS,       KC_TRNS,   KC_TRNS,     KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_BSLS,    KC_TRNS,
-                   QK_BOOT,     KC_TRNS,   KC_TRNS,  KC_TRNS,       KC_TRNS,   KC_TRNS,     KC_TRNS,    KC_TRNS,
+                   QK_BOOT,   KC_TRNS,   KC_TRNS,  KC_TRNS,       KC_TRNS,   KC_TRNS,     KC_TRNS,    KC_TRNS,
                                          MO(1),    LCTL(KC_C),    KC_TRNS,   MO(1),
                                          KC_TRNS,  LCTL(KC_V),    KC_TRNS,   KC_TRNS
     )

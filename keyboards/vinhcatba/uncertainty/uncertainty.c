@@ -1,8 +1,7 @@
 // Copyright 2023 Vinh Le (@vinhcatba)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include QMK_KEYBOARD_H
-#include "quantum.h"
+#include "uncertainty.h"
 
 #ifdef OLED_ENABLE
 #include "bongo.h"

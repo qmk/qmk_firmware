@@ -140,6 +140,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef OS_DETECTION_ENABLE
 #    include "os_detection.h"
 #endif
+#ifdef LAYER_LOCK_ENABLE
+#    include "layer_lock.h"
+#endif
 
 static uint32_t last_input_modification_time = 0;
 uint32_t        last_input_activity_time(void) {
@@ -500,10 +503,10 @@ void keyboard_init(void) {
  */
 void switch_events(uint8_t row, uint8_t col, bool pressed) {
 #if defined(LED_MATRIX_ENABLE)
-    process_led_matrix(row, col, pressed);
+    led_matrix_handle_key_event(row, col, pressed);
 #endif
 #if defined(RGB_MATRIX_ENABLE)
-    process_rgb_matrix(row, col, pressed);
+    rgb_matrix_handle_key_event(row, col, pressed);
 #endif
 }
 
@@ -654,6 +657,10 @@ void quantum_task(void) {
 
 #ifdef SECURE_ENABLE
     secure_task();
+#endif
+
+#ifdef LAYER_LOCK_ENABLE
+    layer_lock_task();
 #endif
 }
 

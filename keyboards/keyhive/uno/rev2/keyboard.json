@@ -1,0 +1,34 @@
+{
+    "keyboard_name": "Uno rev2",
+    "usb": {
+        "device_version": "0.0.2"
+    },
+    "rgblight": {
+        "led_count": 1,
+        "animations": {
+            "rainbow_mood": true
+        }
+    },
+    "ws2812": {
+        "pin": "D1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B2", "pin_b": "B3"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "features": {
+        "bootmagic": false,
+        "mousekey": false,
+        "extrakey": false,
+        "rgblight": true,
+        "encoder": true
+    },
+    "matrix_pins": {
+        "direct": [
+            ["D0"]
+        ]
+    }
+}

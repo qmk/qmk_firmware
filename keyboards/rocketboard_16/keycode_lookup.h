@@ -16,7 +16,7 @@
 
 #pragma once
 
-#include "quantum.h"
+#include <stdint.h>
 
 typedef struct
 {
