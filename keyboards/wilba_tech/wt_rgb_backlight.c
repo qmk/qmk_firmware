@@ -2519,15 +2519,33 @@ uint8_t decrement( uint8_t value, uint8_t step, uint8_t min, uint8_t max )
     return MIN( MAX( new_value, min ), max );
 }
 
+uint8_t increment_loop( uint8_t value, uint8_t step, uint8_t min, uint8_t max )
+{
+    int16_t new_value = value + step;
+    if (new_value > max) {
+        return min;
+    }
+    return new_value;
+}
+
+uint8_t decrement_loop( uint8_t value, uint8_t step, uint8_t min, uint8_t max )
+{
+    int16_t new_value = value - step;
+    if (new_value < min) {
+        return max;
+    }
+    return new_value;
+}
+
 void backlight_effect_increase(void)
 {
-    g_config.effect = increment( g_config.effect, 1, 0, BACKLIGHT_EFFECT_MAX );
+    g_config.effect = increment_loop( g_config.effect, 1, 0, BACKLIGHT_EFFECT_MAX );
     backlight_config_save();
 }
 
 void backlight_effect_decrease(void)
 {
-    g_config.effect = decrement( g_config.effect, 1, 0, BACKLIGHT_EFFECT_MAX );
+    g_config.effect = decrement_loop( g_config.effect, 1, 0, BACKLIGHT_EFFECT_MAX );
     backlight_config_save();
 }
 
@@ -2557,13 +2575,13 @@ void backlight_brightness_decrease(void)
 
 void backlight_color_1_hue_increase(void)
 {
-    g_config.color_1.h = increment( g_config.color_1.h, 8, 0, 255 );
+    g_config.color_1.h = increment_loop( g_config.color_1.h, 8, 0, 255 );
     backlight_config_save();
 }
 
 void backlight_color_1_hue_decrease(void)
 {
-    g_config.color_1.h = decrement( g_config.color_1.h, 8, 0, 255 );
+    g_config.color_1.h = decrement_loop( g_config.color_1.h, 8, 0, 255 );
     backlight_config_save();
 }
 
@@ -2581,13 +2599,13 @@ void backlight_color_1_sat_decrease(void)
 
 void backlight_color_2_hue_increase(void)
 {
-    g_config.color_2.h = increment( g_config.color_2.h, 8, 0, 255 );
+    g_config.color_2.h = increment_loop( g_config.color_2.h, 8, 0, 255 );
     backlight_config_save();
 }
 
 void backlight_color_2_hue_decrease(void)
 {
-    g_config.color_2.h = decrement( g_config.color_2.h, 8, 0, 255 );
+    g_config.color_2.h = decrement_loop( g_config.color_2.h, 8, 0, 255 );
     backlight_config_save();
 }
 
