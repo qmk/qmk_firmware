@@ -24,6 +24,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "pointing_device.h"
 #include "pointing_device_internal.h"
 
+#ifndef PS2_CLOCK_PIN
+#    ifdef POINTING_DEVICE_SCLK_PIN
+#        define PS2_CLOCK_PIN POINTING_DEVICE_SCLK_PIN
+#    else
+#        error "No clock pin defined -- missing POINTING_DEVICE_SCLK_PIN or PS2_CLOCK_PIN"
+#    endif
+#endif
+
+#ifndef PS2_DATA_PIN
+#    ifdef POINTING_DEVICE_SDIO_PIN
+#        define PS2_DATA_PIN POINTING_DEVICE_SDIO_PIN
+#    else
+#        error "No data pin defined -- missing POINTING_DEVICE_SDIO_PIN or PS2_DATA_PIN"
+#    endif
+#endif
+
 #define PS2_MOUSE_SEND(command, message)                                                          \
     do {                                                                                          \
         __attribute__((unused)) uint8_t rcv = ps2_host_send(command);                             \

@@ -384,8 +384,8 @@ In addition, `PS2_CLOCK_PIN` and `PS2_DATA_PIN` must be defined in `config.h`.
 
 | Setting (`config.h`)          | Description                                                                    | Default       |
 | ----------------------------- | ------------------------------------------------------------------------------ | ------------- |
-| `PS2_CLOCK_PIN`               | (Required) The pin connected to the clock pin of the PS/2 mouse.               | _not defined_ |
-| `PS2_DATA_PIN`                | (Required) The pin connected to the data pin of the PS/2 mouse.                | _not defined_ |
+| `PS2_CLOCK_PIN`               | (Required) The pin connected to the clock pin of the PS/2 mouse.               | `POINTING_DEVICE_SCLK_PIN` |
+| `PS2_DATA_PIN`                | (Required) The pin connected to the data pin of the PS/2 mouse.                | `POINTING_DEVICE_SDIO_PIN` |
 | `PS2_MOUSE_USE_REMOTE_MODE`   | (Optional) Use remote mode instead of the default stream mode                  | _not defined_ |
 | `PS2_MOUSE_ENABLE_SCROLLING`  | (Optional) Enable the scrollwheel or scroll gesture on your mouse or touchpad  | _not defined_ |
 | `PS2_MOUSE_SCROLL_MASK`       | (Optional) Some mice will need a scroll mask to be configured                  | `0xFF`        |
