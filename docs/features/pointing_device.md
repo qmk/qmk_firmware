@@ -368,7 +368,7 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
 
 ```
 
-### PS/2 mouse
+### PS/2 mouse {#pointing-device-ps2-mouse}
 
 It is possible to attach a PS/2 mouse (for example touchpad or trackpoint) to your keyboard, and use it as a pointing device.
 
