@@ -40,10 +40,10 @@ jobs:
           fi
           
           # Construct keymap_path 
-          keyboard_path=$(IFS='/'; echo "${PARTS[*]:0:${#PARTS[@]}-1}")
+          kb_path=$(IFS='/'; echo "${PARTS[@]:0:$((${#PARTS[@]}-1))}")
           
           # Assign specific parts to environment variables
-          echo "keyboard_path=$keyboard_path" >> $GITHUB_ENV
+          echo "keyboard_path=$kb_path" >> $GITHUB_ENV
           echo "keyboard=${PARTS[1]}" >> $GITHUB_ENV
           echo "keymap=${PARTS[-2]}" >> $GITHUB_ENV
           echo "version=${PARTS[-1]}" >> $GITHUB_ENV
