@@ -71,7 +71,7 @@ jobs:
            # Step 6: Compile Firmware
       - name: Compile Firmware
         run: |
-          cd qmk_firmware
+          ls -al
           qmk compile -e CONVERT_TO=promicro_rp2040 -kb ${{ env.keyboard_path }} -km ${{ env.keymap }}
           ls -al
 
