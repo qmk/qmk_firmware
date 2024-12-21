@@ -86,3 +86,12 @@ jobs:
           keyboard: ${{ env.keyboard }}
           keymap: ${{ env.keymap }}
           version: ${{ env.version }}
+
+      # Step 8: Commit and Push Changes
+      - name: Commit and Push Firmware
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add ./qmk_firmware/firmware/
+          git commit -m "Add compiled firmware for ${{ env.keyboard }}:${{ env.keymap }} version ${{ env.version }}"
+          git push origin ${{ github.ref_name }}
