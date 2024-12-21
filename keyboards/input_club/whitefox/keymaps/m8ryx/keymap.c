@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_VOLU,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PGUP, KC_VOLD,
         _______, _______, _______,                            _______,                   _______, _______, KC_HOME, KC_PGDN, KC_END
-    )
+    ),
     [_NOHRMOD] = LAYOUT_65_ansi_blocker_split_bs(
         KC_ESC,        KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_GRV,     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_QUOT, KC_EQL,  TO(_BASE),
         KC_TAB,        KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    KC_LBRC,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_SLSH, KC_BSPC,          KC_DEL,
