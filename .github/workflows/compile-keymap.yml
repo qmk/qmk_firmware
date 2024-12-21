@@ -34,6 +34,7 @@ jobs:
         run: |
           BRANCH_NAME=${GITHUB_REF##*/}
           IFS='/' read -r -a PARTS <<< "$BRANCH_NAME"
+          echo "Branch Name is: $BRANCH_NAME"
           if [ ${#PARTS[@]} -lt 4 ]; then
             echo "Invalid branch format. Expected keyboard/<distributor>/<product_line>/<model>/<board_version>/<keymap_name>/<keymap_version>"
             exit 1
