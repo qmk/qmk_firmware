@@ -1,6 +1,6 @@
 # Keycult 1800
 
-This is a 1800 layout PCB. It supports VIA.
+This is a 1800 layout PCB
 
 * Keyboard Maintainer: [Yiancar](https://yiancar-designs.com/) and on [GitHub](https://github.com/yiancar)
 * Hardware Supported: A 1800 keyboard with STM32F072CB or APM compatible
