@@ -78,9 +78,9 @@ jobs:
       # Step 7: Move Generated Files
       - name: Move Compiled Firmware
         run: |
-          mkdir -p ./qmk_firmware/firmware/${{ env.keyboard }}/${{ env.keymap }}/${{ env.version }}/
+          mkdir -p ./firmware/${{ env.keyboard }}/${{ env.keymap }}/${{ env.version }}/
           for ext in uf2 bin hex; do
-            cp ./qmk_firmware/*.$ext ./qmk_firmware/firmware/${{ env.keyboard }}/${{ env.keymap }}/${{ env.version }}/ 2>/dev/null || echo "No .$ext files found."
+            cp ./*.$ext ./firmware/${{ env.keyboard }}/${{ env.keymap }}/${{ env.version }}/ 2>/dev/null || echo "No .$ext files found."
           done
         env:
           keyboard: ${{ env.keyboard }}
