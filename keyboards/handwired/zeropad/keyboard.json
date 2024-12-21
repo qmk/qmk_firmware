@@ -15,7 +15,6 @@
     "matrix_pins": {
         "cols": ["D1", "D0", "D4"],
         "rows": ["C6", "D7", "E6"],
-        "encoder": ["D3", "D2", "D5"]
     },
     "url": "",
     "usb": {
