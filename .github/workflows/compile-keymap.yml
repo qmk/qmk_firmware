@@ -41,7 +41,7 @@ jobs:
           fi
 
           # Construct keymap_path
-          kb_path=$(IFS='/'; echo "${PARTS[@]:0:$((${#PARTS[@]}-1))}")
+          kb_path=${BRANCH_NAME%/*}
 
           # Assign specific parts to environment variables
           echo "keyboard_path=$kb_path" >> $GITHUB_ENV
