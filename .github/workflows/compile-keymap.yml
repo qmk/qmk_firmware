@@ -3,7 +3,7 @@ name: Compile Keymap
 on:
   push:
     branches:
-      - 'keyboard/*'
+      - 'keyboard/**'
   workflow_dispatch:
     inputs:
       keyboard_path:
@@ -22,7 +22,7 @@ on:
 jobs:
   build-and-release:
     runs-on: ubuntu-latest
-      
+
     steps:
       # Step 1: Check out repository
       - name: Checkout Repository
@@ -38,10 +38,10 @@ jobs:
             echo "Invalid branch format. Expected keyboard/<distributor>/<product_line>/<model>/<board_version>/<keymap_name>/<keymap_version>"
             exit 1
           fi
-          
-          # Construct keymap_path 
+
+          # Construct keymap_path
           kb_path=$(IFS='/'; echo "${PARTS[@]:0:$((${#PARTS[@]}-1))}")
-          
+
           # Assign specific parts to environment variables
           echo "keyboard_path=$kb_path" >> $GITHUB_ENV
           echo "keyboard=${PARTS[1]}" >> $GITHUB_ENV
