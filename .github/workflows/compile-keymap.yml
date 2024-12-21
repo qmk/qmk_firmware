@@ -32,15 +32,16 @@ jobs:
       - name: Extract Keyboard and Keymap
         if: github.event_name == 'push'
         run: |
-          BRANCH_NAME=${GITHUB_REF##*/}
+          BRANCH_NAME=${GITHUB_REF#refs/heads/}
           IFS='/' read -r -a PARTS <<< "$BRANCH_NAME"
+          echo "Branch Name is: $BRANCH_NAME"
           if [ ${#PARTS[@]} -lt 4 ]; then
             echo "Invalid branch format. Expected keyboard/<distributor>/<product_line>/<model>/<board_version>/<keymap_name>/<keymap_version>"
             exit 1
           fi
 
           # Construct keymap_path
-          kb_path=$(IFS='/'; echo "${PARTS[@]:0:$((${#PARTS[@]}-1))}")
+          kb_path=$(echo "$BRANCH_NAME" | cut -d'/' -f2- | rev | cut -d'/' -f3- | rev)
 
           # Assign specific parts to environment variables
           echo "keyboard_path=$kb_path" >> $GITHUB_ENV
@@ -92,6 +93,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add ./qmk_firmware/firmware/
+          git add ./firmware/ *
           git commit -m "Add compiled firmware for ${{ env.keyboard }}:${{ env.keymap }} version ${{ env.version }}"
           git push origin ${{ github.ref_name }}
