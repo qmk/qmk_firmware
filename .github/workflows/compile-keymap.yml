@@ -32,7 +32,7 @@ jobs:
       - name: Extract Keyboard and Keymap
         if: github.event_name == 'push'
         run: |
-          BRANCH_NAME=${GITHUB_REF##*/}
+          BRANCH_NAME=${GITHUB_REF#refs/heads/}
           IFS='/' read -r -a PARTS <<< "$BRANCH_NAME"
           echo "Branch Name is: $BRANCH_NAME"
           if [ ${#PARTS[@]} -lt 4 ]; then
