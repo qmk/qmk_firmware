@@ -6,7 +6,7 @@ on:
       - 'keyboard/*'
   workflow_dispatch:
     inputs:
-      keymap path:
+      keyboard_path:
         description: 'Keymap Path (e.g., splitkb/aurora/lily58/rev1)'
         required: true
       keyboard:
