@@ -31,11 +31,7 @@ firmware_list.json
 # QMK-specific
 api_data/v1
 quantum/version.h
-*.bin
-*.eep
-*.hex
-*.qmk
-*.uf2
+
 
 # DD config at wrong location
 /keyboards/**/keymaps/*/info.json
@@ -43,10 +39,6 @@ quantum/version.h
 
 # Old-style QMK Makefiles
 /keyboards/**/Makefile
-
-# kbfirmware....
-/keyboards/**/kb.h
-/keyboards/**/kb.c
 
 # Eclipse/PyCharm/Other IDE Settings
 *.iml
