@@ -7,10 +7,10 @@ on:
   workflow_dispatch:
     inputs:
       keyboard_path:
-        description: 'Keymap Path (e.g., splitkb/aurora/lily58/rev1)'
+        description: 'Keyboard Path (e.g., splitkb/aurora/lily58/rev1)'
         required: true
       keyboard:
-        description: 'Keyboard (e.g., lily58)'
+        description: 'Keyboard Series (e.g., lily58)'
         required: true
       keymap:
         description: 'Keymap name (e.g., Symphony)'
