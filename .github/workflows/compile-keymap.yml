@@ -68,14 +68,21 @@ jobs:
       - name: Set up QMK Firmware
         run: qmk setup --yes
 
-      # Step 6: Compile Firmware
+           # Step 6: Compile Firmware
       - name: Compile Firmware
-        run: qmk compile -e CONVERT_TO=promicro_rp2040 -kb ${{ env.keyboard_path }} -km ${{ env.keymap }}
+        run: |
+          cd qmk_firmware
+          qmk compile -e CONVERT_TO=promicro_rp2040 -kb ${{ env.keyboard_path }} -km ${{ env.keymap }}
+          ls -al
 
       # Step 7: Move Generated Files
-      - name: Move Generated Files
+      - name: Move Compiled Firmware
         run: |
-          mkdir -p ./qmk_firmware/firmware/${{github.event.inputs.keyboard}}/${{github.event.inputs.keymap}}/${{github.event.inputs.version}}/
-          cp ./qmk_firmware/*.uf2 ./qmk_firmware/firmware/${{github.event.inputs.keyboard}}/${{github.event.inputs.keymap}}/${{github.event.inputs.version}}/ || echo "No .uf2 files found."
-          cp ./qmk_firmware/*.bin ./qmk_firmware/firmware/${{github.event.inputs.keyboard}}/${{github.event.inputs.keymap}}/${{github.event.inputs.version}}/ || echo "No .bin files found."
-          cp ./qmk_firmware/*.hex ./qmk_firmware/firmware/${{github.event.inputs.keyboard}}/${{github.event.inputs.keymap}}/${{github.event.inputs.version}}/ || echo "No .hex files found."
+          mkdir -p ./qmk_firmware/firmware/${{ env.keyboard }}/${{ env.keymap }}/${{ env.version }}/
+          for ext in uf2 bin hex; do
+            cp ./qmk_firmware/*.$ext ./qmk_firmware/firmware/${{ env.keyboard }}/${{ env.keymap }}/${{ env.version }}/ 2>/dev/null || echo "No .$ext files found."
+          done
+        env:
+          keyboard: ${{ env.keyboard }}
+          keymap: ${{ env.keymap }}
+          version: ${{ env.version }}
