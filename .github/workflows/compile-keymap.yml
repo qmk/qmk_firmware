@@ -6,6 +6,9 @@ on:
       - 'keyboard/*'
   workflow_dispatch:
     inputs:
+      keymap path:
+        description: 'Keymap Path (e.g., splitkb/aurora/lily58/rev1)'
+        required: true
       keyboard:
         description: 'Keyboard (e.g., lily58)'
         required: true
@@ -31,18 +34,25 @@ jobs:
         run: |
           BRANCH_NAME=${GITHUB_REF##*/}
           IFS='/' read -r -a PARTS <<< "$BRANCH_NAME"
-          if [ ${#PARTS[@]} -ne 4 ]; then
-            echo "Invalid branch format. Expected keyboard/<keyboard>/<keymap>/<version>"
+          if [ ${#PARTS[@]} -lt 4 ]; then
+            echo "Invalid branch format. Expected keyboard/<distributor>/<product_line>/<model>/<board_version>/<keymap_name>/<keymap_version>"
             exit 1
           fi
+          
+          # Construct keymap_path 
+          keyboard_path=$(IFS='/'; echo "${PARTS[*]:0:${#PARTS[@]}-1}")
+          
+          # Assign specific parts to environment variables
+          echo "keyboard_path=$keyboard_path" >> $GITHUB_ENV
           echo "keyboard=${PARTS[1]}" >> $GITHUB_ENV
-          echo "keymap=${PARTS[2]}" >> $GITHUB_ENV
-          echo "version=${PARTS[3]}" >> $GITHUB_ENV
+          echo "keymap=${PARTS[-2]}" >> $GITHUB_ENV
+          echo "version=${PARTS[-1]}" >> $GITHUB_ENV
 
 
       - name: Use Inputs for Manual Trigger
         if: github.event_name == 'workflow_dispatch'
         run: |
+          echo "keyboard_path=${{ github.event.inputs.keyboard_path}}" >> $GITHUB_ENV
           echo "keyboard=${{ github.event.inputs.keyboard }}" >> $GITHUB_ENV
           echo "keymap=${{ github.event.inputs.keymap }}" >> $GITHUB_ENV
           echo "version=${{ github.event.inputs.version }}" >> $GITHUB_ENV
@@ -60,7 +70,7 @@ jobs:
 
       # Step 6: Compile Firmware
       - name: Compile Firmware
-        run: qmk compile -e CONVERT_TO=promicro_rp2040 -kb ${{ env.keyboard }} -km ${{ env.keymap }}
+        run: qmk compile -e CONVERT_TO=promicro_rp2040 -kb ${{ env.keyboard_path }} -km ${{ env.keymap }}
 
       # Step 7: Move Generated Files
       - name: Move Generated Files
