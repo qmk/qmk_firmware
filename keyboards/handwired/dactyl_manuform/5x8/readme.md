@@ -1,12 +1,10 @@
 # handwired/dactyl_manuform/5x8
 
-![handwired/dactyl_manuform/5x8](imgur.com image replace me!)
-
-*A short description of the keyboard/project*
+![Dactyl_manuform 5x8](https://i.imgur.com/DtawD9r.jpeg)
 
 * Keyboard Maintainer: [iliorik](https://github.com/iliorik)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+I made this keyboard so that the buttons on the right side of the right half would replicate the standard keyboard.
+I will putting macros on the left buttons of the left side keyboard in the future
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -20,8 +18,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Bootloader
 
-Enter the bootloader in 3 ways:
+Enter the bootloader in 2 ways:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
 * **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
-* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
+* **Keycode in layout**: Press the key mapped to `QK_BOOT`
