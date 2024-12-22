@@ -19,18 +19,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdint.h>
 #include "report.h"
-#ifdef MIDI_ENABLE
-#    include "midi.h"
-#endif
 
-typedef struct {
+typedef struct host_driver_t {
+    bool has_init_executed;
+    bool (*init)(void);
+    bool (*connect)(void);
+    bool (*disconnect)(void);
+    bool (*is_connected)(void);
     uint8_t (*keyboard_leds)(void);
     void (*send_keyboard)(report_keyboard_t *);
     void (*send_nkro)(report_nkro_t *);
     void (*send_mouse)(report_mouse_t *);
     void (*send_extra)(report_extra_t *);
+#ifdef JOYSTICK_ENABLE
+    void (*send_joystick)(report_joystick_t *);
+#endif // JOYSTICK_ENABLE
+#ifdef DIGITIZER_ENABLE
+    void (*send_digitizer)(report_digitizer_t *);
+#endif // DIGITIZER_ENABLE
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+    void (*send_programmable_button)(report_programmable_button_t *);
+#endif // PROGRAMMABLE_BUTTON_ENABLE
+#ifdef CONSOLE_ENABLE
+    int8_t (*send_console)(uint8_t);
+#endif // CONSOLE_ENABLE
+#ifdef VIRTSER_ENABLE
+    void (*send_virtser)(uint8_t);
+#endif // VIRTSER_ENABLE
+#ifdef RAW_ENABLE
+    void (*send_raw_hid)(uint8_t *, uint8_t);
+#endif // RAW_ENABLE
 } host_driver_t;
-
-void send_joystick(report_joystick_t *report);
-void send_digitizer(report_digitizer_t *report);
-void send_programmable_button(report_programmable_button_t *report);
