@@ -3,6 +3,7 @@
 ![Dactyl_manuform 5x8](https://i.imgur.com/DtawD9r.jpeg)
 
 * Keyboard Maintainer: [iliorik](https://github.com/iliorik)
+
 I made this keyboard so that the buttons on the right side of the right half would replicate the standard keyboard.
 I will putting macros on the left buttons of the left side keyboard in the future
 
