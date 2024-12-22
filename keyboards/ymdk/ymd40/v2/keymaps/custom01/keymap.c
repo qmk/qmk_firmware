@@ -59,7 +59,10 @@ enum custom_keycodes {
   LENS_DOWN,
   LENS_CLOSE,
   UNIX_HOME,
-  ONOFFBOT
+  ONOFFBOT,
+  KVM01,
+  KVM02,
+  KVM03
 };
 
 bool alttab_token;
@@ -182,7 +185,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     
     [_LOWER]=LAYOUT_ortho_4x12(
 			KC_DEL,     KC_NO,		LENS_CLOSE,		LENS_DOWN,		LENS_UP,            DM_PLY1,	RALT(KC_1),		 					KC_EXLM,		KC_AT,		    KC_HASH,	    	KC_DLR,			KC_PERC,
-			KC_NO,		WINTAB,		ALTTAB,	    	C(G(KC_LEFT)),	C(G(KC_RIGHT)),		DM_PLY2,	KC_GRV,								KC_CIRC,		KC_AMPR,	    KC_ASTR,	        TD(TD_LPRN),	TD(TD_RPRN),
+			KC_ENT,		WINTAB,		ALTTAB,	    	C(G(KC_LEFT)),	C(G(KC_RIGHT)),		DM_PLY2,	KC_GRV,								KC_CIRC,		KC_AMPR,	    KC_ASTR,	        TD(TD_LPRN),	TD(TD_RPRN),
 			KC_NO,		KC_NO,		KC_NO,			G(S(KC_S)),		G(KC_V),		    KC_NO,		XP(ORDINAL_MALE,ORDINAL_FEMALE),	KC_MINS,		KC_EQL,		    KC_BSLS,		    UNIX_HOME,		X(RAYA),
 			KC_NO,		KC_TRNS,	KC_TRNS,		KC_TRNS,		KC_TRNS,	        KC_NO,		KC_NO,		 						MO(_OTHERS),	RALT(KC_5),		KC_NO,				KC_NO,			KC_NO
 	),
@@ -203,7 +206,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	
 	[_OTHERS]=LAYOUT_ortho_4x12(
 			QK_BOOT,	KC_NO,		KC_NO,		KC_NO,		KC_NO,		DM_REC1,	KC_NO,	ONOFFBOT,	KC_NO,		KC_PWR,		KC_SLEP,	KC_WAKE,
-			QK_RBT,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		DM_REC2,	KC_NO,	KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
+			QK_RBT,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		DM_REC2,	KC_NO,	KVM01,		KVM02,		KVM03,		KC_NO,		KC_NO,
 			QK_MAKE,	KC_NO,		KC_NO,		KC_BRID,	KC_BRIU,	DM_RSTP,	KC_NO,	DT_DOWN,	DT_PRNT,	DT_UP,		KC_NO,		KC_NO,
 			KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_NO,		KC_NO,	KC_TRNS,	KC_NO,		KC_NO,		KC_NO,		KC_NO
 	),
@@ -390,6 +393,36 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			
 				handleBoot();
 			}
+			break;
+		
+		case KVM01:
+					
+			if (record->event.pressed){
+
+				SEND_STRING(SS_TAP(X_RCTL) SS_TAP(X_RCTL) SS_TAP(X_1) SS_TAP(X_ENT));
+				
+			}	
+
+			break;
+		
+		case KVM02:
+		
+			if (record->event.pressed){
+
+				SEND_STRING(SS_TAP(X_RCTL) SS_TAP(X_RCTL) SS_TAP(X_2) SS_TAP(X_ENT));
+				
+			}	
+
+			break;
+		
+		case KVM03:
+		
+			if (record->event.pressed){
+
+				SEND_STRING(SS_TAP(X_RCTL) SS_TAP(X_RCTL) SS_TAP(X_R) SS_TAP(X_ENT));
+				
+			}	
+
 			break;
 
 		default:
