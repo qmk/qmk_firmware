@@ -14,16 +14,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifdef RGB_MATRIX_ENABLE
-
-#endif
-
 #ifdef EEPROM_ENABLE
 
 #include "spi_master.h"
-
-//#include "quantum.h"
-
 
 void spi_init(void) {
     static bool is_initialised = false;
@@ -46,22 +39,6 @@ void spi_init(void) {
 #endif
 
 void keyboard_pre_init_kb(void) {
-
-    setPinOutput(B13); 
+    setPinOutput(B13);
     writePinHigh(B13);
 }
-
-
-
-
-// bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
-//     if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) {
-//         return false;
-// }
-//    if (host_keyboard_led_state().caps_lock) {
-//         RGB_MATRIX_INDICATOR_SET_COLOR(30, 255, 255, 255); // assuming caps lock is at led #30
-//     }
-//     return false;
-// };
-
-

@@ -20,15 +20,12 @@
     },
     "features": {
         "bootmagic": true,
-        "combo": false,
         "command": false,
-        "console": false,
-        "deferred_exec": true,
+        "console": false,    
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgb_matrix": true,
-        "rgblight": false
+        "rgb_matrix": true,     
     },
     "matrix_pins": {
         "cols": ["B0", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "C12", "A15", "B10", "B11", "A10", "A9", "C8", "C5"],
