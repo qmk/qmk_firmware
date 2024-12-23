@@ -77,7 +77,7 @@ void housekeeping_task_kb(void) {
     else {
         joystick_set_hat(-1);
     }
-    int analog = analogReadPin(GP26);
+    int16_t analog = analogReadPin(GP26);
     joystick_set_axis(0, analog);
     analog = analogReadPin(GP27);
     joystick_set_axis(1, analog);
