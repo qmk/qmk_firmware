@@ -33,7 +33,7 @@ bool oled_task_kb(void) {
 
     if (caps) {
         oled_set_cursor(17, 3);
-        oled_write(caps ? caps_on : caps_off, false);
+        oled_write_P(caps ? caps_on : caps_off, false);
     }
     return false;
 }
