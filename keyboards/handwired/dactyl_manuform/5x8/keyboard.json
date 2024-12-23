@@ -9,7 +9,7 @@
         "device_version": "0.0.1"
     },
     "features": {
-        "bootmagic": false,
+        "bootmagic": true,
         "extrakey": true,
         "mousekey": true,
     },
