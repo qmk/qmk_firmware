@@ -166,7 +166,29 @@ void enter_low_power_mode_prepare(void)
     set_all_io_analog();
     uint8_t i = 0;
 #if (DIODE_DIRECTION == COL2ROW)
-    // TODO: Wait implementation
+    // Set row(low valid), read cols
+    for (i = 0; i < matrix_cols(); i++)
+    { // set col pull-up input
+        if(wakeUpCol_pins[i] == NO_PIN)
+        {
+            continue;
+        } 
+        ATOMIC_BLOCK_FORCEON {
+            gpio_set_pin_input_high(wakeUpCol_pins[i]);
+            palEnableLineEvent(wakeUpCol_pins[i], PAL_EVENT_MODE_BOTH_EDGES);
+        }
+    }
+    for (i = 0; i < matrix_rows(); i++)
+    { // set row output low level
+        if(wakeUpRow_pins[i] == NO_PIN)
+        {
+            continue;
+        } 
+        ATOMIC_BLOCK_FORCEON {
+            gpio_set_pin_output(wakeUpRow_pins[i]);
+            gpio_write_pin_low(wakeUpRow_pins[i]);
+        }
+    }
 #elif (DIODE_DIRECTION == ROW2COL)
 
     // Set col(low valid), read rows
@@ -183,7 +205,7 @@ void enter_low_power_mode_prepare(void)
     }
     for (i = 0; i < matrix_cols(); i++)
     { // set col output low level
-        if(wakeUpRow_pins[i] == NO_PIN)
+        if(wakeUpCol_pins[i] == NO_PIN)
         {
             continue;
         } 
