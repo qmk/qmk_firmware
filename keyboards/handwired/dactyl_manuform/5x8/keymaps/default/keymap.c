@@ -1,5 +1,3 @@
-#include QMK_KEYBOARD_H
-
 /* Copyright 2024 Philip Slinkin (s.philya@gmail.com)
  *
  * This program is free software: you can redistribute it and/or modify
@@ -15,6 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include QMK_KEYBOARD_H
 
 #define _QWERTY      0
 #define _RIGHT2LEFT  1
