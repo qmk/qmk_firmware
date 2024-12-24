@@ -1,0 +1,1 @@
+DEFAULT_FOLDER = trnthsn/s6xty5r2/stm32f072
