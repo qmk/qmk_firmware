@@ -1,0 +1,67 @@
+{
+    "manufacturer": "Exclusive",
+    "keyboard_name": "E8.5",
+    "maintainer": "qmk",
+    "backlight": {
+        "breathing": true,
+        "levels": 6,
+        "pin": "B6"
+    },
+    "bootloader": "atmel-dfu",
+    "build": {
+        "lto": true
+    },
+    "diode_direction": "ROW2COL",
+    "features": {
+        "bootmagic": true,
+        "command": true,
+        "console": true,
+        "extrakey": true,
+        "mousekey": true,
+        "rgblight": true
+    },
+    "indicators": {
+        "caps_lock": "C7",
+        "scroll_lock": "B5"
+    },
+    "matrix_pins": {
+        "cols": ["D0", "D1", "D2", "D3", "D5", "D4", "D6", "D7", "B4"],
+        "rows": ["E6", "B0", "B1", "B2", "B3", "B7", "F7", "F6", "F5", "F4", "F1"]
+    },
+    "processor": "atmega32u4",
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
+    "rgblight": {
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        },
+        "brightness_steps": 8,
+        "led_count": 18,
+        "saturation_steps": 8,
+        "sleep": true
+    },
+    "url": "",
+    "usb": {
+        "vid": "0x4558"
+    },
+    "ws2812": {
+        "pin": "E2"
+    },
+    "layout_aliases": {
+        "LAYOUT_ansi_standard": "LAYOUT_tkl_f13_ansi",
+        "LAYOUT_ansi_tsangan": "LAYOUT_tkl_f13_ansi_tsangan"
+    }
+}
