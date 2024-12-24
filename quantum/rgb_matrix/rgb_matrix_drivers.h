@@ -48,4 +48,8 @@ typedef struct {
     void (*flush)(void);
 } rgb_matrix_driver_t;
 
+#ifdef RGB_MATRIX_DOUBLE_BUFFER
+extern const rgb_matrix_driver_t rgb_matrix_driver_wrapper;
+#endif
+
 extern const rgb_matrix_driver_t rgb_matrix_driver;

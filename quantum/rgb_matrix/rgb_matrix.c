@@ -29,6 +29,10 @@
 
 #include <lib/lib8tion/lib8tion.h>
 
+#ifdef RGB_MATRIX_DOUBLE_BUFFER
+#    define rgb_matrix_driver rgb_matrix_driver_wrapper
+#endif
+
 #ifndef RGB_MATRIX_CENTER
 const led_point_t k_rgb_matrix_center = {112, 32};
 #else
