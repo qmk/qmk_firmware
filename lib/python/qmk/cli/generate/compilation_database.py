@@ -12,7 +12,8 @@ from typing import Dict, Iterator, List, Union
 
 from milc import cli, MILC
 
-from qmk.commands import find_make
+from qmk.commands import find_make,build_environment
+
 from qmk.constants import QMK_FIRMWARE
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.keyboard import keyboard_completer, keyboard_folder
@@ -143,6 +144,7 @@ def write_compilation_database(keyboard: str = None, keymap: str = None, output_
 
 @cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='The keyboard\'s name')
 @cli.argument('-km', '--keymap', completer=keymap_completer, help='The keymap\'s name')
+@cli.argument('-e', '--env', arg_only=True, action='append', default=[], help="Set a variable to be passed to make. May be passed multiple times.")
 @cli.subcommand('Create a compilation database.')
 @automagic_keyboard
 @automagic_keymap
@@ -165,5 +167,6 @@ def generate_compilation_database(cli: MILC) -> Union[bool, int]:
     elif not current_keymap:
         cli.log.error('Could not determine keymap!')
 
+    envs = build_environment(cli.args.env)
     target = KeyboardKeymapBuildTarget(current_keyboard, current_keymap)
-    return target.generate_compilation_database()
+    return target.generate_compilation_database(**envs)
