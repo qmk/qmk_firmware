@@ -1,0 +1,9 @@
+{
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "diode_direction": "COL2ROW",
+    "matrix_pins": {
+        "cols": ["GP28", "GP20", "GP22", "GP21", "GP17", "GP26"],
+        "rows": ["GP27", "GP18", "GP16", "GP19", "GP15"]
+    }
+}
