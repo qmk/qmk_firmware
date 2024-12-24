@@ -140,6 +140,9 @@
     "custommk/genesis": {
         "target": "custommk/genesis/rev1"
     },
+    "cxt_studio":{
+        "target":"cxt_studio/12e4"
+    },
     "daisy": {
         "target": "ktec/daisy"
     },

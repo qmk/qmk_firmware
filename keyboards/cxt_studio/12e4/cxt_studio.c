@@ -3,8 +3,6 @@
 
 #include "quantum.h"
 
-static uint8_t anim = 0;
-
 #ifdef ENCODER_ENABLE
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) {
@@ -21,32 +19,26 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
       break;
       case 1: {
         if (clockwise) {
-            rgblight_increase_hue();
+            rgb_matrix_increase_hue();
         } else {
-            rgblight_decrease_hue();
+            rgb_matrix_decrease_hue();
         }
       }
       break;
       case 2: {
         if (clockwise) {
-            rgblight_increase_val();
+            rgb_matrix_increase_val();
         } else {
-            rgblight_decrease_val();
+            rgb_matrix_decrease_val();
         }
       }
       break;
       case 3: {
         if (clockwise) {
-            anim++;
+            rgb_matrix_step();
         } else {
-            anim--;
+            rgb_matrix_step_reverse();
         }
-	if (anim >= RGB_MATRIX_EFFECT_MAX) {
-		anim = 0;
-	} else if (anim < 0) {
-		anim = RGB_MATRIX_EFFECT_MAX - 1;
-	}
-	rgblight_mode(anim);
       }
       break;
     }

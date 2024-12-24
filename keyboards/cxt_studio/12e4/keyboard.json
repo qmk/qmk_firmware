@@ -1,6 +1,6 @@
 {
     "manufacturer": "CXT",
-    "keyboard_name": "cxt_studio",
+    "keyboard_name": "cxt_studio 12E4",
     "maintainer": "ColinKinloch",
     "bootloader": "atmel-dfu",
     "diode_direction": "ROW2COL",
