@@ -226,7 +226,7 @@ def is_keymap_dir(keymap, c=True, json=True, additional_files=None):
             return True
 
 
-def generate_json(keymap, keyboard, layout, layers, macros=None):
+def generate_json(keymap, keyboard, layout, layers, layer_names=None, macros=None):
     """Returns a `keymap.json` for the specified keyboard, layout, and layers.
 
     Args:
@@ -242,6 +242,9 @@ def generate_json(keymap, keyboard, layout, layers, macros=None):
         layers
             An array of arrays describing the keymap. Each item in the inner array should be a string that is a valid QMK keycode.
 
+        layer_names
+            An array of strings describing the names of each layer.
+
         macros
             A sequence of strings containing macros to implement for this keyboard.
     """
@@ -249,6 +252,8 @@ def generate_json(keymap, keyboard, layout, layers, macros=None):
     new_keymap['keymap'] = keymap
     new_keymap['layout'] = layout
     new_keymap['layers'] = layers
+    if layer_names:
+        new_keymap['layer_names'] = layer_names
     if macros:
         new_keymap['macros'] = macros
 
@@ -327,7 +332,7 @@ def write_json(keyboard, keymap, layout, layers, macros=None):
         layers
             An array of arrays describing the keymap. Each item in the inner array should be a string that is a valid QMK keycode.
     """
-    keymap_json = generate_json(keyboard, keymap, layout, layers, macros=None)
+    keymap_json = generate_json(keyboard, keymap, layout, layers, layer_names=None, macros=None)
     keymap_content = json.dumps(keymap_json)
     keymap_file = qmk.path.keymaps(keyboard)[0] / keymap / 'keymap.json'
 
@@ -653,7 +658,7 @@ def parse_keymap_c(keymap_file, use_cpp=True):
     return keymap
 
 
-def c2json(keyboard, keymap, keymap_file, use_cpp=True):
+def c2json(keyboard, keymap, keymap_file, use_cpp=True, export_layer_names=False):
     """ Convert keymap.c to keymap.json
 
     Args:
@@ -673,9 +678,10 @@ def c2json(keyboard, keymap, keymap_file, use_cpp=True):
     keymap_json = parse_keymap_c(keymap_file, use_cpp)
 
     dirty_layers = keymap_json.pop('layers', None)
+    layer_names = list()
     keymap_json['layers'] = list()
     for layer in dirty_layers:
-        layer.pop('name')
+        layer_names.append(layer.pop('name'))
         layout = layer.pop('layout')
         if not keymap_json.get('layout', False):
             keymap_json['layout'] = layout
@@ -683,4 +689,6 @@ def c2json(keyboard, keymap, keymap_file, use_cpp=True):
 
     keymap_json['keyboard'] = keyboard
     keymap_json['keymap'] = keymap
+    if export_layer_names:
+        keymap_json['layer_names'] = layer_names
     return keymap_json
