@@ -15,14 +15,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_CALC,  KC_UNDO, KC_MPLY,  KC_MNXT,
         MO(1),    KC_LGUI, KC_DEL,   KC_APP,
         //Encoders: Left, Right, Big
-        _______,  RM_TOGG, KC_MUTE
+        _______,  RM_TOGG, KC_MUTE,
     ),
     [_RGBL] = LAYOUT(
         RM_NEXT,  RM_SATU,  KC_INS,  KC_DEL,
         RM_PREV,  RM_SATD,  KC_PGUP, KC_HOME,
         _______,  QK_BOOT,  KC_PGDN, KC_END,
         //Encoders: Left, Right, Big
-        _______,  _______, _______
+        _______,  _______, _______,
     ),
 };
 
