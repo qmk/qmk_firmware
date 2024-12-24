@@ -4,18 +4,15 @@
 
 * Keyboard Maintainer: [vchowl](https://github.com/vchowl)
 * Hardware Supported: STM32F072RBT6
-* Hardware Availability: https://amptrics.com/products/keypad-0422
+* Hardware Availability: Not yet available.
 
 Make example for this keyboard (after setting up your build environment):
 
-    qmk compile -kb amptrics\0422 -km default
+    make amptrics/0422:default
 
 Flashing example for this keyboard:
 
-    Open the QMK Toolbox software
-    Put the device into bootloader mode (choose any method, mentioned below)
-    Device will be detected.
-    Select the firmware & click on Flash
+    make amptrics/0422:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 

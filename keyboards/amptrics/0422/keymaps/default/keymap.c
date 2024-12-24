@@ -30,28 +30,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * └───┴───┴───┘
      */
     [0] = LAYOUT(
-        LT(0, KC_NO),
+        XXXXXXX,
         KC_7,   KC_8,   KC_9,
         KC_4,   KC_5,   KC_6,
         KC_1,   KC_2,   KC_3
     ),
 
     [1] = LAYOUT(
-        LT(0, KC_NO),
+        XXXXXXX,
         KC_A,   KC_B,   KC_C,
         KC_D,   KC_E,   KC_F,
         KC_G,   KC_H,   KC_I
     ),
 
     [2] = LAYOUT(
-        LT(0, KC_NO),
+        XXXXXXX,
         KC_J,   KC_K,   KC_L,
         KC_M,   KC_N,   KC_O,
         KC_P,   KC_Q,   KC_R
     ),
 
     [3] = LAYOUT(
-        LT(0, KC_NO),
+        XXXXXXX,
         KC_S,   KC_T,   KC_U,
         KC_V,   KC_W,   KC_X,
         KC_Y,   KC_Z,   KC_ENT
