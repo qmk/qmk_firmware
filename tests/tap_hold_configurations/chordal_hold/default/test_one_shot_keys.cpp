@@ -61,22 +61,16 @@ TEST_P(OneShotParametrizedTestFixture, OSMAsRegularModifierWithAdditionalKeypres
     EXPECT_NO_REPORT(driver);
     osm_key.press();
     run_one_scan_loop();
-    VERIFY_AND_CLEAR(driver);
-
     // Press regular key.
-    EXPECT_NO_REPORT(driver);
     regular_key.press();
     run_one_scan_loop();
-    VERIFY_AND_CLEAR(driver);
-
     // Release regular key.
-    EXPECT_REPORT(driver, (osm_key.report_code)).Times(2);
-    EXPECT_REPORT(driver, (regular_key.report_code, osm_key.report_code));
     regular_key.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 
     // Release OSM.
+    EXPECT_REPORT(driver, (regular_key.report_code, osm_key.report_code));
     EXPECT_EMPTY_REPORT(driver);
     osm_key.release();
     run_one_scan_loop();
