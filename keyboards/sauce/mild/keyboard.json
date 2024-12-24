@@ -33,6 +33,7 @@
     },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
+    "community_layouts": ["tkl_ansi_wkl", "tkl_ansi_wkl_split_bs_rshift", "tkl_iso_wkl", "tkl_iso_wkl_split_bs_rshift"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
