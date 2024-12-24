@@ -1,11 +1,11 @@
-# cxt_studio
+# cxt_studio/12e4
 
-![cxt_studio](https://i.imgur.com/AMCTioSh.jpeg)
+![cxt_studio/12e4](https://i.imgur.com/AMCTioSh.jpeg)
 
 3x4 ortho rgb lighting 4 knobs.
 
 * Keyboard Maintainer: [Colin Kinloch](https://github.com/ColinKinloch)
-* Hardware Supported: CXT-Studio
+* Hardware Supported: CXT-Studio/12E4
 * Hardware Availability: AliExpress. I think the manufacturer is on Taobao.
 
 Make example for this keyboard (after setting up your build environment):
