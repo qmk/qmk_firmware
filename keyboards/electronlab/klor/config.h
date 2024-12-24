@@ -30,7 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define AUDIO_PWM_DRIVER PWMD4
 #define AUDIO_PWM_CHANNEL RP2040_PWM_CHANNEL_B
 #define AUDIO_PIN GP9
-#define AUDIO_DAC_SAMPLE_MAX 4095U
 #define AUDIO_VOICE_DEFAULT butts_fader
 # define STARTUP_SONG SONG(W__NOTE(_DS0), W__NOTE(_DS1), H__NOTE(_DS2), H__NOTE(_DS3), Q__NOTE(_DS4), Q__NOTE(_DS5), E__NOTE(_DS6), E__NOTE(_DS7), S__NOTE(_DS8), Q__NOTE(_GS0))
 # define GOODBYE_SONG SONG(H__NOTE(_DS4), H__NOTE(_DS3), W__NOTE(_DS1))
