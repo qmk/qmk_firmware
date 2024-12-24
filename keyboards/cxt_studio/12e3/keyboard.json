@@ -1,6 +1,6 @@
 {
     "manufacturer": "cxt_studio",
-    "keyboard_name": "12e3",
+    "keyboard_name": "cxt_studio 12E3",
     "maintainer": "muge",
     "bootloader": "atmel-dfu",
     "diode_direction": "ROW2COL",
