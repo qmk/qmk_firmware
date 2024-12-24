@@ -200,6 +200,7 @@
     "SPLIT_WPM_ENABLE": {"info_key": "split.transport.sync.wpm", "value_type": "flag"},
 
     // Tapping
+    "CHORDAL_HOLD": {"info_key": "tapping.chordal_hold", "value_type": "flag"},
     "HOLD_ON_OTHER_KEY_PRESS": {"info_key": "tapping.hold_on_other_key_press", "value_type": "flag"},
     "HOLD_ON_OTHER_KEY_PRESS_PER_KEY": {"info_key": "tapping.hold_on_other_key_press_per_key", "value_type": "flag"},
     "PERMISSIVE_HOLD": {"info_key": "tapping.permissive_hold", "value_type": "flag"},
