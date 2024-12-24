@@ -29,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef AUDIO_ENABLE
 #define AUDIO_PWM_DRIVER PWMD4
 #define AUDIO_PWM_CHANNEL RP2040_PWM_CHANNEL_B
-#define AUDIO_STATE_TIMER GPTD4
 #define AUDIO_PIN GP9
 #define AUDIO_DAC_SAMPLE_MAX 4095U
 #define AUDIO_VOICE_DEFAULT butts_fader
