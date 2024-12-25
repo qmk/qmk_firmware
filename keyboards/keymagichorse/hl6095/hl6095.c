@@ -17,10 +17,10 @@
 
 #if defined(BLUETOOTH_BHQ)
 #   include "bhq.h"
-#   include "km_printf.h"
 
 #   if defined(KB_LPM_ENABLED)
 #       include "lpm.h"
+#       include "km_printf.h"
 #   endif
 
 #endif
@@ -32,9 +32,9 @@ void board_init(void)
 #if defined(BLUETOOTH_BHQ)
 #   if defined(KB_LPM_ENABLED)
     lpm_init();
-#   endif
     km_printf_init();
     km_printf("hello rtt log1111111\r\n");
+#   endif
 #endif
 }
 void housekeeping_task_kb(void) {
