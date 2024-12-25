@@ -5,7 +5,7 @@
 * Keyboard Maintainer: [iliorik](https://github.com/iliorik)
 
 I made this keyboard so that the buttons on the right side of the right half would replicate the standard keyboard.
-I will putting macros on the left buttons of the left side keyboard in the future
+I put macros on the left buttons of the left side keyboard for rec and play keypresses
 
 Make example for this keyboard (after setting up your build environment):
 
