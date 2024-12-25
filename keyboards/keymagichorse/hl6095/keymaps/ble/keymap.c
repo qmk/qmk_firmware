@@ -19,6 +19,10 @@
 #include "outputselect.h"
 #include "usb_main.h"
 
+#if defined(RGBLIGHT_WS2812)
+#    include "ws2812.h"
+#endif
+
 #if defined(BLUETOOTH_BHQ)
 #   include "bhq.h"
 #   include "battery.h"
@@ -124,36 +128,119 @@ void eeconfig_init_kb(void)
 }
 
 
-static uint32_t output_mode_press_time = 0;
-static uint32_t ble_switch_press_time = 0;
-static uint8_t ble_host_index = 0;
 
-uint8_t advertSta = 0;
-uint8_t connectSta = 0;
-uint8_t pairingSta = 0;
-uint8_t host_index = 255;
+// Keyboard level code can override this, but shouldn't need to.
+// Controlling custom features should be done by overriding
+// via_custom_value_command_kb() instead.
+__attribute__((weak)) bool via_command_kb(uint8_t *data, uint8_t length) {
+    uint8_t command_id   = data[0];
+    uint8_t i = 0;
+
+    // 此逻辑删除 会失去蓝牙模块升级功能 以及蓝牙改键功能！！！！！！！
+    km_printf("cmdid:%02x  length:%d\r\n",command_id,length);
+    km_printf("read host app of data \r\n[");
+    for (i = 0; i < length; i++)
+    {
+        km_printf("%02x ",data[i]);
+    }
+    km_printf("]\r\n");
+
+    if(command_id == 0xF1)
+    {
+        // cmdid + 2 frame headers 
+        // The third one is isack the fourth one is length and the fifth one is data frame
+        BHQ_SendCmd(0, &data[4], data[3]);
+        return true;
+    }
+    return false;
+}
+
+#   if defined(KB_LPM_ENABLED)
+// 低功耗外围设备电源控制
+void lpm_device_power_open(void) 
+{
+#if defined(RGBLIGHT_WS2812) && defined(RGBLIGHT_ENABLE) 
+    // ws2812电源开启
+    ws2812_init();
+    rgblight_setrgb_at(255, 60, 50, 0);
+    gpio_set_pin_output(B8);        // ws2812 power
+    gpio_write_pin_low(B8);
+#endif
+
+}
+void lpm_device_power_close(void) 
+{
+#if defined(RGBLIGHT_WS2812) && defined(RGBLIGHT_ENABLE) 
+    // ws2812电源关闭
+    rgblight_setrgb_at(0, 0, 0, 0);
+    gpio_set_pin_output(B8);        // ws2812 power
+    gpio_write_pin_high(B8);
+
+    gpio_set_pin_output(WS2812_DI_PIN);        // ws2812 DI Pin
+    gpio_write_pin_low(WS2812_DI_PIN);
+#endif
+}
+#endif
+
+// --------------------  都是用于处理按键触发的变量 --------------------
+// 这几个变量大致的功能就是用来 作长按短按的。
+// 长按打开配对蓝牙广播  短按打开非配对蓝牙广播
+static uint32_t key_output_mode_press_time = 0; // 输出模式按下计时器
+static uint32_t key_ble_switch_press_time = 0;  // 蓝牙切换通道 按下计时器
+static uint8_t key_ble_host_index = 0;          // 这里是用于按键按下的
+// --------------------  都是用于处理按键触发的变量 --------------------
+
+
+// --------------------  蓝牙模块返回的状态 --------------------
+uint8_t advertSta = 0;      // 蓝牙广播状态
+uint8_t connectSta = 0;     // 连接状态
+uint8_t pairingSta = 0;     // 蓝牙是否开启配对广播
+uint8_t host_index = 255;   // 蓝牙通道 这里是模块返回的
+// --------------------  蓝牙模块返回的状态 --------------------
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #   if defined(KB_LPM_ENABLED)
-    lpm_timer_reset();
+    lpm_timer_reset();  // 这里用于低功耗，按下任何按键刷新低功耗计时器
 #endif
+
+    // 如果蓝牙广播未开启 或 没有连接
+    if (advertSta == 0 && connectSta == 0) 
+    {
+        // 检查按键值是否不在 BT_1 到 BT_11 范围
+        if (keycode < BT_1 || keycode > BT_11) 
+        {
+            // 检查传输模式是否为蓝牙模式
+            if (
+                user_config.transfer_mode == KB_BLE_1_MODE || 
+                user_config.transfer_mode == KB_BLE_2_MODE || 
+                user_config.transfer_mode == KB_BLE_3_MODE
+            ) 
+            {
+                // KB_BLE_1_MODE 在枚举 里面是2、在蓝牙通道内是0
+                // 那么 2 - 2 = 0 那就是host = 0;
+                // 重新打开非配对蓝牙广播。如已开启蓝牙广播或已连接，那么不会断开当前的蓝牙连接。
+                bhq_AnewOpenBleAdvertising(user_config.transfer_mode - 2, 15);
+            }
+        }
+    }
+
+
     switch (keycode)
     {
         case BLE_TOG:
         {
             if(record->event.pressed)
             {
-                output_mode_press_time = timer_read32();
-                // gpio_write_pin_low(QMK_RUN_OUTPUT_PIN);
+                key_output_mode_press_time = timer_read32();
             }
             else 
             {
                 // gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
-                if(timer_elapsed32(output_mode_press_time) >= 300) 
+                if(timer_elapsed32(key_output_mode_press_time) >= 300) 
                 {
-                    ble_host_index = 0;
+                    key_ble_host_index = 0;
                     // 打开非配对模式蓝牙广播 10 = 10S
-                    bhq_OpenBleAdvertising(ble_host_index, 10);
+                    bhq_OpenBleAdvertising(key_ble_host_index, 30);
                     set_output(OUTPUT_BLUETOOTH);
 
                     // 这里切换蓝牙模式，默认是打开第一个蓝牙通道
@@ -167,13 +254,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         {
             if(record->event.pressed)
             {
-                output_mode_press_time = timer_read32();
-                // gpio_write_pin_low(QMK_RUN_OUTPUT_PIN);
+                key_output_mode_press_time = timer_read32();
             }
             else 
             {
                 // gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
-                if(timer_elapsed32(output_mode_press_time) >= 300) 
+                if(timer_elapsed32(key_output_mode_press_time) >= 300) 
                 {
                     // TODO: 等待bhq驱动完善，这里还是用蓝牙输出来作为qmk的模式切换，在蓝牙模块内会切换成2.4ghz私有连接
                     bhq_switch_rf_easy_kb();
@@ -189,11 +275,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         {
             if(record->event.pressed)
             {
-                output_mode_press_time = timer_read32();
+                key_output_mode_press_time = timer_read32();
             }
             else
             {
-                if(timer_elapsed32(output_mode_press_time) >= 300) 
+                if(timer_elapsed32(key_output_mode_press_time) >= 300) 
                 {
                     // 切换到usb模式 并 关闭蓝牙广播
                     set_output(OUTPUT_USB);
@@ -209,13 +295,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         {
             if(record->event.pressed)
             {
-                output_mode_press_time = timer_read32();
-                // gpio_write_pin_low(QMK_RUN_OUTPUT_PIN);
+                key_output_mode_press_time = timer_read32();
             }
             else
             {
-                // gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
-                if(timer_elapsed32(output_mode_press_time) >= 500) 
+                if(timer_elapsed32(key_output_mode_press_time) >= 500) 
                 {
                     // 关闭蓝牙广播
                     bhq_CloseBleAdvertising();
@@ -228,50 +312,40 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case BL_SW_2:
             if(record->event.pressed)
             {
-                // rgblight_blink_layer_repeat(1 , 500, 20);
-                ble_switch_press_time = timer_read32();
-                // gpio_write_pin_low(QMK_RUN_OUTPUT_PIN);
+                key_ble_switch_press_time = timer_read32();
             }
             else
             {
-                // gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
                 switch (keycode)
                 {
                     case BL_SW_0:
-                        ble_host_index = 0;
-                        
-                       
+                        key_ble_host_index = 0;
                         break;  
                     case BL_SW_1:
-                        ble_host_index = 1;
-
-                        user_config.transfer_mode = KB_BLE_2_MODE;  
-                        eeconfig_update_user(user_config.raw);
+                        key_ble_host_index = 1;
                         break;  
                     case BL_SW_2:
-                        ble_host_index = 2;
-
-                        user_config.transfer_mode = KB_BLE_3_MODE;  
-                        eeconfig_update_user(user_config.raw);
+                        key_ble_host_index = 2;
                         break;  
                 }
-                if(timer_elapsed32(ble_switch_press_time) >= 300 && timer_elapsed32(ble_switch_press_time) <= 1500)
+                if(timer_elapsed32(key_ble_switch_press_time) >= 300 && timer_elapsed32(key_ble_switch_press_time) <= 800)
                 {
                     // 打开非配对模式蓝牙广播 10 = 10S
-                    bhq_OpenBleAdvertising(ble_host_index, 10);
+                    bhq_OpenBleAdvertising(key_ble_host_index, 30);
                     set_output(OUTPUT_BLUETOOTH);
 
                     // 这里枚举 + 蓝牙通道就能计算出 KB_BLE_1_MODE、KB_BLE_2_MODE、KB_BLE_3_MODE
-                    user_config.transfer_mode = KB_BLE_1_MODE + ble_host_index;  
+                    user_config.transfer_mode = KB_BLE_1_MODE + key_ble_host_index;  
                     eeconfig_update_user(user_config.raw);
                 }
-                else if(timer_elapsed32(ble_switch_press_time) >= 1500)
+                else if(timer_elapsed32(key_ble_switch_press_time) >= 1000)
                 {
                     // 打开 配对模式蓝牙广播 10 = 10S
-                    bhq_SetPairingMode(ble_host_index, 10);
+                    bhq_SetPairingMode(key_ble_host_index, 30);
                     set_output(OUTPUT_BLUETOOTH);
                     
-                    user_config.transfer_mode = KB_BLE_1_MODE + ble_host_index;  
+                    // 这里枚举 + 蓝牙通道就能计算出 KB_BLE_1_MODE、KB_BLE_2_MODE、KB_BLE_3_MODE
+                    user_config.transfer_mode = KB_BLE_1_MODE + key_ble_host_index;  
                     eeconfig_update_user(user_config.raw);
                 }
             }
@@ -279,23 +353,43 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
-#if defined(RGBLIGHT_ENABLE) && defined(BLUETOOTH_BHQ) 
 
+#if defined(RGBLIGHT_ENABLE) 
+//  每个通道的颜色 以及大写按键的颜色
 const rgblight_segment_t PROGMEM bt_conn1[] = RGBLIGHT_LAYER_SEGMENTS( {0, 1, HSV_RED} );   // 红
 const rgblight_segment_t PROGMEM bt_conn2[] = RGBLIGHT_LAYER_SEGMENTS( {0, 1, HSV_GREEN} ); // 绿
 const rgblight_segment_t PROGMEM bt_conn3[] = RGBLIGHT_LAYER_SEGMENTS( {0, 1, HSV_BLUE} );  // 蓝
 const rgblight_segment_t PROGMEM caps_lock_[] = RGBLIGHT_LAYER_SEGMENTS( {0, 1, HSV_PURPLE} );  // 紫色
-const rgblight_segment_t* const PROGMEM _rgb_layers[] =
-    RGBLIGHT_LAYERS_LIST( 
-        bt_conn1, bt_conn2,  bt_conn3,caps_lock_
-    );
 
+const rgblight_segment_t* const PROGMEM _rgb_layers[] = RGBLIGHT_LAYERS_LIST( 
+    bt_conn1, bt_conn2, bt_conn3, caps_lock_
+);
+
+
+
+void rgb_adv_unblink_all_layer(void) {
+    for (uint8_t i = 0; i < 3; i++) {
+        rgblight_unblink_layer(i);
+    }
+}
+
+//  这个qmk的基本功能。键盘锁更新就会触发这玩意
+bool led_update_user(led_t led_state) {
+    rgblight_set_layer_state(3, led_state.caps_lock);
+    km_printf("led_update_user\r\n");
+    return true;
+}
+
+#endif
 
 // After initializing the peripheral
 void keyboard_post_init_kb(void)
 {
+#if defined(RGBLIGHT_ENABLE) 
     rgblight_disable();
     rgblight_layers = _rgb_layers;
+#endif
+#if defined(BLUETOOTH_BHQ)
     bhkDevConfigInfo_t model_parma = {
         .vendor_id_source   = 1,
         .verndor_id         = VENDOR_ID,
@@ -323,35 +417,21 @@ void keyboard_post_init_kb(void)
         .bleNameStrLength = strlen(PRODUCT),
         .bleNameStr = PRODUCT
     };
-
-    bhq_ConfigRunParam(model_parma);
-
+    bhq_ConfigRunParam(model_parma);    // 将配置信息发送到无线模块中
+#endif
 }
 
-
-void rgb_adv_unblink_all_layer(void) {
-    for (uint8_t i = 0; i < 3; i++) {
-        rgblight_unblink_layer(i);
-    }
-}
-
-
-bool led_update_user(led_t led_state) {
-    rgblight_set_layer_state(3, led_state.caps_lock);
-    km_printf("led_update_user\r\n");
-    return true;
-}
-
-
-// BHQ Status callback
-void BHQ_State_Call(uint8_t cmdid, uint8_t *dat) {
-    rgblight_disable();
-    rgb_adv_unblink_all_layer();
-
+#if defined(BLUETOOTH_BHQ)
+// BHQ Status callback   BHQ状态回调函数
+void BHQ_State_Call(uint8_t cmdid, uint8_t *dat) 
+{
 
     advertSta = BHQ_GET_BLE_ADVERT_STA(dat[1]);
     connectSta = BHQ_GET_BLE_CONNECT_STA(dat[1]);
     pairingSta = BHQ_GET_BLE_PAIRING_STA(dat[1]);
+#if defined(RGBLIGHT_ENABLE) 
+    rgblight_disable();
+    rgb_adv_unblink_all_layer();
 
     km_printf("keymape:cmdid:%d\r\n",cmdid);
     if(cmdid == BHQ_ACK_RUN_STA_CMDID)
@@ -425,38 +505,11 @@ void BHQ_State_Call(uint8_t cmdid, uint8_t *dat) {
     }
     else if(cmdid == BHQ_ACK_LED_LOCK_CMDID)
     {
+        // 在蓝牙驱动层内已经处理好 键盘锁了，这边无需在做处理 只是输出一下罢了
         km_printf("[%s] Num Lock\t", (dat[0] & (1<<0)) ? "*" : " ");
         km_printf("[%s] Caps Lock\t", (dat[0] & (1<<1)) ? "*" : " ");
         km_printf("[%s] Scroll Lock\n", (dat[0] & (1<<2)) ? "*" : " ");
     }
+#endif
 }
-
-
-
-// Keyboard level code can override this, but shouldn't need to.
-// Controlling custom features should be done by overriding
-// via_custom_value_command_kb() instead.
-__attribute__((weak)) bool via_command_kb(uint8_t *data, uint8_t length) {
-    uint8_t command_id   = data[0];
-    uint8_t i = 0;
-
-    // 此逻辑删除 会失去蓝牙模块升级功能 以及蓝牙改键功能！！！！！！！
-    km_printf("cmdid:%02x  length:%d\r\n",command_id,length);
-    km_printf("read host app of data \r\n[");
-    for (i = 0; i < length; i++)
-    {
-        km_printf("%02x ",data[i]);
-    }
-    km_printf("]\r\n");
-
-    if(command_id == 0xF1)
-    {
-        // cmdid + 2 frame headers 
-        // The third one is isack the fourth one is length and the fifth one is data frame
-        BHQ_SendCmd(0, &data[4], data[3]);
-        return true;
-    }
-    return false;
-}
-
 #endif

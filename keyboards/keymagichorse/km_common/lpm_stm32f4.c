@@ -24,7 +24,6 @@
 #include "report_buffer.h"
 #include "uart.h"
 
-#include "ws2812.h"
 
 #if defined(KB_CHECK_BATTERY_ENABLED)
 #   include "battery.h"
@@ -45,6 +44,8 @@ void lpm_timer_reset(void) {
     lpm_timer_buffer = 0;
 }
 
+__attribute__((weak)) void lpm_device_power_open(void) ;
+__attribute__((weak)) void lpm_device_power_close(void) ;
 
 void lpm_init(void)
 {
@@ -56,25 +57,17 @@ void lpm_init(void)
     gpio_set_pin_input(USB_POWER_SENSE_PIN);
     palEnableLineEvent(USB_POWER_SENSE_PIN, PAL_EVENT_MODE_RISING_EDGE);
 
-    ws2812power_enabled();
+    lpm_device_power_open();
+}
+__attribute__((weak)) void lpm_device_power_open(void) 
+{
+   
+}
+__attribute__((weak)) void lpm_device_power_close(void) 
+{
+   
 }
 
-void ws2812power_enabled(void)
-{
-    ws2812_init();
-    rgblight_setrgb_at(255, 60, 50, 0);
-    gpio_set_pin_output(B8);        // ws2812 power
-    gpio_write_pin_low(B8);
-}
-void ws2812power_Disabled(void)
-{
-    rgblight_setrgb_at(0, 0, 0, 0);
-    gpio_set_pin_output(B8);        // ws2812 power
-    gpio_write_pin_high(B8);
-
-    gpio_set_pin_output(WS2812_DI_PIN);        // ws2812 DI Pin
-    gpio_write_pin_low(WS2812_DI_PIN);
-}
 
 void set_all_io_analog(void)
 {
@@ -215,7 +208,7 @@ void enter_low_power_mode_prepare(void)
     usbDisconnectBus(&USBD1);
 
     bhq_Disable();
-    ws2812power_Disabled();
+    lpm_device_power_close();    // 外围设备 电源 关闭
     My_PWR_EnterSTOPMode();
 
     chSysLock();
@@ -245,7 +238,7 @@ void enter_low_power_mode_prepare(void)
     clear_keyboard();
     layer_clear();
 
-    ws2812power_enabled();
+    lpm_device_power_open();    // 外围设备 电源 关闭
   
     gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
 

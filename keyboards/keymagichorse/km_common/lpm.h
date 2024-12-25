@@ -17,7 +17,7 @@
 
 #pragma once
 #ifndef RUN_MODE_PROCESS_TIME
-#    define RUN_MODE_PROCESS_TIME 2000
+#    define RUN_MODE_PROCESS_TIME 10000
 #endif
 
 #ifndef USB_POWER_SENSE_PIN                         // usb insert detection 
@@ -43,5 +43,8 @@
 
 
 void lpm_init(void);
+void lpm_device_power_open(void);
+void lpm_device_power_close(void);
+
 void lpm_timer_reset(void);
 void lpm_task(void);
