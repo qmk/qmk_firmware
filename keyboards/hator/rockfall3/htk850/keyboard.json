@@ -2,7 +2,7 @@
     "manufacturer": "HATOR",
     "keyboard_name": "Rockfall 3 Wireless",
 	"url": "https://hator.com/",
-    "maintainer": "AlexHtr",
+    "maintainer": "koosikus",
     "bootloader": "wb32-dfu",
     "bootmagic": {
         "matrix": [0, 0]
