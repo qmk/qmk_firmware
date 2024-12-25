@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         DM_REC1,   KC_CAPS, KC_A,    KC_S,    KC_D,   KC_F,   KC_G,   KC_F7,         KC_F9,   KC_H,    KC_J,    KC_K,     KC_L,     KC_SCLN,  KC_QUOT,   KC_ENT,
         DM_REC2,   KC_LSFT, KC_Z,    KC_X,    KC_C,   KC_V,   KC_B,                  KC_N,    KC_M,    KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,   KC_RCTL,
                    KC_LCTL, KC_LGUI, KC_LALT, KC_INS,                                                  KC_UP,    KC_DOWN, KC_LEFT,  KC_RGHT,
-				                              TT(1), KC_SPC,                                  KC_BSPC, KC_SPC,
+				                              TT(1), KC_SPC,                                  KC_SPC,  KC_BSPC,
                                                      KC_ESC, KC_ENT,                 KC_HOME, KC_END,
                                                      KC_DEL, KC_F2,                  KC_PGUP, KC_PGDN
     ),
@@ -75,8 +75,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         DM_PLY1,   KC_QUOT,  KC_SCLN,   KC_L,    KC_K,   KC_J,   KC_H,   KC_PSCR,      KC_NO,    KC_LEFT,  KC_DOWN,  KC_UP,   KC_RIGHT,   KC_SCLN, KC_NO,   KC_ENT,
         DM_PLY2,  OSM(MOD_LSFT), KC_SLSH, KC_DOT, KC_COMM, KC_M, KC_N,                 KC_NO,    KC_NO,    KC_NO,    KC_NO,   KC_NO,      KC_NO,   KC_NO,
                    OSM(MOD_LCTL), OSM(MOD_LALT), KC_DEL, KC_BSPC,                                          KC_NO,    KC_NO,   KC_NO,      KC_NO,
-                                                         KC_NO,  KC_SPC,                          KC_BSPC, KC_SPC,
-                                                                 KC_ESC, KC_ENT,       KC_HOME,   KC_END,
-                                                                 KC_DEL, KC_F2,        KC_PGUP,   KC_PGDN
+                                                         KC_NO,  KC_SPC,                         KC_SPC,  KC_BSPC,
+                                                                 KC_ESC, KC_ENT,       KC_HOME,  KC_END,
+                                                                 KC_DEL, KC_F2,        KC_PGUP,  KC_PGDN
     ),
 };
