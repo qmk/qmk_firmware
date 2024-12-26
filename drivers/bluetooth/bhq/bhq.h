@@ -19,6 +19,12 @@
 #include "stdint.h"
 #include <stdbool.h>
 
+// DEBUG
+# define bhq_printf_init()
+# define bhq_printf(format, ...)
+
+
+
 // Error checking
 #if !STM32_SERIAL_USE_USART1 && !STM32_SERIAL_USE_USART2 && !STM32_SERIAL_USE_USART3 && !STM32_SERIAL_USE_UART4 && !STM32_SERIAL_USE_UART5 && !STM32_SERIAL_USE_USART6 && !STM32_SERIAL_USE_UART7 && !STM32_SERIAL_USE_UART8 && !STM32_SERIAL_USE_LPUART1
 #    error "BT driver activated but no USART/UART peripheral assigned"

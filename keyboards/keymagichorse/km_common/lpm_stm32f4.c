@@ -59,6 +59,14 @@ void lpm_init(void)
 
     lpm_device_power_open();
 }
+__attribute__((weak)) void lpm_device_power_open(void) 
+{
+   
+}
+__attribute__((weak)) void lpm_device_power_close(void) 
+{
+   
+}
 
 
 void set_all_io_analog(void)

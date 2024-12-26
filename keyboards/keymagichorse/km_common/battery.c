@@ -17,7 +17,6 @@
 #include "battery.h"
 #include "gpio.h"
 #include "analog.h"
-#include "km_printf.h"
 #include "bhq.h"
 
 

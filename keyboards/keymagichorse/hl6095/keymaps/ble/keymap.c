@@ -26,7 +26,6 @@
 #if defined(BLUETOOTH_BHQ)
 #   include "bhq.h"
 #   include "battery.h"
-#   include "km_printf.h"
 #endif
 
 #   if defined(KB_LPM_ENABLED)
@@ -137,13 +136,13 @@ __attribute__((weak)) bool via_command_kb(uint8_t *data, uint8_t length) {
     uint8_t i = 0;
 
     // 此逻辑删除 会失去蓝牙模块升级功能 以及蓝牙改键功能！！！！！！！
-    km_printf("cmdid:%02x  length:%d\r\n",command_id,length);
-    km_printf("read host app of data \r\n[");
+    bhq_printf("cmdid:%02x  length:%d\r\n",command_id,length);
+    bhq_printf("read host app of data \r\n[");
     for (i = 0; i < length; i++)
     {
-        km_printf("%02x ",data[i]);
+        bhq_printf("%02x ",data[i]);
     }
-    km_printf("]\r\n");
+    bhq_printf("]\r\n");
 
     if(command_id == 0xF1)
     {
@@ -376,7 +375,7 @@ void rgb_adv_unblink_all_layer(void) {
 //  这个qmk的基本功能。键盘锁更新就会触发这玩意
 bool led_update_user(led_t led_state) {
     rgblight_set_layer_state(3, led_state.caps_lock);
-    km_printf("led_update_user\r\n");
+    bhq_printf("led_update_user\r\n");
     return true;
 }
 
@@ -433,61 +432,61 @@ void BHQ_State_Call(uint8_t cmdid, uint8_t *dat)
     rgblight_disable();
     rgb_adv_unblink_all_layer();
 
-    km_printf("keymape:cmdid:%d\r\n",cmdid);
+    bhq_printf("keymape:cmdid:%d\r\n",cmdid);
     if(cmdid == BHQ_ACK_RUN_STA_CMDID)
     {
-        km_printf("[RSSI:%d]\t",dat[0]);
-        km_printf("[advertSta: %d]\t", advertSta);
-        km_printf("[connectSta: %d]\t", connectSta); // 0 = 断开, 1 = 已连接, 2 = 超时
-        km_printf("[pairingSta: %d]\t", pairingSta);
-        km_printf("[host_index:%d]\n",dat[2]);
+        bhq_printf("[RSSI:%d]\t",dat[0]);
+        bhq_printf("[advertSta: %d]\t", advertSta);
+        bhq_printf("[connectSta: %d]\t", connectSta); // 0 = 断开, 1 = 已连接, 2 = 超时
+        bhq_printf("[pairingSta: %d]\t", pairingSta);
+        bhq_printf("[host_index:%d]\n",dat[2]);
         host_index = dat[2];
 
         if(host_index == 0)
         {
-            km_printf("if host_index 1\r\n");
+            bhq_printf("if host_index 1\r\n");
             // 蓝牙没有连接 && 蓝牙广播开启  && 蓝牙配对模式
             if(connectSta != 1 && advertSta == 1 && pairingSta == 1)
             {
                 rgblight_blink_layer_repeat(0 , 500, 50);
-                km_printf("1\r\n");
+                bhq_printf("1\r\n");
             }
             // 蓝牙没有连接 && 蓝牙广播开启  && 蓝牙非配对模式
             else if(connectSta != 1 && advertSta == 1 && pairingSta == 0)
             {
                 rgblight_blink_layer_repeat(0 , 2000, 50);
-                km_printf("2\r\n");
+                bhq_printf("2\r\n");
             }
             // 蓝牙已连接
             if(connectSta == 1)
             {
                 rgblight_blink_layer_repeat(0 , 200, 2);
-                km_printf("3\r\n");
+                bhq_printf("3\r\n");
             }
         }
         // 注释同上的host_index == 0 
         else if(host_index == 1)
         {
-            km_printf("if host_index 2\r\n");
+            bhq_printf("if host_index 2\r\n");
             if(connectSta != 1 && advertSta == 1 && pairingSta == 1)
             {
                 rgblight_blink_layer_repeat(1 , 500, 50);
-                km_printf("4\r\n");
+                bhq_printf("4\r\n");
             }
             else if(connectSta != 1 && advertSta == 1 && pairingSta == 0)
             {
                 rgblight_blink_layer_repeat(1 , 2000, 50);
-                km_printf("5\r\n");
+                bhq_printf("5\r\n");
             }
             if(connectSta == 1)
             {
                 rgblight_blink_layer_repeat(1 , 200, 2);
-                km_printf("6\r\n");
+                bhq_printf("6\r\n");
             }
         }    
         else if(host_index == 2)
         {
-            km_printf("if host_index 3\r\n");
+            bhq_printf("if host_index 3\r\n");
             if(connectSta != 1 && advertSta == 1 && pairingSta == 1)
             {
                 rgblight_blink_layer_repeat(2 , 500, 50);
@@ -506,9 +505,9 @@ void BHQ_State_Call(uint8_t cmdid, uint8_t *dat)
     else if(cmdid == BHQ_ACK_LED_LOCK_CMDID)
     {
         // 在蓝牙驱动层内已经处理好 键盘锁了，这边无需在做处理 只是输出一下罢了
-        km_printf("[%s] Num Lock\t", (dat[0] & (1<<0)) ? "*" : " ");
-        km_printf("[%s] Caps Lock\t", (dat[0] & (1<<1)) ? "*" : " ");
-        km_printf("[%s] Scroll Lock\n", (dat[0] & (1<<2)) ? "*" : " ");
+        bhq_printf("[%s] Num Lock\t", (dat[0] & (1<<0)) ? "*" : " ");
+        bhq_printf("[%s] Caps Lock\t", (dat[0] & (1<<1)) ? "*" : " ");
+        bhq_printf("[%s] Scroll Lock\n", (dat[0] & (1<<2)) ? "*" : " ");
     }
 #endif
 }

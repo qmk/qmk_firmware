@@ -137,7 +137,6 @@ void bluetooth_bhq_send_nkro(report_nkro_t *report)
         report_buffer_task();
     }
 }
-#include "km_printf.h"
 
 /**
  * \brief Send a hid_raw report.
@@ -157,7 +156,7 @@ void bluetooth_bhq_send_hid_raw(uint8_t *data, uint8_t length)
     // report_buffer.length = length;
     // memcpy(&report_buffer.report_data, data, length);
     // report_buffer_enqueue(&report_buffer);
-    // km_printf("bluetooth_bhq_send_hid_raw length:%d",report_buffer.length);
+    // bhq_printf("bluetooth_bhq_send_hid_raw length:%d",report_buffer.length);
 
     // if (firstBuffer) {
     //     report_buffer_task();
