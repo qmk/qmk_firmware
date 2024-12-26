@@ -3,7 +3,7 @@
 
 #include QMK_KEYBOARD_H
 
-#include "features/achordion.h"
+#include "lib/achordion.h"
 
 #ifdef CONSOLE_ENABLE
 #    include "print.h"
@@ -286,19 +286,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              KC_TRNS , KC_TRNS , KC_TRNS ,     KC_TRNS , KC_TRNS , KC_TRNS
 ),
 
-//    ┌──────┬─────────┬─────────┬─────────────┬────┐             ┌────────┬─────────┬─────────┬────┬─────────┐
-//    │ lsft │  lalt   │   no    │     no      │ no │             │ EE_CLR │ MSE_INC │ MSE_DEC │ no │   no    │
-//    ├──────┼─────────┼─────────┼─────────────┼────┤             ├────────┼─────────┼─────────┼────┼─────────┤
-//    │ lctl │ MS_BTN3 │ MS_BTN2 │   MS_BTN1   │ no │             │   no   │   no    │   no    │ no │   no    │
-//    ├──────┼─────────┼─────────┼─────────────┼────┤             ├────────┼─────────┼─────────┼────┼─────────┤
-//    │  no  │   no    │   no    │ DRAG_SCROLL │ no │             │   no   │   no    │   no    │ no │ DB_TOGG │
-//    └──────┴─────────┴─────────┼─────────────┼────┼────┐   ┌────┼────────┼─────────┼─────────┴────┴─────────┘
+//    ┌──────┬─────────┬─────────┬─────────────┬────┐             ┌────────┬─────────┬─────────┬──────┬─────────┐
+//    │ lsft │  lalt   │   no    │     no      │ no │             │ EE_CLR │ MSE_INC │ MSE_DEC │  no  │   no    │
+//    ├──────┼─────────┼─────────┼─────────────┼────┤             ├────────┼─────────┼─────────┼──────┼─────────┤
+//    │ lctl │ MS_BTN3 │ MS_BTN2 │   MS_BTN1   │ no │             │   no   │  rsft   │  rctl   │ ralt │  rgui   │
+//    ├──────┼─────────┼─────────┼─────────────┼────┤             ├────────┼─────────┼─────────┼──────┼─────────┤
+//    │ lgui │   no    │   no    │ DRAG_SCROLL │ no │             │   no   │   no    │   no    │  no  │ DB_TOGG │
+//    └──────┴─────────┴─────────┼─────────────┼────┼────┐   ┌────┼────────┼─────────┼─────────┴──────┴─────────┘
 //                               │             │ no │ no │   │ no │   no   │   no    │
 //                               └─────────────┴────┴────┘   └────┴────────┴─────────┘
 [_MOUS] = LAYOUT_default(
-  KC_LSFT , KC_LALT , KC_NO   , KC_NO       , KC_NO ,                     EE_CLR , MSE_INC , MSE_DEC , KC_NO , KC_NO  ,
-  KC_LCTL , MS_BTN3 , MS_BTN2 , MS_BTN1     , KC_NO ,                     KC_NO  , KC_NO   , KC_NO   , KC_NO , KC_NO  ,
-  KC_NO   , KC_NO   , KC_NO   , DRAG_SCROLL , KC_NO ,                     KC_NO  , KC_NO   , KC_NO   , KC_NO , DB_TOGG,
+  KC_LSFT , KC_LALT , KC_NO   , KC_NO       , KC_NO ,                     EE_CLR , MSE_INC , MSE_DEC , KC_NO   , KC_NO  ,
+  KC_LCTL , MS_BTN3 , MS_BTN2 , MS_BTN1     , KC_NO ,                     KC_NO  , KC_RSFT , KC_RCTL , KC_RALT , KC_RGUI,
+  KC_LGUI , KC_NO   , KC_NO   , DRAG_SCROLL , KC_NO ,                     KC_NO  , KC_NO   , KC_NO   , KC_NO   , DB_TOGG,
                                 KC_TRNS     , KC_NO , KC_NO ,     KC_NO , KC_NO  , KC_NO
 )
 };
