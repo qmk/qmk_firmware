@@ -433,6 +433,13 @@ ifeq ($(strip $(LED_MATRIX_ENABLE)), yes)
         SRC += snled27351-mono.c
     endif
 
+    ifeq ($(strip $(LED_MATRIX_CUSTOM_KB)), yes)
+        OPT_DEFS += -DLED_MATRIX_CUSTOM_KB
+    endif
+
+    ifeq ($(strip $(LED_MATRIX_CUSTOM_USER)), yes)
+        OPT_DEFS += -DLED_MATRIX_CUSTOM_USER
+    endif
 endif
 
 # Deprecated driver names - do not use
