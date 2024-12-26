@@ -31,7 +31,7 @@
     "processor": "atmega32u4",
     "rgb_matrix": {
         "animations": {
-            "solid": true,
+            "solid_color": true,
             "breathing": true,
             "typing_heatmap": true,
             "digital_rain": true,
