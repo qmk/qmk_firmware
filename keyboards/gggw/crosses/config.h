@@ -12,9 +12,9 @@
 #define POINTING_DEVICE_INVERT_Y
 #define POINTING_DEVICE_TASK_THROTTLE_MS 10
 #define POINTING_DEVICE_AUTO_MOUSE_ENABLE
-#define AUTO_MOUSE_TIME 300
+#define AUTO_MOUSE_TIME 600
 
-#define MASTER_LEFT
+#define MASTER_RIGHT
 
 #define SPI_SCK_PIN GP2
 #define SPI_MOSI_PIN GP3
@@ -24,8 +24,8 @@
 #define MOUSE_EXTENDED_REPORT
 #define POINTING_DEVICE_DEBUG
 
-#define SCROLL_DIVISOR_H 8.0
-#define SCROLL_DIVISOR_V 8.0
+#define SCROLL_DIVISOR_H 10.0
+#define SCROLL_DIVISOR_V 10.0
 
 /*
  * OLED
@@ -47,4 +47,4 @@
 /*
  * Font
  */
-#define OLED_FONT_H "crosses-font.c"
+#define OLED_FONT_H "lib/crosses-font.c"
