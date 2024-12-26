@@ -34,6 +34,8 @@ uint32_t encoder_pressed_timer = 0;
 // Aliases for readability
 #define CTL_ESC  LCTL_T(KC_ESC)
 #define MOVE_TAB LT(_MOVE, KC_TAB)
+#define SPC_MOVE LT(_MOVE, KC_SPC)
+#define NUM_TAB LT(_NUM, KC_TAB)
 // The notation `mod/tap` denotes a key that activates the modifier `mod` when held down, and
 // produces the key `tap` when tapped (i.e. pressed and released).
 
@@ -50,14 +52,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |    Ç   |   À  |   Y  |   X  |   :  |   K  | rec1 | rec2 |  | play2| play1|   ?  |   Q  |   G  |   H  |   F  |   W  |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+--------------------'
  *                        | MUTE | SUPER| ALT  | Space| NUM  |  | MOVE | Enter| SHIFT|  ALT |SETTNG|
- *                        |      |      |      |      |(NUM) |  |(MOVE)|      |      |      |      |
+ *                        |      |      |      | MOVE |(TAB) |  |(MOVE)|      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_BASE] = LAYOUT(
      MOVE_TAB, KC_Q ,  KC_W   ,  KC_E  ,   KC_R ,   KC_T ,                                           KC_Y,   KC_U,    KC_I,   KC_O,   KC_P, KC_LBRC,
      CTL_ESC , KC_A ,  KC_S   ,  KC_D  ,   KC_F ,   KC_G ,                                           KC_H,   KC_J,    KC_K,   KC_L,KC_SCLN, KC_QUOT,
      KC_BSLS , KC_Z ,  KC_X   ,  KC_C  ,   KC_V ,   KC_B ,DM_REC1, DM_REC2,     DM_PLY2  , DM_PLY1,  KC_N,   KC_M, KC_COMM, KC_DOT,KC_SLSH, KC_RBRC,
-                                LENC, KC_LGUI, KC_LALT, KC_SPC,TT(_NUM),     TT(_MOVE), KC_ENT,KC_RSFT,KC_RALT, RENC
+                                LENC, KC_LGUI, KC_LALT, SPC_MOVE,NUM_TAB,     TT(_MOVE), KC_ENT,KC_RSFT,KC_RALT, RENC
     ),
 
 /*
