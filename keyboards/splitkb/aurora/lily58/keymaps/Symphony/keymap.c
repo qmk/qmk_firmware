@@ -107,29 +107,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return true;
   }
 }
-#ifdef RGB_MATRIX_ENABLE
 
-// Example function for setting RGB Matrix indicators for _GAME layer
-void set_game_layer_colors(void) {
-    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
-        if (i == 1 || i == 6 || i == 7 || i == 8) {  // WASD LED indices
-            rgb_matrix_set_color(i, 255, 0, 0);     // Set WASD to red
-        } else {
-            rgb_matrix_set_color(i, 0, 0, 255);     // Set other keys to blue
+#ifdef RGB_MATRIX_ENABLE
+void rgb_matrix_indicators_user(void) {
+    // Check the active layer
+    if (layer_state_is(_GAME)) {
+        for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+            if (i == 1 || i == 6 || i == 7 || i == 8) {  // WASD LED indices
+                rgb_matrix_set_color(i, 255, 0, 0);     // Set WASD to red
+            } else {
+                rgb_matrix_set_color(i, 0, 0, 255);     // Set others to blue
+            }
         }
     }
-}
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (get_highest_layer(state)) {
-        case _GAME:
-            set_game_layer_colors();
-            break;
-        default:
-            rgb_matrix_set_color_all(0, 0, 0);  // Turn off all LEDs
-            break;
-    }
-    return state;
 }
 
 #endif
