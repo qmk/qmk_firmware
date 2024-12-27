@@ -18,11 +18,14 @@
 
 #include "stdint.h"
 #include <stdbool.h>
+#include "debug.h"
 
-// DEBUG
-# define bhq_printf_init()
-# define bhq_printf(format, ...)
-
+#ifdef DEBUG_BHQ
+#    define bhq_printf dprintf
+#else
+#    define bhq_printf(str, ...) \
+        {}
+#endif
 
 
 // Error checking

@@ -1,8 +1,11 @@
 MAKEFLAGS= -j 10
 
-# SRC+= km_common/rtt/SEGGER_RTT.c
-# SRC+= km_common/rtt/SEGGER_RTT_printf.c
-# VPATH += keyboards/keymagichorse/km_common/rtt
+ifeq ($(strip $(KM_DEBUG)), yes)
+	OPT_DEFS += -DKM_DEBUG
+	SRC+= km_common/rtt/SEGGER_RTT.c
+	SRC+= km_common/rtt/SEGGER_RTT_printf.c
+	VPATH += keyboards/keymagichorse/km_common/rtt
+endif   
 
 ifeq ($(strip $(KB_CHECK_BATTERY_ENABLED)), yes)
  	OPT_DEFS += -DKB_CHECK_BATTERY_ENABLED
