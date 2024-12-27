@@ -92,12 +92,12 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
         scroll_acc_v += (float)mouse_report.y / SCROLL_DIVISOR_V;
 
         // Assign integer parts of accumulated scroll values to the mouse report
-        mouse_report.h = (int8_t)scroll_acc_h;
-        mouse_report.v = (int8_t)scroll_acc_v;
+        mouse_report.h = (int16_t)scroll_acc_h;
+        mouse_report.v = (int16_t)scroll_acc_v;
 
         // Update accumulated scroll values by subtracting the integer parts
-        scroll_acc_h -= (int8_t)scroll_acc_h;
-        scroll_acc_v -= (int8_t)scroll_acc_v;
+        scroll_acc_h -= (int16_t)scroll_acc_h;
+        scroll_acc_v -= (int16_t)scroll_acc_v;
 
         // Clear the X and Y values of the mouse report
         mouse_report.x = 0;
