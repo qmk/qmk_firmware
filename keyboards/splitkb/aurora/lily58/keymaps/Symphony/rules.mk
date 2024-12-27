@@ -1,3 +1,5 @@
 OS_DETECTION_ENABLE = yes
 OLED_ENABLE = yes
 LTO_ENABLE = yes
+RGBLIGHT_ENABLE = no  # Disable RGB Light
+RGB_MATRIX_ENABLE = yes  # Enable RGB Matrix

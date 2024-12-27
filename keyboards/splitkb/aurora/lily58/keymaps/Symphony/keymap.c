@@ -107,34 +107,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return true;
   }
 }
-
 #ifdef RGB_MATRIX_ENABLE
 
-// Define LED segments for the _GAME layer
-const rgblight_segment_t PROGMEM layer_game[] = RGBLIGHT_LAYER_SEGMENTS(
-    {1, 2, HSV_RED},     // W key
-    {2, 1, HSV_RED},     // A key
-    {2, 2, HSV_RED},     // S key
-    {2, 3, HSV_RED},     // D key
-    {0, DRIVER_LED_TOTAL, HSV_BLUE} // All LEDs in blue (overwritten by WASD)
-);
-
-// Add more layer configurations here for other layers
-const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
-    layer_game // Add other layers as needed
-);
-
-void keyboard_post_init_user(void) {
-    // Enable RGB Matrix layers
-    rgblight_layers = rgb_layers;
+// Example function for setting RGB Matrix indicators for _GAME layer
+void set_game_layer_colors(void) {
+    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+        if (i == 1 || i == 6 || i == 7 || i == 8) {  // WASD LED indices
+            rgb_matrix_set_color(i, 255, 0, 0);     // Set WASD to red
+        } else {
+            rgb_matrix_set_color(i, 0, 0, 255);     // Set other keys to blue
+        }
+    }
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    // Enable the _GAME layer when active
-    rgblight_set_layer_state(0, layer_state_cmp(state, _GAME));
-    // Add more layer logic for other layers
+    switch (get_highest_layer(state)) {
+        case _GAME:
+            set_game_layer_colors();
+            break;
+        default:
+            rgb_matrix_set_color_all(0, 0, 0);  // Turn off all LEDs
+            break;
+    }
     return state;
 }
+
 #endif
 
 #ifdef ENCODER_ENABLE
