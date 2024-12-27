@@ -46,8 +46,11 @@
 // Lets you roll mod-tap keys
 //#define IGNORE_MOD_TAP_INTERRUPT 
 #define PERMISSIVE_HOLD // mod if another key is pressed and released before the tapping term while the mod-tap key is pressed
-#define TAPPING_FORCE_HOLD // upgrade to #define TAPPING_FORCE_HOLD_PER_KEY if issue with TT() keycodes appear : #define TAPPING_FORCE_HOLD_PER_KEYo
+//#define TAPPING_FORCE_HOLD // upgrade to #define TAPPING_FORCE_HOLD_PER_KEY if issue with TT() keycodes appear : #define TAPPING_FORCE_HOLD_PER_KEYo
 #define TAPPING_TERM 150
+
+#define ONESHOT_TAP_TOGGLE 5  /* Tapping this number of times holds the key until tapped once again. */
+#define ONESHOT_TIMEOUT 5000 
 
 // dyn macros
 
@@ -58,7 +61,7 @@
 
 // size reduction
 #define DISABLE_LEADER
-#define NO_ACTION_ONESHOT
+// #define NO_ACTION_ONESHOT
 // Disabled -> incompatible with LTO
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
