@@ -108,11 +108,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 }
 
-#ifdef RGBLIGHT_ENABLE
+#ifdef RGB_MATRIX_ENABLE
+
+// Define LED segments for the _GAME layer
+const rgblight_segment_t PROGMEM layer_game[] = RGBLIGHT_LAYER_SEGMENTS(
+    {1, 2, HSV_RED},     // W key
+    {2, 1, HSV_RED},     // A key
+    {2, 2, HSV_RED},     // S key
+    {2, 3, HSV_RED},     // D key
+    {0, DRIVER_LED_TOTAL, HSV_BLUE} // All LEDs in blue (overwritten by WASD)
+);
+
+// Add more layer configurations here for other layers
+const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+    layer_game // Add other layers as needed
+);
+
 void keyboard_post_init_user(void) {
-  rgblight_enable_noeeprom(); // enables RGB, without saving settings
-  rgblight_sethsv_noeeprom(HSV_RED); // sets the color to red without saving
-  rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING + 3); // sets mode to Fast breathing w/o saving
+    // Enable RGB Matrix layers
+    rgblight_layers = rgb_layers;
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    // Enable the _GAME layer when active
+    rgblight_set_layer_state(0, layer_state_cmp(state, _GAME));
+    // Add more layer logic for other layers
+    return state;
 }
 #endif
 
