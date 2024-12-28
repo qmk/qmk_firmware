@@ -36,6 +36,8 @@ enum keycodes {
 #define LAYER_CYCLE_START 0
 // Last layer on the cycle
 #define LAYER_CYCLE_END (_LAYERS - 1)
+// The number of per-key LEDs on each side of a 5-column Corne.
+#define NUM_LEDS_PER_SIDE 34
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_DEFAULT] = LAYOUT(
@@ -51,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,   RGB_HUD, RGB_SAD, RGB_VAD, KC_NO,   KC_NO,                         BL_BRTG, BL_OFF,  BL_DOWN, KC_NO,   KC_NO,   KC_NO,
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   MO(_NAV),    KC_NEXT_LAYER,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-                                    KC_NO,   KC_NO,   KC_NO,   KC_NO,               KC_NO,   KC_NO,   KC_NO,   KC_NO
+                                    KC_NO,   KC_NO,   EE_CLR,   QK_BOOT,               KC_NO,   KC_NO,   KC_NO,   KC_NO
     ),
 
     [_NAV] = LAYOUT(
@@ -108,18 +110,63 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 }
 
+// This is a thin wrapper around rgb_matrix_set_color which allows you to put
+// the same firmware on both halves of the keyboard (other than a #define for
+// `MASTER_LEFT` or `MASTER_RIGHT`) and still have the correct LEDs light up
+// regardless of which half has the USB cable in it.
+//
+// This complexity behind this logic is explained in the comments within the
+// function itself.
+void set_color_split(uint8_t key_code, uint8_t r, uint8_t g, uint8_t b) {
+    // When using defines for MASTER_LEFT and MASTER_RIGHT, is_keyboard_left()
+    // will be inaccurate. For example, (is_keyboard_left() &&
+    // !is_keyboard_master()) can NEVER be true.
+#ifdef MASTER_LEFT
+    bool is_left = true;
+#endif
+#ifdef MASTER_RIGHT
+    bool is_left = false;
+#endif
+
+    bool left_is_master = (is_keyboard_master() && is_left) || (!is_keyboard_master() && !is_left);
+
+    // Note on constants: 23 is the number of LEDs on each side (24) minus 1.
+    // 27 is the number of LEDs that the Corne normally has with six columns.
+
+    // Rule #1: you must set the LED based on what the master's range is. So if
+    // the USB cable is in the left half, then the range is 0-23, otherwise it's
+    // 27-50.
+
+    // Rule #2: each half of the keyboard can only set its own LEDs, it's just
+    // that the codes change according to Rule #1.
+
+    // Rule #2
+    if ((is_left && key_code >= NUM_LEDS_PER_SIDE) || (!is_left && key_code < NUM_LEDS_PER_SIDE)) {
+        return;
+    }
+
+    // Rule #1
+    if (left_is_master && key_code >= NUM_LEDS_PER_SIDE)
+        key_code -= NUM_LEDS_PER_SIDE;
+    else if (!left_is_master && key_code < NUM_LEDS_PER_SIDE)
+        key_code += NUM_LEDS_PER_SIDE;
+    rgb_matrix_set_color(key_code, r, g, b);
+}
+
 #ifdef RGB_MATRIX_ENABLE
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     // Check the active layer
     if (layer_state_is(_GAME)) {
         for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
-            if (i == 1 || i == 6 || i == 7 || i == 8) {  // WASD LED indices
-                rgb_matrix_set_color(i, 255, 0, 0);     // Set WASD to red
+            if (i == 13 || i == 18 || i == 19 || i == 20 || i == 33) {
+                set_color_split(i, 255, 0, 0);     // Set WASD + space to red
             } else {
-                rgb_matrix_set_color(i, 0, 0, 255);     // Set others to blue
+                set_color_split(i, 0, 0, 255);     // Set others to blue
             }
         }
     }
+
+    return true;
 }
 
 #endif
