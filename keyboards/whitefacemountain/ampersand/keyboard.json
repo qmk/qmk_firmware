@@ -64,13 +64,13 @@
                 {"label": ".", "matrix": [2, 9], "x": 9.75, "y": 2},
                 {"label": "/", "matrix": [2, 10], "x": 10.75, "y": 2},
                 {"label": "Shift", "matrix": [2, 11], "x": 11.75, "y": 2, "w": 1.75},
-                {"label": "Ctrl", "matrix": [3, 0], "x": 0, "y": 3, "w": 1},
-                {"label": "LAlt", "matrix": [3, 1], "x": 1.75, "y": 3, "w": 1},
-                {"label": "LGui", "matrix": [3, 2], "x": 2.75, "y": 3, "w": 1},
+                {"label": "Ctrl", "matrix": [3, 0], "x": 0, "y": 3},
+                {"label": "LAlt", "matrix": [3, 1], "x": 1.75, "y": 3},
+                {"label": "LGui", "matrix": [3, 2], "x": 2.75, "y": 3},
                 {"label": "Space", "matrix": [3, 5], "x": 3.75, "y": 3, "w": 6},
-                {"label": "RGui", "matrix": [3, 8], "x": 9.75, "y": 3, "w": 1},
-                {"label": "RAlt", "matrix": [3, 9], "x": 10.75, "y": 3, "w": 1},
-                {"label": "RCtrl", "matrix": [3, 11], "x": 12.5, "y": 3, "w": 1}
+                {"label": "RGui", "matrix": [3, 8], "x": 9.75, "y": 3},
+                {"label": "RAlt", "matrix": [3, 9], "x": 10.75, "y": 3},
+                {"label": "RCtrl", "matrix": [3, 11], "x": 12.5, "y": 3}
             ]
         },
         "LAYOUT_split_bars": {
@@ -113,14 +113,14 @@
                 {"label": ".", "matrix": [2, 9], "x": 9.75, "y": 2},
                 {"label": "/", "matrix": [2, 10], "x": 10.75, "y": 2},
                 {"label": "Shift", "matrix": [2, 11], "x": 11.75, "y": 2, "w": 1.75},
-                {"label": "Ctrl", "matrix": [3, 0], "x": 0, "y": 3, "w": 1},
+                {"label": "Ctrl", "matrix": [3, 0], "x": 0, "y": 3},
                 {"label": "LAlt", "matrix": [3, 1], "x": 1.75, "y": 3, "w": 1.5},
-                {"label": "LGui", "matrix": [3, 2], "x": 3.25, "y": 3, "w": 1},
+                {"label": "LGui", "matrix": [3, 2], "x": 3.25, "y": 3},
                 {"label": "Space", "matrix": [3, 3], "x": 4.25, "y": 3, "w": 2.25},
                 {"label": "Space", "matrix": [3, 7], "x": 6.5, "y": 3, "w": 2.75},
-                {"label": "RGui", "matrix": [3, 8], "x": 9.25, "y": 3, "w": 1},
+                {"label": "RGui", "matrix": [3, 8], "x": 9.25, "y": 3},
                 {"label": "RAlt", "matrix": [3, 9], "x": 10.25, "y": 3, "w": 1.5},
-                {"label": "RCtrl", "matrix": [3, 11], "x": 12.5, "y": 3, "w": 1}
+                {"label": "RCtrl", "matrix": [3, 11], "x": 12.5, "y": 3}
             ]
         }
     }

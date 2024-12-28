@@ -111,7 +111,7 @@ The `post_config.h` file can be used for additional post-processing, depending o
     #define USB_MAX_POWER_CONSUMPTION 400
   #else
     // fix iPhone and iPad power adapter issue
-    // iOS device need lessthan 100
+    // iOS devices need less than 100
     #define USB_MAX_POWER_CONSUMPTION 100
   #endif
   
