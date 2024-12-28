@@ -425,7 +425,7 @@ Any pointing device with a lift/contact status can integrate inertial cursor fea
 | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------- |
 | `POINTING_DEVICE_HIRES_SCROLL_ENABLE`    | (Optional) Enables high resolution scrolling.                                                                             | _not defined_ |
 | `POINTING_DEVICE_HIRES_SCROLL_MULTIPLIER`| (Optional) Resolution mutiplier value used by high resolution scrolling. Must be between 1 and 127, inclusive.            | `120`         |
-| `POINTING_DEVICE_HIRES_SCROLL_EXPONENT`  | (Optional) Resolution exponent value used by high resolution scrolling. Must be between 1 and 127, inclusive.             | `0`           |
+| `POINTING_DEVICE_HIRES_SCROLL_EXPONENT`  | (Optional) Resolution exponent value used by high resolution scrolling. Must be between 0 and 127, inclusive.             | `0`           |
 
 The `POINTING_DEVICE_HIRES_SCROLL_ENABLE` setting enables smooth and continuous scrolling when using trackballs or high-end encoders as mouse wheels (as opposed to the typical stepped behavior of most mouse wheels).
 This works by adding a resolution multiplier to the HID descriptor for mouse wheel reports, causing the host computer to interpret each wheel tick sent by the keyboard as a fraction of a normal wheel tick.
