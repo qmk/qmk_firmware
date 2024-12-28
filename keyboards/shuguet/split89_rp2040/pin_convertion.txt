@@ -28,3 +28,22 @@ split.serial.driver=vendor
 Test:
 Orig: "cols": ["GP10", "GP11", "GP12", "GP13", "GP14", "GP15", "GP26", "GP27", "GP28", "GP29"],
 tmp: "cols": ["GP29", "GP28", "GP27", "GP26", "GP15", "GP14", "GP13", "GP12", "GP11", "GP10"],
+
+
+
+
+cols: D7  D6  D5  D4  D0  D1
+rows: D19 D18 D15 D14 D16 D10
+
+
+cols: GP15 GP14 GP13 GP4 GP5 GP10
+rows: GP1  GP2  GP3  GP4 GP5 GP6
+
+cols: GP15 GP14 GP13 GP4 GP5 GP10 D20 D21 D9 D8 D7 D6 D5 D4 D0 D1
+rows: GP1  GP2  GP3  GP4 GP5 GP6
+
+cols: GP19 GP20 GP18 GP17 GP15 GP14 GP13 GP4 GP5 GP10
+rows: GP1  GP2  GP3  GP4 GP5 GP6
+
+
+"cols": ["GP10", "GP11", "GP12", "GP13", "GP14", "GP15", "GP17", "GP18", "GP20", "GP19"],

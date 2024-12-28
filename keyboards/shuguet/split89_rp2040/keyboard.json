@@ -26,18 +26,18 @@
             "resync": true
         }
     },
-    "matrix_pins": {                         
-        "cols": ["GP10", "GP11", "GP12", "GP13", "GP14", "GP15", "GP26", "GP27", "GP28", "GP29"],   
-        "rows": ["GP9", "GP8", "GP7", "GP6", "GP5", "GP4"]
+    "matrix_pins": {
+        "cols": ["GP19", "GP20", "GP18", "GP17", "GP15", "GP14", "GP13", "GP12", "GP11", "GP10"],
+        "rows": ["GP1",  "GP2",  "GP3",  "GP4", "GP5", "GP6"]
     },
     "ws2812": {
         "driver": "vendor",
-        "pin": "GP16"
+        "pin": "GP7"
     },
     "diode_direction": "COL2ROW",
     "split": {
         "enabled": true,
-        "soft_serial_pin": "GP3",
+        "soft_serial_pin": "GP9",
         "serial": {
             "driver": "vendor"
         },
@@ -48,11 +48,12 @@
             "enabled": true
         },
         "handedness": {
-            "pin": "GP2"
+            "pin": "GP0"
         },
         "matrix_pins": {
             "right": {
-                "cols": ["GP10", "GP11", "GP12", "GP13", "GP14", "GP15", "GP26", "GP27", "GP28", "GP29"]
+                "cols": ["GP19", "GP20", "GP18", "GP17", "GP15", "GP14", "GP13", "GP12", "GP11", "GP10"],
+                "rows": ["GP6",  "GP5",  "GP4",  "GP3", "GP2", "GP1"]
             }
         }
     },
