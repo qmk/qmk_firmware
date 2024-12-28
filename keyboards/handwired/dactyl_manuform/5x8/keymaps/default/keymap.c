@@ -15,8 +15,10 @@
  */
 #include QMK_KEYBOARD_H
 
-#define _QWERTY      0
-#define _RIGHT2LEFT  1
+enum layers {
+    _QWERTY,
+    _RIGHT2LEFT
+};
 
 /* Base (qwerty)
      * ,-------------------------------------------------------,   ,-------------------------------------------------------,
