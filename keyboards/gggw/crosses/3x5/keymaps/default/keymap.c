@@ -3,13 +3,8 @@
 
 #include QMK_KEYBOARD_H
 
-
 #include "lib/achordion.h"
 #include "lib/crosses.h"
-
-#ifdef CONSOLE_ENABLE
-#    include "print.h"
-#endif /* ifdef CONSOLE_ENABLE */
 
 /*
  * Keycodes, combos, and layers! oh my!
@@ -115,36 +110,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           KC_TRNS      , KC_0      , KC_TRNS ,     KC_TRNS , KC_TRNS , KC_TRNS
 ),
 
-//    ┌──────┬──────┬──────┬───────┬─────┐               ┌─────┬──────┬──────┬──────┬──────┐
-//    │      │      │      │       │     │               │     │      │      │      │      │
-//    ├──────┼──────┼──────┼───────┼─────┤               ├─────┼──────┼──────┼──────┼──────┤
-//    │ lgui │ lalt │ lctl │ lsft  │     │               │     │ left │ down │  up  │ rght │
-//    ├──────┼──────┼──────┼───────┼─────┤               ├─────┼──────┼──────┼──────┼──────┤
-//    │      │      │ copy │ paste │     │               │     │ home │ end  │ pgdn │ pgup │
-//    └──────┴──────┴──────┼───────┼─────┼─────┐   ┌─────┼─────┼──────┼──────┴──────┴──────┘
-//                         │       │     │     │   │     │     │      │
-//                         └───────┴─────┴─────┘   └─────┴─────┴──────┘
+//    ┌──────┬──────┬──────┬───────┬────┐             ┌────┬──────┬──────┬──────┬──────┐
+//    │  no  │  no  │  no  │  no   │ no │             │ no │  no  │  no  │  no  │  no  │
+//    ├──────┼──────┼──────┼───────┼────┤             ├────┼──────┼──────┼──────┼──────┤
+//    │ lgui │ lalt │ lctl │ lsft  │ no │             │ no │ left │ down │  up  │ rght │
+//    ├──────┼──────┼──────┼───────┼────┤             ├────┼──────┼──────┼──────┼──────┤
+//    │  no  │  no  │ copy │ paste │ no │             │ no │ home │ end  │ pgdn │ pgup │
+//    └──────┴──────┴──────┼───────┼────┼────┐   ┌────┼────┼──────┼──────┴──────┴──────┘
+//                         │  no   │ no │ no │   │ no │ no │  no  │
+//                         └───────┴────┴────┘   └────┴────┴──────┘
 [_NAV] = LAYOUT_default(
-  KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS ,                         KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS,
-  KC_LGUI , KC_LALT , KC_LCTL , KC_LSFT , KC_TRNS ,                         KC_TRNS , KC_LEFT , KC_DOWN , KC_UP   , KC_RGHT,
-  KC_TRNS , KC_TRNS , KC_COPY , KC_PSTE , KC_TRNS ,                         KC_TRNS , KC_HOME , KC_END  , KC_PGDN , KC_PGUP,
-                                KC_TRNS , KC_TRNS , KC_TRNS ,     KC_TRNS , KC_TRNS , KC_TRNS
+  KC_NO   , KC_NO   , KC_NO   , KC_NO   , KC_NO ,                     KC_NO , KC_NO   , KC_NO   , KC_NO   , KC_NO  ,
+  KC_LGUI , KC_LALT , KC_LCTL , KC_LSFT , KC_NO ,                     KC_NO , KC_LEFT , KC_DOWN , KC_UP   , KC_RGHT,
+  KC_NO   , KC_NO   , KC_COPY , KC_PSTE , KC_NO ,                     KC_NO , KC_HOME , KC_END  , KC_PGDN , KC_PGUP,
+                                KC_NO   , KC_NO , KC_NO ,     KC_NO , KC_NO , KC_NO
 ),
 
-//    ┌──────┬──────┬──────┬──────┬──────┐               ┌─────┬─────┬─────┬─────┬─────┐
-//    │      │      │      │      │      │               │     │     │     │     │     │
-//    ├──────┼──────┼──────┼──────┼──────┤               ├─────┼─────┼─────┼─────┼─────┤
-//    │ mprv │ vold │ mply │ volu │ mnxt │               │     │     │     │     │     │
-//    ├──────┼──────┼──────┼──────┼──────┤               ├─────┼─────┼─────┼─────┼─────┤
-//    │      │      │      │      │      │               │     │     │     │     │     │
-//    └──────┴──────┴──────┼──────┼──────┼─────┐   ┌─────┼─────┼─────┼─────┴─────┴─────┘
-//                         │      │      │     │   │     │     │     │
-//                         └──────┴──────┴─────┘   └─────┴─────┴─────┘
+//    ┌──────┬──────┬──────┬──────┬──────┐             ┌────┬────┬────┬────┬────┐
+//    │  no  │  no  │  no  │  no  │  no  │             │ no │ no │ no │ no │ no │
+//    ├──────┼──────┼──────┼──────┼──────┤             ├────┼────┼────┼────┼────┤
+//    │ mprv │ vold │ mply │ volu │ mnxt │             │ no │ no │ no │ no │ no │
+//    ├──────┼──────┼──────┼──────┼──────┤             ├────┼────┼────┼────┼────┤
+//    │  no  │  no  │  no  │  no  │  no  │             │ no │ no │ no │ no │ no │
+//    └──────┴──────┴──────┼──────┼──────┼────┐   ┌────┼────┼────┼────┴────┴────┘
+//                         │  no  │  no  │ no │   │ no │ no │ no │
+//                         └──────┴──────┴────┘   └────┴────┴────┘
 [_MEDIA] = LAYOUT_default(
-  KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS ,                         KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS,
-  KC_MPRV , KC_VOLD , KC_MPLY , KC_VOLU , KC_MNXT ,                         KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS,
-  KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS ,                         KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS,
-                                KC_TRNS , KC_TRNS , KC_TRNS ,     KC_TRNS , KC_TRNS , KC_TRNS
+  KC_NO   , KC_NO   , KC_NO   , KC_NO   , KC_NO   ,                     KC_NO , KC_NO , KC_NO , KC_NO , KC_NO,
+  KC_MPRV , KC_VOLD , KC_MPLY , KC_VOLU , KC_MNXT ,                     KC_NO , KC_NO , KC_NO , KC_NO , KC_NO,
+  KC_NO   , KC_NO   , KC_NO   , KC_NO   , KC_NO   ,                     KC_NO , KC_NO , KC_NO , KC_NO , KC_NO,
+                                KC_NO   , KC_NO   , KC_NO ,     KC_NO , KC_NO , KC_NO
 ),
 
 //    ┌─────┬─────┬─────┬─────┬─────┐               ┌─────┬──────┬──────┬──────┬──────┐
@@ -281,10 +276,10 @@ void matrix_scan_user(void) {
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (!is_keyboard_master()) {
-        return rotation;
+        return OLED_ROTATION_180;
     }
 
-    return OLED_ROTATION_180;
+    return rotation;
 }
 
 static void render_logo(void) {

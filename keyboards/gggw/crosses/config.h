@@ -2,14 +2,33 @@
 
 #define SERIAL_PIO_USE_PIO1
 
-/*
- * PMW3360 Setup
- */
+/******************************************************************
+ * Trackball Setup
+ ******************************************************************/
 
+// Enable if you have a trackball
 #define SPLIT_POINTING_ENABLE
 
-#define POINTING_DEVICE_RIGHT
-#define POINTING_DEVICE_INVERT_Y
+/*
+ * Undomment ONLY ONE of the following defines
+ */
+// Using a single trackball on the right hand side
+// #define POINTING_DEVICE_RIGHT
+
+// Using a sinble trackball on the left hand side
+// #define POINTING_DEVICE_LEFT
+
+// Rocking dual trackballs!
+#define POINTING_DEVICE_COMBINED
+
+#ifdef POINTING_DEVICE_COMBINED
+#    define POINTING_DEVICE_INVERT_Y_RIGHT
+#endif // POINTING_DEVICE_COMBINED
+       //
+#ifdef POINTING_DEVICE_RIGHT
+#    define POINTING_DEVICE_INVERT_Y
+#endif // POINTING_DEVICE_RIGHT
+
 #define POINTING_DEVICE_TASK_THROTTLE_MS 10
 #define POINTING_DEVICE_AUTO_MOUSE_ENABLE
 #define AUTO_MOUSE_TIME 600
