@@ -1,5 +1,27 @@
+/*
+This is the c library for EEPROM and other Crosses features.
+You should not need to modify it as config comes from  config.h
 
+Copyright 2024 Vincent Franco <me@vincentfranco.com>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 #include "crosses.h"
+
+#ifdef CONSOLE_ENABLE
+#    include "print.h"
+#endif /* ifdef CONSOLE_ENABLE */
 
 bool set_scrolling = false;
 
@@ -9,10 +31,9 @@ float scroll_acc_v = 0.0;
 const uint16_t MIN_DEFAULT_DPI = 400;
 const uint16_t MAX_DEFAULT_DPI = 10000;
 
-
-/*
- * Pointer Storage
- */
+/***********************************************************************
+ * Pointer Stroage
+ ***********************************************************************/
 
 global_user_config_t global_user_config = {0};
 
@@ -35,7 +56,14 @@ uint16_t get_pointer_dpi(global_user_config_t* config) {
 }
 
 void update_pointer_cpi(global_user_config_t* config) {
+#ifdef POINTING_DEVICE_COMBINED
+    pointing_device_set_cpi_on_side(true, 1000);
+    pointing_device_set_cpi_on_side(false, get_pointer_dpi(config));
+#endif /* ifdef POINTING_DEVICE_COMBINED */
+
+#ifndef POINTING_DEVICE_COMBINED
     pointing_device_set_cpi(get_pointer_dpi(config));
+#endif /* ifndef POINTING_DEVICE_COMBINED */
 }
 
 void change_pointer_dpi(global_user_config_t* config, bool inc) {
@@ -57,7 +85,14 @@ void change_pointer_dpi(global_user_config_t* config, bool inc) {
     }
 
     config->mse_cpi += inc ? 10 : -10;
+
+#ifdef POINTING_DEVICE_COMBINED
+    pointing_device_set_cpi_on_side(false, get_pointer_dpi(config));
+#endif /* ifdef POINTING_DEVICE_COMBINED */
+
+#ifndef POINTING_DEVICE_COMBINED
     pointing_device_set_cpi(get_pointer_dpi(config));
+#endif /* ifndef POINTING_DEVICE_COMBINED */
     write_config_to_eeprom(&global_user_config);
 }
 
@@ -81,9 +116,11 @@ void eeconfig_init_user(void) {
     debug_config_to_console(&global_user_config);
 }
 
-/*
- * Pointing Device Config
- */
+/***********************************************************************
+ * Single Trackball Config
+ ***********************************************************************/
+
+#ifndef POINTING_DEVICE_COMBINED
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     if (set_scrolling) {
@@ -107,11 +144,42 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     return mouse_report;
 }
 
+#endif /* ifndef POINTING_DEVICE_COMBINED */
+
+/***********************************************************************
+ * Dual Trackball Config
+ ***********************************************************************/
+
+#ifdef POINTING_DEVICE_COMBINED
+
+report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, report_mouse_t right_report) {
+    // Calculate and accumulate scroll values based on mouse movement and divisors
+    scroll_acc_h += (float)left_report.x / SCROLL_DIVISOR_H;
+    scroll_acc_v += (float)left_report.y / SCROLL_DIVISOR_V;
+
+    // Assign integer parts of accumulated scroll values to the mouse report
+    left_report.h = (int16_t)scroll_acc_h;
+    left_report.v = (int16_t)scroll_acc_v;
+
+    // Update accumulated scroll values by subtracting the integer parts
+    scroll_acc_h -= (int16_t)scroll_acc_h;
+    scroll_acc_v -= (int16_t)scroll_acc_v;
+
+    // Clear the X and Y values of the mouse report
+    left_report.x = 0;
+    left_report.y = 0;
+
+    return pointing_device_combine_reports(left_report, right_report);
+}
+
+#endif /* ifdef POINTING_DEVICE_COMBINED */
+
 layer_state_t layer_state_set_user(layer_state_t state) {
+#ifndef POINTING_DEVICE_COMBINED
     if (get_highest_layer(state) != 5) {
         set_scrolling = false;
     }
+#endif /* ifndef POINTING_DEVICE_COMBINED */
 
     return state;
 }
-
