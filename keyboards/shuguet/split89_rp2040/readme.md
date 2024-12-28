@@ -6,17 +6,13 @@ An 89-key split TKL with PCBs, 3D printed cases, powered by a pair of RP2040
 and compatible with [VIA](https://www.usevia.app/).
 Not sure what VIA is? [Start here](https://www.caniusevia.com/)
 
-* Full build documented here: [https://github.com/shuguet/split89](https://github.com/shuguet/split89)  
-
 * Keyboard Maintainer: [shuguet](https://github.com/shuguet)
-* Original Keyboard designer (handwired version): [jurassic73](https://github.com/jurassic73/split89)
-* Hardware Supported: ATmega32U4
-* Hardware Availability: see [Bill of Materials](https://github.com/shuguet/split89#bill-of-materials).
-
+* Based on handwiewd original Keyboard from [jurassic73](https://github.com/jurassic73/split89)
+* Hardware Supported: RP2040
 
 Make example for this keyboard (after setting up your build environment):
 
-    make shuguet/split89:default
+    qmk compile -kb shuguet/split89_rp2040 -km default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools)
 and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide)
