@@ -1,8 +1,6 @@
-# split89_rp2040
+# SHU98
 
-An 89-key split TKL with PCBs, 3D printed cases, powered by a pair of RP2040
-and compatible with [VIA](https://www.usevia.app/).
-Not sure what VIA is? [Start here](https://www.caniusevia.com/)
+An 89-key split TKL with PCBs, 3D printed cases, powered by a pair of RP2040.
 
 * Keyboard Maintainer: [shuguet](https://github.com/shuguet)
 * Based on handwiewd original Keyboard from [jurassic73](https://github.com/jurassic73/split89)
@@ -10,7 +8,11 @@ Not sure what VIA is? [Start here](https://www.caniusevia.com/)
 
 Make example for this keyboard (after setting up your build environment):
 
-    qmk compile -kb shuguet/split89_rp2040 -km default
+    make shuguet/shu89:default
+
+Flashing example for this keyboard:
+
+    make shuguet/shu89:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools)
 and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide)
