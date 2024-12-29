@@ -5,4 +5,5 @@ RGBLIGHT_ENABLE = no
 RGB_MATRIX_ENABLE = yes
 SPLIT_KEYBOARD = yes
 BOOTMAGIC_ENABLE = yes
+SRC += helpers.c
 
