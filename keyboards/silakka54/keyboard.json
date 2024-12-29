@@ -13,7 +13,10 @@
         "nkro": true
     },
     "split": {
-        "enabled": true
+        "enabled": true,
+        "serial": {
+            "driver": "vendor"
+        }
     },
     "matrix_pins": {
         "cols": ["GP7", "GP8", "GP9", "GP10", "GP11", "GP12"],
