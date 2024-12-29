@@ -1,6 +1,11 @@
 {
-    "keyboard": "shuguet/split89-rp2040",
+    "keyboard": "shuguet/shu89",
     "keymap": "default",
+    "config": {
+        "features": {
+            "via": true
+        }
+    },
     "layout": "LAYOUT",
     "layers": [
         [

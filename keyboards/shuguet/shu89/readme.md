@@ -1,7 +1,5 @@
 # split89_rp2040
 
-![split89](https://i.imgur.com/OExxlQx.jpeg)  
-
 An 89-key split TKL with PCBs, 3D printed cases, powered by a pair of RP2040
 and compatible with [VIA](https://www.usevia.app/).
 Not sure what VIA is? [Start here](https://www.caniusevia.com/)
