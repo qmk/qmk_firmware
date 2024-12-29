@@ -18,6 +18,15 @@
 
 #include <stdbool.h>
 
+#ifndef DIGITIZER_PHYSICAL_INCHES_X
+#    define DIGITIZER_PHYSICAL_INCHES_X 10.0
+#endif
+#ifndef DIGITIZER_PHYSICAL_INCHES_Y
+#    define DIGITIZER_PHYSICAL_INCHES_Y 10.0
+#endif
+#define DIGITIZER_X (int16_t)(DIGITIZER_PHYSICAL_INCHES_X * 100.0)
+#define DIGITIZER_Y (int16_t)(DIGITIZER_PHYSICAL_INCHES_Y * 100.0)
+
 /**
  * \file
  *

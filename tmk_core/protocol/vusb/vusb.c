@@ -49,6 +49,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "os_detection.h"
 #endif
 
+#ifdef DIGITIZER_ENABLE
+#    include "digitizer.h"
+#endif
+
 /*
  * Interface indexes
  */
@@ -680,17 +684,29 @@ const PROGMEM uchar shared_hid_report[] = {
     0x81, 0x03, //     Input (Constant)
 
     // X/Y Position (4 bytes)
-    0x05, 0x01,       //     Usage Page (Generic Desktop)
-    0x09, 0x30,       //     Usage (X)
-    0x09, 0x31,       //     Usage (Y)
-    0x26, 0xFF, 0x7F, //     Logical Maximum (32767)
-    0x95, 0x02,       //     Report Count (2)
-    0x75, 0x10,       //     Report Size (16)
-    0x65, 0x13,       //     Unit (Inch, English Linear)
-    0x55, 0x0E,       //     Unit Exponent (-2)
-    0x81, 0x02,       //     Input (Data, Variable, Absolute)
-    0xC0,             //   End Collection
-    0xC0,             // End Collection
+    0x05, 0x01,                      //     Usage Page (Generic Desktop)
+    0x09, 0x30,                      //     Usage (X)
+    0x15, 0x00,                      //     Logical Minimum (0)
+    0x26, 0xFF, 0x7F,                //     Logical Maximum (32767)
+    0x35, 0x00,                      //     Physical Minimum (0)
+    0x46, HID_VALUE_16(DIGITIZER_X), // Physical Maximum
+    0x95, 0x01,                      //     Report Count (1)
+    0x75, 0x10,                      //     Report Size (16)
+    0x65, 0x13,                      //     Unit (Inch, English Linear)
+    0x55, 0x0E,                      //     Unit Exponent (-2)
+    0x81, 0x02,                      //     Input (Data, Variable, Absolute)
+    0x09, 0x31,                      //     Usage (Y)
+    0x15, 0x00,                      //     Logical Minimum (0)
+    0x26, 0xFF, 0x7F,                //     Logical Maximum (32767)
+    0x35, 0x00,                      //     Physical Minimum (0)
+    0x46, HID_VALUE_16(DIGITIZER_Y), // Physical Maximum
+    0x95, 0x01,                      //     Report Count (1)
+    0x75, 0x10,                      //     Report Size (16)
+    0x65, 0x13,                      //     Unit (Inch, English Linear)
+    0x55, 0x0E,                      //     Unit Exponent (-2)
+    0x81, 0x02,                      //     Input (Data, Variable, Absolute)
+    0xC0,                            //   End Collection
+    0xC0,                            // End Collection
 #endif
 
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
