@@ -41,12 +41,6 @@
             "driver": "vendor",
             "pin": "GP9"
         },
-        "transport": {
-            "protocol": "serial"
-        },
-        "usb_detect": {
-            "enabled": true
-        },
         "handedness": {
             "pin": "GP0"
         },
