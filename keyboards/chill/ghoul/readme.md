@@ -1,6 +1,6 @@
 # Ghoul TKL
 
-![image](https://raw.githubusercontent.com/chillKB/ghoulTKL/refs/heads/main/img/pcb_bottom.jpg)
+![image](https://i.imgur.com/Y39mNA4.jpeg)
 
 A modern replacement PCB for Filco TKLs, adding support for PCB-mount stabilizers and popular alternate layouts. In-switch backlight LEDs are also supported.
 
