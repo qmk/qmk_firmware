@@ -215,10 +215,6 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
     }
     return mouse_report;
 }
-void pointing_device_init_kb(void) {
-    read_charybdis_config_from_eeprom(&g_charybdis_config);
-    pointing_device_init_user();
-}
 
 #    if defined(POINTING_DEVICE_ENABLE) && !defined(NO_CHARYBDIS_KEYCODES)
 /** \brief Whether SHIFT mod is enabled. */
@@ -315,10 +311,6 @@ void eeconfig_init_kb(void) {
     eeconfig_init_user();
 }
 
-void matrix_init_kb(void) {
-    read_charybdis_config_from_eeprom(&g_charybdis_config);
-    matrix_init_user();
-}
 void matrix_power_up(void) {
     pointing_device_task();
 }
@@ -358,16 +350,21 @@ void keyboard_post_init_kb(void) {
 
 void keyboard_pre_init_kb(void) {
     user_button_init();
+    read_charybdis_config_from_eeprom(&g_charybdis_config);
     keyboard_pre_init_user();
+}
+
+__attribute__((weak)) void execute_user_button_action(void) {
+    if (is_keyboard_master()) {
+        reset_keyboard();
+    } else {
+        soft_reset_keyboard();
+    }
 }
 
 void housekeeping_task_kb(void) {
     if (check_user_button_state()) {
-        if (is_keyboard_master()) {
-            reset_keyboard();
-        } else {
-            soft_reset_keyboard();
-        }
+        execute_user_button_action();
     }
 
 #ifdef POINTING_DEVICE_ENABLE
