@@ -234,13 +234,15 @@ void bhq_switch_rf_easy_kb(void)
     BHQ_SendCmd(BHQ_NOT_ACK, bhkBuff,index);
 }
 
-void bhq_update_battery_percent(uint8_t percent) {
+void bhq_update_battery_percent(uint8_t percent, uint16_t bat_mv) {
     uint8_t index = 0;
     memset(bhkBuff, 0, PACKET_MAX_LEN);
 
     bhkBuff[index++] = 0x16;
+    bhkBuff[index++] = 1;   // QMK update batt sta
     bhkBuff[index++] = percent;
-
+    bhkBuff[index++] = BHQ_L_UINT16(bat_mv);      
+    bhkBuff[index++] = BHQ_H_UINT16(bat_mv);  
     BHQ_SendCmd(BHQ_ACK, bhkBuff,index);
 }
 

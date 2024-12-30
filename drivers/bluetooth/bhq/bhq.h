@@ -114,7 +114,7 @@ void bhq_AnewOpenBleAdvertising(uint8_t host_index, uint16_t timeout_1S);
 void bhq_CloseBleAdvertising(void);
 void bhq_switch_rf_easy_kb(void);
 
-void bhq_update_battery_percent(uint8_t percent);
+void bhq_update_battery_percent(uint8_t percent, uint16_t bat_mv);
 
 
 

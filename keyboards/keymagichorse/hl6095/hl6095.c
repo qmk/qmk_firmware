@@ -27,6 +27,7 @@
 #   include "km_printf.h"
 #endif
 
+extern void battery_percent_read_task(void);
 
 
 void board_init(void) 
@@ -41,10 +42,9 @@ void board_init(void)
     km_printf_init();
     km_printf("hello rtt log1111111\r\n");
 #   endif
-
-
 }
 void housekeeping_task_kb(void) {
+    battery_percent_read_task();
 #if defined(BLUETOOTH_BHQ)
 #   if defined(KB_LPM_ENABLED)
     lpm_task();

@@ -376,6 +376,13 @@ static inline void manageAdcInitializationDriver(uint8_t adc, ADCDriver* adcDriv
         adcInitialized[adc] = true;
     }
 }
+void analogAdcStop(uint8_t adc, ADCDriver* adcDriver)
+{
+    if (adcInitialized[adc]) {
+        adcStop(adcDriver);
+        adcInitialized[adc] = false;
+    }
+}
 
 int16_t analogReadPin(pin_t pin) {
     palSetLineMode(pin, PAL_MODE_INPUT_ANALOG);
@@ -418,9 +425,10 @@ int16_t adc_read(adc_mux mux) {
 
     manageAdcInitializationDriver(mux.adc, targetDriver);
     if (adcConvert(targetDriver, &adcConversionGroup, &sampleBuffer[0], ADC_BUFFER_DEPTH) != MSG_OK) {
+        analogAdcStop(mux.adc, targetDriver);
         return 0;
     }
-
+    analogAdcStop(mux.adc, targetDriver);
 #if defined(USE_ADCV2) || defined(RP2040)
     // fake 12-bit -> N-bit scale
     return (sampleBuffer[ADC_DUMMY_CONVERSIONS_AT_START]) >> (12 - ADC_RESOLUTION);

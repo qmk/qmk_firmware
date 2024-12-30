@@ -19,6 +19,8 @@
 #define HAL_USE_PAL         TRUE           
 #define PAL_USE_WAIT        TRUE  
 
+#undef HAL_USE_ADC
+#define HAL_USE_ADC         TRUE
 
 
 #include_next <halconf.h>

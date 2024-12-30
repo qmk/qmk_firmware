@@ -1,4 +1,4 @@
-MAKEFLAGS= -j 10
+MAKEFLAGS= -j 4
 
 ifeq ($(strip $(KM_DEBUG)), yes)
 	OPT_DEFS += -DKM_DEBUG

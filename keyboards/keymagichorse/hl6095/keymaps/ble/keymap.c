@@ -28,12 +28,13 @@
 
 #if defined(BLUETOOTH_BHQ)
 #   include "bhq.h"
-#   include "battery.h"
 #endif
 
 #   if defined(KB_LPM_ENABLED)
 #   include "lpm.h"
 #endif
+
+#include "analog.h"
 
 // 键盘传输模式枚举
 enum  kb_transfer_mode_enum {
@@ -51,6 +52,7 @@ typedef union {
   };
 } user_config_t;
 user_config_t user_config = {0};
+uint32_t battery_timer = 0;
 
 enum keyboard_user_keycodes {
     BT_1 = QK_USER,
@@ -130,60 +132,6 @@ void eeconfig_init_kb(void)
 }
 
 
-
-// Keyboard level code can override this, but shouldn't need to.
-// Controlling custom features should be done by overriding
-// via_custom_value_command_kb() instead.
-__attribute__((weak)) bool via_command_kb(uint8_t *data, uint8_t length) {
-    uint8_t command_id   = data[0];
-    uint8_t i = 0;
-
-    // 此逻辑删除 会失去蓝牙模块升级功能 以及蓝牙改键功能！！！！！！！
-    km_printf("cmdid:%02x  length:%d\r\n",command_id,length);
-    km_printf("read host app of data \r\n[");
-    for (i = 0; i < length; i++)
-    {
-        km_printf("%02x ",data[i]);
-    }
-    km_printf("]\r\n");
-
-    if(command_id == 0xF1)
-    {
-        // cmdid + 2 frame headers 
-        // The third one is isack the fourth one is length and the fifth one is data frame
-        BHQ_SendCmd(0, &data[4], data[3]);
-        return true;
-    }
-    return false;
-}
-
-#   if defined(KB_LPM_ENABLED)
-// 低功耗外围设备电源控制
-void lpm_device_power_open(void) 
-{
-#if defined(RGBLIGHT_WS2812) && defined(RGBLIGHT_ENABLE) 
-    // ws2812电源开启
-    ws2812_init();
-    rgblight_setrgb_at(255, 60, 50, 0);
-    gpio_set_pin_output(B8);        // ws2812 power
-    gpio_write_pin_low(B8);
-#endif
-
-}
-void lpm_device_power_close(void) 
-{
-#if defined(RGBLIGHT_WS2812) && defined(RGBLIGHT_ENABLE) 
-    // ws2812电源关闭
-    rgblight_setrgb_at(0, 0, 0, 0);
-    gpio_set_pin_output(B8);        // ws2812 power
-    gpio_write_pin_high(B8);
-
-    gpio_set_pin_output(WS2812_DI_PIN);        // ws2812 DI Pin
-    gpio_write_pin_low(WS2812_DI_PIN);
-#endif
-}
-#endif
-
 // --------------------  都是用于处理按键触发的变量 --------------------
 // 这几个变量大致的功能就是用来 作长按短按的。
 // 长按打开配对蓝牙广播  短按打开非配对蓝牙广播
@@ -201,6 +149,7 @@ uint8_t host_index = 255;   // 蓝牙通道 这里是模块返回的
 // --------------------  蓝牙模块返回的状态 --------------------
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    battery_timer = 0;
 #   if defined(KB_LPM_ENABLED)
     lpm_timer_reset();  // 这里用于低功耗，按下任何按键刷新低功耗计时器
 #endif
@@ -515,3 +464,113 @@ void BHQ_State_Call(uint8_t cmdid, uint8_t *dat)
 #endif
 }
 #endif
+
+#   if defined(KB_LPM_ENABLED)
+// 低功耗外围设备电源控制
+void lpm_device_power_open(void) 
+{
+#if defined(RGBLIGHT_WS2812) && defined(RGBLIGHT_ENABLE) 
+    // ws2812电源开启
+    ws2812_init();
+    rgblight_setrgb_at(255, 60, 50, 0);
+    gpio_set_pin_output(B8);        // ws2812 power
+    gpio_write_pin_low(B8);
+#endif
+
+}
+void lpm_device_power_close(void) 
+{
+#if defined(RGBLIGHT_WS2812) && defined(RGBLIGHT_ENABLE) 
+    // ws2812电源关闭
+    rgblight_setrgb_at(0, 0, 0, 0);
+    gpio_set_pin_output(B8);        // ws2812 power
+    gpio_write_pin_high(B8);
+
+    gpio_set_pin_output(WS2812_DI_PIN);        // ws2812 DI Pin
+    gpio_write_pin_low(WS2812_DI_PIN);
+#endif
+}
+/* Battery voltage resistive voltage divider setting of MCU */
+#ifndef R_UPPER                        
+// Upper side resitor value (uint: KΩ)
+#   define R_UPPER 100  
+#endif
+#ifndef R_LOWER    
+ // Lower side resitor value (uint: KΩ)                   
+#   define R_LOWER 100         
+#endif
+
+#endif
+#ifndef BATTER_ADC_PIN                       
+#    define BATTER_ADC_PIN     B1
+#endif
+// https://docs.qmk.fm/drivers/adc#stm32
+#ifndef BATTER_ADC_DRIVER                      
+#    define BATTER_ADC_DRIVER     ADCD1
+#endif
+
+// 电池电压最高最低
+#define BATTER_MAX_MV   4150
+#define BATTER_MIN_MV   3500
+uint8_t calculate_battery_percentage(uint16_t current_mv) {
+    if (current_mv >= BATTER_MAX_MV) {
+        return 100;
+    } else if (current_mv <= BATTER_MIN_MV) {
+        return 0;
+    } else {
+        uint16_t percentage = ((current_mv - BATTER_MIN_MV) * 100) / (BATTER_MAX_MV - BATTER_MIN_MV);
+        // 如果百分比超过100，确保其被限制在100以内
+        if (percentage > 100) {
+            percentage = 100;
+        }
+        return (uint8_t)percentage;
+    }
+}
+void battery_percent_read_task(void)
+{ 
+    if(battery_timer == 0)
+    {
+        battery_timer = timer_read32();
+    }
+
+    if (timer_elapsed32(battery_timer) > 2000) 
+    {
+        battery_timer = 0;
+        uint16_t adc = analogReadPin(BATTER_ADC_PIN);
+        adc = analogReadPin(BATTER_ADC_PIN);
+
+        uint16_t voltage_mV_Fenya = (adc * 3300) / 1023;
+        uint16_t voltage_mV_actual = voltage_mV_Fenya  * (1 + (R_UPPER / R_LOWER));
+        voltage_mV_actual = voltage_mV_actual;  // 
+        km_printf("adc:%d   fymv:%d  sjmv:%d  bfb:%d  \r\n",
+        adc,voltage_mV_Fenya,voltage_mV_actual,calculate_battery_percentage(voltage_mV_actual));
+        km_printf("adcState:%d\r\n",ADCD1.state);
+        bhq_update_battery_percent(calculate_battery_percentage(voltage_mV_actual),voltage_mV_actual);
+    }
+}
+
+// Keyboard level code can override this, but shouldn't need to.
+// Controlling custom features should be done by overriding
+// via_custom_value_command_kb() instead.
+__attribute__((weak)) bool via_command_kb(uint8_t *data, uint8_t length) {
+    uint8_t command_id   = data[0];
+    uint8_t i = 0;
+
+    // 此逻辑删除 会失去蓝牙模块升级功能 以及蓝牙改键功能！！！！！！！
+    km_printf("cmdid:%02x  length:%d\r\n",command_id,length);
+    km_printf("read host app of data \r\n[");
+    for (i = 0; i < length; i++)
+    {
+        km_printf("%02x ",data[i]);
+    }
+    km_printf("]\r\n");
+
+    if(command_id == 0xF1)
+    {
+        // cmdid + 2 frame headers 
+        // The third one is isack the fourth one is length and the fifth one is data frame
+        BHQ_SendCmd(0, &data[4], data[3]);
+        return true;
+    }
+    return false;
+}
