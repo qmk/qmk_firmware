@@ -396,16 +396,14 @@ void housekeeping_task_kb(void) {
 }
 
 #ifdef USER_BUTTON_PIN
-__attribute__((weak)) void bootmagic_scan(void) {
-    // We need multiple scans because debouncing can't be turned off.
-    matrix_scan();
-#    if defined(DEBOUNCE) && DEBOUNCE > 0
-    wait_ms(DEBOUNCE * 2);
-#    else
-    wait_ms(30);
-#    endif
-    matrix_scan();
-
+/**
+ * @brief Replace and add upon the default bootmagic reset function.
+ * In this case, we also check the user button.
+ *
+ * @return true if the user button is pressed, or normal bootmagic key position.
+ * @return false if the user button is not pressed and normal bootmagic key position is not pressed.
+ */
+__attribute__((weak)) bool bootmagic_should_reset(void) {
     uint8_t row = BOOTMAGIC_ROW;
     uint8_t col = BOOTMAGIC_COLUMN;
 
@@ -416,10 +414,7 @@ __attribute__((weak)) void bootmagic_scan(void) {
     }
 #    endif
 
-    if (matrix_get_row(row) & (1 << col) || (is_keyboard_master() && check_user_button_state())) {
-        eeconfig_disable();
-        bootloader_jump();
-    }
+    return matrix_get_row(row) & (1 << col) || check_user_button_state();
 }
 #endif // USER_BUTTON_PIN
 
