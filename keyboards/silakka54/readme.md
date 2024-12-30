@@ -2,7 +2,7 @@
 
 ![Silakka54](https://i.imgur.com/JrsS0kY.png)
 
-Silakka54 is a RP2040 Zero based 54-key column staggered split keyboard. PCB uses hotswap sockets. Design is inpired from REVIUNG41 and Corne keyboards.
+Silakka54 is a RP2040 Zero based 54-key column staggered split keyboard. PCB uses hotswap sockets. Design is inspired from REVIUNG41 and Corne keyboards.
 
 * Keyboard Maintainer: [Squalius-cephalus](https://github.com/Squalius-cephalus)
 * Hardware Supported: Silakka54 PCB
