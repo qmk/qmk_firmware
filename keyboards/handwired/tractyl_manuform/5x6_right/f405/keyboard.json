@@ -51,11 +51,6 @@
             }
         }
     },
-    "usb": {
-        "shared_endpoint": {
-            "keyboard": true
-        }
-    },
     "ws2812": {
         "driver": "pwm",
         "pin": "C6"
