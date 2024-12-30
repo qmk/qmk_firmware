@@ -1,11 +1,6 @@
 {
     "keyboard": "shuguet/shu89",
     "keymap": "default",
-    "config": {
-        "features": {
-            "via": true
-        }
-    },
     "layout": "LAYOUT",
     "layers": [
         [
