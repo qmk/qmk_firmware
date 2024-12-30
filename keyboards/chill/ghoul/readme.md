@@ -6,7 +6,7 @@ A modern replacement PCB for Filco TKLs, adding support for PCB-mount stabilizer
 
 * Keyboard Maintainer: [chillKB](https://github.com/chillKB)
 * Hardware Supported: Ghoul TKL PCB
-* Hardware Availability: [GitHub](https://github.com/chillKB/ghoulTKL)
+* Hardware Availability: [Open source on GitHub](https://github.com/chillKB/ghoulTKL)
 
 Make example for this keyboard (after setting up your build environment):
 
