@@ -1,6 +1,6 @@
 # cxt_studio/12e3
 
-![cxt_studio/12e3](https://i.imgur.com/hTvESd7.png)
+![cxt_studio/12e3](https://qmk-12e3.netlify.app/12e3.png)
 
 3x4 ortho layout, with 3 encoders.
 
