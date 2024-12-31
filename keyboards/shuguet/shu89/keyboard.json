@@ -8,23 +8,12 @@
         "pid": "0x0001",
         "device_version": "0.0.1"
     },
-    "build": {
-        "lto": true
-    },
     "features": {
         "rgb_matrix": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
-    },
-    "qmk": {
-        "locking": {
-            "enabled": true,
-            "resync": true
-        }
     },
     "matrix_pins": {
         "cols": ["GP19", "GP20", "GP18", "GP17", "GP15", "GP14", "GP13", "GP12", "GP11", "GP10"],
@@ -71,8 +60,8 @@
                 {"label": "F11", "matrix": [6, 5], "x": 15.5, "y": 0},
                 {"label": "F12", "matrix": [6, 6], "x": 16.5, "y": 0},
                 {"label": "PrtSc", "matrix": [6, 7], "x": 17.75, "y": 0},
-                {"label": "Scroll Lock", "matrix": [6, 8], "x": 17.75, "y": 0},
-                {"label": "Pause", "matrix": [6, 9], "x": 17.75, "y": 0},
+                {"label": "Scroll Lock", "matrix": [6, 8], "x": 18.75, "y": 0},
+                {"label": "Pause", "matrix": [6, 9], "x": 19.75, "y": 0},
 
 
                 {"label": "~", "matrix": [2, 4], "x": 0, "y": 1.5},
@@ -90,9 +79,9 @@
                 {"label": "-_", "matrix": [7, 4], "x": 13.5, "y": 1.5},
                 {"label": "=+", "matrix": [7, 5], "x": 14.5, "y": 1.5},
                 {"label": "Backspace", "matrix": [7, 6], "x": 15.5, "y": 1.5, "w": 2},
-                {"label": "Insert", "matrix": [7, 7], "x": 17.5, "y": 1.5},
-                {"label": "Home", "matrix": [7, 8], "x": 18.5, "y": 1.5},
-                {"label": "PgUp", "matrix": [7, 9], "x": 19.5, "y": 1.5},
+                {"label": "Insert", "matrix": [7, 7], "x": 17.75, "y": 1.5},
+                {"label": "Home", "matrix": [7, 8], "x": 18.75, "y": 1.5},
+                {"label": "PgUp", "matrix": [7, 9], "x": 19.75, "y": 1.5},
 
                 
                 {"label": "Tab", "matrix": [3, 4], "x": 0, "y": 2.5, "w": 1.5},
@@ -168,11 +157,9 @@
         "split_count": [ 36, 53 ],
         "default": {
             "hue": 85,
-            "sat": 255,
             "val": 128
         },
         "animations": {
-            "solid_color": true,
             "alphas_mods": true,
             "gradient_up_down": true,
             "gradient_left_right": true,
@@ -220,8 +207,7 @@
             "starlight": true,
             "starlight_dual_hue": true,
             "starlight_dual_sat": true,
-            "riverflow": true,
-            "effect_max": true
+            "riverflow": true
         },
         "layout": [
             {"matrix": [0, 4], "x": 0, "y": 0, "flags": 4},
