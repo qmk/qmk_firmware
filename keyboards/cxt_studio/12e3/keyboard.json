@@ -23,7 +23,7 @@
         "rotary": [
             {"pin_a": "F5", "pin_b": "F6"},
             {"pin_a": "E6", "pin_b": "F0"},
-            {"pin_a": "B3", "pin_b": "B2", "resolution": 2},
+            {"pin_a": "B3", "pin_b": "B2", "resolution": 2}
         ]
     },
     "processor": "atmega32u4",
