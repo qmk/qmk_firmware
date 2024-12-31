@@ -20,6 +20,14 @@
             {"pin_a": "A15", "pin_b": "C0"}
         ]
     },
+    "eeprom": {
+        "driver": "wear_leveling",
+        "wear_leveling": {
+            "driver": "spi_flash",
+            "backing_size": 16384,
+            "logical_size": 4096
+        }
+    },
     "features": {
         "console": true,
         "haptic": true

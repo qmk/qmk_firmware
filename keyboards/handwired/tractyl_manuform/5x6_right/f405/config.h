@@ -71,7 +71,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define POINTING_DEVICE_CS_PIN B8
 #define POINTING_DEVICE_ROTATION_270
 #undef ROTATIONAL_TRANSFORM_ANGLE
-#define PMW33XX_SPI_DIVISOR 8
+#define PMW33XX_SPI_DIVISOR 16
 
 // lcd
 #define DISPLAY_RST_PIN NO_PIN
@@ -82,5 +82,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DRV2605L_FB_ERM_LRA   0
 #define DRV2605L_GREETING     DRV2605L_EFFECT_750_MS_ALERT_100
 #define DRV2605L_DEFAULT_MODE DRV2605L_EFFECT_BUZZ_1_100
-
-#define VIA_FIRMWARE_VERSION 0x00000001
