@@ -219,8 +219,7 @@
             "starlight": true,
             "starlight_dual_hue": true,
             "starlight_dual_sat": true,
-            "riverflow": true,
-            "effect_max": true
+            "riverflow": true
         },
         "layout": [
             {"matrix": [0, 4], "x": 0, "y": 0, "flags": 4},
