@@ -26,13 +26,6 @@
 #   define UART_RX_PIN          A3
 #   define UART_RX_PAL_MODE	    7
 
-//  debug
-// #   include "SEGGER_RTT.h"
-// #   undef bhq_printf
-// #   undef bhq_printf_init
-// #   define bhq_printf(format, ...) SEGGER_RTT_printf(0, format, ##__VA_ARGS__)
-// #   define bhq_printf_init() SEGGER_RTT_Init()
-
 #endif
 
 

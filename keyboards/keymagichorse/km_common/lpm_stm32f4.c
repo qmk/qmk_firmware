@@ -24,11 +24,6 @@
 #include "report_buffer.h"
 #include "uart.h"
 
-
-#if defined(KB_CHECK_BATTERY_ENABLED)
-#   include "battery.h"
-#endif
-
 static uint32_t     lpm_timer_buffer = 0;
 static bool         lpm_time_up               = false;
 
@@ -217,9 +212,6 @@ void enter_low_power_mode_prepare(void)
 // usb 插入检测
     gpio_set_pin_input(USB_POWER_SENSE_PIN);
     palEnableLineEvent(USB_POWER_SENSE_PIN, PAL_EVENT_MODE_RISING_EDGE);
-#if defined(KB_CHECK_BATTERY_ENABLED)
-    battery_stop();
-#endif
 
     /* Usb unit is actived and running, stop and disconnect first */
     sdStop(&UART_DRIVER);
