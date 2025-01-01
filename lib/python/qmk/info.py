@@ -789,8 +789,8 @@ def _extract_led_config(info_data, keyboard):
                                 info_data[feature]['layout'] = ret
                         except Exception as e:
                             _log_warning(info_data, f'led_config: {file.name}: {e}')
-                    else:
-                        _log_warning(info_data, 'led_config: matrix size required to parse g_led_config')
+                else:
+                    _log_warning(info_data, 'led_config: matrix size required to parse g_led_config')
 
             if info_data[feature].get('layout', None) and not info_data[feature].get('led_count', None):
                 info_data[feature]['led_count'] = len(info_data[feature]['layout'])
