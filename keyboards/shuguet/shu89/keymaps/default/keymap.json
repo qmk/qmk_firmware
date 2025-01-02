@@ -17,7 +17,7 @@
             "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "RGB_TOG"            , "KC_TRNS",               "KC_TRNS"            , "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",
             "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS"            , "KC_TRNS",               "KC_TRNS"            , "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",
             "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS"            , "KC_TRNS",               "KC_TRNS"            , "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_VOLU",
-            "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_MEDIA_PLAY_PAUSE",                          "KC_MEDIA_PLAY_PAUSE", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_MPRV", "KC_VOLD", "KC_MNXT"
+            "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_MPLY",                          "KC_MPLY", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_MPRV", "KC_VOLD", "KC_MNXT"
         ]
     ]
 }
