@@ -25,8 +25,6 @@ enum layers{
     WIN_FN,
 };
 
-// some KC_* codes are Keychron defined
-
 #define KC_TASK LGUI(KC_TAB)
 #define KC_FLXP LGUI(KC_E)
 

@@ -2,7 +2,7 @@
     "keyboard_name": "Keychron C3 Pro",
     "manufacturer": "Keychron",
     "url": "https://github.com/Keychron",
-    "maintainer": "Joe",
+    "maintainer": "yincrash",
     "processor": "STM32F401",
     "bootloader": "stm32-dfu",
     "usb": {
