@@ -1,6 +1,7 @@
 // Copyright 2023 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+#include "action_layer.h"
 #include QMK_KEYBOARD_H
 
 #include "lib/achordion.h"
@@ -300,28 +301,16 @@ static void render_logo(void) {
 bool oled_task_user(void) {
     render_logo();
 
-    switch (get_highest_layer(layer_state)) {
-        case _BASE:
-            oled_write_P(PSTR(">>> BASE "), false);
-            break;
-        case _NUM:
-            oled_write_P(PSTR(">>> PROG "), false);
-            break;
-        case _NAV:
-            oled_write_P(PSTR(">>> NAVI "), false);
-            break;
-        case _MEDIA:
-            oled_write_P(PSTR(">>> MEDIA"), false);
-            break;
-        case _FUNC:
-            oled_write_P(PSTR(">>> FUNC "), false);
-            break;
-        case _MOUS:
-            oled_write_P(PSTR(">>> MOUSE"), false);
-            break;
-        default:
-            break;
-    }
+    const char *layer_names[] = {
+        [ _BASE ] = ">> BASE ",
+        [ _NUM ] = ">> PROG ",
+        [ _NAV ] = ">> NAVI ",
+        [ _MEDIA ] = ">>> MEDIA ",
+        [ _FUNC ] = ">>> FUNC ",
+        [ _MOUS ] = ">>> MOUSE ",
+    };
+
+    oled_write_P(PSTR(layer_names[get_highest_layer(layer_state)]), false);
 
     return false;
 }

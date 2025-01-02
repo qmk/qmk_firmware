@@ -164,35 +164,18 @@ static void render_logo(void) {
 
 bool oled_task_user(void) {
     render_logo();
+    const char *layer_names[] = {
+        [ _BASE ] = ">>> BASE ",
+        [ _MOUS ] = ">>> MOUSE ",
+        [ _NAV ] = ">>> NAVI ",
+        [ _SYM ] = ">>> SYM",
+        [ _BRC ] = ">>> BRC",
+        [ _FUNC ] = ">>> FUNC ",
+        [ _NUM ] = ">>> NUM",
+        [ _MISC ] = ">>> MISC"
+    };
 
-    switch (get_highest_layer(layer_state)) {
-        case _BASE:
-            oled_write_P(PSTR(">>> BASE "), false);
-            break;
-        case _MOUS:
-            oled_write_P(PSTR(">>> MOUSE "), false);
-            break;
-        case _NAV:
-            oled_write_P(PSTR(">>> NAVI "), false);
-            break;
-        case _SYM:
-            oled_write_P(PSTR(">>> SYM"), false);
-            break;
-        case _BRC:
-            oled_write_P(PSTR(">>> BRC"), false);
-            break;
-        case _FUNC:
-            oled_write_P(PSTR(">>> FUNC "), false);
-            break;
-        case _NUM:
-            oled_write_P(PSTR(">>> NUM"), false);
-            break;
-        case _MISC:
-            oled_write_P(PSTR(">>> MISC"), false);
-            break;
-        default:
-            break;
-    }
+    oled_write_P(PSTR(layer_names[get_highest_layer(layer_state)]), false);
     return false;
 }
 #endif /* ifdef OLED_ENABLE */
