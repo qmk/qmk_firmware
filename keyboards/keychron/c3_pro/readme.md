@@ -25,6 +25,14 @@ Enter the bootloader in two ways:
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
+## VIA
+
+Choosing the VIA keymap will enable VIA and the layout json is [here](via_json/c3_pro_ansi_rgb.json).
+
+## Considerations
+
+This does not implement the Siri/Cortana key `KC_SIRI` or the Screenshot `KC_SNAP` key.
+
 ## Looking for C3 Pro Red?
 
-Try Keychron's repository with red [here](https://github.com/Keychron/qmk_firmware/tree/playground/keyboards/keychron/c3_pro/)
+Try Keychron's repository with red [here](https://github.com/Keychron/qmk_firmware/tree/playground/keyboards/keychron/c3_pro/).
