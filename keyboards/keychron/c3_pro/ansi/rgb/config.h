@@ -28,14 +28,14 @@
 #    define DRIVER_ADDR_2 0b1110100 
 
 /* Set LED driver current */
-#define CKLED2001_CURRENT_TUNE \
+#define SNLED27351_CURRENT_TUNE \
     { 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30 }
 
 /* RGB Matrix Configuration */
 #define RGB_MATRIX_LED_COUNT 99
 
 /* turn off effects when suspended */
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
+#define RGB_MATRIX_SLEEP
 
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:

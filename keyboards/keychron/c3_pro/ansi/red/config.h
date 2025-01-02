@@ -33,11 +33,11 @@
 #    define PHASE_CHANNEL MSKPHASE_7CHANNEL
 
 /* Set LED driver current */
-#    define CKLED2001_CURRENT_TUNE \
+#    define SNLED27351_CURRENT_TUNE \
         { 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50 }
 
 /* turn off effects when suspended */
-#    define LED_DISABLE_WHEN_USB_SUSPENDED
+#    define LED_MATRIX_SLEEP
 
 /* Enable Reactive Animation */
 #    define LED_MATRIX_KEYPRESSES
