@@ -193,7 +193,6 @@ bool oled_task_user(void) {
         default:
             break;
     }
-    // oled_write_ln_P(get_u16_str(get_pointer_dpi(&global_user_config), '0'), false);
     return false;
 }
 #endif /* ifdef OLED_ENABLE */
