@@ -226,6 +226,9 @@
     },
     "handwired/dactyl_manuform/dmote/62key": {
         "target": "handwired/dmote"
+    },    
+    "handwired/dactyl_promicro": {
+        "target": "handwired/dactyl/promicro"
     },
     "handwired/ferris": {
         "target": "ferris/0_1"
