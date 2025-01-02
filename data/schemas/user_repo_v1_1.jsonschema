@@ -10,7 +10,7 @@
                 {"$ref": "qmk.definitions.v1#/keyboard_keymap_env"},
                 {"$ref": "qmk.definitions.v1#/json_file_path"}
             ]
-        },
+        }
     },
     "required": [
         "userspace_version",
