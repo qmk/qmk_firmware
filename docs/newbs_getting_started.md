@@ -101,21 +101,40 @@ Install the QMK CLI by running:
 python3 -m pip install --user qmk
 ```
 
-#### Community Packages
+::: tip
+With the introduction of [PEP 668](https://peps.python.org/pep-0668), Python package management tools like `pip` are no longer permitted to install Python packages globally on Linux distributions that have adopted this PEP. As a result, the above command may not work in such environments. To address this, recommended alternatives include using a Python virtual environment or utilising [QMK's Docker container](getting_started_docker) for managing dependencies.
+:::
 
-These packages are maintained by community members, so may not be up to date or completely functional. If you encounter problems, please report them to their respective maintainers.
+:::: details Virtual Environment Setup
+Acquire a local copy of the QMK Firmware repository (including submodules):
 
-On Arch-based distros you can install the CLI from the official repositories (NOTE: at the time of writing this package marks some dependencies as optional that should not be):
-
-```sh
-sudo pacman -S qmk
+```
+git clone --recurse-submodules https://github.com/qmk/qmk_firmware.git
+cd qmk_firmware
 ```
 
-You can also try the `qmk-git` package from AUR:
+Create a virtual environment. The following command will create a `.venv` directory in your current working directory. If you'd prefer to store the virtual environment elsewhere, adjust the path accordingly:
 
-```sh
-yay -S qmk-git
 ```
+python3 -m venv .venv
+```
+
+Activate the virtual environment. The following command works for most commonly used shells like Bash, ZSH, sh, etc. If you are using Fish, Nu, or something else, see the alternate activation scripts in `.venv/bin/`:
+
+```
+source .venv/bin/activate
+```
+
+Install the QMK CLI package:
+
+```
+pip install qmk
+```
+::: tip
+Using a virtual environment means it will need to be activated each time you plan to use the utilities it provides (eg. `qmk` commands in this case).
+:::
+
+::::
 
 ==== FreeBSD
 
