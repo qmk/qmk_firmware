@@ -235,3 +235,30 @@ TEST_F(ChordalHoldDefault, three_mod_taps_same_hand_streak_roll) {
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 }
+
+TEST_F(ChordalHoldDefault, tap_regular_key_while_layer_tap_key_is_held) {
+    TestDriver driver;
+    InSequence s;
+    auto       layer_tap_hold_key = KeymapKey(0, 1, 0, LT(1, KC_P));
+    auto       regular_key        = KeymapKey(0, MATRIX_COLS - 1, 0, KC_A);
+    auto       layer_key          = KeymapKey(1, MATRIX_COLS - 1, 0, KC_B);
+
+    set_keymap({layer_tap_hold_key, regular_key, layer_key});
+
+    EXPECT_NO_REPORT(driver);
+    layer_tap_hold_key.press(); // Press layer-tap-hold key.
+    run_one_scan_loop();
+    regular_key.press(); // Press regular key.
+    run_one_scan_loop();
+    regular_key.release(); // Release regular key.
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_REPORT(driver, (KC_P));
+    EXPECT_REPORT(driver, (KC_P, KC_A));
+    EXPECT_REPORT(driver, (KC_P));
+    EXPECT_EMPTY_REPORT(driver);
+    layer_tap_hold_key.release(); // Release layer-tap-hold key.
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}

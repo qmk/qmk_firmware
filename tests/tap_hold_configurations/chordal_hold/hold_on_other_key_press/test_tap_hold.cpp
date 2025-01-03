@@ -566,3 +566,80 @@ TEST_F(ChordalHoldHoldOnOtherKeyPress, three_mod_taps_one_held_two_tapped) {
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 }
+
+TEST_F(ChordalHoldHoldOnOtherKeyPress, tap_regular_key_while_layer_tap_key_is_held) {
+    TestDriver driver;
+    InSequence s;
+    auto       layer_tap_hold_key = KeymapKey(0, 1, 0, LT(1, KC_P));
+    auto       regular_key        = KeymapKey(0, MATRIX_COLS - 1, 0, KC_A);
+    auto       no_key             = KeymapKey(1, 1, 0, XXXXXXX);
+    auto       layer_key          = KeymapKey(1, MATRIX_COLS - 1, 0, KC_B);
+
+    set_keymap({layer_tap_hold_key, regular_key, no_key, layer_key});
+
+    // Press layer-tap-hold key.
+    EXPECT_NO_REPORT(driver);
+    layer_tap_hold_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Press regular key.
+    EXPECT_REPORT(driver, (KC_B));
+    regular_key.press();
+    run_one_scan_loop();
+    EXPECT_TRUE(layer_state_is(1));
+    VERIFY_AND_CLEAR(driver);
+
+    // Release regular key.
+    EXPECT_EMPTY_REPORT(driver);
+    regular_key.release();
+    run_one_scan_loop();
+    EXPECT_TRUE(layer_state_is(1));
+    VERIFY_AND_CLEAR(driver);
+
+    // Release layer-tap-hold key.
+    EXPECT_NO_REPORT(driver);
+    layer_tap_hold_key.release();
+    run_one_scan_loop();
+    EXPECT_TRUE(layer_state_is(0));
+    VERIFY_AND_CLEAR(driver);
+}
+
+TEST_F(ChordalHoldHoldOnOtherKeyPress, nested_tap_of_layer_0_layer_tap_keys) {
+    TestDriver driver;
+    InSequence s;
+    // The keys are layer-taps on layer 0 but regular keys on layer 1.
+    auto first_layer_tap_key  = KeymapKey(0, 1, 0, LT(1, KC_A));
+    auto second_layer_tap_key = KeymapKey(0, MATRIX_COLS - 1, 0, LT(1, KC_P));
+    auto first_key_on_layer   = KeymapKey(1, 1, 0, KC_B);
+    auto second_key_on_layer  = KeymapKey(1, MATRIX_COLS - 1, 0, KC_Q);
+
+    set_keymap({first_layer_tap_key, second_layer_tap_key, first_key_on_layer, second_key_on_layer});
+
+    // Press first layer-tap key.
+    EXPECT_NO_REPORT(driver);
+    first_layer_tap_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Press second layer-tap key.
+    EXPECT_REPORT(driver, (KC_Q));
+    second_layer_tap_key.press();
+    run_one_scan_loop();
+    EXPECT_TRUE(layer_state_is(1));
+    VERIFY_AND_CLEAR(driver);
+
+    // Release second layer-tap key.
+    EXPECT_EMPTY_REPORT(driver);
+    second_layer_tap_key.release();
+    run_one_scan_loop();
+    EXPECT_TRUE(layer_state_is(1));
+    VERIFY_AND_CLEAR(driver);
+
+    // Release first layer-tap key.
+    EXPECT_NO_REPORT(driver);
+    first_layer_tap_key.release();
+    run_one_scan_loop();
+    EXPECT_TRUE(layer_state_is(0));
+    VERIFY_AND_CLEAR(driver);
+}
