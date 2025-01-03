@@ -19,10 +19,10 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 };
 #endif
 
-static int myOldLayer = 0;
+static uint8_t myOldLayer = 0;
 void matrix_scan_user(void) {
 
-    int myLayer= (0 << 3) | (0 << 2) | (0 << 1) | (0 << 0) ; 
+    uint8_t myLayer= (0 << 3) | (0 << 2) | (0 << 1) | (0 << 0) ; 
     myLayer = ( matrix_is_on( 3 , 3 ) << 3 ) | ( matrix_is_on( 3 , 2 ) << 2 ) | ( matrix_is_on( 3 , 1 ) << 1 ) | ( matrix_is_on( 3 , 0 ) << 0 );
 
     if ( myLayer != myOldLayer ){
