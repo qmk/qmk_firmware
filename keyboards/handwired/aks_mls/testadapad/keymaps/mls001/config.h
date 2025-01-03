@@ -8,7 +8,7 @@
 
 
 #undef BREATHING_PERIOD
-#define BREATHING_PERIOD 100
+#define BREATHING_PERIOD 1000
 
 
 
