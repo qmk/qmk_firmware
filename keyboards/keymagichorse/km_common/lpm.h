@@ -42,12 +42,14 @@
 #endif
 
 // STM32使用到的高速晶振引脚号，做低功耗需要用户配置，每款芯片有可能不一样的
-#ifndef LPM_STM32_HSE_PIN_IN
-  #error "LPM_STM32_HSE_PIN_IN is not defined. When LPM (Low Power Mode) is enabled, you must define LPM_STM32_HSE_PIN_IN in config.h to specify the HSE input pin."
-#endif
+#if STM32_HSE_ENABLED
+    #ifndef LPM_STM32_HSE_PIN_IN
+        #error "LPM_STM32_HSE_PIN_IN is not defined. When LPM (Low Power Mode) is enabled, you must define LPM_STM32_HSE_PIN_IN in config.h to specify the HSE input pin."
+    #endif
 
-#ifndef LPM_STM32_HSE_PIN_OUT
-  #error "LPM_STM32_HSE_PIN_OUT is not defined. When LPM (Low Power Mode) is enabled, you must define LPM_STM32_HSE_PIN_OUT in config.h to specify the HSE output pin."
+    #ifndef LPM_STM32_HSE_PIN_OUT
+        #error "LPM_STM32_HSE_PIN_OUT is not defined. When LPM (Low Power Mode) is enabled, you must define LPM_STM32_HSE_PIN_OUT in config.h to specify the HSE output pin."
+    #endif
 #endif
 
 void lpm_init(void);
