@@ -1,0 +1,112 @@
+{
+    "manufacturer": "t-ando",
+    "keyboard_name": "yubino_hara",
+    "maintainer": "nagmeal",
+    "bootloader": "rp2040",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "rgblight": true,
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "split": {
+        "enabled": true,
+        "soft_serial_pin": "GP0",
+        "serial": {
+            "driver": "vendor",
+            "pin": "GP0"
+        },
+        "transport": {
+            "sync": {
+                "matrix_state": true
+            }
+        }
+    },
+    "matrix_pins": {
+        "cols": ["GP1", "GP2", "GP3", "GP4", "GP5", "GP6", "GP7"],
+        "rows": ["GP29", "GP28", "GP27", "GP26"]
+    },
+    "processor": "RP2040",
+    "url": "",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0000",
+        "vid": "0x7A93"
+    },
+    "ws2812": {
+        "driver": "vendor",
+        "pin": "GP14"
+    },
+    "rgblight": {
+        "led_count": 44,
+        "split": true,
+        "split_count": [22, 22],
+        "sleep": true,
+        "default": {
+            "hue": 0,
+            "sat": 0,
+            "val": 50
+        }
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "label":"0,0",  "x":0, "y":0},
+                {"matrix": [0, 1], "label":"0,1",  "x":1, "y":0},
+                {"matrix": [0, 2], "label":"0,2",  "x":2, "y":0},
+                {"matrix": [0, 3], "label":"0,3",  "x":3, "y":0},
+                {"matrix": [0, 4], "label":"0,4",  "x":4, "y":0},
+                {"matrix": [0, 5], "label":"0,5",  "x":5, "y":0},
+
+                {"matrix": [4, 5], "label":"0,8",  "x":9.25, "y":0},
+                {"matrix": [4, 4], "label":"0,9",  "x":10.25, "y":0},
+                {"matrix": [4, 3], "label":"0,10", "x":11.25, "y":0},
+                {"matrix": [4, 2], "label":"0,11", "x":12.25, "y":0},
+                {"matrix": [4, 1], "label":"0,12", "x":13.25, "y":0},
+                {"matrix": [4, 0], "label":"0,13", "x":14.25, "y":0},
+
+                {"matrix": [1, 0], "label":"1,0", "x":0, "y":1},
+                {"matrix": [1, 1], "label":"1,1", "x":1.25, "y":1},
+                {"matrix": [1, 2], "label":"1,2", "x":2.25, "y":1},
+                {"matrix": [1, 3], "label":"1,3", "x":3.25, "y":1},
+                {"matrix": [1, 4], "label":"1,4", "x":4.25, "y":1},
+                {"matrix": [1, 5], "label":"1,5", "x":5.25, "y":1},
+
+
+                {"matrix": [5, 5], "label":"1,8", "x":9, "y":1},
+                {"matrix": [5, 4], "label":"1,9", "x":10, "y":1},
+                {"matrix": [5, 3], "label":"1,10", "x":11, "y":1},
+                {"matrix": [5, 2], "label":"1,11", "x":12, "y":1},
+                {"matrix": [5, 1], "label":"1,12", "x":13, "y":1},
+                {"matrix": [5, 0], "label":"1,13", "x":14.25, "y":1},
+
+                {"matrix": [2, 0], "label":"2,0", "x":0, "y":2},
+                {"matrix": [2, 1], "label":"2,1", "x":1, "y":2},
+                {"matrix": [2, 2], "label":"2,2", "x":2, "y":2},
+                {"matrix": [2, 3], "label":"2,3", "x":3, "y":2},
+                {"matrix": [2, 4], "label":"2,4", "x":4, "y":2},
+                {"matrix": [2, 5], "label":"2,5", "x":5, "y":2},
+                {"matrix": [2, 6], "label":"2,6", "x":6.25, "y":1, "h":2},
+
+                {"matrix": [6, 6], "label":"2,7", "x":8, "y":1, "h":2},
+                {"matrix": [6, 5], "label":"2,8", "x":9.25, "y":2},
+                {"matrix": [6, 4], "label":"2,9", "x":10.25, "y":2},
+                {"matrix": [6, 3], "label":"2,10", "x":11.25, "y":2},
+                {"matrix": [6, 2], "label":"2,11", "x":12.25, "y":2},
+                {"matrix": [6, 1], "label":"2,12", "x":13.25, "y":2},
+                {"matrix": [6, 0], "label":"2,13", "x":14.25, "y":2},
+
+
+                {"matrix": [3, 4], "label":"3,4", "x":4.25, "y":3.25},
+                {"matrix": [3, 5], "label":"3,5", "x":5.25, "y":3},
+                {"matrix": [3, 6], "label":"3,6", "x":6.25, "y":3.25},
+
+                {"matrix": [7, 6], "label":"3,7", "x":8, "y":3.25},
+                {"matrix": [7, 5], "label":"3,8", "x":9, "y":3},
+                {"matrix": [7, 4], "label":"3,9", "x":10, "y":3.25}
+            ]
+        }
+    }
+}
