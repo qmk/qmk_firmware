@@ -58,6 +58,33 @@ It's not yet possible to do a full integration test, where you would compile the
 
 In that model you would emulate the input, and expect a certain output from the emulated keyboard.
 
+# Logging Keycodes {#keycode-string}
+
+It's much nicer to read keycodes as names like "`LT(2,KC_D)`" than numerical codes like "`0x4207`." To convert keycodes to human-readable strings, add `KEYCODE_STRING_ENABLE = yes` to the `rules.mk` file, then use the `keycode_string(kc)` function to convert a given 16-bit keycode to a string.
+
+```c
+const char *key_name = keycode_string(keycode);
+dprintf("kc: %s\n", key_name);
+```
+
+The stringified keycode may then be logged to console output with `dprintf()` or elsewhere.
+
+::: warning
+Use the result of `keycode_string()` immediately. Subsequent invocations reuse the same static buffer and overwrite the previous contents. 
+:::
+
+Many common QMK keycodes are recognized by `keycode_string()`, but not all. These include some common basic keycodes, layer switch keycodes, mod-taps, one-shot keycodes, tap dance keycodes, and Unicode keycodes. As a fallback, an unrecognized keycode is written as a hex number. 
+
+Optionally, `custom_keycode_names` may be defined to add names for additional keycodes. For example, supposing keymap.c defines `MYMACRO1` and `MYMACRO2` as custom keycodes, the following adds their names:
+
+```c
+const keycode_string_name_t custom_keycode_names[] = {
+    KEYCODE_STRING_NAME(MYMACRO1),
+    KEYCODE_STRING_NAME(MYMACRO2),
+    KEYCODE_STRING_NAMES_END // End of table sentinel.
+};
+```
+
 # Tracing Variables {#tracing-variables}
 
 Sometimes you might wonder why a variable gets changed and where, and this can be quite tricky to track down without having a debugger. It's of course possible to manually add print statements to track it, but you can also enable the variable trace feature. This works for both variables that are changed by the code, and when the variable is changed by some memory corruption.
