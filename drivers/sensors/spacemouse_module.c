@@ -20,6 +20,16 @@
 #define SPACEMOUSE_LENGTH_DATA (2 * SPACEMOUSE_AXIS_COUNT)
 #define SPACEMOUSE_INPUT_OFFSET (8192)
 
+
+const pointing_device_driver_t pointing_device_driver = {
+    .init       = spacemouse_init,
+    .get_report = spacemouse_get_report,
+    .set_cpi    = NULL,
+    .get_cpi    = NULL
+};
+
+static bool spacemouse_present = false;
+
 enum spacemouse_commands {
     SPACEMOUSE_CMD_REQUEST_DATA      = 0xAC,
     SPACEMOUSE_CMD_SET_ZERO_POSITION = 0xAD,
@@ -71,14 +81,12 @@ bool spacemouse_cmd_disable_stream(void) {
 /**
  * @brief Initialize UART connection and send command to zero out starting position.
  *
- * @return true
- * @return false
  */
-bool spacemouse_init(void) {
+void spacemouse_init(void) {
     uart_init(SPACEMOUSE_BAUD_RATE);
     // position is zeroed out during device start, but re-zero it out to ensure that the
     // device is present and working properly.
-    return spacemouse_cmd_set_zero_position();
+    spacemouse_present = spacemouse_cmd_set_zero_position();
 }
 
 spacemouse_data_t spacemouse_get_data(void) {
@@ -130,4 +138,27 @@ spacemouse_data_t spacemouse_get_data(void) {
     }
 
     return data;
+}
+
+
+__attribute__((weak)) void spacemouse_module_handle_axes(spacemouse_data_t* spacemouse_data, report_mouse_t* mouse_report) {
+#    ifdef SPACEMOUSE_USE_TILT_AXIS
+    mouse_report->x = CONSTRAIN_HID_XY(spacemouse_data->tilt_x);
+    mouse_report->y = CONSTRAIN_HID_XY(spacemouse_data->tilt_y);
+#    else
+    mouse_report->x = CONSTRAIN_HID_XY(spacemouse_data->x);
+    mouse_report->y = CONSTRAIN_HID_XY(spacemouse_data->y);
+#    endif
+}
+
+report_mouse_t spacemouse_get_report(report_mouse_t mouse_report) {
+    if (spacemouse_present) {
+        spacemouse_data_t data = spacemouse_get_data();
+
+        if (data.x || data.y || data.z || data.twist || data.tilt_x || data.tilt_y) {
+            pd_dprintf("Raw ] X: %d, Y: %d, Z: %d, twist: %d, tilt X: %d, tilt Y: %d\n", data.x, data.y, data.z, data.twist, data.tilt_x, data.tilt_y);
+        }
+        spacemouse_module_handle_axes(&data, &mouse_report);
+    }
+    return mouse_report;
 }

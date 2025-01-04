@@ -24,7 +24,10 @@
         "vid": "0xBEEB"
     },
     "split": {
-        "enabled": true
+        "enabled": true,
+        "serial": {
+            "driver": "vendor"
+        }
     },
     "community_layouts": [ "split_3x6_3" ],
     "layouts": {

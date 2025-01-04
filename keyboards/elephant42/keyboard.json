@@ -42,7 +42,9 @@
     "diode_direction": "COL2ROW",
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D2",
+        "serial": {
+            "pin": "D2"
+        },
         "transport": {
             "sync": {
                 "matrix_state": true

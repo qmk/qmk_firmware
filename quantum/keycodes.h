@@ -1,4 +1,4 @@
-// Copyright 2024 QMK
+// Copyright 2025 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 /*******************************************************************************
@@ -52,6 +52,8 @@ enum qk_keycode_ranges {
     QK_ONE_SHOT_MOD_MAX            = 0x52BF,
     QK_LAYER_TAP_TOGGLE            = 0x52C0,
     QK_LAYER_TAP_TOGGLE_MAX        = 0x52DF,
+    QK_PERSISTENT_DEF_LAYER        = 0x52E0,
+    QK_PERSISTENT_DEF_LAYER_MAX    = 0x52FF,
     QK_SWAP_HANDS                  = 0x5600,
     QK_SWAP_HANDS_MAX              = 0x56FF,
     QK_TAP_DANCE                   = 0x5700,
@@ -72,6 +74,8 @@ enum qk_keycode_ranges {
     QK_STENO_MAX                   = 0x74FF,
     QK_MACRO                       = 0x7700,
     QK_MACRO_MAX                   = 0x777F,
+    QK_CONNECTION                  = 0x7780,
+    QK_CONNECTION_MAX              = 0x77BF,
     QK_LIGHTING                    = 0x7800,
     QK_LIGHTING_MAX                = 0x78FF,
     QK_QUANTUM                     = 0x7C00,
@@ -283,25 +287,25 @@ enum qk_keycode_defines {
     KC_ASSISTANT = 0x00C0,
     KC_MISSION_CONTROL = 0x00C1,
     KC_LAUNCHPAD = 0x00C2,
-    KC_MS_UP = 0x00CD,
-    KC_MS_DOWN = 0x00CE,
-    KC_MS_LEFT = 0x00CF,
-    KC_MS_RIGHT = 0x00D0,
-    KC_MS_BTN1 = 0x00D1,
-    KC_MS_BTN2 = 0x00D2,
-    KC_MS_BTN3 = 0x00D3,
-    KC_MS_BTN4 = 0x00D4,
-    KC_MS_BTN5 = 0x00D5,
-    KC_MS_BTN6 = 0x00D6,
-    KC_MS_BTN7 = 0x00D7,
-    KC_MS_BTN8 = 0x00D8,
-    KC_MS_WH_UP = 0x00D9,
-    KC_MS_WH_DOWN = 0x00DA,
-    KC_MS_WH_LEFT = 0x00DB,
-    KC_MS_WH_RIGHT = 0x00DC,
-    KC_MS_ACCEL0 = 0x00DD,
-    KC_MS_ACCEL1 = 0x00DE,
-    KC_MS_ACCEL2 = 0x00DF,
+    QK_MOUSE_CURSOR_UP = 0x00CD,
+    QK_MOUSE_CURSOR_DOWN = 0x00CE,
+    QK_MOUSE_CURSOR_LEFT = 0x00CF,
+    QK_MOUSE_CURSOR_RIGHT = 0x00D0,
+    QK_MOUSE_BUTTON_1 = 0x00D1,
+    QK_MOUSE_BUTTON_2 = 0x00D2,
+    QK_MOUSE_BUTTON_3 = 0x00D3,
+    QK_MOUSE_BUTTON_4 = 0x00D4,
+    QK_MOUSE_BUTTON_5 = 0x00D5,
+    QK_MOUSE_BUTTON_6 = 0x00D6,
+    QK_MOUSE_BUTTON_7 = 0x00D7,
+    QK_MOUSE_BUTTON_8 = 0x00D8,
+    QK_MOUSE_WHEEL_UP = 0x00D9,
+    QK_MOUSE_WHEEL_DOWN = 0x00DA,
+    QK_MOUSE_WHEEL_LEFT = 0x00DB,
+    QK_MOUSE_WHEEL_RIGHT = 0x00DC,
+    QK_MOUSE_ACCELERATION_0 = 0x00DD,
+    QK_MOUSE_ACCELERATION_1 = 0x00DE,
+    QK_MOUSE_ACCELERATION_2 = 0x00DF,
     KC_LEFT_CTRL = 0x00E0,
     KC_LEFT_SHIFT = 0x00E1,
     KC_LEFT_ALT = 0x00E2,
@@ -620,6 +624,21 @@ enum qk_keycode_defines {
     QK_MACRO_29 = 0x771D,
     QK_MACRO_30 = 0x771E,
     QK_MACRO_31 = 0x771F,
+    QK_OUTPUT_AUTO = 0x7780,
+    QK_OUTPUT_NEXT = 0x7781,
+    QK_OUTPUT_PREV = 0x7782,
+    QK_OUTPUT_NONE = 0x7783,
+    QK_OUTPUT_USB = 0x7784,
+    QK_OUTPUT_2P4GHZ = 0x7785,
+    QK_OUTPUT_BLUETOOTH = 0x7786,
+    QK_BLUETOOTH_PROFILE_NEXT = 0x7790,
+    QK_BLUETOOTH_PROFILE_PREV = 0x7791,
+    QK_BLUETOOTH_UNPAIR = 0x7792,
+    QK_BLUETOOTH_PROFILE1 = 0x7793,
+    QK_BLUETOOTH_PROFILE2 = 0x7794,
+    QK_BLUETOOTH_PROFILE3 = 0x7795,
+    QK_BLUETOOTH_PROFILE4 = 0x7796,
+    QK_BLUETOOTH_PROFILE5 = 0x7797,
     QK_BACKLIGHT_ON = 0x7800,
     QK_BACKLIGHT_OFF = 0x7801,
     QK_BACKLIGHT_TOGGLE = 0x7802,
@@ -690,9 +709,6 @@ enum qk_keycode_defines {
     QK_SPACE_CADET_LEFT_ALT_PARENTHESIS_OPEN = 0x7C1C,
     QK_SPACE_CADET_RIGHT_ALT_PARENTHESIS_CLOSE = 0x7C1D,
     QK_SPACE_CADET_RIGHT_SHIFT_ENTER = 0x7C1E,
-    QK_OUTPUT_AUTO = 0x7C20,
-    QK_OUTPUT_USB = 0x7C21,
-    QK_OUTPUT_BLUETOOTH = 0x7C22,
     QK_UNICODE_MODE_NEXT = 0x7C30,
     QK_UNICODE_MODE_PREVIOUS = 0x7C31,
     QK_UNICODE_MODE_MACOS = 0x7C32,
@@ -745,6 +761,7 @@ enum qk_keycode_defines {
     QK_TRI_LAYER_UPPER = 0x7C78,
     QK_REPEAT_KEY = 0x7C79,
     QK_ALT_REPEAT_KEY = 0x7C7A,
+    QK_LAYER_LOCK = 0x7C7B,
     QK_KB_0 = 0x7E00,
     QK_KB_1 = 0x7E01,
     QK_KB_2 = 0x7E02,
@@ -926,25 +943,25 @@ enum qk_keycode_defines {
     KC_ASST    = KC_ASSISTANT,
     KC_MCTL    = KC_MISSION_CONTROL,
     KC_LPAD    = KC_LAUNCHPAD,
-    KC_MS_U    = KC_MS_UP,
-    KC_MS_D    = KC_MS_DOWN,
-    KC_MS_L    = KC_MS_LEFT,
-    KC_MS_R    = KC_MS_RIGHT,
-    KC_BTN1    = KC_MS_BTN1,
-    KC_BTN2    = KC_MS_BTN2,
-    KC_BTN3    = KC_MS_BTN3,
-    KC_BTN4    = KC_MS_BTN4,
-    KC_BTN5    = KC_MS_BTN5,
-    KC_BTN6    = KC_MS_BTN6,
-    KC_BTN7    = KC_MS_BTN7,
-    KC_BTN8    = KC_MS_BTN8,
-    KC_WH_U    = KC_MS_WH_UP,
-    KC_WH_D    = KC_MS_WH_DOWN,
-    KC_WH_L    = KC_MS_WH_LEFT,
-    KC_WH_R    = KC_MS_WH_RIGHT,
-    KC_ACL0    = KC_MS_ACCEL0,
-    KC_ACL1    = KC_MS_ACCEL1,
-    KC_ACL2    = KC_MS_ACCEL2,
+    MS_UP      = QK_MOUSE_CURSOR_UP,
+    MS_DOWN    = QK_MOUSE_CURSOR_DOWN,
+    MS_LEFT    = QK_MOUSE_CURSOR_LEFT,
+    MS_RGHT    = QK_MOUSE_CURSOR_RIGHT,
+    MS_BTN1    = QK_MOUSE_BUTTON_1,
+    MS_BTN2    = QK_MOUSE_BUTTON_2,
+    MS_BTN3    = QK_MOUSE_BUTTON_3,
+    MS_BTN4    = QK_MOUSE_BUTTON_4,
+    MS_BTN5    = QK_MOUSE_BUTTON_5,
+    MS_BTN6    = QK_MOUSE_BUTTON_6,
+    MS_BTN7    = QK_MOUSE_BUTTON_7,
+    MS_BTN8    = QK_MOUSE_BUTTON_8,
+    MS_WHLU    = QK_MOUSE_WHEEL_UP,
+    MS_WHLD    = QK_MOUSE_WHEEL_DOWN,
+    MS_WHLL    = QK_MOUSE_WHEEL_LEFT,
+    MS_WHLR    = QK_MOUSE_WHEEL_RIGHT,
+    MS_ACL0    = QK_MOUSE_ACCELERATION_0,
+    MS_ACL1    = QK_MOUSE_ACCELERATION_1,
+    MS_ACL2    = QK_MOUSE_ACCELERATION_2,
     KC_LCTL    = KC_LEFT_CTRL,
     KC_LSFT    = KC_LEFT_SHIFT,
     KC_LALT    = KC_LEFT_ALT,
@@ -1296,6 +1313,21 @@ enum qk_keycode_defines {
     MC_29      = QK_MACRO_29,
     MC_30      = QK_MACRO_30,
     MC_31      = QK_MACRO_31,
+    OU_AUTO    = QK_OUTPUT_AUTO,
+    OU_NEXT    = QK_OUTPUT_NEXT,
+    OU_PREV    = QK_OUTPUT_PREV,
+    OU_NONE    = QK_OUTPUT_NONE,
+    OU_USB     = QK_OUTPUT_USB,
+    OU_2P4G    = QK_OUTPUT_2P4GHZ,
+    OU_BT      = QK_OUTPUT_BLUETOOTH,
+    BT_NEXT    = QK_BLUETOOTH_PROFILE_NEXT,
+    BT_PREV    = QK_BLUETOOTH_PROFILE_PREV,
+    BT_UNPR    = QK_BLUETOOTH_UNPAIR,
+    BT_PRF1    = QK_BLUETOOTH_PROFILE1,
+    BT_PRF2    = QK_BLUETOOTH_PROFILE2,
+    BT_PRF3    = QK_BLUETOOTH_PROFILE3,
+    BT_PRF4    = QK_BLUETOOTH_PROFILE4,
+    BT_PRF5    = QK_BLUETOOTH_PROFILE5,
     BL_ON      = QK_BACKLIGHT_ON,
     BL_OFF     = QK_BACKLIGHT_OFF,
     BL_TOGG    = QK_BACKLIGHT_TOGGLE,
@@ -1365,9 +1397,6 @@ enum qk_keycode_defines {
     SC_LAPO    = QK_SPACE_CADET_LEFT_ALT_PARENTHESIS_OPEN,
     SC_RAPC    = QK_SPACE_CADET_RIGHT_ALT_PARENTHESIS_CLOSE,
     SC_SENT    = QK_SPACE_CADET_RIGHT_SHIFT_ENTER,
-    OU_AUTO    = QK_OUTPUT_AUTO,
-    OU_USB     = QK_OUTPUT_USB,
-    OU_BT      = QK_OUTPUT_BLUETOOTH,
     UC_NEXT    = QK_UNICODE_MODE_NEXT,
     UC_PREV    = QK_UNICODE_MODE_PREVIOUS,
     UC_MAC     = QK_UNICODE_MODE_MACOS,
@@ -1419,6 +1448,7 @@ enum qk_keycode_defines {
     TL_UPPR    = QK_TRI_LAYER_UPPER,
     QK_REP     = QK_REPEAT_KEY,
     QK_AREP    = QK_ALT_REPEAT_KEY,
+    QK_LLCK    = QK_LAYER_LOCK,
 };
 
 // Range Helpers
@@ -1434,6 +1464,7 @@ enum qk_keycode_defines {
 #define IS_QK_ONE_SHOT_LAYER(code) ((code) >= QK_ONE_SHOT_LAYER && (code) <= QK_ONE_SHOT_LAYER_MAX)
 #define IS_QK_ONE_SHOT_MOD(code) ((code) >= QK_ONE_SHOT_MOD && (code) <= QK_ONE_SHOT_MOD_MAX)
 #define IS_QK_LAYER_TAP_TOGGLE(code) ((code) >= QK_LAYER_TAP_TOGGLE && (code) <= QK_LAYER_TAP_TOGGLE_MAX)
+#define IS_QK_PERSISTENT_DEF_LAYER(code) ((code) >= QK_PERSISTENT_DEF_LAYER && (code) <= QK_PERSISTENT_DEF_LAYER_MAX)
 #define IS_QK_SWAP_HANDS(code) ((code) >= QK_SWAP_HANDS && (code) <= QK_SWAP_HANDS_MAX)
 #define IS_QK_TAP_DANCE(code) ((code) >= QK_TAP_DANCE && (code) <= QK_TAP_DANCE_MAX)
 #define IS_QK_MAGIC(code) ((code) >= QK_MAGIC && (code) <= QK_MAGIC_MAX)
@@ -1444,6 +1475,7 @@ enum qk_keycode_defines {
 #define IS_QK_AUDIO(code) ((code) >= QK_AUDIO && (code) <= QK_AUDIO_MAX)
 #define IS_QK_STENO(code) ((code) >= QK_STENO && (code) <= QK_STENO_MAX)
 #define IS_QK_MACRO(code) ((code) >= QK_MACRO && (code) <= QK_MACRO_MAX)
+#define IS_QK_CONNECTION(code) ((code) >= QK_CONNECTION && (code) <= QK_CONNECTION_MAX)
 #define IS_QK_LIGHTING(code) ((code) >= QK_LIGHTING && (code) <= QK_LIGHTING_MAX)
 #define IS_QK_QUANTUM(code) ((code) >= QK_QUANTUM && (code) <= QK_QUANTUM_MAX)
 #define IS_QK_KB(code) ((code) >= QK_KB && (code) <= QK_KB_MAX)
@@ -1457,7 +1489,7 @@ enum qk_keycode_defines {
 #define IS_BASIC_KEYCODE(code) ((code) >= KC_A && (code) <= KC_EXSEL)
 #define IS_SYSTEM_KEYCODE(code) ((code) >= KC_SYSTEM_POWER && (code) <= KC_SYSTEM_WAKE)
 #define IS_CONSUMER_KEYCODE(code) ((code) >= KC_AUDIO_MUTE && (code) <= KC_LAUNCHPAD)
-#define IS_MOUSE_KEYCODE(code) ((code) >= KC_MS_UP && (code) <= KC_MS_ACCEL2)
+#define IS_MOUSE_KEYCODE(code) ((code) >= QK_MOUSE_CURSOR_UP && (code) <= QK_MOUSE_ACCELERATION_2)
 #define IS_MODIFIER_KEYCODE(code) ((code) >= KC_LEFT_CTRL && (code) <= KC_RIGHT_GUI)
 #define IS_SWAP_HANDS_KEYCODE(code) ((code) >= QK_SWAP_HANDS_TOGGLE && (code) <= QK_SWAP_HANDS_ONE_SHOT)
 #define IS_MAGIC_KEYCODE(code) ((code) >= QK_MAGIC_SWAP_CONTROL_CAPS_LOCK && (code) <= QK_MAGIC_TOGGLE_ESCAPE_CAPS_LOCK)
@@ -1468,12 +1500,13 @@ enum qk_keycode_defines {
 #define IS_AUDIO_KEYCODE(code) ((code) >= QK_AUDIO_ON && (code) <= QK_AUDIO_VOICE_PREVIOUS)
 #define IS_STENO_KEYCODE(code) ((code) >= QK_STENO_BOLT && (code) <= QK_STENO_COMB_MAX)
 #define IS_MACRO_KEYCODE(code) ((code) >= QK_MACRO_0 && (code) <= QK_MACRO_31)
+#define IS_CONNECTION_KEYCODE(code) ((code) >= QK_OUTPUT_AUTO && (code) <= QK_BLUETOOTH_PROFILE5)
 #define IS_BACKLIGHT_KEYCODE(code) ((code) >= QK_BACKLIGHT_ON && (code) <= QK_BACKLIGHT_TOGGLE_BREATHING)
 #define IS_LED_MATRIX_KEYCODE(code) ((code) >= QK_LED_MATRIX_ON && (code) <= QK_LED_MATRIX_SPEED_DOWN)
 #define IS_UNDERGLOW_KEYCODE(code) ((code) >= QK_UNDERGLOW_TOGGLE && (code) <= QK_UNDERGLOW_SPEED_DOWN)
 #define IS_RGB_KEYCODE(code) ((code) >= RGB_MODE_PLAIN && (code) <= RGB_MODE_TWINKLE)
 #define IS_RGB_MATRIX_KEYCODE(code) ((code) >= QK_RGB_MATRIX_ON && (code) <= QK_RGB_MATRIX_SPEED_DOWN)
-#define IS_QUANTUM_KEYCODE(code) ((code) >= QK_BOOTLOADER && (code) <= QK_ALT_REPEAT_KEY)
+#define IS_QUANTUM_KEYCODE(code) ((code) >= QK_BOOTLOADER && (code) <= QK_LAYER_LOCK)
 #define IS_KB_KEYCODE(code) ((code) >= QK_KB_0 && (code) <= QK_KB_31)
 #define IS_USER_KEYCODE(code) ((code) >= QK_USER_0 && (code) <= QK_USER_31)
 
@@ -1482,7 +1515,7 @@ enum qk_keycode_defines {
 #define BASIC_KEYCODE_RANGE                 KC_A ... KC_EXSEL
 #define SYSTEM_KEYCODE_RANGE                KC_SYSTEM_POWER ... KC_SYSTEM_WAKE
 #define CONSUMER_KEYCODE_RANGE              KC_AUDIO_MUTE ... KC_LAUNCHPAD
-#define MOUSE_KEYCODE_RANGE                 KC_MS_UP ... KC_MS_ACCEL2
+#define MOUSE_KEYCODE_RANGE                 QK_MOUSE_CURSOR_UP ... QK_MOUSE_ACCELERATION_2
 #define MODIFIER_KEYCODE_RANGE              KC_LEFT_CTRL ... KC_RIGHT_GUI
 #define SWAP_HANDS_KEYCODE_RANGE            QK_SWAP_HANDS_TOGGLE ... QK_SWAP_HANDS_ONE_SHOT
 #define MAGIC_KEYCODE_RANGE                 QK_MAGIC_SWAP_CONTROL_CAPS_LOCK ... QK_MAGIC_TOGGLE_ESCAPE_CAPS_LOCK
@@ -1493,11 +1526,12 @@ enum qk_keycode_defines {
 #define AUDIO_KEYCODE_RANGE                 QK_AUDIO_ON ... QK_AUDIO_VOICE_PREVIOUS
 #define STENO_KEYCODE_RANGE                 QK_STENO_BOLT ... QK_STENO_COMB_MAX
 #define MACRO_KEYCODE_RANGE                 QK_MACRO_0 ... QK_MACRO_31
+#define CONNECTION_KEYCODE_RANGE            QK_OUTPUT_AUTO ... QK_BLUETOOTH_PROFILE5
 #define BACKLIGHT_KEYCODE_RANGE             QK_BACKLIGHT_ON ... QK_BACKLIGHT_TOGGLE_BREATHING
 #define LED_MATRIX_KEYCODE_RANGE            QK_LED_MATRIX_ON ... QK_LED_MATRIX_SPEED_DOWN
 #define UNDERGLOW_KEYCODE_RANGE             QK_UNDERGLOW_TOGGLE ... QK_UNDERGLOW_SPEED_DOWN
 #define RGB_KEYCODE_RANGE                   RGB_MODE_PLAIN ... RGB_MODE_TWINKLE
 #define RGB_MATRIX_KEYCODE_RANGE            QK_RGB_MATRIX_ON ... QK_RGB_MATRIX_SPEED_DOWN
-#define QUANTUM_KEYCODE_RANGE               QK_BOOTLOADER ... QK_ALT_REPEAT_KEY
+#define QUANTUM_KEYCODE_RANGE               QK_BOOTLOADER ... QK_LAYER_LOCK
 #define KB_KEYCODE_RANGE                    QK_KB_0 ... QK_KB_31
 #define USER_KEYCODE_RANGE                  QK_USER_0 ... QK_USER_31

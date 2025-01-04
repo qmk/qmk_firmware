@@ -19,6 +19,9 @@
     "diode_direction": "COL2ROW",
     "split": {
         "enabled": true,
+        "handedness": {
+            "pin": "A6"
+        },
         "soft_serial_pin": "D3",
         "bootmagic": {
             "matrix": [4, 5]

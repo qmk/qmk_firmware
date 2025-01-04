@@ -10,10 +10,6 @@
   },
   "processor": "RP2040",
   "bootloader": "rp2040",
-  "matrix_size": {
-    "cols": 8,
-    "rows": 5
-  },
   "diode_direction": "COL2ROW",
   "features": {
     "bootmagic": true,

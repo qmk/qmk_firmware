@@ -140,6 +140,9 @@
     "custommk/genesis": {
         "target": "custommk/genesis/rev1"
     },
+    "cxt_studio":{
+        "target":"cxt_studio/12e4"
+    },
     "daisy": {
         "target": "ktec/daisy"
     },
@@ -562,6 +565,15 @@
     },
     "plain60": {
         "target": "evyd13/plain60"
+    },
+    "planck/ez": {
+        "target": "zsa/planck_ez/base"
+    },
+    "planck/ez/base": {
+        "target": "zsa/planck_ez/base"
+    },
+    "planck/ez/glow": {
+        "target": "zsa/planck_ez/glow"
     },
     "ploopyco/trackball": {
         "target": "ploopyco/trackball/rev1_005"
@@ -1060,7 +1072,7 @@
         "target": "lyso1/lefishe"
     },
     "lets_split_eh/eh": {
-        "target": "maple_computing/lets_split_eh/eh"
+        "target": "maple_computing/lets_split_eh"
     },
     "ls_60": {
         "target": "weirdo/ls_60"
@@ -1079,6 +1091,9 @@
     },
     "macro1": {
         "target": "laneware/macro1"
+    },
+    "maple_computing/lets_split_eh/eh": {
+        "target": "maple_computing/lets_split_eh"
     },
     "massdrop/thekey": {
         "target": "drop/thekey/v1"
@@ -1136,6 +1151,12 @@
     },
     "mt980": {
         "target": "mt/mt980"
+    },
+    "mt/ncr80/hotswap": {
+        "target": "mt/ncr80/r2/hotswap"
+    },
+    "mt/ncr80/solder": {
+        "target": "mt/ncr80/r2/solder"
     },
     "nafuda": {
         "target": "salicylic_acid3/nafuda"
@@ -1347,6 +1368,12 @@
     "runner3680/5x8": {
         "target": "omkbd/runner3680/5x8"
     },
+    "saevus/cor": {
+        "target": "concreteflowers/cor"
+    },
+    "saevus/cor_tkl": {
+        "target": "concreteflowers/cor_tkl"
+    },
     "scarletbandana": {
         "target": "woodkeys/scarletbandana"
     },
@@ -1491,6 +1518,9 @@
     "ymd96": {
         "target": "ymdk/ymd96"
     },
+    "ymdk/id75": {
+        "target": "ymdk/id75/f103"
+    },
     "ymdk_np21": {
         "target": "ymdk/np21"
     },
@@ -1525,5 +1555,8 @@
     },
     "kprepublic/jj50": {
         "target": "kprepublic/jj50/rev1"
+    },
+    "dnworks/9973": {
+        "target": "dnworks/tkl87"
     }
 }

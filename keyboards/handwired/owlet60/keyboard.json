@@ -42,11 +42,13 @@
     "debounce": 9,
     "community_layouts": ["alice", "alice_split_bs"],
     "layout_aliases": {
+        "LAYOUT_owlet60_full_bsp": "LAYOUT_full_bs",
+        "LAYOUT_owlet60_split_bsp": "LAYOUT_split_bs",
         "LAYOUT_owlet60_60_percent_full_bsp": "LAYOUT_alice",
         "LAYOUT_owlet60_60_percent_split_bsp": "LAYOUT_alice_split_bs"
     },
     "layouts": {
-        "LAYOUT_owlet60_full_bsp": {
+        "LAYOUT_full_bs": {
             "layout": [
                 {"matrix": [0, 0], "x": 0.5, "y": 0},
 
@@ -132,7 +134,7 @@
                 {"matrix": [3, 7], "x": 18, "y": 4}
             ]
         },
-        "LAYOUT_owlet60_split_bsp": {
+        "LAYOUT_split_bs": {
             "layout": [
                 {"matrix": [0, 0], "x": 0.5, "y": 0},
 

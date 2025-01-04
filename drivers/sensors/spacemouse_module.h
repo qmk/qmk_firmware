@@ -5,6 +5,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "pointing_device.h"
 
 typedef struct {
     int16_t x;
@@ -16,5 +17,6 @@ typedef struct {
 } spacemouse_data_t;
 
 bool              spacemouse_send_command(uint8_t cmd);
-bool              spacemouse_init(void);
+void              spacemouse_init(void);
 spacemouse_data_t spacemouse_get_data(void);
+report_mouse_t spacemouse_get_report(report_mouse_t mouse_report);

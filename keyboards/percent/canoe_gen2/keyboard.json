@@ -22,6 +22,10 @@
             "resync": true
         }
     },
+    "indicators": {
+        "caps_lock": "E6",
+        "on_state": 0
+    },
     "ws2812": {
         "pin": "B7"
     },
