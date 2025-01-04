@@ -12,4 +12,8 @@ typedef struct {
     void (*flush)(void);
 } rgblight_driver_t;
 
+#ifdef RGBLIGHT_DOUBLE_BUFFER
+extern const rgblight_driver_t rgblight_driver_wrapper;
+#endif
+
 extern const rgblight_driver_t rgblight_driver;
