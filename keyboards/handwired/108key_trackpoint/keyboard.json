@@ -22,8 +22,7 @@
     "console": true,
     "command": true,
     "nkro": true,
-    "ps2_mouse": true,
-    "ps2": true
+    "pointing_device": true,
   },
   "qmk": {
     "locking": {
