@@ -44,6 +44,11 @@ __attribute__((weak)) void lpm_device_power_close(void) ;
 
 void lpm_init(void)
 {
+    // 禁用调试功能以降低功耗
+    DBGMCU->CR &= ~DBGMCU_CR_DBG_SLEEP;   // 禁用在Sleep模式下的调试
+    DBGMCU->CR &= ~DBGMCU_CR_DBG_STOP;    // 禁用在Stop模式下的调试
+    DBGMCU->CR &= ~DBGMCU_CR_DBG_STANDBY; // 禁用在Standby模式下的调试
+
     lpm_timer_reset();
 
     gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
@@ -63,50 +68,10 @@ __attribute__((weak)) void lpm_device_power_close(void)
    
 }
 
-
-void set_all_io_analog(void)
+// 将未使用的引脚设置为输入模拟
+__attribute__((weak)) void lpm_set_unused_pins_to_input_analog(void)
 {
-    // 禁用调试功能以降低功耗
-    DBGMCU->CR &= ~DBGMCU_CR_DBG_SLEEP;   // 禁用在Sleep模式下的调试
-    DBGMCU->CR &= ~DBGMCU_CR_DBG_STOP;    // 禁用在Stop模式下的调试
-    DBGMCU->CR &= ~DBGMCU_CR_DBG_STANDBY; // 禁用在Standby模式下的调试
-    // 在系统初始化代码中禁用SWD接口
-    palSetLineMode(A13, PAL_MODE_INPUT_ANALOG);
-    palSetLineMode(A14, PAL_MODE_INPUT_ANALOG);
 
-
-
-    palSetLineMode(A0, PAL_MODE_INPUT_ANALOG); 
-    palSetLineMode(A1, PAL_MODE_INPUT_ANALOG); 
-    palSetLineMode(A2, PAL_MODE_INPUT_ANALOG); 
-    palSetLineMode(A3, PAL_MODE_INPUT_ANALOG); 
-    palSetLineMode(A4, PAL_MODE_INPUT_ANALOG); 
-    palSetLineMode(A5, PAL_MODE_INPUT_ANALOG); 
-    palSetLineMode(A6, PAL_MODE_INPUT_ANALOG); 
-    palSetLineMode(A7, PAL_MODE_INPUT_ANALOG); 
-    palSetLineMode(A8, PAL_MODE_INPUT_ANALOG); 
-    palSetLineMode(A9, PAL_MODE_INPUT_ANALOG); 
-    palSetLineMode(A10, PAL_MODE_INPUT_ANALOG); 
-    palSetLineMode(A11, PAL_MODE_INPUT_ANALOG); 
-    palSetLineMode(A13, PAL_MODE_INPUT_ANALOG); 
-    palSetLineMode(A14, PAL_MODE_INPUT_ANALOG); 
-    palSetLineMode(A15, PAL_MODE_INPUT_ANALOG); 
-
-    palSetLineMode(B0, PAL_MODE_INPUT_ANALOG); 
-    palSetLineMode(B1, PAL_MODE_INPUT_ANALOG); 
-    palSetLineMode(B2, PAL_MODE_INPUT_ANALOG); 
-    palSetLineMode(B3, PAL_MODE_INPUT_ANALOG); 
-    palSetLineMode(B4, PAL_MODE_INPUT_ANALOG); 
-    palSetLineMode(B5, PAL_MODE_INPUT_ANALOG); 
-    palSetLineMode(B6, PAL_MODE_INPUT_ANALOG); 
-    palSetLineMode(B7, PAL_MODE_INPUT_ANALOG); 
-    palSetLineMode(B8, PAL_MODE_INPUT_ANALOG); 
-    palSetLineMode(B9, PAL_MODE_INPUT_ANALOG); 
-    palSetLineMode(B10, PAL_MODE_INPUT_ANALOG); 
-    palSetLineMode(B11, PAL_MODE_INPUT_ANALOG); 
-    palSetLineMode(B13, PAL_MODE_INPUT_ANALOG); 
-    palSetLineMode(B14, PAL_MODE_INPUT_ANALOG); 
-    palSetLineMode(B15, PAL_MODE_INPUT_ANALOG); 
 }
 
 __attribute__((weak)) bool usb_power_connected(void) {
@@ -128,8 +93,8 @@ void My_PWR_EnterSTOPMode(void)
     RCC->CR &= ~RCC_CR_HSEON;
     while ((RCC->CR & RCC_CR_HSERDY));
 
-    palSetLineMode(H1, PAL_MODE_INPUT_ANALOG); 
-    palSetLineMode(H0, PAL_MODE_INPUT_ANALOG); 
+    palSetLineMode(LPM_STM32_HSE_PIN_IN, PAL_MODE_INPUT_ANALOG); 
+    palSetLineMode(LPM_STM32_HSE_PIN_OUT, PAL_MODE_INPUT_ANALOG); 
 #endif
     /* Wake source: Reset pin, all I/Os, BOR, PVD, PVM, RTC, LCD, IWDG,
     COMPx, USARTx, LPUART1, I2Cx, LPTIMx, USB, SWPMI */
@@ -151,7 +116,7 @@ void enter_low_power_mode_prepare(void)
     {
        return;
     }
-    set_all_io_analog();
+    lpm_set_unused_pins_to_input_analog();    // 设置没有使用的引脚为模拟输入
     uint8_t i = 0;
 #if (DIODE_DIRECTION == COL2ROW)
     // Set row(low valid), read cols

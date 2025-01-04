@@ -26,6 +26,10 @@
 #   define UART_RX_PIN          A3
 #   define UART_RX_PAL_MODE	    7
 
+// STM32使用到的高速晶振引脚号，做低功耗需要用户配置，每款芯片有可能不一样的
+#define LPM_STM32_HSE_PIN_IN     H1  
+#define LPM_STM32_HSE_PIN_OUT    H0
+
 #endif
 
 
