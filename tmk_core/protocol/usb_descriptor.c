@@ -320,6 +320,7 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
             HID_RI_USAGE(8, 0x30),         // X
             HID_RI_USAGE(8, 0x31),         // Y
             HID_RI_LOGICAL_MAXIMUM(16, 0x7FFF),
+            HID_RI_PHYSICAL_MAXIMUM(16, 0x400), // 10.24 inches
             HID_RI_REPORT_COUNT(8, 0x02),
             HID_RI_REPORT_SIZE(8, 0x10),
             HID_RI_UNIT(8, 0x13),          // Inch, English Linear
