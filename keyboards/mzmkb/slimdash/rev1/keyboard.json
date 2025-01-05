@@ -34,6 +34,12 @@
                 "matrix_state": true
             }
         },
+        "matrix_pins": {
+            "right": {
+                "cols": [ "GP0", "GP1", "GP3", "GP5", "GP8", "GP7", "GP9" ],
+                "rows": [ "GP2", "GP4", "GP6", "GP11", "GP10" ]
+            }
+        },
         "usb_detect": {
             "enabled": true
         }
