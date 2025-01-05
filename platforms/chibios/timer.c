@@ -99,7 +99,7 @@ uint16_t timer_read(void) {
 }
 
 uint32_t timer_read32(void) {
-    chSysLock();
+    syssts_t sts   = chSysGetStatusAndLockX();
     uint32_t ticks = get_system_time_ticks() - ticks_offset;
     if (ticks < last_ticks) {
         // The 32-bit tick counter overflowed and wrapped around.  We cannot just extend the counter to 64 bits here,
@@ -114,7 +114,7 @@ uint32_t timer_read32(void) {
     }
     last_ticks              = ticks;
     uint32_t ms_offset_copy = ms_offset; // read while still holding the lock to ensure a consistent value
-    chSysUnlock();
+    chSysRestoreStatusX(sts);
 
     return (uint32_t)TIME_I2MS(ticks) + ms_offset_copy;
 }
