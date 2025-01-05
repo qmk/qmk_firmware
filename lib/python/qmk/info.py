@@ -773,23 +773,24 @@ def find_keyboard_c(keyboard):
 def _extract_led_config(info_data, keyboard):
     """Scan all <keyboard>.c files for led config
     """
-    cols = info_data['matrix_size']['cols']
-    rows = info_data['matrix_size']['rows']
-
     for feature in ['rgb_matrix', 'led_matrix']:
         if info_data.get('features', {}).get(feature, False) or feature in info_data:
-
             # Only attempt search if dd led config is missing
             if 'layout' not in info_data.get(feature, {}):
-                # Process
-                for file in find_keyboard_c(keyboard):
-                    try:
-                        ret = find_led_config(file, cols, rows)
-                        if ret:
-                            info_data[feature] = info_data.get(feature, {})
-                            info_data[feature]['layout'] = ret
-                    except Exception as e:
-                        _log_warning(info_data, f'led_config: {file.name}: {e}')
+                cols = info_data.get('matrix_size', {}).get('cols')
+                rows = info_data.get('matrix_size', {}).get('rows')
+                if cols and rows:
+                    # Process
+                    for file in find_keyboard_c(keyboard):
+                        try:
+                            ret = find_led_config(file, cols, rows)
+                            if ret:
+                                info_data[feature] = info_data.get(feature, {})
+                                info_data[feature]['layout'] = ret
+                        except Exception as e:
+                            _log_warning(info_data, f'led_config: {file.name}: {e}')
+                else:
+                    _log_warning(info_data, 'led_config: matrix size required to parse g_led_config')
 
             if info_data[feature].get('layout', None) and not info_data[feature].get('led_count', None):
                 info_data[feature]['led_count'] = len(info_data[feature]['layout'])
