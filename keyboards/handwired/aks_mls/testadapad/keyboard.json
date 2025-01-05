@@ -4,8 +4,10 @@
     "url": "https://learn.adafruit.com/adafruit-macropad-rp2040",
     "maintainer": "aks-mls",
     "usb": {
-        "vid": "0x239A",
-        "pid": "0x0108",
+        "pid": "0x0004",
+        "vid": "0xDF04"
+        // "vid": "0x239A",
+        // "pid": "0x0108",
         "device_version": "0.0.1"
     },
     "features": {

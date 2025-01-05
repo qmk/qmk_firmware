@@ -1,8 +1,19 @@
 {
-    "manufacturer": "Allan Seidel",
+    "manufacturer": "mls_aks",
     "keyboard_name": "handwired/aks_mls",
-    "maintainer": "Allan Seidel",
-
+    "maintainer": "mls_aks",
+    // "url": "https://soemthing_even_bs_has_to_be_here???_learn.adafruit.com/adafruit-macropad-rp2040",
+    "url": "",
+    "usb": {
+        "device_version": "1.0.0",
+        // "pid": "0x0000",
+        "pid": "0x0004",
+        "vid": "0xDF04"
+        // "vid": "0xFEED"
+    },
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
         "command": false,
@@ -11,9 +22,6 @@
         "mousekey": true,
         "nkro": true
     },
-    "processor": "RP2040",
-    "bootloader": "rp2040",
-    "diode_direction": "COL2ROW",
     "matrix_pins": {
         "cols": ["GP0", "GP2", "GP4", "GP5"],
         "rows": ["GP22", "GP21", "GP20", "GP28"]
@@ -26,12 +34,7 @@
             {"pin_a": "GP17", "pin_b": "GP16"}
         ]
     },
-    "url": "",
-    "usb": {
-        "device_version": "1.0.0",
-        "pid": "0x0000",
-        "vid": "0xFEED"
-    },
+
     "bootmagic": {
         "matrix": [3, 3]
     },
