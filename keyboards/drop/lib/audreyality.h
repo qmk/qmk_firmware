@@ -1,8 +1,7 @@
 // Copyright 2023 *+. Audrey .+*
 // SPDX-License-Identifier: GPL-3.0-or-later
-#include QMK_KEYBOARD_H
-
 #pragma once
+#include QMK_KEYBOARD_H
 
 // AUD - unique prefix for defines
 // DFL - default layers
@@ -41,8 +40,8 @@ enum custom_keycodes {
 // layer control
 #define DF_MCOS DF(_DFL_MACOS)
 #define DF_WIND DF(_DFL_WINDOWS)
-#define OS_FUNL OSM(_XTL_FUNCTION)
-#define OS_CTLL OSM(_TTL_CONTROL)
+#define OS_FUNL OSL(_XTL_FUNCTION)
+#define OS_CTLL OSL(_TTL_CONTROL)
 #define TG_NUMP XXXXXXX
 #define TG_PROG XXXXXXX
 #define TG_LEDM TG(_XTL_LED_MATRIX)

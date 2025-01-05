@@ -1,3 +1,5 @@
+// Copyright 2023 *+. Audrey .+*
+// SPDX-License-Identifier: GPL-3.0-or-later
 #include "audreyality.h"
 
 bool to_default_layer(void) {
