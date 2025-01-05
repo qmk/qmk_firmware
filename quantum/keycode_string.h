@@ -92,9 +92,11 @@ typedef struct {
 extern const keycode_string_name_t custom_keycode_names[];
 
 /** Helper to define a keycode_string_name_t. */
-#    define KEYCODE_STRING_NAME(kc) {(kc), PSTR(#kc)}
+#    define KEYCODE_STRING_NAME(kc) \
+        { (kc), PSTR(#kc) }
 /** Makes end-of-table sentinel for a table of keycode_string_name_t. */
-#    define KEYCODE_STRING_NAMES_END {0, NULL}
+#    define KEYCODE_STRING_NAMES_END \
+        { 0, NULL }
 
 #else
 
