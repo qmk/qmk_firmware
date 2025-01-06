@@ -217,6 +217,11 @@ Default Scaling is 1024. Actual CPI depends on trackpad diameter.
 
 Also see the `POINTING_DEVICE_TASK_THROTTLE_MS`, which defaults to 10ms when using Cirque Pinnacle, which matches the internal update rate of the position registers (in standard configuration). Advanced configuration for pen/stylus usage might require lower values.
 
+
+#### Multiple devices
+
+If you wish to use more than one Cirque Pinnacle via SPI, you will need to share the common SPI pins and provide a different CS pin for each device.  Then implement `cirque_pinnacle_spi_get_cs_pin` and change the pin prior to making any device calls (e.g. `cirque_pinnacle_init` or `cirque_pinnacle_read_data`).
+
 #### Absolute mode settings
 
 | Setting                                 | Description                                                             | Default     |
