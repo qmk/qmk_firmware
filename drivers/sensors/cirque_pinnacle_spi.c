@@ -9,12 +9,15 @@
 
 extern bool touchpad_init;
 
+
+__attribute__((weak)) uint8_t cirque_pinnacle_spi_get_cs_pin(void) { return CIRQUE_PINNACLE_SPI_CS_PIN; }
+
 /*  RAP Functions */
 // Reads <count> Pinnacle registers starting at <address>
 void RAP_ReadBytes(uint8_t address, uint8_t* data, uint8_t count) {
     uint8_t cmdByte = READ_MASK | address; // Form the READ command byte
     if (touchpad_init) {
-        if (spi_start(CIRQUE_PINNACLE_SPI_CS_PIN, CIRQUE_PINNACLE_SPI_LSBFIRST, CIRQUE_PINNACLE_SPI_MODE, CIRQUE_PINNACLE_SPI_DIVISOR)) {
+        if (spi_start(cirque_pinnacle_spi_get_cs_pin(), CIRQUE_PINNACLE_SPI_LSBFIRST, CIRQUE_PINNACLE_SPI_MODE, CIRQUE_PINNACLE_SPI_DIVISOR)) {
             spi_write(cmdByte);     // write command byte, receive filler
             spi_write(FILLER_BYTE); // write & receive filler
             spi_write(FILLER_BYTE); // write & receive filler
@@ -34,7 +37,7 @@ void RAP_Write(uint8_t address, uint8_t data) {
     uint8_t cmdByte = WRITE_MASK | address; // Form the WRITE command byte
 
     if (touchpad_init) {
-        if (spi_start(CIRQUE_PINNACLE_SPI_CS_PIN, CIRQUE_PINNACLE_SPI_LSBFIRST, CIRQUE_PINNACLE_SPI_MODE, CIRQUE_PINNACLE_SPI_DIVISOR)) {
+        if (spi_start(cirque_pinnacle_spi_get_cs_pin(), CIRQUE_PINNACLE_SPI_LSBFIRST, CIRQUE_PINNACLE_SPI_MODE, CIRQUE_PINNACLE_SPI_DIVISOR)) {
             spi_write(cmdByte);
             spi_write(data);
         } else {
