@@ -55,13 +55,14 @@
  *
  * Unrecognized keycodes are printed numerically as hex values like `0x1ABC`.
  *
- * Optionally, use `custom_keycode_names` to define names for additional
- * keycodes or override how any of the above are formatted.
+ * Optionally, use `keycode_string_names_user` or `keycode_string_names_kb` to
+ * define names for additional keycodes or override how any of the above are
+ * formatted.
  *
  * @param keycode  QMK keycode.
  * @return         Stringified keycode.
  */
-const char* keycode_string(uint16_t keycode);
+const char* get_keycode_string(uint16_t keycode);
 
 /** Defines a human-readable name for a keycode. */
 typedef struct {
@@ -70,7 +71,7 @@ typedef struct {
 } keycode_string_name_t;
 
 /**
- * @brief Names for additional keycodes for `keycode_string()`.
+ * @brief Names for additional keycodes for `get_keycode_string()`.
  *
  * @note The table *must* end with `KEYCODE_STRING_NAMES_END`.
  *
@@ -79,7 +80,7 @@ typedef struct {
  * override how `keycode_string()` formats a keycode. For example, supposing
  * keymap.c defines `MYMACRO1` and `MYMACRO2` as custom keycodes:
  *
- *     const keycode_string_name_t custom_keycode_names[] = {
+ *     const keycode_string_name_t keycode_string_names_user[] = {
  *       KEYCODE_STRING_NAME(MYMACRO1),
  *       KEYCODE_STRING_NAME(MYMACRO2),
  *       KEYCODE_STRING_NAME(KC_EXLM),
@@ -89,7 +90,9 @@ typedef struct {
  * The above defines names for `MYMACRO1` and `MYMACRO2`, and overrides
  * `KC_EXLM` to format as "KC_EXLM" instead of the default "S(KC_1)".
  */
-extern const keycode_string_name_t custom_keycode_names[];
+extern const keycode_string_name_t keycode_string_names_user[];
+/** Same as `keycode_string_names_user`, but for use at the keyboard level. */
+extern const keycode_string_name_t keycode_string_names_kb[];
 
 /** Helper to define a keycode_string_name_t. */
 #    define KEYCODE_STRING_NAME(kc) \
@@ -102,7 +105,7 @@ extern const keycode_string_name_t custom_keycode_names[];
 
 // When keycode_string is disabled, fall back to printing keycodes numerically
 // as decimal values, using get_u16_str() from quantum.c.
-#    define keycode_string(kc) get_u16_str(kc, ' ')
+#    define get_keycode_string(kc) get_u16_str(kc, ' ')
 
 const char *get_u16_str(uint16_t curr_num, char curr_pad);
 

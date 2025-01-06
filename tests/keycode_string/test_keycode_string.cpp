@@ -22,8 +22,11 @@ enum {
 };
 
 // clang-format off
-extern "C" const keycode_string_name_t custom_keycode_names[] = {
+extern "C" const keycode_string_name_t keycode_string_names_kb[] = {
     KEYCODE_STRING_NAME(MYMACRO1),
+    KEYCODE_STRING_NAMES_END // End of table sentinel.
+};
+extern "C" const keycode_string_name_t keycode_string_names_user[] = {
     KEYCODE_STRING_NAME(MYMACRO2),
     KEYCODE_STRING_NAME(KC_EXLM),
     KEYCODE_STRING_NAMES_END // End of table sentinel.
@@ -32,7 +35,7 @@ extern "C" const keycode_string_name_t custom_keycode_names[] = {
 
 class KeycodeStringTest : public TestFixture {};
 
-TEST_F(KeycodeStringTest, keycode_string) {
+TEST_F(KeycodeStringTest, get_keycode_string) {
     struct TestParams {
         uint16_t    keycode;
         std::string expected;
@@ -98,6 +101,6 @@ TEST_F(KeycodeStringTest, keycode_string) {
              {MYMACRO2, "MYMACRO2"},
              {KC_EXLM, "KC_EXLM"},
          })) {
-        EXPECT_EQ(keycode_string(keycode), expected) << "where keycode = 0x" << std::hex << keycode;
+        EXPECT_EQ(get_keycode_string(keycode), expected) << "where keycode = 0x" << std::hex << keycode;
     }
 }

@@ -90,7 +90,9 @@ static const keycode_string_name_t keycode_names[] = {
 };
 // clang-format on
 /** Users can override this to define names of additional keycodes. */
-__attribute__((weak)) const keycode_string_name_t custom_keycode_names[] = {KEYCODE_STRING_NAMES_END};
+__attribute__((weak)) const keycode_string_name_t keycode_string_names_user[] = {KEYCODE_STRING_NAMES_END};
+/** Keyboard vendors can override this to define names of additional keycodes. */
+__attribute__((weak)) const keycode_string_name_t keycode_string_names_kb[] = {KEYCODE_STRING_NAMES_END};
 /** Names of the 4 mods on each hand. */
 static const char* mod_names[4] = {PSTR("CTL"), PSTR("SFT"), PSTR("ALT"), PSTR("GUI")};
 /** Internal buffer for holding a stringified keycode. */
@@ -198,14 +200,18 @@ static void append_unary_keycode(const char* name, const char* param) {
 
 /** Stringifies `keycode` and appends it to `buffer`. */
 static void append_keycode(uint16_t keycode) {
-    // Search the `custom_keycode_names` table first so that it is possible to
-    // override how any keycode would be formatted otherwise.
-    const char* keycode_name = find_keycode_name(custom_keycode_names, keycode);
+    // In case there is overlap among tables, search `keycode_string_names_user`
+    // first so that it takes precedence.
+    const char* keycode_name = find_keycode_name(keycode_string_names_user, keycode);
     if (keycode_name) {
         append_P(keycode_name);
         return;
     }
-    // Search the `keycode_names` table.
+    keycode_name = find_keycode_name(keycode_string_names_kb, keycode);
+    if (keycode_name) {
+        append_P(keycode_name);
+        return;
+    }
     keycode_name = find_keycode_name(keycode_names, keycode);
     if (keycode_name) {
         append_P(keycode_name);
@@ -396,7 +402,7 @@ static void append_keycode(uint16_t keycode) {
     append_number(keycode, 16); // Fallback: write keycode as hex value.
 }
 
-const char* keycode_string(uint16_t keycode) {
+const char* get_keycode_string(uint16_t keycode) {
     buffer_len = 0;
     buffer[0]  = '\0';
     append_keycode(keycode);

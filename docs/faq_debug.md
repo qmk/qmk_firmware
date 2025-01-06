@@ -79,13 +79,13 @@ KL: kc: 172, col: 2, row: 0, pressed: 0, time: 16411, int: 0, count: 0
 
 ### Which keycode is this keypress?
 
-Keycodes are logged in the example above as numerical codes, which may be difficult to interpret. For more readable logging, add `KEYCODE_STRING_ENABLE = yes` in your `rules.mk` and use `keycode_string(kc)`. For example:
+Keycodes are logged in the example above as numerical codes, which may be difficult to interpret. For more readable logging, add `KEYCODE_STRING_ENABLE = yes` in your `rules.mk` and use `get_keycode_string(kc)`. For example:
 
 ```c
-uprintf("kc: %s\n", keycode_string(keycode));
+uprintf("kc: %s\n", get_keycode_string(keycode));
 ```
 
-This logs the keycode as a human-readable string like "`LT(2,KC_D)`" rather than a numerical code like "`0x4207`." See the [keycode_string](unit_testing#keycode-string) section of the Unit Testing page for more information.
+This logs the keycode as a human-readable string like "`LT(2,KC_D)`" rather than a numerical code like "`0x4207`." See the [Keycode String](unit_testing#keycode-string) section of the Unit Testing page for more information.
 
 
 ### How long did it take to scan for a keypress?
