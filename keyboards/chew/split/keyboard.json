@@ -20,6 +20,9 @@
                 ]
             }
         },
+        "serial": {
+            "driver": "vendor"
+        },
         "transport": {
             "watchdog": true
         }
