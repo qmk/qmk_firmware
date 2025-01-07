@@ -1,3 +1,5 @@
+# This "handwired/aks_mls/v01" setup applies to the aks handwired macroPad that uses
+# the RP2040 pico. This setup mimics the physical layout of the ?? macropad
 # handwired/aks_mls
 
 ![handwired/aks_mls](imgur.com image replace me!)

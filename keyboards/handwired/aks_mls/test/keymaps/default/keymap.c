@@ -71,7 +71,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 0xC0, 0xC1, 0xC2, 0xC3, 0xC4, 0xC5, 0xC6, 0xC7, 0xC8, 0xC9, 0xCA, 0xCB, 0xCC, 0xCD, 0xCE, 0xCF, 0xD0, 0xD1, 0xD2, 0xD3, 0xD4, 0x00
             };
 
-            oled_write_P(aks_mls_logo, false);
+            // oled_write_P(aks_mls_logo, false);
+            oled_write_raw_P(aks_mls_logo, sizeof(aks_mls_logo));
         }
 
         bool oled_init(oled_rotation_t(OLED_ROTATION_0));

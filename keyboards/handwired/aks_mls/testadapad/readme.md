@@ -1,10 +1,10 @@
-# Adafruit MacroPad RP2040
+# This "testadapad" setup applies to a Adafruit MacroPad RP2040.
 
 ![AdafruitMacropad](https://i.imgur.com/dSBSwcJh.jpeg)
 
 A RP2040-powered Macropad with a 3x4 layout.
 
-- Keyboard Maintainer: [Jpe230](https://github.com/jpe230/) 
+- Original Keyboard Maintainer: [Jpe230](https://github.com/jpe230/) 
 - Hardware Supported: Adafruit MacroPad RP2040
 - Hardware Availability: [Barebones kit](https://www.adafruit.com/product/5100) [Starter Kit](https://www.adafruit.com/product/5128)
 
@@ -12,6 +12,13 @@ Make example for this board (after setting up your build environment):
 
 ```sh
 qmk compile -kb handwired/aks_mls/testadapad -km mls001
+
+once the macropad is in flash mode (double click the side button) this will flash the macropad:
+
+qmk flash -kb handwired/aks_mls/testadapad -km mls001
+
+Note that flash will recompile if changes were made.
+
 ```
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

@@ -1,5 +1,5 @@
 {
-    "keyboard_name": "MLS RP2040 Macropad",
+    "keyboard_name": "MLS AdaFruit RP2040 Macropad",
     "manufacturer": "aks_mls",
     "url": "https://learn.adafruit.com/adafruit-macropad-rp2040",
     "maintainer": "aks-mls",
@@ -62,7 +62,7 @@
             // "pixel_rain": true,
             // "pixel_flow": true,
             // "pixel_fractal": true,
-            "typing_heatmap": true,
+            // "typing_heatmap": true,
             // "digital_rain": true,
             // "solid_reactive_simple": true,
             // "solid_reactive": true,
