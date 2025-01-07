@@ -10,6 +10,9 @@
     },
     "split": {
         "enabled": true,
+        "handedness": {
+            "pin": "GP10"
+        },
         "matrix_pins": {
             "right": {
                 "direct": [
@@ -21,7 +24,8 @@
             }
         },
         "serial": {
-            "driver": "vendor"
+            "driver": "vendor",
+            "pin": "GP11"
         },
         "transport": {
             "watchdog": true
