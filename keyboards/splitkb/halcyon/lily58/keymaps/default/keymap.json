@@ -32,5 +32,11 @@
             "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "RM_NEXT", "RM_HUED", "RM_SATD", "RM_VALD",
                                              "_______", "_______", "_______", "_______", "_______", "_______", "_______", "_______"
         ]
+    ],
+    "encoders": [
+        [{"ccw": "KC_VOLD", "cw": "KC_VOLU"}, {"ccw": "KC_PGUP", "cw": "KC_PGDN"}],
+        [{"ccw": "KC_VOLD", "cw": "KC_VOLU"}, {"ccw": "KC_PGUP", "cw": "KC_PGDN"}],
+        [{"ccw": "KC_VOLD", "cw": "KC_VOLU"}, {"ccw": "KC_PGUP", "cw": "KC_PGDN"}],
+        [{"ccw": "KC_VOLD", "cw": "KC_VOLU"}, {"ccw": "KC_PGUP", "cw": "KC_PGDN"}]
     ]
 }
