@@ -1,4 +1,4 @@
-// Copyright 2024 splitkb.com (support@splitkb.com)
+// Copyright 2025 splitkb.com (support@splitkb.com)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "quantum.h"
