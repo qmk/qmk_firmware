@@ -122,7 +122,7 @@ void apa102_init(void) {
     gpio_set_pin_output(APA102_CI_PIN);
 }
 
-void apa102_set_color(uint16_t index, uint8_t red, uint8_t green, uint8_t blue) {
+void apa102_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     apa102_leds[index].r = red;
     apa102_leds[index].g = green;
     apa102_leds[index].b = blue;
