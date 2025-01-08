@@ -108,9 +108,7 @@ bool get_chordal_hold_default(keyrecord_t *tap_hold_record, keyrecord_t *other_r
  */
 char chordal_hold_handedness(keypos_t key);
 
-#    ifdef CHORDAL_HOLD_LAYOUT
 extern const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM;
-#    endif
 #endif
 
 #ifdef DYNAMIC_TAPPING_TERM_ENABLE
