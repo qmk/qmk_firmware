@@ -43,7 +43,7 @@ enum keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_DEFAULT] = LAYOUT(
-        KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
+        QK_GESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC,
         KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
         KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    MO(_NAV),  KC_NEXT_LAYER, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLASH, KC_RCTL,
@@ -67,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_GAME] = LAYOUT(
-        KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
+        QK_GESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC,
         KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
         KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    MO(_NAV),  KC_NEXT_LAYER, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLASH, KC_RCTL,
@@ -83,11 +83,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_SYM] = LAYOUT(
-        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                                 KC_ARROW_FUNC,              KC_9,                KC_0,                KC_SLASH,   KC_NO,   KC_NO,
-        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                                 KC_QUOTE_FUNC,              KC_COMMA,  KC_DOT, KC_BACKSLASH,   KC_8,   KC_NO,
-        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                                 KC_LEFT,                    KC_LEFT_BRACKET,        KC_RIGHT_BRACKET,       KC_MINUS,   KC_NO, KC_NO,
-        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,        KC_NEXT_LAYER,  KC_SEMICOLON,               KC_COMMA,               KC_DOT,                 KC_EQUAL,   KC_NO,   KC_NO,
-                                    KC_NO,   KC_NO,   MO(_NUM),   KC_NO,               KC_NO,   KC_NO,   KC_NO,   KC_NO
+        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                                 KC_ARROW_FUNC,              S(KC_9),                S(KC_0),                KC_SLASH,   KC_NO,   KC_NO,
+        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                                 KC_QUOTE_FUNC,              S(KC_COMMA),  S(KC_DOT), KC_BACKSLASH,   KC_8,   KC_NO,
+       KC_LSFT,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                                 KC_LEFT,                    KC_LEFT_BRACKET,        KC_RIGHT_BRACKET,       KC_MINUS,   KC_NO, KC_NO,
+        KC_LCTL,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   MO(_NAV),        KC_NEXT_LAYER,  KC_SEMICOLON,               KC_COMMA,               KC_DOT,                 KC_EQUAL,   KC_NO,   KC_NO,
+                                    KC_NO,   KC_NO,   MO(_NUM),   KC_NO,              KC_SPACE,  KC_BSPC,   KC_NO,   KC_NO
     )
 
 };
