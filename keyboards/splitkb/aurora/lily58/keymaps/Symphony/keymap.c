@@ -14,6 +14,7 @@
  */
 
 #include QMK_KEYBOARD_H
+#include "helpers.h"
 
 #ifdef OS_DETECTION_ENABLE
   #include "os_detection.h"
@@ -25,27 +26,28 @@ enum layers {
     _FN,
     _GAME,
     _NUM,
+    _SYM,
     _LAYERS
 };
 
 enum keycodes {
     KC_NEXT_LAYER = QK_USER,
+    KC_ARROW_FUNC,
+    KC_QUOTE_FUNC
 };
 
 // 1st layer on the cycle
 #define LAYER_CYCLE_START 0
 // Last layer on the cycle
 #define LAYER_CYCLE_END (_LAYERS - 1)
-// The number of per-key LEDs on each side of a 5-column Corne.
-#define NUM_LEDS_PER_SIDE 34
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_DEFAULT] = LAYOUT(
-        KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
+        QK_GESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC,
         KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
         KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    MO(_NAV),  KC_NEXT_LAYER, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLASH, KC_RCTL,
-                                   KC_LGUI, KC_LALT, MO(_NUM), KC_ENT,             KC_SPACE, KC_BSPC, KC_RALT, KC_RGUI
+                                   KC_LALT, MO(_NUM), MO(_SYM), KC_ENT,             KC_SPACE, KC_BSPC, KC_RALT, KC_RGUI
     ),
 
     [_FN] = LAYOUT(
@@ -61,32 +63,41 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                         KC_HOME, KC_UP,   KC_END,  KC_NO,   KC_NO,   KC_NO,
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                         KC_LEFT, KC_DOWN, KC_RGHT, KC_NO,   KC_NO,   KC_NO,
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NEXT_LAYER,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-                                    KC_NO,   KC_NO,   KC_NO,   KC_NO,               KC_NO,   KC_NO,   KC_NO,   KC_NO
+                                    KC_NO,   KC_NO,   MO(_NUM),   KC_NO,               KC_NO,   KC_NO,   KC_NO,   KC_NO
     ),
 
     [_GAME] = LAYOUT(
-        KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
+        QK_GESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC,
         KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
         KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    MO(_NAV),  KC_NEXT_LAYER, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLASH, KC_RCTL,
-                                   KC_LGUI, KC_LALT, MO(_NUM), KC_SPACE,             KC_ENT, KC_BSPC, KC_RALT, KC_RGUI
+                                   KC_LALT, MO(_NUM), MO(_SYM), KC_SPACE,             KC_ENT, KC_BSPC, KC_RALT, KC_RGUI
     ),
 
     [_NUM] = LAYOUT(
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                         KC_BSPC,    KC_EQUAL,   KC_SLASH,   KC_KP_ASTERISK,   KC_NO,   KC_NO,
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                         KC_7,       KC_8,       KC_9,       KC_KP_MINUS,    KC_NO,   KC_NO,
-        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                         KC_4,       KC_5,       KC_6,       KC_KP_PLUS,     KC_NO,   KC_NO,
-        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NEXT_LAYER,   KC_1,   KC_2,   KC_3,   KC_KP_ENTER,   KC_NO,   KC_NO,
+        KC_LSFT,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                         KC_4,       KC_5,       KC_6,       KC_KP_PLUS,     KC_NO,   KC_NO,
+        KC_LCTL,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,  MO(_NAV),    KC_NEXT_LAYER,   KC_1,   KC_2,   KC_3,   KC_KP_ENTER,   KC_NO,   KC_NO,
                                     KC_NO,   KC_NO,   KC_NO,   KC_NO,               KC_ENTER,   KC_0,   KC_KP_DOT,   KC_NO
     ),
+
+    [_SYM] = LAYOUT(
+        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                                 KC_ARROW_FUNC,              S(KC_9),                S(KC_0),                KC_SLASH,   KC_NO,   KC_NO,
+        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                                 KC_QUOTE_FUNC,              S(KC_COMMA),  S(KC_DOT), KC_BACKSLASH,   KC_8,   KC_NO,
+       KC_LSFT,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                                 KC_LEFT,                    KC_LEFT_BRACKET,        KC_RIGHT_BRACKET,       KC_MINUS,   KC_NO, KC_NO,
+        KC_LCTL,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   MO(_NAV),        KC_NEXT_LAYER,  KC_SEMICOLON,               KC_COMMA,               KC_DOT,                 KC_EQUAL,   KC_NO,   KC_NO,
+                                    KC_NO,   KC_NO,   MO(_NUM),   KC_NO,              KC_SPACE,  KC_BSPC,   KC_NO,   KC_NO
+    )
+
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  bool is_keypress = is_key_press(keycode, record);
+
   switch (keycode) {
     case KC_NEXT_LAYER:
-      // Our logic will happen on presses, nothing is done on releases
-      if (!record->event.pressed) {
-        // We've already handled the keycode (doing nothing), let QMK know so no further code is run unnecessarily
+      if (!is_keypress) {
         return false;
       }
 
@@ -103,68 +114,71 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       layer_move(next_layer);
       return false;
+    case KC_ARROW_FUNC:
+        if (!is_keypress) {
+            return false;
+        };
 
-    // Process other keycodes normally
+        tap_code(KC_EQUAL);
+        tap_code16(S(KC_DOT));
+
+        return false;
+    case KC_QUOTE_FUNC:
+        if (!is_keypress) {
+                return false;
+        };
+
+        if (is_shift_pressed()) {
+            tap_code16(S(KC_QUOTE));
+        } else if (is_ctrl_pressed()) {
+            tap_code(KC_GRAVE);
+        } else {
+            tap_code(KC_QUOTE);
+        };
+        return false;
     default:
       return true;
   }
 }
 
-// This is a thin wrapper around rgb_matrix_set_color which allows you to put
-// the same firmware on both halves of the keyboard (other than a #define for
-// `MASTER_LEFT` or `MASTER_RIGHT`) and still have the correct LEDs light up
-// regardless of which half has the USB cable in it.
-//
-// This complexity behind this logic is explained in the comments within the
-// function itself.
-void set_color_split(uint8_t key_code, uint8_t r, uint8_t g, uint8_t b) {
-    // When using defines for MASTER_LEFT and MASTER_RIGHT, is_keyboard_left()
-    // will be inaccurate. For example, (is_keyboard_left() &&
-    // !is_keyboard_master()) can NEVER be true.
-#ifdef MASTER_LEFT
-    bool is_left = true;
-#endif
-#ifdef MASTER_RIGHT
-    bool is_left = false;
-#endif
-
-    bool left_is_master = (is_keyboard_master() && is_left) || (!is_keyboard_master() && !is_left);
-
-    // Note on constants: 23 is the number of LEDs on each side (24) minus 1.
-    // 27 is the number of LEDs that the Corne normally has with six columns.
-
-    // Rule #1: you must set the LED based on what the master's range is. So if
-    // the USB cable is in the left half, then the range is 0-23, otherwise it's
-    // 27-50.
-
-    // Rule #2: each half of the keyboard can only set its own LEDs, it's just
-    // that the codes change according to Rule #1.
-
-    // Rule #2
-    if ((is_left && key_code >= NUM_LEDS_PER_SIDE) || (!is_left && key_code < NUM_LEDS_PER_SIDE)) {
-        return;
-    }
-
-    // Rule #1
-    if (left_is_master && key_code >= NUM_LEDS_PER_SIDE)
-        key_code -= NUM_LEDS_PER_SIDE;
-    else if (!left_is_master && key_code < NUM_LEDS_PER_SIDE)
-        key_code += NUM_LEDS_PER_SIDE;
-    rgb_matrix_set_color(key_code, r, g, b);
-}
-
 #ifdef RGB_MATRIX_ENABLE
 bool rgb_matrix_indicators_user(void) {
-    // Check the active layer
-    if (layer_state_is(_GAME)) {
-        for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
-            if (i == 13 || i == 18 || i == 19 || i == 20 || i == 33) {
-                set_color_split(i, 255, 0, 0);     // Set WASD + space to red
-            } else {
-                set_color_split(i, 0, 0, 255);     // Set others to blue
-            }
-        }
-    }
+    rgb_matrix_enable();
+
+    switch(get_highest_layer(layer_state)) {
+        case _GAME:
+            rgb_matrix_set_color_all(178, 34, 34); // A dark, fiery red-orange to represent the lava and intensity of Mordor.
+            for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+                if (is_keyboard_master() && (i == 13 || i == 18 || i == 19 || i == 20 || i == 33) ) {
+                    rgb_matrix_set_color(i, 255, 69, 0);     // Set WASD + space a bright molten orange for a striking contrast and to highlight them.
+                };
+            };
+            break;
+        case _NUM:
+            rgb_matrix_set_color_all(34, 139, 34); // Default all to a soft green to represent the lush grass of the Shire.
+            for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+                if (!is_keyboard_master() && (i == 5 || i == 6 || i == 7 || i == 11 || i == 12 || i == 13 || i == 17 || i == 18 || i == 19 || i == 23 || i == 24 || i == 25 || i == 30)) {
+                    rgb_matrix_set_color(i, 255, 223, 0); // A warm yellow for the gentle sunlight.
+                };
+            };
+            break;
+        case _NAV:
+            rgb_matrix_set_color_all(34, 139, 34); // Default all to a soft green to represent the lush grass of the Shire.
+            for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+                if (!is_keyboard_master() && (i == 11 || i == 12 || i == 13 || i == 17 || i == 18 || i == 19 || i == 23)) {
+                    rgb_matrix_set_color(i, 255, 223, 0); // A warm yellow for the gentle sunlight.
+                };
+            };
+            break;
+        default:
+            rgb_matrix_set_color_all(34, 139, 34); // Default all to a soft green to represent the lush grass of the Shire.
+            for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+                if (i < 4) {
+                    rgb_matrix_set_color(i, 255, 223, 0);
+                }; // Default backlight to a warm sunlight
+            };
+    };
+
 
     return true;
 }
@@ -229,6 +243,9 @@ bool oled_task_user(void) {
                 break;
             case _NUM:
                 oled_write_P(PSTR("NUM\n"), false);
+                break;
+            case _SYM:
+                oled_write_P(PSTR("SYM\n"), false);
                 break;
             default:
                 // Or use the write_ln shortcut over adding '\n' to the end of your string
