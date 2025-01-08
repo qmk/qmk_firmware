@@ -70,7 +70,7 @@ static void debug_registered_taps(void);
  *
  * In a situation with multiple unsettled tap-hold key presses, scan the queue
  * up until the first release, non-tap-hold, or one-shot event and find the
- * lastest event in the queue that settles as held according to
+ * latest event in the queue that settles as held according to
  * get_chordal_hold().
  *
  * \return Index of the first tap, or equivalently, one past the latest hold.
