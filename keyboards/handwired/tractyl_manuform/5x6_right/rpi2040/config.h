@@ -14,7 +14,6 @@
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 1000U
 
 /* split settings */
-#define SPLIT_POINTING_ENABLE
 #define SPLIT_HAND_PIN GP28 // high = left, low = right
 
 /* serial configuration for split keyboard */
