@@ -50,6 +50,14 @@
 #define AT32F415KB
 
 /*
+ * Board GPIO settings
+ */
+#if defined(AT32F415KB) || defined(AT32F415KC)
+#define AT32_HAS_GPIOC              TRUE
+#define AT32_HAS_GPIOF              TRUE
+#endif
+
+/*
  * IO pins assignments.
  */
 #define GPIOA_PIN0                  0U
@@ -155,8 +163,8 @@
 /*
  * Port A setup.
  */
-#define VAL_GPIOACFGLR          0x88888B88      /*  PA7...PA0 */
-#define VAL_GPIOACFGHR          0x888888B8      /* PA15...PA8 */
+#define VAL_GPIOACFGLR          0x88888888      /*  PA7...PA0 */
+#define VAL_GPIOACFGHR          0x88888888      /* PA15...PA8 */
 #define VAL_GPIOAODT            0xFFFFFFFF
 
 /*
