@@ -1,6 +1,6 @@
 # mzmkb/slimdash/rev1
 
-![mzmkb/slimdash/rev1](imgur.com image replace me!)
+![mzmkb/slimdash/rev1](https://i.imgur.com/a1UVjIj.jpeg)
 
 __slimDash__ is a slim low profile split ortho-staggered keyboard inspired by omkbd/ergoDash
 with following key highlights:
@@ -12,8 +12,8 @@ with following key highlights:
 * Supports Backlight RGB for each key.
 * USB-C connector instead of micro-B
 * Keyboard Maintainer: [mizma](https://github.com/mizma)
-* Hardware Supported: [slimDash](https://github.com/mizma/slimdash/)
-* Hardware Availability: Build your own using design data at [slimDash](https://github.com/mizma/slimdash/)
+* Hardware Supported: [SlimDash](https://github.com/mizma/SlimDash/)
+* Hardware Availability: Build your own using design data at [SlimDash](https://github.com/mizma/Slimdash/)
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -22,6 +22,9 @@ Make example for this keyboard (after setting up your build environment):
 Flashing example for this keyboard:
 
     make mzmkb/slimdash/rev1:default:flash
+
+You may also enter Bootloader on your keyboard, and copy the `slimdash_rev1_*.uf2`
+file into the `RPI-RP2` drive shown in your PC.
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools)
 and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide)
