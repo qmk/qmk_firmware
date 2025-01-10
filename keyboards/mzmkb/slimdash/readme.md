@@ -1,4 +1,4 @@
-# mzmkb/slimdash/rev1
+# Slimdash
 
 ![mzmkb/slimdash/rev1](https://i.imgur.com/uwjFd6j.jpeg)
 
