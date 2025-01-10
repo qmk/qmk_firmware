@@ -150,9 +150,6 @@
             "sync": {
                 "matrix_state": true
             }
-        },
-        "usb_detect": {
-            "enabled": true
         }
     },
     "usb": {
