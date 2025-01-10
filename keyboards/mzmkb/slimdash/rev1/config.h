@@ -26,4 +26,3 @@
 #define SERIAL_USART_RX_PIN GP18 // USART RX pin
 #define SERIAL_PIO_USE_PIO1      // Use PIO1 as PIO0 is used for WS2812 driver
 
-#define MASTER_LEFT // USB-C connects to left half of keyboard
