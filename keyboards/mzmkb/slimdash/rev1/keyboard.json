@@ -136,7 +136,6 @@
         "split_count": [35, 35]
     },
     "split": {
-        "enabled": true,
         "matrix_pins": {
             "right": {
                 "cols": ["GP0", "GP1", "GP3", "GP5", "GP8", "GP7", "GP9"],
