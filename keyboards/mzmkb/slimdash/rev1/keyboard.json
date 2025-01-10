@@ -2,17 +2,10 @@
     "keyboard_name": "slimdash rev1.0",
     "diode_direction": "COL2ROW",
     "features": {
-        "audio": false,
-        "backlight": false,
-        "bootmagic": false,
-        "command": false,
-        "console": false,
         "extrakey": true,
-        "key_lock": false,
         "mousekey": true,
         "nkro": true,
         "rgb_matrix": true,
-        "rgblight": false
     },
     "matrix_pins": {
         "cols": ["GP0", "GP1", "GP3", "GP5", "GP8", "GP7", "GP9"],
