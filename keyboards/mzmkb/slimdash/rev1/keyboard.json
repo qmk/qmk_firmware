@@ -160,9 +160,8 @@
         "driver": "vendor",
         "pin": "GP20"
     },
-    "community_layouts": [ "ortho_5x14" ],
     "layouts": {
-        "LAYOUT_ortho_5x14": {
+        "LAYOUT": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0.375},
                 {"matrix": [0, 1], "x": 1, "y": 0.375},
