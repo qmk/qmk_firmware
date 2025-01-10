@@ -146,7 +146,6 @@
             "driver": "vendor"
         },
         "transport": {
-            "protocol": "serial",
             "sync": {
                 "matrix_state": true
             }
