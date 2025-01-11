@@ -108,7 +108,7 @@ void suspend_power_down_kb(void) {
 }
 
 void suspend_wakeup_init_kb(void) {
-    gpio_write_pin_high(AW20216S_EN_PIN_1);
+    gpio_write_pin_high(AW20216S_EN_PIN);
     suspend_wakeup_init_user();
 }
 bool shutdown_kb(bool jump_to_bootloader) {
