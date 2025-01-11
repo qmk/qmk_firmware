@@ -1,12 +1,12 @@
 # 5keys
 
-![5keys](imgur.com image replace me!)
+![5keys](https://imgur.com/yOkI4HT)
 
-*A short description of the keyboard/project*
+This keyboard is a macro keyboard with five keys.
 
 * Keyboard Maintainer: [mikiya418](https://github.com/mikiya418)
 * Hardware Supported: 5keys PCBs, Pro Micro
-* Hardware Availability: 
+* Hardware Availability: [Thingiverse](https://www.thingiverse.com/thing:6834908)
 
 Make example for this keyboard (after setting up your build environment):
 
