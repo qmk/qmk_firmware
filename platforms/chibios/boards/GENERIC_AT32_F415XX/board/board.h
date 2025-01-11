@@ -50,7 +50,7 @@
 #define AT32F415KB
 
 /*
- * Board GPIO settings
+ * GPIO settings, allow unused GPIO for smaller chip packages.
  */
 #if defined(AT32F415KB) || defined(AT32F415KC)
 #define AT32_HAS_GPIOC              TRUE
@@ -150,13 +150,13 @@
  *   6 - Open Drain output 2MHz.
  *   7 - Open Drain output 50MHz.
  *   8 - Digital input with Pull-Up or Pull-Down resistor depending on ODT.
- *   9 - Alternate Push Pull output 10MHz.
- *   A - Alternate Push Pull output 2MHz.
- *   B - Alternate Push Pull output 50MHz.
+ *   9 - Multiplexing Push Pull output 10MHz.
+ *   A - Multiplexing Push Pull output 2MHz.
+ *   B - Multiplexing Push Pull output 50MHz.
  *   C - Reserved.
- *   D - Alternate Open Drain output 10MHz.
- *   E - Alternate Open Drain output 2MHz.
- *   F - Alternate Open Drain output 50MHz.
+ *   D - Multiplexing Open Drain output 10MHz.
+ *   E - Multiplexing Open Drain output 2MHz.
+ *   F - Multiplexing Open Drain output 50MHz.
  * Please refer to the AT32 Reference Manual for details.
  */
 
