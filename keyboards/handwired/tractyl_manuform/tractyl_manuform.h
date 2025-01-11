@@ -104,6 +104,3 @@ bool charybdis_get_pointer_dragscroll_enabled(void);
  */
 void charybdis_set_pointer_dragscroll_enabled(bool enable);
 #endif  // POINTING_DEVICE_ENABLE
-
-void matrix_init_sub_kb(void);
-void matrix_scan_sub_kb(void);
