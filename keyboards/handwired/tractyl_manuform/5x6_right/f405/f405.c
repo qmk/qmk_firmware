@@ -24,20 +24,16 @@ bool usb_vbus_state(void) {
 }
 #endif
 
-__attribute__((weak)) void user_button_init(void) {
-    // Pin needs to be configured as input low
 #ifdef USER_BUTTON_PIN
+void user_button_init(void) {
+    // Pin needs to be configured as input low
     gpio_set_pin_input_low(USER_BUTTON_PIN);
-#endif // USER_BUTTON_PIN
 }
 
-__attribute__((weak)) bool check_user_button_state(void) {
-    gpio_write_pin(DEBUG_LED_PIN, is_keyboard_master());
-#ifdef USER_BUTTON_PIN
+bool check_user_button_state(void) {
     return gpio_read_pin(USER_BUTTON_PIN);
-#endif // USER_BUTTON_PIN
-    return false;
 }
+#endif // USER_BUTTON_PIN
 
 void board_init(void) {
     // Board setup sets these pins as SPI, but we aren't using them as such.

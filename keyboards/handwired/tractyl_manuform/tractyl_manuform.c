@@ -354,17 +354,22 @@ void keyboard_pre_init_kb(void) {
     keyboard_pre_init_user();
 }
 
-__attribute__((weak)) void execute_user_button_action(void) {
-    if (is_keyboard_master()) {
-        reset_keyboard();
-    } else {
-        soft_reset_keyboard();
+__attribute__((weak)) void execute_user_button_action(bool state) {
+    if (state) {
+        if (is_keyboard_master()) {
+            reset_keyboard();
+        } else {
+            soft_reset_keyboard();
+        }
     }
 }
 
 void housekeeping_task_kb(void) {
-    if (check_user_button_state()) {
-        execute_user_button_action();
+    static bool last_state = false;
+    bool        state      = check_user_button_state();
+    if (state != last_state) {
+        last_state = state;
+        execute_user_button_action(state);
     }
 
 #ifdef POINTING_DEVICE_ENABLE
