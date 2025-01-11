@@ -121,8 +121,4 @@ bool shutdown_kb(bool jump_to_bootloader) {
 void board_init(void) {
     // JTAG-DP Disabled and SW-DP Disabled
     AFIO->MAPR = (AFIO->MAPR & ~AFIO_MAPR_SWJ_CFG_Msk) | AFIO_MAPR_SWJ_CFG_DISABLE;
-#    ifdef RGB_MATRIX_ENABLE
-    gpio_set_pin_output(AW20216S_EN_PIN_1);
-    gpio_write_pin_high(AW20216S_EN_PIN_1);
-#   endif
 }
