@@ -47,6 +47,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef MOUSEKEY_ENABLE
 #    include "mousekey.h"
 #endif
+#ifdef MOUSEGRID_ENABLE
+#    include "mousegrid.h"
+#endif
 #ifdef PS2_MOUSE_ENABLE
 #    include "ps2_mouse.h"
 #endif
@@ -487,6 +490,9 @@ void keyboard_init(void) {
 #endif
 #ifdef HAPTIC_ENABLE
     haptic_init();
+#endif
+#ifdef MOUSEKEY_ENABLE
+    mousegrid_init();
 #endif
 
 #if defined(DEBUG_MATRIX_SCAN_RATE) && defined(CONSOLE_ENABLE)

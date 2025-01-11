@@ -84,6 +84,10 @@
 #    include "process_layer_lock.h"
 #endif
 
+#ifdef MOUSEGRID_ENABLE
+#    include "mousegrid.h"
+#endif
+
 #ifdef AUDIO_ENABLE
 #    ifndef GOODBYE_SONG
 #        define GOODBYE_SONG SONG(GOODBYE_SOUND)
@@ -416,6 +420,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
 #ifdef BLUETOOTH_ENABLE
             process_connection(keycode, record) &&
+#endif
+#ifdef MOUSEGRID_ENABLE
+            process_mousegrid(keycode, record) &&
 #endif
             true)) {
         return false;
