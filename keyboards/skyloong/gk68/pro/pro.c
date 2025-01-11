@@ -103,7 +103,7 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 #endif
 
 void suspend_power_down_kb(void) {
-    gpio_write_pin_low(AW20216S_EN_PIN_1);
+    gpio_write_pin_low(AW20216S_EN_PIN);
     suspend_power_down_user();
 }
 
