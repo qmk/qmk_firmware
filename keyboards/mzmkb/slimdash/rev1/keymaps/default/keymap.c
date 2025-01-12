@@ -117,9 +117,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
     [_RAISE] = LAYOUT(
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______,            _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-        _______, _______, _______, KC_WH_L, KC_WH_R, _______, _______,            _______, _______, _______, KC_PAUS, KC_SCRL, KC_PSCR, KC_F12,
-        KC_CAPS, _______, KC_BTN3, KC_BTN2, KC_BTN1, KC_WH_U, _______,            _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
-        _______, KC_ACL0, KC_ACL1, KC_ACL2, _______, KC_WH_D, _______,            _______, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, _______, _______,
+        _______, _______, _______, MS_WHLL, MS_WHLR, _______, _______,            _______, _______, _______, KC_PAUS, KC_SCRL, KC_PSCR, KC_F12,
+        KC_CAPS, _______, MS_BTN3, MS_BTN2, MS_BTN1, MS_WHLU, _______,            _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
+        _______, MS_ACL0, MS_ACL1, MS_ACL2, _______, MS_WHLD, _______,            _______, MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, _______, _______,
         _______, _______, _______, _______, _______, _______, _______,            _______, _______, _______, _______, _______, _______, _______
     )
 };
