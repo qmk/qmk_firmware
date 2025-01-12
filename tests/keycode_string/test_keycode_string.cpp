@@ -42,12 +42,17 @@ TEST_F(KeycodeStringTest, get_keycode_string) {
     };
     for (const auto [keycode, expected] : std::vector<TestParams>({
              {KC_TRNS, "KC_TRNS"},
+             {KC_ESC, "KC_ESC"},
              {KC_A, "KC_A"},
              {KC_Z, "KC_Z"},
              {KC_0, "KC_0"},
              {KC_9, "KC_9"},
              {KC_KP_0, "KC_KP_0"},
              {KC_KP_9, "KC_KP_9"},
+             {KC_LBRC, "KC_LBRC"},
+             {KC_NUHS, "KC_NUHS"},
+             {KC_NUBS, "KC_NUBS"},
+             {KC_CAPS, "KC_CAPS"},
              {DB_TOGG, "DB_TOGG"},
              {KC_LCTL, "KC_LCTL"},
              {KC_LSFT, "KC_LSFT"},
