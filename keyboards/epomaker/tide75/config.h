@@ -1,4 +1,4 @@
-// Copyright 2024 Your Name (@JerrettDavis)
+// Copyright 2024 JD (@JerrettDavis)
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
