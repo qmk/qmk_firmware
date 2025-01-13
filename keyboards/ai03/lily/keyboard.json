@@ -53,6 +53,7 @@
     "ws2812": {
         "pin": "D2"
     },
+    "community_layouts": ["60_hhkb"],
     "layouts": {
         "LAYOUT_60_hhkb": {
             "layout": [
