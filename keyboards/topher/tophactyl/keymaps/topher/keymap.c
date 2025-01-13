@@ -130,7 +130,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case LGUI_T(KC_A): return 300;  
         case LCTL_T(_______): return 210;
         case LSFT_T(KC_ENT): return 150;
-        case LALT(KC_SPC): return 190;
+        case LALT(KC_SPC): return 210;
         default:
             return TAPPING_TERM;
     }

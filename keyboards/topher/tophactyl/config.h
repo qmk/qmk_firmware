@@ -19,8 +19,8 @@
 
 #define SOFT_SERIAL_PIN D0  // or D1, D2, D3, E6
 
-#define ENCODERS_PAD_A { }
-#define ENCODERS_PAD_B { }
+//#define ENCODERS_PAD_A { }
+//#define ENCODERS_PAD_B { }
 //#define ENCODER_RESOLUTION { } 
 #define ENCODERS_PAD_A_RIGHT { F6 }
 #define ENCODERS_PAD_B_RIGHT { F7 }
