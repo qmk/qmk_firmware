@@ -35,7 +35,7 @@
     "url": "",
     "usb": {
         "device_version": "0.0.1",
-        "pid": "0x0062",
+        "pid": "0x0063",
         "vid": "0x7463"
     },
     "layouts": {
