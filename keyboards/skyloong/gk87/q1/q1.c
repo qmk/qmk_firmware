@@ -224,7 +224,7 @@ layer_state_t default_layer_state_set_kb(layer_state_t state) {
         break;
     }
     s_serial_to_parallel(IND);
-  return state;
+  return default_layer_state_set_user(state);
 }
 
 bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
