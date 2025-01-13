@@ -60,11 +60,11 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             }
            return true;  // continue all further processing of this key
 
-       case TO(0):
+       case DF(0):
            set_single_persistent_default_layer(0);
            return true;
 
-       case TO(1):
+       case DF(1):
            set_single_persistent_default_layer(1);
            return true;
 
@@ -140,7 +140,7 @@ layer_state_t default_layer_state_set_kb(layer_state_t state) {
         break;
     }
     s_serial_to_parallel(IND);
-  return state;
+  return default_layer_state_set_user(state);
 }
 
 bool led_update_kb(led_t led_state) {
