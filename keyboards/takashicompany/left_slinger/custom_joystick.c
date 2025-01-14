@@ -3,11 +3,6 @@
 
 #include QMK_KEYBOARD_H
 #include "analog.h"
-#include "gpio.h"
-#include "wait.h"
-#include "timer.h"
-#include <stdlib.h>
-#include "print.h"
 #include "custom_joystick.h"
 
 int16_t xOrigin, yOrigin;
