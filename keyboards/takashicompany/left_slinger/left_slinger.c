@@ -32,9 +32,9 @@ typedef union {
     int8_t to_clickable_movement;
     uint8_t settings;
   };
-} user_config_t;
+} kb_config_t;
 
-user_config_t user_config;
+kb_config_t kb_config;
 
 enum click_state state;     // 現在のクリック入力受付の状態 Current click input reception status
 uint16_t click_timer;       // タイマー。状態に応じて時間で判定する。 Timer. Time to determine the state of the system.
