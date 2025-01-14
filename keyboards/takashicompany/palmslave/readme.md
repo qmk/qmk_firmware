@@ -17,7 +17,7 @@ Palmslaveは0.8u(16mm)キーピッチの分割型のキーボードです。
 基板はキースイッチソケットの取り付けが可能で、気分や流行でキースイッチを付け替えることが可能です。
 
 * Keyboard Maintainer: [takashicompany](https://github.com/takashicompany)
-* Hardware Supported: PCB, Pro Micro
+* Hardware Supported: Palmslave PCB(s), x2 Pro Micro development board
 * Hardware Availability: https://github.com/takashicompany/palmslave
 
 Make example for this keyboard (after setting up your build environment):
