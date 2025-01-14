@@ -63,58 +63,58 @@ int16_t mouse_movement;
 bool joystick_key_flag = false;
 
 void eeconfig_init_kb(void) {
-    user_config.raw = 0;
-    user_config.joystick_ratio = 100;
-    user_config.to_clickable_movement = 50;
+    kb_config.raw = 0;
+    kb_config.joystick_ratio = 100;
+    kb_config.to_clickable_movement = 50;
     // 新しいビットフィールド設定
     
-    user_config.settings = 0; // 初期化
-    user_config.settings |= MOUSE_SCROLL_V_REVERSE_BIT * false; // ここでfalseなので実際にはセットしない
-    user_config.settings |= MOUSE_SCROLL_H_REVERSE_BIT * false; // 同上
-    user_config.settings |= JOYSTICK_KEY_DEFAULT_ENABLE * false;
+    kb_config.settings = 0; // 初期化
+    kb_config.settings |= MOUSE_SCROLL_V_REVERSE_BIT * false; // ここでfalseなので実際にはセットしない
+    kb_config.settings |= MOUSE_SCROLL_H_REVERSE_BIT * false; // 同上
+    kb_config.settings |= JOYSTICK_KEY_DEFAULT_ENABLE * false;
     
-    eeconfig_update_kb(user_config.raw);
+    eeconfig_update_kb(kb_config.raw);
 }
 
 bool get_mouse_scroll_v_reverse(void) {
-    return user_config.settings & MOUSE_SCROLL_V_REVERSE_BIT;
+    return kb_config.settings & MOUSE_SCROLL_V_REVERSE_BIT;
 }
 
 bool get_mouse_scroll_h_reverse(void) {
-    return user_config.settings & MOUSE_SCROLL_H_REVERSE_BIT;
+    return kb_config.settings & MOUSE_SCROLL_H_REVERSE_BIT;
 }
 
 void set_mouse_scroll_v_reverse(bool value) {
     if (value) {
-        user_config.settings |= MOUSE_SCROLL_V_REVERSE_BIT;
+        kb_config.settings |= MOUSE_SCROLL_V_REVERSE_BIT;
     } else {
-        user_config.settings &= ~MOUSE_SCROLL_V_REVERSE_BIT;
+        kb_config.settings &= ~MOUSE_SCROLL_V_REVERSE_BIT;
     }
 }
 
 void set_mouse_scroll_h_reverse(bool value) {
     if (value) {
-        user_config.settings |= MOUSE_SCROLL_H_REVERSE_BIT;
+        kb_config.settings |= MOUSE_SCROLL_H_REVERSE_BIT;
     } else {
-        user_config.settings &= ~MOUSE_SCROLL_H_REVERSE_BIT;
+        kb_config.settings &= ~MOUSE_SCROLL_H_REVERSE_BIT;
     }
 }
 
 bool get_joystick_key_default_enable(void) {
-    return user_config.settings & JOYSTICK_KEY_DEFAULT_ENABLE;
+    return kb_config.settings & JOYSTICK_KEY_DEFAULT_ENABLE;
 }
 
 void set_joystick_key_default_enable(bool value) {
     if (value) {
-        user_config.settings |= JOYSTICK_KEY_DEFAULT_ENABLE;
+        kb_config.settings |= JOYSTICK_KEY_DEFAULT_ENABLE;
     } else {
-        user_config.settings &= ~JOYSTICK_KEY_DEFAULT_ENABLE;
+        kb_config.settings &= ~JOYSTICK_KEY_DEFAULT_ENABLE;
     }
 }
 
 void keyboard_post_init_kb(void) {
-    user_config.raw = eeconfig_read_kb();
-    joystick_ratio = user_config.joystick_ratio;
+    kb_config.raw = eeconfig_read_kb();
+    joystick_ratio = kb_config.joystick_ratio;
 }
 
 // クリック用のレイヤーを有効にする。　Enable layers for clicks
@@ -253,43 +253,43 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         
         case MY_CLKI:
             if (record->event.pressed) {
-                user_config.to_clickable_movement += 5;
-                eeconfig_update_kb(user_config.raw);
+                kb_config.to_clickable_movement += 5;
+                eeconfig_update_kb(kb_config.raw);
             }
             return false;
 
         case MY_CLKD:
             if (record->event.pressed) {
 
-                user_config.to_clickable_movement -= 5;
+                kb_config.to_clickable_movement -= 5;
 
-                if (user_config.to_clickable_movement < 5) {
-                    user_config.to_clickable_movement = 5;
+                if (kb_config.to_clickable_movement < 5) {
+                    kb_config.to_clickable_movement = 5;
                 }
 
-                eeconfig_update_kb(user_config.raw);
+                eeconfig_update_kb(kb_config.raw);
             }
             return false;
         
         case MY_SCDV:
             if (record->event.pressed) {
                 set_mouse_scroll_v_reverse(!get_mouse_scroll_v_reverse());
-                eeconfig_update_kb(user_config.raw);
+                eeconfig_update_kb(kb_config.raw);
             }
             return false;
         
         case MY_SCDH:
             if (record->event.pressed) {
                 set_mouse_scroll_h_reverse(!get_mouse_scroll_h_reverse());
-                eeconfig_update_kb(user_config.raw);
+                eeconfig_update_kb(kb_config.raw);
             }
             return false;
 
         case MY_JSDI:
             if  (record->event.pressed) {
                 joystick_ratio = joystick_ratio + 5;
-                user_config.joystick_ratio = joystick_ratio;
-                eeconfig_update_kb(user_config.raw);
+                kb_config.joystick_ratio = joystick_ratio;
+                eeconfig_update_kb(kb_config.raw);
             }
             
             break;
@@ -297,8 +297,8 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         case MY_JSDD:
             if  (record->event.pressed) {
                 joystick_ratio = joystick_ratio - 5;
-                user_config.joystick_ratio = joystick_ratio;
-                eeconfig_update_kb(user_config.raw);
+                kb_config.joystick_ratio = joystick_ratio;
+                eeconfig_update_kb(kb_config.raw);
             }
             
             break;
@@ -312,7 +312,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         case MY_JSKD:
             if (record->event.pressed) {
                 set_joystick_key_default_enable(!get_joystick_key_default_enable());
-                eeconfig_update_kb(user_config.raw);
+                eeconfig_update_kb(kb_config.raw);
             }
             break;
         
@@ -471,14 +471,14 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
 
             case WAITING:
                 /*
-                if (timer_elapsed(click_timer) > user_config.to_clickable_time) {
+                if (timer_elapsed(click_timer) > kb_config.to_clickable_time) {
                     enable_click_layer();
                 }
                 */
 
                 mouse_movement += my_abs(current_x) + my_abs(current_y);
 
-                if (mouse_movement >= user_config.to_clickable_movement)
+                if (mouse_movement >= kb_config.to_clickable_movement)
                 {
                     mouse_movement = 0;
                     enable_click_layer();
