@@ -12,22 +12,3 @@ enum __layers {
     MAC_W,
     MAC_FN
 };
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_user(keycode, record)) {
-        return false;
-    }
-    switch (keycode) {
-        case DF(WIN_B):
-            if ( record->event.pressed) {
-                set_single_persistent_default_layer(WIN_B);
-            }
-            return false;
-        case DF(MAC_B):
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(MAC_B);
-            }
-            return false;
-        default:
-            return true;
-    }
-}
