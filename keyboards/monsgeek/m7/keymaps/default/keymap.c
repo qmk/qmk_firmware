@@ -37,8 +37,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [MAC_FN] = LAYOUT_68_ansi( /* FN */
         KC_GRV,  KC_BRID, KC_BRIU, KC_MCTL, KC_SIRI, _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, KC_HOME,
-        _______, _______, _______, _______, _______, _______, _______, _______, KC_INS,  DF(WIN_B),KC_PSCR,RGB_SPD, RGB_SPI, _______, RGB_MOD, KC_END,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_TOG, _______, _______,          RGB_HUI,
-        _______, _______, _______, KC_CALC, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______,                   _______, RGB_VAI,
-        _______, _______, _______,                   _______,                            _______, _______, _______,          RGB_SAD, RGB_VAD, RGB_SAI),
+        _______, _______, _______, _______, _______, _______, _______, _______, KC_INS,  DF(WIN_B),KC_PSCR,RM_SPDD, RM_SPDU, _______, RM_NEXT, KC_END,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, RM_TOGG, _______, _______,          RM_HUEU,
+        _______, _______, _______, KC_CALC, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______,                   _______, RM_VALU,
+        _______, _______, _______,                   _______,                            _______, _______, _______,          RM_SATD, RM_VALD, RM_SATU),
 };
