@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "quantum.h"
 
-bool dis_breath = 0;
+bool backup_breath = 0; // Marked backlight breathing mode
 
 void suspend_power_down_kb() {
     gpio_write_pin_high(MAC_PIN);
@@ -26,37 +26,36 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
        case BL_TOGG:
          if (record->event.pressed) {
-            if (is_backlight_breathing() && get_backlight_level()){
-               dis_breath = 1;
+            if (is_backlight_breathing()){
+               backup_breath = 1;                //backup breathing before shut down backlight.
                backlight_disable_breathing();
-               backlight_enable();
-
-            } else if (dis_breath && !is_backlight_enabled()){
+            } else if (backup_breath){          //check backuped breathing before switching backlight
                 backlight_enable_breathing();
-                dis_breath = 0;
+                backup_breath = 0;
               }
-            return true;
            }
+        return true;
 
       case BL_BRTG:
-        if (record->event.pressed) {
-          if (dis_breath || !is_backlight_enabled()){
+         if (!is_backlight_breathing() && !is_backlight_enabled()){
               return false;
+            }else{
+              return true;
             }
-             return true;
-        }
 
-       case BL_UP:
-           dis_breath = 0;
+      case BL_UP:
+         if (backup_breath){                      //check backuped breathing before creasing brightness
+                backlight_enable_breathing();
+                backup_breath = 0;
+              }
          return true;
 
        case BL_DOWN:
-           if (record->event.pressed){
-               if(dis_breath || !(is_backlight_enabled())) {
-                 return false;
-                }
-           }
-         return true;
+        if (!is_backlight_breathing() && !is_backlight_enabled()){
+              return false;
+            }else{
+              return true;
+            }
 
       default:
          return true;
