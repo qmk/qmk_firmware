@@ -1,3 +1,3 @@
 See the [main readme](../readme.md) for more details.
 
-This is just the rev 1.007+ trackball.
+This is for the R1.007+ version of the Classic. It's easily distinguishable from the previous versions of the Classic because it has an RP2040 on the board.

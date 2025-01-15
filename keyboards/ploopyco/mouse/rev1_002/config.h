@@ -27,7 +27,7 @@
 // #define DEBUG_LED_PIN F7
 
 /* PMW33XX Settings */
-#define PMW33XX_CS_PIN             B0
+#define PMW33XX_CS_PIN B0
 
 #define ENCODER_A_PINS { F0 }
 #define ENCODER_B_PINS { F4 }
