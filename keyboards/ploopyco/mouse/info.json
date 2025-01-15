@@ -9,6 +9,9 @@
         "device_version": "0.0.1",
         "max_power": 100
     },
+    "bootmagic": {
+        "matrix": [0, 3]
+    },
     "features": {
         "bootmagic": true,
         "extrakey": true,
@@ -16,9 +19,6 @@
         "nkro": false,
         "pointing_device": true,
         "encoder": true
-    },
-    "bootmagic": {
-        "matrix": [0, 3]
     },
     "encoder": {
         "driver": "custom"

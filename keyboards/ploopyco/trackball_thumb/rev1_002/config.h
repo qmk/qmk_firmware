@@ -1,4 +1,4 @@
-/* Copyright 2021 Colin Lam (Ploopy Corporation)
+/* Copyright 2024 Colin Lam (Ploopy Corporation)
  * Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
  * Copyright 2019 Sunjun Kim
  *
@@ -18,23 +18,15 @@
 
 #pragma once
 
-/* disable action features */
-// #define NO_ACTION_LAYER
-// #define NO_ACTION_TAPPING
-// #define NO_ACTION_ONESHOT
+#define UNUSABLE_PINS \
+    { GP1, GP3, GP4, GP6, GP8, GP10, GP11, GP14, GP18, GP20, GP22, GP24, GP25, GP27, GP29 }
 
-// #define ROTATIONAL_TRANSFORM_ANGLE 0
-#define POINTING_DEVICE_INVERT_Y
+/* PMW3360 Settings */
+#define PMW33XX_LIFTOFF_DISTANCE 0x00
+#define PMW33XX_CS_PIN GP5
+#define SPI_SCK_PIN GP2
+#define SPI_MISO_PIN GP0
+#define SPI_MOSI_PIN GP7
 
-// If board has a debug LED, you can enable it by defining this
-// #define DEBUG_LED_PIN F7
-
-#define ENCODER_BUTTON_COL 1
-#define ENCODER_BUTTON_ROW 0
-
-#define ENCODER_LOW_THRES_A 20
-#define ENCODER_HIGH_THRES_A 75
-#define ENCODER_LOW_THRES_B 20
-#define ENCODER_HIGH_THRES_B 90
-/* Custom encoder needs to specify just how many encoders we have */
-#define NUM_ENCODERS 1
+#define ENCODER_A_PINS { GP26 }
+#define ENCODER_B_PINS { GP28 }

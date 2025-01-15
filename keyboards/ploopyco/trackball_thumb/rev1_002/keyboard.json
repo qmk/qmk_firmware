@@ -1,21 +1,23 @@
 {
-    "processor": "atmega32u4",
-    "bootloader": "atmel-dfu",
+    "usb": {
+        "device_version": "1.0.0"
+    },
+    "diode_direction": "COL2ROW",
     "matrix_pins": {
         "direct": [
-            ["D5", "B6", "D4", "D2", "E6", "D7"]
+            ["GP15", "GP21", "GP23", "GP17", "GP19", "GP16"]
         ]
     },
-    "ws2812": {
-        "pin": "B5"
-    },
     "rgblight": {
-        "led_count": 3,
+        "led_count": 1,
         "max_brightness": 40,
         "animations": {
             "breathing": true,
             "rainbow_mood": true,
             "rainbow_swirl": true
         }
+    },
+    "ws2812": {
+        "pin": "GP12"
     }
 }
