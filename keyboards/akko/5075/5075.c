@@ -155,7 +155,10 @@ void keyboard_pre_init_kb(void) {
 }
 
 void housekeeping_task_kb(void) {
-    gpio_write_pin(LED_MAC_OS_PIN, ((get_highest_layer(default_layer_state | layer_state) == 2) || (get_highest_layer(default_layer_state | layer_state) == 3)));
+        gpio_write_pin(LED_MAC_OS_PIN, 
+    (get_highest_layer(default_layer_state | layer_state) == 3) ||
+    (get_highest_layer(default_layer_state | layer_state) == 4) ||
+    (get_highest_layer(default_layer_state | layer_state) == 5));
     gpio_write_pin(LED_WIN_LOCK_PIN, keymap_config.no_gui);
 }
 
