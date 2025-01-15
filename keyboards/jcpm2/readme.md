@@ -1,6 +1,6 @@
 # jcpm2
 
-![jcpm2](https://imgur.com/a/AEvwvBj)
+![jcpm2](https://i.imgur.com/EM5JoGC.jpeg)
 
 An 8-key macro pad with rotary encoder, RGB backlighting and underlighting. Made and sold by JCC LLC.
 
