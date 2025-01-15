@@ -80,6 +80,9 @@ static uint8_t waiting_buffer_find_chordal_hold_tap(void);
 /** Processes queued events up to and including `key` as tapped. */
 static void waiting_buffer_chordal_hold_taps_until(keypos_t key);
 
+/** \brief Processes and pops buffered events until the first tap-hold event. */
+static void waiting_buffer_process_regular(void);
+
 static bool is_mt_or_lt(uint16_t keycode) {
     return IS_QK_MOD_TAP(keycode) || IS_QK_LAYER_TAP(keycode);
 }
@@ -395,23 +398,28 @@ bool process_tapping(keyrecord_t *keyp) {
                                 && !(MAYBE_RETRO_SHIFTING(event, keyp) && get_auto_shifted_key(get_record_keycode(keyp, false), keyp))
 #    endif
                             ) {
-                            // Settle the tapping key as *held*, since
-                            // HOLD_ON_OTHER_KEY_PRESS is enabled for this key.
-                            ac_dprintf("Tapping: End. No tap. Interfered by pressed key\n");
-                            process_record(&tapping_key);
+                                // Settle the tapping key as *held*, since
+                                // HOLD_ON_OTHER_KEY_PRESS is enabled for this key.
+                                ac_dprintf("Tapping: End. No tap. Interfered by pressed key\n");
+                                process_record(&tapping_key);
 
 #    if defined(CHORDAL_HOLD)
-                            if (waiting_buffer_tail != waiting_buffer_head && is_tap_record(&waiting_buffer[waiting_buffer_tail])) {
-                                tapping_key = waiting_buffer[waiting_buffer_tail];
-                                // Pop tail from the queue.
-                                waiting_buffer_tail = (waiting_buffer_tail + 1) % WAITING_BUFFER_SIZE;
-                            } else
+                                if (waiting_buffer_tail != waiting_buffer_head && is_tap_record(&waiting_buffer[waiting_buffer_tail])) {
+                                    tapping_key = waiting_buffer[waiting_buffer_tail];
+                                    // Pop tail from the queue.
+                                    waiting_buffer_tail = (waiting_buffer_tail + 1) % WAITING_BUFFER_SIZE;
+                                    debug_waiting_buffer();
+                                } else
 #    endif // CHORDAL_HOLD
-                            {
-                                tapping_key = (keyrecord_t){0};
+                                {
+                                    tapping_key = (keyrecord_t){0};
+                                }
+                                debug_tapping_key();
+
+#    if defined(CHORDAL_HOLD)
+                                waiting_buffer_process_regular();
+#    endif // CHORDAL_HOLD
                             }
-                            debug_tapping_key();
-                        }
                     }
                     // enqueue
                     return false;
@@ -713,7 +721,7 @@ static uint8_t waiting_buffer_find_chordal_hold_tap(void) {
     for (uint8_t i = waiting_buffer_tail; i != waiting_buffer_head; i = (i + 1) % WAITING_BUFFER_SIZE) {
         keyrecord_t *  cur         = &waiting_buffer[i];
         const uint16_t cur_keycode = get_record_keycode(cur, false);
-        if (!cur->event.pressed || !is_tap_record(prev) || !is_mt_or_lt(prev_keycode)) {
+        if (!cur->event.pressed || !is_mt_or_lt(prev_keycode)) {
             break;
         } else if (get_chordal_hold(prev_keycode, prev, cur_keycode, cur)) {
             first_tap = i; // Track one index past the latest hold.
@@ -739,6 +747,17 @@ static void waiting_buffer_chordal_hold_taps_until(keypos_t key) {
             break;
         }
     }
+}
+
+static void waiting_buffer_process_regular(void) {
+    for (; waiting_buffer_tail != waiting_buffer_head; waiting_buffer_tail = (waiting_buffer_tail + 1) % WAITING_BUFFER_SIZE) {
+        if (is_tap_record(&waiting_buffer[waiting_buffer_tail])) {
+            break; // Stop once a tap-hold key event is reached.
+        }
+        ac_dprintf("waiting_buffer_process_regular: processing [%u]\n", waiting_buffer_tail);
+        process_record(&waiting_buffer[waiting_buffer_tail]);
+    }
+    debug_waiting_buffer();
 }
 #    endif // CHORDAL_HOLD
 

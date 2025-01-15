@@ -773,3 +773,50 @@ TEST_F(ChordalHoldPermissiveHold, nested_tap_of_layer_0_layer_tap_keys) {
     EXPECT_TRUE(layer_state_is(0));
     VERIFY_AND_CLEAR(driver);
 }
+
+TEST_F(ChordalHoldPermissiveHold, lt_mt_one_regular_key) {
+    TestDriver driver;
+    InSequence s;
+    auto       lt_key      = KeymapKey(0, 1, 0, LT(1, KC_A));
+    auto       mt_key0     = KeymapKey(0, 2, 0, SFT_T(KC_B));
+    auto       mt_key1     = KeymapKey(1, 2, 0, CTL_T(KC_C));
+    auto       regular_key = KeymapKey(1, MATRIX_COLS - 1, 0, KC_X);
+    auto       no_key0     = KeymapKey(0, MATRIX_COLS - 1, 0, XXXXXXX);
+    auto       no_key1     = KeymapKey(1, 1, 0, XXXXXXX);
+
+    set_keymap({lt_key, mt_key0, mt_key1, regular_key, no_key0, no_key1});
+
+    // Press LT, MT, and regular key.
+    EXPECT_NO_REPORT(driver);
+    lt_key.press();
+    run_one_scan_loop();
+    mt_key1.press();
+    run_one_scan_loop();
+    regular_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Release the regular key.
+    EXPECT_REPORT(driver, (KC_LCTL));
+    EXPECT_REPORT(driver, (KC_LCTL, KC_X));
+    EXPECT_REPORT(driver, (KC_LCTL));
+    regular_key.release();
+    run_one_scan_loop();
+    EXPECT_EQ(get_mods(), MOD_BIT_LCTRL);
+    EXPECT_TRUE(layer_state_is(1));
+    VERIFY_AND_CLEAR(driver);
+
+    // Release MT key.
+    EXPECT_EMPTY_REPORT(driver);
+    mt_key1.release();
+    run_one_scan_loop();
+    EXPECT_EQ(get_mods(), 0);
+    VERIFY_AND_CLEAR(driver);
+
+    // Release LT key.
+    EXPECT_NO_REPORT(driver);
+    lt_key.release();
+    run_one_scan_loop();
+    EXPECT_TRUE(layer_state_is(0));
+    VERIFY_AND_CLEAR(driver);
+}
