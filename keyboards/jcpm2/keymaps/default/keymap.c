@@ -12,7 +12,7 @@ enum layer_names {
     _LAYER3 //unused
 };
 
-const uint8_t UNDERGLOW = 60;
+#define UNDERGLOW 60
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
