@@ -41,7 +41,7 @@ enum custom_keycodes {
 
 #define RN0 KC_7
 #define RN1 KC_6
-#define RN2 LT(0, KC_5)
+#define RN2 KC_5
 #define RN3 KC_9
 #define RN4 KC_8
 #define RN5 CW_TOGG
@@ -108,7 +108,7 @@ static uint16_t keyhold_timer; // for handling Qu combo
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*  Hands Down Promethium
-    ⎋   3   2@  1$   0#  4           7   6(  5() 9)  8  CW
+    ⎋   3   2@  1$   0#  4           7   6(  5&  9)  8  CW
     ⇥   v   w   g    m   j           +=  .:  /   "!  '? `
     z   s⌃  n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘  i⌥  c⌃ q
     tg  f   p   d    l   x      	 -   u   o   y   b  \
@@ -123,17 +123,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
  /*	BEAKL-19 Numpad
-			+	/	*	=
+			+	=	*
     ⇥   -   5   2   3   :
         7   .   1   0   4       	,   ⇧   ⌘   ⌥	⌃
-        ,   6   9   8   ⏎       	-
+        /   6   9   8   ,       	-
     	                ␣   ⌫   ⏎   mo
   */
   [_NUM] = LAYOUT_voyager(
-    _______, _______, KC_PLUS, KC_SLSH, KC_ASTR, KC_EQL,                    _______, _______, _______, _______, _______, _______,
+    _______, _______, KC_PLUS, KC_EQL,  KC_ASTR, _______,                   _______, _______, _______, _______, _______, _______,
     _______, KC_MINS, KC_5,    KC_2,    KC_3,    KC_COLN,                   _______, _______, _______, _______, _______, _______,
     _______, KC_7,    KC_DOT,  KC_1,    KC_0,    KC_4,                      _______, KC_RSFT, KC_RGUI, KC_RALT, KC_RCTL, ___x___,
-    _______, KC_COMM, KC_6,    KC_9,    KC_8,    KC_ENT,                    _______, ___x___, ___x___, ___x___, ___x___, _______,
+    _______, KC_SLSH, KC_6,    KC_9,    KC_8,    KC_COMM,                   _______, ___x___, ___x___, ___x___, ___x___, _______,
                                                  KC_SPC,  _______, _______, _______
   ),
 
@@ -152,15 +152,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   /*    F1     F2      F3	   F4	  F5			           F6	   F7	   F8	F9	    F10	    F11
-    	       ⌘Q      Scap    Sclp                            vol+    home    up	end             F12
-    	⌃      ⌥       ⌘       ⇧             		           vol-    left    dn	rght	del
+    	       quit    Scap    Sclp                            vol+    home    up	end             F12
+    	⌃      ⌥       ⌘       ⇧      SelAll       		       vol-    left    dn	rght	del
     	undo   cut     cpy     pst    redo                     mute     ⌫      ⇥     ⏎
                                                                dsk-    dsk+
   */
   [_NAV] = LAYOUT_voyager(
     _______, KC_F1,   KC_F2,   KC_F3,     KC_F4,         KC_F5,                          KC_F6,   KC_F7,      KC_F8,   KC_F9,      KC_F10,  KC_F11,
     _______, ___x___, G(KC_Q), LSG(KC_4), C(S(G(KC_4))), ___x___,                        KC_VOLU, G(KC_LEFT), KC_UP,   G(KC_RGHT), ___x___, KC_F12,
-    ___x___, KC_LCTL, KC_LALT, KC_LGUI,   KC_LSFT,       ___x___,                        KC_VOLD, KC_LEFT,    KC_DOWN, KC_RGHT,    KC_DEL,  ___x___,
+    ___x___, KC_LCTL, KC_LALT, KC_LGUI,   KC_LSFT,       G(KC_A),                        KC_VOLD, KC_LEFT,    KC_DOWN, KC_RGHT,    KC_DEL,  ___x___,
     ___x___, G(KC_Z), G(KC_X), G(KC_C),   G(KC_V),       LSG(KC_Z),                      KC_MUTE, KC_BSPC,    KC_TAB,  KC_ENT,     ___x___, ___x___,
                                                          _______,   _______, C(KC_LEFT), C(KC_RIGHT)
   )
@@ -228,13 +228,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return true;  // Didn't handle this
             break;
-
-        case RN2:
-            // Unmatched return on tap
-            if (record->tap.count) { return true; }
-            // Send macro string on hold
-            else if (record->event.pressed) { SEND_STRING("()" SS_TAP(X_LEFT)); }
-            return false;
     }
     return true;
 };
@@ -243,6 +236,7 @@ const custom_shift_key_t custom_shift_keys[] = {
     {KC_1,    KC_DLR},  /* shift 1 is $ */
     {KC_0,    KC_HASH}, /* shift 0 is # */
     {KC_6,    KC_LPRN}, /* shift 6 is ( */
+    {KC_5,    KC_AMPR}, /* shift 5 is & */
     {KC_9,    KC_RPRN}, /* shift 9 is ) */
     {KC_DOT,  KC_COLN}, /* shift . is : */
     {KC_COMM, KC_SCLN}, /* shift , is ; */
