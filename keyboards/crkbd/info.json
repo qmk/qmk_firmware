@@ -1,9 +1,11 @@
 {
+    "keyboard_name": "crkbd",
     "manufacturer": "foostan",
     "url": "https://github.com/foostan/crkbd",
     "maintainer": "qmk",
     "usb": {
-        "vid": "0x4653"
+        "vid": "0x4653",
+        "pid": "0x0001"
     },
     "features": {
         "bootmagic": true,
