@@ -23,10 +23,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [WIN_FN] = LAYOUT_68_ansi( /* FN */
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11, KC_F12,   _______, _______, KC_HOME,
-        _______, _______, _______, _______, _______, _______, _______, _______, KC_INS,  DF(MAC_B),KC_PSCR,RGB_SPD, RGB_SPI, _______, RGB_MOD, KC_END,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_TOG, _______, _______,          RGB_HUI,
-        _______, _______, _______, KC_CALC, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______,                   _______, RGB_VAI,
-        _______, GU_TOGG, _______,                   _______,                            _______, _______, _______,          RGB_SAD, RGB_VAD, RGB_SAI),
+        _______, _______, _______, _______, _______, _______, _______, _______, KC_INS,  DF(MAC_B),KC_PSCR,RM_SPDD, RM_SPDU, _______, RM_NEXT, KC_END,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, RM_TOGG, _______, _______,          RM_HUEU,
+        _______, _______, _______, KC_CALC, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______,                   _______, RM_VALU,
+        _______, GU_TOGG, _______,                   _______,                            _______, _______, _______,          RM_SATD, RM_VALD, RM_SATU),
 
     [MAC_B] = LAYOUT_68_ansi( /* Base */
         KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,KC_EQL,   KC_BSPC, KC_INS,  KC_PGUP,
