@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_LAYER0_MOD] = LAYOUT( // default MOD
         _______,                      RM_VALU,    RM_NEXT, // _______ transparent, goes to above layer
         _______,                      RM_VALD,    RM_TOGG,
-        C(LGUI(KC_SPC)),    _______,  _______,    TG(_LAYER0_MOD)
+        LCTL(LGUI(KC_SPC)),    _______,  _______,    TG(_LAYER0_MOD)
     ),
     [_LAYER1] = LAYOUT( // FCPX
         LSFT(LGUI(KC_B)),            LGUI(KC_B), LGUI(KC_EQL),
