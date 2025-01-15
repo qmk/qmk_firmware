@@ -4,9 +4,7 @@
     "maintainer": "jeremyscook",
     "development_board": "promicro",
     "features": {
-        "bootmagic": false,
-        "command": false,
-        "console": false,
+        "bootmagic": true,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,
