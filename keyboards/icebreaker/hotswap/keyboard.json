@@ -1,6 +1,6 @@
 {
     "manufacturer": "Serene Studio",
-    "keyboard_name": "Serene Industries - Icebreaker HS",
+    "keyboard_name": "Icebreaker HS",
     "maintainer": "Matthijs Muller",
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
