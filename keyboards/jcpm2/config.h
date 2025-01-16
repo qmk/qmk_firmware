@@ -16,6 +16,5 @@
 
 #pragma once
 
-// I2C Configuration
 #define OLED_DISPLAY_128X64
 #define OLED_TIMEOUT 2000000
