@@ -115,7 +115,7 @@ bool oled_task_user(void) {
 }
 #endif
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     switch(get_highest_layer(layer_state|default_layer_state)) {
         case _LAYER2:
             rgb_matrix_set_color(11, 0, 0, UNDERGLOW);
