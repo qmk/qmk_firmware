@@ -220,7 +220,7 @@
             {"matrix": [1, 4], "x": 0, "y": 13, "flags": 4},
             {"matrix": [2, 4], "x": 20, "y": 13, "flags": 4},
             {"matrix": [1, 5], "x": 32, "y": 13, "flags": 4},
-            {"matrix": [1, 6], "x": 48, "y": 13, "flags": 4},  
+            {"matrix": [1, 6], "x": 48, "y": 13, "flags": 4},
             {"matrix": [1, 7], "x": 64, "y": 13, "flags": 4},
             {"matrix": [1, 8], "x": 80, "y": 13, "flags": 4},
             {"matrix": [1, 9], "x": 96, "y": 13, "flags": 4},
