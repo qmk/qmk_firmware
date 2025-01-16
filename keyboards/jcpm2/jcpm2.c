@@ -1,5 +1,4 @@
-/* Copyright 2022 DOIO
- * Copyright 2022 DOIO2022 <https://github.com/DOIO2022>
+/* Copyright 2025 Jeremy Cook Consulting LLC <info@jeremyscook.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
