@@ -32,7 +32,6 @@
         },
         "default": {
             "animation": "typing_heatmap",
-            "on": true,
             "val": 180
         },
         "driver": "ws2812",
