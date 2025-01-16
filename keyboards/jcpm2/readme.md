@@ -22,4 +22,6 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Enter the bootloader in 3 ways:
 
+* **Bootmagic reset**: Hold down the rotary encoder and plug in the keyboard
 * **Physical reset button**: Double-click the small inside button on top of the PCB
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
