@@ -41,7 +41,6 @@ bool oled_task_kb(void) {
     if (!oled_task_user()) {
         return false;
     }
-    // rest of your code
     return true;
 }
 
