@@ -119,42 +119,40 @@ bool oled_task_user(void) {
 }
 #endif
 
-bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    for (uint8_t i = led_min; i < led_max; i++) {
-        switch(get_highest_layer(layer_state|default_layer_state)) {
-            case _LAYER2:
-                rgb_matrix_set_color(11, 0, 0, UNDERGLOW);
-                rgb_matrix_set_color(10, 0, 0, UNDERGLOW);
-                rgb_matrix_set_color(9, 0, 0, UNDERGLOW);
-                rgb_matrix_set_color(8, 0, 0, UNDERGLOW);
-                break;
-            case _LAYER1:
-                rgb_matrix_set_color(11, 0, UNDERGLOW, 0);
-                rgb_matrix_set_color(10, 0, UNDERGLOW, 0);
-                rgb_matrix_set_color(9, 0, UNDERGLOW, 0);
-                rgb_matrix_set_color(8, 0, UNDERGLOW, 0);
-                break;
-            case _LAYER0_MOD:
-                rgb_matrix_set_color(11, UNDERGLOW/2, 0, UNDERGLOW/2);
-                rgb_matrix_set_color(10, UNDERGLOW/2, 0, UNDERGLOW/2);
-                rgb_matrix_set_color(9, UNDERGLOW/2, 0, UNDERGLOW/2);
-                rgb_matrix_set_color(8, UNDERGLOW/2, 0, UNDERGLOW/2);
-                break;
-            case _LAYER0:
-                rgb_matrix_set_color(11, UNDERGLOW, 0, 0);
-                rgb_matrix_set_color(10, UNDERGLOW, 0, 0);
-                rgb_matrix_set_color(9, UNDERGLOW, 0, 0);
-                rgb_matrix_set_color(8, UNDERGLOW, 0, 0);
-                break;
-            case _LAYER3: //not used
-                rgb_matrix_set_color(11, 0, UNDERGLOW/2, UNDERGLOW/2);
-                rgb_matrix_set_color(10, 0, UNDERGLOW/2, UNDERGLOW/2);
-                rgb_matrix_set_color(9, 0, UNDERGLOW/2, UNDERGLOW/2);
-                rgb_matrix_set_color(8, 0, UNDERGLOW/2, UNDERGLOW/2);
-                break;
-            default:
-                break;
-            }
-        }
+void rgb_matrix_indicators_user(void) {
+    switch(get_highest_layer(layer_state|default_layer_state)) {
+        case _LAYER2:
+            rgb_matrix_set_color(11, 0, 0, UNDERGLOW);
+            rgb_matrix_set_color(10, 0, 0, UNDERGLOW);
+            rgb_matrix_set_color(9, 0, 0, UNDERGLOW);
+            rgb_matrix_set_color(8, 0, 0, UNDERGLOW);
+            break;
+        case _LAYER1:
+            rgb_matrix_set_color(11, 0, UNDERGLOW, 0);
+            rgb_matrix_set_color(10, 0, UNDERGLOW, 0);
+            rgb_matrix_set_color(9, 0, UNDERGLOW, 0);
+            rgb_matrix_set_color(8, 0, UNDERGLOW, 0);
+            break;
+        case _LAYER0_MOD:
+            rgb_matrix_set_color(11, UNDERGLOW/2, 0, UNDERGLOW/2);
+            rgb_matrix_set_color(10, UNDERGLOW/2, 0, UNDERGLOW/2);
+            rgb_matrix_set_color(9, UNDERGLOW/2, 0, UNDERGLOW/2);
+            rgb_matrix_set_color(8, UNDERGLOW/2, 0, UNDERGLOW/2);
+            break;
+        case _LAYER0:
+            rgb_matrix_set_color(11, UNDERGLOW, 0, 0);
+            rgb_matrix_set_color(10, UNDERGLOW, 0, 0);
+            rgb_matrix_set_color(9, UNDERGLOW, 0, 0);
+            rgb_matrix_set_color(8, UNDERGLOW, 0, 0);
+            break;
+        case _LAYER3: //not used
+            rgb_matrix_set_color(11, 0, UNDERGLOW/2, UNDERGLOW/2);
+            rgb_matrix_set_color(10, 0, UNDERGLOW/2, UNDERGLOW/2);
+            rgb_matrix_set_color(9, 0, UNDERGLOW/2, UNDERGLOW/2);
+            rgb_matrix_set_color(8, 0, UNDERGLOW/2, UNDERGLOW/2);
+            break;
+        default:
+            break;
+    }
     return false;
 }
