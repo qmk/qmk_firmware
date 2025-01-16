@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-#ifdef ENCODER_MAP_ENABLE //defined in rules.mk
+#ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_LAYER0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) }, // default
     [_LAYER0_MOD] = { ENCODER_CCW_CW(_______, _______) }, // default MOD
