@@ -1,4 +1,4 @@
-// Copyright 2024 Google LLC
+// Copyright 2024-2025 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -727,14 +727,14 @@ TEST_F(ChordalHoldPermissiveHold, tap_regular_key_while_layer_tap_key_is_held) {
     EXPECT_EMPTY_REPORT(driver);
     regular_key.release();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_is(1));
+    EXPECT_EQ(layer_state, 2);
     VERIFY_AND_CLEAR(driver);
 
     // Release layer-tap-hold key.
     EXPECT_NO_REPORT(driver);
     layer_tap_hold_key.release();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_is(0));
+    EXPECT_EQ(layer_state, 0);
     VERIFY_AND_CLEAR(driver);
 }
 
@@ -763,14 +763,14 @@ TEST_F(ChordalHoldPermissiveHold, nested_tap_of_layer_0_layer_tap_keys) {
     EXPECT_EMPTY_REPORT(driver);
     second_layer_tap_key.release();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_is(1));
+    EXPECT_EQ(layer_state, 2);
     VERIFY_AND_CLEAR(driver);
 
     // Release first layer-tap key.
     EXPECT_NO_REPORT(driver);
     first_layer_tap_key.release();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_is(0));
+    EXPECT_EQ(layer_state, 0);
     VERIFY_AND_CLEAR(driver);
 }
 
@@ -803,7 +803,7 @@ TEST_F(ChordalHoldPermissiveHold, lt_mt_one_regular_key) {
     regular_key.release();
     run_one_scan_loop();
     EXPECT_EQ(get_mods(), MOD_BIT_LCTRL);
-    EXPECT_TRUE(layer_state_is(1));
+    EXPECT_EQ(layer_state, 2);
     VERIFY_AND_CLEAR(driver);
 
     // Release MT key.
@@ -817,6 +817,82 @@ TEST_F(ChordalHoldPermissiveHold, lt_mt_one_regular_key) {
     EXPECT_NO_REPORT(driver);
     lt_key.release();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_is(0));
+    EXPECT_EQ(layer_state, 0);
+    VERIFY_AND_CLEAR(driver);
+}
+
+TEST_F(ChordalHoldPermissiveHold, nested_tap_of_layer_tap_keys) {
+    TestDriver driver;
+    InSequence s;
+    // The keys are layer-taps on all layers.
+    auto first_key_layer_0  = KeymapKey(0, 1, 0, LT(1, KC_A));
+    auto second_key_layer_0 = KeymapKey(0, MATRIX_COLS - 1, 0, LT(1, KC_P));
+    auto first_key_layer_1  = KeymapKey(1, 1, 0, LT(2, KC_B));
+    auto second_key_layer_1 = KeymapKey(1, MATRIX_COLS - 1, 0, LT(2, KC_Q));
+    auto first_key_layer_2  = KeymapKey(2, 1, 0, KC_TRNS);
+    auto second_key_layer_2 = KeymapKey(2, MATRIX_COLS - 1, 0, KC_TRNS);
+
+    set_keymap({first_key_layer_0, second_key_layer_0, first_key_layer_1, second_key_layer_1, first_key_layer_2, second_key_layer_2});
+
+    // Press first layer-tap key.
+    EXPECT_NO_REPORT(driver);
+    first_key_layer_0.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Press second layer-tap key.
+    EXPECT_NO_REPORT(driver);
+    second_key_layer_0.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Release second layer-tap key.
+    EXPECT_REPORT(driver, (KC_Q));
+    EXPECT_EMPTY_REPORT(driver);
+    second_key_layer_0.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Release first layer-tap key.
+    EXPECT_NO_REPORT(driver);
+    first_key_layer_0.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
+
+TEST_F(ChordalHoldPermissiveHold, roll_layer_tap_key_with_regular_key) {
+    TestDriver driver;
+    InSequence s;
+
+    auto layer_tap_hold_key = KeymapKey(0, 1, 0, LT(1, KC_P));
+    auto regular_key        = KeymapKey(0, MATRIX_COLS - 1, 0, KC_A);
+    auto layer_key          = KeymapKey(1, MATRIX_COLS - 1, 0, KC_B);
+
+    set_keymap({layer_tap_hold_key, regular_key, layer_key});
+
+    // Press layer-tap-hold key.
+    EXPECT_NO_REPORT(driver);
+    layer_tap_hold_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Press regular key.
+    regular_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Release layer-tap-hold key.
+    EXPECT_REPORT(driver, (KC_P));
+    EXPECT_REPORT(driver, (KC_P, KC_A));
+    EXPECT_REPORT(driver, (KC_A));
+    EXPECT_NO_REPORT(driver);
+    layer_tap_hold_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Release regular key.
+    EXPECT_EMPTY_REPORT(driver);
+    regular_key.release();
+    run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 }
