@@ -5,8 +5,8 @@
 *A 46-key keyboard ANSI keyboard with split spacebar. Files available here [here](https://github.com/lighteningAB/45keyboard_v1)*
 
 * Keyboard Maintainer: [PatrickFan](https://github.com/PatrickFan)
-* Hardware Supported: ATMEGA32u4
-* Hardware Availability: [Digikey](https://digikey.com)
+* Hardware Supported: Integrated ATmega32U4
+* Hardware Availability: [GitHub](https://github.com/lighteningAB/45keyboard_v1)
 
 Make example for this keyboard (after setting up your build environment):
 

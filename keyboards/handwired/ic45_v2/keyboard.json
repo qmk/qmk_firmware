@@ -5,11 +5,8 @@
     "bootloader": "atmel-dfu",
     "diode_direction": "COL2ROW",
     "features": {
-        "bootmagic": false,
-        "command": false,
-        "console": false,
+        "bootmagic": true,
         "extrakey": true,
-        "mousekey": false,
         "nkro": true
     },
     "matrix_pins": {
@@ -24,7 +21,7 @@
         "vid": "0xFEED"
     },
     "layouts": {
-        "LAYOUT_default": {
+        "LAYOUT": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0, "w": 1.5},
                 {"matrix": [0, 1], "x": 1.5, "y": 0},
