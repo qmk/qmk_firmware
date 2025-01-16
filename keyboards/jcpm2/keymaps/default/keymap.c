@@ -63,10 +63,6 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 
 #ifdef OLED_ENABLE
 // Function to display the current layer and information on the OLED
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    return OLED_ROTATION_180;
-}
-
 bool oled_task_user(void) {
     switch (get_highest_layer(layer_state | default_layer_state)) {
         case _LAYER0:
