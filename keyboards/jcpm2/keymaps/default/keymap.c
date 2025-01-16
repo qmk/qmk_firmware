@@ -151,10 +151,10 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                 rgb_matrix_set_color(10, 0, UNDERGLOW/2, UNDERGLOW/2);
                 rgb_matrix_set_color(9, 0, UNDERGLOW/2, UNDERGLOW/2);
                 rgb_matrix_set_color(8, 0, UNDERGLOW/2, UNDERGLOW/2);
-                break;          
+                break;
             default:
                 break;
             }
         }
-    return false;    
+    return false;
 }
