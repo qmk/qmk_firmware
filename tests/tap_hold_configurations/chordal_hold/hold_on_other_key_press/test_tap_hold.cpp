@@ -732,7 +732,6 @@ TEST_F(ChordalHoldHoldOnOtherKeyPress, lt_mt_one_regular_key) {
     VERIFY_AND_CLEAR(driver);
 }
 
-
 TEST_F(ChordalHoldHoldOnOtherKeyPress, nested_tap_of_layer_tap_keys) {
     TestDriver driver;
     InSequence s;
