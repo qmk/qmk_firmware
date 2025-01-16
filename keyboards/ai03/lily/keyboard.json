@@ -4,7 +4,8 @@
     "maintainer": "ai03",
     "bootloader": "atmel-dfu",
     "build": {
-        "debounce_type": "asym_eager_defer_pk"
+        "debounce_type": "asym_eager_defer_pk",
+        "lto": true
     },
     "diode_direction": "COL2ROW",
     "features": {
@@ -42,8 +43,7 @@
             "static_gradient": true,
             "twinkle": true
         },
-        "led_count": 4,
-        "led_map": [0, 1, 2, 3]
+        "led_count": 4
     },
     "usb": {
         "device_version": "0.0.1",
