@@ -1365,6 +1365,12 @@
     "runner3680/5x8": {
         "target": "omkbd/runner3680/5x8"
     },
+    "saevus/cor": {
+        "target": "concreteflowers/cor"
+    },
+    "saevus/cor_tkl": {
+        "target": "concreteflowers/cor_tkl"
+    },
     "scarletbandana": {
         "target": "woodkeys/scarletbandana"
     },

@@ -42,38 +42,7 @@ You can define up to 32 macros in a `keymap.json` file, as used by [Configurator
 
 ### Selecting Your Host Keyboard Layout
 
-If you type in a language other than English, or use a non-QWERTY layout like Colemak, Dvorak, or Workman, you may have set your computer's input language to match this layout. This presents a challenge when creating macros - you may need to type different keys to get the same letters! To address this you can add the `host_language` key to your `keymap.json`, like so:
-
-```json
-{
-    "keyboard": "handwired/my_macropad",
-    "keymap": "my_keymap",
-    "host_language": "dvorak",
-    "macros": [
-        ["Hello, World!"]
-    ],
-    "layout": "LAYOUT_all",
-    "layers": [
-        ["QK_MACRO_0"]
-    ]
-}
-```
-
-The current list of available languages is:
-
-| belgian | bepo | br_abnt2 | canadian_multilingual |
-|:-------:|:----:|:--------:|:---------------------:|
-| **colemak** | **croatian** | **czech** | **danish** |
-| **dvorak_fr** | **dvorak** | **dvp** | **estonian** |
-| **finnish** | **fr_ch** | **french_afnor** | **french** |
-| **french_osx** | **german_ch** | **german** | **german_osx** |
-| **hungarian** | **icelandic** | **italian** | **italian_osx_ansi** |
-| **italian_osx_iso** | **jis** | **latvian** | **lithuanian_azerty** |
-| **lithuanian_qwerty** | **norman** | **norwegian** | **portuguese** |
-| **portuguese_osx_iso** | **romanian** | **serbian_latin** | **slovak** |
-| **slovenian** | **spanish_dvorak** | **spanish_latin_america** | **spanish** |
-| **swedish** | **turkish_f** | **turkish_q** | **uk** |
-| **us_international** | **workman** | **workman_zxcvm** |
+If you type in a language other than English, or use a non-QWERTY layout like Colemak, Dvorak, or Workman, you may have set your computer's input language to match this layout. This presents a challenge when creating macros — you may need to type different keys to get the same letters! To address this you can use [language-specific keycodes](reference_keymap_extras).
 
 ### Macro Basics
 
@@ -148,7 +117,9 @@ If yes, we send the string `"QMK is the best thing ever!"` to the computer via t
 We return `true` to indicate to the caller that the key press we just processed should continue to be processed as normal (as we didn't replace or alter the functionality).
 Finally, we define the keymap so that the first button activates our macro and the second button is just an escape button.
 
-?>It is recommended to use the SAFE_RANGE macro as per [Customizing Functionality](custom_quantum_functions).
+::: tip
+It is recommended to use the SAFE_RANGE macro as per [Customizing Functionality](custom_quantum_functions).
+:::
 
 You might want to add more than one macro.
 You can do that by adding another keycode and adding another case to the switch statement, like so:
