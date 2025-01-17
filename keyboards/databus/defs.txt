@@ -1,0 +1,3459 @@
+#define A0 PINDEF(A, 0)
+#define A1 PINDEF(A, 1)
+#define A2 PINDEF(A, 2)
+#define A3 PINDEF(A, 3)
+#define A4 PINDEF(A, 4)
+#define A5 PINDEF(A, 5)
+#define A6 PINDEF(A, 6)
+#define A7 PINDEF(A, 7)
+#define abs(__i) __builtin_abs(__i)
+#define ACBG 6
+#define __ACCUM_EPSILON__ 0x1P-15K
+#define __ACCUM_FBIT__ 15
+#define __ACCUM_IBIT__ 16
+#define __ACCUM_MAX__ 0X7FFFFFFFP-15K
+#define __ACCUM_MIN__ (-0X1P15K - 0X1P15K)
+#define ACD 7
+#define ac_dprintf(...) \
+    do {                \
+    } while (0)
+#define ACI 4
+#define ACIC 2
+#define ACIE 3
+#define ACIS0 0
+#define ACIS1 1
+#define ACME 6
+#define ACO 5
+#define ACSR _SFR_IO8(0x30)
+#define ACTION_DEFAULT_LAYER_BIT_AND(part, bits) \
+    ACTION_LAYER_BITOP(OP_BIT_AND, (part), (bits), 0)
+#define ACTION_DEFAULT_LAYER_BIT_OR(part, bits) \
+    ACTION_LAYER_BITOP(OP_BIT_OR, (part), (bits), 0)
+#define ACTION_DEFAULT_LAYER_BIT_SET(part, bits) \
+    ACTION_LAYER_BITOP(OP_BIT_SET, (part), (bits), 0)
+#define ACTION_DEFAULT_LAYER_BIT_XOR(part, bits) \
+    ACTION_LAYER_BITOP(OP_BIT_XOR, (part), (bits), 0)
+#define ACTION_DEFAULT_LAYER_SET(layer) \
+    ACTION_DEFAULT_LAYER_BIT_SET((layer) / 4, 1 << ((layer) % 4))
+#define ACTION_KEY(key) ACTION(ACT_MODS, (key))
+#define ACTION(kind, param) ((kind) << 12 | (param))
+#define ACTION_LAYER_BIT_AND(part, bits, on) \
+    ACTION_LAYER_BITOP(OP_BIT_AND, (part), (bits), (on))
+#define ACTION_LAYER_BITOP(op, part, bits, on) \
+    ACTION(ACT_LAYER, (op) << 10 | (on) << 8 | (part) << 5 | ((bits)&0x1f))
+#define ACTION_LAYER_BIT_OR(part, bits, on) \
+    ACTION_LAYER_BITOP(OP_BIT_OR, (part), (bits), (on))
+#define ACTION_LAYER_BIT_SET(part, bits, on) \
+    ACTION_LAYER_BITOP(OP_BIT_SET, (part), (bits), (on))
+#define ACTION_LAYER_BIT_XOR(part, bits, on) \
+    ACTION_LAYER_BITOP(OP_BIT_XOR, (part), (bits), (on))
+#define ACTION_LAYER_CLEAR(on) ACTION_LAYER_BIT_AND(0, 0, (on))
+#define ACTION_LAYER_GOTO(layer) ACTION_LAYER_SET(layer, ON_PRESS)
+#define ACTION_LAYER_INVERT(layer, on) \
+    ACTION_LAYER_BIT_XOR((layer) / 4, 1 << ((layer) % 4), (on))
+#define ACTION_LAYER_MODS(layer, mods) \
+    ACTION(ACT_LAYER_MODS, (layer) << 8 | (mods))
+#define ACTION_LAYER_MOMENTARY(layer) ACTION_LAYER_ON_OFF(layer)
+#define ACTION_LAYER_OFF(layer, on) \
+    ACTION_LAYER_BIT_AND((layer) / 4, ~(1 << ((layer) % 4)), (on))
+#define ACTION_LAYER_OFF_ON(layer) ACTION_LAYER_TAP((layer), OP_OFF_ON)
+#define ACTION_LAYER_ONESHOT(layer) ACTION_LAYER_TAP((layer), OP_ONESHOT)
+#define ACTION_LAYER_ON(layer, on) \
+    ACTION_LAYER_BIT_OR((layer) / 4, 1 << ((layer) % 4), (on))
+#define ACTION_LAYER_ON_OFF(layer) ACTION_LAYER_TAP((layer), OP_ON_OFF)
+#define ACTION_LAYER_SET_CLEAR(layer) \
+    ACTION_LAYER_TAP((layer), OP_SET_CLEAR)
+#define ACTION_LAYER_SET(layer, on) \
+    ACTION_LAYER_BIT_SET((layer) / 4, 1 << ((layer) % 4), (on))
+#define ACTION_LAYER_TAP_KEY(layer, key) ACTION_LAYER_TAP((layer), (key))
+#define ACTION_LAYER_TAP(layer, key) \
+    ACTION(ACT_LAYER_TAP, (layer) << 8 | (key))
+#define ACTION_LAYER_TAP_TOGGLE(layer) \
+    ACTION_LAYER_TAP((layer), OP_TAP_TOGGLE)
+#define ACTION_LAYER_TOGGLE(layer) ACTION_LAYER_INVERT(layer, ON_RELEASE)
+#define ACTION_MODS_KEY(mods, key) \
+    ACTION(ACT_MODS, ((mods)&0x1f) << 8 | (key))
+#define ACTION_MODS(mods) ACTION(ACT_MODS, ((mods)&0x1f) << 8 | 0)
+#define ACTION_MODS_ONESHOT(mods) \
+    ACTION(ACT_MODS_TAP, ((mods)&0x1f) << 8 | MODS_ONESHOT)
+#define ACTION_MODS_TAP_KEY(mods, key) \
+    ACTION(ACT_MODS_TAP, ((mods)&0x1f) << 8 | (key))
+#define ACTION_MODS_TAP_TOGGLE(mods) \
+    ACTION(ACT_MODS_TAP, ((mods)&0x1f) << 8 | MODS_TAP_TOGGLE)
+#define ACTION_MOUSEKEY(key) ACTION(ACT_MOUSEKEY, key)
+#define ACTION_NO 0
+#define ACTION_SWAP_HANDS() ACTION_SWAP_HANDS_ON_OFF()
+#define ACTION_SWAP_HANDS_OFF() ACTION(ACT_SWAP_HANDS, OP_SH_OFF)
+#define ACTION_SWAP_HANDS_OFF_ON() ACTION(ACT_SWAP_HANDS, OP_SH_OFF_ON)
+#define ACTION_SWAP_HANDS_ON() ACTION(ACT_SWAP_HANDS, OP_SH_ON)
+#define ACTION_SWAP_HANDS_ONESHOT() ACTION(ACT_SWAP_HANDS, OP_SH_ONESHOT)
+#define ACTION_SWAP_HANDS_ON_OFF() ACTION(ACT_SWAP_HANDS, OP_SH_ON_OFF)
+#define ACTION_SWAP_HANDS_TAP_KEY(key) ACTION(ACT_SWAP_HANDS, key)
+#define ACTION_SWAP_HANDS_TAP_TOGGLE() \
+    ACTION(ACT_SWAP_HANDS, OP_SH_TAP_TOGGLE)
+#define ACTION_SWAP_HANDS_TOGGLE() ACTION(ACT_SWAP_HANDS, OP_SH_TOGGLE)
+#define ACTION_TRANSPARENT 1
+#define ACTION_USAGE_CONSUMER(id) \
+    ACTION(ACT_USAGE, PAGE_CONSUMER << 10 | (id))
+#define ACTION_USAGE_SYSTEM(id) ACTION(ACT_USAGE, PAGE_SYSTEM << 10 | (id))
+#define ADATE 5
+#define ADC0D 0
+#define ADC1D 1
+#define ADC2D 2
+#define ADC3D 3
+#define ADC4D 4
+#define ADC5D 5
+#define ADC6D 6
+#define ADC7D 7
+#define ADCH _SFR_MEM8(0x79)
+#define ADCL _SFR_MEM8(0x78)
+#define ADC _SFR_MEM16(0x78)
+#define ADCSRA _SFR_MEM8(0x7A)
+#define ADCSRB _SFR_MEM8(0x7B)
+#define ADC_vect_num 29
+#define ADC_vect _VECTOR(29)
+#define ADCW _SFR_MEM16(0x78)
+#define ADDEN 7
+#define ADDRESS_BASE 0x00
+#define ADEN 7
+#define ADHSM 7
+#define ADIE 3
+#define ADIF 4
+#define ADLAR 5
+#define ADMUX _SFR_MEM8(0x7C)
+#define ADPS0 0
+#define ADPS1 1
+#define ADPS2 2
+#define ADSC 6
+#define ADTS0 0
+#define ADTS1 1
+#define ADTS2 2
+#define AIN0D 0
+#define AIN1D 1
+#define A(kc) LALT(kc)
+#define ALGR(kc) RALT(kc)
+#define ALGR_T(kc) RALT_T(kc)
+#define ALLOC 1
+#define ALL_T(kc) HYPR_T(kc)
+#define ALT_T(kc) LALT_T(kc)
+#define ANALOG_COMP_vect_num 28
+#define ANALOG_COMP_vect _VECTOR(28)
+#define _ANSI_STDARG_H_
+#define _ANSI_STDDEF_H
+#define ARRAY_SIZE(array)                     \
+    (__builtin_choose_expr(IS_ARRAY((array)), \
+                           sizeof((array)) / sizeof((array)[0]), (void)0))
+#define AS2 5
+#define ASSR _SFR_MEM8(0xB6)
+#define __ATOMIC_ACQ_REL 4
+#define __ATOMIC_ACQUIRE 2
+#define ATOMIC_BLOCK_FORCEON ATOMIC_BLOCK(ATOMIC_FORCEON)
+#define ATOMIC_BLOCK_RESTORESTATE ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+#define ATOMIC_BLOCK(type) \
+    for (type, __ToDo = __iCliRetVal(); __ToDo; __ToDo = 0)
+#define __ATOMIC_CONSUME 1
+#define ATOMIC_FORCEON \
+    uint8_t sreg_save __attribute__((__cleanup__(__iSeiParam))) = 0
+#define __ATOMIC_RELAXED 0
+#define __ATOMIC_RELEASE 3
+#define ATOMIC_RESTORESTATE \
+    uint8_t sreg_save __attribute__((__cleanup__(__iRestore))) = SREG
+#define __ATOMIC_SEQ_CST 5
+#define __ATTR_CONST__ __attribute__((__const__))
+#define __ATTR_GNU_INLINE__ __attribute__((__gnu_inline__))
+#define __ATTR_MALLOC__ __attribute__((__malloc__))
+#define __ATTR_NORETURN__ __attribute__((__noreturn__))
+#define ATTR_PRINTF(one_based_format_index, first_arg) \
+    __attribute__((                                    \
+        format(gnu_printf, (one_based_format_index), (first_arg))))
+#define __ATTR_PROGMEM__ __attribute__((__progmem__))
+#define __ATTR_PURE__ __attribute__((__pure__))
+#define ATTR_VPRINTF(one_based_format_index) \
+    ATTR_PRINTF((one_based_format_index), 0)
+#define AUDIO_KEYCODE_RANGE QK_AUDIO_ON... QK_AUDIO_VOICE_PREVIOUS
+#define __AVR 1
+#define __AVR__ 1
+#define AVR 1
+#define __AVR_2_BYTE_PC__ 1
+#define __AVR_ARCH__ 2
+#define __AVR_AT90USB1287__ 1
+#define _AVR_AT90USB1287_H_ 1
+#define _AVR_COMMON_H
+#define _AVR_EEPROM_H_ 1
+#define __AVR_ERRATA_SKIP__ 1
+#define _AVR_FUSE_H_ 1
+#define __AVR_HAVE_16BIT_SP__ 1
+#define __AVR_HAVE_PRR0                                            \
+    ((1 << PRADC) | (1 << PRSPI) | (1 << PRTIM1) | (1 << PRTIM0) | \
+     (1 << PRTIM2) | (1 << PRTWI))
+#define __AVR_HAVE_PRR0_PRADC
+#define __AVR_HAVE_PRR0_PRSPI
+#define __AVR_HAVE_PRR0_PRTIM0
+#define __AVR_HAVE_PRR0_PRTIM1
+#define __AVR_HAVE_PRR0_PRTIM2
+#define __AVR_HAVE_PRR0_PRTWI
+#define __AVR_HAVE_PRR1 ((1 << PRUSART1) | (1 << PRTIM3) | (1 << PRUSB))
+#define __AVR_HAVE_PRR1_PRTIM3
+#define __AVR_HAVE_PRR1_PRUSART1
+#define __AVR_HAVE_PRR1_PRUSB
+#define __AVR_HAVE_SPH__ 1
+#define _AVR_INTERRUPT_H_
+#define _AVR_IO_H_
+#define _AVR_IOXXX_H_ "iousbxx6_7.h"
+#define __AVR_LIBC_DATE_ 20150208UL
+#define __AVR_LIBC_DATE_STRING__ "20150208"
+#define __AVR_LIBC_MAJOR__ 2
+#define __AVR_LIBC_MINOR__ 0
+#define __AVR_LIBC_REVISION__ 0
+#define __AVR_LIBC_VERSION__ 20000UL
+#define __AVR_LIBC_VERSION_STRING__ "2.0.0"
+#define _AVR_LOCK_H_ 1
+#define _AVR_PORTPINS_H_ 1
+#define AVR_RAMPZ_ADDR _SFR_IO_ADDR(RAMPZ)
+#define AVR_RAMPZ_REG RAMPZ
+#define _AVR_SFR_DEFS_H_ 1
+#define __AVR_SFR_OFFSET__ 0x20
+#define AVR_STACK_POINTER_ADDR _SFR_IO_ADDR(SP)
+#define AVR_STACK_POINTER_HI_ADDR _SFR_IO_ADDR(SPH)
+#define AVR_STACK_POINTER_HI_REG SPH
+#define AVR_STACK_POINTER_LO_ADDR _SFR_IO_ADDR(SPL)
+#define AVR_STACK_POINTER_LO_REG SPL
+#define AVR_STACK_POINTER_REG SP
+#define AVR_STATUS_ADDR _SFR_IO_ADDR(SREG)
+#define AVR_STATUS_REG SREG
+#define _AVR_VERSION_H_
+#define B0 PINDEF(B, 0)
+#define B1 PINDEF(B, 1)
+#define B2 PINDEF(B, 2)
+#define B3 PINDEF(B, 3)
+#define B4 PINDEF(B, 4)
+#define B5 PINDEF(B, 5)
+#define B6 PINDEF(B, 6)
+#define B7 PINDEF(B, 7)
+#define BACKLIGHT_KEYCODE_RANGE \
+    QK_BACKLIGHT_ON... QK_BACKLIGHT_TOGGLE_BREATHING
+#define BADISR_vect __vector_default
+#define BASIC_KEYCODE_RANGE KC_A... KC_EXSEL
+#define BCERRE 2
+#define BCERRI 2
+#define __BIGGEST_ALIGNMENT__ 1
+#define BIT32(n) (UINT32_C(1) << (n))
+#define BIT64(n) (UINT64_C(1) << (n))
+#define bit_is_clear(sfr, bit) (!(_SFR_BYTE(sfr) & _BV(bit)))
+#define bit_is_set(sfr, bit) (_SFR_BYTE(sfr) & _BV(bit))
+#define BLB0_MODE_1 (0xFF)
+#define BLB0_MODE_2 (0xFB)
+#define BLB0_MODE_3 (0xF3)
+#define BLB0_MODE_4 (0xF7)
+#define BLB1_MODE_1 (0xFF)
+#define BLB1_MODE_2 (0xEF)
+#define BLB1_MODE_3 (0xCF)
+#define BLB1_MODE_4 (0xDF)
+#define BLBSET 3
+#define bool _Bool
+#define __bool_true_false_are_defined 1
+#define __BOOT_LOCK_BITS_0_EXIST
+#define __BOOT_LOCK_BITS_1_EXIST
+#define BOOTMAGIC_COLUMN 0
+#define BOOTMAGIC_ROW 0
+#define BORF 2
+#define _BSD_PTRDIFF_T_
+#define _BSD_SIZE_T_
+#define _BSD_SIZE_T_DEFINED_
+#define BUFSIZ 1024
+#define __BUILTIN_AVR_ABSFX 1
+#define __BUILTIN_AVR_ABSHK 1
+#define __BUILTIN_AVR_ABSHR 1
+#define __BUILTIN_AVR_ABSK 1
+#define __BUILTIN_AVR_ABSLK 1
+#define __BUILTIN_AVR_ABSLLK 1
+#define __BUILTIN_AVR_ABSLLR 1
+#define __BUILTIN_AVR_ABSLR 1
+#define __BUILTIN_AVR_ABSR 1
+#define __BUILTIN_AVR_BITSHK 1
+#define __BUILTIN_AVR_BITSHR 1
+#define __BUILTIN_AVR_BITSK 1
+#define __BUILTIN_AVR_BITSLK 1
+#define __BUILTIN_AVR_BITSLLK 1
+#define __BUILTIN_AVR_BITSLLR 1
+#define __BUILTIN_AVR_BITSLR 1
+#define __BUILTIN_AVR_BITSR 1
+#define __BUILTIN_AVR_BITSUHK 1
+#define __BUILTIN_AVR_BITSUHR 1
+#define __BUILTIN_AVR_BITSUK 1
+#define __BUILTIN_AVR_BITSULK 1
+#define __BUILTIN_AVR_BITSULLK 1
+#define __BUILTIN_AVR_BITSULLR 1
+#define __BUILTIN_AVR_BITSULR 1
+#define __BUILTIN_AVR_BITSUR 1
+#define __BUILTIN_AVR_CLI 1
+#define __BUILTIN_AVR_COUNTLSFX 1
+#define __BUILTIN_AVR_COUNTLSHK 1
+#define __BUILTIN_AVR_COUNTLSHR 1
+#define __BUILTIN_AVR_COUNTLSK 1
+#define __BUILTIN_AVR_COUNTLSLK 1
+#define __BUILTIN_AVR_COUNTLSLLK 1
+#define __BUILTIN_AVR_COUNTLSLLR 1
+#define __BUILTIN_AVR_COUNTLSLR 1
+#define __BUILTIN_AVR_COUNTLSR 1
+#define __BUILTIN_AVR_COUNTLSUHK 1
+#define __BUILTIN_AVR_COUNTLSUHR 1
+#define __BUILTIN_AVR_COUNTLSUK 1
+#define __BUILTIN_AVR_COUNTLSULK 1
+#define __BUILTIN_AVR_COUNTLSULLK 1
+#define __BUILTIN_AVR_COUNTLSULLR 1
+#define __BUILTIN_AVR_COUNTLSULR 1
+#define __BUILTIN_AVR_COUNTLSUR 1
+#define __BUILTIN_AVR_DELAY_CYCLES 1
+#define __BUILTIN_AVR_FLASH_SEGMENT 1
+#define __BUILTIN_AVR_FMUL 1
+#define __BUILTIN_AVR_FMULS 1
+#define __BUILTIN_AVR_FMULSU 1
+#define __BUILTIN_AVR_HKBITS 1
+#define __BUILTIN_AVR_HRBITS 1
+#define __BUILTIN_AVR_INSERT_BITS 1
+#define __BUILTIN_AVR_KBITS 1
+#define __BUILTIN_AVR_LKBITS 1
+#define __BUILTIN_AVR_LLKBITS 1
+#define __BUILTIN_AVR_LLRBITS 1
+#define __BUILTIN_AVR_LRBITS 1
+#define __BUILTIN_AVR_NOP 1
+#define __BUILTIN_AVR_RBITS 1
+#define __BUILTIN_AVR_ROUNDFX 1
+#define __BUILTIN_AVR_ROUNDHK 1
+#define __BUILTIN_AVR_ROUNDHR 1
+#define __BUILTIN_AVR_ROUNDK 1
+#define __BUILTIN_AVR_ROUNDLK 1
+#define __BUILTIN_AVR_ROUNDLLK 1
+#define __BUILTIN_AVR_ROUNDLLR 1
+#define __BUILTIN_AVR_ROUNDLR 1
+#define __BUILTIN_AVR_ROUNDR 1
+#define __BUILTIN_AVR_ROUNDUHK 1
+#define __BUILTIN_AVR_ROUNDUHR 1
+#define __BUILTIN_AVR_ROUNDUK 1
+#define __BUILTIN_AVR_ROUNDULK 1
+#define __BUILTIN_AVR_ROUNDULLK 1
+#define __BUILTIN_AVR_ROUNDULLR 1
+#define __BUILTIN_AVR_ROUNDULR 1
+#define __BUILTIN_AVR_ROUNDUR 1
+#define __BUILTIN_AVR_SEI 1
+#define __BUILTIN_AVR_SLEEP 1
+#define __BUILTIN_AVR_SWAP 1
+#define __BUILTIN_AVR_UHKBITS 1
+#define __BUILTIN_AVR_UHRBITS 1
+#define __BUILTIN_AVR_UKBITS 1
+#define __BUILTIN_AVR_ULKBITS 1
+#define __BUILTIN_AVR_ULLKBITS 1
+#define __BUILTIN_AVR_ULLRBITS 1
+#define __BUILTIN_AVR_ULRBITS 1
+#define __BUILTIN_AVR_URBITS 1
+#define __BUILTIN_AVR_WDR 1
+#define _BV(bit) (1 << (bit))
+#define __BYTE_ORDER__ __ORDER_LITTLE_ENDIAN__
+#define C0 PINDEF(C, 0)
+#define C1 PINDEF(C, 1)
+#define C2 PINDEF(C, 2)
+#define C3 PINDEF(C, 3)
+#define C4 PINDEF(C, 4)
+#define C5 PINDEF(C, 5)
+#define C6 PINDEF(C, 6)
+#define C7 PINDEF(C, 7)
+#define CEILING(dividend, divisor) (((dividend) + (divisor)-1) / (divisor))
+#define CFGOK 7
+#define __CHAR16_TYPE__ unsigned int
+#define __CHAR32_TYPE__ long unsigned int
+#define __CHAR_BIT__ 8
+#define C(kc) LCTL(kc)
+#define clearerror(s)                     \
+    do {                                  \
+        (s)->flags &= ~(__SERR | __SEOF); \
+    } while (0)
+#define cli() __asm__ __volatile__("cli" ::: "memory")
+#define CLKPCE 7
+#define CLKPR _SFR_MEM8(0x61)
+#define CLKPS0 0
+#define CLKPS1 1
+#define CLKPS2 2
+#define CLKPS3 3
+#define CMD_T(kc) LCMD_T(kc)
+#define COL2ROW 0
+#define COM0A0 6
+#define COM0A1 7
+#define COM0B0 4
+#define COM0B1 5
+#define COM1A0 6
+#define COM1A1 7
+#define COM1B0 4
+#define COM1B1 5
+#define COM1C0 2
+#define COM1C1 3
+#define COM2A0 6
+#define COM2A1 7
+#define COM2B0 4
+#define COM2B1 5
+#define COM3A0 6
+#define COM3A1 7
+#define COM3B0 4
+#define COM3B1 5
+#define COM3C0 2
+#define COM3C1 3
+#define __CONCATenate(left, right) left##right
+#define __CONCAT(left, right) __CONCATenate(left, right)
+#define CONNECTION_KEYCODE_RANGE QK_OUTPUT_AUTO... QK_BLUETOOTH_PROFILE5
+#define CONSUMER_KEYCODE_RANGE KC_AUDIO_MUTE... KC_LAUNCHPAD
+#define COUNTER0 5
+#define COUNTER1 6
+#define CPHA 2
+#define CPOL 3
+#define CRC16 4
+#define CS00 0
+#define CS01 1
+#define CS02 2
+#define CS10 0
+#define CS11 1
+#define CS12 2
+#define CS20 0
+#define CS21 1
+#define CS22 2
+#define CS30 0
+#define CS31 1
+#define CS32 2
+#define C_S_T(kc) MT(MOD_LCTL | MOD_LSFT, kc)
+#define CTL_T(kc) LCTL_T(kc)
+#define CTRLDIR 2
+#define CURRBK0 0
+#define CURRBK1 1
+#define D0 PINDEF(D, 0)
+#define D1 PINDEF(D, 1)
+#define D2 PINDEF(D, 2)
+#define D3 PINDEF(D, 3)
+#define D4 PINDEF(D, 4)
+#define D5 PINDEF(D, 5)
+#define D6 PINDEF(D, 6)
+#define D7 PINDEF(D, 7)
+#define __DA_FBIT__ 31
+#define __DA_IBIT__ 32
+#define DATAPID 1
+#define DATATGL 0
+#define __DBL_DECIMAL_DIG__ 9
+#define __DBL_DENORM_MIN__ ((double)1.40129846e-45L)
+#define __DBL_DIG__ 6
+#define __DBL_EPSILON__ ((double)1.19209290e-7L)
+#define __DBL_HAS_DENORM__ 1
+#define __DBL_HAS_INFINITY__ 1
+#define __DBL_HAS_QUIET_NAN__ 1
+#define __DBL_MANT_DIG__ 24
+#define __DBL_MAX_10_EXP__ 38
+#define __DBL_MAX__ ((double)3.40282347e+38L)
+#define __DBL_MAX_EXP__ 128
+#define __DBL_MIN_10_EXP__ (-37)
+#define __DBL_MIN__ ((double)1.17549435e-38L)
+#define __DBL_MIN_EXP__ (-125)
+#define DCONNE 0
+#define DCONNI 0
+#define DD0 0
+#define DD1 1
+#define DD2 2
+#define DD3 3
+#define DD4 4
+#define DD5 5
+#define DD6 6
+#define DD7 7
+#define DDA0 0
+#define DDA1 1
+#define DDA2 2
+#define DDA3 3
+#define DDA4 4
+#define DDA5 5
+#define DDA6 6
+#define DDA7 7
+#define DDB0 0
+#define DDB1 1
+#define DDB2 2
+#define DDB3 3
+#define DDB4 4
+#define DDB5 5
+#define DDB6 6
+#define DDB7 7
+#define DDC0 0
+#define DDC1 1
+#define DDC2 2
+#define DDC3 3
+#define DDC4 4
+#define DDC5 5
+#define DDC6 6
+#define DDC7 7
+#define DDD0 0
+#define DDD1 1
+#define DDD2 2
+#define DDD3 3
+#define DDD4 4
+#define DDD5 5
+#define DDD6 6
+#define DDD7 7
+#define DDE0 0
+#define DDE1 1
+#define DDE2 2
+#define DDE3 3
+#define DDE4 4
+#define DDE5 5
+#define DDE6 6
+#define DDE7 7
+#define DDF0 0
+#define DDF1 1
+#define DDF2 2
+#define DDF3 3
+#define DDF4 4
+#define DDF5 5
+#define DDF6 6
+#define DDF7 7
+#define DDISCE 1
+#define DDISCI 1
+#define DDRA _SFR_IO8(0X01)
+#define DDRB _SFR_IO8(0x04)
+#define DDRC _SFR_IO8(0x07)
+#define DDRD _SFR_IO8(0x0A)
+#define DDRE _SFR_IO8(0x0D)
+#define DDRF _SFR_IO8(0x10)
+#define DDRx_ADDRESS(p) _PIN_ADDRESS(p, 1)
+#define DEBOUNCE 5
+#define debug_enable (debug_config.enable)
+#define debug_keyboard (debug_config.keyboard)
+#define debug_matrix (debug_config.matrix)
+#define debug_mouse (debug_config.mouse)
+#define __DEC128_EPSILON__ 1E-33DL
+#define __DEC128_MANT_DIG__ 34
+#define __DEC128_MAX__ 9.999999999999999999999999999999999E6144DL
+#define __DEC128_MAX_EXP__ 6145
+#define __DEC128_MIN__ 1E-6143DL
+#define __DEC128_MIN_EXP__ (-6142)
+#define __DEC128_SUBNORMAL_MIN__ 0.000000000000000000000000000000001E-6143DL
+#define __DEC32_EPSILON__ 1E-6DF
+#define __DEC32_MANT_DIG__ 7
+#define __DEC32_MAX__ 9.999999E96DF
+#define __DEC32_MAX_EXP__ 97
+#define __DEC32_MIN__ 1E-95DF
+#define __DEC32_MIN_EXP__ (-94)
+#define __DEC32_SUBNORMAL_MIN__ 0.000001E-95DF
+#define __DEC64_EPSILON__ 1E-15DD
+#define __DEC64_MANT_DIG__ 16
+#define __DEC64_MAX__ 9.999999999999999E384DD
+#define __DEC64_MAX_EXP__ 385
+#define __DEC64_MIN__ 1E-383DD
+#define __DEC64_MIN_EXP__ (-382)
+#define __DEC64_SUBNORMAL_MIN__ 0.000000000000001E-383DD
+#define __DEC_EVAL_METHOD__ 2
+#define __DECIMAL_DIG__ 9
+#define DETACH 0
+#define DEVICE_VER 0x0100
+#define DF(layer) (QK_DEF_LAYER | ((layer)&0x1F))
+#define DIDR0 _SFR_MEM8(0x7E)
+#define DIDR1 _SFR_MEM8(0x7F)
+#define DIODE_DIRECTION ROW2COL
+#define dmsg(s) dprintf("%s at %d: %s\n", __FILE__, __LINE__, s)
+#define DOR1 3
+#define DORD 5
+#define DPACC 7
+#define dprintf(fmt, ...)                                     \
+    do {                                                      \
+        if (debug_config.enable) xprintf(fmt, ##__VA_ARGS__); \
+    } while (0)
+#define dprintln(s) dprintf(s "\r\n")
+#define dprint(s) dprintf(s)
+#define __DQ_FBIT__ 63
+#define __DQ_IBIT__ 0
+#define DRIVERS MATRIX_ROWS
+#define DTOSTR_ALWAYS_SIGN 0x01
+#define DTOSTR_PLUS_SIGN 0x02
+#define DTOSTR_UPPERCASE 0x04
+#define DTSEQ0 2
+#define DTSEQ1 3
+#define E0 PINDEF(E, 0)
+#define E1 PINDEF(E, 1)
+#define E2END 0xFFF
+#define E2PAGESIZE 8
+#define E2 PINDEF(E, 2)
+#define E3 PINDEF(E, 3)
+#define E4 PINDEF(E, 4)
+#define E5 PINDEF(E, 5)
+#define E6 PINDEF(E, 6)
+#define E7 PINDEF(E, 7)
+#define EEARH _SFR_IO8(0x22)
+#define EEARL _SFR_IO8(0x21)
+#define EEAR _SFR_IO16(0x21)
+#define EECONFIG_AUDIO (uint8_t *)(offsetof(eeprom_core_t, audio))
+#define EECONFIG_BACKLIGHT (uint8_t *)(offsetof(eeprom_core_t, backlight))
+#define EECONFIG_BASE_SIZE ((uint8_t)sizeof(eeprom_core_t))
+#define EECONFIG_DEBOUNCE_HELPER_CHECKED(name, offset, config)          \
+    static uint8_t     dirty_##name = false;                            \
+    bool               eeconfig_check_valid_##name(void);               \
+    void               eeconfig_post_flush_##name(void);                \
+    static inline void eeconfig_init_##name(void) {                     \
+        dirty_##name = true;                                            \
+        if (eeconfig_check_valid_##name()) {                            \
+            eeprom_read_block(&config, offset, sizeof(config));         \
+            dirty_##name = false;                                       \
+        }                                                               \
+    }                                                                   \
+    static inline void eeconfig_flush_##name(bool force) {              \
+        if (force || dirty_##name) {                                    \
+            eeprom_update_block(&config, offset, sizeof(config));       \
+            eeconfig_post_flush_##name();                               \
+            dirty_##name = false;                                       \
+        }                                                               \
+    }                                                                   \
+    static inline void eeconfig_flush_##name##_task(uint16_t timeout) { \
+        static uint16_t flush_timer = 0;                                \
+        if (timer_elapsed(flush_timer) > timeout) {                     \
+            eeconfig_flush_##name(false);                               \
+            flush_timer = timer_read();                                 \
+        }                                                               \
+    }                                                                   \
+    static inline void eeconfig_flag_##name(bool v) {                   \
+        dirty_##name |= v;                                              \
+    }                                                                   \
+    static inline void eeconfig_write_##name(typeof(config) *conf) {    \
+        if (memcmp(&config, conf, sizeof(config)) != 0) {               \
+            memcpy(&config, conf, sizeof(config));                      \
+            eeconfig_flag_##name(true);                                 \
+        }                                                               \
+    }
+#define EECONFIG_DEBOUNCE_HELPER(name, offset, config)     \
+    EECONFIG_DEBOUNCE_HELPER_CHECKED(name, offset, config) \
+    bool eeconfig_check_valid_##name(void) {               \
+        return true;                                       \
+    }                                                      \
+    void eeconfig_post_flush_##name(void) {}
+#define EECONFIG_DEBUG_ENABLE (1 << 0)
+#define EECONFIG_DEBUG_KEYBOARD (1 << 2)
+#define EECONFIG_DEBUG_MATRIX (1 << 1)
+#define EECONFIG_DEBUG_MOUSE (1 << 3)
+#define EECONFIG_DEBUG (uint8_t *)(offsetof(eeprom_core_t, debug))
+#define EECONFIG_DEFAULT_LAYER \
+    (uint8_t *)(offsetof(eeprom_core_t, default_layer))
+#define EECONFIG_HANDEDNESS (uint8_t *)(offsetof(eeprom_core_t, handedness))
+#define EECONFIG_HAPTIC (uint32_t *)(offsetof(eeprom_core_t, haptic))
+#define EECONFIG_KB_DATABLOCK ((uint8_t *)(EECONFIG_BASE_SIZE))
+#define EECONFIG_KB_DATA_SIZE 0
+#define EECONFIG_KB_DATA_VERSION (EECONFIG_KB_DATA_SIZE)
+#define EECONFIG_KEYBOARD (uint32_t *)(offsetof(eeprom_core_t, keyboard))
+#define EECONFIG_KEYMAP_CAPSLOCK_TO_CONTROL (1 << 1)
+#define EECONFIG_KEYMAP_NKRO (1 << 7)
+#define EECONFIG_KEYMAP_NO_GUI (1 << 4)
+#define EECONFIG_KEYMAP_SWAP_BACKSLASH_BACKSPACE (1 << 6)
+#define EECONFIG_KEYMAP_SWAP_CONTROL_CAPSLOCK (1 << 0)
+#define EECONFIG_KEYMAP_SWAP_GRAVE_ESC (1 << 5)
+#define EECONFIG_KEYMAP_SWAP_LALT_LGUI (1 << 2)
+#define EECONFIG_KEYMAP_SWAP_RALT_RGUI (1 << 3)
+#define EECONFIG_KEYMAP (uint16_t *)(offsetof(eeprom_core_t, keymap))
+#define EECONFIG_LED_MATRIX \
+    (uint32_t *)(offsetof(eeprom_core_t, led_matrix))
+#define EECONFIG_MAGIC_NUMBER_OFF (uint16_t)0xFFFF
+#define EECONFIG_MAGIC_NUMBER (uint16_t)0xFEE5
+#define EECONFIG_MAGIC (uint16_t *)(offsetof(eeprom_core_t, magic))
+#define EECONFIG_RGBLIGHT_EXTENDED \
+    (uint8_t *)(offsetof(eeprom_core_t, rgblight_ext))
+#define EECONFIG_RGBLIGHT (uint32_t *)(offsetof(eeprom_core_t, rgblight))
+#define EECONFIG_RGB_MATRIX \
+    (uint64_t *)(offsetof(eeprom_core_t, rgb_matrix))
+#define EECONFIG_SIZE                                 \
+    ((EECONFIG_BASE_SIZE) + (EECONFIG_KB_DATA_SIZE) + \
+     (EECONFIG_USER_DATA_SIZE))
+#define EECONFIG_STENOMODE (uint8_t *)(offsetof(eeprom_core_t, steno))
+#define EECONFIG_UNICODEMODE (uint8_t *)(offsetof(eeprom_core_t, unicode))
+#define EECONFIG_USER_DATABLOCK \
+    ((uint8_t *)((EECONFIG_BASE_SIZE) + (EECONFIG_KB_DATA_SIZE)))
+#define EECONFIG_USER_DATA_SIZE 0
+#define EECONFIG_USER_DATA_VERSION (EECONFIG_USER_DATA_SIZE)
+#define EECONFIG_USER (uint32_t *)(offsetof(eeprom_core_t, user))
+#define EECR _SFR_IO8(0x1F)
+#define EEDR _SFR_IO8(0x20)
+#define __EEGET(var, addr) (var) = eeprom_read_byte((const uint8_t *)(addr))
+#define _EEGET(var, addr) (var) = eeprom_read_byte((const uint8_t *)(addr))
+#define EEMEM __attribute__((section(".eeprom")))
+#define EEMPE 2
+#define EEPE 1
+#define EEPM0 4
+#define EEPM1 5
+#define eeprom_busy_wait() \
+    do {                   \
+    } while (!eeprom_is_ready())
+#define eeprom_is_ready() bit_is_clear(EECR, EEPE)
+#define __EEPROM_REG_LOCATIONS__ 1F2021
+#define eeprom_write_qword(__p, __value)                  \
+    do {                                                  \
+        uint64_t tmp = __value;                           \
+        eeprom_update_block(&tmp, __p, sizeof(uint64_t)); \
+    } while (0)
+#define __EEPUT(addr, val) \
+    eeprom_write_byte((uint8_t *)(addr), (uint8_t)(val))
+#define _EEPUT(addr, val) \
+    eeprom_write_byte((uint8_t *)(addr), (uint8_t)(val))
+#define EERE 0
+#define EE_READY_vect_num 30
+#define EE_READY_vect _VECTOR(30)
+#define EERIE 3
+#define EFUSE_DEFAULT (FUSE_BODLEVEL2 & FUSE_HWBE)
+#define EICRA _SFR_MEM8(0x69)
+#define EICRB _SFR_MEM8(0x6A)
+#define EIFR _SFR_IO8(0x1C)
+#define EIMSK _SFR_IO8(0x1D)
+#define __ELF__ 1
+#define __ELPM(addr) __ELPM_classic__(addr)
+#define __ELPM_classic__(addr)                                         \
+    (__extension__({                                                   \
+        uint32_t __addr32 = (uint32_t)(addr);                          \
+        uint8_t  __result;                                             \
+        __asm__ __volatile__("out %2, %C1"                             \
+                             "\n\t"                                    \
+                             "mov r31, %B1"                            \
+                             "\n\t"                                    \
+                             "mov r30, %A1"                            \
+                             "\n\t"                                    \
+                             "elpm"                                    \
+                             "\n\t"                                    \
+                             "mov %0, r0"                              \
+                             "\n\t"                                    \
+                             : "=r"(__result)                          \
+                             : "r"(__addr32), "I"(_SFR_IO_ADDR(RAMPZ)) \
+                             : "r0", "r30", "r31");                    \
+        __result;                                                      \
+    }))
+#define __ELPM_dword(addr) __ELPM_dword_classic__(addr)
+#define __ELPM_dword_classic__(addr)                                   \
+    (__extension__({                                                   \
+        uint32_t __addr32 = (uint32_t)(addr);                          \
+        uint32_t __result;                                             \
+        __asm__ __volatile__("out %2, %C1"                             \
+                             "\n\t"                                    \
+                             "mov r31, %B1"                            \
+                             "\n\t"                                    \
+                             "mov r30, %A1"                            \
+                             "\n\t"                                    \
+                             "elpm"                                    \
+                             "\n\t"                                    \
+                             "mov %A0, r0"                             \
+                             "\n\t"                                    \
+                             "in r0, %2"                               \
+                             "\n\t"                                    \
+                             "adiw r30, 1"                             \
+                             "\n\t"                                    \
+                             "adc r0, __zero_reg__"                    \
+                             "\n\t"                                    \
+                             "out %2, r0"                              \
+                             "\n\t"                                    \
+                             "elpm"                                    \
+                             "\n\t"                                    \
+                             "mov %B0, r0"                             \
+                             "\n\t"                                    \
+                             "in r0, %2"                               \
+                             "\n\t"                                    \
+                             "adiw r30, 1"                             \
+                             "\n\t"                                    \
+                             "adc r0, __zero_reg__"                    \
+                             "\n\t"                                    \
+                             "out %2, r0"                              \
+                             "\n\t"                                    \
+                             "elpm"                                    \
+                             "\n\t"                                    \
+                             "mov %C0, r0"                             \
+                             "\n\t"                                    \
+                             "in r0, %2"                               \
+                             "\n\t"                                    \
+                             "adiw r30, 1"                             \
+                             "\n\t"                                    \
+                             "adc r0, __zero_reg__"                    \
+                             "\n\t"                                    \
+                             "out %2, r0"                              \
+                             "\n\t"                                    \
+                             "elpm"                                    \
+                             "\n\t"                                    \
+                             "mov %D0, r0"                             \
+                             "\n\t"                                    \
+                             : "=r"(__result)                          \
+                             : "r"(__addr32), "I"(_SFR_IO_ADDR(RAMPZ)) \
+                             : "r0", "r30", "r31");                    \
+        __result;                                                      \
+    }))
+#define __ELPM_dword_enhanced__(addr)                                  \
+    (__extension__({                                                   \
+        uint32_t __addr32 = (uint32_t)(addr);                          \
+        uint32_t __result;                                             \
+        __asm__ __volatile__("out %2, %C1"                             \
+                             "\n\t"                                    \
+                             "movw r30, %1"                            \
+                             "\n\t"                                    \
+                             "elpm %A0, Z+"                            \
+                             "\n\t"                                    \
+                             "elpm %B0, Z+"                            \
+                             "\n\t"                                    \
+                             "elpm %C0, Z+"                            \
+                             "\n\t"                                    \
+                             "elpm %D0, Z"                             \
+                             "\n\t"                                    \
+                             : "=r"(__result)                          \
+                             : "r"(__addr32), "I"(_SFR_IO_ADDR(RAMPZ)) \
+                             : "r30", "r31");                          \
+        __result;                                                      \
+    }))
+#define __ELPM_dword_xmega__(addr)                                     \
+    (__extension__({                                                   \
+        uint32_t __addr32 = (uint32_t)(addr);                          \
+        uint32_t __result;                                             \
+        __asm__ __volatile__("in __tmp_reg__, %2"                      \
+                             "\n\t"                                    \
+                             "out %2, %C1"                             \
+                             "\n\t"                                    \
+                             "movw r30, %1"                            \
+                             "\n\t"                                    \
+                             "elpm %A0, Z+"                            \
+                             "\n\t"                                    \
+                             "elpm %B0, Z+"                            \
+                             "\n\t"                                    \
+                             "elpm %C0, Z+"                            \
+                             "\n\t"                                    \
+                             "elpm %D0, Z"                             \
+                             "\n\t"                                    \
+                             "out %2, __tmp_reg__"                     \
+                             : "=r"(__result)                          \
+                             : "r"(__addr32), "I"(_SFR_IO_ADDR(RAMPZ)) \
+                             : "r30", "r31");                          \
+        __result;                                                      \
+    }))
+#define __ELPM_enhanced__(addr)                                        \
+    (__extension__({                                                   \
+        uint32_t __addr32 = (uint32_t)(addr);                          \
+        uint8_t  __result;                                             \
+        __asm__ __volatile__("out %2, %C1"                             \
+                             "\n\t"                                    \
+                             "movw r30, %1"                            \
+                             "\n\t"                                    \
+                             "elpm %0, Z+"                             \
+                             "\n\t"                                    \
+                             : "=r"(__result)                          \
+                             : "r"(__addr32), "I"(_SFR_IO_ADDR(RAMPZ)) \
+                             : "r30", "r31");                          \
+        __result;                                                      \
+    }))
+#define __ELPM_float(addr) __ELPM_float_classic__(addr)
+#define __ELPM_float_classic__(addr)                                   \
+    (__extension__({                                                   \
+        uint32_t __addr32 = (uint32_t)(addr);                          \
+        float    __result;                                             \
+        __asm__ __volatile__("out %2, %C1"                             \
+                             "\n\t"                                    \
+                             "mov r31, %B1"                            \
+                             "\n\t"                                    \
+                             "mov r30, %A1"                            \
+                             "\n\t"                                    \
+                             "elpm"                                    \
+                             "\n\t"                                    \
+                             "mov %A0, r0"                             \
+                             "\n\t"                                    \
+                             "in r0, %2"                               \
+                             "\n\t"                                    \
+                             "adiw r30, 1"                             \
+                             "\n\t"                                    \
+                             "adc r0, __zero_reg__"                    \
+                             "\n\t"                                    \
+                             "out %2, r0"                              \
+                             "\n\t"                                    \
+                             "elpm"                                    \
+                             "\n\t"                                    \
+                             "mov %B0, r0"                             \
+                             "\n\t"                                    \
+                             "in r0, %2"                               \
+                             "\n\t"                                    \
+                             "adiw r30, 1"                             \
+                             "\n\t"                                    \
+                             "adc r0, __zero_reg__"                    \
+                             "\n\t"                                    \
+                             "out %2, r0"                              \
+                             "\n\t"                                    \
+                             "elpm"                                    \
+                             "\n\t"                                    \
+                             "mov %C0, r0"                             \
+                             "\n\t"                                    \
+                             "in r0, %2"                               \
+                             "\n\t"                                    \
+                             "adiw r30, 1"                             \
+                             "\n\t"                                    \
+                             "adc r0, __zero_reg__"                    \
+                             "\n\t"                                    \
+                             "out %2, r0"                              \
+                             "\n\t"                                    \
+                             "elpm"                                    \
+                             "\n\t"                                    \
+                             "mov %D0, r0"                             \
+                             "\n\t"                                    \
+                             : "=r"(__result)                          \
+                             : "r"(__addr32), "I"(_SFR_IO_ADDR(RAMPZ)) \
+                             : "r0", "r30", "r31");                    \
+        __result;                                                      \
+    }))
+#define __ELPM_float_enhanced__(addr)                                  \
+    (__extension__({                                                   \
+        uint32_t __addr32 = (uint32_t)(addr);                          \
+        float    __result;                                             \
+        __asm__ __volatile__("out %2, %C1"                             \
+                             "\n\t"                                    \
+                             "movw r30, %1"                            \
+                             "\n\t"                                    \
+                             "elpm %A0, Z+"                            \
+                             "\n\t"                                    \
+                             "elpm %B0, Z+"                            \
+                             "\n\t"                                    \
+                             "elpm %C0, Z+"                            \
+                             "\n\t"                                    \
+                             "elpm %D0, Z"                             \
+                             "\n\t"                                    \
+                             : "=r"(__result)                          \
+                             : "r"(__addr32), "I"(_SFR_IO_ADDR(RAMPZ)) \
+                             : "r30", "r31");                          \
+        __result;                                                      \
+    }))
+#define __ELPM_float_xmega__(addr)                                     \
+    (__extension__({                                                   \
+        uint32_t __addr32 = (uint32_t)(addr);                          \
+        float    __result;                                             \
+        __asm__ __volatile__("in __tmp_reg__, %2"                      \
+                             "\n\t"                                    \
+                             "out %2, %C1"                             \
+                             "\n\t"                                    \
+                             "movw r30, %1"                            \
+                             "\n\t"                                    \
+                             "elpm %A0, Z+"                            \
+                             "\n\t"                                    \
+                             "elpm %B0, Z+"                            \
+                             "\n\t"                                    \
+                             "elpm %C0, Z+"                            \
+                             "\n\t"                                    \
+                             "elpm %D0, Z"                             \
+                             "\n\t"                                    \
+                             "out %2, __tmp_reg__"                     \
+                             : "=r"(__result)                          \
+                             : "r"(__addr32), "I"(_SFR_IO_ADDR(RAMPZ)) \
+                             : "r30", "r31");                          \
+        __result;                                                      \
+    }))
+#define __ELPM_word(addr) __ELPM_word_classic__(addr)
+#define __ELPM_word_classic__(addr)                                    \
+    (__extension__({                                                   \
+        uint32_t __addr32 = (uint32_t)(addr);                          \
+        uint16_t __result;                                             \
+        __asm__ __volatile__("out %2, %C1"                             \
+                             "\n\t"                                    \
+                             "mov r31, %B1"                            \
+                             "\n\t"                                    \
+                             "mov r30, %A1"                            \
+                             "\n\t"                                    \
+                             "elpm"                                    \
+                             "\n\t"                                    \
+                             "mov %A0, r0"                             \
+                             "\n\t"                                    \
+                             "in r0, %2"                               \
+                             "\n\t"                                    \
+                             "adiw r30, 1"                             \
+                             "\n\t"                                    \
+                             "adc r0, __zero_reg__"                    \
+                             "\n\t"                                    \
+                             "out %2, r0"                              \
+                             "\n\t"                                    \
+                             "elpm"                                    \
+                             "\n\t"                                    \
+                             "mov %B0, r0"                             \
+                             "\n\t"                                    \
+                             : "=r"(__result)                          \
+                             : "r"(__addr32), "I"(_SFR_IO_ADDR(RAMPZ)) \
+                             : "r0", "r30", "r31");                    \
+        __result;                                                      \
+    }))
+#define __ELPM_word_enhanced__(addr)                                   \
+    (__extension__({                                                   \
+        uint32_t __addr32 = (uint32_t)(addr);                          \
+        uint16_t __result;                                             \
+        __asm__ __volatile__("out %2, %C1"                             \
+                             "\n\t"                                    \
+                             "movw r30, %1"                            \
+                             "\n\t"                                    \
+                             "elpm %A0, Z+"                            \
+                             "\n\t"                                    \
+                             "elpm %B0, Z"                             \
+                             "\n\t"                                    \
+                             : "=r"(__result)                          \
+                             : "r"(__addr32), "I"(_SFR_IO_ADDR(RAMPZ)) \
+                             : "r30", "r31");                          \
+        __result;                                                      \
+    }))
+#define __ELPM_word_xmega__(addr)                                      \
+    (__extension__({                                                   \
+        uint32_t __addr32 = (uint32_t)(addr);                          \
+        uint16_t __result;                                             \
+        __asm__ __volatile__("in __tmp_reg__, %2"                      \
+                             "\n\t"                                    \
+                             "out %2, %C1"                             \
+                             "\n\t"                                    \
+                             "movw r30, %1"                            \
+                             "\n\t"                                    \
+                             "elpm %A0, Z+"                            \
+                             "\n\t"                                    \
+                             "elpm %B0, Z"                             \
+                             "\n\t"                                    \
+                             "out %2, __tmp_reg__"                     \
+                             : "=r"(__result)                          \
+                             : "r"(__addr32), "I"(_SFR_IO_ADDR(RAMPZ)) \
+                             : "r30", "r31");                          \
+        __result;                                                      \
+    }))
+#define __ELPM_xmega__(addr)                                           \
+    (__extension__({                                                   \
+        uint32_t __addr32 = (uint32_t)(addr);                          \
+        uint8_t  __result;                                             \
+        __asm__ __volatile__("in __tmp_reg__, %2"                      \
+                             "\n\t"                                    \
+                             "out %2, %C1"                             \
+                             "\n\t"                                    \
+                             "movw r30, %1"                            \
+                             "\n\t"                                    \
+                             "elpm %0, Z+"                             \
+                             "\n\t"                                    \
+                             "out %2, __tmp_reg__"                     \
+                             : "=r"(__result)                          \
+                             : "r"(__addr32), "I"(_SFR_IO_ADDR(RAMPZ)) \
+                             : "r30", "r31");                          \
+        __result;                                                      \
+    }))
+#define EMPTY_INTERRUPT(vector)                                     \
+    void vector(void) __attribute__((signal, naked, __INTR_ATTRS)); \
+    void vector(void) {                                             \
+        __asm__ __volatile__("reti" ::);                            \
+    }
+#define EOF (-1)
+#define EORSME 5
+#define EORSMI 5
+#define EORSTE 3
+#define EORSTI 3
+#define EPBK0 2
+#define EPBK1 3
+#define EPDIR 0
+#define EPEN 0
+#define EPINT0 0
+#define EPINT1 1
+#define EPINT2 2
+#define EPINT3 3
+#define EPINT4 4
+#define EPINT5 5
+#define EPINT6 6
+#define EPRST0 0
+#define EPRST1 1
+#define EPRST2 2
+#define EPRST3 3
+#define EPRST4 4
+#define EPRST5 5
+#define EPRST6 6
+#define EPSIZE0 4
+#define EPSIZE1 5
+#define EPSIZE2 6
+#define EPTYPE0 6
+#define EPTYPE1 7
+#define EXCLK 6
+#define EXIT_FAILURE 1
+#define EXIT_SUCCESS 0
+#define EXTRF 1
+#define F0 PINDEF(F, 0)
+#define F1 PINDEF(F, 1)
+#define F2 PINDEF(F, 2)
+#define F3 PINDEF(F, 3)
+#define F4 PINDEF(F, 4)
+#define F5 PINDEF(F, 5)
+#define F6 PINDEF(F, 6)
+#define F7 PINDEF(F, 7)
+#define false 0
+#define fdev_close() ((void)0)
+#define _FDEV_EOF (-2)
+#define _FDEV_ERR (-1)
+#define fdev_get_udata(stream) ((stream)->udata)
+#define fdev_set_udata(stream, u) \
+    do {                          \
+        (stream)->udata = u;      \
+    } while (0)
+#define _FDEV_SETUP_READ __SRD
+#define _FDEV_SETUP_RW (__SRD | __SWR)
+#define FDEV_SETUP_STREAM(p, g, f) \
+    { .put = p, .get = g, .flags = f, .udata = 0, }
+#define fdev_setup_stream(stream, p, g, f) \
+    do {                                   \
+        (stream)->put   = p;               \
+        (stream)->get   = g;               \
+        (stream)->flags = f;               \
+        (stream)->udata = 0;               \
+    } while (0)
+#define _FDEV_SETUP_WRITE __SWR
+#define FE1 4
+#define feof(s) ((s)->flags & __SEOF)
+#define ferror(s) ((s)->flags & __SERR)
+#define _FFS(x)                                                        \
+    (1 + (((x)&1) == 0) + (((x)&3) == 0) + (((x)&7) == 0) +            \
+     (((x)&017) == 0) + (((x)&037) == 0) + (((x)&077) == 0) +          \
+     (((x)&0177) == 0) + (((x)&0377) == 0) + (((x)&0777) == 0) +       \
+     (((x)&01777) == 0) + (((x)&03777) == 0) + (((x)&07777) == 0) +    \
+     (((x)&017777) == 0) + (((x)&037777) == 0) + (((x)&077777) == 0) - \
+     (((x)&0177777) == 0) * 16)
+#define FIFOCON 7
+#define __FINITE_MATH_ONLY__ 0
+#define __FLASH 1
+#define FLASHEND 0x1FFFF
+#define FLERRE 7
+#define __FLOAT_WORD_ORDER__ __ORDER_LITTLE_ENDIAN__
+#define __FLT_DECIMAL_DIG__ 9
+#define __FLT_DENORM_MIN__ 1.40129846e-45F
+#define __FLT_DIG__ 6
+#define __FLT_EPSILON__ 1.19209290e-7F
+#define __FLT_EVAL_METHOD__ 0
+#define __FLT_HAS_DENORM__ 1
+#define __FLT_HAS_INFINITY__ 1
+#define __FLT_HAS_QUIET_NAN__ 1
+#define __FLT_MANT_DIG__ 24
+#define __FLT_MAX_10_EXP__ 38
+#define __FLT_MAX__ 3.40282347e+38F
+#define __FLT_MAX_EXP__ 128
+#define __FLT_MIN_10_EXP__ (-37)
+#define __FLT_MIN__ 1.17549435e-38F
+#define __FLT_MIN_EXP__ (-125)
+#define __FLT_RADIX__ 2
+#define FNCERR 4
+#define FOC0A 7
+#define FOC0B 6
+#define FOC1A 7
+#define FOC1B 6
+#define FOC1C 5
+#define FOC2A 7
+#define FOC2B 6
+#define FOC3A 7
+#define FOC3B 6
+#define FOC3C 5
+#define __FRACT_EPSILON__ 0x1P-15R
+#define __FRACT_FBIT__ 15
+#define __FRACT_IBIT__ 0
+#define __FRACT_MAX__ 0X7FFFP-15R
+#define __FRACT_MIN__ (-0.5R - 0.5R)
+#define FRZCLK 5
+#define FUSE_BODLEVEL0 (unsigned char)~_BV(0)
+#define FUSE_BODLEVEL1 (unsigned char)~_BV(1)
+#define FUSE_BODLEVEL2 (unsigned char)~_BV(2)
+#define FUSE_BOOTRST (unsigned char)~_BV(0)
+#define FUSE_BOOTSZ0 (unsigned char)~_BV(1)
+#define FUSE_BOOTSZ1 (unsigned char)~_BV(2)
+#define FUSE_CKDIV8 (unsigned char)~_BV(7)
+#define FUSE_CKOUT (unsigned char)~_BV(6)
+#define FUSE_CKSEL0 (unsigned char)~_BV(0)
+#define FUSE_CKSEL1 (unsigned char)~_BV(1)
+#define FUSE_CKSEL2 (unsigned char)~_BV(2)
+#define FUSE_CKSEL3 (unsigned char)~_BV(3)
+#define FUSE_EESAVE (unsigned char)~_BV(3)
+#define FUSE_HWBE (unsigned char)~_BV(3)
+#define FUSE_JTAGEN (unsigned char)~_BV(6)
+#define FUSEMEM __attribute__((__used__, __section__(".fuse")))
+#define FUSE_MEMORY_SIZE 3
+#define FUSE_OCDEN (unsigned char)~_BV(7)
+#define FUSES __fuse_t __fuse FUSEMEM
+#define FUSE_SPIEN (unsigned char)~_BV(5)
+#define FUSE_SUT0 (unsigned char)~_BV(4)
+#define FUSE_SUT1 (unsigned char)~_BV(5)
+#define FUSE_WDTON (unsigned char)~_BV(4)
+#define __GCC_ATOMIC_BOOL_LOCK_FREE 1
+#define __GCC_ATOMIC_CHAR16_T_LOCK_FREE 1
+#define __GCC_ATOMIC_CHAR32_T_LOCK_FREE 1
+#define __GCC_ATOMIC_CHAR_LOCK_FREE 1
+#define __GCC_ATOMIC_INT_LOCK_FREE 1
+#define __GCC_ATOMIC_LLONG_LOCK_FREE 1
+#define __GCC_ATOMIC_LONG_LOCK_FREE 1
+#define __GCC_ATOMIC_POINTER_LOCK_FREE 1
+#define __GCC_ATOMIC_SHORT_LOCK_FREE 1
+#define __GCC_ATOMIC_TEST_AND_SET_TRUEVAL 1
+#define __GCC_ATOMIC_WCHAR_T_LOCK_FREE 1
+#define __GCC_IEC_559 0
+#define __GCC_IEC_559_COMPLEX 0
+#define _GCC_MAX_ALIGN_T
+#define _GCC_PTRDIFF_T
+#define _GCC_SIZE_T
+#define _GCC_WCHAR_T
+#define _GCC_WRAP_STDINT_H
+#define GENMASK32(h, l)                            \
+    (((~UINT32_C(0)) - (UINT32_C(1) << (l)) + 1) & \
+     (~UINT32_C(0) >> (UINT32_WIDTH - 1 - (h))))
+#define GENMASK64(h, l)                            \
+    (((~UINT64_C(0)) - (UINT64_C(1) << (l)) + 1) & \
+     (~UINT64_C(0) >> (UINT64_WIDTH - 1 - (h))))
+#define getchar() fgetc(stdin)
+#define getc(__stream) fgetc(__stream)
+#define get_highest_layer(state) biton16(state)
+#define GET_QUICK_TAP_TERM(keycode, record) (QUICK_TAP_TERM)
+#define GET_TAPPING_TERM(keycode, record) (TAPPING_TERM)
+#define G(kc) LGUI(kc)
+#define __GNUC__ 5
+#define __GNUC_MINOR__ 4
+#define __GNUC_PATCHLEVEL__ 0
+#define __GNUC_STDC_INLINE__ 1
+#define __GNUC_VA_LIST
+#define GPIOR0 _SFR_IO8(0x1E)
+#define GPIOR1 _SFR_IO8(0x2A)
+#define GPIOR2 _SFR_IO8(0x2B)
+#define gpio_read_pin(pin) ((bool)(PINx_ADDRESS(pin) & _BV((pin)&0xF)))
+#define gpio_set_pin_input_high(pin)       \
+    (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF), \
+     PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
+#define gpio_set_pin_input_low(pin) \
+    _Static_assert(                 \
+        0, "GPIO pulldowns in input mode are not available on AVR")
+#define gpio_set_pin_input(pin)            \
+    (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF), \
+     PORTx_ADDRESS(pin) &= ~_BV((pin)&0xF))
+#define gpio_set_pin_output_open_drain(pin) \
+    _Static_assert(0, "Open-drain outputs are not available on AVR")
+#define gpio_set_pin_output(pin) gpio_set_pin_output_push_pull(pin)
+#define gpio_set_pin_output_push_pull(pin) \
+    (DDRx_ADDRESS(pin) |= _BV((pin)&0xF))
+#define gpio_toggle_pin(pin) (PORTx_ADDRESS(pin) ^= _BV((pin)&0xF))
+#define gpio_write_pin_high(pin) (PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
+#define gpio_write_pin_low(pin) (PORTx_ADDRESS(pin) &= ~_BV((pin)&0xF))
+#define gpio_write_pin(pin, level) \
+    ((level) ? gpio_write_pin_high(pin) : gpio_write_pin_low(pin))
+#define GTCCR _SFR_IO8(0x23)
+#define GUI_T(kc) LGUI_T(kc)
+#define __GXX_ABI_VERSION 1009
+#define __HA_FBIT__ 7
+#define __HA_IBIT__ 8
+#define __has_include_next(STR) __has_include_next__(STR)
+#define __has_include(STR) __has_include__(STR)
+#define _HAVE_AVR_STACK_POINTER_HI 1
+#define HFUSE_DEFAULT \
+    (FUSE_BOOTSZ0 & FUSE_BOOTSZ1 & FUSE_SPIEN & FUSE_JTAGEN)
+#define HNPERRE 4
+#define HNPERRI 4
+#define HNPREQ 5
+#define HOST 6
+#define __HQ_FBIT__ 15
+#define __HQ_IBIT__ 0
+#define HSOFE 5
+#define HSOFI 5
+#define HWUPE 6
+#define HWUPI 6
+#define HYPR(kc) (QK_LCTL | QK_LSFT | QK_LALT | QK_LGUI | (kc))
+#define HYPR_T(kc) MT(MOD_LCTL | MOD_LSFT | MOD_LALT | MOD_LGUI, kc)
+#define ICES1 6
+#define ICES3 6
+#define ICF1 5
+#define ICF3 5
+#define ICIE1 5
+#define ICIE3 5
+#define ICNC1 7
+#define ICNC3 7
+#define ICR1H _SFR_MEM8(0x87)
+#define ICR1L _SFR_MEM8(0x86)
+#define ICR1 _SFR_MEM16(0x86)
+#define ICR3H _SFR_MEM8(0x97)
+#define ICR3L _SFR_MEM8(0x96)
+#define ICR3 _SFR_MEM16(0x96)
+#define ID 1
+#define IDRD 7
+#define IDTE 1
+#define IDTI 1
+#define IGNORE_FORMAT_WARNING(func)                                \
+    do {                                                           \
+        _Pragma("GCC diagnostic push");                            \
+        _Pragma("GCC diagnostic ignored \"-Wformat\"");            \
+        _Pragma("GCC diagnostic ignored \"-Wformat-extra-args\""); \
+        func;                                                      \
+        _Pragma("GCC diagnostic pop");                             \
+    } while (0)
+#define INMODE 5
+#define INT0 0
+#define INT0_vect_num 1
+#define INT0_vect _VECTOR(1)
+#define INT1 1
+#define __INT16_C(c) c
+#define INT16_C(c) __INT16_C(c)
+#define __INT16_MAX__ 0x7fff
+#define INT16_MAX 0x7fff
+#define INT16_MIN (-INT16_MAX - 1)
+#define __INT16_TYPE__ int
+#define INT1_vect_num 2
+#define INT1_vect _VECTOR(2)
+#define INT2 2
+#define __INT24_MAX__ 8388607L
+#define __INT24_MIN__ (-__INT24_MAX__ - 1)
+#define INT2_vect_num 3
+#define INT2_vect _VECTOR(3)
+#define __INT32_C(c) c##L
+#define INT32_C(c) __INT32_C(c)
+#define __INT32_MAX__ 0x7fffffffL
+#define INT32_MAX 0x7fffffffL
+#define INT32_MIN (-INT32_MAX - 1L)
+#define __INT32_TYPE__ long int
+#define INT3 3
+#define INT3_vect_num 4
+#define INT3_vect _VECTOR(4)
+#define INT4 4
+#define INT4_vect_num 5
+#define INT4_vect _VECTOR(5)
+#define INT5 5
+#define INT5_vect_num 6
+#define INT5_vect _VECTOR(6)
+#define __INT64_C(c) c##LL
+#define INT64_C(c) __INT64_C(c)
+#define __INT64_MAX__ 0x7fffffffffffffffLL
+#define INT64_MAX 0x7fffffffffffffffLL
+#define INT64_MIN (-INT64_MAX - 1LL)
+#define __INT64_TYPE__ long long int
+#define INT6 6
+#define INT6_vect_num 7
+#define INT6_vect _VECTOR(7)
+#define INT7 7
+#define INT7_vect_num 8
+#define INT7_vect _VECTOR(8)
+#define __INT8_C(c) c
+#define INT8_C(c) __INT8_C(c)
+#define __INT8_MAX__ 0x7f
+#define INT8_MAX 0x7f
+#define INT8_MIN (-INT8_MAX - 1)
+#define __INT8_TYPE__ signed char
+#define INTERNAL_KEYCODE_RANGE KC_NO... KC_TRANSPARENT
+#define INTF0 0
+#define INTF1 1
+#define INTF2 2
+#define INTF3 3
+#define INTF4 4
+#define INTF5 5
+#define INTF6 6
+#define INTF7 7
+#define __INT_FAST16_MAX__ 0x7fff
+#define INT_FAST16_MAX INT16_MAX
+#define INT_FAST16_MIN INT16_MIN
+#define __INT_FAST16_TYPE__ int
+#define __INT_FAST32_MAX__ 0x7fffffffL
+#define INT_FAST32_MAX INT32_MAX
+#define INT_FAST32_MIN INT32_MIN
+#define __INT_FAST32_TYPE__ long int
+#define __INT_FAST64_MAX__ 0x7fffffffffffffffLL
+#define INT_FAST64_MAX INT64_MAX
+#define INT_FAST64_MIN INT64_MIN
+#define __INT_FAST64_TYPE__ long long int
+#define __INT_FAST8_MAX__ 0x7f
+#define INT_FAST8_MAX INT8_MAX
+#define INT_FAST8_MIN INT8_MIN
+#define __INT_FAST8_TYPE__ signed char
+#define __INT_LEAST16_MAX__ 0x7fff
+#define INT_LEAST16_MAX INT16_MAX
+#define INT_LEAST16_MIN INT16_MIN
+#define __INT_LEAST16_TYPE__ int
+#define __INT_LEAST32_MAX__ 0x7fffffffL
+#define INT_LEAST32_MAX INT32_MAX
+#define INT_LEAST32_MIN INT32_MIN
+#define __INT_LEAST32_TYPE__ long int
+#define __INT_LEAST64_MAX__ 0x7fffffffffffffffLL
+#define INT_LEAST64_MAX INT64_MAX
+#define INT_LEAST64_MIN INT64_MIN
+#define __INT_LEAST64_TYPE__ long long int
+#define __INT_LEAST8_MAX__ 0x7f
+#define INT_LEAST8_MAX INT8_MAX
+#define INT_LEAST8_MIN INT8_MIN
+#define __INT_LEAST8_TYPE__ signed char
+#define __INT_MAX__ 0x7fff
+#define __INTMAX_C(c) c##LL
+#define INTMAX_C(c) __INTMAX_C(c)
+#define __INTMAX_MAX__ 0x7fffffffffffffffLL
+#define INTMAX_MAX INT64_MAX
+#define INTMAX_MIN INT64_MIN
+#define __INTMAX_TYPE__ long long int
+#define ___int_ptrdiff_t_h
+#define __INTPTR_MAX__ 0x7fff
+#define INTPTR_MAX INT16_MAX
+#define INTPTR_MIN INT16_MIN
+#define __INTPTR_TYPE__ int
+#define __INTR_ATTRS used, externally_visible
+#define ___int_size_t_h
+#define __INTTYPES_H_
+#define ___int_wchar_t_h
+#define __INT_WCHAR_T_H
+#define _IONBF 0
+#define IS_ANY(code) (KC_A <= (code) && (code) <= 0xFF)
+#define IS_ARRAY(value) \
+    (!__builtin_types_compatible_p(typeof((value)), typeof(&(value)[0])))
+#define IS_AUDIO_KEYCODE(code) \
+    ((code) >= QK_AUDIO_ON && (code) <= QK_AUDIO_VOICE_PREVIOUS)
+#define IS_BACKLIGHT_KEYCODE(code) \
+    ((code) >= QK_BACKLIGHT_ON && (code) <= QK_BACKLIGHT_TOGGLE_BREATHING)
+#define IS_BASIC_KEYCODE(code) ((code) >= KC_A && (code) <= KC_EXSEL)
+#define ISC00 0
+#define ISC01 1
+#define ISC10 2
+#define ISC11 3
+#define ISC20 4
+#define ISC21 5
+#define ISC30 6
+#define ISC31 7
+#define ISC40 0
+#define ISC41 1
+#define ISC50 2
+#define ISC51 3
+#define ISC60 4
+#define ISC61 5
+#define ISC70 6
+#define ISC71 7
+#define IS_CONNECTION_KEYCODE(code) \
+    ((code) >= QK_OUTPUT_AUTO && (code) <= QK_BLUETOOTH_PROFILE5)
+#define IS_CONSUMER_KEYCODE(code) \
+    ((code) >= KC_AUDIO_MUTE && (code) <= KC_LAUNCHPAD)
+#define IS_INTERNAL_KEYCODE(code) \
+    ((code) >= KC_NO && (code) <= KC_TRANSPARENT)
+#define IS_JOYSTICK_KEYCODE(code) \
+    ((code) >= QK_JOYSTICK_BUTTON_0 && (code) <= QK_JOYSTICK_BUTTON_31)
+#define IS_KB_KEYCODE(code) ((code) >= QK_KB_0 && (code) <= QK_KB_31)
+#define IS_LAYER_OFF(layer) !layer_state_is(layer)
+#define IS_LAYER_OFF_STATE(state, layer) !layer_state_cmp(state, layer)
+#define IS_LAYER_ON(layer) layer_state_is(layer)
+#define IS_LAYER_ON_STATE(state, layer) layer_state_cmp(state, layer)
+#define IS_LED_MATRIX_KEYCODE(code) \
+    ((code) >= QK_LED_MATRIX_ON && (code) <= QK_LED_MATRIX_SPEED_DOWN)
+#define IS_MACRO_KEYCODE(code) \
+    ((code) >= QK_MACRO_0 && (code) <= QK_MACRO_31)
+#define IS_MAGIC_KEYCODE(code)                    \
+    ((code) >= QK_MAGIC_SWAP_CONTROL_CAPS_LOCK && \
+     (code) <= QK_MAGIC_TOGGLE_ESCAPE_CAPS_LOCK)
+#define IS_MIDI_KEYCODE(code) \
+    ((code) >= QK_MIDI_ON && (code) <= QK_MIDI_PITCH_BEND_UP)
+#define IS_MODIFIER_KEYCODE(code) \
+    ((code) >= KC_LEFT_CTRL && (code) <= KC_RIGHT_GUI)
+#define IS_MOUSEKEY_ACCEL(code) \
+    (QK_MOUSE_ACCELERATION_0 <= (code) && (code) <= QK_MOUSE_ACCELERATION_2)
+#define IS_MOUSEKEY_BUTTON(code) \
+    (QK_MOUSE_BUTTON_1 <= (code) && (code) <= QK_MOUSE_BUTTON_8)
+#define IS_MOUSE_KEYCODE(code) \
+    ((code) >= QK_MOUSE_CURSOR_UP && (code) <= QK_MOUSE_ACCELERATION_2)
+#define IS_MOUSEKEY(code) IS_MOUSE_KEYCODE(code)
+#define IS_MOUSEKEY_MOVE(code) \
+    (QK_MOUSE_CURSOR_UP <= (code) && (code) <= QK_MOUSE_CURSOR_RIGHT)
+#define IS_MOUSEKEY_WHEEL(code) \
+    (QK_MOUSE_WHEEL_UP <= (code) && (code) <= QK_MOUSE_WHEEL_RIGHT)
+#define IS_PROGRAMMABLE_BUTTON_KEYCODE(code) \
+    ((code) >= QK_PROGRAMMABLE_BUTTON_1 &&   \
+     (code) <= QK_PROGRAMMABLE_BUTTON_32)
+#define IS_QK_AUDIO(code) ((code) >= QK_AUDIO && (code) <= QK_AUDIO_MAX)
+#define IS_QK_BASIC(code) ((code) >= QK_BASIC && (code) <= QK_BASIC_MAX)
+#define IS_QK_CONNECTION(code) \
+    ((code) >= QK_CONNECTION && (code) <= QK_CONNECTION_MAX)
+#define IS_QK_DEF_LAYER(code) \
+    ((code) >= QK_DEF_LAYER && (code) <= QK_DEF_LAYER_MAX)
+#define IS_QK_JOYSTICK(code) \
+    ((code) >= QK_JOYSTICK && (code) <= QK_JOYSTICK_MAX)
+#define IS_QK_KB(code) ((code) >= QK_KB && (code) <= QK_KB_MAX)
+#define IS_QK_LAYER_MOD(code) \
+    ((code) >= QK_LAYER_MOD && (code) <= QK_LAYER_MOD_MAX)
+#define IS_QK_LAYER_TAP(code) \
+    ((code) >= QK_LAYER_TAP && (code) <= QK_LAYER_TAP_MAX)
+#define IS_QK_LAYER_TAP_TOGGLE(code) \
+    ((code) >= QK_LAYER_TAP_TOGGLE && (code) <= QK_LAYER_TAP_TOGGLE_MAX)
+#define IS_QK_LIGHTING(code) \
+    ((code) >= QK_LIGHTING && (code) <= QK_LIGHTING_MAX)
+#define IS_QK_MACRO(code) ((code) >= QK_MACRO && (code) <= QK_MACRO_MAX)
+#define IS_QK_MAGIC(code) ((code) >= QK_MAGIC && (code) <= QK_MAGIC_MAX)
+#define IS_QK_MIDI(code) ((code) >= QK_MIDI && (code) <= QK_MIDI_MAX)
+#define IS_QK_MODS(code) ((code) >= QK_MODS && (code) <= QK_MODS_MAX)
+#define IS_QK_MOD_TAP(code) \
+    ((code) >= QK_MOD_TAP && (code) <= QK_MOD_TAP_MAX)
+#define IS_QK_MOMENTARY(code) \
+    ((code) >= QK_MOMENTARY && (code) <= QK_MOMENTARY_MAX)
+#define IS_QK_ONE_SHOT_LAYER(code) \
+    ((code) >= QK_ONE_SHOT_LAYER && (code) <= QK_ONE_SHOT_LAYER_MAX)
+#define IS_QK_ONE_SHOT_MOD(code) \
+    ((code) >= QK_ONE_SHOT_MOD && (code) <= QK_ONE_SHOT_MOD_MAX)
+#define IS_QK_PERSISTENT_DEF_LAYER(code)  \
+    ((code) >= QK_PERSISTENT_DEF_LAYER && \
+     (code) <= QK_PERSISTENT_DEF_LAYER_MAX)
+#define IS_QK_PROGRAMMABLE_BUTTON(code)  \
+    ((code) >= QK_PROGRAMMABLE_BUTTON && \
+     (code) <= QK_PROGRAMMABLE_BUTTON_MAX)
+#define IS_QK_QUANTUM(code) \
+    ((code) >= QK_QUANTUM && (code) <= QK_QUANTUM_MAX)
+#define IS_QK_SEQUENCER(code) \
+    ((code) >= QK_SEQUENCER && (code) <= QK_SEQUENCER_MAX)
+#define IS_QK_STENO(code) ((code) >= QK_STENO && (code) <= QK_STENO_MAX)
+#define IS_QK_SWAP_HANDS(code) \
+    ((code) >= QK_SWAP_HANDS && (code) <= QK_SWAP_HANDS_MAX)
+#define IS_QK_TAP_DANCE(code) \
+    ((code) >= QK_TAP_DANCE && (code) <= QK_TAP_DANCE_MAX)
+#define IS_QK_TO(code) ((code) >= QK_TO && (code) <= QK_TO_MAX)
+#define IS_QK_TOGGLE_LAYER(code) \
+    ((code) >= QK_TOGGLE_LAYER && (code) <= QK_TOGGLE_LAYER_MAX)
+#define IS_QK_UNICODE(code) \
+    ((code) >= QK_UNICODE && (code) <= QK_UNICODE_MAX)
+#define IS_QK_UNICODEMAP(code) \
+    ((code) >= QK_UNICODEMAP && (code) <= QK_UNICODEMAP_MAX)
+#define IS_QK_UNICODEMAP_PAIR(code) \
+    ((code) >= QK_UNICODEMAP_PAIR && (code) <= QK_UNICODEMAP_PAIR_MAX)
+#define IS_QK_USER(code) ((code) >= QK_USER && (code) <= QK_USER_MAX)
+#define IS_QUANTUM_KEYCODE(code) \
+    ((code) >= QK_BOOTLOADER && (code) <= QK_LAYER_LOCK)
+#define ISR_ALIASOF(v) __attribute__((alias(__STRINGIFY(v))))
+#define ISR_ALIAS(vector, tgt)                                      \
+    void vector(void) __attribute__((signal, naked, __INTR_ATTRS)); \
+    void vector(void) {                                             \
+        asm volatile("rjmp " __STRINGIFY(tgt)::);                   \
+    }
+#define ISR_BLOCK
+#define IS_RGB_KEYCODE(code) \
+    ((code) >= RGB_MODE_PLAIN && (code) <= RGB_MODE_TWINKLE)
+#define IS_RGB_MATRIX_KEYCODE(code) \
+    ((code) >= QK_RGB_MATRIX_ON && (code) <= QK_RGB_MATRIX_SPEED_DOWN)
+#define ISR_NAKED __attribute__((naked))
+#define ISR_NOBLOCK __attribute__((interrupt))
+#define ISR(vector, ...)                                                 \
+    void vector(void) __attribute__((signal, __INTR_ATTRS)) __VA_ARGS__; \
+    void vector(void)
+#define IS_SEQUENCER_KEYCODE(code) \
+    ((code) >= QK_SEQUENCER_ON && (code) <= QK_SEQUENCER_STEPS_CLEAR)
+#define IS_STENO_KEYCODE(code) \
+    ((code) >= QK_STENO_BOLT && (code) <= QK_STENO_COMB_MAX)
+#define IS_SWAP_HANDS_KEYCODE(code) \
+    ((code) >= QK_SWAP_HANDS_TOGGLE && (code) <= QK_SWAP_HANDS_ONE_SHOT)
+#define IS_SYSTEM_KEYCODE(code) \
+    ((code) >= KC_SYSTEM_POWER && (code) <= KC_SYSTEM_WAKE)
+#define IS_UNDERGLOW_KEYCODE(code) \
+    ((code) >= QK_UNDERGLOW_TOGGLE && (code) <= QK_UNDERGLOW_SPEED_DOWN)
+#define IS_USER_KEYCODE(code) ((code) >= QK_USER_0 && (code) <= QK_USER_31)
+#define IS_VALID_REPORT_ID(id) \
+    ((id) >= REPORT_ID_ALL && (id) <= REPORT_ID_COUNT)
+#define IVCE 0
+#define IVSEL 1
+#define JOYSTICK_KEYCODE_RANGE QK_JOYSTICK_BUTTON_0... QK_JOYSTICK_BUTTON_31
+#define JTD 7
+#define JTRF 4
+#define KB_KEYCODE_RANGE QK_KB_0... QK_KB_31
+#define KC_ACL0 QK_MOUSE_ACCELERATION_0
+#define KC_ACL1 QK_MOUSE_ACCELERATION_1
+#define KC_ACL2 QK_MOUSE_ACCELERATION_2
+#define KC_AMPERSAND KC_AMPR
+#define KC_AMPR S(KC_7)
+#define KC_ASTERISK KC_ASTR
+#define KC_ASTR S(KC_8)
+#define KC_AT S(KC_2)
+#define KC_BTN1 QK_MOUSE_BUTTON_1
+#define KC_BTN2 QK_MOUSE_BUTTON_2
+#define KC_BTN3 QK_MOUSE_BUTTON_3
+#define KC_BTN4 QK_MOUSE_BUTTON_4
+#define KC_BTN5 QK_MOUSE_BUTTON_5
+#define KC_BTN6 QK_MOUSE_BUTTON_6
+#define KC_BTN7 QK_MOUSE_BUTTON_7
+#define KC_BTN8 QK_MOUSE_BUTTON_8
+#define KC_CIRC S(KC_6)
+#define KC_CIRCUMFLEX KC_CIRC
+#define KC_COLN S(KC_SEMICOLON)
+#define KC_COLON KC_COLN
+#define KC_DLR S(KC_4)
+#define KC_DOLLAR KC_DLR
+#define KC_DOUBLE_QUOTE KC_DQUO
+#define KC_DQT KC_DQUO
+#define KC_DQUO S(KC_QUOTE)
+#define KC_EXCLAIM KC_EXLM
+#define KC_EXLM S(KC_1)
+#define KC_GT KC_RABK
+#define KC_HASH S(KC_3)
+#define KC_HYPR HYPR(KC_NO)
+#define KC_LABK S(KC_COMMA)
+#define KC_LCBR S(KC_LEFT_BRACKET)
+#define KC_LEFT_ANGLE_BRACKET KC_LABK
+#define KC_LEFT_CURLY_BRACE KC_LCBR
+#define KC_LEFT_PAREN KC_LPRN
+#define KC_LPRN S(KC_9)
+#define KC_LT KC_LABK
+#define KC_MEH MEH(KC_NO)
+#define KC_MS_ACCEL0 QK_MOUSE_ACCELERATION_0
+#define KC_MS_ACCEL1 QK_MOUSE_ACCELERATION_1
+#define KC_MS_ACCEL2 QK_MOUSE_ACCELERATION_2
+#define KC_MS_BTN1 QK_MOUSE_BUTTON_1
+#define KC_MS_BTN2 QK_MOUSE_BUTTON_2
+#define KC_MS_BTN3 QK_MOUSE_BUTTON_3
+#define KC_MS_BTN4 QK_MOUSE_BUTTON_4
+#define KC_MS_BTN5 QK_MOUSE_BUTTON_5
+#define KC_MS_BTN6 QK_MOUSE_BUTTON_6
+#define KC_MS_BTN7 QK_MOUSE_BUTTON_7
+#define KC_MS_BTN8 QK_MOUSE_BUTTON_8
+#define KC_MS_DOWN QK_MOUSE_CURSOR_DOWN
+#define KC_MS_D QK_MOUSE_CURSOR_DOWN
+#define KC_MS_LEFT QK_MOUSE_CURSOR_LEFT
+#define KC_MS_L QK_MOUSE_CURSOR_LEFT
+#define KC_MS_RIGHT QK_MOUSE_CURSOR_RIGHT
+#define KC_MS_R QK_MOUSE_CURSOR_RIGHT
+#define KC_MS_UP QK_MOUSE_CURSOR_UP
+#define KC_MS_U QK_MOUSE_CURSOR_UP
+#define KC_MS_WH_DOWN QK_MOUSE_WHEEL_DOWN
+#define KC_MS_WH_LEFT QK_MOUSE_WHEEL_LEFT
+#define KC_MS_WH_RIGHT QK_MOUSE_WHEEL_RIGHT
+#define KC_MS_WH_UP QK_MOUSE_WHEEL_UP
+#define KC_PERCENT KC_PERC
+#define KC_PERC S(KC_5)
+#define KC_PIPE S(KC_BACKSLASH)
+#define KC_PLUS S(KC_EQUAL)
+#define KC_QUES S(KC_SLASH)
+#define KC_QUESTION KC_QUES
+#define KC_RABK S(KC_DOT)
+#define KC_RCBR S(KC_RIGHT_BRACKET)
+#define KC_RIGHT_ANGLE_BRACKET KC_RABK
+#define KC_RIGHT_CURLY_BRACE KC_RCBR
+#define KC_RIGHT_PAREN KC_RPRN
+#define KC_RPRN S(KC_0)
+#define KC_TILDE KC_TILD
+#define KC_TILD S(KC_GRAVE)
+#define KC_UNDERSCORE KC_UNDS
+#define KC_UNDS S(KC_MINUS)
+#define KC_WH_D QK_MOUSE_WHEEL_DOWN
+#define KC_WH_L QK_MOUSE_WHEEL_LEFT
+#define KC_WH_R QK_MOUSE_WHEEL_RIGHT
+#define KC_WH_U QK_MOUSE_WHEEL_UP
+#define KEYBOARD_REPORT_KEYS 6
+#define KEYBOARD_REPORT_SIZE 8
+#define KEYEQ(keya, keyb) \
+    ((keya).row == (keyb).row && (keya).col == (keyb).col)
+#define KEYLOC_DIP_SWITCH_OFF 250
+#define KEYLOC_DIP_SWITCH_ON 251
+#define KEYLOC_ENCODER_CCW 252
+#define KEYLOC_ENCODER_CW 253
+#define KM_DFT 0
+#define labs(__i) __builtin_labs(__i)
+#define __LACCUM_EPSILON__ 0x1P-31LK
+#define __LACCUM_FBIT__ 31
+#define __LACCUM_IBIT__ 32
+#define __LACCUM_MAX__ 0X7FFFFFFFFFFFFFFFP-31LK
+#define __LACCUM_MIN__ (-0X1P31LK - 0X1P31LK)
+#define LAG(kc) (QK_LALT | QK_LGUI | (kc))
+#define LAG_T(kc) MT(MOD_LALT | MOD_LGUI, kc)
+#define LALT(kc) (QK_LALT | (kc))
+#define LALT_T(kc) MT(MOD_LALT, kc)
+#define LAYER_STATE_16BIT
+#define LAYOUT_extended(                                                  \
+    k0A, k1A, k2A, k3A, k4A, k5A, k6A, k7A, k8A, k9A, kAA, kFA, kEA, kDA, \
+    kCA, kBA, kBF, kEF, kBH, kFF, kAF, k7F, k6F, kCF, k9F, k1F, k0F, k4F, \
+    k3F, k2F, k5F, kGB, k0B, k1B, k2B, k3B, k4B, k5B, k6B, k7B, k8B, k9B, \
+    kAB, kFB, kEB, kDB, kCB, k9H, kDF, kEH, kEG, k9G, kBG, kCG, kDC, kGC, \
+    k0C, k1C, k2C, k3C, k4C, k5C, k6C, k7C, k8C, k9C, kAC, kFC, kEC, kCC, \
+    k8H, k8F, kBC, k8G, kDG, kFG, k7G, kED, kGD, k0D, k1D, k2D, k3D, k4D, \
+    k5D, k6D, k7D, k8D, k9D, kAD, kFD, kFE, kDD, kCD, k7H, kFH, k6G, kAG, \
+    k2G, k0G, kGE, k0E, k1E, k2E, k3E, k4E, k5E, k6E, k7E, k8E, k9E, kAE, \
+    kGH, kEE, kDE, kAH, k5G, k4G, k3G, k1G, kBD, kCE, kGA, kGF, kGG, k6H, \
+    k5H, k4H, k3H, kBE, kBB)                                              \
+    {                                                                     \
+        {k0A, k0B, k0C, k0D, k0E, k0F, k0G, KC_NO},                       \
+            {k1A, k1B, k1C, k1D, k1E, k1F, k1G, KC_NO},                   \
+            {k2A, k2B, k2C, k2D, k2E, k2F, k2G, KC_NO},                   \
+            {k3A, k3B, k3C, k3D, k3E, k3F, k3G, k3H},                     \
+            {k4A, k4B, k4C, k4D, k4E, k4F, k4G, k4H},                     \
+            {k5A, k5B, k5C, k5D, k5E, k5F, k5G, k5H},                     \
+            {k6A, k6B, k6C, k6D, k6E, k6F, k6G, k6H},                     \
+            {k7A, k7B, k7C, k7D, k7E, k7F, k7G, k7H},                     \
+            {k8A, k8B, k8C, k8D, k8E, k8F, k8G, k8H},                     \
+            {k9A, k9B, k9C, k9D, k9E, k9F, k9G, k9H},                     \
+            {kAA, kAB, kAC, kAD, kAE, kAF, kAG, kAH},                     \
+            {kBA, kBB, kBC, kBD, kBE, kBF, kBG, kBH},                     \
+            {kCA, kCB, kCC, kCD, kCE, kCF, kCG, KC_NO},                   \
+            {kDA, kDB, kDC, kDD, kDE, kDF, kDG, KC_NO},                   \
+            {kEA, kEB, kEC, kED, kEE, kEF, kEG, kEH},                     \
+            {kFA, kFB, kFC, kFD, kFE, kFF, kFG, kFH}, {                   \
+            kGA, kGB, kGC, kGD, kGE, kGF, kGG, kGH                        \
+        }                                                                 \
+    }
+#define LAYOUT_full(                                                      \
+    k0A, k1A, k2A, k3A, k4A, k5A, k6A, k7A, k8A, k9A, kAA, kFA, kEA, kDA, \
+    kCA, kBA, kBF, kEF, kFF, kAF, k7F, k6F, kCF, k9F, k1F, k4F, k3F, k2F, \
+    k5F, kGB, k0B, k1B, k2B, k3B, k4B, k5B, k6B, k7B, k8B, k9B, kAB, kFB, \
+    kEB, kDB, kCB, k9H, kDF, kEG, k9G, kBG, kCG, kDC, kGC, k0C, k1C, k2C, \
+    k3C, k4C, k5C, k6C, k7C, k8C, k9C, kAC, kFC, kEC, kCC, k8H, k8F, k8G, \
+    kDG, kFG, k7G, kED, kGD, k0D, k1D, k2D, k3D, k4D, k5D, k6D, k7D, k8D, \
+    k9D, kAD, kFD, kFE, kDD, kCD, k7H, k6G, kAG, k2G, k0G, kGE, k0E, k1E, \
+    k2E, k3E, k4E, k5E, k6E, k7E, k8E, k9E, kAE, kGH, kEE, kDE, kAH, k4G, \
+    k3G, k1G, kBD, kCE, kGF, kGG, k6H, k5H, k4H, kBE, kBB)                \
+    {                                                                     \
+        {k0A, k0B, k0C, k0D, k0E, KC_NO, k0G, KC_NO},                     \
+            {k1A, k1B, k1C, k1D, k1E, k1F, k1G, KC_NO},                   \
+            {k2A, k2B, k2C, k2D, k2E, k2F, k2G, KC_NO},                   \
+            {k3A, k3B, k3C, k3D, k3E, k3F, k3G, KC_NO},                   \
+            {k4A, k4B, k4C, k4D, k4E, k4F, k4G, k4H},                     \
+            {k5A, k5B, k5C, k5D, k5E, k5F, KC_NO, k5H},                   \
+            {k6A, k6B, k6C, k6D, k6E, k6F, k6G, k6H},                     \
+            {k7A, k7B, k7C, k7D, k7E, k7F, k7G, k7H},                     \
+            {k8A, k8B, k8C, k8D, k8E, k8F, k8G, k8H},                     \
+            {k9A, k9B, k9C, k9D, k9E, k9F, k9G, k9H},                     \
+            {kAA, kAB, kAC, kAD, kAE, kAF, kAG, kAH},                     \
+            {kBA, kBB, KC_NO, kBD, kBE, kBF, kBG, KC_NO},                 \
+            {kCA, kCB, kCC, kCD, kCE, kCF, kCG, KC_NO},                   \
+            {kDA, kDB, kDC, kDD, kDE, kDF, kDG, KC_NO},                   \
+            {kEA, kEB, kEC, kED, kEE, kEF, kEG, KC_NO},                   \
+            {kFA, kFB, kFC, kFD, kFE, kFF, kFG, KC_NO}, {                 \
+            KC_NO, kGB, kGC, kGD, kGE, kGF, kGG, kGH                      \
+        }                                                                 \
+    }
+#define LAYOUT_tdv2215(                                                   \
+    k0A, k1A, k2A, k3A, k4A, k5A, k6A, k7A, k8A, k9A, kAA, kFA, kEA, kDA, \
+    kCA, kBA, kEF, kAF, k7F, k6F, k2F, k5F, kGB, k0B, k1B, k2B, k3B, k4B, \
+    k5B, k6B, k7B, k8B, k9B, kAB, kFB, kEB, kGC, k0C, k1C, k2C, k3C, k4C, \
+    k5C, k6C, k7C, k8C, k9C, kAC, kFC, kEC, k8H, k8G, kDG, kFG, k7G, kGD, \
+    k0D, k1D, k2D, k3D, k4D, k5D, k6D, k7D, k8D, k9D, kAD, kFD, kFE, kDD, \
+    kCD, k7H, k6G, kAG, k2G, k0G, kGE, k0E, k1E, k2E, k3E, k4E, k5E, k6E, \
+    k7E, k8E, k9E, kAE, kGH, kEE, kDE, kAH, k4G, k3G, k1G, kBD, kCE, kGF, \
+    kGG, k6H, k5H, k4H, kBE, kBB)                                         \
+    {                                                                     \
+        {k0A, k0B, k0C, k0D, k0E, KC_NO, k0G, KC_NO},                     \
+            {k1A, k1B, k1C, k1D, k1E, KC_NO, k1G, KC_NO},                 \
+            {k2A, k2B, k2C, k2D, k2E, k2F, k2G, KC_NO},                   \
+            {k3A, k3B, k3C, k3D, k3E, KC_NO, k3G, KC_NO},                 \
+            {k4A, k4B, k4C, k4D, k4E, KC_NO, k4G, k4H},                   \
+            {k5A, k5B, k5C, k5D, k5E, k5F, KC_NO, k5H},                   \
+            {k6A, k6B, k6C, k6D, k6E, k6F, k6G, k6H},                     \
+            {k7A, k7B, k7C, k7D, k7E, k7F, k7G, k7H},                     \
+            {k8A, k8B, k8C, k8D, k8E, KC_NO, k8G, k8H},                   \
+            {k9A, k9B, k9C, k9D, k9E, KC_NO, KC_NO, KC_NO},               \
+            {kAA, kAB, kAC, kAD, kAE, kAF, kAG, kAH},                     \
+            {kBA, kBB, KC_NO, kBD, kBE, KC_NO, KC_NO, KC_NO},             \
+            {kCA, KC_NO, KC_NO, kCD, kCE, KC_NO, KC_NO, KC_NO},           \
+            {kDA, KC_NO, KC_NO, kDD, kDE, KC_NO, kDG, KC_NO},             \
+            {kEA, kEB, kEC, KC_NO, kEE, kEF, KC_NO, KC_NO},               \
+            {kFA, kFB, kFC, kFD, kFE, KC_NO, kFG, KC_NO}, {               \
+            KC_NO, kGB, kGC, kGD, kGE, kGF, kGG, kGH                      \
+        }                                                                 \
+    }
+#define LB_MODE_1 (0xFF)
+#define LB_MODE_2 (0xFE)
+#define LB_MODE_3 (0xFC)
+#define LCAG(kc) (QK_LCTL | QK_LALT | QK_LGUI | (kc))
+#define LCAG_T(kc) MT(MOD_LCTL | MOD_LALT | MOD_LGUI, kc)
+#define LCA(kc) (QK_LCTL | QK_LALT | (kc))
+#define LCA_T(kc) MT(MOD_LCTL | MOD_LALT, kc)
+#define LCMD(kc) LGUI(kc)
+#define LCMD_T(kc) LGUI_T(kc)
+#define LCTL(kc) (QK_LCTL | (kc))
+#define LCTL_T(kc) MT(MOD_LCTL, kc)
+#define __LDBL_DENORM_MIN__ 1.40129846e-45L
+#define __LDBL_DIG__ 6
+#define __LDBL_EPSILON__ 1.19209290e-7L
+#define __LDBL_HAS_DENORM__ 1
+#define __LDBL_HAS_INFINITY__ 1
+#define __LDBL_HAS_QUIET_NAN__ 1
+#define __LDBL_MANT_DIG__ 24
+#define __LDBL_MAX_10_EXP__ 38
+#define __LDBL_MAX__ 3.40282347e+38L
+#define __LDBL_MAX_EXP__ 128
+#define __LDBL_MIN_10_EXP__ (-37)
+#define __LDBL_MIN__ 1.17549435e-38L
+#define __LDBL_MIN_EXP__ (-125)
+#define LED_MATRIX_KEYCODE_RANGE \
+    QK_LED_MATRIX_ON... QK_LED_MATRIX_SPEED_DOWN
+#define __LFRACT_EPSILON__ 0x1P-31LR
+#define __LFRACT_FBIT__ 31
+#define __LFRACT_IBIT__ 0
+#define __LFRACT_MAX__ 0X7FFFFFFFP-31LR
+#define __LFRACT_MIN__ (-0.5LR - 0.5LR)
+#define LFUSE_DEFAULT \
+    (FUSE_CKSEL0 & FUSE_CKSEL2 & FUSE_CKSEL3 & FUSE_SUT0 & FUSE_CKDIV8)
+#define LGUI(kc) (QK_LGUI | (kc))
+#define LGUI_T(kc) MT(MOD_LGUI, kc)
+#define __LLACCUM_EPSILON__ 0x1P-47LLK
+#define __LLACCUM_FBIT__ 47
+#define __LLACCUM_IBIT__ 16
+#define __LLACCUM_MAX__ 0X7FFFFFFFFFFFFFFFP-47LLK
+#define __LLACCUM_MIN__ (-0X1P15LLK - 0X1P15LLK)
+#define __LLFRACT_EPSILON__ 0x1P-63LLR
+#define __LLFRACT_FBIT__ 63
+#define __LLFRACT_IBIT__ 0
+#define __LLFRACT_MAX__ 0X7FFFFFFFFFFFFFFFP-63LLR
+#define __LLFRACT_MIN__ (-0.5LLR - 0.5LLR)
+#define LM(layer, mod) (QK_LAYER_MOD | (((layer)&0xF) << 5) | ((mod)&0x1F))
+#define LOCKBITS_DEFAULT (0xFF)
+#define __LOCK_BITS_EXIST
+#define LOCKBITS unsigned char __lock LOCKMEM
+#define LOCKMEM __attribute__((__used__, __section__(".lock")))
+#define __LONG_LONG_MAX__ 0x7fffffffffffffffLL
+#define __LONG_MAX__ 0x7fffffffL
+#define loop_until_bit_is_clear(sfr, bit) \
+    do {                                  \
+    } while (bit_is_set(sfr, bit))
+#define loop_until_bit_is_set(sfr, bit) \
+    do {                                \
+    } while (bit_is_clear(sfr, bit))
+#define LOPT(kc) LALT(kc)
+#define LOPT_T(kc) LALT_T(kc)
+#define __LPM(addr) __LPM_classic__(addr)
+#define __LPM_classic__(addr)                 \
+    (__extension__({                          \
+        uint16_t __addr16 = (uint16_t)(addr); \
+        uint8_t  __result;                    \
+        __asm__ __volatile__("lpm"            \
+                             "\n\t"           \
+                             "mov %0, r0"     \
+                             "\n\t"           \
+                             : "=r"(__result) \
+                             : "z"(__addr16)  \
+                             : "r0");         \
+        __result;                             \
+    }))
+#define __LPM_dword(addr) __LPM_dword_classic__(addr)
+#define __LPM_dword_classic__(addr)                           \
+    (__extension__({                                          \
+        uint16_t __addr16 = (uint16_t)(addr);                 \
+        uint32_t __result;                                    \
+        __asm__ __volatile__("lpm"                            \
+                             "\n\t"                           \
+                             "mov %A0, r0"                    \
+                             "\n\t"                           \
+                             "adiw r30, 1"                    \
+                             "\n\t"                           \
+                             "lpm"                            \
+                             "\n\t"                           \
+                             "mov %B0, r0"                    \
+                             "\n\t"                           \
+                             "adiw r30, 1"                    \
+                             "\n\t"                           \
+                             "lpm"                            \
+                             "\n\t"                           \
+                             "mov %C0, r0"                    \
+                             "\n\t"                           \
+                             "adiw r30, 1"                    \
+                             "\n\t"                           \
+                             "lpm"                            \
+                             "\n\t"                           \
+                             "mov %D0, r0"                    \
+                             "\n\t"                           \
+                             : "=r"(__result), "=z"(__addr16) \
+                             : "1"(__addr16)                  \
+                             : "r0");                         \
+        __result;                                             \
+    }))
+#define __LPM_dword_enhanced__(addr)                          \
+    (__extension__({                                          \
+        uint16_t __addr16 = (uint16_t)(addr);                 \
+        uint32_t __result;                                    \
+        __asm__ __volatile__("lpm %A0, Z+"                    \
+                             "\n\t"                           \
+                             "lpm %B0, Z+"                    \
+                             "\n\t"                           \
+                             "lpm %C0, Z+"                    \
+                             "\n\t"                           \
+                             "lpm %D0, Z"                     \
+                             "\n\t"                           \
+                             : "=r"(__result), "=z"(__addr16) \
+                             : "1"(__addr16));                \
+        __result;                                             \
+    }))
+#define __LPM_dword_tiny__(addr)                             \
+    (__extension__({                                         \
+        uint16_t __addr16 =                                  \
+            (uint16_t)(addr) + __AVR_TINY_PM_BASE_ADDRESS__; \
+        uint32_t __result;                                   \
+        __asm__("ld %A0, z+"                                 \
+                "\n\t"                                       \
+                "ld %B0, z+"                                 \
+                "\n\t"                                       \
+                "ld %C0, z+"                                 \
+                "\n\t"                                       \
+                "ld %D0, z"                                  \
+                "\n\t"                                       \
+                : "=r"(__result), "=z"(__addr16)             \
+                : "1"(__addr16));                            \
+        __result;                                            \
+    }))
+#define __LPM_enhanced__(addr)                 \
+    (__extension__({                           \
+        uint16_t __addr16 = (uint16_t)(addr);  \
+        uint8_t  __result;                     \
+        __asm__ __volatile__("lpm %0, Z"       \
+                             "\n\t"            \
+                             : "=r"(__result)  \
+                             : "z"(__addr16)); \
+        __result;                              \
+    }))
+#define __LPM_float(addr) __LPM_float_classic__(addr)
+#define __LPM_float_classic__(addr)                           \
+    (__extension__({                                          \
+        uint16_t __addr16 = (uint16_t)(addr);                 \
+        float    __result;                                    \
+        __asm__ __volatile__("lpm"                            \
+                             "\n\t"                           \
+                             "mov %A0, r0"                    \
+                             "\n\t"                           \
+                             "adiw r30, 1"                    \
+                             "\n\t"                           \
+                             "lpm"                            \
+                             "\n\t"                           \
+                             "mov %B0, r0"                    \
+                             "\n\t"                           \
+                             "adiw r30, 1"                    \
+                             "\n\t"                           \
+                             "lpm"                            \
+                             "\n\t"                           \
+                             "mov %C0, r0"                    \
+                             "\n\t"                           \
+                             "adiw r30, 1"                    \
+                             "\n\t"                           \
+                             "lpm"                            \
+                             "\n\t"                           \
+                             "mov %D0, r0"                    \
+                             "\n\t"                           \
+                             : "=r"(__result), "=z"(__addr16) \
+                             : "1"(__addr16)                  \
+                             : "r0");                         \
+        __result;                                             \
+    }))
+#define __LPM_float_enhanced__(addr)                          \
+    (__extension__({                                          \
+        uint16_t __addr16 = (uint16_t)(addr);                 \
+        float    __result;                                    \
+        __asm__ __volatile__("lpm %A0, Z+"                    \
+                             "\n\t"                           \
+                             "lpm %B0, Z+"                    \
+                             "\n\t"                           \
+                             "lpm %C0, Z+"                    \
+                             "\n\t"                           \
+                             "lpm %D0, Z"                     \
+                             "\n\t"                           \
+                             : "=r"(__result), "=z"(__addr16) \
+                             : "1"(__addr16));                \
+        __result;                                             \
+    }))
+#define __LPM_float_tiny__(addr)                             \
+    (__extension__({                                         \
+        uint16_t __addr16 =                                  \
+            (uint16_t)(addr) + __AVR_TINY_PM_BASE_ADDRESS__; \
+        float __result;                                      \
+        __asm__("ld %A0, z+"                                 \
+                "\n\t"                                       \
+                "ld %B0, z+"                                 \
+                "\n\t"                                       \
+                "ld %C0, z+"                                 \
+                "\n\t"                                       \
+                "ld %D0, z"                                  \
+                "\n\t"                                       \
+                : "=r"(__result), "=z"(__addr16)             \
+                : "1"(__addr16));                            \
+        __result;                                            \
+    }))
+#define __LPM_tiny__(addr)                                   \
+    (__extension__({                                         \
+        uint16_t __addr16 =                                  \
+            (uint16_t)(addr) + __AVR_TINY_PM_BASE_ADDRESS__; \
+        uint8_t __result;                                    \
+        __asm__("ld %0, z"                                   \
+                "\n\t"                                       \
+                : "=r"(__result)                             \
+                : "z"(__addr16));                            \
+        __result;                                            \
+    }))
+#define __LPM_word(addr) __LPM_word_classic__(addr)
+#define __LPM_word_classic__(addr)                            \
+    (__extension__({                                          \
+        uint16_t __addr16 = (uint16_t)(addr);                 \
+        uint16_t __result;                                    \
+        __asm__ __volatile__("lpm"                            \
+                             "\n\t"                           \
+                             "mov %A0, r0"                    \
+                             "\n\t"                           \
+                             "adiw r30, 1"                    \
+                             "\n\t"                           \
+                             "lpm"                            \
+                             "\n\t"                           \
+                             "mov %B0, r0"                    \
+                             "\n\t"                           \
+                             : "=r"(__result), "=z"(__addr16) \
+                             : "1"(__addr16)                  \
+                             : "r0");                         \
+        __result;                                             \
+    }))
+#define __LPM_word_enhanced__(addr)                           \
+    (__extension__({                                          \
+        uint16_t __addr16 = (uint16_t)(addr);                 \
+        uint16_t __result;                                    \
+        __asm__ __volatile__("lpm %A0, Z+"                    \
+                             "\n\t"                           \
+                             "lpm %B0, Z"                     \
+                             "\n\t"                           \
+                             : "=r"(__result), "=z"(__addr16) \
+                             : "1"(__addr16));                \
+        __result;                                             \
+    }))
+#define __LPM_word_tiny__(addr)                              \
+    (__extension__({                                         \
+        uint16_t __addr16 =                                  \
+            (uint16_t)(addr) + __AVR_TINY_PM_BASE_ADDRESS__; \
+        uint16_t __result;                                   \
+        __asm__("ld %A0, z+"                                 \
+                "\n\t"                                       \
+                "ld %B0, z"                                  \
+                "\n\t"                                       \
+                : "=r"(__result), "=z"(__addr16)             \
+                : "1"(__addr16));                            \
+        __result;                                            \
+    }))
+#define LSA(kc) (QK_LSFT | QK_LALT | (kc))
+#define LSA_T(kc) MT(MOD_LSFT | MOD_LALT, kc)
+#define LSFT(kc) (QK_LSFT | (kc))
+#define LSFT_T(kc) MT(MOD_LSFT, kc)
+#define LSG(kc) (QK_LSFT | QK_LGUI | (kc))
+#define LSG_T(kc) MT(MOD_LSFT | MOD_LGUI, kc)
+#define LSM 2
+#define LT(layer, kc) (QK_LAYER_TAP | (((layer)&0xF) << 8) | ((kc)&0xFF))
+#define LWIN(kc) LGUI(kc)
+#define LWIN_T(kc) LGUI_T(kc)
+#define MACRO_KEYCODE_RANGE QK_MACRO_0... QK_MACRO_31
+#define MAGIC_KEYCODE_RANGE \
+    QK_MAGIC_SWAP_CONTROL_CAPS_LOCK... QK_MAGIC_TOGGLE_ESCAPE_CAPS_LOCK
+#define MAKE_COMBOEVENT(press) MAKE_EVENT(0, 0, (press), COMBO_EVENT)
+#define MAKE_EVENT(row_num, col_num, press, event_type)         \
+    ((keyevent_t){.key     = MAKE_KEYPOS((row_num), (col_num)), \
+                  .pressed = (press),                           \
+                  .time    = timer_read(),                      \
+                  .type    = (event_type)})
+#define MAKE_KEYEVENT(row_num, col_num, press) \
+    MAKE_EVENT((row_num), (col_num), (press), KEY_EVENT)
+#define MAKE_KEYPOS(row_num, col_num) \
+    ((keypos_t){.row = (row_num), .col = (col_num)})
+#define MAKE_TICK_EVENT MAKE_EVENT(0, 0, false, TICK_EVENT)
+#define MANUFACTURER "Tandberg Data"
+#define MATRIX_COLS 8
+#define MATRIX_IO_DELAY 30
+#define MATRIX_ROWS 17
+#define MATRIX_ROW_SHIFTER ((matrix_row_t)1)
+#define MAX_LAYER 16
+#define MAX_LAYER_BITS 4
+#define MAX(x, y) (((x) > (y)) ? (x) : (y))
+#define MCUCR _SFR_IO8(0x35)
+#define MCUSR _SFR_IO8(0x34)
+#define MEH(kc) (QK_LCTL | QK_LSFT | QK_LALT | (kc))
+#define MEH_T(kc) MT(MOD_LCTL | MOD_LSFT | MOD_LALT, kc)
+#define __MEMX 1
+#define MIDI_CHANNEL_MAX QK_MIDI_CHANNEL_16
+#define MIDI_CHANNEL_MIN QK_MIDI_CHANNEL_1
+#define MIDI_KEYCODE_RANGE QK_MIDI_ON... QK_MIDI_PITCH_BEND_UP
+#define MIDI_OCTAVE_MAX QK_MIDI_OCTAVE_7
+#define MIDI_OCTAVE_MIN QK_MIDI_OCTAVE_N2
+#define MIDI_TONE_MAX QK_MIDI_NOTE_B_5
+#define MIDI_TONE_MIN QK_MIDI_NOTE_C_0
+#define MIDI_TRANSPOSE_MAX QK_MIDI_TRANSPOSE_6
+#define MIDI_TRANSPOSE_MIN QK_MIDI_TRANSPOSE_N6
+#define MIDI_VELOCITY_MAX QK_MIDI_VELOCITY_10
+#define MIDI_VELOCITY_MIN QK_MIDI_VELOCITY_0
+#define MIN(x, y) (((x) < (y)) ? (x) : (y))
+#define _MMIO_BYTE(mem_addr) (*(volatile uint8_t *)(mem_addr))
+#define _MMIO_DWORD(mem_addr) (*(volatile uint32_t *)(mem_addr))
+#define _MMIO_WORD(mem_addr) (*(volatile uint16_t *)(mem_addr))
+#define MOD_BIT(code) (1 << ((code)&0x07))
+#define MOD_HYPR (MOD_LCTL | MOD_LSFT | MOD_LALT | MOD_LGUI)
+#define MODIFIER_KEYCODE_RANGE KC_LEFT_CTRL... KC_RIGHT_GUI
+#define MOD_MASK_AG (MOD_MASK_ALT | MOD_MASK_GUI)
+#define MOD_MASK_ALT (MOD_BIT_LALT | MOD_BIT_RALT)
+#define MOD_MASK_CAG (MOD_MASK_CTRL | MOD_MASK_ALT | MOD_MASK_GUI)
+#define MOD_MASK_CA (MOD_MASK_CTRL | MOD_MASK_ALT)
+#define MOD_MASK_CG (MOD_MASK_CTRL | MOD_MASK_GUI)
+#define MOD_MASK_CSAG \
+    (MOD_MASK_CTRL | MOD_MASK_SHIFT | MOD_MASK_ALT | MOD_MASK_GUI)
+#define MOD_MASK_CSA (MOD_MASK_CTRL | MOD_MASK_SHIFT | MOD_MASK_ALT)
+#define MOD_MASK_CSG (MOD_MASK_CTRL | MOD_MASK_SHIFT | MOD_MASK_GUI)
+#define MOD_MASK_CS (MOD_MASK_CTRL | MOD_MASK_SHIFT)
+#define MOD_MASK_CTRL (MOD_BIT_LCTRL | MOD_BIT_RCTRL)
+#define MOD_MASK_GUI (MOD_BIT_LGUI | MOD_BIT_RGUI)
+#define MOD_MASK_SAG (MOD_MASK_SHIFT | MOD_MASK_ALT | MOD_MASK_GUI)
+#define MOD_MASK_SA (MOD_MASK_SHIFT | MOD_MASK_ALT)
+#define MOD_MASK_SG (MOD_MASK_SHIFT | MOD_MASK_GUI)
+#define MOD_MASK_SHIFT (MOD_BIT_LSHIFT | MOD_BIT_RSHIFT)
+#define MOD_MEH (MOD_LCTL | MOD_LSFT | MOD_LALT)
+#define MODS_TO_NEUTRALIZE \
+    { MOD_BIT(KC_LEFT_ALT), MOD_BIT(KC_LEFT_GUI) }
+#define MO(layer) (QK_MOMENTARY | ((layer)&0x1F))
+#define MONDR _SFR_IO8(0x31)
+#define MOUSE_BTN_MASK(n) (1 << (n))
+#define MOUSE_KEYCODE_RANGE QK_MOUSE_CURSOR_UP... QK_MOUSE_ACCELERATION_2
+#define MPCM1 0
+#define MSTR 4
+#define MT(mod, kc) (QK_MOD_TAP | (((mod)&0x1F) << 8) | ((kc)&0xFF))
+#define MUX0 0
+#define MUX1 1
+#define MUX2 2
+#define MUX3 3
+#define MUX4 4
+#define NAKEDE 6
+#define NAKEDI 6
+#define NAKINE 6
+#define NAKINI 6
+#define NAKOUTE 4
+#define NAKOUTI 4
+#define NBUSYBK0 0
+#define NBUSYBK1 1
+#define NKRO_REPORT_BITS 30
+#define __NO_INLINE__ 1
+#define NONATOMIC_BLOCK(type) \
+    for (type, __ToDo = __iSeiRetVal(); __ToDo; __ToDo = 0)
+#define NONATOMIC_FORCEOFF \
+    uint8_t sreg_save __attribute__((__cleanup__(__iCliParam))) = 0
+#define NONATOMIC_RESTORESTATE \
+    uint8_t sreg_save __attribute__((__cleanup__(__iRestore))) = SREG
+#define NO_PIN (pin_t)(~0)
+#define NULL ((void *)0)
+#define OCDR0 0
+#define OCDR1 1
+#define OCDR2 2
+#define OCDR3 3
+#define OCDR4 4
+#define OCDR5 5
+#define OCDR6 6
+#define OCDR7 7
+#define OCDR _SFR_IO8(0x31)
+#define OCF0A 1
+#define OCF0B 2
+#define OCF1A 1
+#define OCF1B 2
+#define OCF1C 3
+#define OCF2A 1
+#define OCF2B 2
+#define OCF3A 1
+#define OCF3B 2
+#define OCF3C 3
+#define OCIE0A 1
+#define OCIE0B 2
+#define OCIE1A 1
+#define OCIE1B 2
+#define OCIE1C 3
+#define OCIE2A 1
+#define OCIE2B 2
+#define OCIE3A 1
+#define OCIE3B 2
+#define OCIE3C 3
+#define OCR0A _SFR_IO8(0x27)
+#define OCR0B _SFR_IO8(0X28)
+#define OCR1AH _SFR_MEM8(0x89)
+#define OCR1AL _SFR_MEM8(0x88)
+#define OCR1A _SFR_MEM16(0x88)
+#define OCR1BH _SFR_MEM8(0x8B)
+#define OCR1BL _SFR_MEM8(0x8A)
+#define OCR1B _SFR_MEM16(0x8A)
+#define OCR1CH _SFR_MEM8(0x8D)
+#define OCR1CL _SFR_MEM8(0x8C)
+#define OCR1C _SFR_MEM16(0x8C)
+#define OCR2A _SFR_MEM8(0xB3)
+#define OCR2AUB 3
+#define OCR2B _SFR_MEM8(0xB4)
+#define OCR2BUB 2
+#define OCR3AH _SFR_MEM8(0x99)
+#define OCR3AL _SFR_MEM8(0x98)
+#define OCR3A _SFR_MEM16(0x98)
+#define OCR3BH _SFR_MEM8(0x9B)
+#define OCR3BL _SFR_MEM8(0x9A)
+#define OCR3B _SFR_MEM16(0x9A)
+#define OCR3CH _SFR_MEM8(0x9D)
+#define OCR3CL _SFR_MEM8(0x9C)
+#define OCR3C _SFR_MEM16(0x9C)
+#define offsetof(TYPE, MEMBER) __builtin_offsetof(TYPE, MEMBER)
+#define OPMODE2 5
+#define OPT_T(kc) LOPT_T(kc)
+#define __ORDER_BIG_ENDIAN__ 4321
+#define __ORDER_LITTLE_ENDIAN__ 1234
+#define __ORDER_PDP_ENDIAN__ 3412
+#define OSCCAL _SFR_MEM8(0x66)
+#define OSL(layer) (QK_ONE_SHOT_LAYER | ((layer)&0x1F))
+#define OSM(mod) (QK_ONE_SHOT_MOD | ((mod)&0x1F))
+#define OTGCON _SFR_MEM8(0XDD)
+#define OTGIEN _SFR_MEM8(0XDE)
+#define OTGINT _SFR_MEM8(0XDF)
+#define OTGPADE 4
+#define OTGTCON _SFR_MEM8(0XF9)
+#define OVERFI 6
+#define PA0 0
+#define PA1 1
+#define PA2 2
+#define PA3 3
+#define PA4 4
+#define PA5 5
+#define PA6 6
+#define PA7 7
+#define PACKED __attribute__((__packed__))
+#define PAGE0 5
+#define PAGE1 6
+#define PB0 0
+#define PB1 1
+#define PB2 2
+#define PB3 3
+#define PB4 4
+#define PB5 5
+#define PB6 6
+#define PB7 7
+#define PBK0 2
+#define PBK1 3
+#define PC0 0
+#define PC1 1
+#define PC2 2
+#define PC3 3
+#define PC4 4
+#define PC5 5
+#define PC6 6
+#define PC7 7
+#define PCICR _SFR_MEM8(0x68)
+#define PCIE0 0
+#define PCIF0 0
+#define PCIFR _SFR_IO8(0x1B)
+#define PCINT0 0
+#define PCINT0_vect_num 9
+#define PCINT0_vect _VECTOR(9)
+#define PCINT1 1
+#define PCINT2 2
+#define PCINT3 3
+#define PCINT4 4
+#define PCINT5 5
+#define PCINT6 6
+#define PCINT7 7
+#define PCMSK0 _SFR_MEM8(0x6B)
+#define PD0 0
+#define PD1 1
+#define PD2 2
+#define PD3 3
+#define PD4 4
+#define PD5 5
+#define PD6 6
+#define PD7 7
+#define PDF(layer) (QK_PERSISTENT_DEF_LAYER | ((layer)&0x1F))
+#define PE0 0
+#define PE1 1
+#define PE2 2
+#define PE3 3
+#define PE4 4
+#define PE5 5
+#define PE6 6
+#define PE7 7
+#define PEN 0
+#define PEPNUM0 0
+#define PEPNUM1 1
+#define PEPNUM2 2
+#define PEPNUM3 3
+#define PERRE 4
+#define PERRI 4
+#define PF0 0
+#define PF1 1
+#define PF2 2
+#define PF3 3
+#define PF4 4
+#define PF5 5
+#define PF6 6
+#define PF7 7
+#define PFREEZE 6
+#define PGERS 1
+#define pgm_get_far_address(var)                \
+    ({                                          \
+        uint_farptr_t tmp;                      \
+        __asm__ __volatile__("ldi	%A0, lo8(%1)" \
+                             "\n\t"             \
+                             "ldi	%B0, hi8(%1)" \
+                             "\n\t"             \
+                             "ldi	%C0, hh8(%1)" \
+                             "\n\t"             \
+                             "clr	%D0"          \
+                             "\n\t"             \
+                             : "=d"(tmp)        \
+                             : "p"(&(var)));    \
+        tmp;                                    \
+    })
+#define PGM_P const char *
+#define pgm_read_byte(address_short) pgm_read_byte_near(address_short)
+#define pgm_read_byte_far(address_long) __ELPM((uint32_t)(address_long))
+#define pgm_read_byte_near(address_short) __LPM((uint16_t)(address_short))
+#define pgm_read_dword(address_short) pgm_read_dword_near(address_short)
+#define pgm_read_dword_far(address_long) \
+    __ELPM_dword((uint32_t)(address_long))
+#define pgm_read_dword_near(address_short) \
+    __LPM_dword((uint16_t)(address_short))
+#define pgm_read_float(address_short) pgm_read_float_near(address_short)
+#define pgm_read_float_far(address_long) \
+    __ELPM_float((uint32_t)(address_long))
+#define pgm_read_float_near(address_short) \
+    __LPM_float((uint16_t)(address_short))
+#define pgm_read_ptr(address_short) pgm_read_ptr_near(address_short)
+#define pgm_read_ptr_far(address_long) \
+    (void *)__ELPM_word((uint32_t)(address_long))
+#define pgm_read_ptr_near(address_short) \
+    (void *)__LPM_word((uint16_t)(address_short))
+#define pgm_read_word(address_short) pgm_read_word_near(address_short)
+#define pgm_read_word_far(address_long) \
+    __ELPM_word((uint32_t)(address_long))
+#define pgm_read_word_near(address_short) \
+    __LPM_word((uint16_t)(address_short))
+#define __PGMSPACE_H_ 1
+#define PGM_VOID_P const void *
+#define PGWRT 2
+#define PID 2
+#define PIN0 0
+#define PIN1 1
+#define PIN2 2
+#define PIN3 3
+#define PIN4 4
+#define PIN5 5
+#define PIN6 6
+#define PIN7 7
+#define PINA0 0
+#define PINA1 1
+#define PINA2 2
+#define PINA3 3
+#define PINA4 4
+#define PINA5 5
+#define PINA6 6
+#define PINA7 7
+#define PINA_ADDRESS 0x0
+#define _PIN_ADDRESS(p, offset) \
+    _SFR_IO8(ADDRESS_BASE + ((p) >> PORT_SHIFTER) + (offset))
+#define PINA _SFR_IO8(0X00)
+#define PINB0 0
+#define PINB1 1
+#define PINB2 2
+#define PINB3 3
+#define PINB4 4
+#define PINB5 5
+#define PINB6 6
+#define PINB7 7
+#define PINB_ADDRESS 0x3
+#define PINB _SFR_IO8(0X03)
+#define PINC0 0
+#define PINC1 1
+#define PINC2 2
+#define PINC3 3
+#define PINC4 4
+#define PINC5 5
+#define PINC6 6
+#define PINC7 7
+#define PINC_ADDRESS 0x6
+#define PINC _SFR_IO8(0x06)
+#define PIND0 0
+#define PIND1 1
+#define PIND2 2
+#define PIND3 3
+#define PIND4 4
+#define PIND5 5
+#define PIND6 6
+#define PIND7 7
+#define PIND_ADDRESS 0x9
+#define PINDEF(port, pin) ((PIN##port##_ADDRESS << PORT_SHIFTER) | pin)
+#define PIND _SFR_IO8(0x09)
+#define PINE0 0
+#define PINE1 1
+#define PINE2 2
+#define PINE3 3
+#define PINE4 4
+#define PINE5 5
+#define PINE6 6
+#define PINE7 7
+#define PINE_ADDRESS 0xC
+#define PINE _SFR_IO8(0x0C)
+#define PINF0 0
+#define PINF1 1
+#define PINF2 2
+#define PINF3 3
+#define PINF4 4
+#define PINF5 5
+#define PINF6 6
+#define PINF7 7
+#define PINF_ADDRESS 0xF
+#define PINF _SFR_IO8(0x0F)
+#define PINT0 0
+#define PINT1 1
+#define PINT2 2
+#define PINT3 3
+#define PINT4 4
+#define PINT5 5
+#define PINT6 6
+#define PINx_ADDRESS(p) _PIN_ADDRESS(p, 0)
+#define PLLCSR _SFR_IO8(0x29)
+#define PLLE 1
+#define PLLP0 2
+#define PLLP1 3
+#define PLLP2 4
+#define PLOCK 0
+#define PORF 0
+#define PORT0 0
+#define PORT1 1
+#define PORT2 2
+#define PORT3 3
+#define PORT4 4
+#define PORT5 5
+#define PORT6 6
+#define PORT7 7
+#define PORTA0 PA0
+#define PORTA1 PA1
+#define PORTA2 PA2
+#define PORTA3 PA3
+#define PORTA4 PA4
+#define PORTA5 PA5
+#define PORTA6 PA6
+#define PORTA7 PA7
+#define PORTA _SFR_IO8(0X02)
+#define PORTB0 PB0
+#define PORTB1 PB1
+#define PORTB2 PB2
+#define PORTB3 PB3
+#define PORTB4 PB4
+#define PORTB5 PB5
+#define PORTB6 PB6
+#define PORTB7 PB7
+#define PORTB _SFR_IO8(0x05)
+#define PORTC0 PC0
+#define PORTC1 PC1
+#define PORTC2 PC2
+#define PORTC3 PC3
+#define PORTC4 PC4
+#define PORTC5 PC5
+#define PORTC6 PC6
+#define PORTC7 PC7
+#define PORTC _SFR_IO8(0x08)
+#define PORTD0 PD0
+#define PORTD1 PD1
+#define PORTD2 PD2
+#define PORTD3 PD3
+#define PORTD4 PD4
+#define PORTD5 PD5
+#define PORTD6 PD6
+#define PORTD7 PD7
+#define PORTD _SFR_IO8(0x0B)
+#define PORTE0 PE0
+#define PORTE1 PE1
+#define PORTE2 PE2
+#define PORTE3 PE3
+#define PORTE4 PE4
+#define PORTE5 PE5
+#define PORTE6 PE6
+#define PORTE7 PE7
+#define PORTE _SFR_IO8(0x0E)
+#define PORTF0 PF0
+#define PORTF1 PF1
+#define PORTF2 PF2
+#define PORTF3 PF3
+#define PORTF4 PF4
+#define PORTF5 PF5
+#define PORTF6 PF6
+#define PORTF7 PF7
+#define PORTF _SFR_IO8(0x11)
+#define PORT_SHIFTER 4
+#define PORTx_ADDRESS(p) _PIN_ADDRESS(p, 2)
+#define PRADC 0
+#define __PRAGMA_REDEFINE_EXTNAME 1
+#define PRId16 "d"
+#define PRId32 "ld"
+#define PRId8 "d"
+#define PRIdFAST16 "d"
+#define PRIdFAST32 "ld"
+#define PRIdFAST8 "d"
+#define PRIdLEAST16 "d"
+#define PRIdLEAST32 "ld"
+#define PRIdLEAST8 "d"
+#define PRIdPTR PRId16
+#define PRIi16 "i"
+#define PRIi32 "li"
+#define PRIi8 "i"
+#define PRIiFAST16 "i"
+#define PRIiFAST32 "li"
+#define PRIiFAST8 "i"
+#define PRIiLEAST16 "i"
+#define PRIiLEAST32 "li"
+#define PRIiLEAST8 "i"
+#define PRIiPTR PRIi16
+#define print_bin16(i) IGNORE_FORMAT_WARNING(xprintf("%016b", i))
+#define print_bin32(i) IGNORE_FORMAT_WARNING(xprintf("%032lb", i))
+#define print_bin4(i) IGNORE_FORMAT_WARNING(xprintf("%04b", i))
+#define print_bin8(i) IGNORE_FORMAT_WARNING(xprintf("%08b", i))
+#define print_bin_reverse16(i) \
+    IGNORE_FORMAT_WARNING(xprintf("%016b", bitrev16(i)))
+#define print_bin_reverse32(i) \
+    IGNORE_FORMAT_WARNING(xprintf("%032lb", bitrev32(i)))
+#define print_bin_reverse8(i) \
+    IGNORE_FORMAT_WARNING(xprintf("%08b", bitrev(i)))
+#define print_dec(i) xprintf("%u", i)
+#define print_decs(i) xprintf("%d", i)
+#define PRINTF_ALIAS_STANDARD_FUNCTION_NAMES 0
+#define PRINTF_H_
+#define PRINTF_VISIBILITY
+#define print_hex16(i) xprintf("%04X", i)
+#define print_hex32(i) xprintf("%08lX", i)
+#define print_hex4(i) xprintf("%X", i)
+#define print_hex8(i) xprintf("%02X", i)
+#define println(s) xprintf(s "\r\n")
+#define print(s) xprintf(s)
+#define print_val_bin16(v) IGNORE_FORMAT_WARNING(xprintf(#v ": %016b\n", v))
+#define print_val_bin32(v) \
+    IGNORE_FORMAT_WARNING(xprintf(#v ": %032lb\n", v))
+#define print_val_bin8(v) IGNORE_FORMAT_WARNING(xprintf(#v ": %08b\n", v))
+#define print_val_bin_reverse16(v) \
+    IGNORE_FORMAT_WARNING(xprintf(#v ": %016b\n", bitrev16(v)))
+#define print_val_bin_reverse32(v) \
+    IGNORE_FORMAT_WARNING(xprintf(#v ": %032lb\n", bitrev32(v)))
+#define print_val_bin_reverse8(v) \
+    IGNORE_FORMAT_WARNING(xprintf(#v ": %08b\n", bitrev(v)))
+#define print_val_decs(v) xprintf(#v ": %d\n", v)
+#define print_val_dec(v) xprintf(#v ": %u\n", v)
+#define print_val_hex16(v) xprintf(#v ": %02X\n", v)
+#define print_val_hex32(v) xprintf(#v ": %04lX\n", v)
+#define print_val_hex8(v) xprintf(#v ": %X\n", v)
+#define PRIo16 "o"
+#define PRIo32 "lo"
+#define PRIo8 "o"
+#define PRIoFAST16 "o"
+#define PRIoFAST32 "lo"
+#define PRIoFAST8 "o"
+#define PRIoLEAST16 "o"
+#define PRIoLEAST32 "lo"
+#define PRIoLEAST8 "o"
+#define PRIoPTR PRIo16
+#define PRIu16 "u"
+#define PRIu32 "lu"
+#define PRIu8 "u"
+#define PRIuFAST16 "u"
+#define PRIuFAST32 "lu"
+#define PRIuFAST8 "u"
+#define PRIuLEAST16 "u"
+#define PRIuLEAST32 "lu"
+#define PRIuLEAST8 "u"
+#define PRIuPTR PRIu16
+#define PRIx16 "x"
+#define PRIX16 "X"
+#define PRIx32 "lx"
+#define PRIX32 "lX"
+#define PRIx8 "x"
+#define PRIX8 "X"
+#define PRIxFAST16 "x"
+#define PRIXFAST16 "X"
+#define PRIxFAST32 "lx"
+#define PRIXFAST32 "lX"
+#define PRIxFAST8 "x"
+#define PRIXFAST8 "X"
+#define PRIxLEAST16 "x"
+#define PRIXLEAST16 "X"
+#define PRIxLEAST32 "lx"
+#define PRIXLEAST32 "lX"
+#define PRIxLEAST8 "x"
+#define PRIXLEAST8 "X"
+#define PRIxPTR PRIx16
+#define PRIXPTR PRIX16
+#define PRODUCT_ID 0x2200
+#define PRODUCT "TDV 2200 kbd"
+#define PROGMEM __ATTR_PROGMEM__
+#define PROGRAMMABLE_BUTTON_KEYCODE_RANGE \
+    QK_PROGRAMMABLE_BUTTON_1... QK_PROGRAMMABLE_BUTTON_32
+#define PRR0 _SFR_MEM8(0x64)
+#define PRR1 _SFR_MEM8(0x65)
+#define PRSPI 2
+#define PRST0 0
+#define PRST1 1
+#define PRST2 2
+#define PRST3 3
+#define PRST4 4
+#define PRST5 5
+#define PRST6 6
+#define PRTIM0 5
+#define PRTIM1 3
+#define PRTIM2 6
+#define PRTIM3 3
+#define PRTWI 7
+#define PRUSART1 0
+#define PRUSB 7
+#define PSIZE0 4
+#define PSIZE1 5
+#define PSIZE2 6
+#define PSRASY 1
+#define PSRSYNC 0
+#define PSTR(s)                                \
+    (__extension__({                           \
+        static const char __c[] PROGMEM = (s); \
+        &__c[0];                               \
+    }))
+#define PTOKEN0 4
+#define PTOKEN1 5
+#define __PTRDIFF_MAX__ 0x7fff
+#define PTRDIFF_MAX INT16_MAX
+#define PTRDIFF_MIN INT16_MIN
+#define __PTRDIFF_T
+#define _PTRDIFF_T
+#define _PTRDIFF_T_
+#define _PTRDIFF_T_DECLARED
+#define __PTRDIFF_TYPE__ int
+#define __ptr_t void *
+#define PTYPE0 6
+#define PTYPE1 7
+#define PUD 4
+#define putc(__c, __stream) fputc(__c, __stream)
+#define putchar(__c) fputc(__c, stdout)
+#define QK_DEF_LAYER_GET_LAYER(kc) ((kc)&0x1F)
+#define QK_LALT 0x0400
+#define QK_LAYER_MOD_GET_LAYER(kc) (((kc) >> 5) & 0xF)
+#define QK_LAYER_MOD_GET_MODS(kc) ((kc)&0x1F)
+#define QK_LAYER_TAP_GET_LAYER(kc) (((kc) >> 8) & 0xF)
+#define QK_LAYER_TAP_GET_TAP_KEYCODE(kc) ((kc)&0xFF)
+#define QK_LAYER_TAP_TOGGLE_GET_LAYER(kc) ((kc)&0x1F)
+#define QK_LCTL 0x0100
+#define QK_LGUI 0x0800
+#define QK_LSFT 0x0200
+#define QK_MODS_GET_BASIC_KEYCODE(kc) ((kc)&0xFF)
+#define QK_MODS_GET_MODS(kc) (((kc) >> 8) & 0x1F)
+#define QK_MOD_TAP_GET_MODS(kc) (((kc) >> 8) & 0x1F)
+#define QK_MOD_TAP_GET_TAP_KEYCODE(kc) ((kc)&0xFF)
+#define QK_MOMENTARY_GET_LAYER(kc) ((kc)&0x1F)
+#define QK_ONE_SHOT_LAYER_GET_LAYER(kc) ((kc)&0x1F)
+#define QK_ONE_SHOT_MOD_GET_MODS(kc) ((kc)&0x1F)
+#define QK_OUTPUT_AUTO OU_AUTO
+#define QK_PERSISTENT_DEF_LAYER_GET_LAYER(kc) ((kc)&0x1F)
+#define QK_RALT 0x1400
+#define QK_RCTL 0x1100
+#define QK_RGUI 0x1800
+#define QK_RMODS_MIN 0x1000
+#define QK_RSFT 0x1200
+#define QK_SWAP_HANDS_GET_TAP_KEYCODE(kc) ((kc)&0xFF)
+#define QK_TAP_DANCE_GET_INDEX(kc) ((kc)&0xFF)
+#define QK_TO_GET_LAYER(kc) ((kc)&0x1F)
+#define QK_TOGGLE_LAYER_GET_LAYER(kc) ((kc)&0x1F)
+#define QK_UNICODE_GET_CODE_POINT(kc) ((kc)&0x7FFF)
+#define QK_UNICODEMAP_GET_INDEX(kc) ((kc)&0x3FFF)
+#define QK_UNICODEMAP_PAIR_GET_SHIFTED_INDEX(kc) (((kc) >> 7) & 0x7F)
+#define QK_UNICODEMAP_PAIR_GET_UNSHIFTED_INDEX(kc) ((kc)&0x7F)
+#define __QQ_FBIT__ 7
+#define __QQ_IBIT__ 0
+#define QUANTUM_KEYCODE_RANGE QK_BOOTLOADER... QK_LAYER_LOCK
+#define QUICK_TAP_TERM TAPPING_TERM
+#define RAG(kc) (QK_RALT | QK_RGUI | (kc))
+#define RAG_T(kc) MT(MOD_RALT | MOD_RGUI, kc)
+#define RALT(kc) (QK_RALT | (kc))
+#define RALT_T(kc) MT(MOD_RALT, kc)
+#define RAMEND 0x20FF
+#define RAMPZ _SFR_IO8(0x3B)
+#define RAMSTART 0x100
+#define RAND_MAX 0x7FFF
+#define RANDOM_MAX 0x7FFFFFFF
+#define RCAG_T(kc) MT(MOD_RCTL | MOD_RALT | MOD_RGUI, kc)
+#define RCMD(kc) RGUI(kc)
+#define RCMD_T(kc) RGUI_T(kc)
+#define RCS(kc) (QK_RCTL | QK_RSFT | (kc))
+#define RCS_T(kc) MT(MOD_RCTL | MOD_RSFT, kc)
+#define RCTL(kc) (QK_RCTL | (kc))
+#define RCTL_T(kc) MT(MOD_RCTL, kc)
+#define REFS0 6
+#define REFS1 7
+#define __REGISTER_PREFIX__
+#define RESET 1
+#define RESIDENT_IN_RAM(funcname) funcname
+#define RESUME 2
+#define reti() __asm__ __volatile__("reti" ::)
+#define RGB_HUD QK_UNDERGLOW_HUE_DOWN
+#define RGB_HUI QK_UNDERGLOW_HUE_UP
+#define RGB_KEYCODE_RANGE RGB_MODE_PLAIN... RGB_MODE_TWINKLE
+#define RGB_MATRIX_KEYCODE_RANGE \
+    QK_RGB_MATRIX_ON... QK_RGB_MATRIX_SPEED_DOWN
+#define RGB_MODE_FORWARD QK_UNDERGLOW_MODE_NEXT
+#define RGB_MODE_REVERSE QK_UNDERGLOW_MODE_PREVIOUS
+#define RGB_MOD QK_UNDERGLOW_MODE_NEXT
+#define RGB_RMOD QK_UNDERGLOW_MODE_PREVIOUS
+#define RGB_SAD QK_UNDERGLOW_SATURATION_DOWN
+#define RGB_SAI QK_UNDERGLOW_SATURATION_UP
+#define RGB_SPD QK_UNDERGLOW_SPEED_DOWN
+#define RGB_SPI QK_UNDERGLOW_SPEED_UP
+#define RGB_TOG QK_UNDERGLOW_TOGGLE
+#define RGB_VAD QK_UNDERGLOW_VALUE_DOWN
+#define RGB_VAI QK_UNDERGLOW_VALUE_UP
+#define RGUI(kc) (QK_RGUI | (kc))
+#define RGUI_T(kc) MT(MOD_RGUI, kc)
+#define RMWKUP 1
+#define ROLEEXE 3
+#define ROLEEXI 3
+#define ROPT(kc) RALT(kc)
+#define ROPT_T(kc) RALT_T(kc)
+#define ROW2COL 1
+#define RSA(kc) (QK_RSFT | QK_RALT | (kc))
+#define RSA_T(kc) MT(MOD_RSFT | MOD_RALT, kc)
+#define RSFT(kc) (QK_RSFT | (kc))
+#define RSFT_T(kc) MT(MOD_RSFT, kc)
+#define RSG(kc) (QK_RSFT | QK_RGUI | (kc))
+#define RSG_T(kc) MT(MOD_RSFT | MOD_RGUI, kc)
+#define RSMEDE 3
+#define RSMEDI 3
+#define RSTDT 3
+#define RSTE 2
+#define RSTI 2
+#define RWAL 5
+#define RWIN(kc) RGUI(kc)
+#define RWIN_T(kc) RGUI_T(kc)
+#define RWWSB 6
+#define RWWSRE 4
+#define RXB81 1
+#define RXC1 7
+#define RXCIE1 7
+#define RXEN1 4
+#define RXINE 0
+#define RXINI 0
+#define RXOUTE 2
+#define RXOUTI 2
+#define RXRSME 4
+#define RXRSMI 4
+#define RXSTALLE 1
+#define RXSTALLI 1
+#define RXSTPE 3
+#define RXSTPI 3
+#define __SACCUM_EPSILON__ 0x1P-7HK
+#define __SACCUM_FBIT__ 7
+#define __SACCUM_IBIT__ 8
+#define __SACCUM_MAX__ 0X7FFFP-7HK
+#define __SACCUM_MIN__ (-0X1P7HK - 0X1P7HK)
+#define __SA_FBIT__ 15
+#define SAFE_RANGE QK_USER
+#define SAGR(kc) RSA(kc)
+#define SAGR_T(kc) RSA_T(kc)
+#define __SA_IBIT__ 16
+#define SCANCODE(iDriver, iSensor) (iDriver << 3) | iSensor
+#define __SCHAR_MAX__ 0x7f
+#define SCMD(kc) LSG(kc)
+#define SCMD_T(kc) LSG_T(kc)
+#define SCNd16 "d"
+#define SCNd32 "ld"
+#define SCNd8 "hhd"
+#define SCNdFAST16 "d"
+#define SCNdFAST32 "ld"
+#define SCNdFAST8 "hhd"
+#define SCNdLEAST16 "d"
+#define SCNdLEAST32 "ld"
+#define SCNdLEAST8 "hhd"
+#define SCNdPTR SCNd16
+#define SCNi16 "i"
+#define SCNi32 "li"
+#define SCNi8 "hhi"
+#define SCNiFAST16 "i"
+#define SCNiFAST32 "li"
+#define SCNiFAST8 "hhi"
+#define SCNiLEAST16 "i"
+#define SCNiLEAST32 "li"
+#define SCNiLEAST8 "hhi"
+#define SCNiPTR SCNi16
+#define SCNo16 "o"
+#define SCNo32 "lo"
+#define SCNo8 "hho"
+#define SCNoFAST16 "o"
+#define SCNoFAST32 "lo"
+#define SCNoFAST8 "hho"
+#define SCNoLEAST16 "o"
+#define SCNoLEAST32 "lo"
+#define SCNoLEAST8 "hho"
+#define SCNoPTR SCNo16
+#define SCNu16 "u"
+#define SCNu32 "lu"
+#define SCNu8 "hhu"
+#define SCNuFAST16 "u"
+#define SCNuFAST32 "lu"
+#define SCNuFAST8 "hhu"
+#define SCNuLEAST16 "u"
+#define SCNuLEAST32 "lu"
+#define SCNuLEAST8 "hhu"
+#define SCNuPTR SCNu16
+#define SCNx16 "x"
+#define SCNx32 "lx"
+#define SCNx8 "hhx"
+#define SCNxFAST16 "x"
+#define SCNxFAST32 "lx"
+#define SCNxFAST8 "hhx"
+#define SCNxLEAST16 "x"
+#define SCNxLEAST32 "lx"
+#define SCNxLEAST8 "hhx"
+#define SCNxPTR SCNx16
+#define SE 0
+#define SEEK_CUR 1
+#define SEEK_END 2
+#define SEEK_SET 0
+#define sei() __asm__ __volatile__("sei" ::: "memory")
+#define SENDSTRING_BELL
+#define SENSORS MATRIX_COLS
+#define __SEOF 0x0020
+#define sequencer_activate_track(track) \
+    sequencer_set_track_activation(track, true)
+#define sequencer_deactivate_track(track) \
+    sequencer_set_track_activation(track, false)
+#define SEQUENCER_KEYCODE_RANGE QK_SEQUENCER_ON... QK_SEQUENCER_STEPS_CLEAR
+#define SEQUENCER_PHASE_RELEASE_TIMEOUT 30
+#define SEQUENCER_RESOLUTION_MAX \
+    (SEQUENCER_RESOLUTION_MIN + SEQUENCER_RESOLUTIONS)
+#define SEQUENCER_RESOLUTION_MIN (SEQUENCER_STEP_MAX + 1)
+#define sequencer_set_all_steps_off() sequencer_set_all_steps(false)
+#define sequencer_set_all_steps_on() sequencer_set_all_steps(true)
+#define sequencer_set_step_off(step) sequencer_set_step(step, false)
+#define sequencer_set_step_on(step) sequencer_set_step(step, true)
+#define SEQUENCER_STEP_MAX (SEQUENCER_STEP_MIN + SEQUENCER_STEPS)
+#define SEQUENCER_STEP_MIN (QK_SEQUENCER + 0xF)
+#define SEQUENCER_STEPS 16
+#define SEQUENCER_TRACK_MAX (SEQUENCER_TRACK_MIN + SEQUENCER_TRACKS)
+#define SEQUENCER_TRACK_MIN (SEQUENCER_RESOLUTION_MAX + 1)
+#define SEQUENCER_TRACKS 8
+#define SEQUENCER_TRACK_THROTTLE 3
+#define __SERR 0x0010
+#define __SFRACT_EPSILON__ 0x1P-7HR
+#define __SFRACT_FBIT__ 7
+#define __SFRACT_IBIT__ 0
+#define __SFRACT_MAX__ 0X7FP-7HR
+#define __SFRACT_MIN__ (-0.5HR - 0.5HR)
+#define _SFR_ADDR(sfr) _SFR_MEM_ADDR(sfr)
+#define _SFR_ASM_COMPAT 0
+#define _SFR_BYTE(sfr) _MMIO_BYTE(_SFR_ADDR(sfr))
+#define _SFR_DWORD(sfr) _MMIO_DWORD(_SFR_ADDR(sfr))
+#define _SFR_IO16(io_addr) _MMIO_WORD((io_addr) + __SFR_OFFSET)
+#define _SFR_IO8(io_addr) _MMIO_BYTE((io_addr) + __SFR_OFFSET)
+#define _SFR_IO_ADDR(sfr) (_SFR_MEM_ADDR(sfr) - __SFR_OFFSET)
+#define _SFR_IO_REG_P(sfr) (_SFR_MEM_ADDR(sfr) < 0x40 + __SFR_OFFSET)
+#define _SFR_MEM16(mem_addr) _MMIO_WORD(mem_addr)
+#define _SFR_MEM32(mem_addr) _MMIO_DWORD(mem_addr)
+#define _SFR_MEM8(mem_addr) _MMIO_BYTE(mem_addr)
+#define _SFR_MEM_ADDR(sfr) ((uint16_t) & (sfr))
+#define __SFR_OFFSET 0x20
+#define _SFR_WORD(sfr) _MMIO_WORD(_SFR_ADDR(sfr))
+#define SFT_T(kc) LSFT_T(kc)
+#define SGUI(kc) LSG(kc)
+#define SGUI_T(kc) LSG_T(kc)
+#define __SHRT_MAX__ 0x7fff
+#define SH_T(kc) (QK_SWAP_HANDS | ((kc)&0xFF))
+#define __SIG_ATOMIC_MAX__ 0x7f
+#define SIG_ATOMIC_MAX INT8_MAX
+#define SIG_ATOMIC_MIN INT8_MIN
+#define __SIG_ATOMIC_MIN__ (-__SIG_ATOMIC_MAX__ - 1)
+#define __SIG_ATOMIC_TYPE__ char
+#define SIGNAL(vector)                                       \
+    void vector(void) __attribute__((signal, __INTR_ATTRS)); \
+    void vector(void)
+#define SIGNATURE_0 0x1E
+#define SIGNATURE_1 0x97
+#define SIGNATURE_2 0x82
+#define SIGRD 5
+#define __SIZE_MAX__ 0xffffU
+#define SIZE_MAX UINT16_MAX
+#define __SIZEOF_DOUBLE__ 4
+#define __SIZEOF_FLOAT__ 4
+#define __SIZEOF_INT__ 2
+#define __SIZEOF_LONG__ 4
+#define __SIZEOF_LONG_DOUBLE__ 4
+#define __SIZEOF_LONG_LONG__ 8
+#define __SIZEOF_POINTER__ 2
+#define __SIZEOF_PTRDIFF_T__ 2
+#define __SIZEOF_SHORT__ 2
+#define __SIZEOF_SIZE_T__ 2
+#define __SIZEOF_WCHAR_T__ 2
+#define __SIZEOF_WINT_T__ 2
+#define __size_t
+#define __size_t__
+#define __SIZE_T
+#define __SIZE_T__
+#define _SIZE_T
+#define _SIZE_T_
+#define _SIZET_
+#define _SIZE_T_DECLARED
+#define _SIZE_T_DEFINED
+#define _SIZE_T_DEFINED_
+#define __SIZE_TYPE__ unsigned int
+#define S(kc) LSFT(kc)
+#define SLEEP_MODE_ADC (0x01 << 1)
+#define SLEEP_MODE_EXT_STANDBY (0x07 << 1)
+#define SLEEP_MODE_IDLE (0x00 << 1)
+#define SLEEP_MODE_PWR_DOWN (0x02 << 1)
+#define SLEEP_MODE_PWR_SAVE (0x03 << 1)
+#define SLEEP_MODE_STANDBY (0x06 << 1)
+#define SM0 1
+#define SM1 2
+#define SM2 3
+#define __SMALLOC 0x80
+#define SMCR _SFR_IO8(0x33)
+#define SOFE 2
+#define SOFEN 0
+#define SOFI 2
+#define SPCR _SFR_IO8(0x2C)
+#define SPDR _SFR_IO8(0x2E)
+#define SPE 6
+#define SPEED 3
+#define __SPGM 0x0008
+#define SPH _SFR_IO8(0x3E)
+#define SPI2X 0
+#define SPIE 7
+#define SPIF 7
+#define SPI_STC_vect_num 24
+#define SPI_STC_vect _VECTOR(24)
+#define SPL _SFR_IO8(0x3D)
+#define SPMCSR _SFR_IO8(0x37)
+#define SPMEN 0
+#define SPMIE 7
+#define SPM_PAGESIZE 256
+#define SPM_READY_vect_num 37
+#define SPM_READY_vect _VECTOR(37)
+#define SPR0 0
+#define SPR1 1
+#define SP _SFR_IO16(0x3D)
+#define SPSR _SFR_IO8(0x2D)
+#define __SQ_FBIT__ 31
+#define __SQ_IBIT__ 0
+#define SQ_R(n) \
+    (n < SEQUENCER_RESOLUTIONS ? SEQUENCER_RESOLUTION_MIN + n : KC_NO)
+#define SQ_S(n) (n < SEQUENCER_STEPS ? SEQUENCER_STEP_MIN + n : KC_NO)
+#define SQ_T(n) (n < SEQUENCER_TRACKS ? SEQUENCER_TRACK_MIN + n : KC_NO)
+#define __SRD 0x0001
+#define SRE 7
+#define SREG_C (0)
+#define SREG_H (5)
+#define SREG_I (7)
+#define SREG_N (2)
+#define SREG_S (4)
+#define SREG _SFR_IO8(0x3F)
+#define SREG_T (6)
+#define SREG_V (3)
+#define SREG_Z (1)
+#define SRL0 4
+#define SRL1 5
+#define SRL2 6
+#define SRPE 0
+#define SRPI 0
+#define SRPREQ 4
+#define SRPSEL 3
+#define SRW00 0
+#define SRW01 1
+#define SRW10 2
+#define SRW11 3
+#define __SSTR 0x0004
+#define STALLEDE 1
+#define STALLEDI 1
+#define STALLRQ 5
+#define STALLRQC 4
+#define _STDARG_H
+#define _STDBOOL_H
+#define __STDC__ 1
+#define __STDC_HOSTED__ 1
+#define __STDC_UTF_16__ 1
+#define __STDC_UTF_32__ 1
+#define __STDC_VERSION__ 201112L
+#define _STDDEF_H
+#define _STDDEF_H_
+#define stderr (__iob[2])
+#define stdin (__iob[0])
+#define __STDINT_H_
+#define _STDIO_H_ 1
+#define _STDLIB_H_ 1
+#define stdout (__iob[1])
+#define STENO_KEYCODE_RANGE QK_STENO_BOLT... QK_STENO_COMB_MAX
+#define STOE 5
+#define STOI 5
+#define _STRING_H_ 1
+#define __STRINGIFY(x) #x
+#define STR(s) XSTR(s)
+#define __SUNGET 0x040
+#define SUSPE 0
+#define SUSPI 0
+#define SWAP_HANDS_KEYCODE_RANGE \
+    QK_SWAP_HANDS_TOGGLE... QK_SWAP_HANDS_ONE_SHOT
+#define SWIN(kc) LSG(kc)
+#define SWIN_T(kc) LSG_T(kc)
+#define __SWR 0x0002
+#define sync_timer_clear()
+#define sync_timer_elapsed32(t) timer_elapsed32(t)
+#define sync_timer_elapsed(t) timer_elapsed(t)
+#define sync_timer_init()
+#define sync_timer_read32() timer_read32()
+#define sync_timer_read() timer_read()
+#define sync_timer_update(t)
+#define _SYS_SIZE_T_H
+#define SYSTEM_KEYCODE_RANGE KC_SYSTEM_POWER... KC_SYSTEM_WAKE
+#define __TA_FBIT__ 47
+#define __TA_IBIT__ 16
+#define TAP_CODE_DELAY 0
+#define TAP_HOLD_CAPS_DELAY 80
+#define TAPPING_TERM 200
+#define TAPPING_TOGGLE 5
+#define TCCR0A _SFR_IO8(0x24)
+#define TCCR0B _SFR_IO8(0x25)
+#define TCCR1A _SFR_MEM8(0x80)
+#define TCCR1B _SFR_MEM8(0x81)
+#define TCCR1C _SFR_MEM8(0x82)
+#define TCCR2A _SFR_MEM8(0xB0)
+#define TCCR2B _SFR_MEM8(0xB1)
+#define TCCR3A _SFR_MEM8(0x90)
+#define TCCR3B _SFR_MEM8(0x91)
+#define TCCR3C _SFR_MEM8(0x92)
+#define TCN2UB 4
+#define TCNT0 _SFR_IO8(0X26)
+#define TCNT1H _SFR_MEM8(0x85)
+#define TCNT1L _SFR_MEM8(0x84)
+#define TCNT1 _SFR_MEM16(0x84)
+#define TCNT2 _SFR_MEM8(0xB2)
+#define TCNT3H _SFR_MEM8(0x95)
+#define TCNT3L _SFR_MEM8(0x94)
+#define TCNT3 _SFR_MEM16(0x94)
+#define TCR2AUB 1
+#define TCR2BUB 0
+#define TD(i) (QK_TAP_DANCE | ((i)&0xFF))
+#define TG(layer) (QK_TOGGLE_LAYER | ((layer)&0x1F))
+#define TIFR0 _SFR_IO8(0x15)
+#define TIFR1 _SFR_IO8(0x16)
+#define TIFR2 _SFR_IO8(0x17)
+#define TIFR3 _SFR_IO8(0x18)
+#define TIMEOUT 3
+#define TIMER0_COMPA_vect_num 21
+#define TIMER0_COMPA_vect _VECTOR(21)
+#define TIMER0_COMPB_vect_num 22
+#define TIMER0_COMPB_vect _VECTOR(22)
+#define TIMER0_OVF_vect_num 23
+#define TIMER0_OVF_vect _VECTOR(23)
+#define TIMER1_CAPT_vect_num 16
+#define TIMER1_CAPT_vect _VECTOR(16)
+#define TIMER1_COMPA_vect_num 17
+#define TIMER1_COMPA_vect _VECTOR(17)
+#define TIMER1_COMPB_vect_num 18
+#define TIMER1_COMPB_vect _VECTOR(18)
+#define TIMER1_COMPC_vect_num 19
+#define TIMER1_COMPC_vect _VECTOR(19)
+#define TIMER1_OVF_vect_num 20
+#define TIMER1_OVF_vect _VECTOR(20)
+#define TIMER2_COMPA_vect_num 13
+#define TIMER2_COMPA_vect _VECTOR(13)
+#define TIMER2_COMPB_vect_num 14
+#define TIMER2_COMPB_vect _VECTOR(14)
+#define TIMER2_OVF_vect_num 15
+#define TIMER2_OVF_vect _VECTOR(15)
+#define TIMER3_CAPT_vect_num 31
+#define TIMER3_CAPT_vect _VECTOR(31)
+#define TIMER3_COMPA_vect_num 32
+#define TIMER3_COMPA_vect _VECTOR(32)
+#define TIMER3_COMPB_vect_num 33
+#define TIMER3_COMPB_vect _VECTOR(33)
+#define TIMER3_COMPC_vect_num 34
+#define TIMER3_COMPC_vect _VECTOR(34)
+#define TIMER3_OVF_vect_num 35
+#define TIMER3_OVF_vect _VECTOR(35)
+#define TIMER_DIFF_16(a, b) TIMER_DIFF(a, b, UINT16_MAX)
+#define TIMER_DIFF_32(a, b) TIMER_DIFF(a, b, UINT32_MAX)
+#define TIMER_DIFF_8(a, b) TIMER_DIFF(a, b, UINT8_MAX)
+#define TIMER_DIFF(a, b, max)                    \
+    ((max == UINT8_MAX)                          \
+         ? ((uint8_t)((a) - (b)))                \
+         : ((max == UINT16_MAX)                  \
+                ? ((uint16_t)((a) - (b)))        \
+                : ((max == UINT32_MAX)           \
+                       ? ((uint32_t)((a) - (b))) \
+                       : ((a) >= (b) ? (a) - (b) \
+                                     : (max) + 1 - (b) + (a)))))
+#define TIMER_DIFF_FAST(a, b) TIMER_DIFF_16(a, b)
+#define TIMER_DIFF_RAW(a, b) TIMER_DIFF_8(a, b)
+#define timer_expired32(current, future) \
+    ((uint32_t)(current - future) < UINT32_MAX / 2)
+#define timer_expired(current, future) \
+    ((uint16_t)(current - future) < UINT16_MAX / 2)
+#define timer_expired_fast(current, future) timer_expired(current, future)
+#define TIMSK0 _SFR_MEM8(0x6E)
+#define TIMSK1 _SFR_MEM8(0x6F)
+#define TIMSK2 _SFR_MEM8(0x70)
+#define TIMSK3 _SFR_MEM8(0x71)
+#define TOIE0 0
+#define TOIE1 0
+#define TOIE2 0
+#define TOIE3 0
+#define TO(layer) (QK_TO | ((layer)&0x1F))
+#define TOTAL_EEPROM_BYTE_COUNT 4096
+#define TOV0 0
+#define TOV1 0
+#define TOV2 0
+#define TOV3 0
+#define _T_PTRDIFF
+#define _T_PTRDIFF_
+#define __TQ_FBIT__ 127
+#define __TQ_IBIT__ 0
+#define true 1
+#define _T_SIZE
+#define _T_SIZE_
+#define TSM 7
+#define TSTJ 2
+#define TSTK 3
+#define TSTPCKT 4
+#define TT(layer) (QK_LAYER_TAP_TOGGLE | ((layer)&0x1F))
+#define TWA0 1
+#define TWA1 2
+#define TWA2 3
+#define TWA3 4
+#define TWA4 5
+#define TWA5 6
+#define TWA6 7
+#define TWAM0 1
+#define TWAM1 2
+#define TWAM2 3
+#define TWAM3 4
+#define TWAM4 5
+#define TWAM5 6
+#define TWAM6 7
+#define TWAMR _SFR_MEM8(0xBD)
+#define TWAR _SFR_MEM8(0xBA)
+#define TWBR _SFR_MEM8(0xB8)
+#define _T_WCHAR
+#define _T_WCHAR_
+#define TWCR _SFR_MEM8(0xBC)
+#define TWDR _SFR_MEM8(0xBB)
+#define TWEA 6
+#define TWEN 2
+#define TWGCE 0
+#define TWIE 0
+#define TWINT 7
+#define TWI_vect_num 36
+#define TWI_vect _VECTOR(36)
+#define TWPS0 0
+#define TWPS1 1
+#define TWS3 3
+#define TWS4 4
+#define TWS5 5
+#define TWS6 6
+#define TWS7 7
+#define TWSR _SFR_MEM8(0xB9)
+#define TWSTA 5
+#define TWSTO 4
+#define TWWC 3
+#define TXB81 0
+#define TXC1 6
+#define TXCIE1 6
+#define TXEN1 3
+#define TXINE 0
+#define TXINI 0
+#define TXOUTE 2
+#define TXOUTI 2
+#define TXSTPE 3
+#define TXSTPI 3
+#define U2X1 1
+#define __UACCUM_EPSILON__ 0x1P-16UK
+#define __UACCUM_FBIT__ 16
+#define __UACCUM_IBIT__ 16
+#define __UACCUM_MAX__ 0XFFFFFFFFP-16UK
+#define __UACCUM_MIN__ 0.0UK
+#define UBRR1H _SFR_MEM8(0xCD)
+#define UBRR1L _SFR_MEM8(0xCC)
+#define UBRR1 _SFR_MEM16(0xCC)
+#define UC(c) (QK_UNICODE | (c))
+#define UCPOL1 0
+#define UCSR1A _SFR_MEM8(0xC8)
+#define UCSR1B _SFR_MEM8(0XC9)
+#define UCSR1C _SFR_MEM8(0xCA)
+#define UCSZ10 1
+#define UCSZ11 2
+#define UCSZ12 2
+#define UDADDR _SFR_MEM8(0XE3)
+#define __UDA_FBIT__ 32
+#define __UDA_IBIT__ 32
+#define UDCON _SFR_MEM8(0XE0)
+#define UDFNUMH _SFR_MEM8(0xE5)
+#define UDFNUML _SFR_MEM8(0xE4)
+#define UDFNUM _SFR_MEM16(0xE4)
+#define UDIEN _SFR_MEM8(0XE2)
+#define UDINT _SFR_MEM8(0XE1)
+#define UDMFN _SFR_MEM8(0XE6)
+#define UDPADDH _SFR_MEM8(0xDC)
+#define UDPADDL _SFR_MEM8(0xDB)
+#define UDPADD _SFR_MEM16(0xDB)
+#define __UDQ_FBIT__ 64
+#define __UDQ_IBIT__ 0
+#define UDR1 _SFR_MEM8(0XCE)
+#define UDRE1 5
+#define UDRIE1 5
+#define UDTST _SFR_MEM8(0XE7)
+#define UEBCHX _SFR_MEM8(0xF3)
+#define UEBCLX _SFR_MEM8(0xF2)
+#define UEBCX _SFR_MEM16(0xF2)
+#define UECFG0X _SFR_MEM8(0XEC)
+#define UECFG1X _SFR_MEM8(0XED)
+#define UECONX _SFR_MEM8(0XEB)
+#define UEDATX _SFR_MEM8(0XF1)
+#define UEIENX _SFR_MEM8(0XF0)
+#define UEINT _SFR_MEM8(0XF4)
+#define UEINTX _SFR_MEM8(0XE8)
+#define UENUM _SFR_MEM8(0XE9)
+#define UERST _SFR_MEM8(0XEA)
+#define UESTA0X _SFR_MEM8(0XEE)
+#define UESTA1X _SFR_MEM8(0XEF)
+#define __UFRACT_EPSILON__ 0x1P-16UR
+#define __UFRACT_FBIT__ 16
+#define __UFRACT_IBIT__ 0
+#define __UFRACT_MAX__ 0XFFFFP-16UR
+#define __UFRACT_MIN__ 0.0UR
+#define UHADDR _SFR_MEM8(0xA1)
+#define __UHA_FBIT__ 8
+#define __UHA_IBIT__ 8
+#define UHCON _SFR_MEM8(0x9E)
+#define UHFLEN _SFR_MEM8(0xA4)
+#define UHFNUMH _SFR_MEM8(0xA3)
+#define UHFNUML _SFR_MEM8(0xA2)
+#define UHFNUM _SFR_MEM16(0xA2)
+#define UHIEN _SFR_MEM8(0xA0)
+#define UHINT _SFR_MEM8(0x9F)
+#define __UHQ_FBIT__ 16
+#define __UHQ_IBIT__ 0
+#define UHWCON _SFR_MEM8(0XD7)
+#define UIDE 6
+#define UIMOD 7
+#define __UINT16_C(c) c##U
+#define UINT16_C(c) __UINT16_C(c)
+#define __UINT16_MAX__ 0xffffU
+#define UINT16_MAX (__CONCAT(INT16_MAX, U) * 2U + 1U)
+#define __UINT16_TYPE__ unsigned int
+#define __UINT24_MAX__ 16777215UL
+#define __UINT32_C(c) c##UL
+#define UINT32_C(c) __UINT32_C(c)
+#define __UINT32_MAX__ 0xffffffffUL
+#define UINT32_MAX (__CONCAT(INT32_MAX, U) * 2UL + 1UL)
+#define __UINT32_TYPE__ long unsigned int
+#define UINT32_WIDTH 32
+#define __UINT64_C(c) c##ULL
+#define UINT64_C(c) __UINT64_C(c)
+#define __UINT64_MAX__ 0xffffffffffffffffULL
+#define UINT64_MAX (__CONCAT(INT64_MAX, U) * 2ULL + 1ULL)
+#define __UINT64_TYPE__ long long unsigned int
+#define UINT64_WIDTH 64
+#define __UINT8_C(c) c
+#define UINT8_C(c) __UINT8_C(c)
+#define __UINT8_MAX__ 0xff
+#define UINT8_MAX (INT8_MAX * 2 + 1)
+#define __UINT8_TYPE__ unsigned char
+#define __UINT_FAST16_MAX__ 0xffffU
+#define UINT_FAST16_MAX UINT16_MAX
+#define __UINT_FAST16_TYPE__ unsigned int
+#define __UINT_FAST32_MAX__ 0xffffffffUL
+#define UINT_FAST32_MAX UINT32_MAX
+#define __UINT_FAST32_TYPE__ long unsigned int
+#define __UINT_FAST64_MAX__ 0xffffffffffffffffULL
+#define UINT_FAST64_MAX UINT64_MAX
+#define __UINT_FAST64_TYPE__ long long unsigned int
+#define __UINT_FAST8_MAX__ 0xff
+#define UINT_FAST8_MAX UINT8_MAX
+#define __UINT_FAST8_TYPE__ unsigned char
+#define __UINT_LEAST16_MAX__ 0xffffU
+#define UINT_LEAST16_MAX UINT16_MAX
+#define __UINT_LEAST16_TYPE__ unsigned int
+#define __UINT_LEAST32_MAX__ 0xffffffffUL
+#define UINT_LEAST32_MAX UINT32_MAX
+#define __UINT_LEAST32_TYPE__ long unsigned int
+#define __UINT_LEAST64_MAX__ 0xffffffffffffffffULL
+#define UINT_LEAST64_MAX UINT64_MAX
+#define __UINT_LEAST64_TYPE__ long long unsigned int
+#define __UINT_LEAST8_MAX__ 0xff
+#define UINT_LEAST8_MAX UINT8_MAX
+#define __UINT_LEAST8_TYPE__ unsigned char
+#define __UINTMAX_C(c) c##ULL
+#define UINTMAX_C(c) __UINTMAX_C(c)
+#define __UINTMAX_MAX__ 0xffffffffffffffffULL
+#define UINTMAX_MAX UINT64_MAX
+#define __UINTMAX_TYPE__ long long unsigned int
+#define __UINTPTR_MAX__ 0xffffU
+#define UINTPTR_MAX UINT16_MAX
+#define __UINTPTR_TYPE__ unsigned int
+#define __ULACCUM_EPSILON__ 0x1P-32ULK
+#define __ULACCUM_FBIT__ 32
+#define __ULACCUM_IBIT__ 32
+#define __ULACCUM_MAX__ 0XFFFFFFFFFFFFFFFFP-32ULK
+#define __ULACCUM_MIN__ 0.0ULK
+#define __ULFRACT_EPSILON__ 0x1P-32ULR
+#define __ULFRACT_FBIT__ 32
+#define __ULFRACT_IBIT__ 0
+#define __ULFRACT_MAX__ 0XFFFFFFFFP-32ULR
+#define __ULFRACT_MIN__ 0.0ULR
+#define __ULLACCUM_EPSILON__ 0x1P-48ULLK
+#define __ULLACCUM_FBIT__ 48
+#define __ULLACCUM_IBIT__ 16
+#define __ULLACCUM_MAX__ 0XFFFFFFFFFFFFFFFFP-48ULLK
+#define __ULLACCUM_MIN__ 0.0ULLK
+#define __ULLFRACT_EPSILON__ 0x1P-64ULLR
+#define __ULLFRACT_FBIT__ 64
+#define __ULLFRACT_IBIT__ 0
+#define __ULLFRACT_MAX__ 0XFFFFFFFFFFFFFFFFP-64ULLR
+#define __ULLFRACT_MIN__ 0.0ULLR
+#define UM(i) (QK_UNICODEMAP | ((i)&0x3FFF))
+#define UMSEL10 6
+#define UMSEL11 7
+#define UNDERFI 5
+#define UNDERGLOW_KEYCODE_RANGE \
+    QK_UNDERGLOW_TOGGLE... QK_UNDERGLOW_SPEED_DOWN
+#define UPBCHX _SFR_MEM8(0xF7)
+#define UPBCLX _SFR_MEM8(0xF6)
+#define UPBCX _SFR_MEM16(0xF6)
+#define UPCFG0X _SFR_MEM8(0XAA)
+#define UPCFG1X _SFR_MEM8(0XAB)
+#define UPCFG2X _SFR_MEM8(0XAD)
+#define UPCONX _SFR_MEM8(0xA9)
+#define UPDATX _SFR_MEM8(0XAF)
+#define UPE1 2
+#define UPERRX _SFR_MEM8(0XF5)
+#define UPIENX _SFR_MEM8(0XAE)
+#define UP(i, j) (QK_UNICODEMAP_PAIR | ((i)&0x7F) | (((j)&0x7F) << 7))
+#define UPINRQX _SFR_MEM8(0xA5)
+#define UPINT _SFR_MEM8(0XF8)
+#define UPINTX _SFR_MEM8(0xA6)
+#define UPM10 4
+#define UPM11 5
+#define UPNUM _SFR_MEM8(0xA7)
+#define uprint_bin16(i) IGNORE_FORMAT_WARNING(uprintf("%016b", i))
+#define uprint_bin32(i) IGNORE_FORMAT_WARNING(uprintf("%032lb", i))
+#define uprint_bin4(i) IGNORE_FORMAT_WARNING(uprintf("%04b", i))
+#define uprint_bin8(i) IGNORE_FORMAT_WARNING(uprintf("%08b", i))
+#define uprint_bin_reverse16(i) \
+    IGNORE_FORMAT_WARNING(uprintf("%016b", bitrev16(i)))
+#define uprint_bin_reverse32(i) \
+    IGNORE_FORMAT_WARNING(uprintf("%032lb", bitrev32(i)))
+#define uprint_bin_reverse8(i) \
+    IGNORE_FORMAT_WARNING(uprintf("%08b", bitrev(i)))
+#define uprint_dec(i) uprintf("%u", i)
+#define uprint_decs(i) uprintf("%d", i)
+#define uprintf xprintf
+#define uprint_hex16(i) uprintf("%04X", i)
+#define uprint_hex32(i) uprintf("%08lX", i)
+#define uprint_hex4(i) uprintf("%X", i)
+#define uprint_hex8(i) uprintf("%02X", i)
+#define uprintln(s) uprintf(s "\r\n")
+#define uprint(s) uprintf(s)
+#define uprint_val_bin16(v) \
+    IGNORE_FORMAT_WARNING(uprintf(#v ": %016b\n", v))
+#define uprint_val_bin32(v) \
+    IGNORE_FORMAT_WARNING(uprintf(#v ": %032lb\n", v))
+#define uprint_val_bin8(v) IGNORE_FORMAT_WARNING(uprintf(#v ": %08b\n", v))
+#define uprint_val_bin_reverse16(v) \
+    IGNORE_FORMAT_WARNING(uprintf(#v ": %016b\n", bitrev16(v)))
+#define uprint_val_bin_reverse32(v) \
+    IGNORE_FORMAT_WARNING(uprintf(#v ": %032lb\n", bitrev32(v)))
+#define uprint_val_bin_reverse8(v) \
+    IGNORE_FORMAT_WARNING(uprintf(#v ": %08b\n", bitrev(v)))
+#define uprint_val_decs(v) uprintf(#v ": %d\n", v)
+#define uprint_val_dec(v) uprintf(#v ": %u\n", v)
+#define uprint_val_hex16(v) uprintf(#v ": %02X\n", v)
+#define uprint_val_hex32(v) uprintf(#v ": %04lX\n", v)
+#define uprint_val_hex8(v) uprintf(#v ": %X\n", v)
+#define UPRSME 6
+#define UPRSMI 6
+#define UPRST _SFR_MEM8(0xA8)
+#define UPSTAX _SFR_MEM8(0XAC)
+#define __UQQ_FBIT__ 8
+#define __UQQ_IBIT__ 0
+#define __USACCUM_EPSILON__ 0x1P-8UHK
+#define __USACCUM_FBIT__ 8
+#define __USACCUM_IBIT__ 8
+#define __USACCUM_MAX__ 0XFFFFP-8UHK
+#define __USACCUM_MIN__ 0.0UHK
+#define __USA_FBIT__ 16
+#define __USA_IBIT__ 16
+#define USART1_RX_vect_num 25
+#define USART1_RX_vect _VECTOR(25)
+#define USART1_TX_vect_num 27
+#define USART1_TX_vect _VECTOR(27)
+#define USART1_UDRE_vect_num 26
+#define USART1_UDRE_vect _VECTOR(26)
+#define USB_COM_vect_num 11
+#define USB_COM_vect _VECTOR(11)
+#define USBCON _SFR_MEM8(0XD8)
+#define USBE 7
+#define USB_GEN_vect_num 10
+#define USB_GEN_vect _VECTOR(10)
+#define USBINT _SFR_MEM8(0XDA)
+#define USBS1 3
+#define USBSTA _SFR_MEM8(0XD9)
+#define USB_SUSPEND_WAKEUP_DELAY 0
+#define USER_KEYCODE_RANGE QK_USER_0... QK_USER_31
+#define __USER_LABEL_PREFIX__
+#define __USFRACT_EPSILON__ 0x1P-8UHR
+#define __USFRACT_FBIT__ 8
+#define __USFRACT_IBIT__ 0
+#define __USFRACT_MAX__ 0XFFP-8UHR
+#define __USFRACT_MIN__ 0.0UHR
+#define __USING_MINT8 0
+#define __USING_SJLJ_EXCEPTIONS__ 1
+#define __USQ_FBIT__ 32
+#define __USQ_IBIT__ 0
+#define __UTA_FBIT__ 48
+#define __UTA_IBIT__ 16
+#define _UTIL_ATOMIC_H_ 1
+#define __UTQ_FBIT__ 128
+#define __UTQ_IBIT__ 0
+#define UVCONE 4
+#define UVREGE 0
+#define va_arg(v, l) __builtin_va_arg(v, l)
+#define __va_copy(d, s) __builtin_va_copy(d, s)
+#define va_copy(d, s) __builtin_va_copy(d, s)
+#define va_end(v) __builtin_va_end(v)
+#define __va_list__
+#define _VA_LIST
+#define _VA_LIST_
+#define _VA_LIST_DEFINED
+#define _VA_LIST_T_H
+#define VALUE0 0
+#define VALUE1 1
+#define va_start(v, l) __builtin_va_start(v, l)
+#define VBERRE 1
+#define VBERRI 1
+#define VBUS 0
+#define VBUSHWC 2
+#define VBUSREQ 1
+#define VBUSRQC 0
+#define VBUSTE 0
+#define VBUSTI 0
+#define _VECTOR(N) __vector_##N
+#define _VECTORS_SIZE 152
+#define VENDOR_ID 0x1A5A
+#define __VERSION__ "5.4.0"
+#define WAITING_BUFFER_SIZE 8
+#define WAKEUPE 4
+#define WAKEUPI 4
+#define __WCHAR_MAX__ 0x7fff
+#define WCHAR_MAX __WCHAR_MAX__
+#define __WCHAR_MIN__ (-__WCHAR_MAX__ - 1)
+#define WCHAR_MIN __WCHAR_MIN__
+#define __wchar_t__
+#define __WCHAR_T
+#define __WCHAR_T__
+#define _WCHAR_T
+#define _WCHAR_T_
+#define _WCHAR_T_DECLARED
+#define _WCHAR_T_DEFINED
+#define _WCHAR_T_DEFINED_
+#define _WCHAR_T_H
+#define __WCHAR_TYPE__ int
+#define WCOL 6
+#define WDCE 4
+#define WDE 3
+#define WDIE 6
+#define WDIF 7
+#define WDP0 0
+#define WDP1 1
+#define WDP2 2
+#define WDP3 5
+#define WDRF 3
+#define WDTCSR _SFR_MEM8(0x60)
+#define WDT_vect_num 12
+#define WDT_vect _VECTOR(12)
+#define WGM00 0
+#define WGM01 1
+#define WGM02 3
+#define WGM10 0
+#define WGM11 1
+#define WGM12 3
+#define WGM13 4
+#define WGM20 0
+#define WGM21 1
+#define WGM22 3
+#define WGM30 0
+#define WGM31 1
+#define WGM32 3
+#define WGM33 4
+#define WIN_T(kc) LWIN_T(kc)
+#define __WINT_MAX__ 0x7fff
+#define WINT_MAX __WINT_MAX__
+#define __WINT_MIN__ (-__WINT_MAX__ - 1)
+#define WINT_MIN __WINT_MIN__
+#define __WINT_TYPE__ int
+#define __WITH_AVRLIBC__ 1
+#define XH r27
+#define XL r26
+#define XMBK 7
+#define XMCRA _SFR_MEM8(0x74)
+#define XMCRB _SFR_MEM8(0x75)
+#define XMM0 0
+#define XMM1 1
+#define XMM2 2
+#define xprintf printf
+#define XRAMEND 0xFFFF
+#define XSTR(s) #s
+#define YH r29
+#define YL r28
+#define ZH r31
+#define ZLPSEEN 4
+#define ZL r30
