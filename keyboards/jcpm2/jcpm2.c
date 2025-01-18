@@ -33,7 +33,7 @@ static void render_logo(void) {
 }
 
 bool oled_task_kb(void) {
-    if (timer_elapsed(logo_timer) < 1000) {
+    if (timer_elapsed32(logo_timer) < 1000) {
         render_logo();
         return false;
     }
