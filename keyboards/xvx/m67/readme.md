@@ -1,7 +1,7 @@
 # XVX M67
 [![XVX M67](https://s21.ax1x.com/2025/01/17/pEFLLGt.png)](https://imgse.com/i/pEFLLGt)
 * Keyboard Maintainer: [jonylee@hfd](https://github.com/jonylee1986)
-* Hardware Supported: [XVX M67](https://www.xvxchannel.com/collections/xvx-m67-jadestone)
+* Hardware Supported: [XVX M67](https://www.xvxchannel.com/products/xvx-m67-jadestone-mechanical-keyboard-with-imd-tech-keycaps-interstellar-black-wired)
 * Hardware Availability: [XVX](https://www.xvxchannel.com)
 
 Make example for this keyboard (after setting up your build environment):
