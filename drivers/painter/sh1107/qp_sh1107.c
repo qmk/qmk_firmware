@@ -58,9 +58,14 @@ __attribute__((weak)) bool qp_sh1107_init(painter_device_t device, painter_rotat
     };
     // clang-format on
 
-    // If the display height is anything other than the default 128 pixels, change SH1107_SET_MUX_RATIO data byte to the correct value
-    if (driver->oled.base.panel_height != 128) {
-        sh1107_init_sequence[3] = driver->oled.base.panel_height - 1;
+    // If the display width is anything other than the default 128 pixels, change SH1107_SET_MUX_RATIO data byte to the correct value.
+    if (driver->oled.base.panel_width != 128) {
+        sh1107_init_sequence[3] = driver->oled.base.panel_width - 1;
+    }
+
+    // If the display width is less than the default 128 pixels, change SH1107_DISPLAY_OFFSET to use the center columns.
+    if (driver->oled.base.panel_width < 128) {
+        sh1107_init_sequence[7] = (128U - driver->oled.base.panel_width) / 2;
     }
 
     // For smaller displays, change SH1107_COM_PADS_HW_CFG data byte from alternative (0x12) to sequential (0x02) configuration
