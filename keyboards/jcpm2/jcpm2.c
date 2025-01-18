@@ -16,7 +16,7 @@
  #include "quantum.h"
  
 #ifdef OLED_ENABLE
-static uint16_t logo_timer = 0;
+static uint32_t logo_timer = 0;
 
 oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
     logo_timer = timer_read();
