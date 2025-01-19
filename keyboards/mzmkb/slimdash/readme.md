@@ -1,6 +1,6 @@
 # Slimdash
 
-![mzmkb/slimdash/rev1](https://i.imgur.com/vqqkfby.jpeg)
+![mzmkb/slimdash/rev1](https://i.imgur.com/ymf8ROw.jpeg)
 
 __SlimDash__ is a slim low profile split ortho-staggered keyboard inspired by omkbd/ErgoDash
 with following key highlights:
