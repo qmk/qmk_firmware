@@ -94,15 +94,6 @@ bool oled_task_user(void) {
             oled_write_ln_P(PSTR(""), false);
             oled_write_ln_P(PSTR("VIA  DRAG SALL DELT"), false);
             break;
-        case _LAYER3: //not used
-            oled_write_ln_P(PSTR("(RO L RO R)   MIDI"), false);
-            oled_write_ln_P(PSTR(""), false);
-            oled_write_ln_P(PSTR("EDIT      B3   C4"), false);
-            oled_write_ln_P(PSTR(""), false);
-            oled_write_ln_P(PSTR("LAYR RSET G3   A3"), false);
-            oled_write_ln_P(PSTR(""), false);
-            oled_write_ln_P(PSTR("C3   D3   E3   F3"), false);
-            break;
     }
     return false;
 }
