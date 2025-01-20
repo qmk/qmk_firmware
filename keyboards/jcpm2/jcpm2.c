@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- #include "quantum.h"
+#include "quantum.h"
  
 #ifdef OLED_ENABLE
 static uint32_t logo_timer = 0;
