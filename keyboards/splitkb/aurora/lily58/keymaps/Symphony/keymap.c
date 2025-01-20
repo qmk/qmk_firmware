@@ -15,6 +15,7 @@
 
 #include QMK_KEYBOARD_H
 #include "helpers.h"
+#include "fire_effect.h"
 
 #ifdef OS_DETECTION_ENABLE
   #include "os_detection.h"
@@ -85,9 +86,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_SYM] = LAYOUT(
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                                 KC_ARROW_FUNC,              S(KC_9),                S(KC_0),                KC_SLASH,   KC_NO,   KC_NO,
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                                 KC_QUOTE_FUNC,              S(KC_COMMA),  S(KC_DOT), KC_BACKSLASH,   KC_8,   KC_NO,
-       KC_LSFT,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                                 KC_LEFT,                    KC_LEFT_BRACKET,        KC_RIGHT_BRACKET,       KC_MINUS,   KC_NO, KC_NO,
+       KC_LSFT,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                                 KC_GRAVE,                    KC_LEFT_BRACKET,        KC_RIGHT_BRACKET,       KC_MINUS,   KC_NO, KC_NO,
         KC_LCTL,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   MO(_NAV),        KC_NEXT_LAYER,  KC_SEMICOLON,               KC_COMMA,               KC_DOT,                 KC_EQUAL,   KC_NO,   KC_NO,
-                                    KC_NO,   KC_NO,   MO(_NUM),   KC_NO,              KC_SPACE,  KC_BSPC,   KC_NO,   KC_NO
+                                    KC_NO,   KC_NO,   MO(_NUM),   KC_NO,              KC_SPACE,  KC_BSPC,   KC_RALT,   KC_NO
     )
 
 };
@@ -130,7 +131,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         if (is_shift_pressed()) {
             tap_code16(S(KC_QUOTE));
-        } else if (is_ctrl_pressed()) {
+        } else if (is_alt_pressed()) {
             tap_code(KC_GRAVE);
         } else {
             tap_code(KC_QUOTE);
@@ -142,17 +143,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 #ifdef RGB_MATRIX_ENABLE
+
+void matrix_init_user(void) {
+}
+
 bool rgb_matrix_indicators_user(void) {
     rgb_matrix_enable();
 
     switch(get_highest_layer(layer_state)) {
         case _GAME:
-            rgb_matrix_set_color_all(178, 34, 34); // A dark, fiery red-orange to represent the lava and intensity of Mordor.
-            for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
-                if (is_keyboard_master() && (i == 13 || i == 18 || i == 19 || i == 20 || i == 33) ) {
-                    rgb_matrix_set_color(i, 255, 69, 0);     // Set WASD + space a bright molten orange for a striking contrast and to highlight them.
-                };
-            };
+            rgb_matrix_set_color_all(128, 17, 0); // A dark, fiery red-orange to represent the lava and intensity of Mordor.
+            fire_effect_update();
             break;
         case _NUM:
             rgb_matrix_set_color_all(34, 139, 34); // Default all to a soft green to represent the lush grass of the Shire.
