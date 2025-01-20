@@ -42,12 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_E,                        KC_ESC,     KC_M,
         DF(_LAYER0),            LGUI(KC_Z), KC_X,
         KC_V,              KC_D,     KC_U,       KC_BSPC    
-    ),
-    [_LAYER3] = LAYOUT( // Unused
-        MI_AOFF,                     MI_B3,      MI_C4,
-        DF(_LAYER0),                 MI_G3,      MI_A3,
-        MI_C3,              MI_D3,   MI_E3,      MI_F3   
-    ),
+    )
 };
 
 #ifdef ENCODER_MAP_ENABLE
