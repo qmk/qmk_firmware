@@ -21,9 +21,6 @@
 
 #include <stdint.h>
 
-#define I2C_READ 0x01
-#define I2C_WRITE 0x00
-
 typedef int16_t i2c_status_t;
 
 #define I2C_STATUS_SUCCESS (0)
