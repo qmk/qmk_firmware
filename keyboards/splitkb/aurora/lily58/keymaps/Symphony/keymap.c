@@ -15,7 +15,7 @@
 
 #include QMK_KEYBOARD_H
 #include "helpers.h"
-#include "fire_effect.h"
+#include "effects/fire_effect.h"
 
 #ifdef OS_DETECTION_ENABLE
   #include "os_detection.h"
