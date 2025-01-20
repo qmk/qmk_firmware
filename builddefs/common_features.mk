@@ -655,6 +655,10 @@ ifeq ($(strip $(XAP_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/xap/xap.c $(QUANTUM_DIR)/xap/xap_handlers.c
 endif
 
+ifeq ($(strip $(DYNAMIC_KEYMAP_ENABLE)), yes)
+    SEND_STRING_ENABLE := yes
+endif
+
 VALID_CUSTOM_MATRIX_TYPES:= yes lite no
 
 CUSTOM_MATRIX ?= no

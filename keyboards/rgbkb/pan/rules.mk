@@ -1,3 +1,1 @@
 WS2812_DRIVER_REQUIRED = yes
-
-DEFAULT_FOLDER = rgbkb/pan/rev1
