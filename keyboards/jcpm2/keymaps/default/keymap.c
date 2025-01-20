@@ -8,8 +8,7 @@ enum layer_names {
     _LAYER0,
     _LAYER0_MOD,
     _LAYER1,
-    _LAYER2,
-    _LAYER3 //unused
+    _LAYER2
 };
 
 #define UNDERGLOW 60
