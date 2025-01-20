@@ -50,8 +50,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_LAYER0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) }, // default
     [_LAYER0_MOD] = { ENCODER_CCW_CW(_______, _______) }, // default MOD
     [_LAYER1] = { ENCODER_CCW_CW(KC_LEFT, KC_RIGHT) }, // FCPX
-    [_LAYER2] = { ENCODER_CCW_CW(KC_R, S(KC_R)) }, // KICAD
-    [_LAYER3] = { ENCODER_CCW_CW(_______, _______) }, // UNUSED
+    [_LAYER2] = { ENCODER_CCW_CW(KC_R, S(KC_R)) } // KICAD
 };
 #endif
 
