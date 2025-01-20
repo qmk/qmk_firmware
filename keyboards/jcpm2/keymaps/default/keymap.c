@@ -125,12 +125,6 @@ bool rgb_matrix_indicators_user(void) {
             rgb_matrix_set_color(9, UNDERGLOW, 0, 0);
             rgb_matrix_set_color(8, UNDERGLOW, 0, 0);
             break;
-        case _LAYER3: //not used
-            rgb_matrix_set_color(11, 0, UNDERGLOW/2, UNDERGLOW/2);
-            rgb_matrix_set_color(10, 0, UNDERGLOW/2, UNDERGLOW/2);
-            rgb_matrix_set_color(9, 0, UNDERGLOW/2, UNDERGLOW/2);
-            rgb_matrix_set_color(8, 0, UNDERGLOW/2, UNDERGLOW/2);
-            break;
         default:
             break;
     }
