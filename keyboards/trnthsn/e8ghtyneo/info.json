@@ -12,8 +12,8 @@
         "nkro": true
     },
     "matrix_pins": {
-        "cols": ["A8", "B14", "B12", "B11", "B10", "B1", "B0", "A7", "A6", "A5", "A3", "A2", "A1", "A0", "C14", "C13", "B5"],
-        "rows": ["A15", "A10", "A9", "A4", "C15", "B9"]
+        "cols": ["A9", "A8", "B14", "B12", "B11", "B10", "B0", "A7", "A6", "A4", "A3", "A2", "A1", "A0", "C13", "B9", "B7"],
+        "rows": ["B8", "A10", "B1", "A5", "C15", "C14"]
     },
     "rgblight": {
         "animations": {
@@ -38,7 +38,7 @@
         "driver": "spi"
     },
     "indicators": {
-        "caps_lock": "B4"
+        "caps_lock": "B3"
     },
     "url": "",
     "usb": {
