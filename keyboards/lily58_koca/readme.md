@@ -6,7 +6,7 @@ A Lily58 variant featuring SMT components. Powered by an STM32F103 MCU and utili
 
 * Keyboard Maintainer: [oxnh](https://github.com/Hardware7253)
 * Hardware Supported: Lily58 Koca PCBs (v1 & v2) 
-* Hardware Availability: (https://github.com/Hardware7253/Lily58_Koca) 
+* Hardware Availability: (https://github.com/Hardware7253/Lily58_Koca)
 
 Make example for this keyboard (after setting up your build environment):
 
