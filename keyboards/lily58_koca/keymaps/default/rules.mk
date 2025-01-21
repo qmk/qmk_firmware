@@ -1,0 +1,3 @@
+SERIAL_DRIVER = usart
+SPLIT_KEYBOARD = yes
+VIA_ENABLE = yes
