@@ -7,11 +7,13 @@ import qmk.path
 from qmk.commands import dump_lines, parse_configurator_json
 from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
 
+
 class ModuleAPI(AttrDict):
     def __init__(self, **kwargs):
         super().__init__()
         for key, value in kwargs.items():
             self[key] = value
+
 
 MODULE_API_LIST = [
     ModuleAPI(ret_type='void', name='keyboard_pre_init', args='void', call_params='', ret_val=None),
@@ -19,6 +21,7 @@ MODULE_API_LIST = [
     ModuleAPI(ret_type='void', name='housekeeping_task', args='void', call_params='', ret_val=None),
     ModuleAPI(ret_type='bool', name='process_record', args='uint16_t keycode, keyrecord_t *record', call_params='keycode, record', ret_val='true'),
 ]
+
 
 @cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
@@ -37,6 +40,7 @@ def generate_community_modules_h(cli):
             for api in MODULE_API_LIST:
                 lines.append(f'{api.ret_type} {api.name}_{module}({api.args});')
     dump_lines(cli.args.output, lines, cli.args.quiet)
+
 
 @cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
