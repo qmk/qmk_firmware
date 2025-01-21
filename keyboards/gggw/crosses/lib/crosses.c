@@ -28,7 +28,7 @@ bool set_scrolling = false;
 float scroll_acc_h = 0.0;
 float scroll_acc_v = 0.0;
 
-const uint16_t MIN_DEFAULT_DPI = 400;
+const uint16_t MIN_DEFAULT_DPI = 200;
 const uint16_t MAX_DEFAULT_DPI = 10000;
 
 /***********************************************************************
@@ -84,7 +84,7 @@ void change_pointer_dpi(global_user_config_t* config, bool inc) {
         return;
     }
 
-    config->mse_cpi += inc ? 10 : -10;
+    config->mse_cpi = requested;
 
 #ifdef POINTING_DEVICE_COMBINED
     pointing_device_set_cpi_on_side(false, get_pointer_dpi(config));
