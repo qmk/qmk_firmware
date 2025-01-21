@@ -10,11 +10,11 @@ A Lily58 variant featuring SMT components, powered by an STM32F103 MCU and utili
 
 Make example for this keyboard (after setting up your build environment):
 
-    make lily58_koca:default
+    make koca:default
 
 Flashing example for this keyboard:
 
-    make lily58_koca:default:flash
+    make koca:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
