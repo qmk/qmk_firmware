@@ -31,6 +31,7 @@ enum my_keycodes {
     MSE_INC,
     MSE_DEC,
     DRAG_SCROLL,
+    MSE_TOGG,
 };
 
 enum combos {
@@ -160,19 +161,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              KC_TRNS , KC_TRNS , KC_TRNS ,     KC_TRNS , KC_TRNS , KC_TRNS
 ),
 
-//    ┌──────┬─────────┬─────────┬─────────────┬────┐             ┌────────┬─────────┬─────────┬──────┬─────────┐
-//    │ lsft │  lalt   │   no    │     no      │ no │             │ EE_CLR │ MSE_INC │ MSE_DEC │  no  │   no    │
-//    ├──────┼─────────┼─────────┼─────────────┼────┤             ├────────┼─────────┼─────────┼──────┼─────────┤
-//    │ lctl │ MS_BTN3 │ MS_BTN2 │   MS_BTN1   │ no │             │   no   │  rsft   │  rctl   │ ralt │  rgui   │
-//    ├──────┼─────────┼─────────┼─────────────┼────┤             ├────────┼─────────┼─────────┼──────┼─────────┤
-//    │ lgui │   no    │   no    │ DRAG_SCROLL │ no │             │   no   │   no    │   no    │  no  │ DB_TOGG │
-//    └──────┴─────────┴─────────┼─────────────┼────┼────┐   ┌────┼────────┼─────────┼─────────┴──────┴─────────┘
+//    ┌──────┬─────────┬─────────┬─────────────┬────┐             ┌────────┬─────────┬─────────┬───-----───┬─────────┐
+//    │ lsft │  lalt   │   no    │     no      │ no │             │ EE_CLR │ MSE_INC │ MSE_DEC │  no       │   no    │
+//    ├──────┼─────────┼─────────┼─────────────┼────┤             ├────────┼─────────┼─────────┼───-----───┼─────────┤
+//    │ lctl │ MS_BTN3 │ MS_BTN2 │   MS_BTN1   │ no │             │   no   │  rsft   │  rctl   │ ralt      │  rgui   │
+//    ├──────┼─────────┼─────────┼─────────────┼────┤             ├────────┼─────────┼─────────┼───-----───┼─────────┤
+//    │ lgui │   no    │   no    │ DRAG_SCROLL │ no │             │   no   │   no    │   no    │ MSE_TOGG  │ DB_TOGG │
+//    └──────┴─────────┴─────────┼─────────────┼────┼────┐   ┌────┼────────┼─────────┼─────────┴────-----──┴─────────┘
 //                               │             │ no │ no │   │ no │   no   │   no    │
 //                               └─────────────┴────┴────┘   └────┴────────┴─────────┘
 [_MOUS] = LAYOUT_default(
-  KC_LSFT , KC_LALT , KC_NO   , KC_NO       , KC_NO ,                     EE_CLR , MSE_INC , MSE_DEC , KC_NO   , KC_NO  ,
-  KC_LCTL , MS_BTN3 , MS_BTN2 , MS_BTN1     , KC_NO ,                     KC_NO  , KC_RSFT , KC_RCTL , KC_RALT , KC_RGUI,
-  KC_LGUI , KC_NO   , KC_NO   , DRAG_SCROLL , KC_NO ,                     KC_NO  , KC_NO   , KC_NO   , KC_NO   , DB_TOGG,
+  KC_LSFT , KC_LALT , KC_NO   , KC_NO       , KC_NO ,                     EE_CLR , MSE_INC , MSE_DEC , KC_NO    , KC_NO  ,
+  KC_LCTL , MS_BTN3 , MS_BTN2 , MS_BTN1     , KC_NO ,                     KC_NO  , KC_RSFT , KC_RCTL , KC_RALT  , KC_RGUI,
+  KC_LGUI , KC_NO   , KC_NO   , DRAG_SCROLL , KC_NO ,                     KC_NO  , KC_NO   , KC_NO   , MSE_TOGG , DB_TOGG,
                                 KC_TRNS     , KC_NO , KC_NO ,     KC_NO , KC_NO  , KC_NO
 )
 };
@@ -254,6 +255,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
                 return false;
             }
             break;
+        case MSE_TOGG:
+            if (record->event.pressed) {
+                bool current_state = get_auto_mouse_enable();
+                set_auto_mouse_enable(!current_state);
+
+                return false;
+            }
+            break;
         case DRAG_SCROLL:
             set_scrolling = record->event.pressed;
             break;
@@ -295,9 +304,16 @@ static void render_logo(void) {
 bool oled_task_user(void) {
     render_logo();
 
+    // clang-format off
     const char* layer_names[] = {
-        [_BASE] = ">> BASE ", [_NUM] = ">> PROG ", [_NAV] = ">> NAVI ", [_MEDIA] = ">>> MEDIA ", [_FUNC] = ">>> FUNC ", [_MOUS] = ">>> MOUSE ",
+        [_BASE]  = ">> BASE   ",
+        [_NUM]   = ">> PROG   ",
+        [_NAV]   = ">> NAVI   ",
+        [_MEDIA] = ">>> MEDIA ",
+        [_FUNC]  = ">>> FUNC  ",
+        [_MOUS]  = ">>> MOUSE ",
     };
+    // clang-format on
 
     oled_write_P(PSTR(layer_names[get_highest_layer(layer_state)]), false);
 
@@ -313,5 +329,5 @@ void keyboard_post_init_user(void) {
 
 void pointing_device_init_user(void) {
     set_auto_mouse_layer(_MOUS);
-    set_auto_mouse_enable(true);
+    set_auto_mouse_enable(false);
 }
