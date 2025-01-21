@@ -1,6 +1,6 @@
 # lily58_koca
 
-![lily58_koca](https://imgur.com/a/lily58-koca-pcb-Tdd002a)
+![lily58_koca](https://i.imgur.com/loOGjGq.jpeg)
 
 A Lily58 variant featuring SMT components. Powered by an STM32F103 MCU and utilizing direct wiring. Vendor coming soon.
 
