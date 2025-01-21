@@ -55,6 +55,7 @@ def process_mapping_rule(kb_info_json, rules_key, info_dict):
 def generate_rules_mk(cli):
     """Generates a rules.mk file from info.json.
     """
+    user_keymap = None
     converter = None
     # Determine our keyboard/keymap
     if cli.args.filename:
@@ -98,6 +99,14 @@ def generate_rules_mk(cli):
 
     if converter:
         rules_mk_lines.append(generate_rule('CONVERT_TO', converter))
+
+    if user_keymap and 'modules' in user_keymap:
+        for module in user_keymap['modules']:
+            rules_mk_lines.append('')
+            rules_mk_lines.append(f'COMMUNITY_MODULES += {module}')
+            rules_mk_lines.append(f'OPT_DEFS += -DMODULE_{module.upper()}=TRUE')
+            rules_mk_lines.append(f'VPATH += modules/{module}')
+            rules_mk_lines.append(f'include modules/{module}/rules.mk')
 
     # Show the results
     dump_lines(cli.args.output, rules_mk_lines)

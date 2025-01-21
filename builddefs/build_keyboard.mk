@@ -224,6 +224,20 @@ $(INTERMEDIATE_OUTPUT)/src/keymap.h: $(KEYMAP_JSON)
 
 generated-files: $(INTERMEDIATE_OUTPUT)/src/config.h $(INTERMEDIATE_OUTPUT)/src/keymap.c $(INTERMEDIATE_OUTPUT)/src/keymap.h
 
+$(INTERMEDIATE_OUTPUT)/src/community_modules.h: $(KEYMAP_JSON)
+	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
+	$(eval CMD=$(QMK_BIN) generate-community-modules-h --quiet --output $(INTERMEDIATE_OUTPUT)/src/community_modules.h $(KEYMAP_JSON))
+	@$(BUILD_CMD)
+
+$(INTERMEDIATE_OUTPUT)/src/community_modules.c: $(KEYMAP_JSON)
+	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
+	$(eval CMD=$(QMK_BIN) generate-community-modules-c --quiet --output $(INTERMEDIATE_OUTPUT)/src/community_modules.c $(KEYMAP_JSON))
+	@$(BUILD_CMD)
+
+SRC += $(INTERMEDIATE_OUTPUT)/src/community_modules.c
+
+generated-files: $(INTERMEDIATE_OUTPUT)/src/community_modules.h $(INTERMEDIATE_OUTPUT)/src/community_modules.c
+
 endif
 
 include $(BUILDDEFS_PATH)/converters.mk
