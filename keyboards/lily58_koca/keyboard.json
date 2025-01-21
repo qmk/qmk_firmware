@@ -23,10 +23,10 @@
             "right": {
                 "cols": ["A10", "A9", "A8", "C9", "C8", "C7", "B2", "B13", "B12", "B14", "B15", "C6", "A6", "A7", "C4", "C5", "B0", "B1", "C14", "A0", "A1", "A2", "A3", "A4", "A5", "C13", "B7", "B6", "B5"],
                 "rows": ["C12"]
-            },
-            "serial": {
-                "driver": "usart"
             }
+        },
+	"serial": {
+                "driver": "usart"
         }
     },
     "url": "https://github.com/Hardware7253/Lily58_Koca",
