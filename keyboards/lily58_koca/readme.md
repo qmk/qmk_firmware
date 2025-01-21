@@ -2,11 +2,11 @@
 
 ![lily58_koca](https://imgur.com/a/lily58-koca-pcb-Tdd002a)
 
-A Lily58 variant featuring SMT components. Powered by an STM32F103 MCU and utilizing direct wiring.
+A Lily58 variant featuring SMT components. Powered by an STM32F103 MCU and utilizing direct wiring. Vendor coming soon.
 
 * Keyboard Maintainer: [oxnh](https://github.com/Hardware7253)
 * Hardware Supported: Lily58 Koca PCBs (v1 & v2) 
-* Hardware Availability: Coming Soon!
+* Hardware Availability: (https://github.com/Hardware7253/Lily58_Koca) 
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -23,4 +23,4 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 Enter the bootloader in 2 ways:
 
 * **Bootmagic reset**: Hold down the escaoe key and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
+* **Physical reset button**: Briefly press the button on the back of the PCB 
