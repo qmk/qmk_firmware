@@ -1,27 +1,26 @@
-# lil58_koca
+# lily58_koca
 
-![lil58_koca](imgur.com image replace me!)
+![lily58_koca](https://imgur.com/a/lily58-koca-pcb-Tdd002a)
 
-*A short description of the keyboard/project*
+A Lily58 variant featuring SMT components. Powered by an STM32F103 MCU and utilizing direct wiring.
 
-* Keyboard Maintainer: [oxnh](https://github.com/oxnh)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [oxnh](https://github.com/Hardware7253)
+* Hardware Supported: Lily58 Koca PCBs (v1 & v2) 
+* Hardware Availability: Coming Soon!
 
 Make example for this keyboard (after setting up your build environment):
 
-    make lil58_koca:default
+    make lily58_koca:default
 
 Flashing example for this keyboard:
 
-    make lil58_koca:default:flash
+    make lily58_koca:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 ## Bootloader
 
-Enter the bootloader in 3 ways:
+Enter the bootloader in 2 ways:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
+* **Bootmagic reset**: Hold down the escaoe key and plug in the keyboard
 * **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
-* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available

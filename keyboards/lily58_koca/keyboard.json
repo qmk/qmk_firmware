@@ -1,6 +1,6 @@
 {
     "manufacturer": "oxnh",
-    "keyboard_name": "lil58_koca",
+    "keyboard_name": "lily58_koca",
     "maintainer": "oxnh",
     "bootloader": "stm32duino",
     "diode_direction": "COL2ROW",
