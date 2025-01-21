@@ -161,13 +161,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              KC_TRNS , KC_TRNS , KC_TRNS ,     KC_TRNS , KC_TRNS , KC_TRNS
 ),
 
-//    ┌──────┬─────────┬─────────┬─────────────┬────┐             ┌────────┬─────────┬─────────┬───-----───┬─────────┐
-//    │ lsft │  lalt   │   no    │     no      │ no │             │ EE_CLR │ MSE_INC │ MSE_DEC │  no       │   no    │
-//    ├──────┼─────────┼─────────┼─────────────┼────┤             ├────────┼─────────┼─────────┼───-----───┼─────────┤
-//    │ lctl │ MS_BTN3 │ MS_BTN2 │   MS_BTN1   │ no │             │   no   │  rsft   │  rctl   │ ralt      │  rgui   │
-//    ├──────┼─────────┼─────────┼─────────────┼────┤             ├────────┼─────────┼─────────┼───-----───┼─────────┤
-//    │ lgui │   no    │   no    │ DRAG_SCROLL │ no │             │   no   │   no    │   no    │ MSE_TOGG  │ DB_TOGG │
-//    └──────┴─────────┴─────────┼─────────────┼────┼────┐   ┌────┼────────┼─────────┼─────────┴────-----──┴─────────┘
+//    ┌──────┬─────────┬─────────┬─────────────┬────┐             ┌────────┬─────────┬─────────┬──────────┬─────────┐
+//    │ lsft │  lalt   │   no    │     no      │ no │             │ EE_CLR │ MSE_INC │ MSE_DEC │    no    │   no    │
+//    ├──────┼─────────┼─────────┼─────────────┼────┤             ├────────┼─────────┼─────────┼──────────┼─────────┤
+//    │ lctl │ MS_BTN3 │ MS_BTN2 │   MS_BTN1   │ no │             │   no   │  rsft   │  rctl   │   ralt   │  rgui   │
+//    ├──────┼─────────┼─────────┼─────────────┼────┤             ├────────┼─────────┼─────────┼──────────┼─────────┤
+//    │ lgui │   no    │   no    │ DRAG_SCROLL │ no │             │   no   │   no    │   no    │ MSE_TOGG │ DB_TOGG │
+//    └──────┴─────────┴─────────┼─────────────┼────┼────┐   ┌────┼────────┼─────────┼─────────┴──────────┴─────────┘
 //                               │             │ no │ no │   │ no │   no   │   no    │
 //                               └─────────────┴────┴────┘   └────┴────────┴─────────┘
 [_MOUS] = LAYOUT_default(
@@ -306,16 +306,22 @@ bool oled_task_user(void) {
 
     // clang-format off
     const char* layer_names[] = {
-        [_BASE]  = ">> BASE   ",
-        [_NUM]   = ">> PROG   ",
-        [_NAV]   = ">> NAVI   ",
-        [_MEDIA] = ">>> MEDIA ",
-        [_FUNC]  = ">>> FUNC  ",
-        [_MOUS]  = ">>> MOUSE ",
+        [_BASE]  = "BASE  CPI: ",
+        [_NUM]   = "PROG  CPI: ",
+        [_NAV]   = "NAVI  CPI: ",
+        [_MEDIA] = "MEDIA CPI: ",
+        [_FUNC]  = "FUNC  CPI: ",
+        [_MOUS]  = "MOUSE CPI: ",
     };
     // clang-format on
 
-    oled_write_P(PSTR(layer_names[get_highest_layer(layer_state)]), false);
+    char     cpi_str[6];
+    uint16_t current_dpi = get_pointer_dpi(&global_user_config);
+
+    snprintf(cpi_str, sizeof(cpi_str), "%u", (unsigned int)current_dpi);
+
+    oled_write(PSTR(layer_names[get_highest_layer(layer_state)]), false);
+    oled_write(cpi_str, false);
 
     return false;
 }
