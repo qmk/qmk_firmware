@@ -158,11 +158,34 @@ Send multiple bytes to the selected I2C device.
  - `const uint8_t* data`  
    A pointer to the data to transmit.
  - `uint16_t length`  
- The number of bytes to write. Take care not to overrun the length of `data`.
+   The number of bytes to write. Take care not to overrun the length of `data`.
  - `uint16_t timeout`  
    The time in milliseconds to wait for a response from the target device.
 
 #### Return Value {#api-i2c-transmit-return}
+
+`I2C_STATUS_TIMEOUT` if the timeout period elapses, `I2C_STATUS_ERROR` if some other error occurs, otherwise `I2C_STATUS_SUCCESS`.
+
+---
+
+### `i2c_status_t i2c_transmit_P(uint8_t address, const uint8_t* data, uint16_t length, uint16_t timeout)` {#api-i2c-transmit-p}
+
+Send multiple bytes from PROGMEM to the selected I2C device.
+
+On ARM devices, this function is simply an alias for `i2c_transmit(address, data, length, timeout)`.
+
+#### Arguments {#api-i2c-transmit-p-arguments}
+
+ - `uint8_t address`  
+   The 7-bit I2C address of the device.
+ - `const uint8_t* data`  
+   A pointer to the data to transmit.
+ - `uint16_t length`  
+   The number of bytes to write. Take care not to overrun the length of `data`.
+ - `uint16_t timeout`  
+   The time in milliseconds to wait for a response from the target device.
+
+#### Return Value {#api-i2c-transmit-p-return}
 
 `I2C_STATUS_TIMEOUT` if the timeout period elapses, `I2C_STATUS_ERROR` if some other error occurs, otherwise `I2C_STATUS_SUCCESS`.
 
@@ -177,9 +200,9 @@ Receive multiple bytes from the selected I2C device.
  - `uint8_t address`  
    The 7-bit I2C address of the device.
  - `uint8_t* data`  
-   A pointer to the buffer to read into.
+   A pointer to a buffer to read into.
  - `uint16_t length`  
- The number of bytes to read. Take care not to overrun the length of `data`.
+   The number of bytes to read. Take care not to overrun the length of `data`.
  - `uint16_t timeout`  
    The time in milliseconds to wait for a response from the target device.
 
@@ -191,7 +214,7 @@ Receive multiple bytes from the selected I2C device.
 
 ### `i2c_status_t i2c_write_register(uint8_t devaddr, uint8_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout)` {#api-i2c-write-register}
 
-Writes to a register with an 8-bit address on the I2C device.
+Write to a register with an 8-bit address on the I2C device.
 
 #### Arguments {#api-i2c-write-register-arguments}
 
@@ -202,7 +225,7 @@ Writes to a register with an 8-bit address on the I2C device.
  - `const uint8_t* data`  
    A pointer to the data to transmit.
  - `uint16_t length`  
- The number of bytes to write. Take care not to overrun the length of `data`.
+   The number of bytes to write. Take care not to overrun the length of `data`.
  - `uint16_t timeout`  
    The time in milliseconds to wait for a response from the target device.
 
@@ -214,7 +237,7 @@ Writes to a register with an 8-bit address on the I2C device.
 
 ### `i2c_status_t i2c_write_register16(uint8_t devaddr, uint16_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout)` {#api-i2c-write-register16}
 
-Writes to a register with a 16-bit address (big endian) on the I2C device.
+Write to a register with a 16-bit address (big endian) on the I2C device.
 
 #### Arguments {#api-i2c-write-register16-arguments}
 
@@ -237,7 +260,7 @@ Writes to a register with a 16-bit address (big endian) on the I2C device.
 
 ### `i2c_status_t i2c_read_register(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout)` {#api-i2c-read-register}
 
-Reads from a register with an 8-bit address on the I2C device.
+Read from a register with an 8-bit address on the I2C device.
 
 #### Arguments {#api-i2c-read-register-arguments}
 
@@ -260,7 +283,7 @@ Reads from a register with an 8-bit address on the I2C device.
 
 ### `i2c_status_t i2c_read_register16(uint8_t devaddr, uint16_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout)` {#api-i2c-read-register16}
 
-Reads from a register with a 16-bit address (big endian) on the I2C device.
+Read from a register with a 16-bit address (big endian) on the I2C device.
 
 #### Arguments {#api-i2c-read-register16-arguments}
 
@@ -283,16 +306,16 @@ Reads from a register with a 16-bit address (big endian) on the I2C device.
 
 ### `i2c_status_t i2c_ping_address(uint8_t address, uint16_t timeout)` {#api-i2c-ping-address}
 
-Pings the I2C bus for a specific address.
+Ping the I2C bus for a specific address.
 
-On ChibiOS a "best effort" attempt is made by reading a single byte from register 0 at the requested address. This should generally work except for I2C devices that do not not respond to a register 0 read request, which will result in a false negative result (unsuccessful response to ping attempt).
+On ChibiOS a "best effort" attempt is made by reading a single byte from register 0 at the given address. This should generally work except for I2C devices that do not not respond to a register 0 read request, which will result in a false negative result (unsuccessful response to ping attempt).
 
 This function is weakly defined, meaning it can be overridden if necessary for your particular use case.
 
 #### Arguments {#api-i2c-ping-address-arguments}
 
  - `uint8_t address`  
-   The 7-bit I2C address of the device (ie. without the read/write bit - this will be set automatically).
+   The 7-bit I2C address of the device.
  - `uint16_t timeout`  
    The time in milliseconds to wait for a response from the target device.
 
