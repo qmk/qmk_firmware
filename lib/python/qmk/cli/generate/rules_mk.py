@@ -101,10 +101,12 @@ def generate_rules_mk(cli):
         rules_mk_lines.append(generate_rule('CONVERT_TO', converter))
 
     if user_keymap and 'modules' in user_keymap:
+        rules_mk_lines.append('')
+        rules_mk_lines.append('OPT_DEFS += -DCOMMUNITY_MODULES_ENABLED=TRUE')
         for module in user_keymap['modules']:
             rules_mk_lines.append('')
             rules_mk_lines.append(f'COMMUNITY_MODULES += {module}')
-            rules_mk_lines.append(f'OPT_DEFS += -DMODULE_{module.upper()}=TRUE')
+            rules_mk_lines.append(f'OPT_DEFS += -DCOMMUNITY_MODULE_{module.upper()}=TRUE')
             rules_mk_lines.append(f'VPATH += modules/{module}')
             rules_mk_lines.append(f'include modules/{module}/rules.mk')
 
