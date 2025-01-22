@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include QMK_KEYBOARD_H
 
-ASSERT_COMMUNITY_MODULES_API_VERSION(20250122);
+ASSERT_COMMUNITY_MODULES_MIN_API_VERSION(20250122);
 
 static uint32_t init_timestamp = 0;
 
