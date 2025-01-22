@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef HAL_USE_GPT
 #define HAL_USE_GPT TRUE
 
-<<<<<<< HEAD:keyboards/nuphy/halo75v2/ansi/halconf.h
 #undef HAL_USE_I2C
 #define HAL_USE_I2C TRUE
 
@@ -31,10 +30,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define HAL_USE_DMA TRUE
 
 #include_next <halconf.h>
-||||||| f156e57f8e:keyboards/owlab/voice65/hotswap/config.h
-#ifdef RGB_MATRIX_ENABLE
-#    define RGB_MATRIX_DISABLE_KEYCODES
-#endif
-=======
-#define RGB_MATRIX_DISABLE_SHARED_KEYCODES
->>>>>>> master:keyboards/owlab/voice65/hotswap/config.h

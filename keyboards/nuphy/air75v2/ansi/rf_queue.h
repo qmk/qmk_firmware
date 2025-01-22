@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 
-<<<<<<< HEAD:keyboards/nuphy/air75v2/ansi/rf_queue.h
 typedef struct {
     uint8_t cmd;
     uint8_t length;
@@ -33,24 +32,3 @@ typedef struct {
     bool (*is_empty)(void);
     void (*clear)(void);
 } rf_queue_t;
-||||||| f156e57f8e:keyboards/work_louder/loop/config.h
-#define RGB_MATRIX_DISABLE_KEYCODES
-
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-//#define NO_DEBUG
-
-/* disable print */
-//#define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
-=======
-#define RGB_MATRIX_DISABLE_SHARED_KEYCODES
->>>>>>> master:keyboards/work_louder/loop/config.h

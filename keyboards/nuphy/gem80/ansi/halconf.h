@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include_next <halconf.h>
 
-<<<<<<< HEAD:keyboards/nuphy/gem80/ansi/halconf.h
 #undef HAL_USE_PWM
 #define HAL_USE_PWM TRUE
 
@@ -28,10 +27,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // force enable timer usage for wait_us
 #undef HAL_USE_GPT
 #define HAL_USE_GPT TRUE
-||||||| f156e57f8e:keyboards/owlab/voice65/soldered/config.h
-#ifdef RGB_MATRIX_ENABLE
-#    define RGB_MATRIX_DISABLE_KEYCODES
-#endif
-=======
-#define RGB_MATRIX_DISABLE_SHARED_KEYCODES
->>>>>>> master:keyboards/owlab/voice65/soldered/config.h

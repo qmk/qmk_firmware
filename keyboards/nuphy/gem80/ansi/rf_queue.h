@@ -26,17 +26,9 @@ typedef struct {
     uint8_t buffer[16]; // set to max length used
 } report_buffer_t;
 
-<<<<<<< HEAD:keyboards/nuphy/gem80/ansi/rf_queue.h
 typedef struct {
     bool (*enqueue)(report_buffer_t *report);
     bool (*dequeue)(report_buffer_t *report);
     bool (*is_empty)(void);
     void (*clear)(void);
 } rf_queue_t;
-||||||| f156e57f8e:keyboards/mechlovin/adelais/rgb_led/rev3/config.h
-#define IS31FL3741_I2C_ADDRESS_1 IS31FL3741_I2C_ADDRESS_SDA
-
-#define RGB_MATRIX_DISABLE_KEYCODES
-=======
-#define IS31FL3741_I2C_ADDRESS_1 IS31FL3741_I2C_ADDRESS_SDA
->>>>>>> master:keyboards/mechlovin/adelais/rgb_led/rev3/config.h
