@@ -90,9 +90,9 @@ typedef struct {
  * The above defines names for `MYMACRO1` and `MYMACRO2`, and overrides
  * `KC_EXLM` to format as "KC_EXLM" instead of the default "S(KC_1)".
  */
-extern const keycode_string_name_t keycode_string_names_user[];
+extern const keycode_string_name_t* keycode_string_names_user;
 /** Same as `keycode_string_names_user`, but for use at the keyboard level. */
-extern const keycode_string_name_t keycode_string_names_kb[];
+extern const keycode_string_name_t* keycode_string_names_kb;
 
 /** Helper to define a keycode_string_name_t. */
 #    define KEYCODE_STRING_NAME(kc) \

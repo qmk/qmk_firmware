@@ -92,10 +92,13 @@ static const keycode_string_name_t keycode_names[] = {
     KEYCODE_STRING_NAMES_END
 };
 // clang-format on
+
+__attribute__((weak)) const keycode_string_name_t empty_table[] = {KEYCODE_STRING_NAMES_END};
+
 /** Users can override this to define names of additional keycodes. */
-__attribute__((weak)) const keycode_string_name_t keycode_string_names_user[] = {KEYCODE_STRING_NAMES_END};
+__attribute__((weak)) const keycode_string_name_t* keycode_string_names_user = empty_table;
 /** Keyboard vendors can override this to define names of additional keycodes. */
-__attribute__((weak)) const keycode_string_name_t keycode_string_names_kb[] = {KEYCODE_STRING_NAMES_END};
+__attribute__((weak)) const keycode_string_name_t* keycode_string_names_kb = empty_table;
 /** Names of the 4 mods on each hand. */
 static const char* mod_names[4] = {PSTR("CTL"), PSTR("SFT"), PSTR("ALT"), PSTR("GUI")};
 /** Internal buffer for holding a stringified keycode. */

@@ -22,11 +22,11 @@ enum {
 };
 
 // clang-format off
-extern "C" const keycode_string_name_t keycode_string_names_kb[] = {
+extern "C" const keycode_string_name_t *keycode_string_names_kb = (keycode_string_name_t []){
     KEYCODE_STRING_NAME(MYMACRO1),
     KEYCODE_STRING_NAMES_END // End of table sentinel.
 };
-extern "C" const keycode_string_name_t keycode_string_names_user[] = {
+extern "C" const keycode_string_name_t *keycode_string_names_user = (keycode_string_name_t []){
     KEYCODE_STRING_NAME(MYMACRO2),
     KEYCODE_STRING_NAME(KC_EXLM),
     KEYCODE_STRING_NAMES_END // End of table sentinel.

@@ -78,7 +78,8 @@ Many common QMK keycodes are recognized by `get_keycode_string()`, but not all. 
 Optionally, `keycode_string_names_user` may be defined to add names for additional keycodes. For example, supposing keymap.c defines `MYMACRO1` and `MYMACRO2` as custom keycodes, the following adds their names:
 
 ```c
-const keycode_string_name_t keycode_string_names_user[] = {
+const keycode_string_name_t *keycode_string_names_user =
+(keycode_string_name_t []){
     KEYCODE_STRING_NAME(MYMACRO1),
     KEYCODE_STRING_NAME(MYMACRO2),
     KEYCODE_STRING_NAMES_END // End of table sentinel.
