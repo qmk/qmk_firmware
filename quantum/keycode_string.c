@@ -17,8 +17,10 @@
 #include <string.h>
 #include "bitwise.h"
 #include "keycode.h"
+#include "keymap_introspection.h"
 #include "progmem.h"
 #include "quantum_keycodes.h"
+#include "util.h"
 
 typedef int_fast8_t index_t;
 
@@ -89,16 +91,16 @@ static const keycode_string_name_t keycode_names[] = {
     KEYCODE_STRING_NAME(QK_LLCK),
 #endif // LAYER_LOCK_ENABLE
     KEYCODE_STRING_NAME(DB_TOGG),
-    KEYCODE_STRING_NAMES_END
 };
 // clang-format on
 
-__attribute__((weak)) const keycode_string_name_t empty_table[] = {KEYCODE_STRING_NAMES_END};
+static const keycode_string_name_t* keycode_names_get(uint16_t i) {
+    if (i >= ARRAY_SIZE(keycode_names)) {
+        return NULL;
+    }
+    return &keycode_names[i];
+}
 
-/** Users can override this to define names of additional keycodes. */
-__attribute__((weak)) const keycode_string_name_t* keycode_string_names_user = empty_table;
-/** Keyboard vendors can override this to define names of additional keycodes. */
-__attribute__((weak)) const keycode_string_name_t* keycode_string_names_kb = empty_table;
 /** Names of the 4 mods on each hand. */
 static const char* mod_names[4] = {PSTR("CTL"), PSTR("SFT"), PSTR("ALT"), PSTR("GUI")};
 /** Internal buffer for holding a stringified keycode. */
@@ -107,17 +109,21 @@ static char buffer[32];
 static index_t buffer_len;
 
 /**
- * @brief Finds the name of a keycode in `table` or returns NULL.
+ * @brief Finds the name of a keycode in table or returns NULL.
  *
- * The last entry of the table must be `KEYCODE_STRING_NAMES_END`.
+ * The function arg `table_get(i)` is called as `table_get(0)`, `table_get(1)`,
+ * `table_get(2)`, etc., until it returns NULL or once the keycode is found.
  *
- * @param table   A table of keycode_string_name_t to be searched.
+ * @param table_get  Function to get the table entries.
  * @return Name string for the keycode, or NULL if not found.
  */
-static const char* find_keycode_name(const keycode_string_name_t* table, uint16_t keycode) {
-    for (; table->keycode; ++table) {
-        if (table->keycode == keycode) {
-            return table->name;
+static const char* find_keycode_name(const keycode_string_name_t* (*table_get)(uint16_t), uint16_t keycode) {
+    for (uint16_t i = 0;; ++i) {
+        const keycode_string_name_t* entry = table_get(i);
+        if (entry == NULL) {
+            break;
+        } else if (entry->keycode == keycode) {
+            return entry->name;
         }
     }
     return NULL;
@@ -206,19 +212,24 @@ static void append_unary_keycode(const char* name, const char* param) {
 
 /** Stringifies `keycode` and appends it to `buffer`. */
 static void append_keycode(uint16_t keycode) {
+    const char* keycode_name;
+#ifdef KEYCODE_STRING_NAMES_USER
     // In case there is overlap among tables, search `keycode_string_names_user`
     // first so that it takes precedence.
-    const char* keycode_name = find_keycode_name(keycode_string_names_user, keycode);
+    keycode_name = find_keycode_name(keycode_string_names_user_get, keycode);
     if (keycode_name) {
         append_P(keycode_name);
         return;
     }
-    keycode_name = find_keycode_name(keycode_string_names_kb, keycode);
+#endif // KEYCODE_STRING_NAMES_USER
+#ifdef KEYCODE_STRING_NAMES_KB
+    keycode_name = find_keycode_name(keycode_string_names_kb_get, keycode);
     if (keycode_name) {
         append_P(keycode_name);
         return;
     }
-    keycode_name = find_keycode_name(keycode_names, keycode);
+#endif // KEYCODE_STRING_NAMES_KB
+    keycode_name = find_keycode_name(keycode_names_get, keycode);
     if (keycode_name) {
         append_P(keycode_name);
         return;

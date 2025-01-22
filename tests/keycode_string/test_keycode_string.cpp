@@ -15,23 +15,7 @@
 #include <iostream>
 
 #include "test_common.hpp"
-
-enum {
-    MYMACRO1 = SAFE_RANGE,
-    MYMACRO2,
-};
-
-// clang-format off
-extern "C" const keycode_string_name_t *keycode_string_names_kb = (keycode_string_name_t []){
-    KEYCODE_STRING_NAME(MYMACRO1),
-    KEYCODE_STRING_NAMES_END // End of table sentinel.
-};
-extern "C" const keycode_string_name_t *keycode_string_names_user = (keycode_string_name_t []){
-    KEYCODE_STRING_NAME(MYMACRO2),
-    KEYCODE_STRING_NAME(KC_EXLM),
-    KEYCODE_STRING_NAMES_END // End of table sentinel.
-};
-// clang-format on
+#include "test_keymap.h"
 
 class KeycodeStringTest : public TestFixture {};
 
