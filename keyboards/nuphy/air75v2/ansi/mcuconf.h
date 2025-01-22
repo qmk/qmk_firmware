@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+<<<<<<< HEAD:keyboards/nuphy/air75v2/ansi/mcuconf.h
 #include_next <mcuconf.h>
 
 #undef STM32_PWM_USE_TIM3
@@ -31,3 +32,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef STM32_GPT_USE_TIM14
 #define STM32_GPT_USE_TIM14 TRUE
 #define STM32_TIM14_SUPPRESS_ISR
+||||||| f156e57f8e:keyboards/rgbkb/pan/config.h
+#define RGB_MATRIX_LED_COUNT 64
+=======
+#define RGB_MATRIX_LED_COUNT 64
+#define WS2812_LED_COUNT 64
+>>>>>>> master:keyboards/rgbkb/pan/config.h

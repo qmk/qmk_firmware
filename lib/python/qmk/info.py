@@ -292,7 +292,7 @@ def _extract_features(info_data, rules):
                 info_data['features'] = {}
 
             if key in info_data['features']:
-                _log_warning(info_data, 'Feature %s is specified in both info.json and rules.mk, the rules.mk value wins.' % (key,))
+                _log_warning(info_data, 'Feature %s is specified in both info.json (%s) and rules.mk (%s). The rules.mk value wins.' % (key, info_data['features'], value))
 
             info_data['features'][key] = value
             info_data['config_h_features'][key] = value
@@ -415,7 +415,7 @@ def _extract_encoders(info_data, config_c):
             info_data['encoder'] = {}
 
         if 'rotary' in info_data['encoder']:
-            _log_warning(info_data, 'Encoder config is specified in both config.h and info.json (encoder.rotary) (Value: %s), the config.h value wins.' % info_data['encoder']['rotary'])
+            _log_warning(info_data, 'Encoder config is specified in both config.h (%s) and info.json (%s). The config.h value wins.' % (encoders, info_data['encoder']['rotary']))
 
         info_data['encoder']['rotary'] = encoders
 
@@ -773,23 +773,24 @@ def find_keyboard_c(keyboard):
 def _extract_led_config(info_data, keyboard):
     """Scan all <keyboard>.c files for led config
     """
-    cols = info_data['matrix_size']['cols']
-    rows = info_data['matrix_size']['rows']
-
     for feature in ['rgb_matrix', 'led_matrix']:
         if info_data.get('features', {}).get(feature, False) or feature in info_data:
-
             # Only attempt search if dd led config is missing
             if 'layout' not in info_data.get(feature, {}):
-                # Process
-                for file in find_keyboard_c(keyboard):
-                    try:
-                        ret = find_led_config(file, cols, rows)
-                        if ret:
-                            info_data[feature] = info_data.get(feature, {})
-                            info_data[feature]['layout'] = ret
-                    except Exception as e:
-                        _log_warning(info_data, f'led_config: {file.name}: {e}')
+                cols = info_data.get('matrix_size', {}).get('cols')
+                rows = info_data.get('matrix_size', {}).get('rows')
+                if cols and rows:
+                    # Process
+                    for file in find_keyboard_c(keyboard):
+                        try:
+                            ret = find_led_config(file, cols, rows)
+                            if ret:
+                                info_data[feature] = info_data.get(feature, {})
+                                info_data[feature]['layout'] = ret
+                        except Exception as e:
+                            _log_warning(info_data, f'led_config: {file.name}: {e}')
+                else:
+                    _log_warning(info_data, 'led_config: matrix size required to parse g_led_config')
 
             if info_data[feature].get('layout', None) and not info_data[feature].get('led_count', None):
                 info_data[feature]['led_count'] = len(info_data[feature]['layout'])
@@ -901,9 +902,6 @@ def arm_processor_rules(info_data, rules):
         info_data['platform'] = 'STM32'
     elif 'MCU_SERIES' in rules:
         info_data['platform'] = rules['MCU_SERIES']
-    elif 'ARM_ATSAM' in rules:
-        info_data['platform'] = 'ARM_ATSAM'
-        info_data['platform_key'] = 'arm_atsam'
 
     return info_data
 
