@@ -22,6 +22,8 @@ MODULE_API_LIST = [
     ModuleAPI(ret_type='bool', name='process_record', args='uint16_t keycode, keyrecord_t *record', call_params='keycode, record', ret_val='true'),
     ModuleAPI(ret_type='void', name='post_process_record', args='uint16_t keycode, keyrecord_t *record', call_params='keycode, record', ret_val=None),
     ModuleAPI(ret_type='void', name='housekeeping_task', args='void', call_params='', ret_val=None),
+    ModuleAPI(ret_type='void', name='suspend_power_down', args='void', call_params='', ret_val=None),
+    ModuleAPI(ret_type='void', name='suspend_wakeup_init', args='void', call_params='', ret_val=None),
     ModuleAPI(ret_type='bool', name='shutdown', args='bool jump_to_bootloader', call_params='jump_to_bootloader', ret_val='true'),
 ]
 

@@ -202,6 +202,10 @@ __attribute__((weak)) bool shutdown_modules(bool jump_to_bootloader) {
     return true;
 }
 
+__attribute__((weak)) void suspend_power_down_modules(void) {}
+
+__attribute__((weak)) void suspend_wakeup_init_modules(void) {}
+
 void shutdown_quantum(bool jump_to_bootloader) {
     clear_keyboard();
 #if defined(MIDI_ENABLE) && defined(MIDI_BASIC)
@@ -543,6 +547,7 @@ __attribute__((weak)) bool shutdown_kb(bool jump_to_bootloader) {
 }
 
 void suspend_power_down_quantum(void) {
+    suspend_power_down_modules();
     suspend_power_down_kb();
 #ifndef NO_SUSPEND_POWER_DOWN
 // Turn off backlight
@@ -610,6 +615,7 @@ __attribute__((weak)) void suspend_wakeup_init_quantum(void) {
 #if defined(RGB_MATRIX_ENABLE)
     rgb_matrix_set_suspend_state(false);
 #endif
+    suspend_wakeup_init_modules();
     suspend_wakeup_init_kb();
 }
 
