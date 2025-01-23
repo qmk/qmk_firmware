@@ -45,7 +45,7 @@ def _render_keycodes(module_jsons):
                 lines.append(f'    {key},')
     lines.append('    LAST_COMMUNITY_MODULE_KEY')
     lines.append('};')
-    lines.append('_Static_assert(LAST_COMMUNITY_MODULE_KEY <= QK_COMMUNITY_MODULE_MAX, "Too many community module keycodes");')
+    lines.append('_Static_assert((int)LAST_COMMUNITY_MODULE_KEY <= (int)(QK_COMMUNITY_MODULE_MAX+1), "Too many community module keycodes");')
     return lines
 
 

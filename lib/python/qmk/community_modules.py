@@ -6,6 +6,7 @@ from milc.attrdict import AttrDict
 from qmk.json_schema import json_load, validate
 from qmk.util import truthy
 
+
 class ModuleAPI(AttrDict):
     def __init__(self, **kwargs):
         super().__init__()
@@ -27,6 +28,7 @@ MODULE_API_LIST = [
 ]
 
 MODULE_API_VERSION = '20250122'
+
 
 def load_module_jsons(modules):
     """Load the module JSON files, matching the specified order.
