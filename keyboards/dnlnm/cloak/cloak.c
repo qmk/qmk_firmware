@@ -1,3 +1,6 @@
+// Copyright (C) 2025 dnlnm
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include "quantum.h"
 
 #ifdef RGBLIGHT_ENABLE
