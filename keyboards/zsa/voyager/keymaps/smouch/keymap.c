@@ -24,10 +24,10 @@ enum custom_keycodes {
 */
 
 /*  Hands Down Promethium (canonical)
-    ⎋   3   2@  1$   0#  4           7   6(  5() 9)  8  CW
+    ⎋   3   2@  1$   0#  4           7   6(  5&  9)  8  CW
     ⇥   v   w   g    m   j           +=  .:  /   "!  '? `
-    z   s   n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘  i⌥  c  q
-    tg  f⌃  p   d    l   x      	 -   u   o   y   b⌃ \
+    z   s⌃  n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘  i⌥  c⌃ q
+    tg  f   p   d    l   x      	 -   u   o   y   b  \
                          r   ⌫   ⏎   ␣
   */
 
