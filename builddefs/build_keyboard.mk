@@ -112,6 +112,39 @@ endif
 ifneq ("$(wildcard $(KEYBOARD_PATH_1)/rules.mk)","")
     include $(KEYBOARD_PATH_1)/rules.mk
 endif
+# Create dependencies on DD keyboard config - structure validated elsewhere
+DD_CONFIG_FILES :=
+ifneq ("$(wildcard $(KEYBOARD_PATH_1)/info.json)","")
+    DD_CONFIG_FILES += $(KEYBOARD_PATH_1)/info.json
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_2)/info.json)","")
+    DD_CONFIG_FILES += $(KEYBOARD_PATH_2)/info.json
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_3)/info.json)","")
+    DD_CONFIG_FILES += $(KEYBOARD_PATH_3)/info.json
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_4)/info.json)","")
+    DD_CONFIG_FILES += $(KEYBOARD_PATH_4)/info.json
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_5)/info.json)","")
+    DD_CONFIG_FILES += $(KEYBOARD_PATH_5)/info.json
+endif
+
+ifneq ("$(wildcard $(KEYBOARD_PATH_1)/keyboard.json)","")
+    DD_CONFIG_FILES += $(KEYBOARD_PATH_1)/keyboard.json
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_2)/keyboard.json)","")
+    DD_CONFIG_FILES += $(KEYBOARD_PATH_2)/keyboard.json
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_3)/keyboard.json)","")
+    DD_CONFIG_FILES += $(KEYBOARD_PATH_3)/keyboard.json
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_4)/keyboard.json)","")
+    DD_CONFIG_FILES += $(KEYBOARD_PATH_4)/keyboard.json
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_5)/keyboard.json)","")
+    DD_CONFIG_FILES += $(KEYBOARD_PATH_5)/keyboard.json
+endif
 
 MAIN_KEYMAP_PATH_1 := $(KEYBOARD_PATH_1)/keymaps/$(KEYMAP)
 MAIN_KEYMAP_PATH_2 := $(KEYBOARD_PATH_2)/keymaps/$(KEYMAP)
@@ -207,38 +240,40 @@ ifneq ("$(wildcard $(KEYMAP_JSON))", "")
     include $(INFO_RULES_MK)
 
 # Add rules to generate the keymap files - indentation here is important
-$(INTERMEDIATE_OUTPUT)/src/keymap.c: $(KEYMAP_JSON)
+$(INTERMEDIATE_OUTPUT)/src/keymap.c: $(KEYMAP_JSON) $(DD_CONFIG_FILES)
 	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
 	$(eval CMD=$(QMK_BIN) json2c --quiet --output $(KEYMAP_C) $(KEYMAP_JSON))
 	@$(BUILD_CMD)
 
-$(INTERMEDIATE_OUTPUT)/src/config.h: $(KEYMAP_JSON)
+$(INTERMEDIATE_OUTPUT)/src/config.h: $(KEYMAP_JSON) $(DD_CONFIG_FILES)
 	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
 	$(eval CMD=$(QMK_BIN) generate-config-h --quiet --output $(KEYMAP_H) $(KEYMAP_JSON))
 	@$(BUILD_CMD)
 
-$(INTERMEDIATE_OUTPUT)/src/keymap.h: $(KEYMAP_JSON)
+$(INTERMEDIATE_OUTPUT)/src/keymap.h: $(KEYMAP_JSON) $(DD_CONFIG_FILES)
 	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
 	$(eval CMD=$(QMK_BIN) generate-keymap-h --quiet --output $(INTERMEDIATE_OUTPUT)/src/keymap.h $(KEYMAP_JSON))
 	@$(BUILD_CMD)
 
 generated-files: $(INTERMEDIATE_OUTPUT)/src/config.h $(INTERMEDIATE_OUTPUT)/src/keymap.c $(INTERMEDIATE_OUTPUT)/src/keymap.h
 
-$(INTERMEDIATE_OUTPUT)/src/community_modules.h: $(KEYMAP_JSON)
+endif
+
+# Community modules
+$(INTERMEDIATE_OUTPUT)/src/community_modules.h: $(KEYMAP_JSON) $(DD_CONFIG_FILES)
 	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
-	$(eval CMD=$(QMK_BIN) generate-community-modules-h --quiet --output $(INTERMEDIATE_OUTPUT)/src/community_modules.h $(KEYMAP_JSON))
+	$(eval CMD=$(QMK_BIN) generate-community-modules-h -kb $(KEYBOARD) --quiet --output $(INTERMEDIATE_OUTPUT)/src/community_modules.h $(KEYMAP_JSON))
 	@$(BUILD_CMD)
 
-$(INTERMEDIATE_OUTPUT)/src/community_modules.c: $(KEYMAP_JSON)
+$(INTERMEDIATE_OUTPUT)/src/community_modules.c: $(KEYMAP_JSON) $(DD_CONFIG_FILES)
 	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
-	$(eval CMD=$(QMK_BIN) generate-community-modules-c --quiet --output $(INTERMEDIATE_OUTPUT)/src/community_modules.c $(KEYMAP_JSON))
+	$(eval CMD=$(QMK_BIN) generate-community-modules-c -kb $(KEYBOARD) --quiet --output $(INTERMEDIATE_OUTPUT)/src/community_modules.c $(KEYMAP_JSON))
 	@$(BUILD_CMD)
 
 SRC += $(INTERMEDIATE_OUTPUT)/src/community_modules.c
 
 generated-files: $(INTERMEDIATE_OUTPUT)/src/community_modules.h $(INTERMEDIATE_OUTPUT)/src/community_modules.c
 
-endif
 
 include $(BUILDDEFS_PATH)/converters.mk
 
@@ -360,40 +395,6 @@ ifneq ("$(wildcard $(KEYBOARD_PATH_4)/post_config.h)","")
 endif
 ifneq ("$(wildcard $(KEYBOARD_PATH_5)/post_config.h)","")
     POST_CONFIG_H += $(KEYBOARD_PATH_5)/post_config.h
-endif
-
-# Create dependencies on DD keyboard config - structure validated elsewhere
-DD_CONFIG_FILES :=
-ifneq ("$(wildcard $(KEYBOARD_PATH_1)/info.json)","")
-    DD_CONFIG_FILES += $(KEYBOARD_PATH_1)/info.json
-endif
-ifneq ("$(wildcard $(KEYBOARD_PATH_2)/info.json)","")
-    DD_CONFIG_FILES += $(KEYBOARD_PATH_2)/info.json
-endif
-ifneq ("$(wildcard $(KEYBOARD_PATH_3)/info.json)","")
-    DD_CONFIG_FILES += $(KEYBOARD_PATH_3)/info.json
-endif
-ifneq ("$(wildcard $(KEYBOARD_PATH_4)/info.json)","")
-    DD_CONFIG_FILES += $(KEYBOARD_PATH_4)/info.json
-endif
-ifneq ("$(wildcard $(KEYBOARD_PATH_5)/info.json)","")
-    DD_CONFIG_FILES += $(KEYBOARD_PATH_5)/info.json
-endif
-
-ifneq ("$(wildcard $(KEYBOARD_PATH_1)/keyboard.json)","")
-    DD_CONFIG_FILES += $(KEYBOARD_PATH_1)/keyboard.json
-endif
-ifneq ("$(wildcard $(KEYBOARD_PATH_2)/keyboard.json)","")
-    DD_CONFIG_FILES += $(KEYBOARD_PATH_2)/keyboard.json
-endif
-ifneq ("$(wildcard $(KEYBOARD_PATH_3)/keyboard.json)","")
-    DD_CONFIG_FILES += $(KEYBOARD_PATH_3)/keyboard.json
-endif
-ifneq ("$(wildcard $(KEYBOARD_PATH_4)/keyboard.json)","")
-    DD_CONFIG_FILES += $(KEYBOARD_PATH_4)/keyboard.json
-endif
-ifneq ("$(wildcard $(KEYBOARD_PATH_5)/keyboard.json)","")
-    DD_CONFIG_FILES += $(KEYBOARD_PATH_5)/keyboard.json
 endif
 
 CONFIG_H += $(INTERMEDIATE_OUTPUT)/src/info_config.h

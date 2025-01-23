@@ -5,7 +5,9 @@ from milc import cli
 from milc.attrdict import AttrDict
 
 import qmk.path
-from qmk.commands import dump_lines, parse_configurator_json
+from qmk.info import get_modules
+from qmk.keyboard import keyboard_completer, keyboard_folder
+from qmk.commands import dump_lines
 from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
 
 
@@ -95,14 +97,14 @@ def _render_api_implementations(api, module):
     return lines
 
 
-def _render_core_implementation(api, keymap_json):
+def _render_core_implementation(api, modules):
     lines = []
     lines.append('')
     with _api_guard(lines, api):
         lines.append(f'{api.ret_type} {api.name}_modules({api.args}) {{')
         if api.ret_type == 'bool':
             lines.append('    return true')
-        for module in keymap_json['modules']:
+        for module in modules:
             if api.ret_type == 'bool':
                 lines.append(f'        && {api.name}_{module}({api.call_params})')
             else:
@@ -115,7 +117,8 @@ def _render_core_implementation(api, keymap_json):
 
 @cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
-@cli.argument('filename', type=qmk.path.FileType('r'), arg_only=True, completer=FilesCompleter('.json'), help='Configurator JSON file')
+@cli.argument('-kb', '--keyboard', arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate community_modules.h for.')
+@cli.argument('filename', nargs='?', type=qmk.path.FileType('r'), arg_only=True, completer=FilesCompleter('.json'), help='Configurator JSON file')
 @cli.subcommand('Creates a community_modules.h from a keymap.json file.')
 def generate_community_modules_h(cli):
     """Creates a community_modules.h from a keymap.json file
@@ -137,13 +140,12 @@ def generate_community_modules_h(cli):
         '',
     ]
 
-    keymap_json = parse_configurator_json(cli.args.filename)
+    modules = get_modules(cli.args.keyboard, cli.args.filename)
+    if len(modules) > 0:
+        for api in MODULE_API_LIST:
+            lines.extend(_render_api_header(api))
 
-    for api in MODULE_API_LIST:
-        lines.extend(_render_api_header(api))
-
-    if keymap_json and 'modules' in keymap_json:
-        for module in keymap_json['modules']:
+        for module in modules:
             lines.append('')
             lines.append(f'// From module: {module}')
             for api in MODULE_API_LIST:
@@ -159,7 +161,8 @@ def generate_community_modules_h(cli):
 
 @cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
-@cli.argument('filename', type=qmk.path.FileType('r'), arg_only=True, completer=FilesCompleter('.json'), help='Configurator JSON file')
+@cli.argument('-kb', '--keyboard', arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate community_modules.c for.')
+@cli.argument('filename', nargs='?', type=qmk.path.FileType('r'), arg_only=True, completer=FilesCompleter('.json'), help='Configurator JSON file')
 @cli.subcommand('Creates a community_modules.c from a keymap.json file.')
 def generate_community_modules_c(cli):
     """Creates a community_modules.c from a keymap.json file
@@ -174,15 +177,14 @@ def generate_community_modules_c(cli):
         '#include "community_modules.h"',
     ]
 
-    keymap_json = parse_configurator_json(cli.args.filename)
+    modules = get_modules(cli.args.keyboard, cli.args.filename)
+    if len(modules) > 0:
 
-    if keymap_json and 'modules' in keymap_json:
-
-        for module in keymap_json['modules']:
+        for module in modules:
             for api in MODULE_API_LIST:
                 lines.extend(_render_api_implementations(api, module))
 
         for api in MODULE_API_LIST:
-            lines.extend(_render_core_implementation(api, keymap_json))
+            lines.extend(_render_core_implementation(api, modules))
 
     dump_lines(cli.args.output, lines, cli.args.quiet, remove_repeated_newlines=True)

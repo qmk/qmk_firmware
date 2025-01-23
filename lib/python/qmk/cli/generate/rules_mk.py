@@ -6,7 +6,7 @@ from dotty_dict import dotty
 from argcomplete.completers import FilesCompleter
 from milc import cli
 
-from qmk.info import info_json
+from qmk.info import info_json, get_modules
 from qmk.json_schema import json_load
 from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.commands import dump_lines, parse_configurator_json
@@ -100,10 +100,11 @@ def generate_rules_mk(cli):
     if converter:
         rules_mk_lines.append(generate_rule('CONVERT_TO', converter))
 
-    if user_keymap and 'modules' in user_keymap:
+    modules = get_modules(cli.args.keyboard, cli.args.filename)
+    if len(modules) > 0:
         rules_mk_lines.append('')
         rules_mk_lines.append('OPT_DEFS += -DCOMMUNITY_MODULES_ENABLED=TRUE')
-        for module in user_keymap['modules']:
+        for module in modules:
             rules_mk_lines.append('')
             rules_mk_lines.append(f'COMMUNITY_MODULES += {module}')
             rules_mk_lines.append(f'OPT_DEFS += -DCOMMUNITY_MODULE_{module.upper()}=TRUE')
