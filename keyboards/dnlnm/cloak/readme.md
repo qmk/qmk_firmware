@@ -1,11 +1,12 @@
 # dnlnm/cloak
 
-![dnlnm/cloak](imgur.com image replace me!)
+![dnlnm/cloak](https://i.imgur.com/eZCUPvK.jpeg)
 
 *A short description of the keyboard/project*
 
 * Keyboard Maintainer: [Daniel Naim](https://github.com/dnlnm)
 * Hardware Supported: Cloak-XT
+* Hardware Availability: https://github.com/dnlnm/cloak-xt-stm32
 
 Make example for this keyboard (after setting up your build environment):
 
