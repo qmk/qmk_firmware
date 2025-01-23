@@ -171,36 +171,3 @@ __attribute__((weak)) const key_override_t* key_override_get(uint16_t key_overri
 }
 
 #endif // defined(KEY_OVERRIDE_ENABLE)
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Keycode String
-
-#if defined(KEYCODE_STRING_ENABLE)
-
-#    if defined(KEYCODE_STRING_NAMES_USER)
-const keycode_string_name_t* keycode_string_names_user_get_raw(uint16_t i) {
-    if (i >= ARRAY_SIZE(keycode_string_names_user)) {
-        return NULL;
-    }
-    return (const keycode_string_name_t*)&keycode_string_names_user[i];
-}
-
-__attribute__((weak)) const keycode_string_name_t* keycode_string_names_user_get(uint16_t i) {
-    return keycode_string_names_user_get_raw(i);
-}
-#    endif // defined(KEYCODE_STRING_NAMES_USER)
-
-#    if defined(KEYCODE_STRING_NAMES_KB)
-const keycode_string_name_t* keycode_string_names_kb_get_raw(uint16_t i) {
-    if (i >= ARRAY_SIZE(keycode_string_names_kb)) {
-        return NULL;
-    }
-    return (const keycode_string_name_t*)&keycode_string_names_kb[i];
-}
-
-__attribute__((weak)) const keycode_string_name_t* keycode_string_names_kb_get(uint16_t i) {
-    return keycode_string_names_kb_get_raw(i);
-}
-#    endif // defined(KEYCODE_STRING_NAMES_KB)
-
-#endif // defined(KEYCODE_STRING_ENABLE)

@@ -17,7 +17,3 @@
 #pragma once
 
 #include "test_common.h"
-
-#define KEYCODE_STRING_NAMES_USER
-#define KEYCODE_STRING_NAMES_KB
-

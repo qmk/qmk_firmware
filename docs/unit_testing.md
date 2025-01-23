@@ -75,22 +75,18 @@ Use the result of `get_keycode_string()` immediately. Subsequent invocations reu
 
 Many common QMK keycodes are recognized by `get_keycode_string()`, but not all. These include some common basic keycodes, layer switch keycodes, mod-taps, one-shot keycodes, tap dance keycodes, and Unicode keycodes. As a fallback, an unrecognized keycode is written as a hex number. 
 
-Optionally, names for additional keycodes may be defined. To do this, define `KEYCODE_STRING_NAMES_USER` in config.h:
+Optionally, `keycode_string_names_user` may be defined to add names for additional keycodes. For example, supposing keymap.c defines `MYMACRO1` and `MYMACRO2` as custom keycodes, the following adds their names:
 
 ```c
-#define KEYCODE_STRING_NAMES_USER
-```
-
-Then define `keycode_string_names_user` with the names for the additional keycodes. For example, supposing keymap.c defines `MYMACRO1` and `MYMACRO2` as custom keycodes, the following adds their names:
-
-```c
-const keycode_string_name_t keycode_string_names_user[] = {
+const keycode_string_name_t *keycode_string_names_user =
+(keycode_string_name_t []){
     KEYCODE_STRING_NAME(MYMACRO1),
     KEYCODE_STRING_NAME(MYMACRO2),
+    KEYCODE_STRING_NAMES_END // End of table sentinel.
 };
 ```
 
-Similarly at the keyboard level, names for additional keycodes may be added by defining `KEYCODE_STRING_NAMES_KB` in config.h and defining keycode names in `keycode_string_names_kb`.
+Similarly, `keycode_string_names_kb` may be defined to add names at the keyboard level.
 
 # Tracing Variables {#tracing-variables}
 

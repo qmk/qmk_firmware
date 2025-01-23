@@ -109,27 +109,3 @@ const key_override_t* key_override_get_raw(uint16_t key_override_idx);
 const key_override_t* key_override_get(uint16_t key_override_idx);
 
 #endif // defined(KEY_OVERRIDE_ENABLE)
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Keycode String
-
-#if defined(KEYCODE_STRING_ENABLE)
-
-struct keycode_string_name_t;
-typedef struct keycode_string_name_t keycode_string_name_t;
-
-#    if defined(KEYCODE_STRING_NAMES_USER)
-// Get the user-level keycode names, stored in firmware.
-const keycode_string_name_t* keycode_string_names_user_get_raw(uint16_t i);
-// Get the user-level keycode names, potentially stored dynamically.
-const keycode_string_name_t* keycode_string_names_user_get(uint16_t i);
-#    endif // defined(KEYCODE_STRING_NAMES_USER)
-
-#    if defined(KEYCODE_STRING_NAMES_KB)
-// Get the kb-level keycode names, stored in firmware.
-const keycode_string_name_t* keycode_string_names_kb_get_raw(uint16_t i);
-// Get the kb-level keycode names, potentially stored dynamically.
-const keycode_string_name_t* keycode_string_names_kb_get(uint16_t i);
-#    endif // defined(KEYCODE_STRING_NAMES_KB)
-
-#endif // defined(KEYCODE_STRING_ENABLE)

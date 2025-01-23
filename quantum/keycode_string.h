@@ -65,11 +65,10 @@
 const char* get_keycode_string(uint16_t keycode);
 
 /** Defines a human-readable name for a keycode. */
-typedef struct keycode_string_name_t {
+typedef struct {
     uint16_t    keycode;
     const char* name;
 } keycode_string_name_t;
-// typedef struct keycode_string_name_t keycode_string_name_t;
 
 /**
  * @brief Names for additional keycodes for `get_keycode_string()`.
@@ -91,14 +90,16 @@ typedef struct keycode_string_name_t {
  * The above defines names for `MYMACRO1` and `MYMACRO2`, and overrides
  * `KC_EXLM` to format as "KC_EXLM" instead of the default "S(KC_1)".
  */
-// extern const keycode_string_name_t* keycode_string_names_user;
+extern const keycode_string_name_t* keycode_string_names_user;
 /** Same as `keycode_string_names_user`, but for use at the keyboard level. */
-// extern const keycode_string_name_t* keycode_string_names_kb;
+extern const keycode_string_name_t* keycode_string_names_kb;
 
 /** Helper to define a keycode_string_name_t. */
-#    define KEYCODE_STRING_NAME(kc) {(kc), PSTR(#kc)}
+#    define KEYCODE_STRING_NAME(kc) \
+        { (kc), PSTR(#kc) }
 /** Makes end-of-table sentinel for a table of keycode_string_name_t. */
-#    define KEYCODE_STRING_NAMES_END {0, NULL}
+#    define KEYCODE_STRING_NAMES_END \
+        { 0, NULL }
 
 #else
 
