@@ -80,7 +80,8 @@ typedef struct {
  * override how `keycode_string()` formats a keycode. For example, supposing
  * keymap.c defines `MYMACRO1` and `MYMACRO2` as custom keycodes:
  *
- *     const keycode_string_name_t keycode_string_names_user[] = {
+ *     const keycode_string_name_t* keycode_string_names_user =
+ *     (keycode_string_name_t []){
  *       KEYCODE_STRING_NAME(MYMACRO1),
  *       KEYCODE_STRING_NAME(MYMACRO2),
  *       KEYCODE_STRING_NAME(KC_EXLM),
@@ -96,7 +97,7 @@ extern const keycode_string_name_t* keycode_string_names_kb;
 
 /** Helper to define a keycode_string_name_t. */
 #    define KEYCODE_STRING_NAME(kc) \
-        { (kc), PSTR(#kc) }
+        { (kc), #kc }
 /** Makes end-of-table sentinel for a table of keycode_string_name_t. */
 #    define KEYCODE_STRING_NAMES_END \
         { 0, NULL }

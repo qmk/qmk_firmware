@@ -19,77 +19,108 @@
 #include "keycode.h"
 #include "progmem.h"
 #include "quantum_keycodes.h"
+#include "util.h"
 
 typedef int_fast8_t index_t;
 
 // clang-format off
-/** Names of some common keycodes. */
-static const keycode_string_name_t keycode_names[] = {
-    KEYCODE_STRING_NAME(KC_TRNS),
-    KEYCODE_STRING_NAME(KC_ENT),
-    KEYCODE_STRING_NAME(KC_ESC),
-    KEYCODE_STRING_NAME(KC_BSPC),
-    KEYCODE_STRING_NAME(KC_TAB),
-    KEYCODE_STRING_NAME(KC_SPC),
-    KEYCODE_STRING_NAME(KC_MINS),
-    KEYCODE_STRING_NAME(KC_EQL),
-    KEYCODE_STRING_NAME(KC_LBRC),
-    KEYCODE_STRING_NAME(KC_RBRC),
-    KEYCODE_STRING_NAME(KC_BSLS),
-    KEYCODE_STRING_NAME(KC_NUHS),
-    KEYCODE_STRING_NAME(KC_SCLN),
-    KEYCODE_STRING_NAME(KC_QUOT),
-    KEYCODE_STRING_NAME(KC_GRV),
-    KEYCODE_STRING_NAME(KC_COMM),
-    KEYCODE_STRING_NAME(KC_DOT),
-    KEYCODE_STRING_NAME(KC_SLSH),
-    KEYCODE_STRING_NAME(KC_CAPS),
-    KEYCODE_STRING_NAME(KC_INS),
-    KEYCODE_STRING_NAME(KC_HOME),
-    KEYCODE_STRING_NAME(KC_PGUP),
-    KEYCODE_STRING_NAME(KC_DEL),
-    KEYCODE_STRING_NAME(KC_END),
-    KEYCODE_STRING_NAME(KC_PGDN),
-    KEYCODE_STRING_NAME(KC_RGHT),
-    KEYCODE_STRING_NAME(KC_LEFT),
-    KEYCODE_STRING_NAME(KC_DOWN),
-    KEYCODE_STRING_NAME(KC_UP),
-    KEYCODE_STRING_NAME(KC_NUBS),
+/** Packs a 7-char keycode name, ignoring the third char, as 3 words. */
+#define KEYCODE_NAME7(c0, c1, unused_c2, c3, c4, c5, c6) \
+    ((uint16_t)c0) | (((uint16_t)c1) << 8),              \
+    ((uint16_t)c3) | (((uint16_t)c4) << 8),              \
+    ((uint16_t)c5) | (((uint16_t)c6) << 8)
+
+/**
+ * @brief Names of some common keycodes.
+ *
+ * Each (keycode, name) entry is stored flat in 8 bytes in PROGMEM. Names in
+ * this table must be at most 7 chars long and have an underscore '_' for the
+ * third char. This underscore is assumed and not actually stored.
+ */
+static const uint16_t common_names[] PROGMEM = {
+    KC_TRNS, KEYCODE_NAME7('K', 'C', '_', 'T', 'R', 'N', 'S'),
+    KC_ENT , KEYCODE_NAME7('K', 'C', '_', 'E', 'N', 'T',  0 ),
+    KC_ESC , KEYCODE_NAME7('K', 'C', '_', 'E', 'S', 'C',  0 ),
+    KC_BSPC, KEYCODE_NAME7('K', 'C', '_', 'B', 'S', 'P', 'C'),
+    KC_TAB , KEYCODE_NAME7('K', 'C', '_', 'T', 'A', 'B',  0 ),
+    KC_SPC , KEYCODE_NAME7('K', 'C', '_', 'S', 'P', 'C',  0 ),
+    KC_MINS, KEYCODE_NAME7('K', 'C', '_', 'M', 'I', 'N', 'S'),
+    KC_EQL , KEYCODE_NAME7('K', 'C', '_', 'E', 'Q', 'L',  0 ),
+    KC_LBRC, KEYCODE_NAME7('K', 'C', '_', 'L', 'B', 'R', 'C'),
+    KC_RBRC, KEYCODE_NAME7('K', 'C', '_', 'R', 'B', 'R', 'C'),
+    KC_BSLS, KEYCODE_NAME7('K', 'C', '_', 'B', 'S', 'L', 'S'),
+    KC_NUHS, KEYCODE_NAME7('K', 'C', '_', 'N', 'U', 'H', 'S'),
+    KC_SCLN, KEYCODE_NAME7('K', 'C', '_', 'S', 'C', 'L', 'N'),
+    KC_QUOT, KEYCODE_NAME7('K', 'C', '_', 'Q', 'U', 'O', 'T'),
+    KC_GRV , KEYCODE_NAME7('K', 'C', '_', 'G', 'R', 'V',  0 ),
+    KC_COMM, KEYCODE_NAME7('K', 'C', '_', 'C', 'O', 'M', 'M'),
+    KC_DOT , KEYCODE_NAME7('K', 'C', '_', 'D', 'O', 'T',  0 ),
+    KC_SLSH, KEYCODE_NAME7('K', 'C', '_', 'S', 'L', 'S', 'H'),
+    KC_CAPS, KEYCODE_NAME7('K', 'C', '_', 'C', 'A', 'P', 'S'),
+    KC_PSCR, KEYCODE_NAME7('K', 'C', '_', 'P', 'S', 'C', 'R'),
+    KC_PAUS, KEYCODE_NAME7('K', 'C', '_', 'P', 'A', 'U', 'S'),
+    KC_INS , KEYCODE_NAME7('K', 'C', '_', 'I', 'N', 'S',  0 ),
+    KC_HOME, KEYCODE_NAME7('K', 'C', '_', 'H', 'O', 'M', 'E'),
+    KC_PGUP, KEYCODE_NAME7('K', 'C', '_', 'P', 'G', 'U', 'P'),
+    KC_DEL , KEYCODE_NAME7('K', 'C', '_', 'D', 'E', 'L',  0 ),
+    KC_END , KEYCODE_NAME7('K', 'C', '_', 'E', 'N', 'D',  0 ),
+    KC_PGDN, KEYCODE_NAME7('K', 'C', '_', 'P', 'G', 'D', 'N'),
+    KC_RGHT, KEYCODE_NAME7('K', 'C', '_', 'R', 'G', 'H', 'T'),
+    KC_LEFT, KEYCODE_NAME7('K', 'C', '_', 'L', 'E', 'F', 'T'),
+    KC_DOWN, KEYCODE_NAME7('K', 'C', '_', 'D', 'O', 'W', 'N'),
+    KC_UP  , KEYCODE_NAME7('K', 'C', '_', 'U', 'P',  0 ,  0 ),
+    KC_NUBS, KEYCODE_NAME7('K', 'C', '_', 'N', 'U', 'B', 'S'),
 #ifdef EXTRAKEY_ENABLE
-    KEYCODE_STRING_NAME(KC_WBAK),
-    KEYCODE_STRING_NAME(KC_WFWD),
-    KEYCODE_STRING_NAME(KC_WREF),
-    KEYCODE_STRING_NAME(KC_MNXT),
-    KEYCODE_STRING_NAME(KC_MPRV),
-    KEYCODE_STRING_NAME(KC_MPLY),
-    KEYCODE_STRING_NAME(KC_VOLU),
-    KEYCODE_STRING_NAME(KC_VOLD),
-#endif  // EXTRAKEY_ENABLE
+    KC_WHOM, KEYCODE_NAME7('K', 'C', '_', 'W', 'H', 'O', 'M'),
+    KC_WBAK, KEYCODE_NAME7('K', 'C', '_', 'W', 'B', 'A', 'K'),
+    KC_WFWD, KEYCODE_NAME7('K', 'C', '_', 'W', 'F', 'W', 'D'),
+    KC_WSTP, KEYCODE_NAME7('K', 'C', '_', 'W', 'S', 'T', 'P'),
+    KC_WREF, KEYCODE_NAME7('K', 'C', '_', 'W', 'R', 'E', 'F'),
+    KC_MNXT, KEYCODE_NAME7('K', 'C', '_', 'M', 'N', 'X', 'T'),
+    KC_MPRV, KEYCODE_NAME7('K', 'C', '_', 'M', 'P', 'R', 'V'),
+    KC_MPLY, KEYCODE_NAME7('K', 'C', '_', 'M', 'P', 'L', 'Y'),
+    KC_MUTE, KEYCODE_NAME7('K', 'C', '_', 'M', 'U', 'T', 'E'),
+    KC_VOLU, KEYCODE_NAME7('K', 'C', '_', 'V', 'O', 'L', 'U'),
+    KC_VOLD, KEYCODE_NAME7('K', 'C', '_', 'V', 'O', 'L', 'D'),
+#endif // EXTRAKEY_ENABLE
 #ifdef MOUSEKEY_ENABLE
-    KEYCODE_STRING_NAME(MS_LEFT),
-    KEYCODE_STRING_NAME(MS_RGHT),
-    KEYCODE_STRING_NAME(MS_UP),
-    KEYCODE_STRING_NAME(MS_DOWN),
-    KEYCODE_STRING_NAME(MS_WHLL),
-    KEYCODE_STRING_NAME(MS_WHLR),
-    KEYCODE_STRING_NAME(MS_WHLU),
-    KEYCODE_STRING_NAME(MS_WHLD),
-#endif  // MOUSEKEY_ENABLE
+    MS_LEFT, KEYCODE_NAME7('M', 'S', '_', 'L', 'E', 'F', 'T'),
+    MS_RGHT, KEYCODE_NAME7('M', 'S', '_', 'R', 'G', 'H', 'T'),
+    MS_UP  , KEYCODE_NAME7('M', 'S', '_', 'U', 'P',  0 ,  0 ),
+    MS_DOWN, KEYCODE_NAME7('M', 'S', '_', 'D', 'O', 'W', 'N'),
+    MS_WHLL, KEYCODE_NAME7('M', 'S', '_', 'W', 'H', 'L', 'L'),
+    MS_WHLR, KEYCODE_NAME7('M', 'S', '_', 'W', 'H', 'L', 'R'),
+    MS_WHLU, KEYCODE_NAME7('M', 'S', '_', 'W', 'H', 'L', 'U'),
+    MS_WHLD, KEYCODE_NAME7('M', 'S', '_', 'W', 'H', 'L', 'D'),
+#endif // MOUSEKEY_ENABLE
+#ifdef SWAP_HANDS_ENABLE
+    SH_ON  , KEYCODE_NAME7('S', 'H', '_', 'O', 'N',  0 ,  0 ),
+    SH_OFF , KEYCODE_NAME7('S', 'H', '_', 'O', 'F', 'F',  0 ),
+    SH_MON , KEYCODE_NAME7('S', 'H', '_', 'M', 'O', 'N',  0 ),
+    SH_MOFF, KEYCODE_NAME7('S', 'H', '_', 'M', 'O', 'F', 'F'),
+    SH_TOGG, KEYCODE_NAME7('S', 'H', '_', 'T', 'O', 'G', 'G'),
+    SH_TT  , KEYCODE_NAME7('S', 'H', '_', 'T', 'T',  0 ,  0 ),
+    SH_OS  , KEYCODE_NAME7('S', 'H', '_', 'O', 'S',  0 ,  0 ),
+#endif // SWAP_HANDS_ENABLE
+#ifdef LEADER_ENABLE
+    QK_LEAD, KEYCODE_NAME7('Q', 'K', '_', 'L', 'E', 'A', 'D'),
+#endif // LEADER_ENABLE
 #ifdef TRI_LAYER_ENABLE
-    KEYCODE_STRING_NAME(TL_LOWR),
-    KEYCODE_STRING_NAME(TL_UPPR),
+    TL_LOWR, KEYCODE_NAME7('T', 'L', '_', 'L', 'O', 'W', 'R'),
+    TL_UPPR, KEYCODE_NAME7('T', 'L', '_', 'U', 'P', 'P', 'R'),
 #endif // TRI_LAYER_ENABLE
 #ifdef GRAVE_ESC_ENABLE
-    KEYCODE_STRING_NAME(QK_GESC),
+    QK_GESC, KEYCODE_NAME7('Q', 'K', '_', 'G', 'E', 'S', 'C'),
 #endif // GRAVE_ESC_ENABLE
 #ifdef CAPS_WORD_ENABLE
-    KEYCODE_STRING_NAME(CW_TOGG),
+    CW_TOGG, KEYCODE_NAME7('C', 'W', '_', 'T', 'O', 'G', 'G'),
 #endif // CAPS_WORD_ENABLE
 #ifdef LAYER_LOCK_ENABLE
-    KEYCODE_STRING_NAME(QK_LLCK),
+    QK_LLCK, KEYCODE_NAME7('Q', 'K', '_', 'L', 'L', 'C', 'K'),
 #endif // LAYER_LOCK_ENABLE
-    KEYCODE_STRING_NAME(DB_TOGG),
-    KEYCODE_STRING_NAMES_END
+    EE_CLR , KEYCODE_NAME7('E', 'E', '_', 'C', 'L', 'R',  0 ),
+    QK_BOOT, KEYCODE_NAME7('Q', 'K', '_', 'B', 'O', 'O', 'T'),
+    DB_TOGG, KEYCODE_NAME7('D', 'B', '_', 'T', 'O', 'G', 'G'),
 };
 // clang-format on
 
@@ -100,11 +131,35 @@ __attribute__((weak)) const keycode_string_name_t* keycode_string_names_user = e
 /** Keyboard vendors can override this to define names of additional keycodes. */
 __attribute__((weak)) const keycode_string_name_t* keycode_string_names_kb = empty_table;
 /** Names of the 4 mods on each hand. */
-static const char* mod_names[4] = {PSTR("CTL"), PSTR("SFT"), PSTR("ALT"), PSTR("GUI")};
+static const char mod_names[] PROGMEM = "CTL\0SFT\0ALT\0GUI";
 /** Internal buffer for holding a stringified keycode. */
 static char buffer[32];
 #define BUFFER_MAX_LEN (sizeof(buffer) - 1)
 static index_t buffer_len;
+
+/** Finds the name of a keycode in `common_names` or returns NULL. */
+static const char* search_common_names(uint16_t keycode) {
+    static uint8_t buffer[8];
+
+    for (int16_t offset = 0; offset < ARRAY_SIZE(common_names); offset += 4) {
+        if (keycode == pgm_read_word(common_names + offset)) {
+            const uint16_t w0 = pgm_read_word(common_names + offset + 1);
+            const uint16_t w1 = pgm_read_word(common_names + offset + 2);
+            const uint16_t w2 = pgm_read_word(common_names + offset + 3);
+            buffer[0]         = (uint8_t)w0;
+            buffer[1]         = (uint8_t)(w0 >> 8);
+            buffer[2]         = '_';
+            buffer[3]         = (uint8_t)w1;
+            buffer[4]         = (uint8_t)(w1 >> 8);
+            buffer[5]         = (uint8_t)w2;
+            buffer[6]         = (uint8_t)(w2 >> 8);
+            buffer[7]         = 0;
+            return (const char*)buffer;
+        }
+    }
+
+    return NULL;
+}
 
 /**
  * @brief Finds the name of a keycode in `table` or returns NULL.
@@ -114,7 +169,7 @@ static index_t buffer_len;
  * @param table   A table of keycode_string_name_t to be searched.
  * @return Name string for the keycode, or NULL if not found.
  */
-static const char* find_keycode_name(const keycode_string_name_t* table, uint16_t keycode) {
+static const char* search_table(const keycode_string_name_t* table, uint16_t keycode) {
     for (; table->keycode; ++table) {
         if (table->keycode == keycode) {
             return table->name;
@@ -187,7 +242,7 @@ static void append_5_bit_mods(uint8_t mods) {
     if (mods != 0 && (mods & (mods - 1)) == 0) { // One mod is set.
         append_P(PSTR("MOD_"));
         append_char(is_rhs ? 'R' : 'L');
-        append_P(mod_names[biton(mods)]);
+        append_P(&mod_names[4 * biton(mods)]);
     } else { // Fallback: write the mod as a hex value.
         append_number(mods, 16);
     }
@@ -208,19 +263,19 @@ static void append_unary_keycode(const char* name, const char* param) {
 static void append_keycode(uint16_t keycode) {
     // In case there is overlap among tables, search `keycode_string_names_user`
     // first so that it takes precedence.
-    const char* keycode_name = find_keycode_name(keycode_string_names_user, keycode);
+    const char* keycode_name = search_table(keycode_string_names_user, keycode);
     if (keycode_name) {
-        append_P(keycode_name);
+        append(keycode_name);
         return;
     }
-    keycode_name = find_keycode_name(keycode_string_names_kb, keycode);
+    keycode_name = search_table(keycode_string_names_kb, keycode);
     if (keycode_name) {
-        append_P(keycode_name);
+        append(keycode_name);
         return;
     }
-    keycode_name = find_keycode_name(keycode_names, keycode);
+    keycode_name = search_common_names(keycode);
     if (keycode_name) {
-        append_P(keycode_name);
+        append(keycode_name);
         return;
     }
 
@@ -232,7 +287,7 @@ static void append_keycode(uint16_t keycode) {
                 const bool    is_rhs = i > 3;
                 append_P(PSTR("KC_"));
                 append_char(is_rhs ? 'R' : 'L');
-                append_P(mod_names[i & 3]);
+                append_P(&mod_names[4 * (i & 3)]);
             }
                 return;
 
@@ -277,7 +332,7 @@ static void append_keycode(uint16_t keycode) {
             const bool is_rhs = mods > 15;
             mods &= 15;
             if (mods != 0 && (mods & (mods - 1)) == 0) {  // One mod is set.
-                const char* name = mod_names[biton(mods)];
+                const char* name = &mod_names[4 * biton(mods)];
                 if (is_rhs) {
                     append_char('R');
                     append_P(name);
@@ -352,7 +407,7 @@ static void append_keycode(uint16_t keycode) {
             mods &= 15;
             if (mods != 0 && (mods & (mods - 1)) == 0) {  // One mod is set.
                 append_char(is_rhs ? 'R' : 'L');
-                append_P(mod_names[biton(mods)]);
+                append_P(&mod_names[4 * biton(mods)]);
                 append_P(PSTR("_T("));
             } else {
                 append_P(PSTR("MT("));
@@ -391,7 +446,17 @@ static void append_keycode(uint16_t keycode) {
             append_P(PSTR("MS_BTN"));
             append_number(keycode - (MS_BTN1 - 1), 10);
             return;
-#endif  // MOUSEKEY_ENABLE
+#endif // MOUSEKEY_ENABLE
+#ifdef SWAP_HANDS_ENABLE
+        case QK_SWAP_HANDS ... QK_SWAP_HANDS_MAX:  // Swap Hands SH_T(kc) key.
+            if (!IS_SWAP_HANDS_KEYCODE(keycode)) {
+                append_P(PSTR("SH_T("));
+                append_keycode(QK_SWAP_HANDS_GET_TAP_KEYCODE(keycode));
+                append_char(')');
+                return;
+            }
+            break;
+#endif // SWAP_HANDS_ENABLE
 
         case KB_KEYCODE_RANGE:  // Keyboard range keycode.
             append_P(PSTR("QK_KB_"));

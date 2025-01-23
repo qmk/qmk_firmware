@@ -22,15 +22,27 @@ enum {
 };
 
 // clang-format off
-extern "C" const keycode_string_name_t *keycode_string_names_kb = (keycode_string_name_t []){
+extern "C" {
+
+const keycode_string_name_t* keycode_string_names_kb = (keycode_string_name_t []){
     KEYCODE_STRING_NAME(MYMACRO1),
     KEYCODE_STRING_NAMES_END // End of table sentinel.
 };
-extern "C" const keycode_string_name_t *keycode_string_names_user = (keycode_string_name_t []){
+
+const keycode_string_name_t* keycode_string_names_user = (keycode_string_name_t []){
     KEYCODE_STRING_NAME(MYMACRO2),
     KEYCODE_STRING_NAME(KC_EXLM),
     KEYCODE_STRING_NAMES_END // End of table sentinel.
 };
+
+const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
+  {{9, 0}, {8, 0}, {7, 0}, {6, 0}, {5, 0}, {4, 0}, {3, 0}, {2, 0}, {1, 0}, {0, 0}},
+  {{9, 1}, {8, 1}, {7, 1}, {6, 1}, {5, 1}, {4, 1}, {3, 1}, {2, 1}, {1, 1}, {0, 1}},
+  {{9, 2}, {8, 2}, {7, 2}, {6, 2}, {5, 2}, {4, 2}, {3, 2}, {2, 2}, {1, 2}, {0, 2}},
+  {{9, 3}, {8, 3}, {7, 3}, {6, 3}, {5, 3}, {4, 3}, {3, 3}, {2, 3}, {1, 3}, {0, 3}},
+};
+
+} // extern "C"
 // clang-format on
 
 class KeycodeStringTest : public TestFixture {};
@@ -56,8 +68,9 @@ TEST_F(KeycodeStringTest, get_keycode_string) {
              {DB_TOGG, "DB_TOGG"},
              {KC_LCTL, "KC_LCTL"},
              {KC_LSFT, "KC_LSFT"},
-             {KC_RCTL, "KC_RCTL"},
-             {KC_RSFT, "KC_RSFT"},
+             {KC_RALT, "KC_RALT"},
+             {KC_RGUI, "KC_RGUI"},
+             {KC_UP, "KC_UP"},
              // F1-F24 keycodes.
              {KC_F1, "KC_F1"},
              {KC_F12, "KC_F12"},
@@ -95,12 +108,22 @@ TEST_F(KeycodeStringTest, get_keycode_string) {
              {HYPR_T(KC_GRV), "MT(0xF,KC_GRV)"},
              // Extrakey keycodes.
              {KC_WBAK, "KC_WBAK"},
+             {KC_WFWD, "KC_WFWD"},
+             {KC_WREF, "KC_WREF"},
              {KC_VOLU, "KC_VOLU"},
+             {KC_VOLD, "KC_VOLD"},
              // Mouse Key keycodes.
              {MS_LEFT, "MS_LEFT"},
+             {MS_RGHT, "MS_RGHT"},
+             {MS_UP, "MS_UP"},
+             {MS_WHLU, "MS_WHLU"},
              {MS_WHLD, "MS_WHLD"},
              {MS_BTN1, "MS_BTN1"},
              {MS_BTN8, "MS_BTN8"},
+             // Swap Hands keycodes.
+             {SH_MON, "SH_MON"},
+             {SH_TOGG, "SH_TOGG"},
+             {SH_T(KC_PSCR), "SH_T(KC_PSCR)"},
              // Custom keycode names.
              {MYMACRO1, "MYMACRO1"},
              {MYMACRO2, "MYMACRO2"},
