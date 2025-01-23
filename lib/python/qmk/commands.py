@@ -104,7 +104,7 @@ def dump_lines(output_file, lines, quiet=True, remove_repeated_newlines=False):
     """
     generated = '\n'.join(lines) + '\n'
     if remove_repeated_newlines:
-        if '\n\n\n' in generated:
+        while '\n\n\n' in generated:
             generated = generated.replace('\n\n\n', '\n\n')
     if output_file and output_file.name != '-':
         output_file.parent.mkdir(parents=True, exist_ok=True)

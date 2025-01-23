@@ -55,7 +55,6 @@ def process_mapping_rule(kb_info_json, rules_key, info_dict):
 def generate_rules_mk(cli):
     """Generates a rules.mk file from info.json.
     """
-    user_keymap = None
     converter = None
     # Determine our keyboard/keymap
     if cli.args.filename:
