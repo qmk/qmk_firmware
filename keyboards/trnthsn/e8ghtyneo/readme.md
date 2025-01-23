@@ -1,6 +1,6 @@
 # E8ghtyNeo
 
-![E8ghtyNeo](https://imgur.com/C6X3fCI.png)
+![E8ghtyNeo](https://imgur.com/YXYfqzZ.png)
 
 A TKL keyboard PCB compatible with Neo80. Supports Neo80 keyboard like an out-of-the-box PCB without any modification.
 
