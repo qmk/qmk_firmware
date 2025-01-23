@@ -2,40 +2,17 @@ import contextlib
 from argcomplete.completers import FilesCompleter
 
 from milc import cli
-from milc.attrdict import AttrDict
 
 import qmk.path
 from qmk.info import get_modules
 from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.commands import dump_lines
 from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
-
-
-class ModuleAPI(AttrDict):
-    def __init__(self, **kwargs):
-        super().__init__()
-        for key, value in kwargs.items():
-            self[key] = value
-
-
-MODULE_API_LIST = [
-    ModuleAPI(ret_type='void', name='keyboard_pre_init', args='void', call_params='', guard=None, header=None),
-    ModuleAPI(ret_type='void', name='keyboard_post_init', args='void', call_params='', guard=None, header=None),
-    ModuleAPI(ret_type='bool', name='pre_process_record', args='uint16_t keycode, keyrecord_t *record', call_params='keycode, record', guard=None, header=None),
-    ModuleAPI(ret_type='bool', name='process_record', args='uint16_t keycode, keyrecord_t *record', call_params='keycode, record', guard=None, header=None),
-    ModuleAPI(ret_type='void', name='post_process_record', args='uint16_t keycode, keyrecord_t *record', call_params='keycode, record', guard=None, header=None),
-    ModuleAPI(ret_type='void', name='housekeeping_task', args='void', call_params='', guard=None, header=None),
-    ModuleAPI(ret_type='void', name='suspend_power_down', args='void', call_params='', guard=None, header=None),
-    ModuleAPI(ret_type='void', name='suspend_wakeup_init', args='void', call_params='', guard=None, header=None),
-    ModuleAPI(ret_type='bool', name='shutdown', args='bool jump_to_bootloader', call_params='jump_to_bootloader', guard=None, header=None),
-    ModuleAPI(ret_type='bool', name='process_detected_host_os', args='os_variant_t os', call_params='os', guard="defined(OS_DETECTION_ENABLE)", header="os_detection.h"),
-]
-
-MODULE_API_VERSION = '20250122'
+from qmk.community_modules import MODULE_API_LIST, MODULE_API_VERSION, load_module_jsons
 
 
 @contextlib.contextmanager
-def _api_guard(lines, api):
+def _render_api_guard(lines, api):
     if api.guard:
         lines.append(f'#if {api.guard}')
     yield
@@ -47,15 +24,35 @@ def _render_api_header(api):
     lines = []
     if api.header:
         lines.append('')
-        with _api_guard(lines, api):
+        with _render_api_guard(lines, api):
             lines.append(f'#include <{api.header}>')
+    return lines
+
+
+def _render_keycodes(module_jsons):
+    lines = []
+    lines.append('')
+    lines.append('enum {')
+    first = True
+    for module_json in module_jsons:
+        keycodes = module_json.get('keycodes', [])
+        for keycode in keycodes:
+            key = keycode.get('key', None)
+            if first:
+                lines.append(f'    {key} = QK_COMMUNITY_MODULE,')
+                first = False
+            else:
+                lines.append(f'    {key},')
+    lines.append('    LAST_COMMUNITY_MODULE_KEY')
+    lines.append('};')
+    lines.append('_Static_assert(LAST_COMMUNITY_MODULE_KEY <= QK_COMMUNITY_MODULE_MAX, "Too many community module keycodes");')
     return lines
 
 
 def _render_api_declarations(api, module, user_kb=True):
     lines = []
     lines.append('')
-    with _api_guard(lines, api):
+    with _render_api_guard(lines, api):
         if user_kb:
             lines.append(f'{api.ret_type} {api.name}_{module}_user({api.args});')
             lines.append(f'{api.ret_type} {api.name}_{module}_kb({api.args});')
@@ -66,7 +63,7 @@ def _render_api_declarations(api, module, user_kb=True):
 def _render_api_implementations(api, module):
     lines = []
     lines.append('')
-    with _api_guard(lines, api):
+    with _render_api_guard(lines, api):
         # _user
         lines.append(f'__attribute__((weak)) {api.ret_type} {api.name}_{module}_user({api.args}) {{')
         if api.ret_type == 'bool':
@@ -100,7 +97,7 @@ def _render_api_implementations(api, module):
 def _render_core_implementation(api, modules):
     lines = []
     lines.append('')
-    with _api_guard(lines, api):
+    with _render_api_guard(lines, api):
         lines.append(f'{api.ret_type} {api.name}_modules({api.args}) {{')
         if api.ret_type == 'bool':
             lines.append('    return true')
@@ -132,6 +129,7 @@ def generate_community_modules_h(cli):
         '#pragma once',
         '#include <stdint.h>',
         '#include <stdbool.h>',
+        '#include <keycodes.h>',
         '',
         f'#define COMMUNITY_MODULES_API_VERSION {MODULE_API_VERSION}',
         f'#define ASSERT_COMMUNITY_MODULES_MIN_API_VERSION(x) _Static_assert((x) <= COMMUNITY_MODULES_API_VERSION, "Community module requires higher version of QMK modules API -- needs: " #x ", current: {MODULE_API_VERSION}.")',
@@ -141,7 +139,10 @@ def generate_community_modules_h(cli):
     ]
 
     modules = get_modules(cli.args.keyboard, cli.args.filename)
+    module_jsons = load_module_jsons(modules)
     if len(modules) > 0:
+        lines.extend(_render_keycodes(module_jsons))
+
         for api in MODULE_API_LIST:
             lines.extend(_render_api_header(api))
 

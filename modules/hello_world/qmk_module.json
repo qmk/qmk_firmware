@@ -1,0 +1,7 @@
+{
+    "module_name": "Hello World",
+    "maintainer": "QMK Maintainers",
+    "keycodes": [
+        { "key": "CM_HELLO" }
+    ]
+}

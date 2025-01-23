@@ -21,3 +21,19 @@ void housekeeping_task_hello_world(void) {
         print("Hello, world! I'm a QMK based keyboard!\n");
     }
 }
+
+bool process_record_hello_world(uint16_t keycode, keyrecord_t *record) {
+    if (!process_record_hello_world_kb(keycode, record)) {
+        return false;
+    }
+
+    switch (keycode) {
+        case CM_HELLO:
+            if (record->event.pressed) {
+                SEND_STRING("Hello there.");
+                break;
+            }
+    }
+
+    return true;
+}
