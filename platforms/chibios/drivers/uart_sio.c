@@ -15,45 +15,46 @@
 #    define UART_TX_PIN A9
 #endif
 
+#ifndef UART_TX_PAL_MODE
+#    ifdef USE_GPIOV1
+#        define UART_TX_PAL_MODE PAL_MODE_ALTERNATE_PUSHPULL
+#    else
+#        define UART_TX_PAL_MODE 7
+#    endif
+#endif
+
 #ifndef UART_RX_PIN
 #    define UART_RX_PIN A10
+#endif
+
+#ifndef UART_RX_PAL_MODE
+#    ifdef USE_GPIOV1
+#        define UART_RX_PAL_MODE PAL_MODE_INPUT
+#    else
+#        define UART_RX_PAL_MODE 7
+#    endif
 #endif
 
 #ifndef UART_CTS_PIN
 #    define UART_CTS_PIN A11
 #endif
 
+#ifndef UART_CTS_PAL_MODE
+#    ifdef USE_GPIOV1
+#        define UART_CTS_PAL_MODE PAL_MODE_INPUT
+#    else
+#        define UART_CTS_PAL_MODE 7
+#    endif
+#endif
+
 #ifndef UART_RTS_PIN
 #    define UART_RTS_PIN A12
 #endif
 
-#ifdef USE_GPIOV1
-#    ifndef UART_TX_PAL_MODE
-#        define UART_TX_PAL_MODE PAL_MODE_ALTERNATE_PUSHPULL
-#    endif
-#    ifndef UART_RX_PAL_MODE
-#        define UART_RX_PAL_MODE PAL_MODE_INPUT
-#    endif
-#    ifndef UART_CTS_PAL_MODE
-#        define UART_CTS_PAL_MODE PAL_MODE_INPUT
-#    endif
-#    ifndef UART_RTS_PAL_MODE
+#ifndef UART_RTS_PAL_MODE
+#    ifdef USE_GPIOV1
 #        define UART_RTS_PAL_MODE PAL_MODE_ALTERNATE_PUSHPULL
-#    endif
-#else
-#    ifndef UART_TX_PAL_MODE
-#        define UART_TX_PAL_MODE 7
-#    endif
-
-#    ifndef UART_RX_PAL_MODE
-#        define UART_RX_PAL_MODE 7
-#    endif
-
-#    ifndef UART_CTS_PAL_MODE
-#        define UART_CTS_PAL_MODE 7
-#    endif
-
-#    ifndef UART_RTS_PAL_MODE
+#    else
 #        define UART_RTS_PAL_MODE 7
 #    endif
 #endif
