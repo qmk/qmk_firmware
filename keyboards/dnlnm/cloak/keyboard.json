@@ -11,11 +11,9 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "encoder": true,
         "extrakey": true,
-        "mousekey": false,
+        "mousekey": true,
         "nkro": true,
         "rgblight": true
     },
@@ -38,7 +36,6 @@
         }
     },
     "ws2812": {
-        "driver": "bitbang",
         "pin": "B5"
     },
     "diode_direction": "COL2ROW",
