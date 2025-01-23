@@ -16,52 +16,9 @@
 
 #pragma once
 
-#include <ch.h>
-#include <hal.h>
+#include <stdint.h>
 #include <stdbool.h>
-
 #include "gpio.h"
-#include "chibios_config.h"
-
-#ifndef SPI_DRIVER
-#    define SPI_DRIVER SPID2
-#endif
-
-#ifndef SPI_SCK_PIN
-#    define SPI_SCK_PIN B13
-#endif
-
-#ifndef SPI_SCK_PAL_MODE
-#    if defined(USE_GPIOV1)
-#        define SPI_SCK_PAL_MODE PAL_MODE_ALTERNATE_PUSHPULL
-#    else
-#        define SPI_SCK_PAL_MODE 5
-#    endif
-#endif
-
-#ifndef SPI_MOSI_PIN
-#    define SPI_MOSI_PIN B15
-#endif
-
-#ifndef SPI_MOSI_PAL_MODE
-#    if defined(USE_GPIOV1)
-#        define SPI_MOSI_PAL_MODE PAL_MODE_ALTERNATE_PUSHPULL
-#    else
-#        define SPI_MOSI_PAL_MODE 5
-#    endif
-#endif
-
-#ifndef SPI_MISO_PIN
-#    define SPI_MISO_PIN B14
-#endif
-
-#ifndef SPI_MISO_PAL_MODE
-#    if defined(USE_GPIOV1)
-#        define SPI_MISO_PAL_MODE PAL_MODE_ALTERNATE_PUSHPULL
-#    else
-#        define SPI_MISO_PAL_MODE 5
-#    endif
-#endif
 
 typedef int16_t spi_status_t;
 
