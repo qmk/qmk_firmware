@@ -13,8 +13,8 @@ void         get_sensor_offsets(void) {
     for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
         for (uint8_t j = 0; j < MATRIX_COLS; j++) {
             if (keys[i][j].is_analog) {
-            keys[i][j].offset = rest_adc_value - analogReadPin(matrix_pins[i][j]);
-            printf("Offset: %d\n", keys[i][j].offset);
+                keys[i][j].offset = rest_adc_value - analogReadPin(matrix_pins[i][j]);
+                printf("Offset: %d\n", keys[i][j].offset);
             }
         }
     }

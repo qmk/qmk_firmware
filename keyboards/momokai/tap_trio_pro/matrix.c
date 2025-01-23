@@ -213,10 +213,8 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
         if (keys[current_row][0].is_analog == false) {
             matrix_read_cols_on_row(current_matrix, current_row);
-
-        }
-
-        else {
+            
+        } else {
             for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
                 hybrid_key_t *key = &keys[current_row][current_col];
 
