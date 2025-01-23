@@ -70,9 +70,37 @@ typedef struct keycode_string_name_t {
     const char* name;
 } keycode_string_name_t;
 
+/**
+ * @brief Names for additional keycodes for `get_keycode_string()`.
+ *
+ * @note The table *must* end with `KEYCODE_STRING_NAMES_END`.
+ *
+ * Define the `custom_keycode_names` table in your keymap.c to add names for
+ * additional keycodes to `keycode_string()`. This table may also be used to
+ * override how `keycode_string()` formats a keycode. For example, supposing
+ * keymap.c defines `MYMACRO1` and `MYMACRO2` as custom keycodes:
+ *
+ *     const keycode_string_name_t* keycode_string_names_user =
+ *     (keycode_string_name_t []){
+ *       KEYCODE_STRING_NAME(MYMACRO1),
+ *       KEYCODE_STRING_NAME(MYMACRO2),
+ *       KEYCODE_STRING_NAME(KC_EXLM),
+ *       KEYCODE_STRING_NAMES_END // End of table sentinel.
+ *     };
+ *
+ * The above defines names for `MYMACRO1` and `MYMACRO2`, and overrides
+ * `KC_EXLM` to format as "KC_EXLM" instead of the default "S(KC_1)".
+ */
+extern const keycode_string_name_t* keycode_string_names_user;
+/** Same as `keycode_string_names_user`, but for use at the keyboard level. */
+extern const keycode_string_name_t* keycode_string_names_kb;
+
 /** Helper to define a keycode_string_name_t. */
 #    define KEYCODE_STRING_NAME(kc) \
-        { (kc), PSTR(#kc) }
+        { (kc), #kc }
+/** Makes end-of-table sentinel for a table of keycode_string_name_t. */
+#    define KEYCODE_STRING_NAMES_END \
+        { 0, NULL }
 
 #else
 
