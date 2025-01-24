@@ -1,0 +1,5 @@
+#include QMK_KEYBOARD_H
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    [0] = LAYOUT( KC_BTN4, KC_BTN5, KC_MUTE, KC_BTN2, KC_BTN1, KC_BTN3 )
+};
