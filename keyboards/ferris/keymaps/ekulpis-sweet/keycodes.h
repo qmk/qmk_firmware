@@ -39,3 +39,5 @@
 #define CMD OSM(MOD_LGUI)
 #define SHFT OSM(MOD_LSFT)
 
+//MacOS shortcuts
+#define SCRNSHOT G(S(UK_4))
