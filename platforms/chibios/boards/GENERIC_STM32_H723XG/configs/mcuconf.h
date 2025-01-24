@@ -182,6 +182,7 @@
 
 #define STM32_IRQ_FDCAN1_PRIORITY           10
 #define STM32_IRQ_FDCAN2_PRIORITY           10
+#define STM32_IRQ_FDCAN3_PRIORITY           10
 
 #define STM32_IRQ_MDMA_PRIORITY             9
 
@@ -235,6 +236,7 @@
  */
 #define STM32_CAN_USE_FDCAN1                FALSE
 #define STM32_CAN_USE_FDCAN2                FALSE
+#define STM32_CAN_USE_FDCAN3                FALSE
 
 /*
  * DAC driver system settings.

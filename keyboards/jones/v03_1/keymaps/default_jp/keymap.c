@@ -63,12 +63,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-  MAC = SAFE_RANGE,
-  WIN,
-};
-
 // Key Macro
 #define ESC_NUM TD(TD_ESC_NUM)
 #define S_CAP   TD(TD_LSFT_CAPS)
@@ -82,7 +76,8 @@ enum custom_keycodes {
 #define ALT_GRV LALT(KC_GRV)
 #define LOWER   MO(_LOWER)
 #define NUM     TG(_NUM)
-
+#define MAC     PDF(_MAC)
+#define WIN     PDF(_WIN)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_MAC] = LAYOUT_jp(
@@ -128,33 +123,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,_______,_______,_______,        _______,        _______,        _______,_______,_______,_______,_______,_______
     ),
     [_ADJUST] = LAYOUT_jp(
-        _______,RGB_HUI,RGB_SAI,RGB_VAI,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
-        _______,    _______,WIN,    _______,QK_BOOT,_______,RGB_HUI,RGB_SAI,RGB_VAI,_______,RGB_RMOD,           _______,_______,
-        _______,    AU_TOGG,CK_TOGG,MU_TOGG,MU_NEXT,_______,RGB_HUD,RGB_SAD,RGB_VAD,RGB_TOG,RGB_MOD,_______,    _______,_______,
+        _______,UG_HUEU,UG_SATU,UG_VALU,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+        _______,    _______,WIN,    _______,QK_BOOT,_______,UG_HUEU,UG_SATU,UG_VALU,_______,UG_PREV,            _______,_______,
+        _______,    AU_TOGG,CK_TOGG,MU_TOGG,MU_NEXT,_______,UG_HUED,UG_SATD,UG_VALD,UG_TOGG,UG_NEXT,_______,    _______,_______,
         _______,        CK_RST, CK_DOWN,CK_UP  ,_______,_______,NUM,     MAC,   _______,_______,_______,_______,_______,_______,
         _______,_______,_______,_______,        _______,        _______,        _______,_______,_______,_______,_______,_______
     )
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-switch (keycode) {
-    case MAC: // Change default ayer --> Write to EEPROM
-        if (record->event.pressed) {
-            set_single_persistent_default_layer(_MAC);
-        }
-        return false;
-        break;
-    case WIN: // Change default ayer --> Write to EEPROM
-        if (record->event.pressed) {
-            set_single_persistent_default_layer(_WIN);
-        }
-        return false;
-        break;
-    default:
-        break;
-    }
-    return true;
-}
 
 //------------------------------------------------------------------------------
 // RGB Light settings

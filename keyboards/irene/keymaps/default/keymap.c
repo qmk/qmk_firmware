@@ -25,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [1] = LAYOUT_alice_split_bs(
         QK_BOOT, _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,   KC_DEL,
-        KC_HOME, _______, _______, KC_UP,   _______, _______, _______, RGB_HUD, RGB_HUI, RGB_SAD, RGB_VAD, RGB_VAI, _______, _______, _______,
+        KC_HOME, _______, _______, KC_UP,   _______, _______, _______, UG_HUED, UG_HUEU, UG_SATD, UG_VALD, UG_VALU, _______, _______, _______,
         KC_END,  _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                  _______,          _______, _______, _______,          _______, _______,                                              _______

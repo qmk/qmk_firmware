@@ -26,13 +26,6 @@
 
 #include <stdint.h>
 
-// ### DEPRECATED - DO NOT USE ###
-#define i2c_writeReg(devaddr, regaddr, data, length, timeout) i2c_write_register(devaddr, regaddr, data, length, timeout)
-#define i2c_writeReg16(devaddr, regaddr, data, length, timeout) i2c_write_register16(devaddr, regaddr, data, length, timeout)
-#define i2c_readReg(devaddr, regaddr, data, length, timeout) i2c_read_register(devaddr, regaddr, data, length, timeout)
-#define i2c_readReg16(devaddr, regaddr, data, length, timeout) i2c_read_register16(devaddr, regaddr, data, length, timeout)
-// ###############################
-
 typedef int16_t i2c_status_t;
 
 #define I2C_STATUS_SUCCESS (0)

@@ -16,6 +16,8 @@
     "/tutorial": "/newbs",
     "/unicode": "/feature_unicode",
 
+    "/features/bluetooth": "/features/wireless",
+
     "/adc_driver": "/drivers/adc",
     "/apa102_driver": "/drivers/apa102",
     "/audio_driver": "/drivers/audio",
@@ -24,7 +26,7 @@
     "/feature_auto_shift": "/features/auto_shift",
     "/feature_autocorrect": "/features/autocorrect",
     "/feature_backlight": "/features/backlight",
-    "/feature_bluetooth": "/features/bluetooth",
+    "/feature_bluetooth": "/features/wireless",
     "/feature_bootmagic": "/features/bootmagic",
     "/feature_caps_word": "/features/caps_word",
     "/feature_combo": "/features/combo",

@@ -11,15 +11,15 @@ core:
       - Makefile
       - '*.mk'
 dependencies:
-  - all:
-    - changed-files:
-      - any-glob-to-any-file: lib/**
-      - all-globs-to-all-files: '!lib/python/**'
+  - changed-files:
+    - all-globs-to-any-file:
+      - lib/**
+      - '!lib/python/**'
 keyboard:
-  - all:
-    - changed-files:
-      - any-glob-to-any-file: keyboards/**
-      - all-globs-to-all-files: '!keyboards/**/keymaps/**'
+  - changed-files:
+    - all-globs-to-any-file:
+      - keyboards/**
+      - '!keyboards/**/keymaps/**'
 keymap:
   - changed-files:
     - any-glob-to-any-file:
