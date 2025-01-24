@@ -12,7 +12,7 @@ from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.commands import dump_lines, parse_configurator_json
 from qmk.path import normpath, FileType
 from qmk.constants import GPL2_HEADER_SH_LIKE, GENERATED_HEADER_SH_LIKE
-from qmk.community_modules import load_module_jsons
+from qmk.community_modules import find_module_path, load_module_jsons
 
 
 def generate_rule(rules_key, rules_value):
@@ -63,11 +63,12 @@ def generate_modules_rules(keyboard, filename):
         lines.append('')
         lines.append('OPT_DEFS += -DCOMMUNITY_MODULES_ENABLED=TRUE')
         for module in modules:
+            module_path = find_module_path(module)
             lines.append('')
             lines.append(f'COMMUNITY_MODULES += {module}')
             lines.append(f'OPT_DEFS += -DCOMMUNITY_MODULE_{module.upper()}=TRUE')
-            lines.append(f'VPATH += modules/{module}')
-            lines.append(f'include modules/{module}/rules.mk')
+            lines.append(f'VPATH += {module_path}')
+            lines.append(f'-include {module_path}/rules.mk')
 
         module_jsons = load_module_jsons(modules)
         for module_json in module_jsons:

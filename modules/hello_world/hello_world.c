@@ -14,10 +14,6 @@ void keyboard_post_init_hello_world(void) {
     defer_exec(10000, delayed_hello_world, NULL);
 }
 
-void housekeeping_task_hello_world(void) {
-    housekeeping_task_hello_world_kb();
-}
-
 bool process_record_hello_world(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_hello_world_kb(keycode, record)) {
         return false;
