@@ -218,7 +218,7 @@
     "gmmk/pro/iso": {
         "target": "gmmk/pro/rev1/iso"
     },
-    "handwired/dactyl"{
+    "handwired/dactyl": {
         "target": "handwired/dactyl/promicro"
     },
     "handwired/dactyl_manuform/3x5_3": {
