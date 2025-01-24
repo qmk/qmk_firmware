@@ -3,13 +3,23 @@
 import re
 import sys
 import os
+from typing import TextIO, TypedDict
 
 from qmk.constants import QMK_FIRMWARE
 from qmk.path import normpath
-from milc import cli
+from milc import MILC, cli
 
 
-def eprint(*args, **kwargs):
+class Defines(TypedDict):
+    keys: list[str]
+    dict: dict[str, str]
+
+
+Override = tuple[str, str]
+Diff = tuple[list[Override], list[str], list[str]]
+
+
+def eprint(*args: object, **kwargs: object) -> None:
     print(*args, file=sys.stderr, **kwargs)
 
 
@@ -39,25 +49,27 @@ file_header = """\
 """
 
 
-def collect_defines(filepath):
+def collect_defines(filepath: str) -> Defines:
     with open(filepath, 'r', encoding='utf-8') as f:
         content = f.read()
         define_search = re.compile(r'(?m)^#\s*define\s+(?:.*\\\r?\n)*.*$', re.MULTILINE)
         value_search = re.compile(r'^#\s*define\s+(?P<name>[a-zA-Z0-9_]+(\([^\)]*\))?)\s*(?P<value>.*)', re.DOTALL)
         define_matches = define_search.findall(content)
 
-        defines = {"keys": [], "dict": {}}
+        defines: Defines = {"keys": [], "dict": {}}
         for define_match in define_matches:
             value_match = value_search.search(define_match)
+            if value_match is None:
+                raise RuntimeError
             defines["keys"].append(value_match.group("name"))
             defines["dict"][value_match.group("name")] = value_match.group("value")
         return defines
 
 
-def check_diffs(input_defs, reference_defs):
-    not_present_in_input = []
-    not_present_in_reference = []
-    to_override = []
+def check_diffs(input_defs: Defines, reference_defs: Defines) -> Diff:
+    not_present_in_input: list[str] = []
+    not_present_in_reference: list[str] = []
+    to_override: list[Override] = []
 
     for key in reference_defs["keys"]:
         if key not in input_defs["dict"]:
@@ -76,7 +88,7 @@ def check_diffs(input_defs, reference_defs):
     return (to_override, not_present_in_input, not_present_in_reference)
 
 
-def migrate_chconf_h(to_override, outfile):
+def migrate_chconf_h(to_override: list[Override], outfile: TextIO) -> None:
     print(file_header.format(cli.args.input.relative_to(QMK_FIRMWARE), cli.args.reference.relative_to(QMK_FIRMWARE)), file=outfile)
 
     for override in to_override:
@@ -86,7 +98,7 @@ def migrate_chconf_h(to_override, outfile):
     print("#include_next <chconf.h>\n", file=outfile)
 
 
-def migrate_halconf_h(to_override, outfile):
+def migrate_halconf_h(to_override: list[Override], outfile: TextIO) -> None:
     print(file_header.format(cli.args.input.relative_to(QMK_FIRMWARE), cli.args.reference.relative_to(QMK_FIRMWARE)), file=outfile)
 
     for override in to_override:
@@ -96,7 +108,7 @@ def migrate_halconf_h(to_override, outfile):
     print("#include_next <halconf.h>\n", file=outfile)
 
 
-def migrate_mcuconf_h(to_override, outfile):
+def migrate_mcuconf_h(to_override: list[Override], outfile: TextIO) -> None:
     print(file_header.format(cli.args.input.relative_to(QMK_FIRMWARE), cli.args.reference.relative_to(QMK_FIRMWARE)), file=outfile)
 
     print("#include_next <mcuconf.h>\n", file=outfile)
@@ -113,7 +125,7 @@ def migrate_mcuconf_h(to_override, outfile):
 @cli.argument('-d', '--delete', arg_only=True, action='store_true', help='If the file has no overrides, migration will delete the input file.')
 @cli.argument('-f', '--force', arg_only=True, action='store_true', help='Re-migrates an already migrated file, even if it doesn\'t detect a full ChibiOS config.')
 @cli.subcommand('Generates a migrated ChibiOS configuration file, as a result of comparing the input against a reference')
-def chibios_confmigrate(cli):
+def chibios_confmigrate(cli: MILC) -> None:
     """Generates a usable ChibiOS replacement configuration file, based on a fully-defined conf and a reference config.
     """
 
