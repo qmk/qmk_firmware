@@ -12,6 +12,7 @@ from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.commands import dump_lines, parse_configurator_json
 from qmk.path import normpath, FileType
 from qmk.constants import GPL2_HEADER_SH_LIKE, GENERATED_HEADER_SH_LIKE
+from qmk.community_modules import load_module_jsons
 
 
 def generate_rule(rules_key, rules_value):
@@ -44,6 +45,37 @@ def process_mapping_rule(kb_info_json, rules_key, info_dict):
         return generate_rule(rules_key, f'"{rules_value}"')
 
     return generate_rule(rules_key, rules_value)
+
+
+def generate_features_rules(features_dict):
+    lines = []
+    for feature, enabled in features_dict.items():
+        feature = feature.upper()
+        enabled = 'yes' if enabled else 'no'
+        lines.append(generate_rule(f'{feature}_ENABLE', enabled))
+    return lines
+
+
+def generate_modules_rules(keyboard, filename):
+    lines = []
+    modules = get_modules(keyboard, filename)
+    if len(modules) > 0:
+        lines.append('')
+        lines.append('OPT_DEFS += -DCOMMUNITY_MODULES_ENABLED=TRUE')
+        for module in modules:
+            lines.append('')
+            lines.append(f'COMMUNITY_MODULES += {module}')
+            lines.append(f'OPT_DEFS += -DCOMMUNITY_MODULE_{module.upper()}=TRUE')
+            lines.append(f'VPATH += modules/{module}')
+            lines.append(f'include modules/{module}/rules.mk')
+
+        module_jsons = load_module_jsons(modules)
+        for module_json in module_jsons:
+            if 'features' in module_json:
+                lines.append('')
+                lines.append(f'# Module: {module_json["module_name"]}')
+                lines.extend(generate_features_rules(module_json['features']))
+    return lines
 
 
 @cli.argument('filename', nargs='?', arg_only=True, type=FileType('r'), completer=FilesCompleter('.json'), help='A configurator export JSON to be compiled and flashed or a pre-compiled binary firmware file (bin/hex) to be flashed.')
@@ -80,10 +112,7 @@ def generate_rules_mk(cli):
 
     # Iterate through features to enable/disable them
     if 'features' in kb_info_json:
-        for feature, enabled in kb_info_json['features'].items():
-            feature = feature.upper()
-            enabled = 'yes' if enabled else 'no'
-            rules_mk_lines.append(generate_rule(f'{feature}_ENABLE', enabled))
+        rules_mk_lines.extend(generate_features_rules(kb_info_json['features']))
 
     # Set SPLIT_TRANSPORT, if needed
     if kb_info_json.get('split', {}).get('transport', {}).get('protocol') == 'custom':
@@ -99,16 +128,7 @@ def generate_rules_mk(cli):
     if converter:
         rules_mk_lines.append(generate_rule('CONVERT_TO', converter))
 
-    modules = get_modules(cli.args.keyboard, cli.args.filename)
-    if len(modules) > 0:
-        rules_mk_lines.append('')
-        rules_mk_lines.append('OPT_DEFS += -DCOMMUNITY_MODULES_ENABLED=TRUE')
-        for module in modules:
-            rules_mk_lines.append('')
-            rules_mk_lines.append(f'COMMUNITY_MODULES += {module}')
-            rules_mk_lines.append(f'OPT_DEFS += -DCOMMUNITY_MODULE_{module.upper()}=TRUE')
-            rules_mk_lines.append(f'VPATH += modules/{module}')
-            rules_mk_lines.append(f'include modules/{module}/rules.mk')
+    rules_mk_lines.extend(generate_modules_rules(cli.args.keyboard, cli.args.filename))
 
     # Show the results
     dump_lines(cli.args.output, rules_mk_lines)

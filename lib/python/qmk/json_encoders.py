@@ -252,7 +252,9 @@ class CommunityModuleJSONEncoder(QMKJSONEncoder):
                 return '01maintainer'
             if key == 'url':
                 return '02url'
+            if key == 'features':
+                return '03features'
             if key == 'keycodes':
-                return '03keycodes'
+                return '04keycodes'
 
         return key

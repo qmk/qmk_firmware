@@ -12,5 +12,6 @@
             "format": "uri"
         },
         "keycodes": {"$ref": "qmk.definitions.v1#/keycode_decl_array"},
+        "features": {"$ref": "qmk.keyboard.v1#/definitions/features_config"},
     }
 }
