@@ -37,6 +37,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SERIAL_USART_TX_PIN  GP8  // USART TX pin
 #define SERIAL_USART_RX_PIN  GP9  // USART RX pin
 
+// PMW3389 Settings
+#define PMW33XX_LIFTOFF_DISTANCE 0x02
+#define POINTING_DEVICE_RIGHT
+#define SPI_DRIVER SPID0
+#define SPI_SCK_PIN GP2
+#define SPI_MISO_PIN GP4
+#define SPI_MOSI_PIN GP3
+#define PMW33XX_CS_PIN GP5
+#define POINTING_DEVICE_INVERT_X_RIGHT
+#define POINTING_DEVICE_TASK_THROTTLE_MS 1
+#define PMW33XX_CPI 1000
+#define SPLIT_POINTING_ENABLE
+
 //RGB Lights
 
 
@@ -80,17 +93,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif
 */
-
-
-// PMW3389 Settings
-#define PMW33XX_LIFTOFF_DISTANCE 0x02
-#define POINTING_DEVICE_RIGHT
-#define SPI_SCK_PIN GP2
-#define SPI_MISO_PIN GP4
-#define SPI_MOSI_PIN GP3
-#define PMW33XX_CS_PIN
-#define PMW33XX_CS_PIN_RIGHT GP5
-#define POINTING_DEVICE_INVERT_X_RIGHT
-#define POINTING_DEVICE_TASK_THROTTLE_MS 1
-#define SPLIT_POINTING_ENABLE
-#define SPI_DRIVER SPI0

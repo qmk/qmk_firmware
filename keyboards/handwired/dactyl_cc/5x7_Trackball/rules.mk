@@ -21,12 +21,3 @@ POINTING_DEVICE_DRIVER = pmw3389
 SERIAL_DRIVER = vendor
 WS2812_DRIVER = vendor
 BOARD = GENERIC_RP_RP2040
-
-# If you want to change the display of OLED, you need to change here
-SRC +=  ./lib/rgb_state_reader.c \
-        ./lib/layer_state_reader.c \
-        ./lib/logo_reader.c \
-        ./lib/keylogger.c \
-        ./lib/mode_icon_reader.c \
-        ./lib/host_led_state_reader.c \
-        ./lib/timelogger.c \
