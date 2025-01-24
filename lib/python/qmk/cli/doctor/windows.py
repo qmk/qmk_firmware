@@ -5,7 +5,7 @@ from milc import cli
 from .check import CheckStatus, release_info
 
 
-def os_test_windows():
+def os_test_windows() -> CheckStatus:
     """Run the Windows specific tests.
     """
     win32_ver = platform.win32_ver()
