@@ -165,6 +165,7 @@ static void set_led_color_rgb(ws2812_led_t color, int pos) {
 }
 
 ws2812_led_t ws2812_leds[WS2812_LED_COUNT];
+bool         ws2812_dirty = false;
 
 void ws2812_init(void) {
     palSetLineMode(WS2812_DI_PIN, WS2812_MOSI_OUTPUT_MODE);
@@ -188,8 +189,7 @@ void ws2812_init(void) {
         0,
         WS2812_SPI_DIVISOR
 #    else
-        WS2812_SPI_DIVISOR_CR1_BR_X,
-        0
+        WS2812_SPI_DIVISOR_CR1_BR_X, 0
 #    endif
 #else
     // HAL_SPI_V2
@@ -228,6 +228,7 @@ void ws2812_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     ws2812_leds[index].r = red;
     ws2812_leds[index].g = green;
     ws2812_leds[index].b = blue;
+    ws2812_dirty         = true;
 #if defined(WS2812_RGBW)
     ws2812_rgb_to_rgbw(&ws2812_leds[index]);
 #endif
@@ -248,6 +249,7 @@ void ws2812_flush(void) {
     // Instead spiSend can be used to send synchronously (or the thread logic can be added back).
 #ifndef WS2812_SPI_USE_CIRCULAR_BUFFER
 #    ifdef WS2812_SPI_SYNC
+    if (!ws2812_dirty) return;
     spiSend(&WS2812_SPI_DRIVER, ARRAY_SIZE(txbuf), txbuf);
 #    else
     spiStartSend(&WS2812_SPI_DRIVER, ARRAY_SIZE(txbuf), txbuf);

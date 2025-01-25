@@ -17,6 +17,7 @@
 #endif
 
 ws2812_led_t ws2812_leds[WS2812_LED_COUNT];
+bool         ws2812_dirty = false;
 
 void ws2812_init(void) {
     i2c_init();
@@ -26,6 +27,7 @@ void ws2812_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     ws2812_leds[index].r = red;
     ws2812_leds[index].g = green;
     ws2812_leds[index].b = blue;
+    ws2812_dirty         = true;
 }
 
 void ws2812_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
@@ -35,5 +37,6 @@ void ws2812_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void ws2812_flush(void) {
+    if (!ws2812_dirty) return;
     i2c_transmit(WS2812_I2C_ADDRESS, (uint8_t *)ws2812_leds, WS2812_LED_COUNT * sizeof(ws2812_led_t), WS2812_I2C_TIMEOUT);
 }
