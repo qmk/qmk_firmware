@@ -10,11 +10,11 @@ A multi-mount 60% keyboard with PCB choice featuring popular layouts, underglow,
 
 Make example for this keyboard (after setting up your build environment):
 
-    make ivworks/umbra/hotswap:default
+    make umbra/hotswap:default
 
 Flashing example for this keyboard:
 
-    make ivworks/umbra/hotswap:default:flash
+    make umbra/hotswap:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
