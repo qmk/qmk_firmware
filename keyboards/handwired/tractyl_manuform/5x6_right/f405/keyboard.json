@@ -17,7 +17,7 @@
     "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
-            {"pin_a": "A15", "pin_b": "C0"}
+            {"pin_a": "C0", "pin_b": "A15"}
         ]
     },
     "eeprom": {
