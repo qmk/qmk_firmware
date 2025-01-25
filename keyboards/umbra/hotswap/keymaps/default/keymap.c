@@ -26,15 +26,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LCTL,  KC_LGUI,  KC_LALT,            KC_SPC,               KC_SPC,               KC_SPC,                KC_RALT, KC_RGUI, KC_RCTL),
 // basic function layer
 [1] = LAYOUT_all(
-  QK_BOOT,  KC_F1,    KC_F2,    KC_F3,    KC_F4,     KC_F5,     KC_F6,     KC_F7,     KC_F8,     KC_F9,      KC_F10,  KC_F11,   KC_F12,  KC_TRNS, KC_TRNS,
-  KC_TRNS,  KC_TRNS,  KC_UP,    KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,    KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,
-  KC_TRNS,  KC_LEFT,  KC_DOWN,  KC_RIGHT, KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,    KC_TRNS, KC_TRNS,  KC_TRNS,
-  KC_TRNS,            KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,    KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,
+  QK_BOOT,  KC_F1,    KC_F2,    KC_F3,    KC_F4,     KC_F5,     KC_F6,     KC_F7,     KC_F8,     KC_F9,      KC_F10,  KC_F11,   KC_F12,  KC_TRNS, KC_DEL,
+  KC_TRNS,  UG_TOGG,  KC_UP,    UG_NEXT,  UG_PREV,   UG_HUED,   UG_HUEU,   UG_SATD,   UG_SATU,   UG_VALD,    UG_VALU, KC_HOME,  KC_PGUP, KC_VOLU,
+  KC_TRNS,  KC_LEFT,  KC_DOWN,  KC_RIGHT, KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,    KC_END,  KC_PGDN,  KC_VOLD,
+  KC_TRNS,            KC_SLEP,  KC_MYCM,  KC_CALC,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,    KC_MPRV, KC_MNXT,  KC_MPLY, KC_TRNS,
   KC_TRNS,  KC_TRNS,  KC_TRNS,            KC_TRNS,              KC_TRNS,              KC_TRNS,                        KC_TRNS,  KC_TRNS, KC_TRNS)
 };
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [1] = { ENCODER_CCW_CW(KC_BRID, KC_BRIU) }
+    [1] = { ENCODER_CCW_CW(KC_PGDN, KC_PGUP) }
 };
 #endif
