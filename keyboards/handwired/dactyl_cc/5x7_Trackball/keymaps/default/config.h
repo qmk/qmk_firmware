@@ -81,15 +81,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 
-/*
+
 //OLED Display I2C Configuration
 #ifdef OLED_ENABLE
-#undef I2C_DRIVER
-#define I2C_DRIVER I2C1
-#undef I2C1_SCL_PIN
+
+#define I2C_DRIVER I2CD1
 #define I2C1_SCL_PIN GP27
-#undef I2C1_SDA_PIN
 #define I2C1_SDA_PIN GP26
 
 #endif
-*/
+
