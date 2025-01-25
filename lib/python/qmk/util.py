@@ -3,15 +3,16 @@
 import contextlib
 import multiprocessing
 import sys
+from typing import Union
 
 from milc import cli
 
-maybe_exit_should_exit = True
-maybe_exit_reraise = False
+maybe_exit_should_exit: bool = True
+maybe_exit_reraise: bool = False
 
 
 # Controls whether or not early `exit()` calls should be made
-def maybe_exit(rc):
+def maybe_exit(rc: Union[None, int, str]) -> None:
     if maybe_exit_should_exit:
         sys.exit(rc)
     if maybe_exit_reraise:
@@ -20,14 +21,14 @@ def maybe_exit(rc):
             raise e
 
 
-def maybe_exit_config(should_exit: bool = True, should_reraise: bool = False):
+def maybe_exit_config(should_exit: bool = True, should_reraise: bool = False) -> None:
     global maybe_exit_should_exit
     global maybe_exit_reraise
     maybe_exit_should_exit = should_exit
     maybe_exit_reraise = should_reraise
 
 
-def truthy(value, value_if_unknown=False):
+def truthy(value: object, value_if_unknown: bool = False) -> bool:
     """Returns True if the value is truthy, False otherwise.
 
     Deals with:
@@ -35,7 +36,7 @@ def truthy(value, value_if_unknown=False):
         False: 0, false, f, no, n, off
     """
     if value in {False, True}:
-        return bool(value)
+        return value is True
 
     test_value = str(value).strip().lower()
 
