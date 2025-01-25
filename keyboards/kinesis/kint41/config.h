@@ -16,6 +16,10 @@
 
 #pragma once
 
+/* Low-power sleep mode for the ChibiOS idle thread does not work on the  
+ * Teensy 4.0. */
+#define CORTEX_ENABLE_WFI_IDLE FALSE
+
 /* We use the i.MX RT1060 high-speed GPIOs (GPIO6-9) which are connected to the
  * AHB bus (AHB_CLK_ROOT), which runs at the same speed as the ARM Core Clock,
  * i.e. 600 MHz. See MIMXRT1062, page 949, 12.1 Chip-specific GPIO information.
