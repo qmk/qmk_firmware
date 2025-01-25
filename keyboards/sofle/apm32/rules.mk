@@ -1,6 +1,2 @@
 # Wildcard to allow APM32 MCU
 DFU_SUFFIX_ARGS = -v FFFF -p FFFF
-
-I2C_DRIVER_REQUIRED = no
-
-WS2812_DRIVER_REQUIRED = yes

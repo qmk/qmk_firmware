@@ -18,6 +18,7 @@
 
 #include_next <mcuconf.h>
 
+// TX on A2
 #undef STM32_SERIAL_USE_USART2
 #define STM32_SERIAL_USE_USART2 TRUE
 
@@ -30,8 +31,12 @@
 #undef STM32_I2C_USE_DMA
 #define STM32_I2C_USE_DMA FALSE
 
+// For OLED?
 #undef STM32_I2C_USE_I2C1
 #define STM32_I2C_USE_I2C1 TRUE
+
+#undef STM32_I2C_USE_I2C2
+#define STM32_I2C_USE_I2C2 TRUE
 
 //undef STM32_SPI_USE_SPI2
 //#define STM32_SPI_USE_SPI2 TRUE

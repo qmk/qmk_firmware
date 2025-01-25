@@ -18,11 +18,14 @@
 
 #pragma once
 
-#define SPLIT_USB_DETECT
-#define SPLIT_MASTER_TIMER 2000
+#define DEBUG_TO_SCREEN 1
+
+#define EE_HANDS
+
+//#define SPLIT_USB_DETECT
+//#define SPLIT_MASTER_TIMER 2000
 
 #define MASTER_RIGHT
-
 
 // OLED settings
 #undef OLED_ENABLE
@@ -30,14 +33,21 @@
 #define OLED_TIMEOUT    80000
 #define OLED_BRIGHTNESS 90
 
-#define SERIAL_USART_FULL_DUPLEX  // Enable full duplex operation mode.
-//#define SERIAL_USART_TX_PIN      A2
-//#define SERIAL_USART_RX_PIN      A3
+//#define OLED_IC	        OLED_IC_SSD1306
+#define OLED_DC_PIN B6
+#define OLED_CS_PIN B7
+
+#define I2C1_SCL_PIN B6
+#define I2C1_SDA_PIN B7
+#define I2C_DRIVER I2CD1
+
+#define SERIAL_USART_HALF_DUPLEX  // Enable full duplex operation mode.
 #define SERIAL_USART_DRIVER      SD2
 #define SERIAL_USART_TX_PAL_MODE 7    // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
 #define SERIAL_USART_RX_PAL_MODE 7    // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
 #define SERIAL_USART_TIMEOUT     100  // USART driver timeout. default 100
 #define SERIAL_USART_SPEED       921600
+
 
 #define BACKLIGHT_PWM_DRIVER    PWMD3
 #define BACKLIGHT_PWM_CHANNEL   1

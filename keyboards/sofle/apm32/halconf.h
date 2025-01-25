@@ -21,13 +21,16 @@
 
 #pragma once
 
-#undef HAL_USE_I2C
+// For OLED?
 #define HAL_USE_I2C TRUE
 
+// Backlight
 #define HAL_USE_PWM TRUE
 
+// For RGB?
 #define HAL_USE_SPI TRUE
 
+// For split comms?
 #define HAL_USE_SERIAL TRUE
 
 #include_next <halconf.h>
