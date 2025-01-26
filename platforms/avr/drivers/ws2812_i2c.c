@@ -1,6 +1,7 @@
 // Copyright 2024 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+#include <stdbool.h>
 #include "ws2812.h"
 #include "i2c_master.h"
 
