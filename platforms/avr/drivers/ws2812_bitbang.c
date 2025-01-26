@@ -176,7 +176,7 @@ void ws2812_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
 
 void ws2812_flush(void) {
     if (!ws2812_dirty) return;
-    ws2812_dirty = false;
+    ws2812_dirty   = false;
     uint8_t masklo = ~(pinmask(WS2812_DI_PIN)) & PORTx_ADDRESS(WS2812_DI_PIN);
     uint8_t maskhi = pinmask(WS2812_DI_PIN) | PORTx_ADDRESS(WS2812_DI_PIN);
 
