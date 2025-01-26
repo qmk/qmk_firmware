@@ -1,0 +1,78 @@
+# EditorConfig file
+# =================
+#
+# 1. Set some good common defaults for indent, newlines etc.
+# 2. Enjoy the reduced diffs and less linter errors.
+#
+# -------------
+#
+# Atom users: install corresponding package (restart if installing from
+# command line):
+#
+#     apm install editorconfig
+#
+# This package does not support `trim_trailing_whitespace` and
+# `trim_trailing_whitespace` *yet*, so install also
+#
+#     apm install whitespace
+#
+# keeping its default configuration (in config.cson file, this is the current
+# default so it might be absent):
+#
+#     "*":
+#       whitespace:
+#         # this is the current default so it might be absent
+#         ensureSingleTrailingNewline: true
+#         ignoreWhitespaceOnCurrentLine: true
+#         ignoreWhitespaceOnlyLines: false
+#         keepMarkdownLineBreakWhitespace: true
+#         removeTrailingWhitespace: true
+#     '.md.text':
+#       whitespace:
+#         # markdown line breaks are done using two trailing spaces
+#         removeTrailingWhitespace: false
+#
+# -------------
+#
+# SublimeText users: install corresponding package
+#
+#     https://github.com/sindresorhus/editorconfig-sublime#readme
+#
+# and set the following in the SublimeText config (Cmd-, on OS X):
+#
+#     {
+#       ...
+#       "draw_white_space": "all",
+#       "trim_trailing_white_space_on_save": true,
+#       ....
+#     }
+#
+# -------------
+#
+# RubyMine users: activate EditorConfig support in preferences.
+#
+# -------------
+#
+# vim users: install plugin with the preferred method:
+#
+#     https://github.com/editorconfig/editorconfig-vim#readme
+#
+
+root = true
+
+[*]
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+charset = utf-8
+
+[*.md]
+# Double spaces at the end of a line indicate a forced line break.
+trim_trailing_whitespace = false
+
+[*.sql]
+# Mostly, because rake db:structure:dump does not add a newline to
+# db/structure.sql, and we want to avoid bogus diffs on editing that file.
+insert_final_newline = false
