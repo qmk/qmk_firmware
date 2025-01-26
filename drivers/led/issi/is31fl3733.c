@@ -21,7 +21,6 @@
 #include "i2c_master.h"
 #include "gpio.h"
 #include "wait.h"
-#include "bit_array.h"
 
 #define IS31FL3733_PWM_REGISTER_COUNT 192
 #define IS31FL3733_LED_CONTROL_REGISTER_COUNT 24
