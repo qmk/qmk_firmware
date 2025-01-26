@@ -14,3 +14,4 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 CUSTOM_MATRIX=yes
+KEYCODE_STRING_ENABLE = yes
