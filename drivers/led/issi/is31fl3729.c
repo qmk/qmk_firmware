@@ -121,7 +121,7 @@ void is31fl3729_write_pwm_buffer(uint8_t index) {
 
 #if IS31FL3729_I2C_PERSISTENCE > 0
         for (uint8_t j = 0; j < IS31FL3729_I2C_PERSISTENCE; j++) {
-            if (i2c_write_register(i2c_addresses[index] << 1, IS31FL3729_REG_PWM + i, driver_buffers[index].pwm_buffer + i, 13, IS31FL3729_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
+            if (i2c_write_register(i2c_addresses[index] << 1, IS31FL3729_REG_PWM + offset, driver_buffers[index].pwm_buffer + offset, IS31FL3729_PWM_REGISTERS_PER_CHUNK, IS31FL3729_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
         }
 #else
         i2c_write_register(i2c_addresses[index] << 1, IS31FL3729_REG_PWM + offset, driver_buffers[index].pwm_buffer + offset, IS31FL3729_PWM_REGISTERS_PER_CHUNK, IS31FL3729_I2C_TIMEOUT);
