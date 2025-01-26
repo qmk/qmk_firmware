@@ -109,7 +109,6 @@ is31fl3733_driver_t driver_buffers[IS31FL3733_DRIVER_COUNT] = {{
     .pwm_buffer_dirty         = {0},
     .led_control_buffer       = {0},
     .led_control_buffer_dirty = false,
-    .led_control_bitfield     = {0},
 }};
 
 void is31fl3733_write_register(uint8_t index, uint8_t reg, uint8_t data) {

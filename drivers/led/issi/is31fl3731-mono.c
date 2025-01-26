@@ -87,7 +87,7 @@ void is31fl3731_write_pwm_buffer(uint8_t index) {
     // Transmit PWM registers in 9 transfers of 16 bytes.
 
     // Iterate over the pwm_buffer contents at 16 byte intervals.
-    for (uint8_t i = 0; i < IS31FL3731_PWM_REGISTER_COUNT; i++) {
+    for (uint8_t i = 0; i < IS31FL3731_CHUNK_COUNT; i++) {
         if (!driver_buffers[index].pwm_buffer_dirty[i]) {
             continue;
         }
