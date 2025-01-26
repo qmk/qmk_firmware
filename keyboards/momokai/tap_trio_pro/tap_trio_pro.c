@@ -1,4 +1,6 @@
-/* Copyright 2023 RephlexZero (@RephlexZero) peepeetee (@peepeetee)
+/* Copyright 2023 RephlexZero (@RephlexZero)
+             2023 peepeetee (@peepeetee)
+             2025 Jenna Fligor (@Ex-32)
 SPDX-License-Identifier: GPL-2.0-or-later */
 #include <stdint.h>
 #include <stdio.h>
@@ -139,11 +141,11 @@ void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
 
 enum via_dynamic_actuation {
     id_mode = 1,
-    id_actuation_point,
-    id_press_sensitivity,
-    id_release_sensitivity,
-    id_press_hysteresis,
-    id_release_hysteresis,
+    id_actuation_point = 2,
+    id_press_sensitivity = 3,
+    id_release_sensitivity = 4,
+    id_press_hysteresis = 5,
+    id_release_hysteresis = 6,
 };
 
 void via_config_set_value(uint8_t *data) {

@@ -1,11 +1,19 @@
-/* Copyright 2023 RephlexZero (@RephlexZero) 2024 peepeetee (@peepeetee) 2024 minisbett (@minisbett)
+/* Copyright 2023 RephlexZero (@RephlexZero)
+             2024 peepeetee (@peepeetee)
+             2024 minisbett (@minisbett)
+             2025 Jenna Fligor (@Ex-32)
 SPDX-License-Identifier: GPL-2.0-or-later */
 
 #pragma once
 
 #include <stdint.h>
 
-enum analog_key_modes { dynamic_actuation = 0, continuous_dynamic_actuation, static_actuation, flashing };
+enum analog_key_modes {
+    dynamic_actuation = 0,
+    continuous_dynamic_actuation = 1,
+    static_actuation = 2,
+    flashing = 3,
+};
 
 /* global struct to save keypress logic params */
 typedef struct {
