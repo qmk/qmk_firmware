@@ -300,9 +300,9 @@ void is31fl3741_set_pwm_buffer(const is31fl3741_led_t *pled, uint8_t red, uint8_
     set_pwm_value(pled->driver, pled->g, green);
     set_pwm_value(pled->driver, pled->b, blue);
 
-    dirty_bitfield_set_bit(pled->driver, pled->r);
-    dirty_bitfield_set_bit(pled->driver, pled->g);
-    dirty_bitfield_set_bit(pled->driver, pled->b);
+    dirty_bitfield_set(pled->driver, pled->r);
+    dirty_bitfield_set(pled->driver, pled->g);
+    dirty_bitfield_set(pled->driver, pled->b);
 }
 
 void is31fl3741_update_led_control_registers(uint8_t index) {
