@@ -25,6 +25,7 @@
 #include <util/delay.h>
 #include "ws2812.h"
 #include "pin_defs.h"
+#include <stdbool.h>
 
 #define pinmask(pin) (_BV((pin)&0xF))
 
