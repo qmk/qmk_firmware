@@ -152,7 +152,7 @@ static inline void ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t
 }
 
 ws2812_led_t ws2812_leds[WS2812_LED_COUNT];
-bool        ws2812_dirty = false;
+bool         ws2812_dirty = false;
 
 void ws2812_init(void) {
     DDRx_ADDRESS(WS2812_DI_PIN) |= pinmask(WS2812_DI_PIN);
@@ -176,6 +176,7 @@ void ws2812_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
 
 void ws2812_flush(void) {
     if (!ws2812_dirty) return;
+    ws2812_dirty = false;
     uint8_t masklo = ~(pinmask(WS2812_DI_PIN)) & PORTx_ADDRESS(WS2812_DI_PIN);
     uint8_t maskhi = pinmask(WS2812_DI_PIN) | PORTx_ADDRESS(WS2812_DI_PIN);
 

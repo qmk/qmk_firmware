@@ -101,6 +101,7 @@ void ws2812_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
 
 void ws2812_flush(void) {
     if (!ws2812_dirty) return;
+    ws2812_dirty = false;
     // this code is very time dependent, so we need to disable interrupts
     chSysLock();
 

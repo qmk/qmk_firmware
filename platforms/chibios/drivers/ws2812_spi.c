@@ -241,6 +241,9 @@ void ws2812_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void ws2812_flush(void) {
+    if (!ws2812_dirty) return;
+    ws2812_dirty = false;
+
     for (int i = 0; i < WS2812_LED_COUNT; i++) {
         set_led_color_rgb(ws2812_leds[i], i);
     }
@@ -249,7 +252,6 @@ void ws2812_flush(void) {
     // Instead spiSend can be used to send synchronously (or the thread logic can be added back).
 #ifndef WS2812_SPI_USE_CIRCULAR_BUFFER
 #    ifdef WS2812_SPI_SYNC
-    if (!ws2812_dirty) return;
     spiSend(&WS2812_SPI_DRIVER, ARRAY_SIZE(txbuf), txbuf);
 #    else
     spiStartSend(&WS2812_SPI_DRIVER, ARRAY_SIZE(txbuf), txbuf);

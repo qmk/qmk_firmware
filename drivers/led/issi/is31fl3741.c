@@ -224,7 +224,7 @@ void set_pwm_value(uint8_t driver, uint16_t reg, uint8_t value) {
     }
 }
 
-void dirty_bitfield_set_bit(uint8_t driver, uint16_t reg) {
+void dirty_bitfield_set(uint8_t driver, uint16_t reg) {
     if (reg & 0x100) {
         driver_buffers[driver].pwm_buffer_1_dirty[(reg & 0xFF) / IS31FL3741_PWM_1_REGISTERS_PER_CHUNK] = true;
     } else {
@@ -246,9 +246,9 @@ void is31fl3741_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
         set_pwm_value(led.driver, led.g, green);
         set_pwm_value(led.driver, led.b, blue);
 
-        dirty_bitfield_set_bit(led.driver, led.r);
-        dirty_bitfield_set_bit(led.driver, led.g);
-        dirty_bitfield_set_bit(led.driver, led.b);
+        dirty_bitfield_set(led.driver, led.r);
+        dirty_bitfield_set(led.driver, led.g);
+        dirty_bitfield_set(led.driver, led.b);
     }
 }
 

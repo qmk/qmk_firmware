@@ -220,7 +220,7 @@ void is31fl3733_set_value(int index, uint8_t value) {
             return;
         }
 
-        driver_buffers[led.driver].pwm_buffer[led.v] = value;
+        driver_buffers[led.driver].pwm_buffer[led.v]                                            = value;
         driver_buffers[led.driver].pwm_buffer_dirty[led.v / IS31FL3733_PWM_REGISTERS_PER_CHUNK] = true;
     }
 }
