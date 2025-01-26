@@ -18,7 +18,6 @@
 
 #include <cstddef>
 #include <string>
-#include "keycode_util.hpp"
 extern "C" {
 #include "keyboard.h"
 #include "test_matrix.h"

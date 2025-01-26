@@ -20,7 +20,6 @@
 #include <stdint.h>
 #include "host.h"
 #include "keyboard_report_util.hpp"
-#include "keycode_util.hpp"
 extern "C" {
 #include "keycode_string.h"
 }
