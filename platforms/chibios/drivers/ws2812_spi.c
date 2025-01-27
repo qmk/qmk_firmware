@@ -165,7 +165,7 @@ static void set_led_color_rgb(ws2812_led_t color, int pos) {
 }
 
 ws2812_led_t ws2812_leds[WS2812_LED_COUNT];
-bool         ws2812_dirty = false;
+static bool  ws2812_dirty = false;
 
 void ws2812_init(void) {
     palSetLineMode(WS2812_DI_PIN, WS2812_MOSI_OUTPUT_MODE);

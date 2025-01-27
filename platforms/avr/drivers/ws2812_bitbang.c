@@ -153,7 +153,7 @@ static inline void ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t
 }
 
 ws2812_led_t ws2812_leds[WS2812_LED_COUNT];
-bool         ws2812_dirty = false;
+static bool  ws2812_dirty = false;
 
 void ws2812_init(void) {
     DDRx_ADDRESS(WS2812_DI_PIN) |= pinmask(WS2812_DI_PIN);

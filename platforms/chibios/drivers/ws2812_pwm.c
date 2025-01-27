@@ -291,7 +291,7 @@ typedef uint8_t ws2812_buffer_t;
 #endif
 
 static ws2812_buffer_t ws2812_frame_buffer[WS2812_BIT_N + 1]; /**< Buffer for a frame */
-bool                   ws2812_dirty = false;
+static bool            ws2812_dirty = false;
 
 /* --- PUBLIC FUNCTIONS ----------------------------------------------------- */
 /*

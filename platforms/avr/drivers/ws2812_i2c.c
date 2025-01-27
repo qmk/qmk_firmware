@@ -18,7 +18,7 @@
 #endif
 
 ws2812_led_t ws2812_leds[WS2812_LED_COUNT];
-bool         ws2812_dirty = false;
+static bool  ws2812_dirty = false;
 
 void ws2812_init(void) {
     i2c_init();
