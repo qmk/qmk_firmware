@@ -15,20 +15,15 @@
  */
 #pragma once
 
-// Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap
-#define LOCKING_SUPPORT_ENABLE
-// Locking resynchronize hack
-#define LOCKING_RESYNC_ENABLE
-
 //RGB Underglow defines
-#define WS2812_LED_TOTAL 20
+#define WS2812_LED_COUNT 20
 
 //RGB Matrix defines
 #define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
 #define IS31FL3731_I2C_ADDRESS_2 IS31FL3731_I2C_ADDRESS_SDA
 #define IS31FL3731_LED_COUNT 64
 
-#define RGB_MATRIX_LED_COUNT (IS31FL3731_LED_COUNT + WS2812_LED_TOTAL)
+#define RGB_MATRIX_LED_COUNT (IS31FL3731_LED_COUNT + WS2812_LED_COUNT)
 
 // enable/disable LEDs based on layout
 // switch between split backspace (1) or normal backspace(0)

@@ -14,15 +14,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
+#include "leds.h"
+#include <string.h>
 #include "i2c_master.h"
 #include "led_tables.h"
 #include "rgb_matrix.h"
-#include <string.h>
+#include "wait.h"
 #include "raise.h"
 #include "wire-protocol-constants.h"
 #include "print.h"
-#include "leds.h"
 
 // Color order of LEDs is Green, Red, Blue.
 typedef struct PACKED {

@@ -2,9 +2,31 @@
 
 Keyboards are able to support a wide range of languages. However, this support is not actually achieved within the keyboard itself - instead, it sends numerical codes, which the operating system maps to the appropriate characters depending on the user's configured keyboard layout. By default (and per the HID spec), this is the US ANSI layout. For example, when a Swedish person presses the key with the `å` character printed on it, the keyboard is *actually* sending the keycode for `[`.
 
-Obviously, this can get confusing, so QMK provides language-specific keycode aliases for many keyboard layouts. These won't do much on their own - you still have to set the matching keyboard layout in your OS settings. Think of them more as keycap labels for your keymap.
+Obviously, this can get confusing, so QMK provides language-specific keycode aliases for many keyboard layouts. These are used in place of the `KC_` prefixed ones. They won't do much on their own - you still have to set the matching keyboard layout in your OS settings. Think of them more as keycap labels for your keymap. The language-specific keycode aliases are defined in the files listed in the [Keycodes Header](#header-files) column below.
 
-Simply `#include` one of the keycode headers below at the top of your `keymap.c`, and assign the keycodes defined in the header in place of the `KC_` prefixed ones.
+## Selecting Your Host Keyboard Layout
+
+To select a host keyboard layout, simply `#include` one of the [keycode headers](#header-files) below at the top of your `keymap.c`. Example:
+
+```c
+#include QMK_KEYBOARD_H
+
+#include "keymap_japanese.h" // [!code focus]
+```
+
+Alternatively, if using `keymap.json`, add the `host_language` key as shown in the following example. The available languages are those with a _Sendstring LUT Header_ entry in one of the [Header Files](#header-files) tables.
+
+```json
+{
+    "keyboard": "handwired/my_macropad",
+    "keymap": "my_keymap",
+    "host_language": "swedish", // [!code focus]
+    "layout": "LAYOUT_all",
+    "layers": [
+        ["SE_ARNG"]
+    ]
+}
+```
 
 ## Sendstring Support
 
@@ -23,6 +45,8 @@ These headers are located in [`quantum/keymap_extras/`](https://github.com/qmk/q
 |Canadian Multilingual (CSA)      |`keymap_canadian_multilingual.h` |`sendstring_canadian_multilingual.h`|
 |Croatian                         |`keymap_croatian.h`              |`sendstring_croatian.h`             |
 |Czech                            |`keymap_czech.h`                 |`sendstring_czech.h`                |
+|Czech (macOS, ANSI)              |`keymap_czech_mac_ansi.h`        |`sendstring_czech_mac_ansi.h`       |
+|Czech (macOS, ISO)               |`keymap_czech_mac_iso.h`         |`sendstring_czech_mac_iso.h`        |
 |Danish                           |`keymap_danish.h`                |`sendstring_danish.h`               |
 |Dutch (Belgium)                  |`keymap_belgian.h`               |`sendstring_belgian.h`              |
 |English (Ireland)                |`keymap_irish.h`                 |                                    |
@@ -31,6 +55,7 @@ These headers are located in [`quantum/keymap_extras/`](https://github.com/qmk/q
 |English (US International)       |`keymap_us_international.h`      |`sendstring_us_international.h`     |
 |English (US International, Linux)|`keymap_us_international_linux.h`|                                    |
 |Estonian                         |`keymap_estonian.h`              |`sendstring_estonian.h`             |
+|Farsi                            |`keymap_farsi.h`                 |                                    |
 |Finnish                          |`keymap_finnish.h`               |`sendstring_finnish.h`              |
 |French                           |`keymap_french.h`                |`sendstring_french.h`               |
 |French (AFNOR)                   |`keymap_french_afnor.h`          |`sendstring_french_afnor.h`         |

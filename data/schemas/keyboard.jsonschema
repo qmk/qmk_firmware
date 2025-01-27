@@ -45,7 +45,7 @@
         },
         "development_board": {
             "type": "string",
-            "enum": ["promicro", "elite_c", "elite_pi", "proton_c", "kb2040", "promicro_rp2040", "blok", "michi", "bit_c_pro", "stemcell", "bluepill", "blackpill_f401", "blackpill_f411", "bonsai_c4", "helios", "liatris", "imera"]
+            "enum": ["promicro", "elite_c", "elite_pi", "proton_c", "kb2040", "promicro_rp2040", "blok", "michi", "bit_c_pro", "stemcell", "bluepill", "blackpill_f401", "blackpill_f411", "bonsai_c4", "helios", "liatris", "imera", "svlinky"]
         },
         "pin_compatible": {
             "type": "string",
@@ -92,6 +92,7 @@
                 "GD32VF103",
                 "WB32F3G71",
                 "WB32FQ95",
+                "AT32F415",
                 "atmega16u2",
                 "atmega32u2",
                 "atmega16u4",
@@ -133,8 +134,20 @@
                         "clicky": {"type": "boolean"}
                     }
                 },
+                "driver": {
+                    "type": "string",
+                    "enum": ["dac_additive", "dac_basic", "pwm_software", "pwm_hardware"]
+                },
                 "macro_beep": {"type": "boolean"},
                 "pins": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
+                "power_control": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "on_state": {"$ref": "qmk.definitions.v1#/bit"},
+                        "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"}
+                    }
+                },
                 "voices": {"type": "boolean"}
             }
         },
@@ -204,6 +217,7 @@
             "type": "string",
             "enum": [
                 "apm32-dfu",
+                "at32-dfu",
                 "atmel-dfu",
                 "bootloadhid",
                 "caterina",
@@ -330,7 +344,43 @@
                 "on_state": {"$ref": "qmk.definitions.v1#/bit"}
             }
         },
+        "joystick": {
+            "type": "object",
+            "properties": {
+                "enabled": {"type": "boolean"},
+                "driver": {"type": "string"},
+                "button_count": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "axis_resolution": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "axes": {
+                    "type": "object",
+                    "propertyNames": {"enum": ["x", "y", "z", "rx", "ry", "rz"]}
+                    "additionalProperties": {
+                        "oneOf": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "input_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                                    "low": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                                    "rest": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                                    "high": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                                }
+                            },
+                            {
+                                "type": "string",
+                                "enum": ["virtual"]
+                            }
+                        ]
+                    }
+                }
+            }
+        },
         "keycodes": {"$ref": "qmk.definitions.v1#/keycode_decl_array"},
+        "layer_lock": {
+            "type": "object",
+            "properties": {
+                "timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+            }
+        },
         "layout_aliases": {
             "type": "object",
             "additionalProperties": {"$ref": "qmk.definitions.v1#/layout_macro"}
@@ -376,6 +426,15 @@
                             }
                         }
                     }
+                }
+            }
+        },
+        "haptic": {
+            "type": "object",
+            "properties": {
+                "driver": {
+                    "type": "string",
+                    "enum": ["drv2605l", "solenoid"]
                 }
             }
         },
@@ -445,6 +504,7 @@
                     "enum": [
                         "custom",
                         "is31fl3218",
+                        "is31fl3236",
                         "is31fl3729",
                         "is31fl3731",
                         "is31fl3733",
@@ -493,8 +553,8 @@
                                     "minimum": 0
                                 }
                             },
-                            "x": {"$ref": "qmk.definitions.v1#/key_unit"},
-                            "y": {"$ref": "qmk.definitions.v1#/key_unit"},
+                            "x": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                            "y": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                             "flags": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
                         }
                     }
@@ -527,6 +587,7 @@
                         "aw20216s",
                         "custom",
                         "is31fl3218",
+                        "is31fl3236",
                         "is31fl3729",
                         "is31fl3731",
                         "is31fl3733",
@@ -578,8 +639,8 @@
                                     "minimum": 0
                                 }
                             },
-                            "x": {"$ref": "qmk.definitions.v1#/key_unit"},
-                            "y": {"$ref": "qmk.definitions.v1#/key_unit"},
+                            "x": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                            "y": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                             "flags": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
                         }
                     }
@@ -638,7 +699,10 @@
                     "$ref": "qmk.definitions.v1#/mcu_pin",
                     "$comment": "Deprecated: use ws2812.pin instead"
                 },
-                "rgbw": {"type": "boolean"},
+                "rgbw": {
+                    "type": "boolean",
+                    "$comment": "Deprecated: use ws2812.rgbw instead"
+                },
                 "saturation_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "sleep": {"type": "boolean"},
                 "split": {"type": "boolean"},
@@ -767,11 +831,25 @@
                         }
                     }
                 },
-                "soft_serial_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "soft_serial_pin": {
+                    "$ref": "qmk.definitions.v1#/mcu_pin",
+                    "$comment": "Deprecated: use split.serial.pin instead"
+                },
                 "soft_serial_speed": {
                     "type": "integer",
                     "minimum": 0,
                     "maximum": 5
+                },
+                "serial": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "driver": {
+                            "type": "string",
+                            "enum": ["bitbang", "usart", "vendor"]
+                        },
+                        "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"}
+                    }
                 },
                 "transport": {
                     "type": "object",
@@ -779,7 +857,7 @@
                     "properties": {
                         "protocol": {
                             "type": "string",
-                            "enum": ["custom", "i2c", "serial", "serial_usart"]
+                            "enum": ["custom", "i2c", "serial"]
                         },
                         "sync": {
                             "type": "object",
@@ -875,7 +953,7 @@
                     }
                 },
                 "suspend_wakeup_delay": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                "wait_for": {"type": "boolean"}
+                "wait_for_enumeration": {"type": "boolean"}
             }
         },
         "qmk": {
@@ -914,6 +992,7 @@
                     "enum": ["bitbang", "custom", "i2c", "pwm", "spi", "vendor"]
                 },
                 "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "rgbw": {"type": "boolean"},
                 "i2c_address": {"$ref": "qmk.definitions.v1#/hex_number_2d"},
                 "i2c_timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"}
             }

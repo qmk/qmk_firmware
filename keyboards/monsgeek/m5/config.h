@@ -19,11 +19,6 @@
 /* LED Indicators */
 #define LED_WIN_LOCK_PIN C11
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
 /* SPI Config for spi flash*/
 #define SPI_DRIVER SPIDQ
 #define SPI_SCK_PIN B3

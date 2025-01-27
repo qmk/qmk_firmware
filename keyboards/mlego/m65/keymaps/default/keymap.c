@@ -28,11 +28,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_WH_L, KC_WH_D, KC_WH_R),
 
   [_ADJ] = LAYOUT_ortho_5x13(
-      RGB_MOD, RGB_RMOD, A(KC_F2), _______, _______, _______, _______, _______, _______, _______, _______, RGB_M_T , RGB_M_SW,
-      RGB_HUI, RGB_HUD , RGB_M_P , _______, QK_BOOT  , _______, _______, _______, _______, _______, _______, _______ , RGB_M_SN,
-      RGB_SAI, RGB_SAD , RGB_M_B , _______, _______, _______, _______, _______, _______, _______, _______, _______ , RGB_M_K ,
-      RGB_VAI, RGB_VAD , RGB_M_R , _______, _______, _______, _______, _______, _______, _______, _______, _______ , RGB_M_X ,
-      RGB_TOG, _______ , _______ , _______, _______, _______, _______, _______, _______, _______, _______, RGB_M_TW, RGB_M_G),
+      UG_NEXT, UG_PREV , A(KC_F2), _______, _______, _______, _______, _______, _______, _______, _______, RGB_M_T , RGB_M_SW,
+      UG_HUEU, UG_HUED , RGB_M_P , _______, QK_BOOT, _______, _______, _______, _______, _______, _______, _______ , RGB_M_SN,
+      UG_SATU, UG_SATD , RGB_M_B , _______, _______, _______, _______, _______, _______, _______, _______, _______ , RGB_M_K ,
+      UG_VALU, UG_VALD , RGB_M_R , _______, _______, _______, _______, _______, _______, _______, _______, _______ , RGB_M_X ,
+      UG_TOGG, _______ , _______ , _______, _______, _______, _______, _______, _______, _______, _______, RGB_M_TW, RGB_M_G),
 
 };
 // clang-format on
@@ -41,9 +41,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_QW]  = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
 #if defined(RGBLIGHT_ENABLE)
-    [_LWR] = {ENCODER_CCW_CW(RGB_HUD, RGB_HUI)},
-    [_RSE] = {ENCODER_CCW_CW(RGB_VAD, RGB_VAI)},
-    [_ADJ] = {ENCODER_CCW_CW(RGB_RMOD, RGB_MOD)},
+    [_LWR] = {ENCODER_CCW_CW(UG_HUED, UG_HUEU)},
+    [_RSE] = {ENCODER_CCW_CW(UG_VALD, UG_VALU)},
+    [_ADJ] = {ENCODER_CCW_CW(UG_PREV, UG_NEXT)},
 #    else
     [_LWR] = {ENCODER_CCW_CW(KC_MNXT, KC_MPRV)},
     [_RSE] = {ENCODER_CCW_CW(KC_MFFD, KC_MRWD)},

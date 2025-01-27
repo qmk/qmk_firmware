@@ -15,7 +15,7 @@
 
 #pragma once
 
-#include "quantum/color.h"
+#include "util.h"
 
 /*
  * The WS2812 datasheets define T1H 900ns, T0H 350ns, T1L 350ns, T0L 900ns. Hence, by default, these
@@ -62,15 +62,36 @@
 #    define WS2812_LED_COUNT RGB_MATRIX_LED_COUNT
 #endif
 
-/* User Interface
- *
- * Input:
- *         ledarray:           An array of GRB data describing the LED colors
- *         number_of_leds:     The number of LEDs to write
- *
- * The functions will perform the following actions:
- *         - Set the data-out pin as output
- *         - Send out the LED data
- *         - Wait 50us to reset the LEDs
- */
-void ws2812_setleds(rgb_led_t *ledarray, uint16_t number_of_leds);
+#define WS2812_BYTE_ORDER_RGB 0
+#define WS2812_BYTE_ORDER_GRB 1
+#define WS2812_BYTE_ORDER_BGR 2
+
+#ifndef WS2812_BYTE_ORDER
+#    define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_GRB
+#endif
+
+typedef struct PACKED ws2812_led_t {
+#if (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_GRB)
+    uint8_t g;
+    uint8_t r;
+    uint8_t b;
+#elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_RGB)
+    uint8_t r;
+    uint8_t g;
+    uint8_t b;
+#elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_BGR)
+    uint8_t b;
+    uint8_t g;
+    uint8_t r;
+#endif
+#ifdef WS2812_RGBW
+    uint8_t w;
+#endif
+} ws2812_led_t;
+
+void ws2812_init(void);
+void ws2812_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
+void ws2812_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
+void ws2812_flush(void);
+
+void ws2812_rgb_to_rgbw(ws2812_led_t *led);

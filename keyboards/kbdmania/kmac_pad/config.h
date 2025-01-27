@@ -30,11 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { E2, D0, D1, D2, D3, D5 }
 #define MATRIX_COL_PINS { C7, C6, B6, B5 }
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

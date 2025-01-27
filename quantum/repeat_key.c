@@ -220,10 +220,10 @@ uint16_t get_alt_repeat_key_keycode(void) {
                 {KC_BRIU, KC_BRID},  // Brightness Up / Down.
 #endif  // EXTRAKEY_ENABLE
 #ifdef MOUSEKEY_ENABLE
-                {KC_MS_L, KC_MS_R},  // Mouse Cursor Left / Right.
-                {KC_MS_U, KC_MS_D},  // Mouse Cursor Up / Down.
-                {KC_WH_L, KC_WH_R},  // Mouse Wheel Left / Right.
-                {KC_WH_U, KC_WH_D},  // Mouse Wheel Up / Down.
+                {MS_LEFT, MS_RGHT},  // Mouse Cursor Left / Right.
+                {MS_UP,   MS_DOWN},  // Mouse Cursor Up / Down.
+                {MS_WHLL, MS_WHLR},  // Mouse Wheel Left / Right.
+                {MS_WHLU, MS_WHLD},  // Mouse Wheel Up / Down.
 #endif  // MOUSEKEY_ENABLE
             };
             // clang-format on

@@ -1,9 +1,11 @@
 #include "oled_helper.h"
-#include "quantum.h"
+#include "host.h"
+#include "progmem.h"
 #include <stdio.h>
 #include <string.h>
 
 #ifdef OLED_ENABLE
+#include "oled_driver.h"
 
 void render_logo(void) {
 

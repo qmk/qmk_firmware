@@ -82,7 +82,7 @@ static void traverse_matrix(void) {
     }
 }
 
-static void swirl_set_color(HSV hsv) {
+static void swirl_set_color(hsv_t hsv) {
     uint8_t index = g_led_config.matrix_co[j][i];
 
     if(index != NO_LED){
@@ -97,8 +97,8 @@ static void swirl_set_color(HSV hsv) {
             else
                 v_values[v] = 0;
         }
-        hsv.v =  v_values[v];
-        RGB rgb = hsv_to_rgb(hsv);
+        hsv.v     =  v_values[v];
+        rgb_t rgb = hsv_to_rgb(hsv);
         rgb_matrix_set_color(v, rgb.r, rgb.g, rgb.b);
     }
 
@@ -112,10 +112,10 @@ static void swirl_set_color(HSV hsv) {
 }
 
 static bool STARTUP_SWIRL_ANIM(effect_params_t* params) {
-    HSV      hsv = rgb_matrix_config.hsv;
+    hsv_t    hsv = rgb_matrix_config.hsv;
     uint8_t time = scale16by8(g_rgb_timer, qadd8(24, 1));
     hsv.h        = time;
-    RGB      rgb = hsv_to_rgb(hsv);
+    rgb_t    rgb = hsv_to_rgb(hsv);
 
     if (traverse) {
         swirl_set_color(hsv);

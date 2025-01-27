@@ -128,8 +128,8 @@ void is31fl3733_write_pwm_buffer(uint8_t bus, uint8_t index) {
 
 void is31fl3733_init_drivers(void) {
 #if defined(IS31FL3733_SDB_PIN)
-    setPinOutput(IS31FL3733_SDB_PIN);
-    writePinHigh(IS31FL3733_SDB_PIN);
+    gpio_set_pin_output(IS31FL3733_SDB_PIN);
+    gpio_write_pin_high(IS31FL3733_SDB_PIN);
 #endif
 
     i2c_init(&I2CD1, I2C1_SCL_PIN, I2C1_SDA_PIN);

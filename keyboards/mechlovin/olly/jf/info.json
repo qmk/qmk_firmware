@@ -5,15 +5,6 @@
     "usb": {
         "vid": "0x4D4C"
     },
-    "features": {
-        "nkro": false,
-        "bootmagic": true,
-        "command": false,
-        "console": false,
-        "extrakey": true,
-        "mousekey": true,
-        "rgblight": true
-    },
     "diode_direction": "ROW2COL",
     "rgblight": {
         "led_count": 27,

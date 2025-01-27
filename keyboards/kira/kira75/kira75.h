@@ -18,9 +18,22 @@
 
 #include "quantum.h"
 
-// Functions for setting LEDs on toggle keys
-inline void caps_led_on(void)     { DDRD |=  (1<<7); PORTD &= ~(1<<7); }
-inline void caps_led_off(void)    { DDRD &= ~(1<<7); PORTD &= ~(1<<7); }
+#define KIRA75_CAPS_LOCK_LED_PIN D7
+#define KIRA75_NUM_LOCK_LED_PIN D6
 
-inline void num_led_on(void)      { DDRD |=  (1<<6); PORTD &= ~(1<<6); }
-inline void num_led_off(void)     { DDRD &= ~(1<<6); PORTD &= ~(1<<6); }
+// Functions for setting LEDs on toggle keys
+inline void caps_led_on(void) {
+    gpio_set_pin_output(KIRA75_CAPS_LOCK_LED_PIN);
+    gpio_write_pin_low(KIRA75_CAPS_LOCK_LED_PIN);
+}
+inline void caps_led_off(void) {
+    gpio_set_pin_input(KIRA75_CAPS_LOCK_LED_PIN);
+}
+
+inline void num_led_on(void) {
+    gpio_set_pin_output(KIRA75_NUM_LOCK_LED_PIN);
+    gpio_write_pin_low(KIRA75_NUM_LOCK_LED_PIN);
+}
+inline void num_led_off(void) {
+    gpio_set_pin_input(KIRA75_NUM_LOCK_LED_PIN);
+}

@@ -35,7 +35,7 @@ bool is_keyboard_master(void) {
     static int8_t is_master = -1;
 
     if (is_master < 0) {
-        while (readPin(SPI_SS_PIN)) {
+        while (gpio_read_pin(SPI_SS_PIN)) {
             if (USB_Device_IsAddressSet()) {
                 is_master = 1;
                 return is_master;
@@ -53,7 +53,7 @@ bool is_keyboard_master(void) {
 }
 
 void keyboard_pre_init_kb(void) {
-    setPinInputHigh(SPI_SS_PIN);
+    gpio_set_pin_input_high(SPI_SS_PIN);
 
     keyboard_pre_init_user();
 }

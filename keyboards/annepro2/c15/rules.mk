@@ -13,25 +13,8 @@ BOARD = ANNEPRO2_C15
 BOOTLOADER = custom
 PROGRAM_CMD = annepro2_tools --boot $(BUILD_DIR)/$(TARGET).bin
 
-# Build Options
-#   change yes to no to disable
-#
-BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
-MOUSEKEY_ENABLE = no        # Mouse keys
-EXTRAKEY_ENABLE = yes       # Audio control and System control
-CONSOLE_ENABLE = no         # Console for debug
-COMMAND_ENABLE = no         # Commands for debug and configuration
-NKRO_ENABLE = no            # Enable N-Key Rollover
-
-# Custom RGB matrix handling
-RGB_MATRIX_ENABLE = yes
-
-# Keys
-CUSTOM_MATRIX = lite
-
 # Anne Pro 2
 SRC = \
-	matrix.c \
 	annepro2_ble.c \
 	ap2_led.c \
 	protocol.c \

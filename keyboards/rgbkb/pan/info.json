@@ -8,6 +8,18 @@
         "pid": "0x8C9C",
         "device_version": "0.0.2"
     },
+    "build": {
+        "lto": true
+    },
+    "features": {
+        "bootmagic": true,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": false,
+        "nkro": false,
+        "oled": true,
+        "rgb_matrix": true
+    },
     "rgb_matrix": {
         "animations": {
             "alphas_mods": true,
