@@ -124,12 +124,12 @@ static const uint16_t common_names[] PROGMEM = {
 };
 // clang-format on
 
-__attribute__((weak)) const keycode_string_name_t empty_table[] = {KEYCODE_STRING_NAMES_END};
-
 /** Users can override this to define names of additional keycodes. */
-__attribute__((weak)) const keycode_string_name_t* keycode_string_names_user = empty_table;
+__attribute__((weak)) const keycode_string_name_t* keycode_string_names_data_user = NULL;
+__attribute__((weak)) uint16_t                     keycode_string_names_size_user = 0;
 /** Keyboard vendors can override this to define names of additional keycodes. */
-__attribute__((weak)) const keycode_string_name_t* keycode_string_names_kb = empty_table;
+__attribute__((weak)) const keycode_string_name_t* keycode_string_names_data_kb = NULL;
+__attribute__((weak)) uint16_t                     keycode_string_names_size_kb = 0;
 /** Names of the 4 mods on each hand. */
 static const char mod_names[] PROGMEM = "CTL\0SFT\0ALT\0GUI";
 /** Internal buffer for holding a stringified keycode. */
@@ -141,7 +141,7 @@ static index_t buffer_len;
 static const char* search_common_names(uint16_t keycode) {
     static uint8_t buffer[8];
 
-    for (int16_t offset = 0; offset < ARRAY_SIZE(common_names); offset += 4) {
+    for (int_fast16_t offset = 0; offset < ARRAY_SIZE(common_names); offset += 4) {
         if (keycode == pgm_read_word(common_names + offset)) {
             const uint16_t w0 = pgm_read_word(common_names + offset + 1);
             const uint16_t w1 = pgm_read_word(common_names + offset + 2);
@@ -162,17 +162,18 @@ static const char* search_common_names(uint16_t keycode) {
 }
 
 /**
- * @brief Finds the name of a keycode in `table` or returns NULL.
+ * @brief Finds the name of a keycode in table or returns NULL.
  *
- * The last entry of the table must be `KEYCODE_STRING_NAMES_END`.
- *
- * @param table   A table of keycode_string_name_t to be searched.
+ * @param data   Pointer to table to be searched.
+ * @param size   Numer of entries in the table.
  * @return Name string for the keycode, or NULL if not found.
  */
-static const char* search_table(const keycode_string_name_t* table, uint16_t keycode) {
-    for (; table->keycode; ++table) {
-        if (table->keycode == keycode) {
-            return table->name;
+static const char* search_table(const keycode_string_name_t* data, uint16_t size, uint16_t keycode) {
+    if (data != NULL) {
+        for (uint16_t i = 0; i < size; ++i) {
+            if (data[i].keycode == keycode) {
+                return data[i].name;
+            }
         }
     }
     return NULL;
@@ -263,12 +264,12 @@ static void append_unary_keycode(const char* name, const char* param) {
 static void append_keycode(uint16_t keycode) {
     // In case there is overlap among tables, search `keycode_string_names_user`
     // first so that it takes precedence.
-    const char* keycode_name = search_table(keycode_string_names_user, keycode);
+    const char* keycode_name = search_table(keycode_string_names_data_user, keycode_string_names_size_user, keycode);
     if (keycode_name) {
         append(keycode_name);
         return;
     }
-    keycode_name = search_table(keycode_string_names_kb, keycode);
+    keycode_name = search_table(keycode_string_names_data_kb, keycode_string_names_size_kb, keycode);
     if (keycode_name) {
         append(keycode_name);
         return;
@@ -439,7 +440,7 @@ static void append_keycode(uint16_t keycode) {
             append_char(',');
             append_number(j, 10);
             append_char(')');
-        }   return dest;
+        }   return;
 #endif
 #ifdef MOUSEKEY_ENABLE
         case MS_BTN1 ... MS_BTN8:  // Mouse button keycode.

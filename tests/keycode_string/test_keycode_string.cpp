@@ -24,16 +24,14 @@ enum {
 // clang-format off
 extern "C" {
 
-const keycode_string_name_t* keycode_string_names_kb = (keycode_string_name_t []){
+KEYCODE_STRING_NAMES_KB(
     KEYCODE_STRING_NAME(MYMACRO1),
-    KEYCODE_STRING_NAMES_END // End of table sentinel.
-};
+);
 
-const keycode_string_name_t* keycode_string_names_user = (keycode_string_name_t []){
+KEYCODE_STRING_NAMES_USER(
     KEYCODE_STRING_NAME(MYMACRO2),
     KEYCODE_STRING_NAME(KC_EXLM),
-    KEYCODE_STRING_NAMES_END // End of table sentinel.
-};
+);
 
 const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
   {{9, 0}, {8, 0}, {7, 0}, {6, 0}, {5, 0}, {4, 0}, {3, 0}, {2, 0}, {1, 0}, {0, 0}},

@@ -44,6 +44,8 @@
  *
  *  - Tap dance keycodes `TD(i)`.
  *
+ *  - Swap hands keycodes `SH_T(kc)`, `SH_TOGG`, etc.
+ *
  *  - Unicode `UC(codepoint)` and Unicode Map `UM(i)` and `UP(i,j)` keycodes.
  *
  *  - Keyboard range keycodes `QK_KB_*`.
@@ -70,37 +72,48 @@ typedef struct {
     const char* name;
 } keycode_string_name_t;
 
+// clang-format off
 /**
- * @brief Names for additional keycodes for `get_keycode_string()`.
+ * @brief Defines names for additional keycodes for `get_keycode_string()`.
  *
- * @note The table *must* end with `KEYCODE_STRING_NAMES_END`.
- *
- * Define the `custom_keycode_names` table in your keymap.c to add names for
+ * Define `KEYCODE_STRING_NAMES_USER` in your keymap.c to add names for
  * additional keycodes to `keycode_string()`. This table may also be used to
  * override how `keycode_string()` formats a keycode. For example, supposing
  * keymap.c defines `MYMACRO1` and `MYMACRO2` as custom keycodes:
  *
- *     const keycode_string_name_t* keycode_string_names_user =
- *     (keycode_string_name_t []){
- *       KEYCODE_STRING_NAME(MYMACRO1),
- *       KEYCODE_STRING_NAME(MYMACRO2),
- *       KEYCODE_STRING_NAME(KC_EXLM),
- *       KEYCODE_STRING_NAMES_END // End of table sentinel.
- *     };
+ *     KEYCODE_STRING_NAMES_USER(
+ *         KEYCODE_STRING_NAME(MYMACRO1),
+ *         KEYCODE_STRING_NAME(MYMACRO2),
+ *         KEYCODE_STRING_NAME(KC_EXLM),
+ *     );
  *
  * The above defines names for `MYMACRO1` and `MYMACRO2`, and overrides
  * `KC_EXLM` to format as "KC_EXLM" instead of the default "S(KC_1)".
  */
-extern const keycode_string_name_t* keycode_string_names_user;
-/** Same as `keycode_string_names_user`, but for use at the keyboard level. */
-extern const keycode_string_name_t* keycode_string_names_kb;
+#    define KEYCODE_STRING_NAMES_USER(...)                                          \
+    static const keycode_string_name_t keycode_string_names_user[] = {__VA_ARGS__}; \
+    uint16_t keycode_string_names_size_user =                                       \
+        sizeof(keycode_string_names_user) / sizeof(keycode_string_name_t);          \
+    const keycode_string_name_t* keycode_string_names_data_user =                   \
+        keycode_string_names_user
+
+/** Same as above, but defines keycode string names at the keyboard level. */
+#    define KEYCODE_STRING_NAMES_KB(...)                                            \
+    static const keycode_string_name_t keycode_string_names_kb[] = {__VA_ARGS__};   \
+    uint16_t keycode_string_names_size_kb =                                         \
+        sizeof(keycode_string_names_kb) / sizeof(keycode_string_name_t);            \
+    const keycode_string_name_t* keycode_string_names_data_kb =                     \
+        keycode_string_names_kb
 
 /** Helper to define a keycode_string_name_t. */
 #    define KEYCODE_STRING_NAME(kc) \
         { (kc), #kc }
-/** Makes end-of-table sentinel for a table of keycode_string_name_t. */
-#    define KEYCODE_STRING_NAMES_END \
-        { 0, NULL }
+// clang-format on
+
+extern const keycode_string_name_t* keycode_string_names_data_user;
+extern uint16_t                     keycode_string_names_size_user;
+extern const keycode_string_name_t* keycode_string_names_data_kb;
+extern uint16_t                     keycode_string_names_size_kb;
 
 #else
 
@@ -108,6 +121,10 @@ extern const keycode_string_name_t* keycode_string_names_kb;
 // as decimal values, using get_u16_str() from quantum.c.
 #    define get_keycode_string(kc) get_u16_str(kc, ' ')
 
-const char *get_u16_str(uint16_t curr_num, char curr_pad);
+const char* get_u16_str(uint16_t curr_num, char curr_pad);
+
+#    define KEYCODE_STRING_NAMES_USER(...)
+#    define KEYCODE_STRING_NAMES_KB(...)
+#    define KEYCODE_STRING_NAME(kc)
 
 #endif // KEYCODE_STRING_ENABLE
