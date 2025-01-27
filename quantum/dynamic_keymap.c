@@ -1,4 +1,5 @@
 /* Copyright 2017 Jason Williams (Wilba)
+ * Copyright 2024-2025 Nick Brassel (@tzarc)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -115,16 +116,27 @@ void dynamic_keymap_macro_set_buffer(uint16_t offset, uint16_t size, uint8_t *da
     nvm_dynamic_keymap_macro_update_buffer(offset, size, data);
 }
 
-void dynamic_keymap_macro_reset(void) {
-    // Erase the macros, if necessary.
-    nvm_dynamic_keymap_macro_erase();
-    nvm_dynamic_keymap_macro_reset();
-}
-
 static uint8_t dynamic_keymap_read_byte(uint32_t offset) {
     uint8_t d;
     nvm_dynamic_keymap_macro_read_buffer(offset, 1, &d);
     return d;
+}
+
+typedef struct send_string_nvm_state_t {
+    uint32_t offset;
+} send_string_nvm_state_t;
+
+char send_string_get_next_nvm(void *arg) {
+    send_string_nvm_state_t *state = (send_string_nvm_state_t *)arg;
+    char                     ret   = dynamic_keymap_read_byte(state->offset);
+    state->offset++;
+    return ret;
+}
+
+void dynamic_keymap_macro_reset(void) {
+    // Erase the macros, if necessary.
+    nvm_dynamic_keymap_macro_erase();
+    nvm_dynamic_keymap_macro_reset();
 }
 
 void dynamic_keymap_macro_send(uint8_t id) {
@@ -156,57 +168,6 @@ void dynamic_keymap_macro_send(uint8_t id) {
         ++offset;
     }
 
-    // Send the macro string by making a temporary string.
-    char data[8] = {0};
-    // We already checked there was a null at the end of
-    // the buffer, so this cannot go past the end
-    while (1) {
-        data[0] = dynamic_keymap_read_byte(offset++);
-        data[1] = 0;
-        // Stop at the null terminator of this macro string
-        if (data[0] == 0) {
-            break;
-        }
-        if (data[0] == SS_QMK_PREFIX) {
-            // Get the code
-            data[1] = dynamic_keymap_read_byte(offset++);
-            // Unexpected null, abort.
-            if (data[1] == 0) {
-                return;
-            }
-            if (data[1] == SS_TAP_CODE || data[1] == SS_DOWN_CODE || data[1] == SS_UP_CODE) {
-                // Get the keycode
-                data[2] = dynamic_keymap_read_byte(offset++);
-                // Unexpected null, abort.
-                if (data[2] == 0) {
-                    return;
-                }
-                // Null terminate
-                data[3] = 0;
-            } else if (data[1] == SS_DELAY_CODE) {
-                // Get the number and '|'
-                // At most this is 4 digits plus '|'
-                uint8_t i = 2;
-                while (1) {
-                    data[i] = dynamic_keymap_read_byte(offset++);
-                    // Unexpected null, abort
-                    if (data[i] == 0) {
-                        return;
-                    }
-                    // Found '|', send it
-                    if (data[i] == '|') {
-                        data[i + 1] = 0;
-                        break;
-                    }
-                    // If haven't found '|' by i==6 then
-                    // number too big, abort
-                    if (i == 6) {
-                        return;
-                    }
-                    ++i;
-                }
-            }
-        }
-        send_string_with_delay(data, DYNAMIC_KEYMAP_MACRO_DELAY);
-    }
+    send_string_nvm_state_t state = {.offset = 0};
+    send_string_with_delay_impl(send_string_get_next_nvm, &state, DYNAMIC_KEYMAP_MACRO_DELAY);
 }
