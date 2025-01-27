@@ -18,8 +18,8 @@
 
 #ifdef LED_MATRIX_ENABLE
 // clang-format off
-const snled27351_led_t PROGMEM g_snled27351_leds[SNLED27351_LED_COUNT] = {
-/* Refer to CKLED2001 manual for these locations
+const snled27351_led PROGMEM g_snled27351_leds[SNLED27351_LED_COUNT] = {
+/* Refer to SNLED27351 manual for these locations
  *   driver
  *   |  LED address
  *   |  | */

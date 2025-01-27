@@ -1,4 +1,4 @@
-/* Copyright 2023 @ Keychron (https://www.keychron.com)
+/* Copyright 2024 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,82 +16,54 @@
 
 #include "c3_pro.h"
 
-static uint32_t os_switch_timer_buffer   = 0;
-static uint8_t  os_switch_indicate_count = 0;
-static uint8_t  led_toggle_count         = 5;
-
-void keyboard_post_init_kb(void) {
-    gpio_set_pin_output(LED_MAC_OS_PIN);
-    gpio_set_pin_output(LED_WIN_OS_PIN);
-    gpio_write_pin(LED_MAC_OS_PIN, !LED_OS_PIN_ON_STATE);
-    gpio_write_pin(LED_WIN_OS_PIN, !LED_OS_PIN_ON_STATE);
-
-    layer_state_t last_layer = eeconfig_read_default_layer();
-    if (last_layer) {
-        default_layer_set(last_layer);
-    } else {
-        default_layer_set(1U << 2);
-    }
-
-    keyboard_post_init_user();
-}
-
-void eeconfig_init_kb(void) {
-#if (EECONFIG_KB_DATA_SIZE) == 0
-    // Reset Keyboard EEPROM value to blank, rather than to a set value
-    eeconfig_update_kb(0);
-#endif
-    keymap_config.raw  = eeconfig_read_keymap();
-    keymap_config.nkro = 1;
-    eeconfig_update_keymap(keymap_config.raw);
-
-    eeconfig_init_user();
-}
-
-void housekeeping_task_kb(void) {
-    if (default_layer_state == (1U << 0)) {
-        gpio_write_pin(LED_MAC_OS_PIN, LED_OS_PIN_ON_STATE);
-        gpio_write_pin(LED_WIN_OS_PIN, !LED_OS_PIN_ON_STATE);
-    }
-    if (default_layer_state == (1U << 2)) {
-        gpio_write_pin(LED_MAC_OS_PIN, !LED_OS_PIN_ON_STATE);
-        gpio_write_pin(LED_WIN_OS_PIN, LED_OS_PIN_ON_STATE);
-    }
-
-    if (os_switch_timer_buffer && timer_elapsed32(os_switch_timer_buffer) > 300) {
-        if (os_switch_indicate_count++ > led_toggle_count) {
-            os_switch_indicate_count = 0;
-            os_switch_timer_buffer   = 0;
-#ifdef LED_MATRIX_ENABLE
-            if (led_matrix_is_enabled() && (led_toggle_count == 4)) {
-                led_toggle_count = 5;
-                led_matrix_disable();
-            }
-#endif
-        } else {
-            os_switch_timer_buffer = timer_read32();
-        }
-    }
-}
-
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_user(keycode, record)) {
         return false;
     }
-
+#ifdef RGB_MATRIX_ENABLE
+    case QK_RGB_MATRIX_TOGGLE:
+            if (record->event.pressed) {
+                switch (rgb_matrix_get_flags()) {
+                    case LED_FLAG_ALL: {
+                        rgb_matrix_set_flags(LED_FLAG_NONE);
+                        rgb_matrix_set_color_all(0, 0, 0);
+                    } break;
+                    default: {
+                        rgb_matrix_set_flags(LED_FLAG_ALL);
+                    } break;
+                }
+            }
+            if (!rgb_matrix_is_enabled()) {
+                rgb_matrix_set_flags(LED_FLAG_ALL);
+                rgb_matrix_enable();
+            }
+            return false;
+#endif 
+#ifdef LED_MATRIX_ENABLE
+    case QK_LED_MATRIX_TOGGLE:
+            if (record->event.pressed) {
+                switch (led_matrix_get_flags()) {
+                    case LED_FLAG_ALL: {
+                        led_matrix_set_flags(LED_FLAG_NONE);
+                        led_matrix_set_value_all(0);
+                    } break;
+                    default: {
+                        led_matrix_set_flags(LED_FLAG_ALL);
+                    } break;
+                }
+            }
+            if (!led_matrix_is_enabled()) {
+                led_matrix_set_flags(LED_FLAG_ALL);
+                led_matrix_enable();
+            }
+            return false;
+#endif
     switch (keycode) {
         case KC_OSSW:
             if (record->event.pressed) {
                 default_layer_xor(1U << 0);
                 default_layer_xor(1U << 2);
                 eeconfig_update_default_layer(default_layer_state);
-                os_switch_timer_buffer = timer_read32();
-#ifdef LED_MATRIX_ENABLE
-                if (!led_matrix_is_enabled()) {
-                    led_toggle_count = 4;
-                    led_matrix_enable();
-                }
-#endif
             }
             return false;
         default:
@@ -99,14 +71,38 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-bool led_matrix_indicators_kb(void) {
-    if (!led_matrix_indicators_user()) {
-        return false;
-    }
+#if defined(RGB_MATRIX_ENABLE) && defined(CAPS_LOCK_LED_INDEX)
 
-    if (os_switch_indicate_count) {
-        led_matrix_set_value_all(os_switch_indicate_count % 2 ? 0 : UINT8_MAX);
-    }
+bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
+    if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) { return false; }
+    // RGB_MATRIX_INDICATOR_SET_COLOR(index, red, green, blue);
 
+    if (host_keyboard_led_state().caps_lock) {
+        RGB_MATRIX_INDICATOR_SET_COLOR(CAPS_LOCK_LED_INDEX, 255, 255, 255);
+    } else {
+        if (!rgb_matrix_get_flags()) {
+            RGB_MATRIX_INDICATOR_SET_COLOR(CAPS_LOCK_LED_INDEX, 0, 0, 0);
+        }
+    }
     return true;
 }
+
+#endif // RGB_MATRIX_ENABLE && CAPS_LOCK_LED_INDEX
+
+#if defined(LED_MATRIX_ENABLE) && defined(CAPS_LOCK_LED_INDEX)
+
+bool led_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
+    if (!led_matrix_indicators_advanced_user(led_min, led_max)) { return false; }
+
+    if (host_keyboard_led_state().caps_lock) {
+        led_matrix_set_value(CAPS_LOCK_LED_INDEX, 255);
+
+    } else {
+        if (!led_matrix_get_flags()) {
+            led_matrix_set_value(CAPS_LOCK_LED_INDEX, 0);
+        }
+    }
+    return true;
+}
+
+#endif // LED_MATRIX_ENABLE && CAPS_LOCK_LED_INDEX

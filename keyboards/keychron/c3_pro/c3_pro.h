@@ -1,4 +1,4 @@
-/* Copyright 2023 @ Keychron (https://www.keychron.com)
+/* Copyright 2024 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,9 +17,6 @@
 #pragma once
 
 #include "quantum.h"
-
-#define KC_MICT QK_KB_0
-#define KC_LAPA QK_KB_1
 
 enum my_keycodes {
     KC_OS_SWITCH = QK_KB_11,

@@ -110,6 +110,7 @@
     },
     "rgb_matrix": {
         "driver": "snled27351",
+        "enabled": true,
         "animations": {
             "breathing": true,
             "band_spiral_val": true,
