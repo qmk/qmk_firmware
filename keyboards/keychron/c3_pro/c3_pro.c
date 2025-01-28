@@ -22,7 +22,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     }
     switch (keycode) {
 #ifdef RGB_MATRIX_ENABLE
-    case QK_RGB_MATRIX_TOGGLE:
+        case QK_RGB_MATRIX_TOGGLE:
             if (record->event.pressed) {
                 switch (rgb_matrix_get_flags()) {
                     case LED_FLAG_ALL: {
@@ -39,9 +39,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 rgb_matrix_enable();
             }
             return false;
-#endif 
+#endif
 #ifdef LED_MATRIX_ENABLE
-    case QK_LED_MATRIX_TOGGLE:
+        case QK_LED_MATRIX_TOGGLE:
             if (record->event.pressed) {
                 switch (led_matrix_get_flags()) {
                     case LED_FLAG_ALL: {
@@ -74,7 +74,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 #if defined(RGB_MATRIX_ENABLE) && defined(CAPS_LOCK_LED_INDEX)
 
 bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
-    if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) { return false; }
+    if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) {
+        return false;
+    }
     // RGB_MATRIX_INDICATOR_SET_COLOR(index, red, green, blue);
 
     if (host_keyboard_led_state().caps_lock) {
@@ -92,7 +94,9 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 #if defined(LED_MATRIX_ENABLE) && defined(CAPS_LOCK_LED_INDEX)
 
 bool led_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
-    if (!led_matrix_indicators_advanced_user(led_min, led_max)) { return false; }
+    if (!led_matrix_indicators_advanced_user(led_min, led_max)) {
+        return false;
+    }
 
     if (host_keyboard_led_state().caps_lock) {
         led_matrix_set_value(CAPS_LOCK_LED_INDEX, 255);
