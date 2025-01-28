@@ -1731,6 +1731,9 @@
     "handwired/unk": {
         "target": "handwired/unk/rev1"
     },
+    "handwired/xealous": {
+        "target": "handwired/xealous/rev1"
+    },
     "hillside/46": {
         "target": "hillside/46/0_1"
     },
