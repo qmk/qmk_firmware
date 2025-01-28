@@ -1,7 +1,11 @@
 {
+    "keyboard_name": "Keychron C3 Pro RGB",
     "usb": {
         "pid": "0x0433",
         "device_version": "1.0.1"
+    },
+    "features": {
+        "rgb_matrix": true
     },
     "matrix_pins": {
         "cols": ["C6", "C7", "C8", "A14", "B7", "C13", "C14", "C15", "C0", "C1", "C2", "C3", "A0", "A1", "A2", "A3", "A4"],
@@ -110,7 +114,6 @@
     },
     "rgb_matrix": {
         "driver": "snled27351",
-        "enabled": true,
         "animations": {
             "breathing": true,
             "band_spiral_val": true,

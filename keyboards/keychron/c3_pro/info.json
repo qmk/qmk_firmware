@@ -1,6 +1,5 @@
 {
     "manufacturer": "Keychron",
-    "keyboard_name": "Keychron C3 Pro",
     "maintainer": "Joe",
     "bootloader": "stm32-dfu",
     "community_layouts": ["tkl_ansi"],

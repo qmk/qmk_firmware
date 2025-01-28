@@ -20,6 +20,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_user(keycode, record)) {
         return false;
     }
+    switch (keycode) {
 #ifdef RGB_MATRIX_ENABLE
     case QK_RGB_MATRIX_TOGGLE:
             if (record->event.pressed) {
@@ -58,7 +59,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
 #endif
-    switch (keycode) {
         case KC_OSSW:
             if (record->event.pressed) {
                 default_layer_xor(1U << 0);
