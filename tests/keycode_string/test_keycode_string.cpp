@@ -74,6 +74,9 @@ TEST_F(KeycodeStringTest, get_keycode_string) {
              {KC_F12, "KC_F12"},
              {KC_F13, "KC_F13"},
              {KC_F24, "KC_F24"},
+             // Macro keycodes.
+             {MC_0, "MC_0"},
+             {MC_31, "MC_31"},
              // Keyboard range keycodes.
              {QK_KB_0, "QK_KB_0"},
              {QK_KB_31, "QK_KB_31"},
@@ -122,6 +125,19 @@ TEST_F(KeycodeStringTest, get_keycode_string) {
              {SH_MON, "SH_MON"},
              {SH_TOGG, "SH_TOGG"},
              {SH_T(KC_PSCR), "SH_T(KC_PSCR)"},
+             // Secure keycodes.
+             {SE_LOCK, "SE_LOCK"},
+             {SE_UNLK, "SE_UNLK"},
+             {SE_TOGG, "SE_TOGG"},
+             {SE_REQ, "SE_REQ"},
+             // Programmable button keycodes.
+             {PB_1, "PB_1"},
+             {PB_32, "PB_32"},
+             // Magic button keycodes.
+             {QK_MAGIC + 7, "QK_MAGIC+7"},
+             // Quantum keycodes.
+             {QK_LOCK, "QK_LOCK"},
+             {QK_QUANTUM + 7, "QK_QUANTUM+7"},
              // Custom keycode names.
              {MYMACRO1, "MYMACRO1"},
              {MYMACRO2, "MYMACRO2"},

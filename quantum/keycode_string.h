@@ -46,6 +46,10 @@
  *
  *  - Swap hands keycodes `SH_T(kc)`, `SH_TOGG`, etc.
  *
+ *  - Joystick keycodes `JS_n`.
+ *
+ *  - Programmable button keycodes `PB_n`.
+ *
  *  - Unicode `UC(codepoint)` and Unicode Map `UM(i)` and `UP(i,j)` keycodes.
  *
  *  - Keyboard range keycodes `QK_KB_*`.

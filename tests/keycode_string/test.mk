@@ -12,7 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-KEYCODE_STRING_ENABLE = yes
 EXTRAKEY_ENABLE = yes
+KEYCODE_STRING_ENABLE = yes
+KEY_LOCK_ENABLE = yes
+MAGIC_ENABLE = yes
 MOUSEKEY_ENABLE = yes
+PROGRAMMABLE_BUTTON_ENABLE = yes
+SECURE_ENABLE = yes
 SWAP_HANDS_ENABLE = yes

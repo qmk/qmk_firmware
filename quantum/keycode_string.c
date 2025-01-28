@@ -36,6 +36,9 @@ typedef int_fast8_t index_t;
  * Each (keycode, name) entry is stored flat in 8 bytes in PROGMEM. Names in
  * this table must be at most 7 chars long and have an underscore '_' for the
  * third char. This underscore is assumed and not actually stored.
+ *
+ * To save memory, feature-specific key entries are ifdef'd to include them only
+ * when their feature is enabled.
  */
 static const uint16_t common_names[] PROGMEM = {
     KC_TRNS, KEYCODE_NAME7('K', 'C', '_', 'T', 'R', 'N', 'S'),
@@ -105,6 +108,9 @@ static const uint16_t common_names[] PROGMEM = {
 #ifdef LEADER_ENABLE
     QK_LEAD, KEYCODE_NAME7('Q', 'K', '_', 'L', 'E', 'A', 'D'),
 #endif // LEADER_ENABLE
+#ifdef KEY_LOCK_ENABLE
+    QK_LOCK, KEYCODE_NAME7('Q', 'K', '_', 'L', 'O', 'C', 'K'),
+#endif // KEY_LOCK_ENABLE
 #ifdef TRI_LAYER_ENABLE
     TL_LOWR, KEYCODE_NAME7('T', 'L', '_', 'L', 'O', 'W', 'R'),
     TL_UPPR, KEYCODE_NAME7('T', 'L', '_', 'U', 'P', 'P', 'R'),
@@ -115,6 +121,12 @@ static const uint16_t common_names[] PROGMEM = {
 #ifdef CAPS_WORD_ENABLE
     CW_TOGG, KEYCODE_NAME7('C', 'W', '_', 'T', 'O', 'G', 'G'),
 #endif // CAPS_WORD_ENABLE
+#ifdef SECURE_ENABLE
+    SE_LOCK, KEYCODE_NAME7('S', 'E', '_', 'L', 'O', 'C', 'K'),
+    SE_UNLK, KEYCODE_NAME7('S', 'E', '_', 'U', 'N', 'L', 'K'),
+    SE_TOGG, KEYCODE_NAME7('S', 'E', '_', 'T', 'O', 'G', 'G'),
+    SE_REQ , KEYCODE_NAME7('S', 'E', '_', 'R', 'E', 'Q',  0 ),
+#endif // SECURE_ENABLE
 #ifdef LAYER_LOCK_ENABLE
     QK_LLCK, KEYCODE_NAME7('Q', 'K', '_', 'L', 'L', 'C', 'K'),
 #endif // LAYER_LOCK_ENABLE
@@ -260,6 +272,15 @@ static void append_unary_keycode(const char* name, const char* param) {
     append_char(')');
 }
 
+/**
+ * @brief Writes a keycode of the format `name` + `number`.
+ * @note `name` is a PROGMEM string.
+ */
+static void append_numbered_keycode(const char* name, uint16_t number) {
+    append_P(name);
+    append_number(number, 10);
+}
+
 /** Stringifies `keycode` and appends it to `buffer`. */
 static void append_keycode(uint16_t keycode) {
     // In case there is overlap among tables, search `keycode_string_names_user`
@@ -300,25 +321,21 @@ static void append_keycode(uint16_t keycode) {
 
             // Digits 0-9 (NOTE: Unlike the ASCII order, KC_0 comes *after* KC_9.)
             case KC_1 ... KC_0:
-                append_P(PSTR("KC_"));
-                append_char('0' + (char)((keycode - (KC_1 - 1)) % 10));
+                append_numbered_keycode(PSTR("KC_"), (keycode - (KC_1 - 1)) % 10);
                 return;
 
             // Keypad digits.
             case KC_KP_1 ... KC_KP_0:
-                append_P(PSTR("KC_KP_"));
-                append_char('0' + (char)((keycode - (KC_KP_1 - 1)) % 10));
+                append_numbered_keycode(PSTR("KC_KP_"), (keycode - (KC_KP_1 - 1)) % 10);
                 return;
 
             // Function keys. F1-F12 and F13-F24 are coded in separate ranges.
             case KC_F1 ... KC_F12:
-                append_P(PSTR("KC_F"));
-                append_number(keycode - (KC_F1 - 1), 10);
+                append_numbered_keycode(PSTR("KC_F"), keycode - (KC_F1 - 1));
                 return;
 
             case KC_F13 ... KC_F24:
-                append_P(PSTR("KC_F"));
-                append_number(keycode - (KC_F13 - 13), 10);
+                append_numbered_keycode(PSTR("KC_F"), keycode - (KC_F13 - 13));
                 return;
         }
     }
@@ -332,7 +349,7 @@ static void append_keycode(uint16_t keycode) {
             uint8_t mods = QK_MODS_GET_MODS(keycode);
             const bool is_rhs = mods > 15;
             mods &= 15;
-            if (mods != 0 && (mods & (mods - 1)) == 0) {  // One mod is set.
+            if (mods != 0 && (mods & (mods - 1)) == 0) { // One mod is set.
                 const char* name = &mod_names[4 * biton(mods)];
                 if (is_rhs) {
                     append_char('R');
@@ -355,7 +372,7 @@ static void append_keycode(uint16_t keycode) {
             return;
 
         // Various layer switch keys.
-        case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:  // Layer-tap LT(layer,kc) key.
+        case QK_LAYER_TAP ... QK_LAYER_TAP_MAX: // Layer-tap LT(layer,kc) key.
             append_P(PSTR("LT("));
             append_number(QK_LAYER_TAP_GET_LAYER(keycode), 10);
             append_char(',');
@@ -363,7 +380,7 @@ static void append_keycode(uint16_t keycode) {
             append_char(')');
             return;
 
-        case QK_LAYER_MOD ... QK_LAYER_MOD_MAX:  // LM(layer,mod) key.
+        case QK_LAYER_MOD ... QK_LAYER_MOD_MAX: // LM(layer,mod) key.
             append_P(PSTR("LM("));
             append_number(QK_LAYER_MOD_GET_LAYER(keycode), 10);
             append_char(',');
@@ -371,31 +388,31 @@ static void append_keycode(uint16_t keycode) {
             append_char(')');
             return;
 
-        case QK_TO ... QK_TO_MAX:  // TO(layer) key.
+        case QK_TO ... QK_TO_MAX: // TO(layer) key.
             append_unary_keycode(PSTR("TO"), number_string(QK_TO_GET_LAYER(keycode), 10));
             return;
 
-        case QK_MOMENTARY ... QK_MOMENTARY_MAX:  // MO(layer) key.
+        case QK_MOMENTARY ... QK_MOMENTARY_MAX: // MO(layer) key.
             append_unary_keycode(PSTR("MO"), number_string(QK_MOMENTARY_GET_LAYER(keycode), 10));
             return;
 
-        case QK_DEF_LAYER ... QK_DEF_LAYER_MAX:  // DF(layer) key.
+        case QK_DEF_LAYER ... QK_DEF_LAYER_MAX: // DF(layer) key.
             append_unary_keycode(PSTR("DF"), number_string(QK_DEF_LAYER_GET_LAYER(keycode), 10));
             return;
 
-        case QK_TOGGLE_LAYER ... QK_TOGGLE_LAYER_MAX:  // TG(layer) key.
+        case QK_TOGGLE_LAYER ... QK_TOGGLE_LAYER_MAX: // TG(layer) key.
             append_unary_keycode(PSTR("TG"), number_string(QK_TOGGLE_LAYER_GET_LAYER(keycode), 10));
             return;
 
-        case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX:  // OSL(layer) key.
+        case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX: // OSL(layer) key.
             append_unary_keycode(PSTR("OSL"), number_string(QK_ONE_SHOT_LAYER_GET_LAYER(keycode), 10));
             return;
 
-        case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:  // TT(layer) key.
+        case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX: // TT(layer) key.
             append_unary_keycode(PSTR("TT"), number_string(QK_LAYER_TAP_TOGGLE_GET_LAYER(keycode), 10));
             return;
 
-        case QK_PERSISTENT_DEF_LAYER ... QK_PERSISTENT_DEF_LAYER_MAX:  // PDF(layer) key.
+        case QK_PERSISTENT_DEF_LAYER ... QK_PERSISTENT_DEF_LAYER_MAX: // PDF(layer) key.
             append_unary_keycode(PSTR("PDF"), number_string(QK_PERSISTENT_DEF_LAYER_GET_LAYER(keycode), 10));
             return;
 
@@ -406,7 +423,7 @@ static void append_keycode(uint16_t keycode) {
             uint8_t mods = QK_MOD_TAP_GET_MODS(keycode);
             const bool is_rhs = mods > 15;
             mods &= 15;
-            if (mods != 0 && (mods & (mods - 1)) == 0) {  // One mod is set.
+            if (mods != 0 && (mods & (mods - 1)) == 0) { // One mod is set.
                 append_char(is_rhs ? 'R' : 'L');
                 append_P(&mod_names[4 * biton(mods)]);
                 append_P(PSTR("_T("));
@@ -419,20 +436,20 @@ static void append_keycode(uint16_t keycode) {
             append_char(')');
         }   return;
 
-        case QK_TAP_DANCE ... QK_TAP_DANCE_MAX:  // Tap dance TD(i) key.
+        case QK_TAP_DANCE ... QK_TAP_DANCE_MAX: // Tap dance TD(i) key.
             append_unary_keycode(PSTR("TD"), number_string(QK_TAP_DANCE_GET_INDEX(keycode), 10));
             return;
 
 #ifdef UNICODE_ENABLE
-        case QK_UNICODE ... QK_UNICODE_MAX:  // Unicode UC(codepoint) key.
+        case QK_UNICODE ... QK_UNICODE_MAX: // Unicode UC(codepoint) key.
             append_unary_keycode(PSTR("UC"), number_string(QK_UNICODE_GET_CODE_POINT(keycode), 16));
             return;
 #elif defined(UNICODEMAP_ENABLE)
-        case QK_UNICODEMAP ... QK_UNICODEMAP_MAX:  // Unicode Map UM(i) key.
+        case QK_UNICODEMAP ... QK_UNICODEMAP_MAX: // Unicode Map UM(i) key.
             append_unary_keycode(PSTR("UM"), number_string(QK_UNICODEMAP_GET_INDEX(keycode), 10));
             return;
 
-        case QK_UNICODEMAP_PAIR ... QK_UNICODEMAP_PAIR_MAX: {  // UP(i,j) key.
+        case QK_UNICODEMAP_PAIR ... QK_UNICODEMAP_PAIR_MAX: { // UP(i,j) key.
             const uint8_t i = QK_UNICODEMAP_PAIR_GET_UNSHIFTED_INDEX(keycode);
             const uint8_t j = QK_UNICODEMAP_PAIR_GET_SHIFTED_INDEX(keycode);
             append_P(PSTR("UP("));
@@ -443,13 +460,12 @@ static void append_keycode(uint16_t keycode) {
         }   return;
 #endif
 #ifdef MOUSEKEY_ENABLE
-        case MS_BTN1 ... MS_BTN8:  // Mouse button keycode.
-            append_P(PSTR("MS_BTN"));
-            append_number(keycode - (MS_BTN1 - 1), 10);
+        case MS_BTN1 ... MS_BTN8: // Mouse button keycode.
+            append_numbered_keycode(PSTR("MS_BTN"), keycode - (MS_BTN1 - 1));
             return;
 #endif // MOUSEKEY_ENABLE
 #ifdef SWAP_HANDS_ENABLE
-        case QK_SWAP_HANDS ... QK_SWAP_HANDS_MAX:  // Swap Hands SH_T(kc) key.
+        case QK_SWAP_HANDS ... QK_SWAP_HANDS_MAX: // Swap Hands SH_T(kc) key.
             if (!IS_SWAP_HANDS_KEYCODE(keycode)) {
                 append_P(PSTR("SH_T("));
                 append_keycode(QK_SWAP_HANDS_GET_TAP_KEYCODE(keycode));
@@ -458,15 +474,70 @@ static void append_keycode(uint16_t keycode) {
             }
             break;
 #endif // SWAP_HANDS_ENABLE
+#ifdef JOYSTICK_ENABLE
+        case JOYSTICK_KEYCODE_RANGE: // Joystick JS_ key.
+            append_numbered_keycode(PSTR("JS_"), keycode - JS_0);
+            return;
+#endif // JOYSTICK_ENABLE
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+        case PROGRAMMABLE_BUTTON_KEYCODE_RANGE: // Programmable button PB_ key.
+            append_numbered_keycode(PSTR("PB_"), keycode - (PB_1 - 1));
+            return;
+#endif // PROGRAMMABLE_BUTTON_ENABLE
 
-        case KB_KEYCODE_RANGE:  // Keyboard range keycode.
-            append_P(PSTR("QK_KB_"));
-            append_number(keycode - QK_KB_0, 10);
+        case MACRO_KEYCODE_RANGE: // Macro range MC_ keycode.
+            append_numbered_keycode(PSTR("MC_"), keycode - MC_0);
             return;
 
-        case USER_KEYCODE_RANGE:  // User range keycode.
-            append_P(PSTR("QK_USER_"));
-            append_number(keycode - QK_USER_0, 10);
+        case KB_KEYCODE_RANGE: // Keyboard range keycode.
+            append_numbered_keycode(PSTR("QK_KB_"), keycode - QK_KB_0);
+            return;
+
+        case USER_KEYCODE_RANGE: // User range keycode.
+            append_numbered_keycode(PSTR("QK_USER_"), keycode - QK_USER_0);
+            return;
+
+        // It would take a nontrivial amount of string data to cover some
+        // feature-specific keycodes, such as those for MIDI and lighting. As a
+        // fallback while still providing some information, we stringify
+        // remaining keys in known code ranges as "QK_<feature>+<number>".
+#ifdef MAGIC_ENABLE
+        case MAGIC_KEYCODE_RANGE:
+            append_numbered_keycode(PSTR("QK_MAGIC+"), keycode - QK_MAGIC);
+            return;
+#endif // MAGIC_ENABLE
+#ifdef MIDI_ENABLE
+        case MIDI_KEYCODE_RANGE:
+            append_numbered_keycode(PSTR("QK_MIDI+"), keycode - QK_MIDI);
+            return;
+#endif // MIDI_ENABLE
+#ifdef SEQUENCER_ENABLE
+        case SEQUENCER_KEYCODE_RANGE:
+            append_numbered_keycode(PSTR("QK_SEQUENCER+"), keycode - QK_SEQUENCER);
+            return;
+#endif // SEQUENCER_ENABLE
+#ifdef AUDIO_ENABLE
+        case AUDIO_KEYCODE_RANGE:
+            append_numbered_keycode(PSTR("QK_AUDIO+"), keycode - QK_AUDIO);
+            return;
+#endif // AUDIO_ENABLE
+#if defined(BACKLIGHT_ENABLE) || defined(LED_MATRIX_ENABLE) || defined(RGBLIGHT_ENABLED) || defined(RGB_MATRIX_ENABLE) // Lighting-related features.
+        case QK_LIGHTING ... QK_LIGHTING_MAX:
+            append_numbered_keycode(PSTR("QK_LIGHTING+"), keycode - QK_LIGHTING);
+            return;
+#endif // defined(BACKLIGHT_ENABLE) || defined(LED_MATRIX_ENABLE) || defined(RGBLIGHT_ENABLED) || defined(RGB_MATRIX_ENABLE)
+#ifdef STENO_ENABLE
+        case STENO_KEYCODE_RANGE:
+            append_numbered_keycode(PSTR("QK_STENO+"), keycode - QK_STENO);
+            return;
+#endif // AUDIO_ENABLE
+#ifdef BLUETOOTH_ENABLE
+        case CONNECTION_KEYCODE_RANGE:
+            append_numbered_keycode(PSTR("QK_CONNECTION+"), keycode - QK_CONNECTION);
+            return;
+#endif // BLUETOOTH_ENABLE
+        case QUANTUM_KEYCODE_RANGE:
+            append_numbered_keycode(PSTR("QK_QUANTUM+"), keycode - QK_QUANTUM);
             return;
     }
     // clang-format on
