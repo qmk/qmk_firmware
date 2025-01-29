@@ -1,6 +1,6 @@
 # Viktus VKR 94
 
-![viktus/vkr94]()
+![viktus/vkr94](https://i.imgur.com/ahJVciu.png)
 
 A small run vintage-esque design with RGB indicators.
 
