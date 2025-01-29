@@ -1575,6 +1575,12 @@
     "1upkeyboards/sweet16": {
         "target": "1upkeyboards/sweet16/v1"
     },
+    "25keys/aleth42": {
+        "target": "25keys/aleth42/rev1"
+    },
+    "25keys/zinc": {
+        "target": "25keys/zinc/rev1"
+    },
     "40percentclub/i75": {
         "target": "40percentclub/i75/promicro"
     },
@@ -1598,6 +1604,9 @@
     },
     "atreyu": {
         "target": "atreyu/rev1"
+    },
+    "biacco42/ergo42": {
+        "target": "biacco42/ergo42/rev1"
     },
     "binepad/bn009": {
         "target": "binepad/bn009/r2"
@@ -1640,6 +1649,9 @@
     },
     "deltasplit75": {
         "target": "deltasplit75/v2"
+    },
+    "drhigsby/ogurec": {
+        "target": "drhigsby/ogurec/left_pm"
     },
     "duck/octagon": {
         "target": "duck/octagon/v2"
@@ -1755,8 +1767,14 @@
     "inett_studio/sq80": {
         "target": "inett_studio/sq80/hotswap_layout_i"
     },
+    "input_club/infinity60": {
+        "target": "input_club/infinity60/led"
+    },
     "jacky_studio/bear_65": {
         "target": "jacky_studio/bear_65/rev1"
+    },
+    "jacky_studio/piggy60/rev1": {
+        "target": "jacky_studio/piggy60/rev1/solder"
     },
     "jadookb/jkb65": {
         "target": "jadookb/jkb65/r1"
@@ -1773,11 +1791,17 @@
     "junco": {
         "target": "junco/rev1"
     },
+    "kakunpc/angel17": {
+        "target": "kakunpc/angel17/rev1"
+    },
     "kakunpc/business_card": {
         "target": "kakunpc/business_card/beta"
     },
     "kakunpc/suihankey": {
         "target": "kakunpc/suihankey/rev1"
+    },
+    "kakunpc/suihankey/split": {
+        "target": "kakunpc/suihankey/split/rev1"
     },
     "kapcave/paladinpad": {
         "target": "kapcave/paladinpad/rev2"
@@ -1821,6 +1845,12 @@
     "keycapsss/kimiko": {
         "target": "keycapsss/kimiko/rev2"
     },
+    "keyhive/navi10": {
+        "target": "keyhive/navi10/rev3"
+    },
+    "keyhive/uno": {
+        "target": "keyhive/uno/rev1"
+    },
     "kin80": {
         "target": "kin80/blackpill401"
     },
@@ -1851,6 +1881,9 @@
     "lime": {
         "target": "lime/rev1"
     },
+    "maple_computing/christmas_tree": {
+        "target": "maple_computing/christmas_tree/v2017"
+    },
     "maple_computing/ivy": {
         "target": "maple_computing/ivy/rev1"
     },
@@ -1865,6 +1898,9 @@
     },
     "marksard/rhymestone": {
         "target": "marksard/rhymestone/rev1"
+    },
+    "marksard/treadstone32": {
+        "target": "marksard/treadstone32/rev1"
     },
     "marksard/treadstone48": {
         "target": "marksard/treadstone48/rev1"
@@ -1889,6 +1925,9 @@
     },
     "mechlovin/adelais/standard_led/avr": {
         "target": "mechlovin/adelais/standard_led/avr/rev1"
+    },
+    "mechlovin/hannah65/rev1": {
+        "target": "mechlovin/hannah65/rev1/haus"
     },
     "mechlovin/infinity87/rev1": {
         "target": "mechlovin/infinity87/rev1/standard"
@@ -1986,6 +2025,15 @@
     "qwertyydox": {
         "target": "qwertyydox/rev1"
     },
+    "rate/pistachio": {
+        "target": "rate/pistachio/rev2"
+    },
+    "recompile_keys/choco60": {
+        "target": "recompile_keys/choco60/rev1"
+    },
+    "recompile_keys/nomu30": {
+        "target": "recompile_keys/nomu30/rev1"
+    },
     "redox/rev1": {
         "target": "redox/rev1/base"
     },
@@ -2025,6 +2073,27 @@
     "rura66": {
         "target": "rura66/rev1"
     },
+    "salicylic_acid3/7skb": {
+        "target": "salicylic_acid3/7skb/rev1"
+    },
+    "salicylic_acid3/getta25": {
+        "target": "salicylic_acid3/getta25/rev1"
+    },
+    "salicylic_acid3/jisplit89": {
+        "target": "salicylic_acid3/jisplit89/rev1"
+    },
+    "salicylic_acid3/naked48": {
+        "target": "salicylic_acid3/naked48/rev1"
+    },
+    "salicylic_acid3/naked60": {
+        "target": "salicylic_acid3/naked60/rev1"
+    },
+    "salicylic_acid3/naked64": {
+        "target": "salicylic_acid3/naked64/rev1"
+    },
+    "salicylic_acid3/setta21": {
+        "target": "salicylic_acid3/setta21/rev1"
+    },
     "sawnsprojects/okayu": {
         "target": "sawnsprojects/okayu/stm32f072"
     },
@@ -2033,6 +2102,9 @@
     },
     "sofle": {
         "target": "sofle/rev1"
+    },
+    "spaceholdings/nebula68b": {
+        "target": "spaceholdings/nebula68b/solder"
     },
     "spacetime": {
         "target": "spacetime/rev1"
@@ -2052,6 +2124,9 @@
     "splitkb/aurora/sweep": {
         "target": "splitkb/aurora/sweep/rev1"
     },
+    "splitkb/kyria": {
+        "target": "splitkb/kyria/rev3"
+    },
     "splitkb/kyria/rev1": {
         "target": "splitkb/kyria/rev1/base"
     },
@@ -2067,11 +2142,17 @@
     "takashiski/hecomi": {
         "target": "takashiski/hecomi/alpha"
     },
+    "takashiski/namecard2x4": {
+        "target": "takashiski/namecard2x4/rev2"
+    },
     "themadnoodle/noodlepad": {
         "target": "themadnoodle/noodlepad/v1"
     },
     "tkw/grandiceps": {
         "target": "tkw/grandiceps/rev1"
+    },
+    "tominabox1/le_chiffre": {
+        "target": "tominabox1/le_chiffre/rev1"
     },
     "tominabox1/littlefoot_lx": {
         "target": "tominabox1/littlefoot_lx/rev1"
@@ -2102,6 +2183,9 @@
     },
     "yosino58": {
         "target": "yosino58/rev1"
+    },
+    "ymdk/yd60mq": {
+        "target": "ymdk/yd60mq/12led"
     },
     "yushakobo/navpad/10": {
         "target": "yushakobo/navpad/10/rev1"
