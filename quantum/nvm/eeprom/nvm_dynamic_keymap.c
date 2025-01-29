@@ -10,6 +10,10 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+#ifdef ENCODER_ENABLE
+#    include "encoder.h"
+#endif
+
 #ifdef VIA_ENABLE
 #    include "via.h"
 #    define DYNAMIC_KEYMAP_EEPROM_START (VIA_EEPROM_CONFIG_END)
