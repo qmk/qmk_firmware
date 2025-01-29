@@ -1,5 +1,5 @@
 {
-	"keyboard_name": "S6xty",
+  "keyboard_name": "S6xty",
   "matrix_pins": {
     "cols": ["B14", "A0", "A10", "C15", "A2", "A1", "B11", "B10", "B1", "B0", "A7", "A6", "A5", "A4"],
     "rows": ["B3", "B7", "A3", "A9", "A8"]

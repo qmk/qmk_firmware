@@ -8,6 +8,6 @@
     "led_count": 28,
   },
   "indicators": {
-		"caps_lock": "B4"
-	},
+    "caps_lock": "B4"
+  },
 }
