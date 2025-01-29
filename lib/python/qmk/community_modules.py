@@ -5,6 +5,7 @@ from milc.attrdict import AttrDict
 from qmk.json_schema import json_load, validate
 from qmk.util import truthy
 from qmk.constants import QMK_FIRMWARE, QMK_USERSPACE, HAS_QMK_USERSPACE
+from qmk.path import is_under_qmk_firmware, is_under_qmk_userspace
 
 COMMUNITY_MODULE_JSON_FILENAME = 'qmk_module.json'
 
@@ -32,19 +33,31 @@ MODULE_API_LIST = [
 MODULE_API_VERSION = '20250122'
 
 
-def find_module_path(module):
-    """Find a module by name.
+def find_available_module_paths():
+    """Find all available modules.
     """
     search_dirs = []
     if HAS_QMK_USERSPACE:
         search_dirs.append(QMK_USERSPACE / 'modules')
     search_dirs.append(QMK_FIRMWARE / 'modules')
 
+    modules = []
     for search_dir in search_dirs:
-        module_path = search_dir / module
-        if module_path.exists() and (module_path / COMMUNITY_MODULE_JSON_FILENAME).exists():
-            return module_path
+        for module_json_path in search_dir.rglob(COMMUNITY_MODULE_JSON_FILENAME):
+            modules.append(module_json_path.parent)
+    return modules
 
+
+def find_module_path(module):
+    """Find a module by name.
+    """
+    for module_path in find_available_module_paths():
+        try:
+            p = module_path.resolve(strict=True)
+        except OSError:
+            continue
+        if (is_under_qmk_firmware(p) or is_under_qmk_userspace(p)) and str(p.as_posix())[-len(module):] == module:  # allow for a `modules/` relative path to be specified, such as `qmk/hello_world`
+            return module_path
     return None
 
 
