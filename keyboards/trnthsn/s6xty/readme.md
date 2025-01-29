@@ -1,6 +1,6 @@
 # S6xty
 
-![trnthsn/s6xty](https://i.imgur.com/YJZxxqY.png)
+![trnthsn/s6xty](https://i.imgur.com/Rny9gh9.png)
 
 A 60% keyboard PCB compatible with various keyboard cases. Supports a left USB Type-C connector or 3 JST SH positions for a daughter board
 
@@ -10,11 +10,11 @@ A 60% keyboard PCB compatible with various keyboard cases. Supports a left USB T
 
 Make example for this keyboard (after setting up your build environment):
 
-    make trnthsn/s6xty:default
+    make trnthsn/s6xty/rev1/stm32f103:default
 
 Flashing example for this keyboard:
 
-    make trnthsn/s6xty:default:flash
+    make trnthsn/s6xty/rev1/stm32f103:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
