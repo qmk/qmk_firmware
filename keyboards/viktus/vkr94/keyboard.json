@@ -55,7 +55,8 @@
             "rainbow_pinwheels": true,
             "raindrops": true,
             "jellybean_raindrops": true
-        }
+        },
+        "sleep": true
     },
     "layouts": {
         "LAYOUT_splitbs_splitshift_ansi_7u": {
