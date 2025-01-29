@@ -5,9 +5,9 @@
     "rows": ["B3", "B7", "A3", "A9", "A8"]
   },
   "rgblight": {
-    "led_count": 22,
+    "led_count": 22
   },
   "indicators": {
     "caps_lock": "B12"
-  },
+  }
 }
