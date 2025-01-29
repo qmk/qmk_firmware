@@ -877,6 +877,7 @@ TEST_F(ChordalHoldPermissiveHold, roll_layer_tap_key_with_regular_key) {
     VERIFY_AND_CLEAR(driver);
 
     // Press regular key.
+    EXPECT_NO_REPORT(driver);
     regular_key.press();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
@@ -885,7 +886,6 @@ TEST_F(ChordalHoldPermissiveHold, roll_layer_tap_key_with_regular_key) {
     EXPECT_REPORT(driver, (KC_P));
     EXPECT_REPORT(driver, (KC_P, KC_A));
     EXPECT_REPORT(driver, (KC_A));
-    EXPECT_NO_REPORT(driver);
     layer_tap_hold_key.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
@@ -893,6 +893,49 @@ TEST_F(ChordalHoldPermissiveHold, roll_layer_tap_key_with_regular_key) {
     // Release regular key.
     EXPECT_EMPTY_REPORT(driver);
     regular_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
+
+TEST_F(ChordalHoldPermissiveHold, two_mod_tap_keys_stuttered_press) {
+    TestDriver driver;
+    InSequence s;
+
+    auto mod_tap_key1 = KeymapKey(0, 1, 0, LSFT_T(KC_A));
+    auto mod_tap_key2 = KeymapKey(0, 2, 0, LCTL_T(KC_B));
+
+    set_keymap({mod_tap_key1, mod_tap_key2});
+
+    // Hold first mod-tap key until the tapping term.
+    EXPECT_REPORT(driver, (KC_LSFT));
+    mod_tap_key1.press();
+    idle_for(TAPPING_TERM + 1);
+    VERIFY_AND_CLEAR(driver);
+
+    // Press the second mod-tap key, then quickly release and press the first.
+    EXPECT_NO_REPORT(driver);
+    mod_tap_key2.press();
+    run_one_scan_loop();
+    mod_tap_key1.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_REPORT(driver, (KC_LSFT, KC_B));
+    EXPECT_REPORT(driver, (KC_B));
+    EXPECT_REPORT(driver, (KC_B, KC_A));
+    mod_tap_key1.press();
+    run_one_scan_loop();
+    EXPECT_EQ(get_mods(), 0); // Verify that Shift was released.
+    VERIFY_AND_CLEAR(driver);
+
+    // Release both keys.
+    EXPECT_REPORT(driver, (KC_A));
+    mod_tap_key2.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_EMPTY_REPORT(driver);
+    mod_tap_key1.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 }
