@@ -736,7 +736,7 @@ static void waiting_buffer_chordal_hold_taps_until(keypos_t key) {
     while (waiting_buffer_tail != waiting_buffer_head) {
         keyrecord_t *record = &waiting_buffer[waiting_buffer_tail];
         ac_dprintf("waiting_buffer_chordal_hold_taps_until: processing [%u]\n", waiting_buffer_tail);
-        if (is_tap_record(record)) {
+        if (record->event.pressed && is_tap_record(record)) {
             record->tap.count = 1;
             registered_taps_add(record->event.key);
         }
