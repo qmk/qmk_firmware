@@ -26,17 +26,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #ifdef SPLIT_KEYBOARD
-#define SPLIT_USB_DETECT
-#define SPLIT_USB_TIMEOUT 2500
-#define SPLIT_TRANSPORT_MIRROR
 #define SERIAL_USART_FULL_DUPLEX     // Enable full duplex operation mode.
 #define SERIAL_USART_TX_PIN  GP8  // USART TX pin
 #define SERIAL_USART_RX_PIN  GP9  // USART RX pin
 #define MASTER_LEFT
 //#define MASTER_RIGHT
-//#define EE_HANDS
+#define EE_HANDS
 #define BOOTMAGIC_ROW_RIGHT 6
 #define BOOTMAGIC_COLUMN_RIGHT 7
+
+#endif
+
+#ifdef MASTER_LEFT
+#define SPLIT_USB_DETECT
+#define SPLIT_USB_TIMEOUT 2500
+#define SPLIT_TRANSPORT_MIRROR
 
 #endif
 
