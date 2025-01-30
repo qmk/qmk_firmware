@@ -16,14 +16,14 @@ const char *read_layer_state(void) {
     snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Base");
     break;
   case L_RAISE:
-    snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Raise");
+    snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Fn  ");
     break;
   case L_LOWER:
-    snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Lower");
+    snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Numpad");
     break;
   case L_ADJUST:
   case L_ADJUST_TRI:
-    snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Adjust");
+    snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Shift");
     break;
   default:
     snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Undef-%u", layer_state);

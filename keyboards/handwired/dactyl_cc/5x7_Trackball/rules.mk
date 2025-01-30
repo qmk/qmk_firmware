@@ -16,7 +16,7 @@ ENCODER_MAP_ENABLE = yes 		# Ability to use Keymap with encoder
 LTO_ENABLE = no 				# Optimise
 OLED_ENABLE = yes				# OLED Display
 POINTING_DEVICE_ENABLE = yes 	# Trackball or Trackpad
-VIA_ENABLE = no
+VIA_ENABLE = yes  				# VIA
 
 POINTING_DEVICE_DRIVER = pmw3389
 SERIAL_DRIVER = vendor
