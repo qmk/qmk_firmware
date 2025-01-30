@@ -478,6 +478,71 @@
                 "wheel_delay": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
             }
         },
+        "oled": {
+            "type": "object",
+            "properties": {
+                "enabled": {"type": "boolean"},
+                "driver": {
+                    "type": "string",
+                    "enum": ["custom", "ssd1306"]
+                },
+                "transport": {
+                    "type": "string",
+                    "enum": ["custom", "i2c", "spi"]
+                },
+                "brightness": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                "column_offset": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "display_clock": {"$ref": "qmk.definitions.v1#/hex_number_2d"},
+                "font": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "path": {"type": "string"},
+                        "start": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                        "end": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                        "width": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                        "height": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                    }
+                },
+                "fade_out": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "enabled": {"type": "boolean"},
+                        "interval": {"$ref": "qmk.definitions.v1#/hex_number_2d"}
+                    }
+                },
+                "timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "scroll": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "right": {"type": "boolean"},
+                        "timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                    }
+                },
+                "update_interval": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                "process_limit": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                "i2c": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "address": {"$ref": "qmk.definitions.v1#/hex_number_2d"},
+                    }
+                },
+                "spi": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "dc_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                        "cs_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                        "rst_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                        "mode": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                        "divisor": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
+                    }
+                }
+            }
+        },
         "oneshot": {
             "type": "object",
             "properties": {

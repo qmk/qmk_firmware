@@ -125,6 +125,29 @@
     "MOUSEKEY_TIME_TO_MAX": {"info_key": "mousekey.time_to_max", "value_type": "int"},
     "MOUSEKEY_WHEEL_DELAY": {"info_key": "mousekey.wheel_delay", "value_type": "int"},
 
+    // OLED
+    "OLED_BRIGHTNESS": {"info_key": "oled.brightness", "value_type": "int"},
+    "OLED_COLUMN_OFFSET": {"info_key": "oled.column_offset", "value_type": "int"},
+    "OLED_DISPLAY_CLOCK": {"info_key": "oled.display_clock", "value_type": "hex"},
+    "OLED_FONT_H": {"info_key": "oled.font.path", "value_type": "str"},
+    "OLED_FONT_START": {"info_key": "oled.font.start", "value_type": "int"},
+    "OLED_FONT_END": {"info_key": "oled.font.end", "value_type": "int"},
+    "OLED_FONT_WIDTH": {"info_key": "oled.font.width", "value_type": "int"},
+    "OLED_FONT_HEIGHT": {"info_key": "oled.font.height", "value_type": "int"},
+    "OLED_FADE_OUT": {"info_key": "oled.fade_out.enabled", "value_type": "flag"},
+    "OLED_FADE_OUT_INTERVAL": {"info_key": "oled.fade_out.interval", "value_type": "hex"},
+    "OLED_TIMEOUT": {"info_key": "oled.timeout", "value_type": "int"},
+    "OLED_SCROLL_TIMEOUT": {"info_key": "oled.scroll.timeout", "value_type": "int"},
+    "OLED_SCROLL_TIMEOUT_RIGHT": {"info_key": "oled.scroll.right", "value_type": "flag"},
+    "OLED_UPDATE_INTERVAL": {"info_key": "oled.update_interval", "value_type": "int"},
+    "OLED_UPDATE_PROCESS_LIMIT": {"info_key": "oled.process_limit", "value_type": "int"},
+    "OLED_DISPLAY_ADDRESS": {"info_key": "oled.i2c.address", "value_type": "hex"},
+    "OLED_DC_PIN": {"info_key": "oled.spi.dc_pin"},
+    "OLED_CS_PIN": {"info_key": "oled.spi.cs_pin"},
+    "OLED_RST_PIN": {"info_key": "oled.spi.rst_pin"},
+    "OLED_SPI_MODE": {"info_key": "oled.spi.mode", "value_type": "int"},
+    "OLED_SPI_DIVISOR": {"info_key": "oled.spi.divisor", "value_type": "int"}
+
     // One Shot
     "ONESHOT_TIMEOUT": {"info_key": "oneshot.timeout", "value_type": "int"},
     "ONESHOT_TAP_TOGGLE": {"info_key": "oneshot.tap_toggle", "value_type": "int"},
