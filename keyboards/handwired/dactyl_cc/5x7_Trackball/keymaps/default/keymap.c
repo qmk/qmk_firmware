@@ -20,15 +20,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                     KC_LCTL, KC_HOME,
                                     KC_END,
                                     KC_DEL, KC_BSPC, KC_LSFT,
+                                    KC_MUTE,
         // right hand
                       TG(_NUMPAD), KC_6,    KC_7,    KC_8,     KC_9,     KC_0,     KC_MINS,
                           KC_COPY, KC_Y,    KC_U,    KC_I,     KC_O,     KC_P,     KC_BSLS,
                           KC_PSTE, KC_H,    KC_J,    KC_K,     KC_L,     KC_SCLN,  KC_QUOT,
-                                   KC_N,    KC_M,    KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,
+                                   KC_N,    KC_M,    KC_COMM,  KC_DOT,   KC_SLSH,  MO(_NUMPAD),
                                             KC_ESC,  KC_UP,    KC_DOWN,  KC_LBRC,  KC_RBRC,
-             KC_PGUP, KC_RGUI,
-             KC_PGDN,
-             KC_RSFT, KC_SPC, KC_ENT
+             KC_RSFT, KC_SPC, KC_ENT,
+             MS_BTN1, MS_BTN1, MS_BTN1, MS_BTN2, KC_LGUI
+
     ),
 
     [_FN] = LAYOUT(
@@ -41,15 +42,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                     _______, _______,
                                     _______,
                                     _______, _______, _______,
+                                    _______,
         // right hand
                           KC_F7,     KC_F8,     KC_F9,     KC_F10,    KC_F11,    KC_F12,    _______,
                           _______,   _______,   _______,   _______,   _______,   _______,   _______,
                           _______,   _______,   _______,   _______,   _______,   _______,   _______,
                                      _______,   _______,   _______,   _______,   _______,   _______,
                                                 _______,   _______,   _______,   _______,   _______,
-             _______, _______,
-             _______,
-             _______, _______, _______
+             _______, _______, _______,
+
+             _______, _______, _______, _______, _______
     ),
 
     [_NUMPAD] = LAYOUT(
@@ -62,15 +64,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                     _______, _______,
                                     _______,
                                     _______, _______, _______,
+                                    _______,
         // right hand
-                          _______,   _______,   KC_NUM,    KC_PSLS,   KC_PAST,   KC_PMNS,   _______,
-                          _______,   _______,   KC_P7,     KC_P8,     KC_P9,     KC_PPLS,   _______,
+                          _______,   _______,   KC_NUM,    KC_PSLS,   KC_PAST,   KC_PMNS,   RGB_MOD,
+                          _______,   _______,   KC_P7,     KC_P8,     KC_P9,     KC_PPLS,   RGB_RMOD,
                           _______,   _______,   KC_P4,     KC_P5,     KC_P6,     KC_PPLS,   _______,
-                                     _______,   KC_P1,     KC_P2,     KC_P3,     KC_PENT,   _______,
-                                                KC_P0,     KC_P0,     KC_PDOT,   KC_PENT,   _______,
-             _______, _______,
-             _______,
-             _______, KC_P0,   KC_PENT
+                                     _______,   KC_P1,     KC_P2,     KC_P3,     KC_PENT,   MO(_NUMPAD),
+                                                KC_P0,     KC_P0,     KC_PDOT,   KC_PENT,   RGB_TOG,
+             _______, KC_P0,   KC_PENT,
+
+             _______, _______, _______, _______, _______
     ),
 
         [_SHIFT] = LAYOUT(
@@ -83,15 +86,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                     _______, _______,
                                     _______,
                                     _______, _______, _______,
+                                    _______,
         // right hand
                           _______,   _______,   _______,   _______,   _______,   _______,   _______,
                           _______,   _______,   _______,   _______,   _______,   _______,   _______,
                           _______,   _______,   _______,   _______,   _______,   _______,   _______,
                                      _______,   _______,   _______,   _______,   _______,   _______,
                                                 _______,   _______,   _______,   _______,   _______,
-             _______, _______,
-             _______,
-             _______, _______, _______
+
+             _______, _______, _______,
+             _______, _______, _______, _______, _______
     )
 };
 
@@ -100,7 +104,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] = { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)},
     [1] = { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)},
     [2] = { ENCODER_CCW_CW(UG_VALD, UG_VALU)},
-    [3] = { ENCODER_CCW_CW(UG_PREV, UG_NEXT)},
+    [3] = { ENCODER_CCW_CW(UG_PREV, UG_NEXT)}
 };
 #endif
 
@@ -118,17 +122,18 @@ const char *read_layer_state(void);
 void set_keylog(uint16_t keycode, keyrecord_t *record);
 const char *read_keylog(void);
 const char *read_keylogs(void);
+const char *read_rgb_info(void);
 
-// const char *read_mode_icon(bool swap);
-// const char *read_host_led_state(void);
-// void set_timelog(void);
-// const char *read_timelog(void);
+const char *read_mode_icon(bool swap);
+const char *read_host_led_state(void);
+void set_timelog(void);
+const char *read_timelog(void);
 
 bool oled_task_user() {
     //rgblight_get_mode(led_state_reader(), false);
     led_t led_state = host_keyboard_led_state();
     // If you want to change the display of OLED, you need to change here
-    //oled_write_ln(rgb_state_reader(), false);
+    oled_write_ln(read_rgb_info(), false);
     oled_write_ln(read_layer_state(), false);
     //oled_write_ln(read_keylog(), false);
     oled_write_ln(read_keylogs(), false);

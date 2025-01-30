@@ -14,30 +14,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-/*
-#ifdef ENCODER_ENABLE
-#undef ENCODERS_A_PINS
-#undef ENCODERS_B_PINS
 
-#define ENCODER_A_PINS { }
-#define ENCODER_B_PINS { }
-#define ENCODER_RESOLUTIONS { }
-#define ENCODER_A_PINS_RIGHT { GP3 }
-#define ENCODER_B_PINS_RIGHT { GP4 }
-#define ENCODER_RESOLUTIONS_RIGHT { 4 }
+#ifdef ENCODER_ENABLE
+
+#undef ENCODER_A_PINS
+#undef ENCODER_B_PINS
+#define ENCODER_A_PINS { GP1 }
+#define ENCODER_B_PINS { GP2 }
+#define ENCODER_RESOLUTIONS { 4 }
 
 #endif
-// Encoders might not be used
-*/
-#define MASTER_LEFT
+
+#ifdef SPLIT_KEYBOARD
 #define SPLIT_USB_DETECT
 #define SPLIT_USB_TIMEOUT 2500
 #define SPLIT_TRANSPORT_MIRROR
 #define SERIAL_USART_FULL_DUPLEX     // Enable full duplex operation mode.
 #define SERIAL_USART_TX_PIN  GP8  // USART TX pin
 #define SERIAL_USART_RX_PIN  GP9  // USART RX pin
+//#define MASTER_LEFT
+//#define MASTER_RIGHT
+#define EE_HANDS
+#define BOOTMAGIC_ROW_RIGHT 6
+#define BOOTMAGIC_COLUMN_RIGHT 7
+
+#endif
 
 // PMW3389 Settings
+#ifdef POINTING_DEVICE_ENABLE
 #define PMW33XX_LIFTOFF_DISTANCE 0x02
 #define POINTING_DEVICE_RIGHT
 #define SPI_DRIVER SPID0
@@ -45,19 +49,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPI_MISO_PIN GP4
 #define SPI_MOSI_PIN GP3
 #define PMW33XX_CS_PIN GP5
-#define POINTING_DEVICE_INVERT_X_RIGHT
+#define POINTING_DEVICE_INVERT_X
 #define POINTING_DEVICE_TASK_THROTTLE_MS 1
 #define PMW33XX_CPI 1000
 #define SPLIT_POINTING_ENABLE
+#endif
 
-//RGB Lights
-
-
-//#define MASTER_RIGHT
-
-//#define EE_HANDS
-
-//#define RGBLIGHT_DEFAULT_ON true
 
 #ifdef RGBLIGHT_ENABLE
 #    define RGBLIGHT_EFFECT_BREATHING
@@ -78,9 +75,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SPLIT
 #define RGBLED_SPLIT { 33, 33 }
 #define WS2812_DI_PIN GP0
+//#define RGBLIGHT_DEFAULT_ON true
+
 #endif
-
-
 
 //OLED Display I2C Configuration
 #ifdef OLED_ENABLE
@@ -90,4 +87,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C1_SDA_PIN GP26
 
 #endif
-

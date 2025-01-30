@@ -11,11 +11,12 @@ BACKLIGHT_ENABLE = no           # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes	        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no               # Audio output
 SPLIT_KEYBOARD = yes			# Keyboard has two controllers
-ENCODER_ENABLE = no				# Encoder Functionality Enabled
-ENCODER_MAP_ENABLE = no			# Ability to use Keymap with encoder
+ENCODER_ENABLE = yes			# Encoder Functionality Enabled
+ENCODER_MAP_ENABLE = yes 		# Ability to use Keymap with encoder
 LTO_ENABLE = no 				# Optimise
 OLED_ENABLE = yes				# OLED Display
 POINTING_DEVICE_ENABLE = yes 	# Trackball or Trackpad
+VIA_ENABLE = yes
 
 POINTING_DEVICE_DRIVER = pmw3389
 SERIAL_DRIVER = vendor
@@ -31,6 +32,5 @@ BOARD = GENERIC_RP_RP2040
         ./lib/logo_reader.c \
         ./lib/mode_icon_reader.c \
 		./lib/rgb_state_reader.c \
-        # ./lib/host_led_state_reader.c \
-        # ./lib/timelogger.c \
-		#
+        ./lib/host_led_state_reader.c \
+        ./lib/timelogger.c \
