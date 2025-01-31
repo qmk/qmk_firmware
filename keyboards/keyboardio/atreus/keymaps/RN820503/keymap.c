@@ -3,6 +3,7 @@
 // this is the style you want to emulate.
 // This is the canonical layout file for the Quantum project. If you want to add another keyboard,
 
+#include "keycodes.h"
 #include "quantum_keycodes.h"
 #include QMK_KEYBOARD_H
 #include "features/custom_shift_keys.h"
@@ -28,7 +29,7 @@ enum custom_keycodes {
 
 /*  Hands Down Promethium
 
-    v   w   g    m   j           +=  .:  /    "!  '?
+    v   w   g    m   j           =   .:  /    "!  '?
     s⌃  n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘   i⌥  c⌃
     f   p   d    l   x	 `   \	 -   u   o    y   b
     ←   →  app   ⇥   r   ⌫   ⏎   ␣   ⎋  num   ↑   ↓
@@ -41,7 +42,7 @@ enum custom_keycodes {
 #define LT1 KC_M
 #define LT0 KC_J
 
-#define RT0 KC_PLUS
+#define RT0 KC_EQL
 #define RT1 KC_DOT
 #define RT2 KC_SLSH
 #define RT3 KC_DQUO
@@ -100,7 +101,7 @@ static uint16_t keyhold_timer; // for handling Qu combo
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	/*
-        v   w   g    m   j           +=  .:  /    "!  '?
+        v   w   g    m   j           =   .:  /    "!  '?
         s⌃  n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘   i⌥  c⌃
         f   p   d    l   x	 `   \	 -   u   o    y   b
         ←   →  app   ⇥   r3  ⌫2  ⏎2  ␣1  ⎋  num   ↑   ↓
@@ -114,16 +115,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     /*  BEAKL-19 numpad
-    	-   5   2   3   :           +   /   *
+    	-   5   2   3   :           +   =   *
     	7   .   1   0   4       ,   ⇧   ⌘   ⌥	⌃
-    	,   6   9   8   ⏎       -   =
-    	            /   ␣   ⌫
+    	/   6   9   8   ,       -
+    	                ␣   ⌫
     */
     [_NUM] = LAYOUT(
-    KC_MINS, KC_5,    KC_2,    KC_3,    KC_COLN,                   _______, KC_PLUS, _______, KC_ASTR, _______,
+    KC_MINS, KC_5,    KC_2,    KC_3,    KC_COLN,                   _______, KC_PLUS, KC_EQL,  KC_ASTR, _______,
     KC_7,    KC_DOT,  KC_1,    KC_0,    KC_4,                      _______, KC_RSFT, KC_RGUI, KC_RALT, KC_RCTL,
-    KC_COMM, KC_6,    KC_9,    KC_8,    KC_ENT,  _______, _______, _______, KC_EQL,  _______, _______, _______,
-    _______, _______, _______, KC_SLSH, KC_SPC,  _______, _______, _______, _______, _______, _______, _______
+    KC_SLSH, KC_6,    KC_9,    KC_8,    KC_COMM, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, KC_SPC,  _______, _______, _______, _______, _______, _______, _______
     ),
 
     /*  BEAKL-19 symbols
@@ -220,7 +221,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 
 const custom_shift_key_t custom_shift_keys[] = {
-    {KC_PLUS, KC_EQL},	/* shift + is = */
     {KC_DOT, KC_COLN},  /* shift . is : */
     {KC_COMM, KC_SCLN}, /* shift , is ; */
     {KC_SLSH, KC_ASTR}, /* shift / is * */

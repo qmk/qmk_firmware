@@ -1,6 +1,7 @@
 /*    COMBO NAME       | OUTPUT    | PARAMS    */
 
 /*---- standard alphas and punctuation ----*/
+COMB(H_V,               KC_V,       LT3, LT2)
 COMB(H_Z,               KC_Z,       LM3, LM1)
 COMB(Hat,               KC_AT,      RT0, RT1)
 COMB(Hexlm,             KC_EXLM,    RT1, RT2)
