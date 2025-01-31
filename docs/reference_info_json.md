@@ -478,6 +478,86 @@ Configures the [LED Matrix](features/led_matrix) feature.
 
 ## Mouse Keys {#mouse-keys}
 
+## OLED {#oled}
+
+Configures [OLED Display](features/oled_driver) feature.
+
+* `oled`
+    * `enabled` <Badge type="info">Boolean</Badge>
+        * Enables the OLED feature.
+        * Default: `false`
+    * `driver` <Badge type="info">String</Badge>
+        * The driver to use. Must be one of `custom`, `ssd1306`.
+        * Default: `"ssd1306"`
+    * `transport` <Badge type="info">String</Badge>
+        * The transport protocol to use. Must be one of `custom`, `i2c`, `spi`.
+        * Default: `"i2c"`
+    * `brightness` <Badge type="info">Number</Badge>
+        * Brightness level of the OLED, from 0 to 255.
+        * Default: `255`
+    * `column_offset` <Badge type="info">Number</Badge>
+        * Shift output to the right this many pixels.
+        * Default: `0`
+    * `display_clock` <Badge type="info">String</Badge>
+        * Set the display clock divide ratio/oscillator frequency as a two-digit hexadecimal number.
+        * Default: `"0x80"`
+    * `font`
+        * `path` <Badge type="info">String</Badge>
+            * The font code file to use for custom fonts.
+            * Default: `"glcdfont.c"`
+        * `start` <Badge type="info">Number</Badge>
+            * The starting character index for custom fonts.
+            * Default: `0`
+        * `end` <Badge type="info">Number</Badge>
+            * The ending character index for custom fonts.
+            * Default: `223`
+        * `width` <Badge type="info">Number</Badge>
+            * The font width.
+            * Default: `6`
+        * `height` <Badge type="info">Number</Badge>
+            * The font height (untested).
+            * Default: `8`
+    * `fade_out`
+        * `enabled` <Badge type="info">Boolean</Badge>
+            * Enables fade out animation. Use together with `oled.timeout`.
+            * Default: `false`
+        * `interval` <Badge type="info">Number</Badge>
+            * The speed of fade out animation, from 0 to 15. Larger values are slower.
+            * Default: `0`
+    * `timeout` <Badge type="info">Number</Badge>
+        * Turns off the OLED screen after a period of inactivity.
+        * Default: `60000`
+    * `scroll`
+        * `right` <Badge type="info">Boolean</Badge>
+            * Scroll timeout direction is right when defined, left when undefined.
+            * Default: `false`
+        * `timeout` <Badge type="info">Number</Badge>
+            * Scrolls the OLED screen after a period of OLED inactivity.
+            * Default: `0`
+    * `update_interval` <Badge type="info">Number</Badge>
+        * Set the time interval for updating the OLED display in milliseconds.
+        * Default: `0` (`50` on split keyboards)
+    * `process_limit` <Badge type="info">Number</Badge>
+        * Set the number of dirty blocks to render per loop.
+        * Default: `1`
+    * `i2c`
+        * `address` <Badge type="info">String</Badge>
+            * The I²C address of the OLED Display.
+            * Default: `"0x3C"`
+    * `spi`
+        * `dc_pin` <Badge type="info">String</Badge> <Badge>Required</Badge>
+            * The pin used for the DC connection of the OLED Display.
+        * `cs_pin` <Badge type="info">String</Badge> <Badge>Required</Badge>
+            * The pin used for the CS connection of the OLED Display.
+        * `rst_pin` <Badge type="info">String</Badge>
+            * The pin used for the RST connection of the OLED Display.
+        * `mode` <Badge type="info">Number</Badge>
+            * The SPI Mode for the OLED Display.
+            * Default: `2`
+        * `divisor` <Badge type="info">Number</Badge>
+            * The SPI Multiplier to use for the OLED Display.
+            * Default: `3`
+
 Configures the [Mouse Keys](features/mouse_keys) feature.
 
 * `mouse_key`

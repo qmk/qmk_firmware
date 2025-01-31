@@ -37,7 +37,7 @@
     "NO_USB_STARTUP_CHECK": {"info_key": "usb.no_startup_check", "value_type": "bool"},
     "OLED_ENABLE": {"info_key": "oled.enabled", "value_type": "bool"},
     "OLED_DRIVER": {"info_key": "oled.driver"},
-    "OLED_TRANSPORT" {"info_key": "oled.transport"},
+    "OLED_TRANSPORT": {"info_key": "oled.transport"},
     "PIN_COMPATIBLE": {"info_key": "pin_compatible"},
     "PLATFORM_KEY": {"info_key": "platform_key", "to_json": false},
     "PS2_DRIVER": {"info_key": "ps2.driver"},

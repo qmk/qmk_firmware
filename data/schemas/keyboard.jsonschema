@@ -509,7 +509,7 @@
                     "additionalProperties": false,
                     "properties": {
                         "enabled": {"type": "boolean"},
-                        "interval": {"$ref": "qmk.definitions.v1#/hex_number_2d"}
+                        "interval": {"$ref": "qmk.definitions.v1#/unsigned_int"}
                     }
                 },
                 "timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"},
