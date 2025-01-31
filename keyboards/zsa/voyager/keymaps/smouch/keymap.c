@@ -1,4 +1,5 @@
 
+#include "keycodes.h"
 #include "keymap_us.h"
 #include QMK_KEYBOARD_H
 #include "features/custom_shift_keys.h"
@@ -24,7 +25,7 @@ enum custom_keycodes {
 
 /*  Hands Down Promethium (canonical)
     ⎋   3   2@  1$   0#  4           7   6(  5&  9)  8  CW
-    ⇥   v   w   g    m   j           +=  .:  /   "!  '? `
+    ⇥   v   w   g    m   j           =   .:  /   "!  '? `
     z   s⌃  n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘  i⌥  c⌃ q
     tg  f   p   d    l   x      	 -   u   o   y   b  \
                          r   ⌫   ⏎   ␣
@@ -53,7 +54,7 @@ enum custom_keycodes {
 #define LT1 KC_M
 #define LT0 KC_J
 
-#define RT0 KC_PLUS
+#define RT0 KC_EQL
 #define RT1 KC_DOT
 #define RT2 KC_SLSH
 #define RT3 KC_DQUO
@@ -108,7 +109,7 @@ static uint16_t keyhold_timer; // for handling Qu combo
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*  Hands Down Promethium
     ⎋   3   2@  1$   0#  4           7   6(  5&  9)  8  CW
-    ⇥   v   w   g    m   j           +=  .:  /   "!  '? `
+    ⇥   v   w   g    m   j           =   .:  /   "!  '? `
     z   s⌃  n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘  i⌥  c⌃ q
     tg  f   p   d    l   x      	 -   u   o   y   b  \
                          r   ⌫   ⏎   ␣
