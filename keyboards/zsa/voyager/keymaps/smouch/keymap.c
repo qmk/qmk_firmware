@@ -12,7 +12,6 @@ enum layer_names {
 
 enum custom_keycodes {
     SS_Qu = SAFE_RANGE,
-    SS_Prns
 };
 
 /*  KEY POSITION Names
@@ -137,7 +136,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                  KC_SPC,  _______, _______, _______
   ),
 
-  /* BEAKL Symbols
+  /* BEAKL-19 Symbols
     *		@	$	#					~	^	`
     *		<   =	>			       	[   _   ]
     *   \   (   -   )   +          	%   {   ;   }   !
