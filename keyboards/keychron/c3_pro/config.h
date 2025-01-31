@@ -22,3 +22,5 @@
 #define I2C1_CLOCK_SPEED 400000
 #define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2
 
+/* Caps Lock Indicator*/
+#define CAPS_LOCK_LED_INDEX 50
