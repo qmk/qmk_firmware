@@ -6,6 +6,7 @@ enum layers {
     _LOWER,
     _LOWEST,
     _MOUSE,
+    _GAME,
 };
 enum tophactyl_keycodes {
     QW = SAFE_RANGE,
@@ -37,6 +38,7 @@ enum tap_dance_keycodes {
 
 #define LOW      MO(_LOW)
 #define LOWER      MO(_LOWER)
+#define GAME	TG(_GAME)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -51,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TD(_1_WS1), TD(_2_WS2), TD(_3_WS3), KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, 
     QW, _______, KC_LCBR, KC_RCBR, KC_COLN, KC_GRV, KC_MINS, KC_PLUS, KC_PIPE, KC_DEL,
     _______, _______, XCOPY, XPASTE, _______, _______, KC_QUOT, _______, _______, KC_BSLS,
-    _______, _______, _______, _______, _______, _______ 
+    _______, _______, _______, _______, GAME, _______ 
     ),
 
     [_LOWER] = LAYOUT(
@@ -73,6 +75,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, KC_BTN1, KC_BTN2, _______, _______, 
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, 
     _______, _______, _______, _______, _______, _______ 
+    ),
+
+    [_GAME] = LAYOUT(
+    KC_Q, KC_W, KC_E, KC_R, KC_T, _______, _______, _______, _______, _______, 
+    KC_A, KC_S, KC_D, KC_F, KC_G, _______, _______, _______, _______, _______, 
+    KC_Z, KC_X, KC_C, KC_V, KC_B, _______, _______, _______, _______, _______, 
+    		      KC_H, KC_J, KC_K, _______, _______, GAME
     ),
 };
 
@@ -143,6 +152,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_LOWER] = { ENCODER_CCW_CW(STabRight, STabLeft) },
     [_LOWEST] = { ENCODER_CCW_CW(KC_WH_U, KC_WH_D) },
     [_MOUSE] = { ENCODER_CCW_CW(KC_WH_U, KC_WH_D) },
+    [_GAME] = { ENCODER_CCW_CW(KC_WH_U, KC_WH_D) },
 };
 #endif
 
