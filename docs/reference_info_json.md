@@ -476,8 +476,6 @@ Configures the [LED Matrix](features/led_matrix) feature.
         * A list of GPIO pins connected to the matrix rows.
         * Example: `["B0", "B1", "B2"]`
 
-## Mouse Keys {#mouse-keys}
-
 ## OLED {#oled}
 
 Configures [OLED Display](features/oled_driver) feature.
@@ -557,6 +555,8 @@ Configures [OLED Display](features/oled_driver) feature.
         * `divisor` <Badge type="info">Number</Badge>
             * The SPI Multiplier to use for the OLED Display.
             * Default: `3`
+
+## Mouse Keys {#mouse-keys}
 
 Configures the [Mouse Keys](features/mouse_keys) feature.
 
