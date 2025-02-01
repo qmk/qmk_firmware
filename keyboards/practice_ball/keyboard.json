@@ -1,0 +1,58 @@
+{
+    "manufacturer": "Yushakobo",
+    "keyboard_name": "practice_ball",
+    "maintainer": "Yushakobo",
+    "development_board": "promicro",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": false,
+        "command": false,
+        "console": false,
+        "encoder": true,
+        "encoder_map": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgblight": true,
+        "via": true
+    },
+    "matrix_pins": {
+        "cols": ["D7", "E6", "B4", "B5"],
+        "rows": ["A1", "A0"]
+    },
+    "url": "",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0019",
+        "vid": "0x3265"
+    },
+    "rgblight": {
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true
+        },
+        "led_count": 4
+    },
+    "ws2812": {
+        "driver": "bitbang",
+        "pin": "D3"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 3], "x": 3, "y": 0},
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [1, 3], "x": 3, "y": 1}
+            ]
+        }
+    }
+}
