@@ -179,16 +179,16 @@ __attribute__((weak)) const key_override_t* key_override_get(uint16_t key_overri
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Pointing mode mapping
 
-#ifdef POINTING_MODE_MAP_ENABLE
+#ifdef POINTING_DEVICE_MODES_ENABLE
 
-#    define POINTING_MODE_MAP_COUNT_RAW (uint8_t)(sizeof(pointing_mode_maps) / ((POINTING_MODE_NUM_DIRECTIONS) * sizeof(uint16_t)))
+#    define POINTING_MODES_MAP_COUNT_RAW (uint8_t)(sizeof(pointing_modes_maps) / ((POINTING_MODES_NUM_DIRECTIONS) * sizeof(uint16_t)))
 
-uint8_t pointing_mode_map_count_raw(void) {
-    return POINTING_MODE_MAP_COUNT_RAW;
+uint8_t pointing_modes_map_count_raw(void) {
+    return POINTING_MODES_MAP_COUNT_RAW;
 }
 
-__attribute__((weak)) uint8_t pointing_mode_map_count(void) {
-    return pointing_mode_map_count_raw();
+__attribute__((weak)) uint8_t pointing_modes_map_count(void) {
+    return pointing_modes_map_count_raw();
 }
 
 /*
@@ -205,12 +205,17 @@ __attribute__((weak)) uint8_t pointing_mode_map_count(void) {
  *
  * @return uint16_t keycode at pointing mode map location
  */
-uint16_t keycode_at_pointing_mode_map_location_raw(uint8_t map_loc) {
+uint16_t keycode_at_pointing_modes_map_location_raw(uint8_t map_loc) {
+#    ifdef POINTING_MODES_8WAY_MAP_ENABLE
+    uint8_t map_id = map_loc >> 3;
+    uint8_t dir    = map_loc & 0x07;
+#    else
     uint8_t map_id = map_loc >> 2;
     uint8_t dir    = map_loc & 0x03;
+#    endif // POINTING_MODES_8WAY_MAP_ENABLE
 
-    if (map_id < pointing_mode_map_count()) {
-        return pgm_read_word(&pointing_mode_maps[map_id][dir]);
+    if (map_id < pointing_modes_map_count()) {
+        return pgm_read_word(&pointing_modes_maps[map_id][dir]);
     }
     return KC_NO;
 }
@@ -225,11 +230,10 @@ uint16_t keycode_at_pointing_mode_map_location_raw(uint8_t map_loc) {
  *
  * @return uint16_t keycode at pointing mode map location
  */
-__attribute__((weak)) uint16_t keycode_at_pointing_mode_map_location(uint8_t map_loc) {
-    return keycode_at_pointing_mode_map_location_raw(map_loc);
+__attribute__((weak)) uint16_t keycode_at_pointing_modes_map_location(uint8_t map_loc) {
+    return keycode_at_pointing_modes_map_location_raw(map_loc);
 }
-
-#endif // defined(POINTING_MODE_MAP_ENABLE)
+#endif // POINTING_DEVICE_MODES_ENABLE
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Community modules (must be last in this file!)

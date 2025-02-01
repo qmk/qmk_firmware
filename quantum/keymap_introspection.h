@@ -112,16 +112,16 @@ const key_override_t* key_override_get(uint16_t key_override_idx);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Pointing Mode Mapping
 
-#if defined(POINTING_MODE_MAP_ENABLE)
+#if defined(POINTING_DEVICE_MODES_ENABLE)
 
 // Get the number of pointing mode maps, stored in firmware
-uint8_t pointing_mode_map_count_raw(void);
+uint8_t pointing_modes_map_count_raw(void);
 // Get the number of pointing mode maps, potentially stored dynamically
-uint8_t pointing_mode_map_count(void);
+uint8_t pointing_modes_map_count(void);
 
 // Get the keycode for the pointing mode map location, stored in firmware
-uint16_t keycode_at_pointing_mode_map_location_raw(uint8_t map_loc);
+uint16_t keycode_at_pointing_modes_map_location_raw(uint8_t map_loc);
 // Get the keycode for the encoder mapping location, potentially stored dynamically
-uint16_t keycode_at_pointing_mode_map_location(uint8_t map_loc);
+uint16_t keycode_at_pointing_modes_map_location(uint8_t map_loc);
 
-#endif // defined(POINTING_MODE_MAP_ENABLE)
+#endif // defined(POINTING_DEVICE_MODES_ENABLE)

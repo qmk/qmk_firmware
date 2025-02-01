@@ -432,7 +432,7 @@ static bool is_mouse_record(uint16_t keycode, keyrecord_t* record) {
     // allow for keyboard to hook in and override if need be
     if (is_mouse_record_kb(keycode, record) || IS_MOUSEKEY(keycode) ||
 #    ifdef POINTING_DEVICE_MODES_ENABLE
-        IS_QK_POINTING_MODE_MO(keycode) || IS_QK_POINTING_MODE_TG(keycode) ||
+        IS_QK_POINTING_MODES_MO(keycode) || IS_QK_POINTING_MODES_TG(keycode) ||
 #    endif
         false)
         return true;
