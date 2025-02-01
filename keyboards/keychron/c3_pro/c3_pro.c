@@ -112,27 +112,28 @@ bool led_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 #endif // LED_MATRIX_ENABLE && CAPS_LOCK_LED_INDEX
 
 void keyboard_post_init_kb(void) {
-    setPinOutputPushPull(LED_MAC_OS_PIN);
-    setPinOutputPushPull(LED_WIN_OS_PIN);
-    writePin(LED_MAC_OS_PIN, !LED_OS_PIN_ON_STATE);
-    writePin(LED_WIN_OS_PIN, !LED_OS_PIN_ON_STATE);
+    gpio_set_pin_output_push_pull(LED_MAC_OS_PIN);
+    gpio_set_pin_output_push_pull(LED_WIN_OS_PIN);
+    gpio_write_pin(LED_MAC_OS_PIN, !LED_OS_PIN_ON_STATE);
+    gpio_write_pin(LED_WIN_OS_PIN, !LED_OS_PIN_ON_STATE);
+
     keyboard_post_init_user();
 }
 
 void housekeeping_task_kb(void) {
     if (default_layer_state == (1U << 0)) {
-        writePin(LED_MAC_OS_PIN, LED_OS_PIN_ON_STATE);
-        writePin(LED_WIN_OS_PIN, !LED_OS_PIN_ON_STATE);
+        gpio_write_pin(LED_MAC_OS_PIN, LED_OS_PIN_ON_STATE);
+        gpio_write_pin(LED_WIN_OS_PIN, !LED_OS_PIN_ON_STATE);
     }
     if (default_layer_state == (1U << 2)) {
-        writePin(LED_MAC_OS_PIN, !LED_OS_PIN_ON_STATE);
-        writePin(LED_WIN_OS_PIN, LED_OS_PIN_ON_STATE);
+        gpio_write_pin(LED_MAC_OS_PIN, !LED_OS_PIN_ON_STATE);
+        gpio_write_pin(LED_WIN_OS_PIN, LED_OS_PIN_ON_STATE);
     }
-    housekeeping_task_user();
 }
-...
+
 void suspend_power_down_kb(void) {
-    writePin(LED_WIN_OS_PIN, !LED_OS_PIN_ON_STATE);
-    writePin(LED_MAC_OS_PIN, !LED_OS_PIN_ON_STATE);
+    gpio_write_pin(LED_WIN_OS_PIN, !LED_OS_PIN_ON_STATE);
+    gpio_write_pin(LED_MAC_OS_PIN, !LED_OS_PIN_ON_STATE);
+
     suspend_power_down_user();
 }
