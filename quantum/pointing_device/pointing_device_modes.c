@@ -266,11 +266,19 @@ static void pointing_modes_release_held_keys(void) {
  */
 static void pointing_modes_hold_decay(void) {
     // Decay X
-    int8_t sign = (pm_res[active_device_id].x > 0) - (pm_res[active_device_id].x < 0);
-    pm_res[active_device_id].x -= sign;
+    if (pm_res[active_device_id].x > 0) {
+        pm_res[active_device_id].x -= MIN((mouse_xy_report_t)POINTING_MODES_HOLD_DECAY_RATE, pm_res[active_device_id].x);
+    }
+    if (pm_res[active_device_id].x < 0) {
+        pm_res[active_device_id].x += MIN((mouse_xy_report_t)POINTING_MODES_HOLD_DECAY_RATE, abs(pm_res[active_device_id].x));
+    }
     // Decay Y
-    sign = (pm_res[active_device_id].y > 0) - (pm_res[active_device_id].y < 0);
-    pm_res[active_device_id].y -= sign;
+    if (pm_res[active_device_id].y > 0) {
+        pm_res[active_device_id].y -= MIN((mouse_xy_report_t)POINTING_MODES_HOLD_DECAY_RATE, pm_res[active_device_id].y);
+    }
+    if (pm_res[active_device_id].y < 0) {
+        pm_res[active_device_id].y += MIN((mouse_xy_report_t)POINTING_MODES_HOLD_DECAY_RATE, abs(pm_res[active_device_id].y));
+    }
 }
 
 /**
