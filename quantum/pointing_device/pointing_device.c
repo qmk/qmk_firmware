@@ -315,7 +315,7 @@ __attribute__((weak)) bool pointing_device_task(void) {
 #endif
     // pointing device modes handling for single pointing device
 #if defined(POINTING_DEVICE_MODES_ENABLE) && !(defined(SPLIT_POINTING_ENABLE) && defined(POINTING_DEVICE_COMBINED))
-    local_mouse_report = pointing_device_modes_task(local_mouse_report);
+    local_mouse_report = pointing_modes_device_task(local_mouse_report);
 #endif
     // combine with mouse report to ensure that the combined is sent correctly
 #ifdef MOUSEKEY_ENABLE
@@ -504,26 +504,26 @@ report_mouse_t pointing_device_adjust_by_defines_right(report_mouse_t mouse_repo
  */
 report_mouse_t pointing_device_task_combined(report_mouse_t left_report, report_mouse_t right_report) {
 #    ifdef POINTING_DEVICE_MODE_ENABLE
-#        if POINTING_MODE_SINGLE_CONTROL
+#        if POINTING_MODES_SINGLE_CONTROL
     // only one side controlled at any one time
-    switch (pointing_mode_get_active_device()) {
+    switch (pointing_modes_get_active_device()) {
         case PM_RIGHT_DEVICE:
-            right_report = pointing_device_modes_task(right_report);
+            right_report = pointing_modes_device_task(right_report);
             break;
         default:
-            left_report = pointing_device_modes_task(left_report);
+            left_report = pointing_modes_device_task(left_report);
     }
 #        else
     // both sides controlled independently
     // save current device id
-    uint8_t active_device = pointing_mode_get_active_device();
-    pointing_mode_set_active_device(PM_RIGHT_DEVICE);
-    right_report = pointing_device_modes_task(right_report);
+    uint8_t active_device = pointing_modes_get_active_device();
+    pointing_modes_set_active_device(PM_RIGHT_DEVICE);
+    right_report = pointing_modes_device_task(right_report);
 
-    pointing_mode_set_active_device(PM_LEFT_DEVICE);
-    left_report = pointing_device_modes_task(left_report);
+    pointing_modes_set_active_device(PM_LEFT_DEVICE);
+    left_report = pointing_modes_device_task(left_report);
     // set device id back
-    pointing_mode_set_active_device(active_device);
+    pointing_modes_set_active_device(active_device);
 #        endif
 #    endif
     return pointing_device_task_combined_kb(left_report, right_report);

@@ -228,23 +228,21 @@
 
 // Pointing device mode key macros
 // Momentary scroll mode
-#define PM_MO(pm) (MIN((pm), (QK_POINTING_MODE_MO_MAX - QK_POINTING_MODE_MO)) + QK_POINTING_MODE_MO)
+#define PM_MO(pm) (MIN((pm), (QK_POINTING_MODES_MO_MAX - QK_POINTING_MODES_MO)) + QK_POINTING_MODES_MO)
 // Toggle default scroll mode
-#define PM_TG(pm) (MIN((pm), (QK_POINTING_MODE_TG_MAX - QK_POINTING_MODE_TG)) + QK_POINTING_MODE_TG)
+#define PM_TG(pm) (MIN((pm), (QK_POINTING_MODES_TG_MAX - QK_POINTING_MODES_TG)) + QK_POINTING_MODES_TG)
 
 // Default Pointing device pointing modes
 enum pointing_device_mode_list {
     PM_NONE = 0,
-    PM_PRECISION,
     PM_DRAG,
     // safe range for custom modes with built in keycodes
     PM_SAFE_RANGE,
     // range for custom modes requiring custom activation/new keycodes
-    PM_ADVANCED_RANGE_START = ((QK_POINTING_MODE_MO_MAX - QK_POINTING_MODE_MO) + (QK_POINTING_MODE_TG_MAX - QK_POINTING_MODE_TG) + 1) / 2 + 1
+    PM_ADVANCED_RANGE_START = ((QK_POINTING_MODES_MO_MAX - QK_POINTING_MODES_MO) + (QK_POINTING_MODES_TG_MAX - QK_POINTING_MODES_TG) + 1) / 2 + 1
 };
 
 // pointing mode aliases
-#define PM_PRE PM_PRECISION
 #define PM_DRG PM_DRAG
 
 #include "quantum_keycodes_legacy.h"

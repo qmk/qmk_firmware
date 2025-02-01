@@ -14,9 +14,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifdef POINTING_DEVICE_MODE_ENABLE
+#ifdef POINTING_DEVICE_MODES_ENABLE
 
-#    include "process_pointing_mode_records.h"
+#    include "process_pointing_modes.h"
 
 /**
  * @brief Handle pointing mode change keypress: Momentary
@@ -28,12 +28,12 @@
  * @params mode_id[in] uint8_t
  * @params pressed[in] bool
  */
-void pointing_mode_key_momentary(uint8_t mode_id, bool pressed) {
+void pointing_modes_key_momentary(uint8_t mode_id, bool pressed) {
     if (pressed) {
-        pointing_mode_set_mode(mode_id);
-    } else if (pointing_mode_get_mode() == mode_id) {
+        pointing_modes_set_mode(mode_id);
+    } else if (pointing_modes_get_mode() == mode_id) {
         // reset mode only if the current mode matches (in case mode has changed before release)
-        pointing_mode_reset();
+        pointing_modes_reset();
     }
 }
 
@@ -45,9 +45,9 @@ void pointing_mode_key_momentary(uint8_t mode_id, bool pressed) {
  * @params mode_id[in] uint8_t
  * @params pressed[in] bool
  */
-void pointing_mode_key_toggle(uint8_t mode_id, bool pressed) {
+void pointing_modes_key_toggle(uint8_t mode_id, bool pressed) {
     // only attempt to change mode on key release event (matches layer toggle behaviour)
-    if (!pressed) pointing_mode_toggle_mode(mode_id);
+    if (!pressed) pointing_modes_toggle_mode(mode_id);
 }
 
 /**
@@ -58,8 +58,8 @@ void pointing_mode_key_toggle(uint8_t mode_id, bool pressed) {
  * @params device[in]  uint8_t
  * @params pressed[in] bool
  */
-void pointing_mode_key_set_device(uint8_t device, bool pressed) {
-    if (!pressed) pointing_mode_set_active_device(device);
+void pointing_modes_key_set_device(uint8_t device, bool pressed) {
+    if (!pressed) pointing_modes_set_active_device(device);
 }
 
 /**
@@ -68,8 +68,8 @@ void pointing_mode_key_set_device(uint8_t device, bool pressed) {
  * @params precision[in]  uint8_t
  * @params pressed[in]    bool
  */
-void pointing_mode_key_set_precision(uint8_t precision, bool pressed) {
-    if (!pressed) {pointing_mode_set_precision(precision);
+void pointing_modes_key_set_precision(uint8_t precision, bool pressed) {
+    if (!pressed) {pointing_modes_set_precision(precision);
     }
 }
 
@@ -83,51 +83,56 @@ void pointing_mode_key_set_precision(uint8_t precision, bool pressed) {
  *
  * @return should keycode processing continue bool
  */
-bool process_pointing_mode_records(uint16_t keycode, keyrecord_t* record) {
+bool process_pointing_modes_records(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         // handle built in keycods for bottom 16 pointing modes (0-15)
         // momentary
-        case QK_POINTING_MODE_MO ... QK_POINTING_MODE_MO_MAX:
-            pointing_mode_key_momentary((keycode - QK_POINTING_MODE_MO) & (QK_POINTING_MODE_MO_MAX - QK_POINTING_MODE_MO), record->event.pressed);
+        case QK_POINTING_MODES_MO ... QK_POINTING_MODES_MO_MAX:
+            pointing_modes_key_momentary((keycode - QK_POINTING_MODES_MO) & (QK_POINTING_MODES_MO_MAX - QK_POINTING_MODES_MO), record->event.pressed);
             return true; // allow further processing
         // toggle
-        case QK_POINTING_MODE_TG ... QK_POINTING_MODE_TG_MAX:
-            pointing_mode_key_toggle((keycode - QK_POINTING_MODE_TG) & (QK_POINTING_MODE_TG_MAX - QK_POINTING_MODE_TG), record->event.pressed);
+        case QK_POINTING_MODES_TG ... QK_POINTING_MODES_TG_MAX:
+            pointing_modes_key_toggle((keycode - QK_POINTING_MODES_TG) & (QK_POINTING_MODES_TG_MAX - QK_POINTING_MODES_TG), record->event.pressed);
             return true; // allow further processing
 
-        // Cycle through precision values
+        // utils: Cycle precision
         case QK_PM_CYCLE_PRECISION:
             if (!record->event.pressed) {
+                uint8_t current_precision = pointing_modes_get_precision();
                 if (get_mods() & MOD_MASK_SHIFT) {
-                    if (pointing_mode_get_precision() <= POINTING_MODE_PRECISION_STEP) {
-                        pointing_mode_set_precision(POINTING_MODE_PRECISION_MAX);
-                        return false; // prevent further processing
-                    }
-                    pointing_mode_set_precision(pointing_mode_get_precision() - POINTING_MODE_PRECISION_STEP);
-                    return false; // prevent further processing
-                }
-                if (pointing_mode_get_precision() == 1) {
-                        pointing_mode_set_precision(POINTING_MODE_PRECISION_STEP);
+                    if (current_precision <= POINTING_MODES_PRECISION_STEP) {
+                        if (current_precision > POINTING_MODES_PRECISION_MIN) {
+                            pointing_modes_set_precision(POINTING_MODES_PRECISION_MIN);
+                            return false;
+                        }
+                        pointing_modes_set_precision(POINTING_MODES_PRECISION_MAX);
                         return false;
+                    }
+                    pointing_modes_set_precision(current_precision - POINTING_MODES_PRECISION_STEP);
+                    return false;
                 }
-                pointing_mode_set_precision(pointing_mode_get_precision() + POINTING_MODE_PRECISION_STEP);
+                if (current_precision < POINTING_MODES_PRECISION_STEP) {
+                    pointing_modes_set_precision(POINTING_MODES_PRECISION_STEP);
+                    return false;
+                }
+                pointing_modes_set_precision(current_precision + POINTING_MODES_PRECISION_STEP);
                 return false;
             }
             return true;
 
-#    if (POINTING_MODE_NUM_DEVICES > 1)
+#    if (POINTING_MODES_NUM_DEVICES > 1)
         // utils: Cycle devices
         case QK_PM_CYCLE_DEVICES:
             if (!record->event.pressed) {
                 if (get_mods() & MOD_MASK_SHIFT) {
-                    if(pointing_mode_get_active_device() == 0) {
-                        pointing_mode_set_active_device(POINTING_MODE_NUM_DEVICES - 1);
+                    if(pointing_modes_get_active_device() == 0) {
+                        pointing_modes_set_active_device(POINTING_MODES_NUM_DEVICES - 1);
                         return false;
                     }
-                    pointing_mode_set_active_device(pointing_mode_get_active_device() - 1);
+                    pointing_modes_set_active_device(pointing_modes_get_active_device() - 1);
                     return false; // prevent further processing
                 }
-                pointing_mode_set_active_device(pointing_mode_get_active_device() + 1);
+                pointing_modes_set_active_device(pointing_modes_get_active_device() + 1);
                 return false; // prevent further processing
             }
             return true; // allow further processing
