@@ -31,10 +31,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ONESHOT_TAP_TOGGLE 5  /* Tapping this number of times holds the key until tapped once again. */
 #define ONESHOT_TIMEOUT 800  /* Time (in ms) before the one shot key is released */
 
-#define SMTD_GLOBAL_TAP_TERM 150
-#define SMTD_GLOBAL_FOLLOWING_TAP_TERM 120
-#define SMTD_GLOBAL_SEQUENCE_TERM 85
-#define SMTD_GLOBAL_RELEASE_TERM 30
+#define SMTD_GLOBAL_TAP_TERM 200
+#define SMTD_GLOBAL_FOLLOWING_TAP_TERM 200
+#define SMTD_GLOBAL_SEQUENCE_TERM 100
+#define SMTD_GLOBAL_RELEASE_TERM 50
 
 #define TAPPING_TERM 150
 //#define QUICK_TAP_TERM 0
