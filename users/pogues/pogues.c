@@ -242,8 +242,15 @@ uint8_t vscode_compose_mapping(uint16_t* sequence, uint8_t sequence_len) {
     COMPOSE_MAPPING_CTL(KC_F, KC_F, "`")
     // search the open buffers (ctrl-tab)
     COMPOSE_MAPPING_CTL(KC_F, KC_B, SS_TAP(X_TAB))
-    // switch (focus) between code/test
-    COMPOSE_MAPPING_CTL(KC_F, KC_T, "t")
+    // switch (focus) between code/test  (vim "alternate")
+    COMPOSE_MAPPING_CTL(KC_F, KC_A, "t")
+    // toggle zen mode
+    COMPOSE_MAPPING(
+        COMPOSE_INPUT(KC_F, KC_Z),
+        { SEND_STRING(SS_LCTL("k") "z"); }
+    )
+    // focus on the terminal
+    COMPOSE_MAPPING_MEH(KC_F, KC_T, "t")
 
     // assume we are called last
     return COMPOSE_ERROR;
