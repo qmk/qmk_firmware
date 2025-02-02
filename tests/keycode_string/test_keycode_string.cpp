@@ -69,6 +69,8 @@ TEST_F(KeycodeStringTest, get_keycode_string) {
              {KC_RALT, "KC_RALT"},
              {KC_RGUI, "KC_RGUI"},
              {KC_UP, "KC_UP"},
+             {KC_HYPR, "KC_HYPR"},
+             {KC_MEH, "KC_MEH"},
              // F1-F24 keycodes.
              {KC_F1, "KC_F1"},
              {KC_F12, "KC_F12"},
@@ -90,6 +92,7 @@ TEST_F(KeycodeStringTest, get_keycode_string) {
              // One-shot mods.
              {OSM(MOD_LSFT), "OSM(MOD_LSFT)"},
              {OSM(MOD_RGUI), "OSM(MOD_RGUI)"},
+             {OSM(MOD_RCTL | MOD_RGUI), "OSM(0x19)"},
              // Layer switch keycodes.
              {DF(2), "DF(2)"},
              {PDF(12), "PDF(12)"},
@@ -106,7 +109,9 @@ TEST_F(KeycodeStringTest, get_keycode_string) {
              // Mod-tap keycodes.
              {LSFT_T(KC_ENT), "LSFT_T(KC_ENT)"},
              {RCTL_T(KC_RGHT), "RCTL_T(KC_RGHT)"},
-             {HYPR_T(KC_GRV), "MT(0xF,KC_GRV)"},
+             {HYPR_T(KC_GRV), "HYPR_T(KC_GRV)"},
+             {MEH_T(KC_EQL), "MEH_T(KC_EQL)"},
+             {RSA_T(KC_LBRC), "MT(0x16,KC_LBRC)"},
              // Extrakey keycodes.
              {KC_WBAK, "KC_WBAK"},
              {KC_WFWD, "KC_WFWD"},

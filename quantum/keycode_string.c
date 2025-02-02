@@ -73,6 +73,8 @@ static const uint16_t common_names[] PROGMEM = {
     KC_DOWN, KEYCODE_NAME7('K', 'C', '_', 'D', 'O', 'W', 'N'),
     KC_UP  , KEYCODE_NAME7('K', 'C', '_', 'U', 'P',  0 ,  0 ),
     KC_NUBS, KEYCODE_NAME7('K', 'C', '_', 'N', 'U', 'B', 'S'),
+    KC_HYPR, KEYCODE_NAME7('K', 'C', '_', 'H', 'Y', 'P', 'R'),
+    KC_MEH , KEYCODE_NAME7('K', 'C', '_', 'M', 'E', 'H',  0 ),
 #ifdef EXTRAKEY_ENABLE
     KC_WHOM, KEYCODE_NAME7('K', 'C', '_', 'W', 'H', 'O', 'M'),
     KC_WBAK, KEYCODE_NAME7('K', 'C', '_', 'W', 'B', 'A', 'K'),
@@ -103,7 +105,9 @@ static const uint16_t common_names[] PROGMEM = {
     SH_MOFF, KEYCODE_NAME7('S', 'H', '_', 'M', 'O', 'F', 'F'),
     SH_TOGG, KEYCODE_NAME7('S', 'H', '_', 'T', 'O', 'G', 'G'),
     SH_TT  , KEYCODE_NAME7('S', 'H', '_', 'T', 'T',  0 ,  0 ),
+#    if !defined(NO_ACTION_ONESHOT)
     SH_OS  , KEYCODE_NAME7('S', 'H', '_', 'O', 'S',  0 ,  0 ),
+#    endif // !defined(NO_ACTION_ONESHOT)
 #endif // SWAP_HANDS_ENABLE
 #ifdef LEADER_ENABLE
     QK_LEAD, KEYCODE_NAME7('Q', 'K', '_', 'L', 'E', 'A', 'D'),
@@ -250,12 +254,12 @@ static void append_number(uint16_t number, int8_t base) {
 
 /** Stringifies 5-bit mods and appends it to `buffer`. */
 static void append_5_bit_mods(uint8_t mods) {
-    const bool is_rhs = mods > 15;
-    mods &= 15;
-    if (mods != 0 && (mods & (mods - 1)) == 0) { // One mod is set.
+    const bool    is_rhs = mods > 15;
+    const uint8_t csag   = mods & 15;
+    if (csag != 0 && (csag & (csag - 1)) == 0) { // One mod is set.
         append_P(PSTR("MOD_"));
         append_char(is_rhs ? 'R' : 'L');
-        append_P(&mod_names[4 * biton(mods)]);
+        append_P(&mod_names[4 * biton(csag)]);
     } else { // Fallback: write the mod as a hex value.
         append_number(mods, 16);
     }
@@ -364,12 +368,13 @@ static void append_keycode(uint16_t keycode) {
             }
         } break;
 
-        // One-shot mod OSM(mod) key.
-        case QK_ONE_SHOT_MOD ... QK_ONE_SHOT_MOD_MAX:
+#if !defined(NO_ACTION_ONESHOT)
+        case QK_ONE_SHOT_MOD ... QK_ONE_SHOT_MOD_MAX: // One-shot mod OSM(mod) key.
             append_P(PSTR("OSM("));
             append_5_bit_mods(QK_ONE_SHOT_MOD_GET_MODS(keycode));
             append_char(')');
             return;
+#endif // !defined(NO_ACTION_ONESHOT)
 
         // Various layer switch keys.
         case QK_LAYER_TAP ... QK_LAYER_TAP_MAX: // Layer-tap LT(layer,kc) key.
@@ -404,9 +409,11 @@ static void append_keycode(uint16_t keycode) {
             append_unary_keycode(PSTR("TG"), number_string(QK_TOGGLE_LAYER_GET_LAYER(keycode), 10));
             return;
 
+#if !defined(NO_ACTION_ONESHOT)
         case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX: // OSL(layer) key.
             append_unary_keycode(PSTR("OSL"), number_string(QK_ONE_SHOT_LAYER_GET_LAYER(keycode), 10));
             return;
+#endif // !defined(NO_ACTION_ONESHOT)
 
         case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX: // TT(layer) key.
             append_unary_keycode(PSTR("TT"), number_string(QK_LAYER_TAP_TOGGLE_GET_LAYER(keycode), 10));
@@ -422,11 +429,15 @@ static void append_keycode(uint16_t keycode) {
         case QK_MOD_TAP ... QK_MOD_TAP_MAX: {
             uint8_t mods = QK_MOD_TAP_GET_MODS(keycode);
             const bool is_rhs = mods > 15;
-            mods &= 15;
-            if (mods != 0 && (mods & (mods - 1)) == 0) { // One mod is set.
+            const uint8_t csag = mods & 15;
+            if (csag != 0 && (csag & (csag - 1)) == 0) { // One mod is set.
                 append_char(is_rhs ? 'R' : 'L');
-                append_P(&mod_names[4 * biton(mods)]);
+                append_P(&mod_names[4 * biton(csag)]);
                 append_P(PSTR("_T("));
+            } else if (mods == MOD_HYPR) {
+                append_P(PSTR("HYPR_T("));
+            } else if (mods == MOD_MEH) {
+                append_P(PSTR("MEH_T("));
             } else {
                 append_P(PSTR("MT("));
                 append_number(mods, 16);
