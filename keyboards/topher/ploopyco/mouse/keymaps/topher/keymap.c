@@ -15,10 +15,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include QMK_KEYBOARD_H
 
-#pragma once
-
-// These pins are not broken out, and cannot be used normally.
-// They are set as output and pulled high, by default
-#define UNUSABLE_PINS \
-    { D1, D3, B4, B7, D6, C7, F6, F5, F3, F7 }
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    [0] = LAYOUT(/* Base */
+                 KC_COLN, KC_BTN1, KC_BTN3, KC_BTN2, KC_RPRN, KC_BTN4, KC_BTN5, DPI_CONFIG)
+};
