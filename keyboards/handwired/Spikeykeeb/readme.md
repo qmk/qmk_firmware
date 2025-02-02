@@ -1,20 +1,20 @@
-# 0led0
+# Spikeykeeb
 
 ![0led0](imgur.com image replace me!)
 
 *A short description of the keyboard/project*
 
 * Keyboard Maintainer: [spikeypear](https://github.com/meowchao)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: *rpi pico and oled 128X32*
+
 
 Make example for this keyboard (after setting up your build environment):
 
-    make 0led0:default
+    make Spikeykeeb:default
 
 Flashing example for this keyboard:
 
-    make 0led0:default:flash
+    make Spikeykeeb:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
