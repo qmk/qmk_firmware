@@ -1,4 +1,4 @@
-# Chick Pad
+# ChickPad Unified
 
 * Keyboard Maintainer: [ERA](https://github.com/eerraa)
 * Hardware supported: Syryan
