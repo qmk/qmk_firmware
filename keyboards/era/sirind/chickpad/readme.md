@@ -1,5 +1,7 @@
 # ChickPad Unified
 
+![Chickpad](https://i.imgur.com/RAH7dyl.jpeg)
+
 * Keyboard Maintainer: [ERA](https://github.com/eerraa)
 * Hardware supported: Syryan
 * Hardware availability: [Syryan](https://srind.mysoho.com/)
