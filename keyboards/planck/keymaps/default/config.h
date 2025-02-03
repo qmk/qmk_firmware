@@ -33,7 +33,6 @@
 */
 
 #define MIDI_BASIC
-#define AUDIO_INIT_DELAY
 
 /* enable advanced MIDI features:
    - MIDI notes can be added to the keymap
