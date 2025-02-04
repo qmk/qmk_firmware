@@ -5,7 +5,7 @@
 A Lily58 variant featuring SMT components, powered by an STM32F103 MCU and utilizing direct wiring. If you have a Lily58 with a soldered dev board (e.g., pro micro), please visit the original [Lily58](/keyboards/lily58) directory.
 
 * Keyboard Maintainer: [oxnh](https://github.com/Hardware7253)
-* Hardware Supported: Lily58 Koca PCBs (v1 & v2) 
+* Hardware Supported: Lily58 Koca PCBs (v3 and up) 
 * Hardware Availability: (https://github.com/Hardware7253/Lily58_Koca)
 
 Make example for this keyboard (after setting up your build environment):
