@@ -1,5 +1,5 @@
 {
-    "manufacturer": "TysonKeebs",
+    "manufacturer": "Tyson.Keebs",
     "keyboard_name": "S7venty Rev.2",
     "maintainer": "trnthsn",
     "diode_direction": "COL2ROW",
@@ -9,7 +9,8 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "rgblight":  true
     },
     "matrix_pins": {
         "cols": ["B0", "A7", "A6", "A5", "A4", "A3", "A2", "A1", "A0", "C15", "C14", "C13", "B9", "B8", "B7", "B4", "B11"],
