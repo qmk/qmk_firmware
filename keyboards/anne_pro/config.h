@@ -16,16 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x0483
-#define PRODUCT_ID      0x5710
-#define DEVICE_VER      0x0200
-
-#define MANUFACTURER QMK
-#define PRODUCT Anne Pro
-#define DESCRIPTION Anne Pro Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5

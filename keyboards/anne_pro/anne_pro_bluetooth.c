@@ -81,7 +81,7 @@ static volatile uint8_t bluetooth_connected_host = 0;
 static bool bluetooth_layer_enabled = false;
 static bool lighting_before_bluetooth_layer = false;
 /* Handle when layers are switched */
-uint32_t layer_state_set_kb(uint32_t state) {
+layer_state_t layer_state_set_kb(layer_state_t state) {
     if (!bluetooth_layer_enabled && (state & (1 << BLUETOOTH_LAYER)) != 0) {
         /* Bluetooth layer turned on */
         lighting_before_bluetooth_layer = anne_pro_lighting_enabled();
@@ -354,15 +354,15 @@ static void send_keyboard(report_keyboard_t *report) {
 }
 
 /* Send mouse HID report for Bluetooth driver */
-static void send_mouse(report_mouse_t *report) {
+static void send_mouse(report_nkro_t *report) {
 }
 
 /* Send system report for Bluetooth driver */
-static void send_system(uint16_t data) {
+static void send_system(report_mouse_t *data) {
 }
 
 /* Send consumer report for Bluetooth driver */
-static void send_consumer(uint16_t data) {
+static void send_consumer(report_extra_t *data) {
 }
 
 /* Bluetooth host driver, this allows us to switch from USB output to Bluetooth output */
