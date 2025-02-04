@@ -51,20 +51,20 @@ enum layer_names {
         KC_ESC,  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_QUOT, KC_LBRC, KC_RBRC, XXXXXXX, XXXXXXX,
         _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-        _______, XXXXXXX, XXXXXXX, _______, MO(4),            KC_SPC,  KC_SPC,           _______, _______, XXXXXXX, XXXXXXX, XXXXXXX
+        _______, XXXXXXX, XXXXXXX, _______, MO(4),            _______,  _______,         _______, _______, XXXXXXX, XXXXXXX, XXXXXXX
     ),
 
     [_FUNCTIONAL] = LAYOUT(
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_UP,   XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, KC_UNDO, KC_CUT,  KC_COPY, KC_PSTE, KC_AGIN, XXXXXXX, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX,
         _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-        _______, XXXXXXX, XXXXXXX, _______, _______,          KC_SPC, KC_SPC,            XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX
+        _______, XXXXXXX, XXXXXXX, _______, _______,          _______,  _______,         XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX
     ),
 
     [_ADMIN] = LAYOUT(
         QK_BOOT, DF(0),   DF(1),   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   XXXXXXX, XXXXXXX, KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11, KC_F12,
         _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-        _______, XXXXXXX, XXXXXXX, _______, _______,          KC_SPC, KC_SPC,            _______, _______, XXXXXXX, XXXXXXX, XXXXXXX
+        _______, XXXXXXX, XXXXXXX, _______, _______,          _______,  _______,         _______, _______, XXXXXXX, XXXXXXX, XXXXXXX
     )
 };
