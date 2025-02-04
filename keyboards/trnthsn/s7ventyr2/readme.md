@@ -1,6 +1,6 @@
 # S7venty Rev.2
 
-![S7venty Rev.2](https://imgur.com/uBDGCcU.png)
+![S7venty Rev.2](https://i.imgur.com/e5qK66K.png)
 
 A FKL keyboard PCB compatible with TKD Cycle7, KBDFans Pluto. Supports TKD Cycle7, KBDFans Pluto keyboard like an out-of-the-box PCB without any modification.
 

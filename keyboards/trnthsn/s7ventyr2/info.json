@@ -38,8 +38,7 @@
         "driver": "spi"
     },
     "indicators": {
-        "caps_lock": "B10",
-        "on_state": 0
+        "caps_lock": "B10"
     },
     "url": "",
     "usb": {
