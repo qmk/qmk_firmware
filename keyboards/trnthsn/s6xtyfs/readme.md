@@ -1,6 +1,6 @@
 # S6xty Tsangan
 
-![S6xtyfs](https://i.imgur.com/RdXa66U.png)
+![S6xtyfs](https://i.imgur.com/uS2Okww.png)
 
 A 60% keyboard PCB. Supports multiple layout such as split backspace, split shift, iso.
 
