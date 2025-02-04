@@ -31,6 +31,9 @@
             "static_gradient": true,
             "twinkle": true
         },
+        "default": {
+            "animation": "rainbow_swirl"
+        },
         "led_count": 28,
         "sleep": true
     },
