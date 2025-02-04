@@ -41,6 +41,16 @@ enum custom_keycodes {
     SMTD_KEYCODES_END,
 };
 
+
+enum layers {
+    _BASE,
+    _NAV,
+    _SYM,
+    _MOU,
+};
+
+#define COMBO_REF_DEFAULT _BASE
+
 enum {
     TD_CAPSW,
     TD_CP,
@@ -52,8 +62,14 @@ enum combos {
     SLSH_COMB,
     LBRC_COMB,
     RBRC_COMB,
+    LCBRC_COMB,
+    RCBRC_COMB,
     LPRN_COMB,
     RPRN_COMB,
+
+
+    HT_COMB,
+    LT_COMB,
     DQUT_COMB,
     CSPC_COMB,
     OSM_L1_COMB,
@@ -62,12 +78,25 @@ enum combos {
     COLON_COMB,
     CLN_COMB,
     SCLN_COMB,
+    AT_COMB,
+    EXCL_COMB,
+    HASH_COMB,
+    DOL_COMB,
+    PERC_COMB,
+    CARET_COMB,
+    AMPER_COMB,
+    ASTER_COMB,
+
+
     GRVSPC_COMB,
     PIPE_COMB,
     ENTER_COMB,
+    TILDE_COMB,
     MINUS_COMB,
     TILDE_DOT_COMB,
     TILDE_SPC_COMB,
+
+    CMB_ALTTAB
 };
 
 
@@ -104,35 +133,77 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_UNDO] = ACTION_TAP_DANCE_FN(td_undo_fn),
 };
 
+const uint16_t PROGMEM combo_alttab[] = {KC_F, KC_G, COMBO_END};
 const uint16_t PROGMEM backslash[] = {CKC_D, KC_V, COMBO_END};
 const uint16_t PROGMEM slash[] = {CKC_K, KC_M, COMBO_END};
 const uint16_t PROGMEM lbracket[] = {CKC_J, CKC_K, COMBO_END};
+const uint16_t PROGMEM lcbracket[] = {CKC_J, CKC_K, COMBO_END};
 const uint16_t PROGMEM rbracket[] = {CKC_K, CKC_L, COMBO_END};
+const uint16_t PROGMEM rcbracket[] = {CKC_K, CKC_L, COMBO_END};
+
 const uint16_t PROGMEM lpar[] = {KC_M, KC_COMM, COMBO_END};
 const uint16_t PROGMEM rpar[] = {KC_COMM, KC_DOT, COMBO_END};
+
+const uint16_t PROGMEM lt[] = {KC_M, KC_COMM, COMBO_END};
+const uint16_t PROGMEM ht[] = {KC_COMM, KC_DOT, COMBO_END};
+
+const uint16_t PROGMEM excl[] = {CKC_A, KC_Q, COMBO_END};
+const uint16_t PROGMEM at[] = {CKC_S, KC_W, COMBO_END};
+const uint16_t PROGMEM hash[] = {CKC_D, KC_E, COMBO_END};
+const uint16_t PROGMEM dollar[] = {CKC_D, KC_E, COMBO_END};
+const uint16_t PROGMEM percent[] = {KC_G, KC_T, COMBO_END};
+const uint16_t PROGMEM caret[] = {KC_H, KC_Y, COMBO_END};
+const uint16_t PROGMEM amper[] = {CKC_J, KC_U, COMBO_END};
+const uint16_t PROGMEM aster[] = {CKC_K, KC_I, COMBO_END};
+
+
 const uint16_t PROGMEM dquote[] = {CKC_J, KC_I, COMBO_END};
 const uint16_t PROGMEM osml1[] = {KC_U, KC_I, COMBO_END};
 const uint16_t PROGMEM cspc[] = {CKC_D, CKC_S, COMBO_END};
 const uint16_t PROGMEM ques[] = {KC_W, KC_E, COMBO_END};
 const uint16_t PROGMEM und[] = {KC_E, KC_R, COMBO_END};
 const uint16_t PROGMEM cln[] = {CKC_D, CKC_F, COMBO_END};
-const uint16_t PROGMEM scln[] = {KC_E, CKC_D, COMBO_END};
-const uint16_t PROGMEM enter[] = {KC_U, KC_I, COMBO_END};  // You can change these keys to your preference
+const uint16_t PROGMEM scln[] = {KC_Z, KC_X, COMBO_END};
+
+
+
+const uint16_t PROGMEM tilde[] = {CKC_L, KC_O, COMBO_END};  // You can change these keys to your preference
 const uint16_t PROGMEM tilde_spc[] = {KC_I, KC_O, COMBO_END};  // You can change these keys to your preference
 const uint16_t PROGMEM tilde_dot[] = {CKC_L, KC_QUOT, COMBO_END};  // You can change these keys to your preference
 const uint16_t PROGMEM pipe[] = {KC_I, CKC_K, COMBO_END};  // You can change these keys to your preference
-const uint16_t PROGMEM minus[] = {KC_U, CKC_J, COMBO_END};  // You can change these keys to your preference
+const uint16_t PROGMEM minus[] = {CKC_J, KC_M, COMBO_END};  // You can change these keys to your preference
 const uint16_t PROGMEM grave[] = {KC_E, CKC_F, COMBO_END};  // You can change these keys to your preference
 
 
+//
 combo_t key_combos[] = {
 
+    [CMB_ALTTAB] = COMBO(combo_alttab, KC_NO), // KC_NO to leave processing for process_combo_event
     [BSLS_COMB] = COMBO(backslash, KC_BSLS),
     [SLSH_COMB] = COMBO(slash, KC_SLSH),
-    [LBRC_COMB] = COMBO_ACTION(lbracket),
-    [RBRC_COMB] = COMBO_ACTION(rbracket),
-    [LPRN_COMB] = COMBO_ACTION(lpar),
-    [RPRN_COMB] = COMBO_ACTION(rpar),
+    [LBRC_COMB] = COMBO(lbracket, KC_LBRC),
+    [LCBRC_COMB] = COMBO(lcbracket, KC_LCBR),
+
+    [RBRC_COMB] = COMBO(rbracket, KC_RBRC),
+    [RCBRC_COMB] = COMBO(rcbracket, KC_RCBR),
+
+    [LPRN_COMB] = COMBO(lpar, KC_LPRN),
+    [RPRN_COMB] = COMBO(rpar, KC_RPRN),
+
+    [HT_COMB] = COMBO(ht, KC_LPRN),
+    [LT_COMB] = COMBO(lt, KC_RPRN),
+
+
+    [EXCL_COMB] = COMBO(excl, KC_RPRN),
+    [AT_COMB] = COMBO(excl, KC_AT),
+    [HASH_COMB] = COMBO(hash, KC_HASH),
+    [DOL_COMB] = COMBO(dollar, KC_DLR),
+    [PERC_COMB] = COMBO(percent, KC_PERC),
+    [CARET_COMB] = COMBO(caret, KC_CIRC),
+    [AMPER_COMB] = COMBO(amper, KC_AMPR),
+    [ASTER_COMB] = COMBO(aster, KC_ASTR),
+
+
     [OSM_L1_COMB] = COMBO(osml1, OSL(1)),
     [CSPC_COMB] = COMBO(cspc, LCTL(KC_SPC)),
     [QUES_COMB] = COMBO(ques, KC_QUES),
@@ -140,8 +211,8 @@ combo_t key_combos[] = {
     [CLN_COMB] = COMBO(cln, KC_COLN),
     [SCLN_COMB] = COMBO(scln, KC_SCLN),
     [PIPE_COMB] = COMBO(pipe, KC_PIPE),
-    [ENTER_COMB] = COMBO(enter, KC_ENT),
     [MINUS_COMB] = COMBO(minus, KC_MINS),
+    [TILDE_COMB] = COMBO(tilde, KC_MINS),
     [GRVSPC_COMB] = COMBO_ACTION(grave),
     [TILDE_DOT_COMB] = COMBO_ACTION(tilde_dot),
     [TILDE_SPC_COMB] = COMBO_ACTION(tilde_spc),
@@ -152,7 +223,7 @@ combo_t key_combos[] = {
 #include "sm_td.h"
 #ifdef LAYOUT_split_3x5_3_ex2
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT_split_3x5_3_ex2(
+  [_BASE] = LAYOUT_split_3x5_3_ex2(
   //,--------------------------------------------------------------.  ,--------------------------------------------------------------.
       KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,  KC_VOLU,    KC_MUTE,   KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+---:w-----+--------+--------+--------|
@@ -160,25 +231,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    //|--------+--------+--------+--------+--------+--------+--------'  `--------+--------+--------+--------+--------+--------+--------|
       KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,
   //|--------+--------+--------+--------+--------+--------+--------.  ,--------+--------+--------+--------+--------+--------+--------|
-                         CKC_GESC, CLT_1SPC, CLT_3TAB,                CLT_2RET, CLT_1BSPC, TD(TD_CAPSW)
-                                      //`--------------------------'  `--------------------------'
+                         CKC_GESC, CLT_1SPC, CLT_3TAB,                CLT_2RET, CLT_1BSPC, OSM(MOD_LSFT)
 
   ),
 
-  [1] = LAYOUT_split_3x5_3_ex2(
+  [_NAV] = LAYOUT_split_3x5_3_ex2(
   //,------------------------------------------------------.  ,--------------------------------------------------------------.
        KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   S(KC_G),      S(KC_G),    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
   //|--------+--------+--------+--------+--------+--------+  |--------+--------+--------+--------+--------+--------+--------|
-      KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, G(KC_GRV), KC_VOLD, KC_MPLY, KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, CW_TOGG,
+      KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, S(KC_G), KC_VOLD, KC_MPLY, KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, CW_TOGG,
   //|--------+--------+--------+--------+--------+--------+  `--------+--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, OSM(MOD_LSFT), C(KC_SPC), G(KC_TAB),                    KC_HOME, KC_PGDN, KC_PGUP, KC_END, S(KC_G),
+      XXXXXXX, XXXXXXX, OSM(MOD_LSFT), C(KC_SPC), G(KC_TAB),           KC_HOME, KC_PGDN, KC_PGUP, KC_END, S(KC_G),
   //|--------+--------+--------+--------+--------+--------+  ,--------+--------+--------+--------+--------+--------+--------|
                                  KC_LGUI, TD(TD_CAPSW),  KC_SPC,     KC_ENT, KC_BSPC, KC_DEL
                                       //`--------------------------'  `--------------------------'
   ),
 
 
-  [2] = LAYOUT_split_3x5_3_ex2(
+  [_SYM] = LAYOUT_split_3x5_3_ex2(
   //,--------------------------------------------------------------.  ,--------------------------------------------------------------.
       KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC, KC_LCTL, KC_RCTL, KC_CIRC, KC_AMPR,   KC_ASTR, KC_LPRN, KC_RPRN,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -190,7 +260,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       //`--------------------------'  `--------------------------'
   ),
 
-    [3] = LAYOUT_split_3x5_3_ex2(
+    [_MOU] = LAYOUT_split_3x5_3_ex2(
   //,- --------------------------------------------------------------------------.  ,--------------------------------------------------------------.
       G(KC_TAB),    G(KC_LCBR),G(KC_RCBR),   KC_BSPC,      KC_DEL,      G(S(KC_4)),  XXXXXXX,   G(KC_ENT), S(KC_ENT), MS_UP, XXXXXXX,  XXXXXXX,
   //|--------+-------------+-------------+----------+-----------+--------+-------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -214,6 +284,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
   [3] = { ENCODER_CCW_CW(RGB_MOD, RGB_RMOD), ENCODER_CCW_CW(RGB_HUI, RGB_HUD), ENCODER_CCW_CW(RGB_VAI, RGB_VAD), ENCODER_CCW_CW(RGB_SAI, RGB_SAD), },
 };
 #endif
+
 
 
 void on_smtd_action(uint16_t keycode, smtd_action action, uint8_t tap_count) {
@@ -247,10 +318,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
-  if (!process_smtd(keycode, record)) {
-    return false;
-  }
-  switch (keycode){
+    if (!process_smtd(keycode, record)) {
+        return false;
+    }
+    switch (keycode){
         case KC_LGUI_TAB: // super alt tab macro
             if (record->event.pressed) {
                 if (!is_alt_tab_active) {
@@ -262,9 +333,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
                 unregister_code(KC_TAB);
             }
             break;
-        return false;
-     }
-  return true;
+            return false;
+    }
+    return true;
 }
 //
 // void matrix_scan_user(void) { // The very important timer.
@@ -273,79 +344,116 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 //       unregister_code(KC_LGUI);
 //       is_alt_tab_active = false;
 //     }
-//   }
-// }
+//   } ()
+// }  {  }
+//
+//[]
+//
+//
+bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
+    /* Disable combo `SOME_COMBO` on layer `_LAYER_A` */
+    switch (combo_index) {
+        case LCBRC_COMB:
+            if (layer_state_is(_BASE)) {
+                return false;
+            }
+        break;
+        case RCBRC_COMB:
+            if (layer_state_is(_BASE)) {
+                return false;
+            }
+        break;
+        case LBRC_COMB:
+            if (layer_state_is(_NAV)) {
+                return false;
+            }
+        break;
+        case RBRC_COMB:
+            if (layer_state_is(_NAV)) {
+                return false;
+            }
+        break;
+        case HT_COMB:
+            if (layer_state_is(_BASE)) {
+                return false;
+            }
+        break;
+        case LT_COMB:
+            if (layer_state_is(_BASE)) {
+                return false;
+            }
+        break;
+        case LPRN_COMB:
+            if (layer_state_is(_NAV)) {
+                return false;
+            }
+        break;
+        case RPRN_COMB:
+            if (layer_state_is(_NAV)) {
+                return false;
+            }
+        break;
+
+    }
+
+    return true;
+}
+
+bool process_combo_key_repress(uint16_t combo_index, combo_t *combo, uint8_t key_index, uint16_t keycode) {
+    switch (combo_index) {
+        case CMB_ALTTAB:
+            switch (keycode) {
+                case KC_F:
+                    tap_code16(S(KC_TAB));
+                    return true;
+                case KC_G:
+                    tap_code(KC_TAB);
+                    return true;
+            }
+    }
+    return false;
+}
+
 
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
   switch(combo_index) {
-    case LBRC_COMB:
-      if (pressed) {
-        uint8_t layer = get_highest_layer(layer_state);
-        if (layer == 0) {
-          tap_code16(KC_LBRC);  // [ on base layer
-        } else {
-          tap_code16(KC_LCBR);  // { on layer 1
-        }
-      }
-      break;
-    case RBRC_COMB:
-      if (pressed) {
-        uint8_t layer = get_highest_layer(layer_state);
-        if (layer == 0) {
-          tap_code16(KC_RBRC);  // ] on base layer
-        } else {
-          tap_code16(KC_RCBR);  // } on base layer
-        }
-      }
-      break;
-    case LPRN_COMB:
-      if (pressed) {
-        uint8_t layer = get_highest_layer(layer_state);
-        if (layer == 0) {
-          tap_code16(KC_LPRN);  // { on layer 1
-        } else {
-          tap_code16(KC_LT);    // > on other layers
-        }
-      }
-      break;
-    case RPRN_COMB:
-      if (pressed) {
-        uint8_t layer = get_highest_layer(layer_state);
-        if (layer == 0) {
-          tap_code16(KC_RPRN);  // } on layer 1
-        } else {
-          tap_code16(KC_GT);    // > on other layers
-        }
-      }
-      break;
+        case CMB_ALTTAB:
+            if (pressed) {
+                register_mods(MOD_LALT);
+                tap_code(KC_TAB);
+            } else {
+                unregister_mods(MOD_LALT);
+            }
+            break;
 
-    case TILDE_SPC_COMB:
-      if (pressed) {
-        tap_code16(KC_TILD);
-        tap_code16(KC_SPC);
-      }
-      break;
-    case TILDE_DOT_COMB:
-      if (pressed) {
-        tap_code16(KC_TILD);
-        tap_code16(KC_SPC);
-        tap_code16(KC_SLSH);
-      }
-      break;
-    case DQUT_COMB:
+        case TILDE_SPC_COMB:
+            if (pressed) {
+                tap_code16(KC_TILD);
+                tap_code16(KC_SPC);
+            }
+            break;
 
-      if (pressed) {
-        tap_code16(KC_DQT);
-        tap_code16(KC_SPC);
-      }
-      break;
-    case GRVSPC_COMB:
-      if (pressed) {
-        tap_code16(KC_GRV);
-        tap_code16(KC_SPC);
-      }
-      break;
-  }
+        case TILDE_DOT_COMB:
+            if (pressed) {
+                tap_code16(KC_TILD);
+                tap_code16(KC_SPC);
+                tap_code16(KC_SLSH);
+            }
+            break;
+        case DQUT_COMB:
+
+            if (pressed) {
+                tap_code16(KC_DQT);
+                tap_code16(KC_SPC);
+            }
+            break;
+        case GRVSPC_COMB:
+            if (pressed) {
+                tap_code16(KC_GRV);
+                tap_code16(KC_SPC);
+            }
+            break;
+    }
 }
 

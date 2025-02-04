@@ -17,21 +17,20 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 #pragma once
-
-#define COMBO_COUNT 20
-#define COMBO_TERM 35
-
-//#define USE_MATRIX_I2C
+#define COMBO_ONLY_FROM_LAYER 0
+#define COMBO_COUNT 30
+#define COMBO_TERM 25
+#define DOUBLE_TAP_S
 #define DYNAMIC_KEYMAP_LAYER_COUNT 6
+#define COMBO_SHOULD_TRIGGER
 #define MOUSEKEY_WHEEL_INTERVAL 40
 #define MOUSEKEY_MOVE_DELTA 4
 
 #define ONESHOT_TAP_TOGGLE 5  /* Tapping this number of times holds the key until tapped once again. */
 #define ONESHOT_TIMEOUT 800  /* Time (in ms) before the one shot key is released */
 
-#define SMTD_GLOBAL_TAP_TERM 200
+#define SMTD_GLOBAL_TAP_TERM 220
 #define SMTD_GLOBAL_FOLLOWING_TAP_TERM 200
 #define SMTD_GLOBAL_SEQUENCE_TERM 100
 #define SMTD_GLOBAL_RELEASE_TERM 50
