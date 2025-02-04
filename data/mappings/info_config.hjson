@@ -146,7 +146,7 @@
     "OLED_CS_PIN": {"info_key": "oled.spi.cs_pin"},
     "OLED_RST_PIN": {"info_key": "oled.spi.rst_pin"},
     "OLED_SPI_MODE": {"info_key": "oled.spi.mode", "value_type": "int"},
-    "OLED_SPI_DIVISOR": {"info_key": "oled.spi.divisor", "value_type": "int"}
+    "OLED_SPI_DIVISOR": {"info_key": "oled.spi.divisor", "value_type": "int"},
 
     // One Shot
     "ONESHOT_TIMEOUT": {"info_key": "oneshot.timeout", "value_type": "int"},
