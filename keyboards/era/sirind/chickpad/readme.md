@@ -3,7 +3,7 @@
 ![Chickpad](https://i.imgur.com/RAH7dyl.jpeg)
 
 * Keyboard Maintainer: [ERA](https://github.com/eerraa)
-* Hardware supported: Syryan
+* Hardware supported: Chickpad PCB w/ RP2040
 * Hardware availability: [Syryan](https://srind.mysoho.com/)
 
 Make example for this keyboard (after setting up your build environment):
