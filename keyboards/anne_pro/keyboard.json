@@ -1,0 +1,10 @@
+{
+    "manufacturer": "Obins",
+    "keyboard_name": "Anne Pro",
+    "bootloader": "stm32-dfu",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x5710",
+        "vid": "0x0483"
+    }
+}
