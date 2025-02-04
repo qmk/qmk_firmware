@@ -150,7 +150,7 @@ const uint16_t PROGMEM ht[] = {KC_COMM, KC_DOT, COMBO_END};
 const uint16_t PROGMEM excl[] = {CKC_A, KC_Q, COMBO_END};
 const uint16_t PROGMEM at[] = {CKC_S, KC_W, COMBO_END};
 const uint16_t PROGMEM hash[] = {CKC_D, KC_E, COMBO_END};
-const uint16_t PROGMEM dollar[] = {CKC_D, KC_E, COMBO_END};
+const uint16_t PROGMEM dollar[] = {CKC_F, KC_R, COMBO_END};
 const uint16_t PROGMEM percent[] = {KC_G, KC_T, COMBO_END};
 const uint16_t PROGMEM caret[] = {KC_H, KC_Y, COMBO_END};
 const uint16_t PROGMEM amper[] = {CKC_J, KC_U, COMBO_END};
@@ -170,7 +170,7 @@ const uint16_t PROGMEM scln[] = {KC_Z, KC_X, COMBO_END};
 const uint16_t PROGMEM tilde[] = {CKC_L, KC_O, COMBO_END};  // You can change these keys to your preference
 const uint16_t PROGMEM tilde_spc[] = {KC_I, KC_O, COMBO_END};  // You can change these keys to your preference
 const uint16_t PROGMEM tilde_dot[] = {CKC_L, KC_QUOT, COMBO_END};  // You can change these keys to your preference
-const uint16_t PROGMEM pipe[] = {KC_I, CKC_K, COMBO_END};  // You can change these keys to your preference
+const uint16_t PROGMEM pipe[] = {KC_H, KC_N, COMBO_END};  // You can change these keys to your preference
 const uint16_t PROGMEM minus[] = {CKC_J, KC_M, COMBO_END};  // You can change these keys to your preference
 const uint16_t PROGMEM grave[] = {KC_E, CKC_F, COMBO_END};  // You can change these keys to your preference
 
@@ -190,12 +190,11 @@ combo_t key_combos[] = {
     [LPRN_COMB] = COMBO(lpar, KC_LPRN),
     [RPRN_COMB] = COMBO(rpar, KC_RPRN),
 
-    [HT_COMB] = COMBO(ht, KC_LPRN),
-    [LT_COMB] = COMBO(lt, KC_RPRN),
+    [HT_COMB] = COMBO(ht, KC_GT),
+    [LT_COMB] = COMBO(lt, KC_LT),
 
-
-    [EXCL_COMB] = COMBO(excl, KC_RPRN),
-    [AT_COMB] = COMBO(excl, KC_AT),
+    [EXCL_COMB] = COMBO(excl, KC_EXLM),
+    [AT_COMB] = COMBO(at, KC_AT),
     [HASH_COMB] = COMBO(hash, KC_HASH),
     [DOL_COMB] = COMBO(dollar, KC_DLR),
     [PERC_COMB] = COMBO(percent, KC_PERC),
@@ -212,7 +211,7 @@ combo_t key_combos[] = {
     [SCLN_COMB] = COMBO(scln, KC_SCLN),
     [PIPE_COMB] = COMBO(pipe, KC_PIPE),
     [MINUS_COMB] = COMBO(minus, KC_MINS),
-    [TILDE_COMB] = COMBO(tilde, KC_MINS),
+    [TILDE_COMB] = COMBO(tilde, KC_TILD),
     [GRVSPC_COMB] = COMBO_ACTION(grave),
     [TILDE_DOT_COMB] = COMBO_ACTION(tilde_dot),
     [TILDE_SPC_COMB] = COMBO_ACTION(tilde_spc),
