@@ -5,7 +5,7 @@
 A 60% keyboard PCB. Supports multiple layout such as split backspace, split shift, iso.
 
 * Keyboard Maintainer: [Trnthsn](https://github.com/trnthsn)
-* Hardware Supported: STM32, S6xtyfs, Neo60
+* Hardware Supported: STM32, S6xtyfs
 * Hardware Availability: [ThanhSon.Mech](https://www.facebook.com/ThanhSon.mech)
 
 Make example for this keyboard (after setting up your build environment):
