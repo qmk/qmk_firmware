@@ -1,5 +1,5 @@
 /*
-Copyright 2024 ThanhSon.Mech
+Copyright 2025 Tyson.Keebs
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
