@@ -1,8 +1,10 @@
-# Keychron C1 Pro
+# Keychron C1 Pro V2
 
 ![Keychron C1 Pro](https://i.imgur.com/Svdm4lph.jpg)
 
 A customizable 80% TKL keyboard.
+
+v1 is based on STM32L432 and v2 is based on STM32F402.
 
 * Keyboard Maintainer: [Keychron](https://github.com/keychron)
 * Hardware Supported: Keychron C1 Pro
