@@ -55,7 +55,7 @@ static virtual_timer_t seconds_timer;
 static volatile uint32_t seconds_timer_counter = 0;
 
 /* Timer callback to update the seconds timer */
-static void update_seconds_timer(void *p) {
+static void update_seconds_timer(virtual_timer_t *vtp, void *p) {
     chSysLockFromISR();
     chVTSetI(&seconds_timer, TIME_MS2I(1000), update_seconds_timer, p);
     chSysUnlockFromISR();
