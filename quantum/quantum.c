@@ -355,6 +355,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
             process_record_modules(keycode, record) && // modules must run before kb
             process_record_kb(keycode, record) &&
+#if defined(VIA_ENABLE)
+            process_record_via(keycode, record) &&
+#endif
 #if defined(SECURE_ENABLE)
             process_secure(keycode, record) &&
 #endif
