@@ -92,7 +92,11 @@ enum combos {
     PIPE_COMB,
     ENTER_COMB,
     TILDE_COMB,
+
     MINUS_COMB,
+    PLUS_COMB,
+    EQUAL_COMB,
+
     TILDE_DOT_COMB,
     TILDE_SPC_COMB,
 
@@ -167,11 +171,15 @@ const uint16_t PROGMEM scln[] = {KC_Z, KC_X, COMBO_END};
 
 
 
-const uint16_t PROGMEM tilde[] = {CKC_L, KC_O, COMBO_END};  // You can change these keys to your preference
+const uint16_t PROGMEM tilde[] = {CKC_L, KC_O, COMBO_END};  // You can change these keys to your preferenc
 const uint16_t PROGMEM tilde_spc[] = {KC_I, KC_O, COMBO_END};  // You can change these keys to your preference
 const uint16_t PROGMEM tilde_dot[] = {CKC_L, KC_QUOT, COMBO_END};  // You can change these keys to your preference
 const uint16_t PROGMEM pipe[] = {KC_H, KC_N, COMBO_END};  // You can change these keys to your preference
+//
 const uint16_t PROGMEM minus[] = {CKC_J, KC_M, COMBO_END};  // You can change these keys to your preference
+const uint16_t PROGMEM plus[] = {CKC_F, KC_V, COMBO_END};  // You can change these keys to your preference
+const uint16_t PROGMEM equal[] = {KC_X, KC_V, COMBO_END};  // You can change these keys to your preference
+//
 const uint16_t PROGMEM grave[] = {KC_E, CKC_F, COMBO_END};  // You can change these keys to your preference
 
 
@@ -210,14 +218,17 @@ combo_t key_combos[] = {
     [CLN_COMB] = COMBO(cln, KC_COLN),
     [SCLN_COMB] = COMBO(scln, KC_SCLN),
     [PIPE_COMB] = COMBO(pipe, KC_PIPE),
+
     [MINUS_COMB] = COMBO(minus, KC_MINS),
+    [PLUS_COMB] = COMBO(plus, KC_MINS),
+    [EQUAL_COMB] = COMBO(equal, KC_MINS),
+
     [TILDE_COMB] = COMBO(tilde, KC_TILD),
     [GRVSPC_COMB] = COMBO_ACTION(grave),
     [TILDE_DOT_COMB] = COMBO_ACTION(tilde_dot),
     [TILDE_SPC_COMB] = COMBO_ACTION(tilde_spc),
     [DQUT_COMB] = COMBO_ACTION(dquote),
 };
-
 
 #include "sm_td.h"
 #ifdef LAYOUT_split_3x5_3_ex2
@@ -263,9 +274,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,- --------------------------------------------------------------------------.  ,--------------------------------------------------------------.
       G(KC_TAB),    G(KC_LCBR),G(KC_RCBR),   KC_BSPC,      KC_DEL,      G(S(KC_4)),  XXXXXXX,   G(KC_ENT), S(KC_ENT), MS_UP, XXXXXXX,  XXXXXXX,
   //|--------+-------------+-------------+----------+-----------+--------+-------|  |--------+--------+--------+--------+--------+--------+--------|
-      G(KC_GRV),   G(KC_Z),   TD(TD_CP),      G(KC_V),    G(S(KC_Z)), C(G(S(KC_3))), XXXXXXX, MS_WHLL,   MS_LEFT, MS_DOWN, MS_RGHT, MS_WHLR,
+      G(KC_GRV),   G(KC_Z),   TD(TD_CP),      G(KC_V),    G(S(KC_Z)), C(G(S(KC_3))), G(S(KC_5)), MS_WHLL,   MS_LEFT, MS_DOWN, MS_RGHT, MS_WHLR,
         //|--------+-------------+------------+------------+--------+--------'`--------+--------+--------+--------+--------+--------+--------|
-      KC_NO,     G(KC_ENT), S(KC_ENT),    KC_ENT,       G(S(KC_5)),                S(KC_ENT),    MS_WHLD, MS_WHLU, KC_ENT, XXXXXXX,
+      G(KC_X),     G(KC_ENT), S(KC_ENT),    KC_ENT,        G(S(KC_V)),                 S(KC_ENT),    MS_WHLD, MS_WHLU, KC_ENT, XXXXXXX,
   //|--------+-------------+--------------+------------+------------+------+--------.  ,--------+--------+--------+------,--+--------+--------+--------|
                                   KC_LGUI, KC_SPC,  KC_SPC,     MS_BTN1, MS_BTN2, MS_BTN3
 

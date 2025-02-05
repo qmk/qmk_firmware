@@ -35,7 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SMTD_GLOBAL_SEQUENCE_TERM 100
 #define SMTD_GLOBAL_RELEASE_TERM 50
 
-#define TAPPING_TERM 150
+#define TAPPING_TERM 200
 //#define QUICK_TAP_TERM 0
 //#define TAPPING_TERM 100
 #define MAX_DEFERRED_EXECUTORS 10
