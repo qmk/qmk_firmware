@@ -99,6 +99,13 @@ def _validate_build_target(keyboard, info_data):
             if info_file != keyboard_json_path:
                 _log_error(info_data, f'Invalid keyboard.json location detected: {info_file}.')
 
+    # No keyboard.json next to info.json
+    for conf_file in config_files:
+        if conf_file.name == 'keyboard.json':
+            info_file = conf_file.parent / 'info.json'
+            if info_file.exists():
+                _log_error(info_data, f'Invalid info.json location detected: {info_file}.')
+
     # Moving forward keyboard.json should be used as a build target
     if keyboard_json_count == 0:
         _log_warning(info_data, 'Build marker "keyboard.json" not found.')
