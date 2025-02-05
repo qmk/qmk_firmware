@@ -5,5 +5,3 @@
 
 #define OLED_FONT_H "keyboards/mechwild/mokulua/glcdfont.c"
 
-#define MASTER_LEFT
-//#define MASTER_RIGHT

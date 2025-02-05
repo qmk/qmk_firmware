@@ -119,13 +119,14 @@ This driver performs writes to the embedded flash storage embedded in the MCU. I
 
 Configurable options in your keyboard's `config.h`:
 
-`config.h` override                      | Default     | Description
------------------------------------------|-------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-`#define WEAR_LEVELING_EFL_FIRST_SECTOR` | _unset_            | The first sector on the MCU to use. By default this is not defined and calculated at runtime based on the MCU. However, different flash sizes on MCUs may require custom configuration.
-`#define WEAR_LEVELING_EFL_FLASH_SIZE`   | _unset_            | Allows overriding the flash size available for use for wear-leveling. Under normal circumstances this is automatically calculated and should not need to be overridden. Specifying a size larger than the amount actually available in flash will usually prevent the MCU from booting.
-`#define WEAR_LEVELING_LOGICAL_SIZE`     | `(backing_size/2)` | Number of bytes "exposed" to the rest of QMK and denotes the size of the usable EEPROM.
-`#define WEAR_LEVELING_BACKING_SIZE`     | `2048`             | Number of bytes used by the wear-leveling algorithm for its underlying storage, and needs to be a multiple of the logical size.
-`#define BACKING_STORE_WRITE_SIZE`       | _automatic_        | The byte width of the underlying write used on the MCU, and is usually automatically determined from the selected MCU family. If an error occurs in the auto-detection, you'll need to consult the MCU's datasheet and determine this value, specifying it directly.
+`config.h` override                                | Default            | Description
+---------------------------------------------------|--------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+`#define WEAR_LEVELING_EFL_FIRST_SECTOR`           | _unset_            | The first sector on the MCU to use. By default this is not defined and calculated at runtime based on the MCU. However, different flash sizes on MCUs may require custom configuration.
+`#define WEAR_LEVELING_EFL_FLASH_SIZE`             | _unset_            | Allows overriding the flash size available for use for wear-leveling. Under normal circumstances this is automatically calculated and should not need to be overridden. Specifying a size larger than the amount actually available in flash will usually prevent the MCU from booting.
+`#define WEAR_LEVELING_EFL_OMIT_LAST_SECTOR_COUNT` | `0`                | Number of sectors to omit at the end of the flash. These sectors will not be allocated to the driver and the usable flash block will be offset, but keeping the set flash size. Useful on devices with bootloaders requiring a check flag at the end of flash to be present in order to confirm a valid, bootable firmware.
+`#define WEAR_LEVELING_LOGICAL_SIZE`               | `(backing_size/2)` | Number of bytes "exposed" to the rest of QMK and denotes the size of the usable EEPROM.
+`#define WEAR_LEVELING_BACKING_SIZE`               | `2048`             | Number of bytes used by the wear-leveling algorithm for its underlying storage, and needs to be a multiple of the logical size.
+`#define BACKING_STORE_WRITE_SIZE`                 | _automatic_        | The byte width of the underlying write used on the MCU, and is usually automatically determined from the selected MCU family. If an error occurs in the auto-detection, you'll need to consult the MCU's datasheet and determine this value, specifying it directly.
 
 ::: warning
 If your MCU does not boot after swapping to the EFL wear-leveling driver, it's likely that the flash size is incorrectly detected, usually as an MCU with larger flash and may require overriding.

@@ -58,6 +58,7 @@ subcommands = [
     'qmk.cli.generate.keyboard_h',
     'qmk.cli.generate.keycodes',
     'qmk.cli.generate.keycodes_tests',
+    'qmk.cli.generate.keymap_h',
     'qmk.cli.generate.make_dependencies',
     'qmk.cli.generate.rgb_breathe_table',
     'qmk.cli.generate.rules_mk',
@@ -206,8 +207,8 @@ def _eprint(errmsg):
 # Ubuntu 24.04: 3.12
 # void: 3.12
 
-if sys.version_info[0] != 3 or sys.version_info[1] < 7:
-    _eprint('Error: Your Python is too old! Please upgrade to Python 3.7 or later.')
+if sys.version_info[0] != 3 or sys.version_info[1] < 9:
+    _eprint('Error: Your Python is too old! Please upgrade to Python 3.9 or later.')
     exit(127)
 
 milc_version = __VERSION__.split('.')

@@ -21,8 +21,10 @@ $(TEST_OUTPUT)_SRC := \
 	$(SRC) \
 	$(QUANTUM_PATH)/keymap_introspection.c \
 	tests/test_common/matrix.c \
+	tests/test_common/pointing_device_driver.c \
 	tests/test_common/test_driver.cpp \
 	tests/test_common/keyboard_report_util.cpp \
+	tests/test_common/mouse_report_util.cpp \
 	tests/test_common/keycode_util.cpp \
 	tests/test_common/keycode_table.cpp \
 	tests/test_common/test_fixture.cpp \

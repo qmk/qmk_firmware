@@ -55,7 +55,7 @@ def parse_configurator_json(configurator_file):
         cli.log.error(f'Invalid JSON keymap: {configurator_file} : {e.message}')
         maybe_exit(1)
 
-    keyboard = user_keymap['keyboard']
+    keyboard = user_keymap.get('keyboard', None)
     aliases = keyboard_alias_definitions()
 
     while keyboard in aliases:
@@ -113,7 +113,9 @@ def dump_lines(output_file, lines, quiet=True):
                     cli.log.info(f'No changes to {output_file.name}.')
                 return
             output_file.replace(output_file.parent / (output_file.name + '.bak'))
-        output_file.write_text(generated, encoding='utf-8')
+        with open(output_file, 'w', encoding='utf-8', newline='\n') as f:
+            f.write(generated)
+        # output_file.write_text(generated, encoding='utf-8', newline='\n') # `newline` needs Python 3.10
 
         if not quiet:
             cli.log.info(f'Wrote {output_file.name} to {output_file}.')
