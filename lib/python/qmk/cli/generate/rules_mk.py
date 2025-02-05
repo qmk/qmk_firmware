@@ -64,10 +64,13 @@ def generate_modules_rules(keyboard, filename):
         lines.append('OPT_DEFS += -DCOMMUNITY_MODULES_ENABLED=TRUE')
         for module in modules:
             module_path = find_module_path(module)
+            if not module_path:
+                raise FileNotFoundError(f"Module '{module}' not found.")
             lines.append('')
-            lines.append(f'COMMUNITY_MODULES += {module}')
-            lines.append(f'OPT_DEFS += -DCOMMUNITY_MODULE_{module.upper()}=TRUE')
+            lines.append(f'COMMUNITY_MODULES += {module_path.name}')  # use module_path here instead of module as it may be a subdirectory
+            lines.append(f'OPT_DEFS += -DCOMMUNITY_MODULE_{module_path.name.upper()}=TRUE')
             lines.append(f'VPATH += {module_path}')
+            lines.append(f'SRC += $(wildcard {module_path}/{module_path.name}.c)')
             lines.append(f'-include {module_path}/rules.mk')
 
         module_jsons = load_module_jsons(modules)

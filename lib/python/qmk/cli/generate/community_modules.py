@@ -1,5 +1,6 @@
 import contextlib
 from argcomplete.completers import FilesCompleter
+from pathlib import Path
 
 from milc import cli
 
@@ -35,14 +36,18 @@ def _render_keycodes(module_jsons):
     lines.append('enum {')
     first = True
     for module_json in module_jsons:
+        module_name = Path(module_json['module']).name
+        lines.append(f'    // From module: {module_name}')
         keycodes = module_json.get('keycodes', [])
-        for keycode in keycodes:
-            key = keycode.get('key', None)
-            if first:
-                lines.append(f'    {key} = QK_COMMUNITY_MODULE,')
-                first = False
-            else:
-                lines.append(f'    {key},')
+        if len(keycodes) > 0:
+            for keycode in keycodes:
+                key = keycode.get('key', None)
+                if first:
+                    lines.append(f'    {key} = QK_COMMUNITY_MODULE,')
+                    first = False
+                else:
+                    lines.append(f'    {key},')
+            lines.append('')
     lines.append('    LAST_COMMUNITY_MODULE_KEY')
     lines.append('};')
     lines.append('_Static_assert((int)LAST_COMMUNITY_MODULE_KEY <= (int)(QK_COMMUNITY_MODULE_MAX+1), "Too many community module keycodes");')
@@ -61,11 +66,12 @@ def _render_api_declarations(api, module, user_kb=True):
 
 
 def _render_api_implementations(api, module):
+    module_name = Path(module).name
     lines = []
     lines.append('')
     with _render_api_guard(lines, api):
         # _user
-        lines.append(f'__attribute__((weak)) {api.ret_type} {api.name}_{module}_user({api.args}) {{')
+        lines.append(f'__attribute__((weak)) {api.ret_type} {api.name}_{module_name}_user({api.args}) {{')
         if api.ret_type == 'bool':
             lines.append('    return true;')
         else:
@@ -74,22 +80,22 @@ def _render_api_implementations(api, module):
         lines.append('')
 
         # _kb
-        lines.append(f'__attribute__((weak)) {api.ret_type} {api.name}_{module}_kb({api.args}) {{')
+        lines.append(f'__attribute__((weak)) {api.ret_type} {api.name}_{module_name}_kb({api.args}) {{')
         if api.ret_type == 'bool':
-            lines.append(f'    if(!{api.name}_{module}_user({api.call_params})) {{ return false; }}')
+            lines.append(f'    if(!{api.name}_{module_name}_user({api.call_params})) {{ return false; }}')
             lines.append('    return true;')
         else:
-            lines.append(f'    {api.name}_{module}_user({api.call_params});')
+            lines.append(f'    {api.name}_{module_name}_user({api.call_params});')
         lines.append('}')
         lines.append('')
 
         # module (non-suffixed)
-        lines.append(f'__attribute__((weak)) {api.ret_type} {api.name}_{module}({api.args}) {{')
+        lines.append(f'__attribute__((weak)) {api.ret_type} {api.name}_{module_name}({api.args}) {{')
         if api.ret_type == 'bool':
-            lines.append(f'    if(!{api.name}_{module}_kb({api.call_params})) {{ return false; }}')
+            lines.append(f'    if(!{api.name}_{module_name}_kb({api.call_params})) {{ return false; }}')
             lines.append('    return true;')
         else:
-            lines.append(f'    {api.name}_{module}_kb({api.call_params});')
+            lines.append(f'    {api.name}_{module_name}_kb({api.call_params});')
         lines.append('}')
     return lines
 
@@ -102,10 +108,11 @@ def _render_core_implementation(api, modules):
         if api.ret_type == 'bool':
             lines.append('    return true')
         for module in modules:
+            module_name = Path(module).name
             if api.ret_type == 'bool':
-                lines.append(f'        && {api.name}_{module}({api.call_params})')
+                lines.append(f'        && {api.name}_{module_name}({api.call_params})')
             else:
-                lines.append(f'    {api.name}_{module}({api.call_params});')
+                lines.append(f'    {api.name}_{module_name}({api.call_params});')
         if api.ret_type == 'bool':
             lines.append('    ;')
         lines.append('}')
@@ -150,7 +157,7 @@ def generate_community_modules_h(cli):
             lines.append('')
             lines.append(f'// From module: {module}')
             for api in MODULE_API_LIST:
-                lines.extend(_render_api_declarations(api, module))
+                lines.extend(_render_api_declarations(api, Path(module).name))
         lines.append('')
 
         lines.append('// Core wrapper')
@@ -183,7 +190,7 @@ def generate_community_modules_c(cli):
 
         for module in modules:
             for api in MODULE_API_LIST:
-                lines.extend(_render_api_implementations(api, module))
+                lines.extend(_render_api_implementations(api, Path(module).name))
 
         for api in MODULE_API_LIST:
             lines.extend(_render_core_implementation(api, modules))

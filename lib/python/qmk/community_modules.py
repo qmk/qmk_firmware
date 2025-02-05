@@ -1,11 +1,13 @@
 import os
 
+from pathlib import Path
+
 from milc.attrdict import AttrDict
 
 from qmk.json_schema import json_load, validate
 from qmk.util import truthy
 from qmk.constants import QMK_FIRMWARE, QMK_USERSPACE, HAS_QMK_USERSPACE
-from qmk.path import is_under_qmk_firmware, is_under_qmk_userspace
+from qmk.path import under_qmk_firmware, under_qmk_userspace
 
 COMMUNITY_MODULE_JSON_FILENAME = 'qmk_module.json'
 
@@ -52,11 +54,17 @@ def find_module_path(module):
     """Find a module by name.
     """
     for module_path in find_available_module_paths():
-        try:
-            p = module_path.resolve(strict=True)
-        except OSError:
+        # Ensure the module directory is under QMK Firmware or QMK Userspace
+        relative_path = under_qmk_firmware(module_path)
+        if not relative_path:
+            relative_path = under_qmk_userspace(module_path)
+        if not relative_path:
             continue
-        if (is_under_qmk_firmware(p) or is_under_qmk_userspace(p)) and str(p.as_posix())[-len(module):] == module:  # allow for a `modules/` relative path to be specified, such as `qmk/hello_world`
+
+        lhs = str(relative_path.as_posix())[len('modules/'):]
+        rhs = str(Path(module).as_posix())
+
+        if relative_path and lhs == rhs:
             return module_path
     return None
 
@@ -72,6 +80,9 @@ def load_module_json(module):
 
     if not truthy(os.environ.get('SKIP_SCHEMA_VALIDATION'), False):
         validate(module_json, 'qmk.community_module.v1')
+
+    module_json['module'] = module
+    module_json['module_path'] = module_path
 
     return module_json
 
