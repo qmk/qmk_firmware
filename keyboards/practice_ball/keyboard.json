@@ -10,21 +10,26 @@
         "console": false,
         "encoder": true,
         "encoder_map": true,
-        "extrakey": true,
-        "mousekey": true,
+        "extrakey": false,
         "nkro": true,
         "rgblight": true,
         "via": true
-    },
-    "matrix_pins": {
-        "cols": ["D7", "E6", "B4", "B5"],
-        "rows": ["A1", "A0"]
     },
     "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0019",
         "vid": "0x3265"
+    },
+    "matrix_pins": {
+        "cols": ["D7", "E6", "B4", "B5"],
+        "rows": ["F6", "F7"]
+    },
+    "encoder": {
+        "enabled": true,
+        "rotary": [
+            {"pin_a": "F5", "pin_b": "F4"}
+        ]
     },
     "rgblight": {
         "animations": {
@@ -38,7 +43,7 @@
             "rgb_test": true,
             "alternating": true
         },
-        "led_count": 4
+        "led_count": 5
     },
     "ws2812": {
         "driver": "bitbang",
@@ -47,6 +52,9 @@
     "layouts": {
         "LAYOUT": {
             "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
                 {"matrix": [0, 3], "x": 3, "y": 0},
                 {"matrix": [1, 0], "x": 0, "y": 1},
                 {"matrix": [1, 1], "x": 1, "y": 1},
