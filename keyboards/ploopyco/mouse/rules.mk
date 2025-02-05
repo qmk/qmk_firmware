@@ -1,1 +1,3 @@
 POINTING_DEVICE_DRIVER = pmw3360
+
+DEFAULT_FOLDER = ploopyco/mouse/rev1_003

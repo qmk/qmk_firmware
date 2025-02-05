@@ -1,4 +1,0 @@
-{
-    "processor": "RP2040",
-    "bootloader": "rp2040"
-}
