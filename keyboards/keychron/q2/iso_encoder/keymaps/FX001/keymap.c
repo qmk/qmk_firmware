@@ -1,4 +1,4 @@
-// Test Git
+// Test Git 2
 #include QMK_KEYBOARD_H
 #include <keymap_german.h>
 #include <keymap_HomeRowMod.h>
