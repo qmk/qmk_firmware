@@ -2,7 +2,8 @@
     "manufacturer": "Yushakobo",
     "keyboard_name": "practice_ball",
     "maintainer": "Yushakobo",
-    "development_board": "promicro",
+    "bootloader": "caterina",
+    "processor": "atmega32u4",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": false,
@@ -10,7 +11,8 @@
         "console": false,
         "encoder": true,
         "encoder_map": true,
-        "extrakey": false,
+        "extrakey": true,
+        "mousekey": true,
         "nkro": true,
         "rgblight": true,
         "via": true
@@ -48,6 +50,9 @@
     "ws2812": {
         "driver": "bitbang",
         "pin": "D3"
+    },
+    "dynamic_keymap": {
+        "layer_count": 4
     },
     "layouts": {
         "LAYOUT": {

@@ -3,6 +3,9 @@
 
 #pragma once
 
+#define SPLIT_HAND_MATRIX_GRID B4, F6
+#define SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
+
 #define PMW33XX_CS_PIN B6 // SPI CS pin.
 
 /* Optional. */
