@@ -30,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    KC_N,    KC_M,    KC_COMM,  KC_DOT,   KC_SLSH,  MO(2),
                                             KC_ESC,  KC_UP,    KC_DOWN,  KC_LBRC,  KC_RBRC,
              KC_RSFT, KC_SPC, KC_ENT,
-             MS_BTN1, MS_BTN1, MS_BTN1, MS_BTN2, KC_LGUI
+             MS_BTN1, MS_BTN1, MS_BTN2, MS_BTN2, KC_LGUI
 
     ),
 
@@ -135,7 +135,6 @@ bool oled_task_user() {
     //rgblight_get_mode(led_state_reader(), false);
     led_t led_state = host_keyboard_led_state();
     // If you want to change the display of OLED, you need to change here
-    oled_write_ln(read_rgb_info(), false);
     oled_write_ln(read_layer_state(), false);
     oled_write_ln(read_keylog(), false);
     oled_write_ln(read_keylogs(), false);
@@ -148,7 +147,7 @@ bool oled_task_user() {
     //led_t led_state = host_keyboard_led_state();
     oled_write_P(led_state.num_lock ? PSTR("NUM") : PSTR("    "), false);
     oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
-
+    oled_write_ln(read_rgb_info(), false);
     //rgblight_get_mode(led_state_reader(), false);
 
     return false;
@@ -156,12 +155,14 @@ bool oled_task_user() {
 
 #endif // OLED_ENABLE
 
+
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
 #ifdef OLED_ENABLE
     set_keylog(keycode, record);
+    //set_timelog();
+    set_scrolling = !set_scrolling;
 #endif
-    // set_timelog();
-  }
   return true;
 }
