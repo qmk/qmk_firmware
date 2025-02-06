@@ -86,17 +86,39 @@ void eeprom_read_block(void *buf, const void *addr, size_t len) {
 }
 
 void eeprom_write_block(const void *buf, void *addr, size_t len) {
-    STM32_L0_L1_EEPROM_Unlock();
+    // use word-aligned write to overcome issues with writing null bytes
+    uint32_t start_addr = (uint32_t)addr;
+    if (start_addr >= (STM32_ONBOARD_EEPROM_SIZE)) {
+        return;
+    }
+    uint32_t max_len = (STM32_ONBOARD_EEPROM_SIZE)-start_addr;
+    if (len > max_len) {
+        len = max_len;
+    }
+    uint32_t end_addr = start_addr + len;
 
-    for (size_t offset = 0; offset < len; ++offset) {
-        // Drop out if we've hit the limit of the EEPROM
-        if ((((uint32_t)addr) + offset) >= STM32_ONBOARD_EEPROM_SIZE) {
-            break;
+    uint32_t aligned_start = start_addr & ~0x3;
+    uint32_t aligned_end   = (end_addr + 3) & ~0x3;
+
+    STM32_L0_L1_EEPROM_Unlock();
+    for (uint32_t word_addr = aligned_start; word_addr < aligned_end; word_addr += 4) {
+        uint32_t existing_word = *(__IO uint32_t *)EEPROM_PTR(word_addr);
+        uint32_t new_word      = existing_word;
+
+        // Update the relevant bytes in the word
+        for (int i = 0; i < 4; i++) {
+            uint32_t byte_addr = word_addr + i;
+            if (byte_addr >= start_addr && byte_addr < end_addr) {
+                uint8_t new_byte = BUFFER_BYTE(buf, byte_addr - start_addr);
+                new_word         = (new_word & ~(0xFFU << (i * 8))) | ((uint32_t)new_byte << (i * 8));
+            }
         }
 
-        STM32_L0_L1_EEPROM_WaitNotBusy();
-        EEPROM_BYTE(addr, offset) = BUFFER_BYTE(buf, offset);
+        // Only write if the word has changed
+        if (new_word != existing_word) {
+            STM32_L0_L1_EEPROM_WaitNotBusy();
+            *(__IO uint32_t *)EEPROM_PTR(word_addr) = new_word;
+        }
     }
-
     STM32_L0_L1_EEPROM_Lock();
 }
