@@ -994,22 +994,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 ## Settings
 
-| Define                           | Description                                                                                             |    Range   |     Units    |                  Default |
-| -------------------------------- | ------------------------------------------------------------------------------------------------------- | :--------: | :----------: | -----------------------: |
-| `POINTING_DEVICE_MODES_ENABLE`   | (Required) Enables pointing device pointing device modes feature                                        |     `NA`   |    `None`    |            _Not defined_ |
-| `POINTING_MODES_8WAY_MAP_ENABLE` | (Required) Changes expected number of keycodes per map to 8                                             |     `NA`   |    `None`    |            _Not defined_ |
-| `POINTING_MODES_THRESHOLD`       | (optional) Minimum threshold of input in order to determine a direction for mode maps                   |   `1-255`  | `(x\|y)/dot` |                      `0` |
-| `POINTING_MODES_DEFAULT_MODE`    | (optional) Default pointing device mode                                                                 |   `0-255`  |    `None`    |                `PM_NONE` |
-| `POINTING_MODES_TAP_DELAY`       | (optional) Delay between key presses in `pointing_tap_codes` in ms                                      |   `0-255`  |     `ms`     |         `TAP_CODE_DELAY` |
-| `POINTING_MODES_MAP_START`       | (optional) Starting mode id of `pointing_device_mode_maps` for adding modes without maps                |   `0-255`  |    `None`    |          `PM_SAFE_RANGE` |
-| `POINTING_MODES_DEFAULT_DIVISOR` | (optional) Default divisor for all modes that do not have a defined divisor                             |   `1-255`  |   `Varies`   |                     `32` |
-| `POINTING_MODES_DRAG_DIVISOR`    | (optional) Pointing device x/y movement per h/v axis tick in `PM_DRAG` mode                             |   `1-255`  | `(x\|y)/dot` |                      `4` |
-| `POINTING_MODES_PRECISION_MIN`   | (optional) Minimum precision setting (_will always at least have this value NOT RECOMMENDED TO CHANGE_) |   `1-255`  | `(x\|y)/dot` |                      `1` |
-| `POINTING_MODES_PRECISION_MAX`   | (optional) Maximum precision setting (_will never go above this value_)                                 |   `1-255`  | `(x\|y)/dot` |                      `4` |
-| `POINTING_MODES_PRECISION_STEP`  | (optional) Step size of precision adjustments used in `PM_CYCPRE` keycode                               |   `1-255`  | `(x\|y)/dot` |                      `2` |
-| `POINTING_MODES_HOLD_DECAY_RATE` | (optional) amount residuals are reduced per cycle for `PMO_HOLD` modes (effects held time)              |   `0-255`  | `(x\|y)/dot` |                      `2` |
+| Define                           | Description                                                                                             |        Range       |     Units    |                  Default |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------- | :----------------: | :----------: | -----------------------: |
+| `POINTING_DEVICE_MODES_ENABLE`   | (Required) Enables pointing device pointing device modes feature                                        |         `NA`       |    `None`    |            _Not defined_ |
+| `POINTING_MODES_8WAY_MAP_ENABLE` | (Required) Changes expected number of keycodes per map to 8                                             |         `NA`       |    `None`    |            _Not defined_ |
+| `POINTING_MODES_THRESHOLD`       | (optional) Minimum threshold of input in order to determine a direction for mode maps                   | `1->XY_REPORT_MAX` | `(x\|y)/dot` |                      `0` |
+| `POINTING_MODES_DEFAULT_MODE`    | (optional) Default pointing device mode                                                                 |       `0->255`     |    `None`    |                `PM_NONE` |
+| `POINTING_MODES_TAP_DELAY`       | (optional) Delay between key presses in `pointing_tap_codes` in ms                                      |       `0->255`     |     `ms`     |         `TAP_CODE_DELAY` |
+| `POINTING_MODES_MAP_START`       | (optional) Starting mode id of `pointing_device_mode_maps` for adding modes without maps                |       `0->255`     |    `None`    |          `PM_SAFE_RANGE` |
+| `POINTING_MODES_DEFAULT_DIVISOR` | (optional) Default divisor for all modes that do not have a defined divisor                             | `1->XY_REPORT_MAX` |   `Varies`   |                     `32` |
+| `POINTING_MODES_DRAG_DIVISOR`    | (optional) Pointing device x/y movement per h/v axis tick in `PM_DRAG` mode                             | `1->XY_REPORT_MAX` | `(x\|y)/dot` |                      `4` |
+| `POINTING_MODES_PRECISION_MIN`   | (optional) Minimum precision setting (_will always at least have this value NOT RECOMMENDED TO CHANGE_) | `1->XY_REPORT_MAX` | `(x\|y)/dot` |                      `1` |
+| `POINTING_MODES_PRECISION_MAX`   | (optional) Maximum precision setting (_will never go above this value_)                                 | `1->XY_REPORT_MAX` | `(x\|y)/dot` |                      `4` |
+| `POINTING_MODES_PRECISION_STEP`  | (optional) Step size of precision adjustments used in `PM_CYCPRE` keycode                               | `1->XY_REPORT_MAX` | `(x\|y)/dot` |                      `2` |
+| `POINTING_MODES_HOLD_DECAY_RATE` | (optional) amount residuals are reduced per cycle for `PMO_HOLD` modes (effects held time)              | `0->XY_REPORT_MAX` | `(x\|y)/dot` |                      `2` |
 
-!> `POINTING_MODES_HOLD_DECAY_RATE` can be set to `0` however this will mean that the last direction key or keys will be held until the direction is changed or mode_id changes so once a direction is set it will be going in that direction forever
+!> `POINTING_MODES_HOLD_DECAY_RATE` can be set to zero however this will mean last direction key or keys will be held until the direction is changed or mode_id changes
+
+!> `XY_REPORT_MAX` will depend on if `MOUSE_EXTENDED_REPORT` is defined; `127` if it is not defined and `32,767` if it is
 
 Speed and sensitivity of any mode will be impacted by the pointing device CPI setting so divisors may need to be adjusted to personal preference and CPI settings typically used (it is possible to have divisors change based on cpi setting if desired).
 
@@ -1027,12 +1029,12 @@ There are many functions available to control and modify pointing modes details 
 | `pointing_modes_get_mode()`                                            | Get active device's current mode id                                                                                        | `uint8_t`                    | _None_                       |
 | `pointing_modes_toggle_mode(mode_id)`                                  | Set active device's toggle mode to `mode_id` or `POINTING_MODES_DEFAULT_MODE` if `toggle_id == mode_id`                    | _None_                       | `uint8_t`                    |
 | `pointing_modes_get_toggled_mode()`                                    | Get active device's toggle mode id                                                                                         | _None_                       | `uint8_t`                    |
-| `pointing_modes_set_precision(precision)`                              | Set active device's precision value to `precision`                                                                         | _None_                       | `uint8_t`                    |
-| `pointing_modes_get_precision()`                                       | Get active device's precision value                                                                                        | `uint8_t`                    | _None_                       |
+| `pointing_modes_set_precision(precision)`                              | Set active device's precision value to `precision`                                                                         | _None_                       | `mouse_xy_report_t`          |
+| `pointing_modes_get_precision()`                                       | Get active device's precision value                                                                                        | `mouse_xy_report_t`          | _None_                       |
 | `pointing_modes_set_residuals(residuals)`                              | Set active device's residuals(_accumulated x, y_) to `residuals`                                                           | _None_                       | `pointing_modes_residuals_t` |
 | `pointing_modes_get_residuals()`                                       | Get active device's residuals                                                                                              | `pointing_modes_residuals_t` | _None_                       |
 | `pointing_modes_reset()`                                               | reset active device to default values and clear residuals                                                                  | _None_                       | _None_                       |
-| `pointing_modes_get_divisor()`                                         | Get current precision adjusted divisor                                                                                     | `uint8_t`                    | _None_                       |
+| `pointing_modes_get_divisor()`                                         | Get current precision adjusted divisor                                                                                     | `mouse_xy_report_t`          | _None_                       |
 | `pointing_modes_get_direction()`                                       | Get current direction                                                                                                      | `uint8_t`                    | _None_                       |
 | `pointing_modes_get_type()`                                            | Get current mode type and options                                                                                          | `uint8_t`                    | _None_                       |
 | `pointing_modes_update()`                                              | Recalculate direction, precision adjusted final divisor, and mode_type                                                     | _None_                       | _None_                       |
@@ -1040,7 +1042,7 @@ There are many functions available to control and modify pointing modes details 
 | `pointing_modes_get_active_device()`                                   | Returns device id of current active device (_see controlling multiple devices_)                                            | `uint8_t`                    | _None_                       |
 | `pointing_modes_set_active_device(device_id)`                          | Set active device to `device_id` (_see controlling multiple devices_)                                                      | _None_                       | `uint8_t`                    |
 
-***Note: `pointing_modes_get_divisor`, `pointing_modes_get_direction`, `pointing_modes_get_mode_type` will not recalculate any of the values (to reflect changes in `mode_id` or `residuals`) `pointing_modes_update` must be used first ***
+***Note: `pointing_modes_get_divisor`, `pointing_modes_get_direction`, `pointing_modes_get_mode_type` will not recalculate any of the values to reflect changes in `mode_id` or `residuals` made in the same block of code, `pointing_modes_update` must be used first***
 
 ## Precision
 
@@ -1194,19 +1196,21 @@ const uint16_t PROGMEM pointing_modes_maps[][POINTING_MODE_NUM_DIRECTIONS] = {
 All newly added modes will use `POINTING_MODE_DEFAULT_DIVISOR` as its divisor unless one is defined for each mode in the `pointing_modes_get_divisor_*` callback functions that have a user and keyboard version.  The callback functions for setting divisors have both the` mode_id` and the `direction` _(see table)_ available to them to allow for easier setting of divisors without needing to call functions to get these values.
 The default divisor of `32` will work well for most maps, however this would not be ideal for any mode that requires more sensitivity such as a WASD or Caret (arrow key) mode.
 
+!> Divisors should be set to a value between `1` and `MOUSE_XY_REPORT_MAX` (_`127` by default and `32767` if `MOUSE_EXTENDED_REPORT` is defined_)
+
 #### Callbacks to set pointing device mode divisors
 
 The following callbacks can be used to overwrite built in mode divisors or to set divisors for new modes. The `get_pointing_mode_divisor` stacks works by checking the functions until a non zero value is reached in order of `user`->`kb`->`built in`->`default_value`.  Returning a divisor of `0` will allow processing to continue on to the next stage, However this means that if any of the get divisor callback functions return a default value other than 0 then that will overwrite all subsequent divisors(such as built in modes and divisors from the keyboard).  These functions allows for overriding and modifying built in divisors by users/keymaps and keyboards and overriding keyboard level divisors by users/keymaps so it is possible to give built in modes the same level of divisor customisation as new custom modes.
 
-| Callback                                                                        | Description                                                                                                       |
-| ------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `uint8_t pointing_modes_get_divisor_kb(uint8_t mode_id, uint8_t direction)`     | Keyboard level callback for setting divisor based on `mode_id` and `direction`                                    |
-| `uint8_t pointing_modes_get_divisor_user(uint8_t mode_id, uint8_t direction)`   | Keymap/user level callback for setting divisor  based on `mode_id` and `direction`                                |
+| Callback                                                                                | Description                                                                                                       |
+| --------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `mouse_xy_report_t pointing_modes_get_divisor_kb(uint8_t mode_id, uint8_t direction)`   | Keyboard level callback for setting divisor based on `mode_id` and `direction`                                    |
+| `mouse_xy_report_t pointing_modes_get_divisor_user(uint8_t mode_id, uint8_t direction)` | Keymap/user level callback for setting divisor  based on `mode_id` and `direction`                                |
 
 
 #### Directions table
 
-Directions could be used to set the divisor based on the direction. Directions are represented as labels on specific values of a 8-bit unsigned integer(_but only 4 bits are used_).  The following table outlines the direction labels and the values that they represent.
+Directions could be used to set the divisor based on the direction (`direction` is updated before the `divisor` are updated). Directions are represented as labels on specific values of a 8-bit unsigned integer(_but only 4 bits are used_).  The following table outlines the direction labels and the values that they represent.
 
 
 | Direction code | Value | Value Hex | Value Binary | Description                                                                                           |
@@ -1221,7 +1225,7 @@ Directions could be used to set the divisor based on the direction. Directions a
 | `PMD_DNRT`     |     9 |   0x09    |     1001     | Both `PMD_DOWN` and `PMD_RIGHT` conditions are met and mode type is `PMT_DPAD` or `PMT_8WAY`          |
 | `PMD_UPRT`     |    10 |   0x0A    |     1010     | Both `PMD_UP` and `PMD_RIGHT` conditions are met and mode type is `PMT_DPAD` or `PMT_8WAY`            |
 | `PMD_VERT`     |     3 |   0x03    |     0011     | For filtering direction to only vertical component (up or down) using `direction & PMD_VERT`          |
-| `PMD_VERT`     |    12 |   0x0C    |     1100     | For filtering direction to only horizontal component (left or right) using `direction & PMD_HORI`     |
+| `PMD_HORI`     |    12 |   0x0C    |     1100     | For filtering direction to only horizontal component (left or right) using `direction & PMD_HORI`     |
 
 ***Note: that diagonal directions are only relevant for the `PMT_8WAY` and `PMT_DPAD` mode types (see Mode Types and Mode options)***
 
@@ -1230,7 +1234,7 @@ Directions could be used to set the divisor based on the direction. Directions a
 ```c
 // added to keymap.c
 // assuming poinding device enum and maps from example above
-uint8_t pointing_modes_get_divisor_user(uint8_t mode_id, uint8_t direction) {
+mouse_xy_report_t pointing_modes_get_divisor_user(uint8_t mode_id, uint8_t direction) {
     switch(mode_id) {
 
         case PM_HALF_V:
@@ -1395,7 +1399,7 @@ There are a number of functions allowing access and control of different aspects
 | `PM_V_AXIS`         |     3 | Return quotient of `residuals.y` and `divisor` and clamp to `mouse_hv_report_t` range and update `residuals.y`                  |
 | `PM_X_KEY`          |     4 | return `-1`, `0`, or `1` if `residuals.x` is positive, zero or negative and larger than divisor and update `residuals.x`        |
 | `PM_Y_KEY`          |     5 | return `-1`, `0`, or `1` if `residuals.y` is positive, zero or negative and larger than divisor and update `residuals.y`        |
-| `PM_XY_KEY`         |     6 | return maximum of `PM_X_KEY` and `PM_Y_KEY` versions of function and update both `residual.x` and `residual.y`                  |
+| `PM_XY_KEY`         |     6 | return sum of magnitude(_absolute value_) of `PM_X_KEY` and `PM_Y_KEY` functions, updating both `residual.x` and `residual.y`   |
 
 This function allows simple application of a divisor to a given axis returning the relevant result and updating the residuals.
 
@@ -1408,17 +1412,17 @@ The current pointing mode on the active device is controlled by tracking several
 | `residuals.x`         | Stored horizontal axis value              | `mouse_xy_report_t` | `pointing_modes_get_residuals`, `pointing_modes_set_residuals`         |
 | `residuals.y`         | Stored vertical axis value                | `mouse_xy_report_t` | `pointing_modes_get_residuals`, `pointing_modes_set_residuals`         |
 
-### Other Internal Variables requiring functions to access and Modify
+### Other Internally tracked Variables requiring functions to access and Modify
 
 | Variable        | Description                                                                   | Data type | Access/Control Functions                                                                                                  |
-| :-------------- | :---------------------------------------------------------------------------- | :-------: | :------------------------------------------------------------------------------------------------------------------------ |
-| `mode_id`       | Mode id of active device                                                      | `uint8_t` | `pointing_modes_get_mode`, `pointing_modes_set_mode`                                                                      |
-| `toggle_id`     | Toggle id of last active toggle mode on active device                         | `uint8_t` | `pointing_modes_toggle_mode`, `pointing_modes_get_toggled_mode`                                                           |
-| `active_device` | Active device index [see here](#Pointing-Modes-for-Multiple-Pointing-Devices) | `uint8_t` | `pointing_modes_get_active_device`, `pointing_modes_set_active_device`, keycode:`PM_CYCDEV`                               |
-| `divisor`       | Divisor of current mode id and direction                                      | `uint8_t` | `pointing_modes_get_divisor`, `pointing_modes_get_divisor_user`, `pointing_modes_get_divisor_kb`, `pointing_modes_update` |
-| `precision`     | Active device sensitivity setting                                             | `uint8_t` | `pointing_modes_get_precision`, `pointing_modes_set_precision`, keycode:`PM_CYCPRE`                                       |
-| `direction`     | Direction based on stored x and y values                                      | `uint8_t` | `pointing_modes_get_direction`, `pointing_modes_update`                                                                   |
-| `mode_type`     | Mode type and options based on mode id                                        | `uint8_t` | `pointing_modes_get_type`, `pointing_modes_get_type_user`, `pointing_modes_get_type_kb`, `pointing_modes_update`          |
+| :-------------- | :---------------------------------------------------------------------------- | :-----------------: | :------------------------------------------------------------------------------------------------------------------------ |
+| `mode_id`       | Mode id of active device                                                      |       `uint8_t`     | `pointing_modes_get_mode`, `pointing_modes_set_mode`                                                                      |
+| `toggle_id`     | Toggle id of last active toggle mode on active device                         |       `uint8_t`     | `pointing_modes_toggle_mode`, `pointing_modes_get_toggled_mode`                                                           |
+| `active_device` | Active device index [see here](#Pointing-Modes-for-Multiple-Pointing-Devices) |       `uint8_t`     | `pointing_modes_get_active_device`, `pointing_modes_set_active_device`, keycode:`PM_CYCDEV`                               |
+| `divisor`       | Divisor of current mode id and direction                                      | `mouse_xy_report_t` | `pointing_modes_get_divisor`, `pointing_modes_get_divisor_user`, `pointing_modes_get_divisor_kb`, `pointing_modes_update` |
+| `precision`     | Active device sensitivity setting                                             | `mouse_xy_report_t` | `pointing_modes_get_precision`, `pointing_modes_set_precision`, keycode:`PM_CYCPRE`                                       |
+| `direction`     | Direction based on stored x and y values                                      |       `uint8_t`     | `pointing_modes_get_direction`, `pointing_modes_update`                                                                   |
+| `mode_type`     | Mode type and options based on mode id                                        |       `uint8_t`     | `pointing_modes_get_type`, `pointing_modes_get_type_user`, `pointing_modes_get_type_kb`, `pointing_modes_update`          |
 
 #### Code example for changing modes on layer changes (will keep current toggle mode id)
 
@@ -1511,7 +1515,7 @@ enum my_kb_keycodes {
 // in <keyboard>.c
 
 // define keybaord level divisors
-uint8_t pointing_modes_get_divisor_kb(uint8_t mode_id, uint8_t direction) {
+mouse_xy_report_t pointing_modes_get_divisor_kb(uint8_t mode_id, uint8_t direction) {
     switch(mode_id) {
         case PM_CUR_NOPRE:
             return 1;
@@ -1585,7 +1589,7 @@ enum my_kb_pointing_mode_maps {
     _PM_APP // [index: 0]
 };
 
-uint8_t pointing_modes_get_divisor_user(uint8_t mode_id, uint8_t direction) {
+mouse_xy_report_t pointing_modes_get_divisor_user(uint8_t mode_id, uint8_t direction) {
     switch(mode_id) {
         case PM_APP:
             return 64;
@@ -1748,4 +1752,3 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
 When `POINTING_MODES_NUM_DEVICES > 1` and `POINTING_MODES_SINGLE_CONTROL` is defined, then only a single set of pointing modes data (`mode_id`, `toggle_id`, `residuals`, held keys, and `precision`) is tracked, but it is possible to switch which device is currently has the mode id active through use of `pointing_mode_set_active_device`  This handles two pointing devices _(left and right)_ natively when `SPLIT_POINTING_ENABLE` and `POINTING_DEVICE_COMBINED` are both defined but for more than two pointing devices custom `pointing_device_task` code will be needed.
 
 !> Note that the `*_pointing_mode_device` functions do not change any internal behaviour when pointing modes is in single device mode, instead these functions are intended to simply track the desired controlled pointing device (this is handled automatically for two devices with `SPLIT_POINTING_ENABLE` and `POINTING_DEVICE_COMBINED`)
-
