@@ -1,6 +1,6 @@
 # Halcyon Elora
 
-![splitkb/halcyon/elora](imgur.com image replace me!)
+![splitkb/halcyon/elora](https://i.imgur.com/TbFWzsh.png)
 
 The Halcyon Elora rev2 is the second Elora revision and the second keyboard in our Halcyon range. Similar to Aurora, all keyboards in the series share the same feature set. The key highlights:
 
