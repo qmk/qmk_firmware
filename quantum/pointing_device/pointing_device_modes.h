@@ -88,13 +88,43 @@
 #endif
 
 /* ----------Error Checking -------------------------------------------------------------------------------------- */
-#if POINTING_MODES_DEFAULT_DIVISOR < 1
-#    pragma message "POINTING_MODES_DEFAULT_DIVISOR must be 1 or greater"
-#    error DEFAULT_DIVISOR less than 1
+#ifdef MOUSE_EXTENDED_REPORT
+#    if (POINTING_MODES_DEFAULT_DIVISOR <= 0 || POINTING_MODES_DEFAULT_DIVISOR > 32767)
+#        error POINTING_MODES_DEFAULT_DIVISOR must be greater than 0 and less than 32767
+#    endif
+#    if (POINTING_MODES_DRAG_DIVISOR <= 0 || POINTING_MODES_DRAG_DIVISOR > 32767)
+#        error POINTING_MODES_DRAG_DIVISOR must be greater than 0 and less than 32767
+#    endif
+#    if (POINTING_MODES_PRECISION_MIN <= 0 || POINTING_MODES_PRECISION_MIN > 32767)
+#        error POINTING_MODES_PRECISION_MIN must be greater than 0 and less than 32767
+#    endif
+#    if (POINTING_MODES_PRECISION_MAX <= 0 || POINTING_MODES_PRECISION_MAX > 32767)
+#        error POINTING_MODES_PRECISION_MAX must be greater than 0 and less than 32767
+#    endif
+#    if (POINTING_MODES_PRECISION_STEP <= 0 || POINTING_MODES_PRECISION_STEP > 32767)
+#        error POINTING_MODES_PRECISION_STEP must be greater than 0 and less than 32767
+#    endif
+#else
+#    if (POINTING_MODES_DEFAULT_DIVISOR <= 0 || POINTING_MODES_DEFAULT_DIVISOR > 127)
+#        error POINTING_MODES_DEFAULT_DIVISOR must be greater than 0 and less than 127
+#    endif
+#    if (POINTING_MODES_DRAG_DIVISOR <= 0 || POINTING_MODES_DRAG_DIVISOR > 127)
+#        error POINTING_MODES_DRAG_DIVISOR must be greater than 0 and less than 127
+#    endif
+#    if (POINTING_MODES_PRECISION_MIN <= 0 || POINTING_MODES_PRECISION_MIN > 127)
+#        error POINTING_MODES_PRECISION_MIN must be greater than 0 and less than 127
+#    endif
+#    if (POINTING_MODES_PRECISION_MAX <= 0 || POINTING_MODES_PRECISION_MAX > 127)
+#        error POINTING_MODES_PRECISION_MAX must be greater than 0 and less than 127
+#    endif
+#    if (POINTING_MODES_PRECISION_STEP <= 0 || POINTING_MODES_PRECISION_STEP > 127)
+#        error POINTING_MODES_PRECISION_STEP must be greater than 0 and less than 127
+#    endif
 #endif
-#if POINTING_MODES_PRECISION_MIN < 1
-#    pragma message "POINTING_MODES_PRECISION_MIN must be 1 or greater"
-#    error DEFAULT_DIVISOR less than 1
+
+#if POINTING_MODES_NUM_DEVICES < 1
+#    pragma message "POINTING_MODES_NUM_DEVICES should be at least 1"
+#    error POINTING_MODES_NUM_DEVICES set too low
 #endif
 #if POINTING_MODES_NUM_DEVICES < 2 && ((defined(SPLIT_POINTING_ENABLE) && defined(POINTING_DEVICE_COMBINED)) || defined(POINTING_MODES_SINGLE_CONTROL))
 #    pragma message "POINTING_MODES_NUM_DEVICES should be at least 2 with SPLIT_POINTING_ENABLE & POINTING_DEVICE_COMBINED or POINTING_MODES_SINGLE_CONTROL defined"
@@ -194,11 +224,11 @@ typedef struct {
 } pointing_modes_held_keys_t;
 
 /* ----------Controlling active device pointing mode-------------------------------------------------------------- */
-void                       pointing_modes_set_precision(uint8_t precision);                    // set active device precision divisor
+void                       pointing_modes_set_precision(mouse_xy_report_t precision);          // set active device precision divisor
 void                       pointing_modes_set_mode(uint8_t mode_id);                           // set active device mode to mode_id
 void                       pointing_modes_set_residuals(pointing_modes_residuals_t residuals); // set active device residuals values
 void                       pointing_modes_toggle_mode(uint8_t mode_id);                        // set toggle mode to mode_id or default if toggle_id==mode_id
-uint8_t                    pointing_modes_get_precision(void);                                 // get active device precision
+mouse_xy_report_t          pointing_modes_get_precision(void);                                 // get active device precision
 uint8_t                    pointing_modes_get_mode(void);                                      // return active device mode_id
 uint8_t                    pointing_modes_get_toggled_mode(void);                              // return active device toggle_id
 pointing_modes_residuals_t pointing_modes_get_residuals(void);                                 // return current residual values for active device
@@ -207,7 +237,7 @@ void                       pointing_modes_reset(void);                          
 /* ----------Crontrolling pointing mode data---------------------------------------------------------------------- */
 void              pointing_modes_update(void);                // update direction & divisor from current mode id, x, y
 mouse_xy_report_t pointing_modes_apply_divisor(uint8_t axis); // return quotient from applying divisor & precision based on axis and update the residuals
-uint8_t           pointing_modes_get_divisor(void);           // access current divisor value
+mouse_xy_report_t pointing_modes_get_divisor(void);           // access current divisor value
 uint8_t           pointing_modes_get_direction(void);         // access current direction value
 uint8_t           pointing_modes_get_type(void);              // access current mode type
 
@@ -216,10 +246,10 @@ bool pointing_modes_task_kb(report_mouse_t* mouse_report, pointing_modes_residua
 bool pointing_modes_task_user(report_mouse_t* mouse_report, pointing_modes_residuals_t* residuals);   // user/keymap level
 
 /* ----------Callbacks for modifying pointing mode settings------------------------------------------------------- */
-uint8_t pointing_modes_get_type_kb(uint8_t mode_id);                         // setting mode type at keyboard level
-uint8_t pointing_modes_get_type_user(uint8_t mode_id);                       // setting mode type at user level
-uint8_t pointing_modes_get_divisor_kb(uint8_t mode_id, uint8_t direction);   // setting divisors at keyboard level
-uint8_t pointing_modes_get_divisor_user(uint8_t mode_id, uint8_t direction); // setting divisors at user/keymap level
+uint8_t           pointing_modes_get_type_kb(uint8_t mode_id);                         // setting mode type at keyboard level
+uint8_t           pointing_modes_get_type_user(uint8_t mode_id);                       // setting mode type at user level
+mouse_xy_report_t pointing_modes_get_divisor_kb(uint8_t mode_id, uint8_t direction);   // setting divisors at keyboard level
+mouse_xy_report_t pointing_modes_get_divisor_user(uint8_t mode_id, uint8_t direction); // setting divisors at user/keymap level
 
 /* ----------Core functions (only used in custom pointing devices or key processing)------------------------------ */
 report_mouse_t pointing_modes_device_task(report_mouse_t mouse_report); // intercepts mouse_report (in pointing_device_task_* stack)

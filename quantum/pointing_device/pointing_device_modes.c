@@ -19,26 +19,26 @@
 #    include "pointing_device_modes.h"
 
 // initialize local functions
-static void    pointing_modes_task(report_mouse_t* mouse_report);
-static void    pointing_modes_axes_conv(report_mouse_t* mouse_report);
-static uint8_t pointing_modes_update_direction(void);
-static uint8_t pointing_modes_update_divisor(void);
-static uint8_t pointing_modes_update_type(void);
-static void    pointing_modes_release_held_keys(void);
-static void    pointing_modes_hold_decay(void);
-static void    pointing_modes_exec_mapping(uint8_t map_id);
+static void pointing_modes_task(report_mouse_t* mouse_report);
+static void pointing_modes_axes_conv(report_mouse_t* mouse_report);
+static void pointing_modes_update_direction(void);
+static void pointing_modes_update_divisor(void);
+static void pointing_modes_update_type(void);
+static void pointing_modes_release_held_keys(void);
+static void pointing_modes_hold_decay(void);
+static void pointing_modes_exec_mapping(uint8_t map_id);
 
 // local variables
-static uint8_t current_direction = PMD_NONE;
-static uint8_t current_divisor   = POINTING_MODES_DEFAULT_DIVISOR;
-static uint8_t current_type      = PMT_4WAY | PMO_TAP;
+static uint8_t           current_direction = PMD_NONE;
+static mouse_xy_report_t current_divisor   = POINTING_MODES_DEFAULT_DIVISOR;
+static uint8_t           current_type      = PMT_4WAY | PMO_TAP;
 
 // set up devices and active device
-static uint8_t pm_mode_ids[]                = {[0 ... POINTING_MODES_DEVICE_CONTROL_COUNT - 1] = POINTING_MODES_DEFAULT_MODE};
-static uint8_t pm_base_modes[]              = {[0 ... POINTING_MODES_DEVICE_CONTROL_COUNT - 1] = POINTING_MODES_DEFAULT_MODE};
-static uint8_t pm_precisions[]              = {[0 ... POINTING_MODES_DEVICE_CONTROL_COUNT - 1] = POINTING_MODES_PRECISION_MIN};
-static pointing_modes_residuals_t pm_res[]  = {[0 ... POINTING_MODES_DEVICE_CONTROL_COUNT - 1] = {.x = 0, .y = 0}};
-static pointing_modes_held_keys_t pm_held[] = {[0 ... POINTING_MODES_DEVICE_CONTROL_COUNT - 1] = {.h = PMK_NONE, .v = PMK_NONE}};
+static uint8_t                    pm_mode_ids[]   = {[0 ... POINTING_MODES_DEVICE_CONTROL_COUNT - 1] = POINTING_MODES_DEFAULT_MODE};
+static uint8_t                    pm_base_modes[] = {[0 ... POINTING_MODES_DEVICE_CONTROL_COUNT - 1] = POINTING_MODES_DEFAULT_MODE};
+static mouse_xy_report_t          pm_precisions[] = {[0 ... POINTING_MODES_DEVICE_CONTROL_COUNT - 1] = POINTING_MODES_PRECISION_MIN};
+static pointing_modes_residuals_t pm_res[]        = {[0 ... POINTING_MODES_DEVICE_CONTROL_COUNT - 1] = {.x = 0, .y = 0}};
+static pointing_modes_held_keys_t pm_held[]       = {[0 ... POINTING_MODES_DEVICE_CONTROL_COUNT - 1] = {.h = PMK_NONE, .v = PMK_NONE}};
 #    if POINTING_MODES_DEVICE_CONTROL_COUNT > 1
 static uint8_t active_device_id = POINTING_MODES_DEFAULT_DEVICE;
 #    else
@@ -64,12 +64,6 @@ static inline mouse_hv_report_t pointing_device_hv_clamp(hv_clamp_range_t value)
     } else {
         return value;
     }
-}
-
-// This function is to help avoid wrap around behaviour of unsigned integers and instead clamp to UINT8_MAX
-static inline uint16_t clamp_uint_16_to_8(uint16_t value) {
-    if (value > UINT8_MAX) return UINT8_MAX;
-    return value;
 }
 
 // Internal functions ------------------------------------------------------------------------------------------
@@ -148,96 +142,93 @@ static void pointing_modes_axes_conv(report_mouse_t* mouse_report) {
 }
 
 /**
- * @brief local function to get pointing mode divisor
- *
- * Will handle default divisors and call weak kb and user functions
- *
- * NOTE: Expects that pointing mode and direction has been updated
- *
- * @return divisor uint8_t
- */
-static uint8_t pointing_modes_update_divisor(void) {
-    uint8_t divisor = 0;
-    uint8_t mode_id = pointing_modes_get_mode();
-    // allow for user and keyboard overrides
-    divisor = pointing_modes_get_divisor_user(mode_id, current_direction);
-    if (!divisor) {
-        divisor = pointing_modes_get_divisor_kb(mode_id, current_direction);
-        if (!divisor) {
-            // built in divisors
-            switch (pointing_modes_get_mode()) {
-                case PM_NONE:
-                    divisor = 1;
-                    break;
-                case PM_DRAG:
-                    divisor = POINTING_MODES_DRAG_DIVISOR;
-                    break;
-            }
-        }
-    }
-    // check for zero divisor and apply precision
-    divisor = divisor ? divisor : POINTING_MODES_DEFAULT_DIVISOR;
-    divisor = clamp_uint_16_to_8((uint16_t)divisor * (uint16_t)pointing_modes_get_precision());
-    return divisor;
-}
-
-/**
  * @brief local function to get single direction based on h/v
  *
  * Determines direction based on axis with largest magnitude
  *
  * NOTE: Defaults to PMD_DOWN
  *
- * @return direction uint8_t
  */
-static uint8_t pointing_modes_update_direction(void) {
-    uint8_t dir_out = PMD_NONE;
+static void pointing_modes_update_direction(void) {
+    current_direction = PMD_NONE;
     if((abs(pm_res[active_device_id].x) + abs(pm_res[active_device_id].y)) <= POINTING_MODES_THRESHOLD) {
-        return PMD_NONE;
+        return;
     }
     // This will detect all 8 directions: 2|Axis| >= |Other_Axis| allows for diagonal detection
     if ((abs(pm_res[active_device_id].x) << 1) >= abs(pm_res[active_device_id].y)) {
         if (pm_res[active_device_id].x > 0) {
-            dir_out |= PMD_RIGHT;
+            current_direction |= PMD_RIGHT;
         } else {
-            dir_out |= PMD_LEFT;
+            current_direction |= PMD_LEFT;
         }
     }
     if ((abs(pm_res[active_device_id].y) << 1) >= abs(pm_res[active_device_id].x)) {
         if (pm_res[active_device_id].y > 0) {
-            dir_out |= PMD_DOWN;
+            current_direction |= PMD_DOWN;
         } else {
-            dir_out |= PMD_UP;
+            current_direction |= PMD_UP;
         }
     }
     if(pointing_modes_get_type() == PMT_4WAY) {
         // remove diagonal directions
-        if((dir_out & PMD_HORI) && (dir_out & PMD_VERT)) {
+        if((current_direction & PMD_HORI) && (current_direction & PMD_VERT)) {
             if(abs(pm_res[active_device_id].x) > abs(pm_res[active_device_id].y)) {
-                dir_out &= PMD_HORI;
+                current_direction &= PMD_HORI;
             } else {
-                dir_out &= PMD_VERT;
+                current_direction &= PMD_VERT;
             }
         }
     }
-    return dir_out;
+    return;
 }
 
 /**
- * @brief update mode type based on current mode
+ * @brief local function to get pointing mode divisor
  *
- * @param[in] uint8_t mode type code
+ * Will handle default divisors and call weak kb and user functions
+ *
+ * NOTE: Expects that pointing mode and direction has been updated
+ *
  */
-static uint8_t pointing_modes_update_type(void) {
+static void pointing_modes_update_divisor(void) {
     uint8_t mode_id = pointing_modes_get_mode();
-    uint8_t mode_type = 0;
-    // allow for keyboard and user overrides
-    mode_type = pointing_modes_get_type_user(mode_id);
-    if (mode_type) return mode_type;
-    mode_type = pointing_modes_get_type_kb(mode_id);
-    if (mode_type) return mode_type;
+    // allow for user and keyboard overrides
+    current_divisor = pointing_modes_get_divisor_user(mode_id, current_direction);
+    if (!current_divisor) {
+        current_divisor = pointing_modes_get_divisor_kb(mode_id, current_direction);
+        if (!current_divisor) {
+            // built in divisors
+            switch (pointing_modes_get_mode()) {
+                case PM_NONE:
+                    current_divisor = 1;
+                    break;
+                case PM_DRAG:
+                    current_divisor = POINTING_MODES_DRAG_DIVISOR;
+                    break;
+            }
+        }
+    }
+    // check for zero divisor and apply precision
+    current_divisor = current_divisor ? current_divisor : POINTING_MODES_DEFAULT_DIVISOR;
+    current_divisor = abs(pointing_device_xy_clamp(current_divisor * pointing_modes_get_precision()));
+    return;
+}
 
-    return PMT_4WAY;
+/**
+ * @brief update mode type based on current status
+ *
+
+ */
+static void pointing_modes_update_type(void) {
+    uint8_t mode_id = pointing_modes_get_mode();
+    current_type = 0x00;
+    // allow for keyboard and user overrides
+    current_type = pointing_modes_get_type_user(mode_id);
+    if (current_type) {return;}
+    current_type = pointing_modes_get_type_kb(mode_id);
+    if (current_type) {return;}
+
+    return;
 }
 
 /**
@@ -246,7 +237,7 @@ static uint8_t pointing_modes_update_type(void) {
  *  releases held keys and sets them to the default value of 8
  */
 static void pointing_modes_release_held_keys(void) {
-    if(pm_mode_ids[active_device_id] < POINTING_MODES_MAP_START) return;
+    if(pm_mode_ids[active_device_id] < POINTING_MODES_MAP_START) {return;}
     uint8_t map_id = pm_mode_ids[active_device_id] - POINTING_MODES_MAP_START;
     if (pm_held[active_device_id].v ^ PMK_NONE) {
         action_exec(MAKE_POINTING_MODES_EVENT(map_id, pm_held[active_device_id].v, false));
@@ -408,20 +399,20 @@ mouse_xy_report_t pointing_modes_apply_divisor(uint8_t axis) {
     uint8_t mode_opts = pointing_modes_get_type() & PMO_OPTS;
     switch (axis){
         case PM_X_AXIS:
-            result = pm_res[active_device_id].x / (mouse_xy_report_t)current_divisor;
-            pm_res[active_device_id].x -= pointing_device_xy_clamp(result * (mouse_xy_report_t)current_divisor);
+            result = pm_res[active_device_id].x / current_divisor;
+            pm_res[active_device_id].x -= pointing_device_xy_clamp(result * current_divisor);
             break;
         case PM_Y_AXIS:
-            result = pm_res[active_device_id].y / (mouse_xy_report_t)current_divisor;
-            pm_res[active_device_id].y -= pointing_device_xy_clamp(result * (mouse_xy_report_t)current_divisor);
+            result = pm_res[active_device_id].y / current_divisor;
+            pm_res[active_device_id].y -= pointing_device_xy_clamp(result * current_divisor);
             break;
         case PM_H_AXIS:
-            result = pointing_device_hv_clamp(pm_res[active_device_id].x / (mouse_xy_report_t)current_divisor);
-            pm_res[active_device_id].x -= pointing_device_xy_clamp(result * (mouse_xy_report_t)current_divisor);
+            result = pointing_device_hv_clamp(pm_res[active_device_id].x / current_divisor);
+            pm_res[active_device_id].x -= pointing_device_xy_clamp(result * current_divisor);
             break;
         case PM_V_AXIS:
-            result = pointing_device_hv_clamp(pm_res[active_device_id].y / (mouse_xy_report_t)current_divisor);
-            pm_res[active_device_id].y -= pointing_device_xy_clamp(result * (mouse_xy_report_t)current_divisor);
+            result = pointing_device_hv_clamp(pm_res[active_device_id].y / current_divisor);
+            pm_res[active_device_id].y -= pointing_device_xy_clamp(result * current_divisor);
             break;
         case PM_X_KEY:
             if (abs(pm_res[active_device_id].x) >= current_divisor) {
@@ -454,7 +445,8 @@ mouse_xy_report_t pointing_modes_apply_divisor(uint8_t axis) {
             }
             break;
         case PM_XY_KEY:
-            result = MAX(pointing_modes_apply_divisor(PM_X_KEY), pointing_modes_apply_divisor(PM_Y_KEY));
+            result = pointing_modes_apply_divisor(PM_X_KEY);
+            result += abs(pointing_modes_apply_divisor(PM_Y_KEY));
             break;
     }
     return result;
@@ -503,18 +495,18 @@ void pointing_modes_reset(void) {
 /**
  * @brief get precision of active device
  *
- * @return uint8_t active device precision divisor
+ * @return mouse_xy_report_t active device precision divisor
  */
-uint8_t pointing_modes_get_precision(void) {
+mouse_xy_report_t pointing_modes_get_precision(void) {
     return pm_precisions[active_device_id];
 }
 
 /**
  * @brief set precision of active device
  *
- * @param[in] uint8_t precision
+ * @param[in] mouse_xy_report_t precision
  */
-void pointing_modes_set_precision(uint8_t precision) {
+void pointing_modes_set_precision(mouse_xy_report_t precision) {
     if (precision > POINTING_MODES_PRECISION_MAX || precision < POINTING_MODES_PRECISION_MIN) {
         pm_precisions[active_device_id] = POINTING_MODES_PRECISION_MIN;
     } else {
@@ -576,9 +568,9 @@ void pointing_modes_toggle_mode(uint8_t mode_id) {
  *
  */
 void pointing_modes_update(void) {
-    current_direction = pointing_modes_update_direction();
-    current_divisor   = pointing_modes_update_divisor();
-    current_type      = pointing_modes_update_type();
+    pointing_modes_update_type();
+    pointing_modes_update_direction();
+    pointing_modes_update_divisor();
 }
 
 /**
@@ -593,9 +585,9 @@ uint8_t pointing_modes_get_direction(void) {
 /**
  * @brief Access current pointing mode divisor
  *
- * @return uint8_t divisor
+ * @return mouse_xy_report_t divisor
  */
-uint8_t pointing_modes_get_divisor(void) {
+mouse_xy_report_t pointing_modes_get_divisor(void) {
     return current_divisor;
 }
 
@@ -636,8 +628,10 @@ void  pointing_modes_set_residuals(pointing_modes_residuals_t residuals) {
  * @return mouse_report report_mouse_t
  */
 report_mouse_t pointing_modes_device_task(report_mouse_t mouse_report) {
+    pointing_modes_update_type();
     pointing_modes_axes_conv(&mouse_report);
-    pointing_modes_update();
+    pointing_modes_update_direction();
+    pointing_modes_update_divisor();
     pointing_modes_task(&mouse_report);
     return mouse_report;
 }
@@ -686,9 +680,9 @@ __attribute__((weak)) bool pointing_modes_task_kb(report_mouse_t* mouse_report, 
  * @params mode_id[in]   uint8_t
  * @params direction[in] uint8_t
  *
- * @return divisor uint8_t
+ * @return divisor mouse_xy_report_t
  */
-__attribute__((weak)) uint8_t pointing_modes_get_divisor_user(uint8_t mode_id, uint8_t direction) {
+__attribute__((weak)) mouse_xy_report_t pointing_modes_get_divisor_user(uint8_t mode_id, uint8_t direction) {
     return 0; // continue processing
 }
 
@@ -701,9 +695,9 @@ __attribute__((weak)) uint8_t pointing_modes_get_divisor_user(uint8_t mode_id, u
  * @params mode_id[in]   uint8_t
  * @params direction[in] uint8_t
  *
- * @return divisor uint8_t
+ * @return divisor mouse_xy_report_t
  */
-__attribute__((weak)) uint8_t pointing_modes_get_divisor_kb(uint8_t mode_id, uint8_t direction) {
+__attribute__((weak)) mouse_xy_report_t pointing_modes_get_divisor_kb(uint8_t mode_id, uint8_t direction) {
     return 0; // continue processing
 }
 
