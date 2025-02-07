@@ -4,8 +4,10 @@
 
 ASSERT_COMMUNITY_MODULES_MIN_API_VERSION(20250122);
 
+extern int keymap_byte_count(void); // example of use of introspection
+
 uint32_t delayed_hello_world(uint32_t trigger_time, void *cb_arg) {
-    print("Hello, world! I'm a QMK based keyboard!\n");
+    printf("Hello, world! I'm a QMK based keyboard! The keymap array size is %d bytes.\n", keymap_byte_count());
     return 0;
 }
 
