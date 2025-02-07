@@ -197,6 +197,9 @@
     "ergodone": {
         "target": "ktec/ergodone"
     },
+    "ergodox_stm32": {
+        "target": "handwired/ergodox_stm32"
+    },
     "ergoinu": {
         "target": "dm9records/ergoinu"
     },
