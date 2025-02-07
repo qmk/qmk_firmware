@@ -1,7 +1,7 @@
 # ZeroPad
 
 ZeroPad:
-![ZeroPad](hhttps://imgur.com/a/2yuQpvz)
+![ZeroPad](hhttps://imgur.com/a/2yuQpvz.png)
 
 
 *This keyboard is inspired by the scotto9 from Joe Scotto. This keyboard is compatible with via and has 4 layers of keybinds (24 keybinds - 4x8 + 1 per layer for changing the layer).*
