@@ -1,6 +1,10 @@
 // Copyright 2022 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+#if defined(COMMUNITY_MODULES_ENABLE)
+#    include "community_modules_introspection.h"
+#endif // defined(COMMUNITY_MODULES_ENABLE)
+
 // Pull the actual keymap code so that we can inspect stuff from it
 #include KEYMAP_C
 
@@ -11,10 +15,6 @@
 
 #include "keymap_introspection.h"
 #include "util.h"
-
-#if defined(COMMUNITY_MODULES_ENABLE)
-#    include "community_modules_introspection.h"
-#endif // defined(COMMUNITY_MODULES_ENABLE)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Key mapping
