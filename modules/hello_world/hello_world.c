@@ -22,7 +22,7 @@ bool process_record_hello_world(uint16_t keycode, keyrecord_t *record) {
     }
 
     switch (keycode) {
-        case CM_HELLO:
+        case COMMUNITY_MODULE_HELLO:
             if (record->event.pressed) {
                 SEND_STRING("Hello there.");
                 break;

@@ -47,6 +47,8 @@ def _render_keycodes(module_jsons):
                     first = False
                 else:
                     lines.append(f'    {key},')
+                for alias in keycode.get('aliases', []):
+                    lines.append(f'    {alias} = {key},')
             lines.append('')
     lines.append('    LAST_COMMUNITY_MODULE_KEY')
     lines.append('};')

@@ -256,5 +256,10 @@ class CommunityModuleJSONEncoder(QMKJSONEncoder):
                 return '03features'
             if key == 'keycodes':
                 return '04keycodes'
+        elif self.indentation_level == 3:  # keycodes
+            if key == 'key':
+                return '00key'
+            if key == 'aliases':
+                return '01aliases'
 
         return key

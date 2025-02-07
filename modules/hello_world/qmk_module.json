@@ -5,6 +5,9 @@
         "deferred_exec": true
     },
     "keycodes": [
-        { "key": "CM_HELLO" }
+        {
+            "key": "COMMUNITY_MODULE_HELLO",
+            "aliases": ["CM_HELO"]
+        }
     ]
 }
