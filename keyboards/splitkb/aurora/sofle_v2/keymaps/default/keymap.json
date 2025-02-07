@@ -1,6 +1,6 @@
 {
     "keyboard": "splitkb/aurora/sofle_v2/rev1",
-    "keymap": "colemak",
+    "keymap": "default",
     "version": 1,
     "layout": "LAYOUT",
     "layers": [
