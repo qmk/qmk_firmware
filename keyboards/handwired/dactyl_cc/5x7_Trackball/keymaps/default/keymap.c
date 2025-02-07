@@ -11,6 +11,14 @@
 #define _SHIFT  3
 */
 
+//Pointing Device Scrolling
+enum custom_keycodes {
+    DRAG_SCROLL = SAFE_RANGE,
+};
+
+bool set_scrolling = false;
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
         // left hand
@@ -30,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    KC_N,    KC_M,    KC_COMM,  KC_DOT,   KC_SLSH,  MO(2),
                                             KC_ESC,  KC_UP,    KC_DOWN,  KC_LBRC,  KC_RBRC,
              KC_RSFT, KC_SPC, KC_ENT,
-             MS_BTN1, MS_BTN1, MS_BTN2, MS_BTN2, KC_LGUI
+             KC_LGUI, _______, DRAG_SCROLL, MS_BTN2, MS_BTN1
 
     ),
 
@@ -103,11 +111,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [0] = { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)},
+    [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
     [1] = { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)},
     [2] = { ENCODER_CCW_CW(UG_VALD, UG_VALU)},
     [3] = { ENCODER_CCW_CW(UG_PREV, UG_NEXT)}
 };
+
 #endif
 
 /*
@@ -147,7 +156,7 @@ bool oled_task_user() {
     //led_t led_state = host_keyboard_led_state();
     oled_write_P(led_state.num_lock ? PSTR("NUM") : PSTR("    "), false);
     oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
-    oled_write_ln(read_rgb_info(), false);
+    oled_write_P(read_rgb_info(), false);
     //rgblight_get_mode(led_state_reader(), false);
 
     return false;
@@ -162,7 +171,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef OLED_ENABLE
     set_keylog(keycode, record);
     //set_timelog();
-    set_scrolling = !set_scrolling;
 #endif
+
+  }
   return true;
+
+
+switch (keycode) {
+        case DRAG_SCROLL:
+            // Toggle set_scrolling when DRAG_SCROLL key is pressed or released
+            set_scrolling = record->event.pressed;
+            break;
+        default:
+            break;
+    }
+    return true;
+}
+
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+    if (set_scrolling) {
+        mouse_report.h = mouse_report.x;
+        mouse_report.v = mouse_report.y;
+        mouse_report.x = 0;
+        mouse_report.y = 0;
+    }
+    return mouse_report;
 }

@@ -31,15 +31,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SERIAL_USART_RX_PIN  GP9  // USART RX pin
 //#define MASTER_LEFT
 //#define MASTER_RIGHT
-#define EE_HANDS
+#define SPLIT_HAND_PIN GP7
 #define BOOTMAGIC_ROW_RIGHT 6
 #define BOOTMAGIC_COLUMN_RIGHT 7
 
-#endif
 
-#ifdef MASTER_LEFT
-#define SPLIT_USB_DETECT
-#define SPLIT_USB_TIMEOUT 2500
+//#define SPLIT_USB_DETECT
+//#define SPLIT_USB_TIMEOUT 2500
 #define SPLIT_TRANSPORT_MIRROR
 #define SPLIT_LAYER_STATE_ENABLE
 #define SPLIT_LED_STATE_ENABLE
