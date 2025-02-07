@@ -9,7 +9,7 @@ from qmk.info import get_modules
 from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.commands import dump_lines
 from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
-from qmk.community_modules import MODULE_API_LIST, MODULE_API_VERSION, load_module_jsons
+from qmk.community_modules import MODULE_API_LIST, MODULE_API_VERSION, load_module_jsons, find_module_path
 
 
 @contextlib.contextmanager
@@ -194,5 +194,34 @@ def generate_community_modules_c(cli):
 
         for api in MODULE_API_LIST:
             lines.extend(_render_core_implementation(api, modules))
+
+    dump_lines(cli.args.output, lines, cli.args.quiet, remove_repeated_newlines=True)
+
+
+@cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
+@cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
+@cli.argument('-kb', '--keyboard', arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate community_modules.c for.')
+@cli.argument('filename', nargs='?', type=qmk.path.FileType('r'), arg_only=True, completer=FilesCompleter('.json'), help='Configurator JSON file')
+@cli.subcommand('Creates a community_modules_introspection.inc from a keymap.json file.')
+def generate_community_modules_introspection_inc(cli):
+    """Creates a community_modules_introspection.inc from a keymap.json file
+    """
+    if cli.args.output and cli.args.output.name == '-':
+        cli.args.output = None
+
+    lines = [
+        GPL2_HEADER_C_LIKE,
+        GENERATED_HEADER_C_LIKE,
+        '',
+    ]
+
+    modules = get_modules(cli.args.keyboard, cli.args.filename)
+    if len(modules) > 0:
+        for module in modules:
+            module_path = find_module_path(module)
+            lines.append(f'#if __has_include("{module_path}/introspection.c")')
+            lines.append(f'#include "{module_path}/introspection.c"')
+            lines.append(f'#endif  // __has_include("{module_path}/introspection.c")')
+            lines.append('')
 
     dump_lines(cli.args.output, lines, cli.args.quiet, remove_repeated_newlines=True)

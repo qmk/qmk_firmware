@@ -171,3 +171,10 @@ __attribute__((weak)) const key_override_t* key_override_get(uint16_t key_overri
 }
 
 #endif // defined(KEY_OVERRIDE_ENABLE)
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Community modules
+
+#if defined(COMMUNITY_MODULES_ENABLE)
+#    include "community_modules_introspection.inc"
+#endif // defined(COMMUNITY_MODULES_ENABLE)
