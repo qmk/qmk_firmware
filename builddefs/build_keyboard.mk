@@ -270,14 +270,19 @@ $(INTERMEDIATE_OUTPUT)/src/community_modules.c: $(KEYMAP_JSON) $(DD_CONFIG_FILES
 	$(eval CMD=$(QMK_BIN) generate-community-modules-c -kb $(KEYBOARD) --quiet --output $(INTERMEDIATE_OUTPUT)/src/community_modules.c $(KEYMAP_JSON))
 	@$(BUILD_CMD)
 
-$(INTERMEDIATE_OUTPUT)/src/community_modules_introspection.inc: $(KEYMAP_JSON) $(DD_CONFIG_FILES)
+$(INTERMEDIATE_OUTPUT)/src/community_modules_introspection.c: $(KEYMAP_JSON) $(DD_CONFIG_FILES)
 	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
-	$(eval CMD=$(QMK_BIN) generate-community-modules-introspection-inc -kb $(KEYBOARD) --quiet --output $(INTERMEDIATE_OUTPUT)/src/community_modules_introspection.inc $(KEYMAP_JSON))
+	$(eval CMD=$(QMK_BIN) generate-community-modules-introspection-c -kb $(KEYBOARD) --quiet --output $(INTERMEDIATE_OUTPUT)/src/community_modules_introspection.c $(KEYMAP_JSON))
+	@$(BUILD_CMD)
+
+$(INTERMEDIATE_OUTPUT)/src/community_modules_introspection.h: $(KEYMAP_JSON) $(DD_CONFIG_FILES)
+	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
+	$(eval CMD=$(QMK_BIN) generate-community-modules-introspection-h -kb $(KEYBOARD) --quiet --output $(INTERMEDIATE_OUTPUT)/src/community_modules_introspection.h $(KEYMAP_JSON))
 	@$(BUILD_CMD)
 
 SRC += $(INTERMEDIATE_OUTPUT)/src/community_modules.c
 
-generated-files: $(INTERMEDIATE_OUTPUT)/src/community_modules.h $(INTERMEDIATE_OUTPUT)/src/community_modules.c $(INTERMEDIATE_OUTPUT)/src/community_modules_introspection.inc
+generated-files: $(INTERMEDIATE_OUTPUT)/src/community_modules.h $(INTERMEDIATE_OUTPUT)/src/community_modules.c $(INTERMEDIATE_OUTPUT)/src/community_modules_introspection.c $(INTERMEDIATE_OUTPUT)/src/community_modules_introspection.h
 
 
 include $(BUILDDEFS_PATH)/converters.mk

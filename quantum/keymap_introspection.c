@@ -12,6 +12,10 @@
 #include "keymap_introspection.h"
 #include "util.h"
 
+#if defined(COMMUNITY_MODULES_ENABLE)
+#    include "community_modules_introspection.h"
+#endif // defined(COMMUNITY_MODULES_ENABLE)
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Key mapping
 
@@ -173,8 +177,8 @@ __attribute__((weak)) const key_override_t* key_override_get(uint16_t key_overri
 #endif // defined(KEY_OVERRIDE_ENABLE)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Community modules
+// Community modules (must be last in this file!)
 
 #if defined(COMMUNITY_MODULES_ENABLE)
-#    include "community_modules_introspection.inc"
+#    include "community_modules_introspection.c"
 #endif // defined(COMMUNITY_MODULES_ENABLE)

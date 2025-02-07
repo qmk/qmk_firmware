@@ -2,12 +2,12 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include QMK_KEYBOARD_H
 
+#include "introspection.h"
+
 ASSERT_COMMUNITY_MODULES_MIN_API_VERSION(20250122);
 
-extern int keymap_byte_count(void); // example of use of introspection
-
 uint32_t delayed_hello_world(uint32_t trigger_time, void *cb_arg) {
-    printf("Hello, world! I'm a QMK based keyboard! The keymap array size is %d bytes.\n", keymap_byte_count());
+    printf("Hello, world! I'm a QMK based keyboard! The keymap array size is %d bytes.\n", hello_world_introspection().total_size);
     return 0;
 }
 
