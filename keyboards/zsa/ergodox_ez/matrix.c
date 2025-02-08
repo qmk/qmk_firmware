@@ -1,4 +1,10 @@
 /*
+
+Note for ErgoDox EZ customizers: Here be dragons!
+This is not a file you want to be messing with.
+All of the interesting stuff for you is under keymaps/ :)
+Love, Erez
+
 Copyright 2012 Jun Wako <wakojun@gmail.com>
 Copyright 2013 Oleg Kostyuk <cub.uanic@gmail.com>
 Copyright 2015 ZSA Technology Labs Inc (@zsa)
@@ -22,18 +28,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * scan matrix
  */
-#include <stdint.h>
-#include <stdbool.h>
-#include <avr/io.h>
+#include "ergodox_ez.h"
 #include "wait.h"
 #include "action_layer.h"
 #include "print.h"
 #include "debug.h"
-#include "util.h"
-#include "matrix.h"
-#include "debounce.h"
-#include "ergodox_ez.h"
-
+#include "i2c_master.h"
+#include "gpio.h"
+#include "atomic_util.h"
 
 /*
  * This constant define not debouncing time in msecs, assuming eager_pr.
@@ -50,13 +52,60 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* matrix state(1:on, 0:off) */
 extern matrix_row_t matrix[MATRIX_ROWS];      // debounced values
 extern matrix_row_t raw_matrix[MATRIX_ROWS];  // raw values
+static const pin_t onboard_row_pins[MATRIX_ROWS] = MATRIX_ONBOARD_ROW_PINS;
+static const pin_t onboard_col_pins[MATRIX_COLS] = MATRIX_ONBOARD_COL_PINS;
+static const bool row_expanded[MATRIX_ROWS] = ROWS_EXPANDED;
 
-static matrix_row_t read_cols(uint8_t row);
 static void         init_cols(void);
+static matrix_row_t read_cols(uint8_t row);
 static void         unselect_rows(void);
 static void         select_row(uint8_t row);
+static void         unselect_row(uint8_t row);
 
 static uint8_t mcp23018_reset_loop;
+i2c_status_t mcp23018_status = 0x20;
+static bool i2c_initialized = false;
+
+#ifdef RGBLIGHT_ENABLE
+extern bool i2c_rgblight;
+#endif
+
+#define MCP23018_IODIRA          0x00            // i/o direction register
+#define MCP23018_IODIRB          0x01
+#define MCP23018_GPPUA           0x0C            // GPIO pull-up resistor register
+#define MCP23018_GPPUB           0x0D
+#define MCP23018_GPIOA           0x12            // general purpose i/o port register (write modifies OLAT)
+#define MCP23018_GPIOB           0x13
+#define MCP23018_OLATA           0x14            // output latch register
+#define MCP23018_OLATB           0x15
+
+
+uint8_t init_mcp23018(void) {
+    mcp23018_status = 0x20;
+
+    if (!i2c_initialized) {
+        i2c_init(); // on pins D(1,0)
+        i2c_initialized = true;
+        wait_ms(1000);
+    }
+
+    // set pin direction
+    // - unused  : input  : 1
+    // - input   : input  : 1
+    // - driving : output : 0
+    uint8_t buf[]   = {0b00000000, 0b00111111};
+    mcp23018_status = i2c_write_register(MCP23018_EXPANDER_I2C_ADDR, MCP23018_IODIRA, buf, sizeof(buf), ERGODOX_EZ_I2C_TIMEOUT);
+
+    if (!mcp23018_status) {
+        // set pull-up
+        // - unused  : on  : 1
+        // - input   : on  : 1
+        // - driving : off : 0
+        mcp23018_status = i2c_write_register(MCP23018_EXPANDER_I2C_ADDR, MCP23018_GPPUA, buf, sizeof(buf), ERGODOX_EZ_I2C_TIMEOUT);
+    }
+
+    return mcp23018_status;
+}
 
 void matrix_init_custom(void) {
     // initialize row and col
@@ -87,17 +136,12 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
                 print("left side not responding\n");
             } else {
                 print("left side attached\n");
-                ergodox_blink_all_leds();
-#ifdef RGB_MATRIX_ENABLE
-                rgb_matrix_init();  // re-init driver on reconnect
-#endif
+                wait_ms(200);
+                mcu_reset();
             }
         }
     }
 
-#ifdef LEFT_LEDS
-    mcp23018_status = ergodox_left_leds_update();
-#endif  // LEFT_LEDS
     bool changed = false;
     for (uint8_t i = 0; i < MATRIX_ROWS_PER_SIDE; i++) {
         // select rows from left and right hands
@@ -115,48 +159,40 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     return changed;
 }
 
-/* Column pin configuration
- *
- * Teensy
- * col: 0   1   2   3   4   5
- * pin: F0  F1  F4  F5  F6  F7
- *
- * MCP23018
- * col: 0   1   2   3   4   5
- * pin: B5  B4  B3  B2  B1  B0
- */
 static void init_cols(void) {
     // init on mcp23018
     // not needed, already done as part of init_mcp23018()
 
-    // init on teensy
-    gpio_set_pin_input_high(F0);
-    gpio_set_pin_input_high(F1);
-    gpio_set_pin_input_high(F4);
-    gpio_set_pin_input_high(F5);
-    gpio_set_pin_input_high(F6);
-    gpio_set_pin_input_high(F7);
+    for (uint8_t x = 0; x < MATRIX_COLS; x++) {
+        ATOMIC_BLOCK_FORCEON {
+            gpio_set_pin_input_high(onboard_col_pins[x]);
+        }
+    }
 }
 
 static matrix_row_t read_cols(uint8_t row) {
-    if (row < 7) {
+    if (row < MATRIX_ROWS_PER_SIDE) {
         if (mcp23018_status) {  // if there was an error
             return 0;
         } else {
             uint8_t data = 0;
             // reading GPIOB (column port) since in mcp23018's sequential mode
             // it is addressed directly after writing to GPIOA in select_row()
-            mcp23018_status = i2c_receive(I2C_ADDR, &data, 1, ERGODOX_EZ_I2C_TIMEOUT);
+            mcp23018_status = i2c_read_register(MCP23018_EXPANDER_I2C_ADDR, EXPANDER_COL_REGISTER, &data, 1, ERGODOX_EZ_I2C_TIMEOUT);
             return ~data;
         }
     } else {
-        /* read from teensy
-         * bitmask is 0b11110011, but we want those all
-         * in the lower six bits.
-         * we'll return 1s for the top two, but that's harmless.
-         */
+        select_row(row);
+        matrix_row_t current_row_value                         = 0;
+        for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
+            // Select the col pin to read (active low)
+            uint8_t pin_state = gpio_read_pin(onboard_col_pins[col_index]);
 
-        return ~((PINF & 0x03) | ((PINF & 0xF0) >> 2));
+            // Populate the matrix row with the state of the col pin
+            current_row_value |= pin_state ? 0 : ((matrix_row_t)1 << col_index);
+        }
+        unselect_row(row);
+        return current_row_value;
     }
 }
 
@@ -175,14 +211,19 @@ static void unselect_rows(void) {
     // the other row bits high, and it's not changing to a different
     // direction
 
-    // unselect on teensy
-    gpio_set_pin_input(B0);
-    gpio_set_pin_input(B1);
-    gpio_set_pin_input(B2);
-    gpio_set_pin_input(B3);
-    gpio_set_pin_input(D2);
-    gpio_set_pin_input(D3);
-    gpio_set_pin_input(C6);
+    for (uint8_t row_index = MATRIX_ROWS_PER_SIDE; row_index < MATRIX_ROWS; row_index++) {
+        if (!row_expanded[row_index]) {
+            unselect_row(row_index);
+        }
+    }
+}
+
+static void unselect_row(uint8_t row) {
+    if (!row_expanded[row]) {
+        ATOMIC_BLOCK_FORCEON {
+            gpio_set_pin_input_high(onboard_row_pins[row]);
+        }
+    }
 }
 
 static void select_row(uint8_t row) {
@@ -193,40 +234,16 @@ static void select_row(uint8_t row) {
             // set other rows hi-Z : 1
             uint8_t data;
             data = 0xFF & ~(1 << row);
-            mcp23018_status = i2c_write_register(I2C_ADDR, GPIOA, &data, 1, ERGODOX_EZ_I2C_TIMEOUT);
+            mcp23018_status = i2c_write_register(MCP23018_EXPANDER_I2C_ADDR, EXPANDER_ROW_REGISTER, &data, 1, ERGODOX_EZ_I2C_TIMEOUT);
         }
     } else {
         // select on teensy
         // Output low(DDR:1, PORT:0) to select
-        switch (row) {
-            case 7:
-                gpio_set_pin_output(B0);
-                gpio_write_pin_low(B0);
-                break;
-            case 8:
-                gpio_set_pin_output(B1);
-                gpio_write_pin_low(B1);
-                break;
-            case 9:
-                gpio_set_pin_output(B2);
-                gpio_write_pin_low(B2);
-                break;
-            case 10:
-                gpio_set_pin_output(B3);
-                gpio_write_pin_low(B3);
-                break;
-            case 11:
-                gpio_set_pin_output(D2);
-                gpio_write_pin_low(D2);
-                break;
-            case 12:
-                gpio_set_pin_output(D3);
-                gpio_write_pin_low(D3);
-                break;
-            case 13:
-                gpio_set_pin_output(C6);
-                gpio_write_pin_low(C6);
-                break;
+        if (!row_expanded[row]) {
+            ATOMIC_BLOCK_FORCEON {
+                gpio_set_pin_output(onboard_row_pins[row]);
+                gpio_write_pin_low(onboard_row_pins[row]);
+            }
         }
     }
 }
@@ -234,10 +251,7 @@ static void select_row(uint8_t row) {
 // DO NOT REMOVE
 // Needed for proper wake/sleep
 void matrix_power_up(void) {
-    mcp23018_status = init_mcp23018();
-
-    unselect_rows();
-    init_cols();
+    matrix_init_custom();
 
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {

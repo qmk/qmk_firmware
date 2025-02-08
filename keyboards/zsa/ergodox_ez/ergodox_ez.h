@@ -25,137 +25,61 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #include "i2c_master.h"
 
-// I2C aliases and register addresses (see "mcp23018.md")
-#define I2C_ADDR        (0b0100000<<1)
-#define IODIRA          0x00            // i/o direction register
-#define IODIRB          0x01
-#define GPPUA           0x0C            // GPIO pull-up resistor register
-#define GPPUB           0x0D
-#define GPIOA           0x12            // general purpose i/o port register (write modifies OLAT)
-#define GPIOB           0x13
-#define OLATA           0x14            // output latch register
-#define OLATB           0x15
-
 extern i2c_status_t mcp23018_status;
-#define ERGODOX_EZ_I2C_TIMEOUT 100
 
-void init_ergodox(void);
-void ergodox_blink_all_leds(void);
+#ifndef ERGODOX_EZ_I2C_TIMEOUT
+#    define ERGODOX_EZ_I2C_TIMEOUT 10
+#endif
+#ifndef MCP23018_EXPANDER_I2C_ADDR
+#    define MCP23018_EXPANDER_I2C_ADDR (0x20 << 1)
+#endif
+
 uint8_t init_mcp23018(void);
-uint8_t ergodox_left_leds_update(void);
+void ergodox_blink_all_leds(void);
+bool is_transport_connected(void);
+
+void ergodox_board_led_on(void);
+void ergodox_right_led_1_on(void);
+void ergodox_right_led_2_on(void);
+void ergodox_right_led_3_on(void);
+void ergodox_right_led_on(uint8_t led);
+void ergodox_board_led_off(void);
+void ergodox_right_led_1_off(void);
+void ergodox_right_led_2_off(void);
+void ergodox_right_led_3_off(void);
+void ergodox_right_led_off(uint8_t led);
+void ergodox_led_all_on(void);
+void ergodox_led_all_off(void);
+void ergodox_right_led_1_set(uint8_t n);
+void ergodox_right_led_2_set(uint8_t n);
+void ergodox_right_led_3_set(uint8_t n);
+void ergodox_right_led_set(uint8_t led, uint8_t n);
+void ergodox_led_all_set(uint8_t n);
 
 #ifndef LED_BRIGHTNESS_LO
-#define LED_BRIGHTNESS_LO       15
+#    define LED_BRIGHTNESS_LO 15
 #endif
 #ifndef LED_BRIGHTNESS_HI
-#define LED_BRIGHTNESS_HI       255
+#    define LED_BRIGHTNESS_HI 255
 #endif
-
-#define ERGODOX_EZ_BOARD_LED_PIN D6
-#define ERGODOX_EZ_RIGHT_LED_1_PIN B5
-#define ERGODOX_EZ_RIGHT_LED_2_PIN B6
-#define ERGODOX_EZ_RIGHT_LED_3_PIN B7
-
-inline void ergodox_board_led_on(void) {
-    gpio_set_pin_output(ERGODOX_EZ_BOARD_LED_PIN);
-    gpio_write_pin_high(ERGODOX_EZ_BOARD_LED_PIN);
-}
-inline void ergodox_right_led_1_on(void) {
-    gpio_set_pin_output(ERGODOX_EZ_RIGHT_LED_1_PIN);
-    gpio_write_pin_high(ERGODOX_EZ_RIGHT_LED_1_PIN);
-}
-inline void ergodox_right_led_2_on(void) {
-    gpio_set_pin_output(ERGODOX_EZ_RIGHT_LED_2_PIN);
-    gpio_write_pin_high(ERGODOX_EZ_RIGHT_LED_2_PIN);
-}
-inline void ergodox_right_led_3_on(void) {
-    gpio_set_pin_output(ERGODOX_EZ_RIGHT_LED_3_PIN);
-    gpio_write_pin_high(ERGODOX_EZ_RIGHT_LED_3_PIN);
-}
-
-inline void ergodox_board_led_off(void) {
-    gpio_set_pin_input(ERGODOX_EZ_BOARD_LED_PIN);
-}
-inline void ergodox_right_led_1_off(void) {
-    gpio_set_pin_input(ERGODOX_EZ_RIGHT_LED_1_PIN);
-}
-inline void ergodox_right_led_2_off(void) {
-    gpio_set_pin_input(ERGODOX_EZ_RIGHT_LED_2_PIN);
-}
-inline void ergodox_right_led_3_off(void) {
-    gpio_set_pin_input(ERGODOX_EZ_RIGHT_LED_3_PIN);
-}
-
-#ifdef LEFT_LEDS
-bool ergodox_left_led_1;
-bool ergodox_left_led_2;
-bool ergodox_left_led_3;
-
-inline void ergodox_left_led_1_on(void)    { ergodox_left_led_1 = 1; }
-inline void ergodox_left_led_2_on(void)    { ergodox_left_led_2 = 1; }
-inline void ergodox_left_led_3_on(void)    { ergodox_left_led_3 = 1; }
-
-inline void ergodox_left_led_1_off(void)    { ergodox_left_led_1 = 0; }
-inline void ergodox_left_led_2_off(void)    { ergodox_left_led_2 = 0; }
-inline void ergodox_left_led_3_off(void)    { ergodox_left_led_3 = 0; }
-#endif // LEFT_LEDS
-
-inline void ergodox_led_all_on(void) {
-    ergodox_board_led_on();
-    ergodox_right_led_1_on();
-    ergodox_right_led_2_on();
-    ergodox_right_led_3_on();
-#ifdef LEFT_LEDS
-    ergodox_left_led_1_on();
-    ergodox_left_led_2_on();
-    ergodox_left_led_3_on();
-#endif // LEFT_LEDS
-}
-
-inline void ergodox_led_all_off(void)
-{
-    ergodox_board_led_off();
-    ergodox_right_led_1_off();
-    ergodox_right_led_2_off();
-    ergodox_right_led_3_off();
-#ifdef LEFT_LEDS
-    ergodox_left_led_1_off();
-    ergodox_left_led_2_off();
-    ergodox_left_led_3_off();
-#endif // LEFT_LEDS
-}
-
-inline void ergodox_right_led_1_set(uint8_t n)    { OCR1A = n; }
-inline void ergodox_right_led_2_set(uint8_t n)    { OCR1B = n; }
-inline void ergodox_right_led_3_set(uint8_t n)    { OCR1C = n; }
-inline void ergodox_right_led_set(uint8_t led, uint8_t n)  {
-    (led == 1) ? (OCR1A = n) :
-    (led == 2) ? (OCR1B = n) :
-                 (OCR1C = n);
-}
-
-inline void ergodox_led_all_set(uint8_t n) {
-    ergodox_right_led_1_set(n);
-    ergodox_right_led_2_set(n);
-    ergodox_right_led_3_set(n);
-}
 
 enum ergodox_ez_keycodes {
-    LED_LEVEL = QK_KB_0,
+    LED_LEVEL = QK_KB,
     TOGGLE_LAYER_COLOR,
+    EZ_SAFE_RANGE
 };
 
-#ifndef WEBUSB_ENABLE
-#    define WEBUSB_PAIR KC_NO
-#endif
-
 typedef union {
-  uint32_t raw;
-  struct {
-    uint8_t    led_level :3;
-    bool       disable_layer_led   :1;
-    bool       rgb_matrix_enable   :1;
-  };
+    uint32_t raw;
+    struct {
+        uint8_t led_level : 3;
+        bool    disable_layer_led : 1;
+        bool    placeholder : 1;
+    };
 } keyboard_config_t;
 
 extern keyboard_config_t keyboard_config;
+
+#define STATUS_LED_1(status) (bool)status ? ergodox_right_led_1_on() : ergodox_right_led_1_off()
+#define STATUS_LED_2(status) (bool)status ? ergodox_right_led_2_on() : ergodox_right_led_2_off()
+#define STATUS_LED_3(status) (bool)status ? ergodox_right_led_3_on() : ergodox_right_led_3_off()
