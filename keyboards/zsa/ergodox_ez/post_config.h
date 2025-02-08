@@ -20,23 +20,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#if !defined(ERGODOX_LED_15) && !defined(ERGODOX_LED_30)
+#ifdef RGBLIGHT_ENABLE
+#    if !defined(ERGODOX_LED_15) && !defined(ERGODOX_LED_30)
 // if no value is defined, assume previous behavior
 // #    define ERGODOX_LED_15
 // #    define ERGODOX_LED_30
-#    define ERGODOX_LED_15_MIRROR
-#endif
+#        define ERGODOX_LED_15_MIRROR
+#    endif
 
-#if (defined(ERGODOX_LED_30) + defined(ERGODOX_LED_15) + defined(ERGODOX_LED_15_MIRROR)) != 1
-#    error "You must only define one of the ERGODOX_LED options."
-#endif
+#    if (defined(ERGODOX_LED_30) + defined(ERGODOX_LED_15) + defined(ERGODOX_LED_15_MIRROR)) != 1
+#        error "You must only define one of the ERGODOX_LED options."
+#    endif
 
-#ifdef ERGODOX_LED_30
+#    ifdef ERGODOX_LED_30
 // If using 30 LEDs, then define that many
-#    define WS2812_LED_COUNT 30
-#    define RGBLIGHT_LED_COUNT 30  // Number of LEDs
-#else
+#        define WS2812_LED_COUNT 30
+#        define RGBLIGHT_LED_COUNT 30
+#    else
 // If not, then only define 15
-#    define WS2812_LED_COUNT 15
-#    define RGBLIGHT_LED_COUNT 15  // Number of LEDs
+#        define WS2812_LED_COUNT 15
+#        define RGBLIGHT_LED_COUNT 15
+#    endif
+#endif
+
+#if defined(RGB_MATRIX_ENABLE) || defined(RGBLIGHT_ENABLE)
+#    undef PRODUCT
+#    undef PRODUCT_ID
+#endif
+
+#if defined(RGB_MATRIX_ENABLE)
+#    define PRODUCT "ErgoDox EZ Glow"
+#    define PRODUCT_ID 0x4976
+#elif defined(RGBLIGHT_ENABLE)
+#    define PRODUCT "ErgoDox EZ Shine"
+#    define PRODUCT_ID 0x4975
 #endif
