@@ -10,4 +10,4 @@ RGB_MATRIX_ENABLE = yes
 
 # encoder settings
 ENCODER_ENABLE = yes
-#ENCODER_MAP_ENABLE = yes
+ENCODER_MAP_ENABLE = yes
