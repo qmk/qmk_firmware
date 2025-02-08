@@ -90,7 +90,7 @@ enum combos {
 
     GRVSPC_COMB,
     PIPE_COMB,
-    ENTER_COMB,
+    SENTER_COMB,
     TILDE_COMB,
 
     MINUS_COMB,
@@ -168,6 +168,7 @@ const uint16_t PROGMEM ques[] = {KC_W, KC_E, COMBO_END};
 const uint16_t PROGMEM und[] = {KC_E, KC_R, COMBO_END};
 const uint16_t PROGMEM cln[] = {CKC_D, CKC_F, COMBO_END};
 const uint16_t PROGMEM scln[] = {KC_Z, KC_X, COMBO_END};
+const uint16_t PROGMEM senter_combo[] = {KC_U, KC_I, COMBO_END};
 
 
 
@@ -178,14 +179,34 @@ const uint16_t PROGMEM pipe[] = {KC_H, KC_N, COMBO_END};  // You can change thes
 //
 const uint16_t PROGMEM minus[] = {CKC_J, KC_M, COMBO_END};  // You can change these keys to your preference
 const uint16_t PROGMEM plus[] = {CKC_F, KC_V, COMBO_END};  // You can change these keys to your preference
-const uint16_t PROGMEM equal[] = {KC_X, KC_V, COMBO_END};  // You can change these keys to your preference
+const uint16_t PROGMEM equal[] = {KC_C, KC_V, COMBO_END};  // You can change these keys to your preference
 //
+
 const uint16_t PROGMEM grave[] = {KC_E, CKC_F, COMBO_END};  // You can change these keys to your preference
 
+bool caps_word_press_user(uint16_t keycode) {
+  switch (keycode) {
+    // Continue Caps Word for alphanumerics + underscore/backspace/delete
+    case KC_A ... KC_Z:
+    case KC_0 ... KC_9:
+    case KC_UNDS:     // _
+    case KC_BSPC:     // Backspace
+    case KC_DEL:      // Delete
+      if (keycode >= KC_A && keycode <= KC_Z) {
+        add_weak_mods(MOD_BIT(KC_LSFT)); // Auto-shift letters
+      }
+      return true;
+
+    // Word-breaking keys (non-alnum except those above)
+    default:
+      return false; // Deactivate Caps Word
+  }
+}
 
 //
 combo_t key_combos[] = {
 
+    [SENTER_COMB] = COMBO(senter_combo, S(KC_ENT)), // KC_NO to leave processing for process_combo_event
     [CMB_ALTTAB] = COMBO(combo_alttab, KC_NO), // KC_NO to leave processing for process_combo_event
     [BSLS_COMB] = COMBO(backslash, KC_BSLS),
     [SLSH_COMB] = COMBO(slash, KC_SLSH),
@@ -220,8 +241,8 @@ combo_t key_combos[] = {
     [PIPE_COMB] = COMBO(pipe, KC_PIPE),
 
     [MINUS_COMB] = COMBO(minus, KC_MINS),
-    [PLUS_COMB] = COMBO(plus, KC_MINS),
-    [EQUAL_COMB] = COMBO(equal, KC_MINS),
+    [PLUS_COMB] = COMBO(plus, KC_PLUS),
+    [EQUAL_COMB] = COMBO(equal, KC_EQL),
 
     [TILDE_COMB] = COMBO(tilde, KC_TILD),
     [GRVSPC_COMB] = COMBO_ACTION(grave),

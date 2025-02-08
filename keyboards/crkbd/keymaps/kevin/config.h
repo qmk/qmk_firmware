@@ -34,9 +34,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SMTD_GLOBAL_FOLLOWING_TAP_TERM 200
 #define SMTD_GLOBAL_SEQUENCE_TERM 100
 #define SMTD_GLOBAL_RELEASE_TERM 50
-
+// config.h
+#define CAPS_WORD_IDLE_TIMEOUT 0       // Disable auto-timeout (ZMK default)
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD // ZMK-style
 #define TAPPING_TERM 200
-//#define QUICK_TAP_TERM 0
+//#define QUICK_TAP_TERM
 //#define TAPPING_TERM 100
 #define MAX_DEFERRED_EXECUTORS 10
 #ifdef RGBLIGHT_ENABLE
