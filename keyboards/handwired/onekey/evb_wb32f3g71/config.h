@@ -3,15 +3,9 @@
 
 #pragma once
 
-
 #define ADC_PIN A0
 
-#define BACKLIGHT_PWM_DRIVER  PWMD4
-#define BACKLIGHT_PWM_CHANNEL 3
-#define BACKLIGHT_PAL_MODE    2
-
 #define APA102_NOPS (100 / (1000000000L / (CPU_CLOCK / 4)))
-#define RGB_CI_PIN B8
 
 #define SOLENOID_PIN B12
 #define SOLENOID_PINS { B12, B13, B14, B15 }

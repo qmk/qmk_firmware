@@ -16,19 +16,10 @@
 
 #pragma once
 
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
 /* Split Keyboard specific options */
 #define USE_I2C
 #define SPLIT_USB_DETECT
 #define MASTER_RIGHT
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
 
 /* optical sensor settings */
 #define SCROLL_DIVIDER 12

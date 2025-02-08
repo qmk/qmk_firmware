@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "seigaiha.h"
+#include "quantum.h"
 #include "i2c_master.h"
 
 // There is no need to initialize the I/O it is done in matrix.c
@@ -26,7 +26,7 @@ void led_update_ports(led_t led_state) {
     } else {
         send_data &= ~(1 << 5);
     }
-    i2c_writeReg((PORT_EXPANDER_ADDRESS << 1), 0x0A, &send_data, 1, 20);
+    i2c_write_register((PORT_EXPANDER_ADDRESS << 1), 0x0A, &send_data, 1, 20);
 }
 
 __attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {

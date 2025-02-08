@@ -4,6 +4,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "xmk_matrix.h"
+#include "matrix.h"
+#include "debug.h"
 
 bool xmk_changed = false;
 matrix_row_t xmk_rows[MATRIX_ROWS];

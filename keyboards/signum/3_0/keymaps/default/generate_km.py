@@ -39,7 +39,7 @@ def _translate(s):
     elif re.match("^TT[0-9]{1,2}$", s):  # Tn, works from TT0 to TT99
         return ("TT({0})".format(s[2:]), "{0:^7}".format(s))
     elif s in layout.uc_dict:
-        return ("X("+s+")", "   {0}   ".format(chr(int(layout.uc_dict[s], 0))))
+        return ("UM("+s+")", "   {0}   ".format(chr(int(layout.uc_dict[s], 0))))
     elif s in layout.qmk_dict:
         return (layout.qmk_dict[s], "{0:^7}".format(s))
     elif s == s.upper() and s.startswith("KC_"):

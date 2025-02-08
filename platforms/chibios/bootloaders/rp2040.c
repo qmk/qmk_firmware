@@ -1,9 +1,10 @@
 // Copyright 2022 Stefan Kerkmann
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "quantum.h"
 #include "hal.h"
 #include "bootloader.h"
+#include "gpio.h"
+#include "wait.h"
 #include "pico/bootrom.h"
 
 #if !defined(RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED)

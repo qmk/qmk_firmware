@@ -1,7 +1,0 @@
-{
-    "encoder": {
-        "rotary": [
-            {"pin_a": "F7", "pin_b": "F6"}
-        ]
-    }
-}

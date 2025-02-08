@@ -14,18 +14,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "print.h"
 #include "process_combo.h"
+#include <stddef.h>
+#include "process_auto_shift.h"
+#include "caps_word.h"
+#include "timer.h"
+#include "wait.h"
+#include "keyboard.h"
+#include "keymap_common.h"
+#include "action_layer.h"
 #include "action_tapping.h"
-#include "action.h"
-
-#ifdef COMBO_COUNT
-__attribute__((weak)) combo_t key_combos[COMBO_COUNT];
-uint16_t                      COMBO_LEN = COMBO_COUNT;
-#else
-extern combo_t  key_combos[];
-extern uint16_t COMBO_LEN;
-#endif
+#include "action_util.h"
+#include "keymap_introspection.h"
 
 __attribute__((weak)) void process_combo_event(uint16_t combo_index, bool pressed) {}
 
@@ -36,19 +36,19 @@ __attribute__((weak)) uint8_t combo_ref_from_layer(uint8_t layer) {
 #endif
 
 #ifdef COMBO_MUST_HOLD_PER_COMBO
-__attribute__((weak)) bool get_combo_must_hold(uint16_t index, combo_t *combo) {
+__attribute__((weak)) bool get_combo_must_hold(uint16_t combo_index, combo_t *combo) {
     return false;
 }
 #endif
 
 #ifdef COMBO_MUST_TAP_PER_COMBO
-__attribute__((weak)) bool get_combo_must_tap(uint16_t index, combo_t *combo) {
+__attribute__((weak)) bool get_combo_must_tap(uint16_t combo_index, combo_t *combo) {
     return false;
 }
 #endif
 
 #ifdef COMBO_TERM_PER_COMBO
-__attribute__((weak)) uint16_t get_combo_term(uint16_t index, combo_t *combo) {
+__attribute__((weak)) uint16_t get_combo_term(uint16_t combo_index, combo_t *combo) {
     return COMBO_TERM;
 }
 #endif
@@ -65,11 +65,19 @@ __attribute__((weak)) bool process_combo_key_release(uint16_t combo_index, combo
 }
 #endif
 
+#ifdef COMBO_PROCESS_KEY_REPRESS
+__attribute__((weak)) bool process_combo_key_repress(uint16_t combo_index, combo_t *combo, uint8_t key_index, uint16_t keycode) {
+    return false;
+}
+#endif
+
 #ifdef COMBO_SHOULD_TRIGGER
 __attribute__((weak)) bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 #endif
+
+typedef enum { COMBO_KEY_NOT_PRESSED, COMBO_KEY_PRESSED, COMBO_KEY_REPRESSED } combo_key_action_t;
 
 #ifndef COMBO_NO_TIMER
 static uint16_t timer = 0;
@@ -144,7 +152,7 @@ static queued_combo_t combo_buffer[COMBO_BUFFER_LENGTH];
 static inline void release_combo(uint16_t combo_index, combo_t *combo) {
     if (combo->keycode) {
         keyrecord_t record = {
-            .event   = MAKE_KEYEVENT(KEYLOC_COMBO, KEYLOC_COMBO, false),
+            .event   = MAKE_COMBOEVENT(false),
             .keycode = combo->keycode,
         };
 #ifndef NO_ACTION_TAPPING
@@ -194,8 +202,8 @@ static inline uint16_t _get_combo_term(uint16_t combo_index, combo_t *combo) {
 void clear_combos(void) {
     uint16_t index = 0;
     longest_term   = 0;
-    for (index = 0; index < COMBO_LEN; ++index) {
-        combo_t *combo = &key_combos[index];
+    for (index = 0; index < combo_count(); ++index) {
+        combo_t *combo = combo_get(index);
         if (!COMBO_ACTIVE(combo)) {
             RESET_COMBO_STATE(combo);
         }
@@ -232,7 +240,7 @@ static inline void dump_key_buffer(void) {
             process_record(record);
 #endif
         }
-        record->event.time = 0;
+        record->event.type = TICK_EVENT;
 
 #if defined(CAPS_WORD_ENABLE) && defined(AUTO_SHIFT_ENABLE)
         // Edge case: preserve the weak Left Shift mod if both Caps Word and
@@ -286,7 +294,7 @@ void drop_combo_from_buffer(uint16_t combo_index) {
         queued_combo_t *qcombo = &combo_buffer[i];
 
         if (qcombo->combo_index == combo_index) {
-            combo_t *combo = &key_combos[combo_index];
+            combo_t *combo = combo_get(combo_index);
             DISABLE_COMBO(combo);
 
             if (i == combo_buffer_read) {
@@ -332,8 +340,9 @@ void apply_combo(uint16_t combo_index, combo_t *combo) {
         KEY_STATE_DOWN(state, key_index);
         if (ALL_COMBO_KEYS_ARE_DOWN(state, key_count)) {
             // this in the end executes the combo when the key_buffer is dumped.
-            record->keycode   = combo->keycode;
-            record->event.key = MAKE_KEYPOS(KEYLOC_COMBO, KEYLOC_COMBO);
+            record->keycode    = combo->keycode;
+            record->event.type = COMBO_EVENT;
+            record->event.key  = MAKE_KEYPOS(0, 0);
 
             qrecord->combo_index = combo_index;
             ACTIVATE_COMBO(combo);
@@ -342,7 +351,7 @@ void apply_combo(uint16_t combo_index, combo_t *combo) {
         } else {
             // key was part of the combo but not the last one, "disable" it
             // by making it a TICK event.
-            record->event.time = 0;
+            record->event.type = TICK_EVENT;
         }
     }
     drop_combo_from_buffer(combo_index);
@@ -352,7 +361,7 @@ static inline void apply_combos(void) {
     // Apply all buffered normal combos.
     for (uint8_t i = combo_buffer_read; i != combo_buffer_write; INCREMENT_MOD(i)) {
         queued_combo_t *buffered_combo = &combo_buffer[i];
-        combo_t *       combo          = &key_combos[buffered_combo->combo_index];
+        combo_t *       combo          = combo_get(buffered_combo->combo_index);
 
 #ifdef COMBO_MUST_TAP_PER_COMBO
         if (get_combo_must_tap(buffered_combo->combo_index, combo)) {
@@ -413,14 +422,14 @@ static bool keys_pressed_in_order(uint16_t combo_index, combo_t *combo, uint16_t
 }
 #endif
 
-static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *record, uint16_t combo_index) {
+static combo_key_action_t process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *record, uint16_t combo_index) {
     uint8_t  key_count = 0;
     uint16_t key_index = -1;
     _find_key_index_and_count(combo->keys, keycode, &key_index, &key_count);
 
     /* Continue processing if key isn't part of current combo. */
     if (-1 == (int16_t)key_index) {
-        return false;
+        return COMBO_KEY_NOT_PRESSED;
     }
 
     bool key_is_part_of_combo = (!COMBO_DISABLED(combo) && is_combo_enabled()
@@ -448,7 +457,7 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
             /* Don't buffer this combo if its combo term has passed. */
             if (timer && timer_elapsed(timer) > time) {
                 DISABLE_COMBO(combo);
-                return true;
+                return COMBO_KEY_PRESSED;
             } else
 #endif
             {
@@ -457,7 +466,7 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
                 combo_t *drop = NULL;
                 for (uint8_t combo_buffer_i = combo_buffer_read; combo_buffer_i != combo_buffer_write; INCREMENT_MOD(combo_buffer_i)) {
                     queued_combo_t *qcombo         = &combo_buffer[combo_buffer_i];
-                    combo_t *       buffered_combo = &key_combos[qcombo->combo_index];
+                    combo_t *       buffered_combo = combo_get(qcombo->combo_index);
 
                     if ((drop = overlaps(buffered_combo, combo))) {
                         DISABLE_COMBO(drop);
@@ -484,6 +493,15 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
                 }
             } // if timer elapsed end
         }
+#ifdef COMBO_PROCESS_KEY_REPRESS
+    } else if (record->event.pressed) {
+        if (COMBO_ACTIVE(combo)) {
+            if (process_combo_key_repress(combo_index, combo, key_index, keycode)) {
+                KEY_STATE_DOWN(combo->state, key_index);
+                return COMBO_KEY_REPRESSED;
+            }
+        }
+#endif
     } else {
         // chord releases
         if (!COMBO_ACTIVE(combo) && ALL_COMBO_KEYS_ARE_DOWN(COMBO_STATE(combo), key_count)) {
@@ -530,12 +548,12 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
         KEY_STATE_UP(combo->state, key_index);
     }
 
-    return key_is_part_of_combo;
+    return key_is_part_of_combo ? COMBO_KEY_PRESSED : COMBO_KEY_NOT_PRESSED;
 }
 
 bool process_combo(uint16_t keycode, keyrecord_t *record) {
-    bool is_combo_key          = false;
-    bool no_combo_keys_pressed = true;
+    uint8_t is_combo_key          = COMBO_KEY_NOT_PRESSED;
+    bool    no_combo_keys_pressed = true;
 
     if (keycode == QK_COMBO_ON && record->event.pressed) {
         combo_enable();
@@ -556,15 +574,15 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
     /* Only check keycodes from one layer. */
     keycode = keymap_key_to_keycode(COMBO_ONLY_FROM_LAYER, record->event.key);
 #else
-    uint8_t  highest_layer = get_highest_layer(layer_state);
+    uint8_t  highest_layer = get_highest_layer(layer_state | default_layer_state);
     uint8_t  ref_layer     = combo_ref_from_layer(highest_layer);
     if (ref_layer != highest_layer) {
         keycode = keymap_key_to_keycode(ref_layer, record->event.key);
     }
 #endif
 
-    for (uint16_t idx = 0; idx < COMBO_LEN; ++idx) {
-        combo_t *combo = &key_combos[idx];
+    for (uint16_t idx = 0; idx < combo_count(); ++idx) {
+        combo_t *combo = combo_get(idx);
         is_combo_key |= process_single_combo(combo, keycode, record, idx);
         no_combo_keys_pressed = no_combo_keys_pressed && (NO_COMBO_KEYS_ARE_DOWN || COMBO_ACTIVE(combo) || COMBO_DISABLED(combo));
     }
@@ -581,12 +599,17 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
 #    endif
 #endif
 
-        if (key_buffer_size < COMBO_KEY_BUFFER_LENGTH) {
-            key_buffer[key_buffer_size++] = (queued_record_t){
-                .record      = *record,
-                .keycode     = keycode,
-                .combo_index = -1, // this will be set when applying combos
-            };
+#ifdef COMBO_PROCESS_KEY_REPRESS
+        if (is_combo_key == COMBO_KEY_PRESSED)
+#endif
+        {
+            if (key_buffer_size < COMBO_KEY_BUFFER_LENGTH) {
+                key_buffer[key_buffer_size++] = (queued_record_t){
+                    .record      = *record,
+                    .keycode     = keycode,
+                    .combo_index = -1, // this will be set when applying combos
+                };
+            }
         }
     } else {
         if (combo_buffer_read != combo_buffer_write) {

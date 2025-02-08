@@ -7,7 +7,7 @@ A  (13x5) ortholinear keyboard that can be hand wired or using a pcb.
 * Keyboard Maintainer: [Alin Elena](https://github.com/alinelena) ([@drFaustroll on GitLab](https://gitlab.com/drFaustroll))
 * Hardware Supported: custom pcb [see](https://gitlab.com/m-lego/m65) STM/APM32F103C8T6, aka Black Pill (rev1),
   GD32F303CCT6 from we act aka Blue Pill Plus (rev2), STM32F401 from we act (rev3,rev4) STM32F411 can also be used just ask
-* Hardware Availability: [custom how to](https://alin.elena.space/blog/keeblego/)
+* Hardware Availability: [custom how to](https://mlego.elena.space/m65)
 
 
 Make example for this keyboard (after setting up your build environment):

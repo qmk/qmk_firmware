@@ -17,37 +17,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define MATRIX_COL_PINS { B2, B6, B5, F1, F0, C15, C14, C13 }
-#define MATRIX_ROW_PINS { B10, B11, A14, A15, A3, A0, A2, A1 }
-#define DIODE_DIRECTION COL2ROW
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
-/* RGB Underglow */
-#define RGB_DI_PIN A10
-#define RGBLED_NUM 32
-#define RGBLIGHT_EFFECT_BREATHING
-#define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#define RGBLIGHT_EFFECT_SNAKE
-#define RGBLIGHT_EFFECT_KNIGHT
-#define RGBLIGHT_EFFECT_CHRISTMAS
-#define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#define RGBLIGHT_EFFECT_RGB_TEST
-#define RGBLIGHT_EFFECT_ALTERNATING
-#define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLIGHT_EFFECT_KNIGHT_LENGTH 5
-//#define RGBLIGHT_LIMIT_VAL 200
 
 /* PWM RGB Underglow Defines */
 #define WS2812_PWM_DRIVER PWMD1
 #define WS2812_PWM_CHANNEL 3
 #define WS2812_PWM_PAL_MODE 2
-#define WS2812_DMA_STREAM STM32_DMA1_STREAM5
-#define WS2812_DMA_CHANNEL 3
+#define WS2812_PWM_DMA_STREAM STM32_DMA1_STREAM5
+#define WS2812_PWM_DMA_CHANNEL 3
 #define WS2812_EXTERNAL_PULLUP
 
 /* I2C driver overrides */

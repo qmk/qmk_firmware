@@ -2,9 +2,9 @@
 
 This document attempts to explain how the QMK firmware works from a very high level. It assumes you understand basic programming concepts but does not (except where needed to demonstrate) assume familiarity with C. It assumes that you have a basic understanding of the following documents:
 
-* [Introduction](getting_started_introduction.md)
-* [How Keyboards Work](how_keyboards_work.md)
-* [FAQ](faq_general.md)
+* [Introduction](getting_started_introduction)
+* [How Keyboards Work](how_keyboards_work)
+* [FAQ](faq_general)
 
 ## Startup
 
@@ -129,6 +129,8 @@ The `process_record()` function itself is deceptively simple, but hidden within 
 
 * [`void action_exec(keyevent_t event)`](https://github.com/qmk/qmk_firmware/blob/325da02e57fe7374e77b82cb00360ba45167e25c/quantum/action.c#L78-L140)
     * [`void pre_process_record_quantum(keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/325da02e57fe7374e77b82cb00360ba45167e25c/quantum/quantum.c#L204)
+      * [`bool pre_process_record_kb(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/27119fa77e8a1b95fff80718d3db4f3e32849298/quantum/quantum.c#L117)
+        * [`bool pre_process_record_user(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/27119fa77e8a1b95fff80718d3db4f3e32849298/quantum/quantum.c#L121)
       * [`bool process_combo(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/325da02e57fe7374e77b82cb00360ba45167e25c/quantum/process_keycode/process_combo.c#L521)
   * [`void process_record(keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/325da02e57fe7374e77b82cb00360ba45167e25c/quantum/action.c#L254)
     * [`bool process_record_quantum(keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/325da02e57fe7374e77b82cb00360ba45167e25c/quantum/quantum.c#L224)

@@ -15,12 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
+#include "process_key_override.h"
 #include "report.h"
 #include "timer.h"
-#include "process_key_override.h"
-
-#include <debug.h>
+#include "debug.h"
+#include "wait.h"
+#include "action_util.h"
+#include "quantum.h"
+#include "quantum_keycodes.h"
+#include "keymap_introspection.h"
 
 #ifndef KEY_OVERRIDE_REPEAT_DELAY
 #    define KEY_OVERRIDE_REPEAT_DELAY 500
@@ -80,9 +83,6 @@ static uint16_t deferred_register = 0;
 
 // TODO: in future maybe save in EEPROM?
 static bool enabled = true;
-
-// Public variables
-__attribute__((weak)) const key_override_t **key_overrides = NULL;
 
 // Forward decls
 static const key_override_t *clear_active_override(const bool allow_reregister);
@@ -245,12 +245,12 @@ static bool check_activation_event(const key_override_t *override, const bool ke
 
 /** Iterates through the list of key overrides and tries activating each, until it finds one that activates or reaches the end of overrides. Returns true if the key action for `keycode` should be sent */
 static bool try_activating_override(const uint16_t keycode, const uint8_t layer, const bool key_down, const bool is_mod, const uint8_t active_mods, bool *activated) {
-    if (key_overrides == NULL) {
+    if (key_override_count() == 0) {
         return true;
     }
 
-    for (uint8_t i = 0;; i++) {
-        const key_override_t *const override = key_overrides[i];
+    for (uint8_t i = 0; i < key_override_count(); i++) {
+        const key_override_t *const override = key_override_get(i);
 
         // End of array
         if (override == NULL) {
@@ -321,6 +321,15 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
         key_override_printf("Activating override\n");
 
         clear_active_override(false);
+
+#ifdef DUMMY_MOD_NEUTRALIZER_KEYCODE
+        // Send a dummy keycode before unregistering the modifier(s)
+        // so that suppressing the modifier(s) doesn't falsely get interpreted
+        // by the host OS as a tap of a modifier key.
+        // For example, unintended activations of the start menu on Windows when
+        // using a GUI+<kc> key override with suppressed mods.
+        neutralize_flashing_modifiers(active_mods);
+#endif
 
         active_override                 = override;
         active_override_trigger_is_down = true;

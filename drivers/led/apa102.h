@@ -19,23 +19,21 @@
 
 #include "color.h"
 
+#if defined(RGBLIGHT_APA102)
+#    define APA102_LED_COUNT RGBLIGHT_LED_COUNT
+#elif defined(RGB_MATRIX_APA102)
+#    define APA102_LED_COUNT RGB_MATRIX_LED_COUNT
+#endif
+
 #ifndef APA102_DEFAULT_BRIGHTNESS
 #    define APA102_DEFAULT_BRIGHTNESS 31
 #endif
 
 #define APA102_MAX_BRIGHTNESS 31
 
-extern uint8_t apa102_led_brightness;
+void apa102_init(void);
+void apa102_set_color(uint16_t index, uint8_t red, uint8_t green, uint8_t blue);
+void apa102_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
+void apa102_flush(void);
 
-/* User Interface
- *
- * Input:
- *         start_led:          An array of GRB data describing the LED colors
- *         num_leds:           The number of LEDs to write
- *
- * The functions will perform the following actions:
- *         - Set the data-out pin as output
- *         - Send out the LED data
- */
-void apa102_setleds(LED_TYPE *start_led, uint16_t num_leds);
 void apa102_set_brightness(uint8_t brightness);

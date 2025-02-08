@@ -16,12 +16,6 @@
 
 #pragma once
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
 // I2C setup
 #define I2C1_SCL_PAL_MODE   4
 #define I2C1_SDA_PAL_MODE   4
@@ -37,11 +31,9 @@
 // More EEPROM for layers
 
 // RGBLIGHT
-#define RGB_DI_PIN A10
-#define RGBLED_NUM 8            // actually only has 1
 #define RGBLIGHT_LAYERS
 #define WS2812_EXTERNAL_PULLUP
 #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
 
 // Bitbang WS2812
-#define NOP_FUDGE 0.4
+#define WS2812_BITBANG_NOP_FUDGE 0.4

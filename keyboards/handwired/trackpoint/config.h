@@ -36,12 +36,3 @@
     #define PS2_USART_ERROR         (UCSR1A & ((1<<FE1) | (1<<DOR1) | (1<<UPE1)))
     #define PS2_USART_RX_VECT       USART1_RX_vect
 #endif
-
-#define MATRIX_COL_PINS { F1, F4, F5 }
-#define MATRIX_ROW_PINS { F0 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-#define LOCKING_SUPPORT_ENABLE
-#define LOCKING_RESYNC_ENABLE

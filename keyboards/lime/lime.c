@@ -1,4 +1,4 @@
-#include "lime.h"
+#include "quantum.h"
 
 #ifdef SWAP_HANDS_ENABLE
 

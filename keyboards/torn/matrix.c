@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include QMK_KEYBOARD_H
+#include "matrix.h"
 #include "mcp23018.h"
 
 #define SPLIT_MATRIX_COLS (MATRIX_COLS / 2)
@@ -30,15 +30,15 @@ static const mcp23018_pin_t secondary_row_pins[MATRIX_ROWS]       = SECONDARY_RO
 static const mcp23018_pin_t secondary_col_pins[SPLIT_MATRIX_COLS] = SECONDARY_COL_PINS;
 
 static void select_row(uint8_t row) {
-    setPinOutput(row_pins[row]);
-    writePinLow(row_pins[row]);
+    gpio_set_pin_output(row_pins[row]);
+    gpio_write_pin_low(row_pins[row]);
 }
 
-static void unselect_row(uint8_t row) { setPinInputHigh(row_pins[row]); }
+static void unselect_row(uint8_t row) { gpio_set_pin_input_high(row_pins[row]); }
 
 static void unselect_rows(void) {
     for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
-        setPinInputHigh(row_pins[x]);
+        gpio_set_pin_input_high(row_pins[x]);
     }
 }
 
@@ -50,7 +50,7 @@ static void select_secondary_row(uint8_t row) {
 static void init_pins(void) {
     unselect_rows();
     for (uint8_t x = 0; x < SPLIT_MATRIX_COLS; x++) {
-        setPinInputHigh(col_pins[x]);
+        gpio_set_pin_input_high(col_pins[x]);
     }
 }
 
@@ -60,7 +60,7 @@ static matrix_row_t read_cols(void) {
     // For each col...
     for (uint8_t col_index = 0; col_index < SPLIT_MATRIX_COLS; col_index++) {
         // Select the col pin to read (active low)
-        uint8_t pin_state = readPin(col_pins[col_index]);
+        uint8_t pin_state = gpio_read_pin(col_pins[col_index]);
 
         // Populate the matrix row with the state of the col pin
         state |= pin_state ? 0 : (MATRIX_ROW_SHIFTER << col_index);

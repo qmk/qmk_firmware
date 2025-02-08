@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [_FL1] = LAYOUT_ansi(
     KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,           KC_PSCR, _______,
-    _______, _______, _______, _______, QK_BOOT,   _______, _______, _______, _______, _______, _______, _______, _______,          _______, KC_INS,
+    _______, _______, _______, _______, QK_BOOT, _______, _______, _______, _______, _______, _______, _______, _______,          _______, KC_INS,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                   _______, KC_HOME,
     _______,          _______, _______, _______, _______, _______, _______, _______, BL_DOWN, BL_UP,   _______, KC_MUTE,          KC_VOLU, KC_END,
     _______, _______, _______,                            BL_TOGG,                            _______, _______,          _______, KC_VOLD, _______
@@ -52,12 +52,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-void led_set_user(uint8_t usb_led) {
-  if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-    setPinOutput(B6);
-    writePinHigh(B6);
+bool led_update_user(led_t led_state) {
+  if (led_state.caps_lock) {
+    gpio_set_pin_output(B6);
+    gpio_write_pin_high(B6);
   } else {
-    setPinInput(B6);
-    writePinLow(B6);
+    gpio_set_pin_input(B6);
+    gpio_write_pin_low(B6);
   }
+  return false;
 }

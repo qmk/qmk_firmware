@@ -38,6 +38,8 @@ extern volatile uint32_t timer_count;
 
 void     timer_init(void);
 void     timer_clear(void);
+void     timer_save(void);
+void     timer_restore(void);
 uint16_t timer_read(void);
 uint32_t timer_read32(void);
 uint16_t timer_elapsed(uint16_t last);

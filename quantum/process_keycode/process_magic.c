@@ -14,8 +14,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "process_magic.h"
+#include "keycode_config.h"
+#include "keycodes.h"
+#include "eeconfig.h"
 
 #ifdef AUDIO_ENABLE
+#    include "audio.h"
+
 #    ifndef AG_NORM_SONG
 #        define AG_NORM_SONG SONG(AG_NORM_SOUND)
 #    endif

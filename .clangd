@@ -1,0 +1,4 @@
+CompileFlags:
+  Add: [-Wno-unknown-attributes, -Wno-maybe-uninitialized, -Wno-unknown-warning-option]
+  Remove: [-W*, -mmcu=*, -mcpu=*, -mfpu=*, -mfloat-abi=*, -mno-unaligned-access, -mno-thumb-interwork, -mcall-prologues]
+  Compiler: clang

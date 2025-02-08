@@ -97,7 +97,6 @@ typedef struct {
     USB_Descriptor_Interface_t Console_Interface;
     USB_HID_Descriptor_HID_t   Console_HID;
     USB_Descriptor_Endpoint_t  Console_INEndpoint;
-    USB_Descriptor_Endpoint_t  Console_OUTEndpoint;
 #endif
 
 #ifdef MIDI_ENABLE
@@ -197,6 +196,8 @@ enum usb_interfaces {
     TOTAL_INTERFACES
 };
 
+#define IS_VALID_INTERFACE(i) ((i) >= 0 && (i) < TOTAL_INTERFACES)
+
 #define NEXT_EPNUM __COUNTER__
 
 /*
@@ -232,19 +233,6 @@ enum usb_endpoints {
 
 #ifdef CONSOLE_ENABLE
     CONSOLE_IN_EPNUM = NEXT_EPNUM,
-
-#    ifdef PROTOCOL_CHIBIOS
-// ChibiOS has enough memory and descriptor to actually enable the endpoint
-// It could use the same endpoint numbers, as that's supported by ChibiOS
-// But the QMK code currently assumes that the endpoint numbers are different
-#        ifdef USB_ENDPOINTS_ARE_REORDERABLE
-#            define CONSOLE_OUT_EPNUM CONSOLE_IN_EPNUM
-#        else
-    CONSOLE_OUT_EPNUM = NEXT_EPNUM,
-#        endif
-#    else
-#        define CONSOLE_OUT_EPNUM CONSOLE_IN_EPNUM
-#    endif
 #endif
 
 #ifdef MIDI_ENABLE
@@ -291,15 +279,13 @@ enum usb_endpoints {
 #    define MAX_ENDPOINTS USB_MAX_ENDPOINTS
 #endif
 
-// TODO - ARM_ATSAM
-
 #if (NEXT_EPNUM - 1) > MAX_ENDPOINTS
 #    error There are not enough available endpoints to support all functions. Please disable one or more of the following: Mouse Keys, Extra Keys, Console, NKRO, MIDI, Serial, Steno
 #endif
 
 #define KEYBOARD_EPSIZE 8
 #define SHARED_EPSIZE 32
-#define MOUSE_EPSIZE 8
+#define MOUSE_EPSIZE 16
 #define RAW_EPSIZE 32
 #define CONSOLE_EPSIZE 32
 #define MIDI_STREAM_EPSIZE 64

@@ -5,9 +5,21 @@
 #include "serial_usart.h"
 #include "serial_protocol.h"
 #include "synchronization_util.h"
+#include "chibios_config.h"
 
 #if defined(SERIAL_USART_CONFIG)
 static QMKSerialConfig serial_config = SERIAL_USART_CONFIG;
+#elif defined(MCU_AT32) /* AT32 MCUs */
+static QMKSerialConfig serial_config = {
+    .speed = (SERIAL_USART_SPEED),
+    .ctrl1 = (SERIAL_USART_CTRL1),
+    .ctrl2 = (SERIAL_USART_CTRL2),
+#    if !defined(SERIAL_USART_FULL_DUPLEX)
+    .ctrl3 = ((SERIAL_USART_CTRL3) | USART_CTRL3_SLBEN) /* activate half-duplex mode */
+#    else
+    .ctrl3 = (SERIAL_USART_CTRL3)
+#    endif
+};
 #elif defined(MCU_STM32) /* STM32 MCUs */
 static QMKSerialConfig serial_config = {
 #    if HAL_USE_SERIAL
@@ -159,7 +171,7 @@ inline bool serial_transport_receive_blocking(uint8_t* destination, const size_t
  * @brief Initiate pins for USART peripheral. Half-duplex configuration.
  */
 __attribute__((weak)) void usart_init(void) {
-#    if defined(MCU_STM32) /* STM32 MCUs */
+#    if defined(MCU_STM32) || defined(MCU_AT32) /* STM32 and AT32 MCUs */
 #        if defined(USE_GPIOV1)
     palSetLineMode(SERIAL_USART_TX_PIN, PAL_MODE_ALTERNATE_OPENDRAIN);
 #        else
@@ -182,7 +194,7 @@ __attribute__((weak)) void usart_init(void) {
  * @brief Initiate pins for USART peripheral. Full-duplex configuration.
  */
 __attribute__((weak)) void usart_init(void) {
-#    if defined(MCU_STM32) /* STM32 MCUs */
+#    if defined(MCU_STM32) || defined(MCU_AT32) /* STM32 and AT32 MCUs */
 #        if defined(USE_GPIOV1)
     palSetLineMode(SERIAL_USART_TX_PIN, PAL_MODE_ALTERNATE_PUSHPULL);
     palSetLineMode(SERIAL_USART_RX_PIN, PAL_MODE_INPUT);

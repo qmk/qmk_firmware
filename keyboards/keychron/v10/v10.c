@@ -16,15 +16,6 @@
 
 #include "quantum.h"
 
-const matrix_row_t matrix_mask[] = {
-    0b1111111111111111,
-    0b1111111111111111,
-    0b1111111111111111,
-    0b1111111111111111,
-    0b1111111111111111,
-    0b1111111111011111,
-};
-
 #ifdef DIP_SWITCH_ENABLE
 
 bool dip_switch_update_kb(uint8_t index, bool active) {
@@ -46,7 +37,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
     switch (keycode) {
-        case RGB_TOG:
+        case QK_RGB_MATRIX_TOGGLE:
             if (record->event.pressed) {
                 switch (rgb_matrix_get_flags()) {
                     case LED_FLAG_ALL: {
@@ -84,17 +75,3 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 }
 
 #endif // CAPS_LOCK_LED_INDEX
-
-#ifdef ENCODER_ENABLE
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) { return false; }
-    if (index == 0) {
-        if (clockwise) {
-            tap_code_delay(KC_VOLU, 10);
-        } else {
-            tap_code_delay(KC_VOLD, 10);
-        }
-    }
-    return true;
-}
-#endif

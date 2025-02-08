@@ -1,12 +1,10 @@
-// Copyright 2018-2022 Nick Brassel (@tzarc)
+// Copyright 2018-2023 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
-#include <string.h>
-#include "quantum.h"
-#include <hal_pal.h>
 #include "djinn.h"
+#include <string.h>
+#include <hal_pal.h>
 #include "serial.h"
 #include "split_util.h"
-#include "qp.h"
 
 painter_device_t lcd;
 
@@ -48,23 +46,23 @@ void keyboard_post_init_kb(void) {
     memset(&kb_state, 0, sizeof(kb_state));
 
     // Turn off increased current limits
-    setPinOutput(RGB_CURR_1500mA_OK_PIN);
-    writePinLow(RGB_CURR_1500mA_OK_PIN);
-    setPinOutput(RGB_CURR_3000mA_OK_PIN);
-    writePinLow(RGB_CURR_3000mA_OK_PIN);
+    gpio_set_pin_output(RGB_CURR_1500mA_OK_PIN);
+    gpio_write_pin_low(RGB_CURR_1500mA_OK_PIN);
+    gpio_set_pin_output(RGB_CURR_3000mA_OK_PIN);
+    gpio_write_pin_low(RGB_CURR_3000mA_OK_PIN);
 
     // Turn on the RGB
-    setPinOutput(RGB_POWER_ENABLE_PIN);
-    writePinHigh(RGB_POWER_ENABLE_PIN);
+    gpio_set_pin_output(RGB_POWER_ENABLE_PIN);
+    gpio_write_pin_high(RGB_POWER_ENABLE_PIN);
 
 #ifdef EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN
-    setPinOutput(EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN);
-    writePinHigh(EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN);
+    gpio_set_pin_output(EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN);
+    gpio_write_pin_high(EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN);
 #endif // EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN
 
     // Turn on the LCD
-    setPinOutput(LCD_POWER_ENABLE_PIN);
-    writePinHigh(LCD_POWER_ENABLE_PIN);
+    gpio_set_pin_output(LCD_POWER_ENABLE_PIN);
+    gpio_write_pin_high(LCD_POWER_ENABLE_PIN);
 
     // Let the LCD get some power...
     wait_ms(150);
@@ -74,7 +72,6 @@ void keyboard_post_init_kb(void) {
     qp_init(lcd, QP_ROTATION_0);
 
     // Turn on the LCD and clear the display
-    kb_state.lcd_power = 1;
     qp_power(lcd, true);
     qp_rect(lcd, 0, 0, 239, 319, HSV_BLACK, true);
 
@@ -90,7 +87,7 @@ void keyboard_post_init_kb(void) {
 // RGB brightness scaling dependent on USBPD state
 
 #if defined(RGB_MATRIX_ENABLE)
-RGB rgb_matrix_hsv_to_rgb(HSV hsv) {
+rgb_t rgb_matrix_hsv_to_rgb(hsv_t hsv) {
     float scale;
 
 #    ifdef DJINN_SUPPORTS_3A_FUSE
@@ -151,16 +148,16 @@ void housekeeping_task_kb(void) {
         switch (current_setting) {
             default:
             case USBPD_500MA:
-                writePinLow(RGB_CURR_1500mA_OK_PIN);
-                writePinLow(RGB_CURR_3000mA_OK_PIN);
+                gpio_write_pin_low(RGB_CURR_1500mA_OK_PIN);
+                gpio_write_pin_low(RGB_CURR_3000mA_OK_PIN);
                 break;
             case USBPD_1500MA:
-                writePinHigh(RGB_CURR_1500mA_OK_PIN);
-                writePinLow(RGB_CURR_3000mA_OK_PIN);
+                gpio_write_pin_high(RGB_CURR_1500mA_OK_PIN);
+                gpio_write_pin_low(RGB_CURR_3000mA_OK_PIN);
                 break;
             case USBPD_3000MA:
-                writePinHigh(RGB_CURR_1500mA_OK_PIN);
-                writePinHigh(RGB_CURR_3000mA_OK_PIN);
+                gpio_write_pin_high(RGB_CURR_1500mA_OK_PIN);
+                gpio_write_pin_high(RGB_CURR_3000mA_OK_PIN);
                 break;
         }
 #else
@@ -169,12 +166,12 @@ void housekeeping_task_kb(void) {
             default:
             case USBPD_500MA:
             case USBPD_1500MA:
-                writePinLow(RGB_CURR_1500mA_OK_PIN);
-                writePinLow(RGB_CURR_3000mA_OK_PIN);
+                gpio_write_pin_low(RGB_CURR_1500mA_OK_PIN);
+                gpio_write_pin_low(RGB_CURR_3000mA_OK_PIN);
                 break;
             case USBPD_3000MA:
-                writePinHigh(RGB_CURR_1500mA_OK_PIN);
-                writePinLow(RGB_CURR_3000mA_OK_PIN);
+                gpio_write_pin_high(RGB_CURR_1500mA_OK_PIN);
+                gpio_write_pin_low(RGB_CURR_3000mA_OK_PIN);
                 break;
         }
 #endif
@@ -187,18 +184,14 @@ void housekeeping_task_kb(void) {
     }
 
     // Turn on/off the LCD
-    static bool lcd_on = false;
-    if (lcd_on != (bool)kb_state.lcd_power) {
-        lcd_on = (bool)kb_state.lcd_power;
-        qp_power(lcd, lcd_on);
-    }
+    bool peripherals_on = last_input_activity_elapsed() < LCD_ACTIVITY_TIMEOUT;
 
     // Enable/disable RGB
-    if (lcd_on) {
+    if (peripherals_on) {
         // Turn on RGB
-        writePinHigh(RGB_POWER_ENABLE_PIN);
+        gpio_write_pin_high(RGB_POWER_ENABLE_PIN);
         // Modify the RGB state if different to the LCD state
-        if (rgb_matrix_is_enabled() != lcd_on) {
+        if (rgb_matrix_is_enabled() != peripherals_on) {
             // Wait for a small amount of time to allow the RGB capacitors to charge, before enabling RGB output
             wait_ms(10);
             // Enable RGB
@@ -206,23 +199,23 @@ void housekeeping_task_kb(void) {
         }
     } else {
         // Turn off RGB
-        writePinLow(RGB_POWER_ENABLE_PIN);
+        gpio_write_pin_low(RGB_POWER_ENABLE_PIN);
         // Disable the PWM output for the RGB
-        if (rgb_matrix_is_enabled() != lcd_on) {
+        if (rgb_matrix_is_enabled() != peripherals_on) {
             rgb_matrix_disable_noeeprom();
         }
     }
 
     // Match the backlight to the LCD state
-    if (is_keyboard_master() && is_backlight_enabled() != lcd_on) {
-        if (lcd_on)
+    if (is_keyboard_master() && is_backlight_enabled() != peripherals_on) {
+        if (peripherals_on)
             backlight_enable();
         else
             backlight_disable();
     }
 
     // Draw the UI
-    if (kb_state.lcd_power) {
+    if (peripherals_on) {
         draw_ui_user(false);
     }
 

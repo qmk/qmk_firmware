@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "3x5.h"
+#include "charybdis.h"
 
 // clang-format off
 #ifdef RGB_MATRIX_ENABLE

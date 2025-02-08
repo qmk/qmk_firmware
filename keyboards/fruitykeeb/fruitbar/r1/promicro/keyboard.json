@@ -1,0 +1,10 @@
+{
+    "development_board": "promicro",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "oled": true
+    }
+}

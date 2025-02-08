@@ -1,11 +1,16 @@
 // Copyright 2021 Google LLC
 // Copyright 2021 @filterpaper
+// Copyright 2023 Pablo Martinez (@elpekenin) <elpekenin@elpekenin.dev>
 // SPDX-License-Identifier: Apache-2.0
 // Original source: https://getreuer.info/posts/keyboards/autocorrection
 
 #include "process_autocorrect.h"
 #include <string.h>
+#include "keycodes.h"
+#include "quantum_keycodes.h"
 #include "keycode_config.h"
+#include "send_string.h"
+#include "action_util.h"
 
 #if __has_include("autocorrect_data.h")
 #    include "autocorrect_data.h"
@@ -57,7 +62,7 @@ void autocorrect_toggle(void) {
 }
 
 /**
- * @brief handler for determining if autocorrect should process keypress
+ * @brief handler for user to override whether autocorrect should process this keypress
  *
  * @param keycode Keycode registered by matrix press, per keymap
  * @param record keyrecord_t structure
@@ -67,6 +72,23 @@ void autocorrect_toggle(void) {
  * @return false Stop processing and escape from autocorrect.
  */
 __attribute__((weak)) bool process_autocorrect_user(uint16_t *keycode, keyrecord_t *record, uint8_t *typo_buffer_size, uint8_t *mods) {
+    return process_autocorrect_default_handler(keycode, record, typo_buffer_size, mods);
+}
+
+/**
+ * @brief fallback handler for determining if autocorrect should process this keypress
+ *        can be used by user callback to get the basic keycode being "wrapped"
+ *
+ * NOTE: These values may have been edited by user callback before getting here
+ *
+ * @param keycode Keycode registered by matrix press, per keymap
+ * @param record keyrecord_t structure
+ * @param typo_buffer_size passed along to allow resetting of autocorrect buffer
+ * @param mods allow processing of mod status
+ * @return true Allow autocorection
+ * @return false Stop processing and escape from autocorrect.
+ */
+bool process_autocorrect_default_handler(uint16_t *keycode, keyrecord_t *record, uint8_t *typo_buffer_size, uint8_t *mods) {
     // See quantum_keycodes.h for reference on these matched ranges.
     switch (*keycode) {
         // Exclude these keycodes from processing.
@@ -76,6 +98,7 @@ __attribute__((weak)) bool process_autocorrect_user(uint16_t *keycode, keyrecord
         case QK_TO ... QK_TO_MAX:
         case QK_MOMENTARY ... QK_MOMENTARY_MAX:
         case QK_DEF_LAYER ... QK_DEF_LAYER_MAX:
+        case QK_PERSISTENT_DEF_LAYER ... QK_PERSISTENT_DEF_LAYER_MAX:
         case QK_TOGGLE_LAYER ... QK_TOGGLE_LAYER_MAX:
         case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX:
         case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:
@@ -157,10 +180,12 @@ __attribute__((weak)) bool process_autocorrect_user(uint16_t *keycode, keyrecord
  *
  * @param backspaces number of characters to remove
  * @param str pointer to PROGMEM string to replace mistyped seletion with
+ * @param typo the wrong string that triggered a correction
+ * @param correct what it would become after the changes
  * @return true apply correction
  * @return false user handled replacement
  */
-__attribute__((weak)) bool apply_autocorrect(uint8_t backspaces, const char *str) {
+__attribute__((weak)) bool apply_autocorrect(uint8_t backspaces, const char *str, char *typo, char *correct) {
     return true;
 }
 
@@ -284,11 +309,57 @@ bool process_autocorrect(uint16_t keycode, keyrecord_t *record) {
 
         if (code & 128) { // A typo was found! Apply autocorrect.
             const uint8_t backspaces = (code & 63) + !record->event.pressed;
-            if (apply_autocorrect(backspaces, (char const *)(autocorrect_data + state + 1))) {
+            const char *  changes    = (const char *)(autocorrect_data + state + 1);
+
+            /* Gather info about the typo'd word
+             *
+             * Since buffer may contain several words, delimited by spaces, we
+             * iterate from the end to find the start and length of the typo
+             */
+            char typo[AUTOCORRECT_MAX_LENGTH + 1] = {0}; // extra char for null terminator
+
+            uint8_t typo_len   = 0;
+            uint8_t typo_start = 0;
+            bool    space_last = typo_buffer[typo_buffer_size - 1] == KC_SPC;
+            for (uint8_t i = typo_buffer_size; i > 0; --i) {
+                // stop counting after finding space (unless it is the last thing)
+                if (typo_buffer[i - 1] == KC_SPC && i != typo_buffer_size) {
+                    typo_start = i;
+                    break;
+                }
+
+                ++typo_len;
+            }
+
+            // when detecting 'typo:', reduce the length of the string by one
+            if (space_last) {
+                --typo_len;
+            }
+
+            // convert buffer of keycodes into a string
+            for (uint8_t i = 0; i < typo_len; ++i) {
+                typo[i] = typo_buffer[typo_start + i] - KC_A + 'a';
+            }
+
+            /* Gather the corrected word
+             *
+             * A) Correction of 'typo:' -- Code takes into account
+             * an extra backspace to delete the space (which we dont copy)
+             * for this reason the offset is correct to "skip" the null terminator
+             *
+             * B) When correcting 'typo' -- Need extra offset for terminator
+             */
+            char correct[AUTOCORRECT_MAX_LENGTH + 10] = {0}; // let's hope this is big enough
+
+            uint8_t offset = space_last ? backspaces : backspaces + 1;
+            strcpy(correct, typo);
+            strcpy_P(correct + typo_len - offset, changes);
+
+            if (apply_autocorrect(backspaces, changes, typo, correct)) {
                 for (uint8_t i = 0; i < backspaces; ++i) {
                     tap_code(KC_BSPC);
                 }
-                send_string_P((char const *)(autocorrect_data + state + 1));
+                send_string_P(changes);
             }
 
             if (keycode == KC_SPC) {

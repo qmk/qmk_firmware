@@ -11,14 +11,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_P8,   MO(1),   KC_P9   
   ),
   [1] = LAYOUT(
-    RGB_TOG , RGB_MOD , RGB_HUI, _______,
+    UG_TOGG , UG_NEXT , UG_HUEU, _______,
     _______, _______, _______,
     _______, _______, _______
   ),
 };
 
 #if defined(ENCODER_MAP_ENABLE)
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] = { ENCODER_CCW_CW(KC_VOLU, KC_VOLD)  },
     [1] = { ENCODER_CCW_CW(KC_MRWD, KC_MFFD)  },
 };

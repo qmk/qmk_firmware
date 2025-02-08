@@ -14,7 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "spring.h"
+#include "quantum.h"
 
 enum caps_modes{
     CAPS_MODE_UPPER = 0, //UPPER CASE 
@@ -76,7 +76,7 @@ void set_caps_mode(uint8_t mode){
 }
 
 
-void matrix_scan_kb(void) {
+void housekeeping_task_kb(void) {
 	if(caps_in){
 		if(timer_elapsed32(caps_timer) > 3000){
             rgblight_sethsv(pre_rgb.hue, pre_rgb.sat, pre_rgb.val);	
@@ -84,23 +84,21 @@ void matrix_scan_kb(void) {
             caps_in = false;
 		}
 	}
-
-    matrix_scan_user();
 }
 
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     switch(keycode) {
-        case RGB_TOG:
-        case RGB_MOD:
-        case RGB_RMOD:
-        case RGB_HUI:
-        case RGB_HUD:
-        case RGB_SAI:
-        case RGB_SAD:
-        case RGB_VAI:
-        case RGB_VAD:
+        case QK_UNDERGLOW_TOGGLE:
+        case QK_UNDERGLOW_MODE_NEXT:
+        case QK_UNDERGLOW_MODE_PREVIOUS:
+        case QK_UNDERGLOW_HUE_UP:
+        case QK_UNDERGLOW_HUE_DOWN:
+        case QK_UNDERGLOW_SATURATION_UP:
+        case QK_UNDERGLOW_SATURATION_DOWN:
+        case QK_UNDERGLOW_VALUE_UP:
+        case QK_UNDERGLOW_VALUE_DOWN:
             if(caps_in){  
                 return false;
             }  
@@ -108,7 +106,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
 
         case KC_CAPS:
-            if(IS_LED_ON(host_keyboard_leds(), USB_LED_CAPS_LOCK)){ 
+            if(host_keyboard_led_state().caps_lock){ 
                 caps_mode_index = CAPS_MODE_LOWER;
             } else{
                 caps_mode_index = CAPS_MODE_UPPER;

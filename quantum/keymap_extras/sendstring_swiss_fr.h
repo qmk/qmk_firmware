@@ -18,8 +18,8 @@
 
 #pragma once
 
+#include "send_string.h"
 #include "keymap_swiss_fr.h"
-#include "quantum.h"
 
 // clang-format off
 
@@ -33,10 +33,10 @@ const uint8_t ascii_to_shift_lut[16] PROGMEM = {
     KCLUT_ENTRY(1, 1, 1, 1, 0, 0, 0, 1),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 1, 1, 0, 1, 1, 1),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 1),
+    KCLUT_ENTRY(0, 1, 1, 1, 1, 1, 1, 1),
+    KCLUT_ENTRY(1, 1, 1, 1, 1, 1, 1, 1),
+    KCLUT_ENTRY(1, 1, 1, 1, 1, 1, 1, 1),
+    KCLUT_ENTRY(1, 1, 1, 0, 0, 0, 0, 1),
     KCLUT_ENTRY(1, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),

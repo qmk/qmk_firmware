@@ -1,4 +1,4 @@
-#include QMK_KEYBOARD_H
+#include "quantum.h"
 
 #ifdef SWAP_HANDS_ENABLE
 __attribute__ ((weak))

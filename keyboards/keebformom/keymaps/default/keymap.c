@@ -60,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_HASH,    KC_DLR,    KC_LPRN,    KC_RPRN,   KC_CIRC,   KC_UNDS,     KC_MINS,    KC_4,       KC_5,       KC_6,
   KC_PERC,    KC_AMPR,   KC_LBRC,    KC_RBRC,   KC_ASTR,   _______,    _______,     KC_1,       KC_2,       KC_3,
   TO(0),      _______,   KC_BSLS,    KC_PIPE,   _______,   _______,    _______,     KC_EQL,     KC_0,       KC_BSPC
-),              
+),
 
 /* THIRD
  * ,---------------------------------------------------------------------.
@@ -75,10 +75,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_THIRD] = LAYOUT_ortho_4x10(
   KC_INS,  KC_HOME, KC_PGUP, KC_NO,    SGUI(KC_S),   LCTL(KC_A),   KC_NO,    KC_NO,   KC_UP,   KC_NO,
-  KC_DEL,  KC_END,  KC_PGDN, KC_NO,    LCTL(KC_S),   LCTL(KC_C),   KC_NO,    KC_LEFT, KC_DOWN, KC_RGHT, 
+  KC_DEL,  KC_END,  KC_PGDN, KC_NO,    LCTL(KC_S),   LCTL(KC_C),   KC_NO,    KC_LEFT, KC_DOWN, KC_RGHT,
   KC_NO,   KC_NO,   KC_NO,   KC_NO,    LWIN(KC_E),   LCTL(KC_V),   KC_NO,    KC_NO,   KC_NO,   KC_NO,
   TO(0),   _______, _______, _______,  _______,      _______,      _______,  KC_VOLD, _______, KC_VOLU
-),    
+),
 /* FOURTH
  * ,---------------------------------------------------------------------.
  * |RGB M+|  HUD |  HUI |      |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |
@@ -91,9 +91,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `---------------------------------------------------------------------'
  */
 [_FOURTH] = LAYOUT_ortho_4x10(
-  RGB_MOD, RGB_HUD, RGB_HUI, KC_NO,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,
-  RGB_RMOD,RGB_SAD, RGB_SAI, KC_NO,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
-  RGB_TOG, RGB_VAD, RGB_VAI, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+  UG_NEXT, UG_HUED, UG_HUEU, KC_NO,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,
+  UG_PREV, UG_SATD, UG_SATU, KC_NO,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
+  UG_TOGG, UG_VALD, UG_VALU, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
   TO(0),   _______, _______, _______, _______, _______, _______, _______, _______, _______
 )
 };
@@ -106,7 +106,7 @@ const uint16_t PROGMEM test_combo4[] = {KC_A, KC_S, COMBO_END};
 const uint16_t PROGMEM test_combo5[] = {KC_G, KC_H, COMBO_END};
 const uint16_t PROGMEM test_combo6[] = {KC_B, KC_N, COMBO_END};
 const uint16_t PROGMEM test_combo7[] = {KC_O, KC_P, COMBO_END};
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
     COMBO(test_combo1, KC_ESC),
     COMBO(test_combo2, TO(3)),
     COMBO(test_combo3, KC_CAPS),

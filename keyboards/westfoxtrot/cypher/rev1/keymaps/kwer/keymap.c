@@ -44,36 +44,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_LE] = LAYOUT_iso (
       _______, _______, _______, _______, _______,  _______,  _______,  _______,  _______,  _______,  _______, _______, _______, _______, _______,      _______, _______, _______, QK_BOOT,
-      _______, _______, _______, _______, _______,  _______,  _______,  _______,  _______,  _______,  _______, _______, _______,                        RGB_TOG, RGB_MOD, RGB_RMOD,_______,
-      _______, _______, _______, _______, _______,  _______,  _______,  _______,  _______,  _______,  _______, _______, _______, _______,               RGB_HUI, RGB_SAI, RGB_VAI, _______,
-      _______, _______, _______, _______, _______,  _______,  _______,  _______,  _______,  _______,  _______, _______, _______, _______,               RGB_HUD, RGB_SAD, RGB_VAD, _______,
+      _______, _______, _______, _______, _______,  _______,  _______,  _______,  _______,  _______,  _______, _______, _______,                        UG_TOGG, UG_NEXT, UG_PREV, _______,
+      _______, _______, _______, _______, _______,  _______,  _______,  _______,  _______,  _______,  _______, _______, _______, _______,               UG_HUEU, UG_SATU, UG_VALU, _______,
+      _______, _______, _______, _______, _______,  _______,  _______,  _______,  _______,  _______,  _______, _______, _______, _______,               UG_HUED, UG_SATD, UG_VALD, _______,
       _______, _______, _______,             _______,                _______, _______, _______,                         _______, _______, _______,               _______, _______, _______
   ),
 };
 
-
-
-void matrix_init_user(void) {
-  //user initialization
-}
-
-void matrix_scan_user(void) {
-  //user matrix
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  return true;
-}
-
-void led_set_user(uint8_t usb_led) {
+bool led_update_user(led_t led_state) {
   // Insert custom handling for CAPS_LOCK, NUM_LOCK, SCROLL_LOCK here
-      if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-        writePinHigh(F4);
-        writePinHigh(F1);
-        writePinHigh(F5);
+      if (led_state.num_lock) {
+        gpio_write_pin_high(F4);
+        gpio_write_pin_high(F1);
+        gpio_write_pin_high(F5);
     } else {
-        writePinLow(F4);
-        writePinLow(F1);
-        writePinLow(F5);
+        gpio_write_pin_low(F4);
+        gpio_write_pin_low(F1);
+        gpio_write_pin_low(F5);
     }
+    return false;
 }

@@ -7,12 +7,47 @@
     "vid": "0xFEED",
     "pid": "0x2171"
   },
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  },
   "backlight": {
+    "driver": "timer",
     "pins": ["D1", "D0", "D4", "C6", "D7", "E6", "B4", "B5"],
     "levels": 8
   },
+  "rgblight": {
+    "led_count": 8,
+    "animations": {
+      "breathing": true,
+      "rainbow_mood": true,
+      "rainbow_swirl": true,
+      "snake": true,
+      "knight": true,
+      "christmas": true,
+      "static_gradient": true,
+      "rgb_test": true,
+      "alternating": true,
+      "twinkle": true
+    }
+  },
+  "ws2812": {
+    "pin": "D2"
+  },
   "processor": "atmega32u4",
   "bootloader": "caterina",
+  "features": {
+    "backlight": true,
+    "bootmagic": false,
+    "command": true,
+    "console": true,
+    "extrakey": false,
+    "mousekey": false,
+    "nkro": false,
+    "rgblight": true
+  },
   "matrix_pins": {
     "direct": [
       ["F4", "F5", "F6", "F7"],

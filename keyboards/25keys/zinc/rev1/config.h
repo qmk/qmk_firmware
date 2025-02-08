@@ -18,20 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #define QUICK_TAP_TERM 0
-#define TAPPING_TERM 100
-
-/* Select hand configuration */
-#define MASTER_LEFT
-//#define MASTER_RIGHT
-//#define EE_HANDS
-
-#define MATRIX_ROW_PINS { F6, F7, B1, B3 }
-#define MATRIX_COL_PINS { F4, D4, C6, D7, E6, B4 }
-
-#define DIODE_DIRECTION COL2ROW
-
-/* ws2812 RGB LED */
-#define RGB_DI_PIN D3
 
 /*
  * Feature disable options

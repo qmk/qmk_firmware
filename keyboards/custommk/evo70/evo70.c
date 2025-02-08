@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "evo70.h"
+#include "quantum.h"
 #include <stdbool.h>
 #include "matrix.h"
 #include OLED_FONT_H
@@ -740,8 +740,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 }
 
 
-void matrix_scan_kb(void) {
-    matrix_scan_user();
+void housekeeping_task_kb(void) {
     led_t current_led_state = host_keyboard_led_state();
     uint8_t current_layer = get_highest_layer(layer_state);
     if (startup_delay) {

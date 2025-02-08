@@ -43,7 +43,9 @@ user.keymap: None -> default
 
 The `qmk config` command is used to interact with the underlying configuration. When run with no argument it shows the current configuration. When arguments are supplied they are assumed to be configuration tokens, which are strings containing no spaces with the following form:
 
-    <subcommand|general|default>[.<key>][=<value>]
+```
+<subcommand|general|default>[.<key>][=<value>]
+```
 
 ## Setting Configuration Values
 
@@ -63,19 +65,27 @@ You can read configuration values for the entire configuration, a single key, or
 
 ### Entire Configuration Example
 
-    qmk config
+```
+qmk config
+```
 
 ### Whole Section Example
 
-    qmk config compile
+```
+qmk config compile
+```
 
 ### Single Key Example
 
-    qmk config compile.keyboard
+```
+qmk config compile.keyboard
+```
 
 ### Multiple Keys Example
 
-    qmk config user compile.keyboard compile.keymap
+```
+qmk config user compile.keyboard compile.keymap
+```
 
 ## Deleting Configuration Values
 

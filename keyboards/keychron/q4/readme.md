@@ -1,18 +1,26 @@
 # Keychron Q4
 
+![Keychron Q4](https://i.imgur.com/daIVjVGh.jpg)
+
 A customizable 60% keyboard.
+
+Q4 Version 1 uses only 2 ICs for CKLED2001 and Q4 Version 2 uses only one IC.
 
 * Keyboard Maintainer: [Keychron](https://github.com/keychron)
 * Hardware Supported: Keychron Q4
-* Hardware Availability: [Keychron](https://www.keychron.com)
+* Hardware Availability: [Keychron Q4 QMK Custom Mechanical Keyboard](https://www.keychron.com/products/keychron-q4-qmk-via-custom-mechanical-keyboard)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make keychron/q4/ansi_v2:default
+    make keychron/q4/ansi/v1:default
+    make keychron/q4/ansi/v2:default
+    make keychron/q4/iso:default
 
-Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
+Flashing example for this keyboard:
 
-    make keychron/q4/ansi_v2:default:flash
+    make keychron/q4/ansi/v1:default:flash
+    make keychron/q4/ansi/v2:default:flash
+    make keychron/q4/iso:default:flash
 
 **Reset Key**: Hold down the key located at *K00*, commonly programmed as *Esc* while plugging in the keyboard.
 

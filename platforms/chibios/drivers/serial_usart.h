@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include "quantum.h"
 #include "serial.h"
 #include <hal.h>
 
@@ -75,40 +74,75 @@ typedef SIOConfig QMKSerialConfig;
 #    endif
 #endif
 
-#if !defined(USART_CR1_M0)
-#    define USART_CR1_M0 USART_CR1_M // some platforms (f1xx) dont have this so
-#endif
+#if defined(MCU_STM32) /* STM32 MCUs */
+#    if !defined(USART_CR1_M0)
+#        define USART_CR1_M0 USART_CR1_M // some platforms (f1xx) dont have this so
+#    endif
 
-#if !defined(SERIAL_USART_CR1)
-#    define SERIAL_USART_CR1 (USART_CR1_PCE | USART_CR1_PS | USART_CR1_M0) // parity enable, odd parity, 9 bit length
-#endif
+#    if !defined(SERIAL_USART_CR1)
+#        define SERIAL_USART_CR1 (USART_CR1_PCE | USART_CR1_PS | USART_CR1_M0) // parity enable, odd parity, 9 bit length
+#    endif
 
-#if !defined(SERIAL_USART_CR2)
-#    define SERIAL_USART_CR2 (USART_CR2_STOP_1) // 2 stop bits
-#endif
+#    if !defined(SERIAL_USART_CR2)
+#        define SERIAL_USART_CR2 (USART_CR2_STOP_1) // 2 stop bits
+#    endif
 
-#if !defined(SERIAL_USART_CR3)
-#    define SERIAL_USART_CR3 0
-#endif
+#    if !defined(SERIAL_USART_CR3)
+#        define SERIAL_USART_CR3 0
+#    endif
 
-#if defined(USART1_REMAP)
-#    define USART_REMAP                             \
-        do {                                        \
-            (AFIO->MAPR |= AFIO_MAPR_USART1_REMAP); \
-        } while (0)
-#elif defined(USART2_REMAP)
-#    define USART_REMAP                             \
-        do {                                        \
-            (AFIO->MAPR |= AFIO_MAPR_USART2_REMAP); \
-        } while (0)
-#elif defined(USART3_PARTIALREMAP)
-#    define USART_REMAP                                          \
-        do {                                                     \
-            (AFIO->MAPR |= AFIO_MAPR_USART3_REMAP_PARTIALREMAP); \
-        } while (0)
-#elif defined(USART3_FULLREMAP)
-#    define USART_REMAP                                       \
-        do {                                                  \
-            (AFIO->MAPR |= AFIO_MAPR_USART3_REMAP_FULLREMAP); \
-        } while (0)
+#    if defined(USART1_REMAP)
+#        define USART_REMAP                             \
+            do {                                        \
+                (AFIO->MAPR |= AFIO_MAPR_USART1_REMAP); \
+            } while (0)
+#    elif defined(USART2_REMAP)
+#        define USART_REMAP                             \
+            do {                                        \
+                (AFIO->MAPR |= AFIO_MAPR_USART2_REMAP); \
+            } while (0)
+#    elif defined(USART3_PARTIALREMAP)
+#        define USART_REMAP                                          \
+            do {                                                     \
+                (AFIO->MAPR |= AFIO_MAPR_USART3_REMAP_PARTIALREMAP); \
+            } while (0)
+#    elif defined(USART3_FULLREMAP)
+#        define USART_REMAP                                       \
+            do {                                                  \
+                (AFIO->MAPR |= AFIO_MAPR_USART3_REMAP_FULLREMAP); \
+            } while (0)
+#    endif
+#elif defined(MCU_AT32) /* AT32 MCUs */
+#    if !defined(USART_CTRL1_DBN0)
+#        define USART_CTRL1_DBN0 USART_CTRL1_DBN
+#    endif
+
+#    if !defined(SERIAL_USART_CTRL1)
+#        define SERIAL_USART_CTRL1 (USART_CTRL1_PEN | USART_CTRL1_PSEL | USART_CTRL1_DBN0) // parity enable, odd parity, 9 bit length
+#    endif
+
+#    if !defined(SERIAL_USART_CTRL2)
+#        define SERIAL_USART_CTRL2 (USART_CTRL2_STOPBN_1) // 2 stop bits
+#    endif
+
+#    if !defined(SERIAL_USART_CTRL3)
+#        define SERIAL_USART_CTRL3 0
+#    endif
+
+#    if defined(USART1_REMAP)
+#        define USART_REMAP                               \
+            do {                                          \
+                (IOMUX->REMAP |= IOMUX_REMAP_USART1_MUX); \
+            } while (0)
+#    elif defined(USART3_PARTIALREMAP)
+#        define USART_REMAP                                    \
+            do {                                               \
+                (IOMUX->REMAP |= IOMUX_REMAP_USART3_MUX_MUX1); \
+            } while (0)
+#    elif defined(USART3_FULLREMAP)
+#        define USART_REMAP                                    \
+            do {                                               \
+                (IOMUX->REMAP |= IOMUX_REMAP_USART3_MUX_MUX2); \
+            } while (0)
+#    endif
 #endif

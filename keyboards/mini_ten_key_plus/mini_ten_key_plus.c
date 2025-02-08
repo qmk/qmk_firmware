@@ -1,7 +1,7 @@
 // Copyright 2021 minibois (@minibois)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "mini_ten_key_plus.h"
+#include "quantum.h"
 
 /* Rotary Encoder's function (currently volume up/down) */
 bool encoder_update_kb(uint8_t index, bool clockwise) {

@@ -17,30 +17,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-#define MATRIX_ROW_PINS { D0, D1, D4, D5, D6, D7, C1, C2 }
-#define MATRIX_COL_PINS { B2, B3, B18, B19, C0, C8, C9, C10, C11 }
-
-/* COL2ROW, ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 #define LED_BRIGHTNESS_LO 100
 #define LED_BRIGHTNESS_HI 255
 
 /* LED matrix driver */
-#define LED_DRIVER_ADDR_1 0x74
-#define LED_DRIVER_COUNT 1
-#define LED_MATRIX_LED_COUNT 71
-#define LED_DISABLE_WHEN_USB_SUSPENDED
+#define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
+#define IS31FL3731_SDB_PIN B16
 
 /* i2c (for LED matrix) */
 #define I2C1_CLOCK_SPEED 400000

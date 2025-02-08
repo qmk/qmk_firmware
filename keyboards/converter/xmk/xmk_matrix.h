@@ -5,6 +5,7 @@
 
 #pragma once
 
-#include QMK_KEYBOARD_H
+#include <stdbool.h>
+#include <stdint.h>
 
 void xmk_matrix_key(bool press, uint8_t key);

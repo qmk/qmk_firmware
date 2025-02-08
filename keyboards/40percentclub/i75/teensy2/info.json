@@ -1,4 +1,0 @@
-{
-    "processor": "atmega32u4",
-    "bootloader": "halfkay"
-}

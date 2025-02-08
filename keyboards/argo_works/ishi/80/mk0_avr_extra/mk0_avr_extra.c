@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include QMK_KEYBOARD_H
+#include "quantum.h"
 
 #ifdef OLED_ENABLE
 static void render_logo(void) {

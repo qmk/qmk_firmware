@@ -13,20 +13,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "hannah910.h"
+#include "quantum.h"
 
 void led_init_ports(void) {
-  setPinOutput(B2);
-  setPinOutput(D0);
-  setPinOutput(D1);
-  setPinOutput(D2);
+  gpio_set_pin_output(B2);
+  gpio_set_pin_output(D0);
+  gpio_set_pin_output(D1);
+  gpio_set_pin_output(D2);
 
 }
 
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if(res) {
-        writePin(B2, led_state.caps_lock);
+        gpio_write_pin(B2, led_state.caps_lock);
     }
     return res;
 }
@@ -35,22 +35,22 @@ layer_state_t layer_state_set_user(layer_state_t state)
 {
   // if on layer 1, turn on D2 LED, otherwise off.
     if (get_highest_layer(state) == 1) {
-        writePinHigh(D2);
+        gpio_write_pin_high(D2);
     } else {
-        writePinLow(D2);
+        gpio_write_pin_low(D2);
     }
   // if on layer 2, turn on D1 LED, otherwise off.
     if (get_highest_layer(state) == 2) {
-        writePinHigh(D1);
+        gpio_write_pin_high(D1);
     } else {
-        writePinLow(D1);
+        gpio_write_pin_low(D1);
     }
 
   // if on layer 3, turn on D0 LED, otherwise off.
     if (get_highest_layer(state) == 3) {
-        writePinHigh(D0);
+        gpio_write_pin_high(D0);
     } else {
-        writePinLow(D0);
+        gpio_write_pin_low(D0);
     }
 
     return state;

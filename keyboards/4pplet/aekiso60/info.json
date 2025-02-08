@@ -81,7 +81,6 @@
                 {"label": "Ctrl", "matrix": [4, 11], "x": 13.5, "y": 4, "w": 1.5}
             ]
         },
-
         "LAYOUT_60_iso_tsangan": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0, "w": 1.25},

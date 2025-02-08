@@ -21,13 +21,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <stdint.h>
 #include <stdbool.h>
-#include "owlet60.h"
 #include "wait.h"
 #include "print.h"
 #include "debug.h"
 #include "util.h"
 #include "matrix.h"
-#include "config.h"
 #include "timer.h"
 
 #if (MATRIX_COLS <= 8)
@@ -130,19 +128,19 @@ void matrix_print(void)
 // uses standard row code
 static void select_row(uint8_t row)
 {
-    setPinOutput(row_pins[row]);
-    writePinLow(row_pins[row]);
+    gpio_set_pin_output(row_pins[row]);
+    gpio_write_pin_low(row_pins[row]);
 }
 
 static void unselect_row(uint8_t row)
 {
-    setPinInputHigh(row_pins[row]);
+    gpio_set_pin_input_high(row_pins[row]);
 }
 
 static void unselect_rows(void)
 {
     for(uint8_t x = 0; x < MATRIX_ROWS; x++) {
-        setPinInputHigh(row_pins[x]);
+        gpio_set_pin_input_high(row_pins[x]);
     }
 }
 
@@ -150,10 +148,10 @@ static void init_pins(void) {   // still need some fixing, this might not work
   unselect_rows();              // with the loop
   /*
   for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-    setPinInputHigh(col_pins[x]);
+    gpio_set_pin_input_high(col_pins[x]);
   }
   */
-  setPinInputHigh(dat_pin);
+  gpio_set_pin_input_high(dat_pin);
 }
 
 static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
@@ -174,7 +172,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
         // Select the col pin to read (active low)
         select_col_analog(col_index);
         wait_us(30);
-        uint8_t pin_state = readPin(dat_pin);
+        uint8_t pin_state = gpio_read_pin(dat_pin);
 
         // Populate the matrix row with the state of the col pin
         current_matrix[current_row] |=  pin_state ? 0 : (ROW_SHIFTER << col_index);
@@ -202,8 +200,8 @@ void matrix_init(void) {
 
     matrix_init_kb();
 
-    setPinInput(D5);
-    setPinInput(B0);
+    gpio_set_pin_input(D5);
+    gpio_set_pin_input(B0);
 }
 
 // modified for per col read matrix scan
@@ -274,27 +272,27 @@ static void select_col_analog(uint8_t col) {
 
 static void mux_pin_control(const uint8_t binary[]) {
     // set pin0
-    setPinOutput(col_select_pins[0]);
+    gpio_set_pin_output(col_select_pins[0]);
     if(binary[2] == 0) {
-        writePinLow(col_select_pins[0]);
+        gpio_write_pin_low(col_select_pins[0]);
     }
     else {
-        writePinHigh(col_select_pins[0]);
+        gpio_write_pin_high(col_select_pins[0]);
     }
     // set pin1
-    setPinOutput(col_select_pins[1]);
+    gpio_set_pin_output(col_select_pins[1]);
     if(binary[1] == 0) {
-        writePinLow(col_select_pins[1]);
+        gpio_write_pin_low(col_select_pins[1]);
     }
     else {
-        writePinHigh(col_select_pins[1]);
+        gpio_write_pin_high(col_select_pins[1]);
     }
     // set pin2
-    setPinOutput(col_select_pins[2]);
+    gpio_set_pin_output(col_select_pins[2]);
     if(binary[0] == 0) {
-        writePinLow(col_select_pins[2]);
+        gpio_write_pin_low(col_select_pins[2]);
     }
     else {
-        writePinHigh(col_select_pins[2]);
+        gpio_write_pin_high(col_select_pins[2]);
     }
 }

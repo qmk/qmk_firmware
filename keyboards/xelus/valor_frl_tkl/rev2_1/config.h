@@ -16,17 +16,4 @@
 
 #pragma once
 
-/* key matrix pins */
-#define MATRIX_ROW_PINS { A15, A14, A13, B3, B4 }
-#define MATRIX_COL_PINS { A10, A8, B15, B14, B13, B12, B9, B1, B0, A7, A6, A5, A4, A3, A2, A1, A0 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
 #define STM32_HSECLK 16000000

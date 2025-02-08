@@ -19,3 +19,6 @@
    IO expander setup would allow up to 1x16 + 1 from the MCU */
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 17
+
+/* Fix for Apple Silicon Macs struggling to detect board after suspend/sleep */
+#define USB_SUSPEND_WAKEUP_DELAY 200

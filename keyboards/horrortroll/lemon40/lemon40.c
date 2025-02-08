@@ -14,24 +14,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "lemon40.h"
+#include "quantum.h"
 
 // OLED animation
 #include "lib/bongocat.h"
 
 #ifdef OLED_ENABLE
-    bool oled_task_kb(void) {
-        led_t led_usb_state = host_keyboard_led_state();
-
-        render_bongocat();
-        oled_set_cursor(14, 0); // sets cursor to (column, row) using charactar spacing (4 rows on 128x32 screen, anything more will overflow back to the top)
-        oled_write_P(PSTR("WPM:"), false);
-        oled_write(get_u8_str(get_current_wpm(), '0'), false); // writes wpm on top right corner of string
-        oled_set_cursor(17, 2);
-        oled_write_P(led_usb_state.caps_lock ? PSTR("CAPS") : PSTR("    "), false);
-        oled_set_cursor(17, 3);
-        oled_write_P(led_usb_state.scroll_lock ? PSTR("SCRL") : PSTR("    "), false);
-
-        return true;
+bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
     }
+    led_t led_usb_state = host_keyboard_led_state();
+
+    render_bongocat();
+    oled_set_cursor(14, 0); // sets cursor to (column, row) using charactar spacing (4 rows on 128x32 screen, anything more will overflow back to the top)
+    oled_write_P(PSTR("WPM:"), false);
+    oled_write(get_u8_str(get_current_wpm(), '0'), false); // writes wpm on top right corner of string
+    oled_set_cursor(17, 2);
+    oled_write_P(led_usb_state.caps_lock ? PSTR("CAPS") : PSTR("    "), false);
+    oled_set_cursor(17, 3);
+    oled_write_P(led_usb_state.scroll_lock ? PSTR("SCRL") : PSTR("    "), false);
+
+    return true;
+}
 #endif

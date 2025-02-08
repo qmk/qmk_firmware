@@ -92,10 +92,10 @@ static void InvertCharacter(uint8_t *cursor) {
 }
 
 bool st7565_init(display_rotation_t rotation) {
-    setPinOutput(ST7565_A0_PIN);
-    writePinHigh(ST7565_A0_PIN);
-    setPinOutput(ST7565_RST_PIN);
-    writePinHigh(ST7565_RST_PIN);
+    gpio_set_pin_output(ST7565_A0_PIN);
+    gpio_write_pin_high(ST7565_A0_PIN);
+    gpio_set_pin_output(ST7565_RST_PIN);
+    gpio_write_pin_high(ST7565_RST_PIN);
 
     st7565_rotation = st7565_init_user(rotation);
 
@@ -186,6 +186,8 @@ void st7565_render(void) {
     st7565_send_cmd(PAM_SETCOLUMN_MSB | ((ST7565_COLUMN_OFFSET + start_column) >> 4 & 0x0f));
 
     st7565_send_data(&st7565_buffer[ST7565_BLOCK_SIZE * update_start], ST7565_BLOCK_SIZE);
+
+    spi_stop();
 
     // Turn on display if it is off
     st7565_on();
@@ -488,18 +490,18 @@ void st7565_task(void) {
 __attribute__((weak)) void st7565_task_user(void) {}
 
 void st7565_reset(void) {
-    writePinLow(ST7565_RST_PIN);
+    gpio_write_pin_low(ST7565_RST_PIN);
     wait_ms(20);
-    writePinHigh(ST7565_RST_PIN);
+    gpio_write_pin_high(ST7565_RST_PIN);
     wait_ms(20);
 }
 
 spi_status_t st7565_send_cmd(uint8_t cmd) {
-    writePinLow(ST7565_A0_PIN);
+    gpio_write_pin_low(ST7565_A0_PIN);
     return spi_write(cmd);
 }
 
 spi_status_t st7565_send_data(uint8_t *data, uint16_t length) {
-    writePinHigh(ST7565_A0_PIN);
+    gpio_write_pin_high(ST7565_A0_PIN);
     return spi_transmit(data, length);
 }

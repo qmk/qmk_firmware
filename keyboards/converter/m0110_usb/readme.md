@@ -5,7 +5,7 @@ This is a port of the original M0110 converter from TMK to QMK. The original con
 
 ## Enabling Bluetooth for the Adafruit Feather 32U4 BLE
 
-Simply add `BLUETOOTH = BluefruitLE` to your `rules.mk` file. This enables code specifically for the Adafruit Feather 32U4 BLE. If enabled, the device will use the `PRODUCT` value from `config.h` for the device name displayed by the Feather on host devices. You can simply change these values to change the device name.
+Simply add `BLUETOOTH = bluefruit_le` to your `rules.mk` file. This enables code specifically for the Adafruit Feather 32U4 BLE. If enabled, the device will use the `PRODUCT` value from `config.h` for the device name displayed by the Feather on host devices. You can simply change these values to change the device name.
 
 
 ## Pins

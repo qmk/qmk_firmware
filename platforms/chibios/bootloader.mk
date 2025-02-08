@@ -26,6 +26,7 @@
 #     stm32-dfu    STM32 USB DFU in ROM
 #     apm32-dfu    APM32 USB DFU in ROM
 #     wb32-dfu     WB32 USB DFU in ROM
+#     at32-dfu     AT32 USB DFU in ROM
 #     tinyuf2      TinyUF2
 #     rp2040       Raspberry Pi RP2040
 # Current options for RISC-V:
@@ -93,7 +94,6 @@ ifeq ($(strip $(BOOTLOADER)), kiibohd)
 endif
 ifeq ($(strip $(BOOTLOADER)), stm32duino)
     OPT_DEFS += -DBOOTLOADER_STM32DUINO
-    MCU_LDSCRIPT = STM32F103x8_stm32duino_bootloader
     BOARD = STM32_F103_STM32DUINO
     BOOTLOADER_TYPE = stm32duino
 
@@ -108,6 +108,7 @@ ifeq ($(strip $(BOOTLOADER)), tinyuf2)
 endif
 ifeq ($(strip $(BOOTLOADER)), uf2boot)
     OPT_DEFS += -DBOOTLOADER_UF2BOOT
+    BOARD = STM32_F103_STM32DUINO
     BOOTLOADER_TYPE = uf2boot
     FIRMWARE_FORMAT = uf2
 endif
@@ -118,6 +119,14 @@ endif
 ifeq ($(strip $(BOOTLOADER)), wb32-dfu)
     OPT_DEFS += -DBOOTLOADER_WB32_DFU
     BOOTLOADER_TYPE = wb32_dfu
+endif
+ifeq ($(strip $(BOOTLOADER)), at32-dfu)
+    OPT_DEFS += -DBOOTLOADER_AT32_DFU
+    BOOTLOADER_TYPE = at32_dfu
+
+    # Options to pass to dfu-util when flashing
+    DFU_ARGS ?= -d 2E3C:DF11 -a 0 -s 0x08000000:leave
+    DFU_SUFFIX_ARGS ?= -v 2E3C -p DF11
 endif
 
 ifeq ($(strip $(BOOTLOADER_TYPE)),)
