@@ -2,7 +2,7 @@
 
 ![cloud_macro](imgur.com image replace me!)
 
-*A 5 key macropad in the shape of a cloud*
+A 5 key macropad in the shape of a cloud
 
 * Keyboard Maintainer: [Trey Wax](https://github.com/TweyHugs)
 * Hardware Supported: *Uses adafruits kb2040*
