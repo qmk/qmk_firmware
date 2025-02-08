@@ -197,6 +197,18 @@
     "ergodone": {
         "target": "ktec/ergodone"
     },
+    "ergodox_ez": {
+        "target": "ergodox"
+    },
+    "ergodox_ez/base": {
+        "target": "zsa/ergodox_ez/base"
+    },
+    "ergodox_ez/glow": {
+        "target": "zsa/ergodox_ez/glow"
+    },
+    "ergodox_ez/shine": {
+        "target": "zsa/ergodox_ez/shine"
+    },
     "ergodox_stm32": {
         "target": "handwired/ergodox_stm32"
     },
