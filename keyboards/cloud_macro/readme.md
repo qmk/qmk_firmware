@@ -1,6 +1,6 @@
 # cloud_macro
 
-![twey_macro](imgur.com image replace me!)
+![cloud_macro](imgur.com image replace me!)
 
 *A 5 key macropad in the shape of a cloud*
 
