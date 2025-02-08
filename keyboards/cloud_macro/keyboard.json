@@ -14,7 +14,6 @@
             ["GP2", "GP3", "GP4", "GP5", "GP6"]
         ]
     },
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0000",
