@@ -9,8 +9,6 @@
         "extrakey": true,
         "mousekey": true
     },
-    "processor": "RP2040",
-    "bootloader": "rp2040",
     "matrix_pins": {
         "direct":[
             ["GP2", "GP3", "GP4", "GP5", "GP6"]
