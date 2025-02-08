@@ -1,12 +1,12 @@
 # cloud_macro
 
-![cloud_macro](imgur.com image replace me!)
+![cloud_macro](https://imgur.com/a/fJo3DQr)
 
 A 5 key macropad in the shape of a cloud
 
 * Keyboard Maintainer: [Trey Wax](https://github.com/TweyHugs)
 * Hardware Supported: *Uses adafruits kb2040*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Availability: *https://www.adafruit.com/product/5302*
 
 Make example for this keyboard (after setting up your build environment):
 
