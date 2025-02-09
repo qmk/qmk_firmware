@@ -28,7 +28,7 @@ bool set_scrolling = false;
 float scroll_acc_h = 0.0;
 float scroll_acc_v = 0.0;
 
-const uint16_t MIN_DEFAULT_DPI = 200;
+const uint16_t MIN_DEFAULT_DPI = 100;
 const uint16_t MAX_DEFAULT_DPI = 10000;
 
 /***********************************************************************
@@ -183,3 +183,38 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
     return state;
 }
+
+void secondary_sync_handler(uint8_t in_buflen, const void* in_data, uint8_t out_buflen, void* out_data) {
+    if (in_buflen == sizeof(global_user_config)) {
+        memcpy(&global_user_config, in_data, sizeof(global_user_config));
+    }
+}
+
+void housekeeping_task_kb(void) {
+    if (!is_keyboard_master()) { return; }
+
+    static global_user_config_t last_config = {0};
+    static uint32_t last_sync = 0;
+    bool should_sync = false;
+
+    if (memcmp(&global_user_config, &last_config, sizeof(global_user_config))) {
+        should_sync = true;
+        memcpy(&last_config, &global_user_config, sizeof(global_user_config));
+    }
+
+    should_sync =  (timer_elapsed32(last_sync) > 500);
+
+    if (!should_sync) { return; }
+
+    if (transaction_rpc_send(CROSSES_SECONDARY_SYNC_ID, sizeof(global_user_config), &global_user_config)) {
+        last_sync = timer_read32();
+    }
+}
+
+void keyboard_post_init_user(void) {
+    global_user_config.raw = eeconfig_read_user();
+    transaction_register_rpc(CROSSES_SECONDARY_SYNC_ID, secondary_sync_handler);
+    update_pointer_cpi(&global_user_config);
+    write_config_to_eeprom(&global_user_config);
+}
+
