@@ -8,3 +8,4 @@ BOARD = GENERIC_RP_RP2040
 SERIAL_DRIVER = vendor
 # OPT_DEFS += -DHAL_USE_I2C=TRUE
 # I2C_DRIVER_REQUIRED = yes
+# CFLAGS += -I/lib/chibios/os/oslib/include
