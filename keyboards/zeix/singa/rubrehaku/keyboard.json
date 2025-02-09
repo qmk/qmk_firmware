@@ -19,27 +19,27 @@
     },
     "processor": "RP2040",
     "rgblight": {
-        "driver": "ws2812"
-        "led_count": 16,
-        "sleep": true,
-        "default": {
-            "val": 8,
-            "hue": 210,
-            "sat": 100,
-        },
         "animations": {
-            "static_light": true,
+            "alternating": true,
             "breathing": true,
+            "christmas": true,
+            "knight": true,
             "rainbow_mood": true,
             "rainbow_swirl": true,
-            "snake": true,
-            "knight": true,
-            "christmas": true,
-            "static_gradient": true,
             "rgb_test": true,
-            "alternating": true,
-            "twinkle": true,
+            "snake": true,
+            "static_gradient": true,
+            "static_light": true,
+            "twinkle": true
         },
+        "default": {
+            "hue": 210,
+            "sat": 100,
+            "val": 8
+        },
+        "driver": "ws2812",
+        "led_count": 16,
+        "sleep": true
     },
     "usb": {
         "device_version": "0.0.1",
