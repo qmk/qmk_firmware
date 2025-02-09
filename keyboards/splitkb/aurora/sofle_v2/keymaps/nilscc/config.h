@@ -24,3 +24,8 @@
 #define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
 
 #define ENCODER_RESOLUTIONS { 4 }
+
+// data sync options, see:
+// - https://docs.qmk.fm/features/split_keyboard#data-sync-options
+#define SPLIT_LAYER_STATE_ENABLE // requiered for rgb layer indicators
+#define SPLIT_MODS_ENABLE // transfer modifiers to both sides
