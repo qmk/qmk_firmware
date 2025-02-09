@@ -37,9 +37,9 @@ def _render_keycodes(module_jsons):
     first = True
     for module_json in module_jsons:
         module_name = Path(module_json['module']).name
-        lines.append(f'    // From module: {module_name}')
         keycodes = module_json.get('keycodes', [])
         if len(keycodes) > 0:
+            lines.append(f'    // From module: {module_name}')
             for keycode in keycodes:
                 key = keycode.get('key', None)
                 if first:
