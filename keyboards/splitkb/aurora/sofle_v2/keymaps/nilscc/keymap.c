@@ -8,6 +8,8 @@
  *
  */
 
+// Use enum for layer sorting, as done in:
+// https://github.com/qmk/qmk_firmware/blob/fa98117a3e10afed347f16b2614e4e8a9e26cd32/keyboards/planck/rev7/keymaps/default/keymap.c
 enum nilscc_layers {
     _COLEMAK,
     _LOWER,
