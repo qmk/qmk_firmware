@@ -1,6 +1,7 @@
 #pragma once
 
 #include "quantum.h"
+#include "transactions.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -35,6 +36,8 @@ void change_pointer_dpi(global_user_config_t* config, bool inc);
 void debug_config_to_console(global_user_config_t* config);
 
 void eeconfig_init_user(void);
+
+void keyboard_post_init_user(void);
 
 /*
  * Pointing Device Config
