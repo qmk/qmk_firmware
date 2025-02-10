@@ -1,6 +1,6 @@
 # cloud_macro
 
-![cloud_macro](https://imgur.com/a/fJo3DQr)
+![cloud_macro](https://i.imgur.com/n0PMttQ.jpeg)
 
 A 5 key macropad in the shape of a cloud
 
