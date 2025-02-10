@@ -2,7 +2,7 @@
 
 /*---- standard alphas and punctuation ----*/
 COMB(H_V,               KC_V,       LT3, LT2)
-COMB(H_Z,               KC_Z,       LM3, LM1)
+COMB(H_Z,               KC_Z,       LT3, LT1)
 COMB(Hat,               KC_AT,      RT0, RT1)
 COMB(Hexlm,             KC_EXLM,    RT1, RT2)
 COMB(Hques,             KC_QUES,    RT2, RT3)
@@ -16,23 +16,17 @@ COMB(Heql,              KC_EQL,     RB2, RB3)
 COMB(Htild,             KC_TILD,    RB1, RB4)
 
 /*---- digraphs ----*/
-COMB(H_Qu,              SS_Qu,      LT3, LT1)
-/* COMB(H_Wh,              SS_Wh,      LT3, LT2) */
-/* COMB(H_Gh,              SS_Gh,      LT2, LT1) */
-/* COMB(H_Th,              SS_Th,      LM2, LM1) */
-/* COMB(H_Ch,              SS_Ch,      LM3, LM2) */
-/* COMB(H_Sh,              SS_Sh,      LM4, LM1) */
-/* COMB(H_Ph,              SS_Ph,      LB3, LB1) */
+COMB(H_Qu,              SS_Qu,      LT2, LT1)
 
 /*---- commands ----*/
-COMB(Htab,            	KC_TAB,     LT2, LT1)
 COMB(Hesc,              KC_ESC,     LM4, LM1)
-/* COMB(Hbspc,             KC_BSPC,    RT1, RT2) */
-/* COMB(Hdel,              KC_DEL,      RT2, RT3) */
-/* COMB(Hbspw,             A(KC_BSPC), RT1, RT3) */
-COMB(Hent,              KC_ENT, 	RM1, RM2)
+COMB(Htab,            	KC_TAB,     LM3, LT1)
 COMB(Hlsft,             OSM(MOD_LSFT), 	LM2, LM3)
+COMB(Hent,              KC_ENT, 	RM1, RM2)
 COMB(Hrsft,             OSM(MOD_RSFT), 	RM2, RM3)
+/* COMB(Hdel,              KC_DEL,     LM3, LM2, LM1) */
+/* COMB(Hbspc,             KC_BSPC,    RM1, RM2, RM3) */
+/* COMB(Hbspw,             A(KC_BSPC), RT1, RT3) */
 
 /*---- directional ----*/
 /* COMB(Hleft,            	KC_LEFT,    RB1, RB2) */
