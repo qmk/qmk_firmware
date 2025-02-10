@@ -20,7 +20,7 @@ COMB(H_Qu,              SS_Qu,      LT2, LT1)
 
 /*---- commands ----*/
 COMB(Hesc,              KC_ESC,     LM4, LM1)
-COMB(Htab,            	KC_TAB,     LM3, LT1)
+COMB(Htab,            	KC_TAB,     LM3, LM1)
 COMB(Hlsft,             OSM(MOD_LSFT), 	LM2, LM3)
 COMB(Hent,              KC_ENT, 	RM1, RM2)
 COMB(Hrsft,             OSM(MOD_RSFT), 	RM2, RM3)
