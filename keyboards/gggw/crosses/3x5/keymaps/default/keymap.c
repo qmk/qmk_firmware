@@ -240,7 +240,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
             break;
         case MSE_INC:
             if (record->event.pressed) {
+#if defined(POINTING_DEVICE_COMBINED) || defined(POINTING_DEVICE_RIGHT) || defined(POINGINT_DEVICE_LEFT)
                 change_pointer_dpi(&global_user_config, true);
+#endif /* ifdef POINTING_DEVICE */
                 debug_config_to_console(&global_user_config);
 
                 return false;
@@ -256,8 +258,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
             break;
         case MSE_TOGG:
             if (record->event.pressed) {
+#if defined(POINTING_DEVICE_COMBINED) || defined(POINTING_DEVICE_RIGHT) || defined(POINGINT_DEVICE_LEFT)
                 bool current_state = get_auto_mouse_enable();
                 set_auto_mouse_enable(!current_state);
+#endif /* ifdef POINTING_DEVICE */
 
                 return false;
             }
@@ -326,7 +330,9 @@ bool oled_task_user(void) {
 }
 #endif /* ifdef OLED_ENABLE */
 
+#if defined(POINTING_DEVICE_COMBINED) || defined(POINTING_DEVICE_RIGHT) || defined(POINGINT_DEVICE_LEFT)
 void pointing_device_init_user(void) {
     set_auto_mouse_layer(_MOUS);
     set_auto_mouse_enable(false);
 }
+#endif /* ifdef POINTING_DEVICE */

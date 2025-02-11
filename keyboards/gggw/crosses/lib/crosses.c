@@ -18,6 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "crosses.h"
+#include "transactions.h"
 
 #ifdef CONSOLE_ENABLE
 #    include "print.h"
@@ -61,9 +62,9 @@ void update_pointer_cpi(global_user_config_t* config) {
     pointing_device_set_cpi_on_side(false, get_pointer_dpi(config));
 #endif /* ifdef POINTING_DEVICE_COMBINED */
 
-#ifndef POINTING_DEVICE_COMBINED
+#if defined(POINTING_DEVICE_LEFT) || defined(POINTING_DEVICE_RIGHT)
     pointing_device_set_cpi(get_pointer_dpi(config));
-#endif /* ifndef POINTING_DEVICE_COMBINED */
+#endif /* LEFT || RIGHT */
 }
 
 void change_pointer_dpi(global_user_config_t* config, bool inc) {
@@ -90,9 +91,10 @@ void change_pointer_dpi(global_user_config_t* config, bool inc) {
     pointing_device_set_cpi_on_side(false, get_pointer_dpi(config));
 #endif /* ifdef POINTING_DEVICE_COMBINED */
 
-#ifndef POINTING_DEVICE_COMBINED
+#if defined(POINTING_DEVICE_LEFT) || defined(POINTING_DEVICE_RIGHT)
     pointing_device_set_cpi(get_pointer_dpi(config));
-#endif /* ifndef POINTING_DEVICE_COMBINED */
+#endif /* ifdef POINTING_DEVICE_* */
+
     write_config_to_eeprom(&global_user_config);
 }
 
@@ -120,7 +122,7 @@ void eeconfig_init_user(void) {
  * Single Trackball Config
  ***********************************************************************/
 
-#ifndef POINTING_DEVICE_COMBINED
+#if defined(POINTING_DEVICE_RIGHT) || defined(POINTING_DEVICE_LEFT)
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     if (set_scrolling) {
@@ -144,7 +146,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     return mouse_report;
 }
 
-#endif /* ifndef POINTING_DEVICE_COMBINED */
+#endif /* RIGHT || LEFT */
 
 /***********************************************************************
  * Dual Trackball Config
@@ -175,11 +177,11 @@ report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, re
 #endif /* ifdef POINTING_DEVICE_COMBINED */
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-#ifndef POINTING_DEVICE_COMBINED
+#if defined(POINTING_DEVICE_RIGHT) || defined(POINTING_DEVICE_LEFT)
     if (get_highest_layer(state) != 5) {
         set_scrolling = false;
     }
-#endif /* ifndef POINTING_DEVICE_COMBINED */
+#endif /* ifndef POINTING_DEVICE_* */
 
     return state;
 }
@@ -214,7 +216,10 @@ void housekeeping_task_kb(void) {
 void keyboard_post_init_user(void) {
     global_user_config.raw = eeconfig_read_user();
     transaction_register_rpc(CROSSES_SECONDARY_SYNC_ID, secondary_sync_handler);
+
+#if defined(POINTING_DEVICE_COMBINED) || defined(POINTING_DEVICE_RIGHT) || defined(POINTING_DEVICE_LEFT)
     update_pointer_cpi(&global_user_config);
+#endif /* ifdef POINTING_DEVICE_* */
+
     write_config_to_eeprom(&global_user_config);
 }
-
