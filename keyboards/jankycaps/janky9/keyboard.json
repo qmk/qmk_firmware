@@ -1,0 +1,49 @@
+{
+  "keyboard_name": "Janky No.9",
+  "manufacturer": "jankycaps",
+  "url": "https://anky.studio/",
+  "maintainer": "jankycaps",
+  "usb": {
+    "vid": "0x4E4B",
+    "pid": "0x0001",
+    "device_version": "1.0.0"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
+  "features": {
+    "bootmagic": true,
+    "command": false,
+    "console": false,
+    "extrakey": true,
+    "mousekey": true,
+    "nkro": true
+  },
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  },
+  "matrix_pins": {
+    "direct": [
+      ["F4", "F5", "F6"],
+      ["F7", "B1", "B3"],
+      ["B2", "B6", "B5"]
+    ]
+  },
+  "layouts": {
+    "LAYOUT": {
+      "layout": [
+        {"x": 0, "y": 0, "matrix": [0, 0]},
+        {"x": 1, "y": 0, "matrix": [0, 1]},
+        {"x": 2, "y": 0, "matrix": [0, 2]},
+        {"x": 0, "y": 1, "matrix": [1, 0]},
+        {"x": 1, "y": 1, "matrix": [1, 1]},
+        {"x": 2, "y": 1, "matrix": [1, 2]},
+        {"x": 0, "y": 2, "matrix": [2, 0]},
+        {"x": 1, "y": 2, "matrix": [2, 1]},
+        {"x": 2, "y": 2, "matrix": [2, 2]}
+      ]
+    }
+  }
+}
