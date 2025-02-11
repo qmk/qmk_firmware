@@ -6,7 +6,7 @@
 
 * Keyboard Maintainer: [telybelly](https://github.com/telybelly)
 * Hardware Supported: Janky No.9
-* Hardware Availability: *https://anky.studio/*
+* Hardware Availability: <https://anky.studio/>
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -20,6 +20,8 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Bootloader
 
-Enter the bootloader in 1 way:
+Enter the bootloader in 3 ways:
 
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
 * **Physical reset button**: Quickly short the RST and GND pads on the PCB twice
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available

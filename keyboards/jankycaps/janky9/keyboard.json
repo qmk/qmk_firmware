@@ -1,7 +1,7 @@
 {
     "manufacturer": "jankycaps",
     "keyboard_name": "Janky No.9",
-    "maintainer": "jankycaps",
+    "maintainer": "telybelly",
     "development_board": "promicro",
     "features": {
         "bootmagic": true,
@@ -21,8 +21,9 @@
         "pid": "0x0001",
         "vid": "0x4E4B"
     },
+    "community_layouts": ["ortho_3x3"],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_ortho_3x3": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
