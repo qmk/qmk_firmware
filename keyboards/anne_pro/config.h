@@ -16,6 +16,9 @@
 
 #pragma once
 
+#define STM32_HSECLK 16000000U
+#define STM32_BOOTLOADER_ADDRESS    0x08000000
+#define STM32L152xB
 
 /*
  * Timeout after which the backlight of the keyboard is disabled if no keypresses are received.
