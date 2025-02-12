@@ -1,5 +1,5 @@
 # List of all the board related files.
-BOARDSRC = $(BOARD_PATH)/boards/STM32L151_ANNE_PRO/board.c
+BOARDSRC = $(CHIBIOS)/os/hal/boards/ST_NUCLEO64_L152RE/board.c
 
 # Required include directories
-BOARDINC = $(BOARD_PATH)/boards/STM32L151_ANNE_PRO
+BOARDINC = $(CHIBIOS)/os/hal/boards/ST_NUCLEO64_L152RE
