@@ -242,7 +242,7 @@ def keymap_check(kb, km):
     return ok
 
 
-def keyboard_check(kb):
+def keyboard_check(kb):  # noqa C901
     """Perform the keyboard level checks.
     """
     ok = True
