@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define USER_BUTTON_PIN     C13
 #define DEBUG_LED_PIN       B2
+#define USB_VBUS_PIN        B10
 
 // WS2812 RGB LED strip input and number of LEDs
 #define WS2812_PWM_DRIVER        PWMD3
