@@ -1,6 +1,7 @@
 
 VPATH += keyboards/gboards/ # using gboards combo code: see https://combos.gboards.ca/
 SRC += features/custom_shift_keys.c
+SRC += features/select_word.c
 
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 LTO_ENABLE = yes			# link time optimisation
