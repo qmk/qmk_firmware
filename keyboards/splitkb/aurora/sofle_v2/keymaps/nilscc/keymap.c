@@ -23,6 +23,13 @@ enum nilscc_layers {
 
 #define COLEMAK PDF(_COLEMAK)
 
+enum custom_key_codes {
+    KVM_1 = SAFE_RANGE,
+    KVM_2,
+    KVM_3,
+    KVM_4,
+};
+
 /* clang-format off */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -54,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Adjustment layer */
     [_ADJUST] = LAYOUT(
-        XXXXXXX,    COLEMAK,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,                            XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,
+        XXXXXXX,    KVM_1,      KVM_2,      KVM_3,      KVM_4,      XXXXXXX,                            XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,
         XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,                            XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,
         XXXXXXX,    RM_TOGG,    RM_HUEU,    RM_SATU,    RM_VALU,    XXXXXXX,                            XXXXXXX,    KC_VOLD,    KC_MUTE,    KC_VOLU,    XXXXXXX,    XXXXXXX,
         XXXXXXX,    RM_NEXT,    RM_HUED,    RM_SATD,    RM_VALD,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_MPRV,    KC_MPLY,    KC_MNXT,    XXXXXXX,    XXXXXXX,
@@ -73,6 +80,41 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 };
 #endif
 /* clang-format on */
+
+static void switch_kvm(uint16_t screen) {
+    tap_code(KC_SCRL);
+    SEND_STRING(SS_DELAY(200));
+    tap_code(KC_SCRL);
+    SEND_STRING(SS_DELAY(200));
+    tap_code(screen);
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case KVM_1:
+            if (record->event.pressed) {
+                switch_kvm(KC_1);
+            }
+            return false;
+        case KVM_2:
+            if (record->event.pressed) {
+                switch_kvm(KC_2);
+            }
+            return false;
+        case KVM_3:
+            if (record->event.pressed) {
+                switch_kvm(KC_3);
+            }
+            return false;
+        case KVM_4:
+            if (record->event.pressed) {
+                switch_kvm(KC_4);
+            }
+            return false;
+        default:
+            return true;
+    }
+}
 
 
 // Disable power LED of liatris board
