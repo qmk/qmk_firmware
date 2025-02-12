@@ -78,6 +78,9 @@
 // When idle, turn off Caps Word after 10 seconds.
 #define CAPS_WORD_IDLE_TIMEOUT 10000
 
+/* Default to Mac hotkeys for Select_Word */
+#define SELECT_WORD_OS_MAC
+
 // Auto Shift
 // #define NO_AUTO_SHIFT_ALPHA
 // #define AUTO_SHIFT_TIMEOUT 175 /* ms */

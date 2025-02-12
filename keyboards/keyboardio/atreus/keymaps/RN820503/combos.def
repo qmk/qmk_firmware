@@ -2,7 +2,7 @@
 
 /*---- standard alphas and punctuation ----*/
 COMB(H_V,               KC_V,       LT3, LT2)
-COMB(H_Z,               KC_Z,       LM3, LM1)
+COMB(H_Z,               KC_Z,       LT3, LT1)
 COMB(Hat,               KC_AT,      RT0, RT1)
 COMB(Hexlm,             KC_EXLM,    RT1, RT2)
 COMB(Hques,             KC_QUES,    RT2, RT3)
@@ -16,7 +16,7 @@ COMB(Heql,              KC_EQL,     RB2, RB3)
 COMB(Htild,             KC_TILD,    RB1, RB4)
 
 /*---- digraphs ----*/
-COMB(H_Qu,              SS_Qu,      LT3, LT1)
+COMB(H_Qu,              SS_Qu,      LT2, LT1)
 /* COMB(H_Wh,              SS_Wh,      LT3, LT2) */
 /* COMB(H_Gh,              SS_Gh,      LT2, LT1) */
 /* COMB(H_Th,              SS_Th,      LM2, LM1) */
@@ -25,7 +25,7 @@ COMB(H_Qu,              SS_Qu,      LT3, LT1)
 /* COMB(H_Ph,              SS_Ph,      LB3, LB1) */
 
 /*---- commands ----*/
-COMB(Htab,            	KC_TAB,     LT2, LT1)
+COMB(Htab,            	KC_TAB,     LM3, LM1)
 /* COMB(Hesc,              KC_ESC,     LM4, LM1) */
 /* COMB(Hbspc,             KC_BSPC,    RT1, RT2) */
 /* COMB(Hdel,              KC_DEL,      RT2, RT3) */
@@ -52,9 +52,9 @@ COMB(Hpstm,             A(S(G(KC_V))), LB4, LB0)
 /* --- parens and brackets --- */
 /* COMB(Hlbrc,             KC_LBRC,    LT3, LM3) */
 /* COMB(Hlcbr,             KC_LCBR,    LT2, LM2) */
-/* COMB(Hlprn,             KC_LPRN,    LT1, LM1) */
+COMB(Hlprn,             KC_LPRN,    LT1, LM1)
 /* COMB(Hlabk,             KC_LABK,    LT0, LM0) */
 /* COMB(Hrabk,             KC_RABK,    RT0, RM0) */
-/* COMB(Hrprn,             KC_RPRN,    RT1, RM1) */
+COMB(Hrprn,             KC_RPRN,    RT1, RM1)
 /* COMB(Hrcbr,             KC_RCBR,    RT2, RM2) */
 /* COMB(Hrbrc,             KC_RBRC,    RT3, RM3) */

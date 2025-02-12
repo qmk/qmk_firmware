@@ -7,6 +7,7 @@
 #include "quantum_keycodes.h"
 #include QMK_KEYBOARD_H
 #include "features/custom_shift_keys.h"
+#include "features/select_word.h"
 
 enum layer_names {
     _DEF,
@@ -17,6 +18,9 @@ enum layer_names {
 
 enum custom_keycodes {
     SS_Qu = SAFE_RANGE,
+    SELWBAK,
+    SELWFWD,
+    SELLINE,
 };
 
 /*  KEY POSITION Names
@@ -29,35 +33,35 @@ enum custom_keycodes {
 
 /*  Hands Down Promethium
 
-    v   w   g    m   j           =   .:  /    "!  '?
-    s⌃  n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘   i⌥  c⌃
+    v   w   g2   m   j           =   .:  /2   "!  '?
+    s⌃  n⌥  t3   h⌘  k           ,;  a⌘  e1   i⌥  c⌃
     f   p   d    l   x	 `   \	 -   u   o    y   b
-    ←   →  app   ⇥   r   ⌫   ⏎   ␣   ⎋  num   ↑   ↓
+    ←   →  app   ⇥   r⇧  ⌫   ⏎   ␣⇧  ⎋  num   ↑   ↓
 */
 
 // top row
 #define LT4 KC_V
 #define LT3 KC_W
-#define LT2 KC_G
+#define LT2 LT(_SYM, KC_G)
 #define LT1 KC_M
 #define LT0 KC_J
 
 #define RT0 KC_EQL
 #define RT1 KC_DOT
-#define RT2 KC_SLSH
+#define RT2 LT(_SYM, KC_SLSH)
 #define RT3 KC_DQUO
 #define RT4 KC_QUOT
 
 // middle row
 #define LM4 LCTL_T(KC_S)
 #define LM3 LALT_T(KC_N)
-#define LM2 LGUI_T(KC_T)
-#define LM1 LSFT_T(KC_H)
+#define LM2 LT(_NAV, KC_T)
+#define LM1 LGUI_T(KC_H)
 #define LM0 KC_K
 
 #define RM0 KC_COMM
-#define RM1 RSFT_T(KC_A)
-#define RM2 RGUI_T(KC_E)
+#define RM1 RGUI_T(KC_A)
+#define RM2 LT(_NUM, KC_E)
 #define RM3 RALT_T(KC_I)
 #define RM4 RCTL_T(KC_C)
 
@@ -81,11 +85,11 @@ enum custom_keycodes {
 #define LH3 KC_RGHT
 #define LH2 G(KC_TAB)
 #define LH1 KC_TAB
-#define LH0 LT(_NAV, KC_R)
-#define LH00 LT(_SYM, KC_BSPC)
+#define LH0 LSFT_T(KC_R)
+#define LH00 KC_BSPC
 
-#define RH00 LT(_SYM, KC_ENT)
-#define RH0 LT(_NUM, KC_SPC)
+#define RH00 KC_ENT
+#define RH0 RSFT_T(KC_SPC)
 #define RH1 KC_ESC
 #define RH2 TG(_NUM)
 #define RH3 KC_UP
@@ -100,11 +104,11 @@ static uint16_t keyhold_timer; // for handling Qu combo
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-	/*
-        v   w   g    m   j           =   .:  /    "!  '?
-        s⌃  n⌥  t⌘   h⇧  k           ,;  a⇧  e⌘   i⌥  c⌃
-        f   p   d    l   x	 `   \	 -   u   o    y   b
-        ←   →  app   ⇥   r3  ⌫2  ⏎2  ␣1  ⎋  num   ↑   ↓
+	/*  Hands Down Promethium
+    v   w   g2   m   j           =   .:  /2   "!  '?
+    s⌃  n⌥  t3   h⌘  k           ,;  a⌘  e1   i⌥  c⌃
+    f   p   d    l   x	 `   \	 -   u   o    y   b
+    ←   →  app   ⇥   r⇧  ⌫   ⏎   ␣⇧  ⎋  num   ↑   ↓
     */
 
   	[_DEF] = LAYOUT(
@@ -122,7 +126,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     */
     [_NUM] = LAYOUT(
     KC_MINS, KC_5,    KC_2,    KC_3,    KC_COLN,                   _______, KC_PLUS, KC_EQL,  KC_ASTR, _______,
-    KC_7,    KC_DOT,  KC_1,    KC_0,    KC_4,                      _______, KC_RSFT, KC_RGUI, KC_RALT, KC_RCTL,
+    KC_7,    KC_DOT,  KC_1,    KC_0,    KC_4,                      _______, KC_RGUI, _______, KC_RALT, KC_RCTL,
     KC_SLSH, KC_6,    KC_9,    KC_8,    KC_COMM, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, KC_SPC,  _______, _______, _______, _______, _______, _______, _______
     ),
@@ -142,14 +146,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /*
                 ⌘Q     Scap    Sclp                            vol+    home    up	end
-    	⌃       ⌥       ⌘       ⇧     Sall        		       vol-    left    dn	rght    ⌦
+    	⌃       ⌥              ⌘     Sall        		       vol-    left    dn	rght    ⌦
     	undo   cut     cpy     pst    redo                     mute     ⌫
                                                                dsk-    dsk+
     */
     [_NAV] = LAYOUT(
     ___x___, G(KC_Q), LSG(KC_4), C(S(G(KC_4))), ___x___,                     KC_VOLU,    G(KC_LEFT), KC_UP,   G(KC_RGHT), ___x___,
-    KC_LCTL, KC_LALT, KC_LGUI,   KC_LSFT,       G(KC_A),                     KC_VOLD,    KC_LEFT,    KC_DOWN, KC_RGHT,    KC_DEL,
-    G(KC_Z), G(KC_X), G(KC_C),   G(KC_V),       LSG(KC_Z), _______, _______, KC_MUTE,    KC_BSPC,	 ___x___, ___x___,    ___x___,
+    KC_LCTL, KC_LALT, _______,   KC_LGUI,       G(KC_A),                     KC_VOLD,    KC_LEFT,    KC_DOWN, KC_RGHT,    KC_DEL,
+    G(KC_Z), G(KC_X), G(KC_C),   G(KC_V),       LSG(KC_Z), _______, _______, KC_MUTE,    SELWBAK,	 SELWFWD, SELLINE,    ___x___,
     _______, _______, _______,   _______,       _______,   _______, _______, C(KC_LEFT), C(KC_RGHT), _______, _______,    _______
     ),
 
@@ -157,13 +161,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-	    case LM1:
-        case RM1:
+	    case LH0:
+        case RH0:
             return TAPPING_TERM - 25;
 
     	case LM4:
         case LM3:
         case LM2:
+        case LM1:
+        case RM1:
         case RM2:
         case RM3:
         case RM4:
@@ -176,8 +182,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 
 bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case LM1:
-        case RM1:
+        case LH0:
+        case RH0:
             return true;    // Immediately select the hold action when another key is tapped.
 
         default:
@@ -190,6 +196,7 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     if (!process_custom_shift_keys(keycode, record)) { return false; }
+    if (!process_select_word(keycode, record)) { return false; }
 
     switch (keycode) {
         case SS_Qu:  // send "qu" on tap
@@ -216,6 +223,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return true;  // Didn't handle this
             break;
+
+        case SELWBAK:  // Backward word selection.
+            if (record->event.pressed) {
+                select_word_register('B');
+            } else {
+                select_word_unregister();
+            }
+            break;
+
+        case SELWFWD:  // Forward word selection.
+            if (record->event.pressed) {
+                select_word_register('W');
+            } else {
+                select_word_unregister();
+            }
+            break;
+
+        case SELLINE:  // Line selection.
+            if(record->event.pressed) {
+                select_word_register('L');
+            } else {
+                select_word_unregister();
+            }
+            break;
     }
     return true;
 };
@@ -223,7 +254,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 const custom_shift_key_t custom_shift_keys[] = {
     {KC_DOT, KC_COLN},  /* shift . is : */
     {KC_COMM, KC_SCLN}, /* shift , is ; */
-    {KC_SLSH, KC_ASTR}, /* shift / is * */
+    {LT(_SYM, KC_SLSH), KC_ASTR}, /* shift / is * */
     {KC_DQUO, KC_EXLM}, /* shift " is ! */
     {KC_QUOT, KC_QUES}, /* shift ' is ? */
 	{KC_BSPC, KC_DEL},  /* shift ⌫ is ⌦ */

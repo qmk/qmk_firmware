@@ -1,4 +1,5 @@
 SRC += features/custom_shift_keys.c
+SRC += features/select_word.c
 VPATH += keyboards/gboards/ # using gboards combo code: see https://combos.gboards.ca/
 
 # MCU name
