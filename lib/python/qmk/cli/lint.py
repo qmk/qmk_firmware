@@ -262,7 +262,6 @@ def keyboard_check(kb):
         cli.log.error(f'{kb}: The file "{file}" should not exist!')
         ok = False
 
-
     for file in _get_readme_files(kb):
         if _is_invalid_readme(file):
             cli.log.error(f'{kb}: The file "{file}" still contains template tokens!')
