@@ -20,6 +20,17 @@
 #include "ch.h"
 #include "hal.h"
 
+void early_hardware_init_pre(void) {
+    /* Disable all external interrupt vectors, they are left enabled by the bootloader */
+    nvicDisableVector(EXTI0_IRQn);
+    nvicDisableVector(EXTI1_IRQn);
+    nvicDisableVector(EXTI2_IRQn);
+    nvicDisableVector(EXTI3_IRQn);
+    nvicDisableVector(EXTI4_IRQn);
+    nvicDisableVector(EXTI9_5_IRQn);
+    nvicDisableVector(EXTI15_10_IRQn);
+}
+
 /* Process the Anne Pro custom keycodes */
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     /* Update the key status for the reactive effects */
