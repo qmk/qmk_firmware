@@ -17,7 +17,7 @@
 #pragma once
 #include "quantum.h"
 
-/* Custom keycodes for the lighting control for the Anne Pro */
+/* Custom keycodes for Lighting and Bluetooth control */
 enum anne_pro_keycodes {
     APL_RGB = SAFE_RANGE,
     APL_RAT,
