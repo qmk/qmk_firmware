@@ -35,6 +35,7 @@ COMB(Hrsft,             OSM(MOD_RSFT), 	RM2, RM3)
 /* COMB(Hdown,            	KC_DOWN,    RM2, RB3) */
 
 /*---- semantic functions ----*/
+COMB(Hquit,             G(KC_Q),    LT0, LM0)
 COMB(Hundo,             G(KC_Z),    LB4, LB3)
 COMB(Hcut,              G(KC_X),    LB3, LB1)
 COMB(Hcopy,             G(KC_C),    LB3, LB2)
