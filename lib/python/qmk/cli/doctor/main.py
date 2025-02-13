@@ -5,7 +5,7 @@ Check out the user's QMK environment and make sure it's ready to compile.
 import platform
 from subprocess import DEVNULL
 
-from milc import cli
+from milc import MILC, cli
 from milc.questions import yesno
 
 from qmk import submodules
@@ -16,7 +16,7 @@ from qmk.commands import in_virtualenv
 from qmk.userspace import qmk_userspace_paths, qmk_userspace_validate, UserspaceValidationError
 
 
-def os_tests():
+def os_tests() -> CheckStatus:
     """Determine our OS and run platform specific tests
     """
     platform_id = platform.platform().lower()
@@ -35,7 +35,7 @@ def os_tests():
         return CheckStatus.WARNING
 
 
-def git_tests():
+def git_tests() -> CheckStatus:
     """Run Git-related checks
     """
     status = CheckStatus.OK
@@ -75,7 +75,7 @@ def git_tests():
     return status
 
 
-def output_submodule_status():
+def output_submodule_status() -> None:
     """Prints out information related to the submodule status.
     """
     cli.log.info('Submodule status:')
@@ -93,7 +93,7 @@ def output_submodule_status():
                 cli.log.error(f'- {sub_name}: <<< missing or unknown >>>')
 
 
-def userspace_tests(qmk_firmware):
+def userspace_tests(qmk_firmware) -> None:
     if qmk_firmware:
         cli.log.info(f'QMK home: {{fg_cyan}}{qmk_firmware}')
 
@@ -115,7 +115,7 @@ def userspace_tests(qmk_firmware):
 @cli.argument('-y', '--yes', action='store_true', arg_only=True, help='Answer yes to all questions.')
 @cli.argument('-n', '--no', action='store_true', arg_only=True, help='Answer no to all questions.')
 @cli.subcommand('Basic QMK environment checks')
-def doctor(cli):
+def doctor(cli: MILC) -> int:
     """Basic QMK environment checks.
 
     This is currently very simple, it just checks that all the expected binaries are on your system.
