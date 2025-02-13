@@ -142,6 +142,9 @@ void anne_pro_lighting_update(void) {
     }
 
     if (!uart_tx_ringbuf_empty(&led_uart_ringbuf)) {
+        /* we need to slightly delay transmission in order for it to register
+         * on the receiving end */
+        chThdSleepMilliseconds(1);
         uart_tx_ringbuf_start_transmission(&led_uart_ringbuf);
     }
 }
