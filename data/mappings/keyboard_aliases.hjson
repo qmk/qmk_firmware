@@ -1626,8 +1626,14 @@
     "buzzard": {
         "target": "buzzard/rev1"
     },
+    "cannonkeys/db60": {
+        "target": "cannonkeys/db60/rev2"
+    },
     "clickety_split/leeloo": {
         "target": "clickety_split/leeloo/rev3"
+    },
+    "converter/palm_usb": {
+        "target": "converter/palm_usb/stowaway"
     },
     "crkbd": {
         "target": "crkbd/rev1"
@@ -1713,6 +1719,9 @@
     "handwired/dactyl_manuform/6x6": {
         "target": "handwired/dactyl_manuform/6x6/promicro"
     },
+    "handwired/meck_tkl": {
+        "target": "handwired/meck_tkl/blackpill_f401"
+    },
     "handwired/ms_sculpt_mobile": {
         "target": "handwired/ms_sculpt_mobile/teensy2pp"
     },
@@ -1751,6 +1760,9 @@
     },
     "hillside/46": {
         "target": "hillside/46/0_1"
+    },
+    "hhkb/ansi": {
+        "target": "hhkb/ansi/32u4"
     },
     "hillside/48": {
         "target": "hillside/48/0_1"
@@ -1796,6 +1808,9 @@
     },
     "kakunpc/angel17": {
         "target": "kakunpc/angel17/rev1"
+    },
+    "kakunpc/angel64": {
+        "target": "kakunpc/angel64/rev1"
     },
     "kakunpc/business_card": {
         "target": "kakunpc/business_card/beta"
@@ -2148,6 +2163,9 @@
     "takashiski/namecard2x4": {
         "target": "takashiski/namecard2x4/rev2"
     },
+    "teleport/native": {
+        "target": "teleport/native/iso"
+    },
     "themadnoodle/noodlepad": {
         "target": "themadnoodle/noodlepad/v1"
     },
@@ -2181,6 +2199,21 @@
     "vitamins_included": {
         "target": "vitamins_included/rev2"
     },
+    "westm/westm68": {
+        "target": "westm/westm68/rev2"
+    },
+    "westm/westm9": {
+        "target": "westm/westm9/rev2"
+    },
+    "woodkeys/meira": {
+        "target": "woodkeys/meira/promicro"
+    },
+    "work_louder/loop": {
+        "target": "work_louder/loop/rev3"
+    },
+    "work_louder/work_board": {
+        "target": "work_louder/work_board/rev3"
+    },
     "yanghu/unicorne": {
         "target": "yanghu/unicorne/f411"
     },
@@ -2195,5 +2228,8 @@
     },
     "yynmt/acperience12": {
         "target": "yynmt/acperience12/rev1"
+    },
+    "zsa/planck_ez": {
+        "target": "zsa/planck_ez/base"
     }
 }
