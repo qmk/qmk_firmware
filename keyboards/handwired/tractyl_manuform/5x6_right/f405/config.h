@@ -22,6 +22,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEBUG_LED_PIN       B2
 #define USB_VBUS_PIN        B10
 
+#ifdef USE_USB_OTG_HS_PORT
+#    define USB_DRIVER USBD2
+#endif
+
 // WS2812 RGB LED strip input and number of LEDs
 #define WS2812_PWM_DRIVER        PWMD3
 #define WS2812_PWM_CHANNEL       1

@@ -72,3 +72,11 @@
 #    undef STM32_GPT_USE_TIM6
 #    define STM32_GPT_USE_TIM6 TRUE
 #endif // AUDIO_DRIVER_DAC
+
+
+#ifdef USE_USB_OTG_HS_PORT
+#    undef STM32_USB_USE_OTG1
+#    define STM32_USB_USE_OTG1 FALSE
+#    undef STM32_USB_USE_OTG2
+#    define STM32_USB_USE_OTG2 TRUE
+#endif
