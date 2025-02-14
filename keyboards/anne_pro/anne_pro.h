@@ -1,4 +1,4 @@
-/* Copyright 2019 Michiel Visser
+/* Copyright 2019 Michiel Visser (@msvisser)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 
 /* Custom keycodes for Lighting and Bluetooth control */
 enum anne_pro_keycodes {
-    APL_RGB = SAFE_RANGE,
+    APL_RGB = QK_USER,
     APL_RAT,
     APL_BRT,
     APL_MOD,
@@ -39,5 +39,4 @@ enum anne_pro_keycodes {
     APB_HD2,
     APB_HD3,
     APB_HD4,
-    NEW_SAFE_RANGE,
 };
