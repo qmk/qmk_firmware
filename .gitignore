@@ -13,10 +13,6 @@
 .clang_complete
 .build/
 *.elf
-*.hex
-*.qmk
-!util/bootloader.hex
-!quantum/tools/eeprom_reset.hex
 *.log
 *.lss
 *.lst
