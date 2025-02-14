@@ -1,6 +1,6 @@
 # zwerg
 
-![zwerg](https://raw.githubusercontent.com/floookay/zwerg/refs/heads/master/images/glam-shot.webp)
+![zwerg](https://i.imgur.com/hkFLvd2.jpeg)
 
 A 40% ortholinear split keyboard.
 
