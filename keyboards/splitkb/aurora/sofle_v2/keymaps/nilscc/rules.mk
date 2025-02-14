@@ -13,4 +13,4 @@ ENCODER_ENABLE = yes
 ENCODER_MAP_ENABLE = yes
 
 # enable auto-shift
-AUTO_SHIFT_ENABLE = yes
+#AUTO_SHIFT_ENABLE = yes
