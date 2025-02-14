@@ -11,3 +11,6 @@ RGB_MATRIX_ENABLE = yes
 # encoder settings
 ENCODER_ENABLE = yes
 ENCODER_MAP_ENABLE = yes
+
+# enable auto-shift
+AUTO_SHIFT_ENABLE = yes
