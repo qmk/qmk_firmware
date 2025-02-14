@@ -40,11 +40,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // カーソルの移動スピード
 #undef  MOUSEKEY_MAX_SPEED
-#define MOUSEKEY_MAX_SPEED 10
+#define MOUSEKEY_MAX_SPEED 1
 
 // カーソル操作がトップスピードになるまでの時間
 #undef  MOUSEKEY_TIME_TO_MAX
-#define MOUSEKEY_TIME_TO_MAX 100
+#define MOUSEKEY_TIME_TO_MAX 200
 
 // ホイールキー入力から反応までの遅延
 #undef  MOUSEKEY_WHEEL_DELAY
