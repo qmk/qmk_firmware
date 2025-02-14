@@ -110,3 +110,33 @@ void persistent_default_layer_set(uint16_t default_layer) {
     eeconfig_update_default_layer(default_layer);
     default_layer_set(default_layer);
 }
+
+/*COMBO keymaps*/
+enum combo_events {
+  HELLO,
+  WORLD,
+};
+
+const uint16_t PROGMEM hello_combo[] = {KC_G, KC_H, COMBO_END};
+const uint16_t PROGMEM world_combo[] = {KC_F, KC_J, COMBO_END};
+
+combo_t key_combos[] = {
+  [HELLO] = COMBO_ACTION(hello_combo),
+  [WORLD] = COMBO_ACTION(world_combo),
+};
+/* COMBO_ACTION(x) is same as COMBO(x, KC_NO) */
+
+void process_combo_event(uint16_t combo_index, bool pressed) {
+  switch(combo_index) {
+    case HELLO:
+      if (pressed) {
+        SEND_STRING("Hello");
+      }
+      break;
+    case WORLD:
+      if (pressed) {
+        SEND_STRING("World");
+      }
+      break;
+  }
+}

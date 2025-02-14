@@ -41,3 +41,10 @@
 // ホイール操作がトップスピードになるまでの時間
 #undef  MOUSEKEY_WHEEL_TIME_TO_MAX
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 100
+
+// コンボキーの数を定義
+#define COMBO_COUNT 2
+
+// コンボキーのタイムアウト値を定義
+//#define COMBO_TERM 500
+
