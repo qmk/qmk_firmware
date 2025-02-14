@@ -18,10 +18,6 @@ Flashing the firmware can easily be done when the keyboard is in DFU mode:
 
 The default Arrows and macOS keyboard layouts are also included and can be used with `arrow` or `macos` instead of `default`.
 
-To convert the `bin` file to a `dfu` file the following script can be used
-
-    ./keyboards/anne_pro/dfuse-pack.py -b 0x08004000:anne_pro_default.bin anne_pro_default.dfu
-
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 ## Bootloader
