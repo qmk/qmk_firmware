@@ -13,6 +13,8 @@ static uint8_t last_bat_level = 100;
 
 void battery_init(void) {
     battery_driver_init();
+
+    last_bat_level = battery_driver_sample_percent();
 }
 
 void battery_task(void) {
