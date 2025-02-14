@@ -4,7 +4,8 @@
     "maintainer": "floookay",
     "bootloader_instructions": "Press the reset button on the Gemini controller or right-side-bottom-right + esc",
     "tags": ["ortho", "split", "40%", "OSHW"],
-    "development_board": "helios",
+    "processor": "RP2040",
+    "bootloader": "rp2040",
     "diode_direction": "ROW2COL",
     "features": {
         "bootmagic": true,
