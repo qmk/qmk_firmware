@@ -19,7 +19,7 @@
         "cols": ["A5", "A6", "A7", "B0", "B1", "B12", "B13", "B14", "A8", "A9", "A15", "B3", "B4", "B5"],
         "rows": ["B9", "B8", "B7", "B6", "A0"]
     },
-    "url": "https://service.hexcore.xyz/manual/annepro/",
+    "url": "https://www.hexcore.xyz/annepro",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0xFBF1",
