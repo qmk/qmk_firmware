@@ -31,7 +31,7 @@
         "vid": "0xF100"
     },
     "layouts": {
-        "LAYOUT_split": {
+        "LAYOUT": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
