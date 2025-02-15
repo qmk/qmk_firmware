@@ -112,17 +112,50 @@ void persistent_default_layer_set(uint16_t default_layer) {
 }
 
 /*COMBO keymaps*/
+
 enum combo_events {
     HELLOWORLD,
     FUNCTION,
+    ZH,
+    ZJ,
+    ZK,
+    ZL,
+
+
+
+    TABW_GRV,
+    OMINS_BSPC,
+    QW_ESC,
+    TABMHEN_LBRC,
+    MINSQUOT_RBRC,
 };
 
 const uint16_t PROGMEM helloworld_combo[] = {KC_H, KC_W, COMBO_END};
 const uint16_t PROGMEM function_combo[] = {KC_F, KC_U, COMBO_END};
+const uint16_t PROGMEM zh_combo[] = {KC_Z, KC_H, COMBO_END};
+const uint16_t PROGMEM zj_combo[] = {KC_Z, KC_J, COMBO_END};
+const uint16_t PROGMEM zk_combo[] = {KC_Z, KC_K, COMBO_END};
+const uint16_t PROGMEM zl_combo[] = {KC_Z, KC_L, COMBO_END};
+
+const uint16_t PROGMEM tabw_combo[] = {KC_TAB, KC_W, COMBO_END};
+const uint16_t PROGMEM omins_combo[] = {KC_O, KC_MINS, COMBO_END};
+const uint16_t PROGMEM qw_combo[] = {KC_Q, KC_W, COMBO_END};
+const uint16_t PROGMEM tabmhen_combo[] = {KC_TAB, SFT_MHEN, COMBO_END};
+const uint16_t PROGMEM minsquot_combo[] = {KC_MINS, SFT_QUOT, COMBO_END};
 
 combo_t key_combos[] = {
     [HELLOWORLD] = COMBO_ACTION(helloworld_combo),
     [FUNCTION] = COMBO_ACTION(function_combo),
+    [ZH] = COMBO_ACTION(zh_combo),
+    [ZJ] = COMBO_ACTION(zj_combo),
+    [ZK] = COMBO_ACTION(zk_combo),
+    [ZL] = COMBO_ACTION(zl_combo),
+
+    [TABW_GRV] = COMBO(tabw_combo, KC_GRV),
+    [OMINS_BSPC] = COMBO(omins_combo, KC_BSPC),
+    [QW_ESC] = COMBO(qw_combo, KC_ESC),
+    [TABMHEN_LBRC] = COMBO(tabmhen_combo, KC_LBRC),
+    [MINSQUOT_RBRC] = COMBO(minsquot_combo, KC_RBRC),
 };
 /* COMBO_ACTION(x) is same as COMBO(x, KC_NO) */
 
@@ -135,7 +168,29 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
             break;
         case FUNCTION:
             if (pressed) {
-                SEND_STRING("function");
+                SEND_STRING("const increment = (n: number): number => { return n + 1 };");
+                tap_code16(LOWER);
+                SEND_STRING("const myFunc = (s: string): string => `${s} hello, world`");
+            }
+            break;
+        case ZH:
+            if (pressed) {
+                SEND_STRING("<-");
+            }
+            break;
+        case ZJ:
+            if (pressed) {
+                SEND_STRING("<=");
+            }
+            break;
+        case ZK:
+            if (pressed) {
+                SEND_STRING("=>");
+            }
+            break;
+        case ZL:
+            if (pressed) {
+                SEND_STRING("->");
             }
             break;
     }
