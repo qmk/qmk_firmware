@@ -1,10 +1,11 @@
 import os
 
 from pathlib import Path
+from functools import lru_cache
 
 from milc.attrdict import AttrDict
 
-from qmk.json_schema import json_load, validate
+from qmk.json_schema import json_load, validate, merge_ordered_dicts
 from qmk.util import truthy
 from qmk.constants import QMK_FIRMWARE, QMK_USERSPACE, HAS_QMK_USERSPACE
 from qmk.path import under_qmk_firmware, under_qmk_userspace
@@ -19,20 +20,25 @@ class ModuleAPI(AttrDict):
             self[key] = value
 
 
-MODULE_API_LIST = [
-    ModuleAPI(ret_type='void', name='keyboard_pre_init', args='void', call_params='', guard=None, header=None),
-    ModuleAPI(ret_type='void', name='keyboard_post_init', args='void', call_params='', guard=None, header=None),
-    ModuleAPI(ret_type='bool', name='pre_process_record', args='uint16_t keycode, keyrecord_t *record', call_params='keycode, record', guard=None, header=None),
-    ModuleAPI(ret_type='bool', name='process_record', args='uint16_t keycode, keyrecord_t *record', call_params='keycode, record', guard=None, header=None),
-    ModuleAPI(ret_type='void', name='post_process_record', args='uint16_t keycode, keyrecord_t *record', call_params='keycode, record', guard=None, header=None),
-    ModuleAPI(ret_type='void', name='housekeeping_task', args='void', call_params='', guard=None, header=None),
-    ModuleAPI(ret_type='void', name='suspend_power_down', args='void', call_params='', guard=None, header=None),
-    ModuleAPI(ret_type='void', name='suspend_wakeup_init', args='void', call_params='', guard=None, header=None),
-    ModuleAPI(ret_type='bool', name='shutdown', args='bool jump_to_bootloader', call_params='jump_to_bootloader', guard=None, header=None),
-    ModuleAPI(ret_type='bool', name='process_detected_host_os', args='os_variant_t os', call_params='os', guard="defined(OS_DETECTION_ENABLE)", header="os_detection.h"),
-]
+@lru_cache(maxsize=1)
+def module_api_list():
+    module_definition_files = sorted(set(QMK_FIRMWARE.glob('data/constants/module_hooks/*.hjson')))
+    module_definition_jsons = [json_load(f) for f in module_definition_files]
+    module_definitions = merge_ordered_dicts(module_definition_jsons)
+    latest_module_version = module_definition_files[-1].stem
 
-MODULE_API_VERSION = '20250122'
+    api_list = []
+    for name, mod in module_definitions.items():
+        api_list.append(ModuleAPI(
+            ret_type=mod['ret_type'],
+            name=name,
+            args=mod['args'],
+            call_params=mod.get('call_params', ''),
+            guard=mod.get('guard', None),
+            header=mod.get('header', None),
+        ))
+
+    return api_list, latest_module_version
 
 
 def find_available_module_paths():
