@@ -121,11 +121,11 @@ enum combo_events {
     ZK,
     ZL,
 
-
-
     TABW_GRV,
     OMINS_BSPC,
+    PMINS_BSPC,
     QW_ESC,
+    TABQ_ESC,
     TABMHEN_LBRC,
     MINSQUOT_RBRC,
 };
@@ -139,7 +139,9 @@ const uint16_t PROGMEM zl_combo[] = {KC_Z, KC_L, COMBO_END};
 
 const uint16_t PROGMEM tabw_combo[] = {KC_TAB, KC_W, COMBO_END};
 const uint16_t PROGMEM omins_combo[] = {KC_O, KC_MINS, COMBO_END};
+const uint16_t PROGMEM pmins_combo[] = {KC_P, KC_MINS, COMBO_END};
 const uint16_t PROGMEM qw_combo[] = {KC_Q, KC_W, COMBO_END};
+const uint16_t PROGMEM tabq_combo[] = {KC_TAB, KC_Q, COMBO_END};
 const uint16_t PROGMEM tabmhen_combo[] = {KC_TAB, SFT_MHEN, COMBO_END};
 const uint16_t PROGMEM minsquot_combo[] = {KC_MINS, SFT_QUOT, COMBO_END};
 
@@ -153,7 +155,9 @@ combo_t key_combos[] = {
 
     [TABW_GRV] = COMBO(tabw_combo, KC_GRV),
     [OMINS_BSPC] = COMBO(omins_combo, KC_BSPC),
+    [PMINS_BSPC] = COMBO(pmins_combo, KC_BSPC),
     [QW_ESC] = COMBO(qw_combo, KC_ESC),
+    [TABQ_ESC] = COMBO(tabq_combo, KC_ESC),
     [TABMHEN_LBRC] = COMBO(tabmhen_combo, KC_LBRC),
     [MINSQUOT_RBRC] = COMBO(minsquot_combo, KC_RBRC),
 };

@@ -43,7 +43,7 @@
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 100
 
 // コンボキーの数を定義
-#define COMBO_COUNT 11
+#define COMBO_COUNT 13
 
 // コンボキーのタイムアウト値を定義
 //#define COMBO_TERM 500
