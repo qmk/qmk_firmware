@@ -16,7 +16,7 @@ Add the following to your `config.h`:
 
 |Define                    |Default |Description                                       |
 |--------------------------|--------|--------------------------------------------------|
-|`BATTERY_SAMPLE_INTERVAL` |`30000` |The time between battery samples in microseconds. |
+|`BATTERY_SAMPLE_INTERVAL` |`30000` |The time between battery samples in milliseconds. |
 
 ## Driver Configuration {#driver-configuration}
 
