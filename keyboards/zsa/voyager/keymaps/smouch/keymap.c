@@ -28,7 +28,7 @@ enum custom_keycodes {
 */
 
 /*  Hands Down Promethium (canonical)
-    ⎋   3   2@  1$   0#  4           7   6(  5&  9)  8  CW
+    ⎋   3   2@  1$   0#  4           7   6   5   9   8  CW
     ⇥   v   w   g2   m   j           =   .:  /2  "!  '? `
     z   s⌃  n⌥  t3   h⌘  k           ,;  a⌘  e1  i⌥  c⌃ q
     tg  f   p   d    l   x      	 -   u   o   y   b  \
@@ -112,7 +112,7 @@ static uint16_t keyhold_timer; // for handling Qu combo
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*  Hands Down Promethium
-    ⎋   3   2@  1$   0#  4           7   6(  5&  9)  8  CW
+    ⎋   3   2@  1$   0#  4           7   6   5   9   8  CW
     ⇥   v   w   g2   m   j           =   .:  /2  "!  '? `
     z   s⌃  n⌥  t3   h⌘  k           ,;  a⌘  e1  i⌥  c⌃ q
     tg  f   p   d    l   x      	 -   u   o   y   b  \
@@ -266,9 +266,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 const custom_shift_key_t custom_shift_keys[] = {
     {KC_1,    KC_DLR},  /* shift 1 is $ */
     {KC_0,    KC_HASH}, /* shift 0 is # */
-    {KC_6,    KC_LPRN}, /* shift 6 is ( */
-    {KC_5,    KC_AMPR}, /* shift 5 is & */
-    {KC_9,    KC_RPRN}, /* shift 9 is ) */
     {KC_DOT,  KC_COLN}, /* shift . is : */
     {KC_COMM, KC_SCLN}, /* shift , is ; */
     {LT(_SYM, KC_SLSH), KC_ASTR}, /* shift / is * */
