@@ -373,6 +373,15 @@ ifneq ("$(wildcard $(KEYBOARD_PATH_5)/$(KEYBOARD_FOLDER_5).h)","")
 endif
 
 # Find all of the config.h files and add them to our CONFIG_H define.
+CONFIG_H :=
+
+define config_h_community_module_appender
+	ifneq ("$(wildcard $(1)/config.h)","")
+		CONFIG_H += $(1)/config.h
+	endif
+endef
+$(foreach module,$(COMMUNITY_MODULE_PATHS),$(eval $(call config_h_community_module_appender,$(module))))
+
 ifneq ("$(wildcard $(KEYBOARD_PATH_5)/config.h)","")
     CONFIG_H += $(KEYBOARD_PATH_5)/config.h
 endif
@@ -388,6 +397,15 @@ endif
 ifneq ("$(wildcard $(KEYBOARD_PATH_1)/config.h)","")
     CONFIG_H += $(KEYBOARD_PATH_1)/config.h
 endif
+
+POST_CONFIG_H :=
+
+define post_config_h_community_module_appender
+	ifneq ("$(wildcard $(1)/post_config.h)","")
+		POST_CONFIG_H += $(1)/post_config.h
+	endif
+endef
+$(foreach module,$(COMMUNITY_MODULE_PATHS),$(eval $(call post_config_h_community_module_appender,$(module))))
 
 ifneq ("$(wildcard $(KEYBOARD_PATH_1)/post_config.h)","")
     POST_CONFIG_H += $(KEYBOARD_PATH_1)/post_config.h
@@ -484,6 +502,13 @@ endif
 ifneq ("$(wildcard $(KEYBOARD_PATH_5)/post_rules.mk)","")
     include $(KEYBOARD_PATH_5)/post_rules.mk
 endif
+
+define post_rules_mk_community_module_includer
+	ifneq ("$(wildcard $(1)/post_rules.mk)","")
+		include $(1)/post_rules.mk
+	endif
+endef
+$(foreach module,$(COMMUNITY_MODULE_PATHS),$(eval $(call post_rules_mk_community_module_includer,$(module))))
 
 ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
     CONFIG_H += $(KEYMAP_PATH)/config.h
