@@ -373,7 +373,6 @@ ifneq ("$(wildcard $(KEYBOARD_PATH_5)/$(KEYBOARD_FOLDER_5).h)","")
 endif
 
 # Find all of the config.h files and add them to our CONFIG_H define.
-CONFIG_H :=
 ifneq ("$(wildcard $(KEYBOARD_PATH_5)/config.h)","")
     CONFIG_H += $(KEYBOARD_PATH_5)/config.h
 endif
@@ -390,7 +389,6 @@ ifneq ("$(wildcard $(KEYBOARD_PATH_1)/config.h)","")
     CONFIG_H += $(KEYBOARD_PATH_1)/config.h
 endif
 
-POST_CONFIG_H :=
 ifneq ("$(wildcard $(KEYBOARD_PATH_1)/post_config.h)","")
     POST_CONFIG_H += $(KEYBOARD_PATH_1)/post_config.h
 endif

@@ -71,6 +71,8 @@ def generate_modules_rules(keyboard, filename):
             lines.append(f'OPT_DEFS += -DCOMMUNITY_MODULE_{module_path.name.upper()}_ENABLE=TRUE')
             lines.append(f'VPATH += {module_path}')
             lines.append(f'SRC += $(wildcard {module_path}/{module_path.name}.c)')
+            lines.append(f'CONFIG_H += $(wildcard {module_path}/config.h)')
+            lines.append(f'POST_CONFIG_H += $(wildcard {module_path}/post_config.h)')
             lines.append(f'-include {module_path}/rules.mk')
 
         module_jsons = load_module_jsons(modules)
