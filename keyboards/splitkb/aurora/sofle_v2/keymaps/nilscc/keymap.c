@@ -40,9 +40,9 @@ enum nilscc_layers {
 #define SFT_E RSFT_T(KC_E)
 #define CTL_N RCTL_T(KC_N)
 
-#define NUM_SPC   MT(NUMBERS, KC_SPC)
-#define NAV_BS    MT(NAVIGATION, KC_BSPC)
-#define SYM_ENTER MT(SYMBOLS, KC_ENT)
+#define NUM_SPC   LT(_NUMBERS, KC_SPC)
+#define NAV_BS    LT(_NAVIGATION, KC_BSPC)
+#define SYM_ENTER LT(_SYMBOLS, KC_ENT)
 
 enum custom_key_codes {
     KVM_1 = SAFE_RANGE,
@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_NAVIGATION] = LAYOUT(
         _______,    _______,    _______,    _______,    _______,    _______,                            _______,    _______,    _______,    _______,    _______,    _______,
-        _______,    _______,    _______,    _______,    _______,    _______,                            _______,    KC_PSTE,    KC_COPY,    KC_CUT,     KC_UNDO,    _______,
+        _______,    _______,    _______,    _______,    _______,    _______,                            _______,    KC_COPY,    KC_PSTE,    KC_CUT,     KC_UNDO,    _______,
         _______,    KC_LGUI,    KC_LALT,    KC_LSFT,    KC_LCTL,    _______,                            KC_CAPS,    KC_LEFT,    KC_DOWN,    KC_UP,      KC_RGHT,    _______,
         _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    KC_INS,     KC_HOME,    KC_PGDN,    KC_PGUP,    KC_END,     _______,
                                 _______,    _______,    _______,    _______,    _______,    KC_ENT,     KC_BSPC,    KC_DEL,     _______,    _______
