@@ -12,6 +12,9 @@
 // https://github.com/qmk/qmk_firmware/blob/fa98117a3e10afed347f16b2614e4e8a9e26cd32/keyboards/planck/rev7/keymaps/default/keymap.c
 enum nilscc_layers {
     _COLEMAK,
+    _NAVIGATION,
+    _NUMBERS,
+    _SYMBOLS,
     _LOWER,
     _RAISE,
     _ADJUST
@@ -20,19 +23,26 @@ enum nilscc_layers {
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 #define ADJUST MO(_ADJUST)
+#define NUMBERS MO(_NUMBERS)
+#define SYMBOLS MO(_SYMBOLS)
+#define NAVIGATION MO(_NAVIGATION)
 
 #define COLEMAK PDF(_COLEMAK)
 
 #define GUI_A LGUI_T(KC_A)
-#define ALT_R LALT_T(KC_R)
+#define ALT_R ALT_T(KC_R)
 #define SFT_S LSFT_T(KC_S)
 #define CTL_T_ LCTL_T(KC_T)
 
 #define GUI_O RGUI_T(KC_O)
-#define ALT_I RALT_T(KC_I)
+#define ALT_I ALT_T(KC_I)
+#define RALT_Y RALT_T(KC_Y)
 #define SFT_E RSFT_T(KC_E)
 #define CTL_N RCTL_T(KC_N)
 
+#define NUM_SPC   MT(NUMBERS, KC_SPC)
+#define NAV_BS    MT(NAVIGATION, KC_BSPC)
+#define SYM_ENTER MT(SYMBOLS, KC_ENT)
 
 enum custom_key_codes {
     KVM_1 = SAFE_RANGE,
@@ -46,10 +56,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_COLEMAK] = LAYOUT(
         KC_ESC,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,                               KC_6,       KC_7,       KC_8,       KC_9,       KC_0,       KC_BSPC,
-        KC_TAB,     KC_Q,       KC_W,       KC_F,       KC_P,       KC_B,                               KC_J,       KC_L,       KC_U,       KC_Y,       KC_SCLN,    KC_DEL,
+        KC_TAB,     KC_Q,       KC_W,       KC_F,       KC_P,       KC_B,                               KC_J,       KC_L,       KC_U,       RALT_Y,     KC_SCLN,    KC_DEL,
         KC_GRV,     GUI_A,      ALT_R,      SFT_S,      CTL_T_,     KC_G,                               KC_M,       CTL_N,      SFT_E,      ALT_I,      GUI_O,      KC_QUOT,
         KC_LSFT,    KC_Z,       KC_X,       KC_C,       KC_D,       KC_V,       XXXXXXX,    XXXXXXX,    KC_K,       KC_H,       KC_COMM,    KC_DOT,     KC_SLSH,    KC_RSFT,
-                                KC_LGUI,    KC_LALT,    KC_LCTL,    LOWER,      KC_ENT,     KC_SPC,     RAISE,      KC_RCTL,    KC_RALT,    KC_RGUI
+                                LOWER,      XXXXXXX,    KC_ESC,     NUM_SPC,    KC_TAB,     SYM_ENTER,  NAV_BS,     KC_DEL,     XXXXXXX,    RAISE
+    ),
+
+    [_NAVIGATION] = LAYOUT(
+        _______,    _______,    _______,    _______,    _______,    _______,                            _______,    _______,    _______,    _______,    _______,    _______,
+        _______,    _______,    _______,    _______,    _______,    _______,                            _______,    _______,    _______,    _______,    _______,    _______,
+        _______,    _______,    _______,    _______,    _______,    _______,                            _______,    _______,    _______,    _______,    _______,    _______,
+        _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
+                                _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______
+    ),
+
+    [_NUMBERS] = LAYOUT(
+        _______,    _______,    _______,    _______,    _______,    _______,                            _______,    _______,    _______,    _______,    _______,    _______,
+        _______,    _______,    _______,    _______,    _______,    _______,                            _______,    KC_7,       KC_8,       KC_9,       _______,    _______,
+        _______,    _______,    _______,    _______,    _______,    _______,                            _______,    KC_4,       KC_5,       KC_6,       _______,    _______,
+        _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    KC_1,       KC_2,       KC_3,       _______,    _______,
+                                _______,    _______,    _______,    _______,    _______,    KC_MINS,    KC_0,       KC_COMM,    _______,    _______
+    ),
+
+    [_SYMBOLS] = LAYOUT(
+        _______,    _______,    _______,    _______,    _______,    _______,                            _______,    _______,    _______,    _______,    _______,    _______,
+        _______,    _______,    _______,    _______,    _______,    _______,                            _______,    _______,    _______,    _______,    _______,    _______,
+        _______,    _______,    _______,    _______,    _______,    _______,                            _______,    _______,    _______,    _______,    _______,    _______,
+        _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
+                                _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______
     ),
 
     /* Lower layer */
@@ -86,9 +120,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),  ENCODER_CCW_CW(MS_WHLU, MS_WHLD)  },
-    [1] = { ENCODER_CCW_CW(UG_HUED, UG_HUEU),  ENCODER_CCW_CW(UG_SATD, UG_SATU)  },
-    [2] = { ENCODER_CCW_CW(UG_VALD, UG_VALU),  ENCODER_CCW_CW(UG_SPDD, UG_SPDU)  },
-    [3] = { ENCODER_CCW_CW(UG_PREV, UG_NEXT),  ENCODER_CCW_CW(KC_RIGHT, KC_LEFT) },
+    [1] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),  ENCODER_CCW_CW(MS_WHLU, MS_WHLD)  },
+    [2] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),  ENCODER_CCW_CW(MS_WHLU, MS_WHLD)  },
+    [3] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),  ENCODER_CCW_CW(MS_WHLU, MS_WHLD)  },
+    [4] = { ENCODER_CCW_CW(UG_HUED, UG_HUEU),  ENCODER_CCW_CW(UG_SATD, UG_SATU)  },
+    [5] = { ENCODER_CCW_CW(UG_VALD, UG_VALU),  ENCODER_CCW_CW(UG_SPDD, UG_SPDU)  },
+    [6] = { ENCODER_CCW_CW(UG_PREV, UG_NEXT),  ENCODER_CCW_CW(KC_RIGHT, KC_LEFT) },
 };
 #endif
 /* clang-format on */
