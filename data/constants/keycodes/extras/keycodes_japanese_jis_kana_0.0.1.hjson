@@ -1,0 +1,370 @@
+{
+    "aliases": {
+/*
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
+ * │   │ぬ │ふ │あ │う │え │お │や │ゆ │よ │わ │ほ │へ │ー │   │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┤
+ * │     │た │て │い │す │か │ん │な │に │ら │せ │゛ │゜ │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │      │ち │と │し │は │き │く │ま |の │り │け │れ │む │    │
+ * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┤
+ * │        │つ │さ │そ │ひ │こ │み │も │ね │る │め │ろ │      │
+ * ├─────┬──┴┬──┴──┬┴───┴┬──┴───┴──┬┴───┴┬──┴┬──┴┬──┴┬──┴┬─────┤
+ * │     │   │     │Muhen│         │ Hen │K↔H│   │   │   │     │
+ * └─────┴───┴─────┴─────┴─────────┴─────┴───┴───┴───┴───┴─────┘
+ */
+        "KC_GRV": {
+            "key": "JP_ZKHK",
+            "label": "Zenkaku ↔ Hankaku ↔ Kanji (半角 ↔ 全角 ↔ 漢字)",
+        }
+        "KC_1": {
+            "key": "JK_NU",
+            "label": "ぬ",
+        }
+        "KC_2": {
+            "key": "JK_FU",
+            "label": "ふ",
+            "aliases": [
+                "JK_HU"
+            ]
+        }
+        "KC_3": {
+            "key": "JK_A",
+            "label": "あ",
+        }
+        "KC_4": {
+            "key": "JK_U",
+            "label": "う",
+        }
+        "KC_5": {
+            "key": "JK_E",
+            "label": "え",
+        }
+        "KC_6": {
+            "key": "JK_O",
+            "label": "お",
+        }
+        "KC_7": {
+            "key": "JK_YA",
+            "label": "や",
+        }
+        "KC_8": {
+            "key": "JK_YU",
+            "label": "ゆ",
+        }
+        "KC_9": {
+            "key": "JK_YO",
+            "label": "よ",
+        }
+        "KC_0": {
+            "key": "JK_WA",
+            "label": "わ",
+        }
+        "KC_MINS": {
+            "key": "JK_HO",
+            "label": "ほ",
+        }
+        "KC_EQL": {
+            "key": "JK_HE",
+            "label": "へ",
+        }
+        "KC_INT3": {
+            "key": "JK_LONG",
+            "label": "ー",
+        }
+        "KC_Q": {
+            "key": "JK_TA",
+            "label": "た",
+        }
+        "KC_W": {
+            "key": "JK_TE",
+            "label": "て",
+        }
+        "KC_E": {
+            "key": "JK_I",
+            "label": "い",
+        }
+        "KC_R": {
+            "key": "JK_SU",
+            "label": "す",
+        }
+        "KC_T": {
+            "key": "JK_KA",
+            "label": "か",
+        }
+        "KC_Y": {
+            "key": "JK_N",
+            "label": "ん",
+            "aliases": [
+                "JK_NN"
+            ]
+        }
+        "KC_U": {
+            "key": "JK_NA",
+            "label": "な",
+        }
+        "KC_I": {
+            "key": "JK_NI",
+            "label": "に",
+        }
+        "KC_O": {
+            "key": "JK_RA",
+            "label": "ら",
+        }
+        "KC_P": {
+            "key": "JK_SE",
+            "label": "せ",
+        }
+        "KC_LBRC": {
+            "key": "JK_VOICE",
+            "label": "゛(濁点)",
+            "aliases": [
+                "JK_DAKU",
+                "JK_DAKUTEN"
+            ]
+        }
+        "KC_RBRC": {
+            "key": "JK_SEMI_VOICE",
+            "label": "゜(半濁点)",
+            "aliases": [
+                "JK_HANDAKU",
+                "JK_HANDAKUTEN"
+            ]
+        }
+        "KC_CAPS": {
+            "key": "JK_EISU",
+            "label": "Eisū (英数)",
+        }
+        "KC_A": {
+            "key": "JK_CHI",
+            "label": "ち",
+            "aliases": [
+                "JK_TI"
+            ]
+        }
+        "KC_S": {
+            "key": "JK_TO",
+            "label": "と",
+        }
+        "KC_D": {
+            "key": "JK_SHI",
+            "label": "し",
+            "aliases": [
+                "JK_SI"
+            ]
+        }
+        "KC_F": {
+            "key": "JK_HA",
+            "label": "は",
+        }
+        "KC_G": {
+            "key": "JK_KI",
+            "label": "き",
+        }
+        "KC_H": {
+            "key": "JK_KU",
+            "label": "く",
+        }
+        "KC_J": {
+            "key": "JK_MA",
+            "label": "ま",
+        }
+        "KC_K": {
+            "key": "JK_NO",
+            "label": "の",
+        }
+        "KC_L": {
+            "key": "JK_RI",
+            "label": "り",
+        }
+        "KC_SCLN": {
+            "key": "JK_RE",
+            "label": "れ",
+        }
+        "KC_QUOT": {
+            "key": "JK_KE",
+            "label": "け",
+        }
+        "KC_NUHS": {
+            "key": "JK_MU",
+            "label": "む",
+        }
+        "KC_Z": {
+            "key": "JK_TSU",
+            "label": "つ",
+            "aliases": [
+                "JK_TU"
+            ]
+        }
+        "KC_X": {
+            "key": "JK_SA",
+            "label": "さ",
+        }
+        "KC_C": {
+            "key": "JK_SO",
+            "label": "そ",
+        }
+        "KC_V": {
+            "key": "JK_HI",
+            "label": "ひ",
+        }
+        "KC_B": {
+            "key": "JK_KO",
+            "label": "こ",
+        }
+        "KC_N": {
+            "key": "JK_MI",
+            "label": "み",
+        }
+        "KC_M": {
+            "key": "JK_MO",
+            "label": "も",
+        }
+        "KC_COMM": {
+            "key": "JK_NE",
+            "label": "ね",
+        }
+        "KC_DOT": {
+            "key": "JK_RU",
+            "label": "る",
+        }
+        "KC_SLSH": {
+            "key": "JK_ME",
+            "label": "め",
+        }
+        "KC_INT1": {
+            "key": "JK_RO",
+            "label": "ろ",
+        }
+        "KC_INT5": {
+            "key": "JK_MHEN",
+            "label": "Muhenkan (無変換)",
+            "aliases": [
+                "JK_MUHENKAN"
+            ]
+        }
+        "KC_INT4": {
+            "key": "JK_HENK",
+            "label": "Henkan (変換)",
+            "aliases": [
+                "JK_HENKAN"
+            ]
+        }
+        "KC_INT2": {
+            "key": "JK_KANA",
+            "label": "Katakana ↔ Hiragana ↔ Rōmaji (カタカナ ↔ ひらがな ↔ ローマ字)",
+        }
+/* Shifted symbols
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
+ * │   │   │   │ぁ │ぅ │ぇ │ぉ │ゃ │ゅ │ょ │を │   │   │   │   │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┤
+ * │     │   │   │ぃ │   │   │   │   │   │   │   │   │「 │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │ Caps │   │   │   │   │   │   │   │   │   │   │   │」 │    │
+ * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┤
+ * │        │っ │   │   │   │   │   │   │、 │。 │・ │   │      │
+ * ├─────┬──┴┬──┴──┬┴───┴┬──┴───┴──┬┴───┴┬──┴┬──┴┬──┴┬──┴┬─────┤
+ * │     │   │     │     │         │     │   │   │   │   │     │
+ * └─────┴───┴─────┴─────┴─────────┴─────┴───┴───┴───┴───┴─────┘
+ */
+        "S(KC_3)": {
+            "key": "JK_LA",
+            "label": "ぁ",
+            "aliases": [
+                "JK_XA",
+                "JK_SMALL_A"
+            ]
+        }
+        "S(KC_4)": {
+            "key": "JK_LU",
+            "label": "ぅ",
+            "aliases": [
+                "JK_XU",
+                "JK_SMALL_U"
+            ]
+        }
+        "S(KC_5)": {
+            "key": "JK_LE",
+            "label": "ぇ",
+            "aliases": [
+                "JK_XE",
+                "JK_SMALL_E"
+            ]
+        }
+        "S(KC_6)": {
+            "key": "JK_LO",
+            "label": "ぉ",
+            "aliases": [
+                "JK_XO",
+                "JK_SMALL_O"
+            ]
+        }
+        "S(KC_7)": {
+            "key": "JK_LYA",
+            "label": "ゃ",
+            "aliases": [
+                "JK_XYA",
+                "JK_SMALL_YA"
+            ]
+        }
+        "S(KC_8)": {
+            "key": "JK_LYU",
+            "label": "ゅ",
+            "aliases": [
+                "JK_XYU",
+                "JK_SMALL_YU"
+            ]
+        }
+        "S(KC_9)": {
+            "key": "JK_LYO",
+            "label": "ょ",
+            "aliases": [
+                "JK_XYO",
+                "JK_SMALL_YO"
+            ]
+        }
+        "S(KC_0)": {
+            "key": "JK_WO",
+            "label": "を",
+        }
+        "S(KC_E)": {
+            "key": "JK_LI",
+            "label": "ぃ",
+            "aliases": [
+                "JK_XI",
+                "JK_SMALL_I"
+            ]
+        }
+        "S(KC_RBRC)": {
+            "key": "JK_LEFT_KAGI",
+            "label": "「",
+            "aliases": [
+                "JK_LKAG"
+            ]
+        }
+        "S(KC_NUHS)": {
+            "key": "JK_RIGHT_KAGI",
+            "label": "」",
+            "aliases": [
+                "JK_RKAG"
+            ]
+        }
+        "S(KC_COMM)": {
+            "key": "JK_TEN",
+            "label": "、",
+            "aliases": [
+                "JK_COMMA",
+                "JK_COMM"
+            ]
+        }
+        "S(KC_DOT)": {
+            "key": "JK_MARU",
+            "label": "。",
+            "aliases": [
+                "JK_DOT",
+                "JK_PERIOD",
+                "JK_PROD"
+            ]
+        }
+    }
+}
