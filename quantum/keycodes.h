@@ -76,6 +76,8 @@ enum qk_keycode_ranges {
     QK_MACRO_MAX                   = 0x777F,
     QK_CONNECTION                  = 0x7780,
     QK_CONNECTION_MAX              = 0x77BF,
+    QK_COMMUNITY_MODULE            = 0x77C0,
+    QK_COMMUNITY_MODULE_MAX        = 0x77FF,
     QK_LIGHTING                    = 0x7800,
     QK_LIGHTING_MAX                = 0x78FF,
     QK_QUANTUM                     = 0x7C00,
@@ -1476,6 +1478,7 @@ enum qk_keycode_defines {
 #define IS_QK_STENO(code) ((code) >= QK_STENO && (code) <= QK_STENO_MAX)
 #define IS_QK_MACRO(code) ((code) >= QK_MACRO && (code) <= QK_MACRO_MAX)
 #define IS_QK_CONNECTION(code) ((code) >= QK_CONNECTION && (code) <= QK_CONNECTION_MAX)
+#define IS_QK_COMMUNITY_MODULE(code) ((code) >= QK_COMMUNITY_MODULE && (code) <= QK_COMMUNITY_MODULE_MAX)
 #define IS_QK_LIGHTING(code) ((code) >= QK_LIGHTING && (code) <= QK_LIGHTING_MAX)
 #define IS_QK_QUANTUM(code) ((code) >= QK_QUANTUM && (code) <= QK_QUANTUM_MAX)
 #define IS_QK_KB(code) ((code) >= QK_KB && (code) <= QK_KB_MAX)

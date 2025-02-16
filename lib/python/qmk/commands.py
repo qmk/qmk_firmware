@@ -98,11 +98,14 @@ def in_virtualenv():
     return active_prefix != sys.prefix
 
 
-def dump_lines(output_file, lines, quiet=True):
+def dump_lines(output_file, lines, quiet=True, remove_repeated_newlines=False):
     """Handle dumping to stdout or file
     Creates parent folders if required
     """
     generated = '\n'.join(lines) + '\n'
+    if remove_repeated_newlines:
+        while '\n\n\n' in generated:
+            generated = generated.replace('\n\n\n', '\n\n')
     if output_file and output_file.name != '-':
         output_file.parent.mkdir(parents=True, exist_ok=True)
         if output_file.exists():

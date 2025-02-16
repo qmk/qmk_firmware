@@ -334,33 +334,6 @@ def write_json(keyboard, keymap, layout, layers, macros=None):
     return write_file(keymap_file, keymap_content)
 
 
-def write(keymap_json):
-    """Generate the `keymap.c` and write it to disk.
-
-    Returns the filename written to.
-
-    `keymap_json` should be a dict with the following keys:
-        keyboard
-            The name of the keyboard
-
-        keymap
-            The name of the keymap
-
-        layout
-            The LAYOUT macro this keymap uses.
-
-        layers
-            An array of arrays describing the keymap. Each item in the inner array should be a string that is a valid QMK keycode.
-
-        macros
-            A list of macros for this keymap.
-    """
-    keymap_content = generate_c(keymap_json)
-    keymap_file = qmk.path.keymaps(keymap_json['keyboard'])[0] / keymap_json['keymap'] / 'keymap.c'
-
-    return write_file(keymap_file, keymap_content)
-
-
 def locate_keymap(keyboard, keymap, force_layout=None):
     """Returns the path to a keymap for a specific keyboard.
     """
