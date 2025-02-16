@@ -267,8 +267,9 @@ static uint8_t get_mods_for_report(void) {
             clear_oneshot_mods();
         }
 #    endif
-        mods |= oneshot_mods;
         if (has_anykey()) {
+            // only send oneshots to host if used with a real key
+            mods |= oneshot_mods;
             clear_oneshot_mods();
         }
     }
