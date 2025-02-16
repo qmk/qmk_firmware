@@ -26,13 +26,13 @@ COMB(H_Qu,              SS_Qu,      LT2, LT1)
 
 /*---- commands ----*/
 COMB(Htab,            	KC_TAB,     LM3, LM1)
-/* COMB(Hesc,              KC_ESC,     LM4, LM1) */
-/* COMB(Hbspc,             KC_BSPC,    RT1, RT2) */
-/* COMB(Hdel,              KC_DEL,      RT2, RT3) */
-/* COMB(Hbspw,             A(KC_BSPC), RT1, RT3) */
+COMB(Hesc,              KC_ESC,     LM4, LM1)
 COMB(Hent,              KC_ENT, 	RM1, RM2)
 COMB(Hlsft,             OSM(MOD_LSFT), 	LM2, LM3)
 COMB(Hrsft,             OSM(MOD_RSFT), 	RM2, RM3)
+/* COMB(Hbspc,             KC_BSPC,    RT1, RT2) */
+/* COMB(Hdel,              KC_DEL,      RT2, RT3) */
+/* COMB(Hbspw,             A(KC_BSPC), RT1, RT3) */
 
 
 /*---- directional ----*/
