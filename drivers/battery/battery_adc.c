@@ -13,11 +13,11 @@
 #endif
 
 #ifndef BATTERY_VOLTAGE_DIVIDER_R1
-#    define BATTERY_VOLTAGE_DIVIDER_R1 100000
+#    define BATTERY_VOLTAGE_DIVIDER_R1 100
 #endif
 
 #ifndef BATTERY_VOLTAGE_DIVIDER_R2
-#    define BATTERY_VOLTAGE_DIVIDER_R2 100000
+#    define BATTERY_VOLTAGE_DIVIDER_R2 100
 #endif
 
 // TODO: infer from adc config?
