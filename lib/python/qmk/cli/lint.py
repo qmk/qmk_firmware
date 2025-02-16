@@ -33,6 +33,28 @@ def _list_defaultish_keymaps(kb):
     return keymaps
 
 
+def _get_readme_files(kb, km=None):
+    """Return potential keyboard/keymap readme files
+    """
+    search_path = locate_keymap(kb, km).parent if km else keyboard(kb)
+
+    readme_files = []
+
+    if not km:
+        current_path = Path(search_path.parts[0])
+        for path_part in search_path.parts[1:]:
+            current_path = current_path / path_part
+            readme_files.extend(current_path.glob('*readme.md'))
+
+    for file in search_path.glob("**/*readme.md"):
+        # Ignore keymaps when only globing keyboard files
+        if not km and 'keymaps' in file.parts:
+            continue
+        readme_files.append(file)
+
+    return set(readme_files)
+
+
 def _get_build_files(kb, km=None):
     """Return potential keyboard/keymap build files
     """
@@ -76,6 +98,25 @@ def _get_code_files(kb, km=None):
         code_files.append(file)
 
     return code_files
+
+
+def _is_invalid_readme(file):
+    """Check if file contains any unfilled content
+    """
+    tokens = [
+        '%KEYBOARD%',
+        '%REAL_NAME%',
+        '%USER_NAME%',
+        'image replace me!',
+        'A short description of the keyboard/project',
+        'The PCBs, controllers supported',
+        'Links to where you can find this hardware',
+    ]
+
+    for line in file.read_text(encoding='utf-8').split("\n"):
+        if any(token in line for token in tokens):
+            return True
+    return False
 
 
 def _is_empty_rules(file):
@@ -201,7 +242,7 @@ def keymap_check(kb, km):
     return ok
 
 
-def keyboard_check(kb):
+def keyboard_check(kb):  # noqa C901
     """Perform the keyboard level checks.
     """
     ok = True
@@ -220,6 +261,11 @@ def keyboard_check(kb):
             continue
         cli.log.error(f'{kb}: The file "{file}" should not exist!')
         ok = False
+
+    for file in _get_readme_files(kb):
+        if _is_invalid_readme(file):
+            cli.log.error(f'{kb}: The file "{file}" still contains template tokens!')
+            ok = False
 
     for file in _get_build_files(kb):
         if _is_empty_rules(file):
