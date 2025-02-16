@@ -817,6 +817,10 @@ void process_action(keyrecord_t *record, action_t action) {
         case ACT_LAYER_TAP_EXT:
 #    endif
             led_set(host_keyboard_leds());
+#    ifndef NO_ACTION_ONESHOT
+            // don't release the key
+            do_release_oneshot = false;
+#    endif
             break;
         default:
             break;
