@@ -41,6 +41,14 @@ digitizer_flush();
 
 `digitizer_state` is a struct of type `digitizer_t`.
 
+## Configuration
+
+By default the digitizer is presented as a 10x10 inch device. You can redefine the physical dimensions in a `config.h`:
+
+```c
+#define DIGITIZER_PHYSICAL_INCHES_X 6.3
+#define DIGITIZER_PHYSICAL_INCHES_Y 3.9
+```
 
 ## API {#api}
 
