@@ -85,9 +85,9 @@ enum serial_transaction_id {
     PUT_POINTING_CPI,
 #endif // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
 
-#if defined(SPLIT_WATCHDOG_ENABLE)
+#if defined(SPLIT_USB_DETECT_USB_ENUMERATION_WATCHDOG)
     PUT_WATCHDOG,
-#endif // defined(SPLIT_WATCHDOG_ENABLE)
+#endif // defined(SPLIT_USB_DETECT_USB_ENUMERATION_WATCHDOG)
 
 #if defined(HAPTIC_ENABLE) && defined(SPLIT_HAPTIC_ENABLE)
     PUT_HAPTIC,
