@@ -31,7 +31,26 @@ static void ap2_ble_swtich_ble_driver(void);
 
 /* -------------------- Static Local Variables ------------------------------ */
 static host_driver_t ap2_ble_driver = {
-    ap2_ble_leds, ap2_ble_keyboard, NULL, ap2_ble_mouse, ap2_ble_extra
+    .has_init_executed = false,
+    .init = NULL,
+    .connect = NULL,
+    .disconnect = NULL,
+    .is_connected  = NULL,
+    .keyboard_leds = ap2_ble_leds,
+    .send_keyboard = ap2_ble_keyboard,
+    .send_nkro     = NULL,
+    .send_mouse    = ap2_ble_mouse,
+    .send_extra    = ap2_ble_extra,
+#ifdef JOYSTICK_ENABLE
+    .send_joystick = NULL,
+#endif // JOYSTICK_ENABLE
+#ifdef DIGITIZER_ENABLE
+    .send_digitizer = NULL,
+#endif // DIGITIZER_ENABLE
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+    .send_programmable_button = NULL,
+#endif // PROGRAMMABLE_BUTTON_ENABLE
+
 };
 
 static uint8_t ble_mcu_wakeup[11] = {0x7b, 0x12, 0x53, 0x00, 0x03, 0x00, 0x01, 0x7d, 0x02, 0x01, 0x02};
@@ -58,7 +77,6 @@ static uint8_t ble_mcu_unpair[10] = {
 
 static uint8_t ble_mcu_bootload[11] = {0x7b, 0x10, 0x51, 0x10, 0x03, 0x00, 0x00, 0x7d, 0x02, 0x01, 0x01};
 
-static host_driver_t *last_host_driver = NULL;
 #ifdef NKRO_ENABLE
 static bool lastNkroStatus = false;
 #endif  // NKRO_ENABLE
@@ -96,7 +114,7 @@ void annepro2_ble_connect(uint8_t port) {
 
 void annepro2_ble_disconnect(void) {
     /* Skip if the driver is already enabled */
-    if (host_get_driver() != &ap2_ble_driver) {
+    if (host_get_driver() != host_bluetooth_driver()) {
         return;
     }
 
@@ -104,7 +122,7 @@ void annepro2_ble_disconnect(void) {
 #ifdef NKRO_ENABLE
     keymap_config.nkro = lastNkroStatus;
 #endif
-    host_set_driver(last_host_driver);
+    host_set_driver(host_usb_driver());
 }
 
 void annepro2_ble_unpair(void) {
@@ -112,18 +130,19 @@ void annepro2_ble_unpair(void) {
     sdWrite(&SD1, ble_mcu_unpair, sizeof(ble_mcu_unpair));
 }
 
+host_driver_t *host_bluetooth_driver(void) { return &ap2_ble_driver; }
+
 /* ------------------- Static Function Implementation ----------------------- */
 static void ap2_ble_swtich_ble_driver(void) {
-    if (host_get_driver() == &ap2_ble_driver) {
+    if (host_get_driver() == host_bluetooth_driver()) {
         return;
     }
     clear_keyboard();
-    last_host_driver = host_get_driver();
 #ifdef NKRO_ENABLE
     lastNkroStatus = keymap_config.nkro;
 #endif
     keymap_config.nkro = false;
-    host_set_driver(&ap2_ble_driver);
+    host_set_driver(host_bluetooth_driver());
 }
 
 static uint8_t ap2_ble_leds(void) {

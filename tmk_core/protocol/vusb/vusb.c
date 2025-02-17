@@ -86,6 +86,10 @@ _Static_assert(TOTAL_INTERFACES <= MAX_INTERFACES, "There are not enough availab
 #    error Mouse/Extra Keys share an endpoint with Console. Please disable one of the two.
 #endif
 
+static uint8_t keyboard_led_state = 0;
+uint8_t        keyboard_idle      = 0;
+uint8_t        keyboard_protocol  = 1;
+
 static report_keyboard_t keyboard_report_sent;
 
 static void send_report_fragment(uint8_t endpoint, void *data, size_t size) {
@@ -144,7 +148,7 @@ static void send_report(uint8_t endpoint, void *report, size_t size) {
 static uint8_t raw_output_buffer[RAW_BUFFER_SIZE];
 static uint8_t raw_output_received_bytes = 0;
 
-void raw_hid_send(uint8_t *data, uint8_t length) {
+void send_raw_hid(uint8_t *data, uint8_t length) {
     if (length != RAW_BUFFER_SIZE) {
         return;
     }
@@ -179,7 +183,7 @@ void raw_hid_task(void) {
 #    define CONSOLE_BUFFER_SIZE 32
 #    define CONSOLE_EPSIZE 8
 
-int8_t sendchar(uint8_t c) {
+int8_t send_console(uint8_t c) {
     rbuf_enqueue(c);
     return 0;
 }
@@ -213,15 +217,59 @@ static void send_keyboard(report_keyboard_t *report);
 static void send_nkro(report_nkro_t *report);
 static void send_mouse(report_mouse_t *report);
 static void send_extra(report_extra_t *report);
+#ifdef JOYSTICK_ENABLE
+static void send_joystick(report_joystick_t *report);
+#endif // JOYSTICK_ENABLE
+#ifdef DIGITIZER_ENABLE
+static void send_digitizer(report_digitizer_t *report);
+#endif // DIGITIZER_ENABLE
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+static void send_programmable_button(report_programmable_button_t *report);
+#endif // PROGRAMMABLE_BUTTON_ENABLE
+#ifdef CONSOLE_ENABLE
+static int8_t send_console(uint8_t c);
+#endif // CONSOLE_ENABLE
+#ifdef RAW_ENABLE
+static void send_raw_hid(uint8_t *data, uint8_t length);
+#endif // RAW_ENABLE
 
-static host_driver_t driver = {.keyboard_leds = usb_device_state_get_leds, .send_keyboard = send_keyboard, .send_nkro = send_nkro, .send_mouse = send_mouse, .send_extra = send_extra};
+static host_driver_t vusb_driver = {
+    .has_init_executed = false,
+    .init              = NULL,
+    .connect           = NULL,
+    .disconnect        = NULL,
+    .is_connected      = NULL,
+    .keyboard_leds     = usb_device_state_get_leds,
+    .send_keyboard     = send_keyboard,
+    .send_nkro         = send_nkro,
+    .send_mouse        = send_mouse,
+    .send_extra        = send_extra,
+#ifdef JOYSTICK_ENABLE
+    .send_joystick = send_joystick,
+#endif // JOYSTICK_ENABLE
+#ifdef DIGITIZER_ENABLE
+    .send_digitizer = send_digitizer,
+#endif // DIGITIZER_ENABLE
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+    .send_programmable_button = send_programmable_button,
+#endif // PROGRAMMABLE_BUTTON_ENABLE
+#ifdef CONSOLE_ENABLE
+    .send_console = send_console,
+#endif // CONSOLE_ENABLE
+#ifdef VIRTSER_ENABLE
+    .send_virtser = NULL, // unsupported
+#endif // VIRTSER_ENABLE
+#ifdef RAW_ENABLE
+    .send_raw_hid = send_raw_hid,
+#endif // RAW_ENABLE
+};
 
-host_driver_t *vusb_driver(void) {
-    return &driver;
+host_driver_t *host_usb_driver(void) {
+    return &vusb_driver;
 }
 
 static void send_keyboard(report_keyboard_t *report) {
-    if (usb_device_state_get_protocol() == USB_PROTOCOL_BOOT) {
+    if (!keyboard_protocol) {
         send_report(1, &report->mods, 8);
     } else {
         send_report(1, report, sizeof(report_keyboard_t));
@@ -296,15 +344,11 @@ usbMsgLen_t usbFunctionSetup(uchar data[8]) {
                 break;
             case USBRQ_HID_GET_IDLE:
                 dprint("GET_IDLE:");
-                static uint8_t keyboard_idle;
-                keyboard_idle = usb_device_state_get_idle_rate();
-                usbMsgPtr     = (usbMsgPtr_t)&keyboard_idle;
+                usbMsgPtr = (usbMsgPtr_t)&keyboard_idle;
                 return 1;
             case USBRQ_HID_GET_PROTOCOL:
                 dprint("GET_PROTOCOL:");
-                static uint8_t keyboard_protocol;
-                keyboard_protocol = usb_device_state_get_protocol();
-                usbMsgPtr         = (usbMsgPtr_t)&keyboard_protocol;
+                usbMsgPtr = (usbMsgPtr_t)&keyboard_protocol;
                 return 1;
             case USBRQ_HID_SET_REPORT:
                 dprint("SET_REPORT:");
@@ -316,13 +360,13 @@ usbMsgLen_t usbFunctionSetup(uchar data[8]) {
                 }
                 return USB_NO_MSG; // to get data in usbFunctionWrite
             case USBRQ_HID_SET_IDLE:
-                usb_device_state_set_idle_rate(rq->wValue.word >> 8);
-                dprintf("SET_IDLE: %02X", usb_device_state_get_idle_rate());
+                keyboard_idle = (rq->wValue.word & 0xFF00) >> 8;
+                dprintf("SET_IDLE: %02X", keyboard_idle);
                 break;
             case USBRQ_HID_SET_PROTOCOL:
                 if (rq->wIndex.word == KEYBOARD_INTERFACE) {
-                    usb_device_state_set_protocol(rq->wValue.word & 0xFF);
-                    dprintf("SET_PROTOCOL: %02X", usb_device_state_get_protocol());
+                    keyboard_protocol = rq->wValue.word & 0xFF;
+                    dprintf("SET_PROTOCOL: %02X", keyboard_protocol);
                 }
                 break;
             default:
@@ -343,9 +387,9 @@ uchar usbFunctionWrite(uchar *data, uchar len) {
     }
     switch (last_req.kind) {
         case SET_LED:
-            usb_device_state_set_leds(data[0]);
-            dprintf("SET_LED: %02X\n", usb_device_state_get_leds());
-            last_req.len = 0;
+            dprintf("SET_LED: %02X\n", data[0]);
+            keyboard_led_state = data[0];
+            last_req.len       = 0;
             return 1;
             break;
         case NONE:
@@ -520,37 +564,23 @@ const PROGMEM uchar shared_hid_report[] = {
 #    endif
     0x81, 0x06, //     Input (Data, Variable, Relative)
 
-    // Vertical wheel (1 or 2 bytes)
+    // Vertical wheel (1 byte)
     0x09, 0x38, //     Usage (Wheel)
-#    ifndef WHEEL_EXTENDED_REPORT
     0x15, 0x81, //     Logical Minimum (-127)
     0x25, 0x7F, //     Logical Maximum (127)
     0x95, 0x01, //     Report Count (1)
     0x75, 0x08, //     Report Size (8)
-#    else
-    0x16, 0x01, 0x80, //     Logical Minimum (-32767)
-    0x26, 0xFF, 0x7F, //     Logical Maximum (32767)
-    0x95, 0x01,       //     Report Count (1)
-    0x75, 0x10,       //     Report Size (16)
-#    endif
     0x81, 0x06, //     Input (Data, Variable, Relative)
-    // Horizontal wheel (1 or 2 bytes)
+    // Horizontal wheel (1 byte)
     0x05, 0x0C,       //     Usage Page (Consumer)
     0x0A, 0x38, 0x02, //     Usage (AC Pan)
-#    ifndef WHEEL_EXTENDED_REPORT
-    0x15, 0x81, //     Logical Minimum (-127)
-    0x25, 0x7F, //     Logical Maximum (127)
-    0x95, 0x01, //     Report Count (1)
-    0x75, 0x08, //     Report Size (8)
-#    else
-    0x16, 0x01, 0x80, //     Logical Minimum (-32767)
-    0x26, 0xFF, 0x7F, //     Logical Maximum (32767)
+    0x15, 0x81,       //     Logical Minimum (-127)
+    0x25, 0x7F,       //     Logical Maximum (127)
     0x95, 0x01,       //     Report Count (1)
-    0x75, 0x10,       //     Report Size (16)
-#    endif
-    0x81, 0x06, //     Input (Data, Variable, Relative)
-    0xC0,       //   End Collection
-    0xC0,       // End Collection
+    0x75, 0x08,       //     Report Size (8)
+    0x81, 0x06,       //     Input (Data, Variable, Relative)
+    0xC0,             //   End Collection
+    0xC0,             // End Collection
 #endif
 
 #ifdef EXTRAKEY_ENABLE
@@ -621,23 +651,6 @@ const PROGMEM uchar shared_hid_report[] = {
     0x81, 0x02, //     Input (Data, Variable, Absolute)
 #    endif
 
-#    ifdef JOYSTICK_HAS_HAT
-    // Hat Switch (4 bits)
-    0x09, 0x39,       //     Usage (Hat Switch)
-    0x15, 0x00,       //     Logical Minimum (0)
-    0x25, 0x07,       //     Logical Maximum (7)
-    0x35, 0x00,       //     Physical Minimum (0)
-    0x46, 0x3B, 0x01, //     Physical Maximum (315)
-    0x65, 0x14,       //     Unit (Degree, English Rotation)
-    0x95, 0x01,       //     Report Count (1)
-    0x75, 0x04,       //     Report Size (4)
-    0x81, 0x42,       //     Input (Data, Variable, Absolute, Null State)
-    // Padding (4 bits)
-    0x95, 0x04, //     Report Count (4)
-    0x75, 0x01, //     Report Size (1)
-    0x81, 0x01, //     Input (Constant)
-#    endif
-
 #    if JOYSTICK_BUTTON_COUNT > 0
     0x05, 0x09,                  //     Usage Page (Button)
     0x19, 0x01,                  //     Usage Minimum (Button 1)
@@ -686,7 +699,7 @@ const PROGMEM uchar shared_hid_report[] = {
     0x26, 0xFF, 0x7F, //     Logical Maximum (32767)
     0x95, 0x02,       //     Report Count (2)
     0x75, 0x10,       //     Report Size (16)
-    0x65, 0x13,       //     Unit (Inch, English Linear)
+    0x65, 0x33,       //     Unit (Inch, English Linear)
     0x55, 0x0E,       //     Unit Exponent (-2)
     0x81, 0x02,       //     Input (Data, Variable, Absolute)
     0xC0,             //   End Collection
