@@ -116,6 +116,7 @@ void persistent_default_layer_set(uint16_t default_layer) {
 enum combo_events {
     HELLOWORLD,
     FUNCTION,
+    PW,
     ZH,
     ZJ,
     ZK,
@@ -133,6 +134,7 @@ enum combo_events {
 
 const uint16_t PROGMEM helloworld_combo[] = {KC_H, KC_W, COMBO_END};
 const uint16_t PROGMEM function_combo[] = {KC_F, KC_U, COMBO_END};
+const uint16_t PROGMEM pw_combo[] = {KC_P, KC_W, COMBO_END};
 const uint16_t PROGMEM zh_combo[] = {KC_Z, KC_H, COMBO_END};
 const uint16_t PROGMEM zj_combo[] = {KC_Z, KC_J, COMBO_END};
 const uint16_t PROGMEM zk_combo[] = {KC_Z, KC_K, COMBO_END};
@@ -150,6 +152,7 @@ const uint16_t PROGMEM op_combo[] = {KC_O, KC_P, COMBO_END};
 combo_t key_combos[] = {
     [HELLOWORLD] = COMBO_ACTION(helloworld_combo),
     [FUNCTION] = COMBO_ACTION(function_combo),
+    [PW] = COMBO_ACTION(pw_combo),
     [ZH] = COMBO_ACTION(zh_combo),
     [ZJ] = COMBO_ACTION(zj_combo),
     [ZK] = COMBO_ACTION(zk_combo),
@@ -178,6 +181,11 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                 SEND_STRING("const increment = (n: number): number => { return n + 1 };");
                 tap_code16(LOWER);
                 SEND_STRING("const myFunc = (s: string): string => `${s} hello, world`");
+            }
+            break;
+        case PW:
+            if(pressed){
+                SEND_STRING("yasuhiro.yamaguchi");
             }
             break;
         case ZH:
