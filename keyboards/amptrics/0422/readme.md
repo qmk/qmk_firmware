@@ -1,6 +1,6 @@
 # Amptrics 0422 Programmable Keypad
-![magtray4x3](https://i.imgur.com/G5QMlpn_d.jpeg)
 
+![magtray4x3](https://i.imgur.com/G5QMlpn_d.jpeg)
 
 * Keyboard Maintainer: [vchowl](https://github.com/vchowl)
 * Hardware Supported: STM32F072RBT6
