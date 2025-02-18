@@ -21,12 +21,6 @@
     "rgb_matrix": {
         "driver": "ws2812",
         "layout": [
-            {"x": 67, "y": 18, "flags": 2},
-            {"x": 24, "y": 16, "flags": 2},
-            {"x": 5, "y": 22, "flags": 2},
-            {"x": 5, "y": 52, "flags": 2},
-            {"x": 41, "y": 60, "flags": 2},
-            {"x": 63, "y": 59, "flags": 2},
             {"matrix": [0, 0], "x": 72, "y": 4, "flags": 4},
             {"matrix": [0, 1], "x": 58, "y": 2, "flags": 4},
             {"matrix": [0, 2], "x": 43, "y": 0, "flags": 4},
@@ -56,12 +50,6 @@
             {"matrix": [4, 3], "x": 51, "y": 61, "flags": 4},
             {"matrix": [4, 4], "x": 36, "y": 60, "flags": 4},
             {"matrix": [4, 5], "x": 22, "y": 64, "flags": 4},
-            {"x": 157, "y": 22, "flags": 2},
-            {"x": 190, "y": 15, "flags": 2},
-            {"x": 219, "y": 18, "flags": 2},
-            {"x": 219, "y": 55, "flags": 2},
-            {"x": 183, "y": 60, "flags": 2},
-            {"x": 149, "y": 62, "flags": 2},
             {"matrix": [5, 0], "x": 152, "y": 7, "flags": 4},
             {"matrix": [5, 1], "x": 166, "y": 5, "flags": 4},
             {"matrix": [5, 2], "x": 181, "y": 2, "flags": 4},
@@ -93,13 +81,13 @@
             {"matrix": [9, 5], "x": 202, "y": 64, "flags": 4}
         ],
         "max_brightness": 128,
-        "split_count": [35, 35]
+        "split_count": [29, 29]
     },
     "rgblight": {
-        "led_count": 70,
+        "led_count": 58,
         "max_brightness": 128,
         "split": true,
-        "split_count": [35, 35]
+        "split_count": [29, 29]
     },
     "split": {
         "bootmagic": {
