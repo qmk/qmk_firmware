@@ -17,5 +17,5 @@
 
 void led_init_ports(void) {
     // Set our LED pins as open drain outputs
-    palSetLineMode(LED_CAPS_LOCK_PIN, PAL_MODE_OUTPUT_OPENDRAIN);
+    gpio_set_pin_output_open_drain(LED_CAPS_LOCK_PIN);
 }
