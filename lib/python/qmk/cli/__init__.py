@@ -82,6 +82,7 @@ subcommands = [
     'qmk.cli.new.keymap',
     'qmk.cli.painter',
     'qmk.cli.pytest',
+    'qmk.cli.resolve_alias',
     'qmk.cli.test.c',
     'qmk.cli.userspace.add',
     'qmk.cli.userspace.compile',
