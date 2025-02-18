@@ -1,0 +1,385 @@
+{
+    version: 0.1.0
+
+    documentation: {
+        order: [
+            broadcast_messages
+            !broadcast_messages.md.j2
+        ]
+
+        reserved_tokens:
+            '''
+            Two token values are reserved: `0xFFFE` and `0xFFFF`:
+            * `0xFFFE`: A message sent by a host application may use this token if no response is to be sent -- a "fire and forget" message.
+            * `0xFFFF`: Signifies a "broadcast" message sent by the firmware without prompting from the host application. Broadcast messages are defined later in this document.
+
+            Any request will generate at least one corresponding response, with the exception of messages using reserved tokens. Maximum total message length is 128 bytes due to RAM constraints.
+            '''
+
+        broadcast_messages:
+            '''
+            ## Broadcast messages
+
+            Broadcast messages may be sent by the firmware to the host, without a corresponding inbound request. Each broadcast message uses the token `0xFFFF`, and does not expect a response from the host. Tokens are followed by an _ID_ signifying the type of broadcast, then the response _payload_ length, and finally the corresponding _payload_.
+            '''
+    }
+
+    response_flags: {
+        bits: {
+            1: {
+                name: Secure Failure
+                define: SECURE_FAILURE
+                description:
+                    '''
+                    When this bit is set, the requested _route_ was marked _secure_ but an _unlock sequence_ has not completed.
+                    '''
+            }
+        }
+    }
+
+    type_docs: {
+        bool:
+            '''
+            Data type that contains values 0 and 1. Implemented as an alias of `u8`.
+            '''
+        u64:
+            '''
+            An unsigned 64-bit integral, commonly seen as `uint64_t` from _stdint.h_.
+            '''
+        "struct{}":
+            '''
+            A structure of data, packing different objects together. Data is "compacted" -- there are no padding bytes between fields. Equivalent to a packed C-style `struct`. The order in which they're defined matches the order of the data in the response packet.
+            '''
+    }
+
+    term_definitions: {
+        Capability:
+            '''
+            A way to determine if certain functionality is enabled in the firmware. Any _subsystem_ that provides build-time restriction of functionality must provide a _route_ for a _capabilities query_.
+            '''
+        "Secure Route":
+            '''
+            A _route_ which has potentially destructive consequences, necessitating prior approval by the user before executing.
+            '''
+        "Unlock sequence":
+            '''
+            A physical sequence initiated by the user to enable execution of  _secure routes_.
+            '''
+    }
+
+    type_definitions: {
+        broadcast_header: {
+            name: Broadcast Header
+            description: Packet format for broadcast messages.
+            type: struct
+            struct_length: 4
+            struct_members: [
+                {
+                    type: token
+                    name: token
+                },
+                {
+                    type: u8
+                    name: type
+                },
+                {
+                    type: u8
+                    name: length
+                }
+            ]
+        }
+    }
+
+    broadcast_messages: {
+        define_prefix: XAP_BROADCAST
+        messages: {
+            0x00: {
+                name: Log message
+                define: LOG_MESSAGE
+                description:
+                    '''
+                    Replicates and replaces the same functionality as if using the standard QMK `CONSOLE_ENABLE = yes` in `rules.mk`. Normal prints within the firmware will manifest as log messages broadcast to the host. `hid_listen` will not be functional with XAP enabled.
+
+                    Log message payloads include `u8[Length]` containing the text, where the length of the text is the _broadcast_header.length_ field.
+
+                    **Example Log Broadcast** -- log message "Hello QMK!"
+
+                    | Byte | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 |
+                    | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+                    | **Purpose** | Token | Token | Broadcast Type | Length | Payload | Payload | Payload | Payload | Payload | Payload | Payload | Payload | Payload | Payload |
+                    | **Value** | `0xFF` | `0xFF` | `0x00` | `0x0A`(10) | `0x48`(H) | `0x65`(e) | `0x6C`(l) | `0x6C`(l) | `0x6F`(o) | `0x20`(&nbsp;) | `0x51`(Q) | `0x4D`(M) | `0x4B`(K) | `0x21`(!) |
+                    '''
+            }
+            0x01: {
+                name: Secure Status
+                define: SECURE_STATUS
+                description:
+                    '''
+                    Secure status has changed. Payloads include a `u8` matching a 'Secure Status' request.
+
+                    **Example Secure Status Broadcast** -- secure "Unlocking"
+
+                    | Byte | 0 | 1 | 2 | 3 | 4 |
+                    | --- | --- | --- | --- | --- | --- |
+                    | **Purpose** | Token | Token | Broadcast Type | Length | Secure Status |
+                    | **Value** | `0xFF` | `0xFF` | `0x01` | `0x01` | `0x01` |
+                    '''
+                return_type: u8
+            }
+            0x02: {
+                name: Keyboard
+                define: KB
+                description:
+                    '''
+                    Reserved for vendor-specific functionality. No messages are defined by XAP.
+                    '''
+            },
+
+            0x03: {
+                name: User
+                define: USER
+                description:
+                    '''
+                    Reserved for user-specific functionality. No messages are defined by XAP.
+                    '''
+            }
+        }
+    }
+
+    routes: {
+        0x00: {
+            routes: {
+                0x01: {
+                    type: command
+                    name: Capabilities Query
+                    define: CAPABILITIES_QUERY
+                    description:
+                        '''
+                        XAP subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem.
+                        '''
+                    return_type: u32
+                    return_purpose: capabilities
+                    return_constant: XAP_ROUTE_XAP_CAPABILITIES
+                }
+                0x02: {
+                    type: command
+                    name: Enabled subsystem query
+                    define: SUBSYSTEM_QUERY
+                    description:
+                        '''
+                        XAP protocol subsystem query. Each bit should be considered as a "usable" subsystem. For example, checking `(value & (1 << XAP_ROUTE_QMK) != 0)` means the QMK subsystem is enabled and available for querying.
+                        '''
+                    return_type: u32
+                    return_purpose: capabilities
+                    return_constant: XAP_ROUTE_CAPABILITIES
+                }
+                0x03: {
+                    type: command
+                    name: Secure Status
+                    define: SECURE_STATUS
+                    description:
+                        '''
+                        Query secure route status
+
+                        * 0 means secure routes are disabled
+                        * 1 means unlock sequence initiated but incomplete
+                        * 2 means secure routes are allowed
+                        * any other value should be interpreted as disabled
+                        '''
+                    return_type: u8
+                    return_execute: secure_status
+                }
+                0x04: {
+                    type: command
+                    name: Secure Unlock
+                    define: SECURE_UNLOCK
+                    description: Initiate secure route unlock sequence
+                    return_execute: secure_unlock
+                }
+                0x05: {
+                    type: command
+                    name: Secure Lock
+                    define: SECURE_LOCK
+                    description: Disable secure routes
+                    return_execute: secure_lock
+                }
+            }
+        },
+
+        0x01: {
+            type: router
+            name: QMK
+            define: QMK
+            description:
+                '''
+                This subsystem is always present, and provides the ability to address QMK-specific functionality.
+                '''
+            routes: {
+                0x00: {
+                    type: command
+                    name: Version Query
+                    define: VERSION_QUERY
+                    description:
+                        '''
+                        QMK protocol version query.
+
+                        * Returns the BCD-encoded version in the format of XX.YY.ZZZZ => `0xXXYYZZZZ`
+                            * e.g. 3.2.115 will match `0x03020115`, or bytes {0x15,0x01,0x02,0x03}.
+                        '''
+                    return_type: u32
+                    return_purpose: bcd-version
+                    return_constant: QMK_BCD_VERSION
+                }
+                0x01: {
+                    type: command
+                    name: Capabilities Query
+                    define: CAPABILITIES_QUERY
+                    description:
+                        '''
+                        QMK subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem.
+                        '''
+                    return_type: u32
+                    return_purpose: capabilities
+                    return_constant: XAP_ROUTE_QMK_CAPABILITIES
+                }
+                0x02: {
+                    type: command
+                    name: Board identifiers
+                    define: BOARD_IDENTIFIERS
+                    description:
+                        '''
+                        Retrieves the set of identifying information for the board.
+                        '''
+                    return_type: struct
+                    return_struct_length: 10
+                    return_struct_members: [
+                        {
+                            type: u16
+                            name: Vendor ID
+                        },
+                        {
+                            type: u16
+                            name: Product ID
+                        },
+                        {
+                            type: u16
+                            name: Product Version
+                        },
+                        {
+                            type: u32
+                            name: QMK Unique Identifier
+                        }
+                    ]
+                    return_constant: [
+                        VENDOR_ID
+                        PRODUCT_ID
+                        DEVICE_VER
+                        XAP_KEYBOARD_IDENTIFIER
+                    ]
+                }
+                0x03: {
+                    type: command
+                    name: Board Manufacturer
+                    define: BOARD_MANUFACTURER
+                    description: Retrieves the name of the manufacturer
+                    return_type: string
+                    return_constant: QSTR(MANUFACTURER)
+                }
+                0x04: {
+                    type: command
+                    name: Product Name
+                    define: PRODUCT_NAME
+                    description: Retrieves the product name
+                    return_type: string
+                    return_constant: QSTR(PRODUCT)
+                }
+                0x05: {
+                    type: command
+                    name: Config Blob Length
+                    define: CONFIG_BLOB_LEN
+                    description: Retrieves the length of the configuration data bundled within the firmware
+                    return_type: u16
+                    return_constant: CONFIG_BLOB_GZ_LEN
+                }
+                0x06: {
+                    type: command
+                    name: Config Blob Chunk
+                    define: CONFIG_BLOB_CHUNK
+                    description: Retrieves a chunk of the configuration data bundled within the firmware
+                    request_type: u16
+                    request_purpose: offset
+                    return_type: u8[32]
+                    return_execute: get_config_blob_chunk
+                }
+                0x07: {
+                    type: command
+                    name: Jump to bootloader
+                    define: BOOTLOADER_JUMP
+                    permissions: secure
+                    enable_if_preprocessor: defined(BOOTLOADER_JUMP_SUPPORTED)
+                    description:
+                        '''
+                        Jump to bootloader
+
+                        May not be present - if QMK capabilities query returns “true”, then jump to bootloader is supported
+
+                        * 0 means secure routes are disabled, and should be considered as a failure
+                        * 1 means successful, board will jump to bootloader
+                        '''
+                    return_type: u8
+                    return_execute: request_bootloader_jump
+                }
+                0x08: {
+                    type: command
+                    name: Hardware Identifier
+                    define: HARDWARE_ID
+                    description: Retrieves a unique identifier for the board.
+                    return_type: u32[4]
+                    return_execute: get_hardware_id
+                }
+                0x09: {
+                    type: command
+                    name: Reinitialize EEPROM
+                    define: EEPROM_RESET
+                    permissions: secure
+                    enable_if_preprocessor: !defined(NO_RESET)
+                    description:
+                        '''
+                        Reinitializes the keyboard's EEPROM (persistent memory)
+
+                        May not be present - if QMK capabilities query returns “true”, then reinitialize is supported
+
+                        * 0 means secure routes are disabled, and should be considered as a failure
+                        * 1 means successful, board will reinitialize and then reboot
+                        '''
+                    return_type: u8
+                    return_execute: request_eeprom_reset
+                }
+            }
+        },
+
+        0x02: {
+            type: router
+            name: Keyboard
+            define: KB
+            description:
+                '''
+                This subsystem is always present, and reserved for vendor-specific functionality. No routes are defined by XAP.
+                '''
+            routes: {
+            }
+        },
+
+        0x03: {
+            type: router
+            name: User
+            define: USER
+            description:
+                '''
+                This subsystem is always present, and reserved for user-specific functionality. No routes are defined by XAP.
+                '''
+            routes: {
+            }
+        }
+    }
+}
