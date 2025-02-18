@@ -28,5 +28,5 @@
 #define SPI_MISO_PIN GP0
 #define SPI_MOSI_PIN GP7
 
-#define ENCODER_A_PINS { GP26 }
-#define ENCODER_B_PINS { GP28 }
+#define ENCODER_A_PINS { GP28 }
+#define ENCODER_B_PINS { GP26 }
