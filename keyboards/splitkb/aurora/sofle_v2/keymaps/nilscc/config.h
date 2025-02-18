@@ -16,12 +16,11 @@
 
 #pragma once
 
+// rgb matrix effects moved to different header to keep things organized
+#include "rgb_effects.h"
+
 #define RGB_MATRIX_SLEEP
 #define RGB_MATRIX_KEYPRESSES
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
-#define ENABLE_RGB_MATRIX_SOLID_SPLASH
-#define ENABLE_RGB_MATRIX_RAINBOW_BEACON
-#define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
 
 // #define ENCODER_RESOLUTIONS { 2 }
 
