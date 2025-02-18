@@ -721,6 +721,10 @@ $ qmk generate-compilation-database
 
 Now open your dev environment and live a squiggly-free life.
 
+::: tip
+The equivalent command for the [External QMK Userspace](newbs_external_userspace) is `qmk compile --compiledb`
+:::
+
 ## `qmk docs`
 
 This command starts a local HTTP server which you can use for browsing or improving the docs. Default port is 5173.
