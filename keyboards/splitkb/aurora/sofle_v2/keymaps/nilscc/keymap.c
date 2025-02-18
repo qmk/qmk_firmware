@@ -55,11 +55,11 @@ enum custom_key_codes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_COLEMAK] = LAYOUT(
-        KC_ESC,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,                               KC_6,       KC_7,       KC_8,       KC_9,       KC_0,       KC_BSPC,
+        LOWER,      KC_1,       KC_2,       KC_3,       KC_4,       KC_5,                               KC_6,       KC_7,       KC_8,       KC_9,       KC_0,       RAISE,
         KC_TAB,     KC_Q,       KC_W,       KC_F,       KC_P,       KC_B,                               KC_J,       KC_L,       KC_U,       RALT_Y,     KC_QUOT,    KC_DEL,
-        KC_GRV,     GUI_A,      ALT_R,      SFT_S,      CTL_T_,     KC_G,                               KC_M,       CTL_N,      SFT_E,      ALT_I,      GUI_O,      KC_SCLN,
+        KC_GRV,     KC_A,       KC_R,       SFT_S,      CTL_T_,     KC_G,                               KC_M,       CTL_N,      SFT_E,      KC_I,       KC_O,       KC_SCLN,
         KC_LSFT,    KC_Z,       KC_X,       KC_C,       KC_D,       KC_V,       XXXXXXX,    XXXXXXX,    KC_K,       KC_H,       KC_COMM,    KC_DOT,     KC_SLSH,    KC_RSFT,
-                                LOWER,      XXXXXXX,    KC_ESC,     NUM_SPC,    KC_TAB,     SYM_ENTER,  NAV_BS,     KC_DEL,     XXXXXXX,    RAISE
+                                KC_LGUI,    KC_LALT,    KC_ESC,     NUM_SPC,    KC_TAB,     SYM_ENTER,  NAV_BS,     KC_DEL,     KC_RALT,    KC_RGUI
     ),
 
     [_NAVIGATION] = LAYOUT(
