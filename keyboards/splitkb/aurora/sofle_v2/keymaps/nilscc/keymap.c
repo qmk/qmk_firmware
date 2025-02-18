@@ -40,9 +40,9 @@ enum nilscc_layers {
 #define SFT_E RSFT_T(KC_E)
 #define CTL_N RCTL_T(KC_N)
 
-#define NUM_SPC   LT(_NUMBERS, KC_SPC)
-#define NAV_BS    LT(_NAVIGATION, KC_BSPC)
-#define SYM_ENTER LT(_SYMBOLS, KC_ENT)
+#define NUM_SPC   LT(_NUMBERS,      KC_SPC)
+#define NAV_BS    LT(_NAVIGATION,   KC_BSPC)
+#define SYM_ENTER LT(_SYMBOLS,      KC_ENT)
 
 enum custom_key_codes {
     KVM_1 = SAFE_RANGE,
@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,     KC_Q,       KC_W,       KC_F,       KC_P,       KC_B,                               KC_J,       KC_L,       KC_U,       RALT_Y,     KC_QUOT,    KC_DEL,
         KC_GRV,     KC_A,       KC_R,       SFT_S,      CTL_T_,     KC_G,                               KC_M,       CTL_N,      SFT_E,      KC_I,       KC_O,       KC_SCLN,
         KC_LSFT,    KC_Z,       KC_X,       KC_C,       KC_D,       KC_V,       XXXXXXX,    XXXXXXX,    KC_K,       KC_H,       KC_COMM,    KC_DOT,     KC_SLSH,    KC_RSFT,
-                                KC_LGUI,    KC_LALT,    KC_ESC,     NUM_SPC,    KC_TAB,     SYM_ENTER,  NAV_BS,     KC_DEL,     KC_RALT,    KC_RGUI
+                                KC_LGUI,    KC_LALT,    KC_TAB,     NUM_SPC,    KC_ESC,     SYM_ENTER,  NAV_BS,     KC_DEL,     KC_RALT,    KC_RGUI
     ),
 
     [_NAVIGATION] = LAYOUT(
@@ -75,15 +75,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,    _______,    _______,    _______,    _______,    _______,                            _______,    KC_7,       KC_8,       KC_9,       _______,    _______,
         _______,    KC_LGUI,    KC_LALT,    KC_LSFT,    KC_LCTL,    _______,                            _______,    KC_4,       KC_5,       KC_6,       _______,    _______,
         _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    KC_1,       KC_2,       KC_3,       _______,    _______,
-                                _______,    _______,    _______,    _______,    _______,    KC_MINS,    KC_0,       KC_COMM,    _______,    _______
+                                _______,    _______,    _______,    _______,    _______,    KC_MINS,    KC_COMM,    KC_0,       _______,    _______
     ),
 
     [_SYMBOLS] = LAYOUT(
         _______,    _______,    _______,    _______,    _______,    _______,                            _______,    _______,    _______,    _______,    _______,    _______,
         _______,    _______,    _______,    KC_LBRC,    KC_RBRC,    KC_PLUS,                            _______,    _______,    _______,    _______,    _______,    _______,
-        _______,    _______,    _______,    KC_LPRN,    KC_RPRN,    KC_EQL,                             _______,    KC_LCTL,    KC_LSFT,    KC_LALT,    KC_LGUI,    _______,
+        _______,    _______,    KC_BSLS,    KC_LPRN,    KC_RPRN,    KC_EQL,                             _______,    KC_LCTL,    KC_LSFT,    KC_LALT,    KC_LGUI,    _______,
         _______,    _______,    _______,    KC_LCBR,    KC_RCBR,    KC_MINS,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
-                                _______,    _______,    KC_COLN,    KC_SCLN,    KC_QUOT,    _______,    _______,    _______,    _______,    _______
+                                _______,    _______,    KC_QUOT,    KC_SCLN,    KC_COLN,    _______,    _______,    _______,    _______,    _______
     ),
 
     /* Lower layer */
@@ -120,9 +120,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),  ENCODER_CCW_CW(MS_WHLU, MS_WHLD)  },
-    [1] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),  ENCODER_CCW_CW(MS_WHLU, MS_WHLD)  },
-    [2] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),  ENCODER_CCW_CW(MS_WHLU, MS_WHLD)  },
-    [3] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),  ENCODER_CCW_CW(MS_WHLU, MS_WHLD)  },
+    [1] = { ENCODER_CCW_CW(RM_VALD, RM_VALU),  ENCODER_CCW_CW(RM_SATD, RM_SATU)  },
+    [2] = { ENCODER_CCW_CW(RM_SATD, RM_SATU),  ENCODER_CCW_CW(RM_HUED, RM_HUEU)  },
+    [3] = { ENCODER_CCW_CW(RM_PREV, RM_NEXT),  ENCODER_CCW_CW(RM_SPDD, RM_SPDU)  },
     [4] = { ENCODER_CCW_CW(UG_HUED, UG_HUEU),  ENCODER_CCW_CW(UG_SATD, UG_SATU)  },
     [5] = { ENCODER_CCW_CW(UG_VALD, UG_VALU),  ENCODER_CCW_CW(UG_SPDD, UG_SPDU)  },
     [6] = { ENCODER_CCW_CW(UG_PREV, UG_NEXT),  ENCODER_CCW_CW(KC_RIGHT, KC_LEFT) },

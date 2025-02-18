@@ -23,7 +23,7 @@
 #define ENABLE_RGB_MATRIX_RAINBOW_BEACON
 #define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
 
-#define ENCODER_RESOLUTIONS { 2 }
+// #define ENCODER_RESOLUTIONS { 2 }
 
 // data sync options, see:
 // - https://docs.qmk.fm/features/split_keyboard#data-sync-options
@@ -31,4 +31,4 @@
 #define SPLIT_MODS_ENABLE // transfer modifiers to both sides
 
 // Default delay when tapping key codes in macros
-#define TAP_CODE_DELAY 80 // in ms
+// #define TAP_CODE_DELAY 80 // in ms
