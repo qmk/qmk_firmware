@@ -1,6 +1,6 @@
-/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+/* Copyright 2024 Colin Lam (Ploopy Corporation)
+ * Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
  * Copyright 2019 Sunjun Kim
- * Copyright 2020 Ploopy Corporation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,14 +18,15 @@
 
 #pragma once
 
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
+#define UNUSABLE_PINS \
+    { GP1, GP3, GP4, GP6, GP8, GP10, GP11, GP14, GP16, GP18, GP20, GP22, GP24, GP25, GP27, GP29 }
 
-// #define DEBUG_LED_PIN F7
+/* PMW3360 Settings */
+#define PMW33XX_LIFTOFF_DISTANCE 0x00
+#define PMW33XX_CS_PIN GP5
+#define SPI_SCK_PIN GP2
+#define SPI_MISO_PIN GP0
+#define SPI_MOSI_PIN GP7
 
-#define ENCODER_BUTTON_COL 1
-#define ENCODER_BUTTON_ROW 0
-/* Custom encoder needs to specify just how many encoders we have */
-#define NUM_ENCODERS 1
+#define ENCODER_A_PINS { GP26 }
+#define ENCODER_B_PINS { GP28 }
