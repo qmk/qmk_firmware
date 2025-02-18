@@ -43,3 +43,4 @@ Nothing needs to be enabled to use this functionality.  Just add the `DRAG_SCROL
 * `#define PLOOPY_DRAGSCROLL_DIVISOR_H 8.0` - Sets the horizontal movement divisor to use when drag scroll is enabled.
 * `#define PLOOPY_DRAGSCROLL_DIVISOR_V 8.0` - Sets the vertical movement divisor to use when drag scroll is enabled.
 * `#define PLOOPY_DRAGSCROLL_INVERT` - This reverses the direction that the scroll is performed.
+* `#define PLOOPY_DRAGSCROLL_COMBO` - Makes the key into a momentary key when held and scrolled, but toggle when pressed without scrolling.
