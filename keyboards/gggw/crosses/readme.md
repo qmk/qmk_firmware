@@ -9,7 +9,7 @@
  * Matrix configurations in: 3x5, 3x6, 4x6 boards with a three key thumb cluster.
  * Trackballs!
  * OLED Displays
- * Any SPI / I2C breakout using a 6P JST SH for SPI and a 2.57 breakout for I2C.
+ * Any SPI / I2C breakout using a 6P JST SH for SPI and a 2.54mm breakout for I2C.
 * Hardware Availability: *Links to where you can find this hardware*
 
 Make example for this keyboard (after setting up your build environment):
