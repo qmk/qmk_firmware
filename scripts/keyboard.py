@@ -6,18 +6,19 @@ import os
 result = subprocess.run([
     "qmk",
     "c2json",
-    "keyboards/splitkb/aurora/lily58/keymaps/smierx-colemak-dh/keymap.c",
+    "keyboards/bastardkb/charybdis/4x6/keymaps/smierx/keymap.c",
     "--no-cpp",
 ],capture_output=True,text=True)
 
 data_json = json.loads(result.stdout)
 
 new_data_json = {
-    "keyboard":"splitkb/aurora/lily58/rev1",
-    "keymap":"smierx-colemak-dh",
+    "keyboard":"bastardkb/charybdis/4x6/v2/splinky_3",
+    "keymap":"smierx",
     "layout":"LAYOUT",
     "layers":[]
 }
+
 for layer in data_json["layers"]:
     tmp_layer = []
     for x in layer:
@@ -59,15 +60,16 @@ layers = [
 ]#TODO aus yml auslesen
 
 for layer in layers:
-    with open(f"images/lily58/single/{layer}.svg","w") as file:
+    with open(f"images/charybdis/single/{layer}.svg","w") as file:
         result = subprocess.run([
             "keymap","draw","debug.yml","-s",layer
         ],stdout=file)
-with open("images/lily58/complete.svg", "w") as file:
+
+with open("images/charybdis/complete.svg", "w") as file:
     result = subprocess.run(["keymap","draw","debug.yml"],stdout=file)
 counter = 0
 for layer in range(0,len(layers),4):
-    with open(f"images/lily58/block/{counter}.svg","w") as file:
+    with open(f"images/charybdis/block/{counter}.svg","w") as file:
         result = subprocess.run([
             "keymap", "draw", "debug.yml", "-s", f"L{layer}",f"L{layer+1}",f"L{layer+2}",f"L{layer+3}"
         ],stdout=file)

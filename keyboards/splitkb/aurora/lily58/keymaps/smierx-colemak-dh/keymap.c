@@ -53,7 +53,8 @@ enum {
 	TD_PERCENT,
 	TD_AT_EXCL,
 	TD_TAG_DOLLAR,
-	TD_AND_MUL
+	TD_AND_MUL,
+    TD_HOME_END
 };
 
 enum {
@@ -158,6 +159,7 @@ tap_dance_action_t tap_dance_actions[] = {
 	[TD_AT_EXCL] = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_1),LSFT(KC_2)),
 	[TD_TAG_DOLLAR] = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_3),LSFT(KC_4)),
 	[TD_AND_MUL] = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_7),LSFT(KC_8)),
+    [TD_HOME_END] = ACTION_TAP_DANCE_DOUBLE(KC_HOME,KC_END),
 };
 
 const key_override_t left_thumb_override  = ko_make_basic(MOD_MASK_SHIFT, LT(SPECIAL,KC_ENT), KC_ESC);
@@ -173,18 +175,18 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[BASE] = LAYOUT(
-		KC_ESC,	KC_1,	KC_2, 				KC_3, 				KC_4, 	 			KC_5, 								KC_6, 					KC_7, 				KC_8,   			KC_9,  				KC_0,   		KC_NO,
-		KC_NO,	KC_Q,	KC_W, 				KC_F, 				KC_P,   			KC_B,    							KC_J, 					KC_L, 				KC_U,   			DE_Y,  				TD(TD_QUOTES),	TG(MOUSE),
-		KC_NO,	KC_A,	MT(MOD_LALT,KC_R), 	MT(MOD_LGUI,KC_S), 	MT(MOD_LCTL,KC_T), 	KC_G,    							KC_M, 					MT(MOD_RCTL,KC_N), 	MT(MOD_RGUI,KC_E),  MT(MOD_RALT,KC_I),  KC_O,         	KC_NO,
-		KC_NO,	DE_Z,	KC_X, 				KC_C, 				KC_D,   			KC_V,  			 	KC_NO,	KC_NO,	KC_K, 					KC_H, 				KC_COMM,			KC_DOT,				TD(TD_SLASH),	KC_NO,
-						KC_NO,				KC_DEL,				KC_LSFT,			LT(SPECIAL,KC_ENT), 				LT(SPECIAL2,KC_BSPC),	KC_SPC,				KC_TAB,				KC_NO),
+		KC_ESC,	            KC_NO,	            LSFT(KC_8), 		RALT(KC_8), 		RALT(KC_7), 	 	KC_NO, 								        KC_NO, 					LSFT(KC_9), 		RALT(KC_9),       	RALT(KC_0),  		KC_NO,   		    KC_NO,
+		LGUI(LSFT(KC_S)),	KC_Q,	            KC_W, 				KC_F, 				KC_P,   			KC_B,    							        KC_J, 					KC_L, 				KC_U,   			DE_Y,  				TD(TD_QUOTES),	    KC_NO,
+		KC_NO,	            MT(MOD_LSFT,KC_A),	MT(MOD_LALT,KC_R), 	MT(MOD_LGUI,KC_S), 	MT(MOD_LCTL,KC_T), 	KC_G,    							        KC_M, 					MT(MOD_RCTL,KC_N), 	MT(MOD_RGUI,KC_E),  MT(MOD_RALT,KC_I),  MT(MOD_RSFT,KC_O),  KC_NO,
+		KC_NO,	            DE_Z,	            KC_X, 				KC_C, 				KC_D,   			KC_V,  			 	LCTL(KC_X),	LCTL(KC_A),	KC_K, 					KC_H, 				KC_COMM,			KC_DOT,				TD(TD_SLASH),	    KC_NO,
+						                        LCTL(KC_C),			TD(TD_HOME_END),				KC_DEL,			    LT(SPECIAL,KC_ENT), 				        LT(SPECIAL2,KC_BSPC),	KC_SPC,				KC_TAB,				LCTL(KC_V)),
 
 	[SPECIAL] = LAYOUT(
 		KC_NO,	KC_NO,			KC_NO,	  	KC_NO, 			KC_NO, 			KC_NO, 						KC_NO, 	 	KC_NO, 				KC_NO,  			KC_NO,  		KC_NO, 			KC_NO,
-		KC_NO,	DE_AT,			DE_UNDS, 	DE_MINS, 	    DE_PIPE, 		DE_CIRC, 					KC_NO, 	 	TD(TD_AE), 			TD(TD_OE),   		TD(TD_UE),   	DE_SS,  	    KC_NO,
+		KC_NO,	DE_AT,			DE_UNDS, 	DE_MINS, 	    DE_PIPE, 		DE_CIRC, 					KC_NO, 	 	TD(TD_AE), 			TD(TD_OE),   		TD(TD_UE),   	KC_NO,  	    KC_NO,
 		KC_NO,	DE_PLUS, 		DE_HASH, 	DE_AMPR,		DE_PERC, 	    DE_COLN, 					DE_SCLN, 	KC_LEFT, 			KC_DOWN, 			KC_UP,			KC_RGHT,  		KC_NO,
-		KC_NO,	DE_ASTR,    	LSFT(KC_1),	LSFT(KC_MINS), 	DE_EQL, 		DE_TILD, 	KC_NO,	KC_NO,	KC_NO,		TD(TD_1_BRACKET),	TD(TD_2_BRACKET),	DE_LABK,   		DE_RABK,  		KC_NO,
-								KC_NO,		MO(MOUSE), 		KC_NO, 			KC_NO, 						KC_NO,		KC_NO,		 		KC_NO, 	 			KC_NO),
+		KC_NO,	DE_ASTR,    	LSFT(KC_1),	LSFT(KC_MINS), 	DE_EQL, 		DE_TILD, 	KC_NO,	KC_NO,	KC_NO,		DE_LABK,        	DE_RABK,	        DE_SS,   		KC_NO,  		KC_NO,
+								KC_NO,		KC_NO, 	    	KC_NO, 			KC_NO, 						KC_NO,		KC_NO,		 		KC_NO, 	 			KC_NO),
 	[SPECIAL2] = LAYOUT(
 		KC_NO, KC_NO,	KC_NO, 	KC_NO, 	KC_NO, 	KC_NO, 				KC_NO, KC_NO, 	KC_NO,KC_NO,KC_NO, KC_NO,
 		KC_NO, KC_NO,   KC_F1,  KC_F2,  KC_F3,  KC_F10, 			KC_NO, KC_1,	KC_2, KC_3,	KC_NO, KC_NO,

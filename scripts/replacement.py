@@ -29,5 +29,16 @@ data = {
     "TD(TD_2_BRACKET)":") ] }",
     "DE_RABK":">",
     "DE_LABK":"<",
-    "MO(MOUSE)":"Mouse"
+    "MO(MOUSE)":"Mouse",
+    "LSFT(KC_8)":"(",
+    "RALT(KC_8)":"[",
+    "RALT(KC_7)":"{",
+    "LSFT(KC_9)":")",
+    "RALT(KC_9)":"]",
+    "RALT(KC_0)":"}",
+    "LCTL(KC_C)":"COPY",
+    "LCTL(KC_X)":"CUT",
+    "LCTL(KC_A)":"ALL",
+    "LCTL(KC_V)":"PASTE",
+    "LGUI(LSFT(KC_S))":"SCREEN"
 }
