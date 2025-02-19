@@ -29,7 +29,7 @@ enum custom_keycodes {
 
 /*  Hands Down Promethium (canonical)
     ⎋   3   2@  1$   0#  4           7   6   5   9   8  CW
-    ⇥   v   w   g2   m   j           =   .:  /2  "!  '? `
+    ⇥   v   w   g2   m   j           ;   .:  '2  /   =  `
     z   s⌃  n⌥  t3   h⌘  k           ,;  a⌘  e1  i⌥  c⌃ q
     tg  f   p   d    l   x      	 -   u   o   y   b  \
                          r⇧  ⌫   ⏎   ␣⇧
@@ -58,11 +58,11 @@ enum custom_keycodes {
 #define LT1 KC_M
 #define LT0 KC_J
 
-#define RT0 KC_EQL
+#define RT0 KC_SCLN
 #define RT1 KC_DOT
-#define RT2 LT(_SYM, KC_SLSH)
-#define RT3 KC_DQUO
-#define RT4 KC_QUOT
+#define RT2 LT(_SYM, KC_QUOT)
+#define RT3 KC_SLSH
+#define RT4 KC_EQL
 #define RT5 KC_GRV
 
 // middle row
@@ -113,7 +113,7 @@ static uint16_t keyhold_timer; // for handling Qu combo
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*  Hands Down Promethium
     ⎋   3   2@  1$   0#  4           7   6   5   9   8  CW
-    ⇥   v   w   g2   m   j           =   .:  /2  "!  '? `
+    ⇥   v   w   g2   m   j           ;   .:  '2  /   =  `
     z   s⌃  n⌥  t3   h⌘  k           ,;  a⌘  e1  i⌥  c⌃ q
     tg  f   p   d    l   x      	 -   u   o   y   b  \
                          r⇧   ⌫   ⏎   ␣⇧
@@ -268,9 +268,9 @@ const custom_shift_key_t custom_shift_keys[] = {
     {KC_0,    KC_HASH}, /* shift 0 is # */
     {KC_DOT,  KC_COLN}, /* shift . is : */
     {KC_COMM, KC_SCLN}, /* shift , is ; */
-    {LT(_SYM, KC_SLSH), KC_ASTR}, /* shift / is * */
-    {KC_DQUO, KC_EXLM}, /* shift " is ! */
-    {KC_QUOT, KC_QUES}, /* shift ' is ? */
+    /* {LT(_SYM, KC_SLSH), KC_ASTR},  shift / is * */
+    /* {KC_DQUO, KC_EXLM},  shift " is ! */
+    /* {KC_QUOT, KC_QUES},  shift ' is ? */
 	{KC_BSPC, KC_DEL},  /* shift ⌫ is ⌦ */
 };
 uint8_t NUM_CUSTOM_SHIFT_KEYS =
