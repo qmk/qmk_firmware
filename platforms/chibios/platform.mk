@@ -302,11 +302,14 @@ EXTRAINCDIRS += $(CHIBIOS)/os/license \
 # QMK specific MCU family support selection.
 ##############################################################################
 ifneq ("$(wildcard $(PLATFORM_PATH)/$(PLATFORM_KEY)/vendors/$(MCU_FAMILY)/$(MCU_SERIES).mk)","")
-    # Either by MCU series e.g. STM32/STM32F1xx.mk or...
+    # MCU series e.g. STM32/STM32F1xx.mk
     include $(PLATFORM_PATH)/$(PLATFORM_KEY)/vendors/$(MCU_FAMILY)/$(MCU_SERIES).mk
 else ifneq ("$(wildcard $(PLATFORM_PATH)/$(PLATFORM_KEY)/vendors/$(MCU_FAMILY)/$(MCU_FAMILY).mk)","")
-    # By MCU family e.g. STM32/STM32.mk
+    # MCU family e.g. STM32/STM32.mk
     include $(PLATFORM_PATH)/$(PLATFORM_KEY)/vendors/$(MCU_FAMILY)/$(MCU_FAMILY).mk
+else ifneq ("$(wildcard $(PLATFORM_PATH)/$(PLATFORM_KEY)/vendors/$(MCU_FAMILY)/$(MCU_SERIES)/$(MCU_SERIES).mk)","")
+    # MCU series in subfolders e.g. RP/RP2040/RP2040.mk
+    include $(PLATFORM_PATH)/$(PLATFORM_KEY)/vendors/$(MCU_FAMILY)/$(MCU_SERIES)/$(MCU_SERIES).mk
 endif
 
 #
