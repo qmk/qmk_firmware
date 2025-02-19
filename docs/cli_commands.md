@@ -84,6 +84,21 @@ The `num_jobs` argument determines the maximum number of jobs that can be used. 
 qmk compile -j 0 -kb <keyboard_name>
 ```
 
+Generating a compilation database:
+
+To generate `compile_commands.json`, which helps your IDE understand your compilation flags, pass the `--compiledb` flag. 
+
+Example:
+
+```
+$ qmk compile --compiledb
+Ψ Cleaning with gmake clean
+...
+Ψ Found 174 compile commands
+Ψ Writing build database to qmk_firmware/compile_commands.json
+...
+```
+
 ## `qmk flash`
 
 This command is similar to `qmk compile`, but can also target a bootloader. The bootloader is optional, and is set to `:flash` by default. To specify a different bootloader, use `-bl <bootloader>`. Visit the [Flashing Firmware](flashing) guide for more details of the available bootloaders.
@@ -722,7 +737,7 @@ $ qmk generate-compilation-database
 Now open your dev environment and live a squiggly-free life.
 
 ::: tip
-The equivalent command for the [External QMK Userspace](newbs_external_userspace) is `qmk compile --compiledb`
+Alternatively, you can use `qmk compile --compiledb` which can also generate the compilation database for the [External QMK Userspace](newbs_external_userspace).
 :::
 
 ## `qmk docs`
