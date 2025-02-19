@@ -26,7 +26,6 @@
             "knight": true,
             "rainbow_mood": true,
             "rainbow_swirl": true,
-            "rgb_test": true,
             "snake": true,
             "static_gradient": true,
             "twinkle": true
@@ -41,7 +40,10 @@
 	},
 	"ws2812": {
         "pin": "A14"
-    },
+    },    
+	"community_layouts": [
+		"60_iso"
+	],
     "layouts": {
         "LAYOUT_60_iso": {
             "layout": [
@@ -102,7 +104,7 @@
                 {"matrix": [3, 10], "x": 10.25, "y": 3},
                 {"matrix": [3, 11], "x": 11.25, "y": 3},
                 {"matrix": [3, 12], "x": 12.25, "y": 3, "w": 1.75},
-				{"matrix": [3, 13], "x": 14, "y": 3,},
+				{"matrix": [3, 13], "x": 14, "y": 3},
 
                 {"matrix": [4, 0], "x": 0, "y": 4, "w": 1.25},
                 {"matrix": [4, 1], "x": 1.25, "y": 4, "w": 1.25},

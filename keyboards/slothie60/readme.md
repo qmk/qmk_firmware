@@ -1,11 +1,11 @@
 # slothie60
 
-![slothie60]
+![slothie60](https://i.imgur.com/vXrQs6w.png)
 
 *60% ISO keyboard, support for GH60-cases, RGB underglow and split space.*
 
 * Keyboard Maintainer: [makkomise](https://github.com/makkomise)
-* Hardware Availability: *Gerbers and BOM coming to https://github.com/makkomise/slothie60*
+* Hardware Availability: [github/makkomise/slothie60](https://github.com/makkomise/slothie60)
 
 Make example for this keyboard (after setting up your build environment):
 
