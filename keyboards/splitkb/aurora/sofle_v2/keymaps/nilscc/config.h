@@ -16,6 +16,9 @@
 
 #pragma once
 
+// increase LED hit count, might be a bit excessive...
+#define LED_HITS_TO_REMEMBER 100
+
 // rgb matrix effects moved to different header to keep things organized
 #include "rgb_effects.h"
 
