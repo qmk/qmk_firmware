@@ -14,3 +14,5 @@ ENCODER_MAP_ENABLE = yes
 
 # enable auto-shift
 #AUTO_SHIFT_ENABLE = yes
+
+REPEAT_KEY_ENABLE = yes
