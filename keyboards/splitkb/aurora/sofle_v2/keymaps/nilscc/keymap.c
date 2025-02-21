@@ -111,6 +111,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // x / ' , ;   b c m f v        =>      z x ' , ;   b c m f v
     //       ␣ *     t
     //
+    // See: https://github.com/empressabyss/nordrassil
+    //
     [_NORDRASSIL] = LAYOUT(
         KC_ESC,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,                               KC_6,       KC_7,       KC_8,       KC_9,       KC_0,       KC_BSPC,
         KC_TAB,     Q,          Y,          O,          U,          KC_MINS,                            J,          G,          N,          W,          K,          KC_DEL,
