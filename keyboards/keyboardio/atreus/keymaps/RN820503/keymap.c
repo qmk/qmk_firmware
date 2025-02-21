@@ -33,7 +33,7 @@ enum custom_keycodes {
 
 /*  Hands Down Promethium
 
-    v   w   g2   m   j           =   .:  /2   "!  '?
+    v   w   g2   m   j           ;   .:  '2   /  =
     s⌃  n⌥  t3   h⌘  k           ,;  a⌘  e1   i⌥  c⌃
     f   p   d    l   x	 `   \	 -   u   o    y   b
     ←   →  app   ⇥   r⇧  ⌫   ⏎   ␣⇧  ⎋  num   ↑   ↓
@@ -46,11 +46,11 @@ enum custom_keycodes {
 #define LT1 KC_M
 #define LT0 KC_J
 
-#define RT0 KC_EQL
+#define RT0 KC_SCLN
 #define RT1 KC_DOT
-#define RT2 LT(_SYM, KC_SLSH)
-#define RT3 KC_DQUO
-#define RT4 KC_QUOT
+#define RT2 LT(_SYM, KC_QUOT)
+#define RT3 KC_SLSH
+#define RT4 KC_EQL
 
 // middle row
 #define LM4 LCTL_T(KC_S)
@@ -105,7 +105,7 @@ static uint16_t keyhold_timer; // for handling Qu combo
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	/*  Hands Down Promethium
-    v   w   g2   m   j           =   .:  /2   "!  '?
+    v   w   g2   m   j           ;   .:  '2   /   =
     s⌃  n⌥  t3   h⌘  k           ,;  a⌘  e1   i⌥  c⌃
     f   p   d    l   x	 `   \	 -   u   o    y   b
     ←   →  app   ⇥   r⇧  ⌫   ⏎   ␣⇧  ⎋  num   ↑   ↓
