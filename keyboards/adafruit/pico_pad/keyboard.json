@@ -1,6 +1,6 @@
 {
     "manufacturer": "Raspberry Pi",
-    "keyboard_name": "DirectPins 21 keys RP2040",
+    "keyboard_name": "DirectPins Pico Pad 21 keys RP2040",
     "maintainer": "icyavocado",
     "bootloader": "rp2040",
     "usb": {

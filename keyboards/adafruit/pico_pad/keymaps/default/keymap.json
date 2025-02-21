@@ -1,5 +1,5 @@
 {
-    "keyboard": "adafruit/21keys",
+    "keyboard": "adafruit/pico_pad",
     "keymap": "default",
     "layout": "LAYOUT",
     "layers": [
