@@ -1,0 +1,15 @@
+{
+  "name": "Atset AT2",
+  "vendorId": "0x4141",
+  "productId": "0x6174",
+  "matrix": {
+    "rows": 1,
+    "cols": 2
+  },
+ 
+  "layouts": {
+    "keymap": [
+      ["1\n\n\n\n\n\nA","2\n\n\n\n\n\nS"]
+    ]
+  }
+}
