@@ -1,0 +1,26 @@
+name: QMK build
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-qmk:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: d3adb5/build-qmk-fw@v1
+        with:
+          keyboard: crkbd/rev4_1/standard
+          keymap: luckasranarison
+          controller: rp2040
+          local-keymap-path: keymaps/luckasranarison
+          output-dir: build
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: built-images
+          path: build
