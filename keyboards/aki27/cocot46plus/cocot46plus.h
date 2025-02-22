@@ -26,8 +26,8 @@ typedef union {
         uint8_t scrl_div;
         uint8_t rotation_angle;
         int8_t scrl_inv;
-        bool scrl_mode;
-        report_mouse_t last_mouse;
+        bool scrl_mode; // Not saved to EEPROM
+        report_mouse_t last_mouse; // Not saved to EEPROM
     };
 } cocot_config_t;
 
