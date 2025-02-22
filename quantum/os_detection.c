@@ -133,7 +133,7 @@ void process_wlength(const uint16_t w_length) {
         } else if (setups_data.count == setups_data.cnt_ff) {
             // Linux has 3 packets with 0xFF.
             guessed = OS_LINUX;
-        } else if (setups_data.count == 5 && setups_data.last_wlength == 0xFF && setups_data.cnt_ff == 1 && setups_data.cnt_02 == 2) {
+        } else if (setups_data.count >= 5 && setups_data.last_wlength == 0xFF && setups_data.cnt_ff >= 1 && setups_data.cnt_02 >= 2) {
             guessed = OS_MACOS;
         } else if (setups_data.count == 4 && setups_data.cnt_ff == 0 && setups_data.cnt_02 == 2) {
             // iOS and iPadOS don't have the last 0xFF packet.
