@@ -1,0 +1,6 @@
+IndentWidth: 4
+UseTab: Never
+ColumnLimit: 120
+BinPackArguments: false
+BinPackParameters: false
+AllowShortEnumsOnASingleLine: false
