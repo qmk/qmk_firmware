@@ -18,9 +18,6 @@
 #pragma once
 
 #define WS2812_PIO_USE_PIO1
-#define RGB_MATRIX_LED_COUNT 48
-#define RGB_MATRIX_SPLIT \
-        { 24, 24 }
 
 #define I2C_DRIVER I2CD0
 #define I2C1_SCL_PIN GP25

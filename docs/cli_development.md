@@ -192,17 +192,23 @@ We use nose2, flake8, and yapf to test, lint, and format code. You can use the `
 
 ### Testing and Linting
 
-    qmk pytest
+```
+qmk pytest
+```
 
 ### Formatting
 
-    qmk format-python
+```
+qmk format-python
+```
 
 ## Formatting Details
 
 We use [yapf](https://github.com/google/yapf) to automatically format code. Our configuration is in the `[yapf]` section of `setup.cfg`.
 
-?> Tip- Many editors can use yapf as a plugin to automatically format code as you type.
+::: tip
+Many editors can use yapf as a plugin to automatically format code as you type.
+:::
 
 ## Testing Details
 
@@ -210,7 +216,9 @@ Our tests can be found in `lib/python/qmk/tests/`. You will find both unit and i
 
 If your PR does not include a comprehensive set of tests please add comments like this to your code so that other people know where they can help:
 
-    # TODO(unassigned/<your_github_username>): Write <unit|integration> tests
+```python
+# TODO(unassigned/<your_github_username>): Write <unit|integration> tests
+```
 
 We use [nose2](https://nose2.readthedocs.io/en/latest/getting_started.html) to run our tests. You can refer to the nose2 documentation for more details on what you can do in your test functions.
 

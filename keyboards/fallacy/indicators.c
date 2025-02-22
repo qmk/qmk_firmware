@@ -15,7 +15,7 @@
  */
 
 #include "indicators.h"
-#include "drivers/led/issi/is31fl3731-simple.h"
+#include "drivers/led/issi/is31fl3731-mono.h"
 #include "i2c_master.h"
 
 /* Set up IS31FL3731 for use in powering indicator LEDs. Absolutely overkill for this job but it was already in the design.

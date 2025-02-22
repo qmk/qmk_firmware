@@ -17,10 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* Maximum dynamic keymap layers (constrained by EEPROM space) */
-#define DYNAMIC_KEYMAP_LAYER_COUNT 3
-
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 16

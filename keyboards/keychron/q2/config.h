@@ -18,23 +18,11 @@
 
 #define MATRIX_UNSELECT_DRIVE_HIGH
 
-/* DIP switch */
-#define DIP_SWITCH_MATRIX_GRID  { {4, 4} }
-
 /* RGB Matrix Driver Configuration */
 #define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_VDDIO
 #define SNLED27351_I2C_ADDRESS_2 SNLED27351_I2C_ADDRESS_GND
 
 #define SNLED27351_PHASE_CHANNEL SNLED27351_SCAN_PHASE_9_CHANNEL
 
-/* Disable DIP switch in matrix data */
-#define MATRIX_MASKED
-
-/* turn off effects when suspended */
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
-
 /* Encoder Configuration*/
 #define ENCODER_DEFAULT_POS 0x3
-
-#define RGB_MATRIX_KEYPRESSES
-#define RGB_MATRIX_FRAMEBUFFER_EFFECTS

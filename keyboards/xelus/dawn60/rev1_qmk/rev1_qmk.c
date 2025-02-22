@@ -23,8 +23,6 @@
 #include "ws2812.h"
 
 #ifdef RGB_MATRIX_ENABLE
-rgb_led_t rgb_matrix_ws2812_array[WS2812_LED_TOTAL];
-
 const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
@@ -145,42 +143,36 @@ led_config_t g_led_config = { {
 //Custom Driver
 static void init(void) {
     i2c_init();
-    is31fl3731_init(IS31FL3731_I2C_ADDRESS_1);
-    is31fl3731_init(IS31FL3731_I2C_ADDRESS_2);
+    is31fl3731_init(0);
+    is31fl3731_init(1);
     for (int index = 0; index < IS31FL3731_LED_COUNT; index++) {
         bool enabled = true;
         is31fl3731_set_led_control_register(index, enabled, enabled, enabled);
     }
-    is31fl3731_update_led_control_registers(IS31FL3731_I2C_ADDRESS_1, 0);
-    is31fl3731_update_led_control_registers(IS31FL3731_I2C_ADDRESS_2, 1);
+    is31fl3731_update_led_control_registers(0);
+    is31fl3731_update_led_control_registers(1);
     
     //RGB Underglow ws2812
-    
+    ws2812_init();
 }
 
 static void flush(void) {
-    is31fl3731_update_pwm_buffers(IS31FL3731_I2C_ADDRESS_1, 0);
-    is31fl3731_update_pwm_buffers(IS31FL3731_I2C_ADDRESS_2, 1);
-    ws2812_setleds(rgb_matrix_ws2812_array, WS2812_LED_TOTAL);
+    is31fl3731_update_pwm_buffers(0);
+    is31fl3731_update_pwm_buffers(1);
+    ws2812_flush();
 }
 
 static void set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     if (index < IS31FL3731_LED_COUNT) {
         is31fl3731_set_color(index, red, green, blue);
     } else {
-        rgb_matrix_ws2812_array[index - IS31FL3731_LED_COUNT].r = red;
-        rgb_matrix_ws2812_array[index - IS31FL3731_LED_COUNT].g = green;
-        rgb_matrix_ws2812_array[index - IS31FL3731_LED_COUNT].b = blue;
+        ws2812_set_color(index - IS31FL3731_LED_COUNT, red, green, blue);
     }
 }
 
 static void set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
     is31fl3731_set_color_all( red, green, blue );
-    for (uint8_t i = 0; i < WS2812_LED_TOTAL; i++) {
-        rgb_matrix_ws2812_array[i].r = red;
-        rgb_matrix_ws2812_array[i].g = green;
-        rgb_matrix_ws2812_array[i].b = blue;
-    }
+    ws2812_set_color_all( red, green, blue );
 }
 
 

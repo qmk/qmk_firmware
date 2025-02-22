@@ -1,2 +1,0 @@
-# The VIA Aegis Layout
-

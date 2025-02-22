@@ -18,16 +18,12 @@ enum comet46_layers
   _ADJUST,
 };
 
-enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  COLEMAK,
-  DVORAK,
-  LOWER,
-  RAISE,
-};
-
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
+
+#define QWERTY PDF(_QWERTY)
+#define COLEMAK PDF(_COLEMAK)
+#define DVORAK PDF(_DVORAK)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -135,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_ADJUST] = LAYOUT(
     _______, _______, _______, _______, _______, _______,                          _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, QWERTY,         COLEMAK, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, QK_BOOT,          DVORAK,  _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, QK_BOOT,        DVORAK,  _______, _______, _______, _______, _______, _______,
                                         _______, _______, _______,        _______, _______, _______
   )
 };
@@ -157,24 +153,16 @@ bool oled_task_user(void) {
   // Layer state
   char layer_str[22];
   oled_write_P(PSTR("Layer: "), false);
-  uint8_t layer = get_highest_layer(layer_state);
-  uint8_t default_layer = get_highest_layer(eeconfig_read_default_layer());
+  uint8_t layer = get_highest_layer(layer_state | default_layer_state);
   switch (layer) {
     case _QWERTY:
-      switch (default_layer) {
-        case _QWERTY:
-          snprintf(layer_str, sizeof(layer_str), "Qwerty");
-          break;
-        case _COLEMAK:
-          snprintf(layer_str, sizeof(layer_str), "Colemak");
-          break;
-        case _DVORAK:
-          snprintf(layer_str, sizeof(layer_str), "Dvorak");
-          break;
-        default:
-          snprintf(layer_str, sizeof(layer_str), "Undef-%d", default_layer);
-          break;
-      }
+      snprintf(layer_str, sizeof(layer_str), "Qwerty");
+      break;
+    case _COLEMAK:
+      snprintf(layer_str, sizeof(layer_str), "Colemak");
+      break;
+    case _DVORAK:
+      snprintf(layer_str, sizeof(layer_str), "Dvorak");
       break;
     case _RAISE:
       snprintf(layer_str, sizeof(layer_str), "Raise");
@@ -207,22 +195,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       set_keylog(keycode);
     }
   #endif
-  switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      break;
-    case COLEMAK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_COLEMAK);
-      }
-      break;
-    case DVORAK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_DVORAK);
-      }
-      break;
-  }
   return true;
 }

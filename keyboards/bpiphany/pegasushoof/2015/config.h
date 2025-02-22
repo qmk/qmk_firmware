@@ -20,5 +20,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 18
-
-#define DYNAMIC_KEYMAP_LAYER_COUNT 3  // not enough memory for a 4th layer with VIA

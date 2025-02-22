@@ -16,7 +16,4 @@
 
 #pragma once
 
-#define DRIVER_1_LED_TOTAL 59
-#define DRIVER_2_LED_TOTAL 10   
-
 #define CAPS_LED 29

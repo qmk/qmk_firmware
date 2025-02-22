@@ -86,30 +86,11 @@ static void setupForFlashing(void) {
 
     // Force data to be rendered
     oled_render_dirty(true);
-
-    // Set alternating backlight colors
-    const uint8_t max = 20;
-    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-    for (size_t i = 0; i < RGBLED_NUM; ++i) {
-        rgb_led_t *led_ = (rgb_led_t *)&led[i];
-        switch (i % 2) {
-            case 0:
-                setrgb(max, 0, max, led_);
-                break;
-            case 1:
-                setrgb(0, max, max, led_);
-                break;
-        }
-    }
-    rgblight_set();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         set_keylog(keycode, record);
-    }
-    if (keycode == QK_BOOT) {
-        setupForFlashing();
     }
     return process_record_user(keycode, record);
 }
@@ -119,4 +100,12 @@ void keyboard_post_init_kb(void) {
     rgblight_sethsv_noeeprom(HSV_MAGENTA);
     rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_SWIRL);
     keyboard_post_init_user();
+}
+
+bool shutdown_kb(bool jump_to_bootloader) {
+    if (!shutdown_user(jump_to_bootloader)) {
+        return false;
+    }
+    setupForFlashing();
+    return true;
 }
