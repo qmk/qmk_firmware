@@ -211,6 +211,7 @@ See also: [Basic Keycodes](keycodes_basic)
 |`KC_ASSISTANT`          |`KC_ASST`                      |Launch Context-Aware Assistant         |✔            |             |                 |
 |`KC_MISSION_CONTROL`    |`KC_MCTL`                      |Open Mission Control                   |             |✔            |                 |
 |`KC_LAUNCHPAD`          |`KC_LPAD`                      |Open Launchpad                         |             |✔            |                 |
+|`KC_GLOBE`              |`KC_GLB`                       |Apple Globe/Fn                         |             |✔<sup>7</sup>|                 |
 
 <sup>1. The Linux kernel HID driver recognizes [nearly all keycodes](https://github.com/torvalds/linux/blob/master/drivers/hid/hid-input.c), but the default bindings depend on the DE/WM.</sup><br/>
 <sup>2. Treated as F13-F15.</sup><br/>
@@ -218,6 +219,7 @@ See also: [Basic Keycodes](keycodes_basic)
 <sup>4. Holding Shift+Option allows for finer control of volume level.</sup><br/>
 <sup>5. Skips the entire track in iTunes when tapped, seeks within the current track when held.</sup><br/>
 <sup>6. WMP does not recognize the Rewind key, but both alter playback speed in VLC.</sup>
+<sup>7. Requires `KEYBOARD_SHARED_EP = yes` in `rules.mk` or `usb.shared_endpoint.keyboard=true` in `keyboard.json`. Globe+F-keys/arrow keys do not work.</sup>
 
 ## Quantum Keycodes {#quantum-keycodes}
 
