@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /*  BEAKL-19 numpad
     	-   5   2   3   :           +   =   *
-    	7   .   1   0   4       ,   ⇧   ⌘   ⌥	⌃
+    	7   .   1   0   4       ,   ⌘   mo   ⌥	⌃
     	/   6   9   8   ,       -
     	                ␣   ⌫
     */
@@ -145,16 +145,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     /*
-                ⌘Q     Scap    Sclp                            vol+    home    up	end
-    	⌃       ⌥              ⌘     Sall        		       vol-    left    dn	rght    ⌦
-    	undo   cut     cpy     pst    redo                     mute     ⌫
-                                                               dsk-    dsk+
+                ⌘Q             Sclp  Scap                     vol+    home    up	end
+    	⌃       ⌥       (mo)   ⌘     Sall        		      vol-    left    dn	rght    ⌦
+    	undo   copy     cut    pst   redo                     mute     ⌫
+                                                              dsk-    dsk+
     */
     [_NAV] = LAYOUT(
-    ___x___, G(KC_Q), LSG(KC_4), C(S(G(KC_4))), ___x___,                     KC_VOLU,    G(KC_LEFT), KC_UP,   G(KC_RGHT), ___x___,
-    KC_LCTL, KC_LALT, _______,   KC_LGUI,       G(KC_A),                     KC_VOLD,    KC_LEFT,    KC_DOWN, KC_RGHT,    KC_DEL,
-    G(KC_Z), G(KC_X), G(KC_C),   G(KC_V),       LSG(KC_Z), _______, _______, KC_MUTE,    SELWBAK,	 SELWFWD, SELLINE,    ___x___,
-    _______, _______, _______,   _______,       _______,   _______, _______, C(KC_LEFT), C(KC_RGHT), _______, _______,    _______
+    ___x___, G(KC_Q), _______, C(S(G(KC_4))), LSG(KC_4),                   KC_VOLU,    G(KC_LEFT), KC_UP,   G(KC_RGHT), ___x___,
+    KC_LCTL, KC_LALT, _______, KC_LGUI,       G(KC_A),                     KC_VOLD,    KC_LEFT,    KC_DOWN, KC_RGHT,    KC_DEL,
+    G(KC_Z), G(KC_C), G(KC_X), G(KC_V),       LSG(KC_Z), _______, _______, KC_MUTE,    SELWBAK,	   SELWFWD, SELLINE,    ___x___,
+    _______, _______, _______, _______,       _______,   _______, _______, C(KC_LEFT), C(KC_RGHT), _______, _______,    _______
     ),
 
 };
