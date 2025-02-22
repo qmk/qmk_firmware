@@ -2025,6 +2025,18 @@
     "pinky": {
         "target": "pinky/3"
     },
+    "ploopyco/madromys": {
+        "target": "ploopyco/madromys/rev1_001"
+    },
+    "ploopyco/trackball_mini": {
+        "target": "ploopyco/trackball_mini/rev1_001"
+    },
+    "ploopyco/trackball_nano": {
+        "target": "ploopyco/trackball_nano/rev1_001"
+    },
+    "ploopyco/trackball_thumb": {
+        "target": "ploopyco/trackball_thumb/rev1_001"
+    },
     "primekb/meridian": {
         "target": "primekb/meridian/ktr1010"
     },
