@@ -3,7 +3,7 @@
     "keyboard_name": "Amptrics 0422",
     "maintainer": "vchowl",
     "bootloader": "stm32-dfu",
-    "diode_direction": "COL2ROW",
+    "diode_direction": "ROW2COL",
     "eeprom": {
         "driver": "wear_leveling",
         "wear_leveling": {
