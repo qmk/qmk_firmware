@@ -497,6 +497,12 @@ void send_digitizer(report_digitizer_t *report) {
 #endif
 }
 
+void send_framework_touchpad(report_framework_touchpad_t *report) {
+#ifdef FRAMEWORK_TOUCHPAD_ENABLE
+    send_report(USB_ENDPOINT_IN_FRAMEWORK_TOUCHPAD, report, sizeof(report_framework_touchpad_t));
+#endif
+}
+
 /* ---------------------------------------------------------
  *                   Console functions
  * ---------------------------------------------------------

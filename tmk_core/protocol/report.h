@@ -39,6 +39,7 @@ enum hid_report_ids {
     REPORT_ID_NKRO,
     REPORT_ID_JOYSTICK,
     REPORT_ID_DIGITIZER,
+    REPORT_ID_FRAMEWORK_TOUCHPAD,
     REPORT_ID_COUNT = REPORT_ID_DIGITIZER
 };
 
@@ -231,6 +232,13 @@ typedef struct {
     uint16_t x;
     uint16_t y;
 } PACKED report_digitizer_t;
+
+typedef struct {
+#ifdef FRAMEWORK_TOUCHPAD_SHARED_EP
+    uint8_t report_id;
+#endif
+    uint8_t report[34];
+} PACKED report_framework_touchpad_t;
 
 #if JOYSTICK_AXIS_RESOLUTION > 8
 typedef int16_t joystick_axis_t;

@@ -92,6 +92,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef JOYSTICK_ENABLE
 #    include "joystick.h"
 #endif
+#ifdef FRAMEWORK_TOUCHPAD_ENABLE
+#    include "framework_touchpad.h"
+#endif
 #ifdef HD44780_ENABLE
 #    include "hd44780.h"
 #endif
@@ -469,6 +472,9 @@ void keyboard_init(void) {
 #ifdef JOYSTICK_ENABLE
     joystick_init();
 #endif
+#ifdef FRAMEWORK_TOUCHPAD_ENABLE
+    framework_touchpad_init();
+#endif
 #ifdef SLEEP_LED_ENABLE
     sleep_led_init();
 #endif
@@ -740,6 +746,10 @@ void keyboard_task(void) {
 
 #ifdef JOYSTICK_ENABLE
     joystick_task();
+#endif
+
+#ifdef FRAMEWORK_TOUCHPAD_ENABLE
+    framework_touchpad_task();
 #endif
 
 #ifdef BLUETOOTH_ENABLE

@@ -855,6 +855,14 @@ ifeq ($(strip $(JOYSTICK_ENABLE)), yes)
     endif
 endif
 
+FRAMEWORK_TOUCHPAD_ENABLE ?= no
+ifeq ($(strip $(FRAMEWORK_TOUCHPAD_ENABLE)), yes)
+    OPT_DEFS += -DFRAMEWORK_TOUCHPAD_ENABLE
+    SRC += $(QUANTUM_DIR)/framework_touchpad.c
+
+    I2C_DRIVER_REQUIRED = yes
+endif
+
 USBPD_ENABLE ?= no
 VALID_USBPD_DRIVER_TYPES = custom vendor
 USBPD_DRIVER ?= vendor

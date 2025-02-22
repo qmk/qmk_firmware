@@ -92,6 +92,14 @@ ifeq ($(strip $(DIGITIZER_ENABLE)), yes)
     endif
 endif
 
+ifeq ($(strip $(FRAMEWORK_TOUCHPAD_ENABLE)), yes)
+    OPT_DEFS += -DFRAMEWORK_TOUCHPAD_ENABLE
+    ifeq ($(strip $(SHARED_EP_ENABLE)), yes)
+        OPT_DEFS += -DFRAMEWORK_TOUCHPAD_SHARED_EP
+        SHARED_EP_ENABLE = yes
+    endif
+endif
+
 ifeq ($(strip $(SHARED_EP_ENABLE)), yes)
     OPT_DEFS += -DSHARED_EP_ENABLE
 endif

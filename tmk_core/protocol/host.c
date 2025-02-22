@@ -26,6 +26,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "digitizer.h"
 #endif
 
+#ifdef FRAMEWORK_TOUCHPAD_ENABLE
+#    include "framework_touchpad.h"
+#endif
+
 #ifdef JOYSTICK_ENABLE
 #    include "joystick.h"
 #endif
@@ -239,6 +243,23 @@ void host_digitizer_send(digitizer_t *digitizer) {
 #endif
 
 __attribute__((weak)) void send_digitizer(report_digitizer_t *report) {}
+
+#ifdef FRAMEWORK_TOUCHPAD_ENABLE
+void host_framework_touchpad_send(uint8_t (*data)[34]) {
+    report_framework_touchpad_t report = {
+#    ifdef FRAMEWORK_TOUCHPAD_SHARED_EP
+        .report_id = REPORT_ID_FRAMEWORK_TOUCHPAD,
+#    endif
+        .report = {0},
+    };
+
+    memcpy(report.report, data, 34);
+
+    send_framework_touchpad(&report);
+}
+#endif
+
+__attribute__((weak)) void send_framework_touchpad(report_framework_touchpad_t *report) {}
 
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
 void host_programmable_button_send(uint32_t data) {
