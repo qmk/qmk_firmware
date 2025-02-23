@@ -29,5 +29,6 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
+          include-hidden-files: true
           name: built-images
           path: .build
