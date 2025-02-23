@@ -1,2 +1,8 @@
 make layout="nilscc":
     make -C ../.. dasbob:{{ layout }}
+
+flash-left:
+    qmk flash -kb dasbob -km nilscc -bl uf2-split-left
+
+flash-right:
+    qmk flash -kb dasbob -km nilscc -bl uf2-split-left
