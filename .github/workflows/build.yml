@@ -23,9 +23,9 @@ jobs:
 
       - name: Compile firmware
         run: |
+          qmk config user.keyboard=crkbd/rev4_1/standard user.keymap=luckasranarison
           qmk generate-compilation-database
-          qmk compile --compiledb -kb crkbd/rev4_1/standard -km luckasranarison
-          qmk compile -kb crkbd/rev4_1/standard -km luckasranarison
+          qmk compile --compiledb
 
       - uses: actions/upload-artifact@v4
         with:
