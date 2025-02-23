@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    KC_NUM_LOCK, KC_UP,      KC_BACKSPACE,   KC_KP_SLASH,
    KC_LEFT,     KC_DOWN,    KC_RGHT,        KC_KP_ASTERISK,
    QK_BOOT,     KC_HOME,    KC_PAGE_UP,     KC_KP_ENTER,
-   MO(_FN),     KC_END,     KC_PAGE_DOWN
+   _______,     KC_END,     KC_PAGE_DOWN
 )
 
 };

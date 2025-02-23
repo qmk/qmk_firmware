@@ -13,7 +13,8 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "encoder": true
+        "encoder": true,
+        "oled": true
     },
     "matrix_pins": {
         "cols": ["B6", "B5", "B4", "D7"],
