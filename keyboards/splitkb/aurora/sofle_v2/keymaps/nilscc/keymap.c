@@ -40,6 +40,8 @@ static const uint16_t Z = KC_Z;
 enum nilscc_layers {
     _COLEMAK,
     _NORDRASSIL,
+
+    // special layers
     _NAVIGATION,
     _NUMBERS,
     _SYMBOLS,
