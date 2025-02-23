@@ -3,7 +3,10 @@ name: QMK build
 on:
   push:
     branches:
-      - action
+      - master
+  pull_request:
+    branches:
+      - master
 
 jobs:
   build-qmk:
@@ -30,5 +33,5 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           include-hidden-files: true
-          name: built-images
+          name: firmware
           path: .build
