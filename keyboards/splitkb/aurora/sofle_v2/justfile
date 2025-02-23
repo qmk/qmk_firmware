@@ -1,3 +1,6 @@
+flash:
+    qmk flash -kb splitkb/aurora/sofle_v2/rev1 -km nilscc
+
 make:
     make splitkb/aurora/sofle_v2/rev1:nilscc
 
