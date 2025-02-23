@@ -12,11 +12,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: QMK Build
+      - name: Init submodules
+        run: git submodule update --init --recursive
+
+      - name: Setup QMK
         run: |
-          git submodule update --init --recursive
           pip install qmk
           ./util/qmk_install.sh -y
+          qmk setup -H ./
+
+      - name: Compile firmware
+        run: |
           qmk generate-compilation-database
           qmk compile --compiledb -kb crkbd/rev4_1/standard -km luckasranarison
           qmk compile -kb crkbd/rev4_1/standard -km luckasranarison
