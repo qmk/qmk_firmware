@@ -1,3 +1,7 @@
+# Automatically flash the board with the default layout
+flash:
+    qmk flash -kb dasbob -km nilscc
+
 make layout="nilscc":
     make -C ../.. dasbob:{{ layout }}
 
