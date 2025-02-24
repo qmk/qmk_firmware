@@ -4,17 +4,16 @@
         "bootmagic": true,
         "extrakey": true,
         "nkro": true,
-        "oled": false,
-        "rgblight": false,
-        "rgb_matrix": false,
-        "mousekey": true
+        "mousekey": true,
+        "console": true,
+        "debug": true
     },
     "dynamic_keymap": {
         "layer_count": 6
     },
     "matrix_pins": {
-        "rows": ["GP12", "GP13", "GP14", "GP15", "GP16"],
-        "cols": ["GP4", "GP5", "GP6", "GP7", "GP8", "GP9", "GP11", "GP15"]        
+        "rows": ["GP12", "GP13", "GP14", "GP15", "GP16",    "GP29"],
+        "cols": ["GP4", "GP5", "GP6", "GP7", "GP8", "GP9", "GP11", "GP15",   "GP26", "GP27", "GP28"]        
     },
     "bootmagic": {
         "enabled": true,
