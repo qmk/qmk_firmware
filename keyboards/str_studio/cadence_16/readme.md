@@ -1,6 +1,6 @@
 # Cadence_16
 
-![Cadence_16](https://strstudio.net/_next/image?url=%2Fcadence-1.png&w=1920&q=100)
+![Cadence_16](https://i.imgur.com/qkFoDtz.png)
 
 A weighty compact 16 keys numpad designed, made and sold by [str studio](https://strstudio.net/) in California.
 
