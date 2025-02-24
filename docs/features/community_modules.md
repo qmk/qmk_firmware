@@ -102,6 +102,10 @@ This file will be automatically added to the build if the filename matches the d
 Other files intended to be included must use the normal method of `SRC += my_file.c` inside `rules.mk`.
 :::
 
+::: tip
+This file should use `ASSERT_COMMUNITY_MODULES_MIN_API_VERSION(20250122);` to enforce a minimum version of the API that it requires, ensuring the Community Module is built with a compatible version of QMK. The list of APIs and corresponding version is given at the bottom of this document.
+:::
+
 ### `introspection.c` / `introspection.h`
 
 These two files hook into the keymap introspection logic -- the header is prepended before the user keymap, and the C source file is appended after the user keymap.
@@ -110,7 +114,7 @@ The header may provide definitions which are useful to the user's `keymap.c`.
 
 The source file may provide functions which allow access to information specified in the user's `keymap.c`.
 
-::: info
+::: warning
 Introspection is a relatively advanced topic within QMK, and existing patterns should be followed. If you need help please [open an issue](https://github.com/qmk/qmk_firmware/issues/new) or [chat with us on Discord](https://discord.gg/qmk).
 :::
 
@@ -118,18 +122,18 @@ Introspection is a relatively advanced topic within QMK, and existing patterns s
 
 Community Modules may provide specializations for the following APIs:
 
-| Base API                   | API Format                          | Example (`hello_world`)                | Module Version |
-|----------------------------|-------------------------------------|----------------------------------------|----------------|
-| `keyboard_pre_init`        | `keyboard_pre_init_<module>`        | `keyboard_pre_init_hello_world`        | 20250101       |
-| `keyboard_post_init`       | `keyboard_post_init_<module>`       | `keyboard_post_init_hello_world`       | 20250101       |
-| `pre_process_record`       | `pre_process_record_<module>`       | `pre_process_record_hello_world`       | 20250101       |
-| `process_record`           | `process_record_<module>`           | `process_record_hello_world`           | 20250101       |
-| `post_process_record`      | `post_process_record_<module>`      | `post_process_record_hello_world`      | 20250101       |
-| `housekeeping_task`        | `housekeeping_task_<module>`        | `housekeeping_task_hello_world`        | 20250122       |
-| `suspend_power_down`       | `suspend_power_down_<module>`       | `suspend_power_down_hello_world`       | 20250122       |
-| `suspend_wakeup_init`      | `suspend_wakeup_init_<module>`      | `suspend_wakeup_init_hello_world`      | 20250122       |
-| `shutdown`                 | `shutdown_<module>`                 | `shutdown_hello_world`                 | 20250122       |
-| `process_detected_host_os` | `process_detected_host_os_<module>` | `process_detected_host_os_hello_world` | 20250122       |
+| Base API                   | API Format                          | Example (`hello_world` module)         | API Version |
+|----------------------------|-------------------------------------|----------------------------------------|-------------|
+| `keyboard_pre_init`        | `keyboard_pre_init_<module>`        | `keyboard_pre_init_hello_world`        | 20250101    |
+| `keyboard_post_init`       | `keyboard_post_init_<module>`       | `keyboard_post_init_hello_world`       | 20250101    |
+| `pre_process_record`       | `pre_process_record_<module>`       | `pre_process_record_hello_world`       | 20250101    |
+| `process_record`           | `process_record_<module>`           | `process_record_hello_world`           | 20250101    |
+| `post_process_record`      | `post_process_record_<module>`      | `post_process_record_hello_world`      | 20250101    |
+| `housekeeping_task`        | `housekeeping_task_<module>`        | `housekeeping_task_hello_world`        | 20250122    |
+| `suspend_power_down`       | `suspend_power_down_<module>`       | `suspend_power_down_hello_world`       | 20250122    |
+| `suspend_wakeup_init`      | `suspend_wakeup_init_<module>`      | `suspend_wakeup_init_hello_world`      | 20250122    |
+| `shutdown`                 | `shutdown_<module>`                 | `shutdown_hello_world`                 | 20250122    |
+| `process_detected_host_os` | `process_detected_host_os_<module>` | `process_detected_host_os_hello_world` | 20250122    |
 
 All APIs are disregarded if a Community Module does not provide a specialization for it.
 
