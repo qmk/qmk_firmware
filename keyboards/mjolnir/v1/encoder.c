@@ -1,7 +1,9 @@
 #include "matrix.h"
+#include "wait.h"
 #include "quantum.h"
 #include "print.h"
 
+#define MATRIX_IO_DELAY 25
 #define COL_SHIFTER ((uint16_t)1)
 
 #define ENC_ROW 5         // GP29
@@ -18,7 +20,6 @@ void clicked(void) {
 
 void turned(bool clockwise) {
     tap_code16(clockwise ? KC_PAGE_DOWN : KC_PAGE_UP);
-    tap_code(clockwise ? KC_PAGE_DOWN : KC_PAGE_UP);
 
     //if (IS_LAYER_ON(6)) {
     //    tap_code(clockwise ? KC_AUDIO_VOL_UP : KC_AUDIO_VOL_DOWN);
@@ -73,13 +74,13 @@ void fix_encoder_action(matrix_row_t current_matrix[]) {
         colABPressed = true;
     } else if (colA) {
         if (colABPressed) {
-            // A+B followed by A means clockwise
+            // A + B followed by A means clockwise
             colABPressed = false;
             turned(true);
         }
     } else if (colB) {
         if (colABPressed) {
-            // A+B followed by B means counter-clockwise
+            // A + B followed by B means counter-clockwise
             colABPressed = false;
             turned(false);
         }

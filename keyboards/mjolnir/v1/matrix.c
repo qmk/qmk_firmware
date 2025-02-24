@@ -21,6 +21,8 @@
 #include "print.h"
 
 #define MATRIX_IO_DELAY 25
+
+/*
 #define ROW_SHIFTER ((uint16_t)1)
 
 static const pin_t row_pins[] = MATRIX_ROW_PINS;
@@ -36,8 +38,8 @@ static void unselect_row(uint8_t row) {
 }
 
 static void unselect_rows(void) {
-    for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
-        gpio_set_pin_input_high(row_pins[x]);
+    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+        gpio_set_pin_input_high(row_pins[i]);
     }
 }
 
@@ -51,8 +53,8 @@ static void unselect_col(uint8_t col) {
 }
 
 static void unselect_cols(void) {
-    for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-        gpio_set_pin_input_high(col_pins[x]);
+    for (uint8_t i = 0; i < MATRIX_COLS / 2; i++) {
+        gpio_set_pin_input_high(col_pins[i * 2]);
     }
 }
 
@@ -70,10 +72,10 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     wait_us(MATRIX_IO_DELAY);
 
     // For each col...
-    for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
-        uint16_t column_index_bitmask = ROW_SHIFTER << ((col_index));
+    for (uint8_t col_index = 0; col_index < MATRIX_COLS / 2; col_index++) {
+        uint16_t column_index_bitmask = ROW_SHIFTER << ((col_index * 2) + 1);
         // Check row pin state
-        if (gpio_read_pin(col_pins[col_index])) {
+        if (gpio_read_pin(col_pins[col_index * 2])) {
             // Pin HI, clear col bit
             current_matrix[current_row] &= ~column_index_bitmask;
         } else {
@@ -92,15 +94,14 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
     bool matrix_changed = false;
 
     // Select col and wait for col selection to stabilize
-    select_col(current_col);
-    wait_us(30);
+    select_col(current_col * 2);
+    wait_us(MATRIX_IO_DELAY);
 
-    // For each row...
     for (uint8_t row_index = 0; row_index < MATRIX_ROWS; row_index++) {
         // Store last value of row prior to reading
         matrix_row_t last_row_value = current_matrix[row_index];
 
-        uint16_t column_index_bitmask = ROW_SHIFTER << (current_col);
+        uint16_t column_index_bitmask = ROW_SHIFTER << (current_col * 2);
         // Check row pin state
         if (gpio_read_pin(row_pins[row_index])) {
             // Pin HI, clear col bit
@@ -117,7 +118,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
     }
 
     // Unselect col
-    unselect_col(current_col);
+    unselect_col(current_col*2);
 
     return matrix_changed;
 }
@@ -136,11 +137,70 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         changed |= read_cols_on_row(current_matrix, current_row);
     }
     // Set col, read rows
-    for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
+    for (uint8_t current_col = 0; current_col < MATRIX_COLS / 2; current_col++) {
         changed |= read_rows_on_col(current_matrix, current_col);
     }
     
     fix_encoder_action(current_matrix);
+
+    return changed;
+} */
+
+/* matrix state(1:on, 0:off) */
+static pin_t matrix_row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
+static pin_t matrix_col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
+
+static matrix_row_t matrix_inverted[MATRIX_COLS];
+
+void matrix_init_custom(void) {
+    // actual matrix setup - cols
+    for (int i = 0; i < MATRIX_COLS; i++) {
+        gpio_set_pin_output(matrix_col_pins[i]);
+        gpio_write_pin_low(matrix_col_pins[i]);
+    }
+
+    // rows
+    for (int i = 0; i < MATRIX_ROWS; i++) {
+        gpio_set_pin_input_low(matrix_row_pins[i]);
+    }
+}
+
+bool matrix_scan_custom(matrix_row_t current_matrix[]) {
+    bool changed = false;
+
+    // actual matrix
+    for (int col = 0; col < MATRIX_COLS; col++) {
+        matrix_row_t data = 0;
+
+        // strobe col
+        gpio_write_pin_high(matrix_col_pins[col]);
+
+        // need wait to settle pin state
+        wait_us(MATRIX_IO_DELAY);
+
+        // read row data
+        for (int row = 0; row < MATRIX_ROWS; row++) {
+            data |= (gpio_read_pin(matrix_row_pins[row]) << row);
+        }
+
+        fix_encoder_action(current_matrix);
+
+        // unstrobe col
+        gpio_write_pin_low(matrix_col_pins[col]);
+
+        if (matrix_inverted[col] != data) {
+            matrix_inverted[col] = data;
+        }
+    }
+
+    for (int row = 0; row < MATRIX_ROWS; row++) {
+        matrix_row_t old = current_matrix[row];
+        current_matrix[row] = 0;
+        for (int col = 0; col < MATRIX_COLS; col++) {
+            current_matrix[row] |= ((matrix_inverted[col] & (1 << row) ? 1 : 0) << col);
+        }
+        changed |= old != current_matrix[row];
+    }
 
     return changed;
 }
