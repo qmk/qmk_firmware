@@ -1,5 +1,5 @@
 {
-    "keyboard_name": "mjolnir_v1",
+    "keyboard_name": "mjolnir/v1",
     "features": {
         "bootmagic": true,
         "extrakey": true,
