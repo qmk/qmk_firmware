@@ -25,6 +25,7 @@
 #define EEPROM_ADDR(offset) (EEPROM_BASE_ADDR + (offset))
 #define EEPROM_PTR(offset) ((__IO uint8_t *)EEPROM_ADDR(offset))
 #define EEPROM_BYTE(location, offset) (*(EEPROM_PTR(((uint32_t)location) + ((uint32_t)offset))))
+#define EEPROM_WORD(location) (*(__IO uint32_t *)EEPROM_PTR(location))
 
 #define BUFFER_BYTE(buffer, offset) (*(((uint8_t *)buffer) + offset))
 
@@ -66,7 +67,7 @@ void eeprom_driver_erase(void) {
         FLASH->PECR |= FLASH_PECR_ERASE | FLASH_PECR_DATA;
 #endif
 
-        *(__IO uint32_t *)EEPROM_ADDR(offset) = (uint32_t)0;
+        EEPROM_WORD(offset) = (uint32_t)0;
 
         STM32_L0_L1_EEPROM_WaitNotBusy();
 #ifdef QMK_MCU_SERIES_STM32L0XX
@@ -106,7 +107,7 @@ void eeprom_write_block(const void *buf, void *addr, size_t len) {
 
     STM32_L0_L1_EEPROM_Unlock();
     for (uint32_t word_addr = aligned_start; word_addr < aligned_end; word_addr += 4) {
-        uint32_t existing_word = *(__IO uint32_t *)EEPROM_PTR(word_addr);
+        uint32_t existing_word = EEPROM_WORD(word_addr);
         uint32_t new_word      = existing_word;
 
         // Update the relevant bytes in the word
@@ -121,7 +122,7 @@ void eeprom_write_block(const void *buf, void *addr, size_t len) {
         // Only write if the word has changed
         if (new_word != existing_word) {
             STM32_L0_L1_EEPROM_WaitNotBusy();
-            *(__IO uint32_t *)EEPROM_PTR(word_addr) = new_word;
+            EEPROM_WORD(word_addr) = new_word;
         }
     }
     STM32_L0_L1_EEPROM_Lock();
