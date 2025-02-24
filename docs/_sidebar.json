@@ -60,6 +60,7 @@
                 "items": [
                     { "text": "Customizing Functionality", "link": "/custom_quantum_functions" },
                     { "text": "Driver Installation with Zadig", "link": "/driver_installation_zadig" },
+                    { "text": "Community Modules", "link": "/features/community_modules" },
                     { "text": "Keymap Overview", "link": "/keymap" },
                     {
                         "text": "Development Environments",
