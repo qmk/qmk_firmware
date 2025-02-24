@@ -12,7 +12,6 @@ Practically, this means QMK merges the `develop` branch into the `master` branch
 
 * [2025 Feb 23](ChangeLog/20250223)
 * [2024 Nov 24](ChangeLog/20241124)
-* [2024 Nov 24](ChangeLog/20241124)
 * [2024 Aug 25](ChangeLog/20240825)
 * [Older Breaking Changes](breaking_changes_history)
 
