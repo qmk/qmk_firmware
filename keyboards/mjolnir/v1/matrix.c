@@ -136,7 +136,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         changed |= read_cols_on_row(current_matrix, current_row);
     }
     // Set col, read rows
-    for (uint8_t current_col = 0; current_col < MATRIX_COLS/2; current_col++) {
+    for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
         changed |= read_rows_on_col(current_matrix, current_col);
     }
     
