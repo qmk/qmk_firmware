@@ -135,6 +135,8 @@ Community Modules may provide specializations for the following APIs:
 | `shutdown`                 | `shutdown_<module>`                 | `shutdown_hello_world`                 | 20250122    |
 | `process_detected_host_os` | `process_detected_host_os_<module>` | `process_detected_host_os_hello_world` | 20250122    |
 
-All APIs are disregarded if a Community Module does not provide a specialization for it.
+::: info
+An unspecified API is disregarded if a Community Module does not provide a specialization for it.
+:::
 
 Each API has an equivalent `_<module>_kb()` and `_<module>_user()` hook, as per the normal QMK [`_quantum`, `_kb`, and `_user` functions](/custom_quantum_functions#a-word-on-core-vs-keyboards-vs-keymap).
