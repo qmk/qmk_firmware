@@ -62,12 +62,16 @@ void eeprom_driver_erase(void) {
     STM32_L0_L1_EEPROM_Unlock();
 
     for (size_t offset = 0; offset < STM32_ONBOARD_EEPROM_SIZE; offset += sizeof(uint32_t)) {
+#ifdef QMK_MCU_SERIES_STM32L0XX
         FLASH->PECR |= FLASH_PECR_ERASE | FLASH_PECR_DATA;
+#endif
 
         *(__IO uint32_t *)EEPROM_ADDR(offset) = (uint32_t)0;
 
         STM32_L0_L1_EEPROM_WaitNotBusy();
+#ifdef QMK_MCU_SERIES_STM32L0XX
         FLASH->PECR &= ~(FLASH_PECR_ERASE | FLASH_PECR_DATA);
+#endif
     }
 
     STM32_L0_L1_EEPROM_Lock();
