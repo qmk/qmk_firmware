@@ -97,21 +97,11 @@ endif
 
 
 # Pull in rules.mk files from all our subfolders
-ifneq ("$(wildcard $(KEYBOARD_PATH_5)/rules.mk)","")
-    include $(KEYBOARD_PATH_5)/rules.mk
-endif
-ifneq ("$(wildcard $(KEYBOARD_PATH_4)/rules.mk)","")
-    include $(KEYBOARD_PATH_4)/rules.mk
-endif
-ifneq ("$(wildcard $(KEYBOARD_PATH_3)/rules.mk)","")
-    include $(KEYBOARD_PATH_3)/rules.mk
-endif
-ifneq ("$(wildcard $(KEYBOARD_PATH_2)/rules.mk)","")
-    include $(KEYBOARD_PATH_2)/rules.mk
-endif
-ifneq ("$(wildcard $(KEYBOARD_PATH_1)/rules.mk)","")
-    include $(KEYBOARD_PATH_1)/rules.mk
-endif
+-include $(KEYBOARD_PATH_5)/rules.mk
+-include $(KEYBOARD_PATH_4)/rules.mk
+-include $(KEYBOARD_PATH_3)/rules.mk
+-include $(KEYBOARD_PATH_2)/rules.mk
+-include $(KEYBOARD_PATH_1)/rules.mk
 
 MAIN_KEYMAP_PATH_1 := $(KEYBOARD_PATH_1)/keymaps/$(KEYMAP)
 MAIN_KEYMAP_PATH_2 := $(KEYBOARD_PATH_2)/keymaps/$(KEYMAP)
@@ -446,21 +436,11 @@ ifneq ("$(CONVERTER)","")
 endif
 
 # Pull in post_rules.mk files from all our subfolders
-ifneq ("$(wildcard $(KEYBOARD_PATH_1)/post_rules.mk)","")
-    include $(KEYBOARD_PATH_1)/post_rules.mk
-endif
-ifneq ("$(wildcard $(KEYBOARD_PATH_2)/post_rules.mk)","")
-    include $(KEYBOARD_PATH_2)/post_rules.mk
-endif
-ifneq ("$(wildcard $(KEYBOARD_PATH_3)/post_rules.mk)","")
-    include $(KEYBOARD_PATH_3)/post_rules.mk
-endif
-ifneq ("$(wildcard $(KEYBOARD_PATH_4)/post_rules.mk)","")
-    include $(KEYBOARD_PATH_4)/post_rules.mk
-endif
-ifneq ("$(wildcard $(KEYBOARD_PATH_5)/post_rules.mk)","")
-    include $(KEYBOARD_PATH_5)/post_rules.mk
-endif
+-include $(KEYBOARD_PATH_1)/post_rules.mk
+-include $(KEYBOARD_PATH_2)/post_rules.mk
+-include $(KEYBOARD_PATH_3)/post_rules.mk
+-include $(KEYBOARD_PATH_4)/post_rules.mk
+-include $(KEYBOARD_PATH_5)/post_rules.mk
 
 ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
     CONFIG_H += $(KEYMAP_PATH)/config.h
