@@ -26,6 +26,7 @@ def module_api_list():
     module_definition_jsons = [json_load(f) for f in module_definition_files]
     module_definitions = merge_ordered_dicts(module_definition_jsons)
     latest_module_version = module_definition_files[-1].stem
+    latest_module_version_parts = latest_module_version.split('.')
 
     api_list = []
     for name, mod in module_definitions.items():
@@ -38,7 +39,7 @@ def module_api_list():
             header=mod.get('header', None),
         ))
 
-    return api_list, latest_module_version
+    return api_list, latest_module_version, latest_module_version_parts[0], latest_module_version_parts[1], latest_module_version_parts[2]
 
 
 def find_available_module_paths():

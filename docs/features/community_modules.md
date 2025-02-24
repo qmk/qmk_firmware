@@ -103,7 +103,7 @@ Other files intended to be included must use the normal method of `SRC += my_fil
 :::
 
 ::: tip
-This file should use `ASSERT_COMMUNITY_MODULES_MIN_API_VERSION(20250122);` to enforce a minimum version of the API that it requires, ensuring the Community Module is built with a compatible version of QMK. The list of APIs and corresponding version is given at the bottom of this document.
+This file should use `ASSERT_COMMUNITY_MODULES_MIN_API_VERSION(1,0,0);` to enforce a minimum version of the API that it requires, ensuring the Community Module is built with a compatible version of QMK. The list of APIs and corresponding version is given at the bottom of this document. Note the use of commas instead of periods.
 :::
 
 ### `introspection.c` / `introspection.h`
@@ -124,16 +124,16 @@ Community Modules may provide specializations for the following APIs:
 
 | Base API                   | API Format                          | Example (`hello_world` module)         | API Version |
 |----------------------------|-------------------------------------|----------------------------------------|-------------|
-| `keyboard_pre_init`        | `keyboard_pre_init_<module>`        | `keyboard_pre_init_hello_world`        | 20250101    |
-| `keyboard_post_init`       | `keyboard_post_init_<module>`       | `keyboard_post_init_hello_world`       | 20250101    |
-| `pre_process_record`       | `pre_process_record_<module>`       | `pre_process_record_hello_world`       | 20250101    |
-| `process_record`           | `process_record_<module>`           | `process_record_hello_world`           | 20250101    |
-| `post_process_record`      | `post_process_record_<module>`      | `post_process_record_hello_world`      | 20250101    |
-| `housekeeping_task`        | `housekeeping_task_<module>`        | `housekeeping_task_hello_world`        | 20250122    |
-| `suspend_power_down`       | `suspend_power_down_<module>`       | `suspend_power_down_hello_world`       | 20250122    |
-| `suspend_wakeup_init`      | `suspend_wakeup_init_<module>`      | `suspend_wakeup_init_hello_world`      | 20250122    |
-| `shutdown`                 | `shutdown_<module>`                 | `shutdown_hello_world`                 | 20250122    |
-| `process_detected_host_os` | `process_detected_host_os_<module>` | `process_detected_host_os_hello_world` | 20250122    |
+| `keyboard_pre_init`        | `keyboard_pre_init_<module>`        | `keyboard_pre_init_hello_world`        | `0.1.0`     |
+| `keyboard_post_init`       | `keyboard_post_init_<module>`       | `keyboard_post_init_hello_world`       | `0.1.0`     |
+| `pre_process_record`       | `pre_process_record_<module>`       | `pre_process_record_hello_world`       | `0.1.0`     |
+| `process_record`           | `process_record_<module>`           | `process_record_hello_world`           | `0.1.0`     |
+| `post_process_record`      | `post_process_record_<module>`      | `post_process_record_hello_world`      | `0.1.0`     |
+| `housekeeping_task`        | `housekeeping_task_<module>`        | `housekeeping_task_hello_world`        | `1.0.0`     |
+| `suspend_power_down`       | `suspend_power_down_<module>`       | `suspend_power_down_hello_world`       | `1.0.0`     |
+| `suspend_wakeup_init`      | `suspend_wakeup_init_<module>`      | `suspend_wakeup_init_hello_world`      | `1.0.0`     |
+| `shutdown`                 | `shutdown_<module>`                 | `shutdown_hello_world`                 | `1.0.0`     |
+| `process_detected_host_os` | `process_detected_host_os_<module>` | `process_detected_host_os_hello_world` | `1.0.0`     |
 
 ::: info
 An unspecified API is disregarded if a Community Module does not provide a specialization for it.

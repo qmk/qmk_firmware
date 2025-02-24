@@ -132,7 +132,7 @@ def generate_community_modules_h(cli):
     if cli.args.output and cli.args.output.name == '-':
         cli.args.output = None
 
-    api_list, api_version = module_api_list()
+    api_list, api_version, ver_major, ver_minor, ver_patch = module_api_list()
 
     lines = [
         GPL2_HEADER_C_LIKE,
@@ -142,8 +142,9 @@ def generate_community_modules_h(cli):
         '#include <stdbool.h>',
         '#include <keycodes.h>',
         '',
-        f'#define COMMUNITY_MODULES_API_VERSION {api_version}',
-        f'#define ASSERT_COMMUNITY_MODULES_MIN_API_VERSION(x) _Static_assert((x) <= COMMUNITY_MODULES_API_VERSION, "Community module requires higher version of QMK modules API -- needs: " #x ", current: {api_version}.")',
+        '#define COMMUNITY_MODULES_API_VERSION_BUILDER(ver_major,ver_minor,ver_patch) ((((ver_major)&0xFF) << 24) | (((ver_minor)&0xFF) << 16) | ((ver_patch)&0xFF))',
+        f'#define COMMUNITY_MODULES_API_VERSION COMMUNITY_MODULES_API_VERSION_BUILDER({ver_major},{ver_minor},{ver_patch})',
+        f'#define ASSERT_COMMUNITY_MODULES_MIN_API_VERSION(ver_major,ver_minor,ver_patch) _Static_assert(COMMUNITY_MODULES_API_VERSION_BUILDER(ver_major,ver_minor,ver_patch) <= COMMUNITY_MODULES_API_VERSION, "Community module requires a newer version of QMK modules API -- needs: " #ver_major "." #ver_minor "." #ver_patch ", current: {api_version}.")',
         '',
         'typedef struct keyrecord_t keyrecord_t; // forward declaration so we don\'t need to include quantum.h',
         '',
@@ -182,7 +183,7 @@ def generate_community_modules_c(cli):
     if cli.args.output and cli.args.output.name == '-':
         cli.args.output = None
 
-    api_list, api_version = module_api_list()
+    api_list, _, _, _, _ = module_api_list()
 
     lines = [
         GPL2_HEADER_C_LIKE,
