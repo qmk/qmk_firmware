@@ -119,7 +119,7 @@
     "split": {
         "enabled": true,
         "handedness": {
-            "pin": "GP24"
+            "pin": "GP20"
         },
         "matrix_pins": {
             "right": {
