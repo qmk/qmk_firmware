@@ -3,6 +3,8 @@
 #include "../__init__.h"
 
 // GENERAL
+#define KC_TLDA S(KC_GRAVE)
+
 #define OS_LGUI OSM(MOD_LGUI)
 #define OS_LALT OSM(MOD_LALT)
 #define OS_LCTL OSM(MOD_LCTL)

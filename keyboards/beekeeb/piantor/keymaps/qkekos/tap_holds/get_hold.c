@@ -7,7 +7,7 @@ struct HoldKey {
     int *hold_keys;
 };
 
-int media_hold_keys[] = { KC_DOT, KC_SLSH, KC_NO };
+int media_hold_keys[] = { KC_DOT, KC_SLSH, TD_COLN, KC_NO };
 int nav_hold_keys[] = { KC_COMM, KC_DOT, KC_SLSH, TH_FUNC, KC_NO };
 
 int nav_eng_hold_keys[] = { KC_J, KC_NO };
@@ -29,6 +29,10 @@ int shift_hold_keys[] = {
 
 int shift_eng_hold_keys[] = {
     KC_COMM, KC_DOT, KC_NO
+};
+
+int game_hold_keys[] = {
+    KC_PGDN, KC_NO
 };
 
 struct HoldKey hold_keys[] = {
@@ -60,6 +64,9 @@ struct HoldKey hold_keys[] = {
     {TH_REP, ENG, nav_eng_hold_keys},
     {TH_REP, RU,  nav_ru_hold_keys},
     {TH_REP, UA,  nav_ru_hold_keys},
+    
+    // GAME
+    {HR_F5, ANY, game_hold_keys},
 
     // TERMINATOR
     {KC_NO, ANY, NULL},

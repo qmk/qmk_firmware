@@ -118,14 +118,8 @@ void arr_td(tap_dance_state_t *state, void *user_data) {
             send_lang_independant_string("() => {");
             execute_without_mods(tap_code(KC_ENT));
         },
-        {
-            send_lang_independant_string("{{  }}");
-            execute_without_mods(multi_tap(KC_LEFT, 3));
-        },
-        {
-            send_lang_independant_string("{%  %}");
-            execute_without_mods(multi_tap(KC_LEFT, 3));
-        },
+        send_lang_independant_string("{{"),
+        send_lang_independant_string("{%"),
         send_lang_independant_string("=>")
     );
 }

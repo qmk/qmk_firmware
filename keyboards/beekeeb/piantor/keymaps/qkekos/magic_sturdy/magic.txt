@@ -9,24 +9,12 @@
 
 //REGEX_START
 
-// -------------------------------------@i@-------------------------------------
+// -------------------------------------ing-------------------------------------
 
-bbg           -> bbing
-ddg           -> dding
-eeg           -> eeing
-ffg           -> ffing
-ggg           -> gging
-kkg           -> kking
-llg           -> lling
-mmg           -> mming
-nng           -> nning
-rrg           -> rring
-ssg           -> ssing
-ttg           -> tting
-zzg           -> zzing
+[bdefgklmnrstz]\1g -> \1\1ing
+// [aoeuibdz]\1∇g     -> \1\1⑴ing
 
 ppn           -> pping
-
 eang          -> eaning
 
 // --------------------------------------'--------------------------------------
@@ -58,6 +46,7 @@ _w@l          -> we'll
 _w@v          -> we've
 
 _wont         -> won't
+_whov         -> who've
 _whats        -> what's
 _wasnt        -> wasn't
 _werent       -> weren't
@@ -102,10 +91,10 @@ _a@q          -> actually
 _a@t          -> accurate
 _a@ty         -> accurately
 
-_asl          -> ascend
-_asle         -> ascended
-_aslo         -> ascension
-_asln         -> ascending
+_asj          -> ascend
+_asjd         -> ascended
+_asjq         -> ascension
+_asjg         -> ascending
 
 _adj*         -> adjust
 _adj*d        -> adjusted
@@ -184,11 +173,13 @@ _b@w          -> between
 _b@s          -> business
 _b@v          -> behavior
 _b@mg         -> becoming
+_b@vj         -> behaviors
 _b@ps         -> bypassing
 
 _bc@          -> bunch
 _byq          -> bypass
 _bud*         -> budget
+_b*           -> beautiful
 
 // --------------------------------------C--------------------------------------
 
@@ -197,8 +188,8 @@ _bud*         -> budget
 c*            -> cy
 _c@           -> con
 
-_coq          -> copy
-_coq@         -> copying
+_cq           -> copy
+_cqn          -> copying
 
 _col*         -> column
 _col*@        -> columnar
@@ -258,6 +249,11 @@ _c@qi         -> constrain
 _c@e          -> confuse
 _c@el         -> confusing
 _c@eq         -> confusion
+
+_c@tj         -> continue
+_c@tjg        -> continuing
+_c@tj*        -> continuous
+_c@tj*y       -> continuously
 
 _c@qu         -> constsruct
 _c@quo        -> constsructor
@@ -373,6 +369,7 @@ _d@u          -> difficult
 
 _dred*        -> dredge
 _de*          -> default
+_datet        -> datetime
 _demo*        -> democracy
 _downj        -> downwards
 _del@         -> deflation
@@ -417,6 +414,10 @@ _ev*w         -> everywhere
 _e@t          -> exact
 _e@ta         -> extra
 _e@ty         -> exactly
+
+_emp@         -> empower
+_emp@*        -> empowered
+_emp@n        -> empowering
 
 _e@l          -> explain
 _e@ld         -> explained
@@ -481,6 +482,7 @@ _ed*          -> edge
 _e@r          -> either
 _e@g          -> enough
 _e@q          -> example
+_endq         -> endblock
 _evn@         -> eventually
 _e@y          -> especially
 _envl         -> environment
@@ -500,10 +502,15 @@ _@*           -> follow
 _@*d          -> followed
 _@*g          -> following
 
-_feq          -> frequent
-_feqc         -> frequency
-_feqy         -> frequently
-_feqs         -> frequencies
+_fiq          -> final
+_fiqy         -> finally
+_fiq@         -> finalize
+_fiqt         -> finalist
+
+_frj          -> frequent
+_frjc         -> frequency
+_frjy         -> frequently
+_frjs         -> frequencies
 
 _fj           -> fun
 _fjy          -> funny
@@ -523,6 +530,9 @@ _fgq          -> finger
 // --------------------------------------G--------------------------------------
 
 g*            -> gy
+
+gjj           -> gj
+gj            -> gic
 
 _gov*         -> govern
 _gov*@        -> government
@@ -576,6 +586,9 @@ ion*          -> ional
 _i@s          -> instead
 _i@c          -> incapable
 
+_i@*          -> include
+_i@*g         -> including
+
 _i@t          -> interest
 _i@td         -> interested
 _i@tg         -> interesting
@@ -603,11 +616,11 @@ _i@pe         -> implemented
 _i@pn         -> implementing
 _i@pt         -> implementation
 
-_iml          -> import
-_imln         -> importing
-_imla         -> important
-_imle         -> importance
-_iml@         -> importantly
+_im*          -> import
+_im*g         -> importing
+_im*@         -> important
+_im*c         -> importance
+_im*l         -> importantly
 
 _i*           -> info
 _i*m          -> inform
@@ -713,6 +726,9 @@ _nq           -> nice
 _nec@         -> necessary
 _nec@l        -> necessarily
 
+_noq          -> noone
+_noqa         -> noqa
+
 _n@d          -> need
 _n@v          -> never
 _n@t          -> nation
@@ -721,7 +737,6 @@ _n@w          -> nowhere
 _n@g          -> nothing
 _n@r          -> neither
 
-_noq          -> noone
 _nq@          -> nicer
 nat@          -> nation
 _nev*l        -> nevertheless
@@ -736,7 +751,7 @@ _or*         -> order
 _or*d        -> ordered
 
 _ot*          -> other
-_ot*@         -> otherwise
+_ot*w         -> otherwise
 
 _o*v          -> obvious
 _o*vl         -> obviously
@@ -759,6 +774,7 @@ _ov*r         -> override
 _ov*o         -> overlook
 _ov*k         -> overkill
 _ov*m         -> overtime
+_ov*j         -> overwatch
 _ov*t         -> overrated
 _ov*w         -> overwhelm
 _ov*ld        -> overloaded
@@ -773,12 +789,23 @@ _ov*wn        -> overwhelming
 p*            -> py
 pl*           -> ply
 
+_pq           -> paste
+_pq*          -> pasted
+_pqn          -> pasting
+
 _pol*         -> policy
 _pha*         -> pharmacy
 
 _ps*          -> psych
 _ps*o@        -> psychology
 _ps*a         -> psychological
+
+_p@           -> pow
+_p@e          -> power
+_p@j          -> powder
+_p@el         -> powered
+_p@u          -> powerful
+_p@l          -> powerless
 
 _pa*          -> page
 _po*          -> point
@@ -793,7 +820,7 @@ _punq         -> punctuation
 // --------------------------------------Q--------------------------------------
 
 q[aoei]       -> qu\1
-q[aoi]*       -> q\1
+q[aoei]\1     -> q\1
 
 _equa@        -> equal
 _equaly       -> equally
@@ -823,6 +850,7 @@ _enqg         -> enqueuing
 
 _q*           -> qmk
 _qol          -> qol
+_qeq          -> queen
 _quinq        -> quintessential
 
 // --------------------------------------R--------------------------------------
@@ -836,6 +864,8 @@ _rec*@        -> recycling
 
 _reqi         -> require
 _reqim        -> requirement
+_reqim*       -> requirements
+_reqim**      -> requirements.txt
 
 _rf@          -> refuse
 _rf@g         -> refusing
@@ -943,6 +973,7 @@ _st@*         -> statement
 _st@c*        -> statistics
 _st@ca        -> statistically
 
+_sq*          -> sql
 _sn@          -> seen
 _sk@          -> skill
 _sti@         -> still
@@ -1025,8 +1056,8 @@ _monkey*      -> monkeytype
 
 u*            -> ue
 
-_u@t          -> unfortunate
-_u@ty         -> unfortunately
+_ufq          -> unfortunate
+_ufqy         -> unfortunately
 
 _up*          -> update
 _ug*          -> upgrade
@@ -1073,6 +1104,7 @@ _v*l          -> versatile
 _v*l@         -> versatility
 
 _ve@          -> view
+_ve@d         -> viewed
 _(p)?re@      -> \1review
 
 _vi*          -> vision
@@ -1084,6 +1116,8 @@ _va@l         -> valuable
 _v@           -> var
 _v@o          -> various
 _v@l          -> variable
+
+_vanq         -> vanquisher
 
 // --------------------------------------W--------------------------------------
 
@@ -1117,7 +1151,7 @@ x@            -> xes
 y@            -> you
 y*            -> ying
 
-y@*           -> yourself
+_y@*          -> yourself
 
 // --------------------------------------Z--------------------------------------
 
