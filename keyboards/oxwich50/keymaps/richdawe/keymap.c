@@ -22,7 +22,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * +------+-----+-----+-----+-----+-----+-----+  +-----+-----+-----+-----+-----+-----+--------+
      * |TabL3 |  Q  |  W  |  E  |  R  |  T  |  [  |  |  ]  |  Y  |  U  |  I  |  O  |  P  |  Bspc  |
      * +-+----++----++----++----++----++----++----++ ++----++----++----++----++----++----++-----+-+
-     *   |ESCL2|  A  |  S  |  D  |  F  |  G  |  ~  |  |  -  |  H  |  J  |  K  |  L  |  ;  |  '  |
+     *   |ESCL2|  A  |  S  |  D  |  F  |  G  |  ~  |  |TogL1|  H  |  J  |  K  |  L  |  ;  |  '  |
      * +-+-----+--+--+--+--+--+--+--+--+--+--+--+--+  +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
      * |  Shift   |  Z  |  X  |  C  |  V  |  B  |        |  B  |  N  |  M  |  ,  |  .  | Up  |ShEnt|
      * +-------+--+----++-----+-----+-----+----++        ++----+-----+--+--+-----+-----+-----+-----+
@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [0] = LAYOUT(
         LT3_TAB, KC_Q,    KC_W,    KC_E,     KC_R,    KC_T,    KC_LBRC, KC_RBRC,  KC_Y,    KC_U,     KC_I,    KC_O,    KC_P,    KC_BSPC,
-        LT2_ESC, KC_A,    KC_S,    KC_D,     KC_F,    KC_G,    KC_TILD, KC_MINS,  KC_H,    KC_J,     KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+        LT2_ESC, KC_A,    KC_S,    KC_D,     KC_F,    KC_G,    KC_TILD, TG(1),    KC_H,    KC_J,     KC_K,    KC_L,    KC_SCLN, KC_QUOT,
         KC_LSFT, KC_Z,    KC_X,    KC_C,     KC_V,    KC_B,             KC_B,     KC_N,    KC_M,     KC_COMM, KC_DOT,  KC_UP,   SC_SENT,
         KC_LCTL, KC_LGUI, KC_LALT,           LT1_SPC,                             LT1_SPC,           MT_LASL, KC_LEFT, KC_DOWN, KC_RIGHT
     ),
@@ -41,9 +41,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * +------+-----+-----+-----+-----+-----+-----+  +-----+-----+-----+-----+-----+-----+--------+
      * |  .   |  1  |  2  |  3  |  4  |  5  |  [  |  |  ]  |  6  |  7  |  8  |  9  |  0  |  Bspc  |
      * +-+----++----++----++----++----++----++----++ ++----++----++----++----++----++----++-----+-+
-     *   |  :  |  !  |  "  |  #  |  $  |  %  |     |  |     |  ^  |  &  |  *  |  (  |  )  |  \  |
+     *   |  :  |  !  |  "  |  #  |  $  |  %  |     |  |TogL1|  ^  |  &  |  *  |  (  |  )  |  \  |
      * +-+-----+--+--+--+--+--+--+--+--+--+--+--+--+  +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-     * |          |  \  |  ~  |  `  |  |  |  +  |        |  -  |  !  |  =  |  [  |  ]  |PgUp |     |
+     * |          |  \  |  ~  |  `  |  |  |  -  |        |  -  |  !  |  =  |  [  |  ]  |PgUp |     |
      * +-------+--+----++-----+-----+-----+----++        ++----+-----+--+--+-----+-----+-----+-----+
      * |       |       |      |                |          |             |        |Home |PgDn | End |
      * +-------+-------+------+----------------+          +-------------+--------+-----+-----+-----+
@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [1] = LAYOUT(
         KC_DOT,  KC_1,    KC_2,    KC_3,     KC_4,    KC_5,    KC_LBRC, KC_RBRC,  KC_6,    KC_7,     KC_8,    KC_9,    KC_0,    KC_BSPC,
         KC_COLN, S(KC_1), S(KC_2), S(KC_3),  S(KC_4), S(KC_5), _______, _______,  S(KC_6), S(KC_7),  S(KC_8), S(KC_9), S(KC_0), KC_BSLS,
-        _______, KC_BSLS, KC_TILD, KC_GRV,   KC_PIPE, KC_PLUS,          KC_MINS,  S(KC_1), KC_EQL,   KC_LBRC, KC_RBRC, KC_PGUP, _______,
+        _______, KC_BSLS, KC_TILD, KC_GRV,   KC_PIPE, KC_MINS,          KC_MINS,  S(KC_1), KC_EQL,   KC_LBRC, KC_RBRC, KC_PGUP, _______,
         _______, _______, _______,           _______,                             _______,           _______, KC_HOME, KC_PGDN, KC_END
     ),
 
