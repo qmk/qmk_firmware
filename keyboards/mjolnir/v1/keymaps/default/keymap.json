@@ -1,5 +1,5 @@
 {
-  "documentation": "\"This file is a QMK Configurator export. You can import this at <https://config.qmk.fm>. It can also be used directly with QMK's source code.\n\nTo setup your QMK environment check out the tutorial: <https://docs.qmk.fm/#/newbs>\n\nYou can convert this file to a keymap.c using this command: `qmk json2c {keymap}`\n\nYou can compile this keymap using this command: `qmk compile {keymap}`\"\n",
+  "documentation": "\"This keymap was created manually. It can be used directly with QMK's source code.\n\nTo setup your QMK environment check out the tutorial: <https://docs.qmk.fm/#/newbs>\n\nYou can convert this file to a keymap.c using this command: `qmk json2c {keymap}`\n\nYou can compile this keymap using this command: `qmk compile {keymap}`\"\n",
   "keyboard": "mjolnir/v1",
   "keymap": "default",
   "layout": "LAYOUT_split_left",
@@ -44,7 +44,19 @@
 
       "KC_SPACE",
       "KC_ENTER",
-      "KC_ESCAPE"
+      "KC_ESCAPE",
+
+      "KC_LEFT_SHIFT"
+    ]
+  ],
+  "config": {
+    "features": {
+       "encoder_map": true
+    }
+  },
+  "encoders": [
+    [
+       {"ccw": "KC_VOLD", "cw": "KC_VOLU"}
     ]
   ],
   "author": "martin.liivak@gmail.com"

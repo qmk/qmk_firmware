@@ -1,3 +1,3 @@
-CUSTOM_MATRIX = lite
-SRC += encoder.c
-SRC += matrix.c
+#CUSTOM_MATRIX = lite
+#SRC += encoder.c
+#SRC += matrix.c
