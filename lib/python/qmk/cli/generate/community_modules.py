@@ -142,7 +142,7 @@ def generate_community_modules_h(cli):
         '#include <stdbool.h>',
         '#include <keycodes.h>',
         '',
-        '#define COMMUNITY_MODULES_API_VERSION_BUILDER(ver_major,ver_minor,ver_patch) ((((ver_major)&0xFF) << 24) | (((ver_minor)&0xFF) << 16) | ((ver_patch)&0xFF))',
+        '#define COMMUNITY_MODULES_API_VERSION_BUILDER(ver_major,ver_minor,ver_patch) (((((uint32_t)(ver_major))&0xFF) << 24) | ((((uint32_t)(ver_minor))&0xFF) << 16) | (((uint32_t)(ver_patch))&0xFF))',
         f'#define COMMUNITY_MODULES_API_VERSION COMMUNITY_MODULES_API_VERSION_BUILDER({ver_major},{ver_minor},{ver_patch})',
         f'#define ASSERT_COMMUNITY_MODULES_MIN_API_VERSION(ver_major,ver_minor,ver_patch) _Static_assert(COMMUNITY_MODULES_API_VERSION_BUILDER(ver_major,ver_minor,ver_patch) <= COMMUNITY_MODULES_API_VERSION, "Community module requires a newer version of QMK modules API -- needs: " #ver_major "." #ver_minor "." #ver_patch ", current: {api_version}.")',
         '',
