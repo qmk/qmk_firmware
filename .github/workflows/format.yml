@@ -10,6 +10,7 @@ on:
     - 'lib/arm_atsam/**'
     - 'lib/lib8tion/**'
     - 'lib/python/**'
+    - 'modules/**'
     - 'platforms/**'
     - 'quantum/**'
     - 'tests/**'
