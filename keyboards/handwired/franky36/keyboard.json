@@ -2,7 +2,7 @@
     "manufacturer": "Grigory Avdyushin",
     "keyboard_name": "franky36",
     "maintainer": "Grigory Avdyushin",
-    "bootloader": "atmel-dfu",
+    "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
@@ -13,15 +13,15 @@
         "nkro": true
     },
     "matrix_pins": {
-        "cols": ["D7", "C6", "B3", "D0", "D1", "B2", "B6", "B5", "B4", "E6"],
-        "rows": ["F7", "F6", "F5", "F4"]
+        "cols": ["GP9", "GP10", "GP11", "GP12", "GP13", "GP14", "GP15", "GP26", "GP27", "GP28"],
+        "rows": ["GP5", "GP4", "GP3", "GP2"]
     },
-    "processor": "atmega32u4",
+    "processor": "RP2040",
     "url": "",
     "usb": {
-        "device_version": "1.0.0",
+        "device_version": "0.2.0",
         "pid": "0x0001",
-        "vid": "0xABED"
+        "vid": "0xFEED"
     },
     "layouts": {
         "LAYOUT_ortho_4x10": {
