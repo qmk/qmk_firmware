@@ -54,10 +54,13 @@ def _check_arm_gcc_installation():
     """Returns OK if the arm-none-eabi-gcc is fully installed and can produce binaries.
     """
     with TemporaryDirectory() as temp_dir:
-        temp_file = Path(temp_dir) / 'test.elf'
+        temp_in = Path(temp_dir) / 'test.c'
+        temp_out = Path(temp_dir) / 'test.elf'
 
-        args = ['arm-none-eabi-gcc', '-mcpu=cortex-m0', '-mthumb', '-mno-thumb-interwork', '--specs=nosys.specs', '--specs=nano.specs', '-x', 'c', '-o', str(temp_file), '-']
-        result = cli.run(args, stdin=None, stdout=None, stderr=None, input='#include <newlib.h>\nint main() { return __NEWLIB__ * __NEWLIB_MINOR__ * __NEWLIB_PATCHLEVEL__; }')
+        temp_in.write_text('#include <newlib.h>\nint main() { return __NEWLIB__ * __NEWLIB_MINOR__ * __NEWLIB_PATCHLEVEL__; }', encoding='utf-8')
+
+        args = ['arm-none-eabi-gcc', '-mcpu=cortex-m0', '-mthumb', '-mno-thumb-interwork', '--specs=nosys.specs', '--specs=nano.specs', '-x', 'c', '-o', str(temp_out), str(temp_in)]
+        result = cli.run(args, stdout=None, stderr=None)
         if result.returncode == 0:
             cli.log.info('Successfully compiled using arm-none-eabi-gcc')
         else:
@@ -65,8 +68,8 @@ def _check_arm_gcc_installation():
             cli.log.error(f'Command: {" ".join(args)}')
             return CheckStatus.ERROR
 
-        args = ['arm-none-eabi-size', str(temp_file)]
-        result = cli.run(args, stdin=None, stdout=None, stderr=None)
+        args = ['arm-none-eabi-size', str(temp_out)]
+        result = cli.run(args, stdout=None, stderr=None)
         if result.returncode == 0:
             cli.log.info('Successfully tested arm-none-eabi-binutils using arm-none-eabi-size')
         else:
@@ -91,10 +94,13 @@ def _check_avr_gcc_installation():
     """Returns OK if the avr-gcc is fully installed and can produce binaries.
     """
     with TemporaryDirectory() as temp_dir:
-        temp_file = Path(temp_dir) / 'test.elf'
+        temp_in = Path(temp_dir) / 'test.c'
+        temp_out = Path(temp_dir) / 'test.elf'
 
-        args = ['avr-gcc', '-mmcu=atmega32u4', '-x', 'c', '-o', str(temp_file), '-']
-        result = cli.run(args, stdin=None, stdout=None, stderr=None, input='int main() { return 0; }')
+        temp_in.write_text('int main() { return 0; }', encoding='utf-8')
+
+        args = ['avr-gcc', '-mmcu=atmega32u4', '-x', 'c', '-o', str(temp_out), str(temp_in)]
+        result = cli.run(args, stdout=None, stderr=None)
         if result.returncode == 0:
             cli.log.info('Successfully compiled using avr-gcc')
         else:
@@ -102,8 +108,8 @@ def _check_avr_gcc_installation():
             cli.log.error(f'Command: {" ".join(args)}')
             return CheckStatus.ERROR
 
-        args = ['avr-size', str(temp_file)]
-        result = cli.run(args, stdin=None, stdout=None, stderr=None)
+        args = ['avr-size', str(temp_out)]
+        result = cli.run(args, stdout=None, stderr=None)
         if result.returncode == 0:
             cli.log.info('Successfully tested avr-binutils using avr-size')
         else:
