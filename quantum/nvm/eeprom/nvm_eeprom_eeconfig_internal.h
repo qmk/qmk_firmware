@@ -5,6 +5,7 @@
 #include <stdint.h>
 #include <stddef.h> // offsetof
 #include "eeconfig.h"
+#include "util.h"
 
 // Dummy struct only used to calculate offsets
 typedef struct PACKED {

@@ -25,16 +25,10 @@
 #    define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR (TOTAL_EEPROM_BYTE_COUNT - 1)
 #endif
 
-#if DYNAMIC_KEYMAP_EEPROM_MAX_ADDR > (TOTAL_EEPROM_BYTE_COUNT - 1)
-#    pragma message STR(DYNAMIC_KEYMAP_EEPROM_MAX_ADDR) " > " STR((TOTAL_EEPROM_BYTE_COUNT - 1))
-#    error DYNAMIC_KEYMAP_EEPROM_MAX_ADDR is configured to use more space than what is available for the selected EEPROM driver
-#endif
+_Static_assert(DYNAMIC_KEYMAP_EEPROM_MAX_ADDR <= (TOTAL_EEPROM_BYTE_COUNT - 1), "DYNAMIC_KEYMAP_EEPROM_MAX_ADDR is configured to use more space than what is available for the selected EEPROM driver");
 
 // Due to usage of uint16_t check for max 65535
-#if DYNAMIC_KEYMAP_EEPROM_MAX_ADDR > 65535
-#    pragma message STR(DYNAMIC_KEYMAP_EEPROM_MAX_ADDR) " > 65535"
-#    error DYNAMIC_KEYMAP_EEPROM_MAX_ADDR must be less than 65536
-#endif
+_Static_assert(DYNAMIC_KEYMAP_EEPROM_MAX_ADDR <= 65535, "DYNAMIC_KEYMAP_EEPROM_MAX_ADDR must be less than 65536");
 
 // If DYNAMIC_KEYMAP_EEPROM_ADDR not explicitly defined in config.h,
 #ifndef DYNAMIC_KEYMAP_EEPROM_ADDR
