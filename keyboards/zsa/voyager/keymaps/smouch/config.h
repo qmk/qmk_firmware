@@ -3,7 +3,7 @@
   See config.h options at https://docs.qmk.fm/#/config_options?id=the-configh-file
 */
 
-#define COMBO_TERM 25
+#define COMBO_TERM 30
 // #define COMBO_TERM_PER_KEY   // reduce for combos that misfire on rolls
 // #define COMBO_MUST_HOLD_MODS // if a combo triggers a modifier, only trigger when the combo is held
 // #define COMBO_HOLD_TERM 200  // how long at least one of the combo keys must be held to trigger
