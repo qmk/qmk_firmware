@@ -1,2 +1,1 @@
-USE_CHIBIOS_CONTRIB = yes
 EEPROM_DRIVER = transient
