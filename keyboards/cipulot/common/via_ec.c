@@ -13,7 +13,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "eeprom_tools.h"
 #include "ec_switch_matrix.h"
 #include "action.h"
 #include "print.h"
