@@ -72,6 +72,8 @@ static volatile struct usb_device_state maxprev_usb_device_state = {.configure_s
 static volatile bool         debouncing = false;
 static volatile fast_timer_t last_time  = 0;
 
+bool process_detected_host_os_modules(os_variant_t os);
+
 void os_detection_task(void) {
 #ifdef OS_DETECTION_KEYBOARD_RESET
     // resetting the keyboard on the USB device state change callback results in instability, so delegate that to this task
@@ -96,10 +98,15 @@ void os_detection_task(void) {
             if (detected_os != reported_os || first_report) {
                 first_report = false;
                 reported_os  = detected_os;
+                process_detected_host_os_modules(detected_os);
                 process_detected_host_os_kb(detected_os);
             }
         }
     }
+}
+
+__attribute__((weak)) bool process_detected_host_os_modules(os_variant_t os) {
+    return true;
 }
 
 __attribute__((weak)) bool process_detected_host_os_kb(os_variant_t detected_os) {
