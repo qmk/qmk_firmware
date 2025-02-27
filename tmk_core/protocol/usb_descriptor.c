@@ -332,6 +332,191 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
 #    endif
 #endif
 
+#ifdef FRAMEWORK_TOUCHPAD_ENABLE
+#    ifndef FRAMEWORK_TOUCHPAD_SHARED_EP
+const USB_Descriptor_HIDReport_Datatype_t PROGMEM TouchPadReport[] = {
+#    elif !defined(SHARED_REPORT_STARTED)
+const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
+#        define SHARED_REPORT_STARTED
+#    endif
+    HID_RI_USAGE_PAGE(8, 0x0D),        // Usage Page (Digitizer)
+    HID_RI_USAGE(8, 0x05),        // Usage (Touch Pad)
+    HID_RI_COLLECTION(8, 0x01),        // Collection (Application)
+#    ifdef FRAMEWORK_TOUCHPAD_SHARED_EP
+        HID_RI_REPORT_ID(8, REPORT_ID_FRAMEWORK_TOUCHPAD),
+#    endif
+
+#define FINGER(FINGER_NUMBER)                                                                                                                                                                                                                                   \
+        HID_RI_USAGE_PAGE(8, 0x0D),        /* Usage Page (Digitizer) */                                                                                                                                                                                         \
+        HID_RI_USAGE(8, 0x22),        /* Usage (Finger) */                                                                                                                                                                                                      \
+        HID_RI_COLLECTION(8, 0x02),        /* Collection (Logical) */                                                                                                                                                                                           \
+            HID_RI_USAGE(8, 0x47),        /* Usage (0x47) */                                                                                                                                                                                                    \
+            HID_RI_USAGE(8, 0x42),        /* Usage (Tip Switch) */                                                                                                                                                                                              \
+            HID_RI_LOGICAL_MINIMUM(8, 0x00),        /* Logical Minimum (0) */                                                                                                                                                                                   \
+            HID_RI_LOGICAL_MAXIMUM(8, 0x01),        /* Logical Maximum (1) */                                                                                                                                                                                   \
+            HID_RI_REPORT_SIZE(8, 0x01),        /* Report Size (1) */                                                                                                                                                                                           \
+            HID_RI_REPORT_COUNT(8, 0x02),        /* Report Count (2) */                                                                                                                                                                                         \
+            HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NO_WRAP | HID_IOF_LINEAR | HID_IOF_PREFERRED_STATE | HID_IOF_NO_NULL_POSITION),        /* Input (Data,Var,Abs,No Wrap,Linear,Preferred State,No Null Position) */      \
+            HID_RI_REPORT_COUNT(8, 0x06),        /* Report Count (6) */                                                                                                                                                                                         \
+            HID_RI_INPUT(8, HID_IOF_CONSTANT | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NO_WRAP | HID_IOF_LINEAR | HID_IOF_PREFERRED_STATE | HID_IOF_NO_NULL_POSITION),        /* Input (Const,Var,Abs,No Wrap,Linear,Preferred State,No Null Position) */ \
+            HID_RI_USAGE(8, 0x51),        /* Usage (0x51) */                                                                                                                                                                                                    \
+            HID_RI_LOGICAL_MAXIMUM(8, 0x0F),        /* Logical Maximum (15) */                                                                                                                                                                                  \
+            HID_RI_REPORT_SIZE(8, 0x08),        /* Report Size (8) */                                                                                                                                                                                           \
+            HID_RI_REPORT_COUNT(8, 0x01),        /* Report Count (1) */                                                                                                                                                                                         \
+            HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NO_WRAP | HID_IOF_LINEAR | HID_IOF_PREFERRED_STATE | HID_IOF_NO_NULL_POSITION),        /* Input (Data,Var,Abs,No Wrap,Linear,Preferred State,No Null Position) */      \
+            HID_RI_USAGE_PAGE(8, 0x01),        /* Usage Page (Generic Desktop Ctrls) */                                                                                                                                                                         \
+            HID_RI_USAGE(8, 0x30),        /* Usage (X) */                                                                                                                                                                                                       \
+            HID_RI_REPORT_SIZE(8, 0x10),        /* Report Size (16) */                                                                                                                                                                                          \
+            HID_RI_UNIT_EXPONENT(8, 0x0E),        /* Unit Exponent (-2) */                                                                                                                                                                                      \
+            HID_RI_UNIT(8, 0x11),        /* Unit (System: SI Linear, Length: Centimeter) */                                                                                                                                                                     \
+            HID_RI_PHYSICAL_MINIMUM(8, 0x00),        /* Physical Minimum (0) */                                                                                                                                                                                 \
+            HID_RI_PHYSICAL_MAXIMUM(16, 0x045A),  /* Physical Maximum (1114) */                                                                                                                                                                             \
+            HID_RI_LOGICAL_MAXIMUM(32, 0x00000539),  /* Logical Maximum (1336) */                                                                                                                                                                               \
+            HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NO_WRAP | HID_IOF_LINEAR | HID_IOF_PREFERRED_STATE | HID_IOF_NO_NULL_POSITION),        /* Input (Data,Var,Abs,No Wrap,Linear,Preferred State,No Null Position) */      \
+            HID_RI_USAGE(8, 0x31),        /* Usage (Y) */                                                                                                                                                                                                       \
+            HID_RI_PHYSICAL_MAXIMUM(16, 0x02DA),  /* Physical Maximum (730) */                                                                                                                                                                                  \
+            HID_RI_LOGICAL_MAXIMUM(32, 0x0000036C),  /* Logical Maximum (875) */                                                                                                                                                                                \
+            HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NO_WRAP | HID_IOF_LINEAR | HID_IOF_PREFERRED_STATE | HID_IOF_NO_NULL_POSITION),        /* Input (Data,Var,Abs,No Wrap,Linear,Preferred State,No Null Position) */      \
+        HID_RI_END_COLLECTION(0),              /* End Collection */
+
+        FINGER(1)
+        FINGER(2)
+        FINGER(3)
+        FINGER(4)
+        FINGER(5)
+
+#undef FINGER
+
+        HID_RI_USAGE_PAGE(8, 0x0D),        //   Usage Page (Digitizer)
+        HID_RI_USAGE(8, 0x54),        //   Usage (0x54)
+        HID_RI_LOGICAL_MINIMUM(8, 0x00),        //   Logical Minimum (0)
+        HID_RI_LOGICAL_MAXIMUM(8, 0x05),        //   Logical Maximum (5)
+        HID_RI_REPORT_SIZE(8, 0x08),        //   Report Size (8)
+        HID_RI_REPORT_COUNT(8, 0x01),        //   Report Count (1)
+        HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NO_WRAP | HID_IOF_LINEAR | HID_IOF_PREFERRED_STATE | HID_IOF_NO_NULL_POSITION),        //   Input (Data,Var,Abs,No Wrap,Linear,Preferred State,No Null Position)
+        HID_RI_USAGE_PAGE(8, 0x09),        //   Usage Page (Button)
+        HID_RI_USAGE(8, 0x01),        //   Usage (0x01)
+        HID_RI_USAGE(8, 0x02),        //   Usage (0x02)
+        HID_RI_USAGE(8, 0x03),        //   Usage (0x03)
+        HID_RI_LOGICAL_MINIMUM(8, 0x00),        //   Logical Minimum (0)
+        HID_RI_LOGICAL_MAXIMUM(8, 0x01),        //   Logical Maximum (1)
+        HID_RI_REPORT_SIZE(8, 0x01),        //   Report Size (1)
+        HID_RI_REPORT_COUNT(8, 0x03),        //   Report Count (3)
+        HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NO_WRAP | HID_IOF_LINEAR | HID_IOF_PREFERRED_STATE | HID_IOF_NO_NULL_POSITION),        //   Input (Data,Var,Abs,No Wrap,Linear,Preferred State,No Null Position)
+        HID_RI_REPORT_COUNT(8, 0x05),        //   Report Count (5)
+        HID_RI_INPUT(8, HID_IOF_CONSTANT | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NO_WRAP | HID_IOF_LINEAR | HID_IOF_PREFERRED_STATE | HID_IOF_NO_NULL_POSITION),        //   Input (Const,Var,Abs,No Wrap,Linear,Preferred State,No Null Position)
+        HID_RI_USAGE_PAGE(8, 0x0D),        //   Usage Page (Digitizer)
+        HID_RI_USAGE(8, 0x56),        //   Usage (0x56)
+        HID_RI_UNIT_EXPONENT(8, 0x0C),        //   Unit Exponent (-4)
+        HID_RI_UNIT(16, 0x1001),  //   Unit (System: SI Linear, Time: Seconds)
+        HID_RI_PHYSICAL_MINIMUM(8, 0x00),        //   Physical Minimum (0)
+        HID_RI_PHYSICAL_MAXIMUM(32, 0x0000FFFF),  //   Physical Maximum (65534)
+        HID_RI_LOGICAL_MINIMUM(8, 0x00),        //   Logical Minimum (0)
+        HID_RI_LOGICAL_MAXIMUM(32, 0x0000FFFF),  //   Logical Maximum (65534)
+        HID_RI_REPORT_SIZE(8, 0x10),        //   Report Size (16)
+        HID_RI_REPORT_COUNT(8, 0x01),        //   Report Count (1)
+        HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NO_WRAP | HID_IOF_LINEAR | HID_IOF_PREFERRED_STATE | HID_IOF_NO_NULL_POSITION),        //   Input (Data,Var,Abs,No Wrap,Linear,Preferred State,No Null Position)
+        HID_RI_USAGE_PAGE(8, 0x0D),        //   Usage Page (Digitizer)
+        HID_RI_USAGE(8, 0x55),        //   Usage (0x55)
+        HID_RI_LOGICAL_MINIMUM(8, 0x00),        //   Logical Minimum (0)
+        HID_RI_LOGICAL_MAXIMUM(8, 0x05),        //   Logical Maximum (5)
+        HID_RI_REPORT_SIZE(8, 0x08),        //   Report Size (8)
+        HID_RI_REPORT_COUNT(8, 0x01),        //   Report Count (1)
+        HID_RI_REPORT_ID(8, 0x03),        //   Report ID (3)
+        HID_RI_FEATURE(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NO_WRAP | HID_IOF_LINEAR | HID_IOF_PREFERRED_STATE | HID_IOF_NO_NULL_POSITION | HID_IOF_NON_VOLATILE),        //   Feature (Data,Var,Abs,No Wrap,Linear,Preferred State,No Null Position,Non-volatile)
+        HID_RI_USAGE_PAGE(8, 0x0D),        //   Usage Page (Digitizer)
+        HID_RI_USAGE(8, 0x59),        //   Usage (0x59)
+        HID_RI_LOGICAL_MINIMUM(8, 0x00),        //   Logical Minimum (0)
+        HID_RI_LOGICAL_MAXIMUM(8, 0x0F),        //   Logical Maximum (15)
+        HID_RI_REPORT_SIZE(8, 0x08),        //   Report Size (8)
+        HID_RI_REPORT_COUNT(8, 0x01),        //   Report Count (1)
+        HID_RI_REPORT_ID(8, 0x04),        //   Report ID (4)
+        HID_RI_FEATURE(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NO_WRAP | HID_IOF_LINEAR | HID_IOF_PREFERRED_STATE | HID_IOF_NO_NULL_POSITION | HID_IOF_NON_VOLATILE),        //   Feature (Data,Var,Abs,No Wrap,Linear,Preferred State,No Null Position,Non-volatile)
+        HID_RI_USAGE_PAGE(16, 0xFF00),  //   Usage Page (Vendor Defined 0xFF00)
+        HID_RI_REPORT_ID(8, 0x05),        //   Report ID (5)
+        HID_RI_REPORT_SIZE(8, 0x08),        //   Report Size (8)
+        HID_RI_LOGICAL_MINIMUM(8, 0x00),        //   Logical Minimum (0)
+        HID_RI_USAGE(8, 0xC6),        //   Usage (0xC6)
+        HID_RI_LOGICAL_MAXIMUM(8, 0x08),        //   Logical Maximum (8)
+        HID_RI_REPORT_COUNT(8, 0x01),        //   Report Count (1)
+        HID_RI_FEATURE(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NO_WRAP | HID_IOF_LINEAR | HID_IOF_PREFERRED_STATE | HID_IOF_NO_NULL_POSITION | HID_IOF_NON_VOLATILE),        //   Feature (Data,Var,Abs,No Wrap,Linear,Preferred State,No Null Position,Non-volatile)
+        HID_RI_USAGE(8, 0xC7),        //   Usage (0xC7)
+        HID_RI_LOGICAL_MAXIMUM(16, 0x00FF),  //   Logical Maximum (255)
+        HID_RI_REPORT_COUNT(8, 0x20),        //   Report Count (32)
+        HID_RI_FEATURE(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NO_WRAP | HID_IOF_LINEAR | HID_IOF_PREFERRED_STATE | HID_IOF_NO_NULL_POSITION | HID_IOF_NON_VOLATILE),        //   Feature (Data,Var,Abs,No Wrap,Linear,Preferred State,No Null Position,Non-volatile)
+    HID_RI_END_COLLECTION(0),              // End Collection
+
+    HID_RI_USAGE_PAGE(8, 0x0D),        // Usage Page (Digitizer)
+    HID_RI_USAGE(8, 0x0E),        // Usage (0x0E)
+    HID_RI_COLLECTION(8, 0x01),        // Collection (Application)
+        HID_RI_USAGE_PAGE(8, 0x0D),        //   Usage Page (Digitizer)
+        HID_RI_USAGE(8, 0x22),        //   Usage (Finger)
+        HID_RI_COLLECTION(8, 0x02),        //   Collection (Logical)
+            HID_RI_USAGE(8, 0x52),        //     Usage (0x52)
+            HID_RI_LOGICAL_MINIMUM(8, 0x00),        //     Logical Minimum (0)
+            HID_RI_LOGICAL_MAXIMUM(8, 0x0A),        //     Logical Maximum (10)
+            HID_RI_REPORT_SIZE(8, 0x08),        //     Report Size (8)
+            HID_RI_REPORT_COUNT(8, 0x01),        //     Report Count (1)
+            HID_RI_REPORT_ID(8, 0x06),        //     Report ID (6)
+            HID_RI_FEATURE(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NO_WRAP | HID_IOF_LINEAR | HID_IOF_PREFERRED_STATE | HID_IOF_NO_NULL_POSITION | HID_IOF_NON_VOLATILE),        //     Feature (Data,Var,Abs,No Wrap,Linear,Preferred State,No Null Position,Non-volatile)
+        HID_RI_END_COLLECTION(0),              //   End Collection
+        HID_RI_USAGE_PAGE(8, 0x0D),        //   Usage Page (Digitizer)
+        HID_RI_USAGE(8, 0x22),        //   Usage (Finger)
+        HID_RI_COLLECTION(8, 0x00),        //   Collection (Physical)
+            HID_RI_USAGE(8, 0x57),        //     Usage (0x57)
+            HID_RI_USAGE(8, 0x58),        //     Usage (0x58)
+            HID_RI_LOGICAL_MINIMUM(8, 0x00),        //     Logical Minimum (0)
+            HID_RI_LOGICAL_MAXIMUM(8, 0x01),        //     Logical Maximum (1)
+            HID_RI_REPORT_SIZE(8, 0x01),        //     Report Size (1)
+            HID_RI_REPORT_COUNT(8, 0x02),        //     Report Count (2)
+            HID_RI_REPORT_ID(8, 0x07),        //     Report ID (7)
+            HID_RI_FEATURE(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NO_WRAP | HID_IOF_LINEAR | HID_IOF_PREFERRED_STATE | HID_IOF_NO_NULL_POSITION | HID_IOF_NON_VOLATILE),        //     Feature (Data,Var,Abs,No Wrap,Linear,Preferred State,No Null Position,Non-volatile)
+            HID_RI_REPORT_COUNT(8, 0x06),        //     Report Count (6)
+            HID_RI_FEATURE(8, HID_IOF_CONSTANT | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NO_WRAP | HID_IOF_LINEAR | HID_IOF_PREFERRED_STATE | HID_IOF_NO_NULL_POSITION | HID_IOF_NON_VOLATILE),        //     Feature (Const,Var,Abs,No Wrap,Linear,Preferred State,No Null Position,Non-volatile)
+        HID_RI_END_COLLECTION(0),              //   End Collection
+        HID_RI_USAGE_PAGE(8, 0x0D),        //   Usage Page (Digitizer)
+        HID_RI_USAGE(8, 0x60),        //   Usage (0x60)
+        HID_RI_LOGICAL_MINIMUM(8, 0x00),        //   Logical Minimum (0)
+        HID_RI_LOGICAL_MAXIMUM(8, 0x01),        //   Logical Maximum (1)
+        HID_RI_REPORT_SIZE(8, 0x01),        //   Report Size (1)
+        HID_RI_REPORT_COUNT(8, 0x01),        //   Report Count (1)
+        HID_RI_REPORT_ID(8, 0x08),        //   Report ID (8)
+        HID_RI_FEATURE(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NO_WRAP | HID_IOF_LINEAR | HID_IOF_PREFERRED_STATE | HID_IOF_NO_NULL_POSITION | HID_IOF_NON_VOLATILE),        //   Feature (Data,Var,Abs,No Wrap,Linear,Preferred State,No Null Position,Non-volatile)
+        HID_RI_REPORT_COUNT(8, 0x07),        //   Report Count (7)
+        HID_RI_FEATURE(8, HID_IOF_CONSTANT | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NO_WRAP | HID_IOF_LINEAR | HID_IOF_PREFERRED_STATE | HID_IOF_NO_NULL_POSITION | HID_IOF_NON_VOLATILE),        //   Feature (Const,Var,Abs,No Wrap,Linear,Preferred State,No Null Position,Non-volatile)
+    HID_RI_END_COLLECTION(0),              // End Collection
+    HID_RI_USAGE_PAGE(16, 0xFF00),  // Usage Page (Vendor Defined 0xFF00)
+    HID_RI_USAGE(8, 0x01),        // Usage (0x01)
+    HID_RI_COLLECTION(8, 0x01),        // Collection (Application)
+        HID_RI_REPORT_ID(8, 0x42),        //   Report ID (66)
+        HID_RI_USAGE(8, 0x06),        //   Usage (0x06)
+        HID_RI_LOGICAL_MINIMUM(8, 0x00),        //   Logical Minimum (0)
+        HID_RI_LOGICAL_MAXIMUM(16, 0x00FF),  //   Logical Maximum (255)
+        HID_RI_REPORT_SIZE(8, 0x08),        //   Report Size (8)
+        HID_RI_REPORT_COUNT(8, 0x03),        //   Report Count (3)
+        HID_RI_FEATURE(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NO_WRAP | HID_IOF_LINEAR | HID_IOF_PREFERRED_STATE | HID_IOF_NO_NULL_POSITION | HID_IOF_NON_VOLATILE),        //   Feature (Data,Var,Abs,No Wrap,Linear,Preferred State,No Null Position,Non-volatile)
+        HID_RI_USAGE_PAGE(16, 0xFF00),  //   Usage Page (Vendor Defined 0xFF00)
+        HID_RI_USAGE(8, 0x05),        //   Usage (0x05)
+        HID_RI_LOGICAL_MINIMUM(8, 0x00),        //   Logical Minimum (0)
+        HID_RI_LOGICAL_MAXIMUM(16, 0x00FF),  //   Logical Maximum (255)
+        HID_RI_REPORT_SIZE(8, 0x08),        //   Report Size (8)
+        HID_RI_REPORT_COUNT(16, 0x0100),  //   Report Count (256)
+        HID_RI_REPORT_ID(8, 0x41),        //   Report ID (65)
+        HID_RI_FEATURE(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NO_WRAP | HID_IOF_LINEAR | HID_IOF_PREFERRED_STATE | HID_IOF_NO_NULL_POSITION | HID_IOF_NON_VOLATILE),        //   Feature (Data,Var,Abs,No Wrap,Linear,Preferred State,No Null Position,Non-volatile)
+        HID_RI_REPORT_ID(8, 0x43),        //   Report ID (67)
+        HID_RI_USAGE(8, 0x06),        //   Usage (0x06)
+        HID_RI_LOGICAL_MINIMUM(8, 0x00),        //   Logical Minimum (0)
+        HID_RI_LOGICAL_MAXIMUM(16, 0x00FF),  //   Logical Maximum (255)
+        HID_RI_REPORT_SIZE(8, 0x08),        //   Report Size (8)
+        HID_RI_REPORT_COUNT(8, 0x03),        //   Report Count (3)
+        HID_RI_FEATURE(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NO_WRAP | HID_IOF_LINEAR | HID_IOF_PREFERRED_STATE | HID_IOF_NO_NULL_POSITION | HID_IOF_NON_VOLATILE),        //   Feature (Data,Var,Abs,No Wrap,Linear,Preferred State,No Null Position,Non-volatile)
+    HID_RI_END_COLLECTION(0),              // End Collection
+
+#    ifndef FRAMEWORK_TOUCHPAD_SHARED_EP
+};
+#    endif
+#endif
+
 #if defined(SHARED_EP_ENABLE) && !defined(SHARED_REPORT_STARTED)
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
 #endif
@@ -1063,6 +1248,46 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
         .HIDReportLength        = sizeof(DigitizerReport)
     },
     .Digitizer_INEndpoint = {
+        .Header = {
+            .Size               = sizeof(USB_Descriptor_Endpoint_t),
+            .Type               = DTYPE_Endpoint
+        },
+        .EndpointAddress        = (ENDPOINT_DIR_IN | DIGITIZER_IN_EPNUM),
+        .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
+        .EndpointSize           = DIGITIZER_EPSIZE,
+        .PollingIntervalMS      = USB_POLLING_INTERVAL_MS
+    },
+#endif
+
+#if defined(FRAMEWORK_TOUCHPAD_ENABLE) && !defined(FRAMEWORK_TOUCHPAD_SHARED_EP)
+    /*
+     * Digitizer
+     */
+    .Framework_Touchpad_Interface  = {
+        .Header = {
+            .Size               = sizeof(USB_Descriptor_Interface_t),
+            .Type               = DTYPE_Interface
+        },
+        .InterfaceNumber        = FRAMEWORK_TOUCHPAD_INTERFACE,
+        .AlternateSetting       = 0x00,
+        .TotalEndpoints         = 1,
+        .Class                  = HID_CSCP_HIDClass,
+        .SubClass               = HID_CSCP_NonBootSubclass,
+        .Protocol               = HID_CSCP_NonBootProtocol,
+        .InterfaceStrIndex      = NO_DESCRIPTOR
+    },
+    .Framework_Touchpad_HID = {
+        .Header = {
+            .Size               = sizeof(USB_HID_Descriptor_HID_t),
+            .Type               = HID_DTYPE_HID
+        },
+        .HIDSpec                = VERSION_BCD(1, 1, 1),
+        .CountryCode            = 0x00,
+        .TotalReportDescriptors = 1,
+        .HIDReportType          = HID_DTYPE_Report,
+        .HIDReportLength        = sizeof(TouchPadReport)
+    },
+    .Framework_Touchpad_INEndpoint = {
         .Header = {
             .Size               = sizeof(USB_Descriptor_Endpoint_t),
             .Type               = DTYPE_Endpoint

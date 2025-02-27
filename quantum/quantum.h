@@ -194,6 +194,10 @@ extern layer_state_t layer_state;
 #    include "digitizer.h"
 #endif
 
+#ifdef FRAMEWORK_TOUCHPAD_ENABLE
+#    include "framework_touchpad.h"
+#endif
+
 #ifdef VIA_ENABLE
 #    include "via.h"
 #endif

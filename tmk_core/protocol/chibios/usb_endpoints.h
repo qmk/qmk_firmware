@@ -82,6 +82,10 @@ typedef enum {
     USB_ENDPOINT_IN_DIGITIZER,
 #endif
 
+#if defined(FRAMEWORK_TOUCHPAD_ENABLE) && !defined(FRAMEWORK_TOUCHPAD_SHARED_EP)
+    USB_ENDPOINT_IN_FRAMEWORK_TOUCHPAD,
+#endif
+
 #if defined(CONSOLE_ENABLE)
     USB_ENDPOINT_IN_CONSOLE,
 #endif
@@ -115,6 +119,9 @@ typedef enum {
 #    endif
 #    if defined(DIGITIZER_SHARED_EP)
     USB_ENDPOINT_IN_DIGITIZER = USB_ENDPOINT_IN_SHARED,
+#    endif
+#    if defined(FRAMEWORK_TOUCHPAD_SHARED_EP)
+    USB_ENDPOINT_IN_FRAMEWORK_TOUCHPAD = USB_ENDPOINT_IN_SHARED,
 #    endif
 #endif
 } usb_endpoint_in_lut_t;

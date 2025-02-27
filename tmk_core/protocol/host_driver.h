@@ -33,4 +33,5 @@ typedef struct {
 
 void send_joystick(report_joystick_t *report);
 void send_digitizer(report_digitizer_t *report);
+void send_framework_touchpad(report_framework_touchpad_t *report);
 void send_programmable_button(report_programmable_button_t *report);

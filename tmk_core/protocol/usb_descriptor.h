@@ -144,6 +144,13 @@ typedef struct {
     USB_HID_Descriptor_HID_t   Digitizer_HID;
     USB_Descriptor_Endpoint_t  Digitizer_INEndpoint;
 #endif
+
+#if defined(FRAMEWORK_TOUCHPAD_ENABLE) && !defined(FRAMEWORK_TOUCHPAD_SHARED_EP)
+    // Touchpad HID Interface
+    USB_Descriptor_Interface_t Framework_Touchpad_Interface;
+    USB_HID_Descriptor_HID_t   Framework_Touchpad_HID;
+    USB_Descriptor_Endpoint_t  Framework_Touchpad_INEndpoint;
+#endif
 } USB_Descriptor_Configuration_t;
 
 /*
@@ -192,6 +199,10 @@ enum usb_interfaces {
 
 #if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
     DIGITIZER_INTERFACE,
+#endif
+
+#if defined(FRAMEWORK_TOUCHPAD_ENABLE) && !defined(FRAMEWORK_TOUCHPAD_SHARED_EP)
+    FRAMEWORK_TOUCHPAD_INTERFACE,
 #endif
     TOTAL_INTERFACES
 };
@@ -264,6 +275,14 @@ enum usb_endpoints {
 
 #ifdef DIGITIZER_ENABLE
 #    if !defined(DIGITIZER_SHARED_EP)
+    DIGITIZER_IN_EPNUM = NEXT_EPNUM,
+#    else
+#        define DIGITIZER_IN_EPNUM SHARED_IN_EPNUM
+#    endif
+#endif
+
+#ifdef FRAMEWORK_TOUCHPAD_ENABLE
+#    if !defined(FRAMEWORK_TOUCHPAD_SHARED_EP)
     DIGITIZER_IN_EPNUM = NEXT_EPNUM,
 #    else
 #        define DIGITIZER_IN_EPNUM SHARED_IN_EPNUM
