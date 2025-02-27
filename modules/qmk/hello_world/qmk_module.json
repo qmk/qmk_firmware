@@ -2,6 +2,7 @@
     "module_name": "Hello World",
     "maintainer": "QMK Maintainers",
     "features": {
+        "console": true,
         "deferred_exec": true
     },
     "keycodes": [
