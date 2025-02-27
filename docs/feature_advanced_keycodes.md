@@ -13,6 +13,7 @@ These allow you to combine a modifier with a keycode. When pressed, the keydown 
 |`RALT(kc)`|`ROPT(kc)`, `ALGR(kc)`            |Hold Right Alt and press `kc`                         |
 |`RGUI(kc)`|`RCMD(kc)`, `RWIN(kc)`            |Hold Right GUI and press `kc`                         |
 |`LSG(kc)` |`SGUI(kc)`, `SCMD(kc)`, `SWIN(kc)`|Hold Left Shift and GUI and press `kc`                |
+|`LCS(kc)` |                                  |Hold Left Shift and Left Ctonrol and Press `kc`       |
 |`LAG(kc)` |                                  |Hold Left Alt and Left GUI and press `kc`             |
 |`RSG(kc)` |                                  |Hold Right Shift and Right GUI and press `kc`         |
 |`RAG(kc)` |                                  |Hold Right Alt and Right GUI and press `kc`           |
