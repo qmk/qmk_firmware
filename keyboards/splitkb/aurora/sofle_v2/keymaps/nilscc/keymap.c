@@ -103,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,     KC_Q,       KC_W,       KC_F,       KC_P,       KC_B,                               KC_J,       KC_L,       KC_U,       RALT_Y,     KC_QUOT,    KC_DEL,
         KC_GRV,     KC_A,       KC_R,       SFT_S,      CTL_T_,     KC_G,                               KC_M,       CTL_N,      SFT_E,      KC_I,       KC_O,       KC_SCLN,
         KC_LSFT,    KC_Z,       KC_X,       KC_C,       KC_D,       KC_V,       XXXXXXX,    XXXXXXX,    KC_K,       KC_H,       KC_COMM,    KC_DOT,     KC_SLSH,    KC_RSFT,
-                                KC_LGUI,    KC_LALT,    KC_TAB,     NUM_SPC,    KC_ESC,     SYM_ENT,    NAV_BS,     KC_DEL,     KC_RALT,    KC_RGUI
+                                KC_LGUI,    KC_LALT,    KC_ESC,     NUM_SPC,    KC_ESC,     SYM_ENT,    NAV_BS,     KC_DEL,     KC_RALT,    KC_RGUI
     ),
 
     // abyssal nordrassil with basic repeat key (no arcane). also shifted z into left hand and moved x
@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,     Q,          Y,          O,          U,          KC_MINS,                            J,          G,          N,          W,          K,          KC_DEL,
         KC_GRV,     H,          I,          LSFT_T(E),  LCTL_T(A),  KC_DOT,                             P,          RCTL_T(D),  RSFT_T(R),  S,          L,          KC_SLSH,
         KC_LSFT,    Z,          X,          KC_QUOT,    KC_COMM,    KC_SCLN,    XXXXXXX,    XXXXXXX,    B,          C,          M,          F,          V,          KC_RSFT,
-                                KC_LGUI,    KC_LALT,    KC_TAB,     NUM_SPC,    QK_REP,     SYM_T,      NAV_BS,     KC_DEL,     KC_RALT,    KC_RGUI
+                                KC_LGUI,    KC_LALT,  RALT_T(KC_ESC), NUM_SPC,  QK_REP,     SYM_T,      NAV_BS,     LALT_T(KC_DEL), KC_LALT, KC_RGUI
     ),
 
     //
@@ -128,9 +128,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //
 
     [_NUMBERS] = LAYOUT(
-        _______,    _______,    _______,    _______,    _______,    _______,                            _______,    _______,    _______,    _______,    _______,    _______,
-        _______,    _______,    _______,    _______,    _______,    _______,                            _______,    KC_7,       KC_8,       KC_9,       _______,    _______,
-        _______,    KC_LGUI,    KC_LALT,    KC_LSFT,    KC_LCTL,    _______,                            _______,    KC_4,       KC_5,       KC_6,       _______,    _______,
+        _______,    KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,                              KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,     KC_F11,
+        _______,    _______,    _______,    _______,    _______,    _______,                            _______,    KC_7,       KC_8,       KC_9,       _______,    KC_F12,
+        _______,    KC_LGUI,    KC_LALT,    KC_LSFT,    KC_LCTL,    KC_PSCR,                            _______,    KC_4,       KC_5,       KC_6,       _______,    _______,
         _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    KC_1,       KC_2,       KC_3,       _______,    _______,
                                 _______,    _______,    _______,    _______,    _______,    _______,    _______,    KC_0,       _______,    _______
     ),
@@ -155,8 +155,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,    _______,    _______,    _______,    _______,    _______,                            _______,    _______,    _______,    _______,    _______,    _______,
         _______,    _______,    _______,    KC_LBRC,    KC_RBRC,    KC_PLUS,                            _______,    _______,    _______,    _______,    _______,    _______,
         _______,    _______,    KC_BSLS,    KC_LPRN,    KC_RPRN,    KC_MINS,                            _______,    KC_LCTL,    KC_LSFT,    KC_LALT,    KC_LGUI,    _______,
-        _______,    _______,    _______,    KC_LCBR,    KC_RCBR,    KC_EQL,     _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
-                                _______,    _______,    KC_QUOT,    KC_ESC,     KC_ENT,     _______,    _______,    _______,    _______,    _______
+        _______,    _______,    _______,    KC_LCBR,    KC_RCBR,    KC_EQL,     _______,    _______,    _______,    KC_COLN,    _______,    _______,    _______,    _______,
+                                _______,    _______,    KC_QUOT,    KC_TAB,     KC_ENT,     _______,    _______,    _______,    _______,    _______
     ),
 
     //
