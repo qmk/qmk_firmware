@@ -30,11 +30,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_SYM] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      KC_TRNS,  KC_ESC, UK_LBRC,  UK_LCBR,  UK_LPRN,  TILDA,                      UK_CIRC, UK_RPRN, UK_RCBR, UK_RBRC, GRAVE, KC_TRNS,
+      KC_TRNS,  KC_ESC, UK_LBRC,  UK_LCBR,  UK_LPRN,  TILDA,                      UK_CIRC, UK_RPRN, UK_RCBR, UK_RBRC, UK_BSLS, KC_TRNS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_TRNS,  UK_MINS, UK_ASTR, UK_EQL, UK_UNDS, UK_DLR,                      MYHASH,   CMD,    SHFT,     ALT,    CTRL,   KC_TRNS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_TRNS,  UK_PLUS, PIPE, UK_DQUO, UK_SLSH, UK_PERC,                       KASHISH, UK_BSLS, UK_AMPR, UK_QUES, UK_EXLM, KC_TRNS,
+      KC_TRNS,  UK_PLUS, PIPE, ATAT, UK_SLSH, UK_PERC,                          KASHISH, KC_NUHS, UK_AMPR, UK_QUES, UK_EXLM, KC_TRNS,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS,  KC_TRNS, KC_TRNS
                                       //`--------------------------'  `--------------------------'
@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_NAV] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      KC_TRNS, KC_TAB,   KC_NO,  KC_NO,   KC_NO,  KC_NO,                        KC_NO,   KC_NO,   KC_UP,  KC_INS,  KC_DEL,  KC_TRNS,
+      KC_TRNS, KC_TAB,   KC_NO,  KC_NO, KC_NO,     KC_NO,                        KC_NO,   KC_NO,   KC_UP,  KC_INS,  KC_DEL,  KC_TRNS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_TRNS,  CTRL,    ALT,   SHFT,      CMD,  C(KC_UP),                      SCRNSHOT,  KC_LEFT, KC_DOWN, KC_RIGHT, KC_BSPC, KC_TRNS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
