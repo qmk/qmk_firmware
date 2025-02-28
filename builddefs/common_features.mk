@@ -934,6 +934,28 @@ ifeq ($(strip $(DIP_SWITCH_ENABLE)), yes)
     endif
 endif
 
+VALID_BATTERY_DRIVER_TYPES := adc custom vendor
+
+BATTERY_DRIVER ?= adc
+ifeq ($(strip $(BATTERY_DRIVER_REQUIRED)), yes)
+    ifeq ($(filter $(BATTERY_DRIVER),$(VALID_BATTERY_DRIVER_TYPES)),)
+        $(call CATASTROPHIC_ERROR,Invalid BATTERY_DRIVER,BATTERY_DRIVER="$(BATTERY_DRIVER)" is not a valid battery driver)
+    endif
+
+    OPT_DEFS += -DBATTERY_DRIVER
+    OPT_DEFS += -DBATTERY_$(strip $(shell echo $(BATTERY_DRIVER) | tr '[:lower:]' '[:upper:]'))
+
+    COMMON_VPATH += $(DRIVER_PATH)/battery
+
+    SRC += battery.c
+    SRC += battery_$(strip $(BATTERY_DRIVER)).c
+
+    # add extra deps
+    ifeq ($(strip $(BATTERY_DRIVER)), adc)
+        ANALOG_DRIVER_REQUIRED = yes
+    endif
+endif
+
 VALID_WS2812_DRIVER_TYPES := bitbang custom i2c pwm spi vendor
 
 WS2812_DRIVER ?= bitbang
