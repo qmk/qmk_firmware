@@ -97,21 +97,12 @@ endif
 
 
 # Pull in rules.mk files from all our subfolders
-ifneq ("$(wildcard $(KEYBOARD_PATH_5)/rules.mk)","")
-    include $(KEYBOARD_PATH_5)/rules.mk
-endif
-ifneq ("$(wildcard $(KEYBOARD_PATH_4)/rules.mk)","")
-    include $(KEYBOARD_PATH_4)/rules.mk
-endif
-ifneq ("$(wildcard $(KEYBOARD_PATH_3)/rules.mk)","")
-    include $(KEYBOARD_PATH_3)/rules.mk
-endif
-ifneq ("$(wildcard $(KEYBOARD_PATH_2)/rules.mk)","")
-    include $(KEYBOARD_PATH_2)/rules.mk
-endif
-ifneq ("$(wildcard $(KEYBOARD_PATH_1)/rules.mk)","")
-    include $(KEYBOARD_PATH_1)/rules.mk
-endif
+-include $(KEYBOARD_PATH_5)/rules.mk
+-include $(KEYBOARD_PATH_4)/rules.mk
+-include $(KEYBOARD_PATH_3)/rules.mk
+-include $(KEYBOARD_PATH_2)/rules.mk
+-include $(KEYBOARD_PATH_1)/rules.mk
+
 # Create dependencies on DD keyboard config - structure validated elsewhere
 DD_CONFIG_FILES :=
 ifneq ("$(wildcard $(KEYBOARD_PATH_1)/info.json)","")
@@ -487,21 +478,11 @@ ifneq ("$(CONVERTER)","")
 endif
 
 # Pull in post_rules.mk files from all our subfolders
-ifneq ("$(wildcard $(KEYBOARD_PATH_1)/post_rules.mk)","")
-    include $(KEYBOARD_PATH_1)/post_rules.mk
-endif
-ifneq ("$(wildcard $(KEYBOARD_PATH_2)/post_rules.mk)","")
-    include $(KEYBOARD_PATH_2)/post_rules.mk
-endif
-ifneq ("$(wildcard $(KEYBOARD_PATH_3)/post_rules.mk)","")
-    include $(KEYBOARD_PATH_3)/post_rules.mk
-endif
-ifneq ("$(wildcard $(KEYBOARD_PATH_4)/post_rules.mk)","")
-    include $(KEYBOARD_PATH_4)/post_rules.mk
-endif
-ifneq ("$(wildcard $(KEYBOARD_PATH_5)/post_rules.mk)","")
-    include $(KEYBOARD_PATH_5)/post_rules.mk
-endif
+-include $(KEYBOARD_PATH_1)/post_rules.mk
+-include $(KEYBOARD_PATH_2)/post_rules.mk
+-include $(KEYBOARD_PATH_3)/post_rules.mk
+-include $(KEYBOARD_PATH_4)/post_rules.mk
+-include $(KEYBOARD_PATH_5)/post_rules.mk
 
 define post_rules_mk_community_module_includer
 	ifneq ("$(wildcard $(1)/post_rules.mk)","")
