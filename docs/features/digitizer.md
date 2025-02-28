@@ -90,12 +90,12 @@ It is strongly recommended to put your digitizer device on the master half, as t
 
 ## Callbacks and Functions 
 
-| Function                                                   | Description                                                                                                          |
-| ---------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| `digitizer_init_kb(void)`                                  | Callback to allow for keyboard level initialization. Useful for additional hardware sensors.                         |
-| `digitizer_init_user(void)`                                | Callback to allow for user level initialization Useful for additional hardware sensors.                              |
-| `digitizer_task_kb(digitizer_t digitizer_state)`           | Callback that provides the keyboard an opportunity to change the digitizer state whenever we get new digitizer data. |
-| `digitizer_task_user(digitizer_t digitizer_state)`         | Callback that provides the user an opportunity to change the digitizer state whenever we get new digitizer data.     |
+| Function                                                   | Description                                                                                                                                                 |
+| ---------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `digitizer_init_kb(void)`                                  | Callback to allow for keyboard level initialization. Useful for additional hardware sensors.                                                                |
+| `digitizer_init_user(void)`                                | Callback to allow for user level initialization Useful for additional hardware sensors.                                                                     |
+| `digitizer_task_kb(digitizer_t *const digitizer_state)`    | Callback that provides the keyboard an opportunity to change the digitizer state whenever we get new digitizer data. Returns true if the state was changed. |
+| `digitizer_task_user(digitizer_t *const digitizer_state)`  | Callback that provides the user an opportunity to change the digitizer state whenever we get new digitizer data. Returns true if the state was changed.     |
 
 ## Example
 

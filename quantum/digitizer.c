@@ -81,10 +81,10 @@ __attribute__((weak)) void digitizer_init_user(void) {}
  * Takes digitizer_t struct allowing modification at user level then returns digitizer_t.
  *
  * @param[in] digitizer_state digitizer_t
- * @return digitizer_t
+ * @return true if the state has changed
  */
-__attribute__((weak)) digitizer_t digitizer_task_user(digitizer_t digitizer_state) {
-    return digitizer_state;
+__attribute__((weak)) bool digitizer_task_user(digitizer_t *const digitizer_state) {
+    return false;
 }
 
 /**
@@ -93,9 +93,9 @@ __attribute__((weak)) digitizer_t digitizer_task_user(digitizer_t digitizer_stat
  * Takes digitizer_t struct allowing modification at keyboard level then returns digitizer_t.
  *
  * @param[in] digitizer_state digitizer_t
- * @return digitizer_t
+ * @return true if the state has changed
  */
-__attribute__((weak)) digitizer_t digitizer_task_kb(digitizer_t digitizer_state) {
+__attribute__((weak)) bool digitizer_task_kb(digitizer_t *const digitizer_state) {
     return digitizer_task_user(digitizer_state);
 }
 
@@ -183,9 +183,8 @@ bool digitizer_task(void) {
 #endif
         // Handle user modification of stylus state. We explicity do not store the user modified
         // state so we do not pass them back state that they have previously transformed.
-        digitizer_t tmp_state = digitizer_task_kb(driver_state);
-
-        if (digitizer_state.buttons != tmp_state.buttons) {
+        digitizer_t tmp_state = driver_state;
+        if (digitizer_task_kb(&tmp_state) && digitizer_state.buttons != tmp_state.buttons) {
             button_state_changed = true;
             report.button1 |= tmp_state.button1;
             report.button2 |= tmp_state.button2;
