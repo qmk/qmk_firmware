@@ -13,6 +13,7 @@ ifeq ($(strip $(KEYBOARD_SHARED_EP)), yes)
     # you can't share kbd without sharing mouse;
     # that would be a very unexpected use case anyway
     MOUSE_SHARED_EP = yes
+    DIGITIZER_SHARED_EP = yes
 endif
 
 ifeq ($(strip $(MOUSE_ENABLE)), yes)
