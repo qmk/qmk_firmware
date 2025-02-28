@@ -43,8 +43,7 @@
     },
     "indicators": {
         "num_lock":"A15",
-        "caps_lock": "C10",
-        "scroll_lock": "C11"
+        "caps_lock": "C10"
     },
     "rgb_matrix": {
         "driver": "snled27351",
