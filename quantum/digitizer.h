@@ -49,8 +49,6 @@ typedef struct {
     };
 } digitizer_t;
 
-digitizer_t                       digitizer_get_state(void);
-void                              digitizer_set_state(digitizer_t digitizer_state);
 __attribute__((weak)) void        digitizer_init_kb(void);
 __attribute__((weak)) void        digitizer_init_user(void);
 __attribute__((weak)) digitizer_t digitizer_task_user(digitizer_t digitizer_state);
