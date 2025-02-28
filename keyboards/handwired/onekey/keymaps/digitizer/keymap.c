@@ -43,19 +43,19 @@ void digitizer_init_kb() {
     timer = timer_read32();
 }
 
-digitizer_t digitizer_task_kb(digitizer_t digitizer_state) {
+bool digitizer_task_kb(digitizer_t *const digitizer_state) {
     // Libinput suppresses a touch that starts too soon after device enumeration,
     // so delay our drag event.
     static bool startup_wait = true;
     if (startup_wait && timer_elapsed32(timer) < 1000) {
-        return digitizer_state;
+        return false;
     }
     startup_wait = false;
 
     // If the time between events is too great, it is not treated
     // as a series of taps rather than a continuous movement.
     if (timer_elapsed32(timer) < 10) {
-        return digitizer_state;
+        return false;
     }
 
     timer = timer_read32();
@@ -63,13 +63,13 @@ digitizer_t digitizer_task_kb(digitizer_t digitizer_state) {
     float x = 0.5 - 0.2 * cos(timer / 250. / 6.28);
     float y = 0.5 - 0.2 * sin(timer / 250. / 6.28);
 
-    digitizer_state.contacts[0].type = STYLUS;
-    digitizer_state.contacts[0].x = x * DIGITIZER_RESOLUTION_X;
-    digitizer_state.contacts[0].y = y * DIGITIZER_RESOLUTION_Y;
+    digitizer_state->contacts[0].type = STYLUS;
+    digitizer_state->contacts[0].x = x * DIGITIZER_RESOLUTION_X;
+    digitizer_state->contacts[0].y = y * DIGITIZER_RESOLUTION_Y;
 
-    digitizer_state.contacts[0].tip = tip;
-    digitizer_state.contacts[0].in_range = 1;
-    digitizer_state.contacts[0].confidence = 1;
+    digitizer_state->contacts[0].tip = tip;
+    digitizer_state->contacts[0].in_range = 1;
+    digitizer_state->contacts[0].confidence = 1;
 
-    return digitizer_state;
+    return true;
 }
