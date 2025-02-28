@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <string.h>
 #include "digitizer.h"
 #include "digitizer_mouse_fallback.h"
 #include "debug.h"
@@ -42,10 +41,8 @@ typedef struct {
 const digitizer_driver_t digitizer_driver = {};
 
 static digitizer_t digitizer_state = {};
-static bool        dirty           = false;
 
 #if defined(SPLIT_DIGITIZER_ENABLE)
-
 #    if defined(DIGITIZER_LEFT)
 #        define DIGITIZER_THIS_SIDE is_keyboard_left()
 #    elif defined(DIGITIZER_RIGHT)
@@ -65,35 +62,6 @@ void digitizer_set_shared_report(digitizer_t report) {
     shared_digitizer_report = report;
 }
 #endif // defined(SPLIT_DIGITIZER_ENABLE)
-
-/**
- * @brief Utility for checking if the digitizer state has changed between two structs.
- *
- * @return digitizer_t
- */
-static bool has_digitizer_state_changed(digitizer_t *tmp_state, digitizer_t *old_state) {
-    const int cmp = memcmp(tmp_state, old_state, sizeof(digitizer_t));
-    return cmp != 0;
-}
-
-/**
- * @brief Gets the current digitizer state used by the digitizer task
- *
- * @return digitizer_t
- */
-digitizer_t digitizer_get_state(void) {
-    return digitizer_state;
-}
-
-/**
- * @brief Sets the digitizer state, the new state will be sent when the digitizer task next runs.
- *
- * @param[in] new_digitizer_state
- */
-void digitizer_set_state(digitizer_t new_digitizer_state) {
-    dirty |= has_digitizer_state_changed(&digitizer_state, &new_digitizer_state);
-    if (dirty) memcpy(&digitizer_state, &new_digitizer_state, sizeof(digitizer_t));
-}
 
 /**
  * @brief Keyboard level digitizer initialisation function
@@ -178,7 +146,9 @@ bool digitizer_task(void) {
     report_digitizer_stylus_t stylus_report  = {};
     bool                      updated_stylus = false;
 #endif
-    int  contacts             = 0;
+#if DIGITIZER_FINGER_COUNT > 0
+    int contacts = 0;
+#endif
     bool gesture_changed      = false;
     bool button_state_changed = false;
 
@@ -199,6 +169,9 @@ bool digitizer_task(void) {
     if (digitizer_motion_detected())
 #endif
     {
+#if DIGITIZER_FINGER_COUNT > 0
+        int skip_count = 0;
+#endif
 #if defined(SPLIT_DIGITIZER_ENABLE)
 #    if defined(DIGITIZER_LEFT) || defined(DIGITIZER_RIGHT)
         digitizer_t driver_state = DIGITIZER_THIS_SIDE ? (digitizer_driver.get_report ? digitizer_driver.get_report(digitizer_state) : digitizer_state) : shared_digitizer_report;
@@ -219,9 +192,9 @@ bool digitizer_task(void) {
             report.button3 |= tmp_state.button3;
         }
 
-        int skip_count = 0;
         for (int i = 0; i < DIGITIZER_CONTACT_COUNT; i++) {
             // If this is a finger which is down, or it was on the last scan (but now it is up)..
+#if DIGITIZER_FINGER_COUNT > 0
             if (i < DIGITIZER_FINGER_COUNT) {
                 const bool    finger_contact = (tmp_state.contacts[i].type == FINGER && tmp_state.contacts[i].tip) || (digitizer_state.contacts[i].type == FINGER && digitizer_state.contacts[i].tip);
                 const uint8_t finger_index   = finger_contact ? report.contact_count : DIGITIZER_FINGER_COUNT - skip_count - 1;
@@ -243,6 +216,7 @@ bool digitizer_task(void) {
                 report.fingers[finger_index].y          = tmp_state.contacts[i].y;
                 report.fingers[finger_index].confidence = tmp_state.contacts[i].confidence;
             }
+#endif
 #ifdef DIGITIZER_HAS_STYLUS
             if (tmp_state.contacts[i].type == STYLUS) {
                 updated_stylus         = true;
