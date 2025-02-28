@@ -1,7 +1,5 @@
 # TGR Tris/Tris CE
 
-A short description of the keyboard/project
-
 * Keyboard Maintainer: [poisonking](https://github.com/halfenergized)
 * Hardware Supported: Tris PCB
 * Hardware Availability: https://geekhack.org/index.php?topic=86221.0
