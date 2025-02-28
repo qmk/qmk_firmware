@@ -202,6 +202,10 @@ def _flash_mdloader(file):
 
 
 def _flash_uf2(file):
+    output = cli.run(['util/uf2conv.py', '--info', file]).stdout
+    if 'UF2 File' not in output:
+        return True
+
     cli.run(['util/uf2conv.py', '--deploy', file], capture_output=False)
 
 
@@ -235,7 +239,8 @@ def flasher(mcu, file):
     elif bl == 'md-boot':
         _flash_mdloader(file)
     elif bl == '_uf2_compatible_':
-        _flash_uf2(file)
+        if _flash_uf2(file):
+            return (True, "Flashing only supports uf2 format files.")
     else:
         return (True, "Known bootloader found but flashing not currently supported!")
 

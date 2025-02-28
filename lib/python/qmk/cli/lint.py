@@ -10,7 +10,7 @@ from qmk.keyboard import keyboard_completer, keyboard_folder_or_all, is_all_keyb
 from qmk.keymap import locate_keymap, list_keymaps
 from qmk.path import keyboard
 from qmk.git import git_get_ignored_files
-from qmk.c_parse import c_source_files
+from qmk.c_parse import c_source_files, preprocess_c_file
 
 CHIBIOS_CONF_CHECKS = ['chconf.h', 'halconf.h', 'mcuconf.h', 'board.h']
 INVALID_KB_FEATURES = set(['encoder_map', 'dip_switch_map', 'combo', 'tap_dance', 'via'])
@@ -33,12 +33,64 @@ def _list_defaultish_keymaps(kb):
     return keymaps
 
 
+def _get_readme_files(kb, km=None):
+    """Return potential keyboard/keymap readme files
+    """
+    search_path = locate_keymap(kb, km).parent if km else keyboard(kb)
+
+    readme_files = []
+
+    if not km:
+        current_path = Path(search_path.parts[0])
+        for path_part in search_path.parts[1:]:
+            current_path = current_path / path_part
+            readme_files.extend(current_path.glob('*readme.md'))
+
+    for file in search_path.glob("**/*readme.md"):
+        # Ignore keymaps when only globing keyboard files
+        if not km and 'keymaps' in file.parts:
+            continue
+        readme_files.append(file)
+
+    return set(readme_files)
+
+
+def _get_build_files(kb, km=None):
+    """Return potential keyboard/keymap build files
+    """
+    search_path = locate_keymap(kb, km).parent if km else keyboard(kb)
+
+    build_files = []
+
+    if not km:
+        current_path = Path()
+        for path_part in search_path.parts:
+            current_path = current_path / path_part
+            build_files.extend(current_path.glob('*rules.mk'))
+
+    for file in search_path.glob("**/*rules.mk"):
+        # Ignore keymaps when only globing keyboard files
+        if not km and 'keymaps' in file.parts:
+            continue
+        build_files.append(file)
+
+    return set(build_files)
+
+
 def _get_code_files(kb, km=None):
     """Return potential keyboard/keymap code files
     """
     search_path = locate_keymap(kb, km).parent if km else keyboard(kb)
 
     code_files = []
+
+    if not km:
+        current_path = Path()
+        for path_part in search_path.parts:
+            current_path = current_path / path_part
+            code_files.extend(current_path.glob('*.h'))
+            code_files.extend(current_path.glob('*.c'))
+
     for file in c_source_files([search_path]):
         # Ignore keymaps when only globing keyboard files
         if not km and 'keymaps' in file.parts:
@@ -46,6 +98,43 @@ def _get_code_files(kb, km=None):
         code_files.append(file)
 
     return code_files
+
+
+def _is_invalid_readme(file):
+    """Check if file contains any unfilled content
+    """
+    tokens = [
+        '%KEYBOARD%',
+        '%REAL_NAME%',
+        '%USER_NAME%',
+        'image replace me!',
+        'A short description of the keyboard/project',
+        'The PCBs, controllers supported',
+        'Links to where you can find this hardware',
+    ]
+
+    for line in file.read_text(encoding='utf-8').split("\n"):
+        if any(token in line for token in tokens):
+            return True
+    return False
+
+
+def _is_empty_rules(file):
+    """Check if file contains any useful content
+    """
+    for line in file.read_text(encoding='utf-8').split("\n"):
+        if len(line) > 0 and not line.isspace() and not line.startswith('#'):
+            return False
+    return True
+
+
+def _is_empty_include(file):
+    """Check if file contains any useful content
+    """
+    for line in preprocess_c_file(file).split("\n"):
+        if len(line) > 0 and not line.isspace() and not line.startswith('#pragma once'):
+            return False
+    return True
 
 
 def _has_license(file):
@@ -91,37 +180,28 @@ def _chibios_conf_includenext_check(target):
     return None
 
 
-def _rules_mk_assignment_only(kb):
+def _rules_mk_assignment_only(rules_mk):
     """Check the keyboard-level rules.mk to ensure it only has assignments.
     """
-    keyboard_path = keyboard(kb)
-    current_path = Path()
     errors = []
+    continuation = None
+    for i, line in enumerate(rules_mk.open()):
+        line = line.strip()
 
-    for path_part in keyboard_path.parts:
-        current_path = current_path / path_part
-        rules_mk = current_path / 'rules.mk'
+        if '#' in line:
+            line = line[:line.index('#')]
 
-        if rules_mk.exists():
+        if continuation:
+            line = continuation + line
             continuation = None
 
-            for i, line in enumerate(rules_mk.open()):
-                line = line.strip()
+        if line:
+            if line[-1] == '\\':
+                continuation = line[:-1]
+                continue
 
-                if '#' in line:
-                    line = line[:line.index('#')]
-
-                if continuation:
-                    line = continuation + line
-                    continuation = None
-
-                if line:
-                    if line[-1] == '\\':
-                        continuation = line[:-1]
-                        continue
-
-                    if line and '=' not in line:
-                        errors.append(f'Non-assignment code on line +{i} {rules_mk}: {line}')
+            if line and '=' not in line:
+                errors.append(f'Non-assignment code on line +{i} {rules_mk}: {line}')
 
     return errors
 
@@ -162,7 +242,7 @@ def keymap_check(kb, km):
     return ok
 
 
-def keyboard_check(kb):
+def keyboard_check(kb):  # noqa C901
     """Perform the keyboard level checks.
     """
     ok = True
@@ -175,13 +255,6 @@ def keyboard_check(kb):
     if not _handle_invalid_features(kb, kb_info):
         ok = False
 
-    rules_mk_assignment_errors = _rules_mk_assignment_only(kb)
-    if rules_mk_assignment_errors:
-        ok = False
-        cli.log.error('%s: Non-assignment code found in rules.mk. Move it to post_rules.mk instead.', kb)
-        for assignment_error in rules_mk_assignment_errors:
-            cli.log.error(assignment_error)
-
     invalid_files = git_get_ignored_files(f'keyboards/{kb}/')
     for file in invalid_files:
         if 'keymap' in file:
@@ -189,10 +262,33 @@ def keyboard_check(kb):
         cli.log.error(f'{kb}: The file "{file}" should not exist!')
         ok = False
 
+    for file in _get_readme_files(kb):
+        if _is_invalid_readme(file):
+            cli.log.error(f'{kb}: The file "{file}" still contains template tokens!')
+            ok = False
+
+    for file in _get_build_files(kb):
+        if _is_empty_rules(file):
+            cli.log.error(f'{kb}: The file "{file}" is effectively empty and should be removed!')
+            ok = False
+
+        if file.suffix in ['rules.mk']:
+            rules_mk_assignment_errors = _rules_mk_assignment_only(file)
+            if rules_mk_assignment_errors:
+                ok = False
+                cli.log.error('%s: Non-assignment code found in rules.mk. Move it to post_rules.mk instead.', kb)
+                for assignment_error in rules_mk_assignment_errors:
+                    cli.log.error(assignment_error)
+
     for file in _get_code_files(kb):
         if not _has_license(file):
             cli.log.error(f'{kb}: The file "{file}" does not have a license header!')
             ok = False
+
+        if file.name in ['config.h']:
+            if _is_empty_include(file):
+                cli.log.error(f'{kb}: The file "{file}" is effectively empty and should be removed!')
+                ok = False
 
         if file.name in CHIBIOS_CONF_CHECKS:
             check_error = _chibios_conf_includenext_check(file)
