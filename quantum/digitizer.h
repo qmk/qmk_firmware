@@ -49,12 +49,12 @@ typedef struct {
     };
 } digitizer_t;
 
-__attribute__((weak)) void  digitizer_init_kb(void);
-__attribute__((weak)) void  digitizer_init_user(void);
-__attribute__((weak)) bool  digitizer_task_user(digitizer_t *const digitizer_state);
-__attribute__((weak)) bool  digitizer_task_kb(digitizer_t *const digitizer_state);
-void                        digitizer_init(void);
-bool                        digitizer_task(void);
+__attribute__((weak)) void digitizer_init_kb(void);
+__attribute__((weak)) void digitizer_init_user(void);
+__attribute__((weak)) bool digitizer_task_user(digitizer_t *const digitizer_state);
+__attribute__((weak)) bool digitizer_task_kb(digitizer_t *const digitizer_state);
+void                       digitizer_init(void);
+bool                       digitizer_task(void);
 
 #if defined(SPLIT_DIGITIZER_ENABLE)
 void digitizer_set_shared_report(digitizer_t report);
