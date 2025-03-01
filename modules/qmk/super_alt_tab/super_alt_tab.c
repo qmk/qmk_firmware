@@ -7,8 +7,8 @@
 
 ASSERT_COMMUNITY_MODULES_MIN_API_VERSION(1, 0, 0);
 
-static bool     is_alt_tab_active = false; // ADD this near the beginning of keymap.c
-static uint16_t alt_tab_timer     = 0;     // we will be using them soon.
+static bool     is_alt_tab_active = false;
+static uint16_t alt_tab_timer     = 0;
 
 #ifndef COMMUNITY_MODULE_SUPER_ALT_TAB_TIMEOUT
 #    define COMMUNITY_MODULE_SUPER_ALT_TAB_TIMEOUT 1000
