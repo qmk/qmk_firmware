@@ -99,4 +99,4 @@ It is strongly recommended to put your digitizer device on the master half, as t
 
 ## Example
 
-There is a onekey keymap which demonstrates the digitizer api. It uses the styulus report to draw circles in the middle of the screen.
+There is a onekey keymap which demonstrates the digitizer api. It uses the styulus report to draw squares in the middle of the screen.
