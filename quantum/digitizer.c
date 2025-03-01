@@ -29,7 +29,7 @@
 // they have sent a feature report indicating they support PTP trackpads. Having them on separate
 // endpoints ensures any mouse events we generate while the host is expecting a digitizer, are processed.
 #if defined(DIGITIZER_SHARED_EP) && defined(MOUSE_SHARED_EP) && (defined(MOUSEKEY_ENABLE) || defined(POINTING_DEVICE_ENABLE))
-#   warning "Both the digitizer and mouse events are reported on the shared USB endpoint. Mouse events will be ignored by trackpad compliant hosts."
+#    warning "Both the digitizer and mouse events are reported on the shared USB endpoint. Mouse events will be ignored by trackpad compliant hosts."
 #endif
 
 #ifdef DIGITIZER_MOTION_PIN
