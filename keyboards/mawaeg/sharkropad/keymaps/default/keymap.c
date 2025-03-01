@@ -29,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * │ 1 │ 2 │ 3 │ 0          │
      * └───┴───┴───┴────────────┘
      */
-        [0] = LAYOUT_numpad_4x4(
+        [0] = LAYOUT(
                              RGB_MOD,
         KC_P7, KC_P8, KC_P9, RGB_TOG,
         KC_P4, KC_P5, KC_P6, KC_NUM,
