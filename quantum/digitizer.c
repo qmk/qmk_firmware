@@ -23,6 +23,15 @@
 #include "keyboard.h"
 #include "action.h"
 
+// Digitizers can fallback to reporting as a mouse if the host does not support a digitizer.
+// If the mouse collection is in the same endpoint as the digitizer collection both Windows and
+// Linux will assume it is a fallback collection and will ignore any events it produces after
+// they have sent a feature report indicating they support PTP trackpads. Having them on separate
+// endpoints ensures any mouse events we generate while the host is expecting a digitizer, are processed.
+#if defined(DIGITIZER_SHARED_EP) && defined(MOUSE_SHARED_EP) && (defined(MOUSEKEY_ENABLE) || defined(POINTING_DEVICE_ENABLE))
+#   warning "Both the digitizer and mouse events are reported on the shared USB endpoint. Mouse events will be ignored by trackpad compliant hosts."
+#endif
+
 #ifdef DIGITIZER_MOTION_PIN
 #    undef DIGITIZER_TASK_THROTTLE_MS
 #endif
