@@ -175,15 +175,6 @@ endif
 DIGITIZER_DRIVER ?= none
 VALID_DIGITIZER_DRIVER_TYPES := custom none
 ifeq ($(strip $(DIGITIZER_ENABLE)), yes)
-    ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
-        # Digitizers can fallback to reporting as a mouse if the host does not support a digitizer.
-        # If the mouse collection is in the same endpoint as the digitizer collection both Windows and
-        # Linux will assume it is a fallback collection and will ignore any events it produces. Having
-        # them on separate endpoints ensures any mouse events we generate while the host is expecting
-        # a digitizer, are processed.
-        DIGITIZER_SHARED_EP = no
-        MOUSE_SHARED_EP = no
-    endif
     ifeq ($(filter $(DIGITIZER_DRIVER),$(VALID_DIGITIZER_DRIVER_TYPES)),)
         $(call CATASTROPHIC_ERROR,Invalid DIGITIZER_DRIVER,DIGITIZER_DRIVER="$(DIGITIZER_DRIVER)" is not a valid digitizer device type)
     else
