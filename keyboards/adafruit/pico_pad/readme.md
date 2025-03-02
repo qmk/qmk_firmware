@@ -22,4 +22,4 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Enter the bootloader:
 * **Physical reset button**: Briefly press the reset button on the left of the PCB - some may have pads you must short instead
-* **Boot button**: Press and hold the BOOTSEL button on the pico
+* **Boot button**: Press and hold the BOOTSEL button on the pico when powered on
