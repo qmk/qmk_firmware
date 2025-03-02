@@ -60,6 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  KC_LSFT, KC_A, KC_S, KC_Y, KC_H,
                  KC_LCTL, MACRO_GG, KC_Z, KC_X, KC_C, KC_M,
                  KC_LALT, KC_TRNS, KC_ENTER)
+};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
