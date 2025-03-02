@@ -17,7 +17,7 @@
 #include QMK_KEYBOARD_H
 
 enum custom_keycodes {
-    MACRO_GG
+    MACRO_GG = QK_USER
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
