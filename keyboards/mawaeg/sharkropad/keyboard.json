@@ -14,11 +14,8 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "encoder": true,
         "extrakey": true,
-        "mousekey": false,
         "nkro": true,
         "oled": true,
         "rgb_matrix": true
