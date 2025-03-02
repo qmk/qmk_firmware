@@ -17,7 +17,7 @@
 #include QMK_KEYBOARD_H
 
 enum custom_keycodes {
-    MACRO_GG
+    MACRO_GG = QK_USER
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -75,8 +75,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
             // when keycode MACRO_GG is pressed, press shift+enter, send string "gg" and press enter
 			SEND_STRING(SS_DOWN(X_LSFT) SS_TAP(X_ENTER) SS_UP(X_LSFT) "gg" SS_TAP(X_ENTER));
-        } else {
-            // when keycode MACRO_GG is released
         }
         break;
 		

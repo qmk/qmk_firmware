@@ -20,9 +20,6 @@
         "pid": "0x2326",
         "vid": "0xFEED"
     },
-    "layout_aliases": {
-        "LAYOUT_all": "LAYOUT"
-    },
     "layouts": {
         "LAYOUT": {
             "layout": [
