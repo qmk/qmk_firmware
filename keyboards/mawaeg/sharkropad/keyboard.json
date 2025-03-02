@@ -112,6 +112,7 @@
         "vid": "0x6D73"
     },
     "ws2812": {
+        "driver": "pwm",
         "pin": "B3"
     },
     "layouts": {
