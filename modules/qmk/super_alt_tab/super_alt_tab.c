@@ -3,8 +3,6 @@
 
 #include QMK_KEYBOARD_H
 
-#include "introspection.h"
-
 ASSERT_COMMUNITY_MODULES_MIN_API_VERSION(1, 0, 0);
 
 static bool     is_alt_tab_active = false;
