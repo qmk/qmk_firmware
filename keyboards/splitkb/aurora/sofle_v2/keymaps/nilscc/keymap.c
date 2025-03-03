@@ -129,10 +129,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_NUMBERS] = LAYOUT(
         _______,    KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,                              KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,     KC_F11,
-        _______,    _______,    _______,    _______,    _______,    _______,                            _______,    KC_7,       KC_8,       KC_9,       _______,    KC_F12,
-        _______,    KC_LGUI,    KC_LALT,    KC_LSFT,    KC_LCTL,    KC_PSCR,                            _______,    KC_4,       KC_5,       KC_6,       _______,    _______,
-        _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    KC_1,       KC_2,       KC_3,       _______,    _______,
-                                _______,    _______,    _______,    _______,    _______,    _______,    _______,    KC_0,       _______,    _______
+        _______,    _______,    _______,    _______,    _______,    _______,                            KC_NUM,     KC_7,       KC_8,       KC_9,       KC_PSLS,    KC_F12,
+        _______,    KC_LGUI,    KC_LALT,    KC_LSFT,    KC_LCTL,    KC_PSCR,                            KC_PPLS,    KC_4,       KC_5,       KC_6,       KC_PDOT,    _______,
+        _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    KC_PMNS,    KC_1,       KC_2,       KC_3,       KC_PAST,    _______,
+                                _______,    _______,    _______,    _______,    _______,    KC_PENT,    KC_0,       _______,    _______,    _______
     ),
 
     [_FUNCTIONS] = LAYOUT(
@@ -145,7 +145,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_NAVIGATION] = LAYOUT(
         _______,    COLEMAK,    NRDRSSL,    _______,    _______,    _______,                            _______,    _______,    _______,    _______,    _______,    _______,
-        _______,    _______,    _______,    _______,    _______,    _______,                            KC_CAPS,    KC_COPY,    KC_PSTE,    KC_CUT,     KC_UNDO,    _______,
+        _______,    _______,    _______,    _______,    _______,    _______,                            KC_GRV,     KC_TAB,     KC_LSFT,    KC_LALT,    _______,    _______,
         _______,    KC_LGUI,    KC_LALT,    KC_LSFT,    KC_LCTL,    _______,                            KC_LEFT,    KC_DOWN,    KC_UP,      KC_RGHT,    _______,    _______,
         _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    KC_HOME,    KC_PGDN,    KC_PGUP,    KC_END,     KC_INS,     _______,
                                 _______,    _______,    _______,    _______,    _______,    _______,    _______,    KC_DEL,     _______,    _______
@@ -153,9 +153,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_SYMBOLS] = LAYOUT(
         _______,    _______,    _______,    _______,    _______,    _______,                            _______,    _______,    _______,    _______,    _______,    _______,
-        _______,    _______,    _______,    KC_LBRC,    KC_RBRC,    KC_PLUS,                            _______,    _______,    _______,    _______,    _______,    _______,
-        _______,    _______,    KC_BSLS,    KC_LPRN,    KC_RPRN,    KC_MINS,                            _______,    KC_LCTL,    KC_LSFT,    KC_LALT,    KC_LGUI,    _______,
-        _______,    _______,    _______,    KC_LCBR,    KC_RCBR,    KC_EQL,     _______,    _______,    _______,    KC_COLN,    _______,    _______,    _______,    _______,
+        _______,    XXXXXXX,    XXXXXXX,    KC_LBRC,    KC_RBRC,    KC_PLUS,                            _______,    _______,    _______,    _______,    _______,    _______,
+        _______,    KC_SLSH,    KC_BSLS,    KC_LPRN,    KC_RPRN,    KC_EQL,                             _______,    KC_LCTL,    KC_LSFT,    KC_LALT,    KC_LGUI,    _______,
+        _______,    XXXXXXX,    KC_PIPE,    KC_LCBR,    KC_RCBR,    XXXXXXX,    _______,    _______,    _______,    KC_COLN,    _______,    _______,    _______,    _______,
                                 _______,    _______,    KC_QUOT,    KC_TAB,     KC_ENT,     _______,    _______,    _______,    _______,    _______
     ),
 
