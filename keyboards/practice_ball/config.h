@@ -6,12 +6,19 @@
 #define SPLIT_HAND_MATRIX_GRID B4, F6
 #define SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
 
-#define PMW33XX_CS_PIN B6 // SPI CS pin.
+// trackball settings
+#define PMW33XX_CS_PIN B6
+#define PMW33XX_CPI 1600
+#define PMW33XX_CLOCK_SPEED 2000000
+#define MOUSE_EXTENDED_REPORT
+#define POINTING_DEVICE_INVERT_X
 
-/* Optional. */
-#define PMW33XX_CPI 1600      // The CPI range is 100-12000, in increments of 100. Defaults to 1600 CPI.
-#define PMW33XX_CLOCK_SPEED 2000000 // Sets the clock speed that the sensor runs at. Defaults to 2000000
-#define MOUSE_EXTENDED_REPORT // Use -32767 to 32767, instead of just -127 to 127.
-// #define POINTING_DEVICE_TASK_THROTTLE_MS 10
-
+// rgb led settings
 #define RGBLIGHT_DEFAULT_VAL 32
+
+// AML settings
+#define POINTING_DEVICE_AUTO_MOUSE_ENABLE
+#define AUTO_MOUSE_DEFAULT_LAYER 3
+#define AUTO_MOUSE_TIME 500
+
+#define DYNAMIC_KEYMAP_LAYER_COUNT 4

@@ -6,13 +6,28 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
         KC_NO,   KC_NO,   KC_NO,   MS_BTN2,
+        MS_BTN1, KC_1,    KC_2,    MO(1)
+    ),
+    [1] = LAYOUT(
+        KC_NO,   KC_NO,   KC_NO,   MS_BTN2,
+        MS_BTN1, _______, _______, _______
+    ),
+    [2] = LAYOUT(
+        KC_NO,   KC_NO,   KC_NO,   MS_BTN2,
+        MS_BTN1, _______, _______, _______
+    ),
+    [3] = LAYOUT(
+        KC_NO,   KC_NO,   KC_NO,   MS_BTN2,
         MS_BTN1, MS_BTN3, MS_BTN4, MS_BTN5
     )
 };
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [0] =   { ENCODER_CCW_CW(MS_WHLU, MS_WHLD)}
+    [0] =   { ENCODER_CCW_CW(MS_WHLU, MS_WHLD)},
+    [1] =   { ENCODER_CCW_CW(MS_WHLU, MS_WHLD)},
+    [2] =   { ENCODER_CCW_CW(MS_WHLU, MS_WHLD)},
+    [3] =   { ENCODER_CCW_CW(MS_WHLU, MS_WHLD)}
 };
 #endif
 
@@ -60,11 +75,13 @@ bool oled_task_kb(void) {
 0x01, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
     };
-
     oled_write_raw_P(my_logo, sizeof(my_logo));
     oled_set_cursor(0, 5);
-
     return false;
-
 }
 #endif
+
+void pointing_device_init_user(void) {
+    set_auto_mouse_layer(3);
+    set_auto_mouse_enable(true);
+}
