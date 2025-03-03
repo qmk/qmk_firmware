@@ -12,6 +12,7 @@ SHARED_EP_ENABLE = no
 # report. 
 ifeq ($(strip $(DIGITIZER_ENABLE)), yes)
     MOUSE_SHARED_EP ?= no
+    DIGITIZER_SHARED_EP ?= yes
 else
     MOUSE_SHARED_EP ?= yes
 endif
