@@ -28,7 +28,13 @@
 // Linux will assume it is a fallback collection and will ignore any events it produces after
 // they have sent a feature report indicating they support PTP trackpads. Having them on separate
 // endpoints ensures any mouse events we generate while the host is expecting a digitizer, are processed.
-#if defined(DIGITIZER_SHARED_EP) && defined(MOUSE_SHARED_EP) && (defined(MOUSEKEY_ENABLE) || defined(POINTING_DEVICE_ENABLE))
+//
+// The default behaviour, if no shared endpoints are explicity configured is for the mouse to go on its
+// on endpoint and the digitizer to go on the shared endpoint. If both end up on the same endpoint due
+// to user configuration this warning will be generated, and by default warnings are errors - so the
+// build will fail. If we really want both on the same endpoint, DIGITIZER_SHARE_EP_WITH_MOUSE can be
+// defined to suppress the warning.
+#if !defined(DIGITIZER_SHARE_EP_WITH_MOUSE) && defined(DIGITIZER_SHARED_EP) && defined(MOUSE_SHARED_EP) && (defined(MOUSEKEY_ENABLE) || defined(POINTING_DEVICE_ENABLE))
 #    warning "Both the digitizer and mouse events are reported on the shared USB endpoint. Mouse events will be ignored by trackpad compliant hosts."
 #endif
 
