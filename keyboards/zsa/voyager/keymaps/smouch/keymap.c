@@ -203,6 +203,15 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     }
 };
 
+char chordal_hold_handedness(keypos_t key) {
+    if (key.col == 0 || key.col == MATRIX_COLS - 1) {
+        return '*';  // Exempt the outer columns.
+    }
+    // On split keyboards, typically, the first half of the rows are on the
+    // left, and the other half are on the right.
+    return key.row < MATRIX_ROWS / 2 ? 'L' : 'R';
+};
+
 
 // program custom keycode functions
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

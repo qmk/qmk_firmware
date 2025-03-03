@@ -191,6 +191,13 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     }
 };
 
+const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
+    LAYOUT(
+        'L', 'L', 'L', 'L', 'L',            'R', 'R', 'R', 'R', 'R',
+        'L', 'L', 'L', 'L', 'L',            'R', 'R', 'R', 'R', 'R',
+        'L', 'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R', 'R',
+        'L', 'L', 'L', 'L', 'L', '*',  '*', 'R', 'R', 'R', 'R', 'R'
+    );
 
 // program custom keycode functions
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
