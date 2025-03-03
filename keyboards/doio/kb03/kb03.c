@@ -2,7 +2,7 @@
 // Copyright (C) 2025 ClownFish (@clownfish-og)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include QMK_KEYBOARD_H
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
 

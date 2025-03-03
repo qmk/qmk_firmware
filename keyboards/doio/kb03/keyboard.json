@@ -6,7 +6,7 @@
     "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
-            {"pin_a": "B5", "pin_b": "B6", "resolution": 4},
+            {"pin_a": "B5", "pin_b": "B6"},
             {"pin_a": "A2", "pin_b": "A1", "resolution": 2}
         ]
     },
@@ -58,22 +58,17 @@
             "solid_splash": true,
             "splash": true
         },
-        "center_point": [32, 32],
-        "default": {
-            "animation": "dual_beacon"
-        },
         "driver": "ws2812",
-        "hue_step": 16,
         "layout": [
             {"matrix": [0, 0], "x": 0, "y": 0, "flags": 4},
-            {"matrix": [0, 1], "x": 32, "y": 0, "flags": 4},
-            {"matrix": [0, 2], "x": 64, "y": 0, "flags": 4},
-            {"x": 64, "y": 0, "flags": 2},
+            {"matrix": [0, 1], "x": 112, "y": 0, "flags": 4},
+            {"matrix": [0, 2], "x": 224, "y": 0, "flags": 4},
+            {"x": 224, "y": 0, "flags": 2},
             {"x": 0, "y": 0, "flags": 2},
             {"x": 0, "y": 32, "flags": 2},
             {"x": 0, "y": 64, "flags": 2},
-            {"x": 64, "y": 64, "flags": 2},
-            {"x": 64, "y": 32, "flags": 2},
+            {"x": 224, "y": 64, "flags": 2},
+            {"x": 224, "y": 32, "flags": 2},
             {"x": 10, "y": 0, "flags": 8}
         ],
         "max_brightness": 200,
@@ -91,11 +86,11 @@
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"label": "Layers", "matrix": [0, 3], "x": 0.75, "y": 0},
-                {"label": "1!", "matrix": [0, 0], "x": 0, "y": 1.5},
-                {"label": "2@", "matrix": [0, 1], "x": 1, "y": 1.5},
-                {"label": "3#", "matrix": [0, 2], "x": 2, "y": 1.5},
-                {"label": "Encoder", "matrix": [0, 4], "x": 0.5, "y": 2.75, "w": 2, "h": 2}
+                {"label": "Layers", "matrix": [0, 3], "x": 0.75, "y": 0, "h": 0.5},
+                {"label": "1!", "matrix": [0, 0], "x": 0, "y": 0.75},
+                {"label": "2@", "matrix": [0, 1], "x": 1, "y": 0.75},
+                {"label": "3#", "matrix": [0, 2], "x": 2, "y": 0.75},
+                {"label": "Encoder", "matrix": [0, 4], "x": 0.5, "y": 2, "w": 2, "h": 2}
             ]
         }
     }
