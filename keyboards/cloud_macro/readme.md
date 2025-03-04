@@ -5,7 +5,7 @@
 A 5 key macropad in the shape of a cloud
 
 * Keyboard Maintainer: [Trey Wax](https://github.com/TweyHugs)
-* Hardware Supported: *Uses adafruits kb2040*
+* Hardware Supported: Pro-micro compatible development board
 * Hardware Availability: *https://www.adafruit.com/product/5302*
 
 Make example for this keyboard (after setting up your build environment):
