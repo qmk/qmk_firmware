@@ -80,20 +80,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_Q,    KC_Y,    KC_O,    KC_U,    KC_MINS,                   KC_J,    KC_G,    KC_N,    KC_W,    KC_K,
         KC_H,    KC_I,    KC_E,    KC_A,    KC_DOT,                    KC_P,    KC_D,    KC_R,    KC_S,    KC_L,
         KC_Z,    KC_X,    KC_QUOT, KC_COMM, KC_SCLN,                   KC_B,    KC_C,    KC_M,    KC_F,    KC_V,
-                                   QK_REP,  KC_SPC,  LA_SYM,  KC_T,    LA_NAV,  KC_LSFT
+                                   QK_REP,  KC_SPC,  LA_SYM,  LA_NAV,  KC_T,    KC_LSFT
     ),
 
     // special layers
 
     [SYM] = LAYOUT_split_3x5_3(
         KC_ESC,  KC_LBRC, KC_LCBR, KC_LPRN, KC_TILD,                   KC_CIRC, KC_RPRN, KC_RCBR, KC_RBRC, KC_GRV,
-        KC_MINS, KC_ASTR, KC_EQL,  KC_UNDS, KC_DLR,                    KC_HASH, OS_CTRL, OS_ALT,  OS_CMD,  OS_SHFT,
+        KC_TAB,  KC_ASTR, KC_EQL,  KC_UNDS, KC_DLR,                    KC_HASH, OS_CTRL, OS_ALT,  OS_CMD,  OS_SHFT,
         KC_PLUS, KC_PIPE, KC_AT,   KC_SLSH, KC_PERC,                   XXXXXXX, KC_BSLS, KC_AMPR, KC_QUES, KC_EXLM,
                                    _______, _______, _______, _______, _______, _______
     ),
 
     [NAV] = LAYOUT_split_3x5_3(
-        KC_TAB,  SW_WINN, TAB_L,   TAB_R,   KC_VOLU,                   KC_CAPS, HOME,    END,     XXXXXXX, KC_BSPC,
+        SW_WINN, SW_WINP, TAB_L,   TAB_R,   KC_VOLU,                   KC_CAPS, HOME,    END,     KC_ESC,  KC_BSPC,
         OS_SHFT, OS_CMD,  OS_ALT,  OS_CTRL, KC_VOLD,                   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_ENT,
         SPACE_L, SPACE_R, BACK,    FWD,     KC_MPLY,                   KC_COLN, KC_PGDN, KC_PGUP, XXXXXXX, KC_DEL,
                                    _______, _______, _______, _______, _______, _______
