@@ -45,34 +45,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // special layers
 
     [_SYM] = LAYOUT_split_3x5_3(
-        KC_GRV , KC_CIRC, KC_AT,   KC_DLR,  KC_TILD,                                KC_AMPR, KC_EXLM, KC_PIPE, KC_UNDS, KC_HASH,
-        KC_SLSH, KC_LBRC, KC_LCBR, KC_LPRN, KC_EQL,                                 KC_ASTR, KC_RPRN, KC_RCBR, KC_RBRC, KC_BSLS,
-        XXXXXXX, KC_QUES, KC_PLUS, KC_PERC, XXXXXXX,                                XXXXXXX, KC_COLN, KC_MINS, XXXXXXX, XXXXXXX,
-                                        XXXXXXX, KC_TAB, KC_ENT,        _______, _______, _______
+        KC_GRV , KC_CIRC, KC_AT,   KC_DLR,  KC_TILD,                   KC_AMPR, KC_EXLM, KC_PIPE, KC_UNDS, KC_HASH,
+        KC_SLSH, KC_LBRC, KC_LCBR, KC_LPRN, KC_EQL,                    KC_ASTR, KC_RPRN, KC_RCBR, KC_RBRC, KC_BSLS,
+        XXXXXXX, KC_QUES, KC_PLUS, KC_PERC, XXXXXXX,                   XXXXXXX, KC_COLN, KC_MINS, XXXXXXX, XXXXXXX,
+                                   XXXXXXX, KC_TAB,  KC_ENT,  _______, _______, _______
     ),
 
     [_NAV] = LAYOUT_split_3x5_3(
-        XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX,                                G(KC_1), G(KC_2), G(KC_3), G(KC_4), G(KC_5),
-        KC_MPRV, KC_MSTP, KC_MPLY, KC_MNXT, XXXXXXX,                                KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, KC_LSFT, KC_LGUI,                                KC_HOME, KC_PGDN, KC_PGUP, KC_END,  XXXXXXX,
-                                        _______, _______, _______,      XXXXXXX, _______, _______
+        XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX,                   G(KC_1), G(KC_2), G(KC_3), G(KC_4), G(KC_5),
+        KC_MPRV, KC_MSTP, KC_MPLY, KC_MNXT, XXXXXXX,                   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, KC_LSFT, KC_LGUI,                   KC_HOME, KC_PGDN, KC_PGUP, KC_END,  XXXXXXX,
+                                   _______, _______, _______, XXXXXXX, _______, _______
     ),
 
     // number layer with modifiers and ?! keys to avoid conflicts with TAB on
     // symbols layer when typing a fast space after a sentence
     [_NUM] = LAYOUT_split_3x5_3(
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NUM,                                 KC_PEQL,  KC_7,   KC_8,   KC_9,   KC_PSLS,
-        KC_LGUI, KC_LALT, KC_LSFT, KC_LCTL, XXXXXXX,                                KC_PPLS,  KC_4,   KC_5,   KC_6,   KC_PCMM,
-        XXXXXXX, XXXXXXX, KC_QUES, KC_EXLM, XXXXXXX,                                KC_PMNS,  KC_1,   KC_2,   KC_3,   KC_PAST,
-                                        XXXXXXX, _______, _______,      KC_PENT, KC_0, XXXXXXX
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NUM,                    KC_PEQL,  KC_7,   KC_8,   KC_9,   KC_PSLS,
+        KC_LGUI, KC_LALT, KC_LSFT, KC_LCTL, XXXXXXX,                   KC_PPLS,  KC_4,   KC_5,   KC_6,   KC_PCMM,
+        XXXXXXX, XXXXXXX, KC_QUES, KC_EXLM, XXXXXXX,                   KC_PMNS,  KC_1,   KC_2,   KC_3,   KC_PAST,
+                                   XXXXXXX, _______, _______, KC_PENT, KC_0, XXXXXXX
     ),
 
     // function layer, with alt-tab and umlauts on left side
     [_FNC] = LAYOUT_split_3x5_3(
-        KC_LALT, KC_TAB,    ALGR(KC_O), ALGR(KC_U), KC_CAPS,                                XXXXXXX, KC_F9,  KC_F10, KC_F11, KC_F12,
-        XXXXXXX, S(KC_TAB), ALGR(KC_E), ALGR(KC_A), KC_PSCR,                                XXXXXXX, KC_F5,  KC_F6,  KC_F7,  KC_F8,
-        XXXXXXX, KC_GRV,    XXXXXXX,    ALGR(KC_S), KC_LGUI,                                XXXXXXX, KC_F1,  KC_F2,  KC_F3,  KC_F4,
-                                         XXXXXXX, _______, XXXXXXX,     XXXXXXX, _______, XXXXXXX
+        KC_LALT, KC_TAB,    ALGR(KC_O), ALGR(KC_U), KC_CAPS,                   XXXXXXX, KC_F9,  KC_F10, KC_F11, KC_F12,
+        XXXXXXX, S(KC_TAB), ALGR(KC_E), ALGR(KC_A), KC_PSCR,                   XXXXXXX, KC_F5,  KC_F6,  KC_F7,  KC_F8,
+        XXXXXXX, KC_GRV,    XXXXXXX,    ALGR(KC_S), KC_LGUI,                   XXXXXXX, KC_F1,  KC_F2,  KC_F3,  KC_F4,
+                                        XXXXXXX,    _______, XXXXXXX, XXXXXXX, _______, XXXXXXX
     )
     // clang-format on
 };
