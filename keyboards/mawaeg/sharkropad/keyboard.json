@@ -78,7 +78,7 @@
             "typing_heatmap": true
         },
         "default": {
-            "animation": "gradient_up_down"
+            "animation": "cycle_up_down"
         },
         "driver": "ws2812",
         "layout": [
