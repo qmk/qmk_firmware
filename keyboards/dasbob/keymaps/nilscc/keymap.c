@@ -4,6 +4,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
+#include "swapper.h"
 
 enum layers {
     _ALPHA_NORDRASSIL,
@@ -14,6 +15,25 @@ enum layers {
     _NUM,
     _FNC,
 };
+
+
+enum keycodes {
+    // Custom oneshot mod implementation with no timers.
+    OS_SHFT = SAFE_RANGE,
+    OS_CTRL,
+    OS_ALT,
+    OS_CMD,
+
+    SW_WINN, // Switch to next window         (alt-tab)
+    SW_WINP, // Switch to previous window     (alt-shift-tab)
+    // SW_LANG, // Switch to next input language (ctl-spc)
+};
+
+#define ALGR_A ALGR(KC_A)
+#define ALGR_U ALGR(KC_U)
+#define ALGR_O ALGR(KC_O)
+#define ALGR_E ALGR(KC_E)
+#define ALGR_S ALGR(KC_S)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -69,10 +89,59 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     // function layer, with alt-tab and umlauts on left side
     [_FNC] = LAYOUT_split_3x5_3(
-        KC_LALT, KC_TAB,    ALGR(KC_O), ALGR(KC_U), KC_CAPS,                   XXXXXXX, KC_F9,  KC_F10, KC_F11, KC_F12,
-        XXXXXXX, S(KC_TAB), ALGR(KC_E), ALGR(KC_A), KC_PSCR,                   XXXXXXX, KC_F5,  KC_F6,  KC_F7,  KC_F8,
-        XXXXXXX, KC_GRV,    XXXXXXX,    ALGR(KC_S), KC_LGUI,                   XXXXXXX, KC_F1,  KC_F2,  KC_F3,  KC_F4,
-                                        XXXXXXX,    _______, XXXXXXX, XXXXXXX, _______, XXXXXXX
+        SW_WINN, SW_WINP, ALGR_O,  ALGR_U,  KC_CAPS,                   XXXXXXX, KC_F9,  KC_F10, KC_F11, KC_F12,
+        XXXXXXX, XXXXXXX, ALGR_E,  ALGR_A,  KC_PSCR,                   XXXXXXX, KC_F5,  KC_F6,  KC_F7,  KC_F8,
+        XXXXXXX, KC_GRV,  XXXXXXX, ALGR_S,  KC_LGUI,                   XXXXXXX, KC_F1,  KC_F2,  KC_F3,  KC_F4,
+                                     XXXXXXX, _______, XXXXXXX, XXXXXXX, _______, XXXXXXX
     )
     // clang-format on
 };
+
+
+bool sw_win_active = false;
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+    // double swapper for alt-tab and alt-shift-tab
+    const uint16_t cmd = KC_LALT;
+    bool* const active = &sw_win_active;
+    if ((keycode == SW_WINN) || (keycode == SW_WINP))
+    {
+        // get actual keycode to press
+        const uint16_t kc = (keycode == SW_WINN) ? KC_TAB : LSFT(KC_TAB);
+
+        if (record->event.pressed) {
+            if (!*active) {
+                *active = true;
+                register_code(cmd);
+            }
+            register_code16(kc);
+        } else {
+            unregister_code16(kc);
+            // Don't unregister cmdish until some other key is hit or released.
+        }
+
+    } else if (*active) {
+        unregister_code(cmd);
+        *active = false;
+    }
+
+    // update_oneshot(
+    //     &os_shft_state, KC_LSFT, OS_SHFT,
+    //     keycode, record
+    // );
+    // update_oneshot(
+    //     &os_ctrl_state, KC_LCTL, OS_CTRL,
+    //     keycode, record
+    // );
+    // update_oneshot(
+    //     &os_alt_state, KC_LALT, OS_ALT,
+    //     keycode, record
+    // );
+    // update_oneshot(
+    //     &os_cmd_state, KC_LCMD, OS_CMD,
+    //     keycode, record
+    // );
+
+    return true;
+}
