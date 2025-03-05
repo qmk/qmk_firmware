@@ -13,6 +13,9 @@
         "nkro": true,
         "rgb_matrix": true
     },
+    "combo": {
+        "term": 150
+    },
     "matrix_pins": {
         "cols": ["B5", "B6", "B7", "C7", "C6", "C4", "D4", "D5", "D6", "B0", "B1", "B2"],
         "rows": ["D2", "C5", "B3"]
@@ -26,6 +29,8 @@
     },
     "rgb_matrix": {
         "driver": "ws2812",
+        "default": {
+            "speed": 40
         "layout": [
             { "matrix": [2, 0],"flags": 4, "x": 0, "y": 20 },
             { "matrix": [2, 1],"flags": 4, "x": 10, "y": 20 },
@@ -63,7 +68,12 @@
             { "matrix": [0, 9],"flags": 4, "x": 90, "y": 0 },
             { "matrix": [0, 10],"flags": 4, "x": 100, "y": 0 },
             { "matrix": [0, 11],"flags": 4, "x": 110, "y": 0 }
-        ]
+        ],
+        "max_brightness": 180,
+        "sleep": true
+    },
+    "ws2812": {
+        "pin": "B4"
     },
     "layouts": {
         "LAYOUT_ortho_3x12": {
