@@ -9,6 +9,7 @@
 
 enum layers {
     ALPHA_NORDRASSIL,
+    // GER,    // german special characters
     // _ALPHA_QWERTY,
     // _ALPHA_COLEMAK,
     SYM,
@@ -27,12 +28,15 @@ enum keycodes {
     SW_WINN, // Switch to next window         (alt-tab)
     SW_WINP, // Switch to previous window     (alt-shift-tab)
     // SW_LANG, // Switch to next input language (ctl-spc)
+
+    // GER_REP,
 };
 
 #define LA_SYM MO(SYM)
 #define LA_NAV MO(NAV)
 #define LA_NUM MO(NUM)
 #define LA_FNC MO(FNC)
+// #define LA_GER MT(GER, QK_REP)
 
 #define ALGR_A ALGR(KC_A)
 #define ALGR_U ALGR(KC_U)
@@ -82,6 +86,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_Z,    KC_X,    KC_QUOT, KC_COMM, KC_SCLN,                   KC_B,    KC_C,    KC_M,    KC_F,    KC_V,
                                    QK_REP,  KC_SPC,  LA_SYM,  LA_NAV,  KC_T,    KC_LSFT
     ),
+
+    // [GER] = LAYOUT_split_3x5_3(
+    //     _______, _______, ALGR_O,  ALGR_U,  _______,                   _______, _______, _______, _______, _______,
+    //     _______, _______, ALGR_E,  ALGR_A,  _______,                   _______, _______, _______, ALGR_S,  _______,
+    //     _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______,
+    //                                _______, _______, _______, _______, _______, _______
+    // ),
 
     // special layers
 
@@ -177,6 +188,17 @@ oneshot_state os_alt_state = os_up_unqueued;
 oneshot_state os_cmd_state = os_up_unqueued;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+    // switch (keycode) {
+    //     case LA_GER: {
+    //         if (record->tap.count && record->event.pressed) {
+    //             tap_code16(QK_REP);
+    //             return false;
+    //         }
+    //         break;
+    //     }
+    //     default: break;
+    // }
 
     // double swapper for alt-tab and alt-shift-tab
     const uint16_t cmd = KC_LALT;
