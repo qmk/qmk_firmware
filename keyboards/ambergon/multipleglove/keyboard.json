@@ -2,7 +2,7 @@
     "manufacturer": "ATSUTO_NAKAYAMA",
     "keyboard_name": "MultipleGlove",
     "maintainer": "ambergon",
-    "bootloader": "atmel-dfu",
+    "development_board": "promicro",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
