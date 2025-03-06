@@ -1,4 +1,5 @@
-// Dynamic keymap
-#define DYNAMIC_KEYMAP_LAYER_COUNT 4
+// Copyright 2025 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
+#pragma once
+
 #define DYNAMIC_KEYMAP_MACRO_COUNT 36
-#define STM32_FLASH_SECTORS_PER_BANK 64

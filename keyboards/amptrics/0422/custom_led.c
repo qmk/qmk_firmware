@@ -63,7 +63,7 @@ void turn_off_all_leds(void) {
     }
 }
 
-void keyboard_post_init_user(void) {
+void keyboard_post_init_kb(void) {
     for (int i = 0; i < LED_PINS_COUNT; i++) {
         gpio_set_pin_output(pins[i]);
         gpio_write_pin_low(pins[i]);
@@ -75,10 +75,11 @@ void keyboard_post_init_user(void) {
     turn_off_all_leds();
 
     update_leds_for_layer(0); // Update LEDs to indicate the default layer
+    keyboard_post_init_user();
 }
 
-layer_state_t layer_state_set_user(layer_state_t state) {
+layer_state_t layer_state_set_kb(layer_state_t state) {
     uint8_t layer = get_highest_layer(state);
     update_leds_for_layer(layer);
-    return state;
+    return layer_state_set_user(state);
 }
