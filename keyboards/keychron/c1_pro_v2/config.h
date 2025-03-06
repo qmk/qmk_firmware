@@ -16,9 +16,6 @@
 
 #pragma once
 
-/* DIP switch */
-#define DIP_SWITCH_PINS { D2 }
-
 /* Increase I2C speed to 1000 KHz */
 #define I2C1_CLOCK_SPEED 400000
 #define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2

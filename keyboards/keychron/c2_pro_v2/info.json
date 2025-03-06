@@ -30,6 +30,9 @@
         "caps_lock": "C9",
         "num_lock": "C8"
     },
+    "dip_switch": {
+        "pins": ["D2"]
+    },
     "layouts": {
         "LAYOUT_104_ansi": {
             "layout": [
