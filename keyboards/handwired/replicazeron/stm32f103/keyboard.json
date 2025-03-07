@@ -1,0 +1,31 @@
+{
+    "development_board": "bluepill",
+    "features": {
+        "bootmagic": true,
+        "console": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgblight": true
+    },
+    "matrix_pins": {
+        "cols": ["A7", "A6", "A5", "A4", "B4"],
+        "rows": ["B15", "A8", "A9", "A10", "A15", "B3"]
+    },
+    "rgblight": {
+        "led_count": 6
+        "animations": {
+            "breathing": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "twinkle": true
+        }
+    },
+    "usb": {
+        "device_version": "0.0.2"
+    },
+    "ws2812": {
+        "pin": "B14"
+    }
+}
