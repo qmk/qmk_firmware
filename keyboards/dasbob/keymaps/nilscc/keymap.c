@@ -217,7 +217,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         *active = false;
     }
 
-    update_oneshot(
+    update_oneshot_keydown(
         &os_shft_state, KC_LSFT, OS_SHFT,
         keycode, record
     );

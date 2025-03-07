@@ -21,6 +21,15 @@ void update_oneshot(
     keyrecord_t *record
 );
 
+// just like update_oneshot but unregister on first key down already
+void update_oneshot_keydown(
+    oneshot_state *state,
+    uint16_t mod,
+    uint16_t trigger,
+    uint16_t keycode,
+    keyrecord_t *record
+);
+
 // To be implemented by the consumer. Defines keys to cancel oneshot mods.
 bool is_oneshot_cancel_key(uint16_t keycode);
 
