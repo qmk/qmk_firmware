@@ -27,26 +27,26 @@ enum keycodes {
 
     SW_WINN, // Switch to next window         (alt-tab)
     SW_WINP, // Switch to previous window     (alt-shift-tab)
-    // SW_LANG, // Switch to next input language (ctl-spc)
-
-    // GER_REP,
-    UL_A,
-    UL_O,
-    UL_U,
-    UL_S,
 };
 
 #define LA_SYM MO(SYM)
 #define LA_NAV MO(NAV)
 #define LA_NUM MO(NUM)
 #define LA_FNC MO(FNC)
-// #define LA_GER MT(GER, QK_REP)
 
 #define ALGR_A ALGR(KC_A)
 #define ALGR_U ALGR(KC_U)
 #define ALGR_O ALGR(KC_O)
 #define ALGR_E ALGR(KC_E)
 #define ALGR_S ALGR(KC_S)
+
+// umlaut tap-hold defines: regular key on tap, umlaut variant on hold.
+// needs to be defined as one of the mod-tap keys, even though its behaviour is
+// overwritten in process_record_user!
+#define UL_A ALGR_T(KC_A)
+#define UL_O ALGR_T(KC_O)
+#define UL_U ALGR_T(KC_U)
+#define UL_S ALGR_T(KC_S)
 
 #define HOME G(KC_LEFT)
 #define END G(KC_RGHT)
@@ -88,15 +88,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_Q,    KC_Y,    UL_O,    UL_U,    KC_MINS,                   KC_J,    KC_G,    KC_N,    KC_W,    KC_K,
         KC_H,    KC_I,    KC_E,    UL_A,    KC_DOT,                    KC_P,    KC_D,    KC_R,    UL_S,    KC_L,
         KC_Z,    KC_X,    KC_QUOT, KC_COMM, KC_SCLN,                   KC_B,    KC_C,    KC_M,    KC_F,    KC_V,
-                                   LA_SYM,  QK_REP,  KC_SPC,  KC_T,    KC_BSPC, LA_NAV
+                                   LA_NAV,  KC_SPC,  QK_REP,  KC_T,    KC_BSPC, LA_SYM
     ),
-
-    // [GER] = LAYOUT_split_3x5_3(
-    //     _______, _______, ALGR_O,  ALGR_U,  _______,                   _______, _______, _______, _______, _______,
-    //     _______, _______, ALGR_E,  ALGR_A,  _______,                   _______, _______, _______, ALGR_S,  _______,
-    //     _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______,
-    //                                _______, _______, _______, _______, _______, _______
-    // ),
 
     // special layers
 
@@ -193,25 +186,12 @@ static oneshot_state os_cmd_state = os_up_unqueued;
 
 static bool tap_hold(keyrecord_t *record, uint16_t tap, uint16_t hold) {
     if (record->event.pressed) {
-        if (record->tap.count) {
-            tap_code16(tap);
-        } else {
-            tap_code16(hold);
-        }
-        return false;
+        tap_code16(record->tap.count ? tap : hold);
     }
-    return true;
+    return false;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
-    switch (keycode) {
-        case UL_A: return tap_hold(record, KC_A, ALGR_A);
-        case UL_O: return tap_hold(record, KC_O, ALGR_O);
-        case UL_U: return tap_hold(record, KC_U, ALGR_U);
-        case UL_S: return tap_hold(record, KC_S, ALGR_S);
-        default: break;
-    }
 
     // double swapper for alt-tab and alt-shift-tab
     const uint16_t cmd = KC_LALT;
@@ -253,6 +233,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         &os_cmd_state, KC_LCMD, OS_CMD,
         keycode, record
     );
+
+    switch (keycode) {
+        case UL_A: return tap_hold(record, KC_A, ALGR_A);
+        case UL_O: return tap_hold(record, KC_O, ALGR_O);
+        case UL_U: return tap_hold(record, KC_U, ALGR_U);
+        case UL_S: return tap_hold(record, KC_S, ALGR_S);
+        default: break;
+    }
 
     return true;
 }
