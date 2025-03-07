@@ -19,7 +19,7 @@
 
 /* Custom keycodes for Lighting and Bluetooth control */
 enum anne_pro_keycodes {
-    APL_RGB = QK_USER,
+    APL_RGB = QK_KB,
     APL_RAT,
     APL_BRT,
     APL_MOD,
