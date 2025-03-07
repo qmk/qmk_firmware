@@ -30,6 +30,10 @@ enum keycodes {
     // SW_LANG, // Switch to next input language (ctl-spc)
 
     // GER_REP,
+    UL_A,
+    UL_O,
+    UL_U,
+    UL_S,
 };
 
 #define LA_SYM MO(SYM)
@@ -81,10 +85,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // ),
 
     [ALPHA_NORDRASSIL] = LAYOUT_split_3x5_3(
-        KC_Q,    KC_Y,    KC_O,    KC_U,    KC_MINS,                   KC_J,    KC_G,    KC_N,    KC_W,    KC_K,
-        KC_H,    KC_I,    KC_E,    KC_A,    KC_DOT,                    KC_P,    KC_D,    KC_R,    KC_S,    KC_L,
+        KC_Q,    KC_Y,    UL_O,    UL_U,    KC_MINS,                   KC_J,    KC_G,    KC_N,    KC_W,    KC_K,
+        KC_H,    KC_I,    KC_E,    UL_A,    KC_DOT,                    KC_P,    KC_D,    KC_R,    UL_S,    KC_L,
         KC_Z,    KC_X,    KC_QUOT, KC_COMM, KC_SCLN,                   KC_B,    KC_C,    KC_M,    KC_F,    KC_V,
-                                   QK_REP,  KC_SPC,  LA_SYM,  LA_NAV,  KC_T,    KC_LSFT
+                                   LA_SYM,  QK_REP,  KC_SPC,  KC_T,    KC_BSPC, LA_NAV
     ),
 
     // [GER] = LAYOUT_split_3x5_3(
@@ -180,25 +184,34 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return update_tri_layer_state(state, SYM, NAV, NUM);
 }
 
-bool sw_win_active = false;
+static bool sw_win_active = false;
 
-oneshot_state os_shft_state = os_up_unqueued;
-oneshot_state os_ctrl_state = os_up_unqueued;
-oneshot_state os_alt_state = os_up_unqueued;
-oneshot_state os_cmd_state = os_up_unqueued;
+static oneshot_state os_shft_state = os_up_unqueued;
+static oneshot_state os_ctrl_state = os_up_unqueued;
+static oneshot_state os_alt_state = os_up_unqueued;
+static oneshot_state os_cmd_state = os_up_unqueued;
+
+static bool tap_hold(keyrecord_t *record, uint16_t tap, uint16_t hold) {
+    if (record->event.pressed) {
+        if (record->tap.count) {
+            tap_code16(tap);
+        } else {
+            tap_code16(hold);
+        }
+        return false;
+    }
+    return true;
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
-    // switch (keycode) {
-    //     case LA_GER: {
-    //         if (record->tap.count && record->event.pressed) {
-    //             tap_code16(QK_REP);
-    //             return false;
-    //         }
-    //         break;
-    //     }
-    //     default: break;
-    // }
+    switch (keycode) {
+        case UL_A: return tap_hold(record, KC_A, ALGR_A);
+        case UL_O: return tap_hold(record, KC_O, ALGR_O);
+        case UL_U: return tap_hold(record, KC_U, ALGR_U);
+        case UL_S: return tap_hold(record, KC_S, ALGR_S);
+        default: break;
+    }
 
     // double swapper for alt-tab and alt-shift-tab
     const uint16_t cmd = KC_LALT;
