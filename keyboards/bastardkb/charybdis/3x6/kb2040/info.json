@@ -1,0 +1,19 @@
+{
+    "keyboard_name": "Charybdis (4x6) KB2040",
+    "usb": {
+        "device_version": "2.0.0"
+    },
+    "matrix_pins": {
+        "cols": ["GP2", "GP1", "GP29", "GP6", "GP7", "GP8"],
+        "rows": ["GP3", "GP5", "GP4", "GP9"]
+    },
+    "split": {
+        "enabled": true,
+        "soft_serial_pin": "GP0"
+        "bootmagic": {
+            "matrix": [4, 0]
+        }
+    },
+    "processor": "RP2040",
+    "bootloader": "rp2040"
+}
