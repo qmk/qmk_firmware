@@ -14,6 +14,7 @@ from qmk.keymap import list_keymaps
 from qmk.keyboard import find_readme, list_keyboards, keyboard_alias_definitions
 from qmk.keycodes import load_spec, list_versions, list_languages
 
+COMMUNITY_PATH = Path('layouts/default/')
 DATA_PATH = Path('data')
 TEMPLATE_PATH = DATA_PATH / 'templates/api/'
 BUILD_API_PATH = Path('.build/api_data/')
@@ -89,6 +90,18 @@ def _filtered_keyboard_list():
     return keyboard_list
 
 
+def _copy_community_layouts(v1_dir):
+    available_layouts = sorted([x.name for x in COMMUNITY_PATH.iterdir() if x.is_dir()])
+
+    layouts_out = v1_dir / 'layouts'
+    layouts_out.mkdir(parents=True, exist_ok=True)
+    for layout in available_layouts:
+        layout_json = COMMUNITY_PATH / layout / 'info.json'
+        shutil.copyfile(layout_json, v1_dir / 'layouts' / f'{layout}.json')
+
+    return available_layouts
+
+
 @cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="Don't write the data to disk.")
 @cli.argument('-f', '--filter', arg_only=True, action='append', default=[], help="Filter the list of keyboards based on partial name matches the supplied value. May be passed multiple times.")
 @cli.subcommand('Generate QMK API data', hidden=False if cli.config.user.developer else True)
@@ -101,6 +114,7 @@ def generate_api(cli):
     keyboard_aliases_file = v1_dir / 'keyboard_aliases.json'  # A list of historical keyboard names and their new name
     keyboard_metadata_file = v1_dir / 'keyboard_metadata.json'  # All the data configurator/via needs for initialization
     constants_metadata_file = v1_dir / 'constants_metadata.json'  # Metadata for available constants
+    layouts_metadata_file = v1_dir / 'layouts_metadata.json'  # Metadata for available layouts
     usb_file = v1_dir / 'usb.json'  # A mapping of USB VID/PID -> keyboard target
 
     if BUILD_API_PATH.exists():
@@ -181,6 +195,7 @@ def generate_api(cli):
 
     # Feature specific handling
     _resolve_keycode_specs(v1_dir)
+    available_layouts = _copy_community_layouts(v1_dir)
 
     # Write the global JSON files
     keyboard_all_json = json.dumps({'last_updated': current_datetime(), 'keyboards': kb_all}, separators=(',', ':'))
@@ -189,6 +204,7 @@ def generate_api(cli):
     keyboard_aliases_json = json.dumps({'last_updated': current_datetime(), 'keyboard_aliases': keyboard_aliases}, separators=(',', ':'))
     keyboard_metadata_json = json.dumps(keyboard_metadata, separators=(',', ':'))
     constants_metadata_json = json.dumps({'last_updated': current_datetime(), 'constants': _list_constants(v1_dir)}, separators=(',', ':'))
+    layouts_metadata_json = json.dumps({'last_updated': current_datetime(), 'layouts': available_layouts}, separators=(',', ':'))
 
     if not cli.args.dry_run:
         keyboard_all_file.write_text(keyboard_all_json, encoding='utf-8')
@@ -197,3 +213,4 @@ def generate_api(cli):
         keyboard_aliases_file.write_text(keyboard_aliases_json, encoding='utf-8')
         keyboard_metadata_file.write_text(keyboard_metadata_json, encoding='utf-8')
         constants_metadata_file.write_text(constants_metadata_json, encoding='utf-8')
+        layouts_metadata_file.write_text(layouts_metadata_json, encoding='utf-8')
