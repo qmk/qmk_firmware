@@ -79,6 +79,8 @@ void ap2_led_set_manual_control(uint8_t manual);
 
 /* Blink given key `count` times by masking it with a `color`. Blink takes `hundredths` of a second */
 void ap2_led_blink(uint8_t row, uint8_t col, ap2_led_t color, uint8_t count, uint8_t hundredths);
+/* Cancel any running blinking */
+void ap2_led_cancel_blink(void);
 
 /* Kept for compatibility, but implemented using masks */
 void ap2_led_set_foreground_color(uint8_t red, uint8_t green, uint8_t blue);

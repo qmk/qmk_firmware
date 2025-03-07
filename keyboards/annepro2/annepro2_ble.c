@@ -127,7 +127,7 @@ static void ap2_ble_swtich_ble_driver(void) {
 }
 
 static uint8_t ap2_ble_leds(void) {
-    return 0;  // TODO: Figure out how to obtain LED status
+    return ble_capslock << 1;
 }
 
 static void ap2_ble_mouse(report_mouse_t *report) {}

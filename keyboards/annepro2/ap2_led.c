@@ -120,6 +120,11 @@ void ap2_led_blink(uint8_t row, uint8_t col, ap2_led_t color, uint8_t count, uin
     proto_tx(CMD_LED_KEY_BLINK, payload, sizeof(payload), 1);
 }
 
+void ap2_led_cancel_blink(void) {
+    uint8_t payload[] = {0};
+    proto_tx(CMD_LED_KEY_BLINK, payload, sizeof(payload), 1);
+}
+
 void ap2_led_set_foreground_color(uint8_t red, uint8_t green, uint8_t blue) {
     ap2_led_t color = {.p.red = red, .p.green = green, .p.blue = blue, .p.alpha = 0xff};
     ap2_led_mask_set_mono(color);
