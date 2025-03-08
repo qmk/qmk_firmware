@@ -723,23 +723,26 @@ Now open your dev environment and live a squiggly-free life.
 
 ## `qmk docs`
 
-This command starts a local HTTP server which you can use for browsing or improving the docs. Default port is 5173.
+This command starts a local HTTP server which you can use for browsing or improving the docs, and provides live reload capability whilst editing. Default port is 8936.
+Use the `-b`/`--browser` flag to automatically open the local webserver in your default browser.
 
-This command requires `node` and `yarn` to be installed as prerequisites, and provides live reload capability whilst editing.
+Requires `node` and `yarn` to be installed as prerequisites.
 
 **Usage**:
 
 ```
-usage: qmk docs [-h]
+usage: qmk docs [-h] [-b] [-p PORT]
 
 options:
-  -h, --help  show this help message and exit
+  -h, --help       show this help message and exit
+  -b, --browser    Open the docs in the default browser.
+  -p, --port PORT  Port number to use.
 ```
 
 ## `qmk generate-docs`
 
-This command allows you to generate QMK documentation locally. It can be uses for general browsing or improving the docs.
-Use the `-s`/`--serve` flag to also serve the static site once built. Default port is 4173.
+This command generates QMK documentation for production.
+Use the `-s`/`--serve` flag to also serve the static site on port 4173 once built. Note that this does not provide live reloading; use `qmk docs` instead for development purposes.
 
 This command requires `node` and `yarn` to be installed as prerequisites, and requires the operating system to support symlinks.
 
