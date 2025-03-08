@@ -31,9 +31,6 @@
 #    define SNLED27351_CURRENT_TUNE \
         { 0x60, 0x60, 0x60, 0x60, 0x60, 0x60, 0x60, 0x60, 0x60, 0x60, 0x60, 0x60 }
 
-/* turn off effects when suspended */
-#    define LED_DISABLE_WHEN_USB_SUSPENDED
-
 // LED Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_led_matrix?id=led-matrix-effects
