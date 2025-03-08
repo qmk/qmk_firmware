@@ -1,6 +1,6 @@
 # Lemokey X0
 
-![Lemokey X0](https://cdn.shopify.com/s/files/1/0059/0630/1017/files/X0-5.jpg?v=1718165504)
+![Lemokey X0](https://i.imgur.com/ntROq41.jpeg)
 
 A one-handed gaming keypad.
 
