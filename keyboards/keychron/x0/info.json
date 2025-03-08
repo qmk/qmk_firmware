@@ -20,7 +20,7 @@
         "rows": ["C12", "D2", "B3", "B4", "B5", "B6"]
     },
     "processor": "STM32F401",
-    "url": "https://github.com/Keychron",
+    "url": "https://www.lemokey.com/products/lemokey-x0-qmk-wired-mechanical-gaming-keypad",
     "usb": {
         "device_version": "1.1.0",
         "pid": "0x0200",
