@@ -21,7 +21,3 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 ## Bootloader
 
 To enter the bootloader, hold down the key located at **K00**, labelled and commonly programmed as **Esc**, while plugging in the keyboard.
-
-## Factory Reset
-
-Press and hold the keys labelled **Fn** + **J** + **Z**.  The keyboard backlight will flash red quickly for three seconds, indicating that your keyboard has been reset.
