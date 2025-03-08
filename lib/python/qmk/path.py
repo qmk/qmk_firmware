@@ -21,7 +21,7 @@ def is_keyboard(keyboard_name):
     if Path(keyboard_name).is_absolute():
         return False
 
-    keyboard_json = QMK_FIRMWARE / 'keyboards' / keyboard_name  / 'keyboard.json'
+    keyboard_json = QMK_FIRMWARE / 'keyboards' / keyboard_name / 'keyboard.json'
 
     return keyboard_json.exists()
 
