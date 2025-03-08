@@ -432,8 +432,8 @@ void quantum_init(void) {
     }
 
     /* init globals */
-    debug_config.raw  = eeconfig_read_debug();
-    keymap_config.raw = eeconfig_read_keymap();
+    eeconfig_read_debug(&debug_config);
+    eeconfig_read_keymap(&keymap_config);
 
 #ifdef BOOTMAGIC_ENABLE
     bootmagic();
@@ -504,7 +504,7 @@ void keyboard_init(void) {
 #endif
 #if defined(NKRO_ENABLE) && defined(FORCE_NKRO)
     keymap_config.nkro = 1;
-    eeconfig_update_keymap(keymap_config.raw);
+    eeconfig_update_keymap(&keymap_config);
 #endif
 #ifdef DIP_SWITCH_ENABLE
     dip_switch_init();
