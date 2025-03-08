@@ -14,6 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#pragma once
+
 #define STM32_FLASH_SECTORS_PER_BANK 128
 
 #define I2C1_SCL_PIN A9

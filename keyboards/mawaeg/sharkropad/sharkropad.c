@@ -75,7 +75,9 @@
      return buf;
  }
  
- bool oled_task_user(void) {
+bool oled_task_kb(void) {
+    if (!oled_task_user()) { return false; }
+
      static uint8_t  last_effect = 0;
      static uint8_t  last_speed  = 0;
      static uint16_t key_timer   = 0;
@@ -120,6 +122,5 @@
          oled_write("%  ", false);
      }
  
-     return false;
- }
- 
+     return true;
+}

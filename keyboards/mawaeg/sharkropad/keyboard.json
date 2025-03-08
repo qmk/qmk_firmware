@@ -103,7 +103,7 @@
             {"x": 8, "y": 45, "flags": 2},
             {"x": 8, "y": 17, "flags": 2}
         ],
-        "maximum_brightness": 180
+        "max_brightness": 180
     },
     "url": "https://github.com/mawaeg/sharkropad",
     "usb": {
