@@ -18,9 +18,6 @@
 
 #include_next <mcuconf.h>
 
-#undef STM32_HSECLK
-#define STM32_HSECLK 16000000U
-
 #undef STM32_PLLM_VALUE
 #define STM32_PLLM_VALUE 8
 
