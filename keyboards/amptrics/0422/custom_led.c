@@ -15,7 +15,6 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "gpio.h"
 
 #define LED_LAYER_0 B3
 #define LED_LAYER_1 B4
@@ -24,30 +23,8 @@
 
 #define LED_PINS_COUNT 4
 
-long unsigned int pins[LED_PINS_COUNT] = {LED_LAYER_0, LED_LAYER_1, LED_LAYER_2, LED_LAYER_3};
+pin_t pins[LED_PINS_COUNT] = {LED_LAYER_0, LED_LAYER_1, LED_LAYER_2, LED_LAYER_3};
 
-void update_leds_for_layer(uint8_t layer) {
-    for (int i = 0; i < LED_PINS_COUNT; i++) {
-        gpio_write_pin_low(pins[i]); // Turn off all LEDs
-    }
-    switch (layer) {
-        case 0:
-            gpio_write_pin_high(LED_LAYER_0);
-            break;
-        case 1:
-            gpio_write_pin_high(LED_LAYER_1);
-            break;
-        case 2:
-            gpio_write_pin_high(LED_LAYER_2);
-            break;
-        case 3:
-            gpio_write_pin_high(LED_LAYER_3);
-            break;
-        default:
-            // Optional: Handle unexpected layers
-            break;
-    }
-}
 
 // Function to turn on all LEDs
 void turn_on_all_leds(void) {
@@ -61,6 +38,11 @@ void turn_off_all_leds(void) {
     for (int i = 0; i < LED_PINS_COUNT; i++) {
         gpio_write_pin_low(pins[i]); // Turn off LED
     }
+}
+
+void update_leds_for_layer(uint8_t layer) {
+    turn_off_all_leds();
+    gpio_write_pin_high(pins[layer]);
 }
 
 void keyboard_post_init_kb(void) {
