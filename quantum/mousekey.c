@@ -618,11 +618,11 @@ void mousekey_off(uint8_t code) {
     else if (IS_MOUSEKEY_BUTTON(code))
         mouse_report.buttons &= ~(1 << (code - QK_MOUSE_BUTTON_1));
 #    ifdef MK_MOMENTARY_ACCEL
-    else if (code == QK_MOUSE_ACCELERATION_0)
+    else if (code == QK_MOUSE_ACCELERATION_0 && old_speed == mkspd_0)
         mk_speed = mkspd_DEFAULT;
-    else if (code == QK_MOUSE_ACCELERATION_1)
+    else if (code == QK_MOUSE_ACCELERATION_1 && old_speed == mkspd_1)
         mk_speed = mkspd_DEFAULT;
-    else if (code == QK_MOUSE_ACCELERATION_2)
+    else if (code == QK_MOUSE_ACCELERATION_2 && old_speed == mkspd_2)
         mk_speed = mkspd_DEFAULT;
     if (mk_speed != old_speed) adjust_speed();
 #    endif
