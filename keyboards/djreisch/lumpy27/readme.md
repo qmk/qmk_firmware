@@ -11,6 +11,7 @@ Q: Why are the keys in the wrong place?
 A: For certain games I found it easier instead of remapping them to just change where they are. That's why keys like B and G are not in the right spots. 
 
 * Keyboard Maintainer: [djreisch](https://github.com/djreisch)
+* Hardware Availability: [DuckyDebug.org](https://duckydebug.org/products/lumpy27-ergonomic-gaming-keyboard)
 
 qmk compile example for this keyboard (after setting up your build environment):
 
