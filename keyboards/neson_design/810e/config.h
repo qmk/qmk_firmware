@@ -17,5 +17,4 @@
 
 #pragma once
 
-#define BOARD_OTG_NOVBUSSENS 1
-#define STM32_HSECLK 16000000U
+// #define BOARD_OTG_NOVBUSSENS 1
