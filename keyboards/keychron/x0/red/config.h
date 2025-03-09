@@ -17,24 +17,9 @@
 #pragma once
 
 #ifdef LED_MATRIX_ENABLE
-/* RGB Matrix Driver Configuration */
-#    define DRIVER_COUNT 1
-#    define SNLED27351_I2C_ADDRESS_1 0b1110100
+#    define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_GND
 
-/* RGB Matrix Configuration */
-#    define LED_MATRIX_LED_COUNT 35
-#    define LED_MATRIX_CENTER \
-        { 28, 16 }
-
-/* Scan phase of led driver set as MSKPHASE_6CHANNEL(defined as 0x03 in CKLED2001.h) */
 #    define SNLED27351_PHASE_CHANNEL SNLED27351_SCAN_PHASE_6_CHANNEL
 #    define SNLED27351_CURRENT_TUNE \
         { 0x60, 0x60, 0x60, 0x60, 0x60, 0x60, 0x60, 0x60, 0x60, 0x60, 0x60, 0x60 }
-
-// LED Matrix Animation modes. Explicitly enabled
-// For full list of effects, see:
-// https://docs.qmk.fm/#/feature_led_matrix?id=led-matrix-effects
-// #if defined(LED_MATRIX_KEYPRESSES) || defined(LED_MATRIX_KEYRELEASES)
-#    define LED_MATRIX_KEYPRESSES
-#    define LED_MATRIX_KEYRELEASES
 #endif

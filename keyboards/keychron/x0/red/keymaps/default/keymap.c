@@ -34,8 +34,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [WIN_FN] = LAYOUT(
         _______,            KC_BRID,  KC_BRIU,  LGUI(KC_TAB),  LGUI(KC_E),  _______,
         _______,  _______,  _______,  _______,       _______,     _______,  _______,
-        LM_TOGG,  _______,  LM_BRIU,  _______,       _______,     _______,
-        _______,  _______,  LM_BRID,  _______,       _______,     _______,
+        LM_TOGG,  LM_PREV,  LM_BRIU,  LM_NEXT,       _______,     _______,
+        _______,  LM_SPDD,  LM_BRID,  LM_SPDU,       _______,     _______,
         _______,            _______,  _______,       _______,     NK_TOGG,
         _______,            _______,  _______,       _______,          _______),
 };

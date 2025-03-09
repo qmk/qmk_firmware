@@ -57,6 +57,5 @@ const snled27351_led_t PROGMEM g_snled27351_leds[LED_MATRIX_LED_COUNT] = {
     {0, CB1_CA3 },
     {0, CB1_CA4 },
     {0, CB1_CA5 },
-    {0, CB1_CA6 },
 };
 #endif
