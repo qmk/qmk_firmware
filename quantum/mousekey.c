@@ -501,10 +501,11 @@ void mousekey_off(uint8_t code) {
 
 enum { mkspd_unmod, mkspd_0, mkspd_1, mkspd_2, mkspd_COUNT };
 #    ifndef MK_MOMENTARY_ACCEL
-static uint8_t  mk_speed                 = mkspd_1;
+static uint8_t mk_speed = mkspd_1;
 #    else
 static uint8_t mk_speed      = mkspd_unmod;
 static uint8_t mkspd_DEFAULT = mkspd_unmod;
+static uint8_t mk_speed_mask = 0;
 #    endif
 static uint16_t last_timer_c             = 0;
 static uint16_t last_timer_w             = 0;
@@ -564,6 +565,17 @@ void adjust_speed(void) {
     }
 }
 
+void update_mk_speed(void) {
+    if (mk_speed_mask & 0b100)
+        mk_speed = mkspd_2;
+    else if (mk_speed_mask & 0b010)
+        mk_speed = mkspd_1;
+    else if (mk_speed_mask & 0b001)
+        mk_speed = mkspd_0;
+    else
+        mk_speed = mkspd_DEFAULT;
+}
+
 void mousekey_on(uint8_t code) {
     uint16_t const c_offset  = c_offsets[mk_speed];
     uint16_t const w_offset  = w_offsets[mk_speed];
@@ -587,11 +599,14 @@ void mousekey_on(uint8_t code) {
     else if (IS_MOUSEKEY_BUTTON(code))
         mouse_report.buttons |= 1 << (code - QK_MOUSE_BUTTON_1);
     else if (code == QK_MOUSE_ACCELERATION_0)
-        mk_speed = mkspd_0;
+        mk_speed_mask |= 0b001;
     else if (code == QK_MOUSE_ACCELERATION_1)
-        mk_speed = mkspd_1;
+        mk_speed_mask |= 0b010;
     else if (code == QK_MOUSE_ACCELERATION_2)
-        mk_speed = mkspd_2;
+        mk_speed_mask |= 0b100;
+
+    update_mk_speed();
+
     if (mk_speed != old_speed) adjust_speed();
 }
 
@@ -618,12 +633,13 @@ void mousekey_off(uint8_t code) {
     else if (IS_MOUSEKEY_BUTTON(code))
         mouse_report.buttons &= ~(1 << (code - QK_MOUSE_BUTTON_1));
 #    ifdef MK_MOMENTARY_ACCEL
-    else if (code == QK_MOUSE_ACCELERATION_0 && old_speed == mkspd_0)
-        mk_speed = mkspd_DEFAULT;
-    else if (code == QK_MOUSE_ACCELERATION_1 && old_speed == mkspd_1)
-        mk_speed = mkspd_DEFAULT;
-    else if (code == QK_MOUSE_ACCELERATION_2 && old_speed == mkspd_2)
-        mk_speed = mkspd_DEFAULT;
+    else if (code == QK_MOUSE_ACCELERATION_0)
+        mk_speed_mask &= 0b110;
+    else if (code == QK_MOUSE_ACCELERATION_1)
+        mk_speed_mask &= 0b101;
+    else if (code == QK_MOUSE_ACCELERATION_2)
+        mk_speed_mask &= 0b011;
+    update_mk_speed();
     if (mk_speed != old_speed) adjust_speed();
 #    endif
 }
