@@ -26,7 +26,7 @@ def _list_defaultish_keymaps(kb):
     defaultish.extend(INVALID_KM_NAMES)
 
     keymaps = set()
-    for x in list_keymaps(kb):
+    for x in list_keymaps(kb, include_userspace=False):
         if x in defaultish or x.startswith('default'):
             keymaps.add(x)
 
