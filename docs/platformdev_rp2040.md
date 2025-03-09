@@ -4,16 +4,16 @@ The following table shows the current driver status for peripherals on RP2040 MC
 
 | System                                                           | Support                                        |
 | ---------------------------------------------------------------- | ---------------------------------------------- |
-| [ADC driver](adc_driver)                                      | :heavy_check_mark:                             |
-| [Audio](audio_driver#pwm-hardware)                            | :heavy_check_mark:                             |
-| [Backlight](feature_backlight)                                | :heavy_check_mark:                             |
-| [I2C driver](i2c_driver)                                      | :heavy_check_mark:                             |
-| [SPI driver](spi_driver)                                      | :heavy_check_mark:                             |
-| [WS2812 driver](ws2812_driver)                                | :heavy_check_mark: using `PIO` driver          |
-| [External EEPROMs](eeprom_driver)                             | :heavy_check_mark: using `I2C` or `SPI` driver |
-| [EEPROM emulation](eeprom_driver#wear_leveling-configuration) | :heavy_check_mark:                             |
-| [serial driver](serial_driver)                                | :heavy_check_mark: using `SIO` or `PIO` driver |
-| [UART driver](uart_driver)                                    | :heavy_check_mark: using `SIO` driver          |
+| [ADC driver](drivers/adc)                                      | :heavy_check_mark:                             |
+| [Audio](drivers/audio#pwm-hardware)                            | :heavy_check_mark:                             |
+| [Backlight](features/backlight)                                | :heavy_check_mark:                             |
+| [I2C driver](drivers/i2c)                                      | :heavy_check_mark:                             |
+| [SPI driver](drivers/spi)                                      | :heavy_check_mark:                             |
+| [WS2812 driver](drivers/ws2812)                                | :heavy_check_mark: using `PIO` driver          |
+| [External EEPROMs](drivers/eeprom)                             | :heavy_check_mark: using `I2C` or `SPI` driver |
+| [EEPROM emulation](drivers/eeprom#wear_leveling-configuration) | :heavy_check_mark:                             |
+| [serial driver](drivers/serial)                                | :heavy_check_mark: using `SIO` or `PIO` driver |
+| [UART driver](drivers/uart)                                    | :heavy_check_mark: using `SIO` driver          |
 
 ## GPIO
 
@@ -43,7 +43,7 @@ QMK RP2040 support builds upon ChibiOS and thus follows their convention for act
 | `I2C0`            | `RP_I2C_USE_I2C0`  | `I2CD0`      |
 | `I2C1`            | `RP_I2C_USE_I2C1`  | `I2CD1`      |
 
-To configure the I2C driver please read the [ChibiOS/ARM](i2c_driver#arm-configuration) section.
+To configure the I2C driver please read the [ChibiOS/ARM](drivers/i2c#arm-configuration) section.
 
 ### SPI Driver
 
@@ -52,7 +52,7 @@ To configure the I2C driver please read the [ChibiOS/ARM](i2c_driver#arm-configu
 | `SPI0`            | `RP_SPI_USE_SPI0`  | `SPID0`      |
 | `SPI1`            | `RP_SPI_USE_SPI1`  | `SPID1`      |
 
-To configure the SPI driver please read the [ChibiOS/ARM](spi_driver#chibiosarm-configuration) section.
+To configure the SPI driver please read the [ChibiOS/ARM](drivers/spi#chibiosarm-configuration) section.
 
 ### UART Driver
 
@@ -92,7 +92,7 @@ This is the default board that is chosen, unless any other RP2040 board is selec
 | `SPI_MISO_PIN`                                                             | `GP20`                               |
 | `SPI_MOSI_PIN`                                                             | `GP19`                               |
 | **Serial driver**                                                          |                                      |
-| `SERIAL_USART_DRIVER` ([SIO Driver](serial_driver#the-sio-driver) only) | `SIOD0`                              |
+| `SERIAL_USART_DRIVER` ([SIO Driver](drivers/serial#the-sio-driver) only) | `SIOD0`                              |
 | `SOFT_SERIAL_PIN`                                                          | undefined, use `SERIAL_USART_TX_PIN` |
 | `SERIAL_USART_TX_PIN`                                                      | `GP0`                                |
 | `SERIAL_USART_RX_PIN`                                                      | `GP1`                                |
@@ -115,9 +115,9 @@ BOARD = GENERIC_RP_RP2040
 
 ## Split keyboard support
 
-Split keyboards are fully supported using the [serial driver](serial_driver) in both full-duplex and half-duplex configurations. Two driver subsystems are supported by the RP2040, the hardware UART based `SIO` and the Programmable IO based `PIO` driver.
+Split keyboards are fully supported using the [serial driver](drivers/serial) in both full-duplex and half-duplex configurations. Two driver subsystems are supported by the RP2040, the hardware UART based `SIO` and the Programmable IO based `PIO` driver.
 
-| Feature                       | [SIO Driver](serial_driver#the-sio-driver) | [PIO Driver](serial_driver#the-pio-driver) |
+| Feature                       | [SIO Driver](drivers/serial#the-sio-driver) | [PIO Driver](drivers/serial#the-pio-driver) |
 | ----------------------------- | --------------------------------------------- | --------------------------------------------- |
 | Half-Duplex operation         |                                               | :heavy_check_mark:                            |
 | Full-Duplex operation         | :heavy_check_mark:                            | :heavy_check_mark:                            |

@@ -1,11 +1,8 @@
 // Copyright 2023 linlin012 (@linlin012)
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "quantum.h"
-int FN_WIN = 0;
-int FN_MAC = 0;
-int L_WIN = 0;
-int L_MAC = 0;
 
+#if defined(RGB_MATRIX_ENABLE)
 const is31fl3743a_led_t PROGMEM g_is31fl3743a_leds[IS31FL3743A_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
@@ -83,67 +80,6 @@ const is31fl3743a_led_t PROGMEM g_is31fl3743a_leds[IS31FL3743A_LED_COUNT] = {
     {0, SW10_CS13, SW10_CS14, SW10_CS15}
 };
 
-#if defined(RGB_MATRIX_ENABLE)  /*&& defined(CAPS_LOCK_INDEX)*/
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_user(keycode, record)) {
-        return false;
-    }
-    switch (keycode) {
-#    ifdef RGB_MATRIX_ENABLE
-        case RGB_TOG:
-            if (record->event.pressed) {
-                switch (rgb_matrix_get_flags()) {
-                    case LED_FLAG_ALL: {
-                        rgb_matrix_set_flags(LED_FLAG_NONE);
-                        rgb_matrix_set_color_all(0, 0, 0);
-                    } break;
-                    default: {
-                        rgb_matrix_set_flags(LED_FLAG_ALL);
-                    } break;
-                }
-            }
-            return false;
-#    endif
-        case TO(0):
-            if (record->event.pressed) {
-               L_WIN = 1;
-               set_single_persistent_default_layer(0); // Save default layer 0 to eeprom
-            } else {
-                L_WIN = 0;
-            }
-            return true; // continue all further processing of this key
-
-        case MO(2):
-             if (record->event.pressed) {
-                FN_WIN = 1;
-            } else {
-                FN_WIN = 0;
-            }
-            return true; // continue all further processing of this key
-
-        case TO(1):
-            if (record->event.pressed) {
-               L_MAC = 1;
-               set_single_persistent_default_layer(1);  //Save default layer 1 to eeprom
-            } else {
-               L_MAC = 0;
-            }
-            return true; // continue all further processing of this key
-
-        case MO(3):
-            if (record->event.pressed) {
-               FN_MAC = 1;
-            } else {
-               FN_MAC = 0;
-            }
-            return true; // continue all further processing of this key
-        default:
-            return true;
-        }
-
-}
-
 bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) {
         return false;
@@ -157,72 +93,43 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
         }
     }
 
-    switch (get_highest_layer(layer_state)) {
-      case 0:{
-        if (L_WIN) {
-            RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 255, 255, 255);
-            if (!rgb_matrix_get_flags()) {
-               RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 0, 0, 0);
-            }
-            }else{
-                if (!rgb_matrix_get_flags()) {
-                   RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 0, 0, 0);
-                 }
-              }
-         } break;
-
-      case 1:{
-         if (L_MAC) {
-            RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 255, 255, 255);
-            if (!rgb_matrix_get_flags()) {
-               RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 0, 0, 0);
-            }
-            }else{
-                if (!rgb_matrix_get_flags()) {
-                   RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 0, 0, 0);
-                 }
-              }
-         } break;
-
-
-      case 2:{
-       RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 255, 255, 255);
-        if (!rgb_matrix_get_flags()) {
-            RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 0, 0, 0);
-         }
-      } break;
-
-      case 3:{
-       RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 255, 255, 255);
-        if (!rgb_matrix_get_flags()) {
-            RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 0, 0, 0);
-         }
-      } break;
-
-      default:{
-        if (!rgb_matrix_get_flags()) {
-            RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 0, 0, 0);
-            RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 0, 0, 0);
-        }
-      }
-    }
     return false;
 }
 
-#endif
-
-void suspend_power_down_kb() {
-#    ifdef RGB_MATRIX_ENABLE
+void suspend_power_down_kb(void) {
     gpio_write_pin_low(IS31FL3743A_SDB_PIN);
-#    endif
-     suspend_power_down_user();
+    suspend_power_down_user();
 }
 
-void suspend_wakeup_init_kb() {
-#    ifdef RGB_MATRIX_ENABLE
+void suspend_wakeup_init_kb(void) {
     gpio_write_pin_high(IS31FL3743A_SDB_PIN);
+    suspend_wakeup_init_user();
+}
+#endif
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (!process_record_user(keycode, record)) {
+        return false;
+    }
+    switch (keycode) {
+#    ifdef RGB_MATRIX_ENABLE
+        case QK_RGB_MATRIX_TOGGLE:
+            if (record->event.pressed) {
+                switch (rgb_matrix_get_flags()) {
+                    case LED_FLAG_ALL: {
+                        rgb_matrix_set_flags(LED_FLAG_NONE);
+                        rgb_matrix_set_color_all(0, 0, 0);
+                    } break;
+                    default: {
+                        rgb_matrix_set_flags(LED_FLAG_ALL);
+                    } break;
+                }
+            }
+            return false;
 #    endif
-     suspend_wakeup_init_user();
+    }
+
+    return true;
 }
 
 void board_init(void) {

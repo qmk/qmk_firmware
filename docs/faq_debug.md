@@ -4,7 +4,7 @@ This page details various common questions people have about troubleshooting the
 
 ## Debugging {#debugging}
 
-Your keyboard will output debug information if you have `CONSOLE_ENABLE = yes` in your `rules.mk`. By default the output is very limited, but you can turn on debug mode to increase the amount of debug output. Use the `DB_TOGG` keycode in your keymap, use the [Command](feature_command) feature to enable debug mode, or add the following code to your keymap.
+Your keyboard will output debug information if you have `CONSOLE_ENABLE = yes` in your `rules.mk`. By default the output is very limited, but you can turn on debug mode to increase the amount of debug output. Use the `DB_TOGG` keycode in your keymap, use the [Command](features/command) feature to enable debug mode, or add the following code to your keymap.
 
 ```c
 void keyboard_post_init_user(void) {
@@ -129,7 +129,7 @@ needed for older distros.
 ## Can't Get Message on Console
 Check:
 - *hid_listen* finds your device. See above.
-- Enable debug by pressing **Magic**+d. See [Magic Commands](https://github.com/tmk/tmk_keyboard#magic-commands).
+- Enable debug by pressing **Magic**+d. See [Magic Commands](https://github.com/tmk/tmk_keyboard/wiki#magic-commands-for-debug).
 - Set `debug_enable=true`. See [Debugging](#debugging)
 - Try using `print` function instead of debug print. See **common/print.h**.
 - Disconnect other devices with console function. See [Issue #97](https://github.com/tmk/tmk_keyboard/issues/97).

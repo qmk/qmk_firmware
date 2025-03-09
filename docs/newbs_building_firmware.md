@@ -42,7 +42,7 @@ Look at the output from that command, you should see something like this:
 Ψ Created a new keymap called <github_username> in: /home/me/qmk_firmware/keyboards/clueboard/66/rev3/keymaps/<github_username>.
 ```
 
-This is the location of your new `keymap.c` file.
+This is the location of your new keymap file. Your keyboards default keymap file may be a `.json` file or a `.c` file.  If your keymap is a `.json` file it can be converted to a `.c` file using QMK's [`json2c`](cli_commands#qmk-json2c) utility. 
 
 ## Open `keymap.c` In Your Favorite Text Editor
 
@@ -64,8 +64,8 @@ How to complete this step is entirely up to you. Make the one change that's been
 
 * [Basic Keycodes](keycodes_basic)
 * [Quantum Keycodes](quantum_keycodes)
-* [Grave/Escape](feature_grave_esc)
-* [Mouse keys](feature_mouse_keys)
+* [Grave/Escape](features/grave_esc)
+* [Mouse keys](features/mouse_keys)
 
 ::: tip
 While you get a feel for how keymaps work, keep each change small. Bigger changes make it harder to debug any problems that arise.

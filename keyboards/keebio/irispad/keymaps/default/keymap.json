@@ -1,6 +1,6 @@
 {
     "config": { "features": {"encoder_map": true, "tri_layer": true} },
-    "keyboard": "keebio/irispad",
+    "keyboard": "keebio/irispad/rev8",
     "keymap": "default",
     "layout": "LAYOUT",
     "layers": [
@@ -15,13 +15,13 @@
             "KC_TILD", "KC_EXLM", "KC_AT"  , "KC_HASH", "KC_DLR" , "KC_PERC",
             "KC_GRV" , "_______", "KC_UP"  , "_______", "QK_BOOT", "_______",
             "KC_DEL" , "KC_LEFT", "KC_DOWN", "KC_RGHT", "_______", "KC_LBRC",
-            "RGB_MOD", "EE_CLR" , "_______", "_______", "_______", "KC_LCBR", "KC_LPRN",
+            "RM_NEXT", "EE_CLR" , "_______", "_______", "_______", "KC_LCBR", "KC_LPRN",
                                                         "_______", "_______", "KC_DEL"
         ],
         [
             "KC_F6" ,  "KC_F1"  , "KC_F2"  , "KC_F3"  , "KC_F4"  , "KC_F5"  ,
             "KC_F12",  "KC_F7"  , "KC_F8"  , "KC_F9"  , "KC_F10" , "KC_F11" ,
-            "RGB_MOD", "KC_MPRV", "KC_MNXT", "KC_VOLU", "KC_PGUP", "KC_UNDS",
+            "RM_NEXT", "KC_MPRV", "KC_MNXT", "KC_VOLU", "KC_PGUP", "KC_UNDS",
             "KC_MUTE", "KC_MSTP", "KC_MPLY", "KC_VOLD", "KC_PGDN", "KC_MINS", "KC_LPRN",
                                                         "_______", "_______", "_______"
         ]

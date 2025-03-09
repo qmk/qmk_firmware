@@ -9,7 +9,7 @@
     "backlight": true,
     "bootmagic": false,
     "command": false,
-    "console": true,
+    "console": false,
     "extrakey": true,
     "mousekey": true,
     "nkro": true,
@@ -30,7 +30,6 @@
       "knight": true,
       "rainbow_mood": true,
       "rainbow_swirl": true,
-      "rgb_test": true,
       "snake": true,
       "static_gradient": true,
       "twinkle": true

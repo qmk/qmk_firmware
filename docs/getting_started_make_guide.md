@@ -115,11 +115,11 @@ This allows you to send Unicode characters using `UM(<map index>)` in your keyma
 
 This allows you to send Unicode characters by inputting a mnemonic corresponding to the character you want to send. You will need to maintain a mapping table in your keymap file. All possible code points (up to `0x10FFFF`) are supported.
 
-For further details, as well as limitations, see the [Unicode page](feature_unicode).
+For further details, as well as limitations, see the [Unicode page](features/unicode).
 
 `AUDIO_ENABLE`
 
-This allows you output audio on the C6 pin (needs abstracting). See the [audio page](feature_audio) for more information.
+This allows you output audio on the C6 pin (needs abstracting). See the [audio page](features/audio) for more information.
 
 `VARIABLE_TRACE`
 
@@ -127,7 +127,7 @@ Use this to debug changes to variable values, see the [tracing variables](unit_t
 
 `KEY_LOCK_ENABLE`
 
-This enables [key lock](feature_key_lock).
+This enables [key lock](features/key_lock).
 
 `SPLIT_KEYBOARD`
 

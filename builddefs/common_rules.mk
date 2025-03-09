@@ -43,25 +43,25 @@ ifneq ($(USE_CCACHE),no)
     CC_PREFIX ?= ccache
 endif
 
+#---------------- Debug Options ----------------
+
+DEBUG_ENABLE ?= no
+ifeq ($(strip $(DEBUG_ENABLE)),yes)
+	CFLAGS 	 += -ggdb3
+	CXXFLAGS += -ggdb3
+	ASFLAGS  += -ggdb3
+# Create a map file when debugging
+	LDFLAGS  += -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref
+endif
+
+
 #---------------- C Compiler Options ----------------
 
 ifeq ($(strip $(LTO_ENABLE)), yes)
-    ifeq ($(PLATFORM),ARM_ATSAM)
-        $(info Enabling LTO on arm_atsam-targeting boards is known to have a high likelihood of failure.)
-        $(info If unsure, set LTO_ENABLE = no.)
-    endif
     CDEFS += -flto
     CDEFS += -DLTO_ENABLE
 endif
 
-DEBUG_ENABLE ?= yes
-ifeq ($(strip $(SKIP_DEBUG_INFO)),yes)
-  DEBUG_ENABLE=no
-endif
-
-ifeq ($(strip $(DEBUG_ENABLE)),yes)
-  CFLAGS += -g$(DEBUG)
-endif
 CFLAGS += $(CDEFS)
 CFLAGS += -O$(OPT)
 # add color
@@ -83,9 +83,6 @@ CFLAGS += -fcommon
 
 #---------------- C++ Compiler Options ----------------
 
-ifeq ($(strip $(DEBUG_ENABLE)),yes)
-  CXXFLAGS += -g$(DEBUG)
-endif
 CXXFLAGS += $(CXXDEFS)
 CXXFLAGS += -O$(OPT)
 # to suppress "warning: only initialized variables can be placed into program memory area"
@@ -106,14 +103,10 @@ endif
 
 #---------------- Linker Options ----------------
 
-CREATE_MAP ?= yes
-ifeq ($(CREATE_MAP),yes)
-	LDFLAGS += -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref
-endif
 ifeq ($(VERBOSE_LD_CMD),yes)
 	LDFLAGS += -v
 endif
-#LDFLAGS += -Wl,--relax
+
 LDFLAGS += $(EXTMEMOPTS)
 LDFLAGS += $(patsubst %,-L%,$(EXTRALIBDIRS))
 LDFLAGS += -lm
@@ -126,15 +119,11 @@ ADHLNS_ENABLE ?= no
 ifeq ($(ADHLNS_ENABLE),yes)
   # Avoid "Options to '-Xassembler' do not match" - only specify assembler options at LTO link time
   ifeq ($(strip $(LTO_ENABLE)), yes)
-    LDFLAGS += -Wa,-adhlns=$(BUILD_DIR)/$(TARGET).lst
+    LDFLAGS  += -Wa,-adhlns=$(BUILD_DIR)/$(TARGET).lst
   else
-    CFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
+    CFLAGS   += -Wa,-adhlns=$(@:%.o=%.lst)
     CXXFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
-    ifeq ($(strip $(DEBUG_ENABLE)),yes)
-      ASFLAGS = -Wa,-adhlns=$(@:%.o=%.lst),-gstabs,--listing-cont-lines=100
-    else
-      ASFLAGS = -Wa,-adhlns=$(@:%.o=%.lst),--listing-cont-lines=100
-    endif
+	ASFLAGS  += -Wa,-adhlns=$(@:%.o=%.lst),--listing-cont-lines=100
   endif
 endif
 
