@@ -37,6 +37,8 @@ led_t   host_keyboard_led_state(void);
 void    host_keyboard_send(report_keyboard_t *report);
 void    host_nkro_send(report_nkro_t *report);
 void    host_mouse_send(report_mouse_t *report);
+void    host_digitizer_send(report_digitizer_t *report);
+void    host_digitizer_stylus_send(report_digitizer_stylus_t *report);
 void    host_system_send(uint16_t usage);
 void    host_consumer_send(uint16_t usage);
 void    host_programmable_button_send(uint32_t data);
