@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "user_kb.h"
-#include "ansi.h"
+#include "gem80-common.h"
 #include "hal_usb.h"
 #include "usb_main.h"
 #include "mcu_pwr.h"

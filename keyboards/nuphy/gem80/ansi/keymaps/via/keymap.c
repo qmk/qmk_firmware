@@ -1,7 +1,7 @@
 // Copyright 2024  Evgeny Kapusta (@ryodeushii)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "ansi.h"
+#include "gem80-common.h"
 #include QMK_KEYBOARD_H
 
 // clang-format off

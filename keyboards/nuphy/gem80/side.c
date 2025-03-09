@@ -1,7 +1,7 @@
 // Copyright 2023 Ryodeushii (@ryodeushii)
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include <stdint.h>
-#include "ansi.h"
+#include "gem80-common.h"
 #include "color.h"
 #include "host.h"
 #include "rgb_matrix.h"

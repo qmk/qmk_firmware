@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 #include "rgb_matrix.h"
 #include "user_kb.h"
-#include "ansi.h"
+#include "gem80-common.h"
 
 #ifdef VIA_ENABLE
 #    include "eeprom.h"

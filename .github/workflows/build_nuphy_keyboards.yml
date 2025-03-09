@@ -58,9 +58,9 @@ jobs:
         files: |
           *.bin
           !*-ryodeushii-*.bin
-          keyboards/nuphy/halo75v2/ansi/keymaps/via/*via3.json
-          keyboards/nuphy/air75v2/ansi/keymaps/via/*via3.json
-          keyboards/nuphy/gem80/ansi/keymaps/via/*via3.json
+          keyboards/nuphy/halo75v2/*/keymaps/via/*via3.json
+          keyboards/nuphy/air75v2/*/keymaps/via/*via3.json
+          keyboards/nuphy/gem80/*/keymaps/via/*via3.json
         tag_name: ${{ github.ref_name }}
         draft: true
         prerelease: true

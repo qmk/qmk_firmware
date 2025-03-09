@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "user_kb.h"
 #include <stdbool.h>
 #include <stdint.h>
-#include "ansi.h"
+#include "gem80-common.h"
 #include "config.h"
 #include "eeconfig.h"
 #include "color.h"
