@@ -565,6 +565,7 @@ void adjust_speed(void) {
     }
 }
 
+#    ifdef MK_MOMENTARY_ACCEL
 void update_mk_speed(void) {
     if (mk_speed_mask & 0b100)
         mk_speed = mkspd_2;
@@ -575,6 +576,7 @@ void update_mk_speed(void) {
     else
         mk_speed = mkspd_DEFAULT;
 }
+#    endif
 
 void mousekey_on(uint8_t code) {
     uint16_t const c_offset  = c_offsets[mk_speed];
@@ -598,6 +600,14 @@ void mousekey_on(uint8_t code) {
         mouse_report.h = w_offset;
     else if (IS_MOUSEKEY_BUTTON(code))
         mouse_report.buttons |= 1 << (code - QK_MOUSE_BUTTON_1);
+#    ifndef MK_MOMENTARY_ACCEL
+    else if (code == QK_MOUSE_ACCELERATION_0)
+        mk_speed = mkspd_0;
+    else if (code == QK_MOUSE_ACCELERATION_1)
+        mk_speed = mkspd_1;
+    else if (code == QK_MOUSE_ACCELERATION_2)
+        mk_speed = mkspd_2;
+#    else
     else if (code == QK_MOUSE_ACCELERATION_0)
         mk_speed_mask |= 0b001;
     else if (code == QK_MOUSE_ACCELERATION_1)
@@ -606,6 +616,7 @@ void mousekey_on(uint8_t code) {
         mk_speed_mask |= 0b100;
 
     update_mk_speed();
+#    endif
 
     if (mk_speed != old_speed) adjust_speed();
 }
