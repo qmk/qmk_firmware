@@ -42,7 +42,8 @@ static const SerialConfig ble_uart_config = {
 
 static uint8_t led_mcu_wakeup[11] = {0x7b, 0x10, 0x43, 0x10, 0x03, 0x00, 0x00, 0x7d, 0x02, 0x01, 0x02};
 
-ble_capslock_t ble_capslock = {._dummy = {0}, .caps_lock = false};
+ble_status_t ble_status = {._dummy = {0}, .id = 0, .status = 0};
+bool ble_capslock = false;
 
 #ifdef RGB_MATRIX_ENABLE
 static uint8_t led_enabled = 1;
@@ -111,9 +112,24 @@ void keyboard_post_init_kb(void) {
 
 void matrix_scan_kb(void) {
     // if there's stuff on the ble serial buffer
-    // read it into the capslock struct
+    // read it into the status struct
+    bool ble_status_rcvd = false;
     while (!sdGetWouldBlock(&SD1)) {
-        sdReadTimeout(&SD1, (uint8_t *)&ble_capslock, sizeof(ble_capslock_t), 10);
+        ble_status_rcvd = true;
+        sdReadTimeout(&SD1, (uint8_t *)&ble_status, sizeof(ble_status_t), 11);
+    }
+
+    if (ble_status_rcvd) {
+        switch (ble_status.id) {
+            case BLE_STS_ID_CONNECT:
+                ap2_led_cancel_blink();
+                break;
+            case BLE_STS_ID_CAPSLOCK:
+                ble_capslock = ble_status.status;
+                break;
+            default:
+                break;
+        }
     }
 
     /* While there's data from LED keyboard sent - read it. */
@@ -144,29 +160,37 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 annepro2_ble_broadcast(0);
                 /* FIXME: This hardcodes col/row position */
                 ap2_led_blink(record->event.key.row, record->event.key.col, blue, 8, 50);
+                ble_capslock = false;
                 return false;
 
             case KC_AP2_BT2:
                 annepro2_ble_broadcast(1);
                 ap2_led_blink(record->event.key.row, record->event.key.col, blue, 8, 50);
+                ble_capslock = false;
                 return false;
 
             case KC_AP2_BT3:
                 annepro2_ble_broadcast(2);
                 ap2_led_blink(record->event.key.row, record->event.key.col, blue, 8, 50);
+                ble_capslock = false;
                 return false;
 
             case KC_AP2_BT4:
                 annepro2_ble_broadcast(3);
                 ap2_led_blink(record->event.key.row, record->event.key.col, blue, 8, 50);
+                ble_capslock = false;
                 return false;
 
             case KC_AP2_USB:
                 annepro2_ble_disconnect();
+                ap2_led_cancel_blink();
+                ble_capslock = false;
                 return false;
 
             case KC_AP2_BT_UNPAIR:
                 annepro2_ble_unpair();
+                ap2_led_cancel_blink();
+                ble_capslock = false;
                 return false;
 
             case KC_AP_LED_OFF:
