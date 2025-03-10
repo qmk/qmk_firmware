@@ -56,16 +56,16 @@ jobs:
 
           KEYMAP_ONLY=$(echo "$KEYBOARD_CHANGES" | grep -cv /keymaps/)
           if [[ $KEYMAP_ONLY -gt 0 ]]; then
-            echo "::group::linting ${KB}"
-
-            qmk lint --keyboard ${KB} && qmk info -l --keyboard ${KB}
+            marker="🟢"
+            output=$(qmk lint --keyboard ${KB} && qmk info -l --keyboard ${KB})
             if [[ $? != 0 ]]; then
+              marker="🔴"
               exit_code=$(($exit_code + 1))
-              echo "- 🔴 ${KB}" >> $GITHUB_STEP_SUMMARY
-            else
-              echo "- 🟢 ${KB}" >> $GITHUB_STEP_SUMMARY
             fi
 
+            echo "- ${marker} ${KB}" >> $GITHUB_STEP_SUMMARY
+            echo "::group::linting ${KB} ${marker}"
+            echo ${output}
             echo "::endgroup::"
           fi
         done
