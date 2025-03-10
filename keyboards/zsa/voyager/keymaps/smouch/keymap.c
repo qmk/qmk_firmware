@@ -58,7 +58,7 @@ enum custom_keycodes {
 #define LT1 KC_M
 #define LT0 KC_J
 
-#define RT0 KC_MINS
+#define RT0 KC_SCLN
 #define RT1 KC_DOT
 #define RT2 LT(_SYM, KC_QUOT)
 #define RT3 KC_EQL
@@ -88,7 +88,7 @@ enum custom_keycodes {
 #define LB1 KC_L
 #define LB0 KC_X
 
-#define RB0 KC_SCLN
+#define RB0 KC_MINS
 #define RB1 KC_U
 #define RB2 KC_O
 #define RB3 KC_Y
@@ -113,9 +113,9 @@ static uint16_t keyhold_timer; // for handling Qu combo
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*  Hands Down Promethium
     ⎋   3   2@  1$   0#  4           7   6   5   9   8  CW
-    ⇥   v   w   g2   m   j           -   .:  '2  =   /  `
+    ⇥   v   w   g2   m   j           ;   .:  '2  =   /  `
     z   s⌃  n⌥  t3   h⌘  k           ,;  a⌘  e1  i⌥  c⌃ q
-    tg  f   p   d    l   x      	 ;   u   o   y   b  \
+    tg  f   p   d    l   x      	 -   u   o   y   b  \
                          r⇧   ⌫   ⏎   ␣⇧
   */
   [_DEF] = LAYOUT_voyager(
@@ -203,14 +203,25 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     }
 };
 
-char chordal_hold_handedness(keypos_t key) {
+const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
+    LAYOUT(
+        'L', 'L', 'L', 'L', 'L', 'L',            'R', 'R', 'R', 'R', 'R', 'R',
+        'L', 'L', 'L', 'L', 'L', 'L',            'R', 'R', 'R', 'R', 'R', 'R',
+        'L', 'L', 'L', 'L', 'L', 'L',            'R', 'R', 'R', 'R', 'R', 'R',
+        'L', 'L', 'L', 'L', 'L', 'L',            'R', 'R', 'R', 'R', 'R', 'R',
+                                 '*', '*',  '*', '*'
+    );
+
+/*
+    char chordal_hold_handedness(keypos_t key) {
     if (key.col == 0 || key.col == MATRIX_COLS - 1) {
-        return '*';  // Exempt the outer columns.
+        return '*';  // Exempt the outer columns. 
     }
     // On split keyboards, typically, the first half of the rows are on the
     // left, and the other half are on the right.
     return key.row < MATRIX_ROWS / 2 ? 'L' : 'R';
 };
+*/
 
 
 // program custom keycode functions
