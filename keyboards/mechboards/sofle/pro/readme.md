@@ -1,6 +1,6 @@
 # Sofle Pro
 
-A refreshed CRKBD PCB with per key RGB, battery, power switch support.
+A refreshed PCB with per key RGB, battery, power switch support.
 
 * Keyboard Maintainer: [dasky](https://github.com/daskygit)
 * Hardware Supported: Controllers using promicro footprint.
