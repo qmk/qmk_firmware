@@ -84,6 +84,18 @@ To remove the stress this situation produces to your hands, you can disable the 
 
 Now, after you hit the leader key, you will have an infinite amount of time to start the rest of the sequence, allowing you to properly position your hands to type the rest of the sequence comfortably. This way you can configure a very short `LEADER_TIMEOUT`, but still have plenty of time to position your hands.
 
+### Disabling Timeout for aditional keystrokes {#disabling-timeout-more-keystrokes}
+
+You may want to disable the timeout for additional keystrokes after the leader key.
+Add the following to your `config.h`:
+```c
+#define LEADER_NO_TIMEOUT_FOR_N_KEYSTROKES n
+```
+Where `n` is the number of keystrokes *including* the leader key itself.
+
+Use with care, since sequences shorter than LEADER_NO_TIMEOUT_FOR_N_KEYSTROKES will not timeout, and thus will not terminate unless leader_end() is called.
+
+
 ### Strict Key Processing {#strict-key-processing}
 
 By default, only the "tap keycode" portions of [Mod-Taps](../mod_tap) and [Layer Taps](../feature_layers#switching-and-toggling-layers) are added to the sequence buffer. This means if you press eg. `LT(3, KC_A)` as part of a sequence, `KC_A` will be added to the buffer, rather than the entire `LT(3, KC_A)` keycode.
