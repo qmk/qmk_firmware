@@ -94,9 +94,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // special layers
 
     [SYM] = LAYOUT_split_3x5_3(
-        KC_TILD, KC_LBRC, KC_LCBR, KC_LPRN, KC_UNDS,                   XXXXXXX, KC_RPRN, KC_RCBR, KC_RBRC, KC_GRV,
-        KC_HASH, KC_CIRC, KC_EQL,  KC_DLR,  KC_ASTR,                   XXXXXXX, OS_CTRL, OS_ALT,  OS_CMD,  OS_SHFT,
-        KC_PLUS, KC_PIPE, KC_AT,   KC_SLSH, KC_PERC,                   XXXXXXX, KC_BSLS, KC_AMPR, KC_QUES, KC_EXLM,
+        KC_TILD, KC_LBRC, KC_LCBR, KC_LPRN, KC_UNDS,                   KC_AT,   KC_RPRN, KC_RCBR, KC_RBRC, KC_GRV,
+        KC_HASH, KC_CIRC, KC_EQL,  KC_DLR,  KC_ASTR,                   KC_PLUS, OS_CTRL, OS_ALT,  OS_CMD,  OS_SHFT,
+        XXXXXXX, XXXXXXX, KC_PIPE, KC_SLSH, KC_PERC,                   KC_COLN, KC_BSLS, KC_AMPR, KC_QUES, KC_EXLM,
                                    _______, _______, _______, _______, KC_ENT,  _______
     ),
 
