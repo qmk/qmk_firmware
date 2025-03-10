@@ -83,7 +83,7 @@ jobs:
           if [[ -f $file ]]; then
             if ! git diff --quiet $file; then
               echo "File '${file}' Requires Formatting with 'qmk format-text'"
-              echo "::error file=${file} title=Invalid-Formatting::Requires Formatting with the command 'qmk format-text ${file}'"
+              echo "::error file=${file},title=Invalid-Formatting::Requires Formatting with the command 'qmk format-text ${file}'"
               exit_code=$(($exit_code + 1))
             fi
           fi
