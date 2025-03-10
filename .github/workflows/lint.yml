@@ -57,7 +57,7 @@ jobs:
           KEYMAP_ONLY=$(echo "$KEYBOARD_CHANGES" | grep -cv /keymaps/)
           if [[ $KEYMAP_ONLY -gt 0 ]]; then
             marker="🟢"
-            output=$(qmk lint --keyboard ${KB} && qmk info -l --keyboard ${KB} 2>&1)
+            output=$(qmk lint --keyboard ${KB} 2>&1 && qmk info -l --keyboard ${KB} 2>&1)
             if [[ $? != 0 ]]; then
               marker="🔴"
               exit_code=$(($exit_code + 1))
