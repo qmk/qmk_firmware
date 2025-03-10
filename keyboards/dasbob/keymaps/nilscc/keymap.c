@@ -88,28 +88,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_Q,    KC_Y,    UL_O,    UL_U,    KC_MINS,                   KC_J,    KC_G,    KC_N,    KC_W,    KC_K,
         KC_H,    KC_I,    KC_E,    UL_A,    KC_DOT,                    KC_P,    KC_D,    KC_R,    UL_S,    KC_L,
         KC_Z,    KC_X,    KC_QUOT, KC_COMM, KC_SCLN,                   KC_B,    KC_C,    KC_M,    KC_F,    KC_V,
-                                   LA_NAV,  KC_SPC,  QK_REP,  KC_T,    KC_BSPC, LA_SYM
+                                   QK_REP,  KC_SPC,  LA_NAV,  LA_SYM,  KC_T,    OS_SHFT
     ),
 
     // special layers
 
     [SYM] = LAYOUT_split_3x5_3(
-        KC_ESC,  KC_LBRC, KC_LCBR, KC_LPRN, KC_TILD,                   KC_CIRC, KC_RPRN, KC_RCBR, KC_RBRC, KC_GRV,
-        KC_TAB,  KC_ASTR, KC_EQL,  KC_UNDS, KC_DLR,                    KC_HASH, OS_CTRL, OS_ALT,  OS_CMD,  OS_SHFT,
+        KC_TILD, KC_LBRC, KC_LCBR, KC_LPRN, KC_UNDS,                   XXXXXXX, KC_RPRN, KC_RCBR, KC_RBRC, KC_GRV,
+        KC_HASH, KC_CIRC, KC_EQL,  KC_DLR,  KC_ASTR,                   XXXXXXX, OS_CTRL, OS_ALT,  OS_CMD,  OS_SHFT,
         KC_PLUS, KC_PIPE, KC_AT,   KC_SLSH, KC_PERC,                   XXXXXXX, KC_BSLS, KC_AMPR, KC_QUES, KC_EXLM,
-                                   _______, _______, _______, _______, _______, _______
+                                   _______, _______, _______, _______, KC_ENT,  _______
     ),
 
     [NAV] = LAYOUT_split_3x5_3(
-        SW_WINN, SW_WINP, TAB_L,   TAB_R,   KC_VOLU,                   KC_CAPS, HOME,    END,     KC_ESC,  KC_BSPC,
+        SW_WINN, SW_WINP, KC_CAPS, KC_PSCR, KC_VOLU,                   XXXXXXX, KC_DEL,  KC_BSPC, XXXXXXX, XXXXXXX,
         OS_SHFT, OS_CMD,  OS_ALT,  OS_CTRL, KC_VOLD,                   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_ENT,
-        SPACE_L, SPACE_R, BACK,    FWD,     KC_MPLY,                   KC_COLN, KC_PGDN, KC_PGUP, XXXXXXX, KC_DEL,
+        KC_COPY, KC_PSTE, KC_TAB,  KC_ESC,  KC_MPLY,                   KC_HOME, KC_PGDN, KC_PGUP, KC_END,  XXXXXXX,
                                    _______, _______, _______, _______, _______, _______
     ),
 
     [NUM] = LAYOUT_split_3x5_3(
         KC_7,    KC_5,    KC_3,    KC_1,    KC_9,                      KC_8,    KC_0,    KC_2,    KC_4,    KC_6,
-        OS_SHFT, OS_CTRL, OS_ALT,  OS_CMD,  KC_F11,                    KC_F10,  OS_CMD,  OS_ALT,  OS_CTRL, OS_SHFT,
+        OS_SHFT, OS_CMD,  OS_ALT,  OS_CTRL, KC_F11,                    KC_F10,  OS_CTRL, OS_ALT,  OS_CMD,  OS_SHFT,
         KC_F7,   KC_F5,   KC_F3,   KC_F1,   KC_F9,                     KC_F8,   KC_F12,  KC_F2,   KC_F4,   KC_F6,
                                    _______, _______, _______, _______, _______, _______
     ),
@@ -217,7 +217,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         *active = false;
     }
 
-    update_oneshot_keydown(
+    update_oneshot(
         &os_shft_state, KC_LSFT, OS_SHFT,
         keycode, record
     );
