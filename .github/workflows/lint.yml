@@ -31,7 +31,7 @@ jobs:
       with:
         use_rest_api: true
 
-    - name: Print info
+    - name: Print git info
       run: |
         git rev-parse --short HEAD
         echo ${{ github.event.pull_request.base.sha }}
@@ -44,6 +44,7 @@ jobs:
         QMK_CHANGES=$(echo -e '${{ steps.file_changes.outputs.all_changed_files}}' | sed 's/ /\n/g')
         QMK_KEYBOARDS=$(qmk list-keyboards)
 
+        echo "### Detected lint targets:" >> $GITHUB_STEP_SUMMARY
         exit_code=0
 
         for KB in $QMK_KEYBOARDS; do
@@ -55,12 +56,27 @@ jobs:
 
           KEYMAP_ONLY=$(echo "$KEYBOARD_CHANGES" | grep -cv /keymaps/)
           if [[ $KEYMAP_ONLY -gt 0 ]]; then
-            echo "linting ${KB}"
+            echo "::group::linting ${KB}"
 
             qmk lint --keyboard ${KB} && qmk info -l --keyboard ${KB}
-            exit_code=$(($exit_code + $?))
+            if [[ $? != 0 ]]; then
+              exit_code=$(($exit_code + 1))
+              echo "- 🔴 ${KB}" >> $GITHUB_STEP_SUMMARY
+            else
+              echo "- 🟢 ${KB}" >> $GITHUB_STEP_SUMMARY
+            fi
+
+            echo "::endgroup::"
           fi
         done
+
+        exit $(($exit_code > 0))
+
+    - name: Run qmk format-text
+      if: always()
+      shell: 'bash {0}'
+      run: |
+        exit_code=0
 
         qmk format-text ${{ steps.file_changes.outputs.all_changed_files}} || true
         for file in ${{ steps.file_changes.outputs.all_changed_files}}; do
@@ -73,10 +89,7 @@ jobs:
           fi
         done
 
-        if [[ $exit_code -gt 255 ]]; then
-            exit 255
-        fi
-        exit $exit_code
+        exit $(($exit_code > 0))
 
     - name: Verify keyboard aliases
       if: always()
