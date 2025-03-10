@@ -2,6 +2,7 @@
     "manufacturer": "TREASURE",
     "keyboard_name": "TYPE30",
     "maintainer": "TREASURE",
+    "processor": "atmega32u2",
     "bootloader": "atmel-dfu",
     "diode_direction": "COL2ROW",
     "features": {
@@ -20,17 +21,38 @@
         "cols": ["B5", "B6", "B7", "C7", "C6", "C4", "D4", "D5", "D6", "B0", "B1", "B2"],
         "rows": ["D2", "C5", "B3"]
     },
-    "processor": "atmega32u2",
-    "url": "http://treasuretypes.com",
+    "build": {
+        "lto": true
+    },
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x3330",
-        "vid": "0x5452"
+        "pid": "0x0001",
+        "vid": "0xFEED"
+    },
+    "ws2812": {
+        "pin": "B4"
+    },
+    "rgblight": {
+        "led_count": 36
     },
     "rgb_matrix": {
         "driver": "ws2812",
+        "speed": 40,
+        "max_brightness": 180,
+        "sleep": true,
+        "animations": {
+            "gradient_up_down": true,
+            "gradient_left_right": true,
+            "breathing": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "rainbow_pinwheels": true,
+            "jellybean_raindrops": true,
+            "typing_heatmap": true
+        },
         "default": {
-            "speed": 40
+            "animation": "gradient_left_right"
+        },
         "layout": [
             { "matrix": [2, 0],"flags": 4, "x": 0, "y": 20 },
             { "matrix": [2, 1],"flags": 4, "x": 10, "y": 20 },
@@ -68,15 +90,10 @@
             { "matrix": [0, 9],"flags": 4, "x": 90, "y": 0 },
             { "matrix": [0, 10],"flags": 4, "x": 100, "y": 0 },
             { "matrix": [0, 11],"flags": 4, "x": 110, "y": 0 }
-        ],
-        "max_brightness": 180,
-        "sleep": true
-    },
-    "ws2812": {
-        "pin": "B4"
+        ]
     },
     "layouts": {
-        "LAYOUT_ortho_3x12": {
+        "LAYOUT": {
             "layout": [
                 { "matrix": [0, 0], "x": 0, "y": 0 },
                 { "matrix": [0, 1], "x": 1, "y": 0 },
@@ -118,3 +135,4 @@
         }
     }
 }
+
