@@ -82,8 +82,8 @@ jobs:
         for file in ${{ steps.file_changes.outputs.all_changed_files}}; do
           if [[ -f $file ]]; then
             if ! git diff --quiet $file; then
-              echo "File '${file}' Requires Formatting"
-              echo "::error file=${file}::Requires Formatting"
+              echo "File '${file}' Requires Formatting with 'qmk format-text'"
+              echo "::error file=${file}::Requires Formatting with the command 'qmk format-text ${file}'"
               exit_code=$(($exit_code + 1))
             fi
           fi
