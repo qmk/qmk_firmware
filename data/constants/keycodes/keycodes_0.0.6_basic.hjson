@@ -1,0 +1,116 @@
+{
+    "keycodes": {
+        "0x00E8": {
+            "group": "mousegrid",
+            "key": "QK_MOUSE_GRID_TOP_LEFT",
+            "label": "Select top left mouse grid",
+            "aliases": [
+                "MG_TL"
+            ]
+        },
+        "0x00E9": {
+            "group": "mousegrid",
+            "key": "QK_MOUSE_GRID_TOP",
+            "label": "Select top mouse grid",
+            "aliases": [
+                "MG_T"
+            ]
+        },
+        "0x00F0": {
+            "group": "mousegrid",
+            "key": "QK_MOUSE_GRID_TOP_RIGHT",
+            "label": "Select top right mouse grid",
+            "aliases": [
+                "MG_TR"
+            ]
+        },
+        "0x00F1": {
+            "group": "mousegrid",
+            "key": "QK_MOUSE_GRID_LEFT",
+            "label": "Select left mouse grid",
+            "aliases": [
+                "MG_L"
+            ]
+        },
+        "0x00F2": {
+            "group": "mousegrid",
+            "key": "QK_MOUSE_GRID_CENTER",
+            "label": "Select center mouse grid",
+            "aliases": [
+                "MG_C"
+            ]
+        },
+        "0x00F3": {
+            "group": "mousegrid",
+            "key": "QK_MOUSE_GRID_RIGHT",
+            "label": "Select right mouse grid",
+            "aliases": [
+                "MG_R"
+            ]
+        },
+        "0x00F4": {
+            "group": "mousegrid",
+            "key": "QK_MOUSE_GRID_BOTTOM_LEFT",
+            "label": "Select bottom left mouse grid",
+            "aliases": [
+                "MG_BL"
+            ]
+        },
+        "0x00F5": {
+            "group": "mousegrid",
+            "key": "QK_MOUSE_GRID_BOTTOM",
+            "label": "Select bottom mouse grid",
+            "aliases": [
+                "MG_B"
+            ]
+        },
+        "0x00F6": {
+            "group": "mousegrid",
+            "key": "QK_MOUSE_GRID_BOTTOM_RIGHT",
+            "label": "Select bottom right mouse grid",
+            "aliases": [
+                "MG_BR"
+            ]
+        },
+        "0x00F7": {
+            "group": "mousegrid",
+            "key": "QK_MOUSE_GRID_RESET",
+            "label": "Reset mouse grid cursor",
+            "aliases": [
+                "MG_RST"
+            ]
+        },
+        "0x00F8": {
+            "group": "mousegrid",
+            "key": "QK_MOUSE_GRID_ANIMATE",
+            "label": "Visualize mouse grid options",
+            "aliases": [
+                "MG_ANIM"
+            ]
+        },
+        "0x00F9": {
+            "group": "mousegrid",
+            "key": "QK_MOUSE_GRID_UNDO",
+            "label": "Undo a mousegrid move",
+            "aliases": [
+                "MG_UNDO"
+            ]
+        },
+        "0x00FA": {
+            "group": "mousegrid",
+            "key": "QK_MOUSE_GRID_ALPHABET",
+            "label": "Initiate an alphabet mousegrid move",
+            "aliases": [
+                "MG_ABC"
+            ]
+        },
+        "0x00FB": {
+            "group": "mousegrid",
+            "key": "QK_MOUSE_GRID_NEAR",
+            "label": "Reset cursor scale for local movement",
+            "aliases": [
+                "MG_NEAR"
+            ]
+        },
+    }
+}
