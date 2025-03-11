@@ -106,7 +106,7 @@
 #define GPIOC_PIN14                 14U
 #define GPIOC_PIN15                 15U
 
-#define GPIOD_PIN2                  15U
+#define GPIOD_PIN2                  2U
 
 #define GPIOF_HEXT_IN               0U
 #define GPIOF_HEXT_OUT              1U
