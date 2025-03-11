@@ -1,17 +1,14 @@
 # franky36
 
-![franky36](imgur.com image replace me!)
-
 *A short description of the keyboard/project*
 
-* Keyboard Maintainer: [Grigory Avdyushin](https://github.com/Grigory Avdyushin)
-* Hardware Supported: atmega32u4
-* Hardware Availability: -
+* Keyboard Maintainer: [Grigory Avdyushin](https://github.com/avdyushin)
+* Hardware Supported: RP2040-Zero
+* Hardware Availability: Ali
 
 Make example for this keyboard (after setting up your build environment):
 
     make franky36:default
-    make franky36:via
 
 Flashing example for this keyboard:
 
@@ -24,5 +21,5 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 Enter the bootloader in 3 ways:
 
 * **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
+* **Physical reset button**: Hold down the reset button on the controller and plug in the keyboard
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
