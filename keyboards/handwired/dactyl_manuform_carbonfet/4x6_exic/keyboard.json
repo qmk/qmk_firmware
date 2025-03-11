@@ -1,34 +1,13 @@
 {
     "keyboard_name": "Dactyl ManuForm Carbonfet 4x6 EXIC",
-    "manufacturer": "carbonfet",
-    "url": "https://github.com/carbonfet/dactyl-manuform",
-    "maintainer": "dunk2k",
     "usb": {
-        "vid": "0x444D",
         "pid": "0xC46C",
         "device_version": "1.0.0"
-    },
-    "ws2812": {
-        "pin": "D3"
     },
     "matrix_pins": {
         "cols": ["D4", "C6", "D7", "E6", "B4", "B5", "D1"],
         "rows": ["F7", "B1", "B3", "B2", "B6"]
     },
-    "diode_direction": "COL2ROW",
-    "split": {
-        "enabled": true,
-        "soft_serial_pin": "D0"
-    },
-    "features": {
-        "bootmagic": true,
-        "console": false,
-        "command": false,
-        "extrakey": true,
-        "mousekey": true,
-        "nkro": true
-    },
-    "development_board": "promicro",
     "layouts": {
         "LAYOUT": {
             "layout": [
