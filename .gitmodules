@@ -25,3 +25,6 @@
 	path = lib/lvgl
 	url = https://github.com/qmk/lvgl.git
 	branch = release/v8.2
+[submodule "modules/getreuer"]
+	path = modules/getreuer
+	url = https://github.com/getreuer/qmk-modules.git
