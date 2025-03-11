@@ -53,6 +53,8 @@
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
+#define LAYER_STATE_8BITL
+
 // Configure the global tapping term (default: 200ms)
 #undef TAPPING_TERM // if not default
 #define TAPPING_TERM 175
@@ -81,8 +83,6 @@
 // When idle, turn off Caps Word after 10 seconds.
 #define CAPS_WORD_IDLE_TIMEOUT 10000
 
-/* Default to Mac hotkeys for Select_Word */
-#define SELECT_WORD_OS_MAC
 
 // Auto Shift
 // #define NO_AUTO_SHIFT_ALPHA
@@ -96,7 +96,6 @@
 // Feature disable options
 // These options are also useful to firmware size reduction.
 
-// #define LAYER_STATE_8BITL
 
 /* disable debug print */
 //#define NO_DEBUG

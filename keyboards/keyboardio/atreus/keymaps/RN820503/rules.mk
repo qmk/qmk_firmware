@@ -1,16 +1,10 @@
-SRC += features/custom_shift_keys.c
-SRC += features/select_word.c
+
 VPATH += keyboards/gboards/ # using gboards combo code: see https://combos.gboards.ca/
 
 # MCU name
 MCU = atmega32u4
 
 # Bootloader selection
-BOOTLOADER = caterina
-
-# Build Options
-#   change yes to no to disable
-#
 BOOTLOADER = caterina
 
 BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
@@ -21,7 +15,7 @@ CONSOLE_ENABLE = yes        # Console for debug
 NKRO_ENABLE = yes           # Enable N-Key Rollover
 CAPS_WORD_ENABLE = yes
 COMBO_ENABLE = yes
-KEY_OVERRIDE_ENABLE = no
+KEY_OVERRIDE_ENABLE = yes
 
 AUTO_SHIFT_ENABLE = no
 MOUSEKEY_ENABLE = no       	# Mouse keys
