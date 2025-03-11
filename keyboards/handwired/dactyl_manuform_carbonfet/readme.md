@@ -3,7 +3,7 @@
 ![TopView](https://i.imgur.com/0ugz1C9h.jpg)  
 *Dactyl Manuform Carbonfet 5x6*
 
-Forked from the [Dactyl ManuForm](/keyboards/handwired/dactyl_manuform), the *Dactyl ManuForm Carbonfet* reshapes the former's thumb key cluster from a 3 row, 2 column arrangement to a 2 row, 3 column arrangement.
+Forked from the Dactyl ManuForm, the *Dactyl ManuForm Carbonfet* reshapes the former's thumb key cluster from a 3 row, 2 column arrangement to a 2 row, 3 column arrangement.
 
 * Keyboard Maintainer: [Carbonfet](https://github.com/carbonfet)
 * Hardware Supported: Pro Micro development board
@@ -42,7 +42,7 @@ Variants are denoted as `RowCount`*x*`ColumnCount`*(_`Alteration`)*
 
 ### Legacy 5x7 variant
 
-Is the [5x6_exic](./5x6_exic/) variant.
+Is equivalent to [5x6_exic](./5x6_exic/) variant
 
 ## Compile
 
