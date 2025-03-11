@@ -35,12 +35,6 @@
 // Opposite hands rule for HRM. Prevents misfires on same hand rolls.
 #define CHORDAL_HOLD
 
-// Don't apply custom shift keys when any non-shift mod is held.
-#define CUSTOM_SHIFT_KEYS_NEGMODS ~MOD_MASK_SHIFT
-
-/* Default to Mac hotkeys for Select_Word */
-#define SELECT_WORD_OS_MAC
-
 // #undef RGB_MATRIX_TIMEOUT
 // #define RGB_MATRIX_TIMEOUT 300000
 // #define RGB_MATRIX_STARTUP_SPD 60

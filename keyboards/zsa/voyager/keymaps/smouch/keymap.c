@@ -2,8 +2,6 @@
 #include "keycodes.h"
 #include "keymap_us.h"
 #include QMK_KEYBOARD_H
-#include "features/custom_shift_keys.h"
-#include "features/select_word.h"
 
 enum layer_names {
     _DEF,
@@ -14,9 +12,6 @@ enum layer_names {
 
 enum custom_keycodes {
     SS_Qu = SAFE_RANGE,
-    SELWBAK,
-    SELWFWD,
-    SELLINE,
 };
 
 /*  KEY POSITION Names
@@ -165,7 +160,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,         KC_F5,                          KC_F6,   KC_F7,      KC_F8,   KC_F9,      KC_F10,  KC_F11,
     _______, ___x___, G(KC_Q), _______, C(S(G(KC_4))), LSG(KC_4),                      KC_VOLU, G(KC_LEFT), KC_UP,   G(KC_RGHT), ___x___, KC_F12,
     ___x___, KC_LCTL, KC_LALT, _______, KC_LGUI,       G(KC_A),                        KC_VOLD, KC_LEFT,    KC_DOWN, KC_RGHT,    KC_DEL,  ___x___,
-    ___x___, G(KC_Z), G(KC_C), G(KC_X), G(KC_V),       LSG(KC_Z),                      KC_MUTE, SELWBAK,    SELWFWD, SELLINE,    ___x___, ___x___,
+    ___x___, G(KC_Z), G(KC_C), G(KC_X), G(KC_V),       LSG(KC_Z),                      KC_MUTE, KC_BSPC,    ___x___, ___x___,    ___x___, ___x___,
                                                        KC_LSFT,   _______, C(KC_LEFT), C(KC_RGHT)
   ),
 
@@ -203,19 +198,20 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     }
 };
 
+// Handedness for Chordal Hold
 const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
     LAYOUT(
+        '*', '*', '*', '*', '*', '*',            '*', '*', '*', '*', '*', '*',
+        '*', 'L', 'L', 'L', 'L', 'L',            'R', 'R', 'R', 'R', 'R', '*',
         'L', 'L', 'L', 'L', 'L', 'L',            'R', 'R', 'R', 'R', 'R', 'R',
-        'L', 'L', 'L', 'L', 'L', 'L',            'R', 'R', 'R', 'R', 'R', 'R',
-        'L', 'L', 'L', 'L', 'L', 'L',            'R', 'R', 'R', 'R', 'R', 'R',
-        'L', 'L', 'L', 'L', 'L', 'L',            'R', 'R', 'R', 'R', 'R', 'R',
+        '*', 'L', 'L', 'L', 'L', 'L',            'R', 'R', 'R', 'R', 'R', '*',
                                  '*', '*',  '*', '*'
     );
 
 /*
     char chordal_hold_handedness(keypos_t key) {
     if (key.col == 0 || key.col == MATRIX_COLS - 1) {
-        return '*';  // Exempt the outer columns. 
+        return '*';  // Exempt the outer columns.
     }
     // On split keyboards, typically, the first half of the rows are on the
     // left, and the other half are on the right.
@@ -226,9 +222,6 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
 
 // program custom keycode functions
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
-    if (!process_custom_shift_keys(keycode, record)) { return false; }
-    if (!process_select_word(keycode, record)) { return false; }
 
     switch (keycode) {
         case SS_Qu:  // send "qu" on tap, bspc "u" if held
@@ -255,43 +248,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return true;  // Didn't handle this
             break;
-
-        case SELWBAK:  // Backward word selection.
-            if (record->event.pressed) {
-                select_word_register('B');
-            } else {
-                select_word_unregister();
-            }
-            break;
-
-        case SELWFWD:  // Forward word selection.
-            if (record->event.pressed) {
-                select_word_register('W');
-            } else {
-                select_word_unregister();
-            }
-            break;
-
-        case SELLINE:  // Line selection.
-            if(record->event.pressed) {
-                select_word_register('L');
-            } else {
-                select_word_unregister();
-            }
-            break;
     }
     return true;
 };
 
-const custom_shift_key_t custom_shift_keys[] = {
-    {KC_1,    KC_DLR},  /* shift 1 is $ */
-    {KC_0,    KC_HASH}, /* shift 0 is # */
-    {KC_DOT,  KC_COLN}, /* shift . is : */
-    {KC_COMM, KC_SCLN}, /* shift , is ; */
-    /* {LT(_SYM, KC_SLSH), KC_ASTR},  shift / is * */
-    /* {KC_DQUO, KC_EXLM},  shift " is ! */
-    /* {KC_QUOT, KC_QUES},  shift ' is ? */
-	{KC_BSPC, KC_DEL},  /* shift ⌫ is ⌦ */
+// Key overrides
+const key_override_t one_key_override  = ko_make_basic(MOD_MASK_SHIFT, KC_1, KC_DLR);		/* shift 1 is $ */
+const key_override_t zero_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_0, KC_HASH);		/* shift 0 is # */
+const key_override_t dot_key_override  = ko_make_basic(MOD_MASK_SHIFT, KC_DOT, KC_COLN);	/* shift . is : */
+const key_override_t comm_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_COMM, KC_SCLN);	/* shift , is ; */
+const key_override_t bspc_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);	/* shift ⌫ is ⌦ */
+
+// This globally defines all key overrides to be used
+const key_override_t *key_overrides[] = {
+    &one_key_override,
+	&zero_key_override,
+    &dot_key_override,
+    &comm_key_override,
+    &bspc_key_override,
 };
-uint8_t NUM_CUSTOM_SHIFT_KEYS =
-    sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);
