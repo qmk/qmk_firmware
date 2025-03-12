@@ -6,6 +6,11 @@
     "bootloader": "rp2040",
     "customKeycodes": [
         {
+            "name": "NEXT_OLED_PAGE",
+            "shortName": "NEXT_OLED_PAGE",
+            "title": "Open next page on OLED display"
+        },
+        {
             "name": "ROT_R30_1",
             "shortName": "ROT_R30_1",
             "title": "Rotate sensor angle by 30 degrees clockwise (1st trackball)"
@@ -54,6 +59,11 @@
             "name": "MOUSE_LAYER_MS_MINUS_100MS",
             "shortName": "MOUSE_LAYER_MS_MINUS_100MS",
             "title": "Minus 100ms to the delay time to enable mouse layer when trackball is moved"
+        },
+        {
+            "name": "POINTER_SPEED_MAG_CHANGE",
+            "shortName": "POINTER_SPEED_MAG_CHANGE",
+            "title": "Change the pointer speed magnifier. 1x -> 2x -> 4x -> 0.5x -> 1x -> ..."
         }
     ],
     "dynamic_keymap": {
