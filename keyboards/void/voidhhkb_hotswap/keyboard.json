@@ -1,6 +1,6 @@
 {
     "manufacturer": "James Wilson",
-    "keyboard_name": "voidhhkb",
+    "keyboard_name": "voidhhkb_hotswap",
     "maintainer": "JamesWilson1996",
     "bootloader": "stm32-dfu",
     "diode_direction": "COL2ROW",
