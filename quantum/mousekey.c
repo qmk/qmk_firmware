@@ -19,7 +19,6 @@
 #include <string.h>
 #include "keycode.h"
 #include "host.h"
-#include "keycodes.h"
 #include "timer.h"
 #include "print.h"
 #include "debug.h"
