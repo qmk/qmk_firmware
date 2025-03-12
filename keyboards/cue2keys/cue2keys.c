@@ -19,8 +19,10 @@ DisplayMode display_mode = DisplayMode_Layer;
 static pin_t direct_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
 
 enum my_keycodes {
+    // Next OLED Page
+    NEXT_OLED_PAGE = QK_KB_0,
     // Trackball angle
-    ROT_R30_1 = QK_KB_0,
+    ROT_R30_1,
     ROT_L30_1,
     ROT_R30_2,
     ROT_L30_2,
@@ -30,7 +32,9 @@ enum my_keycodes {
     ROT_L2_2,
     // mouse key latency
     MOUSE_LAYER_MS_ADD_100MS,
-    MOUSE_LAYER_MS_MINUS_100MS
+    MOUSE_LAYER_MS_MINUS_100MS,
+    // x0.5, x1 (default), x2, x4
+    POINTER_SPEED_MAG_CHANGE,
 };
 
 void keyboard_post_init_kb(void) {
@@ -54,6 +58,7 @@ void eeconfig_init_kb(void) {
     user_config.angle1         = 0;
     user_config.angle2         = 0;
     user_config.mouse_layer_ms = 6;
+    user_config.pointer_speed_magnification = 1;
     eeconfig_update_kb(user_config.raw);
 
     eeconfig_init_user();
@@ -149,6 +154,18 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
 
+    // process next oled page
+    if (record->event.pressed) {
+        switch (keycode) {
+            case NEXT_OLED_PAGE:
+                display_mode = (display_mode + 1) % DisplayMode_MAX;
+#ifdef OLED_ENABLE
+                oled_clear();
+#endif
+                return false;
+        }
+    }
+
     // process angle change
     if (record->event.pressed) {
         {
@@ -203,6 +220,17 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 return false;
         }
     }
+
+        // process pointer move speed change
+        if (record->event.pressed) {
+            switch (keycode) {
+                case POINTER_SPEED_MAG_CHANGE:
+                    user_config.pointer_speed_magnification += 1;
+                    if (user_config.pointer_speed_magnification > 3) user_config.pointer_speed_magnification = 0;
+                    eeconfig_update_kb(user_config.raw);
+                    return false;
+            }
+        }
 
     return process_record_user(keycode, record);
 }
@@ -286,21 +314,28 @@ bool oled_task_kb(void) {
             oled_write_P(PSTR("A1: "), false);
             itoa(user_config.angle1 * 2, type_count_str, 10);
             oled_write_P(type_count_str, false);
-            oled_write_P(PSTR(", "), false);
         }
+        oled_write_P(PSTR(", "), false);
         {
             static char type_count_str[7];
             oled_write_P(PSTR("A2: "), false);
             itoa(user_config.angle2 * 2, type_count_str, 10);
             oled_write_P(type_count_str, false);
-            oled_write_P(PSTR(", "), false);
         }
+        oled_write_P(PSTR(", "), false);
         {
             static char type_count_str[7];
             oled_write_P(PSTR("MD: "), false);
             itoa(user_config.mouse_layer_ms, type_count_str, 10);
             oled_write_P(type_count_str, false);
             oled_write_P(PSTR("*100ms"), false);
+        }
+        oled_write_P(PSTR(", "), false);
+        {
+            static char type_count_str[7];
+            oled_write_P(PSTR("MG: "), false);
+            itoa(user_config.pointer_speed_magnification, type_count_str, 10);
+            oled_write_P(type_count_str, false);
         }
         oled_write_ln(PSTR(""), false);
     } else {
@@ -352,7 +387,15 @@ void pointing_device_driver_init(void) {
     modular_adns5050_pointing_device_driver.init();
 }
 report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
-    return modular_adns5050_pointing_device_driver.get_report(mouse_report);
+    uint16_t user_mag = user_config.pointer_speed_magnification;
+    float mag = 0.5;
+    for(uint8_t i = 0; i < user_mag; i++) {
+        mag *= 2;
+    }
+    report_mouse_t t = modular_adns5050_pointing_device_driver.get_report(mouse_report);
+    t.x *= mag;
+    t.y *= mag;
+    return t;
 }
 uint16_t pointing_device_driver_get_cpi(void) {
     return modular_adns5050_pointing_device_driver.get_cpi();

@@ -26,8 +26,11 @@ typedef union {
         // delay time in ms (* 100ms).
         // 2^6=64 to represent 0 ms - 4000 ms
         uint16_t mouse_layer_ms : 6;
+        // pointer speed magnification
+        // x0.5, x1 (default), x2, x4
+        uint16_t pointer_speed_magnification : 2;
         // dummy
-        uint16_t _ : 10;
+        uint16_t _ : 8;
     };
 } user_config_t;
 
