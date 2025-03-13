@@ -1,5 +1,7 @@
+#ifdef RGBLIGHT_ENABLE
 #include "rgblight.h"
 #include "quantum.h"
+#endif
 
 const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
   {0,4, HSV_GREEN}
