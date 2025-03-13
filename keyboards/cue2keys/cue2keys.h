@@ -32,6 +32,6 @@ typedef union {
         // dummy
         uint16_t _ : 8;
     };
-} user_config_t;
+} kb_config_t;
 
-user_config_t user_config;
+kb_config_t kb_config;

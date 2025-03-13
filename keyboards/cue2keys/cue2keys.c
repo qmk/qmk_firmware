@@ -43,9 +43,9 @@ void keyboard_post_init_kb(void) {
     // debug_keyboard=true;
     // debug_mouse=true;
 
-    user_config.raw = eeconfig_read_kb();
-    modular_adns5050_set_half_angle(0, user_config.angle1);
-    modular_adns5050_set_half_angle(1, user_config.angle2);
+    kb_config.raw = eeconfig_read_kb();
+    modular_adns5050_set_half_angle(0, kb_config.angle1);
+    modular_adns5050_set_half_angle(1, kb_config.angle2);
 
     i2c_init();
     do_scan();
@@ -54,12 +54,12 @@ void keyboard_post_init_kb(void) {
 }
 
 void eeconfig_init_kb(void) {
-    user_config.raw            = 0;
-    user_config.angle1         = 0;
-    user_config.angle2         = 0;
-    user_config.mouse_layer_ms = 6;
-    user_config.pointer_speed_magnification = 1;
-    eeconfig_update_kb(user_config.raw);
+    kb_config.raw            = 0;
+    kb_config.angle1         = 0;
+    kb_config.angle2         = 0;
+    kb_config.mouse_layer_ms = 6;
+    kb_config.pointer_speed_magnification = 1;
+    eeconfig_update_kb(kb_config.raw);
 
     eeconfig_init_user();
 }
@@ -127,12 +127,12 @@ void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 void update_half_angle(uint8_t index, int16_t angle) {
     modular_adns5050_add_half_angle(index, angle);
     if (index == 0) {
-        user_config.angle1 = modular_adns5050_get_half_angle(index);
+        kb_config.angle1 = modular_adns5050_get_half_angle(index);
     }
     if (index == 1) {
-        user_config.angle2 = modular_adns5050_get_half_angle(index);
+        kb_config.angle2 = modular_adns5050_get_half_angle(index);
     }
-    eeconfig_update_kb(user_config.raw);
+    eeconfig_update_kb(kb_config.raw);
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
@@ -208,15 +208,15 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
             case MOUSE_LAYER_MS_ADD_100MS:
-                user_config.mouse_layer_ms += 1;
-                if (user_config.mouse_layer_ms > 40) user_config.mouse_layer_ms = 40;
-                eeconfig_update_kb(user_config.raw);
+                kb_config.mouse_layer_ms += 1;
+                if (kb_config.mouse_layer_ms > 40) kb_config.mouse_layer_ms = 40;
+                eeconfig_update_kb(kb_config.raw);
                 return false;
             case MOUSE_LAYER_MS_MINUS_100MS:
-                user_config.mouse_layer_ms -= 1;
+                kb_config.mouse_layer_ms -= 1;
                 // overflow
-                if (user_config.mouse_layer_ms > 40) user_config.mouse_layer_ms = 0;
-                eeconfig_update_kb(user_config.raw);
+                if (kb_config.mouse_layer_ms > 40) kb_config.mouse_layer_ms = 0;
+                eeconfig_update_kb(kb_config.raw);
                 return false;
         }
     }
@@ -225,9 +225,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
             switch (keycode) {
                 case POINTER_SPEED_MAG_CHANGE:
-                    user_config.pointer_speed_magnification += 1;
-                    if (user_config.pointer_speed_magnification > 3) user_config.pointer_speed_magnification = 0;
-                    eeconfig_update_kb(user_config.raw);
+                    kb_config.pointer_speed_magnification += 1;
+                    if (kb_config.pointer_speed_magnification > 3) kb_config.pointer_speed_magnification = 0;
+                    eeconfig_update_kb(kb_config.raw);
                     return false;
             }
         }
@@ -308,25 +308,25 @@ bool oled_task_kb(void) {
         }
     } else if (display_mode == DisplayMode_EEPROM) {
         oled_write_ln_P(PSTR("-- EEPROM --"), false);
-        user_config.raw = eeconfig_read_kb();
+        kb_config.raw = eeconfig_read_kb();
         {
             static char type_count_str[7];
             oled_write_P(PSTR("A1: "), false);
-            itoa(user_config.angle1 * 2, type_count_str, 10);
+            itoa(kb_config.angle1 * 2, type_count_str, 10);
             oled_write_P(type_count_str, false);
         }
         oled_write_P(PSTR(", "), false);
         {
             static char type_count_str[7];
             oled_write_P(PSTR("A2: "), false);
-            itoa(user_config.angle2 * 2, type_count_str, 10);
+            itoa(kb_config.angle2 * 2, type_count_str, 10);
             oled_write_P(type_count_str, false);
         }
         oled_write_P(PSTR(", "), false);
         {
             static char type_count_str[7];
             oled_write_P(PSTR("MD: "), false);
-            itoa(user_config.mouse_layer_ms, type_count_str, 10);
+            itoa(kb_config.mouse_layer_ms, type_count_str, 10);
             oled_write_P(type_count_str, false);
             oled_write_P(PSTR("*100ms"), false);
         }
@@ -334,7 +334,7 @@ bool oled_task_kb(void) {
         {
             static char type_count_str[7];
             oled_write_P(PSTR("MG: "), false);
-            itoa(user_config.pointer_speed_magnification, type_count_str, 10);
+            itoa(kb_config.pointer_speed_magnification, type_count_str, 10);
             oled_write_P(type_count_str, false);
         }
         oled_write_ln(PSTR(""), false);
@@ -387,7 +387,7 @@ void pointing_device_driver_init(void) {
     modular_adns5050_pointing_device_driver.init();
 }
 report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
-    uint16_t user_mag = user_config.pointer_speed_magnification;
+    uint16_t user_mag = kb_config.pointer_speed_magnification;
     float mag = 0.5;
     for(uint8_t i = 0; i < user_mag; i++) {
         mag *= 2;

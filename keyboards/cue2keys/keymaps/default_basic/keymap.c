@@ -212,7 +212,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
         mouse_layer_timer = timer_read();
     }
     uint8_t current_layer = get_highest_layer(layer_state);
-    if (current_layer == _MOUSE && timer_elapsed(mouse_layer_timer) > user_config.mouse_layer_ms * 100 && mouse_report.x == 0 && mouse_report.y == 0) {
+    if (current_layer == _MOUSE && timer_elapsed(mouse_layer_timer) > kb_config.mouse_layer_ms * 100 && mouse_report.x == 0 && mouse_report.y == 0) {
         layer_off(_MOUSE);
     }
 
