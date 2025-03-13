@@ -24,7 +24,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         // channel 2
         //// key4 * 2, key5 * 5
-        KC_ENTER, KC_TAB, _______,LCTL(KC_LEFT_BRACKET), KC_NO,
+        KC_ENTER, KC_TAB, _______, LCTL(KC_LEFT_BRACKET),
         KC_6, KC_Y, KC_H, KC_N,
         KC_7, KC_U, KC_J, KC_M, KC_LANGUAGE_1,
         KC_8, KC_I, KC_K, KC_COMMA, _______,
@@ -107,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         // channel 2
         //// key4 * 2, key5 * 5
-        QK_MOUSE_BUTTON_4, QK_MOUSE_BUTTON_3, QK_MOUSE_BUTTON_2, QK_MOUSE_BUTTON_1, _______,
+        QK_MOUSE_BUTTON_4, QK_MOUSE_BUTTON_3, QK_MOUSE_BUTTON_2, QK_MOUSE_BUTTON_1,
         _______, _______, _______, _______,
         _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______,
