@@ -1,4 +1,4 @@
-/* Copyright 2023 Alabastard (@Alabastard)
+/* Copyright 2025 Alabastard (@Alabastard)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -88,11 +88,11 @@ bool process_pointing_modes_records(uint16_t keycode, keyrecord_t* record) {
         // handle built in keycods for bottom 16 pointing modes (0-15)
         // momentary
         case QK_POINTING_MODES_MO ... QK_POINTING_MODES_MO_MAX:
-            pointing_modes_key_momentary((keycode - QK_POINTING_MODES_MO) & (QK_POINTING_MODES_MO_MAX - QK_POINTING_MODES_MO), record->event.pressed);
+            pointing_modes_key_momentary((keycode - QK_POINTING_MODES_MO), record->event.pressed);
             return true; // allow further processing
         // toggle
         case QK_POINTING_MODES_TG ... QK_POINTING_MODES_TG_MAX:
-            pointing_modes_key_toggle((keycode - QK_POINTING_MODES_TG) & (QK_POINTING_MODES_TG_MAX - QK_POINTING_MODES_TG), record->event.pressed);
+            pointing_modes_key_toggle((keycode - QK_POINTING_MODES_TG), record->event.pressed);
             return true; // allow further processing
 
         // utils: Cycle precision
@@ -136,8 +136,6 @@ bool process_pointing_modes_records(uint16_t keycode, keyrecord_t* record) {
                 return false; // prevent further processing
             }
             return true; // allow further processing
-        // cut the below two functions
-        // utils: DEVICE RIGHT
 #    endif
 
         // end

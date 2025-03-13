@@ -1,4 +1,4 @@
-/* Copyright 2023 Alabastard (@Alabastard-64)
+/* Copyright 2025 Alabastard (@Alabastard-64)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -106,7 +106,6 @@ static void pointing_modes_task(report_mouse_t* mouse_report) {
             }
             pointing_modes_exec_mapping(pm_mode_ids[active_device_id] - POINTING_MODES_MAP_START);
     }
-    return;
 }
 
 /**
@@ -138,7 +137,6 @@ static void pointing_modes_axes_conv(report_mouse_t* mouse_report) {
         }
     }
     mouse_report->y = 0;
-    return;
 }
 
 /**
@@ -179,7 +177,6 @@ static void pointing_modes_update_direction(void) {
             }
         }
     }
-    return;
 }
 
 /**
@@ -211,7 +208,6 @@ static void pointing_modes_update_divisor(void) {
     // check for zero divisor and apply precision
     current_divisor = current_divisor ? current_divisor : POINTING_MODES_DEFAULT_DIVISOR;
     current_divisor = abs(pointing_device_xy_clamp(current_divisor * pointing_modes_get_precision()));
-    return;
 }
 
 /**
@@ -227,8 +223,7 @@ static void pointing_modes_update_type(void) {
     if (current_type) {return;}
     current_type = pointing_modes_get_type_kb(mode_id);
     if (current_type) {return;}
-
-    return;
+    current_type = PMT_4WAY | PMO_TAP; // same as 0x00
 }
 
 /**
@@ -286,11 +281,9 @@ static void pointing_modes_hold_decay(void) {
 static void pointing_modes_exec_mapping(uint8_t map_id) {
     int8_t count[]    = {0, 0};
     uint8_t key[]     = {PMK_NONE, PMK_NONE};
-    uint8_t mode_type = pointing_modes_get_type();
-    uint8_t dir       = pointing_modes_get_direction();
-    switch (mode_type & PMT_MODES) {
+    switch (current_type & PMT_MODES) {
         case PMT_4WAY ... PMT_8WAY:
-            switch (dir) {
+            switch (current_direction) {
                 case PMD_NONE:
                     break;
                 case PMD_DOWN:
@@ -323,16 +316,16 @@ static void pointing_modes_exec_mapping(uint8_t map_id) {
             }
             break;
         case PMT_DPAD:
-            if(dir & PMD_HORI) {
+            if(current_direction & PMD_HORI) {
                 count[PM_X_AXIS] = pointing_modes_apply_divisor(PM_X_KEY);
-                key[PM_X_AXIS]   = (dir & PMD_RIGHT)? PMK_RIGHT:PMK_LEFT;
+                key[PM_X_AXIS]   = (current_direction & PMD_RIGHT)? PMK_RIGHT:PMK_LEFT;
             }
-            if(dir & PMD_VERT) {
+            if(current_direction & PMD_VERT) {
                 count[PM_Y_AXIS] = pointing_modes_apply_divisor(PM_Y_KEY);
-                key[PM_Y_AXIS]   = (dir & PMD_DOWN)? PMK_DOWN:PMK_UP;
+                key[PM_Y_AXIS]   = (current_direction & PMD_DOWN)? PMK_DOWN:PMK_UP;
             }
     }
-    switch(mode_type & PMO_OPTS){
+    switch(current_type & PMO_OPTS){
         case PMO_TAP:
             // Tap Horizontal/4-Way/8-Way
             if(count[PM_X_AXIS]) {
@@ -376,7 +369,7 @@ static void pointing_modes_exec_mapping(uint8_t map_id) {
             // Decay hold
             pointing_modes_hold_decay();
             // Hold: release on no movement
-            if(dir==PMD_NONE) {
+            if(current_direction==PMD_NONE) {
                 pointing_modes_release_held_keys();
             }
     }
