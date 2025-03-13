@@ -37,6 +37,8 @@ enum my_keycodes {
     POINTER_SPEED_MAG_CHANGE,
 };
 
+kb_config_t kb_config = {0};
+
 void keyboard_post_init_kb(void) {
     debug_enable = true;
     // debug_matrix = true;
@@ -221,22 +223,26 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         }
     }
 
-        // process pointer move speed change
-        if (record->event.pressed) {
-            switch (keycode) {
-                case POINTER_SPEED_MAG_CHANGE:
-                    kb_config.pointer_speed_magnification += 1;
-                    if (kb_config.pointer_speed_magnification > 3) kb_config.pointer_speed_magnification = 0;
-                    eeconfig_update_kb(kb_config.raw);
-                    return false;
-            }
+    // process pointer move speed change
+    if (record->event.pressed) {
+        switch (keycode) {
+            case POINTER_SPEED_MAG_CHANGE:
+                kb_config.pointer_speed_magnification += 1;
+                if (kb_config.pointer_speed_magnification > 3) kb_config.pointer_speed_magnification = 0;
+                eeconfig_update_kb(kb_config.raw);
+                return false;
         }
+    }
 
     return process_record_user(keycode, record);
 }
 
 #ifdef OLED_ENABLE
 bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
+    }
+
     {
         uint8_t     current_layer = get_highest_layer(layer_state);
         static char type_count_str[7];
@@ -342,7 +348,7 @@ bool oled_task_kb(void) {
         oled_write_ln_P(PSTR("-- INVALID MODE --"), false);
     }
 
-    return oled_task_user();
+    return true;
 }
 #endif
 
