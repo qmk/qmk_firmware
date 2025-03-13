@@ -258,11 +258,10 @@ void audio_stop_tone(float pitch) {
         for (int i = AUDIO_TONE_STACKSIZE - 1; i >= 0; i--) {
             found = (tones[i].pitch == pitch);
             if (found) {
-                tones[i] = (musical_tone_t){.time_started = 0, .pitch = -1.0f, .duration = 0};
                 for (int j = i; (j < AUDIO_TONE_STACKSIZE - 1); j++) {
-                    tones[j]     = tones[j + 1];
-                    tones[j + 1] = (musical_tone_t){.time_started = 0, .pitch = -1.0f, .duration = 0};
+                    tones[j] = tones[j + 1];
                 }
+                tones[AUDIO_TONE_STACKSIZE - 1] = (musical_tone_t){.time_started = 0, .pitch = -1.0f, .duration = 0};
                 break;
             }
         }
