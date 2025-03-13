@@ -1,12 +1,12 @@
 # cue2keys
 
-![cue2keys](https://i.imgur.com/AWvfx4n.jpeg)
+![cue2keys](https://i.imgur.com/hUCVD23.jpeg)
 
 A keyboard that achieves flexible placement and configuration by combining modules as building blocks.
 
 -   Keyboard Maintainer: [esplo](https://github.com/esplo)
 -   Hardware Supported: Cue2Keys PCB
--   Hardware Availability: [official website - Coming soon](https://cue2keys.esplo.net/)
+-   Hardware Availability: [official website](https://cue2keys.esplo.net/), [online store](https://c2k.booth.pm/items/6659174)
 
 Make example for this keyboard (after setting up your build environment):
 
