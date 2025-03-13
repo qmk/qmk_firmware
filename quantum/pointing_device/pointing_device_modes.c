@@ -411,14 +411,10 @@ mouse_xy_report_t pointing_modes_apply_divisor(uint8_t axis) {
             if (abs(pm_res[active_device_id].x) >= current_divisor) {
                 if (pm_res[active_device_id].x > 0) {
                     result = 1;
-                    if (mode_opts ^ PMO_HOLD) {
-                        pm_res[active_device_id].x -= current_divisor;
-                    }
+                    if (mode_opts ^ PMO_HOLD) {pm_res[active_device_id].x -= current_divisor;}
                 } else {
                     result = -1;
-                    if (mode_opts ^ PMO_HOLD) {
-                        pm_res[active_device_id].x += current_divisor;
-                    }
+                    if (mode_opts ^ PMO_HOLD) {pm_res[active_device_id].x += current_divisor;}
                 }
             }
             break;
@@ -426,14 +422,10 @@ mouse_xy_report_t pointing_modes_apply_divisor(uint8_t axis) {
             if (abs(pm_res[active_device_id].y) >= current_divisor) {
                 if (pm_res[active_device_id].y > 0) {
                     result = 1;
-                    if (mode_opts ^ PMO_HOLD) {
-                        pm_res[active_device_id].y -= current_divisor;
-                    }
+                    if (mode_opts ^ PMO_HOLD) {pm_res[active_device_id].y -= current_divisor;}
                 } else {
                     result = -1;
-                    if (mode_opts ^ PMO_HOLD) {
-                        pm_res[active_device_id].y += current_divisor;
-                    }
+                    if (mode_opts ^ PMO_HOLD) {pm_res[active_device_id].y += current_divisor;}
                 }
             }
             break;
