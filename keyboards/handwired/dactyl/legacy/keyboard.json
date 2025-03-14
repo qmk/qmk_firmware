@@ -10,8 +10,11 @@
         "toggle": 1
     },
     "diode_direction": "ROW2COL",
+    "layout_aliases": {
+        "LAYOUT_dactyl": "LAYOUT"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_modern": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0.35},
                 {"matrix": [0, 1], "x": 1, "y": 0.35},
@@ -100,7 +103,7 @@
                 {"matrix": [5, 10], "x": 9, "y": 7}
             ]
         },
-        "LAYOUT_dactyl": {
+        "LAYOUT": {
             "layout": [
               {"matrix": [0, 0], "x": 0, "y": 0},
               {"matrix": [0, 1], "x": 1, "y": 0},
