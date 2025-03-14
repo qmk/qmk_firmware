@@ -24,6 +24,10 @@
         "pid": "0x0001",
         "vid": "0xFEED"
     },
+    "caps_word": {
+        "enabled": true,
+        "both_shifts_turns_on": true
+    },
     "layouts": {
         "LAYOUT_split_3x5_3": {
             "layout": [
