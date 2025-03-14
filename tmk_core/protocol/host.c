@@ -30,26 +30,50 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "joystick.h"
 #endif
 
-#ifdef BLUETOOTH_ENABLE
-#    include "bluetooth.h"
-#    include "outputselect.h"
-#endif
-
 #ifdef NKRO_ENABLE
 #    include "keycode_config.h"
 extern keymap_config_t keymap_config;
 #endif
 
-static host_driver_t *driver;
+static host_driver_t *driver              = NULL;
 static uint16_t       last_system_usage   = 0;
 static uint16_t       last_consumer_usage = 0;
 
 void host_set_driver(host_driver_t *d) {
+    // Disconnect if necessary
+    if (driver && driver->disconnect) {
+        driver->disconnect();
+    }
+
+    // Update the driver instance
     driver = d;
+
+    // Init the driver if it's not done so already
+    if (driver && !driver->has_init_executed) {
+        if (driver->init) {
+            driver->init();
+        }
+        driver->has_init_executed = true;
+    }
+
+    // Connect the driver
+    if (driver && driver->connect) {
+        driver->connect();
+    }
 }
 
 host_driver_t *host_get_driver(void) {
     return driver;
+}
+
+__attribute__((weak)) host_driver_t *host_usb_driver(void) {
+    return NULL;
+}
+__attribute__((weak)) host_driver_t *host_bluetooth_driver(void) {
+    return NULL;
+}
+__attribute__((weak)) host_driver_t *host_2pt4Ghz_driver(void) {
+    return NULL;
 }
 
 #ifdef SPLIT_KEYBOARD
@@ -63,7 +87,7 @@ uint8_t host_keyboard_leds(void) {
 #ifdef SPLIT_KEYBOARD
     if (!is_keyboard_master()) return split_led_state;
 #endif
-    if (!driver) return 0;
+    if (!driver || !driver->keyboard_leds) return 0;
     return (*driver->keyboard_leds)();
 }
 
@@ -73,14 +97,7 @@ led_t host_keyboard_led_state(void) {
 
 /* send report */
 void host_keyboard_send(report_keyboard_t *report) {
-#ifdef BLUETOOTH_ENABLE
-    if (where_to_send() == OUTPUT_BLUETOOTH) {
-        bluetooth_send_keyboard(report);
-        return;
-    }
-#endif
-
-    if (!driver) return;
+    if (!driver || !driver->send_keyboard) return;
 #ifdef KEYBOARD_SHARED_EP
     report->report_id = REPORT_ID_KEYBOARD;
 #endif
@@ -96,7 +113,7 @@ void host_keyboard_send(report_keyboard_t *report) {
 }
 
 void host_nkro_send(report_nkro_t *report) {
-    if (!driver) return;
+    if (!driver || !driver->send_nkro) return;
     report->report_id = REPORT_ID_NKRO;
     (*driver->send_nkro)(report);
 
@@ -110,14 +127,7 @@ void host_nkro_send(report_nkro_t *report) {
 }
 
 void host_mouse_send(report_mouse_t *report) {
-#ifdef BLUETOOTH_ENABLE
-    if (where_to_send() == OUTPUT_BLUETOOTH) {
-        bluetooth_send_mouse(report);
-        return;
-    }
-#endif
-
-    if (!driver) return;
+    if (!driver || !driver->send_mouse) return;
 #ifdef MOUSE_SHARED_EP
     report->report_id = REPORT_ID_MOUSE;
 #endif
@@ -133,7 +143,7 @@ void host_system_send(uint16_t usage) {
     if (usage == last_system_usage) return;
     last_system_usage = usage;
 
-    if (!driver) return;
+    if (!driver || !driver->send_extra) return;
 
     report_extra_t report = {
         .report_id = REPORT_ID_SYSTEM,
@@ -146,14 +156,7 @@ void host_consumer_send(uint16_t usage) {
     if (usage == last_consumer_usage) return;
     last_consumer_usage = usage;
 
-#ifdef BLUETOOTH_ENABLE
-    if (where_to_send() == OUTPUT_BLUETOOTH) {
-        bluetooth_send_consumer(usage);
-        return;
-    }
-#endif
-
-    if (!driver) return;
+    if (!driver || !driver->send_extra) return;
 
     report_extra_t report = {
         .report_id = REPORT_ID_CONSUMER,
@@ -164,7 +167,7 @@ void host_consumer_send(uint16_t usage) {
 
 #ifdef JOYSTICK_ENABLE
 void host_joystick_send(joystick_t *joystick) {
-    if (!driver) return;
+    if (!driver || !driver->send_joystick) return;
 
     report_joystick_t report = {
 #    ifdef JOYSTICK_SHARED_EP
@@ -215,14 +218,14 @@ void host_joystick_send(joystick_t *joystick) {
 #    endif
     };
 
-    send_joystick(&report);
+    (*driver->send_joystick)(&report);
 }
 #endif
 
-__attribute__((weak)) void send_joystick(report_joystick_t *report) {}
-
 #ifdef DIGITIZER_ENABLE
 void host_digitizer_send(digitizer_t *digitizer) {
+    if (!driver || !driver->send_digitizer) return;
+
     report_digitizer_t report = {
 #    ifdef DIGITIZER_SHARED_EP
         .report_id = REPORT_ID_DIGITIZER,
@@ -234,24 +237,58 @@ void host_digitizer_send(digitizer_t *digitizer) {
         .y        = (uint16_t)(digitizer->y * 0x7FFF),
     };
 
-    send_digitizer(&report);
+    (*driver->send_digitizer)(&report);
 }
 #endif
 
-__attribute__((weak)) void send_digitizer(report_digitizer_t *report) {}
-
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
 void host_programmable_button_send(uint32_t data) {
+    if (!driver || !driver->send_programmable_button) return;
+
     report_programmable_button_t report = {
         .report_id = REPORT_ID_PROGRAMMABLE_BUTTON,
         .usage     = data,
     };
 
-    send_programmable_button(&report);
+    (*driver->send_programmable_button)(&report);
 }
 #endif
 
-__attribute__((weak)) void send_programmable_button(report_programmable_button_t *report) {}
+#ifdef CONSOLE_ENABLE
+int8_t host_console_send(uint8_t c) {
+    if (!driver || !driver->send_console) return -1;
+    return (*driver->send_console)(c);
+}
+
+// Original API
+int8_t sendchar(uint8_t c) {
+    return host_console_send(c);
+}
+#endif // CONSOLE_ENABLE
+
+#ifdef VIRTSER_ENABLE
+void host_virtser_send(const uint8_t c) {
+    if (!driver || !driver->send_virtser) return;
+    (*driver->send_virtser)(c);
+}
+
+// Original API
+void virtser_send(const uint8_t c) {
+    host_virtser_send(c);
+}
+#endif // VIRTSER_ENABLE
+
+#ifdef RAW_ENABLE
+void host_raw_hid_send(uint8_t *data, uint8_t length) {
+    if (!driver || !driver->send_raw_hid) return;
+    (*driver->send_raw_hid)(data, length);
+}
+
+// Original API
+void raw_hid_send(uint8_t *data, uint8_t length) {
+    host_raw_hid_send(data, length);
+}
+#endif // RAW_ENABLE
 
 uint16_t host_last_system_usage(void) {
     return last_system_usage;

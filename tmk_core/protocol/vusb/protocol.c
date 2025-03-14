@@ -108,7 +108,7 @@ void protocol_pre_init(void) {
 }
 
 void protocol_post_init(void) {
-    host_set_driver(vusb_driver());
+    host_set_driver(host_usb_driver());
     wait_ms(50);
 }
 

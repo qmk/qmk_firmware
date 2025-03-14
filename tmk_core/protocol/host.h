@@ -31,6 +31,11 @@ extern "C" {
 void           host_set_driver(host_driver_t *driver);
 host_driver_t *host_get_driver(void);
 
+/* concrete implementations */
+host_driver_t *host_usb_driver(void);
+host_driver_t *host_bluetooth_driver(void);
+host_driver_t *host_2pt4Ghz_driver(void);
+
 /* host driver interface */
 uint8_t host_keyboard_leds(void);
 led_t   host_keyboard_led_state(void);
