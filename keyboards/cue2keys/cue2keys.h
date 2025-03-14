@@ -34,4 +34,4 @@ typedef union {
     };
 } kb_config_t;
 
-kb_config_t kb_config;
+extern kb_config_t kb_config;
