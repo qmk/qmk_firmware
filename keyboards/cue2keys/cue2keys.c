@@ -56,10 +56,10 @@ void keyboard_post_init_kb(void) {
 }
 
 void eeconfig_init_kb(void) {
-    kb_config.raw            = 0;
-    kb_config.angle1         = 0;
-    kb_config.angle2         = 0;
-    kb_config.mouse_layer_ms = 6;
+    kb_config.raw                         = 0;
+    kb_config.angle1                      = 0;
+    kb_config.angle2                      = 0;
+    kb_config.mouse_layer_ms              = 6;
     kb_config.pointer_speed_magnification = 1;
     eeconfig_update_kb(kb_config.raw);
 
@@ -394,8 +394,8 @@ void pointing_device_driver_init(void) {
 }
 report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
     uint16_t user_mag = kb_config.pointer_speed_magnification;
-    float mag = 0.5;
-    for(uint8_t i = 0; i < user_mag; i++) {
+    float    mag      = 0.5;
+    for (uint8_t i = 0; i < user_mag; i++) {
         mag *= 2;
     }
     report_mouse_t t = modular_adns5050_pointing_device_driver.get_report(mouse_report);
