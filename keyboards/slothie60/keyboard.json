@@ -20,15 +20,14 @@
         "animations": {
             "alternating": true,
             "breathing": true,
-            "christmas": true,
-            "knight": true,
             "rainbow_mood": true,
             "rainbow_swirl": true,
             "snake": true,
             "static_gradient": true,
             "twinkle": true
         },
-        "led_count": 14
+        "led_count": 14,
+		"sleep": true
     },
     "url": "https://github.com/makkomise/slothie60",
     "usb": {
