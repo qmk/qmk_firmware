@@ -44,6 +44,18 @@ enum layers {
 #define KC_CTL_ESC     CTL_T(KC_ESC)       // Left Control when held, Escape when tapped
 #define KC_OPT_OSM_SFT ROPT_T(OSM_LSFT)    // Right Option when held, One Shot Shift when tapped
 
+const uint16_t PROGMEM we_combo[] = {KC_W, KC_E, COMBO_END};
+const uint16_t PROGMEM sd_combo[] = {KC_S, KC_D, COMBO_END};
+const uint16_t PROGMEM io_combo[] = {KC_I, KC_O, COMBO_END};
+const uint16_t PROGMEM kl_combo[] = {KC_K, KC_L, COMBO_END};
+
+combo_t key_combos[] = {
+    COMBO(we_combo, KC_TAB),
+    COMBO(sd_combo, KC_ESC),
+    COMBO(io_combo, KC_BSPC),
+    COMBO(kl_combo, KC_ENT),
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
      * ┌───┬───┬───┬───┬───┐         ┌───┬───┬───┬───┬───┐
@@ -128,6 +140,16 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_270;
 }
 
+static void render_logo(void) {
+    static const char PROGMEM qmk_logo[] = {
+        0x80, 0x81, 0x82, 0x83, 0x84,
+        0xA0, 0xA1, 0xA2, 0xA3, 0xA4,
+        0xC0, 0xC1, 0xC2, 0xC3, 0xC4, 0x00, 0x0A, 0x0A
+    };
+
+    oled_write_P(qmk_logo, false);
+}
+
 static void render_mod_status(uint8_t modifiers) {
     oled_write_P(PSTR("MODS:"), false);
     oled_write_P(PSTR("S"), (modifiers & MOD_MASK_SHIFT));
@@ -138,7 +160,7 @@ static void render_mod_status(uint8_t modifiers) {
 }
 
 static void render_layer_state(void) {
-    oled_write_ln_P("LAYER", false);
+    oled_write_ln_P(PSTR(" "), false);
     oled_write_P("BASE ", layer_state_is(_BASE));
     oled_write_P("LOWER", layer_state_is(_LOWER));
     oled_write_P("RAISE", layer_state_is(_RAISE));
@@ -146,9 +168,15 @@ static void render_layer_state(void) {
     oled_write_ln_P(PSTR(" "), false);
 }
 
+static void render_capsword_state(bool on) {
+    oled_write_ln_P("CAPSW", on);
+}
+
 bool oled_task_user(void) {
+    render_logo();
     render_layer_state();
-    render_mod_status(get_mods()|get_oneshot_mods());
+    render_mod_status(get_mods() | get_oneshot_mods());
+    render_capsword_state(is_caps_word_on());
     return false;
 }
 #endif
