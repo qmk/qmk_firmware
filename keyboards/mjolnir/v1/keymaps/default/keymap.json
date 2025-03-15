@@ -10,6 +10,7 @@
       "KC_LSFT", "KC_Q",    "KC_S",     "KC_D",     "KC_F",     "KC_G",   "KC_LBRC",         "KC_K", "KC_O", "KC_P", "KC_K", "KC_K", "KC_K", "KC_K", "KC_K",
       "KC_LCTL", "KC_A",    "KC_X",     "KC_C",     "KC_V",     "KC_B",                              "KC_O", "KC_P", "KC_K", "KC_K", "KC_K", "KC_K", "KC_K",
                  "KC_Z",    "KC_LGUI",  "KC_LALT",  "KC_LGUI",                                               "KC_P", "KC_K", "KC_K", "KC_K", "KC_K", "KC_K",
+                                                                                                                                     "KC_K",
       
                                                                      "KC_BACKSPACE",         "KC_K",
 
