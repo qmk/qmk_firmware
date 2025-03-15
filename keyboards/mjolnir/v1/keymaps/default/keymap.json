@@ -5,11 +5,11 @@
   "layout": "LAYOUT_split",
   "layers": [
     [
-                 "KC_GRV",  "KC_2",     "KC_3",     "KC_4",     "KC_5",   "KC_6",            "KC_K", "KC_K", "KC_K", "KC_K", "KC_K", "KC_K", "KC_K",
-      "KC_TAB",  "KC_1",    "KC_W",     "KC_E",     "KC_R",     "KC_T",   "KC_PIPE",         "KC_K", "KC_K", "KC_K", "KC_K", "KC_K", "KC_K", "KC_K", "KC_K",
-      "KC_LSFT", "KC_Q",    "KC_S",     "KC_D",     "KC_F",     "KC_G",   "KC_LBRC",         "KC_K", "KC_K", "KC_K", "KC_K", "KC_K", "KC_K", "KC_K", "KC_K",
-      "KC_LCTL", "KC_A",    "KC_X",     "KC_C",     "KC_V",     "KC_B",                              "KC_K", "KC_K", "KC_K", "KC_K", "KC_K", "KC_K", "KC_K",
-                 "KC_Z",    "KC_LGUI",  "KC_LALT",  "KC_LGUI",                                               "KC_K", "KC_K", "KC_K", "KC_K", "KC_K", "KC_K",
+                 "KC_GRV",  "KC_2",     "KC_3",     "KC_4",     "KC_5",   "KC_6",            "KC_K", "KC_O", "KC_P", "KC_K", "KC_K", "KC_K", "KC_K",
+      "KC_TAB",  "KC_1",    "KC_W",     "KC_E",     "KC_R",     "KC_T",   "KC_PIPE",         "KC_K", "KC_O", "KC_P", "KC_K", "KC_K", "KC_K", "KC_K", "KC_K",
+      "KC_LSFT", "KC_Q",    "KC_S",     "KC_D",     "KC_F",     "KC_G",   "KC_LBRC",         "KC_K", "KC_O", "KC_P", "KC_K", "KC_K", "KC_K", "KC_K", "KC_K",
+      "KC_LCTL", "KC_A",    "KC_X",     "KC_C",     "KC_V",     "KC_B",                              "KC_O", "KC_P", "KC_K", "KC_K", "KC_K", "KC_K", "KC_K",
+                 "KC_Z",    "KC_LGUI",  "KC_LALT",  "KC_LGUI",                                               "KC_P", "KC_K", "KC_K", "KC_K", "KC_K", "KC_K",
       
                                                                      "KC_BACKSPACE",         "KC_K",
 
@@ -25,7 +25,8 @@
   },
   "encoders": [
     [
-       {"ccw": "KC_VOLD", "cw": "KC_VOLU"}
+       {"ccw": "KC_VOLD", "cw": "KC_VOLU"},
+       {"ccw": "KC_J", "cw": "KC_L"}
     ]
   ],
   "author": "martin.liivak@gmail.com"
