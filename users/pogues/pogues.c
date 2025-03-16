@@ -258,7 +258,7 @@ uint8_t vscode_compose_mapping(uint16_t* sequence, uint8_t sequence_len) {
     // show/hide the right pane
     COMPOSE_MAPPING_MEH(KC_S, KC_R, "z")
     // show/hide the bottom pane
-    COMPOSE_MAPPING_MEH(KC_S, KC_R, "y")
+    COMPOSE_MAPPING_MEH(KC_S, KC_B, "y")
 
     // assume we are called last
     return COMPOSE_ERROR;
