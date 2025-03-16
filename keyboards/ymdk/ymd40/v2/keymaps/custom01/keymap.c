@@ -194,7 +194,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_LOWER]=LAYOUT_ortho_4x12(
 			KC_DEL,     KC_NO,		LENS_CLOSE,		LENS_DOWN,		LENS_UP,            DM_PLY1,	KC_GRV,		 						KC_EXLM,		KC_AT,		    KC_HASH,	    	KC_DLR,			KC_PERC,
 			KC_ENT,		WINTAB,		ALTTAB,	    	C(G(KC_LEFT)),	C(G(KC_RIGHT)),		DM_PLY2,	RSA(KC_SCLN),						KC_CIRC,		KC_AMPR,	    KC_ASTR,	        TD(TD_LPRN),	TD(TD_RPRN),
-			KC_NO,		KC_NO,		KC_NO,			G(S(KC_S)),		G(KC_V),		    KC_NO,		XP(ORDINAL_MALE,ORDINAL_FEMALE),	KC_MINS,		KC_EQL,		    KC_BSLS,		    UNIX_HOME,		X(RAYA),
+			KC_NO,		KC_NO,		KC_NO,			G(S(KC_S)),		C(S(KC_V)),		    G(KC_V),	XP(ORDINAL_MALE,ORDINAL_FEMALE),	KC_MINS,		KC_EQL,		    KC_BSLS,		    UNIX_HOME,		X(RAYA),
 			KC_NO,		KC_TRNS,	KC_TRNS,		KC_TRNS,		KC_TRNS,	        KC_NO,		KC_NO,		 						MO(_OTHERS),	RALT(KC_5),		KC_NO,				KC_NO,			KC_NO
 	),
     
