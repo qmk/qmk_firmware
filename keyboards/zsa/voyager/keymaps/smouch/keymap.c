@@ -53,7 +53,7 @@ enum custom_keycodes {
 #define LT1 KC_M
 #define LT0 KC_J
 
-#define RT0 KC_SCLN
+#define RT0 KC_MINS
 #define RT1 KC_DOT
 #define RT2 LT(_SYM, KC_QUOT)
 #define RT3 KC_EQL
@@ -83,7 +83,7 @@ enum custom_keycodes {
 #define LB1 KC_L
 #define LB0 KC_X
 
-#define RB0 KC_MINS
+#define RB0 KC_SCLN
 #define RB1 KC_U
 #define RB2 KC_O
 #define RB3 KC_Y

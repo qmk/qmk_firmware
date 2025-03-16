@@ -44,8 +44,8 @@ enum custom_keycodes {
 #define RT0 KC_SCLN
 #define RT1 KC_DOT
 #define RT2 LT(_SYM, KC_QUOT)
-#define RT3 KC_SLSH
-#define RT4 KC_EQL
+#define RT3 KC_EQL
+#define RT4 KC_SLSH
 
 // middle row
 #define LM4 LCTL_T(KC_S)
