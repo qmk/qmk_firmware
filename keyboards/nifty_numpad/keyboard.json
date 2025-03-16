@@ -19,12 +19,6 @@
     },
     "processor": "RP2040",
     "rgb_matrix": {
-        "driver": "ws2812",
-        "default": {
-            "animation": "solid_color",
-            "hue": 127,
-            "speed": 100
-        },
         "animations": {
             "band_pinwheel_sat": true,
             "band_pinwheel_val": true,
@@ -62,6 +56,12 @@
             "splash": true,
             "typing_heatmap": false
         },
+        "default": {
+            "animation": "solid_color",
+            "hue": 127,
+            "speed": 100
+        },
+        "driver": "ws2812",
         "layout": [
             {"matrix": [0, 0], "x": 0, "y": 0, "flags": 4},
             {"matrix": [0, 1], "x": 43, "y": 0, "flags": 4},
