@@ -28,6 +28,10 @@ If you wish to use any QMK CLI commands related to manipulating External Userspa
 Building locally has a much shorter turnaround time than waiting for GitHub Actions to complete.
 :::
 
+::: tip
+If you wish to generate a compilation database for the external userspace, you can run `qmk compile --compiledb` from the external userspace directory after setting up QMK locally.
+:::
+
 ## External Userspace Repository Setup (forked on GitHub)
 
 A basic skeleton External Userspace repository can be found [here](https://github.com/qmk/qmk_userspace). If you wish to keep your keymaps on GitHub (strongly recommended!), you can fork the repository and use it as a base:
