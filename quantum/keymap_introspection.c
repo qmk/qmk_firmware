@@ -1,6 +1,10 @@
 // Copyright 2022 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+#if defined(COMMUNITY_MODULES_ENABLE)
+#    include "community_modules_introspection.h"
+#endif // defined(COMMUNITY_MODULES_ENABLE)
+
 // Pull the actual keymap code so that we can inspect stuff from it
 #include KEYMAP_C
 
@@ -171,3 +175,10 @@ __attribute__((weak)) const key_override_t* key_override_get(uint16_t key_overri
 }
 
 #endif // defined(KEY_OVERRIDE_ENABLE)
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Community modules (must be last in this file!)
+
+#if defined(COMMUNITY_MODULES_ENABLE)
+#    include "community_modules_introspection.c"
+#endif // defined(COMMUNITY_MODULES_ENABLE)

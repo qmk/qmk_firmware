@@ -9,19 +9,15 @@ import qmk.keyboard
 import qmk.path
 from qmk.info import info_json
 from qmk.json_encoders import KeymapJSONEncoder
-from qmk.commands import parse_configurator_json, dump_lines
-from qmk.keymap import generate_json, list_keymaps, locate_keymap, parse_keymap_c
+from qmk.commands import dump_lines
+from qmk.keymap import generate_json
 
 
-def _find_via_layout_macro(keyboard):
-    keymap_layout = None
-    if 'via' in list_keymaps(keyboard):
-        keymap_path = locate_keymap(keyboard, 'via')
-        if keymap_path.suffix == '.json':
-            keymap_layout = parse_configurator_json(keymap_path)['layout']
-        else:
-            keymap_layout = parse_keymap_c(keymap_path)['layers'][0]['layout']
-    return keymap_layout
+def _find_via_layout_macro(keyboard_data):
+    """Assume layout macro when only 1 is available
+    """
+    layouts = list(keyboard_data['layouts'].keys())
+    return layouts[0] if len(layouts) == 1 else None
 
 
 def _convert_macros(via_macros):
@@ -130,20 +126,16 @@ def via2json(cli):
 
     This command uses the `qmk.keymap` module to generate a keymap.json from a VIA backup json. The generated keymap is written to stdout, or to a file if -o is provided.
     """
-    # Find appropriate layout macro
-    keymap_layout = cli.args.layout if cli.args.layout else _find_via_layout_macro(cli.args.keyboard)
-    if not keymap_layout:
-        cli.log.error(f"Couldn't find LAYOUT macro for keyboard {cli.args.keyboard}. Please specify it with the '-l' argument.")
-        return False
-
     # Load the VIA backup json
     with cli.args.filename.open('r') as fd:
         via_backup = json.load(fd)
 
-    # Generate keyboard metadata
     keyboard_data = info_json(cli.args.keyboard)
-    if not keyboard_data:
-        cli.log.error(f'LAYOUT macro {keymap_layout} is not a valid one for keyboard {cli.args.keyboard}!')
+
+    # Find appropriate layout macro
+    keymap_layout = cli.args.layout if cli.args.layout else _find_via_layout_macro(keyboard_data)
+    if not keymap_layout:
+        cli.log.error(f"Couldn't find LAYOUT macro for keyboard {cli.args.keyboard}. Please specify it with the '-l' argument.")
         return False
 
     # Get keycode array
