@@ -243,7 +243,11 @@ static void print_status(void) {
 
 #if !defined(NO_PRINT) && !defined(USER_PRINT)
 static void print_eeconfig(void) {
+#if defined(LAYER_STATE_32BIT)
+    xprintf("eeconfig:\ndefault_layer: %lu\n", eeconfig_read_default_layer());
+#else
     xprintf("eeconfig:\ndefault_layer: %u\n", eeconfig_read_default_layer());
+#endif
 
     debug_config_t dc;
     dc.raw = eeconfig_read_debug();
