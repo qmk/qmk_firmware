@@ -6,6 +6,8 @@ A customizable 60% HotSwap keyboard.
 - Hardware Supported: OG60
 - Hardware Availability: [KBDfans](https://kbdfans.com/)
 
+This is the standard PCB of the TOFU 2.0
+
 ## Bootloader mode
 
 Enter the bootloader in 3 ways:
