@@ -140,6 +140,9 @@
     "custommk/genesis": {
         "target": "custommk/genesis/rev1"
     },
+    "cxt_studio":{
+        "target":"cxt_studio/12e4"
+    },
     "daisy": {
         "target": "ktec/daisy"
     },
@@ -193,6 +196,9 @@
 	},
     "ergodone": {
         "target": "ktec/ergodone"
+    },
+    "ergodox_stm32": {
+        "target": "handwired/ergodox_stm32"
     },
     "ergoinu": {
         "target": "dm9records/ergoinu"
@@ -1515,6 +1521,9 @@
     "ymd96": {
         "target": "ymdk/ymd96"
     },
+    "ymdk/id75": {
+        "target": "ymdk/id75/f103"
+    },
     "ymdk_np21": {
         "target": "ymdk/np21"
     },
@@ -1552,5 +1561,687 @@
     },
     "dnworks/9973": {
         "target": "dnworks/tkl87"
+    },
+    // DEFAULT_FOLDER removed during 2025 Q1 cycle
+    "0_sixty": {
+        "target": "0_sixty/base"
+    },
+    "0xcb/splaytoraid": {
+        "target": "0xcb/splaytoraid/rp2040_ce"
+    },
+    "1upkeyboards/pi40": {
+        "target": "1upkeyboards/pi40/mit_v1_0"
+    },
+    "1upkeyboards/pi50": {
+        "target": "1upkeyboards/pi50/grid"
+    },
+    "1upkeyboards/sweet16": {
+        "target": "1upkeyboards/sweet16/v1"
+    },
+    "25keys/aleth42": {
+        "target": "25keys/aleth42/rev1"
+    },
+    "25keys/zinc": {
+        "target": "25keys/zinc/rev1"
+    },
+    "40percentclub/i75": {
+        "target": "40percentclub/i75/promicro"
+    },
+    "40percentclub/polyandry": {
+        "target": "40percentclub/polyandry/promicro"
+    },
+    "8pack": {
+        "target": "8pack/rev12"
+    },
+    "adkb96": {
+        "target": "adkb96/rev1"
+    },
+    "adm42": {
+        "target": "adm42/rev4"
+    },
+    "aeboards/satellite": {
+        "target": "aeboards/satellite/rev1"
+    },
+    "atreus": {
+        "target": "atreus/astar"
+    },
+    "atreyu": {
+        "target": "atreyu/rev1"
+    },
+    "biacco42/ergo42": {
+        "target": "biacco42/ergo42/rev1"
+    },
+    "binepad/bn009": {
+        "target": "binepad/bn009/r2"
+    },
+    "binepad/bnr1": {
+        "target": "binepad/bnr1/v2"
+    },
+    "boston_meetup": {
+        "target": "boston_meetup/2019"
+    },
+    "bpiphany/frosty_flake": {
+        "target": "bpiphany/frosty_flake/20140521"
+    },
+    "buzzard": {
+        "target": "buzzard/rev1"
+    },
+    "cannonkeys/db60": {
+        "target": "cannonkeys/db60/rev2"
+    },
+    "clickety_split/leeloo": {
+        "target": "clickety_split/leeloo/rev3"
+    },
+    "converter/palm_usb": {
+        "target": "converter/palm_usb/stowaway"
+    },
+    "crkbd": {
+        "target": "crkbd/rev1"
+    },
+    "dailycraft/bat43": {
+        "target": "dailycraft/bat43/rev2"
+    },
+    "dailycraft/claw44": {
+        "target": "dailycraft/claw44/rev1"
+    },
+    "dailycraft/sandbox": {
+        "target": "dailycraft/sandbox/rev2"
+    },
+    "dailycraft/wings42": {
+        "target": "dailycraft/wings42/rev2"
+    },
+    "delikeeb/vanana": {
+        "target": "delikeeb/vanana/rev2"
+    },
+    "delikeeb/waaffle/rev3": {
+        "target": "delikeeb/waaffle/rev3/pro_micro"
+    },
+    "deltasplit75": {
+        "target": "deltasplit75/v2"
+    },
+    "drhigsby/ogurec": {
+        "target": "drhigsby/ogurec/left_pm"
+    },
+    "duck/octagon": {
+        "target": "duck/octagon/v2"
+    },
+    "duck/orion": {
+        "target": "duck/orion/v3"
+    },
+    "ducky/one2mini": {
+        "target": "ducky/one2mini/1861st"
+    },
+    "ducky/one2sf": {
+        "target": "ducky/one2sf/1967st"
+    },
+    "dumbpad": {
+        "target": "dumbpad/v0x"
+    },
+    "durgod/galaxy": {
+        "target": "durgod/dgk6x/galaxy"
+    },
+    "durgod/venus": {
+        "target": "durgod/dgk6x/venus"
+    },
+    "dztech/tofu/ii": {
+        "target": "dztech/tofu/ii/v1"
+    },
+    "dztech/tofu/jr": {
+        "target": "dztech/tofu/jr/v1"
+    },
+    "eco": {
+        "target": "eco/rev2"
+    },
+    "ergoslab": {
+        "target": "ergoslab/rev1"
+    },
+    "ergotravel": {
+        "target": "ergotravel/rev1"
+    },
+    "evyd13/atom47": {
+        "target": "evyd13/atom47/rev4"
+    },
+    "fortitude60": {
+        "target": "fortitude60/rev1"
+    },
+    "fruitykeeb/fruitbar/r1": {
+        "target": "fruitykeeb/fruitbar/r1/promicro"
+    },
+    "ghs/jem": {
+        "target": "ghs/jem/soldered"
+    },
+    "hadron": {
+        "target": "hadron/ver2"
+    },
+    "handwired/bento": {
+        "target": "handwired/bento/rev1"
+    },
+    "handwired/dactyl_manuform/6x6": {
+        "target": "handwired/dactyl_manuform/6x6/promicro"
+    },
+    "handwired/meck_tkl": {
+        "target": "handwired/meck_tkl/blackpill_f401"
+    },
+    "handwired/ms_sculpt_mobile": {
+        "target": "handwired/ms_sculpt_mobile/teensy2pp"
+    },
+    "handwired/onekey": {
+        "target": "handwired/onekey/promicro"
+    },
+    "handwired/pill60": {
+        "target": "handwired/pill60/bluepill"
+    },
+    "handwired/postageboard": {
+        "target": "handwired/postageboard/mini"
+    },
+    "handwired/qc60": {
+        "target": "handwired/qc60/proto"
+    },
+    "handwired/sono1": {
+        "target": "handwired/sono1/t2pp"
+    },
+    "handwired/splittest": {
+        "target": "handwired/splittest/promicro"
+    },
+    "handwired/stef9998/split_5x7": {
+        "target": "handwired/stef9998/split_5x7/rev1"
+    },
+    "handwired/symmetric70_proto/promicro": {
+        "target": "handwired/symmetric70_proto/promicro/base"
+    },
+    "handwired/symmetric70_proto/proton_c": {
+        "target": "handwired/symmetric70_proto/proton_c/base"
+    },
+    "handwired/unk": {
+        "target": "handwired/unk/rev1"
+    },
+    "handwired/xealous": {
+        "target": "handwired/xealous/rev1"
+    },
+    "hillside/46": {
+        "target": "hillside/46/0_1"
+    },
+    "hhkb/ansi": {
+        "target": "hhkb/ansi/32u4"
+    },
+    "hillside/48": {
+        "target": "hillside/48/0_1"
+    },
+    "hillside/52": {
+        "target": "hillside/52/0_1"
+    },
+    "ibnuda/squiggle": {
+        "target": "ibnuda/squiggle/rev1"
+    },
+    "idobao/id80/v1": {
+        "target": "idobao/id80/v2/ansi"
+    },
+    "idobao/id80/v3": {
+        "target": "idobao/id80/v3/ansi"
+    },
+    "inett_studio/sq80": {
+        "target": "inett_studio/sq80/hotswap_layout_i"
+    },
+    "input_club/infinity60": {
+        "target": "input_club/infinity60/led"
+    },
+    "jacky_studio/bear_65": {
+        "target": "jacky_studio/bear_65/rev1"
+    },
+    "jacky_studio/piggy60/rev1": {
+        "target": "jacky_studio/piggy60/rev1/solder"
+    },
+    "jadookb/jkb65": {
+        "target": "jadookb/jkb65/r1"
+    },
+    "jian": {
+        "target": "jian/rev2"
+    },
+    "jiran": {
+        "target": "jiran/rev1"
+    },
+    "jorne": {
+        "target": "jorne/rev1"
+    },
+    "junco": {
+        "target": "junco/rev1"
+    },
+    "kakunpc/angel17": {
+        "target": "kakunpc/angel17/rev1"
+    },
+    "kakunpc/angel64": {
+        "target": "kakunpc/angel64/rev1"
+    },
+    "kakunpc/business_card": {
+        "target": "kakunpc/business_card/beta"
+    },
+    "kakunpc/suihankey": {
+        "target": "kakunpc/suihankey/rev1"
+    },
+    "kakunpc/suihankey/split": {
+        "target": "kakunpc/suihankey/split/rev1"
+    },
+    "kapcave/paladinpad": {
+        "target": "kapcave/paladinpad/rev2"
+    },
+    "kapl": {
+        "target": "kapl/rev1"
+    },
+    "kbdfans/d45": {
+        "target": "kbdfans/d45/v2"
+    },
+    "kbdfans/kbd75": {
+        "target": "kbdfans/kbd75/rev1"
+    },
+    "keebio/bdn9": {
+        "target": "keebio/bdn9/rev1"
+    },
+    "keebio/convolution": {
+        "target": "keebio/convolution/rev1"
+    },
+    "keebio/foldkb": {
+        "target": "keebio/foldkb/rev1"
+    },
+    "keebio/kbo5000": {
+        "target": "keebio/kbo5000/rev1"
+    },
+    "keebio/levinson": {
+        "target": "keebio/levinson/rev2"
+    },
+    "keebio/quefrency": {
+        "target": "keebio/quefrency/rev1"
+    },
+    "keebio/rorschach": {
+        "target": "keebio/rorschach/rev1"
+    },
+    "keebio/sinc": {
+        "target": "keebio/sinc/rev1"
+    },
+    "keebio/viterbi": {
+        "target": "keebio/viterbi/rev2"
+    },
+    "keycapsss/kimiko": {
+        "target": "keycapsss/kimiko/rev2"
+    },
+    "keyhive/navi10": {
+        "target": "keyhive/navi10/rev3"
+    },
+    "keyhive/uno": {
+        "target": "keyhive/uno/rev1"
+    },
+    "kin80": {
+        "target": "kin80/blackpill401"
+    },
+    "kumaokobo/kudox_full": {
+        "target": "kumaokobo/kudox_full/rev1"
+    },
+    "kumaokobo/kudox_game": {
+        "target": "kumaokobo/kudox_game/rev2"
+    },
+    "kumaokobo/kudox": {
+        "target": "kumaokobo/kudox/rev3"
+    },
+    "kumaokobo/pico": {
+        "target": "kumaokobo/pico/65keys"
+    },
+    "lazydesigners/dimple": {
+        "target": "lazydesigners/dimple/staggered/rev1"
+    },
+    "lets_split": {
+        "target": "lets_split/rev2"
+    },
+    "lfkeyboards/lfk87": {
+        "target": "lfkeyboards/lfk78/revc"
+    },
+    "lily58": {
+        "target": "lily58/rev1"
+    },
+    "lime": {
+        "target": "lime/rev1"
+    },
+    "maple_computing/christmas_tree": {
+        "target": "maple_computing/christmas_tree/v2017"
+    },
+    "maple_computing/ivy": {
+        "target": "maple_computing/ivy/rev1"
+    },
+    "maple_computing/launchpad": {
+        "target": "maple_computing/launchpad/rev1"
+    },
+    "maple_computing/minidox": {
+        "target": "maple_computing/minidox/rev1"
+    },
+    "mariorion_v25": {
+        "target": "mariorion_v25/prod"
+    },
+    "marksard/rhymestone": {
+        "target": "marksard/rhymestone/rev1"
+    },
+    "marksard/treadstone32": {
+        "target": "marksard/treadstone32/rev1"
+    },
+    "marksard/treadstone48": {
+        "target": "marksard/treadstone48/rev1"
+    },
+    "maxipad": {
+        "target": "maxipad/promicro"
+    },
+    "mechkeys/mechmini": {
+        "target": "mechkeys/mechmini/v2"
+    },
+    "mechllama/g35": {
+        "target": "mechllama/g35/v2"
+    },
+    "mechlovin/adelais": {
+        "target": "mechlovin/adelais/standard_led/arm/rev2"
+    },
+    "mechlovin/adelais/standard_led/arm/rev4": {
+        "target": "mechlovin/adelais/standard_led/arm/rev4/stm32f303"
+    },
+    "mechlovin/adelais/standard_led/arm": {
+        "target": "mechlovin/adelais/standard_led/arm/rev2"
+    },
+    "mechlovin/adelais/standard_led/avr": {
+        "target": "mechlovin/adelais/standard_led/avr/rev1"
+    },
+    "mechlovin/hannah65/rev1": {
+        "target": "mechlovin/hannah65/rev1/haus"
+    },
+    "mechlovin/infinity87/rev1": {
+        "target": "mechlovin/infinity87/rev1/standard"
+    },
+    "mechlovin/infinity87": {
+        "target": "mechlovin/infinity87/rgb_rev1"
+    },
+    "mechlovin/mechlovin9": {
+        "target": "mechlovin/mechlovin9/rev1"
+    },
+    "mechlovin/olly/jf": {
+        "target": "mechlovin/olly/jf/rev1"
+    },
+    "mechlovin/zed1800": {
+        "target": "mechlovin/zed1800/saber"
+    },
+    "mechlovin/zed65/no_backlight": {
+        "target": "mechlovin/zed65/no_backlight/wearhaus66"
+    },
+    "mechlovin/zed65": {
+        "target": "mechlovin/zed65/no_backlight/wearhaus66"
+    },
+    "mechwild/bde": {
+        "target": "mechwild/bde/rev2"
+    },
+    "mechwild/mokulua": {
+        "target": "mechwild/mokulua/standard"
+    },
+    "mechwild/obe/f401": {
+        "target": "mechwild/obe/f401/base"
+    },
+    "mechwild/obe/f411": {
+        "target": "mechwild/obe/f411/base"
+    },
+    "mechwild/obe": {
+        "target": "mechwild/obe/f401/base"
+    },
+    "mechwild/waka60/f401": {
+        "target": "mechwild/waka60/f401/base"
+    },
+    "mechwild/waka60/f411": {
+        "target": "mechwild/waka60/f411/base"
+    },
+    "mechwild/waka60": {
+        "target": "mechwild/waka60/f401/base"
+    },
+    "murcielago": {
+        "target": "murcielago/rev1"
+    },
+    "nullbitsco/scramble": {
+        "target": "nullbitsco/scramble/v2"
+    },
+    "omkbd/ergodash": {
+        "target": "omkbd/ergodash/rev1"
+    },
+    "omkbd/runner3680": {
+        "target": "omkbd/runner3680/5x8"
+    },
+    "orthodox": {
+        "target": "orthodox/rev3"
+    },
+    "peej/rosaline": {
+        "target": "peej/rosaline/staggered"
+    },
+    "peej/tripel": {
+        "target": "peej/tripel/left"
+    },
+    "peranekofactory/tone": {
+        "target": "peranekofactory/tone/rev2"
+    },
+    "phase_studio/titan65": {
+        "target": "phase_studio/titan65/hotswap"
+    },
+    "pica40": {
+        "target": "pica40/rev2"
+    },
+    "pinky": {
+        "target": "pinky/3"
+    },
+    "ploopyco/madromys": {
+        "target": "ploopyco/madromys/rev1_001"
+    },
+    "ploopyco/trackball_mini": {
+        "target": "ploopyco/trackball_mini/rev1_001"
+    },
+    "ploopyco/trackball_nano": {
+        "target": "ploopyco/trackball_nano/rev1_001"
+    },
+    "ploopyco/trackball_thumb": {
+        "target": "ploopyco/trackball_thumb/rev1_001"
+    },
+    "primekb/meridian": {
+        "target": "primekb/meridian/ktr1010"
+    },
+    "primekb/prime_e": {
+        "target": "primekb/prime_e/std"
+    },
+    "program_yoink": {
+        "target": "program_yoink/staggered"
+    },
+    "projectcain/vault35": {
+        "target": "projectcain/vault35/atmega32u4"
+    },
+    "qpockets/space_space": {
+        "target": "qpockets/space_space/rev2"
+    },
+    "qwertyydox": {
+        "target": "qwertyydox/rev1"
+    },
+    "rate/pistachio": {
+        "target": "rate/pistachio/rev2"
+    },
+    "recompile_keys/choco60": {
+        "target": "recompile_keys/choco60/rev1"
+    },
+    "recompile_keys/nomu30": {
+        "target": "recompile_keys/nomu30/rev1"
+    },
+    "redox/rev1": {
+        "target": "redox/rev1/base"
+    },
+    "rgbkb/mun": {
+        "target": "rgbkb/mun/rev1"
+    },
+    "rgbkb/sol3": {
+        "target": "rgbkb/sol3/rev1"
+    },
+    "rgbkb/sol": {
+        "target": "rgbkb/sol/rev2"
+    },
+    "rgbkb/zen": {
+        "target": "rgbkb/zen/rev2"
+    },
+    "rgbkb/zygomorph": {
+        "target": "rgbkb/zygomorph/rev1"
+    },
+    "rmi_kb/herringbone": {
+        "target": "rmi_kb/herringbone/v1"
+    },
+    "rmi_kb/mona": {
+        "target": "rmi_kb/mona/v1_1"
+    },
+    "rmi_kb/tkl_ff": {
+        "target": "rmi_kb/tkl_ff/v1"
+    },
+    "rmi_kb/wete": {
+        "target": "rmi_kb/wete/v2"
+    },
+    "rookiebwoy/late9": {
+        "target": "rookiebwoy/late9/rev1"
+    },
+    "rookiebwoy/neopad": {
+        "target": "rookiebwoy/neopad/rev1"
+    },
+    "rura66": {
+        "target": "rura66/rev1"
+    },
+    "salicylic_acid3/7skb": {
+        "target": "salicylic_acid3/7skb/rev1"
+    },
+    "salicylic_acid3/getta25": {
+        "target": "salicylic_acid3/getta25/rev1"
+    },
+    "salicylic_acid3/jisplit89": {
+        "target": "salicylic_acid3/jisplit89/rev1"
+    },
+    "salicylic_acid3/naked48": {
+        "target": "salicylic_acid3/naked48/rev1"
+    },
+    "salicylic_acid3/naked60": {
+        "target": "salicylic_acid3/naked60/rev1"
+    },
+    "salicylic_acid3/naked64": {
+        "target": "salicylic_acid3/naked64/rev1"
+    },
+    "salicylic_acid3/setta21": {
+        "target": "salicylic_acid3/setta21/rev1"
+    },
+    "sawnsprojects/okayu": {
+        "target": "sawnsprojects/okayu/stm32f072"
+    },
+    "smoll/lefty": {
+        "target": "smoll/lefty/rev2"
+    },
+    "sofle": {
+        "target": "sofle/rev1"
+    },
+    "spaceholdings/nebula68b": {
+        "target": "spaceholdings/nebula68b/solder"
+    },
+    "spacetime": {
+        "target": "spacetime/rev1"
+    },
+    "splitkb/aurora/corne": {
+        "target": "splitkb/aurora/corne/rev1"
+    },
+    "splitkb/aurora/helix": {
+        "target": "splitkb/aurora/helix/rev1"
+    },
+    "splitkb/aurora/lily58": {
+        "target": "splitkb/aurora/lily58/rev1"
+    },
+    "splitkb/aurora/sofle_v2": {
+        "target": "splitkb/aurora/sofle_v2/rev1"
+    },
+    "splitkb/aurora/sweep": {
+        "target": "splitkb/aurora/sweep/rev1"
+    },
+    "splitkb/kyria": {
+        "target": "splitkb/kyria/rev3"
+    },
+    "splitkb/kyria/rev1": {
+        "target": "splitkb/kyria/rev1/base"
+    },
+    "splitkb/kyria/rev2": {
+        "target": "splitkb/kyria/rev2/base"
+    },
+    "splitty": {
+        "target": "splitty/rev1"
+    },
+    "studiokestra/galatea": {
+        "target": "studiokestra/galatea/rev1"
+    },
+    "takashiski/hecomi": {
+        "target": "takashiski/hecomi/alpha"
+    },
+    "takashiski/namecard2x4": {
+        "target": "takashiski/namecard2x4/rev2"
+    },
+    "teleport/native": {
+        "target": "teleport/native/iso"
+    },
+    "themadnoodle/noodlepad": {
+        "target": "themadnoodle/noodlepad/v1"
+    },
+    "tkw/grandiceps": {
+        "target": "tkw/grandiceps/rev1"
+    },
+    "tominabox1/le_chiffre": {
+        "target": "tominabox1/le_chiffre/rev1"
+    },
+    "tominabox1/littlefoot_lx": {
+        "target": "tominabox1/littlefoot_lx/rev1"
+    },
+    "tominabox1/underscore33": {
+        "target": "tominabox1/underscore33/rev1"
+    },
+    "trnthsn/e8ghty": {
+        "target": "trnthsn/e8ghty/stm32f103"
+    },
+    "trnthsn/s6xty5neor2": {
+        "target": "trnthsn/s6xty5neor2/stm32f103"
+    },
+    "tweetydabird/lotus58": {
+        "target": "tweetydabird/lotus58/promicro"
+    },
+    "unison": {
+        "target": "unison/v04"
+    },
+    "uzu42": {
+        "target": "uzu42/rev1"
+    },
+    "vitamins_included": {
+        "target": "vitamins_included/rev2"
+    },
+    "westm/westm68": {
+        "target": "westm/westm68/rev2"
+    },
+    "westm/westm9": {
+        "target": "westm/westm9/rev2"
+    },
+    "woodkeys/meira": {
+        "target": "woodkeys/meira/promicro"
+    },
+    "work_louder/loop": {
+        "target": "work_louder/loop/rev3"
+    },
+    "work_louder/work_board": {
+        "target": "work_louder/work_board/rev3"
+    },
+    "yanghu/unicorne": {
+        "target": "yanghu/unicorne/f411"
+    },
+    "yosino58": {
+        "target": "yosino58/rev1"
+    },
+    "ymdk/yd60mq": {
+        "target": "ymdk/yd60mq/12led"
+    },
+    "yushakobo/navpad/10": {
+        "target": "yushakobo/navpad/10/rev1"
+    },
+    "yynmt/acperience12": {
+        "target": "yynmt/acperience12/rev1"
+    },
+    "zsa/planck_ez": {
+        "target": "zsa/planck_ez/base"
     }
 }

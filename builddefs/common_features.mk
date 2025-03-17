@@ -433,6 +433,13 @@ ifeq ($(strip $(LED_MATRIX_ENABLE)), yes)
         SRC += snled27351-mono.c
     endif
 
+    ifeq ($(strip $(LED_MATRIX_CUSTOM_KB)), yes)
+        OPT_DEFS += -DLED_MATRIX_CUSTOM_KB
+    endif
+
+    ifeq ($(strip $(LED_MATRIX_CUSTOM_USER)), yes)
+        OPT_DEFS += -DLED_MATRIX_CUSTOM_USER
+    endif
 endif
 
 # Deprecated driver names - do not use
@@ -626,6 +633,10 @@ ifeq ($(strip $(VIA_ENABLE)), yes)
     RAW_ENABLE := yes
     BOOTMAGIC_ENABLE := yes
     TRI_LAYER_ENABLE := yes
+endif
+
+ifeq ($(strip $(DYNAMIC_KEYMAP_ENABLE)), yes)
+    SEND_STRING_ENABLE := yes
 endif
 
 VALID_CUSTOM_MATRIX_TYPES:= yes lite no
@@ -923,6 +934,28 @@ ifeq ($(strip $(DIP_SWITCH_ENABLE)), yes)
     endif
 endif
 
+VALID_BATTERY_DRIVER_TYPES := adc custom vendor
+
+BATTERY_DRIVER ?= adc
+ifeq ($(strip $(BATTERY_DRIVER_REQUIRED)), yes)
+    ifeq ($(filter $(BATTERY_DRIVER),$(VALID_BATTERY_DRIVER_TYPES)),)
+        $(call CATASTROPHIC_ERROR,Invalid BATTERY_DRIVER,BATTERY_DRIVER="$(BATTERY_DRIVER)" is not a valid battery driver)
+    endif
+
+    OPT_DEFS += -DBATTERY_DRIVER
+    OPT_DEFS += -DBATTERY_$(strip $(shell echo $(BATTERY_DRIVER) | tr '[:lower:]' '[:upper:]'))
+
+    COMMON_VPATH += $(DRIVER_PATH)/battery
+
+    SRC += battery.c
+    SRC += battery_$(strip $(BATTERY_DRIVER)).c
+
+    # add extra deps
+    ifeq ($(strip $(BATTERY_DRIVER)), adc)
+        ANALOG_DRIVER_REQUIRED = yes
+    endif
+endif
+
 VALID_WS2812_DRIVER_TYPES := bitbang custom i2c pwm spi vendor
 
 WS2812_DRIVER ?= bitbang
@@ -932,6 +965,8 @@ ifeq ($(strip $(WS2812_DRIVER_REQUIRED)), yes)
     endif
 
     OPT_DEFS += -DWS2812_$(strip $(shell echo $(WS2812_DRIVER) | tr '[:lower:]' '[:upper:]'))
+
+    COMMON_VPATH += $(DRIVER_PATH)/led
 
     SRC += ws2812.c ws2812_$(strip $(WS2812_DRIVER)).c
 
