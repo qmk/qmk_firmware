@@ -1,8 +1,7 @@
 # gravitaspad
 
-![gravitaspad]https://i.imgur.com/lh1yjni.jpeg
+https://i.imgur.com/lh1yjni.jpeg
 
-*A short description of the keyboard/project*
 
 * Keyboard Maintainer: [deverdum](https://github.com/deverdum)
 * Hardware Supported: RP2040 zero
