@@ -1,6 +1,6 @@
 # CRKBD Pro
 
-A refreshed CRKBD PCB with RGB, battery, power switch and encoder support.
+A refreshed CRKBD (Corne) PCB with RGB, battery, power switch and encoder support.
 
 * Keyboard Maintainer: [dasky](https://github.com/daskygit)
 * Hardware Supported: Controllers using promicro footprint.
