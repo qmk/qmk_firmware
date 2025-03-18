@@ -1,6 +1,6 @@
 # franky36
 
-*A short description of the keyboard/project*
+Franky36 is 36 key compact handwired split keyboard that uses single RP2040-Zero controller.
 
 * Keyboard Maintainer: [Grigory Avdyushin](https://github.com/avdyushin)
 * Hardware Supported: RP2040-Zero
