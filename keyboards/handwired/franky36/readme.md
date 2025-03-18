@@ -4,7 +4,7 @@
 
 * Keyboard Maintainer: [Grigory Avdyushin](https://github.com/avdyushin)
 * Hardware Supported: RP2040-Zero
-* Hardware Availability: Ali
+* Hardware Availability: Handwired [franky36](https://github.com/avdyushin/franky36)
 
 Make example for this keyboard (after setting up your build environment):
 
