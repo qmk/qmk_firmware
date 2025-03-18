@@ -1,6 +1,6 @@
 # gravitaspad
 
-https://i.imgur.com/lh1yjni.jpeg
+![gravitaspad]https://i.imgur.com/lh1yjni.jpeg
 
 
 * Keyboard Maintainer: [deverdum](https://github.com/deverdum)
