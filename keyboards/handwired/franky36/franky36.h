@@ -16,6 +16,9 @@
 
 #pragma once
 
-#define I2C_DRIVER I2CD0
-#define I2C1_SDA_PIN GP0
-#define I2C1_SCL_PIN GP1
+enum my_layers {
+    _BASE = 0,
+    _LOWER,
+    _RAISE,
+    _NAV,
+};
