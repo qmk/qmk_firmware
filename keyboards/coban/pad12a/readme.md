@@ -1,7 +1,6 @@
 # Coban Pad 12A
 
-![Coban Pad 12A](https://i.imgur.com/5svg1RMh.jpeg)
-
+![Coban Pad 12A](https://i.imgur.com/PTIaQld.jpeg)
 Small ortho keyboard with 11 hotswapable buttons and 1 encoder
 
 * Keyboard Maintainer: [RyanDam](https://github.com/RyanDam)  
