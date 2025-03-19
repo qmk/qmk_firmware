@@ -69,7 +69,8 @@ void pointing_modes_key_set_device(uint8_t device, bool pressed) {
  * @params pressed[in]    bool
  */
 void pointing_modes_key_set_precision(uint8_t precision, bool pressed) {
-    if (!pressed) {pointing_modes_set_precision(precision);
+    if (!pressed) {
+        pointing_modes_set_precision(precision);
     }
 }
 
@@ -125,7 +126,7 @@ bool process_pointing_modes_records(uint16_t keycode, keyrecord_t* record) {
         case QK_PM_CYCLE_DEVICES:
             if (!record->event.pressed) {
                 if (get_mods() & MOD_MASK_SHIFT) {
-                    if(pointing_modes_get_active_device() == 0) {
+                    if (pointing_modes_get_active_device() == 0) {
                         pointing_modes_set_active_device(POINTING_MODES_NUM_DEVICES - 1);
                         return false;
                     }

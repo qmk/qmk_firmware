@@ -132,18 +132,10 @@
 #endif
 
 /* ----------Macros----------------------------------------------------------------------------------------------- */
-#define member_size(t, m) (sizeof(((t *)0)-> m))
+#define member_size(t, m) (sizeof(((t*)0)->m))
 
 /* ----------Enums------------------------------------------------------------------------------------------------ */
-enum pointing_modes_axis {
-    PM_X_AXIS  = 0x00,
-    PM_Y_AXIS  = 0x01,
-    PM_H_AXIS,
-    PM_V_AXIS,
-    PM_X_KEY,
-    PM_Y_KEY,
-    PM_XY_KEY
-};
+enum pointing_modes_axis { PM_X_AXIS = 0x00, PM_Y_AXIS = 0x01, PM_H_AXIS, PM_V_AXIS, PM_X_KEY, PM_Y_KEY, PM_XY_KEY };
 
 enum pointing_modes_directions {
     PMD_NONE  = 0x00, // [0000] 00
@@ -160,25 +152,15 @@ enum pointing_modes_directions {
 };
 
 #ifdef POINTING_MODES_8WAY_MAP_ENABLE
-enum pointing_modes_8_key_map {
-    PMK_UPLEFT    = 0x00,
-    PMK_UP        = 0x01,
-    PMK_UPRIGHT   = 0x02,
-    PMK_LEFT      = 0x03,
-    PMK_RIGHT     = 0x04,
-    PMK_DOWNLEFT  = 0x05,
-    PMK_DOWN      = 0x06,
-    PMK_DOWNRIGHT = 0x07,
-    PMK_NONE      = 0x08
-};
+enum pointing_modes_8_key_map { PMK_UPLEFT = 0x00, PMK_UP = 0x01, PMK_UPRIGHT = 0x02, PMK_LEFT = 0x03, PMK_RIGHT = 0x04, PMK_DOWNLEFT = 0x05, PMK_DOWN = 0x06, PMK_DOWNRIGHT = 0x07, PMK_NONE = 0x08 };
 
 #else
 enum pointing_modes_4_key_map {
-    PMK_UP        = 0x00,
-    PMK_LEFT      = 0x01,
-    PMK_RIGHT     = 0x02,
-    PMK_DOWN      = 0x03,
-    PMK_NONE      = 0x08,
+    PMK_UP    = 0x00,
+    PMK_LEFT  = 0x01,
+    PMK_RIGHT = 0x02,
+    PMK_DOWN  = 0x03,
+    PMK_NONE  = 0x08,
     // to ensure all codess are always defined
     PMK_UPLEFT    = 0x04, // unused
     PMK_UPRIGHT   = 0x05, // unused
@@ -195,11 +177,11 @@ enum pointing_modes_types {
     PMT_DPAD  = 0x04, // [00000100]
     PMT_MODES = 0x0F, // [00001111] (MAX)
     // Options
-    PMO_TAP   = 0x00, // [00000000] (DEFAULT)
-    PMO_HOLD  = 0x10, // [00010000]
-    PMO_XINV  = 0x20, // [00100000]
-    PMO_YINV  = 0x40, // [01000000]
-    PMO_OPTS  = 0xF0  // [11110000]
+    PMO_TAP  = 0x00, // [00000000] (DEFAULT)
+    PMO_HOLD = 0x10, // [00010000]
+    PMO_XINV = 0x20, // [00100000]
+    PMO_YINV = 0x40, // [01000000]
+    PMO_OPTS = 0xF0  // [11110000]
 };
 
 enum pointing_modes_devices {
@@ -219,8 +201,8 @@ typedef struct {
 } pointing_modes_residuals_t;
 
 typedef struct {
-    uint8_t  v;
-    uint8_t  h;
+    uint8_t v;
+    uint8_t h;
 } pointing_modes_held_keys_t;
 
 /* ----------Controlling active device pointing mode-------------------------------------------------------------- */
@@ -242,8 +224,8 @@ uint8_t           pointing_modes_get_direction(void);         // access current 
 uint8_t           pointing_modes_get_type(void);              // access current mode type
 
 /* ----------For Modifying and custom modes outside of maps------------------------------------------------------- */
-bool pointing_modes_task_kb(report_mouse_t* mouse_report, pointing_modes_residuals_t* residuals);     // keyboard level
-bool pointing_modes_task_user(report_mouse_t* mouse_report, pointing_modes_residuals_t* residuals);   // user/keymap level
+bool pointing_modes_task_kb(report_mouse_t* mouse_report, pointing_modes_residuals_t* residuals);   // keyboard level
+bool pointing_modes_task_user(report_mouse_t* mouse_report, pointing_modes_residuals_t* residuals); // user/keymap level
 
 /* ----------Callbacks for modifying pointing mode settings------------------------------------------------------- */
 uint8_t           pointing_modes_get_type_kb(uint8_t mode_id);                         // setting mode type at keyboard level

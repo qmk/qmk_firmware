@@ -32,7 +32,7 @@ typedef struct {
     uint8_t row;
 } keypos_t;
 
-typedef enum keyevent_type_t { TICK_EVENT = 0, KEY_EVENT = 1, ENCODER_CW_EVENT = 2, ENCODER_CCW_EVENT = 3, COMBO_EVENT = 4, DIP_SWITCH_ON_EVENT = 5, DIP_SWITCH_OFF_EVENT = 6, POINTING_MODES_EVENT = 7} keyevent_type_t;
+typedef enum keyevent_type_t { TICK_EVENT = 0, KEY_EVENT = 1, ENCODER_CW_EVENT = 2, ENCODER_CCW_EVENT = 3, COMBO_EVENT = 4, DIP_SWITCH_ON_EVENT = 5, DIP_SWITCH_OFF_EVENT = 6, POINTING_MODES_EVENT = 7 } keyevent_type_t;
 
 /* key event */
 typedef struct {
@@ -114,7 +114,7 @@ static inline bool IS_POINTINGEVENT(const keyevent_t event) {
 #    else
 #        define MAKE_POINTING_MODES_EVENT(map_id, dir, press) MAKE_EVENT(KEYLOC_POINTING_MODES, (uint8_t)(((map_id) << 2) | (dir)), (press), POINTING_MODES_EVENT)
 #    endif // POINTING_MODES_8WAY_MAP_ENABLE
-#endif // POINTING_DEVICE_MODES_ENABLE
+#endif     // POINTING_DEVICE_MODES_ENABLE
 
 /* it runs once at early stage of startup before keyboard_init. */
 void keyboard_setup(void);

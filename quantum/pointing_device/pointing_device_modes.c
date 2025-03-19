@@ -78,12 +78,7 @@ static inline mouse_hv_report_t pointing_device_hv_clamp(hv_clamp_range_t value)
  */
 static void pointing_modes_task(report_mouse_t* mouse_report) {
     // allow overwrite of pointing modes by user, and kb
-    if (
-        !(
-            pointing_modes_task_user(mouse_report, &pm_res[active_device_id]) &&
-            pointing_modes_task_kb(mouse_report, &pm_res[active_device_id])
-        )
-    ) {
+    if (!(pointing_modes_task_user(mouse_report, &pm_res[active_device_id]) && pointing_modes_task_kb(mouse_report, &pm_res[active_device_id]))) {
         return;
     }
     switch (pm_mode_ids[active_device_id]) {
@@ -120,7 +115,7 @@ static void pointing_modes_task(report_mouse_t* mouse_report) {
  */
 static void pointing_modes_axes_conv(report_mouse_t* mouse_report) {
     uint8_t mode_type = pointing_modes_get_type();
-    if(mouse_report->x && !(mode_type == PMT_VERT)) {
+    if (mouse_report->x && !(mode_type == PMT_VERT)) {
         if (mode_type & PMO_XINV) {
             pm_res[active_device_id].x -= mouse_report->x;
         } else {
@@ -128,8 +123,8 @@ static void pointing_modes_axes_conv(report_mouse_t* mouse_report) {
         }
     }
     mouse_report->x = 0;
-// set Y axis of pointing mode for device
-    if(mouse_report->y && !(mode_type == PMT_HORI)) {
+    // set Y axis of pointing mode for device
+    if (mouse_report->y && !(mode_type == PMT_HORI)) {
         if (mode_type & PMO_YINV) {
             pm_res[active_device_id].y -= mouse_report->y;
         } else {
@@ -149,7 +144,7 @@ static void pointing_modes_axes_conv(report_mouse_t* mouse_report) {
  */
 static void pointing_modes_update_direction(void) {
     current_direction = PMD_NONE;
-    if((abs(pm_res[active_device_id].x) + abs(pm_res[active_device_id].y)) <= POINTING_MODES_THRESHOLD) {
+    if ((abs(pm_res[active_device_id].x) + abs(pm_res[active_device_id].y)) <= POINTING_MODES_THRESHOLD) {
         return;
     }
     // This will detect all 8 directions: 2|Axis| >= |Other_Axis| allows for diagonal detection
@@ -167,10 +162,10 @@ static void pointing_modes_update_direction(void) {
             current_direction |= PMD_UP;
         }
     }
-    if(pointing_modes_get_type() == PMT_4WAY) {
+    if (pointing_modes_get_type() == PMT_4WAY) {
         // remove diagonal directions
-        if((current_direction & PMD_HORI) && (current_direction & PMD_VERT)) {
-            if(abs(pm_res[active_device_id].x) > abs(pm_res[active_device_id].y)) {
+        if ((current_direction & PMD_HORI) && (current_direction & PMD_VERT)) {
+            if (abs(pm_res[active_device_id].x) > abs(pm_res[active_device_id].y)) {
                 current_direction &= PMD_HORI;
             } else {
                 current_direction &= PMD_VERT;
@@ -217,12 +212,16 @@ static void pointing_modes_update_divisor(void) {
  */
 static void pointing_modes_update_type(void) {
     uint8_t mode_id = pointing_modes_get_mode();
-    current_type = 0x00;
+    current_type    = 0x00;
     // allow for keyboard and user overrides
     current_type = pointing_modes_get_type_user(mode_id);
-    if (current_type) {return;}
+    if (current_type) {
+        return;
+    }
     current_type = pointing_modes_get_type_kb(mode_id);
-    if (current_type) {return;}
+    if (current_type) {
+        return;
+    }
     current_type = PMT_4WAY | PMO_TAP; // same as 0x00
 }
 
@@ -232,7 +231,9 @@ static void pointing_modes_update_type(void) {
  *  releases held keys and sets them to the default value of 8
  */
 static void pointing_modes_release_held_keys(void) {
-    if(pm_mode_ids[active_device_id] < POINTING_MODES_MAP_START) {return;}
+    if (pm_mode_ids[active_device_id] < POINTING_MODES_MAP_START) {
+        return;
+    }
     uint8_t map_id = pm_mode_ids[active_device_id] - POINTING_MODES_MAP_START;
     if (pm_held[active_device_id].v ^ PMK_NONE) {
         action_exec(MAKE_POINTING_MODES_EVENT(map_id, pm_held[active_device_id].v, false));
@@ -279,8 +280,8 @@ static void pointing_modes_hold_decay(void) {
  * @params map_id id of current map
  */
 static void pointing_modes_exec_mapping(uint8_t map_id) {
-    int8_t count[]    = {0, 0};
-    uint8_t key[]     = {PMK_NONE, PMK_NONE};
+    int8_t  count[] = {0, 0};
+    uint8_t key[]   = {PMK_NONE, PMK_NONE};
     switch (current_type & PMT_MODES) {
         case PMT_4WAY ... PMT_8WAY:
             switch (current_direction) {
@@ -289,46 +290,60 @@ static void pointing_modes_exec_mapping(uint8_t map_id) {
                 case PMD_DOWN:
                     key[0] = PMK_DOWN;
                 case PMD_UP:
-                    if(key[0]==PMK_NONE) {key[0] = PMK_UP;}
+                    if (key[0] == PMK_NONE) {
+                        key[0] = PMK_UP;
+                    }
                     count[0] = pointing_modes_apply_divisor(PM_Y_KEY);
-                    if (!count[0]) {break;} // exit if accumulated y is too low
+                    if (!count[0]) {
+                        break;
+                    } // exit if accumulated y is too low
                     pm_res[active_device_id].x = 0;
                     break;
                 case PMD_LEFT:
                     key[0] = PMK_LEFT;
                 case PMD_RIGHT:
-                    if(key[0]==PMK_NONE) {key[0] = PMK_RIGHT;}
+                    if (key[0] == PMK_NONE) {
+                        key[0] = PMK_RIGHT;
+                    }
                     count[0] = pointing_modes_apply_divisor(PM_X_KEY);
-                    if (!count[0]) {break;} // exit if accumulated x is too low
+                    if (!count[0]) {
+                        break;
+                    } // exit if accumulated x is too low
                     pm_res[active_device_id].y = 0;
 #    ifdef POINTING_MODES_8WAY_MAP_ENABLE
                     break;
                 case PMD_DNLT:
                     key[0] = PMK_DOWNLEFT;
                 case PMD_UPLT:
-                    if(key[0]==PMK_NONE) {key[0] = PMK_UPLEFT;}
+                    if (key[0] == PMK_NONE) {
+                        key[0] = PMK_UPLEFT;
+                    }
                 case PMD_DNRT:
-                    if(key[0]==PMK_NONE) {key[0] = PMK_DOWNRIGHT;}
+                    if (key[0] == PMK_NONE) {
+                        key[0] = PMK_DOWNRIGHT;
+                    }
                 case PMD_UPRT:
-                    if(key[0]==PMK_NONE) {key[0] = PMK_UPRIGHT;}
+                    if (key[0] == PMK_NONE) {
+                        key[0] = PMK_UPRIGHT;
+                    }
                     count[0] = pointing_modes_apply_divisor(PM_XY_KEY);
 #    endif // POINTING_MODES_8WAY_MAP_ENABLE
             }
             break;
         case PMT_DPAD:
-            if(current_direction & PMD_HORI) {
+            if (current_direction & PMD_HORI) {
                 count[PM_X_AXIS] = pointing_modes_apply_divisor(PM_X_KEY);
-                key[PM_X_AXIS]   = (current_direction & PMD_RIGHT)? PMK_RIGHT:PMK_LEFT;
+                key[PM_X_AXIS]   = (current_direction & PMD_RIGHT) ? PMK_RIGHT : PMK_LEFT;
             }
-            if(current_direction & PMD_VERT) {
+            if (current_direction & PMD_VERT) {
                 count[PM_Y_AXIS] = pointing_modes_apply_divisor(PM_Y_KEY);
-                key[PM_Y_AXIS]   = (current_direction & PMD_DOWN)? PMK_DOWN:PMK_UP;
+                key[PM_Y_AXIS]   = (current_direction & PMD_DOWN) ? PMK_DOWN : PMK_UP;
             }
     }
-    switch(current_type & PMO_OPTS){
+    switch (current_type & PMO_OPTS) {
         case PMO_TAP:
             // Tap Horizontal/4-Way/8-Way
-            if(count[PM_X_AXIS]) {
+            if (count[PM_X_AXIS]) {
                 action_exec(MAKE_POINTING_MODES_EVENT(map_id, key[PM_X_AXIS], true));
 #    if POINTING_MODES_TAP_DELAY > 0
                 wait_ms(POINTING_MODES_TAP_DELAY);
@@ -336,7 +351,7 @@ static void pointing_modes_exec_mapping(uint8_t map_id) {
                 action_exec(MAKE_POINTING_MODES_EVENT(map_id, key[PM_X_AXIS], false));
             }
             // Tap Vertical
-            if(count[PM_Y_AXIS]) {
+            if (count[PM_Y_AXIS]) {
                 action_exec(MAKE_POINTING_MODES_EVENT(map_id, key[PM_Y_AXIS], true));
 #    if POINTING_MODES_TAP_DELAY > 0
                 wait_ms(POINTING_MODES_TAP_DELAY);
@@ -347,9 +362,9 @@ static void pointing_modes_exec_mapping(uint8_t map_id) {
 
         case PMO_HOLD:
             // Hold: DPAD_HORI/2-Way/4-Way/8-Way
-            if(count[PM_X_AXIS]) {
-                if(pm_held[active_device_id].h != key[PM_X_AXIS]) {
-                    if(pm_held[active_device_id].h != PMK_NONE) {
+            if (count[PM_X_AXIS]) {
+                if (pm_held[active_device_id].h != key[PM_X_AXIS]) {
+                    if (pm_held[active_device_id].h != PMK_NONE) {
                         action_exec(MAKE_POINTING_MODES_EVENT(map_id, pm_held[active_device_id].h, false));
                     }
                     action_exec(MAKE_POINTING_MODES_EVENT(map_id, key[PM_X_AXIS], true));
@@ -357,9 +372,9 @@ static void pointing_modes_exec_mapping(uint8_t map_id) {
                 }
             }
             // Hold: DPAD_VERT
-            if(count[PM_Y_AXIS]) {
-                if(pm_held[active_device_id].v != key[PM_Y_AXIS]) {
-                    if(pm_held[active_device_id].v != PMK_NONE) {
+            if (count[PM_Y_AXIS]) {
+                if (pm_held[active_device_id].v != key[PM_Y_AXIS]) {
+                    if (pm_held[active_device_id].v != PMK_NONE) {
                         action_exec(MAKE_POINTING_MODES_EVENT(map_id, pm_held[active_device_id].v, false));
                     }
                     action_exec(MAKE_POINTING_MODES_EVENT(map_id, key[PM_Y_AXIS], true));
@@ -369,7 +384,7 @@ static void pointing_modes_exec_mapping(uint8_t map_id) {
             // Decay hold
             pointing_modes_hold_decay();
             // Hold: release on no movement
-            if(current_direction==PMD_NONE) {
+            if (current_direction == PMD_NONE) {
                 pointing_modes_release_held_keys();
             }
     }
@@ -388,9 +403,9 @@ static void pointing_modes_exec_mapping(uint8_t map_id) {
  * @return quotient
  */
 mouse_xy_report_t pointing_modes_apply_divisor(uint8_t axis) {
-    mouse_xy_report_t result = 0;
-    uint8_t mode_opts = pointing_modes_get_type() & PMO_OPTS;
-    switch (axis){
+    mouse_xy_report_t result    = 0;
+    uint8_t           mode_opts = pointing_modes_get_type() & PMO_OPTS;
+    switch (axis) {
         case PM_X_AXIS:
             result = pm_res[active_device_id].x / current_divisor;
             pm_res[active_device_id].x -= pointing_device_xy_clamp(result * current_divisor);
@@ -411,10 +426,14 @@ mouse_xy_report_t pointing_modes_apply_divisor(uint8_t axis) {
             if (abs(pm_res[active_device_id].x) >= current_divisor) {
                 if (pm_res[active_device_id].x > 0) {
                     result = 1;
-                    if (mode_opts ^ PMO_HOLD) {pm_res[active_device_id].x -= current_divisor;}
+                    if (mode_opts ^ PMO_HOLD) {
+                        pm_res[active_device_id].x -= current_divisor;
+                    }
                 } else {
                     result = -1;
-                    if (mode_opts ^ PMO_HOLD) {pm_res[active_device_id].x += current_divisor;}
+                    if (mode_opts ^ PMO_HOLD) {
+                        pm_res[active_device_id].x += current_divisor;
+                    }
                 }
             }
             break;
@@ -422,10 +441,14 @@ mouse_xy_report_t pointing_modes_apply_divisor(uint8_t axis) {
             if (abs(pm_res[active_device_id].y) >= current_divisor) {
                 if (pm_res[active_device_id].y > 0) {
                     result = 1;
-                    if (mode_opts ^ PMO_HOLD) {pm_res[active_device_id].y -= current_divisor;}
+                    if (mode_opts ^ PMO_HOLD) {
+                        pm_res[active_device_id].y -= current_divisor;
+                    }
                 } else {
                     result = -1;
-                    if (mode_opts ^ PMO_HOLD) {pm_res[active_device_id].y += current_divisor;}
+                    if (mode_opts ^ PMO_HOLD) {
+                        pm_res[active_device_id].y += current_divisor;
+                    }
                 }
             }
             break;
@@ -473,8 +496,8 @@ void pointing_modes_reset(void) {
     pointing_modes_release_held_keys();
     // must set these directly rather than calling pointing_modes_set_mode to avoid loops
     pm_mode_ids[active_device_id] = pm_base_modes[active_device_id];
-    pm_res[active_device_id].x = 0;
-    pm_res[active_device_id].y = 0;
+    pm_res[active_device_id].x    = 0;
+    pm_res[active_device_id].y    = 0;
 }
 
 /**
@@ -498,7 +521,6 @@ void pointing_modes_set_precision(mouse_xy_report_t precision) {
         pm_precisions[active_device_id] = precision;
     }
 }
-
 
 /**
  * @brief access current pointing mode id
@@ -598,7 +620,7 @@ pointing_modes_residuals_t pointing_modes_get_residuals(void) {
  *
  * @param[in] residuals pointing_modes_residuals_t
  */
-void  pointing_modes_set_residuals(pointing_modes_residuals_t residuals) {
+void pointing_modes_set_residuals(pointing_modes_residuals_t residuals) {
     pm_res[active_device_id] = residuals;
     return;
 }
