@@ -1,11 +1,6 @@
 // Copyright 2025 Qmk, Erik Peyronson @erikpeyronson
 // SPDX-License-Identifier: GPL-3.0-or-later
-
-// NOTE: This keymap is for debugging purposes to have firmware to test the matrix when building the keyboard. If you intend to build this keyboard
-// you should copy this to your fork or userspace repository and create your own.
-
 #include QMK_KEYBOARD_H
-
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -19,33 +14,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 
 void keyboard_post_init_user(void) {
-#ifdef CONSOLE_ENABLE
-    debug_enable = true;
-    debug_matrix = true;
-#endif
+    // Put initialization code here
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    // If console is enabled, it will print the matrix position and status of each key pressed
-#ifdef CONSOLE_ENABLE
-    uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %u, time: %5u, int: %u, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
-#endif
+    // Put keymap specific processing here
     return true;
 }
 
-// This function prints which half the keyboard considers itself to be which i
-// useful for verify if the handedness pin and display is correctly set up when building
-bool oled_task_user(void) {
-    if (is_keyboard_left()) {
-        oled_write_P(PSTR("left"), false);
-    } else {
-        oled_write_P(PSTR("right"), false);
-    }
-    return false;
-}
-
 #ifdef ENCODER_MAP_ENABLE
-    const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [0] = { ENCODER_CCW_CW(KC_UP, KC_DOWN), ENCODER_CCW_CW(KC_RIGHT, KC_LEFT) }
-    };
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {[0] = {ENCODER_CCW_CW(KC_UP, KC_DOWN), ENCODER_CCW_CW(KC_RIGHT, KC_LEFT)}};
 #endif
