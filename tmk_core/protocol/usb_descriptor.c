@@ -49,6 +49,10 @@
 #    include "os_detection.h"
 #endif
 
+#ifdef DIGITIZER_ENABLE
+#    include "digitizer.h"
+#endif
+
 #if defined(SERIAL_NUMBER) || (defined(SERIAL_NUMBER_USE_HARDWARE_ID) && SERIAL_NUMBER_USE_HARDWARE_ID == TRUE)
 
 #    define HAS_SERIAL_NUMBER
@@ -318,9 +322,21 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
             // X/Y Position (4 bytes)
             HID_RI_USAGE_PAGE(8, 0x01),    // Generic Desktop
             HID_RI_USAGE(8, 0x30),         // X
-            HID_RI_USAGE(8, 0x31),         // Y
+            HID_RI_LOGICAL_MINIMUM(8, 0x0),
             HID_RI_LOGICAL_MAXIMUM(16, 0x7FFF),
-            HID_RI_REPORT_COUNT(8, 0x02),
+            HID_RI_PHYSICAL_MINIMUM(8, 0),
+            HID_RI_PHYSICAL_MAXIMUM(16, DIGITIZER_X),
+            HID_RI_REPORT_COUNT(8, 0x01),
+            HID_RI_REPORT_SIZE(8, 0x10),
+            HID_RI_UNIT(8, 0x13),          // Inch, English Linear
+            HID_RI_UNIT_EXPONENT(8, 0x0E), // -2
+            HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
+            HID_RI_USAGE(8, 0x31),         // Y
+            HID_RI_LOGICAL_MINIMUM(8, 0x0),
+            HID_RI_LOGICAL_MAXIMUM(16, 0x7FFF),
+            HID_RI_PHYSICAL_MINIMUM(8, 0),
+            HID_RI_PHYSICAL_MAXIMUM(16, DIGITIZER_Y),
+            HID_RI_REPORT_COUNT(8, 0x01),
             HID_RI_REPORT_SIZE(8, 0x10),
             HID_RI_UNIT(8, 0x13),          // Inch, English Linear
             HID_RI_UNIT_EXPONENT(8, 0x0E), // -2
