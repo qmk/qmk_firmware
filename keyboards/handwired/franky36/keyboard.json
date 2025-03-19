@@ -3,6 +3,9 @@
     "keyboard_name": "franky36",
     "maintainer": "Grigory Avdyushin",
     "bootloader": "rp2040",
+    "caps_word": {
+        "both_shifts_turns_on": true
+    },
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
@@ -22,9 +25,6 @@
         "device_version": "0.2.0",
         "pid": "0x0001",
         "vid": "0xFEED"
-    },
-    "caps_word": {
-        "both_shifts_turns_on": true
     },
     "community_layouts": ["split_3x5_3"],
     "layouts": {
