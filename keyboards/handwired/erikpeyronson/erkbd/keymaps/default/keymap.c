@@ -45,5 +45,7 @@ bool oled_task_user(void) {
 }
 
 #ifdef ENCODER_MAP_ENABLE
-    const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {[0] = {{KC_UP, KC_DOWN}, {KC_RIGHT, KC_LEFT}}};
+    const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [0] = { ENCODER_CCW_CW(KC_UP, KC_DOWN), ENCODER_CCW_CW(KC_RIGHT, KC_LEFT) }
+    };
 #endif
