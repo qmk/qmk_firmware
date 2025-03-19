@@ -55,6 +55,9 @@ oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
 }
 
 bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
+    }
     render_logo();
     render_layer_state();
     render_mod_status(get_mods() | get_oneshot_mods());
