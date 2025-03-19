@@ -49,6 +49,9 @@ static void render_delimeter(void) {
 }
 
 bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
+    }
     if (is_keyboard_left()) {
         oled_render_logo();
     } else {

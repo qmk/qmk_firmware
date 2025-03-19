@@ -34,6 +34,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // This function prints which half the keyboard considers itself to be which i
 // useful for verify if the handedness pin and display is correctly set up when building
+#ifdef OLED_ENABLE
 bool oled_task_user(void) {
     if (is_keyboard_left()) {
         oled_write_P(PSTR("left"), false);
@@ -42,6 +43,7 @@ bool oled_task_user(void) {
     }
     return false;
 }
+#endif
 
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {[0] = {ENCODER_CCW_CW(KC_UP, KC_DOWN), ENCODER_CCW_CW(KC_RIGHT, KC_LEFT)}};
