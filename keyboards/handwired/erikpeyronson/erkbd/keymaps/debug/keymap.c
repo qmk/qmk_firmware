@@ -32,7 +32,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-// This function prints which half the keyboard considers itself to be which i
+// This function prints which half the keyboard considers itself to be which is
 // useful for verify if the handedness pin and display is correctly set up when building
 #ifdef OLED_ENABLE
 bool oled_task_user(void) {
