@@ -18,10 +18,6 @@
 
 #ifdef OLED_ENABLE
 
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    return OLED_ROTATION_270;
-}
-
 static void render_logo(void) {
     static const char PROGMEM qmk_logo[] = {
         0x80, 0x81, 0x82, 0x83, 0x84,
@@ -43,10 +39,10 @@ static void render_mod_status(uint8_t modifiers) {
 
 static void render_layer_state(void) {
     oled_write_ln_P(PSTR(" "), false);
-    oled_write_P("BASE ", layer_state_is(_BASE));
-    oled_write_P("LOWER", layer_state_is(_LOWER));
-    oled_write_P("RAISE", layer_state_is(_RAISE));
-    oled_write_P("NAV  ", layer_state_is(_NAV));
+    oled_write_P("BASE ", layer_state_is(0));
+    oled_write_P("LOWER", layer_state_is(1));
+    oled_write_P("RAISE", layer_state_is(2));
+    oled_write_P("NAV  ", layer_state_is(3));
     oled_write_ln_P(PSTR(" "), false);
 }
 
@@ -54,7 +50,11 @@ static void render_capsword_state(bool on) {
     oled_write_ln_P("CAPSW", on);
 }
 
-bool oled_task_user(void) {
+oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
+    return OLED_ROTATION_270;
+}
+
+bool oled_task_kb(void) {
     render_logo();
     render_layer_state();
     render_mod_status(get_mods() | get_oneshot_mods());

@@ -16,6 +16,13 @@
 
 #include QMK_KEYBOARD_H
 
+enum my_layers {
+    _BASE = 0,
+    _LOWER,
+    _RAISE,
+    _NAV,
+};
+
 #define LOWER          MO(_LOWER)
 #define RAISE          MO(_RAISE)
 #define NAV            MO(_NAV)
