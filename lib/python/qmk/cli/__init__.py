@@ -12,6 +12,11 @@ from subprocess import run
 from milc import cli, __VERSION__
 from milc.questions import yesno
 
+# Ensure the QMK distribution is on the `$PATH` if present.
+QMK_DISTRIB_DIR = Path(os.environ.get('QMK_DISTRIB_DIR', os.path.expanduser('~/.local/qmk/distrib')))  # the expansion must be kept in sync with `util/env-bootstrap.sh`!
+if QMK_DISTRIB_DIR.exists():
+    os.environ['PATH'] = str(QMK_DISTRIB_DIR / 'bin') + os.pathsep + os.environ['PATH']
+
 import_names = {
     # A mapping of package name to importable name
     'pep8-naming': 'pep8ext_naming',
