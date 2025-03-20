@@ -121,6 +121,11 @@ ifeq ($(strip $(MOUSEKEY_ENABLE)), yes)
     MOUSE_ENABLE := yes
 endif
 
+ifeq ($(strip $(MOUSEGRID_ENABLE)), yes)
+    DIGITIZER_ENABLE := yes
+    DEFERRED_EXEC_ENABLE := yes
+endif
+
 VALID_POINTING_DEVICE_DRIVER_TYPES := adns5050 adns9800 analog_joystick azoteq_iqs5xx cirque_pinnacle_i2c cirque_pinnacle_spi paw3204 pmw3320 pmw3360 pmw3389 pimoroni_trackball custom
 ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
     ifeq ($(filter $(POINTING_DEVICE_DRIVER),$(VALID_POINTING_DEVICE_DRIVER_TYPES)),)
