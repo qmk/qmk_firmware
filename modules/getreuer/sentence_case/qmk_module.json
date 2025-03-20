@@ -1,0 +1,9 @@
+{
+    "module_name": "Sentence Case",
+    "maintainer": "getreuer",
+    "keycodes": [
+        {"key": "SENTENCE_CASE_ON"},
+        {"key": "SENTENCE_CASE_OFF"},
+        {"key": "SENTENCE_CASE_TOGGLE"}
+    ]
+}

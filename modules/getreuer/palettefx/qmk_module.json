@@ -1,0 +1,7 @@
+{
+    "module_name": "PaletteFx",
+    "maintainer": "getreuer",
+    "features": {
+        "rgb_matrix": true
+    }
+}

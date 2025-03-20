@@ -1,0 +1,14 @@
+{
+    "module_name": "Mouse Turbo Click",
+    "maintainer": "getreuer",
+    "features": {
+        "deferred_exec": true,
+        "mousekeys": true
+    },
+    "keycodes": [
+        {
+            "key": "MOUSE_TURBO_CLICK",
+            "aliases": ["TURBO"]
+        }
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "module_name": "Select Word",
+    "maintainer": "getreuer",
+    "keycodes": [
+        {
+            "key": "SELECT_WORD",
+            "aliases": [
+              "SELWORD"
+            ]
+        },
+        {
+            "key": "SELECT_WORD_BACK",
+            "aliases": [
+              "SELWBAK"
+            ]
+        },
+        {
+            "key": "SELECT_LINE",
+            "aliases": [
+              "SELLINE"
+            ]
+        }
+    ]
+}

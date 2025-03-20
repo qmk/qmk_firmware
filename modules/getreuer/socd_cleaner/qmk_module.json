@@ -1,0 +1,9 @@
+{
+    "module_name": "SOCD Cleaner",
+    "maintainer": "getreuer",
+    "keycodes": [
+        {"key": "SOCDON"},
+        {"key": "SOCDOFF"},
+        {"key": "SOCDTOG"}
+    ]
+}

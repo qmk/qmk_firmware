@@ -35,6 +35,8 @@
 // Opposite hands rule for HRM. Prevents misfires on same hand rolls.
 #define CHORDAL_HOLD
 
+#define SELECT_WORD_OS_MAC
+
 // #undef RGB_MATRIX_TIMEOUT
 // #define RGB_MATRIX_TIMEOUT 300000
 // #define RGB_MATRIX_STARTUP_SPD 60

@@ -1,0 +1,22 @@
+{
+    "module_name": "Orbital Mouse",
+    "maintainer": "getreuer",
+    "features": {
+        "mouse": true
+    },
+    "keycodes": [
+        {"key": "OM_SLOW"},
+        {"key": "OM_BTNS"},
+        {"key": "OM_DBLS"},
+        {"key": "OM_HLDS"},
+        {"key": "OM_RELS"},
+        {"key": "OM_SEL1"},
+        {"key": "OM_SEL2"},
+        {"key": "OM_SEL3"},
+        {"key": "OM_SEL4"},
+        {"key": "OM_SEL5"},
+        {"key": "OM_SEL6"},
+        {"key": "OM_SEL7"},
+        {"key": "OM_SEL8"}
+    ]
+}
