@@ -43,7 +43,7 @@ enum custom_keycodes {
 #define RN2 KC_5
 #define RN3 KC_9
 #define RN4 KC_8
-#define RN5 CW_TOGG
+#define RN5 KC_VOLU
 
 // top row
 #define LT5 KC_TAB
@@ -58,7 +58,7 @@ enum custom_keycodes {
 #define RT2 LT(_SYM, KC_QUOT)
 #define RT3 KC_EQL
 #define RT4 KC_SLSH
-#define RT5 KC_GRV
+#define RT5 KC_VOLD
 
 // middle row
 #define LM5 KC_Z
@@ -83,7 +83,7 @@ enum custom_keycodes {
 #define LB1 KC_L
 #define LB0 KC_X
 
-#define RB0 KC_SCLN
+#define RB0 KC_GRV
 #define RB1 KC_U
 #define RB2 KC_O
 #define RB3 KC_Y
@@ -107,10 +107,10 @@ static uint16_t keyhold_timer; // for handling Qu combo
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*  Hands Down Promethium
-    ⎋   3   2@  1$   0#  4           7   6   5   9   8  CW
-    ⇥   v   w   g2   m   j           -   .:  '2  =   /  `
+    ⎋   3   2@  1$   0#  4           7   6   5   9   8  Vol
+    ⇥   v   w   g2   m   j           -   .:  '2  =   /  Vol
     z   s⌃  n⌥  t3   h⌘  k           ,;  a⌘  e1  i⌥  c⌃ qr
-    tg  f   p   d    l   x      	 ;   u   o   y   b  \
+    tg  f   p   d    l   x      	 `   u   o   y   b  \
                          r⇧   ⌫   ⏎   ␣⇧
   */
   [_DEF] = LAYOUT_voyager(
@@ -137,16 +137,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   /* BEAKL-19 Symbols
-    *		@	$	#					~	^	`
+    *		@	$	#
     *       <   =   >                   [   _   ]
     *   \   (   -   )   +          	%   {   ;   }   !
-    *       *   :	/   		      	&   ~   |
+    *   ^   *   :	/   		    ` 	&   ~   |
   */
   [_SYM] = LAYOUT_voyager(
-    _______, _______, KC_AT,   KC_DLR,  KC_HASH, _______,                   _______, KC_TILD, KC_CIRC, KC_GRV,  _______, _______,
+    _______, _______, KC_AT,   KC_DLR,  KC_HASH, _______,                   _______, _______, _______, _______, _______, _______,
     _______, ___x___, KC_LABK, KC_EQL,  KC_RABK, ___x___,                   ___x___, KC_LBRC, KC_UNDS, KC_RBRC, ___x___, _______,
     _______, KC_BSLS, KC_LPRN, KC_MINS, KC_RPRN, KC_PLUS,                   KC_PERC, KC_LCBR, KC_SCLN, KC_RCBR, KC_EXLM, _______,
-    _______, ___x___, KC_ASTR, KC_COLN, KC_SLSH, ___x___,                   ___x___, KC_AMPR, KC_TILD, KC_PIPE, ___x___, _______,
+    _______, KC_CIRC, KC_ASTR, KC_COLN, KC_SLSH, ___x___,                   _______, KC_AMPR, KC_TILD, KC_PIPE, ___x___, _______,
                                                  KC_SPC,  _______, _______, _______
   ),
 
