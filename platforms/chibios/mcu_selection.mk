@@ -876,7 +876,7 @@ ifneq ($(findstring AT32F405, $(MCU)),)
    # Bootloader address for AT32 DFU
    AT32_BOOTLOADER_ADDRESS ?= 0x1FFFA400
  
- endif
+endif
 
 ifneq ($(findstring GD32VF103, $(MCU)),)
   # RISC-V
