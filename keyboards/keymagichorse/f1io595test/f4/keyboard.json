@@ -1,0 +1,14 @@
+{
+    "keyboard_name": "f1io595Test",
+    "manufacturer": "keymagichorse",
+    "processor": "STM32F411",
+    "bootloader": "stm32-dfu",
+    "matrix_pins": {
+        "cols": ["A9", "A15", "B9", "C13", "C14", "C15", "A6", "A7", "B0", "B10", "B6", "B5", "B4", "B3"],
+        "rows": ["A8", "B15", "B14", "A5", "A4"]
+    },
+    "ws2812": {
+        "pin": "B8"
+        // "driver": "pwm"
+    }
+}

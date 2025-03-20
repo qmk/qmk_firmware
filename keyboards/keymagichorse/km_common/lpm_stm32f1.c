@@ -86,28 +86,27 @@ void My_PWR_EnterSTOPMode(void)
 {
 #if STM32_HSE_ENABLED
     /* Switch to HSI */
-    RCC->CFGR = (RCC->CFGR & (~STM32_SW_MASK)) | STM32_SW_HSI;
-    while ((RCC->CFGR & RCC_CFGR_SWS) != (STM32_SW_HSI << 2));
+    RCC->CFGR = (RCC->CFGR & (~RCC_CFGR_SW)) | RCC_CFGR_SW_HSI;
+    while ((RCC->CFGR & RCC_CFGR_SWS) != RCC_CFGR_SWS_HSI);
 
     /* Set HSE off  */
     RCC->CR &= ~RCC_CR_HSEON;
-    while ((RCC->CR & RCC_CR_HSERDY));
+    while (RCC->CR & RCC_CR_HSERDY);
 
     palSetLineMode(LPM_STM32_HSE_PIN_IN, PAL_MODE_INPUT_ANALOG); 
     palSetLineMode(LPM_STM32_HSE_PIN_OUT, PAL_MODE_INPUT_ANALOG); 
 #endif
-    /* Wake source: Reset pin, all I/Os, BOR, PVD, PVM, RTC, LCD, IWDG,
-    COMPx, USARTx, LPUART1, I2Cx, LPTIMx, USB, SWPMI */
+
+    /* STM32F1 Wake source: Reset pin, all I/Os, BOR, RTC, IWDG, USARTx */
     SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
-    PWR->CR |=
-        PWR_CR_MRLVDS |
-        PWR_CR_LPLVDS |
-        PWR_CR_FPDS |
-        PWR_CR_LPDS |
-        0;
-    __WFI();
+
+    PWR->CR |= PWR_CR_LPDS; 
+    PWR->CR |= PWR_CR_CWUF;  
+
+    __WFI(); 
 
     SCB->SCR &= ~SCB_SCR_SLEEPDEEP_Msk;
+
 }
 
 void enter_low_power_mode_prepare(void)
@@ -198,8 +197,8 @@ void enter_low_power_mode_prepare(void)
     chSysUnlock();
 
     /*  USB D+/D- */
-    palSetLineMode(A11, PAL_STM32_OTYPE_PUSHPULL | PAL_STM32_OSPEED_HIGHEST | PAL_STM32_PUPDR_FLOATING | PAL_MODE_ALTERNATE(10U));
-    palSetLineMode(A12, PAL_STM32_OTYPE_PUSHPULL | PAL_STM32_OSPEED_HIGHEST | PAL_STM32_PUPDR_FLOATING | PAL_MODE_ALTERNATE(10U));
+    palSetLineMode(A11, PAL_MODE_STM32_ALTERNATE_PUSHPULL);  
+    palSetLineMode(A12, PAL_MODE_STM32_ALTERNATE_PUSHPULL);  
     if (usb_power_connected()) {
         usb_event_queue_init();
         init_usb_driver(&USBD1);

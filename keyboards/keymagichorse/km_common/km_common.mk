@@ -7,10 +7,20 @@ ifeq ($(strip $(KM_DEBUG)), yes)
 	VPATH += keyboards/keymagichorse/km_common/rtt
 endif   
 
+# 提前导入mcu的mk
+include $(wildcard $(PLATFORM_PATH)/*/mcu_selection.mk)
+$(info !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!MCU_SERIES = $(MCU_SERIES))
 ifeq ($(strip $(KB_LPM_ENABLED)), yes)
-    OPT_DEFS += -DKB_LPM_ENABLED
-	SRC+= km_common/lpm_stm32f4.c
+    ifneq ($(filter $(MCU_SERIES),STM32F4xx),)
+        OPT_DEFS += -DKB_LPM_ENABLED
+        SRC += km_common/lpm_stm32f4.c
+    endif
+    ifneq ($(filter $(MCU_SERIES),STM32F1xx),)
+        OPT_DEFS += -DKB_LPM_ENABLED
+        SRC += km_common/lpm_stm32f1.c
+    endif
 endif
+
 
 
 VPATH += keyboards/keymagichorse/km_common/
