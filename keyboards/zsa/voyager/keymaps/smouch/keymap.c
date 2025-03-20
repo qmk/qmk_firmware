@@ -108,9 +108,9 @@ static uint16_t keyhold_timer; // for handling Qu combo
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*  Hands Down Promethium
     ⎋   3   2@  1$   0#  4           7   6   5   9   8  CW
-    ⇥   v   w   g2   m   j           ;   .:  '2  =   /  `
-    z   s⌃  n⌥  t3   h⌘  k           ,;  a⌘  e1  i⌥  c⌃ q
-    tg  f   p   d    l   x      	 -   u   o   y   b  \
+    ⇥   v   w   g2   m   j           -   .:  '2  =   /  `
+    z   s⌃  n⌥  t3   h⌘  k           ,;  a⌘  e1  i⌥  c⌃ qr
+    tg  f   p   d    l   x      	 ;   u   o   y   b  \
                          r⇧   ⌫   ⏎   ␣⇧
   */
   [_DEF] = LAYOUT_voyager(
@@ -143,7 +143,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *       *   :	/   		      	&   ~   |
   */
   [_SYM] = LAYOUT_voyager(
-    _______, _______, KC_AT,   KC_DLR,  KC_HASH, _______,                   _______, KC_TILD, KC_CIRC, KC_GRV,  _______, QK_BOOT,
+    _______, _______, KC_AT,   KC_DLR,  KC_HASH, _______,                   _______, KC_TILD, KC_CIRC, KC_GRV,  _______, _______,
     _______, ___x___, KC_LABK, KC_EQL,  KC_RABK, ___x___,                   ___x___, KC_LBRC, KC_UNDS, KC_RBRC, ___x___, _______,
     _______, KC_BSLS, KC_LPRN, KC_MINS, KC_RPRN, KC_PLUS,                   KC_PERC, KC_LCBR, KC_SCLN, KC_RCBR, KC_EXLM, _______,
     _______, ___x___, KC_ASTR, KC_COLN, KC_SLSH, ___x___,                   ___x___, KC_AMPR, KC_TILD, KC_PIPE, ___x___, _______,
