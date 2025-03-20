@@ -8,7 +8,7 @@ set -eu
 ################################################################################
 # Configurables:
 #   QMK_DISTRIB_DIR: The directory to install the QMK distribution to.
-#   UV_INSTALL_DIR: The directory to install `uv` to. This will be ignored on QMK MSYS, installing into `/opt/uv` instead.
+#   UV_INSTALL_DIR: The directory to install `uv` to.
 #   SKIP_CLEAN: Skip cleaning the distribution directory.
 #   SKIP_UV: Skip installing `uv`.
 #   SKIP_QMK_CLI: Skip installing the QMK CLI.
@@ -24,8 +24,16 @@ set -eu
 # Any other configurable items listed above may be specified in the same way.
 ################################################################################
 
+# Windows/MSYS doesn't like `/tmp` so we need to set a different temporary directory.
+# Also set the default `UV_INSTALL_DIR` and `QMK_DISTRIB_DIR` to locations which don't pollute the user's home directory, keeping the installation internal to MSYS.
+if [ "$(uname -o 2>/dev/null || true)" = "Msys" ]; then
+    export TMPDIR="$(cygpath -w "$TMP")"
+    export UV_INSTALL_DIR=${UV_INSTALL_DIR:-/opt/uv}
+    export QMK_DISTRIB_DIR=${QMK_DISTRIB_DIR:-/opt/qmk}
+fi
+
 # Work out where we want to install the distribution
-QMK_DISTRIB_DIR=${QMK_DISTRIB_DIR:-$HOME/.local/qmk/distrib}
+export QMK_DISTRIB_DIR=${QMK_DISTRIB_DIR:-$HOME/.local/share/qmk}
 # Clear out the target directory if necessary
 if [ -z "${SKIP_CLEAN:-}" ] || [ -z "${SKIP_QMK_TOOLCHAINS:-}" -a -z "${SKIP_QMK_FLASHUTILS:-}" ]; then
     if [ -d "$QMK_DISTRIB_DIR" ]; then
@@ -34,14 +42,6 @@ if [ -z "${SKIP_CLEAN:-}" ] || [ -z "${SKIP_QMK_TOOLCHAINS:-}" -a -z "${SKIP_QMK
     fi
 fi
 mkdir -p "$QMK_DISTRIB_DIR"
-
-# Windows doesn't like `/tmp` so we need to set a different temporary directory
-# and also set the `UV_INSTALL_DIR` to a location that doesn't pollute the user's
-# home directory.
-if [ "$(uname -o 2>/dev/null || true)" = "Msys" ]; then
-    export TMPDIR="$(cygpath -w "$TMP")"
-    export UV_INSTALL_DIR=/opt/uv
-fi
 
 download_url() {
     local url=$1
