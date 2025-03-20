@@ -215,7 +215,7 @@ if sys.version_info[0] != 3 or sys.version_info[1] < 9:
 
 milc_version = __VERSION__.split('.')
 
-if int(milc_version[0]) < 2 and int(milc_version[1]) < 4:
+if int(milc_version[0]) < 2 and int(milc_version[1]) < 9:
     requirements = Path('requirements.txt').resolve()
 
     _eprint(f'Your MILC library is too old! Please upgrade: python3 -m pip install -U -r {str(requirements)}')
