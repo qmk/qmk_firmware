@@ -200,10 +200,6 @@ void enter_low_power_mode_prepare(void)
     /*  USB D+/D- */
     palSetLineMode(A11, PAL_STM32_OTYPE_PUSHPULL | PAL_STM32_OSPEED_HIGHEST | PAL_STM32_PUPDR_FLOATING | PAL_MODE_ALTERNATE(10U));
     palSetLineMode(A12, PAL_STM32_OTYPE_PUSHPULL | PAL_STM32_OSPEED_HIGHEST | PAL_STM32_PUPDR_FLOATING | PAL_MODE_ALTERNATE(10U));
-    if (usb_power_connected()) {
-        usb_event_queue_init();
-        init_usb_driver(&USBD1);
-    }
  
     /* Call debounce_free() to avoiding memory leak of debounce_counters as debounce_init()
     invoked in matrix_init() alloc new memory to debounce_counters */
@@ -213,7 +209,8 @@ void enter_low_power_mode_prepare(void)
     lpm_timer_reset();
     report_buffer_init();
     bhq_init();     // uart_init
-
+    
+    mousekey_clear();
     clear_keyboard();
     layer_clear();
 
@@ -228,6 +225,9 @@ void enter_low_power_mode_prepare(void)
 void lpm_task(void)
 {
     if (usb_power_connected() && USBD1.state == USB_STOP) {
+        /*  USB D+/D- */
+        palSetLineMode(A11, PAL_STM32_OTYPE_PUSHPULL | PAL_STM32_OSPEED_HIGHEST | PAL_STM32_PUPDR_FLOATING | PAL_MODE_ALTERNATE(10U));
+        palSetLineMode(A12, PAL_STM32_OTYPE_PUSHPULL | PAL_STM32_OSPEED_HIGHEST | PAL_STM32_PUPDR_FLOATING | PAL_MODE_ALTERNATE(10U));
         usb_event_queue_init();
         init_usb_driver(&USBD1);
     }

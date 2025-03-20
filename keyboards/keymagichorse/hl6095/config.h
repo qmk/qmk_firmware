@@ -14,7 +14,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #pragma once
- 
+
+
+#ifndef SERIAL_NUMBER
+#   define SERIAL_NUMBER "mjl_hl6095"
+#endif
+
 #ifdef BLUETOOTH_BHQ
 // Its active level is "BHQ_IRQ_AND_INT_LEVEL of bhq.h " 
 #   define BHQ_RUN_STATE_INPUT_PIN  A1             // Module operating status
