@@ -4,9 +4,6 @@
     "maintainer": "msvisser / TinfoilSubmarine",
     "bootloader": "stm32-dfu",
     "diode_direction": "COL2ROW",
-    "eeprom": {
-        "driver": "transient"
-    },
     "features": {
         "bootmagic": false,
         "command": false,
