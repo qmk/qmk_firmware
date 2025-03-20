@@ -1,0 +1,67 @@
+{
+    "manufacturer": "Draytronics",
+    "keyboard_name": "DAISY",
+    "maintainer": "ghostseven",
+    "bootloader": "stm32-dfu",
+    "diode_direction": "COL2ROW",
+    "encoder": {
+        "enabled": true,
+        "rotary": [
+            {"pin_a": "A14", "pin_b": "A15"}
+        ]
+    },
+    "features": {
+        "bootmagic": true,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "oled": true,
+        "rgblight": true
+    },
+    "matrix_pins": {
+        "cols": ["B11", "B10", "B2", "B1"],
+        "rows": ["A2", "A1", "A0"]
+    },
+    "processor": "STM32F072",
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
+    "rgblight": {
+        "led_count": 4,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "url": "https://www.draytronics.co.uk/daisy",
+    "usb": {
+        "device_version": "2.0.0",
+        "pid": "0x4441",
+        "vid": "0x4454"
+    },
+    "ws2812": {
+        "pin": "B12"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [1, 3], "x": 3, "y": 1},
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2},
+                {"matrix": [2, 3], "x": 3, "y": 2}
+            ]
+        }
+    }
+}
