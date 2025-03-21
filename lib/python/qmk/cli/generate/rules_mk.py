@@ -6,12 +6,13 @@ from dotty_dict import dotty
 from argcomplete.completers import FilesCompleter
 from milc import cli
 
-from qmk.info import info_json
+from qmk.info import info_json, get_modules
 from qmk.json_schema import json_load
 from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.commands import dump_lines, parse_configurator_json
-from qmk.path import normpath, FileType
+from qmk.path import normpath, unix_style_path, FileType
 from qmk.constants import GPL2_HEADER_SH_LIKE, GENERATED_HEADER_SH_LIKE
+from qmk.community_modules import find_module_path, load_module_jsons
 
 
 def generate_rule(rules_key, rules_value):
@@ -44,6 +45,42 @@ def process_mapping_rule(kb_info_json, rules_key, info_dict):
         return generate_rule(rules_key, f'"{rules_value}"')
 
     return generate_rule(rules_key, rules_value)
+
+
+def generate_features_rules(features_dict):
+    lines = []
+    for feature, enabled in features_dict.items():
+        feature = feature.upper()
+        enabled = 'yes' if enabled else 'no'
+        lines.append(generate_rule(f'{feature}_ENABLE', enabled))
+    return lines
+
+
+def generate_modules_rules(keyboard, filename):
+    lines = []
+    modules = get_modules(keyboard, filename)
+    if len(modules) > 0:
+        lines.append('')
+        lines.append('OPT_DEFS += -DCOMMUNITY_MODULES_ENABLE=TRUE')
+        for module in modules:
+            module_path = unix_style_path(find_module_path(module))
+            if not module_path:
+                raise FileNotFoundError(f"Module '{module}' not found.")
+            lines.append('')
+            lines.append(f'COMMUNITY_MODULES += {module_path.name}')  # use module_path here instead of module as it may be a subdirectory
+            lines.append(f'OPT_DEFS += -DCOMMUNITY_MODULE_{module_path.name.upper()}_ENABLE=TRUE')
+            lines.append(f'COMMUNITY_MODULE_PATHS += {module_path}')
+            lines.append(f'VPATH += {module_path}')
+            lines.append(f'SRC += $(wildcard {module_path}/{module_path.name}.c)')
+            lines.append(f'-include {module_path}/rules.mk')
+
+        module_jsons = load_module_jsons(modules)
+        for module_json in module_jsons:
+            if 'features' in module_json:
+                lines.append('')
+                lines.append(f'# Module: {module_json["module_name"]}')
+                lines.extend(generate_features_rules(module_json['features']))
+    return lines
 
 
 @cli.argument('filename', nargs='?', arg_only=True, type=FileType('r'), completer=FilesCompleter('.json'), help='A configurator export JSON to be compiled and flashed or a pre-compiled binary firmware file (bin/hex) to be flashed.')
@@ -80,10 +117,7 @@ def generate_rules_mk(cli):
 
     # Iterate through features to enable/disable them
     if 'features' in kb_info_json:
-        for feature, enabled in kb_info_json['features'].items():
-            feature = feature.upper()
-            enabled = 'yes' if enabled else 'no'
-            rules_mk_lines.append(generate_rule(f'{feature}_ENABLE', enabled))
+        rules_mk_lines.extend(generate_features_rules(kb_info_json['features']))
 
     # Set SPLIT_TRANSPORT, if needed
     if kb_info_json.get('split', {}).get('transport', {}).get('protocol') == 'custom':
@@ -98,6 +132,8 @@ def generate_rules_mk(cli):
 
     if converter:
         rules_mk_lines.append(generate_rule('CONVERT_TO', converter))
+
+    rules_mk_lines.extend(generate_modules_rules(cli.args.keyboard, cli.args.filename))
 
     # Show the results
     dump_lines(cli.args.output, rules_mk_lines)

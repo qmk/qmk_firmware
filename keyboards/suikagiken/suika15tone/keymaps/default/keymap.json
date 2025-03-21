@@ -1,0 +1,12 @@
+{
+  "author": "suikagiken",
+  "keyboard": "suikagiken/suika15tone",
+  "keymap": "default",
+  "layout": "LAYOUT",
+  "layers": [
+    [
+        "KC_A",     "KC_D", "KC_F",         "KC_I", "KC_K", "KC_M",
+        "KC_B", "KC_C", "KC_E", "KC_G", "KC_H", "KC_J", "KC_L", "KC_N", "KC_O"
+    ]
+  ]
+}
