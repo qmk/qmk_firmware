@@ -7,10 +7,8 @@
     "split": {
         "enabled": true,
         "serial": {
+            "driver": "vendor",
             "pin": "GP0"
-        },
-        "serial": {
-            "driver": "vendor"
         }
     },
 
