@@ -48,14 +48,13 @@ enum custom_layer {
 };
 
 enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  ALT,
-  CTRL,
-  LOWER,
+  LOWER = SAFE_RANGE,
   RAISE,
-  MOUSE,
   ADJUST
 };
+
+#define QWERTY PDF(_QWERTY)
+#define MOUSE PDF(_MOUSE)
 
 // TAP DANCE ***********************************************************
 //Tap Dance Declarations
@@ -108,11 +107,11 @@ enum {
 // // Alt held down, then use as normal.
 //
 // Alt tapped, then hold Alt,
-int cur_dance (qk_tap_dance_state_t *state);
-void alt_finished (qk_tap_dance_state_t *state, void *user_data);
-void alt_reset (qk_tap_dance_state_t *state, void *user_data);
+int cur_dance (tap_dance_state_t *state);
+void alt_finished (tap_dance_state_t *state, void *user_data);
+void alt_reset (tap_dance_state_t *state, void *user_data);
 
-int cur_dance (qk_tap_dance_state_t *state) {
+int cur_dance (tap_dance_state_t *state) {
   if (state->count == 1) {
     if (state->pressed) return SINGLE_HOLD;
     else return SINGLE_TAP;
@@ -133,7 +132,7 @@ static tap alttap_state = {
   .state = 0
 };
 
-void alt_finished (qk_tap_dance_state_t *state, void *user_data) {
+void alt_finished (tap_dance_state_t *state, void *user_data) {
   alttap_state.state = cur_dance(state);
   switch (alttap_state.state) {
     case SINGLE_TAP: set_oneshot_layer(_ALT, ONESHOT_START); clear_oneshot_layer_state(ONESHOT_PRESSED); break;
@@ -146,7 +145,7 @@ void alt_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void alt_reset (qk_tap_dance_state_t *state, void *user_data) {
+void alt_reset (tap_dance_state_t *state, void *user_data) {
   switch (alttap_state.state) {
     case SINGLE_TAP: break;
     case SINGLE_HOLD: unregister_code(KC_LALT); break;
@@ -157,15 +156,15 @@ void alt_reset (qk_tap_dance_state_t *state, void *user_data) {
 }
 
 // Ctrl tapped, then hold Ctrl,
-void ctl_finished (qk_tap_dance_state_t *state, void *user_data);
-void ctl_reset (qk_tap_dance_state_t *state, void *user_data);
+void ctl_finished (tap_dance_state_t *state, void *user_data);
+void ctl_reset (tap_dance_state_t *state, void *user_data);
 
 static tap ctltap_state = {
   .is_press_action = true,
   .state = 0
 };
 
-void ctl_finished (qk_tap_dance_state_t *state, void *user_data) {
+void ctl_finished (tap_dance_state_t *state, void *user_data) {
   ctltap_state.state = cur_dance(state);
   switch (ctltap_state.state) {
     case SINGLE_TAP: set_oneshot_mods(MOD_BIT(KC_LCTL)); break;
@@ -176,7 +175,7 @@ void ctl_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void ctl_reset (qk_tap_dance_state_t *state, void *user_data) {
+void ctl_reset (tap_dance_state_t *state, void *user_data) {
   switch (ctltap_state.state) {
     case SINGLE_TAP: break;
     case SINGLE_HOLD: unregister_code(KC_LCTL); break;
@@ -189,15 +188,15 @@ void ctl_reset (qk_tap_dance_state_t *state, void *user_data) {
 
 
 // Layer Down tap dance
-void layerDown_finished (qk_tap_dance_state_t *state, void *user_data);
-void layerDown_reset (qk_tap_dance_state_t *state, void *user_data);
+void layerDown_finished (tap_dance_state_t *state, void *user_data);
+void layerDown_reset (tap_dance_state_t *state, void *user_data);
 
 static tap layerdn_tap_state = {
   .is_press_action = true,
   .state = 0
 };
 
-void layerDown_finished (qk_tap_dance_state_t *state, void *user_data) {
+void layerDown_finished (tap_dance_state_t *state, void *user_data) {
   layerdn_tap_state.state = cur_dance(state);
   switch (layerdn_tap_state.state) {
     case SINGLE_TAP: break;
@@ -208,7 +207,7 @@ void layerDown_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void layerDown_reset (qk_tap_dance_state_t *state, void *user_data) {
+void layerDown_reset (tap_dance_state_t *state, void *user_data) {
   switch (layerdn_tap_state.state) {
     case SINGLE_TAP: break;
     case SINGLE_HOLD: layer_off(_LOWER); break;
@@ -219,15 +218,15 @@ void layerDown_reset (qk_tap_dance_state_t *state, void *user_data) {
 }
 
 // Layer Up tap dance
-void layerUp_finished (qk_tap_dance_state_t *state, void *user_data);
-void layerUp_reset (qk_tap_dance_state_t *state, void *user_data);
+void layerUp_finished (tap_dance_state_t *state, void *user_data);
+void layerUp_reset (tap_dance_state_t *state, void *user_data);
 
 static tap layerup_tap_state = {
   .is_press_action = true,
   .state = 0
 };
 
-void layerUp_finished (qk_tap_dance_state_t *state, void *user_data) {
+void layerUp_finished (tap_dance_state_t *state, void *user_data) {
   layerup_tap_state.state = cur_dance(state);
   switch (layerup_tap_state.state) {
     case SINGLE_TAP: break;
@@ -238,7 +237,7 @@ void layerUp_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void layerUp_reset (qk_tap_dance_state_t *state, void *user_data) {
+void layerUp_reset (tap_dance_state_t *state, void *user_data) {
   switch (layerup_tap_state.state) {
     case SINGLE_TAP: break;
     case SINGLE_HOLD: layer_off(_RAISE); break;
@@ -255,16 +254,16 @@ void layerUp_reset (qk_tap_dance_state_t *state, void *user_data) {
 // Shift tapped, then Capitlize next keystroke only.
 // Shift double-tapped, then CAPSLOCK
 // Shift double-tapped again, CAPS UNLOCKED
-// void dance_onshot_lsft(qk_tap_dance_state_t *state, void *user_data) {
-void lshift_finished (qk_tap_dance_state_t *state, void *user_data);
-void lshift_reset (qk_tap_dance_state_t *state, void *user_data);
+// void dance_onshot_lsft(tap_dance_state_t *state, void *user_data) {
+void lshift_finished (tap_dance_state_t *state, void *user_data);
+void lshift_reset (tap_dance_state_t *state, void *user_data);
 
 static tap lshifttap_state = {
   .is_press_action = true,
   .state = 0
 };
 
-void lshift_finished (qk_tap_dance_state_t *state, void *user_data) {
+void lshift_finished (tap_dance_state_t *state, void *user_data) {
   lshifttap_state.state = cur_dance(state);
   switch (lshifttap_state.state) {
     case SINGLE_TAP: set_oneshot_mods(MOD_BIT(KC_LSFT)); break;
@@ -274,7 +273,7 @@ void lshift_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void lshift_reset (qk_tap_dance_state_t *state, void *user_data) {
+void lshift_reset (tap_dance_state_t *state, void *user_data) {
   switch (lshifttap_state.state) {
     case SINGLE_TAP: break;
     case SINGLE_HOLD: unregister_code(KC_LSFT); break;
@@ -285,15 +284,15 @@ void lshift_reset (qk_tap_dance_state_t *state, void *user_data) {
 }
 
 //TD_LSPACE
-void lspace_finished (qk_tap_dance_state_t *state, void *user_data);
-void lspace_reset (qk_tap_dance_state_t *state, void *user_data);
+void lspace_finished (tap_dance_state_t *state, void *user_data);
+void lspace_reset (tap_dance_state_t *state, void *user_data);
 
 static tap lspacetap_state = {
   .is_press_action = true,
   .state = 0
 };
 
-void lspace_finished (qk_tap_dance_state_t *state, void *user_data) {
+void lspace_finished (tap_dance_state_t *state, void *user_data) {
   lspacetap_state.state = cur_dance(state);
   switch (lspacetap_state.state) {
     case SINGLE_TAP: tap_code (KC_SPACE); break;
@@ -303,7 +302,7 @@ void lspace_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void lspace_reset (qk_tap_dance_state_t *state, void *user_data) {
+void lspace_reset (tap_dance_state_t *state, void *user_data) {
   switch (lspacetap_state.state) {
     case SINGLE_TAP: break;
     case SINGLE_HOLD: layer_off(_LOWER); break;
@@ -318,7 +317,7 @@ void lspace_reset (qk_tap_dance_state_t *state, void *user_data) {
 
 
 //Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
    [TD_DEL_BSPC]  = ACTION_TAP_DANCE_DOUBLE(KC_DEL, KC_BSPC),
    [TD_ESC_GRAVE]  = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_GRAVE),
    [TD_TAB_TILDE]  = ACTION_TAP_DANCE_DOUBLE(KC_TAB, KC_TILDE),
@@ -343,13 +342,13 @@ qk_tap_dance_action_t tap_dance_actions[] = {
    [TD_PGUP_HOME]  = ACTION_TAP_DANCE_DOUBLE(KC_PGUP, KC_HOME),
    [TD_PGDN_END]   = ACTION_TAP_DANCE_DOUBLE(KC_PGDN, KC_END),
 
-   [TD_Q_LrALT] = ACTION_TAP_DANCE_DUAL_ROLE(KC_Q, _ALT),
-   [TD_R_LrKey] = ACTION_TAP_DANCE_DUAL_ROLE(KC_R, _RAISE),
-   [TD_T_LrMS]  = ACTION_TAP_DANCE_DUAL_ROLE(KC_T, _MOUSE),
+   [TD_Q_LrALT] = ACTION_TAP_DANCE_LAYER_MOVE(KC_Q, _ALT),
+   [TD_R_LrKey] = ACTION_TAP_DANCE_LAYER_MOVE(KC_R, _RAISE),
+   [TD_T_LrMS]  = ACTION_TAP_DANCE_LAYER_MOVE(KC_T, _MOUSE),
 
    [TD_SHIFT_CAPS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL,lshift_finished, lshift_reset),
    [TD_SPC_ENT]    = ACTION_TAP_DANCE_DOUBLE(KC_SPACE, KC_ENT),
-   [TD_SPC_BKSPC]  = ACTION_TAP_DANCE_DOUBLE(KC_SPACE, KC_BSPACE),
+   [TD_SPC_BKSPC]  = ACTION_TAP_DANCE_DOUBLE(KC_SPACE, KC_BSPC),
    [TD_LSPACE]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,lspace_finished,lspace_reset),
 
    [ALT_OSL1]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,alt_finished, alt_reset),
@@ -383,7 +382,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
   [_QWERTY] = LAYOUT(
   //,-----------------+-----------------+---------------+--------------+--------------+--------------+--------------+------+-----------+-----------------+----------------+-----------------+-----------------+------------------.
-     TD(TD_DEL_BSPC)  , KC_BSPACE       , KC_1           , KC_2        , KC_3         , KC_4         , KC_5         , KC_6 , KC_7      , KC_8            , TD(TD_9_LPRN)  , TD(TD_0_RPRN)   ,TD(TD_MINS_UNDS) , TD(TD_EQL_PLUS),
+     TD(TD_DEL_BSPC)  , KC_BSPC         , KC_1           , KC_2        , KC_3         , KC_4         , KC_5         , KC_6 , KC_7      , KC_8            , TD(TD_9_LPRN)  , TD(TD_0_RPRN)   ,TD(TD_MINS_UNDS) , TD(TD_EQL_PLUS),
   //|-----------------+-----------------+---------------+--------------+--------------+--------------+--------------+------+-----------+-----------------+----------------+-----------------+-----------------+------------------|
      TD(TD_PGUP_HOME) , TD(TD_TAB_TILDE), TD(TD_Q_LrALT), KC_W         , KC_E         , KC_R         , KC_T         , KC_Y , KC_U      , KC_I            , KC_O           , KC_P            ,TD(TD_LBRC_LCBR) , TD(TD_RBRC_RCBR),
   //|-----------------+-----------------+---------------+--------------+--------------+--------------+--------------+------+-----------+-----------------+----------------+-----------------+-----------------+------------------|
@@ -490,15 +489,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
 KC_INS
 KC_PSCR
-KC_SLCK
+KC_SCRL
 KC_PAUS
 
 */
 
 [_RAISE] = LAYOUT(
   KC_INS            , XXXXXXX  , KC_BRIU, KC_BRID, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC_7 , KC_8   , KC_9     , KC_SLASH , KC_MINUS, KC_EQUAL,
-  KC_HOME           , KC_PSCR  , XXXXXXX, XXXXXXX, XXXXXXX, RESET  , XXXXXXX, XXXXXXX,  KC_4 , KC_5   , KC_6     , KC_ASTR  , XXXXXXX , XXXXXXX,
-  KC_END            , KC_SLCK  , XXXXXXX, XXXXXXX, DEBUG  , XXXXXXX, XXXXXXX, XXXXXXX,  KC_1 , KC_2   , KC_3     , KC_MINUS , XXXXXXX , XXXXXXX,
+  KC_HOME           , KC_PSCR  , XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT, XXXXXXX, XXXXXXX,  KC_4 , KC_5   , KC_6     , KC_ASTR  , XXXXXXX , XXXXXXX,
+  KC_END            , KC_SCRL  , XXXXXXX, XXXXXXX, DB_TOGG, XXXXXXX, XXXXXXX, XXXXXXX,  KC_1 , KC_2   , KC_3     , KC_MINUS , XXXXXXX , XXXXXXX,
   XXXXXXX           , KC_PAUSE , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC_0 , KC_DOT , KC_COMMA , KC_PLUS  , XXXXXXX , XXXXXXX,
   LALT(LCTL(KC_DEL)), _______  , _______, _______, _______,     _______     ,   KC_KP_ENTER  , _______, _______  , _______  , _______ , _______
 ),
@@ -518,9 +517,9 @@ KC_PAUS
  */
 [_ADJUST] = LAYOUT(
   KC_DEL  , _______,  KC_F1,   KC_F2,   KC_F3, KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,     KC_F9,  KC_F10,  KC_F11,  KC_F12,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RESET, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, _______, _______,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, AU_ON,  AU_OFF, AG_NORM, AG_SWAP, QWERTY,    XXXXXXX, XXXXXXX, XXXXXXX, _______,
-  XXXXXXX, XXXXXXX, XXXXXXX, MUV_DE,  MUV_IN,  MU_ON,  MU_OFF,   MI_ON,  MI_OFF,  XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, _______, _______,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,    XXXXXXX, XXXXXXX, XXXXXXX, _______,
+  XXXXXXX, XXXXXXX, XXXXXXX, AU_PREV, AU_NEXT, MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, _______, _______, _______, _______,     _______,        _______,       _______, _______, _______, _______, _______
 )
 ,
@@ -562,19 +561,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed && is_oneshot_layer_active())
       clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
       return true;
-    case RESET:
+    case QK_BOOT:
       /* Don't allow reset from oneshot layer state */
       if (record->event.pressed && is_oneshot_layer_active()){
         clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
         return false;
       }
       return true;
-    case QWERTY:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      return false;
-      break;
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);
@@ -584,7 +577,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
-      break;
     case RAISE:
       if (record->event.pressed) {
         layer_on(_RAISE);
@@ -594,13 +586,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
-      break;
-    case MOUSE:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_MOUSE);
-      }
-      return false;
-      break;
   }
   return true;
 };

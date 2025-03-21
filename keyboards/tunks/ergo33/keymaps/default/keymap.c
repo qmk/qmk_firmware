@@ -36,17 +36,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_RGB] = LAYOUT(
-        RGB_RMOD, RGB_MOD, RGB_TOG, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        RGB_HUD,  RGB_HUI, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        RGB_SAD,  RGB_SAI, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        RGB_VAD,  RGB_VAI, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, TG(_RGB),
+        UG_PREV,  UG_NEXT, UG_TOGG, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        UG_HUED,  UG_HUEU, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        UG_SATD,  UG_SATU, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        UG_VALD,  UG_VALU, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, TG(_RGB),
         KC_TRNS,  KC_TRNS,                                                 KC_TRNS,
                                                KC_TRNS,  KC_TRNS,  KC_TRNS
     ),
 };
 
 #ifdef ENCODER_ENABLE
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         if (clockwise) {
             tap_code(KC_MS_WH_DOWN);
@@ -54,6 +54,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_MS_WH_UP);
         }
     }
+    return true;
 }
 #endif
 

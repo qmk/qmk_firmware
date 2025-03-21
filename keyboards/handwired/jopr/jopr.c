@@ -1,11 +1,7 @@
-#include "jopr.h"
-void matrix_init_kb(void) {
-    matrix_init_user();
-    led_init_ports();
-};
+#include "quantum.h"
 
 void led_init_ports(void) {
-    setPinOutput(F0);
-    setPinOutput(F1);
-    setPinOutput(F4);
+    gpio_set_pin_output(F0);
+    gpio_set_pin_output(F1);
+    gpio_set_pin_output(F4);
 }

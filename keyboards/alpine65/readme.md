@@ -4,7 +4,7 @@
 
 This is the QMK firmware repository for the Alpine65, a 65% hotswap keyboard designed by Bitmap Designs and Gondolindrim.
 
-The Alpine65 has entered GB and sucessfully finalized in november 2020; there is no further way to buy an Alpine65 other than the secondhand market. The IC page for the keyboard can be found [here](https://https://geekhack.org/index.php?topic=106974).
+The Alpine65 has entered GB and sucessfully finalized in november 2020; there is no further way to buy an Alpine65 other than the secondhand market. The IC page for the keyboard can be found [here](https://geekhack.org/index.php?topic=106974).
 
 ## How to compile
 

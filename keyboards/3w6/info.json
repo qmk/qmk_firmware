@@ -1,0 +1,10 @@
+{
+    "keyboard_name": "3w6",
+    "manufacturer": "weteor",
+    "url": "https://github.com/weteor/3W6/",
+    "maintainer": "weteor",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x4658"
+    }
+}

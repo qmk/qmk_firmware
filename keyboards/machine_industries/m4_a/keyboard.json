@@ -1,0 +1,42 @@
+{
+    "keyboard_name": "M4-A",
+    "manufacturer": "RAMA WORKS",
+    "url": "http://rama.works",
+    "maintainer": "naut",
+    "usb": {
+        "vid": "0x5241",
+        "pid": "0x004A",
+        "device_version": "0.0.1"
+    },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
+    "matrix_pins": {
+        "cols": ["F6", "F7"],
+        "rows": ["C7", "C6"]
+    },
+    "diode_direction": "ROW2COL",
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [1, 1], "x": 2, "y": 0, "h": 2},
+                {"matrix": [1, 0], "x": 0, "y": 1, "w": 2}
+            ]
+        }
+    }
+}

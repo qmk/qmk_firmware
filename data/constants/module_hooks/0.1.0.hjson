@@ -1,0 +1,25 @@
+{
+    keyboard_pre_init: {
+        ret_type: void
+        args: void
+    }
+    keyboard_post_init: {
+        ret_type: void
+        args: void
+    }
+    pre_process_record: {
+        ret_type: bool
+        args: uint16_t keycode, keyrecord_t *record
+        call_params: keycode, record
+    }
+    process_record: {
+        ret_type: bool
+        args: uint16_t keycode, keyrecord_t *record
+        call_params: keycode, record
+    }
+    post_process_record: {
+        ret_type: void
+        args: uint16_t keycode, keyrecord_t *record
+        call_params: keycode, record
+    }
+}

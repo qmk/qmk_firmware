@@ -1,2 +1,2 @@
-# Bootloader selection
-BOOTLOADER = atmel-dfu
+# Processor frequency
+F_CPU = 8000000

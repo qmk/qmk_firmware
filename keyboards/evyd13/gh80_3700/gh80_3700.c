@@ -13,34 +13,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "gh80_3700.h"
+#include "quantum.h"
 
-void matrix_init_kb(void) {
-  // put your keyboard start-up code here
-  // runs once when the firmware starts up
-
-  matrix_init_user();
-  led_init_ports();
-}
-
-void led_init_ports(void) {
-  setPinOutput(E6);
-  setPinOutput(B1);
-  setPinOutput(D0);
-  setPinOutput(D1);
-  setPinOutput(F0);
+void keyboard_pre_init_kb(void) {
+  gpio_set_pin_output(B1);
+  gpio_set_pin_output(D0);
+  gpio_set_pin_output(D1);
+  gpio_set_pin_output(F0);
   
-  writePinHigh(E6);
-  writePinHigh(B1);
-  writePinHigh(D0);
-  writePinHigh(D1);
-  writePinHigh(F0);
-}
+  gpio_write_pin_high(B1);
+  gpio_write_pin_high(D0);
+  gpio_write_pin_high(D1);
+  gpio_write_pin_high(F0);
 
-bool led_update_kb(led_t led_state) {
-  if(led_update_user(led_state)) {
-    writePin(E6, !led_state.num_lock);
-  }
-
-  return true;
+  keyboard_pre_init_user();
 }

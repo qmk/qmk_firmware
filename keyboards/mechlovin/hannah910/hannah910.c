@@ -13,48 +13,44 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "hannah910.h"
+#include "quantum.h"
 
-void matrix_init_kb(void) {
-  matrix_init_user();
-  led_init_ports();
-};
 void led_init_ports(void) {
-  setPinOutput(B2);
-  setPinOutput(D0);
-  setPinOutput(D1);
-  setPinOutput(D2);
+  gpio_set_pin_output(B2);
+  gpio_set_pin_output(D0);
+  gpio_set_pin_output(D1);
+  gpio_set_pin_output(D2);
 
 }
-void led_set_kb(uint8_t usb_led) {
-  if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-    writePinHigh(B2);
-  } else {
-    writePinLow(B2);
-  }
-      led_set_user(usb_led);
+
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if(res) {
+        gpio_write_pin(B2, led_state.caps_lock);
+    }
+    return res;
 }
 
-uint32_t layer_state_set_user(uint32_t state)
+layer_state_t layer_state_set_user(layer_state_t state)
 {
   // if on layer 1, turn on D2 LED, otherwise off.
-    if (biton32(state) == 1) {
-        writePinHigh(D2);
+    if (get_highest_layer(state) == 1) {
+        gpio_write_pin_high(D2);
     } else {
-        writePinLow(D2);
+        gpio_write_pin_low(D2);
     }
   // if on layer 2, turn on D1 LED, otherwise off.
-    if (biton32(state) == 2) {
-        writePinHigh(D1);
+    if (get_highest_layer(state) == 2) {
+        gpio_write_pin_high(D1);
     } else {
-        writePinLow(D1);
+        gpio_write_pin_low(D1);
     }
 
   // if on layer 3, turn on D0 LED, otherwise off.
-    if (biton32(state) == 3) {
-        writePinHigh(D0);
+    if (get_highest_layer(state) == 3) {
+        gpio_write_pin_high(D0);
     } else {
-        writePinLow(D0);
+        gpio_write_pin_low(D0);
     }
 
     return state;

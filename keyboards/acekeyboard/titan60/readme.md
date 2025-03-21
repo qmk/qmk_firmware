@@ -1,8 +1,11 @@
 # titan60
 
+![Front of the Titan60 PCB](https://i.imgur.com/LaPzdRl.png)
+![Back of the Titan60 PCB](https://i.imgur.com/nbineBj.png)
+
 60% custom keyboard originally meant for the Saturn 60
 
-* Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)
+* Keyboard Maintainer: [keebnewb](https://github.com/thompson-ele)
 * Hardware Supported: Titan 60 PCB
 * Hardware Availability: [Acekeyboard](https://acekeyboard.co/)
 

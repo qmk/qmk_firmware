@@ -1,6 +1,6 @@
-# exent
+# Exent
 
-65% custom keyboard with large bezels. 
+65% custom keyboard with large bezels.
 
 * Keyboard Maintainer: [mechmerlin](https://github.com/mechmerlin)
 * Hardware Supported: Exent PCB
@@ -10,7 +10,7 @@ Make example for this keyboard (after setting up your build environment):
 
     make exent:default
 
-Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](flashing_bootloadhid.md))
+Flashing example for this keyboard:
 
     make exent:default:flash
 

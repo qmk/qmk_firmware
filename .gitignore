@@ -1,79 +1,122 @@
-.history/
-.dep
-*.o
-*.bin
-*.eep
+# Junk files
+*.bak
+*.swp
+*~
+.DS_Store
+._*
+
+# Merge files
+*.orig
+*.rej
+
+# Build artifacts
+.clang_complete
+.build/
 *.elf
-*.hex
-*.qmk
-!util/bootloader.hex
-!quantum/tools/eeprom_reset.hex
 *.log
 *.lss
 *.lst
 *.map
+*.o
+*.a
+*.so
+*.dylib
+*.dll
+*.la
+*.stackdump
 *.sym
-*.swp
-tags
-*~
+index.html
+firmware_list.json
+
+# QMK-specific
 api_data/v1
-build/
-.build/
-*.bak
-.vagrant/
 quantum/version.h
-.idea/
-CMakeLists.txt
-cmake-build-debug
-.clang_complete
-doxygen/
-.DS_Store
-/util/wsl_downloaded
-/util/win_downloaded
-/keyboards/*/Makefile
-/keyboards/*/*/Makefile
-/keyboards/*/*/*/Makefile
-/keyboards/*/*/*/*/Makefile
-/keyboards/*/*/*/*/*/Makefile
-/keyboards/*/keymaps/Makefile
-/keyboards/*/*/keymaps/Makefile
-/keyboards/*/*/*/keymaps/Makefile
-/keyboards/*/*/*/*/keymaps/Makefile
-/keyboards/*/*/*/*/*/keymaps/Makefile
+*.bin
+*.eep
+*.hex
+*.qmk
+*.uf2
+
+# DD config at wrong location
+/keyboards/**/keymaps/*/info.json
+/keyboards/**/keymaps/*/keyboard.json
+
+# Old-style QMK Makefiles
+/keyboards/**/Makefile
+
+# kbfirmware....
+/keyboards/**/kb.h
+/keyboards/**/kb.c
 
 # Eclipse/PyCharm/Other IDE Settings
-.cproject
-.project
-.settings/
-.idea
 *.iml
 .browse.VC.db*
-*.stackdump
+.cproject
+.idea
+.idea/
+.project
+.settings/
+
+# ?
+.dep
+.history/
+build/
+cmake-build-debug
+CMakeLists.txt
+*.pdf
+
 # Let these ones be user specific, since we have so many different configurations
-.vscode/c_cpp_properties.json
-.vscode/launch.json
-.vscode/tasks.json
-.vscode/last.sql
-.vscode/temp.sql
-.vscode/ipch/
+*.code-workspace
 .stfolder
 .tags
+.vscode/c_cpp_properties.json
+.vscode/ipch/
+.vscode/last.sql
+.vscode/launch.json
+.vscode/tasks.json
+.vscode/temp.sql
+tags
 
-# ignore image files
-*.png
+# Ignore image/font files
+*.bmp
+*.wbmp
 *.gif
 *.jpg
+*.jpeg
+*.png
+*.apng
+*.mng
+*.svg
+*.webp
+*.webm
+*.avi
+*.mp4
+*.mpeg
+*.ttf
+*.otf
 
-# things travis sees
-secrets.tar
-id_rsa_*
+# Things Travis sees
 /.vs
+id_rsa_*
+secrets.tar
 
-# python things
+# Python things
 __pycache__
+.python-version
+.venv
 
-# prerequisites for updating ChibiOS
+# Prerequisites for updating ChibiOS
 /util/fmpp*
 
 # Allow to exist but don't include it in the repo
 user_song_list.h
+
+# clangd
+compile_commands.json
+.clangd/
+.cache/
+
+# VIA(L) files that don't belong in QMK repo
+via*.json
+/keyboards/**/keymaps/via/*
+/keyboards/**/keymaps/vial/*

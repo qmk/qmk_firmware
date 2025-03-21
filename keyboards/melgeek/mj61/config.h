@@ -16,4 +16,5 @@
 
 #pragma once
 
-#include "config_common.h"
+#define IS31FL3741_I2C_ADDRESS_1 IS31FL3741_I2C_ADDRESS_GND
+#define IS31FL3741_SDB_PIN A2

@@ -16,98 +16,102 @@
 
 #include "keycode_config.h"
 
-extern keymap_config_t keymap_config;
+keymap_config_t keymap_config;
 
 /** \brief keycode_config
  *
  * This function is used to check a specific keycode against the bootmagic config,
  * and will return the corrected keycode, when appropriate.
  */
-uint16_t keycode_config(uint16_t keycode) {
+__attribute__((weak)) uint16_t keycode_config(uint16_t keycode) {
     switch (keycode) {
-        case KC_CAPSLOCK:
-        case KC_LOCKING_CAPS:
+        case KC_CAPS_LOCK:
+        case KC_LOCKING_CAPS_LOCK:
             if (keymap_config.swap_control_capslock || keymap_config.capslock_to_control) {
-                return KC_LCTL;
+                return KC_LEFT_CTRL;
+            } else if (keymap_config.swap_escape_capslock) {
+                return KC_ESCAPE;
             }
             return keycode;
-        case KC_LCTL:
+        case KC_LEFT_CTRL:
             if (keymap_config.swap_control_capslock) {
-                return KC_CAPSLOCK;
+                return KC_CAPS_LOCK;
             }
             if (keymap_config.swap_lctl_lgui) {
                 if (keymap_config.no_gui) {
                     return KC_NO;
                 }
-                return KC_LGUI;
+                return KC_LEFT_GUI;
             }
-            return KC_LCTL;
-        case KC_LALT:
+            return KC_LEFT_CTRL;
+        case KC_LEFT_ALT:
             if (keymap_config.swap_lalt_lgui) {
                 if (keymap_config.no_gui) {
                     return KC_NO;
                 }
-                return KC_LGUI;
+                return KC_LEFT_GUI;
             }
-            return KC_LALT;
-        case KC_LGUI:
+            return KC_LEFT_ALT;
+        case KC_LEFT_GUI:
             if (keymap_config.swap_lalt_lgui) {
-                return KC_LALT;
+                return KC_LEFT_ALT;
             }
             if (keymap_config.swap_lctl_lgui) {
-                return KC_LCTRL;
+                return KC_LEFT_CTRL;
             }
             if (keymap_config.no_gui) {
                 return KC_NO;
             }
-            return KC_LGUI;
-        case KC_RCTL:
+            return KC_LEFT_GUI;
+        case KC_RIGHT_CTRL:
             if (keymap_config.swap_rctl_rgui) {
                 if (keymap_config.no_gui) {
                     return KC_NO;
                 }
-                return KC_RGUI;
+                return KC_RIGHT_GUI;
             }
-            return KC_RCTL;
-        case KC_RALT:
+            return KC_RIGHT_CTRL;
+        case KC_RIGHT_ALT:
             if (keymap_config.swap_ralt_rgui) {
                 if (keymap_config.no_gui) {
                     return KC_NO;
                 }
-                return KC_RGUI;
+                return KC_RIGHT_GUI;
             }
-            return KC_RALT;
-        case KC_RGUI:
+            return KC_RIGHT_ALT;
+        case KC_RIGHT_GUI:
             if (keymap_config.swap_ralt_rgui) {
-                return KC_RALT;
+                return KC_RIGHT_ALT;
             }
             if (keymap_config.swap_rctl_rgui) {
-                return KC_RCTL;
+                return KC_RIGHT_CTRL;
             }
             if (keymap_config.no_gui) {
                 return KC_NO;
             }
-            return KC_RGUI;
+            return KC_RIGHT_GUI;
         case KC_GRAVE:
             if (keymap_config.swap_grave_esc) {
-                return KC_ESC;
+                return KC_ESCAPE;
             }
             return KC_GRAVE;
-        case KC_ESC:
+        case KC_ESCAPE:
             if (keymap_config.swap_grave_esc) {
                 return KC_GRAVE;
+            } else if (keymap_config.swap_escape_capslock) {
+                return KC_CAPS_LOCK;
             }
-            return KC_ESC;
-        case KC_BSLASH:
+            return KC_ESCAPE;
+        case KC_BACKSLASH:
             if (keymap_config.swap_backslash_backspace) {
-                return KC_BSPACE;
+                return KC_BACKSPACE;
             }
-            return KC_BSLASH;
-        case KC_BSPACE:
+            return KC_BACKSLASH;
+        case KC_BACKSPACE:
             if (keymap_config.swap_backslash_backspace) {
-                return KC_BSLASH;
+                return KC_BACKSLASH;
             }
-            return KC_BSPACE;
+            return KC_BACKSPACE;
         default:
             return keycode;
     }
@@ -119,41 +123,37 @@ uint16_t keycode_config(uint16_t keycode) {
  *  and will remove or replace mods, based on that.
  */
 
-uint8_t mod_config(uint8_t mod) {
+__attribute__((weak)) uint8_t mod_config(uint8_t mod) {
+    /**
+     * Note: This function is for the 5-bit packed mods, NOT the full 8-bit mods.
+     * More info about the mods can be seen in modifiers.h.
+     */
     if (keymap_config.swap_lalt_lgui) {
-        if ((mod & MOD_RGUI) == MOD_LGUI) {
-            mod &= ~MOD_LGUI;
-            mod |= MOD_LALT;
-        } else if ((mod & MOD_RALT) == MOD_LALT) {
-            mod &= ~MOD_LALT;
-            mod |= MOD_LGUI;
+        /** If both modifiers pressed or neither pressed, do nothing
+         * Otherwise swap the values
+         * Note: The left mods are ANDed with the right-hand values to check
+         * if they were pressed with the right hand bit set
+         */
+        if (((mod & MOD_RALT) == MOD_LALT) ^ ((mod & MOD_RGUI) == MOD_LGUI)) {
+            mod ^= (MOD_LALT | MOD_LGUI);
         }
     }
     if (keymap_config.swap_ralt_rgui) {
-        if ((mod & MOD_RGUI) == MOD_RGUI) {
-            mod &= ~MOD_RGUI;
-            mod |= MOD_RALT;
-        } else if ((mod & MOD_RALT) == MOD_RALT) {
-            mod &= ~MOD_RALT;
-            mod |= MOD_RGUI;
+        if (((mod & MOD_RALT) == MOD_RALT) ^ ((mod & MOD_RGUI) == MOD_RGUI)) {
+            /* lefthand values to preserve the right hand bit */
+            mod ^= (MOD_LALT | MOD_LGUI);
         }
     }
     if (keymap_config.swap_lctl_lgui) {
-        if ((mod & MOD_RGUI) == MOD_LGUI) {
-            mod &= ~MOD_LGUI;
-            mod |= MOD_LCTL;
-        } else if ((mod & MOD_RCTL) == MOD_LCTL) {
-            mod &= ~MOD_LCTL;
-            mod |= MOD_LGUI;
+        /* left mods ANDed with right-hand values to check for right hand bit */
+        if (((mod & MOD_RCTL) == MOD_LCTL) ^ ((mod & MOD_RGUI) == MOD_LGUI)) {
+            mod ^= (MOD_LCTL | MOD_LGUI);
         }
     }
     if (keymap_config.swap_rctl_rgui) {
-        if ((mod & MOD_RGUI) == MOD_RGUI) {
-            mod &= ~MOD_RGUI;
-            mod |= MOD_RCTL;
-        } else if ((mod & MOD_RCTL) == MOD_RCTL) {
-            mod &= ~MOD_RCTL;
-            mod |= MOD_RGUI;
+        if (((mod & MOD_RCTL) == MOD_RCTL) ^ ((mod & MOD_RGUI) == MOD_RGUI)) {
+            /* lefthand values to preserve the right hand bit */
+            mod ^= (MOD_LCTL | MOD_LGUI);
         }
     }
     if (keymap_config.no_gui) {

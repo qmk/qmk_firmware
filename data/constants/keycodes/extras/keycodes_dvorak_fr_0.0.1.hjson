@@ -1,0 +1,317 @@
+{
+    "aliases": {
+/* Dvorak for the French language
+ * Version: 2
+ *
+ * The layout is designed by Francis Leboutte <dvorak-fr@algo.be>
+ *
+ * Source: https://algo.be/ergo/dvorak-fr.html
+ */
+/*
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+ * │ « │ » │ / │ - │ è │ \ │ ^ │ ( │ ` │ ) │ _ │ [ │ ] │       │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+ * │     │ : │ ' │ é │ G │ . │ H │ V │ C │ M │ K │ Z │ ¨ │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │      │ O │ A │ U │ E │ B │ F │ S │ T │ N │ D │ W │ ~ │    │
+ * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
+ * │    │ à │ ; │ Q │ , │ I │ Y │ X │ R │ L │ P │ J │          │
+ * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
+ * │    │    │    │                        │    │    │    │    │
+ * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
+ */
+        "KC_GRV": {
+            "key": "DV_LDAQ",
+            "label": "«",
+        }
+        "KC_1": {
+            "key": "DV_RDAQ",
+            "label": "»",
+        }
+        "KC_2": {
+            "key": "DV_SLSH",
+            "label": "/",
+        }
+        "KC_3": {
+            "key": "DV_MINS",
+            "label": "-",
+        }
+        "KC_4": {
+            "key": "DV_EGRV",
+            "label": "è",
+        }
+        "KC_5": {
+            "key": "DV_BSLS",
+            "label": "\\",
+        }
+        "KC_6": {
+            "key": "DV_CIRC",
+            "label": "^ (dead)",
+        }
+        "KC_7": {
+            "key": "DV_LPRN",
+            "label": "(",
+        }
+        "KC_8": {
+            "key": "DV_GRV",
+            "label": "` (dead)",
+        }
+        "KC_9": {
+            "key": "DV_RPRN",
+            "label": ")",
+        }
+        "KC_0": {
+            "key": "DV_UNDS",
+            "label": "_",
+        }
+        "KC_MINS": {
+            "key": "DV_LBRC",
+            "label": "[",
+        }
+        "KC_EQL": {
+            "key": "DV_RBRC",
+            "label": "]",
+        }
+        "KC_Q": {
+            "key": "DV_COLN",
+            "label": ":",
+        }
+        "KC_W": {
+            "key": "DV_QUOT",
+            "label": "'",
+        }
+        "KC_E": {
+            "key": "DV_EACU",
+            "label": "é",
+        }
+        "KC_R": {
+            "key": "DV_G",
+            "label": "G",
+        }
+        "KC_T": {
+            "key": "DV_DOT",
+            "label": ".",
+        }
+        "KC_Y": {
+            "key": "DV_H",
+            "label": "H",
+        }
+        "KC_U": {
+            "key": "DV_V",
+            "label": "V",
+        }
+        "KC_I": {
+            "key": "DV_C",
+            "label": "C",
+        }
+        "KC_O": {
+            "key": "DV_M",
+            "label": "M",
+        }
+        "KC_P": {
+            "key": "DV_K",
+            "label": "K",
+        }
+        "KC_LBRC": {
+            "key": "DV_Z",
+            "label": "Z",
+        }
+        "KC_RBRC": {
+            "key": "DV_DIAE",
+            "label": "¨ (dead)",
+        }
+        "KC_A": {
+            "key": "DV_O",
+            "label": "O",
+        }
+        "KC_S": {
+            "key": "DV_A",
+            "label": "A",
+        }
+        "KC_D": {
+            "key": "DV_U",
+            "label": "U",
+        }
+        "KC_F": {
+            "key": "DV_E",
+            "label": "E",
+        }
+        "KC_G": {
+            "key": "DV_B",
+            "label": "B",
+        }
+        "KC_H": {
+            "key": "DV_F",
+            "label": "F",
+        }
+        "KC_J": {
+            "key": "DV_S",
+            "label": "S",
+        }
+        "KC_K": {
+            "key": "DV_T",
+            "label": "T",
+        }
+        "KC_L": {
+            "key": "DV_N",
+            "label": "N",
+        }
+        "KC_SCLN": {
+            "key": "DV_D",
+            "label": "D",
+        }
+        "KC_QUOT": {
+            "key": "DV_W",
+            "label": "W",
+        }
+        "KC_NUHS": {
+            "key": "DV_TILD",
+            "label": "~ (dead)",
+        }
+        "KC_NUBS": {
+            "key": "DV_AGRV",
+            "label": "à",
+        }
+        "KC_Z": {
+            "key": "DV_SCLN",
+            "label": ";",
+        }
+        "KC_X": {
+            "key": "DV_Q",
+            "label": "Q",
+        }
+        "KC_C": {
+            "key": "DV_COMM",
+            "label": ",",
+        }
+        "KC_V": {
+            "key": "DV_I",
+            "label": "I",
+        }
+        "KC_B": {
+            "key": "DV_Y",
+            "label": "Y",
+        }
+        "KC_N": {
+            "key": "DV_X",
+            "label": "X",
+        }
+        "KC_M": {
+            "key": "DV_R",
+            "label": "R",
+        }
+        "KC_COMM": {
+            "key": "DV_L",
+            "label": "L",
+        }
+        "KC_DOT": {
+            "key": "DV_P",
+            "label": "P",
+        }
+        "KC_SLSH": {
+            "key": "DV_J",
+            "label": "J",
+        }
+/* Shifted symbols
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+ * │ * │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 0 │ 0 │ + │ % │       │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+ * │     │ ? │ < │ > │   │ ! │   │   │   │   │   │   │ = │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │      │   │   │   │   │   │   │   │   │   │   │   │ # │    │
+ * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
+ * │    │ ç │ | │   │ @ │   │   │   │   │   │   │   │          │
+ * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
+ * │    │    │    │                        │    │    │    │    │
+ * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
+ */
+        "S(DV_LDAQ)": {
+            "key": "DV_ASTR",
+            "label": "*",
+        }
+        "S(DV_RDAQ)": {
+            "key": "DV_1",
+            "label": "1",
+        }
+        "S(DV_SLSH)": {
+            "key": "DV_2",
+            "label": "2",
+        }
+        "S(DV_MINS)": {
+            "key": "DV_3",
+            "label": "3",
+        }
+        "S(DV_EGRV)": {
+            "key": "DV_4",
+            "label": "4",
+        }
+        "S(DV_BSLS)": {
+            "key": "DV_5",
+            "label": "5",
+        }
+        "S(DV_CIRC)": {
+            "key": "DV_6",
+            "label": "6",
+        }
+        "S(DV_LPRN)": {
+            "key": "DV_7",
+            "label": "7",
+        }
+        "S(DV_GRV)": {
+            "key": "DV_8",
+            "label": "8",
+        }
+        "S(DV_RPRN)": {
+            "key": "DV_9",
+            "label": "9",
+        }
+        "S(DV_UNDS)": {
+            "key": "DV_0",
+            "label": "0",
+        }
+        "S(DV_LBRC)": {
+            "key": "DV_PLUS",
+            "label": "+",
+        }
+        "S(DV_RBRC)": {
+            "key": "DV_PERC",
+            "label": "%",
+        }
+        "S(DV_COLN)": {
+            "key": "DV_QUES",
+            "label": "?",
+        }
+        "S(DV_QUOT)": {
+            "key": "DV_LABK",
+            "label": "<",
+        }
+        "S(DV_EACU)": {
+            "key": "DV_RABK",
+            "label": ">",
+        }
+        "S(DV_DOT)": {
+            "key": "DV_EXLM",
+            "label": "!",
+        }
+        "S(DV_DIAE)": {
+            "key": "DV_EQL",
+            "label": "=",
+        }
+        "S(DV_TILD)": {
+            "key": "DV_HASH",
+            "label": "#",
+        }
+        "S(DV_AGRV)": {
+            "key": "DV_CCED",
+            "label": "ç",
+        }
+        "S(DV_SCLN)": {
+            "key": "DV_PIPE",
+            "label": "|",
+        }
+        "S(DV_COMM)": {
+            "key": "DV_AT",
+            "label": "@",
+        }
+    }
+}

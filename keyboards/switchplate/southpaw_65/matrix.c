@@ -13,15 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <stdint.h>
-#include <stdbool.h>
-#include <avr/io.h>
-#include <string.h>
 #include "matrix.h"
 #include "pca9555.h"
-#include "quantum.h"
-
-#include "debug.h"
 
 // PCA9555 slave addresses
 #define IC1 0x20
@@ -51,11 +44,14 @@ static void select_row(uint8_t row) {
 
 static uint32_t read_cols(void) {
     //Read column inputs. Pins 13-31 are used. Split across both ICs but they are sequential
-    uint32_t state_1 = pca9555_readPins(IC1, PCA9555_PORT1);
-    uint32_t state_2 = pca9555_readPins(IC2, PCA9555_PORT0);
-    uint32_t state_3 = pca9555_readPins(IC2, PCA9555_PORT1);
+    uint8_t state_1 = 0;
+    uint8_t state_2 = 0;
+    uint8_t state_3 = 0;
+    pca9555_read_pins(IC1, PCA9555_PORT1, &state_1);
+    pca9555_read_pins(IC2, PCA9555_PORT0, &state_2);
+    pca9555_read_pins(IC2, PCA9555_PORT1, &state_3);
 
-    uint32_t state = (((state_3 & 0b01111111) << 12) | (state_2 << 4) | ((state_1 & 0b11110000) >> 4));
+    uint32_t state = ((((uint32_t)state_3 & 0b01111111) << 12) | ((uint32_t)state_2 << 4) | (((uint32_t)state_1 & 0b11110000) >> 4));
     return ~state;
 }
 

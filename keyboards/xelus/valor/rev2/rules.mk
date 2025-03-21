@@ -1,0 +1,3 @@
+RGB_MATRIX_CUSTOM_KB = yes
+
+OPT = 2

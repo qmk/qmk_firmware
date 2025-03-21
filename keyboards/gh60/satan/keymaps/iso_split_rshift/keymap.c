@@ -47,10 +47,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------------------------------------------------------'   LEFT DWN RIGHT
      */
     [_DEF] = LAYOUT_60_iso_split_rshift(
-        KC_GRV,   KC_1,    KC_2,    KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,   \
-        TABDUAL,  KC_Q,    KC_W,    KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O,    KC_P,    KC_LBRC, KC_RBRC, \
-        CAPSDUAL, KC_A,    KC_S,    KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L,    KC_SCLN, KC_QUOT, KC_NUHS, ENTERDUAL, \
-        KC_LSFT,  KC_NUBS, KC_Z,    KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT,  KC_SLSH, ARRUP,   TG(_SFX),      \
+        KC_GRV,   KC_1,    KC_2,    KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,
+        TABDUAL,  KC_Q,    KC_W,    KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O,    KC_P,    KC_LBRC, KC_RBRC,
+        CAPSDUAL, KC_A,    KC_S,    KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L,    KC_SCLN, KC_QUOT, KC_NUHS, ENTERDUAL,
+        KC_LSFT,  KC_NUBS, KC_Z,    KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT,  KC_SLSH, ARRUP,   TG(_SFX),
         KC_LCTL,  KC_LGUI, KC_LALT,             SPACEDUAL,                       KC_RALT, ARRLEFT, ARRDOWN, ARRRIGHT),
 
     /* Keymap 1: F-and-vim Layer, modified with Space (by holding space)
@@ -67,10 +67,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------------------------------------------------------'
      */
     [_SPC] = LAYOUT_60_iso_split_rshift(
-        KC_PSCR, KC_F1,   KC_F2,   KC_F3,     KC_F4,     KC_F5,     KC_F6,    KC_F7,     KC_F8,     KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  \
-        _______, KC_PAUS, KC_UP,   GER_BRC_L, GER_BRC_R, _______,   _______,  GER_PAR_L, GER_PAR_R, _______, _______, _______, _______, \
-        _______, KC_LEFT, KC_DOWN, KC_RIGHT,  _______,   _______,   KC_LEFT,  KC_DOWN,   KC_UP,     KC_RGHT, _______, _______, _______, KC_MPLY, \
-        _______, _______, _______, _______,   GER_ANG_L, GER_ANG_R, KC_SPACE, RALT(KC_SPC),_______,   _______, _______, _______, KC_VOLU, _______, \
+        KC_PSCR, KC_F1,   KC_F2,   KC_F3,     KC_F4,     KC_F5,     KC_F6,    KC_F7,     KC_F8,     KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,
+        _______, KC_PAUS, KC_UP,   GER_BRC_L, GER_BRC_R, _______,   _______,  GER_PAR_L, GER_PAR_R, _______, _______, _______, _______,
+        _______, KC_LEFT, KC_DOWN, KC_RIGHT,  _______,   _______,   KC_LEFT,  KC_DOWN,   KC_UP,     KC_RGHT, _______, _______, _______, KC_MPLY,
+        _______, _______, _______, _______,   GER_ANG_L, GER_ANG_R, KC_SPACE, RALT(KC_SPC),_______,   _______, _______, _______, KC_VOLU, _______,
         _______, _______, _______,                                  _______,                                 _______, KC_MPRV, KC_VOLD, KC_MNXT),
 
     /* Keymap 2: Tab Layer w/ vim pageup, modified with Tab (by holding tab)
@@ -87,10 +87,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------------------------------------------------------'
      */
     [_TAB] = LAYOUT_60_iso_split_rshift(
-        KC_WAKE, _______, _______, _______, _______, _______, _______, _______,    _______,  _______, _______, _______, _______, KC_INS,  \
-        _______, _______, _______, _______, _______, _______, _______, GER_CUR_L, GER_CUR_R, _______, _______, _______, _______, \
-        _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN,    KC_PGUP,  KC_END,  _______, _______, _______, KC_ENT,  \
-        _______, _______, _______, _______, _______, _______, _______, A(KC_F2),   _______,  _______, _______, _______, KC_PGUP, _______, \
+        KC_WAKE, _______, _______, _______, _______, _______, _______, _______,    _______,  _______, _______, _______, _______, KC_INS,
+        _______, _______, _______, _______, _______, _______, _______, GER_CUR_L, GER_CUR_R, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN,    KC_PGUP,  KC_END,  _______, _______, _______, KC_ENT,
+        _______, _______, _______, _______, _______, _______, _______, A(KC_F2),   _______,  _______, _______, _______, KC_PGUP, _______,
         _______, _______, _______,                            _______,                                _______, KC_HOME, KC_PGDN, KC_END),
 
     /* Keymap 3: Split right shift Numpad toggle Layer (by tapping the split rshift key)
@@ -107,9 +107,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------------------------------------------------------'
      */
     [_SFX] = LAYOUT_60_iso_split_rshift(
-        RESET,   _______, _______, _______, _______, _______, _______, KC_7,    KC_8,    KC_9, _______, _______, _______, KC_BSPC, \
-        _______, _______, _______, _______, _______, _______, _______, KC_4,    KC_5,    KC_6, _______, _______, _______, \
-        _______, RGB_TOG, RGB_MOD, _______, _______, _______, _______, KC_1,    KC_2,    KC_3, _______, _______, XXXXXXX, KC_ENT,  \
-        _______, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, KC_0, _______, KC_SLSH, KC_UP,   _______, \
+        QK_BOOT, _______, _______, _______, _______, _______, _______, KC_7,    KC_8,    KC_9, _______, _______, _______, KC_BSPC,
+        _______, _______, _______, _______, _______, _______, _______, KC_4,    KC_5,    KC_6, _______, _______, _______,
+        _______, UG_TOGG, UG_NEXT, _______, _______, _______, _______, KC_1,    KC_2,    KC_3, _______, _______, XXXXXXX, KC_ENT,
+        _______, UG_HUEU, UG_HUED, UG_SATU, UG_SATD, UG_VALU, UG_VALD, _______, _______, KC_0, _______, KC_SLSH, KC_UP,   _______,
         _______, _______, _______,                            _______,                         _______, KC_LEFT, KC_DOWN, KC_RGHT),
 };

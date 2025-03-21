@@ -1,3 +1,0 @@
-BACKLIGHT_ENABLE = no
-
-LAYOUTS = ortho_5x14

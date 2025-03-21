@@ -28,8 +28,7 @@ bool command_extra(uint8_t code);
 bool command_console_extra(uint8_t code);
 
 #ifdef COMMAND_ENABLE
-uint8_t numkey2num(uint8_t code);
-bool    command_proc(uint8_t code);
+bool command_proc(uint8_t code);
 #else
 #    define command_proc(code) false
 #endif
@@ -147,7 +146,7 @@ bool    command_proc(uint8_t code);
 #endif
 
 #ifndef MAGIC_KEY_EEPROM_CLEAR
-#    define MAGIC_KEY_EEPROM_CLEAR BSPACE
+#    define MAGIC_KEY_EEPROM_CLEAR BACKSPACE
 #endif
 
 #ifndef MAGIC_KEY_NKRO

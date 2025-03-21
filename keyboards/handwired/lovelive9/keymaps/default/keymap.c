@@ -154,26 +154,22 @@ int aqours_color_v[] = {255, 255, 255, 255, 255, 255, 200, 255, 255};
 
 void LED_default_set(void) {
 
-  sethsv(aqours_color_h[2], aqours_color_s[2], aqours_color_v[2], (LED_TYPE *)&led[0]);
-  sethsv(aqours_color_h[7], aqours_color_s[7], aqours_color_v[7], (LED_TYPE *)&led[1]);
-  sethsv(aqours_color_h[1], aqours_color_s[1], aqours_color_v[1], (LED_TYPE *)&led[2]);
-  sethsv(aqours_color_h[5], aqours_color_s[5], aqours_color_v[5], (LED_TYPE *)&led[3]);
-  sethsv(aqours_color_h[8], aqours_color_s[8], aqours_color_v[8], (LED_TYPE *)&led[4]);
-  sethsv(aqours_color_h[6], aqours_color_s[6], aqours_color_v[6], (LED_TYPE *)&led[5]);
-  sethsv(aqours_color_h[0], aqours_color_s[0], aqours_color_v[0], (LED_TYPE *)&led[6]);
-  sethsv(aqours_color_h[4], aqours_color_s[4], aqours_color_v[4], (LED_TYPE *)&led[7]);
-  sethsv(aqours_color_h[3], aqours_color_s[3], aqours_color_v[3], (LED_TYPE *)&led[8]);
-
-  rgblight_set();
-
+  rgblight_sethsv_at(aqours_color_h[2], aqours_color_s[2], aqours_color_v[2], 0);
+  rgblight_sethsv_at(aqours_color_h[7], aqours_color_s[7], aqours_color_v[7], 1);
+  rgblight_sethsv_at(aqours_color_h[1], aqours_color_s[1], aqours_color_v[1], 2);
+  rgblight_sethsv_at(aqours_color_h[5], aqours_color_s[5], aqours_color_v[5], 3);
+  rgblight_sethsv_at(aqours_color_h[8], aqours_color_s[8], aqours_color_v[8], 4);
+  rgblight_sethsv_at(aqours_color_h[6], aqours_color_s[6], aqours_color_v[6], 5);
+  rgblight_sethsv_at(aqours_color_h[0], aqours_color_s[0], aqours_color_v[0], 6);
+  rgblight_sethsv_at(aqours_color_h[4], aqours_color_s[4], aqours_color_v[4], 7);
+  rgblight_sethsv_at(aqours_color_h[3], aqours_color_s[3], aqours_color_v[3], 8);
 }
 
 
 void LED_layer_set(int aqours_index) {
   for (int c = 0; c < 9; c++) {
-    sethsv(aqours_color_h[aqours_index], aqours_color_s[aqours_index], aqours_color_v[aqours_index], (LED_TYPE *)&led[c]);
+    rgblight_sethsv_at(aqours_color_h[aqours_index], aqours_color_s[aqours_index], aqours_color_v[aqours_index], c);
   }
-  rgblight_set();
 }
 
 

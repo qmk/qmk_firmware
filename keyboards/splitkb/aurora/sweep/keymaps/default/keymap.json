@@ -1,0 +1,84 @@
+{
+    "keyboard": "splitkb/aurora/sweep/rev1",
+    "keymap": "default",
+    "version": 1,
+    "layout": "LAYOUT",
+    "layers": [
+        [
+            "KC_Q"        , "KC_W"        , "KC_E"           , "KC_R"          , "KC_T"          , "KC_Y"          , "KC_U"        , "KC_I"           , "KC_O"          , "KC_P",
+            "LSFT_T(KC_A)", "LT(5,KC_S)"  , "LT(1,KC_D)"     , "LT(3,KC_F)"    , "KC_G"          , "KC_H"          , "LT(4,KC_J)"  , "LT(2,KC_K)"     , "LT(6,KC_L)"    , "LSFT_T(KC_SCLN)",
+            "KC_Z"        , "LCTL_T(KC_X)", "LALT_T(KC_C)"   , "KC_V"          , "KC_B"          , "KC_N"          , "KC_M"        , "LALT_T(KC_COMM)", "LCTL_T(KC_DOT)", "KC_SLSH",
+                                                               "KC_P0"         , "KC_BSPC"       , "LT(7,KC_SPC)"  , "KC_P1"
+        ],
+        [
+            "RM_TOGG"     , "RM_NEXT"     , "RM_HUEU"        , "RM_SATU"       , "RM_VALU"       , "RM_SPDU"       , "KC_BTN1"     , "KC_WH_U"        , "KC_BTN2"       , "KC_TRNS",
+            "KC_TRNS"     , "KC_BTN2"     , "KC_NO"          , "KC_BTN1"       , "KC_TRNS"       , "KC_TRNS"       , "KC_MS_L"     , "KC_MS_D"        , "KC_MS_U"       , "KC_MS_R",
+            "KC_TRNS"     , "RM_PREV"     , "RM_HUED"        , "RM_SATD"       , "RM_VALD"       , "RM_SPDD"       , "KC_WH_L"     , "KC_WH_D"        , "KC_WH_R"       , "KC_TRNS",
+                                                               "KC_TRNS"       , "KC_TRNS"       , "KC_TRNS"       , "KC_TRNS"
+        ],
+        [
+            "KC_TRNS"     , "KC_TRNS"     , "KC_PGUP"        , "KC_TRNS"       , "KC_TRNS"       , "KC_TRNS"       , "KC_TRNS"     , "KC_TRNS"        , "KC_TRNS"       , "KC_TRNS",
+            "KC_LEFT"     , "KC_UP"       , "KC_DOWN"        , "KC_RGHT"       , "KC_TRNS"       , "KC_TRNS"       , "KC_LGUI"     , "KC_NO"          , "LCTL(KC_LALT)" , "LCA(KC_LSFT)",
+            "KC_TRNS"     , "KC_HOME"     , "KC_PGDN"        , "KC_END"        , "KC_TRNS"       , "KC_TRNS"       , "KC_TRNS"     , "KC_TRNS"        , "KC_TRNS"       , "KC_TRNS",
+                                                               "KC_TRNS"       , "KC_TRNS"       , "KC_TRNS"       , "KC_TRNS"
+        ],
+        [
+            "KC_TRNS"     , "KC_TRNS"     , "KC_TRNS"        , "KC_TRNS"       , "KC_TRNS"       , "KC_TRNS"       , "KC_UNDS"     , "KC_PIPE"        , "KC_QUOT"       , "KC_TRNS",
+            "KC_CIRC"     , "KC_ASTR"     , "KC_AMPR"        , "KC_NO"         , "KC_TRNS"       , "KC_HASH"       , "KC_TILD"     , "KC_SLSH"        , "KC_DQUO"       , "KC_DLR",
+            "KC_TRNS"     , "KC_TRNS"     , "KC_TRNS"        , "KC_TRNS"       , "KC_TRNS"       , "KC_TRNS"       , "KC_MINS"     , "KC_BSLS"        , "KC_GRV"        , "KC_TRNS",
+                                                               "RM_PREV"       , "KC_TRNS"       , "KC_TRNS"       , "RM_NEXT"
+        ],
+        [
+            "KC_TRNS"     , "KC_COLN"     , "KC_LT"          , "KC_GT"         , "KC_SCLN"       , "KC_TRNS"       , "KC_TRNS"     , "KC_TRNS"        , "KC_TRNS"       , "KC_TRNS",
+            "KC_LCBR"     , "KC_RCBR"     , "KC_LPRN"        , "KC_RPRN"       , "KC_AT"         , "KC_TRNS"       , "KC_NO"       , "KC_EQL"         , "KC_PLUS"       , "KC_PERC",
+            "KC_TRNS"     , "KC_EXLM"     , "KC_LBRC"        , "KC_RBRC"       , "KC_TRNS"       , "KC_TRNS"       , "KC_TRNS"     , "KC_TRNS"        , "KC_TRNS"       , "KC_TRNS",
+                                                               "KC_VOLD"       , "KC_TRNS"       , "KC_TRNS"       , "KC_VOLU"
+        ],
+        [
+            "KC_TRNS"     , "KC_TRNS"     , "KC_TRNS"        , "KC_TRNS"       , "KC_TRNS"       , "KC_TRNS"       , "KC_F7"       , "KC_F8"          , "KC_F9"         , "KC_F10",
+            "KC_TRNS"     , "KC_NO"       , "LCTL(KC_LALT)"  , "KC_TRNS"       , "KC_TRNS"       , "KC_TRNS"       , "KC_F4"       , "KC_F5"          , "KC_F6"         , "KC_F11",
+            "KC_TRNS"     , "KC_TRNS"     , "KC_TRNS"        , "KC_TRNS"       , "KC_TRNS"       , "KC_TRNS"       , "KC_F1"       , "KC_F2"          , "KC_F3"         , "KC_F12",
+                                                               "KC_TRNS"       , "KC_TRNS"       , "KC_TRNS"       , "KC_TRNS"
+        ],
+        [
+            "KC_PSLS"     , "KC_7"        , "KC_8"           , "KC_9"          , "KC_PPLS"       , "KC_TRNS"       , "KC_TRNS"     , "KC_TRNS"        , "KC_TRNS"       , "KC_TRNS",
+            "KC_0"        , "KC_1"        , "KC_2"           , "KC_3"          , "KC_PMNS"       , "KC_TRNS"       , "KC_TRNS"     , "KC_TRNS"        , "KC_NO"         , "KC_TRNS",
+            "KC_PAST"     , "KC_4"        , "KC_5"           , "KC_6"          , "KC_PEQL"       , "KC_TRNS"       , "KC_TRNS"     , "KC_TRNS"        , "KC_TRNS"       , "KC_TRNS",
+                                                               "KC_TRNS"       , "KC_TRNS"       , "KC_TRNS"       , "KC_TRNS"
+        ],
+        [
+            "KC_TRNS"     , "KC_TRNS"     , "KC_COLN"        , "KC_ESC"        , "KC_TRNS"       , "KC_TRNS"       , "KC_TRNS"     , "KC_TRNS"        , "KC_TRNS"       , "KC_DEL",
+            "KC_TRNS"     , "KC_PERC"     , "KC_SLSH"        , "KC_ENT"        , "KC_TRNS"       , "DF(1)"         , "KC_LGUI"     , "KC_TRNS"        , "KC_TRNS"       , "KC_TRNS",
+            "KC_TRNS"     , "KC_TRNS"     , "KC_TRNS"        , "KC_EXLM"       , "KC_TRNS"       , "DF(0)"         , "KC_TRNS"     , "RALT_T(KC_COMM)", "RCTL_T(KC_DOT)", "QK_BOOT",
+                                                               "KC_TRNS"       , "KC_TAB"        , "KC_NO"         , "KC_TRNS"
+        ]
+    ],
+    "config": {
+        "features": {
+            "oled": true,
+            "rgb_matrix": true,
+            "rgblight": false
+        },
+        "encoder": {
+            "enabled": true
+        },
+        "rgblight": {
+            "hue_steps": 8,
+            "saturation_steps": 8,
+            "brightness_steps": 8,
+            "sleep": true
+        }
+    },
+    "mouse_key": {
+        "enabled": true,
+        "interval": 16,
+        "time_to_max": 40,
+        "delay": 100,
+        "wheel_delay": 100
+    },
+    "tapping": {
+        "term": 200,
+        "permissive_hold": true,
+        "force_hold": true
+    }
+}

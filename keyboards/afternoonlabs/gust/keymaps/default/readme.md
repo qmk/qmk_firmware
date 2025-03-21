@@ -1,5 +1,5 @@
 # Default Gust Layout
 
-![Gust Layout Image](https://i.imgur.com/S94jViT.jpeg)
+![Gust Layout Image](https://i.imgur.com/HfouVnS.png)
 
 This is the default layout for Gust Macro Board.

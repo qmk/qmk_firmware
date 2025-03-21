@@ -17,25 +17,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x5352 // "SR"
-#define PRODUCT_ID   0x0201 // Second Product First Version
-#define DEVICE_VER   0x1912 // 2019.12
-#define MANUFACTURER SiRius
-#define PRODUCT      Uni660
 
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16
 
 #define ONESHOT_TIMEOUT 500
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-//#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-//#define LOCKING_RESYNC_ENABLE
 
 /*
  * Feature disable options
@@ -52,18 +39,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
-
-//UART settings for communication with the RF microcontroller
-#define SERIAL_UART_BAUD 1000000
-#define SERIAL_UART_RXD_PRESENT (UCSR1A & _BV(RXC1))
-#define SERIAL_UART_INIT_CUSTOM       \
-    /* enable TX and RX */            \
-    UCSR1B = _BV(TXEN1) | _BV(RXEN1); \
-    /* 8-bit data */                  \
-    UCSR1C = _BV(UCSZ11) | _BV(UCSZ10);
-
-#define DYNAMIC_KEYMAP_LAYER_COUNT 4

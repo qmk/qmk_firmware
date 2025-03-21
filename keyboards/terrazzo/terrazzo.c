@@ -17,12 +17,7 @@
 #include "terrazzo.h"
 
 #ifdef LED_MATRIX_ENABLE
-    #include "is31fl3731-simple.h"
-    #include <math.h>
-    #include "print.h"
-    #include "quantum.h"
-
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  * https://cdn-learn.adafruit.com/downloads/pdf/adafruit-15x7-7x15-charlieplex-led-matrix-charliewing-featherwing.pdf
  */
@@ -58,8 +53,8 @@ uint8_t terrazzo_effect = 1;
 
 void terrazzo_set_pixel(uint8_t x, uint8_t y, uint8_t value) {
     uint8_t target = y * LED_MATRIX_COLS + x;
-    if (target < DRIVER_LED_TOTAL && target >= 0) {
-      led_matrix_set_index_value(y * LED_MATRIX_COLS + x, value);
+    if (target < LED_MATRIX_LED_COUNT && target >= 0) {
+      led_matrix_set_value(y * LED_MATRIX_COLS + x, value);
     }
 }
 
@@ -83,12 +78,12 @@ void terrazzo_scroll_pixel(bool clockwise) {
         terrazzo_led_index = terrazzo_led_index + 1;
     } else {
         terrazzo_led_index = terrazzo_led_index - 1;
-    } 
-    
-    if (terrazzo_led_index >= DRIVER_LED_TOTAL) {
+    }
+
+    if (terrazzo_led_index >= LED_MATRIX_LED_COUNT) {
         terrazzo_led_index = 0;
     } else if (terrazzo_led_index <= 0 ) {
-        terrazzo_led_index = DRIVER_LED_TOTAL - 1;
+        terrazzo_led_index = LED_MATRIX_LED_COUNT - 1;
     }
 }
 
@@ -113,7 +108,7 @@ void terrazzo_mode_off(void) {
 void terrazzo_render(void) {
     switch(terrazzo_effect) {
         case TERRAZZO_NONE:
-            led_matrix_set_index_value_all(0);
+            led_matrix_set_value_all(0);
             break;
         #define TERRAZZO_EFFECT(name, ...)              \
             case TERRAZZO_EFFECT_##name:                \
@@ -124,8 +119,12 @@ void terrazzo_render(void) {
     }
 }
 
-void led_matrix_indicators_kb(void) {
+bool led_matrix_indicators_kb(void) {
+    if (!led_matrix_indicators_user()) {
+        return false;
+    }
     terrazzo_render();
+    return true;
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {

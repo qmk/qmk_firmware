@@ -113,7 +113,7 @@ void send_color(uint8_t r, uint8_t g, uint8_t b, enum Device device) {
 }
 
 // Port from backlight_set_state
-void indicator_leds_set(bool leds[8]) {
+void indicator_leds_set(bool leds[7]) {
   cli();
   send_color(leds[1] ? 255 : 0, leds[2] ? 255 : 0, leds[0] ? 255 : 0, Device_STATUSLED);
   send_color(leds[4] ? 255 : 0, leds[3] ? 255 : 0, leds[5] ? 255 : 0, Device_STATUSLED);

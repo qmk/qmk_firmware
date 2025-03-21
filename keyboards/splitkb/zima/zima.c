@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "zima.h"
+#include "quantum.h"
 #include <stdio.h>
 
 #ifdef HAPTIC_ENABLE
@@ -21,7 +21,7 @@
 extern haptic_config_t haptic_config;
 #endif
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 static bool is_asleep = false;
 static uint32_t oled_timer;
 
@@ -35,12 +35,17 @@ void suspend_wakeup_init_kb(void) {
     suspend_wakeup_init_user();
 }
 
-__attribute__((weak)) oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_180; }
+oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
+    return OLED_ROTATION_180;
+}
 
-__attribute__((weak)) void oled_task_user(void) {
+bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
+    }
     if (is_asleep) {
         oled_off();
-        return;
+        return false;
     }
 
     if (timer_elapsed32(oled_timer) < 30000) {
@@ -83,6 +88,7 @@ __attribute__((weak)) void oled_task_user(void) {
             oled_off();
         }
     }
+    return false;
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
@@ -93,13 +99,8 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 #endif
 
 #ifdef ENCODER_ENABLE
-__attribute__((weak)) void encoder_update_user(uint8_t index, bool clockwise) {
-    if (clockwise) {
-        tap_code16(KC_VOLU);
-    } else {
-        tap_code16(KC_VOLD);
-    }
-#    ifdef OLED_DRIVER_ENABLE
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+#    ifdef OLED_ENABLE
     oled_timer = timer_read32();
 #    endif
 #    if defined(AUDIO_ENABLE) && defined(AUDIO_CLICKY)
@@ -108,5 +109,12 @@ __attribute__((weak)) void encoder_update_user(uint8_t index, bool clockwise) {
 #    ifdef HAPTIC_ENABLE
     if (haptic_config.enable) haptic_play();
 #    endif
+    if (!encoder_update_user(index, clockwise)) return false;
+    if (clockwise) {
+        tap_code16(KC_VOLU);
+    } else {
+        tap_code16(KC_VOLD);
+    }
+    return true;
 }
 #endif

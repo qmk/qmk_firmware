@@ -2,8 +2,6 @@
     "keyboard_name": "Fullsize ISO layout",
     "url": "",
     "maintainer": "qmk",
-    "width": 22.5,
-    "height": 6.25,
     "layouts": {
         "LAYOUT_fullsize_iso": {
             "layout": [

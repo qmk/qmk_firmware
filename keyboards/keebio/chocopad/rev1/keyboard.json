@@ -1,0 +1,41 @@
+{
+    "keyboard_name": "Chocopad Rev. 1",
+    "usb": {
+        "pid": "0x1144",
+        "device_version": "1.0.0"
+    },
+    "development_board": "promicro",
+    "matrix_pins": {
+        "cols": ["D2", "D4", "F6", "F5"],
+        "rows": ["D7", "E6", "B3", "B2"]
+    },
+    "diode_direction": "COL2ROW",
+    "features": {
+        "extrakey": true,
+        "mousekey": true,
+        "backlight": true,
+        "rgblight": true
+    },
+    "backlight": {
+        "pin": "B5",
+        "levels": 6
+    },
+    "ws2812": {
+        "pin": "D3"
+    },
+    "rgblight": {
+        "led_count": 4,
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        }
+    }
+}

@@ -2,11 +2,11 @@
 
 ![Gust](https://i.imgur.com/S94jViT.jpeg)
 
-Gust Macro Board is a simple 6 key cluster that comes as a free bonus with the [Breeze Split Keyboard](https://afternoonlabs.com/breeze).
+Gust Macro Board is a simple 3x3 key macro board. The bottom row can be snapped off to get a 2x3 board. Gust comes as a free bonus with the [Breeze Split Keyboard](https://afternoonlabs.com/breeze).
 
-* Keyboard Maintainer: [Eithan Shavit](https://github.com/eithanshavit)
+* Keyboard Maintainer: [Afternoon Labs](https://github.com/afternoonlabs)
 * Hardware Supported: Gust Rev1 PCB
-* Hardware Availability: Coming soon
+* Hardware Availability: [store.afternoonlab.com](https://store.afternoonlabs.com)
 
 Make example for this keyboard (after setting up your build environment):
 
