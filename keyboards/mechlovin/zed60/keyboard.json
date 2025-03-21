@@ -49,7 +49,8 @@
         "pin": "A7"
     },
     "layout_aliases": {
-        "LAYOUT_all": "LAYOUT_60_ansi_split_bs_rshift"
+        "LAYOUT_all": "LAYOUT_60_ansi_split_bs_rshift",
+        "LAYOUT_60_tsangan_hhkb": "LAYOUT_60_ansi_tsangan_split_bs_rshift"
     },
     "layouts": {
         "LAYOUT_60_ansi": {
@@ -250,7 +251,7 @@
                 {"matrix": [4, 13], "x": 13.75, "y": 4, "w": 1.25}
             ]
         },
-        "LAYOUT_60_tsangan_hhkb": {
+        "LAYOUT_60_ansi_tsangan_split_bs_rshift": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
@@ -312,7 +313,7 @@
                 {"matrix": [4, 2], "x": 2.5, "y": 4, "w": 1.5},
                 {"matrix": [4, 6], "x": 4, "y": 4, "w": 7},
                 {"matrix": [4, 11], "x": 11, "y": 4, "w": 1.5},
-                {"matrix": [4, 12], "x": 12, "y": 4},
+                {"matrix": [4, 12], "x": 12.5, "y": 4},
                 {"matrix": [4, 13], "x": 13.5, "y": 4, "w": 1.5}
             ]
         }
