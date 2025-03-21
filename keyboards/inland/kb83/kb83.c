@@ -317,7 +317,7 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
     }
     if(active){
         keymap_config.no_gui = 0;
-        eeconfig_update_keymap(keymap_config.raw);
+        eeconfig_update_keymap(&keymap_config);
     }
     return true;
 }

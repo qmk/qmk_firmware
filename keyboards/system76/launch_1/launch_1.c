@@ -16,6 +16,7 @@
  */
 
 #include "quantum.h"
+#include "eeprom.h"
 
 #include "usb_mux.h"
 
@@ -73,7 +74,7 @@ led_config_t g_led_config = { {
 } };
 #endif // RGB_MATRIX_ENABLE
 
-bool eeprom_is_valid(void) { 
+bool eeprom_is_valid(void) {
     return (
         eeprom_read_word(((void *)EEPROM_MAGIC_ADDR)) == EEPROM_MAGIC &&
         eeprom_read_byte(((void *)EEPROM_VERSION_ADDR)) == EEPROM_VERSION

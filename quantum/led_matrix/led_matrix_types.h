@@ -71,7 +71,7 @@ typedef struct PACKED {
     uint8_t     flags[LED_MATRIX_LED_COUNT];
 } led_config_t;
 
-typedef union {
+typedef union led_eeconfig_t {
     uint32_t raw;
     struct PACKED {
         uint8_t     enable : 2;

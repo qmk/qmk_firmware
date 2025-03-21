@@ -42,4 +42,7 @@
 // 6 for 3x custom encoder settings, left, right, and press (18 bytes)
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 20
 
-
+// And if VIA isn't enabled, fall back to using standard QMK for configuration
+#ifndef VIA_ENABLE
+#define EECONFIG_KB_DATA_SIZE VIA_EEPROM_CUSTOM_CONFIG_SIZE
+#endif

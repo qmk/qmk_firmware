@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <stdlib.h>
 #include "keycode_lookup.h"
 #include "quantum_keycodes.h"
 #include "keymap_us.h"

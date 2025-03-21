@@ -115,7 +115,7 @@ enum led_matrix_effects {
 };
 
 void eeconfig_update_led_matrix_default(void);
-void eeconfig_update_led_matrix(void);
+void eeconfig_force_flush_led_matrix(void);
 void eeconfig_debug_led_matrix(void);
 
 uint8_t led_matrix_map_row_column_to_led_kb(uint8_t row, uint8_t column, uint8_t *led_i);
