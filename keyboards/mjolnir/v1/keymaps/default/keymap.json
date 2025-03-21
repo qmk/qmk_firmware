@@ -5,18 +5,18 @@
   "layout": "LAYOUT_split",
   "layers": [
     [
-                 "KC_GRV",  "KC_2",     "KC_3",     "KC_4",     "KC_5",   "KC_6",            "KC_K", "KC_O", "KC_P", "KC_K", "KC_K", "KC_K", "KC_K",
-      "KC_TAB",  "KC_1",    "KC_W",     "KC_E",     "KC_R",     "KC_T",   "KC_PIPE",         "KC_K", "KC_O", "KC_P", "KC_K", "KC_K", "KC_K", "KC_K", "KC_K",
-      "KC_LSFT", "KC_Q",    "KC_S",     "KC_D",     "KC_F",     "KC_G",   "KC_LBRC",         "KC_K", "KC_O", "KC_P", "KC_K", "KC_K", "KC_K", "KC_K", "KC_K",
-      "KC_LCTL", "KC_A",    "KC_X",     "KC_C",     "KC_V",     "KC_B",                              "KC_O", "KC_P", "KC_K", "KC_K", "KC_K", "KC_K", "KC_K",
-                 "KC_Z",    "KC_LGUI",  "KC_LALT",  "KC_LGUI",                                               "KC_P", "KC_K", "KC_K", "KC_K", "KC_K", "KC_K",
-                                                                                                                                     "KC_K",
+                 "KC_GRV",  "KC_2",     "KC_3",     "KC_4",     "KC_5",   "KC_ESC",           "KC_ESC",  "KC_6",           "KC_7",    "KC_8",    "KC_9",     "KC_SLSH",  "KC_GRV",
+      "KC_TAB",  "KC_1",    "KC_W",     "KC_E",     "KC_R",     "KC_T",   "KC_PIPE",          "KC_PIPE", "KC_KP_ASTERISK", "KC_U",    "KC_I",    "KC_O",     "KC_0",     "DE_UDIA", "EE_OTIL",
+      "KC_LSFT", "KC_Q",    "KC_S",     "KC_D",     "KC_F",     "KC_G",   "KC_LBRC",          "KC_RBRC", "KC_Y",           "KC_H",    "KC_J",    "KC_K",     "KC_P",     "DE_ADIA", "DE_ODIA",
+      "KC_LCTL", "KC_A",    "KC_X",     "KC_C",     "KC_V",     "KC_B",                                  "KC_N",           "KC_M",    "KC_SCLN", "KC_QUOTE", "KC_L",     "KC_RCTL", "KC_RSFT",
+                 "KC_Z",    "KC_LGUI",  "KC_LALT",  "KC_LGUI",                                                             "KC_LEFT", "KC_DOWN", "KC_UP",    "KC_MINUS", "KC_HOME", "KC_END",
+                                                                                                                                                             "KC_RIGHT",
       
-                                                                     "KC_BACKSPACE",         "KC_K",
+                                                                     "KC_COMMA",              "KC_DOT",
 
-                                                "KC_SPACE", "KC_ENTER", "KC_ESCAPE",         "KC_K", "KC_K", "KC_K",
+                                                "KC_SPACE", "KC_ENTER", "KC_BACKSPACE",       "KC_DELETE", "KC_ENTER", "KC_SPACE",
 
-      "KC_LSFT",      "KC_K"  
+      "KC_LSFT",                                                                                                                                     "KC_K"  
     ]
   ],
   "config": {
