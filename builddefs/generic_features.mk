@@ -61,6 +61,7 @@ define HANDLE_GENERIC_FEATURE
     SRC += $$(wildcard $$(QUANTUM_DIR)/process_keycode/process_$2.c)
     SRC += $$(wildcard $$(QUANTUM_DIR)/$2/$2.c)
     SRC += $$(wildcard $$(QUANTUM_DIR)/$2.c)
+    SRC += $$(wildcard $$(QUANTUM_DIR)/nvm/$$(NVM_DRIVER_LOWER)/nvm_$2.c)
     VPATH += $$(wildcard $$(QUANTUM_DIR)/$2/)
     OPT_DEFS += -D$1_ENABLE
 endef

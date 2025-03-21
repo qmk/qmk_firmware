@@ -25,6 +25,8 @@
 #include "progmem.h"
 #include "eeprom.h"
 
+#include "nvm_eeprom_eeconfig_internal.h" // expose EEPROM addresses, no appetite to move legacy/deprecated code to nvm
+#include "nvm_eeprom_via_internal.h" // expose EEPROM addresses, no appetite to move legacy/deprecated code to nvm
 #include "via.h" // uses EEPROM address, lighting value IDs
 #define MONO_BACKLIGHT_CONFIG_EEPROM_ADDR (VIA_EEPROM_CUSTOM_CONFIG_ADDR)
 

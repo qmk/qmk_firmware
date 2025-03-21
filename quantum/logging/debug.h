@@ -28,7 +28,7 @@ extern "C" {
 /*
  * Debug output control
  */
-typedef union {
+typedef union debug_config_t {
     struct {
         bool    enable : 1;
         bool    matrix : 1;

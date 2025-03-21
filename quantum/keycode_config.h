@@ -28,7 +28,7 @@ uint16_t keycode_config(uint16_t keycode);
 uint8_t  mod_config(uint8_t mod);
 
 /* NOTE: Not portable. Bit field order depends on implementation */
-typedef union {
+typedef union keymap_config_t {
     uint16_t raw;
     struct {
         bool swap_control_capslock : 1;
