@@ -210,7 +210,7 @@ TEST_F(AltRepeatKey, GetAltRepeatKeyKeycode) {
           {MO(1), 0, KC_NO},
              // clang-format on
          })) {
-        SCOPED_TRACE(std::string("Input keycode: ") + get_keycode_identifier_or_default(params.keycode));
+        SCOPED_TRACE(std::string("Input keycode: ") + get_keycode_string(params.keycode));
         set_last_keycode(params.keycode);
         set_last_mods(params.mods);
 
