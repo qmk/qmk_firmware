@@ -1,18 +1,18 @@
-# Globe key
+# Apple Globe/Fn
 
-With the release of the iPad Pro 2nd generation and its smart keyboard, in 2017, Apple introduced a new key: the Globe key which was used to change the keyboard language. The key found its way on the keyboards of the M-series of laptop and desktop computers on the same key as the Fn-key.
+With the release of the iPad Pro 2nd generation and its smart keyboard, in 2017, Apple introduced a the Globe key which was used to change the keyboard language. The key found its way in the keyboards of the M-series of laptop and desktop computers as a complement to the Fn-key.
 
 This key is only compatible with Apple devices and can be used as a modifier and as a standalone key. As a standalone key, it opens an emoji menu (though this can be configured in settings) and as a modifier, the key can be used to control macOS windows.
 
 ## Usage
 
-The QMK partially supports the Globe key, see Caveats below by providing the keycode `KC_GLOBE` which can be used in your keymap, it requires the option `KEYBOARD_SHARE_EP` to be set to `yes` in your `rules.mk` to compile.
+The QMK partially supports the Globe key, see Caveats below by providing the keycode `KC_GLOBE` which can be used in your keymap, it requires the option `KEYBOARD_SHARE_EP` to be set to `yes` in your `rules.mk`, or by having `usb.shared_endpoint.keyboard=true` in `keyboard.json`.
 
 ## Keycodes
 
-| Key        | Aliases  | Description                                    |
-| ---------- | -------- | ---------------------------------------------- |
-| `KC_GLOBE` | `KC_GLB` | Apple Globe key as standalone and modifier key |
+| Key        | Aliases  | Description                                   |
+| ---------- | -------- | --------------------------------------------- |
+| `KC_GLOBE` | `KC_GLB` | Apple Globe/Fn as standalone and modifier key |
 
 ### Caveats
 

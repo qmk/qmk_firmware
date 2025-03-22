@@ -99,9 +99,9 @@
             {
                 "text": "Advanced Keycodes",
                 "items": [
+                    { "text": "Apple Globe/Fn", "link": "/features/globe_key" },
                     { "text": "Command", "link": "/features/command" },
                     { "text": "Dynamic Macros", "link": "/features/dynamic_macros" },
-                    { "text": "Globe key", "link": "/features/globe_key" },
                     { "text": "Grave Escape", "link": "/features/grave_esc" },
                     { "text": "Leader Key", "link": "/features/leader_key" },
                     { "text": "Mod-Tap", "link": "/mod_tap" },
