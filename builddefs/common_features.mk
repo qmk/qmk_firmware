@@ -30,6 +30,8 @@ QUANTUM_SRC += \
     $(QUANTUM_DIR)/logging/sendchar.c \
     $(QUANTUM_DIR)/process_keycode/process_default_layer.c \
 
+include $(QUANTUM_DIR)/nvm/rules.mk
+
 VPATH += $(QUANTUM_DIR)/logging
 # Fall back to lib/printf if there is no platform provided print
 ifeq ("$(wildcard $(PLATFORM_PATH)/$(PLATFORM_KEY)/printf.mk)","")

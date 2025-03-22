@@ -130,7 +130,7 @@ bool xap_execute_set_rgb_matrix_config(xap_token_t token, xap_route_lighting_rgb
 }
 
 bool xap_execute_save_rgb_matrix_config(xap_token_t token) {
-    eeconfig_update_rgb_matrix();
+    eeconfig_force_flush_rgb_matrix();
 
     return xap_respond_success(token);
 }
