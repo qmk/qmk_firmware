@@ -30,7 +30,7 @@ enum custom_keycodes {
 
     v   w   g2   m   j           -   .:  '2   =   /
     s⌃  n⌥  t3   h⌘  k           ,;  a⌘  e1   i⌥  c⌃
-    f   p   d    l   x	 `   \	 ;   u   o    y   b
+    f   p   d    l   x	 `   \	 `   u   o    y   b
     ←   →  app   ⇥   r⇧  ⌫   ⏎   ␣⇧  ⎋  num   ↑   ↓
 */
 
@@ -69,7 +69,7 @@ enum custom_keycodes {
 #define LB00 KC_GRV
 
 #define RB00 KC_BSLS
-#define RB0 KC_SCLN
+#define RB0 KC_GRV
 #define RB1 KC_U
 #define RB2 KC_O
 #define RB3 KC_Y
@@ -148,7 +148,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NAV] = LAYOUT(
     ___x___, G(KC_Q), _______, C(S(G(KC_4))), LSG(KC_4),                   KC_VOLU,    G(KC_LEFT), KC_UP,   G(KC_RGHT), ___x___,
     KC_LCTL, KC_LALT, _______, KC_LGUI,       G(KC_A),                     KC_VOLD,    KC_LEFT,    KC_DOWN, KC_RGHT,    KC_DEL,
-    G(KC_Z), G(KC_C), G(KC_X), G(KC_V),       LSG(KC_Z), _______, _______, KC_MUTE,    KC_BSPC,	   ___x___, ___x___,    ___x___,
+    G(KC_Z), G(KC_C), G(KC_X), G(KC_V),       LSG(KC_Z), _______, _______, KC_MUTE,    SELWBAK,    SELWORD, SELLINE,    ___x___,
     _______, _______, _______, _______,       _______,   _______, _______, C(KC_LEFT), C(KC_RGHT), _______, _______,    _______
     ),
 
@@ -223,22 +223,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return true;  // Didn't handle this
             break;
+
+            case SELWBAK:  // Backward word selection.
+            if (record->event.pressed) {
+                select_word_register('B');
+            } else {
+                select_word_unregister();
+            }
+            break;
+
+        case SELWORD:  // Forward word selection.
+            if (record->event.pressed) {
+                select_word_register('W');
+            } else {
+                select_word_unregister();
+            }
+            break;
+
+        case SELLINE:  // Line selection.
+            if(record->event.pressed) {
+                select_word_register('L');
+            } else {
+                select_word_unregister();
+            }
+            break;
     }
     return true;
 };
 
-// Key overrides
-const key_override_t one_key_override  = ko_make_basic(MOD_MASK_SHIFT, KC_1, KC_DLR);		/* shift 1 is $ */
-const key_override_t zero_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_0, KC_HASH);		/* shift 0 is # */
-const key_override_t dot_key_override  = ko_make_basic(MOD_MASK_SHIFT, KC_DOT, KC_COLN);	/* shift . is : */
-const key_override_t comm_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_COMM, KC_SCLN);	/* shift , is ; */
-const key_override_t bspc_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);	/* shift ⌫ is ⌦ */
-
-// This globally defines all key overrides to be used
-const key_override_t *key_overrides[] = {
-	&one_key_override,
-	&zero_key_override,
-    &dot_key_override,
-    &comm_key_override,
-    &bspc_key_override,
+const custom_shift_key_t custom_shift_keys[] = {
+    {KC_1, KC_DLR},     // Shift 1 is $
+    {KC_0, KC_HASH},    // Shift 0 is #
+    {KC_DOT , KC_COLN}, // Shift . is :
+    {KC_COMM, KC_SCLN}, // Shift , is ;
+    {KC_BSPC, KC_DEL},  // Shift ⌫ is ⌦
 };

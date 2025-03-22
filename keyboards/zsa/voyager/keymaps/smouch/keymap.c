@@ -109,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*  Hands Down Promethium
     ⎋   3   2@  1$   0#  4           7   6   5   9   8  Vol
     ⇥   v   w   g2   m   j           -   .:  '2  =   /  Vol
-    z   s⌃  n⌥  t3   h⌘  k           ,;  a⌘  e1  i⌥  c⌃ qr
+    z   s⌃  n⌥  t3   h⌘  k           ,;  a⌘  e1  i⌥  c⌃ q
     tg  f   p   d    l   x      	 `   u   o   y   b  \
                          r⇧   ⌫   ⏎   ␣⇧
   */
@@ -208,18 +208,6 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
                                  '*', '*',  '*', '*'
     );
 
-/*
-    char chordal_hold_handedness(keypos_t key) {
-    if (key.col == 0 || key.col == MATRIX_COLS - 1) {
-        return '*';  // Exempt the outer columns.
-    }
-    // On split keyboards, typically, the first half of the rows are on the
-    // left, and the other half are on the right.
-    return key.row < MATRIX_ROWS / 2 ? 'L' : 'R';
-};
-*/
-
-
 // program custom keycode functions
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
@@ -283,19 +271,3 @@ const custom_shift_key_t custom_shift_keys[] = {
     {KC_COMM, KC_SCLN}, // Shift , is ;
     {KC_BSPC, KC_DEL},  // Shift ⌫ is ⌦
   };
-
-// Key overrides
-//const key_override_t one_key_override  = ko_make_basic(MOD_MASK_SHIFT, KC_1, KC_DLR);		/* shift 1 is $ */
-//const key_override_t zero_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_0, KC_HASH);		/* shift 0 is # */
-//const key_override_t dot_key_override  = ko_make_basic(MOD_MASK_SHIFT, KC_DOT, KC_COLN);	/* shift . is : */
-//const key_override_t comm_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_COMM, KC_SCLN);	/* shift , is ; */
-//const key_override_t bspc_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);	/* shift ⌫ is ⌦ */
-
-/* This globally defines all key overrides to be used
-const key_override_t *key_overrides[] = {
-    &one_key_override,
-	&zero_key_override,
-    &dot_key_override,
-    &comm_key_override,
-    &bspc_key_override,
-};*/

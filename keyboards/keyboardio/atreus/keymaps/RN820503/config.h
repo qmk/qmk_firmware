@@ -53,7 +53,7 @@
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-#define LAYER_STATE_8BITL
+#define LAYER_STATE_8BIT
 
 // Configure the global tapping term (default: 200ms)
 #undef TAPPING_TERM // if not default
@@ -69,17 +69,22 @@
 // Opposite hands rule for HRMs
 #define CHORDAL_HOLD
 
+// Default to Mac hotkeys for Select_word
+#define SELECT_WORD_OS_MAC
+
 // Don't apply custom shift keys when any non-shift mod is held.
 #define CUSTOM_SHIFT_KEYS_NEGMODS ~MOD_MASK_SHIFT
 
-#define COMBO_TERM 25        // how quickly all combo keys must be pressed in succession to trigger
-#define COMBO_TERM_PER_KEY   // reduce for combos that misfire on rolls
+#define COMBO_TERM 30        // how quickly all combo keys must be pressed in succession to trigger
+// #define COMBO_TERM_PER_KEY   // reduce for combos that misfire on rolls
 // #define COMBO_MUST_HOLD_MODS // if a combo triggers a modifier, only trigger when the combo is held
 // #define COMBO_HOLD_TERM 200  // how long at least one of the combo keys must be held to trigger
 #define COMBO_ONLY_FROM_LAYER 0 // combos mapped to base layer only
 #define COMBO_STRICT_TIMER
 
 #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+// Holding Shift while Caps Word is active inverts the shift state.
+#define CAPS_WORD_INVERT_ON_SHIFT
 // When idle, turn off Caps Word after 10 seconds.
 #define CAPS_WORD_IDLE_TIMEOUT 10000
 
