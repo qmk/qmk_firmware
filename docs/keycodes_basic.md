@@ -229,6 +229,11 @@ Some of these keycodes may behave differently depending on the OS. For example, 
 |`KC_LAUNCHPAD`         |`KC_LPAD`|Open Launchpad      |
 |`KC_GLOBE`             |`KC_GLB` |Apple Globe/Fn      |
 
+
+:::warning Globe Key
+`KC_GLOBE` has only partial support, see [Globe Key](features/globe_key)
+:::
+
 ## Number Pad
 
 |Key                |Aliases  |Description                   |
