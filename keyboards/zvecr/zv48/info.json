@@ -2,7 +2,7 @@
     "keyboard_name": "zv48",
     "manufacturer": "zvecr",
     "url": "",
-    "maintainer": "zvecr",
+    "maintainer": "asdf",
     "usb": {
         "vid": "0x5A56",
         "pid": "0x0048",
