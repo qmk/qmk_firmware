@@ -1965,6 +1965,9 @@
     "mechlovin/zed65/no_backlight": {
         "target": "mechlovin/zed65/no_backlight/wearhaus66"
     },
+    "mechlovin/zed65/rev1": {
+        "target": "mechlovin/zed65/rev1/solder"
+    },
     "mechlovin/zed65": {
         "target": "mechlovin/zed65/no_backlight/wearhaus66"
     },

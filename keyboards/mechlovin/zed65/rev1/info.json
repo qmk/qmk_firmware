@@ -15,7 +15,8 @@
         "console": true,
         "command": true,
         "nkro": true,
-        "rgblight": true
+        "rgblight": true,
+        "via": true
     },
     "matrix_pins": {
         "rows": ["B12", "B13", "B14", "B15", "A1"],
@@ -27,7 +28,6 @@
     },
     "diode_direction": "COL2ROW",
     "rgblight": {
-        "led_count": 29,
         "sleep": true,
         "animations": {
             "alternating": true,
