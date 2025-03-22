@@ -6,13 +6,13 @@ This key is only compatible with Apple devices and can be used as a modifier and
 
 ## Usage
 
-The QMK partially supports the Globe key, see Caveats below by providing the keycode `QK_GLOBE` which can be used in your keymap, it requires the option `KEYBOARD_SHARE_EP` to be set to `yes` in your `rules.mk` to compile.
+The QMK partially supports the Globe key, see Caveats below by providing the keycode `KC_GLOBE` which can be used in your keymap, it requires the option `KEYBOARD_SHARE_EP` to be set to `yes` in your `rules.mk` to compile.
 
 ## Keycodes
 
 | Key        | Aliases  | Description                                    |
 | ---------- | -------- | ---------------------------------------------- |
-| `QK_GLOBE` | `QK_GLB` | Apple Globe key as standalone and modifier key |
+| `KC_GLOBE` | `KC_GLB` | Apple Globe key as standalone and modifier key |
 
 ### Caveats
 

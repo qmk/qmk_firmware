@@ -219,7 +219,12 @@ See also: [Basic Keycodes](keycodes_basic)
 <sup>4. Holding Shift+Option allows for finer control of volume level.</sup><br/>
 <sup>5. Skips the entire track in iTunes when tapped, seeks within the current track when held.</sup><br/>
 <sup>6. WMP does not recognize the Rewind key, but both alter playback speed in VLC.</sup>
-<sup>7. Requires `KEYBOARD_SHARED_EP = yes` in `rules.mk` or `usb.shared_endpoint.keyboard=true` in `keyboard.json`. Globe+F-keys/arrow keys do not work.</sup>
+<sup>7. Requires `KEYBOARD_SHARED_EP = yes` in `rules.mk`. Only partial support, see [Globe Key](features/globe_key) </sup>
+
+:::warning Globe Key
+`KC_GLOBE` has only partial support, see [Globe Key](features/globe_key)
+:::
+
 
 ## Quantum Keycodes {#quantum-keycodes}
 
