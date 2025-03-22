@@ -26,7 +26,9 @@
     "diode_direction": "ROW2COL",
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D2"
+        "serial": {
+            "pin": "D2"
+        }
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu"

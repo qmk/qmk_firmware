@@ -22,7 +22,9 @@
         "handedness": {
             "pin": "A6"
         },
-        "soft_serial_pin": "D3",
+        "serial": {
+            "pin": "D3"
+        },
         "bootmagic": {
             "matrix": [4, 5]
         }
