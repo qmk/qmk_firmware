@@ -27,10 +27,9 @@ enum custom_keycodes {
 */
 
 /*  Hands Down Promethium
-
     v   w   g2   m   j           -   .:  '2   =   /
     s⌃  n⌥  t3   h⌘  k           ,;  a⌘  e1   i⌥  c⌃
-    f   p   d    l   x	 `   \	 `   u   o    y   b
+    f   p   d    l   x	Vol Vol	 `   u   o    y   b
     ←   →  app   ⇥   r⇧  ⌫   ⏎   ␣⇧  ⎋  num   ↑   ↓
 */
 
@@ -66,9 +65,9 @@ enum custom_keycodes {
 #define LB2 KC_D
 #define LB1 KC_L
 #define LB0 KC_X
-#define LB00 KC_GRV
+#define LB00 KC_VOLD
 
-#define RB00 KC_BSLS
+#define RB00 KC_VOLU
 #define RB0 KC_GRV
 #define RB1 KC_U
 #define RB2 KC_O
@@ -102,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	/*  Hands Down Promethium
     v   w   g2   m   j           -   .:  '2   =   /
     s⌃  n⌥  t3   h⌘  k           ,;  a⌘  e1   i⌥  c⌃
-    f   p   d    l   x	 `   \	 ;   u   o    y   b
+    f   p   d    l   x	Vol Vol	 `   u   o    y   b
     ←   →  app   ⇥   r⇧  ⌫   ⏎   ␣⇧  ⎋  num   ↑   ↓
     */
 

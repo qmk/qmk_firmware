@@ -15,7 +15,7 @@ CONSOLE_ENABLE = yes        # Console for debug
 NKRO_ENABLE = yes           # Enable N-Key Rollover
 CAPS_WORD_ENABLE = yes
 COMBO_ENABLE = yes
-KEY_OVERRIDE_ENABLE = yes
+KEY_OVERRIDE_ENABLE =  no
 
 AUTO_SHIFT_ENABLE = no
 MOUSEKEY_ENABLE = no       	# Mouse keys
