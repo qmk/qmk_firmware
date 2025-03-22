@@ -15,8 +15,7 @@
         "console": true,
         "command": true,
         "nkro": true,
-        "rgblight": true,
-        "via": true
+        "rgblight": true
     },
     "matrix_pins": {
         "rows": ["B12", "B13", "B14", "B15", "A1"],
