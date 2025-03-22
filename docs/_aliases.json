@@ -31,6 +31,7 @@
     "/feature_caps_word": "/features/caps_word",
     "/feature_combo": "/features/combo",
     "/feature_command": "/features/command",
+    "/feature_globekey": "/feature/globe_key",
     "/feature_digitizer": "/features/digitizer",
     "/feature_dip_switch": "/features/dip_switch",
     "/feature_dynamic_macros": "/features/dynamic_macros",
