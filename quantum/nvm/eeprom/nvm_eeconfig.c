@@ -206,7 +206,7 @@ void nvm_eeconfig_update_handedness(bool val) {
 uint32_t nvm_eeconfig_read_keymap_hash(void) {
     return eeprom_read_dword(EECONFIG_KEYMAP_HASH);
 }
-void     nvm_eeconfig_update_keymap_hash(uint32_t val) {
+void nvm_eeconfig_update_keymap_hash(uint32_t val) {
     eeprom_update_dword(EECONFIG_KEYMAP_HASH, val);
 }
 
