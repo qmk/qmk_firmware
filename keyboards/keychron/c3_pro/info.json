@@ -1,0 +1,26 @@
+{
+    "manufacturer": "Keychron",
+    "maintainer": "Joe",
+    "bootloader": "stm32-dfu",
+    "community_layouts": ["tkl_ansi"],
+    "diode_direction": "ROW2COL",
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096
+        }
+    },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "processor": "STM32F401",
+    "url": "https://github.com/Keychron",
+    "usb": {
+        "device_version": "1.0.1",
+        "vid": "0x3434"
+    }
+}

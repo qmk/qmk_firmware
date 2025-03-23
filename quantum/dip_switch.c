@@ -64,6 +64,7 @@ __attribute__((weak)) bool dip_switch_update_mask_kb(uint32_t state) {
 #ifdef DIP_SWITCH_MAP_ENABLE
 #    include "keymap_introspection.h"
 #    include "action.h"
+#    include "wait.h"
 
 #    ifndef DIP_SWITCH_MAP_KEY_DELAY
 #        define DIP_SWITCH_MAP_KEY_DELAY TAP_CODE_DELAY
