@@ -18,4 +18,31 @@
         guard: defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE) && defined(POINTING_DEVICE_COMBINED)
         header: report.h
     }
+    rgb_matrix_indicators: {
+        ret_type: bool
+        args: void
+        guard: defined(RGB_MATRIX_ENABLE)
+        header: rgb_matrix.h
+    }
+    rgb_matrix_indicators_advanced: {
+        ret_type: bool
+        args: uint8_t led_min, uint8_t led_max
+        call_params: led_min, led_max
+        guard: defined(RGB_MATRIX_ENABLE)
+        header: rgb_matrix.h
+    }
+    led_matrix_indicators: {
+        ret_type: bool
+        args: void
+        guard: defined(LED_MATRIX_ENABLE)
+        header: led_matrix.h
+    }
+    led_matrix_indicators_advanced: {
+        ret_type: bool
+        args: uint8_t led_min, uint8_t led_max
+        call_params: led_min, led_max
+        guard: defined(LED_MATRIX_ENABLE)
+        header: led_matrix.h
+    }
+
 }

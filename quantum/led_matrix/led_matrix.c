@@ -359,7 +359,12 @@ void led_matrix_task(void) {
     }
 }
 
+__attribute__((weak)) bool led_matrix_indicators_modules(void) {
+    return true;
+}
+
 void led_matrix_indicators(void) {
+    led_matrix_indicators_modules();
     led_matrix_indicators_kb();
 }
 
@@ -371,6 +376,10 @@ __attribute__((weak)) bool led_matrix_indicators_user(void) {
     return true;
 }
 
+__attribute__((weak)) bool led_matrix_indicators_advanced_modules(uint8_t led_min, uint8_t led_max) {
+    return true;
+}
+
 void led_matrix_indicators_advanced(effect_params_t *params) {
     /* special handling is needed for "params->iter", since it's already been incremented.
      * Could move the invocations to led_task_render, but then it's missing a few checks
@@ -378,6 +387,7 @@ void led_matrix_indicators_advanced(effect_params_t *params) {
      * led_task_render, right before the iter++ line.
      */
     LED_MATRIX_USE_LIMITS_ITER(min, max, params->iter - 1);
+    led_matrix_indicators_advanced_modules(led_min, led_max);
     led_matrix_indicators_advanced_kb(min, max);
 }
 
