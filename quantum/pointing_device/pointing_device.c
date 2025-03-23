@@ -102,9 +102,10 @@ const pointing_device_driver_t custom_pointing_device_driver = {
 
 const pointing_device_driver_t *pointing_device_driver = &POINTING_DEVICE_DRIVER(POINTING_DEVICE_DRIVER_NAME);
 
-
-void pointing_device_init_modules(void);
-bool pointing_device_task_modules(report_mouse_t *mouse_report);
+__attribute__((weak)) void pointing_device_init_modules(void) {}
+__attribute__((weak)) bool pointing_device_task_modules(report_mouse_t *mouse_report) {
+    return true;
+}
 
 /**
  * @brief Keyboard level code pointing device initialisation
@@ -383,6 +384,10 @@ void pointing_device_set_cpi(uint16_t cpi) {
 #endif
 }
 
+__attribute__((weak)) bool pointing_device_task_combined_modules(report_mouse_t *left_report, report_mouse_t *right_report) {
+    return true;
+}
+
 #if defined(SPLIT_POINTING_ENABLE) && defined(POINTING_DEVICE_COMBINED)
 /**
  * @brief Set pointing device CPI if supported
@@ -544,13 +549,4 @@ __attribute__((weak)) void pointing_device_keycode_handler(uint16_t keycode, boo
         local_mouse_report.buttons = pointing_device_handle_buttons(local_mouse_report.buttons, pressed, keycode - QK_MOUSE_BUTTON_1);
         pointing_device_send();
     }
-}
-
-
-__attribute__((weak)) void pointing_device_init_modules(void) {}
-__attribute__((weak)) bool pointing_device_task_modules(report_mouse_t *mouse_report) {
-    return true;
-}
-__attribute__((weak)) bool pointing_device_task_combined_modules(report_mouse_t *left_report, report_mouse_t *right_report) {
-    return true;
 }
