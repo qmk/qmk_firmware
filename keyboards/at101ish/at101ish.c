@@ -1,11 +1,21 @@
-#include "at101ish.h"
+/* Copyright 2025 Henrik Otte Sørensen (@henrikottesorensen)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
-void keyboard_pre_init_user(void) {
-  /* Configure LED driving pins as output pins */
-  setPinOutput(NUMLOCKLEDPIN);
-  setPinOutput(CAPSLOCKLEDPIN);
-  setPinOutput(SCROLLLOCKLEDPIN);
-}
+#include QMK_KEYBOARD_H
+#include "at101ish.h"
 
 void keyboard_post_init_user(void) {
   /* Customise these values to desired behaviour */
@@ -13,24 +23,4 @@ void keyboard_post_init_user(void) {
   //debug_matrix = true;
   //debug_keyboard = true;
   //debug_mouse = true;
-}
-
-void led_set_user(uint8_t usb_led) {
-  if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-    writePinHigh(NUMLOCKLEDPIN);
-  } else {
-    writePinLow(NUMLOCKLEDPIN);
-  }
-
-  if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-    writePinHigh(CAPSLOCKLEDPIN);
-  } else {
-    writePinLow(CAPSLOCKLEDPIN);
-  }
-
-  if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
-    writePinHigh(SCROLLLOCKLEDPIN);
-  } else {
-    writePinLow(SCROLLLOCKLEDPIN);
-  }
 }
