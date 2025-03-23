@@ -51,14 +51,14 @@
             "title": "Rotate sensor angle by 2 degrees counterclockwise (2nd trackball)"
         },
         {
-            "name": "MOUSE_LAYER_MS_ADD_100MS",
-            "shortName": "MOUSE_LAYER_MS_ADD_100MS",
-            "title": "Add 100ms to the delay time to enable mouse layer when trackball is moved"
+            "name": "MOUSE_LAYER_MS_ADD_50MS",
+            "shortName": "MOUSE_LAYER_MS_ADD_50MS",
+            "title": "Add 50ms to the delay time to off mouse layer when trackball is stopped"
         },
         {
-            "name": "MOUSE_LAYER_MS_MINUS_100MS",
-            "shortName": "MOUSE_LAYER_MS_MINUS_100MS",
-            "title": "Minus 100ms to the delay time to enable mouse layer when trackball is moved"
+            "name": "MOUSE_LAYER_MS_MINUS_50MS",
+            "shortName": "MOUSE_LAYER_MS_MINUS_50MS",
+            "title": "Minus 100ms to the delay time to off mouse layer when trackball is stopped"
         },
         {
             "name": "POINTER_SPEED_MAG_CHANGE",

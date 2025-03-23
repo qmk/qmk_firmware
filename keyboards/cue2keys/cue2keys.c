@@ -30,14 +30,18 @@ enum my_keycodes {
     ROT_L2_1,
     ROT_R2_2,
     ROT_L2_2,
-    // mouse key latency
-    MOUSE_LAYER_MS_ADD_100MS,
-    MOUSE_LAYER_MS_MINUS_100MS,
+    // mouse key off delay time
+    MOUSE_LAYER_MS_ADD_50MS,
+    MOUSE_LAYER_MS_MINUS_50MS,
     // x0.5, x1 (default), x2, x4
     POINTER_SPEED_MAG_CHANGE,
 };
 
 kb_config_t kb_config = {0};
+
+uint16_t calc_auto_mouse_timeout_by_kbconfig(uint8_t ms) {
+    return 250 + 50 * ms;
+}
 
 void keyboard_post_init_kb(void) {
     debug_enable = true;
@@ -48,6 +52,9 @@ void keyboard_post_init_kb(void) {
     kb_config.raw = eeconfig_read_kb();
     modular_adns5050_set_half_angle(0, kb_config.angle1);
     modular_adns5050_set_half_angle(1, kb_config.angle2);
+#ifdef POINTING_DEVICE_ENABLE
+    set_auto_mouse_timeout(calc_auto_mouse_timeout_by_kbconfig(kb_config.mouse_layer_off_delay_ms));
+#endif
 
     i2c_init();
     do_scan();
@@ -59,7 +66,7 @@ void eeconfig_init_kb(void) {
     kb_config.raw                         = 0;
     kb_config.angle1                      = 0;
     kb_config.angle2                      = 0;
-    kb_config.mouse_layer_ms              = 6;
+    kb_config.mouse_layer_off_delay_ms    = 7;
     kb_config.pointer_speed_magnification = 1;
     eeconfig_update_kb(kb_config.raw);
 
@@ -209,16 +216,23 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     // process mouse layer ms change
     if (record->event.pressed) {
         switch (keycode) {
-            case MOUSE_LAYER_MS_ADD_100MS:
-                kb_config.mouse_layer_ms += 1;
-                if (kb_config.mouse_layer_ms > 40) kb_config.mouse_layer_ms = 40;
-                eeconfig_update_kb(kb_config.raw);
-                return false;
-            case MOUSE_LAYER_MS_MINUS_100MS:
-                kb_config.mouse_layer_ms -= 1;
+            case MOUSE_LAYER_MS_ADD_50MS:
+                kb_config.mouse_layer_off_delay_ms += 1;
                 // overflow
-                if (kb_config.mouse_layer_ms > 40) kb_config.mouse_layer_ms = 0;
+                if (kb_config.mouse_layer_off_delay_ms == 0) kb_config.mouse_layer_off_delay_ms = 15;
                 eeconfig_update_kb(kb_config.raw);
+#ifdef POINTING_DEVICE_ENABLE
+                set_auto_mouse_timeout(calc_auto_mouse_timeout_by_kbconfig(kb_config.mouse_layer_off_delay_ms));
+#endif
+                return false;
+            case MOUSE_LAYER_MS_MINUS_50MS:
+                kb_config.mouse_layer_off_delay_ms -= 1;
+                // overflow
+                if (kb_config.mouse_layer_off_delay_ms == 15) kb_config.mouse_layer_off_delay_ms = 0;
+                eeconfig_update_kb(kb_config.raw);
+#ifdef POINTING_DEVICE_ENABLE
+                set_auto_mouse_timeout(calc_auto_mouse_timeout_by_kbconfig(kb_config.mouse_layer_off_delay_ms));
+#endif
                 return false;
         }
     }
@@ -332,9 +346,9 @@ bool oled_task_kb(void) {
         {
             static char type_count_str[7];
             oled_write_P(PSTR("MD: "), false);
-            itoa(kb_config.mouse_layer_ms, type_count_str, 10);
+            itoa(calc_auto_mouse_timeout_by_kbconfig(kb_config.mouse_layer_off_delay_ms), type_count_str, 10);
             oled_write_P(type_count_str, false);
-            oled_write_P(PSTR("*100ms"), false);
+            oled_write_P(PSTR("ms"), false);
         }
         oled_write_P(PSTR(", "), false);
         {
@@ -391,6 +405,8 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 #ifdef POINTING_DEVICE_ENABLE
 void pointing_device_driver_init(void) {
     modular_adns5050_pointing_device_driver.init();
+    set_auto_mouse_layer(AUTO_MOUSE_DEFAULT_LAYER); // default
+    set_auto_mouse_enable(true);
 }
 report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
     uint16_t user_mag = kb_config.pointer_speed_magnification;

@@ -20,3 +20,6 @@
 #define ENCODER_RESOLUTIONS {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}
 
 #define TRACKBALL_TIMEOUT (5 * 60 * 1000) // 5 mins
+
+#define POINTING_DEVICE_AUTO_MOUSE_ENABLE
+#define AUTO_MOUSE_DEFAULT_LAYER 3

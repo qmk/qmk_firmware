@@ -19,15 +19,15 @@ typedef enum _DisplayMode { DisplayMode_Layer, DisplayMode_EEPROM, DisplayMode_M
 typedef union {
     uint32_t raw;
     struct {
-        // Angle adjustment per 2 degrees for trackballs.
+        // angle adjustment per 2 degrees for trackballs
         // 2^8*2=512 to represent 360 degrees
         uint16_t angle1 : 8;
         uint16_t angle2 : 8;
-        // delay time in ms (* 100ms).
-        // 2^6=64 to represent 0 ms - 4000 ms
-        uint16_t mouse_layer_ms : 6;
+        // auto mouse layer off delay time
+        // 2^4=16 to represent 200+50x<value> ms (250-1000 ms)
+        uint16_t mouse_layer_off_delay_ms : 4;
         // pointer speed magnification
-        // x0.5, x1 (default), x2, x4
+        // 2^2=4 to represent x0.5, x1 (default), x2, x4
         uint16_t pointer_speed_magnification : 2;
         // dummy
         uint16_t _ : 8;

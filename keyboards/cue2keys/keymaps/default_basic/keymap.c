@@ -205,17 +205,7 @@ const uint16_t PROGMEM
 #endif
 
 #ifdef POINTING_DEVICE_ENABLE
-report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-    static uint16_t mouse_layer_timer = 0;
-    if (mouse_report.x != 0 || mouse_report.y != 0) {
-        layer_on(_MOUSE);
-        mouse_layer_timer = timer_read();
-    }
-    uint8_t current_layer = get_highest_layer(layer_state);
-    if (current_layer == _MOUSE && timer_elapsed(mouse_layer_timer) > kb_config.mouse_layer_ms * 100 && mouse_report.x == 0 && mouse_report.y == 0) {
-        layer_off(_MOUSE);
-    }
-
-    return mouse_report;
+void pointing_device_init_user(void) {
+    set_auto_mouse_layer(_MOUSE);
 }
 #endif
