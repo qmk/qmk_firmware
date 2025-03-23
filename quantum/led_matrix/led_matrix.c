@@ -387,7 +387,7 @@ void led_matrix_indicators_advanced(effect_params_t *params) {
      * led_task_render, right before the iter++ line.
      */
     LED_MATRIX_USE_LIMITS_ITER(min, max, params->iter - 1);
-    led_matrix_indicators_advanced_modules(led_min, led_max);
+    led_matrix_indicators_advanced_modules(min, max);
     led_matrix_indicators_advanced_kb(min, max);
 }
 

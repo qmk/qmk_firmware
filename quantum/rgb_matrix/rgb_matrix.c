@@ -450,7 +450,7 @@ void rgb_matrix_indicators_advanced(effect_params_t *params) {
      * rgb_task_render, right before the iter++ line.
      */
     RGB_MATRIX_USE_LIMITS_ITER(min, max, params->iter - 1);
-    rgb_matrix_indicators_advanced_modules(led_min, led_max);
+    rgb_matrix_indicators_advanced_modules(min, max);
     rgb_matrix_indicators_advanced_kb(min, max);
 }
 
