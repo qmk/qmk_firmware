@@ -17,24 +17,22 @@
  
 #ifdef BLUETOOTH_BHQ
 // Its active level is "BHQ_IRQ_AND_INT_LEVEL of bhq.h " 
-#   define BHQ_RUN_STATE_INPUT_PIN  A1             // Module operating status
-#   define QMK_RUN_OUTPUT_PIN       A0             // QMK operating status
+#   define BHQ_IQR_PIN      A1            
+#   define BHQ_INT_PIN      A0             
 
 #   define UART_DRIVER          SD2
 #   define UART_TX_PIN          A2
-#   define UART_TX_PAL_MODE     7
 #   define UART_RX_PIN          A3
-#   define UART_RX_PAL_MODE	    7
 
 // STM32使用到的高速晶振引脚号，做低功耗需要用户配置，每款芯片有可能不一样的
 #define LPM_STM32_HSE_PIN_IN     D0 
 #define LPM_STM32_HSE_PIN_OUT    D1
 
-#    define REPORT_BUFFER_QUEUE_SIZE 64
+#    define REPORT_BUFFER_QUEUE_SIZE 8
 
 #endif
 
-
+#define WS2812_POWER_PIN B9
 #define WS2812_BYTE_ORDER       WS2812_BYTE_ORDER_GRB
 
 #define RGBLIGHT_LAYERS

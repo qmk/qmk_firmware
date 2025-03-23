@@ -186,7 +186,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             else 
             {
-                // gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
+                // gpio_write_pin_high(BHQ_INT_PIN);
                 if(timer_elapsed32(key_output_mode_press_time) >= 300) 
                 {
                     key_ble_host_index = 0;
@@ -209,7 +209,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             else 
             {
-                // gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
+                // gpio_write_pin_high(BHQ_INT_PIN);
                 if(timer_elapsed32(key_output_mode_press_time) >= 300) 
                 {
                     // TODO: 等待bhq驱动完善，这里还是用蓝牙输出来作为qmk的模式切换，在蓝牙模块内会切换成2.4ghz私有连接

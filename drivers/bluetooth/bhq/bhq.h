@@ -90,11 +90,11 @@ enum {
 
 // -------------------- bhq protocol Small terminal mode --------------------
 #define BHQ_RUN_OR_INT_LEVEL       1             // Module operating status and qmk have the level status of data transmission       
-#ifndef BHQ_RUN_STATE_INPUT_PIN
-#    error "BHQ_RUN_STATE_INPUT_PIN is not defined"
+#ifndef BHQ_IQR_PIN
+#    error "BHQ_IQR_PIN is not defined"
 #endif
-#ifndef QMK_RUN_OUTPUT_PIN
-#    error "QMK_RUN_OUTPUT_PIN is not defined"
+#ifndef BHQ_INT_PIN
+#    error "BHQ_INT_PIN is not defined"
 #endif
 
 

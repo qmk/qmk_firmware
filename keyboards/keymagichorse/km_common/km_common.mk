@@ -10,6 +10,8 @@ endif
 # 提前导入mcu的mk
 include $(wildcard $(PLATFORM_PATH)/*/mcu_selection.mk)
 $(info !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!MCU_SERIES = $(MCU_SERIES))
+$(info !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!MCU_LDSCRIPT = $(MCU_LDSCRIPT))
+
 ifeq ($(strip $(KB_LPM_ENABLED)), yes)
     ifneq ($(filter $(MCU_SERIES),STM32F4xx),)
         OPT_DEFS += -DKB_LPM_ENABLED

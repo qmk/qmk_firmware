@@ -17,8 +17,8 @@
  
 #ifdef BLUETOOTH_BHQ
 // Its active level is "BHQ_IRQ_AND_INT_LEVEL of bhq.h " 
-#   define BHQ_RUN_STATE_INPUT_PIN  A1             // Module operating status
-#   define QMK_RUN_OUTPUT_PIN       A0             // QMK operating status
+#   define BHQ_IQR_PIN  A1             // Module operating status
+#   define BHQ_INT_PIN       A0             // QMK operating status
 
 #   define UART_DRIVER          SD2
 #   define UART_TX_PIN          A2
@@ -33,6 +33,7 @@
 
 #endif
 
+#define WS2812_POWER_PIN B8
 
 #define WS2812_BYTE_ORDER       WS2812_BYTE_ORDER_GRB
 

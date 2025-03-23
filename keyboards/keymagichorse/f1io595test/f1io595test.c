@@ -38,7 +38,8 @@ void board_init(void)
     lpm_init();
 #   endif
 #endif
-
+    gpio_set_pin_output(WS2812_POWER_PIN);        // ws2812 power
+    gpio_write_pin_low(WS2812_POWER_PIN);
 #   if defined(KM_DEBUG)
     km_printf_init();
     km_printf("hello rtt log1111111\r\n");

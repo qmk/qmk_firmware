@@ -35,7 +35,7 @@
  *        sizeof(report_buffer_t) * 256 = 34* 256  =  8704 bytes
  */
 #ifndef REPORT_BUFFER_QUEUE_SIZE
-#    define REPORT_BUFFER_QUEUE_SIZE 512
+#    define REPORT_BUFFER_QUEUE_SIZE 64
 #endif
 
 
@@ -124,7 +124,7 @@ void report_buffer_task(void) {
                 }
             }
         } else {
-            if (timer_elapsed32(retry_time_buffer) > 80) {  // retry interval
+            if (timer_elapsed32(retry_time_buffer) > 100) {  // retry interval
                 pending_data = true;
                 --retry;
                 retry_time_buffer = timer_read32();

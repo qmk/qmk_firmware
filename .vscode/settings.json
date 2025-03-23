@@ -33,5 +33,6 @@
     },
     "clangd.arguments": [
         "--header-insertion=never"
-    ]
+    ],
+    "cmake.sourceDirectory": "D:/project/github/hlkjXm/qmk_firmware/lib/pico-sdk/test/hardware_pwm_test"
 }

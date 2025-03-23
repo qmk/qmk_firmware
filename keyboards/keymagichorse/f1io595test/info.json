@@ -12,7 +12,7 @@
         "mousekey": true,
         "bluetooth": true,
         "nkro": true,
-        "rgblight": true
+        "rgblight": false
     },
     "bluetooth":{
         "driver":"bhq"

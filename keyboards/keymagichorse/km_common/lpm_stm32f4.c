@@ -51,7 +51,7 @@ void lpm_init(void)
 
     lpm_timer_reset();
 
-    gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
+    gpio_write_pin_high(BHQ_INT_PIN);
 
 // usb
     gpio_set_pin_input(USB_POWER_SENSE_PIN);
@@ -170,9 +170,9 @@ void enter_low_power_mode_prepare(void)
 #endif
 
 
-    gpio_set_pin_input_low(BHQ_RUN_STATE_INPUT_PIN);
-    palEnableLineEvent(BHQ_RUN_STATE_INPUT_PIN, PAL_EVENT_MODE_RISING_EDGE);
-    gpio_write_pin_low(QMK_RUN_OUTPUT_PIN);
+    gpio_set_pin_input_low(BHQ_IQR_PIN);
+    palEnableLineEvent(BHQ_IQR_PIN, PAL_EVENT_MODE_RISING_EDGE);
+    gpio_write_pin_low(BHQ_INT_PIN);
 
 // usb 插入检测
     gpio_set_pin_input(USB_POWER_SENSE_PIN);
@@ -216,7 +216,7 @@ void enter_low_power_mode_prepare(void)
 
     lpm_device_power_open();    // 外围设备 电源 关闭
   
-    gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
+    gpio_write_pin_high(BHQ_INT_PIN);
 
 }
 

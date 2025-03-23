@@ -2,13 +2,13 @@
     "keyboard_name": "f1io595Test",
     "manufacturer": "keymagichorse",
     "processor": "STM32F103",
-    "bootloader": "stm32duino",
+    "bootloader": "uf2boot",
     "matrix_pins": {
         "cols": ["A8", "A9", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN"],
         "rows": ["B5", "B6", "B7", "NO_PIN", "NO_PIN"]
     },
-    "ws2812": {
-        "pin": "B8"
-        // "driver": "pwm"
-    }
+    // "ws2812": {
+    //     "pin": "B8"
+    //     // "driver": "pwm"
+    // }
 }

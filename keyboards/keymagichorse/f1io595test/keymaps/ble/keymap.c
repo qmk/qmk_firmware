@@ -80,7 +80,7 @@ enum keyboard_user_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_all(
-    QK_GESC, KC_1,    KC_2,     KC_3,     KC_4,    KC_5,    KC_6,    KC_7,    KC_8,      KC_9,     KC_0,     KC_MINS,  KC_EQL,  KC_BSLS, KC_BSPC,
+    QK_GESC, BL_SW_0,    KC_2,     KC_3,     KC_4,    KC_5,    KC_6,    KC_7,    KC_8,      KC_9,     KC_0,     KC_MINS,  KC_EQL,  KC_BSLS, KC_BSPC,
     KC_TAB,  BL_SW_0, BL_SW_1,  RF_TOG,     KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,      KC_O,     KC_P,     KC_LBRC,  KC_RBRC, KC_BSLS,
     KC_CAPS, BLE_TOG, USB_TOG,  NK_TOGG,     KC_F,    KC_G,    KC_H,    KC_J,    KC_K,      KC_L,     KC_SCLN,  KC_QUOT,  KC_BSLS, KC_ENT,
     KC_LSFT, KC_Z,    KC_X,     KC_C,     KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM,   KC_DOT,   KC_SLSH,  KC_RSFT,  KC_UP,   KC_DEL,
@@ -186,7 +186,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             else 
             {
-                // gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
+                // gpio_write_pin_high(BHQ_INT_PIN);
                 if(timer_elapsed32(key_output_mode_press_time) >= 300) 
                 {
                     key_ble_host_index = 0;
@@ -209,7 +209,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             else 
             {
-                // gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
+                // gpio_write_pin_high(BHQ_INT_PIN);
                 if(timer_elapsed32(key_output_mode_press_time) >= 300) 
                 {
                     // TODO: 等待bhq驱动完善，这里还是用蓝牙输出来作为qmk的模式切换，在蓝牙模块内会切换成2.4ghz私有连接
@@ -472,8 +472,8 @@ void lpm_device_power_open(void)
 #if defined(RGBLIGHT_WS2812) && defined(RGBLIGHT_ENABLE) 
     // ws2812电源开启
     ws2812_init();
-    gpio_set_pin_output(B8);        // ws2812 power
-    gpio_write_pin_low(B8);
+    gpio_set_pin_output(WS2812_POWER_PIN);        // ws2812 power
+    gpio_write_pin_low(WS2812_POWER_PIN);
 #endif
 
 }
@@ -483,8 +483,8 @@ void lpm_device_power_close(void)
 #if defined(RGBLIGHT_WS2812) && defined(RGBLIGHT_ENABLE) 
     // ws2812电源关闭
     rgblight_setrgb_at(0, 0, 0, 0);
-    gpio_set_pin_output(B8);        // ws2812 power
-    gpio_write_pin_high(B8);
+    gpio_set_pin_output(WS2812_POWER_PIN);        // ws2812 power
+    gpio_write_pin_high(WS2812_POWER_PIN);
 
     gpio_set_pin_output(WS2812_DI_PIN);        // ws2812 DI Pin
     gpio_write_pin_low(WS2812_DI_PIN);
@@ -581,27 +581,27 @@ uint8_t calculate_battery_percentage(uint16_t current_mv) {
 }
 void battery_percent_read_task(void)
 { 
-    if(battery_timer == 0)
-    {
-        battery_timer = timer_read32();
-    }
+    // if(battery_timer == 0)
+    // {
+    //     battery_timer = timer_read32();
+    // }
 
-    if (timer_elapsed32(battery_timer) > 2000) 
-    {
-        battery_timer = 0;
-        uint16_t adc = analogReadPin(BATTER_ADC_PIN);
-        adc = analogReadPin(BATTER_ADC_PIN);
+    // if (timer_elapsed32(battery_timer) > 2000) 
+    // {
+    //     battery_timer = 0;
+    //     uint16_t adc = analogReadPin(BATTER_ADC_PIN);
+    //     adc = analogReadPin(BATTER_ADC_PIN);
 
-        uint16_t voltage_mV_Fenya = (adc * 3300) / 1023;
-        uint16_t voltage_mV_actual = voltage_mV_Fenya  * (1 + (BAT_R_UPPER / BAT_R_LOWER));
+    //     uint16_t voltage_mV_Fenya = (adc * 3300) / 1023;
+    //     uint16_t voltage_mV_actual = voltage_mV_Fenya  * (1 + (BAT_R_UPPER / BAT_R_LOWER));
 
-        // voltage_mV_actual = voltage_mV_actual;  // 
-        // km_printf("adc:%d   fymv:%d  sjmv:%d  bfb:%d  \r\n",
-        // adc,voltage_mV_Fenya,voltage_mV_actual,calculate_battery_percentage(voltage_mV_actual));
-        // km_printf("adcState:%d\r\n",ADCD1.state);
-        // 上报电池百分比到模块中
-        bhq_update_battery_percent(calculate_battery_percentage(voltage_mV_actual),voltage_mV_actual);
-    }
+    //     // voltage_mV_actual = voltage_mV_actual;  // 
+    //     // km_printf("adc:%d   fymv:%d  sjmv:%d  bfb:%d  \r\n",
+    //     // adc,voltage_mV_Fenya,voltage_mV_actual,calculate_battery_percentage(voltage_mV_actual));
+    //     // km_printf("adcState:%d\r\n",ADCD1.state);
+    //     // 上报电池百分比到模块中
+    //     bhq_update_battery_percent(calculate_battery_percentage(voltage_mV_actual),voltage_mV_actual);
+    // }
 }
 
 // Keyboard level code can override this, but shouldn't need to.

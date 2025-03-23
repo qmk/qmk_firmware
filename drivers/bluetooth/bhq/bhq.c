@@ -28,8 +28,8 @@ uint32_t uartTimeoutBuffer = 0;         // uart timeout
 void bhq_init(void) 
 {
     uart_init(128000);
-    gpio_set_pin_input_low(BHQ_RUN_STATE_INPUT_PIN);    // Module operating status. 
-    gpio_set_pin_output(QMK_RUN_OUTPUT_PIN);            // The qmk has a data request.
+    gpio_set_pin_input_low(BHQ_IQR_PIN);    // Module operating status. 
+    gpio_set_pin_output(BHQ_INT_PIN);            // The qmk has a data request.
 }
 
 void bhq_Disable(void)
@@ -45,41 +45,41 @@ uint16_t bhkSumCrc(uint8_t *data, uint16_t length) ;
 // bhq model send uart data
 void BHQ_SendData(uint8_t *dat, uint16_t length)
 {
-    // uint16_t i = 0;
+    // uint16_ts i = 0;
     uint32_t wait_bhq_ack_timeout = 0;
     uint32_t last_toggle_time = 0;
     uint32_t bhq_wakeup = 0;
-    if(gpio_read_pin(BHQ_RUN_STATE_INPUT_PIN) != BHQ_RUN_OR_INT_LEVEL)
+    if(gpio_read_pin(BHQ_IQR_PIN) != BHQ_RUN_OR_INT_LEVEL)
     {
         wait_bhq_ack_timeout = sync_timer_read32();
         last_toggle_time = sync_timer_read32();
         while(1)
         {
             // Flip the level to wake the module
-            gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
+            gpio_write_pin_high(BHQ_INT_PIN);
             if(sync_timer_elapsed32(last_toggle_time) >= 20)
             {
-                gpio_write_pin_low(QMK_RUN_OUTPUT_PIN);
+                gpio_write_pin_low(BHQ_INT_PIN);
                 last_toggle_time = sync_timer_read32();
             }
             // After the high and low level jump, the module wakes up, then you need to wait 10ms for the module to stabilize
-            if(gpio_read_pin(BHQ_RUN_STATE_INPUT_PIN) == BHQ_RUN_OR_INT_LEVEL && bhq_wakeup == 0)
+            if(gpio_read_pin(BHQ_IQR_PIN) == BHQ_RUN_OR_INT_LEVEL && bhq_wakeup == 0)
             {
                 bhq_wakeup = sync_timer_read32();
             }
-            if(gpio_read_pin(BHQ_RUN_STATE_INPUT_PIN) == BHQ_RUN_OR_INT_LEVEL && sync_timer_elapsed32(last_toggle_time) >= 5)
+            if(gpio_read_pin(BHQ_IQR_PIN) == BHQ_RUN_OR_INT_LEVEL && sync_timer_elapsed32(last_toggle_time) >= 5)
             {
                 break;
             }
 
             if(sync_timer_elapsed32(wait_bhq_ack_timeout) > 100) 
             {
-                gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
+                gpio_write_pin_high(BHQ_INT_PIN);
                 return;
             }
         }
     }
-    gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
+    gpio_write_pin_high(BHQ_INT_PIN);
     uart_transmit(dat, length);
 
     // bhq_printf("mcu send data:");
