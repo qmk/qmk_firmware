@@ -1,32 +1,32 @@
-# takashicompany/ergomirage
+# takashicompany/Mirageix
 
-![takashicompany/ergomirage](https://i.imgur.com/PbaRAn8h.jpg)
+![takashicompany/mirageix](https://i.imgur.com/93krKWQ.jpeg)
 
-Ergomirage (Ergo-Mirage) is a 44-key Tron-inspired keyboard.  
-Although the layout is distinctive, we aimed for a key layout that fits the shape of the human hand.  
-The key layout is such that the keys can be typed by moving the fingers vertically.  
+MirageiX is a 44-key integrated keyboard.
+The PCB has been trimmed to the limit to create a visual appearance in which only the keycaps seem to float.
+By using a transparent acrylic case, you can enjoy a mirage-like keyboard expression.
+The key layout is based on the TRON keyboard layout, making typing smoother than it looks.
 
-The PCB is as space-saving as possible and has a transparent design that looks like hand-wired.  
-Combined with a transparent acrylic case, it can create a space where only the keys seem to float.  
+Keyswitches are fixed with sockets, allowing easy replacement of keyswitches.
 
-Ergomirage(Ergo-Mirage)は44キーのTron配列に影響を受けたキーボードです。  
-特徴的なレイアウトですが、人間の手のカタチに合うようなキー配列を目指しました。  
-指を縦方向を動かすことで打鍵が可能なキー配置になっています。  
+MirageiXは44キーの一体型キーボードです。
+PCBを極限まで切り詰めたことでキーキャップのみが浮き出るようなビジュアルを実現しました。
+透明なアクリルケースを用いることで蜃気楼のようなキーボード表現が楽しめます。
+キー配列もTRONというキーボードの配置を参考にしているため、見た目以上にスムーズなタイピングを実現します。
 
-PCBは可能な限りの省スペース化がされており、まるでHand-wiredのような透明感のあるデザインとなっております。  
-透明なアクリルケースと組み合わせることで、キーだけが浮き出るような空間を演出することができます。  
+キースイッチはソケットで固定されるため、キースイッチの交換を容易に行えます。
 
 * Keyboard Maintainer: [takashicompany](https://github.com/takashicompany)
-* Hardware Supported: Ergomirage PCB, Pro Micro
-* Hardware Availability: https://github.com/takashicompany/ergomirage
+* Hardware Supported: MirageiX PCB, Pro Micro
+* Hardware Availability: https://github.com/takashicompany/mirageix
 
 Make example for this keyboard (after setting up your build environment):
 
-    make takashicompany/ergomirage:default
+    make takashicompany/mirageix:default
 
 Flashing example for this keyboard:
 
-    make takashicompany/ergomirage:default:flash
+    make takashicompany/mirageix:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
