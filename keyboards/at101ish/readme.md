@@ -1,7 +1,7 @@
 AT101(-ish)
 ===
 
-A replacement PCB for Dell AT101 family. (In theory) supports 101, 101W, 102, 102W, maybe other bigfoot platform boards.
+A replacement PCB for Dell AT101 family. (In theory) supports AT101, AT101W, AT102, AT102W, maybe other Bigfoot platform boards.
 
 Keyboard Maintainer: QMK Community and Henrik O. Sørensen  
 Hardware Supported: AT10[12]W? PCB  
