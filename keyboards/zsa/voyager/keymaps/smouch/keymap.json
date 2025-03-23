@@ -1,3 +1,8 @@
 {
-    "modules": ["getreuer/custom_shift_keys", "getreuer/select_word", "getreuer/tap_flow"]
+    "modules": [
+        "getreuer/custom_shift_keys",
+        "getreuer/select_word",
+        "getreuer/tap_flow",
+        "getreuer/palettefx"
+    ]
 }
