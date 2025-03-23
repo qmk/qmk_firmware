@@ -1,0 +1,21 @@
+{
+    pointing_device_init: {
+        ret_type: void
+        args: void
+        guard: defined(POINTING_DEVICE_ENABLE)
+    }
+    pointing_device_task: {
+        ret_type: bool
+        args: report_mouse_t *mouse_report
+        call_params: mouse_report
+        guard: defined(POINTING_DEVICE_ENABLE)
+        header: report.h
+    }
+    pointing_device_task_combined: {
+        ret_type: bool
+        args: report_mouse_t *left_report, report_mouse_t *right_report
+        call_params: mouse_report, mouse_report
+        guard: defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE) && defined(POINTING_DEVICE_COMBINED)
+        header: report.h
+    }
+}
