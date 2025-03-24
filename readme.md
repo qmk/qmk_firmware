@@ -48,8 +48,10 @@ Good news: There is a workaround
 `dd if=<firmware>.bin of=/run/media/will/KBDFANS/FLASH.BIN bs=512 conv=notrunc oflag=direct,sync`
 
 Steps:
-1) Compile with `qmk compile` and it should work provided the config is set for dz60rgb_ansi.
-`./util/docker_build.sh` should also work
+1) Compile with `qmk compile -kb dztech/dz60rgb_ansi/v2_1 -km brookesy66`.
+    `./util/docker_build.sh` should also work with config/args
 2) Hold escape key and plug in board
 3) Run that dd command for the firmware in main dir
 
+If you cook it again, hitting the reset switch on back of PCB (remove caps, phillips head screws)
+while plugging in will fix
