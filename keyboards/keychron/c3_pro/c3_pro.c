@@ -21,14 +21,7 @@ void keyboard_post_init_kb(void) {
     setPinOutputPushPull(LED_WIN_OS_PIN);
     writePin(LED_MAC_OS_PIN, !LED_OS_PIN_ON_STATE);
     writePin(LED_WIN_OS_PIN, !LED_OS_PIN_ON_STATE);
-
-    layer_state_t last_layer = eeconfig_read_default_layer();
-    if (last_layer) {
-        default_layer_set(last_layer);
-    } else {
-        default_layer_set(1U << 2);
-    }
-
+    
     keyboard_post_init_user();
 }
 
@@ -102,9 +95,12 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 #endif
         case KC_OSSW:
             if (record->event.pressed) {
-                default_layer_xor(1U << 0);
-                default_layer_xor(1U << 2);
-                eeconfig_update_default_layer(default_layer_state);
+                // Switches default layer between `MAC_BASE` and `WIN_BASE` (0 and 2)
+                if (default_layer_state == 0) {
+                    set_single_persistent_default_layer(2);
+                } else if (default_layer_state == 2) {
+                    set_single_persistent_default_layer(0);
+                }
             }
             return false;
         default:
