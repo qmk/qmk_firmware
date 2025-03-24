@@ -18,27 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "rev1.h"
 #include "rgblight.h"
 
-// Process commands from VIA
-void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
-    if (data[1] == id_custom_channel) {
-        switch (data[0]) {
-            case id_custom_set_value:
-                rgblight_config_set_value(&data[2]);
-                break;
-            case id_custom_get_value:
-                rgblight_config_get_value(&data[2]);
-                break;
-            case id_custom_save:
-                rgblight_config_save();
-                break;
-            default:
-                data[0] = id_unhandled;
-        }
-        return;
-    }
-    data[0] = id_unhandled;
-}
-
 // Set values
 void rgblight_config_set_value(uint8_t *data) {
     switch (data[0]) {
