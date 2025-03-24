@@ -21,11 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "rgblight.h"
 #include "eeconfig.h"
 
-enum via_rgblight_value {
-    id_rgblight_logo_toggle = 1,
-    id_rgblight_ug_toggle   = 2,
-};
-
 typedef struct {
     bool logo_enabled;
     bool ug_enabled;
