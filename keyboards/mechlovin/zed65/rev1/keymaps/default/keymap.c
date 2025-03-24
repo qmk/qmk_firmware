@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "rev1.h"
 
 enum custom_keycodes {
-    RGB_TOGGLE_LOGO = QK_KB_0,
+    RGB_TOGGLE_LOGO = QK_USER_0,
     RGB_TOGGLE_UG,
 };
 
