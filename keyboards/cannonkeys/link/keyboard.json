@@ -41,13 +41,6 @@
             "matrix": [5, 5]
         },
         "enabled": true,
-        "encoder": {
-            "right": {
-                "rotary": [
-                    {"pin_a": "GP12", "pin_b": "GP13", "resolution": 2}
-                ]
-            }
-        },
         "handedness": {
             "pin": "GP8"
         },
@@ -56,6 +49,9 @@
                 "cols": ["GP16", "GP11", "GP10", "GP3", "GP2", "GP1"],
                 "rows": ["GP9", "GP0", "GP17", "GP18", "GP19"]
             }
+        },
+        "serial": {
+            "driver": "vendor"
         },
         "transport": {
             "sync": {
