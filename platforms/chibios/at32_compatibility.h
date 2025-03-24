@@ -121,6 +121,3 @@
 #    define SPI_CR1_BR_1 (2 << 3)
 #    define SPI_CR1_BR_2 (4 << 3)
 #endif
-
-
-

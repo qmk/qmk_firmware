@@ -609,16 +609,16 @@
  * PF11 - PIN11                     (input none pull).
  */
 #define VAL_GPIOF_MODE              (PIN_MODE_INPUT(GPIOF_HEXT_IN) |         \
-									 PIN_MODE_INPUT(GPIOF_HEXT_OUT) |        \
+                                     PIN_MODE_INPUT(GPIOF_HEXT_OUT) |        \
                                      PIN_MODE_OUTPUT(GPIOF_PIN4) |           \
                                      PIN_MODE_OUTPUT(GPIOF_PIN5) |           \
                                      PIN_MODE_OUTPUT(GPIOF_PIN6) |           \
                                      PIN_MODE_INPUT(GPIOF_PIN7)  |           \
-									 PIN_MODE_INPUT(GPIOF_PIN11))
+                                     PIN_MODE_INPUT(GPIOF_PIN11))
 
 #define VAL_GPIOF_ODT               (PIN_ODT_HIGH(GPIOF_HEXT_IN) |           \
                                      PIN_ODT_HIGH(GPIOF_HEXT_OUT) |          \
-									 PIN_ODT_HIGH(GPIOF_PIN4) |              \
+                                     PIN_ODT_HIGH(GPIOF_PIN4) |              \
                                      PIN_ODT_HIGH(GPIOF_PIN5) |              \
                                      PIN_ODT_HIGH(GPIOF_PIN6) |              \
                                      PIN_ODT_HIGH(GPIOF_PIN7) |              \
@@ -627,7 +627,7 @@
 
 #define VAL_GPIOF_OUTPUT            (PIN_OUTPUT_PUSHPULL(GPIOF_HEXT_IN) |    \
                                      PIN_OUTPUT_PUSHPULL(GPIOF_HEXT_OUT) |   \
-									 PIN_OUTPUT_PUSHPULL(GPIOF_PIN4) |       \
+                                     PIN_OUTPUT_PUSHPULL(GPIOF_PIN4) |       \
                                      PIN_OUTPUT_PUSHPULL(GPIOF_PIN5) |       \
                                      PIN_OUTPUT_PUSHPULL(GPIOF_PIN6) |       \
                                      PIN_OUTPUT_PUSHPULL(GPIOF_PIN7) |       \
@@ -636,7 +636,7 @@
 
 #define VAL_GPIOF_ODRVR             (PIN_ODRVR_STRONGER(GPIOF_HEXT_IN) |     \
                                      PIN_ODRVR_STRONGER(GPIOF_HEXT_OUT) |    \
-									 PIN_ODRVR_STRONGER(GPIOF_PIN4) |        \
+                                     PIN_ODRVR_STRONGER(GPIOF_PIN4) |        \
                                      PIN_ODRVR_STRONGER(GPIOF_PIN5) |        \
                                      PIN_ODRVR_STRONGER(GPIOF_PIN6) |        \
                                      PIN_ODRVR_STRONGER(GPIOF_PIN7) |        \
@@ -644,7 +644,7 @@
 
 #define VAL_GPIOF_PULL              (PIN_PULL_NONE(GPIOF_HEXT_IN) |          \
                                      PIN_PULL_NONE(GPIOF_HEXT_OUT) |         \
-									 PIN_PULL_NONE(GPIOF_PIN4) |             \
+                                     PIN_PULL_NONE(GPIOF_PIN4) |             \
                                      PIN_PULL_NONE(GPIOF_PIN5) |             \
                                      PIN_PULL_NONE(GPIOF_PIN6) |             \
                                      PIN_PULL_NONE(GPIOF_PIN7) |             \
@@ -652,16 +652,16 @@
 
 #define VAL_GPIOF_MUXL              (PIN_MUX(GPIOF_HEXT_IN, 0U) |            \
                                      PIN_MUX(GPIOF_HEXT_OUT, 0U) |           \
-									 PIN_MUX(GPIOF_PIN4, 0U) |               \
+                                     PIN_MUX(GPIOF_PIN4, 0U) |               \
                                      PIN_MUX(GPIOF_PIN5, 0U) |               \
                                      PIN_MUX(GPIOF_PIN6, 0U) |               \
                                      PIN_MUX(GPIOF_PIN7, 0U) |               \
                                      PIN_MUX(GPIOF_PIN11, 0U))
-#define VAL_GPIOF_MUXH               0U
+#define VAL_GPIOF_MUXH              0U
 
 #define VAL_GPIOF_HDRV              (PIN_HDRV_NOTACTIVE(GPIOF_HEXT_IN) |     \
                                      PIN_HDRV_NOTACTIVE(GPIOF_HEXT_OUT) |    \
-									 PIN_HDRV_NOTACTIVE(GPIOF_PIN4) |        \
+                                     PIN_HDRV_NOTACTIVE(GPIOF_PIN4) |        \
                                      PIN_HDRV_NOTACTIVE(GPIOF_PIN5) |        \
                                      PIN_HDRV_NOTACTIVE(GPIOF_PIN6) |        \
                                      PIN_HDRV_NOTACTIVE(GPIOF_PIN7) |        \
