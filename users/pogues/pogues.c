@@ -251,6 +251,8 @@ uint8_t vscode_compose_mapping(uint16_t* sequence, uint8_t sequence_len) {
     )
     // focus on the terminal
     COMPOSE_MAPPING_MEH(KC_F, KC_T, "t")
+    // focus on the debug console
+    COMPOSE_MAPPING_MEH(KC_F, KC_D, "w")
 
 
     // show/hide the left pane
@@ -287,24 +289,11 @@ uint8_t qzdev_compose_mapping(uint16_t* sequence, uint8_t sequence_len) {
     COMPOSE_MAPPING_CTL_SFT(KC_V, KC_B, "b")
     // vc log
     COMPOSE_MAPPING_CTL_SFT(KC_V, KC_L, "l")
-    // vc commit
-    //COMPOSE_MAPPING_CTL_SFT(KC_V, KC_C, "c")
-    // vc request review
-    //COMPOSE_MAPPING_CTL_SFT(KC_V, KC_R, "w")
-    // push to
-    //COMPOSE_MAPPING_CTL_SFT(KC_V, KC_P, "s")
-    // vc update
-    //COMPOSE_MAPPING_CTL_SFT(KC_V, KC_U, "u")
 
     // run test function
     COMPOSE_MAPPING(
         COMPOSE_INPUT(KC_T, KC_F),
         { SEND_STRING(SS_LCTL(SS_TAP(X_F10))); }
-    )
-    // run test class
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_T, KC_C),
-        { SEND_STRING(SS_LCTL(SS_LSFT(SS_TAP(X_F10)))); }
     )
     // run test module
     COMPOSE_MAPPING(
