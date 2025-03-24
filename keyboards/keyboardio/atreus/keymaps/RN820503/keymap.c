@@ -27,7 +27,7 @@ enum custom_keycodes {
 */
 
 /*  Hands Down Promethium
-    v   w   g2   m   j           -   .:  '2   =   /
+    v   w   g2   m   j           =_  .:  '2   -+  /
     s⌃  n⌥  t3   h⌘  k           ,;  a⌘  e1   i⌥  c⌃
     f   p   d    l   x	Vol Vol	 `   u   o    y   b
     ←   →  app   ⇥   r⇧  ⌫   ⏎   ␣⇧  ⎋  num   ↑   ↓
@@ -40,10 +40,10 @@ enum custom_keycodes {
 #define LT1 KC_M
 #define LT0 KC_J
 
-#define RT0 KC_MINS
+#define RT0 KC_EQL
 #define RT1 KC_DOT
 #define RT2 LT(_SYM, KC_QUOT)
-#define RT3 KC_EQL
+#define RT3 KC_MINS
 #define RT4 KC_SLSH
 
 // middle row
@@ -99,7 +99,7 @@ static uint16_t keyhold_timer; // for handling Qu combo
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	/*  Hands Down Promethium
-    v   w   g2   m   j           -   .:  '2   =   /
+    v   w   g2   m   j           =_  .:  '2   -+  /
     s⌃  n⌥  t3   h⌘  k           ,;  a⌘  e1   i⌥  c⌃
     f   p   d    l   x	Vol Vol	 `   u   o    y   b
     ←   →  app   ⇥   r⇧  ⌫   ⏎   ␣⇧  ⎋  num   ↑   ↓
@@ -141,7 +141,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
                 ⌘Q             Sclp  Scap                     vol+    home    up	end
     	⌃       ⌥       (mo)   ⌘     Sall        		      vol-    left    dn	rght    ⌦
-    	undo   copy     cut    pst   redo                     mute     ⌫
+    	undo   copy     cut    pst   redo                     mute    ←Sel    Sel→  ←line→
                                                               dsk-    dsk+
     */
     [_NAV] = LAYOUT(
@@ -191,7 +191,7 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
         'L', 'L', 'L', 'L', 'L',            'R', 'R', 'R', 'R', 'R',
         'L', 'L', 'L', 'L', 'L',            'R', 'R', 'R', 'R', 'R',
         'L', 'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R', 'R',
-        'L', 'L', 'L', 'L', 'L', '*',  '*', 'R', 'R', 'R', 'R', 'R'
+        'L', 'L', 'L', 'L', '*', '*',  '*', '*', 'R', 'R', 'R', 'R'
     );
 
 // program custom keycode functions
@@ -253,6 +253,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 const custom_shift_key_t custom_shift_keys[] = {
     {KC_1, KC_DLR},     // Shift 1 is $
     {KC_0, KC_HASH},    // Shift 0 is #
+    {KC_EQL, KC_UNDS},  // Shift = is _
+    {KC_MINS, KC_PLUS}, // Shift - is +
     {KC_DOT , KC_COLN}, // Shift . is :
     {KC_COMM, KC_SCLN}, // Shift , is ;
     {KC_BSPC, KC_DEL},  // Shift ⌫ is ⌦

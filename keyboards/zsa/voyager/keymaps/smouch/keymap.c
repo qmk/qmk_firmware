@@ -24,7 +24,7 @@ enum custom_keycodes {
 
 /*  Hands Down Promethium (canonical)
     ⎋   3   2@  1$   0#  4           7   6   5   9   8  Vol
-    ⇥   v   w   g2   m   j           -   .:  '2  =   /  Vol
+    ⇥   v   w   g2   m   j           =_  .:  '2  -+  /  Vol
     z   s⌃  n⌥  t3   h⌘  k           ,;  a⌘  e1  i⌥  c⌃ q
     tg  f   p   d    l   x      	 `   u   o   y   b  \
                          r⇧  ⌫   ⏎   ␣⇧
@@ -53,10 +53,10 @@ enum custom_keycodes {
 #define LT1 KC_M
 #define LT0 KC_J
 
-#define RT0 KC_MINS
+#define RT0 KC_EQL
 #define RT1 KC_DOT
 #define RT2 LT(_SYM, KC_QUOT)
-#define RT3 KC_EQL
+#define RT3 KC_MINS
 #define RT4 KC_SLSH
 #define RT5 KC_VOLD
 
@@ -108,7 +108,7 @@ static uint16_t keyhold_timer; // for handling Qu combo
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*  Hands Down Promethium
     ⎋   3   2@  1$   0#  4           7   6   5   9   8  Vol
-    ⇥   v   w   g2   m   j           -   .:  '2  =   /  Vol
+    ⇥   v   w   g2   m   j           =_  .:  '2  -+  /  Vol
     z   s⌃  n⌥  t3   h⌘  k           ,;  a⌘  e1  i⌥  c⌃ q
     tg  f   p   d    l   x      	 `   u   o   y   b  \
                          r⇧   ⌫   ⏎   ␣⇧
@@ -267,7 +267,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 const custom_shift_key_t custom_shift_keys[] = {
     {KC_1, KC_DLR},     // Shift 1 is $
     {KC_0, KC_HASH},    // Shift 0 is #
-    {KC_DOT , KC_COLN}, // Shift . is :
+    {KC_EQL, KC_UNDS},  // Shift = is _
+    {KC_DOT, KC_COLN},  // Shift . is :
+    {KC_MINS, KC_PLUS}, // Shift - is +
     {KC_COMM, KC_SCLN}, // Shift , is ;
     {KC_BSPC, KC_DEL},  // Shift ⌫ is ⌦
   };
