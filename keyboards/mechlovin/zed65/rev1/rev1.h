@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 #include "rgblight.h"
-#include "via.h"
 #include "eeconfig.h"
 
 enum via_rgblight_value {
