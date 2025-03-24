@@ -26,11 +26,8 @@ typedef struct {
     bool ug_enabled;
 } custom_rgblight_config_t;
 
-#define CUSTOM_RGBLIGHT_CONFIG_EEPROM_ADDR 0x2000
 custom_rgblight_config_t g_custom_rgblight_config;
 
-void rgblight_config_set_value(uint8_t *data);
-void rgblight_config_get_value(uint8_t *data);
 void rgblight_config_save(void);
-void update_rgblight(void);
 void rgblight_config_load(void);
+void update_rgblight(void);

@@ -8,51 +8,34 @@ the Free Software Foundation, either version 2 of the License, or
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "rev1.h"
 #include "rgblight.h"
 
-// Set values
-void rgblight_config_set_value(uint8_t *data) {
-    switch (data[0]) {
-        case id_rgblight_logo_toggle:
-            g_custom_rgblight_config.logo_enabled = data[1];
-            break;
-        case id_rgblight_ug_toggle:
-            g_custom_rgblight_config.ug_enabled = data[1];
-            break;
-    }
-    rgblight_config_save();
-    update_rgblight();
-}
-
-// Get values
-void rgblight_config_get_value(uint8_t *data) {
-    data[1] = (data[0] == id_rgblight_logo_toggle) ? g_custom_rgblight_config.logo_enabled : g_custom_rgblight_config.ug_enabled;
-}
-
 // Save values to EEPROM
 void rgblight_config_save(void) {
-    eeconfig_update_user((uint32_t)g_custom_rgblight_config.logo_enabled | ((uint32_t)g_custom_rgblight_config.ug_enabled << 1));
+    uint8_t config = (g_custom_rgblight_config.logo_enabled ? 1 : 0) |
+                     ((g_custom_rgblight_config.ug_enabled ? 1 : 0) << 1);
+    eeconfig_update_user(config);
 }
 
 // Load state from EEPROM
 void rgblight_config_load(void) {
-    uint32_t eeprom_data = eeconfig_read_user();
-    g_custom_rgblight_config.logo_enabled = eeprom_data & 0x1;
-    g_custom_rgblight_config.ug_enabled = (eeprom_data >> 1) & 0x1;
+    uint8_t config = eeconfig_read_user();
+    g_custom_rgblight_config.logo_enabled = config & 0x1;
+    g_custom_rgblight_config.ug_enabled = (config >> 1) & 0x1;
 }
 
 // Update UG LED and Logo LED
 void update_rgblight(void) {
     if (g_custom_rgblight_config.logo_enabled || g_custom_rgblight_config.ug_enabled) {
-        rgblight_enable_noeeprom(); // Không lưu vào EEPROM khi chỉ cập nhật trạng thái
+        rgblight_enable_noeeprom();
         
         if (g_custom_rgblight_config.logo_enabled && g_custom_rgblight_config.ug_enabled) {
             rgblight_set_effect_range(0, RGBLIGHT_LED_COUNT);
