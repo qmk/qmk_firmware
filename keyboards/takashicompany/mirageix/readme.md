@@ -1,4 +1,4 @@
-# takashicompany/Mirageix
+# MirageiX
 
 ![takashicompany/mirageix](https://i.imgur.com/93krKWQ.jpeg)
 
