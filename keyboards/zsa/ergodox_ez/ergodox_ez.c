@@ -287,35 +287,18 @@ void housekeeping_task_kb(void) {
 #endif
 }
 
-#ifdef BOOTMAGIC_LITE
-__attribute__((weak)) void bootmagic_lite(void) {
-    // We need multiple scans because debouncing can't be turned off.
-    matrix_scan();
-#    if defined(DEBOUNCE) && DEBOUNCE > 0
-    wait_ms(DEBOUNCE * 2);
-#    else
-    wait_ms(30);
-#    endif
-    matrix_scan();
+#ifdef BOOTMAGIC_ENABLE
+#    include "bootmagic.h"
+// Add custom check for should reset since we're not a "split keyboard" but we want bootmagic to work on both halves
+__attribute__((weak)) bool bootmagic_should_reset(void) {
+    uint8_t row_left = BOOTMAGIC_ROW;
+    uint8_t col_left = BOOTMAGIC_COLUMN;
 
-    // If the configured key (commonly Esc) is held down on power up,
-    // reset the EEPROM valid state and jump to bootloader.
-    // This isn't very generalized, but we need something that doesn't
-    // rely on user's keymaps in firmware or EEPROM.
-    uint8_t row_left = BOOTMAGIC_LITE_ROW;
-    uint8_t col_left = BOOTMAGIC_LITE_COLUMN;
-s
-#    if defined(BOOTMAGIC_LITE_ROW_RIGHT) && defined(BOOTMAGIC_LITE_COLUMN_RIGHT)
-    uint8_t row_right = BOOTMAGIC_LITE_ROW_RIGHT;
-    uint8_t col_right = BOOTMAGIC_LITE_COLUMN_RIGHT;
+#    if defined(BOOTMAGIC_ROW_RIGHT) && defined(BOOTMAGIC_COLUMN_RIGHT)
+    uint8_t row_right = BOOTMAGIC_ROW_RIGHT;
+    uint8_t col_right = BOOTMAGIC_COLUMN_RIGHT;
 #    endif
 
-    if (matrix_get_row(row_left) & (1 << col_left) || matrix_get_row(row_right) & (1 << col_right)) {
-        void bootmagic_lite_reset_eeprom(void);
-        bootmagic_lite_reset_eeprom();
-
-        // Jump to bootloader.
-        reset_keyboard();
-    }
+    return matrix_get_row(row_left) & (1 << col_left) || matrix_get_row(row_right) & (1 << col_right);
 }
 #endif

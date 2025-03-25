@@ -33,8 +33,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_EXPANDER_ROW_PINS \
     { 0, 1, 2, 3, 4, 5, 6 }
 
-#define BOOTMAGIC_LITE_ROW_RIGHT 13
-#define BOOTMAGIC_LITE_COLUMN_RIGHT 0
+#define BOOTMAGIC_ROW_RIGHT 13
+#define BOOTMAGIC_COLUMN_RIGHT 0
 
 /* key combination for command */
 #define IS_COMMAND() (get_mods() == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)) || get_mods() == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)))

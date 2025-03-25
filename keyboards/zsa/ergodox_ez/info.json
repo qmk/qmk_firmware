@@ -16,6 +16,9 @@
             "resync": true
         }
     },
+    "features": {
+        "bootmagic": true
+    },
     "matrix_size": {
         "cols": 6,
         "rows": 14
