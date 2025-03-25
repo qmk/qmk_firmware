@@ -201,13 +201,13 @@
         "target": "ergodox"
     },
     "ergodox_ez/base": {
-        "target": "zsa/ergodox_ez/base"
+        "target": "zsa/ergodox_ez/m32u4"
     },
     "ergodox_ez/glow": {
-        "target": "zsa/ergodox_ez/glow"
+        "target": "zsa/ergodox_ez/m32u4"
     },
     "ergodox_ez/shine": {
-        "target": "zsa/ergodox_ez/shine"
+        "target": "zsa/ergodox_ez/m32u4"
     },
     "ergodox_stm32": {
         "target": "handwired/ergodox_stm32"
