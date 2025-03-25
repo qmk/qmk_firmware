@@ -15,13 +15,8 @@ static void oled_render_logo(void) {
 }
 
 static void render_layer(void) {
-    char    layer_str[4];
-    uint8_t layer = get_highest_layer(layer_state);
-    snprintf(layer_str, sizeof(layer_str), "%u", layer);
-
     oled_write_P(PSTR("Layer: "), false);
-    oled_write(layer_str, false);
-    oled_advance_page(true);
+    oled_write_ln(get_u8_str(get_highest_layer(layer_state), ' '), false);
 }
 
 static void render_locks(void) {
