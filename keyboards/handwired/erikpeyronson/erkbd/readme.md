@@ -1,6 +1,6 @@
 # handwired/erikpeyronson/erkbd
 
-![Erkbd](https://imgur.com/VViiXIN)
+![Erkbd](https://i.imgur.com/VViiXIN.jpeg)
 
 3D printed, handwired 44 key split keyboard featuring two encoders, two 1.3" 128x64 oled displays using the waveshare rp2040zero development board.
 
