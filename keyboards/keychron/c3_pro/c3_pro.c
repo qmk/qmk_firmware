@@ -84,10 +84,10 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         case KC_OSSW:
             if (record->event.pressed) {
                 // Switches default layer between `MAC_BASE` and `WIN_BASE` (0 and 2)
-                if (default_layer_state == 0) {
-                    set_single_persistent_default_layer(2);
-                } else if (default_layer_state == 2) {
+                if (get_highest_layer(default_layer_state) == 2 ) {
                     set_single_persistent_default_layer(0);
+                } else {
+                    set_single_persistent_default_layer(2);
                 }
             }
             return false;
