@@ -4,8 +4,6 @@
 
 #pragma once
 
-#include "at32_compatibility.h"
-
 #define HAL_USE_ADC TRUE
 
 #define HAL_USE_I2C TRUE
