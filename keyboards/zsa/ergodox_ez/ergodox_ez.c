@@ -38,11 +38,11 @@ void keyboard_post_init_kb(void) {
     keyboard_config.raw = eeconfig_read_kb();
     ergodox_led_all_set((uint8_t)keyboard_config.led_level * 255 / 4);
     ergodox_blink_all_leds();
-#    if defined(RGB_MATRIX_ENABLE)
+#if defined(RGB_MATRIX_ENABLE)
     if (rgb_matrix_get_mode() >= RGB_MATRIX_EFFECT_MAX) {
-            rgb_matrix_mode(RGB_MATRIX_NONE);
+        rgb_matrix_mode(RGB_MATRIX_NONE);
     }
-#    endif
+#endif
 
     keyboard_post_init_user();
 }
@@ -189,14 +189,43 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 };
 #endif
 
-
-#ifdef ORYX_ENABLE
 layer_state_t layer_state_set_kb(layer_state_t state) {
-    state = layer_state_set_user(state);
-    layer_state_set_oryx(state);
-    return state;
+    ergodox_board_led_off();
+    ergodox_right_led_1_off();
+    ergodox_right_led_2_off();
+    ergodox_right_led_3_off();
+
+    switch (get_highest_layer(state)) {
+        case 1:
+            ergodox_right_led_1_on();
+            break;
+        case 2:
+            ergodox_right_led_2_on();
+            break;
+        case 3:
+            ergodox_right_led_3_on();
+            break;
+        case 4:
+            ergodox_right_led_1_on();
+            ergodox_right_led_2_on();
+            break;
+        case 5:
+            ergodox_right_led_1_on();
+            ergodox_right_led_3_on();
+            break;
+        case 6:
+            ergodox_right_led_2_on();
+            ergodox_right_led_3_on();
+            break;
+        case 7:
+            ergodox_right_led_1_on();
+            ergodox_right_led_2_on();
+            ergodox_right_led_3_on();
+            break;
+    }
+
+    return layer_state_set_user(state);
 }
-#endif
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -211,7 +240,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 layer_state_set_kb(layer_state);
             }
             break;
-#    ifdef RGB_MATRIX_ENABLE
+#ifdef RGB_MATRIX_ENABLE
         case TOGGLE_LAYER_COLOR:
             if (record->event.pressed) {
                 keyboard_config.disable_layer_led ^= 1;
@@ -232,7 +261,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
-#    endif
+#endif
     }
     return process_record_user(keycode, record);
 }
