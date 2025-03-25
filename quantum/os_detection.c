@@ -70,6 +70,9 @@ static volatile struct usb_device_state maxprev_usb_device_state = {.configure_s
 
 // to reset the keyboard on USB state change
 #ifdef OS_DETECTION_KEYBOARD_RESET
+#   ifndef OS_DETECTION_RESET_DEBOUNCE
+#   define OS_DETECTION_RESET_DEBOUNCE OS_DETECTION_DEBOUNCE
+#   endif
 static volatile fast_timer_t configured_since = 0;
 #endif
 
@@ -197,7 +200,7 @@ void os_detection_notify_usb_device_state_change(struct usb_device_state usb_dev
         configured_since = timer_read_fast();
     } else if (current_usb_device_state.configure_state == USB_DEVICE_STATE_INIT) {
         // reset the keyboard only if it's been stable for at least debounce duration, to avoid issues with some KVMs
-        if (configured_since > 0 && timer_elapsed_fast(configured_since) >= OS_DETECTION_DEBOUNCE) {
+        if (configured_since > 0 && timer_elapsed_fast(configured_since) >= OS_DETECTION_RESET_DEBOUNCE) {
             soft_reset_keyboard();
         }
         configured_since = 0;
