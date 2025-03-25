@@ -25,18 +25,6 @@ void keyboard_post_init_kb(void) {
     keyboard_post_init_user();
 }
 
-void eeconfig_init_kb(void) {
-#if (EECONFIG_KB_DATA_SIZE) == 0
-    // Reset Keyboard EEPROM value to blank, rather than to a set value
-    eeconfig_update_kb(0);
-#endif
-    keymap_config.raw  = eeconfig_read_keymap();
-    keymap_config.nkro = 1;
-    eeconfig_update_keymap(keymap_config.raw);
-
-    eeconfig_init_user();
-}
-
 void housekeeping_task_kb(void) {
     if (default_layer_state == (1U << 0)) {
         writePin(LED_MAC_OS_PIN, LED_OS_PIN_ON_STATE);
