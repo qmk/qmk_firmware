@@ -17,6 +17,7 @@
 #include "analog.h"
 #include <ch.h>
 #include <hal.h>
+#include "chibios_config.h"
 
 #if !HAL_USE_ADC
 #    error "You need to set HAL_USE_ADC to TRUE in your halconf.h to use the ADC."
