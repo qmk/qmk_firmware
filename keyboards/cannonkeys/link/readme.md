@@ -1,6 +1,7 @@
 # Link
 
-The Link is a Sofle58 inspired Ergo Split keyboard from CannonKeys
+The Link is a Sofle58 inspired Ergo Split keyboard from CannonKeys.
+It uses 1.3" SH1107 screens and ALPS EC11 compatible encoders.
 
 * Keyboard Maintainer: [Andrew Kannan](https://github.com/awkannan)
 * Hardware Supported: RP2040
