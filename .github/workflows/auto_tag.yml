@@ -15,6 +15,7 @@ on:
     - quantum/**/*
     - tests/**/*
     - tmk_core/**/*
+    - lib/python/**/*
     - util/**/*
     - Makefile
     - '*.mk'
