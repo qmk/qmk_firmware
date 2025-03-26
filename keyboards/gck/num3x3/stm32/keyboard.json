@@ -1,0 +1,15 @@
+{
+
+    "processor": "STM32F401",
+        "development_board": "blackpill_f401",
+        "bootloader": "stm32-dfu",    
+
+    "matrix_pins": {
+            "cols": ["B5", "B6", "B7"],
+            "rows": ["A3", "A4", "A5"]
+        },   
+            
+        "ws2812": {
+            "pin": "A7"
+        }
+}    
