@@ -76,7 +76,7 @@ def _render_api_implementations(api, module):
         lines.append(f'__attribute__((weak)) {api.ret_type} {api.name}_{module_name}_user({api.args}) {{')
         if api.ret_type == 'bool':
             lines.append('    return true;')
-        elif api.ret_type == 'layer_state_t' or api.ret_type == 'report_mouse_t':
+        elif api.ret_type in ['layer_state_t', 'report_mouse_t']:
             lines.append(f'    return {api.call_params};')
         else:
             pass
@@ -88,7 +88,7 @@ def _render_api_implementations(api, module):
         if api.ret_type == 'bool':
             lines.append(f'    if(!{api.name}_{module_name}_user({api.call_params})) {{ return false; }}')
             lines.append('    return true;')
-        elif api.ret_type == 'layer_state_t' or api.ret_type == 'report_mouse_t':
+        elif api.ret_type in ['layer_state_t', 'report_mouse_t']:
             lines.append(f'    return {api.name}_{module_name}_user({api.call_params});')
         else:
             lines.append(f'    {api.name}_{module_name}_user({api.call_params});')
@@ -100,7 +100,7 @@ def _render_api_implementations(api, module):
         if api.ret_type == 'bool':
             lines.append(f'    if(!{api.name}_{module_name}_kb({api.call_params})) {{ return false; }}')
             lines.append('    return true;')
-        elif api.ret_type == 'layer_state_t' or api.ret_type == 'report_mouse_t':
+        elif api.ret_type in ['layer_state_t', 'report_mouse_t']:
             lines.append(f'    return {api.name}_{module_name}_kb({api.call_params});')
         else:
             lines.append(f'    {api.name}_{module_name}_kb({api.call_params});')
@@ -119,13 +119,13 @@ def _render_core_implementation(api, modules):
             module_name = Path(module).name
             if api.ret_type == 'bool':
                 lines.append(f'        && {api.name}_{module_name}({api.call_params})')
-            elif api.ret_type == 'layer_state_t' or api.ret_type == 'report_mouse_t':
+            elif api.ret_type in ['layer_state_t', 'report_mouse_t']:
                 lines.append(f'    {api.call_params} = {api.name}_{module_name}({api.call_params});')
             else:
                 lines.append(f'    {api.name}_{module_name}({api.call_params});')
         if api.ret_type == 'bool':
             lines.append('    ;')
-        elif api.ret_type == 'layer_state_t' or api.ret_type == 'report_mouse_t':
+        elif api.ret_type in ['layer_state_t', 'report_mouse_t']:
             lines.append(f'    return {api.call_params};')
         lines.append('}')
     return lines
