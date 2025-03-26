@@ -505,7 +505,7 @@ report_mouse_t pointing_device_adjust_by_defines_right(report_mouse_t mouse_repo
  * @return pointing_device_task_combined_user(left_report, right_report) by default
  */
 report_mouse_t pointing_device_task_combined(report_mouse_t left_report, report_mouse_t right_report) {
-    return pointing_device_task_combined_kb(left_report, right_report);
+    return pointing_device_task_modules(pointing_device_task_combined_kb(left_report, right_report));
 }
 
 /**
