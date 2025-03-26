@@ -103,8 +103,8 @@ const pointing_device_driver_t custom_pointing_device_driver = {
 const pointing_device_driver_t *pointing_device_driver = &POINTING_DEVICE_DRIVER(POINTING_DEVICE_DRIVER_NAME);
 
 __attribute__((weak)) void pointing_device_init_modules(void) {}
-__attribute__((weak)) bool pointing_device_task_modules(report_mouse_t *mouse_report) {
-    return true;
+__attribute__((weak)) report_mouse_t pointing_device_task_modules(report_mouse_t mouse_report) {
+    return mouse_report;
 }
 
 /**
@@ -312,7 +312,7 @@ __attribute__((weak)) bool pointing_device_task(void) {
     local_mouse_report = is_keyboard_left() ? pointing_device_task_combined(local_mouse_report, shared_mouse_report) : pointing_device_task_combined(shared_mouse_report, local_mouse_report);
 #else
     local_mouse_report = pointing_device_adjust_by_defines(local_mouse_report);
-    pointing_device_task_modules(&local_mouse_report);
+    local_mouse_report = pointing_device_task_modules(local_mouse_report);
     local_mouse_report = pointing_device_task_kb(local_mouse_report);
 #endif
     // automatic mouse layer function
