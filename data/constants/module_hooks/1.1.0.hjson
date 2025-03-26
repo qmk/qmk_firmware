@@ -11,13 +11,6 @@
         guard: defined(POINTING_DEVICE_ENABLE)
         header: report.h
     }
-    pointing_device_task_combined: {
-        ret_type: bool
-        args: report_mouse_t *left_report, report_mouse_t *right_report
-        call_params: left_report, right_report
-        guard: defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE) && defined(POINTING_DEVICE_COMBINED)
-        header: report.h
-    }
     rgb_matrix_indicators: {
         ret_type: bool
         args: void
