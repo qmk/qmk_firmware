@@ -134,6 +134,8 @@ Community Modules may provide specializations for the following APIs:
 | `suspend_wakeup_init`            | `suspend_wakeup_init_<module>`            | `suspend_wakeup_init_hello_world`           | `1.0.0`     |
 | `shutdown`                       | `shutdown_<module>`                       | `shutdown_hello_world`                      | `1.0.0`     |
 | `process_detected_host_os`       | `process_detected_host_os_<module>`       | `process_detected_host_os_hello_world`      | `1.0.0`     |
+| `default_layer_state_set`        | `default_layer_state_set_<module>`        | `default_layer_state_set_hello_world`       | `1.1.0`     |
+| `layer_state_set`                | `layer_state_set_<module>`                | `layer_state_set_hello_world`               | `1.1.0`     |
 | `led_matrix_indicators`          | `led_matrix_indicators_<module>`          | `led_matrix_indicators_hello_word`          | `1.1.0`     |
 | `led_matrix_indicators_advanced` | `led_matrix_indicators_advanced_<module>` | `led_matrix_indicators_advanced_hello_word` | `1.1.0`     |
 | `rgb_matrix_indicators`          | `rgb_matrix_indicators_<module>`          | `rgb_matrix_indicators_hello_word`          | `1.1.0`     |

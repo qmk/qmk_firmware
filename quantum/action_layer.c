@@ -27,11 +27,20 @@ __attribute__((weak)) layer_state_t default_layer_state_set_kb(layer_state_t sta
     return default_layer_state_set_user(state);
 }
 
+/** \brief Default Layer State Set At Module Level
+ *
+ * Run module code on default layer state change
+ */
+__attribute__((weak)) layer_state_t default_layer_state_set_modules(layer_state_t state) {
+    return state;
+}
+
 /** \brief Default Layer State Set
  *
  * Static function to set the default layer state, prints debug info and clears keys
  */
 static void default_layer_state_set(layer_state_t state) {
+    state = default_layer_state_set_modules(state);
     state = default_layer_state_set_kb(state);
     ac_dprintf("default_layer_state: ");
     default_layer_debug();
@@ -107,11 +116,21 @@ __attribute__((weak)) layer_state_t layer_state_set_kb(layer_state_t state) {
     return layer_state_set_user(state);
 }
 
+/** \brief Layer state set modules
+ *
+ * Runs module code on layer state change
+ */
+
+__attribute__((weak)) layer_state_t layer_state_set_modules(layer_state_t state) {
+    return state;
+}
+
 /** \brief Layer state set
  *
  * Sets the layer to match the specified state (a bitmask)
  */
 void layer_state_set(layer_state_t state) {
+    state = layer_state_set_modules(state);
     state = layer_state_set_kb(state);
     ac_dprintf("layer_state: ");
     layer_debug();

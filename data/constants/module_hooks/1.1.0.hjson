@@ -44,5 +44,19 @@
         guard: defined(LED_MATRIX_ENABLE)
         header: led_matrix.h
     }
+    default_layer_state_set: {
+        ret_type: layer_state_t
+        args: layer_state_t state
+        call_params: state
+        guard: !defined(NO_ACTION_LAYER)
+        header: action_layer.h
+    }
+    layer_state_set: {
+        ret_type: layer_state_t
+        args: layer_state_t state
+        call_params: state
+        guard: !defined(NO_ACTION_LAYER)
+        header: action_layer.h
+    }
 
 }
