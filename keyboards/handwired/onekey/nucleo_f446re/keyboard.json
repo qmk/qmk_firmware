@@ -3,7 +3,7 @@
     "processor": "STM32F446",
     "bootloader": "stm32-dfu",
     "matrix_pins": {
-        "cols": ["A2"],
+        "cols": ["A0"],
         "rows": ["A1"]
     },
     "backlight": {
