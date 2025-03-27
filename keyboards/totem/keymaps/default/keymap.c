@@ -81,8 +81,6 @@ enum custom_keycodes {
 #define ALT_O MT(MOD_LALT, KC_O)
 
 
-
-
 #define LOWER LT(_LOWER, KC_TAB)
 #define RAISE LT(_RAISE, KC_ESC)
 #define ADJUST MO(_ADJUST)
@@ -235,18 +233,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  ),
 */
 };
-
-bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case SHT_J:
-            return true;
-        case SHT_F:
-            return true;
-        default:
-            return false;
-
-    }
-}
 
 // ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 // │ M A C R O S                                                                                                            │
