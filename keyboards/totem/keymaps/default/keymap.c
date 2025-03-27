@@ -85,7 +85,7 @@ enum custom_keycodes {
 
 #define LOWER LT(_LOWER, KC_TAB)
 #define RAISE LT(_RAISE, KC_ESC)
-#define ADJUST _______ // use tri-layer to go to ADJUST layer
+#define ADJUST MO(_ADJUST)
 
 // ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 // │ K E Y M A P S                                                                                                          │
@@ -206,8 +206,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    [_ADJUST] = LAYOUT(
  //╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷
               QK_BOOT,       XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,  KC_F7,    KC_F8,    KC_F9,    KC_F12,
-              DB_TOGG,   DF(_QWERTY),  XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,  KC_F4,    KC_F5,    KC_F6,    KC_F11,
-    XXXXXXX,  XXXXXXX,  DF(_COLEMAK),  XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,  KC_F1,    KC_F2,    KC_F3,    KC_F10,   KC_F13,
+              DB_TOGG,  PDF(_QWERTY),  XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,  KC_F4,    KC_F5,    KC_F6,    KC_F11,
+    XXXXXXX,  XXXXXXX, PDF(_COLEMAK),  XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,  KC_F1,    KC_F2,    KC_F3,    KC_F10,   KC_F13,
                                   _______,  _______,  _______,   _______,  _______,  _______
  )
 /*
