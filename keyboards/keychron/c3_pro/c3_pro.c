@@ -26,16 +26,14 @@ void keyboard_post_init_kb(void) {
 }
 
 void housekeeping_task_kb(void) {
-    if (default_layer_state == (1U << 0)) {
+    if (get_highest_layer(default_layer_state) == 0) {
         gpio_write_pin(LED_MAC_OS_PIN, LED_OS_PIN_ON_STATE);
         gpio_write_pin(LED_WIN_OS_PIN, !LED_OS_PIN_ON_STATE);
     }
-    if (default_layer_state == (1U << 2)) {
+    if (get_highest_layer(default_layer_state) == 2) {
         gpio_write_pin(LED_MAC_OS_PIN, !LED_OS_PIN_ON_STATE);
         gpio_write_pin(LED_WIN_OS_PIN, LED_OS_PIN_ON_STATE);
     }
-
-    housekeeping_task_user();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
