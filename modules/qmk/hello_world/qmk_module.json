@@ -1,0 +1,14 @@
+{
+    "module_name": "Hello World",
+    "maintainer": "QMK Maintainers",
+    "features": {
+        "console": true,
+        "deferred_exec": true
+    },
+    "keycodes": [
+        {
+            "key": "COMMUNITY_MODULE_HELLO",
+            "aliases": ["CM_HELO"]
+        }
+    ]
+}

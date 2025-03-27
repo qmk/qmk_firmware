@@ -17,4 +17,8 @@
     "ws2812": {
         "pin": "B0"
     }
+    "apa102": {
+        "data_pin": "B0",
+        "clock_pin": "B1"
+    }
 }
