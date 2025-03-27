@@ -10,10 +10,10 @@
         "pin": "B8"
     },
     "ws2812": {
-        "pin": "A0"
+        "pin": "A2"
     },
     "apa102": {
-        "data_pin": "A0",
+        "data_pin": "A2",
         "clock_pin": "B13"
     }
 }
