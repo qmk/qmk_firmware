@@ -20,9 +20,9 @@
  * No external LED PCB: 10
  * External LED PCB: 14
  */
-#if defined(RGBLED_NUM)
-#    undef RGBLED_NUM
-#    define RGBLED_NUM 10
+#if defined(RGBLIGHT_LED_COUNT)
+#    undef RGBLIGHT_LED_COUNT
+#    define RGBLIGHT_LED_COUNT 10
 #endif
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD

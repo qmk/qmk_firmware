@@ -11,8 +11,8 @@
 #define WS2812_PWM_CHANNEL 4        // CH4
 #define WS2812_PWM_PAL_MODE 2       // AF2
 
-#define WS2812_DMA_STREAM STM32_DMA1_STREAM2        // DMA1 Stream 2 for TIM3_UP (table 28 in reference manual)
-#define WS2812_DMA_CHANNEL 5                        // DMA Channel 5 for TIM3_UP  (table 28 in reference manual)
+#define WS2812_PWM_DMA_STREAM STM32_DMA1_STREAM2        // DMA1 Stream 2 for TIM3_UP (table 28 in reference manual)
+#define WS2812_PWM_DMA_CHANNEL 5                        // DMA Channel 5 for TIM3_UP  (table 28 in reference manual)
 
 
 #define I2C1_CLOCK_SPEED 400000

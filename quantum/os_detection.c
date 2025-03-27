@@ -17,6 +17,10 @@
 #include "os_detection.h"
 
 #include <string.h>
+#include "timer.h"
+#ifdef OS_DETECTION_KEYBOARD_RESET
+#    include "quantum.h"
+#endif
 
 #ifdef OS_DETECTION_DEBUG_ENABLE
 #    include "eeconfig.h"
@@ -26,10 +30,19 @@
 #    define STORED_USB_SETUPS 50
 #    define EEPROM_USER_OFFSET (uint8_t*)EECONFIG_SIZE
 
-uint16_t usb_setups[STORED_USB_SETUPS];
+static uint16_t usb_setups[STORED_USB_SETUPS];
 #endif
 
-#ifdef OS_DETECTION_ENABLE
+#ifndef OS_DETECTION_DEBOUNCE
+#    define OS_DETECTION_DEBOUNCE 250
+#endif
+
+// 2s should always be more than enough (otherwise, you may have other issues)
+#if OS_DETECTION_DEBOUNCE > 2000
+#    undef OS_DETECTION_DEBOUNCE
+#    define OS_DETECTION_DEBOUNCE 2000
+#endif
+
 struct setups_data_t {
     uint8_t  count;
     uint8_t  cnt_02;
@@ -45,47 +58,70 @@ struct setups_data_t setups_data = {
     .cnt_ff = 0,
 };
 
-os_variant_t detected_os = OS_UNSURE;
+static volatile os_variant_t detected_os = OS_UNSURE;
+static volatile os_variant_t reported_os = OS_UNSURE;
 
-// Some collected sequences of wLength can be found in tests.
-void make_guess(void) {
-    if (setups_data.count < 3) {
+// we need to be able to report OS_UNSURE if that is the stable result of the guesses
+static volatile bool first_report = true;
+
+// to react on USB state changes
+static volatile struct usb_device_state current_usb_device_state = {.configure_state = USB_DEVICE_STATE_NO_INIT};
+static volatile struct usb_device_state maxprev_usb_device_state = {.configure_state = USB_DEVICE_STATE_NO_INIT};
+
+// the OS detection might be unstable for a while, "debounce" it
+static volatile bool         debouncing = false;
+static volatile fast_timer_t last_time  = 0;
+
+bool process_detected_host_os_modules(os_variant_t os);
+
+void os_detection_task(void) {
+#ifdef OS_DETECTION_KEYBOARD_RESET
+    // resetting the keyboard on the USB device state change callback results in instability, so delegate that to this task
+    // only take action if it's been stable at least once, to avoid issues with some KVMs
+    if (current_usb_device_state.configure_state <= USB_DEVICE_STATE_INIT && maxprev_usb_device_state.configure_state >= USB_DEVICE_STATE_CONFIGURED) {
+        if (debouncing && timer_elapsed_fast(last_time) >= OS_DETECTION_DEBOUNCE) {
+            soft_reset_keyboard();
+        }
         return;
     }
-    if (setups_data.cnt_ff >= 2 && setups_data.cnt_04 >= 1) {
-        detected_os = OS_WINDOWS;
+#endif
+#ifdef OS_DETECTION_SINGLE_REPORT
+    if (!first_report) {
         return;
     }
-    if (setups_data.count == setups_data.cnt_ff) {
-        // Linux has 3 packets with 0xFF.
-        detected_os = OS_LINUX;
-        return;
-    }
-    if (setups_data.count == 5 && setups_data.last_wlength == 0xFF && setups_data.cnt_ff == 1 && setups_data.cnt_02 == 2) {
-        detected_os = OS_MACOS;
-        return;
-    }
-    if (setups_data.count == 4 && setups_data.cnt_ff == 0 && setups_data.cnt_02 == 2) {
-        // iOS and iPadOS don't have the last 0xFF packet.
-        detected_os = OS_IOS;
-        return;
-    }
-    if (setups_data.cnt_ff == 0 && setups_data.cnt_02 == 3 && setups_data.cnt_04 == 1) {
-        // This is actually PS5.
-        detected_os = OS_LINUX;
-        return;
-    }
-    if (setups_data.cnt_ff >= 1 && setups_data.cnt_02 == 0 && setups_data.cnt_04 == 0) {
-        // This is actually Quest 2 or Nintendo Switch.
-        detected_os = OS_LINUX;
-        return;
+#endif
+    if (current_usb_device_state.configure_state == USB_DEVICE_STATE_CONFIGURED) {
+        // debouncing goes for both the detected OS as well as the USB state
+        if (debouncing && timer_elapsed_fast(last_time) >= OS_DETECTION_DEBOUNCE) {
+            debouncing = false;
+            last_time  = 0;
+            if (detected_os != reported_os || first_report) {
+                first_report = false;
+                reported_os  = detected_os;
+                process_detected_host_os_modules(detected_os);
+                process_detected_host_os_kb(detected_os);
+            }
+        }
     }
 }
 
+__attribute__((weak)) bool process_detected_host_os_modules(os_variant_t os) {
+    return true;
+}
+
+__attribute__((weak)) bool process_detected_host_os_kb(os_variant_t detected_os) {
+    return process_detected_host_os_user(detected_os);
+}
+
+__attribute__((weak)) bool process_detected_host_os_user(os_variant_t detected_os) {
+    return true;
+}
+
+// Some collected sequences of wLength can be found in tests.
 void process_wlength(const uint16_t w_length) {
-#    ifdef OS_DETECTION_DEBUG_ENABLE
+#ifdef OS_DETECTION_DEBUG_ENABLE
     usb_setups[setups_data.count] = w_length;
-#    endif
+#endif
     setups_data.count++;
     setups_data.last_wlength = w_length;
     if (w_length == 0x2) {
@@ -95,7 +131,37 @@ void process_wlength(const uint16_t w_length) {
     } else if (w_length == 0xFF) {
         setups_data.cnt_ff++;
     }
-    make_guess();
+
+    // now try to make a guess
+    os_variant_t guessed = OS_UNSURE;
+    if (setups_data.count >= 3) {
+        if (setups_data.cnt_ff >= 2 && setups_data.cnt_04 >= 1) {
+            guessed = OS_WINDOWS;
+        } else if (setups_data.count == setups_data.cnt_ff) {
+            // Linux has 3 packets with 0xFF.
+            guessed = OS_LINUX;
+        } else if (setups_data.count >= 5 && setups_data.last_wlength == 0xFF && setups_data.cnt_ff >= 1 && setups_data.cnt_02 >= 2) {
+            guessed = OS_MACOS;
+        } else if (setups_data.count == 4 && setups_data.cnt_ff == 0 && setups_data.cnt_02 == 2) {
+            // iOS and iPadOS don't have the last 0xFF packet.
+            guessed = OS_IOS;
+        } else if (setups_data.cnt_ff == 0 && setups_data.cnt_02 == 3 && setups_data.cnt_04 == 1) {
+            // This is actually PS5.
+            guessed = OS_LINUX;
+        } else if (setups_data.cnt_ff >= 1 && setups_data.cnt_02 == 0 && setups_data.cnt_04 == 0) {
+            // This is actually Quest 2 or Nintendo Switch.
+            guessed = OS_LINUX;
+        }
+    }
+
+    // only replace the guessed value if not unsure
+    if (guessed != OS_UNSURE) {
+        detected_os = guessed;
+    }
+
+    // whatever the result, debounce
+    last_time  = timer_read_fast();
+    debouncing = true;
 }
 
 os_variant_t detected_host_os(void) {
@@ -104,15 +170,32 @@ os_variant_t detected_host_os(void) {
 
 void erase_wlength_data(void) {
     memset(&setups_data, 0, sizeof(setups_data));
-    detected_os = OS_UNSURE;
+    detected_os                              = OS_UNSURE;
+    reported_os                              = OS_UNSURE;
+    current_usb_device_state.configure_state = USB_DEVICE_STATE_NO_INIT;
+    maxprev_usb_device_state.configure_state = USB_DEVICE_STATE_NO_INIT;
+    debouncing                               = false;
+    last_time                                = 0;
+    first_report                             = true;
 }
 
-#    if defined(SPLIT_KEYBOARD) && defined(SPLIT_DETECTED_OS_ENABLE)
+void os_detection_notify_usb_device_state_change(struct usb_device_state usb_device_state) {
+    // treat this like any other source of instability
+    if (maxprev_usb_device_state.configure_state < current_usb_device_state.configure_state) {
+        maxprev_usb_device_state.configure_state = current_usb_device_state.configure_state;
+    }
+    current_usb_device_state = usb_device_state;
+    last_time                = timer_read_fast();
+    debouncing               = true;
+}
+
+#if defined(SPLIT_KEYBOARD) && defined(SPLIT_DETECTED_OS_ENABLE)
 void slave_update_detected_host_os(os_variant_t os) {
     detected_os = os;
+    last_time   = timer_read_fast();
+    debouncing  = true;
 }
-#    endif // defined(SPLIT_KEYBOARD) && defined(SPLIT_DETECTED_OS_ENABLE)
-#endif     // OS_DETECTION_ENABLE
+#endif
 
 #ifdef OS_DETECTION_DEBUG_ENABLE
 void print_stored_setups(void) {

@@ -11,30 +11,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_RALT, KC_RGUI, KC_APP,  KC_RCTL,     KC_LEFT, KC_DOWN, KC_RGHT,     KC_P0,            KC_PDOT
   )
 };
-
-bool led_update_user(led_t led_state) {
-    if (led_state.num_lock) {
-        DDRB |= (1 << 5);
-        PORTB &= ~(1 << 5);
-    } else {
-        DDRB &= ~(1 << 5);
-        PORTB &= ~(1 << 5);
-    }
-
-    if (led_state.caps_lock) {
-        DDRB |= (1 << 6);
-        PORTB &= ~(1 << 6);
-    } else {
-        DDRB &= ~(1 << 6);
-        PORTB &= ~(1 << 6);
-    }
-
-    if (led_state.scroll_lock) {
-        DDRB |= (1 << 7);
-        PORTB &= ~(1 << 7);
-    } else {
-        DDRB &= ~(1 << 7);
-        PORTB &= ~(1 << 7);
-    }
-    return false;
-}

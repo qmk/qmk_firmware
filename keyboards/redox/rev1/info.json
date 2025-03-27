@@ -8,9 +8,41 @@
     "pid": "0x5244",
     "device_version": "1.0.0"
   },
+  "features":{
+    "bootmagic": true,
+    "command": true,
+    "console": false,
+    "mousekey": true,
+    "extrakey": true,
+    "nkro": true,
+    "rgblight": true
+  },
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  },
+  "split":{
+    "enabled": true
+  },
   "rgblight": {
     "led_count": 14,
-    "split": true
+    "split": true,
+    "saturation_steps": 8,
+    "brightness_steps": 8,
+    "animations": {
+      "alternating": true,
+      "breathing": true,
+      "christmas": true,
+      "knight": true,
+      "rainbow_mood": true,
+      "rainbow_swirl": true,
+      "rgb_test": true,
+      "snake": true,
+      "static_gradient": true,
+      "twinkle": true
+    }
   },
   "layouts": {
     "LAYOUT": {

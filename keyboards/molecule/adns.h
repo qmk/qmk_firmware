@@ -15,6 +15,8 @@
  */
 #pragma once
 
+#include <stdint.h>
+
 void adns_begin(void);
 
 void adns_end(void);

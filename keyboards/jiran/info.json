@@ -14,7 +14,10 @@
     },
     "diode_direction": "COL2ROW",
      "split": {
-        "soft_serial_pin": "D1"
+        "enabled": true,
+        "serial": {
+            "pin": "D1"
+        }
      },
     "processor": "atmega32u4",
     "bootloader": "caterina"

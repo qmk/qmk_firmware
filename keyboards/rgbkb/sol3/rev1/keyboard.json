@@ -1,0 +1,269 @@
+{
+    "keyboard_name": "Sol 3",
+    "manufacturer": "RGBKB",
+    "url": "",
+    "maintainer": "XScorpion2, rgbkb",
+    "usb": {
+        "vid": "0x3535",
+        "pid": "0x3510",
+        "device_version": "0.0.1"
+    },
+    "build": {
+        "lto": true
+    },
+    "features": {
+        "audio": true,
+        "bootmagic": true,
+        "dip_switch": true,
+        "dynamic_macro": true,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "oled": true,
+        "rgb_matrix": true
+    },
+    "rgblight": {
+        "led_count": 156,
+        "split_count": [78, 78],
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "audio": {
+        "default": {
+            "clicky": false
+        },
+        "driver": "dac_additive"
+    },
+    "ws2812": {
+        "pin": "B5",
+        "driver": "pwm"
+    },
+    "rgb_matrix": {
+        "animations":{
+            "alphas_mods": true,
+            "gradient_up_down": true,
+            "gradient_left_right": true,
+            "breathing": true,
+            "band_sat": true,
+            "band_val": true,
+            "band_pinwheel_sat": true,
+            "band_pinwheel_val": true,
+            "band_spiral_sat": true,
+            "band_spiral_val": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "rainbow_moving_chevron": true,
+            "cycle_out_in": true,
+            "cycle_out_in_dual": true,
+            "cycle_pinwheel": true,
+            "cycle_spiral": true,
+            "dual_beacon": true,
+            "rainbow_beacon": true,
+            "rainbow_pinwheels": true,
+            "raindrops": true,
+            "jellybean_raindrops": true,
+            "hue_breathing": true,
+            "hue_pendulum": true,
+            "hue_wave": true,
+            "pixel_rain": true,
+            "pixel_flow": true,
+            "pixel_fractal": true,
+            "typing_heatmap": true,
+            "digital_rain": true,
+            "solid_reactive_simple": true,
+            "solid_reactive": true,
+            "solid_reactive_wide": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_cross": true,
+            "solid_reactive_multicross": true,
+            "solid_reactive_nexus": true,
+            "solid_reactive_multinexus": true,
+            "splash": true,
+            "multisplash": true,
+            "solid_splash": true,
+            "solid_multisplash": true
+        },
+        "center_point": [81, 28],
+        "driver": "ws2812",
+        "led_flush_limit": 33,
+        "led_process_limit": 10,
+        "sleep": true,
+        "split_count": [78, 78]
+    },
+    "matrix_pins": {
+        "cols": ["A6", "A7", "B0", "B2", "B1", "B9", "B3", "B4"],
+        "rows": ["B15", "A8", "A15", "B12", "A3", null],
+        "io_delay": 5
+    },
+    "diode_direction": "COL2ROW",
+    "dip_switch": {
+        "pins": ["A14", "B13"]
+    },
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096
+        }
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "A1", "pin_b": "A2"},
+            {"pin_a": "B10", "pin_b": "B11"},
+            {"pin_a": "A13", "pin_b": "B14"}
+        ]
+    },
+    "split": {
+        "enabled": true,
+        "dip_switch": {
+            "right": {
+                "pins": ["A14", "B0"]
+            }
+        },
+        "encoder": {
+            "right": {
+                "rotary": [
+                    {"pin_a": "A1", "pin_b": "A2"},
+                    {"pin_a": "C15", "pin_b": "C14"},
+                    {"pin_a": "B3", "pin_b": "B13"}
+                ]
+            }
+        },
+        "handedness": {
+            "pin": "C13"
+        },
+        "matrix_pins": {
+            "right": {
+                "cols": ["B9", "B8", "B4", "A6", "A3", "B10", "B12", "B11"],
+                "rows": ["B15", "B14", "A8", "A13", "A7", null]
+            }
+        },
+        "serial": {
+            "driver": "usart",
+            "pin": "A9"
+        },
+        "transport": {
+            "watchdog": true,
+            "watchdog_timeout": 20000,
+            "sync": {
+                "indicators": true,
+                "layer_state": true,
+                "matrix_state": true
+            }
+        }
+    },
+    "qmk": {
+        "tap_keycode_delay": 5
+    },
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0, "w": 1.5},
+                {"matrix": [0, 1], "x": 1.5, "y": 0},
+                {"matrix": [0, 2], "x": 2.5, "y": 0},
+                {"matrix": [0, 3], "x": 3.5, "y": 0},
+                {"matrix": [0, 4], "x": 4.5, "y": 0},
+                {"matrix": [0, 5], "x": 5.5, "y": 0},
+                {"matrix": [0, 6], "x": 6.75, "y": 0},
+
+                {"matrix": [6, 6], "x": 9.25, "y": 0},
+                {"matrix": [6, 5], "x": 10.5, "y": 0},
+                {"matrix": [6, 4], "x": 11.5, "y": 0},
+                {"matrix": [6, 3], "x": 12.5, "y": 0},
+                {"matrix": [6, 2], "x": 13.5, "y": 0},
+                {"matrix": [6, 1], "x": 14.5, "y": 0},
+                {"matrix": [6, 0], "x": 15.5, "y": 0, "w": 1.5},
+
+                {"matrix": [1, 0], "x": 0, "y": 1, "w": 1.5},
+                {"matrix": [1, 1], "x": 1.5, "y": 1},
+                {"matrix": [1, 2], "x": 2.5, "y": 1},
+                {"matrix": [1, 3], "x": 3.5, "y": 1},
+                {"matrix": [1, 4], "x": 4.5, "y": 1},
+                {"matrix": [1, 5], "x": 5.5, "y": 1},
+                {"matrix": [1, 6], "x": 6.75, "y": 1},
+
+                {"matrix": [7, 6], "x": 9.25, "y": 1},
+                {"matrix": [7, 5], "x": 10.5, "y": 1},
+                {"matrix": [7, 4], "x": 11.5, "y": 1},
+                {"matrix": [7, 3], "x": 12.5, "y": 1},
+                {"matrix": [7, 2], "x": 13.5, "y": 1},
+                {"matrix": [7, 1], "x": 14.5, "y": 1},
+                {"matrix": [7, 0], "x": 15.5, "y": 1, "w": 1.5},
+
+                {"matrix": [2, 0], "x": 0, "y": 2, "w": 1.5},
+                {"matrix": [2, 1], "x": 1.5, "y": 2},
+                {"matrix": [2, 2], "x": 2.5, "y": 2},
+                {"matrix": [2, 3], "x": 3.5, "y": 2},
+                {"matrix": [2, 4], "x": 4.5, "y": 2},
+                {"matrix": [2, 5], "x": 5.5, "y": 2},
+                {"matrix": [2, 6], "x": 6.75, "y": 2},
+
+                {"matrix": [8, 6], "x": 9.25, "y": 2},
+                {"matrix": [8, 5], "x": 10.5, "y": 2},
+                {"matrix": [8, 4], "x": 11.5, "y": 2},
+                {"matrix": [8, 3], "x": 12.5, "y": 2},
+                {"matrix": [8, 2], "x": 13.5, "y": 2},
+                {"matrix": [8, 1], "x": 14.5, "y": 2},
+                {"matrix": [8, 0], "x": 15.5, "y": 2, "w": 1.5},
+
+                {"matrix": [3, 0], "x": 0, "y": 3, "w": 1.5},
+                {"matrix": [3, 1], "x": 1.5, "y": 3},
+                {"matrix": [3, 2], "x": 2.5, "y": 3},
+                {"matrix": [3, 3], "x": 3.5, "y": 3},
+                {"matrix": [3, 4], "x": 4.5, "y": 3},
+                {"matrix": [3, 5], "x": 5.5, "y": 3},
+                {"matrix": [3, 6], "x": 6.75, "y": 3},
+
+                {"matrix": [9, 6], "x": 9.25, "y": 3},
+                {"matrix": [9, 5], "x": 10.5, "y": 3},
+                {"matrix": [9, 4], "x": 11.5, "y": 3},
+                {"matrix": [9, 3], "x": 12.5, "y": 3},
+                {"matrix": [9, 2], "x": 13.5, "y": 3},
+                {"matrix": [9, 1], "x": 14.5, "y": 3},
+                {"matrix": [9, 0], "x": 15.5, "y": 3, "w": 1.5},
+
+                {"matrix": [4, 0], "x": 0, "y": 4, "w": 1.5},
+                {"matrix": [4, 1], "x": 1.5, "y": 4},
+                {"matrix": [4, 2], "x": 2.5, "y": 4},
+                {"matrix": [4, 3], "x": 3.5, "y": 4},
+                {"matrix": [4, 4], "x": 4.5, "y": 4},
+                {"matrix": [4, 5], "x": 6, "y": 4.5, "h": 2},
+                {"matrix": [4, 6], "x": 7, "y": 4.5},
+                {"matrix": [4, 7], "x": 7, "y": 5.5},
+
+                {"matrix": [10, 7], "x": 9, "y": 5.5},
+                {"matrix": [10, 6], "x": 9, "y": 4.5},
+                {"matrix": [10, 5], "x": 10, "y": 4.5, "h": 2},
+                {"matrix": [10, 4], "x": 11.5, "y": 4},
+                {"matrix": [10, 3], "x": 12.5, "y": 4},
+                {"matrix": [10, 2], "x": 13.5, "y": 4},
+                {"matrix": [10, 1], "x": 14.5, "y": 4},
+                {"matrix": [10, 0], "x": 15.5, "y": 4, "w": 1.5},
+
+                {"matrix": [0, 7], "x": 0, "y": 7.8, "w": 0.8, "h": 0.8},
+                {"matrix": [1, 7], "x": 0.8, "y": 7.8, "w": 0.8, "h": 0.8},
+                {"matrix": [2, 7], "x": 1.6, "y": 7.8, "w": 0.8, "h": 0.8},
+                {"matrix": [5, 6], "x": 2.4, "y": 7.8, "w": 0.8, "h": 0.8},
+                {"matrix": [5, 7], "x": 3.2, "y": 7.8, "w": 0.8, "h": 0.8},
+
+                {"matrix": [6, 7], "x": 13, "y": 7.8, "w": 0.8, "h": 0.8},
+                {"matrix": [7, 7], "x": 13.8, "y": 7.8, "w": 0.8, "h": 0.8},
+                {"matrix": [8, 7], "x": 14.6, "y": 7.8, "w": 0.8, "h": 0.8},
+                {"matrix": [11, 6], "x": 15.4, "y": 7.8, "w": 0.8, "h": 0.8},
+                {"matrix": [11, 7], "x": 16.2, "y": 7.8, "w": 0.8, "h": 0.8}
+            ]
+        }
+    }
+}

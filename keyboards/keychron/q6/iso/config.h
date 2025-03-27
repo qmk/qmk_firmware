@@ -24,11 +24,6 @@
 #define NO_PIN_START 11
 #define NO_PIN_OFFSET 1
 
-/* RGB Matrix Configuration */
-#define DRIVER_1_LED_TOTAL 60
-#define DRIVER_2_LED_TOTAL 49
-#define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
-
 /* Enable caps-lock LED*/
 #define CAPS_LOCK_LED_INDEX 60
 

@@ -92,6 +92,10 @@
 #define DF(layer) (QK_DEF_LAYER | ((layer)&0x1F))
 #define QK_DEF_LAYER_GET_LAYER(kc) ((kc)&0x1F)
 
+// Set persistent default layer - 32 layer max
+#define PDF(layer) (QK_PERSISTENT_DEF_LAYER | ((layer)&0x1F))
+#define QK_PERSISTENT_DEF_LAYER_GET_LAYER(kc) ((kc)&0x1F)
+
 // Toggle to layer - 32 layer max
 #define TG(layer) (QK_TOGGLE_LAYER | ((layer)&0x1F))
 #define QK_TOGGLE_LAYER_GET_LAYER(kc) ((kc)&0x1F)
@@ -189,6 +193,10 @@
 // Swap Hands
 #define SH_T(kc) (QK_SWAP_HANDS | ((kc)&0xFF))
 #define QK_SWAP_HANDS_GET_TAP_KEYCODE(kc) ((kc)&0xFF)
+
+// Tap dance
+#define TD(i) (QK_TAP_DANCE | ((i)&0xFF))
+#define QK_TAP_DANCE_GET_INDEX(kc) ((kc)&0xFF)
 
 // MIDI aliases
 #define MIDI_TONE_MIN QK_MIDI_NOTE_C_0

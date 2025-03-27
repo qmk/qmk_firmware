@@ -20,29 +20,29 @@ static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 #define MATRIX_ROW_SHIFTER ((matrix_row_t)1)
 
-static inline void setPinOutput_writeLow(pin_t pin) {
+static inline void gpio_atomic_set_pin_output_low(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
-        setPinOutput(pin);
-        writePinLow(pin);
+        gpio_set_pin_output(pin);
+        gpio_write_pin_low(pin);
     }
 }
 
-static inline void setPinOutput_writeHigh(pin_t pin) {
+static inline void gpio_atomic_set_pin_output_high(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
-        setPinOutput(pin);
-        writePinHigh(pin);
+        gpio_set_pin_output(pin);
+        gpio_write_pin_high(pin);
     }
 }
 
-static inline void setPinInputHigh_atomic(pin_t pin) {
+static inline void gpio_atomic_set_pin_input_high(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
-        setPinInputHigh(pin);
+        gpio_set_pin_input_high(pin);
     }
 }
 
 static inline uint8_t readMatrixPin(pin_t pin) {
     if (pin != NO_PIN) {
-        return readPin(pin);
+        return gpio_read_pin(pin);
     } else {
         return 1;
     }
@@ -51,7 +51,7 @@ static inline uint8_t readMatrixPin(pin_t pin) {
 static bool select_row(uint8_t row) {
     pin_t pin = row_pins[row];
     if (pin != NO_PIN) {
-        setPinOutput_writeLow(pin);
+        gpio_atomic_set_pin_output_low(pin);
         return true;
     }
     return false;
@@ -60,7 +60,7 @@ static bool select_row(uint8_t row) {
 static void unselect_row(uint8_t row) {
     pin_t pin = row_pins[row];
     if (pin != NO_PIN) {
-        setPinInputHigh_atomic(pin);
+        gpio_atomic_set_pin_input_high(pin);
     }
 }
 
@@ -74,11 +74,11 @@ __attribute__((weak)) void matrix_init_custom(void) {
     unselect_rows();
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
         if (col_pins[x] != NO_PIN) {
-            setPinInputHigh_atomic(col_pins[x]);
+            gpio_atomic_set_pin_input_high(col_pins[x]);
         }
     }
-    setPinInputHigh_atomic(F7);
-    setPinInputHigh_atomic(F0);
+    gpio_atomic_set_pin_input_high(F7);
+    gpio_atomic_set_pin_input_high(F0);
 }
 
 void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
