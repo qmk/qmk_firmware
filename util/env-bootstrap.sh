@@ -9,42 +9,99 @@ set -eu
 ################################################################################
 # This script will install the QMK CLI, toolchains, and flashing utilities.
 ################################################################################
-# Configurables:
-#   QMK_DISTRIB_DIR: The directory to install the QMK distribution to.
-#   UV_INSTALL_DIR: The directory to install `uv` to.
-#   SKIP_CLEAN: Skip cleaning the distribution directory.
-#   SKIP_UV: Skip installing `uv`.
-#   SKIP_QMK_CLI: Skip installing the QMK CLI.
-#   SKIP_QMK_TOOLCHAINS: Skip installing the QMK toolchains.
-#   SKIP_QMK_FLASHUTILS: Skip installing the QMK flashing utilities.
+# Environment variables:
+#   YES: Assume "yes" for all prompts. (or: --yes)
+#   QMK_DISTRIB_DIR: The directory to install the QMK distribution to. (or: --qmk-distrib-dir=...)
+#   UV_INSTALL_DIR: The directory to install `uv` to. (or: --uv-install-dir=...)
+#   SKIP_CLEAN: Skip cleaning the distribution directory. (or: --skip-clean)
+#   SKIP_PACKAGE_MANAGER: Skip installing the necessary packages for the package manager. (or: --skip-package-manager)
+#   SKIP_UV: Skip installing `uv`. (or: --skip-uv)
+#   SKIP_QMK_CLI: Skip installing the QMK CLI. (or: --skip-qmk-cli)
+#   SKIP_QMK_TOOLCHAINS: Skip installing the QMK toolchains. (or: --skip-qmk-toolchains)
+#   SKIP_QMK_FLASHUTILS: Skip installing the QMK flashing utilities. (or: --skip-qmk-flashutils)
+#
+# Arguments above may be negated by prefixing with `--no-` instead (e.g. `--no-skip-clean`).
 ################################################################################
 # Usage:
 #   curl -fsSL https://raw.githubusercontent.com/qmk/qmk_firmware/master/util/env-bootstrap.sh | sh
 #
-# An example which skips installing `uv`:
+# Help:
+#   curl -fsSL https://raw.githubusercontent.com/qmk/qmk_firmware/master/util/env-bootstrap.sh | sh -s -- --help
+#
+# An example which skips installing `uv` using environment variables:
 #   curl -fsSL https://raw.githubusercontent.com/qmk/qmk_firmware/master/util/env-bootstrap.sh | SKIP_UV=1 sh
+#
+# ...or by using command line arguments:
+#   curl -fsSL https://raw.githubusercontent.com/qmk/qmk_firmware/master/util/env-bootstrap.sh | sh -s -- --skip-uv
 #
 # Any other configurable items listed above may be specified in the same way.
 ################################################################################
 
-# Windows/MSYS doesn't like `/tmp` so we need to set a different temporary directory.
-# Also set the default `UV_INSTALL_DIR` and `QMK_DISTRIB_DIR` to locations which don't pollute the user's home directory, keeping the installation internal to MSYS.
-if [ "$(uname -o 2>/dev/null || true)" = "Msys" ]; then
-    export TMPDIR="$(cygpath -w "$TMP")"
-    export UV_INSTALL_DIR=${UV_INSTALL_DIR:-/opt/uv}
-    export QMK_DISTRIB_DIR=${QMK_DISTRIB_DIR:-/opt/qmk}
-fi
+# Work out which `sed` to use
+command -v gsed >/dev/null 2>&1 && SED=gsed || SED=sed
 
-# Work out where we want to install the distribution
-export QMK_DISTRIB_DIR=${QMK_DISTRIB_DIR:-$HOME/.local/share/qmk}
-# Clear out the target directory if necessary
-if [ -z "${SKIP_CLEAN:-}" ] || [ -z "${SKIP_QMK_TOOLCHAINS:-}" -a -z "${SKIP_QMK_FLASHUTILS:-}" ]; then
-    if [ -d "$QMK_DISTRIB_DIR" ]; then
-        echo "Removing old QMK distribution..." >&2
-        rm -rf "$QMK_DISTRIB_DIR"
-    fi
-fi
-mkdir -p "$QMK_DISTRIB_DIR"
+script_args() {
+    cat <<__EOT__
+    --help                    -- Shows this help text
+    --yes                     -- Assumes "yes" for all prompts
+    --uv-install-dir={path}   -- The directory to install \`uv\` into
+    --qmk-distrib-dir={path}  -- The directory to install the QMK distribution into
+    --skip-clean              -- Skip cleaning the QMK distribution directory
+    --skip-package-manager    -- Skip installing the necessary packages for the package manager
+    --skip-uv                 -- Skip installing \`uv\`
+    --skip-qmk-cli            -- Skip installing the QMK CLI
+    --skip-qmk-toolchains     -- Skip installing the QMK toolchains
+    --skip-qmk-flashutils     -- Skip installing the QMK flashing utilities
+__EOT__
+}
+
+script_help() {
+    echo "$(basename ${this_script:-qmk-install.sh}) $(script_args | sort | ${SED} -e 's@^\s*@@g' -e 's@\s\+--.*@@g' -e 's@^@[@' -e 's@$@]@' | tr '\n' ' ')"
+    echo
+    echo "Arguments:"
+    script_args
+    echo
+    echo "Switch arguments may be negated by prefixing with '--no-' (e.g. '--no-skip-clean')."
+}
+
+script_parse_args() {
+    local N
+    local V
+    while [[ ! -z "${1:-}" ]]; do
+        case "$1" in
+        --help)
+            script_help
+            exit 0
+            ;;
+        --*=*)
+            N=${1%%=*}
+            N=${N##--}
+            N=$(echo $N | tr '-' '_' | tr 'a-z' 'A-Z')
+            V=${1##*=}
+            export $N="$V"
+            ;;
+        --no-*)
+            N=${1##--no-}
+            N=$(echo $N | tr '-' '_' | tr 'a-z' 'A-Z')
+            unset $N
+            ;;
+        --*)
+            N=${1##--}
+            N=$(echo $N | tr '-' '_' | tr 'a-z' 'A-Z')
+            export $N=true
+            ;;
+        *)
+            echo "Unknown argument: '$1'" >&2
+            echo
+            script_help >&2
+            exit 1
+            ;;
+        esac
+        shift
+        unset N
+        unset V
+    done
+}
 
 download_url() {
     local url=$1
@@ -105,6 +162,7 @@ fn_arch() {
 }
 
 check_yesno() {
+    [ -z "${YES:-}" ] || return 0
     read -p "Proceed? [y/N] " res </dev/tty # Read from /dev/tty as stdin may not be connected when piping to sh
     case $res in
     [Yy]*) ;;
@@ -197,7 +255,9 @@ install_package_manager_deps() {
 install_uv() {
     # Install `uv` (or update as necessary)
     download_url https://astral.sh/uv/install.sh - | TMPDIR=${TMPDIR:-} UV_INSTALL_DIR=${UV_INSTALL_DIR:-} sh
+}
 
+setup_paths() {
     # Set up the paths for any of the locations `uv` expects
     if [ -n "${XDG_BIN_HOME:-}" ]; then
         export PATH="$XDG_BIN_HOME:$PATH"
@@ -287,10 +347,35 @@ clean_tarballs() {
     rm -f "$QMK_DISTRIB_DIR"/*.tar.zst || true
 }
 
+# Windows/MSYS doesn't like `/tmp` so we need to set a different temporary directory.
+# Also set the default `UV_INSTALL_DIR` and `QMK_DISTRIB_DIR` to locations which don't pollute the user's home directory, keeping the installation internal to MSYS.
+if [ "$(uname -o 2>/dev/null || true)" = "Msys" ]; then
+    export TMPDIR="$(cygpath -w "$TMP")"
+    export UV_INSTALL_DIR=${UV_INSTALL_DIR:-/opt/uv}
+    export QMK_DISTRIB_DIR=${QMK_DISTRIB_DIR:-/opt/qmk}
+fi
+
+# Work out where we want to install the distribution
+export QMK_DISTRIB_DIR=${QMK_DISTRIB_DIR:-$HOME/.local/share/qmk}
+
+script_parse_args "$@"
+
 echo "This script will install \`uv\` to ${UV_INSTALL_DIR:-the default location}, and the QMK CLI, toolchains, and flashing utilities to ${QMK_DISTRIB_DIR}."
+[ -z "${SKIP_PACKAGE_MANAGER:-}" ] || { check_yesno || exit 1; }
 [ -n "${SKIP_PACKAGE_MANAGER:-}" ] || install_package_manager_deps
 [ -n "${SKIP_UV:-}" ] || install_uv
+setup_paths
 [ -n "${SKIP_QMK_CLI:-}" ] || install_qmk_cli
+
+# Clear out the distrib directory if necessary
+if [ -z "${SKIP_CLEAN:-}" ] || [ -z "${SKIP_QMK_TOOLCHAINS:-}" -a -z "${SKIP_QMK_FLASHUTILS:-}" ]; then
+    if [ -d "$QMK_DISTRIB_DIR" ]; then
+        echo "Removing old QMK distribution..." >&2
+        rm -rf "$QMK_DISTRIB_DIR"
+    fi
+fi
+mkdir -p "$QMK_DISTRIB_DIR"
+
 [ -n "${SKIP_QMK_TOOLCHAINS:-}" ] || install_toolchains
 [ -n "${SKIP_QMK_FLASHUTILS:-}" ] || install_flashing_tools
 clean_tarballs
