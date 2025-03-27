@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 # Copyright 2025 Nick Brassel (@tzarc)
 # SPDX-License-Identifier: GPL-2.0-or-later
+
+{ # this ensures the entire script is downloaded #
+
 set -eu
 
 ################################################################################
@@ -101,6 +104,96 @@ fn_arch() {
     esac
 }
 
+check_yesno() {
+    read -p "Proceed? [y/N] " res </dev/tty # Read from /dev/tty as stdin may not be connected when piping to sh
+    case $res in
+    [Yy]*) ;;
+    *)
+        return 1
+        ;;
+    esac
+}
+
+install_package_manager_deps() {
+    # Install the necessary packages for the package manager
+    case $(fn_os) in
+    macos)
+        if [ -n "$(command -v brew 2>/dev/null || true)" ]; then
+            echo "It will also install the following system packages using 'brew':" >&2
+            echo "    zstd clang-format make hidapi libusb" >&2
+            check_yesno || exit 1
+            brew update && brew upgrade --formulae
+            brew install zstd clang-format make hidapi libusb
+        else
+            echo "Please install 'brew' to continue. See https://brew.sh/ for more information." >&2
+            exit 1
+        fi
+        ;;
+    linux)
+        case $(grep ID /etc/os-release) in
+        *arch* | *manjaro*)
+            echo "It will also install the following system packages using 'pacman':" >&2
+            echo "    zstd base-devel clang diffutils unzip wget zip hidapi" >&2
+            check_yesno || exit 1
+            sudo pacman --needed --noconfirm -S zstd base-devel clang diffutils unzip wget zip
+            sudo pacman --needed --noconfirm -S hidapi || true # This will fail if the community repo isn't enabled
+            ;;
+        *debian* | *ubuntu*)
+            echo "It will also install the following system packages using 'apt':" >&2
+            echo "    zstd build-essential clang-format diffutils unzip wget zip libhidapi-hidraw0" >&2
+            check_yesno || exit 1
+            sudo apt-get update
+            DEBIAN_FRONTEND=noninteractive \
+                sudo apt-get --quiet --yes install zstd build-essential clang-format diffutils unzip wget zip libhidapi-hidraw0
+            ;;
+        *fedora*)
+            echo "It will also install the following system packages using 'dnf':" >&2
+            echo "    zstd clang diffutils gcc git unzip wget zip hidapi" >&2
+            echo "And whichever of the following is available, depending on which packages are provided by the distro:" >&2
+            echo "    libusb-devel, libusb1-devel, libusb-compat-0.1-devel, or libusb0-devel" >&2
+            check_yesno || exit 1
+            sudo dnf -y install zstd clang diffutils gcc git unzip wget zip hidapi libusb-devel libusb1-devel libusb-compat-0.1-devel libusb0-devel --skip-unavailable
+            ;;
+        *gentoo*)
+            echo "It will also the following packages using 'emerge':" >&2
+            echo "    app-arch/zstd app-arch/unzip app-arch/zip net-misc/wget llvm-core/clang sys-apps/hwloc dev-libs/hidapi" >&2
+            check_yesno || exit 1
+            sudo emerge -au --noreplace \
+                app-arch/zstd app-arch/unzip app-arch/zip net-misc/wget llvm-core/clang sys-apps/hwloc dev-libs/hidapi
+            ;;
+        *slackware*)
+            echo "It will also the following packages using 'sboinstall':" >&2
+            echo "    python3" >&2
+            check_yesno || exit 1
+            sudo sboinstall python3 # Rest tbd?
+            ;;
+        *solus*)
+            echo "It will also install the following system packages using 'eopkg':" >&2
+            echo "    system.devel zstd git wget zip unzip python3" >&2
+            check_yesno || exit 1
+            sudo eopkg -y update-repo
+            sudo eopkg -y upgrade
+            sudo eopkg -y install \
+                -c system.devel zstd git wget zip unzip python3
+            ;;
+        *void*)
+            echo "It will also the following packages using 'xbps-install':" >&2
+            echo "    zstd git make wget unzip zip python3" >&2
+            check_yesno || exit 1
+            sudo xbps-install -y \
+                zstd git make wget unzip zip python3
+            ;;
+        *)
+            echo "Sorry, we don't recognize your distribution. Try using the docker image instead:"
+            echo
+            echo "https://docs.qmk.fm/#/getting_started_docker"
+            exit 1
+            ;;
+        esac
+        ;;
+    esac
+}
+
 install_uv() {
     # Install `uv` (or update as necessary)
     download_url https://astral.sh/uv/install.sh - | TMPDIR=${TMPDIR:-} UV_INSTALL_DIR=${UV_INSTALL_DIR:-} sh
@@ -194,6 +287,8 @@ clean_tarballs() {
     rm -f "$QMK_DISTRIB_DIR"/*.tar.zst || true
 }
 
+echo "This script will install \`uv\` to ${UV_INSTALL_DIR:-the default location}, and the QMK CLI, toolchains, and flashing utilities to ${QMK_DISTRIB_DIR}."
+[ -n "${SKIP_PACKAGE_MANAGER:-}" ] || install_package_manager_deps
 [ -n "${SKIP_UV:-}" ] || install_uv
 [ -n "${SKIP_QMK_CLI:-}" ] || install_qmk_cli
 [ -n "${SKIP_QMK_TOOLCHAINS:-}" ] || install_toolchains
@@ -206,3 +301,5 @@ echo
 echo "You may need to restart your shell to gain access to the 'qmk' command."
 echo "Alternatively, add "$(dirname "$(command -v qmk)")" to your \$PATH:"
 echo "    export PATH=\"$(dirname "$(command -v qmk)"):\$PATH\""
+
+} # this ensures the entire script is downloaded #
