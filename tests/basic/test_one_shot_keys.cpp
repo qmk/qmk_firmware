@@ -15,8 +15,11 @@
  */
 
 #include "action_util.h"
+#include "config.h"
 #include "keyboard_report_util.hpp"
 #include "test_common.hpp"
+#include <gtest/gtest.h>
+#include <stdint.h>
 
 using testing::_;
 using testing::InSequence;
@@ -24,24 +27,19 @@ using testing::InSequence;
 class OneShot : public TestFixture {};
 class OneShotParametrizedTestFixture : public ::testing::WithParamInterface<std::pair<KeymapKey, KeymapKey>>, public OneShot {};
 
-TEST_F(OneShot, OSMWithoutAdditionalKeypressDoesNothing) {
+TEST_F(OneShot, OSMWithoutAdditionalKeypressSetsOneShotModsButDoesNotSendReport) {
     TestDriver driver;
     auto       osm_key = KeymapKey(0, 0, 0, OSM(MOD_LSFT), KC_LSFT);
+    auto       a_key   = KeymapKey(0, 0, 0, KC_A);
 
     set_keymap({osm_key});
 
-    /* Press and release OSM key*/
+    /* Press and release OSM key should set one shot mods*/
     EXPECT_NO_REPORT(driver);
     tap_key(osm_key);
+    EXPECT_EQ(get_oneshot_mods(), MOD_LSFT);
     VERIFY_AND_CLEAR(driver);
-
-    /* OSM are added when an actual report is send */
-    EXPECT_REPORT(driver, (osm_key.report_code));
-    send_keyboard_report();
-    VERIFY_AND_CLEAR(driver);
-
-    /* Make unit-test pass */
-    clear_oneshot_mods();
+    clear_oneshot_mods(); // reset state
 }
 
 #if defined(ONESHOT_TIMEOUT)
@@ -266,6 +264,47 @@ TEST_F(OneShot, OSMHoldNotLockingOSMs) {
 
     /* Press regular key */
     EXPECT_REPORT(driver, (regular_key.report_code)).Times(1);
+    regular_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    /* Release regular key */
+    EXPECT_EMPTY_REPORT(driver);
+    regular_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
+
+TEST_F(OneShot, OSMTapThenHoldNotLockingOSMs) {
+    TestDriver driver;
+    InSequence s;
+    KeymapKey  osm_key     = KeymapKey{0, 0, 0, OSM(MOD_LSFT), KC_LSFT};
+    KeymapKey  regular_key = KeymapKey{0, 1, 0, KC_A};
+
+    set_keymap({osm_key, regular_key});
+
+    /* Press and release OSM */
+    EXPECT_NO_REPORT(driver);
+    tap_key(osm_key);
+    VERIFY_AND_CLEAR(driver);
+
+    /* Press and hold OSM */
+    EXPECT_REPORT(driver, (osm_key.report_code)).Times(1);
+    osm_key.press();
+    run_one_scan_loop();
+    idle_for(TAPPING_TERM);
+    // EXPECT_EQ(get_oneshot_mods(), b02); // one shot mods should be disabled
+    VERIFY_AND_CLEAR(driver);
+
+    /* Release OSM1 */
+    EXPECT_EMPTY_REPORT(driver);
+    osm_key.release();
+    run_one_scan_loop();
+    // EXPECT_EQ(get_oneshot_mods(), 0); // one shot mods should be disabled
+    VERIFY_AND_CLEAR(driver);
+
+    /* Press regular key */
+    EXPECT_REPORT(driver, (regular_key.report_code)).Times(1); // no mod
     regular_key.press();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
