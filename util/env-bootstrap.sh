@@ -6,7 +6,7 @@
 # This script will install the QMK CLI, toolchains, and flashing utilities.
 ################################################################################
 # Environment variables:
-#   YES: Assume "yes" for all prompts. (or: --yes)
+#   QUICK: Skip the pre-install delay. (or: --quick)
 #   QMK_DISTRIB_DIR: The directory to install the QMK distribution to. (or: --qmk-distrib-dir=...)
 #   UV_INSTALL_DIR: The directory to install `uv` to. (or: --uv-install-dir=...)
 #   SKIP_CLEAN: Skip cleaning the distribution directory. (or: --skip-clean)
@@ -43,7 +43,7 @@
     script_args() {
         cat <<__EOT__
     --help                    -- Shows this help text
-    --yes                     -- Assumes "yes" for all prompts
+    --quick                   -- Skips the delay before installation
     --uv-install-dir={path}   -- The directory to install \`uv\` into
     --qmk-distrib-dir={path}  -- The directory to install the QMK distribution into
     --skip-clean              -- Skip cleaning the QMK distribution directory
@@ -161,15 +161,11 @@ __EOT__
         esac
     }
 
-    check_yesno() {
-        [ -z "${YES:-}" ] || return 0
-        read -p "Proceed? [y/N] " res </dev/tty # Read from /dev/tty as stdin may not be connected when piping to sh
-        case $res in
-        [Yy]*) ;;
-        *)
-            return 1
-            ;;
-        esac
+    preinstall_delay() {
+        [ -z "${QUICK:-}" ] || return 0
+        echo >&2
+        echo "Waiting 10 seconds before proceeding. Press Ctrl+C to cancel installation." >&2
+        sleep 10
     }
 
     install_package_manager_deps() {
@@ -179,7 +175,7 @@ __EOT__
             if [ -n "$(command -v brew 2>/dev/null || true)" ]; then
                 echo "It will also install the following system packages using 'brew':" >&2
                 echo "    zstd clang-format make hidapi libusb" >&2
-                check_yesno || exit 1
+                preinstall_delay || exit 1
                 brew update && brew upgrade --formulae
                 brew install zstd clang-format make hidapi libusb
             else
@@ -192,14 +188,14 @@ __EOT__
             *arch* | *manjaro*)
                 echo "It will also install the following system packages using 'pacman':" >&2
                 echo "    zstd base-devel clang diffutils unzip wget zip hidapi" >&2
-                check_yesno || exit 1
+                preinstall_delay || exit 1
                 sudo pacman --needed --noconfirm -S zstd base-devel clang diffutils unzip wget zip
                 sudo pacman --needed --noconfirm -S hidapi || true # This will fail if the community repo isn't enabled
                 ;;
             *debian* | *ubuntu*)
                 echo "It will also install the following system packages using 'apt':" >&2
                 echo "    zstd build-essential clang-format diffutils unzip wget zip libhidapi-hidraw0" >&2
-                check_yesno || exit 1
+                preinstall_delay || exit 1
                 sudo apt-get update
                 DEBIAN_FRONTEND=noninteractive \
                     sudo apt-get --quiet --yes install zstd build-essential clang-format diffutils unzip wget zip libhidapi-hidraw0
@@ -209,26 +205,26 @@ __EOT__
                 echo "    zstd clang diffutils gcc git unzip wget zip hidapi" >&2
                 echo "And whichever of the following is available, depending on which packages are provided by the distro:" >&2
                 echo "    libusb-devel, libusb1-devel, libusb-compat-0.1-devel, or libusb0-devel" >&2
-                check_yesno || exit 1
+                preinstall_delay || exit 1
                 sudo dnf -y install zstd clang diffutils gcc git unzip wget zip hidapi libusb-devel libusb1-devel libusb-compat-0.1-devel libusb0-devel --skip-unavailable
                 ;;
             *gentoo*)
                 echo "It will also the following packages using 'emerge':" >&2
                 echo "    app-arch/zstd app-arch/unzip app-arch/zip net-misc/wget llvm-core/clang sys-apps/hwloc dev-libs/hidapi" >&2
-                check_yesno || exit 1
+                preinstall_delay || exit 1
                 sudo emerge -au --noreplace \
                     app-arch/zstd app-arch/unzip app-arch/zip net-misc/wget llvm-core/clang sys-apps/hwloc dev-libs/hidapi
                 ;;
             *slackware*)
                 echo "It will also the following packages using 'sboinstall':" >&2
                 echo "    python3" >&2
-                check_yesno || exit 1
+                preinstall_delay || exit 1
                 sudo sboinstall python3 # Rest tbd?
                 ;;
             *solus*)
                 echo "It will also install the following system packages using 'eopkg':" >&2
                 echo "    system.devel zstd git wget zip unzip python3" >&2
-                check_yesno || exit 1
+                preinstall_delay || exit 1
                 sudo eopkg -y update-repo
                 sudo eopkg -y upgrade
                 sudo eopkg -y install \
@@ -237,7 +233,7 @@ __EOT__
             *void*)
                 echo "It will also the following packages using 'xbps-install':" >&2
                 echo "    zstd git make wget unzip zip python3" >&2
-                check_yesno || exit 1
+                preinstall_delay || exit 1
                 sudo xbps-install -y \
                     zstd git make wget unzip zip python3
                 ;;
@@ -318,7 +314,7 @@ __EOT__
         download_url "$toolchain_url" "$target_file"
 
         # Extract the toolchain
-        echo "Extracting compiler toolchain..." >&2
+        echo "Extracting compiler toolchain to '$QMK_DISTRIB_DIR'..." >&2
         tar xf "$target_file" -C "$QMK_DISTRIB_DIR" --strip-components=1
     }
 
@@ -338,7 +334,7 @@ __EOT__
         download_url "$flashutils_url" "$target_file"
 
         # Extract the flashing tools
-        echo "Extracting flashing tools..." >&2
+        echo "Extracting flashing tools to '$QMK_DISTRIB_DIR'..." >&2
         tar xf "$target_file" -C "$QMK_DISTRIB_DIR/bin"
     }
 
@@ -361,7 +357,7 @@ __EOT__
     script_parse_args "$@"
 
     echo "This script will install \`uv\` to ${UV_INSTALL_DIR:-the default location}, and the QMK CLI, toolchains, and flashing utilities to ${QMK_DISTRIB_DIR}."
-    [ -z "${SKIP_PACKAGE_MANAGER:-}" ] || { check_yesno || exit 1; }
+    [ -z "${SKIP_PACKAGE_MANAGER:-}" ] || { preinstall_delay || exit 1; }
     [ -n "${SKIP_PACKAGE_MANAGER:-}" ] || install_package_manager_deps
     [ -n "${SKIP_UV:-}" ] || install_uv
     setup_paths
