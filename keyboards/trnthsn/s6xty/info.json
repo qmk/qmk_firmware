@@ -1,8 +1,6 @@
 {
-    "manufacturer": "ThanhSon.Mech",
-    "keyboard_name": "S6xty",
+    "manufacturer": "Tyson.Keebs",
     "maintainer": "trnthsn",
-    "bootloader": "stm32-dfu",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
@@ -10,16 +8,9 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "rgblight": true
     },
-    "indicators": {
-        "caps_lock": "B12"
-    },
-    "matrix_pins": {
-        "cols": ["B14", "A0", "A10", "C15", "A2", "A1", "B11", "B10", "B1", "B0", "A7", "A6", "A5", "A4"],
-        "rows": ["B3", "B7", "A3", "A9", "A8"]
-    },
-    "processor": "STM32F072",
     "rgblight": {
         "animations": {
             "alternating": true,
@@ -32,8 +23,10 @@
             "static_gradient": true,
             "twinkle": true
         },
-        "led_count": 22,
-        "sleep": true
+        "sleep": true,
+        "default": {
+            "animation": "rainbow_swirl"
+        }
     },
     "url": "",
     "usb": {
