@@ -1,10 +1,10 @@
 # num 3x3
-
+[https://github.com/Giliy666/GCK/blob/main/num3x3/hardware/20250328_165635.jpg]
 num 3x3
 
 * Keyboard Maintainer: [Giliy666](https://github.com/Giliy666)
 * Hardware Supported: rp2040, stm32f401
-* Hardware Availability: [aliexpress](https://aliexpress.ru/)
+* Hardware Availability: [Giliy666](https://github.com/Giliy666/GCK)
 
 Make example for this keyboard (after setting up your build environment):
 

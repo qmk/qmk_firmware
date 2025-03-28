@@ -13,8 +13,7 @@
         "nkro": true,              
         "rgblight":true                  
     }, 
-
-    "url": "www.GCK.ru",
+        
     "usb": {
         "device_version": "0.0.1",
         "pid": "0x1313",
