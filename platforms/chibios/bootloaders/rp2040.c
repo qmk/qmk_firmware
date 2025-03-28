@@ -6,6 +6,7 @@
 #include "gpio.h"
 #include "wait.h"
 #include "pico/bootrom.h"
+#include "pico/runtime_init.h"
 
 #if !defined(RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED)
 #    define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED_MASK 0U
@@ -39,7 +40,7 @@ const uint32_t magic_token = 0xCAFEB0BA;
 void __late_init(void) {
     // All clocks have to be enabled before jumping to the bootloader function,
     // otherwise the bootrom will be stuck infinitely.
-    clocks_init();
+    runtime_init_clocks();
 
     if (magic_location != magic_token) {
         magic_location = magic_token;

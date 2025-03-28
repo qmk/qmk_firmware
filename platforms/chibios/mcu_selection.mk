@@ -159,8 +159,8 @@ ifneq ($(findstring RP2040, $(MCU)),)
   # Linker script to use
   # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
   #   or <keyboard_dir>/ld/
+  MCU_LDSCRIPT ?= RP2040_FLASH
   STARTUPLD_CONTRIB = $(CHIBIOS_CONTRIB)/os/common/startup/ARMCMx/compilers/GCC/ld
-  MCU_LDSCRIPT ?= RP2040_FLASH_TIMECRIT
   LDFLAGS += -L $(STARTUPLD_CONTRIB)
 
   # Startup code to use
