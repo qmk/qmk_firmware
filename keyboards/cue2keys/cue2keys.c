@@ -18,30 +18,19 @@ DisplayMode display_mode = DisplayMode_Layer;
 
 static pin_t direct_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
 
-enum my_keycodes {
-    // Next OLED Page
-    NEXT_OLED_PAGE = QK_KB_0,
-    // Trackball angle
-    ROT_R30_1,
-    ROT_L30_1,
-    ROT_R30_2,
-    ROT_L30_2,
-    ROT_R2_1,
-    ROT_L2_1,
-    ROT_R2_2,
-    ROT_L2_2,
-    // mouse key off delay time
-    MOUSE_LAYER_MS_ADD_50MS,
-    MOUSE_LAYER_MS_MINUS_50MS,
-    // x0.5, x1 (default), x2, x4
-    POINTER_SPEED_MAG_CHANGE,
-};
-
 kb_config_t kb_config = {0};
 
 uint16_t calc_auto_mouse_timeout_by_kbconfig(uint8_t ms) {
     return 250 + 50 * ms;
 }
+
+#ifdef POINTING_DEVICE_ENABLE
+bool set_scrolling = false;
+
+// Variables to store accumulated scroll values
+float scroll_accumulated_h = 0;
+float scroll_accumulated_v = 0;
+#endif
 
 void keyboard_post_init_kb(void) {
     debug_enable = true;
@@ -248,6 +237,14 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         }
     }
 
+    // drag scroll
+    switch (keycode) {
+        case DRAG_SCROLL:
+            // Toggle set_scrolling
+            set_scrolling = record->event.pressed;
+            return false;
+    }
+
     return process_record_user(keycode, record);
 }
 
@@ -415,8 +412,30 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
         mag *= 2;
     }
     report_mouse_t t = modular_adns5050_pointing_device_driver.get_report(mouse_report);
-    t.x *= mag;
-    t.y *= mag;
+
+    // Check if drag scrolling is active
+    if (set_scrolling) {
+        // Calculate and accumulate scroll values based on mouse movement and divisors
+        scroll_accumulated_h += (float)t.x / SCROLL_DIVISOR_H;
+        scroll_accumulated_v += (float)t.y / SCROLL_DIVISOR_V;
+
+        // Assign integer parts of accumulated scroll values to the mouse report
+        t.h = (int8_t)scroll_accumulated_h;
+        t.v = (int8_t)scroll_accumulated_v;
+
+        // Update accumulated scroll values by subtracting the integer parts
+        scroll_accumulated_h -= (int8_t)scroll_accumulated_h;
+        scroll_accumulated_v -= (int8_t)scroll_accumulated_v;
+
+        // Clear the X and Y values of the mouse report
+        t.x = 0;
+        t.y = 0;
+    } else {
+        // scroll speed is not affected by the speed magnification
+        t.x *= mag;
+        t.y *= mag;
+    }
+
     return t;
 }
 uint16_t pointing_device_driver_get_cpi(void) {

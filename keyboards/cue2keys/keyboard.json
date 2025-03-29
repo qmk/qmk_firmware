@@ -64,6 +64,11 @@
             "name": "POINTER_SPEED_MAG_CHANGE",
             "shortName": "POINTER_SPEED_MAG_CHANGE",
             "title": "Change the pointer speed magnifier. 1x -> 2x -> 4x -> 0.5x -> 1x -> ..."
+        },
+        {
+            "name": "DRAG_SCROLL",
+            "shortName": "DRAG_SCROLL",
+            "title": "Change the pointer device movement into the mouse scroll"
         }
     ],
     "dynamic_keymap": {
