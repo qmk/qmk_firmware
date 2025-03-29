@@ -78,9 +78,11 @@
         "bootmagic": true,
         "command": false,
         "console": true,
+        "encoder": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "oled": true
     },
     "matrix_pins": {
         "direct": [

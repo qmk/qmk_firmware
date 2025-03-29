@@ -153,8 +153,8 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     uprintf("#device %u\n", sizeof(deviceList));
 #endif
 
-    // system keys
-    if (record->event.pressed && record->event.key.row == 0 && record->event.key.col == 0) {
+    // system keys, but not combo keys
+    if (record->event.pressed && record->event.key.row == 0 && record->event.key.col == 0 && record->event.type != COMBO_EVENT) {
         dprintf("GP9 pressed\n");
         display_mode = (display_mode + 1) % DisplayMode_MAX;
 #ifdef OLED_ENABLE
