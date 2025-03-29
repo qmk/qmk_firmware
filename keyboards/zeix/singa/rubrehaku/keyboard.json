@@ -20,7 +20,6 @@
     "processor": "RP2040",
     "rgblight": {
         "animations": {
-            "static_light": true,
             "alternating": true,
             "breathing": true,
             "christmas": true,
@@ -34,11 +33,11 @@
         "default": {
             "val": 8,
             "hue": 210,
-            "sat": 100,
+            "sat": 100
         },
         "driver": "ws2812",
         "led_count": 16,
-        "sleep": true,
+        "sleep": true
     },
     "usb": {
         "device_version": "0.0.1",
