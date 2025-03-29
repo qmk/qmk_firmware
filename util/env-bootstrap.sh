@@ -67,7 +67,7 @@ __EOT__
     script_parse_args() {
         local N
         local V
-        while [[ ! -z "${1:-}" ]]; do
+        while [ ! -z "${1:-}" ]; do
             case "$1" in
             --help)
                 script_help
