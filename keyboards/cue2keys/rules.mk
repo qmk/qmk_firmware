@@ -1,9 +1,6 @@
 I2C_DRIVER_REQUIRED = yes
 LIB_SRC += i2clib.c
 
-OLED_ENABLE = yes
-ENCODER_ENABLE = yes
-
 POINTING_DEVICE_ENABLE = yes
 POINTING_DEVICE_DRIVER = custom
 LIB_SRC += drivers/modular_adns5050.c
