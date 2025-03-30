@@ -1,6 +1,6 @@
 {
-    "keyboard_name": "Trackball",
-    "manufacturer": "PloopyCo",
+    "keyboard_name": "Classic Trackball",
+    "manufacturer": "Ploopy",
     "url": "www.ploopy.co",
     "maintainer": "drashna",
     "usb": {
@@ -11,6 +11,17 @@
     },
     "bootmagic": {
         "matrix": [0, 3]
+    },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false,
+        "pointing_device": true,
+        "encoder": true
+    },
+    "encoder": {
+        "driver": "custom"
     },
     "layouts": {
         "LAYOUT": {

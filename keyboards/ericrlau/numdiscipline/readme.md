@@ -13,7 +13,6 @@ A modified version of the through hole 65% Discipline keyboard by cftkb.
 Other Information: 
 
 * Keyboard Maintainer: [ELau](https://github.com/ericrlau)
-* Hardware Supported: The PCBs, controllers supported
 * Hardware Availability: https://github.com/ericrlau/NumDiscipline
 
 Make example for this keyboard (after setting up your build environment):

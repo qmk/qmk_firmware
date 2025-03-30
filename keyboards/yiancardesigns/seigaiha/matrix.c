@@ -14,10 +14,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <stdint.h>
-#include <stdbool.h>
+#include "matrix.h"
 #include "wait.h"
-#include "quantum.h"
 #include "i2c_master.h"
 
 static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
@@ -25,30 +23,30 @@ static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 
 static void unselect_rows(void) {
     for(uint8_t x = 0; x < MATRIX_ROWS; x++) {
-        setPinInputHigh(row_pins[x]);
+        gpio_set_pin_input_high(row_pins[x]);
     }
 }
 
 static void select_row(uint8_t row) {
-    setPinOutput(row_pins[row]);
-    writePinLow(row_pins[row]);
+    gpio_set_pin_output(row_pins[row]);
+    gpio_write_pin_low(row_pins[row]);
 }
 
 static void unselect_row(uint8_t row) {
-    setPinInputHigh(row_pins[row]);
+    gpio_set_pin_input_high(row_pins[row]);
 }
 
 static void init_pins(void) {
     unselect_rows();
     // Set I/O
     uint8_t send_data = 0x1F;
-    i2c_writeReg((PORT_EXPANDER_ADDRESS << 1), 0x00, &send_data, 1, 20);
+    i2c_write_register((PORT_EXPANDER_ADDRESS << 1), 0x00, &send_data, 1, 20);
     // Set Pull-up
-    i2c_writeReg((PORT_EXPANDER_ADDRESS << 1), 0x06, &send_data, 1, 20);
+    i2c_write_register((PORT_EXPANDER_ADDRESS << 1), 0x06, &send_data, 1, 20);
 
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
         if ( x < 10 ) {
-            setPinInputHigh(col_pins[x]);
+            gpio_set_pin_input_high(col_pins[x]);
         }
     }
 }
@@ -75,7 +73,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     matrix_io_delay();
 
     uint8_t port_expander_col_buffer;
-    i2c_readReg((PORT_EXPANDER_ADDRESS << 1), 0x09, &port_expander_col_buffer, 1, 20);
+    i2c_read_register((PORT_EXPANDER_ADDRESS << 1), 0x09, &port_expander_col_buffer, 1, 20);
 
     // For each col...
     for(uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
@@ -98,7 +96,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
                 pin_state = port_expander_col_buffer & (1 << 4);
                 break;
             default :
-                pin_state = readPin(col_pins[col_index]);
+                pin_state = gpio_read_pin(col_pins[col_index]);
         }
 
         // Populate the matrix row with the state of the col pin

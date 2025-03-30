@@ -14,8 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
 #include "ec.h"
+#include <avr/interrupt.h>
 #include "analog.h"
 //#include "debug.h"  // needed for debugging
 
@@ -48,35 +48,35 @@ _Static_assert(sizeof(mux_sel_pins) == 3, "invalid MUX_SEL_PINS");
 static ec_config_t config;
 static uint16_t    ec_sw_value[MATRIX_COLS][MATRIX_ROWS];
 
-static inline void discharge_capacitor(void) { setPinOutput(DISCHARGE_PIN); }
+static inline void discharge_capacitor(void) { gpio_set_pin_output(DISCHARGE_PIN); }
 static inline void charge_capacitor(uint8_t col) {
-    setPinInput(DISCHARGE_PIN);
-    writePinHigh(col_pins[col]);
+    gpio_set_pin_input(DISCHARGE_PIN);
+    gpio_write_pin_high(col_pins[col]);
 }
 
 static inline void clear_all_col_pins(void) {
     for (int col = 0; col < sizeof(col_pins); col++) {
-        writePinLow(col_pins[col]);
+        gpio_write_pin_low(col_pins[col]);
     }
 }
 
 void init_mux_sel(void) {
     for (int idx = 0; idx < sizeof(mux_sel_pins); idx++) {
-        setPinOutput(mux_sel_pins[idx]);
+        gpio_set_pin_output(mux_sel_pins[idx]);
     }
 }
 
 void select_mux(uint8_t row) {
     uint8_t ch = row_channels[row];
-    writePin(mux_sel_pins[0], ch & 1);
-    writePin(mux_sel_pins[1], ch & 2);
-    writePin(mux_sel_pins[2], ch & 4);
+    gpio_write_pin(mux_sel_pins[0], ch & 1);
+    gpio_write_pin(mux_sel_pins[1], ch & 2);
+    gpio_write_pin(mux_sel_pins[2], ch & 4);
 }
 
 void init_col(void) {
     for (int idx = 0; idx < sizeof(col_pins); idx++) {
-        setPinOutput(col_pins[idx]);
-        writePinLow(col_pins[idx]);
+        gpio_set_pin_output(col_pins[idx]);
+        gpio_write_pin_low(col_pins[idx]);
     }
 }
 
@@ -85,8 +85,8 @@ void ec_init(ec_config_t const* const ec_config) {
     config = *ec_config;
 
     // initialize discharge pin as discharge mode
-    writePinLow(DISCHARGE_PIN);
-    setPinOutput(DISCHARGE_PIN);
+    gpio_write_pin_low(DISCHARGE_PIN);
+    gpio_set_pin_output(DISCHARGE_PIN);
 
     // set analog reference
     analogReference(ADC_REF_POWER);
@@ -98,7 +98,7 @@ void ec_init(ec_config_t const* const ec_config) {
     init_mux_sel();
 
     // set discharge pin to charge mode
-    setPinInput(DISCHARGE_PIN);
+    gpio_set_pin_input(DISCHARGE_PIN);
 }
 
 uint16_t ec_readkey_raw(uint8_t col, uint8_t row) {
@@ -151,16 +151,16 @@ bool ec_matrix_scan(matrix_row_t current_matrix[]) {
             switch(row) {
                 case 0:
                     switch(col) {
-                        case 14: // lower threshold for split backspace: left 1U( rest,  btm)
-                        case 15: // lower threshold for 2U backspace: 2U(38 rest, 60 btm)
-                            reset_pt = 44;
-                            actuation_pt = 48;
+                        case 14: // lower threshold for split backspace: left 1U
+                        case 15: // lower threshold for 2U backspace: 2U
+                            reset_pt = 48;
+                            actuation_pt = 53;
                             break;
                     }
                     break;
                 case 3:
                     switch(col) {
-                        case 14: // Lower threshold for right shift: 1.75U(40 rest, 70 btm)
+                        case 14: // Lower threshold for right shift: 1.75U
                             reset_pt = 48;
                             actuation_pt = 53;
                             break;
@@ -168,17 +168,17 @@ bool ec_matrix_scan(matrix_row_t current_matrix[]) {
                     break;
                 case 4:
                     switch(col) {
-                        case 3: // Lower threshold for left space: col3( rest,  btm)
-                        case 4: // Lower threshold for left space: col4(38 rest, 88 btm)
+                        case 3: // Lower threshold for left space: col3
+                        case 4: // Lower threshold for left space: col4
                             reset_pt = 50;
                             actuation_pt = 60;
                             break;
-                        case 5: // Lower threshold for left space: col5( rest,  btm)
-                        case 6: // Lower threshold for left space: col6(40 rest, 80 btm)
+                        case 5: // Lower threshold for left space: col5
+                        case 6: // Lower threshold for left space: col6
                             reset_pt = 48;
                             actuation_pt = 58;
                             break;
-                        case 14: // Lower threshold for right shift: 2.75U( rest,  btm)
+                        case 14: // Lower threshold for right shift: 2.75U
                             reset_pt = 48;
                             actuation_pt = 53;
                             break;

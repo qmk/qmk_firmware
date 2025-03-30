@@ -11,6 +11,10 @@ Make example for this keyboard (after setting up your build environment):
 
     make converter/usb_usb:default
 
+If you use Arduino Leonardo with a USB Host Shield:
+
+    make converter/usb_usb/leonardo:default
+
 See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 
 Note that you have to choose the right hardware variant as your subproject, otherwise you will probably have issues.
@@ -23,8 +27,6 @@ If you are sure you have this correct, try changeing the default in `usb_usb/rul
 
 The Pro Micro variant uses a 3.3V Pro Micro and thus runs at 8MHz, hence the following line in `usb_usb/pro_micro/rules.mk`:
 `F_CPU = 8000000`
-The converter sold by Hasu runs at 16MHz and so the corresponding line in `usb_usb/hasu/rules.mk` is:
-`F_CPU = 16000000`
 
 Getting the Hardware
 --------------------

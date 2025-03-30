@@ -25,8 +25,8 @@
 #define FLASHCMD_READ_STATUS 0x05
 #define FLASHCMD_WRITE_ENABLE 0x06
 
-extern uint8_t  BOOT2_ROM[256];
-static uint32_t BOOT2_ROM_RAM[64];
+extern const uint8_t BOOT2_ROM[256];
+static uint32_t      BOOT2_ROM_RAM[64];
 
 static ssi_hw_t *const ssi = (ssi_hw_t *)XIP_SSI_BASE;
 

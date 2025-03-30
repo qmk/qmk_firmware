@@ -37,7 +37,9 @@
 #        define BACKLIGHT_PAL_MODE (PAL_MODE_ALTERNATE_PWM | PAL_RP_PAD_DRIVE12 | PAL_RP_GPIO_OE)
 #    endif
 #    define BACKLIGHT_PWM_COUNTER_FREQUENCY 1000000
-#    define BACKLIGHT_PWM_PERIOD BACKLIGHT_PWM_COUNTER_FREQUENCY / 2048
+#    ifndef BACKLIGHT_PWM_PERIOD
+#        define BACKLIGHT_PWM_PERIOD BACKLIGHT_PWM_COUNTER_FREQUENCY / 2048
+#    endif
 
 #    ifndef AUDIO_PWM_PAL_MODE
 #        define AUDIO_PWM_PAL_MODE (PAL_MODE_ALTERNATE_PWM | PAL_RP_PAD_DRIVE12 | PAL_RP_GPIO_OE)
@@ -67,6 +69,20 @@
 #    ifndef SPI_MISO_PAL_MODE
 #        define SPI_MISO_PAL_MODE (PAL_MODE_ALTERNATE_SPI | PAL_RP_PAD_SLEWFAST | PAL_RP_PAD_DRIVE4)
 #    endif
+
+#    ifndef UART_TX_PAL_MODE
+#        define UART_TX_PAL_MODE PAL_MODE_ALTERNATE_UART
+#    endif
+#    ifndef UART_RX_PAL_MODE
+#        define UART_RX_PAL_MODE PAL_MODE_ALTERNATE_UART
+#    endif
+#    ifndef UART_CTS_PAL_MODE
+#        define UART_CTS_PAL_MODE PAL_MODE_ALTERNATE_UART
+#    endif
+#    ifndef UART_RTS_PAL_MODE
+#        define UART_RTS_PAL_MODE PAL_MODE_ALTERNATE_UART
+#    endif
+
 #endif
 
 // STM32 compatibility
@@ -92,6 +108,11 @@
 #    if defined(STM32F1XX) || defined(STM32F2XX) || defined(STM32F4XX) || defined(STM32L1XX)
 #        define USE_I2CV1
 #    endif
+
+#    if defined(STM32G0XX) || defined(STM32G4XX) || defined(STM32L5XX) || defined(STM32H7XX)
+#        define USE_USARTV3
+#    endif
+
 #endif
 
 // GD32 compatibility
@@ -118,6 +139,19 @@
 #        define PAL_PUPDR_FLOATING PAL_WB32_PUPDR_FLOATING
 
 #        define SPI_SCK_FLAGS PAL_MODE_ALTERNATE(SPI_SCK_PAL_MODE) | PAL_OUTPUT_TYPE_PUSHPULL | PAL_OUTPUT_SPEED_HIGHEST | PAL_WB32_CURRENT_LEVEL3
+#    endif
+#endif
+
+// AT32 compatibility
+#if defined(MCU_AT32)
+#    define CPU_CLOCK AT32_SYSCLK
+
+#    if defined(AT32F415)
+#        define USE_GPIOV1
+#        define USE_I2CV1
+#        define PAL_MODE_ALTERNATE_OPENDRAIN PAL_MODE_AT32_MUX_OPENDRAIN
+#        define PAL_MODE_ALTERNATE_PUSHPULL PAL_MODE_AT32_MUX_PUSHPULL
+#        define AUDIO_PWM_PAL_MODE PAL_MODE_ALTERNATE_PUSHPULL
 #    endif
 #endif
 

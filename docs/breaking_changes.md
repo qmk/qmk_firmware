@@ -10,25 +10,25 @@ Practically, this means QMK merges the `develop` branch into the `master` branch
 
 ## What has been included in past Breaking Changes?
 
-* [2023 Aug 27](ChangeLog/20230827.md)
-* [2023 May 28](ChangeLog/20230528.md)
-* [2023 Feb 26](ChangeLog/20230226.md)
-* [Older Breaking Changes](breaking_changes_history.md)
+* [2025 Feb 23](ChangeLog/20250223)
+* [2024 Nov 24](ChangeLog/20241124)
+* [2024 Aug 25](ChangeLog/20240825)
+* [Older Breaking Changes](breaking_changes_history)
 
 ## When is the next Breaking Change?
 
-The next Breaking Change is scheduled for November 26, 2023.
+The next Breaking Change is scheduled for May 25, 2025.
 
 ### Important Dates
 
-* 2023 Aug 27 - `develop` is tagged with a new release version. Each push to `master` is subsequently merged to `develop` by GitHub actions.
-* 2023 Oct 29 - `develop` closed to new PRs.
-* 2023 Oct 29 - Call for testers.
-* 2023 Nov 5 - Last day for merges -- after this point `develop` is locked for testing and accepts only bugfixes
-* 2023 Nov 19 - `develop` is locked, only critical bugfix PRs merged.
-* 2023 Nov 23 - `master` is locked, no PRs merged.
-* 2023 Nov 26 - Merge `develop` to `master`.
-* 2023 Nov 26 - `master` is unlocked. PRs can be merged again.
+* 2025 Feb 23 - `develop` is tagged with a new release version. Each push to `master` is subsequently merged to `develop` by GitHub actions.
+* 2025 Apr 27 - `develop` closed to new PRs.
+* 2025 Apr 27 - Call for testers.
+* 2025 May 11 - Last day for merges -- after this point `develop` is locked for testing and accepts only bugfixes
+* 2025 May 18 - `develop` is locked, only critical bugfix PRs merged.
+* 2025 May 23 - `master` is locked, no PRs merged.
+* 2025 May 25 - Merge `develop` to `master`.
+* 2025 May 25 - `master` is unlocked. PRs can be merged again.
 
 ## What changes will be included?
 
@@ -48,7 +48,7 @@ Criteria for acceptance:
 
 Strongly suggested:
 
-* The PR has a ChangeLog file describing the changes under `<qmk_firmware>/docs/Changelog/20231126`.
+* The PR has a ChangeLog file describing the changes under `<qmk_firmware>/docs/Changelog/20241124`.
     * This should be in Markdown format, with a name in the format `PR12345.md`, substituting the digits for your PRs ID.
     * One strong recommendation that the ChangeLog document matches the PR description on GitHub, so as to ensure traceability.
 
@@ -71,7 +71,7 @@ This section documents various processes we use when running the Breaking Change
 ### 1 Week Before Merge
 
 * `develop` is now closed to PR merges, only critical bugfixes may be included
-* Announce that master will be closed from <2 Days Before> to <Day of Merge> -- message `@Breaking Changes Updates` on `#qmk_firmware` in Discord:
+* Announce that master will be closed from `<2 Days Before>` to `<Day of Merge>` -- message `@Breaking Changes Updates` on `#qmk_firmware` in Discord:
     * `@Breaking Changes Updates -- Hey folks, last day for functional PRs to be merged into qmk_firmware for this breaking changes cycle is today. After that, we're handling bugfixes only.`
 
 ### 2 Days Before Merge
@@ -136,7 +136,7 @@ This happens immediately after the previous `develop` branch is merged to `maste
 * Announce that both `master` and `develop` are now unlocked -- message `@Breaking Changes Updates` on `#qmk_firmware` in Discord:
     * `@Breaking Changes Updates -- Hey folks, develop has now been merged into master -- newest batch of changes are now available for everyone to use!`
 
-* (Optional) [update ChibiOS + ChibiOS-Contrib on `develop`](chibios_upgrade_instructions.md)
+* (Optional) [update ChibiOS + ChibiOS-Contrib on `develop`](chibios_upgrade_instructions)
 
 
 ### Set up Discord events for the next cycle

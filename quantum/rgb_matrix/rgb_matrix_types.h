@@ -19,16 +19,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "color.h"
-
-#if defined(__GNUC__)
-#    define PACKED __attribute__((__packed__))
-#else
-#    define PACKED
-#endif
-
-#if defined(_MSC_VER)
-#    pragma pack(push, 1)
-#endif
+#include "util.h"
 
 #if defined(RGB_MATRIX_KEYPRESSES) || defined(RGB_MATRIX_KEYRELEASES)
 #    define RGB_MATRIX_KEYREACTIVE_ENABLED
@@ -87,14 +78,10 @@ typedef union {
     struct PACKED {
         uint8_t     enable : 2;
         uint8_t     mode : 6;
-        HSV         hsv;
+        hsv_t       hsv;
         uint8_t     speed;
         led_flags_t flags;
     };
 } rgb_config_t;
 
 _Static_assert(sizeof(rgb_config_t) == sizeof(uint64_t), "RGB Matrix EECONFIG out of spec.");
-
-#if defined(_MSC_VER)
-#    pragma pack(pop)
-#endif

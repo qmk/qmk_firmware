@@ -20,6 +20,7 @@
 #include "debug.h"
 #include "usb_device_state.h"
 #include "gpio.h"
+#include "keyboard.h"
 
 #ifdef HAPTIC_DRV2605L
 #    include "drv2605l.h"
@@ -35,7 +36,7 @@ extern uint8_t split_haptic_play;
 haptic_config_t haptic_config;
 
 static void update_haptic_enable_gpios(void) {
-    if (haptic_config.enable && ((!HAPTIC_OFF_IN_LOW_POWER) || (usb_device_state == USB_DEVICE_STATE_CONFIGURED))) {
+    if (haptic_config.enable && ((!HAPTIC_OFF_IN_LOW_POWER) || (usb_device_state_get_configure_state() == USB_DEVICE_STATE_CONFIGURED))) {
 #if defined(HAPTIC_ENABLE_PIN)
         HAPTIC_ENABLE_PIN_WRITE_ACTIVE();
 #endif
@@ -58,6 +59,11 @@ static void set_haptic_config_enable(bool enabled) {
 }
 
 void haptic_init(void) {
+// only initialize on secondary boards if the user desires
+#if defined(SPLIT_KEYBOARD) && !defined(SPLIT_HAPTIC_ENABLE)
+    if (!is_keyboard_master()) return;
+#endif
+
     if (!eeconfig_is_enabled()) {
         eeconfig_init();
     }
@@ -90,17 +96,21 @@ void haptic_init(void) {
 #endif
     eeconfig_debug_haptic();
 #ifdef HAPTIC_ENABLE_PIN
-    setPinOutput(HAPTIC_ENABLE_PIN);
+    gpio_set_pin_output(HAPTIC_ENABLE_PIN);
 #endif
 #ifdef HAPTIC_ENABLE_STATUS_LED
-    setPinOutput(HAPTIC_ENABLE_STATUS_LED);
+    gpio_set_pin_output(HAPTIC_ENABLE_STATUS_LED);
 #endif
 }
 
 void haptic_task(void) {
 #ifdef HAPTIC_SOLENOID
+// Only run task on seconary boards if the user desires
+#    if defined(SPLIT_KEYBOARD) && !defined(SPLIT_HAPTIC_ENABLE)
+    if (!is_keyboard_master()) return;
+#    endif
     solenoid_check();
-#endif
+#endif // HAPTIC_SOLENOID
 }
 
 void eeconfig_debug_haptic(void) {
@@ -346,9 +356,9 @@ void haptic_shutdown(void) {
 void haptic_notify_usb_device_state_change(void) {
     update_haptic_enable_gpios();
 #if defined(HAPTIC_ENABLE_PIN)
-    setPinOutput(HAPTIC_ENABLE_PIN);
+    gpio_set_pin_output(HAPTIC_ENABLE_PIN);
 #endif
 #if defined(HAPTIC_ENABLE_STATUS_LED)
-    setPinOutput(HAPTIC_ENABLE_STATUS_LED);
+    gpio_set_pin_output(HAPTIC_ENABLE_STATUS_LED);
 #endif
 }

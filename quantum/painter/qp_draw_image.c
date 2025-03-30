@@ -115,6 +115,7 @@ typedef struct qgf_frame_info_t {
     painter_compression_t compression_scheme;
     uint8_t               bpp;
     bool                  has_palette;
+    bool                  is_panel_native;
     bool                  is_delta;
     uint16_t              left;
     uint16_t              top;
@@ -143,7 +144,7 @@ static bool qp_drawimage_prepare_frame_for_stream_read(painter_device_t device, 
     }
 
     // Parse out the frame info
-    if (!qgf_parse_frame_descriptor(&frame_descriptor, &info->bpp, &info->has_palette, &info->is_delta, &info->compression_scheme, &info->delay)) {
+    if (!qgf_parse_frame_descriptor(&frame_descriptor, &info->bpp, &info->has_palette, &info->is_panel_native, &info->is_delta, &info->compression_scheme, &info->delay)) {
         return false;
     }
 
@@ -236,8 +237,8 @@ static bool qp_drawimage_recolor_impl(painter_device_t device, uint16_t x, uint1
     if (frame_info->is_delta) {
         l = x + frame_info->left;
         t = y + frame_info->top;
-        r = x + frame_info->right - 1;
-        b = y + frame_info->bottom - 1;
+        r = x + frame_info->right;
+        b = y + frame_info->bottom;
     } else {
         l = x;
         t = y;
@@ -262,33 +263,8 @@ static bool qp_drawimage_recolor_impl(painter_device_t device, uint16_t x, uint1
         return false;
     }
 
-    bool ret = false;
-    if (frame_info->bpp <= 8) {
-        // Set up the output state
-        qp_internal_pixel_output_state_t output_state = {.device = device, .pixel_write_pos = 0, .max_pixels = qp_internal_num_pixels_in_buffer(device)};
-
-        // Decode the pixel data and stream to the display
-        ret = qp_internal_decode_palette(device, pixel_count, frame_info->bpp, input_callback, &input_state, qp_internal_global_pixel_lookup_table, qp_internal_pixel_appender, &output_state);
-        // Any leftovers need transmission as well.
-        if (ret && output_state.pixel_write_pos > 0) {
-            ret &= driver->driver_vtable->pixdata(device, qp_internal_global_pixdata_buffer, output_state.pixel_write_pos);
-        }
-    } else if (frame_info->bpp != driver->native_bits_per_pixel) {
-        // Prevent stuff like drawing 24bpp images on 16bpp displays
-        qp_dprintf("Image's bpp doesn't match the target display's native_bits_per_pixel\n");
-        return false;
-    } else {
-        // Set up the output state
-        qp_internal_byte_output_state_t output_state = {.device = device, .byte_write_pos = 0, .max_bytes = qp_internal_num_pixels_in_buffer(device) * driver->native_bits_per_pixel / 8};
-
-        // Stream the raw pixel data to the display
-        uint32_t byte_count = pixel_count * frame_info->bpp / 8;
-        ret                 = qp_internal_send_bytes(device, byte_count, input_callback, &input_state, qp_internal_byte_appender, &output_state);
-        // Any leftovers need transmission as well.
-        if (ret && output_state.byte_write_pos > 0) {
-            ret &= driver->driver_vtable->pixdata(device, qp_internal_global_pixdata_buffer, output_state.byte_write_pos * 8 / driver->native_bits_per_pixel);
-        }
-    }
+    // Decode and stream pixels
+    bool ret = qp_internal_appender(device, frame_info->bpp, pixel_count, input_callback, &input_state);
 
     qp_dprintf("qp_drawimage_recolor: %s\n", ret ? "ok" : "fail");
     qp_comms_stop(device);
@@ -342,9 +318,9 @@ static deferred_token qp_render_animation_state(animation_state_t *state, uint16
 }
 
 static uint32_t animation_callback(uint32_t trigger_time, void *cb_arg) {
-    animation_state_t *state = (animation_state_t *)cb_arg;
-    uint16_t           delay_ms;
-    bool               ret = qp_render_animation_state(state, &delay_ms);
+    animation_state_t *state    = (animation_state_t *)cb_arg;
+    uint16_t           delay_ms = 0;
+    bool               ret      = qp_render_animation_state(state, &delay_ms);
     if (!ret) {
         // Setting the device to NULL clears the animation slot
         state->device = NULL;

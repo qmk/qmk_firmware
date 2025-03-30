@@ -1,9 +1,7 @@
 """Serve QMK documentation locally
 """
-import http.server
-import os
 import shutil
-import webbrowser
+from qmk.docs import prepare_docs_build_area, run_docs_command
 
 from milc import cli
 
@@ -14,31 +12,19 @@ from milc import cli
 def docs(cli):
     """Spin up a local HTTP server for the QMK docs.
     """
-    os.chdir('docs')
 
-    # If docsify-cli is installed, run that instead so we get live reload
-    if shutil.which('docsify'):
-        command = ['docsify', 'serve', '--port', f'{cli.config.docs.port}', '--open' if cli.config.docs.browser else '']
+    if not shutil.which('doxygen'):
+        cli.log.error('doxygen is not installed. Please install it and try again.')
+        return
 
-        cli.log.info(f"Running {{fg_cyan}}{str.join(' ', command)}{{fg_reset}}")
-        cli.log.info("Press Control+C to exit.")
+    if not shutil.which('yarn'):
+        cli.log.error('yarn is not installed. Please install it and try again.')
+        return
 
-        try:
-            cli.run(command, capture_output=False)
-        except KeyboardInterrupt:
-            cli.log.info("Stopping HTTP server...")
-    else:
-        # Fall back to Python HTTPServer
-        with http.server.HTTPServer(('', cli.config.docs.port), http.server.SimpleHTTPRequestHandler) as httpd:
-            cli.log.info(f"Serving QMK docs at http://localhost:{cli.config.docs.port}/")
-            cli.log.info("Press Control+C to exit.")
+    if not prepare_docs_build_area(is_production=False):
+        return False
 
-            if cli.config.docs.browser:
-                webbrowser.open(f'http://localhost:{cli.config.docs.port}')
-
-            try:
-                httpd.serve_forever()
-            except KeyboardInterrupt:
-                cli.log.info("Stopping HTTP server...")
-            finally:
-                httpd.shutdown()
+    cmd = ['docs:dev', '--port', f'{cli.args.port}']
+    if cli.args.browser:
+        cmd.append('--open')
+    run_docs_command('run', cmd)

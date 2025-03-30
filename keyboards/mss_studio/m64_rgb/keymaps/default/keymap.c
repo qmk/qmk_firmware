@@ -97,10 +97,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*  Row:    0        1        2        3        4        5        6        7        8        9        10       11       12       13     */
     [_FN]   = LAYOUT_64_ansi(
                 KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,
-                QK_BOOT,   _______, _______, _______, _______, _______, _______, _______, KC_INS,  _______, KC_PSCR, _______, RGB_HUI, RGB_MOD,
-                _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_TOG, _______, _______,          _______,
-                _______, _______, _______, KC_CALC, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, RGB_VAI, _______,
-                _______, _______, _______,                   _______,                            _______, _______, RGB_SPD, RGB_VAD, RGB_SPI
+                QK_BOOT, _______, _______, _______, _______, _______, _______, _______, KC_INS,  _______, KC_PSCR, _______, RM_HUEU, RM_NEXT,
+                _______, _______, _______, _______, _______, _______, _______, _______, _______, RM_TOGG, _______, _______,          _______,
+                _______, _______, _______, KC_CALC, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, RM_VALU, _______,
+                _______, _______, _______,                   _______,                            _______, _______, RM_SPDD, RM_VALD, RM_SPDU
             ),
 };
 
@@ -128,7 +128,7 @@ void keyboard_post_init_user(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case RGB_TOG:
+        case QK_RGB_MATRIX_TOGGLE:
             if (record->event.pressed) {
                 switch (rgb_matrix_get_flags()) {
                     case LED_FLAG_ALL: {
@@ -165,10 +165,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool rgb_matrix_indicators_user(void) {
-    HSV      hsv = rgb_matrix_config.hsv;
+    hsv_t    hsv = rgb_matrix_config.hsv;
     uint8_t time = scale16by8(g_rgb_timer, qadd8(32, 1));
     hsv.h        = time;
-    RGB      rgb = hsv_to_rgb(hsv);
+    rgb_t    rgb = hsv_to_rgb(hsv);
 
     if ((rgb_matrix_get_flags() & LED_FLAG_KEYLIGHT)) {
         if (host_keyboard_led_state().caps_lock) {

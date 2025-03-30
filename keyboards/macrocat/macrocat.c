@@ -129,11 +129,11 @@ void encoder_triple_click(void) {
 void matrix_init_kb(void) {
     matrix_init_user();
 
-    setPinInputHigh(ENCODER_SWITCH);
+    gpio_set_pin_input_high(ENCODER_SWITCH);
 }
 void matrix_scan_kb(void) {
     matrix_scan_user();
-    if (readPin(ENCODER_SWITCH)) {
+    if (gpio_read_pin(ENCODER_SWITCH)) {
         if (encoder_pressed) { // release switch
             encoder_pressed = 0;
             encoder_press_combo += 1;

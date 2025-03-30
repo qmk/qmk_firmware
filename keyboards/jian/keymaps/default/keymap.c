@@ -11,15 +11,13 @@ enum jian_layers {
   _BCKLT_ADJ
 };
 
-enum jian_keycodes {
-  QWERTY = SAFE_RANGE,
-  DVORAK,
-  COLEMAK,
-  WORKMAN
-};
-
 #define RAISE_T(kc) LT(_RAISE, kc)
 #define LOWER_T(kc) LT(_LOWER, kc)
+
+#define QWERTY PDF(_QWERTY)
+#define COLEMAK PDF(_COLEMAK)
+#define DVORAK PDF(_DVORAK)
+#define WORKMAN PDF(_WORKMAN)
 
 #ifdef SWAP_HANDS_ENABLE
 #define SW_TG SH_TOGG
@@ -80,9 +78,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #if defined(RGBLIGHT) || defined(BACKLIGHT_ENABLE)
 [_BCKLT_ADJ] = LAYOUT(
-  XXXXXXX, XXXXXXX,        XXXXXXX, BL_UP,   RGB_VAI, RGB_HUD, RGB_HUI,      RGB_HUI, RGB_HUD, RGB_VAI, BL_UP,   XXXXXXX, XXXXXXX,        XXXXXXX,
-           XXXXXXX,        XXXXXXX, BL_DOWN, RGB_VAD, RGB_SAD, RGB_SAI,      RGB_SAI, RGB_SAD, RGB_VAD, BL_DOWN, XXXXXXX, XXXXXXX,
-           TG(_BCKLT_ADJ), BL_BRTG, BL_TOGG, RGB_TOG, RGB_RMOD,RGB_MOD,      RGB_MOD, RGB_RMOD,RGB_TOG, BL_TOGG, BL_BRTG, TG(_BCKLT_ADJ),
+  XXXXXXX, XXXXXXX,        XXXXXXX, BL_UP,   UG_VALU, UG_HUED, UG_HUEU,      UG_HUEU, UG_HUED, UG_VALU, BL_UP,   XXXXXXX, XXXXXXX,        XXXXXXX,
+           XXXXXXX,        XXXXXXX, BL_DOWN, UG_VALD, UG_SATD, UG_SATU,      UG_SATU, UG_SATD, UG_VALD, BL_DOWN, XXXXXXX, XXXXXXX,
+           TG(_BCKLT_ADJ), BL_BRTG, BL_TOGG, UG_TOGG, UG_PREV, UG_NEXT,      UG_NEXT, UG_PREV, UG_TOGG, BL_TOGG, BL_BRTG, TG(_BCKLT_ADJ),
                                              _______, _______, _______,      _______, _______, _______
 )
 #endif // defined(RGBLIGHT) || defined(BACKLIGHT_ENABLE)
@@ -91,30 +89,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      return false;
-    case DVORAK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_DVORAK);
-      }
-      return false;
-    case COLEMAK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_COLEMAK);
-      }
-      return false;
-    case WORKMAN:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_WORKMAN);
-      }
-      return false;
-  }
-  return true;
 }

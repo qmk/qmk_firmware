@@ -16,13 +16,9 @@
 #pragma once
 
 // IS31FL3731 driver
-#define DRIVER_COUNT 2
-#define RGB_MATRIX_LED_COUNT 64
-
-// Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap
-#define LOCKING_SUPPORT_ENABLE
-// Locking resynchronize hack
-#define LOCKING_RESYNC_ENABLE
+#define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
+#define IS31FL3731_I2C_ADDRESS_2 IS31FL3731_I2C_ADDRESS_SDA
+#define IS31FL3731_LED_COUNT 64
 
 /*
  * Feature disable options
@@ -46,7 +42,7 @@
 #define RGB_BACKLIGHT_DAWN60
 
 //RGB Underglow defines
-#define WS2812_LED_TOTAL 20
+#define WS2812_LED_COUNT 20
 
 #define RGB_UNDERGLOW_ALPHA_TOP_START 0
 #define RGB_UNDERGLOW_ALPHA_TOP_END   6   

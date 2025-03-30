@@ -1,19 +1,21 @@
 """Functions that help us generate and use info.json files.
 """
 import re
+import os
 from pathlib import Path
 import jsonschema
 from dotty_dict import dotty
 
 from milc import cli
 
-from qmk.constants import CHIBIOS_PROCESSORS, LUFA_PROCESSORS, VUSB_PROCESSORS
+from qmk.constants import COL_LETTERS, ROW_LETTERS, CHIBIOS_PROCESSORS, LUFA_PROCESSORS, VUSB_PROCESSORS, JOYSTICK_AXES
 from qmk.c_parse import find_layouts, parse_config_h_file, find_led_config
 from qmk.json_schema import deep_update, json_load, validate
 from qmk.keyboard import config_h, rules_mk
 from qmk.commands import parse_configurator_json
 from qmk.makefile import parse_rules_mk_file
 from qmk.math import compute
+from qmk.util import maybe_exit, truthy
 
 true_values = ['1', 'on', 'yes']
 false_values = ['0', 'off', 'no']
@@ -55,9 +57,65 @@ def _get_key_left_position(key):
     return key['x'] - 0.25 if key.get('h', 1) == 2 and key.get('w', 1) == 1.25 else key['x']
 
 
-def _additional_validation(keyboard, info_data):
+def _find_invalid_encoder_index(info_data):
+    """Perform additional validation of encoders
+    """
+    enc_left = info_data.get('encoder', {}).get('rotary', [])
+    enc_right = []
+
+    if info_data.get('split', {}).get('enabled', False):
+        enc_right = info_data.get('split', {}).get('encoder', {}).get('right', {}).get('rotary', enc_left)
+
+    enc_count = len(enc_left) + len(enc_right)
+
+    ret = []
+    layouts = info_data.get('layouts', {})
+    for layout_name, layout_data in layouts.items():
+        found = set()
+        for key in layout_data['layout']:
+            if 'encoder' in key:
+                if enc_count == 0:
+                    ret.append((layout_name, key['encoder'], 'non-configured'))
+                elif key['encoder'] >= enc_count:
+                    ret.append((layout_name, key['encoder'], 'out of bounds'))
+                elif key['encoder'] in found:
+                    ret.append((layout_name, key['encoder'], 'duplicate'))
+                found.add(key['encoder'])
+
+    return ret
+
+
+def _validate_build_target(keyboard, info_data):
     """Non schema checks
     """
+    keyboard_json_path = Path('keyboards') / keyboard / 'keyboard.json'
+    config_files = find_info_json(keyboard)
+
+    # keyboard.json can only exist at the deepest part of the tree
+    keyboard_json_count = 0
+    for info_file in config_files:
+        if info_file.name == 'keyboard.json':
+            keyboard_json_count += 1
+            if info_file != keyboard_json_path:
+                _log_error(info_data, f'Invalid keyboard.json location detected: {info_file}.')
+
+    # No keyboard.json next to info.json
+    for conf_file in config_files:
+        if conf_file.name == 'keyboard.json':
+            info_file = conf_file.parent / 'info.json'
+            if info_file.exists():
+                _log_error(info_data, f'Invalid info.json location detected: {info_file}.')
+
+    # Moving forward keyboard.json should be used as a build target
+    if keyboard_json_count == 0:
+        _log_warning(info_data, 'Build marker "keyboard.json" not found.')
+
+
+def _validate_layouts(keyboard, info_data):  # noqa C901
+    """Non schema checks
+    """
+    col_num = info_data.get('matrix_size', {}).get('cols', 0)
+    row_num = info_data.get('matrix_size', {}).get('rows', 0)
     layouts = info_data.get('layouts', {})
     layout_aliases = info_data.get('layout_aliases', {})
     community_layouts = info_data.get('community_layouts', [])
@@ -66,6 +124,30 @@ def _additional_validation(keyboard, info_data):
     # Make sure we have at least one layout
     if len(layouts) == 0 or all(not layout.get('json_layout', False) for layout in layouts.values()):
         _log_error(info_data, 'No LAYOUTs defined! Need at least one layout defined in info.json.')
+
+    # Make sure all layouts are DD
+    for layout_name, layout_data in layouts.items():
+        if layout_data.get('c_macro', False):
+            _log_error(info_data, f'{layout_name}: Layout macro should not be defined within ".h" files.')
+
+    # Make sure all matrix values are in bounds
+    for layout_name, layout_data in layouts.items():
+        for index, key_data in enumerate(layout_data['layout']):
+            row, col = key_data['matrix']
+            key_name = key_data.get('label', f'k{ROW_LETTERS[row]}{COL_LETTERS[col]}')
+            if row >= row_num:
+                _log_error(info_data, f'{layout_name}: Matrix row for key {index} ({key_name}) is {row} but must be less than {row_num}')
+            if col >= col_num:
+                _log_error(info_data, f'{layout_name}: Matrix column for key {index} ({key_name}) is {col} but must be less than {col_num}')
+
+    # Reject duplicate matrix locations
+    for layout_name, layout_data in layouts.items():
+        seen = set()
+        for index, key_data in enumerate(layout_data['layout']):
+            key = f"{key_data['matrix']}"
+            if key in seen:
+                _log_error(info_data, f'{layout_name}: Matrix location for key {index} is not unique {key_data}')
+            seen.add(key)
 
     # Warn if physical positions are offset (at least one key should be at x=0, and at least one key at y=0)
     for layout_name, layout_data in layouts.items():
@@ -99,11 +181,24 @@ def _additional_validation(keyboard, info_data):
         if layout_name not in layouts and layout_name not in layout_aliases:
             _log_error(info_data, 'Claims to support community layout %s but no %s() macro found' % (layout, layout_name))
 
+
+def _validate_keycodes(keyboard, info_data):
+    """Non schema checks
+    """
     # keycodes with length > 7 must have short forms for visualisation purposes
     for decl in info_data.get('keycodes', []):
         if len(decl["key"]) > 7:
             if not decl.get("aliases", []):
                 _log_error(info_data, f'Keycode {decl["key"]} has no short form alias')
+
+
+def _validate_encoders(keyboard, info_data):
+    """Non schema checks
+    """
+    # encoder IDs in layouts must be in range and not duplicated
+    found = _find_invalid_encoder_index(info_data)
+    for layout_name, encoder_index, reason in found:
+        _log_error(info_data, f'Layout "{layout_name}" contains {reason} encoder index {encoder_index}.')
 
 
 def _validate(keyboard, info_data):
@@ -113,15 +208,19 @@ def _validate(keyboard, info_data):
     try:
         validate(info_data, 'qmk.api.keyboard.v1')
 
-        _additional_validation(keyboard, info_data)
+        # Additional validation
+        _validate_build_target(keyboard, info_data)
+        _validate_layouts(keyboard, info_data)
+        _validate_keycodes(keyboard, info_data)
+        _validate_encoders(keyboard, info_data)
 
     except jsonschema.ValidationError as e:
         json_path = '.'.join([str(p) for p in e.absolute_path])
         cli.log.error('Invalid API data: %s: %s: %s', keyboard, json_path, e.message)
-        exit(1)
+        maybe_exit(1)
 
 
-def info_json(keyboard):
+def info_json(keyboard, force_layout=None):
     """Generate the info.json data for a specific keyboard.
     """
     cur_dir = Path('keyboards')
@@ -158,14 +257,22 @@ def info_json(keyboard):
     info_data = _extract_rules_mk(info_data, rules_mk(str(keyboard)))
     info_data = _extract_config_h(info_data, config_h(str(keyboard)))
 
-    # Ensure that we have matrix row and column counts
+    # Ensure that we have various calculated values
     info_data = _matrix_size(info_data)
+    info_data = _joystick_axis_count(info_data)
 
     # Merge in data from <keyboard.c>
     info_data = _extract_led_config(info_data, str(keyboard))
 
+    # Force a community layout if requested
+    community_layouts = info_data.get("community_layouts", [])
+    if force_layout in community_layouts:
+        info_data["community_layouts"] = [force_layout]
+
     # Validate
-    _validate(keyboard, info_data)
+    # Skip processing if necessary
+    if not truthy(os.environ.get('SKIP_SCHEMA_VALIDATION'), False):
+        _validate(keyboard, info_data)
 
     # Check that the reported matrix size is consistent with the actual matrix size
     _check_matrix(info_data)
@@ -182,6 +289,9 @@ def _extract_features(info_data, rules):
             key = '_'.join(key.split('_')[:-1]).lower()
             value = True if value.lower() in true_values else False if value.lower() in false_values else value
 
+            if key in ['lto']:
+                continue
+
             if 'config_h_features' not in info_data:
                 info_data['config_h_features'] = {}
 
@@ -189,7 +299,7 @@ def _extract_features(info_data, rules):
                 info_data['features'] = {}
 
             if key in info_data['features']:
-                _log_warning(info_data, 'Feature %s is specified in both info.json and rules.mk, the rules.mk value wins.' % (key,))
+                _log_warning(info_data, 'Feature %s is specified in both info.json (%s) and rules.mk (%s). The rules.mk value wins.' % (key, info_data['features'], value))
 
             info_data['features'][key] = value
             info_data['config_h_features'][key] = value
@@ -280,8 +390,8 @@ def _extract_audio(info_data, config_c):
 def _extract_encoders_values(config_c, postfix=''):
     """Common encoder extraction logic
     """
-    a_pad = config_c.get(f'ENCODERS_PAD_A{postfix}', '').replace(' ', '')[1:-1]
-    b_pad = config_c.get(f'ENCODERS_PAD_B{postfix}', '').replace(' ', '')[1:-1]
+    a_pad = config_c.get(f'ENCODER_A_PINS{postfix}', '').replace(' ', '')[1:-1]
+    b_pad = config_c.get(f'ENCODER_B_PINS{postfix}', '').replace(' ', '')[1:-1]
     resolutions = config_c.get(f'ENCODER_RESOLUTIONS{postfix}', '').replace(' ', '')[1:-1]
 
     default_resolution = config_c.get('ENCODER_RESOLUTION', None)
@@ -312,9 +422,15 @@ def _extract_encoders(info_data, config_c):
             info_data['encoder'] = {}
 
         if 'rotary' in info_data['encoder']:
-            _log_warning(info_data, 'Encoder config is specified in both config.h and info.json (encoder.rotary) (Value: %s), the config.h value wins.' % info_data['encoder']['rotary'])
+            _log_warning(info_data, 'Encoder config is specified in both config.h (%s) and info.json (%s). The config.h value wins.' % (encoders, info_data['encoder']['rotary']))
 
         info_data['encoder']['rotary'] = encoders
+
+    # TODO: some logic still assumes ENCODER_ENABLED would partially create encoder dict
+    if info_data.get('features', {}).get('encoder', False):
+        if 'encoder' not in info_data:
+            info_data['encoder'] = {}
+        info_data['encoder']['enabled'] = True
 
 
 def _extract_split_encoders(info_data, config_c):
@@ -352,55 +468,20 @@ def _extract_secure_unlock(info_data, config_c):
         info_data['secure']['unlock_sequence'] = unlock_array
 
 
-def _extract_split_main(info_data, config_c):
-    """Populate data about the split configuration
-    """
-    # Figure out how the main half is determined
-    if config_c.get('SPLIT_HAND_PIN') is True:
-        if 'split' not in info_data:
-            info_data['split'] = {}
+def _extract_split_handedness(info_data, config_c):
+    # Migrate
+    split = info_data.get('split', {})
+    if 'matrix_grid' in split:
+        split['handedness'] = split.get('handedness', {})
+        split['handedness']['matrix_grid'] = split.pop('matrix_grid')
 
-        if 'main' in info_data['split']:
-            _log_warning(info_data, 'Split main hand is specified in both config.h (SPLIT_HAND_PIN) and info.json (split.main) (Value: %s), the config.h value wins.' % info_data['split']['main'])
 
-        info_data['split']['main'] = 'pin'
-
-    if config_c.get('SPLIT_HAND_MATRIX_GRID'):
-        if 'split' not in info_data:
-            info_data['split'] = {}
-
-        if 'main' in info_data['split']:
-            _log_warning(info_data, 'Split main hand is specified in both config.h (SPLIT_HAND_MATRIX_GRID) and info.json (split.main) (Value: %s), the config.h value wins.' % info_data['split']['main'])
-
-        info_data['split']['main'] = 'matrix_grid'
-        info_data['split']['matrix_grid'] = _extract_pins(config_c['SPLIT_HAND_MATRIX_GRID'])
-
-    if config_c.get('EE_HANDS') is True:
-        if 'split' not in info_data:
-            info_data['split'] = {}
-
-        if 'main' in info_data['split']:
-            _log_warning(info_data, 'Split main hand is specified in both config.h (EE_HANDS) and info.json (split.main) (Value: %s), the config.h value wins.' % info_data['split']['main'])
-
-        info_data['split']['main'] = 'eeprom'
-
-    if config_c.get('MASTER_RIGHT') is True:
-        if 'split' not in info_data:
-            info_data['split'] = {}
-
-        if 'main' in info_data['split']:
-            _log_warning(info_data, 'Split main hand is specified in both config.h (MASTER_RIGHT) and info.json (split.main) (Value: %s), the config.h value wins.' % info_data['split']['main'])
-
-        info_data['split']['main'] = 'right'
-
-    if config_c.get('MASTER_LEFT') is True:
-        if 'split' not in info_data:
-            info_data['split'] = {}
-
-        if 'main' in info_data['split']:
-            _log_warning(info_data, 'Split main hand is specified in both config.h (MASTER_LEFT) and info.json (split.main) (Value: %s), the config.h value wins.' % info_data['split']['main'])
-
-        info_data['split']['main'] = 'left'
+def _extract_split_serial(info_data, config_c):
+    # Migrate
+    split = info_data.get('split', {})
+    if 'soft_serial_pin' in split:
+        split['serial'] = split.get('serial', {})
+        split['serial']['pin'] = split.pop('soft_serial_pin')
 
 
 def _extract_split_transport(info_data, config_c):
@@ -427,6 +508,15 @@ def _extract_split_transport(info_data, config_c):
 
         if 'protocol' not in info_data['split']['transport']:
             info_data['split']['transport']['protocol'] = 'serial'
+
+    # Migrate
+    transport = info_data.get('split', {}).get('transport', {})
+    if 'sync_matrix_state' in transport:
+        transport['sync'] = transport.get('sync', {})
+        transport['sync']['matrix_state'] = transport.pop('sync_matrix_state')
+    if 'sync_modifiers' in transport:
+        transport['sync'] = transport.get('sync', {})
+        transport['sync']['modifiers'] = transport.pop('sync_modifiers')
 
 
 def _extract_split_right_pins(info_data, config_c):
@@ -507,6 +597,9 @@ def _config_to_json(key_type, config_value):
     """Convert config value using spec
     """
     if key_type.startswith('array'):
+        if key_type.count('.') > 1:
+            raise Exception(f"Conversion of {key_type} not possible")
+
         if '.' in key_type:
             key_type, array_type = key_type.split('.', 1)
         else:
@@ -519,7 +612,9 @@ def _config_to_json(key_type, config_value):
         else:
             return list(map(str.strip, config_value.split(',')))
 
-    elif key_type == 'bool':
+    elif key_type in ['bool', 'flag']:
+        if isinstance(config_value, bool):
+            return config_value
         return config_value in true_values
 
     elif key_type == 'hex':
@@ -583,7 +678,8 @@ def _extract_config_h(info_data, config_c):
     _extract_matrix_info(info_data, config_c)
     _extract_audio(info_data, config_c)
     _extract_secure_unlock(info_data, config_c)
-    _extract_split_main(info_data, config_c)
+    _extract_split_handedness(info_data, config_c)
+    _extract_split_serial(info_data, config_c)
     _extract_split_transport(info_data, config_c)
     _extract_split_right_pins(info_data, config_c)
     _extract_encoders(info_data, config_c)
@@ -684,30 +780,27 @@ def find_keyboard_c(keyboard):
 def _extract_led_config(info_data, keyboard):
     """Scan all <keyboard>.c files for led config
     """
-    cols = info_data['matrix_size']['cols']
-    rows = info_data['matrix_size']['rows']
+    for feature in ['rgb_matrix', 'led_matrix']:
+        if info_data.get('features', {}).get(feature, False) or feature in info_data:
+            # Only attempt search if dd led config is missing
+            if 'layout' not in info_data.get(feature, {}):
+                cols = info_data.get('matrix_size', {}).get('cols')
+                rows = info_data.get('matrix_size', {}).get('rows')
+                if cols and rows:
+                    # Process
+                    for file in find_keyboard_c(keyboard):
+                        try:
+                            ret = find_led_config(file, cols, rows)
+                            if ret:
+                                info_data[feature] = info_data.get(feature, {})
+                                info_data[feature]['layout'] = ret
+                        except Exception as e:
+                            _log_warning(info_data, f'led_config: {file.name}: {e}')
+                else:
+                    _log_warning(info_data, 'led_config: matrix size required to parse g_led_config')
 
-    # Determine what feature owns g_led_config
-    features = info_data.get("features", {})
-    feature = None
-    if features.get("rgb_matrix", False):
-        feature = "rgb_matrix"
-    elif features.get("led_matrix", False):
-        feature = "led_matrix"
-
-    if feature:
-        # Process
-        for file in find_keyboard_c(keyboard):
-            try:
-                ret = find_led_config(file, cols, rows)
-                if ret:
-                    info_data[feature] = info_data.get(feature, {})
-                    info_data[feature]["layout"] = ret
-            except Exception as e:
-                _log_warning(info_data, f'led_config: {file.name}: {e}')
-
-        if info_data[feature].get("layout", None) and not info_data[feature].get("led_count", None):
-            info_data[feature]["led_count"] = len(info_data[feature]["layout"])
+            if info_data[feature].get('layout', None) and not info_data[feature].get('led_count', None):
+                info_data[feature]['led_count'] = len(info_data[feature]['layout'])
 
     return info_data
 
@@ -733,6 +826,16 @@ def _matrix_size(info_data):
     return info_data
 
 
+def _joystick_axis_count(info_data):
+    """Add info_data['joystick.axis_count'] if required
+    """
+    if 'axes' in info_data.get('joystick', {}):
+        axes_keys = info_data['joystick']['axes'].keys()
+        info_data['joystick']['axis_count'] = max(JOYSTICK_AXES.index(a) for a in axes_keys) + 1 if axes_keys else 0
+
+    return info_data
+
+
 def _check_matrix(info_data):
     """Check the matrix to ensure that row/column count is consistent.
     """
@@ -747,6 +850,9 @@ def _check_matrix(info_data):
         elif 'cols' in info_data['matrix_pins'] and 'rows' in info_data['matrix_pins']:
             col_count = len(info_data['matrix_pins']['cols'])
             row_count = len(info_data['matrix_pins']['rows'])
+        elif 'cols' not in info_data['matrix_pins'] and 'rows' not in info_data['matrix_pins']:
+            # This case caters for custom matrix implementations where normal rows/cols are specified
+            return
 
         if col_count != actual_col_count and col_count != (actual_col_count / 2):
             # FIXME: once we can we should detect if split is enabled to do the actual_col_count/2 check.
@@ -803,9 +909,6 @@ def arm_processor_rules(info_data, rules):
         info_data['platform'] = 'STM32'
     elif 'MCU_SERIES' in rules:
         info_data['platform'] = rules['MCU_SERIES']
-    elif 'ARM_ATSAM' in rules:
-        info_data['platform'] = 'ARM_ATSAM'
-        info_data['platform_key'] = 'arm_atsam'
 
     return info_data
 
@@ -839,7 +942,9 @@ def unknown_processor_rules(info_data, rules):
 def merge_info_jsons(keyboard, info_data):
     """Return a merged copy of all the info.json files for a keyboard.
     """
-    for info_file in find_info_json(keyboard):
+    config_files = find_info_json(keyboard)
+
+    for info_file in config_files:
         # Load and validate the JSON data
         new_info_data = json_load(info_file)
 
@@ -847,13 +952,14 @@ def merge_info_jsons(keyboard, info_data):
             _log_error(info_data, "Invalid file %s, root object should be a dictionary." % (str(info_file),))
             continue
 
-        try:
-            validate(new_info_data, 'qmk.keyboard.v1')
-        except jsonschema.ValidationError as e:
-            json_path = '.'.join([str(p) for p in e.absolute_path])
-            cli.log.error('Not including data from file: %s', info_file)
-            cli.log.error('\t%s: %s', json_path, e.message)
-            continue
+        if not truthy(os.environ.get('SKIP_SCHEMA_VALIDATION'), False):
+            try:
+                validate(new_info_data, 'qmk.keyboard.v1')
+            except jsonschema.ValidationError as e:
+                json_path = '.'.join([str(p) for p in e.absolute_path])
+                cli.log.error('Not including data from file: %s', info_file)
+                cli.log.error('\t%s: %s', json_path, e.message)
+                continue
 
         # Merge layout data in
         if 'layout_aliases' in new_info_data:
@@ -897,7 +1003,7 @@ def find_info_json(keyboard):
     base_path = Path('keyboards')
     keyboard_path = base_path / keyboard
     keyboard_parent = keyboard_path.parent
-    info_jsons = [keyboard_path / 'info.json']
+    info_jsons = [keyboard_path / 'info.json', keyboard_path / 'keyboard.json']
 
     # Add DEFAULT_FOLDER before parents, if present
     rules = rules_mk(keyboard)
@@ -909,31 +1015,32 @@ def find_info_json(keyboard):
         if keyboard_parent == base_path:
             break
         info_jsons.append(keyboard_parent / 'info.json')
+        info_jsons.append(keyboard_parent / 'keyboard.json')
         keyboard_parent = keyboard_parent.parent
 
     # Return a list of the info.json files that actually exist
     return [info_json for info_json in info_jsons if info_json.exists()]
 
 
-def keymap_json_config(keyboard, keymap):
+def keymap_json_config(keyboard, keymap, force_layout=None):
     """Extract keymap level config
     """
     # TODO: resolve keymap.py and info.py circular dependencies
     from qmk.keymap import locate_keymap
 
-    keymap_folder = locate_keymap(keyboard, keymap).parent
+    keymap_folder = locate_keymap(keyboard, keymap, force_layout=force_layout).parent
 
     km_info_json = parse_configurator_json(keymap_folder / 'keymap.json')
     return km_info_json.get('config', {})
 
 
-def keymap_json(keyboard, keymap):
+def keymap_json(keyboard, keymap, force_layout=None):
     """Generate the info.json data for a specific keymap.
     """
     # TODO: resolve keymap.py and info.py circular dependencies
     from qmk.keymap import locate_keymap
 
-    keymap_folder = locate_keymap(keyboard, keymap).parent
+    keymap_folder = locate_keymap(keyboard, keymap, force_layout=force_layout).parent
 
     # Files to scan
     keymap_config = keymap_folder / 'config.h'
@@ -941,10 +1048,10 @@ def keymap_json(keyboard, keymap):
     keymap_file = keymap_folder / 'keymap.json'
 
     # Build the info.json file
-    kb_info_json = info_json(keyboard)
+    kb_info_json = info_json(keyboard, force_layout=force_layout)
 
     # Merge in the data from keymap.json
-    km_info_json = keymap_json_config(keyboard, keymap) if keymap_file.exists() else {}
+    km_info_json = keymap_json_config(keyboard, keymap, force_layout=force_layout) if keymap_file.exists() else {}
     deep_update(kb_info_json, km_info_json)
 
     # Merge in the data from config.h, and rules.mk
@@ -952,3 +1059,30 @@ def keymap_json(keyboard, keymap):
     _extract_config_h(kb_info_json, parse_config_h_file(keymap_config))
 
     return kb_info_json
+
+
+def get_modules(keyboard, keymap_filename):
+    """Get the modules for a keyboard/keymap.
+    """
+    modules = []
+
+    if keymap_filename:
+        keymap_json = parse_configurator_json(keymap_filename)
+
+        if keymap_json:
+            kb = keymap_json.get('keyboard', None)
+            if not kb:
+                kb = keyboard
+
+            if kb:
+                kb_info_json = info_json(kb)
+                if kb_info_json:
+                    modules.extend(kb_info_json.get('modules', []))
+
+            modules.extend(keymap_json.get('modules', []))
+
+    elif keyboard:
+        kb_info_json = info_json(keyboard)
+        modules.extend(kb_info_json.get('modules', []))
+
+    return list(dict.fromkeys(modules))  # remove dupes

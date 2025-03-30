@@ -1,4 +1,4 @@
-#include "quantum.h"
+#include "action_layer.h"
 #include <stdio.h>
 
 #define L_BASE 0
@@ -13,7 +13,7 @@ const char *read_layer_state(void) {
   switch (layer_state)
   {
   case L_BASE:
-    snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Default");
+    snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Base");
     break;
   case L_RAISE:
     snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Raise");

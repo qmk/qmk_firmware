@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action_layer.h"
 #include "timer.h"
 #include "keycode_config.h"
+#include "usb_device_state.h"
 #include <string.h>
 
 extern keymap_config_t keymap_config;
@@ -35,6 +36,9 @@ static uint8_t suppressed_mods    = 0;
 // TODO: pointer variable is not needed
 // report_keyboard_t keyboard_report = {};
 report_keyboard_t *keyboard_report = &(report_keyboard_t){};
+#ifdef NKRO_ENABLE
+report_nkro_t *nkro_report = &(report_nkro_t){};
+#endif
 
 extern inline void add_key(uint8_t key);
 extern inline void del_key(uint8_t key);
@@ -252,13 +256,8 @@ bool is_oneshot_enabled(void) {
 
 #endif
 
-/** \brief Send keyboard report
- *
- * FIXME: needs doc
- */
-void send_keyboard_report(void) {
-    keyboard_report->mods = real_mods;
-    keyboard_report->mods |= weak_mods;
+static uint8_t get_mods_for_report(void) {
+    uint8_t mods = real_mods | weak_mods;
 
 #ifndef NO_ACTION_ONESHOT
     if (oneshot_mods) {
@@ -268,19 +267,24 @@ void send_keyboard_report(void) {
             clear_oneshot_mods();
         }
 #    endif
-        keyboard_report->mods |= oneshot_mods;
-        if (has_anykey(keyboard_report)) {
+        mods |= oneshot_mods;
+        if (has_anykey()) {
             clear_oneshot_mods();
         }
     }
-
 #endif
 
 #ifdef KEY_OVERRIDE_ENABLE
     // These need to be last to be able to properly control key overrides
-    keyboard_report->mods &= ~suppressed_mods;
-    keyboard_report->mods |= weak_override_mods;
+    mods &= ~suppressed_mods;
+    mods |= weak_override_mods;
 #endif
+
+    return mods;
+}
+
+void send_6kro_report(void) {
+    keyboard_report->mods = get_mods_for_report();
 
 #ifdef PROTOCOL_VUSB
     host_keyboard_send(keyboard_report);
@@ -292,6 +296,36 @@ void send_keyboard_report(void) {
         memcpy(&last_report, keyboard_report, sizeof(report_keyboard_t));
         host_keyboard_send(keyboard_report);
     }
+#endif
+}
+
+#ifdef NKRO_ENABLE
+void send_nkro_report(void) {
+    nkro_report->mods = get_mods_for_report();
+
+    static report_nkro_t last_report;
+
+    /* Only send the report if there are changes to propagate to the host. */
+    if (memcmp(nkro_report, &last_report, sizeof(report_nkro_t)) != 0) {
+        memcpy(&last_report, nkro_report, sizeof(report_nkro_t));
+        host_nkro_send(nkro_report);
+    }
+}
+#endif
+
+/** \brief Send keyboard report
+ *
+ * FIXME: needs doc
+ */
+void send_keyboard_report(void) {
+#ifdef NKRO_ENABLE
+    if (usb_device_state_get_protocol() == USB_PROTOCOL_REPORT && keymap_config.nkro) {
+        send_nkro_report();
+    } else {
+        send_6kro_report();
+    }
+#else
+    send_6kro_report();
 #endif
 }
 

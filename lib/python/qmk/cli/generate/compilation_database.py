@@ -12,11 +12,12 @@ from typing import Dict, Iterator, List, Union
 
 from milc import cli, MILC
 
-from qmk.commands import create_make_command
+from qmk.commands import find_make
 from qmk.constants import QMK_FIRMWARE
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.keymap import keymap_completer
+from qmk.build_targets import KeyboardKeymapBuildTarget
 
 
 @lru_cache(maxsize=10)
@@ -24,7 +25,6 @@ def system_libs(binary: str) -> List[Path]:
     """Find the system include directory that the given build tool uses.
     """
     cli.log.debug("searching for system library directory for binary: %s", binary)
-    bin_path = shutil.which(binary)
 
     # Actually query xxxxxx-gcc to find its include paths.
     if binary.endswith("gcc") or binary.endswith("g++"):
@@ -36,7 +36,31 @@ def system_libs(binary: str) -> List[Path]:
                 paths.append(Path(line.strip()).resolve())
         return paths
 
-    return list(Path(bin_path).resolve().parent.parent.glob("*/include")) if bin_path else []
+    return list(Path(binary).resolve().parent.parent.glob("*/include")) if binary else []
+
+
+@lru_cache(maxsize=10)
+def cpu_defines(binary: str, compiler_args: str) -> List[str]:
+    cli.log.debug("gathering definitions for compilation: %s %s", binary, compiler_args)
+    if binary.endswith("gcc") or binary.endswith("g++"):
+        invocation = [binary, '-dM', '-E']
+        if binary.endswith("gcc"):
+            invocation.extend(['-x', 'c'])
+        elif binary.endswith("g++"):
+            invocation.extend(['-x', 'c++'])
+        compiler_args = shlex.split(compiler_args)
+        invocation.extend(compiler_args)
+        invocation.append('-')
+        result = cli.run(invocation, capture_output=True, check=True, stdin=None, input='\n')
+        define_args = []
+        for line in result.stdout.splitlines():
+            line_args = line.split(' ', 2)
+            if len(line_args) == 3 and line_args[0] == '#define':
+                define_args.append(f'-D{line_args[1]}={line_args[2]}')
+            elif len(line_args) == 2 and line_args[0] == '#define':
+                define_args.append(f'-D{line_args[1]}')
+        return list(sorted(set(define_args)))
+    return []
 
 
 file_re = re.compile(r'printf "Compiling: ([^"]+)')
@@ -67,18 +91,24 @@ def parse_make_n(f: Iterator[str]) -> List[Dict[str, str]]:
                 # we have a hit!
                 this_cmd = m.group(1)
                 args = shlex.split(this_cmd)
-                for s in system_libs(args[0]):
+                binary = shutil.which(args[0])
+                compiler_args = set(filter(lambda x: x.startswith('-m') or x.startswith('-f'), args))
+                for s in system_libs(binary):
                     args += ['-isystem', '%s' % s]
-                new_cmd = ' '.join(shlex.quote(s) for s in args if s != '-mno-thumb-interwork')
+                args.extend(cpu_defines(binary, ' '.join(shlex.quote(s) for s in compiler_args)))
+                new_cmd = ' '.join(shlex.quote(s) for s in args)
                 records.append({"directory": str(QMK_FIRMWARE.resolve()), "command": new_cmd, "file": this_file})
                 state = 'start'
 
     return records
 
 
-def write_compilation_database(keyboard: str, keymap: str, output_path: Path) -> bool:
+def write_compilation_database(keyboard: str = None, keymap: str = None, output_path: Path = QMK_FIRMWARE / 'compile_commands.json', skip_clean: bool = False, command: List[str] = None, **env_vars) -> bool:
     # Generate the make command for a specific keyboard/keymap.
-    command = create_make_command(keyboard, keymap, dry_run=True)
+    if not command:
+        from qmk.build_targets import KeyboardKeymapBuildTarget  # Lazy load due to circular references
+        target = KeyboardKeymapBuildTarget(keyboard, keymap)
+        command = target.compile_command(dry_run=True, **env_vars)
 
     if not command:
         cli.log.error('You must supply both `--keyboard` and `--keymap`, or be in a directory for a keyboard or keymap.')
@@ -90,9 +120,10 @@ def write_compilation_database(keyboard: str, keymap: str, output_path: Path) ->
     env.pop("MAKEFLAGS", None)
 
     # re-use same executable as the main make invocation (might be gmake)
-    clean_command = [command[0], 'clean']
-    cli.log.info('Making clean with {fg_cyan}%s', ' '.join(clean_command))
-    cli.run(clean_command, capture_output=False, check=True, env=env)
+    if not skip_clean:
+        clean_command = [find_make(), "clean"]
+        cli.log.info('Making clean with {fg_cyan}%s', ' '.join(clean_command))
+        cli.run(clean_command, capture_output=False, check=True, env=env)
 
     cli.log.info('Gathering build instructions from {fg_cyan}%s', ' '.join(command))
 
@@ -134,4 +165,5 @@ def generate_compilation_database(cli: MILC) -> Union[bool, int]:
     elif not current_keymap:
         cli.log.error('Could not determine keymap!')
 
-    return write_compilation_database(current_keyboard, current_keymap, QMK_FIRMWARE / 'compile_commands.json')
+    target = KeyboardKeymapBuildTarget(current_keyboard, current_keymap)
+    return target.generate_compilation_database()

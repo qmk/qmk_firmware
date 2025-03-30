@@ -8,7 +8,9 @@ These options let you modify the behavior of the Tap-Hold keys.
 
 The crux of all of the following features is the tapping term setting.  This determines what is a tap and what is a hold.  The exact timing for this to feel natural can vary from keyboard to keyboard, from switch to switch, and from key to key.
 
-?> `DYNAMIC_TAPPING_TERM_ENABLE` enables three special keys that can help you quickly find a comfortable tapping term for you. See "Dynamic Tapping Term" for more details.
+::: tip
+`DYNAMIC_TAPPING_TERM_ENABLE` enables three special keys that can help you quickly find a comfortable tapping term for you. See "Dynamic Tapping Term" for more details.
+:::
 
 You can set the global time for this by adding the following setting to your `config.h`:
 
@@ -38,7 +40,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
-### Dynamic Tapping Term :id=dynamic-tapping-term
+### Dynamic Tapping Term {#dynamic-tapping-term}
 
 `DYNAMIC_TAPPING_TERM_ENABLE` is a feature you can enable in `rules.mk` that lets you use three special keys in your keymap to configure the tapping term on the fly.
 
@@ -126,13 +128,13 @@ The code which decides between the tap and hold actions of dual-role keys suppor
 
 Note that until the tap-or-hold decision completes (which happens when either the dual-role key is released, or the tapping term has expired, or the extra condition for the selected decision mode is satisfied), key events are delayed and not transmitted to the host immediately.  The default mode gives the most delay (if the dual-role key is held down, this mode always waits for the whole tapping term), and the other modes may give less delay when other keys are pressed, because the hold action may be selected earlier.
 
-### Comparison :id=comparison
+### Comparison {#comparison}
 
 To better illustrate the tap-or-hold decision modes, let us compare the expected output of each decision mode in a handful of tapping scenarios involving a mod-tap key (`LSFT_T(KC_A)`) and a regular key (`KC_B`) with the `TAPPING_TERM` set to 200ms.
 
 Note: "`kc` held" in the "Physical key event" column means that the key wasn't physically released yet at this point in time.
 
-#### Distinct taps (AABB) :id=distinct-taps
+#### Distinct taps (AABB) {#distinct-taps}
 
 | Time | Physical key event |    Default     | `PERMISSIVE_HOLD` |  `HOLD_ON_OTHER_KEY_PRESS` |
 |------|--------------------|----------------|-------------------|----------------------------|
@@ -149,7 +151,7 @@ Note: "`kc` held" in the "Physical key event" column means that the key wasn't p
 | 205  | `KC_B`      down   | b              | b                 |  b                         |
 | 210  | `KC_B`      up     | b              | b                 |  b                         |
 
-#### Nested tap (ABBA) :id=nested-tap
+#### Nested tap (ABBA) {#nested-tap}
 
 | Time | Physical key event |    Default     | `PERMISSIVE_HOLD` |  `HOLD_ON_OTHER_KEY_PRESS` |
 |------|--------------------|----------------|-------------------|----------------------------|
@@ -174,7 +176,7 @@ Note: "`kc` held" in the "Physical key event" column means that the key wasn't p
 | 210  | `KC_B` up          | B              | B                 | B                          |
 | 220  | `LSFT_T(KC_A)` up  | B              | B                 | B                          |
 
-#### Rolling keys (ABAB) :id=rolling-keys
+#### Rolling keys (ABAB) {#rolling-keys}
 
 | Time | Physical key event |    Default     | `PERMISSIVE_HOLD` |  `HOLD_ON_OTHER_KEY_PRESS` |
 |------|--------------------|----------------|-------------------|----------------------------|
@@ -296,7 +298,9 @@ However, this slightly different sequence will not be affected by the “permiss
 
 In the sequence above the dual-role key is released before the other key is released, and if that happens within the tapping term, the “permissive hold” mode will still choose the tap action for the dual-role key, and the sequence will be registered as `al` by the host. We could describe this as a “rolling press” (the two keys' key down and key up events behave as if you were rolling a ball across the two keys, first pressing each key down in sequence and then releasing them in the same order).
 
-?> The `PERMISSIVE_HOLD` option is not noticeable if you also enable `HOLD_ON_OTHER_KEY_PRESS` because the latter option considers both the “nested tap” and “rolling press” sequences like shown above as a hold action, not the tap action. `HOLD_ON_OTHER_KEY_PRESS` makes the Tap-Or-Hold decision earlier in the chain of key events, thus taking a precedence over `PERMISSIVE_HOLD`.
+::: tip
+The `PERMISSIVE_HOLD` option is not noticeable if you also enable `HOLD_ON_OTHER_KEY_PRESS` because the latter option considers both the “nested tap” and “rolling press” sequences like shown above as a hold action, not the tap action. `HOLD_ON_OTHER_KEY_PRESS` makes the Tap-Or-Hold decision earlier in the chain of key events, thus taking a precedence over `PERMISSIVE_HOLD`.
+:::
 
 For more granular control of this feature, you can add the following to your `config.h`:
 
@@ -394,7 +398,9 @@ With default settings, `a` will be sent on the first release, then `a` will be s
 
 With `QUICK_TAP_TERM` configured, the timing between `SFT_T(KC_A)` up and `SFT_T(KC_A)` down must be within `QUICK_TAP_TERM` to trigger auto repeat. Otherwise the second press will be sent as a Shift. If `QUICK_TAP_TERM` is set to `0`, the second press will always be sent as a Shift, effectively disabling auto-repeat.
 
-!> `QUICK_TAP_TERM` timing will also impact anything that uses tapping toggles (Such as the `TT` layer keycode, and the One Shot Tap Toggle).
+::: warning
+`QUICK_TAP_TERM` timing will also impact anything that uses tapping toggles (Such as the `TT` layer keycode, and the One Shot Tap Toggle).
+:::
 
 For more granular control of this feature, you can add the following to your `config.h`:
 
@@ -415,7 +421,172 @@ uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
-?> If `QUICK_TAP_TERM` is set higher than `TAPPING_TERM`, it will default to `TAPPING_TERM`.
+::: tip
+If `QUICK_TAP_TERM` is set higher than `TAPPING_TERM`, it will default to `TAPPING_TERM`.
+:::
+
+## Chordal Hold
+
+Chordal Hold is intended to be used together with either Permissive Hold or Hold
+On Other Key Press. Chordal Hold is enabled by adding to your `config.h`:
+
+```c
+#define CHORDAL_HOLD
+```
+
+Chordal Hold implements, by default, an "opposite hands" rule. Suppose a
+tap-hold key is pressed and then, before the tapping term, another key is
+pressed. With Chordal Hold, the tap-hold key is settled as tapped if the two
+keys are on the same hand.
+
+Otherwise, if the keys are on opposite hands, Chordal Hold introduces no new
+behavior. Hold On Other Key Press or Permissive Hold may be used together with
+Chordal Hold to configure the behavior in the opposite hands case. With Hold On
+Other Key Press, an opposite hands chord is settled immediately as held. Or with
+Permissive Hold, an opposite hands chord is settled as held provided the other
+key is pressed and released (nested press) before releasing the tap-hold key.
+
+Chordal Hold may be useful to avoid accidental modifier activation with
+mod-taps, particularly in rolled keypresses when using home row mods.
+
+Notes:
+
+* Chordal Hold has no effect after the tapping term. 
+
+* Combos are exempt from the opposite hands rule, since "handedness" is
+  ill-defined in this case. Even so, Chordal Hold's behavior involving combos
+  may be customized through the `get_chordal_hold()` callback.
+
+An example of a sequence that is affected by “chordal hold”: 
+
+- `SFT_T(KC_A)` Down
+- `KC_C` Down
+- `KC_C` Up
+- `SFT_T(KC_A)` Up
+
+```
+                         TAPPING_TERM   
+  +---------------------------|--------+
+  | +----------------------+  |        |
+  | | SFT_T(KC_A)          |  |        |
+  | +----------------------+  |        |
+  |    +--------------+       |        |
+  |    | KC_C         |       |        |
+  |    +--------------+       |        |
+  +---------------------------|--------+
+```
+
+If the two keys are on the same hand, then this will produce `ac` with
+`SFT_T(KC_A)` settled as tapped the moment that `KC_C` is pressed. 
+
+If the two keys are on opposite hands and the `HOLD_ON_OTHER_KEY_PRESS` option
+enabled, this will produce `C` with `SFT_T(KC_A)` settled as held when `KC_C` is
+pressed.
+
+Or if the two keys are on opposite hands and the `PERMISSIVE_HOLD` option is
+enabled, this will produce `C` with `SFT_T(KC_A)` settled as held when that
+`KC_C` is released.
+
+### Chordal Hold Handedness
+
+Determining whether keys are on the same or opposite hands involves defining the
+"handedness" of each key position. By default, if nothing is specified,
+handedness is guessed based on keyboard geometry.
+
+Handedness may be specified with `chordal_hold_layout`. In keymap.c, define
+`chordal_hold_layout` in the following form:
+
+```c
+const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
+    LAYOUT(
+        'L', 'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R', 'R', 
+        'L', 'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R', 'R', 
+        'L', 'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R', 'R', 
+                       'L', 'L', 'L',  'R', 'R', 'R'
+    );
+```
+
+Use the same `LAYOUT` macro as used to define your keymap layers. Each entry is
+a character indicating the handedness of one key, either `'L'` for left, `'R'`
+for right, or `'*'` to exempt keys from the "opposite hands rule." A key with
+`'*'` handedness may settle as held in chords with any other key. This could be
+used perhaps on thumb keys or other places where you want to allow same-hand
+chords.
+
+Keyboard makers may specify handedness in keyboard.json. Under `"layouts"`,
+specify the handedness of a key by adding a `"hand"` field with a value of
+either `"L"`, `"R"`, or `"*"`. Note that if `"layouts"` contains multiple
+layouts, only the first one is read. For example:
+
+```json
+{"matrix": [5, 6], "x": 0, "y": 5.5, "w": 1.25, "hand", "*"},
+```
+
+Alternatively, handedness may be defined functionally with
+`chordal_hold_handedness()`. For example, in keymap.c define:
+
+```c
+char chordal_hold_handedness(keypos_t key) {
+    if (key.col == 0 || key.col == MATRIX_COLS - 1) {
+        return '*';  // Exempt the outer columns.
+    }
+    // On split keyboards, typically, the first half of the rows are on the
+    // left, and the other half are on the right.
+    return key.row < MATRIX_ROWS / 2 ? 'L' : 'R';
+}
+```
+
+Given the matrix position of a key, the function should return `'L'`, `'R'`, or
+`'*'`. Adapt the logic in this function according to the keyboard's matrix.
+
+::: warning
+Note the matrix may have irregularities around larger keys, around the edges of
+the board, and around thumb clusters. You may find it helpful to use [this
+debugging example](faq_debug#which-matrix-position-is-this-keypress) to
+correspond physical keys to matrix positions.
+:::
+
+::: tip If you define both `chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS]` and
+`chordal_hold_handedness(keypos_t key)` for handedness, the latter takes
+precedence.
+:::
+
+
+### Per-chord customization
+
+Beyond the per-key configuration possible through handedness, Chordal Hold may
+be configured at a *per-chord* granularity for detailed tuning. In keymap.c,
+define `get_chordal_hold()`. Returning `true` allows the chord to be held, while
+returning `false` settles as tapped.
+
+For example:
+
+```c
+bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t* tap_hold_record,
+                      uint16_t other_keycode, keyrecord_t* other_record) {
+    // Exceptionally allow some one-handed chords for hotkeys.
+    switch (tap_hold_keycode) {
+        case LCTL_T(KC_Z):
+            if (other_keycode == KC_C || other_keycode == KC_V) {
+                return true;
+            }
+            break;
+
+        case RCTL_T(KC_SLSH):
+            if (other_keycode == KC_N) {
+                return true;
+            }
+            break;
+    }
+    // Otherwise defer to the opposite hands rule.
+    return get_chordal_hold_default(tap_hold_record, other_record);
+}
+```
+
+As shown in the last line above, you may use
+`get_chordal_hold_default(tap_hold_record, other_record)` to get the default tap
+vs. hold decision according to the opposite hands rule.
+
 
 ## Retro Tapping
 
@@ -483,17 +654,19 @@ Examples:
 #define MODS_TO_NEUTRALIZE { MOD_BIT(KC_LEFT_ALT), MOD_BIT(KC_LEFT_GUI), MOD_BIT(KC_RIGHT_GUI), MOD_BIT(KC_LEFT_CTRL)|MOD_BIT(KC_LEFT_SHIFT) }
 ```
 
-!> Do not use `MOD_xxx` constants like `MOD_LSFT` or `MOD_RALT`, since they're 5-bit packed bit-arrays while `MODS_TO_NEUTRALIZE` expects a list of 8-bit packed bit-arrays. Use `MOD_BIT(<kc>)` or `MOD_MASK_xxx` instead.
+::: warning
+Do not use `MOD_xxx` constants like `MOD_LSFT` or `MOD_RALT`, since they're 5-bit packed bit-arrays while `MODS_TO_NEUTRALIZE` expects a list of 8-bit packed bit-arrays. Use `MOD_BIT(<kc>)` or `MOD_MASK_xxx` instead.
+:::
 
 ### Retro Shift
 
-[Auto Shift,](feature_auto_shift.md) has its own version of `retro tapping` called `retro shift`. It is extremely similar to `retro tapping`, but holding the key past `AUTO_SHIFT_TIMEOUT` results in the value it sends being shifted. Other configurations also affect it differently; see [here](feature_auto_shift.md#retro-shift) for more information.
+[Auto Shift,](features/auto_shift) has its own version of `retro tapping` called `retro shift`. It is extremely similar to `retro tapping`, but holding the key past `AUTO_SHIFT_TIMEOUT` results in the value it sends being shifted. Other configurations also affect it differently; see [here](features/auto_shift#retro-shift) for more information.
 
 ## Why do we include the key record for the per key functions?
 
 One thing that you may notice is that we include the key record for all of the "per key" functions, and may be wondering why we do that.
 
-Well, it's simple really: customization.  But specifically, it depends on how your keyboard is wired up.  For instance, if each row is actually using a row in the keyboard's matrix, then it may be simpler to use `if (record->event.row == 3)` instead of checking a whole bunch of keycodes.  Which is especially good for those people using the Tap Hold type keys on the home row. So you could fine-tune those to not interfere with your normal typing.
+Well, it's simple really: customization.  But specifically, it depends on how your keyboard is wired up.  For instance, if each row is actually using a row in the keyboard's matrix, then it may be simpler to use `if (record->event.key.row == 3)` instead of checking a whole bunch of keycodes.  Which is especially good for those people using the Tap Hold type keys on the home row. So you could fine-tune those to not interfere with your normal typing.
 
 ## Why are there no `*_kb` or `*_user` functions?!
 

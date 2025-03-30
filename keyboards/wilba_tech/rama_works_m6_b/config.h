@@ -15,10 +15,7 @@
  */
 #pragma once
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
+#define IS31FL3218_LED_COUNT 6
 
 #define RGB_BACKLIGHT_ENABLED 1
 

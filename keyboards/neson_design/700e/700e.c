@@ -18,8 +18,11 @@
  */
 
 #include "quantum.h"
-#include "i2c_master.h"
-#include "drivers/led/issi/is31fl3731.h"
+
+#ifdef RGBLIGHT_ENABLE
+#    include "i2c_master.h"
+#    include "drivers/led/issi/is31fl3731.h"
+#    include "ws2812.h"
 
 enum {
     SELF_TESTING,
@@ -48,25 +51,24 @@ enum {
 
 // led index
 #define ST_LEFT_BEGIN       0
-#ifdef DRIVER_ADDR_2
+#ifdef IS31FL3731_I2C_ADDRESS_2
 #define ST_LEFT_SIZE        4
 #else
 #define ST_LEFT_SIZE        2
 #endif
 #define ST_LEFT_END         (ST_LEFT_BEGIN+ST_LEFT_SIZE-1)
-#ifdef DRIVER_ADDR_2
+#ifdef IS31FL3731_I2C_ADDRESS_2
 #define ST_RIGHT_BEGIN      60
 #else
 #define ST_RIGHT_BEGIN      30
 #endif
-#ifdef DRIVER_ADDR_2
+#ifdef IS31FL3731_I2C_ADDRESS_2
 #define ST_RIGHT_SIZE       4
 #else
 #define ST_RIGHT_SIZE       2
 #endif
 #define ST_RIGHT_END        (ST_RIGHT_BEGIN+ST_RIGHT_SIZE-1)
 
-#ifdef RGBLIGHT_ENABLE
 
 typedef struct {
     uint8_t state;
@@ -101,9 +103,9 @@ static void update_ticks(void)
 static void self_testing(void)
 {
     if (timer_elapsed(rgb_state.ticks) < ST_INTERVAL) return;
-    HSV hsv = rgblight_get_hsv();
+    hsv_t hsv = rgblight_get_hsv();
 
-    RGB led = hsv_to_rgb(hsv);
+    rgb_t led = hsv_to_rgb(hsv);
     switch(rgb_state.testing) {
         case ST_STAGE_1:
             if (rgb_state.index !=0 ) {
@@ -111,7 +113,7 @@ static void self_testing(void)
             }
 
             if (rgb_state.index >= ST_LEFT_END) {
-                for (int i = rgb_state.index - 1; i < RGB_MATRIX_LED_COUNT - rgb_state.index + 1; i++) {
+                for (int i = rgb_state.index - 1; i < IS31FL3731_LED_COUNT - rgb_state.index + 1; i++) {
                     is31fl3731_set_color(i, led.r, led.g, led.b);
                 }
                 if (rgb_state.index == ST_LEFT_END) {
@@ -173,13 +175,13 @@ static void self_testing(void)
         }
         break;
         case ST_STAGE_3:
-            if (rgb_state.index != RGB_MATRIX_LED_COUNT/2) {
+            if (rgb_state.index != IS31FL3731_LED_COUNT/2) {
                 is31fl3731_set_color_all(0, 0, 0);
             }
 
             // light left and right
 
-            if (rgb_state.index == RGB_MATRIX_LED_COUNT/2) {
+            if (rgb_state.index == IS31FL3731_LED_COUNT/2) {
                 if (rgb_state.duration) {
                     rgb_state.duration--;
                 } else {
@@ -207,7 +209,7 @@ static void self_testing(void)
     update_ticks();
 }
 
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
     /* Refer to IS31 manual for these locations
      *   driver
      *   |  R location
@@ -291,21 +293,10 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 
 void matrix_init_kb(void)
 {
-    setPinOutput(LED_CAPS_LOCK_PIN);
-    writePinLow(LED_CAPS_LOCK_PIN);
+    gpio_set_pin_output(LED_CAPS_LOCK_PIN);
+    gpio_write_pin_low(LED_CAPS_LOCK_PIN);
 
-    i2c_init();
-    is31fl3731_init(DRIVER_ADDR_1);
-#ifdef DRIVER_ADDR_2
-    is31fl3731_init(DRIVER_ADDR_2);
-#endif
-    for (int index = 0; index < RGB_MATRIX_LED_COUNT; index++) {
-        is31fl3731_set_led_control_register(index, true, true, true);
-    }
-    is31fl3731_update_led_control_registers(DRIVER_ADDR_1, 0);
-#ifdef DRIVER_ADDR_2
-    is31fl3731_update_led_control_registers(DRIVER_ADDR_2, 1);
-#endif
+
     update_ticks();
     matrix_init_user();
 }
@@ -322,17 +313,10 @@ void housekeeping_task_kb(void)
     } else if (rgb_state.state == CAPS_ALERT) {
         if (rgb_state.alert) {
             is31fl3731_set_color_all(ALERM_LED_R, ALERM_LED_G, ALERM_LED_B);
-            LED_TYPE leds[4];
-            for (int i = 0; i < 4; i++) {
-                leds[i].r = ALERM_LED_G;
-                leds[i].g = ALERM_LED_R;
-                leds[i].b = ALERM_LED_B;
-            }
-            ws2812_setleds(leds, 4);
+            ws2812_set_color_all(ALERM_LED_G, ALERM_LED_R, ALERM_LED_B);
         } else {
             is31fl3731_set_color_all(0, 0, 0);
-            LED_TYPE leds[4] = {0};
-            ws2812_setleds(leds, 4);
+            ws2812_set_color_all(0, 0, 0);
         }
 
         if (timer_elapsed(rgb_state.ticks) > ALERT_INTERVAL) {
@@ -341,36 +325,48 @@ void housekeeping_task_kb(void)
         }
     }
 
-    is31fl3731_update_pwm_buffers(DRIVER_ADDR_1, 0);
-#ifdef DRIVER_ADDR_2
-    is31fl3731_update_pwm_buffers(DRIVER_ADDR_2, 1);
-#endif
-
-    housekeeping_task_user();
+    is31fl3731_flush();
+    ws2812_flush();
 }
 
-void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds)
-{
+void init_custom(void) {
+    is31fl3731_init_drivers();
+    ws2812_init();
+}
+
+void set_color_custom(int index, uint8_t red, uint8_t green, uint8_t blue) {
+    if (index < IS31FL3731_LED_COUNT) {
+        is31fl3731_set_color(index, red, green, blue);
+    } else if (index < IS31FL3731_LED_COUNT + WS2812_LED_COUNT) {
+        ws2812_set_color(index - IS31FL3731_LED_COUNT, green, red, blue);
+    }
+}
+
+void set_color_all_custom(uint8_t red, uint8_t green, uint8_t blue) {
+    for (int i = 0; i < RGBLIGHT_LED_COUNT; i++) {
+        set_color_custom(i, red, green, blue);
+    }
+}
+
+void flush_custom(void) {
     if (rgb_state.state != NORMAL) return;
 
-    for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
-        is31fl3731_set_color(i, start_led[i].r, start_led[i].g, start_led[i].b);
-    }
-    LED_TYPE leds[4];
-    for (int i = 0; i < 4; i++) {
-        leds[i].r = start_led[RGB_MATRIX_LED_COUNT+i].g;
-        leds[i].g = start_led[RGB_MATRIX_LED_COUNT+i].r;
-        leds[i].b = start_led[RGB_MATRIX_LED_COUNT+i].b;
-    }
-    //ws2812_setleds(start_led+RGB_MATRIX_LED_COUNT, 4);
-    ws2812_setleds(leds, 4);
+    is31fl3731_flush();
+    ws2812_flush();
 }
+
+const rgblight_driver_t rgblight_driver = {
+    .init          = init_custom,
+    .set_color     = set_color_custom,
+    .set_color_all = set_color_all_custom,
+    .flush         = flush_custom,
+};
 
 bool led_update_kb(led_t led_state)
 {
     bool res = led_update_user(led_state);
     if (res) {
-        writePin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
+        gpio_write_pin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
 
         if (rgb_state.state != SELF_TESTING) {
             if (led_state.caps_lock) {

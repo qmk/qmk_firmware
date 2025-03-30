@@ -24,22 +24,23 @@ bool qgf_validate_block_header(qgf_block_header_v1_t *desc, uint8_t expected_typ
     return true;
 }
 
-bool qgf_parse_format(qp_image_format_t format, uint8_t *bpp, bool *has_palette) {
+bool qgf_parse_format(qp_image_format_t format, uint8_t *bpp, bool *has_palette, bool *is_panel_native) {
     // clang-format off
-    static const struct  QP_PACKED {
+    static const struct QP_PACKED {
         uint8_t bpp;
         bool    has_palette;
+        bool is_panel_native;
     } formats[] = {
-        [GRAYSCALE_1BPP] = {.bpp = 1, .has_palette = false},
-        [GRAYSCALE_2BPP] = {.bpp = 2, .has_palette = false},
-        [GRAYSCALE_4BPP] = {.bpp = 4, .has_palette = false},
-        [GRAYSCALE_8BPP] = {.bpp = 8, .has_palette = false},
-        [PALETTE_1BPP] = {.bpp = 1, .has_palette = true},
-        [PALETTE_2BPP] = {.bpp = 2, .has_palette = true},
-        [PALETTE_4BPP] = {.bpp = 4, .has_palette = true},
-        [PALETTE_8BPP] = {.bpp = 8, .has_palette = true},
-        [RGB565_16BPP] = {.bpp = 16, .has_palette = false},
-        [RGB888_24BPP] = {.bpp = 24, .has_palette = false},
+        [GRAYSCALE_1BPP] = {.bpp = 1, .has_palette = false, .is_panel_native = false},
+        [GRAYSCALE_2BPP] = {.bpp = 2, .has_palette = false, .is_panel_native = false},
+        [GRAYSCALE_4BPP] = {.bpp = 4, .has_palette = false, .is_panel_native = false},
+        [GRAYSCALE_8BPP] = {.bpp = 8, .has_palette = false, .is_panel_native = false},
+        [PALETTE_1BPP] = {.bpp = 1, .has_palette = true, .is_panel_native = false},
+        [PALETTE_2BPP] = {.bpp = 2, .has_palette = true, .is_panel_native = false},
+        [PALETTE_4BPP] = {.bpp = 4, .has_palette = true, .is_panel_native = false},
+        [PALETTE_8BPP] = {.bpp = 8, .has_palette = true, .is_panel_native = false},
+        [RGB565_16BPP] = {.bpp = 16, .has_palette = false, .is_panel_native = true},
+        [RGB888_24BPP] = {.bpp = 24, .has_palette = false, .is_panel_native = true},
     };
     // clang-format on
 
@@ -56,13 +57,16 @@ bool qgf_parse_format(qp_image_format_t format, uint8_t *bpp, bool *has_palette)
     if (has_palette) {
         *has_palette = formats[format].has_palette;
     }
+    if (is_panel_native) {
+        *is_panel_native = formats[format].is_panel_native;
+    }
 
     return true;
 }
 
-bool qgf_parse_frame_descriptor(qgf_frame_v1_t *frame_descriptor, uint8_t *bpp, bool *has_palette, bool *is_delta, painter_compression_t *compression_scheme, uint16_t *delay) {
+bool qgf_parse_frame_descriptor(qgf_frame_v1_t *frame_descriptor, uint8_t *bpp, bool *has_palette, bool *is_panel_native, bool *is_delta, painter_compression_t *compression_scheme, uint16_t *delay) {
     // Decode the format
-    qgf_parse_format(frame_descriptor->format, bpp, has_palette);
+    qgf_parse_format(frame_descriptor->format, bpp, has_palette, is_panel_native);
 
     // Copy out the required info
     if (is_delta) {
@@ -173,7 +177,7 @@ void qgf_seek_to_frame_descriptor(qp_stream_t *stream, uint16_t frame_number) {
     qp_stream_setpos(stream, offset);
 }
 
-bool qgf_validate_frame_descriptor(qp_stream_t *stream, uint16_t frame_number, uint8_t *bpp, bool *has_palette, bool *is_delta) {
+bool qgf_validate_frame_descriptor(qp_stream_t *stream, uint16_t frame_number, uint8_t *bpp, bool *has_palette, bool *is_panel_native, bool *is_delta) {
     // Seek to the correct location
     qgf_seek_to_frame_descriptor(stream, frame_number);
 
@@ -189,7 +193,7 @@ bool qgf_validate_frame_descriptor(qp_stream_t *stream, uint16_t frame_number, u
         return false;
     }
 
-    return qgf_parse_frame_descriptor(&frame_descriptor, bpp, has_palette, is_delta, NULL, NULL);
+    return qgf_parse_frame_descriptor(&frame_descriptor, bpp, has_palette, is_panel_native, is_delta, NULL, NULL);
 }
 
 bool qgf_validate_palette_descriptor(qp_stream_t *stream, uint16_t frame_number, uint8_t bpp) {
@@ -251,10 +255,11 @@ bool qgf_validate_stream(qp_stream_t *stream) {
     // Read and validate all the frames (automatically validates the frame offset descriptor in the process)
     for (uint16_t i = 0; i < frame_count; ++i) {
         // Validate the frame descriptor block
-        uint8_t bpp;
-        bool    has_palette;
-        bool    has_delta;
-        if (!qgf_validate_frame_descriptor(stream, i, &bpp, &has_palette, &has_delta)) {
+        uint8_t bpp             = 0;
+        bool    has_palette     = false;
+        bool    is_panel_native = false;
+        bool    has_delta       = false;
+        if (!qgf_validate_frame_descriptor(stream, i, &bpp, &has_palette, &is_panel_native, &has_delta)) {
             return false;
         }
 
