@@ -905,8 +905,13 @@
                     "additionalProperties": false,
                     "properties": {
                         "enabled": {"type": "boolean"},
+                        "driver": {
+                            "type": "string",
+                            "enum": ["vbus_sensing", "usb_enumeration", "usb_enumeration_watchdog"],
+                        },
                         "polling_interval": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                        "timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                        "timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                        "vbus_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"}
                     }
                 },
                 "main": {
