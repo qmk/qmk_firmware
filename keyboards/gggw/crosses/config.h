@@ -79,3 +79,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define OLED_FONT_H "lib/crosses-font.c"
 
+/*
+ * Sync
+ */
+#define SPLIT_TRANSACTION_IDS_KB CROSSES_SECONDARY_SYNC_ID

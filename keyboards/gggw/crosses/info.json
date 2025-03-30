@@ -1,0 +1,26 @@
+{
+    "bootloader": "rp2040",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "processor": "RP2040",
+    "split": {
+        "enabled": true,
+        "serial": {
+            "driver": "vendor",
+            "pin": "GP4"
+        },
+        "transport": {
+            "sync": {
+                "layer_state": true,
+                "matrix_state": true
+            }
+        }
+    }
+}

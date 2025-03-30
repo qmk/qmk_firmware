@@ -1,43 +1,12 @@
 {
-    "manufacturer": "Good Great Grand Wonderful LLC",
     "keyboard_name": "Crosses 36 Rev2",
-    "maintainer": "vinniefranco",
-    "bootloader": "rp2040",
-    "diode_direction": "COL2ROW",
-    "features": {
-        "bootmagic": true,
-        "command": false,
-        "console": false,
-        "extrakey": true,
-        "mousekey": true,
-        "nkro": true
-    },
     "matrix_pins": {
         "cols": ["GP26", "GP22", "GP21", "GP23", "GP20"],
         "rows": ["GP27", "GP28", "GP29", "GP7"]
     },
-    "processor": "RP2040",
-    "split": {
-        "enabled": true,
-        "serial": {
-            "driver": "vendor",
-            "pin": "GP4"
-        },
-        "transport": {
-            "sync": {
-                "layer_state": true,
-                "matrix_state": true
-            }
-        }
-    },
-    "tapping": {
-        "term": 195
-    },
-    "url": "https://ergokeyboards.com",
     "usb": {
         "device_version": "0.3.0",
         "pid": "0x5657",
-        "vid": "0x3034"
     },
     "layouts": {
         "LAYOUT_default": {
