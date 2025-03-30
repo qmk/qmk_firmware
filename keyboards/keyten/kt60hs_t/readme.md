@@ -12,5 +12,5 @@ There are two versions of the PCB available.
 
 |Version|                 Features                  |
 |-------|-------------------------------------------|
-|v1   |Blue/Purple PCB / ARM STM32F401 controller |
-|v2   |Purple PCB / ARM STM32F072 controller      |
+|v1     |Blue/Purple PCB / ARM STM32F401 controller |
+|v2     |Purple PCB / ARM STM32F072 controller      |
