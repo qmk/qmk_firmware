@@ -6,7 +6,7 @@
     },
     "usb": {
         "device_version": "0.3.0",
-        "pid": "0x5647",
+        "pid": "0x5647"
     },
     "layouts": {
         "LAYOUT": {
