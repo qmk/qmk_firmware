@@ -68,9 +68,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * Reset
  */
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
-
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP17
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 1000U
+
 #define PERMISSIVE_HOLD
 #define QUICK_TAP_TERM_PER_KEY
 
