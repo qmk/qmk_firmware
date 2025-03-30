@@ -177,9 +177,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
-    if (!process_achordion(keycode, record)) {
-        return false;
-    }
     switch (keycode) {
         case RSFT_T(KC_LBRC):
             if (record->tap.count && record->event.pressed) {
@@ -257,20 +254,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     }
 
     return true;
-}
-
-bool achordion_chord(uint16_t tap_hold_keycode, keyrecord_t* tap_hold_record, uint16_t other_keycode, keyrecord_t* other_record) {
-    switch (tap_hold_keycode) {
-        case 0x4128:
-            return true;
-            break;
-    }
-
-    return achordion_opposite_hands(tap_hold_record, other_record);
-}
-
-void matrix_scan_user(void) {
-    achordion_task();
 }
 
 #ifdef OLED_ENABLE
