@@ -1,0 +1,22 @@
+OLED_ENABLE            = yes
+OLED_DRIVER            = SSD1306
+RGBLIGHT_ENABLE        = no    # Enable WS2812 RGB underlight.
+RGB_MATRIX_ENABLE      = no
+BACKLIGHT_ENABLE       = no
+SLEEP_LED_ENABLE       = yes
+CONSOLE_ENABLE         = no
+LTO_ENABLE             = yes
+COMBO_ENABLE           = no
+TAP_DANCE_ENABLE       = no
+SPACE_CADET_ENABLE     = no
+GRAVE_ESC_ENABLE       = no
+MAGIC_ENABLE           = no
+AVR_USE_MINIMAL_PRINTF = yes
+MUSIC_ENABLE           = no
+# Gata Enable
+WPM_ENABLE      = yes
+EXTRAFLAGS     += -flto
+COMMAND_ENABLE  = no    #COMMANDS FOR DEBUG AND CONFIGURATIONS
+UNICODE_ENABLE  = no
+MOUSEKEY_ENABLE = no    # Mouse key
+SPLIT_KEYBOARD  = yes
