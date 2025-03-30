@@ -7,7 +7,9 @@
         "console": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "oled": true,
+        "pointing_device": true
     },
     "processor": "RP2040",
     "split": {

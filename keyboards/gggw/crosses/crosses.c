@@ -214,7 +214,7 @@ void housekeeping_task_kb(void) {
 }
 
 void keyboard_post_init_kb(void) {
-    global_user_config.raw = eeconfig_read_user();
+    global_user_config.raw = eeconfig_read_kb();
     transaction_register_rpc(CROSSES_SECONDARY_SYNC_ID, secondary_sync_handler);
 
 #if defined(POINTING_DEVICE_COMBINED) || defined(POINTING_DEVICE_RIGHT) || defined(POINTING_DEVICE_LEFT)
