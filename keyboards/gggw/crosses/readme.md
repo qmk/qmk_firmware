@@ -1,6 +1,6 @@
 # Crosses by Good Great Grand Wonderful
 
-![crosses](https://ergokeyboards.com/cdn/shop/files/3x5-dual-tb-oled.png)
+![crosses](https://i.imgur.com/LWiT2bD.png)
 
 Our thumbs evolved to give us dexterity; shouldn't our keyboards evolve with them? 
 
