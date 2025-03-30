@@ -77,7 +77,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * Font
  */
-#define OLED_FONT_H "lib/crosses-font.c"
+#define OLED_FONT_H "crosses-font.c"
 
 /*
  * Sync

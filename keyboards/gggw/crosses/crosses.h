@@ -18,13 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifndef CROSSES_CORE_H
-#    define CROSSES_CORE_H
-
 /*
  * Pointer Storage
  */
@@ -50,10 +43,6 @@ void change_pointer_dpi(global_user_config_t* config, bool inc);
 
 void debug_config_to_console(global_user_config_t* config);
 
-void eeconfig_init_user(void);
-
-void keyboard_post_init_user(void);
-
 /*
  * Pointing Device Config
  */
@@ -72,9 +61,3 @@ report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, re
 #    endif // POINTINTG_DEVICE_COMBINED
 
 layer_state_t layer_state_set_user(layer_state_t state);
-
-#endif // CROSSES_CORE_H
-
-#ifdef __cplusplus
-}
-#endif

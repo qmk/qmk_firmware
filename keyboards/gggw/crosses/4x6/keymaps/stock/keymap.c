@@ -3,8 +3,6 @@
 
 #include QMK_KEYBOARD_H
 
-#include "lib/crosses.h"
-
 /*
  * Keycodes, combos, and layers! oh my!
  */

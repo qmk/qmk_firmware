@@ -4,9 +4,6 @@
 #include "action_layer.h"
 #include QMK_KEYBOARD_H
 
-#include "lib/achordion.h"
-#include "lib/crosses.h"
-
 /*
  * Keycodes, combos, and layers! oh my!
  */
