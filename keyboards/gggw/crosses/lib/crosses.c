@@ -39,7 +39,7 @@ const uint16_t MAX_DEFAULT_DPI = 10000;
 global_user_config_t global_user_config = {0};
 
 void write_config_to_eeprom(global_user_config_t* config) {
-    eeconfig_update_user(config->raw);
+    eeconfig_update_kb(config->raw);
 }
 
 uint16_t get_pointer_dpi(global_user_config_t* config) {
@@ -213,7 +213,7 @@ void housekeeping_task_kb(void) {
     }
 }
 
-void keyboard_post_init_user(void) {
+void keyboard_post_init_kb(void) {
     global_user_config.raw = eeconfig_read_user();
     transaction_register_rpc(CROSSES_SECONDARY_SYNC_ID, secondary_sync_handler);
 
@@ -222,4 +222,6 @@ void keyboard_post_init_user(void) {
 #endif /* ifdef POINTING_DEVICE_* */
 
     write_config_to_eeprom(&global_user_config);
+
+    keyboard_post_init_user();
 }
