@@ -9,7 +9,7 @@
         "pid": "0x5647"
     },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_3x5": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0.25},
                 {"matrix": [0, 1], "x": 1, "y": 0.125},
