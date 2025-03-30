@@ -1,4 +1,4 @@
-# keyten kt60HS-T
+# keyten kt60HS-T V1
 
 60% MX Hot-Swap Tsangan PCB
 
