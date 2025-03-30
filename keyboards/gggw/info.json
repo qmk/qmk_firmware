@@ -1,0 +1,8 @@
+{
+    "manufacturer": "Good Great Grand Wonderful",
+    "maintainer": "Vincent Franco",
+    "url": "https://ergokeyboards.com",
+    "usb": {
+        "vid": "0x3034"
+    }
+}
