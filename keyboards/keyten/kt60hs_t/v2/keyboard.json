@@ -1,15 +1,6 @@
 {
-    "manufacturer": "keyten",
-    "keyboard_name": "kt60HS-T",
-    "maintainer": "key10iq",
     "bootloader": "stm32-dfu",
     "diode_direction": "COL2ROW",
-    "features": {
-        "bootmagic": true,
-        "extrakey": true,
-        "mousekey": true,
-        "nkro": true
-    },
     "matrix_pins": {
         "cols": ["A3", "A4", "A5", "A6", "A7", "B9", "B8", "B7", "B6", "B5", "B4", "B3", "A15", "A14"],
         "rows": ["B15", "B14", "B12", "B13", "B0"]
@@ -17,8 +8,7 @@
     "processor": "STM32F072",
     "usb": {
         "device_version": "0.0.1",
-        "pid": "0x6007",
-        "vid": "0xEB69"
+        "pid": "0x6007"
     },
     "community_layouts": [
         "60_ansi_wkl_split_bs_rshift", 
