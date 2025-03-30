@@ -25,8 +25,8 @@
         },
         "transport": {
             "sync": {
-                "matrix_state": true,
-                "layer_state": true
+                "layer_state": true,
+                "matrix_state": true
             }
         }
     },
