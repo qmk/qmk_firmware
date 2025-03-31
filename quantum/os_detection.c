@@ -72,6 +72,8 @@ static volatile struct usb_device_state maxprev_usb_device_state = {.configure_s
 static volatile bool         debouncing = false;
 static volatile fast_timer_t last_time  = 0;
 
+bool process_detected_host_os_modules(os_variant_t os);
+
 void os_detection_task(void) {
 #ifdef OS_DETECTION_KEYBOARD_RESET
     // resetting the keyboard on the USB device state change callback results in instability, so delegate that to this task
@@ -96,10 +98,15 @@ void os_detection_task(void) {
             if (detected_os != reported_os || first_report) {
                 first_report = false;
                 reported_os  = detected_os;
+                process_detected_host_os_modules(detected_os);
                 process_detected_host_os_kb(detected_os);
             }
         }
     }
+}
+
+__attribute__((weak)) bool process_detected_host_os_modules(os_variant_t os) {
+    return true;
 }
 
 __attribute__((weak)) bool process_detected_host_os_kb(os_variant_t detected_os) {
@@ -133,7 +140,7 @@ void process_wlength(const uint16_t w_length) {
         } else if (setups_data.count == setups_data.cnt_ff) {
             // Linux has 3 packets with 0xFF.
             guessed = OS_LINUX;
-        } else if (setups_data.count == 5 && setups_data.last_wlength == 0xFF && setups_data.cnt_ff == 1 && setups_data.cnt_02 == 2) {
+        } else if (setups_data.count >= 5 && setups_data.last_wlength == 0xFF && setups_data.cnt_ff >= 1 && setups_data.cnt_02 >= 2) {
             guessed = OS_MACOS;
         } else if (setups_data.count == 4 && setups_data.cnt_ff == 0 && setups_data.cnt_02 == 2) {
             // iOS and iPadOS don't have the last 0xFF packet.
