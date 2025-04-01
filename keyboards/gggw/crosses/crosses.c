@@ -116,7 +116,7 @@ void eeconfig_init_kb(void) {
 
     write_config_to_eeprom(&global_user_config);
     debug_config_to_console(&global_user_config);
-    
+
     eeconfig_init_user();
 }
 
@@ -156,7 +156,7 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
 
 #ifdef POINTING_DEVICE_COMBINED
 
-report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, report_mouse_t right_report) {
+report_mouse_t pointing_device_task_combined_kb(report_mouse_t left_report, report_mouse_t right_report) {
     // Calculate and accumulate scroll values based on mouse movement and divisors
     scroll_acc_h += (float)left_report.x / SCROLL_DIVISOR_H;
     scroll_acc_v += (float)left_report.y / SCROLL_DIVISOR_V;
