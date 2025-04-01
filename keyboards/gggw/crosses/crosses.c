@@ -126,7 +126,7 @@ void eeconfig_init_kb(void) {
 
 #if defined(POINTING_DEVICE_RIGHT) || defined(POINTING_DEVICE_LEFT)
 
-report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
     if (set_scrolling) {
         // Calculate and accumulate scroll values based on mouse movement and divisors
         scroll_acc_h += (float)mouse_report.x / SCROLL_DIVISOR_H;
@@ -145,7 +145,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
         mouse_report.y = 0;
     }
 
-    return mouse_report;
+    return pointing_device_task_user(mouse_report);
 }
 
 #endif /* RIGHT || LEFT */
