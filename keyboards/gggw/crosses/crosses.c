@@ -178,14 +178,14 @@ report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, re
 
 #endif /* ifdef POINTING_DEVICE_COMBINED */
 
-layer_state_t layer_state_set_user(layer_state_t state) {
+layer_state_t layer_state_set_kb(layer_state_t state) {
 #if defined(POINTING_DEVICE_RIGHT) || defined(POINTING_DEVICE_LEFT)
     if (get_highest_layer(state) != 5) {
         set_scrolling = false;
     }
 #endif /* ifndef POINTING_DEVICE_* */
 
-    return state;
+    return layer_state_set_user(state);
 }
 
 void secondary_sync_handler(uint8_t in_buflen, const void* in_data, uint8_t out_buflen, void* out_data) {
