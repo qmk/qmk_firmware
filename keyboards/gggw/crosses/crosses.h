@@ -51,13 +51,3 @@ extern bool set_scrolling;
 
 extern float scroll_acc_h;
 extern float scroll_acc_v;
-
-#    if defined(POINTING_DEVICE_LEFT) || defined(POINTING_DEVICE_RIGHT)
-report_mouse_t pointing_device_task_user(report_mouse_t mouse_report);
-#    endif // POINTING_DEVICE
-           //
-#    ifdef POINTING_DEVICE_COMBINED
-report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, report_mouse_t right_report);
-#    endif // POINTINTG_DEVICE_COMBINED
-
-layer_state_t layer_state_set_user(layer_state_t state);
