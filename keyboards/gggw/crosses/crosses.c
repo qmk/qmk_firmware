@@ -110,12 +110,14 @@ void debug_config_to_console(global_user_config_t* config) {
 #endif // CONSOLE_ENABLE
 }
 
-void eeconfig_init_user(void) {
+void eeconfig_init_kb(void) {
     global_user_config.raw     = 0;
     global_user_config.mse_cpi = MIN_DEFAULT_DPI;
 
     write_config_to_eeprom(&global_user_config);
     debug_config_to_console(&global_user_config);
+    
+    eeconfig_init_user();
 }
 
 /***********************************************************************
