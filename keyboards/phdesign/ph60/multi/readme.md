@@ -1,6 +1,6 @@
 # phdesign/ph60_multi
 
-![phdesign/ph60_multi](imgur.com image replace me!)
+https://i.imgur.com/sUwC9mk.jpg
 
 A 60% multi-layout supported keyboard PCB with open source keyboard case.
 
