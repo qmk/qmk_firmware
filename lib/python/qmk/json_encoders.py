@@ -250,12 +250,14 @@ class CommunityModuleJSONEncoder(QMKJSONEncoder):
                 return '00module_name'
             if key == 'maintainer':
                 return '01maintainer'
+            if key == 'license':
+                return '02license'
             if key == 'url':
-                return '02url'
+                return '03url'
             if key == 'features':
-                return '03features'
+                return '04features'
             if key == 'keycodes':
-                return '04keycodes'
+                return '05keycodes'
         elif self.indentation_level == 3:  # keycodes
             if key == 'key':
                 return '00key'

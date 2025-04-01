@@ -72,6 +72,7 @@ A Community Module is denoted by a `qmk_module.json` file such as the following:
 {
     "module_name": "Hello World",
     "maintainer": "QMK Maintainers",
+    "license": "GPL-2.0-or-later",
     "features": {
         "deferred_exec": true
     },
@@ -85,6 +86,10 @@ A Community Module is denoted by a `qmk_module.json` file such as the following:
 ```
 
 At minimum, the module must provide the `module_name` and `maintainer` fields.
+
+The `license` field is encouraged to indicate the terms for using and sharing the module. It is recommended to use a [SPDX license identifier](https://spdx.org/licenses/) like "`Apache-2.0`" or "`GPL-2.0-or-later`" if possible.
+
+The `url` field may specify a URL to more information about the module.
 
 The use of `features` matches the definition normally provided within `keyboard.json` and `info.json`, allowing a module to signal to the build system that it has its own dependencies. In the example above, it enables the _deferred executor_ feature whenever the above module is used in a build.
 

@@ -1,6 +1,7 @@
 {
     "module_name": "Hello World",
     "maintainer": "QMK Maintainers",
+    "license": "GPL-2.0-or-later",
     "features": {
         "console": true,
         "deferred_exec": true
