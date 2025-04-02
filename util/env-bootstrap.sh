@@ -9,6 +9,7 @@
 #   CONFIRM: Skip the pre-install delay. (or: --confirm)
 #   QMK_DISTRIB_DIR: The directory to install the QMK distribution to. (or: --qmk-distrib-dir=...)
 #   UV_INSTALL_DIR: The directory to install `uv` to. (or: --uv-install-dir=...)
+#   UV_TOOL_DIR: The directory to install `uv` tools to. (or: --uv-tool-dir=...)
 #   SKIP_CLEAN: Skip cleaning the distribution directory. (or: --skip-clean)
 #   SKIP_PACKAGE_MANAGER: Skip installing the necessary packages for the package manager. (or: --skip-package-manager)
 #   SKIP_UV: Skip installing `uv`. (or: --skip-uv)
@@ -45,6 +46,7 @@
     --help                    -- Shows this help text
     --confirm                 -- Skips the delay before installation
     --uv-install-dir={path}   -- The directory to install \`uv\` into
+    --uv-tool-dir={path}      -- The directory to install \`uv\` tools into
     --qmk-distrib-dir={path}  -- The directory to install the QMK distribution into
     --skip-clean              -- Skip cleaning the QMK distribution directory
     --skip-package-manager    -- Skip installing the necessary packages for the package manager
@@ -355,9 +357,10 @@ __EOT__
         export TMPDIR="$(cygpath -w "$TMP")"
         export UV_INSTALL_DIR=${UV_INSTALL_DIR:-/opt/uv}
         export QMK_DISTRIB_DIR=${QMK_DISTRIB_DIR:-/opt/qmk}
+        export UV_TOOL_DIR=${UV_TOOL_DIR:-"$QMK_DISTRIB_DIR/tools"}
     fi
 
-    # Work out where we want to install the distribution
+    # Work out where we want to install the distribution and tools
     export QMK_DISTRIB_DIR=${QMK_DISTRIB_DIR:-$HOME/.local/share/qmk}
 
     script_parse_args "$@"
@@ -367,7 +370,6 @@ __EOT__
     [ -n "${SKIP_PACKAGE_MANAGER:-}" ] || install_package_manager_deps
     [ -n "${SKIP_UV:-}" ] || install_uv
     setup_paths
-    [ -n "${SKIP_QMK_CLI:-}" ] || install_qmk_cli
 
     # Clear out the distrib directory if necessary
     if [ -z "${SKIP_CLEAN:-}" ] || [ -z "${SKIP_QMK_TOOLCHAINS:-}" -a -z "${SKIP_QMK_FLASHUTILS:-}" ]; then
@@ -378,6 +380,7 @@ __EOT__
     fi
     mkdir -p "$QMK_DISTRIB_DIR"
 
+    [ -n "${SKIP_QMK_CLI:-}" ] || install_qmk_cli
     [ -n "${SKIP_QMK_TOOLCHAINS:-}" ] || install_toolchains
     [ -n "${SKIP_QMK_FLASHUTILS:-}" ] || install_flashing_tools
     clean_tarballs
