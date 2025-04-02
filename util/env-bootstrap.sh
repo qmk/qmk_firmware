@@ -43,7 +43,7 @@
     script_args() {
         cat <<__EOT__
     --help                    -- Shows this help text
-    --confirm                   -- Skips the delay before installation
+    --confirm                 -- Skips the delay before installation
     --uv-install-dir={path}   -- The directory to install \`uv\` into
     --qmk-distrib-dir={path}  -- The directory to install the QMK distribution into
     --skip-clean              -- Skip cleaning the QMK distribution directory
