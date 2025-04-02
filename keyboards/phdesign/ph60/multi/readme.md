@@ -1,12 +1,14 @@
 # phdesign/ph60/multi
 
-https://i.imgur.com/sUwC9mk.jpg
+![PromoImage](https://i.imgur.com/sUwC9mk.jpg)
 
 A 60% multi-layout supported keyboard PCB with open source keyboard case.
 
 * Keyboard Maintainer: [Team PHDesign](https://github.com/ph-design)
 * Hardware Supported: PH60/Multi PCB
-* Hardware Availability: https://e.tb.cn/h.6VMjUgWZkUGwq26?tk=oVyAeD6uPS2
+* Hardware Availability: 
+  - Store: https://e.tb.cn/h.6VMjUgWZkUGwq26?tk=oVyAeD6uPS2
+  - GitHub Repo: https://github.com/ph-design/PH60/tree/Rev.2/PCB_Rev2/Multi
 
 Make example for this keyboard (after setting up your build environment):
 
