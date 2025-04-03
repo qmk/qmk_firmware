@@ -1,6 +1,6 @@
-# De60fs
+# DE60 Round 1
 
-![De60fs](https://i.imgur.com/7hpYaoXh.jpg)
+![DE60 R1](https://i.imgur.com/7hpYaoXh.jpg)
 
 A GH60 form factor PCB for 60% keyboards. Uses a Left USB Type C connector or 5 JST SH positions for daughter board.
 
@@ -10,11 +10,11 @@ A GH60 form factor PCB for 60% keyboards. Uses a Left USB Type C connector or 5 
 
 Make example for this keyboard (after setting up your build environment):
 
-    make deemen17/de60fs:default
+    make deemen17/de60/r1:default
 
 Flashing example for this keyboard:
 
-    make deemen17/de60fs:default:flash
+    make deemen17/de60/r1:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
