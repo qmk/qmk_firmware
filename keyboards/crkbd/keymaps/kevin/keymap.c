@@ -151,7 +151,7 @@ const uint16_t PROGMEM rpar[] = {KC_COMM, KC_DOT, COMBO_END};
 const uint16_t PROGMEM lt[] = {KC_M, KC_COMM, COMBO_END};
 const uint16_t PROGMEM ht[] = {KC_COMM, KC_DOT, COMBO_END};
 
-const uint16_t PROGMEM excl[] = {CKC_A, KC_Q, COMBO_END};
+const uint16_t PROGMEM excl[] = {CKC_W, KC_D, COMBO_END};
 const uint16_t PROGMEM at[] = {CKC_S, KC_W, COMBO_END};
 const uint16_t PROGMEM hash[] = {CKC_D, KC_E, COMBO_END};
 const uint16_t PROGMEM dollar[] = {CKC_F, KC_R, COMBO_END};
@@ -167,9 +167,8 @@ const uint16_t PROGMEM cspc[] = {CKC_D, CKC_S, COMBO_END};
 const uint16_t PROGMEM ques[] = {KC_W, KC_E, COMBO_END};
 const uint16_t PROGMEM und[] = {KC_E, KC_R, COMBO_END};
 const uint16_t PROGMEM cln[] = {CKC_D, CKC_F, COMBO_END};
-const uint16_t PROGMEM scln[] = {KC_Z, KC_X, COMBO_END};
+const uint16_t PROGMEM scln[] = {KC_X, KC_C, COMBO_END};
 const uint16_t PROGMEM senter_combo[] = {KC_U, KC_I, COMBO_END};
-
 
 
 const uint16_t PROGMEM tilde[] = {CKC_L, KC_O, COMBO_END};  // You can change these keys to your preferenc
@@ -251,6 +250,7 @@ combo_t key_combos[] = {
     [DQUT_COMB] = COMBO_ACTION(dquote),
 };
 
+
 #include "sm_td.h"
 #ifdef LAYOUT_split_3x5_3_ex2
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -316,6 +316,34 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 };
 #endif
 
+
+bool caps_word_press_user(uint16_t keycode) {
+  switch (keycode) {
+    case KC_A ... KC_Z:  // Valid range (ASCII order)
+    case KC_1 ... KC_9:  // Numbers 1-9
+    case KC_0:           // Handle zero separately
+    case KC_UNDS:
+      add_weak_mods(MOD_BIT(KC_LSFT));
+      return true;
+
+
+    // Additional keys that should turn off caps word
+    case KC_BSPC:
+    case CKC_GESC:
+    case CLT_1SPC:
+    case CLT_3TAB:
+    case CLT_2RET:
+    case CLT_1BSPC:
+    case KC_ESC:
+    case KC_DEL:
+    case KC_ENTER:
+    case KC_SPC:
+    case OSM(MOD_LSFT):
+      return false;
+    default:
+      return false;
+  }
+}
 
 
 void on_smtd_action(uint16_t keycode, smtd_action action, uint8_t tap_count) {
