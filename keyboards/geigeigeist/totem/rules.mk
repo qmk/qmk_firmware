@@ -1,0 +1,2 @@
+LTO_ENABLE = no
+SPLIT_KEYBOARD = yes

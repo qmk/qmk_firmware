@@ -18,6 +18,7 @@
     "debounce": 5,
     "features": { },
     "split": {
+        "enabled": true,
         "serial": {
             "driver": "vendor"
         }
