@@ -106,7 +106,7 @@ __EOT__
     }
 
     nsudo() {
-        [[ ${EUID} -ne 0 ]] && echo "sudo"
+        [[ ${EUID:-} -ne 0 ]] && echo "sudo"
         true
     }
 
