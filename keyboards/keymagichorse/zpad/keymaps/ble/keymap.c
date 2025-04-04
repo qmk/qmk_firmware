@@ -79,32 +79,36 @@ enum keyboard_user_keycodes {
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT_all(
-    QK_GESC, KC_1,    KC_2,     KC_3,     KC_4,    KC_5,    KC_6,    KC_7,    KC_8,      KC_9,     KC_0,     KC_MINS,  KC_EQL,  KC_BSLS, KC_BSPC,
-    KC_TAB,  KC_Q,    KC_W,     KC_E,     KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,      KC_O,     KC_P,     KC_LBRC,  KC_RBRC, KC_BSLS,
-    KC_CAPS, KC_A,    KC_S,     KC_D,     KC_F,    KC_G,    KC_H,    KC_J,    KC_K,      KC_L,     KC_SCLN,  KC_QUOT,  KC_BSLS, KC_ENT,
-    KC_LSFT, KC_Z,    KC_X,     KC_C,     KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM,   KC_DOT,   KC_SLSH,  KC_RSFT,  KC_UP,   KC_DEL,
-    KC_LCTL, KC_LGUI, KC_LALT,  KC_SPC,   KC_SPC,  KC_SPC,                    KC_SPC,    MO(1),    KC_RCTL,    KC_LEFT,  KC_DOWN, KC_RIGHT),
-  [1] = LAYOUT_all(
-    KC_GRV , KC_F1,   KC_F2,   KC_F3,    KC_F4,   KC_F5,   KC_F6,   KC_F7,    KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_TRNS, KC_DEL,
-    KC_TRNS, BL_SW_0, BL_SW_1,  RF_TOG,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS, USB_TOG, NK_TOGG, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS, RGB_TOG, RGB_MOD, RGB_RMOD, RGB_VAI, RGB_VAD, KC_TRNS, CG_TOGG, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BRIU, KC_TRNS,
-    KC_TRNS, GU_TOGG,   KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,                    KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLD, KC_BRID, KC_VOLU),
-  [2] = LAYOUT_all(
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,                    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
-  [3] = LAYOUT_all(
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,                    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS)
-};
-
+    [0] = LAYOUT_all(
+      KC_ESC,                    MO(1),
+      KC_NUM,  KC_PSLS, KC_PAST, KC_PMNS,
+      KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
+      KC_P4,   KC_P5,   KC_P6,      
+      KC_P1,   KC_P2,   KC_P3,   KC_PENT,
+      KC_P0,            KC_PDOT),
+    [1] = LAYOUT_all(
+      KC_TRNS,                   KC_TRNS, 
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
+      KC_TRNS, KC_TRNS, KC_TRNS, 
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+      KC_TRNS,          KC_TRNS),
+    [2] = LAYOUT_all(
+      KC_TRNS,                   KC_TRNS, 
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
+      KC_TRNS, KC_TRNS, KC_TRNS, 
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+      KC_TRNS,          KC_TRNS),
+    [3] = LAYOUT_all(
+      KC_TRNS,                   KC_TRNS, 
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
+      KC_TRNS, KC_TRNS, KC_TRNS, 
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+      KC_TRNS,          KC_TRNS),
+  };
+  
 
 void eeconfig_init_kb(void)
 {
@@ -186,7 +190,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             else 
             {
-                // gpio_write_pin_high(BHQ_INT_PIN);
+                // gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
                 if(timer_elapsed32(key_output_mode_press_time) >= 300) 
                 {
                     key_ble_host_index = 0;
@@ -209,7 +213,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             else 
             {
-                // gpio_write_pin_high(BHQ_INT_PIN);
+                // gpio_write_pin_high(QMK_RUN_OUTPUT_PIN);
                 if(timer_elapsed32(key_output_mode_press_time) >= 300) 
                 {
                     // TODO: 等待bhq驱动完善，这里还是用蓝牙输出来作为qmk的模式切换，在蓝牙模块内会切换成2.4ghz私有连接
@@ -302,10 +306,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
     }
-    if(connectSta == 0 && user_config.transfer_mode > KB_USB_MODE)
-    {
-        return false;
-    }
     return true;
 }
 
@@ -314,8 +314,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 const rgblight_segment_t PROGMEM bt_conn1[] = RGBLIGHT_LAYER_SEGMENTS( {0, 1, HSV_RED} );   // 红
 const rgblight_segment_t PROGMEM bt_conn2[] = RGBLIGHT_LAYER_SEGMENTS( {0, 1, HSV_GREEN} ); // 绿
 const rgblight_segment_t PROGMEM bt_conn3[] = RGBLIGHT_LAYER_SEGMENTS( {0, 1, HSV_BLUE} );  // 蓝
-const rgblight_segment_t PROGMEM caps_lock_[] = RGBLIGHT_LAYER_SEGMENTS( {0, 1, HSV_PURPLE} );  // 紫色
-
+const rgblight_segment_t PROGMEM caps_lock_[] = RGBLIGHT_LAYER_SEGMENTS( {0, 1,}); 
 const rgblight_segment_t* const PROGMEM _rgb_layers[] = RGBLIGHT_LAYERS_LIST( 
     bt_conn1, bt_conn2, bt_conn3, caps_lock_
 );
@@ -366,19 +365,13 @@ void keyboard_post_init_kb(void)
         .mk_rvd_r1 = BHQ_R_UPPER,
         .mk_rvd_r2 = BHQ_R_LOWER,
 #endif
-        .sleep_1_s = 120,            // 一级休眠功耗 （蓝牙保持连接 唤醒后发送按键有一定的延时）
+        .sleep_1_s = 30,            // 一级休眠功耗 （蓝牙保持连接 唤醒后发送按键有一定的延时）
         .sleep_2_s = 300,           // 二级休眠功耗（相当于关机模式 蓝牙会断开）
 
         .bleNameStrLength = strlen(PRODUCT),
         .bleNameStr = PRODUCT
     };
-    wait_ms(500);
     bhq_ConfigRunParam(model_parma);    // 将配置信息发送到无线模块中
-
-
-    // 这里枚举 + 蓝牙通道就能计算出 KB_BLE_1_MODE、KB_BLE_2_MODE、KB_BLE_3_MODE
-    user_config.transfer_mode = KB_BLE_1_MODE + key_ble_host_index;  
-    eeconfig_update_user(user_config.raw);
 #endif
 }
 
@@ -591,41 +584,37 @@ uint8_t calculate_battery_percentage(uint16_t current_mv) {
 }
 void battery_percent_read_task(void)
 { 
-    // if(battery_timer == 0)
-    // {
-    //     battery_timer = timer_read32();
-    // }
+    if(battery_timer == 0)
+    {
+        battery_timer = timer_read32();
+    }
 
-    // if (timer_elapsed32(battery_timer) > 2000) 
-    // {
-    //     battery_timer = 0;
-    //     uint16_t adc = analogReadPin(BATTER_ADC_PIN);
-    //     adc = analogReadPin(BATTER_ADC_PIN);
+    if (timer_elapsed32(battery_timer) > 2000) 
+    {
+        battery_timer = 0;
+        uint16_t adc = analogReadPin(BATTER_ADC_PIN);
+        adc = analogReadPin(BATTER_ADC_PIN);
 
-    //     uint16_t voltage_mV_Fenya = (adc * 3300) / 1023;
-    //     uint16_t voltage_mV_actual = voltage_mV_Fenya  * (1 + (BAT_R_UPPER / BAT_R_LOWER));
+        uint16_t voltage_mV_Fenya = (adc * 3300) / 1023;
+        uint16_t voltage_mV_actual = voltage_mV_Fenya  * (1 + (BAT_R_UPPER / BAT_R_LOWER));
 
-    //     // voltage_mV_actual = voltage_mV_actual;  // 
-    //     // km_printf("adc:%d   fymv:%d  sjmv:%d  bfb:%d  \r\n",
-    //     // adc,voltage_mV_Fenya,voltage_mV_actual,calculate_battery_percentage(voltage_mV_actual));
-    //     // km_printf("adcState:%d\r\n",ADCD1.state);
-    //     // 上报电池百分比到模块中
-    //     bhq_update_battery_percent(calculate_battery_percentage(voltage_mV_actual),voltage_mV_actual);
-    // }
+        // voltage_mV_actual = voltage_mV_actual;  // 
+        // km_printf("adc:%d   fymv:%d  sjmv:%d  bfb:%d  \r\n",
+        // adc,voltage_mV_Fenya,voltage_mV_actual,calculate_battery_percentage(voltage_mV_actual));
+        // km_printf("adcState:%d\r\n",ADCD1.state);
+        // 上报电池百分比到模块中
+        bhq_update_battery_percent(calculate_battery_percentage(voltage_mV_actual),voltage_mV_actual);
+    }
 }
 
 // Keyboard level code can override this, but shouldn't need to.
 // Controlling custom features should be done by overriding
 // via_custom_value_command_kb() instead.
 __attribute__((weak)) bool via_command_kb(uint8_t *data, uint8_t length) {
-    // 此逻辑删除 会失去蓝牙模块升级功能 以及蓝牙改键功能！！！！！！！
     uint8_t command_id   = data[0];
     uint8_t i = 0;
 
-#   if defined(KB_LPM_ENABLED)
-    lpm_timer_reset();  // 这里用于低功耗，按下任何按键刷新低功耗计时器
-#endif
-
+    // 此逻辑删除 会失去蓝牙模块升级功能 以及蓝牙改键功能！！！！！！！
     km_printf("cmdid:%02x  length:%d\r\n",command_id,length);
     km_printf("read host app of data \r\n[");
     for (i = 0; i < length; i++)

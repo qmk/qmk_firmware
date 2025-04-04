@@ -2,7 +2,7 @@
     "keyboard_name": "f1io595Test",
     "manufacturer": "keymagichorse",
     "processor": "STM32F103",
-    "bootloader": "uf2boot",
+    "bootloader": "stm32duino",
     "matrix_pins": {
         "cols": ["A8", "A9", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN"],
         "rows": ["B5", "B6", "B7", "NO_PIN", "NO_PIN"]
