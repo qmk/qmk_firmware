@@ -176,15 +176,23 @@ def check_binaries():
     """Iterates through ESSENTIAL_BINARIES and tests them.
     """
     ok = CheckStatus.OK
+    missing_from_path = []
 
     for binary in sorted(ESSENTIAL_BINARIES):
         try:
-            if not is_executable(binary):
+            if not is_in_path(binary):
+                ok = CheckStatus.ERROR
+                missing_from_path.append(binary)
+            elif not is_executable(binary):
                 ok = CheckStatus.ERROR
         except TimeoutExpired:
             cli.log.debug('Timeout checking %s', binary)
             if ok != CheckStatus.ERROR:
                 ok = CheckStatus.WARNING
+
+    if missing_from_path:
+        location_noun = 'its location' if len(missing_from_path) == 1 else 'their locations'
+        cli.log.error('{fg_red}' + ', '.join(missing_from_path) + f' may need to be installed, or {location_noun} added to your path.')
 
     return ok
 
@@ -228,15 +236,18 @@ def check_submodules():
     return CheckStatus.OK
 
 
-def is_executable(command):
-    """Returns True if command exists and can be executed.
+def is_in_path(command):
+    """Returns True if command is found in the path.
     """
-    # Make sure the command is in the path.
-    res = shutil.which(command)
-    if res is None:
+    if shutil.which(command) is None:
         cli.log.error("{fg_red}Can't find %s in your path.", command)
         return False
+    return True
 
+
+def is_executable(command):
+    """Returns True if command can be executed.
+    """
     # Make sure the command can be executed
     version_arg = ESSENTIAL_BINARIES[command].get('version_arg', '--version')
     check = cli.run([command, version_arg], combined_output=True, stdin=DEVNULL, timeout=5)
