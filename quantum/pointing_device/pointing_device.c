@@ -312,9 +312,9 @@ __attribute__((weak)) bool pointing_device_task(void) {
     local_mouse_report = is_keyboard_left() ? pointing_device_task_combined(local_mouse_report, shared_mouse_report) : pointing_device_task_combined(shared_mouse_report, local_mouse_report);
 #else
     local_mouse_report = pointing_device_adjust_by_defines(local_mouse_report);
+#endif
     local_mouse_report = pointing_device_task_modules(local_mouse_report);
     local_mouse_report = pointing_device_task_kb(local_mouse_report);
-#endif
     // automatic mouse layer function
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
     pointing_device_task_auto_mouse(local_mouse_report);
@@ -505,7 +505,7 @@ report_mouse_t pointing_device_adjust_by_defines_right(report_mouse_t mouse_repo
  * @return pointing_device_task_combined_user(left_report, right_report) by default
  */
 report_mouse_t pointing_device_task_combined(report_mouse_t left_report, report_mouse_t right_report) {
-    return pointing_device_task_modules(pointing_device_task_combined_kb(left_report, right_report));
+    return pointing_device_task_combined_kb(left_report, right_report);
 }
 
 /**
