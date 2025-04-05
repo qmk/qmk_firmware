@@ -1,5 +1,10 @@
 MAKEFLAGS= -j 10
 
+SRC+= km_common/74hc595.c
+
+
+
+
 ifeq ($(strip $(KM_DEBUG)), yes)
 	OPT_DEFS += -DKM_DEBUG
 	SRC+= km_common/rtt/SEGGER_RTT.c

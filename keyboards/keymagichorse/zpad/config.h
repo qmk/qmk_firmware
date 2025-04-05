@@ -37,11 +37,23 @@
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 4
-/* key matrix pins */
-#define MATRIX_ROW_PINS { NO_PIN, A8, B15, B8, B9, C13 }
-#define MATRIX_COL_PINS { NO_PIN, NO_PIN, NO_PIN, NO_PIN}
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
+
+/* key matrix pins */
+#define MATRIX_ROW_PINS { NO_PIN, A8, B15, B8, B9, C13 }
+                        //  Q7      Q6      Q5     Q4
+#define MATRIX_COL_PINS { NO_PIN, NO_PIN, NO_PIN, NO_PIN}
+
+// 列 接到 74HC595 的哪个 Qx
+#define COL_TO_74HC595_PINS  { _1_595_Q7, _1_595_Q6, _1_595_Q5, _1_595_Q4}
+// 定义列映射到 74HC595 的管脚数量
+#define COL_TO_74HC595_PINS_COUNT  4    
+// 第几个列开始接到595     
+#define COL_TO_74HC595_START_INDEX    0   
+// 到第几个列结束到595
+#define COL_TO_74HC595_END_INDEX      3  
+
 
 /* Pin connected to DS of 74HC595 */
 #define DS_PIN_74HC595 A4
@@ -49,6 +61,8 @@
 #define SHCP_PIN_74HC595 A6
 /* Pin connected to ST_CP of 74HC595 */
 #define STCP_PIN_74HC595 A5
+
+
 /*************************matrix**************************/
 
 
