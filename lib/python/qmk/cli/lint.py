@@ -14,7 +14,7 @@ from qmk.c_parse import c_source_files, preprocess_c_file
 
 CHIBIOS_CONF_CHECKS = ['chconf.h', 'halconf.h', 'mcuconf.h', 'board.h']
 INVALID_KB_FEATURES = set(['encoder_map', 'dip_switch_map', 'combo', 'tap_dance', 'via'])
-INVALID_KM_NAMES = ['via', 'vial', 'tzarc']
+INVALID_KM_NAMES = ['via', 'vial']
 
 
 def _list_defaultish_keymaps(kb):
