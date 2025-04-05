@@ -142,7 +142,6 @@ Community Modules may provide specializations for the following APIs:
 | `rgb_matrix_indicators_advanced` | `rgb_matrix_indicators_advanced_<module>` | `rgb_matrix_indicators_advanced_hello_word` | `1.1.0`     |
 | `pointing_device_init`           | `pointing_device_init_<module>`           | `pointing_device_init_hello_word`           | `1.1.0`     |
 | `pointing_device_task`           | `pointing_device_task_<module>`           | `pointing_device_task_hello_word`           | `1.1.0`     |
-| `pointing_device_task_combined`  | `pointing_device_task_combined_<module>`  | `pointing_device_task_combined_hello_world` | `1.1.0`     |
 
 
 ::: info
