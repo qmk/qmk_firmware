@@ -359,10 +359,12 @@ Checks over a keyboard and/or keymap and highlights common errors, problems, and
 **Usage**:
 
 ```
-qmk lint [-km KEYMAP] [-kb KEYBOARD] [--strict]
+qmk lint [-km KEYMAP] [-kb KEYBOARD] [--strict] [--all-keymaps]
 ```
 
 This command is directory aware. It will automatically fill in KEYBOARD and/or KEYMAP if you are in a keyboard or keymap directory.
+
+When using `--all-keymaps`, any external userspace will also be considered for lint checking.
 
 **Examples**:
 

@@ -8,13 +8,13 @@ from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.info import info_json
 from qmk.keyboard import keyboard_completer, keyboard_folder_or_all, is_all_keyboards, list_keyboards
 from qmk.keymap import locate_keymap, list_keymaps
-from qmk.path import keyboard
+from qmk.path import keyboard, is_under_qmk_firmware
 from qmk.git import git_get_ignored_files
 from qmk.c_parse import c_source_files, preprocess_c_file
 
 CHIBIOS_CONF_CHECKS = ['chconf.h', 'halconf.h', 'mcuconf.h', 'board.h']
 INVALID_KB_FEATURES = set(['encoder_map', 'dip_switch_map', 'combo', 'tap_dance', 'via'])
-INVALID_KM_NAMES = ['via', 'vial']
+INVALID_KM_NAMES = ['via', 'vial', 'tzarc']
 
 
 def _list_defaultish_keymaps(kb):
@@ -206,7 +206,7 @@ def _rules_mk_assignment_only(rules_mk):
     return errors
 
 
-def keymap_check(kb, km):
+def keymap_check(kb, km, all_keymaps=False):
     """Perform the keymap level checks.
     """
     ok = True
@@ -215,6 +215,10 @@ def keymap_check(kb, km):
     if not keymap_path:
         ok = False
         cli.log.error("%s: Can't find %s keymap.", kb, km)
+        return ok
+
+    # Skip if the keymap is not under QMK firmware, i.e. in an external repo such as a via[l]-like userspace.
+    if not all_keymaps and not is_under_qmk_firmware(keymap_path):
         return ok
 
     if km in INVALID_KM_NAMES:
@@ -300,6 +304,7 @@ def keyboard_check(kb):  # noqa C901
 
 
 @cli.argument('--strict', action='store_true', help='Treat warnings as errors')
+@cli.argument('--all-keymaps', action='store_true', help='Check all keymaps, including userspace')
 @cli.argument('-kb', '--keyboard', action='append', type=keyboard_folder_or_all, completer=keyboard_completer, help='Keyboard to check. May be passed multiple times.')
 @cli.argument('-km', '--keymap', help='The keymap to check')
 @cli.subcommand('Check keyboard and keymap for common mistakes.')
@@ -344,7 +349,7 @@ def lint(cli):
 
         # Keymap specific checks
         for keymap in keymaps:
-            if not keymap_check(kb, keymap):
+            if not keymap_check(kb, keymap, cli.args.all_keymaps):
                 ok = False
 
         # Report status
