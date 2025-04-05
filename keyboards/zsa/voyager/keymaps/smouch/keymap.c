@@ -198,6 +198,22 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     }
 };
 
+uint16_t get_tap_flow(
+    uint16_t keycode, keyrecord_t* record, uint16_t prev_keycode) {
+  if (prev_keycode == KC_BSPC) {
+    return 0;  // Disable filter when immediately following backspace.
+  }
+
+  switch (keycode) {
+    case LSFT_T(KC_R):
+    case RSFT_T(KC_SPC):
+      return 0;  // Disable filter for these keys.
+
+    default:
+      return g_tap_flow_term;  // Longer timeout otherwise.
+  }
+};
+
 // Handedness for Chordal Hold
 const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
     LAYOUT(
