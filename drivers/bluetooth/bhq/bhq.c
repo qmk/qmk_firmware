@@ -45,34 +45,34 @@ uint16_t bhkSumCrc(uint8_t *data, uint16_t length) ;
 // bhq model send uart data
 void BHQ_SendData(uint8_t *dat, uint16_t length)
 {
-    // uint16_ts i = 0;
+    uint16_t i = 0;
     uint32_t wait_bhq_ack_timeout = 0;
     uint32_t last_toggle_time = 0;
     uint32_t bhq_wakeup = 0;
     if(gpio_read_pin(BHQ_IQR_PIN) != BHQ_RUN_OR_INT_LEVEL)
     {
-        wait_bhq_ack_timeout = sync_timer_read32();
-        last_toggle_time = sync_timer_read32();
+        wait_bhq_ack_timeout = timer_read32();
+        last_toggle_time = timer_read32();
         while(1)
         {
             // Flip the level to wake the module
             gpio_write_pin_high(BHQ_INT_PIN);
-            if(sync_timer_elapsed32(last_toggle_time) >= 20)
+            if(timer_elapsed32(last_toggle_time) >= 20)
             {
                 gpio_write_pin_low(BHQ_INT_PIN);
-                last_toggle_time = sync_timer_read32();
+                last_toggle_time = timer_read32();
             }
             // After the high and low level jump, the module wakes up, then you need to wait 10ms for the module to stabilize
             if(gpio_read_pin(BHQ_IQR_PIN) == BHQ_RUN_OR_INT_LEVEL && bhq_wakeup == 0)
             {
-                bhq_wakeup = sync_timer_read32();
+                bhq_wakeup = timer_read32();
             }
-            if(gpio_read_pin(BHQ_IQR_PIN) == BHQ_RUN_OR_INT_LEVEL && sync_timer_elapsed32(last_toggle_time) >= 5)
+            if(gpio_read_pin(BHQ_IQR_PIN) == BHQ_RUN_OR_INT_LEVEL && timer_elapsed32(last_toggle_time) >= 5)
             {
                 break;
             }
 
-            if(sync_timer_elapsed32(wait_bhq_ack_timeout) > 100) 
+            if(timer_elapsed32(wait_bhq_ack_timeout) > 100) 
             {
                 gpio_write_pin_high(BHQ_INT_PIN);
                 return;
@@ -82,12 +82,12 @@ void BHQ_SendData(uint8_t *dat, uint16_t length)
     gpio_write_pin_high(BHQ_INT_PIN);
     uart_transmit(dat, length);
 
-    // bhq_printf("mcu send data:");
-    // for (i = 0; i < length; i++)
-    // {
-    //     bhq_printf("%02x ",dat[i]);
-    // }
-    // bhq_printf("\r\n");
+    bhq_printf("mcu send data:");
+    for (i = 0; i < length; i++)
+    {
+        bhq_printf("%02x ",dat[i]);
+    }
+    bhq_printf("\r\n");
 }
 int16_t BHQ_ReadData(void) {
     if (uart_available()) {
@@ -493,22 +493,19 @@ void bhq_task(void)
     int16_t temp = BHQ_ReadData();
     if(temp == -1)
     {
-        if(sync_timer_elapsed32(uartTimeoutBuffer) > 1500)
+        // bhq_printf("not data\n");
+        if(timer_elapsed32(uartTimeoutBuffer) > 100)
         {
-            uartTimeoutBuffer = sync_timer_read32();
+            uartTimeoutBuffer = timer_read32();
             if(index > 0)
             {
                 index = 0;
                 u_sta = 0;
                 dataLength = 0;
                 memset(buf, 0, PACKET_MAX_LEN);
+                bhq_printf("timeout\n");
             }
         }
-        else
-        {
-            uartTimeoutBuffer = sync_timer_read32();
-        }
-        
     }
     else
     {
@@ -521,8 +518,8 @@ void bhq_task(void)
     }
     wait_for_new_pkt = false;
     bytedata = (uint8_t)temp;
-    uartTimeoutBuffer = sync_timer_read32();
-    // bhq_printf("%02x ",bytedata);
+    uartTimeoutBuffer = timer_read32();
+    // bhq_printf("%02x \n",bytedata);
     switch (u_sta)
     {
         case 0:
@@ -531,7 +528,7 @@ void bhq_task(void)
                 index = 0;
                 buf[index++] = bytedata;
                 u_sta++;  
-                // bhq_printf("read 0x5d\r\n");
+                bhq_printf("read 0x5d\r\n");
             }
             break;
         case 1:
@@ -539,18 +536,19 @@ void bhq_task(void)
             {
                 buf[index++] = bytedata;
                 u_sta++;  
-                // bhq_printf("read 0x7E\r\n");
+                bhq_printf("read 0x7E\r\n");
             }
             break;
         case 2:
             buf[index++] = bytedata;
             dataLength = 2 + 1 + bytedata + 2 + 1;  //  Frame Header2  + length1 + dataN + crc2 + Frame end1
             u_sta++;  
-            // bhq_printf("read bytedata:%d\r\n",dataLength);
+            bhq_printf("read bytedata:%d\r\n",dataLength);
             break;
         case 3:
             buf[index++] = bytedata;
             // bhq_printf("%02x ",bytedata);
+            // bhq_printf("i:%d dl:%d  %02x",index,dataLength,buf[dataLength - 1]);
             if(index == dataLength && buf[dataLength - 1] == 0x5E)
             {
                 if(bhkVerify(buf, index) == 0x00)
@@ -572,35 +570,35 @@ void bhq_task(void)
 uint8_t bhkVerify(uint8_t *dat, uint16_t length)
 {
     uint8_t dataRead_length = 3 + dat[2];    // 两个帧头  一个长度 = 4 不包括帧头的长度
-//    bhq_printf("dataRead_length:%d \r\n",dataRead_length);
+   bhq_printf("dataRead_length:%d \r\n",dataRead_length);
 
     uint16_t dataReadCrc = BHQ_BUILD_UINT16(dat[dataRead_length],dat[dataRead_length + 1]);
-//    bhq_printf("readCRCL %02x  readCRCH %02x \r\n",dat[dataRead_length],dat[dataRead_length + 1]);
+   bhq_printf("readCRCL %02x  readCRCH %02x \r\n",dat[dataRead_length],dat[dataRead_length + 1]);
 
     uint16_t dataSumCrc = bhkSumCrc(dat,dataRead_length) ;
-//    bhq_printf("readCRC %04x    sumCRC %04x \r\n", dataReadCrc, dataSumCrc);
-//    bhq_printf("readCRC %d    sumCRC %d \r\n", dataReadCrc, dataSumCrc);
+   bhq_printf("readCRC %04x    sumCRC %04x \r\n", dataReadCrc, dataSumCrc);
+   bhq_printf("readCRC %d    sumCRC %d \r\n", dataReadCrc, dataSumCrc);
 
 
     if(dat[0] != BHQ_FRAME_HEADER_1 || dat[1] != BHQ_FRAME_HEADER_2)
     {
-    //    bhq_printf("Verify: FRAME_HEADER error !! \r\n");
+       bhq_printf("Verify: FRAME_HEADER error !! \r\n");
         return 0x01;
     }
 
     if(dataReadCrc != dataSumCrc)
     {
-    //    bhq_printf("Verify: CRC error !! \r\n");
+       bhq_printf("Verify: CRC error !! \r\n");
 
         return 0x02;
     }
 
     if(dat[dataRead_length + 2] != BHQ_FRAME_END_1)  // 跳过两个校验和就到帧尾了
     {
-    //    bhq_printf("Verify: FRAME_END error !! \r\n");
+       bhq_printf("Verify: FRAME_END error !! \r\n");
         return 0x03;
     }
-//    bhq_printf("Verify: data success !! \r\n");
+   bhq_printf("Verify: data success !! \r\n");
     return 0;
 }
 

@@ -15,23 +15,23 @@
  */
 #pragma once
  
-// #ifdef BLUETOOTH_BHQ
-// // Its active level is "BHQ_IRQ_AND_INT_LEVEL of bhq.h " 
-// #   define BHQ_RUN_STATE_INPUT_PIN  A1             // Module operating status
-// #   define QMK_RUN_OUTPUT_PIN       A0             // QMK operating status
 
-// #   define UART_DRIVER          SD2
-// #   define UART_TX_PIN          A2
-// #   define UART_TX_PAL_MODE     7
-// #   define UART_RX_PIN          A3
-// #   define UART_RX_PAL_MODE	    7
+#ifdef BLUETOOTH_BHQ
+// Its active level is "BHQ_IRQ_AND_INT_LEVEL of bhq.h " 
+#   define BHQ_IQR_PIN      A1             // Module operating status
+#   define BHQ_INT_PIN       A0             // QMK operating status
 
-// // STM32使用到的高速晶振引脚号，做低功耗需要用户配置，每款芯片有可能不一样的
-// #define LPM_STM32_HSE_PIN_IN     H1  
-// #define LPM_STM32_HSE_PIN_OUT    H0
+#   define UART_DRIVER          SD2
+#   define UART_TX_PIN          A2
+#   define UART_TX_PAL_MODE     7
+#   define UART_RX_PIN          A3
+#   define UART_RX_PAL_MODE	    7
 
-// #endif
+// STM32使用到的高速晶振引脚号，做低功耗需要用户配置，每款芯片有可能不一样的
+#define LPM_STM32_HSE_PIN_IN     H1  
+#define LPM_STM32_HSE_PIN_OUT    H0
 
+#endif
 
 /*************************matrix**************************/
 /* key matrix size */

@@ -42,13 +42,6 @@ void board_init(void)
 
 }
 
-
-void keyboard_post_init_kb(void) {
-#   if defined(KM_DEBUG)
-    km_printf_init();
-    km_printf("hello rtt log1111111\r\n");
-#   endif
-}
 void housekeeping_task_kb(void) {
 #if defined(BLUETOOTH_BHQ)
 

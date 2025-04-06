@@ -5,7 +5,7 @@
     "bootloader": "stm32-dfu",
     "usb": {
         "vid": "0xBB00",
-        "pid": "0xBB01",
+        "pid": "0xBB02",
         "device_version": "1.0.0"
     },
     "features": {
@@ -14,20 +14,20 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "bluetooth": false,
+        "bluetooth": true,
         "nkro": true,
         "rgblight": true
     },
-    // "bluetooth":{
-    //     "driver":"bhq"
-    // },
+    "bluetooth":{
+        "driver":"bhq"
+    },
     // "diode_direction": "ROW2COL",
     // "matrix_pins": {
     //     "cols": ["NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN"],
     //     "rows": ["A9", "A8", "B15", "B8", "B9", "C13"]
     // },
     "rgblight": {
-        "led_count": 4,
+        "led_count": 1,
         "animations": {
             "breathing": true,
             "rainbow_mood": true,

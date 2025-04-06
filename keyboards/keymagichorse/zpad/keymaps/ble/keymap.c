@@ -79,28 +79,28 @@ enum keyboard_user_keycodes {
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT_all(
+    [0] = LAYOUT(
       KC_ESC,                    MO(1),
-      KC_NUM,  KC_PSLS, KC_PAST, KC_PMNS,
+      BL_SW_0,  BL_SW_1, BL_SW_2, USB_TOG,
       KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
       KC_P4,   KC_P5,   KC_P6,      
       KC_P1,   KC_P2,   KC_P3,   KC_PENT,
       KC_P0,            KC_PDOT),
-    [1] = LAYOUT_all(
+    [1] = LAYOUT(
       KC_TRNS,                   KC_TRNS, 
       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
       KC_TRNS, KC_TRNS, KC_TRNS, 
       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
       KC_TRNS,          KC_TRNS),
-    [2] = LAYOUT_all(
+    [2] = LAYOUT(
       KC_TRNS,                   KC_TRNS, 
       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
       KC_TRNS, KC_TRNS, KC_TRNS, 
       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
       KC_TRNS,          KC_TRNS),
-    [3] = LAYOUT_all(
+    [3] = LAYOUT(
       KC_TRNS,                   KC_TRNS, 
       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
@@ -339,6 +339,21 @@ bool led_update_user(led_t led_state) {
 // After initializing the peripheral
 void keyboard_post_init_kb(void)
 {
+    ws2812_init();
+    gpio_set_pin_output(B7);        // ws2812 power
+    gpio_write_pin_low(B7);
+
+    gpio_set_pin_input_low(BHQ_IQR_PIN);    // Module operating status. 
+    gpio_set_pin_output(BHQ_INT_PIN);            // The qmk has a data request.
+
+    gpio_set_pin_output(BHQ_INT_PIN);
+    gpio_write_pin_high(BHQ_INT_PIN);
+
+#   if defined(KM_DEBUG)
+    km_printf_init();
+    km_printf("hello rtt log1111111\r\n");
+#   endif
+
 #if defined(RGBLIGHT_ENABLE) 
     rgblight_disable();
     rgblight_layers = _rgb_layers;
@@ -353,18 +368,13 @@ void keyboard_post_init_kb(void)
         .le_connection_interval_max = 30,
         .le_connection_interval_timeout = 500,
         .tx_poweer = 0x3D,    
-#if defined(KB_CHECK_BATTERY_ENABLED)
+
         // 用 QMK 端读取电池电压，则无需上报配置
         .mk_is_read_battery_voltage = FALSE,
         .mk_adc_pga = 1,
         .mk_rvd_r1 = 0,
         .mk_rvd_r2 = 0,
-#else
-        .mk_is_read_battery_voltage = TRUE,
-        .mk_adc_pga = 1,
-        .mk_rvd_r1 = BHQ_R_UPPER,
-        .mk_rvd_r2 = BHQ_R_LOWER,
-#endif
+
         .sleep_1_s = 30,            // 一级休眠功耗 （蓝牙保持连接 唤醒后发送按键有一定的延时）
         .sleep_2_s = 300,           // 二级休眠功耗（相当于关机模式 蓝牙会断开）
 
@@ -373,6 +383,14 @@ void keyboard_post_init_kb(void)
     };
     bhq_ConfigRunParam(model_parma);    // 将配置信息发送到无线模块中
 #endif
+wait_ms(600);
+// 打开 配对模式蓝牙广播 10 = 10S
+bhq_SetPairingMode(0, 30);
+set_output(OUTPUT_BLUETOOTH);
+
+// 这里枚举 + 蓝牙通道就能计算出 KB_BLE_1_MODE、KB_BLE_2_MODE、KB_BLE_3_MODE
+user_config.transfer_mode = KB_BLE_1_MODE + 0;  
+eeconfig_update_user(user_config.raw);
 }
 
 #if defined(BLUETOOTH_BHQ)
@@ -475,8 +493,8 @@ void lpm_device_power_open(void)
 #if defined(RGBLIGHT_WS2812) && defined(RGBLIGHT_ENABLE) 
     // ws2812电源开启
     ws2812_init();
-    gpio_set_pin_output(B8);        // ws2812 power
-    gpio_write_pin_low(B8);
+    gpio_set_pin_output(B7);        // ws2812 power
+    gpio_write_pin_low(B7);
 #endif
 
 }
@@ -486,8 +504,8 @@ void lpm_device_power_close(void)
 #if defined(RGBLIGHT_WS2812) && defined(RGBLIGHT_ENABLE) 
     // ws2812电源关闭
     rgblight_setrgb_at(0, 0, 0, 0);
-    gpio_set_pin_output(B8);        // ws2812 power
-    gpio_write_pin_high(B8);
+    gpio_set_pin_output(B7);        // ws2812 power
+    gpio_write_pin_high(B7);
 
     gpio_set_pin_output(WS2812_DI_PIN);        // ws2812 DI Pin
     gpio_write_pin_low(WS2812_DI_PIN);
