@@ -62,5 +62,8 @@
 #define _2_595_Q7 15
 
 void shift595_pin_init(void);
+void shift595_pin_sleep(void);
 void shift595_write_all(shift595_data_t data);
-void shift595_set_pin_ex(uint8_t pin_index, uint8_t level, uint8_t other_level);
+void shift595_write_pin_ex(uint8_t pin_index, uint8_t level, uint8_t other_level);
+void shift595_write_all_high(void);
+void shift595_write_all_low(void);

@@ -340,10 +340,10 @@ bool led_update_user(led_t led_state) {
 void keyboard_post_init_kb(void)
 {
     ws2812_init();
-    gpio_set_pin_output(B7);        // ws2812 power
-    gpio_write_pin_low(B7);
+    gpio_set_pin_output(WS2812_POWER_PIN);        // ws2812 power
+    gpio_write_pin_low(WS2812_POWER_PIN);
 
-    gpio_set_pin_input_low(BHQ_IQR_PIN);    // Module operating status. 
+    gpio_set_pin_input_low(BHQ_IQR_PIN);        // Module operating status. 
     gpio_set_pin_output(BHQ_INT_PIN);            // The qmk has a data request.
 
     gpio_set_pin_output(BHQ_INT_PIN);
@@ -383,14 +383,6 @@ void keyboard_post_init_kb(void)
     };
     bhq_ConfigRunParam(model_parma);    // 将配置信息发送到无线模块中
 #endif
-wait_ms(600);
-// 打开 配对模式蓝牙广播 10 = 10S
-bhq_SetPairingMode(0, 30);
-set_output(OUTPUT_BLUETOOTH);
-
-// 这里枚举 + 蓝牙通道就能计算出 KB_BLE_1_MODE、KB_BLE_2_MODE、KB_BLE_3_MODE
-user_config.transfer_mode = KB_BLE_1_MODE + 0;  
-eeconfig_update_user(user_config.raw);
 }
 
 #if defined(BLUETOOTH_BHQ)
@@ -493,8 +485,8 @@ void lpm_device_power_open(void)
 #if defined(RGBLIGHT_WS2812) && defined(RGBLIGHT_ENABLE) 
     // ws2812电源开启
     ws2812_init();
-    gpio_set_pin_output(B7);        // ws2812 power
-    gpio_write_pin_low(B7);
+    gpio_set_pin_output(WS2812_POWER_PIN);        // ws2812 power
+    gpio_write_pin_low(WS2812_POWER_PIN);
 #endif
 
 }
@@ -504,8 +496,8 @@ void lpm_device_power_close(void)
 #if defined(RGBLIGHT_WS2812) && defined(RGBLIGHT_ENABLE) 
     // ws2812电源关闭
     rgblight_setrgb_at(0, 0, 0, 0);
-    gpio_set_pin_output(B7);        // ws2812 power
-    gpio_write_pin_high(B7);
+    gpio_set_pin_output(WS2812_POWER_PIN);        // ws2812 power
+    gpio_write_pin_high(WS2812_POWER_PIN);
 
     gpio_set_pin_output(WS2812_DI_PIN);        // ws2812 DI Pin
     gpio_write_pin_low(WS2812_DI_PIN);
@@ -547,7 +539,7 @@ void lpm_set_unused_pins_to_input_analog(void)
     palSetLineMode(B4, PAL_MODE_INPUT_ANALOG); 
     palSetLineMode(B5, PAL_MODE_INPUT_ANALOG); 
     palSetLineMode(B6, PAL_MODE_INPUT_ANALOG); 
-    palSetLineMode(B7, PAL_MODE_INPUT_ANALOG); 
+    palSetLineMode(WS2812_POWER_PIN, PAL_MODE_INPUT_ANALOG); 
     palSetLineMode(B8, PAL_MODE_INPUT_ANALOG); 
     palSetLineMode(B9, PAL_MODE_INPUT_ANALOG); 
     palSetLineMode(B10, PAL_MODE_INPUT_ANALOG); 

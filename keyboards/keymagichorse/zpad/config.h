@@ -18,8 +18,9 @@
 
 #ifdef BLUETOOTH_BHQ
 // Its active level is "BHQ_IRQ_AND_INT_LEVEL of bhq.h " 
-#   define BHQ_IQR_PIN      A1             // Module operating status
-#   define BHQ_INT_PIN       A0             // QMK operating status
+#   define BHQ_IQR_PIN          A1         
+#   define BHQ_INT_PIN          A0           
+#   define USB_POWER_SENSE_PIN  A10     // USB插入检测引脚  
 
 #   define UART_DRIVER          SD2
 #   define UART_TX_PIN          A2
@@ -27,9 +28,10 @@
 #   define UART_RX_PIN          A3
 #   define UART_RX_PAL_MODE	    7
 
+#   define WS2812_POWER_PIN     B7
 // STM32使用到的高速晶振引脚号，做低功耗需要用户配置，每款芯片有可能不一样的
-#define LPM_STM32_HSE_PIN_IN     H1  
-#define LPM_STM32_HSE_PIN_OUT    H0
+#   define LPM_STM32_HSE_PIN_IN     H1  
+#   define LPM_STM32_HSE_PIN_OUT    H0
 
 #endif
 
@@ -44,23 +46,21 @@
 #define MATRIX_ROW_PINS { NO_PIN, A8, B15, B8, B9, C13 }
                         //  Q7      Q6      Q5     Q4
 #define MATRIX_COL_PINS { NO_PIN, NO_PIN, NO_PIN, NO_PIN}
-
 // 列 接到 74HC595 的哪个 Qx
 #define COL_TO_74HC595_PINS  { _1_595_Q7, _1_595_Q6, _1_595_Q5, _1_595_Q4}
 // 定义列映射到 74HC595 的管脚数量
-#define COL_TO_74HC595_PINS_COUNT  4    
+#define COL_TO_74HC595_PINS_COUNT   4    
 // 第几个列开始接到595     
-#define COL_TO_74HC595_START_INDEX    0   
+#define COL_TO_74HC595_START_INDEX  0   
 // 到第几个列结束到595
-#define COL_TO_74HC595_END_INDEX      3  
-
-
+#define COL_TO_74HC595_END_INDEX    3  
+#define I_595_NUM   1       // 用了多少个595
 /* Pin connected to DS of 74HC595 */
-#define DS_PIN_74HC595 A4
+#define DS_PIN_74HC595      A4
 /* Pin connected to SH_CP of 74HC595 */
-#define SHCP_PIN_74HC595 A6
+#define SHCP_PIN_74HC595    A6
 /* Pin connected to ST_CP of 74HC595 */
-#define STCP_PIN_74HC595 A5
+#define STCP_PIN_74HC595    A5
 
 
 /*************************matrix**************************/

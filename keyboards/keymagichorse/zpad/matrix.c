@@ -78,7 +78,7 @@ static bool select_col(uint8_t col) {
         return true;
     } else {
         if (col >= COL_TO_74HC595_START_INDEX && col <= COL_TO_74HC595_END_INDEX) {
-            shift595_set_pin_ex(col_to_595_pins[col], 0, 1);
+            shift595_write_pin_ex(col_to_595_pins[col], 0, 1);
             return true;
         } 
         else {

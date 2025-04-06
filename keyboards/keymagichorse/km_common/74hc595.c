@@ -20,11 +20,17 @@
 #include "gpio.h"
 #include "atomic_util.h"
 
-void shift595_pin_init()
+void shift595_pin_init(void)
 {   
     gpio_set_pin_output(DS_PIN_74HC595);
     gpio_set_pin_output(SHCP_PIN_74HC595);
     gpio_set_pin_output(STCP_PIN_74HC595);
+}
+void shift595_pin_sleep(void)
+{
+    gpio_write_pin_low(DS_PIN_74HC595);
+    gpio_write_pin_low(SHCP_PIN_74HC595);
+    gpio_write_pin_low(STCP_PIN_74HC595);
 }
 // 用于短延时
 #define small_delay() __asm__ __volatile__("nop;nop;nop;\n\t" ::: "memory")
@@ -62,7 +68,7 @@ void shift595_write_all(shift595_data_t data) {
     }
 }
 
-void shift595_set_pin_ex(uint8_t pin_index, uint8_t level, uint8_t other_level) {
+void shift595_write_pin_ex(uint8_t pin_index, uint8_t level, uint8_t other_level) {
     shift595_data_t data;
 
     // 先设置所有 IO 为 other_level
@@ -77,4 +83,20 @@ void shift595_set_pin_ex(uint8_t pin_index, uint8_t level, uint8_t other_level) 
 
     // 输出到 74HC595
     shift595_write_all(data);
+}
+
+void shift595_write_all_high(void)
+{
+#if I_595_NUM == 1
+    shift595_write_all(0xff);
+#elif I_595_NUM == 2
+    shift595_write_all(0xfff);
+#else
+
+#endif
+}
+
+void shift595_write_all_low(void)
+{
+    shift595_write_all(0);
 }

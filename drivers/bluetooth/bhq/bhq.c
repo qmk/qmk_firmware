@@ -503,7 +503,7 @@ void bhq_task(void)
                 u_sta = 0;
                 dataLength = 0;
                 memset(buf, 0, PACKET_MAX_LEN);
-                bhq_printf("timeout\n");
+                // bhq_printf("timeout\n");
             }
         }
     }
