@@ -12,13 +12,14 @@ enum sofle_layers {
 };
 
 enum custom_keycodes {
-    KC_QWERTY = QK_USER,
-    KC_COLEMAK,
-    KC_PRVWD,
+    KC_PRVWD = QK_USER,
     KC_NXTWD,
     KC_LSTRT,
     KC_LEND
 };
+
+#define KC_QWERTY PDF(_QWERTY)
+#define KC_COLEMAK PDF(_COLEMAK)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
@@ -134,16 +135,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case KC_QWERTY:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_QWERTY);
-            }
-            return false;
-        case KC_COLEMAK:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_COLEMAK);
-            }
-            return false;
         case KC_PRVWD:
             if (record->event.pressed) {
                 if (keymap_config.swap_lctl_lgui) {

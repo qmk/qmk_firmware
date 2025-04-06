@@ -137,8 +137,8 @@ extern rgblight_config_t rgblight_config;
 static void testing_mode(void)
 {
     if (timer_elapsed(animation_status.last_timer) > EFFECT_TEST_INTERVAL) {
-        HSV h = {rgblight_config.hue, rgblight_config.sat, rgblight_config.val};
-        RGB c = hsv_to_rgb(h);
+        hsv_t h = {rgblight_config.hue, rgblight_config.sat, rgblight_config.val};
+        rgb_t c = hsv_to_rgb(h);
         //is31fl3731_set_color_all(c.r, c.g, c.b);
         is31fl3731_set_color_all(0, 0, 0);
         is31fl3731_set_color(rgb_ring.outer_index+RING_OUTER_BEGIN, c.r, c.g, c.b);
@@ -184,9 +184,9 @@ static void update_effect(uint32_t max_count)
 static void ring_effect_no_1(void)
 {
     if (need_update(EFFECT_1_INTERVAL)) {
-        HSV h = {rgblight_config.hue, rgblight_config.sat, rgblight_config.val};
+        hsv_t h = {rgblight_config.hue, rgblight_config.sat, rgblight_config.val};
         for (uint8_t i = RING_OUTER_BEGIN; i <= RING_OUTER_END; i++) {
-            RGB c = hsv_to_rgb(h);
+            rgb_t c = hsv_to_rgb(h);
             is31fl3731_set_color(i, c.r, c.g, c.b);
         }
         rgblight_config.hue += EFFECT_1_HUE_STEP;
@@ -205,8 +205,8 @@ static void ring_effect_no_2(void)
 {
     if (need_update(EFFECT_2_INTERVAL)) {
         is31fl3731_set_color_all(0, 0, 0);
-        HSV h = {rgblight_config.hue, rgblight_config.sat, rgblight_config.val};
-        RGB c = hsv_to_rgb(h);
+        hsv_t h = {rgblight_config.hue, rgblight_config.sat, rgblight_config.val};
+        rgb_t c = hsv_to_rgb(h);
 
         is31fl3731_set_color(rgb_ring.led_begin, c.r, c.g, c.b);
         is31fl3731_set_color(rgb_ring.led_end, c.r, c.g, c.b);
@@ -233,13 +233,13 @@ static void ring_effect_no_3(void)
     }
 
     if (need_update(EFFECT_3_INTERVAL)) {
-        HSV h = {rgblight_config.hue, rgblight_config.sat, rgblight_config.val};
+        hsv_t h = {rgblight_config.hue, rgblight_config.sat, rgblight_config.val};
 
         if (rgb_ring.led_clear) {
             is31fl3731_set_color(rgb_ring.led_begin, 0, 0, 0);
             is31fl3731_set_color(rgb_ring.led_end, 0, 0, 0);
         } else {
-            RGB c = hsv_to_rgb(h);
+            rgb_t c = hsv_to_rgb(h);
             is31fl3731_set_color(rgb_ring.led_begin, c.r, c.g, c.b);
             is31fl3731_set_color(rgb_ring.led_end, c.r, c.g, c.b);
         }
@@ -278,8 +278,8 @@ static void ring_effect_no_4(void)
 {
     if (need_update(EFFECT_4_INTERVAL)) {
         is31fl3731_set_color_all(0, 0, 0);
-        HSV h = {rgblight_config.hue, rgblight_config.sat, rgblight_config.val};
-        RGB c = hsv_to_rgb(h);
+        hsv_t h = {rgblight_config.hue, rgblight_config.sat, rgblight_config.val};
+        rgb_t c = hsv_to_rgb(h);
 
         is31fl3731_set_color(rgb_ring.led_begin, c.r, c.g, c.b);
         is31fl3731_set_color(rgb_ring.led_end, c.r, c.g, c.b);
@@ -303,13 +303,13 @@ static void ring_effect_no_5(void)
     if (need_update(EFFECT_5_INTERVAL)) {
         is31fl3731_set_color_all(0, 0, 0);
         for (uint8_t i = RING_INNER_BEGIN; i <= RING_INNER_END; i++) {
-            HSV h = {rgblight_config.hue, rgblight_config.sat, rgblight_config.val};
-            RGB c = hsv_to_rgb(h);
+            hsv_t h = {rgblight_config.hue, rgblight_config.sat, rgblight_config.val};
+            rgb_t c = hsv_to_rgb(h);
             is31fl3731_set_color(i, c.r, c.g, c.b);
         }
         for (uint8_t i = RING_OUTER_BEGIN; i <= RING_OUTER_END; i++) {
-            HSV h = {rgblight_config.hue+EFFECT_5_HUE_STEP, rgblight_config.sat, rgblight_config.val};
-            RGB c = hsv_to_rgb(h);
+            hsv_t h = {rgblight_config.hue+EFFECT_5_HUE_STEP, rgblight_config.sat, rgblight_config.val};
+            rgb_t c = hsv_to_rgb(h);
             is31fl3731_set_color(i, c.r, c.g, c.b);
         }
         rgblight_config.hue += EFFECT_5_HUE_STEP;
@@ -329,13 +329,13 @@ static void ring_effect_no_6(void)
     if (need_update(EFFECT_6_INTERVAL)) {
         is31fl3731_set_color_all(0, 0, 0);
         for (uint8_t i = RING_INNER_BEGIN; i <= RING_INNER_END; i++) {
-            HSV h = {rgblight_config.hue+i*EFFECT_I_HUE_STEP, rgblight_config.sat, rgblight_config.val};
-            RGB c = hsv_to_rgb(h);
+            hsv_t h = {rgblight_config.hue+i*EFFECT_I_HUE_STEP, rgblight_config.sat, rgblight_config.val};
+            rgb_t c = hsv_to_rgb(h);
             is31fl3731_set_color(i, c.r, c.g, c.b);
         }
         for (uint8_t i = RING_OUTER_BEGIN; i <= RING_OUTER_END; i++) {
-            HSV h = {rgblight_config.hue+i*EFFECT_O_HUE_STEP, rgblight_config.sat, rgblight_config.val};
-            RGB c = hsv_to_rgb(h);
+            hsv_t h = {rgblight_config.hue+i*EFFECT_O_HUE_STEP, rgblight_config.sat, rgblight_config.val};
+            rgb_t c = hsv_to_rgb(h);
             is31fl3731_set_color(i, c.r, c.g, c.b);
         }
         rgblight_config.hue += EFFECT_I_HUE_STEP;
@@ -361,26 +361,21 @@ static void custom_effects(void)
     effect_funcs[rgb_ring.effect]();
 }
 
-void setleds_custom(rgb_led_t *start_led, uint16_t num_leds)
-{
+void flush_custom(void) {
     if (rgb_ring.state != RING_STATE_QMK) {
         return;
     }
 
-    for (uint8_t i = 0; i < num_leds; i++) {
-        is31fl3731_set_color(i, start_led[i].r, start_led[i].g, start_led[i].b);
-    }
+    is31fl3731_flush();
 }
 
 const rgblight_driver_t rgblight_driver = {
-    .setleds = setleds_custom,
+    .init          = is31fl3731_init_drivers,
+    .set_color     = is31fl3731_set_color,
+    .set_color_all = is31fl3731_set_color_all,
+    .flush         = flush_custom,
 };
 
-
-void rgb_ring_init(void)
-{
-    is31fl3731_init_drivers();
-}
 
 void rgb_ring_task(void)
 {
@@ -397,15 +392,13 @@ void rgb_ring_task(void)
         default:
             break;
     };
-
-    is31fl3731_flush();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record)
 {
     if (record->event.pressed) {
         switch(keycode) {
-            case RGB_MOD:
+            case QK_UNDERGLOW_MODE_NEXT:
                 if (rgb_ring.state == RING_STATE_INIT) {
                     // in testing mode, do nothing
                     return false;
@@ -423,7 +416,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record)
                     }
                 }
                 break;
-            case RGB_RMOD:
+            case QK_UNDERGLOW_MODE_PREVIOUS:
                 if (rgb_ring.state == RING_STATE_INIT) {
                     // in testing mode, do nothing
                     return false;

@@ -279,8 +279,6 @@ enum usb_endpoints {
 #    define MAX_ENDPOINTS USB_MAX_ENDPOINTS
 #endif
 
-// TODO - ARM_ATSAM
-
 #if (NEXT_EPNUM - 1) > MAX_ENDPOINTS
 #    error There are not enough available endpoints to support all functions. Please disable one or more of the following: Mouse Keys, Extra Keys, Console, NKRO, MIDI, Serial, Steno
 #endif

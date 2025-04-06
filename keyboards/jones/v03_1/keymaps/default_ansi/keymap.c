@@ -62,12 +62,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-  MAC = SAFE_RANGE,
-  WIN,
-};
-
 // Key Macro
 #define ESC_NUM TD(TD_ESC_NUM)
 #define S_CAP   TD(TD_LSFT_CAPS)
@@ -80,7 +74,8 @@ enum custom_keycodes {
 #define ALT_GRV LALT(KC_GRV)
 #define LOWER   MO(_LOWER)
 #define NUM     TG(_NUM)
-
+#define MAC     PDF(_MAC)
+#define WIN     PDF(_WIN)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_MAC] = LAYOUT_ansi(
@@ -133,26 +128,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,_______,_______,_______,        _______,        _______,        _______,_______,_______,_______,_______,_______
     )
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case MAC: // Change default ayer --> Write to EEPROM
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_MAC);
-            }
-            return false;
-            break;
-        case WIN: // Change default ayer --> Write to EEPROM
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_WIN);
-            }
-            return false;
-            break;
-        default:
-            break;
-    }
-    return true;
-}
 
 //------------------------------------------------------------------------------
 // RGB Light settings

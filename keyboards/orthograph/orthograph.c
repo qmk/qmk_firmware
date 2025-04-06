@@ -125,4 +125,7 @@ const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT] = {
 {0, SW7_CS7, SW8_CS7, SW9_CS7}
 };
 
+int rgb_matrix_led_index(int index) {
+    return index;
+}
 #endif

@@ -2,8 +2,6 @@
 
 ![novem](https://i.imgur.com/nPjBE9b.jpg)
 
-A short description of the keyboard/project
-
 * Keyboard Maintainer: [Jose I. Martinez](https://github.com/mechanicalguy21)
 * Hardware Supported: This is a handwired keyboard created over a 3d printed case. 
 STL will be shared soon.

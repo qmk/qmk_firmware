@@ -156,25 +156,25 @@ For more on the `info.json` files, see [`info.json` Format](reference_info_json)
 
 The Configurator's API uses the layout macro and the JSON file we've given it to create a visual representation of the keyboard that has each visual object tied to a specific key, in sequence:
 
-key in layout macro | JSON object used
-:---: | :----
-k00   | {"label":"Num Lock", "x":0, "y":0}
-k01   | {"label":"/", "x":1, "y":0}
-k02   | {"label":"*", "x":2, "y":0}
-k03   | {"label":"-", "x":3, "y":0}
-k10   | {"label":"7", "x":0, "y":1}
-k11   | {"label":"8", "x":1, "y":1}
-k12   | {"label":"9", "x":2, "y":1}
-k13   | {"label":"+", "x":3, "y":1, "h":2}
-k20   | {"label":"4", "x":0, "y":2}
-k21   | {"label":"5", "x":1, "y":2}
-k22   | {"label":"6", "x":2, "y":2}
-k30   | {"label":"1", "x":0, "y":3}
-k31   | {"label":"2", "x":1, "y":3}
-k32   | {"label":"3", "x":2, "y":3}
-k33   | {"label":"Enter", "x":3, "y":3, "h":2}
-k40   | {"label":"0", "x":0, "y":4, "w":2}
-k42   | {"label":".", "x":2, "y":4}
+| Key in layout macro | JSON object used                         |
+| ------------------- | ---------------------------------------- |
+| k00                 | `{"label":"Num Lock", "x":0, "y":0}`     |
+| k01                 | `{"label":"/", "x":1, "y":0}`            |
+| k02                 | `{"label":"*", "x":2, "y":0}`            |
+| k03                 | `{"label":"-", "x":3, "y":0}`            |
+| k10                 | `{"label":"7", "x":0, "y":1}`            |
+| k11                 | `{"label":"8", "x":1, "y":1}`            |
+| k12                 | `{"label":"9", "x":2, "y":1}`            |
+| k13                 | `{"label":"+", "x":3, "y":1, "h":2}`     |
+| k20                 | `{"label":"4", "x":0, "y":2}`            |
+| k21                 | `{"label":"5", "x":1, "y":2}`            |
+| k22                 | `{"label":"6", "x":2, "y":2}`            |
+| k30                 | `{"label":"1", "x":0, "y":3}`            |
+| k31                 | `{"label":"2", "x":1, "y":3}`            |
+| k32                 | `{"label":"3", "x":2, "y":3}`            |
+| k33                 | `{"label":"Enter", "x":3, "y":3, "h":2}` |
+| k40                 | `{"label":"0", "x":0, "y":4, "w":2}`     |
+| k42                 | `{"label":".", "x":2, "y":4}`            |
 
 When a user selects the top-left key in the Configurator, and assigns Num Lock to it, the Configurator builds a keymap file with `KC_NUM` as the first key, and so on as the keymap is built. The `label` keys are not used; they are only for the user's reference in identifying specific keys when debugging the `info.json` file.
 

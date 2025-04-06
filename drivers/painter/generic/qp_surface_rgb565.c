@@ -52,7 +52,7 @@ static bool qp_surface_pixdata_rgb565(painter_device_t device, const void *pixel
 // Pixel colour conversion
 static bool qp_surface_palette_convert_rgb565_swapped(painter_device_t device, int16_t palette_size, qp_pixel_t *palette) {
     for (int16_t i = 0; i < palette_size; ++i) {
-        RGB      rgb      = hsv_to_rgb_nocie((HSV){palette[i].hsv888.h, palette[i].hsv888.s, palette[i].hsv888.v});
+        rgb_t    rgb      = hsv_to_rgb_nocie((hsv_t){palette[i].hsv888.h, palette[i].hsv888.s, palette[i].hsv888.v});
         uint16_t rgb565   = (((uint16_t)rgb.r) >> 3) << 11 | (((uint16_t)rgb.g) >> 2) << 5 | (((uint16_t)rgb.b) >> 3);
         palette[i].rgb565 = __builtin_bswap16(rgb565);
     }

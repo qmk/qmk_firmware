@@ -24,8 +24,7 @@ enum waldo_layers {
 };
 
 enum waldo_keycodes {
-  QWERTY = SAFE_RANGE,
-  BACKLIT
+  BACKLIT = SAFE_RANGE,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -78,12 +77,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      return false;
-      break;
     case BACKLIT:
       if (record->event.pressed) {
         #ifdef BACKLIGHT_ENABLE

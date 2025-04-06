@@ -1,16 +1,8 @@
 #include QMK_KEYBOARD_H
 
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
-#define _BASE 0
-#define _FN 1
-
-
-
-enum custom_keycodes {
-  TG_GUI = SAFE_RANGE
+enum layer_names {
+    _BASE,
+    _FN
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -27,17 +19,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, 	UG_NEXT, 	UG_HUEU,   	UG_SATU, UG_VALU, 	_______, _______, _______, 	_______, 	_______, 	KC_PSCR, 	KC_SCRL, 	KC_PAUSE,  	_______,	KC_MUTE,	KC_END,
     _______,	UG_TOGG, 	UG_HUED, 	UG_SATD, UG_VALD, 	_______, _______, _______, 	_______, 	_______, 	_______, 	_______, 				_______,
     _______,	_______, 	_______, 	_______, _______, 	_______, _______, _______,	_______, 				_______, 	_______, 				_______,	KC_VOLU,
-    _______, 	TG_GUI,_______, 						QK_BOOT, 												_______,	_______,	_______,	KC_MPRV,    KC_VOLD, 	KC_MNXT
+    _______, 	GU_TOGG,    _______, 						QK_BOOT, 											_______,	_______,	_______,	KC_MPRV,    KC_VOLD, 	KC_MNXT
   )
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if(record->event.pressed) {
-        switch(keycode) {
-            case TG_GUI:
-                keymap_config.no_gui ^= 1;
-                return false;
-        }
-    }
-    return true;
-}

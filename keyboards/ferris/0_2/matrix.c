@@ -30,8 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 extern i2c_status_t mcp23017_status;
 #define MCP23017_I2C_TIMEOUT 1000
-#define I2C_WRITE 0x00
-#define I2C_READ 0x01
+
 // For a better understanding of the i2c protocol, this is a good read:
 // https://www.robot-electronics.co.uk/i2c-tutorial
 

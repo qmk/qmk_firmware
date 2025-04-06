@@ -28,7 +28,7 @@ git clone のあと、
 
 -----------------
 ## English
-- [Here](https://github.com/telzo2000/cool836A) are a full description of this project and build guide by the great Designer: [m.ki](imgur.com image replace me!)
+- [Here](https://github.com/telzo2000/cool836A) are a full description of this project and build guide by the great Designer: m.ki
 
 - Each virsions(A, B+, C+) of cool836A has the same circuit and that means you can install this firmware on any of them.
 - However, this repository is currently(Jan 7, 2021) tested on ver.B+ (RED version) only. Feel free to contact [ME](https://github.com/ketcha-k) for any problems.

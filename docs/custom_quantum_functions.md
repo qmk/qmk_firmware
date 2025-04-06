@@ -9,12 +9,19 @@ This page does not assume any special knowledge about QMK, but reading [Understa
 We have structured QMK as a hierarchy:
 
 * Core (`_quantum`)
+  * Community Module (`_<module>`)
+    * Community Module -> Keyboard/Revision (`_<module>_kb`)
+      * Community Module -> Keymap (`_<module>_user`)
   * Keyboard/Revision (`_kb`)
     * Keymap (`_user`)
 
 Each of the functions described below can be defined with a `_kb()` suffix or a `_user()` suffix. We intend for you to use the `_kb()` suffix at the Keyboard/Revision level, while the `_user()` suffix should be used at the Keymap level.
 
-When defining functions at the Keyboard/Revision level it is important that your `_kb()` implementation call `_user()` before executing anything else- otherwise the keymap level function will never be called.
+When defining functions at the Keyboard/Revision level it is important that your `_kb()` implementation call `_user()` at an appropriate location, otherwise the keymap level function will never be called.
+
+Functions at the `_<module>_xxx()` level are intended to allow keyboards or keymaps to override or enhance the processing associated with a [community module](/features/community_modules).
+
+When defining module overrides such as `process_record_<module>()`, the same pattern should be used; the module must invoke `process_record_<module>_kb()` as appropriate.
 
 # Custom Keycodes
 
@@ -99,7 +106,7 @@ These are the three main initialization functions, listed in the order that they
 * `keyboard_post_init_*` - Happens at the end of the firmware's startup process. This is where you'd want to put "customization" code, for the most part.
 
 ::: warning
-For most people, the `keyboard_post_init_user` function is what you want to call.  For instance, this is where you want to set up things for RGB Underglow.
+For most people, the `keyboard_post_init_user` function is what you want to implement. For instance, this is where you want to set up things for RGB Underglow.
 :::
 
 ## Keyboard Pre Initialization code

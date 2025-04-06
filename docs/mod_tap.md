@@ -2,7 +2,7 @@
 
 The Mod-Tap key `MT(mod, kc)` acts like a modifier when held, and a regular keycode when tapped. In other words, you can have a key that sends Escape when you tap it, but functions as a Control or Shift key when you hold it down.
 
-The modifiers this keycode and `OSM()` accept are prefixed with `MOD_`, not `KC_`:
+The modifiers (`mod`) argument to the `MT()` macro are prefixed with `MOD_`, not `KC_`:
 
 |Modifier  |Description                             |
 |----------|----------------------------------------|

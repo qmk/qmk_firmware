@@ -1,0 +1,12 @@
+{
+    "keyboard_name": "Cornia v0.6",
+    "usb": {
+        "pid": "0x0600",
+        "device_version": "0.6.0"
+    },
+    "diode_direction": "COL2ROW",
+    "matrix_pins": {
+        "cols": [ "GP29", "GP28", "GP27", "GP26", "GP22", "GP20" ],
+        "rows": [ "GP4",  "GP5",  "GP6",  "GP7" ]
+    }
+}

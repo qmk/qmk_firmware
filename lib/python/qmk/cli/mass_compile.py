@@ -20,6 +20,8 @@ def mass_compile_targets(targets: List[BuildTarget], clean: bool, dry_run: bool,
     if len(targets) == 0:
         return
 
+    os.environ.setdefault('SKIP_SCHEMA_VALIDATION', '1')
+
     make_cmd = find_make()
     builddir = Path(QMK_FIRMWARE) / '.build'
     makefile = builddir / 'parallel_kb_builds.mk'

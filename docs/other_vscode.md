@@ -177,12 +177,13 @@ You'll need to perform some modifications to the file above in order to target y
 Windows builds of QMK Firmware are generally compiled using QMK MSYS, and the path to gdb's location (`C:\\QMK_MSYS\\mingw64\\bin`) needs to be specified under `armToolchainPath` for it to be detected. You may also need to change the GDB path to point at `C:\\QMK_MSYS\\mingw64\\bin\\gdb-multiarch.exe` in the VSCode Cortex-Debug user settings: ![VSCode Settings](https://i.imgur.com/EGrPM1L.png)
 :::
 
-Optionally, the following modifications should also be made to the keyboard's `rules.mk` file to disable optimisations -- not strictly required but will ensure breakpoints and variable viewing works correctly:
+The following modifications must be made to the keyboard's `rules.mk` file to enable debug information and disable optimisations -- this will ensure breakpoints and variable viewing works correctly:
 ```makefile
+# Enable debug information in the final binaries
+DEBUG_ENABLE = yes
 # Disable optimisations for debugging purposes
 LTO_ENABLE = no
 OPT = g
-DEBUG = 3
 ```
 
 At this point, you should build and flash your firmware through normal methods (`qmk compile ...` and `qmk flash ...`).

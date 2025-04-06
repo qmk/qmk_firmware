@@ -1,9 +1,5 @@
 # Ergodicity
 
-![ergodicity](imgur.com image replace me!)
-
-A short description of the keyboard/project
-
 Keyboard Maintainer: [nooges/bakingpy](https://github.com/nooges)  
 Hardware Supported: Ergodicity PCB w/ATmega32u4  
 Hardware Availability: [Keebio](https://keeb.io)

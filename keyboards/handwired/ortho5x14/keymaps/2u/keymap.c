@@ -48,14 +48,13 @@ enum custom_layer {
 };
 
 enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  ALT,
-  CTRL,
-  LOWER,
+  LOWER = SAFE_RANGE,
   RAISE,
-  MOUSE,
   ADJUST
 };
+
+#define QWERTY PDF(_QWERTY)
+#define MOUSE PDF(_MOUSE)
 
 // TAP DANCE ***********************************************************
 //Tap Dance Declarations
@@ -569,12 +568,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
       }
       return true;
-    case QWERTY:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      return false;
-      break;
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);
@@ -584,7 +577,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
-      break;
     case RAISE:
       if (record->event.pressed) {
         layer_on(_RAISE);
@@ -594,13 +586,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
-      break;
-    case MOUSE:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_MOUSE);
-      }
-      return false;
-      break;
   }
   return true;
 };

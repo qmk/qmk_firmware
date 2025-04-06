@@ -17,8 +17,6 @@
 
 #pragma once
 
-#define RGB_MATRIX_DISABLE_KEYCODES // Disables control of rgb matrix by keycodes (must use code functions to control the feature)
-
 // I2C {
 #define F_SCL 100000UL // Run I2C bus at 100 kHz
 #define I2C_START_RETRY_COUNT 20

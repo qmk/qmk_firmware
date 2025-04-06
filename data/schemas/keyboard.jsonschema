@@ -31,6 +31,11 @@
                 "pins": {"$ref": "qmk.definitions.v1#/mcu_pin_array"}
             }
         }
+        "features_config": {
+            "$ref": "qmk.definitions.v1#/boolean_array",
+            "propertyNames": {"$ref": "qmk.definitions.v1#/snake_case"},
+            "not": {"required": ["lto"]}
+        },
     },
     "type": "object",
     "not": {"required": ["vendorId", "productId"]}, // reject via keys...
@@ -45,7 +50,7 @@
         },
         "development_board": {
             "type": "string",
-            "enum": ["promicro", "elite_c", "elite_pi", "proton_c", "kb2040", "promicro_rp2040", "blok", "michi", "bit_c_pro", "stemcell", "bluepill", "blackpill_f401", "blackpill_f411", "bonsai_c4", "helios", "liatris", "imera"]
+            "enum": ["promicro", "elite_c", "elite_pi", "proton_c", "kb2040", "promicro_rp2040", "blok", "michi", "bit_c_pro", "stemcell", "bluepill", "blackpill_f401", "blackpill_f411", "bonsai_c4", "helios", "liatris", "imera", "svlinky"]
         },
         "pin_compatible": {
             "type": "string",
@@ -92,6 +97,7 @@
                 "GD32VF103",
                 "WB32F3G71",
                 "WB32FQ95",
+                "AT32F415",
                 "atmega16u2",
                 "atmega32u2",
                 "atmega16u4",
@@ -216,6 +222,7 @@
             "type": "string",
             "enum": [
                 "apm32-dfu",
+                "at32-dfu",
                 "atmel-dfu",
                 "bootloadhid",
                 "caterina",
@@ -326,11 +333,7 @@
                 "enabled": {"type": "boolean"}
             }
         },
-        "features": {
-            "$ref": "qmk.definitions.v1#/boolean_array",
-            "propertyNames": {"$ref": "qmk.definitions.v1#/snake_case"},
-            "not": {"required": ["lto"]}
-        },
+        "features": { "$ref": "#/definitions/features_config" },
         "indicators": {
             "type": "object",
             "properties": {
@@ -373,6 +376,12 @@
             }
         },
         "keycodes": {"$ref": "qmk.definitions.v1#/keycode_decl_array"},
+        "layer_lock": {
+            "type": "object",
+            "properties": {
+                "timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+            }
+        },
         "layout_aliases": {
             "type": "object",
             "additionalProperties": {"$ref": "qmk.definitions.v1#/layout_macro"}
@@ -414,7 +423,11 @@
                                 "h": {"$ref": "qmk.definitions.v1#/key_unit"},
                                 "w": {"$ref": "qmk.definitions.v1#/key_unit"},
                                 "x": {"$ref": "qmk.definitions.v1#/key_unit"},
-                                "y": {"$ref": "qmk.definitions.v1#/key_unit"}
+                                "y": {"$ref": "qmk.definitions.v1#/key_unit"},
+                                "hand": {
+                                    "type": "string",
+                                    "enum": ["L", "R", "*"]
+                                }
                             }
                         }
                     }
@@ -453,6 +466,12 @@
                 },
                 "cols": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
                 "rows": {"$ref": "qmk.definitions.v1#/mcu_pin_array"}
+            }
+        },
+        "modules": {
+            "type": "array",
+            "items": {
+                "type": "string"
             }
         },
         "mouse_key": {
@@ -907,6 +926,7 @@
         "tapping": {
             "type": "object",
             "properties": {
+                "chordal_hold": {"type": "boolean"},
                 "force_hold": {"type": "boolean"},
                 "force_hold_per_key": {"type": "boolean"},
                 "ignore_mod_tap_interrupt": {"type": "boolean"},

@@ -7,6 +7,7 @@
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 #include "keyboard_report_util.hpp"
+#include "mouse_report_util.hpp"
 #include "keycode.h"
 #include "test_driver.hpp"
 #include "test_logger.hpp"
@@ -69,6 +70,9 @@ TestFixture::~TestFixture() {
     /* Reset keyboard state. */
     clear_all_keys();
 
+#ifdef MOUSEKEY_ENABLE
+    EXPECT_EMPTY_MOUSE_REPORT(driver);
+#endif
     clear_keyboard();
 
     clear_oneshot_mods();

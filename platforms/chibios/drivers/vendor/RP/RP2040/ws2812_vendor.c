@@ -266,19 +266,36 @@ static inline void sync_ws2812_transfer(void) {
     busy_wait_until(LAST_TRANSFER);
 }
 
-void ws2812_setleds(rgb_led_t* ledarray, uint16_t leds) {
+ws2812_led_t ws2812_leds[WS2812_LED_COUNT];
+
+void ws2812_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
+    ws2812_leds[index].r = red;
+    ws2812_leds[index].g = green;
+    ws2812_leds[index].b = blue;
+#if defined(WS2812_RGBW)
+    ws2812_rgb_to_rgbw(&ws2812_leds[index]);
+#endif
+}
+
+void ws2812_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
+    for (int i = 0; i < WS2812_LED_COUNT; i++) {
+        ws2812_set_color(i, red, green, blue);
+    }
+}
+
+void ws2812_flush(void) {
     sync_ws2812_transfer();
 
-    for (int i = 0; i < leds; i++) {
+    for (int i = 0; i < WS2812_LED_COUNT; i++) {
 #if defined(WS2812_RGBW)
-        WS2812_BUFFER[i] = rgbw8888_to_u32(ledarray[i].r, ledarray[i].g, ledarray[i].b, ledarray[i].w);
+        WS2812_BUFFER[i] = rgbw8888_to_u32(ws2812_leds[i].r, ws2812_leds[i].g, ws2812_leds[i].b, ws2812_leds[i].w);
 #else
-        WS2812_BUFFER[i] = rgbw8888_to_u32(ledarray[i].r, ledarray[i].g, ledarray[i].b, 0);
+        WS2812_BUFFER[i] = rgbw8888_to_u32(ws2812_leds[i].r, ws2812_leds[i].g, ws2812_leds[i].b, 0);
 #endif
     }
 
     dmaChannelSetSourceX(dma_channel, (uint32_t)WS2812_BUFFER);
-    dmaChannelSetCounterX(dma_channel, leds);
+    dmaChannelSetCounterX(dma_channel, WS2812_LED_COUNT);
     dmaChannelSetModeX(dma_channel, RP_DMA_MODE_WS2812);
     dmaChannelEnableX(dma_channel);
 }

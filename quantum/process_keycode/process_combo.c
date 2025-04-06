@@ -36,19 +36,19 @@ __attribute__((weak)) uint8_t combo_ref_from_layer(uint8_t layer) {
 #endif
 
 #ifdef COMBO_MUST_HOLD_PER_COMBO
-__attribute__((weak)) bool get_combo_must_hold(uint16_t index, combo_t *combo) {
+__attribute__((weak)) bool get_combo_must_hold(uint16_t combo_index, combo_t *combo) {
     return false;
 }
 #endif
 
 #ifdef COMBO_MUST_TAP_PER_COMBO
-__attribute__((weak)) bool get_combo_must_tap(uint16_t index, combo_t *combo) {
+__attribute__((weak)) bool get_combo_must_tap(uint16_t combo_index, combo_t *combo) {
     return false;
 }
 #endif
 
 #ifdef COMBO_TERM_PER_COMBO
-__attribute__((weak)) uint16_t get_combo_term(uint16_t index, combo_t *combo) {
+__attribute__((weak)) uint16_t get_combo_term(uint16_t combo_index, combo_t *combo) {
     return COMBO_TERM;
 }
 #endif
@@ -65,11 +65,19 @@ __attribute__((weak)) bool process_combo_key_release(uint16_t combo_index, combo
 }
 #endif
 
+#ifdef COMBO_PROCESS_KEY_REPRESS
+__attribute__((weak)) bool process_combo_key_repress(uint16_t combo_index, combo_t *combo, uint8_t key_index, uint16_t keycode) {
+    return false;
+}
+#endif
+
 #ifdef COMBO_SHOULD_TRIGGER
 __attribute__((weak)) bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 #endif
+
+typedef enum { COMBO_KEY_NOT_PRESSED, COMBO_KEY_PRESSED, COMBO_KEY_REPRESSED } combo_key_action_t;
 
 #ifndef COMBO_NO_TIMER
 static uint16_t timer = 0;
@@ -414,14 +422,14 @@ static bool keys_pressed_in_order(uint16_t combo_index, combo_t *combo, uint16_t
 }
 #endif
 
-static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *record, uint16_t combo_index) {
+static combo_key_action_t process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *record, uint16_t combo_index) {
     uint8_t  key_count = 0;
     uint16_t key_index = -1;
     _find_key_index_and_count(combo->keys, keycode, &key_index, &key_count);
 
     /* Continue processing if key isn't part of current combo. */
     if (-1 == (int16_t)key_index) {
-        return false;
+        return COMBO_KEY_NOT_PRESSED;
     }
 
     bool key_is_part_of_combo = (!COMBO_DISABLED(combo) && is_combo_enabled()
@@ -449,7 +457,7 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
             /* Don't buffer this combo if its combo term has passed. */
             if (timer && timer_elapsed(timer) > time) {
                 DISABLE_COMBO(combo);
-                return true;
+                return COMBO_KEY_PRESSED;
             } else
 #endif
             {
@@ -485,6 +493,15 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
                 }
             } // if timer elapsed end
         }
+#ifdef COMBO_PROCESS_KEY_REPRESS
+    } else if (record->event.pressed) {
+        if (COMBO_ACTIVE(combo)) {
+            if (process_combo_key_repress(combo_index, combo, key_index, keycode)) {
+                KEY_STATE_DOWN(combo->state, key_index);
+                return COMBO_KEY_REPRESSED;
+            }
+        }
+#endif
     } else {
         // chord releases
         if (!COMBO_ACTIVE(combo) && ALL_COMBO_KEYS_ARE_DOWN(COMBO_STATE(combo), key_count)) {
@@ -531,12 +548,12 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
         KEY_STATE_UP(combo->state, key_index);
     }
 
-    return key_is_part_of_combo;
+    return key_is_part_of_combo ? COMBO_KEY_PRESSED : COMBO_KEY_NOT_PRESSED;
 }
 
 bool process_combo(uint16_t keycode, keyrecord_t *record) {
-    bool is_combo_key          = false;
-    bool no_combo_keys_pressed = true;
+    uint8_t is_combo_key          = COMBO_KEY_NOT_PRESSED;
+    bool    no_combo_keys_pressed = true;
 
     if (keycode == QK_COMBO_ON && record->event.pressed) {
         combo_enable();
@@ -582,12 +599,17 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
 #    endif
 #endif
 
-        if (key_buffer_size < COMBO_KEY_BUFFER_LENGTH) {
-            key_buffer[key_buffer_size++] = (queued_record_t){
-                .record      = *record,
-                .keycode     = keycode,
-                .combo_index = -1, // this will be set when applying combos
-            };
+#ifdef COMBO_PROCESS_KEY_REPRESS
+        if (is_combo_key == COMBO_KEY_PRESSED)
+#endif
+        {
+            if (key_buffer_size < COMBO_KEY_BUFFER_LENGTH) {
+                key_buffer[key_buffer_size++] = (queued_record_t){
+                    .record      = *record,
+                    .keycode     = keycode,
+                    .combo_index = -1, // this will be set when applying combos
+                };
+            }
         }
     } else {
         if (combo_buffer_read != combo_buffer_write) {

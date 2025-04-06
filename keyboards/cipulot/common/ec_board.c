@@ -17,6 +17,10 @@
 #include "ec_switch_matrix.h"
 #include "keyboard.h"
 
+#ifdef SPLIT_KEYBOARD
+#    include "transactions.h"
+#endif
+
 void eeconfig_init_kb(void) {
     // Default values
     eeprom_ec_config.actuation_mode                 = DEFAULT_ACTUATION_MODE;
@@ -57,8 +61,14 @@ void keyboard_post_init_kb(void) {
             ec_config.rescaled_mode_0_actuation_threshold[row][col]     = rescale(ec_config.mode_0_actuation_threshold, 0, 1023, ec_config.noise_floor[row][col], eeprom_ec_config.bottoming_reading[row][col]);
             ec_config.rescaled_mode_0_release_threshold[row][col]       = rescale(ec_config.mode_0_release_threshold, 0, 1023, ec_config.noise_floor[row][col], eeprom_ec_config.bottoming_reading[row][col]);
             ec_config.rescaled_mode_1_initial_deadzone_offset[row][col] = rescale(ec_config.mode_1_initial_deadzone_offset, 0, 1023, ec_config.noise_floor[row][col], eeprom_ec_config.bottoming_reading[row][col]);
+            ec_config.rescaled_mode_1_actuation_offset[row][col]        = rescale(ec_config.mode_1_actuation_offset, 0, 1023, ec_config.noise_floor[row][col], eeprom_ec_config.bottoming_reading[row][col]);
+            ec_config.rescaled_mode_1_release_offset[row][col]          = rescale(ec_config.mode_1_release_offset, 0, 1023, ec_config.noise_floor[row][col], eeprom_ec_config.bottoming_reading[row][col]);
         }
     }
+
+#ifdef SPLIT_KEYBOARD
+    transaction_register_rpc(RPC_ID_VIA_CMD, via_cmd_slave_handler);
+#endif
 
     keyboard_post_init_user();
 }

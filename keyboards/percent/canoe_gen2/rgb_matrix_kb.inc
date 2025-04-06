@@ -22,8 +22,8 @@ RGB_MATRIX_EFFECT(indicator_static)
 #ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
 static bool indicator_static(effect_params_t* params) {
-    HSV hsv = rgb_matrix_config.hsv;
-    RGB rgb = hsv_to_rgb(hsv);
+    hsv_t hsv = rgb_matrix_config.hsv;
+    rgb_t rgb = hsv_to_rgb(hsv);
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
     for (uint8_t i = led_min; i < 74; i++) {
         rgb_matrix_set_color(i, 0x00, 0x00, 0x00);
@@ -43,21 +43,21 @@ bool effect_runner_indicator(effect_params_t* params, i_f effect_func) {
             rgb_matrix_set_color(i, 0x00, 0x00, 0x00);
         } else {
             RGB_MATRIX_TEST_LED_FLAGS();
-            RGB rgb = hsv_to_rgb(effect_func(rgb_matrix_config.hsv, (i - 74), time));
+            rgb_t rgb = hsv_to_rgb(effect_func(rgb_matrix_config.hsv, (i - 74), time));
             rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
         }
     }
     return rgb_matrix_check_finished_leds(led_max);
 }
 
-static HSV indicator_gradient_math(HSV hsv, uint8_t i, uint8_t time) {
+static hsv_t indicator_gradient_math(hsv_t hsv, uint8_t i, uint8_t time) {
     hsv.h = g_led_config.point[i].x - time;
     return hsv;
 }
 
 bool indicator_gradient(effect_params_t* params) { return effect_runner_indicator(params, &indicator_gradient_math); }
 
-static HSV indicator_cycle_all_math(HSV hsv, uint8_t i, uint8_t time) {
+static hsv_t indicator_cycle_all_math(hsv_t hsv, uint8_t i, uint8_t time) {
     hsv.h = time;
     return hsv;
 }

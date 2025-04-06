@@ -71,7 +71,7 @@ void matrix_init_kb(void) {
 		// Clear the LED colors stored in EEPROM
 		for ( int row=0; row < MATRIX_ROWS; row++ )
 		{
-			HSV hsv;
+			hsv_t hsv;
 			for ( int column=0; column < MATRIX_COLS; column++ )
 			{
 				hsv.h = rand() & 0xFF;

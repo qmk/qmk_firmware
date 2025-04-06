@@ -27,18 +27,13 @@ enum layers {
   _ADJUST,
 };
 
- enum custom_keycodes {
-   QWERTY = SAFE_RANGE,
-   COLEMAK,
-   DVORAK,
-   LOWER,
-   RAISE,
-   EUCALYN,
-   ADJUST,
- };
+#define LOWER MO(_LOWER)
+#define RAISE MO(_RAISE)
 
- #define LOWER MO(_LOWER)
- #define RAISE MO(_RAISE)
+#define QWERTY PDF(_QWERTY)
+#define COLEMAK PDF(_COLEMAK)
+#define DVORAK PDF(_DVORAK)
+#define EUCALYN PDF(_EUCALYN)
 
  const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -173,34 +168,4 @@ enum layers {
 
  layer_state_t layer_state_set_user(layer_state_t state) {
    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
- }
-
- bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-   switch (keycode) {
-     case QWERTY:
-       if (record->event.pressed) {
-         set_single_persistent_default_layer(_QWERTY);
-       }
-       return false;
-       break;
-     case COLEMAK:
-       if (record->event.pressed) {
-         set_single_persistent_default_layer(_COLEMAK);
-       }
-       return false;
-       break;
-     case DVORAK:
-       if (record->event.pressed) {
-         set_single_persistent_default_layer(_DVORAK);
-       }
-       return false;
-       break;
-     case EUCALYN:
-       if (record->event.pressed) {
-         set_single_persistent_default_layer(_EUCALYN);
-       }
-       return false;
-       break;
-   }
-   return true;
  }

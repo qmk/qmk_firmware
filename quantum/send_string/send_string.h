@@ -161,4 +161,12 @@ void send_string_with_delay_P(const char *string, uint8_t interval);
  */
 #define SEND_STRING_DELAY(string, interval) send_string_with_delay_P(PSTR(string), interval)
 
+/**
+ * \brief Actual implementation function that iterates and sends the string returned by the getter function.
+ *
+ * The getter assumes that the next byte is available to be read, and returns it. `arg` is passed in and can be whatever
+ * makes most sense for the getter -- each invocation of `getter` must advance its position in the source.
+ */
+void send_string_with_delay_impl(char (*getter)(void *), void *arg, uint8_t interval);
+
 /** \} */

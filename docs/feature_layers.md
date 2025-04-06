@@ -8,7 +8,8 @@ For a detailed explanation of how the layer stack works, checkout [Keymap Overvi
 
 These functions allow you to activate layers in various ways. Note that layers are not generally independent layouts -- multiple layers can be activated at once, and it's typical for layers to use `KC_TRNS` to allow keypresses to pass through to lower layers. When using momentary layer switching with MO(), LM(), TT(), or LT(), make sure to leave the key on the above layers transparent or it may not work as intended.
 
-* `DF(layer)` - switches the default layer. The default layer is the always-active base layer that other layers stack on top of. See below for more about the default layer. This might be used to switch from QWERTY to Dvorak layout. (Note that this is a temporary switch that only persists until the keyboard loses power. To modify the default layer in a persistent way requires deeper customization, such as calling the `set_single_persistent_default_layer` function inside of [process_record_user](custom_quantum_functions#programming-the-behavior-of-any-keycode).)
+* `DF(layer)` - switches the default layer. The default layer is the always-active base layer that other layers stack on top of. See below for more about the default layer. This might be used to switch from QWERTY to Dvorak layout. Note that this is a temporary switch that only persists until the keyboard loses power.
+* `PDF(layer)` - sets a persistent default layer. This switch, which will last through a power loss, might be used to switch from QWERTY to Dvorak layout and only switch again when you want to.
 * `MO(layer)` - momentarily activates *layer*. As soon as you let go of the key, the layer is deactivated.
 * `LM(layer, mod)` - Momentarily activates *layer* (like `MO`), but with modifier(s) *mod* active. Only supports layers 0-15. The modifiers this keycode accept are prefixed with `MOD_`, not `KC_`. These modifiers can be combined using bitwise OR, e.g. `LM(_RAISE, MOD_LCTL | MOD_LALT)`.
 * `LT(layer, kc)` - momentarily activates *layer* when held, and sends *kc* when tapped. Only supports layers 0-15.
@@ -16,6 +17,9 @@ These functions allow you to activate layers in various ways. Note that layers a
 * `TG(layer)` - toggles *layer*, activating it if it's inactive and vice versa
 * `TO(layer)` - activates *layer* and de-activates all other layers (except your default layer). This function is special, because instead of just adding/removing one layer to your active layer stack, it will completely replace your current active layers, uniquely allowing you to replace higher layers with a lower one. This is activated on keydown (as soon as the key is pressed).
 * `TT(layer)` - Layer Tap-Toggle. If you hold the key down, *layer* is activated, and then is de-activated when you let go (like `MO`). If you repeatedly tap it, the layer will be toggled on or off (like `TG`). It needs 5 taps by default, but you can change this by defining `TAPPING_TOGGLE` -- for example, `#define TAPPING_TOGGLE 2` to toggle on just two taps.
+
+See also the [Layer Lock key](features/layer_lock), which locks the highest
+active layer until pressed again.
 
 ### Caveats {#caveats}
 
@@ -74,6 +78,7 @@ There are a number of functions (and variables) related to how you can use or ma
 | `default_layer_and(layer_mask)`              | Turns on layers based on matching enabled bits between specifed layer and existing default layer state. |
 | `default_layer_xor(layer_mask)`              | Turns on layers based on non-matching bits between specifed layer and existing default layer state.     |
 | `default_layer_debug(layer_mask)`            | Prints out the current bit mask and highest active default layer to debugger console.                   |
+| [`set_single_default_layer(layer)`](ref_functions.md#setting-the-persistent-default-layer)            | Sets the default layer, but does _not_ write it to persistent memory (EEPROM). | 
 | [`set_single_persistent_default_layer(layer)`](ref_functions.md#setting-the-persistent-default-layer) | Sets the default layer and writes it to persistent memory (EEPROM).  |
 | [`update_tri_layer(x, y, z)`](ref_functions.md#update_tri_layerx-y-z) | Checks if layers `x` and `y` are both on, and sets `z` based on that (on if both on, otherwise off). |
 | [`update_tri_layer_state(state, x, y, z)`](ref_functions.md#update_tri_layer_statestate-x-y-z) | Does the same as `update_tri_layer(x, y, z)`, but from `layer_state_set_*` functions. |

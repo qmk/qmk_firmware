@@ -1,7 +1,5 @@
 # dc60
 
-![dc60](imgur.com image replace me!)
-
 A 60% PCB sold with the Alf DC60.
 
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  

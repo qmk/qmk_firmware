@@ -17,14 +17,15 @@ enum layer_number {
 };
 
 enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  COLEMAK,
-  FN,
+  FN = SAFE_RANGE,
   ADJ,
   RGBRST
 };
 
 #define FN_CAPS  LT(_FN, KC_CAPS)
+
+#define QWERTY PDF(_QWERTY)
+#define COLEMAK PDF(_COLEMAK)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*  / QWERTY \
@@ -131,16 +132,6 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      return false;
-    case COLEMAK:
-      if(record->event.pressed) {
-        set_single_persistent_default_layer(_COLEMAK);
-      }
-      return false;
     case FN:
       if (record->event.pressed) {
         layer_on(_FN);

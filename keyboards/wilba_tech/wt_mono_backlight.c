@@ -150,8 +150,8 @@ void backlight_effect_cycle_all(void)
 void backlight_effect_indicators(void)
 {
 #if defined(MONO_BACKLIGHT_WT75_A)
-    HSV hsv = { .h = g_config.color_1.h, .s = g_config.color_1.s, .v = g_config.brightness };
-    RGB rgb = hsv_to_rgb( hsv );
+    hsv_t hsv = { .h = g_config.color_1.h, .s = g_config.color_1.s, .v = g_config.brightness };
+    rgb_t rgb = hsv_to_rgb( hsv );
     // SW7,CS8 = (6*8+7) = 55
     // SW8,CS8 = (7*8+7) = 63
     // SW9,CS8 = (8*8+7) = 71
