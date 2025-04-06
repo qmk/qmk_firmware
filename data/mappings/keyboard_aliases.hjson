@@ -146,6 +146,9 @@
     "daisy": {
         "target": "ktec/daisy"
     },
+    "deemen17/de60": {
+        "target": "deemen17/de60/r1"
+    },
     "dp3000": {
         "target": "dp3000/rev1"
     },
