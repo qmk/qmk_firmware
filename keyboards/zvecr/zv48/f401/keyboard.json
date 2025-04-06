@@ -1,3 +1,6 @@
 {
-    "development_board": "blackpill_f401"
+    "development_board": "blackpill_f401",
+    "features": {
+        "via": false
+    }
 }
