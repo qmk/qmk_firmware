@@ -504,7 +504,7 @@ void send_digitizer(report_digitizer_t *report) {
 
 #ifdef CONSOLE_ENABLE
 
-int8_t sendchar(uint8_t c) {
+int8_t send_console(uint8_t c) {
     return (int8_t)send_report_buffered(USB_ENDPOINT_IN_CONSOLE, &c, sizeof(uint8_t));
 }
 
@@ -515,7 +515,7 @@ void console_task(void) {
 #endif /* CONSOLE_ENABLE */
 
 #ifdef RAW_ENABLE
-void raw_hid_send(uint8_t *data, uint8_t length) {
+void send_raw_hid(uint8_t *data, uint8_t length) {
     if (length != RAW_EPSIZE) {
         return;
     }
@@ -582,7 +582,7 @@ bool virtser_usb_request_cb(USBDriver *usbp) {
 
 void virtser_init(void) {}
 
-void virtser_send(const uint8_t byte) {
+void send_virtser(const uint8_t byte) {
     send_report_buffered(USB_ENDPOINT_IN_CDC_DATA, (void *)&byte, sizeof(byte));
 }
 
