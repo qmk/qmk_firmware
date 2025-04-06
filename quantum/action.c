@@ -472,22 +472,22 @@ void process_action(keyrecord_t *record, action_t action) {
 #        if defined(ONESHOT_TAP_TOGGLE) && ONESHOT_TAP_TOGGLE > 1
                             } else if (tap_count == ONESHOT_TAP_TOGGLE) {
                                 ac_dprintf("MODS_TAP: Toggling oneshot");
-                                register_mods(mods);
                                 del_oneshot_mods(mods);
                                 add_oneshot_locked_mods(mods);
+                                register_mods(mods);
 #        endif
                             }
                         } else {
                             if (tap_count == 0) {
                                 // Release hold: unregister the held mod and its variants
-                                unregister_mods(mods);
                                 del_oneshot_mods(mods);
                                 del_oneshot_locked_mods(mods);
+                                unregister_mods(mods);
 #        if defined(ONESHOT_TAP_TOGGLE) && ONESHOT_TAP_TOGGLE > 1
                             } else if (tap_count == 1 && (mods & get_mods())) {
-                                unregister_mods(mods);
                                 del_oneshot_mods(mods);
                                 del_oneshot_locked_mods(mods);
+                                unregister_mods(mods);
 #        endif
                             }
                         }
