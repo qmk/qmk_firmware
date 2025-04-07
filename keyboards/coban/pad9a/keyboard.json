@@ -69,7 +69,7 @@
                 {"label": "key_3", "matrix": [0, 4], "x": 2, "y": 1},
                 {"label": "key_4", "matrix": [0, 5], "x": 0, "y": 2},
                 {"label": "key_5", "matrix": [0, 6], "x": 1, "y": 2},
-                {"label": "key_6", "matrix": [0, 7], "x": 2, "y": 3}
+                {"label": "key_6", "matrix": [0, 7], "x": 2, "y": 2}
             ]
         }
     }
