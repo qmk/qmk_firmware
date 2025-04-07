@@ -9,7 +9,7 @@
         "device_version": "0.0.1"
     },
     "diode_direction": "COL2ROW",
-    "community_layouts": ["60_ansi", "60_ansi_tsangan_split_bs", "60_iso"],
+    "community_layouts": ["60_ansi", "60_ansi_tsangan_split_bs_rshift", "60_iso"],
     "layout_aliases": {
         "LAYOUT_ansi": "LAYOUT_60_ansi",
         "LAYOUT_tsangan_split_bs": "LAYOUT_60_ansi_tsangan_split_bs_rshift",
