@@ -163,9 +163,14 @@
   },
   "processor": "STM32F411",
   "bootloader": "custom",
-  "community_layouts": ["65_iso_blocker"],
+  "community_layouts": ["65_ansi_blocker_split_bs", "65_ansi_blocker_tsangan_split_bs", "65_iso_blocker", "65_iso_blocker_tsangan"],
+  "layout_aliases": {
+      "LAYOUT_default": "LAYOUT_65_ansi_blocker_split_bs",
+      "LAYOUT_wkl": "LAYOUT_65_ansi_blocker_tsangan_split_bs",
+      "LAYOUT_iso": "LAYOUT_65_iso_blocker_tsangan"
+  },
   "layouts": {
-    "LAYOUT_default": {
+    "LAYOUT_65_ansi_blocker_split_bs": {
       "layout": [
         {"matrix": [0, 0], "x": 0, "y": 0},
         {"matrix": [0, 1], "x": 1, "y": 0},
@@ -319,7 +324,7 @@
         {"matrix": [4, 10], "x": 15, "y": 4}
       ]
     },
-    "LAYOUT_wkl": {
+    "LAYOUT_65_ansi_blocker_tsangan_split_bs": {
       "layout": [
         {"matrix": [0, 0], "x": 0, "y": 0},
         {"matrix": [0, 1], "x": 1, "y": 0},
@@ -394,7 +399,7 @@
         {"matrix": [4, 10], "x": 15, "y": 4}
       ]
     },
-    "LAYOUT_iso": {
+    "LAYOUT_65_iso_blocker_tsangan": {
       "layout": [
         {"matrix": [0, 0], "x": 0, "y": 0},
         {"matrix": [0, 1], "x": 1, "y": 0},
