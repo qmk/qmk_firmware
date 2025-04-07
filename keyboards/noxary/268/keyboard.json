@@ -35,8 +35,8 @@
     "bootloader": "atmel-dfu",
     "community_layouts": ["65_ansi_blocker", "65_iso_blocker"],
     "layout_aliases": {
-        "LAYOUT_ansi": "65_ansi_blocker",
-        "LAYOUT_iso": "65_iso_blocker"
+        "LAYOUT_ansi": "LAYOUT_65_ansi_blocker",
+        "LAYOUT_iso": "LAYOUT_65_iso_blocker"
     },
     "layouts": {
         "LAYOUT_all": {
