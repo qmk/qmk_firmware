@@ -9,6 +9,12 @@
         "device_version": "0.0.1"
     },
     "diode_direction": "COL2ROW",
+    "community_layouts": ["60_ansi", "60_ansi_tsangan_split_bs", "60_iso"],
+    "layout_aliases": {
+        "LAYOUT_ansi": "LAYOUT_60_ansi",
+        "LAYOUT_tsangan_split_bs": "LAYOUT_60_ansi_tsangan_split_bs_rshift",
+        "LAYOUT_iso": "LAYOUT_60_iso"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -84,7 +90,7 @@
                 {"matrix": [4, 13], "x": 13.75, "y": 4, "w": 1.25}
             ]
         },
-        "LAYOUT_ansi": {
+        "LAYOUT_60_ansi": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
@@ -226,7 +232,7 @@
                 {"matrix": [4, 13], "x": 13.5, "y": 4, "w": 1.5}
             ]
         },
-        "LAYOUT_tsangan_split_bs": {
+        "LAYOUT_60_ansi_tsangan_split_bs_rshift": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
@@ -296,7 +302,7 @@
                 {"matrix": [4, 13], "x": 13.5, "y": 4, "w": 1.5}
             ]
         },
-        "LAYOUT_iso": {
+        "LAYOUT_60_iso": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
