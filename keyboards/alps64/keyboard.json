@@ -35,7 +35,10 @@
   },
   "processor": "atmega32u2",
   "bootloader": "atmel-dfu",
-  "community_layouts": ["60_ansi"],
+  "community_layouts": ["60_ansi", "60_iso_tsangan"],
+  "layout_aliases": {
+      "LAYOUT_iso" : "LAYOUT_60_iso_tsangan"
+  },
   "layouts": {
     "LAYOUT_all": {
       "layout": [
@@ -317,7 +320,7 @@
         {"matrix": [2, 0], "x": 13.5, "y": 4, "w": 1.5}
       ]
     },
-    "LAYOUT_iso": {
+    "LAYOUT_60_iso_tsangan": {
       "layout": [
         {"matrix": [3, 6], "x": 0, "y": 0},
         {"matrix": [3, 7], "x": 1, "y": 0},
