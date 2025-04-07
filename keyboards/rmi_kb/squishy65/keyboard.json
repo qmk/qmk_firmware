@@ -48,13 +48,13 @@
     "diode_direction": "COL2ROW",
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
-    "community_layouts": ["65_ansi_blocker", "65_iso_blocker"],
+    "community_layouts": ["65_ansi_blocker_split_bs", "65_iso_blocker"],
     "layout_aliases": {
-        "LAYOUT_ansi": "LAYOUT_65_ansi_blocker",
+        "LAYOUT_ansi": "LAYOUT_65_ansi_blocker_split_bs",
         "LAYOUT_iso": "LAYOUT_65_iso_blocker"
     },
     "layouts": {
-        "LAYOUT_65_ansi_blocker": {
+        "LAYOUT_65_ansi_blocker_split_bs": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
