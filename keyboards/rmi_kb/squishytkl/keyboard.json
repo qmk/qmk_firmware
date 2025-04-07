@@ -54,8 +54,13 @@
     },
     "processor": "STM32F103",
     "bootloader": "stm32duino",
+    "community_layouts": ["tkl_f13_ansi", "tkl_f13_iso"],
+    "layout_aliases": {
+        "LAYOUT_ansi": "LAYOUT_tkl_f13_ansi",
+        "LAYOUT_iso": "LAYOUT_tkl_f13_iso"
+    },
     "layouts": {
-        "LAYOUT_ansi": {
+        "LAYOUT_tkl_f13_ansi": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
 
@@ -161,7 +166,7 @@
                 {"matrix": [7, 25], "x": 17.25, "y": 5.25}
             ]
         },
-        "LAYOUT_iso": {
+        "LAYOUT_tkl_f13_iso": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
 
