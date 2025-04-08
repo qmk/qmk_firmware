@@ -1,5 +1,8 @@
 {
     "usb": {
         "pid": "0x2003"
+    },
+    "layout_aliases": {
+        "LAYOUT_all": "LAYOUT_65_ansi_blocker_split_bs"
     }
 }
