@@ -1,6 +1,6 @@
 #include QMK_KEYBOARD_H
 
-enum keymap_LAYOUT_75_ansi_split_space {
+enum keymap_layout {
     VANILLA = 0,
     FUNC,
     SETTINGS,
