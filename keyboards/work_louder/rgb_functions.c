@@ -14,10 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifdef RGBLIGHT_ENABLE
+
 #include "rgblight.h"
 #include "rgb_matrix.h"
 
-#ifdef RGBLIGHT_ENABLE
 #undef WS2812_DI_PIN
 #define WS2812_DI_PIN RGBLIGHT_DI_PIN
 
