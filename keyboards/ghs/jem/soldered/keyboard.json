@@ -2,7 +2,7 @@
     "usb": {
         "pid": "0x1003"
     },
-    "community_layouts": ["65_iso_blocker"],
+    "community_layouts": ["65_ansi_blocker", "65_ansi_blocker_split_bs", "65_iso_blocker"],
     "layout_aliases": {
         "LAYOUT_iso": "LAYOUT_65_iso_blocker"
     },

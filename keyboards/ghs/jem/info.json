@@ -45,7 +45,6 @@
     "ws2812": {
         "pin": "F4"
     },
-    "community_layouts": ["65_ansi_blocker", "65_ansi_blocker_split_bs"],
     "layout_aliases": {
         "LAYOUT_ansi": "LAYOUT_65_ansi_blocker"
     },

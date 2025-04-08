@@ -2,6 +2,7 @@
     "usb": {
         "pid": "0x2003"
     },
+    "community_layouts": ["65_ansi_blocker", "65_ansi_blocker_split_bs"],
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_65_ansi_blocker_split_bs"
     }
