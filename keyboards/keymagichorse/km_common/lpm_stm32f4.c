@@ -23,7 +23,10 @@
 #include "bhq.h"
 #include "report_buffer.h"
 #include "uart.h"
-#include "74hc595.h"
+
+#if SHIFT595_ENABLED
+#   include "74hc595.h"
+#endif
 
 static uint32_t     lpm_timer_buffer = 0;
 static bool         lpm_time_up               = false;
@@ -157,7 +160,9 @@ void enter_low_power_mode_prepare(void)
             palEnableLineEvent(wakeUpRow_pins[i], PAL_EVENT_MODE_RISING_EDGE);
         }
     }
+#if SHIFT595_ENABLED
     shift595_write_all_low();
+#endif
     for (i = 0; i < matrix_cols(); i++)
     { // set col output low level
         if(wakeUpCol_pins[i] == NO_PIN)
@@ -169,7 +174,10 @@ void enter_low_power_mode_prepare(void)
             gpio_write_pin_low(wakeUpCol_pins[i]);
         }
     }
+#if SHIFT595_ENABLED
     shift595_pin_sleep();
+#endif
+
 #endif
 
 
@@ -234,7 +242,11 @@ void lpm_task(void)
         usb_event_queue_init();
         init_usb_driver(&USBD1);
     }
-
+    
+    if (usb_power_connected()) 
+    {
+       return;
+    }
 
     if(report_buffer_is_empty() == false)
     {

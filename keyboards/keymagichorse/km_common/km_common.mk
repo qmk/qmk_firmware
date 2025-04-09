@@ -1,9 +1,13 @@
 MAKEFLAGS= -j 10
 
-SRC+= km_common/74hc595.c
 
 
-
+# 74HC595
+ifeq ($(strip $(SHIFT595_ENABLED)), yes)
+    OPT_DEFS += -DSHIFT595_ENABLED
+    VPATH += keyboards/keymagichorse/km_common/74hc595/
+    SRC += km_common/74hc595/74hc595.c
+endif
 
 ifeq ($(strip $(KM_DEBUG)), yes)
 	OPT_DEFS += -DKM_DEBUG

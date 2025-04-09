@@ -354,18 +354,13 @@ void keyboard_post_init_kb(void)
         .le_connection_interval_max = 30,
         .le_connection_interval_timeout = 500,
         .tx_poweer = 0x3D,    
-#if defined(KB_CHECK_BATTERY_ENABLED)
+
         // 用 QMK 端读取电池电压，则无需上报配置
         .mk_is_read_battery_voltage = FALSE,
         .mk_adc_pga = 1,
         .mk_rvd_r1 = 0,
         .mk_rvd_r2 = 0,
-#else
-        .mk_is_read_battery_voltage = TRUE,
-        .mk_adc_pga = 1,
-        .mk_rvd_r1 = BHQ_R_UPPER,
-        .mk_rvd_r2 = BHQ_R_LOWER,
-#endif
+
         .sleep_1_s = 120,            // 一级休眠功耗 （蓝牙保持连接 唤醒后发送按键有一定的延时）
         .sleep_2_s = 300,           // 二级休眠功耗（相当于关机模式 蓝牙会断开）
 
@@ -375,10 +370,6 @@ void keyboard_post_init_kb(void)
     wait_ms(500);
     bhq_ConfigRunParam(model_parma);    // 将配置信息发送到无线模块中
 
-
-    // 这里枚举 + 蓝牙通道就能计算出 KB_BLE_1_MODE、KB_BLE_2_MODE、KB_BLE_3_MODE
-    user_config.transfer_mode = KB_BLE_1_MODE + key_ble_host_index;  
-    eeconfig_update_user(user_config.raw);
 #endif
 }
 
