@@ -32,6 +32,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "quantum.h"
 
+/* #undef ac_dprintf */
+/* #include <stdio.h> */
+/* #define ac_dprintf(fmt, ...) printf(fmt, ##__VA_ARGS__) */
+
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
 #endif
@@ -1181,6 +1185,15 @@ bool is_tap_action(action_t action) {
             return false;
     }
     return false;
+}
+
+uint16_t get_tap_keycode(uint16_t keycode) {
+    if (IS_QK_MOD_TAP(keycode)) {
+        return QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
+    } else if (IS_QK_LAYER_TAP(keycode)) {
+        return QK_LAYER_TAP_GET_TAP_KEYCODE(keycode);
+    }
+    return keycode;
 }
 
 /** \brief Debug print (FIXME: Needs better description)
