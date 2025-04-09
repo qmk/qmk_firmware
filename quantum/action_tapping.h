@@ -165,8 +165,8 @@ bool is_tap_flow_key(uint16_t keycode);
  * @param prev_keycode Keycode of the previously pressed key.
  * @return Time in milliseconds.
  */
-uint16_t get_tap_flow_term(uint16_t keycode, keyrecord_t* record, uint16_t prev_keycode);
-#endif  // TAP_FLOW_TERM
+uint16_t get_tap_flow_term(uint16_t keycode, keyrecord_t *record, uint16_t prev_keycode);
+#endif // TAP_FLOW_TERM
 
 #ifdef DYNAMIC_TAPPING_TERM_ENABLE
 extern uint16_t g_tapping_term;

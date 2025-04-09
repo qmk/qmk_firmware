@@ -28,9 +28,9 @@ class TapFlowTest : public TestFixture {};
 TEST_F(TapFlowTest, short_tap_flow_settled_as_tapped) {
     TestDriver driver;
     InSequence s;
-    auto regular_key = KeymapKey(0, 0, 0, KC_A);
-    auto mod_tap_key1 = KeymapKey(0, 1, 0, SFT_T(KC_B));
-    auto mod_tap_key2 = KeymapKey(0, 2, 0, CTL_T(KC_C));
+    auto       regular_key  = KeymapKey(0, 0, 0, KC_A);
+    auto       mod_tap_key1 = KeymapKey(0, 1, 0, SFT_T(KC_B));
+    auto       mod_tap_key2 = KeymapKey(0, 2, 0, CTL_T(KC_C));
 
     set_keymap({regular_key, mod_tap_key1, mod_tap_key2});
 
@@ -71,8 +71,8 @@ TEST_F(TapFlowTest, short_tap_flow_settled_as_tapped) {
 TEST_F(TapFlowTest, long_tap_flow_settled_as_held) {
     TestDriver driver;
     InSequence s;
-    auto regular_key = KeymapKey(0, 0, 0, KC_A);
-    auto mod_tap_key = KeymapKey(0, 1, 0, SFT_T(KC_B));
+    auto       regular_key = KeymapKey(0, 0, 0, KC_A);
+    auto       mod_tap_key = KeymapKey(0, 1, 0, SFT_T(KC_B));
 
     set_keymap({regular_key, mod_tap_key});
 
@@ -107,9 +107,9 @@ TEST_F(TapFlowTest, long_tap_flow_settled_as_held) {
 TEST_F(TapFlowTest, holding_multiple_mod_taps) {
     TestDriver driver;
     InSequence s;
-    auto regular_key = KeymapKey(0, 0, 0, KC_A);
-    auto mod_tap_key1 = KeymapKey(0, 1, 0, SFT_T(KC_B));
-    auto mod_tap_key2 = KeymapKey(0, 2, 0, CTL_T(KC_C));
+    auto       regular_key  = KeymapKey(0, 0, 0, KC_A);
+    auto       mod_tap_key1 = KeymapKey(0, 1, 0, SFT_T(KC_B));
+    auto       mod_tap_key2 = KeymapKey(0, 2, 0, CTL_T(KC_C));
 
     set_keymap({regular_key, mod_tap_key1, mod_tap_key2});
 
@@ -128,7 +128,7 @@ TEST_F(TapFlowTest, holding_multiple_mod_taps) {
     mod_tap_key1.press();
     run_one_scan_loop();
     mod_tap_key2.press();
-    idle_for(TAPPING_TERM - 5);  // Hold almost until tapping term.
+    idle_for(TAPPING_TERM - 5); // Hold almost until tapping term.
     VERIFY_AND_CLEAR(driver);
 
     // Press regular key.
@@ -155,9 +155,9 @@ TEST_F(TapFlowTest, holding_multiple_mod_taps) {
 TEST_F(TapFlowTest, layer_tap_key) {
     TestDriver driver;
     InSequence s;
-    auto regular_key = KeymapKey(0, 0, 0, KC_A);
-    auto layer_tap_key = KeymapKey(0, 1, 0, LT(1, KC_B));
-    auto regular_key2 = KeymapKey(1, 0, 0, KC_C);
+    auto       regular_key   = KeymapKey(0, 0, 0, KC_A);
+    auto       layer_tap_key = KeymapKey(0, 1, 0, LT(1, KC_B));
+    auto       regular_key2  = KeymapKey(1, 0, 0, KC_C);
 
     set_keymap({regular_key, layer_tap_key, regular_key2});
 
@@ -219,9 +219,9 @@ TEST_F(TapFlowTest, layer_tap_key) {
 TEST_F(TapFlowTest, combo_key) {
     TestDriver driver;
     InSequence s;
-    auto regular_key = KeymapKey(0, 0, 0, KC_A);
-    auto mod_tap_key = KeymapKey(0, 1, 0, SFT_T(KC_X));
-    auto layer_tap_key = KeymapKey(0, 2, 0, LT(1, KC_Y));
+    auto       regular_key   = KeymapKey(0, 0, 0, KC_A);
+    auto       mod_tap_key   = KeymapKey(0, 1, 0, SFT_T(KC_X));
+    auto       layer_tap_key = KeymapKey(0, 2, 0, LT(1, KC_Y));
 
     set_keymap({regular_key, mod_tap_key, layer_tap_key});
 
@@ -253,8 +253,8 @@ TEST_F(TapFlowTest, combo_key) {
 TEST_F(TapFlowTest, oneshot_mod_key) {
     TestDriver driver;
     InSequence s;
-    auto regular_key = KeymapKey(0, 0, 0, KC_A);
-    auto osm_key = KeymapKey(0, 1, 0, OSM(MOD_LSFT));
+    auto       regular_key = KeymapKey(0, 0, 0, KC_A);
+    auto       osm_key     = KeymapKey(0, 1, 0, OSM(MOD_LSFT));
 
     set_keymap({regular_key, osm_key});
 
@@ -265,9 +265,7 @@ TEST_F(TapFlowTest, oneshot_mod_key) {
     VERIFY_AND_CLEAR(driver);
 
     // Tap OSM, tap regular key.
-    EXPECT_CALL(driver, send_keyboard_mock(
-                KeyboardReport(KC_LSFT)))
-        .Times(AnyNumber());
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT))).Times(AnyNumber());
     EXPECT_REPORT(driver, (KC_LSFT, KC_A));
     EXPECT_EMPTY_REPORT(driver);
     tap_key(osm_key);
@@ -275,9 +273,7 @@ TEST_F(TapFlowTest, oneshot_mod_key) {
     VERIFY_AND_CLEAR(driver);
 
     // Nested press of OSM and regular keys.
-    EXPECT_CALL(driver, send_keyboard_mock(
-                KeyboardReport(KC_LSFT)))
-        .Times(AnyNumber());
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT))).Times(AnyNumber());
     EXPECT_REPORT(driver, (KC_LSFT, KC_A));
     EXPECT_EMPTY_REPORT(driver);
     osm_key.press();
@@ -291,7 +287,7 @@ TEST_F(TapFlowTest, oneshot_mod_key) {
 TEST_F(TapFlowTest, quick_tap) {
     TestDriver driver;
     InSequence s;
-    auto mod_tap_key = KeymapKey(0, 1, 0, SFT_T(KC_A));
+    auto       mod_tap_key = KeymapKey(0, 1, 0, SFT_T(KC_A));
 
     set_keymap({mod_tap_key});
 

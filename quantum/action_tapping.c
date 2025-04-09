@@ -11,7 +11,6 @@
 /* #include <stdio.h> */
 /* #define ac_dprintf(fmt, ...) printf(fmt, ##__VA_ARGS__) */
 
-
 #ifndef NO_ACTION_TAPPING
 
 #    if defined(IGNORE_MOD_TAP_INTERRUPT_PER_KEY)
@@ -106,10 +105,10 @@ __attribute__((weak)) bool get_hold_on_other_key_press(uint16_t keycode, keyreco
 #    endif
 
 #    if defined(TAP_FLOW_TERM)
-static uint32_t last_input = 0;
+static uint32_t last_input   = 0;
 static uint16_t prev_keycode = KC_NO;
 
-uint16_t get_tap_flow_term(uint16_t keycode, keyrecord_t* record, uint16_t prev_keycode);
+uint16_t get_tap_flow_term(uint16_t keycode, keyrecord_t *record, uint16_t prev_keycode);
 #    endif // defined(TAP_FLOW_TERM)
 
 static keyrecord_t tapping_key                         = {};
@@ -173,7 +172,7 @@ void action_tapping_process(keyrecord_t record) {
         if (IS_NOEVENT(tapping_key.event) && !IS_MODIFIER_KEYCODE(keycode)) {
             last_input = timer_read32();
         }
-#    endif// defined(TAP_FLOW_TERM)
+#    endif // defined(TAP_FLOW_TERM)
         ac_dprintf("\n");
     }
 }
@@ -259,14 +258,13 @@ bool process_tapping(keyrecord_t *keyp) {
             const uint16_t keycode = get_record_keycode(keyp, false);
             if (is_mt_or_lt(keycode)) {
                 const uint32_t idle_time = timer_elapsed32(last_input);
-                uint16_t term = get_tap_flow_term(keycode, keyp, prev_keycode);
+                uint16_t       term      = get_tap_flow_term(keycode, keyp, prev_keycode);
                 if (term > 500) {
                     term = 500;
                 }
                 if (idle_time < 500 && idle_time < term) {
                     debug_event(keyp->event);
-                    ac_dprintf(" within tap flow term (%u < %u) considered a tap\n",
-                               (int16_t)idle_time, term);
+                    ac_dprintf(" within tap flow term (%u < %u) considered a tap\n", (int16_t)idle_time, term);
                     keyp->tap.count = 1;
                     registered_taps_add(keyp->event.key);
                     debug_registered_taps();
@@ -831,7 +829,7 @@ __attribute__((weak)) bool is_tap_flow_key(uint16_t keycode) {
     return false;
 }
 
-__attribute__((weak)) uint16_t get_tap_flow_term(uint16_t keycode, keyrecord_t* record, uint16_t prev_keycode) {
+__attribute__((weak)) uint16_t get_tap_flow_term(uint16_t keycode, keyrecord_t *record, uint16_t prev_keycode) {
     if (is_tap_flow_key(keycode) && is_tap_flow_key(prev_keycode)) {
         return TAP_FLOW_TERM;
     }
