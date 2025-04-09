@@ -28,7 +28,7 @@
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
-    "community_layouts": ["65_ansi_blocker"],
+    "community_layouts": ["65_ansi_blocker", "65_ansi_blocker_tsangan"],
     "layouts": {
         "LAYOUT_65_ansi_blocker": {
             "layout": [

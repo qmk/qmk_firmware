@@ -55,7 +55,7 @@
             "resync": true
         }
     },
-    "community_layouts": ["65_iso", "65_ansi"],
+    "community_layouts": ["65_iso", "65_ansi", "65_ansi_blocker"],
     "layouts": {
         "LAYOUT_65_ansi": {
             "layout": [

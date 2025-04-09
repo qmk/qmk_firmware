@@ -16,6 +16,7 @@
     "indicators": {
         "caps_lock": "A4"
     },
+    "community_layouts": ["65_ansi_blocker", "65_iso_blocker"],
      "layouts": {
         "LAYOUT_all": {
             "layout": [
