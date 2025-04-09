@@ -17,7 +17,6 @@
 #ifdef RGBLIGHT_ENABLE
 
 #include "rgblight.h"
-#include "rgb_matrix.h"
 
 #undef WS2812_DI_PIN
 #define WS2812_DI_PIN RGBLIGHT_DI_PIN
