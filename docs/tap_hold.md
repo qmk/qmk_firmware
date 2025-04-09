@@ -441,9 +441,7 @@ By default, Tap Flow is enabled when:
 
 * The tapping keycodes of the previous key and tap-hold key are *both* among `KC_A`&ndash;`KC_Z`, `KC_COMM`, `KC_DOT`, `KC_SCLN`, `KC_SLSH` (the main alphas area of a conventional QWERTY layout) or `KC_SPC`.
 
-As an exception to the above, Tap Flow is temporarily disabled while a tap-hold
-key is undecided. This is to allow chording multiple mod-tap keys without having
-to wait out the Tap Flow term.
+As an exception to the above, Tap Flow is temporarily disabled while a tap-hold key is undecided. This is to allow chording multiple mod-tap keys without having to wait out the Tap Flow term.
 
 
 ### is_tap_flow_key()
@@ -504,8 +502,7 @@ uint16_t get_tap_flow_term(uint16_t keycode, keyrecord_t* record,
 }
 ```
 
-::: tip If you define both `is_tap_flow_key()` and `get_tap_flow_term()`, then
- the latter takes precedence.
+::: tip If you define both `is_tap_flow_key()` and `get_tap_flow_term()`, then the latter takes precedence.
 :::
 
 ## Chordal Hold

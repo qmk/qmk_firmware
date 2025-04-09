@@ -208,6 +208,7 @@
     "RETRO_TAPPING": {"info_key": "tapping.retro", "value_type": "flag"},
     "RETRO_TAPPING_PER_KEY": {"info_key": "tapping.retro_per_key", "value_type": "flag"},
     "TAP_CODE_DELAY": {"info_key": "qmk.tap_keycode_delay", "value_type": "int"},
+    "TAP_FLOW_TERM": {"info_key": "tapping.tap_flow_term", "value_type": "int"},
     "TAP_HOLD_CAPS_DELAY": {"info_key": "qmk.tap_capslock_delay", "value_type": "int"},
     "TAPPING_TERM": {"info_key": "tapping.term", "value_type": "int"},
     "TAPPING_TERM_PER_KEY": {"info_key": "tapping.term_per_key", "value_type": "flag"},
