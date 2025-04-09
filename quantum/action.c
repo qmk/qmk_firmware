@@ -32,10 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "quantum.h"
 
-/* #undef ac_dprintf */
-/* #include <stdio.h> */
-/* #define ac_dprintf(fmt, ...) printf(fmt, ##__VA_ARGS__) */
-
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
 #endif

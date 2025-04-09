@@ -7,10 +7,6 @@
 #include "keycode.h"
 #include "timer.h"
 
-/* #undef ac_dprintf */
-/* #include <stdio.h> */
-/* #define ac_dprintf(fmt, ...) printf(fmt, ##__VA_ARGS__) */
-
 #ifndef NO_ACTION_TAPPING
 
 #    if defined(IGNORE_MOD_TAP_INTERRUPT_PER_KEY)
