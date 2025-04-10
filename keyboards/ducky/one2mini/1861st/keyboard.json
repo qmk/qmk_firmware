@@ -25,7 +25,7 @@
     "layout_aliases": {
         "LAYOUT_iso": "LAYOUT_60_iso"
     },
-    "community_layouts": ["60_ansi", "60_ansi_tsangan", "60_iso"],
+    "community_layouts": ["60_ansi", "60_iso"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
