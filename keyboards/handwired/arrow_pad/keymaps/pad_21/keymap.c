@@ -12,7 +12,7 @@
     k19,      k1A, k17 \
 ) { \
     { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A }, \
-    { k10, k11, k12, k13, k14, k15, k16, k17, XXX, k19, k1A } \
+    { k10, k11, k12, k13, k14, k15, k16, k17, KC_NO, k19, k1A } \
 }
 
 enum layers {
@@ -113,21 +113,19 @@ bool led_update_user(led_t led_state)
 {
     if (led_state.caps_lock) {
         // output high
-        DDRD |= (1<<6);
-        PORTD |= (1<<6);
+        gpio_set_pin_output(D6);
+        gpio_write_pin_high(D6);
     } else {
         // Hi-Z
-        DDRD &= ~(1<<6);
-        PORTD &= ~(1<<6);
+        gpio_set_pin_input(D6);
     }
     if (led_state.num_lock) {
         // output low
-        DDRC |= (1<<7);
-        PORTC |= ~(1<<7);
+        gpio_set_pin_output(C7);
+        gpio_write_pin_low(C7);
     } else {
         // Hi-Z
-        DDRC &= ~(1<<7);
-        PORTC &= ~(1<<7);
+        gpio_set_pin_input(C7);
     }
     return false;
 }

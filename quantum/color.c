@@ -19,8 +19,8 @@
 #include "progmem.h"
 #include "util.h"
 
-RGB hsv_to_rgb_impl(HSV hsv, bool use_cie) {
-    RGB      rgb;
+rgb_t hsv_to_rgb_impl(hsv_t hsv, bool use_cie) {
+    rgb_t    rgb;
     uint8_t  region, remainder, p, q, t;
     uint16_t h, s, v;
 
@@ -97,7 +97,7 @@ RGB hsv_to_rgb_impl(HSV hsv, bool use_cie) {
     return rgb;
 }
 
-RGB hsv_to_rgb(HSV hsv) {
+rgb_t hsv_to_rgb(hsv_t hsv) {
 #ifdef USE_CIE1931_CURVE
     return hsv_to_rgb_impl(hsv, true);
 #else
@@ -105,17 +105,6 @@ RGB hsv_to_rgb(HSV hsv) {
 #endif
 }
 
-RGB hsv_to_rgb_nocie(HSV hsv) {
+rgb_t hsv_to_rgb_nocie(hsv_t hsv) {
     return hsv_to_rgb_impl(hsv, false);
 }
-
-#ifdef RGBW
-void convert_rgb_to_rgbw(rgb_led_t *led) {
-    // Determine lowest value in all three colors, put that into
-    // the white channel and then shift all colors by that amount
-    led->w = MIN(led->r, MIN(led->g, led->b));
-    led->r -= led->w;
-    led->g -= led->w;
-    led->b -= led->w;
-}
-#endif

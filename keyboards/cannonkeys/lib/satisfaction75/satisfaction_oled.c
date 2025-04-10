@@ -2,6 +2,14 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "satisfaction_core.h"
+#include "action_layer.h"
+#include "action_util.h"
+#include "timer.h"
+#include "matrix.h"
+#include "led.h"
+#include "host.h"
+#include "oled_driver.h"
+#include "progmem.h"
 #include <stdio.h>
 
 void draw_default(void);

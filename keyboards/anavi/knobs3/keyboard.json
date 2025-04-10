@@ -1,0 +1,68 @@
+{
+    "keyboard_name": "Knobs 3",
+    "manufacturer": "ANAVI",
+    "url": "https://github.com/AnaviTechnology/anavi-knobs-3",
+    "maintainer": "leon-anavi",
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "matrix_pins": {
+        "direct": [
+            ["GP26", "GP29", "GP0"]
+        ]
+    },
+    "features": {
+        "bootmagic": false,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": false,
+        "nkro": true,
+        "rgblight": true,
+        "oled": true
+    },
+    "rgblight": {
+        "led_count": 1,
+        "hue_steps": 10,
+        "saturation_steps": 17,
+        "brightness_steps": 17,
+        "max_brightness": 255,
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        }
+    },
+    "ws2812": {
+        "pin": "GP12",
+        "driver": "vendor"
+    },
+    "encoder": {
+    "enabled": true,
+        "rotary": [
+            {"pin_a": "GP27", "pin_b": "GP28", "resolution": 2},
+            {"pin_a": "GP4", "pin_b": "GP3", "resolution": 2},
+            {"pin_a": "GP1", "pin_b": "GP2", "resolution": 2}
+        ]
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label": "Mute", "x": 0, "y": 0, "matrix": [0, 0]},
+                {"label": "RGB", "x": 0, "y": 1, "matrix": [0, 1]},
+                {"label": "Animation", "x": 0, "y": 2, "matrix": [0, 2]}
+            ]
+        }
+    },
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x9A25",
+        "vid": "0xFEED"
+    }
+}

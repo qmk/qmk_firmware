@@ -30,10 +30,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                KC_LEFT,    KC_DOWN, KC_RGHT,                KC_P0,      KC_PDOT,        KC_PENT),
    [_FN] = LAYOUT(
                KC_TRNS,             KC_TRNS, KC_TRNS,           KC_TRNS, KC_TRNS,               KC_TRNS, QK_BOOTLOADER,
-               RGB_TOG,   RGB_HUI, RGB_MODE_FORWARD,  KC_TRNS,  KC_TRNS,   KC_TRNS, KC_TRNS,
-               KC_TRNS,             RGB_HUD, RGB_MODE_REVERSE,  KC_TRNS, KC_TRNS, KC_TRNS,
+               RM_TOGG,   RM_HUEU, RM_NEXT,  KC_TRNS,  KC_TRNS,   KC_TRNS, KC_TRNS,
+               KC_TRNS,             RM_HUED, RM_PREV,  KC_TRNS, KC_TRNS, KC_TRNS,
                                                                 KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,
-                        RGB_VAI,                                KC_TRNS, KC_TRNS, KC_TRNS,
-               RGB_SPD, RGB_VAD, RGB_SPI,                       KC_TRNS, KC_TRNS, QK_CLEAR_EEPROM),
+                        RM_VALU,                                KC_TRNS, KC_TRNS, KC_TRNS,
+               RM_SPDD, RM_VALD, RM_SPDU,                       KC_TRNS, KC_TRNS, QK_CLEAR_EEPROM),
 };
 

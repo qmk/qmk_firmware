@@ -21,7 +21,7 @@
 #ifndef DRAWING_TOY_MODE
 static uint16_t led_frame_timer = 0;
 
-void matrix_scan_kb(void) {
+void housekeeping_task_kb(void) {
     if (timer_elapsed(led_frame_timer) > 100) {
         max7219_message_sign_task(true);
         led_frame_timer = timer_read();
@@ -90,18 +90,15 @@ void matrix_init_kb(void) {
 #elif defined(DRAWING_TOY_MODE)
     max7219_set_led(0, 0, true);
 #endif
-}
 
-__attribute__ ((weak))
-bool encoder_update_keymap(int8_t index, bool clockwise) {
-    return false;
+    matrix_init_user();
 }
 
 #define NUM_COLUMNS 8*MAX7219_CONTROLLERS
 uint8_t led_position[2] = {0,0};  // The location of the cursor in the matrix
 
 bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_keymap(index, clockwise)) {
+    if (encoder_update_user(index, clockwise)) {
 #if defined(DRAWING_TOY_MODE)
         // Encoder 1, left
         if (index == 0 && clockwise) {

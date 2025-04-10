@@ -3,7 +3,8 @@
 
 #pragma once
 
-#include "quantum.h"
+#include <stdint.h>
+#include <stdbool.h>
 
 #include "via.h" // only for EEPROM address
 #include "satisfaction_keycodes.h"

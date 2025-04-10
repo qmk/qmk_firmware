@@ -23,7 +23,6 @@
     "nkro": true,
     "quantum_painter": true,
     "rgb_matrix": true,
-    "unicode": false,
     "usbpd": true,
     "wpm": true
   },
@@ -31,6 +30,9 @@
     "custom_lite": true,
     "rows": ["B13", "B14", "B15", "C6", "C7", "C8"],
     "cols": ["C0", "C1", "C2", "C3", "A0", "A1", "A2"]
+  },
+  "audio": {
+    "driver": "pwm_software"
   },
   "backlight": {
     "pin": "A7",
@@ -52,6 +54,9 @@
         ]
       }
     },
+    "serial": {
+      "driver": "usart"
+    },
     "transport": {
       "sync": {
           "activity": true,
@@ -68,8 +73,11 @@
       {"pin_a": "C14", "pin_b": "C15", "resolution": 2}
     ]
   },
+  "layout_aliases": {
+    "LAYOUT_all": "LAYOUT"
+  },
   "layouts": {
-    "LAYOUT_all": {
+    "LAYOUT": {
       "layout": [
         {"matrix": [0, 0], "label": "Esc", "x": 0, "y": 0.88},
         {"matrix": [0, 1], "label": "1", "x": 1, "y": 0.63},

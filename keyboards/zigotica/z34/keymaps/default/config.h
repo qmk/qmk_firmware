@@ -16,6 +16,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-// EE_HANDS MASTER_RIGHT MASTER_LEFT
 #define MASTER_RIGHT

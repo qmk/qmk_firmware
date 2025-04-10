@@ -17,14 +17,14 @@
 #include "woodpad.h"
 
 void keyboard_pre_init_kb(void) {
-    setPinOutput(F7);
+    gpio_set_pin_output(F7);
     keyboard_pre_init_user();
 }
 
 inline void numlock_led_on(void) {
-    writePinHigh(F7);
+    gpio_write_pin_high(F7);
 }
 
 inline void numlock_led_off(void) {
-    writePinLow(F7);
+    gpio_write_pin_low(F7);
 }

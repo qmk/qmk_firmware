@@ -31,4 +31,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define IS31FL3741_I2C_ADDRESS_1 IS31FL3741_I2C_ADDRESS_GND
 
-#define RGB_MATRIX_DISABLE_KEYCODES 
+#define RGB_MATRIX_DISABLE_SHARED_KEYCODES
