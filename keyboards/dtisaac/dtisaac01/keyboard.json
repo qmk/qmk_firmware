@@ -36,10 +36,7 @@
     "layout_aliases": {
         "LAYOUT": "LAYOUT_tkl_ansi"
     },
-    "community_layouts": [
-        "tkl_ansi",
-        "tkl_ansi_tsangan"
-    ],
+    "community_layouts": ["tkl_ansi", "tkl_ansi_tsangan", "tkl_ansi_wkl"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

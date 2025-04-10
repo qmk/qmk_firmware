@@ -48,7 +48,7 @@
         "driver": "pwm",
         "pin": "A9"
     },
-    "community_layouts": ["tkl_ansi_tsangan"],
+    "community_layouts": ["tkl_ansi_tsangan", "tkl_ansi_wkl"],
     "layouts": {
         "LAYOUT_tkl_ansi_tsangan": {
             "layout": [

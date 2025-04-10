@@ -23,6 +23,7 @@
     "layout_aliases": {
         "LAYOUT": "LAYOUT_all"
     },
+    "community_layouts": ["tkl_f13_ansi", "tkl_f13_ansi_split_bs_rshift", "tkl_f13_iso", "tkl_f13_iso_split_bs_rshift"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

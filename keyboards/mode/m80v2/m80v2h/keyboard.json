@@ -36,6 +36,7 @@
     "layout_aliases": {
         "LAYOUT_m80v2h": "LAYOUT_tkl_ansi"
     },
+    "community_layouts": ["tkl_ansi"],
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [

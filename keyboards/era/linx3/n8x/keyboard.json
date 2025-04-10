@@ -35,7 +35,7 @@
         "pid": "0x0007",
         "vid": "0x4552"
     },
-    "community_layouts": ["tkl_ansi", "tkl_ansi_split_bs_rshift", "tkl_ansi_tsangan", "tkl_ansi_tsangan_split_bs_rshift", "tkl_iso", "tkl_iso_split_bs_rshift", "tkl_iso_tsangan", "tkl_iso_tsangan_split_bs_rshift"],
+    "community_layouts": ["tkl_ansi", "tkl_ansi_split_bs_rshift", "tkl_ansi_tsangan", "tkl_ansi_tsangan_split_bs_rshift", "tkl_ansi_wkl", "tkl_ansi_wkl_split_bs_rshift", "tkl_iso", "tkl_iso_split_bs_rshift", "tkl_iso_tsangan", "tkl_iso_tsangan_split_bs_rshift", "tkl_iso_wkl", "tkl_iso_wkl_split_bs_rshift"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -1134,7 +1134,7 @@
                 {"matrix": [5, 15], "x": 16.25, "y": 5.25},
                 {"matrix": [5, 16], "x": 17.25, "y": 5.25}
             ]
-        }
+        },
         "LAYOUT_tkl_iso_wkl_split_bs_rshift": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},

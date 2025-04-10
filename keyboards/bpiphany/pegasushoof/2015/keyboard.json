@@ -9,7 +9,7 @@
         "scroll_lock": "C5",
         "on_state": 0
     },
-    "community_layouts": ["tkl_ansi", "tkl_jis"],
+    "community_layouts": ["tkl_ansi", "tkl_iso", "tkl_jis"],
     "layouts": {
         "LAYOUT": {
             "layout": [

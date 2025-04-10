@@ -52,6 +52,7 @@
     "LAYOUT_87_wkl_split_lshift": "LAYOUT_tkl_f13_ansi_wkl_split_lshift",
     "LAYOUT_87_wkl_split_rshift": "LAYOUT_tkl_f13_ansi_wkl_split_rshift"
   },
+  "community_layouts": ["tkl_f13_ansi_wkl", "tkl_f13_ansi_wkl_split_bs_rshift", "tkl_f13_iso_wkl"],
   "layouts": {
     "LAYOUT_all": {
       "layout": [

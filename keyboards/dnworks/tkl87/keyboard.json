@@ -25,7 +25,7 @@
         "rows": ["GP2", "GP3", "GP4", "GP29", "GP12", "GP13"],
         "cols": ["GP28", "GP26", "GP25", "GP24", "GP23", "GP22", "GP21", "GP20", "GP19", "GP18", "GP17", "GP16", "GP15", "GP14", "GP6", "GP5", "GP0"]
     },
-    "community_layouts": ["tkl_ansi_tsangan", "tkl_iso_tsangan"],
+    "community_layouts": ["tkl_ansi_tsangan", "tkl_ansi_wkl", "tkl_iso_tsangan", "tkl_iso_wkl"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
