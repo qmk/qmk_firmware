@@ -2,7 +2,7 @@
 
 ![slothie60](https://i.imgur.com/vXrQs6w.png)
 
-*60% ISO keyboard, support for GH60-cases, RGB underglow and split space.*
+*60% ISO keyboard, support for GH60-cases, RGB underglow.*
 
 * Keyboard Maintainer: [makkomise](https://github.com/makkomise)
 * Hardware Availability: [github/makkomise/slothie60](https://github.com/makkomise/slothie60)
