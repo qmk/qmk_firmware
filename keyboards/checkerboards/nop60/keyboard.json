@@ -63,6 +63,7 @@
         "LAYOUT_7u": "LAYOUT_60_ansi_tsangan_split_bs_rshift",
         "LAYOUT_60_tsangan_hhkb_split_space": "LAYOUT_60_ansi_tsangan_split_bs_rshift_split_space"
     },
+    "community_layouts": ["60_ansi_tsangan_split_bs_rshift"],
     "layouts": {
         "LAYOUT_60_ansi_tsangan_split_bs_rshift_split_space": {
             "layout": [

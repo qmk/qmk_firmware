@@ -41,6 +41,21 @@
         "LAYOUT_60_tsangan_hhkb": "LAYOUT_60_ansi_tsangan_split_bs_rshift",
         "LAYOUT_60_tsangan_hhkb_10u_space": "LAYOUT_60_ansi_tsangan_split_bs_rshift_10u_space"
     },
+    "community_layouts": [
+        "60_ansi",
+        "60_ansi_split_bs_rshift",
+        "60_ansi_tsangan",
+        "60_ansi_tsangan_split_bs_rshift",
+        "60_ansi_wkl",
+        "60_ansi_wkl_split_bs_rshift",
+        "60_hhkb",
+        "60_iso",
+        "60_iso_split_bs_rshift",
+        "60_iso_tsangan",
+        "60_iso_tsangan_split_bs_rshift",
+        "60_iso_wkl",
+        "60_iso_wkl_split_bs_rshift"
+    ],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
