@@ -106,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-void eeconfig_init_kb(void)
+void eeconfig_init_user(void)
 {
     // 上电先读取一次
     user_config.raw = eeconfig_read_user();
@@ -116,6 +116,7 @@ void eeconfig_init_kb(void)
         // 表示没有被初始化过
         user_config.transfer_mode = KB_USB_MODE;    // 默认先初始化为USB
         set_output(OUTPUT_USB);
+        eeconfig_update_user(user_config.raw);
         return;
     }
     
@@ -377,9 +378,7 @@ void keyboard_post_init_kb(void)
 void BHQ_State_Call(uint8_t cmdid, uint8_t *dat) 
 {
 
-    advertSta = BHQ_GET_BLE_ADVERT_STA(dat[1]);
-    connectSta = BHQ_GET_BLE_CONNECT_STA(dat[1]);
-    pairingSta = BHQ_GET_BLE_PAIRING_STA(dat[1]);
+
 #if defined(RGBLIGHT_ENABLE) 
     rgblight_disable();
     rgb_adv_unblink_all_layer();
@@ -387,6 +386,10 @@ void BHQ_State_Call(uint8_t cmdid, uint8_t *dat)
     km_printf("keymape:cmdid:%d\r\n",cmdid);
     if(cmdid == BHQ_ACK_RUN_STA_CMDID)
     {
+        advertSta = BHQ_GET_BLE_ADVERT_STA(dat[1]);
+        connectSta = BHQ_GET_BLE_CONNECT_STA(dat[1]);
+        pairingSta = BHQ_GET_BLE_PAIRING_STA(dat[1]);
+        
         km_printf("[RSSI:%d]\t",dat[0]);
         km_printf("[advertSta: %d]\t", advertSta);
         km_printf("[connectSta: %d]\t", connectSta); // 0 = 断开, 1 = 已连接, 2 = 超时
