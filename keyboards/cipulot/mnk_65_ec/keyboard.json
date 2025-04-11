@@ -25,6 +25,7 @@
         "pid": "0x6BB5",
         "vid": "0x6369"
     },
+    "community_layouts": ["65_ansi_blocker_tsangan"],
     "layouts": {
         "LAYOUT_65_ansi_blocker_tsangan": {
             "layout": [
