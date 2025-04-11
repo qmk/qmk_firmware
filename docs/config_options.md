@@ -156,6 +156,8 @@ If you define these options you will enable the associated feature, which may in
   * See [Retro Tapping](tap_hold#retro-tapping) for details
 * `#define RETRO_TAPPING_PER_KEY`
   * enables handling for per key `RETRO_TAPPING` settings
+* `#define RETRO_TAPPING_TIMEOUT 500`
+  * how long until `RETRO_TAPPING` times out
 * `#define TAPPING_TOGGLE 2`
   * how many taps before triggering the toggle
 * `#define PERMISSIVE_HOLD`
