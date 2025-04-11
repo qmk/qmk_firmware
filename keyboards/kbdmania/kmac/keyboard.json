@@ -31,7 +31,7 @@
       "resync": true
     }
   },
-  "community_layouts": ["tkl_ansi"],
+  "community_layouts": ["tkl_ansi", "tkl_ansi_wkl"],
   "layouts": {
     "LAYOUT_tkl_ansi": {
       "layout": [

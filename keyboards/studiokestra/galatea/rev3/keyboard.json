@@ -53,6 +53,7 @@
             "twinkle": true
             }
     },
+    "community_layouts": ["tkl_f13_ansi", "tkl_f13_iso"],
     "layouts": {
         "LAYOUT": {
             "layout": [
