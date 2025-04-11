@@ -21,7 +21,8 @@
             { "text": "Debugging QMK", "link": "/faq_debug" },
             { "text": "Keymap FAQ", "link": "/faq_keymap" },
             { "text": "Squeezing Space from AVR", "link": "/squeezing_avr" },
-            { "text": "Glossary", "link": "/reference_glossary" }
+            { "text": "Glossary", "link": "/reference_glossary" },
+            { "text": "License Violations", "link": "/license_violations" }
         ]
     },
     {
@@ -59,6 +60,7 @@
                 "items": [
                     { "text": "Customizing Functionality", "link": "/custom_quantum_functions" },
                     { "text": "Driver Installation with Zadig", "link": "/driver_installation_zadig" },
+                    { "text": "Community Modules", "link": "/features/community_modules" },
                     { "text": "Keymap Overview", "link": "/keymap" },
                     {
                         "text": "Development Environments",
@@ -123,6 +125,7 @@
                     { "text": "Key Lock", "link": "/features/key_lock" },
                     { "text": "Key Overrides", "link": "/features/key_overrides" },
                     { "text": "Layers", "link": "/feature_layers" },
+                    { "text": "Layer Lock", "link": "/features/layer_lock" },
                     { "text": "One Shot Keys", "link": "/one_shot_keys" },
                     { "text": "OS Detection", "link": "/features/os_detection" },
                     { "text": "Raw HID", "link": "/features/rawhid" },
@@ -166,8 +169,7 @@
                         ]
                     },
                     { "text": "Audio", "link": "/features/audio" },
-                    { "text": "Bluetooth", "link": "/features/bluetooth" },
-                    { "text": "Bootmagic Lite", "link": "/features/bootmagic" },
+                    { "text": "Bootmagic", "link": "/features/bootmagic" },
                     { "text": "Converters", "link": "/feature_converters" },
                     { "text": "Custom Matrix", "link": "/custom_matrix" },
                     { "text": "DIP Switch", "link": "/features/dip_switch" },
@@ -179,7 +181,8 @@
                     { "text": "Pointing Device", "link": "/features/pointing_device" },
                     { "text": "PS/2 Mouse", "link": "/features/ps2_mouse" },
                     { "text": "Split Keyboard", "link": "/features/split_keyboard" },
-                    { "text": "Stenography", "link": "/features/stenography" }
+                    { "text": "Stenography", "link": "/features/stenography" },
+                    { "text": "Wireless", "link": "/features/wireless" }
                 ]
             },
             {
@@ -204,7 +207,7 @@
                     { "text": "My Pull Request Was Flagged", "link": "/breaking_changes_instructions" },
                     {
                         "text": "Most Recent ChangeLog",
-                        "link": "/ChangeLog/20240825"
+                        "link": "/ChangeLog/20250223"
                     },
                     { "text": "Past Breaking Changes", "link": "/breaking_changes_history" },
                     { "text": "Deprecation Policy", "link": "/support_deprecation_policy" }

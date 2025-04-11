@@ -142,6 +142,19 @@
 #    endif
 #endif
 
+// AT32 compatibility
+#if defined(MCU_AT32)
+#    define CPU_CLOCK AT32_SYSCLK
+
+#    if defined(AT32F415)
+#        define USE_GPIOV1
+#        define USE_I2CV1
+#        define PAL_MODE_ALTERNATE_OPENDRAIN PAL_MODE_AT32_MUX_OPENDRAIN
+#        define PAL_MODE_ALTERNATE_PUSHPULL PAL_MODE_AT32_MUX_PUSHPULL
+#        define AUDIO_PWM_PAL_MODE PAL_MODE_ALTERNATE_PUSHPULL
+#    endif
+#endif
+
 #if defined(GD32VF103)
 /* This chip has the same API as STM32F103, but uses different names for literally the same thing.
  * As of 4.7.2021 QMK is tailored to use STM32 defines/names, for compatibility sake

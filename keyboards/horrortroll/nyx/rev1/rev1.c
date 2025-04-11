@@ -19,7 +19,7 @@
 #ifdef RGB_MATRIX_ENABLE
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case RGB_TOG:
+        case QK_RGB_MATRIX_TOGGLE:
             if (record->event.pressed) {
                 switch (rgb_matrix_get_flags()) {
                     case LED_FLAG_ALL: {
@@ -35,7 +35,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
-        case RGB_MOD:
+        case QK_RGB_MATRIX_MODE_NEXT:
             if (record->event.pressed) {
                 switch (rgb_matrix_get_mode()) {
                     case RGB_MATRIX_SOLID_MULTISPLASH:
@@ -47,7 +47,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
-        case RGB_RMOD:
+        case QK_RGB_MATRIX_MODE_PREVIOUS:
             if (record->event.pressed) {
                 switch (rgb_matrix_get_mode()) {
                     case RGB_MATRIX_SOLID_COLOR:
