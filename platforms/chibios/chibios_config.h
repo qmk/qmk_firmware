@@ -153,6 +153,10 @@
 #        define PAL_MODE_ALTERNATE_PUSHPULL PAL_MODE_AT32_MUX_PUSHPULL
 #        define AUDIO_PWM_PAL_MODE PAL_MODE_ALTERNATE_PUSHPULL
 #    endif
+#    if defined(AT32F405xx)
+#    include "at32_compatibility.h"
+#    endif
+
 #endif
 
 #if defined(GD32VF103)

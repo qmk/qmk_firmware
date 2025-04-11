@@ -272,7 +272,7 @@ typedef uint32_t ws2812_buffer_t;
 #        define WS2812_PWM_DMA_PERIPHERAL_WIDTH STM32_DMA_CR_PSIZE_HWORD
 typedef uint16_t ws2812_buffer_t;
 #    endif
-#elif defined(AT32F415)
+#elif defined(AT32F415) || defined(AT32F405XX)
 #    define WS2812_PWM_DMA_MEMORY_WIDTH AT32_DMA_CCTRL_MWIDTH_BYTE
 #    if defined(WS2812_PWM_TIMER_32BIT)
 #        define WS2812_PWM_DMA_PERIPHERAL_WIDTH AT32_DMA_CCTRL_PWIDTH_WORD
