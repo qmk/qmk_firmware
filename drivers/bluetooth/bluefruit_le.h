@@ -51,6 +51,7 @@ extern uint32_t bluefruit_le_read_battery_voltage(void);
 
 extern bool bluefruit_le_set_mode_leds(bool on);
 extern bool bluefruit_le_set_power_level(int8_t level);
+extern bool bluefruit_le_set_battery_level(uint8_t level);
 
 #ifdef __cplusplus
 }
