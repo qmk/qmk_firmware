@@ -23,6 +23,7 @@
         "vid": "0x706C",
         "pid": "0x7904"
     },
+    "community_layouts": ["60_ansi"],
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [
