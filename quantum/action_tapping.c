@@ -49,7 +49,7 @@ __attribute__((weak)) bool get_permissive_hold(uint16_t keycode, keyrecord_t *re
 }
 #    endif
 
-#    if defined(CHORDAL_HOLD) || defined(TAP_FLOW_TERM)
+#    if defined(CHORDAL_HOLD) || defined(FLOW_TAP_TERM)
 #        define REGISTERED_TAPS_SIZE 8
 // Array of tap-hold keys that have been settled as tapped but not yet released.
 static keypos_t registered_taps[REGISTERED_TAPS_SIZE] = {};
@@ -67,7 +67,7 @@ static void debug_registered_taps(void);
 static bool is_mt_or_lt(uint16_t keycode) {
     return IS_QK_MOD_TAP(keycode) || IS_QK_LAYER_TAP(keycode);
 }
-#    endif // defined(CHORDAL_HOLD) || defined(TAP_FLOW_TERM)
+#    endif // defined(CHORDAL_HOLD) || defined(FLOW_TAP_TERM)
 
 #    if defined(CHORDAL_HOLD)
 extern const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM;
@@ -100,12 +100,12 @@ __attribute__((weak)) bool get_hold_on_other_key_press(uint16_t keycode, keyreco
 #        include "process_auto_shift.h"
 #    endif
 
-#    if defined(TAP_FLOW_TERM)
+#    if defined(FLOW_TAP_TERM)
 static uint32_t last_input   = 0;
 static uint16_t prev_keycode = KC_NO;
 
-uint16_t get_tap_flow_term(uint16_t keycode, keyrecord_t *record, uint16_t prev_keycode);
-#    endif // defined(TAP_FLOW_TERM)
+uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record, uint16_t prev_keycode);
+#    endif // defined(FLOW_TAP_TERM)
 
 static keyrecord_t tapping_key                         = {};
 static keyrecord_t waiting_buffer[WAITING_BUFFER_SIZE] = {};
@@ -156,7 +156,7 @@ void action_tapping_process(keyrecord_t record) {
         }
     }
     if (IS_EVENT(record.event)) {
-#    if defined(TAP_FLOW_TERM)
+#    if defined(FLOW_TAP_TERM)
         const uint16_t keycode = get_record_keycode(&record, false);
         // Track the previous key press.
         if (record.event.pressed) {
@@ -168,7 +168,7 @@ void action_tapping_process(keyrecord_t record) {
         if (IS_NOEVENT(tapping_key.event) && !IS_MODIFIER_KEYCODE(keycode)) {
             last_input = timer_read32();
         }
-#    endif // defined(TAP_FLOW_TERM)
+#    endif // defined(FLOW_TAP_TERM)
         ac_dprintf("\n");
     }
 }
@@ -227,7 +227,7 @@ void action_tapping_process(keyrecord_t record) {
 bool process_tapping(keyrecord_t *keyp) {
     const keyevent_t event = keyp->event;
 
-#    if defined(CHORDAL_HOLD) || defined(TAP_FLOW_TERM)
+#    if defined(CHORDAL_HOLD) || defined(FLOW_TAP_TERM)
     if (!event.pressed) {
         const int8_t i = registered_tap_find(event.key);
         if (i != -1) {
@@ -239,7 +239,7 @@ bool process_tapping(keyrecord_t *keyp) {
             debug_registered_taps();
         }
     }
-#    endif // defined(CHORDAL_HOLD) || defined(TAP_FLOW_TERM)
+#    endif // defined(CHORDAL_HOLD) || defined(FLOW_TAP_TERM)
 
     // state machine is in the "reset" state, no tapping key is to be
     // processed
@@ -250,17 +250,17 @@ bool process_tapping(keyrecord_t *keyp) {
             // the currently pressed key is a tapping key, therefore transition
             // into the "pressed" tapping key state
 
-#    if defined(TAP_FLOW_TERM)
+#    if defined(FLOW_TAP_TERM)
             const uint16_t keycode = get_record_keycode(keyp, false);
             if (is_mt_or_lt(keycode)) {
                 const uint32_t idle_time = timer_elapsed32(last_input);
-                uint16_t       term      = get_tap_flow_term(keycode, keyp, prev_keycode);
+                uint16_t       term      = get_flow_tap_term(keycode, keyp, prev_keycode);
                 if (term > 500) {
                     term = 500;
                 }
                 if (idle_time < 500 && idle_time < term) {
                     debug_event(keyp->event);
-                    ac_dprintf(" within tap flow term (%u < %u) considered a tap\n", (int16_t)idle_time, term);
+                    ac_dprintf(" within flow tap term (%u < %u) considered a tap\n", (int16_t)idle_time, term);
                     keyp->tap.count = 1;
                     registered_taps_add(keyp->event.key);
                     debug_registered_taps();
@@ -268,7 +268,7 @@ bool process_tapping(keyrecord_t *keyp) {
                     return true;
                 }
             }
-#    endif // defined(TAP_FLOW_TERM)
+#    endif // defined(FLOW_TAP_TERM)
 
             ac_dprintf("Tapping: Start(Press tap key).\n");
             tapping_key = *keyp;
@@ -698,7 +698,7 @@ void waiting_buffer_scan_tap(void) {
     }
 }
 
-#    if defined(CHORDAL_HOLD) || defined(TAP_FLOW_TERM)
+#    if defined(CHORDAL_HOLD) || defined(FLOW_TAP_TERM)
 static void registered_taps_add(keypos_t key) {
     if (num_registered_taps >= REGISTERED_TAPS_SIZE) {
         ac_dprintf("TAPS OVERFLOW: CLEAR ALL STATES\n");
@@ -736,7 +736,7 @@ static void debug_registered_taps(void) {
     ac_dprintf("}\n");
 }
 
-#    endif // defined(CHORDAL_HOLD) || defined(TAP_FLOW_TERM)
+#    endif // defined(CHORDAL_HOLD) || defined(FLOW_TAP_TERM)
 
 #    ifdef CHORDAL_HOLD
 __attribute__((weak)) bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t *tap_hold_record, uint16_t other_keycode, keyrecord_t *other_record) {
@@ -807,12 +807,12 @@ static void waiting_buffer_process_regular(void) {
 }
 #    endif // CHORDAL_HOLD
 
-#    ifdef TAP_FLOW_TERM
-// By default, enable Tap Flow for the keys in the main alphas area and Space.
+#    ifdef FLOW_TAP_TERM
+// By default, enable Flow Tap for the keys in the main alphas area and Space.
 // This should work reasonably even if the layout is remapped on the host to an
 // alt layout or international layout (e.g. Dvorak or AZERTY), where these same
 // key positions are mostly used for typing letters.
-__attribute__((weak)) bool is_tap_flow_key(uint16_t keycode) {
+__attribute__((weak)) bool is_flow_tap_key(uint16_t keycode) {
     switch (get_tap_keycode(keycode)) {
         case KC_SPC:
         case KC_A ... KC_Z:
@@ -825,13 +825,13 @@ __attribute__((weak)) bool is_tap_flow_key(uint16_t keycode) {
     return false;
 }
 
-__attribute__((weak)) uint16_t get_tap_flow_term(uint16_t keycode, keyrecord_t *record, uint16_t prev_keycode) {
-    if (is_tap_flow_key(keycode) && is_tap_flow_key(prev_keycode)) {
-        return TAP_FLOW_TERM;
+__attribute__((weak)) uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record, uint16_t prev_keycode) {
+    if (is_flow_tap_key(keycode) && is_flow_tap_key(prev_keycode)) {
+        return FLOW_TAP_TERM;
     }
     return 0;
 }
-#    endif // TAP_FLOW_TERM
+#    endif // FLOW_TAP_TERM
 
 /** \brief Logs tapping key if ACTION_DEBUG is enabled. */
 static void debug_tapping_key(void) {

@@ -23,9 +23,9 @@ using testing::_;
 using testing::AnyNumber;
 using testing::InSequence;
 
-class TapFlowTest : public TestFixture {};
+class FlowTapTest : public TestFixture {};
 
-TEST_F(TapFlowTest, short_tap_flow_settled_as_tapped) {
+TEST_F(FlowTapTest, short_flow_tap_settled_as_tapped) {
     TestDriver driver;
     InSequence s;
     auto       regular_key  = KeymapKey(0, 0, 0, KC_A);
@@ -68,7 +68,7 @@ TEST_F(TapFlowTest, short_tap_flow_settled_as_tapped) {
     VERIFY_AND_CLEAR(driver);
 }
 
-TEST_F(TapFlowTest, long_tap_flow_settled_as_held) {
+TEST_F(FlowTapTest, long_flow_tap_settled_as_held) {
     TestDriver driver;
     InSequence s;
     auto       regular_key = KeymapKey(0, 0, 0, KC_A);
@@ -83,7 +83,7 @@ TEST_F(TapFlowTest, long_tap_flow_settled_as_held) {
     VERIFY_AND_CLEAR(driver);
 
     EXPECT_NO_REPORT(driver);
-    idle_for(TAP_FLOW_TERM + 1);
+    idle_for(FLOW_TAP_TERM + 1);
     VERIFY_AND_CLEAR(driver);
 
     // Press mod-tap key.
@@ -104,7 +104,7 @@ TEST_F(TapFlowTest, long_tap_flow_settled_as_held) {
     VERIFY_AND_CLEAR(driver);
 }
 
-TEST_F(TapFlowTest, holding_multiple_mod_taps) {
+TEST_F(FlowTapTest, holding_multiple_mod_taps) {
     TestDriver driver;
     InSequence s;
     auto       regular_key  = KeymapKey(0, 0, 0, KC_A);
@@ -120,7 +120,7 @@ TEST_F(TapFlowTest, holding_multiple_mod_taps) {
     VERIFY_AND_CLEAR(driver);
 
     EXPECT_NO_REPORT(driver);
-    idle_for(TAP_FLOW_TERM + 1);
+    idle_for(FLOW_TAP_TERM + 1);
     VERIFY_AND_CLEAR(driver);
 
     // Press mod-tap keys.
@@ -152,7 +152,7 @@ TEST_F(TapFlowTest, holding_multiple_mod_taps) {
     VERIFY_AND_CLEAR(driver);
 }
 
-TEST_F(TapFlowTest, layer_tap_key) {
+TEST_F(FlowTapTest, layer_tap_key) {
     TestDriver driver;
     InSequence s;
     auto       regular_key   = KeymapKey(0, 0, 0, KC_A);
@@ -189,7 +189,7 @@ TEST_F(TapFlowTest, layer_tap_key) {
     VERIFY_AND_CLEAR(driver);
 
     EXPECT_NO_REPORT(driver);
-    idle_for(TAP_FLOW_TERM + 1);
+    idle_for(FLOW_TAP_TERM + 1);
     VERIFY_AND_CLEAR(driver);
 
     // Press layer-tap key, slowly after the regular key.
@@ -216,7 +216,7 @@ TEST_F(TapFlowTest, layer_tap_key) {
     VERIFY_AND_CLEAR(driver);
 }
 
-TEST_F(TapFlowTest, combo_key) {
+TEST_F(FlowTapTest, combo_key) {
     TestDriver driver;
     InSequence s;
     auto       regular_key   = KeymapKey(0, 0, 0, KC_A);
@@ -250,7 +250,7 @@ TEST_F(TapFlowTest, combo_key) {
     VERIFY_AND_CLEAR(driver);
 }
 
-TEST_F(TapFlowTest, oneshot_mod_key) {
+TEST_F(FlowTapTest, oneshot_mod_key) {
     TestDriver driver;
     InSequence s;
     auto       regular_key = KeymapKey(0, 0, 0, KC_A);
@@ -284,7 +284,7 @@ TEST_F(TapFlowTest, oneshot_mod_key) {
     VERIFY_AND_CLEAR(driver);
 }
 
-TEST_F(TapFlowTest, quick_tap) {
+TEST_F(FlowTapTest, quick_tap) {
     TestDriver driver;
     InSequence s;
     auto       mod_tap_key = KeymapKey(0, 1, 0, SFT_T(KC_A));

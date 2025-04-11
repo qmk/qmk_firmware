@@ -19,4 +19,4 @@
 
 #include "test_common.h"
 
-#define TAP_FLOW_TERM 150
+#define FLOW_TAP_TERM 150
