@@ -1,7 +1,5 @@
 # Kira 75
 
-![kira75](imgur.com image replace me!)
-
 75% keyboard designed by thesiscamper
 
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)     

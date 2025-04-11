@@ -20,6 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define AUDIO_VOICES
 #define AUDIO_PIN C6
 
+#define AUDIO_INIT_DELAY
+
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

@@ -64,6 +64,9 @@
     "WEAR_LEVELING_BACKING_SIZE": {"info_key": "eeprom.wear_leveling.backing_size", "value_type": "int", "to_json": false},
     "WEAR_LEVELING_LOGICAL_SIZE": {"info_key": "eeprom.wear_leveling.logical_size", "value_type": "int", "to_json": false},
 
+    // Layer locking
+    "LAYER_LOCK_IDLE_TIMEOUT": {"info_key": "layer_lock.timeout", "value_type": "int"},
+
     // Indicators
     "LED_CAPS_LOCK_PIN": {"info_key": "indicators.caps_lock"},
     "LED_NUM_LOCK_PIN": {"info_key": "indicators.num_lock"},
@@ -197,6 +200,7 @@
     "SPLIT_WPM_ENABLE": {"info_key": "split.transport.sync.wpm", "value_type": "flag"},
 
     // Tapping
+    "CHORDAL_HOLD": {"info_key": "tapping.chordal_hold", "value_type": "flag"},
     "HOLD_ON_OTHER_KEY_PRESS": {"info_key": "tapping.hold_on_other_key_press", "value_type": "flag"},
     "HOLD_ON_OTHER_KEY_PRESS_PER_KEY": {"info_key": "tapping.hold_on_other_key_press_per_key", "value_type": "flag"},
     "PERMISSIVE_HOLD": {"info_key": "tapping.permissive_hold", "value_type": "flag"},

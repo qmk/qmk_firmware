@@ -16,7 +16,7 @@ You can create `info.json` files at every level under `qmk_firmware/keyboards/<k
     * A free-form text string describing the keyboard's manufacturer. This will be used as the USB manufacturer string. Can include Unicode characters, escaped to ASCII eg. `\u03A8` (Ψ).
     * Example: `"Clueboard"`
 * `url` <Badge type="info">String</Badge> <Badge>Required</Badge>
-    * A URL to the keyboard's product page, [QMK.fm/keyboards](https://qmk.fm/keyboards) page, or other page describing information about the keyboard.
+    * A URL to the keyboard's product page, [QMK Keyboards](https://browse.qmk.fm/) page, or other page describing information about the keyboard.
     * Example: `"https://clueboard.co"`
 * `bootloader_instructions` <Badge type="info">String</Badge>
     * Instructions for putting the keyboard into a mode that allows for firmware flashing.
@@ -74,6 +74,8 @@ You can create `info.json` files at every level under `qmk_firmware/keyboards/<k
         * The delay between keydown and keyup for tap events in milliseconds.
         * Default: `0` (no delay)
 * `tapping`
+    * `chordal_hold` <Badge type="info">Boolean</Badge>
+        * Default: `false`
     * `hold_on_other_key_press` <Badge type="info">Boolean</Badge>
         * Default: `false`
     * `hold_on_other_key_press_per_key` <Badge type="info">Boolean</Badge>
@@ -177,9 +179,9 @@ Configures the [Backlight](features/backlight) feature.
     * `pins` <Badge type="info">Array: Pin</Badge>
         * A list of GPIO pins connected to the backlight LEDs (`software` and `timer` drivers only).
 
-## Bluetooth {#bluetooth}
+## Wireless/Bluetooth {#bluetooth}
 
-Configures the [Bluetooth](features/bluetooth) feature.
+Configures the [Wireless](features/wireless) feature.
 
 * `bluetooth`
     * `driver` <Badge type="info">String</Badge>
@@ -328,6 +330,8 @@ The ISO enter key is represented by a 1.25u×2uh key. Renderers which utilize in
                 * `h` <Badge type="info">KeyUnit</Badge>
                     * The height of the key, in key units.
                     * Default: `1` (1u)
+                * `hand` <Badge type="info">String</Badge>
+                    * The handedness of the key for Chordal Hold, either `"L"` (left hand), `"R"` (right hand), or `"*"` (either or exempted handedness).
                 * `label` <Badge type="info">String</Badge>
                     * What to name the key. This is *not* a key assignment as in the keymap, but should usually correspond to the keycode for the first layer of the default keymap.
                     * Example: `"Escape"`

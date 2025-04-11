@@ -394,6 +394,7 @@ Ideally, new sensor hardware should be added to `drivers/sensors/` and `quantum/
 | Setting                                        | Description                                                                                                                      | Default       |
 | ---------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ------------- |
 | `MOUSE_EXTENDED_REPORT`                        | (Optional) Enables support for extended mouse reports. (-32767 to 32767, instead of just -127 to 127).                           | _not defined_ |
+| `WHEEL_EXTENDED_REPORT`                        | (Optional) Enables support for extended wheel reports. (-32767 to 32767, instead of just -127 to 127).                           | _not defined_ |
 | `POINTING_DEVICE_ROTATION_90`                  | (Optional) Rotates the X and Y data by  90 degrees.                                                                              | _not defined_ |
 | `POINTING_DEVICE_ROTATION_180`                 | (Optional) Rotates the X and Y data by 180 degrees.                                                                              | _not defined_ |
 | `POINTING_DEVICE_ROTATION_270`                 | (Optional) Rotates the X and Y data by 270 degrees.                                                                              | _not defined_ |

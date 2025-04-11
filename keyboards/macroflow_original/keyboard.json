@@ -1,0 +1,52 @@
+{
+    "manufacturer": "Customacros",
+    "keyboard_name": "Macroflow Original",
+    "maintainer": "Patrickemm",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "encoder": true,
+        "oled": true
+    },
+    "matrix_pins": {
+        "cols": ["B1", "B3", "B2", "F7"],
+        "rows": ["E6", "B4", "B5"]
+    },
+    "development_board": "promicro",
+    "url": "https://github.com/Patrickemm",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0002",
+        "vid": "0x504D"
+    },
+    "dynamic_keymap": {
+        "layer_count": 8
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [1, 3], "x": 3, "y": 1},
+
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2},
+                {"matrix": [2, 3], "x": 3, "y": 2}
+            ]
+        }
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_b": "F5", "pin_a": "F4"}
+        ]
+    }
+}

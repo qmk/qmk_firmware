@@ -15,8 +15,8 @@
         [
             "KC_TRANSPARENT", "KC_TRANSPARENT", "KC_TRANSPARENT", "KC_TRANSPARENT",
             "KC_TRANSPARENT", "KC_TRANSPARENT", "KC_TRANSPARENT", "KC_TRANSPARENT",
-            "RGB_SAD",        "RGB_SAI",        "RGB_HUD",        "RGB_HUI",
-            "KC_TRANSPARENT", "RGB_TOG",        "RGB_RMOD",       "RGB_MOD",
+            "RM_SATD",        "RM_SATU",        "RM_HUED",        "RM_HUEU",
+            "KC_TRANSPARENT", "RM_TOGG",        "RM_PREV",        "RM_NEXT",
             "TO(0)"
         ]
     ]

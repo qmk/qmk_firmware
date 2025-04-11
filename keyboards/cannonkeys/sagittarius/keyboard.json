@@ -60,6 +60,14 @@
             "resync": true
         }
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B12", "pin_b": "B11", "resolution": 2},
+            {"pin_a": "B12", "pin_b": "B11", "resolution": 2},
+            {"pin_a": "B12", "pin_b": "B11", "resolution": 2},
+            {"pin_a": "B12", "pin_b": "B11", "resolution": 2}
+        ]
+    },
     "layouts": {
         "LAYOUT_default": {
             "layout": [

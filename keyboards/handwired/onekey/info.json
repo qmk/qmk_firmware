@@ -7,9 +7,6 @@
         "pid": "0x6465",
         "device_version": "0.0.1"
     },
-    "tapping": {
-        "term": 500
-    },
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": false,

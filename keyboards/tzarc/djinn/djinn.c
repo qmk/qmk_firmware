@@ -87,7 +87,7 @@ void keyboard_post_init_kb(void) {
 // RGB brightness scaling dependent on USBPD state
 
 #if defined(RGB_MATRIX_ENABLE)
-RGB rgb_matrix_hsv_to_rgb(HSV hsv) {
+rgb_t rgb_matrix_hsv_to_rgb(hsv_t hsv) {
     float scale;
 
 #    ifdef DJINN_SUPPORTS_3A_FUSE

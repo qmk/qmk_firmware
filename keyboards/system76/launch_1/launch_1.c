@@ -191,7 +191,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 #else
             return true;
 #endif
-        case RGB_VAD:
+        case QK_RGB_MATRIX_VALUE_DOWN:
             if (record->event.pressed) {
                 uint8_t level = rgb_matrix_config.hsv.v;
                 for (int i = sizeof(levels) - 1; i >= 0; i--) {
@@ -203,7 +203,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 set_value_all_layers(level);
             }
             return false;
-        case RGB_VAI:
+        case QK_RGB_MATRIX_VALUE_UP:
             if (record->event.pressed) {
                 uint8_t level = rgb_matrix_config.hsv.v;
                 for (int i = 0; i < sizeof(levels); i++) {
@@ -215,7 +215,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 set_value_all_layers(level);
             }
             return false;
-        case RGB_TOG:
+        case QK_RGB_MATRIX_TOGGLE:
             if (record->event.pressed) {
                 uint8_t level = 0;
                 if (rgb_matrix_config.hsv.v == 0) {

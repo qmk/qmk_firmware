@@ -18,16 +18,16 @@
       "KC_TRNS", "GU_TOGG", "KC_TRNS",                                  "KC_TRNS",                                  "KC_TRNS", "KC_TRNS", "MO(3)",   "KC_TRNS"
     ],
     [
-      "KC_TRNS", "KC_MPLY", "KC_MSTP", "KC_MPRV", "KC_MNXT", "KC_MUTE", "KC_VOLD", "KC_VOLU", "KC_TRNS", "KC_TRNS", "KC_TRNS", "RGB_TOG", "RGB_MOD", "RGB_RMOD",
-      "KC_TRNS", "KC_TRNS", "RGB_VAI", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",
-      "KC_TRNS", "RGB_SPD", "RGB_VAD", "RGB_SPI", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",            "KC_TRNS",
+      "KC_TRNS", "KC_MPLY", "KC_MSTP", "KC_MPRV", "KC_MNXT", "KC_MUTE", "KC_VOLD", "KC_VOLU", "KC_TRNS", "KC_TRNS", "KC_TRNS", "RM_TOGG", "RM_NEXT", "RM_PREV",
+      "KC_TRNS", "KC_TRNS", "RM_VALU", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",
+      "KC_TRNS", "RM_SPDD", "RM_VALD", "RM_SPDU", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",            "KC_TRNS",
       "KC_TRNS",            "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",            "KC_TRNS",
       "KC_TRNS", "KC_TRNS", "KC_TRNS",                                  "KC_TRNS",                                  "KC_TRNS", "MO(3)",   "KC_TRNS", "KC_TRNS"
     ],
     [
       "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX",
-      "XXXXXXX", "XXXXXXX", "RGB_SAI", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX",
-      "XXXXXXX", "RGB_HUD", "RGB_SAD", "RGB_HUI", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX",            "XXXXXXX",
+      "XXXXXXX", "XXXXXXX", "RM_SATU", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX",
+      "XXXXXXX", "RM_HUED", "RM_SATD", "RM_HUEU", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX",            "XXXXXXX",
       "XXXXXXX",            "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX",            "XXXXXXX",
       "XXXXXXX", "XXXXXXX", "XXXXXXX",                                  "XXXXXXX",                                  "XXXXXXX", "KC_TRNS", "KC_TRNS", "XXXXXXX"
     ]
