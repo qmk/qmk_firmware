@@ -411,8 +411,10 @@ void BHQ_Sta_Handel(uint8_t cmdid, uint8_t *dat)
 void BHQ_Protocol_Process(uint8_t *dat, uint16_t length)
 {
     uint8_t cmdid = 0;
+    uint8_t cmd_length = 0;
     uint8_t buff_sta = 0;
     cmdid = dat[3];
+    cmd_length = dat[2];
     uint8_t i = 0 ;
     // bhq_printf("BHQ_Protocol_Process: cmdid:%d\r\n",cmdid);
     uint8_t hid_data[32] = {0};
@@ -441,6 +443,10 @@ void BHQ_Protocol_Process(uint8_t *dat, uint16_t length)
         case 0xA5:
         case 0xA7:
             buff_sta = dat[4];
+            if(cmd_length == 3) // key code command response frame carries an led lock (!! new 207+)
+            {
+                BHQ_Led_Lock(dat[5]);
+            }
             switch(buff_sta)
             {
                 case 0:

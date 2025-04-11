@@ -120,7 +120,16 @@ void enter_low_power_mode_prepare(void)
     {
        return;
     }
+#if SHIFT595_ENABLED
+    shift595_write_all(0x00);
+    shift595_pin_sleep();
+#endif
     lpm_set_unused_pins_to_input_analog();    // 设置没有使用的引脚为模拟输入
+#if SHIFT595_ENABLED
+    shift595_pin_sleep();
+#endif
+
+
     uint8_t i = 0;
 #if (DIODE_DIRECTION == COL2ROW)
     // Set row(low valid), read cols
@@ -160,9 +169,7 @@ void enter_low_power_mode_prepare(void)
             palEnableLineEvent(wakeUpRow_pins[i], PAL_EVENT_MODE_RISING_EDGE);
         }
     }
-#if SHIFT595_ENABLED
-    shift595_write_all_low();
-#endif
+
     for (i = 0; i < matrix_cols(); i++)
     { // set col output low level
         if(wakeUpCol_pins[i] == NO_PIN)
@@ -174,9 +181,6 @@ void enter_low_power_mode_prepare(void)
             gpio_write_pin_low(wakeUpCol_pins[i]);
         }
     }
-#if SHIFT595_ENABLED
-    shift595_pin_sleep();
-#endif
 
 #endif
 
