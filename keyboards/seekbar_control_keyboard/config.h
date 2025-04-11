@@ -12,8 +12,8 @@
 #define TAPPING_TERM 275
 
 /* encoders */
-#define ENCODERS_PAD_A { F7 }
-#define ENCODERS_PAD_B { B1 }
+#define ENCODER_A_PINS { F7 }
+#define ENCODER_B_PINS { B1 }
 
 /* rgb-led */
 #define WS2812_DI_PIN D7
