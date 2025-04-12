@@ -98,10 +98,11 @@ __attribute__((weak)) bool get_hold_on_other_key_press(uint16_t keycode, keyreco
 #        include "process_auto_shift.h"
 #    endif
 
-static keyrecord_t tapping_key                         = {};
-static keyrecord_t waiting_buffer[WAITING_BUFFER_SIZE] = {};
-static uint8_t     waiting_buffer_head                 = 0;
-static uint8_t     waiting_buffer_tail                 = 0;
+static keyrecord_t *deferred_typing_key;
+static keyrecord_t  tapping_key                         = {};
+static keyrecord_t  waiting_buffer[WAITING_BUFFER_SIZE] = {};
+static uint8_t      waiting_buffer_head                 = 0;
+static uint8_t      waiting_buffer_tail                 = 0;
 
 static bool process_tapping(keyrecord_t *record);
 static bool waiting_buffer_enq(keyrecord_t record);
@@ -227,15 +228,26 @@ bool process_tapping(keyrecord_t *keyp) {
         } else if (event.pressed && is_tap_record(keyp)) {
             // the currently pressed key is a tapping key, therefore transition
             // into the "pressed" tapping key state
-            ac_dprintf("Tapping: Start(Press tap key).\n");
-            tapping_key = *keyp;
-            process_record_tap_hint(&tapping_key);
-            waiting_buffer_scan_tap();
-            debug_tapping_key();
+            if (!deferred_typing_key || KEYEQ(deferred_typing_key->event.key, keyp->event.key)) {
+                ac_dprintf("Tapping: Start(Press tap key).\n");
+                tapping_key = *keyp;
+                process_record_tap_hint(&tapping_key);
+                waiting_buffer_scan_tap();
+                debug_tapping_key();
+                // for case when it was deferred tap press action
+                deferred_typing_key = 0;
+            } else {
+                // current pressed key is hold action that processed in waiting buffer before deferred tap processing
+                ac_dprintf("Tapping: Deferred typing key processing. Hold action processing. ");
+                process_record(keyp);
+                tapping_key = (keyrecord_t){0};
+            }
         } else {
             // the current key is just a regular key, pass it on for regular
             // processing
             process_record(keyp);
+            // for case when it was a deferred typing key
+            deferred_typing_key = 0;
         }
 
         return true;
@@ -320,6 +332,7 @@ bool process_tapping(keyrecord_t *keyp) {
 
                     tapping_key = (keyrecord_t){0};
                     debug_tapping_key();
+                    deferred_typing_key = keyp;
                     // enqueue
                     return false;
                 }
