@@ -404,10 +404,10 @@ void pointing_device_set_cpi_on_side(bool left, uint16_t cpi) {
  * @return mouse_hv_report_t clamped value
  */
 static inline mouse_hv_report_t pointing_device_hv_clamp(hv_clamp_range_t value) {
-    if (value < HV_REPORT_MIN) {
-        return HV_REPORT_MIN;
-    } else if (value > HV_REPORT_MAX) {
-        return HV_REPORT_MAX;
+    if (value < MOUSE_REPORT_HV_MIN) {
+        return MOUSE_REPORT_HV_MIN;
+    } else if (value > MOUSE_REPORT_HV_MAX) {
+        return MOUSE_REPORT_HV_MAX;
     } else {
         return value;
     }
@@ -420,10 +420,10 @@ static inline mouse_hv_report_t pointing_device_hv_clamp(hv_clamp_range_t value)
  * @return mouse_xy_report_t clamped value
  */
 static inline mouse_xy_report_t pointing_device_xy_clamp(xy_clamp_range_t value) {
-    if (value < XY_REPORT_MIN) {
-        return XY_REPORT_MIN;
-    } else if (value > XY_REPORT_MAX) {
-        return XY_REPORT_MAX;
+    if (value < MOUSE_REPORT_XY_MIN) {
+        return MOUSE_REPORT_XY_MIN;
+    } else if (value > MOUSE_REPORT_XY_MAX) {
+        return MOUSE_REPORT_XY_MAX;
     } else {
         return value;
     }
