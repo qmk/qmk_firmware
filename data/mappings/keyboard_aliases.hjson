@@ -146,6 +146,9 @@
     "daisy": {
         "target": "ktec/daisy"
     },
+    "deemen17/de60": {
+        "target": "deemen17/de60/r1"
+    },
     "dp3000": {
         "target": "dp3000/rev1"
     },
@@ -346,6 +349,9 @@
     },
     "keycapsss/plaid_pad": {
         "target": "keycapsss/plaid_pad/rev1"
+    },
+    "keyten/kt60hs_t": {
+        "target": "keyten/kt60hs_t/v1"
     },
     "kira75": {
         "target": "kira/kira75"

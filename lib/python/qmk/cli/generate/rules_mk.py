@@ -72,6 +72,8 @@ def generate_modules_rules(keyboard, filename):
             lines.append(f'COMMUNITY_MODULE_PATHS += {module_path}')
             lines.append(f'VPATH += {module_path}')
             lines.append(f'SRC += $(wildcard {module_path}/{module_path.name}.c)')
+            lines.append(f'MODULE_NAME_{module_path.name.upper()} := {module_path.name}')
+            lines.append(f'MODULE_PATH_{module_path.name.upper()} := {module_path}')
             lines.append(f'-include {module_path}/rules.mk')
 
         module_jsons = load_module_jsons(modules)
