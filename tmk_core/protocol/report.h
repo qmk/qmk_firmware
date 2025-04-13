@@ -194,14 +194,22 @@ typedef struct {
 } PACKED report_programmable_button_t;
 
 #ifdef MOUSE_EXTENDED_REPORT
+#    define XY_REPORT_MIN INT16_MIN
+#    define XY_REPORT_MAX INT16_MAX
 typedef int16_t mouse_xy_report_t;
 #else
+#    define XY_REPORT_MIN INT8_MIN
+#    define XY_REPORT_MAX INT8_MAX
 typedef int8_t mouse_xy_report_t;
 #endif
 
 #ifdef WHEEL_EXTENDED_REPORT
+#    define HV_REPORT_MIN INT16_MIN
+#    define HV_REPORT_MAX INT16_MAX
 typedef int16_t mouse_hv_report_t;
 #else
+#    define HV_REPORT_MIN INT8_MIN
+#    define HV_REPORT_MAX INT8_MAX
 typedef int8_t mouse_hv_report_t;
 #endif
 
