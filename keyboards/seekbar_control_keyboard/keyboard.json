@@ -10,7 +10,9 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "encoder": true,
+        "rgblight": true
     },
     "matrix_pins": {
         "cols": ["F4", "F5", "F6"],
@@ -34,5 +36,22 @@
                 {"matrix": [1, 2], "label": "F", "x": 2, "y": 1}
             ]
         }
+    },
+    "tapping": {
+        "term": 275
+    },
+    "encoder": {
+        "rotary": [
+            {
+                "pin_a": "F7",
+                "pin_b": "B1"
+            }
+        ]
+    },
+    "ws2812": {
+        "pin": "D7"
+    },
+    "rgblight": {
+        "led_count": 5
     }
 }
