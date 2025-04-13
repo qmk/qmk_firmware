@@ -49,4 +49,5 @@ bool    report_buffer_next_inverval(void);
 void    report_buffer_set_inverval(uint8_t interval);
 uint8_t report_buffer_get_retry(void);
 void    report_buffer_set_retry(uint8_t times);
+void report_buffer_clear(void) ;
 void    report_buffer_task(void);

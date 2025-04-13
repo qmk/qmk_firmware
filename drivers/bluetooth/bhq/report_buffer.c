@@ -110,6 +110,13 @@ uint8_t report_buffer_get_retry(void) {
 void report_buffer_set_retry(uint8_t times) {
     retry = 0;
 }
+void report_buffer_clear(void) {
+    report_buffer_queue_head = 0;
+    report_buffer_queue_tail = 0;
+    retry                    = 0;
+    retry_time_buffer        = 0;
+    memset(&kb_rpt, 0, sizeof(kb_rpt));
+}
 
 void report_buffer_task(void) {
     if ((!report_buffer_is_empty() || retry) && report_buffer_next_inverval()) 

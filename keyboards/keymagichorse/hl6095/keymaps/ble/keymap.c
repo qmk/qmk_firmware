@@ -28,6 +28,7 @@
 
 #if defined(BLUETOOTH_BHQ)
 #   include "bhq.h"
+#   include "report_buffer.h"
 #endif
 
 #   if defined(KB_LPM_ENABLED)
@@ -198,6 +199,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     // 这里切换蓝牙模式，默认是打开第一个蓝牙通道
                     user_config.transfer_mode = KB_BLE_1_MODE;  
                     eeconfig_update_user(user_config.raw);
+
+                    report_buffer_clear();
                 }
             }
             return false;
@@ -219,6 +222,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 
                     user_config.transfer_mode = KB_RF_MODE;  
                     eeconfig_update_user(user_config.raw);
+
+                    report_buffer_clear();
                 }
             }
             return false;
@@ -239,6 +244,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
                     user_config.transfer_mode = KB_USB_MODE;  
                     eeconfig_update_user(user_config.raw);
+
+                    report_buffer_clear();
                 }
             }
             return false;
@@ -255,6 +262,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 {
                     // 关闭蓝牙广播
                     bhq_CloseBleAdvertising();
+
+                    report_buffer_clear();
                 }
             }
             return false;
@@ -300,11 +309,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     user_config.transfer_mode = KB_BLE_1_MODE + key_ble_host_index;  
                     eeconfig_update_user(user_config.raw);
                 }
+
+                report_buffer_clear();
             }
             return false;
     }
     if(connectSta == 0 && user_config.transfer_mode > KB_USB_MODE)
     {
+        report_buffer_clear();
         return false;
     }
     return true;
@@ -390,6 +402,8 @@ void BHQ_State_Call(uint8_t cmdid, uint8_t *dat)
         advertSta = BHQ_GET_BLE_ADVERT_STA(dat[1]);
         connectSta = BHQ_GET_BLE_CONNECT_STA(dat[1]);
         pairingSta = BHQ_GET_BLE_PAIRING_STA(dat[1]);
+        report_buffer_clear();
+        
         
         km_printf("[RSSI:%d]\t",dat[0]);
         km_printf("[advertSta: %d]\t", advertSta);
@@ -398,6 +412,7 @@ void BHQ_State_Call(uint8_t cmdid, uint8_t *dat)
         km_printf("[host_index:%d]\n",dat[2]);
         host_index = dat[2];
 
+        
         if(host_index == 0)
         {
             km_printf("if host_index 1\r\n");
