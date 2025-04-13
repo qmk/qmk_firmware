@@ -2,12 +2,10 @@
     "manufacturer": "sotarokashiuchi",
     "keyboard_name": "seekbar_control_keyboard",
     "maintainer": "sotarokashiuchi",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
@@ -18,15 +16,15 @@
         "cols": ["F4", "F5", "F6"],
         "rows": ["D4", "C6"]
     },
-    "processor": "atmega32u4",
     "url": "",
     "usb": {
         "vid": "0x0125",
         "pid": "0x0001",
-        "device_version": "0.0.1"
+        "device_version": "1.0.0"
     },
+    "community_layouts": ["ortho_2x3"],
     "layouts": {
-        "LAYOUT_ortho_3x2": {
+        "LAYOUT_ortho_2x3": {
             "layout": [
                 {"matrix": [0, 0], "label": "A", "x": 0, "y": 0},
                 {"matrix": [0, 1], "label": "B", "x": 1, "y": 0},

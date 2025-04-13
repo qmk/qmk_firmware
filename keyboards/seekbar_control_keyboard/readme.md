@@ -1,12 +1,12 @@
 # seekbar_control_keyboard
 
-![seekbar_control_keyboard](https://github.com/sotarokashiuchi/SeekbarControlKeyboard/raw/main/_attachments/IMG_20240301_111544.jpg)
+![seekbar_control_keyboard](https://i.imgur.com/zyNPMnQ.jpg)
 
 To control media key such as seekbar, volume, and so on.
 
 * Keyboard Maintainer: [sotarokashiuchi](https://github.com/sotarokashiuchi)
-* Hardware Supported: [sotarokashiuchi](https://github.com/sotarokashiuchi)
-* Hardware Availability: [repozitory](https://github.com/sotarokashiuchi/SeekbarControlKeyboard)
+* Hardware Supported: Pro Micro compatible development board
+* Hardware Availability: [GitHub repository](https://github.com/sotarokashiuchi/SeekbarControlKeyboard)
 
 Make example for this keyboard (after setting up your build environment):
 
