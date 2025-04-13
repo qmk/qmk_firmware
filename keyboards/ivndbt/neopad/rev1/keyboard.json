@@ -5,7 +5,7 @@
     "maintainer": "ivndbt",
     "usb": {
         "vid": "0x6961",
-        "pid": "0x3030",
+        "pid": "0x3031",
         "device_version": "0.1.0"
     },
     "features": {
