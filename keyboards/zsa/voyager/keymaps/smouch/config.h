@@ -41,15 +41,15 @@
 // Don't apply custom shift keys when any non-shift mod is held.
 #define CUSTOM_SHIFT_KEYS_NEGMODS ~MOD_MASK_SHIFT
 
-// #undef RGB_MATRIX_TIMEOUT
-// #define RGB_MATRIX_TIMEOUT 300000
+#undef RGB_MATRIX_TIMEOUT
+#define RGB_MATRIX_TIMEOUT 300000
 // #define RGB_MATRIX_STARTUP_SPD 60
 
 // Enable just the effects you want.
 // #define PALETTEFX_GRADIENT_ENABLE
 // #define PALETTEFX_FLOW_ENABLE
 // #define PALETTEFX_RIPPLE_ENABLE
-#define PALETTEFX_SPARKLE_ENABLE
+// #define PALETTEFX_SPARKLE_ENABLE
 // #define PALETTEFX_VORTEX_ENABLE
 // #define PALETTEFX_REACTIVE_ENABLE
 
