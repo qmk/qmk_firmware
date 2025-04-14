@@ -177,6 +177,9 @@ __attribute__((weak)) void pointing_device_init(void) {
 #endif
     }
 
+#ifdef POINTING_DEVICE_DRAGSCROLL_ENABLE
+    dragscroll_init();
+#endif
     pointing_device_init_kb();
     pointing_device_init_user();
 }
@@ -299,14 +302,26 @@ __attribute__((weak)) bool pointing_device_task(void) {
     if (is_keyboard_left()) {
         local_mouse_report  = pointing_device_adjust_by_defines(local_mouse_report);
         shared_mouse_report = pointing_device_adjust_by_defines_right(shared_mouse_report);
+#    if defined(POINTING_DEVICE_DRAGSCROLL_ENABLE) && !defined(DRAGSCROLL_APPLIED_AFTER_POINTING_DEVICE_TASK_KB)
+        pointing_device_dragscroll_combined(&local_mouse_report, &shared_mouse_report); // modified inplace
+#    endif
     } else {
         local_mouse_report  = pointing_device_adjust_by_defines_right(local_mouse_report);
         shared_mouse_report = pointing_device_adjust_by_defines(shared_mouse_report);
+#    if defined(POINTING_DEVICE_DRAGSCROLL_ENABLE) && !defined(DRAGSCROLL_APPLIED_AFTER_POINTING_DEVICE_TASK_KB)
+        pointing_device_dragscroll_combined(&shared_mouse_report, &local_mouse_report); // modified inplace
+#    endif
     }
     local_mouse_report = is_keyboard_left() ? pointing_device_task_combined_kb(local_mouse_report, shared_mouse_report) : pointing_device_task_combined_kb(shared_mouse_report, local_mouse_report);
 #else
     local_mouse_report = pointing_device_adjust_by_defines(local_mouse_report);
+#    if defined(POINTING_DEVICE_DRAGSCROLL_ENABLE) && !defined(DRAGSCROLL_APPLIED_AFTER_POINTING_DEVICE_TASK_KB)
+    pointing_device_dragscroll(&local_mouse_report); // modified inplace
+#    endif
     local_mouse_report = pointing_device_task_kb(local_mouse_report);
+#endif
+#if defined(POINTING_DEVICE_DRAGSCROLL_ENABLE) && defined(DRAGSCROLL_APPLIED_AFTER_POINTING_DEVICE_TASK_KB)
+    pointing_device_dragscroll(&local_mouse_report); // modified inplace
 #endif
     // automatic mouse layer function
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
