@@ -37,8 +37,7 @@
             "enabled": true
         }
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "layouts": {
         "LAYOUT_split_2x7_6_3": {
             "layout": [
