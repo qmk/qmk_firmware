@@ -54,20 +54,6 @@
         ]
     ],
     "config": {
-        "features": {
-            "oled": true,
-            "rgb_matrix": true,
-            "rgblight": false
-        },
-        "encoder": {
-            "enabled": true
-        },
-        "rgblight": {
-            "hue_steps": 8,
-            "saturation_steps": 8,
-            "brightness_steps": 8,
-            "sleep": true
-        },
         "mousekey": {
             "interval": 16,
             "time_to_max": 40,
