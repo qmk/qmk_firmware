@@ -11,7 +11,7 @@ from qmk.commands import find_make, get_make_parallel_args, parse_configurator_j
 from qmk.keyboard import keyboard_folder
 from qmk.info import keymap_json
 from qmk.keymap import locate_keymap
-from qmk.path import is_under_qmk_firmware, is_under_qmk_userspace
+from qmk.path import is_under_qmk_firmware, is_under_qmk_userspace, unix_style_path
 
 # These must be kept in the order in which they're applied to $(TARGET) in the makefiles in order to ensure consistency.
 TARGET_FILENAME_MODIFIERS = ['FORCE_LAYOUT', 'CONVERT_TO']
@@ -204,11 +204,11 @@ class KeyboardKeymapBuildTarget(BuildTarget):
         if is_under_qmk_userspace(keymap_location) and not is_under_qmk_firmware(keymap_location):
             keymap_directory = keymap_location.parent
             compile_args.extend([
-                f'MAIN_KEYMAP_PATH_1={keymap_directory}',
-                f'MAIN_KEYMAP_PATH_2={keymap_directory}',
-                f'MAIN_KEYMAP_PATH_3={keymap_directory}',
-                f'MAIN_KEYMAP_PATH_4={keymap_directory}',
-                f'MAIN_KEYMAP_PATH_5={keymap_directory}',
+                f'MAIN_KEYMAP_PATH_1={unix_style_path(keymap_directory)}',
+                f'MAIN_KEYMAP_PATH_2={unix_style_path(keymap_directory)}',
+                f'MAIN_KEYMAP_PATH_3={unix_style_path(keymap_directory)}',
+                f'MAIN_KEYMAP_PATH_4={unix_style_path(keymap_directory)}',
+                f'MAIN_KEYMAP_PATH_5={unix_style_path(keymap_directory)}',
             ])
 
         return compile_args
@@ -267,11 +267,11 @@ class JsonKeymapBuildTarget(BuildTarget):
         generated_files_path = intermediate_output / 'src'
         keymap_json = generated_files_path / 'keymap.json'
         compile_args.extend([
-            f'MAIN_KEYMAP_PATH_1={intermediate_output}',
-            f'MAIN_KEYMAP_PATH_2={intermediate_output}',
-            f'MAIN_KEYMAP_PATH_3={intermediate_output}',
-            f'MAIN_KEYMAP_PATH_4={intermediate_output}',
-            f'MAIN_KEYMAP_PATH_5={intermediate_output}',
+            f'MAIN_KEYMAP_PATH_1={unix_style_path(intermediate_output)}',
+            f'MAIN_KEYMAP_PATH_2={unix_style_path(intermediate_output)}',
+            f'MAIN_KEYMAP_PATH_3={unix_style_path(intermediate_output)}',
+            f'MAIN_KEYMAP_PATH_4={unix_style_path(intermediate_output)}',
+            f'MAIN_KEYMAP_PATH_5={unix_style_path(intermediate_output)}',
             f'KEYMAP_JSON={keymap_json}',
             f'KEYMAP_PATH={generated_files_path}',
         ])
