@@ -201,6 +201,7 @@
 
     // Tapping
     "CHORDAL_HOLD": {"info_key": "tapping.chordal_hold", "value_type": "flag"},
+    "FLOW_TAP_TERM": {"info_key": "tapping.flow_tap_term", "value_type": "int"},
     "HOLD_ON_OTHER_KEY_PRESS": {"info_key": "tapping.hold_on_other_key_press", "value_type": "flag"},
     "HOLD_ON_OTHER_KEY_PRESS_PER_KEY": {"info_key": "tapping.hold_on_other_key_press_per_key", "value_type": "flag"},
     "PERMISSIVE_HOLD": {"info_key": "tapping.permissive_hold", "value_type": "flag"},
