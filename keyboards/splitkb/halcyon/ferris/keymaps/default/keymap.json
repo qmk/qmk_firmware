@@ -53,16 +53,18 @@
                                                                "KC_TRNS"       , "KC_TAB"        , "KC_NO"         , "KC_TRNS"
         ]
     ],
-    "mouse_key": {
-        "enabled": true,
-        "interval": 16,
-        "time_to_max": 40,
-        "delay": 100,
-        "wheel_delay": 100
-    },
-    "tapping": {
-        "term": 200,
-        "permissive_hold": true,
-        "force_hold": true
+    "config": {
+        "mouse_key": {
+            "enabled": true,
+            "interval": 16,
+            "time_to_max": 40,
+            "delay": 100,
+            "wheel_delay": 100
+        },
+        "tapping": {
+            "term": 200,
+            "permissive_hold": true,
+            "force_hold": true
+        }
     }
 }
