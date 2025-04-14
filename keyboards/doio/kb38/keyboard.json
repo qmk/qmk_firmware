@@ -28,7 +28,7 @@
         "rotary": [
             {"pin_a": "C7", "pin_b": "C6"},
             {"pin_a": "F7", "pin_b": "E6"},
-            {"pin_a": "D6", "pin_b": "D7", "resolution": 2}
+            {"pin_a": "D6", "pin_b": "D7"}
         ]
     },
     "ws2812": {
