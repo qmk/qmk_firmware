@@ -180,3 +180,29 @@ void           pmw33xx_init_wrapper(void);
 void           pmw33xx_set_cpi_wrapper(uint16_t cpi);
 uint16_t       pmw33xx_get_cpi_wrapper(void);
 report_mouse_t pmw33xx_get_report(report_mouse_t mouse_report);
+
+#if defined(PMW33XX_MULTIREAD)
+/**
+ * @brief Reads and clears the current delta, and motion register values on the
+ * from all sensors at once.
+ *
+ * This makes sure that the motion deltas are captured at the exact same time on all connected
+ * sensors.
+ * If an error occurs all fields are set to zero.
+ *
+ * @param reports[out]   Pointer to array of @ref pmw33xx_number_of_sensors sensor report structs.
+ */
+void pmw33xx_multi_read(pmw33xx_report_t *reports);
+
+/**
+ * @brief Weak function allowing for keyboard-level sensor data combinations.
+ *
+ * Takes a pointer to an array of pmw33xx_report_t structs allowing modification at user level then returns report_mouse_t.
+ * By default this adds up all the movement deltas per axis.
+ *
+ * @param[in] reports       Pointer to an array of @ref pmw33xx_number_of_sensors PMW33xx sensor readings.
+ * @param[in] mouse_report  The current mouse report to update.
+ * @return report_mouse_t   The combined mouse report.
+ */
+report_mouse_t pmw33xx_combine_reports_kb(const pmw33xx_report_t *reports, report_mouse_t mouse_report);
+#endif
