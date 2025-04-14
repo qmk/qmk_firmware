@@ -54,8 +54,7 @@
         ]
     ],
     "config": {
-        "mouse_key": {
-            "enabled": true,
+        "mousekey": {
             "interval": 16,
             "time_to_max": 40,
             "delay": 100,
