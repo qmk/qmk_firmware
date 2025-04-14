@@ -49,7 +49,7 @@ Layer 1 is a mouse layer: it can be used one-handed or two-handed. The most comm
 Scrolling is available on the right hand with mid finger up and down for vertical scroll and index and ring finger down for horizontal scroll.
 On the right hand, left click and right click are also available with index and ring finger up to allow one handed operation. This can be particularly handy when enabling the mouse layer permanently (no need to hold the left middle finger), which can be done from Layer 7.
 
-**Addition**: The Aurora Sweep allows the RGB settings to be modified on this layer. This is an extra feature over the default Ferris / Sweep keymap.
+**Addition**: The Halcyon Ferris allows the RGB settings to be modified on this layer. This is an extra feature over the default Ferris keymap.
 
 ### Layer 2: Navigation
 
@@ -113,25 +113,23 @@ To edit it, you may:
 
 If you decide to use the latter workflow, here are the steps to follow:
 
-* From the [QMK Configurator](https://config.qmk.fm/#/splitkb/aurora/sweep/rev1/LAYOUT_split_3x5_2), hit the "import QMK keymap json file" button (it has a drawing with an up arrow on it).
-* Browse to the location of your keymap (for example, `<your qmk repo>/keyboards/splitkb/aurora/sweep/keymaps/default/keymap.json`)
+* From the [QMK Configurator](https://config.qmk.fm/#/splitkb/halcyon/ferris/rev1/LAYOUT_split_3x5_2), hit the "import QMK keymap json file" button (it has a drawing with an up arrow on it).
+* Browse to the location of your keymap (for example, `<your qmk repo>/keyboards/splitkb/halcyon/ferris/keymaps/default/keymap.json`)
 * Perform any modification to the keymap in the web UI
 * Export the keymap to your downloads folder, by hitting the "Export QMK keymap json file" button (it has a drawing with a down arrow on it)
 * Replace your original keymap with the one you just downloaded
 
-_**Note:** At the time of writing (the 24th of October 2022), not every feature used in the default keymap is supported by the QMK Configurator. You cannot yet upload the default `keymap.json` due to a file format mismatch - use the "Load Default" button to load the default keymap instead. Additionally, custom configuration options are still being worked on: if your keymap depends on them, please compile your firmware offline for now._
-
 I want to do more than the JSON format supports!
 -------------------------------------------------
 
-While the `json` format is easy to use, it does lack certain functionality - most notably custom OLED or encoder behaviour.
+While the `json` format is easy to use, it does lack certain functionality.
 
 To add this, you need to convert it to the `c` format. Do keep in mind that this is generally a one-way operation.
 
 First, from the root of your qmk repo, move to your keymap folder
 
 ```bash
-cd ./keymaps/splitkb/aurora/corne/my_personal_keymap
+cd ./splitkb/halcyon/ferris/keymaps/my_personal_keymap
 ```
 
 Next, convert your `keymap.json` to a `keymap.c`

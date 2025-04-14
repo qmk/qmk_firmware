@@ -1,6 +1,6 @@
 # Halcyon Ferris
 
-![splitkb/halcyon/ferris](TODO)
+![splitkb/halcyon/ferris](https://i.imgur.com/TlgU8iR.png)
 
 The Halcyon Ferris rev1 is the first Ferris revision and the fifth keyboard in our Halcyon range. Similar to Aurora, all keyboards in the series share the same feature set. The key highlights:
 
