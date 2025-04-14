@@ -815,7 +815,7 @@ static void waiting_buffer_process_regular(void) {
 // key positions are mostly used for typing letters.
 __attribute__((weak)) bool is_flow_tap_key(uint16_t keycode) {
     if ((get_mods() & (MOD_MASK_CG | MOD_BIT_LALT)) != 0) {
-        return false;  // Disable Flow Tap on hotkeys.
+        return false; // Disable Flow Tap on hotkeys.
     }
     switch (get_tap_keycode(keycode)) {
         case KC_SPC:
