@@ -1,34 +1,34 @@
 {
-    "keyboard_name": "Footy",
     "manufacturer": "CJ Pais",
-    "url": "",
+    "keyboard_name": "Footy",
     "maintainer": "cjpais",
-    "processor": "RP2040",
     "bootloader": "rp2040",
-    "usb": {
-        "vid": "0x636A",
-        "pid": "0x0001",
-        "device_version": "1.0.0"
-    },
     "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": false,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false
+    },
     "matrix_pins": {
         "cols": ["GP11", "GP10", "GP15"],
         "rows": ["GP14"]
     },
-    "features": {
-        "bootmagic": false,
-        "mousekey": false,
-        "extrakey": true,
-        "console": false,
-        "command": false,
-        "nkro": false
+    "processor": "RP2040",
+    "url": "https://www.dumpster.page/footy",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0001",
+        "vid": "0x636A"
     },
     "layouts": {
-        "LAYOUT_1x3": {
+        "LAYOUT": {
             "layout": [
-                {"x": 0, "y": 0, "matrix": [0, 0]},
-                {"x": 0, "y": 1, "matrix": [0, 1]},
-                {"x": 0, "y": 2, "matrix": [0, 2]}
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0}
             ]
         }
     }
