@@ -1035,6 +1035,9 @@
     "late9/rev1": {
         "target": "rookiebwoy/late9/rev1"
     },
+    "late9/rev1": {
+        "target": "ivndbt/late9/rev1"
+    },
     "latin17rgb": {
         "target": "latincompass/latin17rgb"
     },
@@ -1199,6 +1202,9 @@
     },
     "neopad/rev1": {
         "target": "rookiebwoy/neopad/rev1"
+    },
+    "neopad/rev1": {
+        "target": "ivndbt/neopad/rev1"
     },
     "niu_mini": {
         "target": "kbdfans/niu_mini"
@@ -2099,6 +2105,12 @@
     },
     "rookiebwoy/neopad": {
         "target": "rookiebwoy/neopad/rev1"
+    },
+    "ivndbt/late9": {
+        "target": "ivndbt/late9/rev1"
+    },
+    "ivndbt/neopad": {
+        "target": "ivndbt/neopad/rev1"
     },
     "rura66": {
         "target": "rura66/rev1"
