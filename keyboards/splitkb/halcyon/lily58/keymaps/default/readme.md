@@ -75,7 +75,7 @@ To add this, you need to convert it to the `c` format. Do keep in mind that this
 First, from the root of your qmk repo, move to your keymap folder
 
 ```bash
-cd ./keymaps/splitkb/halcyon/lily58/my_personal_keymap
+cd ./keyboards/splitkb/halcyon/lily58/keymaps/my_personal_keymap
 ```
 
 Next, convert your `keymap.json` to a `keymap.c`

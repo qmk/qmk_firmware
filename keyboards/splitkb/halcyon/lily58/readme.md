@@ -1,6 +1,6 @@
 # Halcyon Lily58
 
-![splitkb/halcyon/lily58](TODO)
+![splitkb/halcyon/lily58](https://i.imgur.com/q7VIrbz.png)
 
 The Halcyon Lily58 rev2 is the second Lily58 revision and the fourth keyboard in our Halcyon range. Similar to Aurora, all keyboards in the series share the same feature set. The key highlights:
 
