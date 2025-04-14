@@ -4,6 +4,7 @@
 #include "action.h"
 #include "action_layer.h"
 #include "action_tapping.h"
+#include "action_util.h"
 #include "keycode.h"
 #include "timer.h"
 
@@ -813,6 +814,9 @@ static void waiting_buffer_process_regular(void) {
 // alt layout or international layout (e.g. Dvorak or AZERTY), where these same
 // key positions are mostly used for typing letters.
 __attribute__((weak)) bool is_flow_tap_key(uint16_t keycode) {
+    if ((get_mods() & (MOD_MASK_CG | MOD_BIT_LALT)) != 0) {
+        return false;  // Disable Flow Tap on hotkeys.
+    }
     switch (get_tap_keycode(keycode)) {
         case KC_SPC:
         case KC_A ... KC_Z:
