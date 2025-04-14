@@ -67,18 +67,17 @@
             "saturation_steps": 8,
             "brightness_steps": 8,
             "sleep": true
+        },
+        "mousekey": {
+            "interval": 16,
+            "time_to_max": 40,
+            "delay": 100,
+            "wheel_delay": 100
+        },
+        "tapping": {
+            "term": 200,
+            "permissive_hold": true,
+            "force_hold": true
         }
-    },
-    "mouse_key": {
-        "enabled": true,
-        "interval": 16,
-        "time_to_max": 40,
-        "delay": 100,
-        "wheel_delay": 100
-    },
-    "tapping": {
-        "term": 200,
-        "permissive_hold": true,
-        "force_hold": true
     }
 }
