@@ -139,9 +139,6 @@
     },
     "split": {
         "enabled": true,
-        "handedness": {
-            "pin": "GP24"
-        },
         "matrix_pins": {
             "right": {
                 "cols": ["GP5", "GP10", "GP9", "GP4", "GP25", "GP20", "GP19"],
