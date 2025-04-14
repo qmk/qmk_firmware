@@ -29,10 +29,15 @@
                                                 "KC_LGUI" , "_______" , "KC_SPC"  , "KC_ENT"  , "_______" , "KC_RALT"
         ]
     ],
+    "config": {
+        "features": {
+            "encoder_map": true
+        }
+    },
     "encoders": [
         [{"ccw": "KC_VOLD", "cw": "KC_VOLU"}, {"ccw": "KC_PGUP", "cw": "KC_PGDN"}],
-        [{"ccw": "KC_VOLD", "cw": "KC_VOLU"}, {"ccw": "KC_PGUP", "cw": "KC_PGDN"}],
-        [{"ccw": "KC_VOLD", "cw": "KC_VOLU"}, {"ccw": "KC_PGUP", "cw": "KC_PGDN"}],
-        [{"ccw": "KC_VOLD", "cw": "KC_VOLU"}, {"ccw": "KC_PGUP", "cw": "KC_PGDN"}]
+        [{"ccw": "_______", "cw": "_______"}, {"ccw": "_______", "cw": "_______"}],
+        [{"ccw": "_______", "cw": "_______"}, {"ccw": "_______", "cw": "_______"}],
+        [{"ccw": "_______", "cw": "_______"}, {"ccw": "_______", "cw": "_______"}]
     ]
 }
