@@ -1,6 +1,6 @@
 # Halcyon Corne
 
-![splitkb/halcyon/corne](TODO)
+![splitkb/halcyon/corne](https://i.imgur.com/Cpo2dM8.png)
 
 The Halcyon Corne rev4 is the second Corne revision and the third keyboard in our Halcyon range. Similar to Aurora, all keyboards in the series share the same feature set. The key highlights:
 
