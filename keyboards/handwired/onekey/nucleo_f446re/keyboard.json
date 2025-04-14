@@ -3,17 +3,17 @@
     "processor": "STM32F446",
     "bootloader": "stm32-dfu",
     "matrix_pins": {
-        "cols": ["A2"],
+        "cols": ["A0"],
         "rows": ["A1"]
     },
     "backlight": {
         "pin": "B8"
     },
     "ws2812": {
-        "pin": "A0"
+        "pin": "A4"
     },
     "apa102": {
-        "data_pin": "A0",
+        "data_pin": "A4",
         "clock_pin": "B13"
     }
 }
