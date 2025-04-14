@@ -65,9 +65,6 @@
             "splash": true,
             "typing_heatmap": true
         },
-        "default": {
-            "animation": "cycle_left_right"
-        },
         "driver": "ws2812",
         "layout": [
             {"x": 51, "y": 13, "flags": 2},
