@@ -1,6 +1,6 @@
 # YMDK ONI HHKB
 
-![ONI HHKB PCB, Hotswap Tsangan/HHKB PCB with RGB Matrix and backlight](https://imgur.com/DB87on8)
+![ONI HHKB PCB, Hotswap Tsangan/HHKB PCB with RGB Matrix and backlight](https://imgur.com/DB87on8.jpg)
 
 Customizable 60% HHKB Hotswap by PCB by [YMDK](https://ymdkey.com).
 
