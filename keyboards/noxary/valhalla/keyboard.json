@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Valhalla",
     "manufacturer": "Noxary",
-    "url": "",
     "maintainer": "Gondolindrim",
     "usb": {
         "vid": "0x4E58",

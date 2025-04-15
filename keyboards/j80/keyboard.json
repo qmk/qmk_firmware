@@ -1,7 +1,6 @@
 {
   "keyboard_name": "J80",
   "manufacturer": "JER",
-  "url": "",
   "maintainer": "oeywil",
   "usb": {
     "vid": "0x20A0",

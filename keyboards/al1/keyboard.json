@@ -1,7 +1,6 @@
 {
     "keyboard_name": "AL1",
     "manufacturer": "Alsoran",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x544C",

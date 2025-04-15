@@ -1,7 +1,6 @@
 {
     "keyboard_name": "owl8",
     "manufacturer": "yfuku",
-    "url": "",
     "maintainer": "yfuku",
     "usb": {
         "vid": "0x5946",

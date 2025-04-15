@@ -1,7 +1,6 @@
 {
   "keyboard_name": "V60 Type R",
   "manufacturer": "KB Paradise",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0x7432",

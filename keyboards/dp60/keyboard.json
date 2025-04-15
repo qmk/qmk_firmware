@@ -1,7 +1,6 @@
 {
     "keyboard_name": "DP60",
     "manufacturer": "astro",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x60BE",

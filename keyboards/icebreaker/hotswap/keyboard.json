@@ -152,7 +152,6 @@
         ],
         "max_brightness": 120
     },
-    "url": "",
     "usb": {
         "device_version": "0.0.1",
         "pid": "0x6503",

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "SMK60",
     "manufacturer": "astro",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0xDEAD",

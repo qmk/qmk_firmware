@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Sweet16",
     "manufacturer": "1up Keyboards",
-    "url": "",
     "maintainer": "skullydazed",
     "usb": {
         "vid": "0x6F75",

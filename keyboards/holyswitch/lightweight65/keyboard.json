@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Lightweight65",
     "manufacturer": "HolySwitch",
-    "url": "",
     "maintainer": "DeskDaily",
     "usb": {
         "vid": "0x484F",

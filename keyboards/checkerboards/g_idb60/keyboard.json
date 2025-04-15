@@ -1,7 +1,6 @@
 {
     "keyboard_name": "G_IDB60",
     "manufacturer": "Nasp",
-    "url": "",
     "maintainer": "npspears",
     "usb": {
         "vid": "0x7070",

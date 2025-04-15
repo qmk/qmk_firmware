@@ -1,7 +1,6 @@
 {
     "keyboard_name": "NATURE",
     "manufacturer": "X-BOWS",
-    "url": "",
     "maintainer": "xbows-qmk",
     "usb": {
         "vid": "0x5842",

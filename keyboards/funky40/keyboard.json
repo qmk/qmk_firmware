@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Funky40",
     "manufacturer": "TheFourthCow",
-    "url": "",
     "maintainer": "TheFourthCow",
     "usb": {
         "vid": "0xFEED",

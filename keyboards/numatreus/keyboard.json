@@ -1,7 +1,6 @@
 {
   "keyboard_name": "NumAtreus",
   "manufacturer": "yohewi",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0xFEED",

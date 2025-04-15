@@ -1,7 +1,6 @@
 {
     "keyboard_name": "S20 revA",
     "manufacturer": "polycarbdiet",
-    "url": "",
     "maintainer": "polycarbdiet",
     "usb": {
         "vid": "0x5040",

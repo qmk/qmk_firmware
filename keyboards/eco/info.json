@@ -1,7 +1,6 @@
 {
   "keyboard_name": "The ECO Keyboard",
   "manufacturer": "Bishop Keyboards",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0x1337",

@@ -1,6 +1,5 @@
 {
     "manufacturer": "Uthol",
-    "url": "",
     "maintainer": "uthol",
     "usb": {
         "vid": "0xFEED",

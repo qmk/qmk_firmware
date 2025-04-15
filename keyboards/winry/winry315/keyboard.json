@@ -2,7 +2,6 @@
     "manufacturer": "Winry",
     "keyboard_name": "Winry315",
     "maintainer": "sigprof",
-    "url": "",
     "usb": {
         "device_version": "0.0.1",
         "pid": "0x0315",

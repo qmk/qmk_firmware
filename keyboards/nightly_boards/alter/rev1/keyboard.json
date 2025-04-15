@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Alter",
     "manufacturer": "Neil Brian Ramirez",
-    "url": "",
     "maintainer": "Neil Brian Ramirez",
     "usb": {
         "vid": "0x0717",

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Rosa",
     "manufacturer": "illusion keyboards",
-    "url": "",
     "maintainer": "illusion",
     "usb": {
         "vid": "0x694B",

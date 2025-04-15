@@ -1,7 +1,6 @@
 {
   "keyboard_name": "LFK87",
   "manufacturer": "LFKeyboards",
-  "url": "",
   "maintainer": "qmk",
   "features": {
     "audio": true,

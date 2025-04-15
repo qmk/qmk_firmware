@@ -1,7 +1,6 @@
 {
     "keyboard_name": "YMD40 v2",
     "manufacturer": "YMDK",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x594D",

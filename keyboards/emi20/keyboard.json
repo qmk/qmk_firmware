@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Emi20",
     "manufacturer": "Aquacylinder",
-    "url": "",
     "maintainer": "Aquacylinder",
     "usb": {
         "vid": "0xFEED",

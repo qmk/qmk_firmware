@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Soy20",
     "manufacturer": "drewkeys",
-    "url": "",
     "maintainer": "twholt",
     "usb": {
         "vid": "0x4452",

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "ANGLE65",
     "manufacturer": "vertex",
-    "url": "",
     "maintainer": "EasonQian1, Vertex-kb",
     "usb": {
         "vid": "0x9954",

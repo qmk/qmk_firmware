@@ -1,7 +1,6 @@
 {
     "keyboard_name": "M64 RGB",
     "manufacturer": "Mss Studio",
-    "url": "",
     "maintainer": "HorrorTroll",
     "usb": {
         "vid": "0x4D4B",

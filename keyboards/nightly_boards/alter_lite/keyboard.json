@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Alter Lite",
     "manufacturer": "DeskDaily",
-    "url": "",
     "maintainer": "DeskDaily",
     "usb": {
         "vid": "0xD812",
