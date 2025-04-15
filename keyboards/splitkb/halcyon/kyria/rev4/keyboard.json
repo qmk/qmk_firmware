@@ -65,9 +65,6 @@
             "splash": true,
             "typing_heatmap": true
         },
-        "default": {
-            "animation": "cycle_left_right"
-        },
         "driver": "ws2812",
         "layout": [
             {"x": 75, "y": 2, "flags": 2},
@@ -139,6 +136,9 @@
     },
     "split": {
         "enabled": true,
+        "handedness": {
+            "pin": "GP24"
+        },
         "matrix_pins": {
             "right": {
                 "cols": ["GP5", "GP10", "GP9", "GP4", "GP25", "GP20", "GP19"],
