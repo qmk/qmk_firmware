@@ -19,8 +19,7 @@
     },
     "qmk": {
         "locking": {
-            "enabled": true,
-            "resync": false
+            "enabled": true
         }
     },
     "matrix_pins": {
