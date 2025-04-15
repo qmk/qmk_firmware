@@ -12,11 +12,11 @@ VoidHHKB-Hotswap 60% PCB designed for the [HSKB project](https://github.com/Dev0
 
 Make example for this keyboard (after setting up your build environment):
 
-    make void/voidhhkb-hotswap:default
+    make void/voidhhkb_hotswap:default
 
 Flashing example for this keyboard:
 
-    make void/voidhhkb-hotswap:default:flash
+    make void/voidhhkb_hotswap:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
