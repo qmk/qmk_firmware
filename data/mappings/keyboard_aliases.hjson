@@ -1033,9 +1033,6 @@
         "target": "kprepublic/bm68hsrgb/rev1"
     },
     "late9/rev1": {
-        "target": "rookiebwoy/late9/rev1"
-    },
-    "late9/rev1": {
         "target": "ivndbt/late9/rev1"
     },
     "latin17rgb": {
@@ -1199,9 +1196,6 @@
     },
     "nebula68b": {
         "target": "spaceholdings/nebula68b"
-    },
-    "neopad/rev1": {
-        "target": "rookiebwoy/neopad/rev1"
     },
     "neopad/rev1": {
         "target": "ivndbt/neopad/rev1"
@@ -2101,10 +2095,10 @@
         "target": "rmi_kb/wete/v2"
     },
     "rookiebwoy/late9": {
-        "target": "rookiebwoy/late9/rev1"
+        "target": "ivndbt/late9/rev1"
     },
     "rookiebwoy/neopad": {
-        "target": "rookiebwoy/neopad/rev1"
+        "target": "ivndbt/neopad/rev1"
     },
     "ivndbt/late9": {
         "target": "ivndbt/late9/rev1"
