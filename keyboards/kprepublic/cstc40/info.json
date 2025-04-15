@@ -21,6 +21,7 @@
         "pid": "0x0040",
         "vid": "0x586A"
     },
+    "community_layouts": ["planck_mit"],
     "layouts": {
         "LAYOUT_planck_mit": {
             "layout": [

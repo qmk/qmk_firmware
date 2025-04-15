@@ -86,6 +86,7 @@
         "backlight": true,
         "rgb_matrix": true
     },
+    "community_layouts": ["ortho_3x10"],
     "layouts": {
         "LAYOUT_ortho_3x10": {
             "layout": [
