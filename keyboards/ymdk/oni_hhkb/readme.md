@@ -17,7 +17,7 @@ qmk compile -kb ymdk/oni_hhkb -km default
 The keyboard uses a DFU bootloader. To make a keymap and use dfu to flash it:
 
 ```sh
-qmk flash -kb ymdk/oni -km_hhkb flash
+qmk flash -kb ymdk/oni -km default
 ```
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
