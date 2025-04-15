@@ -6,8 +6,7 @@
     "usb": {
         "vid": "0x45D4",
         "pid": "0x0021",
-        "device_version": "0.0.1",
-        "force_nkro": true
+        "device_version": "0.0.1"
     },
     "features": {
         "bootmagic": true,
