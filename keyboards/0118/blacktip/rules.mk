@@ -1,0 +1,17 @@
+MCU_FAMILY 				 	= STM32
+MCU_SERIES 				 	= STM32L0xx
+MCU_LDSCRIPT 			 	= STM32L072xZ
+MCU_STARTUP 			 	= stm32l0xx
+MCU						 	= cortex-m0plus
+ARMV 					 	= 6
+BOARD 					 	= ST_NUCLEO64_L073RZ
+
+BOOTLOADER				 	= stm32-dfu
+STM32_BOOTLOADER_ADDRESS 	= 0x1FF00000
+
+LTO_ENABLE				 	= no
+NKRO_ENABKE				 	= yes
+
+LAYER_LOCK_ENABLE 		 	= yes
+PROGRAMMABLE_BUTTON_ENABLE  = yes
+KEY_LOCK_ENABLE 			= yes

@@ -1,0 +1,229 @@
+{
+    "keyboard_name": "Blacktip",
+    "manufacturer": "iH0118",
+    "maintainer": "iH0118",
+    "url": "",
+    "bootloader_instructions": "Press the physical RESET button on the back of the PCB, or hold the top-left key when plugging in the board.",
+    "tags": ["ortho", "split", "rgb"],
+
+    "build": {
+        "debounce_type": "sym_defer_g"
+    },
+    "features": {
+        "bootmagic": true,
+        "eeprom": true,
+        "extrakey": true,
+        "nkro": true,
+        "rgb_matrix": true,
+        "split_keyboard": true
+    },
+
+    "bootmagic": {
+        "enabled": true,
+        "matrix": [0, 0]
+    },
+
+    "eeprom": {
+        "driver": "vendor"
+    },
+
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0.5, "label": "Esc"},
+                {"matrix": [0, 1], "x": 1, "y": 0.375, "label": "1"},
+                {"matrix": [0, 2], "x": 2, "y": 0.125, "label": "2"},
+                {"matrix": [0, 3], "x": 3, "y": 0, "label": "3"},
+                {"matrix": [0, 4], "x": 4, "y": 0.125, "label": "4"},
+                {"matrix": [0, 5], "x": 5, "y": 0.25, "label": "5"},
+
+                {"matrix": [5, 5], "x": 9, "y": 0.25, "label": "6"},
+                {"matrix": [5, 4], "x": 10, "y": 0.125, "label": "7"},
+                {"matrix": [5, 3], "x": 11, "y": 0, "label": "8"},
+                {"matrix": [5, 2], "x": 12, "y": 0.125, "label": "9"},
+                {"matrix": [5, 1], "x": 13, "y": 0.375, "label": "0"},
+                {"matrix": [5, 0], "x": 14, "y": 0.5, "label": "Bksp"},
+
+                {"matrix": [1, 0], "x": 0, "y": 1.5, "label": "Tab"},
+                {"matrix": [1, 1], "x": 1, "y": 1.375, "label": "Q"},
+                {"matrix": [1, 2], "x": 2, "y": 1.125, "label": "W"},
+                {"matrix": [1, 3], "x": 3, "y": 1, "label": "E"},
+                {"matrix": [1, 4], "x": 4, "y": 1.125, "label": "R"},
+                {"matrix": [1, 5], "x": 5, "y": 1.25, "label": "T"},
+
+                {"matrix": [4, 5], "x": 6, "y": 1.375, "label": "["},
+                {"matrix": [9, 5], "x": 8, "y": 1.375, "label": "]"},
+
+                {"matrix": [6, 5], "x": 9, "y": 1.25, "label": "Y"},
+                {"matrix": [6, 4], "x": 10, "y": 1.125, "label": "U"},
+                {"matrix": [6, 3], "x": 11, "y": 1, "label": "I"},
+                {"matrix": [6, 2], "x": 12, "y": 1.125, "label": "O"},
+                {"matrix": [6, 1], "x": 13, "y": 1.375, "label": "P"},
+                {"matrix": [6, 0], "x": 14, "y": 1.5, "label": "\\"},
+
+                {"matrix": [2, 0], "x": 0, "y": 2.5, "label": "Ctrl"},
+                {"matrix": [2, 1], "x": 1, "y": 2.375, "label": "A"},
+                {"matrix": [2, 2], "x": 2, "y": 2.125, "label": "S"},
+                {"matrix": [2, 3], "x": 3, "y": 2, "label": "D"},
+                {"matrix": [2, 4], "x": 4, "y": 2.125, "label": "F"},
+                {"matrix": [2, 5], "x": 5, "y": 2.25, "label": "G"},
+
+                {"matrix": [4, 4], "x": 6, "y": 2.375, "label": "-"},
+                {"matrix": [9, 4], "x": 8, "y": 2.375, "label": "="},
+
+                {"matrix": [7, 5], "x": 9, "y": 2.25, "label": "H"},
+                {"matrix": [7, 4], "x": 10, "y": 2.125, "label": "J"},
+                {"matrix": [7, 3], "x": 11, "y": 2, "label": "K"},
+                {"matrix": [7, 2], "x": 12, "y": 2.125, "label": "L"},
+                {"matrix": [7, 1], "x": 13, "y": 2.375, "label": ";"},
+                {"matrix": [7, 0], "x": 14, "y": 2.5, "label": "'"},
+
+                {"matrix": [3, 0], "x": 0, "y": 3.5, "label": "Shift"},
+                {"matrix": [3, 1], "x": 1, "y": 3.375, "label": "Z"},
+                {"matrix": [3, 2], "x": 2, "y": 3.125, "label": "X"},
+                {"matrix": [3, 3], "x": 3, "y": 3, "label": "C"},
+                {"matrix": [3, 4], "x": 4, "y": 3.125, "label": "V"},
+                {"matrix": [3, 5], "x": 5, "y": 3.25, "label": "B"},
+
+                {"matrix": [8, 5], "x": 9, "y": 3.25, "label": "N"},
+                {"matrix": [8, 4], "x": 10, "y": 3.125, "label": "M"},
+                {"matrix": [8, 3], "x": 11, "y": 3, "label": "."},
+                {"matrix": [8, 2], "x": 12, "y": 3.125, "label": ","},
+                {"matrix": [8, 1], "x": 13, "y": 3.375, "label": "/"},
+                {"matrix": [8, 0], "x": 14, "y": 3.5, "label": "Shift"},
+
+                {"matrix": [4, 0], "x": 2, "y": 4.125, "w": 1.25, "label": "Mod4"},
+                {"matrix": [4, 1], "x": 3.25, "y": 4.125, "w": 1.25, "label": "Alt"},
+                {"matrix": [4, 2], "x": 4.5, "y": 4.25, "w": 1.25, "label": "Lower" },
+                {"matrix": [4, 3], "x": 6, "y": 3.375, "h": 2, "label": "Space" },
+
+                {"matrix": [9, 3], "x": 8, "y": 3.375, "h": 2, "label": "Return"},
+                {"matrix": [9, 2], "x": 9.25, "y": 4.25, "w": 1.25, "label": "Raise"},
+                {"matrix": [9, 1], "x": 10.5, "y": 4.125, "w": 1.25, "label": "Alt"},
+                {"matrix": [9, 0], "x": 11.75, "y": 4.125, "w": 1.25, "label": "Mod4"}
+            ]
+        }
+    },
+
+    "diode_direction": "ROW2COL",
+    "matrix_pins": {
+        "cols": ["B7", "B6", "B5", "B4", "A7", "C15"],
+        "rows": ["B0", "A6", "C14", "B3", "A1"]
+    },
+
+    "rgb_matrix": {
+        "animations": {
+            "solid_color": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "cycle_pinwheel": true,
+            "cycle_spiral": true,
+            "flower_blooming": true,
+            "jellybean_raindrops": true,
+            "pixel_rain": true,
+            "typing_heatmap": true,
+            "digital_rain": true,
+            "solid_reactive_simple": true,
+            "solid_reactive": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_multicross": true,
+            "solid_reactive_multinexus": true,
+            "multisplash": true,
+            "solid_multisplash": true,
+            "starlight": true,
+            "riverflow": true
+        },
+        "center_point": [56, 17],
+        "driver": "ws2812",
+        "layout": [
+            {"matrix": [0, 5], "x": 40, "y": 2, "flags": 4},
+            {"matrix": [0, 4], "x": 32, "y": 1, "flags": 4},
+            {"matrix": [0, 3], "x": 24, "y": 0, "flags": 4},
+            {"matrix": [0, 2], "x": 16, "y": 1, "flags": 4},
+            {"matrix": [0, 1], "x": 8, "y": 3, "flags": 4},
+            {"matrix": [0, 0], "x": 0, "y": 4, "flags": 4},
+            {"matrix": [1, 0], "x": 0, "y": 12, "flags": 4},
+            {"matrix": [1, 1], "x": 8, "y": 11, "flags": 4},
+            {"matrix": [1, 2], "x": 16, "y": 9, "flags": 4},
+            {"matrix": [1, 3], "x": 24, "y": 8, "flags": 4},
+            {"matrix": [1, 4], "x": 32, "y": 9, "flags": 4},
+            {"matrix": [1, 5], "x": 40, "y": 10, "flags": 4},
+            {"matrix": [4, 5], "x": 48, "y": 11, "flags": 4},
+            {"matrix": [4, 4], "x": 48, "y": 19, "flags": 4},
+            {"matrix": [2, 5], "x": 40, "y": 18, "flags": 4},
+            {"matrix": [2, 4], "x": 32, "y": 17, "flags": 4},
+            {"matrix": [2, 3], "x": 24, "y": 16, "flags": 4},
+            {"matrix": [2, 2], "x": 16, "y": 17, "flags": 4},
+            {"matrix": [2, 1], "x": 8, "y": 19, "flags": 4},
+            {"matrix": [2, 0], "x": 0, "y": 20, "flags": 4},
+            {"matrix": [3, 0], "x": 0, "y": 28, "flags": 4},
+            {"matrix": [3, 1], "x": 8, "y": 27, "flags": 4},
+            {"matrix": [3, 2], "x": 16, "y": 25, "flags": 4},
+            {"matrix": [3, 3], "x": 24, "y": 24, "flags": 4},
+            {"matrix": [3, 4], "x": 32, "y": 25, "flags": 4},
+            {"matrix": [3, 5], "x": 40, "y": 26, "flags": 4},
+            {"matrix": [4, 3], "x": 48, "y": 31, "flags": 4},
+            {"matrix": [4, 2], "x": 37, "y": 34, "flags": 4},
+            {"matrix": [4, 1], "x": 27, "y": 33, "flags": 4},
+            {"matrix": [4, 0], "x": 17, "y": 33, "flags": 4},
+
+            {"matrix": [5, 5], "x": 72, "y": 2, "flags": 4},
+            {"matrix": [5, 4], "x": 80, "y": 1, "flags": 4},
+            {"matrix": [5, 3], "x": 88, "y": 0, "flags": 4},
+            {"matrix": [5, 2], "x": 96, "y": 1, "flags": 4},
+            {"matrix": [5, 1], "x": 104, "y": 3, "flags": 4},
+            {"matrix": [5, 0], "x": 112, "y": 4, "flags": 4},
+            {"matrix": [6, 0], "x": 112, "y": 12, "flags": 4},
+            {"matrix": [6, 1], "x": 104, "y": 11, "flags": 4},
+            {"matrix": [6, 2], "x": 96, "y": 9, "flags": 4},
+            {"matrix": [6, 3], "x": 88, "y": 8, "flags": 4},
+            {"matrix": [6, 4], "x": 80, "y": 9, "flags": 4},
+            {"matrix": [6, 5], "x": 72, "y": 10, "flags": 4},
+            {"matrix": [9, 5], "x": 64, "y": 11, "flags": 4},
+            {"matrix": [9, 4], "x": 64, "y": 19, "flags": 4},
+            {"matrix": [7, 5], "x": 72, "y": 18, "flags": 4},
+            {"matrix": [7, 4], "x": 80, "y": 17, "flags": 4},
+            {"matrix": [7, 3], "x": 88, "y": 16, "flags": 4},
+            {"matrix": [7, 2], "x": 96, "y": 17, "flags": 4},
+            {"matrix": [7, 1], "x": 104, "y": 19, "flags": 4},
+            {"matrix": [7, 0], "x": 112, "y": 20, "flags": 4},
+            {"matrix": [8, 0], "x": 112, "y": 28, "flags": 4},
+            {"matrix": [8, 1], "x": 104, "y": 27, "flags": 4},
+            {"matrix": [8, 2], "x": 96, "y": 25, "flags": 4},
+            {"matrix": [8, 3], "x": 88, "y": 24, "flags": 4},
+            {"matrix": [8, 4], "x": 80, "y": 25, "flags": 4},
+            {"matrix": [8, 5], "x": 72, "y": 26, "flags": 4},
+            {"matrix": [9, 3], "x": 64, "y": 31, "flags": 4},
+            {"matrix": [9, 2], "x": 75, "y": 34, "flags": 4},
+            {"matrix": [9, 1], "x": 85, "y": 33, "flags": 4},
+            {"matrix": [9, 0], "x": 95, "y": 33, "flags": 4}
+        ],
+        "split_count": [30, 30],
+        "max_brightness": 96
+    },
+
+    "split": {
+        "enabled": true,
+        "serial": {
+            "driver": "usart"
+        },
+        "transport": {
+            "protocol": "serial"
+        },
+        "usb_detect": {
+            "enabled": true
+        }
+    },
+
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0xB00B",
+        "vid": "0xFEED"
+    },
+
+    "ws2812": {
+        "driver": "pwm",
+        "pin": "A15"
+    }
+}
