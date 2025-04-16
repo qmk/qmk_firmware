@@ -27,6 +27,3 @@
 #define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN B10
 #define EXTERNAL_FLASH_SPI_CLOCK_DIVISOR 4     // (160MHz/4) => 40MHz
 #define EXTERNAL_FLASH_SIZE (16 * 1024 * 1024) // 128Mb/16MB capacity
-
-// We can store as many layers as we like.
-#define DYNAMIC_KEYMAP_LAYER_COUNT 32
