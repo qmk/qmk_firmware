@@ -1,0 +1,13 @@
+#ifdef STARTUP_SONG
+#  undef STARTUP_SONG
+#endif
+
+#define STARTUP_SONG SONG(FAMIMA)
+
+#define AUDIO_ENABLED false
+#define NO_MUSIC_MODE
+
+#define TAPPING_TERM 175
+#define PERMISSIVE_HOLD
+#define QUICK_TAP_TERM_PER_KEY
+#define TAPPING_TERM_PER_KEY

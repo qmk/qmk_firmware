@@ -5,15 +5,15 @@
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
     "features": {
-        "audio": true,
+        "audio": false,
         "bootmagic": true,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
         "oled": true,
-        "pointing_device": true,
-        "rgb_matrix": true
+        "pointing_device": false,
+        "rgb_matrix": false
     },
     "indicators": {
         "caps": "GP24"
