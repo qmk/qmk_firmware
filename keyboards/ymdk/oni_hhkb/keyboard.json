@@ -172,11 +172,6 @@
             { "x": 216, "y": 52, "flags": 2 }
         ]
     },
-    "diode_direction": "ROW2COL",
-    "backlight": {
-        "pin": "B7",
-        "levels": 5
-    },
     "indicators": {
         "caps_lock": "F4",
         "on_state": 0
