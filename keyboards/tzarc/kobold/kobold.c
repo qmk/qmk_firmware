@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include QMK_KEYBOARD_H
 
-void board_init(void) {
+void early_hardware_init_post(void) {
     // Disable RGB LEDs
     gpio_set_pin_output(RGB_ENABLE_PIN);
     gpio_write_pin(RGB_ENABLE_PIN, 1);
