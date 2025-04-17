@@ -240,6 +240,3 @@ report_mouse_t pointing_modes_device_task(report_mouse_t mouse_report); // inter
 uint8_t pointing_modes_get_active_device(void);              // get active device id
 void    pointing_modes_set_active_device(uint8_t device_id); // set active device (PM_LEFT_SIDE, PM_RIGHT_SIDE, etc.)
 
-/* ----------External Constants----------------------------------------------------------------------------------- */
-
-extern const uint16_t PROGMEM pointing_modes_maps[][POINTING_MODES_NUM_DIRECTIONS];
