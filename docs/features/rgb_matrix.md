@@ -378,6 +378,10 @@ These are defined in [`color.h`](https://github.com/qmk/qmk_firmware/blob/master
 #define RGB_MATRIX_DEFAULT_SAT 255 // Sets the default saturation value, if none has been set
 #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS // Sets the default brightness value, if none has been set
 #define RGB_MATRIX_DEFAULT_SPD 127 // Sets the default animation speed, if none has been set
+#define RGB_MATRIX_HUE_STEP 8 // The value by which to increment the hue per adjustment action
+#define RGB_MATRIX_SAT_STEP 16 // The value by which to increment the saturation per adjustment action
+#define RGB_MATRIX_VAL_STEP 16 // The value by which to increment the brightness per adjustment action
+#define RGB_MATRIX_SPD_STEP 16 // The value by which to increment the animation speed per adjustment action
 #define RGB_MATRIX_DEFAULT_FLAGS LED_FLAG_ALL // Sets the default LED flags, if none has been set
 #define RGB_MATRIX_SPLIT { X, Y } 	// (Optional) For split keyboards, the number of LEDs connected on each half. X = left, Y = Right.
                               		// If reactive effects are enabled, you also will want to enable SPLIT_TRANSPORT_MIRROR
