@@ -67,11 +67,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // channel 1
         //// key5 * 5, key4 * 2
         QK_BOOT, QK_CLEAR_EEPROM, _______, _______, _______,
-        _______, QK_KB_10, QK_KB_5, QK_KB_0, _______,
-        _______, QK_KB_11, QK_KB_6, QK_KB_1, _______,
-        _______, QK_KB_12, QK_KB_7, QK_KB_2, _______,
-        _______, QK_KB_13, QK_KB_8, QK_KB_3, _______,
-        _______, QK_KB_14, QK_KB_9, QK_KB_4,
+        QK_KB_15, QK_KB_10, QK_KB_5, QK_KB_0, _______,
+        QK_KB_16, QK_KB_11, QK_KB_6, QK_KB_1, _______,
+        QK_KB_17, QK_KB_12, QK_KB_7, QK_KB_2, _______,
+        QK_KB_18, QK_KB_13, QK_KB_8, QK_KB_3, _______,
+        QK_KB_19, QK_KB_14, QK_KB_9, QK_KB_4,
         _______, _______, _______, _______,
 
         //// rotary encoders * 1
@@ -80,11 +80,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // channel 2
         //// key4 * 2, key5 * 5
         _______, _______, _______, _______,
-        _______, _______, _______, _______,
-        _______, KC_F7, KC_F4, KC_F1, _______,
-        _______, KC_F8, KC_F5, KC_F2, KC_F10,
-        _______, KC_F9, KC_F6, KC_F3, _______,
-        _______, _______, _______, _______, _______,
+        QK_KB_20, _______, _______, _______,
+        QK_KB_21, KC_F7, KC_F4, KC_F1, _______,
+        QK_KB_22, KC_F8, KC_F5, KC_F2, KC_F10,
+        QK_KB_23, KC_F9, KC_F6, KC_F3, _______,
+        QK_KB_24, _______, _______, _______, _______,
         _______, _______, _______, _______, _______
 
         // clang-format on
