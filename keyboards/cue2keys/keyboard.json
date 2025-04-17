@@ -23,62 +23,62 @@
         {
             "name": "AUTO_MOUSE_LAYER_OFF_DELAY_P1",
             "shortName": "mod_P1",
-            "title": "Auto mouse layer off delay time in ms (0-6300 ms)"
+            "title": "Auto mouse layer off delay time in ms (value * 100ms)"
         },
         {
             "name": "AUTO_MOUSE_LAYER_OFF_DELAY_M1",
             "shortName": "mod_M1",
-            "title": "Auto mouse layer off delay time in ms (0-6300 ms)"
+            "title": "Auto mouse layer off delay time in ms (value * 100ms)"
         },
         {
             "name": "ANGLE_L_ADJUSTMENT_P1",
             "shortName": "agl_P1",
-            "title": "Angle adjustment per 2 degrees for trackballs (left)"
+            "title": "Angle adjustment for trackballs (left)"
         },
         {
             "name": "ANGLE_L_ADJUSTMENT_M1",
             "shortName": "agl_M1",
-            "title": "Angle adjustment per 2 degrees for trackballs (left)"
+            "title": "Angle adjustment for trackballs (left)"
         },
         {
             "name": "ANGLE_L_ADJUSTMENT_P30",
             "shortName": "agl_P30",
-            "title": "Angle adjustment per 2 degrees for trackballs (left)"
+            "title": "Angle adjustment for trackballs (left)"
         },
         {
             "name": "ANGLE_L_ADJUSTMENT_M30",
             "shortName": "agl_M30",
-            "title": "Angle adjustment per 2 degrees for trackballs (left)"
+            "title": "Angle adjustment for trackballs (left)"
         },
         {
             "name": "ANGLE_R_ADJUSTMENT_P1",
             "shortName": "agr_P1",
-            "title": "Angle adjustment per 2 degrees for trackballs (right)"
+            "title": "Angle adjustment for trackballs (right)"
         },
         {
             "name": "ANGLE_R_ADJUSTMENT_M1",
             "shortName": "agr_M1",
-            "title": "Angle adjustment per 2 degrees for trackballs (right)"
+            "title": "Angle adjustment for trackballs (right)"
         },
         {
             "name": "ANGLE_R_ADJUSTMENT_P30",
             "shortName": "agr_P30",
-            "title": "Angle adjustment per 2 degrees for trackballs (right)"
+            "title": "Angle adjustment for trackballs (right)"
         },
         {
             "name": "ANGLE_R_ADJUSTMENT_M30",
             "shortName": "agr_M30",
-            "title": "Angle adjustment per 2 degrees for trackballs (right)"
+            "title": "Angle adjustment for trackballs (right)"
         },
         {
             "name": "POINTER_SPEED_MAGNIFICATION_P1",
             "shortName": "psm_P1",
-            "title": "Pointer speed magnification (0.25 * value)"
+            "title": "Pointer speed magnification (value * 0.25)"
         },
         {
             "name": "POINTER_SPEED_MAGNIFICATION_M1",
             "shortName": "psm_M1",
-            "title": "Pointer speed magnification (0.25 * value)"
+            "title": "Pointer speed magnification (value * 0.25)"
         },
         {
             "name": "INVERT_DRAG_SCROLL_X_P1",
@@ -93,12 +93,12 @@
         {
             "name": "DRAG_SCROLL_SPEED_MAGNIFICATION_P1",
             "shortName": "dsm_P1",
-            "title": "Drag scroll speed magnification (0.25 * value)"
+            "title": "Drag scroll speed magnification (value * 0.25)"
         },
         {
             "name": "DRAG_SCROLL_SPEED_MAGNIFICATION_M1",
             "shortName": "dsm_M1",
-            "title": "Drag scroll speed magnification (0.25 * value)"
+            "title": "Drag scroll speed magnification (value * 0.25)"
         },
         {
             "name": "TRACKBALL_LED_OFF_TIMEOUT_P1",

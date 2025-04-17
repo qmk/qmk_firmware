@@ -56,16 +56,16 @@ typedef union {
         // Auto mouse layer (true/false)
         // 2^1=2, default: 1, max: 1
         uint32_t mouse_layer_on : 1;
-        // Auto mouse layer off delay time in ms (0-6300 ms)
+        // Auto mouse layer off delay time in ms (value * 100ms)
         // 2^6=64, default: 13, max: 63
         uint32_t mouse_layer_off_delay_ms : 6;
-        // Angle adjustment per 2 degrees for trackballs (left)
+        // Angle adjustment for trackballs (left)
         // 2^9=512, default: 0, max: 359
         uint32_t angle_L : 9;
-        // Angle adjustment per 2 degrees for trackballs (right)
+        // Angle adjustment for trackballs (right)
         // 2^9=512, default: 0, max: 359
         uint32_t angle_R : 9;
-        // Pointer speed magnification (0.25 * value)
+        // Pointer speed magnification (value * 0.25)
         // 2^4=16, default: 4, max: 15
         uint32_t pointer_speed_magnification : 4;
         // Invert drag scroll X-axis direction (true/false)
@@ -74,7 +74,7 @@ typedef union {
         // Invert drag scroll Y-axis direction (true/false)
         // 2^1=2, default: 0, max: 1
         uint32_t invert_drag_scroll_y : 1;
-        // Drag scroll speed magnification (0.25 * value)
+        // Drag scroll speed magnification (value * 0.25)
         // 2^4=16, default: 4, max: 15
         uint32_t drag_scroll_speed_magnification : 4;
         // Trackball LED off timeout (never, 5min, 10min, 15 min)
