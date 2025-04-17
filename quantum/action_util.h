@@ -25,6 +25,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 extern "C" {
 #endif
 
+typedef union {
+    uint8_t raw;
+    struct {
+        bool left_ctrl: 1;
+        bool left_shift: 1;
+        bool left_alt: 1;
+        bool left_gui: 1;
+        bool right_ctrl: 1;
+        bool right_shift: 1;
+        bool right_alt: 1;
+        bool right_gui: 1;
+    };
+} mod_t;
+
 extern report_keyboard_t *keyboard_report;
 #ifdef NKRO_ENABLE
 extern report_nkro_t *nkro_report;
@@ -47,6 +61,7 @@ inline void clear_keys(void) {
 
 /* modifier */
 uint8_t get_mods(void);
+mod_t   get_mod_state(void);
 void    add_mods(uint8_t mods);
 void    del_mods(uint8_t mods);
 void    set_mods(uint8_t mods);
@@ -54,6 +69,7 @@ void    clear_mods(void);
 
 /* weak modifier */
 uint8_t get_weak_mods(void);
+mod_t   get_weak_mod_state(void);
 void    add_weak_mods(uint8_t mods);
 void    del_weak_mods(uint8_t mods);
 void    set_weak_mods(uint8_t mods);
@@ -61,6 +77,7 @@ void    clear_weak_mods(void);
 
 /* oneshot modifier */
 uint8_t get_oneshot_mods(void);
+mod_t   get_oneshot_mod_state(void);
 void    add_oneshot_mods(uint8_t mods);
 void    del_oneshot_mods(uint8_t mods);
 void    set_oneshot_mods(uint8_t mods);
@@ -68,6 +85,7 @@ void    clear_oneshot_mods(void);
 bool    has_oneshot_mods_timed_out(void);
 
 uint8_t get_oneshot_locked_mods(void);
+mod_t   get_oneshot_locked_mod_state(void);
 void    add_oneshot_locked_mods(uint8_t mods);
 void    set_oneshot_locked_mods(uint8_t mods);
 void    clear_oneshot_locked_mods(void);
