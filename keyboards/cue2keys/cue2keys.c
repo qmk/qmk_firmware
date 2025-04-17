@@ -8,6 +8,8 @@
 #include "atomic_util.h"
 #include "i2clib.h"
 #include "i2c_master.h"
+#include "kb_config.h"
+#include "./drivers/encoder_dynamic_res.h"
 
 extern DeviceList deviceList[MAX_MCP_NUM];
 extern uint16_t   nDevices;
@@ -20,8 +22,8 @@ static pin_t direct_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
 
 kb_config_t kb_config = {0};
 
-uint16_t calc_auto_mouse_timeout_by_kbconfig(uint8_t ms) {
-    return 250 + 50 * ms;
+uint16_t calc_auto_mouse_timeout_by_kbconfig(uint8_t value) {
+    return 100 * value;
 }
 
 #ifdef POINTING_DEVICE_ENABLE
@@ -38,11 +40,31 @@ void keyboard_post_init_kb(void) {
     // debug_keyboard=true;
     // debug_mouse=true;
 
-    kb_config.raw = eeconfig_read_kb();
-    modular_adns5050_set_half_angle(0, kb_config.angle1);
-    modular_adns5050_set_half_angle(1, kb_config.angle2);
+    // initialize with the keyboard config data
+    eeconfig_read_kb_datablock(&kb_config.raw);
 #ifdef POINTING_DEVICE_ENABLE
+    modular_adns5050_set_angle(0, kb_config.angle_L);
+    modular_adns5050_set_angle(1, kb_config.angle_R);
     set_auto_mouse_timeout(calc_auto_mouse_timeout_by_kbconfig(kb_config.mouse_layer_off_delay_ms));
+    modular_adns5050_set_led_off_length(kb_config.trackball_led_off_timeout * 5 * 60 * 1000);
+#endif
+#ifdef ENCODER_ENABLE
+    dynamic_res_encoder_update_res(0, kb_config.re_resolution_1);
+    dynamic_res_encoder_update_res(1, kb_config.re_resolution_2);
+    dynamic_res_encoder_update_res(2, kb_config.re_resolution_3);
+    dynamic_res_encoder_update_res(3, kb_config.re_resolution_4);
+    dynamic_res_encoder_update_res(4, kb_config.re_resolution_5);
+    dynamic_res_encoder_update_res(5, kb_config.re_resolution_6);
+    dynamic_res_encoder_update_res(6, kb_config.re_resolution_7);
+    dynamic_res_encoder_update_res(7, kb_config.re_resolution_8);
+    dynamic_res_encoder_update_res(8, kb_config.re_resolution_9);
+    dynamic_res_encoder_update_res(9, kb_config.re_resolution_10);
+    dynamic_res_encoder_update_res(10, kb_config.re_resolution_11);
+    dynamic_res_encoder_update_res(11, kb_config.re_resolution_12);
+    dynamic_res_encoder_update_res(12, kb_config.re_resolution_13);
+    dynamic_res_encoder_update_res(13, kb_config.re_resolution_14);
+    dynamic_res_encoder_update_res(14, kb_config.re_resolution_15);
+    dynamic_res_encoder_update_res(15, kb_config.re_resolution_16);
 #endif
 
     i2c_init();
@@ -52,13 +74,12 @@ void keyboard_post_init_kb(void) {
 }
 
 void eeconfig_init_kb(void) {
-    kb_config.raw                         = 0;
-    kb_config.angle1                      = 0;
-    kb_config.angle2                      = 0;
-    kb_config.mouse_layer_off_delay_ms    = 7;
-    kb_config.pointer_speed_magnification = 1;
-    eeconfig_update_kb(kb_config.raw);
+    memset(&kb_config.raw, 0, sizeof(kb_config));
 
+    // initialization of kb_config
+    my_kb_config_init(&kb_config);
+
+    eeconfig_update_kb_datablock(&kb_config.raw);
     eeconfig_init_user();
 }
 
@@ -122,19 +143,10 @@ void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     current_matrix[current_row] = row_data;
 }
 
-void update_half_angle(uint8_t index, int16_t angle) {
-    modular_adns5050_add_half_angle(index, angle);
-    if (index == 0) {
-        kb_config.angle1 = modular_adns5050_get_half_angle(index);
-    }
-    if (index == 1) {
-        kb_config.angle2 = modular_adns5050_get_half_angle(index);
-    }
-    eeconfig_update_kb(kb_config.raw);
-}
-
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+#ifdef POINTING_DEVICE_ENABLE
     modular_adns5050_wake_up_all(true);
+#endif
 
 // If console is enabled, it will print the matrix position and status of each key pressed
 #ifdef CONSOLE_ENABLE
@@ -164,85 +176,41 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         }
     }
 
-    // process angle change
-    if (record->event.pressed) {
-        {
-            const uint16_t value = 15;
-            switch (keycode) {
-                case ROT_R30_1:
-                    update_half_angle(0, value);
-                    return false;
-                case ROT_L30_1:
-                    update_half_angle(0, -value);
-                    return false;
-                case ROT_R30_2:
-                    update_half_angle(1, value);
-                    return false;
-                case ROT_L30_2:
-                    update_half_angle(1, -value);
-                    return false;
-            }
-        }
-        {
-            const uint16_t value = 1;
-            switch (keycode) {
-                case ROT_R2_1:
-                    update_half_angle(0, value);
-                    return false;
-                case ROT_L2_1:
-                    update_half_angle(0, -value);
-                    return false;
-                case ROT_R2_2:
-                    update_half_angle(1, value);
-                    return false;
-                case ROT_L2_2:
-                    update_half_angle(1, -value);
-                    return false;
-            }
-        }
-    }
-
-    // process mouse layer ms change
-    if (record->event.pressed) {
-        switch (keycode) {
-            case MOUSE_LAYER_MS_ADD_50MS:
-                kb_config.mouse_layer_off_delay_ms += 1;
-                // overflow
-                if (kb_config.mouse_layer_off_delay_ms == 0) kb_config.mouse_layer_off_delay_ms = 15;
-                eeconfig_update_kb(kb_config.raw);
-#ifdef POINTING_DEVICE_ENABLE
-                set_auto_mouse_timeout(calc_auto_mouse_timeout_by_kbconfig(kb_config.mouse_layer_off_delay_ms));
-#endif
-                return false;
-            case MOUSE_LAYER_MS_MINUS_50MS:
-                kb_config.mouse_layer_off_delay_ms -= 1;
-                // overflow
-                if (kb_config.mouse_layer_off_delay_ms == 15) kb_config.mouse_layer_off_delay_ms = 0;
-                eeconfig_update_kb(kb_config.raw);
-#ifdef POINTING_DEVICE_ENABLE
-                set_auto_mouse_timeout(calc_auto_mouse_timeout_by_kbconfig(kb_config.mouse_layer_off_delay_ms));
-#endif
-                return false;
-        }
-    }
-
-    // process pointer move speed change
-    if (record->event.pressed) {
-        switch (keycode) {
-            case POINTER_SPEED_MAG_CHANGE:
-                kb_config.pointer_speed_magnification += 1;
-                if (kb_config.pointer_speed_magnification > 3) kb_config.pointer_speed_magnification = 0;
-                eeconfig_update_kb(kb_config.raw);
-                return false;
-        }
-    }
-
     // drag scroll
+#ifdef POINTING_DEVICE_ENABLE
     switch (keycode) {
         case DRAG_SCROLL:
             // Toggle set_scrolling
             set_scrolling = record->event.pressed;
             return false;
+    }
+
+#endif
+
+    if (!process_kb_config_modification(&kb_config, keycode, record)) {
+        eeconfig_update_kb_datablock(&kb_config.raw);
+        switch (keycode) {
+            case AUTO_MOUSE_LAYER_P1:
+                set_auto_mouse_enable(kb_config.mouse_layer_on);
+                break;
+            case AUTO_MOUSE_LAYER_OFF_DELAY_P1:
+            case AUTO_MOUSE_LAYER_OFF_DELAY_M1:
+                set_auto_mouse_timeout(calc_auto_mouse_timeout_by_kbconfig(kb_config.mouse_layer_off_delay_ms));
+                break;
+            case ANGLE_L_ADJUSTMENT_P1:
+            case ANGLE_L_ADJUSTMENT_M1:
+            case ANGLE_L_ADJUSTMENT_P30:
+            case ANGLE_L_ADJUSTMENT_M30:
+                modular_adns5050_set_angle(0, kb_config.angle_L);
+                break;
+            case ANGLE_R_ADJUSTMENT_P1:
+            case ANGLE_R_ADJUSTMENT_M1:
+            case ANGLE_R_ADJUSTMENT_P30:
+            case ANGLE_R_ADJUSTMENT_M30:
+                modular_adns5050_set_angle(1, kb_config.angle_R);
+                break;
+        }
+        return false;
     }
 
     return process_record_user(keycode, record);
@@ -323,38 +291,21 @@ bool oled_task_kb(void) {
             }
             oled_write_ln(PSTR(""), false);
         }
-    } else if (display_mode == DisplayMode_EEPROM) {
-        oled_write_ln_P(PSTR("-- EEPROM --"), false);
-        kb_config.raw = eeconfig_read_kb();
-        {
-            static char type_count_str[7];
-            oled_write_P(PSTR("A1: "), false);
-            itoa(kb_config.angle1 * 2, type_count_str, 10);
-            oled_write_P(type_count_str, false);
-        }
-        oled_write_P(PSTR(", "), false);
-        {
-            static char type_count_str[7];
-            oled_write_P(PSTR("A2: "), false);
-            itoa(kb_config.angle2 * 2, type_count_str, 10);
-            oled_write_P(type_count_str, false);
-        }
-        oled_write_P(PSTR(", "), false);
-        {
-            static char type_count_str[7];
-            oled_write_P(PSTR("MD: "), false);
-            itoa(calc_auto_mouse_timeout_by_kbconfig(kb_config.mouse_layer_off_delay_ms), type_count_str, 10);
-            oled_write_P(type_count_str, false);
-            oled_write_P(PSTR("ms"), false);
-        }
-        oled_write_P(PSTR(", "), false);
-        {
-            static char type_count_str[7];
-            oled_write_P(PSTR("MG: "), false);
-            itoa(kb_config.pointer_speed_magnification, type_count_str, 10);
-            oled_write_P(type_count_str, false);
-        }
-        oled_write_ln(PSTR(""), false);
+    } else if (display_mode == DisplayMode_CONF_0) {
+        // debug output of the all kb_config data
+        debug_output_kb_config(&kb_config);
+        oled_kb_config_output(&kb_config, 0);
+    } else if (display_mode == DisplayMode_CONF_1) {
+        oled_kb_config_output(&kb_config, 1);
+    } else if (display_mode == DisplayMode_CONF_2) {
+        oled_kb_config_output(&kb_config, 2);
+    } else if (display_mode == DisplayMode_CONF_3) {
+        oled_kb_config_output(&kb_config, 3);
+    } else if (display_mode == DisplayMode_CONF_4) {
+        oled_kb_config_output(&kb_config, 4);
+    } else if (display_mode == DisplayMode_VERSION) {
+        oled_write_ln_P(PSTR("-- VERSION --"), false);
+        oled_write_ln_P(PSTR(FW_VERSION), false);
     } else {
         oled_write_ln_P(PSTR("-- INVALID MODE --"), false);
     }
@@ -394,8 +345,17 @@ uint8_t encoder_quadrature_read_pin(uint8_t index, bool pad_b) {
 }
 
 bool encoder_update_kb(uint8_t index, bool clockwise) {
+#    ifdef POINTING_DEVICE_ENABLE
     modular_adns5050_wake_up_all(true);
+#    endif
     return encoder_update_user(index, clockwise);
+}
+
+// override existing weak function
+void encoder_driver_task(void) {
+    for (uint8_t i = 0; i < NUM_ENCODERS; i++) {
+        dynamic_res_encoder_quadrature_handle_read(i, encoder_quadrature_read_pin(i, false), encoder_quadrature_read_pin(i, true));
+    }
 }
 #endif
 
@@ -406,12 +366,9 @@ void pointing_device_driver_init(void) {
     set_auto_mouse_enable(true);
 }
 report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
-    uint16_t user_mag = kb_config.pointer_speed_magnification;
-    float    mag      = 0.5;
-    for (uint8_t i = 0; i < user_mag; i++) {
-        mag *= 2;
-    }
-    report_mouse_t t = modular_adns5050_pointing_device_driver.get_report(mouse_report);
+    float          mag     = 0.25 * (kb_config.pointer_speed_magnification + 1);
+    float          scr_mag = 0.25 * (kb_config.drag_scroll_speed_magnification + 1);
+    report_mouse_t t       = modular_adns5050_pointing_device_driver.get_report(mouse_report);
 
     // Check if drag scrolling is active
     if (set_scrolling) {
@@ -420,8 +377,15 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
         scroll_accumulated_v += (float)t.y / SCROLL_DIVISOR_V;
 
         // Assign integer parts of accumulated scroll values to the mouse report
-        t.h = (int8_t)scroll_accumulated_h;
-        t.v = (int8_t)scroll_accumulated_v;
+        t.h = (int8_t)(scroll_accumulated_h * scr_mag);
+        t.v = (int8_t)(scroll_accumulated_v * scr_mag);
+
+        if (kb_config.invert_drag_scroll_y) {
+            t.h *= -1;
+        }
+        if (kb_config.invert_drag_scroll_x) {
+            t.v *= -1;
+        }
 
         // Update accumulated scroll values by subtracting the integer parts
         scroll_accumulated_h -= (int8_t)scroll_accumulated_h;
@@ -431,7 +395,6 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
         t.x = 0;
         t.y = 0;
     } else {
-        // scroll speed is not affected by the speed magnification
         t.x *= mag;
         t.y *= mag;
     }

@@ -11,64 +11,184 @@
             "title": "Open next page on OLED display"
         },
         {
-            "name": "ROT_R30_1",
-            "shortName": "ROT_R30_1",
-            "title": "Rotate sensor angle by 30 degrees clockwise (1st trackball)"
-        },
-        {
-            "name": "ROT_L30_1",
-            "shortName": "ROT_L30_1",
-            "title": "Rotate sensor angle by 30 degrees counterclockwise (1st trackball)"
-        },
-        {
-            "name": "ROT_R30_2",
-            "shortName": "ROT_R30_2",
-            "title": "Rotate sensor angle by 30 degrees clockwise (2nd trackball)"
-        },
-        {
-            "name": "ROT_L30_2",
-            "shortName": "ROT_L30_2",
-            "title": "Rotate sensor angle by 30 degrees counterclockwise (2nd trackball)"
-        },
-        {
-            "name": "ROT_R2_1",
-            "shortName": "ROT_R2_1",
-            "title": "Rotate sensor angle by 2 degrees clockwise (1st trackball)"
-        },
-        {
-            "name": "ROT_L2_1",
-            "shortName": "ROT_L2_1",
-            "title": "Rotate sensor angle by 2 degrees counterclockwise (1st trackball)"
-        },
-        {
-            "name": "ROT_R2_2",
-            "shortName": "ROT_R2_2",
-            "title": "Rotate sensor angle by 2 degrees clockwise (2nd trackball)"
-        },
-        {
-            "name": "ROT_L2_2",
-            "shortName": "ROT_L2_2",
-            "title": "Rotate sensor angle by 2 degrees counterclockwise (2nd trackball)"
-        },
-        {
-            "name": "MOUSE_LAYER_MS_ADD_50MS",
-            "shortName": "MOUSE_LAYER_MS_ADD_50MS",
-            "title": "Add 50ms to the delay time to off mouse layer when trackball is stopped"
-        },
-        {
-            "name": "MOUSE_LAYER_MS_MINUS_50MS",
-            "shortName": "MOUSE_LAYER_MS_MINUS_50MS",
-            "title": "Minus 100ms to the delay time to off mouse layer when trackball is stopped"
-        },
-        {
-            "name": "POINTER_SPEED_MAG_CHANGE",
-            "shortName": "POINTER_SPEED_MAG_CHANGE",
-            "title": "Change the pointer speed magnifier. 1x -> 2x -> 4x -> 0.5x -> 1x -> ..."
-        },
-        {
             "name": "DRAG_SCROLL",
             "shortName": "DRAG_SCROLL",
             "title": "Change the pointer device movement into the mouse scroll"
+        },
+        {
+            "name": "AUTO_MOUSE_LAYER_P1",
+            "shortName": "mlo_P1",
+            "title": "Auto mouse layer (true/false)"
+        },
+        {
+            "name": "AUTO_MOUSE_LAYER_OFF_DELAY_P1",
+            "shortName": "mod_P1",
+            "title": "Auto mouse layer off delay time in ms (0-6300 ms)"
+        },
+        {
+            "name": "AUTO_MOUSE_LAYER_OFF_DELAY_M1",
+            "shortName": "mod_M1",
+            "title": "Auto mouse layer off delay time in ms (0-6300 ms)"
+        },
+        {
+            "name": "ANGLE_L_ADJUSTMENT_P1",
+            "shortName": "agl_P1",
+            "title": "Angle adjustment per 2 degrees for trackballs (left)"
+        },
+        {
+            "name": "ANGLE_L_ADJUSTMENT_M1",
+            "shortName": "agl_M1",
+            "title": "Angle adjustment per 2 degrees for trackballs (left)"
+        },
+        {
+            "name": "ANGLE_L_ADJUSTMENT_P30",
+            "shortName": "agl_P30",
+            "title": "Angle adjustment per 2 degrees for trackballs (left)"
+        },
+        {
+            "name": "ANGLE_L_ADJUSTMENT_M30",
+            "shortName": "agl_M30",
+            "title": "Angle adjustment per 2 degrees for trackballs (left)"
+        },
+        {
+            "name": "ANGLE_R_ADJUSTMENT_P1",
+            "shortName": "agr_P1",
+            "title": "Angle adjustment per 2 degrees for trackballs (right)"
+        },
+        {
+            "name": "ANGLE_R_ADJUSTMENT_M1",
+            "shortName": "agr_M1",
+            "title": "Angle adjustment per 2 degrees for trackballs (right)"
+        },
+        {
+            "name": "ANGLE_R_ADJUSTMENT_P30",
+            "shortName": "agr_P30",
+            "title": "Angle adjustment per 2 degrees for trackballs (right)"
+        },
+        {
+            "name": "ANGLE_R_ADJUSTMENT_M30",
+            "shortName": "agr_M30",
+            "title": "Angle adjustment per 2 degrees for trackballs (right)"
+        },
+        {
+            "name": "POINTER_SPEED_MAGNIFICATION_P1",
+            "shortName": "psm_P1",
+            "title": "Pointer speed magnification (0.25 * value)"
+        },
+        {
+            "name": "POINTER_SPEED_MAGNIFICATION_M1",
+            "shortName": "psm_M1",
+            "title": "Pointer speed magnification (0.25 * value)"
+        },
+        {
+            "name": "INVERT_DRAG_SCROLL_X_P1",
+            "shortName": "idsX_P1",
+            "title": "Invert drag scroll X-axis direction (true/false)"
+        },
+        {
+            "name": "INVERT_DRAG_SCROLL_Y_P1",
+            "shortName": "idsY_P1",
+            "title": "Invert drag scroll Y-axis direction (true/false)"
+        },
+        {
+            "name": "DRAG_SCROLL_SPEED_MAGNIFICATION_P1",
+            "shortName": "dsm_P1",
+            "title": "Drag scroll speed magnification (0.25 * value)"
+        },
+        {
+            "name": "DRAG_SCROLL_SPEED_MAGNIFICATION_M1",
+            "shortName": "dsm_M1",
+            "title": "Drag scroll speed magnification (0.25 * value)"
+        },
+        {
+            "name": "TRACKBALL_LED_OFF_TIMEOUT_P1",
+            "shortName": "tlt_P1",
+            "title": "Trackball LED off timeout (never, 5min, 10min, 15 min)"
+        },
+        {
+            "name": "TRACKBALL_LED_OFF_TIMEOUT_M1",
+            "shortName": "tlt_M1",
+            "title": "Trackball LED off timeout (never, 5min, 10min, 15 min)"
+        },
+        {
+            "name": "ROTARY_ENCODER_1_RESOLUTION_P1",
+            "shortName": "rr1_P1",
+            "title": "Rotary encoder 1 resolution (restart needed to reflect)"
+        },
+        {
+            "name": "ROTARY_ENCODER_2_RESOLUTION_P1",
+            "shortName": "rr2_P1",
+            "title": "Rotary encoder 2 resolution (restart needed to reflect)"
+        },
+        {
+            "name": "ROTARY_ENCODER_3_RESOLUTION_P1",
+            "shortName": "rr3_P1",
+            "title": "Rotary encoder 3 resolution (restart needed to reflect)"
+        },
+        {
+            "name": "ROTARY_ENCODER_4_RESOLUTION_P1",
+            "shortName": "rr4_P1",
+            "title": "Rotary encoder 4 resolution (restart needed to reflect)"
+        },
+        {
+            "name": "ROTARY_ENCODER_5_RESOLUTION_P1",
+            "shortName": "rr5_P1",
+            "title": "Rotary encoder 5 resolution (restart needed to reflect)"
+        },
+        {
+            "name": "ROTARY_ENCODER_6_RESOLUTION_P1",
+            "shortName": "rr6_P1",
+            "title": "Rotary encoder 6 resolution (restart needed to reflect)"
+        },
+        {
+            "name": "ROTARY_ENCODER_7_RESOLUTION_P1",
+            "shortName": "rr7_P1",
+            "title": "Rotary encoder 7 resolution (restart needed to reflect)"
+        },
+        {
+            "name": "ROTARY_ENCODER_8_RESOLUTION_P1",
+            "shortName": "rr8_P1",
+            "title": "Rotary encoder 8 resolution (restart needed to reflect)"
+        },
+        {
+            "name": "ROTARY_ENCODER_9_RESOLUTION_P1",
+            "shortName": "rr9_P1",
+            "title": "Rotary encoder 9 resolution (restart needed to reflect)"
+        },
+        {
+            "name": "ROTARY_ENCODER_10_RESOLUTION_P1",
+            "shortName": "rr10_P1",
+            "title": "Rotary encoder 10 resolution (restart needed to reflect)"
+        },
+        {
+            "name": "ROTARY_ENCODER_11_RESOLUTION_P1",
+            "shortName": "rr11_P1",
+            "title": "Rotary encoder 11 resolution (restart needed to reflect)"
+        },
+        {
+            "name": "ROTARY_ENCODER_12_RESOLUTION_P1",
+            "shortName": "rr12_P1",
+            "title": "Rotary encoder 12 resolution (restart needed to reflect)"
+        },
+        {
+            "name": "ROTARY_ENCODER_13_RESOLUTION_P1",
+            "shortName": "rr13_P1",
+            "title": "Rotary encoder 13 resolution (restart needed to reflect)"
+        },
+        {
+            "name": "ROTARY_ENCODER_14_RESOLUTION_P1",
+            "shortName": "rr14_P1",
+            "title": "Rotary encoder 14 resolution (restart needed to reflect)"
+        },
+        {
+            "name": "ROTARY_ENCODER_15_RESOLUTION_P1",
+            "shortName": "rr15_P1",
+            "title": "Rotary encoder 15 resolution (restart needed to reflect)"
+        },
+        {
+            "name": "ROTARY_ENCODER_16_RESOLUTION_P1",
+            "shortName": "rr16_P1",
+            "title": "Rotary encoder 16 resolution (restart needed to reflect)"
         }
     ],
     "dynamic_keymap": {

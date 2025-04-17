@@ -66,12 +66,10 @@ const pin_t SDIO_PINS[]  = MODULAR_ADNS5050_SDIO_PINS;
 const pin_t CS_PINS[]    = MODULAR_ADNS5050_CS_PINS;
 const pin_t RESET_PINS[] = MODULAR_ADNS5050_RESET_PINS;
 
-// angle for each sensor. The actual value is 2 * angle.
-uint16_t half_angle[NUM_MODULAR_ADNS5050] = {0};
-
-#if TRACKBALL_TIMEOUT > 0
-uint32_t trackball_timeout = 0;
-#endif
+// angle for each sensor.
+uint16_t angle[NUM_MODULAR_ADNS5050] = {0};
+uint32_t trackball_timeout_length    = 5 * 60 * 1000; // default: 5 min
+uint32_t trackball_timeout           = 0;
 
 void modular_adns5050_init(void) {
     for (uint8_t i = 0; i < NUM_MODULAR_ADNS5050; i++) {
@@ -134,11 +132,12 @@ void modular_adns5050_wake_up_all(bool connected_only) {
 }
 
 void modular_adns5050_check_timeout(void) {
-#if TRACKBALL_TIMEOUT > 0
+    if (trackball_timeout_length == 0) {
+        return;
+    }
     if (timer_expired32(timer_read32(), trackball_timeout)) {
         modular_adns5050_power_down_all();
     }
-#endif
 }
 
 uint8_t modular_adns5050_get_connected_count(void) {
@@ -151,10 +150,12 @@ uint8_t modular_adns5050_get_connected_count(void) {
     return count;
 }
 
+void modular_adns5050_set_led_off_length(uint32_t length_ms) {
+    trackball_timeout_length = length_ms;
+}
+
 void modular_adns5050_wake_up(uint8_t index, bool connected_only) {
-#if TRACKBALL_TIMEOUT > 0
-    trackball_timeout = timer_read32() + TRACKBALL_TIMEOUT;
-#endif
+    trackball_timeout = timer_read32() + trackball_timeout_length;
 
     // skip if the sensor is already active
     if (!powered_down[index]) {
@@ -359,7 +360,7 @@ report_mouse_t modular_adns5050_get_report(uint8_t index, report_mouse_t mouse_r
         modular_adns5050_wake_up(index, true);
 
         pd_dprintf("[%X] Raw ] X: %d, Y: %d\n", i, data.dx, data.dy);
-        double            rad   = half_angle[index] * 2 * (M_PI / 180);
+        double            rad   = angle[index] * (M_PI / 180);
         mouse_xy_report_t x_rev = cos(rad) * data.dx + -sin(rad) * data.dy;
         mouse_xy_report_t y_rev = sin(rad) * data.dx + cos(rad) * data.dy;
         mouse_report.x += x_rev;
@@ -369,14 +370,14 @@ report_mouse_t modular_adns5050_get_report(uint8_t index, report_mouse_t mouse_r
     return mouse_report;
 }
 
-void modular_adns5050_set_half_angle(uint8_t index, uint16_t value) {
-    half_angle[index] = value;
+void modular_adns5050_set_angle(uint8_t index, uint16_t value) {
+    angle[index] = value;
 }
 
-void modular_adns5050_add_half_angle(uint8_t index, int16_t value) {
-    half_angle[index] = (180 + half_angle[index] + value) % 180;
+void modular_adns5050_add_angle(uint8_t index, int16_t value) {
+    angle[index] = (360 + angle[index] + value) % 360;
 }
 
-uint16_t modular_adns5050_get_half_angle(uint8_t index) {
-    return half_angle[index];
+uint16_t modular_adns5050_get_angle(uint8_t index) {
+    return angle[index];
 }

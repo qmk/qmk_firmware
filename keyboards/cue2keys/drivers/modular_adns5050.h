@@ -87,6 +87,7 @@ void    modular_adns5050_power_down_all(void);
 void    modular_adns5050_wake_up_all(bool connected_only);
 void    modular_adns5050_check_timeout(void);
 uint8_t modular_adns5050_get_connected_count(void);
+void    modular_adns5050_set_led_off_length(uint32_t length_ms);
 
 // functions for each sensors
 void                      modular_adns5050_wake_up(uint8_t index, bool connected_only);
@@ -101,6 +102,6 @@ uint16_t                  modular_adns5050_get_cpi(uint8_t index);
 bool                      modular_adns5050_check_signature(uint8_t index);
 void                      modular_adns5050_power_down(uint8_t index);
 report_mouse_t            modular_adns5050_get_report(uint8_t index, report_mouse_t mouse_report);
-void                      modular_adns5050_set_half_angle(uint8_t index, uint16_t angle);
-void                      modular_adns5050_add_half_angle(uint8_t index, int16_t angle);
-uint16_t                  modular_adns5050_get_half_angle(uint8_t index);
+void                      modular_adns5050_set_angle(uint8_t index, uint16_t angle);
+void                      modular_adns5050_add_angle(uint8_t index, int16_t angle);
+uint16_t                  modular_adns5050_get_angle(uint8_t index);
