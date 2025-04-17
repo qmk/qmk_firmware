@@ -50,6 +50,9 @@ static uint8_t oneshot_locked_mods = 0;
 uint8_t        get_oneshot_locked_mods(void) {
     return oneshot_locked_mods;
 }
+mod_t get_oneshot_locked_mod_state(void) {
+    return (mod_t)get_oneshot_locked_mods();
+}
 void add_oneshot_locked_mods(uint8_t mods) {
     if ((oneshot_locked_mods & mods) != mods) {
         oneshot_locked_mods |= mods;
