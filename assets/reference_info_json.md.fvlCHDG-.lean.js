@@ -1078,7 +1078,7 @@ const _hoisted_282 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
-    /* @__PURE__ */ createBaseVNode("code", null, "led_count / 5")
+    /* @__PURE__ */ createBaseVNode("code", null, "(led_count + 4) / 5")
   ])
 ], -1);
 const _hoisted_283 = /* @__PURE__ */ createBaseVNode("code", null, "max_brightness", -1);
@@ -1107,7 +1107,7 @@ const _hoisted_288 = /* @__PURE__ */ createBaseVNode("ul", null, [
 ], -1);
 const _hoisted_289 = /* @__PURE__ */ createBaseVNode("code", null, "speed_steps", -1);
 const _hoisted_290 = /* @__PURE__ */ createBaseVNode("ul", null, [
-  /* @__PURE__ */ createBaseVNode("li", null, "The number of speed adjustment steps."),
+  /* @__PURE__ */ createBaseVNode("li", null, "The value by which to increment the speed."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "16")
@@ -1132,7 +1132,7 @@ const _hoisted_294 = /* @__PURE__ */ createBaseVNode("ul", null, [
 ], -1);
 const _hoisted_295 = /* @__PURE__ */ createBaseVNode("code", null, "val_steps", -1);
 const _hoisted_296 = /* @__PURE__ */ createBaseVNode("ul", null, [
-  /* @__PURE__ */ createBaseVNode("li", null, "The number of brightness adjustment steps."),
+  /* @__PURE__ */ createBaseVNode("li", null, "The value by which to increment the brightness."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "8")
@@ -1414,7 +1414,7 @@ const _hoisted_365 = /* @__PURE__ */ createBaseVNode("code", null, "animations",
 const _hoisted_366 = /* @__PURE__ */ createStaticVNode("", 2);
 const _hoisted_368 = /* @__PURE__ */ createBaseVNode("code", null, "brightness_steps", -1);
 const _hoisted_369 = /* @__PURE__ */ createBaseVNode("ul", null, [
-  /* @__PURE__ */ createBaseVNode("li", null, "The number of brightness adjustment steps."),
+  /* @__PURE__ */ createBaseVNode("li", null, "The value by which to increment the brightness."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "17")
@@ -1490,7 +1490,7 @@ const _hoisted_384 = /* @__PURE__ */ createBaseVNode("ul", null, [
 ], -1);
 const _hoisted_385 = /* @__PURE__ */ createBaseVNode("code", null, "hue_steps", -1);
 const _hoisted_386 = /* @__PURE__ */ createBaseVNode("ul", null, [
-  /* @__PURE__ */ createBaseVNode("li", null, "The number of hue adjustment steps."),
+  /* @__PURE__ */ createBaseVNode("li", null, "The value by which to increment the hue."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "8")
@@ -1539,7 +1539,7 @@ const _hoisted_397 = /* @__PURE__ */ createBaseVNode("ul", null, [
 ], -1);
 const _hoisted_398 = /* @__PURE__ */ createBaseVNode("code", null, "saturation_steps", -1);
 const _hoisted_399 = /* @__PURE__ */ createBaseVNode("ul", null, [
-  /* @__PURE__ */ createBaseVNode("li", null, "The number of saturation adjustment steps."),
+  /* @__PURE__ */ createBaseVNode("li", null, "The value by which to increment the suturation."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "17")
@@ -1656,7 +1656,7 @@ const _hoisted_427 = /* @__PURE__ */ createBaseVNode("code", null, "driver", -1)
 const _hoisted_428 = /* @__PURE__ */ createStaticVNode("", 1);
 const _hoisted_429 = /* @__PURE__ */ createBaseVNode("code", null, "hue_steps", -1);
 const _hoisted_430 = /* @__PURE__ */ createBaseVNode("ul", null, [
-  /* @__PURE__ */ createBaseVNode("li", null, "The number of hue adjustment steps."),
+  /* @__PURE__ */ createBaseVNode("li", null, "The value by which to increment the hue."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "8")
@@ -1700,7 +1700,7 @@ const _hoisted_444 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
-    /* @__PURE__ */ createBaseVNode("code", null, "led_count / 5")
+    /* @__PURE__ */ createBaseVNode("code", null, "(led_count + 4) / 5")
   ])
 ], -1);
 const _hoisted_445 = /* @__PURE__ */ createBaseVNode("code", null, "max_brightness", -1);
@@ -1721,7 +1721,7 @@ const _hoisted_448 = /* @__PURE__ */ createBaseVNode("ul", null, [
 ], -1);
 const _hoisted_449 = /* @__PURE__ */ createBaseVNode("code", null, "sat_steps", -1);
 const _hoisted_450 = /* @__PURE__ */ createBaseVNode("ul", null, [
-  /* @__PURE__ */ createBaseVNode("li", null, "The number of saturation adjustment steps."),
+  /* @__PURE__ */ createBaseVNode("li", null, "The value by which to increment the saturation."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "16")
@@ -1737,7 +1737,7 @@ const _hoisted_452 = /* @__PURE__ */ createBaseVNode("ul", null, [
 ], -1);
 const _hoisted_453 = /* @__PURE__ */ createBaseVNode("code", null, "speed_steps", -1);
 const _hoisted_454 = /* @__PURE__ */ createBaseVNode("ul", null, [
-  /* @__PURE__ */ createBaseVNode("li", null, "The number of speed adjustment steps."),
+  /* @__PURE__ */ createBaseVNode("li", null, "The value by which to increment the speed."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "16")
@@ -1762,7 +1762,7 @@ const _hoisted_458 = /* @__PURE__ */ createBaseVNode("ul", null, [
 ], -1);
 const _hoisted_459 = /* @__PURE__ */ createBaseVNode("code", null, "val_steps", -1);
 const _hoisted_460 = /* @__PURE__ */ createBaseVNode("ul", null, [
-  /* @__PURE__ */ createBaseVNode("li", null, "The number of brightness adjustment steps."),
+  /* @__PURE__ */ createBaseVNode("li", null, "The value by which to increment the brightness."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "16")
