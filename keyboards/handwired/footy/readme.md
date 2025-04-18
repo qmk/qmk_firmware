@@ -16,9 +16,7 @@ Flashing example for this keyboard (enter the bootloader first):
 
     make handwired/footy:default:flash
     
-or
-
-    Drag and drop .uf2 file on the removable storage
+or drag and drop .uf2 file on the removable storage
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 

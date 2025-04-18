@@ -5,12 +5,9 @@
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
     "features": {
-        "bootmagic": false,
-        "command": false,
-        "console": false,
+        "bootmagic": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": false
     },
     "matrix_pins": {
         "cols": ["GP11", "GP10", "GP15"],
