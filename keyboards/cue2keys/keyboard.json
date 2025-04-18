@@ -111,6 +111,11 @@
             "title": "Trackball LED off timeout (never, 5min, 10min, 15 min)"
         },
         {
+            "name": "ALL_KEYS_ARE_MOUSE_KEYS_P1",
+            "shortName": "amk_P1",
+            "title": "All keys are treated as mouse keys (true/false)"
+        },
+        {
             "name": "ROTARY_ENCODER_1_RESOLUTION_P1",
             "shortName": "rr1_P1",
             "title": "Rotary encoder 1 resolution (restart needed to reflect)"

@@ -32,6 +32,7 @@ enum my_keycodes {
     DRAG_SCROLL_SPEED_MAGNIFICATION_M1,
     TRACKBALL_LED_OFF_TIMEOUT_P1,
     TRACKBALL_LED_OFF_TIMEOUT_M1,
+    ALL_KEYS_ARE_MOUSE_KEYS_P1,
     ROTARY_ENCODER_1_RESOLUTION_P1,
     ROTARY_ENCODER_2_RESOLUTION_P1,
     ROTARY_ENCODER_3_RESOLUTION_P1,
@@ -80,6 +81,9 @@ typedef union {
         // Trackball LED off timeout (never, 5min, 10min, 15 min)
         // 2^2=4, default: 1, max: 3
         uint32_t trackball_led_off_timeout : 2;
+        // All keys are treated as mouse keys (true/false)
+        // 2^1=2, default: 0, max: 1
+        uint32_t all_keys_are_mouse_keys : 1;
         // Dummy value
         // 2^32=4294967296, default: 0, max: 0
         uint32_t _dummy_tb : 32;

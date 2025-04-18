@@ -13,6 +13,7 @@ void my_kb_config_init(kb_config_t* kb_config) {
     kb_config->invert_drag_scroll_y            = 0;
     kb_config->drag_scroll_speed_magnification = 4;
     kb_config->trackball_led_off_timeout       = 1;
+    kb_config->all_keys_are_mouse_keys         = 0;
     kb_config->_dummy_tb                       = 0;
     kb_config->re_resolution_1                 = 2;
     kb_config->re_resolution_2                 = 2;
@@ -47,6 +48,7 @@ void debug_output_kb_config(kb_config_t* kb_config) {
             dprintf("%s = %" PRIu32 "\n", "invert_drag_scroll_y", (uint32_t)kb_config->invert_drag_scroll_y);
             dprintf("%s = %" PRIu32 "\n", "drag_scroll_speed_magnification", (uint32_t)kb_config->drag_scroll_speed_magnification);
             dprintf("%s = %" PRIu32 "\n", "trackball_led_off_timeout", (uint32_t)kb_config->trackball_led_off_timeout);
+            dprintf("%s = %" PRIu32 "\n", "all_keys_are_mouse_keys", (uint32_t)kb_config->all_keys_are_mouse_keys);
             dprintf("%s = %" PRIu32 "\n", "_dummy_tb", (uint32_t)kb_config->_dummy_tb);
             dprintf("%s = %" PRIu32 "\n", "re_resolution_1", (uint32_t)kb_config->re_resolution_1);
             dprintf("%s = %" PRIu32 "\n", "re_resolution_2", (uint32_t)kb_config->re_resolution_2);
@@ -130,6 +132,9 @@ bool process_kb_config_modification(kb_config_t* kb_config, uint16_t keycode, ke
                 return false;
             case TRACKBALL_LED_OFF_TIMEOUT_M1:
                 kb_config->trackball_led_off_timeout = ((uint64_t)kb_config->trackball_led_off_timeout + 4 - 1) % 4;
+                return false;
+            case ALL_KEYS_ARE_MOUSE_KEYS_P1:
+                kb_config->all_keys_are_mouse_keys = ((uint64_t)kb_config->all_keys_are_mouse_keys + 2 + 1) % 2;
                 return false;
             case ROTARY_ENCODER_1_RESOLUTION_P1:
                 kb_config->re_resolution_1 = ((uint64_t)kb_config->re_resolution_1 + 4 + 1) % 4;
@@ -259,25 +264,32 @@ void oled_kb_config_output(kb_config_t* kb_config, uint8_t page) {
             oled_write_P(PSTR(", "), false);
             {
                 static char type_count_str[8];
-                oled_write_P(PSTR("rr1:"), false);
-                itoa(kb_config->re_resolution_1, type_count_str, 10);
+                oled_write_P(PSTR("amk:"), false);
+                itoa(kb_config->all_keys_are_mouse_keys, type_count_str, 10);
                 oled_write_P(type_count_str, false);
             }
             oled_write_P(PSTR(", "), false);
             {
                 static char type_count_str[8];
-                oled_write_P(PSTR("rr2:"), false);
-                itoa(kb_config->re_resolution_2, type_count_str, 10);
+                oled_write_P(PSTR("rr1:"), false);
+                itoa(kb_config->re_resolution_1, type_count_str, 10);
                 oled_write_P(type_count_str, false);
             }
             oled_write_P(PSTR(", "), false);
             break;
         case 2: {
             static char type_count_str[8];
-            oled_write_P(PSTR("rr3:"), false);
-            itoa(kb_config->re_resolution_3, type_count_str, 10);
+            oled_write_P(PSTR("rr2:"), false);
+            itoa(kb_config->re_resolution_2, type_count_str, 10);
             oled_write_P(type_count_str, false);
         }
+            oled_write_P(PSTR(", "), false);
+            {
+                static char type_count_str[8];
+                oled_write_P(PSTR("rr3:"), false);
+                itoa(kb_config->re_resolution_3, type_count_str, 10);
+                oled_write_P(type_count_str, false);
+            }
             oled_write_P(PSTR(", "), false);
             {
                 static char type_count_str[8];
@@ -307,20 +319,20 @@ void oled_kb_config_output(kb_config_t* kb_config, uint8_t page) {
                 oled_write_P(type_count_str, false);
             }
             oled_write_P(PSTR(", "), false);
-            {
-                static char type_count_str[8];
-                oled_write_P(PSTR("rr8:"), false);
-                itoa(kb_config->re_resolution_8, type_count_str, 10);
-                oled_write_P(type_count_str, false);
-            }
-            oled_write_P(PSTR(", "), false);
             break;
         case 3: {
             static char type_count_str[8];
-            oled_write_P(PSTR("rr9:"), false);
-            itoa(kb_config->re_resolution_9, type_count_str, 10);
+            oled_write_P(PSTR("rr8:"), false);
+            itoa(kb_config->re_resolution_8, type_count_str, 10);
             oled_write_P(type_count_str, false);
         }
+            oled_write_P(PSTR(", "), false);
+            {
+                static char type_count_str[8];
+                oled_write_P(PSTR("rr9:"), false);
+                itoa(kb_config->re_resolution_9, type_count_str, 10);
+                oled_write_P(type_count_str, false);
+            }
             oled_write_P(PSTR(", "), false);
             {
                 static char type_count_str[8];
@@ -350,20 +362,20 @@ void oled_kb_config_output(kb_config_t* kb_config, uint8_t page) {
                 oled_write_P(type_count_str, false);
             }
             oled_write_P(PSTR(", "), false);
-            {
-                static char type_count_str[8];
-                oled_write_P(PSTR("rr14:"), false);
-                itoa(kb_config->re_resolution_14, type_count_str, 10);
-                oled_write_P(type_count_str, false);
-            }
-            oled_write_P(PSTR(", "), false);
             break;
         case 4: {
             static char type_count_str[8];
-            oled_write_P(PSTR("rr15:"), false);
-            itoa(kb_config->re_resolution_15, type_count_str, 10);
+            oled_write_P(PSTR("rr14:"), false);
+            itoa(kb_config->re_resolution_14, type_count_str, 10);
             oled_write_P(type_count_str, false);
         }
+            oled_write_P(PSTR(", "), false);
+            {
+                static char type_count_str[8];
+                oled_write_P(PSTR("rr15:"), false);
+                itoa(kb_config->re_resolution_15, type_count_str, 10);
+                oled_write_P(type_count_str, false);
+            }
             oled_write_P(PSTR(", "), false);
             {
                 static char type_count_str[8];
