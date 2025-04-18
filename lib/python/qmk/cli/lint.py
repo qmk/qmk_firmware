@@ -317,10 +317,10 @@ def lint(cli):
     if isinstance(cli.config.lint.keyboard, str):
         # if provided via config - string not array
         keyboard_list = [cli.config.lint.keyboard]
-    elif is_all_keyboards(cli.args.keyboard[0]):
+    elif any(is_all_keyboards(kb) for kb in cli.args.keyboard):
         keyboard_list = list_keyboards()
     else:
-        keyboard_list = cli.config.lint.keyboard
+        keyboard_list = list(set(cli.config.lint.keyboard))
 
     failed = []
 
