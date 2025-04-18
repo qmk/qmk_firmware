@@ -30,12 +30,12 @@
             "properties": {
                 "pins": {"$ref": "qmk.definitions.v1#/mcu_pin_array"}
             }
-        }
+        },
         "features_config": {
             "$ref": "qmk.definitions.v1#/boolean_array",
             "propertyNames": {"$ref": "qmk.definitions.v1#/snake_case"},
             "not": {"required": ["lto"]}
-        },
+        }
     },
     "type": "object",
     "not": {"required": ["vendorId", "productId"]}, // reject via keys...
@@ -354,7 +354,7 @@
                 "axis_resolution": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "axes": {
                     "type": "object",
-                    "propertyNames": {"enum": ["x", "y", "z", "rx", "ry", "rz"]}
+                    "propertyNames": {"enum": ["x", "y", "z", "rx", "ry", "rz"]},
                     "additionalProperties": {
                         "oneOf": [
                             {
