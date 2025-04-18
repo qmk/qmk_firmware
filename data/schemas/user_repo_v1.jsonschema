@@ -9,7 +9,7 @@
                 {"$ref": "qmk.definitions.v1#/keyboard_keymap_tuple"},
                 {"$ref": "qmk.definitions.v1#/json_file_path"}
             ]
-        },
+        }
     },
     "required": [
         "userspace_version",
