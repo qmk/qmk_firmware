@@ -7,14 +7,14 @@
     "features": {
         "bootmagic": true,
         "extrakey": true,
-        "mousekey": true,
+        "mousekey": true
     },
     "matrix_pins": {
         "cols": ["GP11", "GP10", "GP15"],
         "rows": ["GP14"]
     },
     "processor": "RP2040",
-    "url": "https://www.dumpster.page/footy",
+    "url": "https://workshop.cjpais.com/projects/footy",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0001",
