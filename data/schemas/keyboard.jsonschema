@@ -31,6 +31,11 @@
                 "pins": {"$ref": "qmk.definitions.v1#/mcu_pin_array"}
             }
         }
+        "features_config": {
+            "$ref": "qmk.definitions.v1#/boolean_array",
+            "propertyNames": {"$ref": "qmk.definitions.v1#/snake_case"},
+            "not": {"required": ["lto"]}
+        },
     },
     "type": "object",
     "not": {"required": ["vendorId", "productId"]}, // reject via keys...
@@ -328,11 +333,7 @@
                 "enabled": {"type": "boolean"}
             }
         },
-        "features": {
-            "$ref": "qmk.definitions.v1#/boolean_array",
-            "propertyNames": {"$ref": "qmk.definitions.v1#/snake_case"},
-            "not": {"required": ["lto"]}
-        },
+        "features": { "$ref": "#/definitions/features_config" },
         "indicators": {
             "type": "object",
             "properties": {
@@ -422,7 +423,11 @@
                                 "h": {"$ref": "qmk.definitions.v1#/key_unit"},
                                 "w": {"$ref": "qmk.definitions.v1#/key_unit"},
                                 "x": {"$ref": "qmk.definitions.v1#/key_unit"},
-                                "y": {"$ref": "qmk.definitions.v1#/key_unit"}
+                                "y": {"$ref": "qmk.definitions.v1#/key_unit"},
+                                "hand": {
+                                    "type": "string",
+                                    "enum": ["L", "R", "*"]
+                                }
                             }
                         }
                     }
@@ -461,6 +466,12 @@
                 },
                 "cols": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
                 "rows": {"$ref": "qmk.definitions.v1#/mcu_pin_array"}
+            }
+        },
+        "modules": {
+            "type": "array",
+            "items": {
+                "type": "string"
             }
         },
         "mouse_key": {
@@ -915,6 +926,7 @@
         "tapping": {
             "type": "object",
             "properties": {
+                "chordal_hold": {"type": "boolean"},
                 "force_hold": {"type": "boolean"},
                 "force_hold_per_key": {"type": "boolean"},
                 "ignore_mod_tap_interrupt": {"type": "boolean"},

@@ -173,7 +173,8 @@ typedef struct {
 #    define AZOTEQ_IQS5XX_REPORT_RATE 10
 #endif
 #if !defined(POINTING_DEVICE_TASK_THROTTLE_MS) && !defined(POINTING_DEVICE_MOTION_PIN)
-#    define POINTING_DEVICE_TASK_THROTTLE_MS AZOTEQ_IQS5XX_REPORT_RATE
+// Polling the Azoteq isn't recommended, ensuring we only poll after the report is ready stops any unexpected NACKs
+#    define POINTING_DEVICE_TASK_THROTTLE_MS AZOTEQ_IQS5XX_REPORT_RATE + 1
 #endif
 
 const pointing_device_driver_t azoteq_iqs5xx_pointing_device_driver;

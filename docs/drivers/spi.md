@@ -88,7 +88,7 @@ Start an SPI transaction.
 #### Arguments {#api-spi-start-arguments}
 
  - `pin_t slavePin`  
-   The QMK pin to assert as the slave select pin, eg. `B4`.
+   The GPIO pin connected to the desired device's `SS` line.
  - `bool lsbFirst`  
    Determines the endianness of the transmission. If `true`, the least significant bit of each byte is sent first.
  - `uint8_t mode`  
@@ -106,7 +106,7 @@ Start an SPI transaction.
 
 #### Return Value {#api-spi-start-return}
 
-`false` if the supplied parameters are invalid or the SPI peripheral is already in use, or `true`.
+`true` if the operation was successful, otherwise `false` if the supplied parameters are invalid or the SPI peripheral is already in use.
 
 ---
 
@@ -131,7 +131,7 @@ Read a byte from the selected SPI device.
 
 #### Return Value {#api-spi-read-return}
 
-`SPI_STATUS_TIMEOUT` if the timeout period elapses, or the byte read from the device.
+`SPI_STATUS_TIMEOUT` if the timeout period elapses, otherwise the byte read from the device.
 
 ---
 
@@ -159,7 +159,7 @@ Receive multiple bytes from the selected SPI device.
 #### Arguments {#api-spi-receive-arguments}
 
  - `uint8_t *data`  
-   A pointer to the buffer to read into.
+   A pointer to a buffer to read into.
  - `uint16_t length`  
    The number of bytes to read. Take care not to overrun the length of `data`.
 
