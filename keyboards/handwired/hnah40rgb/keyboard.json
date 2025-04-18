@@ -61,7 +61,6 @@
             "animation": "cycle_pinwheel"
         },
         "driver": "ws2812",
-        "led_flush_limit": 16,
         "max_brightness": 200,
         "react_on_keyup": true
     },

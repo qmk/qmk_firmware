@@ -47,7 +47,6 @@
     },
     "default": {
       "animation": "cycle_up_down",
-      "sat": 255,
       "speed": 30,
       "val": 192
     },
