@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         // channel 1
         //// key5 * 5, key4 * 2
-        QK_BOOT, QK_CLEAR_EEPROM, _______, _______, _______,
+        QK_BOOT, QK_CLEAR_EEPROM, QK_REBOOT, _______, _______,
         QK_KB_15, QK_KB_10, QK_KB_5, QK_KB_0, _______,
         QK_KB_16, QK_KB_11, QK_KB_6, QK_KB_1, _______,
         QK_KB_17, QK_KB_12, QK_KB_7, QK_KB_2, _______,
