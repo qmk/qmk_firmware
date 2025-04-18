@@ -433,6 +433,13 @@ ifeq ($(strip $(LED_MATRIX_ENABLE)), yes)
         SRC += snled27351-mono.c
     endif
 
+    ifeq ($(strip $(LED_MATRIX_CUSTOM_KB)), yes)
+        OPT_DEFS += -DLED_MATRIX_CUSTOM_KB
+    endif
+
+    ifeq ($(strip $(LED_MATRIX_CUSTOM_USER)), yes)
+        OPT_DEFS += -DLED_MATRIX_CUSTOM_USER
+    endif
 endif
 
 # Deprecated driver names - do not use
@@ -626,6 +633,10 @@ ifeq ($(strip $(VIA_ENABLE)), yes)
     RAW_ENABLE := yes
     BOOTMAGIC_ENABLE := yes
     TRI_LAYER_ENABLE := yes
+endif
+
+ifeq ($(strip $(DYNAMIC_KEYMAP_ENABLE)), yes)
+    SEND_STRING_ENABLE := yes
 endif
 
 VALID_CUSTOM_MATRIX_TYPES:= yes lite no
@@ -932,6 +943,8 @@ ifeq ($(strip $(WS2812_DRIVER_REQUIRED)), yes)
     endif
 
     OPT_DEFS += -DWS2812_$(strip $(shell echo $(WS2812_DRIVER) | tr '[:lower:]' '[:upper:]'))
+
+    COMMON_VPATH += $(DRIVER_PATH)/led
 
     SRC += ws2812.c ws2812_$(strip $(WS2812_DRIVER)).c
 
