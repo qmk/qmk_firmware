@@ -28,14 +28,14 @@ extern "C" {
 typedef union {
     uint8_t raw;
     struct {
-        bool left_ctrl: 1;
-        bool left_shift: 1;
-        bool left_alt: 1;
-        bool left_gui: 1;
-        bool right_ctrl: 1;
-        bool right_shift: 1;
-        bool right_alt: 1;
-        bool right_gui: 1;
+        bool left_ctrl : 1;
+        bool left_shift : 1;
+        bool left_alt : 1;
+        bool left_gui : 1;
+        bool right_ctrl : 1;
+        bool right_shift : 1;
+        bool right_alt : 1;
+        bool right_gui : 1;
     };
 } mod_t;
 
