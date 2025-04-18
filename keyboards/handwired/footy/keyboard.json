@@ -9,6 +9,10 @@
         "extrakey": true,
         "mousekey": true
     },
+    "bootmagic": {
+        "enabled": true,
+        "matrix": [0, 1]
+    },
     "matrix_pins": {
         "cols": ["GP11", "GP10", "GP15"],
         "rows": ["GP14"]
