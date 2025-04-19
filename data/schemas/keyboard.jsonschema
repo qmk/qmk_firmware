@@ -319,7 +319,7 @@
                     "properties": {
                         "driver": {
                             "type": "string",
-                            "enum": ["custom", "embedded_flash", "legacy", "rp2040_flash", "spi_flash"]
+                            "enum": ["none", "custom", "embedded_flash", "legacy", "rp2040_flash", "spi_flash"]
                         },
                         "backing_size": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                         "logical_size": {"$ref": "qmk.definitions.v1#/unsigned_int"}
