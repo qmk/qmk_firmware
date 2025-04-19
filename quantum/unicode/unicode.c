@@ -16,7 +16,6 @@
 
 #include "unicode.h"
 
-#include "eeprom.h"
 #include "eeconfig.h"
 #include "action.h"
 #include "action_util.h"

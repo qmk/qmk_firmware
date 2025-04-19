@@ -26,7 +26,6 @@
 
 #include "raw_hid.h"
 #include "dynamic_keymap.h"
-#include "eeprom.h"
 #include "eeconfig.h"
 #include "matrix.h"
 #include "timer.h"
