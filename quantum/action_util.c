@@ -50,6 +50,9 @@ static uint8_t oneshot_locked_mods = 0;
 uint8_t        get_oneshot_locked_mods(void) {
     return oneshot_locked_mods;
 }
+mod_t get_oneshot_locked_mod_state(void) {
+    return (mod_t)get_oneshot_locked_mods();
+}
 void add_oneshot_locked_mods(uint8_t mods) {
     if ((oneshot_locked_mods & mods) != mods) {
         oneshot_locked_mods |= mods;
@@ -336,6 +339,13 @@ void send_keyboard_report(void) {
 uint8_t get_mods(void) {
     return real_mods;
 }
+/** \brief Get mods
+ *
+ * FIXME: needs doc
+ */
+mod_t get_mod_state(void) {
+    return (mod_t)get_mods();
+}
 /** \brief add mods
  *
  * FIXME: needs doc
@@ -371,6 +381,13 @@ void clear_mods(void) {
  */
 uint8_t get_weak_mods(void) {
     return weak_mods;
+}
+/** \brief get weak mods
+ *
+ * FIXME: needs doc
+ */
+mod_t get_weak_mod_state(void) {
+    return (mod_t)get_weak_mods();
 }
 /** \brief add weak mods
  *
@@ -432,6 +449,14 @@ void clear_suppressed_override_mods(void) {
  */
 uint8_t get_oneshot_mods(void) {
     return oneshot_mods;
+}
+
+/** \brief get oneshot mods
+ *
+ * FIXME: needs doc
+ */
+mod_t get_oneshot_mod_state(void) {
+    return (mod_t)get_oneshot_mods();
 }
 
 void add_oneshot_mods(uint8_t mods) {
