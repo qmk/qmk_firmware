@@ -39,7 +39,6 @@
                "twinkle": true
         },
         "sleep": true,
-        "max_brightness": 255,
         "split": true,
         "split_count": [6, 6]
     },

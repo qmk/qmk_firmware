@@ -26,8 +26,6 @@
     "rgblight": {
         "led_count": 16,
         "hue_steps": 10,
-        "saturation_steps": 17,
-        "brightness_steps": 17,
         "animations": {
             "alternating": true,
             "breathing": true,

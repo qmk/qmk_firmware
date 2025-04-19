@@ -36,9 +36,7 @@
             "static_gradient": true
         },
         "brightness_steps": 8,
-        "hue_steps": 8,
         "led_count": 8,
-        "max_brightness": 255,
         "saturation_steps": 8,
         "sleep": true
     },

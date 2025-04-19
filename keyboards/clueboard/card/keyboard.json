@@ -25,10 +25,8 @@
     "rows": ["F0", "F5", "F4", "B4"]
   },
   "rgblight": {
-    "brightness_steps": 17,
     "hue_steps": 10,
-    "led_count": 4,
-    "saturation_steps": 17
+    "led_count": 4
   },
   "ws2812": {
     "pin": "E6"

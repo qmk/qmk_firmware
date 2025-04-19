@@ -39,10 +39,8 @@
       "static_gradient": true,
       "twinkle": true
     },
-    "brightness_steps": 17,
     "hue_steps": 32,
-    "led_count": 26,
-    "saturation_steps": 17
+    "led_count": 26
   },
   "ws2812": {
     "pin": "D7"
