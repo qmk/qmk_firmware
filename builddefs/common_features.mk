@@ -169,12 +169,12 @@ ifeq ($(strip $(QUANTUM_PAINTER_ENABLE)), yes)
     include $(QUANTUM_DIR)/painter/rules.mk
 endif
 
-VALID_EEPROM_DRIVER_TYPES := none vendor custom transient i2c spi wear_leveling legacy_stm32_flash
+VALID_EEPROM_DRIVER_TYPES := vendor custom transient i2c spi wear_leveling legacy_stm32_flash
 EEPROM_DRIVER ?= vendor
-ifeq ($(filter $(EEPROM_DRIVER),$(VALID_EEPROM_DRIVER_TYPES)),)
+ifneq ($(strip $(EEPROM_DRIVER)),none)
+  ifeq ($(filter $(EEPROM_DRIVER),$(VALID_EEPROM_DRIVER_TYPES)),)
   $(call CATASTROPHIC_ERROR,Invalid EEPROM_DRIVER,EEPROM_DRIVER="$(EEPROM_DRIVER)" is not a valid EEPROM driver)
-else
-  ifneq ($(strip $(EEPROM_DRIVER)),none)
+  else
     OPT_DEFS += -DEEPROM_ENABLE
     COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/eeprom
     COMMON_VPATH += $(DRIVER_PATH)/eeprom
