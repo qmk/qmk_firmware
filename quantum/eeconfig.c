@@ -98,8 +98,8 @@ void eeconfig_init_quantum(void) {
 #endif // AUDIO_ENABLE
 
 #ifdef RGBLIGHT_ENABLE
-    rgblight_config_t rgblight_config = {0};
-    eeconfig_update_rgblight(&rgblight_config);
+    extern void eeconfig_update_rgblight_default(void);
+    eeconfig_update_rgblight_default();
 #endif // RGBLIGHT_ENABLE
 
 #ifdef UNICODE_COMMON_ENABLE
@@ -112,13 +112,13 @@ void eeconfig_init_quantum(void) {
 #endif // STENO_ENABLE
 
 #ifdef RGB_MATRIX_ENABLE
-    rgb_config_t rgb_matrix_config = {0};
-    eeconfig_update_rgb_matrix(&rgb_matrix_config);
+    extern void eeconfig_update_rgb_matrix_default(void);
+    eeconfig_update_rgb_matrix_default();
 #endif
 
 #ifdef LED_MATRIX_ENABLE
-    led_eeconfig_t led_matrix_config = {0};
-    eeconfig_update_led_matrix(&led_matrix_config);
+    extern void eeconfig_update_led_matrix_default(void);
+    eeconfig_update_led_matrix_default();
 #endif // LED_MATRIX_ENABLE
 
 #ifdef HAPTIC_ENABLE
@@ -145,6 +145,15 @@ void eeconfig_init_quantum(void) {
 #endif
 
     eeconfig_init_kb();
+
+#ifdef RGB_MATRIX_ENABLE
+    extern void eeconfig_force_flush_rgb_matrix(void);
+    eeconfig_force_flush_rgb_matrix();
+#endif // RGB_MATRIX_ENABLE
+#ifdef LED_MATRIX_ENABLE
+    extern void eeconfig_force_flush_led_matrix(void);
+    eeconfig_force_flush_led_matrix();
+#endif // LED_MATRIX_ENABLE
 }
 
 void eeconfig_init(void) {
