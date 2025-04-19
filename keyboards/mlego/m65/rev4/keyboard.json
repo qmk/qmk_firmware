@@ -44,7 +44,6 @@
             "static_gradient": true,
             "twinkle": true
         },
-        "hue_steps": 8,
         "layers": {
             "enabled": true
         },
