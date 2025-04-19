@@ -47,7 +47,6 @@
             "override_rgb": true
         },
         "led_count": 14,
-        "max_brightness": 255,
         "sleep": true
     },
     "url": "",
