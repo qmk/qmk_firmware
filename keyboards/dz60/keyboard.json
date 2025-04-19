@@ -67,7 +67,8 @@
         "60_ansi_tsangan_split_bs_rshift",
         "60_hhkb",
         "60_iso",
-        "60_abnt2"
+        "60_abnt2",
+        "64_ansi"
     ],
     "layout_aliases": {
         "LAYOUT_60_tsangan_hhkb": "LAYOUT_60_ansi_tsangan_split_bs_rshift"
