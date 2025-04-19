@@ -7,17 +7,17 @@ _Actually the number of switches is six, because even the encoder are allowed to
 
 The Neopad in the photo above is the first prototype. See the project repository for revision 1 update and KiCad files.
 
-* Keyboard maintainer: [rookiebwoy](https://github.com/rookiebwoy)
+* Keyboard maintainer: [ivndbt](https://github.com/ivndbt)
 * Hardware supported: ProMicro, _Elite-C (not tested)_
-* Project repository: [Neopad on github](https://github.com/rookiebwoy/neopad)
+* Project repository: [Neopad on github](https://github.com/ivndbt/neopad)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make rookiebwoy/neopad/rev1:default
+    make ivndbt/neopad/rev1:default
 
 Flashing example for this keyboard:
 
-    make rookiebwoy/neopad/rev1:default:flash
+    make ivndbt/neopad/rev1:default:flash
 
 When asked by the terminal, press the dedicated `RESET` button (the one above the 2 LEDs) to enter the bootloader and let the OS detects the device.
 
