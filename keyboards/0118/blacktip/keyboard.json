@@ -2,8 +2,8 @@
     "keyboard_name": "Blacktip",
     "manufacturer": "iH0118",
     "maintainer": "iH0118",
-    "url": "",
-    "bootloader_instructions": "Press the physical RESET button on the back of the PCB, or hold the top-left key when plugging in the board.",
+    "url": "https://github.com/iH0118/blacktip",
+    "bootloader_instructions": "Flip the boootloader switch and press the physical RESET button on the back of the PCB, or hold the top-left key when plugging in the board.",
     "tags": ["ortho", "split", "rgb"],
 
     "build": {
