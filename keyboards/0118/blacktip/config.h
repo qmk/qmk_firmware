@@ -30,8 +30,3 @@
 #define SERIAL_USART_RX_PIN                 A3
 #define SERIAL_USART_RX_PAL_MODE            4
 
-#define BOOTMAGIC_ROW_RIGHT                 5
-#define BOOTMAGIC_COLUMN_RIGHT              5
-
-#define RGBLIGHT_SPLIT
-#define RGB_MATRIX_SLEEP

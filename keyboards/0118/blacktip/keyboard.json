@@ -6,27 +6,21 @@
     "bootloader_instructions": "Flip the boootloader switch and press the physical RESET button on the back of the PCB, or hold the top-left key when plugging in the board.",
     "tags": ["ortho", "split", "rgb"],
 
-    "build": {
-        "debounce_type": "sym_defer_g"
-    },
     "features": {
         "bootmagic": true,
         "eeprom": true,
         "extrakey": true,
+        "key_lock": true,
+        "layer_lock": true,
         "nkro": true,
+        "programmable_button": true,
         "rgb_matrix": true,
         "split_keyboard": true
     },
 
     "bootmagic": {
-        "enabled": true,
-        "matrix": [0, 0]
+        "matrix": [5, 5]
     },
-
-    "eeprom": {
-        "driver": "vendor"
-    },
-
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -200,16 +194,14 @@
             {"matrix": [9, 0], "x": 95, "y": 33, "flags": 4}
         ],
         "split_count": [30, 30],
-        "max_brightness": 96
+        "max_brightness": 96,
+        "sleep": true
     },
 
     "split": {
         "enabled": true,
         "serial": {
             "driver": "usart"
-        },
-        "transport": {
-            "protocol": "serial"
         },
         "usb_detect": {
             "enabled": true
