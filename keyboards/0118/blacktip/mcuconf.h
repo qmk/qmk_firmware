@@ -1,5 +1,5 @@
 /*
-    ChibiOS - Copyright (C) 2006..2018 Giovanni Di Sirio
+    ChibiOS - Copyright (C) 2006..2018 Giovanni Di Sirio, 2025 Erik Dietrich
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
@@ -11,8 +11,7 @@
     limitations under the License.
 */
 
-#ifndef MCUCONF_H
-#define MCUCONF_H
+#pragma once
 
 /*
  * STM32L0xx drivers configuration.
@@ -235,5 +234,3 @@
  * WDG driver system settings.
  */
 #define STM32_WDG_USE_IWDG                  FALSE
-
-#endif /* MCUCONF_H */
