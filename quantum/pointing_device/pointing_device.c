@@ -167,7 +167,9 @@ __attribute__((weak)) void pointing_device_init(void) {
     if ((POINTING_DEVICE_THIS_SIDE))
 #endif
     {
-        pointing_device_driver->init();
+        if (pointing_device_driver->init) {
+            pointing_device_driver->init();
+        }
 #ifdef POINTING_DEVICE_MOTION_PIN
 #    ifdef POINTING_DEVICE_MOTION_PIN_ACTIVE_LOW
         gpio_set_pin_input_high(POINTING_DEVICE_MOTION_PIN);
@@ -274,7 +276,6 @@ __attribute__((weak)) bool pointing_device_task(void) {
 #    endif
     {
 #endif
-
 #if defined(SPLIT_POINTING_ENABLE)
 #    if defined(POINTING_DEVICE_COMBINED)
         static uint8_t old_buttons = 0;
