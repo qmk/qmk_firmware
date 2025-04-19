@@ -27,6 +27,7 @@
             "resync": true
         }
     },
+    "community_layouts": ["ortho_5x5"],
     "layouts": {
         "LAYOUT_ortho_5x5": {
             "layout": [
