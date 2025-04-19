@@ -53,6 +53,10 @@ uint16_t retro_tap_curr_key = 0;
 uint8_t retro_tap_curr_mods = 0;
 uint8_t retro_tap_next_mods = 0;
 #    endif
+#    if defined(RETRO_TAPPING_TIMEOUT) && !(defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
+uint16_t retro_last_press_time   = 0;
+uint16_t retro_last_release_time = 0;
+#    endif
 #endif
 
 #if defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT) && !defined(NO_ACTION_TAPPING)
@@ -86,8 +90,14 @@ void action_exec(keyevent_t event) {
         if (event.pressed) {
             retro_tap_primed   = false;
             retro_tap_curr_key = event_keycode;
+#    if defined(RETRO_TAPPING_TIMEOUT) && !(defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
+            retro_last_press_time = timer_read();
+#    endif
         } else if (retro_tap_curr_key == event_keycode) {
             retro_tap_primed = true;
+#    if defined(RETRO_TAPPING_TIMEOUT) && !(defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
+            retro_last_release_time = timer_read();
+#    endif
         }
 #endif
     }
@@ -862,6 +872,9 @@ void process_action(keyrecord_t *record, action_t action) {
                 if (
 #        ifdef RETRO_TAPPING_PER_KEY
                     get_retro_tapping(event_keycode, record) &&
+#        endif
+#        if defined(RETRO_TAPPING_TIMEOUT) && !(defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
+                    retro_last_release_time - retro_last_press_time < RETRO_TAPPING_TIMEOUT &&
 #        endif
                     retro_tap_primed) {
 #        if defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)
