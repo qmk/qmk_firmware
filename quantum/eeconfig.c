@@ -2,15 +2,10 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "debug.h"
-#include "eeprom.h"
 #include "eeconfig.h"
 #include "action_layer.h"
 #include "nvm_eeconfig.h"
 #include "keycode_config.h"
-
-#ifdef EEPROM_DRIVER
-#    include "eeprom_driver.h"
-#endif // EEPROM_DRIVER
 
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
