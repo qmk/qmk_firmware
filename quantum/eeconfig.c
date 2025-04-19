@@ -7,11 +7,6 @@
 #include "nvm_eeconfig.h"
 #include "keycode_config.h"
 
-#ifdef EEPROM_DRIVER
-#    include "eeprom.h"
-#    include "eeprom_driver.h"
-#endif // EEPROM_DRIVER
-
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
 #endif // BACKLIGHT_ENABLE
