@@ -36,7 +36,6 @@
             "twinkle": true
         }
     },
-    "url": "",
     "usb": {
         "device_version": "0.0.1",
         "pid": "0x5753",

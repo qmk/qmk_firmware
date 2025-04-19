@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Octagon V1",
     "manufacturer": "Duck",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x444B",

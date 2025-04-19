@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Mild",
     "manufacturer": "Sauce",
-    "url": "",
     "maintainer": "andyywz",
     "usb": {
         "vid": "0x8367",

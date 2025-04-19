@@ -21,7 +21,6 @@
         "on_state": 0
     },
     "processor": "STM32F072",
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "vid": "0xCA04",

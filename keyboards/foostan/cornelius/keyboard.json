@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Cornelius",
     "manufacturer": "Yushakobo",
-    "url": "",
     "maintainer": "foostan",
     "usb": {
         "vid": "0x3265",

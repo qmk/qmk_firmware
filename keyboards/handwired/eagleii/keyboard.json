@@ -1,7 +1,6 @@
 {
     "keyboard_name": "II",
     "manufacturer": "Eagle",
-    "url": "",
     "maintainer": "Spaceman",
     "usb": {
         "vid": "0xFEED",

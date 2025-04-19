@@ -2,7 +2,6 @@
     "keyboard_name": "RE65",
     "maintainer": "Salane",
     "manufacturer": "Mai The San",
-    "url": "",
     "processor": "RP2040",
     "bootloader": "rp2040",
     "usb": {

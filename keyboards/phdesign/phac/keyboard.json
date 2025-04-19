@@ -24,7 +24,6 @@
         ]
     },
     "processor": "RP2040",
-    "url": "",
     "usb": {
         "device_version": "2.2.0",
         "pid": "0x0001",

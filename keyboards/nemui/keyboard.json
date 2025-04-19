@@ -1,7 +1,6 @@
 {
   "keyboard_name": "Nemui",
   "manufacturer": "Bachoo",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0x6400",

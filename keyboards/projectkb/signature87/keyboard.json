@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Signature87",
     "manufacturer": "Project Keyboard",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x0159",

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "SquishyTKL",
     "manufacturer": "RMI-KB",
-    "url": "",
     "maintainer": "ramonimbao",
     "usb": {
         "vid": "0xB16B",

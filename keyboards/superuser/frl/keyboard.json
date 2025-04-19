@@ -1,7 +1,6 @@
 {
     "keyboard_name": "frl",
     "manufacturer": "superuser",
-    "url": "",
     "maintainer": "superuser",
     "usb": {
         "vid": "0x5355",

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "QK65 Solder",
     "manufacturer": "qwertykeys",
-    "url": "",
     "maintainer": "qwertykeys",
     "usb": {
         "vid": "0x4F53",

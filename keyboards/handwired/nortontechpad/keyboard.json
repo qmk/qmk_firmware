@@ -1,7 +1,6 @@
 {
     "keyboard_name": "NortonTechPad",
     "manufacturer": "NortonTech",
-    "url": "",
     "maintainer": "NortonTech",
     "usb": {
         "vid": "0x9879",

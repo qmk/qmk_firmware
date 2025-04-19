@@ -1,7 +1,6 @@
 {
     "keyboard_name": "910CE",
     "manufacturer": "TGR",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x5447",

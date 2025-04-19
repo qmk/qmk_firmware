@@ -1,7 +1,6 @@
 {
     "keyboard_name": "DZ60RGB_WKL",
     "manufacturer": "DZTECH",
-    "url": "",
     "maintainer": "dztech",
     "usb": {
         "vid": "0x445A"

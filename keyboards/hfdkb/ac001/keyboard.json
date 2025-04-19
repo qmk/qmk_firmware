@@ -1,7 +1,6 @@
 {
     "keyboard_name": "ac001",
     "manufacturer": "hfd",
-    "url": "",
     "maintainer": "jonylee@hfd",
     "usb": {
         "vid": "0xFFFE",

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Mokey63",
     "manufacturer": "Mokey",
-    "url": "",
     "maintainer": "mokey",
     "usb": {
         "vid": "0x6653",

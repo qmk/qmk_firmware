@@ -1,7 +1,6 @@
 {
   "keyboard_name": "deltapad",
   "manufacturer": "Richard Snijder",
-  "url": "",
   "maintainer": "Richard Snijder",
   "usb": {
     "vid": "0xFEED",

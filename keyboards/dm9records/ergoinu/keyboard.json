@@ -1,7 +1,6 @@
 {
   "keyboard_name": "Ergoinu",
   "manufacturer": "Dm9Records",
-  "url": "",
   "maintainer": "hsgw(Takuya Urakawa)",
   "usb": {
     "vid": "0x04D8",

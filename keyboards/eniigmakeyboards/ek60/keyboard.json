@@ -1,7 +1,6 @@
 {
     "keyboard_name": "EK60",
     "manufacturer": "Eniigma Keyboards",
-    "url": "",
     "maintainer": "adamws",
     "usb": {
         "vid": "0x454B",

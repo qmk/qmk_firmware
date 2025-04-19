@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Twokey",
     "manufacturer": "Keys of Kings",
-    "url": "",
     "maintainer": "Keys of Kings",
     "usb": {
         "vid": "0xFEED",

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Splitish",
     "manufacturer": "Reid Schneyer",
-    "url": "",
     "maintainer": "RSchneyer",
     "usb": {
         "vid": "0xFEED",

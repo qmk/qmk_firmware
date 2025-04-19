@@ -17,7 +17,6 @@
         "rows": ["B0", "B1", "B2", "B10", "B11"]
     },
     "processor": "STM32F303",
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0001",

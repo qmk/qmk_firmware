@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Pumpkinpad",
     "manufacturer": "Laser Ninja",
-    "url": "",
     "maintainer": "Jels",
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",

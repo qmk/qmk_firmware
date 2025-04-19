@@ -19,7 +19,6 @@
         "rows": ["B14", "B10", "F0", "C15", "C14"]
     },
     "processor": "STM32F072",
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0004",

@@ -1,7 +1,6 @@
 {
     "manufacturer": "xia0",
     "keyboard_name": "3dortho14u",
-    "url": "",
     "maintainer": "xia0",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

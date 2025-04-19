@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Unikorn60",
     "manufacturer": "Singa x TGR",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x5354",

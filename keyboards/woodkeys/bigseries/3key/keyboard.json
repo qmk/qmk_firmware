@@ -1,7 +1,6 @@
 {
     "keyboard_name": "BigSeries 3-Key",
     "manufacturer": "WoodKeys.click",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0xFEED",

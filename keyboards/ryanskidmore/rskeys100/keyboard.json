@@ -158,7 +158,6 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
-    "url": "",
     "maintainer": "ryanskidmore",
     "community_layouts": ["fullsize_iso"],
     "layouts": {

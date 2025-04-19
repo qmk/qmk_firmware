@@ -1,7 +1,6 @@
 {
     "keyboard_name": "CG108",
     "manufacturer": "DTIsaac",
-    "url": "",
     "maintainer": "daotakisaac",
     "usb": {
         "vid": "0x4454",

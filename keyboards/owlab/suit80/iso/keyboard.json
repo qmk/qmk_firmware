@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Suit80 ISO",
     "manufacturer": "OwLab",
-    "url": "",
     "maintainer": "Owlab",
     "usb": {
         "vid": "0x4F53",

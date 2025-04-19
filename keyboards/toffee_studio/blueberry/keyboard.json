@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Blueberry",
     "manufacturer": "Toffee Studio",
-    "url": "",
     "maintainer": "Toffee Studio",
     "usb": {
         "vid": "0x1067",

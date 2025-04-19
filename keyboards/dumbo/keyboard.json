@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Dumbo",
     "manufacturer": "trip_trap",
-    "url": "",
     "maintainer": "adamnaldal",
     "usb": {
         "vid": "0xFEED",

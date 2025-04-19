@@ -1,7 +1,6 @@
 {
     "keyboard_name": "DecadePad",
     "manufacturer": "ReverseStudio",
-    "url": "",
     "maintainer": "huajijam",
     "usb": {
         "vid": "0x5253",

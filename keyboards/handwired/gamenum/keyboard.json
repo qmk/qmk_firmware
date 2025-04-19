@@ -1,7 +1,6 @@
 {
   "keyboard_name": "GameNum",
   "manufacturer": "Seth-Senpai",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0x1234",

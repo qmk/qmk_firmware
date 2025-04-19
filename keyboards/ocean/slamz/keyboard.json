@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Slamz",
     "manufacturer": "Ocean",
-    "url": "",
     "maintainer": "Ocean",
     "usb": {
         "vid": "0x9624",
