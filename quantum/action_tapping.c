@@ -106,7 +106,7 @@ __attribute__((weak)) bool get_hold_on_other_key_press(uint16_t keycode, keyreco
 static uint32_t last_input   = 0;
 static uint16_t prev_keycode = KC_NO;
 
-static bool flow_tap_key_if_within_term(keyrecord_t* record);
+static bool flow_tap_key_if_within_term(keyrecord_t *record);
 #    endif // defined(FLOW_TAP_TERM)
 
 static keyrecord_t tapping_key                         = {};
@@ -795,7 +795,7 @@ static void waiting_buffer_process_regular(void) {
 #    endif // CHORDAL_HOLD
 
 #    ifdef FLOW_TAP_TERM
-void flow_tap_update_timer(keyrecord_t* record) {
+void flow_tap_update_timer(keyrecord_t *record) {
     // Don't update the timer if a tap-hold key is unsettled.
     if (IS_NOEVENT(record->event) || (IS_EVENT(tapping_key.event) && tapping_key.event.pressed && tapping_key.tap.count == 0)) {
         return;
@@ -839,7 +839,7 @@ void flow_tap_update_timer(keyrecord_t* record) {
     last_input = timer_read32();
 }
 
-static bool flow_tap_key_if_within_term(keyrecord_t* record) {
+static bool flow_tap_key_if_within_term(keyrecord_t *record) {
     const uint16_t keycode = get_record_keycode(record, false);
     if (is_mt_or_lt(keycode)) {
         const uint32_t idle_time = timer_elapsed32(last_input);
