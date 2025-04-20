@@ -6,7 +6,7 @@ Scratch made direct wire pin 8-Key (4x2) Macro Pad using a Raspberry Pi Pico (20
 
 * Keyboard Maintainer: [YodaDistro](https://github.com/YodaDistro)
 * Hardware Supported: Raspberry Pi Pico (2040)
-* Hardware Availability: Handwired hardware
+* Hardware Availability: 3D Printed Design (https://github.com/YodaDistro/MacroPad)
 
 Make example for this keyboard (after setting up your build environment):
 
