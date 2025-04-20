@@ -1,0 +1,9 @@
+{
+	"manufacturer": "Raspberry Pi",
+	"maintainer": "yodadistro",
+	"usb": {
+	  "device_version": "1.0.0",
+	  "pid": "0x2044",
+	  "vid": "0x1209"
+	}
+}
