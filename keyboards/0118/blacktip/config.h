@@ -3,9 +3,6 @@
 
 #pragma once
 
-#define MATRIX_ROWS                         10
-#define MATRIX_COLS                         6
-
 //#define WS2812_POWER_ENABLE_PIN             A5
 #define WS2812_EXTERNAL_PULLUP
 #define WS2812_PWM_DRIVER                   PWMD2
