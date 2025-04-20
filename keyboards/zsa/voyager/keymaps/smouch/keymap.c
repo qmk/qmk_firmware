@@ -160,7 +160,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,         KC_F5,                          KC_F6,   KC_F7,      KC_F8,   KC_F9,      KC_F10,  KC_F11,
     _______, ___x___, G(KC_Q), _______, C(S(G(KC_4))), LSG(KC_4),                      KC_VOLU, G(KC_LEFT), KC_UP,   G(KC_RGHT), ___x___, KC_F12,
     ___x___, KC_LCTL, KC_LALT, _______, KC_LGUI,       G(KC_A),                        KC_VOLD, KC_LEFT,    KC_DOWN, KC_RGHT,    KC_DEL,  ___x___,
-    ___x___, G(KC_Z), G(KC_C), G(KC_X), G(KC_V),       LSG(KC_Z),                      KC_MUTE, SELWBAK,    SELWORD, SELLINE,    ___x___, ___x___,
+    ___x___, G(KC_Z), G(KC_C), G(KC_X), G(KC_V),       LSG(KC_Z),                      KC_MUTE, SELWBAK,    SELWORD, SELLINE,    LUMINO,  ___x___,
                                                        KC_LSFT,   _______, C(KC_LEFT), C(KC_RGHT)
   ),
 

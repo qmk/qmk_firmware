@@ -157,23 +157,24 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
 	    case LH0:
         case RH0:
-            return TAPPING_TERM - 25;
+            return TAPPING_TERM - 50;
 
-    	case LM4:
-        case LM3:
-        case LM2:
-        case LM1:
-        case RM1:
-        case RM2:
-        case RM3:
-        case RM4:
-            return TAPPING_TERM + 75;
+    	//case LM4:
+        //case LM3:
+        //case LM2:
+        //case LM1:
+        //case RM1:
+        //case RM2:
+        //case RM3:
+        //case RM4:
+            //return TAPPING_TERM + 75;
 
         default:
             return TAPPING_TERM;
     }
 };
 
+/*
 bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LH0:
@@ -184,10 +185,11 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
             return false;   // Do not select the hold action when another key is tapped.
     }
 };
+*/
 
 uint16_t get_tap_flow(
     uint16_t keycode, keyrecord_t* record, uint16_t prev_keycode) {
-        
+
     if (prev_keycode == KC_BSPC) {
         return 0;  // Disable filter when immediately following backspace.
     }

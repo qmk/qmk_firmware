@@ -57,14 +57,14 @@
 
 // Configure the global tapping term (default: 200ms)
 #undef TAPPING_TERM // if not default
-#define TAPPING_TERM 175
+#define TAPPING_TERM 225
 #define TAPPING_TERM_PER_KEY  // reduce for HRM Shifts
 
 // Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
 #define QUICK_TAP_TERM 0
 
 // Apply the modifier on keys that are tapped during a short hold of a modtap
-#define PERMISSIVE_HOLD_PER_KEY
+#define PERMISSIVE_HOLD
 
 // Opposite hands rule for HRMs
 #define CHORDAL_HOLD
