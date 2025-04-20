@@ -10,7 +10,6 @@
         "mousekey": true
     },
     "bootmagic": {
-        "enabled": true,
         "matrix": [0, 1]
     },
     "matrix_pins": {
