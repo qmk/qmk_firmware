@@ -6,6 +6,7 @@
 #include "action_tapping.h"
 #include "action_util.h"
 #include "keycode.h"
+#include "quantum_keycodes.h"
 #include "timer.h"
 
 #ifndef NO_ACTION_TAPPING
@@ -105,7 +106,7 @@ __attribute__((weak)) bool get_hold_on_other_key_press(uint16_t keycode, keyreco
 static uint32_t last_input   = 0;
 static uint16_t prev_keycode = KC_NO;
 
-uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record, uint16_t prev_keycode);
+static bool flow_tap_key_if_within_term(keyrecord_t* record);
 #    endif // defined(FLOW_TAP_TERM)
 
 static keyrecord_t tapping_key                         = {};
@@ -158,16 +159,8 @@ void action_tapping_process(keyrecord_t record) {
     }
     if (IS_EVENT(record.event)) {
 #    if defined(FLOW_TAP_TERM)
-        const uint16_t keycode = get_record_keycode(&record, false);
-        // Track the previous key press.
-        if (record.event.pressed) {
-            prev_keycode = keycode;
-        }
-        // If there is no unsettled tap-hold key, update last input time. Ignore
-        // mod keys in this update to allow for chording multiple mods for
-        // hotkeys like "Ctrl+Shift+arrow".
-        if (IS_NOEVENT(tapping_key.event) && !IS_MODIFIER_KEYCODE(keycode)) {
-            last_input = timer_read32();
+        if (record.event.pressed) { // Track the previous key press.
+            prev_keycode = get_record_keycode(&record, false);
         }
 #    endif // defined(FLOW_TAP_TERM)
         ac_dprintf("\n");
@@ -252,22 +245,8 @@ bool process_tapping(keyrecord_t *keyp) {
             // into the "pressed" tapping key state
 
 #    if defined(FLOW_TAP_TERM)
-            const uint16_t keycode = get_record_keycode(keyp, false);
-            if (is_mt_or_lt(keycode)) {
-                const uint32_t idle_time = timer_elapsed32(last_input);
-                uint16_t       term      = get_flow_tap_term(keycode, keyp, prev_keycode);
-                if (term > 500) {
-                    term = 500;
-                }
-                if (idle_time < 500 && idle_time < term) {
-                    debug_event(keyp->event);
-                    ac_dprintf(" within flow tap term (%u < %u) considered a tap\n", (int16_t)idle_time, term);
-                    keyp->tap.count = 1;
-                    registered_taps_add(keyp->event.key);
-                    debug_registered_taps();
-                    process_record(keyp);
-                    return true;
-                }
+            if (flow_tap_key_if_within_term(keyp)) {
+                return true;
             }
 #    endif // defined(FLOW_TAP_TERM)
 
@@ -582,6 +561,13 @@ bool process_tapping(keyrecord_t *keyp) {
                     return true;
                 } else if (is_tap_record(keyp)) {
                     // Sequential tap can be interfered with other tap key.
+#    if defined(FLOW_TAP_TERM)
+                    if (flow_tap_key_if_within_term(keyp)) {
+                        tapping_key = (keyrecord_t){0};
+                        debug_tapping_key();
+                        return true;
+                    }
+#    endif // defined(FLOW_TAP_TERM)
                     ac_dprintf("Tapping: Start with interfering other tap.\n");
                     tapping_key = *keyp;
                     waiting_buffer_scan_tap();
@@ -809,6 +795,71 @@ static void waiting_buffer_process_regular(void) {
 #    endif // CHORDAL_HOLD
 
 #    ifdef FLOW_TAP_TERM
+void flow_tap_update_timer(keyrecord_t* record) {
+    // Don't update the timer if a tap-hold key is unsettled.
+    if (IS_NOEVENT(record->event) || (IS_EVENT(tapping_key.event) && tapping_key.event.pressed && tapping_key.tap.count == 0)) {
+        return;
+    }
+    const uint16_t keycode = get_record_keycode(record, false);
+    // Don't update the timer for a mod or layer switch key. Particularly, this
+    // allows for chording multiple mods for hotkeys like "Ctrl+Shift+arrow".
+    switch (keycode) {
+        case QK_MOMENTARY ... QK_MOMENTARY_MAX:
+        case QK_TO ... QK_TO_MAX:
+        case QK_TOGGLE_LAYER ... QK_TOGGLE_LAYER_MAX:
+        case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:
+        case MODIFIER_KEYCODE_RANGE:
+#        ifndef NO_ACTION_ONESHOT // Ignore one-shot keys.
+        case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX:
+        case QK_ONE_SHOT_MOD ... QK_ONE_SHOT_MOD_MAX:
+#        endif                  // NO_ACTION_ONESHOT
+#        ifdef TRI_LAYER_ENABLE // Ignore Tri Layer keys.
+        case QK_TRI_LAYER_LOWER:
+        case QK_TRI_LAYER_UPPER:
+#        endif                   // TRI_LAYER_ENABLE
+#        ifdef LAYER_LOCK_ENABLE // Ignore Layer Lock key.
+        case QK_LAYER_LOCK:
+#        endif // LAYER_LOCK_ENABLE
+            return;
+
+        case QK_MODS ... QK_MODS_MAX:
+            if (QK_MODS_GET_BASIC_KEYCODE(keycode) == KC_NO) {
+                return;
+            }
+            break;
+
+        case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+        case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+            if (record->tap.count == 0) {
+                return;
+            }
+            break;
+    }
+
+    last_input = timer_read32();
+}
+
+static bool flow_tap_key_if_within_term(keyrecord_t* record) {
+    const uint16_t keycode = get_record_keycode(record, false);
+    if (is_mt_or_lt(keycode)) {
+        const uint32_t idle_time = timer_elapsed32(last_input);
+        uint16_t       term      = get_flow_tap_term(keycode, record, prev_keycode);
+        if (term > 500) {
+            term = 500;
+        }
+        if (idle_time < 500 && idle_time < term) {
+            debug_event(record->event);
+            ac_dprintf(" within flow tap term (%u < %u) considered a tap\n", (int16_t)idle_time, term);
+            record->tap.count = 1;
+            registered_taps_add(record->event.key);
+            debug_registered_taps();
+            process_record(record);
+            return true;
+        }
+    }
+    return false;
+}
+
 // By default, enable Flow Tap for the keys in the main alphas area and Space.
 // This should work reasonably even if the layout is remapped on the host to an
 // alt layout or international layout (e.g. Dvorak or AZERTY), where these same
