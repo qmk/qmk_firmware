@@ -31,9 +31,6 @@
             "cycle_left_right": true
         },
         "driver": "ws2812",
-        "default": {
-            "animation": "cycle_left_right"
-        },
         "layout": [
             {"flags": 4, "matrix": [0, 0], "x": 0,   "y": 0}
         ],

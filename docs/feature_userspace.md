@@ -74,8 +74,9 @@ Additionally, `config.h` here will be processed like the same file in your keyma
 
 The reason for this, is that `<name>.h` won't be added in time to add settings (such as `#define TAPPING_TERM 100`), and including the `<name.h>` file in any `config.h` files will result in compile issues.
 
-!>You should use the `config.h` for [configuration options](config_options), and the `<name>.h` file for user or keymap specific settings (such as the enum for layer or keycodes)
-
+::: warning
+You should use the `config.h` for [configuration options](config_options), and the `<name>.h` file for user or keymap specific settings (such as the enum for layer or keycodes)
+:::
 
 ## Readme (`readme.md`)
 

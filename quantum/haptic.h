@@ -28,7 +28,7 @@
 #endif
 
 /* EEPROM config settings */
-typedef union {
+typedef union haptic_config_t {
     uint32_t raw;
     struct {
         bool    enable : 1;
