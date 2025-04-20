@@ -32,7 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MASTER_LEFT
 //#define MASTER_RIGHT
 #define SPLIT_HAND_PIN GP7
-#define BOOTMAGIC_ROW_RIGHT 6
+#define BOOTMAGIC_ROW_RIGHT 0
 #define BOOTMAGIC_COLUMN_RIGHT 7
 
 
@@ -46,8 +46,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_ACTIVITY_ENABLE
 
 #endif
-
-
 
 // PMW3389 Settings
 #ifdef POINTING_DEVICE_ENABLE

@@ -17,6 +17,7 @@ LTO_ENABLE = no 				# Optimise
 OLED_ENABLE = yes				# OLED Display
 POINTING_DEVICE_ENABLE = yes 	# Trackball or Trackpad
 VIA_ENABLE = yes  				# VIA
+WS2812_DRIVER_REQUIRED = yes
 
 POINTING_DEVICE_DRIVER = pmw3389
 SERIAL_DRIVER = vendor
