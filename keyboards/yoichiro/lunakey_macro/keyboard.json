@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Lunakey Macro",
     "manufacturer": "yoichiro",
-    "url": "",
     "maintainer": "Yoichiro Tanaka",
     "usb": {
         "vid": "0x5954",

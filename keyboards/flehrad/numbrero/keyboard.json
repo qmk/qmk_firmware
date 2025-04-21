@@ -1,7 +1,6 @@
 {
   "keyboard_name": "Numbrero",
   "manufacturer": "Flehrad",
-  "url": "",
   "maintainer": "Flehrad",
   "usb": {
     "vid": "0xFEED",

@@ -1,7 +1,6 @@
 {
   "keyboard_name": "Vitamins Included",
   "manufacturer": "Duckle29",
-  "url": "",
   "maintainer": "Duckle29",
   "build": {
     "lto": true

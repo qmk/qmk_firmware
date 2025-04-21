@@ -2,7 +2,6 @@
     "keyboard_name": "Kuro65",
     "manufacturer": "Kuro",
     "maintainer": "0x544D",
-    "url": "",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "diode_direction": "COL2ROW",

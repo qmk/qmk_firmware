@@ -1,7 +1,6 @@
 {
     "keyboard_name": "NEISO",
     "manufacturer": "Space City Keyboards",
-    "url": "",
     "maintainer": "jrfhoutx",
     "usb": {
         "vid": "0xFEED",

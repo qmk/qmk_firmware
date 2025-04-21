@@ -1,7 +1,6 @@
 {
     "keyboard_name": "KeyBee65",
     "manufacturer": "KeyBee",
-    "url": "",
     "maintainer": "ToastyStoemp",
     "usb": {
         "vid": "0x6265",

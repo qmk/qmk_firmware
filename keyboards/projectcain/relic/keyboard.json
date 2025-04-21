@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Relic",
     "manufacturer": "projectcain",
-    "url": "",
     "maintainer": "projectcain",
     "usb": {
         "vid": "0xFEED",

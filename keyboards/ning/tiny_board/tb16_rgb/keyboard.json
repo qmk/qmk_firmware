@@ -29,7 +29,6 @@
         "pin": "B5"
     },
     "development_board": "promicro",
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0000",

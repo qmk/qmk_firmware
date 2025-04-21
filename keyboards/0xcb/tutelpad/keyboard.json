@@ -1,7 +1,6 @@
 {
     "keyboard_name": "TutelPad",
     "manufacturer": "ItsFiremanSam",
-    "url": "",
     "maintainer": "ItsFiremanSam",
     "usb": {
         "vid": "0xCB00",

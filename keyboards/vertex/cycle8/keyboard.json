@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Cycle8",
     "manufacturer": "vertex",
-    "url": "",
     "maintainer": "Eason",
     "usb": {
         "vid": "0x8A94",

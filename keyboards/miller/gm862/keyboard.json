@@ -1,7 +1,6 @@
 {
     "keyboard_name": "GM862",
     "manufacturer": "MILLER",
-    "url": "",
     "maintainer": "MILLER",
     "usb": {
         "vid": "0x4B42",

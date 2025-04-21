@@ -1,7 +1,6 @@
 {
     "keyboard_name": "NQG",
     "manufacturer": "emptystring",
-    "url": "",
     "maintainer": "culturalsnow",
     "usb": {
         "vid": "0x0076",

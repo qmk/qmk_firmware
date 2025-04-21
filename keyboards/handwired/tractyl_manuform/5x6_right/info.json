@@ -1,5 +1,4 @@
 {
-    "url": "",
     "usb": {
         "pid": "0x3536",
         "device_version": "0.0.1"
