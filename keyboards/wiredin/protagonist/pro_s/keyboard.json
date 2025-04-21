@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Protagonist PRO-S",
     "manufacturer": "WiredIn",
-    "url": "", 
     "maintainer": "Gondolindrim",
     "usb": {
         "vid": "0x5749",

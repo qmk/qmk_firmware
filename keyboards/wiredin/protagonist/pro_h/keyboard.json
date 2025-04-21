@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Protagonist PRO-H",
     "manufacturer": "WiredIn",
-    "url": "", 
     "maintainer": "Gondolindrim",
     "usb": {
         "vid": "0x5749",
@@ -16,11 +15,9 @@
     },
     "features": {
         "bootmagic": true,
-        "mousekey":  false,
+        "mousekey":  true,
         "extrakey":  true,
-        "console":   false,
         "rgblight":  true,
-        "backlight": false,
         "nkro":      true
     },
     "build": {
