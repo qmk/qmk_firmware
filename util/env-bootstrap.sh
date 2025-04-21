@@ -288,7 +288,7 @@ __EOT__
 
     install_uv() {
         # Install `uv` (or update as necessary)
-        download_url https://astral.sh/uv/install.sh - | TMPDIR=${TMPDIR:-} UV_INSTALL_DIR=${UV_INSTALL_DIR:-} sh
+        download_url https://astral.sh/uv/install.sh - | TMPDIR="$(windows_ish_path "${TMPDIR:-}")" UV_INSTALL_DIR="$(windows_ish_path "${UV_INSTALL_DIR:-}")" sh
     }
 
     setup_paths() {
@@ -304,19 +304,28 @@ __EOT__
         if [ -n "${UV_INSTALL_DIR:-}" ]; then
             export PATH="$UV_INSTALL_DIR/bin:$UV_INSTALL_DIR:$PATH" # cater for both "flat" and "hierarchical" installs of `uv`
         fi
+
+        if [ -n "${UV_TOOL_BIN_DIR:-}" ]; then
+            export PATH="$UV_TOOL_BIN_DIR:$PATH"
+        fi
+    }
+
+    uv_command() {
+        if [ "$(fn_os)" = "windows" ]; then
+            UV_TOOL_DIR="$(windows_ish_path "${UV_TOOL_DIR:-}")" \
+            UV_TOOL_BIN_DIR="$(windows_ish_path "${UV_TOOL_BIN_DIR:-}")" \
+            uv "$@"
+        else
+            uv "$@"
+        fi
     }
 
     install_qmk_cli() {
         # Install the QMK CLI
-        uv tool install --force --with pip --upgrade --python $PYTHON_TARGET_VERSION qmk
+        uv_command tool install --force --with pip --upgrade --python $PYTHON_TARGET_VERSION qmk
 
         # QMK is installed to...
-        local qmk_tooldir="$(uv tool dir)/qmk"
-
-        # Convert it to a unix-style path if we're on Windows/Msys2
-        if [ "$(uname -o 2>/dev/null || true)" = "Msys" ]; then
-            qmk_tooldir="$(cygpath -u "$qmk_tooldir")"
-        fi
+        local qmk_tooldir="$(posix_ish_path "$(uv_command tool dir)/qmk")"
 
         # Activate the environment
         if [ -e "$qmk_tooldir/bin" ]; then
@@ -329,8 +338,8 @@ __EOT__
         fi
 
         # Install the QMK dependencies
-        uv pip install --upgrade -r https://raw.githubusercontent.com/qmk/qmk_firmware/refs/heads/master/requirements.txt
-        uv pip install --upgrade -r https://raw.githubusercontent.com/qmk/qmk_firmware/refs/heads/master/requirements-dev.txt
+        uv_command pip install --upgrade -r https://raw.githubusercontent.com/qmk/qmk_firmware/refs/heads/master/requirements.txt
+        uv_command pip install --upgrade -r https://raw.githubusercontent.com/qmk/qmk_firmware/refs/heads/master/requirements-dev.txt
 
         # Deactivate the environment
         deactivate
@@ -381,16 +390,27 @@ __EOT__
         rm -f "$QMK_DISTRIB_DIR"/*.tar.zst || true
     }
 
+    windows_ish_path() {
+        [ -n "$1" ] || return 0
+        [ "$(uname -o 2>/dev/null || true)" = "Msys" ] && cygpath -w "$1" || echo "$1"
+    }
+
+    posix_ish_path() {
+        [ -n "$1" ] || return 0
+        [ "$(uname -o 2>/dev/null || true)" = "Msys" ] && cygpath -u "$1" || echo "$1"
+    }
+
     # Set the Python version we want to use with the QMK CLI
     export PYTHON_TARGET_VERSION=3.13
 
     # Windows/MSYS doesn't like `/tmp` so we need to set a different temporary directory.
     # Also set the default `UV_INSTALL_DIR` and `QMK_DISTRIB_DIR` to locations which don't pollute the user's home directory, keeping the installation internal to MSYS.
     if [ "$(uname -o 2>/dev/null || true)" = "Msys" ]; then
-        export TMPDIR="$(cygpath -w "$TMP")"
-        export UV_INSTALL_DIR=${UV_INSTALL_DIR:-/opt/uv}
-        export QMK_DISTRIB_DIR=${QMK_DISTRIB_DIR:-/opt/qmk}
-        export UV_TOOL_DIR=${UV_TOOL_DIR:-"$QMK_DISTRIB_DIR/tools"}
+        export TMPDIR="$(posix_ish_path "$TMP")"
+        export UV_INSTALL_DIR="$(posix_ish_path "${UV_INSTALL_DIR:-/opt/uv}")"
+        export QMK_DISTRIB_DIR="$(posix_ish_path "${QMK_DISTRIB_DIR:-/opt/qmk}")"
+        export UV_TOOL_DIR="$(posix_ish_path "${UV_TOOL_DIR:-"$UV_INSTALL_DIR/tools"}")"
+        export UV_TOOL_BIN_DIR="$(posix_ish_path "$UV_TOOL_DIR/bin")"
     fi
 
     script_parse_args "$@"
@@ -401,7 +421,7 @@ __EOT__
     [ -n "${SKIP_UV:-}" ] || install_uv
 
     # Work out where we want to install the distribution and tools now that `uv` is installed
-    export QMK_DISTRIB_DIR=${QMK_DISTRIB_DIR:-$(printf 'import platformdirs\nprint(platformdirs.user_data_dir("qmk"))' | uv run --quiet --python $PYTHON_TARGET_VERSION --with platformdirs -)}
+    export QMK_DISTRIB_DIR="$(posix_ish_path "${QMK_DISTRIB_DIR:-$(printf 'import platformdirs\nprint(platformdirs.user_data_dir("qmk"))' | uv_command run --quiet --python $PYTHON_TARGET_VERSION --with platformdirs -)}")"
 
     # Make sure the usual `uv` and other associated directories are on the $PATH
     setup_paths
@@ -424,12 +444,12 @@ __EOT__
     hash -r
     echo >&2
     echo "QMK CLI installation complete." >&2
-    echo "The QMK CLI has been installed to '$(dirname "$(command -v qmk)")'." >&2
-    echo "The QMK CLI venv has been created at '$(uv tool dir)/qmk'." >&2
+    echo "The QMK CLI has been installed to '$(posix_ish_path "$(dirname "$(command -v qmk)")")'." >&2
+    echo "The QMK CLI venv has been created at '$(posix_ish_path "$(uv_command tool dir)/qmk")'." >&2
     echo "Toolchains and flashing utilities have been installed to '$QMK_DISTRIB_DIR'." >&2
     echo >&2
     echo "You may need to restart your shell to gain access to the 'qmk' command." >&2
-    echo "Alternatively, add "$(dirname "$(command -v qmk)")" to your \$PATH:" >&2
-    echo "    export PATH=\"$(dirname "$(command -v qmk)"):\$PATH\"" >&2
+    echo "Alternatively, add "$(posix_ish_path "$(dirname "$(command -v qmk)")")" to your \$PATH:" >&2
+    echo "    export PATH=\"$(posix_ish_path "$(dirname "$(command -v qmk)")"):\$PATH\"" >&2
 
 } # this ensures the entire script is downloaded #
