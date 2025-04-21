@@ -177,30 +177,30 @@ __EOT__
     get_package_manager_deps() {
         case $(fn_os) in
         macos)
-            echo "zstd clang-format make hidapi libusb dos2unix"
+            echo "zstd clang-format make hidapi libusb dos2unix git"
             ;;
         linux)
             case $(grep ID /etc/os-release) in
             *arch* | *manjaro*)
-                echo "zstd base-devel clang diffutils unzip wget zip hidapi dos2unix"
+                echo "zstd base-devel clang diffutils unzip wget zip hidapi dos2unix git"
                 ;;
             *debian* | *ubuntu*)
-                echo "zstd build-essential clang-format diffutils unzip wget zip libhidapi-hidraw0 dos2unix"
+                echo "zstd build-essential clang-format diffutils unzip wget zip libhidapi-hidraw0 dos2unix git"
                 ;;
             *fedora*)
-                echo "zstd clang diffutils gcc git unzip wget zip hidapi dos2unix libusb-devel libusb1-devel libusb-compat-0.1-devel libusb0-devel"
+                echo "zstd clang diffutils gcc git unzip wget zip hidapi dos2unix libusb-devel libusb1-devel libusb-compat-0.1-devel libusb0-devel git"
                 ;;
             *gentoo*)
-                echo "app-arch/zstd app-arch/unzip app-arch/zip net-misc/wget llvm-core/clang sys-apps/hwloc dev-libs/hidapi app-text/dos2unix"
+                echo "app-arch/zstd app-arch/unzip app-arch/zip net-misc/wget llvm-core/clang sys-apps/hwloc dev-libs/hidapi app-text/dos2unix dev-vcs/git"
                 ;;
             *slackware*)
                 echo "python3"
                 ;;
             *solus*)
-                echo "system.devel zstd git wget zip unzip python3 dos2unix"
+                echo "system.devel zstd git wget zip unzip python3 dos2unix git"
                 ;;
             *void*)
-                echo "zstd git make wget unzip zip python3 dos2unix"
+                echo "zstd git make wget unzip zip python3 dos2unix git"
                 ;;
             *)
                 echo "Sorry, we don't recognize your distribution. Try using the docker image instead:" >&2
@@ -211,7 +211,7 @@ __EOT__
             esac
             ;;
         windows)
-            echo "base-devel: zstd:x toolchain:x clang:x hidapi:x dos2unix:x"
+            echo "base-devel: zstd:x toolchain:x clang:x hidapi:x dos2unix:x git:x"
             ;;
         *)
             echo "Sorry, we don't recognize your OS. Try using a compatible OS instead:" >&2
