@@ -109,7 +109,6 @@ __EOT__
         true
     }
 
-
     download_url() {
         local url=$1
         local filename=${2:-$(basename "$url")}
@@ -175,16 +174,68 @@ __EOT__
         sleep 10
     }
 
+    get_package_manager_deps() {
+        case $(fn_os) in
+        macos)
+            echo "zstd clang-format make hidapi libusb dos2unix"
+            ;;
+        linux)
+            case $(grep ID /etc/os-release) in
+            *arch* | *manjaro*)
+                echo "zstd base-devel clang diffutils unzip wget zip hidapi dos2unix"
+                ;;
+            *debian* | *ubuntu*)
+                echo "zstd build-essential clang-format diffutils unzip wget zip libhidapi-hidraw0 dos2unix"
+                ;;
+            *fedora*)
+                echo "zstd clang diffutils gcc git unzip wget zip hidapi dos2unix libusb-devel libusb1-devel libusb-compat-0.1-devel libusb0-devel"
+                ;;
+            *gentoo*)
+                echo "app-arch/zstd app-arch/unzip app-arch/zip net-misc/wget llvm-core/clang sys-apps/hwloc dev-libs/hidapi app-text/dos2unix"
+                ;;
+            *slackware*)
+                echo "python3"
+                ;;
+            *solus*)
+                echo "system.devel zstd git wget zip unzip python3 dos2unix"
+                ;;
+            *void*)
+                echo "zstd git make wget unzip zip python3 dos2unix"
+                ;;
+            *)
+                echo "Sorry, we don't recognize your distribution. Try using the docker image instead:" >&2
+                echo >&2
+                echo "https://docs.qmk.fm/#/getting_started_docker" >&2
+                exit 1
+                ;;
+            esac
+            ;;
+        windows)
+            echo "base-devel: zstd:x toolchain:x clang:x hidapi:x dos2unix:x"
+            ;;
+        *)
+            echo "Sorry, we don't recognize your OS. Try using a compatible OS instead:" >&2
+            echo >&2
+            echo "https://docs.qmk.fm/newbs_getting_started#set-up-your-environment" >&2
+            exit 1
+            ;;
+        esac
+    }
+
+    print_package_manager_deps_and_delay() {
+        get_package_manager_deps | tr ' ' '\n' | sort | xargs -I'{}' echo "    - {}" >&2
+        preinstall_delay || exit 1
+    }
+
     install_package_manager_deps() {
         # Install the necessary packages for the package manager
         case $(fn_os) in
         macos)
             if [ -n "$(command -v brew 2>/dev/null || true)" ]; then
                 echo "It will also install the following system packages using 'brew':" >&2
-                echo "    zstd clang-format make hidapi libusb dos2unix" >&2
-                preinstall_delay || exit 1
+                print_package_manager_deps_and_delay
                 brew update && brew upgrade --formulae
-                brew install zstd clang-format make hidapi libusb dos2unix
+                brew install $(get_package_manager_deps)
             else
                 echo "Please install 'brew' to continue. See https://brew.sh/ for more information." >&2
                 exit 1
@@ -194,55 +245,42 @@ __EOT__
             case $(grep ID /etc/os-release) in
             *arch* | *manjaro*)
                 echo "It will also install the following system packages using 'pacman':" >&2
-                echo "    zstd base-devel clang diffutils unzip wget zip hidapi dos2unix" >&2
-                preinstall_delay || exit 1
-                $(nsudo) pacman --needed --noconfirm -S zstd base-devel clang diffutils unzip wget zip dos2unix
-                $(nsudo) pacman --needed --noconfirm -S hidapi || true # This will fail if the community repo isn't enabled
+                print_package_manager_deps_and_delay
+                $(nsudo) pacman --needed --noconfirm -S $(get_package_manager_deps)
                 ;;
             *debian* | *ubuntu*)
                 echo "It will also install the following system packages using 'apt':" >&2
-                echo "    zstd build-essential clang-format diffutils unzip wget zip libhidapi-hidraw0 dos2unix" >&2
-                preinstall_delay || exit 1
+                print_package_manager_deps_and_delay
                 $(nsudo) apt-get update
                 DEBIAN_FRONTEND=noninteractive \
-                    $(nsudo) apt-get --quiet --yes install zstd build-essential clang-format diffutils unzip wget zip libhidapi-hidraw0 dos2unix
+                    $(nsudo) apt-get --quiet --yes $(get_package_manager_deps)
                 ;;
             *fedora*)
                 echo "It will also install the following system packages using 'dnf':" >&2
-                echo "    zstd clang diffutils gcc git unzip wget zip hidapi dos2unix" >&2
-                echo "And whichever of the following is available, depending on which packages are provided by the distro:" >&2
-                echo "    libusb-devel, libusb1-devel, libusb-compat-0.1-devel, or libusb0-devel" >&2
-                preinstall_delay || exit 1
-                $(nsudo) dnf -y install zstd clang diffutils gcc git unzip wget zip hidapi dos2unix libusb-devel libusb1-devel libusb-compat-0.1-devel libusb0-devel --skip-unavailable
+                print_package_manager_deps_and_delay
+                $(nsudo) dnf -y install $(get_package_manager_deps) --skip-unavailable
                 ;;
             *gentoo*)
                 echo "It will also the following packages using 'emerge':" >&2
-                echo "    app-arch/zstd app-arch/unzip app-arch/zip net-misc/wget llvm-core/clang sys-apps/hwloc dev-libs/hidapi app-text/dos2unix" >&2
-                preinstall_delay || exit 1
-                $(nsudo) emerge -au --noreplace \
-                    app-arch/zstd app-arch/unzip app-arch/zip net-misc/wget llvm-core/clang sys-apps/hwloc dev-libs/hidapi app-text/dos2unix
+                print_package_manager_deps_and_delay
+                $(nsudo) emerge -au --noreplace $(get_package_manager_deps)
                 ;;
             *slackware*)
                 echo "It will also the following packages using 'sboinstall':" >&2
-                echo "    python3" >&2
-                preinstall_delay || exit 1
-                $(nsudo) sboinstall python3 # Rest tbd?
+                print_package_manager_deps_and_delay
+                $(nsudo) sboinstall $(get_package_manager_deps)
                 ;;
             *solus*)
                 echo "It will also install the following system packages using 'eopkg':" >&2
-                echo "    system.devel zstd git wget zip unzip python3 dos2unix" >&2
-                preinstall_delay || exit 1
+                print_package_manager_deps_and_delay
                 $(nsudo) eopkg -y update-repo
                 $(nsudo) eopkg -y upgrade
-                $(nsudo) eopkg -y install \
-                    -c system.devel zstd git wget zip unzip python3 dos2unix
+                $(nsudo) eopkg -y install $(get_package_manager_deps)
                 ;;
             *void*)
                 echo "It will also the following packages using 'xbps-install':" >&2
-                echo "    zstd git make wget unzip zip python3 dos2unix" >&2
-                preinstall_delay || exit 1
-                $(nsudo) xbps-install -y \
-                    zstd git make wget unzip zip python3 dos2unix
+                print_package_manager_deps_and_delay
+                $(nsudo) xbps-install -y $(get_package_manager_deps)
                 ;;
             *)
                 echo "Sorry, we don't recognize your distribution. Try using the docker image instead:"
@@ -251,6 +289,12 @@ __EOT__
                 exit 1
                 ;;
             esac
+            ;;
+        windows)
+            echo "It will also install the following packages using 'pacman'/'pacboy':" >&2
+            print_package_manager_deps_and_delay
+            $(nsudo) pacman --needed --noconfirm --disable-download-timeout -S pactoys
+            $(nsudo) pacboy sync --needed --noconfirm --disable-download-timeout $(get_package_manager_deps)
             ;;
         esac
     }
@@ -350,23 +394,6 @@ __EOT__
         rm -f "$QMK_DISTRIB_DIR"/*.tar.zst || true
     }
 
-    default_distrib_dir() {
-        case $(fn_os) in
-        macos)
-            echo "$HOME/Library/Application Support/qmk"
-            ;;
-        linux)
-            echo "$HOME/.local/share/qmk"
-            ;;
-        windows)
-            echo "/opt/qmk"
-            ;;
-        *)
-            echo "No default installation directory for this OS." >&2
-            exit 1
-        esac
-    }
-
     # Set the Python version we want to use with the QMK CLI
     export PYTHON_TARGET_VERSION=3.13
 
@@ -375,19 +402,22 @@ __EOT__
     if [ "$(uname -o 2>/dev/null || true)" = "Msys" ]; then
         export TMPDIR="$(cygpath -w "$TMP")"
         export UV_INSTALL_DIR=${UV_INSTALL_DIR:-/opt/uv}
+        export QMK_DISTRIB_DIR=${QMK_DISTRIB_DIR:-/opt/qmk}
         export UV_TOOL_DIR=${UV_TOOL_DIR:-"$QMK_DISTRIB_DIR/tools"}
     fi
 
-    # Work out where we want to install the distribution and tools
-    export QMK_DISTRIB_DIR=${QMK_DISTRIB_DIR:-$(default_distrib_dir)}
-
     script_parse_args "$@"
 
-    echo "This QMK CLI installation script will install \`uv\` to ${UV_INSTALL_DIR:-the default location}, the QMK CLI to the \`uv\` tools"
-    echo "directory, as well as toolchains and flashing utilities to '${QMK_DISTRIB_DIR}'."
+    echo "This QMK CLI installation script will install \`uv\`, the QMK CLI to the \`uv\` tools"
+    echo "directory, as well as toolchains and flashing utilities."
     [ -z "${SKIP_PACKAGE_MANAGER:-}" ] || { preinstall_delay || exit 1; }
     [ -n "${SKIP_PACKAGE_MANAGER:-}" ] || install_package_manager_deps
     [ -n "${SKIP_UV:-}" ] || install_uv
+
+    # Work out where we want to install the distribution and tools now that `uv` is installed
+    export QMK_DISTRIB_DIR=${QMK_DISTRIB_DIR:-$(printf 'import platformdirs\nprint(platformdirs.user_data_dir("qmk"))' | uv run --quiet --with platformdirs -)}
+
+    # Make sure the usual `uv` and other associated directories are on the $PATH
     setup_paths
 
     # Clear out the distrib directory if necessary
@@ -406,6 +436,11 @@ __EOT__
 
     # Notify the user that they may need to restart their shell to get the `qmk` command
     hash -r
+    echo
+    echo "QMK CLI installation complete."
+    echo "The QMK CLI has been installed to '$(dirname "$(command -v qmk)")'."
+    echo "The QMK CLI venv has been created at '$(uv tool dir)/qmk'."
+    echo "Toolchains and flashing utilities have been installed to '$QMK_DISTRIB_DIR'."
     echo
     echo "You may need to restart your shell to gain access to the 'qmk' command."
     echo "Alternatively, add "$(dirname "$(command -v qmk)")" to your \$PATH:"
