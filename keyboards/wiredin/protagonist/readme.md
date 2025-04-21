@@ -2,11 +2,9 @@
 
 * Keyboard Maintainer: [Gondolindrim](https://github.com/Gondolindrim)
 * Hardware Supported: proprietary PCB using STM32F411 microcontroller;
-* Hardware Availability: the Protagonist is scheduled to enter Group Buy in february 2024.
+* Hardware Availability: the Protagonist entered Group Buy in february 2024 and as of april 2025 there were no more public sales.
 
 The Protagonist is a 60% keyboard designed by WiredIn and PCB designed by [Gondolindrim](http://github.com/Gondolindrim), who is also the firwmare maintainer.
-
-As of january 2024, there is no way to obtain a Protagonist. The keyboard is scheduled to enter Group Buy in february 2024.
 
 ## How to flash
 
@@ -20,12 +18,11 @@ The DFU state in the bootloader can be accessed in 3 ways:
 
 ### How to compile and flash
 
-The Protagonist has two PCB versions: PRO-S (solderable) and PRO-H (hotswap). After checking what PCB you own and setting up your build environment, you can compile the Iron 165R2 default keymap by using one of the options below.
+The Protagonist has two PCB versions: PRO-S (solderable) and PRO-H (hotswap). After checking what PCB you own and setting up your build environment, you can compile the default keymap by using one of the options below.
 
     make wiredin/protagonist/<version>:default
 
 Where `<version>` can be `pro_s` or `pro_h`. And use dfu-util in the command line or through a GUI like QMK toolbox to upload the firmware to the PCB. To directly flash the PCB after it is put into a DFU state, use:
-
 
     make wiredin/protagonist/<version>:default:flash
 
