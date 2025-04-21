@@ -68,7 +68,7 @@ int main(void)
     debug_enable = true;
     debug_keyboard = true;
 
-    host_set_driver(&lufa_driver);
+    host_set_driver(host_usb_driver());
     keyboard_init();
 
     LUFA_setup();

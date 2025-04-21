@@ -51,8 +51,6 @@
 extern "C" {
 #endif
 
-extern host_driver_t lufa_driver;
-
 #ifdef __cplusplus
 }
 #endif

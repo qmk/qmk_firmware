@@ -13,6 +13,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "bluetooth.h"
+#include "host_driver.h"
 #include "uart.h"
 #include "progmem.h"
 #include "wait.h"
@@ -75,7 +76,7 @@ void bluetooth_init(void) {
 
 void bluetooth_task(void) {}
 
-void bluetooth_send_keyboard(report_keyboard_t *report)
+static void bluetooth_send_keyboard(report_keyboard_t *report)
 {
 #ifdef BLUEFRUIT_TRACE_SERIAL
     bluefruit_trace_header();
@@ -98,7 +99,7 @@ void bluetooth_send_keyboard(report_keyboard_t *report)
 #endif
 }
 
-void bluetooth_send_mouse(report_mouse_t *report)
+static void bluetooth_send_mouse(report_mouse_t *report)
 {
 #ifdef BLUEFRUIT_TRACE_SERIAL
     bluefruit_trace_header();
@@ -139,9 +140,12 @@ void bluetooth_send_mouse(report_mouse_t *report)
 #define CONSUMER2BLUEFRUIT(usage) \
     (usage == AUDIO_MUTE ? 0x00e2 : (usage == AUDIO_VOL_UP ? 0x00e9 : (usage == AUDIO_VOL_DOWN ? 0x00ea : (usage == TRANSPORT_NEXT_TRACK ? 0x00b5 : (usage == TRANSPORT_PREV_TRACK ? 0x00b6 : (usage == TRANSPORT_STOP ? 0x00b7 : (usage == TRANSPORT_STOP_EJECT ? 0x00b8 : (usage == TRANSPORT_PLAY_PAUSE ? 0x00b1 : (usage == AL_CC_CONFIG ? 0x0183 : (usage == AL_EMAIL ? 0x018c : (usage == AL_CALCULATOR ? 0x0192 : (usage == AL_LOCAL_BROWSER ? 0x0196 : (usage == AC_SEARCH ? 0x021f : (usage == AC_HOME ? 0x0223 : (usage == AC_BACK ? 0x0224 : (usage == AC_FORWARD ? 0x0225 : (usage == AC_STOP ? 0x0226 : (usage == AC_REFRESH ? 0x0227 : (usage == AC_BOOKMARKS ? 0x022a : 0)))))))))))))))))))
 
-void bluetooth_send_consumer(uint16_t usage)
+static void bluetooth_send_extra(report_extra_t *report)
 {
-    uint16_t bitmap = CONSUMER2BLUEFRUIT(usage);
+    if(report->report_id != REPORT_ID_CONSUMER)
+        return;
+
+    uint16_t bitmap = CONSUMER2BLUEFRUIT(report->usage);
 
 #ifdef BLUEFRUIT_TRACE_SERIAL
     dprintf("\nData: %04X; bitmap: %04X\n", data, bitmap);
@@ -154,4 +158,31 @@ void bluetooth_send_consumer(uint16_t usage)
 #ifdef BLUEFRUIT_TRACE_SERIAL
     bluefruit_trace_footer();
 #endif
+}
+
+static host_driver_t bluetooth_driver = {
+    .has_init_executed = false,
+    .init = NULL,
+    .connect = NULL,
+    .disconnect = NULL,
+    .is_connected  = NULL,
+    .keyboard_leds = NULL,
+    .send_keyboard = bluetooth_send_keyboard,
+    .send_nkro = NULL,
+    .send_mouse = bluetooth_send_mouse,
+    .send_extra = bluetooth_send_extra,
+#ifdef JOYSTICK_ENABLE
+    .send_joystick = NULL,
+#endif // JOYSTICK_ENABLE
+#ifdef DIGITIZER_ENABLE
+    .send_digitizer = NULL,
+#endif // DIGITIZER_ENABLE
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+    .send_programmable_button = NULL,
+#endif // PROGRAMMABLE_BUTTON_ENABLE
+};
+
+host_driver_t *host_bluetooth_driver(void)
+{
+    return &bluetooth_driver;
 }
