@@ -146,6 +146,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef LAYER_LOCK_ENABLE
 #    include "layer_lock.h"
 #endif
+#ifdef CONNECTION_ENABLE
+#    include "connection.h"
+#endif
 
 static uint32_t last_input_modification_time = 0;
 uint32_t        last_input_activity_time(void) {
@@ -465,6 +468,9 @@ void keyboard_init(void) {
 #endif
     matrix_init();
     quantum_init();
+#ifdef CONNECTION_ENABLE
+    connection_init();
+#endif
     led_init_ports();
 #ifdef BACKLIGHT_ENABLE
     backlight_init_ports();

@@ -31,8 +31,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #ifdef BLUETOOTH_ENABLE
+#    ifndef CONNECTION_ENABLE
+#        error CONNECTION_ENABLE required and not enabled
+#    endif
+#    include "connection.h"
 #    include "bluetooth.h"
-#    include "outputselect.h"
 #endif
 
 #ifdef NKRO_ENABLE
@@ -74,7 +77,7 @@ led_t host_keyboard_led_state(void) {
 /* send report */
 void host_keyboard_send(report_keyboard_t *report) {
 #ifdef BLUETOOTH_ENABLE
-    if (where_to_send() == OUTPUT_BLUETOOTH) {
+    if (connection_get_host() == CONNECTION_HOST_BLUETOOTH) {
         bluetooth_send_keyboard(report);
         return;
     }
@@ -111,7 +114,7 @@ void host_nkro_send(report_nkro_t *report) {
 
 void host_mouse_send(report_mouse_t *report) {
 #ifdef BLUETOOTH_ENABLE
-    if (where_to_send() == OUTPUT_BLUETOOTH) {
+    if (connection_get_host() == CONNECTION_HOST_BLUETOOTH) {
         bluetooth_send_mouse(report);
         return;
     }
@@ -147,7 +150,7 @@ void host_consumer_send(uint16_t usage) {
     last_consumer_usage = usage;
 
 #ifdef BLUETOOTH_ENABLE
-    if (where_to_send() == OUTPUT_BLUETOOTH) {
+    if (connection_get_host() == CONNECTION_HOST_BLUETOOTH) {
         bluetooth_send_consumer(usage);
         return;
     }

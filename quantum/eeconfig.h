@@ -131,6 +131,12 @@ void                          eeconfig_read_haptic(haptic_config_t *haptic_confi
 void                          eeconfig_update_haptic(const haptic_config_t *haptic_config) __attribute__((nonnull));
 #endif
 
+#ifdef CONNECTION_ENABLE
+typedef union connection_config_t connection_config_t;
+void                              eeconfig_read_connection(connection_config_t *config);
+void                              eeconfig_update_connection(const connection_config_t *config);
+#endif
+
 bool eeconfig_read_handedness(void);
 void eeconfig_update_handedness(bool val);
 
