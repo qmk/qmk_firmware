@@ -3,6 +3,7 @@
 #pragma once
 
 #include <stdint.h>
+#include "util.h"
 
 /**
  * \enum connection_host_t
@@ -23,8 +24,6 @@ typedef enum connection_host_t {
  *
  * Configuration structure for the connection subsystem.
  */
-#include "util.h"
-
 typedef union connection_config_t {
     uint8_t           raw;
     connection_host_t desired_host : 8;
