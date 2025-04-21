@@ -271,9 +271,9 @@ __EOT__
                 $(nsudo) xbps-install -y $(get_package_manager_deps)
                 ;;
             *)
-                echo "Sorry, we don't recognize your distribution. Try using the docker image instead:"
-                echo
-                echo "https://docs.qmk.fm/#/getting_started_docker"
+                echo "Sorry, we don't recognize your distribution. Try using the docker image instead:" >&2
+                echo >&2
+                echo "https://docs.qmk.fm/#/getting_started_docker" >&2
                 exit 1
                 ;;
             esac
@@ -390,7 +390,7 @@ __EOT__
 
     script_parse_args "$@"
 
-    echo "This QMK CLI installation script will install \`uv\`, the QMK CLI, as well as QMK-supplied toolchains and flashing utilities."
+    echo "This QMK CLI installation script will install \`uv\`, the QMK CLI, as well as QMK-supplied toolchains and flashing utilities." >&2
     [ -z "${SKIP_PACKAGE_MANAGER:-}" ] || { preinstall_delay || exit 1; }
     [ -n "${SKIP_PACKAGE_MANAGER:-}" ] || install_package_manager_deps
     [ -n "${SKIP_UV:-}" ] || install_uv
@@ -417,14 +417,14 @@ __EOT__
 
     # Notify the user that they may need to restart their shell to get the `qmk` command
     hash -r
-    echo
-    echo "QMK CLI installation complete."
-    echo "The QMK CLI has been installed to '$(dirname "$(command -v qmk)")'."
-    echo "The QMK CLI venv has been created at '$(uv tool dir)/qmk'."
-    echo "Toolchains and flashing utilities have been installed to '$QMK_DISTRIB_DIR'."
-    echo
-    echo "You may need to restart your shell to gain access to the 'qmk' command."
-    echo "Alternatively, add "$(dirname "$(command -v qmk)")" to your \$PATH:"
-    echo "    export PATH=\"$(dirname "$(command -v qmk)"):\$PATH\""
+    echo >&2
+    echo "QMK CLI installation complete." >&2
+    echo "The QMK CLI has been installed to '$(dirname "$(command -v qmk)")'." >&2
+    echo "The QMK CLI venv has been created at '$(uv tool dir)/qmk'." >&2
+    echo "Toolchains and flashing utilities have been installed to '$QMK_DISTRIB_DIR'." >&2
+    echo >&2
+    echo "You may need to restart your shell to gain access to the 'qmk' command." >&2
+    echo "Alternatively, add "$(dirname "$(command -v qmk)")" to your \$PATH:" >&2
+    echo "    export PATH=\"$(dirname "$(command -v qmk)"):\$PATH\"" >&2
 
 } # this ensures the entire script is downloaded #
