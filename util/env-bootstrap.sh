@@ -408,14 +408,13 @@ __EOT__
 
     script_parse_args "$@"
 
-    echo "This QMK CLI installation script will install \`uv\`, the QMK CLI to the \`uv\` tools"
-    echo "directory, as well as toolchains and flashing utilities."
+    echo "This QMK CLI installation script will install \`uv\`, the QMK CLI, as well as QMK-supplied toolchains and flashing utilities."
     [ -z "${SKIP_PACKAGE_MANAGER:-}" ] || { preinstall_delay || exit 1; }
     [ -n "${SKIP_PACKAGE_MANAGER:-}" ] || install_package_manager_deps
     [ -n "${SKIP_UV:-}" ] || install_uv
 
     # Work out where we want to install the distribution and tools now that `uv` is installed
-    export QMK_DISTRIB_DIR=${QMK_DISTRIB_DIR:-$(printf 'import platformdirs\nprint(platformdirs.user_data_dir("qmk"))' | uv run --quiet --with platformdirs -)}
+    export QMK_DISTRIB_DIR=${QMK_DISTRIB_DIR:-$(printf 'import platformdirs\nprint(platformdirs.user_data_dir("qmk"))' | uv run --quiet --python $PYTHON_TARGET_VERSION --with platformdirs -)}
 
     # Make sure the usual `uv` and other associated directories are on the $PATH
     setup_paths
