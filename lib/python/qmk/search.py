@@ -74,28 +74,30 @@ class Exists(FilterFunction):
     func_name = "exists"
 
     def apply(self, target_info: KeyboardKeymapDesc) -> bool:
-        return self.key in target_info.data
+        return self.key in target_info.dotty
 
 
 class Absent(FilterFunction):
     func_name = "absent"
 
     def apply(self, target_info: KeyboardKeymapDesc) -> bool:
-        return self.key not in target_info.data
+        return self.key not in target_info.dotty
 
 
 class Length(FilterFunction):
     func_name = "length"
 
     def apply(self, target_info: KeyboardKeymapDesc) -> bool:
-        return (self.key in target_info.data and len(target_info.data[self.key]) == int(self.value))
+        info_dotty = target_info.dotty
+        return (self.key in info_dotty and len(info_dotty[self.key]) == int(self.value))
 
 
 class Contains(FilterFunction):
     func_name = "contains"
 
     def apply(self, target_info: KeyboardKeymapDesc) -> bool:
-        return (self.key in target_info.data and self.value in target_info.data[self.key])
+        info_dotty = target_info.dotty
+        return (self.key in info_dotty and self.value in info_dotty[self.key])
 
 
 def _get_filter_class(func_name: str, key: str, value: str) -> Optional[FilterFunction]:
@@ -117,8 +119,11 @@ def filter_help() -> str:
 
 def _set_log_level(level):
     cli.acquire_lock()
-    old = cli.log_level
-    cli.log_level = level
+    try:
+        old = cli.log_level
+        cli.log_level = level
+    except AttributeError:
+        old = cli.log.level
     cli.log.setLevel(level)
     logging.root.setLevel(level)
     cli.release_lock()
@@ -234,11 +239,11 @@ def _filter_keymap_targets(target_list: List[KeyboardKeymapDesc], filters: List[
         valid_targets = parallel_map(_load_keymap_info, target_list)
 
         function_re = re.compile(r'^(?P<function>[a-zA-Z]+)\((?P<key>[a-zA-Z0-9_\.]+)(,\s*(?P<value>[^#]+))?\)$')
-        equals_re = re.compile(r'^(?P<key>[a-zA-Z0-9_\.]+)\s*=\s*(?P<value>[^#]+)$')
+        comparison_re = re.compile(r'^(?P<key>[a-zA-Z0-9_\.]+)\s*(?P<op>[\<\>\!=]=|\<|\>)\s*(?P<value>[^#]+)$')
 
         for filter_expr in filters:
             function_match = function_re.match(filter_expr)
-            equals_match = equals_re.match(filter_expr)
+            comparison_match = comparison_re.match(filter_expr)
 
             if function_match is not None:
                 func_name = function_match.group('function').lower()
@@ -254,23 +259,43 @@ def _filter_keymap_targets(target_list: List[KeyboardKeymapDesc], filters: List[
                 value_str = f", {{fg_cyan}}{value}{{fg_reset}}" if value is not None else ""
                 cli.log.info(f'Filtering on condition: {{fg_green}}{func_name}{{fg_reset}}({{fg_cyan}}{key}{{fg_reset}}{value_str})...')
 
-            elif equals_match is not None:
-                key = equals_match.group('key')
-                value = equals_match.group('value')
-                cli.log.info(f'Filtering on condition: {{fg_cyan}}{key}{{fg_reset}} == {{fg_cyan}}{value}{{fg_reset}}...')
+            elif comparison_match is not None:
+                key = comparison_match.group('key')
+                op = comparison_match.group('op')
+                value = comparison_match.group('value')
+                cli.log.info(f'Filtering on condition: {{fg_cyan}}{key}{{fg_reset}} {op} {{fg_cyan}}{value}{{fg_reset}}...')
 
-                def _make_filter(k, v):
+                def _make_filter(k, o, v):
                     expr = fnmatch.translate(v)
                     rule = re.compile(f'^{expr}$', re.IGNORECASE)
 
                     def f(e: KeyboardKeymapDesc):
                         lhs = e.dotty.get(k)
-                        lhs = str(False if lhs is None else lhs)
-                        return rule.search(lhs) is not None
+                        rhs = v
+
+                        if o in ['<', '>', '<=', '>=']:
+                            lhs = int(False if lhs is None else lhs)
+                            rhs = int(rhs)
+
+                            if o == '<':
+                                return lhs < rhs
+                            elif o == '>':
+                                return lhs > rhs
+                            elif o == '<=':
+                                return lhs <= rhs
+                            elif o == '>=':
+                                return lhs >= rhs
+                        else:
+                            lhs = str(False if lhs is None else lhs)
+
+                            if o == '!=':
+                                return rule.search(lhs) is None
+                            elif o == '==':
+                                return rule.search(lhs) is not None
 
                     return f
 
-                valid_targets = filter(_make_filter(key, value), valid_targets)
+                valid_targets = filter(_make_filter(key, op, value), valid_targets)
             else:
                 cli.log.warning(f'Unrecognized filter expression: {filter_expr}')
                 continue

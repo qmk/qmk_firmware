@@ -214,7 +214,9 @@ When additional overlapping mouse key is pressed, the mouse cursor will continue
 |`MOUSEKEY_OVERLAP_WHEEL_DELTA`|`MOUSEKEY_WHEEL_DELTA`|Step size of reset mouse wheel acceleration                            |
 |`MOUSEKEY_OVERLAP_INTERVAL`   |`MOUSEKEY_INTERVAL`   |Reset time between cursor movements in milliseconds (Kinetic mode only)|
 
-?> This feature will not be applied on Inertial mode
+::: tip
+This feature will not be applied on Inertial mode
+:::
 
 ## Use with PS/2 Mouse and Pointing Device
 

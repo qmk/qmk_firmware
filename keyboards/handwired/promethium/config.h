@@ -155,6 +155,7 @@ enum led_sequence {
 };
 
 #    define RGBSPS_NUM LED_TOTAL
+#    define WS2812_LED_COUNT RGBSPS_NUM
 #endif
 
 /* PS/2 mouse */

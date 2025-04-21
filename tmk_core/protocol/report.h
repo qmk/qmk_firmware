@@ -199,6 +199,12 @@ typedef int16_t mouse_xy_report_t;
 typedef int8_t mouse_xy_report_t;
 #endif
 
+#ifdef WHEEL_EXTENDED_REPORT
+typedef int16_t mouse_hv_report_t;
+#else
+typedef int8_t mouse_hv_report_t;
+#endif
+
 typedef struct {
 #ifdef MOUSE_SHARED_EP
     uint8_t report_id;
@@ -210,8 +216,8 @@ typedef struct {
 #endif
     mouse_xy_report_t x;
     mouse_xy_report_t y;
-    int8_t            v;
-    int8_t            h;
+    mouse_hv_report_t v;
+    mouse_hv_report_t h;
 } PACKED report_mouse_t;
 
 typedef struct {
@@ -238,6 +244,11 @@ typedef struct {
 #endif
 #if JOYSTICK_AXIS_COUNT > 0
     joystick_axis_t axes[JOYSTICK_AXIS_COUNT];
+#endif
+
+#ifdef JOYSTICK_HAS_HAT
+    int8_t  hat : 4;
+    uint8_t reserved : 4;
 #endif
 
 #if JOYSTICK_BUTTON_COUNT > 0

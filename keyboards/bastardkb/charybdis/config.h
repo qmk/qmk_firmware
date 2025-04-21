@@ -34,13 +34,6 @@
 
 /* RGB matrix support. */
 #ifdef RGB_MATRIX_ENABLE
-#    ifndef __arm__
-// Disable control of RGB matrix by keycodes (must use firmware implementation
-// to control the feature).
-#        define RGB_MATRIX_DISABLE_KEYCODES
-#    else // __arm__
-// Enable all animations on ARM boards since they have plenty of memory
-// available for it.
 #        define ENABLE_RGB_MATRIX_ALPHAS_MODS
 #        define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
 #        define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
@@ -81,5 +74,4 @@
 #        define ENABLE_RGB_MATRIX_MULTISPLASH
 #        define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #        define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-#    endif // !__arm__
 #endif
