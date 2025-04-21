@@ -67,7 +67,10 @@ def _check_dos2unix_version():
 
 def _check_diff_version():
     last_line = ESSENTIAL_BINARIES['diff']['output'].split('\n')[0]
-    version_number = last_line.split()[3]
+    if 'Apple diff' in last_line:
+        version_number = last_line
+    else:
+        version_number = last_line.split()[3]
     cli.log.info('Found diff version %s', version_number)
 
     return CheckStatus.OK
