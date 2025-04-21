@@ -25,6 +25,7 @@ GENERIC_FEATURES = \
     CAPS_WORD \
     COMBO \
     COMMAND \
+    CONNECTION \
     CRC \
     DEFERRED_EXEC \
     DIGITIZER \

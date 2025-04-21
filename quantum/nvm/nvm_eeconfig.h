@@ -87,6 +87,12 @@ void                          nvm_eeconfig_read_haptic(haptic_config_t *haptic_c
 void                          nvm_eeconfig_update_haptic(const haptic_config_t *haptic_config);
 #endif // HAPTIC_ENABLE
 
+#ifdef CONNECTION_ENABLE
+typedef union connection_config_t connection_config_t;
+void                              nvm_eeconfig_read_connection(connection_config_t *config);
+void                              nvm_eeconfig_update_connection(const connection_config_t *config);
+#endif // CONNECTION_ENABLE
+
 bool nvm_eeconfig_read_handedness(void);
 void nvm_eeconfig_update_handedness(bool val);
 

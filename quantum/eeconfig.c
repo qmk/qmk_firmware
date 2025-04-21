@@ -35,6 +35,10 @@
 #    include "haptic.h"
 #endif // HAPTIC_ENABLE
 
+#ifdef CONNECTION_ENABLE
+#    include "connection.h"
+#endif // CONNECTION_ENABLE
+
 #ifdef VIA_ENABLE
 bool via_eeprom_is_valid(void);
 void via_eeprom_set_valid(bool valid);
@@ -126,6 +130,11 @@ void eeconfig_init_quantum(void) {
     eeconfig_update_haptic(&haptic_config);
     haptic_reset();
 #endif // HAPTIC_ENABLE
+
+#ifdef CONNECTION_ENABLE
+    extern void eeconfig_update_connection_default(void);
+    eeconfig_update_connection_default();
+#endif // CONNECTION_ENABLE
 
 #if (EECONFIG_KB_DATA_SIZE) > 0
     eeconfig_init_kb_datablock();
@@ -298,6 +307,15 @@ void eeconfig_update_haptic(const haptic_config_t *haptic_config) {
     nvm_eeconfig_update_haptic(haptic_config);
 }
 #endif // HAPTIC_ENABLE
+
+#ifdef CONNECTION_ENABLE
+void eeconfig_read_connection(connection_config_t *config) {
+    nvm_eeconfig_read_connection(config);
+}
+void eeconfig_update_connection(const connection_config_t *config) {
+    nvm_eeconfig_update_connection(config);
+}
+#endif // CONNECTION_ENABLE
 
 bool eeconfig_read_handedness(void) {
     return nvm_eeconfig_read_handedness();
