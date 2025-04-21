@@ -16,27 +16,60 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "quantum.h"
+#include QMK_KEYBOARD_H
 
-#ifdef SWAP_HANDS_ENABLE
-/**
-__attribute__((weak)) const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
-    // Left
-    {{0, 4}, {1, 4}, {2, 4}, {3, 4}, {4, 4}, {5, 4}},
-    {{0, 5}, {1, 5}, {2, 5}, {3, 5}, {4, 5}, {5, 5}},
-    {{0, 6}, {1, 6}, {2, 6}, {3, 6}, {4, 6}, {5, 6}},
-    {{0, 7}, {1, 7}, {2, 7}, {3, 7}, {4, 7}, {5, 7}},
-    // Right
-    {{0, 0}, {1, 0}, {2, 0}, {3, 0}, {4, 0}, {5, 0}},
-    {{0, 1}, {1, 1}, {2, 1}, {3, 1}, {4, 1}, {5, 1}},
-    {{0, 2}, {1, 2}, {2, 2}, {3, 2}, {4, 2}, {5, 2}},
-    {{0, 3}, {1, 3}, {2, 3}, {3, 3}, {4, 3}, {5, 3}}
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    [0] = LAYOUT_split_3x6_3(
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+       KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_ESC,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      KC_LCTL,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      KC_LGUI,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_BSLS,
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                          KC_LSFT,   MO(2),  KC_SPC,     KC_ENT,   MO(1), KC_BSPC
+                                      //`--------------------------'  `--------------------------'
+
+  ),
+
+    [1] = LAYOUT_split_3x6_3(
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+       KC_TAB,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_ESC,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      KC_LCTL, KC_VOLU, KC_MPLY, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_LEFT, KC_UP,  KC_RIGHT, KC_MINS, KC_SCLN, KC_EQL,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      KC_LGUI, KC_VOLD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_GRV, KC_DOWN, KC_COMM, KC_DOT, KC_LBRC, KC_RBRC,
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                        KC_LSFT,  MO(3)  ,  KC_SPC,     KC_ENT, _______  , KC_BSPC
+                                      //`--------------------------'  `--------------------------'
+  ),
+
+    [2] = LAYOUT_split_3x6_3(
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+       KC_F1,  KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                         KC_F7,  KC_F8,  KC_F9,   KC_F10,  KC_F11,  KC_F12,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,                       KC_F19,  KC_F20, KC_F21,  KC_F22,  KC_F23,  KC_GRV,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      KC_LALT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, KC_TILD,
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                        KC_LSFT,  _______,  KC_SPC,     KC_ENT,   MO(3)  , KC_BSPC
+                                      //`--------------------------'  `--------------------------'
+  ),
+
+    [3] = LAYOUT_split_3x6_3(
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+      QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+     RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+     RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, LM_TOGG,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                        KC_LSFT, _______,  KC_SPC,     KC_ENT, _______, KC_BSPC
+                                      //`--------------------------'  `--------------------------'
+  )
 };
-*/
-#endif
 
 #ifdef OLED_ENABLE
-/**
 oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
     if (!is_keyboard_master()) {
         //return OLED_ROTATION_180; // flips the display 180 degrees if offhand
@@ -120,20 +153,6 @@ static void oled_render_keylog(void) {
     oled_advance_page(true);
 }
 
-// static void render_bootmagic_status(bool status) {
-//     static const char PROGMEM logo[][2][3] = {
-//         {{0x97, 0x98, 0}, {0xb7, 0xb8, 0}},
-//         {{0x95, 0x96, 0}, {0xb5, 0xb6, 0}},
-//     };
-//     if (status) {
-//         oled_write_ln_P(logo[0][0], false);
-//         oled_write_ln_P(logo[0][1], false);
-//     } else {
-//         oled_write_ln_P(logo[1][0], false);
-//         oled_write_ln_P(logo[1][1], false);
-//     }
-// }
-
 __attribute__((weak)) void oled_render_logo(void) {
     // clang-format off
     static const char PROGMEM qmk_logo[] = {
@@ -193,5 +212,5 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     }
     return process_record_user(keycode, record);
 }
-*/
+
 #endif // OLED_ENABLE

@@ -1,41 +1,57 @@
-#if defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && defined(ENABLE_RGB_MATRIX_DIGITAL_RAIN)
-RGB_MATRIX_EFFECT(DIGITAL_RAIN)
+// This is is a modification/enancement of the stock digital_rain animation
+// It's a bit of a hack, but it turned out pretty nice
+// You can now adjust the speed and hue of the animation using the standard config values
+
+
+#if defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && !defined(DISABLE_RGB_MATRIX_DIGITAL_RAIN_RELOADED)
+RGB_MATRIX_EFFECT(DIGITAL_RAIN_RELOADED)
 #    ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
 #        ifndef RGB_DIGITAL_RAIN_DROPS
 // lower the number for denser effect/wider keyboard
-#            define RGB_DIGITAL_RAIN_DROPS 24
+#            define RGB_DIGITAL_RAIN_DROPS 18
 #        endif
 
-bool DIGITAL_RAIN(effect_params_t* params) {
-    // algorithm ported from https://github.com/tremby/Kaleidoscope-LEDEffect-DigitalRain
-    const uint8_t drop_ticks           = 28;
-    const uint8_t pure_green_intensity = (((uint16_t)rgb_matrix_config.hsv.v) * 3) >> 2;
-    const uint8_t max_brightness_boost = (((uint16_t)rgb_matrix_config.hsv.v) * 3) >> 2;
-    const uint8_t max_intensity        = rgb_matrix_config.hsv.v;
-    const uint8_t decay_ticks          = 0xff / max_intensity;
+bool DIGITAL_RAIN_RELOADED(effect_params_t* params) {
 
-    static uint8_t drop  = 0;
-    static uint8_t decay = 0;
+    // For a classic effect use these in your config.h
+    //    #define RGB_MATRIX_STARTUP_HUE 0x50
+    //    #define RGB_MATRIX_STARTUP_SPD 0xba
+
+    // Add support for hue selection via keyboard config keys
+    HSV hsvSetting = rgb_matrix_config.hsv;
+
+    // algorithm ported from https://github.com/tremby/Kaleidoscope-LEDEffect-DigitalRain
+    const uint8_t drop_ticks     = 100 - rgb_matrix_config.speed *0.4;
+    const uint8_t pure_intensity = 0xfe;
+    const uint8_t max_intensity  = 0xff;
+
+    static uint8_t drop = 0;
+    static uint8_t minBrightness = 5;
 
     if (params->init) {
-        rgb_matrix_set_color_all(0, 0, 0);
-        memset(g_rgb_frame_buffer, 0, sizeof(g_rgb_frame_buffer));
-        drop = 0;
+       // rgb_matrix_set_color_all(minBrightness, minBrightness, minBrightness);
+       RGB rgbInit  = hsv_to_rgb(hsvSetting);
+       rgb_matrix_set_color_all(rgbInit.r, rgbInit.g, rgbInit.b);
+       memset(g_rgb_frame_buffer, minBrightness, sizeof(g_rgb_frame_buffer));
+       drop = 0;
+    } else {
+       // hack to update underglow on massdrop alt
+       RGB rgbInit  = hsv_to_rgb(hsvSetting);
+       rgb_matrix_set_color_all(rgbInit.r, rgbInit.g, rgbInit.b);
     }
 
-    decay++;
+
+    // Update LED Color/Values ------------------
     for (uint8_t col = 0; col < MATRIX_COLS; col++) {
         for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
             if (row == 0 && drop == 0 && rand() < RAND_MAX / RGB_DIGITAL_RAIN_DROPS) {
                 // top row, pixels have just fallen and we're
                 // making a new rain drop in this column
                 g_rgb_frame_buffer[row][col] = max_intensity;
-            } else if (g_rgb_frame_buffer[row][col] > 0 && g_rgb_frame_buffer[row][col] < max_intensity) {
+            } else if (g_rgb_frame_buffer[row][col] > minBrightness && g_rgb_frame_buffer[row][col] < max_intensity) {
                 // neither fully bright nor dark, decay it
-                if (decay == decay_ticks) {
-                    g_rgb_frame_buffer[row][col]--;
-                }
+                g_rgb_frame_buffer[row][col]--;
             }
             // set the pixel colour
             uint8_t led[LED_HITS_TO_REMEMBER];
@@ -43,20 +59,29 @@ bool DIGITAL_RAIN(effect_params_t* params) {
 
             // TODO: multiple leds are supported mapped to the same row/column
             if (led_count > 0) {
-                if (g_rgb_frame_buffer[row][col] > pure_green_intensity) {
-                    const uint8_t boost = (uint8_t)((uint16_t)max_brightness_boost * (g_rgb_frame_buffer[row][col] - pure_green_intensity) / (max_intensity - pure_green_intensity));
-                    rgb_matrix_set_color(led[0], boost, max_intensity, boost);
+                if (g_rgb_frame_buffer[row][col] > pure_intensity) {
+                    // this bit could be better, use the stored value and force a minium of 200 to assure the "tip" is white
+                    uint8_t booster = g_rgb_frame_buffer[row][col];
+                    rgb_matrix_set_color(led[0], 180 + booster, 180 + booster, 180 + booster);
                 } else {
-                    const uint8_t green = (uint8_t)((uint16_t)max_intensity * g_rgb_frame_buffer[row][col] / pure_green_intensity);
-                    rgb_matrix_set_color(led[0], 0, green, 0);
+                    // use the formerly green value as the brightness, which is pretty much what it was doing
+                    const uint8_t ledBrightness =  (uint8_t)((uint16_t)max_intensity * g_rgb_frame_buffer[row][col] / pure_intensity);
+                    // set the config-based HSV value to the animated one (but keeping the hue and saturation)
+                    hsvSetting.v = ledBrightness >= minBrightness ? ledBrightness : minBrightness;
+                    RGB rgb  = hsv_to_rgb(hsvSetting);
+                    // apply to the current led, make sure we have a slight gray (my personal preference) for leds that aren't animating
+                    rgb_matrix_set_color(
+                        led[0],
+                        rgb.r <minBrightness ? minBrightness: rgb.r,
+                        rgb.g <minBrightness ? minBrightness: rgb.g,
+                        rgb.b <minBrightness ? minBrightness: rgb.b
+                    );
                 }
             }
         }
     }
-    if (decay == decay_ticks) {
-        decay = 0;
-    }
 
+    // Update "Positions" ------------------
     if (++drop > drop_ticks) {
         // reset drop timer
         drop = 0;
@@ -67,9 +92,9 @@ bool DIGITAL_RAIN(effect_params_t* params) {
                     g_rgb_frame_buffer[row][col]--;
                 }
                 // check if the pixel above is bright
-                if (g_rgb_frame_buffer[row - 1][col] >= max_intensity) { // Note: can be larger than max_intensity if val was recently decreased
+                if (g_rgb_frame_buffer[row - 1][col] == max_intensity) {
                     // allow old bright pixel to decay
-                    g_rgb_frame_buffer[row - 1][col] = max_intensity - 1;
+                    g_rgb_frame_buffer[row - 1][col]--;
                     // make this pixel bright
                     g_rgb_frame_buffer[row][col] = max_intensity;
                 }
@@ -79,5 +104,5 @@ bool DIGITAL_RAIN(effect_params_t* params) {
     return false;
 }
 
-#    endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
-#endif     // defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && !defined(ENABLE_RGB_MATRIX_DIGITAL_RAIN)
+#    endif  // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
+#endif      // defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && !defined(DISABLE_RGB_MATRIX_DIGITAL_RAIN)

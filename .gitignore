@@ -41,6 +41,7 @@ quantum/version.h
 /keyboards/**/keymaps/*/info.json
 /keyboards/**/keymaps/*/keyboard.json
 
+/keyboards/sofle_pico
 # Old-style QMK Makefiles
 /keyboards/**/Makefile
 
