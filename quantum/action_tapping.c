@@ -103,8 +103,8 @@ __attribute__((weak)) bool get_hold_on_other_key_press(uint16_t keycode, keyreco
 #    endif
 
 #    if defined(FLOW_TAP_TERM)
-static uint32_t last_input   = 0;
-static uint16_t prev_keycode = KC_NO;
+static uint32_t flow_tap_prev_time    = 0;
+static uint16_t flow_tap_prev_keycode = KC_NO;
 
 static bool flow_tap_key_if_within_term(keyrecord_t *record);
 #    endif // defined(FLOW_TAP_TERM)
@@ -158,11 +158,6 @@ void action_tapping_process(keyrecord_t record) {
         }
     }
     if (IS_EVENT(record.event)) {
-#    if defined(FLOW_TAP_TERM)
-        if (record.event.pressed) { // Track the previous key press.
-            prev_keycode = get_record_keycode(&record, false);
-        }
-#    endif // defined(FLOW_TAP_TERM)
         ac_dprintf("\n");
     }
 }
@@ -795,55 +790,50 @@ static void waiting_buffer_process_regular(void) {
 #    endif // CHORDAL_HOLD
 
 #    ifdef FLOW_TAP_TERM
-void flow_tap_update_timer(keyrecord_t *record) {
-    // Don't update the timer if a tap-hold key is unsettled.
-    if (IS_NOEVENT(record->event) || (IS_EVENT(tapping_key.event) && tapping_key.event.pressed && tapping_key.tap.count == 0)) {
+void flow_tap_update_last_event(keyrecord_t *record) {
+    // Don't update while a tap-hold key is unsettled.
+    if (waiting_buffer_tail != waiting_buffer_head || (tapping_key.event.pressed && tapping_key.tap.count == 0)) {
         return;
     }
     const uint16_t keycode = get_record_keycode(record, false);
-    // Don't update the timer for a mod or layer switch key. Particularly, this
-    // allows for chording multiple mods for hotkeys like "Ctrl+Shift+arrow".
-    switch (keycode) {
-        case QK_MOMENTARY ... QK_MOMENTARY_MAX:
-        case QK_TO ... QK_TO_MAX:
-        case QK_TOGGLE_LAYER ... QK_TOGGLE_LAYER_MAX:
-        case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:
-        case MODIFIER_KEYCODE_RANGE:
+    // Ignore releases of modifiers and held layer switches.
+    if (!record->event.pressed) {
+        switch (keycode) {
+            case MODIFIER_KEYCODE_RANGE:
+            case QK_MOMENTARY ... QK_MOMENTARY_MAX:
+            case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:
 #        ifndef NO_ACTION_ONESHOT // Ignore one-shot keys.
-        case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX:
-        case QK_ONE_SHOT_MOD ... QK_ONE_SHOT_MOD_MAX:
+            case QK_ONE_SHOT_MOD ... QK_ONE_SHOT_MOD_MAX:
+            case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX:
 #        endif                  // NO_ACTION_ONESHOT
 #        ifdef TRI_LAYER_ENABLE // Ignore Tri Layer keys.
-        case QK_TRI_LAYER_LOWER:
-        case QK_TRI_LAYER_UPPER:
-#        endif                   // TRI_LAYER_ENABLE
-#        ifdef LAYER_LOCK_ENABLE // Ignore Layer Lock key.
-        case QK_LAYER_LOCK:
-#        endif // LAYER_LOCK_ENABLE
-            return;
-
-        case QK_MODS ... QK_MODS_MAX:
-            if (QK_MODS_GET_BASIC_KEYCODE(keycode) == KC_NO) {
+            case QK_TRI_LAYER_LOWER:
+            case QK_TRI_LAYER_UPPER:
+#        endif // TRI_LAYER_ENABLE
                 return;
-            }
-            break;
-
-        case QK_MOD_TAP ... QK_MOD_TAP_MAX:
-        case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
-            if (record->tap.count == 0) {
-                return;
-            }
-            break;
+            case QK_MODS ... QK_MODS_MAX:
+                if (QK_MODS_GET_BASIC_KEYCODE(keycode) == KC_NO) {
+                    return;
+                }
+                break;
+            case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+            case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+                if (record->tap.count == 0) {
+                    return;
+                }
+                break;
+        }
     }
 
-    last_input = timer_read32();
+    flow_tap_prev_keycode = keycode;
+    flow_tap_prev_time    = timer_read32();
 }
 
 static bool flow_tap_key_if_within_term(keyrecord_t *record) {
     const uint16_t keycode = get_record_keycode(record, false);
     if (is_mt_or_lt(keycode)) {
-        const uint32_t idle_time = timer_elapsed32(last_input);
-        uint16_t       term      = get_flow_tap_term(keycode, record, prev_keycode);
+        const uint32_t idle_time = timer_elapsed32(flow_tap_prev_time);
+        uint16_t       term      = get_flow_tap_term(keycode, record, flow_tap_prev_keycode);
         if (term > 500) {
             term = 500;
         }

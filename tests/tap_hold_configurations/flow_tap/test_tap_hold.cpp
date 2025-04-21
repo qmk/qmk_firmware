@@ -104,6 +104,88 @@ TEST_F(FlowTapTest, distinct_taps) {
     VERIFY_AND_CLEAR(driver);
 }
 
+// By default, Flow Tap is disabled when mods other than Shift and AltGr are on.
+TEST_F(FlowTapTest, hotkey_taps) {
+    TestDriver driver;
+    InSequence s;
+    auto       ctrl_key    = KeymapKey(0, 0, 0, KC_LCTL);
+    auto       shft_key    = KeymapKey(0, 1, 0, KC_LSFT);
+    auto       alt_key     = KeymapKey(0, 2, 0, KC_LALT);
+    auto       gui_key     = KeymapKey(0, 3, 0, KC_LGUI);
+    auto       regular_key = KeymapKey(0, 4, 0, KC_A);
+    auto       mod_tap_key = KeymapKey(0, 5, 0, RCTL_T(KC_B));
+
+    set_keymap({ctrl_key, shft_key, alt_key, gui_key, regular_key, mod_tap_key});
+
+    for (KeymapKey* mod_key : {&ctrl_key, &alt_key, &gui_key}) {
+        // Hold mod key.
+        EXPECT_REPORT(driver, (mod_key->code));
+        mod_key->press();
+        run_one_scan_loop();
+
+        // Tap regular key.
+        EXPECT_REPORT(driver, (mod_key->code, KC_A));
+        regular_key.press();
+        run_one_scan_loop();
+        VERIFY_AND_CLEAR(driver);
+
+        EXPECT_REPORT(driver, (mod_key->code));
+        regular_key.release();
+        run_one_scan_loop();
+        VERIFY_AND_CLEAR(driver);
+
+        // Press mod-tap, where Flow Tap is disabled due to the held mod.
+        EXPECT_REPORT(driver, (mod_key->code, KC_RCTL));
+        mod_tap_key.press();
+        idle_for(TAPPING_TERM + 1);
+        VERIFY_AND_CLEAR(driver);
+
+        // Release mod-tap.
+        EXPECT_REPORT(driver, (mod_key->code));
+        mod_tap_key.release();
+        run_one_scan_loop();
+
+        // Release mod key.
+        EXPECT_EMPTY_REPORT(driver);
+        mod_key->release();
+        run_one_scan_loop();
+        VERIFY_AND_CLEAR(driver);
+    }
+
+    // Hold Shift key.
+    EXPECT_REPORT(driver, (KC_LSFT));
+    shft_key.press();
+    run_one_scan_loop();
+
+    // Tap regular key.
+    EXPECT_REPORT(driver, (KC_LSFT, KC_A));
+    regular_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_REPORT(driver, (KC_LSFT));
+    regular_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Press mod-tap, where Flow Tap applies to settle as tapped.
+    EXPECT_REPORT(driver, (KC_LSFT, KC_B));
+    mod_tap_key.press();
+    idle_for(TAPPING_TERM + 1);
+    VERIFY_AND_CLEAR(driver);
+
+    // Release mod-tap.
+    EXPECT_REPORT(driver, (KC_LSFT));
+    mod_tap_key.release();
+    run_one_scan_loop();
+
+    // Release Shift key.
+    EXPECT_EMPTY_REPORT(driver);
+    shft_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
+
 // Test input with two mod-taps in a rolled press quickly after a regular key.
 TEST_F(FlowTapTest, rolled_press) {
     TestDriver driver;
@@ -232,6 +314,53 @@ TEST_F(FlowTapTest, holding_multiple_mod_taps) {
     VERIFY_AND_CLEAR(driver);
 }
 
+TEST_F(FlowTapTest, holding_mod_tap_with_regular_mod) {
+    TestDriver driver;
+    InSequence s;
+    auto       regular_key = KeymapKey(0, 0, 0, KC_A);
+    auto       mod_key     = KeymapKey(0, 1, 0, KC_LSFT);
+    auto       mod_tap_key = KeymapKey(0, 2, 0, CTL_T(KC_C));
+
+    set_keymap({regular_key, mod_key, mod_tap_key});
+
+    // Tap regular key.
+    EXPECT_REPORT(driver, (KC_A));
+    EXPECT_EMPTY_REPORT(driver);
+    tap_key(regular_key);
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_NO_REPORT(driver);
+    idle_for(FLOW_TAP_TERM + 1);
+    VERIFY_AND_CLEAR(driver);
+
+    // Press mod and mod-tap keys.
+    EXPECT_REPORT(driver, (KC_LSFT));
+    mod_key.press();
+    run_one_scan_loop();
+    mod_tap_key.press();
+    idle_for(TAPPING_TERM - 5); // Hold almost until tapping term.
+    VERIFY_AND_CLEAR(driver);
+
+    // Press regular key.
+    EXPECT_REPORT(driver, (KC_LSFT, KC_LCTL));
+    EXPECT_REPORT(driver, (KC_LSFT, KC_LCTL, KC_A));
+    regular_key.press();
+    idle_for(10);
+    VERIFY_AND_CLEAR(driver);
+
+    // Release keys.
+    EXPECT_REPORT(driver, (KC_LSFT, KC_LCTL));
+    EXPECT_REPORT(driver, (KC_LCTL));
+    EXPECT_EMPTY_REPORT(driver);
+    regular_key.release();
+    run_one_scan_loop();
+    mod_key.release();
+    run_one_scan_loop();
+    mod_tap_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
+
 TEST_F(FlowTapTest, layer_tap_key) {
     TestDriver driver;
     InSequence s;
@@ -322,6 +451,64 @@ TEST_F(FlowTapTest, layer_tap_ignored_with_disabled_key) {
 
     EXPECT_EMPTY_REPORT(driver);
     mod_tap_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
+
+TEST_F(FlowTapTest, layer_tap_ignored_with_disabled_key_complex) {
+    TestDriver driver;
+    InSequence s;
+    auto       regular_key1  = KeymapKey(0, 0, 0, KC_Q);
+    auto       layer_tap_key = KeymapKey(0, 1, 0, LT(1, KC_SPC));
+    auto       mod_tap_key1  = KeymapKey(0, 2, 0, CTL_T(KC_T));
+    // Place RALT_T(KC_I), where Flow Tap is enabled, in the same position on
+    // layer 0 as KC_RGHT, where Flow Tap is disabled. This tests that Flow Tap
+    // tracks the keycode from the correct layer.
+    auto mod_tap_key2 = KeymapKey(0, 3, 0, RALT_T(KC_I));
+    auto regular_key2 = KeymapKey(1, 3, 0, KC_RGHT);
+
+    set_keymap({regular_key1, layer_tap_key, mod_tap_key1, mod_tap_key2, regular_key2});
+
+    // Tap regular key 1.
+    EXPECT_REPORT(driver, (KC_Q));
+    EXPECT_EMPTY_REPORT(driver);
+    tap_key(regular_key1);
+    idle_for(FLOW_TAP_TERM + 1);
+    VERIFY_AND_CLEAR(driver);
+
+    // Hold layer-tap key.
+    EXPECT_NO_REPORT(driver);
+    layer_tap_key.press();
+    run_one_scan_loop();
+    // idle_for(TAPPING_TERM + 1);
+    VERIFY_AND_CLEAR(driver);
+
+    // Tap regular key 2.
+    EXPECT_REPORT(driver, (KC_RGHT));
+    EXPECT_EMPTY_REPORT(driver);
+    tap_key(regular_key2);
+    VERIFY_AND_CLEAR(driver);
+
+    // Release layer-tap key.
+    EXPECT_NO_REPORT(driver);
+    layer_tap_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Quickly hold mod-tap key 1.
+    EXPECT_NO_REPORT(driver);
+    mod_tap_key1.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_REPORT(driver, (KC_LCTL));
+    EXPECT_REPORT(driver, (KC_LCTL, KC_Q));
+    EXPECT_REPORT(driver, (KC_LCTL));
+    tap_key(regular_key1);
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_EMPTY_REPORT(driver);
+    mod_tap_key1.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 }

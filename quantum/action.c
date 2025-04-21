@@ -282,7 +282,7 @@ void process_record(keyrecord_t *record) {
         return;
     }
 #ifdef FLOW_TAP_TERM
-    flow_tap_update_timer(record);
+    flow_tap_update_last_event(record);
 #endif // FLOW_TAP_TERM
 
     if (!process_record_quantum(record)) {
