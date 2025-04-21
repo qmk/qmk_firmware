@@ -316,12 +316,12 @@ __EOT__
         fi
 
         # Download the toolchain release to the toolchains location
-        echo "Downloading compiler toolchain..." >&2
+        echo "Downloading compiler toolchains..." >&2
         local target_file="$QMK_DISTRIB_DIR/$(basename "$toolchain_url")"
         download_url "$toolchain_url" "$target_file"
 
         # Extract the toolchain
-        echo "Extracting compiler toolchain to '$QMK_DISTRIB_DIR'..." >&2
+        echo "Extracting compiler toolchains to '$QMK_DISTRIB_DIR'..." >&2
         tar xf "$target_file" -C "$QMK_DISTRIB_DIR" --strip-components=1
     }
 
@@ -350,6 +350,23 @@ __EOT__
         rm -f "$QMK_DISTRIB_DIR"/*.tar.zst || true
     }
 
+    default_distrib_dir() {
+        case $(fn_os) in
+        macos)
+            echo "$HOME/Library/Application Support/qmk"
+            ;;
+        linux)
+            echo "$HOME/.local/share/qmk"
+            ;;
+        windows)
+            echo "/opt/qmk"
+            ;;
+        *)
+            echo "No default installation directory for this OS." >&2
+            exit 1
+        esac
+    }
+
     # Set the Python version we want to use with the QMK CLI
     export PYTHON_TARGET_VERSION=3.13
 
@@ -358,16 +375,16 @@ __EOT__
     if [ "$(uname -o 2>/dev/null || true)" = "Msys" ]; then
         export TMPDIR="$(cygpath -w "$TMP")"
         export UV_INSTALL_DIR=${UV_INSTALL_DIR:-/opt/uv}
-        export QMK_DISTRIB_DIR=${QMK_DISTRIB_DIR:-/opt/qmk}
         export UV_TOOL_DIR=${UV_TOOL_DIR:-"$QMK_DISTRIB_DIR/tools"}
     fi
 
     # Work out where we want to install the distribution and tools
-    export QMK_DISTRIB_DIR=${QMK_DISTRIB_DIR:-$(printf 'import platformdirs\nprint(platformdirs.user_data_dir("qmk"))' | uv run --quiet --python $PYTHON_TARGET_VERSION --with platformdirs -)}
+    export QMK_DISTRIB_DIR=${QMK_DISTRIB_DIR:-$(default_distrib_dir)}
 
     script_parse_args "$@"
 
-    echo "This script will install \`uv\` to ${UV_INSTALL_DIR:-the default location}, and the QMK CLI, toolchains, and flashing utilities to ${QMK_DISTRIB_DIR}."
+    echo "This QMK CLI installation script will install \`uv\` to ${UV_INSTALL_DIR:-the default location}, the QMK CLI to the \`uv\` tools"
+    echo "directory, as well as toolchains and flashing utilities to '${QMK_DISTRIB_DIR}'."
     [ -z "${SKIP_PACKAGE_MANAGER:-}" ] || { preinstall_delay || exit 1; }
     [ -n "${SKIP_PACKAGE_MANAGER:-}" ] || install_package_manager_deps
     [ -n "${SKIP_UV:-}" ] || install_uv
