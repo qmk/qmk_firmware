@@ -35,7 +35,6 @@
 ################################################################################
 
 { # this ensures the entire script is downloaded #
-
     set -eu
 
     # Work out which `sed` to use
@@ -116,10 +115,10 @@ __EOT__
         local filename=${2:-$(basename "$url")}
         local quiet=''
         if [ -n "$(command -v curl 2>/dev/null || true)" ]; then
-            [ $filename = "-" ] && quiet='-s' || echo "Downloading '$url' => '$filename'" >&2
+            [ "$filename" = "-" ] && quiet='-s' || echo "Downloading '$url' => '$filename'" >&2
             curl -LSf $quiet -o "$filename" "$url"
         elif [ -n "$(command -v wget 2>/dev/null || true)" ]; then
-            [ $filename = "-" ] && quiet='-q' || echo "Downloading '$url' => '$filename'" >&2
+            [ "$filename" = "-" ] && quiet='-q' || echo "Downloading '$url' => '$filename'" >&2
             wget $quiet "-O$filename" "$url"
         else
             echo "Please install 'curl' or 'wget' to continue." >&2
@@ -182,10 +181,10 @@ __EOT__
         macos)
             if [ -n "$(command -v brew 2>/dev/null || true)" ]; then
                 echo "It will also install the following system packages using 'brew':" >&2
-                echo "    zstd clang-format make hidapi libusb" >&2
+                echo "    zstd clang-format make hidapi libusb dos2unix" >&2
                 preinstall_delay || exit 1
                 brew update && brew upgrade --formulae
-                brew install zstd clang-format make hidapi libusb
+                brew install zstd clang-format make hidapi libusb dos2unix
             else
                 echo "Please install 'brew' to continue. See https://brew.sh/ for more information." >&2
                 exit 1
@@ -195,33 +194,33 @@ __EOT__
             case $(grep ID /etc/os-release) in
             *arch* | *manjaro*)
                 echo "It will also install the following system packages using 'pacman':" >&2
-                echo "    zstd base-devel clang diffutils unzip wget zip hidapi" >&2
+                echo "    zstd base-devel clang diffutils unzip wget zip hidapi dos2unix" >&2
                 preinstall_delay || exit 1
-                $(nsudo) pacman --needed --noconfirm -S zstd base-devel clang diffutils unzip wget zip
+                $(nsudo) pacman --needed --noconfirm -S zstd base-devel clang diffutils unzip wget zip dos2unix
                 $(nsudo) pacman --needed --noconfirm -S hidapi || true # This will fail if the community repo isn't enabled
                 ;;
             *debian* | *ubuntu*)
                 echo "It will also install the following system packages using 'apt':" >&2
-                echo "    zstd build-essential clang-format diffutils unzip wget zip libhidapi-hidraw0" >&2
+                echo "    zstd build-essential clang-format diffutils unzip wget zip libhidapi-hidraw0 dos2unix" >&2
                 preinstall_delay || exit 1
                 $(nsudo) apt-get update
                 DEBIAN_FRONTEND=noninteractive \
-                    $(nsudo) apt-get --quiet --yes install zstd build-essential clang-format diffutils unzip wget zip libhidapi-hidraw0
+                    $(nsudo) apt-get --quiet --yes install zstd build-essential clang-format diffutils unzip wget zip libhidapi-hidraw0 dos2unix
                 ;;
             *fedora*)
                 echo "It will also install the following system packages using 'dnf':" >&2
-                echo "    zstd clang diffutils gcc git unzip wget zip hidapi" >&2
+                echo "    zstd clang diffutils gcc git unzip wget zip hidapi dos2unix" >&2
                 echo "And whichever of the following is available, depending on which packages are provided by the distro:" >&2
                 echo "    libusb-devel, libusb1-devel, libusb-compat-0.1-devel, or libusb0-devel" >&2
                 preinstall_delay || exit 1
-                $(nsudo) dnf -y install zstd clang diffutils gcc git unzip wget zip hidapi libusb-devel libusb1-devel libusb-compat-0.1-devel libusb0-devel --skip-unavailable
+                $(nsudo) dnf -y install zstd clang diffutils gcc git unzip wget zip hidapi dos2unix libusb-devel libusb1-devel libusb-compat-0.1-devel libusb0-devel --skip-unavailable
                 ;;
             *gentoo*)
                 echo "It will also the following packages using 'emerge':" >&2
-                echo "    app-arch/zstd app-arch/unzip app-arch/zip net-misc/wget llvm-core/clang sys-apps/hwloc dev-libs/hidapi" >&2
+                echo "    app-arch/zstd app-arch/unzip app-arch/zip net-misc/wget llvm-core/clang sys-apps/hwloc dev-libs/hidapi app-text/dos2unix" >&2
                 preinstall_delay || exit 1
                 $(nsudo) emerge -au --noreplace \
-                    app-arch/zstd app-arch/unzip app-arch/zip net-misc/wget llvm-core/clang sys-apps/hwloc dev-libs/hidapi
+                    app-arch/zstd app-arch/unzip app-arch/zip net-misc/wget llvm-core/clang sys-apps/hwloc dev-libs/hidapi app-text/dos2unix
                 ;;
             *slackware*)
                 echo "It will also the following packages using 'sboinstall':" >&2
@@ -231,19 +230,19 @@ __EOT__
                 ;;
             *solus*)
                 echo "It will also install the following system packages using 'eopkg':" >&2
-                echo "    system.devel zstd git wget zip unzip python3" >&2
+                echo "    system.devel zstd git wget zip unzip python3 dos2unix" >&2
                 preinstall_delay || exit 1
                 $(nsudo) eopkg -y update-repo
                 $(nsudo) eopkg -y upgrade
                 $(nsudo) eopkg -y install \
-                    -c system.devel zstd git wget zip unzip python3
+                    -c system.devel zstd git wget zip unzip python3 dos2unix
                 ;;
             *void*)
                 echo "It will also the following packages using 'xbps-install':" >&2
-                echo "    zstd git make wget unzip zip python3" >&2
+                echo "    zstd git make wget unzip zip python3 dos2unix" >&2
                 preinstall_delay || exit 1
                 $(nsudo) xbps-install -y \
-                    zstd git make wget unzip zip python3
+                    zstd git make wget unzip zip python3 dos2unix
                 ;;
             *)
                 echo "Sorry, we don't recognize your distribution. Try using the docker image instead:"
@@ -278,7 +277,7 @@ __EOT__
 
     install_qmk_cli() {
         # Install the QMK CLI
-        uv tool install --force --with pip --upgrade --python 3.13 qmk
+        uv tool install --force --with pip --upgrade --python $PYTHON_TARGET_VERSION qmk
 
         # QMK is installed to...
         local qmk_tooldir="$(uv tool dir)/qmk"
@@ -351,6 +350,9 @@ __EOT__
         rm -f "$QMK_DISTRIB_DIR"/*.tar.zst || true
     }
 
+    # Set the Python version we want to use with the QMK CLI
+    export PYTHON_TARGET_VERSION=3.13
+
     # Windows/MSYS doesn't like `/tmp` so we need to set a different temporary directory.
     # Also set the default `UV_INSTALL_DIR` and `QMK_DISTRIB_DIR` to locations which don't pollute the user's home directory, keeping the installation internal to MSYS.
     if [ "$(uname -o 2>/dev/null || true)" = "Msys" ]; then
@@ -361,7 +363,7 @@ __EOT__
     fi
 
     # Work out where we want to install the distribution and tools
-    export QMK_DISTRIB_DIR=${QMK_DISTRIB_DIR:-$HOME/.local/share/qmk}
+    export QMK_DISTRIB_DIR=${QMK_DISTRIB_DIR:-$(printf 'import platformdirs\nprint(platformdirs.user_data_dir("qmk"))' | uv run --quiet --python $PYTHON_TARGET_VERSION --with platformdirs -)}
 
     script_parse_args "$@"
 
