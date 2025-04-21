@@ -105,7 +105,12 @@ __EOT__
     }
 
     nsudo() {
-        [[ ${EUID:-} -ne 0 ]] && echo "sudo"
+        if [ "$(fn_os)" = "windows" ]; then
+            # No need for sudo under QMK MSYS
+            return
+        elif [ ${EUID:-} -ne 0 ]; then
+            echo "sudo"
+        fi
         true
     }
 
