@@ -176,32 +176,17 @@ __EOT__
 
     get_package_manager_deps() {
         case $(fn_os) in
-        macos)
-            echo "zstd clang-format make hidapi libusb dos2unix git"
-            ;;
+        macos) echo "zstd clang-format make hidapi libusb dos2unix git" ;;
+        windows) echo "base-devel: zstd:x toolchain:x clang:x hidapi:x dos2unix:x git:x" ;;
         linux)
             case $(grep ID /etc/os-release) in
-            *arch* | *manjaro*)
-                echo "zstd base-devel clang diffutils unzip wget zip hidapi dos2unix git"
-                ;;
-            *debian* | *ubuntu*)
-                echo "zstd build-essential clang-format diffutils unzip wget zip libhidapi-hidraw0 dos2unix git"
-                ;;
-            *fedora*)
-                echo "zstd clang diffutils gcc git unzip wget zip hidapi dos2unix libusb-devel libusb1-devel libusb-compat-0.1-devel libusb0-devel git"
-                ;;
-            *gentoo*)
-                echo "app-arch/zstd app-arch/unzip app-arch/zip net-misc/wget llvm-core/clang sys-apps/hwloc dev-libs/hidapi app-text/dos2unix dev-vcs/git"
-                ;;
-            *slackware*)
-                echo "python3"
-                ;;
-            *solus*)
-                echo "system.devel zstd git wget zip unzip python3 dos2unix git"
-                ;;
-            *void*)
-                echo "zstd git make wget unzip zip python3 dos2unix git"
-                ;;
+            *arch* | *manjaro*) echo "zstd base-devel clang diffutils unzip wget zip hidapi dos2unix git" ;;
+            *debian* | *ubuntu*) echo "zstd build-essential clang-format diffutils unzip wget zip libhidapi-hidraw0 dos2unix git" ;;
+            *fedora*) echo "zstd clang diffutils gcc git unzip wget zip hidapi dos2unix libusb-devel libusb1-devel libusb-compat-0.1-devel libusb0-devel git" ;;
+            *gentoo*) echo "app-arch/zstd app-arch/unzip app-arch/zip net-misc/wget llvm-core/clang sys-apps/hwloc dev-libs/hidapi app-text/dos2unix dev-vcs/git" ;;
+            *slackware*) echo "python3" ;;
+            *solus*) echo "system.devel zstd git wget zip unzip python3 dos2unix git" ;;
+            *void*) echo "zstd git make wget unzip zip python3 dos2unix git" ;;
             *)
                 echo "Sorry, we don't recognize your distribution. Try using the docker image instead:" >&2
                 echo >&2
@@ -209,9 +194,6 @@ __EOT__
                 exit 1
                 ;;
             esac
-            ;;
-        windows)
-            echo "base-devel: zstd:x toolchain:x clang:x hidapi:x dos2unix:x git:x"
             ;;
         *)
             echo "Sorry, we don't recognize your OS. Try using a compatible OS instead:" >&2
@@ -240,6 +222,12 @@ __EOT__
                 echo "Please install 'brew' to continue. See https://brew.sh/ for more information." >&2
                 exit 1
             fi
+            ;;
+        windows)
+            echo "It will also install the following packages using 'pacman'/'pacboy':" >&2
+            print_package_manager_deps_and_delay
+            $(nsudo) pacman --needed --noconfirm --disable-download-timeout -S pactoys
+            $(nsudo) pacboy sync --needed --noconfirm --disable-download-timeout $(get_package_manager_deps)
             ;;
         linux)
             case $(grep ID /etc/os-release) in
@@ -289,12 +277,6 @@ __EOT__
                 exit 1
                 ;;
             esac
-            ;;
-        windows)
-            echo "It will also install the following packages using 'pacman'/'pacboy':" >&2
-            print_package_manager_deps_and_delay
-            $(nsudo) pacman --needed --noconfirm --disable-download-timeout -S pactoys
-            $(nsudo) pacboy sync --needed --noconfirm --disable-download-timeout $(get_package_manager_deps)
             ;;
         esac
     }
