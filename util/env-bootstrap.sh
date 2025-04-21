@@ -182,7 +182,7 @@ __EOT__
     get_package_manager_deps() {
         case $(fn_os) in
         macos) echo "zstd clang-format make hidapi libusb dos2unix git" ;;
-        windows) echo "base-devel: zstd:x toolchain:x clang:x hidapi:x dos2unix: git:" ;;
+        windows) echo "base-devel: zstd:x toolchain:x clang:x hidapi:x dos2unix: git: unzip:" ;;
         linux)
             case $(grep ID /etc/os-release) in
             *arch* | *manjaro*) echo "zstd base-devel clang diffutils unzip wget zip hidapi dos2unix git" ;;
