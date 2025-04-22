@@ -120,6 +120,9 @@ void user_oled_magic(void) {
         case UNICODE_MODE_EMACS:
             oled_write_P(PSTR("emacs"), false);
             break;
+        case UNICODE_MODE_VIM:
+            oled_write_P(PSTR("vim"), false);
+            break;
         default:
             oled_write_ln_P(PSTR("not supported"), false);
     }

@@ -46,6 +46,7 @@ enum unicode_input_modes {
     UNICODE_MODE_BSD,        // BSD (not implemented)
     UNICODE_MODE_WINCOMPOSE, // Windows using WinCompose (https://github.com/samhocevar/wincompose)
     UNICODE_MODE_EMACS,      // Emacs is an operating system in search of a good text editor
+    UNICODE_MODE_VIM,        // Vim or Neovim
 
     UNICODE_MODE_COUNT // Number of available input modes (always leave at the end)
 };

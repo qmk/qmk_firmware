@@ -902,4 +902,5 @@ See also: [Unicode Support](features/unicode)
 |`QK_UNICODE_MODE_WINDOWS`   |`UC_WIN` |Switch to Windows input                                         |
 |`QK_UNICODE_MODE_BSD`       |`UC_BSD` |Switch to BSD input (not implemented)                           |
 |`QK_UNICODE_MODE_WINCOMPOSE`|`UC_WINC`|Switch to Windows input using WinCompose                        |
-|`QK_UNICODE_MODE_EMACS`     |`UC_EMAC`|Switch to emacs (`C-x-8 RET`)                                   |
+|`QK_UNICODE_MODE_EMACS`     |`UC_EMAC`|Switch to Emacs input (`C-x-8 RET`)                             |
+|`QK_UNICODE_MODE_VIM`       |`UC_VIM` |Switch to Vim input (`i_CTRL-V u`)                              |

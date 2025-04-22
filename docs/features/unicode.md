@@ -42,6 +42,8 @@ Add the following to your `config.h`:
 |`UNICODE_SONG_BSD` |*n/a*  |The song to play when the BSD input mode is selected       |
 |`UNICODE_SONG_WIN` |*n/a*  |The song to play when the Windows input mode is selected   |
 |`UNICODE_SONG_WINC`|*n/a*  |The song to play when the WinCompose input mode is selected|
+|`UNICODE_SONG_EMACS`|*n/a* |The song to play when the Emacs input mode is selected     |
+|`UNICODE_SONG_VIM` |*n/a*  |The song to play when the Vim input mode is selected       |
 
 ## Input Subsystems {#input-subsystems}
 
@@ -201,6 +203,12 @@ Emacs supports code point input with the `insert-char` command.
 
 Not currently implemented. If you're a BSD user and want to contribute support for this input mode, please [feel free](../contributing)!
 
+==== VIM
+
+**Mode Name:** `UNICODE_MODE_VIM`
+
+Vim supports input of unicode characters up to `U+FFFF`. To insert a unicode character, press `ctrl+v u` in insert mode. For more informaton, see `:h utf-8-typing`.
+
 :::::
 
 ## Keycodes {#keycodes}
@@ -217,7 +225,8 @@ Not currently implemented. If you're a BSD user and want to contribute support f
 |`QK_UNICODE_MODE_WINDOWS`   |`UC_WIN` |Switch to Windows input                                         |
 |`QK_UNICODE_MODE_BSD`       |`UC_BSD` |Switch to BSD input (not implemented)                           |
 |`QK_UNICODE_MODE_WINCOMPOSE`|`UC_WINC`|Switch to Windows input using WinCompose                        |
-|`QK_UNICODE_MODE_EMACS`     |`UC_EMAC`|Switch to emacs (`C-x-8 RET`)                                   |
+|`QK_UNICODE_MODE_EMACS`     |`UC_EMAC`|Switch to emacs input (`C-x-8 RET`)                                   |
+|`QK_UNICODE_MODE_VIM`       |`UC_VIM`|Switch to vim input (`CTRL-V u`)                                   |
 
 ## API {#api}
 
@@ -285,6 +294,7 @@ Begin the Unicode input sequence. The exact behavior depends on the currently se
  - **WinCompose**: Tap `UNICODE_KEY_WINC`, then U
  - **HexNumpad**: Hold Left Alt, then tap Numpad +
  - **Emacs**: Tap Ctrl+X, then 8, then Enter
+ - **Vim**: Tap Ctrl+V, then u
 
 This function is weakly defined, and can be overridden in user code.
 
@@ -299,6 +309,7 @@ Complete the Unicode input sequence. The exact behavior depends on the currently
  - **WinCompose**: Tap Enter
  - **HexNumpad**: Release Left Alt
  - **Emacs**: Tap Enter
+ - **Vim**: Do nothing
 
 This function is weakly defined, and can be overridden in user code.
 
@@ -313,6 +324,7 @@ Cancel the Unicode input sequence. The exact behavior depends on the currently s
  - **WinCompose**: Tap Escape
  - **HexNumpad**: Release Left Alt
  - **Emacs**: Tap Ctrl+G
+ - **Vim**: Do nothing
 
 This function is weakly defined, and can be overridden in user code.
 
