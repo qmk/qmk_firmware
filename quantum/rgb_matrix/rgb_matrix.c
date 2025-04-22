@@ -47,6 +47,9 @@ __attribute__((weak)) rgb_t rgb_matrix_hsv_to_rgb(hsv_t hsv) {
 #define RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
 #include "rgb_matrix_effects.inc"
+#ifdef COMMUNITY_MODULES_ENABLE
+#    include "rgb_matrix_community_modules.inc"
+#endif
 #ifdef RGB_MATRIX_CUSTOM_KB
 #    include "rgb_matrix_kb.inc"
 #endif
@@ -309,6 +312,15 @@ static void rgb_task_render(uint8_t effect) {
         break;
 #include "rgb_matrix_effects.inc"
 #undef RGB_MATRIX_EFFECT
+
+#ifdef COMMUNITY_MODULES_ENABLE
+#    define RGB_MATRIX_EFFECT(name, ...)          \
+        case RGB_MATRIX_COMMUNITY_MODULE_##name:  \
+            rendering = name(&rgb_effect_params); \
+            break;
+#    include "rgb_matrix_community_modules.inc"
+#    undef RGB_MATRIX_EFFECT
+#endif
 
 #if defined(RGB_MATRIX_CUSTOM_KB) || defined(RGB_MATRIX_CUSTOM_USER)
 #    define RGB_MATRIX_EFFECT(name, ...)          \
