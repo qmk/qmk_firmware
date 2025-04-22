@@ -47,9 +47,17 @@ extern inline void clear_keys(void);
 #ifndef NO_ACTION_ONESHOT
 static uint8_t oneshot_mods        = 0;
 static uint8_t oneshot_locked_mods = 0;
-uint8_t        get_oneshot_locked_mods(void) {
+/**
+ * @brief Retrieve current state of locked oneshot modifiers.
+ *
+ * @return Current state of the locked oneshot modifier keys as a bitmask.
+ */
+uint8_t get_oneshot_locked_mods(void) {
     return oneshot_locked_mods;
 }
+/**
+ * Same as \ref get_oneshot_locked_mods but returns \ref mod_t for convenience.
+ */
 mod_t get_oneshot_locked_mod_state(void) {
     return (mod_t)get_oneshot_locked_mods();
 }
@@ -332,16 +340,16 @@ void send_keyboard_report(void) {
 #endif
 }
 
-/** \brief Get mods
+/**
+ * @brief Retrieve current state of modifiers.
  *
- * FIXME: needs doc
+ * @return Current state of the modifier keys as a bitmask.
  */
 uint8_t get_mods(void) {
     return real_mods;
 }
-/** \brief Get mods
- *
- * FIXME: needs doc
+/**
+ * Same as \ref get_mods but returns \ref mod_t for convenience.
  */
 mod_t get_mod_state(void) {
     return (mod_t)get_mods();
@@ -375,16 +383,16 @@ void clear_mods(void) {
     real_mods = 0;
 }
 
-/** \brief get weak mods
+/**
+ * @brief Retrieve current state of weak modifiers.
  *
- * FIXME: needs doc
+ * @return Current state of the weak modifier keys as a bitmask.
  */
 uint8_t get_weak_mods(void) {
     return weak_mods;
 }
-/** \brief get weak mods
- *
- * FIXME: needs doc
+/**
+ * Same as \ref get_weak_mods but returns \ref mod_t for convenience.
  */
 mod_t get_weak_mod_state(void) {
     return (mod_t)get_weak_mods();
@@ -443,17 +451,17 @@ void clear_suppressed_override_mods(void) {
 #endif
 
 #ifndef NO_ACTION_ONESHOT
-/** \brief get oneshot mods
+/**
+ * @brief Retrieve current state of oneshot modifiers.
  *
- * FIXME: needs doc
+ * @return Current state of the oneshot modifier keys as a bitmask.
  */
 uint8_t get_oneshot_mods(void) {
     return oneshot_mods;
 }
 
-/** \brief get oneshot mods
- *
- * FIXME: needs doc
+/**
+ * Same as \ref get_oneshot_mods but returns \ref mod_t for convenience.
  */
 mod_t get_oneshot_mod_state(void) {
     return (mod_t)get_oneshot_mods();
