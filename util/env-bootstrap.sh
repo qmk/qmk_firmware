@@ -16,6 +16,7 @@
 #   SKIP_QMK_CLI: Skip installing the QMK CLI. (or: --skip-qmk-cli)
 #   SKIP_QMK_TOOLCHAINS: Skip installing the QMK toolchains. (or: --skip-qmk-toolchains)
 #   SKIP_QMK_FLASHUTILS: Skip installing the QMK flashing utilities. (or: --skip-qmk-flashutils)
+#   SKIP_WINDOWS_DRIVERS: Skip installing the Windows drivers for the flashing utilities. (or: --skip-windows-drivers)
 #
 # Arguments above may be negated by prefixing with `--no-` instead (e.g. `--no-skip-clean`).
 ################################################################################
