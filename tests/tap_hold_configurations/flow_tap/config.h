@@ -20,3 +20,4 @@
 #include "test_common.h"
 
 #define FLOW_TAP_TERM 150
+#define PERMISSIVE_HOLD
