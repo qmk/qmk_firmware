@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Pegasus",
     "manufacturer": "melonbred",
-    "url": "",
     "maintainer": "melonbred",
     "usb": {
         "vid": "0xFEED",

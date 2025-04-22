@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Jot50",
     "manufacturer": "Jotix",
-    "url": "",
     "maintainer": "jotix",
     "usb": {
         "vid": "0xFEED",

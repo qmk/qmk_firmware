@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Virgo",
     "manufacturer": "FLX",
-    "url": "",
     "maintainer": "mechmerlin",
     "usb": {
         "vid": "0x4658",

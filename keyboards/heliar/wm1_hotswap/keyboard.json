@@ -1,7 +1,6 @@
 {
     "keyboard_name": "wm1 hotswap",
     "manufacturer": "Heliar",
-    "url": "",
     "maintainer": "heliar",
     "usb": {
         "vid": "0xFEED",

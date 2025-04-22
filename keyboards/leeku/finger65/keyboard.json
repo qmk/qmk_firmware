@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Finger65",
     "manufacturer": "LeeKu",
-    "url": "",
     "maintainer": "sidcarter",
     "usb": {
         "vid": "0xFEED",

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "wanten",
     "manufacturer": "qpockets",
-    "url": "",
     "maintainer": "qpockets",
     "usb": {
         "vid": "0x7170",

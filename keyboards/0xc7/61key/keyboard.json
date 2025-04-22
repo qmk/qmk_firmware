@@ -1,7 +1,6 @@
 {
     "keyboard_name": "61Key",
     "manufacturer": "0xC7",
-    "url": "",
     "maintainer": "RealEmanGaming",
     "usb": {
         "vid": "0xE117",

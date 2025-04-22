@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Chiron",
     "manufacturer": "Mike Hix",
-    "url": "",
     "maintainer": "musl",
     "usb": {
         "vid": "0xFEED",

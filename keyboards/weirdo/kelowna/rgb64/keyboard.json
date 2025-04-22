@@ -1,7 +1,6 @@
 {
     "keyboard_name": "kelownaRGB64",
     "manufacturer": "Weirdo",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x7764",

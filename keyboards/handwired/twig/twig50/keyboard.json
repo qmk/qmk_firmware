@@ -1,7 +1,6 @@
 {
     "keyboard_name": "twig50",
     "manufacturer": "Twig",
-    "url": "",
     "maintainer": "nodatk",
     "usb": {
       "vid": "0xFEED",

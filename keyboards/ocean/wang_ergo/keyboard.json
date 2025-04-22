@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Wang Ergo",
     "manufacturer": "Ocean",
-    "url": "",
     "maintainer": "oceeean",
     "usb": {
         "vid": "0x9624",

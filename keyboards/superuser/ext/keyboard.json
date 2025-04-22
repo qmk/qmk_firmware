@@ -1,7 +1,6 @@
 {
     "keyboard_name": "ext",
     "manufacturer": "superuser",
-    "url": "",
     "maintainer": "kaylanm",
     "usb": {
         "vid": "0x5355",

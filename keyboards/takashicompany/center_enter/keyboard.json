@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Center x Enter",
     "manufacturer": "takashicompany",
-    "url": "",
     "maintainer": "takashicompany",
     "usb": {
         "vid": "0x7463",

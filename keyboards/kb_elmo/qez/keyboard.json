@@ -1,7 +1,6 @@
 {
     "keyboard_name": "QEZ",
     "manufacturer": "kb_elmo",
-    "url": "",
     "maintainer": "kb-elmo<mail@elmo.space>",
     "usb": {
         "vid": "0xA68C",

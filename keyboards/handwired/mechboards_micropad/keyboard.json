@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Mechboards Micropad",
     "manufacturer": "Yiancar",
-    "url": "",
     "maintainer": "yiancar",
     "usb": {
         "vid": "0x8968",

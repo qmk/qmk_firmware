@@ -143,7 +143,6 @@
             }
         }
     },
-    "url": "",
     "usb": {
         "device_version": "0.0.1",
         "pid": "0xBFC2",

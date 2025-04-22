@@ -21,7 +21,6 @@
         "on_state": 0
     },
     "processor": "RP2040",
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x7765",

@@ -22,7 +22,6 @@
             "pin": "D2"
         }
     },
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x1002",

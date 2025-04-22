@@ -1,7 +1,6 @@
 {
     "keyboard_name": "kt3700",
     "manufacturer": "keyten",
-    "url": "",
     "maintainer": "key10iq",
     "usb": {
         "vid": "0xEB69",

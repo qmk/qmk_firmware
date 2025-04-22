@@ -1,7 +1,6 @@
 {
     "keyboard_name": "p01_ultra",
     "manufacturer": "wavtype",
-    "url": "",
     "maintainer": "wavtype",
     "usb": {
         "vid": "0x03A7",

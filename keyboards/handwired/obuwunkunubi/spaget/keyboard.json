@@ -1,7 +1,6 @@
 {
     "keyboard_name": "spaget",
     "manufacturer": "obuwunkunubi",
-    "url": "",
     "maintainer": "obuwunkunubi",
     "usb": {
         "vid": "0x1337",

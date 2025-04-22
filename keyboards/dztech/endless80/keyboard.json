@@ -1,7 +1,6 @@
 {
     "keyboard_name": "endless80",
     "manufacturer": "dztech",
-    "url": "",
     "maintainer": "moyi4681",
     "usb": {
         "vid": "0x445A",
