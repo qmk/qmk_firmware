@@ -19,10 +19,8 @@
     },
     "rgblight": {
         "led_count": 2,
-        "hue_steps": 8,
         "saturation_steps": 8,
         "brightness_steps": 8,
-        "max_brightness": 255,
     "animations": {
         "alternating": true,
         "breathing": true,

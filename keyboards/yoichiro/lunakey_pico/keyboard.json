@@ -41,10 +41,8 @@
             "static_gradient": true,
             "twinkle": true
         },
-        "hue_steps": 8,
         "saturation_steps": 8,
-        "brightness_steps": 8,
-        "max_brightness": 255
+        "brightness_steps": 8
     },
     "split": {
         "enabled": true,
