@@ -413,7 +413,7 @@ Configures the [LED Matrix](features/led_matrix) feature.
         * Default: `16`
     * `led_process_limit` <Badge type="info">Number</Badge>
         * Limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness).
-        * Default: `led_count / 5`
+        * Default: `(led_count + 4) / 5`
     * `max_brightness` <Badge type="info">Number</Badge>
         * The maximum value which brightness is scaled to, from 0 to 255.
         * Default: `255`
@@ -424,7 +424,7 @@ Configures the [LED Matrix](features/led_matrix) feature.
         * Turn off the LEDs when the host goes to sleep.
         * Default: `false`
     * `speed_steps` <Badge type="info">Number</Badge>
-        * The number of speed adjustment steps.
+        * The value by which to increment the speed.
         * Default: `16`
     * `split_count` <Badge type="info">Array: Number</Badge>
         * For split keyboards, the number of LEDs on each half.
@@ -433,7 +433,7 @@ Configures the [LED Matrix](features/led_matrix) feature.
         * The LED activity timeout in milliseconds.
         * Default: `0` (no timeout)
     * `val_steps` <Badge type="info">Number</Badge>
-        * The number of brightness adjustment steps.
+        * The value by which to increment the brightness.
         * Default: `8`
 
 ## Matrix {#matrix}
@@ -549,7 +549,7 @@ Configures the [RGB Lighting](features/rgblight) feature.
         }
         ```
     * `brightness_steps` <Badge type="info">Number</Badge>
-        * The number of brightness adjustment steps.
+        * The value by which to increment the brightness.
         * Default: `17`
     * `default`
         * `animation` <Badge type="info">String</Badge>
@@ -574,7 +574,7 @@ Configures the [RGB Lighting](features/rgblight) feature.
         * The driver to use. Must be one of `apa102`, `custom`, `ws2812`.
         * Default: `"ws2812"`
     * `hue_steps` <Badge type="info">Number</Badge>
-        * The number of hue adjustment steps.
+        * The value by which to increment the hue.
         * Default: `8`
     * `layers`
         * `blink` <Badge type="info">Boolean</Badge>
@@ -593,7 +593,7 @@ Configures the [RGB Lighting](features/rgblight) feature.
         * The maximum value which the HSV "V" component is scaled to, from 0 to 255.
         * Default: `255`
     * `saturation_steps` <Badge type="info">Number</Badge>
-        * The number of saturation adjustment steps.
+        * The value by which to increment the suturation.
         * Default: `17`
     * `sleep` <Badge type="info">Boolean</Badge>
         * Turn off the LEDs when the host goes to sleep.
@@ -645,7 +645,7 @@ Configures the [RGB Matrix](features/rgb_matrix) feature.
     * `driver` <Badge type="info">String</Badge> <Badge>Required</Badge>
         * The driver to use. Must be one of `aw20216s`, `custom`, `is31fl3218`, `is31fl3236`, `is31fl3729`, `is31fl3731`, `is31fl3733`, `is31fl3736`, `is31fl3737`, `is31fl3741`, `is31fl3742a`, `is31fl3743a`, `is31fl3745`, `is31fl3746a`, `snled27351`, `ws2812`.
     * `hue_steps` <Badge type="info">Number</Badge>
-        * The number of hue adjustment steps.
+        * The value by which to increment the hue.
         * Default: `8`
     * `layout` <Badge type="info">Array: Object</Badge> <Badge>Required</Badge>
         * List of LED configuration dictionaries. Each dictionary contains:
@@ -664,7 +664,7 @@ Configures the [RGB Matrix](features/rgb_matrix) feature.
         * Default: `16`
     * `led_process_limit` <Badge type="info">Number</Badge>
         * Limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness).
-        * Default: `led_count / 5`
+        * Default: `(led_count + 4) / 5`
     * `max_brightness` <Badge type="info">Number</Badge>
         * The maximum value which the HSV "V" component is scaled to, from 0 to 255.
         * Default: `255`
@@ -672,13 +672,13 @@ Configures the [RGB Matrix](features/rgb_matrix) feature.
         * Animations react to keyup instead of keydown.
         * Default: `false`
     * `sat_steps` <Badge type="info">Number</Badge>
-        * The number of saturation adjustment steps.
+        * The value by which to increment the saturation.
         * Default: `16`
     * `sleep` <Badge type="info">Boolean</Badge>
         * Turn off the LEDs when the host goes to sleep.
         * Default: `false`
     * `speed_steps` <Badge type="info">Number</Badge>
-        * The number of speed adjustment steps.
+        * The value by which to increment the speed.
         * Default: `16`
     * `split_count` <Badge type="info">Array: Number</Badge>
         * For split keyboards, the number of LEDs on each half.
@@ -687,7 +687,7 @@ Configures the [RGB Matrix](features/rgb_matrix) feature.
         * The LED activity timeout in milliseconds.
         * Default: `0` (no timeout)
     * `val_steps` <Badge type="info">Number</Badge>
-        * The number of brightness adjustment steps.
+        * The value by which to increment the brightness.
         * Default: `16`
 
 ## Secure {#secure}

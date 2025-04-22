@@ -3,7 +3,7 @@
     "$id": "qmk.community_module.v1",
     "title": "Community Module Information",
     "type": "object",
-    "required": ["module_name", "maintainer"]
+    "required": ["module_name", "maintainer"],
     "properties": {
         "module_name": {"$ref": "qmk.definitions.v1#/text_identifier"},
         "maintainer": {"$ref": "qmk.definitions.v1#/text_identifier"},
@@ -12,6 +12,6 @@
             "format": "uri"
         },
         "keycodes": {"$ref": "qmk.definitions.v1#/keycode_decl_array"},
-        "features": {"$ref": "qmk.keyboard.v1#/definitions/features_config"},
+        "features": {"$ref": "qmk.keyboard.v1#/definitions/features_config"}
     }
 }

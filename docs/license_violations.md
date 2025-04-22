@@ -85,7 +85,7 @@ Reusing the `VID` and `PID` for multiple boards (such as for two variants, wired
 
 If there is sufficient ambiguity about a board, supporting evidence will need to be presented to the QMK team. This may include impartial third parties who can demonstrate a board's existence and can confirm its feature set, such as well-known content producers; popular review sites or notable video creators may be leveraged. If such evidence is unavailable, as a last resort the vendor may be required to ship a fully functional board in full retail packaging to QMK maintainers for verification. Engineering samples will not be accepted, as one-off boards have been deceptively used in the past.
 
-PRs submitted to upstream QMK should not expect an instant merge just because source code has been provided -- code from OEMs has historically been of a quality lower than QMK standards, so as per the [PR checklist](https://docs.qmk.fm/pr_checklist) submitters should make the changes as small as possible and be prepared to change their implementation.
+PRs submitted to upstream QMK should not expect an instant merge just because source code has been provided -- code from OEMs has historically been of a quality lower than QMK standards, so as per the [PR checklist](pr_checklist) submitters should make the changes as small as possible and be prepared to change their implementation.
 
 ## Detection
 
