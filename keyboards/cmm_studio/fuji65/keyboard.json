@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Fuji65",
     "manufacturer": "CMM.Studio",
-    "url": "",
     "maintainer": "CMMS-Freather",
     "usb": {
         "vid": "0x434D",

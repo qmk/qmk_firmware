@@ -64,7 +64,6 @@
             {"flags": 4, "matrix": [2, 0], "x": 0, "y": 2}
         ]
     },
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x12E3",

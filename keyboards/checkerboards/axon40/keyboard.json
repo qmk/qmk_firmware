@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Axon40",
     "manufacturer": "Nasp",
-    "url": "",
     "maintainer": "nasp",
     "usb": {
         "vid": "0x7070",

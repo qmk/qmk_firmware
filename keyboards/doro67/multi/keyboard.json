@@ -1,7 +1,6 @@
 {
   "keyboard_name": "Doro67 Multi",
   "manufacturer": "Backprop Studio",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0x4250",

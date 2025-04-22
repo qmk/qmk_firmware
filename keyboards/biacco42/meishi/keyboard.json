@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Meishi",
     "manufacturer": "Biacco42",
-    "url": "",
     "maintainer": "Biacco42",
     "usb": {
         "vid": "0xBC42",

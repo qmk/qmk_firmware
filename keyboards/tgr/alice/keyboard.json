@@ -1,7 +1,6 @@
 {
   "keyboard_name": "Alice",
   "manufacturer": "TGR",
-  "url": "",
   "maintainer": "Felipe Coury",
   "usb": {
     "vid": "0x20A0",

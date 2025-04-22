@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Lily58 R2G",
     "manufacturer": "Mechboards UK",
-    "url": "",
     "maintainer": "Elliot Powell",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

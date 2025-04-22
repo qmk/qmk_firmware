@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Ext65 Rev3",
     "manufacturer": "AEBoards",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "pid": "0xA653",

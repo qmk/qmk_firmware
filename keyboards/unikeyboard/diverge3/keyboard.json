@@ -1,7 +1,6 @@
 {
   "keyboard_name": "Diverge3",
   "manufacturer": "UniKeyboard",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0xFEED",

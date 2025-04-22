@@ -1,7 +1,6 @@
 {
   "keyboard_name": "Pteron",
   "manufacturer": "QMK",
-  "url": "",
   "maintainer": "FSund",
   "usb": {
     "vid": "0xFEED",

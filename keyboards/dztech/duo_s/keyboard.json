@@ -1,7 +1,6 @@
 {
   "keyboard_name": "DUO-S",
   "manufacturer": "DZTECH",
-  "url": "",
   "maintainer": "moyi4681",
   "usb": {
     "vid": "0x445A",

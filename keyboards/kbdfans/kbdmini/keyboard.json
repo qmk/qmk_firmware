@@ -1,7 +1,6 @@
 {
     "keyboard_name": "KBDMINI",
     "manufacturer": "DZTECH",
-    "url": "",
     "maintainer": "KBDFans",
     "usb": {
         "vid": "0xFEED",

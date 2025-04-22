@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Arch-36",
     "manufacturer": "obosob",
-    "url": "",
     "maintainer": "obosob",
     "usb": {
         "vid": "0xFEED",

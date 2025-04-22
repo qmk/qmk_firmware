@@ -1,7 +1,6 @@
 {
   "keyboard_name": "8XV2.0 Additional",
   "manufacturer": "Matrix",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0x4D58",

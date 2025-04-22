@@ -17,7 +17,6 @@
         "rows": ["A4", "A3", "A2", "A1", "A0"]
     },
     "development_board": "blackpill_f411",
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "vid": "0xFEED",

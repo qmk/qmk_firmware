@@ -1,7 +1,6 @@
 {
     "keyboard_name": "RooPad",
     "manufacturer": "ToastyStoemp",
-    "url": "",
     "maintainer": "ToastyStoemp",
     "usb": {
         "vid": "0x36B6",

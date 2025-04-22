@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Portico68 v2",
     "manufacturer": "TKC",
-    "url": "",
     "maintainer": "TerryMathews",
     "usb": {
         "vid": "0x544B",

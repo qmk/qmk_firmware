@@ -48,7 +48,6 @@
     "ws2812": {
         "pin": "B3"
     },
-    "url": "",
     "usb": {
         "device_version": "0.0.1",
         "pid": "0x0011",

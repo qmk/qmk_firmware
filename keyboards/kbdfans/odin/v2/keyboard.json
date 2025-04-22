@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Odin V2",
     "manufacturer": "KBDFans",
-    "url": "",
     "maintainer": "lexbrugman",
     "usb": {
         "vid": "0x4B42",

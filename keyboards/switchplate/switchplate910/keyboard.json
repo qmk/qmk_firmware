@@ -1,7 +1,6 @@
 {
     "keyboard_name": "910",
     "manufacturer": "Switchplate Peripherals",
-    "url": "",
     "maintainer": "MxBluE",
     "usb": {
         "vid": "0x54F3",

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "MK-65",
     "manufacturer": "mangooo",
-    "url": "",
     "maintainer": "DeskDaily",
     "usb": {
         "vid": "0x5004",

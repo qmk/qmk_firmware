@@ -1,7 +1,6 @@
 {
     "keyboard_name": "DZ64RGB",
     "manufacturer": "DZTECH",
-    "url": "",
     "maintainer": "moyi4681",
     "usb": {
         "vid": "0x445A",

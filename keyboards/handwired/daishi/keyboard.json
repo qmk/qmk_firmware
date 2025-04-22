@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Daishi",
     "manufacturer": "MetaMechs",
-    "url": "",
     "maintainer": "Croktopus",
     "usb": {
         "vid": "0x6D6D",

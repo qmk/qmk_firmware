@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Odin Soldered",
     "manufacturer": "KBDFans",
-    "url": "",
     "maintainer": "moyi4681",
     "usb": {
         "vid": "0x4B42",

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Aperture",
     "manufacturer": "Bizunow",
-    "url": "",
     "maintainer": "key10iq",
     "usb": {
         "vid": "0xEB69",

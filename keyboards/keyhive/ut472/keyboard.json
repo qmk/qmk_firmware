@@ -1,7 +1,6 @@
 {
   "keyboard_name": "UT47.2",
   "manufacturer": "Keyhive",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0xA103",

@@ -2,7 +2,6 @@
     "manufacturer": "Darmoshark",
     "keyboard_name": "K3 QMK",
     "maintainer": "Proceee",
-    "url": "",
     "processor": "WB32FQ95",
     "bootloader": "wb32-dfu",
     "usb": {

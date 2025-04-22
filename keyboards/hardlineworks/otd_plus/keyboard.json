@@ -1,7 +1,6 @@
 {
     "keyboard_name": "OTD-PLUS",
     "manufacturer": "Hardlineworks",
-    "url": "",
     "maintainer": "Hardlineworks",
     "usb": {
         "vid": "0x484C",

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "DC01 Numpad",
     "manufacturer": "Mechboards",
-    "url": "",
     "maintainer": "Yiancar-Designs",
     "usb": {
         "vid": "0x8968",

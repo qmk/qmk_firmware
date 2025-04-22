@@ -1,7 +1,6 @@
 {
     "keyboard_name": "split_blackpill",
     "manufacturer": "zvecr",
-    "url": "",
     "maintainer": "zvecr",
     "usb": {
         "vid": "0x5A56",

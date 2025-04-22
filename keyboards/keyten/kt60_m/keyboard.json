@@ -1,7 +1,6 @@
 {
     "keyboard_name": "kt60-M",
     "manufacturer": "keyten",
-    "url": "",
     "maintainer": "key10iq",
     "usb": {
         "vid": "0xEB69",

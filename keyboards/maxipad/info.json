@@ -1,7 +1,6 @@
 {
   "keyboard_name": "maxipad",
   "manufacturer": "wootpatoot",
-  "url": "",
   "maintainer": "qmk",
   "features": {
     "bootmagic": true,

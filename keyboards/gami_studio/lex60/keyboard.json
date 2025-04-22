@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Lex60",
     "manufacturer": "Evyd13",
-    "url": "",
     "maintainer": "GamiStudio",
     "usb": {
         "vid": "0x7353",

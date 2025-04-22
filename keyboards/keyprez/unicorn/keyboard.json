@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Unicorn",
     "manufacturer": "Keyprez",
-    "url": "",
     "maintainer": "Keyprez",
     "usb": {
         "vid": "0x6B7A",

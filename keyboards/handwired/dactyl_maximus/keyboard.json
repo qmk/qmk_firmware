@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Dactyl Maximus",
     "manufacturer": "handwired",
-    "url": "",
     "maintainer": "dunk2k",
     "usb": {
         "vid": "0x444C",

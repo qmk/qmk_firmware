@@ -24,7 +24,6 @@
     },
     "processor": "STM32F103",
     "bootloader": "stm32duino",
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x6601",

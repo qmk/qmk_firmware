@@ -45,7 +45,6 @@
       "rows": ["E6", "B3", "B5", "B4", "D7"]
     },
     "processor": "atmega32u4",
-    "url": "",
     "layouts": {
         "LAYOUT": {
             "layout": [

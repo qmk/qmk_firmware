@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Wonderland",
     "manufacturer": "Evyd13",
-    "url": "",
     "maintainer": "evyd13",
     "usb": {
         "vid": "0x4705",

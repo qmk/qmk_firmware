@@ -1,7 +1,6 @@
 {
     "keyboard_name": "California",
     "manufacturer": "TKC",
-    "url": "",
     "maintainer": "TerryMathews",
     "usb": {
         "vid": "0x544B",

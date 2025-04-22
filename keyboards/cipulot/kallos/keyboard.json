@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Kallos",
     "manufacturer": "Cipulot",
-    "url": "",
     "maintainer": "Cipulot",
     "usb": {
         "vid": "0x6369",

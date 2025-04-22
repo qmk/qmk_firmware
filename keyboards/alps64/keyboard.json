@@ -1,7 +1,6 @@
 {
   "keyboard_name": "Alps64",
   "manufacturer": "Hasu",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0x6873",

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Eighty",
     "manufacturer": "Mode",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x00DE",

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Nearfield",
     "manufacturer": "JLC",
-    "url": "",
     "maintainer": "tominabox1",
     "usb": {
        "vid": "0x0004",

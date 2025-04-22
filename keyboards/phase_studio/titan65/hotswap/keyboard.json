@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Titan 65 (hotswap)",
     "manufacturer": "Phase Studio",
-    "url": "",
     "maintainer": "drashna",
     "usb": {
         "vid": "0x5054",

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Honeycomb",
     "manufacturer": "Keyhive",
-    "url": "",
     "maintainer": "filoxo",
     "usb": {
         "vid": "0xFEED",

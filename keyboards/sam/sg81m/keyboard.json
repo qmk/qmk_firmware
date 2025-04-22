@@ -1,7 +1,6 @@
 {
     "keyboard_name": "SG81M",
     "manufacturer": "Sam",
-    "url": "",
     "maintainer": "CMMS-Freather",
     "usb": {
         "vid": "0x534D",

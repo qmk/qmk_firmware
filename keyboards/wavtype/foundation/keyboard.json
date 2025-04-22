@@ -1,7 +1,6 @@
 {
     "keyboard_name": "foundation",
     "manufacturer": "protozoa.studio",
-    "url": "",
     "maintainer": "wavtype",
     "usb": {
         "vid": "0x03A7",

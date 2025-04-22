@@ -1,7 +1,6 @@
 {
   "keyboard_name": "SMK65v2",
   "manufacturer": "LFKeyboards",
-  "url": "",
   "maintainer": "qmk",
   "features": {
     "bootmagic": true,

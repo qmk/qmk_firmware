@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Mokey12x2",
     "manufacturer": "Mokey",
-    "url": "",
     "maintainer": "Mokey",
     "development_board": "bluepill",
     "diode_direction": "COL2ROW",

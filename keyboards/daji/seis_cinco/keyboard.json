@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Seis Cinco",
     "manufacturer": "Daji",
-    "url": "",
     "maintainer": "toraifu",
     "usb": {
         "vid": "0xBF00",

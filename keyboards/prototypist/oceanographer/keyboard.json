@@ -47,7 +47,6 @@
         "rows": ["B0", "D5", "D3", "D2"]
     },
     "processor": "atmega32u4",
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0002",

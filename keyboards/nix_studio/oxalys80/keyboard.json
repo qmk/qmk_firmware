@@ -1,7 +1,6 @@
 {
     "keyboard_name": "OXALYS80",
     "manufacturer": "Nix Studio",
-    "url": "",
     "maintainer": "Nix Studio",
     "usb": {
         "vid": "0x6E78",

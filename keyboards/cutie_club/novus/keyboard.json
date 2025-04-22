@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Novus",
     "manufacturer": "Cutie Club",
-    "url": "",
     "maintainer": "Cutie Club",
     "usb": {
         "vid": "0xFB9C",

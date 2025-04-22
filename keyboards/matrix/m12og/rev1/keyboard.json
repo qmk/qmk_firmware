@@ -1,7 +1,6 @@
 {
     "keyboard_name": "m12og_v1",
     "manufacturer": "Matrix",
-    "url": "",
     "maintainer": "kb-elmo",
     "usb": {
         "vid": "0x4D58",

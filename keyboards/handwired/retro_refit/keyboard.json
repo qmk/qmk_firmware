@@ -1,7 +1,6 @@
 {
   "keyboard_name": "retro_refit",
   "manufacturer": "Nobody",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0xFEED",

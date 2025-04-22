@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Kira80",
     "manufacturer": "EVE",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x6986",

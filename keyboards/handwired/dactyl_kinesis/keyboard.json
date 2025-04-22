@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Dactyl Kinesis",
     "manufacturer": "dmik",
-    "url": "",
     "maintainer": "dmik",
     "usb": {
         "vid": "0x444D",

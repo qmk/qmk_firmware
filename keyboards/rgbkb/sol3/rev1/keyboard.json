@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Sol 3",
     "manufacturer": "RGBKB",
-    "url": "",
     "maintainer": "XScorpion2, rgbkb",
     "usb": {
         "vid": "0x3535",

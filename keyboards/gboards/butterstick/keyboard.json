@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Butter Stick",
     "manufacturer": "g Heavy Industries",
-    "url": "",
     "maintainer": "germ",
     "usb": {
         "vid": "0xFEED",

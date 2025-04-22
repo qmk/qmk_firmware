@@ -1,7 +1,6 @@
 {
   "keyboard_name": "Tanuki",
   "manufacturer": "Seth",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0xFEED",

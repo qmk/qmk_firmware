@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Plaque80",
     "manufacturer": "SawnsProjects",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x5350",

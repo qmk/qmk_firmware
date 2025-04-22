@@ -1,7 +1,6 @@
 {
     "keyboard_name": "ADKB96",
     "manufacturer": "Bit Trade One",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x00A5",

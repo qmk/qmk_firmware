@@ -1,7 +1,6 @@
 {
     "keyboard_name": "XW60",
     "manufacturer": "Drclick",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
       "vid": "0xFEED",

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Cans12er",
     "manufacturer": "Can",
-    "url": "",
     "maintainer": "canbaytok",
     "usb": {
         "vid": "0xFEED",

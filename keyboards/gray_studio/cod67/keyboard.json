@@ -1,7 +1,6 @@
 {
   "keyboard_name": "COD67",
   "manufacturer": "Graystudio",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0x4753",

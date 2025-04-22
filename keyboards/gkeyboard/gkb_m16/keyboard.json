@@ -1,7 +1,6 @@
 {
     "keyboard_name": "GKB-M16",
     "manufacturer": "gkeyboard",
-    "url": "",
     "maintainer": "gkeyboard",
     "usb": {
         "vid": "0x474B",

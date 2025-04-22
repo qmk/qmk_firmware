@@ -1,7 +1,6 @@
 {
   "keyboard_name": "Pancake",
   "manufacturer": "Spaceman",
-  "url": "",
   "maintainer": "Spaceman",
   "usb": {
     "vid": "0x5342",

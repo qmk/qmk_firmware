@@ -1,7 +1,6 @@
 {
     "keyboard_name": "YMD96",
     "manufacturer": "YMDK",
-    "url": "",
     "maintainer": "sparkyman215",
     "usb": {
         "vid": "0x20A0",

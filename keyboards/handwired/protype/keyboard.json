@@ -15,7 +15,6 @@
         "cols": ["GP12", "GP9", "GP10", "GP0", "GP1", "GP5", "GP6", "GP2", "GP3", "GP4"]
     },
     "processor": "RP2040",
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0xB7D7",

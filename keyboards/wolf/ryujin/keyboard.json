@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Ryujin",
     "manufacturer": "Miroticaps",
-    "url": "",
     "maintainer": "ToastyStoemp",
     "usb": {
         "vid": "0x5453",

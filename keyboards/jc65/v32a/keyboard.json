@@ -1,7 +1,6 @@
 {
   "keyboard_name": "JC65 BMC",
   "manufacturer": "RAMA",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0x1234",

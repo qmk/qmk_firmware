@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Conde60",
     "manufacturer": "DeskDaily",
-    "url": "",
     "maintainer": "DeskDaily",
     "usb": {
         "vid": "0xD812",

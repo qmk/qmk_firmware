@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Ratio65 Solder Rev A",
     "manufacturer": "4pplet",
-    "url": "",
     "maintainer": "4pplet",
     "usb": {
         "vid": "0x4446",
