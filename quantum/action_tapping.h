@@ -166,6 +166,9 @@ bool is_flow_tap_key(uint16_t keycode);
  * @return Time in milliseconds.
  */
 uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record, uint16_t prev_keycode);
+
+/** Updates the Flow Tap last key and timer. */
+void flow_tap_update_last_event(keyrecord_t *record);
 #endif // FLOW_TAP_TERM
 
 #ifdef DYNAMIC_TAPPING_TERM_ENABLE
