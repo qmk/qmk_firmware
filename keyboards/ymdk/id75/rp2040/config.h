@@ -1,6 +1,4 @@
-/* Copyright
- *   2021 solartempest
- *   2021 QMK
+/* Copyright 2021 Mike Tsao
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,6 +16,5 @@
 
 #pragma once
 
-// OLED settings
-#define OLED_TIMEOUT    80000
-#define OLED_BRIGHTNESS 90
+#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
+#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 500U

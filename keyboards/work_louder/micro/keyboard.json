@@ -38,7 +38,6 @@
             "hue": 213
         },
         "brightness_steps": 8,
-        "hue_steps": 8,
         "led_count": 8,
         "max_brightness": 150,
         "saturation_steps": 8,
