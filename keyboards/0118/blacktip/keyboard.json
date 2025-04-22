@@ -3,24 +3,18 @@
     "manufacturer": "iH0118",
     "maintainer": "iH0118",
     "url": "https://github.com/iH0118/blacktip",
-    "bootloader_instructions": "Flip the boootloader switch and press the physical RESET button on the back of the PCB, or hold the top-left key when plugging in the board.",
+    "bootloader_instructions": "Flip the boootloader switch and press the physical RESET button on the back of the PCB.",
     "bootloader": "stm32-dfu",
     "tags": ["ortho", "split", "rgb"],
 
     "features": {
         "bootmagic": true,
-        "eeprom": true,
         "extrakey": true,
         "key_lock": true,
         "layer_lock": true,
         "nkro": true,
         "programmable_button": true,
-        "rgb_matrix": true,
-        "split_keyboard": true
-    },
-
-    "bootmagic": {
-        "matrix": [5, 5]
+        "rgb_matrix": true
     },
     "layouts": {
         "LAYOUT": {
@@ -108,7 +102,6 @@
 
     "rgb_matrix": {
         "animations": {
-            "solid_color": true,
             "cycle_all": true,
             "cycle_left_right": true,
             "cycle_up_down": true,
@@ -128,6 +121,9 @@
             "solid_multisplash": true,
             "starlight": true,
             "riverflow": true
+        },
+        "default": {
+            "animation": "multisplash"
         },
         "center_point": [56, 17],
         "driver": "ws2812",
@@ -201,11 +197,16 @@
 
     "split": {
         "enabled": true,
+        "bootmagic": {
+            "matrix": [5, 5]
+        },
         "serial": {
             "driver": "usart"
         },
-        "usb_detect": {
-            "enabled": true
+        "transport": {
+            "sync": {
+                "matrix_state": true
+            }
         }
     },
 
