@@ -2,15 +2,10 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "debug.h"
-#include "eeprom.h"
 #include "eeconfig.h"
 #include "action_layer.h"
 #include "nvm_eeconfig.h"
 #include "keycode_config.h"
-
-#ifdef EEPROM_DRIVER
-#    include "eeprom_driver.h"
-#endif // EEPROM_DRIVER
 
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
@@ -39,6 +34,10 @@
 #ifdef HAPTIC_ENABLE
 #    include "haptic.h"
 #endif // HAPTIC_ENABLE
+
+#ifdef CONNECTION_ENABLE
+#    include "connection.h"
+#endif // CONNECTION_ENABLE
 
 #ifdef VIA_ENABLE
 bool via_eeprom_is_valid(void);
@@ -105,8 +104,8 @@ void eeconfig_init_quantum(void) {
 #endif // AUDIO_ENABLE
 
 #ifdef RGBLIGHT_ENABLE
-    rgblight_config_t rgblight_config = {0};
-    eeconfig_update_rgblight(&rgblight_config);
+    extern void eeconfig_update_rgblight_default(void);
+    eeconfig_update_rgblight_default();
 #endif // RGBLIGHT_ENABLE
 
 #ifdef UNICODE_COMMON_ENABLE
@@ -119,13 +118,13 @@ void eeconfig_init_quantum(void) {
 #endif // STENO_ENABLE
 
 #ifdef RGB_MATRIX_ENABLE
-    rgb_config_t rgb_matrix_config = {0};
-    eeconfig_update_rgb_matrix(&rgb_matrix_config);
+    extern void eeconfig_update_rgb_matrix_default(void);
+    eeconfig_update_rgb_matrix_default();
 #endif
 
 #ifdef LED_MATRIX_ENABLE
-    led_eeconfig_t led_matrix_config = {0};
-    eeconfig_update_led_matrix(&led_matrix_config);
+    extern void eeconfig_update_led_matrix_default(void);
+    eeconfig_update_led_matrix_default();
 #endif // LED_MATRIX_ENABLE
 
 #ifdef HAPTIC_ENABLE
@@ -133,6 +132,11 @@ void eeconfig_init_quantum(void) {
     eeconfig_update_haptic(&haptic_config);
     haptic_reset();
 #endif // HAPTIC_ENABLE
+
+#ifdef CONNECTION_ENABLE
+    extern void eeconfig_update_connection_default(void);
+    eeconfig_update_connection_default();
+#endif // CONNECTION_ENABLE
 
 #if (EECONFIG_KB_DATA_SIZE) > 0
     eeconfig_init_kb_datablock();
@@ -153,6 +157,15 @@ void eeconfig_init_quantum(void) {
 #endif
 
     eeconfig_init_kb();
+
+#ifdef RGB_MATRIX_ENABLE
+    extern void eeconfig_force_flush_rgb_matrix(void);
+    eeconfig_force_flush_rgb_matrix();
+#endif // RGB_MATRIX_ENABLE
+#ifdef LED_MATRIX_ENABLE
+    extern void eeconfig_force_flush_led_matrix(void);
+    eeconfig_force_flush_led_matrix();
+#endif // LED_MATRIX_ENABLE
 }
 
 void eeconfig_init(void) {
@@ -305,6 +318,15 @@ void eeconfig_update_haptic(const haptic_config_t *haptic_config) {
     nvm_eeconfig_update_haptic(haptic_config);
 }
 #endif // HAPTIC_ENABLE
+
+#ifdef CONNECTION_ENABLE
+void eeconfig_read_connection(connection_config_t *config) {
+    nvm_eeconfig_read_connection(config);
+}
+void eeconfig_update_connection(const connection_config_t *config) {
+    nvm_eeconfig_update_connection(config);
+}
+#endif // CONNECTION_ENABLE
 
 bool eeconfig_read_handedness(void) {
     return nvm_eeconfig_read_handedness();

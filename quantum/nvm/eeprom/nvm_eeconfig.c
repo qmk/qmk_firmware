@@ -41,6 +41,10 @@
 #    include "haptic.h"
 #endif
 
+#ifdef CONNECTION_ENABLE
+#    include "connection.h"
+#endif
+
 void nvm_eeconfig_erase(void) {
 #ifdef EEPROM_DRIVER
     eeprom_driver_format(false);
@@ -195,6 +199,15 @@ void nvm_eeconfig_update_haptic(const haptic_config_t *haptic_config) {
     eeprom_update_dword(EECONFIG_HAPTIC, haptic_config->raw);
 }
 #endif // HAPTIC_ENABLE
+
+#ifdef CONNECTION_ENABLE
+void nvm_eeconfig_read_connection(connection_config_t *config) {
+    config->raw = eeprom_read_byte(EECONFIG_CONNECTION);
+}
+void nvm_eeconfig_update_connection(const connection_config_t *config) {
+    eeprom_update_byte(EECONFIG_CONNECTION, config->raw);
+}
+#endif // CONNECTION_ENABLE
 
 bool nvm_eeconfig_read_handedness(void) {
     return !!eeprom_read_byte(EECONFIG_HANDEDNESS);

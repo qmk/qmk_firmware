@@ -18,7 +18,6 @@
 #include "dynamic_keymap.h"
 #include "keymap_introspection.h"
 #include "action.h"
-#include "eeprom.h"
 #include "send_string.h"
 #include "keycodes.h"
 #include "nvm_eeconfig.h"
