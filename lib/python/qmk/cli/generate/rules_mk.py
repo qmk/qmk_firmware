@@ -10,7 +10,7 @@ from qmk.info import info_json, get_modules
 from qmk.json_schema import json_load
 from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.commands import dump_lines, parse_configurator_json
-from qmk.path import normpath, FileType
+from qmk.path import normpath, unix_style_path, FileType
 from qmk.constants import GPL2_HEADER_SH_LIKE, GENERATED_HEADER_SH_LIKE
 from qmk.community_modules import find_module_path, load_module_jsons
 
@@ -63,7 +63,7 @@ def generate_modules_rules(keyboard, filename):
         lines.append('')
         lines.append('OPT_DEFS += -DCOMMUNITY_MODULES_ENABLE=TRUE')
         for module in modules:
-            module_path = find_module_path(module)
+            module_path = unix_style_path(find_module_path(module))
             if not module_path:
                 raise FileNotFoundError(f"Module '{module}' not found.")
             lines.append('')
@@ -72,6 +72,8 @@ def generate_modules_rules(keyboard, filename):
             lines.append(f'COMMUNITY_MODULE_PATHS += {module_path}')
             lines.append(f'VPATH += {module_path}')
             lines.append(f'SRC += $(wildcard {module_path}/{module_path.name}.c)')
+            lines.append(f'MODULE_NAME_{module_path.name.upper()} := {module_path.name}')
+            lines.append(f'MODULE_PATH_{module_path.name.upper()} := {module_path}')
             lines.append(f'-include {module_path}/rules.mk')
 
         module_jsons = load_module_jsons(modules)

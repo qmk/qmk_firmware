@@ -26,7 +26,7 @@ def _list_defaultish_keymaps(kb):
     defaultish.extend(INVALID_KM_NAMES)
 
     keymaps = set()
-    for x in list_keymaps(kb):
+    for x in list_keymaps(kb, include_userspace=False):
         if x in defaultish or x.startswith('default'):
             keymaps.add(x)
 
@@ -171,6 +171,14 @@ def _handle_invalid_features(kb, info):
     return ok
 
 
+def _handle_invalid_config(kb, info):
+    """Check for invalid keyboard level config
+    """
+    if info.get('url') == "":
+        cli.log.warning(f'{kb}: Invalid keyboard level config detected - Optional field "url" should not be empty.')
+    return True
+
+
 def _chibios_conf_includenext_check(target):
     """Check the ChibiOS conf.h for the correct inclusion of the next conf.h
     """
@@ -255,6 +263,9 @@ def keyboard_check(kb):  # noqa C901
     if not _handle_invalid_features(kb, kb_info):
         ok = False
 
+    if not _handle_invalid_config(kb, kb_info):
+        ok = False
+
     invalid_files = git_get_ignored_files(f'keyboards/{kb}/')
     for file in invalid_files:
         if 'keymap' in file:
@@ -317,10 +328,10 @@ def lint(cli):
     if isinstance(cli.config.lint.keyboard, str):
         # if provided via config - string not array
         keyboard_list = [cli.config.lint.keyboard]
-    elif is_all_keyboards(cli.args.keyboard[0]):
+    elif any(is_all_keyboards(kb) for kb in cli.args.keyboard):
         keyboard_list = list_keyboards()
     else:
-        keyboard_list = cli.config.lint.keyboard
+        keyboard_list = list(set(cli.config.lint.keyboard))
 
     failed = []
 
