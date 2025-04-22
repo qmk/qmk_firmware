@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Mars 8.0",
     "manufacturer": "FT",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x20A0",

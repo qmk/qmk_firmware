@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Kikkou",
     "manufacturer": "Mechwerkes",
-    "url": "",
     "maintainer": "Mechwerkes",
     "usb": {
         "vid": "0x6D65",

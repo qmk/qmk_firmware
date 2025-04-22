@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Falcon",
     "manufacturer": "Matrix Lab",
-    "url": "",
     "maintainer": "yulei (Astro)",
     "usb": {
         "vid": "0x4D58",

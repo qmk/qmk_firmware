@@ -1,7 +1,6 @@
 {
     "keyboard_name": "280",
     "manufacturer": "Noxary",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x4E58",

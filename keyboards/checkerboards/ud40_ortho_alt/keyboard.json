@@ -1,7 +1,6 @@
 {
     "keyboard_name": "UD40_Ortho_Alt",
     "manufacturer": "Nasp",
-    "url": "",
     "maintainer": "nasp",
     "usb": {
         "vid": "0x7070",

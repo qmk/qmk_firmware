@@ -31,7 +31,6 @@
         "rows": ["F0", "F1", "F4", "F5", "F6"]
     },
     "processor": "atmega32u4",
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0000",

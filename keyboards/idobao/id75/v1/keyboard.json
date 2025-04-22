@@ -1,7 +1,6 @@
 {
   "keyboard_name": "ID75",
   "manufacturer": "IDOBAO",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0x6964",

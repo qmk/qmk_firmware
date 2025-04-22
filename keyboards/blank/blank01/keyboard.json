@@ -1,7 +1,6 @@
 {
     "keyboard_name": "BLANK.01",
     "manufacturer": "BLANK",
-    "url": "",
     "maintainer": "gkeyboard",
     "usb": {
         "vid": "0x424C",

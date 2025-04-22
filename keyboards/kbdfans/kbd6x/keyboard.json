@@ -1,7 +1,6 @@
 {
     "keyboard_name": "KBD6X",
     "manufacturer": "KBDfans",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x4B42",

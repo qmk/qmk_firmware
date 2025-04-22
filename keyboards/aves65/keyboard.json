@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Aves65",
     "manufacturer": "I/O Keyboards",
-    "url": "",
     "maintainer": "Hund",
     "usb": {
         "vid": "0x9991",

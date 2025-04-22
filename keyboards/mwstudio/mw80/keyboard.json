@@ -18,7 +18,6 @@
     },
     "processor": "STM32F103",
     "bootloader": "stm32duino",
-    "url": "",
     "indicators": {
         "caps_lock": "A0"
     },

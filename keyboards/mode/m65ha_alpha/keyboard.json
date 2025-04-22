@@ -1,7 +1,6 @@
 {
   "keyboard_name": "SixtyFive HA",
   "manufacturer": "Mode",
-  "url": "",
   "maintainer": "Gondolindrim",
   "usb": {
     "vid": "0x00DE",

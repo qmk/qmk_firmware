@@ -1,7 +1,6 @@
 {
     "keyboard_name": "YMD75 V4",
     "manufacturer": "YMDK",
-    "url": "",
     "maintainer": "zvecr",
     "processor": "STM32F103",
     "bootloader": "uf2boot",

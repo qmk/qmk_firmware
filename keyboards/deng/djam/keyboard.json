@@ -1,7 +1,6 @@
 {
     "keyboard_name": "DJam",
     "manufacturer": "Leo Deng",
-    "url": "",
     "maintainer": "myst729",
     "usb": {
         "vid": "0xDE29",

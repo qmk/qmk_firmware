@@ -37,7 +37,6 @@
     "indicators": {
         "caps_lock": "B4"
     },
-    "url": "",
     "usb": {
         "vid": "0x5453",
         "pid": "0x3830",

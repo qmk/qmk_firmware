@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Ziggurat",
     "manufacturer": "LaminarWoob",
-    "url": "",
     "maintainer": "kb-elmo",
     "usb": {
         "vid": "0x8F5D",

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "BM65HSRGB",
     "manufacturer": "KPrepublic",
-    "url": "",
     "maintainer": "bytesapart",
     "usb": {
         "vid": "0x4B50",

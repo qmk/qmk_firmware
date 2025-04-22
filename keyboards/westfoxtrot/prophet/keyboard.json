@@ -1,7 +1,6 @@
 {
     "keyboard_name": "prophet",
     "manufacturer": "westfoxtrot",
-    "url": "",
     "maintainer": "westfoxtrot",
     "usb": {
         "vid": "0xFF21",

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Sono1",
     "manufacturer": "ASKeyboard",
-    "url": "",
     "maintainer": "DmNosachev",
     "features": {
         "bootmagic": true,

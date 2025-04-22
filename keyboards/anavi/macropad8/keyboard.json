@@ -1,7 +1,6 @@
 {
   "keyboard_name": "Macro Pad 8",
   "manufacturer": "ANAVI",
-  "url": "",
   "maintainer": "leon-anavi",
   "usb": {
       "vid": "0xCEEB",
