@@ -18,8 +18,7 @@
         "nkro": true
     },
     "indicators": {
-        "caps_lock": "GP29",
-        "on_state": 1
+        "caps_lock": "GP29"
     },
     "diode_direction": "COL2ROW",
     "matrix_pins": {
