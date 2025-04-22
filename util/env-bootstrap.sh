@@ -53,6 +53,7 @@
     --skip-qmk-cli            -- Skip installing the QMK CLI
     --skip-qmk-toolchains     -- Skip installing the QMK toolchains
     --skip-qmk-flashutils     -- Skip installing the QMK flashing utilities
+    --skip-windows-drivers    -- Skip installing the Windows drivers for the flashing utilities
 __EOT__
     }
 
@@ -385,6 +386,29 @@ __EOT__
         tar xf "$target_file" -C "$QMK_DISTRIB_DIR/bin"
     }
 
+    install_windows_drivers() {
+        # Get the latest driver installer release from https://github.com/qmk/qmk_driver_installer
+        local latest_driver_installer_release=$(download_url https://api.github.com/repos/qmk/qmk_driver_installer/releases/latest - | grep -oE '"tag_name": "[^"]+' | grep -oE '[^"]+$')
+        # Download the specific release asset
+        local driver_installer_url=$(download_url https://api.github.com/repos/qmk/qmk_driver_installer/releases/tags/$latest_driver_installer_release - | grep -oE '"browser_download_url": "[^"]+"' | grep -oE 'https://[^"]+' | grep '\.exe')
+        if [ -z "$driver_installer_url" ]; then
+            echo "No driver installer found." >&2
+            exit 1
+        fi
+        # Download the driver installer release to the toolchains location
+        echo "Downloading driver installer..." >&2
+        local target_file="$QMK_DISTRIB_DIR/$(basename "$driver_installer_url")"
+        download_url "$driver_installer_url" "$target_file"
+        # Download the drivers list
+        download_url "https://raw.githubusercontent.com/qmk/qmk_firmware/refs/heads/master/util/drivers.txt" "$QMK_DISTRIB_DIR/drivers.txt"
+        # Execute the driver installer
+        cd "$QMK_DISTRIB_DIR"
+        cmd.exe //c "qmk_driver_installer.exe --all --force drivers.txt"
+        cd -
+        # Remove the temporary files
+        rm -f "$QMK_DISTRIB_DIR/qmk_driver_installer.exe" "$QMK_DISTRIB_DIR/drivers.txt" || true
+    }
+
     clean_tarballs() {
         # Clean up the tarballs
         rm -f "$QMK_DISTRIB_DIR"/*.tar.zst || true
@@ -438,6 +462,9 @@ __EOT__
     [ -n "${SKIP_QMK_CLI:-}" ] || install_qmk_cli
     [ -n "${SKIP_QMK_TOOLCHAINS:-}" ] || install_toolchains
     [ -n "${SKIP_QMK_FLASHUTILS:-}" ] || install_flashing_tools
+    if [ "$(uname -o 2>/dev/null || true)" = "Msys" ]; then
+        [ -n "${SKIP_WINDOWS_DRIVERS:-}" ] || install_windows_drivers
+    fi
     clean_tarballs
 
     # Notify the user that they may need to restart their shell to get the `qmk` command
