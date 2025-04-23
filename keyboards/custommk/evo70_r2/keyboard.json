@@ -60,7 +60,6 @@
     "backlight": {
         "driver": "pwm",
         "breathing": true,
-        "breathing_period": 6,
         "levels": 17,
         "pin": "A6"
     },

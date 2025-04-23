@@ -18,7 +18,6 @@
     "diode_direction": "COL2ROW",
     "indicators": {
         "caps_lock": "C7",
-        "on_state": 1,
         "scroll_lock": "B2"
     },
     "processor": "atmega32u4",

@@ -31,8 +31,7 @@
         "cols": ["B1", "C7", "C13", "B9"]
     },
     "indicators": {
-        "num_lock": "C5",
-        "on_state": 1
+        "num_lock": "C5"
     },
     "ws2812": {
         "pin": "A8"
