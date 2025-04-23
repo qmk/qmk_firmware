@@ -8,7 +8,6 @@
         "backlight": true,
         "bootmagic": false,
         "command": false,
-        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": false,

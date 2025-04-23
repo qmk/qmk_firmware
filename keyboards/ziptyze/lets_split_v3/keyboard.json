@@ -8,7 +8,6 @@
     "features": {
         "bootmagic": true,
         "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "rgb_matrix": true

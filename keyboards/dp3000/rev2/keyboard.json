@@ -3,7 +3,6 @@
     "features": {
         "bootmagic": true,
         "command": false,
-        "console": false,
         "extrakey": true,
         "encoder": true,
         "oled": true,

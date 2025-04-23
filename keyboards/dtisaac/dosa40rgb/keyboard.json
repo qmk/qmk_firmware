@@ -72,7 +72,6 @@
         "bluetooth": true,
         "bootmagic": true,
         "command": false,
-        "console": false,
         "extrakey": false,
         "mousekey": false,
         "nkro": false,
