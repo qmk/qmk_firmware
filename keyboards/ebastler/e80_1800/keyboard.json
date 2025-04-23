@@ -17,7 +17,6 @@
         "backlight": true,
         "nkro": true,
         "command": false,
-        "console": false,
         "mousekey": false
     },
     "matrix_pins": {

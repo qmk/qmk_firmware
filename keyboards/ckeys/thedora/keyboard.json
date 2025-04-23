@@ -12,7 +12,6 @@
     "audio": true,
     "bootmagic": true,
     "command": false,
-    "console": false,
     "encoder": true,
     "extrakey": true,
     "midi": true,
