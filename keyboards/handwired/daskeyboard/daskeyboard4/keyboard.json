@@ -31,8 +31,7 @@
     "indicators": {
         "num_lock": "C13",
         "caps_lock": "B14",
-        "scroll_lock": "B2",
-        "on_state": 1
+        "scroll_lock": "B2"
     },
     "encoder": {
         "rotary": [
