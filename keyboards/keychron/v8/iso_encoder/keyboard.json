@@ -10,7 +10,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
         "dip_switch": true,
         "encoder": true,
         "extrakey": true,

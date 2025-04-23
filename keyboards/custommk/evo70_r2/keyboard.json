@@ -6,7 +6,6 @@
     "tags": ["70%", "encoder", "underglow", "backlight"],
     "features": {
         "bootmagic": true,
-        "command": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

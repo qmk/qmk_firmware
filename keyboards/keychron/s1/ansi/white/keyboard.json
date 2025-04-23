@@ -123,7 +123,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
         "dip_switch": true,
         "extrakey": true,
         "led_matrix": true,

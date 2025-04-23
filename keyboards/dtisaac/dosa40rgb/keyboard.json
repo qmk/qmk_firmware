@@ -71,7 +71,6 @@
     "features": {
         "bluetooth": true,
         "bootmagic": true,
-        "command": false,
         "extrakey": false,
         "mousekey": false,
         "nkro": false,

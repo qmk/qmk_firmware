@@ -9,7 +9,6 @@
     },
     "features": {
         "bootmagic": false,
-        "command": false,
         "extrakey": false,
         "mousekey": false,
         "nkro": false,
