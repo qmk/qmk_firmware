@@ -251,6 +251,9 @@ generated-files: $(INTERMEDIATE_OUTPUT)/src/config.h $(INTERMEDIATE_OUTPUT)/src/
 endif
 
 # Community modules
+COMMUNITY_RULES_MK = $(shell $(QMK_BIN) generate-community-modules-rules-mk -kb $(KEYBOARD) --quiet --escape --output $(INTERMEDIATE_OUTPUT)/src/community_rules.mk $(KEYMAP_JSON))
+include $(COMMUNITY_RULES_MK)
+
 $(INTERMEDIATE_OUTPUT)/src/community_modules.h: $(KEYMAP_JSON) $(DD_CONFIG_FILES)
 	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
 	$(eval CMD=$(QMK_BIN) generate-community-modules-h -kb $(KEYBOARD) --quiet --output $(INTERMEDIATE_OUTPUT)/src/community_modules.h $(KEYMAP_JSON))
