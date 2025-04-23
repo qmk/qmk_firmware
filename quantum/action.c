@@ -463,7 +463,7 @@ void process_action(keyrecord_t *record, action_t action) {
                     } else {
                         if (event.pressed) {
                             if (tap_count == 0) {
-                                // Not a tap, but a hold: register the held mod
+                                // Not a tap, but a hold: register the mods, replacing the oneshots
                                 ac_dprintf("MODS_TAP: Oneshot: 0\n");
                                 register_mods(mods);
                                 del_oneshot_mods(mods);

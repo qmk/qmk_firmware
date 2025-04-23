@@ -16,9 +16,7 @@
 
 #include "action_util.h"
 #include "config.h"
-#include "keyboard_report_util.hpp"
 #include "test_common.hpp"
-#include <gtest/gtest.h>
 #include <stdint.h>
 
 using testing::_;
@@ -275,7 +273,7 @@ TEST_F(OneShot, OSMHoldNotLockingOSMs) {
     VERIFY_AND_CLEAR(driver);
 }
 
-TEST_F(OneShot, OSMTapThenHoldNotLockingOSMs) {
+TEST_F(OneShot, OSMTapThenHoldShouldSendEmptyReport) {
     TestDriver driver;
     InSequence s;
     KeymapKey  osm_key     = KeymapKey{0, 0, 0, OSM(MOD_LSFT), KC_LSFT};
@@ -283,36 +281,45 @@ TEST_F(OneShot, OSMTapThenHoldNotLockingOSMs) {
 
     set_keymap({osm_key, regular_key});
 
+    /*
+     * for some reason, none of the OSM keys are registered
+     * */
+
     /* Press and release OSM */
     EXPECT_NO_REPORT(driver);
     tap_key(osm_key);
+    EXPECT_EQ(get_oneshot_mods(), 0x02); // verify oneshots are turned on
     VERIFY_AND_CLEAR(driver);
 
-    /* Press and hold OSM */
-    EXPECT_REPORT(driver, (osm_key.report_code)).Times(1);
+    /* Press OSM */
+    EXPECT_NO_REPORT(driver);
     osm_key.press();
-    run_one_scan_loop();
-    idle_for(TAPPING_TERM);
-    // EXPECT_EQ(get_oneshot_mods(), b02); // one shot mods should be disabled
+    run_one_scan_loop(); // not yet registered
     VERIFY_AND_CLEAR(driver);
 
-    /* Release OSM1 */
-    EXPECT_EMPTY_REPORT(driver);
+    /* Hold OSM */
+    EXPECT_REPORT(driver, (osm_key.report_code)).Times(1); // report should be send now
+    idle_for(TAPPING_TERM);
+    EXPECT_EQ(get_oneshot_mods(), 0x00); // key registered as hold, OSM should be disabled
+    VERIFY_AND_CLEAR(driver);
+
+    /* Release OSM */
+    EXPECT_EMPTY_REPORT(driver); // key released so we expect empty report (i.e. no key pressed)
     osm_key.release();
     run_one_scan_loop();
-    // EXPECT_EQ(get_oneshot_mods(), 0); // one shot mods should be disabled
+    EXPECT_EQ(get_oneshot_mods(), 0x00); // one shot mods should still be disabled
     VERIFY_AND_CLEAR(driver);
 
     /* Press regular key */
-    EXPECT_REPORT(driver, (regular_key.report_code)).Times(1); // no mod
     regular_key.press();
     run_one_scan_loop();
+    EXPECT_REPORT(driver, (regular_key.report_code)).Times(1); // should not be modded
     VERIFY_AND_CLEAR(driver);
 
     /* Release regular key */
-    EXPECT_EMPTY_REPORT(driver);
     regular_key.release();
     run_one_scan_loop();
+    EXPECT_EMPTY_REPORT(driver);
     VERIFY_AND_CLEAR(driver);
 }
 
