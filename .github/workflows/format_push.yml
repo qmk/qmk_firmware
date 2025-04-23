@@ -39,7 +39,7 @@ jobs:
         qmk format-text -a
         git diff
 
-    - uses: rlespinasse/github-slug-action@v3.x
+    - uses: rlespinasse/github-slug-action@v5
 
     - name: Become QMK Bot
       run: |
