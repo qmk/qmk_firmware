@@ -36,8 +36,8 @@ typedef union {
         bool right_shift : 1;
         bool right_alt : 1;
         bool right_gui : 1;
-    } PACKED;
-} mod_t;
+    };
+} PACKED mod_t;
 _Static_assert(sizeof(mod_t) == sizeof(uint8_t), "Invalid size for 'mod_t'");
 
 extern report_keyboard_t *keyboard_report;
