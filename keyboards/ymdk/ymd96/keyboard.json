@@ -12,7 +12,6 @@
         "backlight": true,
         "bootmagic": false,
         "command": false,
-        "console": false,
         "extrakey": true,
         "key_lock": true,
         "mousekey": false,

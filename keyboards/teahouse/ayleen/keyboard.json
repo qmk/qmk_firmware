@@ -10,7 +10,6 @@
         "rgblight": true,
       "bootmagic": false,
       "command": false,
-      "console": false,
       "extrakey": true,
       "mousekey": true,
       "nkro": true
