@@ -36,7 +36,6 @@
   "features": {
     "backlight": true,
     "bootmagic": false,
-    "command": false,
     "extrakey": true,
     "mousekey": true,
     "nkro": true,

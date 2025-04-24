@@ -13,8 +13,7 @@
         "bootmagic": true,
         "nkro": false,
         "mousekey": false,
-        "extrakey": true,
-        "command": false
+        "extrakey": true
     },
     "qmk": {
         "locking": {

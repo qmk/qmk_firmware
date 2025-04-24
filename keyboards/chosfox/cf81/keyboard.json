@@ -22,7 +22,6 @@
         "bootmagic": true,
         "mousekey": false,
         "extrakey": true,
-        "command": false,
         "nkro": true,
         "encoder": true,
         "rgb_matrix": true

@@ -7,7 +7,6 @@
     "features": {
         "backlight": true,
         "bootmagic": false,
-        "command": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": false,
