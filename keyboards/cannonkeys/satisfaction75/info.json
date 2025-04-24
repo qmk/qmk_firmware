@@ -19,6 +19,12 @@
         "nkro": true,
         "oled": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "processor": "STM32F072",
     "url": "https://cannonkeys.com",
     "usb": {

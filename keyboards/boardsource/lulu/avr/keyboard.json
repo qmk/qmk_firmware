@@ -1,0 +1,23 @@
+{
+  "build": {
+    "lto": true
+  },
+  "development_board": "elite_c",
+  "matrix_pins": {
+    "cols": ["F6", "F7", "B1", "B3", "B2", "B6"],
+    "rows": ["C6", "D7", "E6", "B4", "B5"]
+  },
+  "split": {
+    "serial": {
+      "pin": "D2"
+    }
+  },
+  "ws2812": {
+     "pin": "D3"
+  },
+  "encoder": {
+    "rotary": [
+      {"pin_a": "F4", "pin_b": "F5"}
+    ]
+  }
+}

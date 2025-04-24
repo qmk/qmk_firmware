@@ -11,7 +11,7 @@ RGB_MATRIX_EFFECT(SOLID_REACTIVE_MULTINEXUS)
 
 #        ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-static HSV SOLID_REACTIVE_NEXUS_math(HSV hsv, int16_t dx, int16_t dy, uint8_t dist, uint16_t tick) {
+static hsv_t SOLID_REACTIVE_NEXUS_math(hsv_t hsv, int16_t dx, int16_t dy, uint8_t dist, uint16_t tick) {
     uint16_t effect = tick - dist;
     if (effect > 255) effect = 255;
     if (dist > 72) effect = 255;

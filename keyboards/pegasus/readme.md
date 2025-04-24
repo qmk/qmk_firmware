@@ -5,8 +5,6 @@
 Pegasus is a 40% keyboard with a 12.75u "WKL" layout with 0.75u blockers. 
 
 * Keyboard Maintainer: [melonbred](https://github.com/melonbred)
-* Hardware Supported: The PCBs, controllers supported
-* Hardware Availability: Links to where you can find this hardware
 
 Make example for this keyboard (after setting up your build environment):
 

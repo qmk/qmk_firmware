@@ -1,0 +1,31 @@
+{
+    "manufacturer": "Syenasweta",
+    "keyboard_name": "SyenaKeyboards Elaruus",
+    "maintainer": "syenasweta",
+    "bootloader": "rp2040",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true
+    },
+    "matrix_pins": {
+        "cols": ["GP21", "GP19"],
+        "rows": ["GP10"]
+    },
+    "processor": "RP2040",
+    "url": "https://github.com/syenasweta/syenakeyboards",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x6172",
+        "vid": "0x5373"
+    },
+    "layouts": {
+        "LAYOUT_ortho_1x2": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0}
+            ]
+        }
+    }
+}

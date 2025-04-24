@@ -1,0 +1,26 @@
+{
+    "build": {
+        "lto": true
+    },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": false,
+        "nkro": true
+    },
+    "matrix_pins": {
+        "cols": ["C4", "C5", "B0", "B1", "B2", "B10", "B11", "B12", "B13", "B14", "B15", "C6", "C7", "C10", "C11", "C12"],
+        "rows": ["A0", "A1", "A2", "A3", "A4", "A5", "A6"]
+    },
+    "diode_direction": "ROW2COL",
+    "indicators": {
+        "caps_lock": "C9",
+        "scroll_lock": "A8",
+        "on_state": 0
+    },
+    "processor": "STM32F072", // F070
+    "bootloader": "stm32-dfu",
+    "board": "DURGOD_STM32_F070"
+}

@@ -1,0 +1,8 @@
+{
+    "matrix_pins": {
+        "cols": ["F5", "F6", "F7", "B1", "B3", "B6", "E6", "D7", "C6", "D4", "D0"],
+        "rows": ["F4", "B2", "B4", "B5"]
+    },
+    "diode_direction": "COL2ROW",
+    "development_board": "promicro"
+}

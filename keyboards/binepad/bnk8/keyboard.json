@@ -1,0 +1,88 @@
+{
+    "manufacturer": "binepad",
+    "keyboard_name": "BNK8",
+    "maintainer": "binepad",
+    "bootloader": "stm32duino",
+    "bootloader_instructions": "Hold down the key at (0x0) in the matrix (the top left key) and plug in the keyboard.",
+    "diode_direction": "COL2ROW",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "A7", "pin_b": "A0", "resolution": 2}
+        ]
+    },
+    "features": {
+        "bootmagic": true,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgb_matrix": true
+    },
+    "matrix_pins": {
+        "cols": ["B3", "B4", "C13"],
+        "rows": ["C14", "B13", "B12"]
+    },
+    "processor": "STM32F103",
+    "rgb_matrix": {
+        "animations": {
+            "breathing": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_pinwheel": true,
+            "cycle_up_down": true,
+            "jellybean_raindrops": true,
+            "riverflow": true,
+            "solid_reactive": true,
+            "solid_reactive_simple": true,
+            "solid_splash": true,
+            "splash": true,
+            "starlight": true,
+            "starlight_dual_hue": true,
+            "starlight_dual_sat": true
+        },
+        "driver": "ws2812",
+        "layout": [
+            {"matrix": [0, 0], "x": 80, "y": 0, "flags": 4},
+            {"matrix": [0, 1], "x": 112, "y": 0, "flags": 4},
+            {"matrix": [1, 0], "x": 80, "y": 32, "flags": 4},
+            {"matrix": [1, 1], "x": 112, "y": 32, "flags": 4},
+            {"matrix": [1, 2], "x": 144, "y": 32, "flags": 4},
+            {"matrix": [2, 0], "x": 80, "y": 64, "flags": 4},
+            {"matrix": [2, 1], "x": 112, "y": 64, "flags": 4},
+            {"matrix": [2, 2], "x": 144, "y": 64, "flags": 4}
+        ],
+        "led_process_limit": 9,
+        "max_brightness": 180,
+        "sleep": true
+    },
+    "url": "https://www.binepad.com/product-page/bnk8",
+    "usb": {
+        "device_version": "1.0.0",
+        "vid": "0x4249",
+        "pid": "0x4E41"
+    },
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 1024
+        }
+    },
+    "ws2812": {
+        "pin": "C15"
+    },
+    "community_layouts": ["ortho_3x3"],
+    "layouts": {
+        "LAYOUT_ortho_3x3": {
+            "layout": [
+                {"label": "1", "matrix": [0, 0], "x": 0, "y": 0},
+                {"label": "2", "matrix": [0, 1], "x": 1, "y": 0},
+                {"label": "Knob", "matrix": [0, 2], "x": 2, "y": 0, "encoder": 0},
+                {"label": "3", "matrix": [1, 0], "x": 0, "y": 1},
+                {"label": "4", "matrix": [1, 1], "x": 1, "y": 1},
+                {"label": "5", "matrix": [1, 2], "x": 2, "y": 1},
+                {"label": "6", "matrix": [2, 0], "x": 0, "y": 2},
+                {"label": "7", "matrix": [2, 1], "x": 1, "y": 2},
+                {"label": "8", "matrix": [2, 2], "x": 2, "y": 2}
+            ]
+        }
+    }
+}

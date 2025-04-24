@@ -1,6 +1,8 @@
 # Userspace: Sharing Code Between Keymaps
 
-!> Please note, userspace submissions to the upstream `qmk/qmk_firmware` repository are no longer being accepted. The userspace feature itself remains functional and can be configured locally.
+::: warning
+Please note, userspace submissions to the upstream `qmk/qmk_firmware` repository are no longer being accepted. The userspace feature itself remains functional and can be configured locally.
+:::
 
 If you use more than one keyboard with a similar keymap, you might see the benefit in being able to share code between them. Create your own folder in `users/` named the same as your keymap (ideally your GitHub username, `<name>`) with the following structure:
 
@@ -24,7 +26,9 @@ For example,
 
 Will include the `/users/jack/` folder in the path, along with `/users/jack/rules.mk`.  
 
-!> This `name` can be [overridden](#override-default-userspace), if needed.  
+::: warning
+This `name` can be [overridden](#override-default-userspace), if needed.  
+:::
 
 ## `Rules.mk`
 
@@ -56,7 +60,7 @@ endif
 
 ### Override default userspace
 
-By default the userspace used will be the same as the keymap name. In some situations this isn't desirable. For instance, if you use the [layout](feature_layouts.md) feature you can't use the same name for different keymaps (e.g. ANSI and ISO). You can name your layouts `mylayout-ansi` and `mylayout-iso` and add the following line to your layout's `rules.mk`:
+By default the userspace used will be the same as the keymap name. In some situations this isn't desirable. For instance, if you use the [layout](feature_layouts) feature you can't use the same name for different keymaps (e.g. ANSI and ISO). You can name your layouts `mylayout-ansi` and `mylayout-iso` and add the following line to your layout's `rules.mk`:
 
 ```
 USER_NAME := mylayout
@@ -70,8 +74,9 @@ Additionally, `config.h` here will be processed like the same file in your keyma
 
 The reason for this, is that `<name>.h` won't be added in time to add settings (such as `#define TAPPING_TERM 100`), and including the `<name.h>` file in any `config.h` files will result in compile issues.
 
-!>You should use the `config.h` for [configuration options](config_options.md), and the `<name>.h` file for user or keymap specific settings (such as the enum for layer or keycodes)
-
+::: warning
+You should use the `config.h` for [configuration options](config_options), and the `<name>.h` file for user or keymap specific settings (such as the enum for layer or keycodes)
+:::
 
 ## Readme (`readme.md`)
 
@@ -119,12 +124,12 @@ For a more complicated example, checkout [`/users/drashna/`](https://github.com/
 
 ### Customized Functions
 
-QMK has a bunch of [functions](custom_quantum_functions.md) that have [`_quantum`, `_kb`, and `_user` versions](custom_quantum_functions.md#a-word-on-core-vs-keyboards-vs-keymap) that you can use.  You will pretty much always want to use the user version of these functions.  But the problem is that if you use them in your userspace, then you don't have a version that you can use in your keymap. 
+QMK has a bunch of [functions](custom_quantum_functions) that have [`_quantum`, `_kb`, and `_user` versions](custom_quantum_functions#a-word-on-core-vs-keyboards-vs-keymap) that you can use.  You will pretty much always want to use the user version of these functions.  But the problem is that if you use them in your userspace, then you don't have a version that you can use in your keymap. 
 
 However, you can actually add support for keymap version, so that you can use it in both your userspace and your keymap! 
 
 
-For instance, let's look at the `layer_state_set_user()` function.  You can enable the [Tri Layer State](ref_functions.md#olkb-tri-layers) functionality on all of your boards, while also retaining the Tri Layer functionality in your `keymap.c` files. 
+For instance, let's look at the `layer_state_set_user()` function.  You can enable the [Tri Layer State](ref_functions#olkb-tri-layers) functionality on all of your boards, while also retaining the Tri Layer functionality in your `keymap.c` files. 
 
 In your `<name.c>` file, you'd want to add this: 
 ```c
@@ -254,4 +259,6 @@ Also, holding Shift will add the flash target (`:flash`) to the command.  Holdin
 
 And for the boards that lack a shift key, or that you want to always attempt the flashing part, you can add `FLASH_BOOTLOADER = yes` to the `rules.mk` of that keymap.
 
-?> This should flash the newly compiled firmware automatically, using the correct utility, based on the bootloader settings (or default to just generating the HEX file). However, it should be noted that this may not work on all systems. AVRDUDE doesn't work on WSL, namely.
+::: tip
+This should flash the newly compiled firmware automatically, using the correct utility, based on the bootloader settings (or default to just generating the HEX file). However, it should be noted that this may not work on all systems. AVRDUDE doesn't work on WSL, namely.
+:::

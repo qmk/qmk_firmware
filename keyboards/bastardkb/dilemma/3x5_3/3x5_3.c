@@ -18,7 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
+#include "dilemma.h"
 
 #ifdef ENCODER_ENABLE
 bool encoder_update_kb(uint8_t index, bool clockwise) {
@@ -51,36 +51,36 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 
     uint8_t layer = get_highest_layer(layer_state);
     if (layer > 0) {
-        HSV hsv = rgb_matrix_get_hsv();
+        hsv_t hsv = rgb_matrix_get_hsv();
         switch (get_highest_layer(layer_state)) {
             case 1:
-                hsv = (HSV){HSV_BLUE};
+                hsv = (hsv_t){HSV_BLUE};
                 break;
             case 2:
-                hsv = (HSV){HSV_AZURE};
+                hsv = (hsv_t){HSV_AZURE};
                 break;
             case 3:
-                hsv = (HSV){HSV_ORANGE};
+                hsv = (hsv_t){HSV_ORANGE};
                 break;
             case 4:
-                hsv = (HSV){HSV_GREEN};
+                hsv = (hsv_t){HSV_GREEN};
                 break;
             case 5:
-                hsv = (HSV){HSV_TEAL};
+                hsv = (hsv_t){HSV_TEAL};
                 break;
             case 6:
-                hsv = (HSV){HSV_PURPLE};
+                hsv = (hsv_t){HSV_PURPLE};
                 break;
             case 7:
             default:
-                hsv = (HSV){HSV_RED};
+                hsv = (hsv_t){HSV_RED};
                 break;
         };
 
         if (hsv.v > rgb_matrix_get_val()) {
             hsv.v = MIN(rgb_matrix_get_val() + 22, 255);
         }
-        RGB rgb = hsv_to_rgb(hsv);
+        rgb_t rgb = hsv_to_rgb(hsv);
 
         for (uint8_t i = led_min; i < led_max; i++) {
             if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)) {

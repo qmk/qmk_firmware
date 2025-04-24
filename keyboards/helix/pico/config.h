@@ -24,11 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SERIAL_SLAVE_BUFFER_LENGTH  ((MATRIX_ROWS)/2)
 #define SERIAL_MASTER_BUFFER_LENGTH ((MATRIX_ROWS)/2)
 
-/* Select hand configuration */
-#define MASTER_LEFT
-// #define MASTER_RIGHT
-// #define EE_HANDS
-
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS 8

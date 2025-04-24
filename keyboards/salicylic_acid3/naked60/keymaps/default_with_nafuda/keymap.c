@@ -109,15 +109,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT_with_nafuda( /* Base */
   //,-----------------------------------------------------|                 |-----------------------------------------------------.      |--------------------------|
-   TG(_FLOCK),   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,                 RGB_VAD,
+   TG(_FLOCK),   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,                 UG_VALD,
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |--------+--------+--------|
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, KC_BTN1, KC_MS_U, KC_BTN2, XXXXXXX,LALT(KC_PSCR),   _ADJUST, RGB_SAD, RGB_VAI,
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, KC_BTN1, KC_MS_U, KC_BTN2, XXXXXXX,LALT(KC_PSCR),   _ADJUST, UG_SATD, UG_VALU,
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |--------+--------+--------|
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, KC_PSCR,        RGB_MOD, RGB_TOG, RGB_SAI,
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, KC_PSCR,        UG_NEXT, UG_TOGG, UG_SATU,
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |--------------------------|
       _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,LCA(KC_DEL),
   //|--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
-               _______, _______, _______, _______, _______,   QK_BOOT,   QK_BOOT, _______, _______, _______, _______, _______
+               _______, _______, _______, _______, _______, QK_BOOT, QK_BOOT, _______, _______, _______, _______, _______
           //`------------------------------------------------------------------------------------------------------------'
   )
 };
@@ -128,7 +128,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   bool result = false;
   switch (keycode) {
     #ifdef RGBLIGHT_ENABLE
-      case RGB_MOD:
+      case QK_UNDERGLOW_MODE_NEXT:
           if (record->event.pressed) {
             rgblight_mode(RGB_current_mode);
             rgblight_step();
@@ -149,8 +149,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   return result;
-}
-
-void matrix_init_user(void) {
-
 }

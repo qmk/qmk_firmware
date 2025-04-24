@@ -14,12 +14,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
+#include "tractyl_manuform.h"
 
-void keyboard_pre_init_sub(void) { setPinInputHigh(A0); }
+void keyboard_pre_init_sub(void) { gpio_set_pin_input_high(A0); }
 
 void matrix_scan_sub_kb(void) {
-    if (!readPin(A0)) {
+    if (!gpio_read_pin(A0)) {
         reset_keyboard();
     }
 }
@@ -44,7 +44,7 @@ __attribute__((weak)) void bootmagic_scan(void) {
     }
 #endif
 
-    if (matrix_get_row(row) & (1 << col) || !readPin(A0)) {
+    if (matrix_get_row(row) & (1 << col) || !gpio_read_pin(A0)) {
         eeconfig_disable();
         bootloader_jump();
     }
@@ -53,9 +53,9 @@ __attribute__((weak)) void bootmagic_scan(void) {
 
 #ifdef USB_VBUS_PIN
 bool usb_vbus_state(void) {
-    setPinInputLow(USB_VBUS_PIN);
+    gpio_set_pin_input_low(USB_VBUS_PIN);
     wait_us(5);
-    return readPin(USB_VBUS_PIN);
+    return gpio_read_pin(USB_VBUS_PIN);
 }
 #endif
 

@@ -1,0 +1,64 @@
+{
+    "manufacturer": "suikagiken",
+    "keyboard_name": "suika27melo",
+    "maintainer": "suikagiken",
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "midi": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "matrix_pins": {
+        "cols": ["F0", "B4", "B5", "D7", "B6", "D6", "C6", "C7", "D0"],
+        "rows": ["F1", "F4", "D1", "D2"]
+    },
+    "url": "https://github.com/suikagiken/suika27melo",
+    "usb": {
+        "device_version": "1.1.0",
+        "vid": "0x4B48",
+        "pid": "0x0201"
+    },
+    "build": {
+        "debounce_type": "sym_eager_pk"
+    },
+    "debounce": 50,
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix":[0, 0], "x":0, "y":0},
+                {"matrix":[0, 1], "x":2, "y":0},
+                {"matrix":[0, 2], "x":3, "y":0},
+                {"matrix":[0, 4], "x":5, "y":0},
+                {"matrix":[0, 5], "x":6, "y":0},
+                {"matrix":[0, 6], "x":7, "y":0},
+                {"matrix":[2, 1], "x":9, "y":0},
+                {"matrix":[2, 2], "x":10, "y":0},
+                {"matrix":[2, 4], "x":12, "y":0},
+                {"matrix":[2, 5], "x":13, "y":0},
+                {"matrix":[2, 6], "x":14, "y":0},
+                {"matrix":[1, 0], "x":0, "y":1},
+                {"matrix":[1, 1], "x":1.5, "y":1},
+                {"matrix":[1, 2], "x":2.5, "y":1},
+                {"matrix":[1, 3], "x":3.5, "y":1},
+                {"matrix":[1, 4], "x":4.5, "y":1},
+                {"matrix":[1, 5], "x":5.5, "y":1},
+                {"matrix":[1, 6], "x":6.5, "y":1},
+                {"matrix":[1, 7], "x":7.5, "y":1},
+                {"matrix":[3, 1], "x":8.5, "y":1},
+                {"matrix":[3, 2], "x":9.5, "y":1},
+                {"matrix":[3, 3], "x":10.5, "y":1},
+                {"matrix":[3, 4], "x":11.5, "y":1},
+                {"matrix":[3, 5], "x":12.5, "y":1},
+                {"matrix":[3, 6], "x":13.5, "y":1},
+                {"matrix":[3, 7], "x":14.5, "y":1},
+                {"matrix":[3, 8], "x":15.5, "y":1}
+           ]
+        }
+    }
+}
