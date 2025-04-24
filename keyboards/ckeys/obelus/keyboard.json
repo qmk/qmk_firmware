@@ -10,7 +10,6 @@
   "features": {
     "audio": true,
     "bootmagic": false,
-    "command": false,
     "extrakey": true,
     "midi": true,
     "mousekey": false,

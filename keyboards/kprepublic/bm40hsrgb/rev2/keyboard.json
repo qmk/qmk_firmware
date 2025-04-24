@@ -9,7 +9,6 @@
         "rgblight": true,
         "rgb_matrix": true,
         "tri_layer": true,
-        "command": false,
         "nkro": false
     },
     "build": {

@@ -31,7 +31,6 @@
     "features": {
         "audio": true,
         "bootmagic": true,
-        "command": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false,

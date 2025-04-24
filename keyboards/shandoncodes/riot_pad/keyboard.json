@@ -6,7 +6,6 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "command": false,
         "nkro": true,
         "rgblight": true,
         "extrakey": true

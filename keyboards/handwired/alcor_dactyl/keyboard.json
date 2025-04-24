@@ -10,7 +10,6 @@
         "vid": "0xFEED"
     },
     "features": {
-        "command": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

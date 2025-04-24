@@ -36,7 +36,6 @@
         "bootmagic": false,
         "mousekey": false,
         "nkro": false,
-        "command": false,
         "backlight": false
     },
     "build": {

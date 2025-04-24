@@ -4,7 +4,6 @@
     "maintainer": "marksard",
     "features": {
         "bootmagic": false,
-        "command": false,
         "extrakey": false,
         "mousekey": true,
         "nkro": false

@@ -18,7 +18,6 @@
         "bootmagic": true,
         "mousekey": false,
         "extrakey": true,
-        "command": false,
         "nkro": true,
         "rgb_matrix": true
     },
