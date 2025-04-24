@@ -8,7 +8,6 @@
     "bootloader": "atmel-dfu",
     "features": {
         "bootmagic": true,
-        "command": false,
         "extrakey": false,
         "mousekey": false,
         "nkro": true,

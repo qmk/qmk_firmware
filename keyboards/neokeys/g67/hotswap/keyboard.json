@@ -9,7 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
         "extrakey": true,
         "key_lock": true,
         "mousekey": true,

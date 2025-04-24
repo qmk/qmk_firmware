@@ -7,7 +7,6 @@
     "bootloader_instructions": "Short marked pads on PCB, or hold top left key when plugging in.",
     "features": {
         "bootmagic": true,
-        "command": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false,

@@ -9,7 +9,6 @@
     },
     "features": {
         "bootmagic": false,
-        "command": false,
         "console": true,
         "dynamic_macro": true,
         "encoder": true,

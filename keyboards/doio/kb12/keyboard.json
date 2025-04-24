@@ -93,7 +93,6 @@
     "bootloader": "stm32duino",
     "features": {
         "bootmagic": true,
-        "command": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

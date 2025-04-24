@@ -6,7 +6,6 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": false,
-        "command": false,
         "console": true,
         "extrakey": true,
         "mousekey": true,

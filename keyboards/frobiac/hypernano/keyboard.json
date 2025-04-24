@@ -8,7 +8,6 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": false,
-        "command": false,
         "dynamic_macro": true,
         "extrakey": true,
         "mousekey": true,

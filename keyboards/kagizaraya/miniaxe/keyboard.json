@@ -37,7 +37,6 @@
     "bootloader": "atmel-dfu",
     "features": {
         "bootmagic": false,
-        "command": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false
