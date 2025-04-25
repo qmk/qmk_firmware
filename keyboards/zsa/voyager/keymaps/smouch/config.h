@@ -30,7 +30,7 @@
 #define QUICK_TAP_TERM 0
 
 // Apply the modifier on keys that are tapped during a short hold of a modtap
-#define PERMISSIVE_HOLD_PER_KEY
+#define PERMISSIVE_HOLD
 // #define PERMISSIVE_HOLD_PER_KEY
 
 // Opposite hands rule for HRM. Prevents misfires on same hand rolls.
