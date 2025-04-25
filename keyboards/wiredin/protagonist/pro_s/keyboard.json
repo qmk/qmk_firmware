@@ -50,7 +50,7 @@
      },
      "processor": "STM32F411",
      "bootloader": "stm32-dfu",
-    "community_layouts": ["60_ansi_tsangan", "60_ansi_tsangan_split_bs_rshift", "60_ansi_wkl", "60_ansi_wkl_split_bs_rshift", "60_hhkb", "60_hhkb_unsplit", "60_iso_tsangan", "60_iso_tsangan_split_bs_rshift", "60_iso_wkl", "60_iso_wkl_split_bs_rshift"],
+    "community_layouts": ["60_ansi_tsangan", "60_ansi_tsangan_split_bs_rshift", "60_ansi_wkl", "60_ansi_wkl_split_bs_rshift", "60_hhkb", "60_hhkb_split_bs_rshift", "60_iso_tsangan", "60_iso_tsangan_split_bs_rshift", "60_iso_wkl", "60_iso_wkl_split_bs_rshift"],
      "layouts": {
          "LAYOUT_all": {
              "layout": [
@@ -438,7 +438,7 @@
              {"matrix":[4,11], "x":12.5, "y":4}
              ]
          },
-         "LAYOUT_60_hhkb_unsplit": {
+         "LAYOUT_60_hhkb_split_bs_rshift": {
              "layout": [
              {"matrix":[0,0], "x":0, "y":0}, 
              {"matrix":[0,1], "x":1, "y":0}, 
