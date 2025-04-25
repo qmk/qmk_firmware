@@ -161,11 +161,11 @@ void action_tapping_process(keyrecord_t record) {
     if (IS_EVENT(record.event)) {
         ac_dprintf("\n");
     } else {
-#   ifdef FLOW_TAP_TERM
+#    ifdef FLOW_TAP_TERM
         if (!flow_tap_expired && TIMER_DIFF_16(record.event.time, flow_tap_prev_time) >= INT16_MAX / 2) {
             flow_tap_expired = true;
         }
-#   endif // FLOW_TAP_TERM
+#    endif // FLOW_TAP_TERM
     }
 }
 
@@ -294,7 +294,7 @@ bool process_tapping(keyrecord_t *keyp) {
                     // Flow Tap applies to following yet-unsettled keys.
                     uint16_t prev_time = tapping_key.event.time;
                     for (; waiting_buffer_tail != waiting_buffer_head; waiting_buffer_tail = (waiting_buffer_tail + 1) % WAITING_BUFFER_SIZE) {
-                        keyrecord_t* record = &waiting_buffer[waiting_buffer_tail];
+                        keyrecord_t *record = &waiting_buffer[waiting_buffer_tail];
                         if (!record->event.pressed) {
                             break;
                         }
