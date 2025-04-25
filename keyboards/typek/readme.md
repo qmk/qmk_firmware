@@ -1,6 +1,6 @@
 # gok TypeK QMK Firmware Folder
 
-![TK](https://i.imgur.com/0ZEbEZth.jpg)
+![TK](https://i.imgur.com/0ZEbEZt.jpg)
 
 ## Introduction
 

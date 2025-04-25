@@ -27,6 +27,7 @@ bool led_update_kb(led_t led_state) {
 
 // This function is called when layers change
 layer_state_t layer_state_set_kb(layer_state_t state) {
+    state = layer_state_set_user(state);
     switch(get_highest_layer(state)) {
         case 1:   
             rgblight_setrgb_at(RGB_GREEN, 1);
