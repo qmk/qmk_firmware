@@ -290,6 +290,8 @@ bool process_tapping(keyrecord_t *keyp) {
                     keyp->tap = tapping_key.tap;
 
 #    if defined(FLOW_TAP_TERM)
+                    // Now that tapping_key has settled as tapped, check whether
+                    // Flow Tap applies to following yet-unsettled keys.
                     uint16_t prev_time = tapping_key.event.time;
                     for (; waiting_buffer_tail != waiting_buffer_head; waiting_buffer_tail = (waiting_buffer_tail + 1) % WAITING_BUFFER_SIZE) {
                         keyrecord_t* record = &waiting_buffer[waiting_buffer_tail];
@@ -820,10 +822,6 @@ void flow_tap_update_last_event(keyrecord_t *record) {
     const uint16_t keycode = get_record_keycode(record, false);
     // Don't update while a tap-hold key is unsettled.
     if (record->tap.count == 0 && (waiting_buffer_tail != waiting_buffer_head || (tapping_key.event.pressed && tapping_key.tap.count == 0))) {
-        ac_dprintf("flow tap not updated ");
-        debug_waiting_buffer();
-        debug_tapping_key();
-        ac_dprintf("\n");
         return;
     }
     // Ignore releases of modifiers and held layer switches.
@@ -860,7 +858,6 @@ void flow_tap_update_last_event(keyrecord_t *record) {
     flow_tap_expired      = false;
 }
 
-/* static bool flow_tap_key_if_within_term(keyrecord_t *record) { */
 static bool flow_tap_key_if_within_term(keyrecord_t *record, uint16_t prev_time) {
     const uint16_t idle_time = TIMER_DIFF_16(record->event.time, prev_time);
     if (flow_tap_expired || idle_time >= 500) {
