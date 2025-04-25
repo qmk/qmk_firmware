@@ -75,7 +75,7 @@ host_driver_t *host_get_driver(void) {
 }
 
 static host_driver_t *host_get_active_driver(void) {
-#ifdef OUTPUTSELECT_ENABLE
+#ifdef CONNECTION_ENABLE
     switch (connection_get_host()) {
 #    ifdef BLUETOOTH_ENABLE
         case CONNECTION_HOST_BLUETOOTH:
