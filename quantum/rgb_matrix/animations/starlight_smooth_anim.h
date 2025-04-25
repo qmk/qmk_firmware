@@ -1,3 +1,6 @@
+// Copyright 2022 @art-was-here
+// SPDX-License-Identifier: GPL-2.0+
+
 #ifdef ENABLE_RGB_MATRIX_STARLIGHT_SMOOTH
 RGB_MATRIX_EFFECT(STARLIGHT_SMOOTH)
 #    ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
