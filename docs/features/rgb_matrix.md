@@ -194,7 +194,7 @@ You can enable a single effect by defining `ENABLE_[EFFECT_NAME]` in your `confi
 |`#define ENABLE_RGB_MATRIX_PIXEL_FLOW`                |Enables `RGB_MATRIX_PIXEL_FLOW`               |
 |`#define ENABLE_RGB_MATRIX_PIXEL_RAIN`                |Enables `RGB_MATRIX_PIXEL_RAIN`               |
 |`#define ENABLE_RGB_MATRIX_STARLIGHT`                 |Enables `RGB_MATRIX_STARLIGHT`                |
-|`#define ENABLE_RGB_MATRIX_STARLIGHT_SMOOTH`          |Enables `RGB_MATRIX_STARLIGHT_SMOOTH          |
+|`#define ENABLE_RGB_MATRIX_STARLIGHT_SMOOTH`          |Enables `RGB_MATRIX_STARLIGHT_SMOOTH`         |
 |`#define ENABLE_RGB_MATRIX_STARLIGHT_DUAL_HUE`        |Enables `RGB_MATRIX_STARLIGHT_DUAL_HUE`       |
 |`#define ENABLE_RGB_MATRIX_STARLIGHT_DUAL_SAT`        |Enables `RGB_MATRIX_STARLIGHT_DUAL_SAT`       |
 |`#define ENABLE_RGB_MATRIX_RIVERFLOW`                 |Enables `RGB_MATRIX_RIVERFLOW`                |
