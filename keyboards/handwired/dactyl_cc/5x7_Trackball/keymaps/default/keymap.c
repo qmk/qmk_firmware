@@ -13,7 +13,7 @@
 
 //Pointing Device Scrolling
 enum custom_keycodes {
-    DRAG_SCROLL = SAFE_RANGE,
+    DRAG_SCROLL = QK_USER_0,
 };
 
 bool set_scrolling = false;
