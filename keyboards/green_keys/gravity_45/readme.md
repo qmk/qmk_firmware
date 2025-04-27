@@ -1,4 +1,4 @@
-# green_keys/gravity_45
+# Gravity-45
 
 ![green_keys/gravity_45](https://i.imgur.com/FTyC65h.jpeg)
 
@@ -9,10 +9,10 @@ The tight PCB outline lines allow for easy case design.
 
 ---
 
-Gravity-45 は 45キーの一体型のキーボードだ。
-MCUにはWaveshare RP2040-Zeroを採用している。
-キースイッチソケットを使用するためキースイッチの交換が容易に行える。
-PCBの外形線がタイトなので、ケースの設計が容易だ。
+Gravity-45 は 45キーの一体型のキーボードだ。  
+MCUにはWaveshare RP2040-Zeroを採用している。  
+キースイッチソケットを使用するためキースイッチの交換が容易に行える。  
+PCBの外形線がタイトなので、ケースの設計が容易だ。  
 
 * Keyboard Maintainer: [takashicompany](https://github.com/takashicompany)
 * Hardware Supported: PCB, Waveshare RP2040-Zero
