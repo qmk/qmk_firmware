@@ -32,6 +32,9 @@
     "split": {
         "enabled": true,
         "soft_serial_pin": "D0",
+        "transport": {
+            "watchdog": true
+        },
         "usb_detect": {
             "enabled": true
         }
