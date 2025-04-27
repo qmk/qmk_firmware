@@ -1,0 +1,82 @@
+{
+    "manufacturer": "Tzarc",
+    "keyboard_name": "Kobold",
+    "url": "https://github.com/tzarc/keyboards/tree/main/Kobold",
+    "maintainer": "tzarc",
+    "bootloader": "stm32-dfu",
+    "build": {
+        "lto": true
+    },
+    "dynamic_keymap": {
+        "layer_count": 32
+    },
+    "eeprom": {
+        "driver": "wear_leveling",
+        "wear_leveling": {
+            "backing_size": 32768,
+            "driver": "spi_flash"
+        }
+    },
+    "features": {
+        "bootmagic": true,
+        "rgb_matrix": true
+    },
+    "matrix_pins": {
+        "direct": [
+            ["B14", "C6", "B9", "B7", "B13", "B15", "C13", "C15", "B12", "B0", "A2", "A0", "B11", "A4", "A3", "A1"]
+        ]
+    },
+    "processor": "STM32G431",
+    "rgb_matrix": {
+        "driver": "ws2812",
+        "layout": [
+            {"x": 0, "y": 0, "flags": 2},
+            {"x": 75, "y": 0, "flags": 2},
+            {"x": 150, "y": 0, "flags": 2},
+            {"x": 224, "y": 0, "flags": 2},
+            {"x": 224, "y": 21, "flags": 2},
+            {"x": 150, "y": 21, "flags": 2},
+            {"x": 75, "y": 21, "flags": 2},
+            {"x": 0, "y": 21, "flags": 2},
+            {"x": 0, "y": 43, "flags": 2},
+            {"x": 75, "y": 43, "flags": 2},
+            {"x": 150, "y": 43, "flags": 2},
+            {"x": 224, "y": 43, "flags": 2},
+            {"x": 224, "y": 64, "flags": 2},
+            {"x": 150, "y": 64, "flags": 2},
+            {"x": 75, "y": 64, "flags": 2},
+            {"x": 0, "y": 64, "flags": 2}
+        ]
+    },
+    "usb": {
+        "pid": "0x4921",
+        "vid": "0x1209"
+    },
+    "ws2812": {
+        "driver": "pwm",
+        "pin": "B5"
+    },
+    "community_layouts": ["ortho_4x4"],
+    "layouts": {
+        "LAYOUT_ortho_4x4": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+                {"matrix": [0, 4], "x": 0, "y": 1},
+                {"matrix": [0, 5], "x": 1, "y": 1},
+                {"matrix": [0, 6], "x": 2, "y": 1},
+                {"matrix": [0, 7], "x": 3, "y": 1},
+                {"matrix": [0, 8], "x": 0, "y": 2},
+                {"matrix": [0, 9], "x": 1, "y": 2},
+                {"matrix": [0, 10], "x": 2, "y": 2},
+                {"matrix": [0, 11], "x": 3, "y": 2},
+                {"matrix": [0, 12], "x": 0, "y": 3},
+                {"matrix": [0, 13], "x": 1, "y": 3},
+                {"matrix": [0, 14], "x": 2, "y": 3},
+                {"matrix": [0, 15], "x": 3, "y": 3}
+            ]
+        }
+    }
+}
