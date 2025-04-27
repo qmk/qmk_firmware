@@ -4,14 +4,6 @@
     "maintainer": "vchowl",
     "bootloader": "stm32-dfu",
     "diode_direction": "ROW2COL",
-    "eeprom": {
-        "driver": "wear_leveling",
-        "wear_leveling": {
-            "backing_size": 20480,
-            "driver": "embedded_flash",
-            "logical_size": 10240
-        }
-    },
     "features": {
         "bootmagic": true,
         "extrakey": true,
