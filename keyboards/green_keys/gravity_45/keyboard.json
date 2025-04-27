@@ -22,7 +22,7 @@
         "led_count": 1,
         "max_brightness": 120
     },
-    "url": "",
+    "url": "https://green-keys.info",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x9121",
