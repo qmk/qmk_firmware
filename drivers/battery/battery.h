@@ -31,4 +31,16 @@ void battery_task(void);
  */
 uint8_t battery_get_percent(void);
 
+/**
+ * \brief user hook called when battery level changed.
+ *
+ */
+void battery_percent_changed_user(uint8_t level);
+
+/**
+ * \brief keyboard hook called when battery level changed.
+ *
+ */
+void battery_percent_changed_kb(uint8_t level);
+
 /** \} */
