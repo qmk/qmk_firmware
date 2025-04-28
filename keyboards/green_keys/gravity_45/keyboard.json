@@ -17,6 +17,18 @@
         "rows": ["GP10", "GP11", "GP12", "GP13"]
     },
     "rgblight": {
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        },
         "led_count": 1,
         "max_brightness": 120
     },
