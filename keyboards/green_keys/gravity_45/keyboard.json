@@ -17,9 +17,6 @@
         "rows": ["GP10", "GP11", "GP12", "GP13"]
     },
     "rgblight": {
-        "layers": {
-            "enabled": true
-        },
         "led_count": 1,
         "max_brightness": 120
     },
