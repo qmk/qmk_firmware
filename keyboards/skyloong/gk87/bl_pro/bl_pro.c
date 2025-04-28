@@ -119,6 +119,7 @@ bool shutdown_kb(bool jump_to_bootloader) {
 }
 
 layer_state_t default_layer_state_set_kb(layer_state_t state) {
+    state = default_layer_state_set_user(state);
     switch (get_highest_layer(state)) {
     case 0:
         //switch to win layer display
@@ -132,7 +133,7 @@ layer_state_t default_layer_state_set_kb(layer_state_t state) {
         break;
     }
     s_serial_to_parallel(IND);
-  return default_layer_state_set_user(state);
+    return state;
 }
 
 bool led_update_kb(led_t led_state) {
