@@ -23,19 +23,17 @@ def validate_keymap_name(name):
 
 def prompt_keyboard():
     prompt = """{fg_yellow}Select Keyboard{style_reset_all}
-If you`re unsure you can view a full list of supported keyboards with {fg_yellow}qmk list-keyboards{style_reset_all}.
+If you're unsure you can view a full list of supported keyboards with {fg_yellow}qmk list-keyboards{style_reset_all}.
 
 Keyboard Name? """
-
     return question(prompt)
 
 
 def prompt_user():
     prompt = """
 {fg_yellow}Name Your Keymap{style_reset_all}
-Used for maintainer, copyright, etc
 
-Your GitHub Username? """
+Keymap name? """
     return question(prompt, default=git_get_username())
 
 

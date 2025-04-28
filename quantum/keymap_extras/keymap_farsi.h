@@ -150,7 +150,7 @@
 #define FA_DQT  ALGR(FA_GAF)  // "
 #define FA_MINA ALGR(FA_BSLS) // -
 #define FA_PIPE ALGR(FA_ZA)   // |
-#define FA_SUBA ALGR(FA_RA)   // ٖ
+#define FA_SUBA ALGR(FA_RE)   // ٖ
 #define FA_HMZB ALGR(FA_DAL)  // ء
 #define FA_ELLP ALGR(FA_PE)   // …
 #define FA_COMM ALGR(FA_WAW)  // ,
