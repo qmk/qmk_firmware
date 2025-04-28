@@ -2,7 +2,8 @@
     "manufacturer": "GreenKeys",
     "keyboard_name": "Gravity-45",
     "maintainer": "takashicompany",
-    "development_board": "promicro_rp2040",
+    "processor": "RP2040",
+    "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
