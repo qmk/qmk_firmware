@@ -93,11 +93,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_BASE] = LAYOUT_2x3u(
-  KC_ESC,   KC_1,    KC_2,       KC_3,    KC_4,    KC_5,    _______,   _______,      KC_6,    KC_7,    KC_8,    KC_9,   KC_0,    KC_BSPC,
-  KC_TAB,   KC_Q,    KC_W,       KC_E,    KC_R,    KC_T,    POKER,     TD(TAP_SHFT), KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,    KC_BSLS,
+  KC_ESC,   KC_1,    KC_2,       KC_3,    KC_4,    KC_5,    UG_TOGG,   UG_NEXT,      KC_6,    KC_7,    KC_8,    KC_9,   KC_0,    KC_BSPC,
+  KC_TAB,   KC_Q,    KC_W,       KC_E,    KC_R,    KC_T,    UG_HUEU,   UG_HUED,      KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,    KC_BSLS,
   POKER,    KC_A,    KC_S,       KC_D,    KC_F,    KC_G,                             KC_H,    KC_J,    KC_K,    KC_L,   KC_SCLN, KC_ENT,
   SC_LSPO,  KC_Z,    KC_X,       KC_C,    KC_V,    KC_B,    LOCK,      EXTR,         KC_N,    KC_M,    KC_COMM, KC_DOT, KC_SLSH, SC_RSPC,
-  KC_LGUI,  KC_LCTL, KC_LCTL,    KC_LALT,                   PROG,      KC_SPC,                         KC_RALT, EMOJI,  KC_PSCR, KC_LCTL
+  KC_LCTL,  EXTR,    KC_LGUI,    KC_LALT,                   PROG,      KC_SPC,                         KC_RALT, EMOJI,  KC_PSCR, KC_LALT
 ),
 
 
@@ -128,8 +128,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_EXTRA] = LAYOUT_2x3u(
   _______,   QK_BOOT, EE_CLR,  QK_REBOOT, _______,   _______,   _______,   _______, _______,   KC_MINS, KC_EQL,  _______, _______, D_SUGGEST,
   _______,   _______, _______, _______,   _______,   _______,   _______,   _______, _______,   KC_7,    KC_8,    KC_9,    _______, _______,
-  _______,   _______, _______, _______,   _______,   _______,                       _______,   KC_4,    KC_5,    KC_6,    KC_DEL,  _______,
-  _______,   _______, _______, _______,   _______,   _______,   _______,   _______, _______,   KC_1,    KC_2,    KC_3,    _______, _______,
+  _______,   BL_UP,   _______, _______,   _______,   _______,                       _______,   KC_4,    KC_5,    KC_6,    KC_DEL,  _______,
+  _______,   _______, BL_DOWN, _______,   _______,   _______,   _______,   _______, _______,   KC_1,    KC_2,    KC_3,    _______, _______,
   _______,   _______, _______, _______,                         _______,   _______,                     KC_0,    KC_0,    KC_0,    _______
 )
 };
@@ -152,11 +152,11 @@ void tap_finished(tap_dance_state_t *state, void *user_data) {
     layer_on(_BASE);
     switch (td_state) {
         case TD_SINGLE_TAP:
-            register_code16(KC_LALT);
+            register_code16(KC_LCTL);
             register_code16(KC_LSFT);
             break;
         case TD_SINGLE_HOLD:
-            register_code16(KC_LALT);
+            register_code16(KC_LCTL);
             register_code16(KC_LSFT);
             break;
         case TD_DOUBLE_SINGLE_TAP:
@@ -171,11 +171,11 @@ void tap_reset(tap_dance_state_t *state, void *user_data) {
     layer_off(_BASE);
     switch (td_state) {
         case TD_SINGLE_TAP:
-            unregister_code16(KC_LALT);
+            unregister_code16(KC_LCTL);
             unregister_code16(KC_LSFT);
             break;
         case TD_SINGLE_HOLD:
-            unregister_code16(KC_LALT);
+            unregister_code16(KC_LCTL);
             unregister_code16(KC_LSFT);
             break;
         case TD_DOUBLE_SINGLE_TAP:
