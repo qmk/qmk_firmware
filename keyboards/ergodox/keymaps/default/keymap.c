@@ -1,5 +1,8 @@
+// Copyright 2012 Jun Wako <wakojun@gmail.com>
+// Copyright 2013 Oleg Kostyuk <cub.uanic@gmail.com>
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
-#include "version.h"
 
 enum layers {
     BASE,  // default layer
@@ -112,17 +115,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 };
 // clang-format on
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-        switch (keycode) {
-            case VRSN:
-                SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-                return false;
-        }
-    }
-    return true;
-}
 
 // Runs just one time when the keyboard initializes.
 void keyboard_post_init_user(void) {
