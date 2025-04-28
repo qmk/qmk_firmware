@@ -108,7 +108,7 @@ void suspend_wakeup_init_kb() {
     SLEEP = 0;
     gpio_write_pin(LED_CAPS_LOCK_PIN, !host_keyboard_led_state().caps_lock);
     gpio_write_pin(LED_SCROLL_LOCK_PIN, !host_keyboard_led_state().scroll_lock);
-    gpio_write_pin(WIN_LOCK_PIN, !WIN_LOCK);
+    gpio_write_pin(WIN_LOCK_PIN, !keycode_config.no_gui);
     s_serial_to_parallel(IND);
     suspend_wakeup_init_user();
 }
