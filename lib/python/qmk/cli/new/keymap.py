@@ -106,7 +106,7 @@ def new_keymap(cli):
     # check directories
     try:
         kb_name = keyboard_folder(kb_name)
-    except:
+    except ValueError:
         cli.log.error(f'Keyboard {{fg_cyan}}{kb_name}{{fg_reset}} does not exist! Please choose a valid name.')
         return False
 
