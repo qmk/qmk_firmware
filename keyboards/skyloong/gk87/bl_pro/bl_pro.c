@@ -60,14 +60,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             }
            return true;  // continue all further processing of this key
 
-       case DF(0):
-           set_single_persistent_default_layer(0);
-           return true;
-
-       case DF(1):
-           set_single_persistent_default_layer(1);
-           return true;
-
        case BL_TOGG:
            if (record->event.pressed){
                if(is_backlight_breathing()) {
