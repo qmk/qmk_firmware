@@ -20,4 +20,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PWM_CHANNEL 1
 #define BACKLIGHT_PAL_MODE 1
 #define TAPPING_TERM 175
-#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
