@@ -1,0 +1,76 @@
+{
+    "manufacturer": "Jon Henry",
+    "keyboard_name": "Pad Plus",
+    "maintainer": "togkey86",
+    "bootloader": "rp2040",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgblight": true,
+        "oled": true
+    },
+    "encoder": {
+        "enabled": true,
+        "rotary": [
+            {
+                "pin_a": "GP29",
+                "pin_b": "GP28",
+                "resolution": 2
+            }
+        ]
+    },
+    "oled": {
+        "driver": "ssd1306",
+        "display_width": 128,
+        "display_height": 64
+    },
+    "rgblight": {
+        "hue_steps": 10,
+        "led_count": 3,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "ws2812": {
+        "driver": "vendor",
+        "pin": "GP27"
+    },
+    "matrix_pins": {
+        "cols": ["GP4", "GP5", "GP6"],
+        "rows": ["GP26", "GP22", "GP20"]
+    },
+    "processor": "RP2040",
+    "url": "",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x8687",
+        "vid": "0xFEED"
+    },
+    "layouts": {
+        "LAYOUT_2x3_knob": {
+            "layout": [
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2}
+            ]
+        }
+    }
+}
