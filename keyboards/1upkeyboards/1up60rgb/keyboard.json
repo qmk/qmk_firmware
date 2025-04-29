@@ -1,7 +1,6 @@
 {
   "keyboard_name": "1UP RGB Underglow PCB",
   "manufacturer": "1upkeyboards",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0x6F75",
@@ -12,7 +11,6 @@
     "backlight": true,
     "bootmagic": true,
     "command": false,
-    "console": false,
     "extrakey": true,
     "mousekey": true,
     "nkro": true,

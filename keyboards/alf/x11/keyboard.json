@@ -1,7 +1,6 @@
 {
   "keyboard_name": "X1.1",
   "manufacturer": "ALF",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0x4146",
@@ -15,7 +14,6 @@
     "backlight": true,
     "bootmagic": true,
     "command": false,
-    "console": false,
     "extrakey": true,
     "mousekey": true,
     "nkro": false,

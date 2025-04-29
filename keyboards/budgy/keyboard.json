@@ -6,13 +6,11 @@
     "features": {
         "bootmagic": true,
         "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
     },
     "processor": "RP2040",
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0117",

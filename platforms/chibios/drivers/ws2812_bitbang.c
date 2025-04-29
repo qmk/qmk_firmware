@@ -11,7 +11,7 @@
 /* Adapted from https://github.com/bigjosh/SimpleNeoPixelDemo/ */
 
 #ifndef WS2812_BITBANG_NOP_FUDGE
-#    if defined(STM32F0XX) || defined(STM32F1XX) || defined(GD32VF103) || defined(STM32F3XX) || defined(STM32F4XX) || defined(STM32L0XX) || defined(WB32F3G71xx) || defined(WB32FQ95xx)
+#    if defined(STM32F0XX) || defined(STM32F1XX) || defined(GD32VF103) || defined(STM32F3XX) || defined(STM32F4XX) || defined(STM32L0XX) || defined(WB32F3G71xx) || defined(WB32FQ95xx) || defined(AT32F415)
 #        define WS2812_BITBANG_NOP_FUDGE 0.4
 #    else
 #        if defined(RP2040)

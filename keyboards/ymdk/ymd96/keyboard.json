@@ -1,7 +1,6 @@
 {
     "keyboard_name": "YMD96",
     "manufacturer": "YMDK",
-    "url": "",
     "maintainer": "sparkyman215",
     "usb": {
         "vid": "0x20A0",
@@ -13,7 +12,6 @@
         "backlight": true,
         "bootmagic": false,
         "command": false,
-        "console": false,
         "extrakey": true,
         "key_lock": true,
         "mousekey": false,

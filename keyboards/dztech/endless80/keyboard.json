@@ -1,7 +1,6 @@
 {
     "keyboard_name": "endless80",
     "manufacturer": "dztech",
-    "url": "",
     "maintainer": "moyi4681",
     "usb": {
         "vid": "0x445A",
@@ -11,7 +10,6 @@
     "features": {
         "bootmagic": true,
         "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

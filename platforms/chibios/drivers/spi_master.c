@@ -15,8 +15,49 @@
  */
 
 #include "spi_master.h"
+#include "chibios_config.h"
+#include <ch.h>
+#include <hal.h>
 
-#include "timer.h"
+#ifndef SPI_DRIVER
+#    define SPI_DRIVER SPID2
+#endif
+
+#ifndef SPI_SCK_PIN
+#    define SPI_SCK_PIN B13
+#endif
+
+#ifndef SPI_SCK_PAL_MODE
+#    ifdef USE_GPIOV1
+#        define SPI_SCK_PAL_MODE PAL_MODE_ALTERNATE_PUSHPULL
+#    else
+#        define SPI_SCK_PAL_MODE 5
+#    endif
+#endif
+
+#ifndef SPI_MOSI_PIN
+#    define SPI_MOSI_PIN B15
+#endif
+
+#ifndef SPI_MOSI_PAL_MODE
+#    ifdef USE_GPIOV1
+#        define SPI_MOSI_PAL_MODE PAL_MODE_ALTERNATE_PUSHPULL
+#    else
+#        define SPI_MOSI_PAL_MODE 5
+#    endif
+#endif
+
+#ifndef SPI_MISO_PIN
+#    define SPI_MISO_PIN B14
+#endif
+
+#ifndef SPI_MISO_PAL_MODE
+#    ifdef USE_GPIOV1
+#        define SPI_MISO_PAL_MODE PAL_MODE_ALTERNATE_PUSHPULL
+#    else
+#        define SPI_MISO_PAL_MODE 5
+#    endif
+#endif
 
 static bool spiStarted = false;
 #if SPI_SELECT_MODE == SPI_SELECT_MODE_NONE
@@ -103,9 +144,15 @@ bool spi_start_extended(spi_start_config_t *start_config) {
         roundedDivisor <<= 1;
     }
 
+#    if defined(AT32F415)
+    if (roundedDivisor < 2 || roundedDivisor > 1024) {
+        return false;
+    }
+#    else
     if (roundedDivisor < 2 || roundedDivisor > 256) {
         return false;
     }
+#    endif
 #endif
 
 #if defined(K20x) || defined(KL2x)
@@ -238,6 +285,59 @@ bool spi_start_extended(spi_start_config_t *start_config) {
         case 3:
             spiConfig.SSPCR0 |= SPI_SSPCR0_SPO; // Clock polarity: high
             spiConfig.SSPCR0 |= SPI_SSPCR0_SPH; // Clock phase: sample on second edge transition
+            break;
+    }
+#elif defined(AT32F415)
+    spiConfig.ctrl1 = 0;
+
+    if (start_config->lsb_first) {
+        spiConfig.ctrl1 |= SPI_CTRL1_LTF;
+    }
+
+    switch (start_config->mode) {
+        case 0:
+            break;
+        case 1:
+            spiConfig.ctrl1 |= SPI_CTRL1_CLKPHA;
+            break;
+        case 2:
+            spiConfig.ctrl1 |= SPI_CTRL1_CLKPOL;
+            break;
+        case 3:
+            spiConfig.ctrl1 |= SPI_CTRL1_CLKPHA | SPI_CTRL1_CLKPOL;
+            break;
+    }
+
+    switch (roundedDivisor) {
+        case 2:
+            break;
+        case 4:
+            spiConfig.ctrl1 |= SPI_CTRL1_MDIV_0;
+            break;
+        case 8:
+            spiConfig.ctrl1 |= SPI_CTRL1_MDIV_1;
+            break;
+        case 16:
+            spiConfig.ctrl1 |= SPI_CTRL1_MDIV_1 | SPI_CTRL1_MDIV_0;
+            break;
+        case 32:
+            spiConfig.ctrl1 |= SPI_CTRL1_MDIV_2;
+            break;
+        case 64:
+            spiConfig.ctrl1 |= SPI_CTRL1_MDIV_2 | SPI_CTRL1_MDIV_0;
+            break;
+        case 128:
+            spiConfig.ctrl1 |= SPI_CTRL1_MDIV_2 | SPI_CTRL1_MDIV_1;
+            break;
+        case 256:
+            spiConfig.ctrl1 |= SPI_CTRL1_MDIV_2 | SPI_CTRL1_MDIV_1 | SPI_CTRL1_MDIV_0;
+            break;
+        case 512:
+            spiConfig.ctrl2 |= SPI_CTRL1_MDIV_3;
+            break;
+        case 1024:
+            spiConfig.ctrl2 |= SPI_CTRL1_MDIV_3;
+            spiConfig.ctrl1 |= SPI_CTRL1_MDIV_0;
             break;
     }
 #else

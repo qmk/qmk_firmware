@@ -1,7 +1,6 @@
 {
     "keyboard_name": "AMJ60",
     "manufacturer": "Han Chen",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x00D8",
@@ -12,7 +11,6 @@
         "backlight": true,
         "bootmagic": false,
         "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": true,

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Keeb68 (Patron Saint Edition)",
     "manufacturer": "sandwich",
-    "url": "",
     "maintainer": "SandwichRising",
     "usb": {
         "vid": "0xFEED",
@@ -12,7 +11,6 @@
         "backlight": true,
         "bootmagic": true,
         "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true

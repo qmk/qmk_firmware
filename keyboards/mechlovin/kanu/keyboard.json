@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Kanu",
     "manufacturer": "Mechlovin",
-    "url": "",
     "maintainer": "Team Mechlovin'",
     "usb": {
         "vid": "0x4D4C",
@@ -12,7 +11,6 @@
         "backlight": true,
         "bootmagic": true,
         "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

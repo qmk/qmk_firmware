@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Twokey",
     "manufacturer": "Keys of Kings",
-    "url": "",
     "maintainer": "Keys of Kings",
     "usb": {
         "vid": "0xFEED",
@@ -33,7 +32,6 @@
         "audio": true,
         "bootmagic": true,
         "command": false,
-        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": false,

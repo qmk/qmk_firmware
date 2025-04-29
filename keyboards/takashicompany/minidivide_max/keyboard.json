@@ -10,7 +10,6 @@
     "features": {
         "bootmagic": true,
         "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
@@ -49,7 +48,6 @@
             "pin": "D2"
         }
     },
-    "url": "",
     "usb": {
         "device_version": "0.0.1",
         "pid": "0x0054",

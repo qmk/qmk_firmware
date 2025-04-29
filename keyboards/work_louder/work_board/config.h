@@ -20,3 +20,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_DI_PIN        D2
 
 #define RGBLIGHT_DEFAULT_MODE         RGBLIGHT_MODE_STATIC_GRADIENT + 9
+
+#define RGB_MATRIX_DISABLE_SHARED_KEYCODES

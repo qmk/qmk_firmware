@@ -1,7 +1,6 @@
 {
     "keyboard_name": "[n]87",
     "manufacturer": "Neil Brian Ramirez",
-    "url": "",
     "maintainer": "Neil Brian Ramirez",
     "usb": {
         "vid": "0x0717",
@@ -12,7 +11,6 @@
         "audio": true,
         "bootmagic": true,
         "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "BIOI F60",
     "manufacturer": "Basic IO Instruments",
-    "url": "",
     "maintainer": "kb-elmo",
     "usb": {
         "vid": "0x8101",
@@ -12,7 +11,6 @@
         "backlight": true,
         "bootmagic": true,
         "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false,

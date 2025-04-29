@@ -47,7 +47,6 @@
     },
     "default": {
       "animation": "cycle_up_down",
-      "sat": 255,
       "speed": 30,
       "val": 192
     },
@@ -59,7 +58,6 @@
   "features": {
     "bootmagic": true,
     "command": false,
-    "console": false,
     "extrakey": true,
     "mousekey": true,
     "nkro": true,

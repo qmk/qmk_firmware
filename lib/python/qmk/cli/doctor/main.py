@@ -102,10 +102,10 @@ def userspace_tests(qmk_firmware):
             qmk_userspace_validate(path)
             cli.log.info(f'Testing userspace candidate: {{fg_cyan}}{path}{{fg_reset}} -- {{fg_green}}Valid `qmk.json`')
         except FileNotFoundError:
-            cli.log.warn(f'Testing userspace candidate: {{fg_cyan}}{path}{{fg_reset}} -- {{fg_red}}Missing `qmk.json`')
+            cli.log.warning(f'Testing userspace candidate: {{fg_cyan}}{path}{{fg_reset}} -- {{fg_red}}Missing `qmk.json`')
         except UserspaceValidationError as err:
-            cli.log.warn(f'Testing userspace candidate: {{fg_cyan}}{path}{{fg_reset}} -- {{fg_red}}Invalid `qmk.json`')
-            cli.log.warn(f' -- {{fg_cyan}}{path}/qmk.json{{fg_reset}} validation error: {err}')
+            cli.log.warning(f'Testing userspace candidate: {{fg_cyan}}{path}{{fg_reset}} -- {{fg_red}}Invalid `qmk.json`')
+            cli.log.warning(f' -- {{fg_cyan}}{path}/qmk.json{{fg_reset}} validation error: {err}')
 
     if QMK_USERSPACE is not None:
         cli.log.info(f'QMK userspace: {{fg_cyan}}{QMK_USERSPACE}')

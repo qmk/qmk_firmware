@@ -1,5 +1,5 @@
 {
-    "manufacturer": "auaera",
+    "manufacturer": "auaena",
     "keyboard_name": "Bunnygirl65",
     "maintainer": "MaiTheSan",
     "bootloader": "stm32-dfu",
@@ -15,7 +15,6 @@
         "rows": ["B4", "A15", "A3", "A8", "B14"]
     },
     "processor": "STM32F072",
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "force_nkro": true,

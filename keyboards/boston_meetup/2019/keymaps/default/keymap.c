@@ -78,9 +78,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_RAISE] = LAYOUT(
   KC_NUM,
-  RGB_TOG, RGB_MOD, RGB_RMOD, XXXXXXX,
-  _______, RGB_HUI, RGB_SAI,  RGB_VAI,
-  _______, RGB_HUD, RGB_SAD,  RGB_VAD
+  RM_TOGG, RM_NEXT, RM_PREV,  XXXXXXX,
+  _______, RM_HUEU, RM_SATU,  RM_VALU,
+  _______, RM_HUED, RM_SATD,  RM_VALD
 
 ),
 

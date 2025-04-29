@@ -6,7 +6,6 @@
     "features": {
         "bootmagic": true,
         "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
@@ -19,7 +18,6 @@
     "diode_direction": "COL2ROW",
     "indicators": {
         "caps_lock": "C7",
-        "on_state": 1,
         "scroll_lock": "B2"
     },
     "processor": "atmega32u4",
@@ -48,7 +46,6 @@
     "ws2812": {
         "pin": "B3"
     },
-    "url": "",
     "usb": {
         "device_version": "0.0.1",
         "pid": "0x0011",

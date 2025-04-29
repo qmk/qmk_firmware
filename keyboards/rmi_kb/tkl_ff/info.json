@@ -1,7 +1,6 @@
 {
     "keyboard_name": "TKL FF",
     "manufacturer": "RMI-KB",
-    "url": "",
     "maintainer": "ramonimbao",
     "usb": {
         "vid": "0xB16B",
@@ -10,7 +9,6 @@
     "features": {
         "bootmagic": true,
         "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false

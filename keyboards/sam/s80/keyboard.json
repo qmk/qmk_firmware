@@ -1,7 +1,6 @@
 {
     "keyboard_name": "s8",
     "manufacturer": "Sam",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x534D",
@@ -12,7 +11,6 @@
         "backlight": true,
         "bootmagic": true,
         "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

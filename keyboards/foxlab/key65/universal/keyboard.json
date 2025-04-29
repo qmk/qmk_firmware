@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Key 65 Universal",
     "manufacturer": "Fox Lab",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x464C",
@@ -12,7 +11,6 @@
         "backlight": true,
         "bootmagic": true,
         "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false,

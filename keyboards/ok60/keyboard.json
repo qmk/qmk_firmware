@@ -1,7 +1,6 @@
 {
   "keyboard_name": "OK60",
   "manufacturer": "OK60",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0x4B36",
@@ -12,7 +11,6 @@
     "backlight": true,
     "bootmagic": true,
     "command": false,
-    "console": false,
     "extrakey": true,
     "mousekey": true,
     "nkro": true,

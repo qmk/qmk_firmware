@@ -1,7 +1,6 @@
 {
     "keyboard_name": "snampad",
     "manufacturer": "Snamellit",
-    "url": "",
     "maintainer": "ptillemans",
     "usb": {
         "vid": "0xFEED",

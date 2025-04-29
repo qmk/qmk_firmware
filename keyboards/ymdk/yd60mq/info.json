@@ -1,7 +1,6 @@
 {
     "keyboard_name": "YD60MQ",
     "manufacturer": "YMDK",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x594D",
@@ -11,7 +10,6 @@
         "backlight": true,
         "bootmagic": true,
         "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

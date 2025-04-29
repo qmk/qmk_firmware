@@ -1,7 +1,6 @@
 {
   "keyboard_name": "NCC-1701-KB",
   "manufacturer": "J2L Designs",
-  "url": "",
   "maintainer": "jessel92",
   "usb": {
     "vid": "0xFEED",
@@ -12,7 +11,6 @@
     "backlight": true,
     "bootmagic": false,
     "command": false,
-    "console": false,
     "encoder": true,
     "extrakey": true,
     "mousekey": true,

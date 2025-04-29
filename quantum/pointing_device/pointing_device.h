@@ -21,6 +21,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "host.h"
 #include "report.h"
 
+typedef struct {
+    void (*init)(void);
+    report_mouse_t (*get_report)(report_mouse_t mouse_report);
+    void (*set_cpi)(uint16_t);
+    uint16_t (*get_cpi)(void);
+} pointing_device_driver_t;
+
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
 #    include "pointing_device_auto_mouse.h"
 #endif
@@ -44,7 +51,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "drivers/sensors/azoteq_iqs5xx.h"
 #elif defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_i2c) || defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_spi)
 #    include "drivers/sensors/cirque_pinnacle.h"
-#    include "drivers/sensors/cirque_pinnacle_gestures.h"
 #    include "pointing_device_gestures.h"
 #elif defined(POINTING_DEVICE_DRIVER_paw3204)
 #    include "drivers/sensors/paw3204.h"
@@ -74,13 +80,6 @@ uint16_t       pointing_device_driver_get_cpi(void);
 void           pointing_device_driver_set_cpi(uint16_t cpi);
 #endif
 
-typedef struct {
-    void (*init)(void);
-    report_mouse_t (*get_report)(report_mouse_t mouse_report);
-    void (*set_cpi)(uint16_t);
-    uint16_t (*get_cpi)(void);
-} pointing_device_driver_t;
-
 typedef enum {
     POINTING_DEVICE_BUTTON1,
     POINTING_DEVICE_BUTTON2,
@@ -93,24 +92,19 @@ typedef enum {
 } pointing_device_buttons_t;
 
 #ifdef MOUSE_EXTENDED_REPORT
-#    define XY_REPORT_MIN INT16_MIN
-#    define XY_REPORT_MAX INT16_MAX
 typedef int32_t xy_clamp_range_t;
 #else
-#    define XY_REPORT_MIN INT8_MIN
-#    define XY_REPORT_MAX INT8_MAX
 typedef int16_t xy_clamp_range_t;
 #endif
 
 #ifdef WHEEL_EXTENDED_REPORT
-#    define HV_REPORT_MIN INT16_MIN
-#    define HV_REPORT_MAX INT16_MAX
 typedef int32_t hv_clamp_range_t;
 #else
-#    define HV_REPORT_MIN INT8_MIN
-#    define HV_REPORT_MAX INT8_MAX
 typedef int16_t hv_clamp_range_t;
 #endif
+
+#define CONSTRAIN_HID(amt) ((amt) < INT8_MIN ? INT8_MIN : ((amt) > INT8_MAX ? INT8_MAX : (amt)))
+#define CONSTRAIN_HID_XY(amt) ((amt) < MOUSE_REPORT_XY_MIN ? MOUSE_REPORT_XY_MIN : ((amt) > MOUSE_REPORT_XY_MAX ? MOUSE_REPORT_XY_MAX : (amt)))
 
 void           pointing_device_init(void);
 bool           pointing_device_task(void);
@@ -127,6 +121,10 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report);
 uint8_t        pointing_device_handle_buttons(uint8_t buttons, bool pressed, pointing_device_buttons_t button);
 report_mouse_t pointing_device_adjust_by_defines(report_mouse_t mouse_report);
 void           pointing_device_keycode_handler(uint16_t keycode, bool pressed);
+
+#ifdef POINTING_DEVICE_HIRES_SCROLL_ENABLE
+uint16_t pointing_device_get_hires_scroll_resolution(void);
+#endif
 
 #if defined(SPLIT_POINTING_ENABLE)
 void     pointing_device_set_shared_report(report_mouse_t report);

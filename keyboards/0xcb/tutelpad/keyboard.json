@@ -1,7 +1,6 @@
 {
     "keyboard_name": "TutelPad",
     "manufacturer": "ItsFiremanSam",
-    "url": "",
     "maintainer": "ItsFiremanSam",
     "usb": {
         "vid": "0xCB00",
@@ -36,7 +35,6 @@
     "features": {
         "bootmagic": true,
         "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false,

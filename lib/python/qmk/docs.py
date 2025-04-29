@@ -17,18 +17,18 @@ BUILD_DOCS_PATH = BUILD_PATH / 'docs'
 DOXYGEN_PATH = BUILD_DOCS_PATH / 'static' / 'doxygen'
 
 
-def run_docs_command(verb, cmd=None):
+def run_docs_command(verb, cmd_args=None):
     environ['PATH'] += pathsep + str(NODE_MODULES_PATH / '.bin')
 
-    args = {'capture_output': False if cli.config.general.verbose else True, 'check': True, 'stdin': DEVNULL}
+    args = {'capture_output': False, 'check': True}
     docs_env = environ.copy()
     if cli.config.general.verbose:
         docs_env['DEBUG'] = 'vitepress:*,vite:*'
     args['env'] = docs_env
 
     arg_list = ['yarn', verb]
-    if cmd:
-        arg_list.append(cmd)
+    if cmd_args:
+        arg_list.extend(cmd_args)
 
     chdir(BUILDDEFS_PATH)
     cli.run(arg_list, **args)

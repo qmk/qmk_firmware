@@ -7,7 +7,6 @@
     "features": {
         "bootmagic": true,
         "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "rgblight": true,
@@ -18,7 +17,6 @@
         "rows": ["D4", "C6", "D7", "E6", "B4"]
     },
     "processor": "atmega32u4",
-    "url": "",
     "usb": {
         "vid": "0x04D8",
         "pid": "0xE6DD",
@@ -39,7 +37,6 @@
                "twinkle": true
         },
         "sleep": true,
-        "max_brightness": 255,
         "split": true,
         "split_count": [6, 6]
     },

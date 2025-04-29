@@ -1,7 +1,6 @@
 {
     "keyboard_name": "kc60se",
     "manufacturer": "Unknown",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0xFEED",
@@ -12,7 +11,6 @@
         "backlight": true,
         "bootmagic": true,
         "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": true

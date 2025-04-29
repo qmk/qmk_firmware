@@ -47,7 +47,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 int tp_buttons;
 
 #if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY) || (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
-int retro_tapping_counter = 0;
+bool     retro_tap_primed   = false;
+uint16_t retro_tap_curr_key = 0;
+#    if !(defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
+uint8_t retro_tap_curr_mods = 0;
+uint8_t retro_tap_next_mods = 0;
+#    endif
 #endif
 
 #if defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT) && !defined(NO_ACTION_TAPPING)
@@ -77,7 +82,13 @@ void action_exec(keyevent_t event) {
         debug_event(event);
         ac_dprintf("\n");
 #if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY) || (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
-        retro_tapping_counter++;
+        uint16_t event_keycode = get_event_keycode(event, false);
+        if (event.pressed) {
+            retro_tap_primed   = false;
+            retro_tap_curr_key = event_keycode;
+        } else if (retro_tap_curr_key == event_keycode) {
+            retro_tap_primed = true;
+        }
 #endif
     }
 
@@ -270,6 +281,9 @@ void process_record(keyrecord_t *record) {
     if (IS_NOEVENT(record->event)) {
         return;
     }
+#ifdef FLOW_TAP_TERM
+    flow_tap_update_last_event(record);
+#endif // FLOW_TAP_TERM
 
     if (!process_record_quantum(record)) {
 #ifndef NO_ACTION_ONESHOT
@@ -531,7 +545,8 @@ void process_action(keyrecord_t *record, action_t action) {
 #    if defined(RETRO_TAPPING) && defined(DUMMY_MOD_NEUTRALIZER_KEYCODE)
                             // Send a dummy keycode to neutralize flashing modifiers
                             // if the key was held and then released with no interruptions.
-                            if (retro_tapping_counter == 2) {
+                            uint16_t ev_kc = get_event_keycode(event, false);
+                            if (retro_tap_primed && retro_tap_curr_key == ev_kc) {
                                 neutralize_flashing_modifiers(get_mods());
                             }
 #    endif
@@ -817,6 +832,10 @@ void process_action(keyrecord_t *record, action_t action) {
         case ACT_LAYER_TAP_EXT:
 #    endif
             led_set(host_keyboard_leds());
+#    ifndef NO_ACTION_ONESHOT
+            // don't release the key
+            do_release_oneshot = false;
+#    endif
             break;
         default:
             break;
@@ -825,30 +844,44 @@ void process_action(keyrecord_t *record, action_t action) {
 
 #ifndef NO_ACTION_TAPPING
 #    if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY) || (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
-    if (!is_tap_action(action)) {
-        retro_tapping_counter = 0;
-    } else {
+    if (is_tap_action(action)) {
         if (event.pressed) {
             if (tap_count > 0) {
-                retro_tapping_counter = 0;
+                retro_tap_primed = false;
+            } else {
+#        if !(defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
+                retro_tap_curr_mods = retro_tap_next_mods;
+                retro_tap_next_mods = get_mods();
+#        endif
             }
         } else {
+            uint16_t event_keycode = get_event_keycode(event, false);
+#        if !(defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
+            uint8_t curr_mods = get_mods();
+#        endif
             if (tap_count > 0) {
-                retro_tapping_counter = 0;
-            } else {
+                retro_tap_primed = false;
+            } else if (retro_tap_curr_key == event_keycode) {
                 if (
 #        ifdef RETRO_TAPPING_PER_KEY
-                    get_retro_tapping(get_event_keycode(record->event, false), record) &&
+                    get_retro_tapping(event_keycode, record) &&
 #        endif
-                    retro_tapping_counter == 2) {
+                    retro_tap_primed) {
 #        if defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)
                     process_auto_shift(action.layer_tap.code, record);
 #        else
+                    register_mods(retro_tap_curr_mods);
+                    wait_ms(TAP_CODE_DELAY);
                     tap_code(action.layer_tap.code);
+                    wait_ms(TAP_CODE_DELAY);
+                    unregister_mods(retro_tap_curr_mods);
 #        endif
                 }
-                retro_tapping_counter = 0;
+                retro_tap_primed = false;
             }
+#        if !(defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
+            retro_tap_next_mods = curr_mods;
+#        endif
         }
     }
 #    endif
@@ -1151,6 +1184,23 @@ bool is_tap_action(action_t action) {
             return false;
     }
     return false;
+}
+
+uint16_t get_tap_keycode(uint16_t keycode) {
+    switch (keycode) {
+        case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+            return QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
+        case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+            return QK_LAYER_TAP_GET_TAP_KEYCODE(keycode);
+        case QK_SWAP_HANDS ... QK_SWAP_HANDS_MAX:
+            // IS_SWAP_HANDS_KEYCODE() tests for the special action keycodes
+            // like SH_TOGG, SH_TT, ..., which overlap the SH_T(kc) range.
+            if (!IS_SWAP_HANDS_KEYCODE(keycode)) {
+                return QK_SWAP_HANDS_GET_TAP_KEYCODE(keycode);
+            }
+            break;
+    }
+    return keycode;
 }
 
 /** \brief Debug print (FIXME: Needs better description)

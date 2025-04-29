@@ -23,10 +23,7 @@ enum layer_number {
 };
 
 enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  COLEMAK,
-  DVORAK,
-  LOWER,
+  LOWER = SAFE_RANGE,
   RAISE,
   ADJUST,
   BACKLIT,
@@ -35,12 +32,9 @@ enum custom_keycodes {
   RGBRST
 };
 
-enum macro_keycodes {
-  KC_SAMPLEMACRO,
-};
-
-//Macros
-#define M_SAMPLE M(KC_SAMPLEMACRO)
+#define QWERTY PDF(_QWERTY)
+#define COLEMAK PDF(_COLEMAK)
+#define DVORAK PDF(_DVORAK)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Qwerty
@@ -169,25 +163,6 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      return false;
-      break;
-    case COLEMAK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_COLEMAK);
-      }
-      return false;
-      break;
-    case DVORAK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_DVORAK);
-      }
-      return false;
-      break;
-
     case LOWER:
       if (record->event.pressed) {
           //not sure how to have keyboard check mode and set it to a variable, so my work around

@@ -95,21 +95,3 @@ const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
     {1, C9_16,  C7_15,  C6_15}, // RGB5012
 };
 #endif
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    switch(keycode) {
-    #ifdef RGB_MATRIX_ENABLE
-        case KC_F13: // toggle rgb matrix
-        rgb_matrix_toggle();
-        return false;
-        case KC_F14:
-        rgb_matrix_step();
-        return false;
-    #endif
-        default:
-        break;
-    }
-  }
-  return process_record_user(keycode, record);
-}

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Boston Meetup Board",
     "manufacturer": "ishtob",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
       "vid": "0xFB30",

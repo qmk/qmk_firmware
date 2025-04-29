@@ -33,7 +33,7 @@ static hsv_t INTERPOLATE_HSV(float step, hsv_t gradient_0, hsv_t gradient_100) {
 
     color.s = gradient_0.s + step * (gradient_100.s - gradient_0.s);
 
-    // Scale V with global RGB Matrix's V, so users can still control overall brightness with RGB_VAI & RGB_VAD0
+    // Scale V with global RGB Matrix's V, so users can still control overall brightness with RM_VALU & RM_VALD
     color.v = round((gradient_0.v + step * (gradient_100.v - gradient_0.v)) * ((float)rgb_matrix_config.hsv.v / 255));
 
     return color;

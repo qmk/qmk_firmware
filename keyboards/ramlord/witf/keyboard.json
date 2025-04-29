@@ -7,7 +7,6 @@
     "features": {
         "bootmagic": true,
         "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
@@ -22,7 +21,6 @@
         "scroll_lock": "A4"
     },
     "processor": "STM32F072",
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x343F",

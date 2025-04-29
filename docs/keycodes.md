@@ -290,15 +290,27 @@ See also: [Backlighting](features/backlight)
 | `QK_BACKLIGHT_DOWN`             | `BL_DOWN` | Decrease the backlight level        |
 | `QK_BACKLIGHT_TOGGLE_BREATHING` | `BL_BRTG` | Toggle backlight breathing          |
 
-## Bluetooth {#bluetooth}
+## Wireless/Bluetooth {#bluetooth}
 
-See also: [Bluetooth](features/bluetooth)
+See also: [Wireless](features/wireless)
 
-| Key                   | Aliases              | Description                                    |
-|-----------------------|----------------------|------------------------------------------------|
-| `QK_OUTPUT_NEXT`      | `OU_NEXT`, `OU_AUTO` | Automatically switch between USB and Bluetooth |
-| `QK_OUTPUT_USB`       | `OU_USB`             | USB only                                       |
-| `QK_OUTPUT_BLUETOOTH` | `OU_BT`              | Bluetooth only                                 |
+| Key                         | Aliases   | Description                                                                                   |
+|-----------------------------|-----------|-----------------------------------------------------------------------------------------------|
+| `QK_OUTPUT_AUTO`            | `OU_AUTO` | Automatically switch to USB when plugged in, otherwise use wireless                           |
+| `QK_OUTPUT_NEXT`            | `OU_NEXT` | Cycle forwards through USB, Bluetooth, and 2.4GHz (when available) **(not yet implemented)**  |
+| `QK_OUTPUT_PREV`            | `OU_PREV` | Cycle backwards through USB, Bluetooth, and 2.4GHz (when available) **(not yet implemented)** |
+| `QK_OUTPUT_NONE`            | `OU_NONE` | Disable all output **(not yet implemented)**                                                  |
+| `QK_OUTPUT_USB`             | `OU_USB`  | Output to USB only                                                                            |
+| `QK_OUTPUT_2P4GHZ`          | `OU_2P4G` | Output to 2.4GHz only **(not yet implemented)**                                               |
+| `QK_OUTPUT_BLUETOOTH`       | `OU_BT`   | Output to Bluetooth only                                                                      |
+| `QK_BLUETOOTH_PROFILE_NEXT` | `BT_NEXT` | Move to the next Bluetooth profile **(not yet implemented)**                                  |
+| `QK_BLUETOOTH_PROFILE_PREV` | `BT_PREV` | Move to the previous Bluetooth profile **(not yet implemented)**                              |
+| `QK_BLUETOOTH_UNPAIR`       | `BT_UNPR` | Un-pair the current Bluetooth profile **(not yet implemented)**                               |
+| `QK_BLUETOOTH_PROFILE1`     | `BT_PRF1` | Swap to Bluetooth profile #1 **(not yet implemented)**                                        |
+| `QK_BLUETOOTH_PROFILE2`     | `BT_PRF2` | Swap to Bluetooth profile #2 **(not yet implemented)**                                        |
+| `QK_BLUETOOTH_PROFILE3`     | `BT_PRF3` | Swap to Bluetooth profile #3 **(not yet implemented)**                                        |
+| `QK_BLUETOOTH_PROFILE4`     | `BT_PRF4` | Swap to Bluetooth profile #4 **(not yet implemented)**                                        |
+| `QK_BLUETOOTH_PROFILE5`     | `BT_PRF5` | Swap to Bluetooth profile #5 **(not yet implemented)**                                        |
 
 ## Caps Word {#caps-word}
 
@@ -375,13 +387,22 @@ See also: [Key Lock](features/key_lock)
 |---------|--------------------------------------------------------------|
 |`QK_LOCK`|Hold down the next key pressed, until the key is pressed again|
 
+## Layer Lock {#layer-lock}
+
+See also: [Layer Lock](features/layer_lock)
+
+|Key            |Aliases  |Description                       |
+|---------------|---------|----------------------------------|
+|`QK_LAYER_LOCK`|`QK_LLCK`|Locks or unlocks the highest layer|
+
 ## Layer Switching {#layer-switching}
 
 See also: [Layer Switching](feature_layers#switching-and-toggling-layers)
 
 |Key             |Description                                                                       |
 |----------------|----------------------------------------------------------------------------------|
-|`DF(layer)`     |Set the base (default) layer                                                      |
+|`DF(layer)`     |Set the base (default) layer until the keyboard loses power                       |
+|`PDF(layer)`    |Set the base (default) layer in EEPROM                                            |
 |`MO(layer)`     |Momentarily turn on `layer` when pressed (requires `KC_TRNS` on destination layer)|
 |`OSL(layer)`    |Momentarily activates `layer` until a key is pressed. See [One Shot Keys](one_shot_keys) for details. |
 |`LM(layer, mod)`|Momentarily turn on `layer` (like MO) with `mod` active as well.  Where `mod` is a mods_bit.  Mods can be viewed [here](mod_tap).  Example Implementation: `LM(LAYER_1, MOD_LALT)`|

@@ -59,6 +59,10 @@ Changing the **Value** sets the overall brightness.<br>
 
 ## Keycodes
 
+::: warning
+These keycodes also simultaneously control [RGB Matrix](rgb_matrix), if enabled. This behaviour is in the process of being deprecated, so during this time it is recommended to additionally include the dedicated RGB Matrix keycodes to your keymap, and add `#define RGB_MATRIX_DISABLE_SHARED_KEYCODES` to `config.h`.
+:::
+
 |Key                           |Aliases   |Description                                                          |
 |------------------------------|----------|---------------------------------------------------------------------|
 |`QK_UNDERGLOW_TOGGLE`         |`UG_TOGG` |Toggle RGB lighting on or off                                        |
@@ -93,9 +97,9 @@ Your RGB lighting can be configured by placing these `#define`s in your `config.
 
 |Define                     |Default                     |Description                                                                                                                |
 |---------------------------|----------------------------|---------------------------------------------------------------------------------------------------------------------------|
-|`RGBLIGHT_HUE_STEP`        |`8`                         |The number of steps to cycle through the hue by                                                                            |
-|`RGBLIGHT_SAT_STEP`        |`17`                        |The number of steps to increment the saturation by                                                                         |
-|`RGBLIGHT_VAL_STEP`        |`17`                        |The number of steps to increment the brightness by                                                                         |
+|`RGBLIGHT_HUE_STEP`        |`8`                         |The value by which to increment the hue per adjustment action                                                              |
+|`RGBLIGHT_SAT_STEP`        |`17`                        |The value by which to increment the saturation per adjustment action                                                       |
+|`RGBLIGHT_VAL_STEP`        |`17`                        |The value by which to increment the brightness per adjustment action                                                       |
 |`RGBLIGHT_LIMIT_VAL`       |`255`                       |The maximum brightness level                                                                                               |
 |`RGBLIGHT_SLEEP`           |*Not defined*               |If defined, the RGB lighting will be switched off when the host goes to sleep                                              |
 |`RGBLIGHT_SPLIT`           |*Not defined*               |If defined, synchronization functionality for split keyboards is added                                                     |

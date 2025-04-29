@@ -1,7 +1,6 @@
 {
     "keyboard_name": "OTD-PLUS",
     "manufacturer": "Hardlineworks",
-    "url": "",
     "maintainer": "Hardlineworks",
     "usb": {
         "vid": "0x484C",
@@ -11,7 +10,6 @@
     "features": {
         "bootmagic": true,
         "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true

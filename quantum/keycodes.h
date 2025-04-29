@@ -1,4 +1,4 @@
-// Copyright 2024 QMK
+// Copyright 2025 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 /*******************************************************************************
@@ -52,6 +52,8 @@ enum qk_keycode_ranges {
     QK_ONE_SHOT_MOD_MAX            = 0x52BF,
     QK_LAYER_TAP_TOGGLE            = 0x52C0,
     QK_LAYER_TAP_TOGGLE_MAX        = 0x52DF,
+    QK_PERSISTENT_DEF_LAYER        = 0x52E0,
+    QK_PERSISTENT_DEF_LAYER_MAX    = 0x52FF,
     QK_SWAP_HANDS                  = 0x5600,
     QK_SWAP_HANDS_MAX              = 0x56FF,
     QK_TAP_DANCE                   = 0x5700,
@@ -74,6 +76,8 @@ enum qk_keycode_ranges {
     QK_MACRO_MAX                   = 0x777F,
     QK_CONNECTION                  = 0x7780,
     QK_CONNECTION_MAX              = 0x77BF,
+    QK_COMMUNITY_MODULE            = 0x77C0,
+    QK_COMMUNITY_MODULE_MAX        = 0x77FF,
     QK_LIGHTING                    = 0x7800,
     QK_LIGHTING_MAX                = 0x78FF,
     QK_QUANTUM                     = 0x7C00,
@@ -622,12 +626,13 @@ enum qk_keycode_defines {
     QK_MACRO_29 = 0x771D,
     QK_MACRO_30 = 0x771E,
     QK_MACRO_31 = 0x771F,
-    QK_OUTPUT_NEXT = 0x7780,
-    QK_OUTPUT_PREV = 0x7781,
-    QK_OUTPUT_NONE = 0x7782,
-    QK_OUTPUT_USB = 0x7783,
-    QK_OUTPUT_2P4GHZ = 0x7784,
-    QK_OUTPUT_BLUETOOTH = 0x7785,
+    QK_OUTPUT_AUTO = 0x7780,
+    QK_OUTPUT_NEXT = 0x7781,
+    QK_OUTPUT_PREV = 0x7782,
+    QK_OUTPUT_NONE = 0x7783,
+    QK_OUTPUT_USB = 0x7784,
+    QK_OUTPUT_2P4GHZ = 0x7785,
+    QK_OUTPUT_BLUETOOTH = 0x7786,
     QK_BLUETOOTH_PROFILE_NEXT = 0x7790,
     QK_BLUETOOTH_PROFILE_PREV = 0x7791,
     QK_BLUETOOTH_UNPAIR = 0x7792,
@@ -758,6 +763,7 @@ enum qk_keycode_defines {
     QK_TRI_LAYER_UPPER = 0x7C78,
     QK_REPEAT_KEY = 0x7C79,
     QK_ALT_REPEAT_KEY = 0x7C7A,
+    QK_LAYER_LOCK = 0x7C7B,
     QK_KB_0 = 0x7E00,
     QK_KB_1 = 0x7E01,
     QK_KB_2 = 0x7E02,
@@ -1309,8 +1315,8 @@ enum qk_keycode_defines {
     MC_29      = QK_MACRO_29,
     MC_30      = QK_MACRO_30,
     MC_31      = QK_MACRO_31,
+    OU_AUTO    = QK_OUTPUT_AUTO,
     OU_NEXT    = QK_OUTPUT_NEXT,
-    OU_AUTO    = QK_OUTPUT_NEXT,
     OU_PREV    = QK_OUTPUT_PREV,
     OU_NONE    = QK_OUTPUT_NONE,
     OU_USB     = QK_OUTPUT_USB,
@@ -1444,6 +1450,7 @@ enum qk_keycode_defines {
     TL_UPPR    = QK_TRI_LAYER_UPPER,
     QK_REP     = QK_REPEAT_KEY,
     QK_AREP    = QK_ALT_REPEAT_KEY,
+    QK_LLCK    = QK_LAYER_LOCK,
 };
 
 // Range Helpers
@@ -1459,6 +1466,7 @@ enum qk_keycode_defines {
 #define IS_QK_ONE_SHOT_LAYER(code) ((code) >= QK_ONE_SHOT_LAYER && (code) <= QK_ONE_SHOT_LAYER_MAX)
 #define IS_QK_ONE_SHOT_MOD(code) ((code) >= QK_ONE_SHOT_MOD && (code) <= QK_ONE_SHOT_MOD_MAX)
 #define IS_QK_LAYER_TAP_TOGGLE(code) ((code) >= QK_LAYER_TAP_TOGGLE && (code) <= QK_LAYER_TAP_TOGGLE_MAX)
+#define IS_QK_PERSISTENT_DEF_LAYER(code) ((code) >= QK_PERSISTENT_DEF_LAYER && (code) <= QK_PERSISTENT_DEF_LAYER_MAX)
 #define IS_QK_SWAP_HANDS(code) ((code) >= QK_SWAP_HANDS && (code) <= QK_SWAP_HANDS_MAX)
 #define IS_QK_TAP_DANCE(code) ((code) >= QK_TAP_DANCE && (code) <= QK_TAP_DANCE_MAX)
 #define IS_QK_MAGIC(code) ((code) >= QK_MAGIC && (code) <= QK_MAGIC_MAX)
@@ -1470,6 +1478,7 @@ enum qk_keycode_defines {
 #define IS_QK_STENO(code) ((code) >= QK_STENO && (code) <= QK_STENO_MAX)
 #define IS_QK_MACRO(code) ((code) >= QK_MACRO && (code) <= QK_MACRO_MAX)
 #define IS_QK_CONNECTION(code) ((code) >= QK_CONNECTION && (code) <= QK_CONNECTION_MAX)
+#define IS_QK_COMMUNITY_MODULE(code) ((code) >= QK_COMMUNITY_MODULE && (code) <= QK_COMMUNITY_MODULE_MAX)
 #define IS_QK_LIGHTING(code) ((code) >= QK_LIGHTING && (code) <= QK_LIGHTING_MAX)
 #define IS_QK_QUANTUM(code) ((code) >= QK_QUANTUM && (code) <= QK_QUANTUM_MAX)
 #define IS_QK_KB(code) ((code) >= QK_KB && (code) <= QK_KB_MAX)
@@ -1494,13 +1503,13 @@ enum qk_keycode_defines {
 #define IS_AUDIO_KEYCODE(code) ((code) >= QK_AUDIO_ON && (code) <= QK_AUDIO_VOICE_PREVIOUS)
 #define IS_STENO_KEYCODE(code) ((code) >= QK_STENO_BOLT && (code) <= QK_STENO_COMB_MAX)
 #define IS_MACRO_KEYCODE(code) ((code) >= QK_MACRO_0 && (code) <= QK_MACRO_31)
-#define IS_CONNECTION_KEYCODE(code) ((code) >= QK_OUTPUT_NEXT && (code) <= QK_BLUETOOTH_PROFILE5)
+#define IS_CONNECTION_KEYCODE(code) ((code) >= QK_OUTPUT_AUTO && (code) <= QK_BLUETOOTH_PROFILE5)
 #define IS_BACKLIGHT_KEYCODE(code) ((code) >= QK_BACKLIGHT_ON && (code) <= QK_BACKLIGHT_TOGGLE_BREATHING)
 #define IS_LED_MATRIX_KEYCODE(code) ((code) >= QK_LED_MATRIX_ON && (code) <= QK_LED_MATRIX_SPEED_DOWN)
 #define IS_UNDERGLOW_KEYCODE(code) ((code) >= QK_UNDERGLOW_TOGGLE && (code) <= QK_UNDERGLOW_SPEED_DOWN)
 #define IS_RGB_KEYCODE(code) ((code) >= RGB_MODE_PLAIN && (code) <= RGB_MODE_TWINKLE)
 #define IS_RGB_MATRIX_KEYCODE(code) ((code) >= QK_RGB_MATRIX_ON && (code) <= QK_RGB_MATRIX_SPEED_DOWN)
-#define IS_QUANTUM_KEYCODE(code) ((code) >= QK_BOOTLOADER && (code) <= QK_ALT_REPEAT_KEY)
+#define IS_QUANTUM_KEYCODE(code) ((code) >= QK_BOOTLOADER && (code) <= QK_LAYER_LOCK)
 #define IS_KB_KEYCODE(code) ((code) >= QK_KB_0 && (code) <= QK_KB_31)
 #define IS_USER_KEYCODE(code) ((code) >= QK_USER_0 && (code) <= QK_USER_31)
 
@@ -1520,12 +1529,12 @@ enum qk_keycode_defines {
 #define AUDIO_KEYCODE_RANGE                 QK_AUDIO_ON ... QK_AUDIO_VOICE_PREVIOUS
 #define STENO_KEYCODE_RANGE                 QK_STENO_BOLT ... QK_STENO_COMB_MAX
 #define MACRO_KEYCODE_RANGE                 QK_MACRO_0 ... QK_MACRO_31
-#define CONNECTION_KEYCODE_RANGE            QK_OUTPUT_NEXT ... QK_BLUETOOTH_PROFILE5
+#define CONNECTION_KEYCODE_RANGE            QK_OUTPUT_AUTO ... QK_BLUETOOTH_PROFILE5
 #define BACKLIGHT_KEYCODE_RANGE             QK_BACKLIGHT_ON ... QK_BACKLIGHT_TOGGLE_BREATHING
 #define LED_MATRIX_KEYCODE_RANGE            QK_LED_MATRIX_ON ... QK_LED_MATRIX_SPEED_DOWN
 #define UNDERGLOW_KEYCODE_RANGE             QK_UNDERGLOW_TOGGLE ... QK_UNDERGLOW_SPEED_DOWN
 #define RGB_KEYCODE_RANGE                   RGB_MODE_PLAIN ... RGB_MODE_TWINKLE
 #define RGB_MATRIX_KEYCODE_RANGE            QK_RGB_MATRIX_ON ... QK_RGB_MATRIX_SPEED_DOWN
-#define QUANTUM_KEYCODE_RANGE               QK_BOOTLOADER ... QK_ALT_REPEAT_KEY
+#define QUANTUM_KEYCODE_RANGE               QK_BOOTLOADER ... QK_LAYER_LOCK
 #define KB_KEYCODE_RANGE                    QK_KB_0 ... QK_KB_31
 #define USER_KEYCODE_RANGE                  QK_USER_0 ... QK_USER_31

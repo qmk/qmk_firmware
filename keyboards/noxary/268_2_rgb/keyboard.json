@@ -1,7 +1,6 @@
 {
     "keyboard_name": "268.2 RGB",
     "manufacturer": "Noxary",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
       "vid": "0x4E58",
@@ -12,7 +11,6 @@
         "backlight": true,
         "bootmagic": true,
         "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": true,

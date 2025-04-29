@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Magnus M75S",
     "manufacturer": "SmithRune",
-    "url": "",
     "maintainer": "Gondolindrim",
     "usb": {
         "vid": "0x8384",
@@ -20,7 +19,6 @@
         "backlight": true,
         "bootmagic": true,
         "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
