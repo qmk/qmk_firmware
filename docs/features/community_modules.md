@@ -40,7 +40,7 @@ cd /path/to/your/external/userspace
 mkdir -p modules
 # Replace the following {user} and {repo} with the author's community module repository
 git submodule add https://github.com/{user}/{repo}.git modules/{user}
-git submdule update --init --recursive
+git submodule update --init --recursive
 ```
 
 This will ensure the copy of the module is made in your userspace.

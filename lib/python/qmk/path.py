@@ -3,7 +3,7 @@
 import logging
 import os
 import argparse
-from pathlib import Path
+from pathlib import Path, PureWindowsPath, PurePosixPath
 
 from qmk.constants import MAX_KEYBOARD_SUBFOLDERS, QMK_FIRMWARE, QMK_USERSPACE, HAS_QMK_USERSPACE
 from qmk.errors import NoSuchKeyboardError
@@ -144,6 +144,28 @@ def normpath(path):
         return path
 
     return Path(os.environ['ORIG_CWD']) / path
+
+
+def unix_style_path(path):
+    """Converts a Windows-style path with drive letter to a Unix path.
+
+    Path().as_posix() normally returns the path with drive letter and forward slashes, so is inappropriate for `Makefile` paths.
+
+    Passes through unadulterated if the path is not a Windows-style path.
+
+    Args:
+
+        path
+            The path to convert.
+
+    Returns:
+        The input path converted to Unix format.
+    """
+    if isinstance(path, PureWindowsPath):
+        p = list(path.parts)
+        p[0] = f'/{p[0][0].lower()}'  # convert from `X:/` to `/x`
+        path = PurePosixPath(*p)
+    return path
 
 
 class FileType(argparse.FileType):
