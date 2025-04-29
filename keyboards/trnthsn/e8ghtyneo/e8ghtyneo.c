@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "quantum.h"
 
-#ifdef RGBLIGHT_ENABLE
+#if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_LAYERS)
 const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
   {0,4, HSV_GREEN}
 );
