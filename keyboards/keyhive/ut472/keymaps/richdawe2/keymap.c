@@ -46,13 +46,13 @@ LAYOUT(
    * |-------------------------------------------------------------------------+
    * | Shift |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  | Up  |Sh/En|
    * |-------------------------------------------------------------------------+
-   * |Ctrl |Ctrl | Gui | Alt |Spc/L1|   Space   |Spc/L1|/ Alt| Left|Down |Right|
+   * |Ctrl |Ctrl | Gui | Alt |Spc/L1| Space/L1  |Spc/L1|/ Alt| Left|Down |Right|
    * `-------------------------------------------------------------------------'
    */
   LT3_TAB, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
   LT2_ESC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP,   SC_SENT,
-  KC_LCTL, KC_LCTL, KC_LGUI, KC_LALT, LT1_SPC,    KC_SPC,        LT1_SPC, MT_LASL, KC_LEFT, KC_DOWN, KC_RGHT
+  KC_LCTL, KC_LCTL, KC_LGUI, KC_LALT, LT1_SPC,    LT1_SPC,       LT1_SPC, MT_LASL, KC_LEFT, KC_DOWN, KC_RGHT
 ),
 
 
