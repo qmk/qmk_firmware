@@ -24,7 +24,7 @@ static bool FLOW(effect_params_t* params) {
 
     static uint16_t wrap_correction = 0;
     static uint8_t  last_high_byte  = 0;
-    const uint8_t   time_scale      = 1 + rgb_matrix_config.speed / 4;
+    const uint8_t   time_scale      = 1 + rgb_matrix_config.speed / 8;
     const uint8_t   high_byte       = (uint8_t)(g_rgb_timer >> 16);
     if (last_high_byte != high_byte) {
         last_high_byte = high_byte;
@@ -50,8 +50,10 @@ static bool FLOW(effect_params_t* params) {
         value         = (value <= 127) ? value : (255 - value);
 
         hsv_t hsv = rgb_matrix_config.hsv;
-        hsv.h += 16 - abs8(value - 64) / 2;
-        hsv.v     = scale8(hsv.v, 2 * value + 1);
+        hsv.h -= value / 4;
+        hsv.s     = scale8(hsv.s, (value < 74) ? 255 : (549 - 4 * value));
+        hsv.v     = scale8(hsv.v, (value < 95) ? (64 + 2 * value) : 255);
+
         rgb_t rgb = rgb_matrix_hsv_to_rgb(hsv);
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
