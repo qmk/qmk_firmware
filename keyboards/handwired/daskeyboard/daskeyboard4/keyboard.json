@@ -8,8 +8,6 @@
     "diode_direction": "ROW2COL",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
@@ -32,8 +30,7 @@
     "indicators": {
         "num_lock": "C13",
         "caps_lock": "B14",
-        "scroll_lock": "B2",
-        "on_state": 1
+        "scroll_lock": "B2"
     },
     "encoder": {
         "rotary": [

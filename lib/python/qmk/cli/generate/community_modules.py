@@ -8,7 +8,7 @@ import qmk.path
 from qmk.info import get_modules
 from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.commands import dump_lines
-from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
+from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE, GPL2_HEADER_SH_LIKE, GENERATED_HEADER_SH_LIKE
 from qmk.community_modules import module_api_list, load_module_jsons, find_module_path
 
 
@@ -119,6 +119,69 @@ def _render_core_implementation(api, modules):
             lines.append('    ;')
         lines.append('}')
     return lines
+
+
+def _generate_features_rules(features_dict):
+    lines = []
+    for feature, enabled in features_dict.items():
+        feature = feature.upper()
+        enabled = 'yes' if enabled else 'no'
+        lines.append(f'{feature}_ENABLE={enabled}')
+    return lines
+
+
+def _generate_modules_rules(keyboard, filename):
+    lines = []
+    modules = get_modules(keyboard, filename)
+    if len(modules) > 0:
+        lines.append('')
+        lines.append('OPT_DEFS += -DCOMMUNITY_MODULES_ENABLE=TRUE')
+        for module in modules:
+            module_path = qmk.path.unix_style_path(find_module_path(module))
+            if not module_path:
+                raise FileNotFoundError(f"Module '{module}' not found.")
+            lines.append('')
+            lines.append(f'COMMUNITY_MODULES += {module_path.name}')  # use module_path here instead of module as it may be a subdirectory
+            lines.append(f'OPT_DEFS += -DCOMMUNITY_MODULE_{module_path.name.upper()}_ENABLE=TRUE')
+            lines.append(f'COMMUNITY_MODULE_PATHS += {module_path}')
+            lines.append(f'VPATH += {module_path}')
+            lines.append(f'SRC += $(wildcard {module_path}/{module_path.name}.c)')
+            lines.append(f'MODULE_NAME_{module_path.name.upper()} := {module_path.name}')
+            lines.append(f'MODULE_PATH_{module_path.name.upper()} := {module_path}')
+            lines.append(f'-include {module_path}/rules.mk')
+
+        module_jsons = load_module_jsons(modules)
+        for module_json in module_jsons:
+            if 'features' in module_json:
+                lines.append('')
+                lines.append(f'# Module: {module_json["module_name"]}')
+                lines.extend(_generate_features_rules(module_json['features']))
+    return lines
+
+
+@cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
+@cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
+@cli.argument('-e', '--escape', arg_only=True, action='store_true', help="Escape spaces in quiet mode")
+@cli.argument('-kb', '--keyboard', arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate rules.mk for.')
+@cli.argument('filename', nargs='?', arg_only=True, type=qmk.path.FileType('r'), completer=FilesCompleter('.json'), help='A configurator export JSON to be compiled and flashed or a pre-compiled binary firmware file (bin/hex) to be flashed.')
+@cli.subcommand('Creates a community_modules_rules_mk from a keymap.json file.')
+def generate_community_modules_rules_mk(cli):
+
+    rules_mk_lines = [GPL2_HEADER_SH_LIKE, GENERATED_HEADER_SH_LIKE]
+
+    rules_mk_lines.extend(_generate_modules_rules(cli.args.keyboard, cli.args.filename))
+
+    # Show the results
+    dump_lines(cli.args.output, rules_mk_lines)
+
+    if cli.args.output:
+        if cli.args.quiet:
+            if cli.args.escape:
+                print(cli.args.output.as_posix().replace(' ', '\\ '))
+            else:
+                print(cli.args.output)
+        else:
+            cli.log.info('Wrote rules.mk to %s.', cli.args.output)
 
 
 @cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')

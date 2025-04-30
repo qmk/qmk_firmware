@@ -1,7 +1,6 @@
 {
     "keyboard_name": "GHS.JEM",
     "manufacturer": "Gone Hacking Studio",
-    "url": "",
     "maintainer": "ramonimbao",
     "usb": {
         "vid": "0x0645",
@@ -11,8 +10,6 @@
     "processor": "atmega32u4",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "rgblight": true,

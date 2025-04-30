@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Cycle8",
     "manufacturer": "vertex",
-    "url": "",
     "maintainer": "Eason",
     "usb": {
         "vid": "0x8A94",
@@ -11,8 +10,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

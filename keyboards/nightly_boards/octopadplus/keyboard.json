@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Octopad+",
     "manufacturer": "DeskDaily",
-    "url": "",
     "maintainer": "DeskDaily",
     "usb": {
         "vid": "0xD812",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,
