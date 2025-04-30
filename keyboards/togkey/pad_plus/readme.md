@@ -1,6 +1,6 @@
 # pad_plus
 
-![pad_plus](https://imgur.com/9g3gNMZ)
+![pad_plus](https://i.imgur.com/9g3gNMZ.jpeg)
 
 A 6-Key Macropad featuring a Oled Screen and Rotary Encoder based off an RP2040 and custom PCB.
 

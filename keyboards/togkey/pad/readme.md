@@ -1,6 +1,6 @@
 # pad
 
-![pad](https://imgur.com/KMS1btN)
+![pad](https://i.imgur.com/KMS1btN.jpeg)
 
 A simple 5-Key Macropad based off an RP2040 and custom PCB.
 
