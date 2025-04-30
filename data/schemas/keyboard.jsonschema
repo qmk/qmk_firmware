@@ -98,6 +98,8 @@
                 "GD32VF103",
                 "WB32F3G71",
                 "WB32FQ95",
+                "AT32F402",
+                "AT32F405",
                 "AT32F415",
                 "atmega16u2",
                 "atmega32u2",
