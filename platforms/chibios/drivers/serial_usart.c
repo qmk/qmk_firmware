@@ -14,7 +14,7 @@ static QMKSerialConfig serial_config = {
 #    if HAL_USE_SERIAL
     .speed = (SERIAL_USART_SPEED),
 #    else
-    .baud = (SERIAL_USART_SPEED),
+    .baud  = (SERIAL_USART_SPEED),
 #    endif
     .ctrl1 = (SERIAL_USART_CTRL1),
     .ctrl2 = (SERIAL_USART_CTRL2),
