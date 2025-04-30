@@ -2,7 +2,7 @@
     "manufacturer": "TogKey",
     "keyboard_name": "Pad Plus",
     "maintainer": "togkey86",
-    "bootloader": "rp2040",
+    "development_board": "promicro_rp2040",
     "diode_direction": "COL2ROW",
     "encoder": {
         "enabled": true,
@@ -12,6 +12,7 @@
     },
     "features": {
         "bootmagic": true,
+        "encoder": true,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
@@ -27,7 +28,6 @@
         "display_width": 128,
         "driver": "ssd1306"
     },
-    "processor": "RP2040",
     "rgblight": {
         "animations": {
             "alternating": true,
