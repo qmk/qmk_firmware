@@ -6,43 +6,41 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
         "rgblight": true
-    },
-    "rgblight": {
-        "hue_steps": 10,
-        "led_count": 5,
-        "animations": {
-            "breathing": true,
-            "rainbow_mood": true,
-            "rainbow_swirl": true,
-            "snake": true,
-            "knight": true,
-            "christmas": true,
-            "static_gradient": true,
-            "rgb_test": true,
-            "alternating": true,
-            "twinkle": true
-        }
-    },
-    "ws2812": {
-        "driver": "vendor",
-        "pin": "GP7"
     },
     "matrix_pins": {
         "cols": ["GP2", "GP3", "GP4"],
         "rows": ["GP5", "GP6"]
     },
     "processor": "RP2040",
-    "url": "",
+    "rgblight": {
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        },
+        "hue_steps": 10,
+        "led_count": 5
+    },
+    "url": "https://togkey.com/products/togkey-pad",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x8686",
         "vid": "0xFEED"
+    },
+    "ws2812": {
+        "driver": "vendor",
+        "pin": "GP7"
     },
     "layouts": {
         "LAYOUT_5_key_2x3": {
