@@ -1,0 +1,28 @@
+#!/bin/bash
+
+set -e
+
+echo
+echo FIXME: dm9records/lain:richdawe
+echo FIXME: kiserdesigns/monorail2:richdawe
+echo
+
+KEYMAPS="
+	hs60/v2/ansi:richdawe
+	hs60/v2/iso:richdawe
+	keyhive/ut472:richdawe
+	keyhive/ut472:richdawe2
+	oxwich50:richdawe
+"
+
+for k in $KEYMAPS; do
+	kb=$(echo $k | cut -f 1 -d :)
+	km=$(echo $k | cut -f 2 -d :)
+
+	if [ -z "$kb" -o -z "$km" ]; then
+		echo "Keymap format error: $k" 1>&2
+		exit 1
+	fi
+
+	qmk compile -kb $kb -km $km
+done
