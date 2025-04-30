@@ -43,10 +43,10 @@
 #if defined(AT32F402_405) || defined(AT32F415)
 #    if WS2812_SPI_DIVISOR == 2
 #        define WS2812_SPI_DIVISOR_CTRL1_MDIV_X (0)
-#if defined(AT32F402_405)
-#    elif WS2812_SPI_DIVISOR == 3
-#        define WS2812_SPI_DIVISOR_CTRL2_MDIV_X (SPI_CTRL2_MDIV3EN)
-#endif
+#        if defined(AT32F402_405)
+#        elif WS2812_SPI_DIVISOR == 3
+#            define WS2812_SPI_DIVISOR_CTRL2_MDIV_X (SPI_CTRL2_MDIV3EN)
+#        endif
 #    elif WS2812_SPI_DIVISOR == 4
 #        define WS2812_SPI_DIVISOR_CTRL1_MDIV_X (SPI_CTRL1_MDIV_0)
 #    elif WS2812_SPI_DIVISOR == 8
