@@ -41,13 +41,13 @@
 #    error "please consult your MCU's datasheet and specify in your config.h: #define WS2812_PWM_DMAMUX_ID STM32_DMAMUX1_TIM?_UP"
 #endif
 #if defined(AT32F415)
-#if (AT32_DMA_SUPPORTS_DMAMUX == TRUE) && !defined(WS2812_PWM_DMAMUX_CHANNEL) && !defined(WS2812_PWM_DMAMUX_ID)
-#    error "please consult your MCU's datasheet and specify in your config.h: #define WS2812_PWM_DMAMUX_CHANNEL 1, #define WS2812_PWM_DMAMUX_ID AT32_DMAMUX_TMR?_OVERFLOW"
-#endif
+#    if (AT32_DMA_SUPPORTS_DMAMUX == TRUE) && !defined(WS2812_PWM_DMAMUX_CHANNEL) && !defined(WS2812_PWM_DMAMUX_ID)
+#        error "please consult your MCU's datasheet and specify in your config.h: #define WS2812_PWM_DMAMUX_CHANNEL 1, #define WS2812_PWM_DMAMUX_ID AT32_DMAMUX_TMR?_OVERFLOW"
+#    endif
 #else
-#if (AT32_DMA_SUPPORTS_DMAMUX == TRUE) && !defined(WS2812_PWM_DMAMUX_ID)
-#    error "please consult your MCU's datasheet and specify in your config.h: #define WS2812_PWM_DMAMUX_ID AT32_DMAMUX_TMR?_OVERFLOW"
-#endif
+#    if (AT32_DMA_SUPPORTS_DMAMUX == TRUE) && !defined(WS2812_PWM_DMAMUX_ID)
+#        error "please consult your MCU's datasheet and specify in your config.h: #define WS2812_PWM_DMAMUX_ID AT32_DMAMUX_TMR?_OVERFLOW"
+#    endif
 #endif
 
 /* Summarize https://www.st.com/resource/en/application_note/an4013-stm32-crossseries-timer-overview-stmicroelectronics.pdf to
@@ -363,15 +363,15 @@ void ws2812_init(void) {
 #endif
 
 #if defined(AT32F415)
-#if (AT32_DMA_SUPPORTS_DMAMUX == TRUE)
+#    if (AT32_DMA_SUPPORTS_DMAMUX == TRUE)
     // If the MCU has a DMAMUX we need to assign the correct resource
     dmaSetRequestSource(WS2812_PWM_DMA_STREAM, WS2812_PWM_DMAMUX_CHANNEL, WS2812_PWM_DMAMUX_ID);
-#endif
+#    endif
 #else
-#if (AT32_DMA_SUPPORTS_DMAMUX == TRUE)
+#    if (AT32_DMA_SUPPORTS_DMAMUX == TRUE)
     // If the MCU has a DMAMUX we need to assign the correct resource
     dmaSetRequestSource(WS2812_PWM_DMA_STREAM, WS2812_PWM_DMAMUX_ID);
-#endif
+#    endif
 #endif
 
     // Start DMA
