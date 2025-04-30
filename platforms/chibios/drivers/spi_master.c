@@ -311,11 +311,11 @@ bool spi_start_extended(spi_start_config_t *start_config) {
     switch (roundedDivisor) {
         case 2:
             break;
-#if defined(AT32F402_405)
+#    if defined(AT32F402_405)
         case 3:
             spiConfig.ctrl2 |= SPI_CTRL2_MDIV3EN;
             break;
-#endif
+#    endif
         case 4:
             spiConfig.ctrl1 |= SPI_CTRL1_MDIV_0;
             break;
