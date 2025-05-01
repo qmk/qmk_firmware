@@ -27,6 +27,11 @@
 #include "keycodes.h"
 // clang-format off
 
+#define QMK_CZECH_MAC_ISO_KEYCODES_VERSION "0.0.1"
+#define QMK_CZECH_MAC_ISO_KEYCODES_MAJOR 0
+#define QMK_CZECH_MAC_ISO_KEYCODES_MINOR 0
+#define QMK_CZECH_MAC_ISO_KEYCODES_PATCH 1
+
 // Aliases
 #define CZ_PLUS KC_1    // +
 #define CZ_ECAR KC_2    // ě

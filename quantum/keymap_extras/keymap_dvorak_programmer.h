@@ -27,6 +27,11 @@
 #include "keycodes.h"
 // clang-format off
 
+#define QMK_DVORAK_PROGRAMMER_KEYCODES_VERSION "0.0.1"
+#define QMK_DVORAK_PROGRAMMER_KEYCODES_MAJOR 0
+#define QMK_DVORAK_PROGRAMMER_KEYCODES_MINOR 0
+#define QMK_DVORAK_PROGRAMMER_KEYCODES_PATCH 1
+
 // Aliases
 #define DP_DLR  KC_GRV  // $
 #define DP_AMPR KC_1    // &

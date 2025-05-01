@@ -27,6 +27,11 @@
 #include "keycodes.h"
 // clang-format off
 
+#define QMK_BEPO_KEYCODES_VERSION "0.0.1"
+#define QMK_BEPO_KEYCODES_MAJOR 0
+#define QMK_BEPO_KEYCODES_MINOR 0
+#define QMK_BEPO_KEYCODES_PATCH 1
+
 // Aliases
 #define BP_DLR  KC_GRV  // $
 #define BP_DQUO KC_1    // "

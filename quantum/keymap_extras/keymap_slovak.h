@@ -27,6 +27,11 @@
 #include "keycodes.h"
 // clang-format off
 
+#define QMK_SLOVAK_KEYCODES_VERSION "0.0.1"
+#define QMK_SLOVAK_KEYCODES_MAJOR 0
+#define QMK_SLOVAK_KEYCODES_MINOR 0
+#define QMK_SLOVAK_KEYCODES_PATCH 1
+
 // Aliases
 #define SK_SCLN KC_GRV  // ;
 #define SK_PLUS KC_1    // +

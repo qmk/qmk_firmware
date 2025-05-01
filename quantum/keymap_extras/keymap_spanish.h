@@ -27,6 +27,11 @@
 #include "keycodes.h"
 // clang-format off
 
+#define QMK_SPANISH_KEYCODES_VERSION "0.0.1"
+#define QMK_SPANISH_KEYCODES_MAJOR 0
+#define QMK_SPANISH_KEYCODES_MINOR 0
+#define QMK_SPANISH_KEYCODES_PATCH 1
+
 // Aliases
 #define ES_MORD KC_GRV  // º
 #define ES_1    KC_1    // 1

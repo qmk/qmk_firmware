@@ -27,6 +27,11 @@
 #include "keycodes.h"
 // clang-format off
 
+#define QMK_SWEDISH_KEYCODES_VERSION "0.0.1"
+#define QMK_SWEDISH_KEYCODES_MAJOR 0
+#define QMK_SWEDISH_KEYCODES_MINOR 0
+#define QMK_SWEDISH_KEYCODES_PATCH 1
+
 // Aliases
 #define SE_SECT KC_GRV  // §
 #define SE_1    KC_1    // 1

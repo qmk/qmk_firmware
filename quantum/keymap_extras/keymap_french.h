@@ -27,6 +27,11 @@
 #include "keycodes.h"
 // clang-format off
 
+#define QMK_FRENCH_KEYCODES_VERSION "0.0.1"
+#define QMK_FRENCH_KEYCODES_MAJOR 0
+#define QMK_FRENCH_KEYCODES_MINOR 0
+#define QMK_FRENCH_KEYCODES_PATCH 1
+
 // Aliases
 #define FR_SUP2 KC_GRV  // ²
 #define FR_AMPR KC_1    // &

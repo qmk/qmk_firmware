@@ -27,6 +27,11 @@
 #include "keycodes.h"
 // clang-format off
 
+#define QMK_CZECH_KEYCODES_VERSION "0.0.1"
+#define QMK_CZECH_KEYCODES_MAJOR 0
+#define QMK_CZECH_KEYCODES_MINOR 0
+#define QMK_CZECH_KEYCODES_PATCH 1
+
 // Aliases
 #define CZ_SCLN KC_GRV  // ;
 #define CZ_PLUS KC_1    // +

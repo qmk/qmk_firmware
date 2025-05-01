@@ -27,6 +27,11 @@
 #include "keycodes.h"
 // clang-format off
 
+#define QMK_CZECH_MAC_ANSI_KEYCODES_VERSION "0.0.1"
+#define QMK_CZECH_MAC_ANSI_KEYCODES_MAJOR 0
+#define QMK_CZECH_MAC_ANSI_KEYCODES_MINOR 0
+#define QMK_CZECH_MAC_ANSI_KEYCODES_PATCH 1
+
 // Aliases
 #define CZ_BSLS KC_GRV  // (backslash)
 #define CZ_PLUS KC_1    // +

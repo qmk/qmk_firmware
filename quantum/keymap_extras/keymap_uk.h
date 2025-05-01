@@ -27,6 +27,11 @@
 #include "keycodes.h"
 // clang-format off
 
+#define QMK_UK_KEYCODES_VERSION "0.0.1"
+#define QMK_UK_KEYCODES_MAJOR 0
+#define QMK_UK_KEYCODES_MINOR 0
+#define QMK_UK_KEYCODES_PATCH 1
+
 // Aliases
 #define UK_GRV  KC_GRV  // `
 #define UK_1    KC_1    // 1

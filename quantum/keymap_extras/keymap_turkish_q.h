@@ -27,6 +27,11 @@
 #include "keycodes.h"
 // clang-format off
 
+#define QMK_TURKISH_Q_KEYCODES_VERSION "0.0.1"
+#define QMK_TURKISH_Q_KEYCODES_MAJOR 0
+#define QMK_TURKISH_Q_KEYCODES_MINOR 0
+#define QMK_TURKISH_Q_KEYCODES_PATCH 1
+
 // Aliases
 #define TR_DQUO KC_GRV  // "
 #define TR_1    KC_1    // 1

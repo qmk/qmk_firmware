@@ -27,6 +27,11 @@
 #include "keycodes.h"
 // clang-format off
 
+#define QMK_SERBIAN_KEYCODES_VERSION "0.0.1"
+#define QMK_SERBIAN_KEYCODES_MAJOR 0
+#define QMK_SERBIAN_KEYCODES_MINOR 0
+#define QMK_SERBIAN_KEYCODES_PATCH 1
+
 // Aliases
 #define RS_GRV  KC_GRV  // `
 #define RS_1    KC_1    // 1
