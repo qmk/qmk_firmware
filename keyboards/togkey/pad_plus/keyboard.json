@@ -5,7 +5,6 @@
     "development_board": "promicro_rp2040",
     "diode_direction": "COL2ROW",
     "encoder": {
-        "enabled": true,
         "rotary": [
             {"pin_a": "GP28", "pin_b": "GP29", "resolution": 2}
         ]
@@ -15,7 +14,6 @@
         "encoder": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
         "oled": true,
         "rgblight": true
     },
@@ -23,6 +21,7 @@
         "cols": ["GP4", "GP5", "GP6"],
         "rows": ["GP26", "GP22", "GP20"]
     },
+
     "rgblight": {
         "animations": {
             "alternating": true,

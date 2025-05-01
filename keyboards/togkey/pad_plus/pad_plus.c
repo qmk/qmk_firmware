@@ -30,7 +30,7 @@ static const char image_layer_4[] PROGMEM = {
 
 enum custom_keycodes { LAYER_SCROLL = QK_KB_0 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LAYER_SCROLL:
             if (!record->event.pressed) {
@@ -52,7 +52,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
             return false;
         default:
-            return true; // Process all other keycodes normally
+            return process_record_user(keycode, record);
     }
 }
 
