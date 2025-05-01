@@ -16,6 +16,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "quantum.h"
 
+#ifndef CAPS_LOCK_ENABLE
+#    define CAPS_LOCK_ENABLE true
+#endif
+
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if (CAPS_LOCK_ENABLE && res) {
