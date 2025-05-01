@@ -6,7 +6,7 @@ A simple 5-Key Macropad based off an RP2040 and custom PCB.
 
 * Keyboard Maintainer: [Jon Henry](https://github.com/togkey86)
 * Hardware Supported: Togkey Pad PCB, RP2040 Pro Micro
-* Hardware Availability: (https://togkey.com/products/togkey-pad)
+* Hardware Availability: (https://togkey.com)
 
 Make example for this keyboard (after setting up your build environment):
 

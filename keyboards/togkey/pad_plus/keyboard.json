@@ -23,11 +23,6 @@
         "cols": ["GP4", "GP5", "GP6"],
         "rows": ["GP26", "GP22", "GP20"]
     },
-    "oled": {
-        "display_height": 64,
-        "display_width": 128,
-        "driver": "ssd1306"
-    },
     "rgblight": {
         "animations": {
             "alternating": true,

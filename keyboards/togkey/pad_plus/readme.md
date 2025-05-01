@@ -6,7 +6,7 @@ A 6-Key Macropad featuring a Oled Screen and Rotary Encoder based off an RP2040 
 
 * Keyboard Maintainer: [Jon Henry](https://github.com/togkey86)
 * Hardware Supported: TogKEy Pad Plus PCB, RP2040
-* Hardware Availability: (https://togkey.com/products/togkey-pad-plus)
+* Hardware Availability: (https://togkey.com)
 
 Make example for this keyboard (after setting up your build environment):
 
