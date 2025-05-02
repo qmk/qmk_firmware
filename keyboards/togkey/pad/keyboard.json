@@ -37,7 +37,7 @@
         "pin": "GP7"
     },
     "layouts": {
-        "LAYOUT_5_key_2x3": {
+        "LAYOUT": {
             "layout": [
                 {"matrix": [0, 0], "x": 0.5, "y": 0},
                 {"matrix": [0, 1], "x": 1.5, "y": 0},
