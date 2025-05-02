@@ -3,7 +3,7 @@
   "keyboard_name": "AT1",
   "maintainer": "atset",
   "features": {
-      "extrakey": true,
+      "bootmagic": true,
       "mousekey": true
   },
   "url": "http://atsetmediscience.com",
