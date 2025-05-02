@@ -127,13 +127,16 @@ def _generate_aliases(lines, keycodes):
 
 def _generate_version(lines, keycodes, prefix=''):
     version = keycodes['version']
-    major, minor, patch = version.split('.')
+    major, minor, patch = map(int, version.split('.'))
+
+    bcd = f'0x{major:02d}{minor:02d}{patch:04d}'
 
     lines.append('')
     lines.append(f'#define QMK_{prefix}KEYCODES_VERSION "{version}"')
-    lines.append(f'#define QMK_{prefix}KEYCODES_MAJOR {major}')
-    lines.append(f'#define QMK_{prefix}KEYCODES_MINOR {minor}')
-    lines.append(f'#define QMK_{prefix}KEYCODES_PATCH {patch}')
+    lines.append(f'#define QMK_{prefix}KEYCODES_VERSION_BCD {bcd}')
+    lines.append(f'#define QMK_{prefix}KEYCODES_VERSION_MAJOR {major}')
+    lines.append(f'#define QMK_{prefix}KEYCODES_VERSION_MINOR {minor}')
+    lines.append(f'#define QMK_{prefix}KEYCODES_VERSION_PATCH {patch}')
 
 
 @cli.argument('-v', '--version', arg_only=True, required=True, help='Version of keycodes to generate.')
