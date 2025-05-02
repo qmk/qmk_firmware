@@ -1,0 +1,25 @@
+{
+    "keyboard": "binepad/knobx1",
+    "keymap": "default",
+    "version": 1,
+    "layout": "LAYOUT",
+    "layers": [
+        [
+            "X1_LAYER",
+            "KC_MUTE"
+        ]
+    ],
+    "config": {
+        "features": {
+            "encoder_map": true
+        }
+    },
+    "encoders": [
+        [
+            {
+                "ccw": "KC_VOLD",
+                "cw": "KC_VOLU"
+            }
+        ]
+    ]
+}
