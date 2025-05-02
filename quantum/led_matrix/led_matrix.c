@@ -45,6 +45,9 @@ const led_point_t k_led_matrix_center = LED_MATRIX_CENTER;
 #define LED_MATRIX_CUSTOM_EFFECT_IMPLS
 
 #include "led_matrix_effects.inc"
+#ifdef COMMUNITY_MODULES_ENABLE
+#    include "led_matrix_community_modules.inc"
+#endif
 #ifdef LED_MATRIX_CUSTOM_KB
 #    include "led_matrix_kb.inc"
 #endif
@@ -281,6 +284,15 @@ static void led_task_render(uint8_t effect) {
         break;
 #include "led_matrix_effects.inc"
 #undef LED_MATRIX_EFFECT
+
+#ifdef COMMUNITY_MODULES_ENABLE
+#    define LED_MATRIX_EFFECT(name, ...)          \
+        case LED_MATRIX_COMMUNITY_MODULE_##name:  \
+            rendering = name(&led_effect_params); \
+            break;
+#    include "led_matrix_community_modules.inc"
+#    undef LED_MATRIX_EFFECT
+#endif
 
 #if defined(LED_MATRIX_CUSTOM_KB) || defined(LED_MATRIX_CUSTOM_USER)
 #    define LED_MATRIX_EFFECT(name, ...)          \
