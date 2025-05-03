@@ -15,7 +15,7 @@ The purpose of this page is to document how to set up VS Code for developing QMK
 This guide covers how to configure everything needed on Windows and Ubuntu 18.04
 
 # Set up VS Code
-Before starting, you will want to make sure that you have all of the build tools set up, and QMK Firmware cloned. Head to the [Newbs Getting Started Guide](newbs_getting_started.md) to get things set up, if you haven't already.
+Before starting, you will want to make sure that you have all of the build tools set up, and QMK Firmware cloned. Head to the [Newbs Getting Started Guide](newbs_getting_started) to get things set up, if you haven't already.
 
 ## Windows
 
@@ -73,7 +73,9 @@ Now, we will set up the MSYS2 window to show up in VSCode as the integrated term
 
    If there are settings here already, then just add everything between the first and last curly brackets and separate the existing settings with a comma from the newly added ones.
 
-?> If you installed MSYS2 to a different folder, then you'll need to change the path for `terminal.integrated.shell.windows` to the correct path for your system. 
+::: tip
+If you installed MSYS2 to a different folder, then you'll need to change the path for `terminal.integrated.shell.windows` to the correct path for your system. 
+:::
 
 4. Hit Ctrl-<code>&#96;</code> (Grave) to bring up the terminal or go to <kbd><kbd>View</kbd> > <kbd>Terminal</kbd></kbd> (command `workbench.action.terminal.toggleTerminal`). A new terminal will be opened if there isn‘t one already.
 
@@ -92,59 +94,105 @@ No, really, that's it.  The paths needed are already included when installing th
 
 There are a number of extensions that you may want to install:
 
-* [Git Extension Pack](https://marketplace.visualstudio.com/items?itemName=donjayamanne.git-extension-pack) - 
-This installs a bunch of Git related tools that may make using Git with QMK Firmware easier.
+* [Git Extension Pack](https://marketplace.visualstudio.com/items?itemName=donjayamanne.git-extension-pack) - This installs a bunch of Git related tools that may make using Git with QMK Firmware easier.
+* [clangd](https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd) - _[Optional]_ -  This is the language server for C/C++ that VS Code uses.  It provides IntelliSense and other features.
 * [EditorConfig for VS Code](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig) - _[Optional]_ -  Helps to keep the code to the QMK Coding Conventions.
 * [GitHub Markdown Preview](https://marketplace.visualstudio.com/items?itemName=bierner.github-markdown-preview) - _[Optional]_ - Makes the markdown preview in VS Code more like GitHub's.
-* [VS Live Share Extension Pack](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare-pack) - _[Optional]_ - This extension allows somebody else to access your workspace (or you to access somebody else's workspace) and help out.  This is great if you're having issues and need some help from somebody.
+* [VS Live Share Extension Pack](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare) - _[Optional]_ - This extension allows somebody else to access your workspace (or you to access somebody else's workspace) and help out.  This is great if you're having issues and need some help from somebody.
 
-Restart once you've installed any extensions
+Restart once you've installed any extensions.
 
 # Configure VS Code for QMK
 
 1. Click <kbd><kbd>File</kbd> > <kbd>Open Folder</kbd></kbd>
-2. Open the QMK Firmware folder that you cloned from GitHub. 
+2. Open the QMK Firmware folder that you cloned from GitHub.
 3. Click <kbd><kbd>File</kbd> > <kbd>Save Workspace As...</kbd></kbd>
 
 ## Configuring VS Code
 
-Using the [standard `compile_commands.json` database](https://clang.llvm.org/docs/JSONCompilationDatabase.html), we can get VS code C/C++ extension to use the exact same includes and defines used for your keyboard and keymap. 
+Using the [standard `compile_commands.json` database](https://clang.llvm.org/docs/JSONCompilationDatabase.html), we can get the VS code _clangd_ extension to use the correct includes and defines used for your keyboard and keymap.
 
 1. Run `qmk generate-compilation-database -kb <keyboard> -km <keymap>` to generate the `compile_commands.json`.
-1. Create `.vscode/c_cpp_properties.json` with the following content:
-```
+1. Inside VS code, press <kbd><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd></kbd> (macOS: <kbd><kbd>Command</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd></kbd>) to open the command palette.
+1. Start typing `clangd: Download Language Server` and select it when it appears. Note that this only needs to be done once on clangd extension installation, if it didn't already ask to do so.
+1. Inside VS code, press <kbd><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd></kbd> (macOS: <kbd><kbd>Command</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd></kbd>) to open the command palette.
+1. Start typing `clangd: Restart Language Server` and select it when it appears.
+
+Now you're ready to code QMK Firmware in VS Code!
+
+# Debugging ARM MCUs with Visual Studio Code
+
+**...and a Black Magic Probe.**
+
+Visual Studio Code has the ability to debug applications, but requires some configuration in order to get it to be able to do so for ARM targets.
+
+This documentation describes a known-working configuration for setting up the use of a Black Magic Probe to debug using VS Code.
+
+It is assumed that you've correctly set up the electrical connectivity of the Black Magic Probe with your MCU. Wiring up `NRST`, `SWDIO`, `SWCLK`, and `GND` should be enough.
+
+Install the following plugin into VS Code:
+
+* [Cortex-Debug](https://marketplace.visualstudio.com/items?itemName=marus25.cortex-debug) - 
+  This adds debugger support for ARM Cortex targets to VS Code.
+
+A debugging target for the MCU for your board needs to be defined, and can be done so by adding the following to a `.vscode/launch.json` file:
+
+```json
 {
-    "configurations": [
-        {
-            "name": "qmk",
-            "compilerArgs": ["-mmcu=atmega32u4"],
-            "compilerPath": "/usr/bin/avr-gcc",
-            "cStandard": "gnu11",
-            "cppStandard": "gnu++14",
-            "compileCommands": "${workspaceFolder}/compile_commands.json",
-            "intelliSenseMode": "linux-gcc-arm",
-            "browse": {
-                "path": [
-                    "${workspaceFolder}"
-                ],
-                "limitSymbolsToIncludedHeaders": true,
-                "databaseFilename": ""
-            }
-        }
-    ],
-    "version": 4
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Black Magic Probe (OneKey Proton-C)",
+      "type": "cortex-debug",
+      "request": "launch",
+      "cwd": "${workspaceRoot}",
+      "executable": "${workspaceRoot}/.build/handwired_onekey_proton_c_default.elf",
+      "servertype": "bmp",
+      "BMPGDBSerialPort": "COM4",
+      "svdFile": "Q:\\svd\\STM32F303.svd",
+      "device": "STM32F303",
+      "v1": false,
+      "windows": {
+        "armToolchainPath": "C:\\QMK_MSYS\\mingw64\\bin"
+      }
+    }
+  ]
 }
 ```
 
-Change values in `.vscode/c_cpp_properties.json` for your environment:
+You'll need to perform some modifications to the file above in order to target your specific device:
 
-1. Copy the `-mmcu` argument from `compile_commands.json` into your `compilerArgs`. This is to work around a [bug in vscode c/c++ extension](https://github.com/microsoft/vscode-cpptools/issues/6478).
-1. Use the `compilerPath` from `compile_commands.json`.
-1. Modify `cStandard`, `cppStandard` and `intelliSenseMode` values to the correct values for your platform. See [this section](https://code.visualstudio.com/docs/cpp/c-cpp-properties-schema-reference#_configuration-properties) for reference. For WSL, it should still be gcc-x64.
+* `"name"`: Can be anything, but if you're debugging multiple targets you'll want something descriptive here.
+* `"cwd"`: The path to the QMK Firmware repository root directory -- _if using the `.vscode` directory existing in the `qmk_firmware` git repository, the default above should be correct_
+* `"executable"`: The path to the `elf` file generated as part of the build for your keyboard -- _exists in `<qmk_firmware>/.build`_
+* `"BMPGDBSerialPort"`: The `COM` port under Windows, or the `/dev/...` path for Linux/macOS. Two serial port devices will be created -- the Black Magic Probe debug port is *usually* the first. If it doesn't work, try the second.
+* `"svdFile"`: _[Optional]_ The path to the SVD file that defines the register layout for the MCU -- the appropriate file can be downloaded from the [cmsis-svd repository](https://github.com/posborne/cmsis-svd/tree/master/data/STMicro)
+* `"device"`: The name of the MCU, which matches the `<name>` tag at the top of the downloaded `svd` file.
+* `"armToolchainPath"`: _[Optional]_ The path to the ARM toolchain installation location on Windows -- under normal circumstances Linux/macOS will auto-detect this correctly and will not need to be specified. 
 
-And now you're ready to code QMK Firmware in VS Code
+::: warning
+Windows builds of QMK Firmware are generally compiled using QMK MSYS, and the path to gdb's location (`C:\\QMK_MSYS\\mingw64\\bin`) needs to be specified under `armToolchainPath` for it to be detected. You may also need to change the GDB path to point at `C:\\QMK_MSYS\\mingw64\\bin\\gdb-multiarch.exe` in the VSCode Cortex-Debug user settings: ![VSCode Settings](https://i.imgur.com/EGrPM1L.png)
+:::
 
+The following modifications must be made to the keyboard's `rules.mk` file to enable debug information and disable optimisations -- this will ensure breakpoints and variable viewing works correctly:
+```makefile
+# Enable debug information in the final binaries
+DEBUG_ENABLE = yes
+# Disable optimisations for debugging purposes
+LTO_ENABLE = no
+OPT = g
+```
 
-## Troubleshooting VSCode C/C++ extension
+At this point, you should build and flash your firmware through normal methods (`qmk compile ...` and `qmk flash ...`).
 
-If the defines are not matching what you expect, open the source code and run action `C/C++: Log Diagnostics`. This will list the exact list of defines and include paths defined in `compile_commands.json`, and if it's not part of your compilation database, it will tell you so.
+Once completed, you can:
+* Switch to the debug view in VS Code (in the sidebar, the Play button with a bug next to it)
+* Select the newly-created debug target in the dropdown at the top of the sidebar
+* Click the green play button next to the dropdown
+
+VS Code's debugger will then start executing the compiled firmware on the MCU.
+
+At this stage, you should have full debugging set up, with breakpoints and variable listings working!

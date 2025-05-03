@@ -21,7 +21,7 @@
 #include <string>
 
 extern "C" {
-#include "quantum.h"
+#include "matrix.h"
 #include "timer.h"
 }
 
@@ -54,8 +54,9 @@ class DebounceTest : public ::testing::Test {
     void addEvents(std::initializer_list<DebounceTestEvent> events);
     void runEvents();
 
-    fast_timer_t time_offset_ = 7777;
-    bool         time_jumps_  = false;
+    fast_timer_t time_offset_      = 7777;
+    bool         time_jumps_       = false;
+    fast_timer_t async_time_jumps_ = 0;
 
    private:
     static bool        directionValue(Direction direction);

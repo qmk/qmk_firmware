@@ -19,9 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define TAP_CODE_DELAY 10
-
 /* RP2040-specific defines*/
+#define PICO_XOSC_STARTUP_DELAY_MULTIPLIER 64
 #define RP2040_FLASH_GENERIC_03H
 #define I2C1_SDA_PIN GP26
 #define I2C1_SCL_PIN GP27

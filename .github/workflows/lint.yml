@@ -12,13 +12,13 @@ jobs:
   lint:
     runs-on: ubuntu-latest
 
-    container: qmkfm/qmk_cli
+    container: ghcr.io/qmk/qmk_cli
 
     steps:
     - name: Disable safe.directory check
       run : git config --global --add safe.directory '*'
 
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 0
 
@@ -27,7 +27,9 @@ jobs:
 
     - name: Get changed files
       id: file_changes
-      uses: tj-actions/changed-files@v35
+      uses: tj-actions/changed-files@v46
+      with:
+        use_rest_api: true
 
     - name: Print info
       run: |
@@ -36,6 +38,7 @@ jobs:
         echo '${{ steps.file_changes.outputs.all_changed_files}}'
 
     - name: Run qmk lint
+      if: always()
       shell: 'bash {0}'
       run: |
         QMK_CHANGES=$(echo -e '${{ steps.file_changes.outputs.all_changed_files}}' | sed 's/ /\n/g')
@@ -61,10 +64,12 @@ jobs:
 
         qmk format-text ${{ steps.file_changes.outputs.all_changed_files}} || true
         for file in ${{ steps.file_changes.outputs.all_changed_files}}; do
-          if ! git diff --quiet $file; then
-            echo "File '${file}' Requires Formatting"
-            echo "::error file=${file}::Requires Formatting"
-            exit_code=$(($exit_code + 1))
+          if [[ -f $file ]]; then
+            if ! git diff --quiet $file; then
+              echo "File '${file}' Requires Formatting"
+              echo "::error file=${file}::Requires Formatting"
+              exit_code=$(($exit_code + 1))
+            fi
           fi
         done
 
@@ -72,3 +77,11 @@ jobs:
             exit 255
         fi
         exit $exit_code
+
+    - name: Verify keyboard aliases
+      if: always()
+      shell: 'bash {0}'
+      run: |
+        git reset --hard
+        git clean -xfd
+        qmk ci-validate-aliases

@@ -24,11 +24,9 @@
 
 // FRAM configuration
 #ifndef EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN
+#    define EEPROM_SPI_MB85RS64V
 #    define EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN PAL_LINE(GPIOA, 0)
 #    define EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR 8 // 96MHz / 8 = 12MHz; max supported by MB85R64 is 20MHz
-#    define EXTERNAL_EEPROM_BYTE_COUNT 8192
-#    define EXTERNAL_EEPROM_PAGE_SIZE 64 // does not matter for FRAM, just sets the RAM buffer size in STM32F chip
-#    define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 8191
 #endif
 
 // External flash configuration
@@ -66,9 +64,9 @@
 #endif
 
 // WS2812-style LED control on pin A10
-#ifdef WS2812_DRIVER_PWM
-#    ifndef RGB_DI_PIN
-#        define RGB_DI_PIN PAL_LINE(GPIOA, 10)
+#ifdef WS2812_PWM
+#    ifndef WS2812_DI_PIN
+#        define WS2812_DI_PIN PAL_LINE(GPIOA, 10)
 #    endif
 #    ifndef WS2812_PWM_DRIVER
 #        define WS2812_PWM_DRIVER PWMD1
@@ -79,11 +77,11 @@
 #    ifndef WS2812_PWM_PAL_MODE
 #        define WS2812_PWM_PAL_MODE 1
 #    endif
-#    ifndef WS2812_DMA_STREAM
-#        define WS2812_DMA_STREAM STM32_DMA2_STREAM5
+#    ifndef WS2812_PWM_DMA_STREAM
+#        define WS2812_PWM_DMA_STREAM STM32_DMA2_STREAM5
 #    endif
-#    ifndef WS2812_DMA_CHANNEL
-#        define WS2812_DMA_CHANNEL 6
+#    ifndef WS2812_PWM_DMA_CHANNEL
+#        define WS2812_PWM_DMA_CHANNEL 6
 #    endif
 #endif
 

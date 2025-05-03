@@ -14,110 +14,110 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "iso.h"
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
 
-const aw_led g_aw_leds[RGB_MATRIX_LED_COUNT] = {
-/* Refer to IS31 manual for these locations
+const aw20216s_led_t PROGMEM g_aw20216s_leds[AW20216S_LED_COUNT] = {
+/* Refer to AW20216S manual for these locations
  *   driver
  *   |     R location
  *   |     |          G location
  *   |     |          |          B location
  *   |     |          |          | */
-    {0, CS1_SW1,   CS2_SW1,   CS3_SW1  },  //  0  Esc
-    {0, CS4_SW2,   CS5_SW2,   CS6_SW2  },  //  1  1
-    {0, CS4_SW3,   CS5_SW3,   CS6_SW3  },  //  2  2
-    {0, CS4_SW4,   CS5_SW4,   CS6_SW4  },  //  3  3
-    {0, CS4_SW5,   CS5_SW5,   CS6_SW5  },  //  4  4
-    {0, CS4_SW6,   CS5_SW6,   CS6_SW6  },  //  5  5
-    {0, CS4_SW7,   CS5_SW7,   CS6_SW7  },  //  6  6
-    {0, CS4_SW8,   CS5_SW8,   CS6_SW8  },  //  7  7
-    {0, CS4_SW9,   CS5_SW9,   CS6_SW9  },  //  8  8
-    {0, CS4_SW10,  CS5_SW10,  CS6_SW10 },  //  9  9
-    {0, CS4_SW11,  CS5_SW11,  CS6_SW11 },  //  10 0
-    {0, CS4_SW12,  CS5_SW12,  CS6_SW12 },  //  11 -
-    {1, CS1_SW5,   CS2_SW5,   CS3_SW5  },  //  12 =
-    {1, CS1_SW7,   CS2_SW7,   CS3_SW7  },  //  13 Backspace
-    {1, CS4_SW4,   CS5_SW4,   CS6_SW4  },  //  14 HOME
+    {0, SW1_CS1,   SW1_CS2,   SW1_CS3  },  //  0  Esc
+    {0, SW2_CS4,   SW2_CS5,   SW2_CS6  },  //  1  1
+    {0, SW3_CS4,   SW3_CS5,   SW3_CS6  },  //  2  2
+    {0, SW4_CS4,   SW4_CS5,   SW4_CS6  },  //  3  3
+    {0, SW5_CS4,   SW5_CS5,   SW5_CS6  },  //  4  4
+    {0, SW6_CS4,   SW6_CS5,   SW6_CS6  },  //  5  5
+    {0, SW7_CS4,   SW7_CS5,   SW7_CS6  },  //  6  6
+    {0, SW8_CS4,   SW8_CS5,   SW8_CS6  },  //  7  7
+    {0, SW9_CS4,   SW9_CS5,   SW9_CS6  },  //  8  8
+    {0, SW10_CS4,  SW10_CS5,  SW10_CS6 },  //  9  9
+    {0, SW11_CS4,  SW11_CS5,  SW11_CS6 },  //  10 0
+    {0, SW12_CS4,  SW12_CS5,  SW12_CS6 },  //  11 -
+    {1, SW5_CS1,   SW5_CS2,   SW5_CS3  },  //  12 =
+    {1, SW7_CS1,   SW7_CS2,   SW7_CS3  },  //  13 Backspace
+    {1, SW4_CS4,   SW4_CS5,   SW4_CS6  },  //  14 HOME
 
-    {0, CS7_SW1,   CS8_SW1,   CS9_SW1  },  //  15 Tab
-    {0, CS7_SW2,   CS8_SW2,   CS9_SW2  },  //  16 Q
-    {0, CS7_SW3,   CS8_SW3,   CS9_SW3  },  //  17 W
-    {0, CS7_SW4,   CS8_SW4,   CS9_SW4  },  //  18 E
-    {0, CS7_SW5,   CS8_SW5,   CS9_SW5  },  //  19 R
-    {0, CS7_SW6,   CS8_SW6,   CS9_SW6  },  //  20 T
-    {0, CS7_SW7,   CS8_SW7,   CS9_SW7  },  //  21 Y
-    {0, CS7_SW8,   CS8_SW8,   CS9_SW8  },  //  22 U
-    {0, CS7_SW9,   CS8_SW9,   CS9_SW9  },  //  23 I
-    {0, CS7_SW10,  CS8_SW10,  CS9_SW10 },  //  24 O
-    {0, CS7_SW11,  CS8_SW11,  CS9_SW11 },  //  25 P
-    {0, CS7_SW12,  CS8_SW12,  CS9_SW12 },  //  26 [
-    {1, CS1_SW8,   CS2_SW8,   CS3_SW8  },  //  27 ]
-    {1, CS1_SW11,  CS2_SW11,  CS3_SW11 },  //  28 ENTER
-    {1, CS4_SW7,   CS5_SW7,   CS6_SW7  },  //  29 PgUp
+    {0, SW1_CS7,   SW1_CS8,   SW1_CS9  },  //  15 Tab
+    {0, SW2_CS7,   SW2_CS8,   SW2_CS9  },  //  16 Q
+    {0, SW3_CS7,   SW3_CS8,   SW3_CS9  },  //  17 W
+    {0, SW4_CS7,   SW4_CS8,   SW4_CS9  },  //  18 E
+    {0, SW5_CS7,   SW5_CS8,   SW5_CS9  },  //  19 R
+    {0, SW6_CS7,   SW6_CS8,   SW6_CS9  },  //  20 T
+    {0, SW7_CS7,   SW7_CS8,   SW7_CS9  },  //  21 Y
+    {0, SW8_CS7,   SW8_CS8,   SW8_CS9  },  //  22 U
+    {0, SW9_CS7,   SW9_CS8,   SW9_CS9  },  //  23 I
+    {0, SW10_CS7,  SW10_CS8,  SW10_CS9 },  //  24 O
+    {0, SW11_CS7,  SW11_CS8,  SW11_CS9 },  //  25 P
+    {0, SW12_CS7,  SW12_CS8,  SW12_CS9 },  //  26 [
+    {1, SW8_CS1,   SW8_CS2,   SW8_CS3  },  //  27 ]
+    {1, SW11_CS1,  SW11_CS2,  SW11_CS3 },  //  28 ENTER
+    {1, SW7_CS4,   SW7_CS5,   SW7_CS6  },  //  29 PgUp
 
-    {0, CS10_SW1,  CS11_SW1,  CS12_SW1 },  //  30 Caps Lock
-    {0, CS10_SW2,  CS11_SW2,  CS12_SW2 },  //  31 A
-    {0, CS10_SW3,  CS11_SW3,  CS12_SW3 },  //  32 S
-    {0, CS10_SW4,  CS11_SW4,  CS12_SW4 },  //  33 D
-    {0, CS10_SW5,  CS11_SW5,  CS12_SW5 },  //  34 F
-    {0, CS10_SW6,  CS11_SW6,  CS12_SW6 },  //  35 G
-    {0, CS10_SW7,  CS11_SW7,  CS12_SW7 },  //  36 H
-    {0, CS10_SW8,  CS11_SW8,  CS12_SW8 },  //  37 J
-    {0, CS10_SW9,  CS11_SW9,  CS12_SW9 },  //  38 K
-    {0, CS10_SW10, CS11_SW10, CS12_SW10},  //  39 L
-    {0, CS10_SW11, CS11_SW11, CS12_SW11},  //  40 ;
-    {0, CS10_SW12, CS11_SW12, CS12_SW12},  //  41 '
-    {1, CS1_SW10,  CS2_SW10,  CS3_SW10 },  //  42 k42
-    {1, CS4_SW5,   CS5_SW5,   CS6_SW5  },  //  43 PgDn
+    {0, SW1_CS10,  SW1_CS11,  SW1_CS12 },  //  30 Caps Lock
+    {0, SW2_CS10,  SW2_CS11,  SW2_CS12 },  //  31 A
+    {0, SW3_CS10,  SW3_CS11,  SW3_CS12 },  //  32 S
+    {0, SW4_CS10,  SW4_CS11,  SW4_CS12 },  //  33 D
+    {0, SW5_CS10,  SW5_CS11,  SW5_CS12 },  //  34 F
+    {0, SW6_CS10,  SW6_CS11,  SW6_CS12 },  //  35 G
+    {0, SW7_CS10,  SW7_CS11,  SW7_CS12 },  //  36 H
+    {0, SW8_CS10,  SW8_CS11,  SW8_CS12 },  //  37 J
+    {0, SW9_CS10,  SW9_CS11,  SW9_CS12 },  //  38 K
+    {0, SW10_CS10, SW10_CS11, SW10_CS12},  //  39 L
+    {0, SW11_CS10, SW11_CS11, SW11_CS12},  //  40 ;
+    {0, SW12_CS10, SW12_CS11, SW12_CS12},  //  41 '
+    {1, SW10_CS1,  SW10_CS2,  SW10_CS3 },  //  42 k42
+    {1, SW5_CS4,   SW5_CS5,   SW5_CS6  },  //  43 PgDn
 
-    {0, CS13_SW1,  CS14_SW1,  CS15_SW1 },  //  44 Shift_L
-    {0, CS13_SW2,  CS14_SW2,  CS15_SW2 },  //  45 k45
-    {0, CS13_SW3,  CS14_SW3,  CS15_SW3 },  //  46 Z
-    {0, CS13_SW4,  CS14_SW4,  CS15_SW4 },  //  47 X
-    {0, CS13_SW5,  CS14_SW5,  CS15_SW5 },  //  48 C
-    {0, CS13_SW6,  CS14_SW6,  CS15_SW6 },  //  49 V
-    {0, CS13_SW7,  CS14_SW7,  CS15_SW7 },  //  50 B
-    {0, CS13_SW8,  CS14_SW8,  CS15_SW8 },  //  51 N
-    {0, CS13_SW9,  CS14_SW9,  CS15_SW9 },  //  52 M
-    {0, CS13_SW10, CS14_SW10, CS15_SW10},  //  53 ,
-    {0, CS13_SW11, CS14_SW11, CS15_SW11},  //  54 .
-    {0, CS13_SW12, CS14_SW12, CS15_SW12},  //  55 /
-    {1, CS4_SW8,   CS5_SW8,   CS6_SW8  },  //  56 Shift_R
-    {1, CS4_SW9,   CS5_SW9,   CS6_SW9  },  //  57 Up
-    {1, CS4_SW6,   CS5_SW6,   CS6_SW6  },  //  58 END
+    {0, SW1_CS13,  SW1_CS14,  SW1_CS15 },  //  44 Shift_L
+    {0, SW2_CS13,  SW2_CS14,  SW2_CS15 },  //  45 k45
+    {0, SW3_CS13,  SW3_CS14,  SW3_CS15 },  //  46 Z
+    {0, SW4_CS13,  SW4_CS14,  SW4_CS15 },  //  47 X
+    {0, SW5_CS13,  SW5_CS14,  SW5_CS15 },  //  48 C
+    {0, SW6_CS13,  SW6_CS14,  SW6_CS15 },  //  49 V
+    {0, SW7_CS13,  SW7_CS14,  SW7_CS15 },  //  50 B
+    {0, SW8_CS13,  SW8_CS14,  SW8_CS15 },  //  51 N
+    {0, SW9_CS13,  SW9_CS14,  SW9_CS15 },  //  52 M
+    {0, SW10_CS13, SW10_CS14, SW10_CS15},  //  53 ,
+    {0, SW11_CS13, SW11_CS14, SW11_CS15},  //  54 .
+    {0, SW12_CS13, SW12_CS14, SW12_CS15},  //  55 /
+    {1, SW8_CS4,   SW8_CS5,   SW8_CS6  },  //  56 Shift_R
+    {1, SW9_CS4,   SW9_CS5,   SW9_CS6  },  //  57 Up
+    {1, SW6_CS4,   SW6_CS5,   SW6_CS6  },  //  58 END
 
-    {0, CS16_SW1,  CS17_SW1,  CS18_SW1 },  //  59 Ctrl_L
-    {0, CS16_SW2,  CS17_SW2,  CS18_SW2 },  //  60 Win_L
-    {0, CS16_SW3,  CS17_SW3,  CS18_SW3 },  //  61 Alt_L
-    {0, CS16_SW6,  CS17_SW6,  CS18_SW6 },  //  62 Space
-    {0, CS16_SW9,  CS17_SW9,  CS18_SW9 },  //  63 Alt_R
-    {0, CS16_SW10, CS17_SW10, CS18_SW10},  //  64 FN
-    {1, CS4_SW10,  CS5_SW10,  CS6_SW10 },  //  65 Left
-    {1, CS4_SW11,  CS5_SW11,  CS6_SW11 },  //  66 Down
-    {1, CS4_SW12,  CS5_SW12,  CS6_SW12 },  //  67 Right
+    {0, SW1_CS16,  SW1_CS17,  SW1_CS18 },  //  59 Ctrl_L
+    {0, SW2_CS16,  SW2_CS17,  SW2_CS18 },  //  60 Win_L
+    {0, SW3_CS16,  SW3_CS17,  SW3_CS18 },  //  61 Alt_L
+    {0, SW6_CS16,  SW6_CS17,  SW6_CS18 },  //  62 Space
+    {0, SW9_CS16,  SW9_CS17,  SW9_CS18 },  //  63 Alt_R
+    {0, SW10_CS16, SW10_CS17, SW10_CS18},  //  64 FN
+    {1, SW10_CS4,  SW10_CS5,  SW10_CS6 },  //  65 Left
+    {1, SW11_CS4,  SW11_CS5,  SW11_CS6 },  //  66 Down
+    {1, SW12_CS4,  SW12_CS5,  SW12_CS6 },  //  67 Right
 
-    {1, CS13_SW1,  CS14_SW1,  CS15_SW1 },  //  68 LED 1
-    {1, CS13_SW2,  CS14_SW2,  CS15_SW2 },  //  69 LED 2
-    {1, CS13_SW3,  CS14_SW3,  CS15_SW3 },  //  70 LED 3
-    {1, CS13_SW4,  CS14_SW4,  CS15_SW4 },  //  71 LED 4
-    {1, CS13_SW5,  CS14_SW5,  CS15_SW5 },  //  72 LED 5
-    {1, CS13_SW6,  CS14_SW6,  CS15_SW6 },  //  73 LED 6
-    {1, CS13_SW7,  CS14_SW7,  CS15_SW7 },  //  74 LED 7
-    {1, CS13_SW8,  CS14_SW8,  CS15_SW8 },  //  75 LED 8
-    {1, CS13_SW9,  CS14_SW9,  CS15_SW9 },  //  76 LED 9
-    {1, CS13_SW10, CS14_SW10, CS15_SW10},  //  77 LED 10
-    {1, CS16_SW1,  CS17_SW1,  CS18_SW1 },  //  78 LED 11
-    {1, CS16_SW2,  CS17_SW2,  CS18_SW2 },  //  79 LED 12
-    {1, CS16_SW3,  CS17_SW3,  CS18_SW3 },  //  80 LED 13
-    {1, CS16_SW4,  CS17_SW4,  CS18_SW4 },  //  81 LED 14
-    {1, CS16_SW5,  CS17_SW5,  CS18_SW5 },  //  82 LED 15
-    {1, CS16_SW6,  CS17_SW6,  CS18_SW6 },  //  83 LED 16
-    {1, CS16_SW7,  CS17_SW7,  CS18_SW7 },  //  84 LED 17
-    {1, CS16_SW8,  CS17_SW8,  CS18_SW8 },  //  85 LED 18
-    {1, CS16_SW9,  CS17_SW9,  CS18_SW9 },  //  86 LED 19
-    {1, CS16_SW10, CS17_SW10, CS18_SW10}   //  87 LED 20
+    {1, SW1_CS13,  SW1_CS14,  SW1_CS15 },  //  68 LED 1
+    {1, SW2_CS13,  SW2_CS14,  SW2_CS15 },  //  69 LED 2
+    {1, SW3_CS13,  SW3_CS14,  SW3_CS15 },  //  70 LED 3
+    {1, SW4_CS13,  SW4_CS14,  SW4_CS15 },  //  71 LED 4
+    {1, SW5_CS13,  SW5_CS14,  SW5_CS15 },  //  72 LED 5
+    {1, SW6_CS13,  SW6_CS14,  SW6_CS15 },  //  73 LED 6
+    {1, SW7_CS13,  SW7_CS14,  SW7_CS15 },  //  74 LED 7
+    {1, SW8_CS13,  SW8_CS14,  SW8_CS15 },  //  75 LED 8
+    {1, SW9_CS13,  SW9_CS14,  SW9_CS15 },  //  76 LED 9
+    {1, SW10_CS13, SW10_CS14, SW10_CS15},  //  77 LED 10
+    {1, SW1_CS16,  SW1_CS17,  SW1_CS18 },  //  78 LED 11
+    {1, SW2_CS16,  SW2_CS17,  SW2_CS18 },  //  79 LED 12
+    {1, SW3_CS16,  SW3_CS17,  SW3_CS18 },  //  80 LED 13
+    {1, SW4_CS16,  SW4_CS17,  SW4_CS18 },  //  81 LED 14
+    {1, SW5_CS16,  SW5_CS17,  SW5_CS18 },  //  82 LED 15
+    {1, SW6_CS16,  SW6_CS17,  SW6_CS18 },  //  83 LED 16
+    {1, SW7_CS16,  SW7_CS17,  SW7_CS18 },  //  84 LED 17
+    {1, SW8_CS16,  SW8_CS17,  SW8_CS18 },  //  85 LED 18
+    {1, SW9_CS16,  SW9_CS17,  SW9_CS18 },  //  86 LED 19
+    {1, SW10_CS16, SW10_CS17, SW10_CS18}   //  87 LED 20
 };
 
 #define __ NO_LED

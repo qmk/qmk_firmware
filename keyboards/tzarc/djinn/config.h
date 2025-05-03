@@ -1,4 +1,4 @@
-// Copyright 2018-2022 Nick Brassel (@tzarc)
+// Copyright 2018-2023 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
@@ -11,11 +11,6 @@
 
 // Split configuration
 #define SPLIT_TRANSACTION_IDS_KB RPC_ID_SYNC_STATE_KB
-#define SPLIT_TRANSPORT_MIRROR
-#define SPLIT_LAYER_STATE_ENABLE
-#define SPLIT_LED_STATE_ENABLE
-#define SPLIT_MODS_ENABLE
-#define SPLIT_WPM_ENABLE
 
 // SPI Configuration
 #define SPI_DRIVER SPID3
@@ -40,14 +35,13 @@
 #define BACKLIGHT_PAL_MODE 1
 
 // RGB configuration
-#define RGB_DI_PIN B2
 #define WS2812_EXTERNAL_PULLUP
 #define WS2812_PWM_DRIVER PWMD20
 #define WS2812_PWM_CHANNEL 1
 #define WS2812_PWM_PAL_MODE 3
-#define WS2812_DMA_STREAM STM32_DMA1_STREAM1
-#define WS2812_DMA_CHANNEL 1
-#define WS2812_DMAMUX_ID STM32_DMAMUX1_TIM20_UP
+#define WS2812_PWM_DMA_STREAM STM32_DMA1_STREAM1
+#define WS2812_PWM_DMA_CHANNEL 1
+#define WS2812_PWM_DMAMUX_ID STM32_DMAMUX1_TIM20_UP
 
 // Audio configuration
 #define AUDIO_PIN A5

@@ -16,57 +16,6 @@
 
 #pragma once
 
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-#define MATRIX_ROW_PINS               \
-    {                                 \
-        LINE_PIN8,      /* ROW_EQL */ \
-            LINE_PIN9,  /* ROW_1 */   \
-            LINE_PIN10, /* ROW_2 */   \
-            LINE_PIN11, /* ROW_3 */   \
-            LINE_PIN7,  /* ROW_4 */   \
-            LINE_PIN16, /* ROW_5 */   \
-            LINE_PIN5,  /* ROW_6 */   \
-            LINE_PIN3,  /* ROW_7 */   \
-            LINE_PIN4,  /* ROW_8 */   \
-            LINE_PIN1,  /* ROW_9 */   \
-            LINE_PIN0,  /* ROW_0 */   \
-            LINE_PIN2,  /* ROW_MIN */ \
-            LINE_PIN17, /* ROW_ESC */ \
-            LINE_PIN23, /* ROW_F1 */  \
-            LINE_PIN21 /* ROW_F2 */  \
-    }
-
-#define MATRIX_COL_PINS             \
-    {                               \
-        LINE_PIN18,     /* COL_0 */ \
-            LINE_PIN14, /* COL_1 */ \
-            LINE_PIN15, /* COL_2 */ \
-            LINE_PIN20, /* COL_3 */ \
-            LINE_PIN22, /* COL_4 */ \
-            LINE_PIN19, /* COL_5 */ \
-            LINE_PIN6   /* COL_6 */ \
-    }
-
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-#define IGNORE_MOD_TAP_INTERRUPT
-
-// The Teensy LC power consumption is unknown as per
-// https://www.pjrc.com/store/teensylc.html but since
-// https://www.pjrc.com/store/teensy41.html says 100mA, let's go with half.
-#define USB_MAX_POWER_CONSUMPTION 50
-
 /* We use the i.MX RT1060 high-speed GPIOs (GPIO6-9) which are connected to the
  * AHB bus (AHB_CLK_ROOT), which runs at the same speed as the ARM Core Clock,
  * i.e. 600 MHz. See MIMXRT1062, page 949, 12.1 Chip-specific GPIO information.

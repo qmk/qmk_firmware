@@ -15,6 +15,8 @@
  */
 #include QMK_KEYBOARD_H
 
+#include "navpad_prefs.h"
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] =LAYOUT (
     KC_PSCR,   KC_SCRL,   KC_PAUS,   KC_MUTE,
@@ -35,9 +37,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_FN2] =LAYOUT (
-    RGB_TOG,   RGB_MOD,   RGB_RMOD,  KC_NO,
-    RGB_HUI,   RGB_SAI,   RGB_VAI,   KC_NO,     KC_NO,     KC_NO,     KC_NO,                        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
-    RGB_HUD,   RGB_SAD,   RGB_VAD,   KC_NO,     KC_NO,     KC_NO,     KC_NO,                        KC_BSPC,    KC_DEL,     KC_NO,      KC_NO,      KC_NO,      KC_NO,
+    UG_TOGG,   UG_NEXT,   UG_PREV,   KC_NO,
+    UG_HUEU,   UG_SATU,   UG_VALU,   KC_NO,     KC_NO,     KC_NO,     KC_NO,                        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+    UG_HUED,   UG_SATD,   UG_VALD,   KC_NO,     KC_NO,     KC_NO,     KC_NO,                        KC_BSPC,    KC_DEL,     KC_NO,      KC_NO,      KC_NO,      KC_NO,
                                      KC_NO,     KC_NO,     KC_NO,     KC_NO,                        KC_LEFT,    KC_DOWN,    KC_UP,      KC_RGHT,    KC_NO,      KC_NO,
     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,         KC_RBRC,       KC_HOME,    KC_PGDN,    KC_PGUP,    KC_END,     KC_NO,      KC_NO,
     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,         KC_TRNS,       KC_TRNS,    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO

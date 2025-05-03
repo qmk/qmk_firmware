@@ -81,26 +81,29 @@ void host_keyboard_send(report_keyboard_t *report) {
 #endif
 
     if (!driver) return;
-#if defined(NKRO_ENABLE) && defined(NKRO_SHARED_EP)
-    if (keyboard_protocol && keymap_config.nkro) {
-        /* The callers of this function assume that report->mods is where mods go in.
-         * But report->nkro.mods can be at a different offset if core keyboard does not have a report ID.
-         */
-        report->nkro.mods      = report->mods;
-        report->nkro.report_id = REPORT_ID_NKRO;
-    } else
-#endif
-    {
 #ifdef KEYBOARD_SHARED_EP
-        report->report_id = REPORT_ID_KEYBOARD;
+    report->report_id = REPORT_ID_KEYBOARD;
 #endif
-    }
     (*driver->send_keyboard)(report);
 
     if (debug_keyboard) {
-        dprint("keyboard_report: ");
-        for (uint8_t i = 0; i < KEYBOARD_REPORT_SIZE; i++) {
-            dprintf("%02X ", report->raw[i]);
+        dprintf("keyboard_report: %02X | ", report->mods);
+        for (uint8_t i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
+            dprintf("%02X ", report->keys[i]);
+        }
+        dprint("\n");
+    }
+}
+
+void host_nkro_send(report_nkro_t *report) {
+    if (!driver) return;
+    report->report_id = REPORT_ID_NKRO;
+    (*driver->send_nkro)(report);
+
+    if (debug_keyboard) {
+        dprintf("nkro_report: %02X | ", report->mods);
+        for (uint8_t i = 0; i < NKRO_REPORT_BITS; i++) {
+            dprintf("%02X ", report->bits[i]);
         }
         dprint("\n");
     }
@@ -188,6 +191,10 @@ void host_joystick_send(joystick_t *joystick) {
                 joystick->axes[5],
 #        endif
             },
+#    endif
+
+#    ifdef JOYSTICK_HAS_HAT
+        .hat = joystick->hat,
 #    endif
 
 #    if JOYSTICK_BUTTON_COUNT > 0

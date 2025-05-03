@@ -21,7 +21,7 @@
 
 #ifdef WAIT_US_TIMER
 void wait_us(uint16_t duration) {
-    static const GPTConfig gpt_cfg = {1000000, NULL, 0, 0}; /* 1MHz timer, no callback */
+    static const GPTConfig gpt_cfg = {.frequency = 1000000}; /* 1MHz timer, no callback */
 
     if (duration == 0) {
         duration = 1;

@@ -7,3 +7,4 @@ Maintained by [Kyrremann](https://github.com/Kyrremann).
 ## Keyboards
 
 * [Index Tab](index_tab/) - 13x6 ortho keyboard
+* [Bartlesplit](bartlesplit/) - 42 (36) split board with Pro Micro hub

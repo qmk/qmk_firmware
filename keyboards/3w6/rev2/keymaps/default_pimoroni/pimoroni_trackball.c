@@ -14,8 +14,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include QMK_KEYBOARD_H
 #include "pimoroni_trackball.h"
 #include "i2c_master.h"
+#include "action.h"
+#include "timer.h"
+#include "print.h"
 
 static uint8_t scrolling      = 0;
 static int16_t x_offset       = 0;
@@ -38,7 +42,7 @@ static uint16_t i2c_timeout_timer;
 
 void trackball_set_rgbw(uint8_t red, uint8_t green, uint8_t blue, uint8_t white) {
     uint8_t data[] = {0x00, red, green, blue, white};
-    i2c_transmit(TRACKBALL_WRITE, data, sizeof(data), I2C_TIMEOUT);
+    i2c_transmit(TRACKBALL_ADDRESS, data, sizeof(data), I2C_TIMEOUT);
 }
 
 int16_t mouse_offset(uint8_t positive, uint8_t negative, int16_t scale) {
@@ -115,12 +119,12 @@ void  trackball_set_scrolling(bool scroll) { scrolling = scroll; }
 
 __attribute__((weak)) void pointing_device_init(void) { trackball_set_rgbw(0x80, 0x00, 0x00, 0x00); }
 
-void pointing_device_task(void) {
+bool pointing_device_task(void) {
     static bool     debounce;
     static uint16_t debounce_timer;
     uint8_t         state[5] = {};
     if (timer_elapsed(i2c_timeout_timer) > I2C_WAITCHECK) {
-        if (i2c_readReg(TRACKBALL_WRITE, 0x04, state, 5, I2C_TIMEOUT) == I2C_STATUS_SUCCESS) {
+        if (i2c_read_register(TRACKBALL_ADDRESS, 0x04, state, 5, I2C_TIMEOUT) == I2C_STATUS_SUCCESS) {
             if (!state[4] && !debounce) {
                 if (scrolling) {
 #ifdef PIMORONI_TRACKBALL_INVERT_X
@@ -173,5 +177,5 @@ void pointing_device_task(void) {
     update_member(&mouse.v, &h_offset);
 #endif
     pointing_device_set_report(mouse);
-    pointing_device_send();
+    return pointing_device_send();
 }

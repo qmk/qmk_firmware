@@ -22,8 +22,6 @@
 
 // Initialises the USBPD subsystem
 __attribute__((weak)) void usbpd_init(void) {
-    // Disable dead-battery signals
-    PWR->CR3 |= PWR_CR3_UCPD_DBDIS;
     // Enable the clock for the UCPD1 peripheral
     RCC->APB1ENR2 |= RCC_APB1ENR2_UCPD1EN;
 
@@ -46,6 +44,11 @@ __attribute__((weak)) void usbpd_init(void) {
     CR |= UCPD_CR_ANAMODE | UCPD_CR_CCENABLE_Msk;
     // Apply the changes
     UCPD1->CR = CR;
+
+    // Disable dead-battery signals only after UCPD1 is configured to ensure
+    // that the transition does not go through any intermediate state without
+    // any pull-down resistance.
+    PWR->CR3 |= PWR_CR3_UCPD_DBDIS;
 }
 
 // Gets the current state of the USBPD allowance

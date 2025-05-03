@@ -13,8 +13,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "matrix.h"
 #include "mcp23018.h"
-#include "quantum.h"
+#include "print.h"
+#include "wait.h"
 
 // Optimize scanning code for speed as a slight mitigation for the port expander
 #pragma GCC push_options
@@ -31,22 +33,22 @@ static const pin_t col_pins[MATRIX_COLS]     = {F5, F6, F7, C7, C6, B6, B5, D3, 
 //_____REGULAR funcs____________________________________________________________
 
 static void select_row(uint8_t row) {
-    setPinOutput(row_pins[row]);
-    writePinLow(row_pins[row]);
+    gpio_set_pin_output(row_pins[row]);
+    gpio_write_pin_low(row_pins[row]);
 }
 
-static void unselect_row(uint8_t row) { setPinInputHigh(row_pins[row]); }
+static void unselect_row(uint8_t row) { gpio_set_pin_input_high(row_pins[row]); }
 
 static void unselect_rows(void) {
     for (uint8_t x = 0; x < MATRIX_ROWS / 2; x++) {
-        setPinInputHigh(row_pins[x]);
+        gpio_set_pin_input_high(row_pins[x]);
     }
 }
 
 static void init_pins(void) {
     unselect_rows();
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-        setPinInputHigh(col_pins[x]);
+        gpio_set_pin_input_high(col_pins[x]);
     }
 }
 
@@ -64,7 +66,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     // For each col...
     for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
         // Select the col pin to read (active low)
-        uint8_t pin_state = readPin(col_pins[col_index]);
+        uint8_t pin_state = gpio_read_pin(col_pins[col_index]);
 
         // Populate the matrix row with the state of the col pin
         current_row_value |= pin_state ? 0 : (MATRIX_ROW_SHIFTER << col_index);
@@ -117,7 +119,7 @@ static void select_row_MCP23018(uint8_t row) {
 
 static uint16_t read_cols_MCP23018(void) {
     uint16_t tmp = 0xFFFF;
-    mcp23018_errors += !mcp23018_readPins_all(I2C_ADDR, &tmp);
+    mcp23018_errors += !mcp23018_read_pins_all(I2C_ADDR, &tmp);
 
     uint16_t state = ((tmp & 0b11111111) << 2) | ((tmp & 0b0110000000000000) >> 13);
     return (~state) & 0b1111111111;

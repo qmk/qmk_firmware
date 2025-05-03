@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include QMK_KEYBOARD_H
+#include "nibble.h"
 
 // Use Bit-C LED to show CAPS LOCK status
 void led_update_ports(led_t led_state) {

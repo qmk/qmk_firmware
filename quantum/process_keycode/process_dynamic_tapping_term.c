@@ -14,8 +14,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
 #include "process_dynamic_tapping_term.h"
+#include "quantum.h"
+#include "keycodes.h"
+#include "send_string.h"
 
 #ifndef DYNAMIC_TAPPING_TERM_INCREMENT
 #    define DYNAMIC_TAPPING_TERM_INCREMENT 5

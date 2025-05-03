@@ -13,10 +13,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "v1.h"
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
     { 0, C8_8,  C7_8,  C6_8 },
     { 0, C9_8,  C7_7,  C6_7 },
     { 0, C9_7,  C8_7,  C6_6 },

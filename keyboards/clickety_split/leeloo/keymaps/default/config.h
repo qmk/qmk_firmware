@@ -1,5 +1,4 @@
-/* Copyright 2022 Clickety Split Ltd.
- *                https://clicketysplit.ca
+/* Copyright 2023 Clickety Split Ltd.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,19 +16,30 @@
 
 #pragma once
 
-// Select hand configuration
-// #define MASTER_LEFT
-// #define MASTER_RIGHT
-// #define EE_HANDS
-
-#ifdef TAPPING_TERM
-    #undef TAPPING_TERM
-
-    #define IGNORE_MOD_TAP_INTERRUPT
-    #define QUICK_TAP_TERM 0
-    #define TAPPING_TERM 150
-#endif
-
 // If rotary encoders are used, and they require more or less resolution/sensitivity
 // you may try increasing or decreasing the value.
 // #define ENCODER_RESOLUTION 2
+
+    #define RGB_MATRIX_KEYPRESSES               // reacts to keypresses
+//  #define RGB_MATRIX_KEYRELEASES              // reacts to keyreleases (instead of keypresses)
+//  #define RGB_DISABLE_AFTER_TIMEOUT 0         // number of ticks to wait until disabling effects
+    #define RGB_MATRIX_SLEEP      // turn off effects when suspended
+    #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+    
+    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 115   // limits maximum brightness of LEDs to 150 out of 255.
+                                                // Higher may cause the controller to crash.
+    #define RGB_MATRIX_HUE_STEP 10
+    #define RGB_MATRIX_SAT_STEP 10
+    #define RGB_MATRIX_VAL_STEP 10
+    #define RGB_MATRIX_SPD_STEP 10
+
+
+/* By default, the RGB_MATRIX effects are disabled.
+ * 
+ * For a complete list, visit: https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects.
+ * Some of the effects take up a lot of memory, so you may need to manage the number of
+ * effects that are loaded at any given time.
+*/
+    #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
+    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
+    #define ENABLE_RGB_MATRIX_SPLASH

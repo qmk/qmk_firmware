@@ -13,13 +13,13 @@ jobs:
   regen:
     runs-on: ubuntu-latest
 
-    container: qmkfm/qmk_cli
+    container: ghcr.io/qmk/qmk_cli
 
     steps:
     - name: Disable safe.directory check
       run : git config --global --add safe.directory '*'
 
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Run qmk generators
       run: |

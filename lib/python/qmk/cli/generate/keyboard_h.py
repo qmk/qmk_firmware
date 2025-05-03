@@ -11,12 +11,9 @@ from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.constants import COL_LETTERS, ROW_LETTERS, GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
 
 
-def _generate_layouts(keyboard):
-    """Generates the layouts.h file.
+def _generate_layouts(keyboard, kb_info_json):
+    """Generates the layouts macros.
     """
-    # Build the info.json file
-    kb_info_json = info_json(keyboard)
-
     if 'matrix_size' not in kb_info_json:
         cli.log.error(f'{keyboard}: Invalid matrix config.')
         return []
@@ -25,6 +22,11 @@ def _generate_layouts(keyboard):
     row_num = kb_info_json['matrix_size']['rows']
 
     lines = []
+    lines.append('')
+    lines.append('// Layout content')
+    lines.append('')
+    lines.append('#define XXX KC_NO')
+
     for layout_name, layout_data in kb_info_json['layouts'].items():
         if layout_data['c_macro']:
             continue
@@ -34,24 +36,22 @@ def _generate_layouts(keyboard):
             continue
 
         layout_keys = []
-        layout_matrix = [['KC_NO'] * col_num for _ in range(row_num)]
+        layout_matrix = [['XXX'] * col_num for _ in range(row_num)]
 
-        for index, key_data in enumerate(layout_data['layout']):
+        for key_data in layout_data['layout']:
             row, col = key_data['matrix']
             identifier = f'k{ROW_LETTERS[row]}{COL_LETTERS[col]}'
-
-            try:
-                layout_matrix[row][col] = identifier
-                layout_keys.append(identifier)
-            except IndexError:
-                key_name = key_data.get('label', identifier)
-                cli.log.error(f'{keyboard}/{layout_name}: Matrix data out of bounds at index {index} ({key_name}): [{row}, {col}]')
+            if row >= row_num or col >= col_num:
+                cli.log.error(f'Skipping layouts due to {layout_name} containing invalid matrix values')
                 return []
+
+            layout_matrix[row][col] = identifier
+            layout_keys.append(identifier)
 
         lines.append('')
         lines.append(f'#define {layout_name}({", ".join(layout_keys)}) {{ \\')
 
-        rows = ', \\\n'.join(['\t {' + ', '.join(row) + '}' for row in layout_matrix])
+        rows = ', \\\n'.join(['    { ' + ', '.join(row) + ' }' for row in layout_matrix])
         rows += ' \\'
         lines.append(rows)
         lines.append('}')
@@ -65,6 +65,35 @@ def _generate_layouts(keyboard):
     return lines
 
 
+def _generate_keycodes(kb_info_json):
+    """Generates keyboard level keycodes.
+    """
+    if 'keycodes' not in kb_info_json:
+        return []
+
+    lines = []
+    lines.append('')
+    lines.append('// Keycode content')
+    lines.append('')
+    lines.append('enum keyboard_keycodes {')
+
+    for index, item in enumerate(kb_info_json.get('keycodes')):
+        key = item["key"]
+        if index == 0:
+            lines.append(f'  {key} = QK_KB_0,')
+        else:
+            lines.append(f'  {key},')
+
+    lines.append('};')
+
+    for item in kb_info_json.get('keycodes', []):
+        key = item["key"]
+        for alias in item.get("aliases", []):
+            lines.append(f'#define {alias} {key}')
+
+    return lines
+
+
 @cli.argument('-i', '--include', nargs='?', arg_only=True, help='Optional file to include')
 @cli.argument('-o', '--output', arg_only=True, type=normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
@@ -73,19 +102,25 @@ def _generate_layouts(keyboard):
 def generate_keyboard_h(cli):
     """Generates the keyboard.h file.
     """
+    # Build the info.json file
+    kb_info_json = info_json(cli.args.keyboard)
+
     keyboard_h = cli.args.include
-    dd_layouts = _generate_layouts(cli.args.keyboard)
+    dd_layouts = _generate_layouts(cli.args.keyboard, kb_info_json)
+    dd_keycodes = _generate_keycodes(kb_info_json)
     valid_config = dd_layouts or keyboard_h
 
     # Build the layouts.h file.
-    keyboard_h_lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE, '#pragma once', '#include "quantum.h"']
+    keyboard_h_lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE, '#pragma once', '', '#include "quantum.h"']
 
-    keyboard_h_lines.append('')
-    keyboard_h_lines.append('// Layout content')
     if dd_layouts:
         keyboard_h_lines.extend(dd_layouts)
+
     if keyboard_h:
         keyboard_h_lines.append(f'#include "{Path(keyboard_h).name}"')
+
+    if dd_keycodes:
+        keyboard_h_lines.extend(dd_keycodes)
 
     # Protect against poorly configured keyboards
     if not valid_config:

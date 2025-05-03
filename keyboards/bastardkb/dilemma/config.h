@@ -18,9 +18,6 @@
 
 #pragma once
 
-
-#define DIODE_DIRECTION ROW2COL
-
 /* Pointing device configuration. */
 
 // Enable use of pointing device on slave split.
@@ -28,6 +25,9 @@
 
 // Pointing device is on the right split.
 #define POINTING_DEVICE_RIGHT
+
+// Enables support for extended i16 mouse reports (instead of i8).
+#define MOUSE_EXTENDED_REPORT
 
 // Limits the frequency that the sensor is polled for motion.
 #define POINTING_DEVICE_TASK_THROTTLE_MS 10

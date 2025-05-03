@@ -15,6 +15,8 @@
  */
 #pragma once
 
-#include "quantum.h"
+#include <stdint.h>
+#include <stdbool.h>
+#include "action.h"
 
 bool process_magic(uint16_t keycode, keyrecord_t *record);

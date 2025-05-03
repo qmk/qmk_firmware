@@ -19,12 +19,3 @@
 
 #define EE_HANDS
 #define SPLIT_USB_DETECT
-
-/* pin-out */
-#define MATRIX_ROW_PINS { E6, F1, F0, F4, F5, F6, F7 }
-#define MATRIX_COL_PINS { B4, B5, D7, B6, C6, D6 }
-#define MATRIX_ROW_PINS_RIGHT { B5, B4, D7, B6, C6, D6, D4 }
-#define MATRIX_COL_PINS_RIGHT { C7, F7, F6, F5, F4, F1 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION ROW2COL

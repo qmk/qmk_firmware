@@ -18,24 +18,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS { B5, B4, E6, D7, C6 }
-#define MATRIX_COL_PINS { B6, B2, B3, B1, F7, F6, F5, F4 }
-
-#define DIODE_DIRECTION COL2ROW
-
 /* mouse config */
 #define MOUSEKEY_INTERVAL       20
 #define MOUSEKEY_DELAY          0
 #define MOUSEKEY_TIME_TO_MAX    60
 #define MOUSEKEY_MAX_SPEED      7
 #define MOUSEKEY_WHEEL_DELAY 0
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
 
 /* Enables This makes it easier for fast typists to use dual-function keys */
 #define PERMISSIVE_HOLD
@@ -56,5 +44,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
 
-#define MASTER_LEFT
 

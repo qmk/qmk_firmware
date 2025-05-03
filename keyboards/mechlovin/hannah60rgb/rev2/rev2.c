@@ -14,10 +14,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "rev2.h"
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -221,45 +221,3 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 #endif
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    switch(keycode) {
-    #ifdef RGB_MATRIX_DISABLE_KEYCODES
-        case KC_F13: // toggle rgb matrix
-            rgb_matrix_toggle();
-            return false;
-        case KC_F14:
-            rgb_matrix_step();
-            return false;
-        case KC_F15:
-            rgb_matrix_increase_speed();
-            return false;
-        case KC_F16:
-            rgb_matrix_decrease_speed();
-            return false;
-        case KC_F17:
-            rgb_matrix_increase_hue();
-            return false;
-        case KC_F18:
-            rgb_matrix_decrease_hue();
-            return false;
-        case KC_F19:
-            rgb_matrix_increase_sat();
-            return false;
-        case KC_F20:
-            rgb_matrix_decrease_sat();
-            return false;
-        case KC_F21:
-            rgb_matrix_increase_val();
-            return false;
-        case KC_F22:
-            rgb_matrix_decrease_val();
-            return false;
-    #endif
-        default:
-        break;
-    }
-  }
-  return true;
-}

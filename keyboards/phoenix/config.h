@@ -23,15 +23,5 @@
 #define MOUSEKEY_MAX_SPEED   7
 #define MOUSEKEY_WHEEL_DELAY 0
 
-#define DIODE_DIRECTION ROW2COL
-
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
-#define MATRIX_ROW_PINS { B1, B0, A7, A6, A5, B7 }
-#define MATRIX_COL_PINS { B10, B12, B13, B14, B15, A8, A10 }
-
-#define HAL_USE_SERIAL TRUE
-#define SPLIT_HAND_PIN B9
 #define SERIAL_USART_DRIVER SD1
 #define SERIAL_USART_TX_PAL_MODE 7

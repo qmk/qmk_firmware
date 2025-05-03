@@ -16,25 +16,6 @@
 
 #pragma once
 
-/* key matrix pins */
-#define MATRIX_ROW_PINS \
-    { B5, B4, B3, A15, A14, A13 }
-#define MATRIX_COL_PINS \
-    { A10, A9, A8, B1, B0, A7, A6, A5, A4, A3, A2, A1, A0, C15, C14 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION ROW2COL
-
-/* Disable DIP switch in matrix data */
-#define MATRIX_MASKED
-
-/* DIP switch */
-#define DIP_SWITCH_MATRIX_GRID  { {5,4} }
-
-/* EEPROM Driver Configuration */
-#define WEAR_LEVELING_LOGICAL_SIZE 2048
-#define WEAR_LEVELING_BACKING_SIZE (WEAR_LEVELING_LOGICAL_SIZE * 2)
-
 /* Increase I2C speed to 1000 KHz */
 #define I2C1_TIMINGR_PRESC 0U
 #define I2C1_TIMINGR_SCLDEL 3U

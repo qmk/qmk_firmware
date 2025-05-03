@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "nk65b.h"
+#include "quantum.h"
 
 void led_init_ports(void) {
     // Set our LED pins as open drain outputs
@@ -24,8 +24,8 @@ void led_init_ports(void) {
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
-    writePin(A15, !layer_state_cmp(state, 1));
-    writePin(B3, !layer_state_cmp(state, 2));
+    gpio_write_pin(A15, !layer_state_cmp(state, 1));
+    gpio_write_pin(B3, !layer_state_cmp(state, 2));
     return layer_state_set_user(state);
 }
 

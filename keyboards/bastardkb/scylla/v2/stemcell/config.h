@@ -17,12 +17,6 @@
 
 #pragma once
 
-/* Key matrix configuration. */
-#define MATRIX_ROW_PINS \
-    { F4, F7, C6, D4, B5 }
-#define MATRIX_COL_PINS \
-    { F6, F5, B6, D7, E6, B4 }
-
 /* Handedness. */
 #define MASTER_RIGHT
 
@@ -33,12 +27,11 @@
 // #define SPLIT_HAND_PIN_LOW_IS_LEFT  // High -> right, Low -> left.
 
 /* RGB settings. */
-#define RGB_DI_PIN D3
 #define WS2812_PWM_DRIVER PWMD2
 #define WS2812_PWM_CHANNEL 4
 #define WS2812_PWM_PAL_MODE 1
-#define WS2812_DMA_STREAM STM32_DMA1_STREAM7
-#define WS2812_DMA_CHANNEL 3
+#define WS2812_PWM_DMA_STREAM STM32_DMA1_STREAM7
+#define WS2812_PWM_DMA_CHANNEL 3
 
 /* CRC. */
 #define CRC8_USE_TABLE

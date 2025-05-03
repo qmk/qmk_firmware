@@ -17,6 +17,15 @@
 
 /* Author: Wojciech Siewierski < wojciech dot siewierski at onet dot pl > */
 #include "process_dynamic_macro.h"
+#include <stddef.h>
+#include "action_layer.h"
+#include "keycodes.h"
+#include "debug.h"
+#include "wait.h"
+
+#ifdef BACKLIGHT_ENABLE
+#    include "backlight.h"
+#endif
 
 // default feedback method
 void dynamic_macro_led_blink(void) {
@@ -29,20 +38,44 @@ void dynamic_macro_led_blink(void) {
 
 /* User hooks for Dynamic Macros */
 
-__attribute__((weak)) void dynamic_macro_record_start_user(void) {
-    dynamic_macro_led_blink();
+__attribute__((weak)) bool dynamic_macro_record_start_kb(int8_t direction) {
+    return dynamic_macro_record_start_user(direction);
 }
 
-__attribute__((weak)) void dynamic_macro_play_user(int8_t direction) {
+__attribute__((weak)) bool dynamic_macro_record_start_user(int8_t direction) {
     dynamic_macro_led_blink();
+    return true;
 }
 
-__attribute__((weak)) void dynamic_macro_record_key_user(int8_t direction, keyrecord_t *record) {
-    dynamic_macro_led_blink();
+__attribute__((weak)) bool dynamic_macro_play_kb(int8_t direction) {
+    return dynamic_macro_play_user(direction);
 }
 
-__attribute__((weak)) void dynamic_macro_record_end_user(int8_t direction) {
+__attribute__((weak)) bool dynamic_macro_play_user(int8_t direction) {
     dynamic_macro_led_blink();
+    return true;
+}
+
+__attribute__((weak)) bool dynamic_macro_record_key_kb(int8_t direction, keyrecord_t *record) {
+    return dynamic_macro_record_key_user(direction, record);
+}
+
+__attribute__((weak)) bool dynamic_macro_record_key_user(int8_t direction, keyrecord_t *record) {
+    dynamic_macro_led_blink();
+    return true;
+}
+
+__attribute__((weak)) bool dynamic_macro_record_end_kb(int8_t direction) {
+    return dynamic_macro_record_end_user(direction);
+}
+
+__attribute__((weak)) bool dynamic_macro_record_end_user(int8_t direction) {
+    dynamic_macro_led_blink();
+    return true;
+}
+
+__attribute__((weak)) bool dynamic_macro_valid_key_kb(uint16_t keycode, keyrecord_t *record) {
+    return dynamic_macro_valid_key_user(keycode, record);
 }
 
 __attribute__((weak)) bool dynamic_macro_valid_key_user(uint16_t keycode, keyrecord_t *record) {
@@ -62,10 +95,10 @@ __attribute__((weak)) bool dynamic_macro_valid_key_user(uint16_t keycode, keyrec
  * @param[out] macro_pointer The new macro buffer iterator.
  * @param[in]  macro_buffer  The macro buffer used to initialize macro_pointer.
  */
-void dynamic_macro_record_start(keyrecord_t **macro_pointer, keyrecord_t *macro_buffer) {
+void dynamic_macro_record_start(keyrecord_t **macro_pointer, keyrecord_t *macro_buffer, int8_t direction) {
     dprintln("dynamic macro recording: started");
 
-    dynamic_macro_record_start_user();
+    dynamic_macro_record_start_kb(direction);
 
     clear_keyboard();
     layer_clear();
@@ -99,7 +132,7 @@ void dynamic_macro_play(keyrecord_t *macro_buffer, keyrecord_t *macro_end, int8_
 
     layer_state_set(saved_layer_state);
 
-    dynamic_macro_play_user(direction);
+    dynamic_macro_play_kb(direction);
 }
 
 /**
@@ -124,9 +157,8 @@ void dynamic_macro_record_key(keyrecord_t *macro_buffer, keyrecord_t **macro_poi
     if (*macro_pointer - direction != macro2_end) {
         **macro_pointer = *record;
         *macro_pointer += direction;
-    } else {
-        dynamic_macro_record_key_user(direction, record);
     }
+    dynamic_macro_record_key_kb(direction, record);
 
     dprintf("dynamic macro: slot %d length: %d/%d\n", DYNAMIC_MACRO_CURRENT_SLOT(), DYNAMIC_MACRO_CURRENT_LENGTH(macro_buffer, *macro_pointer), DYNAMIC_MACRO_CURRENT_CAPACITY(macro_buffer, macro2_end));
 }
@@ -136,7 +168,7 @@ void dynamic_macro_record_key(keyrecord_t *macro_buffer, keyrecord_t **macro_poi
  * pointer to the end of the macro.
  */
 void dynamic_macro_record_end(keyrecord_t *macro_buffer, keyrecord_t *macro_pointer, int8_t direction, keyrecord_t **macro_end) {
-    dynamic_macro_record_end_user(direction);
+    dynamic_macro_record_end_kb(direction);
 
     /* Do not save the keys being held when stopping the recording,
      * i.e. the keys used to access the layer DM_RSTP is on.
@@ -151,73 +183,80 @@ void dynamic_macro_record_end(keyrecord_t *macro_buffer, keyrecord_t *macro_poin
     *macro_end = macro_pointer;
 }
 
-/* Handle the key events related to the dynamic macros. Should be
- * called from process_record_user() like this:
+/* Both macros use the same buffer but read/write on different
+ * ends of it.
  *
- *   bool process_record_user(uint16_t keycode, keyrecord_t *record) {
- *       if (!process_record_dynamic_macro(keycode, record)) {
- *           return false;
- *       }
- *       <...THE REST OF THE FUNCTION...>
- *   }
+ * Macro1 is written left-to-right starting from the beginning of
+ * the buffer.
+ *
+ * Macro2 is written right-to-left starting from the end of the
+ * buffer.
+ *
+ * &macro_buffer   macro_end
+ *  v                   v
+ * +------------------------------------------------------------+
+ * |>>>>>> MACRO1 >>>>>>      <<<<<<<<<<<<< MACRO2 <<<<<<<<<<<<<|
+ * +------------------------------------------------------------+
+ *                           ^                                 ^
+ *                         r_macro_end                  r_macro_buffer
+ *
+ * During the recording when one macro encounters the end of the
+ * other macro, the recording is stopped. Apart from this, there
+ * are no arbitrary limits for the macros' length in relation to
+ * each other: for example one can either have two medium sized
+ * macros or one long macro and one short macro. Or even one empty
+ * and one using the whole buffer.
+ */
+static keyrecord_t macro_buffer[DYNAMIC_MACRO_SIZE];
+
+/* Pointer to the first buffer element after the first macro.
+ * Initially points to the very beginning of the buffer since the
+ * macro is empty. */
+static keyrecord_t *macro_end = macro_buffer;
+
+/* The other end of the macro buffer. Serves as the beginning of
+ * the second macro. */
+static keyrecord_t *const r_macro_buffer = macro_buffer + DYNAMIC_MACRO_SIZE - 1;
+
+/* Like macro_end but for the second macro. */
+static keyrecord_t *r_macro_end = macro_buffer + DYNAMIC_MACRO_SIZE - 1;
+
+/* A persistent pointer to the current macro position (iterator)
+ * used during the recording. */
+static keyrecord_t *macro_pointer = NULL;
+
+/* 0   - no macro is being recorded right now
+ * 1,2 - either macro 1 or 2 is being recorded */
+static uint8_t macro_id = 0;
+
+/**
+ * If a dynamic macro is currently being recorded, stop recording.
+ */
+void dynamic_macro_stop_recording(void) {
+    switch (macro_id) {
+        case 1:
+            dynamic_macro_record_end(macro_buffer, macro_pointer, +1, &macro_end);
+            break;
+        case 2:
+            dynamic_macro_record_end(r_macro_buffer, macro_pointer, -1, &r_macro_end);
+            break;
+    }
+    macro_id = 0;
+}
+
+/* Handle the key events related to the dynamic macros.
  */
 bool process_dynamic_macro(uint16_t keycode, keyrecord_t *record) {
-    /* Both macros use the same buffer but read/write on different
-     * ends of it.
-     *
-     * Macro1 is written left-to-right starting from the beginning of
-     * the buffer.
-     *
-     * Macro2 is written right-to-left starting from the end of the
-     * buffer.
-     *
-     * &macro_buffer   macro_end
-     *  v                   v
-     * +------------------------------------------------------------+
-     * |>>>>>> MACRO1 >>>>>>      <<<<<<<<<<<<< MACRO2 <<<<<<<<<<<<<|
-     * +------------------------------------------------------------+
-     *                           ^                                 ^
-     *                         r_macro_end                  r_macro_buffer
-     *
-     * During the recording when one macro encounters the end of the
-     * other macro, the recording is stopped. Apart from this, there
-     * are no arbitrary limits for the macros' length in relation to
-     * each other: for example one can either have two medium sized
-     * macros or one long macro and one short macro. Or even one empty
-     * and one using the whole buffer.
-     */
-    static keyrecord_t macro_buffer[DYNAMIC_MACRO_SIZE];
-
-    /* Pointer to the first buffer element after the first macro.
-     * Initially points to the very beginning of the buffer since the
-     * macro is empty. */
-    static keyrecord_t *macro_end = macro_buffer;
-
-    /* The other end of the macro buffer. Serves as the beginning of
-     * the second macro. */
-    static keyrecord_t *const r_macro_buffer = macro_buffer + DYNAMIC_MACRO_SIZE - 1;
-
-    /* Like macro_end but for the second macro. */
-    static keyrecord_t *r_macro_end = r_macro_buffer;
-
-    /* A persistent pointer to the current macro position (iterator)
-     * used during the recording. */
-    static keyrecord_t *macro_pointer = NULL;
-
-    /* 0   - no macro is being recorded right now
-     * 1,2 - either macro 1 or 2 is being recorded */
-    static uint8_t macro_id = 0;
-
     if (macro_id == 0) {
         /* No macro recording in progress. */
         if (!record->event.pressed) {
             switch (keycode) {
                 case QK_DYNAMIC_MACRO_RECORD_START_1:
-                    dynamic_macro_record_start(&macro_pointer, macro_buffer);
+                    dynamic_macro_record_start(&macro_pointer, macro_buffer, +1);
                     macro_id = 1;
                     return false;
                 case QK_DYNAMIC_MACRO_RECORD_START_2:
-                    dynamic_macro_record_start(&macro_pointer, r_macro_buffer);
+                    dynamic_macro_record_start(&macro_pointer, r_macro_buffer, -1);
                     macro_id = 2;
                     return false;
                 case QK_DYNAMIC_MACRO_PLAY_1:
@@ -238,15 +277,7 @@ bool process_dynamic_macro(uint16_t keycode, keyrecord_t *record) {
                 if (record->event.pressed ^ (keycode != QK_DYNAMIC_MACRO_RECORD_STOP)) { /* Ignore the initial release
                                                                                           * just after the recording
                                                                                           * starts for DM_RSTP. */
-                    switch (macro_id) {
-                        case 1:
-                            dynamic_macro_record_end(macro_buffer, macro_pointer, +1, &macro_end);
-                            break;
-                        case 2:
-                            dynamic_macro_record_end(r_macro_buffer, macro_pointer, -1, &r_macro_end);
-                            break;
-                    }
-                    macro_id = 0;
+                    dynamic_macro_stop_recording();
                 }
                 return false;
 #ifdef DYNAMIC_MACRO_NO_NESTING
@@ -256,7 +287,7 @@ bool process_dynamic_macro(uint16_t keycode, keyrecord_t *record) {
                 return false;
 #endif
             default:
-                if (dynamic_macro_valid_key_user(keycode, record)) {
+                if (dynamic_macro_valid_key_kb(keycode, record)) {
                     /* Store the key in the macro buffer and process it normally. */
                     switch (macro_id) {
                         case 1:

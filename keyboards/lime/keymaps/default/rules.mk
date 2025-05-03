@@ -5,5 +5,3 @@ JOYSTICK_DRIVER = analog
 EXTRAKEY_ENABLE = yes
 WPM_ENABLE = yes
 LTO_ENABLE = yes
-
-SRC += analog.c

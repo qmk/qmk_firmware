@@ -67,14 +67,16 @@
                 }
             }
         },
+        "keycodes": {"$ref": "qmk.definitions.v1#/keycode_decl_array"},
         "config": {"$ref": "qmk.keyboard.v1"},
         "notes": {
             "type": "string"
+        },
+        "modules": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
         }
-    },
-    "required": [
-        "keyboard",
-        "layout",
-        "layers"
-    ]
+    }
 }

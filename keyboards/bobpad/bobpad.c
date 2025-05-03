@@ -14,12 +14,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "bobpad.h"
+#include "quantum.h"
 
 bool led_update_kb(led_t led_state) {
     if (!led_update_user(led_state)) { return false; }
     
-    writePin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
+    gpio_write_pin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
     return true;
 };
 

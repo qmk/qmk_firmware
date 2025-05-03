@@ -18,27 +18,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+#define USE_I2C
+#define SCL_CLOCK  800000UL
 
-// wiring of each half
-// Ascii art of pro micro. Pin names PD3, PD2, etc.
-//Usage| Name | Label      Label| Name | Usage
-//                   PORT          
-//     | PD3    TX0        RAW       |
-//     | PD2    RX1        GND       |SerGnd
-//     |        GND        RESET     |
-//     |        GND        VCC       |SerVCc
-//     | PD1    2          A3    PF4 | Col7
-//Ser  | PD0    3          A2    PF5 | Col6
-//Row4 | PD4    4          A1    PF6 | Col5
-//AUDIO| PC6    5          A0    PF7 | Col4
-//Row3 | PD7    6          15    PB1 | Col3
-//Row2 | PE6    7          14    PB3 | Col2
-//Row1 | PB4    8          13    PB2 | Col1
-//Row0 | PB5    9          10    PB6 | Col0
+//#define DEBUG_MATRIX_SCAN_RATE //Use this to determine scan-rate.
 
-// Note reservation of C6 for audio
-#define MATRIX_ROW_PINS { B5, B4, E6, D7, D4 }
-#define MATRIX_COL_PINS { B6, B2, B3, B1, F7, F6, F5, F4 }
+#ifdef AUDIO_ENABLE
+  #define AUDIO_PIN C6
+  #define STARTUP_SONG SONG(STARTUP_SOUND)
+  #define NO_MUSIC_MODE
+  #define TONE_QWERTY SONG(Q__NOTE(_E4));
+  #define TONE_NUMPAD SONG(Q__NOTE(_D4));
+#endif
 
 /*
  * Feature disable options
@@ -55,5 +46,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 #define NO_ACTION_ONESHOT
-
-#define IGNORE_MOD_TAP_INTERRUPT

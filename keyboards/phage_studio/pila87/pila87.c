@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "pila87.h"
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
 
@@ -48,7 +48,7 @@ led_config_t g_led_config = { {
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case RGB_TOG:
+        case QK_RGB_MATRIX_TOGGLE:
             if (record->event.pressed) {
                 switch (rgb_matrix_get_flags()) {
                     case LED_FLAG_ALL: {
@@ -73,10 +73,10 @@ bool rgb_matrix_indicators_kb(void) {
         return false;
     }
 
-    HSV      hsv = rgb_matrix_config.hsv;
+    hsv_t    hsv = rgb_matrix_config.hsv;
     uint8_t time = scale16by8(g_rgb_timer, qadd8(32, 1));
     hsv.h        = time;
-    RGB      rgb = hsv_to_rgb(hsv);
+    rgb_t    rgb = hsv_to_rgb(hsv);
 
     if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(40, rgb.r, rgb.g, rgb.b);

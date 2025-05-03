@@ -1,22 +1,6 @@
 // Copyright 2021 Ll3macorn (@ll3macorn)
 // SPDX-License-Identifier: GPL-2.0-or-later
-#include "bongopad.h"
-
-
-#ifdef ENCODER_ENABLE
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) {
-        return false;
-    }
-    // rest fo the code
-    if (clockwise) {
-        tap_code_delay(KC_VOLU, 10);
-    } else {
-        tap_code_delay(KC_VOLD, 10);
-    }
-    return true;
-}
-#endif
+#include "quantum.h"
 
 #ifdef OLED_ENABLE
 bool oled_task_kb(void) {

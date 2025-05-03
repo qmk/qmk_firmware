@@ -15,31 +15,10 @@
  */
 #pragma once
 
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
-*/
-#define MATRIX_ROW_PINS { F0, F1, F5, F6 }
-#define MATRIX_COL_PINS { F4, B5, C7, C6, B6, B2, B3, B1, B4, D7, D6, D4, D3 }
-
-/* COL2ROW, ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
 // IS31FL3731 driver
-#define DRIVER_COUNT 2
-#define RGB_MATRIX_LED_COUNT 72
+#define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
+#define IS31FL3731_I2C_ADDRESS_2 IS31FL3731_I2C_ADDRESS_SDA
+#define IS31FL3731_LED_COUNT 72
 
 // Enable WT RGB backlight
 #define RGB_BACKLIGHT_ENABLED 1

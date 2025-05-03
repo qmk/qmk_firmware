@@ -14,6 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "kangaroo.h"
+#include "quantum.h"
 
 void matrix_io_delay(void) { __asm__ volatile("nop\nnop\nnop\n"); }

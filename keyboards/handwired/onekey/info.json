@@ -14,10 +14,13 @@
         "extrakey": true,
         "console": false,
         "command": false,
-        "nkro": false,
-        "backlight": false,
-        "rgblight": false,
-        "audio": false
+        "nkro": false
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     },
     "community_layouts": ["ortho_1x1"],
     "layouts": {

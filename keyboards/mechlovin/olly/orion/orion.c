@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "orion.h"
+#include "quantum.h"
 
 void board_init(void) {
    //JTAG-DP Disabled and SW-DP Enabled    
@@ -22,20 +22,20 @@ void board_init(void) {
 }
 
 void keyboard_pre_init_kb(void) {
-  setPinOutput(B5);
-  setPinOutput(B6);
-  setPinOutput(B7);
-  setPinOutput(B8);
-  setPinOutput(B9);
+  gpio_set_pin_output(B5);
+  gpio_set_pin_output(B6);
+  gpio_set_pin_output(B7);
+  gpio_set_pin_output(B8);
+  gpio_set_pin_output(B9);
   keyboard_pre_init_user();
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
     state = layer_state_set_user(state);
-    writePin(B7, layer_state_cmp(state, 0));
-    writePin(B6, layer_state_cmp(state, 1));
-    writePin(B5, layer_state_cmp(state, 2));
-    writePin(B8, layer_state_cmp(state, 3));
-    writePin(B9, layer_state_cmp(state, 4));
+    gpio_write_pin(B7, layer_state_cmp(state, 0));
+    gpio_write_pin(B6, layer_state_cmp(state, 1));
+    gpio_write_pin(B5, layer_state_cmp(state, 2));
+    gpio_write_pin(B8, layer_state_cmp(state, 3));
+    gpio_write_pin(B9, layer_state_cmp(state, 4));
     return state;
 }

@@ -8,11 +8,31 @@
         "pid": "0x1111",
         "device_version": "1.0.0"
     },
+    "split": {
+        "enabled": true
+    },
+    "rgblight": {
+        "led_count": 12,
+        "split_count": [6, 6],
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"x": 0,"y": 0},
-                {"x": 1,"y": 0}
+                {"matrix": [0, 0], "x": 0, "y": 0},
+
+                {"matrix": [1, 0], "x": 1, "y": 0}
             ]
         }
     }

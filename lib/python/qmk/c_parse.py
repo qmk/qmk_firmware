@@ -11,7 +11,7 @@ from milc import cli
 
 from qmk.comment_remover import comment_remover
 
-default_key_entry = {'x': -1, 'y': 0, 'w': 1}
+default_key_entry = {'x': -1, 'y': 0}
 single_comment_regex = re.compile(r'\s+/[/*].*$')
 multi_comment_regex = re.compile(r'/\*(.|\n)*?\*/', re.MULTILINE)
 layout_macro_define_regex = re.compile(r'^#\s*define')
@@ -24,7 +24,7 @@ def _get_chunks(it, size):
     return iter(lambda: tuple(islice(it, size)), ())
 
 
-def _preprocess_c_file(file):
+def preprocess_c_file(file):
     """Load file and strip comments
     """
     file_contents = file.read_text(encoding='utf-8')
@@ -66,7 +66,7 @@ def find_layouts(file):
     parsed_layouts = {}
 
     # Search the file for LAYOUT macros and aliases
-    file_contents = _preprocess_c_file(file)
+    file_contents = preprocess_c_file(file)
 
     for line in file_contents.split('\n'):
         if layout_macro_define_regex.match(line.lstrip()) and '(' in line and 'LAYOUT' in line:
@@ -217,10 +217,13 @@ def _coerce_led_token(_type, value):
         return value_map[value]
 
 
-def _validate_led_config(matrix, matrix_rows, matrix_indexes, position, position_raw, flags):
+def _validate_led_config(matrix, matrix_rows, matrix_cols, matrix_indexes, position, position_raw, flags):
     # TODO: Improve crude parsing/validation
     if len(matrix) != matrix_rows and len(matrix) != (matrix_rows / 2):
         raise ValueError("Unable to parse g_led_config matrix data")
+    for index, row in enumerate(matrix):
+        if len(row) != matrix_cols:
+            raise ValueError(f"Number of columns in row {index} ({len(row)}) does not match matrix ({matrix_cols})")
     if len(position) != len(flags):
         raise ValueError(f"Number of g_led_config physical positions ({len(position)}) does not match number of flags ({len(flags)})")
     if len(matrix_indexes) and (max(matrix_indexes) >= len(flags)):
@@ -234,32 +237,44 @@ def _validate_led_config(matrix, matrix_rows, matrix_indexes, position, position
 def _parse_led_config(file, matrix_cols, matrix_rows):
     """Return any 'raw' led/rgb matrix config
     """
-    matrix_raw = []
+    matrix = []
     position_raw = []
     flags = []
 
-    found_led_config = False
+    found_led_config_t = False
+    found_g_led_config = False
     bracket_count = 0
     section = 0
-    for _type, value in lex(_preprocess_c_file(file), CLexer()):
-        # Assume g_led_config..stuff..;
-        if value == 'g_led_config':
-            found_led_config = True
+    current_row_index = 0
+    current_row = []
+
+    for _type, value in lex(preprocess_c_file(file), CLexer()):
+        if not found_g_led_config:
+            # Check for type
+            if value == 'led_config_t':
+                found_led_config_t = True
+            # Type found, now check for name
+            elif found_led_config_t and value == 'g_led_config':
+                found_g_led_config = True
         elif value == ';':
-            found_led_config = False
-        elif found_led_config:
+            found_g_led_config = False
+        else:
             # Assume bracket count hints to section of config we are within
             if value == '{':
                 bracket_count += 1
                 if bracket_count == 2:
                     section += 1
             elif value == '}':
+                if section == 1 and bracket_count == 3:
+                    matrix.append(current_row)
+                    current_row = []
+                    current_row_index += 1
                 bracket_count -= 1
             else:
                 # Assume any non whitespace value here is important enough to stash
                 if _type in [Token.Literal.Number.Integer, Token.Literal.Number.Float, Token.Literal.Number.Hex, Token.Name]:
                     if section == 1 and bracket_count == 3:
-                        matrix_raw.append(_coerce_led_token(_type, value))
+                        current_row.append(_coerce_led_token(_type, value))
                     if section == 2 and bracket_count == 3:
                         position_raw.append(_coerce_led_token(_type, value))
                     if section == 3 and bracket_count == 2:
@@ -269,16 +284,15 @@ def _parse_led_config(file, matrix_cols, matrix_rows):
                     return None
 
     # Slightly better intrim format
-    matrix = list(_get_chunks(matrix_raw, matrix_cols))
     position = list(_get_chunks(position_raw, 2))
-    matrix_indexes = list(filter(lambda x: x is not None, matrix_raw))
+    matrix_indexes = list(filter(lambda x: x is not None, sum(matrix, [])))
 
     # If we have not found anything - bail with no error
     if not section:
         return None
 
     # Throw any validation errors
-    _validate_led_config(matrix, matrix_rows, matrix_indexes, position, position_raw, flags)
+    _validate_led_config(matrix, matrix_rows, matrix_cols, matrix_indexes, position, position_raw, flags)
 
     return (matrix, position, flags)
 

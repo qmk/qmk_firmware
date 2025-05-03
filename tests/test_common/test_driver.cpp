@@ -31,7 +31,7 @@ uint8_t hex_digit_to_keycode(uint8_t digit) {
 }
 } // namespace
 
-TestDriver::TestDriver() : m_driver{&TestDriver::keyboard_leds, &TestDriver::send_keyboard, &TestDriver::send_mouse, &TestDriver::send_extra} {
+TestDriver::TestDriver() : m_driver{&TestDriver::keyboard_leds, &TestDriver::send_keyboard, &TestDriver::send_nkro, &TestDriver::send_mouse, &TestDriver::send_extra} {
     host_set_driver(&m_driver);
     m_this = this;
 }
@@ -49,7 +49,12 @@ void TestDriver::send_keyboard(report_keyboard_t* report) {
     m_this->send_keyboard_mock(*report);
 }
 
+void TestDriver::send_nkro(report_nkro_t* report) {
+    m_this->send_nkro_mock(*report);
+}
+
 void TestDriver::send_mouse(report_mouse_t* report) {
+    test_logger.trace() << std::setw(10) << std::left << "send_mouse: (X:" << (int)report->x << ", Y:" << (int)report->y << ", H:" << (int)report->h << ", V:" << (int)report->v << ", B:" << (int)report->buttons << ")" << std::endl;
     m_this->send_mouse_mock(*report);
 }
 
@@ -60,7 +65,10 @@ void TestDriver::send_extra(report_extra_t* report) {
 namespace internal {
 void expect_unicode_code_point(TestDriver& driver, uint32_t code_point) {
     testing::InSequence seq;
-    EXPECT_REPORT(driver, (KC_LCTL, KC_LSFT, KC_U));
+    EXPECT_REPORT(driver, (KC_LEFT_CTRL, KC_LEFT_SHIFT));
+    EXPECT_REPORT(driver, (KC_LEFT_CTRL, KC_LEFT_SHIFT, KC_U));
+    EXPECT_REPORT(driver, (KC_LEFT_CTRL, KC_LEFT_SHIFT));
+    EXPECT_EMPTY_REPORT(driver);
 
     bool print_zero = false;
     for (int i = 7; i >= 0; --i) {
@@ -71,10 +79,12 @@ void expect_unicode_code_point(TestDriver& driver, uint32_t code_point) {
         const uint8_t digit = (code_point >> (i * 4)) & 0xf;
         if (digit || print_zero) {
             EXPECT_REPORT(driver, (hex_digit_to_keycode(digit)));
+            EXPECT_EMPTY_REPORT(driver);
             print_zero = true;
         }
     }
 
-    EXPECT_REPORT(driver, (KC_SPC));
+    EXPECT_REPORT(driver, (KC_SPACE));
+    EXPECT_EMPTY_REPORT(driver);
 }
 } // namespace internal

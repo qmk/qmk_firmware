@@ -17,7 +17,6 @@
 #pragma once
 
 #define ENCODER_RESOLUTION 2
-#define COMBO_COUNT 6
 #define COMBO_TERM 50
 #define QUICK_TAP_TERM 0
 #define DISABLE_LEADER

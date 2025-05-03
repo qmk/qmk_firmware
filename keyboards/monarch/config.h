@@ -17,20 +17,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define MATRIX_COL_PINS { A10, A9, A8, B15, B14, B13, B12, B10, B2, B1, B0, A5, A7, A4, A3, B6 }
-#define MATRIX_ROW_PINS { A15, B3, B11, A2, A1, B9 }
-#define DIODE_DIRECTION COL2ROW
-
 #define BACKLIGHT_PWM_DRIVER PWMD3
 #define BACKLIGHT_PWM_CHANNEL 1
 #define BACKLIGHT_PAL_MODE 1
 
 #define SLEEP_LED_GPT_DRIVER GPTD1
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
 
 /*
  * Feature disable options

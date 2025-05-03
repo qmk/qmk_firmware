@@ -23,13 +23,11 @@
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
 
-#define USB_MAX_POWER_CONSUMPTION 100
-
+/* PMW3360 settings */
 #define ROTATIONAL_TRANSFORM_ANGLE 20
-
-// If board has a debug LED, you can enable it by defining this
-// #define DEBUG_LED_PIN F7
-
-/* PMW33XX Settings */
-#define PMW33XX_CS_PIN             B0
 #define POINTING_DEVICE_INVERT_Y
+
+#define ENCODER_BUTTON_COL 1
+#define ENCODER_BUTTON_ROW 0
+/* Custom encoder needs to specify just how many encoders we have */
+#define NUM_ENCODERS 1

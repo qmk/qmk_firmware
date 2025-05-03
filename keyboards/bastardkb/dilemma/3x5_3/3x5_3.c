@@ -2,6 +2,7 @@
  * Copyright 2020 Christopher Courtney <drashna@live.com> (@drashna)
  * Copyright 2021 Quentin LEBASTARD <qlebastard@gmail.com>
  * Copyright 2022 Charly Delay <charly@codesink.dev> (@0xcharly)
+ * Copyright 2023 casuanoob <casuanoob@hotmail.com> (@casuanoob)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Publicw License as published by
@@ -17,67 +18,76 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "3x5_3.h"
+#include "dilemma.h"
 
-/**
- * LEDs index.
- *
- * ╭────────────────────╮                 ╭────────────────────╮
- *    2   3   8   9  12                     30  27  26  21  20
- * ├────────────────────┤                 ├────────────────────┤
- *    1   4   7  10  13                     31  28  25  22  19
- * ├────────────────────┤                 ├────────────────────┤
- *    0   5   6  11  14                     32  29  24  23  18
- * ╰────────────────────╯                 ╰────────────────────╯
- *                   15  16  17     35  34  33
- *                 ╰────────────╯ ╰────────────╯
- */
-// clang-format off
+#ifdef ENCODER_ENABLE
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) {
+        return false;
+    }
+    switch (index) {
+        case 0: // Left-half encoder, mouse scroll.
+            tap_code(clockwise ? KC_MS_WH_UP : KC_MS_WH_DOWN);
+            break;
+        case 1: // Right-half encoder, volume control.
+            tap_code(clockwise ? KC_AUDIO_VOL_UP : KC_AUDIO_VOL_DOWN);
+            break;
+    }
+    return true;
+}
+#endif // ENCODER_ENABLE
+
 #ifdef RGB_MATRIX_ENABLE
-led_config_t g_led_config = { {
-    /* Key Matrix to LED index. */
-    // Left split.
-    {      2,      3,      8,      9,     12 }, // Top row
-    {      1,      4,      7,     10,     13 }, // Middle row
-    {      0,      5,      6,     11,     14 }, // Bottom row
-    {     17, NO_LED,     15,     16, NO_LED }, // Thumb cluster
-    // Right split.
-    {     20,     21,     26,     27,     30 }, // Top row
-    {     19,     22,     25,     28,     31 }, // Middle row
-    {     18,     23,     24,     29,     32 }, // Bottom row
-    {     35, NO_LED,     33,     34, NO_LED }, // Thumb cluster
-}, {
-    /* LED index to physical position. */
-    // Left split.
-    /* index=0  */ {   0,  42 }, {   0,  21 }, {   0,   0 }, // col 1 (left most)
-    /* index=3  */ {  18,   0 }, {  18,  21 }, {  18,  42 }, // col 2
-    /* index=6  */ {  36,  42 }, {  36,  21 }, {  36,   0 },
-    /* index=9  */ {  54,   0 }, {  54,  21 }, {  54,  42 },
-    /* index=12 */ {  72,   0 }, {  72,  21 }, {  72,  42 },
-    /* index=15 */ {  72,  64 }, {  90,  64 }, { 108,  64 }, // Thumb cluster
-    // Right split.
-    /* index=18 */ { 224,  42 }, { 224,  21 }, { 224,   0 }, // col 10 (right most)
-    /* index=21 */ { 206,   0 }, { 206,  21 }, { 206,  42 }, // col 9
-    /* index=24 */ { 188,  42 }, { 188,  21 }, { 188,   0 },
-    /* index=27 */ { 170,   0 }, { 170,  21 }, { 170,  42 },
-    /* index=30 */ { 152,   0 }, { 152,  21 }, { 152,  42 },
-    /* index=33 */ { 152,  64 }, { 134,  64 }, { 116,  64 }, // Thumb cluster
-}, {
-    /* LED index to flag. */
-    // Left split.
-    /* index=0  */ LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, // col 1
-    /* index=3  */ LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, // col 2
-    /* index=6  */ LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,
-    /* index=9  */ LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,
-    /* index=12 */ LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,
-    /* index=15 */ LED_FLAG_MODIFIER, LED_FLAG_MODIFIER, LED_FLAG_MODIFIER, // Thumb cluster
-    // Right split.
-    /* index=18 */ LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, // col 10
-    /* index=21 */ LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, // col 9
-    /* index=24 */ LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,
-    /* index=27 */ LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,
-    /* index=30 */ LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,
-    /* index=33 */ LED_FLAG_MODIFIER, LED_FLAG_MODIFIER, LED_FLAG_MODIFIER, // Thumb cluster
-} };
-#endif
-// clang-format on
+// Layer state indicator
+bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
+    if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) { return false; }
+    if (host_keyboard_led_state().caps_lock) {
+        for (int i = led_min; i <= led_max; i++) {
+            if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
+                rgb_matrix_set_color(i, MIN(rgb_matrix_get_val() + 76, 255), 0x00, 0x00);
+            }
+        }
+    }
+
+    uint8_t layer = get_highest_layer(layer_state);
+    if (layer > 0) {
+        hsv_t hsv = rgb_matrix_get_hsv();
+        switch (get_highest_layer(layer_state)) {
+            case 1:
+                hsv = (hsv_t){HSV_BLUE};
+                break;
+            case 2:
+                hsv = (hsv_t){HSV_AZURE};
+                break;
+            case 3:
+                hsv = (hsv_t){HSV_ORANGE};
+                break;
+            case 4:
+                hsv = (hsv_t){HSV_GREEN};
+                break;
+            case 5:
+                hsv = (hsv_t){HSV_TEAL};
+                break;
+            case 6:
+                hsv = (hsv_t){HSV_PURPLE};
+                break;
+            case 7:
+            default:
+                hsv = (hsv_t){HSV_RED};
+                break;
+        };
+
+        if (hsv.v > rgb_matrix_get_val()) {
+            hsv.v = MIN(rgb_matrix_get_val() + 22, 255);
+        }
+        rgb_t rgb = hsv_to_rgb(hsv);
+
+        for (uint8_t i = led_min; i < led_max; i++) {
+            if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)) {
+                rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+            }
+        }
+    }
+    return false;
+};
+#endif // RGB_MATRIX_ENABLE

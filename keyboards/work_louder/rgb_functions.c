@@ -14,59 +14,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include QMK_KEYBOARD_H
-#include "rgb_functions.h"
-
 #ifdef RGBLIGHT_ENABLE
-#undef RGB_DI_PIN
-#define RGB_DI_PIN RGBLIGHT_DI_PIN
 
-#define ws2812_setleds ws2812_rgb_setleds
+#include "rgblight.h"
 
-#include "ws2812.c"
+#undef WS2812_DI_PIN
+#define WS2812_DI_PIN RGBLIGHT_DI_PIN
 
-void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds) {
-    ws2812_setleds(start_led, num_leds);
-}
-#endif
+#define ws2812_init ws2812_rgb_init
+#define ws2812_set_color ws2812_rgb_set_color
+#define ws2812_set_color_all ws2812_rgb_set_color_all
+#define ws2812_flush ws2812_rgb_flush
 
-#ifdef RGB_MATRIX_ENABLE
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_user(keycode, record)) { return false; }
+#include "ws2812_bitbang.c"
 
-    if (record->event.pressed) {
-        switch(keycode) {
-        case RGB_MATRIX_TOGGLE: // toggle rgb matrix
-            rgb_matrix_toggle();
-            return false;
-        case RGB_MATRIX_MODE_INC:
-            rgb_matrix_step();
-            return false;
-        case RGB_MATRIX_MODE_DEC:
-            rgb_matrix_step_reverse();
-            return false;
-        case RGB_MATRIX_HUE_INC:
-            rgb_matrix_increase_hue();
-            return false;
-        case RGB_MATRIX_HUE_DEC:
-            rgb_matrix_decrease_hue();
-            return false;
-        case RGB_MATRIX_SAT_INC:
-            rgb_matrix_increase_sat();
-            return false;
-        case RGB_MATRIX_SAT_DEC:
-            rgb_matrix_decrease_sat();
-            return false;
-        case RGB_MATRIX_VAL_INC:
-            rgb_matrix_increase_val();
-            return false;
-        case RGB_MATRIX_VAL_DEC:
-            rgb_matrix_decrease_val();
-            return false;
-        default:
-            break;
-        }
-    }
-    return true;
-}
+const rgblight_driver_t rgblight_driver = {
+    .init          = ws2812_init,
+    .set_color     = ws2812_set_color,
+    .set_color_all = ws2812_set_color_all,
+    .flush         = ws2812_flush,
+};
 #endif

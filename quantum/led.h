@@ -22,13 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* FIXME: Add doxygen comments here. */
 
-/* keyboard LEDs */
-#define USB_LED_NUM_LOCK 0
-#define USB_LED_CAPS_LOCK 1
-#define USB_LED_SCROLL_LOCK 2
-#define USB_LED_COMPOSE 3
-#define USB_LED_KANA 4
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -54,9 +47,6 @@ void led_suspend(void);
 void led_wakeup(void);
 
 void led_task(void);
-
-/* Deprecated callbacks */
-void led_set_user(uint8_t usb_led);
 
 /* Callbacks */
 bool led_update_user(led_t led_state);

@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "4x6_right.h"
+#include "tractyl_manuform.h"
 
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {

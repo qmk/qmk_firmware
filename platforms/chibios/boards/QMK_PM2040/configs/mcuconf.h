@@ -54,6 +54,7 @@
 #define RP_IRQ_USB0_PRIORITY                3
 #define RP_IRQ_I2C0_PRIORITY                2
 #define RP_IRQ_I2C1_PRIORITY                2
+#define RP_IRQ_RTC_PRIORITY                 3
 
 /*
  * ADC driver system settings.
@@ -106,7 +107,6 @@
 #define RP_USB_USE_USBD0                    TRUE
 #define RP_USB_FORCE_VBUS_DETECT            TRUE
 #define RP_USE_EXTERNAL_VBUS_DETECT         FALSE
-#define RP_USB_USE_SOF_INTR                 TRUE
 #define RP_USB_USE_ERROR_DATA_SEQ_INTR      FALSE
 
 #endif /* MCUCONF_H */

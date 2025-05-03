@@ -1,24 +1,36 @@
 {
-    "keyboard_name": "Trackball",
-    "manufacturer": "PloopyCo",
+    "keyboard_name": "Classic Trackball",
+    "manufacturer": "Ploopy",
     "url": "www.ploopy.co",
     "maintainer": "drashna",
     "usb": {
         "vid": "0x5043",
         "pid": "0x5442",
-        "device_version": "0.0.1"
+        "device_version": "0.0.1",
+        "max_power": 100
     },
     "bootmagic": {
         "matrix": [0, 3]
     },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false,
+        "pointing_device": true,
+        "encoder": true
+    },
+    "encoder": {
+        "driver": "custom"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"x":0, "y":0, "h":2, "matrix": [0, 0]},
-                {"x":1, "y":0.25, "h":1.5, "matrix": [0, 1]},
-                {"x":2, "y":0, "h":2, "matrix": [0, 2]},
-                {"x":3.5, "y":0, "h":2, "matrix": [0, 3]},
-                {"x":4.5, "y":0, "h":2, "matrix": [0, 4]}
+                {"x": 0, "y": 0, "h": 2, "matrix": [0, 0]},
+                {"x": 1, "y": 0.25, "h": 1.5, "matrix": [0, 1]},
+                {"x": 2, "y": 0, "h": 2, "matrix": [0, 2]},
+                {"x": 3.5, "y": 0, "h": 2, "matrix": [0, 3]},
+                {"x": 4.5, "y": 0, "h": 2, "matrix": [0, 4]}
             ]
         }
     }
