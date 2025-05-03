@@ -1,6 +1,6 @@
 # Yoda Distro
 
-![YodaDistro](https://imgur.com/a/LxLA4v2)
+![YodaDistro](https://i.imgur.com/W2xnKjF.jpeg)
 
 Scratch made direct wire pin 8-Key (4x2) Macro Pad using a Raspberry Pi Pico (2040).
 
