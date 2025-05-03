@@ -18,6 +18,31 @@ enum custom_keycodes {
     KC_LEND
 };
 
+// Debug function, should be removed in working config.
+void keyboard_post_init_user(void) {
+    // Customise these values to desired behaviour
+    debug_enable=true;
+    debug_matrix=true;
+    //debug_keyboard=true;
+    //debug_mouse=true;
+    printf("Keyboard booting up...\n");
+    wait_ms(2000);
+    oled_init(OLED_ROTATION_0);
+    printf("OLED initialised...\n");
+}
+
+
+void i2c_init(void) {
+    printf("In I2C init...\n");
+    gpio_set_pin_input(B6); // Try releasing special pins for a short time
+    gpio_set_pin_input(B7);
+    wait_ms(10); // Wait for the release to happen
+
+    palSetPadMode(GPIOB, 6, PAL_MODE_ALTERNATE(4) | PAL_STM32_OTYPE_OPENDRAIN | PAL_STM32_PUPDR_PULLUP); // Set B6 to I2C function
+    palSetPadMode(GPIOB, 7, PAL_MODE_ALTERNATE(4) | PAL_STM32_OTYPE_OPENDRAIN | PAL_STM32_PUPDR_PULLUP); // Set B7 to I2C function
+    printf("I2C initialised...\n");
+}
+
 #define KC_QWERTY PDF(_QWERTY)
 #define KC_COLEMAK PDF(_COLEMAK)
 
