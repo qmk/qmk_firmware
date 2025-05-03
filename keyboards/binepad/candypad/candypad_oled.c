@@ -4,13 +4,7 @@
 //  work on the Satisfaction75
 
 #include "candypad.h"
-#include "oled_driver.h"
 #include "keymap_introspection.h"
-#include <stdio.h> // needed for `snprintf`
-#ifdef CONSOLE_ENABLE
-#    include "print.h"
-#    include "debug.h"
-#endif
 
 #ifdef OLED_ENABLE
 

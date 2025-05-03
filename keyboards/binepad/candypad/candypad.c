@@ -23,12 +23,11 @@ void housekeeping_task_kb(void) {
             oled_repaint_requested = true;
         }
     }
-    housekeeping_task_user();
 }
 
 void suspend_wakeup_init_kb(void) {
-    suspend_wakeup_init_user();
     oled_on();
+    suspend_wakeup_init_user();
 }
 
 #endif // OLED_ENABLE
