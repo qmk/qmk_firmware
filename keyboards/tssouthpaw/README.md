@@ -1,6 +1,6 @@
 # TS-Southpaw-Rev-1.6
 
-![TS-Southpaw-Rev-1.6](https://i.imgur.com/placeholder.jpg)
+![TS-Southpaw-Rev-1.6](https://drive.google.com/file/d/1GbzhuI_gff_ezSdlNdn-enrzYQLmFRU3/view?usp=drive_link)
 
 *A full-sized southpaw mechanical keyboard with RGB lighting and rotary encoder*
 
