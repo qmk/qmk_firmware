@@ -726,7 +726,7 @@ void keyboard_task(void) {
 
     quantum_task();
 
-#if defined(SPLIT_WATCHDOG_ENABLE)
+#if defined(SPLIT_USB_DETECT_USB_ENUMERATION_WATCHDOG)
     split_watchdog_task();
 #endif
 

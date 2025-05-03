@@ -169,6 +169,26 @@ ifeq ($(strip $(QUANTUM_PAINTER_ENABLE)), yes)
     include $(QUANTUM_DIR)/painter/rules.mk
 endif
 
+VALID_SPLIT_USB_DETECT_DRIVER_TYPES := vbus_sensing usb_enumeration usb_enumeration_watchdog
+
+ifeq ($(PLATFORM),CHIBIOS)
+    SPLIT_USB_DETECT_DRIVER ?= usb_enumeration_watchdog
+else
+    SPLIT_USB_DETECT_DRIVER ?= vbus_sensing
+endif
+
+ifeq ($(filter $(SPLIT_USB_DETECT_DRIVER),$(VALID_SPLIT_USB_DETECT_DRIVER_TYPES)),)
+    $(call CATASTROPHIC_ERROR,Invalid SPLIT_USB_DETECT_DRIVER,SPLIT_USB_DETECT_DRIVER="$(SPLIT_USB_DETECT_DRIVER)" is not a valid usb detection driver type)
+else
+    ifeq ($(strip $(SPLIT_USB_DETECT_DRIVER)), vbus_sensing)
+        OPT_DEFS += -DSPLIT_USB_DETECT_VBUS_SENSING
+    else ifeq ($(strip $(SPLIT_USB_DETECT_DRIVER)), usb_enumeration)
+        OPT_DEFS += -DSPLIT_USB_DETECT_USB_ENUMERATION
+    else ifeq ($(strip $(SPLIT_USB_DETECT_DRIVER)), usb_enumeration_watchdog)
+        OPT_DEFS += -DSPLIT_USB_DETECT_USB_ENUMERATION_WATCHDOG
+    endif
+endif
+
 VALID_EEPROM_DRIVER_TYPES := vendor custom transient i2c spi wear_leveling legacy_stm32_flash
 EEPROM_DRIVER ?= vendor
 ifneq ($(strip $(EEPROM_DRIVER)),none)

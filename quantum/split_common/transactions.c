@@ -788,7 +788,7 @@ static void pointing_handlers_slave(matrix_row_t master_matrix[], matrix_row_t s
 ////////////////////////////////////////////////////
 // WATCHDOG
 
-#if defined(SPLIT_WATCHDOG_ENABLE)
+#if defined(SPLIT_USB_DETECT_USB_ENUMERATION_WATCHDOG)
 
 static bool watchdog_handlers_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
     bool okay = true;
@@ -807,13 +807,13 @@ static void watchdog_handlers_slave(matrix_row_t master_matrix[], matrix_row_t s
 #    define TRANSACTIONS_WATCHDOG_SLAVE() TRANSACTION_HANDLER_SLAVE_AUTOLOCK(watchdog)
 #    define TRANSACTIONS_WATCHDOG_REGISTRATIONS [PUT_WATCHDOG] = trans_initiator2target_initializer(watchdog_pinged),
 
-#else // defined(SPLIT_WATCHDOG_ENABLE)
+#else // defined(SPLIT_USB_DETECT_USB_ENUMERATION_WATCHDOG)
 
 #    define TRANSACTIONS_WATCHDOG_MASTER()
 #    define TRANSACTIONS_WATCHDOG_SLAVE()
 #    define TRANSACTIONS_WATCHDOG_REGISTRATIONS
 
-#endif // defined(SPLIT_WATCHDOG_ENABLE)
+#endif // defined(SPLIT_USB_DETECT_USB_ENUMERATION_WATCHDOG)
 
 #if defined(HAPTIC_ENABLE) && defined(SPLIT_HAPTIC_ENABLE)
 
