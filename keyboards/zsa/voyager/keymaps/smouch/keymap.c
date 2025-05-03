@@ -122,17 +122,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
  /*	BEAKL-19 Numpad
-			+	=	*
+		⇥	+	/	*   =
     ⇥   -   5   2   3   :
         7   .   1   0   4       	,   ⌘  (mo)  ⌥	 ⌃
-        /   6   9   8   ,       	-
+        ,   6   9   8   ⏎       	-
     	                ␣   ⌫   ⏎   ␣⇧
   */
   [_NUM] = LAYOUT_voyager(
-    _______, _______, KC_PLUS, KC_EQL,  KC_ASTR, _______,                   _______, _______, _______, _______, _______, _______,
+    _______, _______, KC_PLUS, KC_SLSH, KC_ASTR, KC_EQL,                    _______, _______, _______, _______, _______, _______,
     _______, KC_MINS, KC_5,    KC_2,    KC_3,    KC_COLN,                   _______, _______, _______, _______, _______, _______,
     _______, KC_7,    KC_DOT,  KC_1,    KC_0,    KC_4,                      _______, KC_RGUI, _______, KC_RALT, KC_RCTL, ___x___,
-    _______, KC_SLSH, KC_6,    KC_9,    KC_8,    KC_COMM,                   _______, ___x___, ___x___, ___x___, ___x___, _______,
+    _______, KC_COMM, KC_6,    KC_9,    KC_8,    KC_ENT,                    _______, ___x___, ___x___, ___x___, ___x___, _______,
                                                  KC_SPC,  _______, _______, _______
   ),
 
@@ -150,14 +150,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                  KC_SPC,  _______, _______, _______
   ),
 
-  /*    F1     F2      F3	   F4	  F5			           F6	   F7	   F8	F9	    F10	    F11
+  /*    F3     F2      F1	   F10	  F4			           F7	   F6	   F5	F9	    F8	    F11
     	       quit            Sclp   Scap                     vol+    home    up	end             F12
     	⌃      ⌥       (mo)     ⌘     SelAll       		       vol-    left    dn	rght	del
-    	undo   cpy             pst    redo                     mute    bspc
+    	undo   cpy             pst    redo                     mute    ←wrd    wrd→ ←line→  rgb
                                         ⇧                      dsk-    dsk+
   */
   [_NAV] = LAYOUT_voyager(
-    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,         KC_F5,                          KC_F6,   KC_F7,      KC_F8,   KC_F9,      KC_F10,  KC_F11,
+    _______, KC_F3,   KC_F2,   KC_F1,   KC_F10,        KC_F4,                          KC_F7,   KC_F6,      KC_F5,   KC_F9,      KC_F8,   KC_F11,
     _______, ___x___, G(KC_Q), _______, C(S(G(KC_4))), LSG(KC_4),                      KC_VOLU, G(KC_LEFT), KC_UP,   G(KC_RGHT), ___x___, KC_F12,
     ___x___, KC_LCTL, KC_LALT, _______, KC_LGUI,       G(KC_A),                        KC_VOLD, KC_LEFT,    KC_DOWN, KC_RGHT,    KC_DEL,  ___x___,
     ___x___, G(KC_Z), G(KC_C), G(KC_X), G(KC_V),       LSG(KC_Z),                      KC_MUTE, SELWBAK,    SELWORD, SELLINE,    LUMINO,  ___x___,
@@ -172,15 +172,15 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case RH1:
             return TAPPING_TERM - 50;
 
-    	//case LM4:
-        //case LM3:
-        //case LM2:
-        //case LM1:
-        //case RM1:
-        //case RM2:
-        //case RM3:
-        //case RM4:
-            //return TAPPING_TERM + 75;
+    	// case LM4:
+        // case LM3:
+        // case LM2:
+        // case LM1:
+        // case RM1:
+        // case RM2:
+        // case RM3:
+        // case RM4:
+        //     return TAPPING_TERM + 75;
 
         default:
             return TAPPING_TERM;
