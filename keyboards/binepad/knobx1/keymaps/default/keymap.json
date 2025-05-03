@@ -1,14 +1,4 @@
 {
-    "keyboard": "binepad/knobx1",
-    "keymap": "default",
-    "version": 1,
-    "layout": "LAYOUT",
-    "layers": [
-        [
-            "X1_LAYER",
-            "KC_MUTE"
-        ]
-    ],
     "config": {
         "features": {
             "encoder_map": true
@@ -21,5 +11,12 @@
                 "cw": "KC_VOLU"
             }
         ]
-    ]
+    ],
+    "keyboard": "binepad/knobx1",
+    "keymap": "default",
+    "layers": [
+        ["X1_LAYER", "KC_MUTE"]
+    ],
+    "layout": "LAYOUT",
+    "version": 1
 }

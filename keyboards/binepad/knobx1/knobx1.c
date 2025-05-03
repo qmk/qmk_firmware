@@ -10,14 +10,11 @@
 #endif
 
 void keyboard_pre_init_kb(void) {
-    setPinOutput(IND1_LED); // Set Indicators as output
-    writePinLow(IND1_LED);  // Set initial indicator low / OFF
-    setPinOutput(IND2_LED);
-    writePinLow(IND2_LED);
-    setPinOutput(IND3_LED);
-    writePinLow(IND3_LED);
-    setPinOutput(IND4_LED);
-    writePinLow(IND4_LED);
+    const pin_t indicator_leds[4] = {IND1_LED, IND2_LED, IND3_LED, IND4_LED};
+    for (int i = 0; i < 4; i++) {
+        gpio_set_pin_output(indicator_leds[i]); // Set Indicators as output
+        gpio_write_pin_low(indicator_leds[i]); // Set initial indicator low / OFF
+    }
 
     // Call the user pre-init function if needed
     // Do it after ._kb incase the user wants to change pin stuff
@@ -34,8 +31,8 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 void matrix_init_kb(void) {
     // Direct PINS use; gpio -> switch -> ground.
     // Setting Row 0 to ground makes it work like a direct pin
-    setPinOutput(ROW0_PIN); // Set Col0 as an output
-    writePinLow(ROW0_PIN);  // Set Col0 to low / ground
+    gpio_set_pin_output(ROW0_PIN); // Set Col0 as an output
+    gpio_write_pin_low(ROW0_PIN);  // Set Col0 to low / ground
 
     matrix_init_user();
 }
