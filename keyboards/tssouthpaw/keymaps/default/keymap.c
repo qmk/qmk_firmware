@@ -25,10 +25,12 @@
  };
  
  // Define custom keycodes
- enum custom_keycodes {
-     KC_MICMUTE = SAFE_RANGE, // Microphone mute key
-     KC_MEDIA,                // Media layer toggle
- };
+enum custom_keycodes {
+    KC_MICMUTE = SAFE_RANGE, // Microphone mute key
+    KC_MEDIA,                // Media layer toggle
+    KC_WRKTMR,               // Work timer toggle
+    KC_WRKPAU,               // Work timer pause/resume
+};
  
  /**
  * Encoder mapping
@@ -76,44 +78,57 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
   * Handles custom keycodes and effects
   */
  bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-     // Handle ESC key with ripple effect
-     if (keycode == KC_ESC) {
-         if (record->event.pressed) {
-             start_esc_ripple_effect();
-             return true; // Let QMK handle the actual keypress
-         } else {
-             stop_esc_ripple_effect();
-             return true;
-         }
-     }
-     
-     // Handle other custom keycodes
-     switch (keycode) {
-         case KC_MUTE:
-             if (record->event.pressed) {
-                 tap_code(KC_MUTE); // Trigger mute on key press
-                 tap_code(KC_MPLY); // Play/pause on key press
-             }
-             return false;
-             
-         case KC_MICMUTE:
-             if (record->event.pressed) {
-                 tap_code16(LCTL(LSFT(KC_M))); // MS Teams mic mute shortcut
-                 toggle_mic_mute_effect();      // Toggle the red-pulse effect
-             }
-             return false;
-             
-         case KC_MEDIA:
-             if (record->event.pressed) {
-                 encoder_media_mode = !encoder_media_mode; // Toggle encoder mode
-             }
-             return false;
-             
-         default:
-             return true; // Process all other keycodes normally
-     }
- }
- 
+    // Handle ESC key with ripple effect
+    if (keycode == KC_ESC) {
+        if (record->event.pressed) {
+            start_esc_ripple_effect();
+            return true; // Let QMK handle the actual keypress
+        } else {
+            stop_esc_ripple_effect();
+            return true;
+        }
+    }
+    
+    // Handle other custom keycodes
+    switch (keycode) {
+        case KC_MUTE:
+            if (record->event.pressed) {
+                tap_code(KC_MUTE); // Trigger mute on key press
+                tap_code(KC_MPLY); // Play/pause on key press
+            }
+            return false;
+            
+        case KC_MICMUTE:
+            if (record->event.pressed) {
+                tap_code16(LCTL(LSFT(KC_M))); // MS Teams mic mute shortcut
+                toggle_mic_mute_effect();      // Toggle the red-pulse effect
+            }
+            return false;
+            
+        case KC_MEDIA:
+            if (record->event.pressed) {
+                encoder_media_mode = !encoder_media_mode; // Toggle encoder mode
+            }
+            return false;
+            
+        // New keycodes for work timer
+        case KC_WRKTMR:
+            if (record->event.pressed) {
+                toggle_work_timer();       // Toggle the work timer on/off
+            }
+            return false;
+            
+        case KC_WRKPAU:
+            if (record->event.pressed) {
+                toggle_pause_work_timer(); // Pause/resume the work timer
+            }
+            return false;
+            
+        default:
+            return true; // Process all other keycodes normally
+    }
+}
+
  /**
   * Layer state change handler
   * Can be used for layer-dependent lighting
@@ -155,7 +170,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
          _______, _______, _______, _______, KC_NO  , KC_NO  , KC_NO  , _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
          _______, _______, _______, RM_VALD, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_NO  , _______,
          _______, _______, _______, KC_NO  , _______, _______, KC_NO  , _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-         _______, _______, _______, RM_VALU, _______, _______, KC_NO  , _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_NO  , _______,
+         _______, _______, _______, RM_VALU, KC_WRKTMR, KC_WRKPAU, KC_NO  , _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_NO  , _______,
          _______, _______, _______, KC_NO  , KC_NO  , RM_HUEU, KC_NO  , _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_NO  , _______, KC_NO  ,
          KC_NO,   _______, _______, _______, RM_PREV, RM_HUED, RM_NEXT, KC_NO  , _______, _______, KC_NO  , KC_NO  , KC_NO  , _______, KC_NO  , KC_NO  , _______, KC_NO  , _______, _______, _______                      
      ),

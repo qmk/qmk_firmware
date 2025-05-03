@@ -1,6 +1,6 @@
 # TS-Southpaw-Rev-1.6
 
-![TS-Southpaw-Rev-1.6](https://drive.google.com/file/d/1GbzhuI_gff_ezSdlNdn-enrzYQLmFRU3/view?usp=drive_link)
+![TS-Southpaw-Rev-1.6](https://imgur.com/a/pUxQAhL)
 
 *A full-sized southpaw mechanical keyboard with RGB lighting and rotary encoder*
 
@@ -18,6 +18,7 @@
 - QMK firmware with dynamic macros
 - Custom RGB indicators for keyboard state
 - Visual ESC key ripple effect
+- 8-hour work timer with progress bar
 
 ## Keyboard Layout
 
@@ -61,6 +62,21 @@ Default startup color is green. Special indicators include:
 - Mic Mute: Red pulsing when active
 - ESC key: Red ripple effect on press
 - Arrow keys: Blue highlighting in solid color mode
+
+## Work Timer
+
+The keyboard features an 8-hour work timer with visual indicators:
+- F1-F12 keys serve as a progress bar, showing elapsed work time
+- Colors fade from green (start) through yellow (middle) to red (end)
+- Blue flash at 4 hours for lunch break
+- Blue warning flash 5 minutes before lunch break ends
+- Red warning flash for the last 5 minutes of the workday
+
+To use the work timer:
+- Start/Stop: Press `Fn + DM_PLY1`
+- Pause/Resume: Press `Fn + DM_PLY2`
+
+The timer automatically shuts off after 8 hours have elapsed.
 
 ## Rotary Encoder
 
