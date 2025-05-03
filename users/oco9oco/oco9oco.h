@@ -13,6 +13,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include QMK_KEYBOARD_H
 //#include <stdio.h>
+
+#define BASE_COLOR     HSV_RED
+#define BASE_NOMOD_COLOR HSV_BLUE
+#define DOOM_COLOR     HSV_GREEN
+#define FACTORIO_COLOR HSV_PURPLE
+#define IPC_COLOR      HSV_CYAN
+#define NAV_COLOR      HSV_YELLOW
+#define MOUSE_COLOR    HSV_ORANGE
+#define FUNC_COLOR     HSV_WHITE
+#define ONEHAND_COLOR  HSV_PINK
+#define SETTINGS_COLOR HSV_GOLD
+
+
 // MOD-TAP ALIASES
 #define GUIT_A LGUI_T(KC_A)
 #define SFTT_A LSFT_T(KC_A)
@@ -83,7 +96,7 @@ Z X C V B  N M , . /
 //     |--------|--------|--------|--------|--------|
 #define __________________QWERTY_HOME_L2___________ GUIT_A, ALTT_S, CTLT_D, SFTT_F, KC_G
 #define __________________QWERTY_HOME_R2___________ KC_H, KC_J, CTLT_K, ALTT_L, LSFT_T(KC_SCLN)
-#define __________________QWERTY_HOME_R3___________ KC_N, KC_M, LCTL_T(KC_COMM), LALT_T(KC_DOT), LGUI_T(KC_SLSH)
+#define __________________QWERTY_HOME_R3___________ KC_N, LSFT_T(KC_M), LCTL_T(KC_COMM), LALT_T(KC_DOT), LGUI_T(KC_SLSH)
 // different layout
 #define __________________QWERTY_SACS_L2___________ SFTT_A, ALTT_S, CTLT_D, SFTT_F, KC_G
 // process-intercepted keys
@@ -126,7 +139,7 @@ Z X C V B  N M , . /
 #define TO_NOMOD TG(_BASE_NOMOD)
 #define LT_NAV_0 LT(_NAV, KC_0)
 #define MT_CAPS LALT_T(KC_CAPS)
-#define SFT_CAPS LT(_BASE, KC_BTN1)
+#define SFT_CAPS LT(_BASE_NOMOD, KC_LSFT)
 
 // NUMPAD
 #define _________NUM_789_________ KC_7, KC_8, KC_9
@@ -174,6 +187,7 @@ Z X C V B  N M , . /
 #define LAYOUT_moonlander_wrapper(...) LAYOUT_moonlander(__VA_ARGS__)
 #define LAYOUT_kimiko_wrapper(...) LAYOUT(__VA_ARGS__)
 #define LAYOUT_ID75_wrapper(...) LAYOUT_ortho_5x15(__VA_ARGS__)
+#define LAYOUT_charybdis_wrapper(...) LAYOUT(__VA_ARGS__)
 
 #define _ALT _BASE_NOMOD
 
@@ -247,6 +261,7 @@ bool qwert;
 #define THUMB_R3 LT(_MOUSE, KC_ENT)
 #define THUMB_R2 LT(_NAV, KC_SPC)
 #define THUMB_R1 LT(_FUNC, KC_LNG1)
+#define TH_BK_R1 LT(_FUNC, KC_ENT)
 
 #define __BASE_LT THUMB_L1, THUMB_L2, LSFT_T(KC_DEL)
 #define __BASE_RT THUMB_R3, THUMB_R2, THUMB_R1
@@ -305,12 +320,15 @@ enum custom_keycodes {
     CLASS_E,
     ALT_TAB,
     NAV_NS,
+    HWP_MACRO,
 };
 
 enum layer_index {
     _BASE = 0,       // QWERTY with home row mods
     _BASE_NOMOD,     // Just QWERTY
+    _BASE_SWAP,     // BASE WITH RIGHT THUMB SWAP
     _DOOM,          // DOOM ETERNAL
+    _FACTORIO,
     _NAV,            // Arrows
     _IPC,            //
     _NUM,

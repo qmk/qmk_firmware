@@ -69,25 +69,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     tap_code(KC_BSPC);
                     tap_code(KC_BSPC);
                     tap_code(KC_BSPC);
-                    tap_code(KC_BSPC);
-                    tap_code(KC_BSPC);
-                    if(switch_cite ==0){
-                        tap_code(KC_BSPC);
-                        tap_code(KC_BSPC);
-                        tap_code(KC_BSPC);
-                    }
+                    // if(switch_cite ==0){
+                    //     tap_code(KC_BSPC);
+                    //     tap_code(KC_BSPC);
+                    //     tap_code(KC_BSPC);
+                    // }
                 }
                 switch (switch_cite) {
                     case 0:
-                        SEND_STRING("A62B18");
+                        SEND_STRING("A62B");
                         switch_cite = 1;
                         break;
-                        case 1:
-                        SEND_STRING("A62B23");
-                        switch_cite = 2;
+                    case 1:
+                        SEND_STRING("E05B");
+                        switch_cite = 2;  // case 2 추가되는 경우 switch_cite = 2;
                         break;
                     case 2:
-                        SEND_STRING("A41D13/11");
+                        SEND_STRING("E06B");
                         switch_cite = 0;
                         break;
                 }
@@ -164,11 +162,64 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return true;
             break;
+
         // HWP_CITE
+        case HWP_MACRO:
+            if(__PRESSED__){
+                tap_code_delay(KC_F6,200);
+
+                register_code(KC_LALT);
+                    tap_code_delay(KC_O,200);
+                    tap_code_delay(KC_F,200);
+                unregister_code(KC_LALT);
+
+                tap_code_delay(KC_DOWN,100);
+                tap_code_delay(KC_DOWN,100);
+                tap_code(KC_ENT);
+                register_code(KC_LALT);
+                    tap_code_delay(KC_I,200);
+                unregister_code(KC_LALT);
+
+                tap_code(KC_DOWN);
+                register_code(KC_LALT);
+                    tap_code_delay(KC_B,200);
+                    tap_code_delay(KC_Y,200);
+                    tap_code_delay(KC_A,200);
+                    tap_code_delay(KC_Y,200);
+                    tap_code_delay(KC_N,200);
+                    tap_code_delay(KC_D,200);
+                unregister_code(KC_LALT);
+                tap_code_delay(KC_ESC,200);
+
+                register_code(KC_LCTL);
+                    tap_code_delay(KC_K,200);
+                    tap_code_delay(KC_O,200);
+                unregister_code(KC_LCTL);
+
+                register_code(KC_LALT);
+                    tap_code_delay(KC_N,200);
+                unregister_code(KC_LALT);
+
+                tap_code_delay(KC_PGDN,100);
+                tap_code_delay(KC_END,100);
+
+                register_code(KC_LALT);
+                    tap_code_delay(KC_D,200);
+                unregister_code(KC_LALT);
+
+            }
+        break;
         case HWP_CITE:
             // prns 안에서는 cite_done = false
             // comma 누르면 cite_done = true
             // prns && num 상태에서는 cite_done = true, SPC_COMM
+
+            // START                          ---   added 15:27 241016
+            // if (__TAPPED__ && __PRESSED__) {
+            //     SEND_STRING("{}" SS_TAP(X_LEFT));
+            //     } else {
+            // END                            ---   added 15:27 241016
+
             if (__PRESSED__) {
                 switch (switch_cite) {
                     case 0:
@@ -226,7 +277,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
             // Intercept mod-tap
-        case IPC(A):
+
+            // case LT(_BASE,KC_DEL):
+            // if (__TAPPED__ && __PRESSED__) {
+            //     tap_code(KC_DEL);
+            // } else if (__PRESSED__) {
+            //     register_code16(DRGSCRL);
+            // } else {
+            //     unregister_code16(DRGSCRL);
+            // }
+            // return false;
+            // break;
+
+            case LT(_BASE,KC_ENT):
+            if (__TAPPED__ && __PRESSED__) {
+                tap_code(KC_ENT);
+            } else if (__PRESSED__) {
+                register_code(KC_LNG1);
+            } else {
+                unregister_code(KC_LNG1);
+            }
+            return false;
+            break;
+
+            case IPC(A):
             if (__TAPPED__ && __PRESSED__) {
                 if(!cite_done){tap_code(KC_BSPC);}
                     switch (switch_cite){
@@ -280,7 +354,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case IPC(Z):
             if (__TAPPED__ && __PRESSED__) {
-                tap_code16(SCRNSHOT);
+                tap_code16(KC_LNG1);
             } else if (__PRESSED__) {
                 register_code(KC_LGUI);
             } else {
@@ -293,7 +367,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (__TAPPED__ && __PRESSED__) {
                 tap_code16(KC_UNDS);
             } else if (__PRESSED__) {
-                tap_code16(KC_EQL);
+                tap_code16(KC_PLUS);
             }
             return false;
             break;
@@ -313,9 +387,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (__TAPPED__ && __PRESSED__) {
                 tap_code16(KC_CAPS);
             } else if (__PRESSED__) {
-                register_code(KC_LGUI);
+                register_code(KC_LNG1);
             } else {
-                unregister_code(KC_LGUI);
+                unregister_code(KC_LNG1);
             }
             return false;
             break;
@@ -399,12 +473,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case GUIT_Z:
+
+        // case THUMB_L2:
+            // return TAPPING_TERM - 50;
+        // case SFTT_A:
+        // case SFTT_F:
+        // case CTLT_D:
+        //     return TAPPING_TERM ;
+        case LGUI_T(KC_Z):
             return TAPPING_TERM + 200;
-        case THUMB_L2:
-        case SFTT_A:
-            return TAPPING_TERM - 170;
-        case SFTT_F:
         case SFTT_J:
         case GUIT_A:
         case GUIT_SCL:
@@ -412,7 +489,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case NAV(S):
         case NAV(D):
         case NAV(F):
-            return TAPPING_TERM - 100;
+            return TAPPING_TERM - 50;
         default:
             return TAPPING_TERM;
     }
@@ -420,6 +497,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 // Get hold on other key press
 bool get_permissive_hold(uint16_t keycode, keyrecord_t *record){
     switch (keycode) {
+        case SFTT_A:
+            return true;
         default:
             return false;
     }
@@ -429,7 +508,7 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 //        case LSFT_T(KC_W):
         case IPC(Z):
         case THUMB_L1:
-//        case THUMB_L2:
+        case THUMB_L2:
         case THUMB_L3:
         case THUMB_R1:
         case THUMB_R3:
@@ -462,3 +541,27 @@ void matrix_scan_user(void) { // The very important timer.
     }
   }
 }
+
+bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t* tap_hold_record,
+    uint16_t other_keycode, keyrecord_t* other_record) {
+// Exceptionally allow some one-handed chords for hotkeys.
+switch (tap_hold_keycode) {
+case LSFT_T(KC_A):
+if (other_keycode == KC_W || other_keycode == KC_E || other_keycode == KC_R || other_keycode == KC_T) {
+return true;
+}
+break;
+
+case LSFT_T(KC_F):
+if (other_keycode == KC_Q) {
+return true;
+}
+else {return false;}
+break;
+
+}
+// Otherwise defer to the opposite hands rule.
+return get_chordal_hold_default(tap_hold_record, other_record);
+}
+
+
