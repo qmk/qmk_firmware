@@ -25,9 +25,17 @@
  // Dynamic macro configuration
  #define DYNAMIC_MACRO_EEPROM_STORAGE   // Enable dynamic macro storage in EEPROM
  #define DYNAMIC_MACRO_SIZE 256         // Larger macro size
- 
+
  // Buffer Sizes
  #define SERIAL_BUFFER_SIZE 64          // Serial buffer size for communication
+
+ #define MATRIX_ROWS 6
+#define MATRIX_COLS 21
+ 
+ // Rotary encoder configuration
+#define ENCODER_A_PINS { GP0 }       // Pin for encoder A
+#define ENCODER_B_PINS { GP1 }       // Pin for encoder B
+#define ENCODER_RESOLUTION 4         // Steps per detent for the rotary encoder
  
  /*******************************************************************************
   * POWER MANAGEMENT
