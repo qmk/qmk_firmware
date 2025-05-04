@@ -1,12 +1,12 @@
 # travyboard
 
-![travyboard](imgur.com image replace me!)
+![travyboard](https://i.imgur.com/0HxqCsD.jpeg)
 
-*A short description of the keyboard/project*
+A split 23 key keyboard created from scratch. Firmware is written as well, but QMK supports is important as well.
 
 * Keyboard Maintainer: [Travis Hepworth](https://github.com/travmonkey)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: *travyboard pcb + waveshare rp2040 zero*
+* Hardware Availability: *DIY only, [travyboard repository](https://github.com/travishepworth/travyboard)*
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -20,8 +20,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Bootloader
 
-Enter the bootloader in 3 ways:
+Enter the bootloader via the boot button on the rp2040 zero:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
-* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
+* **Reset Button**: Hold down the boot button and press the reset button on the board
+* **Boot Button**: Hold down the boot button and plug in the USB cable
