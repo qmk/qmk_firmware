@@ -1,0 +1,7 @@
+.program mux
+pull block         ; Wait for CPU to send pin index
+mov isr, osr        ; Copy to isr
+set pins, 0         ; Clear all pins
+mov pins, isr       ; Set pin corresponding to bit index
+irq 0               ; Notify CPU
+.wrap
