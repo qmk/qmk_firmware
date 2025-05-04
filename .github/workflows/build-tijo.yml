@@ -1,0 +1,47 @@
+name: QMK firmware build
+
+on:
+  push:
+    branches:
+      - tijo-dev
+    paths:
+      - "keyboards/**/keymaps/**"
+  pull_request:
+    branches:
+      - master
+    paths:
+      - "keyboards/**/keymaps/**"
+
+jobs:
+  build-qmk:
+    runs-on: ubuntu-latest
+    env:
+      QMK_KEYBOARD: tijo
+      QMK_KEYMAP: default
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Init submodules
+        run: git submodule update --init --recursive
+
+      - name: Setup QMK
+        run: |
+          pip install qmk
+          ./util/qmk_install.sh -y
+          qmk setup -H ./
+          qmk config user.keyboard=${{ env.QMK_KEYBOARD }} user.keymap=${{ env.QMK_KEYMAP }}
+
+      - name: Lint
+        run: qmk lint
+
+      - name: Compile firmware
+        run: |
+          qmk generate-compilation-database
+          qmk compile --compiledb
+
+      - uses: actions/upload-artifact@v4
+        with:
+          include-hidden-files: true
+          name: firmware
+          path: .build
