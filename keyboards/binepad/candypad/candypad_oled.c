@@ -11,17 +11,17 @@
 /* CandyPad Logo */
 static void __candypad_render_logo_default(void) {
     // Generated from https://joric.github.io/qle/
-    static const unsigned char PROGMEM raw_logo[] = {
+    static const char PROGMEM raw_logo[] = {
         0,  0,  0,  0,   128, 192, 224, 96,  240, 240, 152, 24,  24,  24, 24, 24, 24,  24,  24,  56,  48,  96, 224, 192, 128, 0,   0,   0,   0,  0,   0,   0,   0,   0,   0,  0,   0,   0,   0,  0,   0,   0, 0,   0,   0,   0,  0, 0,   0,   0,   0,   0,  0,  0,  0,   0,   0,   0,   0,  0,  0,   0,   0,   0,  0,  0,  0,  0,   0,   0,   0,   0, 0, 0,   128, 128, 0,   0,  0,  0,  0,   0,   0,   0,   0, 0, 0, 0,  0,   0,   0,   0, 0, 0, 0, 0, 0, 0, 0,  0,  0,  0,   0,   0,   0,   0,  0,  0,  0,   0,   0,   0,  0, 0, 0,  0,  0,  0,   0,  0,  0,  0,   0,  0,  0,  128, 128, 0,   0,  192, 248, 62,  7,  15,  28,  56, 112, 225, 195, 135, 14, 28, 56, 112, 224, 192, 128, 0,   0, 0, 0,  1,  7,  62,  252, 192, 0,  128, 192, 224, 112, 48, 48, 48, 112, 96, 0,  128, 192, 224, 96,
         48, 48, 48, 112, 224, 240, 240, 0,   0,   240, 240, 96,  112, 48, 48, 48, 112, 224, 192, 128, 0,   0,  128, 192, 224, 112, 48,  48,  48, 112, 224, 255, 255, 0,   48, 112, 224, 128, 0,  0,   0,   0, 128, 224, 112, 48, 0, 240, 240, 224, 112, 48, 48, 48, 112, 224, 192, 128, 0,  0,  128, 192, 224, 96, 48, 48, 48, 112, 224, 240, 240, 0, 0, 128, 192, 224, 112, 48, 48, 48, 112, 224, 255, 255, 0, 0, 3, 31, 124, 224, 192, 0, 0, 0, 0, 1, 3, 7, 14, 28, 56, 112, 225, 195, 135, 14, 28, 56, 240, 224, 124, 63, 3, 0, 15, 31, 56, 112, 96, 96, 96, 112, 48, 0,  15, 31,  56,  112, 96, 96,  96,  112, 56, 127, 127, 0,  0,   127, 127, 0,   0,  0,  0,  0,   0,   1,   127, 127, 0, 0, 15, 31, 56, 112, 96,  96,  96, 112, 56,  127, 127, 0,  0,  0,  3,   15, 62, 240, 248, 62,  15,
         3,  0,  0,  0,   255, 255, 56,  112, 96,  96,  96,  112, 56,  31, 15, 0,  0,   15,  31,  56,  112, 96, 96,  96,  112, 56,  127, 127, 0,  0,   15,  63,  56,  112, 96, 96,  96,  112, 56, 127, 127, 0, 0,   0,   0,   0,  1, 3,   7,   6,   14,  12, 24, 24, 24,  24,  24,  24,  24, 24, 25,  15,  15,  6,  7,  3,  1,  0,   0,   0,   0,   0, 0, 0,   0,   0,   0,   0,  0,  0,  0,   0,   0,   0,   0, 0, 0, 0,  0,   0,   0,   0, 0, 0, 0, 0, 0, 0, 0,  0,  0,  0,   0,   0,   0,   0,  0,  0,  0,   0,   0,   0,  0, 0, 0,  0,  0,  0,   0,  0,  0,  0,   28, 31, 7,  1,   0,   0,   0,  0,   0,   0,   31, 31,  0,   0,  0,   0,   0,   0,   0,  0,  0,  0,   0,   0,   0,   0,   0, 0, 0,  0,  0,  0,   0,   0,   0,  0,   0,   0,   0,   0,  0,  0,  0,   0,  0,  0,   0,   0,
     };
-    oled_write_raw_P((char *)raw_logo, sizeof(raw_logo));
+    oled_write_raw_P(raw_logo, sizeof(raw_logo));
 }
 
-// weak so that user keymaps can make their own
+// Weak so that user keymaps can make their own
 __attribute__((weak)) bool candypad_render_logo_user(void) {
-    return false;  // return true if your user keymap renders its own
+    return false; // Return true if your user keymap renders its own
 }
 
 __attribute__((weak)) bool candypad_render_logo_kb(void) {
@@ -40,8 +40,8 @@ oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
 static char *get_enc_mode(uint8_t encoder) {
 #    ifdef ENCODER_MAP_ENABLE
 
-    static char s_u_d[4] = {24, 38, 25, 0}; // up and down
-    static char s_l_r[4] = {27, 38, 26, 0}; // left and right
+    static char s_u_d[4] = {24, 38, 25, 0}; // Up and down
+    static char s_l_r[4] = {27, 38, 26, 0}; // Left and right
 
     uint8_t  layer   = get_highest_layer(layer_state);
     uint16_t keycode = KC_TRNS;
@@ -111,14 +111,14 @@ static void __draw_line_v(uint8_t x, uint8_t y, uint8_t len, bool on) {
     }
 }
 
-// weak so that user keymaps can make their own
+// Weak so that user keymaps can make their own
 __attribute__((weak)) bool candypad_render_default_user(void) {
-    return false;  // return true if your user keymap renders its own
+    return false; // Return true if your user keymap renders its own
 }
 
 __attribute__((weak)) bool candypad_render_default_kb(void) {
     if (candypad_render_default_user()) {
-        return true; // was handled by user code
+        return true; // Was handled by user code
     }
 
     bool on;
@@ -203,7 +203,7 @@ __attribute__((weak)) bool candypad_render_default_kb(void) {
     __draw_line_v(MXDS_X - 2, MXDS_Y - 1, 8, true);
     __draw_line_v(MXDS_X + 5, MXDS_Y - 1, 8, true);
 
-    return true; // was handled here
+    return true; // Was handled here
 }
 
 bool oled_task_kb(void) {
@@ -211,7 +211,7 @@ bool oled_task_kb(void) {
         return false;
     }
     // if (!oled_task_needs_to_repaint()) { return false; }
-    /* !!! oled_clear(); // is broken !!! */
+    /* !! : oled_clear(); // Is broken !!! */
     if (oled_repaint_requested) {
         oled_repaint_requested = false;
         oled_clear();
@@ -220,8 +220,8 @@ bool oled_task_kb(void) {
 
     switch (oled_mode) {
         case OLED_OFF:
-            // do nothing
-            // this PCB has no digital switch to power off the OLED :(
+            // Do nothing
+            // This PCB has no digital switch to power off the OLED :(
             break;
 
         case OLED_SPLASH:

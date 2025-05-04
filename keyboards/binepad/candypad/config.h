@@ -15,7 +15,7 @@
 
 /* Configure oled driver for the 128x32 oled */
 #    define OLED_TIMEOUT (15 * 60 * 1000) // 15 minutes
-#    define OLED_UPDATE_INTERVAL 33 // ~30fps
+#    define OLED_UPDATE_INTERVAL 33       // ~30fps
 
 /* Font */
 #    define OLED_FONT_H "keyboards/binepad/candypad/glcdfont.c"
@@ -23,7 +23,7 @@
 #endif // OLED_ENABLE
 
 /* ---- Direct pins, for use in (custom) `matrix.c` (please read that file) ----- */
-// *NB*: DIRECT_PINS_CUSTOM must match the MATRIX_ROWS / MATRIX_COLS matrix structure
+// !! : DIRECT_PINS_CUSTOM must match the MATRIX_ROWS / MATRIX_COLS matrix structure
 // clang-format off
 #define DIRECT_PINS_CUSTOM                \
     {                                     \
