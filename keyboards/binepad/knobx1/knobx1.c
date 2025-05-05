@@ -13,7 +13,7 @@ void keyboard_pre_init_kb(void) {
     const pin_t indicator_leds[4] = {IND1_LED, IND2_LED, IND3_LED, IND4_LED};
     for (int i = 0; i < 4; i++) {
         gpio_set_pin_output(indicator_leds[i]); // Set Indicators as output
-        gpio_write_pin_low(indicator_leds[i]); // Set initial indicator low / OFF
+        gpio_write_pin_low(indicator_leds[i]);  // Set initial indicator low / OFF
     }
 
     // Call the user pre-init function if needed
@@ -37,19 +37,38 @@ void matrix_init_kb(void) {
     matrix_init_user();
 }
 
+bool process_x1_layer_up(keyrecord_t *record) {
+    if (record->event.pressed) {
+        uint8_t current_layer = get_highest_layer(layer_state);
+        // Cycle through layers
+        uint8_t next_layer    = (current_layer + 1) % X1_KEYMAP_LAYER_COUNT;
+        layer_move(next_layer);
+        x1_layer_led(next_layer); // Update LED indicators
+    }
+    return false;
+}
+
+bool process_x1_layer_down(keyrecord_t *record) {
+    if (record->event.pressed) {
+        uint8_t current_layer = get_highest_layer(layer_state);
+        // Reverse through layers
+        uint8_t prev_layer = (current_layer == 0) ? (X1_KEYMAP_LAYER_COUNT - 1) : (current_layer - 1);
+        layer_move(prev_layer);
+        x1_layer_led(prev_layer);
+    }
+    return false;
+}
+
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_user(keycode, record)) {
         return false;
     }
     switch (keycode) {
-        case X1_LAYER_SELECTOR:
-            if (record->event.pressed) {
-                uint8_t current_layer = get_highest_layer(layer_state);
-                uint8_t next_layer    = (current_layer + 1) % X1_KEYMAP_LAYER_COUNT; // Cycle through layers
-                layer_move(next_layer);
-                x1_layer_led(next_layer); // Update LED indicators
-            }
-            return false;
+        case X1_LAYER_SELECTOR_UP:
+            return process_x1_layer_up(record);
+
+        case X1_LAYER_SELECTOR_DOWN:
+            return process_x1_layer_down(record);
 
         default:
             return true;

@@ -15,7 +15,7 @@
     "keyboard": "binepad/knobx1",
     "keymap": "default",
     "layers": [
-        ["X1_LAYER", "KC_MUTE"]
+        ["X1_LYRU", "KC_MUTE"]
     ],
     "layout": "LAYOUT",
     "version": 1

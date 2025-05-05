@@ -15,11 +15,13 @@
 
 // clang-format off
 enum x1_keycodes {
-    X1_LAYER_SELECTOR = QK_KB_MAX // use the last one
+    X1_LAYER_SELECTOR_UP = QK_USER,
+    X1_LAYER_SELECTOR_DOWN
 };
 // clang-format on
 
-#define X1_LAYER X1_LAYER_SELECTOR
+#define X1_LYRU X1_LAYER_SELECTOR_UP
+#define X1_LYRD X1_LAYER_SELECTOR_DOWN
 
 // clang-format off
 static inline void x1_led_1(bool on) { gpio_write_pin(IND1_LED, on); }
@@ -42,3 +44,6 @@ static inline void x1_layer_led(uint8_t lyr) {
     gpio_write_pin(IND3_LED, lyr >= 2);
     gpio_write_pin(IND4_LED, lyr >= 3);
 }
+
+bool process_x1_layer_up(keyrecord_t *record);
+bool process_x1_layer_down(keyrecord_t *record);
