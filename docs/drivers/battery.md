@@ -49,3 +49,25 @@ Sample battery level.
 #### Return Value {#api-battery-get-percent-return}
 
 The battery percentage, in the range 0-100.
+
+## Callbacks
+
+### `void battery_percent_changed_user(uint8_t level)` {#api-battery-percent-changed-user}
+
+User hook called when battery level changed.
+
+### Arguments {#api-battery-percent-changed-user-arguments}
+
+ - `uint8_t level`  
+   The battery percentage, in the range 0-100.
+
+---
+
+### `void battery_percent_changed_kb(uint8_t level)` {#api-battery-percent-changed-kb}
+
+Keyboard hook called when battery level changed.
+
+### Arguments {#api-battery-percent-changed-kb-arguments}
+
+ - `uint8_t level`  
+   The battery percentage, in the range 0-100.
