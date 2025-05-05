@@ -17,7 +17,7 @@ qmk compile [-c] <configuratorExport.json>
 **Usage for Keymaps**:
 
 ```
-qmk compile [-c] [-e <var>=<value>] [-j <num_jobs>] -kb <keyboard_name> -km <keymap_name>
+qmk compile [-c] [-e <var>=<value>] [-j <num_jobs>] [--compiledb] -kb <keyboard_name> -km <keymap_name>
 ```
 
 **Usage in Keyboard Directory**:
@@ -82,6 +82,25 @@ qmk compile -j <num_jobs> -kb <keyboard_name>
 The `num_jobs` argument determines the maximum number of jobs that can be used. Setting it to zero will enable parallel compilation without limiting the maximum number of jobs.
 ```
 qmk compile -j 0 -kb <keyboard_name>
+```
+
+**Compilation Database**:
+
+Creates a `compile_commands.json` file.
+
+Does your IDE/editor use a language server but doesn't _quite_ find all the necessary include files? Do you hate red squigglies? Do you wish your editor could figure out `#include QMK_KEYBOARD_H`? You might need a [compilation database](https://clang.llvm.org/docs/JSONCompilationDatabase.html)! Compiling using this argument can create this for you.
+
+**Example:**
+
+```
+$ cd ~/qmk_firmware/keyboards/gh60/satan/keymaps/colemak
+$ qmk compile --compiledb
+Ψ Making clean
+Ψ Gathering build instructions from make ........
+Ψ Found 63 compile commands
+Ψ Writing build database to /Users/you/src/qmk_firmware/compile_commands.json
+Ψ Compiling keymap with make ........
+... build log continues ...
 ```
 
 ## `qmk flash`
