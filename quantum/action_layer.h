@@ -78,6 +78,7 @@ extern layer_state_t default_layer_state;
 void                 default_layer_debug(void);
 void                 default_layer_set(layer_state_t state);
 
+__attribute__((weak)) layer_state_t default_layer_state_set_modules(layer_state_t state);
 __attribute__((weak)) layer_state_t default_layer_state_set_kb(layer_state_t state);
 __attribute__((weak)) layer_state_t default_layer_state_set_user(layer_state_t state);
 
@@ -114,6 +115,7 @@ void          layer_and(layer_state_t state);
 void          layer_xor(layer_state_t state);
 layer_state_t layer_state_set_user(layer_state_t state);
 layer_state_t layer_state_set_kb(layer_state_t state);
+layer_state_t layer_state_set_modules(layer_state_t state);
 
 /**
  * @brief Applies the tri layer to global layer state. Not be used in layer_state_set_(kb|user) functions.
@@ -149,6 +151,7 @@ layer_state_t update_tri_layer_state(layer_state_t state, uint8_t layer1, uint8_
 #    define layer_or(state) (void)state
 #    define layer_and(state) (void)state
 #    define layer_xor(state) (void)state
+#    define layer_state_set_modules(state) (void)state
 #    define layer_state_set_kb(state) (void)state
 #    define layer_state_set_user(state) (void)state
 #    define update_tri_layer(layer1, layer2, layer3)

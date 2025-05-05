@@ -1,0 +1,55 @@
+{
+    pointing_device_init: {
+        ret_type: void
+        args: void
+        guard: defined(POINTING_DEVICE_ENABLE)
+    }
+    pointing_device_task: {
+        ret_type: report_mouse_t
+        args: report_mouse_t mouse_report
+        call_params: mouse_report
+        guard: defined(POINTING_DEVICE_ENABLE)
+        header: report.h
+    }
+    rgb_matrix_indicators: {
+        ret_type: bool
+        args: void
+        guard: defined(RGB_MATRIX_ENABLE)
+        header: rgb_matrix.h
+    }
+    rgb_matrix_indicators_advanced: {
+        ret_type: bool
+        args: uint8_t led_min, uint8_t led_max
+        call_params: led_min, led_max
+        guard: defined(RGB_MATRIX_ENABLE)
+        header: rgb_matrix.h
+    }
+    led_matrix_indicators: {
+        ret_type: bool
+        args: void
+        guard: defined(LED_MATRIX_ENABLE)
+        header: led_matrix.h
+    }
+    led_matrix_indicators_advanced: {
+        ret_type: bool
+        args: uint8_t led_min, uint8_t led_max
+        call_params: led_min, led_max
+        guard: defined(LED_MATRIX_ENABLE)
+        header: led_matrix.h
+    }
+    default_layer_state_set: {
+        ret_type: layer_state_t
+        args: layer_state_t state
+        call_params: state
+        guard: !defined(NO_ACTION_LAYER)
+        header: action_layer.h
+    }
+    layer_state_set: {
+        ret_type: layer_state_t
+        args: layer_state_t state
+        call_params: state
+        guard: !defined(NO_ACTION_LAYER)
+        header: action_layer.h
+    }
+
+}
