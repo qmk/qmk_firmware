@@ -146,6 +146,7 @@
         "rows": ["B12", "A6", "A5", "A4", "A3"]
     },
     "diode_direction": "COL2ROW",
+    "community_layouts": ["65_ansi_blocker", "65_iso_blocker"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
