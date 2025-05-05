@@ -12,29 +12,30 @@ from qmk.json_encoders import UserspaceJSONEncoder
 
 
 def qmk_userspace_paths():
-    test_dirs = set()
+    test_dirs = []
 
     # If we're already in a directory with a qmk.json and a keyboards or layouts directory, interpret it as userspace
     if environ.get('ORIG_CWD') is not None:
         current_dir = Path(environ['ORIG_CWD'])
         while len(current_dir.parts) > 1:
             if (current_dir / 'qmk.json').is_file():
-                test_dirs.add(current_dir)
+                test_dirs.append(current_dir)
             current_dir = current_dir.parent
 
     # If we have a QMK_USERSPACE environment variable, use that
     if environ.get('QMK_USERSPACE') is not None:
         current_dir = Path(environ['QMK_USERSPACE']).expanduser()
         if current_dir.is_dir():
-            test_dirs.add(current_dir)
+            test_dirs.append(current_dir)
 
     # If someone has configured a directory, use that
     if cli.config.user.overlay_dir is not None:
         current_dir = Path(cli.config.user.overlay_dir).expanduser().resolve()
         if current_dir.is_dir():
-            test_dirs.add(current_dir)
+            test_dirs.append(current_dir)
 
-    return list(test_dirs)
+    # remove duplicates while maintaining the current order
+    return list(dict.fromkeys(test_dirs))
 
 
 def qmk_userspace_validate(path):
