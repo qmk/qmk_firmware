@@ -5,7 +5,7 @@ from time import monotonic
 
 from milc import cli
 
-from qmk.keyboard import find_keyboard_from_dir
+from qmk.keyboard import find_keyboard_from_dir, keyboard_folder
 from qmk.keymap import find_keymap_from_dir
 
 
@@ -26,6 +26,11 @@ def automagic_keyboard(func):
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
         cmd = _get_subcommand_name()
+
+        # TODO: Workaround for if config file contains "old" keyboard name
+        #         Potential long-term fix needs to be within global cli or milc
+        if cli.config_source[cmd]['keyboard'] == 'config_file':
+            cli.config[cmd]['keyboard'] = keyboard_folder(cli.config[cmd]['keyboard'])
 
         # Ensure that `--keyboard` was not passed and CWD is under `qmk_firmware/keyboards`
         if cli.config_source[cmd]['keyboard'] != 'argument':
