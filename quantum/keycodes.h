@@ -26,6 +26,12 @@
 #pragma once
 // clang-format off
 
+#define QMK_KEYCODES_VERSION "0.0.7"
+#define QMK_KEYCODES_VERSION_BCD 0x00000007
+#define QMK_KEYCODES_VERSION_MAJOR 0
+#define QMK_KEYCODES_VERSION_MINOR 0
+#define QMK_KEYCODES_VERSION_PATCH 7
+
 enum qk_keycode_ranges {
 // Ranges
     QK_BASIC                       = 0x0000,
