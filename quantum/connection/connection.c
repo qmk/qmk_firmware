@@ -5,6 +5,10 @@
 #include "usb_util.h"
 #include "util.h"
 
+#ifdef BLUETOOTH_ENABLE
+#    include "bluetooth.h"
+#endif
+
 // ======== DEPRECATED DEFINES - DO NOT USE ========
 #ifdef OUTPUT_DEFAULT
 #    undef CONNECTION_HOST_DEFAULT
@@ -13,16 +17,6 @@
 
 __attribute__((weak)) void set_output_user(uint8_t output) {}
 // ========
-
-#ifdef BLUETOOTH_ENABLE
-#    ifdef BLUETOOTH_BLUEFRUIT_LE
-#        include "bluefruit_le.h"
-#        define bluetooth_is_connected() bluefruit_le_is_connected()
-#    else
-// TODO: drivers should check if BT is connected here
-#        define bluetooth_is_connected() true
-#    endif
-#endif
 
 #define CONNECTION_HOST_INVALID 0xFF
 

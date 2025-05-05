@@ -31,11 +31,30 @@ void bluetooth_init(void);
 void bluetooth_task(void);
 
 /**
+ * \brief Detects if Bluetooth is connected.
+ *
+ * \return `true` if connected, `false` otherwise.
+ */
+bool bluetooth_is_connected(void);
+
+/**
+ * \brief Get current LED state.
+ */
+uint8_t bluetooth_keyboard_leds(void);
+
+/**
  * \brief Send a keyboard report.
  *
  * \param report The keyboard report to send.
  */
 void bluetooth_send_keyboard(report_keyboard_t *report);
+
+/**
+ * \brief Send a nkro report.
+ *
+ * \param report The nkro report to send.
+ */
+void bluetooth_send_nkro(report_nkro_t *report);
 
 /**
  * \brief Send a mouse report.
@@ -50,3 +69,10 @@ void bluetooth_send_mouse(report_mouse_t *report);
  * \param usage The consumer usage to send.
  */
 void bluetooth_send_consumer(uint16_t usage);
+
+/**
+ * \brief Send a system usage.
+ *
+ * \param usage The system usage to send.
+ */
+void bluetooth_send_system(uint16_t usage);
