@@ -32,6 +32,7 @@
     "layout_aliases": {
         "LAYOUT_eighty_m80s": "LAYOUT_tkl_ansi_split_bs_rshift"
     },
+    "community_layouts": ["tkl_ansi_split_bs_rshift"],
     "layouts": {
         "LAYOUT_tkl_ansi_split_bs_rshift": {
             "layout": [
