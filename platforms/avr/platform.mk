@@ -16,6 +16,11 @@ ifeq ("$(shell echo "int main(){}" | $(CC) --param=min-pagesize=0 -x c - -o /dev
 COMPILEFLAGS += --param=min-pagesize=0
 endif
 
+# Fix ICE's: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=116389
+ifeq ("$(shell echo "int main(){}" | $(CC) -mlra -x c - -o /dev/null 2>&1)", "")
+COMPILEFLAGS += -mlra
+endif
+
 COMPILEFLAGS += -funsigned-char
 COMPILEFLAGS += -funsigned-bitfields
 COMPILEFLAGS += -ffunction-sections
@@ -25,10 +30,14 @@ COMPILEFLAGS += -fshort-enums
 COMPILEFLAGS += -mcall-prologues
 COMPILEFLAGS += -fno-builtin-printf
 
-# Linker relaxation is only possible if
-# link time optimizations are not enabled.
+# Linker relaxation is only possible if link time optimizations are not enabled.
 ifeq ($(strip $(LTO_ENABLE)), no)
 	COMPILEFLAGS += -mrelax
+else
+	# Newer compilers may support both, so quickly check before adding `-mrelax`.
+	ifeq ("$(shell echo "int main(){}" | $(CC) -mrelax -flto=auto -x c - -o /dev/null 2>&1)", "")
+		COMPILEFLAGS += -mrelax
+	endif
 endif
 
 ASFLAGS += $(AVR_ASFLAGS)
