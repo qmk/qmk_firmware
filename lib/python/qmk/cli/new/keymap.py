@@ -104,7 +104,9 @@ def new_keymap(cli):
     converter = cli.config.new_keymap.converter if cli.args.skip_converter or cli.config.new_keymap.converter else prompt_converter(kb_name)
 
     # check directories
-    if not is_keyboard(kb_name):
+    try:
+        kb_name = keyboard_folder(kb_name)
+    except ValueError:
         cli.log.error(f'Keyboard {{fg_cyan}}{kb_name}{{fg_reset}} does not exist! Please choose a valid name.')
         return False
 
