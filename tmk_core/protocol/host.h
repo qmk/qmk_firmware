@@ -32,6 +32,7 @@ void           host_set_driver(host_driver_t *driver);
 host_driver_t *host_get_driver(void);
 
 /* host driver interface */
+bool    host_can_send_nkro(void);
 uint8_t host_keyboard_leds(void);
 led_t   host_keyboard_led_state(void);
 void    host_keyboard_send(report_keyboard_t *report);
