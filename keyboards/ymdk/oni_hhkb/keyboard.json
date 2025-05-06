@@ -161,7 +161,7 @@
     "ws2812": {
         "pin": "E2"
     },
-    "community_layouts": ["60_ansi_tsangan_split_bs_rshift"]
+    "community_layouts": ["60_ansi_tsangan_split_bs_rshift"],
     "layouts": {
         "LAYOUT_60_ansi_tsangan_split_bs_rshift": {
             "layout": [
@@ -206,7 +206,7 @@
                 {"matrix": [2, 9], "x": 9.75, "y": 2},
                 {"matrix": [2, 10], "x": 10.75, "y": 2},
                 {"matrix": [2, 11], "x": 11.75, "y": 2},
-                {"matrix": [2, 13], "x": 13.75, "y": 2, "w": 2.25},
+                {"matrix": [2, 13], "x": 12.75, "y": 2, "w": 2.25},
                 {"matrix": [3, 0], "x": 0, "y": 3, "w": 2.25},
                 {"matrix": [3, 2], "x": 2.25, "y": 3},
                 {"matrix": [3, 3], "x": 3.25, "y": 3},
