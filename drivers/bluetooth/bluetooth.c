@@ -11,6 +11,10 @@ __attribute__((weak)) bool bluetooth_is_connected(void) {
     return true;
 }
 
+__attribute__((weak)) bool bluetooth_can_send_nkro(void) {
+    return false;
+}
+
 __attribute__((weak)) uint8_t bluetooth_keyboard_leds(void) {
     return 0;
 }

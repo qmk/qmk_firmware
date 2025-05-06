@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "host.h"
 #include "util.h"
 #include "debug.h"
+#include "usb_device_state.h"
 
 #ifdef DIGITIZER_ENABLE
 #    include "digitizer.h"
@@ -88,6 +89,23 @@ static host_driver_t *host_get_active_driver(void) {
     }
 #endif
     return driver;
+}
+
+bool host_can_send_nkro(void) {
+#ifdef CONNECTION_ENABLE
+    switch (connection_get_host()) {
+#    ifdef BLUETOOTH_ENABLE
+        case CONNECTION_HOST_BLUETOOTH:
+            return bluetooth_can_send_nkro();
+#    endif
+        case CONNECTION_HOST_NONE:
+            return false;
+        default:
+            break;
+    }
+#endif
+
+    return usb_device_state_get_protocol() == USB_PROTOCOL_REPORT;
 }
 
 #ifdef SPLIT_KEYBOARD

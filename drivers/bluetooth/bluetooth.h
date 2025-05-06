@@ -38,6 +38,11 @@ void bluetooth_task(void);
 bool bluetooth_is_connected(void);
 
 /**
+ * \brief Detects if `bluetooth_send_nkro` should be used over `bluetooth_send_keyboard`.
+ */
+bool bluetooth_can_send_nkro(void);
+
+/**
  * \brief Get current LED state.
  */
 uint8_t bluetooth_keyboard_leds(void);
