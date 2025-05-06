@@ -16,6 +16,21 @@
 
 #include QMK_KEYBOARD_H
 
+#define TRACKBALL_DPI_MIN 1000
+#define TRACKBALL_DPI_MAX 8000
+#define TRACKBALL_DPI_DEFAULT 3000
+#define TRACKBALL_DPI_STEP 1000
+
+enum my_keycodes {
+    DPI_UP = SAFE_RANGE,
+    DPI_DOWN
+};
+
+typedef union {
+    uint16_t TrackballDPI;
+} user_config_t;
+user_config_t user_config;
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
@@ -56,3 +71,50 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] = {ENCODER_CCW_CW(MS_WHLU, MS_WHLD)}
 };
 #endif
+
+void pointing_device_init_kb(void) {
+    wait_ms(10);
+    user_config.TrackballDPI = eeconfig_read_user();
+    wait_ms(10);
+    adns9800_init();
+    wait_ms(10);
+    pointing_device_set_cpi(user_config.TrackballDPI);
+}
+
+// ADNS9800. The CPI range is 800-8200, in increments of 200.
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+    case DPI_UP: {
+        if (record->event.pressed) {
+            user_config.TrackballDPI += TRACKBALL_DPI_STEP;
+            if(user_config.TrackballDPI > TRACKBALL_DPI_MAX) {
+                user_config.TrackballDPI = TRACKBALL_DPI_MAX;
+            }
+            eeconfig_update_user(user_config.TrackballDPI);
+            pointing_device_set_cpi(user_config.TrackballDPI);
+            return false;
+        }
+    }
+    case DPI_DOWN: {
+        if (record->event.pressed) {
+            user_config.TrackballDPI -= TRACKBALL_DPI_STEP;
+            if(user_config.TrackballDPI < TRACKBALL_DPI_MIN) {
+                user_config.TrackballDPI = TRACKBALL_DPI_MIN;
+            }
+            eeconfig_update_user(user_config.TrackballDPI);
+            pointing_device_set_cpi(user_config.TrackballDPI);
+            return false;
+        }
+    }
+    default:
+    return true;
+    
+    }
+}
+
+void eeconfig_init_user(void) {
+    user_config.TrackballDPI = TRACKBALL_DPI_DEFAULT;
+    wait_ms(10);
+    pointing_device_set_cpi(user_config.TrackballDPI);
+    eeconfig_update_user(user_config.TrackballDPI);
+}
