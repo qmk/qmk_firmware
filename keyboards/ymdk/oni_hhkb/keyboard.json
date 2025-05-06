@@ -161,6 +161,7 @@
     "ws2812": {
         "pin": "E2"
     },
+    "community_layouts": ["60_ansi_tsangan_split_bs_rshift"]
     "layouts": {
         "LAYOUT_60_ansi_tsangan_split_bs_rshift": {
             "layout": [
