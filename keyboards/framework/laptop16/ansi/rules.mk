@@ -1,2 +1,1 @@
-# Debugging (enabled in info.json)
-#CONSOLE_ENABLE = yes
+# This file intentionally left blank

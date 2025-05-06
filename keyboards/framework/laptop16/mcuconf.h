@@ -5,10 +5,6 @@
 
 #include_next <mcuconf.h>
 
-#undef RP_SIO_USE_UART0
-#define RP_SIO_USE_UART0 FALSE
-#undef RP_SIO_USE_UART1
-#define RP_SIO_USE_UART1 FALSE
 
 // For RGB backlight
 #undef RP_ADC_USE_ADC1

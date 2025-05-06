@@ -21,13 +21,12 @@
         "force_nkro": true
     },
     "backlight": {
-        "pin": "GP25"
+        "driver": "pwm",
+        "pin": "GP25",
+        "breathing": true
     },
     "indicators": {
         "caps_lock": "GP24"
-    },
-    "layout_aliases": {
-      "LAYOUT_default": "LAYOUT"
     },
     "layouts": {
         "LAYOUT": {
