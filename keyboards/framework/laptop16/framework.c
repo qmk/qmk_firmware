@@ -4,14 +4,14 @@
 #include "quantum.h"
 #include "framework.h"
 
-void keyboard_post_init_kb(void) {
-    keyboard_post_init_user();
+// void keyboard_post_init_kb(void) {
+//     keyboard_post_init_user();
 
-    // Enable debug output
-    debug_enable   = true;
-    debug_matrix   = true;
-    debug_keyboard = true;
-}
+//     // Enable debug output
+//     debug_enable   = true;
+//     debug_matrix   = true;
+//     debug_keyboard = true;
+// }
 
 /**
  * Hook into early keyboard initialization

@@ -26,7 +26,6 @@
 // On the Raspberry Pi Pico this is the green LED on the board, good for prototyping
 #define BACKLIGHT_PWM_DRIVER PWMD4
 #define BACKLIGHT_PWM_CHANNEL RP2040_PWM_CHANNEL_B
-#define BACKLIGHT_BREATHING
 // Change PWM frequency to 24kHz, the default of 2048Hz causes loud noise
 // TODO: Waiting for PR #21717
 // #define BACKLIGHT_PWM_PERIOD BACKLIGHT_PWM_COUNTER_FREQUENCY / 24000
