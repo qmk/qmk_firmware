@@ -29,5 +29,8 @@ Enter the bootloader in 3 ways:
 * **On Framework Laptop 16 Keyboard**: Hold down left ALT and right ALT while installing the module
 * **On Framework Laptop 16 Numpad**: Hold down keys for 2 and 6 while installing the module
 * **On Raspberry Pi Pico**: Hold down bootsel button when plugging in
+
+//TODO: BOOTMAGIC DOESN'T WORK!!
 * **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
+
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
