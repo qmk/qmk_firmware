@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 // #define USB_VBUS_PIN        B10 // doesn't seem to work for me on one of my controllers... */
+#define USER_BUTTON_PIN     A0
 
 // WS2812 RGB LED strip input and number of LEDs
 #define WS2812_PWM_DRIVER   PWMD2  // default: PWMD2
@@ -70,7 +71,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* eeprom config */
 #define EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN A4
-#define EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR    64
+#define EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR    8
 
 /* pmw3360 config  */
 #define PMW33XX_CS_PIN                       B0
+#define PMW33XX_SPI_DIVISOR                  8
