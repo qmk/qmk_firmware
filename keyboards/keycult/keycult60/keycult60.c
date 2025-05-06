@@ -1,4 +1,4 @@
-/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+/* Copyright 2025 Yiancar-Designs
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,13 +13,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "quantum.h"
 
-#include "tractyl_manuform.h"
-
-#ifdef USB_VBUS_PIN
-bool usb_vbus_state(void) {
-    gpio_set_pin_input_low(USB_VBUS_PIN);
-    wait_us(5);
-    return gpio_read_pin(USB_VBUS_PIN);
+void led_init_ports(void) {
+    // Set our LED pins as open drain outputs
+    gpio_set_pin_output_open_drain(LED_CAPS_LOCK_PIN);
 }
-#endif
