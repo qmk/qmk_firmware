@@ -1,4 +1,4 @@
-// Copyright 2024 Danny Nguyen (@nooges)
+// Copyright 2025 Danny Nguyen (@nooges)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
