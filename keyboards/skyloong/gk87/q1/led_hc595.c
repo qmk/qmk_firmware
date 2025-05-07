@@ -10,7 +10,7 @@
 #    error hc595: no shift register clock pins defined!
 #endif
 
-#ifndef LED_HC595_DS
+#ifndef LED_HC595_DS_PIN
 #    error hc595: no serial data input pins defined!
 #endif
 
@@ -46,14 +46,14 @@ static inline void clockPulse(uint16_t n) {
 
 void s_serial_to_parallel(uint8_t data) __attribute__((unused));
 void s_serial_to_parallel(uint8_t data) { // Serial port to parallel port function
-    gpio_set_pin_output_write_low(LED_HC595_DS);
+    gpio_set_pin_output_write_low(LED_HC595_DS_PIN);
     gpio_set_pin_output_write_low(LED_HC595_SH_PIN);
     gpio_set_pin_output_write_low(LED_HC595_ST_PIN);
     for(uint8_t i = 0; i < 8; i++) {
         if(data & 0x01){
-            gpio_write_pin_high(LED_HC595_DS);
+            gpio_write_pin_high(LED_HC595_DS_PIN);
         }else{
-            gpio_write_pin_low(LED_HC595_DS);
+            gpio_write_pin_low(LED_HC595_DS_PIN);
         }
         clockPulse(LED_CLOCK_TIME);
         data >>= 1; // Move the data one digit to the right

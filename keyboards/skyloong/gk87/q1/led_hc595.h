@@ -6,7 +6,7 @@
 
 #define LED_HC595_ST_PIN B5  //74HC595 storage register clock input
 #define LED_HC595_SH_PIN B4  //74HC595 shift register clock input
-#define LED_HC595_DS B3   // 74HC595 serial data input
+#define LED_HC595_DS_PIN B3   // 74HC595 serial data input
 
 /*
  *LED display driver.74HC595 Serial to parallel control LED field on/off.

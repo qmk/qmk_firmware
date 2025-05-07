@@ -114,6 +114,9 @@ const aw20216s_led_t PROGMEM g_aw20216s_leds[AW20216S_LED_COUNT] = {
 };
 #endif
 
+static bool is_function_layer_on(void) {
+    return (layer_state_is(2) || layer_state_is(3));
+}
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_user(keycode, record)) {
@@ -139,32 +142,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
        return true;
 #    endif
 
-    case MO(1):
-      if (record->event.pressed) {
-       FN_ON = 1;
-      } else {
-       FN_ON = 0;
-      }
-      return true;
-
-    case MO(2):
-      if (record->event.pressed) {
-       FN_ON = 1;
-      } else {
-       FN_ON = 0;
-      }
-      return true;
-
-    case MO(3):
-      if (record->event.pressed) {
-       FN_ON = 1;
-      } else {
-       FN_ON = 0;
-      }
-      return true;
 
     case KC_LGUI:
-      if (FN_ON){
+      if (is_function_layer_on()){
           if ( record->event.pressed){
              WIN_LOCK = !WIN_LOCK ; //change win lock state
             }
