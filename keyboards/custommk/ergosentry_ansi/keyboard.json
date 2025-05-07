@@ -22,8 +22,6 @@
         ]
     },
     "features": {
-        "command": false,
-        "console": false,
         "audio": true,
         "bootmagic": true,
         "encoder": true,
