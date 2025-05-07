@@ -9,9 +9,9 @@
 #define ClOCK_TIME 15
 #define MATRIX_INPUT_PRESSED_STATE 0
 
-#define HC595_ST_PIN A6
-#define HC595_SH_PIN A5
-#define HC595_DS_PIN A7  //定义74HC595的串口数据输入端
+#define MATRIX_HC595_ST_PIN A6
+#define MATRIX_HC595_SH_PIN A5
+#define MATRIX_HC595_DS_PIN A7  //定义74HC595的串口数据输入端
 
 /* matrix state(1:on, 0:off) */
 extern matrix_row_t raw_matrix[MATRIX_ROWS]; // raw values
@@ -57,22 +57,22 @@ static inline uint8_t readMatrixPin(pin_t pin) {
 }
 
 static inline void clockPulse(uint16_t n) {
-    gpio_write_pin_high(HC595_SH_PIN);
-    gpio_write_pin_high(HC595_ST_PIN);
+    gpio_write_pin_high(MATRIX_HC595_SH_PIN);
+    gpio_write_pin_high(MATRIX_HC595_ST_PIN);
     select_delay(n);
-    gpio_write_pin_low(HC595_SH_PIN);
-    gpio_write_pin_low(HC595_ST_PIN);
+    gpio_write_pin_low(MATRIX_HC595_SH_PIN);
+    gpio_write_pin_low(MATRIX_HC595_ST_PIN);
 }
 
 // matrix code
 
 static bool select_col(uint8_t col) {
-    setPinOutput_writeHigh(HC595_DS_PIN);
+    setPinOutput_writeHigh(MATRIX_HC595_DS_PIN);
         for (uint8_t m = 0; m <= col; m++) {
            if(m == 0){
-               gpio_write_pin_low(HC595_DS_PIN);
+               gpio_write_pin_low(MATRIX_HC595_DS_PIN);
             }else{
-               gpio_write_pin_high(HC595_DS_PIN);
+               gpio_write_pin_high(MATRIX_HC595_DS_PIN);
             }
            clockPulse(ClOCK_TIME);
         }
@@ -82,16 +82,16 @@ static bool select_col(uint8_t col) {
 
 static void unselect_col(uint8_t col) {
     uint8_t x = (MATRIX_COLS - col);
-    setPinOutput_writeHigh(HC595_DS_PIN);
+    setPinOutput_writeHigh(MATRIX_HC595_DS_PIN);
      for (uint8_t y = 0; y < x ; y++) {
         clockPulse(ClOCK_TIME);
     }
 }
 
 static void unselect_cols(void) {
-    setPinOutput_writeLow(HC595_SH_PIN);
-    setPinOutput_writeLow(HC595_ST_PIN);
-    setPinOutput_writeHigh(HC595_DS_PIN);
+    setPinOutput_writeLow(MATRIX_HC595_SH_PIN);
+    setPinOutput_writeLow(MATRIX_HC595_ST_PIN);
+    setPinOutput_writeHigh(MATRIX_HC595_DS_PIN);
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
         clockPulse(ClOCK_TIME);
     }

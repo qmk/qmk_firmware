@@ -10,37 +10,17 @@ bool WIN_LOCK = 0;
 bool DIS_BRETH = 0;
 bool SLEEP = 0;
 
+static bool is_function_layer_on(void) {
+    return (layer_state_is(2) || layer_state_is(3));
+}
+
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_user(keycode, record)) {
         return false;
     }
     switch (keycode) {
-       case MO(1):
-          if (record->event.pressed) {
-            FN_ON = 1;
-          } else {
-            FN_ON = 0;
-          }
-          return true;
-
-       case MO(2):
-           if (record->event.pressed) {
-             FN_ON = 1;
-           } else {
-             FN_ON = 0;
-           }
-          return true;
-
-       case MO(3):
-           if (record->event.pressed) {
-             FN_ON = 1;
-           } else {
-             FN_ON = 0;
-           }
-          return true;
-
        case KC_LGUI:
-           if (FN_ON){
+           if (is_function_layer_on() ){
               if ( record->event.pressed){
                  WIN_LOCK = !WIN_LOCK ; //change win lock state
                 }
@@ -108,7 +88,7 @@ void suspend_wakeup_init_kb() {
     SLEEP = 0;
     gpio_write_pin(LED_CAPS_LOCK_PIN, !host_keyboard_led_state().caps_lock);
     gpio_write_pin(LED_SCROLL_LOCK_PIN, !host_keyboard_led_state().scroll_lock);
-    gpio_write_pin(WIN_LOCK_PIN, !keycode_config.no_gui);
+    gpio_write_pin(WIN_LOCK_PIN, !WIN_LOCK);
     s_serial_to_parallel(IND);
     suspend_wakeup_init_user();
 }
