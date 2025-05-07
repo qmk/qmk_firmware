@@ -85,7 +85,7 @@ report_mouse_t ps2_mouse_get_report(report_mouse_t mouse_report) {
         ps2_report.x      = ps2_host_recv_response();
         ps2_report.y      = ps2_host_recv_response();
 #    ifdef PS2_MOUSE_ENABLE_SCROLLING
-        ps2_report.z      = ps2_host_recv_response();
+        ps2_report.z = ps2_host_recv_response();
 #    endif
     } else {
         pd_dprintf("ps2_mouse: fail to get mouse packet\n");
@@ -97,7 +97,7 @@ report_mouse_t ps2_mouse_get_report(report_mouse_t mouse_report) {
         ps2_report.x      = ps2_host_recv_response();
         ps2_report.y      = ps2_host_recv_response();
 #    ifdef PS2_MOUSE_ENABLE_SCROLLING
-        ps2_report.z      = ps2_host_recv_response();
+        ps2_report.z = ps2_host_recv_response();
 #    endif
     }
 #endif
