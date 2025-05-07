@@ -3,7 +3,7 @@
     "keyboard_name": "D60B",
     "maintainer": "chrisgve",
     "bootloader": "atmel-dfu",
-    "community_layout": ["LAYOUT_60_ansi_tsangan_split_bs_rshift"],
+    "community_layouts": ["60_ansi_tsangan_split_bs_rshift"],
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
