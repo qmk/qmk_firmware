@@ -35,13 +35,15 @@
     },
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D0",
         "encoder": {
             "right": {
                 "rotary": [
                     {"pin_a": "B5", "pin_b": "B6"}
                 ]
             }
+        },
+        "serial": {
+            "pin": "D0"
         }
     },
     "processor": "atmega32u4",

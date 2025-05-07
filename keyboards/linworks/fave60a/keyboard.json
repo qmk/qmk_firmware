@@ -168,14 +168,15 @@
         "vid": "0x4C58"
     },
     "layout_aliases": {
-        "LAYOUT": "LAYOUT_60_tsangan_hhkb"
+        "LAYOUT": "LAYOUT_60_ansi_tsangan_split_bs_rshift",
+        "LAYOUT_60_tsangan_hhkb": "LAYOUT_60_ansi_tsangan_split_bs_rshift"
     },
     "community_layouts": [
-        "60_tsangan_hhkb",
+        "60_ansi_tsangan_split_bs_rshift",
         "60_ansi_tsangan"
     ],
     "layouts": {
-        "LAYOUT_60_tsangan_hhkb": {
+        "LAYOUT_60_ansi_tsangan_split_bs_rshift": {
             "layout": [
                 { "label": "Esc", "matrix": [0, 0], "x": 0, "y": 0 },
                 { "label": "!", "matrix": [0, 1], "x": 1, "y": 0 },

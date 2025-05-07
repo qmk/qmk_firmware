@@ -29,7 +29,6 @@
     },
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D2",
         "matrix_pins": {
             "right": {
                 "direct": [
@@ -39,6 +38,9 @@
                     ["B5", "C6", null, null, null]
                 ]
             }
+        },
+        "serial": {
+            "pin": "D2"
         }
     },
     "community_layouts": [

@@ -8,6 +8,12 @@
     "pid": "0x8712",
     "device_version": "0.0.1"
   },
+  "indicators": {
+    "caps_lock": "C6",
+    "num_lock": "B1",
+    "scroll_lock": "B2",
+    "on_state": 0
+  },
   "rgblight": {
     "saturation_steps": 8,
     "brightness_steps": 8,

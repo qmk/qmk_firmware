@@ -30,6 +30,11 @@
             "properties": {
                 "pins": {"$ref": "qmk.definitions.v1#/mcu_pin_array"}
             }
+        },
+        "features_config": {
+            "$ref": "qmk.definitions.v1#/boolean_array",
+            "propertyNames": {"$ref": "qmk.definitions.v1#/snake_case"},
+            "not": {"required": ["lto"]}
         }
     },
     "type": "object",
@@ -45,7 +50,7 @@
         },
         "development_board": {
             "type": "string",
-            "enum": ["promicro", "elite_c", "elite_pi", "proton_c", "kb2040", "promicro_rp2040", "blok", "michi", "bit_c_pro", "stemcell", "bluepill", "blackpill_f401", "blackpill_f411", "bonsai_c4", "helios", "liatris", "imera"]
+            "enum": ["promicro", "elite_c", "elite_pi", "proton_c", "kb2040", "promicro_rp2040", "blok", "michi", "bit_c_pro", "stemcell", "bluepill", "blackpill_f401", "blackpill_f411", "bonsai_c4", "helios", "liatris", "imera", "svlinky"]
         },
         "pin_compatible": {
             "type": "string",
@@ -92,6 +97,7 @@
                 "GD32VF103",
                 "WB32F3G71",
                 "WB32FQ95",
+                "AT32F415",
                 "atmega16u2",
                 "atmega32u2",
                 "atmega16u4",
@@ -216,6 +222,7 @@
             "type": "string",
             "enum": [
                 "apm32-dfu",
+                "at32-dfu",
                 "atmel-dfu",
                 "bootloadhid",
                 "caterina",
@@ -326,11 +333,7 @@
                 "enabled": {"type": "boolean"}
             }
         },
-        "features": {
-            "$ref": "qmk.definitions.v1#/boolean_array",
-            "propertyNames": {"$ref": "qmk.definitions.v1#/snake_case"},
-            "not": {"required": ["lto"]}
-        },
+        "features": { "$ref": "#/definitions/features_config" },
         "indicators": {
             "type": "object",
             "properties": {
@@ -342,7 +345,43 @@
                 "on_state": {"$ref": "qmk.definitions.v1#/bit"}
             }
         },
+        "joystick": {
+            "type": "object",
+            "properties": {
+                "enabled": {"type": "boolean"},
+                "driver": {"type": "string"},
+                "button_count": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "axis_resolution": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "axes": {
+                    "type": "object",
+                    "propertyNames": {"enum": ["x", "y", "z", "rx", "ry", "rz"]},
+                    "additionalProperties": {
+                        "oneOf": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "input_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                                    "low": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                                    "rest": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                                    "high": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                                }
+                            },
+                            {
+                                "type": "string",
+                                "enum": ["virtual"]
+                            }
+                        ]
+                    }
+                }
+            }
+        },
         "keycodes": {"$ref": "qmk.definitions.v1#/keycode_decl_array"},
+        "layer_lock": {
+            "type": "object",
+            "properties": {
+                "timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+            }
+        },
         "layout_aliases": {
             "type": "object",
             "additionalProperties": {"$ref": "qmk.definitions.v1#/layout_macro"}
@@ -384,7 +423,11 @@
                                 "h": {"$ref": "qmk.definitions.v1#/key_unit"},
                                 "w": {"$ref": "qmk.definitions.v1#/key_unit"},
                                 "x": {"$ref": "qmk.definitions.v1#/key_unit"},
-                                "y": {"$ref": "qmk.definitions.v1#/key_unit"}
+                                "y": {"$ref": "qmk.definitions.v1#/key_unit"},
+                                "hand": {
+                                    "type": "string",
+                                    "enum": ["L", "R", "*"]
+                                }
                             }
                         }
                     }
@@ -423,6 +466,12 @@
                 },
                 "cols": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
                 "rows": {"$ref": "qmk.definitions.v1#/mcu_pin_array"}
+            }
+        },
+        "modules": {
+            "type": "array",
+            "items": {
+                "type": "string"
             }
         },
         "mouse_key": {
@@ -793,11 +842,25 @@
                         }
                     }
                 },
-                "soft_serial_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "soft_serial_pin": {
+                    "$ref": "qmk.definitions.v1#/mcu_pin",
+                    "$comment": "Deprecated: use split.serial.pin instead"
+                },
                 "soft_serial_speed": {
                     "type": "integer",
                     "minimum": 0,
                     "maximum": 5
+                },
+                "serial": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "driver": {
+                            "type": "string",
+                            "enum": ["bitbang", "usart", "vendor"]
+                        },
+                        "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"}
+                    }
                 },
                 "transport": {
                     "type": "object",
@@ -863,6 +926,7 @@
         "tapping": {
             "type": "object",
             "properties": {
+                "chordal_hold": {"type": "boolean"},
                 "force_hold": {"type": "boolean"},
                 "force_hold_per_key": {"type": "boolean"},
                 "ignore_mod_tap_interrupt": {"type": "boolean"},

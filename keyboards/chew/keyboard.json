@@ -32,6 +32,10 @@
                 ]
             }
         },
+        "serial": {
+            "driver": "vendor",
+            "pin": "GP11"
+        },
         "transport": {
             "watchdog": true
         }

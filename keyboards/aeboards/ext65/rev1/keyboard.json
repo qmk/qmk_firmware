@@ -13,6 +13,11 @@
         "extrakey": true,
         "nkro": true
     },
+    "indicators": {
+        "caps_lock": "D3",
+        "num_lock": "D5",
+        "scroll_lock": "D2"
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "diode_direction": "COL2ROW",

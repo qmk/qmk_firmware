@@ -18,9 +18,6 @@
 void matrix_init_kb(void) {
     // Set our LED pins as output
     gpio_set_pin_output(D6);
-    gpio_set_pin_output(B4);
-    gpio_set_pin_output(B5);
-    gpio_set_pin_output(B6);
 
     // Set our Tilt Sensor pins as input
     gpio_set_pin_input_high(SHAKE_PIN_A);
@@ -61,7 +58,7 @@ uint8_t detected_shakes = 0;
 static uint16_t shake_timer;
 #endif
 
-void matrix_scan_kb(void) {
+void housekeeping_task_kb(void) {
 #ifdef SHAKE_ENABLE
     // Read the current state of the tilt sensor. It is physically
     // impossible for both pins to register a low state at the same time.
@@ -84,8 +81,6 @@ void matrix_scan_kb(void) {
         detected_shakes = 0;
     }
 #endif
-
-    matrix_scan_user();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
@@ -133,22 +128,8 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     return process_record_user(keycode, record);
 }
 
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if(res) {
-        gpio_write_pin(B4, !led_state.num_lock);
-        gpio_write_pin(B5, !led_state.caps_lock);
-        gpio_write_pin(B6, !led_state.scroll_lock);
-    }
-
-    return res;
-}
-
-__attribute__((weak)) bool encoder_update_keymap(uint8_t index, bool clockwise) { return true; }
-__attribute__((weak)) bool encoder_update_user(uint8_t index, bool clockwise) { return encoder_update_keymap(index, clockwise); }
-
 bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) {
+    if (encoder_update_user(index, clockwise)) {
         // Encoder 1, outside left
         if (index == 0 && clockwise) {
             tap_code(KC_MS_U);  // turned right

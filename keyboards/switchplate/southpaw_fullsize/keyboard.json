@@ -31,6 +31,12 @@
     "backlight": {
         "pin": "B7"
     },
+    "indicators": {
+        "caps_lock": "D4",
+        "num_lock": "D3",
+        "scroll_lock": "D5",
+        "on_state": 0
+    },
     "processor": "at90usb1286",
     "bootloader": "atmel-dfu",
     "layouts": {

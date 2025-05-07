@@ -18,21 +18,13 @@
 
 void keyboard_pre_init_kb(void) {
   // initialize top row leds
-  gpio_set_pin_output(F7);
   gpio_set_pin_output(F6);
   gpio_set_pin_output(F5);
   // and then turn them off
-  gpio_write_pin_high(F7);
   gpio_write_pin_high(F6);
   gpio_write_pin_high(F5);
-}
 
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if(res) {
-        gpio_write_pin(F7, !led_state.num_lock);
-    }
-    return res;
+  keyboard_pre_init_user();
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {

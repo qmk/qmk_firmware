@@ -69,6 +69,8 @@ void keyboard_post_init_kb(void) {
             ec_config.rescaled_mode_0_actuation_threshold[row][col]     = rescale(ec_config.mode_0_actuation_threshold, 0, 1023, ec_config.noise_floor[row][col], eeprom_ec_config.bottoming_reading[row][col]);
             ec_config.rescaled_mode_0_release_threshold[row][col]       = rescale(ec_config.mode_0_release_threshold, 0, 1023, ec_config.noise_floor[row][col], eeprom_ec_config.bottoming_reading[row][col]);
             ec_config.rescaled_mode_1_initial_deadzone_offset[row][col] = rescale(ec_config.mode_1_initial_deadzone_offset, 0, 1023, ec_config.noise_floor[row][col], eeprom_ec_config.bottoming_reading[row][col]);
+            ec_config.rescaled_mode_1_actuation_offset[row][col]        = rescale(ec_config.mode_1_actuation_offset, 0, 1023, ec_config.noise_floor[row][col], eeprom_ec_config.bottoming_reading[row][col]);
+            ec_config.rescaled_mode_1_release_offset[row][col]          = rescale(ec_config.mode_1_release_offset, 0, 1023, ec_config.noise_floor[row][col], eeprom_ec_config.bottoming_reading[row][col]);
         }
     }
 
@@ -82,12 +84,14 @@ void keyboard_post_init_kb(void) {
 
 // This function gets called when caps, num, scroll change
 bool led_update_kb(led_t led_state) {
-    indicators_callback();
+    if (led_update_user(led_state)) {
+        indicators_callback();
+    }
     return true;
 }
 
 // This function is called when layers change
-layer_state_t layer_state_set_user(layer_state_t state) {
+__attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
     indicators_callback();
     return state;
 }

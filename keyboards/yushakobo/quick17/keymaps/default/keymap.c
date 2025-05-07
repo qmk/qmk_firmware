@@ -35,11 +35,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         [_EDIT2] = LAYOUT(
         KC_ESC, KC_Q,   KC_BTN3,KC_INS, KC_ENT, KC_DEL,
         KC_LCTL,KC_LBRC,KC_RBRC,KC_PGDN,KC_PGUP,LCTL(KC_Y),
-        KC_LSFT,TO(3),  RGB_TOG,TO(0),  _______,KC_NO
+        KC_LSFT,TO(3),  RM_TOGG,TO(0),  _______,KC_NO
     ),
         [_FN] = LAYOUT(
-        KC_ESC, KC_LANG,KC_NO,  RGB_TOG,KC_MNXT,KC_VOLU,
-        KC_CAPS,KC_NUM, KC_NO,  RGB_MOD,KC_MPRV,KC_VOLD,
+        KC_ESC, KC_LANG,KC_NO,  RM_TOGG,KC_MNXT,KC_VOLU,
+        KC_CAPS,KC_NUM, KC_NO,  RM_NEXT,KC_MPRV,KC_VOLD,
         CG_NORM,CG_LSWP,EE_CLR, QK_BOOT,TO(0),  KC_MUTE
     )
 };

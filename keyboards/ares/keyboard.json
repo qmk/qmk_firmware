@@ -52,9 +52,24 @@
     "processor": "atmega32a",
     "bootloader": "bootloadhid",
     "layout_aliases": {
-        "LAYOUT": "LAYOUT_all"
+        "LAYOUT": "LAYOUT_all",
+        "LAYOUT_60_tsangan_hhkb": "LAYOUT_60_ansi_tsangan_split_bs_rshift"
     },
-    "community_layouts": ["60_ansi", "60_ansi_split_bs_rshift", "60_ansi_tsangan", "60_tsangan_hhkb", "60_ansi_wkl", "60_ansi_wkl_split_bs_rshift", "60_hhkb", "60_iso", "60_iso_split_bs_rshift", "60_iso_tsangan", "60_iso_tsangan_split_bs_rshift", "60_iso_wkl", "60_iso_wkl_split_bs_rshift"],
+    "community_layouts": [
+        "60_ansi",
+        "60_ansi_split_bs_rshift",
+        "60_ansi_tsangan",
+        "60_ansi_tsangan_split_bs_rshift",
+        "60_ansi_wkl",
+        "60_ansi_wkl_split_bs_rshift",
+        "60_hhkb",
+        "60_iso",
+        "60_iso_split_bs_rshift",
+        "60_iso_tsangan",
+        "60_iso_tsangan_split_bs_rshift",
+        "60_iso_wkl",
+        "60_iso_wkl_split_bs_rshift"
+    ],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -337,7 +352,7 @@
                 {"matrix": [0, 13], "x": 13.5, "y": 4, "w": 1.5}
             ]
         },
-        "LAYOUT_60_tsangan_hhkb": {
+        "LAYOUT_60_ansi_tsangan_split_bs_rshift": {
             "layout": [
                 {"matrix": [4, 0], "x": 0, "y": 0},
                 {"matrix": [4, 1], "x": 1, "y": 0},

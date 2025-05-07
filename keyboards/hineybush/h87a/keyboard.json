@@ -35,10 +35,18 @@
     "backlight": {
         "pin": "B7"
     },
+    "indicators": {
+        "caps_lock": "D5",
+        "scroll_lock": "E6",
+        "on_state": 0
+    },
     "ws2812": {
         "pin": "D3"
     },
     "rgblight": {
+        "default": {
+            "val": 128
+        },
         "saturation_steps": 8,
         "brightness_steps": 8,
         "led_count": 24,

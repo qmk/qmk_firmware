@@ -24,21 +24,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const pin_t col_pins[MATRIX_COLS]   = MATRIX_COL_PINS;
 
-static inline void setPinOutput_writeLow(pin_t pin) {
+static inline void gpio_atomic_set_pin_output_low(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
         gpio_set_pin_output(pin);
         gpio_write_pin_low(pin);
     }
 }
 
-static inline void setPinOutput_writeHigh(pin_t pin) {
+static inline void gpio_atomic_set_pin_output_high(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
         gpio_set_pin_output(pin);
         gpio_write_pin_high(pin);
     }
 }
 
-static inline void setPinInputHigh_atomic(pin_t pin) {
+static inline void gpio_atomic_set_pin_input_high(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
         gpio_set_pin_input_high(pin);
     }
@@ -55,7 +55,7 @@ static inline uint8_t readMatrixPin(pin_t pin) {
 static bool select_row(uint8_t row) {
     pin_t pin = row_pins[row];
     if (pin != NO_PIN) {
-        setPinOutput_writeLow(pin);
+        gpio_atomic_set_pin_output_low(pin);
         return true;
     }
     return false;
@@ -64,7 +64,7 @@ static bool select_row(uint8_t row) {
 static void unselect_row(uint8_t row) {
     pin_t pin = row_pins[row];
     if (pin != NO_PIN) {
-        setPinInputHigh_atomic(pin);
+        gpio_atomic_set_pin_input_high(pin);
     }
 }
 
@@ -84,7 +84,7 @@ static void init_pins(void) {
 
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
         if (col_pins[x] != NO_PIN) {
-            setPinInputHigh_atomic(col_pins[x]);
+            gpio_atomic_set_pin_input_high(col_pins[x]);
         }
     }
 }

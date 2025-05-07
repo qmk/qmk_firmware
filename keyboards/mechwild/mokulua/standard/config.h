@@ -5,9 +5,6 @@
 
 #define OLED_FONT_H "keyboards/mechwild/mokulua/glcdfont.c"
 
-#define MASTER_LEFT
-//#define MASTER_RIGHT
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

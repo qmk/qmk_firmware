@@ -13,6 +13,14 @@
         "rows": ["B6", "B2", "B3", "B1", "F7"]
     },
     "diode_direction": "COL2ROW",
+    "joystick": {
+        "button_count": 25,
+        "axis_resolution": 10,
+        "axes": {
+            "x": {"input_pin": "F5", "low": 1023, "rest": 512, "high": 0},
+            "y": {"input_pin": "F4", "low": 0, "rest": 512, "high": 1023}
+        }
+    },
     "processor": "atmega32u4",
     "bootloader": "caterina",
     "features": {

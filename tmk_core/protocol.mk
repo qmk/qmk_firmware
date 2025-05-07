@@ -54,10 +54,6 @@ ifeq ($(strip $(NKRO_ENABLE)), yes)
     endif
 endif
 
-ifeq ($(strip $(RING_BUFFERED_6KRO_REPORT_ENABLE)), yes)
-    OPT_DEFS += -DRING_BUFFERED_6KRO_REPORT_ENABLE
-endif
-
 ifeq ($(strip $(NO_SUSPEND_POWER_DOWN)), yes)
     OPT_DEFS += -DNO_SUSPEND_POWER_DOWN
 endif

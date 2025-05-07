@@ -60,9 +60,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      /*  tab      Q       W        E        R        T      Y        U      I        O        P        [         ]        \      delete*/ 
       KC_TRNS, RGB_M_P, RGB_M_B, RGB_M_R, QK_BOOT,KC_TRNS,KC_TRNS,KC_TRNS,KC_INS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_PAUS, KC_BSLS,  KC_TRNS,
      /*  caps     A       S        D        F        G      H        J      K        L        ;        '        enter             pg up*/
-      KC_TRNS, RGB_HUI, RGB_SAI, RGB_VAI, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS, KC_TRNS,  KC_INS,            KC_HOME,
+      KC_TRNS, UG_HUEU, UG_SATU, UG_VALU, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS, KC_TRNS,  KC_INS,            KC_HOME,
      /* shift             Z         X        C       V       B       N      M        ,        .        /        shift     up      pg dn*/
-      KC_LSFT,          RGB_HUD, RGB_SAD, RGB_VAD,KC_TRNS,KC_TRNS,KC_TRNS,KC_MUTE,RGB_RMOD, RGB_MOD, RGB_TOG,  KC_RSFT, KC_VOLU,  KC_END,
+      KC_LSFT,          UG_HUED, UG_SATD, UG_VALD,KC_TRNS,KC_TRNS,KC_TRNS,KC_MUTE,UG_PREV, UG_NEXT, UG_TOGG,  KC_RSFT, KC_VOLU,  KC_END,
      /* ctrl     win      alt                              space                    alt      fn                 left     down     right*/
       KC_LCTL, KC_LGUI, KC_LALT,                          KC_TRNS,                KC_RALT, KC_TRNS,           KC_TRNS, KC_VOLD,  KC_TRNS)
 };

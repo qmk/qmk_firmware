@@ -60,10 +60,10 @@ with mods, like Ctrl + Left &harr; Ctrl + Right Arrow.
 |`KC_UP` &harr; `KC_DOWN`           | Up &harr; Down Arrow              |
 |`KC_HOME` &harr; `KC_END`          | Home &harr; End                   |
 |`KC_PGUP` &harr; `KC_PGDN`         | Page Up &harr; Page Down          |
-|`KC_MS_L` &harr; `KC_MS_R`         | Mouse Cursor Left &harr; Right    |
-|`KC_MS_U` &harr; `KC_MS_D`         | Mouse Cursor Up &harr; Down       |
-|`KC_WH_L` &harr; `KC_WH_R`         | Mouse Wheel Left &harr; Right     |
-|`KC_WH_U` &harr; `KC_WH_D`         | Mouse Wheel Up &harr; Down        |
+|`MS_LEFT` &harr; `MS_RGHT`         | Mouse Cursor Left &harr; Right    |
+|`MS_UP`   &harr; `MS_DOWN`         | Mouse Cursor Up &harr; Down       |
+|`MS_WHLL` &harr; `MS_WHLR`         | Mouse Wheel Left &harr; Right     |
+|`MS_WHLU` &harr; `MS_WHLD`         | Mouse Wheel Up &harr; Down        |
 
 **Misc** 
 

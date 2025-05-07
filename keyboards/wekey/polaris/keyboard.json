@@ -32,7 +32,14 @@
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
-    "community_layouts": ["60_ansi", "60_ansi_split_bs_rshift", "60_tsangan_hhkb"],
+    "community_layouts": [
+        "60_ansi",
+        "60_ansi_split_bs_rshift",
+        "60_ansi_tsangan_split_bs_rshift"
+    ],
+    "layout_aliases": {
+        "LAYOUT_60_tsangan_hhkb": "LAYOUT_60_ansi_tsangan_split_bs_rshift"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -248,7 +255,7 @@
                 {"matrix": [9, 6], "x": 13.75, "y": 4, "w": 1.25}
             ]
         },
-        "LAYOUT_60_tsangan_hhkb": {
+        "LAYOUT_60_ansi_tsangan_split_bs_rshift": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [1, 0], "x": 1, "y": 0},

@@ -31,6 +31,9 @@
                 "rows": ["GP24", "GP17", "GP15", "GP14", "GP12"]
             }
         },
+        "serial": {
+            "driver": "vendor"
+        },
         "transport": {
             "sync" :{
                 "matrix_state": true

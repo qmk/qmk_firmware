@@ -20,7 +20,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_P1, KC_P2, MO(1),
         KC_P3, KC_P4, KC_P3),
     [1] = LAYOUT_ortho_2x3(
-        RGB_TOG, RGB_MOD, MO(1),
+        RM_TOGG, RM_NEXT, MO(1),
         AU_ON,   AU_OFF,  MI_ON),
     [2] = LAYOUT_ortho_2x3(
         KC_P4, KC_P5, MO(1),
