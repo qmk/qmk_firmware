@@ -4,6 +4,7 @@
 *~
 .DS_Store
 ._*
+.ccls-cache/
 
 # Merge files
 *.orig
