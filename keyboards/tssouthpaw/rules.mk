@@ -20,10 +20,10 @@ SRC += rgb_effects.c
 
 # Keyboard features
 DYNAMIC_MACRO_ENABLE = yes
-ENCODER_ENABLE = yes           # Enable encoder support
-ENCODER_MAP_ENABLE = no        # Disable encoder map for simpler volume control
+ENCODER_ENABLE = yes
+ENCODER_MAP_ENABLE = yes
 KEY_LOCK_ENABLE = yes
-LTO_ENABLE = yes               # Link Time Optimization for smaller firmware size
+LTO_ENABLE = yes
 
 # Disabled features (to save space and optimize)
 DISABLE_ADC = yes

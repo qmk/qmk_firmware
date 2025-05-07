@@ -36,15 +36,6 @@
  static const rgb_color_t ARROW_KEYS_COLOR = {0, 0, 255};  // Blue for arrow keys
  
  /**
-  * Work Timer color gradient from green to red
-  */
- static const rgb_color_t WORK_TIMER_START_COLOR = {0, 255, 0};    // Green
- static const rgb_color_t WORK_TIMER_MID_COLOR = {255, 255, 0};    // Yellow
- static const rgb_color_t WORK_TIMER_END_COLOR = {255, 0, 0};      // Red
- static const rgb_color_t WORK_TIMER_LUNCH_COLOR = {0, 0, 255};    // Blue
- static const rgb_color_t WORK_TIMER_WARNING_COLOR = {255, 0, 0};  // Red
- 
- /**
   * State tracking structure for LED effects
   */
  typedef struct {
@@ -58,20 +49,6 @@
  static led_state_t caps_lock_state = {false, 0};
  static led_state_t num_lock_state = {false, 0};
  static led_state_t mic_mute_state = {false, 0};
- 
- /**
-  * Work Timer state variables
-  */
- static struct {
-     bool active;
-     uint32_t start_time;
-     uint32_t elapsed_time;
-     bool lunch_break;
-     bool lunch_warning_shown;
-     bool end_warning_shown;
-     bool paused;
-     uint32_t pause_time;
- } work_timer_state = {false, 0, 0, false, false, false, false, 0};
  
  /**
   * ESC ripple effect state variables
@@ -203,57 +180,97 @@
   * Stop the ESC ripple effect
   */
  void stop_esc_ripple_effect(void) {
-    ripple_state.active = false;
-}
+     ripple_state.active = false;
+ }
+ 
+ /**
+  * Handle the ESC ripple effect animation
+  */
+ void handle_esc_ripple_effect(void) {
+     if (!ripple_state.active) return;
+ 
+     // Update ripple step based on timer (every 15ms)
+     if (timer_elapsed(ripple_state.timer) > 15) {
+         ripple_state.timer = timer_read();
+         
+         // Update step based on direction
+         if (ripple_state.expanding) {
+             ripple_state.step++;
+             if (ripple_state.step >= MAX_RIPPLE_LAYERS - 1) {
+                 ripple_state.step = MAX_RIPPLE_LAYERS - 1;
+                 ripple_state.expanding = false;
+             }
+         } else {
+             if (ripple_state.step > 0) {
+                 ripple_state.step--;
+             } else {
+                 ripple_state.expanding = true;
+             }
+         }
+     }
+ 
+     // Turn off all ripple LEDs first
+     for (uint8_t layer = 0; layer < MAX_RIPPLE_LAYERS; layer++) {
+         for (uint8_t i = 0; i < leds_per_layer[layer]; i++) {
+             uint8_t led_index = esc_splash_ripple[layer][i];
+             if (led_index != 255) { // Skip placeholder values
+                 rgb_matrix_set_color(led_index, 0, 0, 0);
+             }
+         }
+     }
+     
+     // Set active layer LEDs
+     uint8_t current_layer = ripple_state.step;
+     for (uint8_t i = 0; i < leds_per_layer[current_layer]; i++) {
+         uint8_t led_index = esc_splash_ripple[current_layer][i];
+         if (led_index != 255) { // Skip placeholder values
+             rgb_matrix_set_color(led_index, 
+                                 ESC_RIPPLE_COLOR.r,
+                                 ESC_RIPPLE_COLOR.g,
+                                 ESC_RIPPLE_COLOR.b);
+         }
+     }
+ }
+ 
+ /**
+  * Handle arrow key highlighting
+  */
+ static void handle_arrow_keys(void) {
+     // Only override arrows in SOLID_COLOR mode
+     if (rgb_matrix_get_mode() == RGB_MATRIX_SOLID_COLOR) {
+         uint8_t val = rgb_matrix_get_val();  // current brightness (0–255)
+         
+         for (uint8_t i = 0; i < ARROW_KEY_COUNT; i++) {
+             rgb_matrix_set_color(arrow_key_leds[i], 
+                                 ARROW_KEYS_COLOR.r * val / 255,
+                                 ARROW_KEYS_COLOR.g * val / 255,
+                                 ARROW_KEYS_COLOR.b * val / 255);
+         }
+     }
+ }
+ 
+ /**
+ * Work Timer state variables
+ */
+static struct {
+    bool active;
+    uint32_t start_time;
+    uint32_t elapsed_time;
+    bool lunch_break;
+    bool lunch_warning_shown;
+    bool end_warning_shown;
+    bool paused;
+    uint32_t pause_time;
+} work_timer_state = {false, 0, 0, false, false, false, false, 0};
 
 /**
- * Handle the ESC ripple effect animation
+ * Work Timer color gradient from green to red
  */
-void handle_esc_ripple_effect(void) {
-    if (!ripple_state.active) return;
-
-    // Update ripple step based on timer (every 15ms)
-    if (timer_elapsed(ripple_state.timer) > 15) {
-        ripple_state.timer = timer_read();
-        
-        // Update step based on direction
-        if (ripple_state.expanding) {
-            ripple_state.step++;
-            if (ripple_state.step >= MAX_RIPPLE_LAYERS - 1) {
-                ripple_state.step = MAX_RIPPLE_LAYERS - 1;
-                ripple_state.expanding = false;
-            }
-        } else {
-            if (ripple_state.step > 0) {
-                ripple_state.step--;
-            } else {
-                ripple_state.expanding = true;
-            }
-        }
-    }
-
-    // Turn off all ripple LEDs first
-    for (uint8_t layer = 0; layer < MAX_RIPPLE_LAYERS; layer++) {
-        for (uint8_t i = 0; i < leds_per_layer[layer]; i++) {
-            uint8_t led_index = esc_splash_ripple[layer][i];
-            if (led_index != 255) { // Skip placeholder values
-                rgb_matrix_set_color(led_index, 0, 0, 0);
-            }
-        }
-    }
-    
-    // Set active layer LEDs
-    uint8_t current_layer = ripple_state.step;
-    for (uint8_t i = 0; i < leds_per_layer[current_layer]; i++) {
-        uint8_t led_index = esc_splash_ripple[current_layer][i];
-        if (led_index != 255) { // Skip placeholder values
-            rgb_matrix_set_color(led_index, 
-                                ESC_RIPPLE_COLOR.r,
-                                ESC_RIPPLE_COLOR.g,
-                                ESC_RIPPLE_COLOR.b);
-        }
-    }
-}
+static const rgb_color_t WORK_TIMER_START_COLOR = {0, 255, 0};    // Green
+static const rgb_color_t WORK_TIMER_MID_COLOR = {255, 255, 0};    // Yellow
+static const rgb_color_t WORK_TIMER_END_COLOR = {255, 0, 0};      // Red
+static const rgb_color_t WORK_TIMER_LUNCH_COLOR = {0, 0, 255};    // Blue
+static const rgb_color_t WORK_TIMER_WARNING_COLOR = {255, 0, 0};  // Red
 
 /**
  * Calculate color gradient between two colors based on progress (0.0 - 1.0)
@@ -368,9 +385,9 @@ void handle_work_timer(void) {
         // Apply flash color to all progress bar LEDs
         for (uint8_t i = 0; i < num_leds; i++) {
             rgb_matrix_set_color(WORK_TIMER_LED_START + i, 
-                               flash_color.r,
-                               flash_color.g,
-                               flash_color.b);
+                                flash_color.r,
+                                flash_color.g,
+                                flash_color.b);
         }
     } else {
         // Normal progress bar display
@@ -437,28 +454,10 @@ void handle_work_timer(void) {
         }
     }
 }
-
-/**
- * Handle arrow key highlighting
- */
-static void handle_arrow_keys(void) {
-    // Only override arrows in SOLID_COLOR mode
-    if (rgb_matrix_get_mode() == RGB_MATRIX_SOLID_COLOR) {
-        uint8_t val = rgb_matrix_get_val();  // current brightness (0–255)
-        
-        for (uint8_t i = 0; i < ARROW_KEY_COUNT; i++) {
-            rgb_matrix_set_color(arrow_key_leds[i], 
-                                ARROW_KEYS_COLOR.r * val / 255,
-                                ARROW_KEYS_COLOR.g * val / 255,
-                                ARROW_KEYS_COLOR.b * val / 255);
-        }
-    }
-}
-
-/**
- * Combined overlay for arrow-keys + reactive handlers
- */
-bool rgb_matrix_indicators_user(void) {
+ /**
+  * Combined overlay for arrow-keys + reactive handlers
+  */
+ bool rgb_matrix_indicators_user(void) {
     // Apply arrow key highlighting
     handle_arrow_keys();
     
