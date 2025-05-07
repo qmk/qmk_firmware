@@ -101,6 +101,13 @@ Install the QMK CLI by running:
 python3 -m pip install --user qmk
 ```
 
+Alternatively use pipx (fixes issues with newer versions of debian)
+
+```sh
+sudo apt install pipx python3-venv
+pipx install qmk
+```
+
 #### Community Packages
 
 These packages are maintained by community members, so may not be up to date or completely functional. If you encounter problems, please report them to their respective maintainers.
