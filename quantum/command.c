@@ -243,7 +243,7 @@ static void print_status(void) {
 
 #if !defined(NO_PRINT) && !defined(USER_PRINT)
 static void print_eeconfig(void) {
-    xprintf("eeconfig:\ndefault_layer: %u\n", eeconfig_read_default_layer());
+    xprintf("eeconfig:\ndefault_layer: %" PRIu32 "\n", (uint32_t)eeconfig_read_default_layer());
 
     debug_config_t dc;
     dc.raw = eeconfig_read_debug();
