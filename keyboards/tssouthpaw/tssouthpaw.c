@@ -18,9 +18,6 @@
  #include "rgb_effects/rgb_effects.h"
  #include "rgb_effects/work_timer.h"
  
- // Forward declaration for the weak function
- bool suspend_wakeup_condition_user(void);
-  
  /**
   * Keyboard initialization
   * Called once at startup
@@ -36,46 +33,16 @@
      // Load saved work timer state from EEPROM if applicable
      work_timer_init();
      
-     // Ensure RGB minimum brightness setting is applied
-     rgb_matrix_set_suspend_state(false);
-     
      // Continue with any user-level initialization
      keyboard_post_init_user();
  }
  
- /**
-  * Check if the keyboard should wake from sleep
-  * This function is called by the QMK core during suspend
-  */
- bool suspend_wakeup_condition_kb(void) {
-     // Wake the keyboard if a timer pulse is active
-     if (is_timer_pulse_active()) {
-         // Explicitly wake the keyboard by returning true AND
-         // setting suspend state to false for RGB matrix
-         rgb_matrix_set_suspend_state(false);
-         
-         // Force appropriate brightness for notifications
-         uint8_t val = rgb_matrix_get_val();
-         if (val < RGB_MATRIX_MINIMUM_BRIGHTNESS) {
-             rgb_matrix_sethsv_noeeprom(rgb_matrix_get_hue(), rgb_matrix_get_sat(), RGB_MATRIX_MINIMUM_BRIGHTNESS);
-         }
-         
-         return true;
-     }
-     
-     // Otherwise defer to the user function
-     return suspend_wakeup_condition_user();
- }
-  
  /**
   * Power management function - Called when system is going to sleep
   */
  void suspend_power_down_kb(void) {
      // If timer pulse is active, ensure RGB matrix remains active
      if (is_timer_pulse_active()) {
-         // Keep RGB matrix enabled for timer notifications
-         rgb_matrix_set_suspend_state(false);
-         
          // Ensure RGB matrix has reasonable brightness for notifications
          uint8_t val = rgb_matrix_get_val();
          if (val < RGB_MATRIX_MINIMUM_BRIGHTNESS) {
@@ -123,10 +90,6 @@
  }
   
  // Default implementations for weak functions
- __attribute__((weak)) bool suspend_wakeup_condition_user(void) {
-     return false;
- }
- 
  __attribute__((weak)) void keyboard_post_init_user(void) {}
  __attribute__((weak)) void suspend_power_down_user(void) {}
  __attribute__((weak)) void suspend_wakeup_init_user(void) {}
