@@ -151,7 +151,7 @@
         "pin": "F7"
     },
     "layout_aliases": {
-        "LAYOUT_60_tsangn_hhkb": "LAYOUT_60_ansi_tsangan_split_bs_rshift"
+        "LAYOUT_60_tsangan_hhkb": "LAYOUT_60_ansi_tsangan_split_bs_rshift"
     },
     "layouts": {
         "LAYOUT_60_ansi_tsangan_split_bs_rshift": {
