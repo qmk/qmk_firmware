@@ -77,7 +77,6 @@
             "rgb_matrix_typing_heatmap": true
         },
         "driver": "ws2812",
-        "hue_steps": 8,
         "layout": [
             {"matrix": [0, 0], "x": 0, "y": 0, "flags": 4},
             {"matrix": [0, 1], "x": 16, "y": 0, "flags": 4},
