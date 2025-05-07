@@ -36,6 +36,8 @@
 #define LPM_STM32_HSE_PIN_IN     H1  
 #define LPM_STM32_HSE_PIN_OUT    H0
 
+#    define REPORT_BUFFER_QUEUE_SIZE 512
+
 #endif
 
 

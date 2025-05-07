@@ -455,10 +455,10 @@ void BHQ_Protocol_Process(uint8_t *dat, uint16_t length)
                 break;
                 case 1:
                     report_buffer_set_retry(0);
-                    report_buffer_set_inverval(DEFAULT_REPORT_INVERVAL_MS + 80);
+                    report_buffer_set_inverval(DEFAULT_REPORT_INVERVAL_MS + 5);
                 break;
                 case 2:
-                    report_buffer_set_inverval(DEFAULT_REPORT_INVERVAL_MS + 100);
+                    report_buffer_set_inverval(DEFAULT_REPORT_INVERVAL_MS + 50);
                 break;
             }
             break;
@@ -471,6 +471,8 @@ void BHQ_Protocol_Process(uint8_t *dat, uint16_t length)
             // }
             // bhq_printf("\r\n");
             break;
+        case 0x96:  // reset
+        case 0x97:  // set para
         case 0x92:  // read module Info
         case 0xB1:
         case 0xB2:

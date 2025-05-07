@@ -108,7 +108,7 @@ uint8_t report_buffer_get_retry(void) {
 }
 
 void report_buffer_set_retry(uint8_t times) {
-    retry = 0;
+    retry = times;
 }
 void report_buffer_clear(void) {
     report_buffer_queue_head = 0;
@@ -131,7 +131,7 @@ void report_buffer_task(void) {
                 }
             }
         } else {
-            if (timer_elapsed32(retry_time_buffer) > 100) {  // retry interval
+            if (timer_elapsed32(retry_time_buffer) > 7) {  // retry interval
                 pending_data = true;
                 --retry;
                 retry_time_buffer = timer_read32();

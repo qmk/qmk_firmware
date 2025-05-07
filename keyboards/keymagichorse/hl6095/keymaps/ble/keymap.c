@@ -363,9 +363,9 @@ void keyboard_post_init_kb(void)
         .verndor_id         = VENDOR_ID,
         .product_id         = PRODUCT_ID,
 
-        .le_connection_interval_min = 10,   // 6 10 上报速度过快更丝滑 功耗更大
-        .le_connection_interval_max = 30,
-        .le_connection_interval_timeout = 500,
+        .le_connection_interval_min = 6,   // 6 10 上报速度过快更丝滑 功耗更大
+        .le_connection_interval_max = 20,
+        .le_connection_interval_timeout = 200,
         .tx_poweer = 0x3D,    
 
         // 用 QMK 端读取电池电压，则无需上报配置
@@ -600,10 +600,10 @@ uint8_t calculate_battery_percentage(uint16_t current_mv) {
 }
 void battery_percent_read_task(void)
 { 
-    // if(battery_timer == 0)
-    // {
-    //     battery_timer = timer_read32();
-    // }
+    if(battery_timer == 0)
+    {
+        battery_timer = timer_read32();
+    }
 
     // if (timer_elapsed32(battery_timer) > 2000) 
     // {
