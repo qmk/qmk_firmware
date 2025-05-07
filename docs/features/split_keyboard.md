@@ -417,8 +417,8 @@ This allows you to specify a different set of pins for the matrix on the right s
 This allows you to specify a different set of direct pins for the right side.
 
 ```c
-#define ENCODERS_PAD_A_RIGHT { encoder1a, encoder2a }
-#define ENCODERS_PAD_B_RIGHT { encoder1b, encoder2b }
+#define ENCODER_A_PINS_RIGHT { encoder1a, encoder2a }
+#define ENCODER_B_PINS_RIGHT { encoder1b, encoder2b }
 ```
 
 This allows you to specify a different set of encoder pins for the right side.
@@ -444,7 +444,7 @@ This setting implies that `RGBLIGHT_SPLIT` is enabled, and will forcibly enable 
 #define SPLIT_USB_DETECT
 ```
 
-Enabling this option changes the startup behavior to listen for an active USB communication to delegate which part is master and which is slave. With this option enabled and theres's USB communication, then that half assumes it is the master, otherwise it assumes it is the slave.
+Enabling this option changes the startup behavior to listen for an active USB communication to delegate which part is master and which is slave. With this option enabled and active USB communication, then that half assumes it is the master, otherwise it assumes it is the slave.
 
 Without this option, the master is the half that can detect voltage on the physical USB connection (VBUS detection).
 

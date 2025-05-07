@@ -26,20 +26,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* FN 1 Layer
  * ,-----------------------------------------------.
- * |RGB_TOG|RGB_HUD|RGB_HUI|RGB_SAD|RGB_SAI|  FN_1 |
+ * |UG_TOGG|UG_HUED|UG_HUEU|UG_SATD|UG_SATU|  FN_1 |
  * `-----------------------------------------------'
  */
 [_FN_1] = LAYOUT(
-  RGB_TOG, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, _______
+  UG_TOGG, UG_HUED, UG_HUEU, UG_SATD, UG_SATU, _______
 ),
 
 /* FN 2 Layer
  * ,-----------------------------------------------.
- * |  FN_2 |RGB_VAD|RGB_VAI|RGB_MOD|TSKMGR | QK_BOOT |
+ * |  FN_2 |UG_VALD|UG_VALU|UG_NEXT|TSKMGR | QK_BOOT |
  * `-----------------------------------------------'
  */
 [_FN_2] = LAYOUT(
-  _______, RGB_VAD, RGB_VAI, RGB_MOD, TSKMGR, QK_BOOT
+  _______, UG_VALD, UG_VALU, UG_NEXT, TSKMGR, QK_BOOT
 )
 
 };

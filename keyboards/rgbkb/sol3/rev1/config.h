@@ -24,7 +24,6 @@
 #define CRC8_USE_TABLE
 
 /* Split Keyboard Configuration */
-#define SPLIT_HAND_PIN C13
 #define SPLIT_USB_DETECT
 #define SERIAL_USART_TX_PAL_MODE 7
 #define SERIAL_USART_TIMEOUT 5

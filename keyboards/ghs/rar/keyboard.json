@@ -8,6 +8,10 @@
         "pid": "0x0001",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "B1",
+        "scroll_lock": "B3"
+    },
     "rgblight": {
         "led_count": 17,
         "animations": {

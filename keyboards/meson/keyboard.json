@@ -29,7 +29,9 @@
     "diode_direction": "COL2ROW",
     "split": {
       "enabled": true,
-      "soft_serial_pin": "D0"
+      "serial": {
+        "pin": "D0"
+      }
     },
     "rgblight": {
       "saturation_steps": 8,

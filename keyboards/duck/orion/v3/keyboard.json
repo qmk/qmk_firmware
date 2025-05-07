@@ -16,6 +16,12 @@
     "bootmagic": {
         "matrix": [4, 10]
     },
+    "indicators": {
+        "caps_lock": "B0",
+        "num_lock": "B4",
+        "scroll_lock": "D7",
+        "on_state": 0
+    },
     "rgblight": {
         "led_count": 18,
         "animations": {

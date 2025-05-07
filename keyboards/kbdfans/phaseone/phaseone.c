@@ -18,4 +18,6 @@
 
 void keyboard_pre_init_kb(void) {
     gpio_set_pin_output(D4);
+
+    keyboard_pre_init_user();
 }

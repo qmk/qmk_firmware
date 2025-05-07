@@ -41,21 +41,21 @@
 pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 
-static inline void setPinOutput_writeLow(pin_t pin) {
+static inline void gpio_atomic_set_pin_output_low(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
         gpio_set_pin_output(pin);
         gpio_write_pin_low(pin);
     }
 }
 
-static inline void setPinOutput_writeHigh(pin_t pin) {
+static inline void gpio_atomic_set_pin_output_high(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
         gpio_set_pin_output(pin);
         gpio_write_pin_high(pin);
     }
 }
 
-static inline void setPinInput_high(pin_t pin) {
+static inline void gpio_atomic_set_pin_input_high(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
         gpio_set_pin_input_high(pin);
     }
@@ -106,7 +106,7 @@ static bool select_col(uint8_t col) {
     pin_t pin = col_pins[col];
 
     if (col < SHIFT_COL_START || col > SHIFT_COL_END) {
-        setPinOutput_writeLow(pin);
+        gpio_atomic_set_pin_output_low(pin);
         return true;
     } else {
         if (col == SHIFT_COL_START) {
@@ -122,9 +122,9 @@ static void unselect_col(uint8_t col) {
 
     if (col < SHIFT_COL_START || col > SHIFT_COL_END) {
 #ifdef MATRIX_UNSELECT_DRIVE_HIGH
-        setPinOutput_writeHigh(pin);
+        gpio_atomic_set_pin_output_high(pin);
 #else
-        setPinInput_high(pin);
+        gpio_atomic_set_pin_input_high(pin);
 #endif
     } else {
         HC595_output(0x01, 1);
@@ -136,9 +136,9 @@ static void unselect_cols(void) {
         pin_t pin = col_pins[x];
         if (x < SHIFT_COL_START || x > SHIFT_COL_END) {
 #ifdef MATRIX_UNSELECT_DRIVE_HIGH
-            setPinOutput_writeHigh(pin);
+            gpio_atomic_set_pin_output_high(pin);
 #else
-            setPinInput_high(pin);
+            gpio_atomic_set_pin_input_high(pin);
 #endif
         } else {
             if (x == SHIFT_COL_START) HC595_output(UNSELECT_ALL_COL, 0);
@@ -181,7 +181,7 @@ void matrix_init_custom(void) {
 
     for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
         if (row_pins[x] != NO_PIN) {
-            setPinInput_high(row_pins[x]);
+            gpio_atomic_set_pin_input_high(row_pins[x]);
         }
     }
 

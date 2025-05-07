@@ -50,6 +50,11 @@
         "pin": "D6",
         "breathing": true
     },
+    "indicators": {
+        "caps_lock": "C6",
+        "num_lock": "C7",
+        "scroll_lock": "B6"
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "community_layouts": ["alice", "alice_split_bs"],

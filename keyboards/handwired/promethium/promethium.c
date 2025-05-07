@@ -17,7 +17,7 @@ __attribute__ ((weak))
 void battery_poll(uint8_t level) {
 }
 
-void matrix_scan_kb(void) {
+void housekeeping_task_kb(void) {
     static uint16_t counter = BATTERY_POLL;
     counter++;
 
@@ -25,6 +25,4 @@ void matrix_scan_kb(void) {
         counter = 0;
         battery_poll(battery_level());
     }
-
-    matrix_scan_user();
 }

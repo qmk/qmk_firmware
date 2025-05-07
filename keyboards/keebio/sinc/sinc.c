@@ -28,15 +28,6 @@ bool led_update_kb(led_t led_state) {
 }
 #endif
 
-void eeconfig_init_kb(void) {
-#ifdef BACKLIGHT_ENABLE
-    backlight_enable();
-    backlight_level(3);
-#endif
-    eeconfig_update_kb(0);
-    eeconfig_init_user();
-}
-
 #ifdef ENCODER_ENABLE
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) { return false; }

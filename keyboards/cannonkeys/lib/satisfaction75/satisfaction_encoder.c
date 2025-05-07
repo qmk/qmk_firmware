@@ -101,7 +101,7 @@ uint16_t handle_encoder_clockwise(void){
       mapped_code = KC_MEDIA_NEXT_TRACK;
       break;
     case ENC_MODE_SCROLL:
-      mapped_code = KC_WH_D;
+      mapped_code = QK_MOUSE_WHEEL_DOWN;
       break;
 #ifdef BACKLIGHT_ENABLE
     case ENC_MODE_BACKLIGHT:
@@ -143,7 +143,7 @@ uint16_t handle_encoder_ccw(void){
       mapped_code = KC_MEDIA_PREV_TRACK;
       break;
     case ENC_MODE_SCROLL:
-      mapped_code = KC_WH_U;
+      mapped_code = QK_MOUSE_WHEEL_UP;
       break;
 #ifdef BACKLIGHT_ENABLE
     case ENC_MODE_BACKLIGHT:
@@ -186,7 +186,7 @@ uint16_t handle_encoder_press(void){
       mapped_code = KC_MEDIA_PLAY_PAUSE;
       break;
     case ENC_MODE_SCROLL:
-      mapped_code = KC_BTN3;
+      mapped_code = QK_MOUSE_BUTTON_3;
       break;
 #ifdef BACKLIGHT_ENABLE
     case ENC_MODE_BACKLIGHT:

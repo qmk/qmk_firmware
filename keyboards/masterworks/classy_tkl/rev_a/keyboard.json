@@ -22,6 +22,10 @@
             "resync": true
         }
     },
+    "indicators": {
+        "caps_lock": "B5",
+        "scroll_lock": "B6"
+    },
     "matrix_pins": {
         "cols": ["B4", "D7", "D6", "D4", "C6", "D5", "D3", "D2", "D1", "D0", "B7", "B3", "B2", "B1", "B0", "E6", "F7"],
         "rows": ["C7", "F0", "F1", "F4", "F5", "F6"]

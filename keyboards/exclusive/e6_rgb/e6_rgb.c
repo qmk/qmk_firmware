@@ -168,6 +168,10 @@ led_config_t g_led_config = { {
 #endif
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (!process_record_user(keycode, record)) {
+        return false;
+    }
+
     if (record->event.pressed) {
         switch(keycode) {
 #if defined(RGBLIGHT_ENABLE) && defined(RGB_MATRIX_ENABLE)

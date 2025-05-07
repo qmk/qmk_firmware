@@ -1,5 +1,6 @@
 """This script automates the copying of the default keymap into your own keymap.
 """
+import re
 import shutil
 
 from milc import cli
@@ -13,21 +14,26 @@ from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.userspace import UserspaceDefs
 
 
+def validate_keymap_name(name):
+    """Returns True if the given keymap name contains only a-z, 0-9 and underscore characters.
+    """
+    regex = re.compile(r'^[a-zA-Z0-9][a-zA-Z0-9_]+$')
+    return bool(regex.match(name))
+
+
 def prompt_keyboard():
     prompt = """{fg_yellow}Select Keyboard{style_reset_all}
-If you`re unsure you can view a full list of supported keyboards with {fg_yellow}qmk list-keyboards{style_reset_all}.
+If you're unsure you can view a full list of supported keyboards with {fg_yellow}qmk list-keyboards{style_reset_all}.
 
 Keyboard Name? """
-
     return question(prompt)
 
 
 def prompt_user():
     prompt = """
 {fg_yellow}Name Your Keymap{style_reset_all}
-Used for maintainer, copyright, etc
 
-Your GitHub Username? """
+Keymap name? """
     return question(prompt, default=git_get_username())
 
 
@@ -58,6 +64,10 @@ def new_keymap(cli):
 
     if not keymap_path_default.exists():
         cli.log.error(f'Default keymap {{fg_cyan}}{keymap_path_default}{{fg_reset}} does not exist!')
+        return False
+
+    if not validate_keymap_name(user_name):
+        cli.log.error('Keymap names must contain only {fg_cyan}a-z{fg_reset}, {fg_cyan}0-9{fg_reset} and {fg_cyan}_{fg_reset}! Please choose a different name.')
         return False
 
     if keymap_path_new.exists():

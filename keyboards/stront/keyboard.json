@@ -68,6 +68,9 @@
                 "matrix_state": true,
                 "modifiers": true
             }
+        },
+        "serial": {
+            "driver": "vendor"
         }
     },
     "encoder": {
