@@ -187,5 +187,5 @@ def doctor(cli):
         return 1
     else:
         cli.log.info('{fg_red}Major problems detected, please fix these problems before proceeding.')
-        cli.log.info('{fg_blue}Check out the FAQ (https://docs.qmk.fm/#/faq_build) or join the QMK Discord (https://discord.gg/Uq7gcHh) for help.')
+        cli.log.info('{fg_blue}Check out the FAQ (https://docs.qmk.fm/#/faq_build) or join the QMK Discord (https://discord.gg/qmk) for help.')
         return 2

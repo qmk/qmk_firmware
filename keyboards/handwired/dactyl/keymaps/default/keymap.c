@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                               |      |ace   | End  |  | PgDn |      |      |
  *                               `--------------------'  `--------------------'
  */
-[BASE] = LAYOUT_dactyl(  // layer 0 : default
+[BASE] = LAYOUT(  // layer 0 : default
         // left hand
           KC_EQL,          KC_1,           KC_2,     KC_3,     KC_4,  KC_5,
           KC_DEL,          KC_Q,           KC_W,     KC_E,     KC_R,  KC_T,
@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                               `--------------------'  `--------------------'
  */
 // SYMBOLS
-[SYMB] = LAYOUT_dactyl(
+[SYMB] = LAYOUT(
        // left hand
           VRSN,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,
        KC_TRNS,  KC_EXLM,    KC_AT,  KC_LCBR,  KC_RCBR,  KC_PIPE,
@@ -116,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *
  */
 // MEDIA AND MOUSE
-[MDIA] = LAYOUT_dactyl(
+[MDIA] = LAYOUT(
        KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
        KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_MS_U,  KC_TRNS,  KC_TRNS,
        KC_TRNS,  KC_TRNS,  KC_MS_L,  KC_MS_D,  KC_MS_R,  KC_TRNS,

@@ -27,8 +27,11 @@
         "pid": "0x2320",
         "vid": "0xFEED"
     },
+    "layout_aliases": {
+        "LAYOUT_all": "LAYOUT"
+    },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT": {
             "layout": [
                 {"label": "D3", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "D2", "matrix": [1, 0], "x": 0, "y": 1},

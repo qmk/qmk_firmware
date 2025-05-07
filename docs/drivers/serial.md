@@ -1,6 +1,6 @@
 # 'serial' Driver
 
-The Serial driver powers the [Split Keyboard](../features/split_keyboard) feature. Several implementations are available that cater to the platform and capabilites of MCU in use. Note that none of the drivers support split keyboards with more than two halves.
+The Serial driver powers the [Split Keyboard](../features/split_keyboard) feature. Several implementations are available that cater to the platform and capabilities of MCU in use. Note that none of the drivers support split keyboards with more than two halves.
 
 | Driver                                  | AVR                | ARM                | Connection between halves                                                                     |
 | --------------------------------------- | ------------------ | ------------------ | --------------------------------------------------------------------------------------------- |

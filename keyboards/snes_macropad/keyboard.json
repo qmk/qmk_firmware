@@ -19,10 +19,6 @@
         "driver": "vendor"
     },
     "processor": "RP2040",
-    "matrix_size": {
-        "cols": 4,
-        "rows": 6
-    },
     "url": "",
     "usb": {
         "device_version": "1.0.0",

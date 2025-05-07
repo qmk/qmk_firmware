@@ -1,0 +1,29 @@
+{
+    "keyboard": "mechwild/bbpad/f401",
+    "keymap": "default",
+    "version": 1,
+    "layout": "LAYOUT_horiz",
+    "layers": [
+        [
+        "KC_P7",  "KC_P8",   "KC_P9",   "KC_PSLS",  "KC_CALC",
+        "KC_P4",  "KC_P5",   "KC_P6",   "KC_PAST",  "TG(1)",
+        "KC_P1",  "KC_P2",   "KC_P3",   "KC_PPLS",  "KC_BSPC",
+        "KC_P0",  "KC_PDOT", "KC_NUM",  "KC_PMNS",  "KC_PENT",  "KC_MUTE"
+        ],
+        [
+        "KC_TRNS",   "KC_TRNS",  "KC_TRNS",  "KC_TRNS",  "KC_TRNS",
+        "RGB_RMOD",  "KC_TRNS",  "RGB_MOD",  "KC_TRNS",  "KC_TRNS",
+        "KC_TRNS",   "KC_TRNS",  "KC_TRNS",  "KC_TRNS",  "KC_TRNS",
+        "KC_TRNS",   "KC_TRNS",  "KC_TRNS",  "KC_TRNS",  "KC_NUM",  "RGB_TOG"
+        ]
+    ],
+    "config": {
+        "features": {
+            "encoder_map": true
+        }
+    },
+    "encoders": [
+        [{"ccw": "KC_VOLD", "cw": "KC_VOLU"}],
+        [{"ccw": "RGB_VAD", "cw": "RGB_VAI"}]
+    ]
+}

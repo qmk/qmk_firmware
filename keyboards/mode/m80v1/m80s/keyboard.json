@@ -29,8 +29,11 @@
     "diode_direction": "COL2ROW",
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
+    "layout_aliases": {
+        "LAYOUT_eighty_m80s": "LAYOUT_tkl_ansi_split_bs_rshift"
+    },
     "layouts": {
-        "LAYOUT_eighty_m80s": {
+        "LAYOUT_tkl_ansi_split_bs_rshift": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
 

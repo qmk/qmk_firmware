@@ -22,8 +22,11 @@
     "nkro": true
   },
   "board": "QMK_PROTON_C",
+  "layout_aliases": {
+    "LAYOUT_60_hhkb": "LAYOUT_60_ansi_tsangan_split_bs_rshift"
+  },
   "layouts": {
-    "LAYOUT_60_hhkb": {
+    "LAYOUT_60_ansi_tsangan_split_bs_rshift": {
       "layout": [
         {"matrix": [0, 0], "x": 0, "y": 0},
         {"matrix": [0, 1], "x": 1, "y": 0},

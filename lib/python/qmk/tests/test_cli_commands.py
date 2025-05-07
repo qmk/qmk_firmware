@@ -249,7 +249,7 @@ def test_c2json_nocpp_stdin():
 def test_clean():
     result = check_subcommand('clean', '-a')
     check_returncode(result)
-    assert result.stdout.count('done') == 2
+    assert (result.stdout.count('done') == 2 and 'userspace' not in result.stdout) or (result.stdout.count('done') == 3 and 'userspace' in result.stdout)
 
 
 def test_generate_api():

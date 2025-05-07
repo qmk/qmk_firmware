@@ -14,6 +14,9 @@
         "command": false,
         "nkro": false
     },
+    "build": {
+        "lto": true
+    },
     "usb": {
         "vid": "0x4B50",
         "pid": "0x3430",

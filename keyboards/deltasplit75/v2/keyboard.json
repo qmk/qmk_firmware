@@ -36,8 +36,11 @@
             "resync": true
         }
     },
+    "layout_aliases": {
+      "LAYOUT_v2": "LAYOUT_all"
+    },
     "layouts": {
-      "LAYOUT_v2": {
+      "LAYOUT_all": {
         "layout": [
           {"matrix": [0, 0], "x": 0, "y": 0},
           {"matrix": [0, 1], "x": 1, "y": 0},

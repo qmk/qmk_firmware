@@ -26,8 +26,11 @@
   "bluetooth": {
     "driver": "bluefruit_le"
   },
+  "layout_aliases": {
+    "LAYOUT_pterodactyl": "LAYOUT"
+  },
   "layouts": {
-    "LAYOUT_pterodactyl": {
+    "LAYOUT": {
       "layout": [
         {"matrix": [0, 11], "x": 0, "y": 0},
         {"matrix": [0, 10], "x": 1, "y": 0},

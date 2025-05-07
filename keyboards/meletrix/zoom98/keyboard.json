@@ -78,17 +78,17 @@
         { "matrix": [6, 2], "x": 0, "y": 3, "flags": 4 },
         { "matrix": [8, 1], "x": 0, "y": 4, "flags": 4 },
         { "matrix": [8, 2], "x": 0, "y": 4, "flags": 4 },
-        { "matrix": [1, 8], "x": 20.5, "y": 0, "flags": 4 },
-        { "matrix": [1, 7], "x": 20.5, "y": 0, "flags": 4 },
-        { "matrix": [3, 8], "x": 20.5, "y": 1, "flags": 4 },
-        { "matrix": [3, 7], "x": 20.5, "y": 1, "flags": 4 },
-        { "matrix": [5, 8], "x": 20.5, "y": 2, "flags": 4 },
-        { "matrix": [5, 7], "x": 20.5, "y": 2, "flags": 4 },
-        { "matrix": [7, 8], "x": 20.5, "y": 3, "flags": 4 },
-        { "matrix": [7, 7], "x": 20.5, "y": 3, "flags": 4 },
-        { "matrix": [9, 8], "x": 20.5, "y": 4, "flags": 4 },
-        { "matrix": [9, 7], "x": 20.5, "y": 4, "flags": 4 },
-        { "matrix": [6, 0], "x": 0, "y": 3.25, "flags": 1 }
+        { "matrix": [1, 8], "x": 20, "y": 0, "flags": 4 },
+        { "matrix": [1, 7], "x": 20, "y": 0, "flags": 4 },
+        { "matrix": [3, 8], "x": 20, "y": 1, "flags": 4 },
+        { "matrix": [3, 7], "x": 20, "y": 1, "flags": 4 },
+        { "matrix": [5, 8], "x": 20, "y": 2, "flags": 4 },
+        { "matrix": [5, 7], "x": 20, "y": 2, "flags": 4 },
+        { "matrix": [7, 8], "x": 20, "y": 3, "flags": 4 },
+        { "matrix": [7, 7], "x": 20, "y": 3, "flags": 4 },
+        { "matrix": [9, 8], "x": 20, "y": 4, "flags": 4 },
+        { "matrix": [9, 7], "x": 20, "y": 4, "flags": 4 },
+        { "matrix": [6, 0], "x": 0, "y": 3, "flags": 1 }
      ]
   },
   "matrix_pins": {

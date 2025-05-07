@@ -2,6 +2,7 @@
 """
 from milc import cli
 from qmk.search import filter_help, search_keymap_targets
+from qmk.util import maybe_exit_config
 
 
 @cli.argument(
@@ -19,6 +20,8 @@ from qmk.search import filter_help, search_keymap_targets
 def find(cli):
     """Search through all keyboards and keymaps for a given search criteria.
     """
+    maybe_exit_config(should_exit=False, should_reraise=True)
+
     targets = search_keymap_targets([('all', cli.config.find.keymap)], cli.args.filter)
     for target in sorted(targets, key=lambda t: (t.keyboard, t.keymap)):
         print(f'{target}')
