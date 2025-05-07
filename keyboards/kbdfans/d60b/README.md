@@ -1,11 +1,11 @@
 # KBDfans D60B
 
 Customizable 60% Tsangan Hotswap by PCB by [KBDfans](https://kbdfans.com).
-This board has also, at times, been refer to as the Sun60, but the name on the PCB is D60 B.
+This board has also, at times, been referred to as the Sun60, but the name on the PCB is D60 B.
 
 - Keyboard Maintainer: [chrisgve](https://github.com/chrisgve)
 - Hardware Supported: KBDfans D60B
-- Hardware Availability: non longer available for sale
+- Hardware Availability: no longer available for sale
 
 Make example for this keyboard (after setting up your build environment):
 
