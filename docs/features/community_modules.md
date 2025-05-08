@@ -141,12 +141,12 @@ Community Modules may provide specializations for the following APIs:
 | `process_detected_host_os`       | `process_detected_host_os_<module>`       | `process_detected_host_os_hello_world`      | `1.0.0`     |
 | `default_layer_state_set`        | `default_layer_state_set_<module>`        | `default_layer_state_set_hello_world`       | `1.1.0`     |
 | `layer_state_set`                | `layer_state_set_<module>`                | `layer_state_set_hello_world`               | `1.1.0`     |
-| `led_matrix_indicators`          | `led_matrix_indicators_<module>`          | `led_matrix_indicators_hello_word`          | `1.1.0`     |
-| `led_matrix_indicators_advanced` | `led_matrix_indicators_advanced_<module>` | `led_matrix_indicators_advanced_hello_word` | `1.1.0`     |
-| `rgb_matrix_indicators`          | `rgb_matrix_indicators_<module>`          | `rgb_matrix_indicators_hello_word`          | `1.1.0`     |
-| `rgb_matrix_indicators_advanced` | `rgb_matrix_indicators_advanced_<module>` | `rgb_matrix_indicators_advanced_hello_word` | `1.1.0`     |
-| `pointing_device_init`           | `pointing_device_init_<module>`           | `pointing_device_init_hello_word`           | `1.1.0`     |
-| `pointing_device_task`           | `pointing_device_task_<module>`           | `pointing_device_task_hello_word`           | `1.1.0`     |
+| `led_matrix_indicators`          | `led_matrix_indicators_<module>`          | `led_matrix_indicators_hello_world`          | `1.1.0`     |
+| `led_matrix_indicators_advanced` | `led_matrix_indicators_advanced_<module>` | `led_matrix_indicators_advanced_hello_world` | `1.1.0`     |
+| `rgb_matrix_indicators`          | `rgb_matrix_indicators_<module>`          | `rgb_matrix_indicators_hello_world`          | `1.1.0`     |
+| `rgb_matrix_indicators_advanced` | `rgb_matrix_indicators_advanced_<module>` | `rgb_matrix_indicators_advanced_hello_world` | `1.1.0`     |
+| `pointing_device_init`           | `pointing_device_init_<module>`           | `pointing_device_init_hello_world`           | `1.1.0`     |
+| `pointing_device_task`           | `pointing_device_task_<module>`           | `pointing_device_task_hello_world`           | `1.1.0`     |
 
 
 ::: info
