@@ -7,7 +7,7 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "extrakeys": true,
+        "extrakey": true,
         "mousekey": true,
         "nkro": true,
         "rgb_matrix": true
@@ -41,7 +41,6 @@
             "cycle_up_down": true,
             "digital_rain": true,
             "dual_beacon": true,
-            "effect_max": true,
             "flower_blooming": true,
             "gradient_left_right": true,
             "gradient_up_down": true,
@@ -144,9 +143,6 @@
     },
     "ws2812": {
         "pin": "F7"
-    },
-    "layout_aliases": {
-        "LAYOUT_60_tsangan_hhkb": "LAYOUT_60_ansi_tsangan_split_bs_rshift"
     },
     "layouts": {
         "LAYOUT_60_ansi_tsangan_split_bs_rshift": {
