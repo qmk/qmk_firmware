@@ -3,7 +3,6 @@
     "keyboard_name": "mlego/m65 rev1",
     "maintainer": "alin elena",
     "bootloader": "stm32duino",
-    "debounce": 5,
     "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
